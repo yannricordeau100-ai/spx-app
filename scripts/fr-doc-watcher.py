@@ -5,7 +5,8 @@ scripts/fr-doc-watcher.py
 Veille documentaire CAC 40 (Phase 4 chaîne CAC 40, cf .conv-state/cac40-HANDOFF.md).
 
 Workflow :
-1. Lire l'univers CAC 40 depuis .conv-state/cac40-state.json (clé `univers`).
+1. Lire l'univers CAC 40 (.conv-state/cac40-state.json) + SMI 20
+   (.conv-state/smi-state.json), clé `univers` de chacun.
 2. Pour chaque sté : fetch de la page résultats du site IR officiel (source
    primaire), secours = info-financiere.gouv.fr (API OpenDataSoft flux AMF).
 3. Détecter les PDF de publication (URD, RFS, CP, TRIM, SLIDES) récents non
@@ -24,7 +25,7 @@ Règles STRICTES :
 - ZÉRO API Anthropic payante (RULES-GOLDEN §0bis).
 
 Usage :
-  python3 scripts/fr-doc-watcher.py                  # les 40 stés
+  python3 scripts/fr-doc-watcher.py                  # les 40 CAC + 20 SMI
   python3 scripts/fr-doc-watcher.py --tickers=MC.PA,TTE.PA
   python3 scripts/fr-doc-watcher.py --dry-run        # détection sans écriture
 """
@@ -47,6 +48,7 @@ from urllib.parse import urljoin, urlparse, quote
 
 PROJECT_ROOT = Path("/Users/yann/spx-app")
 STATE_PATH = PROJECT_ROOT / ".conv-state/cac40-state.json"
+SMI_STATE_PATH = PROJECT_ROOT / ".conv-state/smi-state.json"
 STATUS_PATH = PROJECT_ROOT / "src/data/_fr-doc-watcher-status.json"
 DATA_LAKE = PROJECT_ROOT / "data-lake"
 PDFTOTEXT = "/opt/homebrew/bin/pdftotext"
@@ -100,15 +102,36 @@ IR_PAGES: dict[str, list[str]] = {
     "URW.PA": ["https://www.urw.com/en/investors"],
     "VIE.PA": ["https://www.veolia.com/fr/finance"],
     "DG.PA": ["https://www.vinci.com/vinci.nsf/fr/finance/pages/index.htm", "https://www.vinci.com/finance"],
+    # --- SMI 20 (Suisse, ajouté 2 août 2026 : même script, même fichier de statut) ---
+    "ABBN.SW": ["https://global.abb/group/en/investors/results-and-presentations", "https://global.abb/group/en/investors"],
+    "ALC.SW": ["https://www.alcon.com/investor-relations/financial-results", "https://www.alcon.com/investor-relations"],
+    "AMRZ.SW": ["https://www.amrize.com/investors/financial-results", "https://www.amrize.com/investors"],
+    "GEBN.SW": ["https://www.geberit.com/investor-relations/financial-reports/", "https://www.geberit.com/investor-relations/"],
+    "GIVN.SW": ["https://www.givaudan.com/investors/results-reports", "https://www.givaudan.com/investors"],
+    "HOLN.SW": ["https://www.holcim.com/investors/publications-events", "https://www.holcim.com/investors"],
+    "KNIN.SW": ["https://home.kuehne-nagel.com/en/-/investors/publications", "https://home.kuehne-nagel.com/en/-/investors"],
+    "LOGN.SW": ["https://ir.logitech.com/financial-information/quarterly-results", "https://ir.logitech.com/"],
+    "LONN.SW": ["https://www.lonza.com/investors/financial-reports", "https://www.lonza.com/investors"],
+    "NESN.SW": ["https://www.nestle.com/investors/publications", "https://www.nestle.com/investors"],
+    "NOVN.SW": ["https://www.novartis.com/investors/financial-data/quarterly-results", "https://www.novartis.com/investors"],
+    "PGHN.SW": ["https://www.partnersgroup.com/en/shareholders/reports-publications/", "https://www.partnersgroup.com/en/shareholders/"],
+    "CFR.SW": ["https://www.richemont.com/en/home/investors/results-reports-presentations/", "https://www.richemont.com/en/home/investors/"],
+    "ROG.SW": ["https://www.roche.com/investors/results", "https://www.roche.com/investors"],
+    "SIKA.SW": ["https://www.sika.com/en/investors/financial-reports.html", "https://www.sika.com/en/investors.html"],
+    "SLHN.SW": ["https://www.swisslife.com/en/home/investors/results-reports.html", "https://www.swisslife.com/en/home/investors.html"],
+    "SREN.SW": ["https://www.swissre.com/investors/financial-information/results.html", "https://www.swissre.com/investors/"],
+    "SCMN.SW": ["https://www.swisscom.ch/en/about/investors/financial-reports.html", "https://www.swisscom.ch/en/about/investors.html"],
+    "UBSG.SW": ["https://www.ubs.com/global/en/investor-relations/financial-information/quarterly-reporting.html", "https://www.ubs.com/global/en/investor-relations.html"],
+    "ZURN.SW": ["https://www.zurich.com/investor-relations/results-and-reports", "https://www.zurich.com/investor-relations"],
 }
 
 # Classification type de publication (ordre = priorité).
 TYPE_PATTERNS: list[tuple[str, re.Pattern]] = [
-    ("URD", re.compile(r"universal[\s_-]?registration|enregistrement[\s_-]?universel|\burd\b|document[\s_-]d[\s_'-]?enregistrement", re.I)),
-    ("RFS", re.compile(r"half[\s_-]?year|semestriel|interim[\s_-]financial[\s_-]report|rapport[\s_-]financier[\s_-]semestriel|semi[\s_-]?annual", re.I)),
-    ("TRIM", re.compile(r"trimestriel|quarterly[\s_-]information|(first|third|1st|3rd)[\s_-]quarter|\b[qt][13]\b", re.I)),
+    ("URD", re.compile(r"universal[\s_-]?registration|enregistrement[\s_-]?universel|\burd\b|document[\s_-]d[\s_'-]?enregistrement|annual[\s_-]report|rapport[\s_-]annuel|integrated[\s_-]report|geschaeftsbericht|gesch[äa]ftsbericht|remuneration[\s_-]report|compensation[\s_-]report", re.I)),
+    ("RFS", re.compile(r"half[\s_-]?year|semestriel|interim[\s_-]financial[\s_-]report|rapport[\s_-]financier[\s_-]semestriel|semi[\s_-]?annual|halbjahr", re.I)),
+    ("TRIM", re.compile(r"trimestriel|quarterly[\s_-]?(information|report)|(first|third|1st|3rd)[\s_-]quarter|\b[qt][13]\b|nine[\s_-]months|\b9m\b", re.I)),
     ("SLIDES", re.compile(r"presentation|slides|diaporama", re.I)),
-    ("CP", re.compile(r"press[\s_-]?release|communiqu|resultats|r[ée]sultats|results|earnings", re.I)),
+    ("CP", re.compile(r"press[\s_-]?release|media[\s_-]?release|communiqu|resultats|r[ée]sultats|results|earnings|trading[\s_-]update", re.I)),
 ]
 # Un lien doit matcher un mot-clé financier pour être candidat.
 FINANCE_HINT = re.compile(
@@ -169,9 +192,20 @@ def http_get(url: str, timeout: int = 30) -> bytes:
 
 
 def load_univers() -> list[dict]:
-    with open(STATE_PATH, "r", encoding="utf8") as f:
-        state = json.load(f)
-    return state.get("univers") or []
+    """Univers surveillé = CAC 40 (.PA) + SMI 20 (.SW), même fichier de statut."""
+    univers: list[dict] = []
+    seen: set[str] = set()
+    for path in (STATE_PATH, SMI_STATE_PATH):
+        if not path.exists():
+            continue
+        with open(path, "r", encoding="utf8") as f:
+            state = json.load(f)
+        for entry in state.get("univers") or []:
+            ticker = entry.get("ticker")
+            if ticker and ticker not in seen:
+                seen.add(ticker)
+                univers.append(entry)
+    return univers
 
 
 def load_status() -> dict:
@@ -382,7 +416,7 @@ def main() -> int:
             only = [t.strip() for t in arg.split("=", 1)[1].split(",") if t.strip()]
     univers = load_univers()
     if not univers:
-        log("FATAL: univers CAC 40 vide (cac40-state.json)")
+        log("FATAL: univers vide (cac40-state.json + smi-state.json)")
         return 1
     if only:
         univers = [e for e in univers if e["ticker"] in only]

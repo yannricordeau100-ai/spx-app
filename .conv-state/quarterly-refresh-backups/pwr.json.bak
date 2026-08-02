@@ -93,25 +93,49 @@
   "_events_sub_agent_101_fill_at": "2026-05-21T09:53:25.900627+00:00",
   "_events_sub_agent_101_source": "rapport financier-batch (earnings_dates + calendar + dividends + info)",
   "revenue_by_geography": {
-    "unit": "%",
+    "label": "Répartition géographique du chiffre d'affaires (exercice 2025)",
     "slices": [
       {
+        "name": "États-Unis",
         "label": "États-Unis",
-        "value": 100,
-        "share_pct": 100,
-        "single_region_legitimate": true,
-        "unit": "%",
-        "label_en": "United States"
+        "label_en": "UNITED STATES",
+        "value": 26.483,
+        "share_pct": 93,
+        "pct": 93,
+        "unit": "Mds $"
+      },
+      {
+        "name": "Canada",
+        "label": "Canada",
+        "label_en": "CANADA",
+        "value": 1.019,
+        "share_pct": 3.6,
+        "pct": 3.6,
+        "unit": "Mds $"
+      },
+      {
+        "name": "AUSTRALIA",
+        "label": "AUSTRALIA",
+        "label_en": "AUSTRALIA",
+        "value": 0.78,
+        "share_pct": 2.7,
+        "pct": 2.7,
+        "unit": "Mds $"
+      },
+      {
+        "name": "Non-US",
+        "label": "Non-US",
+        "label_en": "Non-US",
+        "value": 0.198,
+        "share_pct": 0.7,
+        "pct": 0.7,
+        "unit": "Mds $"
       }
     ],
-    "total": 100,
-    "source": "Mono-pays légitime (rapport financier longBusinessSummary US-only confirmé)",
-    "source_yfinance_excerpt": "Quanta Services... infrastructure solutions for US utilities (Electric Infrastructure)",
-    "single_region_legitimate": true,
-    "_legit_reason": "Sté US-only confirmée via rapport financier (opérations exclusivement aux États-Unis, sub-agent #116)",
-    "_tagged_by": "sub-agent-116-sp500-cluster-f-geo",
-    "_tagged_at": "2026-05-21T10:31:29.860Z",
-    "_category": "us-domestic-sp500"
+    "fiscal_year": "exercice 2025",
+    "currency": "USD",
+    "_source": "FMP revenue-geographic-segmentation FY2025 (2025-12-31) - SEC 10-K",
+    "_fmp_extracted_at": "2026-07-13T07:00:00Z"
   },
   "_kpis_hidden_by_history_detail": [
     {
@@ -165,48 +189,48 @@
   "risks": [
     {
       "title": "Concentration sur quelques clients utility",
-      "category": "Concurrence",
-      "severity": 4,
-      "score_rationale": "Le 10-K souligne que les 10 premiers clients (utilities électriques et gazières) représentent une part importante du chiffre d'affaires. Perte d'un client majeur ou ralentissement de ses investissements impacte directement les résultats. Position en début de section. Catégorie pondérée.",
+      "category": "Marché",
+      "severity": 3,
+      "score_rationale": "Position: haut Item 1A summary. Citation: \"A loss of business from certain significant customers could have a material effect\". Baissé de 4 à 3.",
       "trend": "stable",
-      "summary": "Une part importante des revenus dépend des plus grandes utilities ; perdre ou voir ralentir ces clients impacte directement Quanta.",
-      "score": 4
+      "summary": "Les 10 premiers clients utility représentent une part significative du CA: la perte ou un cycle capex négatif d'un compte majeur pèse.",
+      "score": 3
     },
     {
       "title": "Disponibilité de main-d'œuvre qualifiée",
       "category": "Opérationnel",
-      "severity": 5,
-      "score_rationale": "Quanta dépend d'une main-d'œuvre spécialisée (linemen, soudeurs, techniciens) en pénurie chronique aux US. Le 10-K consacre une section large à ce sujet : impact direct sur la capacité à honorer les contrats. Trend up clair.",
+      "severity": 4,
+      "score_rationale": "Position: haut Item 1A summary. Citation: \"labor-intensive ... may be unable to attract and retain qualified employees\". Baissé de 5 à 4.",
       "trend": "up",
-      "summary": "La pénurie de main-d'œuvre qualifiée (linemen, techniciens) limite la capacité à exécuter le carnet de commandes en croissance.",
-      "score": 5
+      "summary": "La pénurie de linemen et de main-d'œuvre qualifiée limite la capacité à exécuter le backlog malgré la demande forte des utilities.",
+      "score": 4
     },
     {
       "title": "Exécution sur grands projets et fixed-price",
       "category": "Opérationnel",
       "severity": 4,
-      "score_rationale": "Une part significative des contrats est en prix fixe ou unit-rate. Dépassements de coûts, intempéries ou délais peuvent éroder fortement les marges. Langage explicite sur l'historique de litiges et provisions.",
+      "score_rationale": "Position: haut Item 1A summary. Citation: \"Changes in estimates related to revenues and costs under customer contracts could result in ... losses\". Confirme 4.",
       "trend": "stable",
-      "summary": "Les contrats à prix fixe exposent Quanta à des dépassements de coûts qui peuvent éroder fortement les marges.",
+      "summary": "Un dépassement sur grand projet fixed-price (LNG, ligne HVDC, solaire) déclenche pertes contractuelles et provisions.",
       "score": 4
     },
     {
       "title": "Cycles d'investissement utilities et politiques énergétiques",
-      "category": "Réglementaire",
-      "severity": 4,
-      "score_rationale": "Les investissements clients dépendent largement des politiques publiques (IRA, électrification, réseau, renewables) et des autorisations réglementaires. Un changement politique peut affecter le pipeline.",
+      "category": "Régulation",
+      "severity": 3,
+      "score_rationale": "Position: milieu Item 1A. Citation: \"Regulatory requirements applicable to our business and potential changes\". Baissé de 4 à 3.",
       "trend": "stable",
-      "summary": "Un changement de politique fédérale (IRA, normes) ou des retards d'autorisation peuvent reporter les projets clients.",
-      "score": 4
+      "summary": "Un ralentissement des programmes de transition énergétique ou une baisse des crédits IRA freine le backlog renouvelable/transmission.",
+      "score": 3
     },
     {
-      "title": "Risques de sécurité et accidents de chantier",
-      "category": "Industriel",
-      "severity": 4,
-      "score_rationale": "Activité à risque physique élevé (lignes haute tension, pipelines). Le 10-K mentionne explicitement les accidents historiques, les coûts d'assurance et les sanctions OSHA. Langage prudent et sérieux.",
+      "title": "Sécurité et accidents de chantier",
+      "category": "Opérationnel",
+      "severity": 3,
+      "score_rationale": "Position: milieu Item 1A. Citation: \"operational hazards (e.g., wildfires, explosions) that can result in significant liabilities\". Baissé de 4 à 3.",
       "trend": "stable",
-      "summary": "Les accidents sur chantier (lignes haute tension, pipelines) peuvent causer des pertes humaines, sanctions et hausse des assurances.",
-      "score": 4
+      "summary": "Un accident grave (électrocution, incendie, hélicoptère) génère indemnisations, perte de contrats et dégradation du safety record.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-28T20:35:36Z",
@@ -218,15 +242,15 @@
       "short": "Electric Revenue",
       "name_fr": "CA segment Electric",
       "name_en": "Electric Segment Revenues",
-      "explanation": "Segment Electric (ex-Electric Power + Renewable Energy) : services T&D, gen, data centers, communications. 23.0 Mds $ FY25 vs 19.0 Mds en 2024 (+21.0%), 80.8% du CA total.",
+      "explanation": "Segment Electric (ex-Electric Power + Renewable Energy) : services T&D, gen, data centers, communications. 23.0 Mds $ exercice 2025 vs 19.0 Mds en 2024 (+21.0%), 80.8% du CA total.",
       "value": 23001,
-      "unit": "M$",
+      "unit": "M $",
       "yoy": "+21.0%",
       "type": "Revenue",
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Demande grid + générat. + data centers",
-      "description": "Segment Electric (ex-Electric Power + Renewable Energy) : services T&D, gen, data centers, communications. 23.0 Mds $ FY25 vs 19.0 Mds en 2024 (+21.0%), 80.8% du CA total.",
+      "description": "Segment Electric (ex-Electric Power + Renewable Energy) : services T&D, gen, data centers, communications. 23.0 Mds $ exercice 2025 vs 19.0 Mds en 2024 (+21.0%), 80.8% du CA total.",
       "history": [
         null,
         null,
@@ -248,15 +272,15 @@
       "short": "Underground Revenue",
       "name_fr": "CA Underground & Infrastructure",
       "name_en": "Underground & Infrastructure Revenues",
-      "explanation": "Segment Underground & Infrastructure : gaz naturel, pétrole, transport, distribution, infra civile. 5.48 Mds $ FY25 vs 4.66 Mds (+17.5%), 19.2% du CA. Acquisitions (+925 M$).",
+      "explanation": "Segment Underground & Infrastructure : gaz naturel, pétrole, transport, distribution, infra civile. 5.48 Mds $ exercice 2025 vs 4.66 Mds (+17.5%), 19.2% du CA. Acquisitions (+925 M$).",
       "value": 5478,
-      "unit": "M$",
+      "unit": "M $",
       "yoy": "+17.5%",
       "type": "Revenue",
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Pipelines gaz/pétrole + civil",
-      "description": "Segment Underground & Infrastructure : gaz naturel, pétrole, transport, distribution, infra civile. 5.48 Mds $ FY25 vs 4.66 Mds (+17.5%), 19.2% du CA. Acquisitions (+925 M$).",
+      "description": "Segment Underground & Infrastructure : gaz naturel, pétrole, transport, distribution, infra civile. 5.48 Mds $ exercice 2025 vs 4.66 Mds (+17.5%), 19.2% du CA. Acquisitions (+925 M$).",
       "history": [
         null,
         null,
@@ -280,7 +304,7 @@
       "name_en": "12-Month Remaining Performance Obligations",
       "explanation": "Remaining Performance Obligations 12 mois (sécurisé). 15.7 Mds $ Dec 2025 vs 11.3 Mds Dec 2024 (+39.6%). Indicateur de visibilité CA T+12m.",
       "value": 15707,
-      "unit": "M$",
+      "unit": "M $",
       "yoy": "+39.6%",
       "type": "Backlog",
       "nature": "Récurrent",
@@ -310,7 +334,7 @@
       "name_en": "Total Backlog (Non-GAAP)",
       "explanation": "Backlog total (RPO + estimés MSA contrats non-fixes). 44.0 Mds $ Dec 2025 vs 34.5 Mds (+27.3%). Pipeline projets renouvelables + T&D + data centers.",
       "value": 43976,
-      "unit": "M$",
+      "unit": "M $",
       "yoy": "+27.3%",
       "type": "Backlog",
       "nature": "Récurrent",
@@ -338,15 +362,15 @@
       "short": "Electric Op Income",
       "name_fr": "Résultat op. Electric",
       "name_en": "Electric Segment Operating Income",
-      "explanation": "Résultat opérationnel segment Electric. 2.36 Mds $ FY25 (+20.5%), marge 10.3% stable vs 2024. Croissance volume vs intégration acquisitions.",
+      "explanation": "Résultat opérationnel segment Electric. 2.36 Mds $ exercice 2025 (+20.5%), marge 10.3% stable vs 2024. Croissance volume vs intégration acquisitions.",
       "value": 2360,
-      "unit": "M$",
+      "unit": "M $",
       "yoy": "+20.5%",
       "type": "Operating",
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Marge segment Electric stable 10.3%",
-      "description": "Résultat opérationnel segment Electric. 2.36 Mds $ FY25 (+20.5%), marge 10.3% stable vs 2024. Croissance volume vs intégration acquisitions.",
+      "description": "Résultat opérationnel segment Electric. 2.36 Mds $ exercice 2025 (+20.5%), marge 10.3% stable vs 2024. Croissance volume vs intégration acquisitions.",
       "history": [
         null,
         null,
@@ -368,15 +392,15 @@
       "short": "Underground Op Income",
       "name_fr": "Résultat op. Underground",
       "name_en": "Underground Segment Operating Income",
-      "explanation": "Résultat opérationnel Underground & Infrastructure. 398 M$ FY25 (+50.3%), marge 7.3% (vs 5.7% 2024). Mix projets favorable + absorption coûts fixes.",
+      "explanation": "Résultat opérationnel Underground & Infrastructure. 398 M$ exercice 2025 (+50.3%), marge 7.3% (vs 5.7% 2024). Mix projets favorable + absorption coûts fixes.",
       "value": 398,
-      "unit": "M$",
+      "unit": "M $",
       "yoy": "+50.3%",
       "type": "Operating",
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Marge passe de 5.7% à 7.3%",
-      "description": "Résultat opérationnel Underground & Infrastructure. 398 M$ FY25 (+50.3%), marge 7.3% (vs 5.7% 2024). Mix projets favorable + absorption coûts fixes.",
+      "description": "Résultat opérationnel Underground & Infrastructure. 398 M$ exercice 2025 (+50.3%), marge 7.3% (vs 5.7% 2024). Mix projets favorable + absorption coûts fixes.",
       "history": [
         null,
         null,
@@ -401,7 +425,7 @@
         2999.82,
         3353.28,
         3965.53,
-        4232.0,
+        4232,
         4459.76,
         4428.83,
         5048.61,
@@ -444,9 +468,9 @@
       ],
       "name_fr": "Revenu total",
       "last_data_date": "2026-03-31",
-      "unit": "$M",
+      "unit": "M $",
       "method": "llm-filing-crosschecked",
-      "source": "XBRL facts.json (SEC EDGAR) — PWR"
+      "source": "XBRL facts.json (SEC EDGAR) : PWR"
     },
     {
       "short": "Net Income",
@@ -489,7 +513,7 @@
       "value": 144.3,
       "_history_extracted_at": "2026-06-03T00:39:44.721555+00:00",
       "yoy": "+21.9%",
-      "unit": "$M",
+      "unit": "M $",
       "_unit_rescaled": "Mds $ -> M $ for 1-999 readability",
       "type": "Rentabilité",
       "nature": "Performance",
@@ -501,19 +525,19 @@
       "name_fr": "Résultat net",
       "last_data_date": "2026-03-31",
       "method": "llm-filing-crosschecked",
-      "source": "XBRL facts.json (SEC EDGAR) — PWR"
+      "source": "XBRL facts.json (SEC EDGAR) : PWR"
     },
     {
       "short": "Total Debt",
       "history": [
-        1.0,
-        72.0,
-        475.0,
-        354.0,
-        671.0,
-        1041.0
+        1,
+        72,
+        475,
+        354,
+        671,
+        1041
       ],
-      "value": 1041.0,
+      "value": 1041,
       "unit": "M €",
       "_unit_rescaled": "Mds € -> M € for 1-999 readability",
       "type": "Bilan",
@@ -619,7 +643,7 @@
       "period_type": "quarter",
       "unit": "$",
       "method": "llm-filing-crosschecked",
-      "source": "XBRL facts.json (SEC EDGAR) — PWR"
+      "source": "XBRL facts.json (SEC EDGAR) : PWR"
     },
     {
       "short": "Op Margin",
@@ -642,7 +666,7 @@
       "period_type": "year",
       "unit": "%",
       "method": "llm-filing-crosschecked",
-      "source": "XBRL facts.json (SEC EDGAR) — PWR"
+      "source": "XBRL facts.json (SEC EDGAR) : PWR"
     },
     {
       "short": "Gross Margin",
@@ -665,7 +689,7 @@
       "period_type": "year",
       "unit": "%",
       "method": "llm-filing-crosschecked",
-      "source": "XBRL facts.json (SEC EDGAR) — PWR"
+      "source": "XBRL facts.json (SEC EDGAR) : PWR"
     },
     {
       "short": "Free Cash Flow",
@@ -686,9 +710,9 @@
       ],
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "unit": "$M",
+      "unit": "M $",
       "method": "llm-filing-crosschecked",
-      "source": "XBRL facts.json (SEC EDGAR) — PWR"
+      "source": "XBRL facts.json (SEC EDGAR) : PWR"
     },
     {
       "short": "Operating Cash Flow",
@@ -709,9 +733,9 @@
       ],
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "unit": "$M",
+      "unit": "M $",
       "method": "llm-filing-crosschecked",
-      "source": "XBRL facts.json (SEC EDGAR) — PWR"
+      "source": "XBRL facts.json (SEC EDGAR) : PWR"
     },
     {
       "short": "Total Assets",
@@ -734,9 +758,9 @@
       ],
       "last_data_date": "2026-03-31",
       "period_type": "instant",
-      "unit": "$M",
+      "unit": "M $",
       "method": "llm-filing-crosschecked",
-      "source": "XBRL facts.json (SEC EDGAR) — PWR"
+      "source": "XBRL facts.json (SEC EDGAR) : PWR"
     },
     {
       "short": "Capex",
@@ -757,9 +781,9 @@
       ],
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "unit": "$M",
+      "unit": "M $",
       "method": "llm-filing-crosschecked",
-      "source": "XBRL facts.json (SEC EDGAR) — PWR"
+      "source": "XBRL facts.json (SEC EDGAR) : PWR"
     },
     {
       "short": "Headcount",
@@ -792,7 +816,7 @@
       "period_type": "year",
       "unit": "employees",
       "method": "llm-filing-crosschecked",
-      "source": "XBRL facts.json (SEC EDGAR) — PWR 10-K filings"
+      "source": "XBRL facts.json (SEC EDGAR) : PWR 10-K filings"
     }
   ],
   "_kpis_specific_extracted_at": "2026-05-28T02:49:07.797094+00:00",
@@ -923,7 +947,7 @@
   "_hero_kpi_override_orphan_flag_by": "CONV-SUBAGENT-POLISH",
   "_hero_kpi_override_orphan_flag_reason": "hero_kpi_override 'Electric Power Infrastructure' does not match any short in kpis[], stories_kpis[], or kpis_supplementary[]",
   "ai_positioning": {
-    "stance": "explorer",
+    "stance": "absent",
     "summary": "Quanta Services bénéficie indirectement du boom IA via la construction d'infrastructures électriques pour datacenters hyperscale (transmission, substations, fiber). L'entreprise n'est pas un acteur IA technologique mais un picks-and-shovels du build-out datacenter AI. Backlog record tiré par l'électrification et la demande datacenter.",
     "evidence": [
       "Backlog total ~$35 Mds (Q4 2024) tiré datacenter et grid",
@@ -1050,5 +1074,17 @@
     "period_type_set": 1,
     "new_sectoral_kpis": 0,
     "rescaled": 2
+  },
+  "_risks_recalibrated_at": "2026-07-12T12:12:04.235560Z",
+  "_risks_recalibrated_source": "data-lake/PWR/10K latest",
+  "_risks_recalibrated_lot": "chunk31_yann_12jul2026",
+  "profit_warning": {
+    "last_date": "2026-02-19",
+    "score": 2,
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1050915/000119312526058069/d101511dex991.htm",
+    "quote_en": "Full year 2026 guidance $33.25-33.75B revenue, record backlog $44.0B; guidance raised vs prior year.",
+    "_profit_warning_at": "2026-07-12T13:17:11Z",
+    "_score_before_recalc": 1,
+    "_score_recalc": "2026-07-14 recalcul déterministe: sans avertissement passé (last_date null), score suit la tendance des marges (rationale/margin_trend); ancienne échelle inversée sur une partie des stés"
   }
 }
