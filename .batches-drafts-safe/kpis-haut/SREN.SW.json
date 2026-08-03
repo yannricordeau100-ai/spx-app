@@ -1,20 +1,16 @@
 {
  "ticker": "SREN.SW",
- "name": "Swiss Re Ltd",
- "sector": "Assurance",
- "subsector": "Réassurance",
- "tagline": "Un des premiers réassureurs mondiaux, dommages et vie-santé, fondé à Zurich en 1863",
- "founded": 1863,
- "ipo": null,
- "logo_treatment": "orbit",
- "ranks": {
-  "global_world": "N/A",
-  "global_us": "N/A",
-  "sector": "N/A",
-  "subsector": "Parmi les premiers réassureurs mondiaux (auto-description : leading provider of reinsurance, rapport annuel 2025)"
- },
+ "extracted_at": "2026-08-03T00:00:00Z",
+ "extracted_by": "CONV-SMI-EXTRACT-SREN.SW",
+ "sources_used": [
+  "data-lake/SREN.SW/ir/CP (CP resultats T1/S1/9M/FY 2021-2025, T1 2026)",
+  "data-lake/SREN.SW/ir/URD (rapports annuels et financiers FY2021-FY2025 : BPA, effectifs, zones geo)",
+  "data-lake/SREN.SW/ir/RS (rapports semestriels, recoupements)"
+ ],
  "hero_kpi": "PC_CR",
  "hero_kpi_rationale": "Combined ratio P&C Re : 97,1% en 2021 -> 79,4% en 2025, une amelioration de 17,7 points en 5 ans qui raconte le redressement complet de la souscription dommages de Swiss Re (2022 en perte technique a 102,4%). A 79,4%, chaque dollar de prime laisse plus de 20 cents de marge technique, du jamais vu sur la periode : c'est LE marqueur du retour de Swiss Re au premier plan de la reassurance mondiale. Serie annuelle 5 ans complete et verbatim.",
+ "_ordering_rationale": "Hero combined ratio P&C Re, puis resultat net trimestriel et annuel (record 2025), CA/primes, les 3 segments par poids du resultat, CorSo combined ratio, ROI et ROE, retour actionnaire (dividende, BPA), bilan (fonds propres, actif net par action, SST), effectifs, zones geo.",
+ "_notes": "Swiss Re publie en dollars US : toutes les valeurs monetaires sont en USD. Rupture de referentiel US GAAP -> IFRS a l'exercice 2024, documentee par _gap_note sur chaque serie concernee, aucun lissage. Publication trimestrielle en cumul (T1, S1, 9M, FY) : les trimestres T2/T3/T4 du resultat net groupe sont derives par difference de cumuls publies et marques _derived ; aucune derivation sur les ratios, le BPA ou les effectifs. Dividende 2021 en CHF exclu de la serie USD. Ventilation geographique disponible sous IFRS uniquement (2024-2025).",
  "kpis": [
   {
    "short": "RN_GROUP_Q",
@@ -750,14 +746,5 @@
    "signal": "7,2 Mds $ en 2025, 17% des revenus du groupe",
    "description_fr": "Revenus d'assurance IFRS zone Asie-Pacifique. Source : états financiers FY2025."
   }
- ],
- "last_data_date": "2026-05-07",
- "_extracted_by": "smi-agent-SREN.SW",
- "_extracted_at": "2026-08-03",
- "_source": "data-lake/SREN.SW/ir (CP T1/S1/9M/FY 2021-2025 + T1 2026, rapports semestriels, rapports annuels et etats financiers FY2021-FY2025)",
- "_validation": {
-  "validated_by": "smi-agent-SREN.SW",
-  "validated_at": "2026-08-03",
-  "note": "Extraction verbatim des CP et rapports IR Swiss Re. Controles : cumuls trimestriels (Q1+Q2=S1, S1+Q3=9M, 9M+Q4=FY) exacts sur 2021-2025 ; somme zones geo = revenus groupe (FY2024, FY2025 exact) ; somme 3 segments vs groupe : ecart = Group items (structure publiee, -267 M$ en 2025, -301 M$ en 2023). Rupture US GAAP -> IFRS 2024 documentee par _gap_note, aucun lissage."
- }
+ ]
 }
