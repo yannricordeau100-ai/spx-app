@@ -1,0 +1,133 @@
+MISSION : prospection KPI distinctifs sur le site web corporate (v2, 5 août 2026)
+
+Répertoire /Users/yann/spx-app. Budget : 180k tokens, 60 appels d'outils. Prends ton temps :
+l'exhaustivité du parcours du site compte plus que la vitesse.
+
+## Ce qu'on cherche : des KPI, pas des chiffres financiers
+
+Un KPI valide ici = UN indicateur chiffré, unique, **distinctif de cette société ou de son
+métier**, qui alimente le bloc Stories d'une page société Mettrik.
+
+### Test d'admission (applique-le à chaque chiffre trouvé)
+
+> « Est-ce que le site de 80 % des sociétés cotées pourrait afficher le même indicateur ? »
+
+- OUI → **générique, à REJETER**.
+- NON, c'est propre à cette société ou à son secteur → **à RETENIR**.
+
+### REJETER systématiquement (liste non exhaustive)
+
+Chiffre d'affaires, résultat net, résultat opérationnel, EBITDA, marges, BPA, dividende,
+dette nette, free cash-flow, capex, montant de R&D en euros, capitalisation, effectifs
+totaux, nombre de pays d'implantation pris seul, part de femmes au conseil, heures de
+formation par salarié, taux d'absentéisme, objectifs carbone génériques (-X % d'ici 2030),
+part du CA aligné taxonomie. Ces indicateurs existent chez tout le monde : ils ne racontent
+rien sur la société.
+
+### RETENIR : exemples de vrais KPI distinctifs
+
+- Airbus : nombre d'appareils en carnet de commandes, cadence mensuelle de production A320
+- LVMH : nombre de Maisons, nombre de boutiques en propre
+- Vinci : nombre de chantiers menés dans l'année, nombre de concessions autoroutières
+- Sanofi : nombre de molécules en phase 3, nombre de patients traités
+- Dassault Systèmes : nombre de clients industriels, nombre d'utilisateurs de la plateforme
+- TotalEnergies : capacité renouvelable installée en GW, production en barils/jour
+- Carrefour : nombre de magasins par format, part du e-commerce dans les ventes
+- Une banque : nombre de clients particuliers, encours sous gestion, nombre d'agences
+
+Le bon réflexe : un KPI qui ferait dire à un investisseur « ça, je ne l'aurais pas deviné ».
+
+## Règle de fraîcheur STRICTE (12 mois)
+
+Nous sommes en **août 2026**. Tout chiffre qui décrit un état du monde antérieur à
+**août 2025** est REJETÉ.
+
+- Chiffre daté d'un exercice : garder si FY2025, S1-2026, T1/T2-2026, ou 2026. Rejeter
+  FY2024 et antérieur.
+- Chiffre rattaché à un plan ou une campagne périmée (ex « plan 2022 ») : REJETER.
+- Chiffre cumulé depuis une date ancienne mais arrêté à aujourd'hui (ex « 85 projets
+  lancés depuis 2017 ») : GARDER, c'est un état courant.
+- Chiffre sans aucune date, publié aujourd'hui sur le site vivant : GARDER, et le
+  dater **2026** (année de relevé). Note `"periode": "releve 2026"`.
+
+## Parcours du site : ne loupe aucune section
+
+Procède méthodiquement, dans cet ordre :
+
+1. Récupère `<domaine>/sitemap.xml` (ou sitemap_index.xml) si accessible : c'est le moyen
+   le plus fiable de ne rien manquer. Liste les sections, choisis celles qui peuvent porter
+   des chiffres.
+2. À défaut, lis la page d'accueil et relève TOUS les liens de navigation principale et de
+   pied de page.
+3. Couvre au minimum ces familles de pages quand elles existent :
+   - Le Groupe / À propos / Profil / Notre histoire / Identité
+   - Chiffres clés / Le groupe en chiffres / Key figures / At a glance
+   - Nos métiers / Nos activités / Nos marques / Nos produits / Nos solutions
+   - Nos implantations / Présence mondiale / Nos sites / Nos usines
+   - Innovation / R&D / Technologie / Brevets
+   - Clients / Références / Écosystème / Partenaires
+   - Engagements / RSE / Impact / Développement durable
+   - Carrières / Nous rejoindre (uniquement si chiffres distinctifs du métier)
+   - Espace investisseurs : Chiffres clés, Profil, Présentations, Résultats
+
+Vise 10 à 20 pages consultées. Une société pour laquelle tu n'as ouvert que 3 pages est
+une société mal traitée.
+
+## Blocages : distinguer les trois cas, et RETENTER
+
+- **403 / WAF** : blocage serveur franc. Retente UNE fois après avoir essayé une autre
+  entrée (sous-domaine investisseurs, version .com vs locale). Puis note `"blocage": "403"`.
+- **Mur JS** : HTTP 200 mais la page ne contient que « Loading… » ou moins de 1000
+  caractères de texte utile. Note `"blocage": "mur JS"`.
+- **Timeout** : c'est souvent passager. **RETENTE OBLIGATOIREMENT au moins 2 fois** avant
+  de conclure. Un site déclaré inaccessible sur un simple timeout est une erreur de mesure
+  (cas vécu sur LVMH : déclaré bloqué alors que le site répond parfaitement).
+
+User-Agent OBLIGATOIRE, à copier exactement, jamais composé :
+Mettrik research yannricordeau100@gmail.com
+
+## Dédoublonnage
+
+Lis `.batches-drafts-safe/kpis-haut/<TICKER>.json` : ce sont les indicateurs déjà extraits
+des documents financiers. Marque `already_known: true` si le KPI web y a un équivalent
+(même notion, peu importe le libellé). En cas de doute, marque `true` (prudence).
+
+Note : comme on rejette maintenant tous les indicateurs financiers standards, la plupart
+des KPI retenus seront nouveaux. C'est attendu.
+
+## Livrable 1 : un fichier JSON (obligatoire)
+
+Écris `.conv-state/web-kpi/<TICKER>.json` avec exactement cette structure :
+
+{
+  "ticker": "<TICKER>",
+  "nom": "<Nom société>",
+  "extracted_at": "2026-08-05",
+  "annee_decouverte": 2026,
+  "pages_visitees": <nombre entier de pages réellement ouvertes>,
+  "blocage": null,
+  "particularite": "<une phrase factuelle>",
+  "kpis": [
+    {
+      "label_fr": "Nombre de Maisons du groupe",
+      "value": 75,
+      "unit": "Maisons",
+      "periode": "2025",
+      "url": "https://…",
+      "pourquoi_distinctif": "structure en Maisons propre au modèle LVMH",
+      "already_known": false
+    }
+  ]
+}
+
+`value` en nombre quand c'est possible, sinon en chaîne. Si aucun KPI ne passe le test
+d'admission, écris quand même le fichier avec `"kpis": []` : un zéro documenté est un
+résultat, pas un échec.
+
+## Livrable 2 : ton retour texte, 2 lignes MAXIMUM
+
+<TICKER> | kpis=<N> | nouveaux=<M> | pages=<P> | blocage=<null|403|mur JS>
+particularite=<une phrase>
+
+Puis TERMINE. Ne recopie PAS la liste des KPI dans ton retour texte : elle est dans le
+fichier JSON, c'est là que je la lirai. Ton retour doit tenir en 2 lignes.

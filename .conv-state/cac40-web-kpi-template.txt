@@ -1,0 +1,78 @@
+MISSION : prospection KPI "site web" pour le bloc Stories (test CAC 40, 5 août 2026)
+
+Répertoire /Users/yann/spx-app. Budget DUR : 130k tokens, 45 appels d'outils par sté.
+
+## Objectif
+
+Pour chaque ticker confié, explorer le SITE WEB CORPORATE de la société (pas les PDF du
+data-lake) et relever les KPI de type "chiffre unique" publiés sur les pages web, qui
+pourraient alimenter le bloc Stories des pages société Mettrik.
+
+Un KPI "Stories" = UN chiffre marquant, sans besoin d'un historique de 5 ans.
+Exemples de ce qu'on cherche : "présent dans 75 pays", "6 300 magasins", "213 000
+collaborateurs", "1,2 million de brevets déposés", "38 % du CA réalisé en ligne",
+"4 500 chercheurs", "92 usines", "2,3 millions de clients", "n°1 mondial de X",
+"objectif -30 % d'émissions d'ici 2030", "500 M€ investis en R&D".
+
+## Où chercher (les DEUX parties, c'est le coeur du test)
+
+1. **Partie investisseurs** du site : "Chiffres clés", "Résultats", "Le groupe en
+   chiffres", "Profil", "Actionnaires", "Publications", "Documents financiers",
+   "Investor relations / Key figures".
+2. **Partie classique** du site (grand public) : "À propos", "Le Groupe", "Notre
+   histoire", "Nos marques", "Nos métiers", "Innovation / R&D", "Engagements / RSE /
+   Impact / Développement durable", "Carrières / Nous rejoindre", "Nos implantations".
+
+La partie classique est souvent la plus riche en chiffres marquants non financiers.
+Explore les deux, pas seulement l'IR.
+
+## Règles de collecte
+
+- **Verbatim uniquement.** Le chiffre doit être lisible tel quel sur la page. Jamais de
+  calcul, jamais d'estimation, jamais de mémoire. Note l'URL exacte de chaque KPI.
+- Note l'année/période de référence quand elle est indiquée. Si le chiffre n'est daté
+  nulle part, marque-le "non daté" (c'est une information utile pour le rapport).
+- Ignore : les chiffres purement marketing invérifiables ("le meilleur du marché"), les
+  chiffres d'un tiers cité (classement d'un cabinet externe sans donnée société), les
+  prix de l'action et données de marché (elles viennent d'ailleurs).
+- User-Agent OBLIGATOIRE pour toute requête HTTP, à copier EXACTEMENT, jamais composé :
+  Mettrik research yannricordeau100@gmail.com
+- Si le site bloque (403 / WAF / JS obligatoire), essaie 2 URL alternatives max puis
+  note le blocage dans la colonne "particularité" et passe à la suite. Ne perds pas
+  ton budget à forcer.
+
+## Dédoublonnage (colonne "nouveaux")
+
+Le fichier `.batches-drafts-safe/kpis-haut/<TICKER>.json` contient les KPI DÉJÀ extraits
+des documents financiers de la société. Lis-le AVANT de commencer ta prospection web.
+
+Un KPI relevé sur le web est :
+- **déjà connu** s'il correspond à une série déjà présente dans kpis-haut (même notion,
+  même unité, peu importe le libellé : "Effectifs" == "collaborateurs" == "employés") ;
+- **nouveau** s'il n'a aucun équivalent dans kpis-haut.
+
+Compte les deux séparément. En cas de doute sur une correspondance, classe en "déjà
+connu" (prudence) et signale le doute dans la particularité.
+
+## Contrôle de cohérence (important pour la colonne particularité)
+
+Pour 2 ou 3 KPI web qui ont un équivalent dans kpis-haut, compare les valeurs. Si le
+site web annonce un chiffre qui CONTREDIT la donnée extraite des documents (ex site :
+"215 000 collaborateurs", kpis-haut : 196 000 pour le même exercice), signale-le
+explicitement : c'est exactement le genre de défaut que ce test doit révéler.
+
+## Format de retour STRICT (ne dépasse pas, c'est un budget de contexte)
+
+Une ligne par sté, exactement dans ce format, puis TERMINE :
+
+<TICKER> | trouvés=<N> | nouveaux=<M> | dejaconnus=<K> | particularite=<une phrase>
+EXEMPLES: <2 ou 3 des KPI nouveaux les plus marquants, format "libellé: valeur (année)">
+SOURCES: <2 ou 3 URL principales utilisées>
+
+La colonne particularité doit dire ce qui est notable : "aucun KPI exploitable", "beaucoup
+de chiffres mais aucun daté", "site bloqué en WAF, seule la page X accessible", "3 chiffres
+non concordants avec les documents", "chiffres riches côté RSE, pauvres côté IR", etc.
+Sois factuel, pas de langue de bois : si la moisson est mauvaise, dis-le.
+
+N'écris AUCUN fichier dans le repo. Ce test est en lecture seule : ton rapport texte EST
+le livrable.
