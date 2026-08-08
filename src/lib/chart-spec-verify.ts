@@ -44,10 +44,14 @@ export function verifyAndFix(spec: ChartSpec, options: { autoFix?: boolean } = {
   const warnings = [...(out.warnings || [])];
 
   // 1. Dédup TTM == dernière FY
+  // Yann 9 août 2026 : seuil RELATIF (0,5 %) et plus seulement absolu (0,01) :
+  // un TTM à +0,3 % de la dernière FY rendait deux barres visuellement
+  // identiques côte à côte ("problème qui apparaît parfois" selon la valeur).
   if (
     out.ttm != null
     && out.values.length > 0
-    && Math.abs(out.values[out.values.length - 1] - out.ttm) < 0.01
+    && Math.abs(out.values[out.values.length - 1] - out.ttm)
+      < Math.max(0.01, Math.abs(out.values[out.values.length - 1]) * 0.005)
   ) {
     warnings.push({
       id: "chart.ttm_equals_last_fy",

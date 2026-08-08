@@ -177,7 +177,7 @@ export function buildChartSpec(
     const agg = aggregateQuarterlyToAnnual(rawHistory, lastDataDate, kind, fiscalYearEndMonth, historyPeriods);
     values = [...agg.values];
     labels = [...agg.years];
-    if (!opts.disableTtm && agg.ttm != null && (opts.dedupTtmWithLastFy ? true : true)) {
+    if (!opts.disableTtm && agg.ttm != null) {
       ttm = agg.ttm;
     }
     if (agg.values.length === 0) {

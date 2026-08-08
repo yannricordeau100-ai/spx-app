@@ -191,13 +191,18 @@ export function BarsChart({
             (pas comme barre, sinon écrase l'échelle). Position : haut-gauche
             si Y axis droite, haut-droite sinon. */}
         {ttmIsCumul && rawHasTTM && (() => {
-          const chipX = yOnRight ? PAD_LEFT + 180 : W - PAD_RIGHT - 130;
+          {/* Yann 9 août 2026 : unité = en-tête d'axe locale-aware + largeur
+              adaptée au texte (120 fixe débordait sur "Mds $" longs). */}
+          const ttmValueStr = (ttm as number).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
+          const chipText = `TTM ${ttmValueStr}${header ? ` ${header}` : ""}`;
+          const chipW = Math.max(90, Math.round(chipText.length * 6.8) + 16);
+          const chipX = yOnRight ? PAD_LEFT + 180 : W - PAD_RIGHT - chipW - 10;
           return (
             <g>
               <rect
                 x={chipX}
                 y={8}
-                width={120}
+                width={chipW}
                 height={24}
                 rx={6}
                 fill="rgba(255,255,255,0.04)"
@@ -212,9 +217,9 @@ export function BarsChart({
               >
                 TTM&nbsp;
                 <tspan fill="#e4e4e7" fontWeight={600}>
-                  {(ttm as number).toLocaleString("fr-FR", { maximumFractionDigits: 1 })}
+                  {ttmValueStr}
                 </tspan>
-                <tspan fill="#a1a1aa">&nbsp;{u}</tspan>
+                {header ? <tspan fill="#a1a1aa">&nbsp;{header}</tspan> : null}
               </text>
             </g>
           );

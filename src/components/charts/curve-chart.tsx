@@ -362,13 +362,18 @@ export function CurveChart({
       {ttmIsCumul && rawHasTTM && (() => {
         // yOnRight=false → mini-logo top-right → TTM chip top-LEFT
         // yOnRight=true  → mini-logo top-left  → TTM chip top-RIGHT
-        const chipX = yOnRight ? W - PAD_RIGHT - 130 : PAD_LEFT + 10;
+        // Yann 9 août 2026 : unité = en-tête d'axe locale-aware (uniforme
+        // avec bars 2D/3D) + largeur adaptée au texte.
+        const ttmValueStr = (ttm as number).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
+        const chipText = `TTM ${ttmValueStr}${header ? ` ${header}` : ""}`;
+        const chipW = Math.max(90, Math.round(chipText.length * 6.8) + 16);
+        const chipX = yOnRight ? W - PAD_RIGHT - chipW - 10 : PAD_LEFT + 10;
         return (
           <g>
             <rect
               x={chipX}
               y={8}
-              width={120}
+              width={chipW}
               height={24}
               rx={6}
               fill="rgba(255,255,255,0.04)"
@@ -383,9 +388,9 @@ export function CurveChart({
             >
               TTM&nbsp;
               <tspan fill="#e4e4e7" fontWeight={600}>
-                {(ttm as number).toLocaleString("fr-FR", { maximumFractionDigits: 1 })}
+                {ttmValueStr}
               </tspan>
-              <tspan fill="#a1a1aa">&nbsp;{formatUnit(unit)}</tspan>
+              {header ? <tspan fill="#a1a1aa">&nbsp;{header}</tspan> : null}
             </text>
           </g>
         );
