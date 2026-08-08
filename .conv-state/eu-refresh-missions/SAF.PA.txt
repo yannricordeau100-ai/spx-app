@@ -1,0 +1,63 @@
+Mission : intégrer la ou les périodes manquantes dans les séries KPI de SAF.PA (Safran).
+
+Budget DUR : 110k tokens, 40 appels d'outils. Répertoire /Users/yann/spx-app.
+
+CONTEXTE
+SAF.PA est une sté européenne (CAC 40 .PA ou SMI 20 .SW). Ses documents IR sont dans
+`data-lake/SAF.PA/ir/` (URD = rapport annuel, S1 = semestriel, TRIM = trimestriel,
+CP = communiqué de résultats, PRES = présentation), chaque PDF ayant son `.txt.gz` à côté.
+Le fichier `.batches-drafts-safe/kpis-haut/SAF.PA.json` contient des séries dont le dernier
+point est H2-2025. Le watcher (`scripts/fr-doc-watcher.py`) a détecté des documents plus
+récents non encore intégrés :
+  - data-lake/SAF.PA/ir/RFS/SAF.PA_RFS_S12026_2026-08-05.pdf
+La page société de SAF.PA est donc en retard.
+
+DEVISE DE PUBLICATION : EUR (libellés "Mds EUR" / "M EUR").
+
+TÂCHE
+1. Lis les nouveaux documents ci-dessus via leur `.txt.gz`
+   (`gunzip -c data-lake/SAF.PA/ir/<TYPE>/<fichier>.txt.gz`). Identifie la période
+   exactement couverte (semestre, trimestre, exercice) et la date de clôture réelle.
+   Ne fais jamais confiance à un libellé de période trouvé tel quel : re-mappe par date.
+2. Si plusieurs périodes manquent entre H2-2025 et le document le plus récent, intègre-les
+   TOUTES en utilisant aussi les documents intermédiaires déjà présents dans
+   `data-lake/SAF.PA/ir/`.
+3. Pour chaque série existante du fichier, ajoute le ou les nouveaux points au format déjà
+   utilisé (`history: [{q, v}]`, libellés cohérents avec l'existant), puis recale `value`
+   sur le nouveau dernier point et recalcule `yoy` contre la MÊME période de l'année
+   précédente.
+4. Cumuls : les stés européennes publient massivement en cumul (S1, 9M, exercice). Dérive
+   la période par différence quand c'est légitime et marque le point `_derived`. Ne dérive
+   JAMAIS une grandeur non additive (BPA, marges, taux, effectifs, encours, ratios) :
+   pour celles-là, ne prends que la valeur publiée, sinon laisse un trou.
+5. Mets à jour le champ `signal` de chaque série prolongée s'il cite une période ou des
+   chiffres devenus faux. Un signal qui parle de la période précédente alors que la valeur
+   affichée est la nouvelle est une faute.
+6. Contrôles obligatoires avant d'écrire : somme des segments = CA consolidé de la nouvelle
+   période ; somme des zones géographiques = CA ; cohérence des marges ; ordre chronologique
+   des points ; aucune valeur aberrante par rapport à la série ; devise cohérente.
+7. Si le KPI hero de la fiche `src/data/v2-pipeline/<t minuscule>.json` est prolongé,
+   réinjecte la série hero complète dans la fiche (règle heroKpiUsable : le hero doit
+   pointer un KPI présent DANS la fiche, sinon la page se vide).
+
+FICHIERS TEMPORAIRES (obligatoire)
+Plusieurs agents tournent en parallèle et partagent le même scratchpad. TOUT fichier
+temporaire DOIT être préfixé par le ticker : `SAF.PA_extract.txt`, `SAF.PA_s1.json`, etc.
+Jamais de nom générique (tmp.json, out.txt) : un autre agent l'écraserait et tu extrairais
+les chiffres d'une AUTRE société sans t'en apercevoir.
+
+RÈGLES
+- Zéro invention. Verbatim des documents locaux uniquement. Si une série n'est pas couverte
+  par les nouveaux documents, ne l'invente pas et signale-la.
+- Ne télécharge rien : les documents sont déjà sur disque (le watcher s'en charge). Si un
+  document manque, signale-le, ne va pas le chercher avec un User-Agent de navigateur.
+- Ne touche à AUCUN autre ticker. Aucun commit git.
+- Un seul lint final : `npx tsx scripts/kpi-lint.ts --tickers=SAF.PA`, exiger 0 rouge.
+
+RETOUR STRICT, 10 lignes maximum :
+SAF.PA: N séries prolongées au <période>, M signaux mis à jour, lint: X rouges Y oranges
+Les 4 valeurs clés extraites (CA, résultat net, et 2 métriques propres à la sté).
+Résultat du contrôle somme segments = consolidé.
+Séries NON prolongées et pourquoi (verbatim de la source).
+Si le rafraîchissement est IMPOSSIBLE, écris en première ligne :
+SAF.PA: IMPOSSIBLE — <raison factuelle courte + verbatim>
