@@ -1,0 +1,56 @@
+Mission : extraction KPI exhaustive de __T__ (SOX 30, sté US cotée) selon la norme Mettrik.
+
+Budget DUR : 130k tokens, 50 appels d'outils. Répertoire /Users/yann/spx-app.
+
+SOURCES (exclusives)
+Uniquement `data-lake/__T__/` : dossiers 10K/, 10Q/, 8K/, DEF14A/ (et 20F/, 6K/ pour les
+ADR TSM et ASML). Fichiers .htm.gz : lire avec `gzip -dc <fichier> | sed 's/<[^>]*>/ /g'`
+(HTML brut, retirer les balises) ou via python. Aucune recherche web, aucun autre dossier,
+aucun autre ticker. Zéro invention : toute valeur est verbatim d'un document local ;
+non trouvable = absente.
+
+TÂCHE
+1. Inventorie les documents de `data-lake/__T__/` (ls par dossier). Les 8-K de résultats
+   contiennent les earnings releases trimestriels : c'est la meilleure source pour les
+   séries trimestrielles longues. Les 10-K pour l'annuel et les segments.
+2. Publie TOUS les KPI chiffrables dans `.batches-drafts-safe/kpis-haut/__T__.json` :
+   comptes consolidés, segments, zones géo, KPI opérationnels et sectoriels du semi
+   (wafer starts, capacité, noeuds technologiques, part par noeud, backlog, bookings,
+   book-to-bill, ASP, unités livrées, contenu par véhicule, design wins, redevances,
+   licences...), dividende, effectifs, rachats.
+   Format identique aux autres fichiers US du dossier (regarde NVDA.json ou AMD.json) :
+   `history: [{q, v}]`, `value`, `yoy`, `signal`, `unit` ("Mds $", "M$", "%", unités...),
+   libellés FR (name_fr) + name_en.
+3. Fréquence : trimestriel prioritaire (les stés US publient tout en trimestriel).
+   LIBELLES DE PERIODE OBLIGATOIRES (le loader filtre silencieusement tout autre format) :
+   annuel = `FY2025`, trimestriel = `Q1-2026` (trimestre CALENDAIRE, tiret). Exercices
+   fiscaux décalés (ex ASML non, mais MRVL/ARM oui) : mapper chaque trimestre fiscal sur
+   le trimestre calendaire de sa clôture, comme les autres stés US du dossier.
+   `frequency` = exactement `annual` ou `quarterly`. JAMAIS fabriquer une période.
+4. Historique 10 ans si publiable (2016 → dernier publié), 5 ans minimum. KPI <3 ans :
+   `is_short_history: true` + `story_category`.
+5. Hero : un KPI wow >=5 ans, `hero_kpi_rationale` renseigné.
+6. `yoy` = même période N-1. `value` = dernier point.
+7. Contrôles AVANT écriture : somme segments = consolidé ; somme zones = CA ; ordre
+   chronologique ; aucune valeur aberrante ; cohérence unités sur toute la série.
+8. Audit blocs (pour la Phase 3) : risques (Item 1A du 10-K ou 20-F Item 3.D),
+   gouvernance/rémunération (DEF 14A : comp CEO, say-on-pay, pay ratio ; ADR : 20-F),
+   actionnariat, IA, répartition CA. Pour chaque bloc, dire s'il est suffisamment
+   sourçable ou s'il doit être désactivé (avec la raison). NE PAS écrire les blocs.
+
+FICHIERS TEMPORAIRES (obligatoire)
+Tout fichier temporaire DOIT être préfixé par le ticker : `__T___extract.txt`.
+Jamais de nom générique : un autre agent l'écraserait.
+
+RÈGLES
+- Ne touche à AUCUN autre ticker. Aucun commit git.
+- User-Agent si jamais besoin (il ne devrait PAS y avoir de réseau) : interdit, tout est local.
+- Lint final unique : `npx tsx scripts/kpi-lint.ts --tickers=__T__`, exiger 0 rouge.
+
+RETOUR STRICT, 12 lignes maximum :
+__T__: N séries publiées (X trimestrielles, Y annuelles, Z stories), lint: R rouges O oranges
+Les 4 valeurs clés (CA, résultat net, 2 KPI propres à la sté) avec période et source exacte.
+Résultat du contrôle somme segments = consolidé.
+Blocs : pour chacun, SUFFISANT ou A DESACTIVER + raison.
+KPI vus dans les documents mais NON publiés + raison (doit être vide ou justifié).
+Si mission IMPOSSIBLE : première ligne "__T__: IMPOSSIBLE" + raison factuelle + verbatim.
