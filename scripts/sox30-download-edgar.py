@@ -73,6 +73,39 @@ def all_filings(cik):
             }
 
 
+def fetch_exhibits(t, cik, f, outdir, dry):
+    """8-K/6-K : les chiffres sont dans les exhibits EX-99.* (earnings releases),
+    pas dans le document principal. Récupère chaque exhibit 99."""
+    acc = f["accession"].replace("-", "")
+    n = 0
+    try:
+        idx = json.loads(get(f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{acc}/index.json"))
+    except Exception:
+        return 0
+    for item in idx.get("directory", {}).get("item", []):
+        name = item.get("name", "")
+        low = name.lower()
+        if not (("ex99" in low or "ex-99" in low or "exh99" in low or "99_1" in low or "99-1" in low)
+                and (low.endswith(".htm") or low.endswith(".html") or low.endswith(".txt"))):
+            continue
+        out = outdir / f"{t}_{f['date']}_{f['accession']}_{name}.gz"
+        if out.exists() and out.stat().st_size > 200:
+            continue
+        if dry:
+            n += 1
+            continue
+        try:
+            body = get(f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{acc}/{name}")
+        except Exception:
+            continue
+        outdir.mkdir(parents=True, exist_ok=True)
+        with gzip.open(out, "wb") as g:
+            g.write(body)
+        n += 1
+        time.sleep(0.15)
+    return n
+
+
 def run(tickers, dry):
     state = json.loads(STATE.read_text()) if STATE.exists() else {}
     for t, cik in tickers.items():
@@ -84,6 +117,8 @@ def run(tickers, dry):
             acc = f["accession"].replace("-", "")
             outdir = LAKE / t / typ
             out = outdir / f"{t}_{f['date']}_{f['accession']}.htm.gz"
+            if typ in ("8K", "6K"):
+                n_new += fetch_exhibits(t, cik, f, outdir, dry)
             if out.exists() and out.stat().st_size > 200:
                 n_have += 1
                 continue
