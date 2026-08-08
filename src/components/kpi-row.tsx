@@ -213,6 +213,14 @@ export function KpiRow({
           let periodLabel: string | null = null;
           if (Array.isArray(hp) && hp.length > 0) {
             const lastP = String(hp[hp.length - 1] ?? "").trim();
+            // Yann 9 août 2026 : labels annuels et semestriels aussi lus depuis
+            // history_periods (avant : seuls les "Qn YYYY" matchaient, les KPI
+            // FY/semestre retombaient sur last_data_date qui peut être une date
+            // de scrape → badge "FY2026" pour une valeur FY2025).
+            const mFy = lastP.match(/^(?:FY[\s-]*)?(\d{4})$/i);
+            if (mFy) periodLabel = `FY${mFy[1]}`;
+            const mH = lastP.match(/^[HS]([12])[\s-]*(\d{4})$/i);
+            if (!periodLabel && mH) periodLabel = `S${mH[1]} ${mH[2]}`;
             const m = lastP.match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/);
             if (m) {
               // Yann 16 juil 2026 : conversion trimestre fiscal → calendaire
@@ -301,7 +309,7 @@ export function KpiRow({
             // recalcul trimestriel prioritaire déjà posé
           } else if (typeof kpi.yoy === "number" && Number.isFinite(kpi.yoy)) {
             const sign = kpi.yoy > 0 ? "+" : "";
-            yoyStr = `${sign}${String(kpi.yoy).replace(".", ",")}%`;
+            yoyStr = `${sign}${String(kpi.yoy).replace(".", ",")} %`;
           } else if (typeof kpi.yoy === "string" && kpi.yoy.trim()) {
             if (kpi.yoy.toLowerCase() === "n/a") return null;
             // Yann 16 mai 2026 : normalise format point décimal US (data brut

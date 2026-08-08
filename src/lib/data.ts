@@ -706,7 +706,7 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
   // Cause n°1 des violations : "M$" (sans espace), "K $", "B$", "millions"...
   // échappaient au ladder -> "4 483 M$" au lieu de "4,48 Mds $".
   const RAW_UNIT_NORMALIZE: Record<string, string> = {
-    "M$": "M $", "M USD": "M $", "MUSD": "M $", "millions": "M $", "Millions": "M $",
+    "M$": "M $", "M USD": "M $", "MUSD": "M $", "millions": "M", "Millions": "M",
     "millions $": "M $", "M dollars": "M $",
     "K$": "K $", "$K": "K $", "K USD": "K $", "KUSD": "K $", "milliers $": "K $",
     "B$": "Mds $", "$B": "Mds $", "B USD": "Mds $", "BUSD": "Mds $",
@@ -913,6 +913,11 @@ export function formatCAGR(
 ): string | null {
   const c = cagr(history, unit, period_type);
   if (c === null) return null;
+  // Yann 9 août 2026 : pas de CAGR annualisé sous 1 an de données (SU.PA
+  // affichait "+26,1 % / an (CAGR 0,8 an)" sur 3 trimestres saisonniers).
+  const spanYears =
+    (history.length - 1) / (period_type === "quarter" ? 4 : period_type === "semester" ? 2 : 1);
+  if (spanYears < 1) return null;
   const sign = c > 0 ? "+" : "";
   // Yann 15 mai 2026 : suffix "/ an" traduit selon la langue. Default = FR
   // pour rétro-compat avec les callsites non encore migrés.

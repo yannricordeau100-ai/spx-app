@@ -152,7 +152,7 @@ function normalizeCategory(raw: string | undefined | null): RiskCategory {
   if (/cyber|donnees|data privacy|securite informatique/.test(c)) return "cyber";
   if (/capital|credit|financ|liquidit|taux|change|dette|actuari/.test(c)) return "financial";
   if (/techno|innovation|obsolescence|ia\b|ai\b/.test(c)) return "technology";
-  if (/geopoli|macro|marche\b|climat|environnement|reputation|pandemi|sanitaire|esg/.test(c)) return "macro";
+  if (/geopoli|macro|marche\b|market\b|climat|environnement|reputation|pandemi|sanitaire|esg/.test(c)) return "macro";
   return "operational";
 }
 

@@ -93,7 +93,7 @@ export const SECTOR_STRINGS = {
   // 2. R&D Pipeline Efficiency
   name_rdpip: {
     en: "R&D Pipeline Efficiency",
-    fr: "Efficacite R&D x pipeline",
+    fr: "Efficacité R&D x pipeline",
   },
   rdpip_formula: {
     en: "(R&D / Revenue %) x (Pipeline count / 10)",
@@ -105,19 +105,19 @@ export const SECTOR_STRINGS = {
   },
   rdpip_interp_premium: {
     en: "Premium R&D engine. The company combines high R&D intensity and a dense Phase 3 pipeline: structural innovation pump driving future revenue.",
-    fr: "Moteur R&D premium. La societe combine une forte intensite R&D et un pipeline Phase 3 dense : pompe d'innovation structurelle qui alimente les revenus futurs.",
+    fr: "Moteur R&D premium. La société combine une forte intensité R&D et un pipeline Phase 3 dense : pompe d'innovation structurelle qui alimente les revenus futurs.",
   },
   rdpip_interp_solid: {
     en: "Solid R&D / pipeline combination. The company invests significantly and has visible pipeline depth: capacity to renew the portfolio confirmed.",
-    fr: "Combinaison R&D / pipeline solide. La societe investit significativement et dispose d'une profondeur pipeline visible : capacite a renouveler le portefeuille confirmee.",
+    fr: "Combinaison R&D / pipeline solide. La société investit significativement et dispose d'une profondeur pipeline visible : capacité à renouveler le portefeuille confirmée.",
   },
   rdpip_interp_average: {
     en: "Average R&D efficiency. Either R&D intensity is moderate, or the pipeline is light: classic Big Pharma profile to compare to peers.",
-    fr: "Efficacite R&D moyenne. Soit l'intensite R&D est moderee, soit le pipeline est leger : profil classique Big Pharma a comparer aux pairs.",
+    fr: "Efficacité R&D moyenne. Soit l'intensité R&D est modérée, soit le pipeline est léger : profil classique Big Pharma à comparer aux pairs.",
   },
   rdpip_interp_below: {
     en: "Low R&D / pipeline efficiency. Combination of low R&D intensity and thin pipeline: trajectory exposed to patent cliffs without identified successors.",
-    fr: "Efficacite R&D / pipeline faible. Combinaison d'une faible intensite R&D et d'un pipeline mince : trajectoire exposee aux patent cliffs sans relais identifies.",
+    fr: "Efficacité R&D / pipeline faible. Combinaison d'une faible intensité R&D et d'un pipeline mince : trajectoire exposée aux patent cliffs sans relais identifiés.",
   },
   rdpip_input_rd:    { en: "R&D",            fr: "R&D" },
   rdpip_input_rev:   { en: "Revenue",        fr: "Revenue" },

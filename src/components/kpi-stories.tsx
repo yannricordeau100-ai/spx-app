@@ -315,7 +315,7 @@ function StoryFrame({
             // Yann 9 août 2026 : plus de fallback "Story" (doublon avec le
             // compteur "N/M · Story" du header). Sans catégorie → pas de chip.
             const cat = slide.kind === "kpi"
-              ? (slide.data.story_category || "")
+              ? ((slide.data.story_category && slide.data.story_category !== "Story") ? slide.data.story_category : "")
               : "Marché";
             if (!cat) return null;
             return (
