@@ -112,8 +112,18 @@ sont peut-être entrés.
    Ajouter l'entrée v1-7-public.json si la page 404 (gate de routage, cf process
    SMI : entrée minimale suffit). disabled-blocks-per-ste.json : events à
    désactiver si pas d'events curatés.
-5. KPI sites web + Stories : suivre `.conv-state/process-ajout-kpi-sites-stes.md`
-   pour les ~12 nouvelles stés (sites US : nvidia.com etc. rarement bloqués).
+5. KPI sites web + Stories (TÂCHE FINALE OBLIGATOIRE, demande Yann 6 août) :
+   suivre `.conv-state/process-ajout-kpi-sites-stes.md` À L'IDENTIQUE pour
+   **LES 30 stés du SOX**, pas seulement les 12 nouvelles : les 18 déjà dans le
+   SP500 (NVDA, AVGO, AMD, QCOM, TXN, INTC, MU, ADI, AMAT, LRCX, KLAC, NXPI,
+   MCHP, ON, MPWR, SWKS, TER, COHR) n'ont JAMAIS eu de prospection web, leurs
+   stories actuelles viennent uniquement des documents financiers. Le process :
+   lecture + extraction de tous les KPI des sites (partie classique + IR, agents
+   Sonnet, template `.conv-state/web-kpi-template-v2.txt`), comparaison avec les
+   stories existantes de `.batches-drafts-safe/kpis-haut/<T>.json` (dédup), puis
+   injection des non-présents, lint, deploy, vérif par <title> + grep d'un
+   nouveau KPI. Tableau de synthèse à livrer à Yann (mêmes colonnes que le
+   rapport CAC 40/SMI : Société | KPI | Nouveaux | Pages | Particularité).
 6. Chaîne de livraison (chaque jalon) : kpi-lint 0 rouge → commit --no-verify →
    push staging → `vercel deploy --target=staging --yes --archive=tgz` →
    `vercel alias set <url> mettrik-niveau2.vercel.app` (+ mettrik-staging) →
