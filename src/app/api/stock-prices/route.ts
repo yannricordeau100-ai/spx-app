@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import YahooFinance from "yahoo-finance2";
+import SHARES_OUTSTANDING from "@/data/shares-outstanding.json";
 
 /**
  * GET /api/stock-prices?symbols=META,GOOGL,MSCI,SPGI,CAT
@@ -76,10 +77,21 @@ async function fetchBatch(symbols: string[]): Promise<PriceItem[]> {
         const mc = qs.price?.marketCap;
         if (typeof mc === "number" && mc > 0) it.marketCap = mc;
       } catch {
-        // on laisse null : le front affiche "—", jamais 0
+        // on laisse null : le filet 3 ci-dessous prend le relais
       }
     }),
   );
+  // 3e filet : quoteSummary est bloqué depuis les IP Vercel (vérifié en prod,
+  // MU restait null). Titres en circulation snapshotés en local
+  // (src/data/shares-outstanding.json, généré via yfinance sur le Mac) :
+  // cap = prix live x titres. Précision suffisante pour le bandeau.
+  const SO = SHARES_OUTSTANDING as Record<string, { sharesOutstanding: number }>;
+  for (const it of items) {
+    if (it.marketCap == null && it.price != null) {
+      const so = SO[it.symbol]?.sharesOutstanding;
+      if (typeof so === "number" && so > 0) it.marketCap = it.price * so;
+    }
+  }
   return items;
 }
 
