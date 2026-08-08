@@ -602,6 +602,18 @@ export function formatUnit(unit: string): string {
   // US au lieu du FR). Tout "B <suffixe>" → "Mds <suffixe>".
   const bMatch = u.match(/^B\s+(.+)$/);
   if (bMatch) return `Mds ${bMatch[1]}`;
+  // Yann 9 août 2026 : variantes symbole-en-tête "€B" / "£B" / "€M" (le hero
+  // MC.PA affichait "8,9 €B" pendant que l'axe disait "Mds €") + "CHF B/M".
+  const symFirst = u.match(/^([€£¥])\s*([BMK])$/);
+  if (symFirst) {
+    const scale = symFirst[2] === "B" ? "Mds" : symFirst[2];
+    return `${scale} ${symFirst[1]}`;
+  }
+  const chfMatch = u.match(/^CHF\s*([BMK])$/i);
+  if (chfMatch) {
+    const scale = chfMatch[1].toUpperCase() === "B" ? "Mds" : chfMatch[1].toUpperCase();
+    return `${scale} CHF`;
+  }
   const mMatch = u.match(/^M\s+([€£¥$])$/);
   if (mMatch) return `M ${mMatch[1]}`;
   // Pass-through "Mds CHF" / "Mds JPY" / etc — déjà formatées correctement
@@ -1175,7 +1187,12 @@ export function interpretStructured(
       }
     }
   }
-  const heroYoy = quarterlyLeadYoy ?? ((typeof hero.yoy === "string" && hero.yoy.trim()) ? hero.yoy : computedYoy);
+  // Yann 9 août 2026 : le yoy stocké arrive parfois en décimale anglaise
+  // ("+16.7 %" sur 518 tickers) : normalisation virgule FR à l'affichage,
+  // même règle que kpi-row.
+  const normDec = (s: string): string =>
+    numLocale(locale).startsWith("fr") ? s.replace(/(\d)\.(\d)/g, "$1,$2") : s;
+  const heroYoy = quarterlyLeadYoy ?? ((typeof hero.yoy === "string" && hero.yoy.trim()) ? normDec(hero.yoy) : computedYoy);
   // Trend : valeurs rescalées pour les comparaisons.
   const scaledHist = histNums.map((v) => v * scaleFactor);
   const cagrPct = scaledHist.length >= 2 ? cagr(scaledHist, scaledUnit, hero.period_type ?? "year") : null;
@@ -1204,12 +1221,16 @@ export function interpretStructured(
   // Yann 15 mai 2026 : la `signal` est en FR côté data (chantier CONV-DATA
   // pour traduction batch). On ne l'inclut que si elle apporte une info
   // chiffrée distinctive, indépendamment de la locale UI.
-  const heroSignalLow = typeof hero.signal === "string" ? hero.signal.toLowerCase() : "";
+  // Yann 9 août 2026 : la copie minuscule ne sert QU'AU test de pertinence.
+  // L'affichage repasse par le signal original (le "Détail : dram revenue…
+  // t1 fy2027" tout en minuscules venait d'ici).
+  const heroSignalRaw = typeof hero.signal === "string" ? hero.signal.trim() : "";
+  const heroSignalLow = heroSignalRaw.toLowerCase();
   const nameNorm = (hero.name_fr ?? "").toLowerCase();
-  const signalAddsValue = heroSignalLow.trim().length > 0
+  const signalAddsValue = heroSignalLow.length > 0
     && !nameNorm.split(/\s+/).every((w) => heroSignalLow.includes(w))
     && /\d/.test(heroSignalLow);
-  const tailSignal = signalAddsValue ? detailPrefix(locale, heroSignalLow) : "";
+  const tailSignal = signalAddsValue ? detailPrefix(locale, heroSignalRaw) : "";
   // Yann 27 mai 2026 : nom KPI selon locale (avant : hardcoded name_fr → texte FR mixed sur page EN).
   const kpiName = (k: { name_fr: string; name_en?: string; name_de?: string }): string => {
     if (locale === "en" || locale === "en-GB") return k.name_en || k.name_fr;
@@ -1235,26 +1256,42 @@ export function interpretStructured(
     if (!Number.isFinite(n)) return String(v);
     return n.toLocaleString(numLocale(locale), { maximumFractionDigits: 3 });
   };
+  // Yann 9 août 2026 : ladder magnitude des bullets. "678 000 M $" devient
+  // "678 Mds $" (règle R1 : chiffre affiché entre 1 et 999).
+  const ladder = (v: unknown, unit: string): { val: string; unit: string } => {
+    const n = typeof v === "number" ? v : parseFloat(String(v ?? "").replace(/,/g, ""));
+    const u = formatUnit(unit);
+    if (Number.isFinite(n) && Math.abs(n) >= 1000) {
+      const m = u.match(/^M\s+(.+)$/);
+      if (m) {
+        return {
+          val: (n / 1000).toLocaleString(numLocale(locale), { maximumFractionDigits: 1 }),
+          unit: `Mds ${m[1]}`,
+        };
+      }
+    }
+    return { val: fmtVal(v), unit: u };
+  };
   const bullets: InterpretBullet[] = [];
   if (driver && driver.short !== hero.short) {
     const driverDeclines = typeof driver.yoy === "string" && driver.yoy.trim().startsWith("-");
     bullets.push({
       label: bulletLabel(locale, driverDeclines ? "driver_declining" : "driver"),
-      body: bulletBodyKpi(locale, kpiName(driver), fmtVal(driver.value), formatUnit(driver.unit), String(driver.yoy ?? ""), driver.signal ?? ""),
+      body: (() => { const l = ladder(driver.value, driver.unit); return bulletBodyKpi(locale, kpiName(driver), l.val, l.unit, String(driver.yoy ?? ""), driver.signal ?? ""); })(),
       tone: driverDeclines ? "neg" : "pos",
     });
   }
   if (risk) {
     bullets.push({
       label: bulletLabel(locale, riskLabelKey),
-      body: bulletBodyKpi(locale, kpiName(risk), fmtVal(risk.value), formatUnit(risk.unit), String(risk.yoy ?? ""), risk.signal ?? ""),
+      body: (() => { const l = ladder(risk.value, risk.unit); return bulletBodyKpi(locale, kpiName(risk), l.val, l.unit, String(risk.yoy ?? ""), risk.signal ?? ""); })(),
       tone: "neg",
     });
   }
   if (cash && cash.short !== hero.short) {
     bullets.push({
       label: bulletLabel(locale, "cash"),
-      body: bulletBodyKpi(locale, kpiName(cash), fmtVal(cash.value), formatUnit(cash.unit), String(cash.yoy ?? ""), cash.signal ?? ""),
+      body: (() => { const l = ladder(cash.value, cash.unit); return bulletBodyKpi(locale, kpiName(cash), l.val, l.unit, String(cash.yoy ?? ""), cash.signal ?? ""); })(),
       tone: "neutral",
     });
   }
@@ -1286,7 +1323,7 @@ export function interpretStructured(
         isCash ? "cash" : isRisk ? "risk" : isNeg ? "driver_declining" : "driver";
       bullets.push({
         label: bulletLabel(locale, labelKey),
-        body: bulletBodyKpi(locale, kpiName(k), fmtVal(k.value), formatUnit(k.unit), String(k.yoy ?? ""), k.signal ?? ""),
+        body: (() => { const l = ladder(k.value, k.unit); return bulletBodyKpi(locale, kpiName(k), l.val, l.unit, String(k.yoy ?? ""), k.signal ?? ""); })(),
         tone,
       });
     }

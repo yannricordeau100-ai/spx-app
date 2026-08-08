@@ -99,13 +99,13 @@ export async function generateMetadata({
   const pending = getDataPendingMeta(ticker);
   if (pending)
     return {
-      title: `${pending.name} · Analyse en préparation · Mettrik AI`,
+      title: `${pending.name} · Analyse en préparation`,
       robots: { index: false, follow: false },
     };
   const r = await loadV17Company(ticker, { mode: "v18" });
-  if (r.kind === "missing") return { title: "Page introuvable · Mettrik AI" };
+  if (r.kind === "missing") return { title: "Page introuvable" };
   return {
-    title: `${r.company.name} (${r.company.ticker}) · V1.9.5 · Mettrik AI`,
+    title: `${r.company.name} (${r.company.ticker}) · V1.9.5`,
     robots: { index: false, follow: false },
   };
 }

@@ -105,10 +105,21 @@ function useLivePrice(ticker: string): LivePrice {
   return data;
 }
 
-function fmtMarketCap(mc: number, locale: Locale = "fr"): string {
+/** Yann 9 août 2026 : devise déduite du suffixe ticker (.PA cote en €,
+ *  .SW en CHF, reste de l'univers en $). Le "$" codé en dur affichait
+ *  "Mds $" et un prix en $ sur LVMH et les stés suisses. */
+function currencySymbolForTicker(ticker: string): string {
+  const t = ticker.toUpperCase();
+  if (t.endsWith(".PA")) return "€";
+  if (t.endsWith(".SW")) return "CHF";
+  return "$";
+}
+
+function fmtMarketCap(mc: number, locale: Locale = "fr", cur = "$"): string {
   const tag = locale === "fr" ? "fr-FR" : "en-US";
   const rounded = Math.round(mc).toLocaleString(tag);
-  return locale === "fr" ? `${rounded} Mds $` : `$${rounded}B`;
+  if (locale === "fr") return `${rounded} Mds ${cur}`;
+  return cur === "$" ? `$${rounded}B` : `${rounded}B ${cur}`;
 }
 
 const GREEN_PURE = "#22c55e";
@@ -121,6 +132,7 @@ const RED_LIGHT = "#fecaca";
 export function StockPriceBlock({ company, freeBlocked = false }: { company: Company; freeBlocked?: boolean }) {
   const { t, locale } = useT();
   const live = useLivePrice(company.ticker);
+  const curSym = currencySymbolForTicker(company.ticker);
   const s = {
     price: live.price,
     deltaPct: live.deltaPct,
@@ -216,9 +228,9 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
             {live.loading
               ? placeholder
               : freeBlocked
-                ? <BlurredFreeValue value="0" suffix=" Mds $" ticker={company.ticker} />
+                ? <BlurredFreeValue value="0" suffix={` Mds ${curSym}`} ticker={company.ticker} />
                 : s.marketCap >= 0.5
-                  ? fmtMarketCap(s.marketCap, locale)
+                  ? fmtMarketCap(s.marketCap, locale, curSym)
                   : placeholder}
           </span>
         </div>
@@ -268,7 +280,7 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
                   fontWeight: 300,
                 }}
               >
-                $
+                {curSym}
               </span>
             </span>
           </div>

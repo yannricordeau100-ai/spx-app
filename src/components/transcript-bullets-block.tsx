@@ -275,6 +275,18 @@ function sentimentChip(sentiment: "bullish" | "neutral" | "cautious" | undefined
   );
 }
 
+/** Yann 9 août 2026 : les data portent des périodes au format anglais brut
+ *  ("2026Q1", "Q1 2026", "Q1-2026") : affichage FR "T1 2026" partout. */
+function frQuarterLabel(raw: string | undefined | null): string | null {
+  if (!raw) return null;
+  const s = String(raw).trim();
+  let m = s.match(/^(\d{4})[\s-]*Q([1-4])$/i);
+  if (m) return `T${m[2]} ${m[1]}`;
+  m = s.match(/^Q([1-4])[\s-]*(\d{4})$/i);
+  if (m) return `T${m[1]} ${m[2]}`;
+  return s;
+}
+
 export function TranscriptBulletsBlock({
   ticker,
   summary,
@@ -310,7 +322,7 @@ export function TranscriptBulletsBlock({
           {sentimentChip(sentiment, t)}
           {(quarterLabel || summary.quarter) && (
             <span className="font-mono text-[12px] uppercase tracking-wider text-zinc-400">
-              {quarterLabel ?? summary.quarter}
+              {frQuarterLabel(quarterLabel ?? summary.quarter)}
             </span>
           )}
         </div>
@@ -365,7 +377,7 @@ export function TranscriptBulletsBlock({
             </div>
             {summary.comparison.prev_quarter && (
               <span className="font-mono text-[12px] uppercase tracking-wider text-zinc-500">
-                vs {summary.comparison.prev_quarter}
+                vs {frQuarterLabel(summary.comparison.prev_quarter)}
               </span>
             )}
           </div>

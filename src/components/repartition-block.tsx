@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { Globe2, LayoutGrid, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import type { Company, RevenueBreakdown } from "@/lib/data";
 import { brand } from "@/lib/brand";
@@ -268,12 +268,14 @@ export function RepartitionBlock({
           </button>
         )}
 
-        <AnimatePresence mode="wait">
-          <motion.div
+        {/* Yann 9 août 2026 : AnimatePresence mode="wait" gelait le panneau
+            (l'exit ne se terminait jamais → le nouvel onglet ne montait pas,
+            la vue restait sur Géographique avec Segment sélectionné).
+            Animation d'entrée seule, remount par key. */}
+        <motion.div
             key={tab}
             initial={{ opacity: 0, x: 12 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -12 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className="flex h-[560px] flex-col overflow-hidden rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 sm:p-5"
           >
@@ -285,7 +287,6 @@ export function RepartitionBlock({
               <RepartitionTreemap data={active.slices} unit={unitFallback} total={active.total} accent={accent} decimals={decimals} />
             )}
           </motion.div>
-        </AnimatePresence>
 
         {activeStyles.length > 1 && (
           <button

@@ -236,7 +236,10 @@ export function trendSignalByCategory(locale: InterpLocale, cat: TrendCategory):
 
 /* ───────────────────────── DETAIL PREFIX ───────────────────────── */
 
-export function detailPrefix(locale: InterpLocale, signal: string): string {
+export function detailPrefix(locale: InterpLocale, signalRaw: string): string {
+  // Yann 9 août 2026 : normalise le point final (signaux finissant deja par
+  // "." produisaient "(2025).." dans le lead).
+  const signal = `${signalRaw.trim().replace(/\.+$/, "")}.`;
   switch (locale) {
     case "en":
     case "en-GB":
@@ -336,7 +339,10 @@ export function bulletBodyKpi(
 ): string {
   const valuePart = `<strong>${kpiName}</strong>`;
   const numPart = `${value} ${unit}`;
-  const signalSafe = signal && signal.trim() ? ` ${signal}.` : "";
+  // Yann 9 août 2026 : strip du point final du signal avant d'en rajouter un
+  // (la plupart des signaux se terminent déjà par "." → rendu "..").
+  const signalTrimmed = signal && signal.trim() ? signal.trim().replace(/\.+$/, "") : "";
+  const signalSafe = signalTrimmed ? ` ${signalTrimmed}.` : "";
   // YoY absent → pas de parenthèses vides "()" dans le bullet (audit 14 juil).
   const yoySafe = yoy && yoy.trim() && yoy.trim() !== "null" ? yoy.trim() : "";
   const paren = (txt: string) => (yoySafe ? ` (${txt})` : "");

@@ -493,7 +493,9 @@ export function GovernanceCard({
         </p>
       ),
     }] : []),
-    ...(g.board_women_pct !== undefined
+    // Yann 9 août 2026 : null aussi exclu (affichait "— %" au lieu de
+    // masquer la ligne quand la donnée n'est pas sourcée).
+    ...(g.board_women_pct != null
       ? [
           {
             Icon: Users,

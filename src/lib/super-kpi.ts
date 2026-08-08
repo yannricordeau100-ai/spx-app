@@ -21,6 +21,7 @@
  */
 
 import type { Company, KPI } from "@/lib/data";
+import { formatUnit } from "@/lib/data";
 import type { Locale } from "@/lib/i18n/types";
 
 export type SuperKpiTier = "premium" | "solid" | "average" | "below" | "na";
@@ -153,7 +154,7 @@ const STR = {
   },
   conc_interp_low: {
     en: "Healthy diversification. No single segment weighs more than a third of revenue, so an isolated downturn won't push the company into recession.",
-    fr: "Diversification saine. Aucun segment ne pèse plus du tiers du Revenue, donc un retournement isolé n'enverra pas la sté en récession.",
+    fr: "Diversification saine. Aucun segment ne pèse plus du tiers du CA, donc un retournement isolé n'enverra pas la sté en récession.",
   },
   // Templated narratives (used with replace())
   conc_interp_mid: {
@@ -228,16 +229,16 @@ const STR = {
     en: "Several dimensions are below the threshold. Defensive or transformative profile, to analyze with a sector lens.",
     fr: "Plusieurs dimensions sont sous le seuil. Profil défensif ou en transformation, à analyser avec un regard sectoriel.",
   },
-  ppi_input_r40:    { en: "Rule of 40", fr: "Rule of 40" },
+  ppi_input_r40:    { en: "Rule of 40", fr: "Règle des 40" },
   ppi_input_margin: { en: "Margin",     fr: "Marge" },
   ppi_input_conc:   { en: "Concentration", fr: "Concentration" },
   ppi_input_trend:  { en: "Margin trend", fr: "Tendance marge" },
 
   // Names
-  name_rule40: { en: "Rule of 40", fr: "Rule of 40" },
-  name_qoc: { en: "Quality of Compounding", fr: "Quality of Compounding" },
-  name_conc: { en: "Concentration Risk", fr: "Concentration Risk" },
-  name_capint: { en: "Capital Intensity", fr: "Capital Intensity" },
+  name_rule40: { en: "Rule of 40", fr: "Règle des 40" },
+  name_qoc: { en: "Quality of Compounding", fr: "Qualité de croissance composée" },
+  name_conc: { en: "Concentration Risk", fr: "Risque de concentration" },
+  name_capint: { en: "Capital Intensity", fr: "Intensité capitalistique" },
   name_ppi: { en: "Mettrik Profit Power Index", fr: "Mettrik Profit Power Index" },
 
   // Sector KPIs — names & narratives
@@ -258,7 +259,7 @@ const STR = {
   },
   tac_interp: {
     en: "Share of revenue paid to distribution partners (Apple Safari, Mozilla, third-party Android carriers). Structural topic followed by all internet sell-side, especially since the DOJ vs Google antitrust trial threatens the Apple deal.",
-    fr: "Part du Revenue versée aux partenaires de distribution (Apple Safari, Mozilla, opérateurs Android tiers). Sujet structurant suivi par toute la sell-side internet, surtout depuis le procès antitrust DOJ vs Google qui menace l'accord Apple.",
+    fr: "Part du CA versée aux partenaires de distribution (Apple Safari, Mozilla, opérateurs Android tiers). Sujet structurant suivi par toute la sell-side internet, surtout depuis le procès antitrust DOJ vs Google qui menace l'accord Apple.",
   },
 
   name_cloud_capex: { en: "Cloud per Capex Dollar", fr: "Cloud per Capex Dollar" },
@@ -428,11 +429,11 @@ const STR = {
   },
 
   // Inputs labels
-  in_top_segment: { en: "Top segment", fr: "Top segment" },
+  in_top_segment: { en: "Top segment", fr: "Segment principal" },
   in_total_revenue: { en: "Total revenue", fr: "Revenue total" },
-  in_revenue_yoy: { en: "Revenue YoY", fr: "Revenue YoY" },
+  in_revenue_yoy: { en: "Revenue YoY", fr: "CA vs N-1" },
   in_margin: { en: "Margin", fr: "Marge" },
-  in_cagr_5y: { en: "5y CAGR", fr: "CAGR 5y" },
+  in_cagr_5y: { en: "5y CAGR", fr: "CAGR 5 ans" },
   in_loss: { en: "RL Losses", fr: "Pertes RL" },
 } as const;
 
@@ -660,9 +661,22 @@ function clampSharePct(pct: number | null): number | null {
   return Math.min(100, pct); // 100-120 % = bruit → clamp à 100
 }
 
-/** CAGR sur n ans depuis history (n+1 points) — retourne une fraction (0.124 = 12.4%) */
-function cagr(history: number[]): number | null {
+/** CAGR sur n ans depuis history (n+1 points) — retourne une fraction (0.124 = 12.4%).
+ *  Yann 9 août 2026 : les history sont majoritairement TRIMESTRIELS ; l'ancien
+ *  calcul comptait chaque point comme un AN (GOOGL affichait CAGR 5y 3,7 % au
+ *  lieu de 15,9 %). Le pas annuel est dérivé de period_type ("quarter" = 4
+ *  points/an, "semester" = 2, sinon 1) et le YoY se compare même-période. */
+function cagr(history: number[], periodType?: string): number | null {
   if (!history || history.length < 2) return null;
+  const perYear = periodType === "quarter" ? 4 : periodType === "semester" ? 2 : 1;
+  if (perYear > 1 && history.length > perYear) {
+    // Compare même période N vs N-k années (multiple entier de perYear).
+    const last = history[history.length - 1];
+    const backSteps = Math.floor((history.length - 1) / perYear) * perYear;
+    const first = history[history.length - 1 - backSteps];
+    if (first <= 0 || last <= 0) return null;
+    return Math.pow(last / first, perYear / backSteps) - 1;
+  }
   const first = history[0];
   const last = history[history.length - 1];
   if (first <= 0 || last <= 0) return null;
@@ -692,6 +706,21 @@ function yoyFromHistory(history: number[], periodType?: string): number | null {
   const last = history[history.length - 1];
   if (!prev) return null;
   return ((last - prev) / Math.abs(prev)) * 100;
+}
+
+/** Variation même-période d'une grandeur DÉJÀ en % (marge) : différence en
+ *  POINTS, pas variation relative. Yann 9 août 2026 : la tendance marge
+ *  affichait "+6,3 bps" (variation relative mal étiquetée) au lieu de
+ *  +160 bps réels (34,0 % vs 32,4 %). */
+function pointDiffFromHistory(history: number[], periodType?: string): number | null {
+  if (!history || history.length < 2) return null;
+  const step = periodType === "quarter" ? 4 : periodType === "semester" ? 2 : 1;
+  const idx = history.length - 1 - step;
+  if (idx < 0) return null;
+  const prev = history[idx];
+  const last = history[history.length - 1];
+  if (typeof prev !== "number" || typeof last !== "number") return null;
+  return last - prev;
 }
 
 /** Trouve le segment de revenu le plus important parmi une liste de KPI shorts. */
@@ -797,7 +826,7 @@ function ruleOf40(c: Company, locale: Locale): SuperKpi {
 function qualityOfCompounding(c: Company, locale: Locale): SuperKpi {
   const rev = findRevenueKpi(c);
   const margin = findMarginKpi(c);
-  const cagr5y = rev ? cagr(rev.history) : null;
+  const cagr5y = rev ? cagr(rev.history, rev.period_type) : null;
   let marginV = margin ? num(margin.value) : null;
   if (marginV === null) {
     const computed = computeOperatingMargin(c);
@@ -937,7 +966,7 @@ function concentrationRisk(c: Company, locale: Locale): SuperKpi {
     color: TIER_COLOR[tier],
     tierLabel: pickLoc(concLabel, locale),
     gaugePct: gauge,
-    inputs: [`${tr("in_top_segment", locale)} : ${top.name}`, `${fmt(pct, 1)} % du Revenue`],
+    inputs: [`${tr("in_top_segment", locale)} : ${top.name}`, `${fmt(pct, 1)} % du CA`],
     formula: tr("conc_formula", locale),
     benchmark: tr("conc_benchmark", locale),
     interpretation:
@@ -1012,7 +1041,12 @@ function capitalIntensity(c: Company, locale: Locale): SuperKpi {
     color: TIER_COLOR[tier],
     tierLabel: label,
     gaugePct: gauge,
-    inputs: [`Capex ${fmt(capexV, 1)}`, `Revenue ${fmt(revV, 1)}`],
+    // Yann 9 août 2026 : nombres formatés avec séparateurs + unité du KPI
+    // source (avant : "Capex 1757,0 / Revenue 81615,0" bruts sans unité).
+    inputs: [
+      `Capex ${(capexV as number).toLocaleString(locale === "fr" ? "fr-FR" : "en-US", { maximumFractionDigits: 0 })}${capex?.unit ? ` ${formatUnit(capex.unit)}` : ""}`,
+      `${locale === "fr" ? "CA" : "Revenue"} ${(revV as number).toLocaleString(locale === "fr" ? "fr-FR" : "en-US", { maximumFractionDigits: 0 })}${rev?.unit ? ` ${formatUnit(rev.unit)}` : ""}`,
+    ],
     formula: tr("cap_formula", locale),
     benchmark: tr("cap_benchmark", locale),
     interpretation: interp,
@@ -1027,13 +1061,13 @@ function profitPowerIndex(c: Company, locale: Locale): SuperKpi {
   const conc = concentrationRisk(c, locale);
   const margin = findMarginKpi(c);
   let marginV = margin ? num(margin.value) : null;
-  let marginTrend = margin ? yoyFromHistory(margin.history, margin.period_type) : null;
+  let marginTrend = margin ? pointDiffFromHistory(margin.history, margin.period_type) : null;
   // Fallback : margin computed from Op Income / Revenue
   if (marginV === null || marginTrend === null) {
     const computed = computeOperatingMargin(c);
     if (computed) {
       if (marginV === null) marginV = computed.value;
-      if (marginTrend === null) marginTrend = yoyFromHistory(computed.history, computed.period_type);
+      if (marginTrend === null) marginTrend = pointDiffFromHistory(computed.history, computed.period_type);
     }
   }
 
@@ -1125,7 +1159,7 @@ function profitPowerIndex(c: Company, locale: Locale): SuperKpi {
     inputsList.push(`${tr("ppi_input_conc", locale)} : ${fmt(conc.value as number, 1)} %`);
   if (trendAvailable) {
     const t = marginTrend as number;
-    inputsList.push(`${tr("ppi_input_trend", locale)} : ${t >= 0 ? "+" : ""}${fmt(t, 1)} bps YoY`);
+    inputsList.push(`${tr("ppi_input_trend", locale)} : ${t >= 0 ? "+" : ""}${fmt(t * 100, 0)} bps ${locale === "fr" ? "vs N-1" : "YoY"}`);
   }
   // Note de confiance si calcul partiel
   if (confidence !== "high") {

@@ -312,9 +312,12 @@ function StoryFrame({
               déplacé du coin haut-droit de la carte vers ICI, juste
               au-dessus de la barre de temps. */}
           {(() => {
+            // Yann 9 août 2026 : plus de fallback "Story" (doublon avec le
+            // compteur "N/M · Story" du header). Sans catégorie → pas de chip.
             const cat = slide.kind === "kpi"
-              ? (slide.data.story_category || "Story")
+              ? (slide.data.story_category || "")
               : "Marché";
+            if (!cat) return null;
             return (
               <div
                 className="absolute left-3 top-[13px] z-20 inline-flex items-center rounded-full border px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.14em] opacity-80"
