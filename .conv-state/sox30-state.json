@@ -90,14 +90,16 @@
   "ENTG",
   "LSCC",
   "QRVO",
-  "RMBS"
+  "RMBS",
+  "TSM",
+  "GFS"
  ],
  "p3_done": [],
  "web_kpi_done": [],
  "integres": [],
  "in_progress": [
-  "P2:TSM",
-  "P2:GFS"
+  "P2:MRVL",
+  "P2:ARM"
  ],
  "blocs_desactives": {
   "ALGM": [
@@ -120,7 +122,9 @@
   "Apres integration : ajouter chaque ticker a src/data/v1-9-5-clean-all-tickers.json (piege B7 du handoff) et verifier le <title> de la page",
   "Phase 5 ajoutee par Yann le 6 aout : KPI web sites (classic + IR) + comparaison stories existantes + ajout des manquants, exactement comme le chantier CAC40/SMI du 5-6 aout",
   "ASML : bookings/backlog/IB Management a completer apres telechargement des exhibits 6-K (script corrige le 6 aout) ; blocs P3 a sourcer depuis le 20-F (Item 3.D risques, remuneration NL)",
-  "ACLS : companies/acls.json porte un _held_for_review preexistant (rouge R10 au lint) : a lever a la phase integration apres validation de la fiche"
+  "ACLS : companies/acls.json porte un _held_for_review preexistant (rouge R10 au lint) : a lever a la phase integration apres validation de la fiche",
+  "TSM : 6-K trimestriels post-2023 = page de garde seule sur EDGAR (les exhibits chiffres ne sont pas deposes en piece jointe HTML) ; les 4 sondes 20-F sont OK ; series trimestrielles a completer si besoin via les tables trimestrielles du 20-F ou mopsov. Blocs P3 a sourcer du 20-F (Item 3.D risques, Item 6 remuneration)",
+  "GFS : rouge R14 = bloc risques a ecrire en Phase 3 depuis 20-F Item 3.D (pas un defaut P2) ; gouvernance FPI sans DEF14A : bloc a desactiver ou reduire (comp agregee seule) ; Mubadala ~81% actionnariat OK ; scaffold gfs.json cree par agent, a verifier a l integration"
  ],
  "phases": [
   "0 composition (fait)",
