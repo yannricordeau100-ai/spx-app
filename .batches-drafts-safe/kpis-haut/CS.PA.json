@@ -1,1 +1,1210 @@
-{"ticker": "CS.PA", "extracted_at": "2026-08-01T00:00:00Z", "extracted_by": "CONV-CAC40-EXTRACT-CS.PA", "sources_used": ["data-lake/CS.PA/ir/URD/CS.PA_URD_FY2021..FY2025 (comptes, segments, zones, dividende, actions, effectifs, solvabilité)", "data-lake/CS.PA/ir/RAPPORT_S1/CS.PA_RAPPORT_S1_2021..2026 (semestriels : CA, résultat opérationnel, résultat net, ratios combinés, BPA)", "data-lake/CS.PA/ir/COMMUNIQUE/CS.PA_COMMUNIQUE_FY2025_2026-02-26 (chiffres clés FY2025)", "data-lake/CS.PA/ir/SLIDES/CS.PA_SLIDES_S1-2026_2026-07-31 (S1 2026 : solvabilité, ROE, CSM, collecte)"], "hero_kpi": "SII", "hero_kpi_rationale": "Ratio de Solvabilité II sur 5 ans (2021-2025) : le KPI de référence pour juger un assureur. 224% fin 2025, +8 pts sur un an et point haut de la période, très au-dessus des exigences réglementaires, ce qui finance directement le dividende (2,32 €) et le rachat d'actions annuel de 1,25 Md €.", "_ordering_rationale": "Hero solvabilité, puis CA / résultat opérationnel / résultat net semestriels, BPA, ratio combiné et dividende, capital (actions, distribution), segments Dommages et Vie & Santé, résultats opérationnels par segment, zones géographiques, indicateurs assurance vie (CSM, NBV, PVEP, marge), ROE, effectifs, croissances, collecte nette.", "_notes": "Rupture comptable IFRS 17 / IFRS 9 au 1er janvier 2023 avec retraitement du seul exercice 2022 : les séries de résultat, CA, ratios combinés et CSM démarrent donc en 2022 (retraité) et non en 2021. Les séries insensibles à la norme (solvabilité, dividende, nombre d'actions, distribution) couvrent bien 2021-2025. Libellés de période au format attendu par le loader (FYxxxx, H1-xxxx, H2-xxxx) : H1 = premier semestre, H2 = second semestre. Semestriel par défaut : H2 = année moins H1, marqué _derived_points, appliqué uniquement à des grandeurs additives (CA, résultat opérationnel, résultat net, CA par branche). Aucune dérivation sur marges, ratios, BPA, effectifs, CSM, encours. Contrôles passés : segments (Dommages + Vie & Santé + Gestion d'actifs + Banque) = CA consolidé à l'euro près sur 2022-2025 ; zones (France + Europe + AXA XL + Asie-Afrique-EME-LATAM + Transversal & autres) + gestion d'actifs = CA consolidé ; résultats opérationnels par segment + Holdings = résultat opérationnel groupe sur 2022-2025 ; S1 + S2 = année sur toutes les séries dérivées. Carnet de commandes sans objet pour un assureur. Gestion d'actifs non publiée en série : AXA IM cédé le 1er juillet 2025, contribution nulle depuis (875 M€ en 2025 contre 1 701 M€ en 2024). Rachats d'actions non publiés en série faute d'historique homogène : 4,7 Mds € exécutés en 2025 dont 3,8 Mds € anti-dilutifs liés à la cession d'AXA IM, programme annuel de 1,25 Md € lancé en février 2026.", "kpis": [{"short": "SII", "name_fr": "Ratio de Solvabilité II", "name_en": "Solvency II ratio", "value": 224.0, "unit": "%", "yoy": "+8 pts", "history": [{"q": "FY2021", "v": 217.0}, {"q": "FY2022", "v": 215.0}, {"q": "FY2023", "v": 227.0}, {"q": "FY2024", "v": 216.0}, {"q": "FY2025", "v": 224.0}], "period_type": "year", "type": "Operational", "pv_score": 10, "signal": "224% fin 2025, +8 pts sur un an, niveau parmi les plus élevés du secteur (218% au 30 juin 2026)", "description_fr": "Ratio de solvabilité réglementaire Solvabilité II au 31 décembre. Mesure de référence de la solidité financière d'un assureur.", "description_en": "Regulatory Solvency II ratio at December 31. Key financial strength measure for an insurer.", "last_data_date": "2025-12-31", "frequency": "annual", "_specific_to": "Assurance / Solvabilité II"}, {"short": "REV", "name_fr": "Chiffre d'affaires", "name_en": "Gross written premiums & other revenues", "value": 66.288, "unit": "Mds €", "yoy": "+3.2%", "history": [{"q": "H1-2022", "v": 54.867}, {"q": "H2-2022", "v": 46.977}, {"q": "H1-2023", "v": 55.74}, {"q": "H2-2023", "v": 46.993}, {"q": "H1-2024", "v": 59.872}, {"q": "H2-2024", "v": 50.444}, {"q": "H1-2025", "v": 64.251}, {"q": "H2-2025", "v": 51.273}, {"q": "H1-2026", "v": 66.288}], "period_type": "half", "type": "Revenue", "pv_score": 10, "signal": "66,3 Mds € au S1 2026, +5% à périmètre et change constants ; 115,5 Mds € sur 2025", "description_fr": "Primes émises brutes et autres produits, nets d'éliminations intragroupe (S2 = année moins S1, dérivé).", "description_en": "Gross written premiums and other revenues, net of intercompany eliminations (H2 derived as FY minus H1).", "last_data_date": "2026-06-30", "frequency": "semiannual", "_derived_points": ["H2-2022", "H2-2023", "H2-2024", "H2-2025"]}, {"short": "UE", "name_fr": "Résultat opérationnel", "name_en": "Underlying earnings", "value": 4.537, "unit": "Mds €", "yoy": "+1.6%", "history": [{"q": "H1-2023", "v": 4.111}, {"q": "H2-2023", "v": 3.493}, {"q": "H1-2024", "v": 4.244}, {"q": "H2-2024", "v": 3.834}, {"q": "H1-2025", "v": 4.465}, {"q": "H2-2025", "v": 3.903}, {"q": "H1-2026", "v": 4.537}], "period_type": "half", "type": "Profitability", "pv_score": 10, "signal": "4,54 Mds € au S1 2026, +4% à change constant ; 8,37 Mds € sur 2025, record", "description_fr": "Résultat opérationnel part du Groupe (underlying earnings), indicateur alternatif de performance AXA (S2 = année moins S1, dérivé).", "description_en": "Underlying earnings, Group share, AXA alternative performance measure (H2 derived as FY minus H1).", "last_data_date": "2026-06-30", "frequency": "semiannual", "_derived_points": ["H2-2023", "H2-2024", "H2-2025"]}, {"short": "NI", "name_fr": "Résultat net part du Groupe", "name_en": "Net income Group share", "value": 4.171, "unit": "Mds €", "yoy": "+6.3%", "history": [{"q": "H1-2023", "v": 3.833}, {"q": "H2-2023", "v": 3.356}, {"q": "H1-2024", "v": 4.02}, {"q": "H2-2024", "v": 3.866}, {"q": "H1-2025", "v": 3.922}, {"q": "H2-2025", "v": 5.875}, {"q": "H1-2026", "v": 4.171}], "period_type": "half", "type": "Profitability", "pv_score": 9, "signal": "4,17 Mds € au S1 2026 ; 9,80 Mds € sur 2025 (+24%), dopé par la plus-value de cession d'AXA IM", "description_fr": "Résultat net consolidé part du Groupe (S2 = année moins S1, dérivé).", "description_en": "Consolidated net income, Group share (H2 derived as FY minus H1).", "last_data_date": "2026-06-30", "frequency": "semiannual", "_derived_points": ["H2-2023", "H2-2024", "H2-2025"]}, {"short": "UEPS", "name_fr": "BPA opérationnel", "name_en": "Underlying earnings per share", "value": 3.86, "unit": "€", "yoy": "+7.5%", "history": [{"q": "FY2022", "v": 2.57}, {"q": "FY2023", "v": 3.31}, {"q": "FY2024", "v": 3.59}, {"q": "FY2025", "v": 3.86}], "period_type": "year", "type": "Profitability", "pv_score": 9, "signal": "3,86 € en 2025, +8%, haut de la fourchette du plan Unlock the Future (2,19 € au S1 2026, +8%)", "description_fr": "Résultat opérationnel par action, dilué. Indicateur cible du plan stratégique (croissance 6-8% par an).", "description_en": "Fully diluted underlying earnings per share, the key target metric of AXA's strategic plan.", "last_data_date": "2025-12-31", "frequency": "annual", "_specific_to": "Indicateur cible du plan Unlock the Future"}, {"short": "CR", "name_fr": "Ratio combiné Dommages", "name_en": "P&C combined ratio", "value": 90.6, "unit": "%", "yoy": "-0.4 pt", "history": [{"q": "FY2022", "v": 97.6}, {"q": "FY2023", "v": 93.2}, {"q": "FY2024", "v": 91.0}, {"q": "FY2025", "v": 90.6}], "period_type": "year", "type": "Margin", "pv_score": 10, "signal": "90,6% en 2025, meilleur niveau de la période, -7 pts depuis 2022 (90,1% au S1 2026)", "description_fr": "Ratio combiné toutes années de l'activité Dommages : sinistres et frais rapportés aux primes. En dessous de 100% l'activité est rentable techniquement.", "description_en": "All-year P&C combined ratio: claims and expenses over premiums. Below 100% means technical profitability.", "last_data_date": "2025-12-31", "frequency": "annual", "_specific_to": "Assurance dommages"}, {"short": "DPS", "name_fr": "Dividende par action", "name_en": "Dividend per share", "value": 2.32, "unit": "€", "yoy": "+7.9%", "history": [{"q": "FY2021", "v": 1.54}, {"q": "FY2022", "v": 1.7}, {"q": "FY2023", "v": 1.98}, {"q": "FY2024", "v": 2.15}, {"q": "FY2025", "v": 2.32}], "period_type": "year", "type": "Operational", "pv_score": 9, "signal": "2,32 € au titre de 2025, +8%, cinquième hausse consécutive (+51% depuis 2021)", "description_fr": "Dividende brut par action au titre de l'exercice. Politique de distribution : 60% de payout dividende, 75% avec les rachats d'actions.", "description_en": "Gross dividend per share for the fiscal year. Payout policy: 60% dividend payout, 75% including buybacks.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "SHARES", "name_fr": "Nombre d'actions en circulation", "name_en": "Shares outstanding", "value": 2090.622, "unit": "M actions", "yoy": "-5.6%", "history": [{"q": "FY2021", "v": 2421.569}, {"q": "FY2022", "v": 2351.771}, {"q": "FY2023", "v": 2270.189}, {"q": "FY2024", "v": 2214.798}, {"q": "FY2025", "v": 2090.622}], "period_type": "year", "type": "Operational", "pv_score": 8, "signal": "2,09 Md d'actions fin 2025, -14% en quatre ans sous l'effet des rachats (dont 3,8 Mds € liés à la cession d'AXA IM)", "description_fr": "Nombre d'actions composant le capital au 31 décembre. Baisse continue liée aux programmes de rachat suivis d'annulation.", "description_en": "Number of shares outstanding at December 31, steadily reduced by buyback-and-cancel programs.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "DIVTOT", "name_fr": "Montant total du dividende", "name_en": "Total dividend distribution", "value": 4.85, "unit": "Mds €", "yoy": "+1.8%", "history": [{"q": "FY2021", "v": 3.729}, {"q": "FY2022", "v": 3.998}, {"q": "FY2023", "v": 4.495}, {"q": "FY2024", "v": 4.762}, {"q": "FY2025", "v": 4.85}], "period_type": "year", "type": "Operational", "pv_score": 7, "signal": "4,85 Mds € distribués au titre de 2025, +30% depuis 2021 malgré 14% d'actions en moins", "description_fr": "Montant total du dividende distribué au titre de l'exercice, sur la base du nombre d'actions au 31 décembre.", "description_en": "Total dividend distribution for the fiscal year, based on shares outstanding at December 31.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "PC_REV", "name_fr": "CA Dommages", "name_en": "P&C revenues", "value": 35.072, "unit": "Mds €", "yoy": "+2.9%", "history": [{"q": "H1-2022", "v": 28.713}, {"q": "H2-2022", "v": 21.92}, {"q": "H1-2023", "v": 30.4}, {"q": "H2-2023", "v": 22.627}, {"q": "H1-2024", "v": 32.522}, {"q": "H2-2024", "v": 23.992}, {"q": "H1-2025", "v": 34.097}, {"q": "H2-2025", "v": 23.941}, {"q": "H1-2026", "v": 35.072}], "period_type": "half", "type": "Segment", "pv_score": 9, "signal": "35,1 Mds € au S1 2026, +3% ; 58,0 Mds € sur 2025, premier segment du groupe", "description_fr": "Primes émises brutes de l'activité Dommages (particuliers, entreprises, AXA XL). S2 = année moins S1, dérivé.", "description_en": "P&C gross written premiums (personal, commercial, AXA XL). H2 derived as FY minus H1.", "last_data_date": "2026-06-30", "frequency": "semiannual", "_derived_points": ["H2-2022", "H2-2023", "H2-2024", "H2-2025"]}, {"short": "LH_REV", "name_fr": "CA Vie & Santé", "name_en": "Life & Health revenues", "value": 31.164, "unit": "Mds €", "yoy": "+6.6%", "history": [{"q": "H1-2022", "v": 25.287}, {"q": "H2-2022", "v": 24.198}, {"q": "H1-2023", "v": 24.528}, {"q": "H2-2023", "v": 23.53}, {"q": "H1-2024", "v": 26.505}, {"q": "H2-2024", "v": 25.478}, {"q": "H1-2025", "v": 29.23}, {"q": "H2-2025", "v": 27.282}, {"q": "H1-2026", "v": 31.164}], "period_type": "half", "type": "Segment", "pv_score": 9, "signal": "31,2 Mds € au S1 2026, +8% ; 56,5 Mds € sur 2025, quasi à parité avec le Dommages", "description_fr": "Primes émises brutes de l'activité Vie & Santé. S2 = année moins S1, dérivé.", "description_en": "Life & Health gross written premiums. H2 derived as FY minus H1.", "last_data_date": "2026-06-30", "frequency": "semiannual", "_derived_points": ["H2-2022", "H2-2023", "H2-2024", "H2-2025"]}, {"short": "LIFE_REV", "name_fr": "CA Vie", "name_en": "Life revenues", "value": 20.41, "unit": "Mds €", "yoy": "+7.0%", "history": [{"q": "H1-2022", "v": 16.553}, {"q": "H2-2022", "v": 15.678}, {"q": "H1-2023", "v": 16.297}, {"q": "H2-2023", "v": 15.693}, {"q": "H1-2024", "v": 17.419}, {"q": "H2-2024", "v": 17.078}, {"q": "H1-2025", "v": 19.081}, {"q": "H2-2025", "v": 18.418}, {"q": "H1-2026", "v": 20.41}], "period_type": "half", "type": "Segment", "pv_score": 8, "signal": "20,4 Mds € au S1 2026, +9%, tirés par les unités de compte (+17%) et la prévoyance", "description_fr": "Primes émises brutes de la branche Vie (épargne, prévoyance, unités de compte). S2 = année moins S1, dérivé.", "description_en": "Life gross written premiums (savings, protection, unit-linked). H2 derived as FY minus H1.", "last_data_date": "2026-06-30", "frequency": "semiannual", "_derived_points": ["H2-2022", "H2-2023", "H2-2024", "H2-2025"]}, {"short": "HEALTH_REV", "name_fr": "CA Santé", "name_en": "Health revenues", "value": 10.754, "unit": "Mds €", "yoy": "+6.0%", "history": [{"q": "H1-2022", "v": 8.734}, {"q": "H2-2022", "v": 8.52}, {"q": "H1-2023", "v": 8.231}, {"q": "H2-2023", "v": 7.837}, {"q": "H1-2024", "v": 9.086}, {"q": "H2-2024", "v": 8.4}, {"q": "H1-2025", "v": 10.149}, {"q": "H2-2025", "v": 8.865}, {"q": "H1-2026", "v": 10.754}], "period_type": "half", "type": "Segment", "pv_score": 8, "signal": "10,8 Mds € au S1 2026, +6% ; 19,0 Mds € sur 2025, résultat opérationnel Santé en hausse de 17%", "description_fr": "Primes émises brutes de la branche Santé (collective et individuelle). S2 = année moins S1, dérivé.", "description_en": "Health gross written premiums (group and individual). H2 derived as FY minus H1.", "last_data_date": "2026-06-30", "frequency": "semiannual", "_derived_points": ["H2-2022", "H2-2023", "H2-2024", "H2-2025"]}, {"short": "PC_UE", "name_fr": "Résultat opérationnel Dommages", "name_en": "P&C underlying earnings", "value": 5.872, "unit": "Mds €", "yoy": "+6.6%", "history": [{"q": "FY2022", "v": 2.931}, {"q": "FY2023", "v": 5.012}, {"q": "FY2024", "v": 5.51}, {"q": "FY2025", "v": 5.872}], "period_type": "year", "type": "Segment", "pv_score": 9, "signal": "5,87 Mds € en 2025, +9% à change constant, doublé depuis 2022", "description_fr": "Résultat opérationnel part du Groupe du segment Dommages.", "description_en": "P&C segment underlying earnings, Group share.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "LH_UE", "name_fr": "Résultat opérationnel Vie & Santé", "name_en": "Life & Health underlying earnings", "value": 3.501, "unit": "Mds €", "yoy": "+5.4%", "history": [{"q": "FY2022", "v": 3.563}, {"q": "FY2023", "v": 3.232}, {"q": "FY2024", "v": 3.323}, {"q": "FY2025", "v": 3.501}], "period_type": "year", "type": "Segment", "pv_score": 8, "signal": "3,50 Mds € en 2025, +7% à change constant, dont Santé +17%", "description_fr": "Résultat opérationnel part du Groupe du segment Vie & Santé.", "description_en": "Life & Health segment underlying earnings, Group share.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "GEO_FR", "name_fr": "CA France", "name_en": "France revenues", "value": 30.598, "unit": "Mds €", "yoy": "+5.5%", "history": [{"q": "FY2022", "v": 28.627}, {"q": "FY2023", "v": 27.243}, {"q": "FY2024", "v": 28.996}, {"q": "FY2025", "v": 30.598}], "period_type": "year", "type": "Geography", "pv_score": 7, "signal": "30,6 Mds € en 2025, +6%, premier marché domestique du groupe", "description_fr": "Primes émises brutes et autres produits de la zone, hors gestion d'actifs, nets d'éliminations intragroupe.", "description_en": "Zone gross written premiums and other revenues, excluding asset management, net of intercompany eliminations.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "GEO_EU", "name_fr": "CA Europe", "name_en": "Europe revenues", "value": 43.005, "unit": "Mds €", "yoy": "+9.4%", "history": [{"q": "FY2022", "v": 35.045}, {"q": "FY2023", "v": 36.617}, {"q": "FY2024", "v": 39.298}, {"q": "FY2025", "v": 43.005}], "period_type": "year", "type": "Geography", "pv_score": 7, "signal": "43,0 Mds € en 2025, +9%, première zone du groupe (38% du CA)", "description_fr": "Primes émises brutes et autres produits de la zone, hors gestion d'actifs, nets d'éliminations intragroupe.", "description_en": "Zone gross written premiums and other revenues, excluding asset management, net of intercompany eliminations.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "GEO_XL", "name_fr": "CA AXA XL", "name_en": "AXA XL revenues", "value": 19.277, "unit": "Mds €", "yoy": "-0.5%", "history": [{"q": "FY2022", "v": 18.577}, {"q": "FY2023", "v": 18.417}, {"q": "FY2024", "v": 19.383}, {"q": "FY2025", "v": 19.277}], "period_type": "year", "type": "Geography", "pv_score": 7, "signal": "19,3 Mds € en 2025, stable, marché des grands risques en phase de repli tarifaire", "description_fr": "Primes émises brutes et autres produits de la zone, hors gestion d'actifs, nets d'éliminations intragroupe.", "description_en": "Zone gross written premiums and other revenues, excluding asset management, net of intercompany eliminations.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "GEO_ASIA", "name_fr": "CA Asie, Afrique & EME-LATAM", "name_en": "Asia, Africa & EME-LATAM revenues", "value": 19.925, "unit": "Mds €", "yoy": "+4.4%", "history": [{"q": "FY2022", "v": 16.225}, {"q": "FY2023", "v": 16.99}, {"q": "FY2024", "v": 19.083}, {"q": "FY2025", "v": 19.925}], "period_type": "year", "type": "Geography", "pv_score": 7, "signal": "19,9 Mds € en 2025, +4%, zone la plus dynamique (Turquie, Mexique, Hong Kong)", "description_fr": "Primes émises brutes et autres produits de la zone, hors gestion d'actifs, nets d'éliminations intragroupe.", "description_en": "Zone gross written premiums and other revenues, excluding asset management, net of intercompany eliminations.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "CSM", "name_fr": "Marge sur services contractuels (CSM)", "name_en": "Contractual Service Margin", "value": 33.253, "unit": "Mds €", "yoy": "-1.8%", "history": [{"q": "FY2022", "v": 33.535}, {"q": "FY2023", "v": 33.976}, {"q": "FY2024", "v": 33.853}, {"q": "FY2025", "v": 33.253}], "period_type": "year", "type": "Operational", "pv_score": 8, "signal": "33,3 Mds € fin 2025 ; 33,9 Mds € au 30 juin 2026, en croissance normalisée de 2%", "description_fr": "Stock de marge sur services contractuels (norme IFRS 17) : profits futurs déjà contractualisés, non encore reconnus en résultat.", "description_en": "Contractual Service Margin stock under IFRS 17: contracted future profits not yet recognized in earnings.", "last_data_date": "2025-12-31", "frequency": "annual", "_specific_to": "IFRS 17, assurance vie"}, {"short": "NBV", "name_fr": "Valeur des affaires nouvelles (NBV)", "name_en": "New Business Value", "value": 2.233, "unit": "Mds €", "yoy": "-1.4%", "history": [{"q": "FY2022", "v": 2.288}, {"q": "FY2023", "v": 2.281}, {"q": "FY2024", "v": 2.264}, {"q": "FY2025", "v": 2.233}], "period_type": "year", "type": "Operational", "pv_score": 7, "signal": "2,23 Mds € en 2025, stable à base comparable, marge de 4,5%", "description_fr": "Valeur actuelle des profits futurs générés par les affaires nouvelles Vie & Santé de l'exercice, après impôt.", "description_en": "Post-tax present value of future profits from the year's new Life & Health business.", "last_data_date": "2025-12-31", "frequency": "annual", "_specific_to": "Assurance vie"}, {"short": "PVEP", "name_fr": "Valeur actuelle des primes futures (PVEP)", "name_en": "Present Value of Expected Premiums", "value": 49.357, "unit": "Mds €", "yoy": "-3.0%", "history": [{"q": "FY2022", "v": 43.32}, {"q": "FY2023", "v": 45.856}, {"q": "FY2024", "v": 50.896}, {"q": "FY2025", "v": 49.357}], "period_type": "year", "type": "Operational", "pv_score": 6, "signal": "49,4 Mds € en 2025, -2% à base comparable, effet de la remontée des taux d'actualisation", "description_fr": "Valeur actuelle des primes attendues sur les affaires nouvelles Vie & Santé, dénominateur de la marge NBV.", "description_en": "Present value of expected premiums on new Life & Health business, denominator of the NBV margin.", "last_data_date": "2025-12-31", "frequency": "annual", "_specific_to": "Assurance vie"}, {"short": "NBVM", "name_fr": "Marge sur affaires nouvelles", "name_en": "New Business Value margin", "value": 4.5, "unit": "%", "yoy": "+0.1 pt", "history": [{"q": "FY2022", "v": 5.3}, {"q": "FY2023", "v": 5.0}, {"q": "FY2024", "v": 4.4}, {"q": "FY2025", "v": 4.5}], "period_type": "year", "type": "Margin", "pv_score": 6, "signal": "4,5% en 2025, en légère reprise après deux années de baisse", "description_fr": "Rapport entre la valeur des affaires nouvelles et la valeur actuelle des primes attendues.", "description_en": "New Business Value divided by the present value of expected premiums.", "last_data_date": "2025-12-31", "frequency": "annual", "_specific_to": "Assurance vie"}, {"short": "ROE", "name_fr": "ROE opérationnel", "name_en": "Underlying return on equity", "value": 16.0, "unit": "%", "yoy": "+0.8 pt", "history": [{"q": "FY2023", "v": 14.9}, {"q": "FY2024", "v": 15.2}, {"q": "FY2025", "v": 16.0}], "period_type": "year", "type": "Profitability", "pv_score": 8, "signal": "16,0% en 2025, dans le haut de la cible 14-16% du plan (18,3% au S1 2026)", "description_fr": "Résultat opérationnel rapporté aux capitaux propres moyens ajustés. Cible du plan stratégique : 14% à 16%.", "description_en": "Underlying earnings over average adjusted shareholders' equity. Strategic plan target: 14% to 16%.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "LH_CR", "name_fr": "Ratio combiné Vie & Santé court terme", "name_en": "Life & Health short-term combined ratio", "value": 97.2, "unit": "%", "yoy": "-0.2 pt", "history": [{"q": "FY2022", "v": 97.5}, {"q": "FY2023", "v": 98.9}, {"q": "FY2024", "v": 97.4}, {"q": "FY2025", "v": 97.2}], "period_type": "year", "type": "Margin", "pv_score": 6, "signal": "97,2% en 2025, amélioration continue depuis le pic de 98,9% de 2023 (95,8% au S1 2026)", "description_fr": "Ratio combiné de l'activité court terme Vie & Santé (Santé et prévoyance annuelles).", "description_en": "Combined ratio of the short-term Life & Health business (annual health and protection).", "last_data_date": "2025-12-31", "frequency": "annual", "_specific_to": "Assurance santé et prévoyance"}, {"short": "EMP", "name_fr": "Effectifs", "name_en": "Employees", "value": 111262, "unit": "salariés", "yoy": "-1.0%", "history": [{"q": "FY2023", "v": 113696}, {"q": "FY2024", "v": 112354}, {"q": "FY2025", "v": 111262}], "period_type": "year", "type": "Operational", "pv_score": 6, "signal": "111 262 salariés fin 2025, en baisse de 2% en deux ans grâce à l'automatisation et à l'IA", "description_fr": "Effectif salarié total du groupe au 31 décembre, périmètre de reporting social.", "description_en": "Total Group salaried headcount at December 31, social reporting scope.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "ORG", "name_fr": "Croissance du CA (base comparable)", "name_en": "Revenue growth (comparable basis)", "value": 6.5, "unit": "%", "yoy": "-1.0 pt", "history": [{"q": "FY2023", "v": 2.6}, {"q": "FY2024", "v": 7.5}, {"q": "FY2025", "v": 6.5}], "period_type": "year", "type": "Growth", "pv_score": 7, "signal": "+6,5% en 2025 à base comparable, +5% au S1 2026", "description_fr": "Croissance du chiffre d'affaires à périmètre et taux de change constants, telle que publiée par AXA.", "description_en": "Revenue growth on a comparable basis (constant scope and FX), as published by AXA.", "last_data_date": "2025-12-31", "frequency": "annual"}, {"short": "PUB", "name_fr": "Croissance du CA (publiée)", "name_en": "Revenue growth (reported basis)", "value": 4.7, "unit": "%", "yoy": "-2.7 pts", "history": [{"q": "FY2023", "v": 0.9}, {"q": "FY2024", "v": 7.4}, {"q": "FY2025", "v": 4.7}], "period_type": "year", "type": "Growth", "pv_score": 6, "signal": "+4,7% en 2025 en données publiées, écart de 1,8 pt avec la base comparable dû au change", "description_fr": "Croissance du chiffre d'affaires publié d'une année sur l'autre, calculée sur les montants publiés en euros courants.", "description_en": "Year-on-year growth of reported revenues, computed from published euro amounts.", "last_data_date": "2025-12-31", "frequency": "annual", "_derived_points": ["FY2023", "FY2024", "FY2025"]}, {"short": "NETFLOWS", "name_fr": "Collecte nette Vie & Santé", "name_en": "Life & Health net flows", "value": 5.397, "unit": "Mds €", "yoy": "+264%", "history": [{"q": "FY2024", "v": 1.483}, {"q": "FY2025", "v": 5.397}], "period_type": "year", "type": "Operational", "pv_score": 7, "signal": "+5,4 Mds € de collecte nette en 2025 contre +1,5 Md € en 2024 (+4,7 Mds € au seul S1 2026)", "description_fr": "Collecte nette de l'activité Vie & Santé : primes encaissées moins prestations et rachats.", "description_en": "Life & Health net flows: premiums collected less benefits and surrenders.", "last_data_date": "2025-12-31", "frequency": "annual", "is_short_history": true, "story_category": "Redressement de la collecte nette Vie & Santé, historique limité à 2024-2025 dans les documents publiés"}]}
+{
+ "ticker": "CS.PA",
+ "extracted_at": "2026-08-01T00:00:00Z",
+ "extracted_by": "CONV-CAC40-EXTRACT-CS.PA",
+ "sources_used": [
+  "data-lake/CS.PA/ir/URD/CS.PA_URD_FY2021..FY2025 (comptes, segments, zones, dividende, actions, effectifs, solvabilité)",
+  "data-lake/CS.PA/ir/RAPPORT_S1/CS.PA_RAPPORT_S1_2021..2026 (semestriels : CA, résultat opérationnel, résultat net, ratios combinés, BPA)",
+  "data-lake/CS.PA/ir/COMMUNIQUE/CS.PA_COMMUNIQUE_FY2025_2026-02-26 (chiffres clés FY2025)",
+  "data-lake/CS.PA/ir/SLIDES/CS.PA_SLIDES_S1-2026_2026-07-31 (S1 2026 : solvabilité, ROE, CSM, collecte)"
+ ],
+ "hero_kpi": "SII",
+ "hero_kpi_rationale": "Ratio de Solvabilité II sur 5 ans (2021-2025) : le KPI de référence pour juger un assureur. 224% fin 2025, +8 pts sur un an et point haut de la période, très au-dessus des exigences réglementaires, ce qui finance directement le dividende (2,32 €) et le rachat d'actions annuel de 1,25 Md €.",
+ "_ordering_rationale": "Hero solvabilité, puis CA / résultat opérationnel / résultat net semestriels, BPA, ratio combiné et dividende, capital (actions, distribution), segments Dommages et Vie & Santé, résultats opérationnels par segment, zones géographiques, indicateurs assurance vie (CSM, NBV, PVEP, marge), ROE, effectifs, croissances, collecte nette.",
+ "_notes": "Rupture comptable IFRS 17 / IFRS 9 au 1er janvier 2023 avec retraitement du seul exercice 2022 : les séries de résultat, CA, ratios combinés et CSM démarrent donc en 2022 (retraité) et non en 2021. Les séries insensibles à la norme (solvabilité, dividende, nombre d'actions, distribution) couvrent bien 2021-2025. Libellés de période au format attendu par le loader (FYxxxx, H1-xxxx, H2-xxxx) : H1 = premier semestre, H2 = second semestre. Semestriel par défaut : H2 = année moins H1, marqué _derived_points, appliqué uniquement à des grandeurs additives (CA, résultat opérationnel, résultat net, CA par branche). Aucune dérivation sur marges, ratios, BPA, effectifs, CSM, encours. Contrôles passés : segments (Dommages + Vie & Santé + Gestion d'actifs + Banque) = CA consolidé à l'euro près sur 2022-2025 ; zones (France + Europe + AXA XL + Asie-Afrique-EME-LATAM + Transversal & autres) + gestion d'actifs = CA consolidé ; résultats opérationnels par segment + Holdings = résultat opérationnel groupe sur 2022-2025 ; S1 + S2 = année sur toutes les séries dérivées. Carnet de commandes sans objet pour un assureur. Gestion d'actifs non publiée en série : AXA IM cédé le 1er juillet 2025, contribution nulle depuis (875 M€ en 2025 contre 1 701 M€ en 2024). Rachats d'actions non publiés en série faute d'historique homogène : 4,7 Mds € exécutés en 2025 dont 3,8 Mds € anti-dilutifs liés à la cession d'AXA IM, programme annuel de 1,25 Md € lancé en février 2026.",
+ "kpis": [
+  {
+   "short": "SII",
+   "name_fr": "Ratio de Solvabilité II",
+   "name_en": "Solvency II ratio",
+   "value": 224.0,
+   "unit": "%",
+   "yoy": "+8 pts",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 217.0
+    },
+    {
+     "q": "FY2022",
+     "v": 215.0
+    },
+    {
+     "q": "FY2023",
+     "v": 227.0
+    },
+    {
+     "q": "FY2024",
+     "v": 216.0
+    },
+    {
+     "q": "FY2025",
+     "v": 224.0
+    }
+   ],
+   "period_type": "year",
+   "type": "Operational",
+   "pv_score": 10,
+   "signal": "224% fin 2025, +8 pts sur un an, niveau parmi les plus élevés du secteur (218% au 30 juin 2026)",
+   "description_fr": "Ratio de solvabilité réglementaire Solvabilité II au 31 décembre. Mesure de référence de la solidité financière d'un assureur.",
+   "description_en": "Regulatory Solvency II ratio at December 31. Key financial strength measure for an insurer.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual",
+   "_specific_to": "Assurance / Solvabilité II"
+  },
+  {
+   "short": "REV",
+   "name_fr": "Chiffre d'affaires",
+   "name_en": "Gross written premiums & other revenues",
+   "value": 66.288,
+   "unit": "Mds €",
+   "yoy": "+3.2%",
+   "history": [
+    {
+     "q": "H1-2022",
+     "v": 54.867
+    },
+    {
+     "q": "H2-2022",
+     "v": 46.977
+    },
+    {
+     "q": "H1-2023",
+     "v": 55.74
+    },
+    {
+     "q": "H2-2023",
+     "v": 46.993
+    },
+    {
+     "q": "H1-2024",
+     "v": 59.872
+    },
+    {
+     "q": "H2-2024",
+     "v": 50.444
+    },
+    {
+     "q": "H1-2025",
+     "v": 64.251
+    },
+    {
+     "q": "H2-2025",
+     "v": 51.273
+    },
+    {
+     "q": "H1-2026",
+     "v": 66.288
+    }
+   ],
+   "period_type": "half",
+   "type": "Revenue",
+   "pv_score": 10,
+   "signal": "66,3 Mds € au S1 2026, +5% à périmètre et change constants ; 115,5 Mds € sur 2025",
+   "description_fr": "Primes émises brutes et autres produits, nets d'éliminations intragroupe (S2 = année moins S1, dérivé).",
+   "description_en": "Gross written premiums and other revenues, net of intercompany eliminations (H2 derived as FY minus H1).",
+   "last_data_date": "2026-06-30",
+   "frequency": "semiannual",
+   "_derived_points": [
+    "H2-2022",
+    "H2-2023",
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "UE",
+   "name_fr": "Résultat opérationnel",
+   "name_en": "Underlying earnings",
+   "value": 4.537,
+   "unit": "Mds €",
+   "yoy": "+1.6%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 4.111
+    },
+    {
+     "q": "H2-2023",
+     "v": 3.493
+    },
+    {
+     "q": "H1-2024",
+     "v": 4.244
+    },
+    {
+     "q": "H2-2024",
+     "v": 3.834
+    },
+    {
+     "q": "H1-2025",
+     "v": 4.465
+    },
+    {
+     "q": "H2-2025",
+     "v": 3.903
+    },
+    {
+     "q": "H1-2026",
+     "v": 4.537
+    }
+   ],
+   "period_type": "half",
+   "type": "Profitability",
+   "pv_score": 10,
+   "signal": "4,54 Mds € au S1 2026, +4% à change constant ; 8,37 Mds € sur 2025, record",
+   "description_fr": "Résultat opérationnel part du Groupe (underlying earnings), indicateur alternatif de performance AXA (S2 = année moins S1, dérivé).",
+   "description_en": "Underlying earnings, Group share, AXA alternative performance measure (H2 derived as FY minus H1).",
+   "last_data_date": "2026-06-30",
+   "frequency": "semiannual",
+   "_derived_points": [
+    "H2-2023",
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "NI",
+   "name_fr": "Résultat net part du Groupe",
+   "name_en": "Net income Group share",
+   "value": 4.171,
+   "unit": "Mds €",
+   "yoy": "+6.3%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 3.833
+    },
+    {
+     "q": "H2-2023",
+     "v": 3.356
+    },
+    {
+     "q": "H1-2024",
+     "v": 4.02
+    },
+    {
+     "q": "H2-2024",
+     "v": 3.866
+    },
+    {
+     "q": "H1-2025",
+     "v": 3.922
+    },
+    {
+     "q": "H2-2025",
+     "v": 5.875
+    },
+    {
+     "q": "H1-2026",
+     "v": 4.171
+    }
+   ],
+   "period_type": "half",
+   "type": "Profitability",
+   "pv_score": 9,
+   "signal": "4,17 Mds € au S1 2026 ; 9,80 Mds € sur 2025 (+24%), dopé par la plus-value de cession d'AXA IM",
+   "description_fr": "Résultat net consolidé part du Groupe (S2 = année moins S1, dérivé).",
+   "description_en": "Consolidated net income, Group share (H2 derived as FY minus H1).",
+   "last_data_date": "2026-06-30",
+   "frequency": "semiannual",
+   "_derived_points": [
+    "H2-2023",
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "UEPS",
+   "name_fr": "BPA opérationnel",
+   "name_en": "Underlying earnings per share",
+   "value": 3.86,
+   "unit": "€",
+   "yoy": "+7.5%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 2.57
+    },
+    {
+     "q": "FY2023",
+     "v": 3.31
+    },
+    {
+     "q": "FY2024",
+     "v": 3.59
+    },
+    {
+     "q": "FY2025",
+     "v": 3.86
+    }
+   ],
+   "period_type": "year",
+   "type": "Profitability",
+   "pv_score": 9,
+   "signal": "3,86 € en 2025, +8%, haut de la fourchette du plan Unlock the Future (2,19 € au S1 2026, +8%)",
+   "description_fr": "Résultat opérationnel par action, dilué. Indicateur cible du plan stratégique (croissance 6-8% par an).",
+   "description_en": "Fully diluted underlying earnings per share, the key target metric of AXA's strategic plan.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual",
+   "_specific_to": "Indicateur cible du plan Unlock the Future"
+  },
+  {
+   "short": "CR",
+   "name_fr": "Ratio combiné Dommages",
+   "name_en": "P&C combined ratio",
+   "value": 90.6,
+   "unit": "%",
+   "yoy": "-0.4 pt",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 97.6
+    },
+    {
+     "q": "FY2023",
+     "v": 93.2
+    },
+    {
+     "q": "FY2024",
+     "v": 91.0
+    },
+    {
+     "q": "FY2025",
+     "v": 90.6
+    }
+   ],
+   "period_type": "year",
+   "type": "Margin",
+   "pv_score": 10,
+   "signal": "90,6% en 2025, meilleur niveau de la période, -7 pts depuis 2022 (90,1% au S1 2026)",
+   "description_fr": "Ratio combiné toutes années de l'activité Dommages : sinistres et frais rapportés aux primes. En dessous de 100% l'activité est rentable techniquement.",
+   "description_en": "All-year P&C combined ratio: claims and expenses over premiums. Below 100% means technical profitability.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual",
+   "_specific_to": "Assurance dommages"
+  },
+  {
+   "short": "DPS",
+   "name_fr": "Dividende par action",
+   "name_en": "Dividend per share",
+   "value": 2.32,
+   "unit": "€",
+   "yoy": "+7.9%",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 1.54
+    },
+    {
+     "q": "FY2022",
+     "v": 1.7
+    },
+    {
+     "q": "FY2023",
+     "v": 1.98
+    },
+    {
+     "q": "FY2024",
+     "v": 2.15
+    },
+    {
+     "q": "FY2025",
+     "v": 2.32
+    }
+   ],
+   "period_type": "year",
+   "type": "Operational",
+   "pv_score": 9,
+   "signal": "2,32 € au titre de 2025, +8%, cinquième hausse consécutive (+51% depuis 2021)",
+   "description_fr": "Dividende brut par action au titre de l'exercice. Politique de distribution : 60% de payout dividende, 75% avec les rachats d'actions.",
+   "description_en": "Gross dividend per share for the fiscal year. Payout policy: 60% dividend payout, 75% including buybacks.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "SHARES",
+   "name_fr": "Nombre d'actions en circulation",
+   "name_en": "Shares outstanding",
+   "value": 2090.622,
+   "unit": "M actions",
+   "yoy": "-5.6%",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 2421.569
+    },
+    {
+     "q": "FY2022",
+     "v": 2351.771
+    },
+    {
+     "q": "FY2023",
+     "v": 2270.189
+    },
+    {
+     "q": "FY2024",
+     "v": 2214.798
+    },
+    {
+     "q": "FY2025",
+     "v": 2090.622
+    }
+   ],
+   "period_type": "year",
+   "type": "Operational",
+   "pv_score": 8,
+   "signal": "2,09 Md d'actions fin 2025, -14% en quatre ans sous l'effet des rachats (dont 3,8 Mds € liés à la cession d'AXA IM)",
+   "description_fr": "Nombre d'actions composant le capital au 31 décembre. Baisse continue liée aux programmes de rachat suivis d'annulation.",
+   "description_en": "Number of shares outstanding at December 31, steadily reduced by buyback-and-cancel programs.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "DIVTOT",
+   "name_fr": "Montant total du dividende",
+   "name_en": "Total dividend distribution",
+   "value": 4.85,
+   "unit": "Mds €",
+   "yoy": "+1.8%",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 3.729
+    },
+    {
+     "q": "FY2022",
+     "v": 3.998
+    },
+    {
+     "q": "FY2023",
+     "v": 4.495
+    },
+    {
+     "q": "FY2024",
+     "v": 4.762
+    },
+    {
+     "q": "FY2025",
+     "v": 4.85
+    }
+   ],
+   "period_type": "year",
+   "type": "Operational",
+   "pv_score": 7,
+   "signal": "4,85 Mds € distribués au titre de 2025, +30% depuis 2021 malgré 14% d'actions en moins",
+   "description_fr": "Montant total du dividende distribué au titre de l'exercice, sur la base du nombre d'actions au 31 décembre.",
+   "description_en": "Total dividend distribution for the fiscal year, based on shares outstanding at December 31.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "PC_REV",
+   "name_fr": "CA Dommages",
+   "name_en": "P&C revenues",
+   "value": 35.072,
+   "unit": "Mds €",
+   "yoy": "+2.9%",
+   "history": [
+    {
+     "q": "H1-2022",
+     "v": 28.713
+    },
+    {
+     "q": "H2-2022",
+     "v": 21.92
+    },
+    {
+     "q": "H1-2023",
+     "v": 30.4
+    },
+    {
+     "q": "H2-2023",
+     "v": 22.627
+    },
+    {
+     "q": "H1-2024",
+     "v": 32.522
+    },
+    {
+     "q": "H2-2024",
+     "v": 23.992
+    },
+    {
+     "q": "H1-2025",
+     "v": 34.097
+    },
+    {
+     "q": "H2-2025",
+     "v": 23.941
+    },
+    {
+     "q": "H1-2026",
+     "v": 35.072
+    }
+   ],
+   "period_type": "half",
+   "type": "Segment",
+   "pv_score": 9,
+   "signal": "35,1 Mds € au S1 2026, +3% ; 58,0 Mds € sur 2025, premier segment du groupe",
+   "description_fr": "Primes émises brutes de l'activité Dommages (particuliers, entreprises, AXA XL). S2 = année moins S1, dérivé.",
+   "description_en": "P&C gross written premiums (personal, commercial, AXA XL). H2 derived as FY minus H1.",
+   "last_data_date": "2026-06-30",
+   "frequency": "semiannual",
+   "_derived_points": [
+    "H2-2022",
+    "H2-2023",
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "LH_REV",
+   "name_fr": "CA Vie & Santé",
+   "name_en": "Life & Health revenues",
+   "value": 31.164,
+   "unit": "Mds €",
+   "yoy": "+6.6%",
+   "history": [
+    {
+     "q": "H1-2022",
+     "v": 25.287
+    },
+    {
+     "q": "H2-2022",
+     "v": 24.198
+    },
+    {
+     "q": "H1-2023",
+     "v": 24.528
+    },
+    {
+     "q": "H2-2023",
+     "v": 23.53
+    },
+    {
+     "q": "H1-2024",
+     "v": 26.505
+    },
+    {
+     "q": "H2-2024",
+     "v": 25.478
+    },
+    {
+     "q": "H1-2025",
+     "v": 29.23
+    },
+    {
+     "q": "H2-2025",
+     "v": 27.282
+    },
+    {
+     "q": "H1-2026",
+     "v": 31.164
+    }
+   ],
+   "period_type": "half",
+   "type": "Segment",
+   "pv_score": 9,
+   "signal": "31,2 Mds € au S1 2026, +8% ; 56,5 Mds € sur 2025, quasi à parité avec le Dommages",
+   "description_fr": "Primes émises brutes de l'activité Vie & Santé. S2 = année moins S1, dérivé.",
+   "description_en": "Life & Health gross written premiums. H2 derived as FY minus H1.",
+   "last_data_date": "2026-06-30",
+   "frequency": "semiannual",
+   "_derived_points": [
+    "H2-2022",
+    "H2-2023",
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "LIFE_REV",
+   "name_fr": "CA Vie",
+   "name_en": "Life revenues",
+   "value": 20.41,
+   "unit": "Mds €",
+   "yoy": "+7.0%",
+   "history": [
+    {
+     "q": "H1-2022",
+     "v": 16.553
+    },
+    {
+     "q": "H2-2022",
+     "v": 15.678
+    },
+    {
+     "q": "H1-2023",
+     "v": 16.297
+    },
+    {
+     "q": "H2-2023",
+     "v": 15.693
+    },
+    {
+     "q": "H1-2024",
+     "v": 17.419
+    },
+    {
+     "q": "H2-2024",
+     "v": 17.078
+    },
+    {
+     "q": "H1-2025",
+     "v": 19.081
+    },
+    {
+     "q": "H2-2025",
+     "v": 18.418
+    },
+    {
+     "q": "H1-2026",
+     "v": 20.41
+    }
+   ],
+   "period_type": "half",
+   "type": "Segment",
+   "pv_score": 8,
+   "signal": "20,4 Mds € au S1 2026, +9%, tirés par les unités de compte (+17%) et la prévoyance",
+   "description_fr": "Primes émises brutes de la branche Vie (épargne, prévoyance, unités de compte). S2 = année moins S1, dérivé.",
+   "description_en": "Life gross written premiums (savings, protection, unit-linked). H2 derived as FY minus H1.",
+   "last_data_date": "2026-06-30",
+   "frequency": "semiannual",
+   "_derived_points": [
+    "H2-2022",
+    "H2-2023",
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "HEALTH_REV",
+   "name_fr": "CA Santé",
+   "name_en": "Health revenues",
+   "value": 10.754,
+   "unit": "Mds €",
+   "yoy": "+6.0%",
+   "history": [
+    {
+     "q": "H1-2022",
+     "v": 8.734
+    },
+    {
+     "q": "H2-2022",
+     "v": 8.52
+    },
+    {
+     "q": "H1-2023",
+     "v": 8.231
+    },
+    {
+     "q": "H2-2023",
+     "v": 7.837
+    },
+    {
+     "q": "H1-2024",
+     "v": 9.086
+    },
+    {
+     "q": "H2-2024",
+     "v": 8.4
+    },
+    {
+     "q": "H1-2025",
+     "v": 10.149
+    },
+    {
+     "q": "H2-2025",
+     "v": 8.865
+    },
+    {
+     "q": "H1-2026",
+     "v": 10.754
+    }
+   ],
+   "period_type": "half",
+   "type": "Segment",
+   "pv_score": 8,
+   "signal": "10,8 Mds € au S1 2026, +6% ; 19,0 Mds € sur 2025, résultat opérationnel Santé en hausse de 17%",
+   "description_fr": "Primes émises brutes de la branche Santé (collective et individuelle). S2 = année moins S1, dérivé.",
+   "description_en": "Health gross written premiums (group and individual). H2 derived as FY minus H1.",
+   "last_data_date": "2026-06-30",
+   "frequency": "semiannual",
+   "_derived_points": [
+    "H2-2022",
+    "H2-2023",
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "PC_UE",
+   "name_fr": "Résultat opérationnel Dommages",
+   "name_en": "P&C underlying earnings",
+   "value": 5.872,
+   "unit": "Mds €",
+   "yoy": "+6.6%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 2.931
+    },
+    {
+     "q": "FY2023",
+     "v": 5.012
+    },
+    {
+     "q": "FY2024",
+     "v": 5.51
+    },
+    {
+     "q": "FY2025",
+     "v": 5.872
+    }
+   ],
+   "period_type": "year",
+   "type": "Segment",
+   "pv_score": 9,
+   "signal": "5,87 Mds € en 2025, +9% à change constant, doublé depuis 2022",
+   "description_fr": "Résultat opérationnel part du Groupe du segment Dommages.",
+   "description_en": "P&C segment underlying earnings, Group share.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "LH_UE",
+   "name_fr": "Résultat opérationnel Vie & Santé",
+   "name_en": "Life & Health underlying earnings",
+   "value": 3.501,
+   "unit": "Mds €",
+   "yoy": "+5.4%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 3.563
+    },
+    {
+     "q": "FY2023",
+     "v": 3.232
+    },
+    {
+     "q": "FY2024",
+     "v": 3.323
+    },
+    {
+     "q": "FY2025",
+     "v": 3.501
+    }
+   ],
+   "period_type": "year",
+   "type": "Segment",
+   "pv_score": 8,
+   "signal": "3,50 Mds € en 2025, +7% à change constant, dont Santé +17%",
+   "description_fr": "Résultat opérationnel part du Groupe du segment Vie & Santé.",
+   "description_en": "Life & Health segment underlying earnings, Group share.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "GEO_FR",
+   "name_fr": "CA France",
+   "name_en": "France revenues",
+   "value": 30.598,
+   "unit": "Mds €",
+   "yoy": "+5.5%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 28.627
+    },
+    {
+     "q": "FY2023",
+     "v": 27.243
+    },
+    {
+     "q": "FY2024",
+     "v": 28.996
+    },
+    {
+     "q": "FY2025",
+     "v": 30.598
+    }
+   ],
+   "period_type": "year",
+   "type": "Geography",
+   "pv_score": 7,
+   "signal": "30,6 Mds € en 2025, +6%, premier marché domestique du groupe",
+   "description_fr": "Primes émises brutes et autres produits de la zone, hors gestion d'actifs, nets d'éliminations intragroupe.",
+   "description_en": "Zone gross written premiums and other revenues, excluding asset management, net of intercompany eliminations.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "GEO_EU",
+   "name_fr": "CA Europe",
+   "name_en": "Europe revenues",
+   "value": 43.005,
+   "unit": "Mds €",
+   "yoy": "+9.4%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 35.045
+    },
+    {
+     "q": "FY2023",
+     "v": 36.617
+    },
+    {
+     "q": "FY2024",
+     "v": 39.298
+    },
+    {
+     "q": "FY2025",
+     "v": 43.005
+    }
+   ],
+   "period_type": "year",
+   "type": "Geography",
+   "pv_score": 7,
+   "signal": "43,0 Mds € en 2025, +9%, première zone du groupe (38% du CA)",
+   "description_fr": "Primes émises brutes et autres produits de la zone, hors gestion d'actifs, nets d'éliminations intragroupe.",
+   "description_en": "Zone gross written premiums and other revenues, excluding asset management, net of intercompany eliminations.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "GEO_XL",
+   "name_fr": "CA AXA XL",
+   "name_en": "AXA XL revenues",
+   "value": 19.277,
+   "unit": "Mds €",
+   "yoy": "-0.5%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 18.577
+    },
+    {
+     "q": "FY2023",
+     "v": 18.417
+    },
+    {
+     "q": "FY2024",
+     "v": 19.383
+    },
+    {
+     "q": "FY2025",
+     "v": 19.277
+    }
+   ],
+   "period_type": "year",
+   "type": "Geography",
+   "pv_score": 7,
+   "signal": "19,3 Mds € en 2025, stable, marché des grands risques en phase de repli tarifaire",
+   "description_fr": "Primes émises brutes et autres produits de la zone, hors gestion d'actifs, nets d'éliminations intragroupe.",
+   "description_en": "Zone gross written premiums and other revenues, excluding asset management, net of intercompany eliminations.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "GEO_ASIA",
+   "name_fr": "CA Asie, Afrique & EME-LATAM",
+   "name_en": "Asia, Africa & EME-LATAM revenues",
+   "value": 19.925,
+   "unit": "Mds €",
+   "yoy": "+4.4%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 16.225
+    },
+    {
+     "q": "FY2023",
+     "v": 16.99
+    },
+    {
+     "q": "FY2024",
+     "v": 19.083
+    },
+    {
+     "q": "FY2025",
+     "v": 19.925
+    }
+   ],
+   "period_type": "year",
+   "type": "Geography",
+   "pv_score": 7,
+   "signal": "19,9 Mds € en 2025, +4%, zone la plus dynamique (Turquie, Mexique, Hong Kong)",
+   "description_fr": "Primes émises brutes et autres produits de la zone, hors gestion d'actifs, nets d'éliminations intragroupe.",
+   "description_en": "Zone gross written premiums and other revenues, excluding asset management, net of intercompany eliminations.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "CSM",
+   "name_fr": "Marge sur services contractuels (CSM)",
+   "name_en": "Contractual Service Margin",
+   "value": 33.253,
+   "unit": "Mds €",
+   "yoy": "-1.8%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 33.535
+    },
+    {
+     "q": "FY2023",
+     "v": 33.976
+    },
+    {
+     "q": "FY2024",
+     "v": 33.853
+    },
+    {
+     "q": "FY2025",
+     "v": 33.253
+    }
+   ],
+   "period_type": "year",
+   "type": "Operational",
+   "pv_score": 8,
+   "signal": "33,3 Mds € fin 2025 ; 33,9 Mds € au 30 juin 2026, en croissance normalisée de 2%",
+   "description_fr": "Stock de marge sur services contractuels (norme IFRS 17) : profits futurs déjà contractualisés, non encore reconnus en résultat.",
+   "description_en": "Contractual Service Margin stock under IFRS 17: contracted future profits not yet recognized in earnings.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual",
+   "_specific_to": "IFRS 17, assurance vie"
+  },
+  {
+   "short": "NBV",
+   "name_fr": "Valeur des affaires nouvelles (NBV)",
+   "name_en": "New Business Value",
+   "value": 2.233,
+   "unit": "Mds €",
+   "yoy": "-1.4%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 2.288
+    },
+    {
+     "q": "FY2023",
+     "v": 2.281
+    },
+    {
+     "q": "FY2024",
+     "v": 2.264
+    },
+    {
+     "q": "FY2025",
+     "v": 2.233
+    }
+   ],
+   "period_type": "year",
+   "type": "Operational",
+   "pv_score": 7,
+   "signal": "2,23 Mds € en 2025, stable à base comparable, marge de 4,5%",
+   "description_fr": "Valeur actuelle des profits futurs générés par les affaires nouvelles Vie & Santé de l'exercice, après impôt.",
+   "description_en": "Post-tax present value of future profits from the year's new Life & Health business.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual",
+   "_specific_to": "Assurance vie"
+  },
+  {
+   "short": "PVEP",
+   "name_fr": "Valeur actuelle des primes futures (PVEP)",
+   "name_en": "Present Value of Expected Premiums",
+   "value": 49.357,
+   "unit": "Mds €",
+   "yoy": "-3.0%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 43.32
+    },
+    {
+     "q": "FY2023",
+     "v": 45.856
+    },
+    {
+     "q": "FY2024",
+     "v": 50.896
+    },
+    {
+     "q": "FY2025",
+     "v": 49.357
+    }
+   ],
+   "period_type": "year",
+   "type": "Operational",
+   "pv_score": 6,
+   "signal": "49,4 Mds € en 2025, -2% à base comparable, effet de la remontée des taux d'actualisation",
+   "description_fr": "Valeur actuelle des primes attendues sur les affaires nouvelles Vie & Santé, dénominateur de la marge NBV.",
+   "description_en": "Present value of expected premiums on new Life & Health business, denominator of the NBV margin.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual",
+   "_specific_to": "Assurance vie"
+  },
+  {
+   "short": "NBVM",
+   "name_fr": "Marge sur affaires nouvelles",
+   "name_en": "New Business Value margin",
+   "value": 4.5,
+   "unit": "%",
+   "yoy": "+0.1 pt",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 5.3
+    },
+    {
+     "q": "FY2023",
+     "v": 5.0
+    },
+    {
+     "q": "FY2024",
+     "v": 4.4
+    },
+    {
+     "q": "FY2025",
+     "v": 4.5
+    }
+   ],
+   "period_type": "year",
+   "type": "Margin",
+   "pv_score": 6,
+   "signal": "4,5% en 2025, en légère reprise après deux années de baisse",
+   "description_fr": "Rapport entre la valeur des affaires nouvelles et la valeur actuelle des primes attendues.",
+   "description_en": "New Business Value divided by the present value of expected premiums.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual",
+   "_specific_to": "Assurance vie"
+  },
+  {
+   "short": "ROE",
+   "name_fr": "ROE opérationnel",
+   "name_en": "Underlying return on equity",
+   "value": 16.0,
+   "unit": "%",
+   "yoy": "+0.8 pt",
+   "history": [
+    {
+     "q": "FY2023",
+     "v": 14.9
+    },
+    {
+     "q": "FY2024",
+     "v": 15.2
+    },
+    {
+     "q": "FY2025",
+     "v": 16.0
+    }
+   ],
+   "period_type": "year",
+   "type": "Profitability",
+   "pv_score": 8,
+   "signal": "16,0% en 2025, dans le haut de la cible 14-16% du plan (18,3% au S1 2026)",
+   "description_fr": "Résultat opérationnel rapporté aux capitaux propres moyens ajustés. Cible du plan stratégique : 14% à 16%.",
+   "description_en": "Underlying earnings over average adjusted shareholders' equity. Strategic plan target: 14% to 16%.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "LH_CR",
+   "name_fr": "Ratio combiné Vie & Santé court terme",
+   "name_en": "Life & Health short-term combined ratio",
+   "value": 97.2,
+   "unit": "%",
+   "yoy": "-0.2 pt",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 97.5
+    },
+    {
+     "q": "FY2023",
+     "v": 98.9
+    },
+    {
+     "q": "FY2024",
+     "v": 97.4
+    },
+    {
+     "q": "FY2025",
+     "v": 97.2
+    }
+   ],
+   "period_type": "year",
+   "type": "Margin",
+   "pv_score": 6,
+   "signal": "97,2% en 2025, amélioration continue depuis le pic de 98,9% de 2023 (95,8% au S1 2026)",
+   "description_fr": "Ratio combiné de l'activité court terme Vie & Santé (Santé et prévoyance annuelles).",
+   "description_en": "Combined ratio of the short-term Life & Health business (annual health and protection).",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual",
+   "_specific_to": "Assurance santé et prévoyance"
+  },
+  {
+   "short": "EMP",
+   "name_fr": "Effectifs",
+   "name_en": "Employees",
+   "value": 111262,
+   "unit": "salariés",
+   "yoy": "-1.0%",
+   "history": [
+    {
+     "q": "FY2023",
+     "v": 113696
+    },
+    {
+     "q": "FY2024",
+     "v": 112354
+    },
+    {
+     "q": "FY2025",
+     "v": 111262
+    }
+   ],
+   "period_type": "year",
+   "type": "Operational",
+   "pv_score": 6,
+   "signal": "111 262 salariés fin 2025, en baisse de 2% en deux ans grâce à l'automatisation et à l'IA",
+   "description_fr": "Effectif salarié total du groupe au 31 décembre, périmètre de reporting social.",
+   "description_en": "Total Group salaried headcount at December 31, social reporting scope.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "ORG",
+   "name_fr": "Croissance du CA (base comparable)",
+   "name_en": "Revenue growth (comparable basis)",
+   "value": 6.5,
+   "unit": "%",
+   "yoy": "-1.0 pt",
+   "history": [
+    {
+     "q": "FY2023",
+     "v": 2.6
+    },
+    {
+     "q": "FY2024",
+     "v": 7.5
+    },
+    {
+     "q": "FY2025",
+     "v": 6.5
+    }
+   ],
+   "period_type": "year",
+   "type": "Growth",
+   "pv_score": 7,
+   "signal": "+6,5% en 2025 à base comparable, +5% au S1 2026",
+   "description_fr": "Croissance du chiffre d'affaires à périmètre et taux de change constants, telle que publiée par AXA.",
+   "description_en": "Revenue growth on a comparable basis (constant scope and FX), as published by AXA.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual"
+  },
+  {
+   "short": "PUB",
+   "name_fr": "Croissance du CA (publiée)",
+   "name_en": "Revenue growth (reported basis)",
+   "value": 4.7,
+   "unit": "%",
+   "yoy": "-2.7 pts",
+   "history": [
+    {
+     "q": "FY2023",
+     "v": 0.9
+    },
+    {
+     "q": "FY2024",
+     "v": 7.4
+    },
+    {
+     "q": "FY2025",
+     "v": 4.7
+    }
+   ],
+   "period_type": "year",
+   "type": "Growth",
+   "pv_score": 6,
+   "signal": "+4,7% en 2025 en données publiées, écart de 1,8 pt avec la base comparable dû au change",
+   "description_fr": "Croissance du chiffre d'affaires publié d'une année sur l'autre, calculée sur les montants publiés en euros courants.",
+   "description_en": "Year-on-year growth of reported revenues, computed from published euro amounts.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual",
+   "_derived_points": [
+    "FY2023",
+    "FY2024",
+    "FY2025"
+   ]
+  },
+  {
+   "short": "NETFLOWS",
+   "name_fr": "Collecte nette Vie & Santé",
+   "name_en": "Life & Health net flows",
+   "value": 5.397,
+   "unit": "Mds €",
+   "yoy": "+264%",
+   "history": [
+    {
+     "q": "FY2024",
+     "v": 1.483
+    },
+    {
+     "q": "FY2025",
+     "v": 5.397
+    }
+   ],
+   "period_type": "year",
+   "type": "Operational",
+   "pv_score": 7,
+   "signal": "+5,4 Mds € de collecte nette en 2025 contre +1,5 Md € en 2024 (+4,7 Mds € au seul S1 2026)",
+   "description_fr": "Collecte nette de l'activité Vie & Santé : primes encaissées moins prestations et rachats.",
+   "description_en": "Life & Health net flows: premiums collected less benefits and surrenders.",
+   "last_data_date": "2025-12-31",
+   "frequency": "annual",
+   "is_short_history": true,
+   "story_category": "Redressement de la collecte nette Vie & Santé, historique limité à 2024-2025 dans les documents publiés"
+  },
+  {
+   "short": "WEB_CLIENTS",
+   "name_fr": "Clients dans le monde",
+   "value": 92,
+   "unit": "millions",
+   "is_short_history": true,
+   "story_category": "Adoption",
+   "last_data_date": "2026-08-05",
+   "signal": "Échelle de la base clients d'un assureur mondial, comparable à l'exemple banque du référentiel (nombre de clients particuliers). Chiffre publie sur le site de la societe (releve 2026).",
+   "_source": "site web societe: https://www.axa.com/en",
+   "_source_month": "aout 2026",
+   "history": [
+    {
+     "q": "2026",
+     "v": 92
+    }
+   ]
+  },
+  {
+   "short": "WEB_SALARIES_FORMES_AXA",
+   "name_fr": "Salariés formés par AXA Climate au changement climatique et à l'empreinte carbone",
+   "value": 6,
+   "unit": "millions",
+   "is_short_history": true,
+   "story_category": "Story",
+   "last_data_date": "2026-08-05",
+   "signal": "Offre B2B de formation climat propre à la filiale AXA Climate, aucun rapport avec l'activité assurantielle standard. Chiffre publie sur le site de la societe (releve 2026).",
+   "_source": "site web societe: https://www.axa.com/en/commitments/axa-climate",
+   "_source_month": "aout 2026",
+   "history": [
+    {
+     "q": "2026",
+     "v": 6
+    }
+   ]
+  }
+ ]
+}
