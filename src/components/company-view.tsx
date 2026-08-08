@@ -512,7 +512,7 @@ export function CompanyView({
           // périodes des stés à exercice décalé sont converties en trimestre
           // CALENDAIRE réel (AAPL Q1 FY2026 → T4 25 = oct-déc 2025).
           const cal = isFiscalShifted
-            ? fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fyEndMonth)
+            ? fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fyEndMonth, audit?.fyLabelConvention ?? "end")
             : { q: Number(m[1]), year: Number(m[2]) };
           return `${qPrefix}${cal.q} ${String(cal.year).slice(-2)}`;
         });

@@ -99,10 +99,12 @@ export function getChartLabelRotation(): number {
 export function getChartLabelFontSize(nPoints: number): number {
   // Yann 28 juillet 2026 : les labels restent horizontaux, donc c'est la
   // taille qui absorbe la densite.
-  if (nPoints <= 8) return 13;
-  if (nPoints <= 12) return 11;
-  if (nPoints <= 16) return 9.5;
-  if (nPoints <= 22) return 8.5;
-  if (nPoints <= 30) return 7.5;
-  return 6.5;
+  // Yann 8 août 2026 : +1pt sur toutes les densités (le plot a été élargi de
+  // ~57px via PAD_LEFT/PAD_RIGHT, l'espace par barre absorbe la hausse).
+  if (nPoints <= 8) return 14;
+  if (nPoints <= 12) return 12;
+  if (nPoints <= 16) return 10.5;
+  if (nPoints <= 22) return 9.5;
+  if (nPoints <= 30) return 8.5;
+  return 7.5;
 }

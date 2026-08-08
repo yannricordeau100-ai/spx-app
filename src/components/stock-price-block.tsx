@@ -58,7 +58,8 @@ async function fetchPrice(ticker: string): Promise<LivePrice | null> {
     return {
       price: item.price,
       deltaPct: item.deltaPct ?? 0,
-      // marketCap reçu en USD bruts → convertis en Mds $
+      // marketCap reçu en USD bruts → convertis en Mds $. Yann 8 août 2026 :
+      // absent = 0 sentinelle, rendu "—" (plus jamais "0 Mds $" à l'écran).
       marketCap: item.marketCap != null ? item.marketCap / 1_000_000_000 : 0,
       marketState: item.marketState,
       loading: false,
@@ -216,7 +217,9 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
               ? placeholder
               : freeBlocked
                 ? <BlurredFreeValue value="0" suffix=" Mds $" ticker={company.ticker} />
-                : fmtMarketCap(s.marketCap, locale)}
+                : s.marketCap >= 0.5
+                  ? fmtMarketCap(s.marketCap, locale)
+                  : placeholder}
           </span>
         </div>
 

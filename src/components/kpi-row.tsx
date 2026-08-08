@@ -217,8 +217,9 @@ export function KpiRow({
             if (m) {
               // Yann 16 juil 2026 : conversion trimestre fiscal → calendaire
               // (l'utilisateur doit savoir de quand datent les chiffres).
-              const fyEnd = getFiscalAudit(ticker ?? "")?.fiscalYearEndMonth ?? 12;
-              const cal = fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fyEnd);
+              const fa = getFiscalAudit(ticker ?? "");
+              const fyEnd = fa?.fiscalYearEndMonth ?? 12;
+              const cal = fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fyEnd, fa?.fyLabelConvention ?? "end");
               periodLabel = `T${cal.q} ${cal.year}`;
             }
           }

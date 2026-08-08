@@ -214,7 +214,7 @@ export function buildChartSpec(
         const m = s.trim().match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/)!;
         // Yann 16 juil 2026 : conversion fiscal → calendaire à l'affichage.
         const cal = isFiscalShifted
-          ? fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fiscalYearEndMonth)
+          ? fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fiscalYearEndMonth, audit?.fyLabelConvention ?? "end")
           : { q: Number(m[1]), year: Number(m[2]) };
         return `T${cal.q} ${String(cal.year).slice(-2)}`;
       });

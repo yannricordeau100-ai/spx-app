@@ -796,7 +796,10 @@ export type YearGroup = { startIdx: number; endIdx: number; year: string };
 export function buildYearGroups(labels: string[]): YearGroup[] {
   const groups: YearGroup[] = [];
   for (let i = 0; i < labels.length; i++) {
-    const m = labels[i]?.match(/^T[1-4]\s+(\d{2,4})$/);
+    // Yann 8 août 2026 : le regex ne couvrait que le préfixe FR "T". Graph
+    // basculé EN (labels "Q1 26") ou séries semestrielles ("S1 26"/"H1 26") :
+    // aucun groupe créé, donc AUCUNE année sous l'axe X en mode Max.
+    const m = labels[i]?.match(/^(?:[TQ][1-4]|[SH][12])\s+(\d{2,4})$/);
     if (!m) continue;
     const year = m[1];
     const last = groups[groups.length - 1];

@@ -22,12 +22,21 @@ import fiscalAuditRaw from "@/data/fiscal-audit.json";
 
 export type FiscalAuditEntry = {
   ticker: string;
-  cik: string;
+  cik?: string;
   fiscalYearEndMonth: number; // 1-12
-  fiscalYearEndDay: number; // 1-31
-  latestForm: string | null;
-  latestFilingDate: string | null; // ISO date
-  latestPeriodEnd: string | null; // ISO date
+  fiscalYearEndDay?: number; // 1-31
+  latestForm?: string | null;
+  latestFilingDate?: string | null; // ISO date
+  latestPeriodEnd?: string | null; // ISO date
+  /**
+   * Yann 8 août 2026 : convention de nommage des labels FY de la sté.
+   *  - "end" (défaut) : FY2026 = exercice qui se CLÔT en 2026 (AAPL, V, MSFT)
+   *  - "start" : FY2026 = exercice qui COMMENCE en 2026 (HD, TGT, KR, DG...)
+   * Calibrée par scripts/kpi-lag-detect.py contre la période réelle du dernier
+   * filing. Sans elle, l'axe X des distributeurs affichait un an de retard
+   * (HD "T2 2025" au lieu de "T2 2026").
+   */
+  fyLabelConvention?: "start" | "end";
 };
 
 const FISCAL_AUDIT: Record<string, FiscalAuditEntry> = fiscalAuditRaw as Record<
@@ -198,13 +207,18 @@ export function fiscalQuarterToCalendar(
   q: number,
   fy: number,
   fyEndMonth: number,
+  convention: "start" | "end" = "end",
 ): { q: number; year: number } {
   if (fyEndMonth === 12 || !Number.isFinite(fyEndMonth)) return { q, year: fy };
+  // Yann 8 août 2026 : convention "start" (HD, TGT, KR, DG...) = le label FY
+  // porte l'année de DÉBUT d'exercice. On la ramène à l'année de clôture
+  // avant d'appliquer la règle standard, sinon l'axe X recule d'un an.
+  const fyClose = convention === "start" ? fy + 1 : fy;
   // Mois calendaire de FIN du trimestre fiscal q (1-12).
   const endMonth = ((fyEndMonth + 3 * q - 1) % 12) + 1;
   // La FY se nomme par son année de clôture : si le mois de fin du trimestre
   // est APRÈS le mois de clôture, on est encore dans l'année calendaire
   // précédant la clôture (ex AAPL Q1 FY2026 finit en décembre 2025).
-  const year = endMonth > fyEndMonth ? fy - 1 : fy;
+  const year = endMonth > fyEndMonth ? fyClose - 1 : fyClose;
   return { q: Math.ceil(endMonth / 3), year };
 }

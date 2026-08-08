@@ -52,7 +52,14 @@ async function fetchBatch(symbols: string[]): Promise<PriceItem[]> {
     price: q.regularMarketPrice ?? null,
     deltaPct: q.regularMarketChangePercent ?? null,
     deltaAbs: q.regularMarketChange ?? null,
-    marketCap: q.marketCap ?? null,
+    // Yann 8 août 2026 (screen MU "0 Mds $") : Yahoo quote() omet parfois
+    // marketCap sur certains symboles alors que prix et titres en circulation
+    // sont présents. Fallback : prix x sharesOutstanding, sinon null (jamais 0).
+    marketCap:
+      q.marketCap ??
+      (q.regularMarketPrice != null && q.sharesOutstanding != null
+        ? q.regularMarketPrice * q.sharesOutstanding
+        : null),
     marketState: q.marketState ?? null,
     preMarketPrice: q.preMarketPrice ?? null,
     postMarketPrice: q.postMarketPrice ?? null,

@@ -1,0 +1,60 @@
+Mission : intégrer le ou les trimestres manquants dans les séries KPI de __T__.
+
+Budget DUR : 110k tokens, 40 appels d'outils. Répertoire /Users/yann/spx-app.
+
+CONTEXTE
+Le fichier `.batches-drafts-safe/kpis-haut/__T__.json` contient des séries trimestrielles dont
+le dernier point est __LAST__ (clôture réelle __CLOSE__). Or le data-lake contient un dépôt SEC
+plus récent : `__FILE__`, qui couvre la période close __PEND__. La page société de __T__ est
+donc en retard d'au moins un trimestre.
+
+TÂCHE
+1. Ouvre le filing le plus récent et identifie la période exactement couverte
+   (cherche "quarterly period ended" ou "fiscal year ended"). Attention aux exercices
+   décalés et aux calendriers 52/53 semaines : re-mappe par date de clôture réelle,
+   ne fais jamais confiance à un libellé de trimestre trouvé tel quel.
+2. Si plusieurs trimestres manquent entre __LAST__ et le filing, intègre-les TOUS
+   (utilise aussi les filings intermédiaires présents dans `data-lake/__T__/10Q/` et
+   `data-lake/__T__/10K/`).
+3. Pour chaque série existante du fichier, ajoute le ou les nouveaux points au format
+   déjà utilisé (`history: [{q, v}]`, libellés cohérents avec l'existant), puis recale
+   `value` sur le nouveau dernier point et recalcule `yoy` contre le MÊME trimestre de
+   l'année précédente.
+4. Cumuls : quand seul un cumul est publié (6 ou 9 mois, ou l'exercice), dérive le
+   trimestre par différence et marque le point `_derived`. Ne dérive jamais une grandeur
+   non additive (BPA, marges, taux, effectifs, encours) : pour celles-là, ne prends que
+   la valeur publiée du trimestre, sinon laisse un trou.
+5. OBLIGATOIRE pour chaque série prolongée : mets à jour `last_data_date` avec la date
+   de clôture RÉELLE du nouveau dernier point (format ISO AAAA-MM-JJ, la date exacte du
+   "period ended" du filing). Un last_data_date en retard décale tout l'axe X du graph.
+6. OBLIGATOIRE : mets à jour le champ `signal` de chaque série prolongée s'il cite une
+   période ou des chiffres devenus faux. Contrôle AUSSI les signaux des séries que tu ne
+   prolonges pas : si un signal cite un trimestre plus ancien que le dernier point de sa
+   série ("au trimestre clos <mois année>" incohérent), réécris-le avec la valeur et la
+   période du dernier point réel. Un signal qui parle d'un trimestre antérieur à la
+   valeur affichée est une faute.
+7. Contrôles obligatoires avant d'écrire : somme des segments = CA consolidé du nouveau
+   trimestre ; somme des zones géographiques = CA ; cohérence des marges ; ordre
+   chronologique des points ; aucune valeur aberrante par rapport à la série.
+
+FICHIERS TEMPORAIRES (obligatoire)
+Plusieurs agents tournent en parallele et partagent le meme scratchpad. TOUT fichier
+temporaire que tu crees DOIT etre prefixe par le ticker : `__T___extract.txt`,
+`__T___q2.json`, etc. Ne cree JAMAIS un fichier au nom generique (q2.txt, tmp.json,
+out.txt) : un autre agent l ecraserait et tu extrairais les chiffres d une AUTRE
+societe sans t en apercevoir. Si tu lis un fichier temporaire, verifie qu il porte
+bien ton ticker.
+
+RÈGLES
+- Zéro invention. Verbatim des filings locaux uniquement. Si une série n'est pas couverte
+  par le filing, ne l'invente pas et signale-la.
+- Ne touche à AUCUN autre ticker. Aucun commit git.
+- Un seul lint final : `npx tsx scripts/kpi-lint.ts --tickers=__T__`, exiger 0 rouge.
+
+RETOUR STRICT, 10 lignes maximum :
+__T__: N séries prolongées au <trimestre>, M signaux mis à jour, K last_data_date recalés, lint: X rouges Y oranges
+Les 4 valeurs clés extraites (CA, résultat net, et 2 métriques propres à la sté).
+Résultat du contrôle somme segments = consolidé.
+Séries NON prolongées et pourquoi (verbatim de la source).
+Si le rafraîchissement est IMPOSSIBLE, écris en première ligne :
+__T__: IMPOSSIBLE — <raison factuelle courte + verbatim>

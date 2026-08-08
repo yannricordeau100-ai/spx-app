@@ -553,8 +553,12 @@ export function formatUnit(unit: string): string {
   const u = String(unit).trim();
   switch (u) {
     // Bruts USD
+    // Yann 8 août 2026 : "$T" rendait "B $" (billion FR = 10^12) qui entre en
+    // collision avec le "B" anglais (10^9) de chartAxisHeader : le hero disait
+    // "B $" pendant que l'axe Y disait "Tn $". Forme canonique FR : "Bln $"
+    // (même mot que SCALE_WORDS.fr.T), traduite "Tn $" par chartAxisHeader(en).
     case "$T":
-      return "B $";
+      return "Bln $";
     case "$B":
       return "Mds $";
     case "$M":
@@ -565,7 +569,7 @@ export function formatUnit(unit: string): string {
       return "$";
     // Bruts magnitudes
     case "T":
-      return "B";
+      return "Bln";
     case "B":
       return "Mds";
     case "M":
@@ -631,7 +635,7 @@ export function decimalsForValue(num: number, unit?: string): number {
   if (!Number.isFinite(num)) return 1;
   const abs = Math.abs(num);
   const u = (unit ?? "").trim();
-  const hasMagnitude = !!u && /\b(Mds|M|K|B)\b/i.test(u);
+  const hasMagnitude = !!u && /\b(Mds|Bln|M|K|B)\b/i.test(u);
   // Yann 18 mai 2026 : unités de comptage entières (unités, units,
   // employés, employees, stores, magasins, véhicules, vehicles, abonnés,
   // subscribers, contrats, contracts, etc.) sans préfixe de magnitude
@@ -749,6 +753,7 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
   // Yann 12 juil 2026 : DOWNSCALE quand |v| < 1 avec magnitude (règle [1,999]
   // côté bas) : "0,9 Mds $" -> "900 M $" ; "0,37 B USD" -> "370 M $".
   const DOWNSCALE: Record<string, string> = {
+    "Bln $": "Mds $", "Bln €": "Mds €", "Bln": "Mds",
     "Mds $": "M $", "Mds €": "M €", "Mds £": "M £", "Mds": "M",
     "Mds USD": "M $", "Mds EUR": "M €",
     "M $": "K $", "M €": "K €",
@@ -766,28 +771,30 @@ export function formatHeroValue(value: string | number | null | undefined, unit:
   // devise pure (pas déjà préfixée M / Mds), on monte de magnitude
   // automatiquement jusqu'à rentrer dans [1, 999].
   const RAW_CURRENCY_MAGNITUDE_LADDER: Record<string, string[]> = {
-    "$": ["$", "K $", "M $", "Mds $", "B $"],
-    "€": ["€", "K €", "M €", "Mds €", "B €"],
-    "£": ["£", "K £", "M £", "Mds £", "B £"],
-    "¥": ["¥", "K ¥", "M ¥", "Mds ¥", "B ¥"],
-    "CHF": ["CHF", "K CHF", "M CHF", "Mds CHF", "B CHF"],
-    "EUR": ["EUR", "K EUR", "M EUR", "Mds EUR", "B EUR"],
-    "USD": ["USD", "K USD", "M USD", "Mds USD", "B USD"],
-    "GBP": ["GBP", "K GBP", "M GBP", "Mds GBP", "B GBP"],
-    "JPY": ["JPY", "K JPY", "M JPY", "Mds JPY", "B JPY"],
-    "CAD": ["CAD", "K CAD", "M CAD", "Mds CAD", "B CAD"],
-    "AUD": ["AUD", "K AUD", "M AUD", "Mds AUD", "B AUD"],
-    "SEK": ["SEK", "K SEK", "M SEK", "Mds SEK", "B SEK"],
-    "DKK": ["DKK", "K DKK", "M DKK", "Mds DKK", "B DKK"],
-    "NOK": ["NOK", "K NOK", "M NOK", "Mds NOK", "B NOK"],
-    "HKD": ["HKD", "K HKD", "M HKD", "Mds HKD", "B HKD"],
-    "CNY": ["CNY", "K CNY", "M CNY", "Mds CNY", "B CNY"],
-    "INR": ["INR", "K INR", "M INR", "Mds INR", "B INR"],
-    "BRL": ["BRL", "K BRL", "M BRL", "Mds BRL", "B BRL"],
-    "MXN": ["MXN", "K MXN", "M MXN", "Mds MXN", "B MXN"],
-    "ZAR": ["ZAR", "K ZAR", "M ZAR", "Mds ZAR", "B ZAR"],
-    "KRW": ["KRW", "K KRW", "M KRW", "Mds KRW", "B KRW"],
-    "PLN": ["PLN", "K PLN", "M PLN", "Mds PLN", "B PLN"],
+    // Yann 8 août 2026 : dernier barreau "B X" remplacé par "Bln X" (cf
+    // collision B billion-FR / B billion-US corrigée dans formatUnit).
+    "$": ["$", "K $", "M $", "Mds $", "Bln $"],
+    "€": ["€", "K €", "M €", "Mds €", "Bln €"],
+    "£": ["£", "K £", "M £", "Mds £", "Bln £"],
+    "¥": ["¥", "K ¥", "M ¥", "Mds ¥", "Bln ¥"],
+    "CHF": ["CHF", "K CHF", "M CHF", "Mds CHF", "Bln CHF"],
+    "EUR": ["EUR", "K EUR", "M EUR", "Mds EUR", "Bln EUR"],
+    "USD": ["USD", "K USD", "M USD", "Mds USD", "Bln USD"],
+    "GBP": ["GBP", "K GBP", "M GBP", "Mds GBP", "Bln GBP"],
+    "JPY": ["JPY", "K JPY", "M JPY", "Mds JPY", "Bln JPY"],
+    "CAD": ["CAD", "K CAD", "M CAD", "Mds CAD", "Bln CAD"],
+    "AUD": ["AUD", "K AUD", "M AUD", "Mds AUD", "Bln AUD"],
+    "SEK": ["SEK", "K SEK", "M SEK", "Mds SEK", "Bln SEK"],
+    "DKK": ["DKK", "K DKK", "M DKK", "Mds DKK", "Bln DKK"],
+    "NOK": ["NOK", "K NOK", "M NOK", "Mds NOK", "Bln NOK"],
+    "HKD": ["HKD", "K HKD", "M HKD", "Mds HKD", "Bln HKD"],
+    "CNY": ["CNY", "K CNY", "M CNY", "Mds CNY", "Bln CNY"],
+    "INR": ["INR", "K INR", "M INR", "Mds INR", "Bln INR"],
+    "BRL": ["BRL", "K BRL", "M BRL", "Mds BRL", "Bln BRL"],
+    "MXN": ["MXN", "K MXN", "M MXN", "Mds MXN", "Bln MXN"],
+    "ZAR": ["ZAR", "K ZAR", "M ZAR", "Mds ZAR", "Bln ZAR"],
+    "KRW": ["KRW", "K KRW", "M KRW", "Mds KRW", "Bln KRW"],
+    "PLN": ["PLN", "K PLN", "M PLN", "Mds PLN", "Bln PLN"],
   };
   const ladder = RAW_CURRENCY_MAGNITUDE_LADDER[unit];
   if (ladder && Math.abs(displayNum) >= 1000) {

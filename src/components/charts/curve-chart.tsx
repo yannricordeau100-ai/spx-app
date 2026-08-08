@@ -120,11 +120,12 @@ function pickYTickDecimals(tickValues: number[], unit: string): number | undefin
 
 const W = 920;
 const H = 420;
-const PAD_LEFT = 96;
+// Yann 8 août 2026 : plot élargi gauche+droite (96/95 -> 76/58), cf bars-3d.
+const PAD_LEFT = 76;
 // PAD_RIGHT = 95 (vs 70 avant) pour garantir qu'aucun label X (ex : "TTM"
 // italique 13-14px) ne soit coupé par le bord droit du SVG, sur tous les
 // viewports (mobile narrow, conteneurs avec overflow hidden, etc.)
-const PAD_RIGHT = 95;
+const PAD_RIGHT = 58;
 const PAD_TOP = 40;
 const PAD_BOTTOM = 90;
 
@@ -137,7 +138,7 @@ function splitQuarterLabel(label: string): { top: string; bottom: string; isQuar
   // Yann 17 juil 2026 (screen AAPL EN) : accepter aussi le préfixe "Q" (titre
   // du graph basculé EN) : sinon les 20 labels "Q1 21" s'affichent en entier
   // et se chevauchent au lieu d'être scindés trimestre / bande d'année.
-  const m = label.match(/^([TQ][1-4])\s+(\d{2,4})$/);
+  const m = label.match(/^([TQ][1-4]|[SH][12])\s+(\d{2,4})$/);
   if (m) return { top: m[1], bottom: m[2], isQuarter: true };
   return { top: label, bottom: "", isQuarter: false };
 }

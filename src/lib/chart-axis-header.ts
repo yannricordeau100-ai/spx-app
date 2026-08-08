@@ -136,6 +136,14 @@ export function chartAxisHeader(unit: string, locale: AxisLocale = "fr"): string
     case "€M": return `${w.M} €`;
     case "£B": return `${w.B} £`;
     case "£M": return `${w.M} £`;
+    // Yann 8 août 2026 : formes trillion FR canoniques ("Bln X", sortie de
+    // formatUnit("$T")) : locale-aware (fr Bln $, en Tn $, de Bio $).
+    case "Bln $": return `${w.T} $`;
+    case "Bln €": return `${w.T} €`;
+    case "Bln £": return `${w.T} £`;
+    case "Bln CHF": return `${w.T} CHF`;
+    case "Bln EUR": return `${w.T} EUR`;
+    case "Bln": return w.T;
     // Formats déjà rendus par formatUnit() — le cas le plus fréquent
     case "Mds $": return `${w.B} $`;
     case "M $":   return `${w.M} $`;
@@ -177,6 +185,7 @@ export function isCurrencyLikeUnit(unit: string): boolean {
   const n = unit?.trim() ?? "";
   return [
     "$T", "$B", "$M", "$K", "$", "T", "B", "M", "K",
+    "Bln $", "Bln €", "Bln £", "Bln CHF", "Bln EUR", "Bln",
     "€B", "€M", "£B", "£M",
     "Mds $", "M $", "Mds €", "M €", "Mds £", "M £",
     "Mds CHF", "Mds JPY", "Mds EUR", "Mds DKK", "Mds INR",

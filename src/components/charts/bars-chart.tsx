@@ -42,8 +42,9 @@ function niceTicks(min: number, max: number, count = 5): number[] {
 
 const W = 920;
 const H = 420;
-const PAD_LEFT = 96;
-const PAD_RIGHT = 50;
+// Yann 8 août 2026 : plot élargi gauche+droite (96/50 -> 76/44), cf bars-3d.
+const PAD_LEFT = 76;
+const PAD_RIGHT = 44;
 const PAD_TOP = 40;
 const PAD_BOTTOM = 80;
 const DX = 22;

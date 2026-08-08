@@ -27,7 +27,10 @@ const formatBarLabel = (v: number, dataMax: number, unit?: string) =>
 const W = 920, H = 420;
 // PAD_RIGHT = 95 (vs 70 avant) pour garantir aucun clipping du label TTM
 // horizontal (sinon coupé par le bord droit du SVG en mode crowded).
-const PAD_LEFT = 96, PAD_RIGHT = 95, PAD_TOP = 40, PAD_BOTTOM = 90;
+// Yann 8 août 2026 : plot élargi gauche+droite (96/95 -> 76/58) pour réduire
+// le vide et agrandir les barres/labels. Les ticks Y (ancrés end à
+// PAD_LEFT-20) et le label TTM (déport DX/2) restent dans le cadre.
+const PAD_LEFT = 76, PAD_RIGHT = 58, PAD_TOP = 40, PAD_BOTTOM = 90;
 
 /**
  * Split d'un label trimestriel "T1 21" → { top: "T1", bottom: "21" }.
@@ -42,7 +45,7 @@ function splitQuarterLabel(label: string): { top: string; bottom: string; isQuar
   // Yann 17 juil 2026 (screen AAPL EN) : accepter aussi le préfixe "Q" (titre
   // du graph basculé EN) : sinon les 20 labels "Q1 21" s'affichent en entier
   // et se chevauchent au lieu d'être scindés trimestre / bande d'année.
-  const m = label.match(/^([TQ][1-4])\s+(\d{2,4})$/);
+  const m = label.match(/^([TQ][1-4]|[SH][12])\s+(\d{2,4})$/);
   if (m) return { top: m[1], bottom: m[2], isQuarter: true };
   return { top: label, bottom: "", isQuarter: false };
 }
@@ -169,13 +172,15 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   // 5 mai 2026), font-size adapté à la densité pour éviter les chevauchements.
   // Yann 28 juillet 2026 : labels horizontaux => la taille decroit avec le
   // nombre de barres pour garantir zero chevauchement sans rotation.
+  // Yann 8 août 2026 : +1 à +1.5pt à chaque densité (plot élargi de ~57px),
+  // les chiffres au-dessus des barres étaient trop petits en mode Max.
   const valueFontSize =
-    allData.length <= 8 ? 15
-    : allData.length <= 12 ? 13
-    : allData.length <= 16 ? 11
-    : allData.length <= 22 ? 9.5
-    : allData.length <= 30 ? 8.5
-    : 7.5;
+    allData.length <= 8 ? 16
+    : allData.length <= 12 ? 14
+    : allData.length <= 16 ? 12.5
+    : allData.length <= 22 ? 11
+    : allData.length <= 30 ? 10
+    : 9;
   const DX = isClassic ? 0 : 26;
   const DY = isClassic ? 0 : -16;
   // Yann 8 juin 2026 (Point 4) : si KpiSwapTitle force EN, l'axe Y traduit

@@ -16,7 +16,8 @@ const W = 920, H = 420;
 // trimestriels en T1/T2/T3/T4 + (2) year-band en dessous + (3) valeurs
 // négatives qui s'affichent sous les bars rouges sans toucher le year-band.
 // PAD_RIGHT 95 (vs 50) = même règle que curve/bars : pas de clipping TTM.
-const PAD_LEFT = 96, PAD_RIGHT = 95, PAD_TOP = 56, PAD_BOTTOM = 100;
+// Yann 8 août 2026 : plot élargi gauche+droite (96/95 -> 76/58), cf bars-3d.
+const PAD_LEFT = 76, PAD_RIGHT = 58, PAD_TOP = 56, PAD_BOTTOM = 100;
 const INNER_W = W - PAD_LEFT - PAD_RIGHT;
 const INNER_H = H - PAD_TOP - PAD_BOTTOM;
 
@@ -26,7 +27,7 @@ function splitQuarterLabel(label: string): { top: string; bottom: string; isQuar
   // Yann 17 juil 2026 (screen AAPL EN) : accepter aussi le préfixe "Q" (titre
   // du graph basculé EN) : sinon les 20 labels "Q1 21" s'affichent en entier
   // et se chevauchent au lieu d'être scindés trimestre / bande d'année.
-  const m = label.match(/^([TQ][1-4])\s+(\d{2,4})$/);
+  const m = label.match(/^([TQ][1-4]|[SH][12])\s+(\d{2,4})$/);
   if (m) return { top: m[1], bottom: m[2], isQuarter: true };
   return { top: label, bottom: "", isQuarter: false };
 }
