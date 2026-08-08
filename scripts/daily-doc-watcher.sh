@@ -35,5 +35,23 @@ fi
 "${PYTHON_BIN}" "${PY_SCRIPT}"
 RC=$?
 
+# Yann 9 août 2026 : détection de retard KPI fiscal-correct APRÈS le
+# téléchargement des filings. C'est le maillon qui manquait : le watcher
+# téléchargeait mais personne ne vérifiait que les séries KPI suivaient
+# (245 stés de retard accumulées en silence, rattrapées le 8-9 août).
+# Si retard détecté → alerte dans .conv-state/kpi-lag-alert.json, lue par
+# la session autonome et le sum-up horaire. Règle Yann : jamais plus
+# d'1 jour de retard.
+LAG_OUT=$("${PYTHON_BIN}" "${PROJECT_ROOT}/scripts/kpi-lag-detect.py" 2>&1 | grep -m1 "lagging=")
+echo "[$(date -Iseconds)] kpi-lag-detect: ${LAG_OUT}"
+LAG_N=$(echo "${LAG_OUT}" | sed -n 's/.*lagging=\([0-9]*\).*/\1/p')
+if [ -n "${LAG_N}" ] && [ "${LAG_N}" -gt 0 ]; then
+    "${PYTHON_BIN}" "${PROJECT_ROOT}/scripts/kpi-lag-detect.py" 2>/dev/null | grep -v "lagging=" \
+        > "${PROJECT_ROOT}/.conv-state/kpi-lag-alert.json"
+    echo "[$(date -Iseconds)] ALERTE: ${LAG_N} stés en retard KPI → .conv-state/kpi-lag-alert.json"
+else
+    rm -f "${PROJECT_ROOT}/.conv-state/kpi-lag-alert.json"
+fi
+
 echo "[$(date -Iseconds)] === daily-doc-watcher end (rc=${RC}) ==="
 exit ${RC}
