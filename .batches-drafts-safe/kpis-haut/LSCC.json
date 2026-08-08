@@ -5,12 +5,14 @@
  "extracted_by": "agent-sox30-LSCC",
  "sources_used": [
   "data-lake/LSCC/10K/LSCC_2017-03-01 a 2026-02-13 (FY2016-FY2025 : comptes annuels, marge brute, R&D, note quarterly financial data 2015-2019, effectifs, dividende, rachats)",
-  "data-lake/LSCC/10Q/LSCC_2016-08-11 a 2026-08-04 (Q1/Q2/Q3 2016-2026, comptes de resultat)"
+  "data-lake/LSCC/10Q/LSCC_2016-08-11 a 2026-08-04 (Q1/Q2/Q3 2016-2026, comptes de resultat)",
+  "data-lake/LSCC/10K/LSCC_2021-02-26, 2023-02-17, 2025-02-14, 2026-02-13 (MD&A Revenue by End Market / Revenue by Geography / cash-flow repurchases)",
+  "data-lake/LSCC/10Q/LSCC 2024-04-30 a 2026-08-04 (note MD&A Gross Margin, 11 trimestres)"
  ],
  "hero_kpi": "revenue_q",
  "hero_kpi_rationale": "Chiffre d'affaires trimestriel sur plus de 10 ans (T1-2016 a T2-2026) : illustre a la fois la traversee du difficile creux 2016-2017 (96 a 92 M$/trim, pertes nettes), le redressement 2018-2020 sous la nouvelle direction, l'envolee 2021-2023 (+80% porte par les FPGA de securite/edge, pic a 192 M$ au T3-2023) puis le violent destockage 2024-2025 (creux a 117 M$ au T4-2024) et la reprise en cours (201 M$ au T2-2026, +62% sur un an). Le cycle complet du fabless FPGA en une seule serie.",
  "_ordering_rationale": "CA et resultat net trimestriels en tete (series les plus longues et les plus fraiches), puis marge brute et R&D annuelles (KPI structurants du modele fabless FPGA, marge brute passee de 55% a pres de 70% avec le mix produits avance).",
- "_notes": "LSCC ne publie pas de communique de resultats exploitable en 8-K sur toute la periode (exhibits 99.1 non presents dans les 8-K telecharges pour 2020-2023 et 2026-Q1) : les series trimestrielles ont ete extraites directement des comptes de resultat des 10-Q/10-K, pas des 8-K. Les valeurs T4 des exercices 2020 a 2025 (revenu et resultat net) ne sont pas publiees telles quelles dans un document unique : elles sont calculees par soustraction (10-K annuel moins la somme des 3 premiers trimestres du 10-Q), methode validee par recoupement exact sur T4-2016 a T4-2019 ou le 10-K de l'annee suivante publie encore une table trimestrielle detaillee (Item 6 / Quarterly Financial Data, supprimee par la SEC apres 2020) donnant les memes valeurs a l'unite pres. Marge brute et R&D en % / valeur absolue proviennent du MD&A des 10-K (tableau comparatif 3 ans), non trouvees en version trimestrielle homogene sur 10 ans dans le budget imparti. Dividende : aucune mention de versement de dividende trouvee dans le 10-K FY2025 (recherche cadree, pas de confirmation explicite d'absence totale). Segments : le 10-K FY2025 mentionne une note 'operating segments, products, services, geographic areas and major customers' mais le detail chiffre par segment n'a pas ete localise dans le budget imparti ; controle somme segments = consolide non realisable en l'etat, non publie.",
+ "_notes": "LSCC ne publie pas de communique de resultats exploitable en 8-K sur toute la periode (exhibits 99.1 non presents dans les 8-K telecharges pour 2020-2023 et 2026-Q1) : les series trimestrielles ont ete extraites directement des comptes de resultat des 10-Q/10-K, pas des 8-K. Les valeurs T4 des exercices 2020 a 2025 (revenu et resultat net) ne sont pas publiees telles quelles dans un document unique : elles sont calculees par soustraction (10-K annuel moins la somme des 3 premiers trimestres du 10-Q), methode validee par recoupement exact sur T4-2016 a T4-2019 ou le 10-K de l'annee suivante publie encore une table trimestrielle detaillee (Item 6 / Quarterly Financial Data, supprimee par la SEC apres 2020) donnant les memes valeurs a l'unite pres. Marge brute et R&D en % / valeur absolue proviennent du MD&A des 10-K (tableau comparatif 3 ans), non trouvees en version trimestrielle homogene sur 10 ans dans le budget imparti. Dividende : aucune mention de versement de dividende trouvee dans le 10-K FY2025 (recherche cadree, pas de confirmation explicite d'absence totale). Segments : le 10-K FY2025 mentionne une note 'operating segments, products, services, geographic areas and major customers' mais le detail chiffre par segment n'a pas ete localise dans le budget imparti ; controle somme segments = consolide non realisable en l'etat, non publie. COMPLEMENT (2eme passage) : ajout de 9 series (3 marches finaux, 3 zones geo, licensing/services, marge brute trimestrielle, rachats d'actions). Repartition geo/marche extraite du MD&A des 10-K FY2020(pour FY2018-2020), FY2022(FY2020-2022), FY2024(FY2022-2024) et FY2025(FY2023-2025) -- chevauchements verifies coherents a l'unite pres. Marge brute trimestrielle limitee a 11 trimestres (Q1-2023 a Q2-2026) faute de budget pour remonter plus loin (chaque 10-Q ne publie que trimestre courant + comparatif N-1).",
  "kpis": [
   {
    "short": "revenue_q",
@@ -20,48 +22,174 @@
    "unit": "M$",
    "yoy": "+62.2%",
    "history": [
-    {"q": "Q1-2016", "v": 96.512},
-    {"q": "Q2-2016", "v": 99.209},
-    {"q": "Q3-2016", "v": 113.225},
-    {"q": "Q4-2016", "v": 118.108},
-    {"q": "Q1-2017", "v": 104.587},
-    {"q": "Q2-2017", "v": 94.137},
-    {"q": "Q3-2017", "v": 91.971},
-    {"q": "Q4-2017", "v": 95.266},
-    {"q": "Q1-2018", "v": 98.623},
-    {"q": "Q2-2018", "v": 102.715},
-    {"q": "Q3-2018", "v": 101.484},
-    {"q": "Q4-2018", "v": 95.977},
-    {"q": "Q1-2019", "v": 98.091},
-    {"q": "Q2-2019", "v": 102.296},
-    {"q": "Q3-2019", "v": 103.469},
-    {"q": "Q4-2019", "v": 100.237},
-    {"q": "Q1-2020", "v": 97.316},
-    {"q": "Q2-2020", "v": 100.589},
-    {"q": "Q3-2020", "v": 103.042},
-    {"q": "Q4-2020", "v": 107.173},
-    {"q": "Q1-2021", "v": 115.716},
-    {"q": "Q2-2021", "v": 125.905},
-    {"q": "Q3-2021", "v": 131.911},
-    {"q": "Q4-2021", "v": 141.795},
-    {"q": "Q1-2022", "v": 150.515},
-    {"q": "Q2-2022", "v": 161.372},
-    {"q": "Q3-2022", "v": 172.509},
-    {"q": "Q4-2022", "v": 175.960},
-    {"q": "Q1-2023", "v": 184.310},
-    {"q": "Q2-2023", "v": 190.079},
-    {"q": "Q3-2023", "v": 192.169},
-    {"q": "Q4-2023", "v": 170.596},
-    {"q": "Q1-2024", "v": 140.815},
-    {"q": "Q2-2024", "v": 124.076},
-    {"q": "Q3-2024", "v": 127.091},
-    {"q": "Q4-2024", "v": 117.419},
-    {"q": "Q1-2025", "v": 120.150},
-    {"q": "Q2-2025", "v": 123.971},
-    {"q": "Q3-2025", "v": 133.349},
-    {"q": "Q4-2025", "v": 145.792},
-    {"q": "Q1-2026", "v": 170.897},
-    {"q": "Q2-2026", "v": 201.079}
+    {
+     "q": "Q1-2016",
+     "v": 96.512
+    },
+    {
+     "q": "Q2-2016",
+     "v": 99.209
+    },
+    {
+     "q": "Q3-2016",
+     "v": 113.225
+    },
+    {
+     "q": "Q4-2016",
+     "v": 118.108
+    },
+    {
+     "q": "Q1-2017",
+     "v": 104.587
+    },
+    {
+     "q": "Q2-2017",
+     "v": 94.137
+    },
+    {
+     "q": "Q3-2017",
+     "v": 91.971
+    },
+    {
+     "q": "Q4-2017",
+     "v": 95.266
+    },
+    {
+     "q": "Q1-2018",
+     "v": 98.623
+    },
+    {
+     "q": "Q2-2018",
+     "v": 102.715
+    },
+    {
+     "q": "Q3-2018",
+     "v": 101.484
+    },
+    {
+     "q": "Q4-2018",
+     "v": 95.977
+    },
+    {
+     "q": "Q1-2019",
+     "v": 98.091
+    },
+    {
+     "q": "Q2-2019",
+     "v": 102.296
+    },
+    {
+     "q": "Q3-2019",
+     "v": 103.469
+    },
+    {
+     "q": "Q4-2019",
+     "v": 100.237
+    },
+    {
+     "q": "Q1-2020",
+     "v": 97.316
+    },
+    {
+     "q": "Q2-2020",
+     "v": 100.589
+    },
+    {
+     "q": "Q3-2020",
+     "v": 103.042
+    },
+    {
+     "q": "Q4-2020",
+     "v": 107.173
+    },
+    {
+     "q": "Q1-2021",
+     "v": 115.716
+    },
+    {
+     "q": "Q2-2021",
+     "v": 125.905
+    },
+    {
+     "q": "Q3-2021",
+     "v": 131.911
+    },
+    {
+     "q": "Q4-2021",
+     "v": 141.795
+    },
+    {
+     "q": "Q1-2022",
+     "v": 150.515
+    },
+    {
+     "q": "Q2-2022",
+     "v": 161.372
+    },
+    {
+     "q": "Q3-2022",
+     "v": 172.509
+    },
+    {
+     "q": "Q4-2022",
+     "v": 175.96
+    },
+    {
+     "q": "Q1-2023",
+     "v": 184.31
+    },
+    {
+     "q": "Q2-2023",
+     "v": 190.079
+    },
+    {
+     "q": "Q3-2023",
+     "v": 192.169
+    },
+    {
+     "q": "Q4-2023",
+     "v": 170.596
+    },
+    {
+     "q": "Q1-2024",
+     "v": 140.815
+    },
+    {
+     "q": "Q2-2024",
+     "v": 124.076
+    },
+    {
+     "q": "Q3-2024",
+     "v": 127.091
+    },
+    {
+     "q": "Q4-2024",
+     "v": 117.419
+    },
+    {
+     "q": "Q1-2025",
+     "v": 120.15
+    },
+    {
+     "q": "Q2-2025",
+     "v": 123.971
+    },
+    {
+     "q": "Q3-2025",
+     "v": 133.349
+    },
+    {
+     "q": "Q4-2025",
+     "v": 145.792
+    },
+    {
+     "q": "Q1-2026",
+     "v": 170.897
+    },
+    {
+     "q": "Q2-2026",
+     "v": 201.079
+    }
    ],
    "pv_score": 9,
    "signal": "T2-2026 : 201,1 M$ (+62,2% sur un an), poursuite de la reprise apres le creux du destockage de fin 2024 (10-Q T2-2026)",
@@ -76,48 +204,174 @@
    "unit": "M$",
    "yoy": "+564.6%",
    "history": [
-    {"q": "Q1-2016", "v": -19.711},
-    {"q": "Q2-2016", "v": -13.810},
-    {"q": "Q3-2016", "v": -12.414},
-    {"q": "Q4-2016", "v": -8.164},
-    {"q": "Q1-2017", "v": -7.275},
-    {"q": "Q2-2017", "v": -13.022},
-    {"q": "Q3-2017", "v": -43.052},
-    {"q": "Q4-2017", "v": -7.213},
-    {"q": "Q1-2018", "v": -5.952},
-    {"q": "Q2-2018", "v": -20.223},
-    {"q": "Q3-2018", "v": 6.974},
-    {"q": "Q4-2018", "v": -7.121},
-    {"q": "Q1-2019", "v": 7.408},
-    {"q": "Q2-2019", "v": 8.559},
-    {"q": "Q3-2019", "v": 13.539},
-    {"q": "Q4-2019", "v": 13.987},
-    {"q": "Q1-2020", "v": 8.167},
-    {"q": "Q2-2020", "v": 10.629},
-    {"q": "Q3-2020", "v": 12.607},
-    {"q": "Q4-2020", "v": 15.989},
-    {"q": "Q1-2021", "v": 18.813},
-    {"q": "Q2-2021", "v": 21.838},
-    {"q": "Q3-2021", "v": 26.739},
-    {"q": "Q4-2021", "v": 28.532},
-    {"q": "Q1-2022", "v": 36.078},
-    {"q": "Q2-2022", "v": 44.532},
-    {"q": "Q3-2022", "v": 46.359},
-    {"q": "Q4-2022", "v": 51.913},
-    {"q": "Q1-2023", "v": 55.923},
-    {"q": "Q2-2023", "v": 50.644},
-    {"q": "Q3-2023", "v": 53.788},
-    {"q": "Q4-2023", "v": 98.706},
-    {"q": "Q1-2024", "v": 14.796},
-    {"q": "Q2-2024", "v": 22.631},
-    {"q": "Q3-2024", "v": 7.190},
-    {"q": "Q4-2024", "v": 16.514},
-    {"q": "Q1-2025", "v": 5.022},
-    {"q": "Q2-2025", "v": 2.913},
-    {"q": "Q3-2025", "v": 2.794},
-    {"q": "Q4-2025", "v": -7.645},
-    {"q": "Q1-2026", "v": 21.817},
-    {"q": "Q2-2026", "v": 19.359}
+    {
+     "q": "Q1-2016",
+     "v": -19.711
+    },
+    {
+     "q": "Q2-2016",
+     "v": -13.81
+    },
+    {
+     "q": "Q3-2016",
+     "v": -12.414
+    },
+    {
+     "q": "Q4-2016",
+     "v": -8.164
+    },
+    {
+     "q": "Q1-2017",
+     "v": -7.275
+    },
+    {
+     "q": "Q2-2017",
+     "v": -13.022
+    },
+    {
+     "q": "Q3-2017",
+     "v": -43.052
+    },
+    {
+     "q": "Q4-2017",
+     "v": -7.213
+    },
+    {
+     "q": "Q1-2018",
+     "v": -5.952
+    },
+    {
+     "q": "Q2-2018",
+     "v": -20.223
+    },
+    {
+     "q": "Q3-2018",
+     "v": 6.974
+    },
+    {
+     "q": "Q4-2018",
+     "v": -7.121
+    },
+    {
+     "q": "Q1-2019",
+     "v": 7.408
+    },
+    {
+     "q": "Q2-2019",
+     "v": 8.559
+    },
+    {
+     "q": "Q3-2019",
+     "v": 13.539
+    },
+    {
+     "q": "Q4-2019",
+     "v": 13.987
+    },
+    {
+     "q": "Q1-2020",
+     "v": 8.167
+    },
+    {
+     "q": "Q2-2020",
+     "v": 10.629
+    },
+    {
+     "q": "Q3-2020",
+     "v": 12.607
+    },
+    {
+     "q": "Q4-2020",
+     "v": 15.989
+    },
+    {
+     "q": "Q1-2021",
+     "v": 18.813
+    },
+    {
+     "q": "Q2-2021",
+     "v": 21.838
+    },
+    {
+     "q": "Q3-2021",
+     "v": 26.739
+    },
+    {
+     "q": "Q4-2021",
+     "v": 28.532
+    },
+    {
+     "q": "Q1-2022",
+     "v": 36.078
+    },
+    {
+     "q": "Q2-2022",
+     "v": 44.532
+    },
+    {
+     "q": "Q3-2022",
+     "v": 46.359
+    },
+    {
+     "q": "Q4-2022",
+     "v": 51.913
+    },
+    {
+     "q": "Q1-2023",
+     "v": 55.923
+    },
+    {
+     "q": "Q2-2023",
+     "v": 50.644
+    },
+    {
+     "q": "Q3-2023",
+     "v": 53.788
+    },
+    {
+     "q": "Q4-2023",
+     "v": 98.706
+    },
+    {
+     "q": "Q1-2024",
+     "v": 14.796
+    },
+    {
+     "q": "Q2-2024",
+     "v": 22.631
+    },
+    {
+     "q": "Q3-2024",
+     "v": 7.19
+    },
+    {
+     "q": "Q4-2024",
+     "v": 16.514
+    },
+    {
+     "q": "Q1-2025",
+     "v": 5.022
+    },
+    {
+     "q": "Q2-2025",
+     "v": 2.913
+    },
+    {
+     "q": "Q3-2025",
+     "v": 2.794
+    },
+    {
+     "q": "Q4-2025",
+     "v": -7.645
+    },
+    {
+     "q": "Q1-2026",
+     "v": 21.817
+    },
+    {
+     "q": "Q2-2026",
+     "v": 19.359
+    }
    ],
    "pv_score": 8,
    "signal": "T2-2026 : 19,4 M$ de resultat net, en forte hausse sur un an depuis un T2-2025 quasi a l'equilibre (10-Q T2-2026)",
@@ -133,16 +387,46 @@
    "unit": "%",
    "yoy": "+1.4 pts",
    "history": [
-    {"q": "FY2016", "v": 57.7},
-    {"q": "FY2017", "v": 56.1},
-    {"q": "FY2018", "v": 55.0},
-    {"q": "FY2019", "v": 59.0},
-    {"q": "FY2020", "v": 60.1},
-    {"q": "FY2021", "v": 62.4},
-    {"q": "FY2022", "v": 68.5},
-    {"q": "FY2023", "v": 69.8},
-    {"q": "FY2024", "v": 66.8},
-    {"q": "FY2025", "v": 68.2}
+    {
+     "q": "FY2016",
+     "v": 57.7
+    },
+    {
+     "q": "FY2017",
+     "v": 56.1
+    },
+    {
+     "q": "FY2018",
+     "v": 55.0
+    },
+    {
+     "q": "FY2019",
+     "v": 59.0
+    },
+    {
+     "q": "FY2020",
+     "v": 60.1
+    },
+    {
+     "q": "FY2021",
+     "v": 62.4
+    },
+    {
+     "q": "FY2022",
+     "v": 68.5
+    },
+    {
+     "q": "FY2023",
+     "v": 69.8
+    },
+    {
+     "q": "FY2024",
+     "v": 66.8
+    },
+    {
+     "q": "FY2025",
+     "v": 68.2
+    }
    ],
    "pv_score": 8,
    "signal": "FY2025 : 68,2% de marge brute, en hausse de 1,4 pt sur un an, portee par le mix produits avances malgre le repli du CA (10-K FY2025)",
@@ -158,19 +442,460 @@
    "unit": "M$",
    "yoy": "+18.0%",
    "history": [
-    {"q": "FY2016", "v": 117.518},
-    {"q": "FY2017", "v": 103.357},
-    {"q": "FY2018", "v": 82.449},
-    {"q": "FY2019", "v": 78.617},
-    {"q": "FY2020", "v": 89.223},
-    {"q": "FY2021", "v": 110.518},
-    {"q": "FY2022", "v": 135.767},
-    {"q": "FY2023", "v": 159.770},
-    {"q": "FY2024", "v": 159.302},
-    {"q": "FY2025", "v": 187.983}
+    {
+     "q": "FY2016",
+     "v": 117.518
+    },
+    {
+     "q": "FY2017",
+     "v": 103.357
+    },
+    {
+     "q": "FY2018",
+     "v": 82.449
+    },
+    {
+     "q": "FY2019",
+     "v": 78.617
+    },
+    {
+     "q": "FY2020",
+     "v": 89.223
+    },
+    {
+     "q": "FY2021",
+     "v": 110.518
+    },
+    {
+     "q": "FY2022",
+     "v": 135.767
+    },
+    {
+     "q": "FY2023",
+     "v": 159.77
+    },
+    {
+     "q": "FY2024",
+     "v": 159.302
+    },
+    {
+     "q": "FY2025",
+     "v": 187.983
+    }
    ],
    "pv_score": 7,
    "signal": "FY2025 : 187,98 M$ de R&D (+18% sur un an), investissement en hausse malgre le repli du CA (10-K FY2025)",
+   "frequency": "annual",
+   "last_data_date": "2026-01-03"
+  },
+  {
+   "short": "revenue_end_market_comm_computing",
+   "name_fr": "CA marche Communications & Computing (annuel)",
+   "name_en": "Communications & Computing End Market Revenue",
+   "value": 292.716,
+   "unit": "M$",
+   "history": [
+    {
+     "q": "FY2018",
+     "v": 123.195
+    },
+    {
+     "q": "FY2019",
+     "v": 155.821
+    },
+    {
+     "q": "FY2020",
+     "v": 174.656
+    },
+    {
+     "q": "FY2021",
+     "v": 217.96
+    },
+    {
+     "q": "FY2022",
+     "v": 274.754
+    },
+    {
+     "q": "FY2023",
+     "v": 257.536
+    },
+    {
+     "q": "FY2024",
+     "v": 228.145
+    },
+    {
+     "q": "FY2025",
+     "v": 292.716
+    }
+   ],
+   "pv_score": 7,
+   "signal": "FY2025 : 292,7 M$ (55,9% du CA), +28,3% sur un an porte par les serveurs IA et data center (10-K FY2025, note MD&A Revenue by End Market)",
+   "frequency": "annual",
+   "last_data_date": "2026-01-03"
+  },
+  {
+   "short": "revenue_end_market_industrial_automotive",
+   "name_fr": "CA marche Industrial & Automotive (annuel)",
+   "name_en": "Industrial & Automotive End Market Revenue",
+   "value": 193.965,
+   "unit": "M$",
+   "history": [
+    {
+     "q": "FY2018",
+     "v": 157.979
+    },
+    {
+     "q": "FY2019",
+     "v": 151.607
+    },
+    {
+     "q": "FY2020",
+     "v": 168.323
+    },
+    {
+     "q": "FY2021",
+     "v": 226.24
+    },
+    {
+     "q": "FY2022",
+     "v": 319.399
+    },
+    {
+     "q": "FY2023",
+     "v": 433.482
+    },
+    {
+     "q": "FY2024",
+     "v": 236.949
+    },
+    {
+     "q": "FY2025",
+     "v": 193.965
+    }
+   ],
+   "pv_score": 7,
+   "signal": "FY2025 : 194,0 M$ (37,1% du CA), -18,1% sur un an, destockage clients persistant (10-K FY2025)",
+   "frequency": "annual",
+   "last_data_date": "2026-01-03"
+  },
+  {
+   "short": "revenue_end_market_consumer",
+   "name_fr": "CA marche Consumer (annuel)",
+   "name_en": "Consumer End Market Revenue",
+   "value": 36.581,
+   "unit": "M$",
+   "history": [
+    {
+     "q": "FY2018",
+     "v": 99.294
+    },
+    {
+     "q": "FY2019",
+     "v": 75.12
+    },
+    {
+     "q": "FY2020",
+     "v": 45.523
+    },
+    {
+     "q": "FY2021",
+     "v": 50.652
+    },
+    {
+     "q": "FY2022",
+     "v": 49.064
+    },
+    {
+     "q": "FY2023",
+     "v": 46.136
+    },
+    {
+     "q": "FY2024",
+     "v": 44.307
+    },
+    {
+     "q": "FY2025",
+     "v": 36.581
+    }
+   ],
+   "pv_score": 7,
+   "signal": "FY2025 : 36,6 M$ (7,0% du CA), en repli continu depuis le pic de 99,3 M$ en FY2018 (10-K FY2025)",
+   "frequency": "annual",
+   "last_data_date": "2026-01-03"
+  },
+  {
+   "short": "revenue_end_market_licensing_services",
+   "name_fr": "CA Licensing & Services (annuel)",
+   "name_en": "Licensing & Services End Market Revenue (Annual)",
+   "value": 17.139,
+   "unit": "M$",
+   "history": [
+    {
+     "q": "FY2018",
+     "v": 18.331
+    },
+    {
+     "q": "FY2019",
+     "v": 21.545
+    },
+    {
+     "q": "FY2020",
+     "v": 19.618
+    },
+    {
+     "q": "FY2021",
+     "v": 20.475
+    },
+    {
+     "q": "FY2022",
+     "v": 17.139
+    }
+   ],
+   "pv_score": 7,
+   "signal": "Ligne distincte jusqu'en FY2022 (2,6 a 5,3% du CA), absorbee dans les 3 marches principaux a partir des 10-K FY2023+ (10-K FY2021 et FY2022)",
+   "frequency": "annual",
+   "last_data_date": "2023-01-01",
+   "_notes": "Ligne 'Licensing and Services' publiee separement dans les 10-K jusqu'a FY2022 inclus ; a partir du 10-K FY2023, la SEC/LSCC ne publie plus que 3 categories (Communications & Computing / Industrial & Automotive / Consumer) dont la somme = 100% du CA. Pour FY2018-FY2022, la somme des 3 series principales n'atteint donc que 95-97% (le solde = cette ligne)."
+  },
+  {
+   "short": "revenue_geo_asia",
+   "name_fr": "CA zone Asie (annuel)",
+   "name_en": "Asia Revenue",
+   "value": 353.699,
+   "unit": "M$",
+   "history": [
+    {
+     "q": "FY2018",
+     "v": 298.119
+    },
+    {
+     "q": "FY2019",
+     "v": 298.765
+    },
+    {
+     "q": "FY2020",
+     "v": 305.183
+    },
+    {
+     "q": "FY2021",
+     "v": 384.568
+    },
+    {
+     "q": "FY2022",
+     "v": 464.904
+    },
+    {
+     "q": "FY2023",
+     "v": 443.765
+    },
+    {
+     "q": "FY2024",
+     "v": 332.747
+    },
+    {
+     "q": "FY2025",
+     "v": 353.699
+    }
+   ],
+   "pv_score": 7,
+   "signal": "FY2025 : 353,7 M$ (67,6% du CA), zone dominante depuis toujours (Greater China ~52% du CA total en FY2025) (10-K FY2025, note 3 Revenue from Contracts with Customers)",
+   "frequency": "annual",
+   "last_data_date": "2026-01-03"
+  },
+  {
+   "short": "revenue_geo_americas",
+   "name_fr": "CA zone Ameriques (annuel)",
+   "name_en": "Americas Revenue",
+   "value": 102.758,
+   "unit": "M$",
+   "history": [
+    {
+     "q": "FY2018",
+     "v": 55.134
+    },
+    {
+     "q": "FY2019",
+     "v": 57.936
+    },
+    {
+     "q": "FY2020",
+     "v": 62.137
+    },
+    {
+     "q": "FY2021",
+     "v": 80.87
+    },
+    {
+     "q": "FY2022",
+     "v": 100.26
+    },
+    {
+     "q": "FY2023",
+     "v": 145.839
+    },
+    {
+     "q": "FY2024",
+     "v": 101.217
+    },
+    {
+     "q": "FY2025",
+     "v": 102.758
+    }
+   ],
+   "pv_score": 7,
+   "signal": "FY2025 : 102,8 M$ (19,6% du CA), stable en poids depuis 2018 (10-K FY2025)",
+   "frequency": "annual",
+   "last_data_date": "2026-01-03"
+  },
+  {
+   "short": "revenue_geo_europe",
+   "name_fr": "CA zone Europe (annuel)",
+   "name_en": "Europe Revenue",
+   "value": 66.805,
+   "unit": "M$",
+   "history": [
+    {
+     "q": "FY2018",
+     "v": 45.546
+    },
+    {
+     "q": "FY2019",
+     "v": 47.392
+    },
+    {
+     "q": "FY2020",
+     "v": 40.8
+    },
+    {
+     "q": "FY2021",
+     "v": 49.889
+    },
+    {
+     "q": "FY2022",
+     "v": 95.192
+    },
+    {
+     "q": "FY2023",
+     "v": 147.55
+    },
+    {
+     "q": "FY2024",
+     "v": 75.437
+    },
+    {
+     "q": "FY2025",
+     "v": 66.805
+    }
+   ],
+   "pv_score": 7,
+   "signal": "FY2025 : 66,8 M$ (12,8% du CA), en repli depuis le pic de 147,6 M$ en FY2023 (destockage Industrial & Automotive europeen) (10-K FY2025)",
+   "frequency": "annual",
+   "last_data_date": "2026-01-03"
+  },
+  {
+   "short": "gross_margin_q",
+   "name_fr": "Marge brute trimestrielle",
+   "name_en": "Quarterly Gross Margin",
+   "value": 70.3,
+   "unit": "%",
+   "history": [
+    {
+     "q": "Q1-2023",
+     "v": 69.8
+    },
+    {
+     "q": "Q2-2023",
+     "v": 69.7
+    },
+    {
+     "q": "Q3-2023",
+     "v": 70.0
+    },
+    {
+     "q": "Q4-2023",
+     "v": 69.8
+    },
+    {
+     "q": "Q1-2024",
+     "v": 68.3
+    },
+    {
+     "q": "Q2-2024",
+     "v": 68.3
+    },
+    {
+     "q": "Q3-2024",
+     "v": 69.0
+    },
+    {
+     "q": "Q4-2024",
+     "v": 61.0
+    },
+    {
+     "q": "Q1-2025",
+     "v": 68.0
+    },
+    {
+     "q": "Q2-2025",
+     "v": 68.4
+    },
+    {
+     "q": "Q3-2025",
+     "v": 67.9
+    },
+    {
+     "q": "Q4-2025",
+     "v": 68.5
+    },
+    {
+     "q": "Q1-2026",
+     "v": 68.8
+    },
+    {
+     "q": "Q2-2026",
+     "v": 70.3
+    }
+   ],
+   "pv_score": 8,
+   "signal": "T2-2026 : 70,3% de marge brute, plus haut niveau depuis 2023 grace au mix produits et au retour des volumes (10-Q T2-2026, note MD&A Gross Margin)",
+   "frequency": "quarterly",
+   "last_data_date": "2026-07-04",
+   "_derived": "Marge brute (M$) verbatim des 10-Q (note MD&A 'Gross Margin', Q1-2023 a Q2-2026 hors Q4) ; les 4 trimestres Q4 (2023 a 2025) sont derives par soustraction : marge brute annuelle du 10-K (pourcentage publie x CA annuel) moins la somme des 3 premiers trimestres du 10-Q, meme methode que celle deja validee pour revenue_q/net_income_q. Pourcentage = marge brute / CA trimestriel."
+  },
+  {
+   "short": "share_buybacks_annual",
+   "name_fr": "Rachats d'actions (annuel)",
+   "name_en": "Annual Share Repurchases",
+   "value": 100.0,
+   "unit": "M$",
+   "history": [
+    {
+     "q": "FY2020",
+     "v": 14.989
+    },
+    {
+     "q": "FY2021",
+     "v": 70.124
+    },
+    {
+     "q": "FY2022",
+     "v": 110.132
+    },
+    {
+     "q": "FY2023",
+     "v": 80.004
+    },
+    {
+     "q": "FY2024",
+     "v": 66.998
+    },
+    {
+     "q": "FY2025",
+     "v": 100.0
+    }
+   ],
+   "pv_score": 7,
+   "signal": "FY2025 : 100,0 M$ rachetes (~1,8 M actions), en hausse sur FY2024 (67,0 M$) (10-K FY2025, tableau des flux de financement)",
    "frequency": "annual",
    "last_data_date": "2026-01-03"
   }
