@@ -14,12 +14,9 @@ import { ArrowLeft, ShieldCheck, FileSearch, BadgeCheck } from "lucide-react";
  * Table éditable : ajouter / retirer un ticker selon l'avancement des données.
  */
 const DATA_PENDING_TABLE: Record<string, { name: string }> = {
-  ARM: { name: "Arm Holdings plc" },
-  "ABBN.SW": { name: "ABB Ltd" },
   NVS: { name: "Novartis AG" },
   DTEGF: { name: "Deutsche Telekom AG" },
   "FLTR.L": { name: "Flutter Entertainment plc" },
-  "ERF.PA": { name: "Eurofins Scientific SE" },
   "DGE.L": { name: "Diageo plc" },
   "SPM.MI": { name: "Saipem S.p.A." },
   "CLNX.MC": { name: "Cellnex Telecom S.A." },
