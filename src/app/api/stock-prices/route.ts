@@ -47,7 +47,7 @@ async function fetchBatch(symbols: string[]): Promise<PriceItem[]> {
   if (symbols.length === 0) return [];
   const quotes = await yf.quote(symbols);
   const arr = Array.isArray(quotes) ? quotes : [quotes];
-  return arr.map((q): PriceItem => ({
+  const items = arr.map((q): PriceItem => ({
     symbol: q.symbol,
     price: q.regularMarketPrice ?? null,
     deltaPct: q.regularMarketChangePercent ?? null,
@@ -66,6 +66,21 @@ async function fetchBatch(symbols: string[]): Promise<PriceItem[]> {
     currency: q.currency ?? null,
     shortName: q.shortName ?? q.longName ?? null,
   }));
+  // Yann 8 août 2026 : 2e filet. Sur certains symboles (cas réel MU) quote()
+  // omet marketCap ET sharesOutstanding alors que quoteSummary(price) l'a.
+  // Une requête ciblée par symbole manquant uniquement (rare).
+  await Promise.all(
+    items.filter((it) => it.marketCap == null).map(async (it) => {
+      try {
+        const qs = await yf.quoteSummary(it.symbol, { modules: ["price"] });
+        const mc = qs.price?.marketCap;
+        if (typeof mc === "number" && mc > 0) it.marketCap = mc;
+      } catch {
+        // on laisse null : le front affiche "—", jamais 0
+      }
+    }),
+  );
+  return items;
 }
 
 export async function GET(request: Request) {
