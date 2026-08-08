@@ -190,7 +190,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
               {kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && (
                 <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-1.5 text-[16px] font-bold text-emerald-200">
                   <TrendingUp className="size-4" />
-                  <span className="font-mono tabular-nums">{kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2")}</span>
+                  <span className="font-mono tabular-nums">{kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2").replace(/(\d)%/g, "$1\u00a0%")}</span>
                   <span className="text-[12px] font-medium italic text-zinc-400" title="Year-on-Year">{t("story.vs_n1")}</span>
                 </div>
               )}

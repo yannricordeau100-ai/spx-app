@@ -136,6 +136,26 @@ const CATEGORY_META: Record<
   technology: { labelKey: "risks.category.technology", color: "#fb923c", Icon: Cpu },
 };
 
+/** Yann 9 août 2026 : ~3 500 stés portent des catégories en texte FR/EN
+ *  ("Régulation", "Concurrence", "Cybersécurité", "Industriel", "Capital"…)
+ *  qui tombaient toutes dans le fallback "Opérationnel". Normalisation par
+ *  mots-clés vers les 7 familles visuelles, sans toucher aux données. */
+function normalizeCategory(raw: string | undefined | null): RiskCategory {
+  if (!raw) return "operational";
+  const c = String(raw)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "");
+  if ((CATEGORY_META as Record<string, unknown>)[c]) return c as RiskCategory;
+  if (/regul|reglement|juridique|litige|legal|fiscal|antitrust|conformite|compliance/.test(c)) return "regulatory";
+  if (/concurren|competi|strategi|marche interne|parts de marche/.test(c)) return "competitive";
+  if (/cyber|donnees|data privacy|securite informatique/.test(c)) return "cyber";
+  if (/capital|credit|financ|liquidit|taux|change|dette|actuari/.test(c)) return "financial";
+  if (/techno|innovation|obsolescence|ia\b|ai\b/.test(c)) return "technology";
+  if (/geopoli|macro|marche\b|climat|environnement|reputation|pandemi|sanitaire|esg/.test(c)) return "macro";
+  return "operational";
+}
+
 const TREND_META: Record<
   RiskTrend,
   { labelKey: string; color: string; Icon: typeof ArrowUp | typeof Sparkles }
@@ -188,7 +208,7 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
   // Sinon = box vide qui frustre. Pas de chevron, pas de click.
   const hasQuote = !!(displayQuote && displayQuote.trim());
   // Garde-fous : nouveaux datasets peuvent avoir des catégories/trends hors mapping
-  const meta = CATEGORY_META[risk.category] ?? CATEGORY_META.operational;
+  const meta = CATEGORY_META[normalizeCategory(risk.category)] ?? CATEGORY_META.operational;
   const trend = TREND_META[risk.trend] ?? TREND_META.stable;
   const Icon = meta.Icon;
   const TrendIcon = trend.Icon;

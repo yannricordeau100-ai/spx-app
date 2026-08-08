@@ -306,7 +306,8 @@ export function KpiRow({
             if (kpi.yoy.toLowerCase() === "n/a") return null;
             // Yann 16 mai 2026 : normalise format point décimal US (data brut
             // "+0.8 pts" ou "-1.2%") vers virgule FR. Match floats avec point.
-            yoyStr = kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2");
+            // Yann 9 août 2026 : + espace insécable avant % ("+4%" → "+4 %").
+            yoyStr = kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2").replace(/(\d)%/g, "$1 %");
           } else if (Array.isArray(kpi.history) && kpi.history.length >= 2) {
             const last = kpi.history[kpi.history.length - 1];
             // Série trimestrielle : YoY = vs même trimestre N-1 (4 pas), pas QoQ.

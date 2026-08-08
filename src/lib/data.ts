@@ -600,6 +600,15 @@ export function formatUnit(unit: string): string {
   // Variantes "B X" sans normalisation : "B €" / "B £" / "B $" mais aussi
   // "B km" / "B units" etc. (Yann 11 juin 2026 : "B km" affichait l'acronyme
   // US au lieu du FR). Tout "B <suffixe>" → "Mds <suffixe>".
+  // Yann 9 août 2026 : codes devise ISO → symbole (l'Interprétation NFLX
+  // rendait "6 036,965 M USD" : ni symbole ni ladder).
+  const isoSym: Record<string, string> = { USD: "$", EUR: "€", GBP: "£" };
+  const isoScaled = u.match(/^([BMK])\s+(USD|EUR|GBP)$/i);
+  if (isoScaled) {
+    const scale = isoScaled[1].toUpperCase() === "B" ? "Mds" : isoScaled[1].toUpperCase();
+    return `${scale} ${isoSym[isoScaled[2].toUpperCase()]}`;
+  }
+  if (isoSym[u.toUpperCase()]) return isoSym[u.toUpperCase()];
   const bMatch = u.match(/^B\s+(.+)$/);
   if (bMatch) return `Mds ${bMatch[1]}`;
   // Yann 9 août 2026 : variantes symbole-en-tête "€B" / "£B" / "€M" (le hero
@@ -1191,7 +1200,9 @@ export function interpretStructured(
   // ("+16.7 %" sur 518 tickers) : normalisation virgule FR à l'affichage,
   // même règle que kpi-row.
   const normDec = (s: string): string =>
-    numLocale(locale).startsWith("fr") ? s.replace(/(\d)\.(\d)/g, "$1,$2") : s;
+    numLocale(locale).startsWith("fr")
+      ? s.replace(/(\d)\.(\d)/g, "$1,$2").replace(/(\d)%/g, "$1 %")
+      : s;
   const heroYoy = quarterlyLeadYoy ?? ((typeof hero.yoy === "string" && hero.yoy.trim()) ? normDec(hero.yoy) : computedYoy);
   // Trend : valeurs rescalées pour les comparaisons.
   const scaledHist = histNums.map((v) => v * scaleFactor);
