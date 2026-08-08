@@ -179,3 +179,22 @@ ticker à cette liste À L'INTÉGRATION, et vérifier le rendu en grepant le
   B7 (60 stés EU absentes de la liste de visibilité : leurs pages redirigaient
   vers l'index depuis l'intégration). Deploy + alias + curl <title> à confirmer
   en tête de reprise si cette session s'est arrêtée avant la fin.
+- 2026-08-08 (Fable, ce compte) : CHANTIER SOX 30 TERMINÉ DE BOUT EN BOUT.
+  Composition vérifiée (ARM in, WOLF out). Docs EDGAR 10 ans : 1 927 fichiers
+  + ~280 exhibits EX-99 (downloader corrigé : les 8-K/6-K n'avaient que la page
+  de garde, chiffres dans les exhibits). P2 12/12 (sondes verbatim
+  systématiques ; AMKR et LSCC repris en profondeur ; ARM complété à 14 séries).
+  P3 12/12 (gouvernances vérifiées au dollar près dans les proxys ; FPI TSM/
+  ASML/GFS/ARM en comp agrégée/Item 6). Intégration 12/12 : fiches enrichies,
+  MRVL créée, _held_for_review ACLS/ARM levés via _validation_global,
+  clean-all 563→575, DATA_PENDING_TABLE purgée (ARM + ABBN.SW + ERF.PA qui
+  bloquaient des pages à tort), 12 pages vérifiées par <title>. Phase 5 KPI
+  web 30/30 : 151 KPI (145 nouveaux), 7 sites bloqués contournés (archives,
+  newsrooms, compteurs JS Teradyne), 116 stories injectées, lint 30 stés
+  0 rouge. Rapports : .conv-state/web-kpi-rapport-sox.md. Dernier deploy
+  staging en cours au moment de l'écriture : si non aliasé, faire
+  `vercel alias set <url> mettrik-niveau2.vercel.app` + vérifier 3 pages
+  par <title> et un KPI web (ex TSM "15 fabs" ou KLAC).
+  RESTE OUVERT (mineur) : oranges R4_YOY_JUSTE (19) et R3 gaps sur les stés
+  SOX historiques SP500 (préexistants, pas bloquants) ; bookings/backlog ASML
+  à compléter depuis les exhibits 6-K désormais sur disque.
