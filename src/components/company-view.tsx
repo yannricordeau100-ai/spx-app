@@ -1325,9 +1325,9 @@ export function CompanyView({
                       heroCAGR
                     )}
                     <span className="text-[10.5px] italic text-zinc-400">
-                      {heroCagrYears >= 4.5
+                      {heroCagrYears >= 4.5 && heroCagrYears <= 5.5
                         ? t("hero.cagr_5y")
-                        : `(CAGR ${heroCagrYears.toLocaleString(locale === "fr" ? "fr-FR" : "en-US")} ${heroCagrYears <= 1 ? (locale === "de" || locale === "de-CH" ? "Jahr" : locale === "fr" ? "an" : "year") : (locale === "de" || locale === "de-CH" ? "Jahre" : locale === "fr" ? "ans" : "years")})`}
+                        : `(CAGR ${(heroCagrYears > 5.5 ? Math.round(heroCagrYears) : heroCagrYears).toLocaleString(locale === "fr" ? "fr-FR" : "en-US")} ${heroCagrYears <= 1 ? (locale === "de" || locale === "de-CH" ? "Jahr" : locale === "fr" ? "an" : "year") : (locale === "de" || locale === "de-CH" ? "Jahre" : locale === "fr" ? "ans" : "years")})`}
                     </span>
                   </div>
                 )}

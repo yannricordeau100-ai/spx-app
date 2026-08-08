@@ -56,15 +56,20 @@ function adaptForLocale(b: RevenueBreakdown | undefined | null, locale: Locale) 
   if (!Array.isArray(b.slices)) return undefined;
   return {
     ...b,
-    slices: b.slices.map((s) => ({
-      ...s,
-      label:
-        locale === "en" && s.label_en
-          ? s.label_en
-          : locale === "fr"
-            ? translateLabelFr(s.label)
-            : s.label,
-    })),
+    slices: b.slices.map((s) => {
+      // Yann 9 août 2026 : certaines stés (OR.PA) n'ont que `name`, pas
+      // `label` → le treemap rendait des tranches sans nom de zone.
+      const base = s.label || (s as { name?: string }).name || "";
+      return {
+        ...s,
+        label:
+          locale === "en" && s.label_en
+            ? s.label_en
+            : locale === "fr"
+              ? translateLabelFr(base)
+              : base,
+      };
+    }),
   };
 }
 

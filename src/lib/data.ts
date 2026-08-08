@@ -1265,7 +1265,7 @@ export function interpretStructured(
     if (v == null) return "—";
     const n = typeof v === "number" ? v : parseFloat(String(v).replace(/,/g, ""));
     if (!Number.isFinite(n)) return String(v);
-    return n.toLocaleString(numLocale(locale), { maximumFractionDigits: 3 });
+    return n.toLocaleString(numLocale(locale), { maximumFractionDigits: 2 });
   };
   // Yann 9 août 2026 : ladder magnitude des bullets. "678 000 M $" devient
   // "678 Mds $" (règle R1 : chiffre affiché entre 1 et 999).
@@ -1288,21 +1288,21 @@ export function interpretStructured(
     const driverDeclines = typeof driver.yoy === "string" && driver.yoy.trim().startsWith("-");
     bullets.push({
       label: bulletLabel(locale, driverDeclines ? "driver_declining" : "driver"),
-      body: (() => { const l = ladder(driver.value, driver.unit); return bulletBodyKpi(locale, kpiName(driver), l.val, l.unit, String(driver.yoy ?? ""), driver.signal ?? ""); })(),
+      body: (() => { const l = ladder(driver.value, driver.unit); return bulletBodyKpi(locale, kpiName(driver), l.val, l.unit, normDec(String(driver.yoy ?? "")), driver.signal ?? ""); })(),
       tone: driverDeclines ? "neg" : "pos",
     });
   }
   if (risk) {
     bullets.push({
       label: bulletLabel(locale, riskLabelKey),
-      body: (() => { const l = ladder(risk.value, risk.unit); return bulletBodyKpi(locale, kpiName(risk), l.val, l.unit, String(risk.yoy ?? ""), risk.signal ?? ""); })(),
+      body: (() => { const l = ladder(risk.value, risk.unit); return bulletBodyKpi(locale, kpiName(risk), l.val, l.unit, normDec(String(risk.yoy ?? "")), risk.signal ?? ""); })(),
       tone: "neg",
     });
   }
   if (cash && cash.short !== hero.short) {
     bullets.push({
       label: bulletLabel(locale, "cash"),
-      body: (() => { const l = ladder(cash.value, cash.unit); return bulletBodyKpi(locale, kpiName(cash), l.val, l.unit, String(cash.yoy ?? ""), cash.signal ?? ""); })(),
+      body: (() => { const l = ladder(cash.value, cash.unit); return bulletBodyKpi(locale, kpiName(cash), l.val, l.unit, normDec(String(cash.yoy ?? "")), cash.signal ?? ""); })(),
       tone: "neutral",
     });
   }
@@ -1334,7 +1334,7 @@ export function interpretStructured(
         isCash ? "cash" : isRisk ? "risk" : isNeg ? "driver_declining" : "driver";
       bullets.push({
         label: bulletLabel(locale, labelKey),
-        body: (() => { const l = ladder(k.value, k.unit); return bulletBodyKpi(locale, kpiName(k), l.val, l.unit, String(k.yoy ?? ""), k.signal ?? ""); })(),
+        body: (() => { const l = ladder(k.value, k.unit); return bulletBodyKpi(locale, kpiName(k), l.val, l.unit, normDec(String(k.yoy ?? "")), k.signal ?? ""); })(),
         tone,
       });
     }

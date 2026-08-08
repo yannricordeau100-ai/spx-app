@@ -343,7 +343,20 @@ export function KpiRow({
             ) : (
               cagrLabel
             )}
-            <span className="ml-1 text-[10px] italic text-zinc-500">{t("hero.cagr_5y")}</span>
+            <span className="ml-1 text-[10px] italic text-zinc-500">
+              {(() => {
+                // Yann 9 août 2026 : même label dynamique que le hero.
+                // "(CAGR 5 ans)" figé mentait quand l'history couvre 4 ans.
+                const h = Array.isArray(kpi.history) ? kpi.history.filter((x) => typeof x === "number") : [];
+                const spy = kpi.period_type === "quarter" ? 4 : kpi.period_type === "semester" ? 2 : 1;
+                const years = h.length < 2 ? 0 : Math.round(((h.length - 1) / spy) * 10) / 10;
+                if (years >= 4.5 && years <= 5.5) return t("hero.cagr_5y");
+                const yr = Math.round(years);
+                if (years > 5.5) return `(CAGR ${yr.toLocaleString("fr-FR")} ans)`;
+                const yearWord = years <= 1 ? "an" : "ans";
+                return `(CAGR ${years.toLocaleString("fr-FR")} ${yearWord})`;
+              })()}
+            </span>
           </div>
         )}
       </div>
