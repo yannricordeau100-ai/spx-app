@@ -1,0 +1,661 @@
+{
+ "ticker": "ACLS",
+ "company": "Axcelis Technologies",
+ "extracted_at": "2026-08-08",
+ "extracted_by": "agent-sox30-ACLS",
+ "sources_used": [
+  "data-lake/ACLS/10Q/ACLS_2021-05-06 a 2026-08-06 (Q1/Q2/Q3 2020-2026, comptes de resultat et geo trimestrielle)",
+  "data-lake/ACLS/10K/ACLS_2021-02-26 a 2026-02-26 (FY2018-2025 : comptes annuels, backlog, bookings T4, effectifs, rachats, geo annuelle)",
+  "data-lake/ACLS/DEF14A/ACLS_2026-03-31 (say-on-pay, remuneration CEO, ratio CEO/median)",
+  "data-lake/ACLS/kpis/extracted.json (pre-extraction annuelle 2022-2025, verifiee contre les 10-K)"
+ ],
+ "hero_kpi": "backlog",
+ "hero_kpi_rationale": "Le carnet de commandes systemes (incl. CA differe) est le KPI le plus parlant du semi-equipement : il passe de 99,3 M$ fin 2019 a 1 124,2 M$ fin 2022 (boom memoire/fonderie post-Covid) puis retombe a 457,0 M$ fin 2025, annoncant la baisse de CA deja visible en 2025. Serie complete sur 7 exercices, source unique et non ambigue (Item 1 des 10-K).",
+ "_ordering_rationale": "Backlog en tete (lecture immediate du cycle), puis CA et resultat net trimestriels (serie la plus longue et la plus fraiche), marge nette derivee, puis KPI sectoriels (bookings T4, effectifs, rachats) et enfin la repartition geographique annuelle.",
+ "_notes": "Axcelis est mono-segment (le CODM pilote sur le resultat net consolide, 10-Q Note segments) : aucune somme de segments a verifier, la totalite du CA correspond a la seule activite d'implantation ionique + aftermarket. Controle CA effectue sur la repartition geographique (somme NA+APAC+Europe = CA total, verifie chaque annee 2018-2025) et sur revenu produit+services vs total (verifie T2-2026). Fusion en cours avec Veeco Instruments (accord signe 30 sept 2025, approuvee par les actionnaires le 6 fev 2026, cloture attendue S2 2026) : peut affecter les prochaines publications. Le 8-K trimestriel telecharge ne contient que la page de garde (Item 9.01, liste d'exhibits) sans le texte du communique de resultats (Exhibit 99.1) : les series trimestrielles ont donc ete extraites des 10-Q (comptes de resultat + note geographie), pas des 8-K comme suggere en premiere intention.",
+ "kpis": [
+  {
+   "short": "revenue_q",
+   "name_fr": "Chiffre d'affaires trimestriel",
+   "name_en": "Quarterly Revenue",
+   "value": 215.175,
+   "unit": "M$",
+   "yoy": "+10.6%",
+   "history": [
+    {
+     "q": "Q1-2020",
+     "v": 118.991
+    },
+    {
+     "q": "Q2-2020",
+     "v": 122.965
+    },
+    {
+     "q": "Q3-2020",
+     "v": 110.405
+    },
+    {
+     "q": "Q4-2020",
+     "v": 122.199
+    },
+    {
+     "q": "Q1-2021",
+     "v": 132.776
+    },
+    {
+     "q": "Q2-2021",
+     "v": 147.274
+    },
+    {
+     "q": "Q3-2021",
+     "v": 176.694
+    },
+    {
+     "q": "Q4-2021",
+     "v": 205.684
+    },
+    {
+     "q": "Q1-2022",
+     "v": 203.595
+    },
+    {
+     "q": "Q2-2022",
+     "v": 221.177
+    },
+    {
+     "q": "Q3-2022",
+     "v": 229.175
+    },
+    {
+     "q": "Q4-2022",
+     "v": 266.051
+    },
+    {
+     "q": "Q1-2023",
+     "v": 254.02
+    },
+    {
+     "q": "Q2-2023",
+     "v": 273.97
+    },
+    {
+     "q": "Q3-2023",
+     "v": 292.326
+    },
+    {
+     "q": "Q4-2023",
+     "v": 310.288
+    },
+    {
+     "q": "Q1-2024",
+     "v": 252.372
+    },
+    {
+     "q": "Q2-2024",
+     "v": 256.512
+    },
+    {
+     "q": "Q3-2024",
+     "v": 256.564
+    },
+    {
+     "q": "Q4-2024",
+     "v": 252.417
+    },
+    {
+     "q": "Q1-2025",
+     "v": 192.563
+    },
+    {
+     "q": "Q2-2025",
+     "v": 194.544
+    },
+    {
+     "q": "Q3-2025",
+     "v": 213.611
+    },
+    {
+     "q": "Q4-2025",
+     "v": 238.33
+    },
+    {
+     "q": "Q1-2026",
+     "v": 198.956
+    },
+    {
+     "q": "Q2-2026",
+     "v": 215.175
+    }
+   ],
+   "pv_score": 9,
+   "signal": "T2-2026 : 215,2 M$ (+10,6% sur un an), porte par la demande memoire/IA en Asie ; systemes 132,4 M$ et aftermarket 82,8 M$ (10-Q T2-2026).",
+   "frequency": "quarterly",
+   "last_data_date": "2026-06-30"
+  },
+  {
+   "short": "net_income_q",
+   "name_fr": "Resultat net trimestriel",
+   "name_en": "Quarterly Net Income",
+   "value": 23.291,
+   "unit": "M$",
+   "yoy": "-25.8%",
+   "history": [
+    {
+     "q": "Q1-2020",
+     "v": 11.221
+    },
+    {
+     "q": "Q2-2020",
+     "v": 13.302
+    },
+    {
+     "q": "Q3-2020",
+     "v": 10.785
+    },
+    {
+     "q": "Q4-2020",
+     "v": 14.674
+    },
+    {
+     "q": "Q1-2021",
+     "v": 16.48
+    },
+    {
+     "q": "Q2-2021",
+     "v": 18.906
+    },
+    {
+     "q": "Q3-2021",
+     "v": 27.515
+    },
+    {
+     "q": "Q4-2021",
+     "v": 35.749
+    },
+    {
+     "q": "Q1-2022",
+     "v": 41.614
+    },
+    {
+     "q": "Q2-2022",
+     "v": 44.189
+    },
+    {
+     "q": "Q3-2022",
+     "v": 40.283
+    },
+    {
+     "q": "Q4-2022",
+     "v": 56.992
+    },
+    {
+     "q": "Q1-2023",
+     "v": 47.697
+    },
+    {
+     "q": "Q2-2023",
+     "v": 61.579
+    },
+    {
+     "q": "Q3-2023",
+     "v": 65.931
+    },
+    {
+     "q": "Q4-2023",
+     "v": 71.056
+    },
+    {
+     "q": "Q1-2024",
+     "v": 51.595
+    },
+    {
+     "q": "Q2-2024",
+     "v": 50.866
+    },
+    {
+     "q": "Q3-2024",
+     "v": 48.576
+    },
+    {
+     "q": "Q4-2024",
+     "v": 49.956
+    },
+    {
+     "q": "Q1-2025",
+     "v": 28.579
+    },
+    {
+     "q": "Q2-2025",
+     "v": 31.376
+    },
+    {
+     "q": "Q3-2025",
+     "v": 25.986
+    },
+    {
+     "q": "Q4-2025",
+     "v": 34.297
+    },
+    {
+     "q": "Q1-2026",
+     "v": 9.214
+    },
+    {
+     "q": "Q2-2026",
+     "v": 23.291
+    }
+   ],
+   "pv_score": 8,
+   "signal": "T2-2026 : 23,3 M$ de resultat net (-25,8% sur un an), marge comprimee par la hausse des couts operationnels (G&A +37% lie a la fusion Veeco) malgre la reprise du CA.",
+   "frequency": "quarterly",
+   "last_data_date": "2026-06-30"
+  },
+  {
+   "short": "net_margin_q",
+   "name_fr": "Marge nette trimestrielle",
+   "name_en": "Quarterly Net Margin",
+   "value": 10.8,
+   "unit": "%",
+   "yoy": "-5.3 pts",
+   "history": [
+    {
+     "q": "Q1-2020",
+     "v": 9.4
+    },
+    {
+     "q": "Q2-2020",
+     "v": 10.8
+    },
+    {
+     "q": "Q3-2020",
+     "v": 9.8
+    },
+    {
+     "q": "Q4-2020",
+     "v": 12.0
+    },
+    {
+     "q": "Q1-2021",
+     "v": 12.4
+    },
+    {
+     "q": "Q2-2021",
+     "v": 12.8
+    },
+    {
+     "q": "Q3-2021",
+     "v": 15.6
+    },
+    {
+     "q": "Q4-2021",
+     "v": 17.4
+    },
+    {
+     "q": "Q1-2022",
+     "v": 20.4
+    },
+    {
+     "q": "Q2-2022",
+     "v": 20.0
+    },
+    {
+     "q": "Q3-2022",
+     "v": 17.6
+    },
+    {
+     "q": "Q4-2022",
+     "v": 21.4
+    },
+    {
+     "q": "Q1-2023",
+     "v": 18.8
+    },
+    {
+     "q": "Q2-2023",
+     "v": 22.5
+    },
+    {
+     "q": "Q3-2023",
+     "v": 22.6
+    },
+    {
+     "q": "Q4-2023",
+     "v": 22.9
+    },
+    {
+     "q": "Q1-2024",
+     "v": 20.4
+    },
+    {
+     "q": "Q2-2024",
+     "v": 19.8
+    },
+    {
+     "q": "Q3-2024",
+     "v": 18.9
+    },
+    {
+     "q": "Q4-2024",
+     "v": 19.8
+    },
+    {
+     "q": "Q1-2025",
+     "v": 14.8
+    },
+    {
+     "q": "Q2-2025",
+     "v": 16.1
+    },
+    {
+     "q": "Q3-2025",
+     "v": 12.2
+    },
+    {
+     "q": "Q4-2025",
+     "v": 14.4
+    },
+    {
+     "q": "Q1-2026",
+     "v": 4.6
+    },
+    {
+     "q": "Q2-2026",
+     "v": 10.8
+    }
+   ],
+   "pv_score": 6,
+   "signal": "Marge nette T2-2026 a 10,8%, en repli marque depuis le pic de 24,4% au T3-2023, sous l'effet du ralentissement matures/ICAPS et des couts lies a la fusion Veeco.",
+   "frequency": "quarterly",
+   "last_data_date": "2026-06-30",
+   "_derived_note": "Marge nette = resultat net / CA du trimestre, calculee a partir des deux series verbatim ci-dessus (10-Q)."
+  },
+  {
+   "short": "backlog",
+   "name_fr": "Carnet de commandes (systemes)",
+   "name_en": "Systems Backlog",
+   "value": 457.0,
+   "unit": "M$",
+   "yoy": "-29.2%",
+   "history": [
+    {
+     "q": "FY2019",
+     "v": 99.3
+    },
+    {
+     "q": "FY2020",
+     "v": 116.2
+    },
+    {
+     "q": "FY2021",
+     "v": 460.6
+    },
+    {
+     "q": "FY2022",
+     "v": 1124.2
+    },
+    {
+     "q": "FY2023",
+     "v": 1061.2
+    },
+    {
+     "q": "FY2024",
+     "v": 645.8
+    },
+    {
+     "q": "FY2025",
+     "v": 457.0
+    }
+   ],
+   "pv_score": 10,
+   "signal": "Carnet de commandes systemes (incl. CA differe) : 457,0 M$ fin 2025 contre 645,8 M$ fin 2024, apres un pic a 1 124,2 M$ fin 2022 lors du boom memoire/fonderie -- le cycle du semi-equipement se lit integralement dans cette serie 2019-2025.",
+   "frequency": "annual",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "bookings_q4",
+   "name_fr": "Prises de commandes (T4)",
+   "name_en": "Q4 Bookings",
+   "value": 127.6,
+   "unit": "M$",
+   "yoy": "+51%",
+   "history": [
+    {
+     "q": "Q4-2019",
+     "v": 77.2
+    },
+    {
+     "q": "Q4-2020",
+     "v": 131.5
+    },
+    {
+     "q": "Q4-2021",
+     "v": 194.0
+    },
+    {
+     "q": "Q4-2022",
+     "v": 211.5
+    },
+    {
+     "q": "Q4-2023",
+     "v": 235.5
+    },
+    {
+     "q": "Q4-2024",
+     "v": 84.5
+    },
+    {
+     "q": "Q4-2025",
+     "v": 127.6
+    }
+   ],
+   "pv_score": 6,
+   "signal": "Prises de commandes du T4-2025 : 127,6 M$, en rebond de +51% apres le creux de 84,5 M$ au T4-2024 (bas de cycle memoire/matures).",
+   "frequency": "quarterly",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "commandes",
+   "_gap_note": "Seul le point T4 de chaque annee est publie par Axcelis dans ses 10-K (Item 1, section Backlog) ; aucune serie de bookings trimestrielle complete n'est divulguee."
+  },
+  {
+   "short": "employees",
+   "name_fr": "Effectifs",
+   "name_en": "Headcount",
+   "value": 1465,
+   "unit": "personnes",
+   "yoy": "-3.9%",
+   "history": [
+    {
+     "q": "FY2020",
+     "v": 1004
+    },
+    {
+     "q": "FY2021",
+     "v": 1122
+    },
+    {
+     "q": "FY2022",
+     "v": 1388
+    },
+    {
+     "q": "FY2023",
+     "v": 1620
+    },
+    {
+     "q": "FY2024",
+     "v": 1524
+    },
+    {
+     "q": "FY2025",
+     "v": 1465
+    }
+   ],
+   "pv_score": 5,
+   "signal": "1 465 salaries fin 2025 (+50 interimaires), en repli de 3,9% apres le pic de 1 620 fin 2023 ; 1 038 en Amerique du Nord, 398 en Asie, 79 en Europe.",
+   "frequency": "annual",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "buyback_annual",
+   "name_fr": "Rachats d'actions annuels",
+   "name_en": "Annual Share Buybacks",
+   "value": 121.1,
+   "unit": "M$",
+   "yoy": "+100%",
+   "history": [
+    {
+     "q": "FY2024",
+     "v": 60.5
+    },
+    {
+     "q": "FY2025",
+     "v": 121.1
+    }
+   ],
+   "pv_score": 5,
+   "signal": "121,1 M$ de rachats d'actions en 2025 contre 60,5 M$ en 2024 (flux de financement, 10-K FY2025) ; Axcelis ne verse aucun dividende.",
+   "frequency": "annual",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "capital",
+   "_gap_note": "Montant annuel du rachat d'actions publie uniquement dans le tableau des flux de tresorerie de financement des deux derniers 10-K lus (2024, 2025) faute de budget pour remonter plus loin ; le detail mensuel 2025 est disponible (Item 5) mais non exploite ici."
+  },
+  {
+   "short": "geo_revenue_na",
+   "name_fr": "CA Amerique du Nord",
+   "name_en": "North America Revenue",
+   "value": 137.078,
+   "unit": "M$",
+   "yoy": "-4.8%",
+   "history": [
+    {
+     "q": "FY2018",
+     "v": 54.79
+    },
+    {
+     "q": "FY2019",
+     "v": 36.206
+    },
+    {
+     "q": "FY2020",
+     "v": 50.786
+    },
+    {
+     "q": "FY2021",
+     "v": 48.715
+    },
+    {
+     "q": "FY2022",
+     "v": 143.701
+    },
+    {
+     "q": "FY2023",
+     "v": 174.81
+    },
+    {
+     "q": "FY2024",
+     "v": 144.066
+    },
+    {
+     "q": "FY2025",
+     "v": 137.078
+    }
+   ],
+   "pv_score": 4,
+   "signal": "CA Amerique du Nord 2025 : 137,1 M$, en repli de 4,8% et tres en dessous du poids de l'Asie-Pacifique.",
+   "frequency": "annual",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "geo_revenue_apac",
+   "name_fr": "CA Asie-Pacifique",
+   "name_en": "Asia Pacific Revenue",
+   "value": 610.211,
+   "unit": "M$",
+   "yoy": "-21.9%",
+   "history": [
+    {
+     "q": "FY2018",
+     "v": 326.191
+    },
+    {
+     "q": "FY2019",
+     "v": 251.02
+    },
+    {
+     "q": "FY2020",
+     "v": 385.233
+    },
+    {
+     "q": "FY2021",
+     "v": 516.105
+    },
+    {
+     "q": "FY2022",
+     "v": 673.752
+    },
+    {
+     "q": "FY2023",
+     "v": 811.308
+    },
+    {
+     "q": "FY2024",
+     "v": 781.039
+    },
+    {
+     "q": "FY2025",
+     "v": 610.211
+    }
+   ],
+   "pv_score": 6,
+   "signal": "CA Asie-Pacifique 2025 : 610,2 M$ (73% du CA total), en repli de 21,9% apres le pic de 811,3 M$ en 2023 -- Axcelis reste tres concentre sur les clients memoire/fonderie asiatiques.",
+   "frequency": "annual",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "geo_revenue_europe",
+   "name_fr": "CA Europe",
+   "name_en": "Europe Revenue",
+   "value": 91.759,
+   "unit": "M$",
+   "yoy": "-1.1%",
+   "history": [
+    {
+     "q": "FY2018",
+     "v": 61.594
+    },
+    {
+     "q": "FY2019",
+     "v": 55.732
+    },
+    {
+     "q": "FY2020",
+     "v": 38.541
+    },
+    {
+     "q": "FY2021",
+     "v": 97.608
+    },
+    {
+     "q": "FY2022",
+     "v": 102.545
+    },
+    {
+     "q": "FY2023",
+     "v": 144.486
+    },
+    {
+     "q": "FY2024",
+     "v": 92.76
+    },
+    {
+     "q": "FY2025",
+     "v": 91.759
+    }
+   ],
+   "pv_score": 3,
+   "signal": "CA Europe 2025 : 91,8 M$ (11% du CA total), stable par rapport a 2024 (92,8 M$).",
+   "frequency": "annual",
+   "last_data_date": "2025-12-31"
+  }
+ ]
+}
