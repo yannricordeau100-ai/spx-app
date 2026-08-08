@@ -266,8 +266,14 @@ export function CompanyHeader({
             chips sector + subsector car le label affiche DÉJÀ le nom du
             secteur. Évite la redondance "TECHNOLOGIE #3 dans Technologies
             de l'information" (= "Technology" répété 2 fois dans 1 chip). */}
-        <StatChip label={translateSubsectorLocale(company.sector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.sector, locale))} />
-        <StatChip label={translateSubsectorLocale(company.subsector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.subsector, locale))} />
+        {/* Yann 9 août 2026 : même garde que global_us sur "-" (sinon chip
+            "Industrie -" quand le rang n'est pas sourcé, ex DG.PA/AC.PA). */}
+        {company.ranks.sector && company.ranks.sector.trim() !== "" && company.ranks.sector.trim() !== "-" && (
+          <StatChip label={translateSubsectorLocale(company.sector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.sector, locale))} />
+        )}
+        {company.ranks.subsector && company.ranks.subsector.trim() !== "" && company.ranks.subsector.trim() !== "-" && (
+          <StatChip label={translateSubsectorLocale(company.subsector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.subsector, locale))} />
+        )}
         <StatChip label={t("company.founded")} value={company.founded != null ? String(company.founded) : null} />
         <StatChip label={t("company.ipo")} value={company.ipo != null ? String(company.ipo) : null} />
       </div>

@@ -228,7 +228,12 @@ function detectDualClass(
       "class b",
       "10 vote",
       "ten vote",
+      // Yann 9 août 2026 : singulier aussi — formulation standard des URD
+      // français ("un droit de vote double est attribué"), Hermès affichait
+      // "Mono-class" à tort.
+      "droit de vote double",
       "droits de vote double",
+      "droit de vote multiple",
       "droits de vote multiple",
       "actions à droits de vote",
       "super-vote",
@@ -555,7 +560,11 @@ export function GovernanceCard({
             <Building2 className="size-5" style={{ color: accent }} />
             {t("governance.title")}
             {(() => {
-              const isDual = detectDualClass(g.top_voting, g.top_capital, g.voting_structure);
+              // Yann 9 août 2026 : 73 fichiers portent l'ancienne clé
+              // voting_structure_note — fallback pour ne pas retomber sur
+              // l'heuristique silencieuse (badge Mono-class faux, ex Hermès).
+              const votingText = g.voting_structure ?? (g as { voting_structure_note?: string }).voting_structure_note ?? null;
+              const isDual = detectDualClass(g.top_voting, g.top_capital, votingText);
               return (
                 <span
                   className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider ${
