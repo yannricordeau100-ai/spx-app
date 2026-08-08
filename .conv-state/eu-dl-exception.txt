@@ -1,0 +1,13 @@
+
+EXCEPTION TELECHARGEMENT (prioritaire sur la regle "Ne telecharge rien")
+Le watcher n'arrive plus a joindre la source IR de cette ste (0 doc trouve depuis juillet).
+AVANT l'integration, va TOI-MEME chercher sur le site IR officiel de la ste (WebFetch/curl,
+User-Agent "Mettrik research yannricordeau100@gmail.com", ~1 req/s) les publications
+manquantes depuis le dernier point (communique de resultats S1/T2 2026, rapport semestriel,
+presentation). Sauvegarde chaque PDF dans data-lake/__T__/ir/<TYPE>/ avec le nommage
+<TICKER>_<TYPE>_<periode>_<date>.pdf + extrais le texte en .txt.gz a cote
+(/opt/homebrew/bin/pdftotext -layout). Si la ste n'a simplement PAS ENCORE publie sa
+periode (ex resultats semestriels prevus en septembre), ecris en premiere ligne
+"__T__: PAS ENCORE PUBLIE — date de publication prevue <date>" et ne touche a rien.
+Si le site est inaccessible (WAF), essaie info-financiere.fr / zonebourse "communique
+officiel" ; en dernier recours ecris "__T__: IMPOSSIBLE — <raison>".

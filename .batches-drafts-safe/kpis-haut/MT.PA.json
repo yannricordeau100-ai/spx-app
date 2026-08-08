@@ -1,1545 +1,1566 @@
 {
- "ticker": "MT.PA",
- "extracted_at": "2026-08-01T00:00:00Z",
- "extracted_by": "CONV-CAC40-EXTRACT-MT.PA",
- "sources_used": [
-  "data-lake/MT.PA/ir/COMMUNIQUES/MT.PA_COMMUNIQUE_Q4-2025_2026-02-05 (resultats 4T et 12M 2025 : comptes, segments, mines, securite, tresorerie, dette nette, dividende)",
-  "data-lake/MT.PA/ir/COMMUNIQUES/MT.PA_COMMUNIQUE_Q4-2024_2025-02-06 (12M 2024 et comparatifs 12M 2023 : comptes, segments, securite)",
-  "data-lake/MT.PA/ir/COMMUNIQUES/MT.PA_COMMUNIQUE_Q4-2023_2024-02-08 (12M 2023 et comparatifs 12M 2022)",
-  "data-lake/MT.PA/ir/COMMUNIQUES/MT.PA_COMMUNIQUE_Q3-2023_2023-11-09 et MT.PA_COMMUNIQUE_Q2-2023_2023-07-27 (semestres 1H 2022 et 1H 2023)",
-  "data-lake/MT.PA/ir/SLIDES/MT.PA_SLIDES_Q2-2025_2025-07-31 (EBITDA et resultat net du 1er semestre 2025)",
-  "data-lake/MT.PA/ir/S1/MT.PA_S1_2024_2024-08-01 (comptes semestriels 1H 2024)",
-  "data-lake/MT.PA/ir/URD/MT.PA_URD_FY2022_2023-03-08 (comptes 2021 et 2022, effectifs 2021)",
-  "data-lake/MT.PA/ir/URD/MT.PA_URD_FY2024_2025-03-10 (effectifs 2022-2024, historique du dividende de base)"
- ],
- "hero_kpi": "WASO",
- "hero_kpi_rationale": "Nombre moyen pondere d'actions sur cinq exercices pleins (2021-2025) : 763 millions en 2025 contre 1 105 millions en 2021, soit -31%. C'est la traduction chiffree de la politique de retour aux actionnaires qu'ArcelorMittal met en avant depuis 2020 (reduction de 38% du nombre d'actions totalement dilue depuis septembre 2020), et elle explique a elle seule une part importante de la progression du resultat par action. Serie complete, sans derivation, non sensible aux ruptures de perimetre ou de definition qui affectent l'EBITDA et les segments.",
- "_ordering_rationale": "Hero sur le nombre d'actions, puis les agregats semestriels (chiffre d'affaires, EBITDA, resultat operationnel, volumes), puis les agregats annuels sur cinq ans (resultat net, BPA, dividende), les mesures ajustees et unitaires propres a la siderurgie (EBITDA par tonne), le bilan et la tresorerie, les effectifs et la securite, les mines, puis les cinq segments (chiffre d'affaires, EBITDA, volumes, prix de vente) et enfin la coentreprise AMNS India.",
- "_notes": "DEVISE : ArcelorMittal publie l'integralite de ses comptes en dollars americains. Toutes les valeurs sont conservees dans la devise de publication (unites Mds $, M$, $/t, $ par action). AUCUNE conversion en euros n'a ete effectuee, ni au cours de cloture ni au cours moyen : convertir aurait introduit des valeurs qui n'apparaissent dans aucun document source. Le titre est cote a Paris mais l'information financiere reglementee est en dollars.\n\nPERIODICITE : les libellles de periode suivent le format attendu par le loader (FYxxxx, H1-xxxx, H2-xxxx) et le champ frequency vaut annual ou semiannual en coherence. Aucune serie trimestrielle n'a ete publiee : cinq communiques trimestriels manquent dans le fonds documentaire local (1T 2022, 1T 2024, 2T 2024, 1T 2025, 2T 2025), ce qui aurait produit des series a trous que le loader afficherait comme des ruptures. Les series semestrielles sont completes de H1-2022 a H2-2025.\n\nDERIVATIONS : uniquement additives, S2 = exercice moins S1 ou somme des deux trimestres publies, listees dans _derived_points de chaque serie concernee. Le premier semestre 2025 est derive (exercice moins 3T et 4T publies) : les valeurs obtenues pour l'EBITDA (3 440 M$) et le resultat net (2 598 M$) sont identiques a celles publiees dans la presentation du 31 juillet 2025, ce qui valide la methode. Aucune derivation sur les marges, les prix de vente, le BPA, les effectifs, la dette ou les taux de frequence d'accidents.\n\nCONTROLES : somme des cinq segments 2025 = 66 033 M$ de chiffre d'affaires contre 61 352 M$ consolides, l'ecart de -4 681 M$ correspond aux ventes intersegments eliminees en consolidation (les chiffres d'affaires sectoriels publies par la societe sont bruts d'eliminations, il n'existe pas de tableau de reconciliation par segment dans le communique). Somme des EBITDA sectoriels 2025 = 6 232 M$ contre 6 541 M$ groupe, l'ecart de +309 M$ provient du segment India et coentreprises (quote-part de resultat des mises en equivalence) et des elements de holding. S1 + S2 = exercice verifie sur toutes les series semestrielles. Ordre chronologique verifie.\n\nRUPTURE DE DEFINITION EBITDA : la societe a redefini l'EBITDA a compter de l'exercice 2024 (integration des elements exceptionnels et de la quote-part des mises en equivalence). L'exercice 2023 a ete retraite de 7 558 M$ a 8 742 M$. La serie semestrielle utilise les valeurs telles que publiees a l'epoque pour 2022 et 2023 et la nouvelle definition a partir de 2024 ; la serie EBITDA par tonne utilise 157 $/t pour 2023 (valeur retraitee). Ecart a garder en tete pour toute comparaison anterieure a 2024.\n\nRUPTURE DE PERIMETRE SEGMENTAIRE : la structure sectorielle actuelle (Amerique du Nord, Bresil, Europe, Solutions durables, Mines, Inde et coentreprises) date de 2024. Avant cela le groupe publiait NAFTA, Bresil, Europe, ACIS et Mines. Les series par segment demarrent donc en 2023 (comparatifs retraites du communique du 6 fevrier 2025) et non en 2021.\n\nKPI ABSENTS ET RAISON : croissance organique et croissance publiee non publiees par ArcelorMittal, qui commente ses variations en volume et en prix mais ne publie aucune notion de croissance a perimetre et change constants. Carnet de commandes non publie, notion sans objet dans la siderurgie de commodite. EBITDA et production d'acier brut 2021 introuvables dans les documents locaux (le document d'enregistrement 2022 ne presente pas de tableau EBITDA), ces deux series demarrent donc en 2022. Effectifs 2025 non disponibles : le document d'enregistrement universel 2025 n'est pas encore publie a la date d'extraction.\n\nSERIES ECARTEES POUR CONTRAINTE D'AFFICHAGE : deux series extraites et verifiees n'ont pas ete publiees parce que la valeur rendue sort de la fenetre de magnitude imposee par le loader (valeur affichee comprise entre 1 et 999). Taux de frequence des accidents avec arret (0,92 en 2023, 0,70 en 2024, 0,65 en 2025, par million d'heures travaillees) : valeur inferieure a 1. Prix de vente moyen de l'acier en Amerique du Nord (1 024 $/t en 2023, 985 $/t en 2024, 1 014 $/t en 2025) : valeur superieure a 999. Les series equivalentes pour le Bresil et l'Europe sont publiees.\n\nCONTENU ADRESSE AU MODELE : aucun contenu de ce type rencontre dans les documents examines.",
- "kpis": [
-  {
-   "short": "WASO",
-   "name_fr": "Nombre moyen pondere d'actions",
-   "name_en": "Weighted average common shares outstanding",
-   "value": 763.0,
-   "unit": "M actions",
-   "yoy": "-3.2%",
-   "period_type": "year",
-   "type": "Capital",
-   "pv_score": 10,
-   "signal": "763 millions d'actions en moyenne en 2025 contre 1 105 millions en 2021, soit -31% en cinq ans ; la societe indique une reduction de 38% du nombre d'actions totalement dilue depuis septembre 2020",
-   "description_fr": "Nombre moyen pondere d'actions ordinaires en circulation sur l'exercice, base de calcul du BPA. Traduit l'effet cumule des rachats d'actions.",
-   "description_en": "Weighted average number of common shares outstanding, the denominator of basic EPS. Reflects the cumulative effect of buybacks.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
+  "ticker": "MT.PA",
+  "extracted_at": "2026-08-08T00:00:00Z",
+  "extracted_by": "CONV-CAC40-EXTRACT-MT.PA",
+  "sources_used": [
+    "data-lake/MT.PA/ir/COMMUNIQUES/MT.PA_COMMUNIQUE_Q4-2025_2026-02-05 (resultats 4T et 12M 2025 : comptes, segments, mines, securite, tresorerie, dette nette, dividende)",
+    "data-lake/MT.PA/ir/COMMUNIQUES/MT.PA_COMMUNIQUE_Q4-2024_2025-02-06 (12M 2024 et comparatifs 12M 2023 : comptes, segments, securite)",
+    "data-lake/MT.PA/ir/COMMUNIQUES/MT.PA_COMMUNIQUE_Q4-2023_2024-02-08 (12M 2023 et comparatifs 12M 2022)",
+    "data-lake/MT.PA/ir/COMMUNIQUES/MT.PA_COMMUNIQUE_Q3-2023_2023-11-09 et MT.PA_COMMUNIQUE_Q2-2023_2023-07-27 (semestres 1H 2022 et 1H 2023)",
+    "data-lake/MT.PA/ir/SLIDES/MT.PA_SLIDES_Q2-2025_2025-07-31 (EBITDA et resultat net du 1er semestre 2025)",
+    "data-lake/MT.PA/ir/S1/MT.PA_S1_2024_2024-08-01 (comptes semestriels 1H 2024)",
+    "data-lake/MT.PA/ir/URD/MT.PA_URD_FY2022_2023-03-08 (comptes 2021 et 2022, effectifs 2021)",
+    "data-lake/MT.PA/ir/URD/MT.PA_URD_FY2024_2025-03-10 (effectifs 2022-2024, historique du dividende de base)",
+    "data-lake/MT.PA/ir/COMMUNIQUES/MT.PA_COMMUNIQUE_Q2-2026_2026-07-30 (resultats 2T et 6M 2026 : comptes consolides, segments, mines, securite, dette nette)"
+  ],
+  "hero_kpi": "WASO",
+  "hero_kpi_rationale": "Nombre moyen pondere d'actions sur cinq exercices pleins (2021-2025) : 763 millions en 2025 contre 1 105 millions en 2021, soit -31%. C'est la traduction chiffree de la politique de retour aux actionnaires qu'ArcelorMittal met en avant depuis 2020 (reduction de 38% du nombre d'actions totalement dilue depuis septembre 2020), et elle explique a elle seule une part importante de la progression du resultat par action. Serie complete, sans derivation, non sensible aux ruptures de perimetre ou de definition qui affectent l'EBITDA et les segments.",
+  "_ordering_rationale": "Hero sur le nombre d'actions, puis les agregats semestriels (chiffre d'affaires, EBITDA, resultat operationnel, volumes), puis les agregats annuels sur cinq ans (resultat net, BPA, dividende), les mesures ajustees et unitaires propres a la siderurgie (EBITDA par tonne), le bilan et la tresorerie, les effectifs et la securite, les mines, puis les cinq segments (chiffre d'affaires, EBITDA, volumes, prix de vente) et enfin la coentreprise AMNS India.",
+  "_notes": "DEVISE : ArcelorMittal publie l'integralite de ses comptes en dollars americains. Toutes les valeurs sont conservees dans la devise de publication (unites Mds $, M$, $/t, $ par action). AUCUNE conversion en euros n'a ete effectuee, ni au cours de cloture ni au cours moyen : convertir aurait introduit des valeurs qui n'apparaissent dans aucun document source. Le titre est cote a Paris mais l'information financiere reglementee est en dollars.\n\nPERIODICITE : les libellles de periode suivent le format attendu par le loader (FYxxxx, H1-xxxx, H2-xxxx) et le champ frequency vaut annual ou semiannual en coherence. Aucune serie trimestrielle n'a ete publiee : cinq communiques trimestriels manquent dans le fonds documentaire local (1T 2022, 1T 2024, 2T 2024, 1T 2025, 2T 2025), ce qui aurait produit des series a trous que le loader afficherait comme des ruptures. Les series semestrielles sont completes de H1-2022 a H2-2025.\n\nDERIVATIONS : uniquement additives, S2 = exercice moins S1 ou somme des deux trimestres publies, listees dans _derived_points de chaque serie concernee. Le premier semestre 2025 est derive (exercice moins 3T et 4T publies) : les valeurs obtenues pour l'EBITDA (3 440 M$) et le resultat net (2 598 M$) sont identiques a celles publiees dans la presentation du 31 juillet 2025, ce qui valide la methode. Aucune derivation sur les marges, les prix de vente, le BPA, les effectifs, la dette ou les taux de frequence d'accidents.\n\nCONTROLES : somme des cinq segments 2025 = 66 033 M$ de chiffre d'affaires contre 61 352 M$ consolides, l'ecart de -4 681 M$ correspond aux ventes intersegments eliminees en consolidation (les chiffres d'affaires sectoriels publies par la societe sont bruts d'eliminations, il n'existe pas de tableau de reconciliation par segment dans le communique). Somme des EBITDA sectoriels 2025 = 6 232 M$ contre 6 541 M$ groupe, l'ecart de +309 M$ provient du segment India et coentreprises (quote-part de resultat des mises en equivalence) et des elements de holding. S1 + S2 = exercice verifie sur toutes les series semestrielles. Ordre chronologique verifie.\n\nRUPTURE DE DEFINITION EBITDA : la societe a redefini l'EBITDA a compter de l'exercice 2024 (integration des elements exceptionnels et de la quote-part des mises en equivalence). L'exercice 2023 a ete retraite de 7 558 M$ a 8 742 M$. La serie semestrielle utilise les valeurs telles que publiees a l'epoque pour 2022 et 2023 et la nouvelle definition a partir de 2024 ; la serie EBITDA par tonne utilise 157 $/t pour 2023 (valeur retraitee). Ecart a garder en tete pour toute comparaison anterieure a 2024.\n\nRUPTURE DE PERIMETRE SEGMENTAIRE : la structure sectorielle actuelle (Amerique du Nord, Bresil, Europe, Solutions durables, Mines, Inde et coentreprises) date de 2024. Avant cela le groupe publiait NAFTA, Bresil, Europe, ACIS et Mines. Les series par segment demarrent donc en 2023 (comparatifs retraites du communique du 6 fevrier 2025) et non en 2021.\n\nKPI ABSENTS ET RAISON : croissance organique et croissance publiee non publiees par ArcelorMittal, qui commente ses variations en volume et en prix mais ne publie aucune notion de croissance a perimetre et change constants. Carnet de commandes non publie, notion sans objet dans la siderurgie de commodite. EBITDA et production d'acier brut 2021 introuvables dans les documents locaux (le document d'enregistrement 2022 ne presente pas de tableau EBITDA), ces deux series demarrent donc en 2022. Effectifs 2025 non disponibles : le document d'enregistrement universel 2025 n'est pas encore publie a la date d'extraction.\n\nSERIES ECARTEES POUR CONTRAINTE D'AFFICHAGE : deux series extraites et verifiees n'ont pas ete publiees parce que la valeur rendue sort de la fenetre de magnitude imposee par le loader (valeur affichee comprise entre 1 et 999). Taux de frequence des accidents avec arret (0,92 en 2023, 0,70 en 2024, 0,65 en 2025, par million d'heures travaillees) : valeur inferieure a 1. Prix de vente moyen de l'acier en Amerique du Nord (1 024 $/t en 2023, 985 $/t en 2024, 1 014 $/t en 2025) : valeur superieure a 999. Les series equivalentes pour le Bresil et l'Europe sont publiees.\n\nCONTENU ADRESSE AU MODELE : aucun contenu de ce type rencontre dans les documents examines.\n\nMISE A JOUR S1 2026 (communique du 30 juillet 2026) : les cinq series semestrielles (chiffre d'affaires, EBITDA, resultat operationnel, expeditions, production d'acier brut) sont prolongees au S1 2026 avec des valeurs PUBLIEES sur la colonne 1H 26, sans derivation. Les comparatifs 1H 25 du communique (30 724 M$ de ventes, 3 440 M$ d'EBITDA, 2 757 M$ de resultat operationnel, 27,4 Mt expediees, 29,2 Mt produites) sont identiques aux points H1-2025 deja stockes, ce qui valide la serie. Les series annuelles ne sont pas prolongees : l'exercice 2026 ne sera publie qu'en fevrier 2027 et aucune grandeur annuelle (BPA, dividende, effectifs, dette nette, segments annuels) n'est derivable d'un semestre. Controle segments S1 2026 : somme des cinq chiffres d'affaires sectoriels = 35 481 M$ contre 32 218 M$ consolides, ecart de -3 263 M$ correspondant aux ventes intersegments eliminees ; somme des EBITDA sectoriels = 3 548 M$ contre 3 743 M$ groupe, l'ecart de +195 M$ provenant du segment Others et de la quote-part de resultat des societes mises en equivalence (406 M$) incluse dans la definition groupe de l'EBITDA (A-B+C).",
+  "kpis": [
     {
-     "q": "FY2021",
-     "v": 1105
+      "short": "WASO",
+      "name_fr": "Nombre moyen pondere d'actions",
+      "name_en": "Weighted average common shares outstanding",
+      "value": 763.0,
+      "unit": "M actions",
+      "yoy": "-3.2%",
+      "period_type": "year",
+      "type": "Capital",
+      "pv_score": 10,
+      "signal": "763 millions d'actions en moyenne en 2025 contre 1 105 millions en 2021, soit -31% en cinq ans ; la societe indique une reduction de 38% du nombre d'actions totalement dilue depuis septembre 2020",
+      "description_fr": "Nombre moyen pondere d'actions ordinaires en circulation sur l'exercice, base de calcul du BPA. Traduit l'effet cumule des rachats d'actions.",
+      "description_en": "Weighted average number of common shares outstanding, the denominator of basic EPS. Reflects the cumulative effect of buybacks.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2021",
+          "v": 1105
+        },
+        {
+          "q": "FY2022",
+          "v": 911
+        },
+        {
+          "q": "FY2023",
+          "v": 842
+        },
+        {
+          "q": "FY2024",
+          "v": 788
+        },
+        {
+          "q": "FY2025",
+          "v": 763
+        }
+      ]
     },
     {
-     "q": "FY2022",
-     "v": 911
+      "short": "REV",
+      "name_fr": "Chiffre d'affaires",
+      "name_en": "Sales",
+      "value": 32.218,
+      "unit": "Mds $",
+      "yoy": "+4.9%",
+      "period_type": "half",
+      "type": "Revenue",
+      "pv_score": 10,
+      "signal": "32,2 Mds $ au S1 2026, +4,9% sur un an, dont 16,8 Mds $ au 2e trimestre",
+      "description_fr": "Chiffre d'affaires consolide publie en dollars americains (S2 = exercice moins S1, derive).",
+      "description_en": "Consolidated sales reported in US dollars (H2 derived as FY minus H1).",
+      "last_data_date": "2026-06-30",
+      "frequency": "semiannual",
+      "_derived_points": [
+        "H2-2022",
+        "H2-2023",
+        "H2-2024",
+        "H1-2025",
+        "H2-2025"
+      ],
+      "history": [
+        {
+          "q": "H1-2022",
+          "v": 43.978
+        },
+        {
+          "q": "H2-2022",
+          "v": 35.866
+        },
+        {
+          "q": "H1-2023",
+          "v": 37.107
+        },
+        {
+          "q": "H2-2023",
+          "v": 31.168
+        },
+        {
+          "q": "H1-2024",
+          "v": 32.531
+        },
+        {
+          "q": "H2-2024",
+          "v": 29.91
+        },
+        {
+          "q": "H1-2025",
+          "v": 30.724
+        },
+        {
+          "q": "H2-2025",
+          "v": 30.628
+        },
+        {
+          "q": "H1-2026",
+          "v": 32.218
+        }
+      ]
     },
     {
-     "q": "FY2023",
-     "v": 842
+      "short": "EBITDA",
+      "name_fr": "EBITDA",
+      "name_en": "EBITDA",
+      "value": 3.743,
+      "unit": "Mds $",
+      "yoy": "+8.8%",
+      "period_type": "half",
+      "type": "Profitability",
+      "pv_score": 10,
+      "signal": "3,74 Mds $ au S1 2026, +8,8% sur un an, soit 143 $ par tonne contre 125 $ un an plus tot",
+      "description_fr": "Resultat operationnel avant amortissements, depreciations et elements exceptionnels, tel que defini par la societe (S2 = exercice moins S1, derive).",
+      "description_en": "Operating result before depreciation, impairment and exceptional items, as defined by the company (H2 derived as FY minus H1).",
+      "last_data_date": "2026-06-30",
+      "frequency": "semiannual",
+      "_derived_points": [
+        "H2-2022",
+        "H2-2023",
+        "H1-2024",
+        "H2-2024",
+        "H2-2025"
+      ],
+      "history": [
+        {
+          "q": "H1-2022",
+          "v": 10.243
+        },
+        {
+          "q": "H2-2022",
+          "v": 3.918
+        },
+        {
+          "q": "H1-2023",
+          "v": 4.427
+        },
+        {
+          "q": "H2-2023",
+          "v": 3.131
+        },
+        {
+          "q": "H1-2024",
+          "v": 3.818
+        },
+        {
+          "q": "H2-2024",
+          "v": 3.235
+        },
+        {
+          "q": "H1-2025",
+          "v": 3.44
+        },
+        {
+          "q": "H2-2025",
+          "v": 3.101
+        },
+        {
+          "q": "H1-2026",
+          "v": 3.743
+        }
+      ]
     },
     {
-     "q": "FY2024",
-     "v": 788
+      "short": "EBIT",
+      "name_fr": "Resultat operationnel",
+      "name_en": "Operating income",
+      "value": 1.808,
+      "unit": "Mds $",
+      "yoy": "-34.4%",
+      "period_type": "half",
+      "type": "Profitability",
+      "pv_score": 9,
+      "signal": "1,81 Md $ au S1 2026 contre 2,76 Mds $ au S1 2025, qui incluaient 1,16 Md $ d'elements exceptionnels ; marge operationnelle de 5,6% contre 9,0%",
+      "description_fr": "Resultat operationnel consolide (S2 = exercice moins S1, derive).",
+      "description_en": "Consolidated operating income (H2 derived as FY minus H1).",
+      "last_data_date": "2026-06-30",
+      "frequency": "semiannual",
+      "_derived_points": [
+        "H2-2022",
+        "H2-2023",
+        "H2-2024",
+        "H1-2025",
+        "H2-2025"
+      ],
+      "history": [
+        {
+          "q": "H1-2022",
+          "v": 8.927
+        },
+        {
+          "q": "H2-2022",
+          "v": 1.345
+        },
+        {
+          "q": "H1-2023",
+          "v": 3.117
+        },
+        {
+          "q": "H2-2023",
+          "v": -0.777
+        },
+        {
+          "q": "H1-2024",
+          "v": 2.118
+        },
+        {
+          "q": "H2-2024",
+          "v": 1.192
+        },
+        {
+          "q": "H1-2025",
+          "v": 2.757
+        },
+        {
+          "q": "H2-2025",
+          "v": 0.871
+        },
+        {
+          "q": "H1-2026",
+          "v": 1.808
+        }
+      ]
     },
     {
-     "q": "FY2025",
-     "v": 763
+      "short": "SHIP",
+      "name_fr": "Expeditions d'acier",
+      "name_en": "Steel shipments",
+      "value": 26.2,
+      "unit": "Mt",
+      "yoy": "-4.4%",
+      "period_type": "half",
+      "type": "Operational",
+      "pv_score": 9,
+      "signal": "26,2 Mt expediees au S1 2026, -4,4% sur un an ; la societe attend des expeditions du S2 2026 superieures a celles du S1 dans tous les segments",
+      "description_fr": "Volume d'acier expedie par le groupe, en millions de tonnes (S2 = exercice moins S1, derive).",
+      "description_en": "Group steel shipments in million tonnes (H2 derived as FY minus H1).",
+      "last_data_date": "2026-06-30",
+      "frequency": "semiannual",
+      "_derived_points": [
+        "H2-2022",
+        "H2-2023",
+        "H1-2024",
+        "H2-2024",
+        "H1-2025",
+        "H2-2025"
+      ],
+      "history": [
+        {
+          "q": "H1-2022",
+          "v": 29.7
+        },
+        {
+          "q": "H2-2022",
+          "v": 26.2
+        },
+        {
+          "q": "H1-2023",
+          "v": 28.7
+        },
+        {
+          "q": "H2-2023",
+          "v": 26.9
+        },
+        {
+          "q": "H1-2024",
+          "v": 27.4
+        },
+        {
+          "q": "H2-2024",
+          "v": 26.9
+        },
+        {
+          "q": "H1-2025",
+          "v": 27.4
+        },
+        {
+          "q": "H2-2025",
+          "v": 26.6
+        },
+        {
+          "q": "H1-2026",
+          "v": 26.2
+        }
+      ]
+    },
+    {
+      "short": "CSP",
+      "name_fr": "Production d'acier brut",
+      "name_en": "Crude steel production",
+      "value": 27.6,
+      "unit": "Mt",
+      "yoy": "-5.5%",
+      "period_type": "half",
+      "type": "Operational",
+      "pv_score": 8,
+      "signal": "27,6 Mt produites au S1 2026, -5,5% sur un an, dont 14,3 Mt au 2e trimestre apres le redemarrage des installations d'Asturias en Espagne",
+      "description_fr": "Production d'acier brut du groupe, en millions de tonnes (S2 = exercice moins S1, derive).",
+      "description_en": "Group crude steel production in million tonnes (H2 derived as FY minus H1).",
+      "last_data_date": "2026-06-30",
+      "frequency": "semiannual",
+      "_derived_points": [
+        "H2-2022",
+        "H2-2023",
+        "H1-2024",
+        "H2-2024",
+        "H1-2025",
+        "H2-2025"
+      ],
+      "history": [
+        {
+          "q": "H1-2022",
+          "v": 30.9
+        },
+        {
+          "q": "H2-2022",
+          "v": 28.1
+        },
+        {
+          "q": "H1-2023",
+          "v": 29.2
+        },
+        {
+          "q": "H2-2023",
+          "v": 28.9
+        },
+        {
+          "q": "H1-2024",
+          "v": 29.1
+        },
+        {
+          "q": "H2-2024",
+          "v": 28.8
+        },
+        {
+          "q": "H1-2025",
+          "v": 29.2
+        },
+        {
+          "q": "H2-2025",
+          "v": 26.4
+        },
+        {
+          "q": "H1-2026",
+          "v": 27.6
+        }
+      ]
+    },
+    {
+      "short": "NI",
+      "name_fr": "Resultat net part du groupe",
+      "name_en": "Net income attributable to equity holders",
+      "value": 3.152,
+      "unit": "Mds $",
+      "yoy": "+135.4%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 10,
+      "signal": "3,15 Mds $ en 2025 contre 1,34 Md $ en 2024, plus haut depuis 2022, malgre un chiffre d'affaires en repli",
+      "description_fr": "Resultat net consolide attribuable aux actionnaires de la societe mere.",
+      "description_en": "Consolidated net income attributable to equity holders of the parent.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2021",
+          "v": 14.956
+        },
+        {
+          "q": "FY2022",
+          "v": 9.302
+        },
+        {
+          "q": "FY2023",
+          "v": 0.919
+        },
+        {
+          "q": "FY2024",
+          "v": 1.339
+        },
+        {
+          "q": "FY2025",
+          "v": 3.152
+        }
+      ]
+    },
+    {
+      "short": "EPS",
+      "name_fr": "Resultat net par action",
+      "name_en": "Basic earnings per share",
+      "value": 4.13,
+      "unit": "$",
+      "yoy": "+143.0%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 9,
+      "signal": "4,13 $ par action en 2025 contre 1,70 $ en 2024, porte par le resultat net et par la baisse du nombre d'actions",
+      "description_fr": "Resultat net de base par action ordinaire, en dollars.",
+      "description_en": "Basic earnings per common share, in US dollars.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2021",
+          "v": 13.53
+        },
+        {
+          "q": "FY2022",
+          "v": 10.21
+        },
+        {
+          "q": "FY2023",
+          "v": 1.09
+        },
+        {
+          "q": "FY2024",
+          "v": 1.7
+        },
+        {
+          "q": "FY2025",
+          "v": 4.13
+        }
+      ]
+    },
+    {
+      "short": "DPS",
+      "name_fr": "Dividende par action",
+      "name_en": "Dividend per share",
+      "value": 0.55,
+      "unit": "$",
+      "yoy": "+10.0%",
+      "period_type": "year",
+      "type": "Capital",
+      "pv_score": 9,
+      "signal": "0,55 $ par action au titre de 2025, en hausse chaque annee depuis 2021 ; le conseil propose 0,60 $ pour 2026, verse en quatre acomptes trimestriels",
+      "description_fr": "Dividende de base annuel par action approuve par l'assemblee generale, en dollars.",
+      "description_en": "Annual base dividend per share approved at the annual general meeting, in US dollars.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2021",
+          "v": 0.3
+        },
+        {
+          "q": "FY2022",
+          "v": 0.38
+        },
+        {
+          "q": "FY2023",
+          "v": 0.44
+        },
+        {
+          "q": "FY2024",
+          "v": 0.5
+        },
+        {
+          "q": "FY2025",
+          "v": 0.55
+        }
+      ]
+    },
+    {
+      "short": "ANI",
+      "name_fr": "Resultat net ajuste",
+      "name_en": "Adjusted net income",
+      "value": 2.938,
+      "unit": "Mds $",
+      "yoy": "+26.3%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 8,
+      "signal": "2,94 Mds $ de resultat net ajuste en 2025, +26,3% sur un an, hors elements exceptionnels et depreciations",
+      "description_fr": "Resultat net part du groupe retraite des elements exceptionnels, depreciations et effets fiscaux associes.",
+      "description_en": "Net income attributable to equity holders adjusted for exceptional items, impairments and related tax effects.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2022",
+          "v": 10.611
+        },
+        {
+          "q": "FY2023",
+          "v": 4.867
+        },
+        {
+          "q": "FY2024",
+          "v": 2.326
+        },
+        {
+          "q": "FY2025",
+          "v": 2.938
+        }
+      ]
+    },
+    {
+      "short": "AEPS",
+      "name_fr": "Resultat net ajuste par action",
+      "name_en": "Adjusted basic earnings per share",
+      "value": 3.85,
+      "unit": "$",
+      "yoy": "+30.5%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 7,
+      "signal": "3,85 $ par action en 2025 hors elements exceptionnels, contre 2,95 $ en 2024",
+      "description_fr": "Resultat net ajuste de base par action ordinaire, en dollars.",
+      "description_en": "Adjusted basic earnings per common share, in US dollars.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2022",
+          "v": 11.65
+        },
+        {
+          "q": "FY2023",
+          "v": 5.78
+        },
+        {
+          "q": "FY2024",
+          "v": 2.95
+        },
+        {
+          "q": "FY2025",
+          "v": 3.85
+        }
+      ]
+    },
+    {
+      "short": "EBITDAT",
+      "name_fr": "EBITDA par tonne",
+      "name_en": "EBITDA per tonne",
+      "value": 121.0,
+      "unit": "$/t",
+      "yoy": "-6.9%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 9,
+      "signal": "121 $ par tonne en 2025, plus de deux fois les points bas de cycle precedents selon la societe, malgre un repli de 6,9% sur un an",
+      "description_fr": "EBITDA rapporte au volume d'acier expedie. Mesure de marge unitaire de reference du secteur siderurgique.",
+      "description_en": "EBITDA divided by steel shipments. The reference unit margin metric of the steel industry.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "_specific_to": "Siderurgie / marge unitaire",
+      "history": [
+        {
+          "q": "FY2022",
+          "v": 253
+        },
+        {
+          "q": "FY2023",
+          "v": 157
+        },
+        {
+          "q": "FY2024",
+          "v": 130
+        },
+        {
+          "q": "FY2025",
+          "v": 121
+        }
+      ]
+    },
+    {
+      "short": "EBITT",
+      "name_fr": "Resultat operationnel par tonne",
+      "name_en": "Operating income per tonne",
+      "value": 67.0,
+      "unit": "$/t",
+      "yoy": "+9.8%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 7,
+      "signal": "67 $ par tonne en 2025 contre 61 $ en 2024",
+      "description_fr": "Resultat operationnel rapporte au volume d'acier expedie.",
+      "description_en": "Operating income divided by steel shipments.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "_specific_to": "Siderurgie / marge unitaire",
+      "history": [
+        {
+          "q": "FY2022",
+          "v": 184
+        },
+        {
+          "q": "FY2023",
+          "v": 42
+        },
+        {
+          "q": "FY2024",
+          "v": 61
+        },
+        {
+          "q": "FY2025",
+          "v": 67
+        }
+      ]
+    },
+    {
+      "short": "NETDEBT",
+      "name_fr": "Dette nette",
+      "name_en": "Net debt",
+      "value": 7.931,
+      "unit": "Mds $",
+      "yoy": "-13.1%",
+      "period_type": "year",
+      "type": "Balance Sheet",
+      "pv_score": 8,
+      "signal": "7,9 Mds $ de dette nette fin 2025 contre 9,1 Mds $ un an plus tot, pour 13,4 Mds $ de dette brute et 5,5 Mds $ de tresorerie",
+      "description_fr": "Dette long terme et court terme diminuee de la tresorerie et equivalents, y compris ceux classes en actifs destines a la vente.",
+      "description_en": "Long-term and short-term debt less cash and cash equivalents, including those held as part of assets held for sale.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 5.079
+        },
+        {
+          "q": "FY2024",
+          "v": 9.123
+        },
+        {
+          "q": "FY2025",
+          "v": 7.931
+        }
+      ]
+    },
+    {
+      "short": "OCF",
+      "name_fr": "Flux de tresorerie d'exploitation",
+      "name_en": "Net cash provided by operating activities",
+      "value": 4.808,
+      "unit": "Mds $",
+      "yoy": "-0.9%",
+      "period_type": "year",
+      "type": "Cash Flow",
+      "pv_score": 8,
+      "signal": "4,81 Mds $ generes par l'exploitation en 2025, quasi stables sur un an",
+      "description_fr": "Tresorerie nette generee par les activites operationnelles.",
+      "description_en": "Net cash provided by operating activities.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "is_short_history": true,
+      "story_category": "Cash Flow",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 4.852
+        },
+        {
+          "q": "FY2025",
+          "v": 4.808
+        }
+      ]
+    },
+    {
+      "short": "CAPEX",
+      "name_fr": "Investissements industriels",
+      "name_en": "Capital expenditures",
+      "value": 4.337,
+      "unit": "Mds $",
+      "yoy": "-1.5%",
+      "period_type": "year",
+      "type": "Cash Flow",
+      "pv_score": 8,
+      "signal": "4,34 Mds $ investis en 2025, dont 1,1 Md $ de projets de croissance strategiques et 0,3 Md $ de decarbonation ; enveloppe de 4,5 a 5,0 Mds $ annoncee pour 2026",
+      "description_fr": "Acquisitions d'immobilisations corporelles et incorporelles, hors coentreprises.",
+      "description_en": "Purchase of property, plant and equipment and intangibles, excluding joint ventures.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "is_short_history": true,
+      "story_category": "Cash Flow",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 4.405
+        },
+        {
+          "q": "FY2025",
+          "v": 4.337
+        }
+      ]
+    },
+    {
+      "short": "FCF",
+      "name_fr": "Flux de tresorerie disponible",
+      "name_en": "Free cash flow",
+      "value": 0.35,
+      "unit": "Mds $",
+      "yoy": "+34.6%",
+      "period_type": "year",
+      "type": "Cash Flow",
+      "pv_score": 8,
+      "signal": "0,35 Md $ de tresorerie disponible en 2025 apres investissements et dividendes aux minoritaires, contre 0,26 Md $ en 2024",
+      "description_fr": "Tresorerie nette d'exploitation diminuee des investissements industriels et des dividendes verses aux minoritaires.",
+      "description_en": "Net cash from operating activities less capex less dividends paid to minority shareholders.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "is_short_history": true,
+      "story_category": "Cash Flow",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 0.26
+        },
+        {
+          "q": "FY2025",
+          "v": 0.35
+        }
+      ]
+    },
+    {
+      "short": "BUYBACK",
+      "name_fr": "Rachats d'actions",
+      "name_en": "Share buybacks",
+      "value": 0.262,
+      "unit": "Mds $",
+      "yoy": "-79.8%",
+      "period_type": "year",
+      "type": "Capital",
+      "pv_score": 7,
+      "signal": "262 M$ de rachats en 2025 pour 8,8 millions d'actions, contre 1,3 Md $ en 2024 ; la societe s'engage a rendre au moins 50% du flux disponible apres dividende",
+      "description_fr": "Montant decaisse au titre des rachats d'actions propres sur l'exercice.",
+      "description_en": "Cash outflow for share buybacks during the year.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "is_short_history": true,
+      "story_category": "Capital",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 1.3
+        },
+        {
+          "q": "FY2025",
+          "v": 0.262
+        }
+      ]
+    },
+    {
+      "short": "DIVPAID",
+      "name_fr": "Dividendes verses aux actionnaires",
+      "name_en": "Dividends paid to shareholders",
+      "value": 0.421,
+      "unit": "Mds $",
+      "yoy": "+7.1%",
+      "period_type": "year",
+      "type": "Capital",
+      "pv_score": 6,
+      "signal": "421 M$ de dividendes verses en 2025 contre 393 M$ en 2024",
+      "description_fr": "Dividendes effectivement verses aux actionnaires d'ArcelorMittal au cours de l'exercice.",
+      "description_en": "Dividends actually paid to ArcelorMittal shareholders during the year.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "is_short_history": true,
+      "story_category": "Capital",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 0.393
+        },
+        {
+          "q": "FY2025",
+          "v": 0.421
+        }
+      ]
+    },
+    {
+      "short": "EMP",
+      "name_fr": "Effectifs",
+      "name_en": "Employees",
+      "value": 125416,
+      "unit": "FTE",
+      "yoy": "-1.1%",
+      "period_type": "year",
+      "type": "Operational",
+      "pv_score": 7,
+      "signal": "125 416 equivalents temps plein fin 2024, contre 157 909 fin 2021 : la baisse de 2023 reflete la cession des activites du Kazakhstan",
+      "description_fr": "Nombre d'employes en equivalent temps plein au 31 decembre. Donnee publiee dans le document d'enregistrement universel, non disponible pour 2025.",
+      "description_en": "Full-time equivalent employees at December 31. Disclosed in the universal registration document, not yet available for 2025.",
+      "last_data_date": "2024-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2021",
+          "v": 157909
+        },
+        {
+          "q": "FY2022",
+          "v": 154352
+        },
+        {
+          "q": "FY2023",
+          "v": 126756
+        },
+        {
+          "q": "FY2024",
+          "v": 125416
+        }
+      ]
+    },
+    {
+      "short": "IOPROD",
+      "name_fr": "Production de minerai de fer (AMMC et Liberia)",
+      "name_en": "Iron ore production (AMMC and Liberia)",
+      "value": 35.3,
+      "unit": "Mt",
+      "yoy": "+26.5%",
+      "period_type": "year",
+      "type": "Operational",
+      "pv_score": 9,
+      "signal": "35,3 Mt produites en 2025, +26,5% sur un an, grace au record du Liberia et a la montee en puissance de la phase 2 vers 20 Mt de capacite",
+      "description_fr": "Production de minerai de fer des mines detenues en propre, ArcelorMittal Mines Canada et ArcelorMittal Liberia.",
+      "description_en": "Iron ore production from wholly owned mines, ArcelorMittal Mines Canada and ArcelorMittal Liberia.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "_specific_to": "Mines / minerai de fer",
+      "history": [
+        {
+          "q": "FY2022",
+          "v": 28.6
+        },
+        {
+          "q": "FY2023",
+          "v": 26.0
+        },
+        {
+          "q": "FY2024",
+          "v": 27.9
+        },
+        {
+          "q": "FY2025",
+          "v": 35.3
+        }
+      ]
+    },
+    {
+      "short": "IOSHIP",
+      "name_fr": "Expeditions de minerai de fer (AMMC et Liberia)",
+      "name_en": "Iron ore shipments (AMMC and Liberia)",
+      "value": 36.3,
+      "unit": "Mt",
+      "yoy": "+37.5%",
+      "period_type": "year",
+      "type": "Operational",
+      "pv_score": 8,
+      "signal": "36,3 Mt expediees en 2025, +37,5% sur un an, dont 10 Mt depuis le Liberia",
+      "description_fr": "Expeditions de minerai de fer des mines detenues en propre.",
+      "description_en": "Iron ore shipments from wholly owned mines.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "_specific_to": "Mines / minerai de fer",
+      "history": [
+        {
+          "q": "FY2022",
+          "v": 28.0
+        },
+        {
+          "q": "FY2023",
+          "v": 26.4
+        },
+        {
+          "q": "FY2024",
+          "v": 26.4
+        },
+        {
+          "q": "FY2025",
+          "v": 36.3
+        }
+      ]
+    },
+    {
+      "short": "IOTOT",
+      "name_fr": "Production totale de minerai de fer du groupe",
+      "name_en": "Total group iron ore production",
+      "value": 48.8,
+      "unit": "Mt",
+      "yoy": "+15.1%",
+      "period_type": "year",
+      "type": "Operational",
+      "pv_score": 7,
+      "signal": "48,8 Mt produites en 2025 toutes mines confondues, +15,1% sur un an",
+      "description_fr": "Production de minerai de fer de l'ensemble des mines du groupe, y compris les mines captives.",
+      "description_en": "Iron ore production across all group mines, including captive mines.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "_specific_to": "Mines / minerai de fer",
+      "history": [
+        {
+          "q": "FY2022",
+          "v": 45.3
+        },
+        {
+          "q": "FY2023",
+          "v": 42.0
+        },
+        {
+          "q": "FY2024",
+          "v": 42.4
+        },
+        {
+          "q": "FY2025",
+          "v": 48.8
+        }
+      ]
+    },
+    {
+      "short": "REVNA",
+      "name_fr": "Chiffre d'affaires Amerique du Nord",
+      "name_en": "Sales North America",
+      "value": 12.335,
+      "unit": "Mds $",
+      "yoy": "+3.7%",
+      "period_type": "year",
+      "type": "Revenue",
+      "pv_score": 8,
+      "signal": "12,3 Mds $ en 2025, +3,7% sur un an malgre l'impact des droits de douane de la section 232",
+      "description_fr": "Chiffre d'affaires du segment Amerique du Nord, avant elimination des ventes intersegments.",
+      "description_en": "Sales of the North America segment, before elimination of intersegment sales.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 12.978
+        },
+        {
+          "q": "FY2024",
+          "v": 11.896
+        },
+        {
+          "q": "FY2025",
+          "v": 12.335
+        }
+      ]
+    },
+    {
+      "short": "REVBR",
+      "name_fr": "Chiffre d'affaires Bresil",
+      "name_en": "Sales Brazil",
+      "value": 11.172,
+      "unit": "Mds $",
+      "yoy": "-9.9%",
+      "period_type": "year",
+      "type": "Revenue",
+      "pv_score": 8,
+      "signal": "11,2 Mds $ en 2025, -9,9% sur un an sous l'effet de la baisse des prix de vente moyens",
+      "description_fr": "Chiffre d'affaires du segment Bresil, avant elimination des ventes intersegments.",
+      "description_en": "Sales of the Brazil segment, before elimination of intersegment sales.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 13.163
+        },
+        {
+          "q": "FY2024",
+          "v": 12.401
+        },
+        {
+          "q": "FY2025",
+          "v": 11.172
+        }
+      ]
+    },
+    {
+      "short": "REVEU",
+      "name_fr": "Chiffre d'affaires Europe",
+      "name_en": "Sales Europe",
+      "value": 28.793,
+      "unit": "Mds $",
+      "yoy": "-3.9%",
+      "period_type": "year",
+      "type": "Revenue",
+      "pv_score": 8,
+      "signal": "28,8 Mds $ en 2025, premier segment du groupe avec 47% du chiffre d'affaires segmentaire",
+      "description_fr": "Chiffre d'affaires du segment Europe, avant elimination des ventes intersegments.",
+      "description_en": "Sales of the Europe segment, before elimination of intersegment sales.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 31.695
+        },
+        {
+          "q": "FY2024",
+          "v": 29.952
+        },
+        {
+          "q": "FY2025",
+          "v": 28.793
+        }
+      ]
+    },
+    {
+      "short": "REVSS",
+      "name_fr": "Chiffre d'affaires Solutions durables",
+      "name_en": "Sales Sustainable Solutions",
+      "value": 10.501,
+      "unit": "Mds $",
+      "yoy": "-2.1%",
+      "period_type": "year",
+      "type": "Revenue",
+      "pv_score": 8,
+      "signal": "10,5 Mds $ en 2025, activites aval de distribution, tubes et projets",
+      "description_fr": "Chiffre d'affaires du segment Solutions durables, avant elimination des ventes intersegments.",
+      "description_en": "Sales of the Sustainable Solutions segment, before elimination of intersegment sales.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 11.467
+        },
+        {
+          "q": "FY2024",
+          "v": 10.722
+        },
+        {
+          "q": "FY2025",
+          "v": 10.501
+        }
+      ]
+    },
+    {
+      "short": "REVMI",
+      "name_fr": "Chiffre d'affaires Mines",
+      "name_en": "Sales Mining",
+      "value": 3.232,
+      "unit": "Mds $",
+      "yoy": "+21.4%",
+      "period_type": "year",
+      "type": "Revenue",
+      "pv_score": 8,
+      "signal": "3,2 Mds $ en 2025, +21,4% sur un an grace aux volumes records du Liberia",
+      "description_fr": "Chiffre d'affaires du segment Mines, avant elimination des ventes intersegments.",
+      "description_en": "Sales of the Mining segment, before elimination of intersegment sales.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 3.077
+        },
+        {
+          "q": "FY2024",
+          "v": 2.663
+        },
+        {
+          "q": "FY2025",
+          "v": 3.232
+        }
+      ]
+    },
+    {
+      "short": "EBNA",
+      "name_fr": "EBITDA Amerique du Nord",
+      "name_en": "EBITDA North America",
+      "value": 1.237,
+      "unit": "Mds $",
+      "yoy": "-32.0%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 8,
+      "signal": "1,24 Md $ en 2025, -32,0% sur un an, penalise par les droits de douane et la maintenance au Mexique",
+      "description_fr": "EBITDA du segment Amerique du Nord.",
+      "description_en": "EBITDA of the North America segment.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 2.452
+        },
+        {
+          "q": "FY2024",
+          "v": 1.819
+        },
+        {
+          "q": "FY2025",
+          "v": 1.237
+        }
+      ]
+    },
+    {
+      "short": "EBBR",
+      "name_fr": "EBITDA Bresil",
+      "name_en": "EBITDA Brazil",
+      "value": 1.44,
+      "unit": "Mds $",
+      "yoy": "-20.1%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 8,
+      "signal": "1,44 Md $ en 2025, -20,1% sur un an, prix de vente moyens en repli a 736 $ la tonne",
+      "description_fr": "EBITDA du segment Bresil.",
+      "description_en": "EBITDA of the Brazil segment.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 1.802
+        },
+        {
+          "q": "FY2024",
+          "v": 1.803
+        },
+        {
+          "q": "FY2025",
+          "v": 1.44
+        }
+      ]
+    },
+    {
+      "short": "EBEU",
+      "name_fr": "EBITDA Europe",
+      "name_en": "EBITDA Europe",
+      "value": 2.028,
+      "unit": "Mds $",
+      "yoy": "+24.9%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 8,
+      "signal": "2,03 Mds $ en 2025, +24,9% sur un an : seul segment en nette amelioration, porte par un effet prix-cout favorable",
+      "description_fr": "EBITDA du segment Europe.",
+      "description_en": "EBITDA of the Europe segment.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 1.977
+        },
+        {
+          "q": "FY2024",
+          "v": 1.624
+        },
+        {
+          "q": "FY2025",
+          "v": 2.028
+        }
+      ]
+    },
+    {
+      "short": "EBSS",
+      "name_fr": "EBITDA Solutions durables",
+      "name_en": "EBITDA Sustainable Solutions",
+      "value": 0.422,
+      "unit": "Mds $",
+      "yoy": "+34.4%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 8,
+      "signal": "422 M$ en 2025, +34,4% sur un an, dont 0,1 Md $ apporte par le projet renouvelable en Inde",
+      "description_fr": "EBITDA du segment Solutions durables.",
+      "description_en": "EBITDA of the Sustainable Solutions segment.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 0.368
+        },
+        {
+          "q": "FY2024",
+          "v": 0.314
+        },
+        {
+          "q": "FY2025",
+          "v": 0.422
+        }
+      ]
+    },
+    {
+      "short": "EBMI",
+      "name_fr": "EBITDA Mines",
+      "name_en": "EBITDA Mining",
+      "value": 1.105,
+      "unit": "Mds $",
+      "yoy": "+7.0%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 8,
+      "signal": "1,11 Md $ en 2025, +7,0% sur un an grace aux volumes du Liberia",
+      "description_fr": "EBITDA du segment Mines.",
+      "description_en": "EBITDA of the Mining segment.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 1.382
+        },
+        {
+          "q": "FY2024",
+          "v": 1.033
+        },
+        {
+          "q": "FY2025",
+          "v": 1.105
+        }
+      ]
+    },
+    {
+      "short": "SHNA",
+      "name_fr": "Expeditions d'acier Amerique du Nord",
+      "name_en": "Steel shipments North America",
+      "value": 10.283,
+      "unit": "Mt",
+      "yoy": "+2.2%",
+      "period_type": "year",
+      "type": "Operational",
+      "pv_score": 7,
+      "signal": "10.28 Mt expediees en 2025 par le segment Amerique du Nord (+2.2% sur un an)",
+      "description_fr": "Volume d'acier expedie par le segment Amerique du Nord, en millions de tonnes.",
+      "description_en": "Steel shipments of the North America segment, in million tonnes.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 10.564
+        },
+        {
+          "q": "FY2024",
+          "v": 10.063
+        },
+        {
+          "q": "FY2025",
+          "v": 10.283
+        }
+      ]
+    },
+    {
+      "short": "SHBR",
+      "name_fr": "Expeditions d'acier Bresil",
+      "name_en": "Steel shipments Brazil",
+      "value": 13.949,
+      "unit": "Mt",
+      "yoy": "-0.9%",
+      "period_type": "year",
+      "type": "Operational",
+      "pv_score": 7,
+      "signal": "13.95 Mt expediees en 2025 par le segment Bresil (-0.9% sur un an)",
+      "description_fr": "Volume d'acier expedie par le segment Bresil, en millions de tonnes.",
+      "description_en": "Steel shipments of the Brazil segment, in million tonnes.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 13.681
+        },
+        {
+          "q": "FY2024",
+          "v": 14.082
+        },
+        {
+          "q": "FY2025",
+          "v": 13.949
+        }
+      ]
+    },
+    {
+      "short": "SHEU",
+      "name_fr": "Expeditions d'acier Europe",
+      "name_en": "Steel shipments Europe",
+      "value": 28.408,
+      "unit": "Mt",
+      "yoy": "-0.9%",
+      "period_type": "year",
+      "type": "Operational",
+      "pv_score": 7,
+      "signal": "28.41 Mt expediees en 2025 par le segment Europe (-0.9% sur un an)",
+      "description_fr": "Volume d'acier expedie par le segment Europe, en millions de tonnes.",
+      "description_en": "Steel shipments of the Europe segment, in million tonnes.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 27.559
+        },
+        {
+          "q": "FY2024",
+          "v": 28.659
+        },
+        {
+          "q": "FY2025",
+          "v": 28.408
+        }
+      ]
+    },
+    {
+      "short": "ASPBR",
+      "name_fr": "Prix de vente moyen de l'acier Bresil",
+      "name_en": "Average steel selling price Brazil",
+      "value": 736,
+      "unit": "$/t",
+      "yoy": "-9.8%",
+      "period_type": "year",
+      "type": "Operational",
+      "pv_score": 8,
+      "signal": "736 $ la tonne en 2025 dans le segment Bresil (-9.8% sur un an)",
+      "description_fr": "Prix de vente moyen de l'acier du segment Bresil, en dollars par tonne.",
+      "description_en": "Average steel selling price of the Brazil segment, in US dollars per tonne.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "_specific_to": "Siderurgie / prix de vente",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 939
+        },
+        {
+          "q": "FY2024",
+          "v": 816
+        },
+        {
+          "q": "FY2025",
+          "v": 736
+        }
+      ]
+    },
+    {
+      "short": "ASPEU",
+      "name_fr": "Prix de vente moyen de l'acier Europe",
+      "name_en": "Average steel selling price Europe",
+      "value": 894,
+      "unit": "$/t",
+      "yoy": "-1.8%",
+      "period_type": "year",
+      "type": "Operational",
+      "pv_score": 8,
+      "signal": "894 $ la tonne en 2025 dans le segment Europe (-1.8% sur un an)",
+      "description_fr": "Prix de vente moyen de l'acier du segment Europe, en dollars par tonne.",
+      "description_en": "Average steel selling price of the Europe segment, in US dollars per tonne.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "_specific_to": "Siderurgie / prix de vente",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 995
+        },
+        {
+          "q": "FY2024",
+          "v": 910
+        },
+        {
+          "q": "FY2025",
+          "v": 894
+        }
+      ]
+    },
+    {
+      "short": "ASSOC",
+      "name_fr": "Quote-part de resultat des societes mises en equivalence",
+      "name_en": "Income from associates and joint ventures",
+      "value": 0.635,
+      "unit": "Mds $",
+      "yoy": "-18.5%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 7,
+      "signal": "635 M$ en 2025, -18,5% sur un an : recul d'AMNS India partiellement compense par Vallourec, acquis en aout 2024",
+      "description_fr": "Resultat des participations dans les societes associees, coentreprises et autres investissements.",
+      "description_en": "Income from investments in associates, joint ventures and other investments.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "is_short_history": true,
+      "story_category": "Profitability",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 0.779
+        },
+        {
+          "q": "FY2025",
+          "v": 0.635
+        }
+      ]
+    },
+    {
+      "short": "AMNSREV",
+      "name_fr": "Chiffre d'affaires AMNS India (100%)",
+      "name_en": "AMNS India sales (100% basis)",
+      "value": 6.026,
+      "unit": "Mds $",
+      "yoy": "-7.5%",
+      "period_type": "year",
+      "type": "Revenue",
+      "pv_score": 8,
+      "signal": "6,03 Mds $ de chiffre d'affaires en 2025 pour la coentreprise indienne detenue a 60%, avec un record d'expeditions au quatrieme trimestre",
+      "description_fr": "Chiffre d'affaires a 100% d'AMNS India, coentreprise detenue a 60% par ArcelorMittal, presentee separement en raison de son importance strategique.",
+      "description_en": "AMNS India sales on a 100% basis, a joint venture 60%-owned by ArcelorMittal, disclosed separately given its strategic importance.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "_specific_to": "Coentreprise AMNS India",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 6.71
+        },
+        {
+          "q": "FY2024",
+          "v": 6.515
+        },
+        {
+          "q": "FY2025",
+          "v": 6.026
+        }
+      ]
+    },
+    {
+      "short": "AMNSEB",
+      "name_fr": "EBITDA AMNS India (100%)",
+      "name_en": "AMNS India EBITDA (100% basis)",
+      "value": 0.684,
+      "unit": "Mds $",
+      "yoy": "-19.0%",
+      "period_type": "year",
+      "type": "Profitability",
+      "pv_score": 8,
+      "signal": "684 M$ d'EBITDA en 2025 contre 1,94 Md $ en 2023 : la coentreprise indienne subit la pression sur les prix avant l'extension a 15 Mt prevue au second semestre 2026",
+      "description_fr": "EBITDA a 100% d'AMNS India.",
+      "description_en": "AMNS India EBITDA on a 100% basis.",
+      "last_data_date": "2025-12-31",
+      "frequency": "annual",
+      "_specific_to": "Coentreprise AMNS India",
+      "history": [
+        {
+          "q": "FY2023",
+          "v": 1.936
+        },
+        {
+          "q": "FY2024",
+          "v": 0.844
+        },
+        {
+          "q": "FY2025",
+          "v": 0.684
+        }
+      ]
+    },
+    {
+      "short": "WEB_PROGRAMM_ACTIFS",
+      "name_fr": "Programmes de R&D actifs",
+      "value": "100+",
+      "unit": "programmes",
+      "is_short_history": true,
+      "story_category": "Innovation",
+      "last_data_date": "2026-08-05",
+      "signal": "Ampleur du portefeuille d'innovation propre à la stratégie technologique du groupe. Chiffre publie sur le site de la societe (releve 2026).",
+      "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
+      "_source_month": "aout 2026"
+    },
+    {
+      "short": "WEB_PRODUITS_PROTEGES_MARQUE",
+      "name_fr": "Produits protégés par une marque déposée",
+      "value": "200+",
+      "unit": "produits",
+      "is_short_history": true,
+      "story_category": "Innovation",
+      "last_data_date": "2026-08-05",
+      "signal": "Portefeuille de nuances/produits acier brevetés, propre à la stratégie de différenciation produit. Chiffre publie sur le site de la societe (releve 2026).",
+      "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
+      "_source_month": "aout 2026"
+    },
+    {
+      "short": "WEB_FAMILLES_BREVETS_ACTIFS",
+      "name_fr": "Familles de brevets actifs",
+      "value": 930,
+      "unit": "familles de brevets",
+      "is_short_history": true,
+      "story_category": "Innovation",
+      "last_data_date": "2026-08-05",
+      "signal": "Taille du portefeuille de propriété intellectuelle, signal direct de l'effort d'innovation industrielle. Chiffre publie sur le site de la societe (releve 2026).",
+      "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
+      "_source_month": "aout 2026",
+      "history": [
+        {
+          "q": "2026",
+          "v": 930
+        }
+      ]
+    },
+    {
+      "short": "WEB_NOUVEAUX_PRODUITS_SOLUTION",
+      "name_fr": "Nouveaux produits et solutions lancés",
+      "value": 110,
+      "unit": "produits/solutions",
+      "is_short_history": true,
+      "story_category": "Innovation",
+      "last_data_date": "2026-08-05",
+      "signal": "Cadence d'innovation produit propre à l'activité industrielle du groupe. Chiffre publie sur le site de la societe (releve 2026).",
+      "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
+      "_source_month": "aout 2026",
+      "history": [
+        {
+          "q": "2026",
+          "v": 110
+        }
+      ]
+    },
+    {
+      "short": "WEB_CENTRES_RECHERCH",
+      "name_fr": "Centres de recherche",
+      "value": 14,
+      "unit": "centres",
+      "is_short_history": true,
+      "story_category": "Innovation",
+      "last_data_date": "2026-08-05",
+      "signal": "Maillage mondial de R&D, distinctif de l'ambition technologique du groupe (non un simple compte de pays d'implantation commerciale). Chiffre publie sur le site de la societe (releve 2026).",
+      "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
+      "_source_month": "aout 2026",
+      "history": [
+        {
+          "q": "2026",
+          "v": 14
+        }
+      ]
+    },
+    {
+      "short": "WEB_CHERCHEU_TEMPS_PLEIN",
+      "name_fr": "Chercheurs à temps plein",
+      "value": 1650,
+      "unit": "chercheurs",
+      "is_short_history": true,
+      "story_category": "Innovation",
+      "last_data_date": "2026-08-05",
+      "signal": "Taille de la force de R&D dédiée, distincte des effectifs totaux du groupe. Chiffre publie sur le site de la societe (releve 2026).",
+      "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
+      "_source_month": "aout 2026",
+      "history": [
+        {
+          "q": "2026",
+          "v": 1650
+        }
+      ]
     }
-   ]
-  },
-  {
-   "short": "REV",
-   "name_fr": "Chiffre d'affaires",
-   "name_en": "Sales",
-   "value": 30.628,
-   "unit": "Mds $",
-   "yoy": "+2.4%",
-   "period_type": "half",
-   "type": "Revenue",
-   "pv_score": 10,
-   "signal": "30,6 Mds $ au S2 2025, +2,4% sur un an ; 61,4 Mds $ sur l'exercice 2025 (-1,7%)",
-   "description_fr": "Chiffre d'affaires consolide publie en dollars americains (S2 = exercice moins S1, derive).",
-   "description_en": "Consolidated sales reported in US dollars (H2 derived as FY minus H1).",
-   "last_data_date": "2025-12-31",
-   "frequency": "semiannual",
-   "_derived_points": [
-    "H2-2022",
-    "H2-2023",
-    "H2-2024",
-    "H1-2025",
-    "H2-2025"
-   ],
-   "history": [
-    {
-     "q": "H1-2022",
-     "v": 43.978
-    },
-    {
-     "q": "H2-2022",
-     "v": 35.866
-    },
-    {
-     "q": "H1-2023",
-     "v": 37.107
-    },
-    {
-     "q": "H2-2023",
-     "v": 31.168
-    },
-    {
-     "q": "H1-2024",
-     "v": 32.531
-    },
-    {
-     "q": "H2-2024",
-     "v": 29.91
-    },
-    {
-     "q": "H1-2025",
-     "v": 30.724
-    },
-    {
-     "q": "H2-2025",
-     "v": 30.628
-    }
-   ]
-  },
-  {
-   "short": "EBITDA",
-   "name_fr": "EBITDA",
-   "name_en": "EBITDA",
-   "value": 3.101,
-   "unit": "Mds $",
-   "yoy": "-4.1%",
-   "period_type": "half",
-   "type": "Profitability",
-   "pv_score": 10,
-   "signal": "3,10 Mds $ au S2 2025, -4,1% sur un an ; 6,54 Mds $ sur 2025 avec un EBITDA de 121 $ par tonne",
-   "description_fr": "Resultat operationnel avant amortissements, depreciations et elements exceptionnels, tel que defini par la societe (S2 = exercice moins S1, derive).",
-   "description_en": "Operating result before depreciation, impairment and exceptional items, as defined by the company (H2 derived as FY minus H1).",
-   "last_data_date": "2025-12-31",
-   "frequency": "semiannual",
-   "_derived_points": [
-    "H2-2022",
-    "H2-2023",
-    "H1-2024",
-    "H2-2024",
-    "H2-2025"
-   ],
-   "history": [
-    {
-     "q": "H1-2022",
-     "v": 10.243
-    },
-    {
-     "q": "H2-2022",
-     "v": 3.918
-    },
-    {
-     "q": "H1-2023",
-     "v": 4.427
-    },
-    {
-     "q": "H2-2023",
-     "v": 3.131
-    },
-    {
-     "q": "H1-2024",
-     "v": 3.818
-    },
-    {
-     "q": "H2-2024",
-     "v": 3.235
-    },
-    {
-     "q": "H1-2025",
-     "v": 3.44
-    },
-    {
-     "q": "H2-2025",
-     "v": 3.101
-    }
-   ]
-  },
-  {
-   "short": "EBIT",
-   "name_fr": "Resultat operationnel",
-   "name_en": "Operating income",
-   "value": 0.871,
-   "unit": "Mds $",
-   "yoy": "-26.9%",
-   "period_type": "half",
-   "type": "Profitability",
-   "pv_score": 9,
-   "signal": "0,87 Md $ au S2 2025 contre 1,19 Md $ un an plus tot ; 3,63 Mds $ sur 2025 (+9,6%)",
-   "description_fr": "Resultat operationnel consolide (S2 = exercice moins S1, derive).",
-   "description_en": "Consolidated operating income (H2 derived as FY minus H1).",
-   "last_data_date": "2025-12-31",
-   "frequency": "semiannual",
-   "_derived_points": [
-    "H2-2022",
-    "H2-2023",
-    "H2-2024",
-    "H1-2025",
-    "H2-2025"
-   ],
-   "history": [
-    {
-     "q": "H1-2022",
-     "v": 8.927
-    },
-    {
-     "q": "H2-2022",
-     "v": 1.345
-    },
-    {
-     "q": "H1-2023",
-     "v": 3.117
-    },
-    {
-     "q": "H2-2023",
-     "v": -0.777
-    },
-    {
-     "q": "H1-2024",
-     "v": 2.118
-    },
-    {
-     "q": "H2-2024",
-     "v": 1.192
-    },
-    {
-     "q": "H1-2025",
-     "v": 2.757
-    },
-    {
-     "q": "H2-2025",
-     "v": 0.871
-    }
-   ]
-  },
-  {
-   "short": "SHIP",
-   "name_fr": "Expeditions d'acier",
-   "name_en": "Steel shipments",
-   "value": 26.6,
-   "unit": "Mt",
-   "yoy": "-1.1%",
-   "period_type": "half",
-   "type": "Operational",
-   "pv_score": 9,
-   "signal": "26,6 Mt expediees au S2 2025 ; 54,0 Mt sur l'exercice 2025, plus bas de la periode",
-   "description_fr": "Volume d'acier expedie par le groupe, en millions de tonnes (S2 = exercice moins S1, derive).",
-   "description_en": "Group steel shipments in million tonnes (H2 derived as FY minus H1).",
-   "last_data_date": "2025-12-31",
-   "frequency": "semiannual",
-   "_derived_points": [
-    "H2-2022",
-    "H2-2023",
-    "H1-2024",
-    "H2-2024",
-    "H1-2025",
-    "H2-2025"
-   ],
-   "history": [
-    {
-     "q": "H1-2022",
-     "v": 29.7
-    },
-    {
-     "q": "H2-2022",
-     "v": 26.2
-    },
-    {
-     "q": "H1-2023",
-     "v": 28.7
-    },
-    {
-     "q": "H2-2023",
-     "v": 26.9
-    },
-    {
-     "q": "H1-2024",
-     "v": 27.4
-    },
-    {
-     "q": "H2-2024",
-     "v": 26.9
-    },
-    {
-     "q": "H1-2025",
-     "v": 27.4
-    },
-    {
-     "q": "H2-2025",
-     "v": 26.6
-    }
-   ]
-  },
-  {
-   "short": "CSP",
-   "name_fr": "Production d'acier brut",
-   "name_en": "Crude steel production",
-   "value": 26.4,
-   "unit": "Mt",
-   "yoy": "-8.3%",
-   "period_type": "half",
-   "type": "Operational",
-   "pv_score": 8,
-   "signal": "26,4 Mt produites au S2 2025, -8,3% sur un an ; 55,6 Mt sur 2025 apres la cession des actifs de Bosnie",
-   "description_fr": "Production d'acier brut du groupe, en millions de tonnes (S2 = exercice moins S1, derive).",
-   "description_en": "Group crude steel production in million tonnes (H2 derived as FY minus H1).",
-   "last_data_date": "2025-12-31",
-   "frequency": "semiannual",
-   "_derived_points": [
-    "H2-2022",
-    "H2-2023",
-    "H1-2024",
-    "H2-2024",
-    "H1-2025",
-    "H2-2025"
-   ],
-   "history": [
-    {
-     "q": "H1-2022",
-     "v": 30.9
-    },
-    {
-     "q": "H2-2022",
-     "v": 28.1
-    },
-    {
-     "q": "H1-2023",
-     "v": 29.2
-    },
-    {
-     "q": "H2-2023",
-     "v": 28.9
-    },
-    {
-     "q": "H1-2024",
-     "v": 29.1
-    },
-    {
-     "q": "H2-2024",
-     "v": 28.8
-    },
-    {
-     "q": "H1-2025",
-     "v": 29.2
-    },
-    {
-     "q": "H2-2025",
-     "v": 26.4
-    }
-   ]
-  },
-  {
-   "short": "NI",
-   "name_fr": "Resultat net part du groupe",
-   "name_en": "Net income attributable to equity holders",
-   "value": 3.152,
-   "unit": "Mds $",
-   "yoy": "+135.4%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 10,
-   "signal": "3,15 Mds $ en 2025 contre 1,34 Md $ en 2024, plus haut depuis 2022, malgre un chiffre d'affaires en repli",
-   "description_fr": "Resultat net consolide attribuable aux actionnaires de la societe mere.",
-   "description_en": "Consolidated net income attributable to equity holders of the parent.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2021",
-     "v": 14.956
-    },
-    {
-     "q": "FY2022",
-     "v": 9.302
-    },
-    {
-     "q": "FY2023",
-     "v": 0.919
-    },
-    {
-     "q": "FY2024",
-     "v": 1.339
-    },
-    {
-     "q": "FY2025",
-     "v": 3.152
-    }
-   ]
-  },
-  {
-   "short": "EPS",
-   "name_fr": "Resultat net par action",
-   "name_en": "Basic earnings per share",
-   "value": 4.13,
-   "unit": "$",
-   "yoy": "+143.0%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 9,
-   "signal": "4,13 $ par action en 2025 contre 1,70 $ en 2024, porte par le resultat net et par la baisse du nombre d'actions",
-   "description_fr": "Resultat net de base par action ordinaire, en dollars.",
-   "description_en": "Basic earnings per common share, in US dollars.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2021",
-     "v": 13.53
-    },
-    {
-     "q": "FY2022",
-     "v": 10.21
-    },
-    {
-     "q": "FY2023",
-     "v": 1.09
-    },
-    {
-     "q": "FY2024",
-     "v": 1.7
-    },
-    {
-     "q": "FY2025",
-     "v": 4.13
-    }
-   ]
-  },
-  {
-   "short": "DPS",
-   "name_fr": "Dividende par action",
-   "name_en": "Dividend per share",
-   "value": 0.55,
-   "unit": "$",
-   "yoy": "+10.0%",
-   "period_type": "year",
-   "type": "Capital",
-   "pv_score": 9,
-   "signal": "0,55 $ par action au titre de 2025, en hausse chaque annee depuis 2021 ; le conseil propose 0,60 $ pour 2026, verse en quatre acomptes trimestriels",
-   "description_fr": "Dividende de base annuel par action approuve par l'assemblee generale, en dollars.",
-   "description_en": "Annual base dividend per share approved at the annual general meeting, in US dollars.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2021",
-     "v": 0.3
-    },
-    {
-     "q": "FY2022",
-     "v": 0.38
-    },
-    {
-     "q": "FY2023",
-     "v": 0.44
-    },
-    {
-     "q": "FY2024",
-     "v": 0.5
-    },
-    {
-     "q": "FY2025",
-     "v": 0.55
-    }
-   ]
-  },
-  {
-   "short": "ANI",
-   "name_fr": "Resultat net ajuste",
-   "name_en": "Adjusted net income",
-   "value": 2.938,
-   "unit": "Mds $",
-   "yoy": "+26.3%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 8,
-   "signal": "2,94 Mds $ de resultat net ajuste en 2025, +26,3% sur un an, hors elements exceptionnels et depreciations",
-   "description_fr": "Resultat net part du groupe retraite des elements exceptionnels, depreciations et effets fiscaux associes.",
-   "description_en": "Net income attributable to equity holders adjusted for exceptional items, impairments and related tax effects.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2022",
-     "v": 10.611
-    },
-    {
-     "q": "FY2023",
-     "v": 4.867
-    },
-    {
-     "q": "FY2024",
-     "v": 2.326
-    },
-    {
-     "q": "FY2025",
-     "v": 2.938
-    }
-   ]
-  },
-  {
-   "short": "AEPS",
-   "name_fr": "Resultat net ajuste par action",
-   "name_en": "Adjusted basic earnings per share",
-   "value": 3.85,
-   "unit": "$",
-   "yoy": "+30.5%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 7,
-   "signal": "3,85 $ par action en 2025 hors elements exceptionnels, contre 2,95 $ en 2024",
-   "description_fr": "Resultat net ajuste de base par action ordinaire, en dollars.",
-   "description_en": "Adjusted basic earnings per common share, in US dollars.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2022",
-     "v": 11.65
-    },
-    {
-     "q": "FY2023",
-     "v": 5.78
-    },
-    {
-     "q": "FY2024",
-     "v": 2.95
-    },
-    {
-     "q": "FY2025",
-     "v": 3.85
-    }
-   ]
-  },
-  {
-   "short": "EBITDAT",
-   "name_fr": "EBITDA par tonne",
-   "name_en": "EBITDA per tonne",
-   "value": 121.0,
-   "unit": "$/t",
-   "yoy": "-6.9%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 9,
-   "signal": "121 $ par tonne en 2025, plus de deux fois les points bas de cycle precedents selon la societe, malgre un repli de 6,9% sur un an",
-   "description_fr": "EBITDA rapporte au volume d'acier expedie. Mesure de marge unitaire de reference du secteur siderurgique.",
-   "description_en": "EBITDA divided by steel shipments. The reference unit margin metric of the steel industry.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "_specific_to": "Siderurgie / marge unitaire",
-   "history": [
-    {
-     "q": "FY2022",
-     "v": 253
-    },
-    {
-     "q": "FY2023",
-     "v": 157
-    },
-    {
-     "q": "FY2024",
-     "v": 130
-    },
-    {
-     "q": "FY2025",
-     "v": 121
-    }
-   ]
-  },
-  {
-   "short": "EBITT",
-   "name_fr": "Resultat operationnel par tonne",
-   "name_en": "Operating income per tonne",
-   "value": 67.0,
-   "unit": "$/t",
-   "yoy": "+9.8%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 7,
-   "signal": "67 $ par tonne en 2025 contre 61 $ en 2024",
-   "description_fr": "Resultat operationnel rapporte au volume d'acier expedie.",
-   "description_en": "Operating income divided by steel shipments.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "_specific_to": "Siderurgie / marge unitaire",
-   "history": [
-    {
-     "q": "FY2022",
-     "v": 184
-    },
-    {
-     "q": "FY2023",
-     "v": 42
-    },
-    {
-     "q": "FY2024",
-     "v": 61
-    },
-    {
-     "q": "FY2025",
-     "v": 67
-    }
-   ]
-  },
-  {
-   "short": "NETDEBT",
-   "name_fr": "Dette nette",
-   "name_en": "Net debt",
-   "value": 7.931,
-   "unit": "Mds $",
-   "yoy": "-13.1%",
-   "period_type": "year",
-   "type": "Balance Sheet",
-   "pv_score": 8,
-   "signal": "7,9 Mds $ de dette nette fin 2025 contre 9,1 Mds $ un an plus tot, pour 13,4 Mds $ de dette brute et 5,5 Mds $ de tresorerie",
-   "description_fr": "Dette long terme et court terme diminuee de la tresorerie et equivalents, y compris ceux classes en actifs destines a la vente.",
-   "description_en": "Long-term and short-term debt less cash and cash equivalents, including those held as part of assets held for sale.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 5.079
-    },
-    {
-     "q": "FY2024",
-     "v": 9.123
-    },
-    {
-     "q": "FY2025",
-     "v": 7.931
-    }
-   ]
-  },
-  {
-   "short": "OCF",
-   "name_fr": "Flux de tresorerie d'exploitation",
-   "name_en": "Net cash provided by operating activities",
-   "value": 4.808,
-   "unit": "Mds $",
-   "yoy": "-0.9%",
-   "period_type": "year",
-   "type": "Cash Flow",
-   "pv_score": 8,
-   "signal": "4,81 Mds $ generes par l'exploitation en 2025, quasi stables sur un an",
-   "description_fr": "Tresorerie nette generee par les activites operationnelles.",
-   "description_en": "Net cash provided by operating activities.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "is_short_history": true,
-   "story_category": "Cash Flow",
-   "history": [
-    {
-     "q": "FY2024",
-     "v": 4.852
-    },
-    {
-     "q": "FY2025",
-     "v": 4.808
-    }
-   ]
-  },
-  {
-   "short": "CAPEX",
-   "name_fr": "Investissements industriels",
-   "name_en": "Capital expenditures",
-   "value": 4.337,
-   "unit": "Mds $",
-   "yoy": "-1.5%",
-   "period_type": "year",
-   "type": "Cash Flow",
-   "pv_score": 8,
-   "signal": "4,34 Mds $ investis en 2025, dont 1,1 Md $ de projets de croissance strategiques et 0,3 Md $ de decarbonation ; enveloppe de 4,5 a 5,0 Mds $ annoncee pour 2026",
-   "description_fr": "Acquisitions d'immobilisations corporelles et incorporelles, hors coentreprises.",
-   "description_en": "Purchase of property, plant and equipment and intangibles, excluding joint ventures.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "is_short_history": true,
-   "story_category": "Cash Flow",
-   "history": [
-    {
-     "q": "FY2024",
-     "v": 4.405
-    },
-    {
-     "q": "FY2025",
-     "v": 4.337
-    }
-   ]
-  },
-  {
-   "short": "FCF",
-   "name_fr": "Flux de tresorerie disponible",
-   "name_en": "Free cash flow",
-   "value": 0.35,
-   "unit": "Mds $",
-   "yoy": "+34.6%",
-   "period_type": "year",
-   "type": "Cash Flow",
-   "pv_score": 8,
-   "signal": "0,35 Md $ de tresorerie disponible en 2025 apres investissements et dividendes aux minoritaires, contre 0,26 Md $ en 2024",
-   "description_fr": "Tresorerie nette d'exploitation diminuee des investissements industriels et des dividendes verses aux minoritaires.",
-   "description_en": "Net cash from operating activities less capex less dividends paid to minority shareholders.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "is_short_history": true,
-   "story_category": "Cash Flow",
-   "history": [
-    {
-     "q": "FY2024",
-     "v": 0.26
-    },
-    {
-     "q": "FY2025",
-     "v": 0.35
-    }
-   ]
-  },
-  {
-   "short": "BUYBACK",
-   "name_fr": "Rachats d'actions",
-   "name_en": "Share buybacks",
-   "value": 0.262,
-   "unit": "Mds $",
-   "yoy": "-79.8%",
-   "period_type": "year",
-   "type": "Capital",
-   "pv_score": 7,
-   "signal": "262 M$ de rachats en 2025 pour 8,8 millions d'actions, contre 1,3 Md $ en 2024 ; la societe s'engage a rendre au moins 50% du flux disponible apres dividende",
-   "description_fr": "Montant decaisse au titre des rachats d'actions propres sur l'exercice.",
-   "description_en": "Cash outflow for share buybacks during the year.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "is_short_history": true,
-   "story_category": "Capital",
-   "history": [
-    {
-     "q": "FY2024",
-     "v": 1.3
-    },
-    {
-     "q": "FY2025",
-     "v": 0.262
-    }
-   ]
-  },
-  {
-   "short": "DIVPAID",
-   "name_fr": "Dividendes verses aux actionnaires",
-   "name_en": "Dividends paid to shareholders",
-   "value": 0.421,
-   "unit": "Mds $",
-   "yoy": "+7.1%",
-   "period_type": "year",
-   "type": "Capital",
-   "pv_score": 6,
-   "signal": "421 M$ de dividendes verses en 2025 contre 393 M$ en 2024",
-   "description_fr": "Dividendes effectivement verses aux actionnaires d'ArcelorMittal au cours de l'exercice.",
-   "description_en": "Dividends actually paid to ArcelorMittal shareholders during the year.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "is_short_history": true,
-   "story_category": "Capital",
-   "history": [
-    {
-     "q": "FY2024",
-     "v": 0.393
-    },
-    {
-     "q": "FY2025",
-     "v": 0.421
-    }
-   ]
-  },
-  {
-   "short": "EMP",
-   "name_fr": "Effectifs",
-   "name_en": "Employees",
-   "value": 125416,
-   "unit": "FTE",
-   "yoy": "-1.1%",
-   "period_type": "year",
-   "type": "Operational",
-   "pv_score": 7,
-   "signal": "125 416 equivalents temps plein fin 2024, contre 157 909 fin 2021 : la baisse de 2023 reflete la cession des activites du Kazakhstan",
-   "description_fr": "Nombre d'employes en equivalent temps plein au 31 decembre. Donnee publiee dans le document d'enregistrement universel, non disponible pour 2025.",
-   "description_en": "Full-time equivalent employees at December 31. Disclosed in the universal registration document, not yet available for 2025.",
-   "last_data_date": "2024-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2021",
-     "v": 157909
-    },
-    {
-     "q": "FY2022",
-     "v": 154352
-    },
-    {
-     "q": "FY2023",
-     "v": 126756
-    },
-    {
-     "q": "FY2024",
-     "v": 125416
-    }
-   ]
-  },
-  {
-   "short": "IOPROD",
-   "name_fr": "Production de minerai de fer (AMMC et Liberia)",
-   "name_en": "Iron ore production (AMMC and Liberia)",
-   "value": 35.3,
-   "unit": "Mt",
-   "yoy": "+26.5%",
-   "period_type": "year",
-   "type": "Operational",
-   "pv_score": 9,
-   "signal": "35,3 Mt produites en 2025, +26,5% sur un an, grace au record du Liberia et a la montee en puissance de la phase 2 vers 20 Mt de capacite",
-   "description_fr": "Production de minerai de fer des mines detenues en propre, ArcelorMittal Mines Canada et ArcelorMittal Liberia.",
-   "description_en": "Iron ore production from wholly owned mines, ArcelorMittal Mines Canada and ArcelorMittal Liberia.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "_specific_to": "Mines / minerai de fer",
-   "history": [
-    {
-     "q": "FY2022",
-     "v": 28.6
-    },
-    {
-     "q": "FY2023",
-     "v": 26.0
-    },
-    {
-     "q": "FY2024",
-     "v": 27.9
-    },
-    {
-     "q": "FY2025",
-     "v": 35.3
-    }
-   ]
-  },
-  {
-   "short": "IOSHIP",
-   "name_fr": "Expeditions de minerai de fer (AMMC et Liberia)",
-   "name_en": "Iron ore shipments (AMMC and Liberia)",
-   "value": 36.3,
-   "unit": "Mt",
-   "yoy": "+37.5%",
-   "period_type": "year",
-   "type": "Operational",
-   "pv_score": 8,
-   "signal": "36,3 Mt expediees en 2025, +37,5% sur un an, dont 10 Mt depuis le Liberia",
-   "description_fr": "Expeditions de minerai de fer des mines detenues en propre.",
-   "description_en": "Iron ore shipments from wholly owned mines.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "_specific_to": "Mines / minerai de fer",
-   "history": [
-    {
-     "q": "FY2022",
-     "v": 28.0
-    },
-    {
-     "q": "FY2023",
-     "v": 26.4
-    },
-    {
-     "q": "FY2024",
-     "v": 26.4
-    },
-    {
-     "q": "FY2025",
-     "v": 36.3
-    }
-   ]
-  },
-  {
-   "short": "IOTOT",
-   "name_fr": "Production totale de minerai de fer du groupe",
-   "name_en": "Total group iron ore production",
-   "value": 48.8,
-   "unit": "Mt",
-   "yoy": "+15.1%",
-   "period_type": "year",
-   "type": "Operational",
-   "pv_score": 7,
-   "signal": "48,8 Mt produites en 2025 toutes mines confondues, +15,1% sur un an",
-   "description_fr": "Production de minerai de fer de l'ensemble des mines du groupe, y compris les mines captives.",
-   "description_en": "Iron ore production across all group mines, including captive mines.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "_specific_to": "Mines / minerai de fer",
-   "history": [
-    {
-     "q": "FY2022",
-     "v": 45.3
-    },
-    {
-     "q": "FY2023",
-     "v": 42.0
-    },
-    {
-     "q": "FY2024",
-     "v": 42.4
-    },
-    {
-     "q": "FY2025",
-     "v": 48.8
-    }
-   ]
-  },
-  {
-   "short": "REVNA",
-   "name_fr": "Chiffre d'affaires Amerique du Nord",
-   "name_en": "Sales North America",
-   "value": 12.335,
-   "unit": "Mds $",
-   "yoy": "+3.7%",
-   "period_type": "year",
-   "type": "Revenue",
-   "pv_score": 8,
-   "signal": "12,3 Mds $ en 2025, +3,7% sur un an malgre l'impact des droits de douane de la section 232",
-   "description_fr": "Chiffre d'affaires du segment Amerique du Nord, avant elimination des ventes intersegments.",
-   "description_en": "Sales of the North America segment, before elimination of intersegment sales.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 12.978
-    },
-    {
-     "q": "FY2024",
-     "v": 11.896
-    },
-    {
-     "q": "FY2025",
-     "v": 12.335
-    }
-   ]
-  },
-  {
-   "short": "REVBR",
-   "name_fr": "Chiffre d'affaires Bresil",
-   "name_en": "Sales Brazil",
-   "value": 11.172,
-   "unit": "Mds $",
-   "yoy": "-9.9%",
-   "period_type": "year",
-   "type": "Revenue",
-   "pv_score": 8,
-   "signal": "11,2 Mds $ en 2025, -9,9% sur un an sous l'effet de la baisse des prix de vente moyens",
-   "description_fr": "Chiffre d'affaires du segment Bresil, avant elimination des ventes intersegments.",
-   "description_en": "Sales of the Brazil segment, before elimination of intersegment sales.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 13.163
-    },
-    {
-     "q": "FY2024",
-     "v": 12.401
-    },
-    {
-     "q": "FY2025",
-     "v": 11.172
-    }
-   ]
-  },
-  {
-   "short": "REVEU",
-   "name_fr": "Chiffre d'affaires Europe",
-   "name_en": "Sales Europe",
-   "value": 28.793,
-   "unit": "Mds $",
-   "yoy": "-3.9%",
-   "period_type": "year",
-   "type": "Revenue",
-   "pv_score": 8,
-   "signal": "28,8 Mds $ en 2025, premier segment du groupe avec 47% du chiffre d'affaires segmentaire",
-   "description_fr": "Chiffre d'affaires du segment Europe, avant elimination des ventes intersegments.",
-   "description_en": "Sales of the Europe segment, before elimination of intersegment sales.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 31.695
-    },
-    {
-     "q": "FY2024",
-     "v": 29.952
-    },
-    {
-     "q": "FY2025",
-     "v": 28.793
-    }
-   ]
-  },
-  {
-   "short": "REVSS",
-   "name_fr": "Chiffre d'affaires Solutions durables",
-   "name_en": "Sales Sustainable Solutions",
-   "value": 10.501,
-   "unit": "Mds $",
-   "yoy": "-2.1%",
-   "period_type": "year",
-   "type": "Revenue",
-   "pv_score": 8,
-   "signal": "10,5 Mds $ en 2025, activites aval de distribution, tubes et projets",
-   "description_fr": "Chiffre d'affaires du segment Solutions durables, avant elimination des ventes intersegments.",
-   "description_en": "Sales of the Sustainable Solutions segment, before elimination of intersegment sales.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 11.467
-    },
-    {
-     "q": "FY2024",
-     "v": 10.722
-    },
-    {
-     "q": "FY2025",
-     "v": 10.501
-    }
-   ]
-  },
-  {
-   "short": "REVMI",
-   "name_fr": "Chiffre d'affaires Mines",
-   "name_en": "Sales Mining",
-   "value": 3.232,
-   "unit": "Mds $",
-   "yoy": "+21.4%",
-   "period_type": "year",
-   "type": "Revenue",
-   "pv_score": 8,
-   "signal": "3,2 Mds $ en 2025, +21,4% sur un an grace aux volumes records du Liberia",
-   "description_fr": "Chiffre d'affaires du segment Mines, avant elimination des ventes intersegments.",
-   "description_en": "Sales of the Mining segment, before elimination of intersegment sales.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 3.077
-    },
-    {
-     "q": "FY2024",
-     "v": 2.663
-    },
-    {
-     "q": "FY2025",
-     "v": 3.232
-    }
-   ]
-  },
-  {
-   "short": "EBNA",
-   "name_fr": "EBITDA Amerique du Nord",
-   "name_en": "EBITDA North America",
-   "value": 1.237,
-   "unit": "Mds $",
-   "yoy": "-32.0%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 8,
-   "signal": "1,24 Md $ en 2025, -32,0% sur un an, penalise par les droits de douane et la maintenance au Mexique",
-   "description_fr": "EBITDA du segment Amerique du Nord.",
-   "description_en": "EBITDA of the North America segment.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 2.452
-    },
-    {
-     "q": "FY2024",
-     "v": 1.819
-    },
-    {
-     "q": "FY2025",
-     "v": 1.237
-    }
-   ]
-  },
-  {
-   "short": "EBBR",
-   "name_fr": "EBITDA Bresil",
-   "name_en": "EBITDA Brazil",
-   "value": 1.44,
-   "unit": "Mds $",
-   "yoy": "-20.1%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 8,
-   "signal": "1,44 Md $ en 2025, -20,1% sur un an, prix de vente moyens en repli a 736 $ la tonne",
-   "description_fr": "EBITDA du segment Bresil.",
-   "description_en": "EBITDA of the Brazil segment.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 1.802
-    },
-    {
-     "q": "FY2024",
-     "v": 1.803
-    },
-    {
-     "q": "FY2025",
-     "v": 1.44
-    }
-   ]
-  },
-  {
-   "short": "EBEU",
-   "name_fr": "EBITDA Europe",
-   "name_en": "EBITDA Europe",
-   "value": 2.028,
-   "unit": "Mds $",
-   "yoy": "+24.9%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 8,
-   "signal": "2,03 Mds $ en 2025, +24,9% sur un an : seul segment en nette amelioration, porte par un effet prix-cout favorable",
-   "description_fr": "EBITDA du segment Europe.",
-   "description_en": "EBITDA of the Europe segment.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 1.977
-    },
-    {
-     "q": "FY2024",
-     "v": 1.624
-    },
-    {
-     "q": "FY2025",
-     "v": 2.028
-    }
-   ]
-  },
-  {
-   "short": "EBSS",
-   "name_fr": "EBITDA Solutions durables",
-   "name_en": "EBITDA Sustainable Solutions",
-   "value": 0.422,
-   "unit": "Mds $",
-   "yoy": "+34.4%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 8,
-   "signal": "422 M$ en 2025, +34,4% sur un an, dont 0,1 Md $ apporte par le projet renouvelable en Inde",
-   "description_fr": "EBITDA du segment Solutions durables.",
-   "description_en": "EBITDA of the Sustainable Solutions segment.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 0.368
-    },
-    {
-     "q": "FY2024",
-     "v": 0.314
-    },
-    {
-     "q": "FY2025",
-     "v": 0.422
-    }
-   ]
-  },
-  {
-   "short": "EBMI",
-   "name_fr": "EBITDA Mines",
-   "name_en": "EBITDA Mining",
-   "value": 1.105,
-   "unit": "Mds $",
-   "yoy": "+7.0%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 8,
-   "signal": "1,11 Md $ en 2025, +7,0% sur un an grace aux volumes du Liberia",
-   "description_fr": "EBITDA du segment Mines.",
-   "description_en": "EBITDA of the Mining segment.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 1.382
-    },
-    {
-     "q": "FY2024",
-     "v": 1.033
-    },
-    {
-     "q": "FY2025",
-     "v": 1.105
-    }
-   ]
-  },
-  {
-   "short": "SHNA",
-   "name_fr": "Expeditions d'acier Amerique du Nord",
-   "name_en": "Steel shipments North America",
-   "value": 10.283,
-   "unit": "Mt",
-   "yoy": "+2.2%",
-   "period_type": "year",
-   "type": "Operational",
-   "pv_score": 7,
-   "signal": "10.28 Mt expediees en 2025 par le segment Amerique du Nord (+2.2% sur un an)",
-   "description_fr": "Volume d'acier expedie par le segment Amerique du Nord, en millions de tonnes.",
-   "description_en": "Steel shipments of the North America segment, in million tonnes.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 10.564
-    },
-    {
-     "q": "FY2024",
-     "v": 10.063
-    },
-    {
-     "q": "FY2025",
-     "v": 10.283
-    }
-   ]
-  },
-  {
-   "short": "SHBR",
-   "name_fr": "Expeditions d'acier Bresil",
-   "name_en": "Steel shipments Brazil",
-   "value": 13.949,
-   "unit": "Mt",
-   "yoy": "-0.9%",
-   "period_type": "year",
-   "type": "Operational",
-   "pv_score": 7,
-   "signal": "13.95 Mt expediees en 2025 par le segment Bresil (-0.9% sur un an)",
-   "description_fr": "Volume d'acier expedie par le segment Bresil, en millions de tonnes.",
-   "description_en": "Steel shipments of the Brazil segment, in million tonnes.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 13.681
-    },
-    {
-     "q": "FY2024",
-     "v": 14.082
-    },
-    {
-     "q": "FY2025",
-     "v": 13.949
-    }
-   ]
-  },
-  {
-   "short": "SHEU",
-   "name_fr": "Expeditions d'acier Europe",
-   "name_en": "Steel shipments Europe",
-   "value": 28.408,
-   "unit": "Mt",
-   "yoy": "-0.9%",
-   "period_type": "year",
-   "type": "Operational",
-   "pv_score": 7,
-   "signal": "28.41 Mt expediees en 2025 par le segment Europe (-0.9% sur un an)",
-   "description_fr": "Volume d'acier expedie par le segment Europe, en millions de tonnes.",
-   "description_en": "Steel shipments of the Europe segment, in million tonnes.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 27.559
-    },
-    {
-     "q": "FY2024",
-     "v": 28.659
-    },
-    {
-     "q": "FY2025",
-     "v": 28.408
-    }
-   ]
-  },
-  {
-   "short": "ASPBR",
-   "name_fr": "Prix de vente moyen de l'acier Bresil",
-   "name_en": "Average steel selling price Brazil",
-   "value": 736,
-   "unit": "$/t",
-   "yoy": "-9.8%",
-   "period_type": "year",
-   "type": "Operational",
-   "pv_score": 8,
-   "signal": "736 $ la tonne en 2025 dans le segment Bresil (-9.8% sur un an)",
-   "description_fr": "Prix de vente moyen de l'acier du segment Bresil, en dollars par tonne.",
-   "description_en": "Average steel selling price of the Brazil segment, in US dollars per tonne.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "_specific_to": "Siderurgie / prix de vente",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 939
-    },
-    {
-     "q": "FY2024",
-     "v": 816
-    },
-    {
-     "q": "FY2025",
-     "v": 736
-    }
-   ]
-  },
-  {
-   "short": "ASPEU",
-   "name_fr": "Prix de vente moyen de l'acier Europe",
-   "name_en": "Average steel selling price Europe",
-   "value": 894,
-   "unit": "$/t",
-   "yoy": "-1.8%",
-   "period_type": "year",
-   "type": "Operational",
-   "pv_score": 8,
-   "signal": "894 $ la tonne en 2025 dans le segment Europe (-1.8% sur un an)",
-   "description_fr": "Prix de vente moyen de l'acier du segment Europe, en dollars par tonne.",
-   "description_en": "Average steel selling price of the Europe segment, in US dollars per tonne.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "_specific_to": "Siderurgie / prix de vente",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 995
-    },
-    {
-     "q": "FY2024",
-     "v": 910
-    },
-    {
-     "q": "FY2025",
-     "v": 894
-    }
-   ]
-  },
-  {
-   "short": "ASSOC",
-   "name_fr": "Quote-part de resultat des societes mises en equivalence",
-   "name_en": "Income from associates and joint ventures",
-   "value": 0.635,
-   "unit": "Mds $",
-   "yoy": "-18.5%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 7,
-   "signal": "635 M$ en 2025, -18,5% sur un an : recul d'AMNS India partiellement compense par Vallourec, acquis en aout 2024",
-   "description_fr": "Resultat des participations dans les societes associees, coentreprises et autres investissements.",
-   "description_en": "Income from investments in associates, joint ventures and other investments.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "is_short_history": true,
-   "story_category": "Profitability",
-   "history": [
-    {
-     "q": "FY2024",
-     "v": 0.779
-    },
-    {
-     "q": "FY2025",
-     "v": 0.635
-    }
-   ]
-  },
-  {
-   "short": "AMNSREV",
-   "name_fr": "Chiffre d'affaires AMNS India (100%)",
-   "name_en": "AMNS India sales (100% basis)",
-   "value": 6.026,
-   "unit": "Mds $",
-   "yoy": "-7.5%",
-   "period_type": "year",
-   "type": "Revenue",
-   "pv_score": 8,
-   "signal": "6,03 Mds $ de chiffre d'affaires en 2025 pour la coentreprise indienne detenue a 60%, avec un record d'expeditions au quatrieme trimestre",
-   "description_fr": "Chiffre d'affaires a 100% d'AMNS India, coentreprise detenue a 60% par ArcelorMittal, presentee separement en raison de son importance strategique.",
-   "description_en": "AMNS India sales on a 100% basis, a joint venture 60%-owned by ArcelorMittal, disclosed separately given its strategic importance.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "_specific_to": "Coentreprise AMNS India",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 6.71
-    },
-    {
-     "q": "FY2024",
-     "v": 6.515
-    },
-    {
-     "q": "FY2025",
-     "v": 6.026
-    }
-   ]
-  },
-  {
-   "short": "AMNSEB",
-   "name_fr": "EBITDA AMNS India (100%)",
-   "name_en": "AMNS India EBITDA (100% basis)",
-   "value": 0.684,
-   "unit": "Mds $",
-   "yoy": "-19.0%",
-   "period_type": "year",
-   "type": "Profitability",
-   "pv_score": 8,
-   "signal": "684 M$ d'EBITDA en 2025 contre 1,94 Md $ en 2023 : la coentreprise indienne subit la pression sur les prix avant l'extension a 15 Mt prevue au second semestre 2026",
-   "description_fr": "EBITDA a 100% d'AMNS India.",
-   "description_en": "AMNS India EBITDA on a 100% basis.",
-   "last_data_date": "2025-12-31",
-   "frequency": "annual",
-   "_specific_to": "Coentreprise AMNS India",
-   "history": [
-    {
-     "q": "FY2023",
-     "v": 1.936
-    },
-    {
-     "q": "FY2024",
-     "v": 0.844
-    },
-    {
-     "q": "FY2025",
-     "v": 0.684
-    }
-   ]
-  },
-  {
-   "short": "WEB_PROGRAMM_ACTIFS",
-   "name_fr": "Programmes de R&D actifs",
-   "value": "100+",
-   "unit": "programmes",
-   "is_short_history": true,
-   "story_category": "Innovation",
-   "last_data_date": "2026-08-05",
-   "signal": "Ampleur du portefeuille d'innovation propre à la stratégie technologique du groupe. Chiffre publie sur le site de la societe (releve 2026).",
-   "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
-   "_source_month": "aout 2026"
-  },
-  {
-   "short": "WEB_PRODUITS_PROTEGES_MARQUE",
-   "name_fr": "Produits protégés par une marque déposée",
-   "value": "200+",
-   "unit": "produits",
-   "is_short_history": true,
-   "story_category": "Innovation",
-   "last_data_date": "2026-08-05",
-   "signal": "Portefeuille de nuances/produits acier brevetés, propre à la stratégie de différenciation produit. Chiffre publie sur le site de la societe (releve 2026).",
-   "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
-   "_source_month": "aout 2026"
-  },
-  {
-   "short": "WEB_FAMILLES_BREVETS_ACTIFS",
-   "name_fr": "Familles de brevets actifs",
-   "value": 930,
-   "unit": "familles de brevets",
-   "is_short_history": true,
-   "story_category": "Innovation",
-   "last_data_date": "2026-08-05",
-   "signal": "Taille du portefeuille de propriété intellectuelle, signal direct de l'effort d'innovation industrielle. Chiffre publie sur le site de la societe (releve 2026).",
-   "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
-   "_source_month": "aout 2026",
-   "history": [
-    {
-     "q": "2026",
-     "v": 930
-    }
-   ]
-  },
-  {
-   "short": "WEB_NOUVEAUX_PRODUITS_SOLUTION",
-   "name_fr": "Nouveaux produits et solutions lancés",
-   "value": 110,
-   "unit": "produits/solutions",
-   "is_short_history": true,
-   "story_category": "Innovation",
-   "last_data_date": "2026-08-05",
-   "signal": "Cadence d'innovation produit propre à l'activité industrielle du groupe. Chiffre publie sur le site de la societe (releve 2026).",
-   "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
-   "_source_month": "aout 2026",
-   "history": [
-    {
-     "q": "2026",
-     "v": 110
-    }
-   ]
-  },
-  {
-   "short": "WEB_CENTRES_RECHERCH",
-   "name_fr": "Centres de recherche",
-   "value": 14,
-   "unit": "centres",
-   "is_short_history": true,
-   "story_category": "Innovation",
-   "last_data_date": "2026-08-05",
-   "signal": "Maillage mondial de R&D, distinctif de l'ambition technologique du groupe (non un simple compte de pays d'implantation commerciale). Chiffre publie sur le site de la societe (releve 2026).",
-   "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
-   "_source_month": "aout 2026",
-   "history": [
-    {
-     "q": "2026",
-     "v": 14
-    }
-   ]
-  },
-  {
-   "short": "WEB_CHERCHEU_TEMPS_PLEIN",
-   "name_fr": "Chercheurs à temps plein",
-   "value": 1650,
-   "unit": "chercheurs",
-   "is_short_history": true,
-   "story_category": "Innovation",
-   "last_data_date": "2026-08-05",
-   "signal": "Taille de la force de R&D dédiée, distincte des effectifs totaux du groupe. Chiffre publie sur le site de la societe (releve 2026).",
-   "_source": "site web societe: https://corporate.arcelormittal.com/about-us",
-   "_source_month": "aout 2026",
-   "history": [
-    {
-     "q": "2026",
-     "v": 1650
-    }
-   ]
-  }
- ]
+  ]
 }
