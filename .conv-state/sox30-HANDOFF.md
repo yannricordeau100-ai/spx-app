@@ -195,6 +195,13 @@ ticker à cette liste À L'INTÉGRATION, et vérifier le rendu en grepant le
   staging en cours au moment de l'écriture : si non aliasé, faire
   `vercel alias set <url> mettrik-niveau2.vercel.app` + vérifier 3 pages
   par <title> et un KPI web (ex TSM "15 fabs" ou KLAC).
+  POST-VÉRIF VISUELLE (8 août, demande Yann) : audit des 90 pages (blocs par
+  page) + contrôle navigateur. 3 défauts trouvés et corrigés : noms de fiche
+  Accor ('AC.PA') et Eiffage ('IVR'), et surtout BLOC RÉPARTITION : le
+  composant repartition-block lit `unit` au NIVEAU DU BLOC (pas des slices) et
+  retombait sur 'Mds $' sinon → 551 fiches corrigées (unit propagé depuis les
+  slices), EUR/CHF/TWD/M$ affichés faux avant ça. Pour toute future intégration :
+  TOUJOURS mettre `unit` top-level dans revenue_by_segment/geography.
   RESTE OUVERT (mineur) : oranges R4_YOY_JUSTE (19) et R3 gaps sur les stés
   SOX historiques SP500 (préexistants, pas bloquants) ; bookings/backlog ASML
   à compléter depuis les exhibits 6-K désormais sur disque.
