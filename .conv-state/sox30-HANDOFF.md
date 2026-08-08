@@ -151,8 +151,21 @@ sont peut-être entrés.
 
 ---
 
+### B7. PIÈGE CRITIQUE découvert le 6 août : la liste de visibilité
+
+Une page sté V1.9.5 n'est servie QUE si le ticker est dans
+`src/data/v1-9-5-clean-all-tickers.json` (champ "tickers"). Sinon la route
+`/sandbox/v1-9-5/<t>` REDIRIGE silencieusement vers l'index (HTTP 200, titre
+« Stés validées qualité ») : un curl qui ne vérifie que le statut ou un mot
+générique CROIT que la page marche. Les 60 stés CAC 40/SMI ont été ajoutées à
+cette liste le 6 août (503 → 563). Pour le SOX 30 : AJOUTER chaque nouveau
+ticker à cette liste À L'INTÉGRATION, et vérifier le rendu en grepant le
+<title> qui doit contenir « <Nom> (<TICKER>) », jamais un mot du contenu.
+
 ## C. JOURNAL DE REPRISE (à compléter par chaque session)
 
 - 2026-08-06 (Fable, ce compte) : handoff créé. SOX non commencé (étape 0 à
-  faire). Stories web : injection 439 KPI commitée ; deploy staging lancé,
-  VÉRIFIER alias + curl avant toute autre chose si non fait.
+  faire). Stories web : injection 439 KPI commitée. Découverte et fix du piège
+  B7 (60 stés EU absentes de la liste de visibilité : leurs pages redirigaient
+  vers l'index depuis l'intégration). Deploy + alias + curl <title> à confirmer
+  en tête de reprise si cette session s'est arrêtée avant la fin.
