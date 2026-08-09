@@ -1,10 +1,32 @@
 # V195 N2 : etat au 9 aout 2026
 
 ## Chiffres
-- **578 stes en ligne** (table Supabase `desk_curated_companies`, lue au runtime
+- **845 stes en ligne** (table Supabase `desk_curated_companies`, lue au runtime
   par /api/online-tickers, aucun redeploy necessaire pour publier).
 - Univers V195 (`v1-9-5-clean-all-tickers.json`, 589 tickers) : **577/589 en ligne**.
-- Publication du 9 aout : **IMB.L** (hero "Tobacco & NGP Net Revenue", 5 KPIs specifiques).
+- Publication du 9 aout : IMB.L publie puis **retire le meme jour** (voir plus bas :
+  sa fiche n'existe pas, la page redirige vers l'overview).
+
+## ⚠ A ARBITRER EN PRIORITE : 269 stes en ligne SANS fiche
+La page V1.9.5 (`src/app/sandbox/v1-9-5/[ticker]/page.tsx`, ligne 226) redirige
+vers l'overview **toute ste absente de `v1-9-5-clean-all-tickers.json`**, meme si
+`loadV17Company` rend des KPIs. Or 269 des 845 stes publiees dans Supabase sont
+hors de cette liste : elles apparaissent dans la recherche et renvoient
+l'overview au clic. Verifie en vue connectee (audit_token) : la page fait
+2 166 745 octets a l'identique pour BABA, SHEL, TM, HSBC, UBS, TD, MUFG, UL,
+9984.T, contre 361 a 415 Ko pour une vraie fiche (JNJ, MSI, ADBE).
+
+Liste complete : `.conv-state/v195-online-hors-clean-9aout.txt`. Elle contient des
+noms lourds : BABA, SHEL, TM, HSBC, UBS, GSK, NVO, RY, BP, AZN, SAP, RELX, BARC.L,
+SIE.DE, VOW.DE, toute la cote canadienne .TO deja publiee, etc.
+
+Deux issues possibles, c'est un arbitrage de perimetre, pas un fix technique :
+1. **etendre** `v1-9-5-clean-all-tickers.json` a ces 269 tickers (elles ont des
+   donnees, il faut verifier bloc par bloc avant de les rendre visibles) ;
+2. **depublier** les 269 le temps de la verification (`publish-online.ts --hide`).
+
+Je n'ai pas tranche seul : rendre 269 fiches visibles ou les retirer de la
+recherche change ce que voient les clients.
 
 ## Univers V195 : la queue est fermee
 Les 12 tickers restants echouent tous pour raison structurelle, verifiee.
@@ -47,7 +69,7 @@ est incomplet : un agent y a cherche ALAB en vain alors que data-lake avait
 
 | Ticker | Hero | Valeur | Pourquoi je n'ai pas publie |
 |---|---|---|---|
-| 7203.T | Vehicle Sales (M unites, 5 ans) | 10,31 | Hero legitime, mais **TM est deja en ligne** : publier creerait une 2e fiche Toyota. A traiter par un alias 7203.T vers TM dans `load-company.ts`, pas par une publication. |
+| 7203.T | Vehicle Sales (M unites, 5 ans) | 10,31 | Double blocage : hors clean-all (pas de fiche), et **TM est deja en ligne** donc publier creerait une 2e fiche Toyota. A traiter par un alias 7203.T vers TM dans `load-company.ts`. |
 | CBK.DE | NET_Q | 898 | Resultat net trimestriel : ligne comptable, pas un KPI de demande. 23 KPIs specifiques disponibles, un meilleur hero existe surement. |
 | HLMA.L | Adjusted Profit Before Tax | 422 | Ligne comptable ajustee. |
 | INF.L | Dividend | 20 | Un dividende n'est pas une mesure d'activite. Hero a repointer. |
@@ -61,7 +83,19 @@ Le `_validation` du fichier le dit lui-meme : "Ticker ENI.MI ne correspond pas a
 (association non cotee) mais conserve tel que fourni". A purger avant toute
 publication d'ENI.MI.
 
-## Durcissement du qualifieur (commit du 9 aout)
+## Durcissement du qualifieur (commits du 9 aout)
+
+### 1. Gate de visibilite (le plus important)
+Le qualifieur declarait PASS des stes dont la fiche n'existe pas : il lisait
+`loadV17Company` mais pas la liste de visibilite de la page. C'est ce qui m'a fait
+publier IMB.L, dont la page redirigeait vers l'overview. `qualify-stes.ts` charge
+desormais `v1-9-5-clean-all-tickers.json` (avec la meme normalisation de
+separateurs que la page) et rejette d'emblee tout ticker absent.
+
+Effet immediat : IMB.L et 7203.T tombent en FAIL "hors clean-all", AAPL et JNJ
+restent PASS.
+
+### 2. Heros CA total deguises
 `scripts/qualify-stes.ts` laissait passer des CA total sous des libelles non couverts.
 Deux ajouts :
 1. 17 variantes ajoutees a `TOTAL_REV` : `ca t`, `rev fy`, `rev q`, `group revenue`,

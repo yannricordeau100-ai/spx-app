@@ -15,6 +15,26 @@ import { loadV17Company } from "../src/lib/company-core/load-company";
 import { isGenericKpi } from "../src/lib/kpi-generic";
 import fs from "fs";
 
+// 9 aout 2026 : GATE DE VISIBILITE. La page V1.9.5
+// (src/app/sandbox/v1-9-5/[ticker]/page.tsx) redirige vers l'overview toute
+// ste absente de v1-9-5-clean-all-tickers.json, MEME si loadV17Company rend
+// des KPIs. Sans ce controle le qualifieur declarait PASS des stes dont la
+// fiche n'existe pas (cas IMB.L, publie puis retire le 9 aout). On replique
+// ici la normalisation de separateurs de la page.
+const CLEAN_ALL: Set<string> = (() => {
+  const out = new Set<string>();
+  try {
+    const raw = fs.readFileSync("src/data/v1-9-5-clean-all-tickers.json", "utf-8");
+    for (const t of (JSON.parse(raw) as { tickers: string[] }).tickers) {
+      const u = t.toUpperCase();
+      out.add(u);
+      out.add(u.replace(/\./g, "-"));
+      out.add(u.replace(/-/g, "."));
+    }
+  } catch {}
+  return out;
+})();
+
 function num(x: any): number | null {
   if (typeof x === "number") return Number.isFinite(x) ? x : null;
   if (typeof x === "string") {
@@ -67,6 +87,11 @@ const raw = process.argv.slice(2);
   for (const t of raw) {
     const TU = t.toUpperCase();
     const reasons: string[] = [];
+    if (CLEAN_ALL.size && !CLEAN_ALL.has(TU)) {
+      fail.push({ t: TU, reasons: ["hors clean-all-tickers (la page redirige vers l'overview)"] });
+      console.log("❌ FAIL", TU, "| hors clean-all (pas de fiche)");
+      continue;
+    }
     try {
       const r: any = await loadV17Company(t, { mode: "v18" } as any);
       const co: any = r?.company ?? r;
