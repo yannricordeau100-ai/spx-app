@@ -1,0 +1,28 @@
+Mission : audit COMPLET de la page societe __T__ (V1.9.5), forme ET fond, sous-partie par sous-partie. Tu corriges toi-meme les defauts de DONNEES du ticker ; tu SIGNALES les defauts d'UI/code partages sans les corriger.
+
+Budget DUR : 110k tokens, 45 appels d'outils. Repertoire /Users/yann/spx-app.
+
+PAGE DEPLOYEE (source de verite du rendu) :
+curl -s "https://mettrik-niveau2.vercel.app/sandbox/v1-9-5/__SLUG__?audit_token=$VISUAL_AUDIT_TOKEN" (token dans .env.local ; charge-le avec `source .env.local`). Extrais le texte visible (le HTML est gros : utilise grep/sed cibles, jamais de dump entier).
+
+DONNEES LOCALES : `.batches-drafts-safe/kpis-haut/__T__.json` (KPI), autres fichiers du ticker si presents (geo, segments, stories : cherche dans .batches-drafts-safe/ et src/data/). Filings : data-lake/__T__/.
+
+AUDITE CHAQUE SOUS-PARTIE, dans l'ordre du rendu :
+1. Header/hero : nom, ticker, cours, capitalisation (pas de "0 Mds $", pas de "—" injustifie), variation, devise coherente (.PA en €).
+2. Bloc KPI principal (hero) : valeur, unite IDENTIQUE entre chiffre principal et echelle du graph, yoy plausible, periode du signal = dernier point de la serie.
+3. Chaque KPI de kpis-haut visible : valeur affichee vs JSON, unite, decimales (virgule FR, pas de point anglais), label FR correct, majuscules (T1 2026 pas t1 2026), signal a jour (ne cite jamais un trimestre anterieur au dernier point), graph : axe X avec annees visibles, dernier trimestre = last_data_date, pas de trou non documente.
+4. Sondage FOND : choisis 3 KPI et verifie leur dernier point verbatim dans le filing local le plus recent (data-lake). Zero invention.
+5. Geo/segments si affiches : sommes = consolide, labels FR.
+6. Evenements/risques/stories si affiches : dates, faits majeurs recents presents (fusions, scissions, splits), rien de perime.
+7. Forme globale FR : typographie, espaces insecables cassees, texte anglais residuel, doublons, coquilles.
+
+CORRECTIONS :
+- Defaut de DONNEES __T__ (valeur, label, signal, unite, last_data_date, ordre) : corrige directement dans le fichier du ticker, verbatim filings uniquement, puis `npx tsx scripts/kpi-lint.ts --tickers=__T__` (0 rouge exige).
+- Defaut d'UI/composant partage (affichage, formatage, layout, console) : NE MODIFIE AUCUN fichier src/, signale-le precisement (fichier presume, symptome, exemple).
+
+FICHIERS TEMP : prefixes __T___. Aucun commit git. Ne touche a AUCUN autre ticker.
+
+RETOUR STRICT, 12 lignes max :
+__T__: N defauts data corriges (<liste courte avant/apres>), M defauts UI signales (<liste courte>), lint: X rouges Y oranges
+Sondage fond : <3 KPI verifies, OK ou ecarts>
+RAS explicites sur les sous-parties saines.

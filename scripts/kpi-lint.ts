@@ -20,6 +20,21 @@ import { orderKpis } from "../src/lib/kpi-ordering";
 import { isGenericKpi } from "../src/lib/kpi-generic";
 import { formatHeroValue, yoySamePeriod, cagr } from "../src/lib/data";
 
+// Yann 9 août 2026 : overrides de blocs désactivés par sté (exonère R14 etc.)
+const _disabledPerSte: Record<string, string[]> = (() => {
+  try {
+    const raw = JSON.parse(
+      fs.readFileSync(path.join(__dirname, "../src/data/disabled-blocks-per-ste.json"), "utf8"),
+    );
+    return raw?.overrides ?? {};
+  } catch {
+    return {};
+  }
+})();
+function blockDisabledFor(ticker: string, block: string): boolean {
+  return (_disabledPerSte[ticker] ?? []).includes(block);
+}
+
 type Issue = {
   ticker: string;
   kpi: string; // short ("" = niveau sté)
@@ -340,8 +355,12 @@ async function lintTicker(t: string): Promise<Issue[]> {
   }
 
   /* R14 : risques */
+  // Yann 9 août 2026 : un bloc DÉSACTIVÉ par override (disabled-blocks-per-ste,
+  // ex LONN.SW risks, HONA/SPCX/TRI sans source locale) est un choix produit
+  // documenté, pas un défaut : la règle est exonérée pour ce ticker.
   const risks = cc.risks ?? [];
-  if (risks.length < 3) push("", "R14_RISQUES", "rouge", `${risks.length} risques rendus (<3)`);
+  if (risks.length < 3 && !blockDisabledFor(t, "risks"))
+    push("", "R14_RISQUES", "rouge", `${risks.length} risques rendus (<3)`);
   else {
     for (const rk of risks) {
       const sc = Number(rk.score);

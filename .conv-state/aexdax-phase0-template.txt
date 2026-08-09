@@ -1,0 +1,33 @@
+Mission : inventaire + téléchargement documentaire COMPLET de __T__ (__NOM__), 10 ans, pour l'app Mettrik.
+
+Budget DUR : 100k tokens, 60 appels d'outils. Répertoire /Users/yann/spx-app.
+
+OBJECTIF
+Récupérer TOUS les documents investisseurs de la sté depuis l'exercice 2016 jusqu'au dernier publié, depuis son site IR officiel (info-financiere.fr / site du régulateur en secours). Types :
+- Rapport annuel / URD / Annual Report (annuel)
+- Rapport semestriel / Half-year report (annuel)
+- Déclarations intermédiaires T1/T3 / Quartalsmitteilungen / trading updates (si publiés)
+- Communiqués de résultats (FY, S1, T1, T3)
+- Présentations résultats investisseurs (slides)
+Langue : ANGLAIS prioritaire quand disponible, sinon la langue locale (DE/NL). Les deux si les contenus diffèrent.
+
+RÈGLES DE COLLECTE
+- User-Agent : "Mettrik research yannricordeau100@gmail.com", MAX 1 requête/seconde.
+- Sauvegarde : data-lake/__T__/ir/<TYPE>/ avec TYPE dans {URD, RFS, TRIM, CP, SLIDES} et nom
+  `__T___<TYPE>_<periode>_<date-pub>.pdf` (ex `SAP.DE_URD_FY2024_2025-03-10.pdf`).
+- Chaque PDF : garder le PDF ET un extrait texte `.txt.gz` via /opt/homebrew/bin/pdftotext -layout puis gzip.
+- Si un document est introuvable après recherche sérieuse (site IR + archive du site + régulateur) : le noter dans les manquants avec la raison, ne JAMAIS inventer.
+
+LIVRABLE
+Écrire l'inventaire dans `.conv-state/aexdax-inv/__T__.json` :
+{"ticker":"__T__","ir_url":"<url IR>","docs":[{"type":"URD","periode":"FY2024","fichier":"...","date_pub":"..."}...],
+ "manquants":[{"type":"TRIM","periode":"T1-2017","raison":"..."}...],
+ "frequence_publication":"trimestriel|semestriel|mixte","notes":["..."]}
+La sté est documentairement complète quand chaque exercice 2016→dernier a : rapport annuel + semestriel + les trimestriels s'ils existent + communiqués de résultats.
+
+FICHIERS TEMPORAIRES : préfixés __T___. Aucun commit git. Ne touche à AUCUN autre ticker.
+
+RETOUR STRICT, 6 lignes max :
+__T__: N docs téléchargés (X URD, Y RFS, Z TRIM, W CP, V SLIDES), M manquants documentés, fréquence <trimestriel/semestriel>
+Période couverte réelle : <FY2016→...>
+Problèmes bloquants éventuels (WAF, site down) : <...> ou RAS
