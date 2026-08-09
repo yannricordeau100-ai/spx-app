@@ -1,0 +1,216 @@
+import json
+
+data = {
+  "ticker": "HOT.DE",
+  "nom": "HOCHTIEF Aktiengesellschaft",
+  "extracted_at": "2026-08-09",
+  "annee_decouverte": 2026,
+  "pages_visitees": 22,
+  "blocage": None,
+  "particularite": "Groupe allemand de BTP et concessions organise en quatre segments (Turner, CIMIC, Engineering and Construction, Abertis), classe n°1 mondial du classement ENR Top 250 International Contractors 2025.",
+  "kpis": [
+    {
+      "label_fr": "Rang mondial ENR Top 250 International Contractors",
+      "value": 1,
+      "unit": "rang",
+      "periode": "2025",
+      "url": "https://www.hochtief.com/sustainability/awards-ratings-and-rankings",
+      "pourquoi_distinctif": "classement sectoriel de reference du BTP mondial (Engineering News-Record), propre au metier de la construction",
+      "already_known": False
+    },
+    {
+      "label_fr": "Rang ENR Top 250 Global Contractors",
+      "value": 9,
+      "unit": "rang",
+      "periode": "2025",
+      "url": "https://www.hochtief.com/sustainability/awards-ratings-and-rankings",
+      "pourquoi_distinctif": "classement mondial des plus grands entrepreneurs generaux, second indicateur ENR distinct du Top 250 International",
+      "already_known": False
+    },
+    {
+      "label_fr": "Rang de Turner, constructeur « green building » aux Etats-Unis",
+      "value": 1,
+      "unit": "rang",
+      "periode": "2025",
+      "url": "https://www.hochtief.com/about-hochtief/strategy",
+      "pourquoi_distinctif": "Turner, filiale americaine, est classee n°1 des constructeurs green building aux Etats-Unis (ENR), egalement n°1 sante et sports, n°2 education et bureaux commerciaux",
+      "already_known": False
+    },
+    {
+      "label_fr": "Specialistes data centers chez Turner",
+      "value": 1000,
+      "unit": "specialistes",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/activities/growth-markets/data-centers",
+      "pourquoi_distinctif": "equipe dediee de Turner (filiale US) a la construction de data centers pour les geants de la tech, taille d'equipe rarement communiquee par un groupe de BTP",
+      "already_known": False
+    },
+    {
+      "label_fr": "Volume annuel de construction gere par Turner",
+      "value": 28,
+      "unit": "Mds $",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/about-hochtief/hochtief-worldwide",
+      "pourquoi_distinctif": "Turner opere en construction management (frais de gestion, pas de prise de risque contractuelle classique) : plus de 28 Mds $ de travaux geres chaque annee sur des milliers de chantiers avec plus de 16 000 salaries",
+      "already_known": True
+    },
+    {
+      "label_fr": "Taux de clients recurrents (repeat client rate)",
+      "value": 89.1,
+      "unit": "%",
+      "periode": "2025",
+      "url": "https://www.hochtief.com/about-hochtief/image-and-reputation",
+      "pourquoi_distinctif": "indicateur maison de fidelite client pondere par les travaux realises, propre a un modele economique par projet (BTP), rarement publie par les autres secteurs",
+      "already_known": False
+    },
+    {
+      "label_fr": "Capacite de stockage du plus grand systeme de batteries au monde (Victorian Big Battery, CIMIC/UGL)",
+      "value": 450000,
+      "unit": "kWh",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/activities/growth-markets/green-energy",
+      "pourquoi_distinctif": "actif construit et opere par UGL (filiale CIMIC) en Australie, 210 Tesla Megapacks, presente comme le plus grand systeme de stockage par batteries au monde lors de sa mise en service",
+      "already_known": False
+    },
+    {
+      "label_fr": "Foyers alimentes par le parc solaire construit par CIMIC en Australie",
+      "value": 45000,
+      "unit": "foyers",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/",
+      "pourquoi_distinctif": "capacite d'un projet solaire specifique construit par la filiale australienne CIMIC, indicateur de l'empreinte des projets d'energie verte du groupe",
+      "already_known": False
+    },
+    {
+      "label_fr": "Capacite de la giga-usine de cellules de batteries Volkswagen a Salzgitter construite par HOCHTIEF",
+      "value": 40,
+      "unit": "GWh",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/activities/growth-markets/battery-factories",
+      "pourquoi_distinctif": "capacite technique d'une usine de batteries VE en cours de construction par HOCHTIEF pour Volkswagen, illustre le positionnement sur le marche de l'electromobilite",
+      "already_known": False
+    },
+    {
+      "label_fr": "Investissement de l'usine de batteries VE Panasonic Energy construite par Turner (De Soto, Kansas)",
+      "value": 4,
+      "unit": "Mds $",
+      "periode": "2025",
+      "url": "https://www.hochtief.com/activities/growth-markets/battery-factories",
+      "pourquoi_distinctif": "megaprojet embleatique livre par Turner, production demarree en 2025, illustre la capacite du groupe a executer des chantiers industriels de tres grande ampleur",
+      "already_known": False
+    },
+    {
+      "label_fr": "Participation de HOCHTIEF dans FlatironDragados",
+      "value": 38.2,
+      "unit": "%",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/about-hochtief/hochtief-worldwide",
+      "pourquoi_distinctif": "FlatironDragados est la 2e plus grande societe d'ingenierie civile d'Amerique du Nord, participation minoritaire structurante propre au montage du groupe",
+      "already_known": False
+    },
+    {
+      "label_fr": "Participation de HOCHTIEF dans Abertis HoldCo",
+      "value": 20,
+      "unit": "%",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/about-hochtief/hochtief-worldwide",
+      "pourquoi_distinctif": "Abertis HoldCo detient 99,1% d'Abertis Infraestructuras, operateur mondial de concessions autoroutieres, participation strategique depuis juin 2018",
+      "already_known": False
+    },
+    {
+      "label_fr": "Nombre de concessions autoroutieres dans le portefeuille Abertis",
+      "value": 34,
+      "unit": "concessions",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/about-hochtief/hochtief-worldwide",
+      "pourquoi_distinctif": "taille du portefeuille de concessions d'Abertis (dont HOCHTIEF detient 20%), indicateur direct du modele concessions propre au secteur infrastructure",
+      "already_known": False
+    },
+    {
+      "label_fr": "Longueur du reseau de routes a peage du portefeuille Abertis",
+      "value": 8000,
+      "unit": "km",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/about-hochtief/hochtief-worldwide",
+      "pourquoi_distinctif": "etendue physique du reseau autoroutier concede par Abertis dans 15 pays, mesure operationnelle propre au metier des concessions",
+      "already_known": False
+    },
+    {
+      "label_fr": "Participation de CIMIC dans Thiess",
+      "value": 60,
+      "unit": "%",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/about-hochtief/our-global-network",
+      "pourquoi_distinctif": "Thiess est la co-entreprise de ressources naturelles (mines) de CIMIC, participation majoritaire specifique au perimetre minier du groupe",
+      "already_known": False
+    },
+    {
+      "label_fr": "Nombre de marques operationnelles au sein de CIMIC",
+      "value": 7,
+      "unit": "marques",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/about-hochtief/our-global-network",
+      "pourquoi_distinctif": "CIMIC opere via CPB Contractors, Leighton Asia, UGL, Sedgman, Thiess, Pacific Partnerships et EIC Activities, structure en marques metiers comparable au modele Maisons de LVMH",
+      "already_known": False
+    },
+    {
+      "label_fr": "Projets certifies verts (fin 2025)",
+      "value": 1374,
+      "unit": "projets",
+      "periode": "2025",
+      "url": "https://www.hochtief.com/sustainability/key-figures",
+      "pourquoi_distinctif": "volume de projets de construction certifies verts livres par le groupe, indicateur d'activite propre au metier du batiment durable",
+      "already_known": False
+    },
+    {
+      "label_fr": "Batiments certifies verts au sein du groupe HOCHTIEF (cumule depuis 1999)",
+      "value": 1254,
+      "unit": "batiments",
+      "periode": "cumule depuis 1999, releve 2026",
+      "url": "https://www.hochtief.com/sustainability/key-figures",
+      "pourquoi_distinctif": "compteur cumule de batiments certifies verts construits par le groupe depuis 1999, propre a l'activite de construction",
+      "already_known": False
+    },
+    {
+      "label_fr": "Projets d'infrastructure verte certifies (cumule depuis 2013)",
+      "value": 120,
+      "unit": "projets",
+      "periode": "cumule depuis 2013, releve 2026",
+      "url": "https://www.hochtief.com/sustainability/key-figures",
+      "pourquoi_distinctif": "compteur cumule de projets d'infrastructure certifies verts, distinct du compteur batiments, propre au metier infrastructure",
+      "already_known": False
+    },
+    {
+      "label_fr": "Beneficiaires des ponts construits et sponsorises par HOCHTIEF en Afrique et Amerique centrale",
+      "value": 120510,
+      "unit": "personnes",
+      "periode": "cumule, releve 2026",
+      "url": "https://www.hochtief.com/sustainability/key-figures",
+      "pourquoi_distinctif": "programme de mecenat de construction de ponts propre a HOCHTIEF, fait rare qu'un investisseur ne devinerait pas",
+      "already_known": False
+    },
+    {
+      "label_fr": "Nombre de fournisseurs dans le monde (2025)",
+      "value": 44500,
+      "unit": "fournisseurs",
+      "periode": "2025",
+      "url": "https://www.hochtief.com/activities/for-business-partners",
+      "pourquoi_distinctif": "taille du reseau fournisseurs mondial, propre a l'ampleur logistique d'un groupe de BTP multi-projets",
+      "already_known": False
+    },
+    {
+      "label_fr": "Part de la performance du groupe externalisee en materiaux et sous-traitance",
+      "value": 75,
+      "unit": "%",
+      "periode": "releve 2026",
+      "url": "https://www.hochtief.com/activities/for-business-partners",
+      "pourquoi_distinctif": "mesure la part du modele economique reposant sur la sous-traitance, caracteristique du business model d'un entrepreneur general du BTP",
+      "already_known": False
+    }
+  ]
+}
+
+with open("/Users/yann/spx-app/.conv-state/web-kpi/HOT.DE.json", "w", encoding="utf-8") as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+
+print("written, N kpis =", len(data["kpis"]))
