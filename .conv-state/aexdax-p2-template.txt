@@ -48,6 +48,9 @@ autre agent l'écraserait et tu extrairais les chiffres d'une AUTRE société.
 RÈGLES
 - Ne touche à AUCUN autre ticker. Aucun commit git.
 - Lint final unique : `npx tsx scripts/kpi-lint.ts --tickers=__T__`, exiger 0 rouge.
+  Exception attendue : le rouge `R10_HERO_VALIDE kind=missing` (ticker absent de
+  v1-9-5-clean-all-tickers.json) est structurel tant que l'onboarding n'est pas fait.
+  Le signaler dans le retour, ne PAS ajouter le ticker à la liste toi-même.
 - JAMAIS de téléchargement via clic navigateur (dialogue macOS interdit). JAMAIS de rm
   avec glob ou variable (chemins littéraux uniquement). Aucune commande qui provoque un
   prompt de permission macOS ou sandbox.

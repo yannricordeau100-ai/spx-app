@@ -1,0 +1,1464 @@
+{
+ "ticker": "ADYEN.AS",
+ "extracted_at": "2026-08-09",
+ "extracted_by": "claude-opus-5 (mission aexdax-p2-adyen.as)",
+ "sources_used": [
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S1-2018_2018-08-21.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S2-2018_2019-02-26.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S1-2019_2019-08-22.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S2-2019_2020-02-26.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S1-2020_2020-08-19.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S2-2020_2021-02-09.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S1-2021_2021-08-19.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S2-2021_2022-02-09.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S1-2022_2022-08-18.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S2-2022_2023-02-08.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S1-2023_2023-08-17.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S2-2023_2024-02-08.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S1-2024_2024-08-15.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S2-2024_2025-02-13.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S1-2025_2025-08-14.pdf",
+  "data-lake/ADYEN.AS/ir/RFS/ADYEN.AS_RFS_S2-2025_2026-02-12.pdf",
+  "data-lake/ADYEN.AS/ir/URD/ADYEN.AS_URD_FY2020_2021-03-08.pdf",
+  "data-lake/ADYEN.AS/ir/URD/ADYEN.AS_URD_FY2021_2022-03-08.pdf",
+  "data-lake/ADYEN.AS/ir/URD/ADYEN.AS_URD_FY2023_2024-03-01.pdf",
+  "data-lake/ADYEN.AS/ir/URD/ADYEN.AS_URD_FY2025_2026-03-05.pdf",
+  "data-lake/ADYEN.AS/ir/TRIM/ADYEN.AS_TRIM_T1-2024_2024-04-25.pdf",
+  "data-lake/ADYEN.AS/ir/TRIM/ADYEN.AS_TRIM_T3-2024_2024-11-07.pdf",
+  "data-lake/ADYEN.AS/ir/TRIM/ADYEN.AS_TRIM_T1-2025_2025-04-30.pdf",
+  "data-lake/ADYEN.AS/ir/TRIM/ADYEN.AS_TRIM_T3-2025_2025-10-29.pdf",
+  "data-lake/ADYEN.AS/ir/TRIM/ADYEN.AS_TRIM_T1-2026_2026-05-06.pdf"
+ ],
+ "hero_kpi": "PROCESSED_VOL",
+ "hero_kpi_rationale": "Le volume traite est l'indicateur signature d'Adyen et la grandeur que le groupe met en tete de chaque lettre aux actionnaires. Il couvre huit exercices sans interruption depuis l'introduction en bourse de juin 2018 (16 points semestriels, de 70,0 Mds € a 745,3 Mds €), il est insensible aux retraitements comptables de 2021 qui ont touche le revenu net, et il exprime directement la part de commerce mondial qui transite par la plateforme, ce que ne fait aucune ligne de compte de resultat.",
+ "_ordering_rationale": "Volume traite en tete (indicateur signature et hero), puis revenu net semestriel et trimestriel, rentabilite (EBITDA, marge, resultat net), taux de commission propre au secteur des paiements, tresorerie, donnees par action, effectifs, investissements, produit d'interets des produits financiers, puis les zones geographiques annuelles, les piliers commerciaux et enfin les indicateurs d'adoption a historique court.",
+ "_notes": "Toutes les valeurs sont verbatim des documents locaux du data-lake Adyen. Adyen publie en rythme SEMESTRIEL (lettre aux actionnaires H1 en aout, lettre H2 valant resultats annuels en fevrier, rapport annuel en mars) : les series de comptes sont donc semestrielles, avec libelles H1-AAAA et H2-AAAA. Des points de situation trimestriels existent aux premier et troisieme trimestres depuis fin 2023 (et ponctuellement en 2020) : ils portent le volume traite et le revenu net, jamais de comptes complets. Les deuxiemes et quatriemes trimestres sont derives par difference entre le semestre publie et le trimestre publie, derivation purement additive, points marques dans _derived_points. Aucune derivation sur les marges, le taux de commission, les donnees par action, les effectifs ni les encours clients. RUPTURE DE BASE : en fevrier 2021 Adyen a corrige une erreur comptable sur les couts factures par les etablissements financiers, retraitant a la hausse le revenu net, l'EBITDA et le resultat net de 2019 et du premier semestre 2020 (revenu net 2019 porte de 496,7 a 534,3 M€, second semestre 2019 de 275,6 a 296,6 M€, premier semestre 2020 de 279,9 a 304,8 M€). Les series retiennent la base retraitee pour 2019 et 2020 et la base d'origine pour 2018, non retraitee par la societe ; les premiers semestres 2019 retraites sont derives par difference exercice retraite moins second semestre retraite. Adyen ne verse aucun dividende (politique explicite du rapport annuel 2025 : le resultat est affecte aux reserves) et n'a rachete aucune action en 2025 : aucune serie de dividende ni de rachat n'est publiee. Le communique trimestriel T3 2023 est illisible dans le data-lake (encodage de police non standard, tous les chiffres sont perdus a l'extraction) : le troisieme trimestre 2023 est donc absent des series trimestrielles, qui demarrent au premier trimestre 2024. Les volumes par pilier ne sont plus chiffres en valeur absolue depuis 2025 (Adyen ne communique plus que des taux de croissance) : ces trois series s'arretent a fin 2024 et sont datees en consequence. Aucun changement de perimetre n'affecte les series : Adyen n'a realise aucune acquisition consolidee sur la periode couverte (l'acquisition de Talon.One annoncee en 2026 n'est pas encore reflechie dans les comptes).",
+ "kpis": [
+  {
+   "short": "PROCESSED_VOL",
+   "name_fr": "Volume traite",
+   "name_en": "Processed volume",
+   "value": 745.3,
+   "unit": "Mds €",
+   "yoy": "+11.8%",
+   "history": [
+    {
+     "q": "H1-2018",
+     "v": 70.0
+    },
+    {
+     "q": "H2-2018",
+     "v": 89.0
+    },
+    {
+     "q": "H1-2019",
+     "v": 104.6
+    },
+    {
+     "q": "H2-2019",
+     "v": 135.0
+    },
+    {
+     "q": "H1-2020",
+     "v": 129.1
+    },
+    {
+     "q": "H2-2020",
+     "v": 174.5
+    },
+    {
+     "q": "H1-2021",
+     "v": 216.0
+    },
+    {
+     "q": "H2-2021",
+     "v": 300.0
+    },
+    {
+     "q": "H1-2022",
+     "v": 345.8
+    },
+    {
+     "q": "H2-2022",
+     "v": 421.7
+    },
+    {
+     "q": "H1-2023",
+     "v": 426.0
+    },
+    {
+     "q": "H2-2023",
+     "v": 544.1
+    },
+    {
+     "q": "H1-2024",
+     "v": 619.5
+    },
+    {
+     "q": "H2-2024",
+     "v": 666.4
+    },
+    {
+     "q": "H1-2025",
+     "v": 649.0
+    },
+    {
+     "q": "H2-2025",
+     "v": 745.3
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Demand",
+   "pv_score": 13,
+   "signal": "745,3 Mds € de paiements traites au second semestre 2025, +12% sur un an et +19% hors un client unique a tres gros volume, pour un total de 1 394,3 Mds € sur l'exercice",
+   "description_fr": "Volume total des paiements traites sur la plateforme Adyen, indicateur de demande le plus suivi du groupe. Le point H2 2019 est derive par difference entre l'exercice 2019 publie (239,6 Mds €) et le premier semestre.",
+   "description_en": "Total payment volume processed on the Adyen platform. The H2 2019 point is derived as full year 2019 minus H1 2019.",
+   "last_data_date": "2025-12-31",
+   "_derived_points": [
+    "H2-2019"
+   ]
+  },
+  {
+   "short": "PROCESSED_VOL_Q",
+   "name_fr": "Volume traite par trimestre",
+   "name_en": "Quarterly processed volume",
+   "value": 382.0,
+   "unit": "Mds €",
+   "yoy": "+21.3%",
+   "history": [
+    {
+     "q": "Q1-2024",
+     "v": 297.8
+    },
+    {
+     "q": "Q2-2024",
+     "v": 321.7
+    },
+    {
+     "q": "Q3-2024",
+     "v": 320.6
+    },
+    {
+     "q": "Q4-2024",
+     "v": 345.8
+    },
+    {
+     "q": "Q1-2025",
+     "v": 314.8
+    },
+    {
+     "q": "Q2-2025",
+     "v": 334.2
+    },
+    {
+     "q": "Q3-2025",
+     "v": 346.9
+    },
+    {
+     "q": "Q4-2025",
+     "v": 398.4
+    },
+    {
+     "q": "Q1-2026",
+     "v": 382.0
+    }
+   ],
+   "period_type": "quarter",
+   "frequency": "quarterly",
+   "type": "Demand",
+   "pv_score": 11,
+   "signal": "382,0 Mds € traites au premier trimestre 2026, +21% sur un an, la croissance revenant a son rythme apres l'effet de base du client unique a tres gros volume",
+   "description_fr": "Volume traite par trimestre. Adyen ne publie de point de situation qu'aux premier et troisieme trimestres : les deuxiemes et quatriemes trimestres sont derives par difference entre le semestre publie et le trimestre publie.",
+   "description_en": "Quarterly processed volume. Adyen only issues Q1 and Q3 business updates: Q2 and Q4 are derived as the published half-year minus the published quarter.",
+   "last_data_date": "2026-03-31",
+   "is_short_history": true,
+   "story_category": "Croissance",
+   "_derived_points": [
+    "Q2-2024",
+    "Q4-2024",
+    "Q2-2025",
+    "Q4-2025"
+   ]
+  },
+  {
+   "short": "NET_REVENUE",
+   "name_fr": "Revenu net",
+   "name_en": "Net revenue",
+   "value": 1270.7,
+   "unit": "M€",
+   "yoy": "+17.4%",
+   "history": [
+    {
+     "q": "H1-2018",
+     "v": 156.4
+    },
+    {
+     "q": "H2-2018",
+     "v": 192.5
+    },
+    {
+     "q": "H1-2019",
+     "v": 237.7
+    },
+    {
+     "q": "H2-2019",
+     "v": 296.6
+    },
+    {
+     "q": "H1-2020",
+     "v": 304.8
+    },
+    {
+     "q": "H2-2020",
+     "v": 379.4
+    },
+    {
+     "q": "H1-2021",
+     "v": 445.0
+    },
+    {
+     "q": "H2-2021",
+     "v": 556.5
+    },
+    {
+     "q": "H1-2022",
+     "v": 608.5
+    },
+    {
+     "q": "H2-2022",
+     "v": 721.6
+    },
+    {
+     "q": "H1-2023",
+     "v": 739.1
+    },
+    {
+     "q": "H2-2023",
+     "v": 887.0
+    },
+    {
+     "q": "H1-2024",
+     "v": 913.4
+    },
+    {
+     "q": "H2-2024",
+     "v": 1082.7
+    },
+    {
+     "q": "H1-2025",
+     "v": 1093.5
+    },
+    {
+     "q": "H2-2025",
+     "v": 1270.7
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Revenue",
+   "pv_score": 12,
+   "signal": "1 270,7 M€ de revenu net au second semestre 2025, +17% en croissance publiee et +21% a taux de change constants, soit 2 364,2 M€ sur l'exercice",
+   "description_fr": "Revenu net, principal agregat de chiffre d'affaires suivi par Adyen : produits hors interets nets des couts factures par les etablissements financiers et du cout des marchandises vendues, plus le produit d'interets net. Croissance publiee dans le champ variation annuelle, croissance a taux de change constants citee dans le signal. Les periodes 2019 et 2020 sont retraitees a la suite de la correction d'erreur comptable sur les couts factures par les etablissements financiers publiee en fevrier 2021 ; le premier semestre 2019 retraite est derive par difference entre l'exercice retraite (534,3 M€) et le second semestre retraite.",
+   "description_en": "Net revenue, Adyen's headline top line. 2019 and 2020 figures are restated following the February 2021 correction of an accounting error on costs incurred from financial institutions.",
+   "last_data_date": "2025-12-31",
+   "_derived_points": [
+    "H1-2019"
+   ]
+  },
+  {
+   "short": "NET_REVENUE_Q",
+   "name_fr": "Revenu net par trimestre",
+   "name_en": "Quarterly net revenue",
+   "value": 620.8,
+   "unit": "M€",
+   "yoy": "+16.1%",
+   "history": [
+    {
+     "q": "Q1-2024",
+     "v": 438.0
+    },
+    {
+     "q": "Q2-2024",
+     "v": 475.4
+    },
+    {
+     "q": "Q3-2024",
+     "v": 498.3
+    },
+    {
+     "q": "Q4-2024",
+     "v": 584.4
+    },
+    {
+     "q": "Q1-2025",
+     "v": 534.7
+    },
+    {
+     "q": "Q2-2025",
+     "v": 558.8
+    },
+    {
+     "q": "Q3-2025",
+     "v": 598.4
+    },
+    {
+     "q": "Q4-2025",
+     "v": 672.3
+    },
+    {
+     "q": "Q1-2026",
+     "v": 620.8
+    }
+   ],
+   "period_type": "quarter",
+   "frequency": "quarterly",
+   "type": "Revenue",
+   "pv_score": 10,
+   "signal": "620,8 M€ de revenu net au premier trimestre 2026, +16% en croissance publiee et +20% a taux de change constants",
+   "description_fr": "Revenu net par trimestre. Adyen ne publie de point de situation qu'aux premier et troisieme trimestres : les deuxiemes et quatriemes trimestres sont derives par difference entre le semestre publie et le trimestre publie.",
+   "description_en": "Quarterly net revenue. Q2 and Q4 are derived as the published half-year minus the published quarter.",
+   "last_data_date": "2026-03-31",
+   "is_short_history": true,
+   "story_category": "Croissance",
+   "_derived_points": [
+    "Q2-2024",
+    "Q4-2024",
+    "Q2-2025",
+    "Q4-2025"
+   ]
+  },
+  {
+   "short": "EBITDA",
+   "name_fr": "EBITDA",
+   "name_en": "EBITDA",
+   "value": 702.1,
+   "unit": "M€",
+   "yoy": "+23.3%",
+   "history": [
+    {
+     "q": "H1-2018",
+     "v": 70.3
+    },
+    {
+     "q": "H2-2018",
+     "v": 111.7
+    },
+    {
+     "q": "H1-2019",
+     "v": 142.4
+    },
+    {
+     "q": "H2-2019",
+     "v": 174.5
+    },
+    {
+     "q": "H1-2020",
+     "v": 165.7
+    },
+    {
+     "q": "H2-2020",
+     "v": 236.8
+    },
+    {
+     "q": "H1-2021",
+     "v": 272.7
+    },
+    {
+     "q": "H2-2021",
+     "v": 357.3
+    },
+    {
+     "q": "H1-2022",
+     "v": 356.3
+    },
+    {
+     "q": "H2-2022",
+     "v": 372.0
+    },
+    {
+     "q": "H1-2023",
+     "v": 320.0
+    },
+    {
+     "q": "H2-2023",
+     "v": 423.0
+    },
+    {
+     "q": "H1-2024",
+     "v": 423.1
+    },
+    {
+     "q": "H2-2024",
+     "v": 569.2
+    },
+    {
+     "q": "H1-2025",
+     "v": 543.7
+    },
+    {
+     "q": "H2-2025",
+     "v": 702.1
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Profitability",
+   "pv_score": 11,
+   "signal": "702,1 M€ d'EBITDA au second semestre 2025, +23% sur un an, pour 1 245,7 M€ sur l'exercice",
+   "description_fr": "EBITDA publie par Adyen, mesure de pilotage et support des objectifs financiers du groupe. Les periodes 2019 et 2020 sont retraitees ; le premier semestre 2019 est derive par difference entre l'exercice retraite (316,9 M€) et le second semestre retraite.",
+   "description_en": "Reported EBITDA, the group's key steering measure. H1 2019 is derived as restated full year minus restated H2.",
+   "last_data_date": "2025-12-31",
+   "_derived_points": [
+    "H1-2019"
+   ]
+  },
+  {
+   "short": "EBITDA_MGN",
+   "name_fr": "Marge d'EBITDA",
+   "name_en": "EBITDA margin",
+   "value": 55.0,
+   "unit": "%",
+   "yoy": "+2 pts",
+   "history": [
+    {
+     "q": "H1-2020",
+     "v": 54.0
+    },
+    {
+     "q": "H2-2020",
+     "v": 62.0
+    },
+    {
+     "q": "H1-2021",
+     "v": 61.0
+    },
+    {
+     "q": "H2-2021",
+     "v": 64.0
+    },
+    {
+     "q": "H1-2022",
+     "v": 59.0
+    },
+    {
+     "q": "H2-2022",
+     "v": 52.0
+    },
+    {
+     "q": "H1-2023",
+     "v": 43.0
+    },
+    {
+     "q": "H2-2023",
+     "v": 48.0
+    },
+    {
+     "q": "H1-2024",
+     "v": 46.0
+    },
+    {
+     "q": "H2-2024",
+     "v": 53.0
+    },
+    {
+     "q": "H1-2025",
+     "v": 50.0
+    },
+    {
+     "q": "H2-2025",
+     "v": 55.0
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Margin",
+   "pv_score": 10,
+   "signal": "55% de marge d'EBITDA au second semestre 2025, deux points de plus qu'un an plus tot, apres le creux de 43% du premier semestre 2023 lie a la phase d'embauches",
+   "description_fr": "Marge d'EBITDA rapportee au revenu net, telle que publiee dans chaque lettre aux actionnaires. Aucune valeur n'est derivee : les marges ne sont pas additives. La serie demarre au premier semestre 2020 pour rester sur la base retraitee en 2021.",
+   "description_en": "Reported EBITDA margin on net revenue, as published in each shareholder letter. No derived points: margins are not additive.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "NET_INCOME",
+   "name_fr": "Resultat net",
+   "name_en": "Net income",
+   "value": 581.6,
+   "unit": "M€",
+   "yoy": "+12.8%",
+   "history": [
+    {
+     "q": "H1-2018",
+     "v": 48.2
+    },
+    {
+     "q": "H2-2018",
+     "v": 83.0
+    },
+    {
+     "q": "H1-2019",
+     "v": 105.8
+    },
+    {
+     "q": "H2-2019",
+     "v": 128.4
+    },
+    {
+     "q": "H1-2020",
+     "v": 97.9
+    },
+    {
+     "q": "H2-2020",
+     "v": 163.1
+    },
+    {
+     "q": "H1-2021",
+     "v": 204.8
+    },
+    {
+     "q": "H2-2021",
+     "v": 264.9
+    },
+    {
+     "q": "H1-2022",
+     "v": 282.1
+    },
+    {
+     "q": "H2-2022",
+     "v": 282.0
+    },
+    {
+     "q": "H1-2023",
+     "v": 282.2
+    },
+    {
+     "q": "H2-2023",
+     "v": 416.1
+    },
+    {
+     "q": "H1-2024",
+     "v": 409.6
+    },
+    {
+     "q": "H2-2024",
+     "v": 515.5
+    },
+    {
+     "q": "H1-2025",
+     "v": 481.0
+    },
+    {
+     "q": "H2-2025",
+     "v": 581.6
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Profit",
+   "pv_score": 11,
+   "signal": "581,6 M€ de resultat net au second semestre 2025, +13% sur un an, pour 1 062,5 M€ sur l'exercice, premiere annee au dessus du milliard",
+   "description_fr": "Resultat net part du groupe. Les periodes 2019 et 2020 sont retraitees ; le premier semestre 2019 est derive par difference entre l'exercice retraite (234,3 M€) et le second semestre retraite.",
+   "description_en": "Net income attributable to owners of Adyen N.V. H1 2019 is derived as restated full year minus restated H2.",
+   "last_data_date": "2025-12-31",
+   "_derived_points": [
+    "H1-2019"
+   ]
+  },
+  {
+   "short": "TAKE_RATE",
+   "name_fr": "Taux de commission",
+   "name_en": "Take rate",
+   "value": 17.1,
+   "unit": "bps",
+   "yoy": "+0,9 bp",
+   "history": [
+    {
+     "q": "H1-2020",
+     "v": 23.6
+    },
+    {
+     "q": "H2-2020",
+     "v": 21.7
+    },
+    {
+     "q": "H1-2021",
+     "v": 20.6
+    },
+    {
+     "q": "H2-2021",
+     "v": 18.6
+    },
+    {
+     "q": "H1-2022",
+     "v": 17.6
+    },
+    {
+     "q": "H2-2022",
+     "v": 17.1
+    },
+    {
+     "q": "H1-2023",
+     "v": 17.3
+    },
+    {
+     "q": "H2-2023",
+     "v": 16.3
+    },
+    {
+     "q": "H1-2024",
+     "v": 14.7
+    },
+    {
+     "q": "H2-2024",
+     "v": 16.2
+    },
+    {
+     "q": "H1-2025",
+     "v": 16.8
+    },
+    {
+     "q": "H2-2025",
+     "v": 17.1
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Operational",
+   "pv_score": 12,
+   "signal": "17,1 points de base de revenu net pour 100 euros traites au second semestre 2025, au plus haut depuis 2022 apres le point bas de 14,7 du premier semestre 2024",
+   "description_fr": "Revenu net rapporte au volume traite, exprime en points de base. Adyen presente le taux de commission comme une consequence de sa tarification par paliers et non comme un objectif. Aucune valeur n'est derivee : un taux n'est pas additif. La serie demarre au premier semestre 2020, premiere periode publiee sur la base retraitee.",
+   "description_en": "Net revenue over processed volume, in basis points. No derived points: a rate is not additive.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "FCF",
+   "name_fr": "Flux de tresorerie disponible",
+   "name_en": "Free cash flow",
+   "value": 606.8,
+   "unit": "M€",
+   "yoy": "+21.6%",
+   "history": [
+    {
+     "q": "H1-2018",
+     "v": 62.7
+    },
+    {
+     "q": "H2-2018",
+     "v": 105.4
+    },
+    {
+     "q": "H1-2019",
+     "v": 117.6
+    },
+    {
+     "q": "H2-2019",
+     "v": 141.7
+    },
+    {
+     "q": "H1-2020",
+     "v": 154.2
+    },
+    {
+     "q": "H2-2020",
+     "v": 217.0
+    },
+    {
+     "q": "H1-2021",
+     "v": 246.4
+    },
+    {
+     "q": "H2-2021",
+     "v": 320.2
+    },
+    {
+     "q": "H1-2022",
+     "v": 308.9
+    },
+    {
+     "q": "H2-2022",
+     "v": 298.1
+    },
+    {
+     "q": "H1-2023",
+     "v": 247.7
+    },
+    {
+     "q": "H2-2023",
+     "v": 391.8
+    },
+    {
+     "q": "H1-2024",
+     "v": 360.6
+    },
+    {
+     "q": "H2-2024",
+     "v": 499.2
+    },
+    {
+     "q": "H1-2025",
+     "v": 474.5
+    },
+    {
+     "q": "H2-2025",
+     "v": 606.8
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "CashFlow",
+   "pv_score": 10,
+   "signal": "606,8 M€ de flux de tresorerie disponible au second semestre 2025, +22% sur un an et un taux de conversion de 86% de l'EBITDA",
+   "description_fr": "Flux de tresorerie disponible tel que defini par Adyen. La definition a ete elargie a partir de 2023 pour inclure les loyers en plus des investissements, ce qui abaisse mecaniquement les points recents par rapport aux exercices anterieurs.",
+   "description_en": "Free cash flow as defined by Adyen. From 2023 the definition also deducts lease payments on top of CapEx.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "EPS",
+   "name_fr": "Benefice net par action",
+   "name_en": "Earnings per share",
+   "value": 33.72,
+   "unit": "€",
+   "yoy": "+13.6%",
+   "history": [
+    {
+     "q": "FY2020",
+     "v": 8.63
+    },
+    {
+     "q": "FY2021",
+     "v": 15.4
+    },
+    {
+     "q": "FY2022",
+     "v": 18.21
+    },
+    {
+     "q": "FY2023",
+     "v": 22.52
+    },
+    {
+     "q": "FY2024",
+     "v": 29.69
+    },
+    {
+     "q": "FY2025",
+     "v": 33.72
+    }
+   ],
+   "period_type": "annual",
+   "frequency": "annual",
+   "type": "Per share",
+   "pv_score": 9,
+   "signal": "33,72 € de benefice net par action en 2025, +14% sur un an et pres de quatre fois le niveau de 2020",
+   "description_fr": "Benefice net de base par action ordinaire, comptes consolides du rapport annuel. Aucune valeur n'est derivee : une donnee par action n'est pas additive.",
+   "description_en": "Basic net profit per ordinary share from the consolidated annual accounts.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "HEADCOUNT",
+   "name_fr": "Effectifs",
+   "name_en": "Headcount",
+   "value": 4771,
+   "unit": "FTE",
+   "yoy": "+9.8%",
+   "history": [
+    {
+     "q": "H1-2018",
+     "v": 768
+    },
+    {
+     "q": "H2-2018",
+     "v": 873
+    },
+    {
+     "q": "H1-2019",
+     "v": 987
+    },
+    {
+     "q": "H2-2019",
+     "v": 1182
+    },
+    {
+     "q": "H1-2020",
+     "v": 1448
+    },
+    {
+     "q": "H2-2020",
+     "v": 1747
+    },
+    {
+     "q": "H1-2021",
+     "v": 1954
+    },
+    {
+     "q": "H2-2021",
+     "v": 2180
+    },
+    {
+     "q": "H1-2022",
+     "v": 2575
+    },
+    {
+     "q": "H2-2022",
+     "v": 3332
+    },
+    {
+     "q": "H1-2023",
+     "v": 3883
+    },
+    {
+     "q": "H2-2023",
+     "v": 4196
+    },
+    {
+     "q": "H1-2024",
+     "v": 4233
+    },
+    {
+     "q": "H2-2024",
+     "v": 4345
+    },
+    {
+     "q": "H1-2025",
+     "v": 4568
+    },
+    {
+     "q": "H2-2025",
+     "v": 4771
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Operational",
+   "pv_score": 8,
+   "signal": "4 771 equivalents temps plein fin 2025, 203 recrutements nets sur le semestre, apres la pause de 2024 qui a suivi la phase d'embauches massives de 2022 et 2023",
+   "description_fr": "Effectifs en equivalents temps plein a la fin de chaque semestre, publies dans chaque lettre aux actionnaires. Aucune valeur n'est derivee : un effectif de fin de periode n'est pas additif.",
+   "description_en": "Full-time equivalents at the end of each half year, as published in each shareholder letter.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "CAPEX",
+   "name_fr": "Investissements",
+   "name_en": "CapEx",
+   "value": 116.8,
+   "unit": "M€",
+   "yoy": "+28.3%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 99.1
+    },
+    {
+     "q": "FY2023",
+     "v": 69.7
+    },
+    {
+     "q": "FY2024",
+     "v": 91.1
+    },
+    {
+     "q": "FY2025",
+     "v": 116.8
+    }
+   ],
+   "period_type": "annual",
+   "frequency": "annual",
+   "type": "Investment",
+   "pv_score": 7,
+   "signal": "116,8 M€ investis en 2025, soit 5% du revenu net, majoritairement dans les centres de donnees du groupe",
+   "description_fr": "Investissements tels que definis par Adyen : achats d'immobilisations corporelles hors terminaux de paiement loues, plus capitalisation d'immobilisations incorporelles. Serie limitee aux exercices ou l'agregat est publie sous cette definition.",
+   "description_en": "CapEx as defined by Adyen: purchases of plant and equipment excluding POS rental terminals plus capitalization of intangible assets.",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "Capacité"
+  },
+  {
+   "short": "NII_EFP",
+   "name_fr": "Produit d'interets net des produits financiers",
+   "name_en": "Net interest income from financial products",
+   "value": 6.6,
+   "unit": "M€",
+   "yoy": "+13.8%",
+   "history": [
+    {
+     "q": "H1-2024",
+     "v": 2.5
+    },
+    {
+     "q": "H2-2024",
+     "v": 5.8
+    },
+    {
+     "q": "H1-2025",
+     "v": 6.0
+    },
+    {
+     "q": "H2-2025",
+     "v": 6.6
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Revenue",
+   "pv_score": 7,
+   "signal": "6,6 M€ de produit d'interets net au second semestre 2025, +14% sur un an, premiere contribution mesurable de la gamme de produits financiers embarques",
+   "description_fr": "Produit d'interets net inclus dans le revenu net, rattache a la gamme de produits financiers embarques lancee en 2024 (comptes professionnels, gestion de tresorerie, emission de cartes).",
+   "description_en": "Net interest income included in net revenue, linked to the embedded financial products suite launched in 2024.",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "Innovation"
+  },
+  {
+   "short": "GEO_EMEA",
+   "name_fr": "Revenu net en Europe, Moyen-Orient et Afrique",
+   "name_en": "Net revenue EMEA",
+   "value": 1360.7,
+   "unit": "M€",
+   "yoy": "+18.6%",
+   "history": [
+    {
+     "q": "FY2020",
+     "v": 426.2
+    },
+    {
+     "q": "FY2021",
+     "v": 599.3
+    },
+    {
+     "q": "FY2022",
+     "v": 746.8
+    },
+    {
+     "q": "FY2023",
+     "v": 908.2
+    },
+    {
+     "q": "FY2024",
+     "v": 1147.0
+    },
+    {
+     "q": "FY2025",
+     "v": 1360.7
+    }
+   ],
+   "period_type": "annual",
+   "frequency": "annual",
+   "type": "Geography",
+   "pv_score": 8,
+   "signal": "1 360,7 M€ de revenu net en Europe, Moyen-Orient et Afrique en 2025, 58% du total du groupe et +19% sur un an",
+   "description_fr": "Revenu net par zone, note de segmentation des comptes consolides. Le revenu net est rattache au lieu de facturation du client : l'Amerique du Nord inclut donc des distributeurs en ligne dont le siege est en Asie-Pacifique. La somme des quatre zones egale le revenu net consolide de l'exercice.",
+   "description_en": "Net revenue by region from the segment note of the consolidated accounts. The four regions add up to consolidated net revenue.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "GEO_NA",
+   "name_fr": "Revenu net en Amerique du Nord",
+   "name_en": "Net revenue North America",
+   "value": 633.3,
+   "unit": "M€",
+   "yoy": "+18.2%",
+   "history": [
+    {
+     "q": "FY2020",
+     "v": 133.0
+    },
+    {
+     "q": "FY2021",
+     "v": 231.4
+    },
+    {
+     "q": "FY2022",
+     "v": 343.2
+    },
+    {
+     "q": "FY2023",
+     "v": 429.5
+    },
+    {
+     "q": "FY2024",
+     "v": 536.0
+    },
+    {
+     "q": "FY2025",
+     "v": 633.3
+    }
+   ],
+   "period_type": "annual",
+   "frequency": "annual",
+   "type": "Geography",
+   "pv_score": 8,
+   "signal": "633,3 M€ de revenu net en Amerique du Nord en 2025, 27% du total et pres de cinq fois le niveau de 2020",
+   "description_fr": "Revenu net par zone, note de segmentation des comptes consolides. Le revenu net est rattache au lieu de facturation du client : l'Amerique du Nord inclut donc des distributeurs en ligne dont le siege est en Asie-Pacifique. La somme des quatre zones egale le revenu net consolide de l'exercice.",
+   "description_en": "Net revenue by region from the segment note of the consolidated accounts. The four regions add up to consolidated net revenue.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "GEO_APAC",
+   "name_fr": "Revenu net en Asie-Pacifique",
+   "name_en": "Net revenue Asia-Pacific",
+   "value": 236.5,
+   "unit": "M€",
+   "yoy": "+14.4%",
+   "history": [
+    {
+     "q": "FY2020",
+     "v": 65.0
+    },
+    {
+     "q": "FY2021",
+     "v": 96.1
+    },
+    {
+     "q": "FY2022",
+     "v": 142.3
+    },
+    {
+     "q": "FY2023",
+     "v": 182.3
+    },
+    {
+     "q": "FY2024",
+     "v": 206.7
+    },
+    {
+     "q": "FY2025",
+     "v": 236.5
+    }
+   ],
+   "period_type": "annual",
+   "frequency": "annual",
+   "type": "Geography",
+   "pv_score": 8,
+   "signal": "236,5 M€ de revenu net en Asie-Pacifique en 2025, 10% du total, la zone accelerant a 14% de croissance publiee au second semestre",
+   "description_fr": "Revenu net par zone, note de segmentation des comptes consolides. Le revenu net est rattache au lieu de facturation du client : l'Amerique du Nord inclut donc des distributeurs en ligne dont le siege est en Asie-Pacifique. La somme des quatre zones egale le revenu net consolide de l'exercice.",
+   "description_en": "Net revenue by region from the segment note of the consolidated accounts. The four regions add up to consolidated net revenue.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "GEO_LATAM",
+   "name_fr": "Revenu net en Amerique latine",
+   "name_en": "Net revenue Latin America",
+   "value": 133.8,
+   "unit": "M€",
+   "yoy": "+25.7%",
+   "history": [
+    {
+     "q": "FY2020",
+     "v": 60.1
+    },
+    {
+     "q": "FY2021",
+     "v": 74.7
+    },
+    {
+     "q": "FY2022",
+     "v": 97.8
+    },
+    {
+     "q": "FY2023",
+     "v": 106.0
+    },
+    {
+     "q": "FY2024",
+     "v": 106.4
+    },
+    {
+     "q": "FY2025",
+     "v": 133.8
+    }
+   ],
+   "period_type": "annual",
+   "frequency": "annual",
+   "type": "Geography",
+   "pv_score": 8,
+   "signal": "133,8 M€ de revenu net en Amerique latine en 2025, +26% apres deux exercices de stagnation, portes par le Bresil et le Mexique",
+   "description_fr": "Revenu net par zone, note de segmentation des comptes consolides. Le revenu net est rattache au lieu de facturation du client : l'Amerique du Nord inclut donc des distributeurs en ligne dont le siege est en Asie-Pacifique. La somme des quatre zones egale le revenu net consolide de l'exercice.",
+   "description_en": "Net revenue by region from the segment note of the consolidated accounts. The four regions add up to consolidated net revenue.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "SEG_DIGITAL_REV",
+   "name_fr": "Revenu net du pilier Digital",
+   "name_en": "Digital net revenue",
+   "value": 696.1,
+   "unit": "M€",
+   "yoy": "+7.0%",
+   "history": [
+    {
+     "q": "H1-2025",
+     "v": 638.9
+    },
+    {
+     "q": "H2-2025",
+     "v": 696.1
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Segment",
+   "pv_score": 9,
+   "signal": "696,1 M€ de revenu net pour le pilier Digital au second semestre 2025, +7% en croissance publiee et +10% a taux de change constants, premier pilier du groupe avec 55% du revenu net",
+   "description_fr": "Revenu net du pilier commercial. Adyen n'a commence a chiffrer le revenu net par pilier qu'en 2025 : la serie demarre au premier semestre 2025. La variation annuelle affichee est celle publiee par la societe contre le meme semestre de l'exercice precedent, dont le montant en euros n'a pas ete chiffre. Au premier trimestre 2026, le revenu net du pilier atteint 349,6 M€, en hausse de 9% en croissance publiee et de 13% a taux de change constants. La somme des trois piliers egale le revenu net consolide de la periode.",
+   "description_en": "Net revenue by commercial pillar, first disclosed in 2025. The three pillars add up to consolidated net revenue.",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "Segments"
+  },
+  {
+   "short": "SEG_UC_REV",
+   "name_fr": "Revenu net du pilier Unified Commerce",
+   "name_en": "Unified Commerce net revenue",
+   "value": 431.3,
+   "unit": "M€",
+   "yoy": "+29.0%",
+   "history": [
+    {
+     "q": "H1-2025",
+     "v": 334.1
+    },
+    {
+     "q": "H2-2025",
+     "v": 431.3
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Segment",
+   "pv_score": 9,
+   "signal": "431,3 M€ de revenu net pour le pilier Unified Commerce au second semestre 2025, +29% en croissance publiee et +33% a taux de change constants, avec un volume traite en hausse de 30%",
+   "description_fr": "Revenu net du pilier commercial. Adyen n'a commence a chiffrer le revenu net par pilier qu'en 2025 : la serie demarre au premier semestre 2025. La variation annuelle affichee est celle publiee par la societe contre le meme semestre de l'exercice precedent, dont le montant en euros n'a pas ete chiffre. Au premier trimestre 2026, le revenu net du pilier atteint 196,2 M€, en hausse de 24% en croissance publiee et de 28% a taux de change constants. La somme des trois piliers egale le revenu net consolide de la periode.",
+   "description_en": "Net revenue by commercial pillar, first disclosed in 2025. The three pillars add up to consolidated net revenue.",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "Segments"
+  },
+  {
+   "short": "SEG_PLAT_REV",
+   "name_fr": "Revenu net du pilier Platforms",
+   "name_en": "Platforms net revenue",
+   "value": 143.3,
+   "unit": "M€",
+   "yoy": "+45.0%",
+   "history": [
+    {
+     "q": "H1-2025",
+     "v": 120.5
+    },
+    {
+     "q": "H2-2025",
+     "v": 143.3
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Segment",
+   "pv_score": 9,
+   "signal": "143,3 M€ de revenu net pour le pilier Platforms au second semestre 2025, +45% sur un an en croissance publiee et +49% a taux de change constants, pilier le plus dynamique du groupe",
+   "description_fr": "Revenu net du pilier commercial. Adyen n'a commence a chiffrer le revenu net par pilier qu'en 2025 : la serie demarre au premier semestre 2025. La variation annuelle affichee est celle publiee par la societe contre le meme semestre de l'exercice precedent, dont le montant en euros n'a pas ete chiffre. Au premier trimestre 2026, le revenu net du pilier atteint 75,0 M€, en hausse de 35% en croissance publiee et de 40% a taux de change constants. La somme des trois piliers egale le revenu net consolide de la periode.",
+   "description_en": "Net revenue by commercial pillar, first disclosed in 2025. The three pillars add up to consolidated net revenue.",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "Segments"
+  },
+  {
+   "short": "SEG_DIGITAL_VOL",
+   "name_fr": "Volume traite du pilier Digital",
+   "name_en": "Digital processed volume",
+   "value": 383.5,
+   "unit": "Mds €",
+   "yoy": "-4.1%",
+   "history": [
+    {
+     "q": "H2-2022",
+     "v": 253.8
+    },
+    {
+     "q": "H1-2023",
+     "v": 267.1
+    },
+    {
+     "q": "H2-2023",
+     "v": 338.4
+    },
+    {
+     "q": "H1-2024",
+     "v": 399.9
+    },
+    {
+     "q": "H2-2024",
+     "v": 383.5
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Segment",
+   "pv_score": 8,
+   "signal": "383,5 Mds € traites par le pilier Digital au second semestre 2024, en repli de 4% du fait d'un client unique a tres gros volume, pour 783,4 Mds € sur l'exercice",
+   "description_fr": "Volume traite par pilier commercial. Adyen a chiffre ces volumes du second semestre 2022 au second semestre 2024 puis est passe a une communication en taux de croissance seuls : la serie s'arrete donc a fin 2024. La somme des trois piliers egale le volume traite consolide de la periode.",
+   "description_en": "Processed volume by commercial pillar, disclosed in absolute terms from H2 2022 to H2 2024 only. The three pillars add up to total processed volume.",
+   "last_data_date": "2024-12-31",
+   "is_short_history": true,
+   "story_category": "Segments"
+  },
+  {
+   "short": "SEG_UC_VOL",
+   "name_fr": "Volume traite du pilier Unified Commerce",
+   "name_en": "Unified Commerce processed volume",
+   "value": 194.2,
+   "unit": "Mds €",
+   "yoy": "+38.2%",
+   "history": [
+    {
+     "q": "H2-2022",
+     "v": 116.1
+    },
+    {
+     "q": "H1-2023",
+     "v": 109.2
+    },
+    {
+     "q": "H2-2023",
+     "v": 144.2
+    },
+    {
+     "q": "H1-2024",
+     "v": 140.5
+    },
+    {
+     "q": "H2-2024",
+     "v": 194.2
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Segment",
+   "pv_score": 8,
+   "signal": "194,2 Mds € traites par le pilier Unified Commerce au second semestre 2024, +35% sur un an, la diversification depassant le luxe et le petit commerce",
+   "description_fr": "Volume traite par pilier commercial. Adyen a chiffre ces volumes du second semestre 2022 au second semestre 2024 puis est passe a une communication en taux de croissance seuls : la serie s'arrete donc a fin 2024. La somme des trois piliers egale le volume traite consolide de la periode.",
+   "description_en": "Processed volume by commercial pillar, disclosed in absolute terms from H2 2022 to H2 2024 only. The three pillars add up to total processed volume.",
+   "last_data_date": "2024-12-31",
+   "is_short_history": true,
+   "story_category": "Segments"
+  },
+  {
+   "short": "SEG_PLAT_VOL",
+   "name_fr": "Volume traite du pilier Platforms",
+   "name_en": "Platforms processed volume",
+   "value": 88.5,
+   "unit": "Mds €",
+   "yoy": "+43.9%",
+   "history": [
+    {
+     "q": "H2-2022",
+     "v": 51.8
+    },
+    {
+     "q": "H1-2023",
+     "v": 49.7
+    },
+    {
+     "q": "H2-2023",
+     "v": 61.5
+    },
+    {
+     "q": "H1-2024",
+     "v": 79.1
+    },
+    {
+     "q": "H2-2024",
+     "v": 88.5
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Segment",
+   "pv_score": 8,
+   "signal": "88,5 Mds € traites par le pilier Platforms au second semestre 2024, +44% sur un an et +58% hors eBay, pilier le plus dynamique en volume",
+   "description_fr": "Volume traite par pilier commercial. Adyen a chiffre ces volumes du second semestre 2022 au second semestre 2024 puis est passe a une communication en taux de croissance seuls : la serie s'arrete donc a fin 2024. La somme des trois piliers egale le volume traite consolide de la periode.",
+   "description_en": "Processed volume by commercial pillar, disclosed in absolute terms from H2 2022 to H2 2024 only. The three pillars add up to total processed volume.",
+   "last_data_date": "2024-12-31",
+   "is_short_history": true,
+   "story_category": "Segments"
+  },
+  {
+   "short": "UC_MULTIREG",
+   "name_fr": "Clients Unified Commerce presents dans plusieurs regions",
+   "name_en": "Unified Commerce customers processing in multiple regions",
+   "value": 596,
+   "unit": "clients",
+   "yoy": "+3.8%",
+   "history": [
+    {
+     "q": "H1-2024",
+     "v": 540
+    },
+    {
+     "q": "H2-2024",
+     "v": 574
+    },
+    {
+     "q": "H1-2025",
+     "v": 591
+    },
+    {
+     "q": "H2-2025",
+     "v": 596
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Operational",
+   "pv_score": 7,
+   "signal": "596 clients Unified Commerce traitent des paiements dans plusieurs regions fin 2025, 22 de plus qu'un an plus tot",
+   "description_fr": "Indicateur d'adoption publie dans les lettres aux actionnaires depuis le premier semestre 2024. Aucune valeur n'est derivee : il s'agit d'un encours de fin de periode.",
+   "description_en": "Adoption indicator published in the shareholder letters since H1 2024. No derived points: this is an end-of-period stock.",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "Adoption"
+  },
+  {
+   "short": "UC_SCALE",
+   "name_fr": "Clients Unified Commerce omnicanaux a grande echelle",
+   "name_en": "Unified Commerce customers processing across channels at scale",
+   "value": 467,
+   "unit": "clients",
+   "yoy": "+12.0%",
+   "history": [
+    {
+     "q": "H1-2024",
+     "v": 357
+    },
+    {
+     "q": "H2-2024",
+     "v": 417
+    },
+    {
+     "q": "H1-2025",
+     "v": 451
+    },
+    {
+     "q": "H2-2025",
+     "v": 467
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Operational",
+   "pv_score": 7,
+   "signal": "467 clients traitent au moins 10 M€ en magasin et en ligne avec plus de 50 M€ de volume total sur douze mois fin 2025, 50 de plus qu'un an plus tot",
+   "description_fr": "Indicateur d'adoption publie dans les lettres aux actionnaires depuis le premier semestre 2024. Aucune valeur n'est derivee : il s'agit d'un encours de fin de periode.",
+   "description_en": "Adoption indicator published in the shareholder letters since H1 2024. No derived points: this is an end-of-period stock.",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "Adoption"
+  },
+  {
+   "short": "UC_TERMINALS",
+   "name_fr": "Terminaux Unified Commerce actifs",
+   "name_en": "Transacting Unified Commerce terminals",
+   "value": 456,
+   "unit": "milliers de terminaux",
+   "yoy": "+25.3%",
+   "history": [
+    {
+     "q": "H1-2024",
+     "v": 292
+    },
+    {
+     "q": "H2-2024",
+     "v": 364
+    },
+    {
+     "q": "H1-2025",
+     "v": 402
+    },
+    {
+     "q": "H2-2025",
+     "v": 456
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Operational",
+   "pv_score": 7,
+   "signal": "456 000 terminaux Unified Commerce actifs fin 2025, 92 000 de plus sur un an, preuve de l'ancrage physique de la plateforme",
+   "description_fr": "Indicateur d'adoption publie dans les lettres aux actionnaires depuis le premier semestre 2024. Aucune valeur n'est derivee : il s'agit d'un encours de fin de periode.",
+   "description_en": "Adoption indicator published in the shareholder letters since H1 2024. No derived points: this is an end-of-period stock.",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "Adoption"
+  },
+  {
+   "short": "PLAT_1BN",
+   "name_fr": "Plateformes traitant plus d'un milliard d'euros par an",
+   "name_en": "Platform customers processing over one billion euros annually",
+   "value": 31,
+   "unit": "plateformes",
+   "yoy": "+10.7%",
+   "history": [
+    {
+     "q": "H1-2024",
+     "v": 22
+    },
+    {
+     "q": "H2-2024",
+     "v": 28
+    },
+    {
+     "q": "H1-2025",
+     "v": 32
+    },
+    {
+     "q": "H2-2025",
+     "v": 31
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Operational",
+   "pv_score": 7,
+   "signal": "31 plateformes clientes traitent plus d'un milliard d'euros par an fin 2025, contre 28 un an plus tot et 22 mi 2024",
+   "description_fr": "Indicateur d'adoption publie dans les lettres aux actionnaires depuis le premier semestre 2024. Aucune valeur n'est derivee : il s'agit d'un encours de fin de periode.",
+   "description_en": "Adoption indicator published in the shareholder letters since H1 2024. No derived points: this is an end-of-period stock.",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "Adoption"
+  },
+  {
+   "short": "PLAT_BIZ",
+   "name_fr": "Entreprises actives sur le pilier Platforms",
+   "name_en": "Active business customers on Platforms",
+   "value": 220,
+   "unit": "milliers d'entreprises",
+   "yoy": "+51.7%",
+   "history": [
+    {
+     "q": "H1-2024",
+     "v": 104
+    },
+    {
+     "q": "H2-2024",
+     "v": 145
+    },
+    {
+     "q": "H1-2025",
+     "v": 193
+    },
+    {
+     "q": "H2-2025",
+     "v": 220
+    }
+   ],
+   "period_type": "semester",
+   "frequency": "semiannual",
+   "type": "Operational",
+   "pv_score": 7,
+   "signal": "220 000 entreprises actives sur le pilier Platforms fin 2025, contre 145 000 un an plus tot, soit une hausse de 52%",
+   "description_fr": "Indicateur d'adoption publie dans les lettres aux actionnaires depuis le premier semestre 2024. Aucune valeur n'est derivee : il s'agit d'un encours de fin de periode.",
+   "description_en": "Adoption indicator published in the shareholder letters since H1 2024. No derived points: this is an end-of-period stock.",
+   "last_data_date": "2025-12-31",
+   "is_short_history": true,
+   "story_category": "Adoption"
+  }
+ ]
+}

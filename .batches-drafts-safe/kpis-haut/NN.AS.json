@@ -1,0 +1,1684 @@
+{
+ "ticker": "NN.AS",
+ "extracted_at": "2026-08-09T00:00:00Z",
+ "extracted_by": "CONV-AEXDAX-P2-EXTRACT-NN.AS",
+ "sources_used": [
+  "data-lake/NN.AS/ir/CP/NN.AS_CP_FY2016..FY2025 (communiques annuels : OCG, resultat operationnel, resultat net, resultat avant impots, VNB, APE, ratio combine, Solvabilite II, dividende, flux vers la holding, primes brutes, segments)",
+  "data-lake/NN.AS/ir/CP/NN.AS_CP_S1-2016..S1-2026 (communiques semestriels : memes agregats au 30 juin, CSM, encours retraite a cotisations definies, capitaux propres)",
+  "data-lake/NN.AS/ir/URD/NN.AS_URD_FY2023_2024-03-18, FY2024_2025-03-13, FY2025_2026-03-05 (effectifs headcount 2021-2025)",
+  "data-lake/NN.AS/ir/CP/NN.AS_CP_S1-2026_2026-08-05 (dernier point publie : S1 2026, publie le 6 aout 2026)"
+ ],
+ "hero_kpi": "OCG",
+ "hero_kpi_rationale": "Generation de capital operationnelle : NN Group la designe explicitement comme son indicateur cle de performance. Serie semestrielle continue de 2019 a 2026, insensible a la rupture IFRS 17 puisque assise sur Solvabilite II, en hausse quasi ininterrompue de 543 M euros au S1 2020 a 1 073 M euros au S1 2026. C'est elle qui finance le dividende progressif et le rachat d'actions annuel, et elle porte l'objectif public de 2,2 Mds euros en 2028.",
+ "_ordering_rationale": "Hero OCG, puis les KPI sectoriels assurance (Solvabilite II, valeur des affaires nouvelles, ratio combine, CSM, encours retraite), puis les comptes consolides semestriels (resultat operationnel, resultat net, resultat avant impots, flux vers la holding), la remuneration de l'actionnaire (dividende, BPA), les segments en OCG puis en resultat operationnel, enfin effectifs et croissances publiee et comparable.",
+ "_notes": "Fréquence : NN Group a publié des résultats trimestriels de 2016 à 2019 puis est passé au rythme semestriel (1H/2H) à partir de 2020. Toutes les séries de flux sont donc publiées en semestriel (libellés H1-aaaa / H2-aaaa, frequency semiannual) : un mélange trimestre/semestre dans une même série serait filtré par le loader et la série trimestrielle 2016-2019 seule s'arrêterait en 2019. S2 : publié directement par NN Group dans les communiqués annuels de 2020 à 2023 (colonne 2H) et repris verbatim ; dérivé (FY moins S1) pour 2016-2019 et pour 2024-2025, exercices où le communiqué annuel ne publie plus que l'année complète. Les points dérivés sont listés dans _derived_points de chaque KPI. Aucune dérivation sur les ratios (Solvabilité II, ratio combiné), les encours (CSM, encours retraite, capitaux propres, total de bilan), le BPA, le dividende ou les effectifs. RUPTURE IFRS 17 / IFRS 9 au 1er janvier 2023 : seul l'exercice 2022 a été retraité par NN Group. Les séries sensibles à la norme démarrent donc en 2022 retraité (résultat net, capitaux propres, BPA, primes brutes émises, ratio combiné, CSM) ou en 2023 (résultat opérationnel, résultat avant impôts, résultats et OCG par segment, total de bilan). Ordres de grandeur de la rupture : capitaux propres 32,9 Mds € fin 2021 en IFRS 4 contre 19,3 Mds € fin 2022 retraité ; résultat net 2022 de 1 562 M€ en IFRS 4 contre 1 634 M€ retraité ; résultat opérationnel 2022 de 1 743 M€ en IFRS 4 contre environ 2 350 M€ retraité ; BPA 2022 de 5,09 € contre 5,33 € retraité ; ratio combiné 2022 de 95,8% contre 92,3% retraité. Les valeurs publiées avant 2023 en IFRS 4 ne sont PAS reportées dans ces séries. Les séries insensibles à la norme comptable, parce qu'assises sur Solvabilité II ou sur des flux de trésorerie, couvrent tout l'historique disponible : ratio de Solvabilité II et valeur des affaires nouvelles sur 2016-2026, ventes nouvelles vie sur 2016-2026, génération de capital opérationnelle sur 2019-2026, flux de trésorerie vers la holding sur 2020-2026, dividende par action sur 2016-2025. CONTRÔLES PASSÉS. Somme des six segments égale le consolidé : OCG exact sur S2-2023 (904), S1-2024 (959), S2-2024 (963), S1-2025 (1 020) et S2-2025 (1 069), et à 1 M€ d'arrondi près sur S1-2023 (998 contre 997) et S1-2026 (1 072 contre 1 073) ; résultat opérationnel exact sur S2-2023 (1 128) et à 1 ou 2 M€ d'arrondi près sur les six autres semestres, écart d'arrondi propre à NN Group (segments 2 575 contre 2 574 publiés en 2024, 3 001 contre 3 002 en 2025). S1 + S2 = FY vérifié sur toutes les séries additives, exact sauf trois arrondis de 1 M€ dus à NN Group : OCG 2019 (697 + 653 = 1 350 contre 1 349 publié), OCG 2023 (997 + 904 = 1 901 contre 1 902), VNB 2023 (195 + 134 = 329 contre 330) et flux vers la holding 2020 (458 + 613 = 1 071 contre 1 070). Ordre chronologique vérifié. Aucune valeur aberrante. La notion de somme des segments égale le chiffre d'affaires ne s'applique pas : NN Group ne publie pas de ventilation du chiffre d'affaires par segment ni par zone géographique, les segments sont définis par marché (Vie Pays-Bas, Non-vie Pays-Bas, Assurance Europe, Vie Japon, Banque, Autres) et suivis en OCG et en résultat opérationnel, pas en primes. RUPTURES DE PÉRIMÈTRE documentées et respectées : acquisition de Delta Lloyd consolidée à partir d'avril 2017 (le ratio de Solvabilité II chute de 241% fin 2016 à 196% au 30 juin 2017) ; cession de NN Investment Partners à Goldman Sachs en avril 2022, le segment Gestion d'actifs disparaît des séries à partir de 2022 et n'est pas publié en série ; sortie de NN Bank du périmètre du ratio de Solvabilité II groupe au premier semestre 2026, l'OCG Banque devient une mesure de remontées de dividendes à compter de S1 2026. Ratio de Solvabilité II 2019 retenu à 218% tel que publié dans le communiqué de l'exercice 2019, retraité à 224% dans le communiqué 2020 après changements de modèle. Carnet de commandes sans objet pour un assureur : l'équivalent économique est la marge sur services contractuels (CSM), stock de profits futurs non encore reconnus, publiée ici. Rachats d'actions non publiés en série : NN Group annonce des programmes annuels (250 M€ en 2019, 2020 et 2022, 300 M€ par an depuis 2023) mais ne publie pas de montant exécuté homogène par période dans les communiqués de résultats, aucune série fiable ne peut être construite sans invention.",
+ "kpis": [
+  {
+   "short": "OCG",
+   "name_fr": "Génération de capital opérationnelle (OCG)",
+   "name_en": "Operating capital generation",
+   "value": 1073,
+   "unit": "M €",
+   "yoy": "+5.2%",
+   "history": [
+    {
+     "q": "H1-2019",
+     "v": 697
+    },
+    {
+     "q": "H2-2019",
+     "v": 653
+    },
+    {
+     "q": "H1-2020",
+     "v": 543
+    },
+    {
+     "q": "H2-2020",
+     "v": 450
+    },
+    {
+     "q": "H1-2021",
+     "v": 780
+    },
+    {
+     "q": "H2-2021",
+     "v": 804
+    },
+    {
+     "q": "H1-2022",
+     "v": 899
+    },
+    {
+     "q": "H2-2022",
+     "v": 812
+    },
+    {
+     "q": "H1-2023",
+     "v": 997
+    },
+    {
+     "q": "H2-2023",
+     "v": 904
+    },
+    {
+     "q": "H1-2024",
+     "v": 959
+    },
+    {
+     "q": "H2-2024",
+     "v": 963
+    },
+    {
+     "q": "H1-2025",
+     "v": 1020
+    },
+    {
+     "q": "H2-2025",
+     "v": 1069
+    },
+    {
+     "q": "H1-2026",
+     "v": 1073
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 10,
+   "signal": "1 073 M€ au S1 2026, +5,2% sur un an et huitième semestre de hausse ; objectif 2,2 Mds € en 2028, contre 2 089 M€ réalisés en 2025",
+   "description_fr": "Capital réglementaire Solvabilité II généré par l'activité sur la période, avant éléments de marché. Indicateur clé revendiqué par NN Group, il finance le dividende et les rachats d'actions.",
+   "description_en": "Solvency II capital generated by the business over the period. NN Group's self-declared key performance indicator.",
+   "last_data_date": "2026-06-30",
+   "_specific_to": "Assurance / Solvabilité II",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "SII",
+   "name_fr": "Ratio de Solvabilité II",
+   "name_en": "Solvency II ratio",
+   "value": 224,
+   "unit": "%",
+   "yoy": "+16 pts",
+   "history": [
+    {
+     "q": "H1-2016",
+     "v": 252
+    },
+    {
+     "q": "H2-2016",
+     "v": 241
+    },
+    {
+     "q": "H1-2017",
+     "v": 196
+    },
+    {
+     "q": "H2-2017",
+     "v": 199
+    },
+    {
+     "q": "H1-2018",
+     "v": 226
+    },
+    {
+     "q": "H2-2018",
+     "v": 230
+    },
+    {
+     "q": "H1-2019",
+     "v": 210
+    },
+    {
+     "q": "H2-2019",
+     "v": 218
+    },
+    {
+     "q": "H1-2020",
+     "v": 221
+    },
+    {
+     "q": "H2-2020",
+     "v": 210
+    },
+    {
+     "q": "H1-2021",
+     "v": 209
+    },
+    {
+     "q": "H2-2021",
+     "v": 213
+    },
+    {
+     "q": "H1-2022",
+     "v": 196
+    },
+    {
+     "q": "H2-2022",
+     "v": 197
+    },
+    {
+     "q": "H1-2023",
+     "v": 201
+    },
+    {
+     "q": "H2-2023",
+     "v": 197
+    },
+    {
+     "q": "H1-2024",
+     "v": 192
+    },
+    {
+     "q": "H2-2024",
+     "v": 194
+    },
+    {
+     "q": "H1-2025",
+     "v": 208
+    },
+    {
+     "q": "H2-2025",
+     "v": 220
+    },
+    {
+     "q": "H1-2026",
+     "v": 224
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 9,
+   "signal": "224% au 30 juin 2026, plus haut de la période, porté par la sortie de NN Bank du périmètre du ratio groupe ; NN Life à 213%",
+   "description_fr": "Ratio de solvabilité réglementaire Solvabilité II du groupe, fonds propres éligibles rapportés au capital de solvabilité requis. Mesure de référence de la solidité d'un assureur.",
+   "description_en": "Group regulatory Solvency II ratio: eligible own funds over solvency capital requirement.",
+   "last_data_date": "2026-06-30",
+   "_specific_to": "Assurance / Solvabilité II"
+  },
+  {
+   "short": "OR",
+   "name_fr": "Résultat opérationnel",
+   "name_en": "Operating result",
+   "value": 1507,
+   "unit": "M €",
+   "yoy": "+4.4%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 1400
+    },
+    {
+     "q": "H2-2023",
+     "v": 1128
+    },
+    {
+     "q": "H1-2024",
+     "v": 1329
+    },
+    {
+     "q": "H2-2024",
+     "v": 1245
+    },
+    {
+     "q": "H1-2025",
+     "v": 1443
+    },
+    {
+     "q": "H2-2025",
+     "v": 1559
+    },
+    {
+     "q": "H1-2026",
+     "v": 1507
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 9,
+   "signal": "1 507 M€ au S1 2026, +4,4% sur un an ; 3 002 M€ sur 2025, en hausse de 16,6%",
+   "description_fr": "Résultat opérationnel avant impôts du groupe, hors éléments non opérationnels et exceptionnels. Série en norme IFRS 17 uniquement : les exercices antérieurs à 2022 ne sont pas comparables.",
+   "description_en": "Group operating result before tax, IFRS 17 basis only (2023 accounting break).",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2023",
+    "H2-2024",
+    "H2-2025"
+   ],
+   "_value_note": "Série démarrant en 2023 : rupture comptable IFRS 17 au 1er janvier 2023, seul l'exercice 2022 a été retraité."
+  },
+  {
+   "short": "NET",
+   "name_fr": "Résultat net",
+   "name_en": "Net result",
+   "value": 1066,
+   "unit": "M €",
+   "yoy": "+172.5%",
+   "history": [
+    {
+     "q": "H1-2022",
+     "v": 1741
+    },
+    {
+     "q": "H2-2022",
+     "v": -107
+    },
+    {
+     "q": "H1-2023",
+     "v": 586
+    },
+    {
+     "q": "H2-2023",
+     "v": 586
+    },
+    {
+     "q": "H1-2024",
+     "v": 648
+    },
+    {
+     "q": "H2-2024",
+     "v": 935
+    },
+    {
+     "q": "H1-2025",
+     "v": 391
+    },
+    {
+     "q": "H2-2025",
+     "v": 797
+    },
+    {
+     "q": "H1-2026",
+     "v": 1066
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 8,
+   "signal": "1 066 M€ au S1 2026 contre 391 M€ un an plus tôt, grâce à des réévaluations positives et à l'absence de résultat de cession",
+   "description_fr": "Résultat net part du groupe. Série retraitée IFRS 17 à partir de 2022 : les exercices 2016 à 2021 publiés en IFRS 4 ne sont pas comparables.",
+   "description_en": "Net result attributable to shareholders, IFRS 17 restated from 2022.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ],
+   "_value_note": "2022 retraité IFRS 17 (1 634 M€) contre 1 562 M€ publiés en IFRS 4."
+  },
+  {
+   "short": "RBT",
+   "name_fr": "Résultat avant impôts",
+   "name_en": "Result before tax",
+   "value": 1351,
+   "unit": "M €",
+   "yoy": "+155.9%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 758
+    },
+    {
+     "q": "H2-2023",
+     "v": 774
+    },
+    {
+     "q": "H1-2024",
+     "v": 824
+    },
+    {
+     "q": "H2-2024",
+     "v": 1112
+    },
+    {
+     "q": "H1-2025",
+     "v": 528
+    },
+    {
+     "q": "H2-2025",
+     "v": 981
+    },
+    {
+     "q": "H1-2026",
+     "v": 1351
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 6,
+   "signal": "1 351 M€ au S1 2026 contre 528 M€ un an plus tôt, taux d'impôt effectif de 20,5%",
+   "description_fr": "Résultat avant impôts du groupe, après éléments non opérationnels, éléments exceptionnels et résultats de cession. Norme IFRS 17.",
+   "description_en": "Group result before tax, IFRS 17 basis.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "FCF",
+   "name_fr": "Flux de trésorerie libre vers la holding",
+   "name_en": "Free cash flow to the holding",
+   "value": 922,
+   "unit": "M €",
+   "yoy": "+6.9%",
+   "history": [
+    {
+     "q": "H1-2020",
+     "v": 458
+    },
+    {
+     "q": "H2-2020",
+     "v": 613
+    },
+    {
+     "q": "H1-2021",
+     "v": 779
+    },
+    {
+     "q": "H2-2021",
+     "v": 693
+    },
+    {
+     "q": "H1-2022",
+     "v": 735
+    },
+    {
+     "q": "H2-2022",
+     "v": 158
+    },
+    {
+     "q": "H1-2023",
+     "v": 832
+    },
+    {
+     "q": "H2-2023",
+     "v": -362
+    },
+    {
+     "q": "H1-2024",
+     "v": 899
+    },
+    {
+     "q": "H2-2024",
+     "v": 620
+    },
+    {
+     "q": "H1-2025",
+     "v": 863
+    },
+    {
+     "q": "H2-2025",
+     "v": 757
+    },
+    {
+     "q": "H1-2026",
+     "v": 922
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 8,
+   "signal": "922 M€ au S1 2026, +6,9% sur un an ; 1 620 M€ sur 2025, objectif de plus de 1,8 Md € en 2028",
+   "description_fr": "Variation de la position de trésorerie de la holding sur la période, hors acquisitions, cessions et opérations de capital. Mesure la trésorerie disponible pour la rémunération des actionnaires.",
+   "description_en": "Change in holding company cash capital position, excluding acquisitions, divestments and capital transactions.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "VNB",
+   "name_fr": "Valeur des affaires nouvelles (VNB)",
+   "name_en": "Value of new business",
+   "value": 275,
+   "unit": "M €",
+   "yoy": "+16.1%",
+   "history": [
+    {
+     "q": "H1-2016",
+     "v": 101
+    },
+    {
+     "q": "H2-2016",
+     "v": 113
+    },
+    {
+     "q": "H1-2017",
+     "v": 170
+    },
+    {
+     "q": "H2-2017",
+     "v": 175
+    },
+    {
+     "q": "H1-2018",
+     "v": 205
+    },
+    {
+     "q": "H2-2018",
+     "v": 186
+    },
+    {
+     "q": "H1-2019",
+     "v": 236
+    },
+    {
+     "q": "H2-2019",
+     "v": 122
+    },
+    {
+     "q": "H1-2020",
+     "v": 122
+    },
+    {
+     "q": "H2-2020",
+     "v": 144
+    },
+    {
+     "q": "H1-2021",
+     "v": 242
+    },
+    {
+     "q": "H2-2021",
+     "v": 186
+    },
+    {
+     "q": "H1-2022",
+     "v": 254
+    },
+    {
+     "q": "H2-2022",
+     "v": 177
+    },
+    {
+     "q": "H1-2023",
+     "v": 195
+    },
+    {
+     "q": "H2-2023",
+     "v": 134
+    },
+    {
+     "q": "H1-2024",
+     "v": 241
+    },
+    {
+     "q": "H2-2024",
+     "v": 154
+    },
+    {
+     "q": "H1-2025",
+     "v": 237
+    },
+    {
+     "q": "H2-2025",
+     "v": 205
+    },
+    {
+     "q": "H1-2026",
+     "v": 275
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 9,
+   "signal": "275 M€ au S1 2026, +16,1% sur un an, meilleur semestre depuis 2019 ; 442 M€ sur 2025",
+   "description_fr": "Valeur actualisée des profits futurs des contrats vie souscrits sur la période, nette du coût du capital. Mesure la rentabilité de la production nouvelle d'un assureur vie.",
+   "description_en": "Present value of future profits from life business written in the period, net of cost of capital.",
+   "last_data_date": "2026-06-30",
+   "_specific_to": "Assurance vie",
+   "_derived_points": [
+    "H2-2016",
+    "H2-2017",
+    "H2-2018",
+    "H2-2019",
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "APE",
+   "name_fr": "Ventes nouvelles vie (APE)",
+   "name_en": "New sales life insurance (APE)",
+   "value": 917,
+   "unit": "M €",
+   "yoy": "+22.3%",
+   "history": [
+    {
+     "q": "H1-2016",
+     "v": 762
+    },
+    {
+     "q": "H2-2016",
+     "v": 624
+    },
+    {
+     "q": "H1-2017",
+     "v": 1020
+    },
+    {
+     "q": "H2-2017",
+     "v": 771
+    },
+    {
+     "q": "H1-2018",
+     "v": 904
+    },
+    {
+     "q": "H2-2018",
+     "v": 736
+    },
+    {
+     "q": "H1-2019",
+     "v": 1188
+    },
+    {
+     "q": "H2-2019",
+     "v": 553
+    },
+    {
+     "q": "H1-2020",
+     "v": 620
+    },
+    {
+     "q": "H2-2020",
+     "v": 507
+    },
+    {
+     "q": "H1-2021",
+     "v": 743
+    },
+    {
+     "q": "H2-2021",
+     "v": 568
+    },
+    {
+     "q": "H1-2022",
+     "v": 811
+    },
+    {
+     "q": "H2-2022",
+     "v": 523
+    },
+    {
+     "q": "H1-2023",
+     "v": 743
+    },
+    {
+     "q": "H2-2023",
+     "v": 486
+    },
+    {
+     "q": "H1-2024",
+     "v": 801
+    },
+    {
+     "q": "H2-2024",
+     "v": 547
+    },
+    {
+     "q": "H1-2025",
+     "v": 750
+    },
+    {
+     "q": "H2-2025",
+     "v": 568
+    },
+    {
+     "q": "H1-2026",
+     "v": 917
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 7,
+   "signal": "917 M€ au S1 2026, +22,3%, portés par le transfert d'un fonds de pension à compte séparé aux Pays-Bas et +10% en Europe",
+   "description_fr": "Primes annualisées équivalentes des affaires nouvelles vie : primes périodiques plus un dixième des primes uniques. Mesure standard du volume de production vie.",
+   "description_en": "Annual premium equivalent of new life sales: regular premiums plus one tenth of single premiums.",
+   "last_data_date": "2026-06-30",
+   "_specific_to": "Assurance vie",
+   "_derived_points": [
+    "H2-2016",
+    "H2-2017",
+    "H2-2018",
+    "H2-2019",
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "DPS",
+   "name_fr": "Dividende par action",
+   "name_en": "Dividend per ordinary share",
+   "value": 3.88,
+   "unit": "€",
+   "yoy": "+12.8%",
+   "history": [
+    {
+     "q": "FY2016",
+     "v": 1.55
+    },
+    {
+     "q": "FY2017",
+     "v": 1.66
+    },
+    {
+     "q": "FY2018",
+     "v": 1.9
+    },
+    {
+     "q": "FY2019",
+     "v": 2.16
+    },
+    {
+     "q": "FY2020",
+     "v": 2.33
+    },
+    {
+     "q": "FY2021",
+     "v": 2.49
+    },
+    {
+     "q": "FY2022",
+     "v": 2.79
+    },
+    {
+     "q": "FY2023",
+     "v": 3.2
+    },
+    {
+     "q": "FY2024",
+     "v": 3.44
+    },
+    {
+     "q": "FY2025",
+     "v": 3.88
+    }
+   ],
+   "frequency": "annual",
+   "pv_score": 9,
+   "signal": "3,88 € au titre de 2025, en hausse chaque année depuis 2016 soit 2,5 fois le niveau de départ ; acompte 2026 de 1,55 €, +12%",
+   "description_fr": "Dividende total par action ordinaire au titre de l'exercice : acompte versé en septembre plus solde proposé à l'assemblée générale. Politique de dividende par action progressif.",
+   "description_en": "Total dividend per ordinary share for the year: interim plus proposed final dividend.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "CR",
+   "name_fr": "Ratio combiné Non-vie Pays-Bas",
+   "name_en": "Combined ratio Netherlands Non-life",
+   "value": 90.5,
+   "unit": "%",
+   "yoy": "-0.7 pt",
+   "history": [
+    {
+     "q": "H1-2022",
+     "v": 93.5
+    },
+    {
+     "q": "H2-2022",
+     "v": 91.2
+    },
+    {
+     "q": "H1-2023",
+     "v": 90.1
+    },
+    {
+     "q": "H2-2023",
+     "v": 95.0
+    },
+    {
+     "q": "H1-2024",
+     "v": 92.2
+    },
+    {
+     "q": "H1-2025",
+     "v": 91.2
+    },
+    {
+     "q": "H1-2026",
+     "v": 90.5
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 8,
+   "signal": "90,5% au S1 2026, meilleur niveau de la série et sous la fourchette cible de 91 à 93% ; 92,9% sur 2025",
+   "description_fr": "Rapport des sinistres et frais aux primes acquises de l'activité dommages néerlandaise. Sous 100%, l'activité d'assurance est rentable avant produits financiers. Norme IFRS 17.",
+   "description_en": "Claims and expenses over earned premiums for Netherlands Non-life, IFRS 17 basis.",
+   "last_data_date": "2026-06-30",
+   "_specific_to": "Assurance dommages",
+   "_gap_note": "S2 2024 et S2 2025 non publiés : à partir de l'exercice 2024, NN Group ne publie plus de ratio combiné semestriel dans le communiqué annuel, seulement l'année complète (93,1% en 2024, 92,9% en 2025)."
+  },
+  {
+   "short": "CSM",
+   "name_fr": "Marge sur services contractuels (CSM) après impôts",
+   "name_en": "Contractual service margin after tax",
+   "value": 5993,
+   "unit": "M €",
+   "yoy": "+8.2%",
+   "history": [
+    {
+     "q": "H2-2022",
+     "v": 4858
+    },
+    {
+     "q": "H1-2023",
+     "v": 4909
+    },
+    {
+     "q": "H2-2023",
+     "v": 4861
+    },
+    {
+     "q": "H1-2024",
+     "v": 4814
+    },
+    {
+     "q": "H2-2024",
+     "v": 5458
+    },
+    {
+     "q": "H1-2025",
+     "v": 5538
+    },
+    {
+     "q": "H2-2025",
+     "v": 5934
+    },
+    {
+     "q": "H1-2026",
+     "v": 5993
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 8,
+   "signal": "5 993 M€ au 30 juin 2026, +8,2% sur un an et 23% au-dessus du niveau de fin 2022 ; croissance organique de 2% au S1 2026",
+   "description_fr": "Stock de profits futurs non encore reconnus sur les contrats d'assurance en portefeuille, après impôts. Créée par la norme IFRS 17, elle joue pour un assureur le rôle d'un carnet de commandes.",
+   "description_en": "Stock of unearned future profits on in-force insurance contracts, after tax. Introduced by IFRS 17.",
+   "last_data_date": "2026-06-30",
+   "_specific_to": "Assurance / IFRS 17"
+  },
+  {
+   "short": "AUMDC",
+   "name_fr": "Encours des retraites à cotisations définies",
+   "name_en": "Assets under management defined contribution pensions",
+   "value": 48.2,
+   "unit": "Mds €",
+   "yoy": "+23.0%",
+   "history": [
+    {
+     "q": "H1-2020",
+     "v": 22.3
+    },
+    {
+     "q": "H2-2020",
+     "v": 24.6
+    },
+    {
+     "q": "H1-2021",
+     "v": 27.4
+    },
+    {
+     "q": "H2-2021",
+     "v": 29.9
+    },
+    {
+     "q": "H1-2022",
+     "v": 27.0
+    },
+    {
+     "q": "H2-2022",
+     "v": 27.8
+    },
+    {
+     "q": "H1-2023",
+     "v": 30.2
+    },
+    {
+     "q": "H2-2023",
+     "v": 32.7
+    },
+    {
+     "q": "H1-2024",
+     "v": 35.9
+    },
+    {
+     "q": "H2-2024",
+     "v": 39.1
+    },
+    {
+     "q": "H1-2025",
+     "v": 39.2
+    },
+    {
+     "q": "H2-2025",
+     "v": 42.6
+    },
+    {
+     "q": "H1-2026",
+     "v": 48.2
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 9,
+   "signal": "48,2 Mds € au 30 juin 2026, +13,1% en six mois avec 1,7 Md € de collecte nette ; encours plus que doublé depuis 2020",
+   "description_fr": "Encours gérés de l'activité de retraite à cotisations définies aux Pays-Bas. La réforme des retraites néerlandaise transfère les régimes à prestations définies vers ce modèle.",
+   "description_en": "Assets under management of the Dutch defined contribution pension business.",
+   "last_data_date": "2026-06-30",
+   "_specific_to": "Retraite Pays-Bas"
+  },
+  {
+   "short": "GWP",
+   "name_fr": "Primes brutes émises",
+   "name_en": "Gross premiums written",
+   "value": 13256,
+   "unit": "M €",
+   "yoy": "-5.2%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 13478
+    },
+    {
+     "q": "FY2023",
+     "v": 13187
+    },
+    {
+     "q": "FY2024",
+     "v": 13978
+    },
+    {
+     "q": "FY2025",
+     "v": 13256
+    }
+   ],
+   "frequency": "annual",
+   "pv_score": 7,
+   "signal": "13,3 Mds € en 2025, en recul de 5,2% après une année 2024 dopée par les rachats de régimes de retraite ; 7,4 Mds € au S1 2026",
+   "description_fr": "Primes brutes émises consolidées, tous métiers d'assurance. Série en norme IFRS 17 uniquement.",
+   "description_en": "Consolidated gross premiums written, IFRS 17 basis.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "EQ",
+   "name_fr": "Capitaux propres part du groupe",
+   "name_en": "Shareholders' equity (parent)",
+   "value": 19254,
+   "unit": "M €",
+   "yoy": "-2.1%",
+   "history": [
+    {
+     "q": "H2-2022",
+     "v": 19265
+    },
+    {
+     "q": "H1-2023",
+     "v": 19374
+    },
+    {
+     "q": "H2-2023",
+     "v": 19624
+    },
+    {
+     "q": "H1-2024",
+     "v": 19390
+    },
+    {
+     "q": "H2-2024",
+     "v": 19831
+    },
+    {
+     "q": "H1-2025",
+     "v": 19662
+    },
+    {
+     "q": "H2-2025",
+     "v": 19078
+    },
+    {
+     "q": "H1-2026",
+     "v": 19254
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 5,
+   "signal": "19,3 Mds € au 30 juin 2026, quasi stables depuis le passage à IFRS 17 qui avait ramené les capitaux propres de 32,9 à 19,3 Mds €",
+   "description_fr": "Capitaux propres attribuables aux actionnaires de la maison mère. Le passage à IFRS 17 et IFRS 9 au 1er janvier 2023 a mécaniquement divisé ce montant par près de deux : les séries antérieures ne sont pas comparables.",
+   "description_en": "Shareholders' equity, parent. IFRS 17 and IFRS 9 transition materially reduced this line from 2022.",
+   "last_data_date": "2026-06-30"
+  },
+  {
+   "short": "TA",
+   "name_fr": "Total du bilan",
+   "name_en": "Total assets",
+   "value": 204.9,
+   "unit": "Mds €",
+   "yoy": "-2.6%",
+   "history": [
+    {
+     "q": "FY2023",
+     "v": 208.9
+    },
+    {
+     "q": "FY2024",
+     "v": 210.4
+    },
+    {
+     "q": "FY2025",
+     "v": 204.9
+    }
+   ],
+   "frequency": "annual",
+   "pv_score": 4,
+   "signal": "204,9 Mds € fin 2025, en recul de 5,5 Mds € sur l'année ; 207,0 Mds € au 30 juin 2026",
+   "description_fr": "Total de l'actif consolidé du groupe. Série en norme IFRS 17 uniquement, publiée depuis l'exercice 2023.",
+   "description_en": "Consolidated total assets, IFRS 17 basis.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "OCG_NLL",
+   "name_fr": "Génération de capital opérationnelle Vie Pays-Bas",
+   "name_en": "Operating capital generation Netherlands Life",
+   "value": 605,
+   "unit": "M €",
+   "yoy": "+1.7%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 523
+    },
+    {
+     "q": "H2-2023",
+     "v": 502
+    },
+    {
+     "q": "H1-2024",
+     "v": 536
+    },
+    {
+     "q": "H2-2024",
+     "v": 513
+    },
+    {
+     "q": "H1-2025",
+     "v": 595
+    },
+    {
+     "q": "H2-2025",
+     "v": 590
+    },
+    {
+     "q": "H1-2026",
+     "v": 605
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 8,
+   "signal": "605 M€ au S1 2026, +1,7%, première contribution du groupe grâce à une libération de capital requis plus élevée",
+   "description_fr": "Contribution du segment à la génération de capital opérationnelle du groupe. La somme des six segments égale exactement l'OCG consolidé.",
+   "description_en": "Segment contribution to group operating capital generation.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ],
+   "_specific_to": "Assurance / Solvabilité II"
+  },
+  {
+   "short": "OCG_NLN",
+   "name_fr": "Génération de capital opérationnelle Non-vie Pays-Bas",
+   "name_en": "Operating capital generation Netherlands Non-life",
+   "value": 168,
+   "unit": "M €",
+   "yoy": "-4.4%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 210
+    },
+    {
+     "q": "H2-2023",
+     "v": 206
+    },
+    {
+     "q": "H1-2024",
+     "v": 153
+    },
+    {
+     "q": "H2-2024",
+     "v": 253
+    },
+    {
+     "q": "H1-2025",
+     "v": 175
+    },
+    {
+     "q": "H2-2025",
+     "v": 267
+    },
+    {
+     "q": "H1-2026",
+     "v": 168
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 7,
+   "signal": "168 M€ au S1 2026, en recul de 4,4% : météo défavorable et sinistralité en prévoyance collective, compensées en partie par la croissance du portefeuille",
+   "description_fr": "Contribution du segment à la génération de capital opérationnelle du groupe. La somme des six segments égale exactement l'OCG consolidé.",
+   "description_en": "Segment contribution to group operating capital generation.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ],
+   "_specific_to": "Assurance / Solvabilité II"
+  },
+  {
+   "short": "OCG_IE",
+   "name_fr": "Génération de capital opérationnelle Assurance Europe",
+   "name_en": "Operating capital generation Insurance Europe",
+   "value": 299,
+   "unit": "M €",
+   "yoy": "+18.9%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 218
+    },
+    {
+     "q": "H2-2023",
+     "v": 203
+    },
+    {
+     "q": "H1-2024",
+     "v": 229
+    },
+    {
+     "q": "H2-2024",
+     "v": 232
+    },
+    {
+     "q": "H1-2025",
+     "v": 251
+    },
+    {
+     "q": "H2-2025",
+     "v": 269
+    },
+    {
+     "q": "H1-2026",
+     "v": 299
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 8,
+   "signal": "299 M€ au S1 2026, +18,9%, plus forte croissance des segments, tirée par la Roumanie, la Pologne et la Slovaquie",
+   "description_fr": "Contribution du segment à la génération de capital opérationnelle du groupe. La somme des six segments égale exactement l'OCG consolidé.",
+   "description_en": "Segment contribution to group operating capital generation.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ],
+   "_specific_to": "Assurance / Solvabilité II"
+  },
+  {
+   "short": "OCG_JP",
+   "name_fr": "Génération de capital opérationnelle Vie Japon",
+   "name_en": "Operating capital generation Japan Life",
+   "value": 61,
+   "unit": "M €",
+   "yoy": "+4.4%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 68
+    },
+    {
+     "q": "H2-2023",
+     "v": 39
+    },
+    {
+     "q": "H1-2024",
+     "v": 65
+    },
+    {
+     "q": "H2-2024",
+     "v": 43
+    },
+    {
+     "q": "H1-2025",
+     "v": 59
+    },
+    {
+     "q": "H2-2025",
+     "v": 57
+    },
+    {
+     "q": "H1-2026",
+     "v": 61
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 6,
+   "signal": "61 M€ au S1 2026, +4,4%, grâce à des taux plus élevés et au passage à Solvabilité II depuis le deuxième trimestre 2026",
+   "description_fr": "Contribution du segment à la génération de capital opérationnelle du groupe. La somme des six segments égale exactement l'OCG consolidé.",
+   "description_en": "Segment contribution to group operating capital generation.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ],
+   "_specific_to": "Assurance / Solvabilité II"
+  },
+  {
+   "short": "OCG_BK",
+   "name_fr": "Génération de capital opérationnelle Banque",
+   "name_en": "Operating capital generation Banking",
+   "value": 65,
+   "unit": "M €",
+   "yoy": "-1.3%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 70
+    },
+    {
+     "q": "H2-2023",
+     "v": 63
+    },
+    {
+     "q": "H1-2024",
+     "v": 79
+    },
+    {
+     "q": "H2-2024",
+     "v": 40
+    },
+    {
+     "q": "H1-2025",
+     "v": 66
+    },
+    {
+     "q": "H2-2025",
+     "v": 25
+    },
+    {
+     "q": "H1-2026",
+     "v": 65
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 6,
+   "signal": "65 M€ au S1 2026, désormais mesurés en remontées de dividendes après la sortie de NN Bank du ratio de solvabilité groupe",
+   "description_fr": "Contribution du segment à la génération de capital opérationnelle du groupe. La somme des six segments égale exactement l'OCG consolidé.",
+   "description_en": "Segment contribution to group operating capital generation.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ],
+   "_specific_to": "Assurance / Solvabilité II"
+  },
+  {
+   "short": "OCG_OTH",
+   "name_fr": "Génération de capital opérationnelle Autres",
+   "name_en": "Operating capital generation Other",
+   "value": -126,
+   "unit": "M €",
+   "yoy": "0.0%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": -91
+    },
+    {
+     "q": "H2-2023",
+     "v": -109
+    },
+    {
+     "q": "H1-2024",
+     "v": -103
+    },
+    {
+     "q": "H2-2024",
+     "v": -118
+    },
+    {
+     "q": "H1-2025",
+     "v": -126
+    },
+    {
+     "q": "H2-2025",
+     "v": -139
+    },
+    {
+     "q": "H1-2026",
+     "v": -126
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 4,
+   "signal": "-126 M€ au S1 2026, stable sur un an : coûts de holding et réassurance interne, seul segment structurellement consommateur de capital",
+   "description_fr": "Contribution du segment à la génération de capital opérationnelle du groupe. La somme des six segments égale exactement l'OCG consolidé.",
+   "description_en": "Segment contribution to group operating capital generation.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ],
+   "_specific_to": "Assurance / Solvabilité II"
+  },
+  {
+   "short": "OR_NLL",
+   "name_fr": "Résultat opérationnel Vie Pays-Bas",
+   "name_en": "Operating result Netherlands Life",
+   "value": 801,
+   "unit": "M €",
+   "yoy": "-3.3%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 810
+    },
+    {
+     "q": "H2-2023",
+     "v": 581
+    },
+    {
+     "q": "H1-2024",
+     "v": 671
+    },
+    {
+     "q": "H2-2024",
+     "v": 697
+    },
+    {
+     "q": "H1-2025",
+     "v": 829
+    },
+    {
+     "q": "H2-2025",
+     "v": 958
+    },
+    {
+     "q": "H1-2026",
+     "v": 801
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 8,
+   "signal": "801 M€ au S1 2026, en repli de 3,3% : résultats d'investissements privés et portefeuille actions cotées moins porteurs",
+   "description_fr": "Contribution du segment au résultat opérationnel du groupe, norme IFRS 17. La somme des six segments égale le résultat opérationnel consolidé à 1 ou 2 M€ d'arrondi près.",
+   "description_en": "Segment contribution to group operating result, IFRS 17 basis.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "OR_NLN",
+   "name_fr": "Résultat opérationnel Non-vie Pays-Bas",
+   "name_en": "Operating result Netherlands Non-life",
+   "value": 249,
+   "unit": "M €",
+   "yoy": "+8.0%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 226
+    },
+    {
+     "q": "H2-2023",
+     "v": 137
+    },
+    {
+     "q": "H1-2024",
+     "v": 205
+    },
+    {
+     "q": "H2-2024",
+     "v": 159
+    },
+    {
+     "q": "H1-2025",
+     "v": 231
+    },
+    {
+     "q": "H2-2025",
+     "v": 162
+    },
+    {
+     "q": "H1-2026",
+     "v": 249
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 7,
+   "signal": "249 M€ au S1 2026, +8,0%, avec un ratio combiné de 90,5% malgré une météo défavorable en juin",
+   "description_fr": "Contribution du segment au résultat opérationnel du groupe, norme IFRS 17. La somme des six segments égale le résultat opérationnel consolidé à 1 ou 2 M€ d'arrondi près.",
+   "description_en": "Segment contribution to group operating result, IFRS 17 basis.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "OR_IE",
+   "name_fr": "Résultat opérationnel Assurance Europe",
+   "name_en": "Operating result Insurance Europe",
+   "value": 345,
+   "unit": "M €",
+   "yoy": "+24.3%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 219
+    },
+    {
+     "q": "H2-2023",
+     "v": 249
+    },
+    {
+     "q": "H1-2024",
+     "v": 299
+    },
+    {
+     "q": "H2-2024",
+     "v": 260
+    },
+    {
+     "q": "H1-2025",
+     "v": 277
+    },
+    {
+     "q": "H2-2025",
+     "v": 362
+    },
+    {
+     "q": "H1-2026",
+     "v": 345
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 8,
+   "signal": "345 M€ au S1 2026, +24,3%, plus forte progression des segments, portée par la croissance et une sinistralité favorable",
+   "description_fr": "Contribution du segment au résultat opérationnel du groupe, norme IFRS 17. La somme des six segments égale le résultat opérationnel consolidé à 1 ou 2 M€ d'arrondi près.",
+   "description_en": "Segment contribution to group operating result, IFRS 17 basis.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "OR_JP",
+   "name_fr": "Résultat opérationnel Vie Japon",
+   "name_en": "Operating result Japan Life",
+   "value": 80,
+   "unit": "M €",
+   "yoy": "-1.9%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 102
+    },
+    {
+     "q": "H2-2023",
+     "v": 95
+    },
+    {
+     "q": "H1-2024",
+     "v": 104
+    },
+    {
+     "q": "H2-2024",
+     "v": 99
+    },
+    {
+     "q": "H1-2025",
+     "v": 82
+    },
+    {
+     "q": "H2-2025",
+     "v": 88
+    },
+    {
+     "q": "H1-2026",
+     "v": 80
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 6,
+   "signal": "80 M€ au S1 2026, légère baisse liée au change et à l'extinction du portefeuille court terme",
+   "description_fr": "Contribution du segment au résultat opérationnel du groupe, norme IFRS 17. La somme des six segments égale le résultat opérationnel consolidé à 1 ou 2 M€ d'arrondi près.",
+   "description_en": "Segment contribution to group operating result, IFRS 17 basis.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "OR_BK",
+   "name_fr": "Résultat opérationnel Banque",
+   "name_en": "Operating result Banking",
+   "value": 77,
+   "unit": "M €",
+   "yoy": "+1.4%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": 113
+    },
+    {
+     "q": "H2-2023",
+     "v": 113
+    },
+    {
+     "q": "H1-2024",
+     "v": 102
+    },
+    {
+     "q": "H2-2024",
+     "v": 87
+    },
+    {
+     "q": "H1-2025",
+     "v": 76
+    },
+    {
+     "q": "H2-2025",
+     "v": 41
+    },
+    {
+     "q": "H1-2026",
+     "v": 77
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 6,
+   "signal": "77 M€ au S1 2026, stable, après un exercice 2025 pénalisé par un moindre résultat d'intérêts",
+   "description_fr": "Contribution du segment au résultat opérationnel du groupe, norme IFRS 17. La somme des six segments égale le résultat opérationnel consolidé à 1 ou 2 M€ d'arrondi près.",
+   "description_en": "Segment contribution to group operating result, IFRS 17 basis.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "OR_OTH",
+   "name_fr": "Résultat opérationnel Autres",
+   "name_en": "Operating result Other",
+   "value": -46,
+   "unit": "M €",
+   "yoy": "+9.8%",
+   "history": [
+    {
+     "q": "H1-2023",
+     "v": -71
+    },
+    {
+     "q": "H2-2023",
+     "v": -47
+    },
+    {
+     "q": "H1-2024",
+     "v": -53
+    },
+    {
+     "q": "H2-2024",
+     "v": -55
+    },
+    {
+     "q": "H1-2025",
+     "v": -51
+    },
+    {
+     "q": "H2-2025",
+     "v": -54
+    },
+    {
+     "q": "H1-2026",
+     "v": -46
+    }
+   ],
+   "frequency": "semiannual",
+   "pv_score": 4,
+   "signal": "-46 M€ au S1 2026 contre -51 M€ un an plus tôt : coûts de holding et réassurance interne, perte en réduction",
+   "description_fr": "Contribution du segment au résultat opérationnel du groupe, norme IFRS 17. La somme des six segments égale le résultat opérationnel consolidé à 1 ou 2 M€ d'arrondi près.",
+   "description_en": "Segment contribution to group operating result, IFRS 17 basis.",
+   "last_data_date": "2026-06-30",
+   "_derived_points": [
+    "H2-2024",
+    "H2-2025"
+   ]
+  },
+  {
+   "short": "EPS",
+   "name_fr": "Bénéfice net par action",
+   "name_en": "Basic earnings per ordinary share",
+   "value": 4.17,
+   "unit": "€",
+   "yoy": "-25.2%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 5.33
+    },
+    {
+     "q": "FY2023",
+     "v": 4.04
+    },
+    {
+     "q": "FY2024",
+     "v": 5.58
+    },
+    {
+     "q": "FY2025",
+     "v": 4.17
+    }
+   ],
+   "frequency": "annual",
+   "pv_score": 6,
+   "signal": "4,17 € en 2025, en baisse de 25,2% sous l'effet de réévaluations négatives ; 3,93 € sur le seul premier semestre 2026",
+   "description_fr": "Résultat net de base par action ordinaire. Série en norme IFRS 17 : 2022 est l'exercice retraité de référence, les exercices antérieurs publiés en IFRS 4 ne sont pas comparables.",
+   "description_en": "Basic earnings per ordinary share, IFRS 17 basis from restated 2022.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "EMP",
+   "name_fr": "Effectifs",
+   "name_en": "Total number of employees (headcount)",
+   "value": 16188,
+   "unit": "salariés",
+   "yoy": "-1.5%",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 15417
+    },
+    {
+     "q": "FY2022",
+     "v": 16104
+    },
+    {
+     "q": "FY2023",
+     "v": 16364
+    },
+    {
+     "q": "FY2024",
+     "v": 16439
+    },
+    {
+     "q": "FY2025",
+     "v": 16188
+    }
+   ],
+   "frequency": "annual",
+   "pv_score": 5,
+   "signal": "16 188 salariés fin 2025, en recul de 1,5% sur un an, première baisse depuis 2021 dans le cadre du programme Future Ready",
+   "description_fr": "Nombre total de salariés du groupe en personnes physiques au 31 décembre, périmètre des comptes consolidés.",
+   "description_en": "Total group headcount at 31 December, consolidated scope.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "PUB",
+   "name_fr": "Croissance de la génération de capital opérationnelle (publiée)",
+   "name_en": "Operating capital generation growth (reported)",
+   "value": 8.7,
+   "unit": "%",
+   "yoy": "+7.6 pts",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 59.6
+    },
+    {
+     "q": "FY2022",
+     "v": 8.0
+    },
+    {
+     "q": "FY2023",
+     "v": 11.1
+    },
+    {
+     "q": "FY2024",
+     "v": 1.1
+    },
+    {
+     "q": "FY2025",
+     "v": 8.7
+    }
+   ],
+   "frequency": "annual",
+   "pv_score": 6,
+   "signal": "+8,7% en 2025 après +1,1% en 2024 : accélération portée par la Vie Pays-Bas et l'Assurance Europe",
+   "description_fr": "Variation annuelle publiée de la génération de capital opérationnelle, périmètre courant, telle que figurant dans la colonne de variation des communiqués de résultats annuels.",
+   "description_en": "Reported year on year change in operating capital generation, as published in the annual results release.",
+   "last_data_date": "2025-12-31"
+  },
+  {
+   "short": "ORG",
+   "name_fr": "Croissance de l'OCG à périmètre comparable",
+   "name_en": "Operating capital generation growth excluding Asset Management",
+   "value": 13.1,
+   "unit": "%",
+   "yoy": "-2.9 pts",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 16.0
+    },
+    {
+     "q": "FY2023",
+     "v": 13.1
+    }
+   ],
+   "frequency": "annual",
+   "pv_score": 5,
+   "is_short_history": true,
+   "story_category": "Croissance",
+   "signal": "+13,1% en 2023 et +16,0% en 2022 hors gestion d'actifs, contre +11,1% et +8,0% en publié : la cession de NN Investment Partners a pénalisé la croissance publiée",
+   "description_fr": "Croissance de la génération de capital opérationnelle hors segment gestion d'actifs, seule mesure à périmètre comparable publiée par NN Group. Publiée uniquement pour 2022 et 2023, autour de la cession de NN Investment Partners à Goldman Sachs.",
+   "description_en": "Operating capital generation growth excluding the Asset Management segment, the only like for like growth measure published by NN Group.",
+   "last_data_date": "2023-12-31"
+  }
+ ]
+}
