@@ -108,6 +108,25 @@ const raw = process.argv.slice(2);
         .map((k: any) => num(k.value))
         .filter((x: any): x is number => x !== null);
       const totv = totCands.length ? Math.max(...totCands) : null;
+      // Yann 10 aout 2026 : la contamination ne se compare qu'a PERIODE EGALE.
+      // Un CA regional ANNUEL peut coincider a 1% pres avec un CA total
+      // TRIMESTRIEL sans etre une contamination (faux positif HOT.DE :
+      // CA_AP annuel 10,637 Mds face a REV_Q trimestriel 10,743 Mds).
+      const perOf = (k: any) => String(k?.period_type || "").toLowerCase();
+      const totByPeriod: Record<string, number> = {};
+      for (const k of co.kpis) {
+        if (!TOTAL_REV.has(normShort(k.short))) continue;
+        const v = num(k.value);
+        if (v === null) continue;
+        const p = perOf(k);
+        if (totByPeriod[p] === undefined || v > totByPeriod[p]) totByPeriod[p] = v;
+      }
+      const totFor = (k: any): number | null => {
+        const p = perOf(k);
+        // KPI sans period_type (compteurs web) : on retombe sur le max global.
+        if (!p) return totv;
+        return totByPeriod[p] !== undefined ? totByPeriod[p] : null;
+      };
 
       // HERO RÉEL AFFICHÉ : réplique effectiveDefaultHero de company-view.
       // Si le hero configuré n'est pas quarterly-usable, la page bascule sur le
@@ -148,7 +167,8 @@ const raw = process.argv.slice(2);
         const hu = String(hk.unit || "").trim();
         if (hv !== null && Number.isInteger(hv) && hv >= 1990 && hv <= 2060 && (!hu || /^(year|années?|annee|an)$/i.test(hu)))
           reasons.push("hero = annee cible, pas une mesure");
-        if (hv !== null && totv !== null && Math.abs(hv - totv) <= Math.abs(totv) * 0.01 && !isGen(hk))
+        const hTot = totFor(hk);
+        if (hv !== null && hTot !== null && Math.abs(hv - hTot) <= Math.abs(hTot) * 0.01 && !isGen(hk))
           reasons.push("hero = CA total (CONTAMINATION)");
         // 9 aout 2026 : un hero dont le nom EST un libelle de CA total doit
         // tomber meme si aucune autre valeur ne coincide (unites differentes
@@ -192,7 +212,8 @@ const raw = process.argv.slice(2);
         // contamine : c'est la reference. Seuls les KPIs cense etre specifiques
         // et dont la valeur colle au CA total sont des contaminations.
         if (TOTAL_REV.has(normShort(k.short))) continue;
-        if (v !== null && totv !== null && Math.abs(v - totv) <= Math.abs(totv) * 0.01 && !isGen(k))
+        const kTot = totFor(k);
+        if (v !== null && kTot !== null && Math.abs(v - kTot) <= Math.abs(kTot) * 0.01 && !isGen(k))
           reasons.push(String(k.short) + " = CA total");
       }
 
