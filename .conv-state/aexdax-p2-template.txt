@@ -1,0 +1,61 @@
+Mission : extraction KPI exhaustive de __T__ (__NAME__, univers AEX 25 / DAX 40) selon la norme Mettrik.
+
+Budget DUR : 140k tokens, 55 appels d'outils. Répertoire /Users/yann/spx-app.
+
+SOURCES (exclusives)
+Uniquement `data-lake/__T__/ir/` (URD, RFS, CP, TRIM, SLIDES, .txt.gz déjà extraits).
+Aucune recherche web, aucun autre dossier, aucun autre ticker. Zéro invention : toute
+valeur est verbatim d'un document local ; non trouvable = absente.
+
+TÂCHE
+1. Lis l'inventaire de __T__ dans `.conv-state/aexdax-inv/__T__.json` (dates, types,
+   période couverte, ruptures de périmètre documentées).
+2. Publie TOUS les KPI chiffrables dans `.batches-drafts-safe/kpis-haut/__T__.json` :
+   comptes consolidés, segments, zones géo, KPI opérationnels et sectoriels, dividende,
+   effectifs, rachats, carnet de commandes, croissance organique ET publiée (2 libellés).
+   Format identique aux fichiers US : `history: [{q, v}]`, `value`, `yoy`, `signal`,
+   `unit` (EUR : "Mds €", "M€"), libellés FR.
+3. RAPPEL FREQUENCE (consigne Yann) : trimestre par trimestre quand publié, SEMESTRE
+   sinon ; l'annuel est un dernier recours réservé aux grandeurs publiées uniquement au
+   rapport annuel.
+   LIBELLES DE PERIODE OBLIGATOIRES (le loader filtre silencieusement tout autre format,
+   la série devient vide à l'affichage) : annuel = `FY2025` (jamais `2025` ni `FY-2025`),
+   semestriel = `H1-2025` / `H2-2025` (jamais `S1-2025`), trimestriel = `Q1-2026`
+   (jamais `T1-2026`). Et `frequency` doit valoir exactement `annual`, `semiannual` ou
+   `quarterly` (jamais `semi-annual`), en cohérence avec les libellés de `history`.
+   JAMAIS fabriquer une période non publiée. Exercices fiscaux décalés (Siemens & co) :
+   suivre l'exercice de la sté, pas l'année civile.
+   Dérivés additifs uniquement : S2 = FY moins S1, marqué `_derived`. Jamais sur marges,
+   taux, BPA, effectifs, encours.
+4. HISTORIQUE 10 ANS : 2016 (ou début de cotation si postérieur) → dernier publié.
+   Chaque série remonte aussi loin que les documents le permettent. KPI <3 ans :
+   `is_short_history: true` + `story_category`.
+5. Hero : un KPI wow >=5 ans, `hero_kpi_rationale` renseigné.
+6. `yoy` = même période N-1 (S1 vs S1, T1 vs T1). `value` = dernier point.
+7. Contrôles AVANT écriture : somme segments = consolidé ; somme zones = CA ;
+   S1+S2 = FY (additifs) ; ordre chronologique ; aucune valeur aberrante ; ruptures de
+   périmètre (spin-offs, acquisitions) respectées, jamais de série qui enjambe une
+   rupture sans note.
+8. Audit blocs (Phase 3) : risques, gouvernance/rémunération, actionnariat, IA,
+   répartition CA. Pour chaque bloc, dire s'il est suffisamment sourçable ou s'il doit
+   être désactivé (avec la raison). NE PAS écrire les blocs toi-même : rapporte.
+
+FICHIERS TEMPORAIRES (obligatoire)
+Plusieurs agents partagent le scratchpad. Tout fichier temporaire DOIT être préfixé
+par le ticker : `__T___extract.txt`. Jamais de nom générique (q2.txt, tmp.json) : un
+autre agent l'écraserait et tu extrairais les chiffres d'une AUTRE société.
+
+RÈGLES
+- Ne touche à AUCUN autre ticker. Aucun commit git.
+- Lint final unique : `npx tsx scripts/kpi-lint.ts --tickers=__T__`, exiger 0 rouge.
+- JAMAIS de téléchargement via clic navigateur (dialogue macOS interdit). JAMAIS de rm
+  avec glob ou variable (chemins littéraux uniquement). Aucune commande qui provoque un
+  prompt de permission macOS ou sandbox.
+
+RETOUR STRICT, 12 lignes maximum :
+__T__: N séries publiées (X trimestrielles, Y semestrielles, Z stories), lint: R rouges O oranges
+Les 4 valeurs clés (CA, résultat net, 2 KPI propres à la sté) avec période et source.
+Résultat du contrôle somme segments = consolidé.
+Blocs : pour chacun, SUFFISANT ou A DESACTIVER + raison.
+KPI vus dans les documents mais NON publiés + raison (doit être vide ou justifié).
+Si mission IMPOSSIBLE : première ligne "__T__: IMPOSSIBLE" + raison factuelle + verbatim.
