@@ -38,7 +38,15 @@ function hist(k: any): number[] {
 const TOTAL_REV = new Set(["total revenue", "revenue", "revenues", "net sales", "total revenues", "total net sales", "operating revenue", "ca", "revenu", "revenus", "chiffre d affaires", "ca total", "revenu total", "total rev", "net revenue", "total sales", "sales",
   // Fiches canadiennes et francaises : le CA total y est libelle en francais.
   "revenu d exploitation", "revenus d exploitation", "produits d exploitation",
-  "chiffre d affaires total", "ventes totales", "revenu net", "revenus totaux"]);
+  "chiffre d affaires total", "ventes totales", "revenu net", "revenus totaux",
+  // 9 aout 2026 : variantes vues sur le 2e univers (TSX, LSE, Vienne, Milan,
+  // Amsterdam). Elles echappaient au filtre et faisaient passer un CA total en
+  // hero (IMCD.AS "CA_T", WKL.AS "REV_FY", VER.VI "Group Revenue",
+  // TEP.PA "Consolidated Revenue").
+  "ca t", "rev fy", "rev y", "rev q", "group revenue", "group revenues",
+  "consolidated revenue", "consolidated revenues", "consolidated net sales",
+  "total group revenue", "revenue fy", "revenue total", "turnover",
+  "group turnover", "total turnover", "ca annuel", "ca fy"]);
 // Normalise le `short` : minuscules, separateurs (_, -, ., ') -> espace, espaces
 // compactes. Sans ca "TOTAL_REV" echappait au filtre CA total (Yann 27 juil 2026).
 function normShort(s: unknown): string {
@@ -117,6 +125,10 @@ const raw = process.argv.slice(2);
           reasons.push("hero = annee cible, pas une mesure");
         if (hv !== null && totv !== null && Math.abs(hv - totv) <= Math.abs(totv) * 0.01 && !isGen(hk))
           reasons.push("hero = CA total (CONTAMINATION)");
+        // 9 aout 2026 : un hero dont le nom EST un libelle de CA total doit
+        // tomber meme si aucune autre valeur ne coincide (unites differentes
+        // entre les KPIs, ex IMCD.AS "CA_T" en M € face a "Revenue" en Mds €).
+        if (TOTAL_REV.has(normShort(hk.short))) reasons.push("hero = libelle CA total (interdit)");
         const pt = String(hk.period_type || "").toLowerCase();
         const need = pt.includes("quart") ? MIN_Q : pt.includes("semest") ? MIN_S : MIN_Y;
         if (hh.length < need) reasons.push(`hero profondeur ${hh.length}<${need} (${pt || "year?"})`);
