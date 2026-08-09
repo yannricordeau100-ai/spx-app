@@ -8,19 +8,19 @@
 | PRX.AS | 22 | 22 | 24 | Prosus est une société holding technologique cotée à Amsterdam qui detient 22,66% de Tencent et pilote un p... |
 | AD.AS | 10 | 10 | 42 | Groupe organise en 17 enseignes locales avec une fiche dediee par marque (magasins, points de retrait, anne... |
 | ADYEN.AS | 5 | 4 | 25 | Adyen met en avant sur son site une infrastructure de paiement mondiale unifiee (99,999% de disponibilite h... |
-| ABN.AS | 8 | 8 | 19 | Banque néerlandaise organisée en trois pôles (Personal & Business Banking, Wealth Management, Corporate Ban... |
+| ABN.AS | 22 | 21 | 19 | Banque néerlandaise organisée en trois pôles (Personal & Business Banking, Wealth Management, Corporate Ban... |
 | HEIA.AS | 14 | 14 | 23 | Les pages corporate statiques (Our company, Our brands) sont figees depuis mars 2024 pour la plupart et tru... |
 | BESI.AS | 10 | 6 | 31 | Besi est un equipementier neerlandais d'assemblage de semi-conducteurs organise en quatre marques historiqu... |
 | UMG.AS | 2 | 2 | 14 | UMG s'organise en une collection de 70 labels et marques musicales distincts (Def Jam, Island, Republic, Po... |
 | NN.AS | 16 | 13 | 14 | NN Group distribue son assurance-vie au Japon via un reseau de plus de 5 000 agents independants enregistre... |
 | PHIA.AS | 10 | 10 | 18 | Philips mesure et publie chaque annee le nombre de vies ameliorees par ses innovations (2 milliards en 2025... |
 | DSFIR.AS | 9 | 9 | 21 | DSM-Firmenich combine une base scientifique dense (2 600 familles de brevets, 100+ parfumeurs maison) avec ... |
-| KPN.AS | 15 | 14 | 19 | KPN documente sur son site corporate overons.kpn (redirection de corporate.kpn.com) une structure multi-mar... |
+| KPN.AS | 16 | 15 | 19 | KPN documente sur son site corporate overons.kpn (redirection de corporate.kpn.com) une structure multi-mar... |
 | WKL.AS | 20 | 15 | 15 | Wolters Kluwer publie des taux de penetration client par division allant jusqu'a 100% sur certains segments... |
 | ASRNL.AS | 8 | 7 | 29 | Assureur néerlandais dont le prédécesseur Stad Rotterdam a été fondé en 1720, devenu en 2025 le plus ancien... |
 | AKZA.AS | 10 | 10 | 25 | AkzoNobel est en pleine fusion d'egaux avec l'americain Axalta (vote des actionnaires favorable le 5 aout 2... |
 | EXO.AS | 9 | 9 | 26 | Exor publie sur exor.com une fiche « Key Figures » par participation (part de la valeur brute des actifs, v... |
-| IMCD.AS | 4 | 4 | 15 | IMCD est un distributeur-formulateur neerlandais de specialites chimiques et ingredients (fonde en 1995, 30... |
+| IMCD.AS | 6 | 6 | 15 | IMCD est un distributeur-formulateur neerlandais de specialites chimiques et ingredients (fonde en 1995, 30... |
 | SBMO.AS | 10 | 9 | 16 | Leader mondial des unites flottantes de production, stockage et dechargement (FPSO), SBM Offshore exploite ... |
 | AALB.AS | 3 | 2 | 15 | Le site aalberts.com est une application Inertia.js dont le contenu reel (compteurs de sites par segment, t... |
 | ADS.DE | 13 | 11 | 16 | Le domaine corporate principal www.adidas-group.com (et www.adidas.com, news.adidas.com) est protege par un... |
@@ -30,7 +30,7 @@
 | BEI.DE | 14 | 14 | 24 | Beiersdorf, propriétaire de NIVEA, Eucerin et La Prairie, publie un décompte de brevets, d'effectifs R&D et... |
 | BMW.DE | 13 | 11 | 21 | www.bmwgroup.com publie l'integralite de son contenu corporate (Company, Innovation, Responsibility & Susta... |
 | BNR.DE | 5 | 5 | 18 | Distributeur mondial n°1 de produits chimiques et d'ingrédients, organisé en deux divisions globales (Essen... |
-| CBK.DE | 12 | 8 | 19 | Banque organisée en deux segments (Entreprises et Particuliers/Petites entreprises) sous deux marques domes... |
+| CBK.DE | 14 | 8 | 31 | Banque organisée en deux segments (Entreprises et Particuliers/Petites entreprises) sous deux marques domes... |
 | CON.DE | 22 | 21 | 20 | Continental achève sa transformation en pur pneumaticien (Aumovio scindé le 17 septembre 2025, cession de C... |
 | DTG.DE | 12 | 9 | 32 | Daimler Truck structure sa communication corporate autour de trois axes distinctifs : le réseau mondial de ... |
 | DBK.DE | 8 | 5 | 20 | Le site db.com detaille avec des chiffres precis l'adoption interne de l'IA generative (part des effectifs ... |
