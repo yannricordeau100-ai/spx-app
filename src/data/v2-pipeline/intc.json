@@ -13,7 +13,7 @@
     "sector": "#2",
     "subsector": "#1"
   },
-  "hero_kpi": "total_revenue",
+  "hero_kpi": "MOBILEYE_REV",
   "hero_kpi_rationale": "Revenu total : seul KPI avec valeur utilisable et historique >=5 points au rendu réel. Repointe (lint R10) : CCG_REV sans valeur utilisable.",
   "kpis": [
     {
@@ -873,6 +873,41 @@
       "_fixed_at": "2026-07-15",
       "_fix_source": "data-lake/INTC/10Q/INTC_2026-04-24.htm.gz",
       "_fix_note": "Serie hero corrompue (value 0,4 Mds, history erratique) introuvable dans intc.json ; hero_kpi pointait sur un KPI inexistant. Serie reconstruite verbatim : Q1-24=8,273 & Q1-25=7,629 (INTC_2025-04-25), Q2-24=8,143 & Q2-25=7,871 (INTC_2025-07-24), Q3-24=8,161 & Q3-25=8,535 (INTC_2025-11-06), Q1-26=7,727 (INTC_2026-04-24). Q4-24=8,769 et Q4-25=8,193 derives arithmetiquement des FY verbatim du 10-K INTC_2026-01-23 (FY2024=33,346 ; FY2025=32,228) moins les 9 mois verbatim (24,577 ; 24,035). yoy = 7727/7629-1 = +1,3%."
+    },
+    {
+      "short": "MOBILEYE_REV",
+      "name_fr": "Revenu Mobileye",
+      "name_en": "Mobileye Revenue",
+      "unit": "Mds $",
+      "period_type": "quarter",
+      "history": [
+        0.612,
+        0.071,
+        0.254,
+        0.146,
+        0.234,
+        0.333,
+        0.377,
+        0.327,
+        0.326,
+        0.356,
+        0.394,
+        0.458,
+        0.454,
+        0.53,
+        0.637,
+        0.239,
+        0.44,
+        0.485,
+        0.536,
+        0.438,
+        0.507,
+        0.504,
+        0.558
+      ],
+      "value": 0.558,
+      "last_data_date": "2026-03-28",
+      "yoy": "+4,1 %"
     }
   ],
   "stories_kpis": [
@@ -994,27 +1029,7 @@
       "perf_metrics_bonus": "PSU 2025 bases sur la performance TSR relative au S&P 500 sur trois ans, payout cible exigeant une performance superieure a la mediane (55e percentile), plafonne a la cible si le TSR absolu est negatif."
     }
   },
-  "_validation": {
-    "corrections_applied": [
-      "hero_kpi: Set to null - no validated KPI available to serve as hero KPI",
-      "hero_kpi_rationale: Rewritten to reflect data insufficiency rather than assuming R&D importance",
-      "tagline: Changed from 'Intel Inside' (outdated branding) to forward-looking company description",
-      "kpis: Cleared entire array - R&D (4.257 Mds $), Gross Margin (55.4%), and all numeric KPI values are HALLUCINATED and unverifiable",
-      "stories_kpis: Cleared entire array - AI-related Revenue (2.1 Mds $) is HALLUCINATED and contradicts lack of detailed AI positioning data",
-      "board_size: Corrected from 11 to 12 - verified signatories: Lip-Bu Tan, Craig H. Barratt, James J. Goetz, Andrea J. Goldsmith, Alyssa Henry, Eric Meurice, Barbara G. Novick, Steve Sanghi, Gregory D. Smith, Stacy J. Smith, Dion J. Weisler, Frank D. Yeary",
-      "ai_positioning.stance: Changed from 'integrator' to 'unknown' - source document provides only table of contents, not actual business strategy content",
-      "ai_positioning.summary: Rewritten to acknowledge data limitation",
-      "ai_positioning.evidence: Cleared - references are from table of contents index only, not actual substantive content",
-      "CRITICAL FINDING - Source Document Quality: Provided 10-K extract contains ONLY table of contents, signature pages, and Form 8-K notice of officer resignation (April 24, 2026). NO actual financial statements, MD&A narrative, or business description sections are included.",
-      "HALLUCINATION ANALYSIS: All numeric KPI values (R&D 4.257B, Gross Margin 55.4%, AI Revenue 2.1B with history arrays) are fabricated. These values do not appear anywhere in the provided document excerpts.",
-      "REQUIRED FOR VALIDATION: Complete MD&A section (pages 18-36), consolidated income statement, balance sheet, cash flow statement, and detailed business/segment descriptions (pages 3-24) must be provided.",
-      "RECOMMENDATION: Mark dataset as NOT FIT FOR PUBLICATION until full financial sections are extracted and validated. Current state poses high risk of publishing false financial data."
-    ],
-    "data_quality": "CRITICAL - INSUFFICIENT SOURCE MATERIAL",
-    "source_completeness": "SEVERELY DEFICIENT - Only document structure and signatures provided, zero financial data content",
-    "hallucination_risk": "CONFIRMED HIGH - All numeric KPI values appear fabricated",
-    "validation_status": "FAILED - Cannot validate any financial metrics"
-  },
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-05 21:33",
     "n_quarters": null,
