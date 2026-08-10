@@ -119,3 +119,60 @@ ordre de rendement :
    ~137 tickers sans aucune donnee, c'est du N1/N0.
 2. Repointer les 28 heros generiques du 2e univers qui ont deja une fiche rendue.
 3. Purger ENI.MI et arbitrer les 5 heros suspects ci-dessus.
+
+---
+
+# 11 aout 2026 : audit de qualite des 639 stes publiees
+
+## Resultat
+Le qualifieur durci du 9 aout mettait **121 des 639 stes publiees en FAIL**.
+Apres cette passe : **601/639 PASS**, 38 restants.
+
+## Defaut systemique n°1 : la couche kpis-haut echappe a toutes les purges
+`loadV17Company` merge `.batches-drafts-safe/kpis-haut/<T>.json` **apres** :
+- le filtre `disabled-kpis-per-ste.json` (ligne ~2464),
+- le `remove[]` de `apply-hero-fix.py` (qui ne touche que base, enrich et
+  specific-kpis).
+
+Un KPI contamine (value = CA total) ou duplique qui vit dans cette couche
+survivait donc aux deux mecanismes de purge existants. C'est ce qui expliquait
+l'essentiel des 121 FAIL. Nouveau script : `scripts/purge-kpis-haut.py`.
+
+## Defaut systemique n°2 : kpis-haut ecrase le hero_kpi
+Meme fichier, fin du merge : `data.hero_kpi = bestHero.short` ou bestHero est le
+KPI de plus haut `pv_score` de kpis-haut. Il ecrase le `hero_kpi` pose sur base
+ET le `hero_kpi_override` pose sur enrich par `apply-hero-fix.py`.
+
+Seul mecanisme qui gagne : la table Supabase `desk_hero_kpi_overrides`, appliquee
+tout a la fin. Nouveau script : `scripts/set-hero-override.py`.
+
+## Defaut systemique n°3 (NON CORRIGE, arbitrage Yann)
+`effectiveDefaultHero` (company-view, replique dans qualify-stes.ts) ecrase un
+hero explicite non trimestriel par `bestQ` = le meilleur KPI **quarterly de 16
+points ou plus**, sans verifier que ce candidat n'est pas un CA total. Le filtre
+`bestQ` n'exclut que les generiques au sens de `isGenericKpi`, or "REV_Q",
+"REV_FY", "CA_T" n'y sont pas.
+
+Consequence : sur une ste europeenne qui ne publie son segment principal qu'en
+semestriel ou annuel, poser le bon hero ne sert a rien, la page rebascule sur le
+CA total trimestriel. 12 stes sont dans ce cas et resteront FAIL tant que le
+fallback n'exclut pas les libelles de CA total : ROG.SW, INGA.AS, CCEP, AI.PA,
+BNP.PA, CFR.SW, GEBN.SW, ML.PA, STLAP.PA, LOGN.SW, HEI.DE, HOLN.SW.
+
+Fix suggere (une ligne, hors perimetre N2) : ajouter le test `TOTAL_REV` a la
+condition de `bestQ`, comme il existe deja pour le hero configure.
+
+## Ce qui a ete fait
+- 28 + 13 + 2 KPIs contamines purges de kpis-haut sur 37 stes.
+- 59 heros repointes sur un KPI de demande deja present dans la fiche
+  (revenu segment, volume, unites) : zero token d'extraction.
+- 18 heros faibles mais specifiques flagges dans `src/data/_hero-suspect.json`.
+- Aucune ste retiree, aucune publication : les 639 etaient deja en ligne.
+
+## Outils ajoutes
+| Script | Role |
+|---|---|
+| `scripts/dump-hero-context.ts` | dump du rendu reel (hero effectif + tous les KPIs) pour decider un fix sans extraction |
+| `scripts/purge-kpis-haut.py` | retire des KPIs de la couche kpis-haut |
+| `scripts/disable-kpis.py` | ajout non destructif dans disabled-kpis-per-ste |
+| `scripts/set-hero-override.py` | upsert desk_hero_kpi_overrides (le seul override qui gagne) |
