@@ -142,6 +142,15 @@ def main():
         d1, d2 = abs((pend - c1).days), abs((pend - c2).days)
         if d1 <= 40 or d2 <= 40:
             continue  # à jour (l'une des conventions colle)
+        # Fix 10 aout 2026 (faux positif MSTR) : la deduction du mois de cloture
+        # depuis le texte du 10-K peut se tromper (regex qui matche une autre
+        # date). Avant d'alerter, tester aussi l'exercice calendaire (fye=12),
+        # cas ultra-majoritaire US : si ca colle, la ste est a jour.
+        if fye != 12:
+            c3 = close_of_label(q, fy, 12)
+            c4 = close_of_label(q, fy + 1, 12)
+            if abs((pend - c3).days) <= 40 or abs((pend - c4).days) <= 40:
+                continue
         close = c2 if d2 < d1 else c1
         if (pend - close).days > 40:
             lag[t] = {
