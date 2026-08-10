@@ -52,6 +52,7 @@ import { KpiStories } from "@/components/kpi-stories";
 import { hasStories } from "@/lib/kpi-stories-ordering";
 import { orderKpis } from "@/lib/kpi-ordering";
 import { isGenericKpi } from "@/lib/kpi-generic";
+import { isTotalRevenueLabel } from "@/lib/kpi-total-revenue";
 import { RiskStack } from "@/components/risk-stack";
 import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
@@ -277,6 +278,11 @@ export function CompanyView({
       // ni un KPI générique (ex AAPL tombait sur Gross Margin). On les exclut.
       if (String(k.unit ?? "").trim() === "%" || /marg|ratio|taux/i.test(String(k.short ?? ""))) continue;
       if (isGenericKpi(k.short)) continue;
+      // Yann 11 aout 2026 : un CA total ne peut jamais devenir hero par
+      // fallback. isGenericKpi ne couvre pas "REV_Q" / "REV_FY" / "CA_T", si
+      // bien qu'un CA total trimestriel hijackait le hero choisi des que
+      // celui-ci etait semestriel ou annuel (8 stes europeennes).
+      if (isTotalRevenueLabel(k.short)) continue;
       const h = Array.isArray(k.history) ? k.history.length : 0;
       // Yann 9 juin 2026 : un quarterly ne prime sur le hero annuel configure
       // QUE s'il a >=16 trims (sinon un KPI quarterly court hijacke le hero

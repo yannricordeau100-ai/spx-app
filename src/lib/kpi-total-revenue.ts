@@ -1,0 +1,51 @@
+/**
+ * kpi-total-revenue.ts — reconnait un libelle de CHIFFRE D'AFFAIRES TOTAL.
+ *
+ * Un CA total n'est jamais un hero acceptable : c'est la mesure la moins
+ * distinctive de la fiche, et elle sert de reference pour detecter les
+ * contaminations (un KPI cense etre specifique dont la valeur colle au CA
+ * total est un KPI mal extrait).
+ *
+ * Cette liste vivait en double dans `scripts/qualify-stes.ts` et nulle part
+ * dans le rendu. Consequence (constat 11 aout 2026) : le fallback
+ * `bestQuarterlyKpiShort` de `company-view.tsx` promouvait un CA total
+ * trimestriel en hero des que le hero configure n'etait pas trimestriel, ce
+ * qui annulait le hero choisi sur 8 stes europeennes publiant leurs segments
+ * en semestriel ou en annuel (ROG.SW, INGA.AS, CCEP, AI.PA, BNP.PA, CFR.SW,
+ * HEI.DE, HOLN.SW). Le filtre n'excluait que les generiques au sens de
+ * `isGenericKpi`, or "REV_Q", "REV_FY" et "CA_T" n'y figurent pas.
+ *
+ * Source de verite unique, importee par le rendu ET par le qualifieur.
+ */
+
+const TOTAL_REVENUE_LABELS = new Set([
+  "total revenue", "revenue", "revenues", "net sales", "total revenues",
+  "total net sales", "operating revenue", "ca", "revenu", "revenus",
+  "chiffre d affaires", "ca total", "revenu total", "total rev",
+  "net revenue", "total sales", "sales",
+  // Fiches canadiennes et francaises : le CA total y est libelle en francais.
+  "revenu d exploitation", "revenus d exploitation", "produits d exploitation",
+  "chiffre d affaires total", "ventes totales", "revenu net", "revenus totaux",
+  // Variantes vues sur le 2e univers (TSX, LSE, Vienne, Milan, Amsterdam).
+  "ca t", "rev fy", "rev y", "rev q", "group revenue", "group revenues",
+  "consolidated revenue", "consolidated revenues", "consolidated net sales",
+  "total group revenue", "revenue fy", "revenue total", "turnover",
+  "group turnover", "total turnover", "ca annuel", "ca fy",
+]);
+
+/**
+ * Normalise un `short` : minuscules, separateurs (_ - . ') remplaces par des
+ * espaces, espaces compactes. Sans ca "TOTAL_REV" echappe au filtre.
+ */
+export function normalizeKpiShort(s: unknown): string {
+  return String(s ?? "")
+    .toLowerCase()
+    .replace(/[_\-.'’]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** True si le `short` du KPI est un libelle de chiffre d'affaires total. */
+export function isTotalRevenueLabel(short: unknown): boolean {
+  return TOTAL_REVENUE_LABELS.has(normalizeKpiShort(short));
+}
