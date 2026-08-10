@@ -125,6 +125,30 @@ IR_PAGES: dict[str, list[str]] = {
     "ZURN.SW": ["https://www.zurich.com/investor-relations/results-and-reports", "https://www.zurich.com/investor-relations"],
 }
 
+# Fix 9 aout 2026 : l'annuaire IR central (src/data/ir-directory.json) etend la
+# veille a TOUTES les stes europeennes de l'univers (AEX, DAX, N100 EU, etc.),
+# au lieu des seules entrees codees en dur ci-dessus. Les entrees en dur gardent
+# la priorite (URLs verifiees de longue date).
+try:
+    import json as _json
+    from pathlib import Path as _Path
+    _dir_p = _Path(__file__).resolve().parents[1] / "src" / "data" / "ir-directory.json"
+    _EU_SUFFIXES = (".AS", ".DE", ".PA", ".SW", ".L", ".MI", ".MC", ".CO",
+                    ".HE", ".ST", ".LS", ".BR", ".VI", ".OL")
+    if _dir_p.exists():
+        _entries = _json.load(open(_dir_p)).get("entries", {})
+        for _t, _e in _entries.items():
+            if _t in IR_PAGES:
+                continue
+            if not _t.endswith(_EU_SUFFIXES):
+                continue
+            _u = _e.get("ir_url") or _e.get("ir_hint")
+            if _u:
+                IR_PAGES[_t] = [_u]
+except Exception as _err:  # jamais bloquant : la veille en dur continue
+    print(f"[fr-doc-watcher] annuaire IR non charge: {_err}")
+
+
 # Classification type de publication (ordre = priorité).
 TYPE_PATTERNS: list[tuple[str, re.Pattern]] = [
     ("URD", re.compile(r"universal[\s_-]?registration|enregistrement[\s_-]?universel|\burd\b|document[\s_-]d[\s_'-]?enregistrement|annual[\s_-]report|rapport[\s_-]annuel|integrated[\s_-]report|geschaeftsbericht|gesch[äa]ftsbericht|remuneration[\s_-]report|compensation[\s_-]report", re.I)),

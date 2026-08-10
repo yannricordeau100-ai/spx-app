@@ -122,6 +122,27 @@ def get_last_filing_date_local(ticker: str) -> datetime | None:
                         candidates.append(mtime)
                     except OSError:
                         pass
+    # Fix 9 aout 2026 : la chaine 2026 telecharge dans data-lake/<T>/..., pas
+    # dans sec-data/. Sans ce bloc, 569 stes ressortaient "docs_stale" a tort.
+    dl_dir = PROJECT_ROOT / "data-lake" / ticker
+    if dl_dir.exists():
+        date_pat = re.compile(r"(\d{4}-\d{2}-\d{2})")
+        for sub in ["10K", "10Q", "8K", "20F", "6K", "40F", "DEF14A",
+                    "ir/URD", "ir/RFS", "ir/TRIM", "ir/CP", "ir/SLIDES", "ir/COMM"]:
+            sd = dl_dir / sub
+            if not sd.exists():
+                continue
+            for f in sd.iterdir():
+                if not f.is_file():
+                    continue
+                for d in date_pat.findall(f.name):
+                    try:
+                        dt = datetime.strptime(d, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+                        # garde-fou contre les faux matchs (numeros d'accession EDGAR)
+                        if 2000 <= dt.year <= 2100:
+                            candidates.append(dt)
+                    except ValueError:
+                        pass
     if not candidates:
         return None
     return max(candidates)

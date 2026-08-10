@@ -28,6 +28,12 @@ fi
 
 # Utilise le python du système (3.11+ requis pour yfinance récent).
 PYTHON_BIN="${PYTHON_BIN:-/opt/homebrew/bin/python3}"
+# Fix 9 aout 2026 : le python du cron doit avoir yfinance (cause des 569 faux "stale")
+if ! "${PYTHON_BIN}" -c "import yfinance" >/dev/null 2>&1; then
+    for cand in /Library/Frameworks/Python.framework/Versions/3.12/bin/python3 python3 /usr/bin/python3; do
+        if command -v "$cand" >/dev/null 2>&1 && "$cand" -c "import yfinance" >/dev/null 2>&1; then PYTHON_BIN="$cand"; break; fi
+    done
+fi
 if ! command -v "${PYTHON_BIN}" >/dev/null 2>&1; then
     PYTHON_BIN="python3"
 fi
