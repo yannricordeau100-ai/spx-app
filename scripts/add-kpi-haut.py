@@ -65,6 +65,22 @@ def labels(period_type, n, last_data_date):
     return out[::-1]
 
 
+def yoy_str(hist, period_type):
+    """Variation sur un an, au format de la couche ("+4,2%"). Le pas depend de
+    la periode : 4 points pour du trimestriel, 2 pour du semestriel, 1 pour de
+    l'annuel. Sans ce champ la pastille YoY du hero reste vide sur la page,
+    constat du 12 aout 2026 apres injection des 7 heros extraits."""
+    p = (period_type or "").lower()
+    step = 4 if p.startswith("quarter") else 2 if p in ("half-year", "semester") else 1
+    if len(hist) <= step:
+        return None
+    prev, last = hist[-1 - step], hist[-1]
+    if not prev:
+        return None
+    pct = (last / prev - 1) * 100
+    return f"{pct:+.1f}".replace(".", ",") + "%"
+
+
 def sniff_indent(path, default=1):
     """Indentation du fichier existant. Cette couche melange indent=1 et
     indent=2 selon le lot d'extraction : imposer une valeur unique produirait un
@@ -119,6 +135,7 @@ def main():
             "name_en": h.get("name_en", h["short"]),
             "value": h.get("value", hist[-1]),
             "unit": h.get("unit", ""),
+            "yoy": h.get("yoy") or yoy_str(hist, h.get("period_type")),
             "history": [{"q": q, "v": v} for q, v in zip(labs, hist)],
             # pv_score le plus haut du fichier : ce KPI doit gagner la
             # selection du hero de la couche, car loadV17Company termine par
