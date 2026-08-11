@@ -10,19 +10,15 @@
  */
 import { loadV17Company } from "../src/lib/company-core/load-company";
 import { isGenericKpi } from "../src/lib/kpi-generic";
+import { isTotalRevenueLabel, normalizeKpiShort } from "../src/lib/kpi-total-revenue";
+import { isAccountingKpi } from "../src/lib/kpi-accounting";
 import fs from "fs";
 
-const TOTAL_REV = new Set(["total revenue", "revenue", "revenues", "net sales", "total revenues", "total net sales", "operating revenue", "ca", "revenu", "revenus", "chiffre d affaires", "ca total", "revenu total", "total rev", "net revenue", "total sales", "sales",
-  "revenu d exploitation", "revenus d exploitation", "produits d exploitation",
-  "chiffre d affaires total", "ventes totales", "revenu net", "revenus totaux",
-  "ca t", "rev fy", "rev y", "rev q", "group revenue", "group revenues",
-  "consolidated revenue", "consolidated revenues", "consolidated net sales",
-  "total group revenue", "revenue fy", "revenue total", "turnover",
-  "group turnover", "total turnover", "ca annuel", "ca fy"]);
+// 11 aout 2026 : source de verite unique src/lib/kpi-total-revenue.ts, la meme
+// que le rendu (company-view) et le qualifieur. Ne pas redupliquer la liste.
+const TOTAL_REV = { has: (s: string) => isTotalRevenueLabel(s) };
+const normShort = normalizeKpiShort;
 
-function normShort(s: unknown): string {
-  return String(s || "").toLowerCase().replace(/[_\-.'’]+/g, " ").replace(/\s+/g, " ").trim();
-}
 function num(x: any): number | null {
   if (typeof x === "number") return Number.isFinite(x) ? x : null;
   if (typeof x === "string") {
@@ -57,6 +53,9 @@ const pctMarg = (k: any) => {
         let b: any = null;
         for (const k of co.kpis) {
           if (k.period_type !== "quarter" || pctMarg(k) || isGenericKpi(k?.short)) continue;
+          // 11 aout 2026 : aligne sur company-view, un CA total ne peut plus
+          // gagner ce fallback.
+          if (TOTAL_REV.has(normShort(k.short))) continue;
           const h = hist(k).length;
           if (h < 16) continue;
           if (!b || h > b.h) b = { short: k.short, h };

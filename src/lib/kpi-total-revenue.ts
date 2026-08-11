@@ -45,7 +45,32 @@ export function normalizeKpiShort(s: unknown): string {
     .trim();
 }
 
-/** True si le `short` du KPI est un libelle de chiffre d'affaires total. */
+/**
+ * Retire les marqueurs de periode d'un `short` normalise : "revenue_q",
+ * "REV_FY", "CA_T_2025" doivent tous se ramener a leur mesure. Mesure du
+ * 12 aout 2026 : sans ce nettoyage, "revenue_q" echappait au filtre CA total et
+ * devenait hero sur KO, POOL et DG.
+ */
+export function stripPeriodMarkers(s: string): string {
+  return s
+    .replace(/\b(19|20)\d{2}\b/g, " ")
+    .replace(/\b(q|t|fy|y|h|s|ttm|ytd|quarter|trim|annuel|annual|adj|adjusted|aj|pre|core|group|consolide|consolidated)\b/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * True si le `short` du KPI est un libelle de chiffre d'affaires total.
+ *
+ * ATTENTION, egalite STRICTE volontaire. Mesure du 12 aout 2026 : etendre ce
+ * test au libelle prive de ses marqueurs de periode (via stripPeriodMarkers)
+ * fait tomber 19 stes publiees dont le hero configure est "REVENUE_Q",
+ * "SALES_Q", "CA_S" ou "net_sales_q". Ces 19 heros SONT bien des CA totaux,
+ * c'est un vrai defaut, mais le corriger demande de repointer les 19 heros un
+ * par un : elargir le filtre seul ferait basculer ces pages sur le KPI
+ * trimestriel suivant, le plus souvent une ligne comptable, donc pire. Liste et
+ * marche a suivre dans .conv-state/v195-n2-etat.md.
+ */
 export function isTotalRevenueLabel(short: unknown): boolean {
   return TOTAL_REVENUE_LABELS.has(normalizeKpiShort(short));
 }

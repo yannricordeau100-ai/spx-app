@@ -13,6 +13,8 @@
  */
 import { loadV17Company } from "../src/lib/company-core/load-company";
 import { isGenericKpi } from "../src/lib/kpi-generic";
+import { isTotalRevenueLabel, normalizeKpiShort } from "../src/lib/kpi-total-revenue";
+import { isAccountingKpi } from "../src/lib/kpi-accounting";
 import fs from "fs";
 
 // 9 aout 2026 : GATE DE VISIBILITE. La page V1.9.5
@@ -55,23 +57,15 @@ function hist(k: any): number[] {
 // positif qui sur-comptait le qualifieur vs le rendu réel de la page).
 // Yann 27 juil 2026 : ajout des variantes FR ("CA", "Revenu", "Chiffre d'affaires")
 // vues sur les fiches europeennes, qui passaient a travers le filtre CA total.
-const TOTAL_REV = new Set(["total revenue", "revenue", "revenues", "net sales", "total revenues", "total net sales", "operating revenue", "ca", "revenu", "revenus", "chiffre d affaires", "ca total", "revenu total", "total rev", "net revenue", "total sales", "sales",
-  // Fiches canadiennes et francaises : le CA total y est libelle en francais.
-  "revenu d exploitation", "revenus d exploitation", "produits d exploitation",
-  "chiffre d affaires total", "ventes totales", "revenu net", "revenus totaux",
-  // 9 aout 2026 : variantes vues sur le 2e univers (TSX, LSE, Vienne, Milan,
-  // Amsterdam). Elles echappaient au filtre et faisaient passer un CA total en
-  // hero (IMCD.AS "CA_T", WKL.AS "REV_FY", VER.VI "Group Revenue",
-  // TEP.PA "Consolidated Revenue").
-  "ca t", "rev fy", "rev y", "rev q", "group revenue", "group revenues",
-  "consolidated revenue", "consolidated revenues", "consolidated net sales",
-  "total group revenue", "revenue fy", "revenue total", "turnover",
-  "group turnover", "total turnover", "ca annuel", "ca fy"]);
-// Normalise le `short` : minuscules, separateurs (_, -, ., ') -> espace, espaces
-// compactes. Sans ca "TOTAL_REV" echappait au filtre CA total (Yann 27 juil 2026).
-function normShort(s: unknown): string {
-  return String(s || "").toLowerCase().replace(/[_\-.'’]+/g, " ").replace(/\s+/g, " ").trim();
-}
+// 11 aout 2026 : la liste des libelles de CA total vit desormais dans
+// src/lib/kpi-total-revenue.ts, importee par le RENDU (company-view) ET par ce
+// qualifieur. La copie locale qui vivait ici les a fait diverger : le rendu
+// promouvait un CA total en hero par fallback alors que le qualifieur
+// l'interdisait, d'ou 18 stes en FAIL pour un defaut qui n'existait plus.
+// Source de verite unique, ne jamais la redupliquer ici.
+const TOTAL_REV = { has: (s: string) => isTotalRevenueLabel(s) };
+const normShort = normalizeKpiShort;
+
 function isGen(k: any): boolean {
   return isGenericKpi(k?.short);
 }
@@ -87,6 +81,7 @@ const raw = process.argv.slice(2);
   for (const t of raw) {
     const TU = t.toUpperCase();
     const reasons: string[] = [];
+    const warnings: string[] = [];
     if (CLEAN_ALL.size && !CLEAN_ALL.has(TU)) {
       fail.push({ t: TU, reasons: ["hors clean-all-tickers (la page redirige vers l'overview)"] });
       console.log("❌ FAIL", TU, "| hors clean-all (pas de fiche)");
@@ -141,6 +136,10 @@ const raw = process.argv.slice(2);
         let b: any = null;
         for (const k of co.kpis) {
           if (k.period_type !== "quarter" || pctMarg(k) || isGen(k)) continue;
+          // 11 aout 2026 : aligne sur company-view, qui exclut desormais un CA
+          // total de ce fallback. Sans cette ligne le qualifieur voit encore un
+          // CA total la ou la page affiche le hero segment configure.
+          if (TOTAL_REV.has(normShort(k.short))) continue;
           const h = hist(k).length;
           if (h < 16) continue;
           if (!b || h > b.h) b = { short: k.short, h };
@@ -155,6 +154,14 @@ const raw = process.argv.slice(2);
       else if (usableK(cfgK) && !pctMarg(cfgK)) hero = co.hero_kpi;
       else hero = co.kpis.find((k: any) => usableK(k) && hist(k).length >= 3 && !pctMarg(k) && !isGen(k))?.short ?? co.hero_kpi;
       const hk = co.kpis.find((k: any) => k.short === hero);
+      // 12 aout 2026 : AVERTISSEMENT, pas un motif de rejet. Un hero qui est une
+      // ligne comptable (resultat net, EBITDA, capex, dividende, poste de bilan)
+      // ne dit rien de la demande, mais le rejeter bloquerait 30 stes sans leur
+      // offrir de remplacant : la mesure du 12 aout montre que forcer le
+      // fallback a les eviter les fait basculer sur une AUTRE ligne comptable
+      // (24 regressions sur 639). On signale, Yann arbitre, le rendu ne change
+      // pas. Le detail est dans src/data/_hero-suspect.json.
+      if (hk && isAccountingKpi(hk.short)) warnings.push("hero = ligne comptable (a repointer)");
       if (!hk) reasons.push(`hero introuvable (${hero})`);
       else {
         if (pctMarg(hk)) reasons.push("hero % / marge (interdit)");
@@ -219,7 +226,7 @@ const raw = process.argv.slice(2);
 
       if (reasons.length === 0) {
         pass.push(TU);
-        console.log("✅ PASS", TU, "| hero=" + JSON.stringify(hero) + " v=" + (hk ? hk.value : "?") + " | spécifiques=" + spec.length);
+        console.log("✅ PASS", TU, "| hero=" + JSON.stringify(hero) + " v=" + (hk ? hk.value : "?") + " | spécifiques=" + spec.length + (warnings.length ? " | ⚠ " + warnings.join(" ; ") : ""));
       } else {
         fail.push({ t: TU, reasons });
         console.log("❌ FAIL", TU, "| hero=" + JSON.stringify(hero) + " | " + reasons.join(" ; "));

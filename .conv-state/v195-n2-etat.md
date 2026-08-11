@@ -176,3 +176,140 @@ condition de `bestQ`, comme il existe deja pour le hero configure.
 | `scripts/purge-kpis-haut.py` | retire des KPIs de la couche kpis-haut |
 | `scripts/disable-kpis.py` | ajout non destructif dans disabled-kpis-per-ste |
 | `scripts/set-hero-override.py` | upsert desk_hero_kpi_overrides (le seul override qui gagne) |
+
+---
+
+# 12 aout 2026 : passe N2 sur les 639 stes publiees
+
+## Resultat
+Depart **614 PASS / 25 FAIL**, arrivee **635 PASS / 4 FAIL**. Les 4 restantes sont
+structurelles et documentees plus bas. Zero publication nouvelle : les 639
+etaient deja en ligne, c'est une passe de qualite du hero.
+
+## Le defaut systemique n°3 du 11 aout etait a moitie corrige
+Le fix du 11 aout (`kpi-total-revenue.ts` importe par `company-view`) etait pose
+sur le RENDU mais `scripts/qualify-stes.ts` gardait sa copie locale de la liste
+et son propre `bestQ` sans le filtre. Les deux divergeaient : la page affichait
+le bon hero segment, le qualifieur voyait encore un CA total et rejetait la ste.
+8 stes etaient en FAIL pour un defaut qui n'existait plus (AI.PA, BNP.PA, CCEP,
+CFR.SW, HEI.DE, HOLN.SW, INGA.AS, ROG.SW). Lecon : quand un filtre passe dans
+`src/lib/`, retirer la copie des scripts DANS LE MEME COMMIT.
+
+## Defaut systemique n°4 : le fallback promeut une ligne comptable
+### MESURE FAITE, CORRECTIF REJETE, ARBITRAGE YANN
+
+Constat. `bestQuarterlyKpiShort` excluait les generiques et, depuis le 11 aout,
+les CA totaux. Il ne connait pas les LIGNES COMPTABLES. Consequence sur les 639
+publiees : une trentaine de stes affichent en hero un resultat net, un EBITDA, un
+capex, un dividende par action, un poste de bilan ou un delai de paiement. Cas le
+plus visible, **MSFT affichait "dividend_per_share" 0,91 $** alors que la fiche
+contient le CA Microsoft Cloud sur 20 trimestres. HSIC affichait un delai de
+paiement de 46,4 jours face a un CA Etats-Unis de 9,1 Mds $ sur 9 exercices.
+
+Correctif tente : `src/lib/kpi-accounting.ts`, exclusion des lignes comptables du
+fallback, cable sur le rendu et les deux outils. **Mesure sur les 639 : 631 PASS
+avant, 611 PASS apres, 24 REGRESSIONS. Correctif retire.**
+
+Pourquoi ca ne marche pas : une liste noire ne peut pas etre exhaustive. Les
+heros ne se corrigent pas, ils se deplacent d'une ligne comptable vers une autre
+que la liste ignore : KO passe de "eps_diluted_q" a "cash_q", POOL de "dps_q" a
+"accounts_payable_q", TSCO de "Gross Profit" a "Lease Liability", ETR de
+"operating_income" a "plant_in_service", UHS de "op_income" a "ar_net". La bonne
+approche est une liste BLANCHE (le fallback ne promeut qu'une mesure d'activite
+reconnue) ou, plus surement, le repointage sté par sté. C'est un arbitrage Yann.
+
+Ce que le correctif aurait AUSSI apporte, a garder en tete pour la decision : 24
+vrais gains, dont MSFT vers le RPO commercial, XOM vers la production totale, TGT
+vers le nombre de magasins, AVB vers le parc de logements, NEE vers les clients
+FPL ajoutes, LHX vers le carnet de commandes, FITB vers les depots, ATO vers le
+volume distribue, AIG vers le resultat technique, EG vers les primes acquises.
+
+Ce qui reste en place du travail : le detecteur `isAccountingKpi` vit dans
+`src/lib/kpi-accounting.ts` et le qualifieur l'utilise en **AVERTISSEMENT**
+(colonne "⚠ hero = ligne comptable (a repointer)" sur les lignes PASS). Le rendu
+n'est pas touche, le verdict PASS/FAIL n'est pas touche, mais chaque passe donne
+desormais la liste a jour. Deux pieges de calibrage a ne pas reintroduire :
+- "cash" et "div" seuls sont interdits dans la liste : "CASH_TRADING_REV" est un
+  revenu de segment courtage, "DIV_PGP" la division Produits Grand Public de
+  L'Oreal.
+- une garde ACTIVITY_WORDS passe avant tout : si le libelle contient rev, sales,
+  volume, units, backlog, deposits, premiums, capacity, etc., ce n'est jamais une
+  ligne comptable. Sans elle "DA_rev" (segment Discrete Automation d'Emerson)
+  tombait sur l'abreviation comptable "DA".
+
+### Defaut n°4bis : 19 heros sont un CA total que le qualifieur ne voyait pas
+En calibrant, j'ai etendu `isTotalRevenueLabel` au libelle prive de ses marqueurs
+de periode. Effet : 19 stes publiees tombent, parce que leur hero configure EST
+un CA total sous un nom que la liste ne reconnaissait pas : ADS.DE, AALB.AS,
+ALGM, ASML, BEI.DE, DRI, DTE.DE, HEN3.DE, HEN3.DE, KHC, LSCC, MCHP, NESN.SW,
+NOVN.SW, RNO.PA, SJM, SY1.DE ("REVENUE_Q", "SALES_Q", "CA_S", "net_sales_q",
+"organic_net_sales"). C'est un VRAI defaut, pas un faux positif du filtre.
+
+Je n'ai pas elargi le filtre : seul, il ferait basculer ces 19 pages sur le KPI
+trimestriel suivant, le plus souvent une ligne comptable, donc pire. Il faut
+repointer les 19 heros un par un, comme les 22 traites aujourd'hui, PUIS elargir
+le filtre. C'est le prochain lot N2 naturel.
+
+## Defaut systemique n°5 : apply-hero-fix est inerte sur une ste a kpis-haut
+Constat sur CRH. `apply-hero-fix.py` ecrit le KPI sur base et pose `hero_kpi`,
+mais `loadV17Company` REMPLACE la liste par la couche kpis-haut : le KPI extrait
+n'existe pas dans le rendu, donc l'override Supabase qui le vise est ignore lui
+aussi (il exige que le short soit dans `company.kpis`). Les trois mecanismes
+tombaient ensemble. Sequence correcte, dans cet ordre :
+1. `python3 scripts/apply-hero-fix.py /tmp/fix-<t>.json`
+2. `python3 scripts/add-kpi-haut.py /tmp/fix-<t>.json` (injecte dans kpis-haut)
+3. `python3 scripts/set-hero-override.py --file /tmp/repoint.json`
+4. `npx tsx scripts/qualify-stes.ts <T>` pour verifier le hero REELLEMENT rendu
+
+`scripts/add-kpi-haut.py` existait depuis le 11 aout mais ne gerait que le
+trimestriel avec une etiquette de periode en argument. Reecrit : annuel et
+semestriel geres, etiquettes deduites de `last_data_date`, backup et ecriture
+atomique, plusieurs fix en un appel. L'ancien appel a 2 arguments reste tolere.
+
+## Heros repares (aucun token d'extraction, KPI deja present dans la fiche)
+6 le matin : GEBN.SW SEG_IFS, HSIC us_rev, LOGN.SW GAMING_Q, ML.PA SEG_AUTO_REV,
+OR.PA DIV_PGP, SWKS us_revenue.
+13 sur les heros comptables : EMR ID_rev, SBUX total_stores_ww, VRSK
+underwriting_rev, WTW BACKLOG, MRK.DE LS_REV, TDG power_control_net_sales, CASY
+fuel_gal_total, DTE electric_sales_volume, ORA.PA MOB_ACC, CON.DE CA_TIRES_Q,
+KPN.AS REV_CONS_Q, KNIN.SW SEA_REV, RWE.DE PROD_RENOUV.
+
+## Heros extraits ou etendus (verifies verbatim, chaque valeur croisee 2 fois)
+| Ticker | Hero | Profondeur | Source |
+|---|---|---|---|
+| CRH | rev_road_sol_y (Road Solutions) | 5 exercices | 10-K FY2023 a FY2025, note "Principal activities and products" |
+| VIE.PA | MET_EAU (metier Eau) | 5 exercices, etendu de 2 | URD 2022 a 2025 |
+| SGO.PA | CA-ESMOA (Europe du Sud, MEA) | 9 semestres | Annexes 1 et 2 des communiques S1 et FY |
+| SU.PA | EM_REV (Gestion de l'energie) | 6 exercices | URD 2021 a 2024 + CP FY2025 |
+| LR.PA | REV_NCA_FY (Amerique du Nord et centrale) | 5 exercices | URD et slides FY2025 |
+| SIKA.SW | REV_EMEA | 6 exercices | revues quinquennales AR 2024 et 2025 |
+| STLAP.PA | REV_NA_H (Amerique du Nord) | 8 semestres | tableaux SEGMENT PERFORMANCE des communiques |
+
+Pieges notes par les agents, a garder : chez Legrand l'ordre des colonnes du PDF
+est brouille a l'extraction, il faut le valider par les renvois "dont France" et
+"dont Etats-Unis" ; chez Sika le segment Global Business a ete reaffecte aux
+regions en 2024 (EMEA 2023 = 4 499 ancienne base, 4 880 base retraitee), ne pas
+melanger les deux ; chez Stellantis 2021 n'existe qu'en pro forma.
+
+## Les 4 FAIL restantes sont structurelles, NE PAS RE-TENTER
+| Ticker | Blocage |
+|---|---|
+| APP | Mono-segment depuis la cession des Apps : "CA Advertising" EST le CA total. Aucun sous-agregat publie sur 16 trimestres. |
+| GEV | Spin-off GE avril 2024, donnees les plus anciennes Q1 2023 et FY2022, soit 14 trimestres ou 4 exercices maximum. |
+| SW | Fusion Smurfit Kappa et WestRock juillet 2024, 14 trimestres max et rupture de perimetre (NA net sales 1 624 en 2023 puis 10 092 en 2024). |
+| CRWV | IPO 2025, un seul 10-K, 9 trimestres, RPO publie depuis fin 2024 seulement. |
+
+## A arbitrer par Yann
+17 heros restent des lignes comptables faute de mieux dans la fiche, tous
+documentes avec la raison dans `src/data/_hero-suspect.json` (50 entrees au
+total). Deux familles :
+- **extraction requise** (le bon KPI n'existe pas dans la fiche) : SRE, BF.B,
+  UHS, POOL, INVH, CHD, DG, FE, ENGI.PA, EOAN.DE.
+- **holding, structurellement sans KPI de demande** : PRX.AS, EXO.AS.
+- **le bon hero existe mais reste annuel** : EIX (comptes clients SCE), AIG
+  (primes acquises), DD (Water & Protection), BAS.DE (CA par zone), HSIC (CA
+  Etats-Unis). Ces cinq sont debloquees par le garde-fou comptable du jour.
+
+Rappel des deux arbitrages toujours ouverts depuis le 9 aout : les 269 stes en
+ligne hors `v1-9-5-clean-all-tickers.json` (la page redirige vers l'overview) et
+les doublons de listing (REN.AS face a RELX et REL.L).
