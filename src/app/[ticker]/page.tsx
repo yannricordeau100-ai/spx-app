@@ -12,6 +12,7 @@ import { loadV17Company } from "@/lib/company-core/load-company";
 import { resolveDisabledForTicker } from "@/lib/disabled-blocks-server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
+import { gateAttForTier } from "@/lib/att";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -164,11 +165,17 @@ export default async function TickerPage({
   const disabledBlocks = await resolveDisabledForTicker(ticker);
   const freemiumTier = await resolveFreemiumTier();
 
+  // ATT (anti-thèse) : même gating serveur que /sandbox/v1-9-5/<ticker>.
+  // Le contenu complet n'est sérialisé que pour le plan Max.
+  const gatedCompany = r.company.att
+    ? { ...r.company, att: gateAttForTier(r.company.att, freemiumTier) }
+    : r.company;
+
   return (
     <>
       <FreemiumBlurProvider tier={freemiumTier}>
         <CompanyView
-          company={r.company}
+          company={gatedCompany}
           authSlot={<AuthNav scope="company" />}
           transcript={transcript}
           transcriptSummary={transcriptSummary}

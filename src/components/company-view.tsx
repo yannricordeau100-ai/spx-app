@@ -54,6 +54,7 @@ import { orderKpis } from "@/lib/kpi-ordering";
 import { isGenericKpi } from "@/lib/kpi-generic";
 import { isTotalRevenueLabel } from "@/lib/kpi-total-revenue";
 import { RiskStack } from "@/components/risk-stack";
+import { AntiTheseCard } from "@/components/anti-these-card";
 import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
 import { GovernanceCard } from "@/components/governance-card";
@@ -1720,6 +1721,15 @@ export function CompanyView({
           )
         ) : (
           <BlockComingSoon blockId="risks" id="sec-risks" />
+        )}
+
+        {/* Anti-thèse d'investissement — juste APRÈS Facteurs de risque
+            (Yann 14 août 2026). Rendu uniquement si une ATT existe pour la
+            sté (src/data/att/<t>.json ou override desk_att). Le gating plan
+            Max est déjà appliqué côté serveur (gateAttForTier) : ici on ne
+            fait qu'afficher, att.locked pilote le placeholder flouté. */}
+        {company.att && !isDisabled("anti_these") && (
+          <AntiTheseCard att={company.att} accent={accent} />
         )}
 
         {/* Répartition CA (géo + segment) — au-dessus de Gouvernance */}

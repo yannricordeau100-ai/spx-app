@@ -10,6 +10,7 @@ import { loadV17Company } from "@/lib/company-core/load-company";
 import { resolveDisabledForTicker } from "@/lib/disabled-blocks-server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
+import { gateAttForTier } from "@/lib/att";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -286,10 +287,18 @@ export default async function SandboxV195TickerPage({
     return value;
   };
 
+  // ATT (anti-thèse) : gating serveur AVANT sérialisation. Le contenu
+  // complet (résumé, sections, glossaire) n'est envoyé au client QUE pour
+  // le plan Max (l'admin/audit connecté est "max" par défaut). Les autres
+  // tiers reçoivent uniquement titre + intensité + dates + hook + locked.
+  const gatedCompany = r.company.att
+    ? { ...r.company, att: gateAttForTier(r.company.att, freemiumTier) }
+    : r.company;
+
   return (
     <FreemiumBlurProvider tier={freemiumTier}>
       <CompanyView
-        company={stripMeta(r.company)}
+        company={stripMeta(gatedCompany)}
         authSlot={<AuthNav scope="company" />}
         transcript={transcript}
         transcriptSummary={transcriptSummary}

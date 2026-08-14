@@ -272,6 +272,13 @@ export type Company = {
   name: string;
   sector: string;
   subsector: string;
+  /**
+   * Anti-thèse d'investissement (Yann 14 août 2026). Chargée par
+   * load-company.ts depuis src/data/att/<t>.json (+ override Supabase
+   * desk_att). Côté client, TOUJOURS passée par gateAttForTier() dans la
+   * page serveur : le contenu complet est réservé au plan Max.
+   */
+  att?: import("@/lib/att").CompanyAtt;
   hero_kpi: string; // matches KPI.short
   /**
    * Rationale (1-2 phrases) expliquant POURQUOI ce KPI a été choisi comme

@@ -2734,6 +2734,22 @@ export async function loadV17Company(
     console.warn("[load-company] hero override fetch failed", err);
   }
 
+  // Yann 14 août 2026 : Anti-thèse d'investissement (ATT). Charge
+  // src/data/att/<ticker minuscule>.json si présent, avec override Supabase
+  // `desk_att` (une ligne desk REMPLACE le JSON local, même pattern que
+  // desk_disabled_blocks). Import dynamique + try/catch : si Supabase down
+  // ou fichier absent → pas d'ATT, zéro régression. Le GATING plan Max est
+  // fait dans les pages serveur via gateAttForTier() AVANT sérialisation.
+  try {
+    const { loadAttForTicker } = await import("@/lib/att-server");
+    const att = await loadAttForTicker(canonical);
+    if (att) {
+      (company as Company & { att?: unknown }).att = att;
+    }
+  } catch (err) {
+    console.warn("[load-company] att load failed", err);
+  }
+
   // Yann 18 mai 2026 : injecte traduction FR du tagline depuis le fichier
   // global taglines-fr.json. Source tagline = EN (CLAUDE.md §6).
   // Yann 28 mai 2026 : ne PAS écraser une trad FR déjà posée par
