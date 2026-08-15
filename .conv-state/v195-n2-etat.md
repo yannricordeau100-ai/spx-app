@@ -379,3 +379,19 @@ Les deux sont dans `src/data/_hero-suspect.json`.
 ## Rappels toujours ouverts
 Les 269 stes en ligne hors `v1-9-5-clean-all-tickers.json` (la page redirige vers
 l'overview) et les doublons de listing (REN.AS face a RELX et REL.L).
+
+## 15 aout, 2e lot : les heros "ligne comptable" repointes
+Le run de qualification signalait 23 stes publiees dont le hero est une ligne
+comptable. 10 avaient deja dans leur fiche un KPI de demande utilisable, donc
+repointees sans un token d'extraction : ACGL primes nettes emises, AIG primes
+nettes emises General Insurance, AMP actifs sous gestion, ENGI.PA CA hors
+France, F CA Ford Blue, FE livraisons de distribution, KO volume unit case
+mondial, LYB CA O&P Ameriques, MT.PA production d'acier brut, TSCO nombre de
+magasins Tractor Supply. Overrides Supabase, donc actifs sans redeploy, verifies
+en prod sur mettrik-niveau2.
+
+Les 13 autres n'ont aucun KPI de demande dans leur fiche : ADS.DE, ALC.SW,
+BAS.DE, CMG, DSFIR.AS, EIX, EOAN.DE, EXO.AS, GLE.PA, HOLN.SW, MRSH, PRX.AS, WM.
+Chacune est documentee dans `src/data/_hero-suspect.json` avec le KPI a extraire
+(EXO.AS et PRX.AS sont des holdings, structurellement sans mesure de demande).
+C'est le prochain lot d'extraction naturel.
