@@ -326,6 +326,23 @@ export function CompanyView({
       /margin|marge|ratio|taux|growth|croissance|yield|rendement/i.test(String(heroShort ?? "")) ||
       ["GM", "ROE", "ROTE", "ROIC", "ROA", "ROCE", "NIM", "ROTCE"].includes(String(heroShort ?? ""));
     if (heroUsable && heroIsQuarterly && !heroPct) return heroShort;
+    // Yann 15 aout 2026 : un hero explicite VALIDE (valeur reelle, non %, non
+    // generique, non CA total, serie >=3 points) n'est plus ecrase par le
+    // fallback quarterly. Mesure du 12 aout : quand le segment principal n'est
+    // publie qu'en annuel ou en semestriel, bestQuarterlyKpiShort promouvait la
+    // ligne comptable suivante (resultat net, BPA, dividende) et annulait le
+    // hero choisi. Le fallback ne sert plus que si le hero configure est
+    // inutilisable, en %, generique ou un CA total.
+    const heroHistLen = Array.isArray(heroKpi?.history) ? heroKpi.history.length : 0;
+    if (
+      heroUsable &&
+      !heroPct &&
+      heroHistLen >= 3 &&
+      !isGenericKpi(heroShort) &&
+      !isTotalRevenueLabel(heroShort)
+    ) {
+      return heroShort;
+    }
     if (bestQuarterlyKpiShort) return bestQuarterlyKpiShort;
     if (heroUsable && !heroPct) return heroShort;
     const fallback = company.kpis?.find(

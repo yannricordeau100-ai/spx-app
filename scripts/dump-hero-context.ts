@@ -66,6 +66,10 @@ const pctMarg = (k: any) => {
       const cfgQ = cfgK && cfgK.period_type === "quarter" && hist(cfgK).length >= 4;
       let heroShort: string;
       if (usableK(cfgK) && cfgQ && !pctMarg(cfgK)) heroShort = co.hero_kpi;
+      // 15 aout 2026 : aligne sur company-view, le fallback quarterly n'ecrase
+      // plus un hero explicite valide (non %, non generique, non CA total).
+      else if (usableK(cfgK) && !pctMarg(cfgK) && hist(cfgK).length >= 3 && !isGenericKpi(cfgK?.short) && !TOTAL_REV.has(normShort(cfgK.short)))
+        heroShort = co.hero_kpi;
       else if (bestQ) heroShort = bestQ;
       else if (usableK(cfgK) && !pctMarg(cfgK)) heroShort = co.hero_kpi;
       else heroShort = co.kpis.find((k: any) => usableK(k) && hist(k).length >= 3 && !pctMarg(k) && !isGenericKpi(k?.short))?.short ?? co.hero_kpi;

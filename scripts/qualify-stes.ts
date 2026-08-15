@@ -109,18 +109,47 @@ const raw = process.argv.slice(2);
       // CA_AP annuel 10,637 Mds face a REV_Q trimestriel 10,743 Mds).
       const perOf = (k: any) => String(k?.period_type || "").toLowerCase();
       const totByPeriod: Record<string, number> = {};
+      const totKpiByPeriod: Record<string, any> = {};
       for (const k of co.kpis) {
         if (!TOTAL_REV.has(normShort(k.short))) continue;
         const v = num(k.value);
         if (v === null) continue;
         const p = perOf(k);
-        if (totByPeriod[p] === undefined || v > totByPeriod[p]) totByPeriod[p] = v;
+        if (totByPeriod[p] === undefined || v > totByPeriod[p]) {
+          totByPeriod[p] = v;
+          totKpiByPeriod[p] = k;
+        }
       }
       const totFor = (k: any): number | null => {
         const p = perOf(k);
         // KPI sans period_type (compteurs web) : on retombe sur le max global.
         if (!p) return totv;
         return totByPeriod[p] !== undefined ? totByPeriod[p] : null;
+      };
+      // 15 aout 2026 : une seule valeur qui colle au CA total ne prouve RIEN.
+      // Mesure du jour : apres elargissement de isTotalRevenueLabel, 7 stes
+      // publiees tombaient sur une pure coincidence numerique entre grandeurs
+      // sans rapport (DUK 7,6 GW face a 7,59 Mds $ ; GL 1 585 agents face a
+      // 1 599,7 M USD ; FICO carnet RPO 680 face a un CA de 674 ; MCHP EBITDA
+      // 12 mois face au CA du trimestre). Une contamination reelle, elle,
+      // recopie la SERIE. On exige donc l'unite identique ET au moins deux
+      // points anterieurs qui collent eux aussi.
+      const normUnit = (u: unknown) => String(u ?? "").toLowerCase().replace(/\s+/g, "").replace(/[.$]/g, "");
+      const close = (a: number, b: number) => Math.abs(a - b) <= Math.abs(b) * 0.01;
+      const seriesEchoesTotal = (k: any): boolean => {
+        const ref = totKpiByPeriod[perOf(k)];
+        if (!ref) return false;
+        if (normUnit(k.unit) !== normUnit(ref.unit)) return false;
+        const a = hist(k);
+        const b = hist(ref);
+        if (a.length < 3 || b.length < 3) return false;
+        let hits = 0;
+        for (let i = 1; i <= Math.min(a.length, b.length) - 1 && i <= 5; i++) {
+          const x = a[a.length - 1 - i];
+          const y = b[b.length - 1 - i];
+          if (typeof x === "number" && typeof y === "number" && close(x, y)) hits++;
+        }
+        return hits >= 2;
       };
 
       // HERO RÉEL AFFICHÉ : réplique effectiveDefaultHero de company-view.
@@ -150,6 +179,12 @@ const raw = process.argv.slice(2);
       const cfgQ = cfgK && cfgK.period_type === "quarter" && hist(cfgK).length >= 4;
       let hero: string;
       if (usableK(cfgK) && cfgQ && !pctMarg(cfgK)) hero = co.hero_kpi;
+      // 15 aout 2026 : aligne sur company-view, qui ne laisse plus le fallback
+      // quarterly ecraser un hero explicite VALIDE (non %, non generique, non
+      // CA total, serie >=3 points). Copie locale interdite : le test vient de
+      // src/lib, comme TOTAL_REV.
+      else if (usableK(cfgK) && !pctMarg(cfgK) && hist(cfgK).length >= 3 && !isGen(cfgK) && !TOTAL_REV.has(normShort(cfgK.short)))
+        hero = co.hero_kpi;
       else if (bestQ) hero = bestQ;
       else if (usableK(cfgK) && !pctMarg(cfgK)) hero = co.hero_kpi;
       else hero = co.kpis.find((k: any) => usableK(k) && hist(k).length >= 3 && !pctMarg(k) && !isGen(k))?.short ?? co.hero_kpi;
@@ -175,7 +210,7 @@ const raw = process.argv.slice(2);
         if (hv !== null && Number.isInteger(hv) && hv >= 1990 && hv <= 2060 && (!hu || /^(year|années?|annee|an)$/i.test(hu)))
           reasons.push("hero = annee cible, pas une mesure");
         const hTot = totFor(hk);
-        if (hv !== null && hTot !== null && Math.abs(hv - hTot) <= Math.abs(hTot) * 0.01 && !isGen(hk))
+        if (hv !== null && hTot !== null && Math.abs(hv - hTot) <= Math.abs(hTot) * 0.01 && !isGen(hk) && seriesEchoesTotal(hk))
           reasons.push("hero = CA total (CONTAMINATION)");
         // 9 aout 2026 : un hero dont le nom EST un libelle de CA total doit
         // tomber meme si aucune autre valeur ne coincide (unites differentes
@@ -220,7 +255,7 @@ const raw = process.argv.slice(2);
         // et dont la valeur colle au CA total sont des contaminations.
         if (TOTAL_REV.has(normShort(k.short))) continue;
         const kTot = totFor(k);
-        if (v !== null && kTot !== null && Math.abs(v - kTot) <= Math.abs(kTot) * 0.01 && !isGen(k))
+        if (v !== null && kTot !== null && Math.abs(v - kTot) <= Math.abs(kTot) * 0.01 && !isGen(k) && seriesEchoesTotal(k))
           reasons.push(String(k.short) + " = CA total");
       }
 

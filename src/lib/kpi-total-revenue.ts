@@ -31,6 +31,9 @@ const TOTAL_REVENUE_LABELS = new Set([
   "consolidated revenue", "consolidated revenues", "consolidated net sales",
   "total group revenue", "revenue fy", "revenue total", "turnover",
   "group turnover", "total turnover", "ca annuel", "ca fy",
+  // 15 aout 2026 : libelles de CA total sans marqueur de periode, atteints via
+  // stripPeriodMarkers (voir isTotalRevenueLabel).
+  "organic net sales", "organic revenue", "organic sales", "net turnover",
 ]);
 
 /**
@@ -62,15 +65,16 @@ export function stripPeriodMarkers(s: string): string {
 /**
  * True si le `short` du KPI est un libelle de chiffre d'affaires total.
  *
- * ATTENTION, egalite STRICTE volontaire. Mesure du 12 aout 2026 : etendre ce
- * test au libelle prive de ses marqueurs de periode (via stripPeriodMarkers)
- * fait tomber 19 stes publiees dont le hero configure est "REVENUE_Q",
- * "SALES_Q", "CA_S" ou "net_sales_q". Ces 19 heros SONT bien des CA totaux,
- * c'est un vrai defaut, mais le corriger demande de repointer les 19 heros un
- * par un : elargir le filtre seul ferait basculer ces pages sur le KPI
- * trimestriel suivant, le plus souvent une ligne comptable, donc pire. Liste et
- * marche a suivre dans .conv-state/v195-n2-etat.md.
+ * 15 aout 2026 : le test porte desormais AUSSI sur le libelle prive de ses
+ * marqueurs de periode. C'est ce qui fait tomber les CA totaux deguises en
+ * "REVENUE_Q", "SALES_Q", "CA_S", "net_sales_q" ou "organic_net_sales". Le
+ * prealable annonce le 12 aout est fait : les heros concernes ont ete
+ * repointes sur un KPI de demande avant l'elargissement, mesure des heros
+ * effectifs des 639 publiees a l'appui (voir .conv-state/v195-n2-etat.md).
  */
 export function isTotalRevenueLabel(short: unknown): boolean {
-  return TOTAL_REVENUE_LABELS.has(normalizeKpiShort(short));
+  const n = normalizeKpiShort(short);
+  if (TOTAL_REVENUE_LABELS.has(n)) return true;
+  const stripped = stripPeriodMarkers(n);
+  return stripped.length > 0 && TOTAL_REVENUE_LABELS.has(stripped);
 }

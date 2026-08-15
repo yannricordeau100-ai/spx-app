@@ -313,3 +313,69 @@ total). Deux familles :
 Rappel des deux arbitrages toujours ouverts depuis le 9 aout : les 269 stes en
 ligne hors `v1-9-5-clean-all-tickers.json` (la page redirige vers l'overview) et
 les doublons de listing (REN.AS face a RELX et REL.L).
+
+---
+
+# 15 aout 2026 : le lot des heros "CA total deguise" est traite
+
+## Resultat
+Depart 639 publiees, dont 19 dont le hero configure ETAIT un CA total sous un
+nom que le filtre ne reconnaissait pas. Arrivee **635 PASS / 4 FAIL**, avec un
+qualifieur nettement plus strict qu'au 12 aout. Les 4 FAIL sont les memes
+blocages structurels documentes le 12 aout : APP, CRWV, GEV, SW.
+
+## Le prealable annonce le 12 aout est fait, dans l'ordre
+1. **24 heros repointes** sur un KPI de demande deja present dans la fiche
+   (zero token d'extraction) : AALB.AS CA_AMERIQUE, ASML systems_sold, BEI.DE
+   CONSUMER_SALES_Q, DRI OG_REV, DTE.DE SEG_US_REV_Q, HEN3.DE SEG_AT_SALES,
+   LSCC revenue_end_market_comm_computing, MCHP mcu_rev, NESN.SW
+   SALES_BEVERAGES, NOVN.SW COSENTYX_Q, SJM coffee_rev, SY1.DE TNH_REVENUE_H,
+   puis APH comm_solutions_rev, EVRG rev_residential_q, EXC rev_comed, GIVN.SW
+   CA_FB_S, IFX.DE REV_CHINA, JBL NB_CUST_90PCT, KR sales_ex_fuel_q, PCG
+   elec_revenue_q, VST ca_retail.
+2. **Filtre elargi** : `isTotalRevenueLabel` teste desormais aussi le libelle
+   prive de ses marqueurs de periode, donc REVENUE_Q, SALES_Q, CA_S,
+   net_sales_q, organic_net_sales tombent.
+3. **3 heros extraits verbatim** pour les stes sans remplacant dans la fiche :
+   KHC na_revenue (18 trimestres, Q1 2022 a Q2 2026, le segment North America
+   n'existe pas avant 2022), ALGM automotive_rev (20 trimestres, base retraitee
+   des reclassements retours/remises), RNO.PA CA_AUTO_S (9 semestres, perimetre
+   homogene post-cession Russie). Chaque serie a ete sondee contre le filing
+   d'origine avant application.
+
+## Defaut systemique n°3 : referme
+`effectiveDefaultHero` ne laisse plus le fallback quarterly ecraser un hero
+explicite VALIDE (valeur reelle, non %, non generique, non CA total, serie >=3
+points). C'est ce qui bloquait les stes europeennes publiant leur segment en
+annuel ou en semestriel : le fallback promouvait la ligne comptable suivante.
+Mesure sur les 639 : 41 heros effectifs changent, **30 gains** (ACLS carnet de
+commandes, ASML systemes vendus, BF.B volumes Woodford, CIEN carnet, EOG
+production Delaware, HEIA.AS volume Heineken, HSIC CA Etats-Unis, LHX carnet
+finance, MA GDV, NEE capacite renouvelable ajoutee, POOL nombre de centres, SRE
+base tarifaire, TGT nombre de magasins, TTD depense brute, VRT carnet, XEL base
+tarifaire, etc.) contre 11 basculements vers une ligne comptable, tous
+rattrapes par un repointage le jour meme sauf deux.
+La copie locale de la regle a ete mise a jour DANS LE MEME COMMIT dans
+`scripts/qualify-stes.ts` et `scripts/dump-hero-context.ts` (lecon du 12 aout).
+
+## Defaut systemique n°6 : la contamination se prouve sur la SERIE, pas sur une valeur
+L'elargissement du filtre a fait tomber 7 stes publiees sur une pure coincidence
+numerique : DUK 7,6 GW face a 7,59 Mds $, GL 1 585 agents face a 1 599,7 M USD,
+FICO carnet RPO 680 face a un CA de 674, MCHP EBITDA 12 mois face au CA du
+trimestre, FOX tresorerie, PWR carnet, VTRS dette brute. Le test "value = CA
+total" exige desormais **l'unite identique ET au moins deux points anterieurs
+qui collent**. Les vraies contaminations (ALAB, ALGM et RNO.PA avant fix) restent
+detectees. 7 faux positifs elimines, zero vraie contamination perdue.
+
+## Reste a arbitrer (Yann)
+- **ADS.DE** : hero = resultat operationnel faute de mieux. Les CA par zone
+  (REV_EUROPE, REV_NORTH_AMERICA) n'ont que 7 semestres, il en faut 8. Un
+  semestre de plus debloque la ste.
+- **DSFIR.AS** : hero = EBITDA ajuste. Aucun CA de segment dans la fiche, alors
+  que DSM-Firmenich publie Taste Texture & Health, Perfumery & Beauty et Animal
+  Nutrition & Health. Extraction requise.
+Les deux sont dans `src/data/_hero-suspect.json`.
+
+## Rappels toujours ouverts
+Les 269 stes en ligne hors `v1-9-5-clean-all-tickers.json` (la page redirige vers
+l'overview) et les doublons de listing (REN.AS face a RELX et REL.L).
