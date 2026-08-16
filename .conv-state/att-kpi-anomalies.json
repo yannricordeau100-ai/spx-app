@@ -1,0 +1,41 @@
+{
+ "note": "Ecarts detectes par les agents ATT entre kpis-haut et le filing source. A verifier avant prochain build.",
+ "items": [
+  {
+   "ticker": "SCHW",
+   "kpi": "MARGIN_LOANS",
+   "kpis_haut": "126,7 Mds $",
+   "filing_10Q_T2_2026": "122,8 Mds $",
+   "action": "verifier la source de kpis-haut"
+  },
+  {
+   "ticker": "BKNG",
+   "kpi": "BPA et dividende par action",
+   "kpis_haut": "non ajuste",
+   "filing": "division du nominal en 2026",
+   "action": "reajuster les series par action apres split"
+  },
+  {
+   "ticker": "SU.PA",
+   "probleme": "aucun document S1 2026 en local (le CP date 2026-08-01 est un doublon md5 du CP FY2025)",
+   "action": "retelecharger les resultats semestriels 2026 Schneider"
+  },
+  {
+   "ticker": "RCL",
+   "probleme": "les traductions i18n rcl.en.json et rcl.de.json contiennent du francais non traduit dans le bloc risks (identique dans les deux)",
+   "action": "verifier l ampleur du defaut de traduction sur l univers i18n"
+  },
+  {
+   "ticker": "CSX",
+   "bloc": "gouvernance",
+   "probleme": "PDG affiche = Joseph Hinrichs, remplace en 2026 selon le 10-Q",
+   "action": "audit fraicheur des dirigeants sur l univers"
+  },
+  {
+   "type": "data-lake incomplet",
+   "detail": "Dernier 6-K sur disque = mai 2024, dernier doc = 20-F FY2025 (fev 2026). Resultats S1 2026 Ferrovial absents du data-lake : ATT fondee sur le 20-F, datee honnetement. Telecharger les 6-K 2025-2026 puis rafraichir.",
+   "signale_le": "2026-08-16",
+   "ticker": "FER"
+  }
+ ]
+}
