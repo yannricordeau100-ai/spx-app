@@ -48,7 +48,7 @@ function kpiScore(k: KPI): number {
 // "utilisatEURs" ou "USDa" déclencheraient un faux positif monétaire.
 const MONEY_UNIT_RE = /(\$|€|£|M\$|M€|\b(CHF|TWD|SEK|NOK|DKK|EUR|USD|GBP|JPY|kr)\b)/i;
 const BARE_MAGNITUDE_RE = /^(mds|m|k|b)$/i;
-const FINANCIAL_PCT_RE = /marge|margin|payout|tax|imposition|yield|rendement|ratio|roe|rote|rotce|mcr|combined|bpa|eps|croissance|growth|organic|organique/i;
+const FINANCIAL_PCT_RE = /marge|margin|payout|tax|imposition|yield|rendement|ratio|roe|rote|rotce|mcr|combined|bpa|eps|croissance|growth|organic|organique|fcf|cash conversion|conversion|return on|debt|dette|capex|r&d|\brd\b|rd_|_pct|intensit|leverage|solvab/i;
 
 export function isPhysicalKpi(k: KPI): boolean {
   const unit = String(k.unit ?? "").trim();
@@ -61,6 +61,9 @@ export function isPhysicalKpi(k: KPI): boolean {
     if (!/transaction|txn|unit[ée]?s?|abonn|subscriber|client|customer|user|utilisateur|volume|shipment|livraison|passager|magasin|store|compte|account|dose|patient|vehicule|vehicle/i.test(lbl)) return false;
     return true;
   }
+  // Effectifs sous toutes leurs formes = générique, jamais en position 1.
+  const lblAll = `${k.name_fr ?? ""} ${k.name_en ?? ""} ${k.short ?? ""}`;
+  if (/employe|effectif|headcount|collaborateur|workforce/i.test(lblAll)) return false;
   // Points de base = ratios financiers (coût du risque, NIM...), jamais physique.
   if (/^(pb|bps|points? de base)$/i.test(unit)) return false;
   const label = `${k.name_fr ?? ""} ${k.name_en ?? ""} ${k.short ?? ""}`;
@@ -99,7 +102,23 @@ export function orderKpis(kpis: KPI[], heroShort?: string): KPI[] {
     );
     return idx >= 0 ? pool.splice(idx, 1)[0] : null;
   };
-  const firstPhysical = pickPhysical(wow) ?? pickPhysical(generic);
+  let firstPhysical = pickPhysical(wow) ?? pickPhysical(generic);
+  // Dernier recours : une série physique marquée is_short_history (>=3
+  // points) vaut mieux qu'un KPI financier en position 1 (seule ligne en
+  // clair pour le tier free). Elle apparaît alors dans le tableau en plus
+  // des Stories.
+  if (!firstPhysical) {
+    firstPhysical =
+      kpis.find(
+        (k) =>
+          k.is_short_history &&
+          k.short !== heroShort &&
+          isPhysicalKpi(k) &&
+          !isGenericKpi(k.short) &&
+          Array.isArray(k.history) &&
+          k.history.length >= 3,
+      ) ?? null;
+  }
   if (firstPhysical) ordered.push(firstPhysical);
   // Positions suivantes : 2 wow consécutifs (les plus longs en history)
   if (wow.length > 0) ordered.push(wow.shift()!);
