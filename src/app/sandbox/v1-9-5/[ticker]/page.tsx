@@ -207,10 +207,20 @@ async function loadTranscript(ticker: string): Promise<TranscriptDoc | null> {
 
 export default async function SandboxV195TickerPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ ticker: string }>;
+  searchParams?: Promise<{ audit_token?: string }>;
 }) {
   const { ticker } = await params;
+  const sp = searchParams ? await searchParams : {};
+  // Yann 18 août 2026 : les non-inscrits n'accèdent PAS aux pages stés
+  // (uniquement accueil + pricing). Bypass audit_token pour les vérifs
+  // automatisées (curl, crons, inspections).
+  const auditBypass =
+    !!sp?.audit_token &&
+    !!process.env.VISUAL_AUDIT_TOKEN &&
+    sp.audit_token === process.env.VISUAL_AUDIT_TOKEN;
   const aliasTarget = URL_ALIASES[ticker.toUpperCase()];
   if (aliasTarget && aliasTarget !== ticker.toLowerCase()) {
     redirect(`/sandbox/v1-9-5/${aliasTarget}`);
@@ -252,7 +262,8 @@ export default async function SandboxV195TickerPage({
   // Le cookie simulate (admin "view as") prime sur tout.
   const simulated = await readSimulateTier();
   let freemiumTier: UserTier;
-  if (simulated === "anonymous") freemiumTier = "anon";
+  if (auditBypass) freemiumTier = "max";
+  else if (simulated === "anonymous") freemiumTier = "anon";
   else if (simulated === "free") freemiumTier = "free";
   else if (simulated === "premium") freemiumTier = "premium";
   else if (simulated === "max") freemiumTier = "max";
@@ -266,6 +277,13 @@ export default async function SandboxV195TickerPage({
     } catch {
       freemiumTier = "anon";
     }
+  }
+
+  // Yann 18 août 2026 : anonyme = pas d'accès aux pages stés, redirection
+  // vers l'accueil (seuls accueil + pricing sont publics). Le cookie
+  // simulate "anonymous" (admin view-as) reste autorisé pour prévisualiser.
+  if (freemiumTier === "anon" && simulated !== "anonymous") {
+    redirect("/");
   }
 
   // Yann 11 juin 2026 : retire des props sérialisées (HTML) toute métadonnée de

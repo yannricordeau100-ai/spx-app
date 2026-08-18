@@ -23,6 +23,7 @@
  */
 
 import type { KPI } from "./data";
+import { isGenericKpi } from "./kpi-generic";
 
 function kpiScore(k: KPI): number {
   // Tri composite : wow gagne toujours, puis history desc, puis quarter
@@ -33,6 +34,28 @@ function kpiScore(k: KPI): number {
   const isQuarter = periodType === "quarter" ? 1 : 0;
   // Encodage : wow×10000 + history×10 + quarter. history ≤ 999 attendu.
   return wow * 10000 + hist * 10 + isQuarter;
+}
+
+/**
+ * Yann 18 août 2026 — le 1er KPI du bloc "Indicateurs clés" doit être
+ * QUALITATIF : exprimé en unités physiques (abonnés, unités, tonnes, MW,
+ * magasins…), jamais en devise ni en pourcentage financier. C'est la seule
+ * ligne visible en clair pour le tier free (les suivantes sont floutées).
+ */
+// Devises uniquement. "Mds"/"M" nus sont ambigus (souvent monétaires) et
+// traités à part ; "Mds unités", "Mds de puces"… restent physiques.
+const MONEY_UNIT_RE = /(\$|€|£|CHF|TWD|SEK|NOK|DKK|EUR|USD|GBP|JPY|M\$|M€|\bkr\b)/i;
+const BARE_MAGNITUDE_RE = /^(mds|m|k|b)$/i;
+const FINANCIAL_PCT_RE = /marge|margin|payout|tax|imposition|yield|rendement|ratio|roe|rotce|mcr|combined|bpa|eps/i;
+
+export function isPhysicalKpi(k: KPI): boolean {
+  const unit = String(k.unit ?? "").trim();
+  if (!unit) return false;
+  if (MONEY_UNIT_RE.test(unit)) return false;
+  if (BARE_MAGNITUDE_RE.test(unit)) return false;
+  const label = `${k.name_fr ?? ""} ${k.short ?? ""}`;
+  if (unit === "%" && FINANCIAL_PCT_RE.test(label)) return false;
+  return true;
 }
 
 export function orderKpis(kpis: KPI[], heroShort?: string): KPI[] {
@@ -52,7 +75,21 @@ export function orderKpis(kpis: KPI[], heroShort?: string): KPI[] {
   generic.sort((a, b) => kpiScore(b) - kpiScore(a));
 
   const ordered: KPI[] = [];
-  // Positions 1-2 : 2 wow consécutifs (les plus longs en history)
+  // Position 1 (Yann 18 août 2026) : le meilleur KPI PHYSIQUE (unité non
+  // monétaire, ≥3 points d'history), wow d'abord. Seule ligne en clair en free.
+  const pickPhysical = (pool: KPI[]): KPI | null => {
+    const idx = pool.findIndex(
+      (k) =>
+        isPhysicalKpi(k) &&
+        !isGenericKpi(k.short) &&
+        Array.isArray(k.history) &&
+        k.history.length >= 3,
+    );
+    return idx >= 0 ? pool.splice(idx, 1)[0] : null;
+  };
+  const firstPhysical = pickPhysical(wow) ?? pickPhysical(generic);
+  if (firstPhysical) ordered.push(firstPhysical);
+  // Positions suivantes : 2 wow consécutifs (les plus longs en history)
   if (wow.length > 0) ordered.push(wow.shift()!);
   if (wow.length > 0) ordered.push(wow.shift()!);
   // Positions 3+ : alternance generic, wow, generic, wow, …

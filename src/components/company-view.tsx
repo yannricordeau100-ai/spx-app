@@ -1629,19 +1629,33 @@ export function CompanyView({
                 non-TTM de `chartSpec.values`. Si timeFraction != "year",
                 applique le divisor déjà utilisé côté chart (cf
                 chart-cycle.tsx ligne 285). */}
-            {visibleKpis.map((kpi) => {
+            {visibleKpis.map((kpi, kpiIdx) => {
               const isActive = kpi.short === active.short;
-              return (
+              // Yann 18 août 2026 : en tier free, la 1re ligne (KPI physique
+              // qualitatif) est EN CLAIR ; toutes les suivantes sont floutées
+              // en entier (nom + valeurs), non cliquables.
+              const rowFullyBlurred = freeBlocked && kpiIdx > 0;
+              const row = (
                 <KpiRow
                   key={kpi.short}
                   kpi={kpi}
                   active={isActive}
                   subsector={company.subsector}
                   ticker={company.ticker}
-                  onClick={() => handleKpiClick(kpi.short)}
-                  freeBlocked={freeBlocked}
+                  onClick={rowFullyBlurred ? () => {} : () => handleKpiClick(kpi.short)}
+                  freeBlocked={rowFullyBlurred}
                   overrideValue={isActive ? heroLastVisibleValue : null}
                 />
+              );
+              if (!rowFullyBlurred) return row;
+              return (
+                <div
+                  key={kpi.short}
+                  className="pointer-events-none select-none blur-[6px]"
+                  aria-hidden="true"
+                >
+                  {row}
+                </div>
               );
             })}
             {hiddenCount > 0 && (
