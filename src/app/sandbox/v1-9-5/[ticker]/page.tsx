@@ -262,7 +262,12 @@ export default async function SandboxV195TickerPage({
   // Le cookie simulate (admin "view as") prime sur tout.
   const simulated = await readSimulateTier();
   let freemiumTier: UserTier;
-  if (auditBypass) freemiumTier = "max";
+  // auditBypass : tier max par défaut, mais le cookie simulate reste
+  // respecté pour pouvoir prévisualiser le rendu free/premium en audit.
+  if (auditBypass && !simulated) freemiumTier = "max";
+  else if (auditBypass && simulated === "free") freemiumTier = "free";
+  else if (auditBypass && simulated === "premium") freemiumTier = "premium";
+  else if (auditBypass) freemiumTier = "max";
   else if (simulated === "anonymous") freemiumTier = "anon";
   else if (simulated === "free") freemiumTier = "free";
   else if (simulated === "premium") freemiumTier = "premium";
