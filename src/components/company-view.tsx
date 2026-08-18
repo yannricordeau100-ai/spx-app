@@ -50,7 +50,7 @@ import { CompareControl } from "@/components/compare-control";
 import { ComparePanel } from "@/components/compare-panel";
 import { KpiStories } from "@/components/kpi-stories";
 import { hasStories } from "@/lib/kpi-stories-ordering";
-import { orderKpis } from "@/lib/kpi-ordering";
+import { orderKpis, isPhysicalKpi } from "@/lib/kpi-ordering";
 import { isGenericKpi } from "@/lib/kpi-generic";
 import { isTotalRevenueLabel } from "@/lib/kpi-total-revenue";
 import { RiskStack } from "@/components/risk-stack";
@@ -713,7 +713,14 @@ export function CompanyView({
       (k as unknown as { period_type?: string }).period_type === "quarter";
     const quarterCount = filtered.filter(isQuarter).length;
     if (quarterCount >= 3) {
-      return filtered.filter((k) => k.short === heroShort || isQuarter(k));
+      // Yann 18 août 2026 : le 1er KPI (physique qualitatif choisi par
+      // orderKpis, souvent annuel) est EXEMPTÉ du filtre trimestriel-only :
+      // c'est la seule ligne visible en clair pour le tier free.
+      const firstPhysicalShort =
+        filtered.length > 0 && isPhysicalKpi(filtered[0]) ? filtered[0].short : null;
+      return filtered.filter(
+        (k) => k.short === heroShort || k.short === firstPhysicalShort || isQuarter(k),
+      );
     }
     return filtered;
   }, [company]);
