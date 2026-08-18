@@ -44,17 +44,29 @@ function kpiScore(k: KPI): number {
  */
 // Devises uniquement. "Mds"/"M" nus sont ambigus (souvent monétaires) et
 // traités à part ; "Mds unités", "Mds de puces"… restent physiques.
-const MONEY_UNIT_RE = /(\$|€|£|CHF|TWD|SEK|NOK|DKK|EUR|USD|GBP|JPY|M\$|M€|\bkr\b)/i;
+// Codes devises entre frontières de mots : sans \b, "consommatEURs",
+// "utilisatEURs" ou "USDa" déclencheraient un faux positif monétaire.
+const MONEY_UNIT_RE = /(\$|€|£|M\$|M€|\b(CHF|TWD|SEK|NOK|DKK|EUR|USD|GBP|JPY|kr)\b)/i;
 const BARE_MAGNITUDE_RE = /^(mds|m|k|b)$/i;
-const FINANCIAL_PCT_RE = /marge|margin|payout|tax|imposition|yield|rendement|ratio|roe|rotce|mcr|combined|bpa|eps/i;
+const FINANCIAL_PCT_RE = /marge|margin|payout|tax|imposition|yield|rendement|ratio|roe|rote|rotce|mcr|combined|bpa|eps|croissance|growth|organic|organique/i;
 
 export function isPhysicalKpi(k: KPI): boolean {
   const unit = String(k.unit ?? "").trim();
   if (!unit) return false;
   if (MONEY_UNIT_RE.test(unit)) return false;
-  if (BARE_MAGNITUDE_RE.test(unit)) return false;
-  const label = `${k.name_fr ?? ""} ${k.short ?? ""}`;
-  if (unit === "%" && FINANCIAL_PCT_RE.test(label)) return false;
+  if (BARE_MAGNITUDE_RE.test(unit)) {
+    // "M"/"Mds" nus : physique seulement si le libellé est clairement
+    // volumétrique (transactions, unités, abonnés...), sinon monétaire.
+    const lbl = `${k.name_fr ?? ""} ${k.name_en ?? ""} ${k.short ?? ""}`;
+    if (!/transaction|txn|unit[ée]?s?|abonn|subscriber|client|customer|user|utilisateur|volume|shipment|livraison|passager|magasin|store|compte|account|dose|patient|vehicule|vehicle/i.test(lbl)) return false;
+    return true;
+  }
+  // Points de base = ratios financiers (coût du risque, NIM...), jamais physique.
+  if (/^(pb|bps|points? de base)$/i.test(unit)) return false;
+  const label = `${k.name_fr ?? ""} ${k.name_en ?? ""} ${k.short ?? ""}`;
+  // Tout % (y compris "% YoY", "% du CA"...) financier est exclu.
+  if (unit.includes("%") && FINANCIAL_PCT_RE.test(label)) return false;
+  if (unit.includes("%") && /overhead|efficiency|cost.?income|co[uû]t du risque|\bcor\b/i.test(label)) return false;
   return true;
 }
 
