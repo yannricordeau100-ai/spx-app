@@ -99,7 +99,8 @@ const RECENT_IPO_TABLE: Record<string, { ipoLabel: string; readyInMonths: number
   GEHC: { ipoLabel: "janvier 2023", readyInMonths: 20 },
   GEV: { ipoLabel: "mars 2024", readyInMonths: 4 },
   Q: { ipoLabel: "juin 2025", readyInMonths: 13 },
-  RDDT: { ipoLabel: "mars 2024", readyInMonths: 4 },
+  // RDDT retiré le 18 août 2026 : 2,4 ans de cotation, 14 trimestres de
+  // séries publiées, entré au SP500 : la page complète est prête.
   SNDK: { ipoLabel: "février 2025", readyInMonths: 9 },
   SOLV: { ipoLabel: "avril 2024", readyInMonths: 5 },
 };
