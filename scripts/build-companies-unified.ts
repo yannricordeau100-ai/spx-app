@@ -45,6 +45,12 @@ const tickersIndex = JSON.parse(readFileSync(tickersIndexPath, "utf-8")) as Arra
 }>;
 const tickers = tickersIndex.map((t) => t.ticker);
 
+// Suffixes de place boursière : jamais des subkeys d'enrich. Sans ce garde-fou,
+// le ticker US `rog` capturait `rog.sw.json` (Roche) comme subkey "sw".
+const NON_US_SUFFIXES = new Set([
+  "pa", "as", "de", "sw", "l", "mc", "mi", "br", "co", "st", "he", "ls", "vi", "ol",
+]);
+
 // Subkeys d'enrich connus (cf load-company.ts). Les fichiers
 // `<ticker>.<subkey>.json` sont stockés sous `enrich_<subkey>` dans la sortie.
 const KNOWN_SUBKEYS = new Set([
@@ -97,8 +103,11 @@ function listEnrichSubkeyFiles(tickerLow: string): Map<string, string> {
     // détectable. On gère ça séparément ci-dessous.
     if (KNOWN_SUBKEYS.has(rest)) {
       out.set(rest, join(enrichDir, f));
-    } else if (rest.indexOf(".") === -1) {
+    } else if (rest.indexOf(".") === -1 && !NON_US_SUFFIXES.has(rest)) {
       // Subkey inconnu mais pas de point résiduel → on l'inclut.
+      // Sauf si `rest` est un suffixe de place boursière : `rog` + `sw.json`
+      // donnait rest = "sw" et injectait tout Roche dans le fichier de
+      // Rogers Corp (ticker US ROG). Même piège pour mc/pa, alv/de, ad/as.
       out.set(rest, join(enrichDir, f));
     }
     // Sinon (point résiduel) : c'est probablement un fichier d'un AUTRE

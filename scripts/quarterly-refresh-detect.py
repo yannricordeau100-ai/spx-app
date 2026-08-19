@@ -204,8 +204,20 @@ def load_cik_map(force_refresh: bool = False) -> dict[str, str]:
     return m
 
 
+# Suffixes de place boursiere non-US : ces tickers ne sont PAS des deposants SEC.
+# Sans ce garde-fou, le fallback ticker.split(".")[0] mappait ROG.SW sur Rogers Corp,
+# MC.PA sur Moelis, ALV.DE sur Autoliv, etc., et polluait le data-lake et les KPI.
+NON_US_SUFFIXES = {"PA", "AS", "DE", "SW", "L", "MC", "MI", "BR", "CO", "ST", "HE", "LS", "VI", "OL"}
+
+
 def resolve_cik(ticker: str, cikmap: dict[str, str]) -> str | None:
-    for cand in (ticker, ticker.replace(".", "-"), ticker.replace("-", "."), ticker.split(".")[0]):
+    suffix = ticker.rsplit(".", 1)[-1].upper() if "." in ticker else ""
+    cands = [ticker, ticker.replace(".", "-"), ticker.replace("-", ".")]
+    # Le fallback sur le symbole nu n'est admis que si le suffixe n'est pas une place non-US
+    # (BF.B, BRK-B : classes d'actions US, legitimes).
+    if suffix not in NON_US_SUFFIXES:
+        cands.append(ticker.split(".")[0])
+    for cand in cands:
         c = cikmap.get(cand.upper())
         if c:
             return c

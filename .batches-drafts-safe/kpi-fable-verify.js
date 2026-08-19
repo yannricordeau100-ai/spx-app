@@ -5,7 +5,7 @@ export const meta = {
 }
 
 // BATCH: remplacer cette liste entre chaque lot.
-const TICKER_NAMES = ["ABBV", "AES", "AFL", "AIG", "AIZ", "AJG", "AKAM", "ALB", "ALGN", "ALL", "ALLE", "AMAT", "AMCR", "AMD", "AME", "AMGN", "AMP", "AMT", "AMZN", "ANET", "AON", "AOS", "APA", "APD", "APH", "APO", "APP", "APTV", "ARE", "ARES", "ATO", "AVB", "AVGO", "AVY", "AWK", "AXON", "AXP", "AZO", "BA", "BAC", "BALL", "BAX", "BBY", "BDX", "BEN", "BF.B", "BG", "BIIB", "BK", "BKNG", "BKR", "BLDR", "BLK", "BMY", "BR", "BRK.B", "BRO", "BSX", "BWA", "BX", "BXP", "C", "CAG", "CAH", "CARR", "CASY", "CAT", "CB", "CBOE", "CBRE", "CCI", "CCL", "CDNS", "CDW", "CEG", "CF", "CFG", "CHD", "CHRW", "CHTR", "CI", "CIEN", "CINF", "CL", "CLX", "CMCSA", "CME", "CMG", "CMI", "CMS", "CNC", "CNP", "COF", "COHR", "COIN", "COO", "COP", "COR", "COST", "CPAY", "CPB", "CPRT", "CPT", "CRH", "CRL", "CRM", "CRWD", "CSCO", "CSGP", "CSX", "CTAS", "CTSH", "CTVA", "CVNA", "CVS", "CVX", "D", "DAL", "DASH", "DD"]
+const TICKER_NAMES = ["ABBV", "AES", "AFL", "AIG", "AIZ", "AJG", "AKAM", "ALGN", "ALL", "ALLE", "AMAT", "AMCR", "AMD", "AME", "AMGN", "AMP", "AMT", "AMZN", "ANET", "AON", "AOS", "APA", "APD", "APH", "APO", "APP", "APTV", "ARE", "ARES", "ATO", "AVB", "AVGO", "AVY", "AWK", "AXON", "AXP", "AZO", "BA", "BAC", "BALL", "BAX", "BBY", "BDX", "BEN", "BF.B", "BG", "BIIB", "BK", "BKNG", "BKR", "BLDR", "BLK", "BMY", "BR", "BRK.B", "BRO", "BSX", "BWA", "BX", "BXP", "C", "CAG", "CAH", "CARR", "CASY", "CAT", "CB", "CBOE", "CBRE", "CCI", "CCL", "CDNS", "CDW", "CEG", "CF", "CFG", "CHD", "CHRW", "CHTR", "CI", "CIEN", "CINF", "CL", "CLX", "CMCSA", "CME", "CMG", "CMI", "CMS", "CNC", "CNP", "COF", "COHR", "COIN", "COO", "COP", "COR", "COST", "CPAY", "CPB", "CPRT", "CPT", "CRH", "CRL", "CRM", "CRWD", "CSCO", "CSGP", "CSX", "CTAS", "CTSH", "CTVA", "CVNA", "CVS", "CVX", "D", "DAL", "DASH", "DD"]
 
 const SCHEMA = {
   type: 'object',
@@ -22,6 +22,12 @@ const prompt = (t) => `Tu verifies INTEGRALEMENT (pas par echantillon) l'histori
 
 FICHIER: /Users/yann/spx-app/.batches-drafts-safe/kpis-haut/${t}.json
 FILINGS: /Users/yann/Mettrik/docs/${t}/10-Q/*.htm.gz et /Users/yann/Mettrik/docs/${t}/10-K/*.htm.gz (lire via gunzip -c, certains zcat echouent sur macOS)
+
+ETAPE 0 - LABELS FISCAUX (CRITIQUE, bug detecte par Yann sur l'affichage annuel):
+- Verifie si ${t} a une annee fiscale decalee (fin != decembre) en regardant les dates de cloture dans un 10-K ("fiscal year ended <mois> ...").
+- Si OUI: chaque label trimestriel DOIT etre au format explicite "Qn-FYxxxx" ou n et xxxx sont le trimestre et l'annee FISCAUX de la ste (ex: un trimestre clos en janvier 2024 chez une ste cloturant fin octobre = Q1-FY2024). Les labels ambigus "Qn-yyyy" sur une ste fiscale decalee sont MAL interpretes par l'UI (traites comme calendaires) -> relabellise-les correctement en verifiant la date de cloture de chaque trimestre dans son filing source.
+- Si NON (cloture decembre): labels "Qn-yyyy" calendaires.
+- Fichier d'issues UI deja detectees a traiter en priorite s'il contient ${t}: /Users/yann/spx-app/.batches-drafts-safe/ui_issues.json
 
 ETAPE 1 - INVARIANTS ARITHMETIQUES (sur tout le fichier, en python, sans lire les filings):
 - Pour chaque KPI de type flux (revenue/volume/earnings segment) avec des trimestres ET des FY de la meme annee: FY = Q1+Q2+Q3+Q4 a 2% pres.
@@ -50,7 +56,7 @@ Retour: StructuredOutput avec ticker, ok, rebuilt_kpis (nombre de KPIs reconstru
 phase('Verify')
 const results = await pipeline(
   TICKER_NAMES,
-  t => agent(prompt(t), { label: `fverify:${t}`, phase: 'Verify', schema: SCHEMA, effort: 'high' })
+  t => agent(prompt(t), { label: `fverify:${t}`, phase: 'Verify', schema: SCHEMA, effort: 'medium' })
 )
 
 return results.filter(Boolean)
