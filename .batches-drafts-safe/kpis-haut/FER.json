@@ -1,24 +1,26 @@
 {
  "ticker": "FER",
  "company": "Ferrovial SE",
- "extracted_at": "2026-08-09",
+ "extracted_at": "2026-08-19",
  "extracted_by": "agent-kpi-haut",
  "sources_used": [
   "data-lake/FER/20F/FER_2026-02-25_0001628280-26-011789.htm.gz (Form 20-F exercice 2025)",
-  "data-lake/FER/20F/FER_2025-02-28_0001468522-25-000034.htm.gz (Form 20-F exercice 2024)"
+  "data-lake/FER/20F/FER_2025-02-28_0001468522-25-000034.htm.gz (Form 20-F exercice 2024)",
+  "data-lake/FER/6K/FER_2026-05-07_0001628280-26-032253_q1managementreport.htm.gz (6-K T1 2026, rapport de gestion interimaire)",
+  "data-lake/FER/6K/FER_2026-07-28_0001628280-26-050224_interimmanagementreport.htm.gz (6-K S1 2026, rapport de gestion interimaire)"
  ],
  "hero_kpi": "REV_HIGHWAYS",
  "hero_kpi_rationale": "Seule serie d'au moins 5 points chiffrables dans les documents locaux: Ferrovial n'a que deux depots SEC (20-F 2024 et 20-F 2025) depuis sa cotation au Nasdaq en mai 2024, et ses 6-K deposes ne contiennent aucun etat financier trimestriel. Le CA trimestriel de la division Construction, publie dans la section Saisonnalite des deux 20-F, couvre 8 trimestres (T1 2024 a T4 2025), represente 79 pour cent du chiffre d'affaires du groupe et montre a la fois la croissance et la saisonnalite du metier.",
- "_frequency_note": "Aucune donnee trimestrielle ou semestrielle consolidee n'est disponible localement: les 6-K de data-lake/FER/6K sont des pages de couverture sans exhibit financier, et les rapports annuels integres references en exhibit 99.1 ne sont pas presents dans le data-lake. L'annuel est donc le seul recours pour toutes les series sauf le CA Construction trimestriel.",
+ "_frequency_note": "Depuis le 19 aout 2026, les exhibits 99.1 (rapport de gestion interimaire avec etats financiers) des 6-K T1 2026 et S1 2026 sont presents dans le data-lake et fournissent le CA Construction trimestriel T1-T2 2026. Les autres series restent annuelles: aucun autre poste (EBITDA groupe, resultat net, dette) n'est detaille par trimestre dans les 6-K, seule la division Construction publie une ventilation Q vs Q dans son tableau Revenue by Business Division.",
  "_history_note": "Historique limite a 2022-2025: le premier depot SEC de Ferrovial SE est le 20-F de l'exercice 2024, qui presente 2024, 2023 et 2022. Aucun document local ne couvre 2016-2021.",
  "kpis": [
   {
    "short": "REV_CONSTRUCTION_Q",
    "name_fr": "Chiffre d'affaires Construction (trimestriel)",
    "name_en": "Construction Division Revenue (quarterly)",
-   "value": 2233,
+   "value": 2075,
    "unit": "M €",
-   "yoy": "+11.8%",
+   "yoy": "+11.0%",
    "history": [
     {
      "q": "Q1-2024",
@@ -51,15 +53,23 @@
     {
      "q": "Q4-2025",
      "v": 2233
+    },
+    {
+     "q": "Q1-2026",
+     "v": 1625
+    },
+    {
+     "q": "Q2-2026",
+     "v": 2075
     }
    ],
    "period_type": "quarter",
    "frequency": "quarterly",
    "pv_score": 8,
-   "signal": "CA Construction de 2 233 M EUR au T4 2025, plus haut trimestre publie, avec un profil saisonnier marque (T1 toujours le plus faible a cause des conditions meteo)",
-   "description": "Chiffre d'affaires trimestriel de la division Construction (Ferrovial Construction, Budimex, Webber), seule serie trimestrielle chiffree publiee par Ferrovial dans ses 20-F (section Saisonnalite).",
-   "last_data_date": "2025-12-31",
-   "source": "20-F FY2025 (data-lake/FER/20F/FER_2026-02-25_0001628280-26-011789.htm.gz) et 20-F FY2024 (data-lake/FER/20F/FER_2025-02-28_0001468522-25-000034.htm.gz), section 5.A.2.5 Seasonality"
+   "signal": "CA Construction de 2 075 M EUR au T2 2026, en hausse de 11,0 pour cent sur un an (9,7 pour cent a perimetre comparable), portant le CA Construction du S1 2026 a 3 700 M EUR (+7,1 pour cent)",
+   "description": "Chiffre d'affaires trimestriel de la division Construction (Ferrovial Construction, Budimex, Webber). T1-T4 2024 et 2025 issus des 20-F (section Saisonnalite), T1-T2 2026 issus des 6-K semestriels (rapport de gestion interimaire).",
+   "last_data_date": "2026-06-30",
+   "source": "6-K T1 2026 (data-lake/FER/6K/FER_2026-05-07_0001628280-26-032253_q1managementreport.htm.gz, filing 7 mai 2026) et 6-K S1 2026 (data-lake/FER/6K/FER_2026-07-28_0001628280-26-050224_interimmanagementreport.htm.gz, filing 28 juillet 2026), tableau Revenue by Business Division ; historique T1 2024-T4 2025 inchange (20-F FY2025 et FY2024, section 5.A.2.5 Seasonality)"
   },
   {
    "short": "REV",
