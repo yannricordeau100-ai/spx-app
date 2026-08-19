@@ -14,6 +14,16 @@ from pathlib import Path
 import yfinance as yf
 import pandas as pd
 
+# Yann 18 aout 2026 : tickers renommes en bourse (donnees Mettrik encore sous
+# l'ancien ticker). Sans ce mapping, yfinance renvoie 404.
+YF_SYMBOL_OVERRIDES = {"BK": "BNY", "SATS": "ECHO", "AVB": "VMRK", "EQR": "VMRK"}
+
+
+def yf_symbol(t: str) -> str:
+    return YF_SYMBOL_OVERRIDES.get(str(t).upper(), t)
+
+
+
 ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "src/data/v2-pipeline"
 
@@ -21,7 +31,7 @@ OUT_DIR = ROOT / "src/data/v2-pipeline"
 def fetch_earnings_date(ticker: str) -> tuple[str, str | None, str | None]:
     """Retourne (ticker, next_earnings_date, last_earnings_date)."""
     try:
-        cal = yf.Ticker(ticker).calendar
+        cal = yf.Ticker(yf_symbol(ticker)).calendar
         if cal is None or not isinstance(cal, dict):
             return ticker, None, None
         ed = cal.get("Earnings Date")

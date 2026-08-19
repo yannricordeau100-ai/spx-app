@@ -47,6 +47,16 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Yann 18 aout 2026 : tickers renommes en bourse (donnees Mettrik encore sous
+# l'ancien ticker). Sans ce mapping, yfinance renvoie 404.
+YF_SYMBOL_OVERRIDES = {"BK": "BNY", "SATS": "ECHO", "AVB": "VMRK", "EQR": "VMRK"}
+
+
+def yf_symbol(t: str) -> str:
+    return YF_SYMBOL_OVERRIDES.get(str(t).upper(), t)
+
+
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 V17 = PROJECT_ROOT / "src/data/v1-7-public.json"
 V2 = PROJECT_ROOT / "src/data/v2-pipeline"
@@ -92,7 +102,7 @@ def fetch_market_cap(ticker, retries=2):
 
     for attempt in range(retries):
         try:
-            t = yf.Ticker(ticker)
+            t = yf.Ticker(yf_symbol(ticker))
             info = t.info or {}
             mc = info.get("marketCap")
             country = info.get("country", "")

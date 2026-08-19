@@ -60,7 +60,7 @@ function preserveOriginalCurrency(inputUnit: string, rawNewUnit: string): string
   const u = String(inputUnit).trim();
   if (/€|\bEUR\b/i.test(u)) return rawNewUnit.replace("$", "€"); // "$B" → "€B"
   if (/£|\bGBP\b/i.test(u)) return rawNewUnit.replace("$", "£");
-  const iso = u.match(/\b(CHF|JPY|DKK|INR|NOK|SEK|KRW|CAD|AUD|HKD|CNY|BRL|MXN|PLN|ZAR)\b/i);
+  const iso = u.match(/\b(CHF|JPY|DKK|INR|NOK|SEK|KRW|CAD|AUD|HKD|CNY|BRL|MXN|PLN|ZAR|TWD|SGD|ILS|TRY|THB|NZD|RMB|RUB|CZK|HUF|IDR|MYR)\b/i);
   if (iso) {
     const code = iso[1].toUpperCase();
     if (rawNewUnit === "$T" || rawNewUnit === "$B") return `Mds ${code}`;

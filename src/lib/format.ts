@@ -68,15 +68,62 @@ const RAW_UNIT_NORMALIZE: Record<string, string> = {
 
 /** Helper interne : normalise une unité formatée FR vers la version brute
  *  pour lookup dans MONEY_SCALE / COUNT_SCALE. Identité si pas matchée. */
+/**
+ * Yann 18 août 2026 (screen AVGO "15,0 k" sous un axe "M$") : les unités
+ * écrites SANS espace ("M$", "M€", "Md€") ou avec un code devise en magnitude
+ * M/K ("M USD", "M CHF") n'étaient pas reconnues comme monétaires : aucun
+ * rescale M -> Mds n'était appliqué et les labels tombaient sur le compact
+ * générique "k". Défaut systémique : 450 stés, 4 100+ séries.
+ * `canonicalMoneyUnit` ramène toutes ces écritures à la forme canonique
+ * "<magnitude> <devise>" avant lookup. Les unités non monétaires qui
+ * ressemblent à une devise (MBOE, MMBF, MMSF...) sont protégées par la
+ * liste blanche CURRENCY_CODES.
+ */
+const CURRENCY_CODES = new Set([
+  "USD", "EUR", "GBP", "CHF", "JPY", "DKK", "INR", "NOK", "SEK", "KRW",
+  "CAD", "AUD", "HKD", "CNY", "BRL", "MXN", "PLN", "ZAR", "TWD", "SGD",
+  "ILS", "TRY", "THB", "NZD", "RMB", "RUB", "CZK", "HUF", "IDR", "MYR",
+]);
+
+function canonicalMoneyUnit(u: string): string | null {
+  const s = String(u).trim().replace(/\s+/g, " ");
+  const m = s.match(/^(Mds|Md|M|K|T)\s?(\$|€|£|[A-Z]{3})$/);
+  if (!m) return null;
+  const mag = m[1] === "Md" ? "Mds" : m[1];
+  const cur = m[2];
+  if (!/^[$€£]$/.test(cur) && !CURRENCY_CODES.has(cur)) return null;
+  return `${mag} ${cur}`;
+}
+
+/** Magnitude canonique -> unité RAW ($T/$B/$M/$K). */
+const MAGNITUDE_TO_RAW: Record<string, string> = {
+  Mds: "$B",
+  M: "$M",
+  K: "$K",
+  T: "$T",
+};
+
 function toRawUnit(u: string): string {
   if (u == null) return u;
-  return RAW_UNIT_NORMALIZE[String(u).trim()] ?? u;
+  const trimmed = String(u).trim();
+  const direct = RAW_UNIT_NORMALIZE[trimmed];
+  if (direct) return direct;
+  const canon = canonicalMoneyUnit(trimmed);
+  if (canon) {
+    const mapped = RAW_UNIT_NORMALIZE[canon];
+    if (mapped) return mapped;
+    const mag = canon.split(" ")[0];
+    const raw = MAGNITUDE_TO_RAW[mag];
+    if (raw) return raw;
+  }
+  return u;
 }
 
 function isMoneyUnit(u: string): boolean {
   if (u == null) return false;
   const trimmed = String(u).trim();
-  return /^\$/.test(trimmed) || trimmed in RAW_UNIT_NORMALIZE;
+  if (/^\$/.test(trimmed) || trimmed in RAW_UNIT_NORMALIZE) return true;
+  return canonicalMoneyUnit(trimmed) != null;
 }
 function isCountUnit(u: string): boolean {
   return ["B", "M", "K", "T"].includes(u);

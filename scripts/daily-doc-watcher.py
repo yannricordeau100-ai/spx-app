@@ -148,6 +148,23 @@ def get_last_filing_date_local(ticker: str) -> datetime | None:
     return max(candidates)
 
 
+# Yann 18 aout 2026 : tickers renommes en bourse. Les donnees Mettrik restent
+# stockees sous l'ancien ticker (migration a venir) mais les APIs de marche ne
+# connaissent que le nouveau : sans ce mapping, yfinance renvoyait 404 chaque
+# nuit sur BK et SATS (vu dans /tmp/daily-doc-watcher.log).
+YF_SYMBOL_OVERRIDES = {
+    "BK": "BNY",      # BNY Mellon, renomme 2026
+    "SATS": "ECHO",   # EchoStar, renomme 2026
+    "AVB": "VMRK",    # fusion AvalonBay + Equity Residential -> Vivmark (17/08/2026)
+    "EQR": "VMRK",
+}
+
+
+def yf_symbol(ticker: str) -> str:
+    """Ticker Mettrik -> symbole reconnu par les APIs de marche."""
+    return YF_SYMBOL_OVERRIDES.get(ticker.upper(), ticker)
+
+
 def fetch_yf_calendar(ticker: str) -> dict | None:
     """Retourne {next_earnings_date, last_quarter_end} ou None si yfinance fail."""
     try:
@@ -156,7 +173,7 @@ def fetch_yf_calendar(ticker: str) -> dict | None:
         log("WARNING: yfinance not installed, skipping calendar fetch")
         return None
     try:
-        t = yf.Ticker(ticker)
+        t = yf.Ticker(yf_symbol(ticker))
         cal = t.calendar
         info = t.info if hasattr(t, "info") else {}
         next_ed = None
