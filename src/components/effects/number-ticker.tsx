@@ -39,6 +39,15 @@ export function NumberTicker({
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals,
     })}`;
+    // Yann 18 août 2026 (audit AVGO) : un onglet ouvert en arrière-plan
+    // (⌘-clic sur plusieurs stés) throttle requestAnimationFrame ET les
+    // timers : le chiffre hero restait figé sur une valeur intermédiaire
+    // FAUSSE (ex "4" au lieu de "15"). Onglet non visible = pas d'animation,
+    // valeur finale affichée directement.
+    if (typeof document !== "undefined" && document.visibilityState !== "visible") {
+      setDisplay(finalFormatted);
+      return;
+    }
     const step = (t: number) => {
       if (startedAt.current === null) startedAt.current = t;
       const elapsed = t - startedAt.current;
@@ -60,7 +69,21 @@ export function NumberTicker({
     const snap = setTimeout(() => {
       if (!done) setDisplay(finalFormatted);
     }, duration + 250);
-    return () => { cancelAnimationFrame(raf); clearTimeout(snap); };
+    // Si l'onglet passe en arrière-plan pendant l'animation, on fige
+    // immédiatement sur la valeur finale plutôt que sur un palier faux.
+    const onVisibility = () => {
+      if (document.visibilityState !== "visible" && !done) {
+        cancelAnimationFrame(raf);
+        done = true;
+        setDisplay(finalFormatted);
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(snap);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
   }, [target, duration, decimals, isNumeric, sign, isFR]);
 
   return <span className={className}>{display}</span>;
