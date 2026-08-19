@@ -89,6 +89,15 @@ const URL_ALIASES: Record<string, string> = {
   // Yann 4 juin 2026 : 9988.HK renomme BABA (ADR US).
   "9988.HK": "baba",
   "9988-HK": "baba",
+  // 18 août 2026 : renommages de tickers (données encore stockées sous
+  // l'ancien ticker, migration complète à venir) : BK -> BNY (BNY Mellon),
+  // SATS -> ECHO (EchoStar). L'URL nouvelle redirige vers la page existante.
+  BNY: "bk",
+  ECHO: "sats",
+  // Fusion AVB + EQR -> VMRK (Vivmark Residential, 17 août 2026) : les
+  // anciennes pages redirigent vers la nouvelle.
+  AVB: "vmrk",
+  EQR: "vmrk",
 };
 
 export async function generateMetadata({

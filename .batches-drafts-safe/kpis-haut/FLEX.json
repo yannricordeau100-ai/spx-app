@@ -1,0 +1,1426 @@
+{
+  "ticker": "FLEX",
+  "company": "Flex Ltd",
+  "extracted_at": "2026-08-19",
+  "extracted_by": "claude-agent-n2",
+  "sources_used": [
+    "data-lake/FLEX/xbrl/facts.json (SEC XBRL company facts, 10-K/10-Q, 2008-2026)",
+    "data-lake/FLEX/10K/FLEX_2026-05-20.htm.gz",
+    "data-lake/FLEX/10K/FLEX_2024-05-17.htm.gz",
+    "data-lake/FLEX/10K/FLEX_2022-05-20.htm.gz",
+    "data-lake/FLEX/10K/FLEX_2020-05-28.htm.gz",
+    "data-lake/FLEX/ER/FLEX_2026-07-29_ER.htm.gz"
+  ],
+  "hero_kpi": "revenue_q",
+  "hero_kpi_rationale": "Le chiffre d'affaires trimestriel est le KPI le plus long et le plus comparable pour Flex : 36 trimestres verbatim des 10-K/10-Q (T2 calendaire 2017 a 6 008 M$ jusqu'a T2 calendaire 2026 a 7 928 M$, +21% sur un an), portee recemment par la montee en puissance du segment Cloud and Power Infrastructure (data centers IA) qui passe de 3 244 M$ (FY2024) a 6 614 M$ (FY2026), +104% en deux ans, avant le spin-off annonce de cette activite.",
+  "_notes": "Exercice fiscal Flex decale (cloture 31 mars). Trimestres mappes sur le trimestre CALENDAIRE couvert par la periode (ex: periode avril-juin -> Q2 calendaire), pas sur le mois de cloture SEC qui derive de +/-2 jours (semaines fiscales 52/53). net_income_q/a = resultat net attribuable a Flex Ltd, activites poursuivies (NetIncomeLoss moins IncomeLossFromDiscontinuedOperationsNetOfTax XBRL), pour neutraliser la deconsolidation de Nextracker (spin-off complete en 2023-2024) et rendre la serie comparable dans le temps -- verifie coherent avec les 4 valeurs deja presentes dans data-lake/FLEX/kpis/extracted.json (443/633/838/880 M$ FY2023-FY2026). OCF: valeurs FY2017-FY2020 exclues du XBRL (aberrantes, tag incoherent probable lie a un changement de convention de duree), serie publiee limitee a FY2021-FY2026.",
+  "kpis": [
+    {
+      "short": "facilities_count",
+      "name_fr": "Sites de production",
+      "name_en": "Manufacturing / Operating Facilities",
+      "value": 100.0,
+      "unit": "unites",
+      "yoy": "+0%",
+      "history": [
+        {
+          "q": "FY2020",
+          "v": 100
+        },
+        {
+          "q": "FY2022",
+          "v": 100
+        },
+        {
+          "q": "FY2024",
+          "v": 100
+        },
+        {
+          "q": "FY2026",
+          "v": 100
+        }
+      ],
+      "pv_score": 7,
+      "signal": "Flex opere de maniere stable environ 100 sites dans ~30 pays sur 4 continents depuis au moins FY2020, verbatim des 10-K (Item 2 Properties / Business) ; empreinte industrielle mondiale inchangee malgre la deconsolidation de Nextracker et le spin-off annonce de l'activite Cloud & Power Infrastructure.",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20"
+    },
+    {
+      "short": "employees_count",
+      "name_fr": "Effectifs",
+      "name_en": "Employees (incl. contractors)",
+      "value": 150000.0,
+      "unit": "personnes",
+      "yoy": "n.d. (dernier point comparable FY2024, pas de donnee FY2025)",
+      "history": [
+        {
+          "q": "FY2020",
+          "v": 160000
+        },
+        {
+          "q": "FY2022",
+          "v": 172648
+        },
+        {
+          "q": "FY2024",
+          "v": 148000
+        },
+        {
+          "q": "FY2026",
+          "v": 150000
+        }
+      ],
+      "pv_score": 6,
+      "signal": "Effectif total (incl. main d'oeuvre contractuelle) verbatim des 10-K : pic a ~172 600 en FY2022 puis repli a ~148-150 000 depuis FY2024, reflet des restructurations et de l'automatisation croissante.",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20"
+    },
+    {
+      "short": "revenue_q",
+      "name_fr": "Chiffre d'affaires",
+      "name_en": "Net Sales",
+      "value": 7928.0,
+      "unit": "M USD",
+      "yoy": "+21%",
+      "history": [
+        {
+          "q": "Q2-2017",
+          "v": 6008.3
+        },
+        {
+          "q": "Q3-2017",
+          "v": 6270.4
+        },
+        {
+          "q": "Q4-2017",
+          "v": 6751.6
+        },
+        {
+          "q": "Q1-2018",
+          "v": 6410.9
+        },
+        {
+          "q": "Q2-2018",
+          "v": 6399.0
+        },
+        {
+          "q": "Q3-2018",
+          "v": 6662.6
+        },
+        {
+          "q": "Q4-2018",
+          "v": 6922.8
+        },
+        {
+          "q": "Q1-2019",
+          "v": 6226.1
+        },
+        {
+          "q": "Q2-2019",
+          "v": 6175.9
+        },
+        {
+          "q": "Q3-2019",
+          "v": 6088.0
+        },
+        {
+          "q": "Q4-2019",
+          "v": 6461.0
+        },
+        {
+          "q": "Q1-2020",
+          "v": 5484.5
+        },
+        {
+          "q": "Q2-2020",
+          "v": 5153.0
+        },
+        {
+          "q": "Q3-2020",
+          "v": 5985.0
+        },
+        {
+          "q": "Q4-2020",
+          "v": 6720.0
+        },
+        {
+          "q": "Q1-2021",
+          "v": 6266.0
+        },
+        {
+          "q": "Q2-2021",
+          "v": 6342.0
+        },
+        {
+          "q": "Q3-2021",
+          "v": 6229.0
+        },
+        {
+          "q": "Q4-2021",
+          "v": 6619.0
+        },
+        {
+          "q": "Q1-2022",
+          "v": 6851.0
+        },
+        {
+          "q": "Q2-2022",
+          "v": 6961.0
+        },
+        {
+          "q": "Q3-2022",
+          "v": 7303.0
+        },
+        {
+          "q": "Q4-2022",
+          "v": 7254.0
+        },
+        {
+          "q": "Q1-2023",
+          "v": 6984.0
+        },
+        {
+          "q": "Q2-2023",
+          "v": 6892.0
+        },
+        {
+          "q": "Q3-2023",
+          "v": 6933.0
+        },
+        {
+          "q": "Q4-2023",
+          "v": 6421.0
+        },
+        {
+          "q": "Q1-2024",
+          "v": 6169.0
+        },
+        {
+          "q": "Q2-2024",
+          "v": 6314.0
+        },
+        {
+          "q": "Q3-2024",
+          "v": 6545.0
+        },
+        {
+          "q": "Q4-2024",
+          "v": 6556.0
+        },
+        {
+          "q": "Q1-2025",
+          "v": 6398.0
+        },
+        {
+          "q": "Q2-2025",
+          "v": 6575.0
+        },
+        {
+          "q": "Q3-2025",
+          "v": 6804.0
+        },
+        {
+          "q": "Q4-2025",
+          "v": 7058.0
+        },
+        {
+          "q": "Q1-2026",
+          "v": 7477.0
+        },
+        {
+          "q": "Q2-2026",
+          "v": 7928.0
+        }
+      ],
+      "pv_score": 10,
+      "signal": "CA T2 calendaire 2026 (T1 FY2027) a 7 928 M$, +21% sur un an, tire par la montee en cadence du segment Cloud & Power Infrastructure (data centers/IA) ; guidance FY2027 relevee a 33,7-35,2 Mds$.",
+      "frequency": "quarterly",
+      "last_data_date": "2026-07-29"
+    },
+    {
+      "short": "revenue_a",
+      "name_fr": "Chiffre d'affaires annuel",
+      "name_en": "Net Sales (Annual)",
+      "value": 27914.0,
+      "unit": "M USD",
+      "yoy": "+8%",
+      "history": [
+        {
+          "q": "FY2017",
+          "v": 23862.9
+        },
+        {
+          "q": "FY2018",
+          "v": 25441.1
+        },
+        {
+          "q": "FY2019",
+          "v": 26211.0
+        },
+        {
+          "q": "FY2020",
+          "v": 24210.0
+        },
+        {
+          "q": "FY2021",
+          "v": 24124.0
+        },
+        {
+          "q": "FY2022",
+          "v": 24633.0
+        },
+        {
+          "q": "FY2023",
+          "v": 28502.0
+        },
+        {
+          "q": "FY2024",
+          "v": 26415.0
+        },
+        {
+          "q": "FY2025",
+          "v": 25813.0
+        },
+        {
+          "q": "FY2026",
+          "v": 27914.0
+        }
+      ],
+      "pv_score": 9,
+      "signal": "CA FY2026 (cloture mars 2026) a 27 914 M$, +8% vs FY2025, apres deux annees de repli lie a la normalisation post-Covid des stocks clients.",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20"
+    },
+    {
+      "short": "gross_profit_q",
+      "name_fr": "Marge brute",
+      "name_en": "Gross Profit",
+      "value": 747.0,
+      "unit": "M USD",
+      "yoy": "+31%",
+      "history": [
+        {
+          "q": "Q1-2017",
+          "v": 384.8
+        },
+        {
+          "q": "Q2-2017",
+          "v": 406.9
+        },
+        {
+          "q": "Q3-2017",
+          "v": 393.3
+        },
+        {
+          "q": "Q4-2017",
+          "v": 446.3
+        },
+        {
+          "q": "Q1-2018",
+          "v": 349.3
+        },
+        {
+          "q": "Q2-2018",
+          "v": 377.9
+        },
+        {
+          "q": "Q3-2018",
+          "v": 402.3
+        },
+        {
+          "q": "Q4-2018",
+          "v": 357.3
+        },
+        {
+          "q": "Q1-2019",
+          "v": 380.3
+        },
+        {
+          "q": "Q2-2019",
+          "v": 352.8
+        },
+        {
+          "q": "Q3-2019",
+          "v": 189.0
+        },
+        {
+          "q": "Q4-2019",
+          "v": 430.0
+        },
+        {
+          "q": "Q1-2020",
+          "v": 365.6
+        },
+        {
+          "q": "Q2-2020",
+          "v": 304.0
+        },
+        {
+          "q": "Q3-2020",
+          "v": 395.0
+        },
+        {
+          "q": "Q4-2020",
+          "v": 479.0
+        },
+        {
+          "q": "Q1-2021",
+          "v": 509.0
+        },
+        {
+          "q": "Q2-2021",
+          "v": 471.0
+        },
+        {
+          "q": "Q3-2021",
+          "v": 465.0
+        },
+        {
+          "q": "Q4-2021",
+          "v": 491.0
+        },
+        {
+          "q": "Q1-2022",
+          "v": 505.0
+        },
+        {
+          "q": "Q2-2022",
+          "v": 487.0
+        },
+        {
+          "q": "Q3-2022",
+          "v": 525.0
+        },
+        {
+          "q": "Q4-2022",
+          "v": 499.0
+        },
+        {
+          "q": "Q1-2023",
+          "v": 465.0
+        },
+        {
+          "q": "Q2-2023",
+          "v": 476.0
+        },
+        {
+          "q": "Q3-2023",
+          "v": 519.0
+        },
+        {
+          "q": "Q4-2023",
+          "v": 433.0
+        },
+        {
+          "q": "Q1-2024",
+          "v": 437.0
+        },
+        {
+          "q": "Q2-2024",
+          "v": 471.0
+        },
+        {
+          "q": "Q3-2024",
+          "v": 531.0
+        },
+        {
+          "q": "Q4-2024",
+          "v": 594.0
+        },
+        {
+          "q": "Q1-2025",
+          "v": 563.0
+        },
+        {
+          "q": "Q2-2025",
+          "v": 572.0
+        },
+        {
+          "q": "Q3-2025",
+          "v": 614.0
+        },
+        {
+          "q": "Q4-2025",
+          "v": 679.0
+        },
+        {
+          "q": "Q1-2026",
+          "v": 702.0
+        },
+        {
+          "q": "Q2-2026",
+          "v": 747.0
+        }
+      ],
+      "pv_score": 8,
+      "signal": "Marge brute T2 calendaire 2026 a 747 M$ (9,4% du CA), +31% sur un an, amelioration continue du mix produit.",
+      "frequency": "quarterly",
+      "last_data_date": "2026-07-29"
+    },
+    {
+      "short": "gross_profit_a",
+      "name_fr": "Marge brute annuelle",
+      "name_en": "Gross Profit (Annual)",
+      "value": 2567.0,
+      "unit": "M USD",
+      "yoy": "+19%",
+      "history": [
+        {
+          "q": "FY2017",
+          "v": 1520.9
+        },
+        {
+          "q": "FY2018",
+          "v": 1595.9
+        },
+        {
+          "q": "FY2019",
+          "v": 1518.0
+        },
+        {
+          "q": "FY2020",
+          "v": 1339.0
+        },
+        {
+          "q": "FY2021",
+          "v": 1687.0
+        },
+        {
+          "q": "FY2022",
+          "v": 1780.0
+        },
+        {
+          "q": "FY2023",
+          "v": 1976.0
+        },
+        {
+          "q": "FY2024",
+          "v": 1865.0
+        },
+        {
+          "q": "FY2025",
+          "v": 2159.0
+        },
+        {
+          "q": "FY2026",
+          "v": 2567.0
+        }
+      ],
+      "pv_score": 8,
+      "signal": "Marge brute FY2026 a 2 567 M$ (9,2% du CA), en expansion reguliere depuis FY2024 (7,1%).",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20"
+    },
+    {
+      "short": "operating_income_q",
+      "name_fr": "Resultat operationnel",
+      "name_en": "Operating Income",
+      "value": 392.0,
+      "unit": "M USD",
+      "yoy": "+26%",
+      "history": [
+        {
+          "q": "Q3-2020",
+          "v": 175.0
+        },
+        {
+          "q": "Q4-2020",
+          "v": 240.0
+        },
+        {
+          "q": "Q1-2021",
+          "v": 282.0
+        },
+        {
+          "q": "Q2-2021",
+          "v": 255.0
+        },
+        {
+          "q": "Q3-2021",
+          "v": 237.0
+        },
+        {
+          "q": "Q4-2021",
+          "v": 251.0
+        },
+        {
+          "q": "Q1-2022",
+          "v": 228.0
+        },
+        {
+          "q": "Q2-2022",
+          "v": 253.0
+        },
+        {
+          "q": "Q3-2022",
+          "v": 282.0
+        },
+        {
+          "q": "Q4-2022",
+          "v": 259.0
+        },
+        {
+          "q": "Q1-2023",
+          "v": 223.0
+        },
+        {
+          "q": "Q2-2023",
+          "v": 215.0
+        },
+        {
+          "q": "Q3-2023",
+          "v": 281.0
+        },
+        {
+          "q": "Q4-2023",
+          "v": 198.0
+        },
+        {
+          "q": "Q1-2024",
+          "v": 159.0
+        },
+        {
+          "q": "Q2-2024",
+          "v": 233.0
+        },
+        {
+          "q": "Q3-2024",
+          "v": 297.0
+        },
+        {
+          "q": "Q4-2024",
+          "v": 334.0
+        },
+        {
+          "q": "Q1-2025",
+          "v": 305.0
+        },
+        {
+          "q": "Q2-2025",
+          "v": 311.0
+        },
+        {
+          "q": "Q3-2025",
+          "v": 296.0
+        },
+        {
+          "q": "Q4-2025",
+          "v": 389.0
+        },
+        {
+          "q": "Q1-2026",
+          "v": 372.0
+        },
+        {
+          "q": "Q2-2026",
+          "v": 392.0
+        }
+      ],
+      "pv_score": 8,
+      "signal": "Resultat operationnel GAAP T2 calendaire 2026 a 392 M$ (marge operationnelle 4,9%), +26% sur un an.",
+      "frequency": "quarterly",
+      "last_data_date": "2026-07-29"
+    },
+    {
+      "short": "operating_income_a",
+      "name_fr": "Resultat operationnel annuel",
+      "name_en": "Operating Income (Annual)",
+      "value": 1368.0,
+      "unit": "M USD",
+      "yoy": "+17%",
+      "history": [
+        {
+          "q": "FY2020",
+          "v": 415.0
+        },
+        {
+          "q": "FY2021",
+          "v": 795.0
+        },
+        {
+          "q": "FY2022",
+          "v": 890.0
+        },
+        {
+          "q": "FY2023",
+          "v": 1017.0
+        },
+        {
+          "q": "FY2024",
+          "v": 853.0
+        },
+        {
+          "q": "FY2025",
+          "v": 1169.0
+        },
+        {
+          "q": "FY2026",
+          "v": 1368.0
+        }
+      ],
+      "pv_score": 8,
+      "signal": "Resultat operationnel GAAP FY2026 a 1 368 M$, en hausse pour la 3e annee consecutive (marge operationnelle 4,9%).",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20",
+      "is_short_history": true,
+      "story_category": "historique limite (tag XBRL OperatingIncomeLoss disponible seulement depuis FY2020 sous forme comparable)"
+    },
+    {
+      "short": "net_income_q",
+      "name_fr": "Resultat net",
+      "name_en": "Net Income (attributable to Flex Ltd, continuing ops)",
+      "value": 285.0,
+      "unit": "M USD",
+      "yoy": "+48%",
+      "history": [
+        {
+          "q": "Q1-2021",
+          "v": 240.0
+        },
+        {
+          "q": "Q2-2021",
+          "v": 206.0
+        },
+        {
+          "q": "Q3-2021",
+          "v": 336.0
+        },
+        {
+          "q": "Q4-2021",
+          "v": 227.0
+        },
+        {
+          "q": "Q1-2022",
+          "v": 168.0
+        },
+        {
+          "q": "Q2-2022",
+          "v": 170.0
+        },
+        {
+          "q": "Q3-2022",
+          "v": 189.0
+        },
+        {
+          "q": "Q4-2022",
+          "v": 166.0
+        },
+        {
+          "q": "Q1-2023",
+          "v": -82.0
+        },
+        {
+          "q": "Q2-2023",
+          "v": 122.0
+        },
+        {
+          "q": "Q3-2023",
+          "v": 23.0
+        },
+        {
+          "q": "Q4-2023",
+          "v": 93.0
+        },
+        {
+          "q": "Q1-2024",
+          "v": 395.0
+        },
+        {
+          "q": "Q2-2024",
+          "v": 139.0
+        },
+        {
+          "q": "Q3-2024",
+          "v": 214.0
+        },
+        {
+          "q": "Q4-2024",
+          "v": 263.0
+        },
+        {
+          "q": "Q1-2025",
+          "v": 222.0
+        },
+        {
+          "q": "Q2-2025",
+          "v": 192.0
+        },
+        {
+          "q": "Q3-2025",
+          "v": 199.0
+        },
+        {
+          "q": "Q4-2025",
+          "v": 239.0
+        },
+        {
+          "q": "Q1-2026",
+          "v": 250.0
+        },
+        {
+          "q": "Q2-2026",
+          "v": 285.0
+        }
+      ],
+      "pv_score": 8,
+      "signal": "Resultat net GAAP T2 calendaire 2026 a 285 M$ (EPS dilue 0,76$), +48% sur un an ; serie retraitee des activites poursuivies (hors Nextracker, deconsolide en FY2023-FY2024).",
+      "frequency": "quarterly",
+      "last_data_date": "2026-07-29"
+    },
+    {
+      "short": "net_income_a",
+      "name_fr": "Resultat net annuel",
+      "name_en": "Net Income (Annual, attributable to Flex Ltd, continuing ops)",
+      "value": 880.0,
+      "unit": "M USD",
+      "yoy": "+5%",
+      "history": [
+        {
+          "q": "FY2017",
+          "v": 319.6
+        },
+        {
+          "q": "FY2018",
+          "v": 428.5
+        },
+        {
+          "q": "FY2019",
+          "v": 93.0
+        },
+        {
+          "q": "FY2020",
+          "v": 88.0
+        },
+        {
+          "q": "FY2021",
+          "v": 613.0
+        },
+        {
+          "q": "FY2022",
+          "v": 868.0
+        },
+        {
+          "q": "FY2023",
+          "v": 443.0
+        },
+        {
+          "q": "FY2024",
+          "v": 633.0
+        },
+        {
+          "q": "FY2025",
+          "v": 838.0
+        },
+        {
+          "q": "FY2026",
+          "v": 880.0
+        }
+      ],
+      "pv_score": 8,
+      "signal": "Resultat net GAAP FY2026 a 880 M$ (activites poursuivies), +5% vs FY2025 ; serie coherente avec les 4 dernieres annees deja publiees (443/633/838/880 M$ FY2023-FY2026).",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20"
+    },
+    {
+      "short": "eps_diluted_q",
+      "name_fr": "BPA dilue",
+      "name_en": "Diluted EPS",
+      "value": 0.76,
+      "unit": "USD",
+      "yoy": "+52%",
+      "history": [
+        {
+          "q": "Q1-2017",
+          "v": 0.16
+        },
+        {
+          "q": "Q2-2017",
+          "v": 0.23
+        },
+        {
+          "q": "Q3-2017",
+          "v": 0.38
+        },
+        {
+          "q": "Q4-2017",
+          "v": 0.22
+        },
+        {
+          "q": "Q1-2018",
+          "v": -0.04
+        },
+        {
+          "q": "Q2-2018",
+          "v": 0.22
+        },
+        {
+          "q": "Q3-2018",
+          "v": 0.16
+        },
+        {
+          "q": "Q4-2018",
+          "v": -0.09
+        },
+        {
+          "q": "Q1-2019",
+          "v": -0.12
+        },
+        {
+          "q": "Q2-2019",
+          "v": 0.09
+        },
+        {
+          "q": "Q3-2019",
+          "v": -0.23
+        },
+        {
+          "q": "Q4-2019",
+          "v": 0.22
+        },
+        {
+          "q": "Q1-2020",
+          "v": 0.1
+        },
+        {
+          "q": "Q2-2020",
+          "v": 0.1
+        },
+        {
+          "q": "Q3-2020",
+          "v": 0.22
+        },
+        {
+          "q": "Q4-2020",
+          "v": 0.41
+        },
+        {
+          "q": "Q1-2021",
+          "v": 0.47
+        },
+        {
+          "q": "Q2-2021",
+          "v": 0.41
+        },
+        {
+          "q": "Q3-2021",
+          "v": 0.69
+        },
+        {
+          "q": "Q4-2021",
+          "v": 0.48
+        },
+        {
+          "q": "Q1-2022",
+          "v": 0.36
+        },
+        {
+          "q": "Q2-2022",
+          "v": 0.4
+        },
+        {
+          "q": "Q3-2022",
+          "v": 0.5
+        },
+        {
+          "q": "Q4-2022",
+          "v": 0.5
+        },
+        {
+          "q": "Q1-2023",
+          "v": 0.31
+        },
+        {
+          "q": "Q2-2023",
+          "v": 0.41
+        },
+        {
+          "q": "Q3-2023",
+          "v": 0.51
+        },
+        {
+          "q": "Q4-2023",
+          "v": 0.45
+        },
+        {
+          "q": "Q1-2024",
+          "v": 0.93
+        },
+        {
+          "q": "Q2-2024",
+          "v": 0.34
+        },
+        {
+          "q": "Q3-2024",
+          "v": 0.54
+        },
+        {
+          "q": "Q4-2024",
+          "v": 0.67
+        },
+        {
+          "q": "Q1-2025",
+          "v": 0.57
+        },
+        {
+          "q": "Q2-2025",
+          "v": 0.5
+        },
+        {
+          "q": "Q3-2025",
+          "v": 0.52
+        },
+        {
+          "q": "Q4-2025",
+          "v": 0.64
+        },
+        {
+          "q": "Q1-2026",
+          "v": 0.67
+        },
+        {
+          "q": "Q2-2026",
+          "v": 0.76
+        }
+      ],
+      "pv_score": 7,
+      "signal": "BPA dilue GAAP T2 calendaire 2026 a 0,76$, +52% sur un an, aide par les rachats d'actions passes.",
+      "frequency": "quarterly",
+      "last_data_date": "2026-07-29"
+    },
+    {
+      "short": "eps_diluted_a",
+      "name_fr": "BPA dilue annuel",
+      "name_en": "Diluted EPS (Annual)",
+      "value": 2.33,
+      "unit": "USD",
+      "yoy": "+10%",
+      "history": [
+        {
+          "q": "FY2017",
+          "v": 0.59
+        },
+        {
+          "q": "FY2018",
+          "v": 0.8
+        },
+        {
+          "q": "FY2019",
+          "v": 0.18
+        },
+        {
+          "q": "FY2020",
+          "v": 0.17
+        },
+        {
+          "q": "FY2021",
+          "v": 1.21
+        },
+        {
+          "q": "FY2022",
+          "v": 1.94
+        },
+        {
+          "q": "FY2023",
+          "v": 1.72
+        },
+        {
+          "q": "FY2024",
+          "v": 2.28
+        },
+        {
+          "q": "FY2025",
+          "v": 2.11
+        },
+        {
+          "q": "FY2026",
+          "v": 2.33
+        }
+      ],
+      "pv_score": 7,
+      "signal": "BPA dilue GAAP FY2026 a 2,33$, +10% vs FY2025.",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20"
+    },
+    {
+      "short": "capex_a",
+      "name_fr": "Investissements (Capex)",
+      "name_en": "Capital Expenditures",
+      "value": 633.0,
+      "unit": "M USD",
+      "yoy": "+45%",
+      "history": [
+        {
+          "q": "FY2017",
+          "v": 525.1
+        },
+        {
+          "q": "FY2018",
+          "v": 562.0
+        },
+        {
+          "q": "FY2019",
+          "v": 726.0
+        },
+        {
+          "q": "FY2020",
+          "v": 462.0
+        },
+        {
+          "q": "FY2021",
+          "v": 351.0
+        },
+        {
+          "q": "FY2022",
+          "v": 443.0
+        },
+        {
+          "q": "FY2023",
+          "v": 635.0
+        },
+        {
+          "q": "FY2024",
+          "v": 530.0
+        },
+        {
+          "q": "FY2025",
+          "v": 438.0
+        },
+        {
+          "q": "FY2026",
+          "v": 633.0
+        }
+      ],
+      "pv_score": 7,
+      "signal": "Capex FY2026 a 633 M$ (2,3% du CA), +45% vs FY2025, accelere par la construction de capacite data center/power infrastructure avant le spin-off de la division CPI.",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20"
+    },
+    {
+      "short": "capex_q",
+      "name_fr": "Investissements trimestriels (Capex)",
+      "name_en": "Capital Expenditures (Quarterly)",
+      "value": 236.0,
+      "unit": "M USD",
+      "yoy": "+77%",
+      "history": [
+        {
+          "q": "Q2-2017",
+          "v": 124.9
+        },
+        {
+          "q": "Q2-2018",
+          "v": 172.2
+        },
+        {
+          "q": "Q2-2019",
+          "v": 162.1
+        },
+        {
+          "q": "Q2-2020",
+          "v": 110.0
+        },
+        {
+          "q": "Q2-2021",
+          "v": 118.0
+        },
+        {
+          "q": "Q2-2022",
+          "v": 107.0
+        },
+        {
+          "q": "Q2-2023",
+          "v": 167.0
+        },
+        {
+          "q": "Q2-2024",
+          "v": 111.0
+        },
+        {
+          "q": "Q2-2025",
+          "v": 133.0
+        },
+        {
+          "q": "Q2-2026",
+          "v": 236.0
+        }
+      ],
+      "pv_score": 6,
+      "signal": "Capex T2 calendaire 2026 a 236 M$, +77% sur un an, ramp-up capacitaire data center.",
+      "frequency": "quarterly",
+      "last_data_date": "2026-07-29",
+      "is_short_history": true,
+      "story_category": "historique limite (tag XBRL trimestriel disponible seulement sur les dernieres annees)"
+    },
+    {
+      "short": "ocf_a",
+      "name_fr": "Flux de tresorerie operationnel",
+      "name_en": "Operating Cash Flow",
+      "value": 1685.0,
+      "unit": "M USD",
+      "yoy": "+12%",
+      "history": [
+        {
+          "q": "FY2021",
+          "v": 144.0
+        },
+        {
+          "q": "FY2022",
+          "v": 1024.0
+        },
+        {
+          "q": "FY2023",
+          "v": 950.0
+        },
+        {
+          "q": "FY2024",
+          "v": 1326.0
+        },
+        {
+          "q": "FY2025",
+          "v": 1505.0
+        },
+        {
+          "q": "FY2026",
+          "v": 1685.0
+        }
+      ],
+      "pv_score": 7,
+      "signal": "Flux de tresorerie operationnel FY2026 a 1 685 M$, +12% vs FY2025, en progression reguliere depuis FY2021.",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20",
+      "is_short_history": true,
+      "story_category": "historique limite (valeurs FY2017-FY2020 exclues, tag XBRL incoherent detecte lors des controles qualite)"
+    },
+    {
+      "short": "segment_its_rev",
+      "name_fr": "CA segment Integrated Technology Solutions",
+      "name_en": "Integrated Technology Solutions (ITS) Segment Revenue",
+      "value": 11109.0,
+      "unit": "M USD",
+      "yoy": "-2%",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 12636
+        },
+        {
+          "q": "FY2025",
+          "v": 11336
+        },
+        {
+          "q": "FY2026",
+          "v": 11109
+        }
+      ],
+      "pv_score": 7,
+      "signal": "Segment ITS (electronique grand public, communications, lifestyle) : 11 109 M$ en FY2026 (40% du CA), en repli continu (-12% en 2 ans) suite a la faiblesse de la demande consommateur.",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20",
+      "is_short_history": true,
+      "story_category": "nouvelle structure segmentaire (ITS/RMS/CPI effective depuis FY2025, remplace FAS/FRS)"
+    },
+    {
+      "short": "segment_rms_rev",
+      "name_fr": "CA segment Regulated Manufacturing Solutions",
+      "name_en": "Regulated Manufacturing Solutions (RMS) Segment Revenue",
+      "value": 10191.0,
+      "unit": "M USD",
+      "yoy": "+5%",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 10535
+        },
+        {
+          "q": "FY2025",
+          "v": 9678
+        },
+        {
+          "q": "FY2026",
+          "v": 10191
+        }
+      ],
+      "pv_score": 7,
+      "signal": "Segment RMS (automobile, medical, aerospace/defense, industriel regule) : 10 191 M$ en FY2026 (36% du CA), rebond de +5% apres un repli en FY2025.",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20",
+      "is_short_history": true,
+      "story_category": "nouvelle structure segmentaire (ITS/RMS/CPI effective depuis FY2025, remplace FAS/FRS)"
+    },
+    {
+      "short": "segment_cpi_rev",
+      "name_fr": "CA segment Cloud and Power Infrastructure",
+      "name_en": "Cloud and Power Infrastructure (CPI) Segment Revenue",
+      "value": 6614.0,
+      "unit": "M USD",
+      "yoy": "+38%",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 3244
+        },
+        {
+          "q": "FY2025",
+          "v": 4799
+        },
+        {
+          "q": "FY2026",
+          "v": 6614
+        }
+      ],
+      "pv_score": 9,
+      "signal": "Segment CPI (data centers IA, alimentation electrique/power) : 6 614 M$ en FY2026 (24% du CA, contre 12% en FY2024), +104% en 2 ans ; spin-off en entite cotee independante annonce en juillet 2026.",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20",
+      "is_short_history": true,
+      "story_category": "nouvelle structure segmentaire, activite en forte croissance destinee au spin-off"
+    },
+    {
+      "short": "top10_customer_concentration",
+      "name_fr": "Concentration des 10 plus gros clients",
+      "name_en": "Top 10 Customer Concentration",
+      "value": 45.0,
+      "unit": "%",
+      "yoy": "+1pt",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 37
+        },
+        {
+          "q": "FY2025",
+          "v": 44
+        },
+        {
+          "q": "FY2026",
+          "v": 45
+        }
+      ],
+      "pv_score": 6,
+      "signal": "Les 10 plus gros clients ont represente 45% du CA en FY2026, en hausse continue (37% en FY2024) ; concentration client croissante, verbatim 10-K Item 1A Risk Factors.",
+      "frequency": "annual",
+      "last_data_date": "2026-05-20",
+      "is_short_history": true,
+      "story_category": "donnee non chiffree trimestriellement, disponible seulement dans les 10-K annuels recents"
+    },
+    {
+      "short": "buybacks_a",
+      "name_fr": "Rachats d'actions",
+      "name_en": "Share Buybacks",
+      "value": 1300.0,
+      "unit": "M USD",
+      "yoy": "+286%",
+      "history": [
+        {
+          "q": "FY2012",
+          "v": 509.8
+        },
+        {
+          "q": "FY2015",
+          "v": 421.7
+        },
+        {
+          "q": "FY2016",
+          "v": 412.8
+        },
+        {
+          "q": "FY2017",
+          "v": 345.8
+        },
+        {
+          "q": "FY2018",
+          "v": 180.0
+        },
+        {
+          "q": "FY2019",
+          "v": 189.0
+        },
+        {
+          "q": "FY2020",
+          "v": 259.9
+        },
+        {
+          "q": "FY2021",
+          "v": 183.5
+        },
+        {
+          "q": "FY2022",
+          "v": 685.6
+        },
+        {
+          "q": "FY2023",
+          "v": 337.0
+        },
+        {
+          "q": "FY2024",
+          "v": 1300.0
+        }
+      ],
+      "pv_score": 5,
+      "signal": "Rachats d'actions record a 1 300 M$ en FY2024 (activite en pause depuis, aucun rachat verbatim au T1 FY2027) ; pas de dividende verse par Flex.",
+      "frequency": "annual",
+      "last_data_date": "2024-05-17",
+      "is_short_history": false
+    },
+    {
+      "short": "WEB_FOURNISSEURS_ACTIFS_DANS_LE_RESEAU_MONDI",
+      "name_fr": "Fournisseurs actifs dans le reseau mondial",
+      "value": 16000,
+      "unit": "fournisseurs",
+      "periode": "releve 2026",
+      "is_short_history": true,
+      "story_category": "Capacite",
+      "history": [],
+      "signal": "echelle du reseau d'approvisionnement propre au modele de sous-traitance industrielle multi-secteurs de Flex, pas un indicateur financier standard",
+      "_source": "https://flex.com/"
+    },
+    {
+      "short": "WEB_PROFESSIONNELS_SUPPLY_CHAIN",
+      "name_fr": "Professionnels supply chain",
+      "value": 7000,
+      "unit": "personnes",
+      "periode": "releve 2026",
+      "is_short_history": true,
+      "story_category": "Capacite",
+      "history": [],
+      "signal": "effectif dedie a la gestion de chaine d'approvisionnement, metrique specifique au metier de manufacturing-as-a-service de Flex",
+      "_source": "https://flex.com/"
+    },
+    {
+      "short": "WEB_MARQUES_ET_FILIALES_SPECIALISEES_DU_GROU",
+      "name_fr": "Marques et filiales specialisees du groupe (Flex Companies)",
+      "value": 9,
+      "unit": "marques",
+      "periode": "releve 2026",
+      "is_short_history": true,
+      "story_category": "Capacite",
+      "history": [],
+      "signal": "structure en filiales specialisees (Anord Mardix, Coreworks, Crown Technical Systems, EP2, Farm, Irumold, JetCool, MCi, Sonderborg Vaerktojsfabrik) propre au modele de holding industriel de Flex",
+      "_source": "https://flex.com/company/brands"
+    },
+    {
+      "short": "WEB_USINES_FLEX_ADMISES_AU_GLOBAL_LIGHTHOUSE",
+      "name_fr": "Usines Flex admises au Global Lighthouse Network (WEF / McKinsey)",
+      "value": 2,
+      "unit": "usines",
+      "periode": "releve 2026",
+      "is_short_history": true,
+      "story_category": "Capacite",
+      "history": [],
+      "signal": "reconnaissance externe d'excellence manufacturiere 4.0, cumulee depuis 2021, propre a l'expertise industrielle de Flex",
+      "_source": "https://flex.com/solutions-and-services/manufacturing/flexs-global-lighthouse-network-factories"
+    },
+    {
+      "short": "WEB_PART_DE_LA_CHAINE_DE_VALEUR_DATA_CENTER_",
+      "name_fr": "Part de la chaine de valeur data center couverte par les solutions Flex",
+      "value": 80,
+      "unit": "%",
+      "periode": "releve 2026",
+      "is_short_history": true,
+      "story_category": "Capacite",
+      "history": [],
+      "signal": "positionnement propre au portefeuille power/cooling/compute de Flex sur le marche des data centers IA, pas un ratio financier generique",
+      "_source": "https://flex.com/"
+    }
+  ]
+}

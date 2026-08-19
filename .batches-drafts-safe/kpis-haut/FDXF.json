@@ -1,0 +1,781 @@
+{
+  "ticker": "FDXF",
+  "company": "FedEx Freight Holding Company",
+  "extracted_at": "2026-08-19",
+  "extracted_by": "fdxf-agent",
+  "sources_used": [
+    "10-K FY2026, clos 31 mai 2026 (data-lake/FDXF/10K/FDXF_2026-08-05.htm.gz) : Summary of Results, Operating Statistics, Item 1, Item 1A, Item 5, Item 10-12",
+    "Earnings release T4/exercice 2026, 25 juin 2026 (data-lake/FDXF/ER/FDXF_2026-06-25_ER.htm.gz) : trimestre clos 31 mai 2026",
+    "Exhibit 99.1 'FDXF - CY2025 & CY2024 Recast', jointe au communique du 6 aout 2026 (data-lake/FDXF/ER/FDXF_2026-08-06_ER.htm.gz) : comptes et statistiques operationnelles trimestrielles calendaires T1-2024 a T4-2025, comparatif annuel CY2024/CY2025",
+    "XBRL company facts (data-lake/FDXF/xbrl/facts.json) : FY2024, FY2025, FY2026 (exercice decale juin-mai)"
+  ],
+  "_ordering_rationale": "Envois/jour moyen (hero, KPI physique LTL) en tete, puis CA, resultat operationnel, resultat net, EPS dilue, puis les indicateurs sectoriels transport (tonnage/jour, poids/envoi, revenu/envoi, revenu au quintal), puis cash-flow/capex, puis effectifs et reseau (stories court historique, societe spin-off juin 2026).",
+  "_notes": "FDXF = spin-off de FedEx Corp, cotation independante depuis le 1er juin 2026. Exercice fiscal historique decale (1er juin-31 mai) ; a compter du 1er juin 2026 bascule sur annee civile (periode de transition 7 mois juin-decembre 2026, non encore publiee au 19/08/2026). Historique 10 ans impossible : le Form 10-12B/10-12B-A present dans data-lake/FDXF/10K/ n'est que la page de couverture (l'information statement complet, seule source d'un historique plus long, n'est pas dans le data-lake). Seules donnees disponibles : FY2024-FY2026 (annuel, XBRL + 10-K) et le recast calendaire T1-2024 a T4-2025 (8 trimestres) publie a l'occasion du spin-off, complete par le trimestre clos 31/05/2026 (mappe T2-2026 par regle de cloture). Societe mono-segment (LTL, 'FedEx Freight is our sole reportable segment', 10-K p.26) : pas de somme segments a controler, pas de repartition geographique chiffree (US/Canada/Mexique/Porto Rico/Iles Vierges qualitatif uniquement, 10-K Item 1).",
+  "hero_kpi": "avg_daily_shipments_q",
+  "hero_kpi_rationale": "L'activite de FedEx Freight (1er transporteur LTL nord-americain) se lit d'abord en volume physique. Le nombre moyen d'envois traites par jour ouvre le tableau car c'est la serie la plus longue et la plus fraiche (9 trimestres calendaires T1-2024 a T2-2026, verbatim des tableaux 'Operating Statistics' du recast et de l'earnings release du 25 juin 2026), et elle explique directement la baisse du CA et de la marge operationnelle en FY2026 (volumes -4%, cf. 10-K MD&A) malgre la hausse du revenu par envoi.",
+  "kpis": [
+    {
+      "short": "avg_daily_shipments_q",
+      "name_fr": "Envois moyens par jour",
+      "name_en": "Average daily shipments",
+      "value": 86.7,
+      "unit": "milliers",
+      "yoy": "-6%",
+      "frequency": "quarterly",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "Q1-2024",
+          "v": 89.999
+        },
+        {
+          "q": "Q2-2024",
+          "v": 93.748
+        },
+        {
+          "q": "Q3-2024",
+          "v": 91.92
+        },
+        {
+          "q": "Q4-2024",
+          "v": 87.562
+        },
+        {
+          "q": "Q1-2025",
+          "v": 88.036
+        },
+        {
+          "q": "Q2-2025",
+          "v": 91.948
+        },
+        {
+          "q": "Q3-2025",
+          "v": 89.717
+        },
+        {
+          "q": "Q4-2025",
+          "v": 83.71
+        },
+        {
+          "q": "Q1-2026",
+          "v": 80.2
+        },
+        {
+          "q": "Q2-2026",
+          "v": 86.7
+        }
+      ],
+      "signal": "T2-2026 (trimestre clos 31 mai 2026) : 86,7 milliers d'envois/jour, -5,9% sur un an, dans un contexte de demande faible et de surcapacite LTL (earnings release 25 juin 2026, 10-K FY2026 Item 7)",
+      "_source": "Recast CY2024/CY2025 (T1-2024 a T4-2025) + earnings release 25/06/2026 pour T2-2026 (trimestre clos 31/05/2026, mappe sur son trimestre calendaire de cloture)."
+    },
+    {
+      "short": "rev_q",
+      "name_fr": "Chiffre d'affaires",
+      "name_en": "Revenue",
+      "value": 2.4,
+      "unit": "Mds $",
+      "yoy": "+4.8%",
+      "frequency": "quarterly",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "Q1-2024",
+          "v": 2.292
+        },
+        {
+          "q": "Q2-2024",
+          "v": 2.355
+        },
+        {
+          "q": "Q3-2024",
+          "v": 2.313
+        },
+        {
+          "q": "Q4-2024",
+          "v": 2.132
+        },
+        {
+          "q": "Q1-2025",
+          "v": 2.162
+        },
+        {
+          "q": "Q2-2025",
+          "v": 2.289
+        },
+        {
+          "q": "Q3-2025",
+          "v": 2.259
+        },
+        {
+          "q": "Q4-2025",
+          "v": 2.068
+        },
+        {
+          "q": "Q1-2026",
+          "v": 1.991
+        },
+        {
+          "q": "Q2-2026",
+          "v": 2.4
+        }
+      ],
+      "signal": "T2-2026 : 2,4 Mds $, +4,8% sur un an, porte par les surcharges carburant et le poids par envoi (earnings release 25/06/2026) ; valeur T2-2026 arrondie a 0,1 Md$ pres, telle que publiee (non detaillee au million pres dans ce document)",
+      "_source": "Recast (T1-2024 a T4-2025, en M$ precis) + earnings release 25/06/2026 (T2-2026, arrondi au 0,1 Md$)."
+    },
+    {
+      "short": "op_inc_q",
+      "name_fr": "Resultat operationnel",
+      "name_en": "Operating income",
+      "value": 0.158,
+      "unit": "Mds $",
+      "yoy": "-66.9%",
+      "frequency": "quarterly",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "Q1-2024",
+          "v": 0.421
+        },
+        {
+          "q": "Q2-2024",
+          "v": 0.447
+        },
+        {
+          "q": "Q3-2024",
+          "v": 0.409
+        },
+        {
+          "q": "Q4-2024",
+          "v": 0.255
+        },
+        {
+          "q": "Q1-2025",
+          "v": 0.31
+        },
+        {
+          "q": "Q2-2025",
+          "v": 0.436
+        },
+        {
+          "q": "Q3-2025",
+          "v": 0.29
+        },
+        {
+          "q": "Q4-2025",
+          "v": -0.014
+        },
+        {
+          "q": "Q1-2026",
+          "v": 0.008
+        },
+        {
+          "q": "Q2-2026",
+          "v": 0.158
+        }
+      ],
+      "signal": "T2-2026 : 158 M$ (marge 6,6%), -66,9% sur un an, plombe par 205 M$ de couts de separation lies au spin-off (earnings release 25/06/2026)",
+      "_source": "Recast + earnings release 25/06/2026."
+    },
+    {
+      "short": "net_inc_q",
+      "name_fr": "Resultat net",
+      "name_en": "Net income",
+      "value": 0.059,
+      "unit": "Mds $",
+      "yoy": "-79.7%",
+      "frequency": "quarterly",
+      "last_data_date": "2025-12-31",
+      "is_short_history": false,
+      "history": [
+        {
+          "q": "Q1-2024",
+          "v": 0.376
+        },
+        {
+          "q": "Q2-2024",
+          "v": 0.405
+        },
+        {
+          "q": "Q3-2024",
+          "v": 0.391
+        },
+        {
+          "q": "Q4-2024",
+          "v": 0.268
+        },
+        {
+          "q": "Q1-2025",
+          "v": 0.315
+        },
+        {
+          "q": "Q2-2025",
+          "v": 0.394
+        },
+        {
+          "q": "Q3-2025",
+          "v": 0.291
+        },
+        {
+          "q": "Q4-2025",
+          "v": 0.059
+        }
+      ],
+      "signal": "T4-2025 (dernier trimestre calendaire publie avec resultat net detaille) : 59 M$, contre 268 M$ un an plus tot, deprime par des couts de separation naissants (30 M$ puis 176 M$ au T3/T4-2025, exhibit recast 6 aout 2026)",
+      "_source": "Exhibit recast CY2024/CY2025 uniquement ; le resultat net trimestriel n'est pas publie separement pour le trimestre clos 31/05/2026 (seul le CA, le resultat operationnel et les KPI operationnels le sont dans l'earnings release du 25/06/2026)."
+    },
+    {
+      "short": "eps_dil_q",
+      "name_fr": "BPA dilue",
+      "name_en": "Diluted EPS",
+      "value": 0.39,
+      "unit": "$",
+      "yoy": "-78.2%",
+      "frequency": "quarterly",
+      "last_data_date": "2025-12-31",
+      "history": [
+        {
+          "q": "Q1-2024",
+          "v": 2.51
+        },
+        {
+          "q": "Q2-2024",
+          "v": 2.71
+        },
+        {
+          "q": "Q3-2024",
+          "v": 2.62
+        },
+        {
+          "q": "Q4-2024",
+          "v": 1.79
+        },
+        {
+          "q": "Q1-2025",
+          "v": 2.11
+        },
+        {
+          "q": "Q2-2025",
+          "v": 2.63
+        },
+        {
+          "q": "Q3-2025",
+          "v": 1.95
+        },
+        {
+          "q": "Q4-2025",
+          "v": 0.39
+        }
+      ],
+      "signal": "T4-2025 : 0,39 $ par action diluee (149,5 M d'actions, nombre retraite de la recapitalisation pre-spin-off), contre 1,79 $ un an plus tot",
+      "_source": "Exhibit recast CY2024/CY2025."
+    },
+    {
+      "short": "tonnage_j_q",
+      "name_fr": "Tonnage quotidien",
+      "name_en": "Tonnage per day",
+      "value": 38.549,
+      "unit": "milliers t",
+      "yoy": "-3.6%",
+      "frequency": "quarterly",
+      "last_data_date": "2025-12-31",
+      "history": [
+        {
+          "q": "Q1-2024",
+          "v": 42.484
+        },
+        {
+          "q": "Q2-2024",
+          "v": 43.872
+        },
+        {
+          "q": "Q3-2024",
+          "v": 42.302
+        },
+        {
+          "q": "Q4-2024",
+          "v": 39.982
+        },
+        {
+          "q": "Q1-2025",
+          "v": 40.557
+        },
+        {
+          "q": "Q2-2025",
+          "v": 42.289
+        },
+        {
+          "q": "Q3-2025",
+          "v": 41.532
+        },
+        {
+          "q": "Q4-2025",
+          "v": 38.549
+        }
+      ],
+      "signal": "T4-2025 : 38,5 milliers de tonnes/jour, en repli sur un an, coherent avec la baisse des envois (exhibit recast 6 aout 2026)",
+      "_source": "Exhibit recast CY2024/CY2025 ; non redonne pour le trimestre clos 31/05/2026 (earnings release 25/06/2026 ne publie pas le tonnage/jour, seulement les envois/jour et le poids/envoi)."
+    },
+    {
+      "short": "weight_per_shipment_q",
+      "name_fr": "Poids moyen par envoi",
+      "name_en": "Weight per shipment",
+      "value": 948,
+      "unit": "livres",
+      "yoy": "+3.0%",
+      "frequency": "quarterly",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "Q1-2024",
+          "v": 944
+        },
+        {
+          "q": "Q2-2024",
+          "v": 936
+        },
+        {
+          "q": "Q3-2024",
+          "v": 920
+        },
+        {
+          "q": "Q4-2024",
+          "v": 913
+        },
+        {
+          "q": "Q1-2025",
+          "v": 921
+        },
+        {
+          "q": "Q2-2025",
+          "v": 920
+        },
+        {
+          "q": "Q3-2025",
+          "v": 926
+        },
+        {
+          "q": "Q4-2025",
+          "v": 921
+        },
+        {
+          "q": "Q1-2026",
+          "v": 926
+        },
+        {
+          "q": "Q2-2026",
+          "v": 948
+        }
+      ],
+      "signal": "T2-2026 : 948 livres par envoi, +3,0% sur un an (earnings release 25/06/2026)",
+      "_source": "Recast + earnings release 25/06/2026. Composite Priority+Economy."
+    },
+    {
+      "short": "rev_per_shipment_q",
+      "name_fr": "Revenu par envoi",
+      "name_en": "Revenue per shipment",
+      "value": 415.22,
+      "unit": "$",
+      "yoy": "+11.5%",
+      "frequency": "quarterly",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "Q1-2024",
+          "v": 380.57
+        },
+        {
+          "q": "Q2-2024",
+          "v": 375.35
+        },
+        {
+          "q": "Q3-2024",
+          "v": 375.77
+        },
+        {
+          "q": "Q4-2024",
+          "v": 372.07
+        },
+        {
+          "q": "Q1-2025",
+          "v": 372.03
+        },
+        {
+          "q": "Q2-2025",
+          "v": 372.07
+        },
+        {
+          "q": "Q3-2025",
+          "v": 376.23
+        },
+        {
+          "q": "Q4-2025",
+          "v": 378.19
+        },
+        {
+          "q": "Q1-2026",
+          "v": 380.24
+        },
+        {
+          "q": "Q2-2026",
+          "v": 415.22
+        }
+      ],
+      "signal": "T2-2026 : 415,22 $ par envoi, +11,5% sur un an, tire par les surcharges carburant et le poids par envoi (earnings release 25/06/2026)",
+      "_source": "Recast + earnings release 25/06/2026. Composite Priority+Economy, y compris surcharges carburant."
+    },
+    {
+      "short": "rev_per_hundredweight_q",
+      "name_fr": "Revenu au quintal (100 livres)",
+      "name_en": "Revenue per hundredweight",
+      "value": 43.79,
+      "unit": "$",
+      "yoy": "+8.2%",
+      "frequency": "quarterly",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "Q1-2024",
+          "v": 40.31
+        },
+        {
+          "q": "Q2-2024",
+          "v": 40.1
+        },
+        {
+          "q": "Q3-2024",
+          "v": 40.83
+        },
+        {
+          "q": "Q4-2024",
+          "v": 40.74
+        },
+        {
+          "q": "Q1-2025",
+          "v": 40.38
+        },
+        {
+          "q": "Q2-2025",
+          "v": 40.45
+        },
+        {
+          "q": "Q3-2025",
+          "v": 40.64
+        },
+        {
+          "q": "Q4-2025",
+          "v": 41.06
+        },
+        {
+          "q": "Q1-2026",
+          "v": 41.08
+        },
+        {
+          "q": "Q2-2026",
+          "v": 43.79
+        }
+      ],
+      "signal": "T2-2026 : 43,79 $ par quintal (100 livres), +8,2% sur un an, indicateur de yield cle du transport LTL (earnings release 25/06/2026)",
+      "_source": "Recast + earnings release 25/06/2026. Composite Priority+Economy, y compris surcharges carburant."
+    },
+    {
+      "short": "rev_fy",
+      "name_fr": "Chiffre d'affaires annuel",
+      "name_en": "Annual revenue",
+      "value": 8.795,
+      "unit": "Mds $",
+      "yoy": "-1.1%",
+      "frequency": "annual",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 9.424
+        },
+        {
+          "q": "FY2025",
+          "v": 8.892
+        },
+        {
+          "q": "FY2026",
+          "v": 8.795
+        }
+      ],
+      "signal": "FY2026 (clos 31 mai 2026) : 8,795 Mds $, -1% sur un an, volumes en baisse partiellement compenses par le yield (10-K FY2026)",
+      "is_short_history": true,
+      "story_category": "Chiffre d'affaires",
+      "_source": "10-K FY2026 Summary of Results + XBRL RevenueFromContractWithCustomerExcludingAssessedTax. Exercice fiscal juin-mai ; seules 3 exercices disponibles (spin-off recent, pas d'information statement complet dans le data-lake)."
+    },
+    {
+      "short": "net_inc_fy",
+      "name_fr": "Resultat net annuel",
+      "name_en": "Annual net income",
+      "value": 0.655,
+      "unit": "Mds $",
+      "yoy": "-51.3%",
+      "frequency": "annual",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 1.574
+        },
+        {
+          "q": "FY2025",
+          "v": 1.346
+        },
+        {
+          "q": "FY2026",
+          "v": 0.655
+        }
+      ],
+      "signal": "FY2026 : 655 M$ de resultat net, -51% sur un an, plombe par 492 M$ de couts de separation lies au spin-off (10-K FY2026)",
+      "is_short_history": true,
+      "story_category": "Resultat net",
+      "_source": "10-K FY2026 + XBRL NetIncomeLoss."
+    },
+    {
+      "short": "op_inc_fy",
+      "name_fr": "Resultat operationnel annuel",
+      "name_en": "Annual operating income",
+      "value": 0.54,
+      "unit": "Mds $",
+      "yoy": "-61.5%",
+      "frequency": "annual",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 1.753
+        },
+        {
+          "q": "FY2025",
+          "v": 1.404
+        },
+        {
+          "q": "FY2026",
+          "v": 0.54
+        }
+      ],
+      "signal": "FY2026 : 540 M$ (marge 6,1%), contre 1,404 Md$ un an plus tot (marge 15,8%), 10-K FY2026",
+      "is_short_history": true,
+      "story_category": "Rentabilite",
+      "_source": "10-K FY2026 + XBRL OperatingIncomeLoss."
+    },
+    {
+      "short": "eps_dil_fy",
+      "name_fr": "BPA dilue annuel",
+      "name_en": "Annual diluted EPS",
+      "value": 4.38,
+      "unit": "$",
+      "yoy": "-51.3%",
+      "frequency": "annual",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 10.53
+        },
+        {
+          "q": "FY2025",
+          "v": 9.0
+        },
+        {
+          "q": "FY2026",
+          "v": 4.38
+        }
+      ],
+      "signal": "FY2026 : 4,38 $ par action diluee (149 505 248 actions, nombre issu de la recapitalisation pre-spin-off), contre 9,00 $ en FY2025",
+      "is_short_history": true,
+      "story_category": "Rentabilite",
+      "_source": "10-K FY2026 + XBRL EarningsPerShareDiluted."
+    },
+    {
+      "short": "ocf_fy",
+      "name_fr": "Flux de tresorerie operationnel annuel",
+      "name_en": "Annual operating cash flow",
+      "value": 0.167,
+      "unit": "Mds $",
+      "yoy": "-89.1%",
+      "frequency": "annual",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 1.541
+        },
+        {
+          "q": "FY2025",
+          "v": 1.531
+        },
+        {
+          "q": "FY2026",
+          "v": 0.167
+        }
+      ],
+      "signal": "FY2026 : 167 M$ de flux de tresorerie operationnel, en forte baisse (couts de separation payes, variation de fonds de roulement liee au spin-off), XBRL NetCashProvidedByUsedInOperatingActivities",
+      "is_short_history": true,
+      "story_category": "Cash-flow",
+      "_source": "XBRL NetCashProvidedByUsedInOperatingActivities."
+    },
+    {
+      "short": "capex_fy",
+      "name_fr": "Investissements (capex) annuels",
+      "name_en": "Annual capital expenditures",
+      "value": 0.379,
+      "unit": "Mds $",
+      "yoy": "-13.3%",
+      "frequency": "annual",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 0.461
+        },
+        {
+          "q": "FY2025",
+          "v": 0.437
+        },
+        {
+          "q": "FY2026",
+          "v": 0.379
+        }
+      ],
+      "signal": "FY2026 : 379 M$ de capex, en repli, XBRL PaymentsToAcquireProductiveAssets",
+      "is_short_history": true,
+      "story_category": "Investissement",
+      "_source": "XBRL PaymentsToAcquireProductiveAssets."
+    },
+    {
+      "short": "fcf_fy",
+      "name_fr": "Flux de tresorerie disponible annuel",
+      "name_en": "Annual free cash flow",
+      "value": -0.212,
+      "unit": "Mds $",
+      "yoy": null,
+      "frequency": "annual",
+      "last_data_date": "2026-05-31",
+      "history": [
+        {
+          "q": "FY2024",
+          "v": 1.08
+        },
+        {
+          "q": "FY2025",
+          "v": 1.094
+        },
+        {
+          "q": "FY2026",
+          "v": -0.212
+        }
+      ],
+      "signal": "FY2026 : FCF negatif de -212 M$ (flux operationnel 167 M$ moins capex 379 M$), premiere annee de FCF negatif de la serie disponible, XBRL",
+      "is_short_history": true,
+      "story_category": "Cash-flow",
+      "_source": "Calcule : OCF (NetCashProvidedByUsedInOperatingActivities) - capex (PaymentsToAcquireProductiveAssets), XBRL."
+    },
+    {
+      "short": "employees",
+      "name_fr": "Effectifs",
+      "name_en": "Employees",
+      "value": 40000,
+      "unit": "unites",
+      "yoy": null,
+      "frequency": "annual",
+      "last_data_date": "2026-08-05",
+      "history": [
+        {
+          "q": "FY2026",
+          "v": 40000
+        }
+      ],
+      "signal": "Environ 40 000 salaries au 5 aout 2026, soutenant un reseau de plus de 365 sites de service (10-K FY2026, Item 1 Business)",
+      "is_short_history": true,
+      "story_category": "Effectifs",
+      "_source": "10-K FY2026, Item 1 Business : 'approximately 40,000 employees'."
+    },
+    {
+      "short": "active_customers",
+      "name_fr": "Clients actifs",
+      "name_en": "Active customers",
+      "value": 108000,
+      "unit": "unites",
+      "yoy": null,
+      "frequency": "annual",
+      "last_data_date": "2026-08-05",
+      "history": [
+        {
+          "q": "FY2026",
+          "v": 108000
+        }
+      ],
+      "signal": "Environ 108 000 clients actifs en FY2026 ; les 5 premiers clients pesent 9% du CA et les 25 premiers 21%, base clients tres diversifiee (10-K FY2026, Item 1)",
+      "is_short_history": true,
+      "story_category": "Clientele",
+      "_source": "10-K FY2026, Item 1 Business : 'approximately 108,000 active customers... top five and top 25 customers accounted for just 9% and 21% of our revenue'."
+    },
+    {
+      "short": "fleet_tractors",
+      "name_fr": "Parc de tracteurs",
+      "name_en": "Tractor fleet",
+      "value": 17000,
+      "unit": "unites",
+      "yoy": null,
+      "frequency": "annual",
+      "last_data_date": "2026-08-05",
+      "history": [
+        {
+          "q": "FY2026",
+          "v": 17000
+        }
+      ],
+      "signal": "Pres de 17 000 tracteurs sur un parc total de pres de 30 000 vehicules motorises, 10-K FY2026 Item 1",
+      "is_short_history": true,
+      "story_category": "Reseau",
+      "_source": "10-K FY2026, Item 1 Business : 'nearly 30,000 motorized vehicles, of which nearly 17,000 are tractors'."
+    },
+    {
+      "short": "service_center_doors",
+      "name_fr": "Portes de quai en centres de service",
+      "name_en": "Service center doors",
+      "value": 26000,
+      "unit": "unites",
+      "yoy": null,
+      "frequency": "annual",
+      "last_data_date": "2026-08-05",
+      "history": [
+        {
+          "q": "FY2026",
+          "v": 26000
+        }
+      ],
+      "signal": "Plus de 26 000 portes de quai reparties dans le reseau de centres de service, 10-K FY2026 Item 1",
+      "is_short_history": true,
+      "story_category": "Reseau",
+      "_source": "10-K FY2026, Item 1 Business : 'more than 26,000 service center doors'."
+    },
+    {
+      "short": "WEB_CENTRES_DE_SERVICE_RESEAU",
+      "name_fr": "Centres de service (reseau)",
+      "value": 365,
+      "unit": "centres",
+      "periode": "releve 2026",
+      "is_short_history": true,
+      "story_category": "Capacite",
+      "history": [],
+      "signal": "densite du reseau physique LTL, propre au modele de distribution en reseau de terminaux, pas un chiffre financier standard",
+      "_source": "https://ir.fedexfreight.com/company-information"
+    },
+    {
+      "short": "WEB_COUVERTURE_POPULATION_US_FREIGHT_DIRECT",
+      "name_fr": "Couverture population US - Freight Direct",
+      "value": "90-100",
+      "unit": "%",
+      "periode": "releve 2026",
+      "is_short_history": true,
+      "story_category": "Capacite",
+      "history": [],
+      "signal": "taux de couverture de la population americaine par le service de livraison de fret lourd au domicile (Basic/Standard ~100%, Premium ~90%), specifique a ce produit last-mile heavy goods",
+      "_source": "https://www.fedexfreight.com/en-us/services/freight-direct"
+    }
+  ]
+}
