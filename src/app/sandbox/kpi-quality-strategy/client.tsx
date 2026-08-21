@@ -1,19 +1,51 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { Download, Filter, AlertTriangle } from "lucide-react";
-import type { HistEntry, GenericKpiEntry, CriticalEntry } from "./page";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowDownWideNarrow, ArrowDownAZ, Download, Filter } from "lucide-react";
+import type { SteRow, GenericKpiEntry, UniverseKey } from "./page";
 
-type Tab = "audit" | "generic" | "critical";
-type AuditFilter = "geq5" | "under5";
+type Tab = "stes" | "generic";
+type UniverseFilter = "all" | UniverseKey;
+type SortMode = "cap" | "alpha";
 
-const CATEGORIES = [
+const UNIVERSE_FILTERS: { key: UniverseFilter; label: string }[] = [
+  { key: "all", label: "Toutes" },
   { key: "sp500", label: "SP500" },
-  { key: "top307", label: "Top 307 V1.8" },
-  { key: "v19", label: "V1.9 (924 stés)" },
-  { key: "v175", label: "V1.7.5" },
+  { key: "cac40", label: "CAC" },
+  { key: "dax40", label: "DAX" },
+  { key: "smi", label: "SMI" },
+  { key: "soxx", label: "SOXX" },
+];
+
+const UNIVERSE_BADGE: Record<UniverseKey, string> = {
+  sp500: "SP500",
+  cac40: "CAC",
+  dax40: "DAX",
+  smi: "SMI",
+  soxx: "SOXX",
+};
+
+// Catégories d'activation de la library générique (nettoyées août 2026 :
+// Top 307 V1.8 / V1.9 924 stés / V1.7.5 supprimées, périmées).
+const CATEGORIES = [
   { key: "all", label: "Toutes les stés" },
+  { key: "sp500", label: "SP500" },
+  { key: "cac40", label: "CAC 40" },
+  { key: "dax40", label: "DAX 40" },
+  { key: "smi", label: "SMI" },
+  { key: "soxx", label: "SOXX" },
 ] as const;
+
+type KpiOption = { short: string; name_fr: string };
+
+type HeroState = {
+  hero: string;
+  options: KpiOption[] | null;
+  loading: boolean;
+  status: "idle" | "applying" | "applied" | "error";
+  message?: string;
+};
 
 function csvEscape(v: unknown): string {
   if (v == null) return "";
@@ -41,33 +73,16 @@ function downloadCsv(rows: Record<string, unknown>[], filename: string) {
 }
 
 export function KpiQualityStrategyClient({
-  geq5,
-  under5,
+  rows,
+  capsSource,
   generic,
-  critical,
 }: {
-  geq5: HistEntry[];
-  under5: HistEntry[];
+  rows: SteRow[];
+  capsSource: "att-state" | "alpha";
   generic: GenericKpiEntry[];
-  critical: CriticalEntry[];
 }) {
-  const [tab, setTab] = useState<Tab>("audit");
-  const [auditFilter, setAuditFilter] = useState<AuditFilter>("geq5");
-  const [search, setSearch] = useState("");
+  const [tab, setTab] = useState<Tab>("stes");
   const [activatedGeneric, setActivatedGeneric] = useState<Set<string>>(new Set());
-
-  const auditRows = useMemo(() => {
-    const base = auditFilter === "geq5" ? geq5 : under5;
-    const q = search.trim().toLowerCase();
-    if (!q) return base;
-    return base.filter(
-      (r) =>
-        r.ticker.toLowerCase().includes(q) ||
-        r.name.toLowerCase().includes(q) ||
-        r.sector.toLowerCase().includes(q) ||
-        r.country.toLowerCase().includes(q),
-    );
-  }, [auditFilter, geq5, under5, search]);
 
   const toggleGeneric = (short: string) => {
     setActivatedGeneric((prev) => {
@@ -83,14 +98,14 @@ export function KpiQualityStrategyClient({
       {/* Tabs */}
       <div className="mb-6 inline-flex rounded-full border border-white/[0.06] bg-white/[0.02] p-1">
         <button
-          onClick={() => setTab("audit")}
+          onClick={() => setTab("stes")}
           className={`rounded-full px-4 py-1.5 text-[12.5px] font-medium transition-colors ${
-            tab === "audit"
+            tab === "stes"
               ? "bg-violet-500/20 text-violet-100 ring-1 ring-violet-500/30"
               : "text-zinc-400 hover:text-zinc-200"
           }`}
         >
-          Audit historique ({geq5.length + under5.length} stés)
+          Stés univers ({rows.length})
         </button>
         <button
           onClick={() => setTab("generic")}
@@ -102,30 +117,9 @@ export function KpiQualityStrategyClient({
         >
           Library KPI génériques ({generic.length})
         </button>
-        <button
-          onClick={() => setTab("critical")}
-          className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[12.5px] font-medium transition-colors ${
-            tab === "critical"
-              ? "bg-rose-500/20 text-rose-100 ring-1 ring-rose-500/30"
-              : "text-zinc-400 hover:text-zinc-200"
-          }`}
-        >
-          <AlertTriangle className="size-3.5" />
-          Stés critiques ({critical.length})
-        </button>
       </div>
 
-      {tab === "audit" && (
-        <AuditPanel
-          geq5={geq5}
-          under5={under5}
-          auditFilter={auditFilter}
-          setAuditFilter={setAuditFilter}
-          search={search}
-          setSearch={setSearch}
-          auditRows={auditRows}
-        />
-      )}
+      {tab === "stes" && <StesPanel rows={rows} capsSource={capsSource} />}
       {tab === "generic" && (
         <GenericPanel
           generic={generic}
@@ -133,90 +127,203 @@ export function KpiQualityStrategyClient({
           onToggle={toggleGeneric}
         />
       )}
-      {tab === "critical" && <CriticalPanel critical={critical} />}
     </div>
   );
 }
 
-function CriticalPanel({ critical }: { critical: CriticalEntry[] }) {
+function StesPanel({ rows, capsSource }: { rows: SteRow[]; capsSource: "att-state" | "alpha" }) {
+  const router = useRouter();
+  const [filter, setFilter] = useState<UniverseFilter>("all");
+  const [sortMode, setSortMode] = useState<SortMode>("cap");
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<"all" | "top307">("all");
+  const [heroState, setHeroState] = useState<Record<string, HeroState>>({});
+
+  // Correction du hero affiché par les overrides Supabase (couche gagnante
+  // au rendu : appliquée tout à la fin de loadV17Company).
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/desk/hero")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { overrides?: Record<string, string> } | null) => {
+        if (cancelled || !d?.overrides) return;
+        setHeroState((prev) => {
+          const next = { ...prev };
+          for (const [t, h] of Object.entries(d.overrides!)) {
+            next[t] = { ...(next[t] ?? emptyHero()), hero: h };
+          }
+          return next;
+        });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const emptyHero = (): HeroState => ({
+    hero: "",
+    options: null,
+    loading: false,
+    status: "idle",
+  });
+
+  const stateFor = (r: SteRow): HeroState => {
+    const s = heroState[r.ticker];
+    if (s) return s.hero ? s : { ...s, hero: r.hero };
+    return { ...emptyHero(), hero: r.hero };
+  };
+
+  // Chargement paresseux des options : KPI réels de la sté (short + name_fr)
+  // depuis les données réellement chargées (loadV17Company côté API).
+  const ensureOptions = (r: SteRow) => {
+    const cur = stateFor(r);
+    if (cur.options || cur.loading) return;
+    setHeroState((p) => ({ ...p, [r.ticker]: { ...cur, loading: true } }));
+    fetch(`/api/desk/hero?ticker=${encodeURIComponent(r.ticker)}`)
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
+      .then((d: { hero_kpi?: string | null; kpis?: KpiOption[] }) => {
+        setHeroState((p) => ({
+          ...p,
+          [r.ticker]: {
+            ...(p[r.ticker] ?? cur),
+            hero: d.hero_kpi || cur.hero,
+            options: d.kpis ?? [],
+            loading: false,
+          },
+        }));
+      })
+      .catch(() => {
+        setHeroState((p) => ({
+          ...p,
+          [r.ticker]: {
+            ...(p[r.ticker] ?? cur),
+            loading: false,
+            status: "error",
+            message: "chargement KPI impossible",
+          },
+        }));
+      });
+  };
+
+  const applyHero = (r: SteRow, heroKpi: string) => {
+    const cur = stateFor(r);
+    if (!heroKpi || heroKpi === cur.hero) return;
+    setHeroState((p) => ({
+      ...p,
+      [r.ticker]: { ...cur, hero: heroKpi, status: "applying", message: undefined },
+    }));
+    fetch("/api/desk/hero", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ticker: r.ticker, hero_kpi: heroKpi }),
+    })
+      .then(async (res) => {
+        const d = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(d?.error || `HTTP ${res.status}`);
+        setHeroState((p) => ({
+          ...p,
+          [r.ticker]: { ...(p[r.ticker] ?? cur), hero: heroKpi, status: "applied", message: "appliqué" },
+        }));
+        router.refresh();
+        setTimeout(() => {
+          setHeroState((p) => {
+            const s = p[r.ticker];
+            if (!s || s.status !== "applied") return p;
+            return { ...p, [r.ticker]: { ...s, status: "idle", message: undefined } };
+          });
+        }, 2500);
+      })
+      .catch((err: Error) => {
+        setHeroState((p) => ({
+          ...p,
+          [r.ticker]: { ...(p[r.ticker] ?? cur), hero: cur.hero, status: "error", message: err.message },
+        }));
+      });
+  };
+
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
-    return critical.filter((c) => {
-      if (filter === "top307" && !c.in_top307_v18) return false;
+    let list = rows.filter((r) => {
+      if (filter !== "all" && !r.universes.includes(filter)) return false;
       if (!q) return true;
       return (
-        c.ticker.toLowerCase().includes(q) ||
-        c.name.toLowerCase().includes(q) ||
-        c.sector.toLowerCase().includes(q) ||
-        c.country.toLowerCase().includes(q)
+        r.ticker.toLowerCase().includes(q) ||
+        r.name.toLowerCase().includes(q) ||
+        r.sector.toLowerCase().includes(q)
       );
     });
-  }, [critical, filter, search]);
-
-  // Top sectors among critical
-  const sectorCounts = useMemo(() => {
-    const m = new Map<string, number>();
-    for (const c of critical) {
-      const s = c.sector || "?";
-      m.set(s, (m.get(s) || 0) + 1);
-    }
-    return Array.from(m.entries()).sort((a, b) => b[1] - a[1]);
-  }, [critical]);
+    list = [...list].sort((a, b) =>
+      sortMode === "cap"
+        ? a.capRank - b.capRank || a.ticker.localeCompare(b.ticker)
+        : a.ticker.localeCompare(b.ticker),
+    );
+    return list;
+  }, [rows, filter, search, sortMode]);
 
   return (
     <div>
-      <div className="mb-4 rounded-xl border border-rose-500/20 bg-rose-500/[0.04] p-4">
-        <div className="mb-2 flex items-center gap-2 font-display text-[14px] font-semibold text-rose-200">
-          <AlertTriangle className="size-4" />
-          Stés priorité 0 BLOCKER (153 stés)
-        </div>
-        <p className="text-[12px] leading-relaxed text-rose-100/80">
-          Ces stés ont <strong>0 KPI spécifique extrait</strong> — tout est
-          générique (Revenue, Op Margin, EPS, EBITDA, etc.). Après filtrage
-          frontend, elles auront <strong>0 KPI affichable</strong> dans les
-          Indicateurs clés. Re-extraction CONV-DATA en{" "}
-          <strong>priorité 0 immédiate</strong> (tous les docs disponibles
-          pour trouver des KPIs spécifiques sté ou secteur).
-        </p>
-      </div>
-
-      <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-5">
-        {sectorCounts.slice(0, 10).map(([sector, count]) => (
-          <div key={sector} className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-2.5">
-            <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">{sector}</div>
-            <div className="mt-0.5 font-display text-[18px] font-bold text-rose-200">{count}</div>
-          </div>
-        ))}
-      </div>
-
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="inline-flex rounded-lg border border-white/[0.08] bg-white/[0.02] p-1">
-          <button
-            onClick={() => setFilter("all")}
-            className={`rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors ${filter === "all" ? "bg-rose-500/15 text-rose-200 ring-1 ring-rose-500/25" : "text-zinc-400 hover:text-zinc-200"}`}
-          >
-            Toutes ({critical.length})
-          </button>
-          <button
-            onClick={() => setFilter("top307")}
-            className={`rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors ${filter === "top307" ? "bg-rose-500/15 text-rose-200 ring-1 ring-rose-500/25" : "text-zinc-400 hover:text-zinc-200"}`}
-          >
-            Top 307 V1.8 uniquement
-          </button>
+          {UNIVERSE_FILTERS.map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              className={`rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors ${
+                filter === f.key
+                  ? "bg-violet-500/15 text-violet-200 ring-1 ring-violet-500/25"
+                  : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              {f.label}
+              {f.key !== "all" && (
+                <span className="ml-1 text-[10px] text-zinc-500">
+                  {rows.filter((r) => r.universes.includes(f.key as UniverseKey)).length}
+                </span>
+              )}
+            </button>
+          ))}
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setSortMode(sortMode === "cap" ? "alpha" : "cap")}
+            title={
+              capsSource === "att-state"
+                ? "Capi : ordre .conv-state/att-state.json (capi décroissante)"
+                : "Source capi indisponible : fallback alphabétique"
+            }
+            className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.02] px-3 py-1.5 text-[12px] font-medium text-zinc-300 transition-colors hover:text-zinc-100"
+          >
+            {sortMode === "cap" ? (
+              <>
+                <ArrowDownWideNarrow className="size-3.5" /> Tri : capi décroissante
+              </>
+            ) : (
+              <>
+                <ArrowDownAZ className="size-3.5" /> Tri : alphabétique
+              </>
+            )}
+          </button>
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Filtrer (ticker, nom, secteur, pays)…"
-            className="w-64 rounded-md border border-white/10 bg-white/[0.02] px-3 py-1.5 text-[12.5px] text-zinc-100 placeholder-zinc-500 outline-none transition-colors focus:border-rose-400/50"
+            placeholder="Filtrer (ticker, nom, secteur)…"
+            className="w-64 rounded-md border border-white/10 bg-white/[0.02] px-3 py-1.5 text-[12.5px] text-zinc-100 placeholder-zinc-500 outline-none transition-colors focus:border-violet-400/50"
           />
           <button
-            onClick={() => downloadCsv(filtered as unknown as Record<string, unknown>[], `mettrik-kpi-critical-${new Date().toISOString().slice(0, 10)}.csv`)}
-            className="inline-flex items-center gap-1.5 rounded-md border border-rose-500/30 bg-rose-500/[0.06] px-3 py-1.5 text-[12px] font-medium text-rose-200 transition-colors hover:bg-rose-500/15"
+            onClick={() =>
+              downloadCsv(
+                filtered.map((r) => ({
+                  ticker: r.ticker,
+                  name: r.name,
+                  sector: r.sector,
+                  universes: r.universes.map((u) => UNIVERSE_BADGE[u]).join("|"),
+                  hero_kpi: stateFor(r).hero,
+                })),
+                `mettrik-stes-univers-${new Date().toISOString().slice(0, 10)}.csv`,
+              )
+            }
+            className="inline-flex items-center gap-1.5 rounded-md border border-violet-500/30 bg-violet-500/[0.06] px-3 py-1.5 text-[12px] font-medium text-violet-200 transition-colors hover:bg-violet-500/15"
           >
             <Download className="size-3.5" />
             Export CSV ({filtered.length})
@@ -224,155 +331,90 @@ function CriticalPanel({ critical }: { critical: CriticalEntry[] }) {
         </div>
       </div>
 
-      <div className="overflow-x-auto rounded-xl border border-white/[0.06]">
-        <table className="w-full text-[12px]">
-          <thead className="bg-white/[0.02] text-left font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
-            <tr>
-              <th className="px-3 py-2">Ticker</th>
-              <th className="px-3 py-2">Nom</th>
-              <th className="px-3 py-2">Pays</th>
-              <th className="px-3 py-2">Secteur</th>
-              <th className="px-3 py-2">Top 307</th>
-              <th className="px-3 py-2">KPIs extraits (tous génériques)</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-white/[0.04]">
-            {filtered.slice(0, 500).map((c) => (
-              <tr key={c.ticker} className="hover:bg-white/[0.02]">
-                <td className="px-3 py-1.5 font-mono text-violet-300">{c.ticker}</td>
-                <td className="px-3 py-1.5 text-zinc-100">{c.name}</td>
-                <td className="px-3 py-1.5 text-zinc-400">{c.country}</td>
-                <td className="px-3 py-1.5 text-zinc-400">{c.sector}</td>
-                <td className="px-3 py-1.5">{c.in_top307_v18 ? "✅" : "—"}</td>
-                <td className="px-3 py-1.5 text-[11px] text-zinc-500">
-                  {(c.kpis_extracted || []).join(", ")}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {filtered.length > 500 && (
-          <div className="border-t border-white/[0.06] bg-white/[0.02] px-3 py-2 text-center text-[11px] text-zinc-500">
-            500 premières affichées sur {filtered.length}. Export CSV pour la liste complète.
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function AuditPanel({
-  geq5,
-  under5,
-  auditFilter,
-  setAuditFilter,
-  search,
-  setSearch,
-  auditRows,
-}: {
-  geq5: HistEntry[];
-  under5: HistEntry[];
-  auditFilter: AuditFilter;
-  setAuditFilter: (f: AuditFilter) => void;
-  search: string;
-  setSearch: (s: string) => void;
-  auditRows: HistEntry[];
-}) {
-  const top307Count = auditRows.filter((r) => r.in_top307_v18).length;
-  return (
-    <div>
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="inline-flex rounded-lg border border-white/[0.08] bg-white/[0.02] p-1">
-          <button
-            onClick={() => setAuditFilter("geq5")}
-            className={`rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors ${
-              auditFilter === "geq5"
-                ? "bg-emerald-500/15 text-emerald-200 ring-1 ring-emerald-500/25"
-                : "text-zinc-400 hover:text-zinc-200"
-            }`}
-          >
-            ≥ 5 ans ({geq5.length})
-          </button>
-          <button
-            onClick={() => setAuditFilter("under5")}
-            className={`rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors ${
-              auditFilter === "under5"
-                ? "bg-amber-500/15 text-amber-200 ring-1 ring-amber-500/25"
-                : "text-zinc-400 hover:text-zinc-200"
-            }`}
-          >
-            &lt; 5 ans ({under5.length})
-          </button>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Filtrer (ticker, nom, secteur, pays)…"
-            className="w-64 rounded-md border border-white/10 bg-white/[0.02] px-3 py-1.5 text-[12.5px] text-zinc-100 placeholder-zinc-500 outline-none transition-colors focus:border-violet-400/50"
-          />
-          <button
-            onClick={() => downloadCsv(auditRows as unknown as Record<string, unknown>[], `mettrik-kpi-history-${auditFilter}-${new Date().toISOString().slice(0, 10)}.csv`)}
-            className="inline-flex items-center gap-1.5 rounded-md border border-violet-500/30 bg-violet-500/[0.06] px-3 py-1.5 text-[12px] font-medium text-violet-200 transition-colors hover:bg-violet-500/15"
-          >
-            <Download className="size-3.5" />
-            Export CSV ({auditRows.length})
-          </button>
-        </div>
-      </div>
-
       <div className="mb-3 text-[11.5px] text-zinc-500">
-        {auditRows.length} stés affichées — dont <strong className="text-zinc-300">{top307Count}</strong> dans le top 307 V1.8.{" "}
-        {auditFilter === "geq5"
-          ? "Ces stés ont assez d'historique pour des KPI spécifiques bien comparables. Priorité 2 (re-extract pour passer aux KPI spécifiques)."
-          : "Ces stés ont peu d'historique. Priorité 1 (extraire le maximum possible des docs disponibles, accepter 3 ans en fallback)."}
+        {filtered.length} stés affichées sur {rows.length} (app ∩ SP500 ∪ CAC 40 ∪ DAX 40 ∪ SMI ∪ SOXX).
+        Le menu Hero KPI charge les KPI réels de la sté au clic ; choisir un KPI
+        change le hero en direct (override prioritaire au rendu).
       </div>
 
       <div className="overflow-x-auto rounded-xl border border-white/[0.06]">
         <table className="w-full text-[12px]">
           <thead className="bg-white/[0.02] text-left font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
             <tr>
+              <th className="px-3 py-2 text-right">#</th>
               <th className="px-3 py-2">Ticker</th>
               <th className="px-3 py-2">Nom</th>
-              <th className="px-3 py-2">Pays</th>
               <th className="px-3 py-2">Secteur</th>
+              <th className="px-3 py-2">Univers</th>
               <th className="px-3 py-2">Hero KPI</th>
-              <th className="px-3 py-2">Période</th>
-              <th className="px-3 py-2 text-right">Pts</th>
-              <th className="px-3 py-2 text-right">Années</th>
-              <th className="px-3 py-2">Top 307</th>
-              {auditFilter === "under5" && <th className="px-3 py-2">Bucket</th>}
+              <th className="px-3 py-2">Statut</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/[0.04]">
-            {auditRows.slice(0, 500).map((r) => (
-              <tr key={r.ticker} className="hover:bg-white/[0.02]">
-                <td className="px-3 py-1.5 font-mono text-violet-300">{r.ticker}</td>
-                <td className="px-3 py-1.5 text-zinc-100">{r.name}</td>
-                <td className="px-3 py-1.5 text-zinc-400">{r.country}</td>
-                <td className="px-3 py-1.5 text-zinc-400">{r.sector}</td>
-                <td className="px-3 py-1.5 text-zinc-300">{r.hero_kpi}</td>
-                <td className="px-3 py-1.5 text-zinc-400">{r.period_type}</td>
-                <td className="px-3 py-1.5 text-right text-zinc-300">{r.history_len}</td>
-                <td className="px-3 py-1.5 text-right text-zinc-300">{r.years_coverage.toFixed(1)}</td>
-                <td className="px-3 py-1.5">{r.in_top307_v18 ? "✅" : "—"}</td>
-                {auditFilter === "under5" && (
-                  <td className="px-3 py-1.5">
-                    <span className={`rounded px-1.5 py-0.5 text-[10px] ${(r.bucket || "").startsWith("3") ? "bg-amber-500/15 text-amber-300" : "bg-rose-500/15 text-rose-300"}`}>
-                      {r.bucket}
-                    </span>
+            {filtered.map((r, i) => {
+              const s = stateFor(r);
+              return (
+                <tr key={r.ticker} className="hover:bg-white/[0.02]">
+                  <td className="px-3 py-1.5 text-right font-mono text-[11px] text-zinc-500">
+                    {i + 1}
                   </td>
-                )}
-              </tr>
-            ))}
+                  <td className="px-3 py-1.5 font-mono text-violet-300">{r.ticker}</td>
+                  <td className="px-3 py-1.5 text-zinc-100">{r.name}</td>
+                  <td className="px-3 py-1.5 text-zinc-400">{r.sector}</td>
+                  <td className="px-3 py-1.5">
+                    <div className="flex flex-wrap gap-1">
+                      {r.universes.map((u) => (
+                        <span
+                          key={u}
+                          className="rounded bg-violet-500/10 px-1.5 py-0.5 font-mono text-[10px] text-violet-300 ring-1 ring-violet-500/20"
+                        >
+                          {UNIVERSE_BADGE[u]}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                  <td className="px-3 py-1.5">
+                    <select
+                      value={s.hero}
+                      onFocus={() => ensureOptions(r)}
+                      onMouseDown={() => ensureOptions(r)}
+                      onChange={(e) => applyHero(r, e.target.value)}
+                      disabled={s.status === "applying"}
+                      className="w-64 max-w-full rounded-md border border-white/10 bg-white/[0.02] px-2 py-1 text-[12px] text-zinc-100 outline-none transition-colors focus:border-violet-400/50 disabled:opacity-50"
+                    >
+                      {s.options ? (
+                        s.options.map((k) => (
+                          <option key={k.short} value={k.short} className="bg-zinc-950">
+                            {k.short} · {k.name_fr}
+                          </option>
+                        ))
+                      ) : (
+                        <option value={s.hero} className="bg-zinc-950">
+                          {s.loading ? "Chargement des KPI…" : s.hero || "?"}
+                        </option>
+                      )}
+                    </select>
+                  </td>
+                  <td className="px-3 py-1.5">
+                    {s.status === "applying" && (
+                      <span className="text-[11px] text-amber-300">application…</span>
+                    )}
+                    {s.status === "applied" && (
+                      <span className="rounded bg-emerald-500/15 px-1.5 py-0.5 text-[11px] text-emerald-300">
+                        appliqué ✓
+                      </span>
+                    )}
+                    {s.status === "error" && (
+                      <span className="text-[11px] text-rose-300" title={s.message}>
+                        erreur : {s.message}
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
-        {auditRows.length > 500 && (
-          <div className="border-t border-white/[0.06] bg-white/[0.02] px-3 py-2 text-center text-[11px] text-zinc-500">
-            500 premières lignes affichées sur {auditRows.length}. Utiliser Export CSV pour la liste complète.
-          </div>
-        )}
       </div>
     </div>
   );
@@ -387,7 +429,7 @@ function GenericPanel({
   activated: Set<string>;
   onToggle: (short: string) => void;
 }) {
-  const [activeCategory, setActiveCategory] = useState<string>("sp500");
+  const [activeCategory, setActiveCategory] = useState<string>("all");
 
   const families = useMemo(() => {
     const set = new Set<string>();
@@ -403,9 +445,9 @@ function GenericPanel({
     alert(
       `[Stub] Activer ${activated.size} KPI(s) pour la catégorie "${activeCategory}".\n\n` +
       `KPIs : ${Array.from(activated).join(", ")}\n\n` +
-      `À implémenter côté CONV-CONCEPTS/SYSTEMS : flag ` +
-      `\`generic_kpi_categories\` côté ` +
-      `\`v2-pipeline-enrich/<ticker>.json\` qui force l'affichage de ces KPI dans le bloc Indicateurs clés.`,
+      `À implémenter : flag \`generic_kpi_categories\` côté ` +
+      `\`v2-pipeline-enrich/<ticker>.json\` qui force l'affichage de ces KPI ` +
+      `dans le bloc Indicateurs clés.`,
     );
   };
 
@@ -420,8 +462,8 @@ function GenericPanel({
           Margin, EPS, Net Income, EBITDA, FCF, etc.). Ils sont{" "}
           <strong>masqués par défaut dans l&apos;app</strong> car ils n&apos;apportent
           aucune PV différentiante vs un screener gratuit Yahoo/Google. Mais ils
-          restent en data et peuvent être <strong>activés</strong> pour une
-          catégorie spécifique (SP500, Top 307, V1.9, etc.) via le bouton ci-dessous.
+          restent en data et peuvent être <strong>activés</strong> pour un
+          univers spécifique via le bouton ci-dessous.
         </p>
       </div>
 

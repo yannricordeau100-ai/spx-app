@@ -56,6 +56,26 @@ type SandboxSection = {
   items: SandboxItem[];
 };
 
+// Blocs archivés (Yann 21 août 2026) : grisés et déplacés dans la section
+// "Archivés" tout en bas de la page. Pour archiver un bloc de plus :
+// ajouter UNE chaîne ici (fin de route, ex "data-status", ou label exact).
+const ARCHIVED_BLOCKS: string[] = [
+  "data-status",
+  "coverage-matrix",
+  "ir-coverage",
+  "quality-tree",
+  "ready-by-category",
+  "vip-inspection",
+  "visual-audit",
+  "curated-companies",
+  "/desk-mtk9x4kp/ir-sources",
+];
+
+const isArchived = (item: SandboxItem) =>
+  ARCHIVED_BLOCKS.some(
+    (id) => item.href === id || item.href.endsWith(`/${id}`) || item.label === id,
+  );
+
 // Sections triées par priorité Yann. À l'intérieur de chaque section,
 // l'ordre alphabétique des labels FR est respecté.
 const SECTIONS: SandboxSection[] = [
@@ -109,7 +129,7 @@ const SECTIONS: SandboxSection[] = [
       {
         href: "/sandbox/refresh-status",
         icon: Activity,
-        label: "Suivi rafraîchissements SEC",
+        label: "Update SEC (USEC)",
         desc: "Nouveaux dépôts SEC (8-K / 10-Q / 10-K) détectés par le cron 7h30 à intégrer dans les blocs sté (risks, stories, profit_warning, ai_positioning).",
       },
       {
@@ -381,7 +401,96 @@ const V2_CAT2_CANDIDATES: FPICandidate[] = [
   { ticker: "BP",   name: "BP plc",                country: "UK", sector: "Energy",           currency: "USD", filing: "20-F" },
 ];
 
+// Carte d'un item sandbox. `archived` = opacité réduite + grayscale,
+// mais le lien reste cliquable.
+function SandboxCard({ item, archived = false }: { item: SandboxItem; archived?: boolean }) {
+  const Icon = item.icon;
+  const isBlueAccent = item.accent === "blue";
+  const isDefaultAccent = item.accent === "default";
+  const isOrangeAccent = item.accent === "orange";
+  const isHighlightAccent = item.accent === "highlight";
+  let cardClass = item.soon
+    ? "group flex items-start gap-4 rounded-xl border border-white/5 bg-white/[0.01] p-5 opacity-60"
+    : isHighlightAccent
+      ? "group flex items-start gap-4 rounded-xl border-2 border-red-500/80 bg-yellow-500/[0.06] p-5 shadow-lg shadow-yellow-400/25 ring-2 ring-yellow-400/60 ring-offset-1 ring-offset-red-500/30 transition-colors hover:border-red-400 hover:bg-yellow-500/[0.1]"
+    : isOrangeAccent
+      ? "group flex items-start gap-4 rounded-xl border-2 border-orange-500/55 bg-orange-500/[0.05] p-5 shadow-lg shadow-orange-500/10 transition-colors hover:border-orange-400/80 hover:bg-orange-500/[0.08]"
+      : isDefaultAccent
+        ? "group flex items-start gap-4 rounded-xl border-2 border-emerald-500/60 bg-emerald-500/[0.05] p-5 shadow-lg shadow-emerald-500/10 transition-colors hover:border-emerald-400/80 hover:bg-emerald-500/[0.08]"
+        : isBlueAccent
+          ? "group flex items-start gap-4 rounded-xl border-2 border-sky-500/55 bg-sky-500/[0.04] p-5 transition-colors hover:border-sky-400/80 hover:bg-sky-500/[0.07]"
+          : "group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-violet-500/30 hover:bg-white/[0.04]";
+
+  if (archived) {
+    cardClass += " opacity-60 grayscale";
+  }
+
+  const iconWrapClass = isHighlightAccent
+    ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-yellow-400/60 bg-red-500/20 text-yellow-200"
+    : isOrangeAccent
+    ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-orange-500/40 bg-orange-500/15 text-orange-200"
+    : isDefaultAccent
+      ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-emerald-500/40 bg-emerald-500/15 text-emerald-200"
+      : isBlueAccent
+        ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-sky-500/40 bg-sky-500/15 text-sky-200"
+        : "flex size-10 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300";
+
+  const labelHoverClass = isOrangeAccent
+    ? "text-[15px] font-semibold text-zinc-50 group-hover:text-orange-100"
+    : isDefaultAccent
+      ? "text-[15px] font-semibold text-zinc-50 group-hover:text-emerald-100"
+      : isBlueAccent
+        ? "text-[15px] font-semibold text-zinc-50 group-hover:text-sky-100"
+        : "text-[15px] font-semibold text-zinc-50 group-hover:text-violet-200";
+
+  const content = (
+    <>
+      <div className={iconWrapClass}>
+        <Icon className="size-5" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2 flex-wrap">
+          <h4 className={labelHoverClass}>
+            {item.label}
+          </h4>
+          {isBlueAccent && (
+            <span className="rounded-full bg-sky-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-sky-200">
+              admin
+            </span>
+          )}
+          {isOrangeAccent && (
+            <span className="rounded-full bg-orange-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-orange-200">
+              Règles par bloc
+            </span>
+          )}
+          {item.soon && (
+            <span className="rounded-full bg-amber-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-amber-200">
+              à venir
+            </span>
+          )}
+        </div>
+        <p className="mt-1 text-[12.5px] text-zinc-400">{item.desc}</p>
+      </div>
+    </>
+  );
+
+  if (item.soon) {
+    return (
+      <div className={cardClass} aria-disabled="true">
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <Link href={item.href} className={cardClass}>
+      {content}
+    </Link>
+  );
+}
+
 export default function SandboxPage() {
+  const archivedItems = SECTIONS.flatMap((s) => s.items).filter(isArchived);
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100">
       <div className="mx-auto max-w-5xl px-6 py-12">
@@ -571,109 +680,49 @@ export default function SandboxPage() {
           </p>
 
           <div className="space-y-10">
-            {SECTIONS.map((section, sectionIdx) => (
-              <div
-                key={section.id}
-                className={
-                  sectionIdx === 0
-                    ? "pt-0"
-                    : "border-t border-white/5 pt-8"
-                }
-              >
-                <h3 className="mb-1 font-display text-[16px] font-bold tracking-tight text-zinc-100">
-                  {section.title}
-                </h3>
-                {section.description && (
-                  <p className="mb-4 text-[12px] text-zinc-500">{section.description}</p>
-                )}
+            {SECTIONS.map((section, sectionIdx) => {
+              const visibleItems = section.items.filter((item) => !isArchived(item));
+              if (visibleItems.length === 0) return null;
+              return (
+                <div
+                  key={section.id}
+                  className={
+                    sectionIdx === 0
+                      ? "pt-0"
+                      : "border-t border-white/5 pt-8"
+                  }
+                >
+                  <h3 className="mb-1 font-display text-[16px] font-bold tracking-tight text-zinc-100">
+                    {section.title}
+                  </h3>
+                  {section.description && (
+                    <p className="mb-4 text-[12px] text-zinc-500">{section.description}</p>
+                  )}
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {section.items.map((item) => {
-                    const Icon = item.icon;
-                    const isBlueAccent = item.accent === "blue";
-                    const isDefaultAccent = item.accent === "default";
-                    const isOrangeAccent = item.accent === "orange";
-                    const isHighlightAccent = item.accent === "highlight";
-                    const cardClass = item.soon
-                      ? "group flex items-start gap-4 rounded-xl border border-white/5 bg-white/[0.01] p-5 opacity-60"
-                      : isHighlightAccent
-                        ? "group flex items-start gap-4 rounded-xl border-2 border-red-500/80 bg-yellow-500/[0.06] p-5 shadow-lg shadow-yellow-400/25 ring-2 ring-yellow-400/60 ring-offset-1 ring-offset-red-500/30 transition-colors hover:border-red-400 hover:bg-yellow-500/[0.1]"
-                      : isOrangeAccent
-                        ? "group flex items-start gap-4 rounded-xl border-2 border-orange-500/55 bg-orange-500/[0.05] p-5 shadow-lg shadow-orange-500/10 transition-colors hover:border-orange-400/80 hover:bg-orange-500/[0.08]"
-                        : isDefaultAccent
-                          ? "group flex items-start gap-4 rounded-xl border-2 border-emerald-500/60 bg-emerald-500/[0.05] p-5 shadow-lg shadow-emerald-500/10 transition-colors hover:border-emerald-400/80 hover:bg-emerald-500/[0.08]"
-                          : isBlueAccent
-                            ? "group flex items-start gap-4 rounded-xl border-2 border-sky-500/55 bg-sky-500/[0.04] p-5 transition-colors hover:border-sky-400/80 hover:bg-sky-500/[0.07]"
-                            : "group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-violet-500/30 hover:bg-white/[0.04]";
-
-                    const iconWrapClass = isHighlightAccent
-                      ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-yellow-400/60 bg-red-500/20 text-yellow-200"
-                      : isOrangeAccent
-                      ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-orange-500/40 bg-orange-500/15 text-orange-200"
-                      : isDefaultAccent
-                        ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-emerald-500/40 bg-emerald-500/15 text-emerald-200"
-                        : isBlueAccent
-                          ? "flex size-10 shrink-0 items-center justify-center rounded-lg border border-sky-500/40 bg-sky-500/15 text-sky-200"
-                          : "flex size-10 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300";
-
-                    const labelHoverClass = isOrangeAccent
-                      ? "text-[15px] font-semibold text-zinc-50 group-hover:text-orange-100"
-                      : isDefaultAccent
-                        ? "text-[15px] font-semibold text-zinc-50 group-hover:text-emerald-100"
-                        : isBlueAccent
-                          ? "text-[15px] font-semibold text-zinc-50 group-hover:text-sky-100"
-                          : "text-[15px] font-semibold text-zinc-50 group-hover:text-violet-200";
-
-                    const content = (
-                      <>
-                        <div className={iconWrapClass}>
-                          <Icon className="size-5" />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <h4 className={labelHoverClass}>
-                              {item.label}
-                            </h4>
-                            {isBlueAccent && (
-                              <span className="rounded-full bg-sky-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-sky-200">
-                                admin
-                              </span>
-                            )}
-                            {isOrangeAccent && (
-                              <span className="rounded-full bg-orange-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-orange-200">
-                                Règles par bloc
-                              </span>
-                            )}
-                            {item.soon && (
-                              <span className="rounded-full bg-amber-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-amber-200">
-                                à venir
-                              </span>
-                            )}
-                          </div>
-                          <p className="mt-1 text-[12.5px] text-zinc-400">{item.desc}</p>
-                        </div>
-                      </>
-                    );
-
-                    if (item.soon) {
-                      return (
-                        <div key={item.href} className={cardClass} aria-disabled="true">
-                          {content}
-                        </div>
-                      );
-                    }
-
-                    return (
-                      <Link key={item.href} href={item.href} className={cardClass}>
-                        {content}
-                      </Link>
-                    );
-                  })}
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {visibleItems.map((item) => (
+                      <SandboxCard key={item.href} item={item} />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
+
+        {/* ═══════ ARCHIVÉS ═══════ */}
+        {archivedItems.length > 0 && (
+          <section className="mb-10 border-t border-white/5 pt-8">
+            <h3 className="mb-4 font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
+              Archivés
+            </h3>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {archivedItems.map((item) => (
+                <SandboxCard key={item.href} item={item} archived />
+              ))}
+            </div>
+          </section>
+        )}
 
         <div className="rounded-xl border border-white/8 bg-white/[0.02] p-5 text-[12px] text-zinc-400">
           <h3 className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">Architecture</h3>

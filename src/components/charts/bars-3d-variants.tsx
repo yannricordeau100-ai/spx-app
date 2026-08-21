@@ -107,6 +107,20 @@ type Props = {
 /* Avec support TTM (barre supplémentaire pointillée) et variant   */
 /* "classic" pour basculer en 2D flat.                             */
 /* ============================================================ */
+
+/* Yann 21 août 2026 : barre 2D avec SEULS les coins extérieurs
+   arrondis (haut pour valeur positive, bas pour négative), rayon
+   discret plafonné à la moitié de la hauteur/largeur. La base côté
+   ligne zéro reste carrée. */
+function roundedBarPath(x: number, y: number, w: number, h: number, isNeg: boolean, radius = 4): string {
+  const r = Math.max(0, Math.min(radius, w / 2, h / 2));
+  if (isNeg) {
+    // Coins arrondis en BAS (côté extérieur), haut carré (ligne zéro).
+    return `M ${x} ${y} L ${x + w} ${y} L ${x + w} ${y + h - r} A ${r} ${r} 0 0 1 ${x + w - r} ${y + h} L ${x + r} ${y + h} A ${r} ${r} 0 0 1 ${x} ${y + h - r} Z`;
+  }
+  // Coins arrondis en HAUT, bas carré.
+  return `M ${x} ${y + h} L ${x} ${y + r} A ${r} ${r} 0 0 1 ${x + r} ${y} L ${x + w - r} ${y} A ${r} ${r} 0 0 1 ${x + w} ${y + r} L ${x + w} ${y + h} Z`;
+}
 export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle, exportTicker, exportCagr, exportFrequency, exportInterpretation, titleLocale }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -365,12 +379,8 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
               flat2d ? (
                 /* 2D — barre COULEUR PLEINE classique. 2e style accessible en
                    cliquant sur le graphe (Yann 11 juin 2026). */
-                <rect
-                  x={x}
-                  y={yT}
-                  width={barW}
-                  height={h}
-                  rx={2}
+                <path
+                  d={roundedBarPath(x, yT, barW, h, isNeg)}
                   fill={color}
                   fillOpacity={isTTM ? 0.5 : 1}
                   stroke={isTTM ? color : "none"}

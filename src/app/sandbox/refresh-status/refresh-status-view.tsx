@@ -92,7 +92,7 @@ export function RefreshStatusView({
       <div className="mx-auto max-w-6xl px-4 py-10">
         <div className="mb-2 flex items-baseline justify-between">
           <h1 className="font-display text-[28px] font-bold tracking-tight">
-            Suivi des rafraîchissements SEC
+            Update SEC (USEC)
           </h1>
           <div className="font-mono text-[11px] text-zinc-500">
             Détecté {formatDate(updatedAt)}
@@ -239,7 +239,7 @@ export function RefreshStatusView({
         </section>
 
         <footer className="mt-10 pb-8 text-center font-mono text-[10px] uppercase tracking-wider text-zinc-600">
-          Mettrik AI · Suivi rafraîchissements SEC · Cron 7h30
+          Mettrik AI · Update SEC (USEC) · Cron 7h30
         </footer>
       </div>
           {/* VERROU 4 : historique des runs du cron (double extraction, complétude, audit) */}

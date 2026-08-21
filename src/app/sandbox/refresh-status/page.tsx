@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "Suivi rafraîchissements SEC · Mettrik (interne)",
+  title: "Update SEC (USEC) · Mettrik (interne)",
   robots: { index: false, follow: false },
 };
 
