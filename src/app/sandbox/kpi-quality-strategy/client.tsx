@@ -12,18 +12,24 @@ type SortMode = "cap" | "alpha";
 const UNIVERSE_FILTERS: { key: UniverseFilter; label: string }[] = [
   { key: "all", label: "Toutes" },
   { key: "sp500", label: "SP500" },
+  { key: "nasdaq100", label: "Nasdaq 100" },
   { key: "cac40", label: "CAC" },
   { key: "dax40", label: "DAX" },
+  { key: "aex", label: "AEX" },
   { key: "smi", label: "SMI" },
   { key: "soxx", label: "SOXX" },
+  { key: "autres", label: "Autres" },
 ];
 
 const UNIVERSE_BADGE: Record<UniverseKey, string> = {
   sp500: "SP500",
+  nasdaq100: "N100",
   cac40: "CAC",
   dax40: "DAX",
+  aex: "AEX",
   smi: "SMI",
   soxx: "SOXX",
+  autres: "AUTRES",
 };
 
 // Catégories d'activation de la library générique (nettoyées août 2026 :
@@ -31,10 +37,13 @@ const UNIVERSE_BADGE: Record<UniverseKey, string> = {
 const CATEGORIES = [
   { key: "all", label: "Toutes les stés" },
   { key: "sp500", label: "SP500" },
+  { key: "nasdaq100", label: "Nasdaq 100" },
   { key: "cac40", label: "CAC 40" },
   { key: "dax40", label: "DAX 40" },
+  { key: "aex", label: "AEX" },
   { key: "smi", label: "SMI" },
   { key: "soxx", label: "SOXX" },
+  { key: "autres", label: "Autres" },
 ] as const;
 
 type KpiOption = { short: string; name_fr: string };
@@ -332,7 +341,9 @@ function StesPanel({ rows, capsSource }: { rows: SteRow[]; capsSource: "att-stat
       </div>
 
       <div className="mb-3 text-[11.5px] text-zinc-500">
-        {filtered.length} stés affichées sur {rows.length} (app ∩ SP500 ∪ CAC 40 ∪ DAX 40 ∪ SMI ∪ SOXX).
+        {filtered.length} stés affichées sur {rows.length} (toutes les stés de
+        l&apos;app : SP500, Nasdaq 100, CAC 40, DAX 40, AEX, SMI, SOXX, et
+        Autres pour celles hors de ces univers).
         Le menu Hero KPI charge les KPI réels de la sté au clic ; choisir un KPI
         change le hero en direct (override prioritaire au rendu).
       </div>

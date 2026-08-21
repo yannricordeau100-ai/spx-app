@@ -6,6 +6,7 @@ import { KpiQualityStrategyClient } from "./client";
 import KPI_GENERIC_LIBRARY from "@/data/kpi-generic-library.json";
 import CLEAN_ALL from "@/data/v1-9-5-clean-all-tickers.json";
 import V19_UNIVERSE from "@/data/v1-9-universe.json";
+import NASDAQ100_MEMBERS from "@/data/nasdaq100-members.json";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -16,20 +17,37 @@ export const metadata = {
 /**
  * /sandbox/kpi-quality-strategy — REWORK Yann 21 août 2026.
  *
- * 1. LISTE DES STÉS : uniquement les stés présentes sur l'app
- *    (`src/data/v1-9-5-clean-all-tickers.json`, liste canonique V1.9.5)
- *    ET appartenant à au moins un des 5 univers SP500 / CAC 40 / DAX 40 /
- *    SMI / SOXX. Les stés de l'app hors de ces univers (ex AEX seules,
- *    FTSE, TSX) sont EXCLUES de la page.
+ * 1. LISTE DES STÉS : TOUTES les stés présentes sur l'app
+ *    (`src/data/v1-9-5-clean-all-tickers.json`, liste canonique V1.9.5,
+ *    656 tickers). Chaque sté est rattachée à un ou plusieurs univers ;
+ *    celles qui n'appartiennent à aucun univers connu tombent dans le
+ *    groupe "Autres" pour qu'aucune sté de l'app ne reste hors filtre.
  *
  *    Sources des listes d'appartenance :
- *    - SP500, CAC 40, DAX 40, SMI : `src/data/v1-9-universe.json`
+ *    - SP500, CAC 40, DAX 40, SMI, AEX : `src/data/v1-9-universe.json`
  *      (champ `sources` par ticker : "sp500" 503, "cac40" 40, "dax40" 40,
- *      "smi" 20 — fichier univers construit par scripts/build-v1-9-universe.ts).
+ *      "smi" 20, "aex" 25 — fichier univers construit par
+ *      scripts/build-v1-9-universe.ts).
  *    - SOXX : constante SOXX_TICKERS ci-dessous, copie de
  *      `.conv-state/sox30-state.json` champ `univers_30` (chaîne sox30,
  *      composition sept-2024 + ARM − WOLF, vérifiée le 6 août 2026).
  *      Inlinée car `.conv-state/` n'est pas déployé.
+ *    - NASDAQ 100 : `src/data/nasdaq100-members.json` — AUCUNE liste
+ *      officielle du Nasdaq 100 n'existe dans le repo (`.conv-state/
+ *      n100-state.json` ne contient que les 14 stés AJOUTÉES en août 2026).
+ *      Ce fichier est donc une composition issue de la connaissance du
+ *      modèle, RESTREINTE aux tickers réellement présents dans l'app.
+ *      ⚠️ À REVALIDER contre la composition officielle avant tout usage
+ *      hors sandbox.
+ *
+ *    ⚠️ PIÈGE CHEVAUCHEMENT EUROPE / USA : le matching d'appartenance se
+ *    fait sur le ticker COMPLET avec son suffixe de place, jamais sur le
+ *    symbole nu et jamais via startsWith. MC = Moelis (US) mais MC.PA =
+ *    LVMH ; ALV = Autoliv mais ALV.DE = Allianz ; ROG = Rogers mais
+ *    ROG.SW = Roche ; SAN = Banco Santander mais SAN.PA = Sanofi ; AIR =
+ *    AAR Corp mais AIR.PA = Airbus ; MRK = Merck US mais MRK.DE = Merck
+ *    KGaA. Garde-fou supplémentaire : addMember() refuse tout ticker à
+ *    suffixe européen dans un univers US (sp500, nasdaq100, soxx).
  *
  * 2. TRI : par défaut capitalisation boursière décroissante. Aucun fichier
  *    local fiable de market caps dans src/data/ → fallback documenté :
@@ -38,8 +56,8 @@ export const metadata = {
  *    Si le fichier est absent (prod Vercel), fallback ordre alphabétique.
  *    Toggle capi/alpha côté client.
  *
- * 3. FILTRES : Toutes | SP500 | CAC | DAX | SMI | SOXX (une sté peut
- *    appartenir à plusieurs univers).
+ * 3. FILTRES : Toutes | SP500 | Nasdaq 100 | CAC | DAX | AEX | SMI | SOXX
+ *    | Autres (une sté peut appartenir à plusieurs univers).
  *
  * 4. HERO KPI : colonne <select> par sté. Valeur initiale = snapshot
  *    `companies/<t>.json` (fallback `v2-pipeline/<t>.json`), corrigée au
@@ -58,11 +76,45 @@ const SOXX_TICKERS = [
 ];
 
 // Alias univers → ticker canonique app (piège connu : alias canoniques).
+// Les 3 lignes .AS → autre place sont des cross-listings : l'app référence
+// ces sociétés sous leur ticker Amsterdam absent (ASML.AS / MT.AS / URW.AS)
+// mais les possède sous ASML (US), MT.PA et URW.PA. Mapping 1↔1, jamais de
+// rapprochement par symbole nu.
 const UNIVERSE_ALIASES: Record<string, string> = {
   "BRK.B": "BRK-B",
+  "ASML.AS": "ASML",
+  "MT.AS": "MT.PA",
+  "URW.AS": "URW.PA",
 };
 
-export type UniverseKey = "sp500" | "cac40" | "dax40" | "smi" | "soxx";
+/** Suffixes de places européennes présents dans l'univers app. */
+const EU_SUFFIX_RE = /\.(PA|AS|DE|SW)$/i;
+
+/** Univers cotés aux USA : aucun ticker à suffixe européen n'y est admis. */
+const US_UNIVERSES = new Set(["sp500", "nasdaq100", "soxx"]);
+
+export type UniverseKey =
+  | "sp500"
+  | "nasdaq100"
+  | "cac40"
+  | "dax40"
+  | "aex"
+  | "smi"
+  | "soxx"
+  | "autres";
+
+/** Ordre d'affichage des badges (non exporté : un fichier page.tsx
+ * Next.js n'accepte pas d'export arbitraire). */
+const UNIVERSE_ORDER: UniverseKey[] = [
+  "sp500",
+  "nasdaq100",
+  "cac40",
+  "dax40",
+  "aex",
+  "smi",
+  "soxx",
+  "autres",
+];
 
 export type SteRow = {
   ticker: string;
@@ -103,7 +155,11 @@ async function buildRows(): Promise<{ rows: SteRow[]; capsSource: "att-state" | 
   const membership = new Map<string, Set<UniverseKey>>();
   const universeNames = new Map<string, string>();
   const addMember = (ticker: string, u: UniverseKey) => {
+    // Ticker COMPLET (suffixe de place inclus) : égalité stricte, jamais de
+    // startsWith ni de comparaison insensible au suffixe.
     const t = UNIVERSE_ALIASES[ticker] ?? ticker;
+    // Garde-fou anti-chevauchement Europe/USA (MC.PA vs MC, ALV.DE vs ALV…).
+    if (US_UNIVERSES.has(u) && EU_SUFFIX_RE.test(t)) return;
     if (!membership.has(t)) membership.set(t, new Set());
     membership.get(t)!.add(u);
   };
@@ -111,15 +167,28 @@ async function buildRows(): Promise<{ rows: SteRow[]; capsSource: "att-state" | 
     const t = (UNIVERSE_ALIASES[e.ticker.toUpperCase()] ?? e.ticker.toUpperCase());
     if (e.name) universeNames.set(t, e.name);
     for (const s of e.sources ?? []) {
-      if (s === "sp500" || s === "cac40" || s === "dax40" || s === "smi") {
+      if (
+        s === "sp500" ||
+        s === "cac40" ||
+        s === "dax40" ||
+        s === "smi" ||
+        s === "aex"
+      ) {
         addMember(e.ticker.toUpperCase(), s);
       }
     }
   }
   for (const t of SOXX_TICKERS) addMember(t, "soxx");
+  for (const t of (NASDAQ100_MEMBERS as { tickers?: string[] }).tickers ?? []) {
+    addMember(t.toUpperCase(), "nasdaq100");
+  }
 
-  // Univers page = app ∩ (SP500 ∪ CAC40 ∪ DAX40 ∪ SMI ∪ SOXX).
-  const kept = [...membership.keys()].filter((t) => clean.has(t)).sort();
+  // Univers page = TOUTES les stés de l'app. Celles rattachées à aucun
+  // univers connu sont regroupées dans "Autres" (aucune sté hors filtre).
+  const kept = [...clean].sort();
+  for (const t of kept) {
+    if (!membership.get(t)?.size) addMember(t, "autres");
+  }
 
   // Rang capi : ordre de .conv-state/att-state.json (trié capi décroissante).
   let capsSource: "att-state" | "alpha" = "alpha";
@@ -144,7 +213,9 @@ async function buildRows(): Promise<{ rows: SteRow[]; capsSource: "att-state" | 
         universeNames.get(t) ||
         t,
       sector: typeof snap?.sector === "string" ? snap.sector : "",
-      universes: [...(membership.get(t) ?? [])].sort() as UniverseKey[],
+      universes: [...(membership.get(t) ?? [])].sort(
+        (a, b) => UNIVERSE_ORDER.indexOf(a) - UNIVERSE_ORDER.indexOf(b),
+      ) as UniverseKey[],
       hero: typeof snap?.hero_kpi === "string" ? snap.hero_kpi : "",
       capRank: capRank.get(t) ?? Number.MAX_SAFE_INTEGER,
     });
@@ -167,8 +238,12 @@ export default async function KpiQualityStrategyPage() {
           KPI Quality Strategy
         </h1>
         <p className="mt-2 max-w-3xl text-[13.5px] leading-relaxed text-zinc-400">
-          Pilotage du hero KPI des stés de l&apos;app appartenant aux univers{" "}
-          <strong className="text-zinc-200">SP500, CAC 40, DAX 40, SMI, SOXX</strong>.
+          Pilotage du hero KPI de toutes les stés de l&apos;app, filtrées par
+          univers{" "}
+          <strong className="text-zinc-200">
+            SP500, Nasdaq 100, CAC 40, DAX 40, AEX, SMI, SOXX
+          </strong>{" "}
+          (+ Autres pour les stés hors de ces univers).
           Tri par capi décroissante (toggle alphabétique), filtres par univers,
           changement du hero KPI directement depuis la liste. Library des KPI
           génériques conservée en second onglet.
