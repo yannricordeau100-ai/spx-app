@@ -17,7 +17,7 @@ const W = 920, H = 420;
 // négatives qui s'affichent sous les bars rouges sans toucher le year-band.
 // PAD_RIGHT 95 (vs 50) = même règle que curve/bars : pas de clipping TTM.
 // Yann 8 août 2026 : plot élargi gauche+droite (96/95 -> 76/58), cf bars-3d.
-const PAD_LEFT = 76, PAD_RIGHT = 58, PAD_TOP = 56, PAD_BOTTOM = 100;
+const PAD_LEFT = 54, PAD_RIGHT = 58, PAD_TOP = 56, PAD_BOTTOM = 100;
 const INNER_W = W - PAD_LEFT - PAD_RIGHT;
 const INNER_H = H - PAD_TOP - PAD_BOTTOM;
 
@@ -127,7 +127,7 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
     >
       {/* Header d'unité dans le SVG. Yann 2 juin 2026 : repositionné
           juste au-dessus du premier tick Y, aligné fin sur l'axe Y. */}
-      <text x={PAD_LEFT - 20} y={PAD_TOP - 24} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace" textAnchor="end">
+      <text x={PAD_LEFT - 6} y={PAD_TOP - 24} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace" textAnchor="end">
         {/* Les deltas sont calculés vs le point précédent de la série
             affichée : en trimestriel c'est vs le trimestre précédent,
             pas vs N-1. Le libellé doit suivre. */}
@@ -156,7 +156,7 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
           stroke="#1a1a1a" strokeDasharray="3 6" strokeWidth={1} />
       ))}
       {ticks.map((v, i) => (
-        <text key={i} x={PAD_LEFT - 12} y={yFor(v) + 5} textAnchor="end" fontSize={16}
+        <text key={i} x={PAD_LEFT - 9} y={yFor(v) + 5} textAnchor="end" fontSize={16}
           fontWeight={500} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
           {v > 0 ? "+" : ""}{(Math.round(v * 10) / 10).toLocaleString("fr-FR")} %
         </text>
@@ -327,7 +327,7 @@ export function VariationDiamondPrisms({ data, labels }: Props) {
           stroke="#1a1a1a" strokeDasharray="3 6" strokeWidth={1} />
       ))}
       {ticks.map((v, i) => (
-        <text key={i} x={PAD_LEFT - 12} y={yFor(v) + 5} textAnchor="end" fontSize={16}
+        <text key={i} x={PAD_LEFT - 9} y={yFor(v) + 5} textAnchor="end" fontSize={16}
           fontWeight={500} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
           {v > 0 ? "+" : ""}{(Math.round(v * 10) / 10).toLocaleString("fr-FR")} %
         </text>

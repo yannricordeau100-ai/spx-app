@@ -352,6 +352,7 @@ export function KpiRow({
               cagrLabel
             )}
             <span className="ml-1 text-[10px] italic text-zinc-500">
+              {"\u00a0"}
               {(() => {
                 // Yann 9 août 2026 : même label dynamique que le hero.
                 // "(CAGR 5 ans)" figé mentait quand l'history couvre 4 ans.

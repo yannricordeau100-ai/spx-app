@@ -24,6 +24,7 @@ import {
   BookOpen,
   Lock,
 } from "lucide-react";
+import { InfoTooltip } from "@/components/info-tooltip";
 import type { CompanyAtt, AttArgument, AttQuantitatif } from "@/lib/att";
 
 const INTENSITE_META: Record<
@@ -35,19 +36,28 @@ const INTENSITE_META: Record<
   elevee: { label: "Intensité élevée", color: "#f43f5e" },
 };
 
-function formatDateFr(iso?: string): string {
+/** Mois + année seulement : "août 2026". Jamais le jour exact. */
+function formatMoisAn(iso?: string): string {
   if (!iso) return "";
-  try {
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return iso;
-    return d.toLocaleDateString("fr-FR", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-  } catch {
-    return iso;
-  }
+  const m = /^(\d{4})-(\d{2})/.exec(iso);
+  if (!m) return iso;
+  const d = new Date(Number(m[1]), Number(m[2]) - 1, 1);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
+}
+
+/**
+ * Découpe un paragraphe massif en segments lisibles.
+ * Un argument qui enchaîne plusieurs constats séparés par " ; " devient
+ * une liste à puces ; sinon on garde le paragraphe tel quel.
+ */
+function splitEnPoints(texte: string): string[] {
+  const parts = texte
+    .split(/\s;\s/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (parts.length >= 2 && parts.every((p) => p.length > 25)) return parts;
+  return [texte];
 }
 
 function SectionTitle({
@@ -60,23 +70,56 @@ function SectionTitle({
   children: React.ReactNode;
 }) {
   return (
-    <h3 className="mb-2.5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider" style={{ color }}>
+    <h3
+      className="mb-3 flex items-center gap-2.5 font-mono text-[15px] font-semibold uppercase tracking-[0.14em]"
+      style={{ color }}
+    >
       {icon}
       {children}
     </h3>
   );
 }
 
+/** Corps d'argument : plusieurs constats deviennent des puces. */
+function Corps({ texte }: { texte: string }) {
+  const points = splitEnPoints(texte);
+  if (points.length === 1) {
+    return <p className="text-[13px] leading-[1.75] text-zinc-300">{points[0]}</p>;
+  }
+  return (
+    <ul className="grid gap-1.5">
+      {points.map((p, i) => (
+        <li key={i} className="flex items-start gap-2 text-[13px] leading-[1.75] text-zinc-300">
+          <span className="mt-[9px] size-1 shrink-0 rounded-full bg-zinc-600" />
+          <span>{p}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Le "i" qui porte la preuve verbatim / la source, au niveau du titre. */
+function SourceInfo({ label, contenu }: { label: string; contenu: string }) {
+  return (
+    <InfoTooltip color="#a78bfa" align="right" size="md">
+      <div className="mb-1 font-mono text-[10.5px] uppercase tracking-wider text-violet-300">
+        {label}
+      </div>
+      <p className="text-[12px] leading-relaxed text-zinc-300">{contenu}</p>
+    </InfoTooltip>
+  );
+}
+
 function ArgumentCard({ arg }: { arg: AttArgument }) {
   return (
     <div className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
-      <div className="text-[13.5px] font-semibold text-zinc-100">{arg.titre}</div>
-      <p className="mt-1.5 text-[13px] leading-relaxed text-zinc-300">{arg.argument}</p>
-      {arg.preuve && (
-        <p className="mt-2 border-l-2 border-violet-500/40 pl-2.5 font-mono text-[11px] leading-relaxed text-zinc-500">
-          {arg.preuve}
-        </p>
-      )}
+      <div className="flex items-start justify-between gap-2">
+        <div className="text-[13.5px] font-semibold text-zinc-100">{arg.titre}</div>
+        {arg.preuve && <SourceInfo label="Preuve et source" contenu={arg.preuve} />}
+      </div>
+      <div className="mt-2">
+        <Corps texte={arg.argument} />
+      </div>
     </div>
   );
 }
@@ -84,13 +127,15 @@ function ArgumentCard({ arg }: { arg: AttArgument }) {
 function QuantCard({ q }: { q: AttQuantitatif }) {
   return (
     <div className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
-      <div className="text-[13.5px] font-semibold text-zinc-100">{q.titre}</div>
+      <div className="flex items-start justify-between gap-2">
+        <div className="text-[13.5px] font-semibold text-zinc-100">{q.titre}</div>
+        {q.source && <SourceInfo label="Source" contenu={q.source} />}
+      </div>
       <div className="mt-1.5 font-mono text-[13px] text-cyan-300">{q.chiffre}</div>
       {q.perspective && (
-        <p className="mt-1.5 text-[13px] leading-relaxed text-zinc-300">{q.perspective}</p>
-      )}
-      {q.source && (
-        <p className="mt-2 font-mono text-[11px] text-zinc-500">Source : {q.source}</p>
+        <div className="mt-2">
+          <Corps texte={q.perspective} />
+        </div>
       )}
     </div>
   );
@@ -171,9 +216,9 @@ export function AntiTheseCard({
         <div className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
           <CalendarDays className="size-3.5" />
           <span>
-            Rédigée le {formatDateFr(att.redigee_le)}
+            Rédigée en {formatMoisAn(att.redigee_le)}
             {att.donnees_arretees_au
-              ? `, données arrêtées au ${formatDateFr(att.donnees_arretees_au)}`
+              ? `, sur la base des documents publiés jusqu'en ${formatMoisAn(att.donnees_arretees_au)}`
               : ""}
           </span>
         </div>
@@ -274,7 +319,15 @@ export function AntiTheseCard({
                 {glossaire.map(([term, def]) => (
                   <div key={term} className="text-[12.5px] leading-relaxed">
                     <dt className="inline font-mono font-semibold text-zinc-200">
-                      {term.replace(/\*+$/, "")}
+                      {(() => {
+                        const t = term.replace(/\*+$/, "").trim();
+                        // Majuscule initiale, le reste en minuscules sauf sigles
+                        // (BPA, EBITDA, FCF restent tels quels).
+                        if (t.length > 5 && t === t.toUpperCase()) {
+                          return t.charAt(0) + t.slice(1).toLowerCase();
+                        }
+                        return t.charAt(0).toUpperCase() + t.slice(1);
+                      })()}
                     </dt>
                     <dd className="inline text-zinc-400"> : {def}</dd>
                   </div>

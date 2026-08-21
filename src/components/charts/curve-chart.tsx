@@ -121,7 +121,7 @@ function pickYTickDecimals(tickValues: number[], unit: string): number | undefin
 const W = 920;
 const H = 420;
 // Yann 8 août 2026 : plot élargi gauche+droite (96/95 -> 76/58), cf bars-3d.
-const PAD_LEFT = 76;
+const PAD_LEFT = 54;
 // PAD_RIGHT = 95 (vs 70 avant) pour garantir qu'aucun label X (ex : "TTM"
 // italique 13-14px) ne soit coupé par le bord droit du SVG, sur tous les
 // viewports (mobile narrow, conteneurs avec overflow hidden, etc.)
@@ -344,7 +344,7 @@ export function CurveChart({
           web + PNG download. */}
       {header && (
         <text
-          x={yOnRight ? PAD_LEFT + innerW + 20 : PAD_LEFT - 20}
+          x={yOnRight ? PAD_LEFT + innerW + 20 : PAD_LEFT - 6}
           y={PAD_TOP - 24}
           fontSize={13}
           fontWeight={600}
@@ -432,7 +432,7 @@ export function CurveChart({
         {ticks.map(({ v, y }, i) => (
           <text
             key={`yn-${i}`}
-            x={yOnRight ? PAD_LEFT + innerW + 20 : PAD_LEFT - 20}
+            x={yOnRight ? PAD_LEFT + innerW + 20 : PAD_LEFT - 6}
             y={y + 5}
             textAnchor={yOnRight ? "start" : "end"}
             fontSize={16}

@@ -928,19 +928,22 @@ export function formatCAGR(
   const sign = c > 0 ? "+" : "";
   // Yann 15 mai 2026 : suffix "/ an" traduit selon la langue. Default = FR
   // pour rétro-compat avec les callsites non encore migrés.
+  // Yann 21 aout 2026 (point 6) : espaces FINES insecables (U+202F) avant le
+  // "%" et autour du "/" -> "+59 % / an" compact au lieu de "+59 % / an".
+  const NNBSP = "\u202f";
   const PER_YEAR: Record<typeof locale, string> = {
-    "fr":    "% / an",
-    "en":    "% / year",
-    "en-GB": "% / year",
-    "de":    "% / Jahr",
-    "de-CH": "% / Jahr",
-    "nl":    "% / jaar",
+    "fr":    `%${NNBSP}/${NNBSP}an`,
+    "en":    `%${NNBSP}/${NNBSP}year`,
+    "en-GB": `%${NNBSP}/${NNBSP}year`,
+    "de":    `%${NNBSP}/${NNBSP}Jahr`,
+    "de-CH": `%${NNBSP}/${NNBSP}Jahr`,
+    "nl":    `%${NNBSP}/${NNBSP}jaar`,
   };
   const numLocale = locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : "en-US";
   return `${sign}${c.toLocaleString(numLocale, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 1,
-  })} ${PER_YEAR[locale]}`;
+  })}${NNBSP}${PER_YEAR[locale]}`;
 }
 
 /* -------------------------------------------------------------------------- */

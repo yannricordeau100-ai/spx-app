@@ -11,7 +11,6 @@ import {
   ArrowUpRight,
   Bookmark,
   ChevronDown,
-  Sparkles,
 } from "lucide-react";
 
 import {
@@ -1059,13 +1058,14 @@ export function CompanyView({
           />
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-            {/* LEFT: hero number — colonne réduite à 3/12 pour donner plus
-                d'espace au graph (8 → 9). Tout ce qui est trop large doit
-                glisser à gauche, le bord droit étant fixe.
+            {/* LEFT: hero number — colonne réduite à 2/12 (Yann 21 août 2026,
+                était 3/12) pour donner encore plus d'espace au graph (9 → 10).
+                Tout ce qui est trop large doit glisser à gauche, le bord droit
+                étant fixe.
                 Yann 13 juin 2026 : flex flex-col + order-* pour remonter le
                 gros chiffre (order-1) et descendre les badges meta sous les
                 chips (order-3). */}
-            <div className="flex flex-col lg:col-span-3">
+            <div className="flex min-w-0 flex-col lg:col-span-2">
               {/*
                 ┌────────────────────────────────────────────────────────────┐
                 │ ⚠️  RÈGLE FIGÉE — NE PAS MODIFIER (Yann 5 juin 2026)        │
@@ -1094,10 +1094,271 @@ export function CompanyView({
               {/* Yann 8 juin 2026 : "KPI principal" + chip categorie bleu
                   supprimes. Le badge "A jour" (freshness) est desormais aligne
                   a gauche en premier (a la place de l'ancien label). */}
-              {/* Yann 13 juin 2026 : badges meta (chip "Prochain résultats" +
-                  garde-fou data + "i" fiscal décalé) déplacés SOUS la chip
-                  "Top x%" via order-3 (le gros chiffre remonte en order-1). */}
-              <div className="order-3 mt-3 flex flex-wrap items-center gap-1.5 pb-0.5">
+              {/* Yann 21 août 2026 : les badges meta (freshness + "i") ont été
+                  remontés à côté du titre du KPI (colonne droite). Ils ne
+                  consomment plus une ligne entière dans cette colonne. */}
+
+              {/* Yann 8 juin 2026 : chip categorie bleu (active.short) supprime
+                  du hero a la demande du user. */}
+
+              {/* Chiffre principal — clamp responsif (max 7vw) pour éviter
+                  l'overflow horizontal sur les grandes valeurs (ex BPA dilué
+                  $XX.XX, ABF $XXX.X Mds, etc.). flex-wrap permet à l'unité
+                  de basculer en dessous si pas la place. min-w-0 sur la
+                  colonne parent côté layout HERO. */}
+              <div className="order-1 mt-0 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                {freeBlocked ? (
+                  <div style={{ fontSize: "clamp(34px, 4.4vw, 56px)" }}>
+                    <BlurredFreeValue
+                      value={heroFormatted.value}
+                      suffix={displayHeroUnit ? ` ${displayHeroUnit}` : ""}
+                      ticker={company.ticker}
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <div
+                      className="font-display font-semibold leading-none tracking-tight gradient-text"
+                      style={{
+                        fontSize: "clamp(34px, 4.4vw, 56px)",
+                        wordBreak: "keep-all",
+                      }}
+                      title={heroPercentAnomaly ? "Donnée incohérente détectée (magnitude aberrante)" : undefined}
+                    >
+                      <NumberTicker value={heroFormatted.value} />
+                    </div>
+                    {displayHeroUnit && (
+                      <div
+                        className="font-medium text-zinc-400"
+                        style={{ fontSize: "clamp(14px, 1.5vw, 19px)" }}
+                      >
+                        {displayHeroUnit}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+
+              <div className="order-2 mt-3 flex flex-col items-start gap-2">
+                {/* YoY pill : masquée si KPI incomplet (= aucune valeur YoY calculable) */}
+                {!isIncompleteKpi && (effectiveYoy !== "" || typeof effectiveYoy === "number") && (
+                  <div
+                    className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-sm font-medium"
+                    style={{
+                      color: freeBlocked ? "#52525b" : yoyColor,
+                      borderColor: `${freeBlocked ? "#52525b" : yoyColor}40`,
+                      background: `${freeBlocked ? "#52525b" : yoyColor}12`,
+                    }}
+                  >
+                    {!freeBlocked && tone === "pos" && <ArrowUpRight className="size-4" />}
+                    {!freeBlocked && tone === "neg" && <ArrowDownRight className="size-4" />}
+                    <span className="font-mono tabular-nums">
+                      {freeBlocked ? (
+                        <BlurredFreeValue value="+0,0" suffix=" %" ticker={company.ticker} />
+                      ) : (() => {
+                        // Yann 16 mai 2026 : normalise yoy en format FR
+                        // (virgule décimale + espace insécable avant %).
+                        // Fix audit Playwright (48/50 stés concernées).
+                        if (typeof effectiveYoy === "number") {
+                          const n = effectiveYoy as number;
+                          return `${n > 0 ? "+" : ""}${n.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`;
+                        }
+                        const s = String(effectiveYoy);
+                        // Si yoy déjà au format FR (virgule décimale + espace avant %), garde tel quel.
+                        if (/\d,\d.*\s%/.test(s)) return s;
+                        // Sinon : "+63.4%" devient "+63,4 %" (US -> FR)
+                        return s
+                          .replace(/(\d)\.(\d)/g, "$1,$2")
+                          .replace(/(\d)\s*%/g, "$1 %");
+                      })()}
+                    </span>
+                    <span className="text-[11px] italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span>
+                  </div>
+                )}
+                {/* Quality + percentile chips : masqués si KPI incomplet (= rating bidon "Moyen Top 50 %") */}
+                {!isIncompleteKpi && <QualityChipOnly rating={heroRating} />}
+                {heroCAGR && (
+                  <div className="inline-flex w-fit flex-wrap items-center gap-x-1 gap-y-0 rounded-full border border-[#262626] bg-[#0d0d0d] px-2.5 py-1 font-mono text-[12px] tabular-nums text-zinc-200">
+                    {freeBlocked ? (
+                      <BlurredFreeValue value="+0,0 %/an" ticker={company.ticker} />
+                    ) : (
+                      heroCAGR
+                    )}
+                    <span className="whitespace-nowrap text-[10.5px] italic text-zinc-400">
+                      {"\u00a0"}
+                      {heroCagrYears >= 4.5 && heroCagrYears <= 5.5
+                        ? t("hero.cagr_5y")
+                        : `(CAGR ${(heroCagrYears > 5.5 ? Math.round(heroCagrYears) : heroCagrYears).toLocaleString(locale === "fr" ? "fr-FR" : "en-US")} ${heroCagrYears <= 1 ? (locale === "de" || locale === "de-CH" ? "Jahr" : locale === "fr" ? "an" : "year") : (locale === "de" || locale === "de-CH" ? "Jahre" : locale === "fr" ? "ans" : "years")})`}
+                    </span>
+                  </div>
+                )}
+                {/* Yann 16 juil 2026 : chip percentile "Top X % · sous-secteur"
+                    SUPPRIMÉE. C'était une heuristique sur le YoY (yoy>=0 → "Top 50 %"),
+                    pas un vrai classement vs pairs : impossible à rendre juste pour
+                    des KPI propres à chaque sté (CA iPhone n'a pas de pairs). */}
+                {isIncompleteKpi && (
+                  <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/[0.06] px-3 py-1 text-[11.5px] font-medium text-amber-400">
+                    <span className="size-1.5 rounded-full bg-amber-400" />
+                    {t("kpi.partial_data_full")}
+                  </span>
+                )}
+                <YoungIpoWarning ipo={company.ipo} accent={accent} />
+              </div>
+
+              {/* Signal uniquement (sans description) — Yann 6 mai 2026 :
+                  le bloc descriptif sous le signal était trop long et
+                  inutilement verbeux. Le signal seul suffit pour la PV.
+                  Yann 15 mai 2026 : masqué si signal vide (évite box vide). */}
+              {/* Yann 21 août 2026 : étoile "IA" (Sparkles) retirée du hero. */}
+              {typeof active.signal === "string" && active.signal.trim() && (
+                <div className="order-4 mt-5 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5">
+                  <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} className="flex-1">
+                    <div className="text-[14px] font-semibold leading-snug text-zinc-100">
+                      {active.signal}
+                    </div>
+                  </BlurredFreeText>
+                </div>
+              )}
+            </div>
+
+            {/* RIGHT: chart — élargi à 10/12 (était 9) pour plus de place au
+                graph principal. */}
+            <div className="min-w-0 lg:col-span-10">
+              {/* Toolbar au-dessus du graph en 2 LIGNES :
+                    Ligne 1 : titre du KPI centré, agrandi
+                    Ligne 2 : styles graph (gauche) + période 5/10/20 (droite)
+                  « À jour » a été remonté dans la col gauche, à côté de
+                  « KPI principal ». */}
+              {/* Toolbar onglets graph (abaissé) → titre KPI (agrandi) →
+                  graph. Les contrôles sont placés EN PREMIER pour pousser le
+                  titre vers le bas, puis le graph vient juste sous le titre. */}
+              {/* Yann 19 mai 2026 : toggles TOUJOURS centrés.
+                  Avant : `justify-between` poussait ChartCycleControls à
+                  gauche + PeriodToggle à droite → quand l'un des deux
+                  était caché (ex : sté sans quarterly history), le reste
+                  flottait collé sur sa bordure (très moche).
+                  Après : `justify-center` + gap. Les groupes restent
+                  centrés ensemble, séparés par un petit dot iridescent
+                  pour différentier visuellement les 2 familles d'onglets
+                  (modes graph + période vs fenêtre 5/10/20 ans). */}
+              {/* Yann 5 juin 2026 v3 : flex-nowrap + overflow-x-auto pour
+                  vraiment forcer UNE seule ligne (le flex-wrap retombait
+                  encore sur 2 lignes sur certains écrans). Scrollbar masqué.
+                  Séparateurs dots violet retirés (cosmétique, prenaient de
+                  la place). Onglet "Tableau de bord" supprimé (cf liste
+                  TABS dans chart-cycle.tsx). */}
+              <div className="mb-3 flex flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <PeriodToggle accent={accent} value={chartRange} onChange={setChartRange} hasMaxPlan={!freeBlocked} />
+                {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
+                  <TimeFractionToggle
+                    value={timeFraction}
+                    onChange={setTimeFraction}
+                    accent={accent}
+                  />
+                )}
+                <ChartCycleControls
+                  mode={chartMode}
+                  onChange={setChartMode}
+                  color={accent}
+                  barsVariant={barsVariant}
+                  onBarsVariantChange={setBarsVariant}
+                  graphPeriod={graphPeriod}
+                  onGraphPeriodChange={setGraphPeriod}
+                  graphPeriodAvailable={{
+                    // Yann 12 juil 2026 : "Annuel" grisé si l'agrégation ne
+                    // produit AUCUNE FY complète (KPI quarterly sans les Q4,
+                    // ex MSFT LinkedIn revenue growth) -> plus jamais de vue
+                    // annuelle vide, quel que soit le KPI promu.
+                    year: (() => {
+                      if (active.period_type !== "quarter" && active.period_type !== "semester") return true;
+                      const kind = getKpiAggregationKind(active);
+                      const fyEnd = getFiscalAudit(company.ticker)?.fiscalYearEndMonth ?? 12;
+                      const agg = aggregateQuarterlyToAnnual(
+                        active.history ?? [],
+                        active.last_data_date,
+                        kind,
+                        fyEnd,
+                        (active as { history_periods?: string[] }).history_periods,
+                      );
+                      return agg.values.length > 0;
+                    })(),
+                    // Quarter / Semester dispo selon period_type natif du KPI.
+                    // (data réelle, sinon désactivé).
+                    quarter: active.period_type === "quarter",
+                    semester: active.period_type === "semester",
+                  }}
+                />
+              </div>
+              <div className="mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
+                {/* Yann 9 juin 2026 : "i" permanent à GAUCHE du titre hero quand
+                    la profondeur de données est limitée. Indépendant du KPI
+                    sélectionné (rendu hors KpiSwapTitle, donc persiste au swap). */}
+                {historyLimitYears ? (
+                  <InfoTooltip color="#f59e0b">
+                    <div className="text-zinc-200">
+                      {locale === "fr"
+                        ? `Données disponibles sur ${historyLimitYears} ans seulement pour cette société.`
+                        : `Data available for only ${historyLimitYears} years for this company.`}
+                    </div>
+                  </InfoTooltip>
+                ) : null}
+                {/* Yann 5 juin 2026 : hero KPI title bascule FR/EN au clic
+                    via KpiSwapTitle. Modification purement locale (state du
+                    composant), n'écrit rien dans le dataset. Le suffix temps
+                    "par X" est géré par KpiSwapTitle via la prop timeFraction. */}
+                {/* Yann 9 juin 2026 : le TITRE du hero KPI est flouté en mode
+                    gratuit, meme lorsqu'un autre KPI est selectionne (KpiSwapTitle
+                    lit `active`, donc le floutage suit la selection). GOOGL/META
+                    gratuits restent nets via freeBlocked. */}
+                <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} mode="full" as="span">
+                  <KpiSwapTitle
+                    nameFr={active.name_fr}
+                    nameEn={active.name_en}
+                    short={active.short}
+                    defaultLang={heroTitleLang}
+                    timeFraction={effectiveTimeFraction}
+                    onLangChange={setHeroTitleLang}
+                    className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]"
+                    suffixClassName="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]"
+                  />
+                </BlurredFreeText>
+                {/* Yann 15 mai 2026 : tooltip masqué si pas de contenu.
+                    Yann 19 mai 2026 : prise en compte des champs i18n
+                    `explanation_fr` / `explanation_en` si présents dans le
+                    dataset (CONV-TRAD enrichira progressivement). Fallback
+                    sur `active.explanation` (souvent EN brut de pipeline). */}
+                {(() => {
+                  type WithI18n = typeof active & { explanation_fr?: string; explanation_en?: string };
+                  const a = active as WithI18n;
+                  const isFr = locale === "fr";
+                  const localExplanation = isFr
+                    ? (a.explanation_fr || a.explanation || "")
+                    : (a.explanation_en || a.explanation || "");
+                  const hasContent =
+                    (localExplanation && localExplanation.trim()) ||
+                    (active.name_en && active.name_en !== active.name_fr);
+                  if (!hasContent) return null;
+                  return (
+                    <InfoTooltip color={accent}>
+                      <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
+                        {t("kpi.definition")}
+                      </div>
+                      {localExplanation && localExplanation.trim() && (
+                        <div className="text-zinc-200">{localExplanation}</div>
+                      )}
+                      {active.name_en && active.name_en !== active.name_fr && (
+                        <div className="mt-2 border-t border-white/5 pt-2 font-mono text-[11px] italic text-zinc-400">
+                          {active.name_en}
+                        </div>
+                      )}
+                    </InfoTooltip>
+                  );
+                })()}
+                {/* Yann 21 août 2026 : badges meta (freshness, "i" data en
+                    cours, "i" exercice fiscal décalé) REMONTÉS ici, collés au
+                    titre du KPI. Avant : ligne dédiée dans la colonne gauche,
+                    qui gaspillait une ligne entière pour un seul "i". */}
+              <div className="flex flex-wrap items-center gap-1.5">
                 {/* Yann (V1.9.5, juin 2026) : chip freshness identique entre
                     card home et page sté. On utilise le hero KPI **configuré**
                     (= getHero(company)), pas l'`active` qui peut diverger
@@ -1268,262 +1529,6 @@ export function CompanyView({
                   );
                 })()}
               </div>
-
-              {/* Yann 8 juin 2026 : chip categorie bleu (active.short) supprime
-                  du hero a la demande du user. */}
-
-              {/* Chiffre principal — clamp responsif (max 7vw) pour éviter
-                  l'overflow horizontal sur les grandes valeurs (ex BPA dilué
-                  $XX.XX, ABF $XXX.X Mds, etc.). flex-wrap permet à l'unité
-                  de basculer en dessous si pas la place. min-w-0 sur la
-                  colonne parent côté layout HERO. */}
-              <div className="order-1 mt-0 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                {freeBlocked ? (
-                  <div style={{ fontSize: "clamp(40px, 7vw, 72px)" }}>
-                    <BlurredFreeValue
-                      value={heroFormatted.value}
-                      suffix={displayHeroUnit ? ` ${displayHeroUnit}` : ""}
-                      ticker={company.ticker}
-                    />
-                  </div>
-                ) : (
-                  <>
-                    <div
-                      className="font-display font-semibold leading-none tracking-tight gradient-text"
-                      style={{
-                        fontSize: "clamp(40px, 7vw, 72px)",
-                        wordBreak: "keep-all",
-                      }}
-                      title={heroPercentAnomaly ? "Donnée incohérente détectée (magnitude aberrante)" : undefined}
-                    >
-                      <NumberTicker value={heroFormatted.value} />
-                    </div>
-                    {displayHeroUnit && (
-                      <div
-                        className="font-medium text-zinc-400"
-                        style={{ fontSize: "clamp(15px, 2vw, 22px)" }}
-                      >
-                        {displayHeroUnit}
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-
-              <div className="order-2 mt-3 flex flex-col items-start gap-2">
-                {/* YoY pill : masquée si KPI incomplet (= aucune valeur YoY calculable) */}
-                {!isIncompleteKpi && (effectiveYoy !== "" || typeof effectiveYoy === "number") && (
-                  <div
-                    className="inline-flex w-fit items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium"
-                    style={{
-                      color: freeBlocked ? "#52525b" : yoyColor,
-                      borderColor: `${freeBlocked ? "#52525b" : yoyColor}40`,
-                      background: `${freeBlocked ? "#52525b" : yoyColor}12`,
-                    }}
-                  >
-                    {!freeBlocked && tone === "pos" && <ArrowUpRight className="size-4" />}
-                    {!freeBlocked && tone === "neg" && <ArrowDownRight className="size-4" />}
-                    <span className="font-mono tabular-nums">
-                      {freeBlocked ? (
-                        <BlurredFreeValue value="+0,0" suffix=" %" ticker={company.ticker} />
-                      ) : (() => {
-                        // Yann 16 mai 2026 : normalise yoy en format FR
-                        // (virgule décimale + espace insécable avant %).
-                        // Fix audit Playwright (48/50 stés concernées).
-                        if (typeof effectiveYoy === "number") {
-                          const n = effectiveYoy as number;
-                          return `${n > 0 ? "+" : ""}${n.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`;
-                        }
-                        const s = String(effectiveYoy);
-                        // Si yoy déjà au format FR (virgule décimale + espace avant %), garde tel quel.
-                        if (/\d,\d.*\s%/.test(s)) return s;
-                        // Sinon : "+63.4%" devient "+63,4 %" (US -> FR)
-                        return s
-                          .replace(/(\d)\.(\d)/g, "$1,$2")
-                          .replace(/(\d)\s*%/g, "$1 %");
-                      })()}
-                    </span>
-                    <span className="text-[11px] italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span>
-                  </div>
-                )}
-                {/* Quality + percentile chips : masqués si KPI incomplet (= rating bidon "Moyen Top 50 %") */}
-                {!isIncompleteKpi && <QualityChipOnly rating={heroRating} />}
-                {heroCAGR && (
-                  <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#262626] bg-[#0d0d0d] px-3 py-1 font-mono text-[12.5px] tabular-nums text-zinc-200">
-                    {freeBlocked ? (
-                      <BlurredFreeValue value="+0,0 %/an" ticker={company.ticker} />
-                    ) : (
-                      heroCAGR
-                    )}
-                    <span className="text-[10.5px] italic text-zinc-400">
-                      {heroCagrYears >= 4.5 && heroCagrYears <= 5.5
-                        ? t("hero.cagr_5y")
-                        : `(CAGR ${(heroCagrYears > 5.5 ? Math.round(heroCagrYears) : heroCagrYears).toLocaleString(locale === "fr" ? "fr-FR" : "en-US")} ${heroCagrYears <= 1 ? (locale === "de" || locale === "de-CH" ? "Jahr" : locale === "fr" ? "an" : "year") : (locale === "de" || locale === "de-CH" ? "Jahre" : locale === "fr" ? "ans" : "years")})`}
-                    </span>
-                  </div>
-                )}
-                {/* Yann 16 juil 2026 : chip percentile "Top X % · sous-secteur"
-                    SUPPRIMÉE. C'était une heuristique sur le YoY (yoy>=0 → "Top 50 %"),
-                    pas un vrai classement vs pairs : impossible à rendre juste pour
-                    des KPI propres à chaque sté (CA iPhone n'a pas de pairs). */}
-                {isIncompleteKpi && (
-                  <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/[0.06] px-3 py-1 text-[11.5px] font-medium text-amber-400">
-                    <span className="size-1.5 rounded-full bg-amber-400" />
-                    {t("kpi.partial_data_full")}
-                  </span>
-                )}
-                <YoungIpoWarning ipo={company.ipo} accent={accent} />
-              </div>
-
-              {/* Signal uniquement (sans description) — Yann 6 mai 2026 :
-                  le bloc descriptif sous le signal était trop long et
-                  inutilement verbeux. Le signal seul suffit pour la PV.
-                  Yann 15 mai 2026 : masqué si signal vide (évite box vide). */}
-              {typeof active.signal === "string" && active.signal.trim() && (
-                <div className="order-4 mt-5 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5">
-                  <Sparkles className="mt-0.5 size-4 shrink-0" style={{ color: accent }} />
-                  <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} className="flex-1">
-                    <div className="text-[14px] font-semibold leading-snug text-zinc-100">
-                      {active.signal}
-                    </div>
-                  </BlurredFreeText>
-                </div>
-              )}
-            </div>
-
-            {/* RIGHT: chart — élargi à 9/12 (était 8) pour plus de place au
-                graph principal. */}
-            <div className="lg:col-span-9">
-              {/* Toolbar au-dessus du graph en 2 LIGNES :
-                    Ligne 1 : titre du KPI centré, agrandi
-                    Ligne 2 : styles graph (gauche) + période 5/10/20 (droite)
-                  « À jour » a été remonté dans la col gauche, à côté de
-                  « KPI principal ». */}
-              {/* Toolbar onglets graph (abaissé) → titre KPI (agrandi) →
-                  graph. Les contrôles sont placés EN PREMIER pour pousser le
-                  titre vers le bas, puis le graph vient juste sous le titre. */}
-              {/* Yann 19 mai 2026 : toggles TOUJOURS centrés.
-                  Avant : `justify-between` poussait ChartCycleControls à
-                  gauche + PeriodToggle à droite → quand l'un des deux
-                  était caché (ex : sté sans quarterly history), le reste
-                  flottait collé sur sa bordure (très moche).
-                  Après : `justify-center` + gap. Les groupes restent
-                  centrés ensemble, séparés par un petit dot iridescent
-                  pour différentier visuellement les 2 familles d'onglets
-                  (modes graph + période vs fenêtre 5/10/20 ans). */}
-              {/* Yann 5 juin 2026 v3 : flex-nowrap + overflow-x-auto pour
-                  vraiment forcer UNE seule ligne (le flex-wrap retombait
-                  encore sur 2 lignes sur certains écrans). Scrollbar masqué.
-                  Séparateurs dots violet retirés (cosmétique, prenaient de
-                  la place). Onglet "Tableau de bord" supprimé (cf liste
-                  TABS dans chart-cycle.tsx). */}
-              <div className="mb-3 flex flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <PeriodToggle accent={accent} value={chartRange} onChange={setChartRange} hasMaxPlan={!freeBlocked} />
-                {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
-                  <TimeFractionToggle
-                    value={timeFraction}
-                    onChange={setTimeFraction}
-                    accent={accent}
-                  />
-                )}
-                <ChartCycleControls
-                  mode={chartMode}
-                  onChange={setChartMode}
-                  color={accent}
-                  barsVariant={barsVariant}
-                  onBarsVariantChange={setBarsVariant}
-                  graphPeriod={graphPeriod}
-                  onGraphPeriodChange={setGraphPeriod}
-                  graphPeriodAvailable={{
-                    // Yann 12 juil 2026 : "Annuel" grisé si l'agrégation ne
-                    // produit AUCUNE FY complète (KPI quarterly sans les Q4,
-                    // ex MSFT LinkedIn revenue growth) -> plus jamais de vue
-                    // annuelle vide, quel que soit le KPI promu.
-                    year: (() => {
-                      if (active.period_type !== "quarter" && active.period_type !== "semester") return true;
-                      const kind = getKpiAggregationKind(active);
-                      const fyEnd = getFiscalAudit(company.ticker)?.fiscalYearEndMonth ?? 12;
-                      const agg = aggregateQuarterlyToAnnual(
-                        active.history ?? [],
-                        active.last_data_date,
-                        kind,
-                        fyEnd,
-                        (active as { history_periods?: string[] }).history_periods,
-                      );
-                      return agg.values.length > 0;
-                    })(),
-                    // Quarter / Semester dispo selon period_type natif du KPI.
-                    // (data réelle, sinon désactivé).
-                    quarter: active.period_type === "quarter",
-                    semester: active.period_type === "semester",
-                  }}
-                />
-              </div>
-              <div className="mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
-                {/* Yann 9 juin 2026 : "i" permanent à GAUCHE du titre hero quand
-                    la profondeur de données est limitée. Indépendant du KPI
-                    sélectionné (rendu hors KpiSwapTitle, donc persiste au swap). */}
-                {historyLimitYears ? (
-                  <InfoTooltip color="#f59e0b">
-                    <div className="text-zinc-200">
-                      {locale === "fr"
-                        ? `Données disponibles sur ${historyLimitYears} ans seulement pour cette société.`
-                        : `Data available for only ${historyLimitYears} years for this company.`}
-                    </div>
-                  </InfoTooltip>
-                ) : null}
-                {/* Yann 5 juin 2026 : hero KPI title bascule FR/EN au clic
-                    via KpiSwapTitle. Modification purement locale (state du
-                    composant), n'écrit rien dans le dataset. Le suffix temps
-                    "par X" est géré par KpiSwapTitle via la prop timeFraction. */}
-                {/* Yann 9 juin 2026 : le TITRE du hero KPI est flouté en mode
-                    gratuit, meme lorsqu'un autre KPI est selectionne (KpiSwapTitle
-                    lit `active`, donc le floutage suit la selection). GOOGL/META
-                    gratuits restent nets via freeBlocked. */}
-                <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} mode="full" as="span">
-                  <KpiSwapTitle
-                    nameFr={active.name_fr}
-                    nameEn={active.name_en}
-                    short={active.short}
-                    defaultLang={heroTitleLang}
-                    timeFraction={effectiveTimeFraction}
-                    onLangChange={setHeroTitleLang}
-                    className="text-[24px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[28px]"
-                    suffixClassName="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]"
-                  />
-                </BlurredFreeText>
-                {/* Yann 15 mai 2026 : tooltip masqué si pas de contenu.
-                    Yann 19 mai 2026 : prise en compte des champs i18n
-                    `explanation_fr` / `explanation_en` si présents dans le
-                    dataset (CONV-TRAD enrichira progressivement). Fallback
-                    sur `active.explanation` (souvent EN brut de pipeline). */}
-                {(() => {
-                  type WithI18n = typeof active & { explanation_fr?: string; explanation_en?: string };
-                  const a = active as WithI18n;
-                  const isFr = locale === "fr";
-                  const localExplanation = isFr
-                    ? (a.explanation_fr || a.explanation || "")
-                    : (a.explanation_en || a.explanation || "");
-                  const hasContent =
-                    (localExplanation && localExplanation.trim()) ||
-                    (active.name_en && active.name_en !== active.name_fr);
-                  if (!hasContent) return null;
-                  return (
-                    <InfoTooltip color={accent}>
-                      <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-                        {t("kpi.definition")}
-                      </div>
-                      {localExplanation && localExplanation.trim() && (
-                        <div className="text-zinc-200">{localExplanation}</div>
-                      )}
-                      {active.name_en && active.name_en !== active.name_fr && (
-                        <div className="mt-2 border-t border-white/5 pt-2 font-mono text-[11px] italic text-zinc-400">
-                          {active.name_en}
-                        </div>
-                      )}
-                    </InfoTooltip>
-                  );
-                })()}
                 {/* Yann 19 mai 2026 : ancien tooltip orange "Exercice fiscal
                     décalé" DÉPLACÉ vers la zone "À jour" (col gauche) pour
                     ne pas surcharger le titre KPI. Voir code ~ligne 535. */}

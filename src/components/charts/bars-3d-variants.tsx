@@ -30,7 +30,7 @@ const W = 920, H = 420;
 // Yann 8 août 2026 : plot élargi gauche+droite (96/95 -> 76/58) pour réduire
 // le vide et agrandir les barres/labels. Les ticks Y (ancrés end à
 // PAD_LEFT-20) et le label TTM (déport DX/2) restent dans le cadre.
-const PAD_LEFT = 76, PAD_RIGHT = 58, PAD_TOP = 40, PAD_BOTTOM = 90;
+const PAD_LEFT = 54, PAD_RIGHT = 58, PAD_TOP = 40, PAD_BOTTOM = 90;
 
 /**
  * Split d'un label trimestriel "T1 21" → { top: "T1", bottom: "21" }.
@@ -244,7 +244,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           (PAD_TOP - 14), aligné fin sur l'axe Y, cohérent web + PNG. */}
       {header && (
         <text
-          x={yOnRight ? PAD_LEFT + INNER_W + 20 : PAD_LEFT - 20}
+          x={yOnRight ? PAD_LEFT + INNER_W + 20 : PAD_LEFT - 6}
           y={PAD_TOP - 24}
           fontSize={13}
           fontWeight={600}
@@ -596,7 +596,7 @@ export function BarsRibbonStairs3D({ data, labels, color = "#22d3ee" }: Props) {
           stroke="#1a1a1a" strokeDasharray="3 6" strokeWidth={1} />
       ))}
       {ticks.map((v, i) => (
-        <text key={i} x={PAD_LEFT - 12} y={yFor(v) + 5} textAnchor="end" fontSize={16}
+        <text key={i} x={PAD_LEFT - 9} y={yFor(v) + 5} textAnchor="end" fontSize={16}
           fontWeight={500} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
           {(Math.round(v * 10) / 10).toLocaleString("fr-FR")}
         </text>

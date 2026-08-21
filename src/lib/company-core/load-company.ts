@@ -25,6 +25,43 @@ import type { Company, CompanyRisk } from "@/lib/data";
 import { enhanceFreshness } from "@/lib/company-core/enhance-freshness";
 import { isStrictPass3, isV18Eligible } from "@/lib/company-core/strict-pass3";
 import { isGenericKpi } from "@/lib/kpi-generic";
+import { cleanSourceCitations } from "@/lib/ui-fix-templates";
+
+/**
+ * Yann 21 août 2026 — nettoyage des citations de source pour TOUTES les stés.
+ *
+ * Les libellés type "(10-Q MU 2026-06-25, XBRL EarningsPerShareDiluted)" sont
+ * figés dans les datasets (signal, description, interprétation, risques…).
+ * On les normalise ICI, côté serveur, avant sérialisation : le rendu ET la
+ * payload React ne contiennent plus ni code de formulaire SEC, ni "XBRL",
+ * ni nom de balise technique.
+ *
+ * Clés ignorées : identifiants et URLs (jamais du texte affiché).
+ */
+const CITATION_SKIP_KEY_RE =
+  /(?:^|_)(?:url|href|src|link|logo|image|img|path|slug|domain|email|ticker|cik|isin|id|key|short|type|unit|period_type|last_data_date|date|filed|form)$/i;
+
+function deepCleanCitations<T>(value: T, key?: string): T {
+  if (typeof value === "string") {
+    if (key && CITATION_SKIP_KEY_RE.test(key)) return value;
+    if (/^(?:https?:)?\/\//i.test(value)) return value;
+    return cleanSourceCitations(value) as unknown as T;
+  }
+  if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; i += 1) {
+      value[i] = deepCleanCitations(value[i], key);
+    }
+    return value;
+  }
+  if (value && typeof value === "object") {
+    const obj = value as Record<string, unknown>;
+    for (const k of Object.keys(obj)) {
+      obj[k] = deepCleanCitations(obj[k], k);
+    }
+    return value;
+  }
+  return value;
+}
 
 // Yann 18 mai 2026 : carte globale EN tagline → FR translation. Chargée
 // lazy-une-fois par process. Utilisée pour peupler tagline_i18n.fr.
@@ -2772,6 +2809,11 @@ export async function loadV17Company(
       }
     }
   }
+
+  // Yann 21 août 2026 : dernier passage AVANT sérialisation — supprime les
+  // citations SEC techniques ("10-Q", "XBRL", noms de balises) de tous les
+  // textes affichés, sur toutes les stés.
+  deepCleanCitations(company as unknown as Record<string, unknown>);
 
   return { kind: "ready", company };
 }

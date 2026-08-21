@@ -80,6 +80,173 @@ export function normalizeNarrative(text: string): string {
   out = addNbspBeforePct(out);
   // Yann 16 mai 2026 : YoY → vs N-1 (convention FR Mettrik).
   out = out.replace(/\bYoY\b/g, "vs N-1");
+  // Yann 21 août 2026 : citations de source illisibles ("(10-Q MU 2026-06-25,
+  // XBRL EarningsPerShareDiluted)") réduites à "(T2 2026, MU)".
+  out = cleanSourceCitations(out);
+  return out;
+}
+
+/* -------------------------------------------------------------------------- */
+/*        Citations de source : "(10-Q MU 2026-06-25, XBRL Tag)" → "(T2 2026)" */
+/* -------------------------------------------------------------------------- */
+
+/** Codes de formulaires SEC / AMF qui n'ont aucun sens pour un investisseur. */
+const SEC_FORM_RE =
+  /\b(?:10-K|10-Q|8-K|20-F|40-F|6-K|11-K|S-1|F-1|DEF\s?14A)(?:\/A)?\b/gi;
+/** Formulaires ANNUELS (→ "Exercice YYYY" au lieu d'un trimestre). */
+const ANNUAL_FORM_RE = /\b(?:10-K|20-F|40-F|11-K)(?:\/A)?\b/i;
+/** Mots de liaison sans valeur informative dans une citation de source. */
+const CITATION_FILLER_RE =
+  /\b(?:verbatim|source|sources|donnée|donnees|données|data|filing|filings|dépôt|depot|dépôts|depots|selon|d'après|dapres|cf|ex|extrait|extraits|publié|publie|publiée|publiee|rapport|rapports|annuel|annuels|trimestriel|trimestriels|communiqué|communique|du|de|des|d|le|la|les|l|au|aux|un|une|en|dans|sur|via|per|from|the|of|and|et|sec|edgar|us-gaap|ifrs|gaap|companyfacts|api|tag|balise)\b/gi;
+
+/** Trimestre calendaire déduit d'une date ISO ("2026-06-25" → "T2 2026"). */
+function quarterFromIsoDate(iso: string): string | null {
+  const m = iso.match(/\b((?:19|20)\d{2})-(0[1-9]|1[0-2])-\d{2}\b/);
+  if (!m) return null;
+  return `T${Math.ceil(parseInt(m[2], 10) / 3)} ${m[1]}`;
+}
+
+/**
+ * Extrait la période d'une citation : "T3 FY2026" / "Q3 2026" / "2026-06-25"
+ * / "FY2025". Retourne "T3 2026" ou "Exercice 2025", ou null.
+ */
+function extractCitationPeriod(part: string, annual: boolean): string | null {
+  let m = part.match(/\b[TQ]([1-4])\s*(?:FY\s?)?((?:19|20)\d{2})\b/);
+  if (m) return `T${m[1]} ${m[2]}`;
+  m = part.match(/\bFY\s?((?:19|20)\d{2})\s*[TQ]([1-4])\b/);
+  if (m) return `T${m[2]} ${m[1]}`;
+  const iso = quarterFromIsoDate(part);
+  if (iso) {
+    if (!annual) return iso;
+    return `Exercice ${iso.slice(-4)}`;
+  }
+  m = part.match(/\bFY\s?((?:19|20)\d{2})\b/) || part.match(/\b((?:19|20)\d{2})\b/);
+  if (m) return annual ? `Exercice ${m[1]}` : m[1];
+  return null;
+}
+
+/** Ticker cité dans la source ("MU", "MC.PA"). */
+function extractCitationTicker(part: string): string | null {
+  const cleaned = part
+    .replace(SEC_FORM_RE, " ")
+    .replace(/\bXBRL\b/gi, " ")
+    .replace(/\b[TQ][1-4]\b/g, " ")
+    .replace(/\bFY\s?(?:19|20)?\d{2,4}\b/gi, " ");
+  const m = cleaned.match(/\b([A-Z]{1,5}(?:[.\-][A-Z]{1,3})?)\b/);
+  if (!m) return null;
+  if (/^(?:USD|EUR|GBP|CHF|SEC|TTM|FY|IA|AI|PDG|CA|EPS|BPA|KPI|IFRS|GAAP)$/.test(m[1])) return null;
+  return m[1];
+}
+
+/**
+ * Résidu "utile" d'un fragment de citation : si vide, le fragment n'est
+ * QUE de la plomberie technique (formulaire, ticker, date, balise XBRL) et
+ * peut être remplacé par un simple "T2 2026".
+ */
+function citationResidue(part: string): string {
+  let r = part;
+  r = r.replace(/\bus-gaap\s*:\s*[A-Za-z0-9]+/gi, " ");
+  r = r.replace(/\bXBRL\b[\s:]*[A-Za-z][A-Za-z0-9_]*/gi, " ");
+  r = r.replace(/\bXBRL\b/gi, " ");
+  // Balises techniques CamelCase (EarningsPerShareDiluted, NetIncomeLoss…).
+  r = r.replace(/\b[A-Z][a-z]+(?:[A-Z][a-z]*)+\b/g, " ");
+  r = r.replace(SEC_FORM_RE, " ");
+  r = r.replace(/\b(?:19|20)\d{2}-\d{2}-\d{2}\b/g, " ");
+  r = r.replace(/\b[TQ][1-4]\b/g, " ");
+  r = r.replace(/\bFY\s?(?:19|20)?\d{2,4}\b/gi, " ");
+  r = r.replace(/\b(?:19|20)\d{2}\b/g, " ");
+  r = r.replace(/\b[A-Z]{1,5}(?:[.\-][A-Z]{1,3})?\b/g, " ");
+  r = r.replace(CITATION_FILLER_RE, " ");
+  return r.replace(/[^A-Za-zÀ-ÿ]/g, "");
+}
+
+/** Remplace les codes de formulaires restants par du français lisible. */
+function humanizeRemainingForms(text: string): string {
+  return text
+    .replace(/\b(?:10-K|20-F|40-F)(?:\/A)?\b/gi, "rapport annuel")
+    .replace(/\b(?:10-Q|6-K)(?:\/A)?\b/gi, "rapport trimestriel")
+    .replace(/\b8-K(?:\/A)?\b/gi, "communiqué")
+    .replace(/\bDEF\s?14A\b/gi, "convocation AG")
+    .replace(/\b(?:11-K|S-1|F-1)(?:\/A)?\b/gi, "document déposé");
+}
+
+/**
+ * Yann 21 août 2026 : nettoyage GLOBAL des citations de source affichées
+ * sous les graphiques et dans les textes narratifs (656 stés).
+ *
+ * Règles :
+ *  - "10-K" / "10-Q" / "8-K" disparaissent : remplacés par le trimestre
+ *    (T1..T4 + année) ou l'exercice pour un document annuel ;
+ *  - le mot "XBRL" et les balises techniques ("EarningsPerShareDiluted")
+ *    sont supprimés ;
+ *  - tout ce qui n'est pas essentiel est élagué : "(T2 2026)" ou
+ *    "(T2 2026, MU)".
+ *
+ * Idempotent : un texte déjà nettoyé n'est pas re-modifié.
+ */
+export function cleanSourceCitations(text: string): string {
+  if (!text || typeof text !== "string") return text;
+  if (!/10-K|10-Q|8-K|20-F|40-F|6-K|11-K|S-1|F-1|DEF\s?14A|XBRL/i.test(text)) return text;
+
+  // 1. Parenthèses de citation → forme compacte.
+  let out = text.replace(/(\s*)\(([^()]{0,300})\)/g, (full, lead: string, inner: string) => {
+    if (!/10-K|10-Q|8-K|20-F|40-F|6-K|XBRL/i.test(inner)) return full;
+    const annual = ANNUAL_FORM_RE.test(inner);
+    const kept: string[] = [];
+    for (const rawPart of inner.split(/\s*[;,]\s*/)) {
+      const part = rawPart.trim();
+      if (!part) continue;
+      const isTechnical = /10-K|10-Q|8-K|20-F|40-F|6-K|XBRL/i.test(part);
+      if (isTechnical && citationResidue(part) === "") {
+        const period = extractCitationPeriod(part, annual);
+        const ticker = extractCitationTicker(part);
+        if (period) kept.push(period);
+        if (ticker) kept.push(ticker);
+        continue;
+      }
+      // Fragment porteur de sens : on le garde, sans jargon technique.
+      let cleaned = part
+        .replace(/\bus-gaap\s*:\s*[A-Za-z0-9]+/gi, "")
+        .replace(/\bXBRL\b[\s:]*[A-Z][A-Za-z0-9_]*/g, "")
+        .replace(/\bXBRL\b/gi, "");
+      cleaned = humanizeRemainingForms(cleaned).replace(/\s{2,}/g, " ").trim();
+      if (cleaned) kept.push(cleaned);
+    }
+    // Dédoublonnage (ex "T3 2026" cité 2 fois dans la même parenthèse).
+    const uniq = kept.filter((v, i) => kept.indexOf(v) === i);
+    if (uniq.length === 0) return "";
+    return `${lead || " "}(${uniq.join(", ")})`;
+  });
+
+  // 2. Citations hors parenthèses : "10-Q T3 FY2026" → "T3 2026", etc.
+  out = out.replace(
+    /\b(?:10-Q|6-K)\s+[TQ]([1-4])\s*(?:FY\s?)?((?:19|20)\d{2})\b/gi,
+    (_m, q: string, y: string) => `T${q} ${y}`,
+  );
+  out = out.replace(
+    /\b(?:10-Q|6-K)\s+(?:[A-Z]{1,5}(?:[.\-][A-Z]{1,3})?\s+)?((?:19|20)\d{2}-(?:0[1-9]|1[0-2])-\d{2})\b/g,
+    (m, iso: string) => quarterFromIsoDate(iso) ?? m,
+  );
+  out = out.replace(
+    /\b(?:10-K|20-F|40-F)\s+(?:FY\s?)?((?:19|20)\d{2})\b/gi,
+    (_m, y: string) => `exercice ${y}`,
+  );
+  // 3. Balises XBRL et mot "XBRL" partout ailleurs.
+  out = out.replace(/\bus-gaap\s*:\s*[A-Za-z0-9]+/gi, "");
+  out = out.replace(/\bXBRL\b[\s:]*[A-Z][A-Za-z0-9_]*/g, "");
+  out = out.replace(/\bXBRL\b/gi, "");
+  // 4. Codes de formulaires résiduels → français lisible.
+  out = humanizeRemainingForms(out);
+  // 5. Ménage typographique (espaces doubles, virgules orphelines).
+  out = out
+    .replace(/\(\s*,\s*/g, "(")
+    .replace(/\s*,\s*\)/g, ")")
+    .replace(/\(\s*\)/g, "")
+    .replace(/[ \t]{2,}/g, " ")
+    // Espace orpheline avant virgule / point uniquement (la typo FR conserve
+    // l'espace avant « ; », « : », « ! », « ? »).
+    .replace(/[ \t]+([,.])/g, "$1")
+    .replace(/[ \t]+$/gm, "");
   return out;
 }
 
