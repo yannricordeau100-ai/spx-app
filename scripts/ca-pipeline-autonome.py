@@ -116,8 +116,26 @@ def find_section(text, want):
     return "\n\n".join(text[s:s + b] for s, b in chunks)[:CTX_LEN]
 
 
+# Renommages et fusions boursiers 2026 : le ticker de la fiche n'est pas celui
+# sous lequel le filing a ete depose dans le data-lake. Sans cet alias le
+# pipeline sort "no_source" et le bloc de repartition reste vide pour toujours.
+SOURCE_ALIAS = {
+    "VMRK": ["AVB", "EQR"],   # fusion AvalonBay + Equity Residential (17 aout 2026)
+    "BNY": ["BK"],            # renommage Bank of New York Mellon
+    "ECHO": ["SATS"],         # renommage EchoStar
+}
+
+
 def find_source(ticker):
     """(text, kind) depuis cat1/cat2/cat3, le plus recent."""
+    for alias in SOURCE_ALIAS.get(ticker.upper(), []):
+        txt, kind = _find_source_raw(alias)
+        if txt:
+            return txt, kind
+    return _find_source_raw(ticker)
+
+
+def _find_source_raw(ticker):
     up = ticker.upper()
     # cat1-us 10K
     if CAT1.exists():
@@ -336,7 +354,14 @@ def block_valid_in_data(data, block_name):
     if not isinstance(b, dict):
         return False
     sl = b.get("slices")
-    return isinstance(sl, list) and len(sl) >= 2
+    if not isinstance(sl, list) or len(sl) < 2:
+        return False
+    # Un bloc dont les parts n'ont ni valeur ni pourcentage s'affiche comme une
+    # liste de libelles sans aucun chiffre : il doit etre re-extrait.
+    chiffres = [x for x in sl
+                if isinstance(x.get("value"), (int, float)) and x["value"] > 0
+                or isinstance(x.get("share_pct"), (int, float)) and x["share_pct"] > 0]
+    return len(chiffres) >= 2
 
 
 def write_block(slug, block_name, slices, src_kind):
@@ -477,8 +502,7 @@ def main():
         if not ok:
             stats["reject"] += 1
             done.add((ticker, block))  # rejet deterministe -> ne pas boucler
-            if stats["reject"] % 10 == 0:
-                logl(f"  reject {ticker}/{block}: {why} ({provider})")
+            logl(f"  reject {ticker}/{block}: {why} ({provider})")
             continue
         if write_block(slug, block, slices, kind):
             stats["ok"] += 1
