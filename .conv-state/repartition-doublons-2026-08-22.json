@@ -28,5 +28,21 @@
    "raison": "Ici c'est la geographie qui est perimee (1,844 Mds $) alors que le segment exercice 2025 totalise 2 321,7 M$. Les deux couvrent la meme dimension Ameriques / EMEA / Asie-Pacifique."
   }
  ],
- "corrige_ce_run": "19 blocs dont l'unite affichee etait fausse d'un facteur 1000 ou absente : ZBH NVR MSCI STX EXC HBAN KEY BX ABBV PRU OXY CBK.DE FER MTX.DE QIA.DE. Valeurs inchangees, unite seule corrigee."
+ "corrige_ce_run": "19 blocs dont l'unite affichee etait fausse d'un facteur 1000 ou absente : ZBH NVR MSCI STX EXC HBAN KEY BX ABBV PRU OXY CBK.DE FER MTX.DE QIA.DE. Valeurs inchangees, unite seule corrigee.",
+ "sans_aucune_repartition": {
+  "tickers": [
+   "EXO.AS",
+   "SIE.DE",
+   "VMRK"
+  ],
+  "constat": "Trois fiches online n'ont ni revenue_by_segment ni revenue_by_geography, donc aucun onglet de repartition. Le pipeline CA autonome annonce pourtant 0 bloc a traiter, ce qui veut dire que sa file les considere traites ou sans source.",
+  "sources_disponibles": "SIE.DE et EXO.AS ont bien un dossier dans ~/Mettrik/sec-data/cat3-european. VMRK n'a pas de dossier propre (fusion AvalonBay + Equity Residential du 17 aout 2026), il faudrait passer par AVB et EQR.",
+  "recommandation": "Revoir la file du pipeline CA plutot que remplir ces trois blocs a la main, sinon le prochain passage du pipeline les ecrasera."
+ },
+ "non_defauts_verifies": {
+  "BAC": "revenue_by_segment totalise 100,0 mais ce sont de vrais Mds $ (CA d'environ 100 Mds $), pas des pourcentages. Ne pas corriger.",
+  "SNA": "les parts somment a 117% parce que les segments sont avant eliminations inter-segments. Le composant recalcule les proportions a partir des valeurs, donc l'affichage reste juste.",
+  "ARES et KKR": "les blocs geographiques portent des AUM (383 et 633 Mds $) et le label le dit explicitement. Valeurs correctes.",
+  "AMZN WMT TSM": "totaux eleves mais exacts dans leur devise."
+ }
 }
