@@ -161,5 +161,180 @@
    "type": "corruption serie",
    "detail": "shares_diluted Q4-FY2025 corrompu (flagge par l agent lors du refresh Q4-FY2026), a reconstruire depuis le 10-K."
   }
- ]
+ ],
+ "repartition_ca_segment_dominant": {
+  "decouvert_le": "2026-08-21",
+  "origine": "faute ATT HLT (99,6 % / 0,4 % au lieu de 76,4 % / 23,6 %)",
+  "portee": "src/data/companies/<t>.json champ revenue_by_segment, visible dans le bloc Repartition du CA",
+  "audit": "1084 stes avec repartition multi-segments, 25 avec un segment >= 95 %",
+  "impossibles_ou_artefacts": [
+   "FNTN.DE (110,8 %, somme > 100)",
+   "HLT (Ownership a 38 M$ au lieu de ~1,2 Md$)",
+   "DELL (libelle Other Segments)",
+   "GE (libelle Operating Segments = ligne de total)"
+  ],
+  "a_verifier_contre_filings": [
+   "ODFL",
+   "PODD",
+   "ACLS",
+   "AZO",
+   "PFE",
+   "EOG",
+   "DLR",
+   "ARE",
+   "SMCI",
+   "NOW",
+   "UAL",
+   "AMT",
+   "MCHP",
+   "HSIC",
+   "RIVN",
+   "RCL",
+   "NTNX"
+  ],
+  "probablement_legitimes": [
+   "META",
+   "CMG",
+   "PHM",
+   "NVR"
+  ],
+  "statut": "non corrige, hors perimetre ATT, en attente arbitrage Yann"
+ },
+ "chemins_internes_visibles": {
+  "decouvert_le": "2026-08-21",
+  "portee": "1222 champs preuve/source sur 407 stes, rendus dans le tooltip \"Preuve et source\" de la carte ATT",
+  "exemples": [
+   "kpis-haut ADSK",
+   "src/data/v2-pipeline/sats.json",
+   "data-lake/MPWR/risks/extracted.json",
+   ".batches-drafts-safe/kpis-haut/ADYEN.AS"
+  ],
+  "nature": "plomberie interne visible par l utilisateur, meme famille que XBRL/10-Q deja nettoye sur les graphs",
+  "statut": "non corrige, en attente"
+ },
+ "annotations_risque_attribuees_a_la_ste": {
+  "decouvert_le": "2026-08-21",
+  "portee": "51 champs visibles citant severite N/5, score N/5 ou tendance up/stable",
+  "nature": "scores du pipeline Mettrik presentes comme des qualifications de la societe ou de son document de reference",
+  "cas_avers": [
+   "ADSK",
+   "HEN3.DE",
+   "BNR.DE",
+   "ENX.PA",
+   "HOLN.SW",
+   "EL.PA",
+   "RSG",
+   "DG.PA"
+  ],
+  "statut": "TRAITE en deux passages, 21 aout 2026",
+  "origine_amont": "champ risks[].trend de src/data/v2-pipeline/<t>.json, donc potentiellement tout l univers",
+  "bilan_balayage": "23 candidats : 7 vrais cas corriges (AALB.AS AKAM AOS HSIC ENX.PA XOM ALAB), 5 legitimes conserves (AKZA.AS BMW.DE ENGI.PA URW.PA ABNB, matrice reellement publiee), 11 faux positifs",
+  "total_corrige_campagne": "16 stes au total avec les corrections au fil de l eau (EL.PA RSG DG.PA MPWR AME MRK.DE GLE.PA WDAY CCEP + les 7 du balayage)",
+  "fait_notable": "deux notations etaient contredites par notre propre pipeline : HSIC annote improving et AOS deteriorating alors que l ATT disait up",
+  "passage_1": "23 candidats detectes par tournure francaise : 7 corriges, 5 legitimes, 11 faux positifs",
+  "passage_2": "detection par presence d un score ou d une tendance, plus fiable : 91 ATT citent une notation, 5 l attribuaient a la ste. 3 corriges (SREN.SW MRVL LR.PA), 1 faux positif (MPWR), 1 legitime (HEN3.DE)",
+  "total_corrige": "20 stes (16 au fil de l eau et passage 1, plus 3 au passage 2, plus CBK.DE)",
+  "reste": "86 ATT exposent une notation interne dans le tooltip de preuve SANS l attribuer a la ste : moins grave, releve du defaut chemins_internes_visibles",
+  "lecon": "la detection par tournure francaise ratait des cas (CBK.DE), la detection par presence du score est la bonne methode"
+ },
+ "glossaire_orphelin": {
+  "decouvert_le": "2026-08-21",
+  "portee": "415 entrees sur 285 stes, sur 4352 entrees au total",
+  "nature": "terme defini dans le glossaire mais absent du texte de l ATT, souvent apres retrait d un argument",
+  "fichier": ".conv-state/att-glossaire-orphelins.json",
+  "statut": "non corrige, en attente"
+ },
+ "source_amont_fausse_oke": {
+  "decouvert_le": "2026-08-21",
+  "portee": "data-lake/OKE/risks/extracted.json",
+  "nature": "90 % des revenus au lieu de 90 % des resultats (consolidated earnings), erreur presente en amont de l ATT",
+  "statut": "ATT corrigee, source amont non corrigee"
+ },
+ "comparaisons_non_sourcees": {
+  "decouvert_le": "2026-08-21",
+  "portee": "9 stes detectees par regex, mais la regex est trop etroite : le cas O (comparaison a des REIT pairs) est passe au travers",
+  "nature": "comparaison sectorielle ou de pratique de marche presentee comme un fait, sans source",
+  "statut": "9 stes en cours de traitement, balayage a elargir ensuite"
+ },
+ "citations_traduites_presentees_comme_verbatim": {
+  "decouvert_le": "2026-08-21",
+  "portee": "35 citations sur 29 stes (mesure automatique, a confirmer sur piece)",
+  "nature": "texte francais entre guillemets attribue a un document anglophone (10-K, 10-Q, 20-F). Une traduction entre guillemets se lit comme un verbatim.",
+  "cas_avers_par_les_agents": [
+   "MRK.DE (2 cas)",
+   "DAL (1 cas, en plus attribue au mauvais chapitre)",
+   "CIEN"
+  ],
+  "fichier": ".conv-state/att-citations-traduites.json",
+  "correctif": "soit retirer les guillemets et introduire par \"en substance\", soit restituer le verbatim anglais",
+  "statut": "non corrige, en attente"
+ },
+ "tirets_cadratins_dans_verbatims": {
+  "decouvert_le": "2026-08-21",
+  "portee": "39 occurrences sur 23 stes, TOUTES a l interieur de citations anglaises litterales",
+  "nature": "tableaux de filings ou le tiret vaut zero, et ponctuation anglaise dans des phrases citees",
+  "arbitrage": "conserves : falsifier un verbatim est pire que la gene typographique. Seuls 2 cas ont ete neutralises quand le tiret valait zero dans un tableau (BKR par un agent, PYPL par moi).",
+  "statut": "decision prise, a confirmer par Yann s il veut la regle typographique absolue"
+ },
+ "kpi_internes_faux_propages": {
+  "decouvert_le": "2026-08-21",
+  "cas": [
+   "OKE : 90 % des revenus au lieu de 90 % des resultats (data-lake/OKE/risks/extracted.json)",
+   "CBRE : ca_total yoy +15,1 % au lieu de +15,5 %, core_ebitda yoy +27,1 % au lieu de +33,5 % (.batches-drafts-safe/kpis-haut/CBRE.json)",
+   "LVS : revenue_by_segment/geography inverse Macao et Singapour (src/data/v2-pipeline/lvs.json), et ceo_name encore Robert G. Goldstein alors que le proxy 2026 designe Patrick Dumont",
+   "EXO.AS : NET_PROFIT_GROUP a -3 169 M EUR dans .batches-drafts-safe/kpis-haut/EXO.AS.json, second semestre pris pour l annee (reel -3 793)",
+   "ENTG : governance.exec_comp_approval_pct a 77,2 dans src/data/v2-pipeline/entg.json, reel 95,6 selon le 8-K du 8 mai 2026",
+   "WRB : board_size a 5 dans data-lake/WRB/gouvernance_fr.json et governance/extracted.json, reel 11 dont 8 independants",
+   "LYB : NetDebt_Q soustrait deux fois les 1 434 M$ de titres (.batches-drafts-safe/kpis-haut/LYB.json)",
+   "LYB : src/data/v2-pipeline/lyb.json porte une repartition segmentaire perimee, 27,75 Mds$ avec un segment Refining de 4,35 Mds$ supprime du reporting FY2025",
+   "GIS : NAR_organic_growth = -4 dans .batches-drafts-safe/kpis-haut/GIS.json alors que son propre signal donne -3",
+   "NI : kpis-haut/NI.json invente un capex de 4,6 Mds$ et +39,4 %, absent des filings (reel 805,2 M$, +26,3 %)",
+   "ESS : kpis-haut/ESS.json, avg_debt_rate a sens inverse (hypothecaires seuls), norcal +7,4/+10,1 sur comparatifs non retraites, ss_opex_growth annuel melange au trimestre",
+   "SBAC : kpis-haut/SBAC.json, champ yoy +0,2 % incoherent avec ses propres valeurs 107,255/106,586 = +0,6 %",
+   "CDW : dso = 101,961 dans .batches-drafts-safe/kpis-haut/CDW.json, valeur reprise du champ Average daily sales du 10-Q (M$/jour) ; le vrai DSO publie est 93 jours",
+   "ASRNL.AS : KPI EQ porte 9 342 M EUR pour fin 2023 (vrai 8 339) dans .batches-drafts-safe/kpis-haut/ASRNL.AS.json",
+   "APA : kpis-haut/APA.json porte des reserves de 1 100 MMboe et +13,5 % (vrai 1 056 et +9,0 %)",
+   "LII : un levier 1,30x contre 0,70x circule dans les KPI alors qu il n existe dans aucun document depose",
+   "BF.B : src/data/companies/bf.b.json top_capital porte 56,7 % alors que le DEF14A 2026 dit 60,3 %"
+  ],
+  "nature": "valeur fausse dans un fichier interne, recopiee dans l ATT et presentee au lecteur comme une citation",
+  "portee": "16 cas identifies au fil de la verification, sur 10 fichiers amont differents. Aucun corrige.",
+  "statut": "CORRIGE A LA SOURCE le 22 aout 2026 : 17 cas sur 18 fichiers amont. Les valeurs fausses ne reviendront plus a la regeneration.",
+  "detail_corrections": [
+   "CBRE ca_total +15,1 -> +15,5 %, core_ebitda +27,1 -> +33,5 %",
+   "CDW KPI dso supprime (serie entiere = Average daily sales, pas des jours)",
+   "EXO.AS NET_PROFIT_GROUP -3 169 -> -3 793 M EUR",
+   "GIS NAR_organic_growth -4 -> -3",
+   "APA reserves_proved 1 100 -> 1 056 MMboe, +13,5 -> +9,0 %",
+   "ASRNL.AS EQ FY2023 9 342 -> 8 339 M EUR",
+   "SBAC yoy +0,2 -> +0,6 %",
+   "NI capex 4,6 Mds$ / +39,4 % -> 805,2 M$ / +26,3 % (trimestriel)",
+   "LYB NetDebt_Q 8 846 -> 10 280 M$ (double soustraction des titres)",
+   "LYB v2-pipeline : segment Refining retire, parts rebasees sur 23,4 Mds$",
+   "ESS avg_debt_rate 4,4 +0,2 pt -> 4,3 -0,1 pt (sens inverse)",
+   "LII KPI Net debt to EBITDA 1,3x supprime (introuvable dans les filings)",
+   "LVS ceo_name Goldstein -> Patrick Dumont",
+   "LVS repartition inversee -> Macao 56,3 % / Singapour 43,7 %",
+   "ENTG exec_comp_approval_pct 77,2 -> 95,6",
+   "WRB board_size 5 -> 11 et independance 73 -> 72,7 % (2 fichiers)",
+   "BF.B top_capital 56,7 -> 60,3 %",
+   "OKE 90 % des revenus -> 90 % des resultats"
+  ]
+ },
+ "citations_fabriquees": {
+  "decouvert_le": "2026-08-21",
+  "origine": "DHI, deux blocs de portees differentes joints par point-virgule, 160 pb regional presente comme 50 pb consolide",
+  "audit_1": "population points de suspension : 107 citations sur 16 ATT, 0 fautive. Mauvaise population.",
+  "audit_2": "population multi-blocs joints par point-virgule : 1 084 citations sur 412 tickers, echantillon 20 ATT, 100 citations examinees, 0 fautive",
+  "conclusion": "defaut ISOLE, aucun transport de perimetre detecte hors DHI. Les blocs multiples etiquettent chacun leur perimetre.",
+  "statut": "clos, DHI corrige"
+ },
+ "board_size_gouvernance": {
+  "decouvert_le": "2026-08-21",
+  "origine": "WRB : board_size 5 dans data-lake/WRB/gouvernance_fr.json et governance/extracted.json, alors que le proxy 2026 dit 11 membres dont 8 independants. Le champ s auto-contredit (73 % de 5 = 3,65).",
+  "test_tente": "board_size x board_independence_pct doit donner un entier. 50 fiches echouent.",
+  "limite_du_test": "NON CONCLUANT : les pourcentages publies sont souvent arrondis, donc un resultat non entier ne prouve pas l erreur. Le vrai defaut WRB (board_size faux) exigerait de relire le proxy de chaque ste.",
+  "fichier": ".conv-state/audit-board-size-incoherent.json",
+  "statut": "WRB corrige dans l ATT, fichiers amont NON corriges, portee reelle inconnue"
+ }
 }
