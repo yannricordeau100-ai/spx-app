@@ -1,6 +1,2255 @@
 {
  "genere_le": "2026-08-22",
- "suspects": [
+ "test": "KPI dont l unite commence par Mds et dont la valeur depasse 400. Recoupe avec le CA total de la fiche (total d un bloc de repartition en Mds) : candidat si valeur > 3x le CA et valeur/1000 <= 1,2x le CA.",
+ "avertissement": "NE PAS appliquer en masse. Sondage de 13 cas limites : 6 etaient legitimes (capex annonces par des tiers, volumes de paiement, encours de tresorerie clients, obligations de prestation restantes). Le libelle ne suffit pas a trancher : un segment s appelle Automotive ou Lithium, un encours s appelle Customer Equity. Verifier ste par ste contre le filing avant de reetiqueter.",
+ "deja_corrige_2026_08_22": [
+  "ORLY (4 KPI)",
+  "CIEN (10 KPI)",
+  "HRL (2 KPI)"
+ ],
+ "faux_positifs_confirmes": [
+  {
+   "ticker": "AXP",
+   "short": "Consumer & Business Platinum annual spend",
+   "raison": "volume de depenses cartes, bien en Mds $"
+  },
+  {
+   "ticker": "AXP",
+   "short": "network_vol",
+   "raison": "volume reseau, bien en Mds $"
+  },
+  {
+   "ticker": "CIEN",
+   "short": "Top-4 hyperscaler aggregate 2026 CapEx",
+   "raison": "capex agrege du marche, bien en Mds $"
+  },
+  {
+   "ticker": "SPGI",
+   "short": "Announced hyperscaler CapEx",
+   "raison": "capex annonces du marche"
+  },
+  {
+   "ticker": "SCHW",
+   "short": "Transactional sweep cash",
+   "raison": "encours de tresorerie clients"
+  },
+  {
+   "ticker": "ORCL",
+   "short": "Remaining Performance Obligations",
+   "raison": "carnet, 638 Mds $ reels"
+  },
+  {
+   "ticker": "MSFT",
+   "short": "Commercial remaining performance obligations",
+   "raison": "carnet, 627 Mds $ reels"
+  },
+  {
+   "ticker": "MRSH",
+   "short": "Digital infrastructure investment (5y)",
+   "raison": "montant de marche"
+  },
+  {
+   "ticker": "MRSH",
+   "short": "Dedicated reinsurance capital",
+   "raison": "capital du marche"
+  },
+  {
+   "ticker": "UBSG.SW",
+   "short": "IA_Q",
+   "raison": "actifs investis UBS, 7 326 Mds $ reels"
+  }
+ ],
+ "candidats_apres_exclusion_des_encours": [
+  {
+   "ticker": "LEN",
+   "short": "Sales of homes",
+   "label": "Sales of homes",
+   "value": 32097.245,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 34.394
+  },
+  {
+   "ticker": "PWR",
+   "short": "United States",
+   "label": "United States",
+   "value": 26482.963,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 28.48
+  },
+  {
+   "ticker": "PWR",
+   "short": "Segment operating expenses",
+   "label": "Segment operating expenses",
+   "value": 20696.841,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 28.48
+  },
+  {
+   "ticker": "PWR",
+   "short": "Segment operating expense (excluding seg",
+   "label": "Segment operating expense (excluding segment depreciation expense)",
+   "value": 20411.709,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 28.48
+  },
+  {
+   "ticker": "WRB",
+   "short": "Net premiums written",
+   "label": "Net premiums written",
+   "value": 12711.327,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 13.03
+  },
+  {
+   "ticker": "WRB",
+   "short": "Net premiums earned",
+   "label": "Net premiums earned",
+   "value": 12446.938,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 13.03
+  },
+  {
+   "ticker": "UHS",
+   "short": "Gross inpatient revenues",
+   "label": "Gross inpatient revenues",
+   "value": 12277.563,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.352
+  },
+  {
+   "ticker": "CMG",
+   "short": "Food and beverage revenue",
+   "label": "Food and beverage revenue",
+   "value": 11866.051,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 11.926
+  },
+  {
+   "ticker": "CMG",
+   "short": "U.S. segment total revenue",
+   "label": "U.S. segment total revenue",
+   "value": 11679.417,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 11.926
+  },
+  {
+   "ticker": "XYZ",
+   "short": "Commerce enablement revenue",
+   "label": "Commerce enablement revenue",
+   "value": 11514.162,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 24.194
+  },
+  {
+   "ticker": "GPC",
+   "short": "Automotive",
+   "label": "Automotive",
+   "value": 9520.042,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 24.3
+  },
+  {
+   "ticker": "UHS",
+   "short": "Gross outpatient revenues",
+   "label": "Gross outpatient revenues",
+   "value": 8573.27,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.352
+  },
+  {
+   "ticker": "XYZ",
+   "short": "Bitcoin ecosystem revenue",
+   "label": "Bitcoin ecosystem revenue",
+   "value": 8502.787,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 24.194
+  },
+  {
+   "ticker": "WELL",
+   "short": "Resident fees and services",
+   "label": "Resident fees and services",
+   "value": 8452.996,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.838
+  },
+  {
+   "ticker": "GPC",
+   "short": "Industrial",
+   "label": "Industrial",
+   "value": 8392.041,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 24.3
+  },
+  {
+   "ticker": "PLD",
+   "short": "Rental",
+   "label": "Rental",
+   "value": 8158.904,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.79
+  },
+  {
+   "ticker": "CTAS",
+   "short": "Uniform Rental and Facility Services",
+   "label": "Uniform Rental and Facility Services",
+   "value": 7976.073,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.34
+  },
+  {
+   "ticker": "EQT",
+   "short": "Upstream adjusted operating revenues, a ",
+   "label": "Upstream adjusted operating revenues, a non-GAAP financial measure",
+   "value": 7598.579,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.89
+  },
+  {
+   "ticker": "EME",
+   "short": "United States mechanical construction an",
+   "label": "United States mechanical construction and facilities services",
+   "value": 7050.481,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.195
+  },
+  {
+   "ticker": "COIN",
+   "short": "Net revenue",
+   "label": "Net revenue",
+   "value": 6883.438,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.182
+  },
+  {
+   "ticker": "PWR",
+   "short": "Unit-price contracts",
+   "label": "Unit-price contracts",
+   "value": 6790.221,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 28.48
+  },
+  {
+   "ticker": "NCLH",
+   "short": "Passenger ticket",
+   "label": "Passenger ticket",
+   "value": 6687.667,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.828
+  },
+  {
+   "ticker": "LEN",
+   "short": "Homebuilding",
+   "label": "Homebuilding",
+   "value": 6298.563,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 34.394
+  },
+  {
+   "ticker": "LRCX",
+   "short": "China",
+   "label": "China",
+   "value": 6205.062,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 18.436
+  },
+  {
+   "ticker": "COIN",
+   "short": "U.S. (1)",
+   "label": "U.S. (1)",
+   "value": 6010.607,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.182
+  },
+  {
+   "ticker": "SPG",
+   "short": "Lease income",
+   "label": "Lease income",
+   "value": 5839.16,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 6.38
+  },
+  {
+   "ticker": "NCLH",
+   "short": "North America",
+   "label": "North America",
+   "value": 5649.039,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.828
+  },
+  {
+   "ticker": "NFLX",
+   "short": "United States and Canada (UCAN)",
+   "label": "United States and Canada (UCAN)",
+   "value": 5245.298,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 45.184
+  },
+  {
+   "ticker": "VTR",
+   "short": "United States",
+   "label": "United States",
+   "value": 5209.83,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.834
+  },
+  {
+   "ticker": "EME",
+   "short": "United States electrical construction an",
+   "label": "United States electrical construction and facilities services",
+   "value": 5074.252,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.195
+  },
+  {
+   "ticker": "IT",
+   "short": "Insights",
+   "label": "Insights",
+   "value": 5072.57,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 6.498
+  },
+  {
+   "ticker": "IT",
+   "short": "Transferred over time (1)",
+   "label": "Transferred over time (1)",
+   "value": 5062.39,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 6.498
+  },
+  {
+   "ticker": "PWR",
+   "short": "Fixed price contracts",
+   "label": "Fixed price contracts",
+   "value": 4813.711,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 28.48
+  },
+  {
+   "ticker": "INCY",
+   "short": "United States",
+   "label": "United States",
+   "value": 4799.941,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.124
+  },
+  {
+   "ticker": "MNST",
+   "short": "Monster Energy® Drinks",
+   "label": "Monster Energy® Drinks",
+   "value": 4704.483,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.295
+  },
+  {
+   "ticker": "PWR",
+   "short": "Cost-plus contracts",
+   "label": "Cost-plus contracts",
+   "value": 4430.48,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 28.48
+  },
+  {
+   "ticker": "VTR",
+   "short": "Resident fees and services",
+   "label": "Resident fees and services",
+   "value": 4276.163,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.834
+  },
+  {
+   "ticker": "EXPD",
+   "short": "Customs brokerage and other services",
+   "label": "Customs brokerage and other services",
+   "value": 4271.167,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 11.078
+  },
+  {
+   "ticker": "XYZ",
+   "short": "Financial solutions revenue",
+   "label": "Financial solutions revenue",
+   "value": 4176.734,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 24.194
+  },
+  {
+   "ticker": "LRCX",
+   "short": "Korea",
+   "label": "Korea",
+   "value": 4127.766,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 18.436
+  },
+  {
+   "ticker": "KKR",
+   "short": "Fees and Other",
+   "label": "Fees and Other",
+   "value": 4064.273,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "IT",
+   "short": "United States and Canada",
+   "label": "United States and Canada",
+   "value": 4032.601,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 6.498
+  },
+  {
+   "ticker": "GPC",
+   "short": "Europe - Automotive",
+   "label": "Europe - Automotive",
+   "value": 4010.876,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 24.3
+  },
+  {
+   "ticker": "NFLX",
+   "short": "Europe, Middle East, and Africa (EMEA)",
+   "label": "Europe, Middle East, and Africa (EMEA)",
+   "value": 3998.419,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 45.184
+  },
+  {
+   "ticker": "EXPD",
+   "short": "Airfreight services",
+   "label": "Airfreight services",
+   "value": 3982.882,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 11.078
+  },
+  {
+   "ticker": "KKR",
+   "short": "Capital Allocation-Based Income (Loss)",
+   "label": "Capital Allocation-Based Income (Loss)",
+   "value": 3771.235,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "VICI",
+   "short": "Leasing revenue",
+   "label": "Leasing revenue",
+   "value": 3670.466,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 3.84
+  },
+  {
+   "ticker": "KKR",
+   "short": "Carried Interest",
+   "label": "Carried Interest",
+   "value": 3492.171,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "SNPS",
+   "short": "Time-based products",
+   "label": "Time-based products",
+   "value": 3489.609,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.055
+  },
+  {
+   "ticker": "LRCX",
+   "short": "Taiwan",
+   "label": "Taiwan",
+   "value": 3445.22,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 18.436
+  },
+  {
+   "ticker": "KKR",
+   "short": "Net Premiums",
+   "label": "Net Premiums",
+   "value": 3397.186,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "GL",
+   "short": "Life premium",
+   "label": "Life premium",
+   "value": 3363.47,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 4.505
+  },
+  {
+   "ticker": "COHR",
+   "short": "Communications",
+   "label": "Communications",
+   "value": 3320.78,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.811
+  },
+  {
+   "ticker": "PHM",
+   "short": "Home sale revenues",
+   "label": "Home sale revenues",
+   "value": 3307.51,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.312
+  },
+  {
+   "ticker": "DVA",
+   "short": "Dialysis patient service revenues",
+   "label": "Dialysis patient service revenues",
+   "value": 3298.09,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 13.643
+  },
+  {
+   "ticker": "UHS",
+   "short": "Managed Care (HMO and PPOs)",
+   "label": "Managed Care (HMO and PPOs)",
+   "value": 3257.367,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.352
+  },
+  {
+   "ticker": "WRB",
+   "short": "Net premiums written",
+   "label": "Net premiums written",
+   "value": 3226.93,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 13.03
+  },
+  {
+   "ticker": "WRB",
+   "short": "Net premiums earned",
+   "label": "Net premiums earned",
+   "value": 3156.382,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 13.03
+  },
+  {
+   "ticker": "NCLH",
+   "short": "Onboard and other",
+   "label": "Onboard and other",
+   "value": 3139.925,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.828
+  },
+  {
+   "ticker": "EME",
+   "short": "United States building services",
+   "label": "United States building services",
+   "value": 3122.242,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.195
+  },
+  {
+   "ticker": "MRSH",
+   "short": "Digital infrastructure investment (5y)",
+   "label": "Investissement infrastructure numerique 5 ans",
+   "value": 3000,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 27.059
+  },
+  {
+   "ticker": "CMG",
+   "short": "Food and beverage revenue",
+   "label": "Food and beverage revenue",
+   "value": 2989.255,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 11.926
+  },
+  {
+   "ticker": "NCLH",
+   "short": "Europe",
+   "label": "Europe",
+   "value": 2898.886,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.828
+  },
+  {
+   "ticker": "EXPD",
+   "short": "Ocean freight and ocean services",
+   "label": "Ocean freight and ocean services",
+   "value": 2814.96,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 11.078
+  },
+  {
+   "ticker": "UHS",
+   "short": "Net revenue from reportable segments",
+   "label": "Net revenue from reportable segments",
+   "value": 2630.065,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.352
+  },
+  {
+   "ticker": "SYY",
+   "short": "Canned and dry products",
+   "label": "Canned and dry products",
+   "value": 2601.298,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 81.37
+  },
+  {
+   "ticker": "SYY",
+   "short": "Fresh and frozen meats",
+   "label": "Fresh and frozen meats",
+   "value": 2574.453,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 81.37
+  },
+  {
+   "ticker": "KLAC",
+   "short": "Product",
+   "label": "Product",
+   "value": 2511.093,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 12.156
+  },
+  {
+   "ticker": "KKR",
+   "short": "Management Fees",
+   "label": "Management Fees",
+   "value": 2496.783,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "GPC",
+   "short": "Automotive",
+   "label": "Automotive",
+   "value": 2363.032,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 24.3
+  },
+  {
+   "ticker": "PWR",
+   "short": "Segment operating income",
+   "label": "Segment operating income",
+   "value": 2360.262,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 28.48
+  },
+  {
+   "ticker": "PH",
+   "short": "North America",
+   "label": "North America",
+   "value": 2231.478,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 19.85
+  },
+  {
+   "ticker": "XYZ",
+   "short": "Subscription and services-based revenue",
+   "label": "Subscription and services-based revenue",
+   "value": 2204.889,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 24.194
+  },
+  {
+   "ticker": "GPC",
+   "short": "Industrial",
+   "label": "Industrial",
+   "value": 2181.451,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 24.3
+  },
+  {
+   "ticker": "CTAS",
+   "short": "Uniform rental and facility services",
+   "label": "Uniform rental and facility services",
+   "value": 2177.453,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.34
+  },
+  {
+   "ticker": "DOV",
+   "short": "Pumps & Process Solutions",
+   "label": "Pumps & Process Solutions",
+   "value": 2148.67,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.099
+  },
+  {
+   "ticker": "DOV",
+   "short": "Clean Energy & Fueling",
+   "label": "Clean Energy & Fueling",
+   "value": 2130.507,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.099
+  },
+  {
+   "ticker": "VICI",
+   "short": "Income from sales-type leases",
+   "label": "Income from sales-type leases",
+   "value": 2125.367,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 3.84
+  },
+  {
+   "ticker": "PLTR",
+   "short": "Commercial",
+   "label": "Commercial",
+   "value": 2073.159,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.906
+  },
+  {
+   "ticker": "WELL",
+   "short": "Resident fees and services",
+   "label": "Resident fees and services",
+   "value": 2061.37,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.838
+  },
+  {
+   "ticker": "PLD",
+   "short": "Rental",
+   "label": "Rental",
+   "value": 2054.2,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.79
+  },
+  {
+   "ticker": "NCLH",
+   "short": "Passenger ticket",
+   "label": "Passenger ticket",
+   "value": 2049.959,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.828
+  },
+  {
+   "ticker": "SNPS",
+   "short": "Upfront products",
+   "label": "Upfront products",
+   "value": 2010.602,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.055
+  },
+  {
+   "ticker": "SYY",
+   "short": "Frozen fruits, vegetables, bakery and ot",
+   "label": "Frozen fruits, vegetables, bakery and other",
+   "value": 1996.667,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 81.37
+  },
+  {
+   "ticker": "KKR",
+   "short": "Net Investment Income",
+   "label": "Net Investment Income",
+   "value": 1969.779,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "LRCX",
+   "short": "Japan",
+   "label": "Japan",
+   "value": 1880.882,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 18.436
+  },
+  {
+   "ticker": "XYZ",
+   "short": "Transaction-based revenue",
+   "label": "Transaction-based revenue",
+   "value": 1873.477,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 24.194
+  },
+  {
+   "ticker": "ESS",
+   "short": "Rental income",
+   "label": "Rental income",
+   "value": 1850.551,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.87
+  },
+  {
+   "ticker": "COIN",
+   "short": "Net revenue",
+   "label": "Net revenue",
+   "value": 1792.984,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.182
+  },
+  {
+   "ticker": "EME",
+   "short": "United States mechanical construction an",
+   "label": "United States mechanical construction and facilities services",
+   "value": 1779.279,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.195
+  },
+  {
+   "ticker": "KKR",
+   "short": "Transaction Fees",
+   "label": "Transaction Fees",
+   "value": 1762.336,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "EQT",
+   "short": "Production adjusted operating revenues, ",
+   "label": "Production adjusted operating revenues, a non-GAAP financial measure",
+   "value": 1752.577,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.89
+  },
+  {
+   "ticker": "WRB",
+   "short": "Management fees and investment income in",
+   "label": "Management fees and investment income including dividends from subsidi",
+   "value": 1716.68,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 13.03
+  },
+  {
+   "ticker": "IT",
+   "short": "Europe, Middle East and Africa",
+   "label": "Europe, Middle East and Africa",
+   "value": 1693.732,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 6.498
+  },
+  {
+   "ticker": "ROL",
+   "short": "Residential revenues",
+   "label": "Residential revenues",
+   "value": 1693.244,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 2.696
+  },
+  {
+   "ticker": "PWR",
+   "short": "Unit-price contracts",
+   "label": "Unit-price contracts",
+   "value": 1692.949,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 28.48
+  },
+  {
+   "ticker": "UHS",
+   "short": "Managed Medicare",
+   "label": "Managed Medicare",
+   "value": 1658.864,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.352
+  },
+  {
+   "ticker": "TYL",
+   "short": "Subscriptions",
+   "label": "Subscriptions",
+   "value": 1586.203,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.866
+  },
+  {
+   "ticker": "DOV",
+   "short": "Climate & Sustainability Technologies",
+   "label": "Climate & Sustainability Technologies",
+   "value": 1559.841,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.099
+  },
+  {
+   "ticker": "SNPS",
+   "short": "Maintenance and service",
+   "label": "Maintenance and service",
+   "value": 1553.967,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.055
+  },
+  {
+   "ticker": "UHS",
+   "short": "Medicare",
+   "label": "Medicare",
+   "value": 1538.151,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.352
+  },
+  {
+   "ticker": "GL",
+   "short": "Health premium",
+   "label": "Health premium",
+   "value": 1526.75,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 4.505
+  },
+  {
+   "ticker": "NFLX",
+   "short": "Asia-Pacific (APAC)",
+   "label": "Asia-Pacific (APAC)",
+   "value": 1508.982,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 45.184
+  },
+  {
+   "ticker": "FDS",
+   "short": "Americas",
+   "label": "Americas",
+   "value": 1506.108,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.844
+  },
+  {
+   "ticker": "ALB",
+   "short": "Lithium",
+   "label": "Lithium",
+   "value": 1501.073,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.0
+  },
+  {
+   "ticker": "NFLX",
+   "short": "Latin America (LATAM)",
+   "label": "Latin America (LATAM)",
+   "value": 1497.058,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 45.184
+  },
+  {
+   "ticker": "ADI",
+   "short": "Industrial",
+   "label": "Industrial",
+   "value": 1489.256,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 11.02
+  },
+  {
+   "ticker": "GNRC",
+   "short": "Commercial & Industrial products",
+   "label": "Commercial & Industrial products",
+   "value": 1457.385,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.467
+  },
+  {
+   "ticker": "SPG",
+   "short": "Lease income",
+   "label": "Lease income",
+   "value": 1452.93,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 6.38
+  },
+  {
+   "ticker": "SYY",
+   "short": "Dairy products",
+   "label": "Dairy products",
+   "value": 1448.604,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 81.37
+  },
+  {
+   "ticker": "PH",
+   "short": "International",
+   "label": "International",
+   "value": 1434.165,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 19.85
+  },
+  {
+   "ticker": "WRB",
+   "short": "Net investment income",
+   "label": "Net investment income",
+   "value": 1429.067,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 13.03
+  },
+  {
+   "ticker": "VEEV",
+   "short": "R&D and Quality Solutions",
+   "label": "R&D and Quality Solutions",
+   "value": 1426.626,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.465
+  },
+  {
+   "ticker": "FDS",
+   "short": "United States",
+   "label": "United States",
+   "value": 1415.864,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.844
+  },
+  {
+   "ticker": "ODFL",
+   "short": "LTL services",
+   "label": "LTL services",
+   "value": 1394.338,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.814
+  },
+  {
+   "ticker": "LRCX",
+   "short": "United States",
+   "label": "United States",
+   "value": 1376.857,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 18.436
+  },
+  {
+   "ticker": "KKR",
+   "short": "Policy Fees",
+   "label": "Policy Fees",
+   "value": 1350.814,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "COIN",
+   "short": "Stablecoin revenue (1)",
+   "label": "Stablecoin revenue (1)",
+   "value": 1348.821,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.182
+  },
+  {
+   "ticker": "SYY",
+   "short": "Poultry",
+   "label": "Poultry",
+   "value": 1340.095,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 81.37
+  },
+  {
+   "ticker": "UHS",
+   "short": "Medicaid",
+   "label": "Medicaid",
+   "value": 1337.579,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.352
+  },
+  {
+   "ticker": "IT",
+   "short": "Research",
+   "label": "Research",
+   "value": 1321.827,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 6.498
+  },
+  {
+   "ticker": "SYY",
+   "short": "Fresh produce",
+   "label": "Fresh produce",
+   "value": 1308.581,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 81.37
+  },
+  {
+   "ticker": "VTR",
+   "short": "Resident fees and services",
+   "label": "Resident fees and services",
+   "value": 1292.79,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.834
+  },
+  {
+   "ticker": "EME",
+   "short": "United States electrical construction an",
+   "label": "United States electrical construction and facilities services",
+   "value": 1285.269,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.195
+  },
+  {
+   "ticker": "EME",
+   "short": "United States industrial services",
+   "label": "United States industrial services",
+   "value": 1268.099,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.195
+  },
+  {
+   "ticker": "ATO",
+   "short": "Operating revenues",
+   "label": "Operating revenues",
+   "value": 1258.826,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.49
+  },
+  {
+   "ticker": "VEEV",
+   "short": "Commercial Solutions",
+   "label": "Commercial Solutions",
+   "value": 1257.568,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.465
+  },
+  {
+   "ticker": "ROL",
+   "short": "Commercial revenues",
+   "label": "Commercial revenues",
+   "value": 1244.733,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 2.696
+  },
+  {
+   "ticker": "CTAS",
+   "short": "First Aid and Safety Services",
+   "label": "First Aid and Safety Services",
+   "value": 1218.09,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.34
+  },
+  {
+   "ticker": "MNST",
+   "short": "Monster Energy® Drinks",
+   "label": "Monster Energy® Drinks",
+   "value": 1213.518,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.295
+  },
+  {
+   "ticker": "CDNS",
+   "short": "Product and maintenance",
+   "label": "Product and maintenance",
+   "value": 1207.703,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.297
+  },
+  {
+   "ticker": "LEN",
+   "short": "Financial Services",
+   "label": "Financial Services",
+   "value": 1198.197,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 34.394
+  },
+  {
+   "ticker": "WELL",
+   "short": "Rental income",
+   "label": "Rental income",
+   "value": 1193.514,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.838
+  },
+  {
+   "ticker": "DOV",
+   "short": "Imaging & Identification",
+   "label": "Imaging & Identification",
+   "value": 1173.443,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.099
+  },
+  {
+   "ticker": "COIN",
+   "short": "International (2)",
+   "label": "International (2)",
+   "value": 1170.718,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.182
+  },
+  {
+   "ticker": "CTAS",
+   "short": "All Other",
+   "label": "All Other",
+   "value": 1146.018,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.34
+  },
+  {
+   "ticker": "GL",
+   "short": "Net investment income",
+   "label": "Net investment income",
+   "value": 1130.198,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 4.505
+  },
+  {
+   "ticker": "EXPD",
+   "short": "Customs brokerage and other services",
+   "label": "Customs brokerage and other services",
+   "value": 1128.373,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 11.078
+  },
+  {
+   "ticker": "PWR",
+   "short": "Cost-plus contracts",
+   "label": "Cost-plus contracts",
+   "value": 1124.748,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 28.48
+  },
+  {
+   "ticker": "KKR",
+   "short": "Fees and Other",
+   "label": "Fees and Other",
+   "value": 1105.238,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "DOV",
+   "short": "Bookings",
+   "label": "Bookings",
+   "value": 1095.624,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.099
+  },
+  {
+   "ticker": "GPC",
+   "short": "Europe – Automotive",
+   "label": "Europe – Automotive",
+   "value": 1091.974,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 24.3
+  },
+  {
+   "ticker": "DOV",
+   "short": "Engineered Products",
+   "label": "Engineered Products",
+   "value": 1085.844,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.099
+  },
+  {
+   "ticker": "KKR",
+   "short": "Net Premiums",
+   "label": "Net Premiums",
+   "value": 1059.61,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "COIN",
+   "short": "Employee-related (1)",
+   "label": "Employee-related (1)",
+   "value": 1052.597,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.182
+  },
+  {
+   "ticker": "KKR",
+   "short": "Net Investment-Related Gains (Losses)",
+   "label": "Net Investment-Related Gains (Losses)",
+   "value": -1041.07,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "NVR",
+   "short": "Homebuilding Mid Atlantic",
+   "label": "Homebuilding Mid Atlantic",
+   "value": 1039.957,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.324
+  },
+  {
+   "ticker": "IRM",
+   "short": "Storage rental",
+   "label": "Storage rental",
+   "value": 1032.897,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 4.262
+  },
+  {
+   "ticker": "EXPD",
+   "short": "Airfreight services",
+   "label": "Airfreight services",
+   "value": 1020.258,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 11.078
+  },
+  {
+   "ticker": "PWR",
+   "short": "Canada",
+   "label": "Canada",
+   "value": 1018.752,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 28.48
+  },
+  {
+   "ticker": "MTD",
+   "short": "Service",
+   "label": "Service",
+   "value": 1018.594,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.0
+  },
+  {
+   "ticker": "ABNB",
+   "short": "International (1)",
+   "label": "International (1)",
+   "value": 1010.758,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 12.241
+  },
+  {
+   "ticker": "UHS",
+   "short": "UK Revenue",
+   "label": "UK Revenue",
+   "value": 1001.356,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.352
+  },
+  {
+   "ticker": "NCLH",
+   "short": "Asia-Pacific",
+   "label": "Asia-Pacific",
+   "value": 996.748,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.828
+  },
+  {
+   "ticker": "TECH",
+   "short": "Consumables",
+   "label": "Consumables",
+   "value": 972.286,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.216
+  },
+  {
+   "ticker": "ARES",
+   "short": "Management fees",
+   "label": "Management fees",
+   "value": 971.762,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 2.88
+  },
+  {
+   "ticker": "SYY",
+   "short": "Paper and disposables",
+   "label": "Paper and disposables",
+   "value": 971.489,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 81.37
+  },
+  {
+   "ticker": "ABNB",
+   "short": "United States",
+   "label": "United States",
+   "value": 956.025,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 12.241
+  },
+  {
+   "ticker": "SNPS",
+   "short": "Time-based products",
+   "label": "Time-based products",
+   "value": 951.541,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.055
+  },
+  {
+   "ticker": "VEEV",
+   "short": "Europe",
+   "label": "Europe",
+   "value": 939.63,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.465
+  },
+  {
+   "ticker": "ARES",
+   "short": "Third-party data center market size",
+   "label": "Marché tiers des data centers",
+   "value": 900,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 2.88
+  },
+  {
+   "ticker": "VTR",
+   "short": "Rental income",
+   "label": "Rental income",
+   "value": 895.089,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.834
+  },
+  {
+   "ticker": "NCLH",
+   "short": "Onboard and other",
+   "label": "Onboard and other",
+   "value": 888.183,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.828
+  },
+  {
+   "ticker": "COHR",
+   "short": "Communications",
+   "label": "Communications",
+   "value": 872.807,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.811
+  },
+  {
+   "ticker": "UHS",
+   "short": "Other non-patient revenue",
+   "label": "Other non-patient revenue",
+   "value": 864.328,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.352
+  },
+  {
+   "ticker": "GL",
+   "short": "Life premium",
+   "label": "Life premium",
+   "value": 844.483,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 4.505
+  },
+  {
+   "ticker": "ROL",
+   "short": "United States",
+   "label": "United States",
+   "value": 839.875,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 2.696
+  },
+  {
+   "ticker": "LRCX",
+   "short": "Southeast Asia",
+   "label": "Southeast Asia",
+   "value": 837.242,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 18.436
+  },
+  {
+   "ticker": "ERIE",
+   "short": "Administrative services reimbursement re",
+   "label": "Administrative services reimbursement revenue",
+   "value": 836.639,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 2.511
+  },
+  {
+   "ticker": "APP",
+   "short": "Software Platform Revenue",
+   "label": "Software Platform Revenue",
+   "value": 835.186,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.48
+  },
+  {
+   "ticker": "CTAS",
+   "short": "Fire Protection Services",
+   "label": "Fire Protection Services",
+   "value": 817.463,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.34
+  },
+  {
+   "ticker": "EME",
+   "short": "United States building services",
+   "label": "United States building services",
+   "value": 813.879,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.195
+  },
+  {
+   "ticker": "ADI",
+   "short": "Automotive",
+   "label": "Automotive",
+   "value": 794.402,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 11.02
+  },
+  {
+   "ticker": "ERIE",
+   "short": "Management fee revenue - policy issuance",
+   "label": "Management fee revenue - policy issuance and renewal services",
+   "value": 786.399,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 2.511
+  },
+  {
+   "ticker": "KLAC",
+   "short": "Service",
+   "label": "Service",
+   "value": 786.053,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 12.156
+  },
+  {
+   "ticker": "ROL",
+   "short": "Termite and ancillary revenues",
+   "label": "Termite and ancillary revenues",
+   "value": 781.542,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 2.696
+  },
+  {
+   "ticker": "PWR",
+   "short": "Australia",
+   "label": "Australia",
+   "value": 779.532,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 28.48
+  },
+  {
+   "ticker": "IT",
+   "short": "Other International",
+   "label": "Other International",
+   "value": 770.893,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 6.498
+  },
+  {
+   "ticker": "MTD",
+   "short": "Products",
+   "label": "Products",
+   "value": 766.648,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.0
+  },
+  {
+   "ticker": "AVB",
+   "short": "Rental and other income",
+   "label": "Rental and other income",
+   "value": 764.926,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 2.96
+  },
+  {
+   "ticker": "EXPD",
+   "short": "Ocean freight and ocean services",
+   "label": "Ocean freight and ocean services",
+   "value": 746.12,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 11.078
+  },
+  {
+   "ticker": "SNPS",
+   "short": "Upfront products",
+   "label": "Upfront products",
+   "value": 741.53,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.055
+  },
+  {
+   "ticker": "GNRC",
+   "short": "International",
+   "label": "International",
+   "value": 738.181,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.467
+  },
+  {
+   "ticker": "EQT",
+   "short": "Natural gas sales",
+   "label": "Natural gas sales",
+   "value": 730.705,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.89
+  },
+  {
+   "ticker": "PLTR",
+   "short": "Rest of world (1)",
+   "label": "Rest of world (1)",
+   "value": 728.005,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.906
+  },
+  {
+   "ticker": "IRM",
+   "short": "Service",
+   "label": "Service",
+   "value": 721.196,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 4.262
+  },
+  {
+   "ticker": "NVR",
+   "short": "Homebuilding South East",
+   "label": "Homebuilding South East",
+   "value": 719.835,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.324
+  },
+  {
+   "ticker": "SNPS",
+   "short": "Maintenance and service",
+   "label": "Maintenance and service",
+   "value": 715.727,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.055
+  },
+  {
+   "ticker": "KKR",
+   "short": "Fee Credits",
+   "label": "Fee Credits",
+   "value": -712.433,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "ALB",
+   "short": "Energy Storage",
+   "label": "Energy Storage",
+   "value": 708.755,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 9.0
+  },
+  {
+   "ticker": "VST",
+   "short": "Hyperscaler capital spending 2026",
+   "label": "CapEx hyperscalers attendu 2026",
+   "value": 700,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.586
+  },
+  {
+   "ticker": "DPZ",
+   "short": "Supply chain",
+   "label": "Supply chain",
+   "value": 698.973,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 4.94
+  },
+  {
+   "ticker": "TYL",
+   "short": "SaaS",
+   "label": "SaaS",
+   "value": 691.288,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.866
+  },
+  {
+   "ticker": "UHS",
+   "short": "Managed Medicaid",
+   "label": "Managed Medicaid",
+   "value": 685.083,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.352
+  },
+  {
+   "ticker": "VEEV",
+   "short": "Subscription services",
+   "label": "Subscription services",
+   "value": 682.498,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.465
+  },
+  {
+   "ticker": "LEN",
+   "short": "Multifamily",
+   "label": "Multifamily",
+   "value": 680.627,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 34.394
+  },
+  {
+   "ticker": "COIN",
+   "short": "Blockchain rewards",
+   "label": "Blockchain rewards",
+   "value": 677.405,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.182
+  },
+  {
+   "ticker": "CTAS",
+   "short": "Other",
+   "label": "Other",
+   "value": 663.991,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.34
+  },
+  {
+   "ticker": "MRSH",
+   "short": "Dedicated reinsurance capital",
+   "label": "Capital reassurance dedie",
+   "value": 660,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 27.059
+  },
+  {
+   "ticker": "SBAC",
+   "short": "Site leasing",
+   "label": "Site leasing",
+   "value": 656.427,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 2.74
+  },
+  {
+   "ticker": "SPGI",
+   "short": "Announced hyperscaler CapEx",
+   "label": "CapEx hyperscalers annonces (potentiel d'emission)",
+   "value": 650,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 15.336
+  },
+  {
+   "ticker": "IT",
+   "short": "Conferences",
+   "label": "Conferences",
+   "value": 644.743,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 6.498
+  },
+  {
+   "ticker": "KKR",
+   "short": "Capital Allocation-Based Income (Loss)",
+   "label": "Capital Allocation-Based Income (Loss)",
+   "value": 638.764,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.372
+  },
+  {
+   "ticker": "ORCL",
+   "short": "Remaining Performance Obligations",
+   "label": "Obligations de prestation restantes (RPO)",
+   "value": 638,
+   "unit": "Mds $",
+   "is_hero": true,
+   "ca_fiche": 57.399
+  },
+  {
+   "ticker": "INCY",
+   "short": "Product royalty revenues",
+   "label": "Product royalty revenues",
+   "value": 636.909,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.124
+  },
+  {
+   "ticker": "DVA",
+   "short": "Other revenues",
+   "label": "Other revenues",
+   "value": 635.883,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 13.643
+  },
+  {
+   "ticker": "GNRC",
+   "short": "Residential products",
+   "label": "Residential products",
+   "value": 605.444,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.467
+  },
+  {
+   "ticker": "VTR",
+   "short": "Triple-net leased properties",
+   "label": "Triple-net leased properties",
+   "value": 601.578,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.834
+  },
+  {
+   "ticker": "CIEN",
+   "short": "Top-4 hyperscaler aggregate 2026 CapEx",
+   "label": "CapEx agrege des 4 grands hyperscalers 2026",
+   "value": 600,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 3.532
+  },
+  {
+   "ticker": "PLD",
+   "short": "Strategic capital",
+   "label": "Strategic capital",
+   "value": 592.353,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.79
+  },
+  {
+   "ticker": "FDS",
+   "short": "EMEA",
+   "label": "EMEA",
+   "value": 580.284,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.844
+  },
+  {
+   "ticker": "LRCX",
+   "short": "Europe",
+   "label": "Europe",
+   "value": 562.562,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 18.436
+  },
+  {
+   "ticker": "DOV",
+   "short": "Clean Energy & Fueling",
+   "label": "Clean Energy & Fueling",
+   "value": 554.809,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.099
+  },
+  {
+   "ticker": "COIN",
+   "short": "Other subscription and services revenue",
+   "label": "Other subscription and services revenue",
+   "value": 554.775,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.182
+  },
+  {
+   "ticker": "VTR",
+   "short": "Canada",
+   "label": "Canada",
+   "value": 552.924,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.834
+  },
+  {
+   "ticker": "ORCL",
+   "short": "remaining_performance_obligations",
+   "label": "Obligations de performance restantes",
+   "value": 552.6,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 57.399
+  },
+  {
+   "ticker": "IT",
+   "short": "Consulting",
+   "label": "Consulting",
+   "value": 552.499,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 6.498
+  },
+  {
+   "ticker": "DOV",
+   "short": "Pumps & Process Solutions",
+   "label": "Pumps & Process Solutions",
+   "value": 537.81,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.099
+  },
+  {
+   "ticker": "VICI",
+   "short": "Income from sales-type leases",
+   "label": "Income from sales-type leases",
+   "value": 531.765,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 3.84
+  },
+  {
+   "ticker": "AXP",
+   "short": "Consumer & Business Platinum annual spend",
+   "label": "Depenses annuelles franchise Platinum",
+   "value": 530,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 43.753
+  },
+  {
+   "ticker": "AKAM",
+   "short": "U.S.",
+   "label": "U.S.",
+   "value": 529.978,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 3.99
+  },
+  {
+   "ticker": "AKAM",
+   "short": "International",
+   "label": "International",
+   "value": 524.652,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 3.99
+  },
+  {
+   "ticker": "VEEV",
+   "short": "Professional services and other",
+   "label": "Professional services and other",
+   "value": 511.117,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.465
+  },
+  {
+   "ticker": "NVR",
+   "short": "Homebuilding Mid East",
+   "label": "Homebuilding Mid East",
+   "value": 508.798,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.324
+  },
+  {
+   "ticker": "SYY",
+   "short": "Seafood",
+   "label": "Seafood",
+   "value": 507.958,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 81.37
+  },
+  {
+   "ticker": "WELL",
+   "short": "Rental income",
+   "label": "Rental income",
+   "value": 499.475,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 10.838
+  },
+  {
+   "ticker": "ATO",
+   "short": "Purchased gas cost",
+   "label": "Purchased gas cost",
+   "value": 497.036,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.49
+  },
+  {
+   "ticker": "GNRC",
+   "short": "Other",
+   "label": "Other",
+   "value": 484.85,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.467
+  },
+  {
+   "ticker": "COHR",
+   "short": "Industrial",
+   "label": "Industrial",
+   "value": 477.679,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.811
+  },
+  {
+   "ticker": "EME",
+   "short": "United Kingdom building services",
+   "label": "United Kingdom building services",
+   "value": 471.348,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 17.195
+  },
+  {
+   "ticker": "ARES",
+   "short": "Carried interest allocation",
+   "label": "Carried interest allocation",
+   "value": 464.666,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 2.88
+  },
+  {
+   "ticker": "ESS",
+   "short": "Rental income",
+   "label": "Rental income",
+   "value": 463.892,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.87
+  },
+  {
+   "ticker": "SCHW",
+   "short": "Transactional sweep cash",
+   "label": "Liquidites de balayage transactionnel",
+   "value": 461.5,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 20.76
+  },
+  {
+   "ticker": "TYL",
+   "short": "Maintenance",
+   "label": "Maintenance",
+   "value": 445.614,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.866
+  },
+  {
+   "ticker": "COIN",
+   "short": "USDC rewards",
+   "label": "USDC rewards",
+   "value": 441.347,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.182
+  },
+  {
+   "ticker": "UDR",
+   "short": "Rental income",
+   "label": "Rental income",
+   "value": 429.294,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.701
+  },
+  {
+   "ticker": "PLTR",
+   "short": "United Kingdom",
+   "label": "United Kingdom",
+   "value": 427.398,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.906
+  },
+  {
+   "ticker": "ATO",
+   "short": "Operating expenses",
+   "label": "Operating expenses",
+   "value": 412.552,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 5.49
+  },
+  {
+   "ticker": "DOV",
+   "short": "Climate & Sustainability Technologies",
+   "label": "Climate & Sustainability Technologies",
+   "value": 411.06,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 8.099
+  },
+  {
+   "ticker": "SYY",
+   "short": "Other (1)",
+   "label": "Other (1)",
+   "value": 409.55,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 81.37
+  },
+  {
+   "ticker": "PLTR",
+   "short": "Government",
+   "label": "Government",
+   "value": 408.341,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.906
+  },
+  {
+   "ticker": "COIN",
+   "short": "Marketing programs",
+   "label": "Marketing programs",
+   "value": 402.555,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 7.182
+  },
+  {
+   "ticker": "TYL",
+   "short": "Subscriptions",
+   "label": "Subscriptions",
+   "value": 401.094,
+   "unit": "Mds $",
+   "is_hero": false,
+   "ca_fiche": 1.866
+  }
+ ],
+ "ecartes_par_le_mot_cle_encours": [],
+ "sans_ca_de_reference": [
   {
    "ticker": "CPRT",
    "short": "service_rev_us",
@@ -50,246 +2299,6 @@
    "is_hero": false
   },
   {
-   "ticker": "LEN",
-   "short": "Sales of homes",
-   "label": "Sales of homes",
-   "value": 32097.245,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PWR",
-   "short": "United States",
-   "label": "United States",
-   "value": 26482.963,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PWR",
-   "short": "Segment operating expenses",
-   "label": "Segment operating expenses",
-   "value": 20696.841,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PWR",
-   "short": "Segment operating expense (excluding seg",
-   "label": "Segment operating expense (excluding segment depreciation expense)",
-   "value": 20411.709,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "WRB",
-   "short": "Net premiums written",
-   "label": "Net premiums written",
-   "value": 12711.327,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "WRB",
-   "short": "Net premiums earned",
-   "label": "Net premiums earned",
-   "value": 12446.938,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UHS",
-   "short": "Gross inpatient revenues",
-   "label": "Gross inpatient revenues",
-   "value": 12277.563,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CMG",
-   "short": "Food and beverage revenue",
-   "label": "Food and beverage revenue",
-   "value": 11866.051,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CMG",
-   "short": "U.S. segment total revenue",
-   "label": "U.S. segment total revenue",
-   "value": 11679.417,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "XYZ",
-   "short": "Commerce enablement revenue",
-   "label": "Commerce enablement revenue",
-   "value": 11514.162,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GPC",
-   "short": "Automotive",
-   "label": "Automotive",
-   "value": 9520.042,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UHS",
-   "short": "Gross outpatient revenues",
-   "label": "Gross outpatient revenues",
-   "value": 8573.27,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "XYZ",
-   "short": "Bitcoin ecosystem revenue",
-   "label": "Bitcoin ecosystem revenue",
-   "value": 8502.787,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "WELL",
-   "short": "Resident fees and services",
-   "label": "Resident fees and services",
-   "value": 8452.996,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GPC",
-   "short": "Industrial",
-   "label": "Industrial",
-   "value": 8392.041,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PLD",
-   "short": "Rental",
-   "label": "Rental",
-   "value": 8158.904,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CTAS",
-   "short": "Uniform Rental and Facility Services",
-   "label": "Uniform Rental and Facility Services",
-   "value": 7976.073,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KKR",
-   "short": "Net Investment Income",
-   "label": "Net Investment Income",
-   "value": 7665.106,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EQT",
-   "short": "Upstream adjusted operating revenues, a ",
-   "label": "Upstream adjusted operating revenues, a non-GAAP financial measure",
-   "value": 7598.579,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UBSG.SW",
-   "short": "IA_Q",
-   "label": "Actifs investis",
-   "value": 7326.0,
-   "unit": "Mds $",
-   "is_hero": true
-  },
-  {
-   "ticker": "EME",
-   "short": "United States mechanical construction an",
-   "label": "United States mechanical construction and facilities services",
-   "value": 7050.481,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COIN",
-   "short": "Net revenue",
-   "label": "Net revenue",
-   "value": 6883.438,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PWR",
-   "short": "Unit-price contracts",
-   "label": "Unit-price contracts",
-   "value": 6790.221,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NCLH",
-   "short": "Passenger ticket",
-   "label": "Passenger ticket",
-   "value": 6687.667,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MCO",
-   "short": "MIS rated issuance volume",
-   "label": "Volume de dette notee (MIS)",
-   "value": 6600,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "LEN",
-   "short": "Homebuilding",
-   "label": "Homebuilding",
-   "value": 6298.563,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "LRCX",
-   "short": "China",
-   "label": "China",
-   "value": 6205.062,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COIN",
-   "short": "U.S. (1)",
-   "label": "U.S. (1)",
-   "value": 6010.607,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SPG",
-   "short": "Lease income",
-   "label": "Lease income",
-   "value": 5839.16,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NCLH",
-   "short": "North America",
-   "label": "North America",
-   "value": 5649.039,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "O",
    "short": "Rental (including reimbursements)",
    "label": "Rental (including reimbursements)",
@@ -298,74 +2307,10 @@
    "is_hero": false
   },
   {
-   "ticker": "NFLX",
-   "short": "United States and Canada (UCAN)",
-   "label": "United States and Canada (UCAN)",
-   "value": 5245.298,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VTR",
-   "short": "United States",
-   "label": "United States",
-   "value": 5209.83,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "O",
    "short": "Rental (excluding reimbursements)",
    "label": "Rental (excluding reimbursements)",
    "value": 5096.934,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EME",
-   "short": "United States electrical construction an",
-   "label": "United States electrical construction and facilities services",
-   "value": 5074.252,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IT",
-   "short": "Insights",
-   "label": "Insights",
-   "value": 5072.57,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IT",
-   "short": "Transferred over time (1)",
-   "label": "Transferred over time (1)",
-   "value": 5062.39,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PWR",
-   "short": "Fixed price contracts",
-   "label": "Fixed price contracts",
-   "value": 4813.711,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "INCY",
-   "short": "United States",
-   "label": "United States",
-   "value": 4799.941,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MNST",
-   "short": "Monster Energy® Drinks",
-   "label": "Monster Energy® Drinks",
-   "value": 4704.483,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -386,106 +2331,10 @@
    "is_hero": false
   },
   {
-   "ticker": "PWR",
-   "short": "Cost-plus contracts",
-   "label": "Cost-plus contracts",
-   "value": 4430.48,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VTR",
-   "short": "Resident fees and services",
-   "label": "Resident fees and services",
-   "value": 4276.163,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EXPD",
-   "short": "Customs brokerage and other services",
-   "label": "Customs brokerage and other services",
-   "value": 4271.167,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "XYZ",
-   "short": "Financial solutions revenue",
-   "label": "Financial solutions revenue",
-   "value": 4176.734,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "LRCX",
-   "short": "Korea",
-   "label": "Korea",
-   "value": 4127.766,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KKR",
-   "short": "Fees and Other",
-   "label": "Fees and Other",
-   "value": 4064.273,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IT",
-   "short": "United States and Canada",
-   "label": "United States and Canada",
-   "value": 4032.601,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GPC",
-   "short": "Europe - Automotive",
-   "label": "Europe - Automotive",
-   "value": 4010.876,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NFLX",
-   "short": "Europe, Middle East, and Africa (EMEA)",
-   "label": "Europe, Middle East, and Africa (EMEA)",
-   "value": 3998.419,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EXPD",
-   "short": "Airfreight services",
-   "label": "Airfreight services",
-   "value": 3982.882,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KKR",
-   "short": "Capital Allocation-Based Income (Loss)",
-   "label": "Capital Allocation-Based Income (Loss)",
-   "value": 3771.235,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "PSA",
    "short": "Same Store Facilities",
    "label": "Same Store Facilities",
    "value": 3764.833,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VICI",
-   "short": "Leasing revenue",
-   "label": "Leasing revenue",
-   "value": 3670.466,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -506,102 +2355,6 @@
    "is_hero": false
   },
   {
-   "ticker": "KKR",
-   "short": "Carried Interest",
-   "label": "Carried Interest",
-   "value": 3492.171,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ROL",
-   "short": "United States",
-   "label": "United States",
-   "value": 3491.325,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SNPS",
-   "short": "Time-based products",
-   "label": "Time-based products",
-   "value": 3489.609,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GNRC",
-   "short": "Domestic",
-   "label": "Domestic",
-   "value": 3470.966,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "LRCX",
-   "short": "Taiwan",
-   "label": "Taiwan",
-   "value": 3445.22,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KKR",
-   "short": "Net Premiums",
-   "label": "Net Premiums",
-   "value": 3397.186,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GL",
-   "short": "Life premium",
-   "label": "Life premium",
-   "value": 3363.47,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COHR",
-   "short": "Communications",
-   "label": "Communications",
-   "value": 3320.78,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PLTR",
-   "short": "United States",
-   "label": "United States",
-   "value": 3320.043,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PHM",
-   "short": "Home sale revenues",
-   "label": "Home sale revenues",
-   "value": 3307.51,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "DVA",
-   "short": "Dialysis patient service revenues",
-   "label": "Dialysis patient service revenues",
-   "value": 3298.09,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UHS",
-   "short": "Managed Care (HMO and PPOs)",
-   "label": "Managed Care (HMO and PPOs)",
-   "value": 3257.367,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "CRL",
    "short": "Service revenue",
    "label": "Service revenue",
@@ -618,82 +2371,10 @@
    "is_hero": false
   },
   {
-   "ticker": "WRB",
-   "short": "Net premiums written",
-   "label": "Net premiums written",
-   "value": 3226.93,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "CRWD",
    "short": "United States",
    "label": "United States",
    "value": 3216.654,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "WRB",
-   "short": "Net premiums earned",
-   "label": "Net premiums earned",
-   "value": 3156.382,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NCLH",
-   "short": "Onboard and other",
-   "label": "Onboard and other",
-   "value": 3139.925,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ERIE",
-   "short": "Management fee revenue - policy issuance",
-   "label": "Management fee revenue - policy issuance and renewal services",
-   "value": 3131.806,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EME",
-   "short": "United States building services",
-   "label": "United States building services",
-   "value": 3122.242,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MTD",
-   "short": "Products",
-   "label": "Products",
-   "value": 3007.805,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MRSH",
-   "short": "Digital infrastructure investment (5y)",
-   "label": "Investissement infrastructure numerique 5 ans",
-   "value": 3000,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CMG",
-   "short": "Food and beverage revenue",
-   "label": "Food and beverage revenue",
-   "value": 2989.255,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NCLH",
-   "short": "Europe",
-   "label": "Europe",
-   "value": 2898.886,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -706,46 +2387,6 @@
    "is_hero": false
   },
   {
-   "ticker": "EXPD",
-   "short": "Ocean freight and ocean services",
-   "label": "Ocean freight and ocean services",
-   "value": 2814.96,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "STT",
-   "short": "AUC/A to be installed",
-   "label": "AUC/A a installer (backlog)",
-   "value": 2700,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VEEV",
-   "short": "Subscription",
-   "label": "Subscription",
-   "value": 2684.194,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UHS",
-   "short": "Net revenue from reportable segments",
-   "label": "Net revenue from reportable segments",
-   "value": 2630.065,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SYY",
-   "short": "Canned and dry products",
-   "label": "Canned and dry products",
-   "value": 2601.298,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "PTC",
    "short": "Recurring revenue (1)",
    "label": "Recurring revenue (1)",
@@ -754,34 +2395,10 @@
    "is_hero": false
   },
   {
-   "ticker": "SYY",
-   "short": "Fresh and frozen meats",
-   "label": "Fresh and frozen meats",
-   "value": 2574.453,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "O",
    "short": "Depreciation and amortization",
    "label": "Depreciation and amortization",
    "value": 2524.2,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KLAC",
-   "short": "Product",
-   "label": "Product",
-   "value": 2511.093,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KKR",
-   "short": "Management Fees",
-   "label": "Management Fees",
-   "value": 2496.783,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -802,162 +2419,10 @@
    "is_hero": false
   },
   {
-   "ticker": "PLTR",
-   "short": "Government",
-   "label": "Government",
-   "value": 2402.287,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GPC",
-   "short": "Automotive",
-   "label": "Automotive",
-   "value": 2363.032,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PWR",
-   "short": "Segment operating income",
-   "label": "Segment operating income",
-   "value": 2360.262,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GNRC",
-   "short": "Residential products",
-   "label": "Residential products",
-   "value": 2266.912,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MTD",
-   "short": "Laboratory",
-   "label": "Laboratory",
-   "value": 2241.106,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PH",
-   "short": "North America",
-   "label": "North America",
-   "value": 2231.478,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "XYZ",
-   "short": "Subscription and services-based revenue",
-   "label": "Subscription and services-based revenue",
-   "value": 2204.889,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GPC",
-   "short": "Industrial",
-   "label": "Industrial",
-   "value": 2181.451,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CTAS",
-   "short": "Uniform rental and facility services",
-   "label": "Uniform rental and facility services",
-   "value": 2177.453,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "DOC",
    "short": "Rental and related revenues",
    "label": "Rental and related revenues",
    "value": 2156.743,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "DOV",
-   "short": "Pumps & Process Solutions",
-   "label": "Pumps & Process Solutions",
-   "value": 2148.67,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "DOV",
-   "short": "Clean Energy & Fueling",
-   "label": "Clean Energy & Fueling",
-   "value": 2130.507,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VICI",
-   "short": "Income from sales-type leases",
-   "label": "Income from sales-type leases",
-   "value": 2125.367,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PLTR",
-   "short": "Commercial",
-   "label": "Commercial",
-   "value": 2073.159,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "WELL",
-   "short": "Resident fees and services",
-   "label": "Resident fees and services",
-   "value": 2061.37,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PLD",
-   "short": "Rental",
-   "label": "Rental",
-   "value": 2054.2,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NCLH",
-   "short": "Passenger ticket",
-   "label": "Passenger ticket",
-   "value": 2049.959,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SNPS",
-   "short": "Upfront products",
-   "label": "Upfront products",
-   "value": 2010.602,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MCO",
-   "short": "Quarterly rated issuance record",
-   "label": "Volume de dette notee record sur un trimestre",
-   "value": 2000,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SYY",
-   "short": "Frozen fruits, vegetables, bakery and ot",
-   "label": "Frozen fruits, vegetables, bakery and other",
-   "value": 1996.667,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -970,98 +2435,10 @@
    "is_hero": false
   },
   {
-   "ticker": "KKR",
-   "short": "Net Investment Income",
-   "label": "Net Investment Income",
-   "value": 1969.779,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VEEV",
-   "short": "North America",
-   "label": "North America",
-   "value": 1903.342,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AXP",
-   "short": "network_vol",
-   "label": "Volumes du reseau (Network volumes)",
-   "value": 1897,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "LRCX",
-   "short": "Japan",
-   "label": "Japan",
-   "value": 1880.882,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "XYZ",
-   "short": "Transaction-based revenue",
-   "label": "Transaction-based revenue",
-   "value": 1873.477,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "WAT",
    "short": "Pharmaceutical",
    "label": "Pharmaceutical",
    "value": 1873.362,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ESS",
-   "short": "Rental income",
-   "label": "Rental income",
-   "value": 1850.551,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COIN",
-   "short": "Net revenue",
-   "label": "Net revenue",
-   "value": 1792.984,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EME",
-   "short": "United States mechanical construction an",
-   "label": "United States mechanical construction and facilities services",
-   "value": 1779.279,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VICI",
-   "short": "Income from lease financing receivables,",
-   "label": "Income from lease financing receivables, loans and securities",
-   "value": 1763.494,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KKR",
-   "short": "Transaction Fees",
-   "label": "Transaction Fees",
-   "value": 1762.336,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EQT",
-   "short": "Production adjusted operating revenues, ",
-   "label": "Production adjusted operating revenues, a non-GAAP financial measure",
-   "value": 1752.577,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -1074,218 +2451,10 @@
    "is_hero": false
   },
   {
-   "ticker": "WRB",
-   "short": "Management fees and investment income in",
-   "label": "Management fees and investment income including dividends from subsidi",
-   "value": 1716.68,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IT",
-   "short": "Europe, Middle East and Africa",
-   "label": "Europe, Middle East and Africa",
-   "value": 1693.732,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ROL",
-   "short": "Residential revenues",
-   "label": "Residential revenues",
-   "value": 1693.244,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PWR",
-   "short": "Unit-price contracts",
-   "label": "Unit-price contracts",
-   "value": 1692.949,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UHS",
-   "short": "Managed Medicare",
-   "label": "Managed Medicare",
-   "value": 1658.864,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "TYL",
-   "short": "Subscriptions",
-   "label": "Subscriptions",
-   "value": 1586.203,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MTD",
-   "short": "Industrial",
-   "label": "Industrial",
-   "value": 1579.353,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "DOV",
-   "short": "Climate & Sustainability Technologies",
-   "label": "Climate & Sustainability Technologies",
-   "value": 1559.841,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SNPS",
-   "short": "Maintenance and service",
-   "label": "Maintenance and service",
-   "value": 1553.967,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UHS",
-   "short": "Medicare",
-   "label": "Medicare",
-   "value": 1538.151,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GL",
-   "short": "Health premium",
-   "label": "Health premium",
-   "value": 1526.75,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "REG",
    "short": "Lease income",
    "label": "Lease income",
    "value": 1511.425,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NFLX",
-   "short": "Asia-Pacific (APAC)",
-   "label": "Asia-Pacific (APAC)",
-   "value": 1508.982,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "FDS",
-   "short": "Americas",
-   "label": "Americas",
-   "value": 1506.108,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ALB",
-   "short": "Lithium",
-   "label": "Lithium",
-   "value": 1501.073,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NFLX",
-   "short": "Latin America (LATAM)",
-   "label": "Latin America (LATAM)",
-   "value": 1497.058,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "JPM",
-   "short": "loans_period_end",
-   "label": "Prêts (fin de période)",
-   "value": 1493.429,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ADI",
-   "short": "Industrial",
-   "label": "Industrial",
-   "value": 1489.256,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GNRC",
-   "short": "Commercial & Industrial products",
-   "label": "Commercial & Industrial products",
-   "value": 1457.385,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SPG",
-   "short": "Lease income",
-   "label": "Lease income",
-   "value": 1452.93,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SYY",
-   "short": "Dairy products",
-   "label": "Dairy products",
-   "value": 1448.604,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PH",
-   "short": "International",
-   "label": "International",
-   "value": 1434.165,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "WRB",
-   "short": "Net investment income",
-   "label": "Net investment income",
-   "value": 1429.067,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VEEV",
-   "short": "R&D and Quality Solutions",
-   "label": "R&D and Quality Solutions",
-   "value": 1426.626,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "FDS",
-   "short": "United States",
-   "label": "United States",
-   "value": 1415.864,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "JPM",
-   "short": "average_loans",
-   "label": "Prêts moyens (firmwide)",
-   "value": 1400.048,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ODFL",
-   "short": "LTL services",
-   "label": "LTL services",
-   "value": 1394.338,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -1298,14 +2467,6 @@
    "is_hero": false
   },
   {
-   "ticker": "LRCX",
-   "short": "United States",
-   "label": "United States",
-   "value": 1376.857,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "JKHY",
    "short": "Services and Support",
    "label": "Services and Support",
@@ -1314,42 +2475,10 @@
    "is_hero": false
   },
   {
-   "ticker": "KKR",
-   "short": "Policy Fees",
-   "label": "Policy Fees",
-   "value": 1350.814,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COIN",
-   "short": "Stablecoin revenue (1)",
-   "label": "Stablecoin revenue (1)",
-   "value": 1348.821,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "WAT",
    "short": "Instrument systems",
    "label": "Instrument systems",
    "value": 1345.642,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SYY",
-   "short": "Poultry",
-   "label": "Poultry",
-   "value": 1340.095,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UHS",
-   "short": "Medicaid",
-   "label": "Medicaid",
-   "value": 1337.579,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -1370,38 +2499,6 @@
    "is_hero": false
   },
   {
-   "ticker": "IT",
-   "short": "Research",
-   "label": "Research",
-   "value": 1321.827,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SYY",
-   "short": "Fresh produce",
-   "label": "Fresh produce",
-   "value": 1308.581,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VTR",
-   "short": "Resident fees and services",
-   "label": "Resident fees and services",
-   "value": 1292.79,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EME",
-   "short": "United States electrical construction an",
-   "label": "United States electrical construction and facilities services",
-   "value": 1285.269,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "DOC",
    "short": "Outpatient medical",
    "label": "Outpatient medical",
@@ -1418,66 +2515,10 @@
    "is_hero": false
   },
   {
-   "ticker": "EME",
-   "short": "United States industrial services",
-   "label": "United States industrial services",
-   "value": 1268.099,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ATO",
-   "short": "Operating revenues",
-   "label": "Operating revenues",
-   "value": 1258.826,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VEEV",
-   "short": "Commercial Solutions",
-   "label": "Commercial Solutions",
-   "value": 1257.568,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "FRT",
    "short": "Rental income",
    "label": "Rental income",
    "value": 1245.491,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ROL",
-   "short": "Commercial revenues",
-   "label": "Commercial revenues",
-   "value": 1244.733,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CTAS",
-   "short": "First Aid and Safety Services",
-   "label": "First Aid and Safety Services",
-   "value": 1218.09,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MNST",
-   "short": "Monster Energy® Drinks",
-   "label": "Monster Energy® Drinks",
-   "value": 1213.518,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CDNS",
-   "short": "Product and maintenance",
-   "label": "Product and maintenance",
-   "value": 1207.703,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -1490,42 +2531,10 @@
    "is_hero": false
   },
   {
-   "ticker": "LEN",
-   "short": "Financial Services",
-   "label": "Financial Services",
-   "value": 1198.197,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "WELL",
-   "short": "Rental income",
-   "label": "Rental income",
-   "value": 1193.514,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "WAT",
    "short": "Service sales",
    "label": "Service sales",
    "value": 1188.186,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "DOV",
-   "short": "Imaging & Identification",
-   "label": "Imaging & Identification",
-   "value": 1173.443,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COIN",
-   "short": "International (2)",
-   "label": "International (2)",
-   "value": 1170.718,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -1546,42 +2555,10 @@
    "is_hero": false
   },
   {
-   "ticker": "CTAS",
-   "short": "All Other",
-   "label": "All Other",
-   "value": 1146.018,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "O",
    "short": "Interest",
    "label": "Interest",
    "value": 1134.879,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GL",
-   "short": "Net investment income",
-   "label": "Net investment income",
-   "value": 1130.198,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EXPD",
-   "short": "Customs brokerage and other services",
-   "label": "Customs brokerage and other services",
-   "value": 1128.373,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PWR",
-   "short": "Cost-plus contracts",
-   "label": "Cost-plus contracts",
-   "value": 1124.748,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -1594,42 +2571,10 @@
    "is_hero": false
   },
   {
-   "ticker": "KKR",
-   "short": "Fees and Other",
-   "label": "Fees and Other",
-   "value": 1105.238,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "WAT",
    "short": "Waters instrument systems",
    "label": "Waters instrument systems",
    "value": 1101.826,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "DOV",
-   "short": "Bookings",
-   "label": "Bookings",
-   "value": 1095.624,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GPC",
-   "short": "Europe – Automotive",
-   "label": "Europe – Automotive",
-   "value": 1091.974,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "DOV",
-   "short": "Engineered Products",
-   "label": "Engineered Products",
-   "value": 1085.844,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -1642,22 +2587,6 @@
    "is_hero": false
   },
   {
-   "ticker": "KKR",
-   "short": "Net Premiums",
-   "label": "Net Premiums",
-   "value": 1059.61,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COIN",
-   "short": "Employee-related (1)",
-   "label": "Employee-related (1)",
-   "value": 1052.597,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "REG",
    "short": "Base rent",
    "label": "Base rent",
@@ -1666,82 +2595,10 @@
    "is_hero": false
   },
   {
-   "ticker": "RJF",
-   "short": "Private Client Group assets in fee-based accounts",
-   "label": "Actifs PCG en comptes a honoraires",
-   "value": 1043.2,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KKR",
-   "short": "Net Investment-Related Gains (Losses)",
-   "label": "Net Investment-Related Gains (Losses)",
-   "value": -1041.07,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NVR",
-   "short": "Homebuilding Mid Atlantic",
-   "label": "Homebuilding Mid Atlantic",
-   "value": 1039.957,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IRM",
-   "short": "Storage rental",
-   "label": "Storage rental",
-   "value": 1032.897,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EXPD",
-   "short": "Airfreight services",
-   "label": "Airfreight services",
-   "value": 1020.258,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PWR",
-   "short": "Canada",
-   "label": "Canada",
-   "value": 1018.752,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MTD",
-   "short": "Service",
-   "label": "Service",
-   "value": 1018.594,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "JKHY",
    "short": "Processing",
    "label": "Processing",
    "value": 1013.551,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ABNB",
-   "short": "International (1)",
-   "label": "International (1)",
-   "value": 1010.758,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UHS",
-   "short": "UK Revenue",
-   "label": "UK Revenue",
-   "value": 1001.356,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -1762,42 +2619,10 @@
    "is_hero": false
   },
   {
-   "ticker": "NCLH",
-   "short": "Asia-Pacific",
-   "label": "Asia-Pacific",
-   "value": 996.748,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "PTC",
    "short": "Europe (2)",
    "label": "Europe (2)",
    "value": 995.094,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "TECH",
-   "short": "Consumables",
-   "label": "Consumables",
-   "value": 972.286,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ARES",
-   "short": "Management fees",
-   "label": "Management fees",
-   "value": 971.762,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SYY",
-   "short": "Paper and disposables",
-   "label": "Paper and disposables",
-   "value": 971.489,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -1826,74 +2651,10 @@
    "is_hero": false
   },
   {
-   "ticker": "ABNB",
-   "short": "United States",
-   "label": "United States",
-   "value": 956.025,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SNPS",
-   "short": "Time-based products",
-   "label": "Time-based products",
-   "value": 951.541,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VEEV",
-   "short": "Europe",
-   "label": "Europe",
-   "value": 939.63,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "PSA",
    "short": "Rental income",
    "label": "Rental income",
    "value": 916.59,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ARES",
-   "short": "Third-party data center market size",
-   "label": "Marché tiers des data centers",
-   "value": 900,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VTR",
-   "short": "Rental income",
-   "label": "Rental income",
-   "value": 895.089,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NCLH",
-   "short": "Onboard and other",
-   "label": "Onboard and other",
-   "value": 888.183,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COHR",
-   "short": "Communications",
-   "label": "Communications",
-   "value": 872.807,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UHS",
-   "short": "Other non-patient revenue",
-   "label": "Other non-patient revenue",
-   "value": 864.328,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -1910,78 +2671,6 @@
    "short": "RMS",
    "label": "RMS",
    "value": 846.082,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GL",
-   "short": "Life premium",
-   "label": "Life premium",
-   "value": 844.483,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COIN",
-   "short": "Total derivatives volume (Coinbase + Deribit)",
-   "label": "Volume total de derives (Coinbase + Deribit)",
-   "value": 840,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ROL",
-   "short": "United States",
-   "label": "United States",
-   "value": 839.875,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "LRCX",
-   "short": "Southeast Asia",
-   "label": "Southeast Asia",
-   "value": 837.242,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ERIE",
-   "short": "Administrative services reimbursement re",
-   "label": "Administrative services reimbursement revenue",
-   "value": 836.639,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "APP",
-   "short": "Software Platform Revenue",
-   "label": "Software Platform Revenue",
-   "value": 835.186,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COF",
-   "short": "Purchase volume",
-   "label": "Purchase volume",
-   "value": 828.467,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CTAS",
-   "short": "Fire Protection Services",
-   "label": "Fire Protection Services",
-   "value": 817.463,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EME",
-   "short": "United States building services",
-   "label": "United States building services",
-   "value": 813.879,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -2010,30 +2699,6 @@
    "is_hero": false
   },
   {
-   "ticker": "ADI",
-   "short": "Automotive",
-   "label": "Automotive",
-   "value": 794.402,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ERIE",
-   "short": "Management fee revenue - policy issuance",
-   "label": "Management fee revenue - policy issuance and renewal services",
-   "value": 786.399,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KLAC",
-   "short": "Service",
-   "label": "Service",
-   "value": 786.053,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "O",
    "short": "Industrial",
    "label": "Industrial",
@@ -2046,46 +2711,6 @@
    "short": "Europe, Middle East, and Africa",
    "label": "Europe, Middle East, and Africa",
    "value": 782.666,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ROL",
-   "short": "Termite and ancillary revenues",
-   "label": "Termite and ancillary revenues",
-   "value": 781.542,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IBKR",
-   "short": "Customer Equity",
-   "label": "Avoirs clients",
-   "value": 779.9,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PWR",
-   "short": "Australia",
-   "label": "Australia",
-   "value": 779.532,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IT",
-   "short": "Other International",
-   "label": "Other International",
-   "value": 770.893,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MTD",
-   "short": "Products",
-   "label": "Products",
-   "value": 766.648,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -2106,42 +2731,10 @@
    "is_hero": false
   },
   {
-   "ticker": "AVB",
-   "short": "Rental and other income",
-   "label": "Rental and other income",
-   "value": 764.926,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "C",
-   "short": "Total EOP loans",
-   "label": "Prets totaux (fin de periode)",
-   "value": 762,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "JKHY",
    "short": "Private and Public Cloud",
    "label": "Private and Public Cloud",
    "value": 756.879,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EXPD",
-   "short": "Ocean freight and ocean services",
-   "label": "Ocean freight and ocean services",
-   "value": 746.12,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SNPS",
-   "short": "Upfront products",
-   "label": "Upfront products",
-   "value": 741.53,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -2154,58 +2747,10 @@
    "is_hero": false
   },
   {
-   "ticker": "GNRC",
-   "short": "International",
-   "label": "International",
-   "value": 738.181,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "EXR",
    "short": "Property rental",
    "label": "Property rental",
    "value": 735.581,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EQT",
-   "short": "Natural gas sales",
-   "label": "Natural gas sales",
-   "value": 730.705,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PLTR",
-   "short": "Rest of world (1)",
-   "label": "Rest of world (1)",
-   "value": 728.005,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IRM",
-   "short": "Service",
-   "label": "Service",
-   "value": 721.196,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NVR",
-   "short": "Homebuilding South East",
-   "label": "Homebuilding South East",
-   "value": 719.835,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SNPS",
-   "short": "Maintenance and service",
-   "label": "Maintenance and service",
-   "value": 715.727,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -2218,122 +2763,10 @@
    "is_hero": false
   },
   {
-   "ticker": "KKR",
-   "short": "Fee Credits",
-   "label": "Fee Credits",
-   "value": -712.433,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ALB",
-   "short": "Energy Storage",
-   "label": "Energy Storage",
-   "value": 708.755,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VST",
-   "short": "Hyperscaler capital spending 2026",
-   "label": "CapEx hyperscalers attendu 2026",
-   "value": 700,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "DPZ",
-   "short": "Supply chain",
-   "label": "Supply chain",
-   "value": 698.973,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "TYL",
-   "short": "SaaS",
-   "label": "SaaS",
-   "value": 691.288,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UHS",
-   "short": "Managed Medicaid",
-   "label": "Managed Medicaid",
-   "value": 685.083,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VEEV",
-   "short": "Subscription services",
-   "label": "Subscription services",
-   "value": 682.498,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "LEN",
-   "short": "Multifamily",
-   "label": "Multifamily",
-   "value": 680.627,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AMP",
-   "short": "am_total_managed_assets",
-   "label": "Asset Management - total des actifs geres",
-   "value": 678.1,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COIN",
-   "short": "Blockchain rewards",
-   "label": "Blockchain rewards",
-   "value": 677.405,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "C",
-   "short": "Client investment assets (Wealth)",
-   "label": "Actifs d'investissement clients (Wealth)",
-   "value": 676,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "INVH",
    "short": "Rental revenues and other property incom",
    "label": "Rental revenues and other property income",
    "value": 666.191,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CTAS",
-   "short": "Other",
-   "label": "Other",
-   "value": 663.991,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MRSH",
-   "short": "Dedicated reinsurance capital",
-   "label": "Capital reassurance dedie",
-   "value": 660,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SBAC",
-   "short": "Site leasing",
-   "label": "Site leasing",
-   "value": 656.427,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -2354,54 +2787,6 @@
    "is_hero": false
   },
   {
-   "ticker": "SPGI",
-   "short": "Announced hyperscaler CapEx",
-   "label": "CapEx hyperscalers annonces (potentiel d'emission)",
-   "value": 650,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IT",
-   "short": "Conferences",
-   "label": "Conferences",
-   "value": 644.743,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KKR",
-   "short": "Capital Allocation-Based Income (Loss)",
-   "label": "Capital Allocation-Based Income (Loss)",
-   "value": 638.764,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ORCL",
-   "short": "Remaining Performance Obligations",
-   "label": "Obligations de prestation restantes (RPO)",
-   "value": 638,
-   "unit": "Mds $",
-   "is_hero": true
-  },
-  {
-   "ticker": "INCY",
-   "short": "Product royalty revenues",
-   "label": "Product royalty revenues",
-   "value": 636.909,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "DVA",
-   "short": "Other revenues",
-   "label": "Other revenues",
-   "value": 635.883,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "WAT",
    "short": "Chemistry consumables",
    "label": "Chemistry consumables",
@@ -2410,43 +2795,11 @@
    "is_hero": false
   },
   {
-   "ticker": "MSFT",
-   "short": "Commercial remaining performance obligation",
-   "label": "Carnet de commandes commercial (RPO)",
-   "value": 627,
-   "unit": "Mds $",
-   "is_hero": true
-  },
-  {
    "ticker": "TSM",
    "short": "REVENUE_Q",
    "label": "Chiffre d'affaires trimestriel consolide",
    "value": 625.532,
    "unit": "Mds TWD",
-   "is_hero": false
-  },
-  {
-   "ticker": "PFG",
-   "short": "WSRS defined contribution plan assets",
-   "label": "Actifs plans a cotisations definies (WSRS)",
-   "value": 625.3,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BLK",
-   "short": "long-term-net-inflows-ttm-2026",
-   "label": "Flux nets entrants long terme sur 12 mois",
-   "value": 620,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GNRC",
-   "short": "Residential products",
-   "label": "Residential products",
-   "value": 605.444,
-   "unit": "Mds $",
    "is_hero": false
   },
   {
@@ -2466,122 +2819,10 @@
    "is_hero": false
   },
   {
-   "ticker": "VTR",
-   "short": "Triple-net leased properties",
-   "label": "Triple-net leased properties",
-   "value": 601.578,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "AAPL",
    "short": "US investment commitment over four years",
    "label": "Engagement d'investissement aux États-Unis sur 4 ans",
    "value": 600,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CIEN",
-   "short": "Top-4 hyperscaler aggregate 2026 CapEx",
-   "label": "CapEx agrege des 4 grands hyperscalers 2026",
-   "value": 600,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BAC",
-   "short": "cb_consumer_investment_assets",
-   "label": "Actifs d'investissement clients Consumer Banking, fin d'annee",
-   "value": 599.11,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BAC",
-   "short": "Consumer investment assets",
-   "label": "Actifs d'investissement clients particuliers",
-   "value": 599.1,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BAC",
-   "short": "cb_debit_purchase_volume",
-   "label": "Volume d'achats cartes de debit Consumer Banking",
-   "value": 594.603,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PLD",
-   "short": "Strategic capital",
-   "label": "Strategic capital",
-   "value": 592.353,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "FDS",
-   "short": "EMEA",
-   "label": "EMEA",
-   "value": 580.284,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BA",
-   "short": "backlog_bca",
-   "label": "Carnet de commandes segment Commercial Airplanes (BCA)",
-   "value": 567.29,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "LRCX",
-   "short": "Europe",
-   "label": "Europe",
-   "value": 562.562,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "DOV",
-   "short": "Clean Energy & Fueling",
-   "label": "Clean Energy & Fueling",
-   "value": 554.809,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COIN",
-   "short": "Other subscription and services revenue",
-   "label": "Other subscription and services revenue",
-   "value": 554.775,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VTR",
-   "short": "Canada",
-   "label": "Canada",
-   "value": 552.924,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ORCL",
-   "short": "remaining_performance_obligations",
-   "label": "Obligations de performance restantes",
-   "value": 552.6,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IT",
-   "short": "Consulting",
-   "label": "Consulting",
-   "value": 552.499,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -2594,14 +2835,6 @@
    "is_hero": false
   },
   {
-   "ticker": "COF",
-   "short": "Interest-earning assets",
-   "label": "Interest-earning assets",
-   "value": 546.685,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "DOC",
    "short": "Rental and related revenues",
    "label": "Rental and related revenues",
@@ -2610,90 +2843,10 @@
    "is_hero": false
   },
   {
-   "ticker": "DOV",
-   "short": "Pumps & Process Solutions",
-   "label": "Pumps & Process Solutions",
-   "value": 537.81,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VICI",
-   "short": "Income from sales-type leases",
-   "label": "Income from sales-type leases",
-   "value": 531.765,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AXP",
-   "short": "Consumer & Business Platinum annual spend",
-   "label": "Depenses annuelles franchise Platinum",
-   "value": 530,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AKAM",
-   "short": "U.S.",
-   "label": "U.S.",
-   "value": 529.978,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AKAM",
-   "short": "International",
-   "label": "International",
-   "value": 524.652,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "VEEV",
-   "short": "Professional services and other",
-   "label": "Professional services and other",
-   "value": 511.117,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NVR",
-   "short": "Homebuilding Mid East",
-   "label": "Homebuilding Mid East",
-   "value": 508.798,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SYY",
-   "short": "Seafood",
-   "label": "Seafood",
-   "value": 507.958,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "WAT",
    "short": "Product sales",
    "label": "Product sales",
    "value": 499.964,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "WELL",
-   "short": "Rental income",
-   "label": "Rental income",
-   "value": 499.475,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ATO",
-   "short": "Purchased gas cost",
-   "label": "Purchased gas cost",
-   "value": 497.036,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -2730,42 +2883,10 @@
    "is_hero": false
   },
   {
-   "ticker": "GNRC",
-   "short": "Other",
-   "label": "Other",
-   "value": 484.85,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ACGL",
-   "short": "mort_iif_total",
-   "label": "Assurance en vigueur (Insurance In Force) totale - segment Hypotheque",
-   "value": 484.607,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "WMT",
    "short": "Walmart U.S. annual net sales",
    "label": "Walmart US - Ventes nettes annuelles",
    "value": 483,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COHR",
-   "short": "Industrial",
-   "label": "Industrial",
-   "value": 477.679,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "EME",
-   "short": "United Kingdom building services",
-   "label": "United Kingdom building services",
-   "value": 471.348,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -2794,38 +2915,6 @@
    "is_hero": false
   },
   {
-   "ticker": "ARES",
-   "short": "Carried interest allocation",
-   "label": "Carried interest allocation",
-   "value": 464.666,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ESS",
-   "short": "Rental income",
-   "label": "Rental income",
-   "value": 463.892,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SCHW",
-   "short": "Transactional sweep cash",
-   "label": "Liquidites de balayage transactionnel",
-   "value": 461.5,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CBRE",
-   "short": "Loan servicing portfolio",
-   "label": "Portefeuille de prets geres (loan servicing)",
-   "value": 460,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "GOOG",
    "short": "Google Cloud backlog (RPO)",
    "label": "Carnet de commandes Google Cloud",
@@ -2850,58 +2939,10 @@
    "is_hero": false
   },
   {
-   "ticker": "VICI",
-   "short": "Income from lease financing receivables,",
-   "label": "Income from lease financing receivables, loans and securities",
-   "value": 447.986,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "TYL",
-   "short": "Maintenance",
-   "label": "Maintenance",
-   "value": 445.614,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COIN",
-   "short": "USDC rewards",
-   "label": "USDC rewards",
-   "value": 441.347,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "WAT",
    "short": "China",
    "label": "China",
    "value": 437.468,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "UDR",
-   "short": "Rental income",
-   "label": "Rental income",
-   "value": 429.294,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AXP",
-   "short": "axp-billed-business-growth-q1-2026",
-   "label": "Croissance du volume facture (billed business)",
-   "value": 428,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PLTR",
-   "short": "United Kingdom",
-   "label": "United Kingdom",
-   "value": 427.398,
    "unit": "Mds $",
    "is_hero": false
   },
@@ -2930,14 +2971,6 @@
    "is_hero": false
   },
   {
-   "ticker": "ATO",
-   "short": "Operating expenses",
-   "label": "Operating expenses",
-   "value": 412.552,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "TPL",
    "short": "Oil and gas royalties",
    "label": "Oil and gas royalties",
@@ -2946,868 +2979,10 @@
    "is_hero": false
   },
   {
-   "ticker": "DOV",
-   "short": "Climate & Sustainability Technologies",
-   "label": "Climate & Sustainability Technologies",
-   "value": 411.06,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SYY",
-   "short": "Other (1)",
-   "label": "Other (1)",
-   "value": 409.55,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PLTR",
-   "short": "Government",
-   "label": "Government",
-   "value": 408.341,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
    "ticker": "GOOGL",
    "short": "Alphabet annual revenue milestone",
    "label": "Chiffre d'affaires annuel Alphabet (jalon)",
    "value": 403,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COIN",
-   "short": "Marketing programs",
-   "label": "Marketing programs",
-   "value": 402.555,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "CVS",
-   "short": "Total annual revenues",
-   "label": "Chiffre d'affaires total annuel",
-   "value": 402.1,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "TYL",
-   "short": "Subscriptions",
-   "label": "Subscriptions",
-   "value": 401.094,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MS",
-   "short": "Cumulative adviser-led assets originated since 2020 from Workplace/E-TRADE",
-   "label": "Actifs advisor-led generes depuis 2020 via Workplace/E-TRADE",
-   "value": 400,
-   "unit": "Mds $",
-   "is_hero": false
-  }
- ],
- "ecartes_encours": [
-  {
-   "ticker": "ABN.AS",
-   "short": "CLIENT_ASSETS_Q",
-   "label": "Actifs de la clientèle",
-   "value": 415.0,
-   "unit": "Mds €",
-   "is_hero": true
-  },
-  {
-   "ticker": "ADYEN.AS",
-   "short": "PROCESSED_VOL",
-   "label": "Volume traite",
-   "value": 745.3,
-   "unit": "Mds €",
-   "is_hero": true
-  },
-  {
-   "ticker": "AMP",
-   "short": "awm_aum",
-   "label": "Advice & Wealth Management - actifs sous gestion (AUM)",
-   "value": 666.4,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AMP",
-   "short": "total_aum_administration_advisement",
-   "label": "Total des actifs sous gestion, administration et conseil (AUMA)",
-   "value": 1694.2,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AMP",
-   "short": "awm_wrap_account_ending_assets",
-   "label": "Advice & Wealth Management - encours wrap (fin de periode)",
-   "value": 670.4,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AMP",
-   "short": "awm_average_advisory_wrap_assets",
-   "label": "Advice & Wealth Management - encours wrap consultatif moyen",
-   "value": 606.2,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AMP",
-   "short": "awm_total_client_assets",
-   "label": "Advice & Wealth Management - total des actifs clients",
-   "value": 1165.4,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AMP",
-   "short": "Total client assets (Advice & Wealth Management)",
-   "label": "Actifs clients totaux (AWM)",
-   "value": 1149,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AMP",
-   "short": "Wrap (fee-based) assets",
-   "label": "Actifs sous gestion wrap (fee-based)",
-   "value": 664,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AMP",
-   "short": "Asset Management AUM & advisement",
-   "label": "Actifs geres et conseilles (Asset Management)",
-   "value": 706,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AMP",
-   "short": "AUMA_1_7_TRILLION_Q1_2026",
-   "label": "Actifs geres, administres et conseilles a 1,7 billion de dollars",
-   "value": 1668.2,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "AMP",
-   "short": "TOTAL_AUM_GROWTH_Q1_2026",
-   "label": "Actifs sous gestion totaux en hausse de 11 %",
-   "value": 1277.3,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "APO",
-   "short": "AUM_Total",
-   "label": "Total AUM (actifs sous gestion)",
-   "value": 938.406,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "APO",
-   "short": "AUM_Total_Credit",
-   "label": "Total AUM - strategie Credit",
-   "value": 749.228,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "APO",
-   "short": "AUM_FeeGenerating",
-   "label": "Fee-Generating AUM (actifs generateurs de commissions)",
-   "value": 709.139,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "APO",
-   "short": "AUM_FeeGenerating_Credit",
-   "label": "Fee-Generating AUM - strategie Credit",
-   "value": 606.466,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "APO",
-   "short": "Total Assets Under Management",
-   "label": "Actifs sous gestion totaux",
-   "value": 1030,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "APO",
-   "short": "Fee-Generating AUM (FGAUM)",
-   "label": "Actifs generateurs de commissions",
-   "value": 638,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "APO",
-   "short": "apo-total-aum-q1-2026",
-   "label": "Actifs sous gestion totaux",
-   "value": 1026.4,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "APO",
-   "short": "apo-fee-generating-aum-q1-2026",
-   "label": "AUM générateur de commissions",
-   "value": 835.9,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "APO",
-   "short": "apo-athene-managed-aum-q1-2026",
-   "label": "AUM géré pour le compte d'Athene",
-   "value": 400.9,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ARES",
-   "short": "aum_credit",
-   "label": "AUM Credit Group",
-   "value": 406.866,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ARES",
-   "short": "aum_total",
-   "label": "AUM total",
-   "value": 622.505,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ARES",
-   "short": "Total assets under management",
-   "label": "Actifs sous gestion totaux",
-   "value": 644,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ARES",
-   "short": "Fee-paying AUM (FPAUM)",
-   "label": "Actifs generant des frais",
-   "value": 400,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "ARES",
-   "short": "total_aum_q1fy26",
-   "label": "Actifs sous gestion (AUM) totaux",
-   "value": 644.3,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BAC",
-   "short": "gwim_aum",
-   "label": "Actifs sous gestion GWIM (Assets under management), fin d'annee",
-   "value": 2177.708,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BAC",
-   "short": "gwim_client_balances",
-   "label": "Total des avoirs clients GWIM (total client balances), fin d'année",
-   "value": 4751.394,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BAC",
-   "short": "Total client balances (GWIM)",
-   "label": "Actifs clients gestion de patrimoine",
-   "value": 4751.4,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BEN",
-   "short": "Assets under management (ending)",
-   "label": "Actifs sous gestion (fin de periode)",
-   "value": 1682.1,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BEN",
-   "short": "Average assets under management",
-   "label": "Actifs sous gestion moyens",
-   "value": 1701.6,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BEN",
-   "short": "aum-total-1682b",
-   "label": "Actifs sous gestion totaux",
-   "value": 1682.1,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BLK",
-   "short": "aum-total-q1-2026",
-   "label": "Actifs sous gestion totaux",
-   "value": 13894.6,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BR",
-   "short": "AUM served by AI-native custom policy voting engine",
-   "label": "Encours servis par le moteur de politique de vote IA",
-   "value": 800,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BX",
-   "short": "Total Assets Under Management",
-   "label": "Actifs sous gestion totaux",
-   "value": 1304,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BX",
-   "short": "Fee-Earning AUM",
-   "label": "Actifs generateurs de commissions",
-   "value": 937.6,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BX",
-   "short": "Perpetual Capital AUM",
-   "label": "Capital perpetuel sous gestion",
-   "value": 539.7,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "BX",
-   "short": "Performance-Revenue-Eligible AUM",
-   "label": "Actifs eligibles aux commissions de performance",
-   "value": 635,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "C",
-   "short": "Wealth EOP client balances",
-   "label": "Encours clients fin de periode (Wealth)",
-   "value": 1299,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "C",
-   "short": "Total EOP deposits",
-   "label": "Depots totaux (fin de periode)",
-   "value": 1446,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "C",
-   "short": "c-wealth-client-investment-assets-q1-2026",
-   "label": "Actifs clients investis (Wealth)",
-   "value": 676,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COF",
-   "short": "Interest-bearing deposits",
-   "label": "Interest-bearing deposits",
-   "value": 402.209,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COF",
-   "short": "Period-end total deposits",
-   "label": "Depots totaux (fin de periode)",
-   "value": 489.1,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "COF",
-   "short": "avg_loans_held_for_investment_q1fy26",
-   "label": "Encours moyen de prets detenus a des fins d'investissement",
-   "value": 446.2,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GS",
-   "short": "Total assets under supervision",
-   "label": "Actifs sous supervision (total)",
-   "value": 3650,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GS",
-   "short": "Total long-term assets under supervision",
-   "label": "Actifs sous supervision long terme",
-   "value": 2724,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GS",
-   "short": "XIG secondaries franchise assets under supervision",
-   "label": "Actifs sous supervision de la franchise secondaires XIG",
-   "value": 500,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GS",
-   "short": "Total deposits",
-   "label": "Depots totaux",
-   "value": 490,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GS",
-   "short": "AUS_TOTAL",
-   "label": "Actifs sous supervision totaux",
-   "value": 3650,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "GS",
-   "short": "WEALTH_MGMT_CLIENT_ASSETS",
-   "label": "Actifs clients gestion de fortune",
-   "value": 1800,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IVZ",
-   "short": "Ending assets under management",
-   "label": "Actifs sous gestion en fin de periode",
-   "value": 2159.5,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IVZ",
-   "short": "Average assets under management",
-   "label": "Actifs sous gestion moyens",
-   "value": 2218.9,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "IVZ",
-   "short": "QQQ innovation suite AUM",
-   "label": "Encours ecosysteme QQQ (innovation suite)",
-   "value": 550,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "JPM",
-   "short": "deposits",
-   "label": "Dépôts (fin de période)",
-   "value": 2559.32,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "JPM",
-   "short": "average_deposits",
-   "label": "Dépôts moyens (total firmwide)",
-   "value": 2506.565,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "JPM",
-   "short": "aum",
-   "label": "Actifs sous gestion (AUM, AWM)",
-   "value": 4791,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "JPM",
-   "short": "client_assets",
-   "label": "Actifs clients (Client assets, AWM)",
-   "value": 7118,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "JPM",
-   "short": "ccb_bwm_average_deposits",
-   "label": "Dépôts moyens Banking & Wealth Management (CCB)",
-   "value": 1040.8,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "JPM",
-   "short": "Record client asset net inflows (full year)",
-   "label": "Entrees nettes record d'actifs clients (annee)",
-   "value": 553,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KKR",
-   "short": "Assets Under Management",
-   "label": "Actifs sous gestion",
-   "value": 758,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KKR",
-   "short": "Fee-Paying AUM",
-   "label": "Actifs generateurs de commissions",
-   "value": 615,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "KKR",
-   "short": "total_aum_q1_2026",
-   "label": "AUM total T1 2026",
-   "value": 758,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MET",
-   "short": "MIM total assets under management",
-   "label": "Encours totaux MIM",
-   "value": 736.29,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MRSH",
-   "short": "Mercer assets under management",
-   "label": "Actifs sous gestion Mercer",
-   "value": 727,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MS",
-   "short": "Fee-based client assets (Wealth Management)",
-   "label": "Actifs clients a honoraires (Wealth Management)",
-   "value": 2792,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MS",
-   "short": "Assets under management (Investment Management)",
-   "label": "Actifs sous gestion (Investment Management)",
-   "value": 1868,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MS",
-   "short": "Parametric AUM (tax-efficient investing)",
-   "label": "AUM Parametric (investissement fiscalement optimise)",
-   "value": 685,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MSCI",
-   "short": "Period-End AUM in ETFs linked to MSCI equity indexes",
-   "label": "Encours ETF indexes MSCI (fin de periode)",
-   "value": 2403,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "MSCI",
-   "short": "msci-etf-aum-q1-2026",
-   "label": "Encours des ETF liés aux indices MSCI",
-   "value": 2403,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NDAQ",
-   "short": "ETP AUM (assets tracking Nasdaq indexes)",
-   "label": "Encours des ETP indexes Nasdaq",
-   "value": 836,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "NTRS",
-   "short": "Alternatives Assets Under Administration",
-   "label": "Actifs alternatifs sous administration",
-   "value": 1000,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PFG",
-   "short": "Total company managed AUM",
-   "label": "Actifs sous gestion totaux",
-   "value": 770,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PFG",
-   "short": "Total assets under administration",
-   "label": "Actifs sous administration totaux (AUA)",
-   "value": 1814.6,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PFG",
-   "short": "AUM",
-   "label": "Encours sous gestion",
-   "value": 737.6,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PFG",
-   "short": "RIS_ACCOUNT_VALUES",
-   "label": "Encours Retirement Solutions",
-   "value": 646.3,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PNC",
-   "short": "Total client assets (AUM + AUA + brokerage)",
-   "label": "Total des actifs clients",
-   "value": 556,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PNC",
-   "short": "Average deposits",
-   "label": "Depots moyens",
-   "value": 458.4,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PRU",
-   "short": "Total assets under management",
-   "label": "Actifs sous gestion totaux",
-   "value": 1576,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PRU",
-   "short": "PGIM assets under management",
-   "label": "Actifs sous gestion PGIM",
-   "value": 1433.3,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PRU",
-   "short": "PGIM credit AUM",
-   "label": "Actifs credit geres par PGIM",
-   "value": 1000,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PRU",
-   "short": "AUM",
-   "label": "Encours sous gestion",
-   "value": 1576,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "PYPL",
-   "short": "Total payment volume",
-   "label": "Volume total de paiements",
-   "value": 464,
-   "unit": "Mds $",
-   "is_hero": true
-  },
-  {
-   "ticker": "PYPL",
-   "short": "TPV",
-   "label": "Volume total de paiements",
-   "value": 463.955,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "RJF",
-   "short": "Client assets under administration",
-   "label": "Actifs clients sous administration",
-   "value": 1762.9,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SCHW",
-   "short": "Total Client Assets",
-   "label": "Actifs clients totaux",
-   "value": 11903,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "SCHW",
-   "short": "Core Net New Client Assets",
-   "label": "Nouveaux actifs nets organiques",
-   "value": 519.4,
-   "unit": "Mds $",
-   "is_hero": true
-  },
-  {
-   "ticker": "SCHW",
-   "short": "Assets Receiving Ongoing Advisory Services",
-   "label": "Actifs sous conseil recurrent",
-   "value": 6020.3,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "STT",
-   "short": "Assets under custody and administration",
-   "label": "Actifs en conservation et administration",
-   "value": 54515,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "STT",
-   "short": "Assets under management",
-   "label": "Actifs sous gestion",
-   "value": 5620,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "STT",
-   "short": "stt-auc-a-q1",
-   "label": "Actifs sous garde et administration",
-   "value": 54515,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "STT",
-   "short": "stt-aum-q1",
-   "label": "Actifs sous gestion",
-   "value": 5620,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "TROW",
-   "short": "Ending assets under management",
-   "label": "Encours sous gestion (fin de periode)",
-   "value": 1709.7,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "TROW",
-   "short": "Average assets under management",
-   "label": "Encours moyens sous gestion",
-   "value": 1775.8,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "TROW",
-   "short": "Target date AUM milestone",
-   "label": "Jalon encours target date",
-   "value": 500,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "TROW",
-   "short": "trow-q1-ending-aum",
-   "label": "Actifs sous gestion (fin de periode)",
-   "value": 1709.7,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "USB",
-   "short": "Total Deposits",
-   "label": "Dépôts totaux",
-   "value": 526.149,
-   "unit": "Mds $",
-   "is_hero": true
-  },
-  {
-   "ticker": "USB",
-   "short": "Interest-Bearing Deposits",
-   "label": "Dépôts rémunérés",
-   "value": 434.599,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "USB",
-   "short": "Total Assets",
-   "label": "Actif total",
-   "value": 695.357,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "WFC",
-   "short": "Average Loans",
-   "label": "Encours moyen de prets",
-   "value": 928.677,
-   "unit": "Mds $",
-   "is_hero": false
-  },
-  {
-   "ticker": "WFC",
-   "short": "WIM client assets",
-   "label": "Actifs clients gestion de fortune",
-   "value": 2222,
    "unit": "Mds $",
    "is_hero": false
   }
