@@ -1,0 +1,32 @@
+{
+ "genere_le": "2026-08-22",
+ "objet": "Blocs revenue_by_segment et revenue_by_geography contradictoires sur la meme fiche (les deux sont rendus en onglets par repartition-block.tsx)",
+ "regle": "Un seul bloc doit rester quand les deux couvrent la meme dimension. Le bloc perime doit etre retire, pas corrige a la main.",
+ "cas": [
+  {
+   "ticker": "ZBH",
+   "garder": "revenue_by_geography",
+   "retirer": "revenue_by_segment",
+   "raison": "Le segment ne porte que 2 zones (Americas 4764, EMEA 3467,5 M$) et contredit la geographie a jour (Americas 5145, EMEA 1829, APAC 1258 M$, exercice 2025). Le CA total de la fiche vaut 8,232 Mds $, egal au total geographie."
+  },
+  {
+   "ticker": "HSY",
+   "garder": "revenue_by_geography",
+   "retirer": "revenue_by_segment",
+   "raison": "Le segment (North America 8,4 + International 0,8 = 9,2 Mds $) est perime. Les vrais segments 2025 sont deja dans les KPI de la fiche : NAC 9,48 + NASS 1,271 + International 0,942 = 11,693 Mds $, egal au total geographie."
+  },
+  {
+   "ticker": "EPAM",
+   "garder": "revenue_by_geography",
+   "retirer": "revenue_by_segment",
+   "raison": "Le segment contient une ligne Russia (sortie du groupe en 2022) et totalise 2,659 Mds $ contre un CA de 5,457 Mds $. La geographie exercice 2025 totalise 5,456 Mds $."
+  },
+  {
+   "ticker": "FDS",
+   "garder": "revenue_by_segment",
+   "retirer": "revenue_by_geography",
+   "raison": "Ici c'est la geographie qui est perimee (1,844 Mds $) alors que le segment exercice 2025 totalise 2 321,7 M$. Les deux couvrent la meme dimension Ameriques / EMEA / Asie-Pacifique."
+  }
+ ],
+ "corrige_ce_run": "19 blocs dont l'unite affichee etait fausse d'un facteur 1000 ou absente : ZBH NVR MSCI STX EXC HBAN KEY BX ABBV PRU OXY CBK.DE FER MTX.DE QIA.DE. Valeurs inchangees, unite seule corrigee."
+}
