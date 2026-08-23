@@ -1,7 +1,7 @@
 {
  "doc": "Chaine SMI 20 exhaustif KPI - etat",
- "phase": "integration-quasi-terminee-bloquee-curl",
- "note_reprise_2208": "20/20 verifiees sur disque (kpis-haut, v2-pipeline, v2-pipeline-enrich, companies, disabled-blocks-per-ste toutes 20/20 presentes). Lint complet 20 tickers SMI : 0 rouge, 18 oranges (R19_EVENTS x16 = events desactives assumes, R3_GRAPH_COMPLET x2). Autorefresh FR/CH teste bout en bout sur SCMN.SW (mission consommee, donnees deja a jour verifiees verbatim vs FF_Q2-2026.txt.gz, mark-done fait, retiree de la file). BLOQUANT restant : site prod entier en MAINTENANCE_MODE (env Vercel, cause externe a la chaine SMI, note vue dans git log = chantier ATT/quarterly-refresh en cours par ailleurs) donc impossible de faire le curl de verif contenu exige avant de passer phase=TERMINEE-AVEC-AUTOREFRESH. Des que maintenance off : curl 2-3 pages SMI avec audit_token puis flip phase.",
+ "phase": "TERMINEE-AVEC-AUTOREFRESH",
+ "note_reprise_2208": "CLOTUREE 23 aout 2026 (session planifiee). Maintenance prod levee. Curl vue connectee (audit_token) sur 4 pages SMI via /sandbox/v1-9-5/<ticker> : NESN 200 316ko (89,5 Mds CHF + croissance organique presents), ABBN 200 285ko (commandes 12 042), ZURN 200 292ko (ratio combine 92,6), LONN 200 222ko (CDMO). Lint 20 tickers SMI : 0 rouge, 18 oranges (R19_EVENTS x16 assumes + R3_GRAPH_COMPLET x2). Autorefresh FR/CH operationnel : fr-doc-watcher etendu aux 20 .SW (cron 04h30), eu-earnings-refresh (cron 05h15) alimente la file, test bout en bout SCMN.SW commite (8c2a677). Les 3 rouges du lint global 656 stes sont hors SMI (chantier ATT/quarterly-refresh).",
  "univers": [
   {
    "ticker": "ABBN.SW",
@@ -41,7 +41,7 @@
   },
   {
    "ticker": "NESN.SW",
-   "nom": "Nestl\u00e9"
+   "nom": "Nestlé"
   },
   {
    "ticker": "NOVN.SW",
@@ -53,7 +53,7 @@
   },
   {
    "ticker": "CFR.SW",
-   "nom": "Compagnie Financi\u00e8re Richemont"
+   "nom": "Compagnie Financière Richemont"
   },
   {
    "ticker": "ROG.SW",
@@ -285,7 +285,7 @@
   "KNIN.SW": "CA 24 476 M CHF, RN 925 FY2025 verifies verbatim URD 2025, 4,3 M TEU et conversion 16% verifies CP/PRES FY2025. 21 series.",
   "PGHN.SW": "CA 2 563 M CHF (+20%), RN 1 261 FY2025 verifies verbatim CP/URD 10.03.2026, AuM 186 Mds$ 30.06.26 verifie CP AuM. 22 series.",
   "LOGN.SW": "CA 1 227 M$, RN 236, marge brute 49,8% Q2-2026 (T1 FY2027) verifies verbatim rapport 28.07.2026. 16 series, exercice decale mappe.",
-  "CFR.SW": "CA 22 420 M\u20ac, RN 3 484, Joaillerie 16 539, treso nette 8 496 FY2026 verifies verbatim URD 27.05.2026. 23 series, double extraction concordante.",
+  "CFR.SW": "CA 22 420 M€, RN 3 484, Joaillerie 16 539, treso nette 8 496 FY2026 verifies verbatim URD 27.05.2026. 23 series, double extraction concordante.",
   "SIKA.SW": "CA 11 201,3 M CHF, RN 1 045, marge materiaux 54,9% FY2025 verifies verbatim CP 20.02.2026. 16 series, rupture MBCC documentee.",
   "SLHN.SW": "GWP 20 871 M CHF, RN 1 256 FY2025 verifies verbatim rapport annuel, fee result 858 verifie CP FY2025, AuM TPAM 148 455 verifie CP T1-2026. 26 series.",
   "SREN.SW": "RN 4 762 M$, COR 79,4%, SST 250% FY2025 verifies verbatim CP. 19 series, rupture US GAAP-IFRS documentee.",
