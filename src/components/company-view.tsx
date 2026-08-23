@@ -1177,8 +1177,12 @@ export function CompanyView({
                 )}
                 {/* Quality + percentile chips : masqués si KPI incomplet (= rating bidon "Moyen Top 50 %") */}
                 {!isIncompleteKpi && <QualityChipOnly rating={heroRating} />}
+                {/* Yann 23 aout 2026 : bulle CAGR reduite a la taille du texte
+                    (plus de retour a la ligne interne) et "i" exercice fiscal
+                    place a DROITE de la bulle, en dehors. */}
+                <div className="flex w-fit items-center gap-1.5">
                 {heroCAGR && (
-                  <div className="inline-flex w-fit flex-wrap items-center gap-x-1 gap-y-0 rounded-full border border-[#262626] bg-[#0d0d0d] px-2.5 py-1 font-mono text-[12px] tabular-nums text-zinc-200">
+                  <div className="inline-flex w-fit items-center gap-x-1 whitespace-nowrap rounded-full border border-[#262626] bg-[#0d0d0d] px-2.5 py-1 font-mono text-[12px] tabular-nums text-zinc-200">
                     {freeBlocked ? (
                       <BlurredFreeValue value="+0,0 %/an" ticker={company.ticker} />
                     ) : (
@@ -1192,6 +1196,116 @@ export function CompanyView({
                     </span>
                   </div>
                 )}
+                    {isFiscalShifted(company.ticker) && (() => {
+                      const fl = fiscalLabelsForTicker(company.ticker, active.last_data_date);
+                      if (!fl) return null;
+                      const fyEndMonthFr = [
+                        "", "janvier", "février", "mars", "avril", "mai", "juin",
+                        "juillet", "août", "septembre", "octobre", "novembre", "décembre",
+                      ][fl.fiscalYearEndMonth] ?? "?";
+                      const fyEndMonthEn = [
+                        "", "January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December",
+                      ][fl.fiscalYearEndMonth] ?? "?";
+                      const isFr = locale === "fr";
+                      // Yann 27 mai 2026 : refonte tooltip "Exercice fiscal décalé".
+                      // - Garder explication FY décalé
+                      // - Retirer la phrase "On the chart Q4 refers to..." (outdated, confuse)
+                      // - Lire le dernier trimestre RÉEL via active.last_data_date ou
+                      //   company.latest_filing?.date (plutôt que fiscal-audit.json stale)
+                      // - Ajouter info sur prochain earning attendu (company.next_earnings_date)
+                      // - Sync avec chip Freshness : si earning attendu en retard, le mentionner
+                      const latestData = active.last_data_date ?? company.latest_filing?.period_end ?? null;
+                      const filingDate = company.latest_filing?.date ?? fl.publicationDate ?? null;
+                      const nextEarningsDate = company.next_earnings_date ?? null;
+                      const dateFmt = (iso: string | null) =>
+                        iso
+                          ? new Date(iso).toLocaleDateString(isFr ? "fr-FR" : "en-US", {
+                              day: "numeric", month: "long", year: "numeric",
+                            })
+                          : null;
+                      const today = new Date();
+                      today.setUTCHours(0, 0, 0, 0);
+                      const isEarningPending =
+                        nextEarningsDate && latestData
+                          ? (() => {
+                              try {
+                                const nextD = new Date(nextEarningsDate.split("T")[0]);
+                                const lastD = new Date(latestData.split("T")[0]);
+                                return (
+                                  !Number.isNaN(nextD.getTime()) &&
+                                  !Number.isNaN(lastD.getTime()) &&
+                                  nextD.getTime() < today.getTime() &&
+                                  lastD.getTime() < nextD.getTime()
+                                );
+                              } catch {
+                                return false;
+                              }
+                            })()
+                          : false;
+                      return (
+                        <InfoTooltip color="#f59e0b">
+                          <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: "#f59e0b" }}>
+                            {isFr ? "Exercice fiscal décalé" : "Shifted fiscal year"}
+                          </div>
+                          <div className="text-zinc-200 text-[12.5px] leading-relaxed">
+                            {isFr ? (
+                              <>
+                                <strong>{company.name}</strong> a un exercice fiscal qui se termine en{" "}
+                                <strong>{fyEndMonthFr}</strong> (pas en décembre comme le calendrier).
+                                {" "}Pour simplifier la lecture, tous les trimestres affichés sur cette
+                                page sont les <strong>trimestres calendaires réels</strong> : T4 2025 =
+                                octobre-décembre 2025, quel que soit le nom fiscal que la société leur donne.
+                              </>
+                            ) : (
+                              <>
+                                <strong>{company.name}</strong>&apos;s fiscal year ends in{" "}
+                                <strong>{fyEndMonthEn}</strong> (not December like the calendar year).
+                                {" "}For readability, every quarter shown on this page uses the{" "}
+                                <strong>real calendar quarter</strong>: Q4 2025 = October-December 2025,
+                                whatever the company calls it fiscally.
+                              </>
+                            )}
+                            {fl.lastLabel && (
+                              <>
+                                <br /><br />
+                                <span className="text-zinc-300">
+                                  {isFr ? "Dernier trimestre publié : " : "Latest published quarter: "}
+                                  <strong>{fl.lastLabel}</strong>
+                                  {filingDate && (
+                                    <>
+                                      {" "}
+                                      <span className="text-zinc-400">
+                                        ({isFr ? "publié le " : "filed on "}
+                                        {dateFmt(filingDate)})
+                                      </span>
+                                    </>
+                                  )}
+                                </span>
+                              </>
+                            )}
+                            {nextEarningsDate && (
+                              <>
+                                <br />
+                                <span style={{ color: isEarningPending ? "#fbbf24" : "#facc15" }}>
+                                  {isEarningPending
+                                    ? isFr
+                                      ? "Earning attendu : "
+                                      : "Earning pending: "
+                                    : isFr
+                                      ? "Prochain earning : "
+                                      : "Next earning: "}
+                                  <strong>{fl.nextLabel}</strong>
+                                  {" "}
+                                  <span className="opacity-80">({dateFmt(nextEarningsDate)})</span>
+                                </span>
+                              </>
+                            )}
+                          </div>
+                        </InfoTooltip>
+                      );
+                    })()}
+                </div>
                 {/* Yann 16 juil 2026 : chip percentile "Top X % · sous-secteur"
                     SUPPRIMÉE. C'était une heuristique sur le YoY (yoy>=0 → "Top 50 %"),
                     pas un vrai classement vs pairs : impossible à rendre juste pour
@@ -1414,120 +1528,6 @@ export function CompanyView({
                     </InfoTooltip>
                   );
                 })()}
-                {/* Yann 19 mai 2026 : tooltip "Exercice fiscal décalé"
-                    (i orange) déplacé du titre KPI vers la zone "À jour"
-                    pour ne pas polluer visuellement le titre + cohérence
-                    avec les autres infos meta de cette zone (date
-                    fraîcheur, fréquence). */}
-                {isFiscalShifted(company.ticker) && (() => {
-                  const fl = fiscalLabelsForTicker(company.ticker, active.last_data_date);
-                  if (!fl) return null;
-                  const fyEndMonthFr = [
-                    "", "janvier", "février", "mars", "avril", "mai", "juin",
-                    "juillet", "août", "septembre", "octobre", "novembre", "décembre",
-                  ][fl.fiscalYearEndMonth] ?? "?";
-                  const fyEndMonthEn = [
-                    "", "January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December",
-                  ][fl.fiscalYearEndMonth] ?? "?";
-                  const isFr = locale === "fr";
-                  // Yann 27 mai 2026 : refonte tooltip "Exercice fiscal décalé".
-                  // - Garder explication FY décalé
-                  // - Retirer la phrase "On the chart Q4 refers to..." (outdated, confuse)
-                  // - Lire le dernier trimestre RÉEL via active.last_data_date ou
-                  //   company.latest_filing?.date (plutôt que fiscal-audit.json stale)
-                  // - Ajouter info sur prochain earning attendu (company.next_earnings_date)
-                  // - Sync avec chip Freshness : si earning attendu en retard, le mentionner
-                  const latestData = active.last_data_date ?? company.latest_filing?.period_end ?? null;
-                  const filingDate = company.latest_filing?.date ?? fl.publicationDate ?? null;
-                  const nextEarningsDate = company.next_earnings_date ?? null;
-                  const dateFmt = (iso: string | null) =>
-                    iso
-                      ? new Date(iso).toLocaleDateString(isFr ? "fr-FR" : "en-US", {
-                          day: "numeric", month: "long", year: "numeric",
-                        })
-                      : null;
-                  const today = new Date();
-                  today.setUTCHours(0, 0, 0, 0);
-                  const isEarningPending =
-                    nextEarningsDate && latestData
-                      ? (() => {
-                          try {
-                            const nextD = new Date(nextEarningsDate.split("T")[0]);
-                            const lastD = new Date(latestData.split("T")[0]);
-                            return (
-                              !Number.isNaN(nextD.getTime()) &&
-                              !Number.isNaN(lastD.getTime()) &&
-                              nextD.getTime() < today.getTime() &&
-                              lastD.getTime() < nextD.getTime()
-                            );
-                          } catch {
-                            return false;
-                          }
-                        })()
-                      : false;
-                  return (
-                    <InfoTooltip color="#f59e0b">
-                      <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: "#f59e0b" }}>
-                        {isFr ? "Exercice fiscal décalé" : "Shifted fiscal year"}
-                      </div>
-                      <div className="text-zinc-200 text-[12.5px] leading-relaxed">
-                        {isFr ? (
-                          <>
-                            <strong>{company.name}</strong> a un exercice fiscal qui se termine en{" "}
-                            <strong>{fyEndMonthFr}</strong> (pas en décembre comme le calendrier).
-                            {" "}Pour simplifier la lecture, tous les trimestres affichés sur cette
-                            page sont les <strong>trimestres calendaires réels</strong> : T4 2025 =
-                            octobre-décembre 2025, quel que soit le nom fiscal que la société leur donne.
-                          </>
-                        ) : (
-                          <>
-                            <strong>{company.name}</strong>&apos;s fiscal year ends in{" "}
-                            <strong>{fyEndMonthEn}</strong> (not December like the calendar year).
-                            {" "}For readability, every quarter shown on this page uses the{" "}
-                            <strong>real calendar quarter</strong>: Q4 2025 = October-December 2025,
-                            whatever the company calls it fiscally.
-                          </>
-                        )}
-                        {fl.lastLabel && (
-                          <>
-                            <br /><br />
-                            <span className="text-zinc-300">
-                              {isFr ? "Dernier trimestre publié : " : "Latest published quarter: "}
-                              <strong>{fl.lastLabel}</strong>
-                              {filingDate && (
-                                <>
-                                  {" "}
-                                  <span className="text-zinc-400">
-                                    ({isFr ? "publié le " : "filed on "}
-                                    {dateFmt(filingDate)})
-                                  </span>
-                                </>
-                              )}
-                            </span>
-                          </>
-                        )}
-                        {nextEarningsDate && (
-                          <>
-                            <br />
-                            <span style={{ color: isEarningPending ? "#fbbf24" : "#facc15" }}>
-                              {isEarningPending
-                                ? isFr
-                                  ? "Earning attendu : "
-                                  : "Earning pending: "
-                                : isFr
-                                  ? "Prochain earning : "
-                                  : "Next earning: "}
-                              <strong>{fl.nextLabel}</strong>
-                              {" "}
-                              <span className="opacity-80">({dateFmt(nextEarningsDate)})</span>
-                            </span>
-                          </>
-                        )}
-                      </div>
-                    </InfoTooltip>
-                  );
-                })()}
               </div>
                 {/* Yann 19 mai 2026 : ancien tooltip orange "Exercice fiscal
                     décalé" DÉPLACÉ vers la zone "À jour" (col gauche) pour
@@ -1569,23 +1569,9 @@ export function CompanyView({
             </div>
           </div>
 
-          {/* Interpretation INSIDE hero panel */}
-          {isBlockEnabled("interpretation", company.ticker) ? (
-            <div className="mt-6">
-              <BlurredFreeText blocked={freeBlocked} ticker={company.ticker}>
-                <InterpretationBlock
-                  block={
-                    isDisabled("interpretation_watch")
-                      ? { ...interp, bullets: interp.bullets.filter((b) => b.tone !== "future") }
-                      : interp
-                  }
-                  accent={accent}
-                />
-              </BlurredFreeText>
-            </div>
-          ) : (
-            <BlockComingSoon blockId="interpretation" />
-          )}
+          {/* Interpretation retiree le 23 aout 2026 (demande Yann) : le bloc
+              sous le graph n apportait pas de valeur. Le composant et les
+              donnees restent en place pour un eventuel retour. */}
         </section>
 
         {/* Compare panel */}

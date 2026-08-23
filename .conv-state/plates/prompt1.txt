@@ -1,0 +1,28 @@
+Tu verifies des series de KPI suspectes dans ~/spx-app : leur historique affiche N points TOUS IDENTIQUES.
+Deux cas possibles :
+  A) le chiffre est reellement stable et publie a chaque periode par la societe -> on garde
+  B) la societe ne publie ce chiffre qu UNE fois, souvent en approximation (environ, ~, about) -> l historique est INVENTE
+
+FICHIER DE TRAVAIL : /Users/yann/spx-app/.conv-state/plates/lot1.json (liste de {ticker, short, name_fr, unit, valeur, points, signal})
+
+Pour CHAQUE entree :
+1. Ouvre src/data/v2-pipeline/<ticker minuscule>.json et retrouve le KPI par son champ short.
+2. Cherche la valeur dans les sources reelles : data-lake/<TICKER_MAJUSCULE>/ (10K, 10Q, 8K, ER, ir/, fichiers .txt/.json, certains en .gz : zcat).
+   Verifie si la societe publie ce chiffre A CHAQUE periode de l historique, ou une seule fois.
+3. CAS A (publie a chaque periode, valeurs vraiment identiques) : ne touche a rien.
+4. CAS B (une seule publication, ou approximation) : REDUIS l historique au ou aux seuls points reellement publies
+   (garde le point le plus recent avec sa vraie periode), et ajuste "value" pour rester coherent.
+   Si le libelle presente une approximation comme un chiffre exact, ajoute "environ" dans le champ signal.
+5. Si tu ne peux pas trancher faute de source, NE TOUCHE PAS et signale-le.
+
+REGLES ABSOLUES
+- Zero invention : jamais un chiffre, une periode ou une source qui n existe pas dans les documents locaux.
+- Ne touche a AUCUN autre KPI ni aucun autre champ.
+- JSON valide (indent 1, ensure_ascii=False si tu passes par python).
+- Pas de tiret cadratin. Francais, vocabulaire non technique.
+- Tu fais TOUT le travail toi-meme, sequentiellement. AUCUN sous-agent (le Mac crashe sur les pics de RAM).
+
+INTERDIT : rm, toucher a d autres fichiers que src/data/v2-pipeline/<ticker>.json, navigateur, serveur, git, deploiement.
+
+REPONSE FINALE : uniquement du JSON compact :
+{"resultats":[{"ticker":"XXX","short":"...","verdict":"stable_reel|historique_reduit|indecidable","detail":"une ligne"}]}
