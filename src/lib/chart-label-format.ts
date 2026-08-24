@@ -19,6 +19,23 @@
  * ce qui prévient tout chevauchement quel que soit le nombre de points.
  */
 
+/**
+ * Une unite est "physique" si elle n est ni monetaire, ni une magnitude nue
+ * (M, Mds, K, T, B), ni un pourcentage : MW, GWh, tonnes, unites, abonnes,
+ * magasins... Sur ces unites, le compact k/M est ambigu.
+ */
+const MONEY_LIKE_RE = /[$\u20ac\u00a3]|\b(USD|EUR|GBP|CHF|JPY|DKK|INR|NOK|SEK|KRW|CAD|AUD|HKD|CNY|BRL|MXN|PLN|ZAR|TWD|SGD|ILS|TRY|THB|NZD|RMB|RUB|CZK|HUF|IDR|MYR|kr)\b/i;
+const BARE_MAGNITUDE_UNIT_RE = /^(mds?|m|k|t|b)$/i;
+
+function isPhysicalUnitLabel(unit?: string): boolean {
+  const u = String(unit ?? "").trim();
+  if (!u) return false;
+  if (u === "%" || u.includes("%")) return false;
+  if (MONEY_LIKE_RE.test(u)) return false;
+  if (BARE_MAGNITUDE_UNIT_RE.test(u)) return false;
+  return true;
+}
+
 export function formatChartValueLabel(
   v: number,
   dataMax: number,
@@ -35,6 +52,16 @@ export function formatChartValueLabel(
   }
   const abs = Math.abs(v);
   const maxAbs = Math.abs(dataMax);
+  // Yann 24 aout 2026 (screen NEE "6,3 k" sous un axe "MW") : le compact "k"
+  // n a de sens que sur une unite monetaire ou une magnitude nue. Sur une
+  // unite physique (MW, GWh, tonnes, unites, abonnes...) il se lit comme un
+  // prefixe d unite ("6,3 kMW") et contredit l axe, qui lui affiche 6 000 en
+  // clair. On ecrit donc le nombre en entier.
+  // Plafond a 100 000 : au-dela le nombre entier devient trop long pour les
+  // series denses, le compact reprend la main.
+  if (isPhysicalUnitLabel(unit) && maxAbs < 100_000) {
+    return v.toLocaleString("fr-FR", { maximumFractionDigits: maxAbs < 100 ? 1 : 0 });
+  }
   // Compact k/M/Md dès que le pic de la série dépasse 1 000 : garantit
   // labels courts sur tout le graphique, homogènes.
   if (maxAbs >= 1000) {
