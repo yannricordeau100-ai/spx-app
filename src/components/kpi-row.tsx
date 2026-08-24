@@ -271,12 +271,12 @@ export function KpiRow({
           if (!yoyStr) return null;
           return (
             <div
-              className="inline-flex items-center gap-0.5 font-mono text-[12.5px] tabular-nums"
+              className="inline-flex items-center font-mono text-[12.5px] tabular-nums"
               style={{ color: freeBlocked ? "#52525b" : yoyColor }}
             >
               <span>(</span>
-              {!freeBlocked && tone === "pos" && <ArrowUpRight className="size-3" />}
-              {!freeBlocked && tone === "neg" && <ArrowDownRight className="size-3" />}
+              {!freeBlocked && tone === "pos" && <ArrowUpRight className="mr-0.5 size-3" />}
+              {!freeBlocked && tone === "neg" && <ArrowDownRight className="mr-0.5 size-3" />}
               {freeBlocked ? (
                 <BlurredFreeValue value="+0,0 %" ticker={ticker} />
               ) : (
