@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Company } from "@/lib/data";
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
@@ -154,6 +154,34 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
   const splitIdx = Math.ceil(labelWords.length / 2);
   const labelLine1 = labelWords.slice(0, splitIdx).join(" ");
   const labelLine2 = labelWords.slice(splitIdx).join(" ");
+  // Yann 24 aout 2026 : largeur de l extension coloree a gauche du bloc.
+  // Elle doit s arreter au bord gauche du logo (= bord gauche de la ligne
+  // d en-tete) et ne JAMAIS le depasser. Mesuree au layout puis a chaque
+  // resize ; 0 quand le bloc passe pleine largeur (mobile).
+  const blockRef = useRef<HTMLDivElement | null>(null);
+  const [extWidth, setExtWidth] = useState(0);
+  useLayoutEffect(() => {
+    const measure = () => {
+      const el = blockRef.current;
+      if (!el) return;
+      const row = el.closest('[data-header-row="true"]') as HTMLElement | null;
+      const leftBound = (row ?? el.parentElement ?? el).getBoundingClientRect().left;
+      const next = Math.max(0, el.getBoundingClientRect().left - leftBound);
+      setExtWidth(next);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    const el = blockRef.current;
+    if (el) ro.observe(el);
+    const row = el?.closest('[data-header-row="true"]');
+    if (row) ro.observe(row);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
   const variationLocale = locale === "fr" ? "fr-FR" : locale === "de" || locale === "de-CH" ? "de-DE" : locale === "nl" ? "nl-NL" : "en-US";
 
   // Yann (26 mai 2026) : refonte complète pour éliminer l'espace vide et
@@ -170,6 +198,7 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
   //    bord droit (le bord gauche varie selon la longueur des valeurs).
   return (
     <div
+      ref={blockRef}
       // Yann 5 juin 2026 : bande couleur (vert/rouge) trop haute, dépassait
       // le texte du sous-secteur. Réduit py-5 → py-2.5 pour aligner la limite
       // basse au niveau du texte secteur/sous-secteur du CompanyHeader.
@@ -201,10 +230,15 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
           (après logo) → opaque tone à droite. Gradient sur extension 800px :
           transparent à gauche, tone à droite. Le logo reste hors zone colorée
           car le gradient commence transparent. */}
+      {/* Yann 24 aout 2026 : la largeur etait figee a 800px, donc la bande
+          debordait TOUJOURS a gauche du logo (capture ASML). Elle est
+          desormais mesuree : elle s arrete exactement au bord gauche du
+          logo (= bord gauche de la ligne d en-tete), jamais avant. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute right-full top-0 h-full w-[800px]"
+        className="pointer-events-none absolute right-full top-0 h-full"
         style={{
+          width: extWidth,
           background: `linear-gradient(90deg, transparent 0%, ${tone}22 40%, ${tone}66 65%, ${tone}cc 85%, ${tone} 100%)`,
         }}
       />

@@ -234,7 +234,10 @@ export function CompanyHeader({
 
   return (
     <div className="mb-8">
-      <div className="flex flex-wrap items-start gap-x-5 gap-y-4">
+      <div
+        data-header-row="true"
+        className="flex flex-wrap items-start gap-x-5 gap-y-4"
+      >
         {!logoDisabled && <LogoTile ticker={company.ticker} />}
         <div className="min-w-0 flex-1">
           <CompanyName
