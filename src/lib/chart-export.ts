@@ -760,7 +760,9 @@ export async function downloadSvgAsPng(
       const isNegative = /^[\u2212-]/.test(rawCagr) || /\s-\d/.test(` ${rawCagr}`);
       const arrowColor = isNegative ? "#f43f5e" : "#10b981";
       const cagrY = LINE2_Y + 32;
-      const cagrRightX = origX + origW;
+      // Le PNG du logo footer a ~72 unites de marge transparente a droite :
+      // on aligne sur le bord VISIBLE du wordmark, pas sur la boite.
+      const cagrRightX = origX + origW - 72;
 
       const cagrEl = document.createElementNS(NS, "text");
       cagrEl.setAttribute("x", String(cagrRightX));
