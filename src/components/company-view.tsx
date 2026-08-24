@@ -1177,19 +1177,20 @@ export function CompanyView({
                 )}
                 {/* Quality + percentile chips : masqués si KPI incomplet (= rating bidon "Moyen Top 50 %") */}
                 {!isIncompleteKpi && <QualityChipOnly rating={heroRating} />}
-                {/* Yann 23 aout 2026 : bulle CAGR reduite a la taille du texte
-                    (plus de retour a la ligne interne) et "i" exercice fiscal
-                    place a DROITE de la bulle, en dehors. */}
-                <div className="flex w-fit items-center gap-1.5">
+                {/* Yann 24 aout 2026 : bulle CAGR sur DEUX lignes (taux au-dessus,
+                    periode en dessous), contenu centre dans la bulle, et "i"
+                    exercice fiscal a droite, hors bulle, centre verticalement. */}
+                <div className="flex w-fit items-center gap-2">
                 {heroCAGR && (
-                  <div className="inline-flex w-fit items-center gap-x-1 whitespace-nowrap rounded-full border border-[#262626] bg-[#0d0d0d] px-2.5 py-1 font-mono text-[12px] tabular-nums text-zinc-200">
-                    {freeBlocked ? (
-                      <BlurredFreeValue value="+0,0 %/an" ticker={company.ticker} />
-                    ) : (
-                      heroCAGR
-                    )}
-                    <span className="whitespace-nowrap text-[10.5px] italic text-zinc-400">
-                      {"\u00a0"}
+                  <div className="inline-flex w-fit flex-col items-center justify-center rounded-2xl border border-[#262626] bg-[#0d0d0d] px-3 py-1.5 text-center font-mono text-[12px] tabular-nums text-zinc-200">
+                    <span className="leading-tight">
+                      {freeBlocked ? (
+                        <BlurredFreeValue value="+0,0 %/an" ticker={company.ticker} />
+                      ) : (
+                        heroCAGR
+                      )}
+                    </span>
+                    <span className="whitespace-nowrap text-[10.5px] italic leading-tight text-zinc-400">
                       {heroCagrYears >= 4.5 && heroCagrYears <= 5.5
                         ? t("hero.cagr_5y")
                         : `(CAGR ${(heroCagrYears > 5.5 ? Math.round(heroCagrYears) : heroCagrYears).toLocaleString(locale === "fr" ? "fr-FR" : "en-US")} ${heroCagrYears <= 1 ? (locale === "de" || locale === "de-CH" ? "Jahr" : locale === "fr" ? "an" : "year") : (locale === "de" || locale === "de-CH" ? "Jahre" : locale === "fr" ? "ans" : "years")})`}
@@ -1614,8 +1615,8 @@ export function CompanyView({
           </div>
           <div className="overflow-hidden rounded-2xl border border-[#1f1f1f] bg-[#080808]">
             <div className="grid grid-cols-12 gap-3 border-b border-[#1a1a1a] bg-[#0c0c0c] px-5 py-3.5 font-sans text-[11.5px] font-semibold uppercase tracking-[0.12em] text-zinc-300 sm:px-6">
-              <div className="col-span-4">{t("company.kpi_table.col_indicator")}</div>
-              <div className="col-span-2">{t("company.kpi_table.col_value")} <span className="ml-0.5 italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span></div>
+              <div className="col-span-3">{t("company.kpi_table.col_indicator")}</div>
+              <div className="col-span-3">{t("company.kpi_table.col_value")} <span className="ml-0.5 italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span></div>
               <div className="col-span-2">{t("company.kpi_table.col_trend")}</div>
               <div className="col-span-4">{t("company.kpi_table.col_quality")}</div>
             </div>

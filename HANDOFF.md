@@ -1,74 +1,58 @@
-# Handoff vers une nouvelle conversation Claude Code
+# HANDOFF — État du projet Mettrik AI
 
-## Procédure (3 étapes — 30 secondes)
+> Mis à jour le 8 juillet 2026 (reconstruit depuis git log + git status).
+> Ce fichier est auto-chargé via CLAUDE.md. Il remplace l'ancien handoff V1 (5 stés), obsolète.
+> Attention : certaines sections de CLAUDE.md (§0, §2, §8) datent de la V1 et sont périmées. Ce fichier fait foi sur l'état courant.
 
-### 1. Ouvrir une nouvelle session Claude Code dans ce dossier
+## 1. Identité et version active
 
-```bash
-cd ~/spx-app
-claude       # ou ton raccourci habituel pour lancer Claude Code
-```
+- App : **Mettrik AI** (KPI Intelligence), SaaS pour investisseurs, repo `~/spx-app`.
+- Version active unique : **V1.9.5** (`LATEST_VERSION_SLUG = "v1-9-5"` dans `src/lib/version-routing.ts`). Tout fix/data cible V1.9.5, les anciennes versions sont des snapshots figés.
+- Univers : SP500, **liste visible 503 stés** (commit `d409e78593`), scope public strict via `_validation_global` + gating URL (commit `69b6219098`). Liste curatée complète : `v1-9-5-clean-all-tickers.json` (~652 stés). 8 stés bloquées structurellement, ne pas re-tenter.
+- Stack : Next.js 16 (webpack en dev), React 19, Tailwind v4, motion, recharts, Supabase, Stripe, Sentry, Playwright (tests golden Top 10 témoin).
 
-Claude lit automatiquement `CLAUDE.md` au démarrage. Tout le contexte
-(stack, conventions, vocabulaire, données, todo, règles d'honnêteté,
-préférences, état actuel du travail) y est consigné.
+## 2. Architecture data
 
-### 2. Coller ce **kickstart prompt** dans le premier message
+- `data-lake/<TICKER>/{10K,10Q,8K,...}/` : filings SEC compressés .gz (source brute).
+- `src/data/companies/` : ~2167 fichiers JSON canoniques (1 par sté).
+- `src/data/v2-pipeline/` : ~4716 fichiers pipeline d'extraction.
+- `.batches-drafts-safe/` : drafts de batchs (KPI, risks batch067-070, scripts d'audit/fix). Zone de travail, pas canonique.
+- LLM d'extraction : Cerebras free tier (3 clés rotation) + Groq. **Zéro API Anthropic payante** (règle d'or). Sub-agents Task tool OK en read-only/audit, écritures data canoniques = validation Yann avant push.
+- Crons actifs : daily-doc-watcher (statuts dans `src/data/_daily-doc-watcher-status.json`), cron-cerebras-restart, historique `v1-9-cron-history.json`.
 
-> Salut. Je reprends Mettrik — l'app KPI Intelligence pour investisseurs.
-> Le contexte complet est dans `CLAUDE.md` (déjà chargé). Lis-le entièrement
-> avant de répondre.
->
-> Là où on s'est arrêté : on travaille sur la **refonte 3D des charts du hero**
-> (Curve, Bars, Variation). Mon attente précise est documentée dans la section
-> "CURRENT STATE / WHERE WE LEFT OFF" de CLAUDE.md.
->
-> Ne refais pas ce qui marche déjà. Ne réinvente pas mes décisions (nom Mettrik,
-> 5 sociétés, 3 variantes, vocabulaire FR sans em-dash, règles d'honnêteté data).
-> Réponds court quand mon prompt est court. Vas-y direct, pas de récap inutile.
->
-> Premier livrable que j'attends : montre-moi ta proposition pour le
-> "face → top-right tilt" 3D camera animation pour le chart Bars (à l'écran sur
-> /googl). Une seule itération, je donnerai mon feedback.
+## 3. Avancement récent (4-7 juillet 2026)
 
-### 3. Reprendre le travail
+Arc des derniers commits, du plus ancien au plus récent :
 
-Claude exécutera. Si tu as besoin de relire l'historique : tout est dans
-`CLAUDE.md` + `git log` (commit "v1 handoff snapshot" figé à cet instant).
+1. **4 juil** : SP500 complété (48 stés ajoutées, liste visible 503), scope public strict, fix 11 stés bloquées, KPI history complet 452 stés + hero index.
+2. **5 juil** : KPI ER + earnings calls intégrés (2249 KPI core business, 490 stés), vérif adversariale complète (97+15 points corrigés sur 59 stés).
+3. **6 juil** : KPI calls 5 ans (191) + stories calls/filings (5813) sur 503 stés. Bloc rémunération MAJ depuis derniers DEF14A (375 stés) puis enrichi comp_detail (salaire/bonus/actions/options, médiane, NEO2, critères bonus : 501 stés, 5059 champs). Dédoublonnage stories (398 doublons supprimés).
+4. **7 juil** : Rémunération v2 (proxys 2024-2026, 498 stés) + KPI sectoriels banques/REIT/assureurs (75 stés). Cas vérifiés à la main : BK (mega-grant 83.47M), KKR/BX (carried interest), MGM ; PSKY sans proxy post-fusion. **Fix majeur** : le remplacement kpis-haut écrasait ER/calls/stories/sectoriels (réinjectés dédupliqués) + tooltip détail rémunération CEO. Réinjection champ `signal` sur 8568 KPI (stories muettes filtrées par `isStoryKpiUsable`). Dernier commit `2536cd7cca` : fix héros cassés par le dédoublonnage (436 stés repointées vers un KPI existant avec yoy requis) + fit TKO.
 
----
+En résumé : la V1.9.5 vient de recevoir 4 gros chantiers data (KPI ER/calls, stories, rémunération enrichie, KPI sectoriels) suivis d'une passe de réparation des effets de bord (écrasements, doublons, héros cassés, signaux manquants).
 
-## En cas de problème
+## 4. État du working tree (non commité)
 
-| Symptôme | Action |
-|---|---|
-| Claude ignore les règles tacites | Pointe-le vers la section §6 de CLAUDE.md |
-| Claude veut refaire une décision | "Lis §10 de CLAUDE.md, ne renomme pas/réécris pas" |
-| Claude invente des chiffres | "Règle d'honnêteté §2 : si pas de source PDF, skip" |
-| Le serveur dev est down | `cd ~/spx-app && npm run dev` |
-| Mobile inaccessible | Vérifie que `192.0.0.2` (ou IP hotspot actuelle) est dans `next.config.ts` |
+- ~12 600 fichiers modifiés, quasi tout = `data-lake/` en changements de mode (`T`, fichiers devenus symlinks/regular). Pas du contenu, pas urgent.
+- Vrais fichiers modifiés : `CLAUDE.md`, `RULES-GOLDEN.md`, `SHARED-STATUS.md` supprimé (conforme à l'abrogation multi-conv), audits top voting/capital, statuts crons.
+- Non suivis : `risks-batch067` à `070` (nouveaux batchs risks en cours), scripts d'audit KPI (`check-continuity.py`, `check-corruption.py`, `kpi-fix-gaps.js`, `gaps_*.json`, `corruption_final.json`), `kpis-call-only/`.
 
----
+## 5. Décisions techniques verrouillées (rappel)
 
-## Ce que la nouvelle session NE saura PAS automatiquement
+- Dernière version uniquement (V1.9.5), 1 sté citée = fix systémique sur tout l'univers, Top 10 stés témoin freeze (`npm run test:golden`).
+- Honnêteté data absolue : jamais inventer un chiffre, TAM uniquement si disclosé par la sté, vérifier toute affirmation numérique (yfinance/EDGAR).
+- Chaîne deploy : edit → tsc → commit → push → deploy → alias → curl verify AVANT de dire "fait". Audit visuel complet des blocs page sté avant "OK".
+- Vocabulaire : pas d'em-dash, "Mds", "À jour", FR partout sauf taglines EN.
 
-(donc à mentionner explicitement si tu en as besoin) :
+## 6. État final session précédente (7-8 juil, confirmé par Yann via screenshots)
 
-- Le fait que tu prépares une démo aux fondateurs de **baggr.fr** et **iq-invest**
-- Le budget V2 plafonné à **$150**
-- Le domaine `mettrik.ai` est acheté chez **Spaceship**
-- L'app a tourné sous `localhost:3000` puis brièvement sous tunnels
-  (cloudflared, localtunnel, serveo) que tu as fait annuler — pas de tunnel par
-  défaut désormais
+Tout le backlog est TERMINÉ et vérifié en prod sur mettrik.ai :
+- Fix écrasement kpis-haut (fusion au lieu d'écrasement), 8 568 signaux réinjectés.
+- 436 heros réparés dont 29 stés inaccessibles (MSFT, HD, GS...) : 503/503 éligibles validées au loader réel.
+- Stories visibles, testées 10/10 stés. Moyennes : 21,1 stories/sté, 8,3 indicateurs clés/sté.
+- Rémunération : 502/503 complètes (PSKY sans proxy post-fusion, légitime). Tooltip CEO salaire/bonus/actions/médiane/n°2 : fait et vérifié en rendu réel.
 
-Si la nouvelle conversation a besoin de cette info, dis-le simplement.
+## 7. Prochaines étapes
 
----
-
-## Fichiers d'ancrage
-
-- `CLAUDE.md` (auto-chargé) — règles, état, vocabulaire, structure
-- `HANDOFF.md` (ce fichier) — procédure de reprise
-- `AGENTS.md` — note sur Next.js (déprécié, garde par compat)
-
-Bonne reprise.
+1. **Cron de rafraîchissement trimestriel** : seul chantier ouvert, en attente du go Yann.
+2. Secondaire : batchs risks-batch067→070 non commités, changements de mode data-lake (12 600 fichiers) à normaliser ou ignorer, CLAUDE.md §0/§2/§8 périmés (V1 à 5 stés).

@@ -117,7 +117,7 @@ export function KpiRow({
         if (e.key === "Enter" || e.key === " ") onClick?.();
       }}
       className={cn(
-        "group relative grid w-full cursor-pointer grid-cols-12 items-center gap-3 border-b border-[#1a1a1a] px-5 py-4 text-left transition-colors hover:bg-[#0c0c0c] focus:outline-none focus-visible:bg-[#0c0c0c] sm:px-6 sm:py-5",
+        "group relative grid w-full cursor-pointer grid-cols-12 items-center gap-3 border-b border-[#1a1a1a] px-5 py-2 text-left transition-colors hover:bg-[#0c0c0c] focus:outline-none focus-visible:bg-[#0c0c0c] sm:px-6 sm:py-2.5",
         active && "bg-[#0d0d0d]"
       )}
     >
@@ -150,8 +150,9 @@ export function KpiRow({
         />
       </span>
 
-      {/* COL 1 — Indicateur (4 cols). Acronym + name centered vertically together. */}
-      <div className="col-span-12 sm:col-span-4">
+      {/* COL 1 — Indicateur (3 cols, Yann 24 aout 2026 : colonne retrecie,
+          le nom peut passer sur 2 lignes). */}
+      <div className="col-span-12 sm:col-span-3">
         <div className="flex items-center gap-2.5">
           {/* Yann (1er juin 05:15) : badge violet kpi.short retiré.
               Cause : pour certains KPIs récents le `short` contient le nom EN
@@ -159,7 +160,7 @@ export function KpiRow({
               c'est redondant avec name_fr affiché ci-dessous. Le "i" tooltip
               de l'InfoTooltip suffit pour les détails. */}
           <div className="min-w-0 leading-tight">
-            <div className="text-[15.5px] font-medium text-zinc-100">{primaryName}</div>
+            <div className="text-[14px] font-medium leading-snug text-zinc-100">{primaryName}</div>
             {secondaryName && secondaryName !== primaryName && (
               <div className="text-[11.5px] text-zinc-400">{secondaryName}</div>
             )}
@@ -182,78 +183,18 @@ export function KpiRow({
           </InfoTooltip>
         </div>
 
-        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-          {/* Yann (V1.9.5 fix 4c, 30 mai 2026) : badge violet sub-category
-              retiré. Garder uniquement la nature (gris) pour ne plus afficher
-              de catégorie violette redondante sur le tableau Indicateurs clés.
-              Yann (4 juin 2026) : si nature absente sur la sté (3.2% des
-              KPIs en dataset), fallback sur type ; si type absent aussi on
-              masque la chip plutôt que d'afficher une bordure vide. */}
-          {(() => {
-            const label =
-              (typeof kpi.nature === "string" && kpi.nature.trim()) ||
-              (typeof kpi.type === "string" && kpi.type.trim()) ||
-              null;
-            if (!label) return null;
-            return (
-              <span className="inline-flex items-center rounded-md border border-[#262626] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
-                {label}
-              </span>
-            );
-          })()}
-        </div>
+        {/* Yann 24 aout 2026 : chip categorie/nature ("Structurel", "Volume"...)
+            supprimee sous le nom du KPI. Elle allongeait la ligne sans apport
+            de lecture. */}
       </div>
 
-      {/* COL 2 — Valeur · YoY (2 cols) */}
-      <div className="col-span-6 sm:col-span-2">
-        {/* Yann 15 juil 2026 : pastille de période de référence (FY vs trimestre)
-            pour lever l'ambiguïté annuel/trimestriel dans le tableau. */}
-        {(() => {
-          const hp = (kpi as { history_periods?: unknown[] }).history_periods;
-          let periodLabel: string | null = null;
-          if (Array.isArray(hp) && hp.length > 0) {
-            const lastP = String(hp[hp.length - 1] ?? "").trim();
-            // Yann 9 août 2026 : labels annuels et semestriels aussi lus depuis
-            // history_periods (avant : seuls les "Qn YYYY" matchaient, les KPI
-            // FY/semestre retombaient sur last_data_date qui peut être une date
-            // de scrape → badge "FY2026" pour une valeur FY2025).
-            const mFy = lastP.match(/^(?:FY[\s-]*)?(\d{4})$/i);
-            if (mFy) periodLabel = `FY${mFy[1]}`;
-            const mH = lastP.match(/^[HS]([12])[\s-]*(\d{4})$/i);
-            if (!periodLabel && mH) periodLabel = `S${mH[1]} ${mH[2]}`;
-            const m = lastP.match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/);
-            if (m) {
-              // Yann 16 juil 2026 : conversion trimestre fiscal → calendaire
-              // (l'utilisateur doit savoir de quand datent les chiffres).
-              const fa = getFiscalAudit(ticker ?? "");
-              const fyEnd = fa?.fiscalYearEndMonth ?? 12;
-              const cal = fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fyEnd, fa?.fyLabelConvention ?? "end");
-              periodLabel = `T${cal.q} ${cal.year}`;
-            }
-          }
-          if (!periodLabel && kpi.last_data_date) {
-            const d = new Date(kpi.last_data_date);
-            if (!Number.isNaN(d.getTime())) {
-              if (kpi.period_type === "quarter") {
-                periodLabel = `T${Math.floor(d.getUTCMonth() / 3) + 1} ${d.getUTCFullYear()}`;
-              } else if (kpi.period_type === "semester") {
-                periodLabel = `S${d.getUTCMonth() + 1 <= 6 ? 1 : 2} ${d.getUTCFullYear()}`;
-              } else {
-                periodLabel = `FY${d.getUTCFullYear()}`;
-              }
-            }
-          }
-          if (!periodLabel) return null;
-          return (
-            <span
-              className="mb-1.5 inline-flex items-center rounded border border-[#262626] bg-[#101010] px-1.5 py-[1px] font-mono text-[9.5px] uppercase tracking-wider text-zinc-500"
-              title="Période de référence de la valeur affichée"
-            >
-              {periodLabel}
-            </span>
-          );
-        })()}
-        <div className="font-mono text-[26px] font-semibold tabular-nums leading-none text-zinc-50">
+      {/* COL 2 — Valeur · variation (3 cols) */}
+      <div className="col-span-6 sm:col-span-3">
+        {/* Yann 24 aout 2026 : valeur et variation sur UNE ligne, la
+            variation entre parentheses a droite de la valeur, nettement
+            detachee (gap-x-4). */}
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+        <div className="font-mono text-[20px] font-semibold tabular-nums leading-none text-zinc-50">
           {freeBlocked ? (
             <BlurredFreeValue
               value={formattedValue}
@@ -330,22 +271,73 @@ export function KpiRow({
           if (!yoyStr) return null;
           return (
             <div
-              className="mt-2 inline-flex items-center gap-1 font-mono text-[13px] tabular-nums"
+              className="inline-flex items-center gap-0.5 font-mono text-[12.5px] tabular-nums"
               style={{ color: freeBlocked ? "#52525b" : yoyColor }}
             >
-              {!freeBlocked && tone === "pos" && <ArrowUpRight className="size-3.5" />}
-              {!freeBlocked && tone === "neg" && <ArrowDownRight className="size-3.5" />}
+              <span>(</span>
+              {!freeBlocked && tone === "pos" && <ArrowUpRight className="size-3" />}
+              {!freeBlocked && tone === "neg" && <ArrowDownRight className="size-3" />}
               {freeBlocked ? (
                 <BlurredFreeValue value="+0,0 %" ticker={ticker} />
               ) : (
                 yoyStr
               )}
-              <span className="text-[10.5px] italic text-zinc-400">{t("hero.yoy")}</span>
+              <span>)</span>
             </div>
           );
         })()}
+        </div>
+        {/* Ligne secondaire compacte : periode de reference + CAGR. */}
+        <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+        {/* Yann 15 juil 2026 : pastille de période de référence (FY vs trimestre)
+            pour lever l'ambiguïté annuel/trimestriel dans le tableau. */}
+        {(() => {
+          const hp = (kpi as { history_periods?: unknown[] }).history_periods;
+          let periodLabel: string | null = null;
+          if (Array.isArray(hp) && hp.length > 0) {
+            const lastP = String(hp[hp.length - 1] ?? "").trim();
+            // Yann 9 août 2026 : labels annuels et semestriels aussi lus depuis
+            // history_periods (avant : seuls les "Qn YYYY" matchaient, les KPI
+            // FY/semestre retombaient sur last_data_date qui peut être une date
+            // de scrape → badge "FY2026" pour une valeur FY2025).
+            const mFy = lastP.match(/^(?:FY[\s-]*)?(\d{4})$/i);
+            if (mFy) periodLabel = `FY${mFy[1]}`;
+            const mH = lastP.match(/^[HS]([12])[\s-]*(\d{4})$/i);
+            if (!periodLabel && mH) periodLabel = `S${mH[1]} ${mH[2]}`;
+            const m = lastP.match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/);
+            if (m) {
+              // Yann 16 juil 2026 : conversion trimestre fiscal → calendaire
+              // (l'utilisateur doit savoir de quand datent les chiffres).
+              const fa = getFiscalAudit(ticker ?? "");
+              const fyEnd = fa?.fiscalYearEndMonth ?? 12;
+              const cal = fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fyEnd, fa?.fyLabelConvention ?? "end");
+              periodLabel = `T${cal.q} ${cal.year}`;
+            }
+          }
+          if (!periodLabel && kpi.last_data_date) {
+            const d = new Date(kpi.last_data_date);
+            if (!Number.isNaN(d.getTime())) {
+              if (kpi.period_type === "quarter") {
+                periodLabel = `T${Math.floor(d.getUTCMonth() / 3) + 1} ${d.getUTCFullYear()}`;
+              } else if (kpi.period_type === "semester") {
+                periodLabel = `S${d.getUTCMonth() + 1 <= 6 ? 1 : 2} ${d.getUTCFullYear()}`;
+              } else {
+                periodLabel = `FY${d.getUTCFullYear()}`;
+              }
+            }
+          }
+          if (!periodLabel) return null;
+          return (
+            <span
+              className="inline-flex items-center rounded border border-[#262626] bg-[#101010] px-1.5 py-[1px] font-mono text-[9.5px] uppercase tracking-wider text-zinc-500"
+              title="Période de référence de la valeur affichée"
+            >
+              {periodLabel}
+            </span>
+          );
+        })()}
         {cagrLabel && (
-          <div className="mt-1 font-mono text-[11.5px] tabular-nums text-zinc-400">
+          <div className="font-mono text-[11px] tabular-nums text-zinc-400">
             {freeBlocked ? (
               <BlurredFreeValue value="+0,0 %/an" ticker={ticker} />
             ) : (
@@ -368,11 +360,12 @@ export function KpiRow({
             </span>
           </div>
         )}
+        </div>
       </div>
 
       {/* COL 3 — Tendance (2 cols) */}
       <div className="col-span-6 sm:col-span-2">
-        <Sparkline data={kpi.history} height={42} color={accent} />
+        <Sparkline data={kpi.history} height={30} color={accent} />
       </div>
 
       {/* COL 4 — Qualité (stacked) + Signal */}

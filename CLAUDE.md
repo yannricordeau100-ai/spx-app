@@ -1,7 +1,6 @@
 @RULES-GOLDEN.md
 @AGENTS.md
 @HANDOFF.md
-@SHARED-STATUS.md
 
 > 🔍 **RÈGLE TEST RÉEL OBLIGATOIRE** (ajoutée 3 mai 2026) :
 > Avant de dire à Yann « à tester côté toi », je DOIS tester en réel sur la prod

@@ -45,33 +45,6 @@ Mots-clés déclencheurs dans un prompt Yann qui activent la règle :
 
 ---
 
-## 000. NE JAMAIS ARRÊTER UNE TÂCHE SANS CONFIRMATION EXPLICITE YANN (PERMANENT, À JAMAIS)
-
-Édictée par Yann le 30 mai 2026. **RÈGLE LA PLUS IMPORTANTE. PERMANENTE. À JAMAIS.**
-
-Une tâche en cours (sub-agent, script, run, mission, rotation, batch, extraction, scrape, etc.) **NE DOIT JAMAIS ÊTRE ARRÊTÉE** tant que Yann n'a pas confirmé explicitement "oui, arrête" dans le chat.
-
-**Procédure obligatoire** :
-1. Si je pense devoir arrêter une tâche → demander à Yann d'abord.
-2. Si Yann ne répond pas / réponse ambiguë → demander à nouveau, plusieurs fois si besoin.
-3. **Tant qu'il n'y a pas de OUI clair → la tâche continue.**
-4. En attendant la confirmation : continuer la tâche, ne pas la suspendre, ne pas la mettre en pause "par précaution".
-
-**Cette règle s'applique à TOUT** :
-- Sub-agents background en cours
-- Scripts Python / Cerebras / Anthropic
-- Vagues de batches (10×10 strategy)
-- Loops `/loop`
-- ScheduleWakeup
-- Crons GHA
-- Re-extractions, re-validations, audits
-
-**Pas d'exception**. Pas de "j'ai arrêté car je pensais que c'était fini". Pas de "j'ai stoppé pour économiser des tokens". Pas de "j'ai estimé que c'était suffisant". **Confirmation explicite Yann obligatoire**.
-
-Faute = trahison. Yann ne doit JAMAIS relancer manuellement une tâche que Claude aurait arrêtée de sa propre initiative.
-
----
-
 ## 0quater. PRIORISATION SI >2 TÂCHES (PERMANENT)
 
 Édictée par Yann le 27 mai 2026. **PERMANENT, jamais limité dans le temps.**
@@ -87,79 +60,6 @@ ou je lance quand même ?" avant d'ajouter une 3e tâche.
 
 But : limiter saturation RAM Mac + éviter de me disperser sur 5 fronts
 en parallèle qui finissent tous à moitié.
-
----
-
-## 0ter. PIPELINE DEPLOY OBLIGATOIRE (PERMANENT — révision 2026-06-02)
-
-Édictée par Yann le 27 mai 2026, révisée 2026-06-02 après bug popup OAuth Vercel
-récurrent depuis dimanche.
-
-**RÈGLE ABSOLUE** : JAMAIS de `npx vercel deploy`, `npx vercel login`, ou toute
-commande `vercel` SANS `--token=$VERCEL_TOKEN` explicite. Sinon → popup OAuth
-device code qui interrompt Yann.
-
-**Workflow OBLIGATOIRE pour tout commit qui doit aller sur niveau2** :
-
-1. `git commit` + `git push origin staging`
-2. `bash scripts/deploy-and-alias.sh` (foreground) — utilise le webhook hook URL
-   (pas de token requis) + auto-poll status via `--token` + auto-alias.
-
-**Alternative manuelle** si script cassé :
-- `curl -X POST $VERCEL_DEPLOY_HOOK_STAGING` (webhook, pas de token)
-- Wait ~3-5 min
-- `npx vercel ls --token=$VERCEL_TOKEN` pour récupérer URL dernier deploy
-- `npx vercel inspect <url> --token=$VERCEL_TOKEN` pour status
-- `npx vercel alias set <url> mettrik-niveau2.vercel.app --token=$VERCEL_TOKEN`
-
-**Sub-agents** : interdit absolu de lancer `npx vercel deploy`. Si un sub-agent a
-besoin de deploy, il commit + push, puis indique dans son rapport "deploy à
-lancer par Claude principal via `bash scripts/deploy-and-alias.sh`". Le sub-agent
-n'a JAMAIS accès au token utilisateur et déclenche systématiquement l'OAuth.
-
-**Pas de "deploy en background, je te notifie"** sauf si Yann l'accepte
-explicitement. La règle est : un fix annoncé = un fix LIVE et VÉRIFIÉ
-par curl sur niveau2 dans le même tour de bash.
-
-**Sub-agents Opus** : leurs rapports "done" doivent être recoupés par
-diff git ou curl avant que je les relaie comme fait. Sinon je relaie
-des mensonges silencieux.
-
----
-
-## 0septies. KPI SPÉCIFIQUES UNIQUEMENT — RÈGLE D'OR ABSOLUE
-
-ÉDICTÉE PAR YANN LE 19 MAI 2026. RAPPELÉE 28 MAI 2026 APRÈS RÉCIDIVE
-(fix orderedKpis avait inclus des génériques pour atteindre min 5).
-
-TOUS LES KPI VISIBLES (HERO + INDICATEURS CLÉS + STORIES) DOIVENT ÊTRE :
-- SPÉCIFIQUES À LA SOCIÉTÉ (ex GOOGL = Google Cloud Revenue, YouTube
-  Ads Revenue, Vertex AI Customers ; NVDA = Data Center Revenue,
-  Gaming Revenue, Auto Revenue)
-- OU SPÉCIFIQUES AU SOUS-SECTEUR / INDUSTRIE (ex banque = Tier 1 ratio,
-  Net Interest Margin, Loan Book ; pharma = Top Drug Sales, Pipeline)
-
-KPI GÉNÉRIQUES INTERDITS À L'AFFICHAGE (sauf hero activé manuellement) :
-Revenue / Op Margin / EPS / Net Income / EBITDA / FCF / Headcount /
-Capex / R&D / Gross Margin / Cap Return / DPS / Payout Ratio / Total
-Assets / Total Debt / Cash & Equivalents / Net Debt / EBITDA Margin /
-Buybacks / Market Cap / Leverage Ratio / Free Cash Flow.
-
-LISTE CANONIQUE : src/data/kpi-generic-library.json.
-
-FILTRE OBLIGATOIRE : `isGenericKpi(short) === true` → KPI MASQUÉ.
-JAMAIS DE FALLBACK qui inclut des génériques pour atteindre un compte
-minimum. Si <5 spécifiques disponibles pour une sté → AFFICHER MOINS
-DE 5. Si 0 spécifique → bloc vide + flag "Fiche en préparation".
-
-VIOLATIONS HISTORIQUES À NE PAS REFAIRE :
-- 27 mai 2026 : commits 531b987f4 + c0fcd5c17 avaient ajouté fallback
-  "min 5 visibles" incluant les génériques. REVERTED le 28 mai 2026.
-
-CECI EST UNE RÈGLE PROTÉGÉE COMPACTAGE. Lors d'une nouvelle session
-Claude Code, après lecture de RULES-GOLDEN.md, je VÉRIFIE explicitement
-cette règle AVANT toute modif du composant company-view.tsx
-section `orderedKpis`.
 
 ---
 
@@ -423,72 +323,6 @@ demande pour qu'elle soit faite.
 
 ---
 
-## 5bis. Langage TOUJOURS compréhensible par 16 ans non-technique
-
-Toute réponse adressée **directement à Yann** (= pas dans la conv partagée
-SHARED-STATUS) doit pouvoir être comprise par un adolescent de 16 ans
-sans expérience développeur ni technique.
-
-Concrètement :
-- Pas de jargon code (ex : remplacer "useEffect", "PR", "diff" par "le
-  composant", "les modifs", "les changements")
-- Pas d'acronymes IT non explicités à l'usage (CDN, SSR, TS, hooks, etc.
-  → expliquer en 3 mots si vraiment nécessaire, sinon contourner)
-- Pas de chemins absolus disque sans contexte (préférer "dans le fichier
-  des tâches du desk" plutôt que "src/components/desk/tab-todos.tsx",
-  sauf si Yann demande explicitement le chemin)
-- Phrases courtes, mots simples
-- Quand je donne une URL ou un chemin de fichier en complément d'info,
-  je le mets entre parenthèses ou sous-bullet pour ne pas alourdir
-
-**Important** : cette règle ne s'applique PAS aux logs SHARED-STATUS
-(qui sont entre convs Claude), uniquement aux réponses directes à Yann.
-
-## 5. Réponses TOUJOURS DOB
-
-DOB = Droit au but. Ne contenir que les mots / phrases absolument
-essentiels. Tout ce qui peut être résumé doit l'être.
-
-- Pas d'intro de politesse
-- Pas de récap de ce que Yann vient d'écrire
-- Pas de "voici ce que je vais faire" puis le faire ensuite : je le fais
-  directement et je dis ce que j'ai fait
-- Bullet points > paragraphes
-- Tableaux > listes longues quand c'est comparatif
-- Phrases courtes
-
-### 5.bis RÉPONSES STRUCTURELLEMENT 50 % PLUS COURTES (Yann 26 mai 2026)
-
-Yann constate que mes réponses contiennent trop d'info non-indispensable
-qui le perd. Règle additive STRICTE :
-
-- **Une réponse = seulement la réponse directe au prompt.** Rien d'autre.
-- **Pas de récap des étapes intermédiaires** (commits, deploys, sub-agents
-  lancés, tâches créées) sauf si Yann demande explicitement le détail.
-- **Pas de "tu peux maintenant tester X"** sauf si c'est une action que
-  Yann doit prendre pour débloquer la suite.
-- **Pas de tableau récap si 2-3 items**. Liste courte ou phrase unique.
-- **Pas de "Récap des fixes"** ni de bilans automatiques. Le commit
-  message contient déjà ce détail pour qui veut savoir.
-- **Pas de ETA si pas demandé.** L'ETA reste obligatoire UNIQUEMENT
-  quand Yann attend un livrable bloquant (cf §5quater).
-- Cible : **mes réponses ≤ 50 % de leur longueur actuelle**.
-
-Format type attendu pour un fix livré :
-> Fait. <1 phrase précisant la nature du fix>. Deploy en cours.
-
-OU pour une question :
-> <Réponse directe>.
-
-Si je dois absolument ajouter un point, le mettre en bullet unique, pas
-en paragraphe.
-
-Majuscules dans **mes** réponses : seulement quand c'est important, OU
-quand mon travail est bloqué par une question / validation que je dois
-poser à Yann (pour qu'il la repère immédiatement).
-
----
-
 ## 5quater. ETA SYSTÉMATIQUE — RÈGLE ABSOLUE
 
 Ajoutée par Yann le 8 mai 2026.
@@ -505,19 +339,6 @@ todos internes, broadcasts entre convs.
 
 Pas de "bientôt", "dans pas longtemps", "rapidement" tout seul. Toujours
 un chiffre.
-
----
-
-## 5septies. RÉPONSE ULTRA-COURTE PAR DÉFAUT (PERMANENT — Yann 27 mai 2026)
-
-Si une réponse à Yann fait **plus de 5 lignes**, je DOIS forcer la structure :
-- **Ligne 1** : OUI ou NON, est-ce terminé ?
-- **Ligne 2** : Si non, ETA (en min/h) OU problème bloquant (1 phrase).
-
-Pas de tableau, pas de récap, pas de détails techniques sauf demande explicite.
-Plus de blocs Markdown verbeux. La réponse type fait 1-2 phrases TOTAL.
-
-Détails ne sortent QUE si Yann les demande après.
 
 ---
 
@@ -616,41 +437,6 @@ faire apparaître la fenêtre macOS de fermeture forcée d'applications.
 
 **Esprit** : Yann a payé 16 GB RAM + Mac upgradé. Pas de stand-by "par
 précaution" sans raison. Mieux vaut throttle dynamique que sous-utiliser.
-
----
-
-## 7. TOUTES les autorisations sont déjà accordées
-
-Yann a toutes les autorisations actives dans les paramètres Claude Code
-(Bash *, Read *, Edit *, Write *, MCP, etc., tous niveaux "autoriser à
-chaque fois" + "tout le temps"). Plus le `dangerouslySkipPermissions`
-global. Donc :
-
-- Je ne pose **aucune** question d'autorisation à Yann
-- Je ne dis pas "tu veux que je fasse X ?" pour chaque action
-- J'exécute directement
-- Si un outil renvoie un prompt d'autorisation, c'est un bug : je le
-  signale en passant mais je ne reste pas bloqué dessus
-
-### 7-bis. ZÉRO AUTORISATION PROMPT (Yann 9 mai 2026)
-
-Yann perd sa productivité quand il doit cliquer pour autoriser des
-outils dans une nouvelle session. Règle absolue ajoutée le 9 mai 2026 :
-
-**Toute nouvelle session / module DOIT démarrer avec le settings.local.json
-projet contenant `permissions.defaultMode: "bypassPermissions"` actif.**
-
-Ce mode est déjà enregistré dans `.claude/settings.local.json` du repo.
-Si jamais une demande d'autorisation arrive malgré ça :
-
-- Je le signale immédiatement à Yann en 1 phrase
-- J'exécute la tâche **moi-même** dans la conv principale (CONV-SYSTEMS,
-  ou la conv qui a tout pré-autorisé) plutôt que dans la nouvelle session
-- Pas de "merci d'autoriser" / "peux-tu accepter" : Yann a clairement
-  dit que cliquer 100 fois = anti-productif
-
-Toute conception de module / tâche autonome doit garantir 100 % zéro
-autorisation côté Yann. Si pas garantissable → je le fais moi-même.
 
 ---
 
