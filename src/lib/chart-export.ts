@@ -306,6 +306,12 @@ export async function downloadSvgAsPng(
     const isXAxisLabel = Number.isFinite(ty) && ty > origY + origH - 70;
     if (isYAxisTick || isXAxisLabel) {
       t.setAttribute("font-size", String(Math.round(fs * 1.5 * 10) / 10));
+      // Les ANNEES sous les crochets de groupe : le texte agrandi remontait
+      // jusqu a toucher le crochet. On les abaisse pour retrouver l ecart
+      // d avant l agrandissement (Yann 24 aout 2026).
+      if (isXAxisLabel && /^(19|20)\d{2}$/.test((t.textContent || "").trim())) {
+        t.setAttribute("y", String(ty + 10));
+      }
     }
   });
 
@@ -634,9 +640,16 @@ export async function downloadSvgAsPng(
     }
 
     // ── Ligne 1 : logo + nom sté, centrée ──
+    // Yann 24 aout 2026 : largeur du nom mesuree au canvas (plus d estimation
+    // par nombre de caracteres) pour un centrage exact du bloc logo + nom.
     if (stéText) {
       const hasLogo = !!stéLogoDataUrl;
-      const stéW = stéText.length * TITLE_STE_CHAR_W;
+      let stéW = stéText.length * TITLE_STE_CHAR_W;
+      const steCtx = document.createElement("canvas").getContext("2d");
+      if (steCtx) {
+        steCtx.font = `300 ${TITLE_STE_FONT_SIZE}px ${PNG_FONT_FAMILY}`;
+        stéW = steCtx.measureText(stéText).width;
+      }
       const totalL1 = hasLogo
         ? TITLE_LOGO_SIZE + TITLE_LOGO_GAP + stéW
         : stéW;
@@ -754,12 +767,14 @@ export async function downloadSvgAsPng(
     //  - Asterisque "*" apres "/an" ou "/yr" ; le "*" de renvoi est pose en
     //    bas du graph, sur la ligne du footer, cale sur l axe Y du chart.
     if (options.cagr) {
-      const CAGR_FONT_SIZE = 16;
+      const CAGR_FONT_SIZE = 22;
       const rawCagr = options.cagr.replace(/^CAGR\s*/i, "").trim();
-      const cagrText = `${rawCagr}*`;
+      // "(CAGR)" apres la valeur, petit espace avant. L acronyme CAGR est
+      // identique dans toutes les langues du doc (FR/EN/DE/NL).
+      const cagrText = `${rawCagr}\u2009(CAGR)`;
       const isNegative = /^[\u2212-]/.test(rawCagr) || /\s-\d/.test(` ${rawCagr}`);
       const arrowColor = isNegative ? "#f43f5e" : "#10b981";
-      const cagrY = LINE2_Y + 32;
+      const cagrY = LINE2_Y + 38;
       // Le PNG du logo footer a ~72 unites de marge transparente a droite :
       // on aligne sur le bord VISIBLE du wordmark, pas sur la boite.
       const cagrRightX = origX + origW - 72;
@@ -784,17 +799,19 @@ export async function downloadSvgAsPng(
         cagrCtx.font = `300 ${CAGR_FONT_SIZE}px ${PNG_FONT_FAMILY}`;
         cagrTextW = cagrCtx.measureText(cagrText).width;
       }
-      // Fleche pleine (triangle + fut large), 18px de haut, 14px de large.
-      const AR_H = 18;
-      const AR_W = 14;
-      const arX = cagrRightX - cagrTextW - AR_W - 8; // 8px de gap avant le texte
-      const arTop = cagrY - CAGR_FONT_SIZE + 1;
+      // Fleche pleine OBLIQUE (Yann 24 aout 2026) : penchee vers le haut a
+      // droite si positif, vers le bas a droite si negatif. Fleche verticale
+      // epaisse tournee de +/-45 degres autour de son centre.
+      const AR_H = 26;
+      const AR_W = 20;
+      const arX = cagrRightX - cagrTextW - AR_W - 10;
+      const arTop = cagrY - CAGR_FONT_SIZE + 2;
       const shaftW = AR_W * 0.36;
       const headH = AR_H * 0.5;
       const midX2 = arX + AR_W / 2;
+      const midY2 = arTop + AR_H / 2;
       let d: string;
       if (!isNegative) {
-        // fleche vers le haut
         d = `M ${midX2} ${arTop}`
           + ` L ${arX + AR_W} ${arTop + headH}`
           + ` L ${midX2 + shaftW / 2} ${arTop + headH}`
@@ -803,7 +820,6 @@ export async function downloadSvgAsPng(
           + ` L ${midX2 - shaftW / 2} ${arTop + headH}`
           + ` L ${arX} ${arTop + headH} Z`;
       } else {
-        // fleche vers le bas
         d = `M ${midX2} ${arTop + AR_H}`
           + ` L ${arX + AR_W} ${arTop + AR_H - headH}`
           + ` L ${midX2 + shaftW / 2} ${arTop + AR_H - headH}`
@@ -815,32 +831,12 @@ export async function downloadSvgAsPng(
       const arrowEl = document.createElementNS(NS, "path");
       arrowEl.setAttribute("d", d);
       arrowEl.setAttribute("fill", arrowColor);
-      clone.appendChild(arrowEl);
-
-      // Renvoi "*" en bas : meme ligne que "KPIs Powered by", tout a
-      // gauche mais jamais plus a gauche que l axe Y du chart. On cherche
-      // le x le plus a gauche des lignes de structure/gridlines (= axe Y),
-      // fallback origX + 54 (PAD_LEFT minimal des charts).
-      let axisX = origX + 54;
-      const structLines = clone.querySelectorAll(
-        '[data-export-role="structure"],[data-export-role="gridline"]'
+      // +45 deg (horaire) = pointe vers le haut-droite ; -45 deg = bas-droite.
+      arrowEl.setAttribute(
+        "transform",
+        `rotate(${isNegative ? -45 : 45} ${midX2} ${midY2})`
       );
-      let minX = Infinity;
-      structLines.forEach((ln) => {
-        const x1 = parseFloat(ln.getAttribute("x1") || "NaN");
-        if (Number.isFinite(x1) && x1 < minX) minX = x1;
-      });
-      if (Number.isFinite(minX) && minX !== Infinity) axisX = minX;
-      const starEl = document.createElementNS(NS, "text");
-      starEl.setAttribute("x", String(Math.max(axisX, origX)));
-      starEl.setAttribute("y", String(wmY + WM_LOGO_H / 2 + 5));
-      starEl.setAttribute("text-anchor", "start");
-      starEl.setAttribute("font-family", titleFontFamily);
-      starEl.setAttribute("font-weight", "300");
-      starEl.setAttribute("font-size", "16");
-      starEl.setAttribute("fill", subtitleColor);
-      starEl.textContent = "*";
-      clone.appendChild(starEl);
+      clone.appendChild(arrowEl);
     }
   }
 
