@@ -69,6 +69,9 @@ const ARCHIVED_BLOCKS: string[] = [
   "visual-audit",
   "curated-companies",
   "/desk-mtk9x4kp/ir-sources",
+  // Yann 24 aout 2026 : Logo lab + prototype V2 archives.
+  "logo-lab",
+  "v2",
 ];
 
 const isArchived = (item: SandboxItem) =>
@@ -511,6 +514,50 @@ export default function SandboxPage() {
           <SandboxSearch />
         </div>
 
+        {/* ═══════ OUTILS SANDBOX PAR CATÉGORIE ═══════ */}
+        <section className="mb-10">
+          <h2 className="mb-2 font-display text-[18px] font-bold tracking-tight text-zinc-100">
+            Outils sandbox
+          </h2>
+          <p className="mb-5 text-[12.5px] text-zinc-400">
+            Tous les modules internes regroupés par thématique. Aucune entrée n&apos;est supprimée :
+            les outils sont juste rangés pour s&apos;y retrouver plus vite.
+          </p>
+
+          <div className="space-y-10">
+            {/* Yann 24 aout 2026 : la section Univers société est rendue en bas
+                de page (au-dessus des archives), avec le bloc Datasets. */}
+            {SECTIONS.filter((sec) => sec.id !== "univers").map((section, sectionIdx) => {
+              const visibleItems = section.items.filter((item) => !isArchived(item));
+              if (visibleItems.length === 0) return null;
+              return (
+                <div
+                  key={section.id}
+                  className={
+                    sectionIdx === 0
+                      ? "pt-0"
+                      : "border-t border-white/5 pt-8"
+                  }
+                >
+                  <h3 className="mb-1 font-display text-[16px] font-bold tracking-tight text-zinc-100">
+                    {section.title}
+                  </h3>
+                  {section.description && (
+                    <p className="mb-4 text-[12px] text-zinc-500">{section.description}</p>
+                  )}
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {visibleItems.map((item) => (
+                      <SandboxCard key={item.href} item={item} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ═══════ BAS DE PAGE (Yann 24 aout 2026) : Datasets + Univers société ═══════ */}
         {/* ═══════ DATASETS V1 + V2 ═══════ */}
         <section className="mb-10">
           <h2 className="mb-1 font-display text-[18px] font-bold tracking-tight text-zinc-100">
@@ -669,45 +716,22 @@ export default function SandboxPage() {
           </div>
         </section>
 
-        {/* ═══════ OUTILS SANDBOX PAR CATÉGORIE ═══════ */}
-        <section className="mb-10">
-          <h2 className="mb-2 font-display text-[18px] font-bold tracking-tight text-zinc-100">
-            Outils sandbox
-          </h2>
-          <p className="mb-5 text-[12.5px] text-zinc-400">
-            Tous les modules internes regroupés par thématique. Aucune entrée n&apos;est supprimée :
-            les outils sont juste rangés pour s&apos;y retrouver plus vite.
-          </p>
-
-          <div className="space-y-10">
-            {SECTIONS.map((section, sectionIdx) => {
-              const visibleItems = section.items.filter((item) => !isArchived(item));
-              if (visibleItems.length === 0) return null;
-              return (
-                <div
-                  key={section.id}
-                  className={
-                    sectionIdx === 0
-                      ? "pt-0"
-                      : "border-t border-white/5 pt-8"
-                  }
-                >
-                  <h3 className="mb-1 font-display text-[16px] font-bold tracking-tight text-zinc-100">
-                    {section.title}
-                  </h3>
-                  {section.description && (
-                    <p className="mb-4 text-[12px] text-zinc-500">{section.description}</p>
-                  )}
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    {visibleItems.map((item) => (
-                      <SandboxCard key={item.href} item={item} />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        <section className="mb-10 border-t border-white/5 pt-8">
+          {SECTIONS.filter((sec) => sec.id === "univers").map((section) => (
+            <div key={section.id}>
+              <h3 className="mb-1 font-display text-[16px] font-bold tracking-tight text-zinc-100">
+                {section.title}
+              </h3>
+              {section.description && (
+                <p className="mb-4 text-[12px] text-zinc-500">{section.description}</p>
+              )}
+              <div className="grid gap-4 sm:grid-cols-2">
+                {section.items.filter((item) => !isArchived(item)).map((item) => (
+                  <SandboxCard key={item.href} item={item} />
+                ))}
+              </div>
+            </div>
+          ))}
         </section>
 
         {/* ═══════ ARCHIVÉS ═══════ */}
