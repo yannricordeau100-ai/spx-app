@@ -293,13 +293,30 @@ export async function downloadSvgAsPng(
   const origW = vb?.width || svg.clientWidth || 920;
   const origH = vb?.height || svg.clientHeight || 360;
 
+  // Yann 24 aout 2026 : +50 % sur les textes de l AXE Y (ticks, anchor
+  // "end"/"start" colles aux bords) et sur les ANNEES / labels de l axe X
+  // (bande basse du chart). Les labels de valeurs au-dessus des barres et
+  // les % YoY (anchor middle, zone haute) ne bougent pas.
+  clone.querySelectorAll("text").forEach((t) => {
+    const fs = parseFloat(t.getAttribute("font-size") || "0");
+    if (!fs) return;
+    const anchorAttr = t.getAttribute("text-anchor") || "";
+    const ty = parseFloat(t.getAttribute("y") || "NaN");
+    const isYAxisTick = anchorAttr === "end" || anchorAttr === "start";
+    const isXAxisLabel = Number.isFinite(ty) && ty > origY + origH - 70;
+    if (isYAxisTick || isXAxisLabel) {
+      t.setAttribute("font-size", String(Math.round(fs * 1.5 * 10) / 10));
+    }
+  });
+
   // Padding ajouté autour du graph dans l'export.
   // Yann 2 juin 2026 (v7 polish FINAL) : PAD_TOP = 150 (+30 vs v6 pour
   // abaisser le graph de ~30px et donner plus d'air au titre).
   // PAD_BOTTOM = 64 (réduit de 80) pour signature TRÈS proche de la
   // dernière date X (distance verticale ~= distance horizontale entre
   // "0" et "5" de "2025", soit ~10px). Yann 2 juin 2026 v8.
-  const PAD_TOP = 150;
+  // Yann 24 aout 2026 : titres agrandis de 50 % -> plus d air en haut.
+  const PAD_TOP = 190;
   const PAD_SIDE = 36;
   // Yann 2 juin 2026 v10 : PAD_BOTTOM réduit à 50 pour rapprocher la
   // signature des labels X. Logo height 36 + margin 4 = 40 + 10px gap
@@ -525,14 +542,14 @@ export async function downloadSvgAsPng(
   //   - ligne 2 = kpiText
   // Yann 2 juin 2026 v9 : hiérarchie inversée — nom sté = focus #1 (gros),
   // titre du graph (KPI) = focus #2 juste en dessous.
-  const TITLE_STE_FONT_SIZE = 34;       // ligne 1 (nom sté), focus #1
-  const TITLE_KPI_FONT_SIZE = 18;       // ligne 2 (nom KPI), juste en dessous
-  const TITLE_STE_CHAR_W = 16;          // estimation Avenir 800 34px
+  const TITLE_STE_FONT_SIZE = 51;       // ligne 1 (nom sté), focus #1 (+50 % Yann 24 aout 2026)
+  const TITLE_KPI_FONT_SIZE = 27;       // ligne 2 (nom KPI) (+50 % Yann 24 aout 2026)
+  const TITLE_STE_CHAR_W = 24;          // estimation Avenir 51px
   const TITLE_KPI_CHAR_W = 9;           // estimation Avenir 600 18px
-  const TITLE_LOGO_SIZE = 32;           // logo sté ligne 1 proportionnel au texte gros
+  const TITLE_LOGO_SIZE = 48;           // logo sté (+50 % Yann 24 aout 2026)
   const TITLE_LOGO_GAP = 26;            // Yann 10 juin 2026 : + d'espace entre logo et nom sté
-  const LINE1_Y = origY - PAD_TOP + 55;
-  const LINE2_Y = origY - PAD_TOP + 90;
+  const LINE1_Y = origY - PAD_TOP + 72;
+  const LINE2_Y = origY - PAD_TOP + 122;
 
   // Yann 2 juin 2026 v7 : police Avenir (au lieu de Fraunces) pour le
   // PNG download UNIQUEMENT. Web reste sur Fraunces.
@@ -729,20 +746,99 @@ export async function downloadSvgAsPng(
     // Le CAGR arrive déjà formaté + annualisé via options.cagr (calcul fait
     // côté company-view qui connaît history + period_type). Locale-aware :
     // "/an" en FR, "/yr" en EN (gérée par l'appelant). Couleur subtitleColor.
+    // Yann 24 aout 2026 : refonte de la ligne CAGR.
+    //  - Alignee a DROITE : son bord droit tombe sur le meme axe vertical
+    //    que le logo "Mettrik AI" du footer (= origX + origW).
+    //  - Le mot "CAGR" est remplace par une fleche PLEINE (epaisse) : verte
+    //    vers le haut si positif, rouge vers le bas si negatif.
+    //  - Asterisque "*" apres "/an" ou "/yr" ; le "*" de renvoi est pose en
+    //    bas du graph, sur la ligne du footer, cale sur l axe Y du chart.
     if (options.cagr) {
+      const CAGR_FONT_SIZE = 16;
+      const rawCagr = options.cagr.replace(/^CAGR\s*/i, "").trim();
+      const cagrText = `${rawCagr}*`;
+      const isNegative = /^[\u2212-]/.test(rawCagr) || /\s-\d/.test(` ${rawCagr}`);
+      const arrowColor = isNegative ? "#f43f5e" : "#10b981";
+      const cagrY = LINE2_Y + 32;
+      const cagrRightX = origX + origW;
+
       const cagrEl = document.createElementNS(NS, "text");
-      cagrEl.setAttribute("x", String(origX + origW / 2));
-      cagrEl.setAttribute("y", String(LINE2_Y + 24));
-      cagrEl.setAttribute("text-anchor", "middle");
+      cagrEl.setAttribute("x", String(cagrRightX));
+      cagrEl.setAttribute("y", String(cagrY));
+      cagrEl.setAttribute("text-anchor", "end");
       cagrEl.setAttribute("font-family", titleFontFamily);
-      // Yann 8 juin 2026 (PRIO 2) : graisse fine (300) sur la ligne CAGR.
       cagrEl.setAttribute("font-weight", "300");
       cagrEl.setAttribute("font-style", "normal");
-      cagrEl.setAttribute("font-size", "14");
+      cagrEl.setAttribute("font-size", String(CAGR_FONT_SIZE));
       cagrEl.setAttribute("letter-spacing", "0.01em");
       cagrEl.setAttribute("fill", subtitleColor);
-      cagrEl.textContent = options.cagr;
+      cagrEl.textContent = cagrText;
       clone.appendChild(cagrEl);
+
+      // Largeur reelle du texte pour poser la fleche juste a sa gauche.
+      const cagrCtx = document.createElement("canvas").getContext("2d");
+      let cagrTextW = cagrText.length * (CAGR_FONT_SIZE * 0.58);
+      if (cagrCtx) {
+        cagrCtx.font = `300 ${CAGR_FONT_SIZE}px ${PNG_FONT_FAMILY}`;
+        cagrTextW = cagrCtx.measureText(cagrText).width;
+      }
+      // Fleche pleine (triangle + fut large), 18px de haut, 14px de large.
+      const AR_H = 18;
+      const AR_W = 14;
+      const arX = cagrRightX - cagrTextW - AR_W - 8; // 8px de gap avant le texte
+      const arTop = cagrY - CAGR_FONT_SIZE + 1;
+      const shaftW = AR_W * 0.36;
+      const headH = AR_H * 0.5;
+      const midX2 = arX + AR_W / 2;
+      let d: string;
+      if (!isNegative) {
+        // fleche vers le haut
+        d = `M ${midX2} ${arTop}`
+          + ` L ${arX + AR_W} ${arTop + headH}`
+          + ` L ${midX2 + shaftW / 2} ${arTop + headH}`
+          + ` L ${midX2 + shaftW / 2} ${arTop + AR_H}`
+          + ` L ${midX2 - shaftW / 2} ${arTop + AR_H}`
+          + ` L ${midX2 - shaftW / 2} ${arTop + headH}`
+          + ` L ${arX} ${arTop + headH} Z`;
+      } else {
+        // fleche vers le bas
+        d = `M ${midX2} ${arTop + AR_H}`
+          + ` L ${arX + AR_W} ${arTop + AR_H - headH}`
+          + ` L ${midX2 + shaftW / 2} ${arTop + AR_H - headH}`
+          + ` L ${midX2 + shaftW / 2} ${arTop}`
+          + ` L ${midX2 - shaftW / 2} ${arTop}`
+          + ` L ${midX2 - shaftW / 2} ${arTop + AR_H - headH}`
+          + ` L ${arX} ${arTop + AR_H - headH} Z`;
+      }
+      const arrowEl = document.createElementNS(NS, "path");
+      arrowEl.setAttribute("d", d);
+      arrowEl.setAttribute("fill", arrowColor);
+      clone.appendChild(arrowEl);
+
+      // Renvoi "*" en bas : meme ligne que "KPIs Powered by", tout a
+      // gauche mais jamais plus a gauche que l axe Y du chart. On cherche
+      // le x le plus a gauche des lignes de structure/gridlines (= axe Y),
+      // fallback origX + 54 (PAD_LEFT minimal des charts).
+      let axisX = origX + 54;
+      const structLines = clone.querySelectorAll(
+        '[data-export-role="structure"],[data-export-role="gridline"]'
+      );
+      let minX = Infinity;
+      structLines.forEach((ln) => {
+        const x1 = parseFloat(ln.getAttribute("x1") || "NaN");
+        if (Number.isFinite(x1) && x1 < minX) minX = x1;
+      });
+      if (Number.isFinite(minX) && minX !== Infinity) axisX = minX;
+      const starEl = document.createElementNS(NS, "text");
+      starEl.setAttribute("x", String(Math.max(axisX, origX)));
+      starEl.setAttribute("y", String(wmY + WM_LOGO_H / 2 + 5));
+      starEl.setAttribute("text-anchor", "start");
+      starEl.setAttribute("font-family", titleFontFamily);
+      starEl.setAttribute("font-weight", "300");
+      starEl.setAttribute("font-size", "16");
+      starEl.setAttribute("fill", subtitleColor);
+      starEl.textContent = "*";
+      clone.appendChild(starEl);
     }
   }
 
