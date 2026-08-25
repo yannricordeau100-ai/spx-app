@@ -65,7 +65,13 @@ export function formatChartValueLabel(
   // Plafond a 100 000 : au-dela le nombre entier devient trop long pour les
   // series denses, le compact reprend la main.
   if (isPhysicalUnitLabel(unit) && maxAbs < 100_000) {
-    return v.toLocaleString(numLoc, { maximumFractionDigits: maxAbs < 100 ? 1 : 0 });
+    // Meme nombre de decimales pour toute la serie : sans minimum, 1,0
+    // s affichait "1" a cote de "0,9" (capture Apple, abonnements payants).
+    const dec = maxAbs < 100 ? 1 : 0;
+    return v.toLocaleString(numLoc, {
+      minimumFractionDigits: dec,
+      maximumFractionDigits: dec,
+    });
   }
   // Compact k/M/Md dès que le pic de la série dépasse 1 000 : garantit
   // labels courts sur tout le graphique, homogènes.

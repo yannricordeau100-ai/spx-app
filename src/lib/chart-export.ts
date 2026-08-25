@@ -332,7 +332,10 @@ export async function downloadSvgAsPng(
           const isAxisHeader = Number.isFinite(ty) && ty < origY + 24;
           if (isAxisHeader && anchorAttr === "end") {
             const leftEdge = origX - PAD_SIDE_FOR_TEXT + 2;
-            const room = tx - leftEdge;
+            // Cette ligne (au-dessus du plot) est vide a droite : l en-tete
+            // peut s etendre jusqu au premier tiers du graphe sans rien
+            // chevaucher. Il garde ainsi une taille lisible.
+            const room = origX + origW * 0.35 - leftEdge;
             if (w > 0 && room > 0) {
               factor = Math.max(0.9, Math.min(1.5, (room - 4) / w));
             }
