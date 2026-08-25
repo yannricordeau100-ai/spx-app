@@ -316,25 +316,38 @@ export async function downloadSvgAsPng(
       const hasLongWord = txtContent
         .split(/\s+/)
         .some((w) => w.replace(/[^\p{L}\p{N}]/gu, "").length >= 7);
-      let factor = hasLongWord ? 1.15 : 1.5;
+      let factor = 1.5;
       if (hasLongWord) {
         const tx = parseFloat(t.getAttribute("x") || "NaN");
-        if (Number.isFinite(tx)) {
-          // Place disponible du cote ou le texte s etend.
-          const room =
-            anchorAttr === "end"
-              ? tx - (origX - PAD_SIDE_FOR_TEXT)
-              : anchorAttr === "start"
-                ? origX + origW + PAD_SIDE_FOR_TEXT - tx
-                : Number.POSITIVE_INFINITY;
-          const measureCtx2 =
-            typeof document !== "undefined"
-              ? document.createElement("canvas").getContext("2d")
-              : null;
-          if (measureCtx2 && Number.isFinite(room) && room > 0) {
-            measureCtx2.font = `300 ${fs}px ${PNG_FONT_FAMILY}`;
-            const w = measureCtx2.measureText(txtContent).width;
-            if (w > 0) factor = Math.max(0.85, Math.min(factor, (room - 4) / w));
+        const measureCtx2 =
+          typeof document !== "undefined"
+            ? document.createElement("canvas").getContext("2d")
+            : null;
+        if (Number.isFinite(tx) && measureCtx2) {
+          measureCtx2.font = `300 ${fs}px ${PNG_FONT_FAMILY}`;
+          const w = measureCtx2.measureText(txtContent).width;
+          // L en-tete d unite (zone haute, hors ligne des ticks) peut etre
+          // reancre au bord gauche du cadre : il gagne toute la marge et
+          // garde une taille lisible au lieu d etre rapetisse.
+          const isAxisHeader = Number.isFinite(ty) && ty < origY + 24;
+          if (isAxisHeader && anchorAttr === "end") {
+            const leftEdge = origX - PAD_SIDE_FOR_TEXT + 2;
+            const room = tx - leftEdge;
+            if (w > 0 && room > 0) {
+              factor = Math.max(0.9, Math.min(1.5, (room - 4) / w));
+            }
+            t.setAttribute("text-anchor", "start");
+            t.setAttribute("x", String(leftEdge));
+          } else {
+            const room =
+              anchorAttr === "end"
+                ? tx - (origX - PAD_SIDE_FOR_TEXT)
+                : anchorAttr === "start"
+                  ? origX + origW + PAD_SIDE_FOR_TEXT - tx
+                  : Number.POSITIVE_INFINITY;
+            if (w > 0 && Number.isFinite(room) && room > 0) {
+              factor = Math.max(0.9, Math.min(1.5, (room - 4) / w));
+            }
           }
         }
       }

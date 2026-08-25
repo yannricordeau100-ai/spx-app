@@ -1560,9 +1560,15 @@ export function CompanyView({
                   // Yann juin 2026 : l'export suit la langue du SWAP titre
                   // (heroTitleLang via KpiSwapTitle), pas la locale globale, pour
                   // que le PNG corresponde au titre affiché (clic = EN sur page FR).
-                  type N = typeof active & { name_en?: string };
+                  // Yann 25 aout 2026 : meme regle de repli que KpiSwapTitle.
+                  // Sans name_en, le titre affiche bascule sur `short` (qui est
+                  // l anglais par defaut) alors que le PNG retombait sur le nom
+                  // francais : titre EN a l ecran, titre FR dans le document.
+                  type N = typeof active & { name_en?: string; short?: string };
                   const a = active as N;
-                  return heroTitleLang === "en" ? (a.name_en || a.name_fr) : a.name_fr;
+                  return heroTitleLang === "en"
+                    ? (a.name_en || a.short || a.name_fr)
+                    : a.name_fr;
                 })()}${
                   timeFraction !== "year" ? ` ${translate(`timefrac.suffix.${timeFraction}`, heroTitleLang)}` : ""
                 } · ${company.name}`}
