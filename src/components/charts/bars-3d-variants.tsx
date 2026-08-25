@@ -31,6 +31,12 @@ const W = 920, H = 420;
 // le vide et agrandir les barres/labels. Les ticks Y (ancrés end à
 // PAD_LEFT-20) et le label TTM (déport DX/2) restent dans le cadre.
 const PAD_LEFT = 54, PAD_RIGHT = 58, PAD_TOP = 40, PAD_BOTTOM = 90;
+// Yann 25 aout 2026 : quand l axe Y est bascule a DROITE, l en-tete d unite
+// etait ancre "start" a PAD_LEFT + INNER_W + 20. Un libelle long
+// ("B Subscriptions") sortait alors du SVG et se retrouvait coupe net. Il est
+// desormais ancre "end" sur le bord droit du cadre : quelle que soit sa
+// longueur il reste a l interieur, et il est rendu au-dessus du plot donc il
+// ne peut chevaucher aucune barre.
 
 /**
  * Split d'un label trimestriel "T1 21" → { top: "T1", bottom: "21" }.
@@ -244,13 +250,13 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           (PAD_TOP - 14), aligné fin sur l'axe Y, cohérent web + PNG. */}
       {header && (
         <text
-          x={yOnRight ? PAD_LEFT + INNER_W + 20 : PAD_LEFT - 6}
+          x={yOnRight ? W - 6 : PAD_LEFT - 6}
           y={PAD_TOP - 24}
           fontSize={13}
           fontWeight={600}
           fill="#e4e4e7"
           fontFamily="ui-monospace, monospace"
-          textAnchor={yOnRight ? "start" : "end"}
+          textAnchor="end"
         >
           {header}
         </text>
@@ -329,7 +335,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       {ticks.map((v, i) => (
         <text
           key={i}
-          x={yOnRight ? PAD_LEFT + INNER_W + 12 : PAD_LEFT - 12}
+          x={yOnRight ? Math.min(PAD_LEFT + INNER_W + 12, W - 8) : PAD_LEFT - 12}
           y={yFor(v) + 5}
           textAnchor={yOnRight ? "start" : "end"}
           fontSize={16}

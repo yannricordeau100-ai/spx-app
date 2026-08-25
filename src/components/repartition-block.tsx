@@ -293,7 +293,7 @@ export function RepartitionBlock({
               // (RepartitionBars). Le texte n est plus pose a l interieur de
               // formes de taille variable, donc plus de libelle tronque ni de
               // montant fantome, quelles que soient les donnees.
-              <RepartitionBars data={active.slices} unit={unitFallback} total={active.total} locale={locale} othersLabel={locale.startsWith("fr") ? "Autres" : "Others"} />
+              <RepartitionBars data={active.slices} unit={unitFallback} total={active.total} locale={locale} othersLabel={locale.startsWith("fr") ? "Autres" : "Others"} normalizeLabels={tab === "geo"} />
             )}
           </motion.div>
 

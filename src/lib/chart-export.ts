@@ -774,15 +774,13 @@ export async function downloadSvgAsPng(
       const cagrText = `${rawCagr}\u2009(CAGR)`;
       const isNegative = /^[\u2212-]/.test(rawCagr) || /\s-\d/.test(` ${rawCagr}`);
       const arrowColor = isNegative ? "#f43f5e" : "#10b981";
-      const cagrY = LINE2_Y + 38;
-      // Le PNG du logo footer a ~72 unites de marge transparente a droite :
-      // on aligne sur le bord VISIBLE du wordmark, pas sur la boite.
-      const cagrRightX = origX + origW - 72;
+      const cagrY = LINE2_Y + 40;
+      // Yann 25 aout 2026 : le bloc CAGR repasse CENTRE sous le titre du KPI
+      // (avant : aligne a droite sur le logo du footer).
 
       const cagrEl = document.createElementNS(NS, "text");
-      cagrEl.setAttribute("x", String(cagrRightX));
       cagrEl.setAttribute("y", String(cagrY));
-      cagrEl.setAttribute("text-anchor", "end");
+      cagrEl.setAttribute("text-anchor", "start");
       cagrEl.setAttribute("font-family", titleFontFamily);
       cagrEl.setAttribute("font-weight", "300");
       cagrEl.setAttribute("font-style", "normal");
@@ -799,12 +797,19 @@ export async function downloadSvgAsPng(
         cagrCtx.font = `300 ${CAGR_FONT_SIZE}px ${PNG_FONT_FAMILY}`;
         cagrTextW = cagrCtx.measureText(cagrText).width;
       }
+      // Bloc centre : [fleche][gap][texte] centre sur l axe du titre.
+      const AR_GAP = 10;
+      const midTitleX = origX + origW / 2;
+      const blockW = 20 + AR_GAP + cagrTextW;
+      const blockStartX = midTitleX - blockW / 2;
+      cagrEl.setAttribute("x", String(blockStartX + 20 + AR_GAP));
+
       // Fleche pleine OBLIQUE (Yann 24 aout 2026) : penchee vers le haut a
       // droite si positif, vers le bas a droite si negatif. Fleche verticale
       // epaisse tournee de +/-45 degres autour de son centre.
       const AR_H = 26;
       const AR_W = 20;
-      const arX = cagrRightX - cagrTextW - AR_W - 10;
+      const arX = blockStartX;
       const arTop = cagrY - CAGR_FONT_SIZE + 2;
       const shaftW = AR_W * 0.36;
       const headH = AR_H * 0.5;

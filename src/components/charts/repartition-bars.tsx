@@ -17,6 +17,7 @@
  */
 
 import { useState } from "react";
+import { geoLabel } from "@/lib/geo-label";
 
 export type RepartitionSlice = {
   name?: string;
@@ -58,12 +59,15 @@ export function RepartitionBars({
   total,
   locale = "fr",
   othersLabel = "Autres",
+  normalizeLabels = false,
 }: {
   data: RepartitionSlice[];
   unit: string;
   total?: number | null;
   locale?: string;
   othersLabel?: string;
+  /** Vue géographique : normalise "TAIWAN, PROVINCE OF CHINA" -> "Taïwan". */
+  normalizeLabels?: boolean;
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -106,7 +110,7 @@ export function RepartitionBars({
                 style={{ background: PALETTE[i % PALETTE.length] }}
               />
               <span className="line-clamp-2 text-[13.5px] leading-snug text-zinc-100">
-                {s.label || s.name || "—"}
+                {normalizeLabels ? geoLabel(s.label || s.name, locale) : (s.label || s.name || "—")}
               </span>
             </div>
 
