@@ -40,12 +40,17 @@ export function formatChartValueLabel(
   v: number,
   dataMax: number,
   unit?: string,
+  // Yann 25 aout 2026 : la locale etait figee en francais, donc un graph bascule
+  // en anglais (clic sur le titre) gardait des virgules decimales "0,3" dans
+  // le PNG exporte. Elle est desormais transmise par le chart.
+  locale?: string,
 ): string {
+  const numLoc = String(locale ?? "fr").startsWith("fr") ? "fr-FR" : "en-US";
   if (!Number.isFinite(v)) return "—";
   const isPct = String(unit ?? "").trim() === "%";
   // % : jamais de compact, toujours 1 décimale
   if (isPct) {
-    return v.toLocaleString("fr-FR", {
+    return v.toLocaleString(numLoc, {
       maximumFractionDigits: 1,
       minimumFractionDigits: v === 0 ? 0 : 1,
     });
@@ -60,35 +65,35 @@ export function formatChartValueLabel(
   // Plafond a 100 000 : au-dela le nombre entier devient trop long pour les
   // series denses, le compact reprend la main.
   if (isPhysicalUnitLabel(unit) && maxAbs < 100_000) {
-    return v.toLocaleString("fr-FR", { maximumFractionDigits: maxAbs < 100 ? 1 : 0 });
+    return v.toLocaleString(numLoc, { maximumFractionDigits: maxAbs < 100 ? 1 : 0 });
   }
   // Compact k/M/Md dès que le pic de la série dépasse 1 000 : garantit
   // labels courts sur tout le graphique, homogènes.
   if (maxAbs >= 1000) {
     if (abs >= 1_000_000_000)
       return (
-        (v / 1_000_000_000).toLocaleString("fr-FR", {
+        (v / 1_000_000_000).toLocaleString(numLoc, {
           maximumFractionDigits: 1,
           minimumFractionDigits: 1,
         }) + " Md"
       );
     if (abs >= 1_000_000)
       return (
-        (v / 1_000_000).toLocaleString("fr-FR", {
+        (v / 1_000_000).toLocaleString(numLoc, {
           maximumFractionDigits: 1,
           minimumFractionDigits: 1,
         }) + " M"
       );
     if (abs >= 1000)
       return (
-        (v / 1000).toLocaleString("fr-FR", {
+        (v / 1000).toLocaleString(numLoc, {
           maximumFractionDigits: 1,
           minimumFractionDigits: 1,
         }) + " k"
       );
     // Valeurs < 1000 dans une série qui pique au-dessus : arrondir entier
     // (elles se lisent dans le contexte des Xk/XM au-dessus).
-    return v.toLocaleString("fr-FR", { maximumFractionDigits: 0 });
+    return v.toLocaleString(numLoc, { maximumFractionDigits: 0 });
   }
   // dataMax < 1000 : format adaptatif classique
   // Yann 28 juillet 2026 : JAMAIS plus d'un chiffre apres la virgule sur un
@@ -97,7 +102,7 @@ export function formatChartValueLabel(
   let decimals: number;
   if (maxAbs < 100) decimals = 1;
   else decimals = 0;
-  return v.toLocaleString("fr-FR", {
+  return v.toLocaleString(numLoc, {
     maximumFractionDigits: decimals,
     minimumFractionDigits: decimals > 0 ? 1 : 0,
   });

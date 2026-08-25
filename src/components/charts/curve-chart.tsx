@@ -61,8 +61,8 @@ import { formatChartValueLabel } from "@/lib/chart-label-format";
 
 /** Yann 19 juil 2026 : format label point unifié via helper commun
  *  (compact k/M/Md, % préservé, adaptatif petits nombres). */
-const formatDataPointLabel = (v: number, dataMax: number, unit?: string) =>
-  formatChartValueLabel(v, dataMax, unit);
+const formatDataPointLabel = (v: number, dataMax: number, unit?: string, locale?: string) =>
+  formatChartValueLabel(v, dataMax, unit, locale);
 
 /**
  * Format Y-axis tick value following Mettrik's strict rule (CLAUDE.md §6) :
@@ -690,7 +690,7 @@ export function CurveChart({
                     fontFamily="ui-monospace, monospace"
                     style={isHover ? { filter: `drop-shadow(0 0 4px ${color})` } : undefined}
                   >
-                    {formatDataPointLabel(v, dataOnlyMax, unit)}
+                    {formatDataPointLabel(v, dataOnlyMax, unit, effectiveLocale)}
                   </text>
                 );
               })()}

@@ -21,8 +21,8 @@ import { formatChartValueLabel } from "@/lib/chart-label-format";
 
 /** Yann 19 juil 2026 : format label barre unifié via helper commun
  *  (compact k/M/Md, % préservé, adaptatif petits nombres). */
-const formatBarLabel = (v: number, dataMax: number, unit?: string) =>
-  formatChartValueLabel(v, dataMax, unit);
+const formatBarLabel = (v: number, dataMax: number, unit?: string, locale?: string) =>
+  formatChartValueLabel(v, dataMax, unit, locale);
 
 const W = 920, H = 420;
 // PAD_RIGHT = 95 (vs 70 avant) pour garantir aucun clipping du label TTM
@@ -212,13 +212,14 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   // Yann 15 mai 2026 : précision adaptative Y axis pour éviter doublons.
   const intRounded = ticks.map((v) => Math.round(v));
   const needsDecimal = new Set(intRounded).size < ticks.length;
+  const tickLoc = effectiveLocale === "en" ? "en-US" : "fr-FR";
   const formatTick = (v: number): string =>
     needsDecimal
-      ? (Math.round(v * 10) / 10).toLocaleString("fr-FR", {
+      ? (Math.round(v * 10) / 10).toLocaleString(tickLoc, {
           minimumFractionDigits: 1,
           maximumFractionDigits: 1,
         })
-      : (Math.round(v * 10) / 10).toLocaleString("fr-FR");
+      : (Math.round(v * 10) / 10).toLocaleString(tickLoc);
 
   return (
     <div
@@ -463,7 +464,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
                   fontFamily="ui-monospace, monospace"
                   transform={rotate ? `rotate(${rotate} ${cxLabel} ${cyLabel})` : undefined}
                 >
-                  {formatBarLabel(Number(v), dataOnlyMax, unit)}
+                  {formatBarLabel(Number(v), dataOnlyMax, unit, effectiveLocale)}
                 </text>
               );
             })()}
