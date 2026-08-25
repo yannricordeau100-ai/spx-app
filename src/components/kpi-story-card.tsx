@@ -20,6 +20,7 @@ function storyFmt(value: string | number | null | undefined, unit?: string): { v
 import { InfoTooltip } from "@/components/info-tooltip";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
+import { kpiPeriodLabel } from "@/lib/period-label";
 import { isFiscalShifted } from "@/lib/fiscal-calendar";
 import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 
@@ -42,18 +43,13 @@ function storyValueFont(s: string): string {
  * - Année fiscale décalée → "Année fiscale 2025" / "Fiscal year 2025" / "Geschäftsjahr 2025"
  */
 function formatStoryPeriod(kpi: KPI, ticker: string, locale: string): string | null {
-  // Yann 16 juil 2026 : le badge affiche le TRIMESTRE CALENDAIRE RÉEL de
-  // l'annonce du chiffre ("T4 2025"), plus jamais "Année fiscale X" ni un
-  // simple "En 2025". Dérivé de last_data_date (fin de la période publiée).
-  void isFiscalShifted; // conservé pour compat import
-  const lastDate = kpi.last_data_date;
-  if (!lastDate) return null;
-  const d = new Date(String(lastDate).split("T")[0]);
-  if (Number.isNaN(d.getTime())) return null;
-  const q = Math.floor(d.getUTCMonth() / 3) + 1;
-  const year = d.getUTCFullYear();
-  const prefix = locale.startsWith("fr") ? "T" : "Q";
-  return `${prefix}${q} ${year}`;
+  // Yann 25 aout 2026 : libelle de periode centralise dans kpiPeriodLabel
+  // (src/lib/period-label.ts). Il donne la priorite au libelle de periode
+  // reel de la donnee (history_periods / history[].q) sur last_data_date,
+  // qui vaut souvent date de collecte, et n affiche jamais un trimestre
+  // non termine. Corrige le "T3 2026" vu sur les stories NVDA.
+  void isFiscalShifted; // conserve pour compat import
+  return kpiPeriodLabel(kpi as unknown as { last_data_date?: string | null; history_periods?: unknown; history?: unknown }, ticker, locale);
 }
 
 /**
@@ -110,7 +106,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                 FR suffit ; le tooltip explication reste, collé au titre. */}
             {/* Yann 17 juil 2026 : titre en justifié. */}
             <div className="flex items-start gap-1.5 text-[22px] font-bold leading-tight text-zinc-50">
-              <span className="min-w-0 text-justify [text-align-last:left]">{kpi.name_fr}</span>
+              <span className="min-w-0 text-left">{kpi.name_fr}</span>
               {kpi.explanation && (
                 <InfoTooltip color={accent} size="sm">
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
@@ -284,7 +280,7 @@ function MarketPositionStoryCard({
         {/* Yann 17 juil 2026 : titre justifié, badge catégorie déplacé
             au-dessus de la barre de temps (rendu dans StoryFrame). */}
         <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0 flex-1 text-justify [text-align-last:left] text-[22px] font-bold leading-tight text-zinc-50">
+          <div className="min-w-0 flex-1 text-left text-[22px] font-bold leading-tight text-zinc-50">
             {mp.segment_name}
           </div>
         </div>

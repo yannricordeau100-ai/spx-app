@@ -9,6 +9,7 @@ import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
 import { translateSubsector, translateSubsectorLocale } from "@/lib/ui-fix-templates";
 import { displayTicker } from "@/lib/ticker-display";
+import { employeeCountLabel } from "@/lib/employee-count";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 
@@ -279,6 +280,11 @@ export function CompanyHeader({
         )}
         <StatChip label={t("company.founded")} value={company.founded != null ? String(company.founded) : null} />
         <StatChip label={t("company.ipo")} value={company.ipo != null ? String(company.ipo) : null} />
+        {/* Yann 25 aout 2026 : effectif extrait de la section Human Capital du
+            dernier 10-K (Item 1). Uniquement les valeurs qui ont passe le
+            controle de coherence (voir scripts d extraction) : les sociétés
+            sans 10-K ou au chiffre non fiable n affichent pas la chip. */}
+        <StatChip label={t("company.employees")} value={employeeCountLabel(company.ticker, locale)} />
       </div>
       {/* Yann 26 mai 2026 : provenance déplacée TOUT EN BAS de la page société
           (voir CompanyView footer). Plus de mention "i" en haut près du nom. */}

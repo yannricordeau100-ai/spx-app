@@ -4,6 +4,7 @@ import { MessageSquare, Sparkles, TrendingUp, AlertTriangle, Target, Compass, Qu
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { brand } from "@/lib/brand";
+import { periodLabelFromRaw } from "@/lib/period-label";
 import { ACRONYM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
 
@@ -277,8 +278,12 @@ function sentimentChip(sentiment: "bullish" | "neutral" | "cautious" | undefined
 
 /** Yann 9 août 2026 : les data portent des périodes au format anglais brut
  *  ("2026Q1", "Q1 2026", "Q1-2026") : affichage FR "T1 2026" partout. */
-function frQuarterLabel(raw: string | undefined | null): string | null {
+function frQuarterLabel(raw: string | undefined | null, ticker?: string): string | null {
   if (!raw) return null;
+  // Yann 25 aout 2026 : normalisation calendaire commune (period-label.ts).
+  // Les libelles fiscaux "Q3 FY2026" etaient rendus tels quels ici.
+  const norm = periodLabelFromRaw(raw, ticker ?? "", "fr");
+  if (norm) return norm;
   const s = String(raw).trim();
   let m = s.match(/^(\d{4})[\s-]*Q([1-4])$/i);
   if (m) return `T${m[2]} ${m[1]}`;
@@ -322,7 +327,7 @@ export function TranscriptBulletsBlock({
           {sentimentChip(sentiment, t)}
           {(quarterLabel || summary.quarter) && (
             <span className="font-mono text-[12px] uppercase tracking-wider text-zinc-400">
-              {frQuarterLabel(quarterLabel ?? summary.quarter)}
+              {frQuarterLabel(quarterLabel ?? summary.quarter, ticker)}
             </span>
           )}
         </div>

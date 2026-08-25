@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { Globe2, LayoutGrid, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import type { Company, RevenueBreakdown } from "@/lib/data";
 import { brand } from "@/lib/brand";
-import { RepartitionTreemap } from "@/components/charts/repartition-variants";
+import { RepartitionBars } from "@/components/charts/repartition-bars";
 // Yann 9 juin 2026 : modes ISO 3D + Radial supprimés. Treemap uniquement.
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
@@ -289,7 +289,11 @@ export function RepartitionBlock({
                 {t("repartition.no_data")}
               </div>
             ) : (
-              <RepartitionTreemap data={active.slices} unit={unitFallback} total={active.total} accent={accent} decimals={decimals} />
+              // Yann 25 aout 2026 : treemap remplace par un rendu en lignes
+              // (RepartitionBars). Le texte n est plus pose a l interieur de
+              // formes de taille variable, donc plus de libelle tronque ni de
+              // montant fantome, quelles que soient les donnees.
+              <RepartitionBars data={active.slices} unit={unitFallback} total={active.total} locale={locale} othersLabel={locale.startsWith("fr") ? "Autres" : "Others"} />
             )}
           </motion.div>
 

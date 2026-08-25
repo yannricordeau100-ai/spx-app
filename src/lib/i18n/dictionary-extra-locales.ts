@@ -166,6 +166,7 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "company.subsector": { de: "Unter-Sektor", nl: "Subsector" },
   "company.founded": { de: "Gegründet", nl: "Opgericht in" },
   "company.ipo": { de: "IPO", nl: "IPO" },
+  "company.employees": { de: "Mitarbeiter", nl: "Werknemers" },
   "company.also_known_as": {
     de: "Auch bekannt als:",
     nl: "Ook bekend als:",

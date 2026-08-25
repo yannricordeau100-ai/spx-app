@@ -10,6 +10,7 @@ import { InfoTooltip } from "@/components/info-tooltip";
 import { StarButton } from "@/components/star-button";
 import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
+import { kpiPeriodLabel } from "@/lib/period-label";
 import { normalizeNarrative, ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 import { getFiscalAudit, fiscalQuarterToCalendar } from "@/lib/fiscal-calendar";
@@ -292,40 +293,13 @@ export function KpiRow({
         {/* Yann 15 juil 2026 : pastille de période de référence (FY vs trimestre)
             pour lever l'ambiguïté annuel/trimestriel dans le tableau. */}
         {(() => {
-          const hp = (kpi as { history_periods?: unknown[] }).history_periods;
-          let periodLabel: string | null = null;
-          if (Array.isArray(hp) && hp.length > 0) {
-            const lastP = String(hp[hp.length - 1] ?? "").trim();
-            // Yann 9 août 2026 : labels annuels et semestriels aussi lus depuis
-            // history_periods (avant : seuls les "Qn YYYY" matchaient, les KPI
-            // FY/semestre retombaient sur last_data_date qui peut être une date
-            // de scrape → badge "FY2026" pour une valeur FY2025).
-            const mFy = lastP.match(/^(?:FY[\s-]*)?(\d{4})$/i);
-            if (mFy) periodLabel = `FY${mFy[1]}`;
-            const mH = lastP.match(/^[HS]([12])[\s-]*(\d{4})$/i);
-            if (!periodLabel && mH) periodLabel = `S${mH[1]} ${mH[2]}`;
-            const m = lastP.match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/);
-            if (m) {
-              // Yann 16 juil 2026 : conversion trimestre fiscal → calendaire
-              // (l'utilisateur doit savoir de quand datent les chiffres).
-              const fa = getFiscalAudit(ticker ?? "");
-              const fyEnd = fa?.fiscalYearEndMonth ?? 12;
-              const cal = fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fyEnd, fa?.fyLabelConvention ?? "end");
-              periodLabel = `T${cal.q} ${cal.year}`;
-            }
-          }
-          if (!periodLabel && kpi.last_data_date) {
-            const d = new Date(kpi.last_data_date);
-            if (!Number.isNaN(d.getTime())) {
-              if (kpi.period_type === "quarter") {
-                periodLabel = `T${Math.floor(d.getUTCMonth() / 3) + 1} ${d.getUTCFullYear()}`;
-              } else if (kpi.period_type === "semester") {
-                periodLabel = `S${d.getUTCMonth() + 1 <= 6 ? 1 : 2} ${d.getUTCFullYear()}`;
-              } else {
-                periodLabel = `FY${d.getUTCFullYear()}`;
-              }
-            }
-          }
+          // Yann 25 aout 2026 : libelle unifie via kpiPeriodLabel (priorite au
+          // libelle de periode reel, jamais de trimestre non termine).
+          const periodLabel = kpiPeriodLabel(
+            kpi as unknown as { last_data_date?: string | null; history_periods?: unknown; history?: unknown },
+            ticker ?? "",
+            locale,
+          );
           if (!periodLabel) return null;
           return (
             <span

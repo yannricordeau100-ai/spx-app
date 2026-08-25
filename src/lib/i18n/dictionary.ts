@@ -272,6 +272,7 @@ export const DICTIONARY: Dict = {
   "company.subsector": { fr: "Sous-secteur", en: "Sub-sector" },
   "company.founded": { fr: "Fondée en", en: "Founded" },
   "company.ipo": { fr: "IPO", en: "IPO" },
+  "company.employees": { fr: "Effectif", en: "Employees" },
   "company.also_known_as": {
     fr: "Aussi connue sous :",
     en: "Also listed as:",
