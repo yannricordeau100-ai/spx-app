@@ -197,6 +197,12 @@ const SECTIONS: SandboxSection[] = [
         soon: true,
       },
       {
+        href: "/sandbox/story-builder",
+        icon: Sparkles,
+        label: "KPI story depuis un lien",
+        desc: "Cree une carte story a partir d une page web ou d un post X : le chiffre est extrait avec sa phrase source.",
+      },
+      {
         href: "/sandbox/logos-compare",
         icon: ImageIcon,
         label: "Logos",
