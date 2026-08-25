@@ -267,6 +267,22 @@ export type AIPositioning = {
   source: string;
 };
 
+export type RevenueHistoryEntry = {
+  fiscal_year?: number | string;
+  date?: string;
+  total?: number;
+  unit?: string;
+  slices: Array<{
+    name?: string;
+    label?: string;
+    label_en?: string;
+    value: number;
+    share_pct?: number;
+    pct?: number;
+    unit?: string;
+  }>;
+};
+
 export type Company = {
   ticker: string;
   name: string;
@@ -306,6 +322,15 @@ export type Company = {
   revenue_by_geography?: RevenueBreakdown;
   /** Répartition du chiffre d'affaires par segment opérationnel. */
   revenue_by_segment?: RevenueBreakdown;
+  /**
+   * Yann 25 août 2026 : historique de la répartition, un élément par exercice
+   * (du plus récent au plus ancien), source FMP (dépôts SEC). Sert au mode
+   * "Historique" du bloc Répartition. Sociétés US uniquement.
+   */
+  revenue_history?: {
+    segment?: RevenueHistoryEntry[];
+    geo?: RevenueHistoryEntry[];
+  };
   /**
    * Yann 21 mai 2026 : pour les stés qui vendent de l'IA (NVDA, MSFT,
    * GOOGL, etc.), split du CA IA entre clients PROFESSIONNELS (B2B) et

@@ -714,6 +714,7 @@ export async function loadV17Company(
       "revenue_by_segment",
       "revenue_by_geography",
       "revenue_by_ai_customer_type",
+      "revenue_history",
       "profit_warning",
       "company_description",
       "financial_snapshot",

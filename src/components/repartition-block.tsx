@@ -6,6 +6,7 @@ import { Globe2, LayoutGrid, ChevronLeft, ChevronRight, Sparkles } from "lucide-
 import type { Company, RevenueBreakdown } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { RepartitionBars } from "@/components/charts/repartition-bars";
+import { RepartitionHistory } from "@/components/charts/repartition-history";
 // Yann 9 juin 2026 : modes ISO 3D + Radial supprimés. Treemap uniquement.
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
@@ -117,12 +118,22 @@ export function RepartitionBlock({
   if (!hasGeo && !hasSegment && !hasAiCustomer) return null;
 
   const [tab, setTab] = useState<Tab>(hasGeo ? "geo" : hasSegment ? "segment" : "ai_customer");
+  // Yann 25 aout 2026 : bascule "Dernier exercice" / "Historique". L historique
+  // vient de revenue_history (source FMP, depots SEC), sociétés US uniquement.
+  const [showHistory, setShowHistory] = useState(false);
   const [styleIdx, setStyleIdx] = useState(0);
   const activeStyles: Style[] =
     tab === "geo" ? geoStyles : tab === "segment" ? segmentStyles : STYLES;
   const safeStyleIdx = activeStyles.length > 0 ? styleIdx % activeStyles.length : 0;
 
   const active = tab === "geo" ? geo : tab === "segment" ? segment : aiCustomer;
+  const historyEntries =
+    tab === "geo"
+      ? company.revenue_history?.geo
+      : tab === "segment"
+        ? company.revenue_history?.segment
+        : undefined;
+  const hasHistory = Array.isArray(historyEntries) && historyEntries.length >= 2;
   // Cohérence des décimales : si toutes les valeurs sont entières, 0 décimale ;
   // sinon 1 décimale partout dans le bloc.
   const decimals = active && active.slices.every((s) => Number.isInteger(s.value)) ? 0 : 1;
@@ -158,6 +169,29 @@ export function RepartitionBlock({
           </p>
         </div>
 
+        <div className="flex flex-wrap items-center gap-2">
+        {hasHistory && (
+          <div className="inline-flex items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
+            <button
+              type="button"
+              onClick={() => setShowHistory(false)}
+              className={`rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+                showHistory ? "text-zinc-400 hover:text-zinc-100" : "bg-white/[0.06] text-zinc-50"
+              }`}
+            >
+              {locale.startsWith("fr") ? "Dernier exercice" : "Latest year"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowHistory(true)}
+              className={`rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+                showHistory ? "bg-white/[0.06] text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
+              }`}
+            >
+              {locale.startsWith("fr") ? "Historique" : "History"}
+            </button>
+          </div>
+        )}
         {/* Tabs Géo / Segment */}
         <div role="tablist" className="inline-flex items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
           {hasGeo && (
@@ -234,6 +268,7 @@ export function RepartitionBlock({
             </button>
           )}
         </div>
+        </div>
       </div>
 
       {tab === "ai_customer" && (aiConfidence || (aiSources && aiSources.length > 0)) && (
@@ -293,7 +328,16 @@ export function RepartitionBlock({
               // (RepartitionBars). Le texte n est plus pose a l interieur de
               // formes de taille variable, donc plus de libelle tronque ni de
               // montant fantome, quelles que soient les donnees.
-              <RepartitionBars data={active.slices} unit={unitFallback} total={active.total} locale={locale} othersLabel={locale.startsWith("fr") ? "Autres" : "Others"} normalizeLabels={tab === "geo"} />
+              showHistory && hasHistory && historyEntries ? (
+                <RepartitionHistory
+                  entries={historyEntries}
+                  locale={locale}
+                  normalizeLabels={tab === "geo"}
+                  othersLabel={locale.startsWith("fr") ? "Autres" : "Others"}
+                />
+              ) : (
+                <RepartitionBars data={active.slices} unit={unitFallback} total={active.total} locale={locale} othersLabel={locale.startsWith("fr") ? "Autres" : "Others"} normalizeLabels={tab === "geo"} />
+              )
             )}
           </motion.div>
 
