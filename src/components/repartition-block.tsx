@@ -317,10 +317,10 @@ export function RepartitionBlock({
             initial={{ opacity: 0, x: 12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="flex h-[560px] flex-col overflow-hidden rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 sm:p-5"
+            className="flex flex-col overflow-hidden rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 sm:p-5"
           >
             {!active || active.slices.length === 0 ? (
-              <div className="flex flex-1 items-center justify-center text-[13px] text-zinc-400">
+              <div className="flex items-center justify-center py-10 text-[13px] text-zinc-400">
                 {t("repartition.no_data")}
               </div>
             ) : (

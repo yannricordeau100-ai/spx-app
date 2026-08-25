@@ -71,12 +71,18 @@ export function RepartitionBars({
 }) {
   const [expanded, setExpanded] = useState(false);
 
-  const clean = (data ?? [])
-    .filter((s) => Number.isFinite(s.value))
-    .map((s) => ({ ...s, share: s.share_pct ?? s.pct ?? 0 }))
+  // Yann 25 aout 2026 : les parts sont TOUJOURS recalculees a partir des
+  // valeurs, jamais reprises telles quelles du dataset. Deux garanties :
+  // la somme des pourcentages fait exactement 100 %, et le total affiche est
+  // bien la somme des tranches (avant, `total` pouvait manquer ou diverger).
+  const raw = (data ?? []).filter((s) => Number.isFinite(s.value) && s.value > 0);
+  const sumValues = raw.reduce((a, s) => a + s.value, 0);
+  const clean = raw
+    .map((s) => ({ ...s, share: sumValues > 0 ? (s.value / sumValues) * 100 : 0 }))
     .sort((a, b) => b.value - a.value);
 
   if (clean.length === 0) return null;
+  const effectiveTotal = total != null && Number.isFinite(total) ? total : sumValues;
 
   const big = clean.filter((s) => s.share >= SMALL_PCT);
   const small = clean.filter((s) => s.share < SMALL_PCT);
@@ -89,16 +95,14 @@ export function RepartitionBars({
 
   return (
     <div className="w-full">
-      {total != null && (
-        <div className="mb-4 flex items-baseline justify-between border-b border-[#1a1a1a] pb-3">
-          <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-zinc-500">
-            Total
-          </span>
-          <span className="font-mono text-[17px] font-semibold tabular-nums text-zinc-50">
-            {fmtValue(total, unit, locale)}
-          </span>
-        </div>
-      )}
+      <div className="mb-4 flex items-baseline justify-between border-b border-[#1a1a1a] pb-3">
+        <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-zinc-500">
+          {locale.startsWith("fr") ? "Chiffre d\u2019affaires total" : "Total revenue"}
+        </span>
+        <span className="font-mono text-[17px] font-semibold tabular-nums text-zinc-50">
+          {fmtValue(effectiveTotal, unit, locale)}
+        </span>
+      </div>
 
       <ul className="flex flex-col gap-2.5">
         {rows.map((s, i) => (
@@ -160,6 +164,17 @@ export function RepartitionBars({
           </li>
         )}
       </ul>
+
+      <div className="mt-4 flex items-baseline justify-between border-t border-[#1a1a1a] pt-3 font-mono text-[11px] tabular-nums text-zinc-500">
+        <span className="uppercase tracking-[0.14em]">
+          {locale.startsWith("fr") ? "Somme" : "Sum"}
+        </span>
+        <span>
+          {fmtPct(clean.reduce((a, s2) => a + s2.share, 0), locale)}
+          {" · "}
+          {fmtValue(sumValues, unit, locale)}
+        </span>
+      </div>
 
       {expanded && small.length > 1 && (
         <button
