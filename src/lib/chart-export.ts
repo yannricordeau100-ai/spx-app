@@ -293,6 +293,8 @@ export async function downloadSvgAsPng(
   const origW = vb?.width || svg.clientWidth || 920;
   const origH = vb?.height || svg.clientHeight || 360;
 
+  const PAD_SIDE_FOR_TEXT = 36;
+
   // Yann 24 aout 2026 : +50 % sur les textes de l AXE Y (ticks, anchor
   // "end"/"start" colles aux bords) et sur les ANNEES / labels de l axe X
   // (bande basse du chart). Les labels de valeurs au-dessus des barres et
@@ -305,7 +307,38 @@ export async function downloadSvgAsPng(
     const isYAxisTick = anchorAttr === "end" || anchorAttr === "start";
     const isXAxisLabel = Number.isFinite(ty) && ty > origY + origH - 70;
     if (isYAxisTick || isXAxisLabel) {
-      t.setAttribute("font-size", String(Math.round(fs * 1.5 * 10) / 10));
+      // Yann 25 aout 2026 : l en-tete d unite ("B Subscribers") agrandi de
+      // 50 % sortait du cadre a gauche et etait rogne. Quand le libelle
+      // contient un mot de 7 caracteres ou plus, on reduit le facteur, puis
+      // on le borne encore si la largeur mesuree ne tient pas dans la marge
+      // disponible. La lisibilite prime sur l uniformite de taille.
+      const txtContent = (t.textContent || "").trim();
+      const hasLongWord = txtContent
+        .split(/\s+/)
+        .some((w) => w.replace(/[^\p{L}\p{N}]/gu, "").length >= 7);
+      let factor = hasLongWord ? 1.15 : 1.5;
+      if (hasLongWord) {
+        const tx = parseFloat(t.getAttribute("x") || "NaN");
+        if (Number.isFinite(tx)) {
+          // Place disponible du cote ou le texte s etend.
+          const room =
+            anchorAttr === "end"
+              ? tx - (origX - PAD_SIDE_FOR_TEXT)
+              : anchorAttr === "start"
+                ? origX + origW + PAD_SIDE_FOR_TEXT - tx
+                : Number.POSITIVE_INFINITY;
+          const measureCtx2 =
+            typeof document !== "undefined"
+              ? document.createElement("canvas").getContext("2d")
+              : null;
+          if (measureCtx2 && Number.isFinite(room) && room > 0) {
+            measureCtx2.font = `300 ${fs}px ${PNG_FONT_FAMILY}`;
+            const w = measureCtx2.measureText(txtContent).width;
+            if (w > 0) factor = Math.max(0.85, Math.min(factor, (room - 4) / w));
+          }
+        }
+      }
+      t.setAttribute("font-size", String(Math.round(fs * factor * 10) / 10));
       // Les ANNEES sous les crochets de groupe : le texte agrandi remontait
       // jusqu a toucher le crochet. On les abaisse pour retrouver l ecart
       // d avant l agrandissement (Yann 24 aout 2026).

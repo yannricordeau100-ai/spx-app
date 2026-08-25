@@ -897,7 +897,7 @@ export function CompanyView({
           ? "/Jahr"
           : exportLang === "nl"
             ? "/jaar"
-            : "/yr";
+            : "/year";
     // "CAGR" reste tel quel (acronyme reconnu dans toutes les locales).
     const sign = c > 0 ? "+" : "";
     const pct = c.toLocaleString(numLoc, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
