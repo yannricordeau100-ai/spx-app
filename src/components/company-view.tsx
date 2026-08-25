@@ -1815,8 +1815,10 @@ export function CompanyView({
 
         {/* Bloc transactions politiciens US retiré (13 mai 2026 par Yann). */}
 
-        {/* Super-KPI Mettrik — bloc final, combinaisons composites */}
-        {!isDisabled("super_kpi") && (
+        {/* Super-KPI Mettrik desactive le 25 aout 2026 (demande Yann) : le
+            bloc n est plus rendu sur aucune fiche. Le composant et les
+            calculs restent en place pour un eventuel retour. */}
+        {false && !isDisabled("super_kpi") && (
           <SuperKpiBoard
             kpis={computeSuperKpis(company, locale)}
             sectorKpis={computeSectorSuperKpis(company, locale)}

@@ -165,16 +165,10 @@ export function RepartitionBars({
         )}
       </ul>
 
-      <div className="mt-4 flex items-baseline justify-between border-t border-[#1a1a1a] pt-3 font-mono text-[11px] tabular-nums text-zinc-500">
-        <span className="uppercase tracking-[0.14em]">
-          {locale.startsWith("fr") ? "Somme" : "Sum"}
-        </span>
-        <span>
-          {fmtPct(clean.reduce((a, s2) => a + s2.share, 0), locale)}
-          {" · "}
-          {fmtValue(sumValues, unit, locale)}
-        </span>
-      </div>
+      {/* Yann 25 aout 2026 : la ligne "Somme" est retiree de l affichage.
+          Le controle reste fait en amont (les parts sont recalculees depuis
+          les montants, donc leur somme vaut 100 % par construction) et le
+          total figure deja en haut du bloc. */}
 
       {expanded && small.length > 1 && (
         <button
