@@ -355,6 +355,10 @@ export async function downloadSvgAsPng(
       if (parts) {
         const size = Math.round(fs * AXIS_SCALE * 10) / 10;
         t.setAttribute("font-size", String(size));
+        // La seconde ligne pousse le bloc vers le bas et venait toucher le
+        // premier graduation de l axe : on remonte l ensemble d une ligne.
+        const baseY = parseFloat(t.getAttribute("y") || "0");
+        t.setAttribute("y", String(Math.round((baseY - size * 1.25) * 10) / 10));
         t.textContent = "";
         const l1 = document.createElementNS(NS_EARLY, "tspan");
         l1.setAttribute("x", t.getAttribute("x") ?? "0");
