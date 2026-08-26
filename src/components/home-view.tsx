@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import KPI_COUNTS from "@/data/_kpi-counts.json";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
 
@@ -259,52 +260,216 @@ function useLineCount(ref: React.RefObject<HTMLElement | null>, deps: unknown[])
  */
 // Yann 26 mai 2026 : citation Fang/Mohanram/Vyas 2020 traduite dans toutes
 // les locales actives. FR + EN + DE fournis par Yann, autres traduits.
-const CITATION_BY_LOCALE: Record<string, { quote: string; openQuote: string; closeQuote: string }> = {
-  fr: {
-    quote: "Les KPI sont positivement associés à la rentabilité future, à la croissance des ventes et aux performances boursières.",
-    openQuote: "“",
-    closeQuote: "”",
-  },
-  en: {
-    quote: "KPIs are positively associated with future profitability, sales growth, and current stock returns.",
-    openQuote: "“",
-    closeQuote: "”",
-  },
-  "en-GB": {
-    quote: "KPIs are positively associated with future profitability, sales growth, and current stock returns.",
-    openQuote: "“",
-    closeQuote: "”",
-  },
-  de: {
-    quote: "KPIs stehen in einem positiven Zusammenhang mit zukünftiger Profitabilität, Umsatzwachstum und Aktienrenditen.",
-    openQuote: "„",
-    closeQuote: "“",
-  },
-  "de-CH": {
-    quote: "KPIs stehen in einem positiven Zusammenhang mit zukünftiger Profitabilität, Umsatzwachstum und Aktienrenditen.",
-    openQuote: "„",
-    closeQuote: "“",
-  },
-  nl: {
-    quote: "KPI's zijn positief geassocieerd met toekomstige winstgevendheid, omzetgroei en beursrendementen.",
-    openQuote: "„",
-    closeQuote: "”",
-  },
-  sv: {
-    quote: "Nyckeltal är positivt förknippade med framtida lönsamhet, försäljningstillväxt och aktieavkastning.",
-    openQuote: "”",
-    closeQuote: "”",
-  },
-  da: {
-    quote: "Nøgletal er positivt forbundet med fremtidig rentabilitet, omsætningsvækst og aktieafkast.",
-    openQuote: "„",
-    closeQuote: "”",
-  },
+type CitationEntry = {
+  quote: string;
+  openQuote: string;
+  closeQuote: string;
+  author: string;
+  affiliation: string;
+  year: string;
+  badge: string;
 };
+
+/**
+ * Yann 26 aout 2026 : DEUX citations, plus une seule.
+ * La premiere (Buffett) est celle vue par defaut ; la seconde (Holmstrom)
+ * la remplace quand le bloc monte dans la moitie haute de l ecran, et
+ * inversement en remontant. Voir useCitationIndex plus bas.
+ */
+const CITATIONS_BY_LOCALE: Record<string, CitationEntry[]> = {
+  fr: [
+    {
+      quote:
+        "Nous utilisons des KPI non conventionnels. La comptabilité conventionnelle révèle peu de choses sur la véritable performance économique d'une entreprise.",
+      openQuote: "«",
+      closeQuote: "»",
+      author: "Warren Buffett",
+      affiliation: "Berkshire Hathaway · An Owner's Manual",
+      year: "1996",
+      badge: "Lettre aux actionnaires",
+    },
+    {
+      quote:
+        "L'intégration d'indicateurs de performance clés est essentielle pour aligner les décisions opérationnelles et garantir la rentabilité future.",
+      openQuote: "«",
+      closeQuote: "»",
+      author: "Bengt Holmström",
+      affiliation: "MIT",
+      year: "Prix Nobel d'Économie 2016",
+      badge: "Recherche académique",
+    },
+  ],
+  en: [
+    {
+      quote:
+        "We use unconventional KPIs. Conventional accounting reveals little about the true economic performance of a business.",
+      openQuote: "\u201c",
+      closeQuote: "\u201d",
+      author: "Warren Buffett",
+      affiliation: "Berkshire Hathaway · An Owner's Manual",
+      year: "1996",
+      badge: "Shareholder letter",
+    },
+    {
+      quote:
+        "Embedding key performance indicators is essential to align operating decisions and secure future profitability.",
+      openQuote: "\u201c",
+      closeQuote: "\u201d",
+      author: "Bengt Holmström",
+      affiliation: "MIT",
+      year: "Nobel Prize in Economics 2016",
+      badge: "Academic research",
+    },
+  ],
+  de: [
+    {
+      quote:
+        "Wir verwenden unkonventionelle Kennzahlen. Die konventionelle Rechnungslegung sagt wenig über die tatsächliche wirtschaftliche Leistung eines Unternehmens aus.",
+      openQuote: "\u201e",
+      closeQuote: "\u201d",
+      author: "Warren Buffett",
+      affiliation: "Berkshire Hathaway · An Owner's Manual",
+      year: "1996",
+      badge: "Aktionärsbrief",
+    },
+    {
+      quote:
+        "Die Verankerung von Leistungskennzahlen ist entscheidend, um operative Entscheidungen auszurichten und künftige Rentabilität zu sichern.",
+      openQuote: "\u201e",
+      closeQuote: "\u201d",
+      author: "Bengt Holmström",
+      affiliation: "MIT",
+      year: "Wirtschaftsnobelpreis 2016",
+      badge: "Akademische Forschung",
+    },
+  ],
+  nl: [
+    {
+      quote:
+        "Wij gebruiken onconventionele KPI's. Conventionele boekhouding zegt weinig over de werkelijke economische prestaties van een bedrijf.",
+      openQuote: "\u201e",
+      closeQuote: "\u201d",
+      author: "Warren Buffett",
+      affiliation: "Berkshire Hathaway · An Owner's Manual",
+      year: "1996",
+      badge: "Aandeelhoudersbrief",
+    },
+    {
+      quote:
+        "Het verankeren van kernprestatie-indicatoren is essentieel om operationele beslissingen af te stemmen en toekomstige winstgevendheid te waarborgen.",
+      openQuote: "\u201e",
+      closeQuote: "\u201d",
+      author: "Bengt Holmström",
+      affiliation: "MIT",
+      year: "Nobelprijs Economie 2016",
+      badge: "Academisch onderzoek",
+    },
+  ],
+};
+CITATIONS_BY_LOCALE["en-GB"] = CITATIONS_BY_LOCALE.en!;
+CITATIONS_BY_LOCALE["de-CH"] = CITATIONS_BY_LOCALE.de!;
+
+/**
+ * Index de la citation a afficher, pilote par la position du bloc a l ecran.
+ *
+ * Regle (Yann 26 aout 2026) : tant que le bloc occupe majoritairement la
+ * moitie BASSE de la fenetre (ou se trouve plus bas), on montre Buffett.
+ * Des que sa surface bascule majoritairement dans la moitie HAUTE (ou
+ * au-dessus), on montre Holmstrom. Le test porte sur le CENTRE du bloc
+ * compare a la mi-hauteur de la fenetre, ce qui revient au meme et reste
+ * stable pendant un scroll rapide dans les deux sens.
+ */
+function useCitationIndex(ref: React.RefObject<HTMLDivElement | null>): number {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const el = ref.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const middleOfBlock = r.top + r.height / 2;
+      setIndex(middleOfBlock <= window.innerHeight / 2 ? 1 : 0);
+    };
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [ref]);
+  return index;
+}
+
+
+/**
+ * Compteur des KPI publies (Yann 26 aout 2026).
+ *
+ * Trois familles, dans l ordre demande : indicateurs cles (le KPI principal
+ * de chaque societe est compte dedans), blocs graphiques dedies, stories.
+ * Les nombres viennent de src/data/_kpi-counts.json, regenere par
+ * `node scripts/build-kpi-counts.mjs` a chaque mise a jour des donnees, et
+ * le nombre de blocs graphiques est complete a l affichage si l app le
+ * fournit. Le comptage applique le meme filtre que les fiches : les KPI
+ * generiques masques ne sont pas comptes.
+ */
+function KpiCountersRow({ locale = "fr" }: { locale?: string }) {
+  const fr = locale.startsWith("fr");
+  const nf = (n: number) => n.toLocaleString(fr ? "fr-FR" : "en-US");
+  const items = [
+    {
+      value: KPI_COUNTS.key_indicators,
+      label: fr ? "indicateurs clés" : "key indicators",
+      hint: fr
+        ? `dont ${nf(KPI_COUNTS.heroes)} indicateurs principaux`
+        : `including ${nf(KPI_COUNTS.heroes)} headline metrics`,
+    },
+    {
+      value: KPI_COUNTS.special_blocks,
+      label: fr ? "blocs graphiques" : "dedicated charts",
+      hint: fr ? "graphiques sur mesure" : "custom-built charts",
+    },
+    {
+      value: KPI_COUNTS.stories,
+      label: fr ? "stories" : "stories",
+      hint: fr ? "cartes de contexte" : "context cards",
+    },
+  ].filter((i) => i.value > 0);
+
+  if (items.length === 0) return null;
+
+  return (
+    <div className="mx-auto mt-8 flex max-w-3xl flex-wrap items-stretch justify-center gap-3 sm:mt-10 sm:gap-4">
+      {items.map((i) => (
+        <div
+          key={i.label}
+          className="flex min-w-[150px] flex-1 flex-col items-center rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-sm sm:min-w-[180px]"
+        >
+          <span className="font-mono text-[22px] font-bold tabular-nums text-zinc-50 sm:text-[26px]">
+            {nf(i.value)}
+          </span>
+          <span className="mt-0.5 text-[12.5px] font-medium text-zinc-200 sm:text-[13.5px]">
+            {i.label}
+          </span>
+          <span className="mt-0.5 text-center text-[11px] text-zinc-500">{i.hint}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
   const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
-  const citation = CITATION_BY_LOCALE[locale] ?? CITATION_BY_LOCALE.en!;
+  const blockRef = useRef<HTMLDivElement | null>(null);
+  const list = CITATIONS_BY_LOCALE[locale] ?? CITATIONS_BY_LOCALE.en!;
+  const index = useCitationIndex(blockRef);
+  const citation = list[Math.min(index, list.length - 1)]!;
 
   // Yann 12 mai 2026 v2 : effet 3D nettement plus marqué.
   // - perspective wrapper + léger tilt rotateX (cadre flotte au-dessus du fond)
@@ -314,7 +479,11 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
   // - bord inférieur en ombre foncée (sol sous le bloc)
   // - hover : le bloc se redresse et la lumière s'intensifie
   return (
-    <div className="mx-auto mt-14 flex max-w-3xl justify-center sm:mt-20" style={{ perspective: "1200px" }}>
+    <div
+      ref={blockRef}
+      className="mx-auto mt-14 flex max-w-3xl justify-center sm:mt-20"
+      style={{ perspective: "1200px" }}
+    >
       <motion.div
         className="group relative inline-block w-full"
         initial={{ rotateX: 0, y: 0 }}
@@ -379,6 +548,7 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease, delay: 0.1 }}
+            key={`badge-${index}`}
             className="mb-4 inline-flex items-center gap-2 rounded-full border border-violet-400/35 bg-violet-500/[0.08] px-3 py-1 sm:mb-5"
           >
             <svg
@@ -390,7 +560,7 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
               <path d="M12 2L2 7v2l10 5 10-5V7L12 2zm0 9l-7-3.5 7-3.5 7 3.5L12 11zm-6 1.27v3.86c0 .87.93 1.42 1.69 1.04L12 14.91l4.31 2.26c.76.38 1.69-.17 1.69-1.04v-3.86l-6 3.13-6-3.13z" />
             </svg>
             <span className="font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-violet-200 sm:text-[10.5px]">
-              {locale === "fr" ? "Étude académique" : locale === "de" || locale === "de-CH" ? "Akademische Studie" : locale === "nl" ? "Academisch onderzoek" : locale === "sv" ? "Akademisk studie" : locale === "da" ? "Akademisk studie" : "Academic Study"}
+              {citation.badge}
             </span>
           </motion.div>
 
@@ -430,11 +600,13 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
             {citation.closeQuote}
           </motion.span>
 
-          {/* Citation principale — typo serif élégante (Fraunces) au lieu du sans-serif */}
+          {/* Citation principale — typo serif élégante (Fraunces).
+              La cle = index : changer de citation rejoue le fondu. */}
           <motion.p
-            initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+            key={`quote-${index}`}
+            initial={{ opacity: 0, y: 8, filter: "blur(5px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.8, ease }}
+            transition={{ duration: 0.45, ease }}
             className="relative z-10 max-w-2xl text-balance text-center text-[19px] font-medium italic leading-[1.5] text-zinc-100 sm:text-[24px]"
             style={{ fontFamily: "var(--font-fraunces), Georgia, serif" }}
           >
@@ -462,29 +634,24 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease, delay: 0.45 }}
+            transition={{ duration: 0.4, ease, delay: 0.05 }}
+            key={`source-${index}`}
             className="relative z-10 flex flex-col items-center gap-1.5 text-center"
           >
-            {/* Ligne 1 : auteurs en serif italic, marquage premium */}
+            {/* Ligne 1 : auteur */}
             <div
               className="text-[15px] font-semibold text-zinc-100 sm:text-[16.5px]"
               style={{ fontFamily: "var(--font-fraunces), Georgia, serif" }}
             >
-              Fang
-              <span className="mx-1 text-zinc-500" aria-hidden>·</span>
-              Mohanram
-              <span className="mx-1 text-zinc-500" aria-hidden>·</span>
-              Vyas
+              {citation.author}
             </div>
-            {/* Ligne 2 : année en chip violet + institution en sans-serif */}
+            {/* Ligne 2 : annee (ou distinction) en chip violet + institution */}
             <div className="flex flex-wrap items-center justify-center gap-2">
-              <span
-                className="inline-flex items-center rounded-full border border-violet-400/40 bg-violet-500/[0.12] px-2 py-0.5 font-mono text-[10.5px] font-bold tracking-[0.12em] text-violet-200"
-              >
-                2020
+              <span className="inline-flex items-center rounded-full border border-violet-400/40 bg-violet-500/[0.12] px-2 py-0.5 font-mono text-[10.5px] font-bold tracking-[0.12em] text-violet-200">
+                {citation.year}
               </span>
               <span className="text-[12.5px] font-medium text-zinc-300 sm:text-[13.5px]">
-                Singapore Management University
+                {citation.affiliation}
               </span>
             </div>
           </motion.div>
@@ -638,6 +805,7 @@ export function HomeView({
               tracés" est désormais visible sous le wordmark (kpiUnderText)
               ET dans les metadata SEO. Cohérent : ce que les visiteurs voient
               = ce que Google / link previews montrent. */}
+          <KpiCountersRow locale={locale} />
           <MettrikCitationCard locale={locale} />
         </div>
 
