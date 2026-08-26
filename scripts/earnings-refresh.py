@@ -281,24 +281,13 @@ def parse_json_answer(raw: str) -> dict:
 
 
 def extract_via_api(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]):
+    """Decision Yann 27 aout 2026 : Claude est le SEUL moteur. Les
+    fournisseurs API (Groq, Cerebras...) sont abandonnes pour ce pipeline."""
     prompt = build_prompt(ticker, kpis, docs)
-    erreurs = []
-    for spec in PROVIDERS:
-        key = env(spec[1])
-        if not key:
-            erreurs.append(f"{spec[0]}: cle absente")
-            continue
-        try:
-            return parse_json_answer(call_provider(spec, prompt, key)), spec[0]
-        except Exception as err:  # noqa: BLE001
-            erreurs.append(f"{spec[0]}: {err}")
-    # Dernier recours, et en pratique le moteur PRINCIPAL tant que les cles
-    # API sont mortes : la session locale Claude Code.
     try:
         return parse_json_answer(call_claude_cli(prompt)), "claude-cli"
     except Exception as err:  # noqa: BLE001
-        erreurs.append(f"claude-cli: {err}")
-    raise RuntimeError(" | ".join(erreurs))
+        raise RuntimeError(f"claude-cli: {err}") from err
 
 
 def write_dossier(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]) -> Path:
