@@ -382,9 +382,11 @@ CITATIONS_BY_LOCALE["de-CH"] = CITATIONS_BY_LOCALE.de!;
 function useCitationIndex(ref: React.RefObject<HTMLDivElement | null>): number {
   const [index, setIndex] = useState(0);
   useEffect(() => {
-    let frame = 0;
+    let last = 0;
+    // Mesure directe, sans requestAnimationFrame : rAF est suspendu quand
+    // l onglet passe en arriere-plan, et la citation restait alors figee sur
+    // la premiere. Un getBoundingClientRect limite a 50 ms est negligeable.
     const measure = () => {
-      frame = 0;
       const el = ref.current;
       if (!el) return;
       const r = el.getBoundingClientRect();
@@ -392,14 +394,15 @@ function useCitationIndex(ref: React.RefObject<HTMLDivElement | null>): number {
       setIndex(middleOfBlock <= window.innerHeight / 2 ? 1 : 0);
     };
     const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(measure);
+      const now = Date.now();
+      if (now - last < 50) return;
+      last = now;
+      measure();
     };
     measure();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
-      if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
