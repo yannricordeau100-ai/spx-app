@@ -293,12 +293,53 @@ export async function downloadSvgAsPng(
   const origW = vb?.width || svg.clientWidth || 920;
   const origH = vb?.height || svg.clientHeight || 360;
 
+  const NS_EARLY = "http://www.w3.org/2000/svg";
   const PAD_SIDE_FOR_TEXT = 36;
+
+  /**
+   * Yann 26 aout 2026 : sur un KPI NON FINANCIER, l en-tete d axe abrege la
+   * magnitude ("B Subscribers", "Mds abonnés"). Dans un document telecharge,
+   * personne n a le contexte pour decoder "B". On ecrit donc le mot entier,
+   * et l unite passe sur une seconde ligne. Les unites monetaires gardent
+   * leur forme courte : "Mds $" est une convention lue sans ambiguite.
+   */
+  const MAGNITUDE_WORDS: Record<string, { fr: string; en: string }> = {
+    B: { fr: "Milliards", en: "Billion" },
+    Mds: { fr: "Milliards", en: "Billion" },
+    Mrd: { fr: "Milliards", en: "Billion" },
+    mld: { fr: "Milliards", en: "Billion" },
+    M: { fr: "Millions", en: "Million" },
+    Mio: { fr: "Millions", en: "Million" },
+    mln: { fr: "Millions", en: "Million" },
+    K: { fr: "Milliers", en: "Thousand" },
+    Tsd: { fr: "Milliers", en: "Thousand" },
+    T: { fr: "Billions", en: "Trillion" },
+    Tn: { fr: "Billions", en: "Trillion" },
+    Bln: { fr: "Billions", en: "Trillion" },
+    Bio: { fr: "Billions", en: "Trillion" },
+  };
+  const isMoneyHeader = (s: string) => /[$€£]|\b(USD|EUR|GBP|CHF|JPY|SEK|NOK|DKK|TWD)\b/i.test(s);
+  /** Rend ["Milliards", "abonnés"] ou null si rien a developper. */
+  const splitAxisHeader = (raw: string, isFr: boolean): [string, string] | null => {
+    const txt = raw.trim();
+    if (!txt || isMoneyHeader(txt)) return null;
+    const m = txt.match(/^([A-Za-z]{1,3})\s+(.+)$/);
+    if (!m) return null;
+    const word = MAGNITUDE_WORDS[m[1]];
+    if (!word) return null;
+    return [isFr ? word.fr : word.en, m[2].trim()];
+  };
+
 
   // Yann 24 aout 2026 : +50 % sur les textes de l AXE Y (ticks, anchor
   // "end"/"start" colles aux bords) et sur les ANNEES / labels de l axe X
   // (bande basse du chart). Les labels de valeurs au-dessus des barres et
   // les % YoY (anchor middle, zone haute) ne bougent pas.
+  // Yann 26 aout 2026 : les ecritures de l axe Y sont reduites de 20 % par
+  // rapport au facteur d agrandissement precedent (1,5 -> 1,2).
+  const AXIS_SCALE = 1.2;
+  const isFrExport = String(options.locale ?? "fr").startsWith("fr");
+
   clone.querySelectorAll("text").forEach((t) => {
     const fs = parseFloat(t.getAttribute("font-size") || "0");
     if (!fs) return;
@@ -306,6 +347,29 @@ export async function downloadSvgAsPng(
     const ty = parseFloat(t.getAttribute("y") || "NaN");
     const isYAxisTick = anchorAttr === "end" || anchorAttr === "start";
     const isXAxisLabel = Number.isFinite(ty) && ty > origY + origH - 70;
+
+    // En-tete d unite d un KPI non financier : magnitude en toutes lettres,
+    // unite reportee sur une seconde ligne juste en dessous.
+    if (isYAxisTick && Number.isFinite(ty) && ty < origY + 24) {
+      const parts = splitAxisHeader(t.textContent || "", isFrExport);
+      if (parts) {
+        const size = Math.round(fs * AXIS_SCALE * 10) / 10;
+        t.setAttribute("font-size", String(size));
+        t.textContent = "";
+        const l1 = document.createElementNS(NS_EARLY, "tspan");
+        l1.setAttribute("x", t.getAttribute("x") ?? "0");
+        l1.textContent = parts[0];
+        const l2 = document.createElementNS(NS_EARLY, "tspan");
+        l2.setAttribute("x", t.getAttribute("x") ?? "0");
+        l2.setAttribute("dy", String(Math.round(size * 1.15)));
+        l2.setAttribute("font-size", String(Math.round(size * 0.86 * 10) / 10));
+        l2.textContent = parts[1];
+        t.appendChild(l1);
+        t.appendChild(l2);
+        return;
+      }
+    }
+
     if (isYAxisTick || isXAxisLabel) {
       // Yann 25 aout 2026 : l en-tete d unite ("B Subscribers") agrandi de
       // 50 % sortait du cadre a gauche et etait rogne. Quand le libelle
@@ -316,7 +380,7 @@ export async function downloadSvgAsPng(
       const hasLongWord = txtContent
         .split(/\s+/)
         .some((w) => w.replace(/[^\p{L}\p{N}]/gu, "").length >= 7);
-      let factor = 1.5;
+      let factor = AXIS_SCALE;
       if (hasLongWord) {
         const tx = parseFloat(t.getAttribute("x") || "NaN");
         const measureCtx2 =
@@ -337,7 +401,7 @@ export async function downloadSvgAsPng(
             // chevaucher. Il garde ainsi une taille lisible.
             const room = origX + origW * 0.35 - leftEdge;
             if (w > 0 && room > 0) {
-              factor = Math.max(0.9, Math.min(1.5, (room - 4) / w));
+              factor = Math.max(0.9, Math.min(AXIS_SCALE, (room - 4) / w));
             }
             t.setAttribute("text-anchor", "start");
             t.setAttribute("x", String(leftEdge));
@@ -349,7 +413,7 @@ export async function downloadSvgAsPng(
                   ? origX + origW + PAD_SIDE_FOR_TEXT - tx
                   : Number.POSITIVE_INFINITY;
             if (w > 0 && Number.isFinite(room) && room > 0) {
-              factor = Math.max(0.9, Math.min(1.5, (room - 4) / w));
+              factor = Math.max(0.9, Math.min(AXIS_SCALE, (room - 4) / w));
             }
           }
         }
@@ -434,6 +498,30 @@ export async function downloadSvgAsPng(
   clone.setAttribute("width", String(newW));
   clone.setAttribute("height", String(newH));
 
+  // Yann 26 aout 2026 : le graph et ses echelles sont reduits de 10 %, le
+  // titre, le logo et la ligne CAGR gardent leur taille. On enveloppe le
+  // contenu d origine dans un groupe mis a l echelle autour de son centre ;
+  // les elements ajoutes ensuite (fond, titre, footer) ne sont pas dans ce
+  // groupe et ne bougent donc pas. Les ancrages du footer et du CAGR sont
+  // recalcules plus bas sur les bornes reduites (GRAPH_X / GRAPH_W).
+  const GRAPH_SCALE = 0.9;
+  const graphCx = origX + origW / 2;
+  const graphCy = origY + origH / 2;
+  const GRAPH_X = graphCx - (origW * GRAPH_SCALE) / 2;
+  const GRAPH_W = origW * GRAPH_SCALE;
+  const GRAPH_BOTTOM = graphCy + (origH * GRAPH_SCALE) / 2;
+  {
+    const NS0 = "http://www.w3.org/2000/svg";
+    const wrapper = document.createElementNS(NS0, "g");
+    wrapper.setAttribute(
+      "transform",
+      `translate(${graphCx} ${graphCy}) scale(${GRAPH_SCALE}) translate(${-graphCx} ${-graphCy})`,
+    );
+    const kids = Array.from(clone.childNodes);
+    for (const k of kids) wrapper.appendChild(k);
+    clone.appendChild(wrapper);
+  }
+
   const NS = "http://www.w3.org/2000/svg";
 
   // Background opaque (sinon PNG transparent illisible). Couvre le viewBox étendu.
@@ -482,7 +570,7 @@ export async function downloadSvgAsPng(
   const KPIS_DATA_BY_TEXT_W = 92; // largeur reelle "KPIs Powered by" Avenir 14 (collee au logo)
   const wmTotalW = KPIS_DATA_BY_TEXT_W + WM_GAP + WM_LOGO_W;
   // Aligné DROITE sur la fin du graph (= bord droit dernière date axe X).
-  const wmRightX = origX + origW;
+  const wmRightX = GRAPH_X + GRAPH_W;
   const wmStartX = wmRightX - wmTotalW;
   // Yann 10 juin 2026 (Point 5) : footer REMONTE vers le haut (etait
   // origY+origH+10). On le pose a origY+origH-12 pour le rapprocher du bas
@@ -493,7 +581,7 @@ export async function downloadSvgAsPng(
   // texte d'interprétation occupe [origY+origH, origY+origH+interpBlockH]).
   // Quand interpBlockH = 0 (pas d'interprétation), le footer garde sa
   // position d'origine.
-  const wmY = origY + origH - 12 + interpBlockH;
+  const wmY = GRAPH_BOTTOM - 12 + interpBlockH;
   const wmTextRightX = wmStartX + KPIS_DATA_BY_TEXT_W;
   const wmLogoX = wmStartX + KPIS_DATA_BY_TEXT_W + WM_GAP;
 
@@ -822,7 +910,6 @@ export async function downloadSvgAsPng(
       // identique dans toutes les langues du doc (FR/EN/DE/NL).
       const cagrText = `${rawCagr}\u2009(CAGR)`;
       const isNegative = /^[\u2212-]/.test(rawCagr) || /\s-\d/.test(` ${rawCagr}`);
-      const arrowColor = isNegative ? "#f43f5e" : "#10b981";
       const cagrY = LINE2_Y + 40;
       // Yann 25 aout 2026 : le bloc CAGR repasse CENTRE sous le titre du KPI
       // (avant : aligne a droite sur le logo du footer).
@@ -848,7 +935,7 @@ export async function downloadSvgAsPng(
       }
       // Bloc centre : [fleche][gap][texte] centre sur l axe du titre.
       const AR_GAP = 10;
-      const midTitleX = origX + origW / 2;
+      const midTitleX = graphCx;
       const blockW = 20 + AR_GAP + cagrTextW;
       const blockStartX = midTitleX - blockW / 2;
       cagrEl.setAttribute("x", String(blockStartX + 20 + AR_GAP));
@@ -882,9 +969,54 @@ export async function downloadSvgAsPng(
           + ` L ${midX2 - shaftW / 2} ${arTop + AR_H - headH}`
           + ` L ${arX} ${arTop + AR_H - headH} Z`;
       }
+      // Yann 26 aout 2026 : la fleche passe d un aplat a un degrade oriente
+      // dans son sens de lecture (clair a la pointe, profond a la base), avec
+      // un liseré sombre tres fin et une ombre portee courte. Objectif :
+      // qu elle ait l air posee sur le document, pas collee dessus. Les
+      // teintes restent celles du produit (vert emeraude, rouge framboise).
+      const gradId = `cagrArrow_${isNegative ? "neg" : "pos"}`;
+      const shadowId = `${gradId}_shadow`;
+      const defs = document.createElementNS(NS, "defs");
+      const grad = document.createElementNS(NS, "linearGradient");
+      grad.setAttribute("id", gradId);
+      grad.setAttribute("x1", "0");
+      grad.setAttribute("y1", isNegative ? "0" : "1");
+      grad.setAttribute("x2", "0");
+      grad.setAttribute("y2", isNegative ? "1" : "0");
+      const stops: Array<[string, string]> = isNegative
+        ? [["0%", "#9f1239"], ["55%", "#e11d48"], ["100%", "#fb7185"]]
+        : [["0%", "#047857"], ["55%", "#10b981"], ["100%", "#6ee7b7"]];
+      for (const [off, col] of stops) {
+        const st = document.createElementNS(NS, "stop");
+        st.setAttribute("offset", off);
+        st.setAttribute("stop-color", col);
+        grad.appendChild(st);
+      }
+      defs.appendChild(grad);
+      const flt = document.createElementNS(NS, "filter");
+      flt.setAttribute("id", shadowId);
+      flt.setAttribute("x", "-50%");
+      flt.setAttribute("y", "-50%");
+      flt.setAttribute("width", "200%");
+      flt.setAttribute("height", "200%");
+      const drop = document.createElementNS(NS, "feDropShadow");
+      drop.setAttribute("dx", "0");
+      drop.setAttribute("dy", "1");
+      drop.setAttribute("stdDeviation", "1.4");
+      drop.setAttribute("flood-color", isNegative ? "#f43f5e" : "#10b981");
+      drop.setAttribute("flood-opacity", "0.45");
+      flt.appendChild(drop);
+      defs.appendChild(flt);
+      clone.appendChild(defs);
+
       const arrowEl = document.createElementNS(NS, "path");
       arrowEl.setAttribute("d", d);
-      arrowEl.setAttribute("fill", arrowColor);
+      arrowEl.setAttribute("fill", `url(#${gradId})`);
+      arrowEl.setAttribute("stroke", isNegative ? "#4c0519" : "#022c22");
+      arrowEl.setAttribute("stroke-width", "0.7");
+      arrowEl.setAttribute("stroke-opacity", "0.55");
+      arrowEl.setAttribute("stroke-linejoin", "round");
+      arrowEl.setAttribute("filter", `url(#${shadowId})`);
       // +45 deg (horaire) = pointe vers le haut-droite ; -45 deg = bas-droite.
       arrowEl.setAttribute(
         "transform",
