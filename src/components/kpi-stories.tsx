@@ -9,6 +9,8 @@ import { buildStories, hasStories } from "@/lib/kpi-stories-ordering";
 import { KpiStoryCard } from "@/components/kpi-story-card";
 import { useT } from "@/lib/i18n/provider";
 import { useSwipeStories } from "@/lib/hooks/use-swipe-stories";
+import { storyFamily, orderedFamilies, type StoryFamilyKey } from "@/lib/story-family";
+import { isStoriesPilot } from "@/lib/stories-pilot";
 
 /**
  * Bloc Stories — KPIs short-history + MarketPositions présentés en
@@ -27,12 +29,59 @@ import { useSwipeStories } from "@/lib/hooks/use-swipe-stories";
  * différente, le carrousel avance le groupe de N frames à la fois.
  */
 export function KpiStories({ company, freeBlocked = false }: { company: Company; freeBlocked?: boolean }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const accent = brand(company.ticker).primary;
 
   // Build stories : aplatir toutes les slides de toutes les categories
   const categories = buildStories(company.kpis, []);
-  const slides = categories.flatMap((c) => c.slides);
+  const allSlides = categories.flatMap((c) => c.slides);
+
+  /* ── Rangement des stories (pilote 10 stés, Yann 26 aout 2026) ──────────
+     Certaines fiches cumulent 40 a 70 stories : sans tri, la decomposition
+     du chiffre d affaires noie les faits marquants. Trois leviers :
+       - onglets par FAMILLE (usage, clients, capacite, revenus, ...)
+       - tri par FRAICHEUR, du plus recent ou du plus ancien
+       - mode VEDETTE : une seule story par famille, la plus recente
+     Hors pilote, le carrousel historique est inchange.                      */
+  const pilot = isStoriesPilot(company.ticker);
+  const [family, setFamily] = useState<StoryFamilyKey | "toutes">("toutes");
+  const [order, setOrder] = useState<"recent" | "ancien">("recent");
+  const [starOnly, setStarOnly] = useState(false);
+
+  const slideDate = (sl: (typeof allSlides)[number]): number => {
+    if (sl.kind !== "kpi") return 0;
+    const d = (sl.data as { last_data_date?: string | null }).last_data_date;
+    const ts = d ? Date.parse(String(d)) : NaN;
+    return Number.isFinite(ts) ? ts : 0;
+  };
+  const slideFamily = (sl: (typeof allSlides)[number]): StoryFamilyKey =>
+    sl.kind === "kpi" ? storyFamily(sl.data) : "marche";
+
+  const familyKeys = new Set<StoryFamilyKey>(allSlides.map(slideFamily));
+  const familyTabs = orderedFamilies(familyKeys);
+  const familyCount = (k: StoryFamilyKey) =>
+    allSlides.filter((sl) => slideFamily(sl) === k).length;
+
+  const slides = (() => {
+    if (!pilot) return allSlides;
+    let list = [...allSlides];
+    if (family !== "toutes") list = list.filter((sl) => slideFamily(sl) === family);
+    list.sort((a, b) => (order === "recent" ? slideDate(b) - slideDate(a) : slideDate(a) - slideDate(b)));
+    if (starOnly) {
+      // Une vedette par famille : la premiere de chaque famille dans l ordre
+      // de tri courant, les familles rangees comme les onglets.
+      const seen = new Set<StoryFamilyKey>();
+      const picked: typeof list = [];
+      for (const sl of list) {
+        const f = slideFamily(sl);
+        if (seen.has(f)) continue;
+        seen.add(f);
+        picked.push(sl);
+      }
+      list = picked;
+    }
+    return list;
+  })();
 
   // Hooks
   const [active, setActive] = useState(0);
@@ -132,7 +181,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="mb-5 flex items-end justify-between">
+      <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="text-[22px] font-semibold text-zinc-50">{t("stories.title")}</h2>
         </div>
@@ -146,6 +195,75 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
           })()}
         </span>
       </div>
+
+      {/* Barre de rangement (pilote) : familles, fraicheur, vedettes. */}
+      {pilot && (
+        <div className="mb-5 flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
+            <button
+              type="button"
+              onClick={() => { setFamily("toutes"); setActive(0); }}
+              className={`rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+                family === "toutes" ? "bg-white/[0.08] text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
+              }`}
+            >
+              {locale.startsWith("fr") ? "Toutes" : "All"}
+              <span className="ml-1.5 font-mono text-[10.5px] text-zinc-500">{allSlides.length}</span>
+            </button>
+            {familyTabs.map((f) => (
+              <button
+                key={f.key}
+                type="button"
+                onClick={() => { setFamily(f.key); setActive(0); }}
+                className={`rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+                  family === f.key ? "bg-white/[0.08] text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
+                }`}
+              >
+                {locale.startsWith("fr") ? f.label_fr : f.label_en}
+                <span className="ml-1.5 font-mono text-[10.5px] text-zinc-500">{familyCount(f.key)}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
+            <button
+              type="button"
+              onClick={() => { setOrder("recent"); setActive(0); }}
+              className={`rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+                order === "recent" ? "bg-white/[0.08] text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
+              }`}
+            >
+              {locale.startsWith("fr") ? "Plus récentes" : "Newest first"}
+            </button>
+            <button
+              type="button"
+              onClick={() => { setOrder("ancien"); setActive(0); }}
+              className={`rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+                order === "ancien" ? "bg-white/[0.08] text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
+              }`}
+            >
+              {locale.startsWith("fr") ? "Plus anciennes" : "Oldest first"}
+            </button>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => { setStarOnly((v) => !v); setActive(0); }}
+            className={`rounded-full border px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+              starOnly
+                ? "border-violet-400/50 bg-violet-500/15 text-violet-100"
+                : "border-[#1f1f1f] bg-[#0a0a0a] text-zinc-400 hover:text-zinc-100"
+            }`}
+            title={
+              locale.startsWith("fr")
+                ? "N'affiche que la story la plus marquante de chaque famille"
+                : "Show only the leading story of each family"
+            }
+          >
+            {locale.startsWith("fr") ? "Une vedette par famille" : "One highlight per family"}
+          </button>
+        </div>
+      )}
 
       {/* Rangée de frames + flèches latérales. La rangée est centrée pour
           gérer proprement le cas "moins de frames que de slots". */}
