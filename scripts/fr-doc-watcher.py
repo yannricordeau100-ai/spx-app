@@ -149,6 +149,10 @@ except Exception as _err:  # jamais bloquant : la veille en dur continue
     print(f"[fr-doc-watcher] annuaire IR non charge: {_err}")
 
 
+EU_SUFFIXES = (".AS", ".DE", ".PA", ".SW", ".L", ".MI", ".MC", ".CO",
+               ".HE", ".ST", ".LS", ".BR", ".VI", ".OL", ".B")
+
+
 # Classification type de publication (ordre = priorité).
 TYPE_PATTERNS: list[tuple[str, re.Pattern]] = [
     ("URD", re.compile(r"universal[\s_-]?registration|enregistrement[\s_-]?universel|\burd\b|document[\s_-]d[\s_'-]?enregistrement|annual[\s_-]report|rapport[\s_-]annuel|integrated[\s_-]report|geschaeftsbericht|gesch[äa]ftsbericht|remuneration[\s_-]report|compensation[\s_-]report", re.I)),
@@ -208,15 +212,46 @@ def throttle() -> None:
 
 
 def http_get(url: str, timeout: int = 30) -> bytes:
-    """GET avec UA strict + throttle 1 req/s. Lève urllib.error.* si échec."""
+    """GET avec UA strict + throttle 1 req/s. Lève urllib.error.* si échec.
+
+    Yann 26 août 2026 : les sites investisseurs allemands et néerlandais
+    (SAP, adidas, ASML...) répondent 403 à un client automatisé. Plutôt que
+    de renoncer, on retente via un lecteur qui rend la page côté serveur.
+    C'est le même mécanisme que l'atelier de stories. Le repli ne sert que
+    pour les pages HTML, jamais pour le téléchargement des PDF.
+    """
     throttle()
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=timeout, context=SSL_CTX) as resp:
-        return resp.read()
+    try:
+        with urllib.request.urlopen(req, timeout=timeout, context=SSL_CTX) as resp:
+            return resp.read()
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as err:
+        blocked = isinstance(err, urllib.error.HTTPError) and err.code in (401, 403, 406, 429)
+        if not blocked and not isinstance(err, (urllib.error.URLError, TimeoutError)):
+            raise
+        if url.lower().endswith(".pdf"):
+            raise
+        throttle()
+        proxied = "https://r.jina.ai/" + url
+        req2 = urllib.request.Request(proxied, headers={"User-Agent": USER_AGENT})
+        with urllib.request.urlopen(req2, timeout=timeout + 20, context=SSL_CTX) as resp2:
+            body = resp2.read()
+        if b"AbuseAlleviationError" in body[:400]:
+            raise err
+        return body
 
 
 def load_univers() -> list[dict]:
-    """Univers surveillé = CAC 40 (.PA) + SMI 20 (.SW), même fichier de statut."""
+    """Univers surveillé = TOUTES les sociétés cotées hors US de l'app.
+
+    Yann 26 août 2026 : l'univers se limitait aux deux fichiers d'état CAC 40
+    et SMI, soit 60 sociétés, alors que l'app en compte 124 hors US (DAX 40,
+    AEX 25, Bruxelles). Les 63 autres n'étaient donc jamais surveillées, quand
+    bien même leur page investisseurs figurait dans l'annuaire IR.
+    L'univers est désormais construit dans cet ordre :
+      1. les états CAC 40 / SMI (entrées vérifiées de longue date) ;
+      2. l'univers V1.9.5, complété par l'annuaire IR pour l'URL.
+    """
     univers: list[dict] = []
     seen: set[str] = set()
     for path in (STATE_PATH, SMI_STATE_PATH):
@@ -229,6 +264,33 @@ def load_univers() -> list[dict]:
             if ticker and ticker not in seen:
                 seen.add(ticker)
                 univers.append(entry)
+
+    root = Path(__file__).resolve().parents[1]
+    uni_path = root / "src" / "data" / "v1-9-5-clean-all-tickers.json"
+    dir_path = root / "src" / "data" / "ir-directory.json"
+    try:
+        tickers = json.load(open(uni_path, encoding="utf8")).get("tickers", [])
+    except (OSError, json.JSONDecodeError):
+        tickers = []
+    try:
+        entries = json.load(open(dir_path, encoding="utf8")).get("entries", {})
+    except (OSError, json.JSONDecodeError):
+        entries = {}
+
+    for ticker in tickers:
+        if "." not in ticker or ticker in seen:
+            continue
+        suffix = "." + ticker.rsplit(".", 1)[-1].upper()
+        if suffix not in EU_SUFFIXES:
+            continue
+        entry = entries.get(ticker) or {}
+        url = entry.get("ir_url") or entry.get("ir_hint")
+        if not url:
+            continue
+        if ticker not in IR_PAGES:
+            IR_PAGES[ticker] = [url]
+        seen.add(ticker)
+        univers.append({"ticker": ticker, "nom": entry.get("name") or ticker})
     return univers
 
 
@@ -260,6 +322,20 @@ def extract_pdf_links(html: str, base_url: str) -> list[tuple[str, str]]:
             out.append((url, unescape(inner).strip()[:200]))
     # href pdf hors ancres complètes (JS, data-attrs)
     for m in re.finditer(r'["\'](https?://[^"\']+\.pdf[^"\']*)["\']', html, re.I):
+        url = unescape(m.group(1))
+        if url not in seen:
+            seen.add(url)
+            out.append((url, ""))
+    # Pages passées par le lecteur de repli : le contenu arrive en markdown,
+    # les liens s'écrivent [libellé](url) et non plus en HTML (Yann 26 août
+    # 2026). Sans cette passe, un site protégé par WAF renvoyait zéro PDF.
+    for m in re.finditer(r'\[([^\]]{0,200})\]\((https?://[^)\s]+\.pdf[^)\s]*)\)', html, re.I):
+        url = unescape(m.group(2))
+        if url not in seen:
+            seen.add(url)
+            out.append((url, unescape(m.group(1)).strip()[:200]))
+    # Markdown : URL nue en fin de ligne.
+    for m in re.finditer(r'(?<![(\["\'])(https?://[^\s)\]"\']+\.pdf[^\s)\]"\']*)', html, re.I):
         url = unescape(m.group(1))
         if url not in seen:
             seen.add(url)
