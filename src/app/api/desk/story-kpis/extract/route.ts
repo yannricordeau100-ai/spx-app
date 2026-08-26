@@ -18,14 +18,57 @@ export const maxDuration = 60;
  */
 async function fetchText(url: string): Promise<string> {
   const clean = url.trim();
-  const proxied = `https://r.jina.ai/${clean}`;
-  const res = await fetch(proxied, {
+
+  // Post X : l API publique de x.com demande un jeton et le lecteur generique
+  // se fait bloquer regulierement sur ce domaine. fxtwitter rend le texte du
+  // post en JSON sans authentification ; on retombe sur le lecteur generique
+  // s il ne repond pas.
+  const x = clean.match(
+    /^https?:\/\/(?:www\.)?(?:x|twitter)\.com\/([^/]+)\/status\/(\d+)/i,
+  );
+  if (x) {
+    try {
+      const r = await fetch(`https://api.fxtwitter.com/${x[1]}/status/${x[2]}`, {
+        headers: { "User-Agent": "Mettrik/1.0 (+https://mettrik.ai)" },
+        cache: "no-store",
+      });
+      if (r.ok) {
+        const j = (await r.json()) as {
+          tweet?: {
+            text?: string;
+            created_at?: string;
+            author?: { name?: string; screen_name?: string };
+            quote?: { text?: string };
+          };
+        };
+        const t = j.tweet;
+        if (t?.text) {
+          return [
+            `Auteur : ${t.author?.name ?? x[1]} (@${t.author?.screen_name ?? x[1]})`,
+            t.created_at ? `Publié le : ${t.created_at}` : "",
+            "",
+            t.text,
+            t.quote?.text ? `\n\nPost cité : ${t.quote.text}` : "",
+          ]
+            .filter(Boolean)
+            .join("\n");
+        }
+      }
+    } catch {
+      /* on bascule sur le lecteur generique */
+    }
+  }
+
+  const res = await fetch(`https://r.jina.ai/${clean}`, {
     headers: { "User-Agent": "Mettrik/1.0 (+https://mettrik.ai)" },
     cache: "no-store",
   });
   if (!res.ok) throw new Error(`lecture de la source impossible (${res.status})`);
   const txt = await res.text();
   if (!txt || txt.trim().length < 40) throw new Error("source vide ou protégée");
+  if (/AbuseAlleviationError|Anonymous access to domain/i.test(txt.slice(0, 400))) {
+    throw new Error("lecteur bloqué sur ce domaine, réessaie plus tard");
+  }
   return txt;
 }
 
@@ -66,6 +109,11 @@ export async function POST(req: Request) {
       }),
     });
     const raw = await res.text();
+    if (res.status === 401) {
+      throw new Error(
+        "clé Groq refusée (401) : régénère GROQ_API_KEY sur console.groq.com puis mets-la à jour côté Vercel",
+      );
+    }
     if (!res.ok) throw new Error(`Groq ${res.status} : ${raw.slice(0, 200)}`);
     const parsed = JSON.parse(JSON.parse(raw).choices[0].message.content);
 
