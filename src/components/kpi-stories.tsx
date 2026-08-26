@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Company } from "@/lib/data";
 import { brand } from "@/lib/brand";
-import { buildStories, hasStories } from "@/lib/kpi-stories-ordering";
+import { buildStories, hasStories, type StorySlide } from "@/lib/kpi-stories-ordering";
 import { KpiStoryCard } from "@/components/kpi-story-card";
 import { useT } from "@/lib/i18n/provider";
 import { useSwipeStories } from "@/lib/hooks/use-swipe-stories";
@@ -283,8 +283,8 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
         <div className="flex items-stretch justify-center gap-4 sm:gap-5">
           {shown.map((slideIdx, slot) => (
             <StoryFrame
-              key={`${active}-${slot}`}
-              slideIdx={slideIdx}
+              key={`${family}-${order}-${starOnly}-${active}-${slot}`}
+              slide={slides[slideIdx]!}
               slot={slot}
               company={company}
               accent={accent}
@@ -354,7 +354,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
  *       GPU dédié = clipping pixel-perfect.
  */
 function StoryFrame({
-  slideIdx,
+  slide,
   slot,
   company,
   accent,
@@ -371,7 +371,11 @@ function StoryFrame({
   prevLabel,
   nextLabel,
 }: {
-  slideIdx: number;
+  /** Yann 26 aout 2026 : la slide est passee TELLE QUELLE. Avant, la carte
+   *  recevait un index et reconstruisait la liste complete depuis
+   *  company.kpis : le filtre par famille n avait donc aucun effet sur ce qui
+   *  s affichait, et le bloc paraissait fige au changement d onglet. */
+  slide: StorySlide;
   slot: number;
   company: Company;
   accent: string;
@@ -388,10 +392,13 @@ function StoryFrame({
   prevLabel: string;
   nextLabel: string;
 }) {
-  const categories = buildStories(company.kpis, []);
-  const slides = categories.flatMap((c) => c.slides);
-  const slide = slides[slideIdx];
   if (!slide) return null;
+  // Identifiant stable de la slide : relance la barre de progression et
+  // l animation d entree a chaque changement de carte, filtre compris.
+  const slideKey =
+    slide.kind === "kpi"
+      ? `kpi-${slide.data.short ?? ""}`
+      : `mp-${(slide.data as { segment?: string }).segment ?? ""}`;
 
   return (
     <div className="relative w-full" style={{ maxWidth }}>
@@ -448,7 +455,7 @@ function StoryFrame({
           {autoplay && (
             <div className="absolute inset-x-3 top-9 z-20 h-[3px] overflow-hidden rounded-full bg-white/15">
               <div
-                key={slideIdx}
+                key={slideKey}
                 className="absolute inset-y-0 left-0 bg-white"
                 style={{
                   width: "0%",
@@ -477,7 +484,7 @@ function StoryFrame({
           <div className="absolute inset-0">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
-                key={slideIdx}
+                key={slideKey}
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -30 }}
