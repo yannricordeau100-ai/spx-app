@@ -253,6 +253,33 @@ def call_provider(spec, prompt: str, key: str) -> str:
     return payload["content"][0]["text"] if auth == "anthropic" else payload["choices"][0]["message"]["content"]
 
 
+def call_claude_cli(prompt: str) -> str:
+    """Extraction via la session Claude Code du Mac : aucune cle API.
+    Si un profil dedie au compte MAX 20x existe (~/.claude-20x), il est
+    utilise ; sinon la session par defaut. Le modele Sonnet suffit pour de
+    l extraction verrouillee par la verification textuelle en aval."""
+    import os
+    env_vars = dict(os.environ)
+    profil = Path.home() / ".claude-20x"
+    if profil.exists():
+        env_vars["CLAUDE_CONFIG_DIR"] = str(profil)
+    out = subprocess.run(
+        ["claude", "-p", "--model", "sonnet", "--output-format", "text"],
+        input=prompt, capture_output=True, text=True, timeout=420, env=env_vars,
+    )
+    if out.returncode != 0:
+        raise RuntimeError(f"claude-cli rc={out.returncode}: {out.stderr[:200]}")
+    return out.stdout
+
+
+def parse_json_answer(raw: str) -> dict:
+    """Tolere une reponse entouree de texte ou de barrieres de code."""
+    m = re.search(r"\{.*\}", raw, re.S)
+    if not m:
+        raise ValueError("aucun JSON dans la reponse")
+    return json.loads(m.group(0))
+
+
 def extract_via_api(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]):
     prompt = build_prompt(ticker, kpis, docs)
     erreurs = []
@@ -262,9 +289,15 @@ def extract_via_api(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]):
             erreurs.append(f"{spec[0]}: cle absente")
             continue
         try:
-            return json.loads(call_provider(spec, prompt, key)), spec[0]
+            return parse_json_answer(call_provider(spec, prompt, key)), spec[0]
         except Exception as err:  # noqa: BLE001
             erreurs.append(f"{spec[0]}: {err}")
+    # Dernier recours, et en pratique le moteur PRINCIPAL tant que les cles
+    # API sont mortes : la session locale Claude Code.
+    try:
+        return parse_json_answer(call_claude_cli(prompt)), "claude-cli"
+    except Exception as err:  # noqa: BLE001
+        erreurs.append(f"claude-cli: {err}")
     raise RuntimeError(" | ".join(erreurs))
 
 
@@ -318,8 +351,11 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
 
     try:
         parsed, fournisseur = extract_via_api(ticker, kpis, docs)
-    except RuntimeError as err:
-        return {"ticker": ticker, "statut": f"aucun moteur ({err})"}
+    except RuntimeError:
+        # Aucun moteur : on ne perd pas le travail, on ecrit le dossier.
+        path = write_dossier(ticker, kpis, docs)
+        return {"ticker": ticker, "statut": "dossier prepare", "fichier": path.name,
+                "kpis": len(kpis), "documents": len(docs)}
 
     periode = str(parsed.get("periode") or "").strip()
     corpus = [t for _, t in docs]
@@ -383,20 +419,22 @@ def main() -> int:
 
     moteur = "api"
     try:
-        extract_via_api("TEST", [{"short": "x", "history": [1]}], [("t", "test " * 200)])
-    except RuntimeError:
-        moteur = "dossier"
-        log("aucun moteur de modele joignable : preparation des dossiers de travail")
+        subprocess.run(["claude", "--version"], capture_output=True, timeout=20, check=True)
+    except Exception:  # noqa: BLE001
+        cles = any(env(spec[1]) for spec in PROVIDERS)
+        if not cles:
+            moteur = "dossier"
+            log("aucun moteur joignable (ni cle API ni claude-cli) : dossiers de travail")
 
     log(f"{len(cibles)} societe(s), moteur={moteur}")
     state = json.loads(STATE.read_text(encoding="utf8")) if STATE.exists() else {}
     compte = {"traite": 0, "dossier prepare": 0}
     for t in cibles:
         r = process(t, args.apply and not args.dry_run, moteur)
+        log(" ".join(f"{k}={str(v)[:160]}" for k, v in r.items()))
         if r["statut"] in compte:
             compte[r["statut"]] += 1
             state[t] = {**r, "at": datetime.now(timezone.utc).isoformat()}
-            log(" ".join(f"{k}={v}" for k, v in r.items()))
     if args.apply and not args.dry_run:
         STATE.parent.mkdir(parents=True, exist_ok=True)
         STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf8")
