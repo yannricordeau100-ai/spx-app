@@ -93,3 +93,85 @@ export function applyFloutageRules(rules: FloutageRule[]): () => void {
     }
   };
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Zones nommées (Yann 27 aout 2026)
+
+   Pourquoi ce second mecanisme : `dom_selector` ci dessus enregistre un chemin
+   CSS du type `div.mt-9.rounded-2xl > section:nth-of-type(3)`. Ce chemin est
+   fait de classes utilitaires et de rangs de freres, deux choses qui changent
+   a chaque retouche de design et qui different d une societe a l autre selon
+   les blocs reellement presents. D ou l ecart entre la zone montree dans
+   l outil et la zone reellement floutee en production.
+
+   La regle posee ici : une zone est designee par l identifiant STABLE du bloc
+   (les memes que ceux du controle des blocs) et, si besoin, par une partie de
+   ce bloc. L attribut `data-blur` est emis par les composants eux memes, donc
+   il survit a toute refonte visuelle et vaut pour les 656 pages.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+import type { BlockId } from "@/lib/v1-9-blocks-control";
+import { BLOCK_LABELS } from "@/lib/v1-9-blocks-control";
+
+export type PartieDeBloc =
+  | "tout"
+  | "titre"
+  | "valeur"
+  | "variation"
+  | "graphique"
+  | "tableau"
+  | "texte"
+  | "source";
+
+export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
+  tout: "le bloc entier",
+  titre: "le titre",
+  valeur: "la valeur chiffrée",
+  variation: "la variation",
+  graphique: "le graphique",
+  tableau: "le tableau",
+  texte: "le texte",
+  source: "la source",
+};
+
+export type Zone = { bloc: BlockId; partie: PartieDeBloc };
+
+/** Selecteur applique a l identique en apercu et en production. */
+export function selecteurDeZone(z: Zone): string {
+  const base = `[data-blur="${z.bloc}"]`;
+  return z.partie === "tout" ? base : `${base} [data-blur-part="${z.partie}"]`;
+}
+
+/** Libelle lisible, affiche dans l outil et dans les recapitulatifs. */
+export function libelleDeZone(z: Zone): string {
+  const bloc = BLOCK_LABELS[z.bloc] ?? z.bloc;
+  return z.partie === "tout" ? bloc : `${bloc} : ${LIBELLES_PARTIES[z.partie]}`;
+}
+
+/** Parties proposees par bloc dans l outil de selection. */
+export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
+  hero: ["tout", "titre", "valeur", "variation", "graphique", "source"],
+  kpis: ["tout", "titre", "tableau", "valeur", "variation"],
+  stories: ["tout", "titre", "texte", "source"],
+  repartition: ["tout", "titre", "graphique", "tableau"],
+  governance: ["tout", "titre", "tableau", "texte"],
+  risks: ["tout", "titre", "texte", "source"],
+  events: ["tout", "titre", "tableau"],
+  ai_positioning: ["tout", "titre", "texte", "source"],
+  dividend: ["tout", "titre", "valeur", "graphique"],
+  transcripts: ["tout", "titre", "texte", "source"],
+  image_findings: ["tout", "titre", "graphique", "source"],
+  ranks: ["tout", "titre", "tableau", "valeur"],
+  interpretation: ["tout", "texte"],
+  company_logo: ["tout"],
+};
+
+/** Transforme des zones nommees en regles, pour reutiliser applyFloutageRules. */
+export function zonesEnRegles(zones: Zone[]): FloutageRule[] {
+  return zones.map((z) => ({
+    label: libelleDeZone(z),
+    dom_selector: selecteurDeZone(z),
+    sub_target: null,
+    action: "blur" as const,
+  }));
+}

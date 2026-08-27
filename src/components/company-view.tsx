@@ -1048,7 +1048,7 @@ export function CompanyView({
 
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
         <section
-          id="sec-hero"
+          id="sec-hero" data-blur="hero"
           ref={heroRef}
           className="conic-border relative scroll-mt-24 overflow-hidden rounded-2xl border border-[#1f1f1f] bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#070707] p-5 animate-fade-up sm:p-7"
         >
@@ -1603,7 +1603,7 @@ export function CompanyView({
         </AnimatePresence>
 
         {/* KPI table */}
-        <section id="sec-kpis" className="mt-9 scroll-mt-24 animate-fade-up-d2">
+        <section id="sec-kpis" data-blur="kpis" className="mt-9 scroll-mt-24 animate-fade-up-d2">
           <div className="mb-4 flex items-end justify-between">
             <div>
               <h2 className="text-[22px] font-semibold text-zinc-100">{t("company.kpi_table.title")}</h2>
@@ -1749,14 +1749,14 @@ export function CompanyView({
         {/* Risk factors */}
         {isBlockEnabled("risks", company.ticker) && !isDisabled("risks") ? (
           company.risks && company.risks.length > 0 ? (
-            <div id="sec-risks" className="scroll-mt-24">
+            <div id="sec-risks" data-blur="risks" className="scroll-mt-24">
               <RiskStack risks={company.risks} accent={accent} profitWarning={isDisabled("profit_warning") ? undefined : company.profit_warning} freeBlocked={freeBlocked} ticker={company.ticker} />
             </div>
           ) : (
-            v18Mode && <V18MissingPlaceholder id="sec-risks" label="Facteurs de risque" hint="Item 1A 10-K à extraire (Sonnet/Haiku Pass 2)." />
+            v18Mode && <V18MissingPlaceholder id="sec-risks" data-blur="risks" label="Facteurs de risque" hint="Item 1A 10-K à extraire (Sonnet/Haiku Pass 2)." />
           )
         ) : (
-          <BlockComingSoon blockId="risks" id="sec-risks" />
+          <BlockComingSoon blockId="risks" id="sec-risks" data-blur="risks" />
         )}
 
         {/* Anti-thèse d'investissement — juste APRÈS Facteurs de risque
@@ -1780,14 +1780,14 @@ export function CompanyView({
         {/* Governance */}
         {isBlockEnabled("governance", company.ticker) && !isDisabled("gouvernance") ? (
           company.governance ? (
-            <div id="sec-governance" className="scroll-mt-24">
+            <div id="sec-governance" data-blur="governance" className="scroll-mt-24">
               <GovernanceCard governance={company.governance} ticker={company.ticker} company={company} freeBlocked={freeBlocked} disabledBlocks={disabledBlocks} />
             </div>
           ) : (
-            v18Mode && <V18MissingPlaceholder id="sec-governance" label="Gouvernance & rémunération" hint="DEF14A (cat 1) ou rapport annuel à extraire." />
+            v18Mode && <V18MissingPlaceholder id="sec-governance" data-blur="governance" label="Gouvernance & rémunération" hint="DEF14A (cat 1) ou rapport annuel à extraire." />
           )
         ) : (
-          <BlockComingSoon blockId="governance" id="sec-governance" />
+          <BlockComingSoon blockId="governance" id="sec-governance" data-blur="governance" />
         )}
 
         {/* AI positioning — Yann 20 mai 2026 : masquer si stance=absent (= 10-K ne mentionne pas IA).
@@ -1795,11 +1795,11 @@ export function CompanyView({
         {isBlockEnabled("ai_positioning", company.ticker) && !isDisabled("ai_positioning") ? (
           (() => {
             const ai = company.ai_positioning;
-            if (!ai) return v18Mode ? <V18MissingPlaceholder id="sec-ai" label="Positionnement IA" hint="Mentions IA dans 10-K à parser via Cerebras Llama 3.3 70B." /> : null;
+            if (!ai) return v18Mode ? <V18MissingPlaceholder id="sec-ai" data-blur="ai_positioning" label="Positionnement IA" hint="Mentions IA dans 10-K à parser via Cerebras Llama 3.3 70B." /> : null;
             // Masque si stance="absent" OU pas d'evidence (= pas de positionnement réel à montrer)
             if (ai.stance === "absent" || !Array.isArray(ai.evidence) || ai.evidence.length === 0) return null;
             return (
-              <div id="sec-ai" className="scroll-mt-24">
+              <div id="sec-ai" data-blur="ai_positioning" className="scroll-mt-24">
                 <AIPositioningCard
                   positioning={ai}
                   companyName={company.name}
@@ -1810,7 +1810,7 @@ export function CompanyView({
             );
           })()
         ) : (
-          <BlockComingSoon blockId="ai_positioning" id="sec-ai" />
+          <BlockComingSoon blockId="ai_positioning" id="sec-ai" data-blur="ai_positioning" />
         )}
 
         {/* Bloc transactions politiciens US retiré (13 mai 2026 par Yann). */}
