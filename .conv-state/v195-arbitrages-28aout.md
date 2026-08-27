@@ -48,3 +48,27 @@ Top 25 par ecart de signe :
 VICI Charge_Credit_CECL et VICI Rev_Prets : la description cite la HAUSSE (+51,2 M $ et +83,9 M $),
 pas le niveau. Coherent avec l history. Idem TAP (royalty exclu), WY (10 + 14 = 24 M acres),
 PWR (925 M$ d acquisitions), SLB (879 M$ ChampionX), ROST (~80 magasins par an), LUV (1 mile), WBD (16 Mds de desendettement sur 4 ans).
+## 5. Deuxieme lot du meme run : unites et KPI vides
+
+Corriges : GL Premium et WELL Resident fees etiquetes "Mds $" alors que la serie est en M $
+(2 438 M $ et 4 265 M $, pas 2 438 Mds) ; CAT R&D, SHW Operating Cash Flow et SLB Operating
+Cash Flow dont la value etait a deux ou trois ordres de grandeur sous leur serie ; APP Capex
+realigne sur le dernier point.
+
+Quinze KPI vides retires des fiches enrich : series entierement nulles (EVRG Dividend Payout
+Ratio, ORLY Comp Sales) ou constantes a zero contre une realite non nulle (HEIA.AS, INGA.AS et
+VOW.DE versent tous un dividende, leur DPS, Cap Return et Payout Ratio etaient a zero sur cinq
+points), plus des KPI non chiffres (NVS et NOVN.SW "AI Integration" avec une serie textuelle
+Growing/Expanding/Deepening, RIVN "Autonomy+ Platform", MO Cost Savings a 600 M $ sur une serie
+de zeros). Cas notable : le DPS a zero d INGA.AS dans enrich masquait la vraie serie de
+kpis-haut (1,086 EUR sur dix points), le retrait la laisse remonter.
+
+Qualifieur avant et apres retrait : 9/9 PASS, aucun hero deplace.
+
+## 6. Restent a arbitrer sur les series
+
+Trois effectifs dont l history contient un point aberrant, non corriges : FAST (dernier point
+1 148 179 pour environ 24 000 salaries), NOW (8 700 apres 26 293), GE (serie a 10 000 pour une
+value de 57 milliers). CHTR Capex / Line Extensions : value 4 216 contre une serie [11,1 ; 11,7]
+en Mds $, les deux ne mesurent pas la meme chose. Vingt-deux series a trous internes, surtout
+des Payout Ratio et DPS europeens (SHEL, BCP.LS, FRE.DE, PHG, PHIA.AS), affichables mais lacunaires.
