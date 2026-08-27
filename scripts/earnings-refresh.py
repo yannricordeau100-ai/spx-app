@@ -317,6 +317,29 @@ def extract_via_api(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]):
         raise RuntimeError(f"claude-cli: {err}") from err
 
 
+def periode_compatible(kpi: dict, periode: str) -> bool:
+    """Un point trimestriel n a rien a faire dans une serie annuelle, et
+    inversement. Sans ce controle, la dette nette au 30 juin viendrait se ranger
+    a cote de dettes de fin d exercice et la serie deviendrait illisible."""
+    freq = (kpi.get("frequency") or "").lower()
+    p = periode.upper()
+    if p.startswith("FY"):
+        type_periode = "annual"
+    elif p.startswith(("H1", "H2", "S1", "S2")):
+        type_periode = "semiannual"
+    elif p.startswith("Q") or p.startswith("T"):
+        type_periode = "quarterly"
+    else:
+        return False
+    if freq in ("annual", "yearly"):
+        return type_periode == "annual"
+    if freq == "semiannual":
+        return type_periode == "semiannual"
+    if freq == "quarterly":
+        return type_periode == "quarterly"
+    return True  # frequence inconnue : on laisse passer
+
+
 def write_dossier(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]) -> Path:
     """Dossier de travail complet quand aucun moteur n'est joignable : les
     documents et la liste des KPI attendus, prêts à être traités."""
@@ -388,6 +411,9 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
             rejetes += 1
             continue
         kpi = index[short]
+        if not periode_compatible(kpi, periode):
+            rejetes += 1
+            continue
         if period_key(periode) and period_key(periode) <= period_key(last_period(kpi) or ""):
             continue  # déjà à jour : on n'écrase jamais un point existant
         hist = kpi["history"]
