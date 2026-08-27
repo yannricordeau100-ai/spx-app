@@ -97,3 +97,25 @@ Defaut systemique, a traiter par une passe dediee sur les 56 fiches.
   hum sur une seule ligne). Toujours relever
   `git show HEAD:<fichier> | sed -n 2p` avant de reecrire, sinon le diff
   passe de 40 a 3 400 lignes.
+
+## Test de coherence value contre dernier point d history (56 fiches rafraichies)
+22 ecarts de plus de 2 %. Six corriges, tous des erreurs d echelle evidentes
+ou l unite tranchait sans ambiguite :
+- MUFG : `Net Interest Income JPGAAP`, `Non-Interest Income` et
+  `Non-Interest Expense` portaient une valeur divisee par mille par rapport a
+  leur propre serie, en unite "M ¥" (3 088,197 pour une serie a 3 088 197).
+- NVDA `Headcount` : 36 pour une serie finissant a 42 000 employes.
+- SNPS `Headcount` : 28 pour une serie finissant a 28 000 employes.
+- WWD `Industrial Revenue` : serie plate a 0,002 Mds $ sur cinq exercices face
+  a une valeur de 1,254. Serie inexploitable, aucune source de remplacement
+  locale, KPI retire.
+Requalification des 4 fiches : 4/4 PASS.
+
+RESTE A ARBITRER (16 ecarts moderes, valeur plus fraiche que la serie, pas de
+source locale pour trancher a coup sur) : BJ (Gross Margin, Membership Renewal
+Rate, Total Members, Higher-Tier Member Penetration, Own Brands Penetration,
+Club Count), BMRN SG&A, CGNX Cap Return, ELAN Innovation Revenue (892 contre
+400, le plus gros ecart du lot), FHN Payout Ratio, MKSI Cap Return, POWL Cap
+Return, RBA Payout Ratio, SNAP ARPU et Cash, WMS Payout Ratio.
+Le test est relancable : comparer `value` au dernier element de `history` en
+depliant les points {"q","v"}.
