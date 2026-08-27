@@ -9,6 +9,12 @@
 #      Code locale — profil ~/.claude-20x s il existe, sinon profil defaut)
 cd /Users/yann/spx-app || exit 1
 export PATH="/usr/local/bin:/usr/bin:/bin"
+# cron ne transmet ni USER ni LOGNAME. Sans eux, le CLI Claude ne retrouve pas
+# ses identifiants dans le trousseau macOS et repond "Not logged in" avec un
+# code de retour 0. C est ce qui a fait tomber la passe du 27 aout dans le mode
+# dossier : 694 dossiers ecrits, aucun point extrait.
+export USER="${USER:-$(id -un)}"
+export LOGNAME="$USER"
 {
   echo "=== $(date '+%F %T') veille US ==="
   nice -n 10 python3 scripts/daily-doc-watcher.py

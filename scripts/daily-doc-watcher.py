@@ -287,9 +287,56 @@ def download_recent_sec_filings(
             downloaded += 1
             log(f"  ↓ {ticker} {form} {filed_date} → {target_file.relative_to(PROJECT_ROOT)}")
             time.sleep(0.15)  # SEC rate limit ~10 req/sec
+            # Un 8-K de resultats ne contient AUCUN chiffre : la page de garde
+            # renvoie a l exhibit 99.1, le communique. Sans lui, la passe
+            # nocturne ne trouve rien a extraire. Cas reel : NVIDIA, resultats
+            # du 26 aout 2026, invisibles jusqu ici.
+            if form in {"8-K", "6-K"}:
+                downloaded += telecharge_exhibits(
+                    cik, acc_no_dash, ticker, filed_date, target_dir
+                )
         except Exception as e:
             log(f"  ✗ {ticker} {form} {dates[i]}: {e}")
     return downloaded
+
+
+def telecharge_exhibits(
+    cik: str, acc_no_dash: str, ticker: str, filed_date, target_dir
+) -> int:
+    """Recupere le depot COMPLET d un 8-K, exhibits inclus.
+
+    La page de garde d un 8-K de resultats ne contient aucun chiffre : tout est
+    dans l exhibit 99.1, le communique. L index du depot ne liste pas toujours
+    les exhibits separement, mais le fichier de soumission complet
+    (<accession>.txt) les contient tous a la suite. Cas reel : NVIDIA, resultats
+    du 26 aout 2026, invisibles pour la passe nocturne jusqu ici.
+    """
+    import urllib.request
+
+    acc_tirets = (
+        f"{acc_no_dash[:10]}-{acc_no_dash[10:12]}-{acc_no_dash[12:]}"
+        if len(acc_no_dash) == 18
+        else acc_no_dash
+    )
+    cible = target_dir / f"{ticker}_{filed_date.isoformat()}_complet.txt.gz"
+    if cible.exists():
+        return 0
+    url = (
+        f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/"
+        f"{acc_no_dash}/{acc_tirets}.txt"
+    )
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+        with urllib.request.urlopen(req, timeout=90) as resp:
+            contenu = resp.read()
+    except Exception as e:  # noqa: BLE001
+        log(f"  ✗ {ticker} depot complet {acc_tirets}: {e}")
+        return 0
+    with gzip.open(cible, "wb") as gz:
+        gz.write(contenu)
+    log(f"  ↓ {ticker} depot complet → {cible}")
+    time.sleep(0.15)
+    return 1
 
 
 def scrape_eu_ir_page(ticker: str) -> int:
