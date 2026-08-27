@@ -83,3 +83,16 @@ plutot qu une erreur, mais l affichage date une donnee du futur. A trancher par 
 Cent huit KPI ont plus de 900 jours d anciennete, concentres sur ABBNY et ABLZF (5 chacun),
 CPR.MI (5), NHY.OL et SOF.BR (4), FIS, META et SHOP (3). Probleme de fraicheur, pas de
 correction ponctuelle possible.
+
+## 8. Typage des values (troisieme et quatrieme lots)
+
+Le rendu convertit la value par Number(), donc une value stockee en texte mais numeriquement
+propre ne casse rien : 356 cas de ce type ont ete laisses tels quels. Seuls les cinq qui
+produisaient NaN ont ete corriges (COST Gross Margin en virgule decimale francaise, GEN Net
+Revenues, LIN EBITDA et Number of Employees, WDAY Headcount avec une virgule de milliers).
+Les douze values reellement textuelles ont toutes ete traitees.
+
+Point ouvert : la serie de GEN Net Revenues [3935, 3800, 3641, 3489, 3337] et celle de COST
+Gross Margin semblent ordonnees du plus recent au plus ancien, contrairement a la convention
+ancien vers recent. Les values ont donc ete converties sans etre realignees sur le dernier
+point, pour ne pas trancher l ordre sans source. A verifier.
