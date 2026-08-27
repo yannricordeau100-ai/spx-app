@@ -330,6 +330,23 @@ def extract_via_api(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]):
         raise RuntimeError(f"claude-cli: {err}") from err
 
 
+def source_compatible(kpi: dict) -> bool:
+    """Vigilance sur les KPI dont l historique ne vient PAS des documents de
+    resultats (recherche manuelle, presse, cabinets d etudes, posts X...).
+
+    Regle posee par Yann le 27 aout 2026 : pour ces KPI, un chiffre trouve dans
+    un document de resultats n est PAS forcement le meme indicateur, meme quand
+    le libelle se ressemble. Changer de source en cours de serie produit une
+    rupture invisible et un graphique faux. On ne les met donc jamais a jour
+    automatiquement : ils restent pilotes depuis l outil KPI speciaux.
+    """
+    if kpi.get("hors_document") is True:
+        return False
+    if kpi.get("source_officielle") is False:
+        return False
+    return True
+
+
 def periode_compatible(kpi: dict, periode: str) -> bool:
     """Un point trimestriel n a rien a faire dans une serie annuelle, et
     inversement. Sans ce controle, la dette nette au 30 juin viendrait se ranger
@@ -425,6 +442,9 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
             rejetes += 1
             continue
         kpi = index[short]
+        if not source_compatible(kpi):
+            rejetes += 1
+            continue
         # La periode propre a la valeur prime : une publication semestrielle
         # porte souvent des KPI trimestriels et des KPI semestriels a la fois.
         periode_v = str(v.get("periode") or periode).strip()
