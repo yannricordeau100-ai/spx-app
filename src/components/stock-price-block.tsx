@@ -108,11 +108,24 @@ function useLivePrice(ticker: string): LivePrice {
 /** Yann 9 août 2026 : devise déduite du suffixe ticker (.PA cote en €,
  *  .SW en CHF, reste de l'univers en $). Le "$" codé en dur affichait
  *  "Mds $" et un prix en $ sur LVMH et les stés suisses. */
+const DEVISE_PAR_PLACE: Record<string, string> = {
+  // Zone euro
+  PA: "€", DE: "€", AS: "€", MI: "€", MC: "€", BR: "€", LS: "€",
+  VI: "€", HE: "€", IR: "€",
+  // Hors zone euro
+  SW: "CHF", L: "£", ST: "SEK", CO: "DKK", OL: "NOK",
+  T: "¥", HK: "HK$", KS: "₩", TO: "C$", AX: "A$",
+};
+
+/** Yann 9 août 2026, complété le 28 août 2026 : la devise vient du suffixe de
+ *  place. Avant, seules .PA et .SW étaient traitées et tout le reste retombait
+ *  sur le dollar : SoftBank affichait 5 200,00 $ pour un cours en yens et une
+ *  capitalisation de 29 634 Mds $ pour des milliards de yens. */
 function currencySymbolForTicker(ticker: string): string {
   const t = ticker.toUpperCase();
-  if (t.endsWith(".PA")) return "€";
-  if (t.endsWith(".SW")) return "CHF";
-  return "$";
+  const point = t.lastIndexOf(".");
+  if (point === -1) return "$";
+  return DEVISE_PAR_PLACE[t.slice(point + 1)] ?? "$";
 }
 
 function fmtMarketCap(mc: number, locale: Locale = "fr", cur = "$"): string {

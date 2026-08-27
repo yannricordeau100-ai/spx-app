@@ -270,13 +270,17 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           (PAD_TOP - 14), aligné fin sur l'axe Y, cohérent web + PNG. */}
       {header && (
         <text
+          /* Yann 28 aout 2026 : ancre a gauche quand l axe est a gauche. Avec
+             une ancre a droite, un en tete long comme "Milliards JPY" debordait
+             hors du cadre (overflow visible) et venait se superposer au badge
+             de variation pose a gauche du graphique. */
           x={yOnRight ? W - 6 : PAD_LEFT - 6}
           y={PAD_TOP - 24}
           fontSize={13}
           fontWeight={600}
           fill="#e4e4e7"
           fontFamily="ui-monospace, monospace"
-          textAnchor="end"
+          textAnchor={yOnRight ? "end" : "start"}
         >
           {header}
         </text>
