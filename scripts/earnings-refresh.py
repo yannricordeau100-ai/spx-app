@@ -229,7 +229,8 @@ def build_prompt(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]) -> 
     for k in kpis[:20]:
         lignes.append(
             f'- "{k["short"]}" | {k.get("name_fr") or k.get("name_en")} '
-            f'| unite {k.get("unit")} | derniere periode connue {last_period(k) or "?"}'
+            f'| unite {k.get("unit")} | cadence {k.get("frequency") or "?"} '
+            f'| derniere periode connue {last_period(k) or "?"}'
         )
     corpus = "\n\n".join(
         f"--- DOCUMENT {i + 1} : {nom} ---\n{txt[:MAX_CHARS_PER_DOC]}"
@@ -245,10 +246,14 @@ def build_prompt(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]) -> 
         "- Une valeur n est retenue que si elle est ECRITE telle quelle dans un document.",
         "- Aucun calcul, aucune conversion, aucune estimation.",
         "- Indique la periode publiee au format Q2-2026, H1-2026 ou FY2026.",
+        "- La periode doit respecter la cadence du KPI : un KPI semestriel recoit",
+        "  H1-2026 ou H2-2026, jamais Q2-2026. Un chiffre de six mois n est pas un",
+        "  chiffre de trimestre. Mets la periode reelle de chaque valeur dans son",
+        "  champ `periode`.",
         "- `evidence` = la phrase exacte contenant le chiffre.",
         "- Un KPI absent des documents n est pas mentionne.",
         "",
-        '{"periode":"Q2-2026","valeurs":[{"short":"...","value":123.4,"evidence":"..."}]}',
+        '{"periode":"Q2-2026","valeurs":[{"short":"...","value":123.4,"periode":"H1-2026","evidence":"..."}]}',
         "",
         corpus,
     ])
@@ -296,6 +301,14 @@ def call_claude_cli(prompt: str) -> str:
     )
     if out.returncode != 0:
         raise RuntimeError(f"claude-cli rc={out.returncode}: {out.stderr[:200]}")
+    # Le CLI repond « Not logged in » avec un code de retour 0 : sans ce controle
+    # la reponse part au parseur JSON, qui echoue sur une exception non rattrapee
+    # et fait tomber toute la passe au lieu d ecrire un dossier de travail.
+    tete = out.stdout.strip()[:200]
+    if "Not logged in" in tete or "/login" in tete:
+        raise RuntimeError("claude-cli : session non connectee, lancer /login")
+    if "{" not in out.stdout:
+        raise RuntimeError(f"claude-cli : reponse sans JSON ({tete[:100]})")
     return out.stdout
 
 
@@ -390,8 +403,9 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
 
     try:
         parsed, fournisseur = extract_via_api(ticker, kpis, docs)
-    except RuntimeError:
-        # Aucun moteur : on ne perd pas le travail, on ecrit le dossier.
+    except (RuntimeError, ValueError):
+        # Moteur injoignable ou reponse inexploitable : on ne perd pas le
+        # travail, on ecrit le dossier pour un traitement a la main.
         path = write_dossier(ticker, kpis, docs)
         return {"ticker": ticker, "statut": "dossier prepare", "fichier": path.name,
                 "kpis": len(kpis), "documents": len(docs)}
@@ -411,14 +425,17 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
             rejetes += 1
             continue
         kpi = index[short]
-        if not periode_compatible(kpi, periode):
+        # La periode propre a la valeur prime : une publication semestrielle
+        # porte souvent des KPI trimestriels et des KPI semestriels a la fois.
+        periode_v = str(v.get("periode") or periode).strip()
+        if not periode_v or not periode_compatible(kpi, periode_v):
             rejetes += 1
             continue
-        if period_key(periode) and period_key(periode) <= period_key(last_period(kpi) or ""):
+        if period_key(periode_v) and period_key(periode_v) <= period_key(last_period(kpi) or ""):
             continue  # déjà à jour : on n'écrase jamais un point existant
         hist = kpi["history"]
         if hist and isinstance(hist[-1], dict):
-            hist.append({"q": periode, "v": val})
+            hist.append({"q": periode_v, "v": val})
         else:
             hist.append(val)
         kpi["value"] = val
