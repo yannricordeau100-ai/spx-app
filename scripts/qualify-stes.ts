@@ -82,7 +82,9 @@ const raw = process.argv.slice(2);
     const TU = t.toUpperCase();
     const reasons: string[] = [];
     const warnings: string[] = [];
-    if (CLEAN_ALL.size && !CLEAN_ALL.has(TU)) {
+    // 27 aout 2026 : QUALIFY_SKIP_CLEAN_GATE=1 desactive le gate pour auditer
+    // les stes deja online mais absentes de clean-all (fiche qui redirige).
+    if (!process.env.QUALIFY_SKIP_CLEAN_GATE && CLEAN_ALL.size && !CLEAN_ALL.has(TU)) {
       fail.push({ t: TU, reasons: ["hors clean-all-tickers (la page redirige vers l'overview)"] });
       console.log("❌ FAIL", TU, "| hors clean-all (pas de fiche)");
       continue;
@@ -271,7 +273,7 @@ const raw = process.argv.slice(2);
       console.log("❌ FAIL", TU, "| ERR", String(e).slice(0, 80));
     }
   }
-  fs.writeFileSync("/tmp/qualify-pass.json", JSON.stringify(pass));
-  fs.writeFileSync("/tmp/qualify-fail.json", JSON.stringify(fail, null, 2));
+  fs.writeFileSync(process.env.QUALIFY_OUT_PASS || "/tmp/qualify-pass.json", JSON.stringify(pass));
+  fs.writeFileSync(process.env.QUALIFY_OUT_FAIL || "/tmp/qualify-fail.json", JSON.stringify(fail, null, 2));
   console.log("\n=== PASS (" + pass.length + "/" + raw.length + ") : " + (pass.join(",") || "(aucune)") + " ===");
 })();
