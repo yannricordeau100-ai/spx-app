@@ -56,7 +56,24 @@ ENV = ROOT / ".env.local"
 DOC_DIRS_US = ("ER", "8K", "EP", "10Q", "10K")
 DOC_DIRS_EU = ("ir/CP", "ir/SLIDES", "ir/TRIM", "ir/RFS", "ir/URD")
 MAX_DOCS = 4
-MAX_CHARS_PER_DOC = 14000
+MAX_CHARS_PER_DOC = 60000
+
+# Suffixes de place hors Etats-Unis. Les dossiers SEC (10-Q, 10-K, 8-K...) de ces
+# societes contiennent en realite les depots d'une societe americaine homonyme :
+# le collecteur SEC a interroge le ticker de base (MC -> Moelis pour MC.PA,
+# AI -> C3.ai pour AI.PA, HEI -> HEICO pour HEI.DE...). Les lire injecterait les
+# chiffres d'une autre societe. On ne les ouvre jamais, sauf allowlist ci-dessous.
+SUFFIXES_HORS_US = (".PA", ".DE", ".AS", ".SW", ".MI", ".MC", ".BR", ".LS", ".VI", ".CO", ".ST", ".HE", ".OL")
+# Societes cotees hors Etats-Unis qui deposent reellement aupres de la SEC.
+DEPOSANTS_SEC_LEGITIMES = {"AMRZ.SW"}
+
+
+def depose_a_la_sec(ticker: str) -> bool:
+    """Vrai si les dossiers de type americain de ce ticker lui appartiennent."""
+    t = ticker.upper()
+    if t in DEPOSANTS_SEC_LEGITIMES:
+        return True
+    return not t.endswith(SUFFIXES_HORS_US)
 
 
 def log(msg: str) -> None:
@@ -138,15 +155,25 @@ def documents(ticker: str) -> list[Path]:
     base = LAKE / ticker
     if not base.exists():
         return []
+    dirs = (DOC_DIRS_US + DOC_DIRS_EU) if depose_a_la_sec(ticker) else DOC_DIRS_EU
     found: list[Path] = []
-    for rel in DOC_DIRS_US + DOC_DIRS_EU:
+    for rel in dirs:
         d = base / rel
         if not d.exists():
             continue
         for pattern in ("*.pdf", "*.htm.gz", "*.html.gz", "*.txt.gz", "*.htm"):
             found.extend(d.glob(pattern))
     found.sort(key=lambda p: p.stat().st_mtime, reverse=True)
-    return found[:MAX_DOCS]
+    # Un meme document existe souvent en deux formats (.pdf et .txt.gz) : on ne
+    # garde qu'un exemplaire par document, le texte plutot que le PDF.
+    uniques: dict[str, Path] = {}
+    for chemin in found:
+        cle = re.sub(r"\.(pdf|txt|htm|html|json)(\.gz)?$", "", chemin.name, flags=re.I)
+        actuel = uniques.get(cle)
+        if actuel is None or (actuel.suffix == ".pdf" and chemin.suffix != ".pdf"):
+            uniques[cle] = chemin
+    dedup = sorted(uniques.values(), key=lambda p: p.stat().st_mtime, reverse=True)
+    return dedup[:MAX_DOCS]
 
 
 def read_document(path: Path) -> str:
