@@ -122,6 +122,22 @@ function StatChip({ label, value }: { label: string; value: string | null | unde
   if (!v || v.toLowerCase() === "null" || v.toLowerCase() === "undefined" || v === "None") {
     return null;
   }
+  // Yann 28 aout 2026 : certaines fiches portent litteralement "Pas disponible"
+  // ou "Not applicable" dans la donnee. Affichees telles quelles, elles
+  // donnaient cinq pastilles vides a la suite dans l en tete (cas VMRK). Une
+  // information absente ne merite pas une pastille : on masque.
+  const absent = new Set([
+    "pas disponible",
+    "non disponible",
+    "not applicable",
+    "not available",
+    "n/a",
+    "na",
+    "-",
+    "—",
+    "?",
+  ]);
+  if (absent.has(v.toLowerCase())) return null;
   return (
     <span className="inline-flex shrink-0 items-baseline gap-1.5 rounded-lg border border-[#262626] bg-[#0c0c0c] px-2 py-1.5">
       <span className="text-[10.5px] font-medium uppercase tracking-wide text-zinc-400">

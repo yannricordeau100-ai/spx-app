@@ -201,6 +201,25 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
     : allData.length <= 22 ? 11
     : allData.length <= 30 ? 10
     : 9;
+  // Yann 28 aout 2026 : sur une serie dense, les valeurs au dessus des barres
+  // se chevauchaient et devenaient illisibles (cas VMRK, 20 trimestres :
+  // "80 95881 96881 803"). On estime la largeur du libelle le plus long et,
+  // s il ne tient pas dans l espace d une barre, on n en affiche qu un sur k,
+  // en gardant toujours le dernier. La valeur complete reste lisible au survol.
+  const largeurLibelleMax =
+    Math.max(
+      ...allData.map((d) =>
+        String(formatBarLabel(Number(d), dataOnlyMax, unit, effectiveLocale)).length,
+      ),
+      1,
+    ) *
+    valueFontSize *
+    0.62;
+  const espaceParBarre = INNER_W / Math.max(allData.length, 1);
+  const pasLibelles = Math.max(
+    1,
+    Math.ceil(largeurLibelleMax / Math.max(espaceParBarre - 4, 1)),
+  );
   const DX = isClassic ? 0 : 26;
   const DY = isClassic ? 0 : -16;
   // Yann 8 juin 2026 (Point 4) : si KpiSwapTitle force EN, l'axe Y traduit
@@ -446,7 +465,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
                 automatique (-30°) quand la série est dense (>12 points) pour
                 éviter tout chevauchement quelle que soit la disposition
                 (Yann 19 juil 2026). */}
-            {(() => {
+            {(i % pasLibelles === 0 || i === allData.length - 1) && (() => {
               const cxLabel = x + barW / 2 + (isClassic ? 0 : DX / 2);
               const cyLabel = isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12);
               // Yann 28 juillet 2026 : plus aucun label oblique. La densite est
