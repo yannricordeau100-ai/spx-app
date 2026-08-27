@@ -20,7 +20,12 @@ import type {
   SpecialKpi,
   SpecialKpiStyle,
   SpecialKpiChart,
+  SpecialKpiParams,
   SpecialKpiPoint,
+} from "@/lib/desk/special-kpis";
+import {
+  DEFAULT_SPECIAL_KPI_PARAMS,
+  readSpecialKpiParams,
 } from "@/lib/desk/special-kpis";
 import { SpecialKpiPreview } from "@/components/special-kpi-preview";
 import { I18nEditor, type I18nString } from "@/components/desk/i18n-editor";
@@ -361,9 +366,19 @@ function KpiForm({
   const [kpiNameFr, setKpiNameFr] = useState(row?.kpi_name_fr ?? "");
   const [kpiNameEn, setKpiNameEn] = useState(row?.kpi_name_en ?? "");
   const [kpiUnit, setKpiUnit] = useState(row?.kpi_unit ?? "");
-  const [kpiCat, setKpiCat] = useState(row?.kpi_category ?? "Volume");
+  const [kpiCat, setKpiCat] = useState(row?.kpi_category ?? "");
   const [style, setStyle] = useState<SpecialKpiStyle>(row?.style ?? "classique");
-  const [chart, setChart] = useState<SpecialKpiChart>(row?.chart_type ?? "curve");
+  // Yann 27 aout 2026 : les barres sont le rendu par defaut partout dans l app.
+  const [chart, setChart] = useState<SpecialKpiChart>(row?.chart_type ?? "bars");
+  const paramsInit: SpecialKpiParams = row
+    ? readSpecialKpiParams(row)
+    : DEFAULT_SPECIAL_KPI_PARAMS;
+  const [minHistory, setMinHistory] = useState(String(paramsInit.min_history));
+  const [minHistoryUnit, setMinHistoryUnit] = useState<SpecialKpiParams["min_history_unit"]>(
+    paramsInit.min_history_unit,
+  );
+  const [maxMissing, setMaxMissing] = useState(String(paramsInit.max_missing_points));
+  const [allowPartial, setAllowPartial] = useState(paramsInit.allow_partial_tickers);
   const [storyCat, setStoryCat] = useState(row?.story_category ?? "");
   const [desc, setDesc] = useState(row?.description ?? "");
 
@@ -457,6 +472,7 @@ function KpiForm({
             onChange={(e) => setKpiCat(e.target.value)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
           >
+            <option value="">(aucune)</option>
             <option>Revenue</option>
             <option>Volume</option>
             <option>User</option>
@@ -506,6 +522,59 @@ function KpiForm({
           </label>
         )}
       </div>
+      {/* Yann 27 aout 2026 : profondeur d historique, tolerance aux trous,
+          et comportement en mode multi tickers. */}
+      <div className="mt-3 grid grid-cols-2 gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 md:grid-cols-4">
+        <label className="text-[11.5px]">
+          <div className="mb-1 text-zinc-400">Historique minimum</div>
+          <select
+            value={minHistory}
+            onChange={(e) => setMinHistory(e.target.value)}
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
+          >
+            {[3, 5, 7, 10, 12, 15, 20, 25, 30].map((n) => (
+              <option key={n} value={String(n)}>{n}</option>
+            ))}
+          </select>
+        </label>
+        <label className="text-[11.5px]">
+          <div className="mb-1 text-zinc-400">Unité</div>
+          <select
+            value={minHistoryUnit}
+            onChange={(e) =>
+              setMinHistoryUnit(e.target.value as SpecialKpiParams["min_history_unit"])
+            }
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
+          >
+            <option value="years">années</option>
+            <option value="months">mois</option>
+          </select>
+        </label>
+        <label className="text-[11.5px]">
+          <div className="mb-1 text-zinc-400">Points manquants tolérés</div>
+          <select
+            value={maxMissing}
+            onChange={(e) => setMaxMissing(e.target.value)}
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
+          >
+            {[0, 1, 2, 3, 4, 5, 8, 10].map((n) => (
+              <option key={n} value={String(n)}>{n}</option>
+            ))}
+          </select>
+        </label>
+        <label className="flex items-end gap-2 text-[11.5px]">
+          <input
+            type="checkbox"
+            checked={allowPartial}
+            onChange={(e) => setAllowPartial(e.target.checked)}
+            className="mb-2.5 h-4 w-4"
+          />
+          <span className="mb-2 text-zinc-400">
+            Multi tickers : garder les sociétés trouvées, sauter les autres
+          </span>
+        </label>
+      </div>
+
       <label className="mt-3 block text-[11.5px]">
         <div className="mb-1 text-zinc-400">Description / consignes pour le LLM</div>
         <textarea
@@ -574,7 +643,17 @@ function KpiForm({
               interpretation_i18n: interpI18n,
               annotations,
               kpi_unit: kpiUnit || null,
-              kpi_category: kpiCat,
+              kpi_category: kpiCat || null,
+              data: {
+                ...(row?.data ?? {}),
+                params: {
+                  min_history: Number(minHistory) || DEFAULT_SPECIAL_KPI_PARAMS.min_history,
+                  min_history_unit: minHistoryUnit,
+                  max_missing_points: Number(maxMissing),
+                  allow_partial_tickers: allowPartial,
+                  official_source: row?.data?.official_source ?? false,
+                },
+              },
               style,
               chart_type: chart,
               story_category: storyCat || null,

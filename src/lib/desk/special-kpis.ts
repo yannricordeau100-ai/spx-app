@@ -27,12 +27,56 @@ export type SpecialKpiPoint = {
   source?: string;           // ex "10-K FY24 p.31" ou "IDC tracker Q3 2024"
 };
 
+/**
+ * Parametres de recherche saisis par Yann. Ils sont ranges dans `data.params`
+ * pour eviter une migration de la table : le runner les recopie a chaque
+ * extraction pour qu ils survivent a l ecrasement de `data`.
+ */
+export type SpecialKpiParams = {
+  /** Profondeur d historique minimale demandee. */
+  min_history: number;
+  /** Unite de cette profondeur. */
+  min_history_unit: "years" | "months";
+  /** Nombre de points manquants tolere dans la serie. */
+  max_missing_points: number;
+  /** En mode multi : traiter les tickers trouvables et laisser tomber les autres. */
+  allow_partial_tickers: boolean;
+  /**
+   * Vrai si la valeur vient d un document officiel de la societe. Faux pour
+   * toute autre source. Usage interne uniquement : ce drapeau ne doit jamais
+   * apparaitre sur le site public.
+   */
+  official_source: boolean;
+};
+
+export const DEFAULT_SPECIAL_KPI_PARAMS: SpecialKpiParams = {
+  min_history: 10,
+  min_history_unit: "years",
+  max_missing_points: 2,
+  allow_partial_tickers: true,
+  official_source: false,
+};
+
+/** Parametres d un KPI, completes par les valeurs par defaut. */
+export function readSpecialKpiParams(k: {
+  data?: SpecialKpiData | null;
+}): SpecialKpiParams {
+  return { ...DEFAULT_SPECIAL_KPI_PARAMS, ...(k.data?.params ?? {}) };
+}
+
 export type SpecialKpiData = {
+  /** Parametres de recherche, preserves d une extraction a l autre. */
+  params?: Partial<SpecialKpiParams>;
   values_by_period?: SpecialKpiPoint[];
   hero_summary?: string;
   interpretation?: string;
   yoy_latest?: string;
   cagr_5y_pct?: number;
+  /** Vrai si toutes les valeurs viennent d un document publie par la societe.
+   *  Usage interne : jamais affiche sur le site public. */
+  official_source?: boolean;
+  /** Mode multi : societes pour lesquelles aucune donnee n a ete trouvee. */
+  tickers_sautes?: string[];
 };
 
 /** Mapping 6 langues → string. Vide = pas traduit. */
@@ -66,7 +110,8 @@ export type SpecialKpi = {
   /** Annotations "i" sur le chart par année (titre + texte en 6 langues). */
   annotations: SpecialKpiAnnotation[];
   kpi_unit: string | null;
-  kpi_category: string;
+  /** Categorie du KPI. `null` = aucune categorie affectee. */
+  kpi_category: string | null;
   style: SpecialKpiStyle;
   chart_type: SpecialKpiChart;
   story_category: string | null;
@@ -168,15 +213,27 @@ export function buildExtractionPrompt(k: SpecialKpi): string {
   const targets = k.mode === "multi" && k.target_tickers.length
     ? k.target_tickers.join(", ")
     : k.ticker ?? "(non défini)";
+  const p = readSpecialKpiParams(k);
+  const duree = p.min_history_unit === "months"
+    ? `${p.min_history} mois`
+    : `${p.min_history} ans`;
+  const partiel = k.mode === "multi" && p.allow_partial_tickers
+    ? `Si une société de la liste n'a pas de données trouvables, tu la sautes et tu
+traites les autres. Tu listes les sociétés sautées dans le champ "tickers_sautes".`
+    : "";
   return `Tu es un analyste financier spécialisé extraction de KPIs métier pour Mettrik AI.
-Mission : trouver les valeurs historiques (5 dernières années si possible, sinon
-le maximum disponible) pour le KPI suivant.
+Mission : trouver les valeurs historiques du KPI suivant sur ${duree} AU MINIMUM.
+Si tu peux remonter plus loin, remonte plus loin : un historique long est préférable.
 
 KPI demandé : **${k.kpi_short}** (${k.kpi_name_fr ?? k.kpi_name_en ?? ""})
 Société(s) cible : ${targets}
 Unité : ${k.kpi_unit ?? "à déduire"}
-Catégorie : ${k.kpi_category}
+Catégorie : ${k.kpi_category ?? "aucune, ne cherche pas à en attribuer une"}
 Style de présentation : ${k.style} (${k.chart_type})
+Profondeur minimale : ${duree}
+Points manquants tolérés dans la série : ${p.max_missing_points} au maximum. Au delà,
+tu renvoies une série vide plutôt qu'une série trouée.
+${partiel}
 
 Description / consigne Yann :
 ${k.description ?? "(rien fourni — utilise ton jugement, prends la métrique la plus pertinente)"}
@@ -190,6 +247,8 @@ INSTRUCTIONS STRICTES
    - Si ESTIMATION analyste → uncertainty_pct = ±X (5 / 10 / 15 selon dispersion)
    - source = citation précise (ex "Apple 10-K FY23 p.42")
 3. JAMAIS inventer. Si zéro source crédible pour une année → omettre la ligne.
+   Renseigne "official_source": true si toutes les valeurs viennent d un document
+   publié par la société elle même, false dans tous les autres cas.
 4. Réponds UNIQUEMENT en JSON valide, format strict ci-dessous.
 5. Pour les CHAMPS TRADUITS (kpi_name_i18n, hero_summary_i18n,
    interpretation_i18n), donne les 6 langues exactes : fr, en, de, nl,
@@ -225,7 +284,9 @@ INSTRUCTIONS STRICTES
   },
   "yoy_latest": "+5,2 %",
   "cagr_5y_pct": 3.8,
-  "data_source": "Apple 10-K FY20-24 + IDC tracker 2022-2024"
+  "data_source": "Apple 10-K FY20-24 + IDC tracker 2022-2024",
+  "official_source": false,
+  "tickers_sautes": []
 }
 \`\`\`
 

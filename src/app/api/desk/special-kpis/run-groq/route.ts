@@ -86,10 +86,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "JSON parse failed", raw: content }, { status: 500 });
     }
 
+    // `data` est ecrase par la reponse du moteur : on y recopie les parametres
+    // de recherche saisis par Yann, sinon ils seraient perdus a chaque passage.
+    const donnees: SpecialKpiData = {
+      ...parsed,
+      params: kpi.data?.params ?? {},
+      official_source: parsed.official_source ?? false,
+    };
+
     await upsertSpecialKpi({
       id,
       status: "done",
-      data: parsed,
+      data: donnees,
       data_source: (parsed as SpecialKpiData & { data_source?: string }).data_source ?? null,
       llm_response_raw: content,
       llm_prompt: prompt,

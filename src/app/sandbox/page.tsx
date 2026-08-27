@@ -197,12 +197,6 @@ const SECTIONS: SandboxSection[] = [
         soon: true,
       },
       {
-        href: "/sandbox/story-builder",
-        icon: Sparkles,
-        label: "KPI story depuis un lien",
-        desc: "Cree une carte story a partir d une page web ou d un post X : le chiffre est extrait avec sa phrase source.",
-      },
-      {
         href: "/sandbox/logos-compare",
         icon: ImageIcon,
         label: "Logos",
@@ -225,6 +219,14 @@ const SECTIONS: SandboxSection[] = [
     description:
       "Tout ce qui te permet d'ajouter, éditer ou contrôler le contenu affiché : KPIs sur mesure, graphiques externes, textes home, activation des blocs.",
     items: [
+      {
+        // Yann 27 aout 2026 : regroupe avec les autres outils de creation de KPI.
+        href: "/sandbox/story-builder",
+        icon: Sparkles,
+        label: "KPI story depuis un lien",
+        desc: "Cree une carte story a partir d une page web ou d un post X : le chiffre est extrait avec sa phrase source.",
+        accent: "default" as const,
+      },
       {
         href: "/sandbox/kpi-builder",
         icon: Wrench,
