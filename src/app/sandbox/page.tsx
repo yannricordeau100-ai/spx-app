@@ -20,6 +20,7 @@ import {
   Activity,
   Languages,
   MapPin,
+  Search,
   Wrench,
   Palette,
   ImagePlus,
@@ -82,6 +83,49 @@ const isArchived = (item: SandboxItem) =>
 // Sections triées par priorité Yann. À l'intérieur de chaque section,
 // l'ordre alphabétique des labels FR est respecté.
 const SECTIONS: SandboxSection[] = [
+  {
+    // Yann 27 aout 2026 : bloc dedie a la creation et a la modification de KPI.
+    // Avant : les trois outils etaient eparpilles entre UI et personnalisation.
+    id: "kpi-creation",
+    title: "🧮 Création et modification de KPI",
+    description:
+      "Les trois façons d'ajouter un indicateur à une page société, et les outils pour le relire ensuite.",
+    items: [
+      {
+        href: "/sandbox/kpi-builder",
+        icon: Wrench,
+        label: "KPI builder (sur mesure)",
+        desc: "Décris le KPI en langage naturel, choisis les sociétés, lance l'extraction depuis les documents déposés.",
+        accent: "orange" as const,
+      },
+      {
+        href: "/sandbox/special-kpis",
+        icon: Sparkles,
+        label: "KPI spéciaux (recherche hors documents)",
+        desc: "Pour un chiffre absent des documents de résultats : profondeur d'historique, points manquants tolérés, plusieurs sociétés à la fois.",
+        accent: "orange" as const,
+      },
+      {
+        href: "/sandbox/story-builder",
+        icon: Sparkles,
+        label: "KPI story depuis un lien",
+        desc: "Crée une carte story à partir d'une page web ou d'un post X : le chiffre est extrait avec sa phrase source.",
+        accent: "orange" as const,
+      },
+      {
+        href: "/sandbox/kpi-search",
+        icon: Search,
+        label: "Recherche de KPI",
+        desc: "Retrouver un indicateur existant dans la base, toutes sociétés confondues.",
+      },
+      {
+        href: "/sandbox/kpi-lint",
+        icon: Wrench,
+        label: "Contrôle qualité des KPI",
+        desc: "Repère les séries incohérentes, les unités douteuses et les libellés fautifs.",
+      },
+    ],
+  },
   {
     id: "univers",
     title: "🧭 Univers société",
@@ -219,28 +263,6 @@ const SECTIONS: SandboxSection[] = [
     description:
       "Tout ce qui te permet d'ajouter, éditer ou contrôler le contenu affiché : KPIs sur mesure, graphiques externes, textes home, activation des blocs.",
     items: [
-      {
-        // Yann 27 aout 2026 : regroupe avec les autres outils de creation de KPI.
-        href: "/sandbox/story-builder",
-        icon: Sparkles,
-        label: "KPI story depuis un lien",
-        desc: "Cree une carte story a partir d une page web ou d un post X : le chiffre est extrait avec sa phrase source.",
-        accent: "default" as const,
-      },
-      {
-        href: "/sandbox/kpi-builder",
-        icon: Wrench,
-        label: "KPI builder (sur mesure)",
-        desc: "Ajout d'un KPI sur mesure : description NL, suggestion tickers, déclenchement extraction.",
-        accent: "default" as const,
-      },
-      {
-        href: "/sandbox/special-kpis",
-        icon: Sparkles,
-        label: "KPIs spéciaux (recherche manuelle)",
-        desc: "KPIs qui nécessitent recherche manuelle (iPhone units, abonnés Netflix). Demande, extraction, preview, push live.",
-        accent: "default" as const,
-      },
       {
         href: "/sandbox/image-findings",
         icon: ImageIcon,

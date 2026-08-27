@@ -566,6 +566,14 @@ function FindingCard({
   const fallback = jpegFallbackPath(f.image_url);
   const primarySrc = f.image_local_path || f.image_url;
   const displaySrc = imgFailed && fallback ? fallback : primarySrc;
+  // Yann 27 aout 2026 : certaines passes enregistrent l adresse de la PAGE
+  // source (huggingface.co/papers/..., x.com/.../status/...) au lieu d une
+  // image. Le navigateur affichait alors une vignette cassee. On detecte le
+  // cas et on montre un cartouche explicite avec le lien.
+  const estUneImage =
+    !!primarySrc &&
+    (primarySrc.startsWith("/") ||
+      /\.(png|jpe?g|gif|webp|svg|avif)(\?|#|$)/i.test(primarySrc));
   const isLow = isLowConfidence(f.reviewer_notes);
   const allLangsActive = allLocales.every((l) => f.languages.includes(l));
 
@@ -580,8 +588,29 @@ function FindingCard({
       }`}
     >
       <div className="relative aspect-video w-full overflow-hidden bg-black/40">
+        {!estUneImage && (
+          <div className="flex size-full flex-col items-center justify-center gap-2 px-4 text-center">
+            <span className="text-[12px] font-semibold text-amber-300">
+              Image non récupérée
+            </span>
+            <span className="text-[11px] leading-snug text-zinc-400">
+              La passe a enregistré l adresse de la page source, pas un fichier
+              image. Rejoue la demande pour produire la capture.
+            </span>
+            {primarySrc && (
+              <a
+                href={primarySrc}
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] text-cyan-400 underline"
+              >
+                ouvrir la source
+              </a>
+            )}
+          </div>
+        )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        {estUneImage && <img
           src={displaySrc}
           alt={f.title ?? "graph"}
           className="size-full object-contain"
@@ -589,7 +618,7 @@ function FindingCard({
           onError={() => {
             if (!imgFailed && fallback) setImgFailed(true);
           }}
-        />
+        />}
         <span
           className="absolute left-2 top-2 rounded-md px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ring-1"
           style={{ background: `${batch.color}30`, color: batch.color, borderColor: `${batch.color}66`, ringColor: `${batch.color}66` } as React.CSSProperties}
