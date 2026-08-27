@@ -72,3 +72,14 @@ Trois effectifs dont l history contient un point aberrant, non corriges : FAST (
 value de 57 milliers). CHTR Capex / Line Extensions : value 4 216 contre une serie [11,1 ; 11,7]
 en Mds $, les deux ne mesurent pas la meme chose. Vingt-deux series a trous internes, surtout
 des Payout Ratio et DPS europeens (SHEL, BCP.LS, FRE.DE, PHG, PHIA.AS), affichables mais lacunaires.
+
+## 7. Dates, non corrigees
+
+Vingt KPI portent un last_data_date au 31 decembre 2026, soit 125 jours dans le futur
+(ABT, BARC.L, BG, DB1.DE, KDP, ROST, SAND.ST, STZ, WMB, presque tous des DPS, Cap Return
+et Payout Ratio annuels). C est vraisemblablement la convention de fin d exercice en cours
+plutot qu une erreur, mais l affichage date une donnee du futur. A trancher par Yann.
+
+Cent huit KPI ont plus de 900 jours d anciennete, concentres sur ABBNY et ABLZF (5 chacun),
+CPR.MI (5), NHY.OL et SOF.BR (4), FIS, META et SHOP (3). Probleme de fraicheur, pas de
+correction ponctuelle possible.
