@@ -1,7 +1,7 @@
 # HANDOFF — reprise du projet Mettrik par le compte MAX 20x
 
 Rédigé le 27 août 2026 par la conversation du compte de secours (5x).
-Tu es Claude Code sur le compte **ricordeauyann@gmail.com (MAX 20x)**, dans `~/spx-app`.
+Tu es Claude Code sur le compte **yannricordeau100@gmail.com (MAX 20x, compte principal)**, dans `~/spx-app`.
 Ce document est ta source de vérité : tout ce qui s'est fait depuis le dimanche 24 août, ce qui est en cours, ce que Yann attend. Lis-le en entier avant d'agir.
 
 ---
@@ -23,8 +23,8 @@ Ce document est ta source de vérité : tout ce qui s'est fait depuis le dimanch
 
 ## 2. RÔLES DES COMPTES
 
-- **Ce compte (20x)** : compte de TRAVAIL. Toutes les grosses missions passent ici.
-- **Compte 5x (yannricordeau100…)** : secours uniquement. C'est lui qui a produit ce document.
+- **Ce compte (yannricordeau100@gmail.com, MAX 20x)** : compte PRINCIPAL de travail. Toutes les grosses missions passent ici.
+- **ricordeauyann@gmail.com (MAX 5x)** : secours uniquement (risque d'arrêt du plan plus tard). C'est lui qui a produit ce document.
 - Le robot nocturne (cron 23h00) consomme les tokens du profil CLI connecté sur le Mac : Yann doit connecter ce CLI au compte 20x (voir §6).
 
 ## 3. LE PROJET EN UNE MINUTE
@@ -100,7 +100,7 @@ Dans **Terminal** (l'app macOS, pas une conversation) :
 ```
 claude
 ```
-Suivre le login (navigateur) avec **ricordeauyann@gmail.com** (le 20x), puis quitter. But : le robot de 23h consommera les tokens du 20x. Ni l'app Claude ni le navigateur n'ont besoin d'être ouverts ensuite ; la connexion survit aux redémarrages.
+Taper `/logout` (le CLI était sur le 5x), puis `/login` et se connecter avec **yannricordeau100@gmail.com** (le 20x), puis quitter. But : le robot de 23h consommera les tokens du 20x. Ni l'app Claude ni le navigateur n'ont besoin d'être ouverts ensuite ; la connexion survit aux redémarrages.
 
 ## 7. POSTS X PAR TICKER — ANALYSE COMPLÈTE (mise à jour : Yann a Grok premium via X, PAS l'API X, et ne paiera rien de plus)
 
