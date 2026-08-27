@@ -97,3 +97,29 @@ NDA-SE.ST, NDA-DK.CO, MURGY, ADTTF, TSCO.L, FORTUM.HE, BNT, VCISY, MT.AS, AMUN.P
 BWA (BorgWarner) est un cas structurel du type FLEX : la segmentation a ete
 refondue plusieurs fois, aucune serie de segment n atteint 16 trimestres
 (le plus long fait 8). Ne pas re-tenter sans nouvelle source.
+
+
+## Complements de fin de run
+
+### Ecarts entre les deux onglets de repartition, 14 blocs retires
+Test tranchant : comparer chaque total au CA reel de la fiche, pas le rapport des
+deux totaux. Sur ces 14 fiches un onglet collait au CA et l autre couvrait un
+perimetre partiel ou une segmentation perimee.
+- Onglet geographie retire : ABI.BR (2 parts pour 28,4 Mds face a 59,8 de segments),
+  BA (129,3 Mds), L, POWL, SNAP, TDY, TRI (19,9 Mds face a un CA de 7,3).
+- Onglet segment retire : CAT (116,0 Mds face a 67,6 de geographie), COHR, DD
+  (segmentation DowDuPont d avant la scission Qnity), DIS, IT, MPWR, VOW.DE
+  (26,2 Mds face a un CA de 321,9).
+Les 14 couples sont inscrits dans `done` du checkpoint : DD, DIS et L avaient deja
+ete retires le 22 aout et etaient revenus faute de ce verrou.
+
+En arbitrage, non touches : MCK (les deux onglets douteux, 403,4 contre 231,1),
+NG.L (blocs en livres face a un CA de fiche en dollars), SLHN.SW (les deux
+partiels). Ecartes comme legitimes et a ne plus signaler : ARES et KKR (AUM),
+C, JPM, MS, RJF, MCO, IBKR (revenus nets contre bruts), APA et EOG (ligne
+d achats de petrole), HLT (hors remboursements de couts), APP et EPAM.
+
+### Fraicheur des fiches contre kpis-haut
+541 comparaisons, une seule derive reelle : PNC NIM restee au T1 2026 a 2,95 %
+quand kpis-haut porte 2,96 % au T2 2026. Corrigee, yoy recalcule a +16 pb
+(2,96 contre 2,80 au T2 2025). Le resync des runs precedents tient.
