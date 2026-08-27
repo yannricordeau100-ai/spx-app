@@ -30,7 +30,8 @@ CONTROLE A REFAIRE apres chaque ajout de fiche :
 - 13 fiches sorties du 404
 - 8 nouvelles stes publiees : HSBA.L, KEMIRA.HE, IMB.L, KGF.L, 7203.T
   (Toyota), INF.L, PUM.DE, RIO
-- 38 fiches cassees depubliees, 7 deja republiees apres reparation
+- 39 fiches cassees depubliees, 9 republiees apres reparation (les 7 du
+  premier lot plus SAMPO.HE approfondi et BBVA.MC)
 
 ## A ARBITRER PAR YANN
 31 stes restent depubliees (fiche cassee, pas encore reparable) :
@@ -42,8 +43,10 @@ Les grandes restent accessibles par leur ticker principal : AZN.ST,
 SAP.DE, REL.L, BP, BBVA.MC, EQNR.OL. Sans equivalent : NBIX, UNM, BWA, SU.
 
 Motifs :
-- 11 stes ont un hero valide mais moins de 4 KPIs specifiques (seuil du
-  qualifieur). Il faudrait extraire 3 KPIs de plus par ste.
+- 13 stes ont un hero valide mais moins de 4 KPIs specifiques (seuil du
+  qualifieur). Il faudrait extraire 3 KPIs de plus par ste. SAND.ST et
+  SPM.MI ont rejoint ce lot : leur hero est desormais bon (Mining & Rock
+  Solutions Revenue, Offshore E&C Revenue) mais le compte de KPIs bloque.
 - UNM et SIEGY ont un hero correct en base (20 trimestres, _validation
   true) mais une couche posterieure le remplace au rendu (UNM bascule sur
   "Premium Income" 12 trim, SIEGY sur "ORDERS_Q" vide). Meme famille de
