@@ -123,3 +123,16 @@ d achats de petrole), HLT (hors remboursements de couts), APP et EPAM.
 541 comparaisons, une seule derive reelle : PNC NIM restee au T1 2026 a 2,95 %
 quand kpis-haut porte 2,96 % au T2 2026. Corrigee, yoy recalcule a +16 pb
 (2,96 contre 2,80 au T2 2025). Le resync des runs precedents tient.
+
+
+## Deploiement
+Alias `mettrik-niveau2.vercel.app` pose sur `mettrik-cuy53tu7u`, api 200, 857 tickers.
+Les 9 publiees sont presentes, BK et SATS absents. 61 fiches touchees ce run,
+requalifiees 61/61 PASS.
+
+## Decision sur NDA-SE.ST et NDA-DK.CO : ne pas les creer
+Ce sont les cotations suedoise et danoise de la meme banque que NDA-FI.HE, deja
+publiee et visible. Creer les deux fiches de base reviendrait a mettre trois
+entrees Nordea dans la recherche, meme arbitrage que BRK.B ecarte comme doublon
+de BRK-B. Les KPI extraits restent dans /tmp/fix-nda-se.st.json et
+/tmp/fix-nda-dk.co.json si Yann veut trancher autrement.
