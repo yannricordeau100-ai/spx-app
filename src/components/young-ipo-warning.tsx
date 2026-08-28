@@ -109,3 +109,34 @@ export function maxPeriodYears(ipo: number | string | undefined): number | null 
   if (years < 21) return 20;
   return null;
 }
+
+/**
+ * Bandeau d avertissement en haut de page (Yann 29 aout 2026) : societe
+ * introduite en bourse il y a 4 ans ou moins. La page est pauvre en
+ * information faute d historique publie ; le lecteur doit le savoir avant de
+ * lire, sans que le bandeau ne crie. Le nombre d annees affiche est celui de
+ * la societe.
+ */
+export function BandeauIpoRecente({ ipo }: { ipo: number | string | undefined }) {
+  const { locale } = useT();
+  const ipoYear = typeof ipo === "number" ? ipo : Number(ipo);
+  if (!Number.isFinite(ipoYear) || ipoYear < 1900) return null;
+  const ans = new Date().getUTCFullYear() - ipoYear;
+  if (ans > 4) return null;
+  const fr = String(locale ?? "fr").startsWith("fr");
+  const duree = ans <= 0 ? (fr ? "moins d'un an" : "less than a year") : `${ans} an${ans > 1 ? "s" : ""}`;
+  const dureeEn = ans <= 0 ? "less than a year" : `${ans} year${ans > 1 ? "s" : ""}`;
+  return (
+    <div
+      role="note"
+      className="mb-4 flex items-start gap-2.5 rounded-xl border border-amber-500/25 bg-amber-500/[0.05] px-4 py-2.5 text-[12.5px] leading-relaxed text-amber-100/90"
+    >
+      <span aria-hidden className="mt-0.5 size-2 shrink-0 rounded-full bg-amber-400/80" />
+      <span>
+        {fr
+          ? `Introduction en bourse récente (${ipoYear}, il y a ${duree}) : cette page est plus pauvre en information que les autres, l'historique publié par la société étant encore court.`
+          : `Recent IPO (${ipoYear}, ${dureeEn} ago): this page carries less information than others, as the company's published history is still short.`}
+      </span>
+    </div>
+  );
+}

@@ -73,7 +73,7 @@ import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { BlockComingSoon } from "@/components/block-coming-soon";
 import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
-import { YoungIpoWarning } from "@/components/young-ipo-warning";
+import { BandeauIpoRecente, YoungIpoWarning } from "@/components/young-ipo-warning";
 import { BrandWordmark } from "@/components/brand-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
 import { RecentIpoPlaceholder, getRecentIpoMeta } from "@/components/recent-ipo-placeholder";
@@ -697,6 +697,9 @@ export function CompanyView({
       // avoir une vraie valeur.
       if (!kpiHasUsableValue(k)) return false;
       if (k.short === heroShort) return true;
+      // Yann 29 aout 2026 : un KPI cree a la main (hors_document) est TOUJOURS
+      // accepte, quelle que soit sa cadence ou la longueur de son historique.
+      if ((k as unknown as { hors_document?: boolean }).hors_document === true) return true;
       if (isGenericKpi(k.short)) return false;
       if (hiddenByRule.has(k.short)) return false;
       const hist = Array.isArray(k.history) ? k.history : [];
@@ -982,6 +985,7 @@ export function CompanyView({
             freeBlocked={false}
             disabledBlocks={disabledBlocks}
           />
+        <BandeauIpoRecente ipo={company.ipo} />
 
           <RecentIpoPlaceholder
             ticker={company.ticker}
@@ -1053,6 +1057,7 @@ export function CompanyView({
           freeBlocked={false}
           disabledBlocks={disabledBlocks}
         />
+        <BandeauIpoRecente ipo={company.ipo} />
 
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
         <section

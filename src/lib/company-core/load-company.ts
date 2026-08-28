@@ -2600,6 +2600,14 @@ export async function loadV17Company(
           if (m) return Number(m[2]) * 10 + (Number(m[1]) === 1 ? 2 : 4);
           m = q.match(/^FY(\d{4})$/i);
           if (m) return Number(m[1]) * 10 + 5;
+          // Yann 29 aout 2026 : les KPI crees a la main portent des annees
+          // seules ("2024", regle sans FY) ou des FY courts ("FY24"). Sans ces
+          // deux formes, les Unites iPhone vendues et le KPI pays PLTR etaient
+          // vides apres fusion, donc invisibles.
+          m = q.match(/^(\d{4})$/);
+          if (m) return Number(m[1]) * 10 + 5;
+          m = q.match(/^FY(\d{2})$/i);
+          if (m) return (2000 + Number(m[1])) * 10 + 5;
           return Number.MAX_SAFE_INTEGER; // labels inconnus en fin
         };
         // Un KPI quarterly ne garde QUE les trimestres (les entrées FYxxxx
@@ -2613,7 +2621,7 @@ export async function loadV17Company(
           .filter((h) => h && typeof h.v === "number")
           .filter((h) =>
             isAnnualKpi
-              ? /^FY\d{4}$/i.test(h.q)
+              ? /^(FY\d{2}|FY\d{4}|\d{4})$/i.test(h.q)
               : isSemiKpi
                 ? /^H[12]-\d{4}$/i.test(h.q)
                 : /^Q[1-4]-/i.test(h.q),
