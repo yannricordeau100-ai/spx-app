@@ -103,3 +103,19 @@ calcule sur leur propre serie, dont 102 ou la value elle-meme ne colle pas au
 dernier point. Le fait que value et history concordent ne prouve pas que
 l history soit juste, donc cette mesure ne leve pas l arbitrage de Yann, elle
 en donne seulement la taille.
+
+## Deploiement
+Deux commits pousses sur staging, alias mettrik-niveau2 pose sur
+mettrik-p4n8lrr1a. Verification en vue connectee (compte audit.claude, mot de
+passe regenere) : les pages PSX et LIN rendent normalement et ne portent plus
+aucune valeur d ordre de grandeur aberrant. Les treize fiches servies sont
+confirmees sans aberration. 862 tickers en ligne, inchange.
+
+## Decision : le superviseur n est PAS relance
+Il restait 229 tickers a passer. Sur les dix-sept societes testees apres
+correction, aucune valeur n a ete retenue : les moteurs ne proposent rien de
+nouveau sur des fiches deja a jour, et tout ce qu ils proposaient sur les
+fiches abimees etait faux. Trois heures de calcul pour un rendement nul, sur
+une machine qui a deja crashe, ne se justifient pas sans un mot de Yann.
+Relance quand il le decidera :
+    python3 scripts/refresh-superviseur.py --max 3
