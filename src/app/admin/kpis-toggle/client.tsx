@@ -23,6 +23,8 @@ export type SteRow = {
   name: string;
   sector: string;
   subsector: string;
+  /** Indices d appartenance (S&P 500, Nasdaq 100, SOXX, CAC 40, SMI, AEX, DAX). */
+  indices: string[];
   market_cap: number;
   hero_kpi: string;
   hero_review_status: "needs_review" | "auto_proposed_uncertain" | "validated";
@@ -89,6 +91,9 @@ function formatCapi(c: number): string {
 export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
   const [query, setQuery] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("capi");
+  // Yann 29 aout 2026 : filtres par secteur (11) et par indice, SOXX compris.
+  const [secteurFiltre, setSecteurFiltre] = useState<string>("Tous");
+  const [indiceFiltre, setIndiceFiltre] = useState<string>("Tous");
   const [openSet, setOpenSet] = useState<Set<string>>(new Set());
   const [showGenericSet, setShowGenericSet] = useState<Set<string>>(new Set());
   const [pendingKey, setPendingKey] = useState<string | null>(null);
@@ -184,6 +189,12 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
   const sortedAndFiltered = useMemo(() => {
     const q = query.trim().toUpperCase();
     let list = stes;
+    if (secteurFiltre !== "Tous") {
+      list = list.filter((s) => s.sector === secteurFiltre);
+    }
+    if (indiceFiltre !== "Tous") {
+      list = list.filter((s) => (s.indices ?? []).includes(indiceFiltre));
+    }
     if (q) {
       list = list.filter(
         (s) =>
@@ -202,7 +213,7 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
       });
     }
     return list;
-  }, [stes, query, sortMode]);
+  }, [stes, query, sortMode, secteurFiltre, indiceFiltre]);
 
   // Compteurs status
   const counts = useMemo(() => {
@@ -365,6 +376,29 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
               Secteur
             </button>
           </div>
+          {/* Yann 29 aout 2026 : filtres par secteur et par indice. */}
+          <select
+            value={secteurFiltre}
+            onChange={(e) => setSecteurFiltre(e.target.value)}
+            className="rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-2 text-[12px] text-zinc-100 focus:border-white/20 focus:outline-none"
+            aria-label="Filtrer par secteur"
+          >
+            <option value="Tous">Secteur : tous</option>
+            {[...new Set(stes.map((s) => s.sector).filter(Boolean))].sort().map((sec) => (
+              <option key={sec} value={sec}>{sec}</option>
+            ))}
+          </select>
+          <select
+            value={indiceFiltre}
+            onChange={(e) => setIndiceFiltre(e.target.value)}
+            className="rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-2 text-[12px] text-zinc-100 focus:border-white/20 focus:outline-none"
+            aria-label="Filtrer par indice"
+          >
+            <option value="Tous">Indice : tous</option>
+            {["S&P 500", "Nasdaq 100", "SOXX", "CAC 40", "SMI", "AEX", "DAX"].map((i) => (
+              <option key={i} value={i}>{i}</option>
+            ))}
+          </select>
         </div>
         {/* Légende couleurs */}
         <div className="mt-3 flex flex-wrap items-center gap-2 text-[10.5px] uppercase tracking-wider">

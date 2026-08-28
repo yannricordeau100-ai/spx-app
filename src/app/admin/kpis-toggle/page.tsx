@@ -110,27 +110,57 @@ function fmtValue(v: number | null, unit: string): string {
   return unit ? `${s} ${unit}` : s;
 }
 
-async function loadStes(): Promise<SteRow[]> {
-  // Liste publishable de base.
-  const publishable = await readJson<{ tickers?: string[] }>(
-    path.join(ROOT, "src/data/v1-9-publishable.json"),
-  );
-  const publishableTickers = Array.isArray(publishable?.tickers)
-    ? publishable!.tickers!
-    : [];
+/**
+ * Appartenance aux indices (Yann 29 aout 2026) : sert au filtre de la page.
+ * Meme regle que la reduction d univers du 28 aout.
+ */
+const SOX_MEMBRES = new Set([
+  "NVDA", "AVGO", "AMD", "QCOM", "TXN", "INTC", "MU", "ADI", "AMAT", "LRCX",
+  "KLAC", "NXPI", "MCHP", "ON", "MPWR", "SWKS", "TER", "COHR", "ALGM", "AMKR",
+  "ASML", "ACLS", "ENTG", "LSCC", "QRVO", "RMBS", "TSM", "GFS", "MRVL", "ARM",
+  "ALAB", "WOLF",
+]);
 
-  // Restreindre à l'univers V1.9.5 (642 stés) : v1-9-publishable.json contient
-  // des stés hors V1.9.5, on intersecte pour n'afficher QUE les stés V1.9.5.
+function indicesDe(
+  ticker: string,
+  sp500: Set<string>,
+  n100: Set<string>,
+): string[] {
+  const t = ticker.toUpperCase();
+  const norm = t.replace(/\./g, "-");
+  const out: string[] = [];
+  if (sp500.has(norm) || t === "VMRK" || t === "SPCX") out.push("S&P 500");
+  if (n100.has(norm)) out.push("Nasdaq 100");
+  if (SOX_MEMBRES.has(t)) out.push("SOXX");
+  if (t.endsWith(".PA")) out.push("CAC 40");
+  if (t.endsWith(".SW")) out.push("SMI");
+  if (t.endsWith(".AS")) out.push("AEX");
+  if (t.endsWith(".DE")) out.push("DAX");
+  return out;
+}
+
+async function loadStes(): Promise<SteRow[]> {
+  // Yann 29 aout 2026 : la page couvrait 534 societes sur 666 parce qu elle
+  // intersectait avec v1-9-publishable.json, un fichier fige. La source est
+  // desormais l univers en ligne lui meme.
   const v195 = await readJson<{ tickers?: string[] }>(
     path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json"),
   );
-  const v195Set = new Set(
-    (Array.isArray(v195?.tickers) ? v195!.tickers! : []).map((t) =>
-      t.toUpperCase(),
-    ),
+  const tickers = Array.isArray(v195?.tickers) ? v195!.tickers! : [];
+
+  const sp500Raw = await readJson<string[]>(
+    path.join(ROOT, "src/data/sp500-tickers.json"),
   );
-  const tickers = publishableTickers.filter((t) =>
-    v195Set.has(t.toUpperCase()),
+  const sp500 = new Set(
+    (sp500Raw ?? []).map((t) => t.toUpperCase().replace(/\./g, "-")),
+  );
+  const n100Raw = await readJson<string[]>(
+    path.join(ROOT, "src/data/nasdaq100-members.json"),
+  );
+  const n100 = new Set(
+    (Array.isArray(n100Raw) ? n100Raw : []).map((t) =>
+      t.toUpperCase().replace(/\./g, "-"),
+    ),
   );
 
   const disabledCfg = loadDisabledKpisPerSte();
@@ -153,9 +183,18 @@ async function loadStes(): Promise<SteRow[]> {
       if (!base) return null;
       const enrich =
         (await readJson<Record<string, unknown>>(enrichFp)) ?? {};
+      // Yann 29 aout 2026 : la page ignorait kpis-haut, la source PRIORITAIRE
+      // de la fusion runtime (load-company). Elle montrait donc des KPI que la
+      // page publique n affiche pas, et inversement. Meme priorite ici.
+      const haut = await readJson<Record<string, unknown>>(
+        path.join(ROOT, ".batches-drafts-safe/kpis-haut", `${ticker}.json`),
+      );
+      const hautKpis = asArray(haut?.kpis) as AnyKPI[];
 
       const heroShort =
-        typeof base.hero_kpi === "string" ? base.hero_kpi : "";
+        typeof (haut?.hero_kpi ?? base.hero_kpi) === "string"
+          ? String(haut?.hero_kpi ?? base.hero_kpi)
+          : "";
       const baseKpis = asArray(base.kpis) as AnyKPI[];
       // BUGFIX 2026-06-04 Yann : merger aussi enrich.kpis (les sub-agents
       // SA22-B/D/E + Cerebras quarterly y écrivent les KPIs sectoriels
@@ -166,7 +205,7 @@ async function loadStes(): Promise<SteRow[]> {
       // Merge avec dedup par `short` (base prioritaire)
       const seen = new Set<string>();
       const merged: AnyKPI[] = [];
-      for (const k of [...baseKpis, ...enrichKpis, ...enrichSupp]) {
+      for (const k of [...hautKpis, ...baseKpis, ...enrichKpis, ...enrichSupp]) {
         if (!k || typeof k !== "object") continue;
         const short = typeof k.short === "string" ? k.short : "";
         if (!short || seen.has(short)) continue;
@@ -290,6 +329,7 @@ async function loadStes(): Promise<SteRow[]> {
         name,
         sector,
         subsector,
+        indices: indicesDe(ticker, sp500, n100),
         market_cap: marketCap,
         hero_kpi: heroShort,
         hero_review_status,
@@ -344,7 +384,7 @@ export default async function KpisTogglePage() {
           affichés sont ceux qui ont au moins 3 ans d&apos;historique.
         </p>
         <p className="mb-6 max-w-2xl text-[12px] text-zinc-500">
-          Source : {stes.length} stés publishable V1.9.5 ·{" "}
+          Source : {stes.length} stés en ligne (univers V1.9.5) ·{" "}
           {totalKpis} KPIs au total · {totalDisabled} KPIs désactivés.
           Persistance : <code className="font-mono">disabled-kpis-per-ste.json</code>.
         </p>

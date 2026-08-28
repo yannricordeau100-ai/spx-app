@@ -167,6 +167,13 @@ const SECTIONS: SandboxSection[] = [
       "Audits, couvertures, statuts et outils de qualité sur les datasets sté.",
     items: [
       {
+        // Yann 29 aout 2026 : acces direct depuis Data quality.
+        href: "/admin/kpis-toggle",
+        icon: Wrench,
+        label: "KPIs : activer / désactiver par sté",
+        desc: "Vue alignée sur la réalité des pages (fusion kpis-haut + pipeline), filtres par secteur et par indice (SOXX compris). Les réglages ne valent que pour la suite : rien ne change tant que rien n'est coché.",
+      },
+      {
         href: "/sandbox/coverage-matrix",
         icon: TableProperties,
         label: "Coverage matrix",

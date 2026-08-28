@@ -398,7 +398,13 @@ export async function downloadSvgAsPng(
           // reancre au bord gauche du cadre : il gagne toute la marge et
           // garde une taille lisible au lieu d etre rapetisse.
           const isAxisHeader = Number.isFinite(ty) && ty < origY + 24;
-          if (isAxisHeader && anchorAttr === "end") {
+          // Yann 29 aout 2026 (screen PLTR "Customers") : quand l axe Y est a
+          // DROITE, l en-tete est ancre "end" au bord droit et s etend vers la
+          // gauche, ou la place est libre : rien a re-ancrer. Le re-ancrage au
+          // bord gauche ne vaut que pour un axe a gauche, sinon l en-tete se
+          // retrouvait isole en haut a gauche, a l oppose de ses graduations.
+          const enTeteAxeGauche = Number.isFinite(tx) && tx < origX + origW / 2;
+          if (isAxisHeader && anchorAttr === "end" && enTeteAxeGauche) {
             const leftEdge = origX - PAD_SIDE_FOR_TEXT + 2;
             // Cette ligne (au-dessus du plot) est vide a droite : l en-tete
             // peut s etendre jusqu au premier tiers du graphe sans rien
@@ -428,8 +434,17 @@ export async function downloadSvgAsPng(
       // reglages du graphe au moment du telechargement restent inchanges.
       const estAnnee =
         isXAxisLabel && /^(19|20)\d{2}$/.test((t.textContent || "").trim());
-      const facteurFinal = estAnnee ? Math.max(factor, 1.45) : factor;
-      t.setAttribute("font-size", String(Math.round(fs * facteurFinal * 10) / 10));
+      if (estAnnee) {
+        // Yann 29 aout 2026 : meme taille finale que les graduations de
+        // l axe Y (16 px avant agrandissement), quel que soit le corps de
+        // depart des annees (13 px sous les crochets trimestriels).
+        t.setAttribute(
+          "font-size",
+          String(Math.round(16 * AXIS_SCALE * 10) / 10),
+        );
+      } else {
+        t.setAttribute("font-size", String(Math.round(fs * factor * 10) / 10));
+      }
       // Les ANNEES sous les crochets de groupe : le texte agrandi remontait
       // jusqu a toucher le crochet. On les abaisse pour retrouver l ecart
       // d avant l agrandissement (Yann 24 aout 2026).
