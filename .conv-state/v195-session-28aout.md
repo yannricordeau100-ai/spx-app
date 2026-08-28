@@ -59,3 +59,47 @@ supprimait, remis a la date du rafraichissement.
   value de 59 688 $M) lui echappe. Detecteur a elargir.
 - MTB Shareholders Equity et Net Interest Income : history divisee par mille,
   seuls ecarts d echelle nette restants. Source verbatim necessaire.
+
+## Verification de la correction, sur 17 societes
+Aucune fiche modifiee, et les motifs de rejet sont desormais journalises.
+AMT, la fiche la plus abimee du lot, rejette maintenant les cinq valeurs avec
+le motif exact "periode Q1-2026 incompatible avec year". TXN rejette pour
+"chiffre absent des documents", garde-fou anti-hallucination anterieur, donc
+les nouvelles gardes ne sont pas responsables du zero retenu : les moteurs ne
+proposaient rien de nouveau sur ces societes deja a jour.
+
+## 16 KPI remis a l echelle, deployes
+Seize KPI en ligne portaient des dollars bruts sous l unite "M $", soit des
+milliers de milliards a l affichage : ADSK Capex, CW Capex, DXCM (R&D,
+Operating Income, Cash), EVRG Net Income, JAZZ Capex, LIN (Operating Profit,
+Capex), PSA NOI, PSX Benefice net, TAP Gross profit, WBD Operating Income,
+WDAY Net Income. Valeurs et historiques divises par un million, unite
+inchangee. Workday servait de temoin : sa fiche kpis-haut portait deja 222,0
+$M la ou companies portait 222 000 000. L actif total de MUFG et de Nomura,
+en millions de yens, est reetiquete "M ¥". Les 13 fiches requalifiees 13/13
+PASS.
+
+## Deux detecteurs ajoutes
+- `scripts/scan-unit-magnitude.py` : compare l ordre de grandeur d une valeur
+  a son unite, avec un facteur pour les devises faibles (yen, couronnes),
+  sans quoi l actif de MUFG passerait pour une aberration. Etat : 0.
+- `scripts/scan-stale-descriptions-large.py` : normalise en millions toutes les
+  sommes citees dans une description avant de les comparer a la value, la ou la
+  version d origine exigeait l unite exacte. 45 suspects contre 12. Attention,
+  la majorite sont des descriptions annuelles sur des KPI trimestriels, categorie
+  que Yann a deja arbitre le 28 aout au matin : chiffre exact, cadrage different,
+  laisser intact.
+
+## Etat des six detecteurs apres correction
+    scan-value-div1000            0
+    scan-unit-magnitude           0
+    scan-scale-mismatch           2 echelles nettes (MTB, arbitrage ouvert)
+    scan-stale-descriptions       12
+    scan-stale-descriptions-large 45
+    scan-yoy-mismatch             331 (arbitrage ouvert, inchange)
+
+Sur les yoy : 1 715 KPI ont un yoy qui s ecarte de plus de 1,5 point du yoy
+calcule sur leur propre serie, dont 102 ou la value elle-meme ne colle pas au
+dernier point. Le fait que value et history concordent ne prouve pas que
+l history soit juste, donc cette mesure ne leve pas l arbitrage de Yann, elle
+en donne seulement la taille.

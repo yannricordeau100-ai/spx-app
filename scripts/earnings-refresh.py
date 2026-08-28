@@ -362,6 +362,17 @@ def periode_compatible(kpi: dict, periode: str) -> bool:
             "quarter": "quarterly", "quarterly": "quarterly",
             "semester": "semiannual", "semiannual": "semiannual", "half": "semiannual",
         }.get((kpi.get("period_type") or "").lower(), "")
+    if not freq:
+        # Un KPI sur six ne porte aucune indication de periode. Quand la serie
+        # est etiquetee, l etiquette suffit a trancher : "2025" est un exercice,
+        # "Q2-2026" un trimestre.
+        etiquette = (last_period(kpi) or "").upper()
+        if re.fullmatch(r"(?:FY)?\d{4}", etiquette):
+            freq = "annual"
+        elif etiquette.startswith(("Q", "T")):
+            freq = "quarterly"
+        elif etiquette.startswith(("H", "S")):
+            freq = "semiannual"
     p = periode.upper()
     if p.startswith("FY"):
         type_periode = "annual"
@@ -377,7 +388,9 @@ def periode_compatible(kpi: dict, periode: str) -> bool:
         return type_periode == "semiannual"
     if freq == "quarterly":
         return type_periode == "quarterly"
-    return False  # frequence inconnue : on refuse, un point mal range est pire
+    # Frequence toujours inconnue : on refuse. Refuser une mise a jour se
+    # rattrape a la main ; un point mal range corrompt la courbe en silence.
+    return False
 
 
 def points_numeriques(kpi: dict) -> list[float]:
