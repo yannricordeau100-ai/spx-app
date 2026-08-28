@@ -352,6 +352,16 @@ def periode_compatible(kpi: dict, periode: str) -> bool:
     inversement. Sans ce controle, la dette nette au 30 juin viendrait se ranger
     a cote de dettes de fin d exercice et la serie deviendrait illisible."""
     freq = (kpi.get("frequency") or "").lower()
+    if not freq:
+        # Les fiches ne portent pas "frequency" mais "period_type"
+        # (year / quarter / semester). Sans cette lecture, la fonction
+        # rendait True pour tout et un trimestre atterrissait dans une
+        # serie annuelle.
+        freq = {
+            "year": "annual", "annual": "annual", "yearly": "annual", "fy": "annual",
+            "quarter": "quarterly", "quarterly": "quarterly",
+            "semester": "semiannual", "semiannual": "semiannual", "half": "semiannual",
+        }.get((kpi.get("period_type") or "").lower(), "")
     p = periode.upper()
     if p.startswith("FY"):
         type_periode = "annual"
@@ -367,7 +377,50 @@ def periode_compatible(kpi: dict, periode: str) -> bool:
         return type_periode == "semiannual"
     if freq == "quarterly":
         return type_periode == "quarterly"
-    return True  # frequence inconnue : on laisse passer
+    return False  # frequence inconnue : on refuse, un point mal range est pire
+
+
+def points_numeriques(kpi: dict) -> list[float]:
+    """La serie en nombres, que l historique soit une liste de nombres ou de
+    points {"q","v"}."""
+    out = []
+    for x in kpi.get("history") or []:
+        if isinstance(x, dict):
+            x = x.get("v")
+        if isinstance(x, (int, float)):
+            out.append(float(x))
+    return out
+
+
+def echelle_compatible(kpi: dict, val: float) -> bool:
+    """Refuse un point qui n a pas l ordre de grandeur de sa propre serie.
+
+    C est le filet qui rattrape les deux accidents constates le 28 aout 2026 :
+    un chiffre trimestriel colle a la fin d une serie annuelle (AJG, AMT) et
+    un chiffre en millions ajoute a une serie en milliards. Les seuils sont
+    larges a dessein : on ne cherche pas a juger la croissance, seulement a
+    ecarter les ruptures d un facteur trois ou plus.
+    """
+    serie = [abs(x) for x in points_numeriques(kpi)[-4:] if x]
+    if len(serie) < 2:
+        return True  # trop peu de recul pour juger
+    plancher, plafond = min(serie), max(serie)
+    a = abs(val)
+    if a == 0:
+        return plancher == 0 or plancher < 1e-9
+    return plancher / 3.0 <= a <= plafond * 3.0
+
+
+def deja_present(kpi: dict, val: float) -> bool:
+    """Le dernier point de la serie vaut deja cette valeur : republier le meme
+    chiffre allongerait la courbe d un palier fictif. Necessaire parce que
+    `last_period` rend None des que l historique est une liste de nombres, ce
+    qui neutralise la garde par periode."""
+    serie = points_numeriques(kpi)
+    if not serie:
+        return False
+    dernier = serie[-1]
+    return abs(dernier - float(val)) <= max(abs(dernier), 1.0) * 1e-6
 
 
 def write_dossier(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]) -> Path:
@@ -431,28 +484,41 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
     corpus = [t for _, t in docs]
     index = {k["short"]: k for k in kpis}
     retenus, rejetes = [], 0
+    motifs: dict[str, int] = {}
+
+    def rejeter(motif: str) -> None:
+        """Un rejet muet empeche de distinguer un garde-fou utile d un
+        garde-fou trop serre. On compte donc les motifs."""
+        nonlocal rejetes
+        rejetes += 1
+        motifs[motif] = motifs.get(motif, 0) + 1
 
     for v in parsed.get("valeurs") or []:
         short = str(v.get("short") or "")
         val = v.get("value")
         if short not in index or not isinstance(val, (int, float)):
-            rejetes += 1
+            rejeter("KPI inconnu ou valeur non chiffree")
             continue
         if not appears_in(float(val), corpus):
-            rejetes += 1
+            rejeter("chiffre absent des documents")
             continue
         kpi = index[short]
         if not source_compatible(kpi):
-            rejetes += 1
+            rejeter("KPI hors documents de resultats")
             continue
         # La periode propre a la valeur prime : une publication semestrielle
         # porte souvent des KPI trimestriels et des KPI semestriels a la fois.
         periode_v = str(v.get("periode") or periode).strip()
         if not periode_v or not periode_compatible(kpi, periode_v):
-            rejetes += 1
+            rejeter(f"periode {periode_v or '?'} incompatible avec {kpi.get('period_type') or '?'}")
             continue
         if period_key(periode_v) and period_key(periode_v) <= period_key(last_period(kpi) or ""):
             continue  # déjà à jour : on n'écrase jamais un point existant
+        if deja_present(kpi, float(val)):
+            continue  # même chiffre que le dernier point : rien de nouveau
+        if not echelle_compatible(kpi, float(val)):
+            rejeter("ordre de grandeur etranger a la serie")
+            continue
         hist = kpi["history"]
         if hist and isinstance(hist[-1], dict):
             hist.append({"q": periode_v, "v": val})
@@ -467,7 +533,8 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
             path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf8")
 
     return {"ticker": ticker, "statut": "traite", "periode": periode,
-            "retenus": len(retenus), "rejetes": rejetes, "moteur": fournisseur}
+            "retenus": len(retenus), "rejetes": rejetes, "motifs": motifs,
+            "moteur": fournisseur}
 
 
 def main() -> int:
