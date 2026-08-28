@@ -919,7 +919,7 @@ export async function downloadSvgAsPng(
       const rawCagr = options.cagr.replace(/^CAGR\s*/i, "").trim();
       // "(CAGR)" apres la valeur, petit espace avant. L acronyme CAGR est
       // identique dans toutes les langues du doc (FR/EN/DE/NL).
-      const cagrText = `${rawCagr}\u2009(CAGR)`;
+      const cagrText = `${rawCagr} (CAGR)`;
       const isNegative = /^[\u2212-]/.test(rawCagr) || /\s-\d/.test(` ${rawCagr}`);
       const cagrY = LINE2_Y + 40;
       // Yann 25 aout 2026 : le bloc CAGR repasse CENTRE sous le titre du KPI

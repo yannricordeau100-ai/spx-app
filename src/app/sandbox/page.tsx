@@ -72,6 +72,8 @@ const ARCHIVED_BLOCKS: string[] = [
   "/desk-mtk9x4kp/ir-sources",
   // Yann 24 aout 2026 : Logo lab + prototype V2 archives.
   "logo-lab",
+  // Yann 28 aout 2026 : Regles par bloc archive.
+  "Règles par bloc",
   "v2",
 ];
 
