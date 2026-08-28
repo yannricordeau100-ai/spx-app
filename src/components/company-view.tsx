@@ -717,8 +717,16 @@ export function CompanyView({
       // c'est la seule ligne visible en clair pour le tier free.
       const firstPhysicalShort =
         filtered.length > 0 && isPhysicalKpi(filtered[0]) ? filtered[0].short : null;
+      // Yann 29 aout 2026 : les KPI crees a la main (KPI speciaux, marques
+      // hors_document) sont EXEMPTES du filtre trimestriel-only. Les Unites
+      // iPhone vendues (serie annuelle) disparaissaient de la page Apple des
+      // que la ste avait 3 KPI trimestriels.
       return filtered.filter(
-        (k) => k.short === heroShort || k.short === firstPhysicalShort || isQuarter(k),
+        (k) =>
+          k.short === heroShort ||
+          k.short === firstPhysicalShort ||
+          (k as unknown as { hors_document?: boolean }).hors_document === true ||
+          isQuarter(k),
       );
     }
     return filtered;
