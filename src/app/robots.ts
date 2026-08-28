@@ -12,8 +12,11 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/"],
+        allow: ["/", "/api/kpis-existants/"],
         disallow: [
+          // Yann 29 aout 2026 : /api/kpis-existants reste ouvert aux outils de
+          // lecture (verification anti-doublon depuis une conversation Claude
+          // externe). Le reste de /api/ demeure bloque.
           "/api/",
           "/auth/",
           "/account/",
@@ -46,6 +49,10 @@ export default function robots(): MetadataRoute.Robots {
           "ai2bot", "DataForSeoBot", "magpie-crawler",
         ],
         disallow: ["/"],
+        // Meme opt-out qu avant, a une exception pres : l endpoint de
+        // verification anti-doublon des KPI, concu pour etre lu par une
+        // conversation Claude du compte de Yann.
+        allow: ["/api/kpis-existants/"],
       },
     ],
     sitemap: `${base}/sitemap.xml`,
