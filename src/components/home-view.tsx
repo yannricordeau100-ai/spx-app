@@ -815,10 +815,8 @@ export function HomeView({
               populaires aupres des investisseurs francais : 2 par ligne,
               3 KPI wow chacune, 20 visibles, 40 au maximum. */}
           <HomeWowGrid
-            companies={COMPANIES_USED}
             universe={results}
             buildHref={buildHref}
-            locale={locale}
             requireSignupGate={requireSignupGate}
             gatePath={gatePath}
             labelVoirPlus={t("home.show_next_30")}
