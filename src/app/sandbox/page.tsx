@@ -113,6 +113,15 @@ const SECTIONS: SandboxSection[] = [
         accent: "orange" as const,
       },
       {
+        // Yann 28 aout 2026 : societes retirees de la mise en ligne (hors
+        // S&P 500 / Nasdaq 100 / SOX / CAC 40 / SMI / AEX / DAX), KPI
+        // consultables et filtrables par categorie.
+        href: "/sandbox/hors-indices",
+        icon: Search,
+        label: "Sociétés hors indices (205)",
+        desc: "KPI des sociétés retirées de la mise en ligne, filtrables par catégorie.",
+      },
+      {
         href: "/sandbox/kpi-search",
         icon: Search,
         label: "Recherche de KPI",
