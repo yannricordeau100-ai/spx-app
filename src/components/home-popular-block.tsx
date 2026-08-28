@@ -288,6 +288,11 @@ function TabHoverPreview({
 
 
 // === Constellation des zones (Yann 28 aout 2026) ==============================
+// Yann 28 aout 2026 (second prompt) : la constellation attend la fournee de ce
+// soir. Drapeau a passer a true pour l activer ; l ancienne barre de drapeaux
+// reste rendue d ici la.
+const CONSTELLATION_ACTIVE = false;
+
 
 /** Position de chaque zone dans le ciel, en pourcentage du cadre. */
 const CIEL: Record<string, { x: number; y: number }> = {
@@ -555,6 +560,8 @@ export function HomePopularBlock({
         {t("home.popular.subtitle")}
       </p>
 
+      {CONSTELLATION_ACTIVE ? (
+      <>
       {/* Yann 28 aout 2026 : la barre de drapeaux laisse place a une
           constellation centree. Chaque zone est une etoile reliee aux
           autres ; une animation parcourt les zones une a une et le
@@ -577,6 +584,65 @@ export function HomePopularBlock({
         onLeave={handleLeave}
         buildHref={buildCompanyHref}
       />
+
+      </>
+      ) : (
+      <>
+      {/* Yann 18 mai 2026 : refonte zones géo.
+          - Grid 3×3 sur mobile (parfaitement équilibré, jamais d'orphan)
+          - Grid 9 colonnes sur desktop (1 seule ligne, équidistant)
+          - Hover preview popover (top 3 stés du pays survolé, 220 ms delay)
+          - Layout vertical par cellule : drapeau + label en colonne pour
+            une lecture rapide et un footprint compact. */}
+      <div className="relative mb-5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1.5">
+        <div className="grid grid-cols-3 gap-1 sm:grid-cols-9">
+          {TABS.filter((tb) => {
+            const rows = data[tb.key];
+            return Array.isArray(rows) && rows.length >= 3;
+          }).map((tb) => {
+            const isActive = tb.key === activeTab;
+            const tabRows = data[tb.key];
+            const hasPreview = Array.isArray(tabRows) && tabRows.length > 0;
+            const isHovered = hoveredTab === tb.key && hasPreview;
+            return (
+              <div key={tb.key} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab(tb.key)}
+                  onMouseEnter={() => handleEnter(tb.key)}
+                  onMouseLeave={handleLeave}
+                  onFocus={() => handleEnter(tb.key)}
+                  onBlur={handleLeave}
+                  className={`group flex w-full flex-col items-center justify-center gap-0.5 rounded-lg px-1 py-2 transition-all ${
+                    isActive
+                      ? "bg-gradient-to-br from-violet-500/25 to-cyan-500/15 text-zinc-50 ring-1 ring-violet-500/30"
+                      : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
+                  }`}
+                  aria-label={labels[tb.key] || tb.key}
+                  aria-pressed={isActive}
+                >
+                  <span className="text-[18px] leading-none transition-transform group-hover:scale-110">
+                    {tb.flag}
+                  </span>
+                  <span className="text-[10.5px] font-medium leading-none">
+                    {labels[tb.key] || tb.key}
+                  </span>
+                </button>
+                {isHovered && (
+                  <TabHoverPreview
+                    rows={tabRows as PopularRow[]}
+                    label={labels[tb.key] || tb.key}
+                    buildHref={buildCompanyHref}
+                  />
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      </>
+      )}
 
       {podium.length === 3 && (
         <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">

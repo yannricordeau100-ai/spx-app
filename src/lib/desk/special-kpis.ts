@@ -247,6 +247,10 @@ INSTRUCTIONS STRICTES
    - Si ESTIMATION analyste → uncertainty_pct = ±X (5 / 10 / 15 selon dispersion)
    - source = citation précise (ex "Apple 10-K FY23 p.42")
 3. JAMAIS inventer. Si zéro source crédible pour une année → omettre la ligne.
+   Périodes annuelles : l'année seule ("2024"), JAMAIS "FY2024" ni "FY24".
+   Si le style est story et que le KPI est qualitatif, fournis aussi
+   "story_phrase_i18n" : une phrase courte issue de la source, affichée sous le
+   grand nombre (6 langues, meme regle en-GB / de-CH).
    Renseigne "official_source": true si toutes les valeurs viennent d un document
    publié par la société elle même, false dans tous les autres cas.
 4. Réponds UNIQUEMENT en JSON valide, format strict ci-dessous.

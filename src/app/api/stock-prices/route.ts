@@ -92,6 +92,22 @@ async function fetchBatch(symbols: string[]): Promise<PriceItem[]> {
       if (typeof so === "number" && so > 0) it.marketCap = it.price * so;
     }
   }
+  // Yann 28 aout 2026 : override VMRK. Fusion AvalonBay/Equity Residential
+  // effective le 17 aout 2026 (Vivmark Residential, NYSE VMRK depuis le 18).
+  // Yahoo n'a pas mis a jour le nombre d'actions apres la fusion : quote()
+  // renvoie sharesOutstanding = 398 834 711, soit uniquement les actions
+  // ex-AvalonBay converties (142 797 963 x ratio 2.793, cf. 424B3 du 13
+  // juillet 2026), sans les 374 893 890 actions Equity Residential existantes
+  // (10-Q EQR du 30 juillet 2026). Resultat : cap ~26 Mds $ au lieu de
+  // ~51 Mds $ (communique de fusion du 17 aout 2026). Verifie ce jour via
+  // quote("VMRK") : marketCap 26 139 627 520. Override : cap = prix live x
+  // titres combines. A retirer quand Yahoo aura corrige.
+  const VMRK_COMBINED_SHARES = 398_834_711 + 374_893_890; // = 773 728 601
+  for (const it of items) {
+    if (it.symbol === "VMRK" && it.price != null) {
+      it.marketCap = it.price * VMRK_COMBINED_SHARES;
+    }
+  }
   return items;
 }
 

@@ -422,11 +422,18 @@ export async function downloadSvgAsPng(
           }
         }
       }
-      t.setAttribute("font-size", String(Math.round(fs * factor * 10) / 10));
+      // Yann 28 aout 2026 : dans le document exporte, les ANNEES de l axe X
+      // sont agrandies davantage que le reste (1,45 contre 1,2) : c est le
+      // premier repere de lecture du PNG. La langue, la periode et tous les
+      // reglages du graphe au moment du telechargement restent inchanges.
+      const estAnnee =
+        isXAxisLabel && /^(19|20)\d{2}$/.test((t.textContent || "").trim());
+      const facteurFinal = estAnnee ? Math.max(factor, 1.45) : factor;
+      t.setAttribute("font-size", String(Math.round(fs * facteurFinal * 10) / 10));
       // Les ANNEES sous les crochets de groupe : le texte agrandi remontait
       // jusqu a toucher le crochet. On les abaisse pour retrouver l ecart
       // d avant l agrandissement (Yann 24 aout 2026).
-      if (isXAxisLabel && /^(19|20)\d{2}$/.test((t.textContent || "").trim())) {
+      if (estAnnee) {
         t.setAttribute("y", String(ty + 10));
       }
     }

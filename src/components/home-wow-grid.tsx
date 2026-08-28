@@ -25,8 +25,10 @@ import { prepareHeroDisplay } from "@/lib/format-hero";
 import { yoyTone } from "@/lib/utils";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 
-const VISIBLE_PAR_DEFAUT = 20;
-const MAXIMUM = 40;
+// Yann 28 aout 2026 : 10 societes pour l instant ; la fournee de ce soir
+// passe a 20 visibles et 40 au maximum.
+const VISIBLE_PAR_DEFAUT = 10;
+const MAXIMUM = 10;
 
 /** Unite monetaire ou de pourcentage = KPI financier. Le reste est physique. */
 function estFinancier(unit?: string | null): boolean {

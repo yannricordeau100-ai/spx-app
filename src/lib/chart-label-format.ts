@@ -67,7 +67,11 @@ export function formatChartValueLabel(
   if (isPhysicalUnitLabel(unit) && maxAbs < 100_000) {
     // Meme nombre de decimales pour toute la serie : sans minimum, 1,0
     // s affichait "1" a cote de "0,9" (capture Apple, abonnements payants).
-    const dec = maxAbs < 100 ? 1 : 0;
+    // Yann 28 aout 2026 (KPI pays PLTR "25,0 pays") : si TOUTE la serie est
+    // entiere, l unite compte des choses indivisibles (pays, magasins,
+    // logements) et la decimale est un non-sens. Zero decimale dans ce cas.
+    const serieEntiere = Number.isInteger(v) && Number.isInteger(dataMax);
+    const dec = maxAbs < 100 && !serieEntiere ? 1 : 0;
     return v.toLocaleString(numLoc, {
       minimumFractionDigits: dec,
       maximumFractionDigits: dec,
