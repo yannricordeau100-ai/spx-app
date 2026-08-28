@@ -7,20 +7,14 @@ import KPI_COUNTS from "@/data/_kpi-counts.json";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-import { COMPANIES, TICKERS, getHero } from "@/lib/data";
+import { COMPANIES, TICKERS } from "@/lib/data";
 import { displayTicker, buildTickerSet } from "@/lib/ticker-display";
-import { prepareHeroDisplay } from "@/lib/format-hero";
-import { yoyTone } from "@/lib/utils";
-import { brand, rate } from "@/lib/brand";
 import { Spotlight } from "@/components/effects/spotlight";
-import { FreshnessIndicator } from "@/components/freshness-indicator";
-import { getFreshnessReference } from "@/lib/freshness/compute-tier";
 import { BackToTop } from "@/components/back-to-top";
-import { StarButton } from "@/components/star-button";
 import { CompanySearch } from "@/components/company-search";
 import { HomeFAQ } from "@/components/home-faq";
-import { HomePopularBlock, type PopularRow } from "@/components/home-popular-block";
-import { HomeBiggestCapBlock } from "@/components/home-biggest-cap-block";
+import { HomePopularBlock } from "@/components/home-popular-block";
+import { HomeWowGrid } from "@/components/home-wow-grid";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { useT } from "@/lib/i18n/provider";
 
@@ -719,31 +713,11 @@ export function HomeView({
   // existant). URL conserve le ticker complet via `buildHref` ci-dessus.
   const allTickersSet = useMemo(() => buildTickerSet(results), [results]);
 
-  // Yann 13 juin 2026 : top 20 sociétés par capitalisation boursière. `results`
-  // est déjà trié cap décroissante (médailles 🥇🥈🥉 "par capitalisation"),
-  // donc on prend simplement les 20 premières disponibles.
-  const biggestCapRows = useMemo<PopularRow[]>(() => {
-    const out: PopularRow[] = [];
-    for (const ticker of results.slice(0, 20)) {
-      const c = COMPANIES_USED[ticker];
-      if (!c || !c.name) continue;
-      out.push({
-        ticker,
-        name: c.name,
-        rank: out.length + 1,
-        displayTicker: displayTicker(ticker, allTickersSet),
-      });
-    }
-    return out;
-  }, [results, COMPANIES_USED, allTickersSet]);
-
   // Pagination par paquet de 30 (Yann 16 mai 2026) : top 30 affiché, puis
   // flèche "Déployer 30 de plus" pour en révéler 30 supplémentaires, etc.
   // Activé uniquement si results.length > 30 (V1 demo 5 stés non concerné).
+  // Yann 28 aout 2026 : la pagination interne vit dans HomeWowGrid.
   const PAGE_SIZE = 30;
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  const visibleResults = results.length > PAGE_SIZE ? results.slice(0, visibleCount) : results;
-  const hasMore = results.length > visibleCount;
   // Note : la date "Données à jour au X" est désormais rendue côté client
   // via <DataFreshnessPill /> pour utiliser le timezone du visiteur.
 
@@ -836,45 +810,20 @@ export function HomeView({
           <div className="mb-4 text-center font-mono text-[11px] uppercase tracking-[0.15em] text-zinc-500">
             {t("brand.companies_available")}
           </div>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {visibleResults.map((ticker, idx) => {
-              const c = COMPANIES_USED[ticker];
-              if (!c) return null;
-              try {
-                // Idem : wrap chaque card société dans le gate signup.
-                // Yann (12 mai 2026) : passer l'idx pour afficher médailles
-                // 🥇🥈🥉 sur les 3 premières du classement.
-                const card = renderCompanyCard(c, ticker, buildHref, locale, t, idx, allTickersSet);
-                if (!card) return null;
-                return (
-                  <SignupGateOverlay key={ticker} enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
-                    {card}
-                  </SignupGateOverlay>
-                );
-              } catch {
-                return null;
-              }
-            })}
-          </div>
+          {/* Yann 28 aout 2026 : la grille de cartes hero (medailles, etoile,
+              "i", KPI principal) laisse place a la grille des societes
+              populaires aupres des investisseurs francais : 2 par ligne,
+              3 KPI wow chacune, 20 visibles, 40 au maximum. */}
+          <HomeWowGrid
+            companies={COMPANIES_USED}
+            universe={results}
+            buildHref={buildHref}
+            locale={locale}
+            requireSignupGate={requireSignupGate}
+            gatePath={gatePath}
+            labelVoirPlus={t("home.show_next_30")}
+          />
 
-          {/* Pagination par paquet de 30 (Yann 16 mai 2026).
-              Label "Montre-moi les 30 suivantes ↓" multilingue, ton léger
-              (Yann 16 mai 04h45 : "More" cheap, prefère phrase complète). */}
-          {hasMore && (
-            <div className="mt-6 flex justify-center">
-              <button
-                type="button"
-                onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-                aria-label={t("home.show_next_30")}
-                className="group inline-flex items-center gap-2.5 rounded-xl border border-violet-500/30 bg-violet-500/[0.06] px-6 py-3 text-[14px] font-medium tracking-wide text-violet-100 transition-all hover:scale-[1.02] hover:border-violet-500/50 hover:bg-violet-500/[0.12]"
-              >
-                <span>{t("home.show_next_30")}</span>
-                <span aria-hidden className="inline-block text-[16px] transition-transform group-hover:translate-y-0.5">
-                  ↓
-                </span>
-              </button>
-            </div>
-          )}
 
           {/* Bloc "Actions les plus populaires" intégré sous le top 30
               (Yann 16 mai 2026 04h45 : remet la "partie populaire" + seules
@@ -891,18 +840,7 @@ export function HomeView({
             />
           )}
 
-          {/* Yann 13 juin 2026 : nouvelle section "Plus grandes capitalisations
-              boursières mondiales disponibles" — même style que le bloc
-              populaire, ordonnée par cap décroissante, MAJ auto hebdo. */}
-          {results.length > PAGE_SIZE && (
-            <HomeBiggestCapBlock
-              rows={biggestCapRows}
-              locale={locale}
-              routePrefix={routePrefix}
-              requireSignupGate={requireSignupGate}
-              gatePath={gatePath}
-            />
-          )}
+          {/* Yann 28 aout 2026 : section "Plus grandes capitalisations" supprimee. */}
         </div>
 
         {showFAQ && <HomeFAQ />}
@@ -917,172 +855,3 @@ export function HomeView({
 }
 
 /** Card sté de la home : extraite pour pouvoir try/catch autour. */
-function renderCompanyCard(
-  c: import("@/lib/data").Company,
-  ticker: string,
-  buildHref: (t: string) => string,
-  locale: string,
-  t: (k: string) => string,
-  rankIdx?: number,
-  allTickersSet?: ReadonlySet<string>,
-): React.ReactNode {
-  const tickersUniverse = allTickersSet ?? new Set<string>();
-  if (!c.kpis || !Array.isArray(c.kpis) || c.kpis.length === 0) return null;
-  const hero = getHero(c);
-  // Coerce string fields (Yann 9 mai 2026 : NVDA/GOOGL/AAPL/MSFT avaient
-  // hero.value en number après extraction LLM, le check strict 'typeof
-  // === "string"' les filtrait silencieusement → 12/305 stés visibles
-  // dans /sandbox/v1-8 au lieu de 305).
-  if (!hero) return null;
-  for (const f of ["value", "yoy", "type", "unit", "short"] as const) {
-    const v = (hero as Record<string, unknown>)[f];
-    if (v === null || v === undefined) return null;
-    if (typeof v !== "string") {
-      (hero as Record<string, unknown>)[f] = String(v);
-    }
-  }
-  const tone = yoyTone(hero.yoy, hero.type);
-  const yoyColor =
-    tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
-  const accent = brand(ticker).primary;
-  let r;
-  try {
-    r = rate(hero);
-  } catch {
-    r = { tier: "moyen" as const, label: "Moyen", percentile: "", color: "#a1a1aa" };
-  }
-  // Yann 16 mai 2026 : pipeline hero unifié page sté ↔ home preview.
-  // Couvre autoRescale (TSLA "0,4 M units" → "410 K unités"), normalisation
-  // "B €" → "Mds €" (ASMLF), guard magnitude % aberrante (ASML 32 milliards %).
-  const heroHistory = Array.isArray(hero.history)
-    ? (hero.history.filter((x) => typeof x === "number") as number[])
-    : [];
-  const heroDisplay = prepareHeroDisplay(hero.value, hero.unit, heroHistory);
-  if (heroDisplay.anomaly && typeof console !== "undefined") {
-    console.warn(
-      `[Mettrik] Hero KPI anomaly on ${ticker} / ${hero.short}:`,
-      hero.value,
-      hero.unit,
-      "→",
-      heroDisplay.anomalyReason,
-    );
-  }
-              return (
-                <div key={ticker}>
-                  <Link
-                    href={buildHref(ticker)}
-                    /* Yann 16 juil 2026 : min-h-[230px] retiré (espace vide en bas des cartes).
-                        L'alignement des hauteurs dans une même rangée est déjà garanti par
-                        la CSS grid (align-items stretch) + h-full : une carte avec nom sur
-                        2 lignes étire simplement sa rangée. */
-                    className="conic-border group relative flex h-full flex-col rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4 transition-colors hover:border-[#2a2a2a]"
-                  >
-                    <div
-                      className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                      style={{ background: `${accent}55` }}
-                    />
-                    {/* Yann (12 mai 2026 v2) : médaille 🥇🥈🥉 en absolute
-                        top-RIGHT (initialement top-left). */}
-                    {typeof rankIdx === "number" && rankIdx < 3 && (
-                      <div
-                        className="absolute -right-2 -top-3.5 z-10 flex size-9 items-center justify-center rounded-full text-[18px] shadow-[0_4px_14px_rgba(0,0,0,0.6)]"
-                        style={{
-                          background:
-                            rankIdx === 0
-                              ? "linear-gradient(135deg, #fde047, #ca8a04)"
-                              : rankIdx === 1
-                                ? "linear-gradient(135deg, #e5e5e5, #737373)"
-                                : "linear-gradient(135deg, #fdba74, #9a3412)",
-                          border: "2px solid rgba(0,0,0,0.6)",
-                        }}
-                        aria-label={`Rang ${rankIdx + 1}`}
-                        title={`#${rankIdx + 1} par capitalisation`}
-                      >
-                        {rankIdx === 0 ? "🥇" : rankIdx === 1 ? "🥈" : "🥉"}
-                      </div>
-                    )}
-                    <div className="relative flex items-start justify-between">
-                      <div>
-                        <div className="font-mono text-xs" style={{ color: accent }}>
-                          {displayTicker(ticker, tickersUniverse)}
-                        </div>
-                        <div className="mt-1 line-clamp-2 text-[15px] font-medium leading-snug text-zinc-100">
-                          {c.name}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <StarButton mode="company" ticker={ticker} size="sm" stopPropagation />
-                        <ArrowRight className="size-4 -translate-x-1 text-zinc-500 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
-                      </div>
-                    </div>
-                    <div className="mt-3 flex items-baseline justify-between gap-1.5">
-                      {/* Yann 14 mai 2026 : value + unité dans un span flex
-                          unique avec whitespace-nowrap pour éviter cassure
-                          "20.03 Mds" / "$" (visible quand yoy long type +63,4 %). */}
-                      <span className="inline-flex items-baseline gap-1 whitespace-nowrap">
-                        <span
-                          className="font-mono text-2xl font-semibold tabular-nums text-zinc-100"
-                          title={heroDisplay.anomaly ? heroDisplay.anomalyReason : undefined}
-                        >
-                          {heroDisplay.value}
-                        </span>
-                        {heroDisplay.unit && (
-                          <span className="whitespace-nowrap text-sm font-medium text-zinc-300">
-                            {heroDisplay.unit.replace(/ /g, " ")}
-                          </span>
-                        )}
-                      </span>
-                      <span
-                        className="whitespace-nowrap font-mono text-xs tabular-nums"
-                        style={{ color: yoyColor }}
-                      >
-                        {hero.yoy}
-                      </span>
-                    </div>
-                    <div className="mt-1.5 truncate text-[12px] text-zinc-400">
-                      {/* Affichage localisé : en FR le nom français, en EN le nom anglais.
-                          On supprime le préfixe technique `short` (= identifiant interne
-                          souvent en EN) demandé par Yann le 4 mai 2026 : le user veut
-                          voir un libellé naturel dans sa langue, pas un acronyme tech. */}
-                      {locale === "fr"
-                        ? (hero.name_fr || hero.name_en || hero.short)
-                        : (hero.name_en || hero.name_fr || hero.short)}
-                    </div>
-                    {/* Yann 20 mai 16h40 : grid 2 colonnes fixes (tier+pct
-                        gauche / freshness droite) avec hauteur min identique
-                        sur toutes les cards. Plus de flex-wrap = pas de
-                        chips qui descendent quand un texte est long. Truncate
-                        au besoin pour préserver l'alignement vertical du
-                        bloc dans toutes les cards de la grille. */}
-                    {/* Yann (26 mai 2026) : chips empilées sur 2 lignes au lieu
-                        d'une seule. Avant : grid 1 ligne forçait truncate sur
-                        percentile (= "Top..." illisible) ET les chips étaient
-                        masquées par FreshnessIndicator. Maintenant chaque chip
-                        a sa propre ligne, tout est lisible sur toutes les stés. */}
-                    <div className="mt-3 flex flex-col gap-1.5">
-                      <div className="flex items-center gap-1.5 overflow-hidden">
-                        <span
-                          className="inline-flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium"
-                          style={{ background: `${r.color}18`, color: r.color }}
-                        >
-                          <span className="size-1.5 rounded-full" style={{ background: r.color }} />
-                          {t(`tier.${r.tier}`)}
-                        </span>
-                        {/* Yann 15 juin 2026 : gros "i" bleu à droite de "Top x%"
-                            (remplace la chip "Prochain résultats J-x"). Détail
-                            earning dans le tooltip. */}
-                        <FreshnessIndicator
-                          lastDate={getFreshnessReference(c).lastDate ?? "2025-12-31"}
-                          publicationDate={getFreshnessReference(c).publicationDate}
-                          nextEarningsDate={c.next_earnings_date}
-                          ticker={ticker}
-                          iconOnly
-                          size="md"
-                          tooltipAlign="left"
-                        />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              );
-}

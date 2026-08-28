@@ -286,6 +286,157 @@ function TabHoverPreview({
   );
 }
 
+
+// === Constellation des zones (Yann 28 aout 2026) ==============================
+
+/** Position de chaque zone dans le ciel, en pourcentage du cadre. */
+const CIEL: Record<string, { x: number; y: number }> = {
+  world: { x: 50, y: 22 },
+  en: { x: 13, y: 48 },
+  fr: { x: 31, y: 72 },
+  "en-GB": { x: 44, y: 46 },
+  de: { x: 63, y: 68 },
+  nl: { x: 76, y: 38 },
+  "de-CH": { x: 90, y: 62 },
+};
+
+/** Petites etoiles fixes du fond (positions figees : rendu stable SSR). */
+const ETOILES: ReadonlyArray<readonly [number, number, number]> = [
+  [4, 18, 1.6], [9, 74, 1.1], [17, 26, 1.3], [22, 55, 1.0], [27, 12, 1.5],
+  [35, 38, 1.1], [40, 84, 1.4], [47, 66, 1.0], [53, 88, 1.2], [58, 30, 1.5],
+  [61, 12, 1.0], [69, 52, 1.2], [73, 82, 1.4], [81, 16, 1.1], [86, 42, 1.5],
+  [93, 26, 1.1], [96, 74, 1.3], [12, 88, 1.2], [66, 90, 1.0], [88, 88, 1.2],
+];
+
+function ConstellationZones({
+  tabs,
+  labels,
+  activeTab,
+  hoveredTab,
+  data,
+  onPick,
+  onEnter,
+  onLeave,
+  buildHref,
+}: {
+  tabs: { key: string; flag: string; country: string }[];
+  labels: Record<string, string>;
+  activeTab: string;
+  hoveredTab: string | null;
+  data: PopularData;
+  onPick: (key: string) => void;
+  onEnter: (key: string) => void;
+  onLeave: () => void;
+  buildHref: (t: string) => string;
+}) {
+  const visibles = tabs.filter((tb) => CIEL[tb.key]);
+  return (
+    <div className="relative mx-auto mb-6 h-[150px] max-w-xl select-none sm:h-[170px]">
+      <style>{`
+        @keyframes mtk-scintille { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }
+        @media (prefers-reduced-motion: reduce) {
+          .mtk-etoile { animation: none !important; }
+        }
+      `}</style>
+      {/* Fil de la constellation + etoiles de fond */}
+      <svg
+        className="absolute inset-0 size-full"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden
+      >
+        {ETOILES.map(([x, y, r], i) => (
+          <circle
+            key={i}
+            cx={x}
+            cy={y}
+            r={r * 0.35}
+            fill="#a1a1aa"
+            className="mtk-etoile"
+            style={{
+              animation: `mtk-scintille ${2.6 + (i % 5) * 0.7}s ease-in-out infinite`,
+              animationDelay: `${(i % 7) * 0.5}s`,
+            }}
+          />
+        ))}
+        <polyline
+          points={visibles.map((tb) => `${CIEL[tb.key].x},${CIEL[tb.key].y}`).join(" ")}
+          fill="none"
+          stroke="url(#mtk-fil)"
+          strokeWidth={0.35}
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        />
+        <defs>
+          <linearGradient id="mtk-fil" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.35" />
+            <stop offset="50%" stopColor="#22d3ee" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.35" />
+          </linearGradient>
+        </defs>
+      </svg>
+      {/* Les zones */}
+      {visibles.map((tb) => {
+        const pos = CIEL[tb.key];
+        const isActive = tb.key === activeTab;
+        const tabRows = data[tb.key];
+        const isHovered = hoveredTab === tb.key && Array.isArray(tabRows) && tabRows.length > 0;
+        return (
+          <div
+            key={tb.key}
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
+          >
+            <button
+              type="button"
+              onClick={() => onPick(tb.key)}
+              onMouseEnter={() => onEnter(tb.key)}
+              onMouseLeave={onLeave}
+              onFocus={() => onEnter(tb.key)}
+              onBlur={onLeave}
+              aria-label={labels[tb.key] || tb.key}
+              aria-pressed={isActive}
+              className="group flex flex-col items-center gap-1 outline-none"
+            >
+              <span
+                className={`grid place-items-center rounded-full transition-all duration-500 ${
+                  isActive
+                    ? "size-11 bg-gradient-to-br from-violet-500/35 to-cyan-500/25 shadow-[0_0_26px_rgba(139,92,246,0.5)] ring-2 ring-violet-400/60"
+                    : "size-9 bg-white/[0.05] ring-1 ring-white/15 hover:bg-white/[0.1] hover:ring-white/30"
+                }`}
+              >
+                <span
+                  className={`leading-none transition-transform duration-500 group-hover:scale-110 ${
+                    isActive ? "text-[19px]" : "text-[15px]"
+                  }`}
+                >
+                  {tb.flag}
+                </span>
+              </span>
+              <span
+                className={`whitespace-nowrap text-[10.5px] font-medium leading-none transition-colors ${
+                  isActive ? "text-zinc-50" : "text-zinc-500 group-hover:text-zinc-300"
+                }`}
+              >
+                {labels[tb.key] || tb.key}
+              </span>
+            </button>
+            {isHovered && (
+              <div className="absolute left-1/2 top-full z-50 -translate-x-1/2">
+                <TabHoverPreview
+                  rows={tabRows as PopularRow[]}
+                  label={labels[tb.key] || tb.key}
+                  buildHref={buildHref}
+                />
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 // === Main block ===============================================================
 
 export function HomePopularBlock({
@@ -304,7 +455,26 @@ export function HomePopularBlock({
   const [data, setData] = useState<PopularData | null>(null);
   const [activeTab, setActiveTab] = useState<string>("world");
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
+  // Vrai des que le visiteur a choisi une zone : le parcours automatique
+  // s arrete et respecte ce choix.
+  const [pinned, setPinned] = useState(false);
   const hoverTimer = useRef<number | null>(null);
+
+  // Parcours automatique : zone apres zone, toutes les 3,5 secondes, tant
+  // que le visiteur n a ni survole ni choisi une zone.
+  useEffect(() => {
+    if (!data || pinned || hoveredTab) return;
+    const cles = TABS.filter((tb) => {
+      const zr = data[tb.key];
+      return Array.isArray(zr) && zr.length >= 3;
+    }).map((tb) => tb.key);
+    if (cles.length < 2) return;
+    const id = window.setInterval(() => {
+      if (document.hidden) return;
+      setActiveTab((cur) => cles[(cles.indexOf(cur) + 1) % cles.length]);
+    }, 3500);
+    return () => window.clearInterval(id);
+  }, [data, pinned, hoveredTab]);
 
   useEffect(() => {
     let cancel = false;
@@ -385,58 +555,28 @@ export function HomePopularBlock({
         {t("home.popular.subtitle")}
       </p>
 
-      {/* Yann 18 mai 2026 : refonte zones géo.
-          - Grid 3×3 sur mobile (parfaitement équilibré, jamais d'orphan)
-          - Grid 9 colonnes sur desktop (1 seule ligne, équidistant)
-          - Hover preview popover (top 3 stés du pays survolé, 220 ms delay)
-          - Layout vertical par cellule : drapeau + label en colonne pour
-            une lecture rapide et un footprint compact. */}
-      <div className="relative mb-5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1.5">
-        <div className="grid grid-cols-3 gap-1 sm:grid-cols-9">
-          {TABS.filter((tb) => {
-            const rows = data[tb.key];
-            return Array.isArray(rows) && rows.length >= 3;
-          }).map((tb) => {
-            const isActive = tb.key === activeTab;
-            const tabRows = data[tb.key];
-            const hasPreview = Array.isArray(tabRows) && tabRows.length > 0;
-            const isHovered = hoveredTab === tb.key && hasPreview;
-            return (
-              <div key={tb.key} className="relative">
-                <button
-                  type="button"
-                  onClick={() => setActiveTab(tb.key)}
-                  onMouseEnter={() => handleEnter(tb.key)}
-                  onMouseLeave={handleLeave}
-                  onFocus={() => handleEnter(tb.key)}
-                  onBlur={handleLeave}
-                  className={`group flex w-full flex-col items-center justify-center gap-0.5 rounded-lg px-1 py-2 transition-all ${
-                    isActive
-                      ? "bg-gradient-to-br from-violet-500/25 to-cyan-500/15 text-zinc-50 ring-1 ring-violet-500/30"
-                      : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
-                  }`}
-                  aria-label={labels[tb.key] || tb.key}
-                  aria-pressed={isActive}
-                >
-                  <span className="text-[18px] leading-none transition-transform group-hover:scale-110">
-                    {tb.flag}
-                  </span>
-                  <span className="text-[10.5px] font-medium leading-none">
-                    {labels[tb.key] || tb.key}
-                  </span>
-                </button>
-                {isHovered && (
-                  <TabHoverPreview
-                    rows={tabRows as PopularRow[]}
-                    label={labels[tb.key] || tb.key}
-                    buildHref={buildCompanyHref}
-                  />
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      {/* Yann 28 aout 2026 : la barre de drapeaux laisse place a une
+          constellation centree. Chaque zone est une etoile reliee aux
+          autres ; une animation parcourt les zones une a une et le
+          classement en dessous suit. Survoler une etoile fige le parcours
+          et montre le top 3 de la zone ; cliquer la retient pour de bon. */}
+      <ConstellationZones
+        tabs={TABS.filter((tb) => {
+          const zr = data[tb.key];
+          return Array.isArray(zr) && zr.length >= 3;
+        })}
+        labels={labels}
+        activeTab={activeTab}
+        hoveredTab={hoveredTab}
+        data={data}
+        onPick={(k) => {
+          setActiveTab(k);
+          setPinned(true);
+        }}
+        onEnter={handleEnter}
+        onLeave={handleLeave}
+        buildHref={buildCompanyHref}
+      />
 
       {podium.length === 3 && (
         <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
