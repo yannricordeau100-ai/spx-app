@@ -1410,15 +1410,16 @@ export const DICTIONARY: Dict = {
   },
   // Bouton pagination home — ton léger multilingue (Yann 16 mai 2026 :
   // remplace "More ↓" jugé cheap, prefère phrase complète).
-  "home.show_next_30": {
-    fr: "Montre-moi les 30 suivantes",
-    en: "Show me the next 30",
-    de: "Zeig mir die nächsten 30",
-    nl: "Toon me de volgende 30",
-    "en-GB": "Show me the next 30",
-    sv: "Visa mig nästa 30",
-    da: "Vis mig de næste 30",
-    "de-CH": "Zeig mir die nächsten 30",
+  // Yann 29 aout 2026 : la grille montre 20 societes puis les 20 suivantes.
+  "home.show_next_20": {
+    fr: "Montre-moi les 20 suivantes",
+    en: "Show me the next 20",
+    de: "Zeig mir die nächsten 20",
+    nl: "Toon me de volgende 20",
+    "en-GB": "Show me the next 20",
+    sv: "Visa mig nästa 20",
+    da: "Vis mig de næste 20",
+    "de-CH": "Zeig mir die nächsten 20",
   },
   // Section "actions populaires" intégrée sous le top 30 de la home.
   "home.popular.title": {

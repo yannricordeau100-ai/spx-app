@@ -819,7 +819,7 @@ export function HomeView({
             buildHref={buildHref}
             requireSignupGate={requireSignupGate}
             gatePath={gatePath}
-            labelVoirPlus={t("home.show_next_30")}
+            labelVoirPlus={t("home.show_next_20")}
           />
 
 
