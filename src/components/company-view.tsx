@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { applyFloutageRules, type FloutageRule } from "@/lib/floutage";
+import { applyFloutageRules, zonesEnRegles, type FloutageRule, type Zone } from "@/lib/floutage";
 import FLOUTAGE_RULES_FILE from "@/data/floutage-free-mode.json";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -239,20 +239,45 @@ export function CompanyView({
   // sections lazy-chargées (transcript-bullets, super-kpi).
   useEffect(() => {
     if (!freeBlocked) return;
-    const rules = (FLOUTAGE_RULES_FILE as { rules?: FloutageRule[] }).rules ?? [];
-    if (rules.length === 0) return;
+    // Yann 29 aout 2026 : les zones de floutage sont desormais NOMMEES
+    // (identifiants de blocs stables, /api/floutage-zones, reglables depuis
+    // /sandbox/admin/floutage-selector sans redeploiement). Les anciennes
+    // regles a chemins CSS du fichier bundle servent de secours si l API ne
+    // repond pas : elles cassaient a chaque retouche de design.
     let cleanup: (() => void) | null = null;
-    const t1 = setTimeout(() => {
-      cleanup = applyFloutageRules(rules);
-    }, 150);
-    // Retry pour blocs lazy (chart, transcript)
-    const t2 = setTimeout(() => {
-      if (cleanup) cleanup();
-      cleanup = applyFloutageRules(rules);
-    }, 1500);
+    let annule = false;
+    const applique = (rules: FloutageRule[]) => {
+      if (annule || rules.length === 0) return;
+      const t1 = setTimeout(() => {
+        cleanup = applyFloutageRules(rules);
+      }, 150);
+      // Retry pour blocs lazy (chart, transcript)
+      setTimeout(() => {
+        if (annule) return;
+        if (cleanup) cleanup();
+        cleanup = applyFloutageRules(rules);
+      }, 1500);
+      return t1;
+    };
+    fetch("/api/floutage-zones")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        const zones = Array.isArray(j?.zones) ? (j.zones as Zone[]) : [];
+        if (zones.length > 0) {
+          applique(zonesEnRegles(zones));
+        } else {
+          const legacy =
+            (FLOUTAGE_RULES_FILE as { rules?: FloutageRule[] }).rules ?? [];
+          applique(legacy);
+        }
+      })
+      .catch(() => {
+        const legacy =
+          (FLOUTAGE_RULES_FILE as { rules?: FloutageRule[] }).rules ?? [];
+        applique(legacy);
+      });
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
+      annule = true;
       if (cleanup) cleanup();
     };
   }, [freeBlocked, company.ticker]);
