@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download, Pause, Play } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Company } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { buildStories, hasStories, type StorySlide } from "@/lib/kpi-stories-ordering";
-import { KpiStoryCard } from "@/components/kpi-story-card";
+import { KpiStoryCard, storyFmt } from "@/components/kpi-story-card";
+import { downloadStoryAsPng } from "@/lib/story-export";
 import { useT } from "@/lib/i18n/provider";
 import { useSwipeStories } from "@/lib/hooks/use-swipe-stories";
 import { storyFamily, orderedFamilies, type StoryFamilyKey } from "@/lib/story-family";
@@ -434,25 +435,10 @@ function StoryFrame({
               chaque changement de groupe (key sur slideIdx). Paused au hover.
               Une seule barre par frame (pas de segments multi-slides : chaque
               frame = une story unique). */}
-          {/* Yann 17 juil 2026 : nom du thème (catégorie de la story)
-              déplacé du coin haut-droit de la carte vers ICI, juste
-              au-dessus de la barre de temps. */}
-          {(() => {
-            // Yann 9 août 2026 : plus de fallback "Story" (doublon avec le
-            // compteur "N/M · Story" du header). Sans catégorie → pas de chip.
-            const cat = slide.kind === "kpi"
-              ? ((slide.data.story_category && slide.data.story_category !== "Story") ? slide.data.story_category : "")
-              : "Marché";
-            if (!cat) return null;
-            return (
-              <div
-                className="absolute left-3 top-[13px] z-20 inline-flex items-center rounded-full border px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.14em] opacity-80"
-                style={{ background: `${accent}14`, color: accent, borderColor: `${accent}33` }}
-              >
-                {cat}
-              </div>
-            );
-          })()}
+          {/* Yann 30 aout 2026 : badge categorie ("MARCHE", "SEGMENTS"...)
+              retire de toutes les cartes. Il n apparaissait que si la donnee
+              story_category existait, d ou des ecrans differents d une ste a
+              l autre (KO vs NVDA). Le rangement par familles le remplace. */}
           {autoplay && (
             <div className="absolute inset-x-3 top-9 z-20 h-[3px] overflow-hidden rounded-full bg-white/15">
               <div
@@ -472,14 +458,45 @@ function StoryFrame({
               affiché sur la 1re frame uniquement pour éviter la redondance. */}
           {autoplay && slot === 0 && (
             <button
-              data-pause-position="corner"
               onClick={onTogglePause}
-              className="absolute right-3 top-3 z-30 inline-flex size-7 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur transition-colors hover:bg-black/60"
+              className="absolute top-1.5 z-30 inline-flex size-5 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur transition-colors hover:bg-black/60"
+              style={{ left: "calc(50% + 56px)" }}
               aria-label={pauseLabel}
             >
-              {paused ? <Play className="size-3" /> : <Pause className="size-3" />}
+              {paused ? <Play className="size-2.5" /> : <Pause className="size-2.5" />}
             </button>
           )}
+
+          {/* Telechargement PNG de CET ecran (Yann 30 aout 2026), meme
+              signature visuelle que l export des graphs. */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              const estKpi = slide.kind === "kpi";
+              const d = slide.data as {
+                name_fr?: string; value?: number | string; unit?: string;
+                signal?: string; segment_name?: string; segment_revenue?: number;
+                segment_unit?: string;
+              };
+              const fmt = estKpi ? storyFmt(d.value ?? null, d.unit) : null;
+              void downloadStoryAsPng({
+                ticker: company.ticker,
+                companyName: company.name,
+                title: estKpi ? (d.name_fr ?? "") : (d.segment_name ?? ""),
+                period: null,
+                value: estKpi ? (fmt?.value ?? "") : String(d.segment_revenue ?? ""),
+                unit: estKpi ? fmt?.unit : d.segment_unit,
+                signal: estKpi ? d.signal : null,
+                accent,
+              });
+            }}
+            className="absolute top-1.5 z-30 inline-flex size-5 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur transition-colors hover:bg-black/60"
+            style={{ left: autoplay && slot === 0 ? "calc(50% + 84px)" : "calc(50% + 56px)" }}
+            aria-label="Télécharger cette story"
+            title="Télécharger cette story"
+          >
+            <Download className="size-2.5" />
+          </button>
 
           {/* Story content (fill) — animation slide horizontale au switch */}
           <div className="absolute inset-0">

@@ -12,7 +12,7 @@ const RechartLineChart = dynamic(() => import("./recharts-story-chart"), { ssr: 
 /** Yann 12 juil 2026 : valeur + unité STORY rescalées ensemble ([1,999] +
  *  décimales, règle CLAUDE.md §6). Avant : formatKpiValue seul laissait
  *  "1 036 M $" au lieu de "1,04 Mds $". */
-function storyFmt(value: string | number | null | undefined, unit?: string): { value: string; unit: string } {
+export function storyFmt(value: string | number | null | undefined, unit?: string): { value: string; unit: string } {
   const f = formatHeroValue(value ?? null, unit ?? "");
   return { value: f.value, unit: f.unit };
 }
@@ -20,6 +20,7 @@ function storyFmt(value: string | number | null | undefined, unit?: string): { v
 import { InfoTooltip } from "@/components/info-tooltip";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
+import { useLayoutEffect, useRef } from "react";
 import { kpiPeriodLabel } from "@/lib/period-label";
 import { isFiscalShifted } from "@/lib/fiscal-calendar";
 
@@ -28,7 +29,7 @@ import { isFiscalShifted } from "@/lib/fiscal-calendar";
  * pour qu'un nombre long (ex "750 000") ne déborde pas ni ne se coupe au
  * milieu (Yann 11 juin 2026 : "750 0 00" cassé sur 2 lignes = non pro).
  */
-function storyValueFont(s: string): string {
+export function storyValueFont(s: string): string {
   const n = s.replace(/[\s  ]/g, "").length;
   if (n <= 4) return "clamp(44px, 17vw, 104px)";
   if (n <= 6) return "clamp(36px, 13vw, 80px)";
@@ -65,6 +66,30 @@ function formatStoryPeriod(kpi: KPI, ticker: string, locale: string): string | n
  *  - Sources externes longues (>4 mots) sont déplacées dans un tooltip
  *    "i" pour ne pas polluer l'écran story.
  */
+/**
+ * Yann 30 aout 2026 : le chiffre central pouvait deborder de la carte
+ * ("600 000" coupe sur KO) car sa taille etait choisie par LONGUEUR avec des
+ * unites vw (largeur de la FENETRE, pas de la carte). Ce hook mesure le
+ * rendu reel et reduit par transform scale jusqu a tenir. Deterministe,
+ * aucune classe cassee, marche pour toute valeur et toute largeur.
+ */
+function useAjusteLargeur(dep: string) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.transform = "";
+    const w = el.clientWidth;
+    const sw = el.scrollWidth;
+    if (sw > w && sw > 0) {
+      const k = Math.max(0.45, (w - 2) / sw);
+      el.style.transform = `scale(${k})`;
+      el.style.transformOrigin = "center center";
+    }
+  }, [dep]);
+  return ref;
+}
+
 export function KpiStoryCard({ slide, ticker, freeBlocked = false }: { slide: StorySlide; ticker: string; freeBlocked?: boolean }) {
   const accent = brand(ticker).primary;
   const glow = brand(ticker).glow;
@@ -79,6 +104,7 @@ export function KpiStoryCard({ slide, ticker, freeBlocked = false }: { slide: St
 function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI; accent: string; glow: string; ticker: string; freeBlocked?: boolean }) {
   const { t, locale } = useT();
   const periodLabel = formatStoryPeriod(kpi, ticker, locale);
+  const refValeur = useAjusteLargeur(String(kpi.value ?? ""));
   return (
     <div
       className="relative flex h-full flex-col overflow-hidden rounded-[36px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-4 pt-11"
@@ -151,7 +177,8 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   gauche et la droite → auto-shrink + overflow-hidden +
                   wordBreak pour matcher la branche freeBlocked au-dessus. */}
               <div
-                className="w-full max-w-full overflow-hidden text-center font-display font-bold leading-none tracking-tight gradient-text"
+                ref={refValeur}
+                className="w-full max-w-full text-center font-display font-bold leading-none tracking-tight gradient-text"
                 style={{ fontSize: storyValueFont(storyFmt(kpi.value, kpi.unit).value), whiteSpace: "nowrap" }}
               >
                 {storyFmt(kpi.value, kpi.unit).value}
