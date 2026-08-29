@@ -77,6 +77,10 @@ for t in POP:
     # 3 sinon.
     def affichable(k):
         h=k.get('history') or []
+        # une story (story_category, serie courte) est affichee dans le bloc
+        # Story de la page : elle est donc eligible a l accueil (regle Yann)
+        if k.get('story_category') and len(h)<=2: return True
+        if k.get('is_short_history'): return True
         pt=k.get('period_type') or ('quarter' if (k.get('frequency')=='quarterly') else 'year')
         seuil=4 if pt=='quarter' else 2 if pt=='semester' else 3
         return isinstance(h,list) and len(h)>=seuil

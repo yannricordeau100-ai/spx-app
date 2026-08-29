@@ -101,7 +101,14 @@ export function buildStories(
 
   // 1. KPIs short-history → bouquet par story_category
   for (const k of kpis) {
-    if (!k.is_short_history) continue;
+    // Yann 29 aout 2026 (cas AMZN, capacite electrique AWS, 1 point) : un KPI
+    // qui porte une story_category mais dont le drapeau is_short_history n a
+    // pas ete pose est une story quand sa serie est trop courte pour le
+    // tableau des indicateurs cles. Sans cela il n apparaissait NULLE PART.
+    const historique = Array.isArray(k.history) ? k.history.length : 0;
+    const storySansDrapeau =
+      !!(k as { story_category?: string }).story_category && historique <= 2;
+    if (!k.is_short_history && !storySansDrapeau) continue;
     if (!isStoryKpiUsable(k)) continue;
     const cat = k.story_category || DEFAULT_CATEGORY;
     if (!buckets.has(cat)) buckets.set(cat, []);
