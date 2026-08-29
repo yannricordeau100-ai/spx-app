@@ -10,6 +10,8 @@ import { loadV17Company } from "@/lib/company-core/load-company";
 import { resolveDisabledForTicker } from "@/lib/disabled-blocks-server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
+import { caviardeCompanyPourGratuit, caviardeTranscriptsPourGratuit } from "@/lib/floutage-caviardage";
+import { chargeZonesFloutage } from "@/lib/desk/floutage-zones";
 import { gateAttForTier } from "@/lib/att";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -327,13 +329,29 @@ export default async function SandboxV195TickerPage({
     ? { ...r.company, att: gateAttForTier(r.company.att, freemiumTier) }
     : r.company;
 
+  // Yann 30 aout 2026 : palier gratuit et anonyme, le texte des zones
+  // floutees est CAVIARDE ici, cote serveur, avant tout rendu. Le vrai texte
+  // ne part jamais au navigateur (copier-coller, impression, code source :
+  // seul le charabia est recuperable). Les societes exemptees (zones vides)
+  // et les offres payantes recoivent la fiche entiere.
+  const estGratuit = freemiumTier === "free" || freemiumTier === "anon";
+  const zonesEffectives = estGratuit
+    ? (await chargeZonesFloutage(r.company.ticker)).zones
+    : [];
+  const servedCompany = estGratuit
+    ? caviardeCompanyPourGratuit(gatedCompany, zonesEffectives)
+    : gatedCompany;
+  const servedTranscriptSummary = estGratuit
+    ? caviardeTranscriptsPourGratuit(transcriptSummary ?? null, zonesEffectives)
+    : transcriptSummary;
+
   return (
     <FreemiumBlurProvider tier={freemiumTier}>
       <CompanyView
-        company={stripMeta(gatedCompany)}
+        company={stripMeta(servedCompany)}
         authSlot={<AuthNav scope="company" />}
         transcript={transcript}
-        transcriptSummary={transcriptSummary}
+        transcriptSummary={servedTranscriptSummary}
         v18Mode
         freemiumTier={freemiumTier}
         disabledBlocks={disabledBlocks}
