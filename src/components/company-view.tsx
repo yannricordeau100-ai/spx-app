@@ -1594,6 +1594,12 @@ export function CompanyView({
                   Courbe/Barres/etc) pour compacter la hauteur. La logique
                   d'affichage conditionnel (curve|bars + isTimeFractionApplicableKpi)
                   est préservée à l'identique. */}
+              {/* Yann 29 aout 2026 : ancre "graphique" du hero — le graph
+                  seul (tous styles : courbe, barres, variation, 2D/3D),
+                  axes X et Y compris, sans le titre ni les toggles ni la
+                  colonne valeur/CAGR. Permet la zone hero:graphique dans
+                  l outil, a la place du bloc entier. */}
+              <div data-blur-part="graphique">
               <ChartCycle
                 mode={chartMode}
                 data={scaleFactor !== 1 ? chartHistoryRaw.map((v) => (typeof v === "number" ? v * scaleFactor : v)) : chartHistoryRaw}
@@ -1628,6 +1634,7 @@ export function CompanyView({
                   timeFraction !== "year" ? ` ${translate(`timefrac.suffix.${timeFraction}`, heroTitleLang)}` : ""
                 } · ${company.name}`}
               />
+              </div>
             </div>
           </div>
 
