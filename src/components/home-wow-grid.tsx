@@ -24,10 +24,10 @@ import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
 import { displayTicker } from "@/lib/ticker-display";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 
-// Yann 28 aout 2026 : 10 societes pour l instant ; la fournee programmee
-// passe a 20 visibles et 40 au maximum.
-const VISIBLE_PAR_DEFAUT = 10;
-const MAXIMUM = 10;
+// Yann 29 aout 2026 : fournee programmee livree, 20 societes visibles et
+// 40 au maximum.
+const VISIBLE_PAR_DEFAUT = 20;
+const MAXIMUM = 40;
 
 type KpiWow = { nom: string; valeur: string; unite?: string | null; yoy?: string | null };
 type SteWow = { ticker: string; nom: string; kpis: KpiWow[] };

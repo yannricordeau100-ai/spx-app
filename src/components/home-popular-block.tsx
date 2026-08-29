@@ -288,10 +288,9 @@ function TabHoverPreview({
 
 
 // === Constellation des zones (Yann 28 aout 2026) ==============================
-// Yann 28 aout 2026 (second prompt) : la constellation attend la fournee de ce
-// soir. Drapeau a passer a true pour l activer ; l ancienne barre de drapeaux
-// reste rendue d ici la.
-const CONSTELLATION_ACTIVE = false;
+// Yann 29 aout 2026 : constellation activee avec la fournee de 40 societes.
+// L ancienne barre de drapeaux reste sous le drapeau a false, en secours.
+const CONSTELLATION_ACTIVE = true;
 
 
 /** Position de chaque zone dans le ciel, en pourcentage du cadre. */
