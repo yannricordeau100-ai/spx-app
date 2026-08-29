@@ -11,6 +11,7 @@ import {
   chargeZonesFloutage,
   enregistreZonesFloutage,
   supprimeZonesFloutage,
+  listeReglagesPropres,
 } from "@/lib/desk/floutage-zones";
 import type { Zone } from "@/lib/floutage";
 
@@ -18,7 +19,11 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   await requireDeskOwner();
-  const ticker = new URL(req.url).searchParams.get("ticker");
+  const url = new URL(req.url);
+  if (url.searchParams.get("liste")) {
+    return NextResponse.json({ tickers: await listeReglagesPropres() });
+  }
+  const ticker = url.searchParams.get("ticker");
   return NextResponse.json(await chargeZonesFloutage(ticker));
 }
 

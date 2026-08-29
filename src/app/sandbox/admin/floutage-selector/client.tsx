@@ -44,6 +44,15 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
   // propre a la societe de l apercu (qui PRIME ; vide = exemption totale).
   const [portee, setPortee] = useState<"globale" | "societe">("globale");
   const [porteeChargee, setPorteeChargee] = useState<string>("globale");
+  // Societes ayant un reglage propre (3e categorie de l outil, ex GOOGL/META).
+  const [propres, setPropres] = useState<string[]>([]);
+  const chargePropres = () => {
+    fetch("/api/desk/floutage-zones?liste=1")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => setPropres(Array.isArray(j?.tickers) ? j.tickers : []))
+      .catch(() => {});
+  };
+  useEffect(chargePropres, []);
   useEffect(() => {
     const q = portee === "societe" ? `?ticker=${encodeURIComponent(ticker)}` : "";
     setCharge(false);
@@ -112,14 +121,15 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
             : `enregistré pour toutes les stés (${zones.length} zones)`
           : `échec ${r.status}`,
       );
+      if (r.ok) chargePropres();
     } catch (e) {
       setStatut(`échec : ${String(e)}`);
     }
   };
 
   return (
-    <div className="flex min-h-screen flex-col gap-4 bg-[#050505] p-4 text-zinc-100 lg:flex-row">
-      <div className="w-full shrink-0 lg:w-[380px]">
+    <div className="flex min-h-screen flex-col gap-4 bg-[#050505] p-4 text-zinc-100">
+      <div className="w-full">
         <h1 className="font-display text-[19px] font-bold">Floutage par zones</h1>
         <p className="mt-1 text-[12px] leading-relaxed text-zinc-400">
           Coche ce que le palier gratuit ne doit pas voir. L aperçu à droite est une vraie
@@ -127,7 +137,37 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
           666 pages, quel que soit leur agencement. « 0 élément » = partie pas encore
           ancrée dans le code, cocher n aurait aucun effet.
         </p>
-        <div className="mt-3 flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1 text-[11.5px]">
+        {/* 3 catégories : réglage global, sociétés à réglage propre, ajout libre. */}
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-[11.5px]">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Réglages propres :</span>
+          {propres.length === 0 && <span className="text-zinc-600">aucun</span>}
+          {propres.map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => { setTicker(t); setPortee("societe"); }}
+              className={`rounded-full border px-2.5 py-1 font-mono ${
+                portee === "societe" && ticker === t
+                  ? "border-violet-400/60 bg-violet-500/25 text-violet-100"
+                  : "border-white/15 text-zinc-300 hover:bg-white/[0.06]"
+              }`}
+            >
+              {t}
+            </button>
+          ))}
+          <input
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                const v = (e.target as HTMLInputElement).value.trim().toUpperCase();
+                if (v) { setTicker(v); setPortee("societe"); (e.target as HTMLInputElement).value = ""; }
+              }
+            }}
+            placeholder="+ Ajouter une sté (ticker + Entrée)"
+            className="w-[210px] rounded-full border border-dashed border-white/20 bg-black/40 px-3 py-1 font-mono text-[11px] uppercase text-zinc-100 outline-none focus:border-violet-400/60"
+            title="Choisis n importe quelle société, coche/décoche ses blocs, puis Enregistrer : elle rejoint les réglages propres."
+          />
+        </div>
+        <div className="mt-3 flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1 text-[11.5px]" style={{ width: "fit-content" }}>
           <button
             type="button"
             onClick={() => setPortee("globale")}
@@ -156,6 +196,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
               setStatut(r.ok ? `${ticker} revient au réglage global` : `échec ${r.status}`);
               setPorteeChargee("globale");
               setPortee("globale");
+              if (r.ok) chargePropres();
             }}
             className="mt-2 rounded-lg border border-white/15 px-3 py-1.5 text-[11.5px] text-zinc-300 hover:bg-white/[0.06]"
           >
@@ -173,7 +214,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
           </button>
           {statut && <span className="text-[11.5px] text-zinc-400">{statut}</span>}
         </div>
-        <div className="mt-4 max-h-[70vh] space-y-3 overflow-y-auto pr-1">
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {Object.entries(PARTIES_PAR_BLOC).map(([bloc, parties]) => (
             <div key={bloc} className="rounded-xl border border-white/[0.07] bg-white/[0.02] p-3">
               <div className="mb-2 text-[12.5px] font-semibold text-zinc-200">
@@ -199,7 +240,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
                             : "bg-white/[0.05] text-zinc-300 hover:bg-white/[0.1]"
                       }`}
                     >
-                      {LIBELLES_PARTIES[partie]}
+                      {(() => { const l = LIBELLES_PARTIES[partie]; return l.charAt(0).toUpperCase() + l.slice(1); })()}
                       {n != null && (
                         <span className="ml-1 text-[9.5px] text-zinc-500">{n}</span>
                       )}
@@ -211,7 +252,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
           ))}
         </div>
       </div>
-      <div className="min-w-0 flex-1">
+      <div className="w-full">
         <div className="mb-2 flex items-center gap-2">
           <span className="text-[11.5px] uppercase tracking-wider text-zinc-500">Aperçu :</span>
           <input
@@ -245,7 +286,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
           ref={frameRef}
           src={`/sandbox/v1-9-5/${ticker.toLowerCase()}${search}`}
           onLoad={injecte}
-          className="h-[85vh] w-full rounded-xl border border-white/10 bg-black"
+          className="h-[92vh] w-full rounded-xl border border-white/10 bg-black"
           title="aperçu"
         />
       </div>

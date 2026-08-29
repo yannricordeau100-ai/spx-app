@@ -83,3 +83,16 @@ export async function supprimeZonesFloutage(ticker: string): Promise<void> {
     .eq("section_key", sectionPour(ticker));
   if (error) throw new Error(error.message);
 }
+
+/** Societes ayant un reglage propre (section zones:<TICKER>). */
+export async function listeReglagesPropres(): Promise<string[]> {
+  const { data } = await admin()
+    .from("desk_page_content")
+    .select("section_key")
+    .eq("page_key", PAGE_KEY)
+    .like("section_key", "zones:%");
+  return (data ?? [])
+    .map((r) => String(r.section_key).slice("zones:".length))
+    .filter(Boolean)
+    .sort();
+}
