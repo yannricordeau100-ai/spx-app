@@ -244,20 +244,26 @@ export function CompanyView({
     // /sandbox/admin/floutage-selector sans redeploiement). Les anciennes
     // regles a chemins CSS du fichier bundle servent de secours si l API ne
     // repond pas : elles cassaient a chaque retouche de design.
-    let cleanup: (() => void) | null = null;
+    // Yann 29 aout 2026 : les cartes du carrousel Stories montent de
+    // nouveaux elements a chaque defilement ; les deux minuteries fixes les
+    // manquaient. Un MutationObserver reapplique les regles a chaque ajout
+    // dans le DOM (les elements deja floutes sont marques et ignores par
+    // applyFloutageRules, donc c est idempotent et bon marche).
+    const cleanups: Array<() => void> = [];
+    let observer: MutationObserver | null = null;
     let annule = false;
     const applique = (rules: FloutageRule[]) => {
       if (annule || rules.length === 0) return;
-      const t1 = setTimeout(() => {
-        cleanup = applyFloutageRules(rules);
-      }, 150);
-      // Retry pour blocs lazy (chart, transcript)
-      setTimeout(() => {
-        if (annule) return;
-        if (cleanup) cleanup();
-        cleanup = applyFloutageRules(rules);
-      }, 1500);
-      return t1;
+      cleanups.push(applyFloutageRules(rules));
+      let minuterie: ReturnType<typeof setTimeout> | null = null;
+      observer = new MutationObserver(() => {
+        if (annule || minuterie) return;
+        minuterie = setTimeout(() => {
+          minuterie = null;
+          if (!annule) cleanups.push(applyFloutageRules(rules));
+        }, 200);
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
     };
     fetch("/api/floutage-zones")
       .then((r) => (r.ok ? r.json() : null))
@@ -278,7 +284,8 @@ export function CompanyView({
       });
     return () => {
       annule = true;
-      if (cleanup) cleanup();
+      observer?.disconnect();
+      for (const c of cleanups) c();
     };
   }, [freeBlocked, company.ticker]);
 
