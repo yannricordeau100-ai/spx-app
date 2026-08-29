@@ -20,6 +20,7 @@ import { ArrowRight } from "lucide-react";
 
 import WOW from "@/data/home-wow-kpis.json";
 import { brand } from "@/lib/brand";
+import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
 import { displayTicker } from "@/lib/ticker-display";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 
@@ -79,12 +80,24 @@ export function HomeWowGrid({
                 style={{ background: `${accent}55` }}
               />
               <div className="relative flex items-start justify-between gap-2">
-                <div className="min-w-0">
-                  <div className="font-mono text-xs" style={{ color: accent }}>
-                    {displayTicker(s.ticker, tickersSet)}
+                <div className="flex min-w-0 items-center gap-2.5">
+                  {/* Yann 29 aout 2026 : logo de la societe sur chaque carte. */}
+                  <div
+                    className={`flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg ring-1 ${
+                      logoNeedsLightBg(s.ticker)
+                        ? "bg-white ring-black/15"
+                        : "bg-[#111] ring-white/10"
+                    }`}
+                  >
+                    <CompanyLogo ticker={s.ticker} />
                   </div>
-                  <div className="mt-0.5 truncate text-[15px] font-medium leading-snug text-zinc-100">
-                    {s.nom}
+                  <div className="min-w-0">
+                    <div className="font-mono text-xs" style={{ color: accent }}>
+                      {displayTicker(s.ticker, tickersSet)}
+                    </div>
+                    <div className="mt-0.5 truncate text-[15px] font-medium leading-snug text-zinc-100">
+                      {s.nom}
+                    </div>
                   </div>
                 </div>
                 <ArrowRight className="mt-1 size-4 shrink-0 -translate-x-1 text-zinc-500 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
@@ -92,19 +105,19 @@ export function HomeWowGrid({
               <div className="mt-2.5 divide-y divide-white/[0.05] border-t border-white/[0.07]">
                 {s.kpis.map((k, i) => (
                   <div key={i} className="flex items-baseline justify-between gap-2 py-[5px]">
-                    <span className="min-w-0 flex-1 truncate text-[12px] text-zinc-400" title={k.nom}>
+                    <span className="min-w-0 flex-1 truncate text-[13px] text-zinc-300" title={k.nom}>
                       {k.nom}
                     </span>
                     <span className="inline-flex shrink-0 items-baseline gap-1 whitespace-nowrap">
-                      <span className="font-mono text-[13.5px] font-semibold tabular-nums text-zinc-100">
+                      <span className="font-mono text-[15px] font-semibold tabular-nums text-zinc-100">
                         {k.valeur}
                       </span>
                       {k.unite && (
-                        <span className="text-[11px] font-medium text-zinc-400">{k.unite}</span>
+                        <span className="text-[12px] font-medium text-zinc-400">{k.unite}</span>
                       )}
                       {k.yoy && (
                         <span
-                          className="ml-1 font-mono text-[11px] tabular-nums"
+                          className="ml-1 font-mono text-[12px] tabular-nums"
                           style={{ color: couleurYoy(k.yoy) }}
                         >
                           {k.yoy}
