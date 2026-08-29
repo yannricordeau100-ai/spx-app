@@ -16,6 +16,7 @@ financier, note, slug = ns['financier'], ns['note'], ns['slug']
 
 POP = json.load(open('src/data/home-popular-fr.json', encoding='utf-8'))['tickers']
 uni = {str(x).upper() for x in json.load(open('src/data/v1-9-5-clean-all-tickers.json', encoding='utf-8'))['tickers']}
+uni &= {str(k).upper() for k in json.load(open('src/data/v1-7-public.json', encoding='utf-8'))}
 
 def fiche(T):
     kpis = []

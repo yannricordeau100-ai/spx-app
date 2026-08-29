@@ -7,11 +7,17 @@ francaise."""
 import json,os,re,unicodedata
 POP=json.load(open('src/data/home-popular-fr.json',encoding='utf-8'))['tickers']
 uni={str(x).upper() for x in json.load(open('src/data/v1-9-5-clean-all-tickers.json',encoding='utf-8'))['tickers']}
+# Yann 29 aout 2026 : la home ne rend que les tickers presents AUSSI dans le
+# dataset public (cf. loadDatasets de src/app/sandbox/v1-9-5/page.tsx). Sans ce
+# second filtre le fichier annoncait 40 societes dont 7 invisibles en ligne.
+uni&={str(k).upper() for k in json.load(open('src/data/v1-7-public.json',encoding='utf-8'))}
 # Yann 29 aout 2026 : les devises ecrites en toutes lettres (USD, EUR...) et
 # les unites de ratio financier (pb, x) etaient prises pour des unites
 # physiques et bonifiees a tort dans note().
-FIN=re.compile(r'[$€¥£]|chf|sek|dkk|nok|mds|\bm\b|\bmd\b|%'
- r"|\busd\b|\beur\b|\bgbp\b|\bjpy\b|\bcad\b|\baud\b|dollar|euro|\bpb\b|^\s*x\s*$",re.I)
+FIN=re.compile(r'[$€¥£]|mds|\bm\b|\bmd\b|%|dollar|euro|\bpb\b|^\s*x\s*$'
+ # Codes ISO de devise : « USD_billion », « TWD/action », « CHF m »... Le code
+ # peut etre colle a un separateur non alphabetique, d ou les gardes manuelles.
+ r'|(?<![a-z])(usd|eur|gbp|jpy|twd|krw|inr|brl|cny|hkd|cad|aud|chf|sek|dkk|nok)(?![a-z])',re.I)
 def financier(u): return bool(FIN.search(str(u or ''))) or not u
 def ampl(y):
     m=re.search(r'-?\d+(?:[.,]\d+)?',str(y or ''))
