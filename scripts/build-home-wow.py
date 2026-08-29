@@ -6,10 +6,12 @@ privilegiees, variations suspectes (>95 %) ecartees, valeurs formatees a la
 francaise."""
 import json,os,re,unicodedata
 POP=json.load(open('src/data/home-popular-fr.json',encoding='utf-8'))['tickers']
+# Yann 29 aout 2026 : l univers rendu par la home est le triple croisement de
+# src/app/sandbox/v1-9-5/page.tsx (loadCleanAllTickers + loadDatasets) : audit
+# pre-publication is_clean_all, liste curatee, dataset public. Filtrer sur la
+# seule liste curatee annoncait des societes invisibles en ligne.
 uni={str(x).upper() for x in json.load(open('src/data/v1-9-5-clean-all-tickers.json',encoding='utf-8'))['tickers']}
-# Yann 29 aout 2026 : la home ne rend que les tickers presents AUSSI dans le
-# dataset public (cf. loadDatasets de src/app/sandbox/v1-9-5/page.tsx). Sans ce
-# second filtre le fichier annoncait 40 societes dont 7 invisibles en ligne.
+uni&={a['ticker'].upper() for a in json.load(open('src/data/v1-9-pre-publication-audit.json',encoding='utf-8'))['audits'] if a.get('is_clean_all')}
 uni&={str(k).upper() for k in json.load(open('src/data/v1-7-public.json',encoding='utf-8'))}
 # Yann 29 aout 2026 : les devises ecrites en toutes lettres (USD, EUR...) et
 # les unites de ratio financier (pb, x) etaient prises pour des unites
