@@ -1696,33 +1696,27 @@ export function CompanyView({
                 non-TTM de `chartSpec.values`. Si timeFraction != "year",
                 applique le divisor déjà utilisé côté chart (cf
                 chart-cycle.tsx ligne 285). */}
-            {visibleKpis.map((kpi, kpiIdx) => {
+            {visibleKpis.map((kpi) => {
               const isActive = kpi.short === active.short;
               // Yann 18 août 2026 : en tier free, la 1re ligne (KPI physique
               // qualitatif) est EN CLAIR ; toutes les suivantes sont floutées
               // en entier (nom + valeurs), non cliquables.
-              const rowFullyBlurred = freeBlocked && kpiIdx > 0;
-              const row = (
+              {/* Spec floutage 29 aout 2026 : plus de lignes entierement
+                  floutees au palier gratuit. Chaque ligne montre valeur,
+                  variation et tendance ; seuls le nom et Qualite-Signal
+                  sont brouilles, par zones. L ancien voile blur-[6px] sur
+                  les lignes 2+ contredisait la spec. */}
+              return (
                 <KpiRow
                   key={kpi.short}
                   kpi={kpi}
                   active={isActive}
                   subsector={company.subsector}
                   ticker={company.ticker}
-                  onClick={rowFullyBlurred ? () => {} : () => handleKpiClick(kpi.short)}
-                  freeBlocked={rowFullyBlurred}
+                  onClick={() => handleKpiClick(kpi.short)}
+                  freeBlocked={freeBlocked}
                   overrideValue={isActive ? heroLastVisibleValue : null}
                 />
-              );
-              if (!rowFullyBlurred) return row;
-              return (
-                <div
-                  key={kpi.short}
-                  className="pointer-events-none select-none blur-[6px]"
-                  aria-hidden="true"
-                >
-                  {row}
-                </div>
               );
             })}
             {hiddenCount > 0 && (
