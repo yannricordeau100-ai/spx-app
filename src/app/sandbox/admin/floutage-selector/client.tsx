@@ -40,15 +40,22 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
   const [comptes, setComptes] = useState<Record<string, number>>({});
   const frameRef = useRef<HTMLIFrameElement>(null);
 
+  // Portee d edition : reglage commun a toutes les societes, ou reglage
+  // propre a la societe de l apercu (qui PRIME ; vide = exemption totale).
+  const [portee, setPortee] = useState<"globale" | "societe">("globale");
+  const [porteeChargee, setPorteeChargee] = useState<string>("globale");
   useEffect(() => {
-    fetch("/api/desk/floutage-zones")
+    const q = portee === "societe" ? `?ticker=${encodeURIComponent(ticker)}` : "";
+    setCharge(false);
+    fetch(`/api/desk/floutage-zones${q}`)
       .then((r) => (r.ok ? r.json() : null))
       .then((j) => {
         if (Array.isArray(j?.zones)) setZones(j.zones as Zone[]);
+        if (j && typeof j.portee === "string") setPorteeChargee(j.portee);
         setCharge(true);
       })
       .catch(() => setCharge(true));
-  }, []);
+  }, [portee, ticker]);
 
   // Injection dans l apercu : memes selecteurs que la production, plus un
   // compte d elements reellement touches par zone (0 = partie pas encore
@@ -96,9 +103,15 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
       const r = await fetch("/api/desk/floutage-zones", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ zones }),
+        body: JSON.stringify({ zones, ticker: portee === "societe" ? ticker : undefined }),
       });
-      setStatut(r.ok ? `enregistré (${zones.length} zones), actif immédiatement` : `échec ${r.status}`);
+      setStatut(
+        r.ok
+          ? portee === "societe"
+            ? `enregistré pour ${ticker} (${zones.length} zones${zones.length === 0 ? " : exemption totale" : ""})`
+            : `enregistré pour toutes les stés (${zones.length} zones)`
+          : `échec ${r.status}`,
+      );
     } catch (e) {
       setStatut(`échec : ${String(e)}`);
     }
@@ -114,6 +127,41 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
           666 pages, quel que soit leur agencement. « 0 élément » = partie pas encore
           ancrée dans le code, cocher n aurait aucun effet.
         </p>
+        <div className="mt-3 flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1 text-[11.5px]">
+          <button
+            type="button"
+            onClick={() => setPortee("globale")}
+            className={`rounded-full px-2.5 py-1 ${portee === "globale" ? "bg-violet-500/30 text-violet-100" : "text-zinc-400 hover:text-zinc-100"}`}
+          >
+            Toutes les stés
+          </button>
+          <button
+            type="button"
+            onClick={() => setPortee("societe")}
+            className={`rounded-full px-2.5 py-1 ${portee === "societe" ? "bg-violet-500/30 text-violet-100" : "text-zinc-400 hover:text-zinc-100"}`}
+          >
+            Uniquement {ticker}
+          </button>
+          {portee === "societe" && (
+            <span className="px-1.5 text-[10.5px] text-zinc-500">
+              {porteeChargee === "societe" ? "réglage propre actif" : "suit le réglage global"}
+            </span>
+          )}
+        </div>
+        {portee === "societe" && porteeChargee === "societe" && (
+          <button
+            type="button"
+            onClick={async () => {
+              const r = await fetch(`/api/desk/floutage-zones?ticker=${encodeURIComponent(ticker)}`, { method: "DELETE" });
+              setStatut(r.ok ? `${ticker} revient au réglage global` : `échec ${r.status}`);
+              setPorteeChargee("globale");
+              setPortee("globale");
+            }}
+            className="mt-2 rounded-lg border border-white/15 px-3 py-1.5 text-[11.5px] text-zinc-300 hover:bg-white/[0.06]"
+          >
+            Supprimer le réglage propre de {ticker}
+          </button>
+        )}
         <div className="mt-3 flex items-center gap-2">
           <button
             type="button"

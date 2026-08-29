@@ -265,13 +265,15 @@ export function CompanyView({
       });
       observer.observe(document.body, { childList: true, subtree: true });
     };
-    fetch("/api/floutage-zones")
+    fetch(`/api/floutage-zones?ticker=${encodeURIComponent(company.ticker)}`)
       .then((r) => (r.ok ? r.json() : null))
       .then((j) => {
         const zones = Array.isArray(j?.zones) ? (j.zones as Zone[]) : [];
         if (zones.length > 0) {
           applique(zonesEnRegles(zones));
-        } else {
+        } else if (j?.portee !== "societe") {
+          // Liste vide GLOBALE = API pas encore configuree : secours legacy.
+          // Liste vide PAR SOCIETE = exemption voulue (ex GOOGL/META) : rien.
           const legacy =
             (FLOUTAGE_RULES_FILE as { rules?: FloutageRule[] }).rules ?? [];
           applique(legacy);
