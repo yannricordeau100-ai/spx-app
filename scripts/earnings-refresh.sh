@@ -22,5 +22,10 @@ export LOGNAME="$USER"
   nice -n 10 python3 scripts/fr-doc-watcher.py
   echo "=== $(date '+%F %T') extraction ==="
   nice -n 10 python3 scripts/earnings-refresh.py --apply
+  echo "=== $(date '+%F %T') controle des publications attendues ==="
+  # Compare le calendrier des resultats a ce qui est reellement tombe dans le
+  # data-lake. Sans ce controle, une publication captee par personne passe
+  # totalement inapercue. Purement mecanique, aucun appel LLM ni reseau.
+  nice -n 10 python3 scripts/verifie-publications.py
   echo "=== $(date '+%F %T') fin ==="
 } >> /tmp/earnings-refresh.log 2>&1
