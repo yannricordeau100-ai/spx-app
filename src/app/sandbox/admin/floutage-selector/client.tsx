@@ -29,6 +29,14 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
   const [charge, setCharge] = useState(false);
   const [statut, setStatut] = useState<string | null>(null);
   const [ticker, setTicker] = useState("AAPL");
+  // Yann 29 aout 2026 : le token d audit de l URL doit suivre dans l iframe.
+  // L expression inline `typeof window...` rendait "" au SSR et React gardait
+  // cet attribut a l hydratation : l apercu partait sans token, le proxy le
+  // renvoyait vers la connexion et TOUS les compteurs restaient a 0.
+  const [search, setSearch] = useState("");
+  useEffect(() => {
+    setSearch(window.location.search);
+  }, []);
   const [comptes, setComptes] = useState<Record<string, number>>({});
   const frameRef = useRef<HTMLIFrameElement>(null);
 
@@ -175,7 +183,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
         </div>
         <iframe
           ref={frameRef}
-          src={`/sandbox/v1-9-5/${ticker.toLowerCase()}${typeof window !== "undefined" ? window.location.search : ""}`}
+          src={`/sandbox/v1-9-5/${ticker.toLowerCase()}${search}`}
           onLoad={injecte}
           className="h-[85vh] w-full rounded-xl border border-white/10 bg-black"
           title="aperçu"
