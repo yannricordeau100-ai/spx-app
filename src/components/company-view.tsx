@@ -1703,6 +1703,7 @@ export function CompanyView({
             })}
             {hiddenCount > 0 && (
               <button
+                data-blur-part="voir-plus"
                 onClick={() => setShowAll((s) => !s)}
                 className="group flex w-full items-center justify-center gap-2 border-t border-[#1a1a1a] bg-[#0a0a0a] px-6 py-4 text-sm text-zinc-400 transition-colors hover:bg-[#0e0e0e] hover:text-zinc-100"
               >

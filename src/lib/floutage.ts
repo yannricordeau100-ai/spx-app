@@ -121,7 +121,11 @@ export type PartieDeBloc =
   | "graphique"
   | "tableau"
   | "texte"
-  | "source";
+  | "source"
+  // Yann 29 aout 2026, spec floutage palier gratuit :
+  | "indicateur"   // colonne des noms du tableau KPI
+  | "qualite"      // colonne Qualite - Signal du tableau KPI
+  | "voir-plus";   // bouton "Voir x indicateurs supplementaires"
 
 export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   tout: "le bloc entier",
@@ -132,6 +136,9 @@ export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   tableau: "le tableau",
   texte: "le texte",
   source: "la source",
+  indicateur: "la colonne des noms",
+  qualite: "la colonne Qualité · Signal",
+  "voir-plus": "le bouton voir plus",
 };
 
 export type Zone = { bloc: BlockId; partie: PartieDeBloc };
@@ -151,7 +158,7 @@ export function libelleDeZone(z: Zone): string {
 /** Parties proposees par bloc dans l outil de selection. */
 export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
   hero: ["tout", "titre", "valeur", "variation", "graphique", "source"],
-  kpis: ["tout", "titre", "tableau", "valeur", "variation"],
+  kpis: ["tout", "titre", "tableau", "valeur", "variation", "indicateur", "qualite", "voir-plus"],
   stories: ["tout", "titre", "texte", "source"],
   repartition: ["tout", "titre", "graphique", "tableau"],
   governance: ["tout", "titre", "tableau", "texte"],

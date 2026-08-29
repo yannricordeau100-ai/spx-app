@@ -177,6 +177,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
   return (
     <section
       id="sec-stories"
+      data-blur="stories"
       className="mt-9 scroll-mt-24 animate-fade-up-d2"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

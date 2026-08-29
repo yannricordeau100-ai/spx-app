@@ -154,7 +154,8 @@ export function KpiRow({
       {/* COL 1 — Indicateur (3 cols, Yann 24 aout 2026 : colonne retrecie,
           le nom peut passer sur 2 lignes). */}
       <div className="col-span-12 sm:col-span-3">
-        <div className="flex items-center gap-2.5">
+        {/* Zone floutable palier gratuit : nom du KPI + son "i". */}
+        <div data-blur-part="indicateur" className="flex items-center gap-2.5">
           {/* Yann (1er juin 05:15) : badge violet kpi.short retiré.
               Cause : pour certains KPIs récents le `short` contient le nom EN
               long (ex "YOUTUBE ADS REVENUE") au lieu d'un code court. Et
@@ -343,7 +344,7 @@ export function KpiRow({
       </div>
 
       {/* COL 4 — Qualité (stacked) + Signal */}
-      <div className="col-span-12 sm:col-span-4">
+      <div data-blur-part="qualite" className="col-span-12 sm:col-span-4">
         {isIncompleteKpi ? (
           // Yann (26 mai 2026) : retire le badge alarmant "Données partielles"
           // qui apparaissait sur 5-10 KPIs par sté ayant une valeur claire mais

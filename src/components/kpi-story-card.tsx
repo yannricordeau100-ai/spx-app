@@ -22,7 +22,6 @@ import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
 import { kpiPeriodLabel } from "@/lib/period-label";
 import { isFiscalShifted } from "@/lib/fiscal-calendar";
-import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 
 /**
  * Taille de police auto-adaptée du gros chiffre story selon sa longueur,
@@ -99,7 +98,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
       <div className="relative flex h-full flex-col">
         {/* Header row : nom KPI à gauche (gros), badge catégorie discret à
             droite. Plus compact que avant : 1 ligne au lieu de 2 niveaux. */}
-        <div className="flex items-start justify-between gap-2">
+        <div data-blur-part="titre" className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
             {/* Yann 12 juil 2026 : le short technique anglais ("BACKLOG
                 (UNITS)", etc.) au-dessus du titre FR est supprimé. Le titre
@@ -142,31 +141,10 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
             </div>
           )}
 
-          {freeBlocked ? (
-            <>
-              {/* Yann 12 juil 2026 : formatHeroValue = rescale magnitude [1,999]
-                  + décimales (règle CLAUDE.md §6). Avant : formatKpiValue seul
-                  laissait "1 036 M $" au lieu de "1,04 Mds $". */}
-              {/* Yann (26 mai 2026) : value + unit séparés (avant : concatenés
-                  → overflow horizontal phone-frame visible "210 M unités"
-                  sur les côtés). Maintenant chaque ligne respecte la largeur
-                  phone-frame avec word-wrap. */}
-              <div
-                className="w-full max-w-full overflow-hidden text-center"
-                style={{ fontSize: storyValueFont(storyFmt(kpi.value, kpi.unit).value), lineHeight: 1.05, whiteSpace: "nowrap" }}
-              >
-                <BlurredFreeValue
-                  value={storyFmt(kpi.value, kpi.unit).value}
-                  ticker={ticker}
-                />
-              </div>
-              {storyFmt(kpi.value, kpi.unit).unit && (
-                <div className="mt-2 max-w-full overflow-hidden text-[24px] font-bold text-zinc-100" style={{ wordBreak: "break-word" }}>
-                  {storyFmt(kpi.value, kpi.unit).unit}
-                </div>
-              )}
-            </>
-          ) : (
+          {/* Spec floutage 29 aout 2026 : le chiffre central reste visible
+              meme au palier gratuit (avant : BlurredFreeValue le masquait).
+              Seuls titre et texte sont floutes, via les zones nommees. */}
+          {(
             <>
               {/* Règle desk_block_rules.stories_kpi (Yann 31 mai 2026) :
                   les chiffres ne doivent pas dépasser de l'écran sur la
@@ -183,7 +161,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   {storyFmt(kpi.value, kpi.unit).unit}
                 </div>
               )}
-              {kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && (
+              {!freeBlocked && kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && (
                 <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-1.5 text-[16px] font-bold text-emerald-200">
                   <TrendingUp className="size-4" />
                   <span className="font-mono tabular-nums">{kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2").replace(/(\d)%/g, "$1\u00a0%")}</span>
@@ -202,7 +180,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
             bords gauche/droit) qui sinon captaient le clic sur l'icone et
             faisaient defiler la story au lieu d'ouvrir le tooltip. */}
         {kpi.signal && (
-          <div className="relative z-30 rounded-xl border border-white/10 bg-black/55 p-3 backdrop-blur">
+          <div data-blur-part="texte" className="relative z-30 rounded-xl border border-white/10 bg-black/55 p-3 backdrop-blur">
             <div className="flex items-start gap-1.5">
               <div className="flex-1 text-[15px] font-semibold leading-snug text-zinc-50">
                 {normalizeNarrative(kpi.signal)}
@@ -279,7 +257,7 @@ function MarketPositionStoryCard({
       <div className="relative flex h-full flex-col">
         {/* Yann 17 juil 2026 : titre justifié, badge catégorie déplacé
             au-dessus de la barre de temps (rendu dans StoryFrame). */}
-        <div className="flex items-start justify-between gap-2">
+        <div data-blur-part="titre" className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1 text-left text-[22px] font-bold leading-tight text-zinc-50">
             {mp.segment_name}
           </div>
@@ -291,34 +269,22 @@ function MarketPositionStoryCard({
         <div className="my-auto flex flex-col items-center text-center">
           {sharePct !== null ? (
             <>
-              {freeBlocked ? (
-                <div style={{ fontSize: "clamp(72px, 25vw, 120px)" }}>
-                  <BlurredFreeValue value="0,0" suffix=" %" ticker={ticker} />
-                </div>
-              ) : (
-                <div
-                  className="font-display font-bold leading-none tracking-tight gradient-text"
-                  style={{ fontSize: "clamp(72px, 25vw, 120px)" }}
-                >
-                  {sharePct.toFixed(1).replace(".", ",")}&nbsp;%
-                </div>
-              )}
+              <div
+                className="font-display font-bold leading-none tracking-tight gradient-text"
+                style={{ fontSize: "clamp(72px, 25vw, 120px)" }}
+              >
+                {sharePct.toFixed(1).replace(".", ",")}&nbsp;%
+              </div>
               <div className="mt-2 text-[18px] font-semibold text-zinc-100">{t("story.market_share")}</div>
             </>
           ) : (
             <>
-              {freeBlocked ? (
-                <div style={{ fontSize: "clamp(56px, 18vw, 88px)" }}>
-                  <BlurredFreeValue value={String(mp.segment_revenue)} suffix={` ${formatUnit(mp.segment_unit)}`} ticker={ticker} />
-                </div>
-              ) : (
-                <div
-                  className="font-display font-bold leading-none tracking-tight gradient-text"
-                  style={{ fontSize: "clamp(56px, 18vw, 88px)" }}
-                >
-                  {mp.segment_revenue} <span className="text-[0.5em] font-medium text-zinc-300">{formatUnit(mp.segment_unit)}</span>
-                </div>
-              )}
+              <div
+                className="font-display font-bold leading-none tracking-tight gradient-text"
+                style={{ fontSize: "clamp(56px, 18vw, 88px)" }}
+              >
+                {mp.segment_revenue} <span className="text-[0.5em] font-medium text-zinc-300">{formatUnit(mp.segment_unit)}</span>
+              </div>
               <div className="mt-2 text-[16px] font-semibold text-zinc-100">{t("story.segment_revenue_label")}</div>
               <div className="mt-2 text-[12px] italic text-zinc-400">
                 {t("story.tam_not_disclosed")}
@@ -330,6 +296,7 @@ function MarketPositionStoryCard({
         {/* Mini-blocs Revenu segment / TAM : valeurs agrandies, libellés mieux
             mis en valeur. TAM porte un tooltip "i" parce que beaucoup
             d'investisseurs novices ne connaissent pas l'acronyme. */}
+        <div data-blur-part="texte">
         <div className="grid grid-cols-2 gap-2.5">
           <div className="rounded-xl border border-white/12 bg-black/45 p-3 backdrop-blur">
             <div className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.12em] text-zinc-300">
@@ -423,6 +390,7 @@ function MarketPositionStoryCard({
               {mp.source_note && <> · {mp.source_note}</>}
             </div>
           )}
+        </div>
         </div>
       </div>
     </div>

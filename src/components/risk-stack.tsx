@@ -287,7 +287,7 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
               {t(trend.labelKey)}
             </span>
           </div>
-          <div className="mt-2 text-[15px] font-semibold leading-snug text-zinc-50">
+          <div data-blur-part="titre" className="mt-2 text-[15px] font-semibold leading-snug text-zinc-50">
             {displayTitle}
           </div>
 
@@ -312,6 +312,7 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
               </>
             )}
             <span
+              data-blur-part="titre"
               onClick={(e) => e.stopPropagation()}
               className="ml-1"
             >

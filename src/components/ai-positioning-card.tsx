@@ -98,6 +98,9 @@ export function AIPositioningCard({
           </span>
         </div>
 
+        {/* Zone floutable palier gratuit : tout sauf la ligne de statut
+            ci-dessus (acteur majeur / integrateur / absent...). */}
+        <div data-blur-part="texte">
         {/* Yann 4 juin 2026 : summary agrandi (15px → 16.5px, leading-relaxed
             préservé) + jargon SEC/FR humanisé (MD&A → Analyse direction, etc.). */}
         <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="p" className="mt-4 text-[16.5px] leading-relaxed text-zinc-100">
@@ -178,6 +181,7 @@ export function AIPositioningCard({
             {t("ai.source")} : {humanizeFinJargon(effective.source)}
           </div>
         )}
+        </div>
       </div>
     </section>
   );

@@ -156,6 +156,7 @@ export function RepartitionBlock({
   return (
     <section
       id="sec-repartition"
+      data-blur="repartition"
       className="mt-9 scroll-mt-24 animate-fade-up-d2 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a]/50 p-5 sm:p-6"
     >
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">

@@ -310,6 +310,7 @@ export function TranscriptBulletsBlock({
   return (
     <section
       id="sec-transcript-bullets"
+      data-blur="transcripts"
       className="mt-9 scroll-mt-24 animate-fade-up-d2"
     >
       <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
@@ -333,6 +334,9 @@ export function TranscriptBulletsBlock({
         </div>
       </div>
 
+      {/* Zone floutable palier gratuit : tout le contenu du bloc, le header
+          (titre, puce sentiment + trimestre, sous-titre) restant lisible. */}
+      <div data-blur-part="texte">
       {/* Tonalité management = 1 ligne hero au-dessus des bullets */}
       {s.tonalite_management && (
         <div
@@ -411,6 +415,7 @@ export function TranscriptBulletsBlock({
           </div>
         </div>
       )}
+      </div>
     </section>
   );
 }
