@@ -203,13 +203,17 @@ async function loadStes(): Promise<SteRow[]> {
       const enrichSupp = asArray(enrich.kpis_supplementary) as AnyKPI[];
 
       // Merge avec dedup par `short` (base prioritaire)
+      // Yann 30 aout 2026 : dedup en MINUSCULES, comme la fusion runtime de
+      // load-company. Sensible a la casse, le toggle listait des doublons que
+      // la page publique ecarte (NVDA "NETWORKING" vs "Networking") : on
+      // pouvait donc y voir des KPI inexistants en ligne.
       const seen = new Set<string>();
       const merged: AnyKPI[] = [];
       for (const k of [...hautKpis, ...baseKpis, ...enrichKpis, ...enrichSupp]) {
         if (!k || typeof k !== "object") continue;
         const short = typeof k.short === "string" ? k.short : "";
-        if (!short || seen.has(short)) continue;
-        seen.add(short);
+        if (!short || seen.has(short.toLowerCase())) continue;
+        seen.add(short.toLowerCase());
         merged.push(k);
       }
 
