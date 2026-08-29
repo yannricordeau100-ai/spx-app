@@ -12,7 +12,6 @@ import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
 import { kpiPeriodLabel } from "@/lib/period-label";
 import { normalizeNarrative, ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
-import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 import { getFiscalAudit, fiscalQuarterToCalendar } from "@/lib/fiscal-calendar";
 import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 
@@ -197,19 +196,13 @@ export function KpiRow({
             detachee (gap-x-4). */}
         <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
         <div className="font-mono text-[20px] font-semibold tabular-nums leading-none text-zinc-50">
-          {freeBlocked ? (
-            <BlurredFreeValue
-              value={formattedValue}
-              suffix={formattedUnit ? ` ${formattedUnit}` : ""}
-              ticker={ticker}
-            />
-          ) : (
-            <>
-              {formattedValue}
-              {formattedUnit && (
-                <span className="ml-1 text-sm font-normal text-zinc-400">{formattedUnit}</span>
-              )}
-            </>
+          {/* Spec floutage 29 aout 2026 : au palier gratuit les VALEURS
+              restent visibles (seules les colonnes nom et Qualite-Signal
+              sont floutees, par zones). L ancien BlurredFreeValue masquait
+              toutes les lignes sauf la premiere. */}
+          {formattedValue}
+          {formattedUnit && (
+            <span className="ml-1 text-sm font-normal text-zinc-400">{formattedUnit}</span>
           )}
         </div>
         {/* Yann 13 mai 2026 : tolère yoy nombre brut (ex GWW yoy=4.5, DINO yoy=-6
@@ -274,16 +267,12 @@ export function KpiRow({
           return (
             <div
               className="inline-flex items-center font-mono text-[12.5px] tabular-nums"
-              style={{ color: freeBlocked ? "#52525b" : yoyColor }}
+              style={{ color: yoyColor }}
             >
               <span>(</span>
-              {!freeBlocked && tone === "pos" && <ArrowUpRight className="mr-0.5 size-3" />}
-              {!freeBlocked && tone === "neg" && <ArrowDownRight className="mr-0.5 size-3" />}
-              {freeBlocked ? (
-                <BlurredFreeValue value="+0,0 %" ticker={ticker} />
-              ) : (
-                yoyStr
-              )}
+              {tone === "pos" && <ArrowUpRight className="mr-0.5 size-3" />}
+              {tone === "neg" && <ArrowDownRight className="mr-0.5 size-3" />}
+              {yoyStr}
               <span>)</span>
             </div>
           );
@@ -313,11 +302,7 @@ export function KpiRow({
         })()}
         {cagrLabel && (
           <div className="font-mono text-[11px] tabular-nums text-zinc-400">
-            {freeBlocked ? (
-              <BlurredFreeValue value="+0,0 %/an" ticker={ticker} />
-            ) : (
-              cagrLabel
-            )}
+            {cagrLabel}
             <span className="ml-1 text-[10px] italic text-zinc-500">
               {"\u00a0"}
               {(() => {
