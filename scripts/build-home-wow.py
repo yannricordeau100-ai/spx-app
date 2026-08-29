@@ -71,6 +71,16 @@ for t in POP:
             kpis+=[k for k in (f2.get('kpis') or []) if k.get('short') not in vus]
         except Exception: pass
     kpis=[k for k in kpis if isinstance(k,dict) and k.get('value') is not None and (k.get('name_fr') or k.get('name_en'))]
+    # Yann 29 aout 2026 (cas AMZN capacite electrique, 1 point) : la home ne met
+    # en avant que des KPI reellement AFFICHES sur la page ste. Memes seuils que
+    # le tableau des indicateurs cles : 4 points en trimestriel, 2 en semestriel,
+    # 3 sinon.
+    def affichable(k):
+        h=k.get('history') or []
+        pt=k.get('period_type') or ('quarter' if (k.get('frequency')=='quarterly') else 'year')
+        seuil=4 if pt=='quarter' else 2 if pt=='semester' else 3
+        return isinstance(h,list) and len(h)>=seuil
+    kpis=[k for k in kpis if affichable(k)]
     # Yann 29 aout 2026 : deux KPI dont le libelle en recouvre un autre
     # (« Cout du risque » / « Cout du risque trimestriel ») faisaient doublon
     # sur la carte. On garde le mieux note des deux.
