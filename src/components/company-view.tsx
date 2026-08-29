@@ -3,7 +3,23 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { applyFloutageRules, zonesEnRegles, type FloutageRule, type Zone } from "@/lib/floutage";
-import FLOUTAGE_RULES_FILE from "@/data/floutage-free-mode.json";
+// Yann 30 aout 2026 : l ancien systeme de flou a chemins CSS
+// (floutage-free-mode.json, selecteurs fragiles casses a chaque refonte) est
+// ARCHIVE : plus importe, plus execute. Le secours si l API des zones est
+// injoignable = ZONES_SECOURS, copie de la configuration globale du
+// 29 aout 2026 exprimee dans le systeme d ancres stable.
+const ZONES_SECOURS: Zone[] = [
+  { bloc: "hero", partie: "tout" },
+  { bloc: "kpis", partie: "indicateur" },
+  { bloc: "kpis", partie: "qualite" },
+  { bloc: "kpis", partie: "voir-plus" },
+  { bloc: "stories", partie: "titre" },
+  { bloc: "stories", partie: "texte" },
+  { bloc: "transcripts", partie: "texte" },
+  { bloc: "risks", partie: "titre" },
+  { bloc: "governance", partie: "texte" },
+  { bloc: "ai_positioning", partie: "texte" },
+];
 import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowDownRight,
@@ -280,17 +296,14 @@ export function CompanyView({
         if (zones.length > 0) {
           applique(zonesEnRegles(zones));
         } else if (j?.portee !== "societe") {
-          // Liste vide GLOBALE = API pas encore configuree : secours legacy.
+          // Liste vide GLOBALE = configuration pas encore posee : secours.
           // Liste vide PAR SOCIETE = exemption voulue (ex GOOGL/META) : rien.
-          const legacy =
-            (FLOUTAGE_RULES_FILE as { rules?: FloutageRule[] }).rules ?? [];
-          applique(legacy);
+          applique(zonesEnRegles(ZONES_SECOURS));
         }
       })
       .catch(() => {
-        const legacy =
-          (FLOUTAGE_RULES_FILE as { rules?: FloutageRule[] }).rules ?? [];
-        applique(legacy);
+        // API injoignable : decoupage par defaut plutot que fiche en clair.
+        applique(zonesEnRegles(ZONES_SECOURS));
       });
     return () => {
       annule = true;
@@ -450,28 +463,10 @@ export function CompanyView({
   const [heroTitleLang, setHeroTitleLang] = useState<"fr" | "en">(
     locale === "fr" ? "fr" : "en"
   );
-
-  // Yann 9 juin 2026 (BUG A) : les indicateurs supplementaires reveles par le
-  // bouton "voir X indicateurs supplementaires" n'existaient pas dans le DOM
-  // au moment ou applyFloutageRules tournait (mount + 150 ms / 1500 ms). Ils
-  // n'etaient donc jamais floutes en mode gratuit, contrairement aux lignes
-  // visibles. On re-applique les MEMES regles des que showAll passe a true.
-  // applyFloutageRules est idempotent (skip data-floutageApplied="1") donc
-  // seules les nouvelles lignes sont traitees, a l'identique des visibles.
-  useEffect(() => {
-    if (!freeBlocked || !showAll) return;
-    const rules = (FLOUTAGE_RULES_FILE as { rules?: FloutageRule[] }).rules ?? [];
-    if (rules.length === 0) return;
-    let cleanup: (() => void) | null = null;
-    // Petit delai pour laisser React monter les lignes supplementaires.
-    const id = setTimeout(() => {
-      cleanup = applyFloutageRules(rules);
-    }, 60);
-    return () => {
-      clearTimeout(id);
-      if (cleanup) cleanup();
-    };
-  }, [freeBlocked, showAll, company.ticker]);
+  // Yann 30 aout 2026 : l ancien re-floutage des lignes "voir plus" est
+  // retire avec le systeme a chemins CSS. Le MutationObserver de l effet
+  // principal refloute deja tout element monte apres coup, et le bouton est
+  // desactive au palier gratuit.
 
   const heroRef = useRef<HTMLDivElement>(null);
   const handleKpiClick = (short: string) => {

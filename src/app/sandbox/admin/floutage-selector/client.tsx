@@ -214,7 +214,19 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
       <div className="min-w-0 flex-1">
         <div className="mb-2 flex items-center gap-2">
           <span className="text-[11.5px] uppercase tracking-wider text-zinc-500">Aperçu :</span>
-          {["AAPL", "MC.PA", "SPCX", "VMRK"].map((t) => (
+          <input
+            defaultValue={ticker}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                const v = (e.target as HTMLInputElement).value.trim().toUpperCase();
+                if (v) setTicker(v);
+              }
+            }}
+            placeholder="Ticker + Entrée"
+            className="w-[130px] rounded-md border border-white/15 bg-black/40 px-2 py-1 font-mono text-[11.5px] uppercase text-zinc-100 outline-none focus:border-violet-400/60"
+            title="N importe quel ticker de l app (ex GOOGL, META, NESN.SW)"
+          />
+          {["AAPL", "MC.PA", "SPCX", "GOOGL", "META"].map((t) => (
             <button
               key={t}
               type="button"
