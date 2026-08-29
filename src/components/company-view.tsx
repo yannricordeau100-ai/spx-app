@@ -225,9 +225,9 @@ export function CompanyView({
       : isBlockDisabledForTicker(company.ticker, k);
   // Yann (25 mai 2026) : helper local — true si on doit flouter pour ce tier
   // sur cette sté (free + sté non accessible en free).
-  const freeBlocked =
-    (freemiumTier === "free" || freemiumTier === "anon") &&
-    !["GOOGL", "GOOG", "META"].includes(company.ticker.toUpperCase());
+  // Yann 29 aout 2026 : le floutage s applique a TOUTES les societes.
+  // L exemption vitrine GOOGL/GOOG/META (25 mai 2026) est supprimee.
+  const freeBlocked = freemiumTier === "free" || freemiumTier === "anon";
 
   // Yann (8 juin 2026) : thème clair réservé aux offres PAYANTES (premium + max).
   // Anonyme + free = non payant → toggle clair verrouillé + thème sombre forcé.

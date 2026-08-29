@@ -77,14 +77,11 @@ export function useFreemiumTier(): UserTier {
  * @param tier    Tier user effectif
  * @returns true si la sté est verrouillée (= chiffres à flouter), false sinon
  */
-const FREE_TIER_ACCESSIBLE: ReadonlySet<string> = new Set([
-  "GOOGL", "GOOG", "META",
-]);
-
 export function isTickerLockedForTier(ticker: string, tier: UserTier): boolean {
-  if (tier === "premium" || tier === "max") return false;
-  // anon = tout verrouillé (sera intercepté par SignupGateOverlay avant)
-  if (tier === "anon") return true;
-  // free = uniquement Google + Meta accessibles
-  return !FREE_TIER_ACCESSIBLE.has(ticker.toUpperCase());
+  // Yann 29 aout 2026 : le systeme de floutage s applique a TOUTES les
+  // societes. L acces libre historique a GOOGL/GOOG/META (tradition V1) est
+  // supprime : au palier gratuit comme en anonyme, chaque fiche montre le
+  // meme decoupage floute, sans exception.
+  void ticker;
+  return tier !== "premium" && tier !== "max";
 }
