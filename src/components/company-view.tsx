@@ -225,9 +225,14 @@ export function CompanyView({
       : isBlockDisabledForTicker(company.ticker, k);
   // Yann (25 mai 2026) : helper local — true si on doit flouter pour ce tier
   // sur cette sté (free + sté non accessible en free).
-  // Yann 29 aout 2026 : le floutage s applique a TOUTES les societes.
-  // L exemption vitrine GOOGL/GOOG/META (25 mai 2026) est supprimee.
-  const freeBlocked = freemiumTier === "free" || freemiumTier === "anon";
+  // Yann 29 aout 2026 : le floutage s applique a TOUTES les societes, et les
+  // exemptions se pilotent DEPUIS L OUTIL (override de zones vide pour la
+  // societe = tout net, ex GOOGL/META). Quand l API signale cette exemption,
+  // on neutralise aussi les flous freemium historiques (BlurredFree*),
+  // sinon le hero restait brouille malgre l override vide.
+  const [exemptionSociete, setExemptionSociete] = useState(false);
+  const freeBlockedTier = freemiumTier === "free" || freemiumTier === "anon";
+  const freeBlocked = freeBlockedTier && !exemptionSociete;
 
   // Yann (8 juin 2026) : thème clair réservé aux offres PAYANTES (premium + max).
   // Anonyme + free = non payant → toggle clair verrouillé + thème sombre forcé.
@@ -238,7 +243,7 @@ export function CompanyView({
   // Délai 100 ms pour laisser le DOM se rendre + retry observer pour les
   // sections lazy-chargées (transcript-bullets, super-kpi).
   useEffect(() => {
-    if (!freeBlocked) return;
+    if (!freeBlockedTier) return;
     // Yann 29 aout 2026 : les zones de floutage sont desormais NOMMEES
     // (identifiants de blocs stables, /api/floutage-zones, reglables depuis
     // /sandbox/admin/floutage-selector sans redeploiement). Les anciennes
@@ -269,6 +274,9 @@ export function CompanyView({
       .then((r) => (r.ok ? r.json() : null))
       .then((j) => {
         const zones = Array.isArray(j?.zones) ? (j.zones as Zone[]) : [];
+        if (j?.portee === "societe" && zones.length === 0) {
+          setExemptionSociete(true);
+        }
         if (zones.length > 0) {
           applique(zonesEnRegles(zones));
         } else if (j?.portee !== "societe") {
@@ -289,7 +297,7 @@ export function CompanyView({
       observer?.disconnect();
       for (const c of cleanups) c();
     };
-  }, [freeBlocked, company.ticker]);
+  }, [freeBlockedTier, company.ticker]);
 
   const { t, locale } = useT();
   const accent = brand(company.ticker).primary;
