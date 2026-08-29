@@ -10,6 +10,7 @@ import { InfoTooltip } from "@/components/info-tooltip";
 import { StarButton } from "@/components/star-button";
 import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
+import { caviarde } from "@/lib/floutage-caviardage";
 import { kpiPeriodLabel } from "@/lib/period-label";
 import { normalizeNarrative, ACRONYM_GLOSSARY, TERM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { getFiscalAudit, fiscalQuarterToCalendar } from "@/lib/fiscal-calendar";
@@ -338,6 +339,12 @@ export function KpiRow({
           // La présence de la valeur seule = info utile, pas une "data partielle".
           // On laisse juste un fragment vide → QUALITÉ column blank, propre.
           null
+        ) : freeBlocked ? (
+          /* Palier gratuit : l evaluation reelle (Excellent/Faible...) est une
+             donnee Mettrik — remplacee par un chip factice sous le flou. */
+          <span className="inline-flex items-center rounded-md border border-[#262626] px-1.5 py-0.5 text-[10.5px] font-medium uppercase tracking-wider text-zinc-400">
+            {caviarde("Evaluation")}
+          </span>
         ) : (
           <QualityBadge rating={r} size="sm" scope={subsector} layout="stack" />
         )}
@@ -346,6 +353,7 @@ export function KpiRow({
             // Yann 14 mai 2026 : fallback dynamique si signal vide
             // (1 068 KPIs concernés). Génère depuis trend history.
             if (kpi.signal && kpi.signal.trim()) return normalizeNarrative(kpi.signal);
+            if (freeBlocked) return caviarde("Tendance generee depuis l historique de la serie.");
             const h = Array.isArray(kpi.history) ? kpi.history : [];
             if (h.length < 2) return "";
             const last = h[h.length - 1];

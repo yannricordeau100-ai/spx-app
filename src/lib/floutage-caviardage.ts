@@ -50,15 +50,31 @@ export function caviarde(texte: string): string {
 const estActive = (zones: Zone[], bloc: string, partie?: string) =>
   zones.some((z) => z.bloc === bloc && (partie ? z.partie === partie || z.partie === "tout" : true));
 
-function caviardeProfond<T>(valeur: T): T {
+/** Nombre factice de même magnitude et même signe, déterministe. */
+export function caviardeNombre(n: number): number {
+  if (!Number.isFinite(n) || n === 0) return n;
+  const signe = n < 0 ? -1 : 1;
+  const abs = Math.abs(n);
+  const magnitude = Math.pow(10, Math.floor(Math.log10(abs)));
+  const graine = Math.floor(abs * 100) % 79;
+  const facteur = 1.1 + (graine % 80) / 100; // 1,10 à 1,89
+  const faux = magnitude * facteur;
+  const decimales = abs < 10 ? 1 : 0;
+  return signe * Number(faux.toFixed(decimales));
+}
+
+function caviardeProfond<T>(valeur: T, nombresAussi = false): T {
   if (typeof valeur === "string") return caviarde(valeur) as unknown as T;
-  if (Array.isArray(valeur)) return valeur.map((v) => caviardeProfond(v)) as unknown as T;
+  if (typeof valeur === "number" && nombresAussi) return caviardeNombre(valeur) as unknown as T;
+  if (Array.isArray(valeur)) return valeur.map((v) => caviardeProfond(v, nombresAussi)) as unknown as T;
   if (valeur && typeof valeur === "object") {
     const out: Record<string, unknown> = {};
     for (const [k, v] of Object.entries(valeur as Record<string, unknown>)) {
-      out[k] = typeof v === "string" || Array.isArray(v) || (v && typeof v === "object")
-        ? caviardeProfond(v)
-        : v;
+      out[k] =
+        typeof v === "string" || Array.isArray(v) || (v && typeof v === "object") ||
+        (typeof v === "number" && nombresAussi)
+          ? caviardeProfond(v, nombresAussi)
+          : v;
     }
     return out as unknown as T;
   }
@@ -101,7 +117,9 @@ export function caviardeCompanyPourGratuit(company: Company, zones: Zone[]): Com
   }
 
   if (estActive(zones, "governance", "texte") && c.governance) {
-    c.governance = caviardeProfond(c.governance);
+    // Gouvernance : les montants (rémunérations, ratios) sont la donnée
+    // elle-même — nombres remplacés par des factices de même magnitude.
+    c.governance = caviardeProfond(c.governance, true);
   }
 
   if (estActive(zones, "ai_positioning", "texte") && c.ai_positioning) {
