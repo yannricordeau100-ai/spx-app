@@ -1722,7 +1722,13 @@ export function CompanyView({
             {hiddenCount > 0 && (
               <button
                 data-blur-part="voir-plus"
-                onClick={() => setShowAll((s) => !s)}
+                // Palier gratuit : le bouton est NI cliquable NI disponible.
+                // Le flou pose pointer-events:none (souris), mais un clic
+                // clavier ou synthetique passait encore : disabled le coupe
+                // pour de bon. Les societes exemptees gardent le bouton actif.
+                disabled={freeBlocked}
+                aria-disabled={freeBlocked}
+                onClick={freeBlocked ? undefined : () => setShowAll((s) => !s)}
                 className="group flex w-full items-center justify-center gap-2 border-t border-[#1a1a1a] bg-[#0a0a0a] px-6 py-4 text-sm text-zinc-400 transition-colors hover:bg-[#0e0e0e] hover:text-zinc-100"
               >
                 <ChevronDown
