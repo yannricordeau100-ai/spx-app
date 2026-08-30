@@ -141,7 +141,6 @@ export default async function SandboxV195HubPage() {
         <AuthNav scope="home" />
       </div>
       <HomeView
-        companies={datasets}
         tickers={tickers}
         showFAQ={false}
         routePrefix="/sandbox/v1-9-5"

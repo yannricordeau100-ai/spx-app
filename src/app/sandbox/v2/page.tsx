@@ -18,7 +18,6 @@ export const metadata = {
 export default function SandboxV15HubPage() {
   return (
     <HomeView
-      companies={V2_COMPANIES}
       tickers={V2_TICKERS}
       showFAQ={false}
       routePrefix="/sandbox/v2"

@@ -3,11 +3,11 @@
 import Link from "next/link";
 import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import UNIVERSE from "@/data/v1-9-5-clean-all-tickers.json";
 import KPI_COUNTS from "@/data/_kpi-counts.json";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-import { COMPANIES, TICKERS } from "@/lib/data";
 import { displayTicker, buildTickerSet } from "@/lib/ticker-display";
 import { Spotlight } from "@/components/effects/spotlight";
 import { BackToTop } from "@/components/back-to-top";
@@ -676,7 +676,10 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
  *   - subtitle (optionnel) : override la headline secondaire
  */
 export function HomeView({
-  companies: companiesProp,
+  // Yann 30 aout 2026 (audit de lancement) : la home embarquait les 666
+  // fiches COMPLETES dans la page (2,1 Mo de HTML) alors que la grille lit
+  // un JSON dedie et que la recherche ne veut que les tickers. Le prop
+  // companies est retire ; tickers suffit.
   tickers: tickersProp,
   routePrefix,
   showFAQ = true,
@@ -686,7 +689,6 @@ export function HomeView({
   gatePath = "/",
   contentOverrides,
 }: {
-  companies?: Record<string, import("@/lib/data").Company>;
   tickers?: string[];
   routePrefix?: string;
   showFAQ?: boolean;
@@ -707,8 +709,7 @@ export function HomeView({
   const { t, locale } = useT();
   const tt = (key: string, overrideKey: string) =>
     (contentOverrides && contentOverrides[overrideKey]?.trim()) || t(key);
-  const COMPANIES_USED = companiesProp ?? COMPANIES;
-  const results = tickersProp ?? TICKERS;
+  const results = tickersProp ?? (UNIVERSE as { tickers: string[] }).tickers;
   const buildHref = (tk: string): string =>
     routePrefix ? `${routePrefix}/${tk.toLowerCase()}` : `/${tk.toLowerCase()}`;
   // Yann 4 juin 2026 : ticker affiché sur les cards = displayTicker (strip
