@@ -317,11 +317,15 @@ export function TranscriptBulletsBlock({
         <div>
           <h2 className="flex items-center gap-3 text-[26px] font-semibold text-zinc-50">
             <MessageSquare className="size-6" style={{ color: accent }} />
-            {t("transcript.bullets.section_title")}
+            {summary.source === "earnings_release"
+              ? t("transcript.bullets.er_title")
+              : t("transcript.bullets.section_title")}
             <EarningCallInfoTooltip accent={accent} />
           </h2>
           <p className="mt-1 max-w-2xl text-[15px] text-zinc-300">
-            {t("transcript.bullets.section_subtitle")}
+            {summary.source === "earnings_release"
+              ? t("transcript.bullets.er_subtitle")
+              : t("transcript.bullets.section_subtitle")}
           </p>
         </div>
         <div className="flex items-center gap-2">

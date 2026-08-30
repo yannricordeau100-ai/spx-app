@@ -922,6 +922,15 @@ export const DICTIONARY: Dict = {
   "transcript.sentiment.neutral": { fr: "Neutre", en: "Neutral" },
   "transcript.sentiment.cautious": { fr: "Prudent", en: "Cautious" },
 
+  /* Synthese depuis le communique de resultats (Yann 30 aout 2026) : quand
+     le transcript du call n est pas publie, la synthese vient du communique
+     officiel et le bloc DOIT le dire honnetement. */
+  "transcript.bullets.er_title": { fr: "Synthèse du communiqué de résultats", en: "Earnings Release Summary", de: "Zusammenfassung der Ergebnismitteilung" },
+  "transcript.bullets.er_subtitle": {
+    fr: "Points clés extraits du dernier communiqué de résultats officiel",
+    en: "Key takeaways extracted from the latest official earnings release",
+    de: "Wichtigste Punkte aus der neuesten offiziellen Ergebnismitteilung",
+  },
   /* Transcript bullets block (Synthèse Earning Call) */
   "transcript.bullets.section_title": { fr: "Synthèse Earning Call", en: "Earnings Call Summary", de: "Zusammenfassung Earning Call" },
   "transcript.bullets.section_subtitle": {
