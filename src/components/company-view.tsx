@@ -760,8 +760,22 @@ export function CompanyView({
     // 5 ans et plus (20 trimestres), puis les autres (3 a 5 ans, annuel ou
     // trimestriel). Tri stable : l ordre d orderKpis est conserve au sein de
     // chaque groupe, le hero reste en tete.
+    // Yann 31 aout 2026 (ordre final) : les KPI wow (physiques, distinctifs)
+    // en haut, les purement financiers en bas, le chiffre d affaires tout en
+    // bas. Second critere : les series trimestrielles de 5 ans et plus avant
+    // les 3-5 ans. Tri stable, hero toujours en tete.
+    const RX_CA = /\b(chiffre d.affaires|revenue|revenus?|net sales|total sales|\bca\b|\brev\b)\b/i;
+    const RX_MONNAIE = /[$€¥£]|\b(chf|sek|dkk|nok|usd|eur|gbp|mds?)\b/i;
+    const RX_FIN = /\b(marge|margin|b[ée]n[ée]fice|r[ée]sultat|income|profit|eps|bpa|dette|debt|fcf|cash.?flow|tr[ée]sorerie|capex|dividende|dividend|ebitda|ebit|buyback|rachats)\b/i;
     const rang = (k: (typeof filtered)[number]): number => {
       if (k.short === heroShort) return -1;
+      const nom = `${k.short ?? ""} ${k.name_fr ?? ""} ${k.name_en ?? ""}`;
+      const unite = String((k as { unit?: string }).unit ?? "");
+      const financier = RX_MONNAIE.test(unite) || RX_FIN.test(nom) || (unite.includes("%") && RX_FIN.test(nom));
+      if (financier) return RX_CA.test(nom) ? 3 : 2;
+      return 0; // wow / physique
+    };
+    const anciennete = (k: (typeof filtered)[number]): number => {
       const pts = Array.isArray(k.history) ? k.history.length : 0;
       const trimestriel =
         (k as unknown as { period_type?: string }).period_type === "quarter";
@@ -769,7 +783,10 @@ export function CompanyView({
     };
     return [...filtered]
       .map((k, i) => ({ k, i }))
-      .sort((a, b) => rang(a.k) - rang(b.k) || a.i - b.i)
+      .sort(
+        (a, b) =>
+          rang(a.k) - rang(b.k) || anciennete(a.k) - anciennete(b.k) || a.i - b.i,
+      )
       .map((x) => x.k);
   }, [company]);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
