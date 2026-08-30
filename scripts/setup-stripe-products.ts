@@ -44,9 +44,17 @@ if (!key) {
   console.error("❌ STRIPE_SECRET_KEY manquante dans .env.local");
   process.exit(1);
 }
-if (!key.startsWith("sk_test_")) {
+// Yann 31 aout 2026 (lancement) : le mode live est desormais autorise avec le
+// drapeau explicite --live. Le script est idempotent (recherche par
+// metadata.mettrik_id avant creation) : rejouable sans doublon.
+const liveVoulu = process.argv.includes("--live");
+if (!key.startsWith("sk_test_") && !liveVoulu) {
   console.error(`❌ Clé NON test détectée (${key.slice(0, 10)}...). Refus par sécurité.`);
-  console.error("   Ce script ne tourne qu'en mode test. Mets STRIPE_SECRET_KEY=sk_test_...");
+  console.error("   Pour créer les produits en LIVE (lancement) : ajouter --live.");
+  process.exit(1);
+}
+if (key.startsWith("sk_test_") && liveVoulu) {
+  console.error("❌ --live demandé mais la clé est une clé test.");
   process.exit(1);
 }
 
@@ -93,7 +101,7 @@ const PRODUCT_DEFS = [
 ];
 
 type OutShape = {
-  mode: "test";
+  mode: "test" | "live";
   generated_at: string;
   products: Record<string, { id: string; name: string }>;
   prices: Record<string, Record<CurrencyCode, string>>; // metaId → currency → price_id
@@ -148,7 +156,7 @@ async function main() {
   console.log(`Stripe TEST mode (${key!.slice(0, 12)}...)\n`);
 
   const out: OutShape = {
-    mode: "test",
+    mode: key.startsWith("sk_live_") ? "live" as const : "test" as const,
     generated_at: new Date().toISOString(),
     products: {},
     prices: {},
