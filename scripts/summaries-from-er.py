@@ -139,7 +139,7 @@ def traite(ticker: str) -> str:
     candidats = []
     for chemin in _er.documents(ticker)[:6]:
         texte = _er.read_document(chemin)
-        if len(texte) < 2000 or not RE_RESULTATS.search(texte[:20000]):
+        if len(texte) < 2000 or not RE_RESULTATS.search(texte[:60000]):
             continue
         # Page de couverture seule : aller chercher le depot complet sur EDGAR.
         if len(texte) < 15000 and "Results of Operations" in texte:
@@ -156,7 +156,11 @@ def traite(ticker: str) -> str:
     if not m:
         return "reponse sans JSON"
     resume = json.loads(m.group(0))
-    periode = str(resume.pop("periode", "") or "")
+    periode = str(resume.pop("periode", "") or "").strip().upper()
+    # tolerances de forme : Q2-2026, 2026-Q2, FY2026Q2...
+    m2 = re.search(r"(20\d\d).{0,3}Q([1-4])|Q([1-4]).{0,3}(20\d\d)", periode)
+    if m2:
+        periode = f"{m2.group(1) or m2.group(4)}Q{m2.group(2) or m2.group(3)}"
     if not re.fullmatch(r"20\d\dQ[1-4]", periode):
         return f"periode illisible ({periode})"
     if not resume.get("bullets"):
