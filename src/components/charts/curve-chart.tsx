@@ -58,6 +58,7 @@ function niceTicks(min: number, max: number, count = 5): number[] {
  *   - dataMax >= 100 → entier (Mds $, revenus)
  */
 import { formatChartValueLabel } from "@/lib/chart-label-format";
+import { calculeEnteteAxe } from "@/lib/entete-axe";
 
 /** Yann 19 juil 2026 : format label point unifié via helper commun
  *  (compact k/M/Md, % préservé, adaptatif petits nombres). */
@@ -342,19 +343,26 @@ export function CurveChart({
           (PAD_TOP - 14), légèrement à gauche de l'axe, aligné fin
           (textAnchor=end) pour coller à la zone des tick labels. Cohérent
           web + PNG download. */}
-      {header && (
-        <text
-          x={yOnRight ? PAD_LEFT + innerW + 20 : PAD_LEFT - 6}
-          y={PAD_TOP - 24}
-          fontSize={13}
-          fontWeight={600}
-          fill="#e4e4e7"
-          fontFamily="ui-monospace, monospace"
-          textAnchor={yOnRight ? "start" : "end"}
-        >
-          {header}
-        </text>
-      )}
+      {header && (() => {
+        /* Yann 30 aout 2026 : meme regle que les barres, voir entete-axe.ts. */
+        const e = calculeEnteteAxe(header, yOnRight, { W, PAD_LEFT, INNER_W: innerW });
+        const yBase = e.lignes.length > 1 ? PAD_TOP - 36 : PAD_TOP - 24;
+        return (
+          <text
+            x={e.x}
+            y={yBase}
+            fontSize={13}
+            fontWeight={600}
+            fill="#e4e4e7"
+            fontFamily="ui-monospace, monospace"
+            textAnchor={e.anchor}
+          >
+            {e.lignes.map((l, i) => (
+              <tspan key={i} x={e.x} dy={i === 0 ? 0 : 14}>{l}</tspan>
+            ))}
+          </text>
+        );
+      })()}
       {/* Yann 16 mai 2026 : TTM cumul affiché comme chip séparé.
           Position OPPOSÉE au mini-logo MettrikAI (qui est top-right par
           défaut, top-left si yOnRight). Évite la superposition observée

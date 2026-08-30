@@ -18,6 +18,7 @@ import { useT } from "@/lib/i18n/provider";
 const axisHeader = chartAxisHeader;
 
 import { formatChartValueLabel } from "@/lib/chart-label-format";
+import { calculeEnteteAxe } from "@/lib/entete-axe";
 
 /** Yann 19 juil 2026 : format label barre unifié via helper commun
  *  (compact k/M/Md, % préservé, adaptatif petits nombres). */
@@ -268,23 +269,28 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
           aérer la zone entre le label et le tick Y le plus haut. */}
       {/* Yann 2 juin 2026 : repositionné juste au-dessus du premier tick Y
           (PAD_TOP - 14), aligné fin sur l'axe Y, cohérent web + PNG. */}
-      {header && (
-        <text
-          /* Yann 28 aout 2026 : ancre a gauche quand l axe est a gauche. Avec
-             une ancre a droite, un en tete long comme "Milliards JPY" debordait
-             hors du cadre (overflow visible) et venait se superposer au badge
-             de variation pose a gauche du graphique. */
-          x={yOnRight ? W - 6 : PAD_LEFT - 6}
-          y={PAD_TOP - 24}
-          fontSize={13}
-          fontWeight={600}
-          fill="#e4e4e7"
-          fontFamily="ui-monospace, monospace"
-          textAnchor={yOnRight ? "end" : "start"}
-        >
-          {header}
-        </text>
-      )}
+      {header && (() => {
+        /* Yann 30 aout 2026 : en-tete AU-DESSUS des nombres de l axe. A gauche
+           il peut deborder vers le graphique ; a droite il deborde hors du
+           graphique et n est coupe qu en necessite absolue (tiret + 2e ligne). */
+        const e = calculeEnteteAxe(header, yOnRight, { W, PAD_LEFT, INNER_W });
+        const yBase = e.lignes.length > 1 ? PAD_TOP - 36 : PAD_TOP - 24;
+        return (
+          <text
+            x={e.x}
+            y={yBase}
+            fontSize={13}
+            fontWeight={600}
+            fill="#e4e4e7"
+            fontFamily="ui-monospace, monospace"
+            textAnchor={e.anchor}
+          >
+            {e.lignes.map((l, i) => (
+              <tspan key={i} x={e.x} dy={i === 0 ? 0 : 14}>{l}</tspan>
+            ))}
+          </text>
+        );
+      })()}
       {/* Yann 15 mai 2026 : TTM cumul = chip en haut, pas comme barre.
           Yann 9 août 2026 : unité formatée locale-aware (même source que
           l'en-tête d'axe, fini le "$B" brut) + largeur adaptée au texte. */}

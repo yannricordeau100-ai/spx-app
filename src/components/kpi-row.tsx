@@ -173,7 +173,11 @@ export function KpiRow({
           {(() => {
             const hasDef = typeof kpi.explanation === "string" && kpi.explanation.trim().length > 0;
             const hasEn = Boolean(kpi.name_en && kpi.name_en !== kpi.name_fr);
-            if (!hasDef && !hasEn) return null;
+            // Yann 30 aout 2026 : le "i" n existe que si une definition est
+            // disponible (specifique ou repli generique). Un nom EN seul ne
+            // justifie pas une icone ; le batch des 16 000 redactions est
+            // abandonne, trop de travail pour l apport.
+            if (!hasDef) return null;
             return (
           <InfoTooltip color={accent}>
             {hasDef && (
