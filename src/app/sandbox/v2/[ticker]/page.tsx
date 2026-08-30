@@ -17,7 +17,7 @@ export async function generateMetadata({
 }) {
   const { ticker } = await params;
   const c = getV2Company(ticker);
-  if (!c) return { title: "Page introuvable · Sandbox V2" };
+  if (!c) return { title: "Page introuvable · Sandbox V2 · Mettrik AI" };
   return {
     title: `${c.name} (${c.ticker}) · V2 Sandbox · Mettrik AI`,
     robots: { index: false, follow: false },

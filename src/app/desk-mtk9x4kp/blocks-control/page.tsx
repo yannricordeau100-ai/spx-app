@@ -4,7 +4,7 @@ import { getGlobalToggles, getPerTickerOverrides } from "@/lib/v1-9-blocks-contr
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "Blocks Control · V1.9.5 · Desk",
+  title: "Blocks Control · V1.9.5 · Desk · Mettrik AI",
   robots: { index: false, follow: false },
 };
 

@@ -17,7 +17,7 @@ import { LOCALES, LOCALE_META, type Locale } from "@/lib/i18n/types";
  * Persistance : `src/data/disabled-locales.json`.
  */
 export const metadata = {
-  title: "Langues : activer / désactiver · sandbox",
+  title: "Langues : activer / désactiver · sandbox · Mettrik AI",
   robots: { index: false, follow: false },
 };
 

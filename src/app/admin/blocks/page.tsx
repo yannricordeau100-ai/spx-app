@@ -34,7 +34,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Blocs page société · admin",
+  title: "Blocs page société · admin · Mettrik AI",
   robots: { index: false, follow: false },
 };
 

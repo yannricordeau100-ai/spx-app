@@ -115,7 +115,7 @@ export async function generateMetadata({
       robots: { index: false, follow: false },
     };
   const r = await loadV17Company(ticker, { mode: "v18" });
-  if (r.kind === "missing") return { title: "Page introuvable" };
+  if (r.kind === "missing") return { title: "Page introuvable · Mettrik AI" };
   return {
     title: `${r.company.name} (${r.company.ticker}) · V1.9.5`,
     robots: { index: false, follow: false },

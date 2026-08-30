@@ -28,7 +28,7 @@ import KpisToggleClient, {
  * Auth-gate Yann uniquement.
  */
 export const metadata = {
-  title: "KPIs : activer / désactiver par sté · admin",
+  title: "KPIs : activer / désactiver par sté · admin · Mettrik AI",
   robots: { index: false, follow: false },
 };
 

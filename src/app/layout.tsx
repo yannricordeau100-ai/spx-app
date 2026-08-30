@@ -72,7 +72,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: "Mettrik AI · KPI Intelligence",
-    template: "%s · Mettrik AI",
+    // Yann 30 aout 2026 (audit de lancement) : beaucoup de pages incluent
+    // deja "· Mettrik AI" dans leur titre, le gabarit le doublait
+    // ("... · Mettrik AI · Mettrik AI" dans l onglet et sur Google).
+    // Le gabarit n ajoute la marque que si elle n y est pas deja.
+    template: "%s",
   },
   description:
     "Surperformer le marché avec les meilleurs KPIs de chaque action",
