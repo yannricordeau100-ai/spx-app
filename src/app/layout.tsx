@@ -92,11 +92,15 @@ export const metadata: Metadata = {
     description: "Surperformer le marché avec les meilleurs KPIs de chaque action",
     url: SITE_URL,
     locale: "fr_FR",
+    // Yann 30 aout 2026 (audit de lancement) : aucun visuel de partage
+    // n etait declare, les apercus X/LinkedIn/iMessage sortaient vides.
+    images: [{ url: `${SITE_URL}/og-cover.png`, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Mettrik AI · KPI Intelligence",
     description: "Surperformer le marché avec les meilleurs KPIs de chaque action",
+    images: [`${SITE_URL}/og-cover.png`],
   },
   robots: {
     index: true,
