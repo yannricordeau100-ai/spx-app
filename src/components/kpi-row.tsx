@@ -167,22 +167,36 @@ export function KpiRow({
               <div className="text-[11.5px] text-zinc-400">{secondaryName}</div>
             )}
           </div>
+          {/* Yann 30 août 2026 (screen KO) : JAMAIS de tooltip "i" vide. Sans
+              définition ni nom EN, l'icône disparaît au lieu d'ouvrir un
+              panneau "DÉFINITION" sans contenu. */}
+          {(() => {
+            const hasDef = typeof kpi.explanation === "string" && kpi.explanation.trim().length > 0;
+            const hasEn = Boolean(kpi.name_en && kpi.name_en !== kpi.name_fr);
+            if (!hasDef && !hasEn) return null;
+            return (
           <InfoTooltip color={accent}>
-            <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-              {t("kpi.definition")}
-            </div>
-            <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="text-zinc-200" mode="full">
-              {kpi.explanation}
-            </BlurredFreeText>
+            {hasDef && (
+              <>
+                <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
+                  {t("kpi.definition")}
+                </div>
+                <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="text-zinc-200" mode="full">
+                  {kpi.explanation}
+                </BlurredFreeText>
+              </>
+            )}
             {/* Yann FIX 4d (29 mai 2026) : nom EN du KPI dans tooltip "i" quand
                 différent du nom FR principal affiché dans le tableau. */}
-            {kpi.name_en && kpi.name_en !== kpi.name_fr && (
-              <div className="mt-2 border-t border-white/10 pt-2 text-[11.5px] text-zinc-400">
+            {hasEn && (
+              <div className={hasDef ? "mt-2 border-t border-white/10 pt-2 text-[11.5px] text-zinc-400" : "text-[11.5px] text-zinc-400"}>
                 <span className="font-mono uppercase tracking-wider text-[9.5px] text-zinc-500">EN</span>{" "}
                 <span className="italic text-zinc-300">{kpi.name_en}</span>
               </div>
             )}
           </InfoTooltip>
+            );
+          })()}
         </div>
 
         {/* Yann 24 aout 2026 : chip categorie/nature ("Structurel", "Volume"...)

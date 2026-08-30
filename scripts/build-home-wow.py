@@ -54,6 +54,19 @@ def note(k):
     if isinstance(k.get('history'),list) and len(k['history'])>=5: n+=1
     if k.get('is_generic'): n-=3
     return n
+
+def periode_de(k):
+    """Libelle court de la periode du chiffre ("T2 2026", "juin 2026", "2025")."""
+    ldd=k.get('last_data_date')
+    if isinstance(ldd,str) and len(ldd)>=7:
+        try:
+            y=int(ldd[:4]); m=int(ldd[5:7])
+            return f"T{(m-1)//3+1} {y}"
+        except Exception: pass
+    sm=k.get('_source_month')
+    if isinstance(sm,str) and sm.strip(): return sm.strip()
+    return None
+
 out=[]
 for t in POP:
     T=t.upper()
@@ -98,7 +111,10 @@ for t in POP:
     if not tri: continue
     out.append({'ticker':T,'nom':nom or T,'kpis':[
         {'nom':k.get('name_fr') or k.get('name_en'),'valeur':fmt(k.get('value')),
-         'unite':fmt(k['unit']) if k.get('unit') else None,'yoy':fr_yoy(k.get('yoy'))} for k in tri]})
+         'unite':fmt(k['unit']) if k.get('unit') else None,'yoy':(lambda v: v and __import__('re').sub(r'\\s*(pp|pts?)\\b',' %',v))(fr_yoy(k.get('yoy'))),
+         # Yann 30 aout 2026 : dater chaque chiffre de la vitrine (une IA externe
+         # a lu des KPI de mars 2026 sans aucune indication de date).
+         'periode':periode_de(k)} for k in tri]})
     if len(out)>=40: break
 json.dump({'generation':'scripts/build-home-wow.py','societes':out},
  open('src/data/home-wow-kpis.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)

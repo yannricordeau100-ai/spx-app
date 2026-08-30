@@ -19,6 +19,7 @@ Ecrit uniquement .conv-state/publications-manquees.json.
 """
 
 import json
+from pathlib import Path
 import os
 import re
 import sys
@@ -137,6 +138,60 @@ def main():
                 }
             )
 
+    # Yann 30 aout 2026 : filet transcripts. Pour chaque publication passee
+    # depuis plus de 3 jours, le TRANSCRIPT en base doit dater du call de
+    # cette publication (comparaison de dates, robuste aux exercices fiscaux
+    # decales), et la synthese doit couvrir le meme trimestre que lui. Sans ce
+    # controle, GOOGL est reste bloque au T1 pendant 5 semaines sans alerte.
+    syntheses_en_retard = []
+    rep_tr = Path(RACINE) / "src" / "data" / "transcripts"
+    rep_sum = Path(RACINE) / "src" / "data" / "transcript-summaries"
+    for ticker, info in (calendrier.get("par_ticker") or {}).items():
+        prec = (info or {}).get("precedente")
+        if not prec:
+            continue
+        try:
+            d_prec = date.fromisoformat(str(prec)[:10])
+        except ValueError:
+            continue
+        ecart_j = (aujourdhui - d_prec).days
+        if ecart_j < 3 or ecart_j > 120:
+            continue
+        f_tr = rep_tr / f"{ticker.lower()}.json"
+        etat = None
+        tr_q = ""
+        if not f_tr.exists():
+            etat = "transcript absent"
+        else:
+            try:
+                tr = json.loads(f_tr.read_text(encoding="utf-8"))
+                latest = tr.get("latest") or {}
+                d_tr = str(latest.get("date") or "")[:10]
+                tr_q = f"{latest.get('year')}Q{latest.get('quarter')}"
+                # le call a lieu le jour de la publication (ou tres proche)
+                if not d_tr or d_tr < (d_prec - timedelta(days=5)).isoformat():
+                    etat = f"transcript du {d_tr or '?'} (call du {d_prec})"
+            except (ValueError, OSError):
+                etat = "transcript illisible"
+        if etat is None:
+            # transcript a jour : la synthese doit couvrir le meme trimestre
+            f_sm = rep_sum / f"{ticker.lower()}.json"
+            if not f_sm.exists():
+                etat = "synthese absente"
+            else:
+                try:
+                    sm = json.loads(f_sm.read_text(encoding="utf-8"))
+                    q = str(sm.get("quarter") or "")
+                    if q != tr_q:
+                        etat = f"synthese sur {q or '?'} (transcript {tr_q})"
+                except (ValueError, OSError):
+                    etat = "synthese illisible"
+        if etat:
+            syntheses_en_retard.append(
+                {"ticker": ticker, "publication": d_prec.isoformat(), "jours": ecart_j, "etat": etat}
+            )
+    syntheses_en_retard.sort(key=lambda x: -x["jours"])
+
     bilan = {
         "MAJ": aujourdhui.isoformat(),
         "calendrier_du": calendrier.get("MAJ"),
@@ -144,6 +199,7 @@ def main():
         "examinees": len(manquantes) + len(recues),
         "recues": recues,
         "manquantes": sorted(manquantes, key=lambda x: (-x["jours_ecoules"], x["ticker"])),
+        "syntheses_en_retard": syntheses_en_retard,
     }
     ecrire(bilan)
 

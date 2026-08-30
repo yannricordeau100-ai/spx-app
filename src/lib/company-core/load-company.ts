@@ -20,6 +20,8 @@
  * via `revalidate` quand pertinent.
  */
 import { promises as fs } from "fs";
+import { definitionGeneriqueKpi } from "@/lib/kpi-definitions-generiques";
+import doublonsForcesJson from "@/data/kpi-doublons-forces.json";
 import path from "path";
 import type { Company, CompanyRisk } from "@/lib/data";
 import { enhanceFreshness } from "@/lib/company-core/enhance-freshness";
@@ -2829,8 +2831,21 @@ export async function loadV17Company(
   // sources pipeline/kpis-haut/enrich avec des shorts différents). Audit du
   // 30 août : 197 paires rendues sur 129 stés. On garde la série qui va le
   // plus loin dans le temps et on lui greffe les champs manquants de l'autre.
+  // Yann 30 août 2026 : 35 789 KPI rendus sur 35 949 n'avaient AUCUNE
+  // définition (tooltip "i" vide, screen KO). Repli serveur : définition
+  // pédagogique générique déduite du nom quand explanation est vide. Les KPI
+  // spécifiques restants sont complétés par le batch de rédaction nocturne.
   if (Array.isArray(company.kpis)) {
-    company.kpis = dedupKpisSeriesRecouvrantes(company.kpis as AnyKPI[]) as Company["kpis"];
+    for (const k of company.kpis as AnyKPI[]) {
+      const ex = (k as { explanation?: string }).explanation;
+      if (ex == null || (typeof ex === "string" && !ex.trim())) {
+        const def = definitionGeneriqueKpi((k as { name_fr?: string }).name_fr || (k as { name_en?: string }).name_en);
+        if (def) (k as { explanation?: string }).explanation = def;
+      }
+    }
+  }
+  if (Array.isArray(company.kpis)) {
+    company.kpis = dedupKpisSeriesRecouvrantes(company.kpis as AnyKPI[], ticker) as Company["kpis"];
   }
 
   return { kind: "ready", company };
@@ -2853,6 +2868,36 @@ function histAsNumbers(h: unknown): number[] {
   return out;
 }
 
+/** Deux points "identiques" à l'arrondi d'affichage près (14 810 vs 14 800). */
+function pointsEgaux(x: number, y: number): boolean {
+  if (x === y) return true;
+  const m = Math.max(Math.abs(x), Math.abs(y));
+  if (m === 0) return true;
+  return Math.abs(x - y) <= 0.015 * m;
+}
+
+/**
+ * Facteur d'échelle plausible entre deux séries (unités K/M/Mds écrites
+ * différemment, ou série réécrite en nombres bruts par un override) :
+ * seuls 1, 1000 et 1/1000 sont acceptés, tout autre ratio = séries
+ * réellement différentes. NVDA "NETWORKING" ($M, 14 800) vs sa copie en
+ * Mds (14,8) ne se voyait pas avec une égalité stricte.
+ */
+function facteurEchelle(a: number[], b: number[]): number | null {
+  const med = (xs: number[]) => {
+    const s = xs.map(Math.abs).filter((x) => x > 0).sort((x, y) => x - y);
+    return s.length ? s[Math.floor(s.length / 2)] : 0;
+  };
+  const ma = med(a);
+  const mb = med(b);
+  if (!ma || !mb) return 1;
+  const r = mb / ma;
+  for (const f of [1, 1000, 0.001]) {
+    if (r >= f * 0.95 && r <= f * 1.05) return f;
+  }
+  return null;
+}
+
 /** Plus longue sous-série CONTIGUË commune + points restants après elle. */
 function lcsContigInfo(a: number[], b: number[]): { len: number; restA: number; restB: number } {
   let best = 0;
@@ -2863,7 +2908,7 @@ function lcsContigInfo(a: number[], b: number[]): { len: number; restA: number; 
     let prevDiag = 0;
     for (let j = 1; j <= b.length; j++) {
       const tmp = dp[j];
-      dp[j] = a[i - 1] === b[j - 1] ? prevDiag + 1 : 0;
+      dp[j] = pointsEgaux(a[i - 1], b[j - 1]) ? prevDiag + 1 : 0;
       if (dp[j] > best) {
         best = dp[j];
         endA = i;
@@ -2875,7 +2920,13 @@ function lcsContigInfo(a: number[], b: number[]): { len: number; restA: number; 
   return { len: best, restA: a.length - endA, restB: b.length - endB };
 }
 
-function dedupKpisSeriesRecouvrantes(kpis: AnyKPI[]): AnyKPI[] {
+function dedupKpisSeriesRecouvrantes(kpis: AnyKPI[], ticker?: string): AnyKPI[] {
+  // Paires revues a la main (fusion d office, sous le seuil automatique)
+  const forcees = new Set(
+    (doublonsForcesJson as unknown as { paires: { ticker: string; shorts: string[] }[] }).paires
+      .filter((p) => p.ticker === String(ticker ?? "").toUpperCase())
+      .map((p) => [...p.shorts].sort().join("\u0000")),
+  );
   const infos = kpis.map((k) => {
     const h = histAsNumbers(k?.history);
     return { k, h, distinct: new Set(h).size };
@@ -2915,15 +2966,47 @@ function dedupKpisSeriesRecouvrantes(kpis: AnyKPI[]): AnyKPI[] {
       if (drop.has(j)) continue;
       const A = infos[i];
       const B = infos[j];
-      if (A.h.length < 10 || B.h.length < 10) continue;
-      // séries plates/binaires : coïncidences trop probables, on ne touche pas
-      if (A.distinct < 3 || B.distinct < 3) continue;
-      const { len, restA, restB } = lcsContigInfo(A.h, B.h);
-      const sameUnit = memeUnite(A.k.unit, B.k.unit);
-      // seuil : 10 points identiques (12 si unités différentes ou séries peu
-      // variées, pour écarter les coïncidences de petites séries en %)
-      const seuil = sameUnit && A.distinct >= 5 && B.distinct >= 5 ? 10 : 12;
-      if (len < seuil) continue;
+      const paireForcee = forcees.has(
+        [String(A.k.short ?? ""), String(B.k.short ?? "")].sort().join("\u0000"),
+      );
+      // Les paires revues a la main court-circuitent les gardes automatiques
+      // (series parfois trop courtes pour le seuil, ex CFG CET1 a 5 points).
+      if (!paireForcee) {
+        if (A.h.length < 6 || B.h.length < 6) continue;
+        // séries plates/binaires : coïncidences trop probables, on ne touche pas
+        if (A.distinct < 3 || B.distinct < 3) continue;
+      }
+      // séries en magnitudes différentes ("$M" 14 800 vs "Mds $" 14,8) :
+      // on essaie les trois échelles K/M/Mds et on garde le meilleur
+      // recouvrement. (Un pré-filtre par médianes globales ratait les paires
+      // dont la série courte est plus récente — BKNG room_nights, médianes
+      // décalées par la croissance.)
+      let len = 0;
+      let restA = 0;
+      let restB = 0;
+      let fact = 1;
+      for (const f of [1, 1000, 0.001]) {
+        const bScaled = f === 1 ? B.h : B.h.map((x) => x / f);
+        const r = lcsContigInfo(A.h, bScaled);
+        if (r.len > len) {
+          len = r.len;
+          restA = r.restA;
+          restB = r.restB;
+          fact = f;
+        }
+        if (f === 1 && r.len >= 12) break;
+      }
+      const sameUnit = memeUnite(A.k.unit, B.k.unit) || fact !== 1;
+      // Fusion si : chevauchement long (10 pts mêmes unités variées, 12 sinon)
+      // OU inclusion totale (une série entièrement contenue dans l'autre,
+      // >=6 pts, >=4 valeurs distinctes — cas NVDA Networking 9/9 pts).
+      const seuilChevauchement = sameUnit && A.distinct >= 5 && B.distinct >= 5 ? 10 : 12;
+      const inclusionTotale =
+        len >= 6 &&
+        len === Math.min(A.h.length, B.h.length) &&
+        Math.min(A.distinct, B.distinct) >= 4 &&
+        sameUnit;
+      if (len < seuilChevauchement && !inclusionTotale && !paireForcee) continue;
       // gagnant = série qui continue APRÈS la fenêtre commune (plus récente) ;
       // égalité → labels de périodes, puis last_data_date, puis plus longue.
       const hasLabels = (k: AnyKPI) => Array.isArray(k.history) && (k.history as unknown[]).some((p) => p && typeof p === "object");

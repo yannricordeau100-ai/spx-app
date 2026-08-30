@@ -23,10 +23,30 @@ import {
 } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import capiSortedJson from "@/data/v1-8-tickers-sorted.json";
-/** Ordre capitalisation (= ordre home, NVDA 1er) pour la liste par défaut de la recherche. */
+import homeWowJson from "@/data/home-wow-kpis.json";
+/**
+ * Yann 30 aout 2026 : l ordre par defaut de la recherche = EXACTEMENT l ordre
+ * de la home (home-wow-kpis.json, rendu tel quel par <HomeWowGrid />,
+ * regenere par scripts/build-home-wow.py). Puis ordre capi pour le reste.
+ */
+const HOME_RANK: Record<string, number> = Object.fromEntries(
+  (homeWowJson as { societes: { ticker: string }[] }).societes.map((s, i) => [
+    s.ticker.toUpperCase(),
+    i,
+  ]),
+);
+const HOME_RANK_SIZE = Object.keys(HOME_RANK).length;
 const CAPI_RANK: Record<string, number> = Object.fromEntries(
   (capiSortedJson as string[]).map((t, i) => [t.toUpperCase(), i]),
 );
+/** Rang d affichage par defaut : ordre home, puis capi, puis le reste. */
+const homeOrderRank = (ticker: string): number => {
+  const up = ticker.toUpperCase();
+  const h = HOME_RANK[up];
+  if (h !== undefined) return h;
+  const c = CAPI_RANK[up];
+  return c !== undefined ? HOME_RANK_SIZE + c : 99999;
+};
 import { yoyTone } from "@/lib/utils";
 import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
 import { AcronymHover } from "@/components/acronym-hover";
@@ -362,10 +382,10 @@ export function CompanySearch({
     const merged = [...v1Out, ...v17Out, ...v19Out];
     merged.sort((a, b) => {
       if (b.score !== a.score) return b.score - a.score;
-      // À score égal (notamment query vide = liste par défaut) : ordre capi
-      // (= ordre home, NVDA 1er), puis source.
-      const ra = CAPI_RANK[a.ticker.toUpperCase()] ?? 99999;
-      const rb = CAPI_RANK[b.ticker.toUpperCase()] ?? 99999;
+      // À score égal (notamment query vide = liste par défaut) : ordre de la
+      // HOME (home-wow-kpis.json), puis capi, puis source.
+      const ra = homeOrderRank(a.ticker);
+      const rb = homeOrderRank(b.ticker);
       if (ra !== rb) return ra - rb;
       return sourceOrder[a.source] - sourceOrder[b.source];
     });

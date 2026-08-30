@@ -63,6 +63,19 @@ export function caviardeNombre(n: number): number {
   return signe * Number(faux.toFixed(decimales));
 }
 
+// Clés STRUCTURELLES jamais caviardées : ce sont des repères de lecture ou des
+// enums techniques, pas la donnée premium. Les caviarder produisait du non-sens
+// visible au palier gratuit ("exercice 1330") ou du FAUX affiché en clair
+// (stance "leader" détruite -> badge retombant sur "Aucun positionnement",
+// cas AAPL 30 août 2026).
+const CLES_PRESERVEES = new Set([
+  "fiscal_year",
+  "source_fiscal_year",
+  "proxy_year",
+  "agm_date",
+  "stance",
+]);
+
 function caviardeProfond<T>(valeur: T, nombresAussi = false): T {
   if (typeof valeur === "string") return caviarde(valeur) as unknown as T;
   if (typeof valeur === "number" && nombresAussi) return caviardeNombre(valeur) as unknown as T;
@@ -70,6 +83,10 @@ function caviardeProfond<T>(valeur: T, nombresAussi = false): T {
   if (valeur && typeof valeur === "object") {
     const out: Record<string, unknown> = {};
     for (const [k, v] of Object.entries(valeur as Record<string, unknown>)) {
+      if (CLES_PRESERVEES.has(k)) {
+        out[k] = v;
+        continue;
+      }
       out[k] =
         typeof v === "string" || Array.isArray(v) || (v && typeof v === "object") ||
         (typeof v === "number" && nombresAussi)

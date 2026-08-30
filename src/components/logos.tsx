@@ -166,13 +166,16 @@ function LogoMonogram({ ticker }: { ticker: string }) {
  * Si présent → utilisé en priorité. Sinon fallback sur SVG hardcodés (V1)
  * ou monogramme lettre (V1.7+).
  */
-const HARDCODED_TICKERS = new Set(["GOOGL", "META", "MSCI", "SPGI", "CAT"]);
+// Yann 30 aout 2026 : GOOGL bascule sur le PNG officiel (public/logos/GOOGL.png,
+// detoure) — le SVG V1 fait main rendait un style ancien et ses couleurs
+// s inversaient en theme clair (pas de .preserve-colors sur les SVG).
+// META/MSCI/SPGI/CAT restent en SVG: leurs PNG ont un fond opaque non detoure.
+const HARDCODED_TICKERS = new Set(["META", "MSCI", "SPGI", "CAT"]);
 
 export function CompanyLogo({ ticker }: { ticker: string }) {
   const t = ticker.toUpperCase();
   // V1 stés gardent leur SVG handcrafted (qualité supérieure).
   if (HARDCODED_TICKERS.has(t)) {
-    if (t === "GOOGL") return <LogoGOOGL />;
     if (t === "META") return <LogoMETA />;
     if (t === "MSCI") return <LogoMSCI />;
     if (t === "SPGI") return <LogoSPGI />;

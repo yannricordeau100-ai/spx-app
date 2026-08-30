@@ -107,6 +107,14 @@ export function HomeWowGrid({
                   <div key={i} className="flex items-baseline justify-between gap-2 py-[5px]">
                     <span className="min-w-0 flex-1 truncate text-[13px] text-zinc-300" title={k.nom}>
                       {k.nom}
+                      {/* Yann 30 aout 2026 : chaque chiffre de la vitrine est
+                          date — sans periode, un visiteur (ou une IA externe)
+                          prend un chiffre de mars pour un chiffre du jour. */}
+                      {(k as { periode?: string | null }).periode && (
+                        <span className="ml-1.5 font-mono text-[10px] uppercase tracking-wide text-zinc-500">
+                          {(k as { periode?: string | null }).periode}
+                        </span>
+                      )}
                     </span>
                     <span className="inline-flex shrink-0 items-baseline gap-1 whitespace-nowrap">
                       <span className="font-mono text-[15px] font-semibold tabular-nums text-zinc-100">

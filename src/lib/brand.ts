@@ -7,11 +7,6 @@ export const BRAND: Record<
   string,
   { primary: string; secondary: string; glow: string }
 > = {
-  GOOGL: {
-    primary: "#4285F4", // Google blue
-    secondary: "#34A853", // Google green
-    glow: "rgba(66, 133, 244, 0.25)",
-  },
   META: {
     primary: "#0866FF", // Meta blue
     secondary: "#1877F2",
