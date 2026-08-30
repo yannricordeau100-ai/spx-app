@@ -184,8 +184,16 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                 {storyFmt(kpi.value, kpi.unit).value}
               </div>
               {storyFmt(kpi.value, kpi.unit).unit && (
-                <div className="mt-2 max-w-full overflow-hidden text-[32px] font-bold text-zinc-100" style={{ wordBreak: "break-word" }}>
-                  {storyFmt(kpi.value, kpi.unit).unit}
+                /* Yann 30 aout 2026 : une unite longue ("bouteilles/canettes")
+                   coupait un mot en deux. On reduit la police selon la
+                   longueur et on ne casse plus qu aux espaces ou au slash. */
+                <div
+                  className={`mt-2 max-w-full overflow-hidden font-bold text-zinc-100 ${
+                    storyFmt(kpi.value, kpi.unit).unit.length > 14 ? "text-[22px]" : "text-[32px]"
+                  }`}
+                  style={{ wordBreak: "normal", overflowWrap: "normal" }}
+                >
+                  {storyFmt(kpi.value, kpi.unit).unit.replace(/\//g, " / ")}
                 </div>
               )}
               {!freeBlocked && kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && (
