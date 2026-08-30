@@ -274,7 +274,7 @@ const CITATIONS_BY_LOCALE: Record<string, CitationEntry[]> = {
   fr: [
     {
       quote:
-        "Nous utilisons des KPI non conventionnels. La comptabilité conventionnelle révèle peu de choses sur la véritable performance économique d'une entreprise.",
+        "Nous utilisons des KPI non conventionnels.\nLa comptabilité conventionnelle révèle peu de choses sur la véritable performance économique d'une entreprise.",
       openQuote: "«",
       closeQuote: "»",
       author: "Warren Buffett",
@@ -296,7 +296,7 @@ const CITATIONS_BY_LOCALE: Record<string, CitationEntry[]> = {
   en: [
     {
       quote:
-        "We use unconventional KPIs. Conventional accounting reveals little about the true economic performance of a business.",
+        "We use unconventional KPIs.\nConventional accounting reveals little about the true economic performance of a business.",
       openQuote: "\u201c",
       closeQuote: "\u201d",
       author: "Warren Buffett",
@@ -318,7 +318,7 @@ const CITATIONS_BY_LOCALE: Record<string, CitationEntry[]> = {
   de: [
     {
       quote:
-        "Wir verwenden unkonventionelle Kennzahlen. Die konventionelle Rechnungslegung sagt wenig über die tatsächliche wirtschaftliche Leistung eines Unternehmens aus.",
+        "Wir verwenden unkonventionelle Kennzahlen.\nDie konventionelle Rechnungslegung sagt wenig über die tatsächliche wirtschaftliche Leistung eines Unternehmens aus.",
       openQuote: "\u201e",
       closeQuote: "\u201d",
       author: "Warren Buffett",
@@ -340,7 +340,7 @@ const CITATIONS_BY_LOCALE: Record<string, CitationEntry[]> = {
   nl: [
     {
       quote:
-        "Wij gebruiken onconventionele KPI's. Conventionele boekhouding zegt weinig over de werkelijke economische prestaties van een bedrijf.",
+        "Wij gebruiken onconventionele KPI's.\nConventionele boekhouding zegt weinig over de werkelijke economische prestaties van een bedrijf.",
       openQuote: "\u201e",
       closeQuote: "\u201d",
       author: "Warren Buffett",
@@ -416,6 +416,9 @@ function useCitationIndex(ref: React.RefObject<HTMLDivElement | null>): number {
  * fournit. Le comptage applique le meme filtre que les fiches : les KPI
  * generiques masques ne sont pas comptes.
  */
+// Yann 30 aout 2026 : compteurs retires de l accueil (demande). Le composant
+// reste pour une reactivation eventuelle mais n est plus rendu.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function KpiCountersRow({ locale = "fr" }: { locale?: string }) {
   const fr = locale.startsWith("fr");
   const nf = (n: number) => n.toLocaleString(fr ? "fr-FR" : "en-US");
@@ -604,7 +607,7 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
             initial={{ opacity: 0, y: 8, filter: "blur(5px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.45, ease }}
-            className="relative z-10 max-w-2xl text-balance text-center text-[19px] font-medium italic leading-[1.5] text-zinc-100 sm:text-[24px]"
+            className="relative z-10 max-w-2xl whitespace-pre-line text-balance text-center text-[19px] font-medium italic leading-[1.5] text-zinc-100 sm:text-[24px]"
             style={{ fontFamily: "var(--font-fraunces), Georgia, serif" }}
           >
             <span
@@ -782,7 +785,6 @@ export function HomeView({
               tracés" est désormais visible sous le wordmark (kpiUnderText)
               ET dans les metadata SEO. Cohérent : ce que les visiteurs voient
               = ce que Google / link previews montrent. */}
-          <KpiCountersRow locale={locale} />
           <MettrikCitationCard locale={locale} />
         </div>
 

@@ -56,7 +56,7 @@ HEADERS = {
 }
 TIMEOUT = 12
 TARGET_SIZE = 256
-PAD_COLOR = (5, 5, 5, 255)  # #050505 matching app background
+PAD_COLOR = (0, 0, 0, 0)  # Yann 30 aout 2026 : TRANSPARENT — le padding opaque sombre rendait les logos noirs invisibles (carre plein). La tuile de l app choisit le fond.
 SKIP_AGE_DAYS = 30
 
 SESSION = requests.Session()
