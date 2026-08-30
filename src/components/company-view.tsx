@@ -754,12 +754,6 @@ export function CompanyView({
       if (hist.length < requiredForPeriod(pt)) return false;
       return true;
     });
-    // Yann 15 juin 2026 : si la sté a au moins 3 KPIs trimestriels
-    // affichables, on n'affiche QUE du trimestriel (hero excepté) pour ne
-    // plus melanger annuel/trimestriel. Les stés sans donnee trimestrielle
-    // (EU annuel/semestriel) gardent leurs KPIs normalement.
-    const isQuarter = (k: (typeof filtered)[number]) =>
-      (k as unknown as { period_type?: string }).period_type === "quarter";
     // Yann 30 aout 2026 (option A) : la regle trimestriel-only du 15 juin est
     // ABROGEE. Elle cachait 4 779 KPI annuels sur 569 stes (effectifs,
     // magasins, brevets, Permian...) des que la ste avait 3 KPI trimestriels,
