@@ -760,25 +760,12 @@ export function CompanyView({
     // (EU annuel/semestriel) gardent leurs KPIs normalement.
     const isQuarter = (k: (typeof filtered)[number]) =>
       (k as unknown as { period_type?: string }).period_type === "quarter";
-    const quarterCount = filtered.filter(isQuarter).length;
-    if (quarterCount >= 3) {
-      // Yann 18 août 2026 : le 1er KPI (physique qualitatif choisi par
-      // orderKpis, souvent annuel) est EXEMPTÉ du filtre trimestriel-only :
-      // c'est la seule ligne visible en clair pour le tier free.
-      const firstPhysicalShort =
-        filtered.length > 0 && isPhysicalKpi(filtered[0]) ? filtered[0].short : null;
-      // Yann 29 aout 2026 : les KPI crees a la main (KPI speciaux, marques
-      // hors_document) sont EXEMPTES du filtre trimestriel-only. Les Unites
-      // iPhone vendues (serie annuelle) disparaissaient de la page Apple des
-      // que la ste avait 3 KPI trimestriels.
-      return filtered.filter(
-        (k) =>
-          k.short === heroShort ||
-          k.short === firstPhysicalShort ||
-          (k as unknown as { hors_document?: boolean }).hors_document === true ||
-          isQuarter(k),
-      );
-    }
+    // Yann 30 aout 2026 (option A) : la regle trimestriel-only du 15 juin est
+    // ABROGEE. Elle cachait 4 779 KPI annuels sur 569 stes (effectifs,
+    // magasins, brevets, Permian...) des que la ste avait 3 KPI trimestriels,
+    // y compris des KPI mis en avant sur la page d accueil. Un KPI annuel
+    // s affiche desormais des 3 ans d historique (seuil deja applique par
+    // requiredForPeriod ci-dessus) et plus il porte d annees, mieux c est.
     return filtered;
   }, [company]);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
