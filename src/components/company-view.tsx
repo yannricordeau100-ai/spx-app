@@ -471,6 +471,16 @@ export function CompanyView({
   const heroRef = useRef<HTMLDivElement>(null);
   const handleKpiClick = (short: string) => {
     setActiveKpiShort(short);
+    // Yann 30 aout 2026 (KO "Effet prix/mix" : 2 % avant clic, 6 % apres) :
+    // la vue du chart se recale sur la frequence du KPI clique, meme regle
+    // qu'au chargement. Sans resync, un KPI trimestriel promu en vue annuelle
+    // affichait son dernier exercice complet (FY2025) a la place de la valeur
+    // courante (T2 2026) : la ligne changeait de valeur au clic.
+    const clicked = company.kpis?.find((k) => k.short === short);
+    const clickedHistLen = Array.isArray(clicked?.history) ? clicked!.history.length : 0;
+    if (clicked?.period_type === "quarter" && clickedHistLen >= 4) setGraphPeriod("quarter");
+    else if (clicked?.period_type === "semester") setGraphPeriod("semester");
+    else setGraphPeriod("year");
     if (heroRef.current) {
       smoothScrollTo(heroRef.current, 1500);
     }
@@ -795,8 +805,10 @@ export function CompanyView({
       // publicitaires de META (5 % au T1 2025 -> 19 % au T1 2026) s'affichait
       // "+280,0 %", lu comme une hausse de 280 % des impressions.
       const isPctUnit = String(active.unit ?? "").trim() === "%";
+      // Yann 30 aout 2026 : plus de "pt"/"pts"/"pp" affiches. La variation
+      // d'un KPI en % s'ecrit comme un % qui change : "+0,5 %" / "-4,0 %".
       const ptsLabel = (diff: number) =>
-        `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")}${Math.abs(diff) < 2 ? " pt" : " pts"}`;
+        `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")} %`;
       if (byLabel !== null) {
         if (isPctUnit) {
           const li = h.length - 1;
@@ -818,12 +830,22 @@ export function CompanyView({
         return `${sign}${pct.toFixed(1).replace(".", ",")} %`;
       }
     }
-    if (typeof active.yoy === "string" && active.yoy.trim()) return active.yoy;
+    // Yann 30 aout 2026 : les yoy stockes "pp"/"pt(s)" s'affichent en " %"
+    // (une variation de KPI en % s'ecrit comme un % qui change).
+    if (typeof active.yoy === "string" && active.yoy.trim())
+      return active.yoy.replace(/\s*(pp|pts?)\b/g, " %");
     if (typeof active.yoy === "number" && Number.isFinite(active.yoy)) return active.yoy;
     if (h.length < 2) return "";
     const last = h[h.length - 1];
     const prev = h[h.length - 2];
     if (typeof last !== "number" || typeof prev !== "number" || prev === 0) return "";
+    // Yann 30 aout 2026 : meme regle que le bloc trimestriel, un KPI deja en %
+    // se compare en points (affiches " %"), jamais en ratio (KO "Effet
+    // prix/mix" 5 -> 2 affichait "-60,0 %").
+    if (String(active.unit ?? "").trim() === "%") {
+      const diff = last - prev;
+      return `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")} %`;
+    }
     const pct = ((last - prev) / Math.abs(prev)) * 100;
     const sign = pct > 0 ? "+" : "";
     return `${sign}${pct.toFixed(1).replace(".", ",")} %`;

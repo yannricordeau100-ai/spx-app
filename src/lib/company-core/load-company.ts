@@ -2824,5 +2824,131 @@ export async function loadV17Company(
   // textes affichés, sur toutes les stés.
   deepCleanCitations(company as unknown as Record<string, unknown>);
 
+  // Yann 30 août 2026 (KO "Effet prix/mix" affiché en double) : dédup finale
+  // des KPI dont les séries se recouvrent (mêmes chiffres sous deux libellés,
+  // sources pipeline/kpis-haut/enrich avec des shorts différents). Audit du
+  // 30 août : 197 paires rendues sur 129 stés. On garde la série qui va le
+  // plus loin dans le temps et on lui greffe les champs manquants de l'autre.
+  if (Array.isArray(company.kpis)) {
+    company.kpis = dedupKpisSeriesRecouvrantes(company.kpis as AnyKPI[]) as Company["kpis"];
+  }
+
   return { kind: "ready", company };
+}
+
+// ---------------------------------------------------------------------------
+// Dédup par recouvrement de séries (Yann 30 août 2026).
+// Deux KPI d'une même sté qui partagent une sous-série contiguë d'au moins
+// 10 points identiques sont le même indicateur sous deux libellés. Le loader
+// fusionne par short, mais les shorts diffèrent souvent entre sources
+// ("Price/mix" pipeline vs "price_mix_impact" kpis-haut).
+// ---------------------------------------------------------------------------
+function histAsNumbers(h: unknown): number[] {
+  if (!Array.isArray(h)) return [];
+  const out: number[] = [];
+  for (let p of h as unknown[]) {
+    if (p && typeof p === "object" && "v" in (p as object)) p = (p as { v: unknown }).v;
+    if (typeof p === "number" && Number.isFinite(p)) out.push(Math.round(p * 10000) / 10000);
+  }
+  return out;
+}
+
+/** Plus longue sous-série CONTIGUË commune + points restants après elle. */
+function lcsContigInfo(a: number[], b: number[]): { len: number; restA: number; restB: number } {
+  let best = 0;
+  let endA = 0;
+  let endB = 0;
+  const dp = new Array<number>(b.length + 1).fill(0);
+  for (let i = 1; i <= a.length; i++) {
+    let prevDiag = 0;
+    for (let j = 1; j <= b.length; j++) {
+      const tmp = dp[j];
+      dp[j] = a[i - 1] === b[j - 1] ? prevDiag + 1 : 0;
+      if (dp[j] > best) {
+        best = dp[j];
+        endA = i;
+        endB = j;
+      }
+      prevDiag = tmp;
+    }
+  }
+  return { len: best, restA: a.length - endA, restB: b.length - endB };
+}
+
+function dedupKpisSeriesRecouvrantes(kpis: AnyKPI[]): AnyKPI[] {
+  const infos = kpis.map((k) => {
+    const h = histAsNumbers(k?.history);
+    return { k, h, distinct: new Set(h).size };
+  });
+  const drop = new Set<number>();
+  // "M USD" / "M $" / "$M", "Md" / "Mds", "000" / "K", "tons" / "tonnes",
+  // "vehicles" / "véhicules", "$/action" / "$" : même unité écrite autrement.
+  // Sans cette normalisation, les vrais doublons (BMY Eliquis, UBER Gross
+  // Bookings, TSLA deliveries, CRM cRPO...) passaient sous le seuil renforcé.
+  const normUnit = (u: unknown) =>
+    String(u ?? "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[̀-ͯ]/g, "")
+      .replace(/\/(trimestre|an|mois|action|share)\b/g, "")
+      .replace(/usd/g, "$")
+      .replace(/eur/g, "€")
+      .replace(/\bmds\b|\bmilliards?\b/g, "md")
+      .replace(/\bmillions?\b/g, "m")
+      .replace(/\b000\b/g, "k")
+      .replace(/\btonnes?\b|\btons?\b/g, "t")
+      .replace(/\bvehicles\b/g, "vehicules")
+      .replace(/\s+/g, "");
+  const sortChars = (s: string) => s.split("").sort().join("");
+  const memeUnite = (a: unknown, b: unknown) => {
+    const na = normUnit(a);
+    const nb = normUnit(b);
+    if (na === nb) return true;
+    // "$m" vs "m$" ; "m" vs "mjours" (préfixe de magnitude commun)
+    if (na && nb && (na.startsWith(nb) || nb.startsWith(na))) return true;
+    return sortChars(na) === sortChars(nb);
+  };
+  for (let i = 0; i < infos.length; i++) {
+    if (drop.has(i)) continue;
+    for (let j = i + 1; j < infos.length; j++) {
+      if (drop.has(j)) continue;
+      const A = infos[i];
+      const B = infos[j];
+      if (A.h.length < 10 || B.h.length < 10) continue;
+      // séries plates/binaires : coïncidences trop probables, on ne touche pas
+      if (A.distinct < 3 || B.distinct < 3) continue;
+      const { len, restA, restB } = lcsContigInfo(A.h, B.h);
+      const sameUnit = memeUnite(A.k.unit, B.k.unit);
+      // seuil : 10 points identiques (12 si unités différentes ou séries peu
+      // variées, pour écarter les coïncidences de petites séries en %)
+      const seuil = sameUnit && A.distinct >= 5 && B.distinct >= 5 ? 10 : 12;
+      if (len < seuil) continue;
+      // gagnant = série qui continue APRÈS la fenêtre commune (plus récente) ;
+      // égalité → labels de périodes, puis last_data_date, puis plus longue.
+      const hasLabels = (k: AnyKPI) => Array.isArray(k.history) && (k.history as unknown[]).some((p) => p && typeof p === "object");
+      let winnerIdx: number;
+      if (restA !== restB) winnerIdx = restA > restB ? i : j;
+      else if (hasLabels(A.k) !== hasLabels(B.k)) winnerIdx = hasLabels(A.k) ? i : j;
+      else {
+        const da = typeof A.k.last_data_date === "string" ? A.k.last_data_date : "";
+        const db = typeof B.k.last_data_date === "string" ? B.k.last_data_date : "";
+        if (da !== db) winnerIdx = da > db ? i : j;
+        else winnerIdx = A.h.length >= B.h.length ? i : j;
+      }
+      const loserIdx = winnerIdx === i ? j : i;
+      const w = infos[winnerIdx].k as Record<string, unknown>;
+      const l = infos[loserIdx].k as Record<string, unknown>;
+      // greffe les champs texte absents du gagnant (jamais les valeurs/séries)
+      for (const f of ["signal", "description", "explanation", "name_en", "type", "story_category", "quality", "nature", "comparable"]) {
+        const cur = w[f];
+        const other = l[f];
+        const vide = cur == null || (typeof cur === "string" && !cur.trim());
+        if (vide && other != null) w[f] = other;
+      }
+      drop.add(loserIdx);
+    }
+  }
+  if (drop.size === 0) return kpis;
+  return kpis.filter((_, idx) => !drop.has(idx));
 }

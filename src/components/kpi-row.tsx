@@ -219,8 +219,27 @@ export function KpiRow({
           // YoY affiché est TOUJOURS recalculé vs même trimestre N-1 depuis
           // l'history (même règle que le hero). Le yoy stocké ne sert que de
           // fallback. KPI en % exclus (delta en points, pas ratio).
+          // Yann 30 aout 2026 : un KPI deja exprime en % se compare en POINTS
+          // (affiches " %", plus jamais "pp"/"pts"), jamais en ratio. Avant,
+          // KO "Effet prix/mix" 5 % -> 2 % affichait "-60,0 %".
+          const isPctUnit = String(kpi.unit ?? "").trim() === "%";
           if (
-            String(kpi.unit ?? "").trim() !== "%" &&
+            isPctUnit &&
+            kpi.period_type === "quarter" &&
+            Array.isArray(kpi.history) &&
+            kpi.history.length >= 5
+          ) {
+            const li = kpi.history.length - 1;
+            const lastV = kpi.history[li];
+            const prevV = kpi.history[li - 4];
+            if (typeof lastV === "number" && typeof prevV === "number") {
+              const diff = lastV - prevV;
+              yoyStr = `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")} %`;
+            }
+          }
+          if (
+            !yoyStr &&
+            !isPctUnit &&
             kpi.period_type === "quarter" &&
             Array.isArray(kpi.history) &&
             kpi.history.length >= 5
@@ -252,13 +271,18 @@ export function KpiRow({
             // Yann 16 mai 2026 : normalise format point décimal US (data brut
             // "+0.8 pts" ou "-1.2%") vers virgule FR. Match floats avec point.
             // Yann 9 août 2026 : + espace insécable avant % ("+4%" → "+4 %").
-            yoyStr = kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2").replace(/(\d)%/g, "$1 %");
+            yoyStr = kpi.yoy.replace(/(\d)\.(\d)/g, "$1,$2").replace(/(\d)%/g, "$1 %").replace(/\s*(pp|pts?)\b/g, "\u00a0%");
           } else if (Array.isArray(kpi.history) && kpi.history.length >= 2) {
             const last = kpi.history[kpi.history.length - 1];
             // Série trimestrielle : YoY = vs même trimestre N-1 (4 pas), pas QoQ.
             const back = kpi.period_type === "quarter" && kpi.history.length >= 5 ? 5 : 2;
             const prev = kpi.history[kpi.history.length - back];
-            if (typeof last === "number" && typeof prev === "number" && prev !== 0) {
+            if (typeof last === "number" && typeof prev === "number" && isPctUnit) {
+              // Yann 30 aout 2026 : KPI en % -> delta en points affiche " %",
+              // jamais un ratio (KO "Effet prix/mix" 5 -> 2 donnait "-60,0 %").
+              const diff = last - prev;
+              yoyStr = `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")}\u00a0%`;
+            } else if (typeof last === "number" && typeof prev === "number" && prev !== 0) {
               const pct = ((last - prev) / Math.abs(prev)) * 100;
               const sign = pct > 0 ? "+" : "";
               yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")} %`;
