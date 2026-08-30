@@ -755,12 +755,22 @@ export function CompanyView({
       return true;
     });
     // Yann 30 aout 2026 (option A) : la regle trimestriel-only du 15 juin est
-    // ABROGEE. Elle cachait 4 779 KPI annuels sur 569 stes (effectifs,
-    // magasins, brevets, Permian...) des que la ste avait 3 KPI trimestriels,
-    // y compris des KPI mis en avant sur la page d accueil. Un KPI annuel
-    // s affiche desormais des 3 ans d historique (seuil deja applique par
-    // requiredForPeriod ci-dessus) et plus il porte d annees, mieux c est.
-    return filtered;
+    // ABROGEE. Un KPI annuel s affiche des 3 ans d historique.
+    // Yann 31 aout 2026 (ordre) : PRIORITE aux series trimestrielles de
+    // 5 ans et plus (20 trimestres), puis les autres (3 a 5 ans, annuel ou
+    // trimestriel). Tri stable : l ordre d orderKpis est conserve au sein de
+    // chaque groupe, le hero reste en tete.
+    const rang = (k: (typeof filtered)[number]): number => {
+      if (k.short === heroShort) return -1;
+      const pts = Array.isArray(k.history) ? k.history.length : 0;
+      const trimestriel =
+        (k as unknown as { period_type?: string }).period_type === "quarter";
+      return trimestriel && pts >= 20 ? 0 : 1;
+    };
+    return [...filtered]
+      .map((k, i) => ({ k, i }))
+      .sort((a, b) => rang(a.k) - rang(b.k) || a.i - b.i)
+      .map((x) => x.k);
   }, [company]);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
   const hiddenCount = orderedKpis.length - VISIBLE_KPI_COUNT;

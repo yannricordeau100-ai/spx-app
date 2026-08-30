@@ -78,14 +78,33 @@ function useAjusteLargeur(dep: string) {
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
-    el.style.transform = "";
-    const w = el.clientWidth;
-    const sw = el.scrollWidth;
-    if (sw > w && sw > 0) {
-      const k = Math.max(0.45, (w - 2) / sw);
-      el.style.transform = `scale(${k})`;
-      el.style.transformOrigin = "center center";
+    const ajuste = () => {
+      el.style.transform = "";
+      const w = el.clientWidth;
+      const sw = el.scrollWidth;
+      if (sw > w && sw > 0) {
+        const k = Math.max(0.45, (w - 2) / sw);
+        el.style.transform = `scale(${k})`;
+        el.style.transformOrigin = "center center";
+      }
+    };
+    ajuste();
+    // Yann 31 aout 2026 (screen KO "600 00…" coupe) : la mesure initiale se
+    // faisait parfois AVANT le chargement de la police d affichage, sur une
+    // police de repli plus etroite. Une fois la vraie police arrivee, le
+    // nombre s elargissait et le dernier chiffre sortait de la carte. On
+    // re-mesure a l arrivee des polices et au redimensionnement.
+    let vivant = true;
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(() => {
+        if (vivant) ajuste();
+      });
     }
+    window.addEventListener("resize", ajuste);
+    return () => {
+      vivant = false;
+      window.removeEventListener("resize", ajuste);
+    };
   }, [dep]);
   return ref;
 }
