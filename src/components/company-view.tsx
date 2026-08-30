@@ -44,7 +44,7 @@ import {
 } from "@/lib/data";
 import { yoyTone } from "@/lib/utils";
 import { autoRescaleSmallUnit, isPercentMagnitudeAnomaly } from "@/lib/format-hero";
-import { translateUnitFrToEn } from "@/lib/i18n/unit-translations";
+import { translateUnitEnToFr, translateUnitFrToEn } from "@/lib/i18n/unit-translations";
 import { translate } from "@/lib/i18n/dictionary";
 import { chartAxisHeader } from "@/lib/chart-axis-header";
 import { brand, rate, detectAnomalies } from "@/lib/brand";
@@ -934,7 +934,7 @@ export function CompanyView({
   // Cette chaine garantit la coherence stricte hero <-> axe Y du graph.
   const displayHeroUnit = heroTitleLang === "en"
     ? chartAxisHeader(translateUnitFrToEn(heroFormatted.unit), "en")
-    : heroFormatted.unit;
+    : translateUnitEnToFr(heroFormatted.unit);
   // CAGR insensible au factor (ratios), donc on garde history brut.
   // Yann 15 mai 2026 : locale-aware suffix "/ an" → "/ Jahr" / "/ year".
   const heroCAGR = formatCAGR(active.history, displayUnit, active.period_type ?? "year", locale);

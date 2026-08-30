@@ -10,7 +10,7 @@ import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { buildYearGroups } from "@/lib/chart-export";
 import { ChartMiniLogo } from "@/components/charts/chart-mini-logo";
 import { chartAxisHeader, isCurrencyLikeUnit } from "@/lib/chart-axis-header";
-import { translateUnitFrToEn } from "@/lib/i18n/unit-translations";
+import { translateUnitEnToFr, translateUnitFrToEn } from "@/lib/i18n/unit-translations";
 import { useT } from "@/lib/i18n/provider";
 
 // Yann 13 mai 2026 v4 : helpers axisHeader/isCurrency centralisés dans
@@ -283,7 +283,12 @@ export function CurveChart({
   // les mots d'echelle via la locale 'en' (Mds -> Bn) et les unites
   // textuelles non monetaires via translateUnitFrToEn (unites -> units, etc).
   // Les symboles monetaires ($/EUR/etc) restent inchanges.
-  const headerUnit = titleLocale === "en" ? translateUnitFrToEn(unit) : unit;
+  // Yann 30 aout 2026 : traduction dans LES DEUX sens. 126 stes stockent leur
+  // unite en anglais (B unit cases, vehicles...) : en mode FR l axe restait
+  // anglais et la bascule du titre ne changeait rien.
+  const headerUnit = titleLocale === "en"
+    ? translateUnitFrToEn(unit)
+    : translateUnitEnToFr(unit);
   const header = axisHeader(headerUnit, effectiveLocale);
 
   const ticks = tickValues.map((v) => ({

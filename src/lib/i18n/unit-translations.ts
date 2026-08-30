@@ -133,3 +133,86 @@ export function translateUnitFrToEn(unit: string): string {
 
   return unit;
 }
+
+/**
+ * Traduction EN -> FR (Yann 30 aout 2026, screen KO "B Unit Cases").
+ *
+ * Symetrique de translateUnitFrToEn, pour le cas inverse : 126 stes portent
+ * des unites STOCKEES en anglais (unit cases, vehicles, employees...). En
+ * mode FR l axe affichait l anglais tel quel, et la bascule FR/EN du titre
+ * ne changeait donc rien a l axe. Memes garde-fous : jamais les monnaies,
+ * jamais le %, jamais les nombres.
+ */
+const EN_TO_FR_UNIT: Record<string, string> = {
+  "unit cases": "caisses-unité",
+  "unit case": "caisse-unité",
+  "units": "unités",
+  "stores": "magasins",
+  "warehouses": "entrepôts",
+  "rooms": "chambres",
+  "members": "membres",
+  "subscribers": "abonnés",
+  "subscriptions": "abonnements",
+  "customers": "clients",
+  "clients": "clients",
+  "users": "utilisateurs",
+  "employees": "employés",
+  "headcount": "effectifs",
+  "vehicles": "véhicules",
+  "cars": "voitures",
+  "homes": "logements",
+  "apartments": "appartements",
+  "passengers": "passagers",
+  "deliveries": "livraisons",
+  "shipments": "expéditions",
+  "orders": "commandes",
+  "aircraft": "avions",
+  "planes": "avions",
+  "doses": "doses",
+  "patients": "patients",
+  "beds": "lits",
+  "barrels": "barils",
+  "wafers": "plaquettes",
+  "bottles": "bouteilles",
+  "cases": "caisses",
+  "miles": "miles",
+  "factories": "usines",
+  "plants": "usines",
+  "restaurants": "restaurants",
+  "hotels": "hôtels",
+  "stations": "stations",
+  "branches": "agences",
+  "locations": "sites",
+  "sites": "sites",
+  "countries": "pays",
+  "points": "points",
+};
+
+/** Prefixes d echelle anglais -> francais (B unit cases -> Mds caisses-unité). */
+const EN_SCALE_TO_FR: Record<string, string> = {
+  "B": "Mds",
+  "Bn": "Mds",
+  "M": "M",
+  "K": "k",
+  "Thousands": "Milliers",
+  "Millions": "Millions",
+};
+
+export function translateUnitEnToFr(unit: string): string {
+  if (!unit) return unit;
+  const trimmed = unit.trim();
+  if (isCurrencyLikeUnit(trimmed)) return unit;
+  if (trimmed === "%" || trimmed === "% YoY") return unit;
+
+  const norm = trimmed.toLowerCase();
+  if (EN_TO_FR_UNIT[norm]) return EN_TO_FR_UNIT[norm];
+
+  // Forme composite "B unit cases" / "M subscribers" : echelle + texte.
+  const m = trimmed.match(/^([A-Za-z]+)\s+(.+)$/);
+  if (m) {
+    const echelle = EN_SCALE_TO_FR[m[1]] ?? null;
+    const texte = EN_TO_FR_UNIT[m[2].toLowerCase().trim()] ?? null;
+    if (texte) return `${echelle ?? m[1]} ${texte}`;
+  }
+  return unit;
+}
