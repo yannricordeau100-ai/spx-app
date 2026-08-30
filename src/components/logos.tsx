@@ -169,18 +169,12 @@ function LogoMonogram({ ticker }: { ticker: string }) {
 // Yann 30 aout 2026 : GOOGL bascule sur le PNG officiel (public/logos/GOOGL.png,
 // detoure) — le SVG V1 fait main rendait un style ancien et ses couleurs
 // s inversaient en theme clair (pas de .preserve-colors sur les SVG).
-// META/MSCI/SPGI/CAT restent en SVG: leurs PNG ont un fond opaque non detoure.
-const HARDCODED_TICKERS = new Set(["META", "MSCI", "SPGI", "CAT"]);
+// Meme jour : META/MSCI/SPGI/CAT basculent aussi sur PNG (fonds detoures,
+// SPGI/CAT remplaces par les logos officiels Wikimedia Commons).
+// Plus aucun ticker hardcode : tout passe par le chemin PNG standard.
 
 export function CompanyLogo({ ticker }: { ticker: string }) {
   const t = ticker.toUpperCase();
-  // V1 stés gardent leur SVG handcrafted (qualité supérieure).
-  if (HARDCODED_TICKERS.has(t)) {
-    if (t === "META") return <LogoMETA />;
-    if (t === "MSCI") return <LogoMSCI />;
-    if (t === "SPGI") return <LogoSPGI />;
-    if (t === "CAT") return <LogoCAT />;
-  }
   // V1.7+ : logo PNG cache local. Fallback sur monogramme si load fail (onError).
   // Convention fichier : public/logos/<TICKER>.png (ex: public/logos/NFLX.png).
   // Le ticker peut contenir . ou - selon source. Convertit . en - pour fichier.
