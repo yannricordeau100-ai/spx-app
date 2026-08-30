@@ -156,7 +156,7 @@ async function main() {
   console.log(`Stripe TEST mode (${key!.slice(0, 12)}...)\n`);
 
   const out: OutShape = {
-    mode: key.startsWith("sk_live_") ? "live" as const : "test" as const,
+    mode: (key ?? "").startsWith("sk_live_") ? "live" as const : "test" as const,
     generated_at: new Date().toISOString(),
     products: {},
     prices: {},
