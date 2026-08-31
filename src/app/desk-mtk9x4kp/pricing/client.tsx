@@ -1389,7 +1389,7 @@ function PromosSection({
     }
     setEditing(null);
     await refresh();
-    if (isNew && saved) alert("✅ Code promo créé et synchronisé avec Stripe (test mode)");
+    if (isNew && saved) alert("✅ Code promo créé, synchronisé avec Stripe au premier passage en caisse");
   }
 
   async function deletePromo(p: PricingPromoCode) {
@@ -1427,7 +1427,7 @@ function PromosSection({
     <div>
       <div className="mb-3 flex items-center justify-between">
         <p className="text-[11px] text-zinc-500">
-          <strong className="text-zinc-200">Tous les réglages disponibles.</strong> Au save, le coupon + promotion_code Stripe (test mode) sont créés / mis à jour automatiquement.
+          <strong className="text-zinc-200">Tous les réglages disponibles.</strong> Au save, le coupon Stripe est créé automatiquement au premier passage en caisse, dans le mode des clés du site (live en production).
         </p>
         <button type="button" onClick={newPromo} disabled={busy || !!editing} className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 text-[12px] font-bold text-violet-100 transition-colors hover:bg-violet-500/25 disabled:opacity-50">
           <Plus className="size-3.5" />Nouveau code

@@ -65,16 +65,35 @@ const stripe = new Stripe(key);
 type CurrencyCode = "eur" | "usd" | "gbp" | "chf" | "sek" | "dkk" | "cad";
 type PricingTable = Record<CurrencyCode, { month: number; year: number }>;
 
+// Yann 31 aout 2026 : la grille est RECALEE sur les montants affiches par la
+// page Tarifs (BDD desk + repli plans.ts). Avant, Stripe portait 24,90 € alors
+// que la page annoncait 29,90 € : le client aurait vu un prix et paye l autre.
+// DKK et CAD, absents de la base, gardent les rapports historiques EUR x 7,45
+// et USD x 1,34.
 const PRICING: PricingTable = {
   // Tous montants en plus petite unité (centimes pour EUR/USD/GBP/CHF/CAD,
   // öre pour SEK, øre pour DKK).
-  eur: { month: 2490, year: 18900 },     // €24.90 / €189
-  usd: { month: 2990, year: 22900 },     // $29.90 / $229
-  gbp: { month: 2100, year: 15900 },     // £21.00 / £159
-  chf: { month: 2490, year: 18900 },     // CHF 24.90 / 189 (parité EUR par convention)
-  sek: { month: 27900, year: 209900 },   // 279 SEK / 2099 SEK (~EUR×11.2)
-  dkk: { month: 18500, year: 140900 },   // 185 DKK / 1409 DKK (~EUR×7.45)
-  cad: { month: 3990, year: 30900 },     // CA$39.90 / CA$309 (~USD×1.3)
+  eur: { month: 2990, year: 23880 },     // 29,90 € / 238,80 €
+  usd: { month: 3490, year: 29880 },     // $34.90 / $298.80
+  gbp: { month: 2990, year: 23880 },     // £29.90 / £238.80
+  chf: { month: 2990, year: 23880 },     // CHF 29.90 / 238.80
+  sek: { month: 27900, year: 209900 },   // 279 SEK / 2099 SEK
+  dkk: { month: 22300, year: 178000 },   // 223 DKK / 1780 DKK (EUR x 7,45)
+  cad: { month: 4690, year: 39900 },     // CA$46.90 / CA$399 (USD x 1,34)
+};
+
+// Yann 31 aout 2026 : le plan Max n avait jamais ete synchronise (le script
+// ne connaissait que Free et Premium). Montants alignes sur la BDD desk pour
+// EUR, USD, GBP, CHF et SEK ; DKK et CAD deduits avec les memes rapports que
+// Premium, faute de valeur en base.
+const PRICING_MAX: PricingTable = {
+  eur: { month: 5990, year: 47880 },     // 59,90 € / 478,80 €
+  usd: { month: 6990, year: 59880 },     // $69.90 / $598.80
+  gbp: { month: 5990, year: 47880 },     // £59.90 / £478.80
+  chf: { month: 5990, year: 47880 },     // CHF 59.90 / 478.80
+  sek: { month: 59900, year: 499900 },   // 599 SEK / 4999 SEK
+  dkk: { month: 44900, year: 359900 },   // 449 DKK / 3599 DKK (rapport Premium)
+  cad: { month: 9490, year: 80900 },     // CA$94.90 / CA$809 (rapport Premium)
 };
 
 const PRODUCT_DEFS = [
@@ -98,6 +117,22 @@ const PRODUCT_DEFS = [
     type: "subscription" as const,
     interval: "year" as const,
   },
+  {
+    metaId: "mettrik_max_monthly",
+    name: "Mettrik AI Max (mensuel)",
+    description: "Tout Premium, plus les outils avances destines aux family offices, conseillers et fonds.",
+    type: "subscription" as const,
+    interval: "month" as const,
+    grille: "max" as const,
+  },
+  {
+    metaId: "mettrik_max_annual",
+    name: "Mettrik AI Max (annuel)",
+    description: "Memes fonctionnalites que Max mensuel, paye en une fois.",
+    type: "subscription" as const,
+    interval: "year" as const,
+    grille: "max" as const,
+  },
 ];
 
 type OutShape = {
@@ -114,7 +149,7 @@ async function findProductByMetaId(metaId: string) {
   return products.data.find((p) => p.metadata.mettrik_id === metaId);
 }
 
-async function ensureProduct(def: typeof PRODUCT_DEFS[0]) {
+async function ensureProduct(def: { metaId: string; name: string; description: string }) {
   const existing = await findProductByMetaId(def.metaId);
   if (existing) {
     console.log(`✅ Product exists : ${def.name} (${existing.id})`);
@@ -169,9 +204,11 @@ async function main() {
     if (def.type === "free") continue;
 
     const interval = def.interval!;
+    const grille =
+      (def as { grille?: string }).grille === "max" ? PRICING_MAX : PRICING;
     const currencyPrices: Record<CurrencyCode, string> = {} as Record<CurrencyCode, string>;
-    for (const cur of Object.keys(PRICING) as CurrencyCode[]) {
-      const amount = interval === "month" ? PRICING[cur].month : PRICING[cur].year;
+    for (const cur of Object.keys(grille) as CurrencyCode[]) {
+      const amount = interval === "month" ? grille[cur].month : grille[cur].year;
       const price = await ensurePrice(product.id, cur, amount, interval);
       currencyPrices[cur] = price.id;
     }

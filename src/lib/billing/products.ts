@@ -10,11 +10,18 @@
 import productsConfig from "@/lib/billing/stripe-products.json";
 
 export type CurrencyCode = "eur" | "usd" | "gbp" | "chf" | "sek" | "dkk" | "cad";
-export type PlanCode = "premium_monthly" | "premium_annual";
+export type PlanCode =
+  | "premium_monthly"
+  | "premium_annual"
+  | "max_monthly"
+  | "max_annual";
 
 const PLAN_TO_META_ID: Record<PlanCode, string> = {
   premium_monthly: "mettrik_premium_monthly",
   premium_annual: "mettrik_premium_annual",
+  // Yann 31 aout 2026 : le plan Max rejoint le catalogue synchronise.
+  max_monthly: "mettrik_max_monthly",
+  max_annual: "mettrik_max_annual",
 };
 
 /**
