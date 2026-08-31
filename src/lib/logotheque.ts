@@ -25,9 +25,14 @@ export type EmplacementLogo = {
 };
 
 /**
- * TOUS les endroits du site où un logo Mettrik est affiché.
+ * TOUS les endroits du site où un logo Mettrik est affiché et pilotable.
  * Ajouter un emplacement ici + poser <LogoMettrik emplacement="..."> suffit :
  * la page sandbox le liste automatiquement.
+ *
+ * Deux endroits sont volontairement absents. Les écrans de connexion et de
+ * compte n affichent aucun logo aujourd hui. La signature des exports PNG est
+ * dessinée sur un canvas à partir d une image, pas d un composant React :
+ * elle ne peut afficher que le PNG de marque, aucune autre variante.
  */
 export const EMPLACEMENTS: EmplacementLogo[] = [
   {
@@ -49,16 +54,6 @@ export const EMPLACEMENTS: EmplacementLogo[] = [
     id: "tarifs",
     label: "Page des tarifs",
     ou: "En-tête de /pricing et de son jumeau sandbox",
-  },
-  {
-    id: "compte",
-    label: "Espace compte et connexion",
-    ou: "Écrans de connexion, inscription, compte",
-  },
-  {
-    id: "export",
-    label: "Export PNG des graphiques",
-    ou: "Signature du logo en bas des images exportées",
   },
 ];
 
