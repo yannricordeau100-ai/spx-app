@@ -4,9 +4,13 @@
 
 These general terms and conditions (the "Terms") govern access to and use of the website www.mettrik.ai and the subscription to its paid services (the "Services"). They form a single contractual body, organized in three parts: use (Part I), sale (Part II) and common provisions (Part III).
 
-By accessing the website or subscribing, you acknowledge that you have read these Terms and accept them without reservation.
+The spirit of these Terms is simple: to tell you clearly what the service provides, what it does not, and what each party undertakes to respect. They are written to be readable, and most of their rules exist first to protect your experience: reliability of content, security of your account, fairness between subscribers.
+
+By accessing the website or subscribing, you acknowledge that you have read these Terms and accept them.
 
 ## ⚠️ Essential warning: read before any use of the website
+
+This warning is here to protect you: it tells you exactly how to use Mettrik AI without putting yourself at risk.
 
 Mettrik AI publishes financial indicators (KPIs), composite scores, rankings, comparative signals, editorial interpretations and marketing copy for information purposes only. NO content published on the website (without exception: home page, company pages, comparisons, advertising copy, FAQ, welcome emails, marketing communications, thematic rankings) constitutes investment advice, a personalized investment recommendation, a solicitation to buy or sell financial instruments, or an assertion of fact about the intrinsic value of a company, within the meaning of Swiss law or any other legislation applicable to the user.
 
@@ -61,15 +65,15 @@ Each account is strictly personal and nominative. A paid subscription opens acce
 
 Sharing credentials, simultaneous or alternating access by several natural persons, and access through pooled accounts or multiple organizations are not covered by individual subscriptions and require the Operator's prior written consent.
 
-Mettrik AI implements technical mechanisms to detect simultaneous or alternating access from incompatible contexts (browser signatures, IP geolocation, connection frequency, device fingerprints). In case of proven sharing: immediate termination without refund and retroactive billing of each additional detected user at the current rate, as compensation for unauthorized use.
+To protect your account, your data and fairness between subscribers, Mettrik AI implements technical mechanisms to detect simultaneous or alternating access from incompatible contexts (browser signatures, IP geolocation, connection frequency, device fingerprints). In case of proven sharing, and after review of the situation, the subscription may be terminated without refund and each additional detected user may be billed retroactively at the current rate, as compensation for unauthorized use.
 
 The user is responsible for all activity performed from their account. In case of fraudulent use, they undertake to immediately inform Mettrik AI at contact@mettrik.ai.
 
-### I.5 Prohibition of VPNs and anonymization networks
+### I.5 VPNs and anonymization networks
 
-The use of any virtual private network (VPN), proxy, IP-masking service, anonymization network (TOR, IPSec tunnel, equivalent services) or any other means of concealing, altering or rerouting the origin of the connection is strictly prohibited for accessing the Mettrik AI service, directly or indirectly.
+To protect accounts against fraud and account takeover, accessing the service through a virtual private network (VPN), proxy, IP-masking service or anonymization network (TOR, IPSec tunnel, equivalent services) is not permitted.
 
-Any connection detected through a VPN or proxy triggers automatic suspension of the account pending verification. Corporate VPNs are subject to prior case-by-case approval upon reasoned request.
+A connection detected through a VPN or proxy triggers a temporary suspension of the account, lifted after verification. Corporate VPNs are subject to prior case-by-case approval upon reasoned request.
 
 ### I.6 General obligations of the user
 
@@ -113,7 +117,7 @@ The subscription takes effect immediately upon payment confirmation. The user re
 
 Paid subscriptions renew automatically at the end of each period (monthly or annual), for a term identical to the initial period, without prior notice being required.
 
-Cancellation is possible at any time from the user's personal area. It takes effect at the end of the current period. No refund, in whole or in part, is made for the current period, whatever fraction remains, unless a mandatory provision of the law applicable to a consumer provides otherwise.
+Cancellation is possible at any time, in a few clicks, from your personal area: no justification, no fees, no notice period. You keep full access to the service until the last day of the period already paid. The current period remains due and is not refunded pro rata, unless a mandatory provision of the law applicable to a consumer provides otherwise.
 
 Unilateral termination by Mettrik AI. Mettrik AI reserves the right to terminate any subscription unilaterally and without notice in the event of (a) non-payment, (b) breach of these Terms, (c) fraudulent, abusive or non-compliant use of the service, (d) proven account sharing, (e) use of VPNs or anonymization means, (f) unauthorized automated extraction or AI use, (g) dispute, charge-back or banking litigation, (h) any other situation harming Mettrik AI or its other subscribers. Unilateral termination gives no right to any refund.
 
@@ -123,7 +127,7 @@ Swiss law provides no general right of withdrawal for online purchases: the subs
 
 For consumers residing in a state that mandatorily grants them a distance-selling right of withdrawal (European Union, EEA), the Mettrik AI service is a digital service whose performance begins immediately upon subscription: full access to paid content is opened as soon as payment is confirmed. By ticking the dedicated box at checkout, the user (a) expressly requests immediate performance of the service before the expiry of the withdrawal period and (b) acknowledges losing their right of withdrawal once performance has begun. Consequently, no right of withdrawal can be exercised after paid access has been opened.
 
-This expiry is explicitly recalled at the time of payment. The right of withdrawal does not apply to professionals in any case.
+You stay in control: this box is never pre-ticked, and its effect is spelled out at the time of payment. The right of withdrawal does not apply to professionals.
 
 ### II.5 Price changes
 
@@ -148,7 +152,7 @@ The subscription grants the user a personal, non-exclusive and non-transferable 
 
 ### III.2 Technical prohibitions and anti-AI clause
 
-The user expressly undertakes not to:
+These rules protect the value of what you pay for: if Mettrik AI's content could be freely scraped or resold, the service you fund would lose its value. The user therefore undertakes not to:
 
 - Reverse-engineer the service, its code, its algorithms or its scoring methodologies, except in the cases strictly authorized by law;
 - Perform any automated data extraction (scraping, crawling, robots, scripts, plug-ins) outside any official APIs provided by Mettrik AI;
@@ -157,7 +161,7 @@ The user expressly undertakes not to:
 - Reproduce any qualitatively or quantitatively substantial part of the Mettrik AI database;
 - Use any Mettrik AI content (texts, scores, methodologies, derived data, visualizations, interpretations) to train, fine-tune, feed or enrich any artificial-intelligence model (LLM, machine learning, embeddings, RAG, transformers, neural networks, and any similar architecture). This prohibition applies to the direct author (account user), AI platforms (parties responsible for third-party LLMs trained), and intermediary services (proxies, aggregators, shared services).
 
-Systematic prosecution. In the event of a breach of the AI-use prohibition above, the Operator reserves the right to systematically bring civil and criminal proceedings against: the direct user of the account used for the extraction; the publisher of the AI model that integrated or distributed the extracted content; any technical intermediary (proxy services, access sharing, aggregators) that facilitated the breach.
+Defense of the content. In the event of a breach of the AI-use prohibition above, the Operator reserves the right to bring civil and criminal proceedings against: the direct user of the account used for the extraction; the publisher of the AI model that integrated or distributed the extracted content; any technical intermediary (proxy services, access sharing, aggregators) that facilitated the breach.
 
 Any breach additionally results in immediate termination of the account without refund.
 
@@ -175,11 +179,11 @@ Any investment decision is the sole responsibility of the user. Past performance
 
 ### III.4 Liability and warranties
 
-The Operator undertakes to provide the service with diligence. The service is provided "as is" without any warranty of fitness for a particular purpose, absence of errors, reliability, accuracy, completeness or continuity.
+The Operator undertakes to provide the service with care and diligence: successive quality controls on data, cited sources, prompt correction of reported errors. That said, no data service can promise perfection: the service is provided "as is", without any warranty of fitness for a particular purpose, absence of errors, reliability, accuracy, completeness or continuity. This is precisely why every critical figure must be verified at the source before any decision.
 
 Limitation of liability. To the fullest extent permitted by applicable law, the Operator's liability for slight negligence is excluded, and the Operator's total aggregate liability towards the user, on all grounds combined, is strictly limited to the amount of subscriptions actually paid by the user over the 3 months preceding the triggering event, up to a maximum of €250. This limitation applies to any contractual or tortious action and includes without limitation: direct or indirect financial losses, loss of profit, loss of opportunity, moral prejudice, reputational harm. For free (Free) accounts, liability is limited to the fullest extent permitted by law. Liability for willful misconduct, gross negligence and personal injury remains reserved and cannot be excluded.
 
-Waiver of collective action. To the extent permitted by applicable law, the user waives any form of collective action, group action or class action against the Operator. Any dispute is handled individually.
+Individual handling of disputes. Every situation is reviewed individually: that is the guarantee of a real answer to your case rather than a mass procedure. To the extent permitted by applicable law, the user accordingly waives any form of collective action, group action or class action against the Operator.
 
 Extended force majeure. The following constitute exonerating force-majeure events: external cyberattacks (DDoS, ransomware, intrusions, exploitation of third-party vulnerabilities), failure of infrastructure or payment providers, internet or telecom-operator outage, regulatory change requiring the service to stop, unavailability of public data sources, administrative decisions, international sanctions, armed conflicts, pandemics, natural disasters. This list is indicative and non-exhaustive. The Operator cannot be held liable for the consequences of such events.
 
@@ -191,11 +195,11 @@ For any other technical processing required for the operation of the service, Me
 
 ### III.6 Changes to the Terms
 
-The Operator reserves the right to amend these Terms at any time. Amendments take effect upon publication on the website for new users and, for current subscribers, as from the renewal following their publication. The user is invited to regularly consult the latest version in force.
+The Operator may update these Terms. Amendments take effect upon publication on the website for new users and, for current subscribers, as from the renewal following their publication: an ongoing subscription is never changed mid-period. If a change does not suit you, you remain free to cancel before your next renewal, free of charge.
 
 ### III.7 Complaints and amicable settlement
 
-Any complaint shall be addressed in writing to contact@mettrik.ai. The Operator endeavors to respond within 30 days. The parties undertake to seek an amicable solution before any legal action. The Operator does not participate in any consumer-mediation mechanism other than those to which it would be mandatorily bound by law.
+A problem, a question, a disagreement? Write to contact@mettrik.ai: every complaint is read and answered, within 30 days at the latest. The parties undertake to first seek an amicable solution, which resolves the vast majority of situations, before any legal action. The Operator does not participate in any consumer-mediation mechanism other than those to which it would be mandatorily bound by law.
 
 ### III.8 Governing law and jurisdiction
 

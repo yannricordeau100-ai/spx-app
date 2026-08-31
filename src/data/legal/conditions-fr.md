@@ -4,9 +4,13 @@
 
 Les présentes conditions générales (ci-après les « Conditions ») régissent l'accès et l'utilisation du site www.mettrik.ai ainsi que la souscription d'abonnements à ses services payants (ci-après les « Services »). Elles forment un unique corpus contractuel, organisé en trois parties : utilisation (Partie I), vente (Partie II) et dispositions communes (Partie III).
 
-En accédant au site ou en souscrivant à un abonnement, vous reconnaissez avoir pris connaissance des présentes Conditions et les accepter sans réserve.
+L'esprit de ces Conditions est simple : vous dire clairement ce que le service fournit, ce qu'il ne fournit pas, et ce que chacun s'engage à respecter. Elles sont rédigées pour être lisibles, et la plupart de leurs règles existent d'abord pour protéger votre expérience : fiabilité des contenus, sécurité de votre compte, équité entre abonnés.
+
+En accédant au site ou en souscrivant à un abonnement, vous reconnaissez avoir pris connaissance des présentes Conditions et les accepter.
 
 ## ⚠️ Avertissement essentiel : à lire avant tout usage du site
+
+Cet avertissement est là pour vous protéger : il vous dit exactement comment utiliser Mettrik AI sans vous mettre en risque.
 
 Mettrik AI publie des indicateurs financiers (KPIs), scores composites, classements, signaux comparatifs, interprétations éditoriales et accroches marketing à titre purement informatif. AUCUN contenu publié sur le site (sans exception : page d'accueil, fiches sociétés, comparaisons, accroches publicitaires, FAQ, emails de bienvenue, communications marketing, classements thématiques) ne constitue un conseil en investissement, ni une recommandation personnalisée d'investissement, ni une sollicitation à l'achat ou à la vente d'instruments financiers, ni une assertion de fait sur la valeur intrinsèque d'une société, au sens du droit suisse comme de toute autre législation applicable à l'utilisateur.
 
@@ -61,15 +65,15 @@ Chaque compte est strictement personnel et nominatif. Un abonnement payant ouvre
 
 Le partage des identifiants, l'accès simultané ou alterné depuis plusieurs personnes physiques, l'accès via comptes mutualisés ou organisations multiples ne sont pas couverts par les abonnements individuels et requièrent un accord écrit préalable de l'Exploitant.
 
-Mettrik AI met en œuvre des dispositifs techniques de détection des accès simultanés ou alternés depuis des contextes incompatibles (signatures de navigateur, géolocalisation IP, fréquence de connexion, empreintes d'appareil). En cas de partage avéré : résiliation immédiate sans remboursement et facturation rétroactive de chaque utilisateur additionnel détecté au tarif en vigueur, à titre d'indemnité pour usage non autorisé.
+Pour protéger votre compte, vos données et l'équité entre abonnés, Mettrik AI met en œuvre des dispositifs techniques de détection des accès simultanés ou alternés depuis des contextes incompatibles (signatures de navigateur, géolocalisation IP, fréquence de connexion, empreintes d'appareil). En cas de partage avéré, et après examen de la situation, l'abonnement peut être résilié sans remboursement et chaque utilisateur additionnel détecté peut être facturé rétroactivement au tarif en vigueur, à titre d'indemnité pour usage non autorisé.
 
 L'utilisateur est responsable de toute activité effectuée depuis son compte. En cas d'utilisation frauduleuse, il s'engage à en informer immédiatement Mettrik AI à l'adresse contact@mettrik.ai.
 
-### I.5 Interdiction d'utilisation de VPN et de réseaux d'anonymisation
+### I.5 VPN et réseaux d'anonymisation
 
-L'utilisation de tout réseau virtuel privé (VPN), proxy, service de masquage IP, réseau d'anonymisation (TOR, IPSec tunnel, services équivalents) ou tout autre moyen visant à dissimuler, modifier ou rerouter l'origine de la connexion est strictement interdite pour accéder au service Mettrik AI, directement ou indirectement.
+Pour protéger les comptes contre la fraude et le piratage, l'accès au service via un réseau virtuel privé (VPN), un proxy, un service de masquage IP ou un réseau d'anonymisation (TOR, IPSec tunnel, services équivalents) n'est pas autorisé.
 
-Toute connexion détectée via VPN ou proxy entraîne la suspension automatique du compte le temps de vérification. Les VPN d'entreprise font l'objet d'un agrément préalable au cas par cas, sur demande motivée.
+Une connexion détectée via VPN ou proxy entraîne une suspension temporaire du compte, levée après vérification. Les VPN d'entreprise font l'objet d'un agrément préalable au cas par cas, sur demande motivée.
 
 ### I.6 Obligations générales de l'utilisateur
 
@@ -113,7 +117,7 @@ La souscription prend effet immédiatement après confirmation du paiement. L'ut
 
 Les abonnements payants se renouvellent automatiquement par tacite reconduction à la fin de chaque période (mensuelle ou annuelle), pour une durée identique à celle de la période initiale, sans nécessité de notification préalable.
 
-La résiliation est possible à tout moment depuis l'espace personnel utilisateur. Elle prend effet à la fin de la période en cours. Aucun remboursement, total ou partiel, n'est effectué pour la période entamée, quelle que soit la fraction restant à courir, sauf disposition impérative contraire du droit applicable à un consommateur.
+La résiliation est possible à tout moment, en quelques clics, depuis l'espace personnel : sans justification, sans frais, sans préavis. Vous conservez l'accès complet au service jusqu'au dernier jour de la période déjà payée. La période entamée reste due et ne fait pas l'objet d'un remboursement au prorata, sauf disposition impérative contraire du droit applicable à un consommateur.
 
 Résolution unilatérale par Mettrik AI. Mettrik AI se réserve le droit de résilier unilatéralement et sans préavis tout abonnement en cas (a) d'impayé, (b) de violation des présentes Conditions, (c) d'usage frauduleux, abusif ou non conforme du service, (d) de partage avéré du compte, (e) d'usage de VPN ou de moyens d'anonymisation, (f) d'extraction automatisée ou d'usage IA non autorisé, (g) de contestation, charge-back ou litige bancaire, (h) de toute autre situation portant atteinte à Mettrik AI ou à ses autres abonnés. La résiliation unilatérale ne donne droit à aucun remboursement.
 
@@ -123,7 +127,7 @@ Le droit suisse ne prévoit aucun droit de rétractation général pour les acha
 
 Pour les consommateurs résidant dans un État qui leur reconnaît impérativement un droit de rétractation à distance (Union européenne, EEE), le service Mettrik AI est un service numérique dont l'exécution commence immédiatement à la souscription : l'accès complet aux contenus payants est ouvert dès la confirmation du paiement. En cochant la case dédiée au moment du paiement, l'utilisateur (a) demande expressément l'exécution immédiate du service avant l'expiration du délai de rétractation et (b) reconnaît perdre son droit de rétractation dès que l'exécution a commencé. En conséquence, aucun droit de rétractation ne peut plus être exercé après l'ouverture de l'accès payant.
 
-Cette extinction est rappelée explicitement au moment du paiement. Le droit de rétractation ne s'applique en aucun cas aux professionnels.
+Vous gardez la main : cette case n'est jamais pré-cochée, et son effet est rappelé en toutes lettres au moment du paiement. Le droit de rétractation ne s'applique pas aux professionnels.
 
 ### II.5 Modifications de prix
 
@@ -148,7 +152,7 @@ L'abonnement confère à l'utilisateur un droit d'usage personnel, non exclusif 
 
 ### III.2 Interdictions techniques et clause anti-IA
 
-L'utilisateur s'engage explicitement à ne pas :
+Ces règles protègent la valeur de ce que vous payez : si les contenus de Mettrik AI pouvaient être aspirés ou revendus librement, le service que vous financez perdrait sa valeur. L'utilisateur s'engage donc à ne pas :
 
 - Procéder à toute forme de rétro-ingénierie du service, de son code, de ses algorithmes ou de ses méthodologies de scoring, sauf dans les cas strictement autorisés par la loi ;
 - Effectuer toute extraction automatisée de données (scraping, crawling, robots, scripts, plug-ins) en dehors des éventuelles API officielles fournies par Mettrik AI ;
@@ -157,7 +161,7 @@ L'utilisateur s'engage explicitement à ne pas :
 - Reproduire la base de données Mettrik AI dans toute partie qualitativement ou quantitativement substantielle ;
 - Utiliser tout contenu Mettrik AI (textes, scores, méthodologies, données dérivées, visualisations, interprétations) pour entraîner, fine-tuner, alimenter ou enrichir tout modèle d'intelligence artificielle (LLM, machine learning, embeddings, RAG, transformers, réseaux de neurones, et toute architecture similaire). Cette interdiction s'applique à l'auteur direct (utilisateur du compte), aux plateformes d'IA (responsables des LLM tiers entraînés), et aux services intermédiaires (proxys, agrégateurs, services partagés).
 
-Poursuites systématiques. En cas de violation de l'interdiction d'usage IA ci-dessus, l'Exploitant se réserve le droit d'engager systématiquement des poursuites civiles et pénales contre : l'utilisateur direct du compte ayant servi à l'extraction ; l'éditeur du modèle d'IA ayant intégré ou diffusé les contenus extraits ; tout intermédiaire technique (services proxys, partages d'accès, agrégateurs) ayant facilité la violation.
+Défense des contenus. En cas de violation de l'interdiction d'usage IA ci-dessus, l'Exploitant se réserve le droit d'engager des poursuites civiles et pénales contre : l'utilisateur direct du compte ayant servi à l'extraction ; l'éditeur du modèle d'IA ayant intégré ou diffusé les contenus extraits ; tout intermédiaire technique (services proxys, partages d'accès, agrégateurs) ayant facilité la violation.
 
 Toute violation entraîne en outre la résiliation immédiate du compte sans remboursement.
 
@@ -175,11 +179,11 @@ Toute décision d'investissement relève de la seule responsabilité de l'utilis
 
 ### III.4 Responsabilité et garanties
 
-L'Exploitant s'engage à fournir le service avec diligence. Le service est fourni « en l'état » sans garantie d'adéquation à un usage particulier, d'absence d'erreur, de fiabilité, d'exactitude, d'exhaustivité ou de continuité.
+L'Exploitant s'engage à fournir le service avec sérieux et diligence : contrôles qualité successifs sur les données, sources citées, correction rapide des erreurs signalées. Pour autant, aucun service de données ne peut promettre la perfection : le service est fourni « en l'état », sans garantie d'adéquation à un usage particulier, d'absence d'erreur, de fiabilité, d'exactitude, d'exhaustivité ou de continuité. C'est précisément pour cela que chaque donnée critique doit être vérifiée à la source avant toute décision.
 
 Limitation de responsabilité. Dans toute la mesure permise par le droit applicable, la responsabilité de l'Exploitant est exclue pour la faute légère, et la responsabilité totale et cumulée de l'Exploitant envers l'utilisateur, toutes causes confondues, est strictement limitée au montant des abonnements effectivement payés par l'utilisateur sur les 3 derniers mois précédant le fait générateur, dans la limite maximale de 250 €. Cette limitation s'applique à toute action contractuelle ou délictuelle, et inclut sans limitation : pertes financières directes ou indirectes, manque à gagner, perte de chance, préjudice moral, atteinte à la réputation. Pour les comptes gratuits (Free), la responsabilité est limitée dans toute la mesure permise par la loi. Demeure réservée la responsabilité pour dol, faute grave et dommages corporels, qui ne peut être exclue.
 
-Renonciation à l'action collective. Dans la mesure permise par le droit applicable, l'utilisateur renonce à toute forme d'action collective, action de groupe ou recours collectif contre l'Exploitant. Tout litige est traité individuellement.
+Traitement individuel des litiges. Chaque situation est examinée individuellement : c'est la garantie d'une vraie réponse à votre cas plutôt qu'une procédure de masse. Dans la mesure permise par le droit applicable, l'utilisateur renonce en conséquence à toute forme d'action collective, action de groupe ou recours collectif contre l'Exploitant.
 
 Force majeure étendue. Constituent des cas de force majeure exonératoires : cyberattaques externes (DDoS, ransomware, intrusions, exploitation de vulnérabilités tiers), défaillance des prestataires d'infrastructure ou de paiement, panne d'internet ou d'opérateur télécom, modification réglementaire imposant l'arrêt du service, indisponibilité des sources de données publiques, décisions administratives, sanctions internationales, conflits armés, pandémies, catastrophes naturelles. Cette liste est indicative et non exhaustive. L'Exploitant ne saurait être tenu responsable des conséquences de tels événements.
 
@@ -191,11 +195,11 @@ Pour tout autre traitement technique nécessaire au fonctionnement du service, M
 
 ### III.6 Modification des Conditions
 
-L'Exploitant se réserve le droit de modifier les présentes Conditions à tout moment. Les modifications prennent effet dès leur publication sur le site pour les nouveaux utilisateurs et, pour les abonnés en cours, à compter du renouvellement suivant leur publication. L'utilisateur est invité à consulter régulièrement la dernière version en vigueur.
+L'Exploitant peut faire évoluer les présentes Conditions. Les modifications prennent effet dès leur publication sur le site pour les nouveaux utilisateurs et, pour les abonnés en cours, à compter du renouvellement suivant leur publication : un abonnement en cours n'est jamais modifié en cours de période. Si une évolution ne vous convient pas, vous restez libre de résilier avant votre prochain renouvellement, sans frais.
 
 ### III.7 Réclamations et règlement amiable
 
-Toute réclamation est adressée par écrit à contact@mettrik.ai. L'Exploitant s'efforce d'y répondre sous 30 jours. Les parties s'engagent à rechercher une solution amiable avant toute action judiciaire. L'Exploitant ne participe à aucun mécanisme de médiation de la consommation autre que ceux auxquels la loi l'obligerait impérativement.
+Un problème, une question, un désaccord ? Écrivez à contact@mettrik.ai : chaque réclamation est lue et reçoit une réponse, au plus tard sous 30 jours. Les parties s'engagent à rechercher d'abord une solution amiable, qui règle l'immense majorité des situations, avant toute action judiciaire. L'Exploitant ne participe à aucun mécanisme de médiation de la consommation autre que ceux auxquels la loi l'obligerait impérativement.
 
 ### III.8 Droit applicable et juridiction
 

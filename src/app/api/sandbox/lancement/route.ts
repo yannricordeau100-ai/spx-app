@@ -33,7 +33,10 @@ async function estProprietaire(): Promise<boolean> {
   }
 }
 
-async function litMode(): Promise<"on" | "off" | "env"> {
+type Programme = { mode: "on" | "off"; quand: string } | null;
+type Reglage = { mode: "on" | "off" | "env"; programme: Programme };
+
+async function litReglage(): Promise<Reglage> {
   try {
     const { data } = await admin()
       .from("desk_page_content")
@@ -41,10 +44,16 @@ async function litMode(): Promise<"on" | "off" | "env"> {
       .eq("page_key", "maintenance")
       .eq("section_key", "reglages")
       .maybeSingle();
-    const mode = data?.content_fr ? JSON.parse(data.content_fr)?.mode : null;
-    return mode === "on" || mode === "off" ? mode : "env";
+    const brut = data?.content_fr ? JSON.parse(data.content_fr) : null;
+    const mode = brut?.mode === "on" || brut?.mode === "off" ? brut.mode : "env";
+    const p = brut?.programme;
+    const programme: Programme =
+      p && (p.mode === "on" || p.mode === "off") && typeof p.quand === "string" && !Number.isNaN(Date.parse(p.quand))
+        ? { mode: p.mode, quand: p.quand }
+        : null;
+    return { mode, programme };
   } catch {
-    return "env";
+    return { mode: "env", programme: null };
   }
 }
 
@@ -52,18 +61,33 @@ export async function GET() {
   if (!(await estProprietaire())) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
-  const mode = await litMode();
+  const { mode, programme } = await litReglage();
   const env = (process.env.MAINTENANCE_MODE ?? "").toLowerCase();
   const envOn = env === "on" || env === "true" || env === "1";
-  const effectif = mode === "on" ? true : mode === "off" ? false : envOn;
-  return NextResponse.json({ mode, variable_env: envOn ? "on" : "off", maintenance_effective: effectif });
+  // Meme logique que le proxy : un programme echu remplace le mode courant.
+  let modeEffectif: "on" | "off" | "env" = mode;
+  if (programme && Date.now() >= Date.parse(programme.quand)) {
+    modeEffectif = programme.mode;
+  }
+  const effectif = modeEffectif === "on" ? true : modeEffectif === "off" ? false : envOn;
+  return NextResponse.json({
+    mode,
+    programme,
+    variable_env: envOn ? "on" : "off",
+    maintenance_effective: effectif,
+    niveaux: {
+      n0: "https://mettrik.ai",
+      n1: "https://mettrik-niveau1.vercel.app",
+      n2: "https://mettrik-niveau2.vercel.app",
+    },
+  });
 }
 
 export async function POST(req: NextRequest) {
   if (!(await estProprietaire())) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
-  let corps: { mode?: unknown };
+  let corps: { mode?: unknown; programme?: unknown };
   try {
     corps = await req.json();
   } catch {
@@ -73,12 +97,33 @@ export async function POST(req: NextRequest) {
   if (mode !== "on" && mode !== "off" && mode !== "env") {
     return NextResponse.json({ error: "mode invalide (on | off | env)" }, { status: 400 });
   }
+  // programme : { mode, quand } pour une bascule a heure fixe, null pour annuler.
+  let programme: Programme = null;
+  const p = corps.programme as { mode?: unknown; quand?: unknown } | null | undefined;
+  if (p && typeof p === "object") {
+    if (
+      (p.mode === "on" || p.mode === "off") &&
+      typeof p.quand === "string" &&
+      !Number.isNaN(Date.parse(p.quand))
+    ) {
+      if (Date.parse(p.quand) < Date.now() - 60_000) {
+        return NextResponse.json({ error: "programme dans le passe" }, { status: 400 });
+      }
+      programme = { mode: p.mode, quand: p.quand };
+    } else {
+      return NextResponse.json({ error: "programme invalide ({mode, quand ISO})" }, { status: 400 });
+    }
+  }
   const { error } = await admin()
     .from("desk_page_content")
     .upsert(
-      { page_key: "maintenance", section_key: "reglages", content_fr: JSON.stringify({ mode }) },
+      {
+        page_key: "maintenance",
+        section_key: "reglages",
+        content_fr: JSON.stringify({ mode, programme }),
+      },
       { onConflict: "page_key,section_key" },
     );
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ ok: true, mode, delai: "effet sous ~20 secondes" });
+  return NextResponse.json({ ok: true, mode, programme, delai: "effet sous ~20 secondes" });
 }

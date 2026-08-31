@@ -50,7 +50,21 @@ async function modeMaintenanceEffectif(parEnv: boolean): Promise<boolean> {
           const lignes = (await r.json()) as { content_fr?: string }[];
           const brut = lignes?.[0]?.content_fr;
           if (brut) {
-            const mode = JSON.parse(brut)?.mode;
+            const reglage = JSON.parse(brut) as {
+              mode?: string;
+              programme?: { mode?: string; quand?: string };
+            };
+            let mode = reglage?.mode;
+            // Bascule programmee : passee l heure dite, le mode programme
+            // remplace le mode courant (ex : ouverture du site a 9h00 pile).
+            const prog = reglage?.programme;
+            if (
+              prog?.quand &&
+              (prog.mode === "on" || prog.mode === "off") &&
+              Date.now() >= Date.parse(prog.quand)
+            ) {
+              mode = prog.mode;
+            }
             if (mode === "on" || mode === "off" || mode === "env") {
               maintenanceCache.valeur = mode;
             }
