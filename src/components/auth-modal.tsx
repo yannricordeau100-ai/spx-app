@@ -465,6 +465,21 @@ export function AuthModal() {
                       <HCaptchaWidget theme="dark" />
                     </div>
                     <SubmitButton>{t("auth.cta.signup")}</SubmitButton>
+                    {/* Yann 31 aout 2026 : acceptation par le clic (clickwrap).
+                        La creation du compte vaut acceptation des Conditions et
+                        prise de connaissance de la politique de confidentialite,
+                        qui couvrent notamment la mesure d usage interne. */}
+                    <p className="relative pt-1 text-center text-[11px] leading-relaxed text-zinc-500">
+                      {t("auth.signup.legal_prefix")}{" "}
+                      <a href="/legal/conditions" target="_blank" className="underline decoration-zinc-600 underline-offset-2 hover:text-zinc-300">
+                        {t("auth.signup.legal_terms")}
+                      </a>{" "}
+                      {t("auth.signup.legal_and")}{" "}
+                      <a href="/legal/confidentialite" target="_blank" className="underline decoration-zinc-600 underline-offset-2 hover:text-zinc-300">
+                        {t("auth.signup.legal_privacy")}
+                      </a>
+                      {t("auth.signup.legal_suffix")}
+                    </p>
                   </form>
                 )}
 

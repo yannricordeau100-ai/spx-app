@@ -18,7 +18,7 @@ Toute décision d'investissement, d'arbitrage ou d'allocation patrimoniale relè
 
 ## 0. Identité de l'exploitant et du vendeur
 
-Le site www.mettrik.ai et la marque Mettrik AI sont exploités par R consulting, entreprise individuelle de droit suisse, IDE CHE-XXX.XXX.XXX, établie à l'adresse : Leubernstrasse 3, 8280 Kreuzlingen, Suisse (ci-après « l'Exploitant » ou « Mettrik AI »).
+Le site www.mettrik.ai et la marque Mettrik AI sont exploités par R consulting, entreprise individuelle de droit suisse, IDE CHE-281.919.422, établie à l'adresse : Leubernstrasse 3, 8280 Kreuzlingen, Suisse (ci-après « l'Exploitant » ou « Mettrik AI »).
 
 Contact : par voie électronique, à l'adresse contact@mettrik.ai, qui permet une prise de contact rapide et une communication directe et efficace au sens de l'art. 3 al. 1 let. s LCD.
 
@@ -82,6 +82,10 @@ Mettrik AI utilise des données financières publiquement disponibles, principal
 Délai d'actualisation. Même lorsqu'une mention « en temps réel », « live », « à jour » ou équivalente est affichée, les données peuvent comporter un décalage de plusieurs secondes, plusieurs minutes voire plusieurs heures par rapport à la valeur effective sur les marchés (différé de feed, latences réseau, traitements algorithmiques, fenêtres de mise à jour). Mettrik AI ne garantit en aucun cas la disponibilité des données en temps réel strict.
 
 L'utilisateur est invité à vérifier les données critiques auprès des sources officielles avant toute décision d'investissement.
+
+### I.8 Mesure d'usage et de qualité de service
+
+Aux fins d'exploitation, de sécurisation, de facturation et d'amélioration du service, l'Exploitant collecte et analyse des données techniques et d'usage relatives à la navigation et à l'utilisation du site et des communications qui s'y rattachent (notamment pages consultées, interactions, performances techniques, incidents, suites données aux emails du service). Cette mesure est réalisée en première partie, pour le compte exclusif de l'Exploitant. Ses modalités, les catégories de données et les droits de l'utilisateur sont détaillés dans la politique de confidentialité, qui fait partie du corpus contractuel.
 
 ## Partie II · Vente et abonnements
 

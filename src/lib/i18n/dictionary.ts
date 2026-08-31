@@ -133,6 +133,11 @@ export const DICTIONARY: Dict = {
   /* ──────────────────────── AUTH ──────────────────────── */
   "auth.signin.title": { fr: "Connexion", en: "Sign in" },
   "auth.signup.title": { fr: "Créer un compte", en: "Create account" },
+  "auth.signup.legal_prefix": { fr: "En créant un compte, tu acceptes les", en: "By creating an account, you accept the" },
+  "auth.signup.legal_terms": { fr: "Conditions", en: "Terms" },
+  "auth.signup.legal_and": { fr: "et la", en: "and the" },
+  "auth.signup.legal_privacy": { fr: "Politique de confidentialité", en: "Privacy Policy" },
+  "auth.signup.legal_suffix": { fr: ", qui décrivent notamment nos mesures d'usage et de qualité de service.", en: ", which describe among other things our usage and service-quality measurements." },
   "auth.reset.title": { fr: "Mot de passe oublié", en: "Forgot password" },
   "auth.signin.subtitle": {
     fr: "Accède aux KPI des plus grandes sociétés américaines et européennes.",

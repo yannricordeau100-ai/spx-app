@@ -18,7 +18,7 @@ Any investment, arbitrage or asset-allocation decision is the sole and entire re
 
 ## 0. Identity of the operator and seller
 
-The website www.mettrik.ai and the Mettrik AI brand are operated by R consulting, a sole proprietorship under Swiss law, UID CHE-XXX.XXX.XXX, established at: Leubernstrasse 3, 8280 Kreuzlingen, Switzerland (the "Operator" or "Mettrik AI").
+The website www.mettrik.ai and the Mettrik AI brand are operated by R consulting, a sole proprietorship under Swiss law, UID CHE-281.919.422, established at: Leubernstrasse 3, 8280 Kreuzlingen, Switzerland (the "Operator" or "Mettrik AI").
 
 Contact: by electronic means, at contact@mettrik.ai, allowing rapid contact and direct, effective communication within the meaning of Art. 3 para. 1 lit. s of the Swiss Unfair Competition Act (UCA).
 
@@ -82,6 +82,10 @@ Mettrik AI uses publicly available financial data, mainly extracted from regulat
 Update delay. Even where a "real-time", "live", "up to date" or equivalent label is displayed, data may lag the effective market value by several seconds, minutes or even hours (feed delays, network latency, algorithmic processing, update windows). Mettrik AI does not guarantee strict real-time availability of data.
 
 The user is invited to verify critical data against official sources before any investment decision.
+
+### I.8 Usage and service-quality measurement
+
+For the purposes of operating, securing, billing and improving the service, the Operator collects and analyzes technical and usage data relating to navigation and use of the website and of the communications attached to it (including pages viewed, interactions, technical performance, incidents, and the handling of service emails). This measurement is performed first-party, for the exclusive benefit of the Operator. Its details, the categories of data and the user's rights are set out in the privacy policy, which forms part of the contractual body.
 
 ## Part II · Sale and subscriptions
 
