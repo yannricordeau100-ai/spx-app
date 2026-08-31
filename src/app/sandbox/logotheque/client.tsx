@@ -53,7 +53,7 @@ export function LogothequeClient({ initial }: { initial: ReglagesLogotheque }) {
       if (!r.ok) throw new Error(j?.error ?? "echec");
       rafraichitLogotheque(j.reglages ?? suivant);
       setEtat("ok");
-      setMessage("Enregistré. Actif en production immédiatement.");
+      setMessage("Enregistré. Visible au rechargement suivant, sans redéploiement.");
     } catch (err) {
       setEtat("erreur");
       setMessage(err instanceof Error ? err.message : "échec de l'enregistrement");

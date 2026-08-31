@@ -20,9 +20,12 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   const reglages = await chargeReglagesLogotheque();
+  // Pas de cache : un changement de logo depuis le sandbox doit se voir au
+  // rechargement suivant, pas cinq minutes plus tard. La reponse fait quelques
+  // dizaines d octets, le cout est nul.
   return NextResponse.json(
     { reglages },
-    { headers: { "cache-control": "public, max-age=30, stale-while-revalidate=300" } },
+    { headers: { "cache-control": "no-store" } },
   );
 }
 
