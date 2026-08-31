@@ -63,8 +63,13 @@ def note(m: str) -> None:
 
 
 def sans_accents(t: str) -> str:
+    """Forme canonique pour comparer : sans accents, sans apostrophes ni
+    espaces. Le moteur d origine omettait AUSSI les apostrophes (l iPhone,
+    d affaires) : leur restauration est voulue et ne doit pas etre comptee
+    comme une modification du texte."""
     d = unicodedata.normalize("NFD", t)
-    return "".join(c for c in d if unicodedata.category(c) != "Mn").lower()
+    s = "".join(c for c in d if unicodedata.category(c) != "Mn").lower()
+    return s.replace("'", "").replace("\u2019", "").replace(" ", "")
 
 
 def appelle(prompt: str) -> str:
@@ -84,6 +89,13 @@ def appelle(prompt: str) -> str:
 
 def cibles_enrich(d: dict) -> list[tuple[dict, str]]:
     out = []
+    # Fichiers <t>.events.json : actualites traduites (events_fr uniquement,
+    # la version anglaise n est jamais touchee).
+    for e in d.get("events_fr") or []:
+        if isinstance(e, dict):
+            for c in ("title", "description"):
+                if isinstance(e.get(c), str) and e[c].strip():
+                    out.append((e, c))
     for s in d.get("stories_kpis") or []:
         if isinstance(s, dict):
             for c in CH_STORY:
@@ -132,13 +144,16 @@ def corrige_fichier(p: Path, collecteur) -> str:
     if not couples:
         return "aucun champ"
     liste = [o[c] for o, c in couples]
-    if not any(RX_INDICE.search(t) for t in liste):
-        return "deja accentue"
+    # ACCENTS_FORCE=1 : la selection a deja ete faite en amont par un
+    # detecteur plus riche, on traite sans re-filtrer ici.
+    if os.environ.get("ACCENTS_FORCE") != "1":
+        if not any(RX_INDICE.search(t) for t in liste):
+            return "deja accentue"
 
     prompt = "\n".join([
         "Voici des libelles et des phrases en francais auxquels il manque les accents.",
         "Tu renvoies EXACTEMENT les memes chaines, dans le meme ordre, en ajoutant",
-        "uniquement les accents et cedilles manquants.",
+        "uniquement les accents, cedilles et apostrophes manquants (ex : l iPhone -> l'iPhone, d affaires -> d'affaires).",
         "",
         "INTERDIT : traduire, changer un mot, un chiffre, une unite, une abreviation,",
         "une ponctuation, un ordre, une majuscule. Tu n ajoutes rien, tu ne retires",

@@ -169,6 +169,19 @@ export async function POST(req: NextRequest) {
         ? { discounts: [{ coupon: stripeCouponId }] }
         : { allow_promotion_codes: true }),
       billing_address_collection: "auto",
+      // Yann 1er sept 2026 : case d acceptation des Conditions OBLIGATOIRE au
+      // paiement (les CGU II.4 promettent une case dediee : la voici). Le texte
+      // scelle aussi l execution immediate et la perte du droit de retractation
+      // pour les consommateurs UE/EEE. Necessite l URL des conditions dans
+      // Stripe Dashboard > Settings > Public details > Terms of service
+      // (https://mettrik.ai/legal/conditions).
+      consent_collection: { terms_of_service: "required" },
+      custom_text: {
+        terms_of_service_acceptance: {
+          message:
+            "J'accepte les [Conditions générales](https://mettrik.ai/legal/conditions), je demande l'exécution immédiate du service et je reconnais perdre mon droit de rétractation dès l'ouverture de l'accès payant.",
+        },
+      },
       metadata: {
         user_id: user.id,
         email: user.email ?? "",

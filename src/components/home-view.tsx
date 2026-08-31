@@ -251,7 +251,7 @@ const CITATIONS_BY_LOCALE: Record<string, CitationEntry[]> = {
   fr: [
     {
       quote:
-        "Nous utilisons des KPI non conventionnels.\nLa comptabilité conventionnelle révèle peu de choses sur la véritable performance économique d'une entreprise.",
+        "Nous utilisons des KPI non conventionnels. […]\nLa comptabilité conventionnelle révèle peu de choses sur la véritable performance économique d'une entreprise.",
       openQuote: "«",
       closeQuote: "»",
       author: "Warren Buffett",

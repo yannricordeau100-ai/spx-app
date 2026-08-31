@@ -50,8 +50,13 @@ def note(m: str) -> None:
 
 
 def sans_accents(t: str) -> str:
+    """Forme canonique pour comparer : sans accents, sans apostrophes ni
+    espaces. Le moteur d origine omettait AUSSI les apostrophes (l iPhone,
+    d affaires) : leur restauration est voulue et ne doit pas etre comptee
+    comme une modification du texte."""
     d = unicodedata.normalize("NFD", t)
-    return "".join(c for c in d if unicodedata.category(c) != "Mn").lower()
+    s = "".join(c for c in d if unicodedata.category(c) != "Mn").lower()
+    return s.replace("'", "").replace("\u2019", "").replace(" ", "")
 
 
 def textes(resume: dict) -> list[str]:
@@ -91,13 +96,16 @@ def traite(ticker: str) -> str:
     # Une synthese partiellement accentuee doit etre reprise : l ancienne regle
     # sautait le fichier des que chaque phrase portait un accent quelque part,
     # et laissait "flux de tresorerie disponible" dans une phrase correcte.
-    if not any(RX_INDICE.search(t) for t in liste):
-        return "deja accentue"
+    # ACCENTS_FORCE=1 : la selection a deja ete faite en amont par un
+    # detecteur plus riche, on traite sans re-filtrer ici.
+    if os.environ.get("ACCENTS_FORCE") != "1":
+        if not any(RX_INDICE.search(t) for t in liste):
+            return "deja accentue"
 
     prompt = "\n".join([
         "Voici des phrases en francais auxquelles il manque les accents.",
         "Tu renvoies EXACTEMENT les memes phrases, dans le meme ordre, en ajoutant",
-        "uniquement les accents et cedilles manquants.",
+        "uniquement les accents, cedilles et apostrophes manquants (ex : l iPhone -> l'iPhone, d affaires -> d'affaires).",
         "",
         "INTERDIT : changer un mot, un chiffre, une ponctuation, un ordre, une",
         "majuscule. Tu n ajoutes rien, tu ne retires rien, tu ne reformules rien.",
@@ -117,17 +125,22 @@ def traite(ticker: str) -> str:
     # Comparaison hors accents : le texte doit rester le meme. On tolere au plus
     # deux caracteres d ecart par phrase, ce qui laisse passer une coquille
     # corrigee au passage mais bloque toute reformulation.
+    # Acceptation chaine par chaine : une reformulation isolee est rejetee
+    # seule, les corrections valides des autres phrases sont conservees.
     ecarts = 0
+    rejets = 0
+    retenues = []
     for avant, apres in zip(liste, corrige):
         if not isinstance(apres, str):
-            return "ECHEC type inattendu"
+            retenues.append(avant); rejets += 1; continue
         a, b = sans_accents(avant), sans_accents(apres)
-        if a == b:
-            continue
-        diff = sum(1 for x in difflib.ndiff(a, b) if x[0] != " ")
-        if diff > 2:
-            return f"ECHEC texte modifie ({diff} caracteres d ecart), rejete"
-        ecarts += 1
+        if a != b:
+            diff = sum(1 for x in difflib.ndiff(a, b) if x[0] != " ")
+            if diff > 2:
+                retenues.append(avant); rejets += 1; continue
+            ecarts += 1
+        retenues.append(apres)
+    corrige = retenues
 
     i = 0
     if isinstance(resume.get("tonalite_management"), str):
@@ -136,7 +149,8 @@ def traite(ticker: str) -> str:
         if isinstance(b, dict) and isinstance(b.get("text"), str):
             b["text"] = corrige[i]; i += 1
     p.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf8")
-    return f"accentue ({len(corrige)} phrases" + (f", {ecarts} retouchees)" if ecarts else ")")
+    suffixe = "".join([f", {ecarts} retouchees" if ecarts else "", f", {rejets} rejetees" if rejets else ""])
+    return f"accentue ({len(corrige)} phrases{suffixe})"
 
 
 def main() -> int:

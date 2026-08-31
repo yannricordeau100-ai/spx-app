@@ -62,8 +62,13 @@ def note(m: str) -> None:
 
 
 def sans_accents(t: str) -> str:
+    """Forme canonique pour comparer : sans accents, sans apostrophes ni
+    espaces. Le moteur d origine omettait AUSSI les apostrophes (l iPhone,
+    d affaires) : leur restauration est voulue et ne doit pas etre comptee
+    comme une modification du texte."""
     d = unicodedata.normalize("NFD", t)
-    return "".join(c for c in d if unicodedata.category(c) != "Mn").lower()
+    s = "".join(c for c in d if unicodedata.category(c) != "Mn").lower()
+    return s.replace("'", "").replace("\u2019", "").replace(" ", "")
 
 
 def cibles(donnees: dict) -> list[tuple[dict, str]]:
@@ -120,14 +125,17 @@ def traite(ticker: str) -> str:
     # defaut de la premiere version, qui sautait tout fichier des lors que chaque
     # chaine portait au moins un accent, et laissait passer "flux de tresorerie"
     # au milieu d une phrase par ailleurs correcte.
-    a_corriger = any(RX_INDICE.search(t) for t in liste)
-    if not a_corriger:
-        return "deja accentue"
+    # ACCENTS_FORCE=1 : la selection a deja ete faite en amont par un
+    # detecteur plus riche, on traite sans re-filtrer ici.
+    if os.environ.get("ACCENTS_FORCE") != "1":
+        a_corriger = any(RX_INDICE.search(t) for t in liste)
+        if not a_corriger:
+            return "deja accentue"
 
     prompt = "\n".join([
         "Voici des libelles et des phrases en francais auxquels il manque les accents.",
         "Tu renvoies EXACTEMENT les memes chaines, dans le meme ordre, en ajoutant",
-        "uniquement les accents et cedilles manquants.",
+        "uniquement les accents, cedilles et apostrophes manquants (ex : l iPhone -> l'iPhone, d affaires -> d'affaires).",
         "",
         "INTERDIT : traduire, changer un mot, un chiffre, une unite, une abreviation,",
         "une ponctuation, un ordre, une majuscule. Tu n ajoutes rien, tu ne retires",
@@ -146,17 +154,22 @@ def traite(ticker: str) -> str:
     if not isinstance(corrige, list) or len(corrige) != len(liste):
         return "ECHEC longueur differente"
 
+    # Acceptation chaine par chaine : une reformulation isolee est rejetee
+    # seule, les corrections valides des autres champs sont conservees.
     ecarts = 0
+    rejets = 0
+    retenues = []
     for avant, apres in zip(liste, corrige):
         if not isinstance(apres, str):
-            return "ECHEC type inattendu"
+            retenues.append(avant); rejets += 1; continue
         a, b = sans_accents(avant), sans_accents(apres)
-        if a == b:
-            continue
-        diff = sum(1 for x in difflib.ndiff(a, b) if x[0] != " ")
-        if diff > 2:
-            return f"ECHEC texte modifie ({diff} caracteres d ecart), rejete"
-        ecarts += 1
+        if a != b:
+            diff = sum(1 for x in difflib.ndiff(a, b) if x[0] != " ")
+            if diff > 2:
+                retenues.append(avant); rejets += 1; continue
+            ecarts += 1
+        retenues.append(apres)
+    corrige = retenues
 
     changes = 0
     for (k, champ), valeur in zip(couples, corrige):
@@ -166,7 +179,8 @@ def traite(ticker: str) -> str:
     if not changes:
         return "rien a changer"
     p.write_text(json.dumps(d, ensure_ascii=False, indent=indent) + fin, encoding="utf8")
-    return f"accentue ({changes} champs" + (f", {ecarts} retouches)" if ecarts else ")")
+    suffixe = "".join([f", {ecarts} retouches" if ecarts else "", f", {rejets} rejetes" if rejets else ""])
+    return f"accentue ({changes} champs{suffixe})"
 
 
 def main() -> int:
