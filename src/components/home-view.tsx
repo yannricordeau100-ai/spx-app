@@ -17,6 +17,7 @@ import { HomePopularBlock } from "@/components/home-popular-block";
 import { HomeWowGrid } from "@/components/home-wow-grid";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { useT } from "@/lib/i18n/provider";
+import { LogoMettrik } from "@/components/logo-mettrik";
 
 /**
  * BrandWordmark — wordmark "Mettrik" XL en Fraunces 800 italic, gradient
@@ -78,36 +79,12 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         className="inline-flex items-center justify-center"
       >
-        <span
-          className="wordmark-png-v2 relative block"
-          style={{
-            height: "clamp(96px, 16vw, 220px)",
-            lineHeight: 0,
-            fontSize: 0,
-          }}
-        >
-          {/* BUG FIX (8 juin 2026) : .preserve-colors évite que le filtre
-              global invert() du light theme ne re-inverse le PNG swappé.
-              Sans ça, le PNG black devenait blanc → invisible sur fond
-              clair (lui-même fond sombre inversé). */}
-          <img
-            src="/brand/mettrik-ai-white-purple.png"
-            alt="Mettrik AI"
-            className="wordmark-png-dark preserve-colors block h-full w-auto select-none"
-            draggable={false}
-          />
-          <img
-            src="/brand/mettrik-ai-black-purple.png"
-            alt=""
-            aria-hidden
-            className="wordmark-png-light preserve-colors absolute inset-0 hidden h-full w-auto select-none"
-            draggable={false}
-          />
-          <style>{`
-            html[data-theme="light"] .wordmark-png-dark { display: none; }
-            html[data-theme="light"] .wordmark-png-light { display: block !important; position: static !important; }
-          `}</style>
-        </span>
+        <LogoMettrik
+          emplacement="home"
+          size="lg"
+          showRail={false}
+          hauteurPng="clamp(96px, 16vw, 220px)"
+        />
       </motion.div>
 
       {/* Rail iridescent qui se trace de gauche à droite.

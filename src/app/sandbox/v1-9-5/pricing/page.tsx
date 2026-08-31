@@ -5,7 +5,6 @@ import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { FaqPricing, type FaqPair } from "@/components/billing/faq-pricing";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
-import { BrandWordmark } from "@/components/brand-wordmark";
 import { FloatingLogosBg } from "@/components/billing/floating-logos-bg";
 import { AuthNav } from "@/components/auth-nav";
 import { CurrencyPicker } from "@/components/billing/currency-picker";
@@ -17,6 +16,7 @@ import { translate } from "@/lib/i18n/dictionary";
 import { isDeskOwner } from "@/lib/desk/auth";
 import { LATEST_VERSION_SLUG } from "@/lib/version-routing";
 import V18_TICKERS from "@/data/v1-8-tickers-sorted.json";
+import { LogoMettrik } from "@/components/logo-mettrik";
 
 async function detectCurrency(): Promise<string> {
   try {
@@ -74,7 +74,7 @@ export default async function V195PricingPage() {
           className="group inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-zinc-100"
         >
           <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
-          <BrandWordmark size="sm" animated={false} showRail={false} />
+          <LogoMettrik emplacement="tarifs" size="sm" animated={false} showRail={false} />
         </Link>
         <div className="flex items-center gap-3">
           {showCurrencyPicker && <CurrencyPicker current={currency} />}

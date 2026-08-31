@@ -345,8 +345,23 @@ export async function proxy(request: NextRequest) {
     // Strictement les routes techniques nécessaires au rendu du site lui-même.
     // /api/* nécessaire pour les appels que la page maintenance pourrait faire
     // (analytics, OG image SSR, etc.) et que le runtime Next utilise.
+    // Yann 31 aout 2026 : les FICHIERS STATIQUES manquaient a cette liste.
+    // Consequence visible : sur mettrik.ai, /brand/mettrik-ai-white-purple.png
+    // etait redirige vers la page de maintenance, l image ne se chargeait pas
+    // et la page s affichait sans logo. Tout ce qui porte une extension de
+    // fichier ou vient de /brand, /logos, /_next, /fonts passe desormais.
+    const estFichierStatique =
+      /\.(png|jpe?g|gif|webp|avif|svg|ico|css|js|map|woff2?|ttf|otf|txt|xml|json|pdf|mp4|webm)$/i.test(
+        routePathname,
+      ) ||
+      routePathname.startsWith("/_next/") ||
+      routePathname.startsWith("/brand/") ||
+      routePathname.startsWith("/logos/") ||
+      routePathname.startsWith("/fonts/") ||
+      routePathname.startsWith("/findings/");
     const isTechnicalRoute =
       routePathname.startsWith("/api/") ||
+      estFichierStatique ||
       routePathname === "/favicon.ico" ||
       routePathname === "/robots.txt" ||
       routePathname === "/sitemap.xml";

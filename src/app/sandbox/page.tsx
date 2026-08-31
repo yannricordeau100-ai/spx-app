@@ -259,6 +259,12 @@ const SECTIONS: SandboxSection[] = [
         soon: true,
       },
       {
+        href: "/sandbox/logotheque",
+        icon: Palette,
+        label: "Logothèque",
+        desc: "Tous les logos Mettrik retenus + choix du logo par emplacement (maintenance, home, bouton retour, tarifs…)",
+      },
+      {
         href: "/sandbox/logos-compare",
         icon: ImageIcon,
         label: "Logos",

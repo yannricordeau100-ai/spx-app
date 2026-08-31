@@ -90,7 +90,6 @@ import { BlockComingSoon } from "@/components/block-coming-soon";
 import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 import { BandeauIpoRecente, YoungIpoWarning } from "@/components/young-ipo-warning";
-import { BrandWordmark } from "@/components/brand-wordmark";
 import { CompanyProfileCard } from "@/components/company-profile-card";
 import { RecentIpoPlaceholder, getRecentIpoMeta } from "@/components/recent-ipo-placeholder";
 import { getFiscalAudit, isFiscalShifted, fiscalLabelsForTicker, fiscalQuarterToCalendar } from "@/lib/fiscal-calendar";
@@ -100,6 +99,7 @@ import { verifyAndFix } from "@/lib/chart-spec-verify";
 import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 import type { UserTier } from "@/lib/freemium/context";
+import { LogoMettrik } from "@/components/logo-mettrik";
 
 const VISIBLE_KPI_COUNT = 6;
 
@@ -1036,7 +1036,7 @@ export function CompanyView({
               className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
               aria-label={t("nav.home")}
             >
-              <BrandWordmark size="sm" animated={false} showRail={false} />
+              <LogoMettrik emplacement="retour-societe" size="sm" animated={false} showRail={false} />
               <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
             </Link>
             <PageSearch variant="default" />
@@ -1089,7 +1089,7 @@ export function CompanyView({
             className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
             aria-label={t("nav.home")}
           >
-            <BrandWordmark size="sm" animated={false} showRail={false} />
+            <LogoMettrik emplacement="retour-societe" size="sm" animated={false} showRail={false} />
             <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
           </Link>
           <PageSearch variant="default" />

@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import type { Locale } from "@/lib/i18n/types";
 import { LocaleFlagsRow } from "@/components/locale-flags-row";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LogoMettrik } from "@/components/logo-mettrik";
 // BrandWordmark retiré 3 juin 2026 — remplacé par <img> du logo PNG combined.
 
 type Strings = {
@@ -46,8 +47,12 @@ export function MaintenanceClient({
       />
 
       {/* Contrôles globaux : top-right (theme + langues) */}
+      {/* Yann 31 aout 2026 : sur la page de pre-lancement, le bascule clair /
+          sombre est libre. Il n a rien a voir avec le reste du site, ou le
+          theme clair est reserve aux offres payantes : ici il n y a ni compte
+          ni offre, juste un visiteur qui attend l ouverture. */}
       <div className="absolute right-5 top-5 z-10 flex items-center gap-3">
-        <ThemeToggle />
+        <ThemeToggle paid />
       </div>
 
       {/* Contenu central */}
@@ -67,25 +72,12 @@ export function MaintenanceClient({
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="inline-flex items-center justify-center"
           >
-            <span className="wordmark-png-v2 relative inline-block">
-              <img
-                src="/brand/mettrik-ai-white-purple.png"
-                alt="Mettrik AI"
-                className="wordmark-png-dark preserve-colors block h-auto w-[min(82vw,640px)] select-none"
-                draggable={false}
-              />
-              <img
-                src="/brand/mettrik-ai-black-purple.png"
-                alt=""
-                aria-hidden
-                className="wordmark-png-light preserve-colors absolute inset-0 hidden h-auto w-[min(82vw,640px)] select-none"
-                draggable={false}
-              />
-              <style>{`
-                html[data-theme="light"] .wordmark-png-dark { display: none; }
-                html[data-theme="light"] .wordmark-png-light { display: block !important; position: static !important; }
-              `}</style>
-            </span>
+            <LogoMettrik
+              emplacement="maintenance"
+              size="lg"
+              showRail={false}
+              largeurPng="min(82vw, 640px)"
+            />
           </motion.div>
           {/* Rail iridescent conservé sous le logo */}
           <motion.div
