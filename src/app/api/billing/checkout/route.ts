@@ -179,7 +179,7 @@ export async function POST(req: NextRequest) {
       custom_text: {
         terms_of_service_acceptance: {
           message:
-            "J'accepte les [Conditions générales](https://mettrik.ai/legal/conditions), je demande l'exécution immédiate du service et je reconnais perdre mon droit de rétractation dès l'ouverture de l'accès payant.",
+            "J'accepte les [Conditions générales](https://mettrik.ai/legal/conditions), y compris l'avertissement sur les risques financiers (contenu informatif, pas un conseil en investissement). Je demande l'exécution immédiate du service et je reconnais perdre mon droit de rétractation dès l'ouverture de l'accès payant.",
         },
       },
       metadata: {

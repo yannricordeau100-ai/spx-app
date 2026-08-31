@@ -1,6 +1,5 @@
 import Link from "next/link";
-import {
-  CreditCard,
+import {Rocket, CreditCard,
   FlaskConical,
   Library,
   Sparkles,
@@ -27,8 +26,7 @@ import {
   HelpCircle,
   ScrollText,
   ListChecks,
-  Lock,
-} from "lucide-react";
+  Lock,} from "lucide-react";
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
 import { brand } from "@/lib/brand";
@@ -257,6 +255,12 @@ const SECTIONS: SandboxSection[] = [
         label: "Logo lab",
         desc: "Atelier de génération et validation de logos sté (à venir, pas encore live).",
         soon: true,
+      },
+      {
+        href: "/sandbox/lancement",
+        icon: Rocket,
+        label: "Lancement",
+        desc: "Interrupteur mettrik.ai : page de pré-lancement ou site ouvert, effet en ~20 s sans redéploiement.",
       },
       {
         href: "/sandbox/telemetrie",

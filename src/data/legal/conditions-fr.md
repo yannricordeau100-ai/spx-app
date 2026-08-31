@@ -81,6 +81,8 @@ Mettrik AI utilise des données financières publiquement disponibles, principal
 
 Délai d'actualisation. Même lorsqu'une mention « en temps réel », « live », « à jour » ou équivalente est affichée, les données peuvent comporter un décalage de plusieurs secondes, plusieurs minutes voire plusieurs heures par rapport à la valeur effective sur les marchés (différé de feed, latences réseau, traitements algorithmiques, fenêtres de mise à jour). Mettrik AI ne garantit en aucun cas la disponibilité des données en temps réel strict.
 
+Fournisseurs tiers. Certaines données (cours de bourse, référentiels, logos, flux d'actualité) proviennent de fournisseurs et d'infrastructures tiers. L'Exploitant ne répond ni des interruptions, ni des retards, ni des inexactitudes imputables à ces tiers.
+
 L'utilisateur est invité à vérifier les données critiques auprès des sources officielles avant toute décision d'investissement.
 
 ### I.8 Mesure d'usage et de qualité de service
@@ -93,7 +95,7 @@ Aux fins d'exploitation, de sécurisation, de facturation et d'amélioration du 
 
 Mettrik AI propose les abonnements suivants (prix de référence en euros ; le prix affiché au moment du paiement dans la devise choisie fait seul foi) :
 
-- Free : 0 € / mois. Accès limité.
+- Free : 0 € / mois. Accès limité. Le plan gratuit est une faculté offerte sans contrepartie : son périmètre peut être modifié, restreint ou supprimé à tout moment, sans préavis ni indemnité.
 - Premium mensuel : 29,90 € / mois. Accès complet aux sociétés couvertes, comparaison, watchlists, alertes.
 - Premium annuel : 238,80 € / an. Mêmes fonctionnalités, tarif préférentiel.
 - Max mensuel : 59,90 € / mois. Fonctionnalités étendues.

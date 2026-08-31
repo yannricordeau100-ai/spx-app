@@ -25,6 +25,47 @@ import { NextResponse, type NextRequest } from "next/server";
  *   - /api/* : endpoints API gérés au cas par cas (le proxy ne touche pas)
  *   - /favicon.ico, /robots.txt, /sitemap.xml : assets racine
  */
+// --- Interrupteur maintenance pilote en base (Yann 1er sept 2026) ---
+let maintenanceCache: { valeur: "on" | "off" | "env"; expire: number } = {
+  valeur: "env",
+  expire: 0,
+};
+async function modeMaintenanceEffectif(parEnv: boolean): Promise<boolean> {
+  const maintenant = Date.now();
+  if (maintenant > maintenanceCache.expire) {
+    // Valeur par defaut si la lecture echoue : suivre l env.
+    maintenanceCache = { valeur: "env", expire: maintenant + 20_000 };
+    try {
+      const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const cle = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (url && cle) {
+        const r = await fetch(
+          `${url}/rest/v1/desk_page_content?select=content_fr&page_key=eq.maintenance&section_key=eq.reglages`,
+          {
+            headers: { apikey: cle, Authorization: `Bearer ${cle}` },
+            signal: AbortSignal.timeout(1500),
+          },
+        );
+        if (r.ok) {
+          const lignes = (await r.json()) as { content_fr?: string }[];
+          const brut = lignes?.[0]?.content_fr;
+          if (brut) {
+            const mode = JSON.parse(brut)?.mode;
+            if (mode === "on" || mode === "off" || mode === "env") {
+              maintenanceCache.valeur = mode;
+            }
+          }
+        }
+      }
+    } catch {
+      // silence : l env fait foi
+    }
+  }
+  if (maintenanceCache.valeur === "on") return true;
+  if (maintenanceCache.valeur === "off") return false;
+  return parEnv;
+}
+
 function isPublicPath(pathname: string): boolean {
   if (pathname === "/") return true;
   if (pathname === "/login" || pathname === "/signup") return true;
@@ -337,9 +378,16 @@ export async function proxy(request: NextRequest) {
   const host = (request.headers.get("host") ?? "").toLowerCase();
   const isProdDomain = host === "mettrik.ai" || host === "www.mettrik.ai";
   const maintenanceMode = (process.env.MAINTENANCE_MODE ?? "").toLowerCase();
+  const maintenanceParEnv =
+    maintenanceMode === "on" || maintenanceMode === "true" || maintenanceMode === "1";
+  // Yann 1er sept 2026 : interrupteur de lancement SANS redeploiement.
+  // /sandbox/lancement ecrit (maintenance, reglages) dans desk_page_content ;
+  // le proxy lit ce reglage ici avec un cache memoire de 20 s par instance
+  // edge. "on"/"off" priment sur la variable Vercel, "env" (ou absence de
+  // ligne) = comportement historique. En cas d erreur reseau : la variable
+  // d environnement fait foi, le site ne casse jamais.
   const isMaintenanceOn =
-    isProdDomain &&
-    (maintenanceMode === "on" || maintenanceMode === "true" || maintenanceMode === "1");
+    isProdDomain && (await modeMaintenanceEffectif(maintenanceParEnv));
   if (isMaintenanceOn) {
     const isMaintenancePage = routePathname === "/maintenance";
     // Strictement les routes techniques nécessaires au rendu du site lui-même.

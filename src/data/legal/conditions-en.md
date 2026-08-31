@@ -81,6 +81,8 @@ Mettrik AI uses publicly available financial data, mainly extracted from regulat
 
 Update delay. Even where a "real-time", "live", "up to date" or equivalent label is displayed, data may lag the effective market value by several seconds, minutes or even hours (feed delays, network latency, algorithmic processing, update windows). Mettrik AI does not guarantee strict real-time availability of data.
 
+Third-party providers. Some data (stock prices, reference data, logos, news feeds) comes from third-party providers and infrastructures. The Operator is not liable for interruptions, delays or inaccuracies attributable to such third parties.
+
 The user is invited to verify critical data against official sources before any investment decision.
 
 ### I.8 Usage and service-quality measurement
@@ -93,7 +95,7 @@ For the purposes of operating, securing, billing and improving the service, the 
 
 Mettrik AI offers the following subscriptions (reference prices in euros; the price displayed at checkout in the selected currency alone is binding):
 
-- Free: €0 / month. Limited access.
+- Free: €0 / month. Limited access. The free plan is offered without consideration: its scope may be modified, restricted or withdrawn at any time, without notice or compensation.
 - Premium monthly: €29.90 / month. Full access to covered companies, comparison, watchlists, alerts.
 - Premium annual: €238.80 / year. Same features, preferential rate.
 - Max monthly: €59.90 / month. Extended features.
