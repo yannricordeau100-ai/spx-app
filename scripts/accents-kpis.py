@@ -39,18 +39,22 @@ ACCENTS = "àâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ"
 # signal qu une chaine est a corriger. Liste indicative : elle sert seulement a
 # decider s il faut appeler le moteur, jamais a reecrire quoi que ce soit.
 INDICES = (
-    "resultat|resultats|operationnel|operationnelle|operationnels|tresorerie|"
-    "benefice|benefices|activite|activites|capacite|capacites|reseau|reseaux|"
-    "depenses|developpement|remuneration|rentabilite|amelioration|marche|marches|"
-    "donnees|unites|vehicules|energie|realise|realises|generee|generes|livrees|"
-    "electrique|electriques|securite|sante|numerique|systemes|penetration|"
-    "frequentation|abonnes|adherents|fidelite|clientele|cumulee|cumulees|cumules|"
-    "deployes|integres|geree|gerees|gere|equipements|equipes|reglementaire|"
-    "sequentielle|expose|exposee|periode|periodes|reserve|reserves|societe|"
-    "societes|strategie|strategique|qualite|proprietaire|immobilier|degre|"
-    "interet|interets|creances|beneficiaire|croissance|prevision|previsions"
+    "resultat|resultats|operationnel|operationnelle|operationnels|operationnelles|"
+    "tresorerie|benefice|benefices|activite|activites|capacite|capacites|reseau|reseaux|"
+    "depenses|developpement|remuneration|rentabilite|amelioration|donnees|unites|vehicules|"
+    "energie|realise|realises|realisee|realisees|electrique|electriques|securite|sante|"
+    "numerique|systemes|penetration|frequentation|abonnes|adherents|fidelite|clientele|"
+    "cumule|cumulee|cumulees|cumules|deploye|deployes|integre|integres|equipements|equipes|"
+    "periode|periodes|societe|societes|strategie|strategique|strategiques|qualite|interet|"
+    "interets|creances|prevision|previsions|marche|marches|recurrent|recurrents|recurrente|"
+    "publie|publies|publiee|acceleration|accelere|applique|appliques|generee|generes|livrees|"
+    "reserve|reserves|reservations|reservees|beneficiaire|proprietaire|degre|geree|gerees|"
+    "geres|reglementaire|sequentielle|expose|exposee|employes|ingenieurs|methodes|consecutifs|"
+    "priorites|cle|cles|ajuste|ajustee|geopolitique|enchainent|nuitees|elevee|eleve|operateur|"
+    "operateurs|decembre|fevrier|aout"
 )
-RX_INDICE = re.compile(r"\b(" + INDICES + r")\b", re.I)
+# Sensible a la casse : on cherche le mot ECRIT SANS accent.
+RX_INDICE = re.compile(r"\b(" + INDICES + r")\b")
 
 
 def note(m: str) -> None:
@@ -112,9 +116,11 @@ def traite(ticker: str) -> str:
     liste = [k[c] for k, c in couples]
     # On n appelle le moteur que si au moins une chaine sans accent contient un
     # mot francais qui devrait en porter un.
-    a_corriger = any(
-        not any(a in t for a in ACCENTS) and RX_INDICE.search(t) for t in liste
-    )
+    # Un fichier partiellement accentue doit etre traite lui aussi : c est le
+    # defaut de la premiere version, qui sautait tout fichier des lors que chaque
+    # chaine portait au moins un accent, et laissait passer "flux de tresorerie"
+    # au milieu d une phrase par ailleurs correcte.
+    a_corriger = any(RX_INDICE.search(t) for t in liste)
     if not a_corriger:
         return "deja accentue"
 
