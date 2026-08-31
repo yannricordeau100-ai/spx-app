@@ -6,6 +6,7 @@ import { getServerLocale } from "@/lib/i18n/server";
 import { UserPrefsSync } from "@/components/user-prefs-sync";
 import { AdminFloatingPanel } from "@/components/admin-floating-panel";
 import "./globals.css";
+import { TelemetrieCollecteur } from "@/components/telemetrie-collecteur";
 
 // Manrope = body/UI
 const sans = Manrope({
@@ -132,6 +133,9 @@ export default async function RootLayout({
           {children}
         </I18nProvider>
         <UserPrefsSync />
+        {/* Telemetrie premiere partie (Yann 31 aout 2026) : pages vues, clics,
+            erreurs, latence API. Interrupteur global dans /sandbox/telemetrie. */}
+        <TelemetrieCollecteur />
         <PlausibleScript />
         {/* Panel admin bottom-right (niveaux 1/2/3 uniquement). Intègre
             l'indicateur de niveau (orange/violet/gris) + 3 dropdowns :

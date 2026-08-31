@@ -8,9 +8,9 @@ En accédant au site ou en souscrivant à un abonnement, vous reconnaissez avoir
 
 ## ⚠️ Avertissement essentiel : à lire avant tout usage du site
 
-Mettrik AI publie des indicateurs financiers (KPIs), scores composites, classements, signaux comparatifs, interprétations éditoriales et accroches marketing à titre purement informatif. AUCUN contenu publié sur le site (sans exception : page d'accueil, fiches sociétés, comparaisons, accroches publicitaires, FAQ, emails de bienvenue, communications marketing, classements thématiques) ne constitue un conseil en investissement, ni une recommandation personnalisée d'investissement, ni une sollicitation à l'achat ou à la vente d'instruments financiers, ni une assertion de fait sur la valeur intrinsèque d'une société, au sens du droit liechtensteinois comme de toute autre législation applicable à l'utilisateur.
+Mettrik AI publie des indicateurs financiers (KPIs), scores composites, classements, signaux comparatifs, interprétations éditoriales et accroches marketing à titre purement informatif. AUCUN contenu publié sur le site (sans exception : page d'accueil, fiches sociétés, comparaisons, accroches publicitaires, FAQ, emails de bienvenue, communications marketing, classements thématiques) ne constitue un conseil en investissement, ni une recommandation personnalisée d'investissement, ni une sollicitation à l'achat ou à la vente d'instruments financiers, ni une assertion de fait sur la valeur intrinsèque d'une société, au sens du droit suisse comme de toute autre législation applicable à l'utilisateur.
 
-L'exploitant n'est ni une entreprise d'investissement, ni un gestionnaire de fortune, ni un conseiller en placement au sens de la législation liechtensteinoise sur les marchés financiers, et n'est soumis à aucune surveillance prudentielle de l'Autorité des marchés financiers du Liechtenstein (FMA). Le service est un service d'information et de presse éditoriale, pas un service financier.
+L'exploitant n'est ni une entreprise d'investissement, ni un gestionnaire de fortune, ni un conseiller en placement au sens de la législation suisse sur les marchés financiers (LSFin, LEFin), et n'est soumis à aucune surveillance prudentielle de la FINMA. Le service est un service d'information et de presse éditoriale, pas un service financier.
 
 Les chaînes d'extraction automatisée et de traitement algorithmique utilisées par Mettrik AI peuvent comporter, malgré les contrôles successifs mis en œuvre, des erreurs, omissions, retards ou imprécisions indépendantes de la volonté de l'exploitant (mauvaise interprétation d'un PDF, erreur OCR, ambiguïté d'un libellé source, valeur manquante, retard de mise à jour). Toute donnée affichée doit être systématiquement vérifiée auprès de la source officielle citée avant tout usage engageant.
 
@@ -18,9 +18,9 @@ Toute décision d'investissement, d'arbitrage ou d'allocation patrimoniale relè
 
 ## 0. Identité de l'exploitant et du vendeur
 
-Le site www.mettrik.ai et la marque Mettrik AI sont exploités par R consulting, entreprise individuelle de droit liechtensteinois, établie à l'adresse : Aeulestrasse 74, 9490 Vaduz, Liechtenstein (ci-après « l'Exploitant » ou « Mettrik AI »).
+Le site www.mettrik.ai et la marque Mettrik AI sont exploités par R consulting, entreprise individuelle de droit suisse, IDE CHE-XXX.XXX.XXX, établie à l'adresse : Leubernstrasse 3, 8280 Kreuzlingen, Suisse (ci-après « l'Exploitant » ou « Mettrik AI »).
 
-Contact : par voie électronique exclusivement, à l'adresse contact@mettrik.ai. Cette voie de contact permet une prise de contact rapide et une communication directe et efficace au sens de la législation liechtensteinoise sur le commerce électronique.
+Contact : par voie électronique, à l'adresse contact@mettrik.ai, qui permet une prise de contact rapide et une communication directe et efficace au sens de l'art. 3 al. 1 let. s LCD.
 
 La facturation et l'encaissement des abonnements souscrits sur www.mettrik.ai sont assurés par R consulting. Les prix affichés sont des prix nets ; aucune TVA n'est facturée en sus.
 
@@ -32,19 +32,19 @@ Mettrik AI est une plateforme d'intelligence KPI (« KPI Intelligence ») destin
 
 Le service propose une analyse synthétique d'indicateurs clés de performance des sociétés cotées en bourse, extraits de leurs publications financières officielles, enrichis par des méthodologies de scoring propriétaires (Super KPIs, indicateurs composites, scores de qualité, scores de risque).
 
-Statut éditorial. Les contenus diffusés sur Mettrik AI constituent des opinions éditoriales, protégées par la liberté d'expression et la liberté des médias garanties par la Constitution du Liechtenstein et par l'article 10 de la Convention européenne des droits de l'homme. Ils ne constituent ni un conseil en investissement, ni une recommandation personnalisée d'achat ou de vente d'instruments financiers, ni une sollicitation à investir.
+Statut éditorial. Les contenus diffusés sur Mettrik AI constituent des opinions éditoriales, protégées par la liberté d'expression et la liberté des médias garanties par la Constitution fédérale suisse (art. 16 et 17 Cst.) et par l'article 10 de la Convention européenne des droits de l'homme. Ils ne constituent ni un conseil en investissement, ni une recommandation personnalisée d'achat ou de vente d'instruments financiers, ni une sollicitation à investir.
 
 Les performances passées ne préjugent pas des performances futures. Toute décision d'investissement relève de la seule responsabilité de l'utilisateur.
 
 ### I.2 Qualification de l'utilisateur (particulier ou professionnel)
 
-Lors de la création du compte ou de la souscription, l'utilisateur indique sa qualité : particulier (consommateur au sens de la loi liechtensteinoise sur la protection des consommateurs, KSchG) ou professionnel (personne agissant dans le cadre de son activité professionnelle ou commerciale).
+Lors de la création du compte ou de la souscription, l'utilisateur indique sa qualité : particulier (consommateur) ou professionnel (personne agissant dans le cadre de son activité professionnelle ou commerciale).
 
 La qualité professionnel est sélectionnée par défaut, reflétant la cible principale du service.
 
 Cette qualification détermine les régimes applicables :
 
-- Particuliers (B2C) : application des dispositions impératives de protection des consommateurs qui leur bénéficient (droit liechtensteinois et, le cas échéant, dispositions impératives de leur État de résidence habituelle), y compris le régime du droit de rétractation détaillé à l'article II.4.
+- Particuliers (B2C) : application des dispositions impératives de protection des consommateurs qui leur bénéficient (le cas échéant, les dispositions impératives de leur État de résidence habituelle), y compris le régime décrit à l'article II.4.
 - Professionnels (B2B) : aucune des protections consommateur ne s'applique ; les présentes Conditions s'appliquent dans leur intégralité sans tempérament.
 
 ### I.3 Accès au service
@@ -111,11 +111,11 @@ La résiliation est possible à tout moment depuis l'espace personnel utilisateu
 
 Résolution unilatérale par Mettrik AI. Mettrik AI se réserve le droit de résilier unilatéralement et sans préavis tout abonnement en cas (a) d'impayé, (b) de violation des présentes Conditions, (c) d'usage frauduleux, abusif ou non conforme du service, (d) de partage avéré du compte, (e) d'usage de VPN ou de moyens d'anonymisation, (f) d'extraction automatisée ou d'usage IA non autorisé, (g) de contestation, charge-back ou litige bancaire, (h) de toute autre situation portant atteinte à Mettrik AI ou à ses autres abonnés. La résiliation unilatérale ne donne droit à aucun remboursement.
 
-### II.4 Droit de rétractation et son extinction (exécution immédiate)
+### II.4 Absence de droit de rétractation (exécution immédiate)
 
-Le consommateur dispose en principe d'un droit de rétractation de 14 jours pour les contrats conclus à distance, conformément à la législation liechtensteinoise sur la protection des consommateurs et le commerce à distance.
+Le droit suisse ne prévoit aucun droit de rétractation général pour les achats en ligne : la souscription est ferme dès la confirmation du paiement.
 
-Toutefois, le service Mettrik AI est un service numérique dont l'exécution commence immédiatement à la souscription : l'accès complet aux contenus payants est ouvert dès la confirmation du paiement. En cochant la case dédiée au moment du paiement, l'utilisateur (a) demande expressément l'exécution immédiate du service avant l'expiration du délai de rétractation et (b) reconnaît perdre son droit de rétractation dès que l'exécution a commencé. En conséquence, aucun droit de rétractation ne peut plus être exercé après l'ouverture de l'accès payant.
+Pour les consommateurs résidant dans un État qui leur reconnaît impérativement un droit de rétractation à distance (Union européenne, EEE), le service Mettrik AI est un service numérique dont l'exécution commence immédiatement à la souscription : l'accès complet aux contenus payants est ouvert dès la confirmation du paiement. En cochant la case dédiée au moment du paiement, l'utilisateur (a) demande expressément l'exécution immédiate du service avant l'expiration du délai de rétractation et (b) reconnaît perdre son droit de rétractation dès que l'exécution a commencé. En conséquence, aucun droit de rétractation ne peut plus être exercé après l'ouverture de l'accès payant.
 
 Cette extinction est rappelée explicitement au moment du paiement. Le droit de rétractation ne s'applique en aucun cas aux professionnels.
 
@@ -134,7 +134,7 @@ Une facture est émise automatiquement à chaque échéance d'abonnement et envo
 Les contenus présentés sur Mettrik AI sont de deux natures :
 
 - Données primaires sources : chiffres financiers, déclarations, faits relatifs aux sociétés cotées analysées, issus de publications officielles (rapports annuels, trimestriels, communiqués réglementaires). Ces données restent la propriété de leurs auteurs respectifs.
-- Contenus générés et travaillés par Mettrik AI : méthodologies de scoring, indicateurs composites, interprétations éditoriales, analyses comparatives, scores de qualité, scores de risque, classements, agrégations, visualisations. Ces contenus sont la propriété exclusive de l'Exploitant, protégés par la loi liechtensteinoise sur le droit d'auteur et les droits voisins (URG), y compris la protection des bases de données, ainsi que par les conventions internationales applicables.
+- Contenus générés et travaillés par Mettrik AI : méthodologies de scoring, indicateurs composites, interprétations éditoriales, analyses comparatives, scores de qualité, scores de risque, classements, agrégations, visualisations. Ces contenus sont la propriété exclusive de l'Exploitant, protégés par la loi fédérale suisse sur le droit d'auteur et les droits voisins (LDA), par les règles réprimant l'exploitation parasitaire d'une prestation d'autrui (art. 5 LCD), ainsi que par les conventions internationales applicables.
 
 Œuvres dérivées cumulatives. Chaque mise à jour algorithmique, méthodologique ou éditoriale constitue une œuvre dérivée nouvelle protégée de manière cumulative. La fin de l'abonnement ne donne aucun droit d'usage sur les versions accédées historiquement.
 
@@ -161,7 +161,7 @@ Incessibilité. Le compte utilisateur, l'abonnement et tous les droits qui en d�
 
 ### III.3 Statut éditorial des contenus diffusés
 
-Les scores, classements, interprétations, indicateurs composites (Super KPIs), comparaisons, signaux et tout contenu produit par Mettrik AI constituent des opinions éditoriales, protégées par la liberté d'expression et la liberté des médias (Constitution du Liechtenstein ; article 10 CEDH).
+Les scores, classements, interprétations, indicateurs composites (Super KPIs), comparaisons, signaux et tout contenu produit par Mettrik AI constituent des opinions éditoriales, protégées par la liberté d'expression et la liberté des médias (art. 16 et 17 de la Constitution fédérale suisse ; article 10 CEDH).
 
 Ces contenus ne constituent ni une recommandation personnalisée d'investissement, ni une assertion de fait, ni un conseil financier soumis à agrément. Ils sont fournis à titre purement informatif et reflètent l'analyse éditoriale de Mettrik AI à un instant donné.
 
@@ -179,7 +179,7 @@ Force majeure étendue. Constituent des cas de force majeure exonératoires : cy
 
 ### III.5 Sous-traitants
 
-Pour le traitement des paiements, Mettrik AI fait appel à Stripe, conforme aux normes PCI-DSS Level 1 et au Règlement (UE) 2016/679 (RGPD), applicable au Liechtenstein en tant que membre de l'Espace économique européen. Stripe est autonome dans le traitement des données bancaires confiées par l'utilisateur lors du paiement.
+Pour le traitement des paiements, Mettrik AI fait appel à Stripe, conforme aux normes PCI-DSS Level 1, à la loi fédérale suisse sur la protection des données (LPD) et au Règlement (UE) 2016/679 (RGPD) pour les utilisateurs de l'EEE. Stripe est autonome dans le traitement des données bancaires confiées par l'utilisateur lors du paiement.
 
 Pour tout autre traitement technique nécessaire au fonctionnement du service, Mettrik AI peut faire appel à des sous-traitants sélectionnés selon les critères de l'article 28 du RGPD. Mettrik AI se réserve le droit de modifier librement la liste de ces sous-traitants sans préavis individuel, sous réserve de maintenir un niveau de protection équivalent ou supérieur.
 
@@ -193,9 +193,9 @@ Toute réclamation est adressée par écrit à contact@mettrik.ai. L'Exploitant 
 
 ### III.8 Droit applicable et juridiction
 
-Les présentes Conditions sont régies par le droit de la Principauté de Liechtenstein, à l'exclusion de ses règles de conflit de lois et de la Convention de Vienne sur la vente internationale de marchandises.
+Les présentes Conditions sont régies par le droit suisse, à l'exclusion de ses règles de conflit de lois et de la Convention de Vienne sur la vente internationale de marchandises.
 
-- Pour les professionnels : compétence exclusive des tribunaux ordinaires de Vaduz (Principauté de Liechtenstein), même en cas de pluralité de défendeurs ou d'appel en garantie.
-- Pour les particuliers : la compétence des tribunaux de Vaduz s'applique sous réserve des dispositions impératives de compétence protégeant le consommateur dans son État de résidence habituelle ; le choix du droit liechtensteinois ne prive pas le consommateur de la protection des dispositions impératives du droit de son État de résidence habituelle.
+- Pour les professionnels : compétence exclusive des tribunaux ordinaires du siège de l'Exploitant (Kreuzlingen, canton de Thurgovie, Suisse), même en cas de pluralité de défendeurs ou d'appel en garantie.
+- Pour les particuliers : la compétence des tribunaux du siège de l'Exploitant s'applique sous réserve des dispositions impératives de compétence protégeant le consommateur dans son État de résidence habituelle ; le choix du droit suisse ne prive pas le consommateur de la protection des dispositions impératives du droit de son État de résidence habituelle.
 
 Si une stipulation des présentes Conditions est jugée nulle ou inapplicable, elle est réputée remplacée par la stipulation valable la plus proche de l'intention initiale, et les autres stipulations demeurent pleinement en vigueur.

@@ -259,6 +259,12 @@ const SECTIONS: SandboxSection[] = [
         soon: true,
       },
       {
+        href: "/sandbox/telemetrie",
+        icon: Activity,
+        label: "Télémétrie",
+        desc: "Toutes les métriques d'usage première partie : audience, pages, clics, pays, erreurs, latence API, emails. Interrupteur global.",
+      },
+      {
         href: "/sandbox/logotheque",
         icon: Palette,
         label: "Logothèque",
