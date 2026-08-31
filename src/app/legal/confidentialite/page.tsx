@@ -13,14 +13,14 @@ const STR = {
     intro_1_a: "La présente politique de confidentialité décrit la manière dont Mettrik AI collecte, utilise, conserve et protège vos données personnelles dans le cadre de l'utilisation du site",
     intro_site: "www.mettrik.ai",
     intro_1_b: "et de ses services.",
-    intro_2: "Cette politique est conforme au Règlement Général sur la Protection des Données (RGPD - Règlement UE 2016/679) et, le cas échéant, à la Loi fédérale suisse sur la protection des données (LPD).",
+    intro_2: "Cette politique est conforme au Règlement Général sur la Protection des Données (RGPD - Règlement UE 2016/679), applicable au Liechtenstein en tant que membre de l'Espace économique européen, et à la loi liechtensteinoise sur la protection des données (DSG).",
     s1_title: "1. Responsable du traitement",
     s1_p1_a: "Le responsable du traitement de vos données personnelles est",
-    s1_p1_b: "AIRSCAPE",
-    s1_p1_c: "(exploitant la marque",
+    s1_p1_b: "R consulting",
+    s1_p1_c: ", entreprise individuelle de droit liechtensteinois (exploitant la marque",
     s1_p1_d: "Mettrik AI",
-    s1_p1_e: "), siège social au",
-    s1_p1_addr: "60 rue François 1er, 75008 Paris, France",
+    s1_p1_e: "), établie au",
+    s1_p1_addr: "Aeulestrasse 74, 9490 Vaduz, Liechtenstein",
     s1_p1_f: ".",
     s1_dpo_label: "Délégué à la Protection des Données (DPO) :",
     s2_title: "2. Données collectées",
@@ -87,9 +87,9 @@ const STR = {
     s7_li7_t: "à tout moment pour les traitements basés sur le consentement.",
     s7_p_contact_a: "Pour exercer ces droits, contactez :",
     s7_p_contact_b: ". Mettrik AI vous répondra dans un délai maximum de 30 jours.",
-    s7_p_cnil_a: "Vous disposez également du droit d'introduire une réclamation auprès de la Commission Nationale de l'Informatique et des Libertés (CNIL,",
-    s7_p_cnil_b: ") en France, ou du Préposé fédéral à la protection des données (",
-    s7_p_cnil_c: ") en Suisse.",
+    s7_p_cnil_a: "Vous disposez également du droit d'introduire une réclamation auprès de l'autorité de protection des données du Liechtenstein, la Datenschutzstelle (",
+    s7_p_cnil_b: "), ou auprès de l'autorité de contrôle de votre État de résidence dans l'Espace économique européen (",
+    s7_p_cnil_c: ").",
     s8_title: "8. Cookies et traceurs",
     s8_p1: "Mettrik AI utilise un nombre minimal de cookies, strictement nécessaires au fonctionnement du service (cookies de session, cookies d'authentification). Aucun cookie publicitaire ou de profilage n'est utilisé.",
     s8_p2_a: "Pour les statistiques d'audience, Mettrik AI utilise",
@@ -106,14 +106,14 @@ const STR = {
     intro_1_a: "This privacy policy describes how Mettrik AI collects, uses, retains and protects your personal data in connection with your use of the website",
     intro_site: "www.mettrik.ai",
     intro_1_b: "and its services.",
-    intro_2: "This policy complies with the General Data Protection Regulation (GDPR - EU Regulation 2016/679) and, where applicable, with the Swiss Federal Act on Data Protection (FADP).",
+    intro_2: "This policy complies with the General Data Protection Regulation (GDPR - EU Regulation 2016/679), applicable in Liechtenstein as a member of the European Economic Area, and with the Liechtenstein Data Protection Act (DSG).",
     s1_title: "1. Data Controller",
     s1_p1_a: "The controller of your personal data is",
-    s1_p1_b: "AIRSCAPE",
-    s1_p1_c: "(operating the brand",
+    s1_p1_b: "R consulting",
+    s1_p1_c: ", a sole proprietorship under Liechtenstein law (operating the brand",
     s1_p1_d: "Mettrik AI",
-    s1_p1_e: "), with registered office at",
-    s1_p1_addr: "60 rue François 1er, 75008 Paris, France",
+    s1_p1_e: "), established at",
+    s1_p1_addr: "Aeulestrasse 74, 9490 Vaduz, Liechtenstein",
     s1_p1_f: ".",
     s1_dpo_label: "Data Protection Officer (DPO):",
     s2_title: "2. Data Collected",
@@ -180,9 +180,9 @@ const STR = {
     s7_li7_t: "at any time for processing based on consent.",
     s7_p_contact_a: "To exercise these rights, contact:",
     s7_p_contact_b: ". Mettrik AI will respond within a maximum of 30 days.",
-    s7_p_cnil_a: "You also have the right to lodge a complaint with the CNIL (French data protection authority,",
-    s7_p_cnil_b: ") in France, or with the Federal Data Protection and Information Commissioner (",
-    s7_p_cnil_c: ") in Switzerland.",
+    s7_p_cnil_a: "You also have the right to lodge a complaint with the Liechtenstein data protection authority, the Datenschutzstelle (",
+    s7_p_cnil_b: "), or with the supervisory authority of your state of residence within the European Economic Area (",
+    s7_p_cnil_c: ").",
     s8_title: "8. Cookies and Trackers",
     s8_p1: "Mettrik AI uses a minimal number of cookies, strictly necessary for the operation of the service (session cookies, authentication cookies). No advertising or profiling cookies are used.",
     s8_p2_a: "For audience statistics, Mettrik AI uses",
@@ -288,8 +288,8 @@ export default async function ConfidentialitePage() {
           {t.s7_p_contact_b}
         </p>
         <p>
-          {t.s7_p_cnil_a} <a href="https://www.cnil.fr" className="text-violet-300 hover:underline">www.cnil.fr</a>
-          {t.s7_p_cnil_b}<a href="https://www.edoeb.admin.ch" className="text-violet-300 hover:underline">www.edoeb.admin.ch</a>
+          {t.s7_p_cnil_a}<a href="https://www.datenschutzstelle.li" className="text-violet-300 hover:underline">www.datenschutzstelle.li</a>
+          {t.s7_p_cnil_b}<a href="https://www.edpb.europa.eu/about-edpb/about-edpb/members_fr" className="text-violet-300 hover:underline">liste des autorités EEE</a>
           {t.s7_p_cnil_c}
         </p>
       </LegalSection>

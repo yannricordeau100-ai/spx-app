@@ -174,7 +174,7 @@ export function PricingCards({
       </div>
 
       {/* Yann 9 mai 2026 : retire "Tous les plans payants : 30 jours satisfait
-          ou remboursé. TVA incluse, facturation par R consulting (Suisse)." */}
+          ou remboursé. TVA incluse, facturation par R consulting (Liechtenstein)." */}
 
       {/* Code promo en bas de page (best practice US 2024) : afficher
           uniquement aux utilisateurs ayant scrollé = déjà engagés. Évite

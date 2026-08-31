@@ -911,8 +911,8 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
     de: "Kein Verkauf deiner Daten",
     nl: "Geen doorverkoop van je gegevens" },
   "pricing.trust3_body": {
-    de: "Deine Daten bleiben in Europa. DSGVO-konform. Abrechnung durch R consulting (Schweiz).",
-    nl: "Je gegevens blijven in Europa. AVG-conform. Facturatie door R consulting (Zwitserland)." },
+    de: "Deine Daten bleiben in Europa. DSGVO-konform. Abrechnung durch R consulting (Liechtenstein).",
+    nl: "Je gegevens blijven in Europa. AVG-conform. Facturatie door R consulting (Liechtenstein)." },
   "pricing.trust3_title": {
     de: "Hosting in Europa",
     nl: "Europese hosting" },

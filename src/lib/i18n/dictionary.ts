@@ -793,7 +793,7 @@ export const DICTIONARY: Dict = {
     en: "Does Mettrik AI tell me what to buy or sell?",
   },
   "faq.a.advice": {
-    fr: "Non, jamais. Mettrik AI n'est pas un service de conseil en investissement au sens de l'article L. 541-1 du Code monétaire et financier. Tous les contenus présentés (KPIs, scores, classements, signaux comparatifs, interprétations, accroches marketing) sont publiés à titre purement informatif et n'ont pas vocation à orienter une décision d'achat, de vente ou de conservation d'un instrument financier. Toute décision d'investissement relève de ta seule responsabilité ou de celle de ton conseiller habilité.",
+    fr: "Non, jamais. Mettrik AI n'est pas un service de conseil en investissement et n'est soumis à aucune surveillance prudentielle. Tous les contenus présentés (KPIs, scores, classements, signaux comparatifs, interprétations, accroches marketing) sont publiés à titre purement informatif et n'ont pas vocation à orienter une décision d'achat, de vente ou de conservation d'un instrument financier. Toute décision d'investissement relève de ta seule responsabilité ou de celle de ton conseiller habilité.",
     en: "No, never. Mettrik AI is not an investment advisory service. All content shown (KPIs, scores, rankings, peer signals, interpretations, marketing copy) is published for informational purposes only and is not intended to guide a buy, sell or hold decision on any financial instrument. Every investment decision is your sole responsibility, or that of your licensed advisor.",
   },
   "faq.q.scores_trust": {
