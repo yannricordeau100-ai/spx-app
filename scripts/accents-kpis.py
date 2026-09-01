@@ -31,7 +31,8 @@ from pathlib import Path
 RACINE = Path(__file__).resolve().parents[1]
 DOSSIER = RACINE / ".batches-drafts-safe" / "kpis-haut"
 # Champs francais affiches. name_en est volontairement exclu.
-CHAMPS = ("name_fr", "short", "unit", "signal")
+# short est un IDENTIFIANT (cle de hero, overrides, dedup) : ne JAMAIS y toucher.
+CHAMPS = ("name_fr", "unit", "signal")
 
 ACCENTS = "àâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ"
 
