@@ -57,6 +57,17 @@ export function formatChartValueLabel(
   }
   const abs = Math.abs(v);
   const maxAbs = Math.abs(dataMax);
+  // Yann 1er sept 2026 (screen Ray-Ban "1 / 1 / 7") : une serie dont le pic
+  // est entre 1 et 10 s affiche TOUJOURS avec une decimale (1,0 / 7,0), sur
+  // les barres comme sur les points. Cette regle PRIME sur la regle
+  // serie-entiere du 28 aout (PLTR "25,0 pays"), qui ne s applique plus que
+  // lorsque le pic atteint 10 ou plus.
+  if (maxAbs > 1 && maxAbs < 10) {
+    return v.toLocaleString(numLoc, {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    });
+  }
   // Yann 24 aout 2026 (screen NEE "6,3 k" sous un axe "MW") : le compact "k"
   // n a de sens que sur une unite monetaire ou une magnitude nue. Sur une
   // unite physique (MW, GWh, tonnes, unites, abonnes...) il se lit comme un
