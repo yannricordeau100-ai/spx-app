@@ -65,7 +65,7 @@ export async function AuthNav({ scope = "home" }: { scope?: "home" | "company" }
   }
 
   return (
-    <div className="flex items-center gap-1.5 sm:gap-3">
+    <div className="flex flex-wrap items-center justify-end gap-1.5 sm:flex-nowrap sm:justify-start sm:gap-3">
       <LanguageSwitcher />
       <Link href="/?auth=signin" className="group relative inline-block" aria-label={t("authnav.signin")}>
         <span
