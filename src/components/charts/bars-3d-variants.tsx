@@ -236,10 +236,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const header = axisHeader(headerUnit, effectiveLocale);
   // Yann 15 mai 2026 : précision adaptative Y axis pour éviter doublons.
   const intRounded = ticks.map((v) => Math.round(v));
-  // Yann 1er sept 2026 : tick max entre 1 et 10 -> decimale obligatoire.
-  const maxTick = Math.max(...ticks.map((t) => Math.abs(t)), 0);
-  const needsDecimal =
-    new Set(intRounded).size < ticks.length || (maxTick > 1 && maxTick < 10);
+  const needsDecimal = new Set(intRounded).size < ticks.length;
   const tickLoc = effectiveLocale === "en" ? "en-US" : "fr-FR";
   const formatTick = (v: number): string =>
     needsDecimal

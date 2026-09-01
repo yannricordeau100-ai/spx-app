@@ -133,10 +133,7 @@ export function BarsChart({
   const intTicks = isCurrencyLike(unit);
   // Yann 15 mai 2026 : précision adaptative pour éviter doublons "29, 29".
   const intRounded = tickValues.map((v) => Math.round(v));
-  const maxTick = Math.max(...tickValues.map((t) => Math.abs(t)), 0);
-  const needsDecimal =
-    (intTicks && new Set(intRounded).size < tickValues.length) ||
-    (maxTick > 1 && maxTick < 10);
+  const needsDecimal = intTicks && new Set(intRounded).size < tickValues.length;
   const formatTick = (v: number): string => {
     if (needsDecimal) {
       return (Math.round(v * 10) / 10).toLocaleString("fr-FR", {

@@ -107,10 +107,6 @@ function formatYTick(v: number, unit: string, decimals?: number): string {
  * On bascule à 1 décimale dans ce cas → [27,5, 28, 28,5, 29, 29,5].
  */
 function pickYTickDecimals(tickValues: number[], unit: string): number | undefined {
-  // Yann 1er sept 2026 : axe dont le tick max est entre 1 et 10 -> toujours
-  // une decimale (2,0 / 4,0 / 6,0 / 8,0), quelle que soit l unite.
-  const maxTick = Math.max(...tickValues.map((t) => Math.abs(t)), 0);
-  if (maxTick > 1 && maxTick < 10) return 1;
   if (!isCurrencyLike(unit)) return undefined; // % et autres gardent leur logique
   // Test : si arrondi entier crée doublons, on monte à 1 décimale.
   const intRounded = tickValues.map((v) => Math.round(v));
