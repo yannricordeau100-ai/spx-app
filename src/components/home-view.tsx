@@ -57,7 +57,7 @@ function DataFreshnessPill({ locale, freshnessKey }: { locale: string; freshness
   return (
     <div className="inline-flex items-center gap-1.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a]/70 px-3 py-1.5 backdrop-blur">
       <Sparkles className="size-3 shrink-0 text-violet-400" aria-hidden />
-      <span className="font-mono text-[10px] uppercase leading-none tracking-[0.18em] text-zinc-400">
+      <span className="font-mono text-[10px] uppercase leading-snug sm:leading-none tracking-[0.12em] sm:tracking-[0.18em] text-zinc-400">
         {freshnessKey}{" "}
         <em className="not-italic font-mono italic text-zinc-200">
           {dateLocal ?? "…"}

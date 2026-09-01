@@ -241,7 +241,7 @@ export default async function PopulairePage() {
           {isFr ? "Retour" : "Back"}
         </Link>
       </div>
-      <div className="fixed right-4 top-4 z-50 flex items-center gap-3 sm:right-6 sm:top-6">
+      <div className="absolute sm:fixed right-4 top-4 z-50 flex items-center gap-3 sm:right-6 sm:top-6">
         <ThemeToggle paid={themePaid} />
         <AuthNav />
       </div>
