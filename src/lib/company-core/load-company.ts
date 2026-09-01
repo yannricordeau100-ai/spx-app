@@ -2678,6 +2678,19 @@ export async function loadV17Company(
           ...(typeof k._fp_note === "string" && k._fp_note.trim().length > 0
             ? { _fp_note: k._fp_note }
             : {}),
+          // 1er sept 2026 : passthrough du marquage de lot (revue Yann en
+          // jaune des KPI ajoutes) et de la definition FR du "i". Le mapping
+          // etant une liste blanche, sans ces lignes les deux champs etaient
+          // silencieusement perdus a la fusion.
+          ...(typeof (k as { _added_batch?: string })._added_batch === "string"
+            ? { _added_batch: (k as { _added_batch?: string })._added_batch }
+            : {}),
+          ...(typeof (k as { explanation_fr?: string }).explanation_fr === "string"
+            ? { explanation_fr: (k as { explanation_fr?: string }).explanation_fr }
+            : {}),
+          ...(typeof (k as { explanation?: string }).explanation === "string"
+            ? { explanation: (k as { explanation?: string }).explanation }
+            : {}),
           ...(k._needs_review === true ? { _needs_review: true } : {}),
           ...(typeof k._value_note === "string" && k._value_note.trim().length > 0
             ? { _value_note: k._value_note }
@@ -2704,6 +2717,10 @@ export async function loadV17Company(
         "stories-filings",
         "sectoriel",
         "kpis-haut 10-Q/10-K",
+        // 1er sept 2026 : stories a sources tierces du lot META/GOOGL
+        // (StatCounter, Nielsen, Swiss Re, eMarketer...). Sans ce tag, le
+        // remplacement kpis-haut les eliminait silencieusement.
+        "stories-tiers",
       ]);
       const hautShorts = new Set(
         converted.map((k) => String(k.short ?? "").toLowerCase()),
