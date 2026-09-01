@@ -283,8 +283,8 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "risks.count": { de: "Risiken", nl: "risico's" },
   "risks.aggravated_one": { de: "verschärft", nl: "verergerd" },
   "risks.aggravated_many": { de: "verschärft", nl: "verergerd" },
-  "risks.new_one": { de: "neu in 2025", nl: "nieuw in 2025" },
-  "risks.new_many": { de: "neu in 2025", nl: "nieuw in 2025" },
+  "risks.new_one": { de: "neu ggü. Vorbericht", nl: "nieuw t.o.v. vorig rapport" },
+  "risks.new_many": { de: "neu ggü. Vorbericht", nl: "nieuw t.o.v. vorig rapport" },
   "risks.management_quote": { de: "Aussage des Managements", nl: "Citaat van het management" },
   "risks.score_explainer_title": {
     de: "Wie diese Bewertung berechnet wurde",

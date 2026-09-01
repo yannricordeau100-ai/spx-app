@@ -481,8 +481,8 @@ export const DICTIONARY: Dict = {
   "risks.count": { fr: "risques", en: "risks" },
   "risks.aggravated_one": { fr: "aggravé", en: "rising" },
   "risks.aggravated_many": { fr: "aggravés", en: "rising" },
-  "risks.new_one": { fr: "nouveau en 2025", en: "new in 2025" },
-  "risks.new_many": { fr: "nouveaux en 2025", en: "new in 2025" },
+  "risks.new_one": { fr: "nouveau vs rapport précédent", en: "new vs prior report" },
+  "risks.new_many": { fr: "nouveaux vs rapport précédent", en: "new vs prior report" },
   "risks.management_quote": { fr: "Propos de la direction", en: "Management quote" },
   "risks.score_explainer_title": {
     fr: "Comment cette note a été calculée",

@@ -430,6 +430,10 @@ export function CompanyView({
   }
 
   const [showAll, setShowAll] = useState(false);
+  // Yann 1er sept 2026 : fonctionnalite Comparer ARCHIVEE (retiree de l UI,
+  // code conserve : CompareControl, ComparePanel, compare-overlay-chart).
+  // Reactivation : passer COMPARER_ACTIF a true, rien d autre a toucher.
+  const COMPARER_ACTIF = false;
   const [compareOpen, setCompareOpen] = useState(false);
   const [chartMode, setChartMode] = useChartMode("bars");
   const [barsVariant, setBarsVariant] = useState<"iso3d" | "classic">("classic");
@@ -1094,6 +1098,7 @@ export function CompanyView({
           </Link>
           <PageSearch variant="default" />
           <div className="ml-auto flex shrink-0 items-center gap-2">
+            {COMPARER_ACTIF && (
             <CompareControl
               comparables={comparables}
               activeKpi={active}
@@ -1104,6 +1109,7 @@ export function CompanyView({
                 setCompareOpen(false);
               }}
             />
+            )}
             <button className="inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-2.5 py-2 sm:px-3.5 text-sm font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-zinc-100">
               <Bookmark className="size-4" />
               <span className="hidden sm:inline">{t("company.save.button")}</span>
@@ -1687,7 +1693,7 @@ export function CompanyView({
 
         {/* Compare panel */}
         <AnimatePresence>
-          {compareTicker && (
+          {COMPARER_ACTIF && compareTicker && (
             <motion.section
               key={compareTicker + active.short}
               initial={{ opacity: 0, y: 12, height: 0 }}
