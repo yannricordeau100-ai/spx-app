@@ -141,6 +141,12 @@ export async function downloadSvgAsPng(
      *  multi-ligne (word-wrap manuel) SOUS le graph et AU-DESSUS du footer
      *  "KPIs Powered by". Si absent → aucun bloc ajouté (pas d'espace vide). */
     interpretation?: string;
+    /** Yann 1er sept 2026 : nom EN du KPI, rendu en italique sous le titre
+     *  francais du document. Omis s il est identique au titre affiche. */
+    titleEn?: string;
+    /** Yann 1er sept 2026 : unite de l axe Y en anglais, italique, sous le
+     *  nom EN. */
+    unitEn?: string;
   } = {},
   scale = 2
 ): Promise<void> {
@@ -461,7 +467,9 @@ export async function downloadSvgAsPng(
   // dernière date X (distance verticale ~= distance horizontale entre
   // "0" et "5" de "2025", soit ~10px). Yann 2 juin 2026 v8.
   // Yann 24 aout 2026 : titres agrandis de 50 % -> plus d air en haut.
-  const PAD_TOP = 190;
+  // Yann 1er sept 2026 : +44 pour les deux lignes anglaises en italique
+  // (nom EN + unite EN) sous le titre francais.
+  const PAD_TOP = 234;
   const PAD_SIDE = 36;
   // Yann 2 juin 2026 v10 : PAD_BOTTOM réduit à 50 pour rapprocher la
   // signature des labels X. Logo height 36 + margin 4 = 40 + 10px gap
@@ -530,18 +538,22 @@ export async function downloadSvgAsPng(
   // les elements ajoutes ensuite (fond, titre, footer) ne sont pas dans ce
   // groupe et ne bougent donc pas. Les ancrages du footer et du CAGR sont
   // recalcules plus bas sur les bornes reduites (GRAPH_X / GRAPH_W).
-  const GRAPH_SCALE = 0.9;
+  // Yann 1er sept 2026 : 0.9 -> 0.96 (l espace perdu en largeur etait
+  // trop grand), et le graph est abaisse de GRAPH_DY pour laisser respirer
+  // le titre enrichi des deux lignes anglaises.
+  const GRAPH_SCALE = 0.96;
+  const GRAPH_DY = 26;
   const graphCx = origX + origW / 2;
   const graphCy = origY + origH / 2;
   const GRAPH_X = graphCx - (origW * GRAPH_SCALE) / 2;
   const GRAPH_W = origW * GRAPH_SCALE;
-  const GRAPH_BOTTOM = graphCy + (origH * GRAPH_SCALE) / 2;
+  const GRAPH_BOTTOM = graphCy + (origH * GRAPH_SCALE) / 2 + GRAPH_DY;
   {
     const NS0 = "http://www.w3.org/2000/svg";
     const wrapper = document.createElementNS(NS0, "g");
     wrapper.setAttribute(
       "transform",
-      `translate(${graphCx} ${graphCy}) scale(${GRAPH_SCALE}) translate(${-graphCx} ${-graphCy})`,
+      `translate(0 ${GRAPH_DY}) translate(${graphCx} ${graphCy}) scale(${GRAPH_SCALE}) translate(${-graphCx} ${-graphCy})`,
     );
     const kids = Array.from(clone.childNodes);
     for (const k of kids) wrapper.appendChild(k);
@@ -917,6 +929,46 @@ export async function downloadSvgAsPng(
     }
     clone.appendChild(kpiEl);
     void TITLE_KPI_CHAR_W; // réservé pour calculs futurs si besoin
+
+    // ── Lignes EN (Yann 1er sept 2026) : nom du KPI en anglais puis unite
+    // de l axe Y en anglais, toutes deux en italique, centrees sous le
+    // titre francais. Le nom EN est omis s il est identique au titre deja
+    // affiche (cas ou l utilisateur a bascule le titre en anglais).
+    const LINE_EN_NAME_Y = origY - PAD_TOP + 156;
+    const LINE_EN_UNIT_Y = origY - PAD_TOP + 182;
+    const titreEn = options.titleEn?.trim();
+    const uniteEn = options.unitEn?.trim();
+    const memeTexte = (a: string, b: string) =>
+      a.toLowerCase().replace(/\s+/g, " ") === b.toLowerCase().replace(/\s+/g, " ");
+    if (titreEn && !memeTexte(titreEn, kpiText)) {
+      const enEl = document.createElementNS(NS, "text");
+      enEl.setAttribute("x", String(origX + origW / 2));
+      enEl.setAttribute("y", String(LINE_EN_NAME_Y));
+      enEl.setAttribute("text-anchor", "middle");
+      enEl.setAttribute("font-family", titleFontFamily);
+      enEl.setAttribute("font-weight", "300");
+      enEl.setAttribute("font-style", "italic");
+      enEl.setAttribute("font-size", "20");
+      enEl.setAttribute("letter-spacing", "-0.01em");
+      enEl.setAttribute("fill", subtitleColor);
+      enEl.textContent = titreEn;
+      clone.appendChild(enEl);
+    }
+    if (uniteEn) {
+      const unEl = document.createElementNS(NS, "text");
+      unEl.setAttribute("x", String(origX + origW / 2));
+      unEl.setAttribute("y", String(LINE_EN_UNIT_Y));
+      unEl.setAttribute("text-anchor", "middle");
+      unEl.setAttribute("font-family", titleFontFamily);
+      unEl.setAttribute("font-weight", "300");
+      unEl.setAttribute("font-style", "italic");
+      unEl.setAttribute("font-size", "16");
+      unEl.setAttribute("letter-spacing", "0em");
+      unEl.setAttribute("fill", subtitleColor);
+      unEl.setAttribute("opacity", "0.85");
+      unEl.textContent = `Y axis: ${uniteEn}`;
+      clone.appendChild(unEl);
+    }
 
     // ── Ligne 3 : CAGR annualisé, centrée, discrète (Yann 10 juin 2026) ──
     // Le CAGR arrive déjà formaté + annualisé via options.cagr (calcul fait

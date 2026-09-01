@@ -44,7 +44,6 @@ import {
 } from "@/lib/data";
 import { yoyTone } from "@/lib/utils";
 import { autoRescaleSmallUnit, isPercentMagnitudeAnomaly } from "@/lib/format-hero";
-import { translateUnitEnToFr, translateUnitFrToEn } from "@/lib/i18n/unit-translations";
 import { translate } from "@/lib/i18n/dictionary";
 import { chartAxisHeader } from "@/lib/chart-axis-header";
 import { brand, rate, detectAnomalies } from "@/lib/brand";
@@ -100,6 +99,7 @@ import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 import type { UserTier } from "@/lib/freemium/context";
 import { LogoMettrik } from "@/components/logo-mettrik";
+import { translateUnitEnToFr, translateUnitFrToEn } from "@/lib/i18n/unit-translations";
 
 const VISIBLE_KPI_COUNT = 6;
 
@@ -1624,7 +1624,15 @@ export function CompanyView({
                   axes X et Y compris, sans le titre ni les toggles ni la
                   colonne valeur/CAGR. Permet la zone hero:graphique dans
                   l outil, a la place du bloc entier. */}
-              <div data-blur-part="graphique">
+              {/* Yann 1er sept 2026 : le nom EN du KPI et l unite EN sont
+                  poses sur le wrapper ; le telechargement PNG les lit via
+                  closest() pour la ligne italique sous le titre francais. */}
+              <div
+                data-blur-part="graphique"
+                data-export-extra="true"
+                data-export-title-en={(active as { name_en?: string; short?: string }).name_en || (active as { short?: string }).short || ""}
+                data-export-unit-en={translateUnitFrToEn(displayUnit || "")}
+              >
               <ChartCycle
                 mode={chartMode}
                 data={scaleFactor !== 1 ? chartHistoryRaw.map((v) => (typeof v === "number" ? v * scaleFactor : v)) : chartHistoryRaw}

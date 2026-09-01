@@ -141,8 +141,14 @@ function downloadVisibleChart() {
   const locale = (EXPORT_LOCALES as readonly string[]).includes(rawLocale)
     ? (rawLocale as ExportLocale)
     : "fr";
+  // Yann 1er sept 2026 : nom EN + unite EN poses par company-view sur le
+  // wrapper [data-export-extra] (evite de faire transiter deux props par
+  // chaque composant de chart).
+  const extra = svg.closest<HTMLElement>("[data-export-extra]");
   void downloadSvgAsPng(svg, `mettrik-${prefix}-${Date.now()}.png`, {
     title: svg.getAttribute("data-export-title") || undefined,
+    titleEn: extra?.getAttribute("data-export-title-en") || undefined,
+    unitEn: extra?.getAttribute("data-export-unit-en") || undefined,
     ticker: svg.getAttribute("data-export-ticker") || undefined,
     cagr: svg.getAttribute("data-export-cagr") || undefined,
     frequency: svg.getAttribute("data-export-frequency") || undefined,
