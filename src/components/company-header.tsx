@@ -78,7 +78,7 @@ function CompanyName({
         : "text-[0.9rem] sm:text-[1.1rem]";
   return (
     <div className="min-w-0 max-w-full">
-      <div className="group/name flex flex-nowrap items-baseline gap-x-3 min-w-0 max-w-full">
+      <div className="group/name flex flex-wrap sm:flex-nowrap items-baseline gap-x-3 gap-y-0.5 min-w-0 max-w-full">
         <h1
           className={`relative ${fontSize} font-bold tracking-tight text-zinc-50 truncate min-w-0`}
           style={{ lineHeight: 1.2 }}
