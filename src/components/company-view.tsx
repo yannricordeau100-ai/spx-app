@@ -1212,7 +1212,7 @@ export function CompanyView({
                 Yann 13 juin 2026 : flex flex-col + order-* pour remonter le
                 gros chiffre (order-1) et descendre les badges meta sous les
                 chips (order-3). */}
-            <div className="order-2 flex min-w-0 flex-row flex-wrap items-start lg:flex-col lg:flex-nowrap lg:order-none lg:col-span-2">
+            <div className="max-lg:contents order-2 flex min-w-0 flex-col lg:order-none lg:col-span-2">
               {/*
                 ┌────────────────────────────────────────────────────────────┐
                 │ ⚠️  RÈGLE FIGÉE — NE PAS MODIFIER (Yann 5 juin 2026)        │
@@ -1253,7 +1253,7 @@ export function CompanyView({
                   $XX.XX, ABF $XXX.X Mds, etc.). flex-wrap permet à l'unité
                   de basculer en dessous si pas la place. min-w-0 sur la
                   colonne parent côté layout HERO. */}
-              <div className="order-1 mt-0 flex w-full flex-wrap items-baseline gap-x-2 gap-y-1">
+              <div className="order-1 max-lg:order-2 mt-0 flex w-full flex-wrap items-baseline gap-x-2 gap-y-1 max-lg:justify-center max-lg:gap-x-3">
                 {freeBlocked ? (
                   <div style={{ fontSize: "clamp(34px, 4.4vw, 56px)" }}>
                     <BlurredFreeValue
@@ -1265,7 +1265,7 @@ export function CompanyView({
                 ) : (
                   <>
                     <div
-                      className="font-display font-semibold leading-none tracking-tight gradient-text"
+                      className="font-display font-semibold leading-none tracking-tight gradient-text max-sm:!text-[52px]"
                       style={{
                         fontSize: "clamp(34px, 4.4vw, 56px)",
                         wordBreak: "keep-all",
@@ -1276,7 +1276,7 @@ export function CompanyView({
                     </div>
                     {displayHeroUnit && (
                       <div
-                        className="font-medium text-zinc-400"
+                        className="font-medium text-zinc-400 max-sm:!text-[17px]"
                         style={{ fontSize: "clamp(14px, 1.5vw, 19px)" }}
                       >
                         {displayHeroUnit}
@@ -1286,7 +1286,7 @@ export function CompanyView({
                 )}
               </div>
 
-              <div className="order-2 mt-3 flex w-[45%] min-w-0 flex-col items-start gap-2 lg:w-auto">
+              <div className="order-2 max-lg:order-3 mt-3 flex min-w-0 gap-2 max-lg:w-full max-lg:flex-row max-lg:flex-nowrap max-lg:items-center max-lg:justify-center max-lg:overflow-x-auto max-lg:pb-1 max-lg:[scrollbar-width:none] max-lg:[&::-webkit-scrollbar]:hidden lg:flex-col lg:items-start flex-col items-start lg:w-auto">
                 {/* YoY pill : masquée si KPI incomplet (= aucune valeur YoY calculable) */}
                 {!isIncompleteKpi && (effectiveYoy !== "" || typeof effectiveYoy === "number") && (
                   <div
@@ -1473,7 +1473,7 @@ export function CompanyView({
                   Yann 15 mai 2026 : masqué si signal vide (évite box vide). */}
               {/* Yann 21 août 2026 : étoile "IA" (Sparkles) retirée du hero. */}
               {typeof active.signal === "string" && active.signal.trim() && (
-                <div className="order-4 ml-auto mt-3 flex w-[52%] max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 lg:ml-0 lg:mt-5 lg:w-auto">
+                <div className="order-4 max-lg:order-6 mt-3 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 max-lg:w-full max-lg:max-w-none lg:mt-5">
                   <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} className="flex-1">
                     <div className="text-[14px] font-semibold leading-snug text-zinc-100">
                       {active.signal}
@@ -1485,7 +1485,7 @@ export function CompanyView({
 
             {/* RIGHT: chart — élargi à 10/12 (était 9) pour plus de place au
                 graph principal. */}
-            <div className="order-1 min-w-0 lg:order-none lg:col-span-10">
+            <div className="max-lg:contents order-1 min-w-0 lg:order-none lg:col-span-10">
               {/* Toolbar au-dessus du graph en 2 LIGNES :
                     Ligne 1 : titre du KPI centré, agrandi
                     Ligne 2 : styles graph (gauche) + période 5/10/20 (droite)
@@ -1509,7 +1509,7 @@ export function CompanyView({
                   Séparateurs dots violet retirés (cosmétique, prenaient de
                   la place). Onglet "Tableau de bord" supprimé (cf liste
                   TABS dans chart-cycle.tsx). */}
-              <div className="mb-3 flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="max-lg:order-5 max-lg:mb-0 max-lg:mt-3 mb-3 flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {/* Yann 2 sept 2026 (ergonomie mobile) : en mobile, un menu
                     Reglages commun (fenetre + frequence + rendu 2D/3D) et un
                     menu deroulant pour l unite de temps remplacent les
@@ -1552,7 +1552,7 @@ export function CompanyView({
                   graphPeriodAvailable={mobilePeriodAvailable}
                 />
               </div>
-              <div className="mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
+              <div className="max-lg:order-1 mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
                 {/* Yann 9 juin 2026 : "i" permanent à GAUCHE du titre hero quand
                     la profondeur de données est limitée. Indépendant du KPI
                     sélectionné (rendu hors KpiSwapTitle, donc persiste au swap). */}
@@ -1696,6 +1696,7 @@ export function CompanyView({
                   poses sur le wrapper ; le telechargement PNG les lit via
                   closest() pour la ligne italique sous le titre francais. */}
               <div
+                className="max-lg:order-4"
                 data-blur-part="graphique"
                 data-export-extra="true"
                 // Yann 2 sept 2026 : sur mobile, taper le graph l ouvre en

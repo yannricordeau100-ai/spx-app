@@ -522,6 +522,13 @@ export const TICKER_ALIASES: Record<string, string> = {
   // Yann 4 juin 2026 : Alibaba listing HK (9988.HK) renomme en BABA (ADR US).
   "9988.HK": "BABA",
   "9988-HK": "BABA",
+  // Yann 2 sept 2026 : une seule ligne par societe dans la recherche.
+  // Volkswagen : la fiche complete est VOW.DE ; VOW3 (pref) alias dessus.
+  "VOW3.DE": "VOW.DE",
+  // Henkel : fiche complete HEN.DE ; HEN3 (pref) alias dessus.
+  "HEN3.DE": "HEN.DE",
+  // Airbus : double cotation, la fiche canonique est AIR.PA (Paris).
+  "AIR.DE": "AIR.PA",
 };
 
 /** Renvoie le ticker canonique (majuscules), résout les alias. */

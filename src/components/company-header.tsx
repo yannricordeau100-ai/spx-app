@@ -38,19 +38,19 @@ function useDefilementChips() {
     if (!el) return;
     if (typeof window === "undefined" || window.innerWidth >= 640) return;
     let raf = 0;
-    let dir = 1;
-    let pauseJusqua = performance.now() + 1800;
+    let pauseJusqua = performance.now() + 1500;
     const pause = () => { pauseJusqua = performance.now() + 5000; };
     el.addEventListener("touchstart", pause, { passive: true });
     el.addEventListener("pointerdown", pause, { passive: true });
     const tick = (now: number) => {
       raf = requestAnimationFrame(tick);
-      const maxScroll = el.scrollWidth - el.clientWidth;
-      if (maxScroll <= 4) return;
-      if (now < pauseJusqua) return;
-      el.scrollLeft += 0.35 * dir;
-      if (el.scrollLeft >= maxScroll - 1) { dir = -1; pauseJusqua = now + 1200; }
-      if (el.scrollLeft <= 1) { dir = 1; pauseJusqua = now + 1200; }
+      // le contenu est duplique (2 series identiques) : quand on a defile
+      // d une serie complete, on recale d une serie en arriere -> boucle
+      // infinie invisible, toujours de droite a gauche, drag conserve.
+      const demi = el.scrollWidth / 2;
+      if (demi <= el.clientWidth * 0.6) return;
+      if (now >= pauseJusqua) el.scrollLeft += 0.4;
+      if (el.scrollLeft >= demi) el.scrollLeft -= demi;
     };
     raf = requestAnimationFrame(tick);
     return () => {
@@ -316,7 +316,9 @@ export function CompanyHeader({
       {/* Yann (12 mai 2026) : tous les rangs sur UNE ligne horizontale.
           flex-nowrap + overflow-x-auto = scroll discret si overflow petit
           écran. Rang USA masqué pour les sés non-US (cat 3 EU). */}
-      <div ref={chipsRef} className="mt-5 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {(() => {
+        const chips = (
+          <>
         <StatChip label={t("company.rank_world")} value={company.ranks.global_world} />
         {isUsOrAdr(company.ticker) && company.ranks.global_us && company.ranks.global_us.trim() !== "" && company.ranks.global_us !== "-" && (
           <StatChip label={t("company.rank_us")} value={company.ranks.global_us} />
@@ -340,7 +342,18 @@ export function CompanyHeader({
             controle de coherence (voir scripts d extraction) : les sociétés
             sans 10-K ou au chiffre non fiable n affichent pas la chip. */}
         <StatChip label={t("company.employees")} value={employeeCountLabel(company.ticker, locale)} />
-      </div>
+          </>
+        );
+        return (
+          <div ref={chipsRef} className="mt-5 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex shrink-0 items-center gap-1.5">{chips}</div>
+            {/* Yann 2 sept 2026 : copie pour la boucle infinie du defilement
+                mobile (le bandeau avance de droite a gauche sans demi-tour).
+                Desktop : une seule serie, pas d animation. */}
+            <div aria-hidden className="flex shrink-0 items-center gap-1.5 sm:hidden">{chips}</div>
+          </div>
+        );
+      })()}
       {/* Yann 26 mai 2026 : provenance déplacée TOUT EN BAS de la page société
           (voir CompanyView footer). Plus de mention "i" en haut près du nom. */}
     </div>
