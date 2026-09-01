@@ -86,7 +86,7 @@ export default async function HomePage({
 
   return (
     <>
-      <div className="absolute sm:fixed right-4 top-4 z-50 flex items-center gap-3 sm:right-6 sm:top-6">
+      <div className="absolute sm:fixed left-4 right-4 top-4 z-50 flex flex-wrap items-center justify-end gap-2 sm:left-auto sm:flex-nowrap sm:gap-3 sm:right-6 sm:top-6">
         <ThemeToggle paid={themePaid} />
         <AuthNav />
       </div>
