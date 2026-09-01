@@ -94,15 +94,34 @@ function useAjusteLargeur(dep: string) {
     // police de repli plus etroite. Une fois la vraie police arrivee, le
     // nombre s elargissait et le dernier chiffre sortait de la carte. On
     // re-mesure a l arrivee des polices et au redimensionnement.
+    // Yann 1er sept 2026 (recidive sur iPhone) : blindage complet — un
+    // ResizeObserver suit la largeur reelle de la carte (le resize fenetre ne
+    // couvre pas les animations du carrousel ni les reglages d accessibilite),
+    // et trois re-mesures differees couvrent tout chargement tardif.
     let vivant = true;
     if (typeof document !== "undefined" && document.fonts?.ready) {
       document.fonts.ready.then(() => {
         if (vivant) ajuste();
       });
     }
+    const minuteries = [150, 600, 1500].map((ms) =>
+      window.setTimeout(() => {
+        if (vivant) ajuste();
+      }, ms),
+    );
+    let observateur: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      observateur = new ResizeObserver(() => {
+        if (vivant) ajuste();
+      });
+      observateur.observe(el);
+      if (el.parentElement) observateur.observe(el.parentElement);
+    }
     window.addEventListener("resize", ajuste);
     return () => {
       vivant = false;
+      minuteries.forEach((m) => window.clearTimeout(m));
+      observateur?.disconnect();
       window.removeEventListener("resize", ajuste);
     };
   }, [dep]);
