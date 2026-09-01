@@ -325,6 +325,18 @@ function detectCompanyCurrencySymbol(company?: Company | null): string {
   return "$";
 }
 
+
+/** Yann 1er sept 2026 : certaines fiches stockent une clef technique ou une
+ *  phrase anglaise dans voting_structure (58 stes en "one_share_one_vote").
+ *  On affiche toujours une phrase francaise propre. */
+function libelleStructureVote(brut: string): string {
+  const n = brut.trim().toLowerCase().replace(/[_\-]+/g, " ").replace(/[.,]$/, "");
+  if (n === "one share one vote" || n === "one share, one vote") return "Une action = une voix.";
+  if (n === "dual class" || n === "dual class structure") return "Deux classes d'actions avec des droits de vote diff\u00e9renci\u00e9s.";
+  if (/^each share of common stock is entitled/.test(n)) return "Une action = une voix.";
+  return brut;
+}
+
 export function GovernanceCard({
   governance,
   ticker,
@@ -637,7 +649,7 @@ export function GovernanceCard({
               <div className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-300">
                 {t("governance.voting_structure")}
               </div>
-              <div className="mt-0.5 text-[13px] text-zinc-200">{g.voting_structure}</div>
+              <div className="mt-0.5 text-[13px] text-zinc-200">{libelleStructureVote(g.voting_structure)}</div>
             </div>
           </div>
         </div>

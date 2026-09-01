@@ -176,11 +176,8 @@ export function AIPositioningCard({
           );
         })()}
 
-        {effective.source && !isOfficialSource(effective.source) && (
-          <div className="mt-4 font-mono text-[12.5px] italic text-zinc-400">
-            {t("ai.source")} : {humanizeFinJargon(effective.source)}
-          </div>
-        )}
+        {/* Yann 1er sept 2026 : ligne "Source : ir/URD/..." retiree de
+            l affichage (chemin technique interne). La donnee reste stockee. */}
         </div>
       </div>
     </section>

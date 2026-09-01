@@ -77,12 +77,18 @@ export function RepartitionBars({
   // bien la somme des tranches (avant, `total` pouvait manquer ou diverger).
   const raw = (data ?? []).filter((s) => Number.isFinite(s.value) && s.value > 0);
   const sumValues = raw.reduce((a, s) => a + s.value, 0);
+  // Yann 1er sept 2026 (Kering : 14 872 en vue segment vs 14 674 en vue geo) :
+  // les lignes NEGATIVES (eliminations, Corporate) ne sont pas dessinees mais
+  // COMPTENT dans le chiffre d affaires total, sinon les deux vues affichent
+  // deux CA differents pour la meme societe. Total = somme de TOUTES les
+  // tranches ; les parts restent calculees sur les tranches visibles.
+  const sumAll = (data ?? []).reduce((a, s) => a + (Number.isFinite(s.value) ? s.value : 0), 0);
   const clean = raw
     .map((s) => ({ ...s, share: sumValues > 0 ? (s.value / sumValues) * 100 : 0 }))
     .sort((a, b) => b.value - a.value);
 
   if (clean.length === 0) return null;
-  const effectiveTotal = total != null && Number.isFinite(total) ? total : sumValues;
+  const effectiveTotal = total != null && Number.isFinite(total) ? total : sumAll;
 
   const big = clean.filter((s) => s.share >= SMALL_PCT);
   const small = clean.filter((s) => s.share < SMALL_PCT);
