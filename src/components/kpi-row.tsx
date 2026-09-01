@@ -371,8 +371,8 @@ export function KpiRow({
       </div>
 
       {/* COL 3 — Tendance (2 cols) */}
-      <div className="col-span-6 sm:col-span-2">
-        <Sparkline data={kpi.history} height={30} color={accent} />
+      <div className="col-span-6 self-start pt-1.5 sm:col-span-2 sm:self-auto sm:pt-0">
+        <Sparkline data={kpi.history} height={30} color={accent} className="h-8 w-full sm:h-auto" />
       </div>
 
       {/* COL 4 — Qualité (stacked) + Signal */}

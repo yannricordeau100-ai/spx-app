@@ -68,8 +68,8 @@ export function AIPositioningCard({
   return (
     <section className="mt-9 animate-fade-up-d1">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
-          <Brain className="size-5" style={{ color: accent }} />
+        <h2 className="flex items-start sm:items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
+          <Brain className="mt-1.5 size-5 shrink-0 sm:mt-0" style={{ color: accent }} />
           {t("ai.title_prefix")} {companyName} {t("ai.title_suffix")}
         </h2>
       </div>

@@ -1030,7 +1030,7 @@ export function CompanyView({
         <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" />
 
         <main className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
-          <nav className="mb-9 flex flex-nowrap items-center gap-3 whitespace-nowrap">
+          <nav className="mb-9 flex flex-nowrap items-center gap-1.5 sm:gap-3 whitespace-nowrap">
             <Link
               href="/"
               className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
@@ -1079,7 +1079,7 @@ export function CompanyView({
       <main className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
         {/* Top nav — tout sur une ligne : back + recherche (collée à gauche)
             puis actions à droite (variant, comparer, enregistrer, compte). */}
-        <nav className="mb-9 flex flex-nowrap items-center gap-3 whitespace-nowrap">
+        <nav className="mb-9 flex flex-nowrap items-center gap-1.5 sm:gap-3 whitespace-nowrap">
           {/* Logo wordmark Mettrik AI (taille sm) — cliquable, retour home.
               Réutilise le composant MettrikWordmark identique au logo home
               et à la page maintenance. Cohérence brand sur toutes les
@@ -1104,7 +1104,7 @@ export function CompanyView({
                 setCompareOpen(false);
               }}
             />
-            <button className="inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-3.5 py-2 text-sm font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-zinc-100">
+            <button className="inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-2.5 py-2 sm:px-3.5 text-sm font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-zinc-100">
               <Bookmark className="size-4" />
               <span className="hidden sm:inline">{t("company.save.button")}</span>
             </button>
@@ -1442,7 +1442,7 @@ export function CompanyView({
                   Séparateurs dots violet retirés (cosmétique, prenaient de
                   la place). Onglet "Tableau de bord" supprimé (cf liste
                   TABS dans chart-cycle.tsx). */}
-              <div className="mb-3 flex flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="mb-3 flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <PeriodToggle accent={accent} value={chartRange} onChange={setChartRange} hasMaxPlan={!freeBlocked} />
                 {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
                   <TimeFractionToggle
@@ -1708,7 +1708,7 @@ export function CompanyView({
 
         {/* KPI table */}
         <section id="sec-kpis" data-blur="kpis" className="mt-9 scroll-mt-24 animate-fade-up-d2">
-          <div className="mb-4 flex items-end justify-between">
+          <div className="mb-4 flex flex-col items-start gap-1.5 sm:flex-row sm:items-end sm:justify-between sm:gap-0">
             <div>
               <h2 className="text-[22px] font-semibold text-zinc-100">{t("company.kpi_table.title")}</h2>
               <p className="mt-0.5 text-[13.5px] text-zinc-400">
@@ -1724,7 +1724,7 @@ export function CompanyView({
             </span>
           </div>
           <div className="overflow-hidden rounded-2xl border border-[#1f1f1f] bg-[#080808]">
-            <div className="grid grid-cols-12 gap-3 border-b border-[#1a1a1a] bg-[#0c0c0c] px-5 py-3.5 font-sans text-[11.5px] font-semibold uppercase tracking-[0.12em] text-zinc-300 sm:px-6">
+            <div className="hidden sm:grid grid-cols-12 gap-3 border-b border-[#1a1a1a] bg-[#0c0c0c] px-5 py-3.5 font-sans text-[11.5px] font-semibold uppercase tracking-[0.12em] text-zinc-300 sm:px-6">
               <div className="col-span-3">{t("company.kpi_table.col_indicator")}</div>
               <div className="col-span-3">{t("company.kpi_table.col_value")} <span className="ml-0.5 italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span></div>
               <div className="col-span-2">{t("company.kpi_table.col_trend")}</div>

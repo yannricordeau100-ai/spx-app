@@ -183,9 +183,10 @@ export function ChartCycleControls({
 }) {
   const { t } = useT();
   return (
-    // Pas de flex-wrap : on veut TOUT sur une ligne (4 modes + Trimestriel/Annuel
-    // + 2D/3D + 5/10/20 ans à droite via le parent). gap-1.5 minimal.
-    <div className="inline-flex items-center gap-1.5">
+    // Pas de flex-wrap en desktop : tout sur une ligne (4 modes + Trimestriel/
+    // Annuel + 2D/3D). Mobile (1er sept 2026) : les sous-groupes wrappent en
+    // lignes centrees, sinon le groupe insecable debordait du 375px.
+    <div className="inline-flex flex-wrap justify-center sm:flex-nowrap items-center gap-1.5">
       <div
         role="tablist"
         className="relative inline-flex items-center gap-0.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-0.5"
@@ -427,7 +428,7 @@ export function ChartCycle({
   const { scaledData, scaledTtm, displayUnit } = computeChartDisplay(safeData, unit, ttm, divisor);
 
   return (
-    <div className="relative min-h-[320px]">
+    <div className="relative min-h-0 sm:min-h-[320px]">
       <AnimatePresence mode="wait">
         <motion.div
           key={mode}

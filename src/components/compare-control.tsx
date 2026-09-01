@@ -25,7 +25,7 @@ export function CompareControl({
   const { t, locale } = useT();
   const kpiName = locale === "en" && activeKpi.name_en ? activeKpi.name_en : activeKpi.name_fr;
   const triggerClass =
-    "inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-3.5 py-2 text-sm font-medium text-zinc-200 transition-colors hover:border-[#3a3a3a] hover:text-zinc-50 disabled:opacity-50";
+    "inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-2.5 py-2 sm:px-3.5 text-sm font-medium text-zinc-200 transition-colors hover:border-[#3a3a3a] hover:text-zinc-50 disabled:opacity-50";
 
   return (
     <div className="relative">
@@ -35,7 +35,8 @@ export function CompareControl({
         className={triggerClass}
       >
         <GitCompare className="size-4" />
-        <span>{t("company.compare.button")}</span>
+        {/* Mobile (1er sept 2026) : icone seule, le libelle depassait du 375px */}
+        <span className="hidden sm:inline">{t("company.compare.button")}</span>
         <ChevronDown
           className={`size-3.5 transition-transform ${open ? "rotate-180" : ""}`}
         />
