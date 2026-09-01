@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: [
     "192.0.0.2",
     "172.20.10.2",
+    // Yann 1er sept 2026 : l IP du Mac sur le hotspot varie (.2, .3, ...),
+    // on couvre la plage complete du reseau hotspot iPhone.
+    "172.20.10.3",
+    "172.20.10.4",
+    "172.20.10.5",
     "192.168.1.49",
     "*.local",
   ],
