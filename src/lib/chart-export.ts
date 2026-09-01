@@ -470,9 +470,11 @@ export async function downloadSvgAsPng(
   // dernière date X (distance verticale ~= distance horizontale entre
   // "0" et "5" de "2025", soit ~10px). Yann 2 juin 2026 v8.
   // Yann 24 aout 2026 : titres agrandis de 50 % -> plus d air en haut.
-  // Yann 1er sept 2026 : +44 pour les deux lignes anglaises en italique
-  // (nom EN + unite EN) sous le titre francais.
-  const PAD_TOP = 234;
+  // Yann 1er sept 2026 v2 : etagement complet de l en-tete, chaque ligne a
+  // sa hauteur reservee — ste 72, KPI FR 122, nom EN 154, unite EN 178,
+  // CAGR / Moyenne 208. Le premier jet posait le CAGR a 162 et le nom EN a
+  // 156 : chevauchement direct (screen Threads).
+  const PAD_TOP = 252;
   const PAD_SIDE = 36;
   // Yann 2 juin 2026 v10 : PAD_BOTTOM réduit à 50 pour rapprocher la
   // signature des labels X. Logo height 36 + margin 4 = 40 + 10px gap
@@ -937,8 +939,8 @@ export async function downloadSvgAsPng(
     // de l axe Y en anglais, toutes deux en italique, centrees sous le
     // titre francais. Le nom EN est omis s il est identique au titre deja
     // affiche (cas ou l utilisateur a bascule le titre en anglais).
-    const LINE_EN_NAME_Y = origY - PAD_TOP + 156;
-    const LINE_EN_UNIT_Y = origY - PAD_TOP + 182;
+    const LINE_EN_NAME_Y = origY - PAD_TOP + 154;
+    const LINE_EN_UNIT_Y = origY - PAD_TOP + 178;
     const titreEn = options.titleEn?.trim();
     const uniteEn = options.unitEn?.trim();
     const memeTexte = (a: string, b: string) =>
@@ -989,7 +991,7 @@ export async function downloadSvgAsPng(
     if (options.avgPct) {
       const avgEl = document.createElementNS(NS, "text");
       avgEl.setAttribute("x", String(GRAPH_X));
-      avgEl.setAttribute("y", String(LINE2_Y + 40));
+      avgEl.setAttribute("y", String(origY - PAD_TOP + 208));
       avgEl.setAttribute("text-anchor", "start");
       avgEl.setAttribute("font-family", PNG_FONT_FAMILY);
       avgEl.setAttribute("font-size", "22");
@@ -1005,7 +1007,9 @@ export async function downloadSvgAsPng(
       // identique dans toutes les langues du doc (FR/EN/DE/NL).
       const cagrText = `${rawCagr} (CAGR)`;
       const isNegative = /^[\u2212-]/.test(rawCagr) || /\s-\d/.test(` ${rawCagr}`);
-      const cagrY = LINE2_Y + 40;
+      // Yann 1er sept 2026 v2 : sous les deux lignes EN (154/178), plus
+      // jamais au milieu d elles.
+      const cagrY = origY - PAD_TOP + 208;
       // Yann 25 aout 2026 : le bloc CAGR repasse CENTRE sous le titre du KPI
       // (avant : aligne a droite sur le logo du footer).
 

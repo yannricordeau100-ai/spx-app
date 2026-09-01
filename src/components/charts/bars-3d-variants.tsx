@@ -375,9 +375,13 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       {ticks.map((v, i) => (
         <text
           key={i}
-          x={yOnRight ? Math.min(PAD_LEFT + INNER_W + 12, W - 8) : PAD_LEFT - 12}
+          // Yann 1er sept 2026 (screen Effectifs "30 00" coupe) : en mode axe
+          // a droite, le libelle est ancre sur le bord DROIT du viewBox et
+          // s etend vers la gauche : plus aucun chiffre coupe, quel que soit
+          // le style de barres.
+          x={yOnRight ? W - 6 : PAD_LEFT - 12}
           y={yFor(v) + 5}
-          textAnchor={yOnRight ? "start" : "end"}
+          textAnchor="end"
           fontSize={16}
           fontWeight={500}
           fill="#e4e4e7"

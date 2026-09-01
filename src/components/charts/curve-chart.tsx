@@ -447,9 +447,11 @@ export function CurveChart({
         {ticks.map(({ v, y }, i) => (
           <text
             key={`yn-${i}`}
-            x={yOnRight ? PAD_LEFT + innerW + 20 : PAD_LEFT - 6}
+            // Yann 1er sept 2026 : meme regle que les barres — ancre sur le
+            // bord droit, texte etendu vers la gauche, zero clipping.
+            x={yOnRight ? W - 6 : PAD_LEFT - 6}
             y={y + 5}
-            textAnchor={yOnRight ? "start" : "end"}
+            textAnchor="end"
             fontSize={16}
             fontWeight={500}
             fill="#e4e4e7"
