@@ -291,26 +291,21 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
             {displayTitle}
           </div>
 
-          <div className="mt-2.5 flex items-center gap-3">
-            {freeBlocked ? (
-              <span className="inline-flex items-center gap-2">
-                <BlurredFreeValue value="?" ticker={ticker} />
-                <span className="text-[11px] text-zinc-500">/5</span>
-              </span>
-            ) : (
-              <>
-                <ScoreBar score={effectiveScore} color={scoreColor} />
-                <span
-                  className="font-mono text-[11px] font-semibold uppercase tracking-wider"
-                  style={{ color: scoreColor }}
-                >
-                  {t(scoreLabelKey(effectiveScore))}
-                </span>
-                <span className="font-mono text-[11px] tabular-nums text-zinc-400">
-                  {effectiveScore}/5
-                </span>
-              </>
-            )}
+          {/* Yann 1er sept 2026 : la note de severite (jauge + libelle + X/5)
+              reste VISIBLE meme au palier gratuit — seule la demande initiale
+              (titres et "i") est floutee. La zone data-blur-part="note" la rend
+              pilotable depuis l outil de floutage si besoin un jour. */}
+          <div data-blur-part="note" className="mt-2.5 flex items-center gap-3">
+            <ScoreBar score={effectiveScore} color={scoreColor} />
+            <span
+              className="font-mono text-[11px] font-semibold uppercase tracking-wider"
+              style={{ color: scoreColor }}
+            >
+              {t(scoreLabelKey(effectiveScore))}
+            </span>
+            <span className="font-mono text-[11px] tabular-nums text-zinc-400">
+              {effectiveScore}/5
+            </span>
             <span
               data-blur-part="titre"
               onClick={(e) => e.stopPropagation()}

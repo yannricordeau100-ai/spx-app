@@ -44,12 +44,17 @@ export function formatChartValueLabel(
   // en anglais (clic sur le titre) gardait des virgules decimales "0,3" dans
   // le PNG exporte. Elle est desormais transmise par le chart.
   locale?: string,
+  // Yann 1er sept 2026 (screen "30,0 / 22,0 / -8,0") : quand TOUTE la serie est
+  // entiere, la decimale ",0" n apporte rien : le chart la calcule et la
+  // transmet ici pour afficher les entiers nus, y compris sur les %.
+  serieEntiere?: boolean,
 ): string {
   const numLoc = String(locale ?? "fr").startsWith("fr") ? "fr-FR" : "en-US";
   if (!Number.isFinite(v)) return "—";
   const isPct = String(unit ?? "").trim() === "%";
-  // % : jamais de compact, toujours 1 décimale
+  // % : jamais de compact ; 1 décimale sauf si toute la serie est entiere.
   if (isPct) {
+    if (serieEntiere) return v.toLocaleString(numLoc, { maximumFractionDigits: 0 });
     return v.toLocaleString(numLoc, {
       maximumFractionDigits: 1,
       minimumFractionDigits: v === 0 ? 0 : 1,
@@ -70,8 +75,8 @@ export function formatChartValueLabel(
     // Yann 28 aout 2026 (KPI pays PLTR "25,0 pays") : si TOUTE la serie est
     // entiere, l unite compte des choses indivisibles (pays, magasins,
     // logements) et la decimale est un non-sens. Zero decimale dans ce cas.
-    const serieEntiere = Number.isInteger(v) && Number.isInteger(dataMax);
-    const dec = maxAbs < 100 && !serieEntiere ? 1 : 0;
+    const serieEntiereLocale = serieEntiere ?? (Number.isInteger(v) && Number.isInteger(dataMax));
+    const dec = maxAbs < 100 && !serieEntiereLocale ? 1 : 0;
     return v.toLocaleString(numLoc, {
       minimumFractionDigits: dec,
       maximumFractionDigits: dec,

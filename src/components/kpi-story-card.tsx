@@ -169,7 +169,9 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                 FR suffit ; le tooltip explication reste, collé au titre. */}
             {/* Yann 17 juil 2026 : titre en justifié. */}
             <div className="flex items-start gap-1.5 text-[22px] font-bold leading-tight text-zinc-50">
-              <span className="min-w-0 text-left">{kpi.name_fr}</span>
+              {/* Yann 1er sept 2026 : titre jaune pour les stories du lot
+                  kpi-sept-2026 (revue META/GOOGL), temporaire. */}
+              <span className={`min-w-0 text-left ${(kpi as { _added_batch?: string })._added_batch === "kpi-sept-2026" ? "text-yellow-300" : ""}`}>{kpi.name_fr}</span>
               {kpi.explanation && (
                 <InfoTooltip color={accent} size="sm">
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>

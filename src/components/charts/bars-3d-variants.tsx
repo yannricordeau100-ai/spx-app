@@ -22,8 +22,8 @@ import { calculeEnteteAxe } from "@/lib/entete-axe";
 
 /** Yann 19 juil 2026 : format label barre unifié via helper commun
  *  (compact k/M/Md, % préservé, adaptatif petits nombres). */
-const formatBarLabel = (v: number, dataMax: number, unit?: string, locale?: string) =>
-  formatChartValueLabel(v, dataMax, unit, locale);
+const formatBarLabel = (v: number, dataMax: number, unit?: string, locale?: string, serieEntiere?: boolean) =>
+  formatChartValueLabel(v, dataMax, unit, locale, serieEntiere);
 
 const W = 920, H = 420;
 // PAD_RIGHT = 95 (vs 70 avant) pour garantir aucun clipping du label TTM
@@ -216,11 +216,16 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
     ) *
     valueFontSize *
     0.62;
+  // Yann 1er sept 2026 : toute la serie est-elle entiere ? -> pas de ",0".
+  const serieEntiere = allData.every((d) => Number.isInteger(Number(d)));
   const espaceParBarre = INNER_W / Math.max(allData.length, 1);
+  // Yann 1er sept 2026 : decimation abandonnee, toutes les barres portent
+  // leur valeur (le survol gere la lisibilite). Calcul conserve si besoin.
   const pasLibelles = Math.max(
     1,
     Math.ceil(largeurLibelleMax / Math.max(espaceParBarre - 4, 1)),
   );
+  void pasLibelles;
   const DX = isClassic ? 0 : 26;
   const DY = isClassic ? 0 : -16;
   // Yann 8 juin 2026 (Point 4) : si KpiSwapTitle force EN, l'axe Y traduit
@@ -480,25 +485,27 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
                 automatique (-30°) quand la série est dense (>12 points) pour
                 éviter tout chevauchement quelle que soit la disposition
                 (Yann 19 juil 2026). */}
-            {(i % pasLibelles === 0 || i === allData.length - 1) && (() => {
+            {(() => {
+              // Yann 1er sept 2026 : la valeur s affiche sur TOUTES les barres
+              // (plus de decimation pasLibelles). Le chevauchement des series
+              // denses est resolu par le survol : la barre visee et SON chiffre
+              // restent pleinement contrastes (halo), les autres s estompent.
               const cxLabel = x + barW / 2 + (isClassic ? 0 : DX / 2);
               const cyLabel = isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12);
-              // Yann 28 juillet 2026 : plus aucun label oblique. La densite est
-              // absorbee par la taille de police (valueFontSize), pas par une
-              // rotation qui rendait les chiffres penibles a lire.
-              const rotate = 0;
+              const labelOpacity = hover === null ? 1 : isH ? 1 : 0.3;
               return (
                 <text
                   x={cxLabel}
                   y={cyLabel}
-                  textAnchor={rotate ? "start" : "middle"}
-                  fontSize={valueFontSize}
+                  textAnchor="middle"
+                  fontSize={isH ? valueFontSize + 1 : valueFontSize}
                   fontWeight={700}
                   fill="#fafafa"
                   fontFamily="ui-monospace, monospace"
-                  transform={rotate ? `rotate(${rotate} ${cxLabel} ${cyLabel})` : undefined}
+                  opacity={labelOpacity}
+                  style={isH ? { filter: `drop-shadow(0 0 5px ${color})`, transition: "opacity 200ms" } : { transition: "opacity 200ms" }}
                 >
-                  {formatBarLabel(Number(v), dataOnlyMax, unit, effectiveLocale)}
+                  {formatBarLabel(Number(v), dataOnlyMax, unit, effectiveLocale, serieEntiere)}
                 </text>
               );
             })()}

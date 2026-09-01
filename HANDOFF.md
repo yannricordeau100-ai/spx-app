@@ -56,3 +56,9 @@ Tout le backlog est TERMINÉ et vérifié en prod sur mettrik.ai :
 
 1. **Cron de rafraîchissement trimestriel** : seul chantier ouvert, en attente du go Yann.
 2. Secondaire : batchs risks-batch067→070 non commités, changements de mode data-lake (12 600 fichiers) à normaliser ou ignorer, CLAUDE.md §0/§2/§8 périmés (V1 à 5 stés).
+
+## Règle permanente (Yann, 1er sept 2026) — conflits de règles
+Si un changement ou une nouvelle règle en cours de mise en place entre en
+conflit avec une règle précédente : LE SIGNALER IMMÉDIATEMENT, EN LETTRES
+CAPITALES, et suspendre provisoirement la modification concernée — sauf si une
+solution évidente existe (auquel cas l'appliquer et signaler quand même).

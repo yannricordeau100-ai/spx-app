@@ -149,6 +149,7 @@ function downloadVisibleChart() {
     title: svg.getAttribute("data-export-title") || undefined,
     titleEn: extra?.getAttribute("data-export-title-en") || undefined,
     unitEn: extra?.getAttribute("data-export-unit-en") || undefined,
+    avgPct: extra?.getAttribute("data-export-avg") || undefined,
     ticker: svg.getAttribute("data-export-ticker") || undefined,
     cagr: svg.getAttribute("data-export-cagr") || undefined,
     frequency: svg.getAttribute("data-export-frequency") || undefined,

@@ -147,6 +147,9 @@ export async function downloadSvgAsPng(
     /** Yann 1er sept 2026 : unite de l axe Y en anglais, italique, sous le
      *  nom EN. */
     unitEn?: string;
+    /** Yann 1er sept 2026 : moyenne de la serie pour les graphs en % (deja
+     *  formatee, ex "+7,4 %"). Affichee en miroir gauche de la ligne CAGR. */
+    avgPct?: string;
   } = {},
   scale = 2
 ): Promise<void> {
@@ -981,6 +984,20 @@ export async function downloadSvgAsPng(
     //    vers le haut si positif, rouge vers le bas si negatif.
     //  - Asterisque "*" apres "/an" ou "/yr" ; le "*" de renvoi est pose en
     //    bas du graph, sur la ligne du footer, cale sur l axe Y du chart.
+    // Moyenne de la serie (% uniquement), alignee a GAUCHE sur le debut du
+    // graph, a la meme hauteur que la ligne CAGR (alignee a droite).
+    if (options.avgPct) {
+      const avgEl = document.createElementNS(NS, "text");
+      avgEl.setAttribute("x", String(GRAPH_X));
+      avgEl.setAttribute("y", String(LINE2_Y + 40));
+      avgEl.setAttribute("text-anchor", "start");
+      avgEl.setAttribute("font-family", PNG_FONT_FAMILY);
+      avgEl.setAttribute("font-size", "22");
+      avgEl.setAttribute("font-weight", "500");
+      avgEl.setAttribute("fill", subtitleColor);
+      avgEl.textContent = `Moyenne : ${options.avgPct}`;
+      clone.appendChild(avgEl);
+    }
     if (options.cagr) {
       const CAGR_FONT_SIZE = 22;
       const rawCagr = options.cagr.replace(/^CAGR\s*/i, "").trim();

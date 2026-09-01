@@ -206,7 +206,13 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
                   fill={c}
                   fontWeight={700}
                   fontSize={numFz}
-                  style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}
+                  // Yann 1er sept 2026 : contour noir de la typo (paint-order)
+                  // pour que le chiffre reste lisible devant une barre verte
+                  // ou rouge, quel que soit son placement.
+                  stroke="#000"
+                  strokeWidth={3}
+                  paintOrder="stroke"
+                  strokeLinejoin="round"
                 >
                   {numTxt}
                 </text>

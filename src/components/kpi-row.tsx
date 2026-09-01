@@ -162,7 +162,11 @@ export function KpiRow({
               c'est redondant avec name_fr affiché ci-dessous. Le "i" tooltip
               de l'InfoTooltip suffit pour les détails. */}
           <div className="min-w-0 leading-tight">
-            <div className="text-[14px] font-medium leading-snug text-zinc-100">{primaryName}</div>
+            {/* Yann 1er sept 2026 : marquage temporaire de revue — les KPI
+                ajoutes par le lot kpi-sept-2026 (META/GOOGL) s affichent en
+                jaune le temps de la validation. Retirer le champ _added_batch
+                des JSON (ou cette condition) pour revenir au blanc. */}
+            <div className={`text-[14px] font-medium leading-snug ${(kpi as { _added_batch?: string })._added_batch === "kpi-sept-2026" ? "text-yellow-300" : "text-zinc-100"}`}>{primaryName}</div>
             {secondaryName && secondaryName !== primaryName && (
               <div className="text-[11.5px] text-zinc-400">{secondaryName}</div>
             )}

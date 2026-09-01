@@ -1632,6 +1632,15 @@ export function CompanyView({
                 data-export-extra="true"
                 data-export-title-en={(active as { name_en?: string; short?: string }).name_en || (active as { short?: string }).short || ""}
                 data-export-unit-en={translateUnitFrToEn(displayUnit || "")}
+                // Yann 1er sept 2026 : pour les graphs en %, le document
+                // telecharge affiche la moyenne de la serie visible.
+                data-export-avg={(() => {
+                  if ((displayUnit || "").trim() !== "%") return "";
+                  const vals = chartHistoryRaw.filter((x): x is number => typeof x === "number" && Number.isFinite(x));
+                  if (vals.length < 2) return "";
+                  const moy = vals.reduce((a, b) => a + b, 0) / vals.length;
+                  return `${moy >= 0 ? "+" : ""}${moy.toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %`;
+                })()}
               >
               <ChartCycle
                 mode={chartMode}

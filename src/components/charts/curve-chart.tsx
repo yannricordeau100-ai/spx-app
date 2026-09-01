@@ -62,8 +62,8 @@ import { calculeEnteteAxe } from "@/lib/entete-axe";
 
 /** Yann 19 juil 2026 : format label point unifié via helper commun
  *  (compact k/M/Md, % préservé, adaptatif petits nombres). */
-const formatDataPointLabel = (v: number, dataMax: number, unit?: string, locale?: string) =>
-  formatChartValueLabel(v, dataMax, unit, locale);
+const formatDataPointLabel = (v: number, dataMax: number, unit?: string, locale?: string, serieEntiere?: boolean) =>
+  formatChartValueLabel(v, dataMax, unit, locale, serieEntiere);
 
 /**
  * Format Y-axis tick value following Mettrik's strict rule (CLAUDE.md §6) :
@@ -234,6 +234,8 @@ export function CurveChart({
   const ttmIsCumul = rawHasTTM && (ttm as number) > dataOnlyMaxRaw * 2;
   const hasTTM = rawHasTTM && !ttmIsCumul;
   const allData = hasTTM ? [...data, ttm as number] : data;
+  // Yann 1er sept 2026 : serie entiere -> libelles sans ",0".
+  const serieEntiere = allData.every((d) => Number.isInteger(Number(d)));
   const allLabels = hasTTM ? [...labels, ttmLabel] : labels;
   const ttmIndex = hasTTM ? allData.length - 1 : -1;
   const yearGroups = buildYearGroups(allLabels);
@@ -701,9 +703,13 @@ export function CurveChart({
                     fill={isTTM ? "#a1a1aa" : (isHover ? "#fafafa" : "#d4d4d8")}
                     fontStyle={isTTM ? "italic" : "normal"}
                     fontFamily="ui-monospace, monospace"
-                    style={isHover ? { filter: `drop-shadow(0 0 4px ${color})` } : undefined}
+                    // Yann 1er sept 2026 : au survol, seul le point vise et son
+                    // chiffre restent pleinement contrastes, les autres
+                    // libelles s estompent pour la lisibilite.
+                    opacity={hover === null ? 1 : isHover ? 1 : 0.3}
+                    style={isHover ? { filter: `drop-shadow(0 0 4px ${color})`, transition: "opacity 200ms" } : { transition: "opacity 200ms" }}
                   >
-                    {formatDataPointLabel(v, dataOnlyMax, unit, effectiveLocale)}
+                    {formatDataPointLabel(v, dataOnlyMax, unit, effectiveLocale, serieEntiere)}
                   </text>
                 );
               })()}

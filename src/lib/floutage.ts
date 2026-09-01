@@ -125,7 +125,9 @@ export type PartieDeBloc =
   // Yann 29 aout 2026, spec floutage palier gratuit :
   | "indicateur"   // colonne des noms du tableau KPI
   | "qualite"      // colonne Qualite - Signal du tableau KPI
-  | "voir-plus";   // bouton "Voir x indicateurs supplementaires"
+  | "voir-plus" // bouton "Voir x indicateurs supplementaires"
+  // Yann 1er sept 2026 : jauge de severite X/5 des risques.
+  | "note";
 
 export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   tout: "le bloc entier",
@@ -139,6 +141,7 @@ export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   indicateur: "la colonne des noms",
   qualite: "la colonne Qualité · Signal",
   "voir-plus": "le bouton voir plus",
+  note: "la note de sévérité (X/5)",
 };
 
 export type Zone = { bloc: BlockId; partie: PartieDeBloc };
@@ -162,7 +165,9 @@ export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
   stories: ["tout", "titre", "texte", "source"],
   repartition: ["tout", "titre", "graphique", "tableau"],
   governance: ["tout", "titre", "tableau", "texte"],
-  risks: ["tout", "titre", "texte", "source"],
+  // "note" (Yann 1er sept 2026) : la jauge de severite X/5 de chaque risque,
+  // desormais pilotable separement — et laissee VISIBLE par defaut.
+  risks: ["tout", "titre", "texte", "source", "note"],
   events: ["tout", "titre", "tableau"],
   ai_positioning: ["tout", "titre", "texte", "source"],
   dividend: ["tout", "titre", "valeur", "graphique"],
