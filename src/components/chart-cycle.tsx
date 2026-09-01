@@ -9,6 +9,7 @@ import { BarsIso3DStack } from "@/components/charts/bars-3d-variants";
 import { VariationIsoSteps3D } from "@/components/charts/variation-3d-variants";
 import { MiniMultiplesChart } from "@/components/charts/mini-multiples-chart";
 import { downloadSvgAsPng } from "@/lib/chart-export";
+import { ShareDownloadMenu } from "@/components/charts/chart-mobile-controls";
 import { cn } from "@/lib/utils";
 import type { Anomaly } from "@/lib/brand";
 import type { Company } from "@/lib/data";
@@ -130,7 +131,7 @@ export type GraphPeriod = "year" | "quarter" | "semester";
 const EXPORT_LOCALES = ["fr", "en", "en-GB", "de", "de-CH", "nl"] as const;
 type ExportLocale = (typeof EXPORT_LOCALES)[number];
 
-function downloadVisibleChart() {
+export function downloadVisibleChart() {
   if (typeof document === "undefined") return;
   const svg = document.querySelector<SVGSVGElement>(
     'svg[data-chart-export="true"]'
@@ -218,7 +219,7 @@ export function ChartCycleControls({
                 />
               )}
               <Icon className="relative size-3" />
-              <span className="relative">{t(m.labelKey)}</span>
+              <span className="relative hidden sm:inline">{t(m.labelKey)}</span>
             </button>
           );
         })}
@@ -229,7 +230,7 @@ export function ChartCycleControls({
           (5 mai 2026 : Yann impose trimestriel par défaut sur tous les
           graphs hero, fallback annuel pour les KPIs sans data quarterly.) */}
       {graphPeriod && onGraphPeriodChange && (
-        <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
+        <div className="hidden sm:inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
           {/* Yann 29 mai 2026 (Bug 2) : le bouton Trimestriel est TOUJOURS
               rendu (même si data quarterly absente) — grisé + disabled dans
               ce cas. Avant : bouton complètement masqué, l'utilisateur ne
@@ -285,7 +286,7 @@ export function ChartCycleControls({
           ET un setter est fourni par le parent. Ordre : 2D à gauche, 3D
           à droite (logique = simple → enrichi). 6 mai 2026. */}
       {mode === "bars" && barsVariant && onBarsVariantChange && (
-        <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
+        <div className="hidden sm:inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">
           <button
             onClick={() => onBarsVariantChange("classic")}
             className={cn(
@@ -317,20 +318,16 @@ export function ChartCycleControls({
           la ligne des onglets (au-dessus du titre du graph). Plus visible
           qu'avant (était opacity-50 sur le chart) : fond teinté à la couleur
           de la sté + bordure + texte/icône net. Exporte le chart visible. */}
+      {/* Yann 2 sept 2026 : le bouton telecharger devient un menu a deux
+          usages (telecharger le PNG, partager sur X), web ET mobile. */}
       {mode !== "panel" && (
-        <button
-          type="button"
-          onClick={downloadVisibleChart}
-          aria-label={t("graph.download")}
-          title={t("graph.download")}
-          className="ml-1 inline-flex size-7 shrink-0 items-center justify-center rounded-full border text-zinc-100 transition-all hover:text-white"
-          style={{
-            background: `linear-gradient(135deg, ${color}33, ${color}1f)`,
-            borderColor: `${color}66`,
-          }}
-        >
-          <Download className="size-3.5" />
-        </button>
+        <ShareDownloadMenu
+          onDownload={downloadVisibleChart}
+          shareText={typeof document !== "undefined" ? document.title : "Mettrik AI"}
+          shareUrl={typeof window !== "undefined" ? window.location.href : "https://mettrik.ai"}
+          accent={color}
+          className="ml-1 shrink-0"
+        />
       )}
     </div>
   );

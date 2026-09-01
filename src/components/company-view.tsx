@@ -52,6 +52,7 @@ import { Spotlight } from "@/components/effects/spotlight";
 import { NumberTicker } from "@/components/effects/number-ticker";
 import { ChartCycle, ChartCycleControls, useChartMode, computeChartDisplay } from "@/components/chart-cycle";
 import { TimeFractionToggle, timeFractionDivisor, type TimeFraction } from "@/components/charts/time-fraction-toggle";
+import { ChartSettingsMenu, TimeUnitSelect, ChartFullscreen } from "@/components/charts/chart-mobile-controls";
 import { KpiRow } from "@/components/kpi-row";
 import { QualityBadge, QualityChipOnly, PercentileChipOnly } from "@/components/quality-badge";
 import { CompanyHeader } from "@/components/company-header";
@@ -867,6 +868,27 @@ export function CompanyView({
     tone === "pos" ? "#10b981" : tone === "neg" ? "#f43f5e" : "#a1a1aa";
 
   const heroRating = rate(active);
+  // Yann 12 juil 2026 (factorise 2 sept 2026 pour le menu Reglages mobile) :
+  // "Annuel" grise si l agregation ne produit aucune FY complete.
+  // Yann 2 sept 2026 : plein ecran mobile du graph (tap sur le graph).
+  const [chartPleinEcran, setChartPleinEcran] = useState(false);
+  const mobilePeriodAvailable = {
+    year: (() => {
+      if (active.period_type !== "quarter" && active.period_type !== "semester") return true;
+      const kind = getKpiAggregationKind(active);
+      const fyEnd = getFiscalAudit(company.ticker)?.fiscalYearEndMonth ?? 12;
+      const agg = aggregateQuarterlyToAnnual(
+        active.history ?? [],
+        active.last_data_date,
+        kind,
+        fyEnd,
+        (active as { history_periods?: string[] }).history_periods,
+      );
+      return agg.values.length > 0;
+    })(),
+    quarter: active.period_type === "quarter",
+    semester: active.period_type === "semester",
+  };
   // Yann 15 mai 2026 : un KPI "incomplet" (juste une value, sans history/yoy/signal)
   // ne devrait PAS afficher de tier ni de percentile (= fallback bidon "Moyen / Top 50 %"),
   // ni de signal box vide. On masque tout ce qui n'a pas de sens sur ce KPI-là.
@@ -1008,6 +1030,45 @@ export function CompanyView({
       .replace(/\s+/g, " ")
       .trim();
   }, [active.signal, heroTitleLang, locale]);
+
+
+  // Noeud du graph hero, rendu inline ET dans le plein ecran mobile.
+  const heroChartNode = (
+    <ChartCycle
+      mode={chartMode}
+      data={scaleFactor !== 1 ? chartHistoryRaw.map((v) => (typeof v === "number" ? v * scaleFactor : v)) : chartHistoryRaw}
+      labels={chartLabels}
+      unit={displayUnit}
+      color={accent}
+      anomalies={anomalies}
+      events={[]}
+      company={company}
+      activeShort={active.short}
+      onPickKpi={handleKpiClick}
+      ttm={chartTTM}
+      barsVariant={barsVariant}
+      timeFraction={effectiveTimeFraction}
+      titleLocale={heroTitleLang}
+      exportCagr={exportCagr}
+      exportInterpretation={exportInterp}
+      exportTitle={`${(() => {
+        // Yann juin 2026 : l'export suit la langue du SWAP titre
+        // (heroTitleLang via KpiSwapTitle), pas la locale globale, pour
+        // que le PNG corresponde au titre affiché (clic = EN sur page FR).
+        // Yann 25 aout 2026 : meme regle de repli que KpiSwapTitle.
+        // Sans name_en, le titre affiche bascule sur `short` (qui est
+        // l anglais par defaut) alors que le PNG retombait sur le nom
+        // francais : titre EN a l ecran, titre FR dans le document.
+        type N = typeof active & { name_en?: string; short?: string };
+        const a = active as N;
+        return heroTitleLang === "en"
+          ? (a.name_en || a.short || a.name_fr)
+          : a.name_fr;
+      })()}${
+        timeFraction !== "year" ? ` ${translate(`timefrac.suffix.${timeFraction}`, heroTitleLang)}` : ""
+      } · ${company.name}`}
+    />
+  );
 
   const comparables = useMemo(
     () => findComparable(company.ticker, active.short),
@@ -1151,7 +1212,7 @@ export function CompanyView({
                 Yann 13 juin 2026 : flex flex-col + order-* pour remonter le
                 gros chiffre (order-1) et descendre les badges meta sous les
                 chips (order-3). */}
-            <div className="flex min-w-0 flex-col lg:col-span-2">
+            <div className="order-2 flex min-w-0 flex-row flex-wrap items-start lg:flex-col lg:flex-nowrap lg:order-none lg:col-span-2">
               {/*
                 ┌────────────────────────────────────────────────────────────┐
                 │ ⚠️  RÈGLE FIGÉE — NE PAS MODIFIER (Yann 5 juin 2026)        │
@@ -1192,7 +1253,7 @@ export function CompanyView({
                   $XX.XX, ABF $XXX.X Mds, etc.). flex-wrap permet à l'unité
                   de basculer en dessous si pas la place. min-w-0 sur la
                   colonne parent côté layout HERO. */}
-              <div className="order-1 mt-0 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+              <div className="order-1 mt-0 flex w-full flex-wrap items-baseline gap-x-2 gap-y-1">
                 {freeBlocked ? (
                   <div style={{ fontSize: "clamp(34px, 4.4vw, 56px)" }}>
                     <BlurredFreeValue
@@ -1225,11 +1286,11 @@ export function CompanyView({
                 )}
               </div>
 
-              <div className="order-2 mt-3 flex flex-col items-start gap-2">
+              <div className="order-2 mt-3 flex w-[45%] min-w-0 flex-col items-start gap-2 lg:w-auto">
                 {/* YoY pill : masquée si KPI incomplet (= aucune valeur YoY calculable) */}
                 {!isIncompleteKpi && (effectiveYoy !== "" || typeof effectiveYoy === "number") && (
                   <div
-                    className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-sm font-medium"
+                    className="inline-flex w-fit max-w-full flex-wrap items-center gap-1.5 rounded-full border px-2.5 py-1 text-sm font-medium lg:flex-nowrap lg:whitespace-nowrap"
                     style={{
                       color: freeBlocked ? "#52525b" : yoyColor,
                       borderColor: `${freeBlocked ? "#52525b" : yoyColor}40`,
@@ -1412,7 +1473,7 @@ export function CompanyView({
                   Yann 15 mai 2026 : masqué si signal vide (évite box vide). */}
               {/* Yann 21 août 2026 : étoile "IA" (Sparkles) retirée du hero. */}
               {typeof active.signal === "string" && active.signal.trim() && (
-                <div className="order-4 mt-5 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5">
+                <div className="order-4 ml-auto mt-3 flex w-[52%] max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 lg:ml-0 lg:mt-5 lg:w-auto">
                   <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} className="flex-1">
                     <div className="text-[14px] font-semibold leading-snug text-zinc-100">
                       {active.signal}
@@ -1424,7 +1485,7 @@ export function CompanyView({
 
             {/* RIGHT: chart — élargi à 10/12 (était 9) pour plus de place au
                 graph principal. */}
-            <div className="min-w-0 lg:col-span-10">
+            <div className="order-1 min-w-0 lg:order-none lg:col-span-10">
               {/* Toolbar au-dessus du graph en 2 LIGNES :
                     Ligne 1 : titre du KPI centré, agrandi
                     Ligne 2 : styles graph (gauche) + période 5/10/20 (droite)
@@ -1449,6 +1510,28 @@ export function CompanyView({
                   la place). Onglet "Tableau de bord" supprimé (cf liste
                   TABS dans chart-cycle.tsx). */}
               <div className="mb-3 flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {/* Yann 2 sept 2026 (ergonomie mobile) : en mobile, un menu
+                    Reglages commun (fenetre + frequence + rendu 2D/3D) et un
+                    menu deroulant pour l unite de temps remplacent les
+                    rangees de pills ; le desktop garde tout inchange. */}
+                <div className="flex items-center gap-2 sm:hidden">
+                  <ChartSettingsMenu
+                    accent={accent}
+                    range={chartRange}
+                    onRange={setChartRange}
+                    hasMaxPlan={!freeBlocked}
+                    graphPeriod={graphPeriod}
+                    onGraphPeriod={setGraphPeriod}
+                    periodAvailable={mobilePeriodAvailable}
+                    mode={chartMode}
+                    barsVariant={barsVariant}
+                    onBarsVariant={setBarsVariant}
+                  />
+                  {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
+                    <TimeUnitSelect value={timeFraction} onChange={setTimeFraction} accent={accent} />
+                  )}
+                </div>
+                <div className="hidden sm:contents">
                 <PeriodToggle accent={accent} value={chartRange} onChange={setChartRange} hasMaxPlan={!freeBlocked} />
                 {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
                   <TimeFractionToggle
@@ -1457,6 +1540,7 @@ export function CompanyView({
                     accent={accent}
                   />
                 )}
+                </div>
                 <ChartCycleControls
                   mode={chartMode}
                   onChange={setChartMode}
@@ -1465,29 +1549,7 @@ export function CompanyView({
                   onBarsVariantChange={setBarsVariant}
                   graphPeriod={graphPeriod}
                   onGraphPeriodChange={setGraphPeriod}
-                  graphPeriodAvailable={{
-                    // Yann 12 juil 2026 : "Annuel" grisé si l'agrégation ne
-                    // produit AUCUNE FY complète (KPI quarterly sans les Q4,
-                    // ex MSFT LinkedIn revenue growth) -> plus jamais de vue
-                    // annuelle vide, quel que soit le KPI promu.
-                    year: (() => {
-                      if (active.period_type !== "quarter" && active.period_type !== "semester") return true;
-                      const kind = getKpiAggregationKind(active);
-                      const fyEnd = getFiscalAudit(company.ticker)?.fiscalYearEndMonth ?? 12;
-                      const agg = aggregateQuarterlyToAnnual(
-                        active.history ?? [],
-                        active.last_data_date,
-                        kind,
-                        fyEnd,
-                        (active as { history_periods?: string[] }).history_periods,
-                      );
-                      return agg.values.length > 0;
-                    })(),
-                    // Quarter / Semester dispo selon period_type natif du KPI.
-                    // (data réelle, sinon désactivé).
-                    quarter: active.period_type === "quarter",
-                    semester: active.period_type === "semester",
-                  }}
+                  graphPeriodAvailable={mobilePeriodAvailable}
                 />
               </div>
               <div className="mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
@@ -1636,6 +1698,11 @@ export function CompanyView({
               <div
                 data-blur-part="graphique"
                 data-export-extra="true"
+                // Yann 2 sept 2026 : sur mobile, taper le graph l ouvre en
+                // plein ecran (portrait, bouton paysage). Desktop inchange.
+                onClick={() => {
+                  if (typeof window !== "undefined" && window.innerWidth < 640) setChartPleinEcran(true);
+                }}
                 data-export-title-en={(active as { name_en?: string; short?: string }).name_en || (active as { short?: string }).short || ""}
                 data-export-unit-en={translateUnitFrToEn(displayUnit || "")}
                 // Yann 1er sept 2026 : pour les graphs en %, le document
@@ -1648,41 +1715,15 @@ export function CompanyView({
                   return `${moy >= 0 ? "+" : ""}${moy.toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %`;
                 })()}
               >
-              <ChartCycle
-                mode={chartMode}
-                data={scaleFactor !== 1 ? chartHistoryRaw.map((v) => (typeof v === "number" ? v * scaleFactor : v)) : chartHistoryRaw}
-                labels={chartLabels}
-                unit={displayUnit}
-                color={accent}
-                anomalies={anomalies}
-                events={[]}
-                company={company}
-                activeShort={active.short}
-                onPickKpi={handleKpiClick}
-                ttm={chartTTM}
-                barsVariant={barsVariant}
-                timeFraction={effectiveTimeFraction}
-                titleLocale={heroTitleLang}
-                exportCagr={exportCagr}
-                exportInterpretation={exportInterp}
-                exportTitle={`${(() => {
-                  // Yann juin 2026 : l'export suit la langue du SWAP titre
-                  // (heroTitleLang via KpiSwapTitle), pas la locale globale, pour
-                  // que le PNG corresponde au titre affiché (clic = EN sur page FR).
-                  // Yann 25 aout 2026 : meme regle de repli que KpiSwapTitle.
-                  // Sans name_en, le titre affiche bascule sur `short` (qui est
-                  // l anglais par defaut) alors que le PNG retombait sur le nom
-                  // francais : titre EN a l ecran, titre FR dans le document.
-                  type N = typeof active & { name_en?: string; short?: string };
-                  const a = active as N;
-                  return heroTitleLang === "en"
-                    ? (a.name_en || a.short || a.name_fr)
-                    : a.name_fr;
-                })()}${
-                  timeFraction !== "year" ? ` ${translate(`timefrac.suffix.${timeFraction}`, heroTitleLang)}` : ""
-                } · ${company.name}`}
-              />
+              {heroChartNode}
               </div>
+              <ChartFullscreen
+                open={chartPleinEcran}
+                onClose={() => setChartPleinEcran(false)}
+                titre={`${active.name_fr || active.short} · ${company.name}`}
+              >
+                {heroChartNode}
+              </ChartFullscreen>
             </div>
           </div>
 

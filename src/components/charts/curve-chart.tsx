@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState , useEffect} from "react";
 import { motion } from "motion/react";
 import { AnomalyInfo } from "@/components/anomaly-info";
 import type { Anomaly } from "@/lib/brand";
@@ -217,6 +217,14 @@ export function CurveChart({
   const effectiveLocale = titleLocale === "en" ? "en" : locale;
   // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
   const [yOnRight, setYOnRight] = useState(false);
+  // Yann 2 sept 2026 (mobile) : axes X/Y un peu plus gros sur petit ecran
+  // (le viewBox ~920px est rendu a ~340px, les ticks devenaient illisibles).
+  const [axesMobiles, setAxesMobiles] = useState(false);
+  useEffect(() => {
+    setAxesMobiles(typeof window !== "undefined" && window.innerWidth < 640);
+  }, []);
+  const AF = axesMobiles ? 1.35 : 1;
+
 
   // Garde-fou : si pas de data utilisable, ne rien afficher au lieu de crasher.
   if (!data || !Array.isArray(data) || data.length === 0) {
@@ -452,7 +460,7 @@ export function CurveChart({
             x={yOnRight ? W - 6 : PAD_LEFT - 6}
             y={y + 5}
             textAnchor="end"
-            fontSize={16}
+            fontSize={16 * AF}
             fontWeight={500}
             fill="#e4e4e7"
             fontFamily="ui-monospace, monospace"
@@ -461,19 +469,7 @@ export function CurveChart({
           </text>
         ))}
 
-        {/* Zone cliquable invisible sur l'axe Y pour toggler gauche/droite.
-            Couvre les ticks labels + le header. Yann 15 mai 2026. */}
-        <rect
-          x={yOnRight ? PAD_LEFT + innerW : 0}
-          y={0}
-          width={yOnRight ? W - (PAD_LEFT + innerW) : PAD_LEFT}
-          height={H}
-          fill="transparent"
-          style={{ cursor: "pointer" }}
-          onClick={() => setYOnRight((v) => !v)}
-        >
-          <title>Cliquer pour basculer l&apos;axe Y à {yOnRight ? "gauche" : "droite"}</title>
-        </rect>
+        {/* Yann 2 sept 2026 : bascule d axe au clic desactivee (le clic ouvre le plein ecran en mobile). */}
 
         {/* Wall under front curve */}
         <motion.path
@@ -700,7 +696,7 @@ export function CurveChart({
                     x={x}
                     y={yLabel}
                     textAnchor="middle"
-                    fontSize={isCrowded ? 11 : 14}
+                    fontSize={(isCrowded ? 11 : 14) * AF}
                     fontWeight={isTTM ? 500 : (isHover ? 800 : 600)}
                     fill={isTTM ? "#a1a1aa" : (isHover ? "#fafafa" : "#d4d4d8")}
                     fontStyle={isTTM ? "italic" : "normal"}

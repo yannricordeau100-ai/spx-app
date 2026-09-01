@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import type { Company } from "@/lib/data";
 import { TICKER_ALIASES } from "@/lib/data";
 import { brand } from "@/lib/brand";
@@ -24,6 +25,43 @@ import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
  *     Plus petit = plus lisible pour les logos PNG avec fond blanc + apple
  *     noir (taille relative compatible avec la zone disponible).
  */
+
+/**
+ * Yann 2 sept 2026 (mobile) : la rangee des chips de rang defile toute seule,
+ * lentement (aller-retour), et reste deplacable au doigt : tout contact met
+ * l auto-defilement en pause 5 s. Ne fait rien en desktop ni si tout tient.
+ */
+function useDefilementChips() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (typeof window === "undefined" || window.innerWidth >= 640) return;
+    let raf = 0;
+    let dir = 1;
+    let pauseJusqua = performance.now() + 1800;
+    const pause = () => { pauseJusqua = performance.now() + 5000; };
+    el.addEventListener("touchstart", pause, { passive: true });
+    el.addEventListener("pointerdown", pause, { passive: true });
+    const tick = (now: number) => {
+      raf = requestAnimationFrame(tick);
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (maxScroll <= 4) return;
+      if (now < pauseJusqua) return;
+      el.scrollLeft += 0.35 * dir;
+      if (el.scrollLeft >= maxScroll - 1) { dir = -1; pauseJusqua = now + 1200; }
+      if (el.scrollLeft <= 1) { dir = 1; pauseJusqua = now + 1200; }
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener("touchstart", pause);
+      el.removeEventListener("pointerdown", pause);
+    };
+  }, []);
+  return ref;
+}
+
 function LogoTile({ ticker }: { ticker: string }) {
   return (
     <div
@@ -233,6 +271,7 @@ export function CompanyHeader({
    *  prop (v1-8, v1-7-5) gardent le fallback JSON sans régression. */
   disabledBlocks?: string[];
 }) {
+  const chipsRef = useDefilementChips();
   const accent = brand(company.ticker).primary;
   const { t, locale } = useT();
   // Helper local : prop si fournie, sinon fallback isBlockDisabledForTicker.
@@ -277,7 +316,7 @@ export function CompanyHeader({
       {/* Yann (12 mai 2026) : tous les rangs sur UNE ligne horizontale.
           flex-nowrap + overflow-x-auto = scroll discret si overflow petit
           écran. Rang USA masqué pour les sés non-US (cat 3 EU). */}
-      <div className="mt-5 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div ref={chipsRef} className="mt-5 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <StatChip label={t("company.rank_world")} value={company.ranks.global_world} />
         {isUsOrAdr(company.ticker) && company.ranks.global_us && company.ranks.global_us.trim() !== "" && company.ranks.global_us !== "-" && (
           <StatChip label={t("company.rank_us")} value={company.ranks.global_us} />

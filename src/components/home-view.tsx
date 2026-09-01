@@ -458,7 +458,7 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
   return (
     <div
       ref={blockRef}
-      className="mx-auto mt-14 flex max-w-3xl justify-center sm:mt-20"
+      className="mx-auto mt-14 flex max-w-3xl justify-center px-3 sm:mt-20 sm:px-0"
       style={{ perspective: "1200px" }}
     >
       <motion.div
@@ -491,7 +491,7 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
             demandé de CHANGER LES PHRASES du bloc, pas de retirer le badge. */}
         <span
           aria-hidden
-          className="absolute left-1/2 top-0 z-30 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-[#06060a] px-4 py-1.5 font-mono text-[12px] font-extrabold uppercase tracking-[0.22em] sm:px-5 sm:py-2 sm:text-[14.5px]"
+          className="absolute left-1/2 top-0 z-30 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-[#06060a] px-3 py-1.5 font-mono text-[10.5px] font-extrabold uppercase tracking-[0.13em] sm:px-5 sm:py-2 sm:text-[14.5px] sm:tracking-[0.22em]"
           style={{
             border: "1.5px solid rgba(168, 85, 247, 0.7)",
             boxShadow:

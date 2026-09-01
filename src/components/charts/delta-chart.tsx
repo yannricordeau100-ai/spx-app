@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState , useEffect} from "react";
 
 const POS = "#10b981";
 const NEG = "#f43f5e";
@@ -61,6 +61,14 @@ export function DeltaChart({
   const [hover, setHover] = useState<number | null>(null);
   // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
   const [yOnRight, setYOnRight] = useState(false);
+  // Yann 2 sept 2026 (mobile) : axes X/Y un peu plus gros sur petit ecran
+  // (le viewBox ~920px est rendu a ~340px, les ticks devenaient illisibles).
+  const [axesMobiles, setAxesMobiles] = useState(false);
+  useEffect(() => {
+    setAxesMobiles(typeof window !== "undefined" && window.innerWidth < 640);
+  }, []);
+  const AF = axesMobiles ? 1.35 : 1;
+
 
   const deltas = data.slice(1).map((v, i) => {
     const prev = data[i];
@@ -167,7 +175,7 @@ export function DeltaChart({
             x={yOnRight ? PAD_LEFT + INNER_W + 12 : PAD_LEFT - 12}
             y={y + 5}
             textAnchor={yOnRight ? "start" : "end"}
-            fontSize={16}
+            fontSize={16 * AF}
             fontWeight={500}
             fill="#e4e4e7"
             fontFamily="ui-monospace, monospace"
@@ -177,18 +185,7 @@ export function DeltaChart({
           </text>
         ))}
 
-        {/* Zone cliquable invisible sur l'axe Y. Yann 15 mai 2026. */}
-        <rect
-          x={yOnRight ? PAD_LEFT + INNER_W : 0}
-          y={0}
-          width={yOnRight ? W - (PAD_LEFT + INNER_W) : PAD_LEFT}
-          height={H}
-          fill="transparent"
-          style={{ cursor: "pointer" }}
-          onClick={() => setYOnRight((v) => !v)}
-        >
-          <title>Cliquer pour basculer l&apos;axe Y à {yOnRight ? "gauche" : "droite"}</title>
-        </rect>
+        {/* Yann 2 sept 2026 : bascule d axe au clic desactivee (le clic ouvre le plein ecran en mobile). */}
 
         {/* Zero line plus marquée */}
         <line
@@ -274,7 +271,7 @@ export function DeltaChart({
                 x={x + barW / 2 + DX / 2}
                 y={isPos ? yTop + DY - 20 : yBot + DY + 28}
                 textAnchor="middle"
-                fontSize={17}
+                fontSize={17 * AF}
                 fontWeight={700}
                 fill={c}
                 fontFamily="ui-monospace, monospace"
@@ -289,7 +286,7 @@ export function DeltaChart({
                 x={x + barW / 2 + DX / 2}
                 y={H - PAD_BOTTOM + 26}
                 textAnchor="middle"
-                fontSize={17}
+                fontSize={17 * AF}
                 fill="#e4e4e7"
                 fontFamily="ui-monospace, monospace"
                 fontWeight={600}

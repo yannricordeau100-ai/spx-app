@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { motion } from "motion/react";
 import type { Anomaly } from "@/lib/brand";
 import { AnomalyInfo } from "@/components/anomaly-info";
@@ -84,6 +84,14 @@ export function BarsChart({
   const { locale } = useT();
   // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
   const [yOnRight, setYOnRight] = useState(false);
+  // Yann 2 sept 2026 (mobile) : axes X/Y un peu plus gros sur petit ecran
+  // (le viewBox ~920px est rendu a ~340px, les ticks devenaient illisibles).
+  const [axesMobiles, setAxesMobiles] = useState(false);
+  useEffect(() => {
+    setAxesMobiles(typeof window !== "undefined" && window.innerWidth < 640);
+  }, []);
+  const AF = axesMobiles ? 1.35 : 1;
+
 
   // Étend data + labels avec la barre TTM si fournie. La dernière barre
   // est ensuite stylée différemment (pointillé / opacité réduite) pour
@@ -246,7 +254,7 @@ export function BarsChart({
             x={yOnRight ? PAD_LEFT + innerW + 12 : PAD_LEFT - 12}
             y={y + 5}
             textAnchor={yOnRight ? "start" : "end"}
-            fontSize={16}
+            fontSize={16 * AF}
             fontWeight={500}
             fill="#e4e4e7"
             fontFamily="ui-monospace, monospace"
@@ -255,19 +263,7 @@ export function BarsChart({
           </text>
         ))}
 
-        {/* Zone cliquable invisible sur l'axe Y pour toggler gauche/droite.
-            Yann 15 mai 2026. */}
-        <rect
-          x={yOnRight ? PAD_LEFT + innerW : 0}
-          y={0}
-          width={yOnRight ? W - (PAD_LEFT + innerW) : PAD_LEFT}
-          height={H}
-          fill="transparent"
-          style={{ cursor: "pointer" }}
-          onClick={() => setYOnRight((v) => !v)}
-        >
-          <title>Cliquer pour basculer l&apos;axe Y à {yOnRight ? "gauche" : "droite"}</title>
-        </rect>
+        {/* Yann 2 sept 2026 : bascule d axe au clic desactivee (le clic ouvre le plein ecran en mobile). */}
 
         {/* Zero line */}
         {min < 0 && max > 0 && (
@@ -465,7 +461,7 @@ export function BarsChart({
                 x={x + barW / 2 + (variant === "classic" ? 0 : DX / 2)}
                 y={H - PAD_BOTTOM + 26}
                 textAnchor="middle"
-                fontSize={isTTM ? 15 : 17}
+                fontSize={(isTTM ? 15 : 17) * AF}
                 fill={isTTM ? "#a1a1aa" : "#e4e4e7"}
                 fontFamily="ui-monospace, monospace"
                 fontWeight={isTTM ? 500 : 600}
