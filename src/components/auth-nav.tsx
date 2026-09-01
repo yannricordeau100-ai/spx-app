@@ -65,14 +65,14 @@ export async function AuthNav({ scope = "home" }: { scope?: "home" | "company" }
   }
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-1.5 sm:gap-3">
       <LanguageSwitcher />
       <Link href="/?auth=signin" className="group relative inline-block" aria-label={t("authnav.signin")}>
         <span
           aria-hidden
           className="absolute inset-0 translate-x-[3px] translate-y-[3px] rounded-md border border-violet-300/35 transition-transform duration-200 ease-out group-hover:translate-x-[5px] group-hover:translate-y-[5px]"
         />
-        <span className="relative z-10 inline-flex items-center gap-2 rounded-md border border-zinc-700 bg-[#0a0a0e] px-3.5 py-2 text-[12.5px] font-medium tracking-[0.04em] text-zinc-100 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
+        <span className="relative z-10 inline-flex items-center gap-2 rounded-md border border-zinc-700 bg-[#0a0a0e] px-2.5 sm:px-3.5 py-2 text-[12.5px] font-medium tracking-[0.04em] text-zinc-100 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
           <span
             aria-hidden
             className="size-1.5 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(167,139,250,0.6)]"
@@ -86,7 +86,7 @@ export async function AuthNav({ scope = "home" }: { scope?: "home" | "company" }
           aria-hidden
           className="absolute inset-0 translate-x-[3px] translate-y-[3px] rounded-md border border-cyan-300/45 transition-transform duration-200 ease-out group-hover:translate-x-[5px] group-hover:translate-y-[5px]"
         />
-        <span className="relative z-10 inline-flex items-center gap-2 rounded-md border border-violet-300/40 bg-violet-500/15 px-3.5 py-2 text-[12.5px] font-semibold tracking-[0.04em] text-violet-50 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
+        <span className="relative z-10 inline-flex items-center gap-2 rounded-md border border-violet-300/40 bg-violet-500/15 px-2.5 sm:px-3.5 py-2 text-[12.5px] font-semibold tracking-[0.04em] text-violet-50 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
           {t("authnav.signup")}
           <span
             aria-hidden
