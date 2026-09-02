@@ -486,12 +486,15 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
 
     try:
         parsed, fournisseur = extract_via_api(ticker, kpis, docs)
-    except (RuntimeError, ValueError):
+    except (RuntimeError, ValueError) as err:
         # Moteur injoignable ou reponse inexploitable : on ne perd pas le
         # travail, on ecrit le dossier pour un traitement a la main.
+        # Fix 2 sept 2026 : le MOTIF est logge. Sans lui, 6 nuits de
+        # "0 traite / 641 dossiers" sont passees sans qu on sache pourquoi.
         path = write_dossier(ticker, kpis, docs)
         return {"ticker": ticker, "statut": "dossier prepare", "fichier": path.name,
-                "kpis": len(kpis), "documents": len(docs)}
+                "kpis": len(kpis), "documents": len(docs),
+                "motif": str(err)[:180]}
 
     periode = str(parsed.get("periode") or "").strip()
     corpus = [t for _, t in docs]

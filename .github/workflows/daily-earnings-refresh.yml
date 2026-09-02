@@ -23,6 +23,12 @@ on:
     - cron: "0 23 * * 0"
   workflow_dispatch: # permet de lancer manuellement depuis GitHub UI
 
+# Fix 2 sept 2026 (Yann) : le push echouait en 403 "denied to
+# github-actions[bot]" depuis des semaines (30 runs failed d affilee) parce
+# que le GITHUB_TOKEN du workflow est en lecture seule par defaut.
+permissions:
+  contents: write
+
 jobs:
   refresh:
     runs-on: ubuntu-latest

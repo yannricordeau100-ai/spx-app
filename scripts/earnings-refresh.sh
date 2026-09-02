@@ -21,6 +21,10 @@ export LOGNAME="$USER"
   echo "=== $(date '+%F %T') veille EU ==="
   nice -n 10 python3 scripts/fr-doc-watcher.py
   echo "=== $(date '+%F %T') extraction ==="
+  # Sonde moteur (2 sept 2026) : un appel minimal AVANT la passe, avec la
+  # reponse ou l erreur exacte dans le log. 6 nuits ont echoue en silence.
+  echo "--- sonde moteur claude -p :"
+  claude -p --model sonnet --output-format text <<< "Reponds exactement: SONDE-OK" 2>&1 | tail -2
   nice -n 10 python3 scripts/earnings-refresh.py --apply
   echo "=== $(date '+%F %T') transcripts d earnings calls (Fool, 3 derniers mois) ==="
   # Yann 30 aout 2026 : la chaine transcripts/syntheses n etait branchee sur
@@ -36,7 +40,17 @@ for _ in range(3):
 print(','.join(reversed(ms)))")
   nice -n 10 python3 scripts/transcripts-refresh.py --mois "$MOIS_TR"
   echo "=== $(date '+%F %T') syntheses des transcripts mis a jour ==="
-  nice -n 10 python3 scripts/summaries-refresh.py
+  # Fix 2 sept 2026 : le script exige --tickers, l appel nu echouait CHAQUE
+  # nuit ("error: the following arguments are required: --tickers") et aucune
+  # synthese n etait regeneree. On passe les tickers dont le transcript a
+  # bouge dans les dernieres 24 h (mtime) ; s il n y en a aucun, on saute.
+  TICKERS_FRAIS=$(find src/data/transcripts -name '*.json' -mtime -1 2>/dev/null \
+    | sed 's|.*/||; s|\.json$||' | tr '[:lower:]' '[:upper:]' | paste -sd, -)
+  if [ -n "$TICKERS_FRAIS" ]; then
+    nice -n 10 python3 scripts/summaries-refresh.py --tickers "$TICKERS_FRAIS"
+  else
+    echo "aucun transcript modifie en 24 h : pas de synthese a refaire"
+  fi
   echo "=== $(date '+%F %T') controle des publications attendues ==="
   # Compare le calendrier des resultats a ce qui est reellement tombe dans le
   # data-lake. Sans ce controle, une publication captee par personne passe

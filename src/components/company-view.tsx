@@ -59,6 +59,7 @@ import { CompanyHeader } from "@/components/company-header";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { PeriodToggle } from "@/components/period-toggle";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { expliqueUnite } from "@/lib/unites-explications";
 import { InterpretationBlock } from "@/components/interpretation-block";
 // Yann 12 juin 2026 : events liés au graph retirés (plus d'import getCompanyEvents).
 import { CompareControl } from "@/components/compare-control";
@@ -1597,8 +1598,12 @@ export function CompanyView({
                   const localExplanation = isFr
                     ? (a.explanation_fr || a.explanation || "")
                     : (a.explanation_en || a.explanation || "");
+                  // Yann 2 sept 2026 : unite d axe Y pas simple (bps, GW,
+                  // Bcf/j...) = expliquee dans le "i" du titre du KPI.
+                  const uniteExpliquee = expliqueUnite(active.unit);
                   const hasContent =
                     (localExplanation && localExplanation.trim()) ||
+                    uniteExpliquee ||
                     (active.name_en && active.name_en !== active.name_fr);
                   if (!hasContent) return null;
                   return (
@@ -1608,6 +1613,14 @@ export function CompanyView({
                       </div>
                       {localExplanation && localExplanation.trim() && (
                         <div className="text-zinc-200">{localExplanation}</div>
+                      )}
+                      {uniteExpliquee && (
+                        <div className="mt-2 border-t border-white/5 pt-2">
+                          <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">
+                            {isFr ? "Unité" : "Unit"} · {active.unit}
+                          </span>
+                          <div className="mt-0.5 text-[12px] text-zinc-300">{uniteExpliquee}</div>
+                        </div>
                       )}
                       {active.name_en && active.name_en !== active.name_fr && (
                         <div className="mt-2 border-t border-white/5 pt-2 font-mono text-[11px] italic text-zinc-400">

@@ -7,6 +7,7 @@ import { rate } from "@/lib/brand";
 import { Sparkline } from "@/components/effects/sparkline";
 import { QualityBadge } from "@/components/quality-badge";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { expliqueUnite } from "@/lib/unites-explications";
 import { StarButton } from "@/components/star-button";
 import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
@@ -177,11 +178,14 @@ export function KpiRow({
           {(() => {
             const hasDef = typeof kpi.explanation === "string" && kpi.explanation.trim().length > 0;
             const hasEn = Boolean(kpi.name_en && kpi.name_en !== kpi.name_fr);
+            // Yann 2 sept 2026 : une unite pas simple (bps, GW, Bcf/j...)
+            // justifie le "i" a elle seule, avec son explication.
+            const uniteExpliquee = expliqueUnite(kpi.unit);
             // Yann 30 aout 2026 : le "i" n existe que si une definition est
             // disponible (specifique ou repli generique). Un nom EN seul ne
             // justifie pas une icone ; le batch des 16 000 redactions est
             // abandonne, trop de travail pour l apport.
-            if (!hasDef) return null;
+            if (!hasDef && !uniteExpliquee) return null;
             return (
           <InfoTooltip color={accent}>
             {hasDef && (
@@ -193,6 +197,14 @@ export function KpiRow({
                   {kpi.explanation}
                 </BlurredFreeText>
               </>
+            )}
+            {uniteExpliquee && (
+              <div className={hasDef ? "mt-2 border-t border-white/10 pt-2" : ""}>
+                <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">
+                  Unité · {kpi.unit}
+                </span>
+                <div className="mt-0.5 text-[12px] text-zinc-300">{uniteExpliquee}</div>
+              </div>
             )}
             {/* Yann FIX 4d (29 mai 2026) : nom EN du KPI dans tooltip "i" quand
                 différent du nom FR principal affiché dans le tableau. */}
