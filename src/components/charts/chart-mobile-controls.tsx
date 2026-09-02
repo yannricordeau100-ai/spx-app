@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { ChevronDown, Download, RotateCw, Settings2, Share2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useT } from "@/lib/i18n/provider";
@@ -22,6 +23,69 @@ import type { BarsVariant, ChartMode, GraphPeriod } from "@/components/chart-cyc
  * Le desktop garde ses contrôles historiques : ces composants ne sont
  * rendus qu'en mobile (sm:hidden côté appelant), sauf ShareDownloadMenu.
  */
+
+/**
+ * Positionne un panneau deroulant en position FIXED sous son bouton, au
+ * 1er plan de l ecran (Yann 2 sept 2026) : en absolute, le panneau restait
+ * pris dans la carte du graph (overflow-hidden + stacking context) et
+ * passait sous les blocs suivants. Fixed + z-[130] = toujours au-dessus.
+ * Ferme au scroll pour ne pas laisser un panneau orphelin decale.
+ */
+function usePanneauFixe(
+  open: boolean,
+  boutonRef: React.RefObject<HTMLDivElement | null>,
+  onClose: () => void,
+  align: "left" | "right" = "left",
+) {
+  const [style, setStyle] = useState<React.CSSProperties | null>(null);
+  useEffect(() => {
+    if (!open) {
+      setStyle(null);
+      return;
+    }
+    const place = () => {
+      const r = boutonRef.current?.getBoundingClientRect();
+      if (!r) return;
+      const suivant: React.CSSProperties =
+        align === "left"
+          ? { position: "fixed", top: r.bottom + 6, left: Math.max(8, r.left) }
+          : { position: "fixed", top: r.bottom + 6, right: Math.max(8, window.innerWidth - r.right) };
+      // setState seulement si la position bouge : pas de re-render a 60 fps.
+      setStyle((prev) =>
+        prev && prev.top === suivant.top && prev.left === suivant.left && prev.right === suivant.right
+          ? prev
+          : suivant,
+      );
+    };
+    // Suivi continu du bouton : rAF (reflows silencieux, chart qui s hydrate)
+    // DOUBLE d ecouteurs scroll/resize (marchent meme quand rAF est suspendu,
+    // ex. onglet en arriere-plan). Le panneau reste colle au bouton ; il ne
+    // se ferme que si le bouton sort de l ecran.
+    let raf = 0;
+    const suit = () => {
+      const r = boutonRef.current?.getBoundingClientRect();
+      if (r && (r.bottom < 0 || r.top > window.innerHeight)) {
+        onClose();
+        return false;
+      }
+      place();
+      return true;
+    };
+    const boucle = () => {
+      if (suit()) raf = requestAnimationFrame(boucle);
+    };
+    boucle();
+    const surEvenement = () => void suit();
+    window.addEventListener("scroll", surEvenement, { passive: true, capture: true });
+    window.addEventListener("resize", surEvenement);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", surEvenement, { capture: true } as EventListenerOptions);
+      window.removeEventListener("resize", surEvenement);
+    };
+  }, [open, boutonRef, onClose, align]);
+  return style;
+}
 
 const FRACTION_LABELS: { id: TimeFraction; fr: string }[] = [
   { id: "year", fr: "Par an" },
@@ -126,10 +190,14 @@ export function ChartSettingsMenu({
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const panneauRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!open) return;
     const close = (e: MouseEvent | TouchEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      const cible = e.target as Node;
+      // Le panneau vit dans un portal (body) : un clic dedans ne ferme pas.
+      if (ref.current?.contains(cible) || panneauRef.current?.contains(cible)) return;
+      setOpen(false);
     };
     document.addEventListener("mousedown", close);
     document.addEventListener("touchstart", close);
@@ -140,6 +208,7 @@ export function ChartSettingsMenu({
   }, [open]);
 
   const nbActifs = (range === "max" ? 1 : 0) + (graphPeriod === "year" ? 1 : 0) + (barsVariant === "classic" ? 1 : 0);
+  const styleFixe = usePanneauFixe(open, ref, () => setOpen(false), "left");
 
   return (
     <div ref={ref} className="relative">
@@ -153,8 +222,14 @@ export function ChartSettingsMenu({
         Réglages
         <ChevronDown className={cn("size-3.5 transition-transform", open && "rotate-180")} />
       </button>
-      {open && (
-        <div className="absolute left-0 top-[calc(100%+6px)] z-40 w-[240px] space-y-3 rounded-xl border border-[#26262b] bg-[#0b0b0e] p-3 shadow-[0_18px_50px_rgba(0,0,0,0.6)]">
+      {open && styleFixe && createPortal(
+        // Portal vers body : un ancetre du bouton porte un transform (motion),
+        // qui detournerait position:fixed et decalerait le panneau.
+        <div
+          ref={panneauRef}
+          style={styleFixe}
+          className="z-[130] w-[240px] space-y-3 rounded-xl border border-[#26262b] bg-[#0b0b0e] p-3 shadow-[0_18px_50px_rgba(0,0,0,0.6)]"
+        >
           <GroupePills
             titre="Fenêtre"
             options={[
@@ -188,7 +263,8 @@ export function ChartSettingsMenu({
               accent={accent}
             />
           )}
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );
@@ -210,10 +286,13 @@ export function ShareDownloadMenu({
   const { t } = useT();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const panneauRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!open) return;
     const close = (e: MouseEvent | TouchEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      const cible = e.target as Node;
+      if (ref.current?.contains(cible) || panneauRef.current?.contains(cible)) return;
+      setOpen(false);
     };
     document.addEventListener("mousedown", close);
     document.addEventListener("touchstart", close);
@@ -222,6 +301,7 @@ export function ShareDownloadMenu({
       document.removeEventListener("touchstart", close);
     };
   }, [open]);
+  const styleFixe = usePanneauFixe(open, ref, () => setOpen(false), "right");
   const partagerSurX = () => {
     const u = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
     window.open(u, "_blank", "noopener,noreferrer");
@@ -242,8 +322,12 @@ export function ShareDownloadMenu({
           <Download className="absolute -bottom-1.5 -right-1.5 size-2.5 rounded-full bg-[#0b0b0e] p-[1px]" />
         </span>
       </button>
-      {open && (
-        <div className="absolute right-0 top-[calc(100%+6px)] z-40 w-[210px] overflow-hidden rounded-xl border border-[#26262b] bg-[#0b0b0e] shadow-[0_18px_50px_rgba(0,0,0,0.6)]">
+      {open && styleFixe && createPortal(
+        <div
+          ref={panneauRef}
+          style={styleFixe}
+          className="z-[130] w-[210px] overflow-hidden rounded-xl border border-[#26262b] bg-[#0b0b0e] shadow-[0_18px_50px_rgba(0,0,0,0.6)]"
+        >
           <button
             onClick={() => {
               onDownload();
@@ -261,7 +345,8 @@ export function ShareDownloadMenu({
             <span className="inline-flex size-4 items-center justify-center font-display text-[13px] font-bold text-zinc-400">𝕏</span>
             Partager sur X
           </button>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );
