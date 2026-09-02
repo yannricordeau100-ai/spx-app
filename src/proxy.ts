@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { signaleTokenInvalide } from "./lib/security/alerte";
 
 /**
  * Proxy Next 16 (ex-middleware.ts, renommé selon la nouvelle convention) :
@@ -570,7 +571,6 @@ export async function proxy(request: NextRequest) {
   // Alerte rouge (Yann 2 sept 2026) : un token PRESENTE mais FAUX = tentative
   // de forcage de la porte creteur. Email au proprietaire, dedup 1 h.
   if (auditToken && !isAuditBypass) {
-    const { signaleTokenInvalide } = await import("@/lib/security/alerte");
     signaleTokenInvalide(pathname, (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim());
   }
   if (!user && !isPublicPath(pathname) && !isAuditBypass) {
