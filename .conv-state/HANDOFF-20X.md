@@ -63,3 +63,10 @@ Mode opératoire recommandé :
 ## 5. Réponses déjà données à Yann (ne pas re-répondre, sauf s'il redemande)
 
 Historique complet = git (2 484 commits, mêmes repo/machine pour les 2 comptes). Vitrine home = contenu public voulu, désormais daté. Floutage : rien n'a fui (anonymes redirigés, testé). Hyperscalers NVDA : story positive. Ordre recherche = ordre home.
+
+## Règle permanente (Yann, 2 sept 2026) : tableau récapitulatif final
+À CHAQUE réponse à un prompt de Yann (y compris les prompts en file
+d'attente traités ensuite), en plus des explications habituelles, terminer
+par un TABLEAU récapitulatif qui ne comporte QUE les réponses à ses
+questions : sommaire, concis, efficace, pas de phrases. Une ligne par
+question ou point du prompt. Applicable immédiatement et pour toujours.

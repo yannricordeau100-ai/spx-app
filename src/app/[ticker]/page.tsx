@@ -18,6 +18,28 @@ import { gateAttForTier } from "@/lib/att";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
+/** Visibilité V1.9.5 : la liste clean-all fait foi (mêmes variantes de
+ *  séparateur que le loader V1.9.5 : BRK.B / BRK-B). */
+async function estDansCleanAll(upper: string): Promise<boolean> {
+  try {
+    const raw = await fs.readFile(
+      path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json"),
+      "utf-8",
+    );
+    const tickers = (JSON.parse(raw) as { tickers: string[] }).tickers;
+    const set = new Set<string>();
+    for (const t of tickers) {
+      const u = t.toUpperCase();
+      set.add(u);
+      set.add(u.replace(/\./g, "-"));
+      set.add(u.replace(/-/g, "."));
+    }
+    return set.has(upper);
+  } catch {
+    return false;
+  }
+}
+
 async function loadTranscript(ticker: string): Promise<TranscriptDoc | null> {
   const root = process.cwd();
   for (const f of [`${ticker.toUpperCase()}.json`, `${ticker.toLowerCase()}.json`]) {
@@ -136,8 +158,11 @@ export default async function TickerPage({
   if (!legacyCompany) {
     // Yann 21 mai 2026 : V1.9.5 = défaut. Si le ticker existe en V1.7-public,
     // on redirige vers /sandbox/v1-9-5/<ticker> (UX : tape /AAPL → ouvre AAPL).
+    // Yann 2 sept 2026 (code rouge KO) : la vraie source de visibilité est la
+    // liste V1.9.5 clean-all, pas la vieille liste V1.7 (95 stés en ligne dont
+    // KO, JNJ, AMD, CSCO, GS y manquaient et tombaient en 404 sur /<ticker>).
     const v17 = V17_PUBLIC as unknown as Record<string, unknown>;
-    if (v17[upper]) {
+    if (v17[upper] || (await estDansCleanAll(upper))) {
       redirect(`/sandbox/v1-9-5/${ticker.toLowerCase()}`);
     }
     notFound();

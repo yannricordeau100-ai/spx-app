@@ -19,6 +19,8 @@
  *   - Toute autre locale fallback sur en.
  */
 
+import { renderEmailLayout, emailParagraph as p } from "./layout";
+
 type FromAddress = "contact" | "support" | "noreply";
 export type EmailLocale = "fr" | "en" | "de" | "nl";
 
@@ -122,24 +124,65 @@ const WELCOME_SUBJECT: Record<EmailLocale, string> = {
   nl: "Welkom bij Mettrik AI",
 };
 
-const WELCOME_BODY: Record<EmailLocale, (name: string) => string> = {
-  fr: (n) => `<p>Bonjour${n ? " " + n : ""},</p>
-<p>Bienvenue sur Mettrik AI. Tu peux dès maintenant explorer les KPIs des plus grandes sociétés cotées et comparer leurs indicateurs sectoriels.</p>
-<p>Une question ? Réponds simplement à cet email.</p>
-<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI publie des analyses à titre informatif. Aucun contenu ne constitue un conseil en investissement.</p>`,
-  en: (n) => `<p>Hi${n ? " " + n : ""},</p>
-<p>Welcome to Mettrik AI. You can now explore the KPIs of the largest listed companies and compare their sector-specific indicators.</p>
-<p>Any question? Just reply to this email.</p>
-<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI publishes analyses for informational purposes only. No content constitutes investment advice.</p>`,
-  de: (n) => `<p>Hallo${n ? " " + n : ""},</p>
-<p>Willkommen bei Mettrik AI. Sie können nun die KPIs der größten börsennotierten Unternehmen erkunden und ihre branchenspezifischen Indikatoren vergleichen.</p>
-<p>Eine Frage? Antworten Sie einfach auf diese E-Mail.</p>
-<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI veröffentlicht Analysen ausschließlich zu Informationszwecken. Kein Inhalt stellt eine Anlageberatung dar.</p>`,
-  nl: (n) => `<p>Hallo${n ? " " + n : ""},</p>
-<p>Welkom bij Mettrik AI. Je kunt nu de KPI's van de grootste beursgenoteerde bedrijven verkennen en hun sectorindicatoren vergelijken.</p>
-<p>Een vraag? Antwoord gewoon op deze e-mail.</p>
-<p style="color:#888;font-size:12px;margin-top:24px">Mettrik AI publiceert analyses uitsluitend ter informatie. Geen enkele inhoud vormt beleggingsadvies.</p>`,
+const WELCOME_COPY: Record<
+  EmailLocale,
+  { preheader: string; title: string; body: (n: string) => string; cta: string }
+> = {
+  fr: {
+    preheader: "Ton accès est actif : explore les KPI des plus grandes sociétés cotées.",
+    title: "Bienvenue sur Mettrik AI",
+    body: (n) =>
+      p(`Bonjour${n ? " " + n : ""},`) +
+      p("Bienvenue sur Mettrik AI. Tu peux dès maintenant explorer les KPI des plus grandes sociétés cotées et comparer leurs indicateurs sectoriels.") +
+      p("Une question ? Réponds simplement à cet email."),
+    cta: "Ouvrir Mettrik AI",
+  },
+  en: {
+    preheader: "Your access is live: explore the KPIs of the largest listed companies.",
+    title: "Welcome to Mettrik AI",
+    body: (n) =>
+      p(`Hi${n ? " " + n : ""},`) +
+      p("Welcome to Mettrik AI. You can now explore the KPIs of the largest listed companies and compare their sector-specific indicators.") +
+      p("Any question? Just reply to this email."),
+    cta: "Open Mettrik AI",
+  },
+  de: {
+    preheader: "Ihr Zugang ist aktiv: Erkunden Sie die KPIs der größten börsennotierten Unternehmen.",
+    title: "Willkommen bei Mettrik AI",
+    body: (n) =>
+      p(`Hallo${n ? " " + n : ""},`) +
+      p("Willkommen bei Mettrik AI. Sie können nun die KPIs der größten börsennotierten Unternehmen erkunden und ihre branchenspezifischen Indikatoren vergleichen.") +
+      p("Eine Frage? Antworten Sie einfach auf diese E-Mail."),
+    cta: "Mettrik AI öffnen",
+  },
+  nl: {
+    preheader: "Je toegang is actief: verken de KPI's van de grootste beursgenoteerde bedrijven.",
+    title: "Welkom bij Mettrik AI",
+    body: (n) =>
+      p(`Hallo${n ? " " + n : ""},`) +
+      p("Welkom bij Mettrik AI. Je kunt nu de KPI's van de grootste beursgenoteerde bedrijven verkennen en hun sectorindicatoren vergelijken.") +
+      p("Een vraag? Antwoord gewoon op deze e-mail."),
+    cta: "Mettrik AI openen",
+  },
 };
+
+const WELCOME_BODY: Record<EmailLocale, (name: string) => string> = {
+  fr: (n) => renderWelcome("fr", n),
+  en: (n) => renderWelcome("en", n),
+  de: (n) => renderWelcome("de", n),
+  nl: (n) => renderWelcome("nl", n),
+};
+
+function renderWelcome(locale: EmailLocale, name: string): string {
+  const c = WELCOME_COPY[locale];
+  return renderEmailLayout({
+    locale,
+    preheader: c.preheader,
+    title: c.title,
+    bodyHtml: c.body(name),
+    cta: { label: c.cta, url: "https://www.mettrik.ai" },
+  });
+}
 
 export async function sendWelcomeEmail(
   to: string,
@@ -163,16 +206,66 @@ const BILLING_SUBJECT: Record<EmailLocale, string> = {
   nl: "Betalingsprobleem · Mettrik AI",
 };
 
-const BILLING_BODY: Record<EmailLocale, string> = {
-  fr: `<p>Le paiement de ton abonnement Mettrik AI a échoué.</p>
-<p>Merci de mettre à jour tes informations bancaires depuis ton espace personnel pour éviter une interruption de service.</p>`,
-  en: `<p>The payment for your Mettrik AI subscription failed.</p>
-<p>Please update your billing information from your account area to avoid a service interruption.</p>`,
-  de: `<p>Die Zahlung für Ihr Mettrik AI Abonnement ist fehlgeschlagen.</p>
-<p>Bitte aktualisieren Sie Ihre Zahlungsinformationen in Ihrem Konto, um eine Unterbrechung zu vermeiden.</p>`,
-  nl: `<p>De betaling voor je Mettrik AI-abonnement is mislukt.</p>
-<p>Werk je betaalgegevens bij vanuit je accountpagina om een onderbreking van de dienst te voorkomen.</p>`,
+const BILLING_COPY: Record<
+  EmailLocale,
+  { preheader: string; title: string; body: string; cta: string; note: string }
+> = {
+  fr: {
+    preheader: "Le paiement de ton abonnement a échoué. Mets à jour tes informations bancaires.",
+    title: "Problème de paiement sur ton abonnement",
+    body:
+      p("Le paiement de ton abonnement Mettrik AI a échoué.") +
+      p("Merci de mettre à jour tes informations bancaires depuis ton espace personnel pour éviter une interruption de service."),
+    cta: "Mettre à jour le paiement",
+    note: "Besoin d'aide ? Réponds à cet email, on te répond vite.",
+  },
+  en: {
+    preheader: "Your subscription payment failed. Please update your billing information.",
+    title: "Payment issue on your subscription",
+    body:
+      p("The payment for your Mettrik AI subscription failed.") +
+      p("Please update your billing information from your account area to avoid a service interruption."),
+    cta: "Update payment details",
+    note: "Need help? Reply to this email, we answer fast.",
+  },
+  de: {
+    preheader: "Die Zahlung für Ihr Abonnement ist fehlgeschlagen. Bitte Zahlungsdaten aktualisieren.",
+    title: "Zahlungsproblem bei Ihrem Abonnement",
+    body:
+      p("Die Zahlung für Ihr Mettrik AI Abonnement ist fehlgeschlagen.") +
+      p("Bitte aktualisieren Sie Ihre Zahlungsinformationen in Ihrem Konto, um eine Unterbrechung zu vermeiden."),
+    cta: "Zahlungsdaten aktualisieren",
+    note: "Brauchen Sie Hilfe? Antworten Sie einfach auf diese E-Mail.",
+  },
+  nl: {
+    preheader: "De betaling voor je abonnement is mislukt. Werk je betaalgegevens bij.",
+    title: "Betalingsprobleem met je abonnement",
+    body:
+      p("De betaling voor je Mettrik AI-abonnement is mislukt.") +
+      p("Werk je betaalgegevens bij vanuit je accountpagina om een onderbreking van de dienst te voorkomen."),
+    cta: "Betaalgegevens bijwerken",
+    note: "Hulp nodig? Antwoord op deze e-mail, we reageren snel.",
+  },
 };
+
+const BILLING_BODY: Record<EmailLocale, string> = {
+  fr: renderBilling("fr"),
+  en: renderBilling("en"),
+  de: renderBilling("de"),
+  nl: renderBilling("nl"),
+};
+
+function renderBilling(locale: EmailLocale): string {
+  const c = BILLING_COPY[locale];
+  return renderEmailLayout({
+    locale,
+    preheader: c.preheader,
+    title: c.title,
+    bodyHtml: c.body,
+    cta: { label: c.cta, url: "https://www.mettrik.ai/account" },
+    note: c.note,
+  });
+}
 
 export async function sendBillingFailedEmail(to: string, opts?: { locale?: string }) {
   const locale = normalizeEmailLocale(opts?.locale);

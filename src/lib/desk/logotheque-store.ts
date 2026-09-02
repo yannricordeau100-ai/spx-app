@@ -7,10 +7,16 @@
  * un JSON du dépôt ne marcherait pas : la base est le seul support viable.
  */
 import { createClient } from "@supabase/supabase-js";
-import { nettoieReglages, type ReglagesLogotheque } from "@/lib/logotheque";
+import {
+  nettoieMasques,
+  nettoieReglages,
+  type MasquesLogotheque,
+  type ReglagesLogotheque,
+} from "@/lib/logotheque";
 
 const PAGE_KEY = "logotheque";
 const SECTION_KEY = "emplacements";
+const SECTION_MASQUES = "masques";
 
 function admin() {
   return createClient(
@@ -35,6 +41,38 @@ export async function chargeReglagesLogotheque(): Promise<ReglagesLogotheque> {
     // visible côté visiteur.
     return {};
   }
+}
+
+/** Éléments retirés par Yann (croix / suppression multiple du sandbox). */
+export async function chargeMasquesLogotheque(): Promise<MasquesLogotheque> {
+  try {
+    const { data } = await admin()
+      .from("desk_page_content")
+      .select("content_fr")
+      .eq("page_key", PAGE_KEY)
+      .eq("section_key", SECTION_MASQUES)
+      .maybeSingle();
+    if (!data?.content_fr) return { variantes: [], assets: [] };
+    return nettoieMasques(JSON.parse(data.content_fr));
+  } catch {
+    return { variantes: [], assets: [] };
+  }
+}
+
+export async function enregistreMasquesLogotheque(
+  masques: MasquesLogotheque,
+): Promise<void> {
+  const { error } = await admin()
+    .from("desk_page_content")
+    .upsert(
+      {
+        page_key: PAGE_KEY,
+        section_key: SECTION_MASQUES,
+        content_fr: JSON.stringify(nettoieMasques(masques)),
+      },
+      { onConflict: "page_key,section_key" },
+    );
+  if (error) throw new Error(error.message);
 }
 
 export async function enregistreReglagesLogotheque(

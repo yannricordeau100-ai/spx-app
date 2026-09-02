@@ -16,7 +16,7 @@ import {
   nettoieEvenement,
   type EvenementTelemetrie,
 } from "@/lib/telemetrie/serveur";
-import { chargeReglageTelemetrie } from "@/lib/desk/telemetrie-store";
+import { chargeConfigTelemetrie, chargeReglageTelemetrie } from "@/lib/desk/telemetrie-store";
 
 export const dynamic = "force-dynamic";
 
@@ -26,8 +26,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const actif = await chargeReglageTelemetrie();
-  if (!actif) return NextResponse.json({ ok: true, ignore: true });
+  const config = await chargeConfigTelemetrie();
+  if (!config.actif) return NextResponse.json({ ok: true, ignore: true });
 
   let corps: { evenements?: unknown[] };
   try {
@@ -45,15 +45,30 @@ export async function POST(req: NextRequest) {
   const ip = (req.headers.get("x-forwarded-for") ?? "").split(",")[0].trim();
   const pays = req.headers.get("x-vercel-ip-country");
   let userId: string | null = null;
+  let userEmail: string | null = null;
   try {
     const supabase = await createSupabaseServerClient();
     const { data } = await supabase.auth.getUser();
     userId = data.user?.id ?? null;
+    userEmail = data.user?.email ?? null;
   } catch { /* visiteur anonyme */ }
+
+  // Exclusions (Yann 2 sept 2026) : les visites de Yann et du compte de test
+  // audit.claude ne sont pas des visites normales, on ne les enregistre pas.
+  // 3 filets : compte proprietaire (email), user_id exclu, ip_hash exclu.
+  const owner = process.env.DESK_OWNER_EMAIL?.toLowerCase();
+  const hash = ip ? hacheIp(ip) : null;
+  if (
+    (userEmail && (userEmail.toLowerCase() === owner || userEmail.endsWith("@mettrik-internal.test"))) ||
+    (userId && config.usersExclus.includes(userId)) ||
+    (hash && config.hashesExclus.includes(hash))
+  ) {
+    return NextResponse.json({ ok: true, ignore: true, exclu: true });
+  }
 
   for (const e of evts) {
     e.pays = pays ?? null;
-    e.ip_hash = ip ? hacheIp(ip) : null;
+    e.ip_hash = hash;
     e.user_id = userId;
   }
   const ok = await insereEvenements(evts);

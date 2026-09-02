@@ -80,13 +80,29 @@ Tu envoies les emails depuis **`noreply@mettrik.ai`** vraiment (pas une adresse 
 
 ---
 
-## Option C — Brander aussi le contenu HTML des emails (15 min, optionnel)
+## Option C — Brander le contenu HTML des emails (10 min, recommandé)
 
-Une fois SMTP configuré (Option B), tu peux remplacer les templates par défaut Supabase par ceux Mettrik (logo, couleurs, ton).
+> Redesign sept 2026 : les 5 templates dark (charte Mettrik AI, logo, violet/cyan,
+> bouton bulletproof, preheader) sont prêts dans `email-templates/`.
 
 1. Supabase Dashboard → **Authentication** → **Email Templates**
-2. Pour chaque template, colle le HTML que je t'ai préparé dans `email-templates/confirm-signup.html` (déjà existant, créé par CONV-CONCEPTS hier)
-3. Sauvegarde
+2. Pour CHAQUE type ci-dessous, colle le contenu COMPLET du fichier (DOCTYPE inclus) dans le champ "Message body" et remplace le Subject :
+
+| Template Supabase | Fichier repo | Subject à saisir |
+|---|---|---|
+| **Confirm signup** | `email-templates/confirm-signup.html` | `Active ton accès Mettrik AI` |
+| **Invite user** | `email-templates/invite.html` | `Ton invitation Mettrik AI` |
+| **Magic Link** | `email-templates/magic-link.html` | `Ton lien de connexion Mettrik AI` |
+| **Change Email Address** | `email-templates/change-email.html` | `Confirme ta nouvelle adresse Mettrik AI` |
+| **Reset Password** | `email-templates/password-reset.html` | `Réinitialise ton mot de passe Mettrik AI` |
+
+3. Sauvegarde chaque template (bouton Save par template)
+
+Points d'attention :
+- Ne PAS toucher aux variables `{{ .ConfirmationURL }}`, `{{ .Email }}`, `{{ .NewEmail }}` : elles sont déjà placées dans les fichiers.
+- Le `<style>` en tête de chaque fichier masque le footer Supabase ajouté par le SMTP par défaut ; il devient inerte avec Custom SMTP (Option B).
+- Le logo est servi depuis `https://mettrik-niveau2.vercel.app/brand/mettrik-ai-white-purple.png` : vérifier que cette URL reste publique (pas de mode maintenance qui bloque les statiques).
+- Les emails Resend (welcome, billing, onboarding J+1/3/7/14/25) utilisent le même design via `src/lib/email/layout.ts`, rien à coller pour eux.
 
 ---
 

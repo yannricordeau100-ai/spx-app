@@ -10,10 +10,12 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
 import {
+  chargeMasquesLogotheque,
   chargeReglagesLogotheque,
+  enregistreMasquesLogotheque,
   enregistreReglagesLogotheque,
 } from "@/lib/desk/logotheque-store";
-import { IDS_EMPLACEMENTS, nettoieReglages } from "@/lib/logotheque";
+import { IDS_EMPLACEMENTS, nettoieMasques, nettoieReglages } from "@/lib/logotheque";
 import { WORDMARK_VARIANTS } from "@/components/wordmark-variants";
 
 export const dynamic = "force-dynamic";
@@ -38,11 +40,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
 
-  let body: { reglages?: unknown };
+  let body: { reglages?: unknown; masques?: unknown };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  }
+
+  // Suppression / restauration d elements de la logotheque (croix, selection
+  // multiple) : retrait d affichage persiste en base, aucun fichier detruit.
+  if (body.masques !== undefined) {
+    const masques = nettoieMasques(body.masques);
+    try {
+      await enregistreMasquesLogotheque(masques);
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : "echec";
+      return NextResponse.json({ error: "echec_ecriture", detail }, { status: 500 });
+    }
+    return NextResponse.json({ ok: true, masques });
   }
 
   const propres = nettoieReglages(body.reglages);

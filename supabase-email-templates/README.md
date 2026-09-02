@@ -1,41 +1,22 @@
 # Supabase Email Templates · Mettrik AI
 
-Templates HTML prêts à coller dans **Supabase Dashboard → Authentication → Email Templates**.
+> **Source de vérité : `email-templates/*.html`** (design dark charte Mettrik AI, sept 2026).
+> Ce dossier ne contient plus de HTML : les anciens snippets clairs 6 locales sont périmés.
 
-3 types d'email × 6 locales = 18 fichiers.
+## Fichiers à coller dans Supabase Dashboard → Authentication → Email Templates
 
-## Locales couvertes
+| Template Supabase | Fichier repo | Variables utilisées |
+|---|---|---|
+| Confirm signup | `email-templates/confirm-signup.html` | `{{ .ConfirmationURL }}` |
+| Magic Link | `email-templates/magic-link.html` | `{{ .ConfirmationURL }}` |
+| Reset Password | `email-templates/password-reset.html` | `{{ .ConfirmationURL }}` |
+| Change Email Address | `email-templates/change-email.html` | `{{ .ConfirmationURL }}`, `{{ .Email }}`, `{{ .NewEmail }}` |
+| Invite user | `email-templates/invite.html` | `{{ .ConfirmationURL }}`, `{{ .Email }}` |
 
-- `fr` français
-- `en` anglais (sert aussi en-GB)
-- `de` allemand (sert aussi de-CH)
-- `nl` néerlandais
-- `sv` suédois
-- `da` danois
+Procédure complète et sujets recommandés : voir `SUPABASE-EMAIL-SETUP.md` à la racine.
 
-## Variables Supabase utilisées
+## Localisation
 
-- `{{ .ConfirmationURL }}` : lien d'action (confirm signup, magic link, reset password)
-- `{{ .Email }}` : email du destinataire
-- `{{ .Token }}` : token brut (utile si on veut un OTP en plus du lien)
-- `{{ .SiteURL }}` : https://mettrik.ai (set dans Supabase project URL)
-
-## Procédure de paste
-
-Supabase ne supporte qu'**un seul template par type** (pas de natif i18n).
-Stratégie : on garde le template **EN par défaut** côté Supabase, et on
-gère la localisation **côté app** via `sendEmail()` de `src/lib/email/resend.ts`
-quand on émettra nos propres emails (welcome, billing, etc.).
-
-Pour les emails Supabase Auth (signup confirm, magic link, password reset), on
-configure la version **EN** dans Supabase et on **redirige le user vers une
-page localisée** côté app après clic sur le lien (`/auth/callback?lang=...`).
-
-Les fichiers FR/DE/NL/SV/DA sont fournis pour référence si Supabase publie
-l'i18n natif des templates auth dans le futur.
-
-## Fichiers
-
-- `signup-confirm-{fr,en,de,nl,sv,da}.html` : email de confirmation après inscription
-- `magic-link-{fr,en,de,nl,sv,da}.html` : email de connexion sans mot de passe
-- `password-reset-{fr,en,de,nl,sv,da}.html` : email de réinitialisation mot de passe
+Supabase ne supporte qu'un template par type (pas d'i18n natif). Stratégie retenue :
+templates auth en **FR** (marché principal), localisation complète côté app pour les
+emails Resend (welcome, billing, onboarding) via `src/lib/email/layout.ts`.

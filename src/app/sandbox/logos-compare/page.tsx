@@ -1,5 +1,6 @@
 import { readFileSync, existsSync, statSync } from "fs";
 import path from "path";
+import { TICKER_ALIASES } from "@/lib/data";
 import { LogosCompareClient, type LogoEntry } from "./client";
 
 export const dynamic = "force-dynamic";
@@ -74,7 +75,18 @@ function safeName(ticker: string): string {
   return ticker;
 }
 
-function readEntry(ticker: string): LogoEntry {
+/**
+ * "En ligne" = ticker present dans la liste visible V1.9.5
+ * (v1-9-5-clean-all-tickers.json), directement ou via alias
+ * (ex : BRK.A alias de BRK-B qui est en ligne).
+ */
+function isOnline(ticker: string, onlineSet: Set<string>): boolean {
+  if (onlineSet.has(ticker)) return true;
+  const canonical = TICKER_ALIASES[ticker.toUpperCase()];
+  return canonical ? onlineSet.has(canonical) : false;
+}
+
+function readEntry(ticker: string, online: boolean): LogoEntry {
   const name = safeName(ticker);
   const current = path.join(LOGOS_DIR, `${name}.png`);
   const backupLogodev = path.join(BACKUP_LOGODEV, `${name}.png`);
@@ -111,6 +123,7 @@ function readEntry(ticker: string): LogoEntry {
     currentSize,
     backupKind,
     status,
+    online,
   };
 }
 
@@ -128,17 +141,20 @@ export default function LogosComparePage() {
     baseTickers = [];
   }
 
+  const onlineSet = new Set<string>(baseTickers);
+
   const set = new Set<string>(baseTickers);
   for (const t of EXTRA_35) set.add(t);
   const allTickers = Array.from(set);
 
   const entries: LogoEntry[] = allTickers
-    .map((t) => readEntry(t))
+    .map((t) => readEntry(t, isOnline(t, onlineSet)))
     .sort((a, b) => a.ticker.localeCompare(b.ticker));
 
   const okCount = entries.filter((e) => e.status === "ok").length;
   const smallCount = entries.filter((e) => e.status === "small").length;
   const missingCount = entries.filter((e) => e.status === "missing").length;
+  const onlineCount = entries.filter((e) => e.online).length;
 
   return (
     <LogosCompareClient
@@ -146,6 +162,7 @@ export default function LogosComparePage() {
       okCount={okCount}
       smallCount={smallCount}
       missingCount={missingCount}
+      onlineCount={onlineCount}
     />
   );
 }

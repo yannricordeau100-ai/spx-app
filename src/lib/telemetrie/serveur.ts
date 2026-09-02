@@ -107,5 +107,14 @@ export function enregistreEvenementServeur(
   props?: Record<string, unknown>,
   user_id?: string | null,
 ): void {
-  void insereEvenements([{ type: "serveur", nom: nom.slice(0, 160), props, user_id: user_id ?? null }]);
+  void (async () => {
+    // Exclusions (Yann 2 sept 2026) : ses comptes ne comptent pas non plus
+    // pour les evenements serveur (connexion, export...).
+    if (user_id) {
+      const { chargeConfigTelemetrie } = await import("@/lib/desk/telemetrie-store");
+      const config = await chargeConfigTelemetrie();
+      if (config.usersExclus.includes(user_id)) return;
+    }
+    await insereEvenements([{ type: "serveur", nom: nom.slice(0, 160), props, user_id: user_id ?? null }]);
+  })().catch(() => {});
 }

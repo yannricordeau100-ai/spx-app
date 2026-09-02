@@ -986,13 +986,14 @@ export async function downloadSvgAsPng(
     //    vers le haut si positif, rouge vers le bas si negatif.
     //  - Asterisque "*" apres "/an" ou "/yr" ; le "*" de renvoi est pose en
     //    bas du graph, sur la ligne du footer, cale sur l axe Y du chart.
-    // Moyenne de la serie (% uniquement), alignee a GAUCHE sur le debut du
-    // graph, a la meme hauteur que la ligne CAGR (alignee a droite).
+    // Moyenne de la serie (% uniquement), CENTREE : elle prend lieu et place
+    // du CAGR (Yann 2 sept 2026). Jamais de conflit : cagr() renvoie null des
+    // que l unite contient "%" (data.ts), la moyenne n existe QUE dans ce cas.
     if (options.avgPct) {
       const avgEl = document.createElementNS(NS, "text");
-      avgEl.setAttribute("x", String(GRAPH_X));
+      avgEl.setAttribute("x", String(graphCx));
       avgEl.setAttribute("y", String(origY - PAD_TOP + 208));
-      avgEl.setAttribute("text-anchor", "start");
+      avgEl.setAttribute("text-anchor", "middle");
       avgEl.setAttribute("font-family", PNG_FONT_FAMILY);
       avgEl.setAttribute("font-size", "22");
       avgEl.setAttribute("font-weight", "500");

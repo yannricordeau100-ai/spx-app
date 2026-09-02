@@ -10,6 +10,7 @@ export type LogoEntry = {
   currentSize: number;
   backupKind: "logodev" | "parqet" | "none";
   status: "ok" | "small" | "missing";
+  online: boolean;
 };
 
 type Props = {
@@ -17,8 +18,10 @@ type Props = {
   okCount: number;
   smallCount: number;
   missingCount: number;
+  onlineCount: number;
 };
 
+type Tab = "tous" | "en-ligne";
 type StatusFilter = "all" | "ok" | "small" | "missing";
 type ScopeFilter = "top50" | "top100" | "all";
 type Theme = "dark" | "light";
@@ -39,7 +42,9 @@ export function LogosCompareClient({
   okCount,
   smallCount,
   missingCount,
+  onlineCount,
 }: Props) {
+  const [tab, setTab] = useState<Tab>("tous");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const [scopeFilter, setScopeFilter] = useState<ScopeFilter>("all");
   const [search, setSearch] = useState("");
@@ -57,6 +62,9 @@ export function LogosCompareClient({
 
   const filtered = useMemo(() => {
     let out = entries;
+    if (tab === "en-ligne") {
+      out = out.filter((e) => e.online);
+    }
     if (statusFilter !== "all") {
       out = out.filter((e) => e.status === statusFilter);
     }
@@ -67,7 +75,7 @@ export function LogosCompareClient({
       out = out.filter((e) => e.ticker.toLowerCase().includes(q));
     }
     return out;
-  }, [entries, statusFilter, scopeFilter, search]);
+  }, [entries, tab, statusFilter, scopeFilter, search]);
 
   const isDark = theme === "dark";
 
@@ -153,6 +161,42 @@ export function LogosCompareClient({
               total {entries.length}
             </span>
           </div>
+        </div>
+
+        {/* Onglets Tous / En ligne */}
+        <div
+          className={`mb-6 flex w-fit gap-1 rounded-lg p-1 ${
+            isDark ? "bg-neutral-900 border border-neutral-800" : "bg-neutral-200"
+          }`}
+        >
+          {(
+            [
+              { id: "tous" as Tab, label: `Tous (${entries.length})` },
+              { id: "en-ligne" as Tab, label: `En ligne (${onlineCount})` },
+            ]
+          ).map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => setTab(t.id)}
+              className={`rounded-md px-4 py-1.5 text-sm font-medium transition-colors ${
+                tab === t.id
+                  ? isDark
+                    ? "bg-violet-700 text-white"
+                    : "bg-violet-600 text-white"
+                  : isDark
+                    ? "text-neutral-300 hover:bg-neutral-800"
+                    : "text-neutral-700 hover:bg-neutral-300"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+          <span
+            className={`self-center px-2 text-xs ${subtleText}`}
+          >
+            {entries.length - onlineCount} hors ligne
+          </span>
         </div>
 
         {/* Filtres */}
@@ -354,7 +398,9 @@ function LogoCard({
 
   return (
     <div
-      className={`flex flex-col gap-2 rounded-lg p-3 ${cardStyle}`}
+      className={`flex flex-col gap-2 rounded-lg p-3 ${cardStyle} ${
+        entry.online ? "" : "grayscale opacity-60"
+      }`}
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
@@ -362,15 +408,28 @@ function LogoCard({
             {entry.ticker}
           </div>
         </div>
-        <span
-          className={`shrink-0 rounded-md border px-1.5 py-0.5 text-[10px] font-medium uppercase ${tagColor}`}
-        >
-          {entry.status === "ok"
-            ? "OK"
-            : entry.status === "small"
-              ? "small"
-              : "miss"}
-        </span>
+        <div className="flex shrink-0 items-center gap-1">
+          {!entry.online && (
+            <span
+              className={`rounded-md border px-1.5 py-0.5 text-[10px] font-medium ${
+                isDark
+                  ? "border-neutral-700 bg-neutral-800 text-neutral-400"
+                  : "border-neutral-300 bg-neutral-100 text-neutral-500"
+              }`}
+            >
+              hors ligne
+            </span>
+          )}
+          <span
+            className={`rounded-md border px-1.5 py-0.5 text-[10px] font-medium uppercase ${tagColor}`}
+          >
+            {entry.status === "ok"
+              ? "OK"
+              : entry.status === "small"
+                ? "small"
+                : "miss"}
+          </span>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-2">
