@@ -1,0 +1,154 @@
+{
+ "genere_le": "2026-09-02T22:59:49Z",
+ "feux": [
+  {
+   "feu": "rouge",
+   "domaine": "Code",
+   "controle": "Aucune modification non commitee dans le code et les donnees servies",
+   "detail": "15 fichier(s) non commite(s) : cripts/accents-couches.py, scripts/deploy-niveau2.sh, src/app/auth/actions.ts, src/components/desk/tab-referrals.tsx, src/data/_daily-doc-watcher-status.json, src/data/_fr-doc-watcher-status.json"
+  },
+  {
+   "feu": "rouge",
+   "domaine": "Donnees",
+   "controle": "Aucun dossier lu au runtime n est exclu du bundle Vercel",
+   "detail": "src/data/companies lu par load-company.ts, route.ts, src/data/v1-9-complete lu par apply-block-rules.ts, src/data/v2-pipeline-exhaustive lu par load-company.ts, src/data/v2-pipeline-i18n lu par load-company.ts"
+  },
+  {
+   "feu": "rouge",
+   "domaine": "Variables",
+   "controle": "Variables requises par le code presentes en preview",
+   "detail": "manquantes : RESEND_API_KEY"
+  },
+  {
+   "feu": "orange",
+   "domaine": "Niveaux",
+   "controle": "mettrik.ai (n0) et niveau2 (n2) pointent vers des deploiements distincts",
+   "detail": "n0=mettrik-d7cif2cu0-yannricordea / n2=mettrik-d7cif2cu0-yannricordea (identiques : toute mise en ligne n2 est publique)"
+  },
+  {
+   "feu": "orange",
+   "domaine": "Supabase",
+   "controle": "Captcha d inscription active cote Supabase",
+   "detail": "desactive"
+  },
+  {
+   "feu": "orange",
+   "domaine": "Variables",
+   "controle": "niveau2 (preview) et mettrik.ai (production) ont les memes variables cles",
+   "detail": "presentes d un cote seulement : RESEND_API_KEY"
+  },
+  {
+   "feu": "orange",
+   "domaine": "Variables",
+   "controle": "Cle hCaptcha d inscription posee en production",
+   "detail": "absente : inscription sans protection anti-robots"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Automates",
+   "controle": "Service de session 23h (extraction) charge sur le Mac",
+   "detail": ""
+  },
+  {
+   "feu": "vert",
+   "domaine": "Automates",
+   "controle": "Ancien cron 23h (sans acces au trousseau) retire",
+   "detail": ""
+  },
+  {
+   "feu": "vert",
+   "domaine": "Code",
+   "controle": "Le commit local est pousse sur origin/staging",
+   "detail": "local b777013f / distant b777013f"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Domaine",
+   "controle": "mettrik.ai et www pointent vers Vercel",
+   "detail": "A=76.76.21.21 CNAME=cname.vercel-dns.com."
+  },
+  {
+   "feu": "vert",
+   "domaine": "Domaine",
+   "controle": "mettrik-niveau2.vercel.app repond (health)",
+   "detail": "HTTP 200"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Domaine",
+   "controle": "mettrik.ai repond (health)",
+   "detail": "HTTP 200"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Donnees",
+   "controle": "Fichiers de donnees lus par l app tous suivis par git",
+   "detail": "55 racines de donnees verifiees"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Niveaux",
+   "controle": "niveau2 sert bien le commit courant",
+   "detail": "niveau2 = b777013f / local = b777013f"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Stripe",
+   "controle": "Webhook actif sur https://mettrik.ai/api/billing/webhook",
+   "detail": "https://mettrik.ai/api/billing/webhook"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Stripe",
+   "controle": "Portail client configure (annulation, factures)",
+   "detail": "1 configuration(s)"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Stripe",
+   "controle": "Cle secrete en mode live",
+   "detail": "sk_live_"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Stripe",
+   "controle": "Tous les prix de la grille existent et sont actifs chez Stripe",
+   "detail": "20 prix verifies"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Supabase",
+   "controle": "site_url = https://mettrik.ai",
+   "detail": "https://mettrik.ai"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Supabase",
+   "controle": "Redirections autorisees vers mettrik.ai et www",
+   "detail": "https://mettrik-niveau1.vercel.app/**,https://mettrik.ai/**,https://www.mettrik.ai/**,https://mettrik-niveau2.vercel.app"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Supabase",
+   "controle": "SMTP personnalise (emails de la marque)",
+   "detail": "smtp.resend.com / Mettrik AI"
+  },
+  {
+   "feu": "vert",
+   "domaine": "Supabase",
+   "controle": "5 modeles d emails d authentification en place",
+   "detail": ""
+  },
+  {
+   "feu": "vert",
+   "domaine": "Variables",
+   "controle": "Variables requises par le code presentes en production",
+   "detail": "12 requises, toutes presentes"
+  }
+ ],
+ "bilan": {
+  "rouge": 3,
+  "orange": 4,
+  "vert": 17
+ }
+}

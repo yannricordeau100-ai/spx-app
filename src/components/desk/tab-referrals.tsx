@@ -217,7 +217,80 @@ export function TabReferrals() {
           (FR)
         </p>
       </DeskCard>
+      <CodesParrainage />
     </div>
+  );
+}
+
+/** Yann 3 sept 2026 : date de fin modifiable pour chaque code, anciens compris. */
+function CodesParrainage() {
+  type Code = { id: string; code: string; referrer_email: string; referee_email: string | null; status: string; created_at: string; expires_at: string };
+  const [codes, setCodes] = useState<Code[]>([]);
+  const [charge, setCharge] = useState(true);
+  const [enCours, setEnCours] = useState<string | null>(null);
+  const [msg, setMsg] = useState<string>("");
+  useEffect(() => {
+    void (async () => {
+      try {
+        const r = await fetch("/api/desk/referrals-codes");
+        const j = await r.json();
+        setCodes(Array.isArray(j.codes) ? j.codes : []);
+      } catch { setCodes([]); }
+      setCharge(false);
+    })();
+  }, []);
+  async function enregistre(id: string, iso: string | null) {
+    setEnCours(id); setMsg("");
+    try {
+      const r = await fetch("/api/desk/referrals-codes", { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, expires_at: iso }) });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j?.error ?? "echec");
+      setCodes((cs) => cs.map((c) => (c.id === id ? { ...c, expires_at: j.expires_at } : c)));
+      setMsg("Date de fin enregistrée.");
+    } catch (e) {
+      setMsg(e instanceof Error ? e.message : "échec");
+    }
+    setEnCours(null);
+  }
+  const expire = (c: Code) => new Date(c.expires_at) < new Date();
+  return (
+    <section className="mt-10 rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-5">
+      <h3 className="text-[15px] font-semibold text-zinc-100">Codes de parrainage émis</h3>
+      <p className="mt-1 text-[12px] text-zinc-500">Une date de fin par code, modifiable à tout moment (anciens codes compris). Vide = sans fin. Un code expiré est refusé à l'inscription.</p>
+      {msg && <p className="mt-2 text-[12px] text-emerald-400">{msg}</p>}
+      {charge ? (
+        <p className="mt-4 text-[12px] text-zinc-500">Chargement…</p>
+      ) : codes.length === 0 ? (
+        <p className="mt-4 text-[12px] text-zinc-500">Aucun code émis pour l'instant.</p>
+      ) : (
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full text-[12.5px]">
+            <thead className="text-left text-[10.5px] uppercase tracking-wider text-zinc-500">
+              <tr><th className="px-2 py-2">Code</th><th className="px-2 py-2">Parrain</th><th className="px-2 py-2">Statut</th><th className="px-2 py-2">Créé le</th><th className="px-2 py-2">Fin de validité</th></tr>
+            </thead>
+            <tbody>
+              {codes.map((c) => (
+                <tr key={c.id} className={`border-t border-[#1a1a1a] ${expire(c) ? "opacity-60" : ""}`}>
+                  <td className="px-2 py-2 font-mono text-zinc-100">{c.code}</td>
+                  <td className="px-2 py-2 text-zinc-300">{c.referrer_email}</td>
+                  <td className="px-2 py-2 text-zinc-400">{expire(c) ? "expiré" : c.status}</td>
+                  <td className="px-2 py-2 text-zinc-500">{new Date(c.created_at).toLocaleDateString("fr-FR")}</td>
+                  <td className="px-2 py-2">
+                    <input
+                      type="date"
+                      defaultValue={c.expires_at && !c.expires_at.startsWith("2099") ? c.expires_at.slice(0, 10) : ""}
+                      disabled={enCours === c.id}
+                      onChange={(e) => void enregistre(c.id, e.target.value ? new Date(e.target.value + "T23:59:59").toISOString() : null)}
+                      className="rounded-md border border-[#262626] bg-[#0c0c0c] px-2 py-1 text-[12px] text-zinc-100 outline-none focus:border-violet-400/60"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
   );
 }
 

@@ -1,27 +1,29 @@
 #!/bin/bash
-# Deploy chain complete vers mettrik-niveau2 (Yann 4 juillet 2026).
-# Usage: ./scripts/deploy-niveau2.sh
-# push (si commits locaux) -> attend le build Vercel du dernier deploiement -> realias niveau2.
+# Mise en ligne sur NIVEAU 2 (mettrik-niveau2.vercel.app) : Yann 3 sept 2026.
+# Principe de non-contamination : niveau2 = alias vers le deploiement PREVIEW
+# du commit courant de la branche staging. mettrik.ai (niveau 0) n est JAMAIS
+# touche ici : il ne bouge que par scripts/go-n0.sh, sur ordre explicite.
 set -euo pipefail
-cd "$(dirname "$0")/.."
-
-git push origin staging 2>&1 | tail -1
-
-echo "Attente du deploiement Vercel..."
-sleep 20
-DEP=$(vercel ls 2>/dev/null | grep -m1 'https://' | awk '{print $3}')
-if [ -z "$DEP" ]; then echo "ERREUR: deploiement introuvable"; exit 1; fi
-echo "Deploiement: $DEP"
-
-for i in $(seq 1 30); do
-  STATUS=$(vercel inspect "$DEP" 2>&1 | grep -m1 'status' || true)
-  case "$STATUS" in
-    *Ready*) echo "Build Ready."; break ;;
-    *Error*) echo "ERREUR: build en echec"; exit 1 ;;
-    *) sleep 15 ;;
+cd /Users/yann/spx-app
+TOKEN=$(grep "^VERCEL_TOKEN=" .env.local | cut -d= -f2)
+TEAM=team_3A8Ft1Kze0wYzGbuyHmsaEwC
+SHA=$(git rev-parse HEAD)
+git push origin HEAD >/dev/null 2>&1 || true
+echo "commit $SHA : attente du build preview..."
+for i in $(seq 1 90); do
+  OUT=$(curl -s "https://api.vercel.com/v6/deployments?app=mettrik&limit=8&teamId=$TEAM" -H "Authorization: Bearer $TOKEN")
+  URL=$(printf '%s' "$OUT" | python3 -c "
+import json,sys
+for d in json.loads(sys.stdin.read(),strict=False)['deployments']:
+    if d.get('meta',{}).get('githubCommitSha')=='$SHA' and d.get('target')!='production':
+        print(d['state']+' '+d['url']); break")
+  case "$URL" in
+    READY*) PREVIEW=${URL#READY }; break;;
+    ERROR*) echo "BUILD EN ERREUR : $URL"; exit 1;;
   esac
-  if [ "$i" = "30" ]; then echo "ERREUR: timeout build"; exit 1; fi
+  sleep 30
 done
-
-vercel alias set "$DEP" mettrik-niveau2.vercel.app
-echo "OK: https://mettrik-niveau2.vercel.app -> $DEP"
+[ -n "${PREVIEW:-}" ] || { echo "TIMEOUT : preview introuvable"; exit 1; }
+npx vercel alias set "https://$PREVIEW" mettrik-niveau2.vercel.app >/dev/null
+echo "NIVEAU 2 = $PREVIEW (commit $SHA). mettrik.ai inchange."
+curl -s -o /dev/null -w "niveau2 health: %{http_code}\n" https://mettrik-niveau2.vercel.app/api/billing/health

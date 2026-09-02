@@ -360,21 +360,11 @@ export async function deleteAccount(formData: FormData) {
   // lui-même via la SDK client). Cascade via RLS ON DELETE.
   const { createSupabaseAdminClient } = await import("@/lib/supabase/admin");
   const admin = createSupabaseAdminClient();
-  // Audit 2 sept 2026 : resilier l abonnement Stripe AVANT de supprimer le
-  // compte, sinon un client supprime continuait d etre facture.
-  try {
-    const { data: abo } = await admin
-      .from("subscriptions")
-      .select("stripe_subscription_id,stripe_customer_id,status")
-      .eq("user_id", user.id)
-      .maybeSingle();
-    if (abo?.stripe_subscription_id && abo.status !== "canceled") {
-      const { getStripe } = await import("@/lib/billing/stripe");
-      await getStripe().subscriptions.cancel(abo.stripe_subscription_id);
-    }
-  } catch (e) {
-    console.error("[deleteAccount] resiliation Stripe impossible", e);
-  }
+  // Yann 3 sept 2026 : la suppression du compte NE resilie PAS l abonnement
+  // Stripe. Une suppression par erreur ne doit pas faire perdre au client ses
+  // droits payes : la resiliation Stripe est un acte separe, fait par Yann a
+  // la demande du client. La ligne subscriptions est conservee via son
+  // stripe_customer_id pour permettre une remise en marche.
   const { error } = await admin.auth.admin.deleteUser(user.id);
   if (error) {
     redirect(`/account?error=${await authErr(error.message)}`);
