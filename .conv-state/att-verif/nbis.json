@@ -1,0 +1,73 @@
+{
+  "ticker": "NBIS",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/NBIS/20F/NBIS_2026-04-30_0001104659-26-052948.htm.gz ; data-lake/NBIS/6K/NBIS_2026-05-20_..._ex99d1 et ex99d2 ; data-lake/NBIS/6K/NBIS_2026-07-17_..._ex99-1",
+  "controles": [
+    {
+      "affirmation": "\"hors cet effet, le resultat net ajuste reste une perte de 100,3 M$ pour le trimestre, en amelioration de seulement 20 % sur un an\"",
+      "verdict": "FAUX",
+      "verbatim_source": "Serie KPI citee en preuve (.batches-drafts-safe/kpis-haut/NBIS.json, adj_net_loss_q) : Q1-2025 = -83,6 ; Q1-2026 = -100,3. Le 6-K Q1 2026 ne publie aucune \"adjusted net loss\" (seul \"Adjusted EBITDA\" est publie). Arithmetique GAAP : 621,2 - 780,6 = -159,4.",
+      "correction_proposee": "Double erreur. (1) La perte nette ajustee se DEGRADE de 20% sur un an (-83,6 puis -100,3), elle ne s'ameliore pas. (2) Le concept n'existe pas dans le 6-K cite ; a preciser comme retraitement interne. Ecrire : \"hors ce gain, le trimestre reste deficitaire (-159,4 M$ en donnees publiees) et la perte nette ajustee se creuse de 20% sur un an\"."
+    },
+    {
+      "affirmation": "\"le resultat net ajuste\" de -100,3 M$ attribue au 6-K Q1 2026",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Recherche exhaustive du terme \"Adjusted\" dans les deux exhibits du 6-K du 20/05/2026 : seules occurrences = \"Adjusted EBITDA\". Aucune \"adjusted net loss\".",
+      "correction_proposee": "Ne pas presenter -100,3 M$ comme une donnee du 6-K. Soit citer explicitement le calcul interne, soit utiliser une grandeur publiee."
+    },
+    {
+      "affirmation": "Benefice net 621,2 M$ au T1 2026 (contre -104,3 M$), dont 780,6 M$ de gain de reevaluation ClickHouse sur une Serie D valorisant ~15 Mds$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net income from continuing operations was $621.2 million in the first quarter of 2026, compared with a net loss of $104.3 million ... primarily due to the gain from the revaluation of our investment in ClickHouse\" ; \"Gain from revaluation of investments in equity securities was $780.6 million ... ClickHouse's January 2026 Series D preferred stock financing ... which raised $400 million at a reported valuation of approximately $15 billion\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CA T1 2026 399,0 M$ contre 50,9 M$ (+684%) ; perte operationnelle creusee de 120,3 a 128,0 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total revenues increased by $348.1 million, or 684%, from $50.9 million ... to $399.0 million\" ; \"Loss from operations increased moderately from $120.3 million to $128.0 million.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Capex 2 472,9 M$ (contre 543,9) ; 4 337,5 M$ de convertibles ; 2 000,0 M$ de bons prefinances ; interets 0 puis 63,7 M$ ; dette non courante 8 432,0 M$ ; plus de 6 Mds$ leves sur le trimestre",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Purchases of property and equipment and intangible assets | (543.9) | (2,472.9)\" ; \"Net cash provided by financing activities in the first quarter of 2026 was $6,295.5 million, primarily consisting of $2,000.0 million in proceeds from the issuance of prefunded warrants and aggregate gross proceeds of $4,337.5 million from the issuance of convertible notes\" ; \"Interest expense was nil and $63.7 million in the first quarter of 2025 and 2026\" ; \"The Notes are carried at amortized cost, with an unamortized balance of $8,432.0 million as of March 31, 2026\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Duree d'amortissement des serveurs portee de 4 a 5 ans a partir du T1 2026, applique prospectivement",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Starting the first quarter of 2026, we revised the useful life for our server and network equipment from four years to five years to reflect usage patterns and current utilization commitments. The change in accounting estimate has been applied prospectively from 2026.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Deux faiblesses significatives de controle interne (immobilisations, reconnaissance du revenu TripleTen), non entierement corrigees, sans anomalie constatee",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"we were unable during 2025 to complete the implementation of all necessary controls or to remediate all material weaknesses that were identified as of December 31, 2024. In particular, we identified material weaknesses in our internal control over fixed assets, and over revenue recognition in respect of our TripleTen business unit. We believe that these control deficiencies did not result in a misstatement\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Concentration client : deux clients a 25% et 15% du CA 2025 contre un a 27% et un a 11% en 2024 ; un client a 83% des creances contre 59% ; fournisseurs de 1 a 2",
+      "verdict": "CONFORME",
+      "verbatim_source": "Table : Customer A 27% (2024) / 25% (2025) ; Customer B 15% (2025) ; Customer C 11% (2024). \"$6.6 (59%) attributable to Customer A in 2024 and $597.0 (83%) attributable to Customer D in 2025\" ; \"attributable to one supplier in 2024 and to two suppliers in 2025\"",
+      "correction_proposee": "Chiffres exacts. Le titre \"en forte hausse\" ne vaut que pour les creances (59% puis 83%) : cote chiffre d'affaires, le cumul des deux premiers clients passe de 38% a 40%. Nuancer le titre. Le bloc \"preuve\" cite par ailleurs une formule de risque generique qui n'etaye aucun de ces chiffres."
+    },
+    {
+      "affirmation": "Dependance a Nvidia et a un nombre limite de fournisseurs ; opposition publique croissante aux centres de donnees ; nouveau risque de ralentissement des depenses IA avec mention du cours de l'action ; \"not currently profitable and extremely capital intensive\" ; complexite des couches de dette",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"We currently rely on Nvidia for the GPU chips we use and on a limited number of other suppliers\" ; \"increasing public opposition to data center projects in certain localities\" ; \"A slowdown, deferral or reprioritization of AI-related customer spending, or the development of excess industry capacity, could materially adversely affect our revenue growth, results of operations, financial condition and share price\" ; \"our businesses are relatively immature, not currently profitable and extremely capital intensive\" ; \"multiple layers of secured and unsecured indebtedness with differing covenants, maturities and priorities, could increase our financial and operational risks and restrict our strategic and financial flexibility\"",
+      "correction_proposee": "Les affirmations de position dans le chapitre de risques (\"position 2\", \"position 7\", \"en hausse par rapport a l'exercice precedent\") ne sont pas des faits publies par l'emetteur : ce sont des observations de classement internes. A ne pas presenter comme du contenu de filing."
+    },
+    {
+      "affirmation": "RPO 33 585,3 M$ au 31 mars 2026, soit pres de 84 fois le CA trimestriel ; total du bilan 22 303,3 M$ ; 1 500 salaries au 31/12/2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"As of March 31, 2026, the amount of unsatisfied RPO was $33,585.3\" ; bilan Total assets 22 303,3 ; \"As of December 31, 2025, Nebius had approximately 1,500 employees, the majority of whom are engineers.\"",
+      "correction_proposee": "33 585,3 / 399,0 = 84,2, exact. Preciser que les 1 500 salaries designent l'entite Nebius decrite dans le 20-F, le groupe incluant aussi Avride et TripleTen."
+    },
+    {
+      "affirmation": "Financement garanti de 775 M$ du 17 juillet 2026, SOFR + 2,50%, echeance octobre 2030, cadre reproductible pour plus de 40 Mds$ d'engagements clients",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Nebius raises $775 million in first secured debt financing\" ; \"The facility matures October 31, 2030, and is priced at SOFR + 2.50%.\" ; \"Repeatable financing framework for more than $40 billion of additional customer commitments\"",
+      "correction_proposee": ""
+    }
+  ]
+}

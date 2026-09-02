@@ -1,0 +1,23 @@
+Mission VÉRIFICATION FACTUELLE ADVERSARIALE, lecture seule sauf le fichier de rapport. Repo /Users/yann/spx-app.
+
+Contexte : des anti-thèses d'investissement (src/data/att/<ticker>.json) affirment des faits sur des sociétés cotées. Ces textes sont vendus à des investisseurs. Une affirmation fausse ou exagérée est une faute grave. Un cas réel est déjà survenu : une ATT disait "le DOJ enquête" alors que le filing disait "the Company has received requests for information from the DOJ". Une demande d'information n'est pas une enquête.
+
+TES SOCIÉTÉS : __TICKERS__
+
+Pour CHACUNE :
+1. Ouvre src/data/att/<ticker minuscules>.json.
+2. Concentre-toi sur les affirmations JUDICIAIRES ET RÉGLEMENTAIRES (enquête, poursuite, amende, litige, régulateur, fraude, antitrust) et sur les 3 chiffres les plus spectaculaires du fichier.
+3. Pour chacune, retrouve le passage dans le document source cité (data-lake/<TICKER>/, filings .gz à décompresser avec gzip -dc, ou documents IR). Compare MOT À MOT.
+4. Verdict par affirmation :
+   - CONFORME : le document dit bien cela
+   - EXAGÉRÉ : le document dit quelque chose de plus faible (donne le verbatim exact et la reformulation correcte)
+   - INTROUVABLE : le passage n'est pas dans le document cité
+   - FAUX : le document dit autre chose
+
+Sois ADVERSARIAL : cherche à prendre l'ATT en défaut, pas à la valider. Si tu ne trouves pas le passage, dis INTROUVABLE plutôt que de supposer.
+
+ÉCRITURE AUTORISÉE UNIQUEMENT dans .conv-state/att-verif/<ticker>.json :
+{"ticker":..., "verdict_global":"propre|a_corriger", "controles":[{"affirmation":"...", "verdict":"CONFORME|EXAGERE|INTROUVABLE|FAUX", "verbatim_source":"...", "correction_proposee":"..."}]}
+
+RETOUR STRICT (6 lignes max) : une ligne par sté "TICKER : N contrôles, X conformes, Y à corriger" puis, s'il y a des problèmes, la liste des affirmations fautives en une ligne chacune.
+INTERDIT : rm, écriture dans src/data/ ou data-lake/, téléchargement navigateur.

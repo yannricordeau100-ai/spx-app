@@ -1,0 +1,72 @@
+{
+  "ticker": "ACA.PA",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Amende Euribor : \"la procedure reste donc ouverte huit ans apres la decision initiale\"",
+      "verdict": "FAUX",
+      "verbatim_source": "Rapport financier semestriel S1 2026 : \"In a decision dated 7 December 2016, the European Commission jointly fined Credit Agricole S.A. and Credit Agricole CIB 114,654,000 euros\"",
+      "correction_proposee": "La decision initiale date du 7 decembre 2016 : la procedure est ouverte depuis pres de dix ans, pas huit. Ecrire \"pres de dix ans apres la decision initiale\"."
+    },
+    {
+      "affirmation": "\"reste sous le plafond de 58% fixe par le plan a moyen terme du groupe\" (coefficient d'exploitation)",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Aucune mention d'un plafond de 58% dans le communique T2 2026 ni dans le rapport semestriel S1 2026. Les seules cibles MTP citees sont : \"below the target ceiling set by the Medium-Term Plan of 15%\" (RoTE metier), le ratio CET1 Groupe et un LCR de 110% a 130%. Le chiffre provient du champ \"signal\" de kpis-haut ACA.PA (CI_RATIO), non source.",
+      "correction_proposee": "Supprimer la reference au plafond de 58% ou la sourcer explicitement sur le document de plan a moyen terme."
+    },
+    {
+      "affirmation": "\"SAS Rue La Boetie ... detient 63,49% du capital et des droits de vote de Credit Agricole S.A. fin 2025\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Rapport semestriel S1 2026, OWNERSHIP STRUCTURE AT 30 JUNE 2026 : \"SAS Rue La Boetie | 1,921,090,370 | 63.49% [capital] | 63.50% [droits de vote]\". data-lake/ACA.PA/gouvernance_fr.json (URD 2025) : top_capital 63,49 / top_voting 63,5.",
+      "correction_proposee": "Les droits de vote sont a 63,50%, pas 63,49%. Ecrire \"63,49% du capital et 63,50% des droits de vote\". Preciser la date de reference (fin 2025 selon l'URD, 30 juin 2026 selon le semestriel)."
+    },
+    {
+      "affirmation": "Distance au seuil MDA \"de 251 points de base, soit 11 Mds € de coussin, jugee confortable par la banque elle-meme\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Communique T2 2026 : \"the distance to the MDA trigger, i.e. 251 basis points, or €11 billion of CET1 capital at 30 June 2026\" (sans qualificatif). Le mot \"comfortable\" n'apparait que pour le ratio du GROUPE : \"the Group's Common Equity Tier 1 (CET1) ratio stood at 17.2%, providing a comfortable buffer\".",
+      "correction_proposee": "Retirer \"jugee confortable par la banque elle-meme\" ou la rattacher au ratio Groupe. Le communique se borne a indiquer pour CASA \"a buffer of 2.5 percentage points above the regulatory requirement\"."
+    },
+    {
+      "affirmation": "Bloc gouvernance : \"la part d'administrateurs independants au conseil n'est que de 33%\" et \"les 39 Caisses regionales\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "data-lake/ACA.PA/gouvernance_fr.json (URD 2025) : \"board_independence_pct\": 33 ; kpis-haut ACA.PA, WEB_CAISSES_REGIONAL_DEPARTEM : \"39 Caisses regionales / 101 departements\".",
+      "correction_proposee": "Defaut de forme : ce bloc est le seul du fichier sans champ \"preuve\", et gouvernance_fr.json ne figure pas dans _sources. Ajouter la source. L'affirmation \"plus basse que la moyenne des grandes banques cotees\" reste, elle, non etayee par un comparatif chiffre."
+    },
+    {
+      "affirmation": "Cout du risque de 1,58 Md € (2021) a 1,97 Md € (2025), quatrieme hausse annuelle consecutive, +6,6% sur 2025 ; +18,5% a 1,01 Md € au S1 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut ACA.PA, serie COR_FY : 1,576 / 1,746 / 1,777 / 1,850 / 1,973 (FY2021 a FY2025), yoy +6,6%. Communique T2 2026 : \"Cost of risk (466) | (441) | +5.6% | (1,013) | (855) | +18.5%\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Taux de couverture des creances douteuses : \"The coverage ratio, which remained high at 65.6%, decreased by -7 percentage points over the quarter, mainly due to the technical migration of a few files currently being disposed of\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "Communique T2 2026 : \"The coverage ratio (10), which remained high at 65.6%, decreased by -7 percentage points over the quarter, mainly due to the to the technical migration of a few files currently being disposed of (11)\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "RNPG T2 2026 : \"Net income Group share came to €2,051 million, down -11.9% ... which included the +€304 million impact ... Excluding this impact, the quarter-on-quarter change comes to +1.4%\" ; RNPG 2025 -0,2% a 7,07 Mds € ; PNB record 28,1 Mds € (+3,3%), troisieme record annuel",
+      "verdict": "CONFORME",
+      "verbatim_source": "Communique T2 2026 : verbatim reproduit exactement. kpis-haut ACA.PA : NI_FY FY2025 7,074 (yoy -0,2%) ; REV_FY 22,657 / 22,491 / 25,180 / 27,181 / 28,079 (FY2021-FY2025), donc records successifs en 2023, 2024 et 2025.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Litige fiscal CACEIS Allemagne : 312 M€ de credits d'impot 2010 reclames + 148 M€ d'interets, 312 M€ payes sous contrainte d'execution, contestation devant le tribunal fiscal de Munich depuis fin 2022, sans provision",
+      "verdict": "CONFORME",
+      "verbatim_source": "Rapport semestriel S1 2026 : \"This claim amounted to 312 million euros. It was accompanied by a demand for the payment of 148 million euros of interests ... The rejection being enforceable, the sum of 312 million euros was paid by CACEIS Bank SA ... CACEIS Bank SA filed on 21 December 2022 a lawsuit with the Munich Tax Court ... As CACEIS Bank SA is confident in its arguments, it has not made any modification to its accounts.\"",
+      "correction_proposee": "Remarque adversariale : l'ATT presente ce contentieux et l'Euribor comme les deux seuls fronts. Le meme rapport documente aussi une sanction AMF de 3,5 M€ contre CACEIS Bank (17 decembre 2025, en appel devant le Conseil d'Etat), les actions O'Sullivan/Tavera aux Etats-Unis et le plan d'indemnisation FCA sur le financement automobile. Omissions, pas erreurs."
+    },
+    {
+      "affirmation": "CET1 11,3% pour CASA contre 17,2% pour le Groupe au 30 juin 2026 ; cout du risque 38 pb sur 4 trimestres glissants pour CASA contre 30 pb pour le Groupe ; 32 pb annualise (-6 pb vs T1 2026)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Communique T2 2026 : \"CET1 of 17.2% for Credit Agricole Group and 11.3% for Credit Agricole S.A.\" ; \"Cost of risk under control (Credit Agricole Group: 30 basis points on outstandings\" ; \"risk/outstandings was 38 basis points over a four-rolling quarter period and 32 basis points on an annualised quarterly basis (respectively stable and improving by 6 basis points compared to the first quarter of 2026)\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Integrations : Banco BPM a 29,3%, Degroof Petercam 9,9 M€ de couts d'integration au T2 2026, coefficient d'exploitation Gestion de fortune 76,3% hors couts d'integration contre 78,4% publie",
+      "verdict": "CONFORME",
+      "verbatim_source": "Communique T2 2026 : \"increase in the stake in Banco BPM to 29.3%\" ; \"Q2-26 Degroof Petercam integration costs: -€9.9m vs -€22.5m in Q2-25\" ; \"The cost/income ratio for the second quarter of 2026 stood at 76.3% excluding integration costs, compared with 78.4% as stated\"",
+      "correction_proposee": ""
+    }
+  ]
+}

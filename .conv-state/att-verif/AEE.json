@@ -1,0 +1,109 @@
+{
+ "ticker": "AEE",
+ "verdict_global": "a_corriger",
+ "source_principale": "/Users/yann/spx-app/data-lake/AEE/10K/AEE_2026-02-18.htm.gz (10-K FY2025) + /Users/yann/spx-app/data-lake/AEE/10Q/AEE_2026-08-03.htm.gz (10-Q T2 2026)",
+ "controles": [
+  {
+   "affirmation": "hook + fondamental_interne #1 : 'CA T2 2026 2,09 Md$ (yoy -5,8%), resultat net 314 M$ (+14,2%), BPA dilue 1,13 $ (+11,9%)'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026, Consolidated Statement of Income, Three Months Ended June 30 : 'Total operating revenues | 2,092 | 2,221' ; 'Net Income Attributable to Ameren Common Shareholders | $ 314 | $ 275' ; 'Earnings per Common Share - Diluted | $ 1.13 | $ 1.01'. Calculs : -5,81% / +14,18% / +11,88%.",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "hook : 'la croissance vient des tarifs approuves par les regulateurs, pas de la demande'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026, Earnings Summary : les postes favorables sont des hausses de tarifs de base ('increased base rate revenues at Ameren Missouri, pursuant to the April 2025 MoPSC electric rate order'), et les volumes sont un poste DEFAVORABLE : 'decreased retail electric sales volumes at Ameren Missouri, excluding customer energy-efficiency programs, primarily due to milder temperatures in the first half of 2026 (estimated at 1 cent and 6 cents per share, respectively)'.",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "fondamental_interne #1 (preuve) : '10-K FY2025 : ventes d'electricite 69 416 GWh en 2025 vs 74 328 GWh en 2022'",
+   "verdict": "INTROUVABLE",
+   "verbatim_source": "Le 10-K FY2025 ne publie que 3 exercices : 'Electric Operating Statistics - Year Ended December 31, | 2025 | 2024 | 2023 ... Ameren total | 69,416 | 68,744 | 67,969'. Le chiffre 2022 n'y figure pas. Il figure dans le 10-K FY2024 (depose 2025-02-18) : 'Ameren total | 68,744 | 67,969 | 74,328'.",
+   "correction_proposee": "Les deux chiffres sont exacts mais la source doit etre dedoublee : '10-K FY2025 : 69 416 GWh en 2025 ; 10-K FY2024 : 74 328 GWh en 2022'. Ecart reel -6,6% : verifie."
+  },
+  {
+   "affirmation": "fondamental_interne #2 + quantitatif #1 : 'FCF trimestriel -309 M$ (yoy -51,5%), OCF 770 M$ (yoy -10,7%)'",
+   "verdict": "CONFORME",
+   "verbatim_source": "Chiffres derives, non imprimes tels quels. 10-Q T2 2026 (6 mois) : 'Net cash provided by operating activities | 1,191 | 1,293' et 'Capital expenditures | ( 2,653 ) | ( 2,130 )' ; 10-Q T1 2026 : 'Net cash provided by operating activities | 421 | 431' et 'Capital expenditures | ( 1,574 ) | ( 1,064 )'. T2 seul : OCF 1 191-421 = 770 (vs 1 293-431 = 862, -10,7%) ; capex 2 653-1 574 = 1 079 (recoupe la table segments : 'Capital expenditures | 680 | 180 | 58 | 166 | 2 | ( 7 ) | 1,079'). FCF T2 = 770-1 079 = -309 (vs 862-1 066 = -204, degradation de 51,5%).",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "fondamental_interne #2 : 'la dette a long terme atteint deja 19,1 Md$ (+1,6% sur un an)'",
+   "verdict": "EXAGERE",
+   "verbatim_source": "10-Q T2 2026, bilan au 30 juin 2026 : 'Long-term Debt, Net ... | 19,064'. 10-Q T2 2025, bilan au 30 juin 2025 : 'Long-term Debt, Net ... | 18,811'. Variation reelle : +1,35%.",
+   "correction_proposee": "'la dette a long terme atteint deja 19,1 Md$ (+1,3% sur un an)'. Le +1,6% provient d'un calcul sur valeurs arrondies (19,1/18,8)."
+  },
+  {
+   "affirmation": "fondamental_interne #2 + quantitatif #1 + quantitatif #3 : 'le plan d'investissement sur 5 ans a ete porte a 20,8 Md$, en hausse de 28,4% par rapport au plan precedent'",
+   "verdict": "FAUX",
+   "verbatim_source": "20,8 Md$ n'est PAS le plan d'investissement du groupe Ameren mais le Smart Energy Plan de la seule filiale Ameren Missouri, hors gaz naturel. 10-K FY2025 : 'In February 2026, Ameren Missouri filed an update to its Smart Energy Plan with the MoPSC... Investments under the plan are expected to total approximately $20.8 billion over the five-year period from 2026 through 2030... The Smart Energy Plan excludes investments in its natural gas distribution business, as well as removal costs, net of salvage.' Le plan du GROUPE est indique separement : 'For 2026 through 2030, Ameren's cumulative capital expenditures are projected to range from $30.5 billion to $33.1 billion' et 'Midpoint of 2026-2030 Projected Capital Expenditures by Segment (Total Ameren - $31.8 billion)'. Le +28,4% compare 20,8 (Ameren Missouri 2026-2030) a 16,2 (10-K FY2024 : 'approximately $16.2 billion over the five-year period from 2025 through 2029'), soit deux fois le perimetre Missouri seul. Le fichier src/data/v2-pipeline/aee.json contient d'ailleurs les DEUX KPI : 'Five-Year Capital Plan' value 20.8 (issu de kpis-haut, mal etiquete) et 'Five-year capital expenditures plan' value 31.8, yoy +21% (perimetre groupe correct).",
+   "correction_proposee": "'le plan d'investissement du groupe sur 2026-2030 est porte a 30,5-33,1 Md$ (mediane 31,8 Md$, +21% vs le plan 2025-2029 de 27,4 Md$)'. Si l'on veut conserver le chiffre de 20,8 Md$, il faut ecrire : 'le Smart Energy Plan d'Ameren Missouri seul, hors gaz naturel, passe de 16,2 a 20,8 Md$ (+28,4%)'. En l'etat, quantitatif #3 compare une base tarifaire GROUPE (29,8 Md$) a un plan capex FILIALE (20,8 Md$) : perimetres incompatibles."
+  },
+  {
+   "affirmation": "fondamental_externe #1 (preuve) : citation entre guillemets '10-K FY2025 (Item 1A) : \"The regulatory lag between the timing of investments made... and the timing of rate case proceedings... may prevent full recovery of costs\"'",
+   "verdict": "INTROUVABLE",
+   "verbatim_source": "Cette phrase n'existe pas dans le 10-K FY2025 : ni 'The regulatory lag between', ni 'rate case proceedings' (Ameren ecrit 'regulatory rate review'), ni 'prevent full recovery of costs'. Les seuls verbatims proches, Item 1A : 'An MYRP includes a revenue requirement reconciliation, which may not allow for full recovery of actual costs due to a reconciliation cap.' et 'there can be no assurance that the regulator will determine that our costs were prudently incurred or that the regulatory process will result in rates that will produce full recovery of such costs or provide for an opportunity to earn a reasonable return on those investments.'",
+   "correction_proposee": "Remplacer par un verbatim reel, par exemple : 10-K FY2025 (Item 1A) : 'there can be no assurance that the regulator will determine that our costs were prudently incurred or that the regulatory process will result in rates that will produce full recovery of such costs'. Le fond de l'argument reste exact."
+  },
+  {
+   "affirmation": "fondamental_externe #1 : 'les procedures tarifaires peuvent durer jusqu'a 11 mois sans garantie de recouvrement integral'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025, Item 1A : 'Ameren Missouri's electric and natural gas utility rates and Ameren Illinois' natural gas utility rates are typically established in regulatory proceedings that take up to 11 months to complete.' et glossaire : 'Rate increase requests in traditional regulatory rate reviews can take up to 11 months to be acted upon by the MoPSC and the ICC.'",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "fondamental_externe #2 : 'le plafond PISA passe de 2,5% a 2,25% de l'exigence de revenu apres aout 2025'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025 : 'This law also reduced the annual limit on increases to the electric service revenue requirement used to set customer rates, compared to the revenue requirement established in the immediately preceding rate order, due to the inclusion of incremental PISA deferrals in the revenue requirement. The annual limit in effect was 2.5 % and changed to 2.25 %, prorated monthly, for revenue requirements approved by the MoPSC after August 2025.'",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "fondamental_externe #2 : 'le MYRP limite l'ajustement annuel a 105% des charges approuvees par l'ICC'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025, Item 1A : 'The reconciliation cap limits the annual adjustment to 105% of the annual revenue requirement approved by the ICC.'",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "fondamental_externe #2 + ce_qui_affaiblirait : 'Ameren Illinois a depose un appel de la decision de l'ICC sur le ROE 2024-2027 devant la Cour d'appel de l'Illinois'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025, Item 1A : 'Ameren Illinois has filed an appeal of the ICC-determined ROE for 2024 through 2027 to the Illinois Appellate Court for the Fifth Judicial District.' Detail Note 2 : 'In March 2025, Ameren Illinois filed an appeal of the ICC's December 2024 order to the Illinois Appellate Court for the Fifth Judicial District to revise the allowed ROE... The appellate court is under no deadline to address the appeals.'",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "fondamental_externe #3 (preuve) : '10-K FY2025 (Item 1A, Environmental Risks / ESG) : risques cites comme en degradation (\"deteriorating\")'",
+   "verdict": "FAUX",
+   "verbatim_source": "Le mot 'deteriorating' n'apparait nulle part dans le 10-K FY2025 a propos des risques environnementaux (seules occurrences de la racine : 'Prevention of Significant Deterioration' dans la definition NSR, et 'deterioration in credit metrics' dans les forward-looking statements). Le 10-K ne classe ni ne note aucun risque. Le mot vient d'un champ interne Mettrik : /Users/yann/spx-app/data-lake/AEE/risks/extracted.json, risque 'Couts de mise en conformite environnementale', '\"trend\": \"deteriorating\"'.",
+   "correction_proposee": "Supprimer l'attribution au 10-K. Ecrire : 'risque classe en degradation par Mettrik (data-lake/AEE/risks/extracted.json)', ou retirer la mention. Un 10-K n'attribue jamais de tendance a ses facteurs de risque."
+  },
+  {
+   "affirmation": "fondamental_externe #3 (preuve) : citation 'There is concern and activism among various external stakeholders... about climate-related'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025, Item 1A : 'There is concern and activism among various external stakeholders, both nationally and internationally, about climate-related risks, including public concerns about the potential environmental impacts from the combustion of fossil fuels, as well as pressure from public interest groups regarding limiting the use of natural gas.'",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "fondamental_externe #3 : 'La legislation climatique de l'Illinois pourrait imposer la fermeture anticipee de centrales a gaz naturel'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025 : 'Currently as required by the CEJA, Ameren Missouri's natural gas-fired energy centers in Illinois are subject to annual limits on emissions... Further reductions to emissions limits will become effective between 2030 and 2040, resulting in the possible closure of the Venice Energy Center by the end of 2029. The reductions could also limit the operations of Ameren Missouri's four other natural gas-fired energy centers located in the state of Illinois and will result in their closure by 2040.' L'ATT est ici plus prudente que le document (qui ecrit 'will result in their closure by 2040'). Precision utile : ces centrales appartiennent a Ameren Missouri et sont situees en Illinois, pas a Ameren Illinois.",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "resume : 'une trajectoire de benefice par action guidee a +7% par an jusqu'en 2030'",
+   "verdict": "EXAGERE",
+   "verbatim_source": "Ni le 10-K FY2025 ni le 10-Q T2 2026 (les deux seules sources documentaires citees dans _sources) ne contiennent de guidance de croissance du BPA. Le seul document du data-lake qui la porte est le communique de resultats du 12 fevrier 2026 (/Users/yann/spx-app/data-lake/AEE/ER/AEE_2026-02-12_ER.pdf) : 'EPS Compound Annual Growth Rate Guidance of 6% to 8% issued for 2026 through 2030' et 'to grow at a 6% to 8% compound annual rate from 2026 through 2030, using the 2026 guidance range midpoint'. Ameren n'a jamais guide '+7% par an'.",
+   "correction_proposee": "'une croissance du benefice par action guidee entre 6% et 8% par an de 2026 a 2030', et ajouter le communique de resultats du 12 fevrier 2026 dans _sources."
+  },
+  {
+   "affirmation": "quantitatif #2 : '69 416 GWh vendus en 2025 (+1,0% sur un an), vs 74 328 GWh en 2022, soit 6,6% de moins'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025 : 'Ameren total | 69,416 | 68,744 | 67,969' (2025/2024/2023), soit +0,98% sur un an. 10-K FY2024 : 'Ameren total | 68,744 | 67,969 | 74,328' (2022 = 74 328), soit -6,61% entre 2022 et 2025. Chiffres exacts ; seule la source du chiffre 2022 est mal attribuee (cf controle dedie).",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "quantitatif #3 : 'Base tarifaire totale 29,8 Md$ (+7,6% sur un an)'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025, table Rate Base (perimetre Ameren consolide) : 'Rate base total | $ 29.8 | $ 27.7 | $ 25.8', soit +7,58%.",
+   "correction_proposee": ""
+  }
+ ]
+}

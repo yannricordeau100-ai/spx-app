@@ -1,0 +1,13 @@
+{
+  "ticker": "DTG.DE",
+  "verdict": "defauts",
+  "confiance": "haute",
+  "problemes": [
+    "AUCUNE CONTAMINATION DTE Energy dans les donnees publiees, et AUCUNE confusion avec Deutsche Telekom. Identite correcte : Daimler Truck Holding AG, Automotive/Industrie, sous-secteur Poids lourds, gouvernance (Karin Radstrom, CEO de Daimler Truck), risques (entente camions, Torc, Mitsubishi Fuso), segments (Mercedes-Benz Trucks, Trucks North America, Daimler Buses) authentiques. La seule occurrence 'Detroit' est la marque maison Detroit Connect, legitime.",
+    "DEFAUT PUBLIE MAJEUR. Les 6 premiers KPI de src/data/companies/dtg.de.json ne viennent pas des comptes consolides mais des comptes sociaux (HGB) de Daimler Truck Holding AG : Benefice net 5,3 Mds E (+287 %, 1,362 -> 5,262), Charges administratives 73 M E, Autres produits 17 M E, Interets nets 45 M E, Impots 238 M E, Capitaux propres 21,3 Mds E. Ces chiffres sont verifies verbatim dans sec-data/cat3-european/DTG.DE/annual-text/2023.txt, qui est le fichier 'Daimler Truck Holding AG Annual Financial Statements 2023' (155 Ko, comptes de la seule holding, resultat gonfle par le transfert de benefices des filiales). Le CA groupe (50,2 Mds E en 2024, 45,5 Mds E en 2025 activites poursuivies) est absent du fichier. A retirer ou requalifier explicitement en comptes sociaux.",
+    "DEFAUT PUBLIE. Incoherence hero_kpi / hero_kpi_rationale dans companies/dtg.de.json : hero_kpi = 'tna_rev' (CA Trucks North America, 23 781 M E, valeur correcte et presente 6 fois dans le rapport 2024) mais le rationale parle du benefice net +287 % et du 'transfert de benefices du groupe', c'est-a-dire du KPI social ci-dessus. Cote v2-pipeline le couple est coherent (VENTES-T + rationale ventes unitaires).",
+    "DEFAUT MINEUR : ai_positioning de companies/dtg.de.json est en stance 'absent' avec 'Aucune mention de l'intelligence artificielle', alors que le bloc v2-pipeline (source ir/URD/DTG.DE_URD_FY2025_2026-03-12.pdf) documente Torc Robotics detenue a 91,05 % et la conduite autonome. Bloc a aligner sur la version v2-pipeline.",
+    "DEFAUT MINEUR : ranks encore en gabarit ('Top 3', global_us '...') et sector = 'Automotive' cote companies contre 'Industrie' cote v2-pipeline (divergence de taxonomie entre les deux fichiers).",
+    "RESIDUS NON PUBLIES : data-lake/DTG.DE/xbrl/facts.json contient les faits DTE Energy en USD (accn 0000936340-*, CIK DTE Energy), strictement identiques a ceux de data-lake/DTE.DE ; dossiers 10K/10Q/8K/DEF14A/424B/SC13G idem, _WRONG_COMPANY.txt en place. kpis/extracted.json porte unit = 'M USD' sur des valeurs en euros correctes (50 945 / 55 890 / 50 173 / 45 530)."
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "ticker": "ECHO",
+  "verdict_global": "a_corriger",
+  "_verifie_le": "2026-08-21",
+  "_sources_consultees": [
+    "data-lake/ECHO/10Q/ECHO_2026-05-11.htm.gz (T1 2026)",
+    "data-lake/ECHO/10Q/ECHO_2026-08-03.htm.gz (T2 2026, cloture 30 juin 2026)",
+    "data-lake/ECHO/10Q/ECHO_2025-05-09.htm.gz (T1 2025)",
+    "data-lake/ECHO/8K/ECHO_2026-08-03_0001415404-26-000038.htm.gz",
+    "data-lake/ECHO/8K/ECHO_2026-07-28_0001415404-26-000035.htm.gz"
+  ],
+  "controles": [
+    {
+      "affirmation": "Le 10-Q T1 2026 indique un doute substantiel sur la continuite d'exploitation : \"...raises substantial doubt about our, and certain of our subsidiaries, ability to continue as a going concern.\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"We, and certain of our subsidiaries, currently do not have the necessary cash on hand, projected future cash flows or committed financing to fund our obligations over the next twelve months, which raises substantial doubt about our, and certain of our subsidiaries, ability to continue as a going concern.\" (10-Q T1 2026, SUMMARY OF RISK FACTORS)",
+      "correction_proposee": "Aucune sur le fond. Precision d'attribution : la phrase citee figure dans le Summary of Risk Factors ; la note Future Capital Requirements dit \"substantial doubt exists about our ability to continue as a going concern\"."
+    },
+    {
+      "affirmation": "Le groupe traverse une crise de liquidite ; la survie financiere du reste du groupe depend de deux cessions d'actifs encore non closes (donnees arretees au 2026-08-03)",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q depose le 2026-08-03 (periode close 30 juin 2026), note Future Capital Requirements : \"As a result of the AT&T Closing and satisfaction of our obligation to pay the FCC, substantial doubt regarding our ability to continue as a going concern does not exist.\" et \"On July 28, 2026, we and AT&T completed the closing of the AT&T Transactions (the 'AT&T Closing')... we received proceeds of $20.250 billion in cash from AT&T\"",
+      "correction_proposee": "La cession AT&T a ete cloturee le 28 juillet 2026 (20,250 Mds $ encaisses), soit AVANT la date d'arret des donnees de l'ATT. Au niveau groupe, le doute sur la continuite d'exploitation a disparu ; il ne subsiste que \"about certain of our subsidiaries\". Reecrire au passe et distinguer niveau groupe / filiales."
+    },
+    {
+      "affirmation": "Cession du spectre a SpaceX pour 17 Mds $ (repete 3 fois dans l'ATT)",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T1 2026 : \"As a result of this change, the total consideration for the SpaceX Transactions has increased from $17 billion to approximately $20 billion, with up to $11 billion to be paid in SpaceX's Class A Common Stock\" (Amended and Restated License Purchase Agreement du 5 novembre 2025)",
+      "correction_proposee": "Ecrire \"environ 20 Mds $\" (dont jusqu'a 11 Mds $ en actions SpaceX Class A). Le montant de 17 Mds $ ne vaut que pour les Initial SpaceX Transactions, avant l'avenant du 5 novembre 2025."
+    },
+    {
+      "affirmation": "DISH DBS Corporation a depose une procedure de Chapter 11 preemballee le 30 juin 2026, pour gerer l'echeance de 2,0 Mds $ de senior notes a 7,75% dues au 1er juillet 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"On June 30, 2026, our subsidiary, DISH DBS Corporation and certain of its subsidiaries (the 'DISH DBS Filing Entities'), including DISH Wireless L.L.C. and its subsidiaries... commenced voluntary cases under chapter 11... to pursue confirmation of a joint prepackaged plan of reorganization\" ; 8-K du 28 juillet 2026 : \"the full repayment and satisfaction of all outstanding obligations under its 7.75% Senior Notes due July 1, 2026... $2,000,000,000 in aggregate principal amount\"",
+      "correction_proposee": "Aucune sur le fond. Ajout utile : les DISH Wireless Filing Entities (DISH Wireless L.L.C. et filiales) ont depose en meme temps, l'ATT ne mentionne que DISH DBS. Les notes 7,75% ont ete integralement remboursees le 28 juillet 2026."
+    },
+    {
+      "affirmation": "Hughes Satellite Systems Corporation et certaines filiales US ont depose une requete volontaire de Chapter 11 annoncee le 3 aout 2026 ; EchoStar n'est pas incluse. Verbatim cite : \"EchoStar Corporation ('EchoStar') and Hughes' international subsidiaries are not included in the chapter 11 proceedings...\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Le 8-K du 2026-08-03 present dans le data-lake contient l'Item 1.03 (\"On August 2, 2026 (the 'Petition Date')... filed voluntary petitions for reorganization... under chapter 11\") mais PAS l'Exhibit 99.1 (communique de presse) d'ou est tire le verbatim de l'ATT. Le fichier sats-20260728xex99.htm n'est pas dans le data-lake.",
+      "correction_proposee": "Le fait est corrobore sur le fond par l'Item 1.03 (seuls HSSC et 11 filiales nommees sont debiteurs, EchoStar n'y figure pas ; petition date = 2 aout 2026, communique le 3 aout). Mais le verbatim entre guillemets n'est verifiable dans aucun document local : soit joindre l'exhibit au data-lake, soit remplacer par la citation de l'Item 1.03."
+    },
+    {
+      "affirmation": "Dette totale 24,253 Mds $ (-7,9% YoY), dette long terme 18,015 Mds $, capitaux propres 5,631 Mds $ (-71,9% YoY) au 31 mars 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T1 2026 : \"Total 24,252,580\" ; \"Total debt, finance lease and other obligations, net of current portion $18,015,274\" ; \"Total EchoStar stockholders' equity (deficit) 5,631,310\". 10-Q T1 2025 : total debt 26,332,758 (-7,90%) ; equity 20,007,647 (-71,85%)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Tresorerie et titres 1,516 Mds $ au 31 mars 2026 ; perte nette 147,3 M$ au T1 2026 contre 203,3 M$ au T1 2025 ; BPA -0,51 $",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T1 2026 : \"Our cash and cash equivalents and marketable investment securities totaled $1.516 billion as of March 31, 2026\" ; \"Net income (loss) (147,300) / (203,281)\" ; \"Basic net income (loss) per share attributable to EchoStar $(0.51)\"",
+      "correction_proposee": "Sur le fond exact. Mais la mention \"9e trimestre deficitaire consecutif\" est perimee : le T2 2026 (10-Q du 3 aout 2026) affiche un benefice net attribuable de 8 462 M$ et un BPA de +29,17 $."
+    },
+    {
+      "affirmation": "Abonnes Pay-TV 6,632 M (-10,3%), DISH TV 4,845 M (-12,0%), SLING TV 1,787 M (-5,6%) au 31 mars 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T1 2026 : \"As of March 31, 2026, we had 6.632 million Pay-TV subscribers in the United States, including 4.845 million DISH TV subscribers and 1.787 million SLING TV subscribers.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Verbatim risque : \"The timing and closing of the AT&T Transactions and SpaceX Transactions are not certain, and are subject to certain conditions... which could have a material adverse impact on our expected leverage and available cash-on-hand.\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T1 2026, SUMMARY OF RISK FACTORS, Risks Relating to Pending Transactions : phrase identique mot a mot",
+      "correction_proposee": "Verbatim exact mais perime au 3 aout 2026 : la transaction AT&T est close depuis le 28 juillet 2026."
+    },
+    {
+      "affirmation": "Prix plancher AT&T de 18,6 Mds $ minimum",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T1 2026 : \"We are not obligated to consummate the AT&T Transactions if the Closing Purchase Price... is less than $18.6 billion (the 'Minimum Purchase Price')\"",
+      "correction_proposee": "Exact comme plancher contractuel, mais le produit effectivement encaisse au closing du 28 juillet 2026 est de 20,250 Mds $ en cash."
+    },
+    {
+      "affirmation": "Sources citees : data-lake/SATS/10Q/SATS_2026-05-11.htm.gz et data-lake/SATS/10K/SATS_2026-03-02.htm.gz",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Le repertoire data-lake/SATS/ n'existe pas. Les fichiers sont sous data-lake/ECHO/10Q/ECHO_2026-05-11.htm.gz et data-lake/ECHO/10K/ECHO_2026-03-02.htm.gz",
+      "correction_proposee": "Corriger les chemins du bloc _sources (renommage SATS -> ECHO non repercute)."
+    }
+  ]
+}

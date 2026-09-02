@@ -1,0 +1,86 @@
+{
+  "ticker": "HEI.DE",
+  "verdict": "contamine",
+  "note": "Contamination massive, mais PAS par HEICO: les blocs editoriaux proviennent du rapport annuel de l'IVR (association europeenne de la navigation fluviale). Le defaut est deja trace dans le fichier (_cross_pollution_flagged_at 2026-05-20, MD5 du 2025.txt partage avec 8+ tickers) mais n'a jamais ete nettoye. Gouvernance (von Achten) et KPI comptables sont corrects.",
+  "problemes": [
+    {
+      "bloc": "company_description",
+      "valeur_actuelle": "'L'IVR est une association europeenne independante et neutre qui represente les interets de la navigation interieure...'",
+      "valeur_correcte": "Heidelberg Materials: cimentier mondial, ciment, beton pret a l'emploi, granulats, bitume, ciments bas carbone et captage de CO2",
+      "source": "src/data/companies/hei.de.json champ enrich_mettrik_description (deja correct dans le meme fichier)"
+    },
+    {
+      "bloc": "kpis[0] Congress Participants",
+      "valeur_actuelle": "225 participants au congres annuel de l'IVR (15-17 mai 2024 a Francfort)",
+      "valeur_correcte": "A supprimer. KPI de reference: emissions nettes specifiques de CO2, 512 kg/t en 2025",
+      "source": ".batches-drafts-safe/kpis-haut/HEI.DE.json CO2_SPEC_NET"
+    },
+    {
+      "bloc": "kpis[1] Loss Prevention Colloquium Attendance",
+      "valeur_actuelle": "80 participants au colloque de prevention des sinistres",
+      "valeur_correcte": "A supprimer (IVR)",
+      "source": ".batches-drafts-safe/kpis-haut/HEI.DE.json"
+    },
+    {
+      "bloc": "kpis[2] Member Countries",
+      "valeur_actuelle": "11 pays membres representes",
+      "valeur_correcte": "A supprimer (IVR)",
+      "source": ".batches-drafts-safe/kpis-haut/HEI.DE.json"
+    },
+    {
+      "bloc": "hero_kpi_rationale",
+      "valeur_actuelle": "'Le nombre de participants au congres annuel (225 en 2024, provenant de 11 pays europeens) reflete l'influence de l'IVR comme organe de representation du secteur fluvial europeen'",
+      "valeur_correcte": "Rationale CO2_SPEC_NET: 599 kg/t en 2018, 512 en 2025, -14,5% en sept ans, base commerciale d'evoZero et pilotage du cout carbone ETS",
+      "source": ".batches-drafts-safe/kpis-haut/HEI.DE.json hero_kpi_rationale"
+    },
+    {
+      "bloc": "ai_positioning",
+      "valeur_actuelle": "stance 'absent', evidence 'Le rapport se concentre sur les aspects reglementaires et techniques de la navigation fluviale europeenne', 'normes CESNI'",
+      "valeur_correcte": "stance 'integrator': plus de 330 systemes experts en production dans les usines, IA industrielle et commerciale non vendue comme produit",
+      "source": "src/data/v2-pipeline/hei.de.json ai_positioning"
+    },
+    {
+      "bloc": "customer_type_label",
+      "valeur_actuelle": "'Activite principalement orientee vers les entreprises, notamment dans le secteur de la navigation interieure europeenne'",
+      "valeur_correcte": "B2B: construction, travaux publics, distributeurs de materiaux",
+      "source": "deduction metier ciment + v2-pipeline"
+    },
+    {
+      "bloc": "enrich_description",
+      "valeur_actuelle": "'IVR est un leader dans le transport fluvial interieur europeen depuis 1877', produits = 'services de transport de marchandises et de passagers sur les voies navigables'",
+      "valeur_correcte": "Contenu de enrich_mettrik_description (deja correct dans le meme fichier)",
+      "source": "src/data/companies/hei.de.json"
+    },
+    {
+      "bloc": "enrich_ranks.subsector",
+      "valeur_actuelle": "'#1 in Transportation Infrastructure' (et sector 'Top 50 in Industrie')",
+      "valeur_correcte": "Materiaux / Ciment et materiaux de construction",
+      "source": "src/data/companies/hei.de.json champs sector et subsector"
+    },
+    {
+      "bloc": "tagline",
+      "valeur_actuelle": "null",
+      "valeur_correcte": "A rediger (Materiaux de construction, ciment bas carbone)",
+      "source": "v2-pipeline (tagline egalement null)"
+    },
+    {
+      "bloc": "risks",
+      "valeur_actuelle": "null",
+      "valeur_correcte": "Risques rediges et sources (cyberattaques et defaillance des systemes industriels, cout carbone, cyclicite de la construction...)",
+      "source": "src/data/v2-pipeline/hei.de.json risks"
+    },
+    {
+      "bloc": "kpis DPS",
+      "valeur_actuelle": "3,3 EUR",
+      "valeur_correcte": "3,6 EUR (FY2025)",
+      "source": ".batches-drafts-safe/kpis-haut/HEI.DE.json DPS"
+    },
+    {
+      "bloc": "ranks",
+      "valeur_actuelle": "tous 'N/A'",
+      "valeur_correcte": "global_world '#356'",
+      "source": "src/data/companies/hei.de.json champ enrich_ranks"
+    }
+  ],
+  "confiance": "elevee"
+}

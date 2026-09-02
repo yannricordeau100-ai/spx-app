@@ -1,0 +1,84 @@
+{
+  "ticker": "RWE.DE",
+  "verdict_global": "a_corriger",
+  "_sources_verifiees": [
+    "data-lake/RWE.DE/ir/CP/RWE.DE_CP_T1-2026_2026-05-13.txt.gz",
+    "data-lake/RWE.DE/ir/CP/RWE.DE_CP_FY2025_2026-03-12.txt.gz",
+    "data-lake/RWE.DE/ir/URD/RWE.DE_URD_FY2025_2026-03-12.txt.gz (section 2.9)",
+    "data-lake/RWE.DE/segments_fr.json, .batches-drafts-safe/kpis-haut/RWE.DE.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "REGLEMENTAIRE - \"le refus de permis federaux maintient plusieurs projets eoliens en mer du groupe a l'arret\" (presente comme un fait accompli et comme la cause de l'arret).",
+      "verdict": "FAUX",
+      "verbatim_source": "URD FY2025, section 2.9 : \"We are also exposed to the risk of federal authorities refusing to grant permits for projects. This could have ramifications for our currently paused offshore wind projects in the US in particular. If we cannot continue them, we will have to recognise an impairment loss for capitalised development and investment expenses.\"",
+      "correction_proposee": "RWE decrit un RISQUE de refus de permis (\"exposed to the risk of... refusing\", \"could have ramifications\"), pas un refus survenu. Les projets sont deja \"paused\" pour d'autres raisons ; le refus eventuel est une consequence potentielle, pas la cause. Ecrire : \"RWE se dit expose au risque que les autorites federales refusent d'accorder des permis, ce qui pourrait avoir des consequences sur ses projets eoliens en mer americains actuellement suspendus, avec a la cle une depreciation des frais de developpement capitalises.\" C'est exactement le type d'erreur du precedent DOJ."
+    },
+    {
+      "affirmation": "REGLEMENTAIRE - \"la loi budgetaire de juillet 2025 conditionne les credits d'impot des futurs parcs eoliens et solaires mis en service apres 2027\", presente comme une contrainte pesant sur RWE.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "URD FY2025, section 2.9 : \"The One Big Beautiful Bill budget act passed in July 2025 stipulates that operators of wind and solar farms commissioned after 2027 will not receive tax credits unless they ensure that their construction projects are protected by safe harbour measures. As we did this early on, our investment projects remain eligible for tax credits.\"",
+      "correction_proposee": "L'ATT omet la phrase de mitigation immediate de RWE, qui neutralise le risque pour ses propres projets. Ajouter : \"RWE indique toutefois avoir securise ses projets par des mesures de safe harbour anticipees, si bien que ses investissements restent eligibles aux credits d'impot.\""
+    },
+    {
+      "affirmation": "REGLEMENTAIRE - le remplacement envisage des certificats ROC par des certificats a prix fixe \"pouvant entrainer des pertes de resultat significatives pour les producteurs d'electricite\".",
+      "verdict": "EXAGERE",
+      "verbatim_source": "URD FY2025, section 2.9 : \"The UK government is considering replacing the tradable ROCs with Fixed Price Certificates, which could lead to significant earnings losses for power producers. However, these changes would only affect older wind farms as plants completed after 31 March 2017 no longer receive ROCs.\"",
+      "correction_proposee": "Le verbatim cite est exact mais l'ATT coupe la restriction qui suit immediatement. Ajouter : \"RWE precise que ces changements ne toucheraient que les parcs anciens, les installations achevees apres le 31 mars 2017 ne recevant plus de ROC.\""
+    },
+    {
+      "affirmation": "Citation \"new regulatory risks emerged, some of which have since materialised\".",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025, section 2.9 : \"With the change of administration in the USA, new regulatory risks emerged, some of which have since materialised.\"",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "EBITDA ajuste T1-2026 de 1,6 Md EUR contre 1,3 Md EUR, dont 332 M EUR d'indemnisation de l'Etat neerlandais (restriction de production 2022 a Eemshaven) ; citation du directeur financier.",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP T1 2026 : \"adjusted EBITDA... of EUR1.6 billion in the first quarter of 2026 (previous year: EUR1.3 billion)\" ; \"The main driver was a positive earnings effect of EUR332 million from a compensation payment. Due to a statutory restriction on electricity generation from coal in the first half of 2022, RWE's Eemshaven power plant was only able to generate electricity to a limited extent, for which the Dutch state has now compensated RWE.\" ; \"Thanks to our strong financial performance and a positive one-off effect, we have already achieved one third of our forecast earnings per share.\"",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "Hook : \"sans cet effet, l'EBITDA du trimestre aurait legerement recule\" (affirme comme un fait).",
+      "verdict": "EXAGERE",
+      "verbatim_source": "CP T1 2026 : \"A key driver was better wind conditions in Europe compared to the previous year. New wind farms, solar farms and battery storage facilities with a total capacity of 2.3 gigawatts... also contributed to the increase in earnings. In addition, a positive one-off effect resulted from a compensation payment received from the Dutch state.\" Les montants du groupe sont arrondis au 0,1 Md EUR : l'ecart reel se situe entre +250 et +350 M EUR, le calcul \"300 - 332 = -32\" n'est donc pas determine.",
+      "correction_proposee": "Le corps de l'ATT hedge correctement (\"proche, voire inferieur\") ; aligner le hook : \"sans cet effet, l'EBITDA du trimestre aurait ete a peu pres stable\". Et mentionner que RWE designe les meilleures conditions de vent et les 2,3 GW mis en service comme moteurs principaux."
+    },
+    {
+      "affirmation": "Dette nette de 10,921 Mds EUR fin 2025 a 15,6 Mds EUR au 31 mars 2026 (+43%), expliquee par 2,3 Mds EUR d'investissement net et des effets saisonniers.",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP T1 2026 : \"As at 31 March 2026, RWE reported net debt of EUR15.6 billion. The increase compared to the end of 2025 was mainly driven by high capital expenditure and seasonal effects on the adjusted operating cash flow.\" ; \"has already invested EUR2.3 billion net\". kpis-haut DETTE_NETTE FY2025 = 10,921.",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "Quantitatif dette nette : \"La progression continue depuis 2022\".",
+      "verdict": "FAUX",
+      "verbatim_source": "kpis-haut RWE.DE DETTE_NETTE : FY2021 -0,36 ; FY2022 -1,63 ; FY2023 6,587 ; FY2024 11,177 ; FY2025 10,921. CP FY2025 : \"net debt remained largely unchanged in 2025 (2024: EUR11.1 billion), while the equity ratio improved from 34% to 41%. The leverage factor... was 2.1, well below the self-imposed upper limit.\"",
+      "correction_proposee": "Deux erreurs : (1) le point bas de tresorerie nette est fin 2022 (-1,63 Md, soit plus de tresorerie nette qu'en 2021), donc la progression demarre en 2023, pas \"depuis 2022\" ; (2) la dette nette a BAISSE en 2025 (11,177 -> 10,921). Ecrire : \"la dette nette a progresse de 2023 a 2024 puis s'est stabilisee en 2025, avant de bondir au T1-2026\"."
+    },
+    {
+      "affirmation": "\"fourchette-cible auto-imposee de 3,0 a 3,5 fois l'EBITDA ajuste\" / \"sa limite interne de 3,0 a 3,5\".",
+      "verdict": "EXAGERE",
+      "verbatim_source": "CP T1 2026 : \"it is expected to remain at the lower end of the self imposed upper limit of 3.0 to 3.5\". CP FY2025 : \"The leverage factor... was 2.1, well below the self-imposed upper limit. This was 3.0 for the past financial year.\"",
+      "correction_proposee": "Il s'agit d'une LIMITE HAUTE auto-imposee, pas d'une fourchette-cible : RWE ne vise pas 3,0-3,5x, il s'interdit de la depasser. Ajouter le point de depart omis : le levier 2025 etait de 2,1x, \"well below\" la limite."
+    },
+    {
+      "affirmation": "EBITDA ajuste FY2025 par segment : Eolien en mer 1,488 Md (-4,6%), Production flexible 1,406 Md (-27,9%), Negoce 0,339 Md (-50,1%), Eolien terrestre/solaire 1,74 Md (+15,8%) ; BPA ajuste 2,48 EUR en 2025 vs 5,51 EUR en 2023 (-55%) ; dividende cible 1,32 EUR pour 2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP FY2025 : Offshore Wind \"EUR1,488 million... below the previous year's figure of EUR1,559 million\" ; Onshore Wind/Solar \"EUR1,740 million (2024: EUR1,502 million)\" ; Flexible Generation \"EUR1,406 million... compared to the previous year (EUR1,949 million)\" ; Supply & Trading \"At EUR339 million... below the previous year's figure of EUR679 million\" ; \"Adjusted earnings per share came in at EUR2.48\" ; \"RWE intends to raise the dividend for 2026 by 10% to EUR1.32 per share\". kpis-haut BPA_AJUSTE FY2023 = 5,51.",
+      "correction_proposee": "Aucune. Les quatre pourcentages recalcules donnent -4,55%, -27,86%, -50,07%, +15,85%."
+    },
+    {
+      "affirmation": "Negoce et approvisionnement : 11 965 M EUR de CA externe 2025 sur 17 628 M EUR (67,9%), EBITDA 339 M EUR (marge ~2,8%) ; Eolien terrestre/solaire ~15% du CA.",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025, note 29 Segment reporting : \"Supply & Trading 11,965 / 18,865\" ; \"RWE Group 17,628 / 24,224\" ; \"External revenue down 27%. Our external revenue amounted to EUR17,628 million\". segments_fr.json : Onshore Wind/Solar 2,638 Mds = 14,96%.",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "IA : vente en novembre 2025 d'un projet de centre de donnees pour 203 M GBP ; citation \"More than 40% of employees are using it\".",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025 : \"The buyer paid us GBP203 million, which is reported as a...\" (former power station sites in the UK) ; section 2.2 Innovation : \"More than 40% of employees are using it\". CP FY2025 : \"The transaction resulted in a book gain of EUR225 million.\"",
+      "correction_proposee": "Aucune."
+    }
+  ]
+}

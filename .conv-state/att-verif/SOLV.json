@@ -1,0 +1,91 @@
+{
+ "ticker": "SOLV",
+ "verdict_global": "a_corriger",
+ "source_principale": "/Users/yann/spx-app/data-lake/SOLV/10Q/SOLV_2026-08-05.htm.gz (10-Q T2 2026) + /Users/yann/spx-app/data-lake/SOLV/10K/SOLV_2026-02-27.htm.gz (10-K FY2025) + /Users/yann/spx-app/data-lake/SOLV/DEF14A/SOLV_2026-03-27.htm.gz + comparatif 10-Q T2 2025 (SOLV_2025-06-30.htm.gz)",
+ "controles": [
+  {
+   "affirmation": "fondamental_interne #1 : 'provision pour litige de 31 M$ a 235 M$ ; 3M defendeur dans environ 8 400 proces et une action collective canadienne ; Solventum indemnise 3M et ne peut estimer de perte au-dela du montant comptabilise'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026, Note 12 : 'At June 30, 2026 and December 31, 2025, accrued litigation costs were $235 million and $31 million, respectively.' ; '3M is a named defendant in approximately 8,400 lawsuits in the United States and one Canadian putative class action with a single named plaintiff... Under the terms of the Separation and Distribution Agreement... Solventum has agreed to indemnify 3M for uninsured liabilities related to the Bair Hugger patient warming system, to manage the litigation, and pay for legal expenses.' ; 'During the second quarter of 2026, based on developments in the Bair Hugger matter, the Company increased its litigation accrual to management's best estimate of probable loss at this time. The Company is not able to estimate a possible loss or range of possible loss in excess of the recorded liability at this time.' La hausse est bien concentree sur un seul trimestre : 'During the three months ended June 30, 2026, the Company recognized $204 million in legal charges. There were no legal charges recognized in the three months ended March 31, 2026.'",
+   "correction_proposee": "Nuance de titre : les 235 M$ sont le total des 'accrued litigation costs' de la societe, pas une provision exclusivement Bair Hugger. Le document rattache la HAUSSE au dossier Bair Hugger, pas la totalite du solde. Titre plus exact : 'Provision pour litiges multipliee par 7,6 en un trimestre sur developpements du dossier Bair Hugger'."
+  },
+  {
+   "affirmation": "fondamental_interne #2 : 'la marge operationnelle ajustee reste quasi stable a 19,5% (-0,2 pt)' presentee comme un chiffre du DEUXIEME TRIMESTRE 2026",
+   "verdict": "FAUX",
+   "verbatim_source": "Le 19,5% est le chiffre du PREMIER trimestre 2026, pas du deuxieme. Source reelle : .batches-drafts-safe/kpis-haut/SOLV.json, champ ADJ_OP_MARGIN, last_data_date '2026-03-31', signal : '\"Adjusted operating income margin 19.5% vs 19.7%, (20) bps\" au T1-2026 (communique T1-2026)'. Le 10-Q T2 2026 ne publie aucune marge operationnelle ajustee, et le communique de resultats T2 2026 n'est pas present dans le data-lake (les deux 8-K du 5 aout 2026 ne contiennent pas l'exhibit). Le chiffre du T2 2026 n'est donc pas verifiable et ne peut pas etre affirme.",
+   "correction_proposee": "Retirer la mention de la marge operationnelle ajustee, ou l'etiqueter explicitement 'T1 2026'. A defaut, utiliser un chiffre du 10-Q : le resultat operationnel des trois segments progresse de 48% ('Total reportable segment operating income 631 | 426')."
+  },
+  {
+   "affirmation": "fondamental_interne #2 : 'SG&A +20,1% (927 M$ contre 772 M$) ; marge operationnelle publiee 8,2% contre 9,9% ; resultat operationnel 181 M$ contre 214 M$'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026, compte de resultat : 'Selling, general and administrative expenses | 927 | 772' (+20,08%) ; 'Operating income | 181 | 214'. Marges recalculees : 181/2 209 = 8,19% ; 214/2 161 = 9,90%.",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "fondamental_interne #2 (titre + raisonnement) : la marge operationnelle publiee reculerait 'malgre un CA gonfle ponctuellement' par les commandes anticipees",
+   "verdict": "EXAGERE",
+   "verbatim_source": "Le lien de causalite suggere n'est pas celui du document. Le recul de la marge publiee s'explique presque entierement par la charge juridique du trimestre, que l'ATT decrit pourtant ailleurs : 10-Q T2 2026, Note 12 : 'During the three months ended June 30, 2026, the Company recognized $204 million in legal charges.' Hors cette charge, le resultat operationnel serait de 385 M$, soit 17,4% de marge, en HAUSSE. Au niveau operationnel, le document montre l'inverse de ce que suggere l'ATT : 'Total reportable segment operating income | 631 | 426' (+48%), et pour MedSurg comme pour Dental et HIS : 'Business segment operating income margin increased when compared to the same period last year.'",
+   "correction_proposee": "'La marge operationnelle publiee recule a 8,2% contre 9,9%, mais ce recul vient d'une charge juridique de 204 M$ liee au dossier Bair Hugger : le resultat operationnel des trois segments progresse en realite de 48%.'"
+  },
+  {
+   "affirmation": "fondamental_interne #3 : citations 10-K FY2025 sur l'endettement de scission ('In connection with the Spin-Off, Solventum incurred debt obligations...' ; 'as of December 31, 2025, Solventum had approximately $5 billion of outstanding indebtedness') et dette totale 8 010 M$ fin 2024 / 5 035 M$ fin 2025 / 5 079 M$ au 30 juin 2026",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025, Risk Factors : les deux phrases figurent verbatim. 10-Q T2 2026, Note 9 : 'Total debt | 5,079 | 5,035'. 10-K FY2025, Note 9 : total 2024 '8,010'. Baisse 2024-2025 : -37,1%. Rachat obligataire verifie : 'In September 2025, the Company repurchased multiple series of its outstanding Senior Notes via cash tender offers with a combined aggregate principal amount of $1.9 billion'.",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "quantitatif #3 : 'l'apparition de 207 M$ de nouveaux contrats de location-financement et 47 M$ d'autres emprunts absents UN AN plus tot' presentee comme composante de la remontee de la dette totale",
+   "verdict": "EXAGERE",
+   "verbatim_source": "Deux ecarts. (1) Perimetre : la ligne 'Finance leases | 207 | —' est un poste de PASSIF NON COURANT du bilan, PAS un composant de la 'Total debt' de la Note 9. Cette derniere ne bouge que de 5 035 a 5 079 M$ (+44 M$), variation quasi integralement expliquee par le seul poste 'Other borrowings | 47 | —'. Les 207 M$ ne font pas remonter la dette totale citee. (2) Periode : la colonne de comparaison du bilan du 10-Q T2 2026 est le 31 decembre 2025, soit SIX MOIS plus tot, pas un an. Origine du bail : 'In March 2026, the Company commenced a finance lease arrangement through April 2046 for its principal office in Eagan, Minnesota... The related finance lease liability of approximately $209 million'.",
+   "correction_proposee": "'la dette totale ne baisse plus (5 035 M$ fin 2025, 5 079 M$ au 30 juin 2026), la hausse venant de 47 M$ d'autres emprunts ; s'y ajoute hors dette financiere un nouveau contrat de location-financement de 207 M$ souscrit en mars 2026 pour le siege d'Eagan'."
+  },
+  {
+   "affirmation": "quantitatif #3 : 'charge d'interets nette trimestrielle passee de 103 M$ a 64 M$'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026, compte de resultat : 'Interest expense, net | 64 | 103 | 125 | 207'.",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "hook + quantitatif #1 : 'environ 125 M$ de commandes clients anticipees dont 85 M$ sur MedSurg ; la direction annonce un T3 2026 penalise ; 125 M$ = 5,7% du CA trimestriel de 2 209 M$'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026 : 'During the second quarter 2026, the Company benefited from advanced customer ordering in connection with the Company's July 2026 U.S. enterprise resource planning (\"ERP\") deployment. Sales growth for the three months ended June 30, 2026 benefited by approximately $125 million due to these advanced orders. The Company anticipates that sales in the third quarter of 2026 will be negatively impacted as customers reduce inventory to normal levels.' MedSurg : 'Organic growth was impacted by approximately $85 million or 7.0% due to advanced order timing ahead of the Company's U.S. ERP deployment.' CA total T2 2026 : 'Total net sales | 2,209 | 2,161'. Ratio 125/2 209 = 5,66%.",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "hook + resume : 'croissance organique de 9,5% au T2 2026'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026, table de reconciliation des ventes, ligne 'Total Company' : '$2,209 | $2,161 | 2.2% | 1.0% | 1.2% | (8.3)% | 9.5%' (derniere colonne = croissance organique).",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "quantitatif #2 : 'Stocks a 1,04 Md$ (+8,1% sur un an), rotation a 103 jours (+15,7%)' ; titre 'Stocks en hausse plus rapide que les ventes'",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026, bilan : 'Total inventories | 1,040 | 1,066' (30 juin 2026 / 31 decembre 2025). 10-Q T2 2025, bilan : 'Total inventories | 962'. Le +8,1% sur douze mois est donc exact (1 040 / 962), et d'autant plus notable que le perimetre a perdu l'activite Purification and Filtration en septembre 2025. Reserves fortes : (a) le 10-Q cite montre les stocks en BAISSE sequentielle (1 040 contre 1 066), la source interne kpis-haut/SOLV.json qualifiant elle-meme ce mouvement de 'leger degonflement' ; (b) la perspective de l'ATT est contre-intuitive : des commandes clients anticipees transferent du stock VERS les clients et reduisent celui de Solventum, ce qui explique justement la baisse sequentielle, pas une accumulation.",
+   "correction_proposee": "Conserver le +8,1% sur douze mois mais preciser la baisse sequentielle et retirer le lien de causalite avec le deploiement ERP : 'Stocks a 1 040 M$, +8,1% sur douze mois malgre la cession de Purification and Filtration, mais en repli de 26 M$ sur le semestre.'"
+  },
+  {
+   "affirmation": "fondamental_externe #1 : '3M detient 25 569 190 actions, 14,7% du capital, a cede le droit de vote via une procuration mais conserve le pouvoir de ceder'",
+   "verdict": "CONFORME",
+   "verbatim_source": "DEF14A du 27 mars 2026 : 'As of March 19, 2026, 3M owned 14.7% of our common stock.' ; tableau de detention '3M Company | 25,569,190 | 14.7' ; note (2) : '3M granted to Solventum a proxy to vote the shares of Solventum common stock owned by 3M in proportion to the votes cast by Solventum's other shareholders. As a result, 3M Company does not exercise voting power over any of the shares of Solventum common stock that it beneficially owns. However, 3M retains sole dispositive power over 25,569,190 shares of our common stock.'",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "fondamental_externe #2 : indemnisation PFAS de 3M limitee aux ventes realisees jusqu'a fin 2025 ; trois citations du 10-K FY2025",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025, Risk Factors : '3M agreed to indemnify Solventum for certain PFAS-related product claims related to sales of products through such date' ; 'The potential options available to Solventum following 2025 (after which sales by Solventum of products containing or enabled by PFAS will no longer be subject to indemnification from 3M), regarding PFAS in products will involve risks, which risks may be material, and could have a material adverse effect on Solventum's results of operations, cash flows or consolidated financial position.' ; '...indemnity of Solventum with respect to certain liabilities relating to PFAS prior to Spin-Off may not be sufficient to protect Solventum against the full amount of such liabilities if, for example, 3M fails to fully satisfy its indemnification obligations or disputes whether that liability is subject to indemnification.' Le document confirme aussi : '3M ceased supplying Solventum with PFAS-related products or components at the end of 2025.'",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "fondamental_externe #3 : listes de concurrents MedSurg et dentaire, et avertissement sur les prix / parts de marche",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025, Item 1 : 'our principal competitors including Smith & Nephew, Medaxis, Molnlycke, Coloplast, and Convatec' ; 'principal competitors in this segment include Becton Dickinson, Hartmann, ICU Medical, Medline, Cardinal Health, Fortive, Steris' ; 'Principal multinational competitors within the oral care market include Dentsply Sirona, Envista, and Straumann, all of which compete with both dental and orthodontic solutions, and Ivoclar, which competes with only dental solution offerings, and Align Technology, which competes with only orthodontic solution offerings'. Risk Factors : 'necessitating that Solventum lower prices or resulting in a loss of market share'.",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "resume : 'dette nette -36% sur un an'",
+   "verdict": "CONFORME",
+   "verbatim_source": "Chiffre derive, non imprime tel quel. kpis-haut/SOLV.json, NET_DEBT, last_data_date 2026-06-30 : '4 676 M$ de dette nette au 30 juin 2026 (5 079 M$ de dette brute moins 403 M$ de tresorerie, bilan 10-Q T2 2026), contre 7 323 M$ un an plus tot', soit -36,1%. Coherent avec la Note 9 du 10-Q T2 2026.",
+   "correction_proposee": ""
+  }
+ ]
+}

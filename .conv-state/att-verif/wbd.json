@@ -1,0 +1,85 @@
+{
+  "ticker": "WBD",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/WBD/10Q/WBD_2026-08-06.htm.gz ; data-lake/WBD/DEF14A/WBD_2026-04-30.htm.gz",
+  "controles": [
+    {
+      "affirmation": "hook : \"un tribunal federal a interdit toute finalisation avant un proces prevu en mars 2027\" ; resume : \"deux plaintes federales ... bloquent toute finalisation avant un proces en mars 2027\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"On July 20, 2026, the court granted the States' motion for a temporary restraining order, prohibiting PSKY and WBD from closing the PSKY Merger. On July 23, 2026, the court extended the temporary restraining order to August 17, 2026. On July 24, 2026, defendants agreed not to complete the PSKY Merger until the earlier of (i) five days after the merits determination in this matter or (ii) June 1, 2027, and the court canceled the briefing schedule and hearing date for the States' motion for preliminary injunction.\"",
+      "correction_proposee": "L'interdiction judiciaire (TRO) ne court que jusqu'au 17 aout 2026. Le gel jusqu'a la decision au fond resulte d'un ENGAGEMENT VOLONTAIRE des defendeurs du 24 juillet 2026, pas d'une injonction du tribunal ; la motion d'injonction preliminaire a d'ailleurs ete annulee/retiree. Reformuler : \"les defendeurs se sont engages a ne pas finaliser l'operation avant cinq jours apres la decision au fond, et au plus tard le 1er juin 2027\". Le corps de l'ATT (fondamental_externe) est, lui, correctement redige."
+    },
+    {
+      "affirmation": "titre : \"L'obligation de finalisation de PSKY depend d'une scission que WBD n'a pas encore realisee\" ; \"cette clause ajoute une dependance d'execution supplementaire\" ; ce_qui_affaiblirait : \"La resolution de la condition de separation ... exigee par PSKY\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"PSKY's obligation to consummate the PSKY Merger is subject to WBD not having completed the separation of its Streaming & Studios business from its Global Linear Networks business nor having declared or made any dividend to WBD's stockholders to effectuate the separation.\"",
+      "correction_proposee": "Inversion du sens. PSKY n'exige PAS la scission : elle exige que WBD NE la realise PAS. C'est un engagement de ne pas faire (standstill), pas une dependance d'execution ni une condition a \"resoudre\". Le corps de l'argument est correct ; le titre, la conclusion et la ligne ce_qui_affaiblirait disent l'inverse du document."
+    },
+    {
+      "affirmation": "\"131,6 M d'abonnes streaming au T2 2026 (59,2 M domestiques, 72,4 M internationaux), ARPU global 6,64 $/mois\" ; ARPU domestique 10,4 $ et international 3,7 $",
+      "verdict": "FAUX",
+      "verbatim_source": "Aucune donnee d'abonnes ni d'ARPU dans le 10-Q T2 2026 (recherche exhaustive : 131.6 / 59.2 / 72.4 / 6.64 / ARPU absents). Dans .batches-drafts-safe/kpis-haut/WBD.json, streaming_subs 131,6 est date Q4-FY2025 et global_arpu 6,64 est date Q3-FY2025.",
+      "correction_proposee": "Les chiffres existent mais ne sont PAS ceux du T2 2026 : abonnes au 31/12/2025 (Q4-FY2025) et ARPU du Q3-FY2025. Soit dater correctement, soit retirer le bloc."
+    },
+    {
+      "affirmation": "\"Remuneration du PDG en forte hausse malgre la perte\" : 165 M$ pour 2025, +218%, ratio 1 378, mediane 119 748 $",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"The 2025 annual total compensation for our CEO ... was $165,009,366. Therefore, the ratio ... was 1,378 to 1.\" MAIS aussi : \"The CEO's annual total compensation for 2025 was significantly higher than in prior years primarily due to a one-time grant of stock options awarded in 2025 in connection with the Zaslav 2025 Employment Agreement. Excluding the value of this one-time grant, Mr. Zaslav's annual total compensation for 2025 would have been $55,416,185 ... the ratio ... would have been 463 to 1.\"",
+      "correction_proposee": "Chiffres exacts (165 009 366 $, ratio 1 378, mediane 119 748 $, 51 918 563 $ en 2024 soit +218%), mais l'ATT omet la neutralisation explicitement publiee par l'emetteur : hors attribution d'options exceptionnelle, 55,4 M$ et ratio 463. Ajouter cette precision, sans quoi la hausse est presentee comme recurrente."
+    },
+    {
+      "affirmation": "\"Couts de rupture colossaux dans les deux sens\" : 2 800 M$ + 3 000 M$ + 1 528 M$ = plus de 7 300 M$",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"Termination under specified circumstances will require WBD to pay PSKY a termination fee of $3.0 billion and reimburse PSKY for (i) any payment made by PSKY, which will in no event be more than $1,528 million ... and (ii) the Netflix Termination Fee, or PSKY to pay WBD a termination fee of $7.0 billion.\"",
+      "correction_proposee": "L'arithmetique (7 328 M$) tient, mais elle est integralement a la charge de WBD : le titre \"dans les deux sens\" n'est pas etaye et omet les 7,0 Mds$ que PSKY devrait a WBD dans la situation symetrique. Soit citer les deux sens, soit changer le titre."
+    },
+    {
+      "affirmation": "\"une charge exceptionnelle de 2 800 M$ versee a Netflix pour rupture de l'accord de fusion initial\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"PSKY, on behalf of the Company, paid Netflix a termination fee of $2.8 billion in cash ... In the first quarter of 2026, the Company recorded an expense for the Netflix Termination Fee ... The amount paid by PSKY is reimbursable by the Company to PSKY in certain circumstances\"",
+      "correction_proposee": "WBD a comptabilise la charge mais n'a pas decaisse : c'est PSKY qui a paye pour son compte, montant remboursable dans certains cas. Ecrire \"charge de 2 800 M$ comptabilisee au titre de la rupture, reglee par PSKY pour le compte de WBD\"."
+    },
+    {
+      "affirmation": "Douze procureurs generaux + WGA West et WGA East, Section 7 du Clayton Act, proces unique de 12 jours du 2 au 19 mars 2027",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"a coalition of twelve state attorneys general and the Writers Guild of America West and Writers Guild of America East ... alleging the transaction would violate Section 7 of the Clayton Act\" ; \"the court entered an order for a single 12-day trial beginning March 2, 2027 and ending March 19, 2027\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Perte nette de 2 744 M$ sur six mois contre +1 139 M$ ; resultat operationnel -2 232 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net income (loss) | 162 | 1,588 | (2,744) | 1,139\" ; \"Operating income (loss) | 237 | (185) | (2,232) | (222)\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Studios : CA 2 328 vs 3 801 M$ (-39%), EBITDA ajuste 96 vs 863 M$ (-89%), revenus salles -46%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total revenues | 2,328 | 3,801 | (39)%\" ; \"Adjusted EBITDA | 96 | 863 | (89)%\" ; \"a 46% decrease in theatrical product revenue\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette totale 32 402 M$ contre 32 845 M$ ; tresorerie 3 369 M$ ; covenant de levier max 4,50x respecte",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total debt | 32,402 | 32,845\" ; \"Cash and cash equivalents | $3,369\" ; \"requires maintenance of a minimum consolidated interest coverage ratio of 3.00 to 1.00 and a maximum consolidated leverage ratio of 4.50 to 1.00. As of June 30, 2026, the Company was in compliance\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Abonnes lineaires domestiques -10% ; publicite -22% et -16% ; degradations S&P, Moody's, Fitch en 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"a 10% decline in domestic linear subscribers for both periods\" ; \"Advertising revenue decreased 22% and 16%\" ; \"in 2025, S&P, Moody's and Fitch downgraded certain of our ratings in part due to declines in our linear business\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "GLN 3 991 vs 4 803 M$ (-17%) ; Streaming 3 079 vs 2 793 M$ (+10%) ; EBITDA ajuste Streaming 512 vs 293 M$ (+75%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total revenues | 3,991 | 4,803 | (17)%\" ; \"Total revenues | 3,079 | 2,793 | 10%\" ; \"Adjusted EBITDA | 512 | 293 | 75%\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Rachat approuve par les actionnaires a 31 $ par action",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On April 23, 2026, WBD stockholders approved the adoption of the PSKY Merger Agreement.\" ; \"an amount in cash equal to $31.00, without interest, plus, if the closing date ... occurs after September 30, 2026, the Ticking Consideration\"",
+      "correction_proposee": "Exact ; mentionner eventuellement la \"Ticking Consideration\" qui majore le prix au-dela du 30 septembre 2026."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "ticker": "DG.PA",
+  "verdict": "contamine",
+  "problemes": [
+    "IDENTITE FAUSSE (bloc en-tete). src/data/companies/dg.pa.json ET src/data/v2-pipeline/dg.pa.json portent sector = 'Sante', subsector = 'Animal Health', tagline = '100% dedicated to animal health for more than 50 years', ranks.global_world = '=~ #6'. Ce sont les attributs de Virbac (sante animale), pas de Vinci (concessions, energies, construction). A remplacer par sector = Industrie / subsector = Concessions et construction et une tagline Vinci.",
+    "KPI EN DOLLARS ET NON RECOUPABLES. Les 4 premiers elements de kpis[] (revenue, gross_profit, operating_income, net_income) portent unit = 'Mds $' alors que Vinci publie en euros. Origine : data-lake/DG.PA/kpis/extracted.json, unite 'M USD', hors dossier ir/.",
+    "revenue = 75,702 Mds et history [62,514 / 69,885 / 72,768 / 75,702] ne correspondent a AUCUN agregat publie par Vinci : l'URD FY2025 donne chiffre d'affaires 74 599 M E (2025) / 71 623 (2024) et chiffre d'affaires total 75 372 (2025) / 72 459 (2024). Le seul '75,7' present dans l'URD est un pourcentage d'effectif masculin.",
+    "gross_profit 45,425 Mds (marge brute de 60 %) est un agregat que Vinci ne publie pas et qui est incompatible avec un groupe de construction.",
+    "Le KPI hero ROPA_FY (9,558 Mds E, historique FY2021-FY2025) est en revanche correct et verifie verbatim ('9 558' et '74 599' presents dans DG.PA_URD_FY2025_2026-03).",
+    "Blocs risques, gouvernance (Pierre Anjolras, 59 occurrences dans l'URD), repartition du CA par pole (somme 74,599 = CA publie), geographie et positionnement IA : tous authentiquement Vinci et sources sur ir/URD. Pas de trace de Dollar General.",
+    "Correction proposee : corriger sector/subsector/tagline/ranks en Vinci, et supprimer (ou requalifier en euros apres re-extraction depuis ir/) les 4 KPI revenue/gross_profit/operating_income/net_income."
+  ],
+  "confiance": "haute"
+}

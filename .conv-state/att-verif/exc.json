@@ -1,0 +1,84 @@
+{
+  "ticker": "EXC",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Si ses filiales regulees perdaient leur notation investment grade, elles devraient poster des dizaines de millions de dollars de collateral supplementaire. Cite comme : \"If [the Registrants] did not maintain an investment grade credit rating as of June 30, 2026, they could have been required to post collateral to their counterparties of $26 million, $16 million, and $13 million, respectively.\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026, Note 8 Derivative Financial Instruments : \"The Utility Registrants' electric supply procurement contracts do not contain provisions that would require them to post collateral. PECO's, BGE's, and DPL's natural gas procurement contracts contain provisions that could require PECO, BGE, and DPL to post collateral... As of June 30, 2026, PECO, BGE, and DPL were not required to post collateral for any of these agreements. If PECO, BGE, or DPL lost their investment grade credit rating as of June 30, 2026, they could have been required to post collateral to their counterparties of $26 million, $16 million, and $13 million, respectively.\"",
+      "correction_proposee": "La citation presentee comme verbatim a ete alteree : le sujet reel est PECO, BGE et DPL (trois filiales nommees, sur leurs seuls contrats d'approvisionnement en GAZ NATUREL), et non \"[the Registrants]\" / \"ses filiales regulees\". Le 10-Q precise en outre que les contrats d'approvisionnement en ELECTRICITE ne contiennent aucune clause de collateral, et qu'aucun collateral n'etait exige au 30 juin 2026. Reformuler : \"Les contrats gaz de trois filiales (PECO, BGE, DPL) prevoient qu'une perte de la notation investment grade les obligerait a deposer 26, 16 et 13 M$ de collateral ; aucun collateral n'etait exige au 30 juin 2026.\""
+    },
+    {
+      "affirmation": "Au T2 2026 la marge d'exploitation a recule de 4,1 POINTS a 16,4%",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, compte de resultat consolide : Total operating revenues 5 967 (T2 2026) vs 5 427 (T2 2025) ; Operating income 979 vs 927. Marge = 16,41% vs 17,08%. kpis-haut EXC : operating_margin value 16.4, yoy \"-4.1%\", history Q2-2025 = 17.1.",
+      "correction_proposee": "-4,1% est une variation RELATIVE, pas un ecart en points. La marge d'exploitation recule de 0,7 POINT (17,1% -> 16,4%). Ecrire \"-0,7 point\" ou \"-4,1% en relatif\"."
+    },
+    {
+      "affirmation": "Au T2 2026 la marge nette a recule de 8,3 POINTS a 6,6%",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : Net income attributable to common shareholders 396 (T2 2026) vs 391 (T2 2025), sur CA 5 967 vs 5 427. Marge nette = 6,64% vs 7,20%. kpis-haut EXC : net_margin value 6.6, yoy \"-8.3%\", history Q2-2025 = 7.2.",
+      "correction_proposee": "Erreur majeure d'un facteur ~14. -8,3% est une variation RELATIVE. La marge nette recule de 0,6 POINT (7,2% -> 6,6%). Un recul de 8,3 points impliquerait une marge de depart de 14,9%, jamais atteinte. L'ATT se contredit elle-meme puisqu'elle cite ensuite les T2 a 7,1% / 8,4% / 7,2%."
+    },
+    {
+      "affirmation": "3,4 Mds $ d'emissions d'actions nouvelles d'ici 2029 pour couvrir environ 40% du capex",
+      "verdict": "FAUX",
+      "verbatim_source": "ER T1 2026 (via kpis-haut EXC, KPI debt_financing_completed) : \"completed approximately 43% of planned debt financings, and priced approximately 37% of its $3.4 billion of equity needs\". Plan de capex 2026-2029 : 41,7 Mds $.",
+      "correction_proposee": "3,4 Mds $ sur 41,7 Mds $ de capex = environ 8% du capex, pas 40%. Le chiffre de ~37-40% est le pourcentage du programme d'EQUITY DEJA PRICE, pas la part du capex financee par equity. Reformuler : \"3,4 Mds $ d'emissions d'actions d'ici 2029, soit environ 8% du plan de capex de 41,7 Mds $, dont 37% deja price au T1 2026.\""
+    },
+    {
+      "affirmation": "Une visibilite de revenus forte via son plan de rate base de 41,7 Mds $ jusqu'en 2029 (resume)",
+      "verdict": "FAUX",
+      "verbatim_source": "kpis-haut EXC : capex_plan_2026_2029 = 41 (41,7) Mds $, signal \"$41B sur 4 ans (2026-2029), hausse rate base projetee +$23B d'ici fin 2029\" ; rate_base = 68,1 Mds $ (2026), 64,1 Mds $ (2025), 52,0 Mds $ (2022).",
+      "correction_proposee": "Confusion entre deux grandeurs distinctes. 41,7 Mds $ est le plan de CAPEX 2026-2029. La rate base est de 68,1 Mds $ pour 2026, avec une hausse projetee de +23 Mds $ d'ici fin 2029. Ecrire \"plan d'investissement de 41,7 Mds $ jusqu'en 2029, portant la rate base de 68,1 Mds $ vers +23 Mds $ supplementaires\". Note : le bloc quantitatif de la meme ATT libelle correctement 41,7 Mds $ comme du capex, l'incoherence est interne."
+    },
+    {
+      "affirmation": "\"Exelon does not generate the electricity it delivers.\" (10-K FY2025, Item 1A)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 (EXC_2026-02-12) : \"(All Registrants) Exelon does not generate the electricity it delivers. The Utility Registrants purchase, transmit, and distribute electric power obtained from power generation facilities owned by third parties.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "\"Exelon has forecast substantial increases in load, driven largely by the increasing use of data processing facilities dedicated to cloud services, artificial intelligence technologies, and other applications.\" avec risque explicite de penurie de generation",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025, Item 1A : \"...may result in a longer-term power generation capacity shortfall. Exelon has forecast substantial increases in load, driven largely by the increasing use of data processing facilities dedicated to cloud services, artificial intelligence technologies, and other applications. If third-party power generation capacity is insufficient to meet any Utility Registrant's customers' electricity demand or customers' electricity demand across PJM over any period, transmission and distribution services may be diminished...\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Procedures tarifaires decrites par la societe comme contentieuses, longues et sujettes a appel : \"These proceedings typically involve multiple parties ... who have the common objective of limiting rate increases or even reducing rates ... Decisions are subject to appeal, potentially leading to additional uncertainty.\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025, Item 1A : \"These proceedings typically involve multiple parties, including governmental bodies and officials, consumer advocacy groups, and various consumers of energy, who have differing concerns but who have the common objective of limiting rate increases or even reducing rates. Decisions are subject to appeal, potentially leading to additional uncertainty associated with the approval proceedings.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "FCF negatif sur 17 des 18 derniers trimestres (T1 2022 a T2 2026), seul le T3 2025 positif a +163 M$, dont -255 M$ au T2 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut EXC, KPI fcf, historique Q1-2022 a Q2-2026 : -140, -127, -771, -1239, -1397, -527, -324, -457, -775, -237, -6, -510, -746, -502, +163 (Q3-2025), -1190, -634, -255. 17 valeurs negatives sur 18.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette totale passee de 39 062 M$ (T1 2022) a 52 283 M$ (T2 2026), soit +34% en quatre ans",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut EXC, KPI total_debt : history Q1-2022 = 39062, value Q2-2026 = 52283. Calcul : +33,85%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "BPA dilue T2 2026 de 0,39 $/action (identique au T2 2025), pour 1 032 M d'actions en circulation contre 1 023 M fin 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, bilan : \"Common stock (No par value, 2,000 shares authorized, 1,032 shares and 1,023 shares outstanding as of June 30, 2026 and December 31, 2025, respectively)\". Compte de resultat : \"Earnings per average common share Basic $0.39\" (T2 2026 et T2 2025).",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Chiffre d'affaires T2 2026 +10,0% yoy a 5 967 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Total operating revenues 5,967 5,427\" (T2 2026 vs T2 2025). Calcul : +9,95%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "La marge nette du T2 2026 est la plus basse de toute la serie des T2 depuis 2022 (7,1% en 2023, 8,4% en 2024, 7,2% en 2025)",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut EXC, net_margin history T2 : Q2-2022 11,0 ; Q2-2023 7,1 ; Q2-2024 8,4 ; Q2-2025 7,2 ; Q2-2026 6,6.",
+      "correction_proposee": ""
+    }
+  ]
+}

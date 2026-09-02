@@ -1,0 +1,60 @@
+{
+  "ticker": "ALLE",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "« Poids du segment International dans le groupe : 25% du chiffre d'affaires 2025 (1 017,5 M$ sur 4 067,3 M$ consolides) » et « Contre 75% pour le segment Ameriques » ; repris dans le resume : « segment International (25% du chiffre d'affaires) »",
+      "verdict": "FAUX",
+      "verbatim_source": "\"Segment Results of Operations - For the years ended December 31 In millions 2025 2024 % Change Net revenues Allegion Americas $ 3,218.8 $ 3,012.4 6.9 % Allegion International 848.5 $ 759.8 11.7 % Total $ 4,067.3 $ 3,772.2\" (data-lake/ALLE/_risks_src.txt, 10-K FY2025)",
+      "correction_proposee": "Le segment Allegion International pese 848,5 M$ sur 4 067,3 M$, soit 20,9% du chiffre d'affaires 2025, et non 25% / 1 017,5 M$. Ameriques = 3 218,8 M$, soit 79,1% et non 75%. Le chiffre de 1 017,5 M$ provient d'une repartition geographique (src/data/v2-pipeline/alle.json, source FMP) et ne correspond pas au perimetre du segment. Corriger le quantitatif ET la phrase du resume."
+    },
+    {
+      "affirmation": "« le levier communique par la societe est de 2,0x au T1 2026, en leger recul par rapport a 2,1x un an plus tot », dans un bloc intitule « Endettement net vs tresorerie » et avec un glossaire definissant le levier comme « dette nette sur EBITDA »",
+      "verdict": "FAUX",
+      "verbatim_source": "Presentation resultats T1 2026 (data-lake/ALLE/EP/ALLE_2026-04-28_EP.pdf), bloc « Leverage » : \"2.1x  2.0x  1.6x  1.7x  Q1 25  Q1 26  Gross Debt/Adj EBITDA  Net Debt /Adj EBITDA\"",
+      "correction_proposee": "2,1x -> 2,0x est le ratio DETTE BRUTE / EBITDA ajuste. Le ratio DETTE NETTE / EBITDA ajuste, qui est celui defini dans le glossaire de l'ATT, est passe de 1,6x au T1 2025 a 1,7x au T1 2026, soit une HAUSSE et non un recul. Ecrire : « le levier dette nette / EBITDA ajuste communique par la societe remonte de 1,6x a 1,7x entre le T1 2025 et le T1 2026, le levier dette brute passant lui de 2,1x a 2,0x »."
+    },
+    {
+      "affirmation": "Resume : « marges elevees en Ameriques (28 a 30%) »",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"Segment operating margin Allegion Americas 29.0 % 28.8 % 27.9 % 28.4 %\" (10-Q T2 2026, T2 2026 / T2 2025 / S1 2026 / S1 2025) ; \"Segment operating margin Allegion Americas 27.9 % 27.1 %\" (10-K FY2025, 2025 / 2024)",
+      "correction_proposee": "Aucune periode publiee n'atteint 30%. Fourchette reelle observee : 27,1% a 29,0%. Ecrire « 28 a 29% » ou « proches de 28% »."
+    },
+    {
+      "affirmation": "Segment International S1 2026 : revenus 456,6 M$ vs 384,6 M$ (+18,7%), resultat operationnel 23,1 M$ vs 27,4 M$, marge 5,1% vs 7,1% ; croissance = acquisitions +15,1 pts, change +6,8 pts, volumes -4,2%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Allegion International 232.9 200.5 16.2 % 456.6 384.6 18.7 % ... Allegion International 14.8 15.7 (5.7) % 23.1 27.4 (15.7) % ... Segment operating margin ... Allegion International 6.4 % 7.8 % 5.1 % 7.1 %\" ; \"Net revenues for the six months ended June 30, 2026, increased by 18.7%, or $72.0 million ... Pricing 1.0 % Volume (4.2) % Acquisitions / divestitures 15.1 % Currency exchange rates 6.8 % Total 18.7 %\" (10-Q T2 2026)",
+      "correction_proposee": "Nuance : le prix apporte aussi +1,0 pt, donc « toute la hausse vient des acquisitions et du change » (hook) est un raccourci."
+    },
+    {
+      "affirmation": "Resultat operationnel des deux segments 505,0 M$ vs 475,4 M$ (+6,2%) pour un CA +11,3% ; marge operationnelle publiee S1 20,6% vs 21,2%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Segment operating income from reportable segments $ 281.6 $ 252.3 $ 505.0 $ 475.4\" ; \"Net revenues $ 1,151.5 $ 1,022.0 $ 2,185.1 $ 1,963.9 ... Operating income 254.7 219.7 450.0 416.1\" (450,0/2 185,1 = 20,6% ; 416,1/1 963,9 = 21,2%) (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "T1 2026 : BPA 1,59 $ (-7,0%), BPA ajuste 1,80 $ (-3,2%), marge operationnelle ajustee 21,2% contre 22,7% ; T2 2026 marge operationnelle 22,1% vs 21,5%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Adjusted EPS of $1.80, down 3.2% compared with $1.86 ... Adjusted operating margin of 21.2%, compared with 22.7%\" (communique T1 2026, data-lake/ALLE/_srctext.txt) ; \"Operating income 254.7 22.1 % 219.7 21.5 %\" (10-Q T2 2026)",
+      "correction_proposee": "Incoherence de base a corriger : le T1 est compare en marge AJUSTEE (21,2% vs 22,7%) et le T2 en marge PUBLIEE (22,1% vs 21,5%). Sur base publiee, le T1 2026 etait a 18,9% contre 20,9%. Comparer les deux trimestres sur la meme base."
+    },
+    {
+      "affirmation": "20 a 25% du cout des ventes source au Mexique ; Cour supreme 20 fevrier 2026 invalidant certains tarifs IEEPA ; Cour du commerce international en mars 2026 accordant des remboursements ; montant et calendrier incertains au 30 juin 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On February 20, 2026, the U.S. Supreme Court ruled that certain tariffs imposed under the International Emergency Economic Powers Act (“IEEPA”) were invalid, and in March 2026, the U.S. Court of International Trade further ruled that importers that paid such tariffs are due refunds.\" ; \"the amount and timing of any such refunds remain uncertain, and as of June 30, 2026 we have not recorded any amounts for recoveries that have not been received.\" ; \"We estimate we source approximately 20-25% of cost of goods sold (“COGS”) from Mexico\" (10-Q T2 2026)",
+      "correction_proposee": "Le titre « Un quart des couts de revient » retient le haut de la fourchette ; le document dit 20-25%."
+    },
+    {
+      "affirmation": "631 M$ d'acquisitions en 2025 dont ELATEC en Allemagne ; hausse des charges de restructuration et d'integration ; acquisitions/cessions = 5,0 pts sur 11,3 pts de croissance S1 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"The aggregate consideration, inclusive of contingent consideration and net of cash acquired, for all acquisitions completed in 2025 and 2024 was approximately $631.6 million and $147.2 million, respectively.\" ; \"the acquisition of ELATEC, including Elatec GmbH and other group entities (\"ELATEC\") on July 1, 2025. ELATEC is a manufacturer of security and access technology based in Germany\" ; \"higher restructuring, integration and acquisition expenses\" (10-K FY2025) ; \"Pricing 4.0 % Volume 0.8 % Acquisitions / divestitures 5.0 % Currency exchange rates 1.5 % Total 11.3 %\" (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Dette totale 2 031,1 M$ contre 320,6 M$ de tresorerie, dette nette ~1,71 Md$, capitaux propres 2 118,6 M$ vs 2 067,6 M$ fin 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total debt 2,031.1 1,980.1\" ; \"Cash and cash equivalents $ 320.6 $ 356.2\" ; \"Total equity 2,118.6 2,067.6\" (10-Q T2 2026)",
+      "correction_proposee": null
+    }
+  ]
+}

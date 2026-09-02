@@ -1,0 +1,73 @@
+{
+  "ticker": "DXCM",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/DXCM/10Q/DXCM_2026-07-30.htm.gz + data-lake/DXCM/10K/DXCM_2026-02-12.htm.gz",
+  "controles": [
+    {
+      "affirmation": "Deux demandes de rejet de DexCom ont deja ete partiellement refusees par le tribunal (septembre 2025 puis janvier 2026 sur jugement sur pieces)",
+      "verdict": "FAUX",
+      "verbatim_source": "On September 9, 2025, the court granted in part and denied in part the motion to dismiss. ... On October 10, 2025, defendants filed a motion for judgment on the pleadings as to the two surviving challenged statements. On January 7, 2026, the court GRANTED defendants' motion for judgment on the pleadings with leave to amend.",
+      "correction_proposee": "Seule la decision de septembre 2025 est un rejet partiel. Celle du 7 janvier 2026 a ete ACCORDEE a DexCom (motion granted with leave to amend), c'est-a-dire une decision FAVORABLE a la societe, pas un refus. La formulation actuelle laisse croire que DexCom a perdu deux fois. Reformuler : \"une premiere demande de rejet n'a ete accueillie qu'en partie en septembre 2025 ; la demande de jugement sur pieces visant les deux affirmations survivantes a en revanche ete accordee a DexCom le 7 janvier 2026, avec autorisation pour le demandeur de modifier sa plainte.\" Le verbatim cite dans la preuve de l'ATT contredit d'ailleurs son propre argument."
+    },
+    {
+      "affirmation": "Plainte consolidee : declarations fausses ou trompeuses entre avril 2023 et juillet 2024 sur les attentes de revenu 2024",
+      "verdict": "CONFORME",
+      "verbatim_source": "The consolidated complaint alleges violations of the Exchange Act against us and certain of our current and former executive officers for allegedly making false and misleading statements between April 28, 2023 and July 25, 2024, with respect to our expected revenue for fiscal 2024 and ability to capitalize on our growth potential.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Deuxieme plainte modifiee deposee en fevrier 2026, affaire active, sans audience programmee au 30 juillet 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "On February 6, 2026, lead plaintiff filed a second amended consolidated complaint. On February 20, 2026, we filed a motion to dismiss the second amended complaint. ... The court has not scheduled any oral argument on the motion.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Six recours collectifs deposes entre septembre 2025 et janvier 2026 sur G6/G7, cinq consolides en mai 2026 sous In re: Dexcom CGM Litigation, la sixieme pendante devant une cour californienne",
+      "verdict": "CONFORME",
+      "verbatim_source": "Between September 29, 2025, and January 8, 2026, various plaintiffs, purported users of G6 or G7 devices, filed six overlapping putative class action complaints against us. ... On May 15, 2026, the Court consolidated the five cases in the United States District Court for the Southern District of California. ... The sixth putative class action complaint was filed and remains pending in the Superior Court of Los Angeles County, California (Chatelain v. Dexcom, Inc., No. 25STCV30722).",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Dispositifs allegues falsifies ou mal etiquetes au sens du droit federal ; DexCom ne peut estimer raisonnablement l'issue",
+      "verdict": "CONFORME",
+      "verbatim_source": "Plaintiffs in all six actions allege they overpaid for G6 and/or G7 devices or components ... allegedly were adulterated or misbranded under federal law ... we are unable to reasonably estimate the ultimate outcome of any of the litigation matters at this time.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CMS a etendu le programme DMEPOS aux CGM, contrats a partir de 2027 et changements de paiement en 2028 ; tarif plafonne au 75e percentile des offres gagnantes plutot qu'a l'offre maximale gagnante",
+      "verdict": "CONFORME",
+      "verbatim_source": "In late 2025, CMS extended the DMEPOS competitive bidding program to include our CGMs and receivers, with contracting beginning in 2027 and payment changes taking effect in 2028. ; \"CMS is changing the pricing under the RID CBA by setting a single payment amount for covered items at the 75th percentile of the winning bids, rather than using the maximum winning bid\" (10-K DXCM_2026-02-12)",
+      "correction_proposee": "Fond exact et verbatim exacts. Corriger uniquement la reference de fichier : la citation sur le 75e percentile est absente de data-lake/DXCM/_risks_src_30k.txt (et de _risks_src.txt) ; elle figure dans le 10-K data-lake/DXCM/10K/DXCM_2026-02-12.htm.gz."
+    },
+    {
+      "affirmation": "Jusqu'a 11,8 millions de personnes pourraient perdre leur couverture d'ici 2034",
+      "verdict": "FAUX",
+      "verbatim_source": "Congressional Budget Office, or CBO, preliminary estimates show that the Medicaid provisions would reduce Medicaid spending by $1 trillion and will increase the number of people without health insurance by AT LEAST 11.8 million by 2034.",
+      "correction_proposee": "Le 10-K dit \"at least 11.8 million\" (AU MOINS), pas \"jusqu'a\". L'ATT inverse le sens : 11,8 millions est un PLANCHER dans la source, pas un plafond. Par ailleurs la source parle de personnes sans assurance sante (estimation CBO), pas specifiquement de perte de couverture Medicaid. Reformuler : \"selon les estimations preliminaires du CBO citees dans le 10-K, au moins 11,8 millions de personnes supplementaires seraient sans assurance sante d'ici 2034\". Note : l'erreur provient de data-lake/DXCM/risks/extracted.json (\"pouvant priver 11,8 millions de personnes\") et non de _risks_src_30k.txt cite comme source, ou cette phrase francaise n'existe pas."
+    },
+    {
+      "affirmation": "Les GLP-1 pourraient concurrencer les systemes CGM et reduire les ventes, mais DexCom les presente comme un produit complementaire",
+      "verdict": "CONFORME",
+      "verbatim_source": "While we believe that GLP-1s are a companion product and used in conjunction with our CGM systems, these treatments could potentially compete with our CGM systems and reduce sales of our products. (10-K DXCM_2026-02-12)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Dependance a des fournisseurs exclusifs pour certains composants cles des capteurs",
+      "verdict": "CONFORME",
+      "verbatim_source": "data-lake/DXCM/risks/extracted.json : \"DXCM utilise des fournisseurs exclusifs pour certains composants cles. Des perturbations d'approvisionnement ou des delais de qualification impacteraient directement la production.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "933,4 M$ de revenu americain sur 1 308,4 M$ au T2 2026 (71,3%) ; international +18,6% (316,1 -> 375,0) ; americain +11,0% (841,0 -> 933,4)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Total revenue $ 933.4 $ 375.0 $ 1,308.4 $ 841.0 $ 316.1 $ 1,157.1",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Taux d'imposition effectif reel de 23,6% sur six mois contre une prevision annuelle de 21,8%, ecart du a la remuneration en actions",
+      "verdict": "CONFORME",
+      "verbatim_source": "Our actual effective tax rate of 23.6% for the six months ended June 30, 2026 compared to the estimated annual effective tax rate of 21.8%, was higher primarily due to shortfalls recognized for employee share-based compensation, net of disallowed executive compensation.",
+      "correction_proposee": null
+    }
+  ]
+}

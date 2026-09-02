@@ -1,0 +1,73 @@
+{
+  "ticker": "HONA",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/HONA/10Q/HONA_2026-08-05_0002089271-26-000021.htm.gz ; data-lake/HONA/8K/HONA_2026-08-05_0002089271-26-000020.htm.gz ; data-lake/HONA/ir/HONA_information-statement_2026-06-15_exhibit991.htm.gz",
+  "controles": [
+    {
+      "affirmation": "Les statuts d'emission de dette de la societe ne contiennent pas de clauses financieres (covenants) restrictives selon le 10-Q",
+      "verdict": "FAUX",
+      "verbatim_source": "\"The Revolving Credit Facilities do not restrict the Company's ability to pay dividends, nor do they contain financial covenants. They also contain customary representations and warranties, affirmative and negative covenants and events of default for investment grade borrowers and financings of this type.\"",
+      "correction_proposee": "Le passage porte exclusivement sur les LIGNES DE CREDIT REVOLVING (1,0 Md$ a 364 jours + 3,0 Mds$ a cinq ans), pas sur les indentures des 16,0 Mds $ de senior notes. Le 10-Q ne dit rien sur l'absence de covenants financiers dans les actes d'emission obligataire. Reecrire : \"les lignes de credit revolving ne comportent pas de covenants financiers ni de restriction au versement de dividendes\" et retirer l'extension aux emissions obligataires."
+    },
+    {
+      "affirmation": "Citation attribuee a l'information statement du 15 juin 2026 : \"incremental costs of operating on a standalone basis (including the loss of synergies), costs of restructuring transactions and other costs incurred in connection with the separation will exceed our estimates\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Cette phrase n'apparait pas dans l'information statement. Les passages voisins sont : \"(5) the loss of synergies and scale from operating as one company, including that we may be unable to obtain certain goods, services, and technologies at prices or on terms as favorable as those Honeywell obtained prior to completion of the separation\" et \"(9) the substantial costs incurred in connection with the separation, including accounting, tax, legal and other professional services costs [...] and other unforeseen dis-synergy costs\".",
+      "correction_proposee": "Remplacer la citation entre guillemets par un verbatim reellement present, ou reformuler sans guillemets. La substance (absence d'historique autonome, couts standalone incertains) est bien etayee par : \"the financial information presented in the Combined Financial Statements may not reflect the combined financial position, operating results, and cash flows of Aerospace had Aerospace been a separate standalone entity during the periods presented\"."
+    },
+    {
+      "affirmation": "Total des capitaux propres (deficit) de -5 623 M$ au 27 juin 2026 contre +8 399 M$ au 31 decembre 2025",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"Total (deficit) equity attributable to Aerospace | ( 5,697 ) | 8,399\" et \"Total (deficit) equity | ( 5,623 ) | 8,496\"",
+      "correction_proposee": "Les deux chiffres compares ne sont pas sur la meme base : -5 623 M$ est le TOTAL equity (avec interets minoritaires) et 8 399 M$ le total attribuable a Aerospace. Comparaison homogene : -5 697 M$ contre 8 399 M$ (attribuable), ou -5 623 M$ contre 8 496 M$ (total). L'ecart affiche est surestime d'environ 97 M$."
+    },
+    {
+      "affirmation": "La marge sectorielle consolidee recule de 2 points sur le semestre, a 24%",
+      "verdict": "EXAGERE",
+      "verbatim_source": "S1 2026 : \"Total segment profit $ 969 | $ 455 | $ 716 | $ ( 50 ) | $ 2,090\" sur \"Net sales [...] $ 8,874\" ; S1 2025 : \"Total segment profit $ 885 | $ 449 | $ 808 | $ ( 36 ) | $ 2,106\" sur \"$ 8,363\"",
+      "correction_proposee": "Le recul reel est de 1,6 point (23,6% contre 25,2% tous elements inclus) ou 1,5 point hors Corporate (24,1% contre 25,6%). Le \"-2 points\" resulte d'un double arrondi a l'entier dans kpis-haut (24 vs 26). Ecrire \"environ -1,5 point\"."
+    },
+    {
+      "affirmation": "Aerospace a emprunte 15,8 Mds $ et en a reverse 15,1 Mds $ a Honeywell",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"net proceeds from the issuance of senior unsecured notes in connection with the Spin-off of $15.8 billion\" ; tableau de flux : \"Net transfers to Parent | ( 15,087 ) | ( 602 )\"",
+      "correction_proposee": "Nuance facultative : le principal nominal des notes est de 16,0 Mds $ (\"the $16.0 billion of senior unsecured notes issued in connection with the Spin-off\") ; 15,8 Mds $ est le produit net."
+    },
+    {
+      "affirmation": "Resultat net attribuable a Aerospace de 880 M$ au S1 2026 contre 1 621 M$ (-45,7%) ; 229 M$ de charges d'interets contre zero ; 522 M$ de couts de transaction (x31) ; taux effectif +1 750 points de base au T2",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net income attributable to Aerospace | $ 246 | $ 844 | $ 880 | $ 1,621\" ; \"Interest and other financial charges | 200 | — | 229 | —\" ; \"the Company recognized $ 329 million and $ 522 million of transaction costs [...] For the three and six months ended June 28, 2025, the Company recognized $ 17 million of transaction costs\" ; \"The effective tax rate for the three months ended June 27, 2026, increased 1,750 basis points [...] primarily due to nondeductible transaction costs and frictional tax costs in advance of the Spin-off\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Flux de tresorerie d'exploitation a 346 M$ au S1 (-679 M$), du fait de +450 M$ de couts de transaction et 377 M$ lies au reglement Flexjet ; reglement conclu le 16 janvier 2026, dossiers classes au 21 janvier 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net cash provided by operating activities decreased $679 million [...] is attributable to an increase of $450 million in transaction costs paid related to the separation and distribution and $377 million driven by the Flexjet litigation settlement payments partially offset by decreased inventory purchases of $102 million\" ; \"On January 16, 2026, Honeywell completed a comprehensive settlement relating to its lawsuit with Flexjet [...] As of January 21, 2026, each of these cases have been dismissed.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette financiere totale 15 849 M$ ; tresorerie 1 057 M$ ; lignes de credit engagees non tirees de 4,0 Mds $ et programme de billets de tresorerie de 4,0 Mds $",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total Long-term debt | $ 15,849 | $ 4\" ; \"Cash and cash equivalents | $ 1,057 | $ 213\" ; \"we entered into a 364-day senior unsecured revolving credit facility and a five-year senior unsecured revolving credit facility, together in an aggregate committed amount as of the date of distribution of $4.0 billion, and a $4.0 billion senior unsecured commercial paper program\"",
+      "correction_proposee": "Nuance facultative : le programme de billets de tresorerie n'est pas seulement \"prevu\", il a ete conclu le 29 juin 2026 (\"On June 29, 2026, the Company entered into a commercial paper program\")."
+    },
+    {
+      "affirmation": "Programme de rachat d'actions autorise a hauteur de 3,5 Mds $ annonce au 8-K du 5 aout 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On July 23, 2026, the Board authorized a share repurchase program (the “Share Repurchase Program”) to purchase up to $3.5 billion of the Company's common stock over an indefinite term\" (8-K du 5 aout 2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CA S1 +6,1% ; Defense et Spatial 3 541 M$ (+5,6%), environ 40% des ventes ; SG&A 1 286 M$ (+71,9%) ; Control Systems 28,5% du CA, marge -4 points, resultat sectoriel -11,4%, ventes +1,2%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net sales | 4,522 | 4,289 | 8,874 | 8,363\" (+6,11%) ; \"Defense and Space | 1,817 | 1,768 | 3,541 | 3,353\" (3 541/8 874 = 39,9%) ; \"Selling, general and administrative expenses | 722 | 383 | 1,286 | 748\" (+71,9%) ; Control Systems S1 : ventes 2 533 vs 2 504 (+1,16%), profit 716 vs 808 (-11,4%), marge 28,3% vs 32,3%",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dependance a la conjoncture du transport aerien, premier facteur de risque du chapitre",
+      "verdict": "CONFORME",
+      "verbatim_source": "Premier facteur sous \"Risks Related to Our Business\" : \"Our business is impacted by customer buying patterns of aftermarket parts, supplier stability, factory transitions, and global supply chain capacity constraints that may lead to shortages of crucial components. Our operating results and financial condition may be adversely affected by downturns in the global demand for air travel, which may impact new aircraft production or result in the delay or cancellation of new aircraft orders\"",
+      "correction_proposee": ""
+    }
+  ]
+}

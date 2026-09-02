@@ -1,0 +1,102 @@
+{
+  "ticker": "MS",
+  "verdict_global": "a_corriger",
+  "source_verifiee": [
+    "data-lake/MS/10Q/MS_2026-08-04.htm.gz",
+    "data-lake/MS/10Q/MS_2026-05-05.htm.gz",
+    ".batches-drafts-safe/kpis-haut/MS.json",
+    "data-lake/JPM/10Q/JPM_2026-08-06.htm.gz (recoupement externe)"
+  ],
+  "controles": [
+    {
+      "affirmation": "Ratio CET1 de 14,8 % au 30 juin 2026 (repete 3 fois : resume, fondamental_externe #3, quantitatif #3)",
+      "verdict": "FAUX",
+      "verbatim_source": "\"At June 30, 2026, the Firm's Standardized Common Equity Tier 1 capital ratio was 14.9%.\" (10-Q T2 2026, Overview). Tableau : \"Common Equity Tier 1 capital-Standardized 14.9 % 15.0 %\" et \"Common Equity Tier 1 capital-Advanced 16.2 % 16.2 %\". Aucun 14,8 % dans le document. L'erreur vient de .batches-drafts-safe/kpis-haut/MS.json qui porte CET1 Q2-2026 = 14.8.",
+      "correction_proposee": "Remplacer 14,8 % par 14,9 % aux trois emplacements. Consequence arithmetique : le coussin au-dessus de l'exigence de 11,8 % n'est pas de 3,0 points mais de 3,1 points - corriger aussi 'Le coussin reste confortable (3,0 points)'. Corriger egalement la valeur Q2-2026 dans kpis-haut/MS.json, source de la propagation."
+    },
+    {
+      "affirmation": "Revenus Equities T2 2026 environ 70 % au-dessus de la moyenne des quatre trimestres 2025",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Trimestres 2025 (kpis-haut/MS.json, Equity_rev) : T1 4 128, T2 3 721, T3 4 116, T4 3 666 M$. Moyenne = 3 907,75 M$. 6 300/3 907,75 = +61,2 %.",
+      "correction_proposee": "Ecrire 'environ 60 % au-dessus de la moyenne des quatre trimestres 2025' (valeur exacte +61 %). Le +69 % cite ailleurs dans l'ATT est correct mais porte sur le seul T2 2025, pas sur la moyenne annuelle."
+    },
+    {
+      "affirmation": "L'exigence CET1 de JPMorgan est de 11,5 % pour comparaison",
+      "verdict": "CONFORME",
+      "verbatim_source": "Absent du 10-Q Morgan Stanley (0 occurrence de 'JPMorgan'). Verifie dans data-lake/JPM/10Q/JPM_2026-08-06.htm.gz : \"The Firm's Standardized CET1 capital ratio requirement, including regulatory buffers, was 11.5% as of June 30, 2026.\" Le fait est exact mais non source dans l'ATT.",
+      "correction_proposee": "Ajouter data-lake/JPM/10Q/JPM_2026-08-06.htm.gz aux _sources, ou retirer la comparaison. Une affirmation sur une societe tierce ne doit pas apparaitre sans source citee."
+    },
+    {
+      "affirmation": "Exigence CET1 de 11,8 %, SCB de 4,3 %, surcharge G-SIB de 3,0 %, nouveau SCB apres le stress test 2027 avec effet au 1er octobre 2027",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"the Firm remains subject to its current SCB requirement of 4.3% through October 1, 2027, at which time a new SCB requirement may apply based on the results of the supervisory stress test conducted in 2027. Together with other features of the regulatory capital framework, this SCB resulted in an aggregate Standardized Approach CET1 required ratio of 11.8%.\" Tableau Capital Buffer Requirements : \"G-SIB capital surcharge 3.0% 3.0%\".",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "La Fed propose en parallele des reformes du cadre de stress test ; rien n'est tranche a date",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"In 2025, the Federal Reserve proposed revisions to the SCB, CCAR and supervisory stress testing frameworks. While those proposals are under review...\" ; \"We continue to monitor developments related to the open proposal.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CET1 15,3 % au T1 2025 et 15,0 % fin 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "Fin 2025 confirme par le 10-Q T2 2026 (\"14.9 % 15.0 %\"). T1 2025 = 15,3 issu de kpis-haut/MS.json (source citee).",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Profit record de 5,6 Mds $ au T2 2026 (+58 %), BPA dilue 3,46 $ vs 2,13 $",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net income applicable to Morgan Stanley was $5.6 billion in the current quarter, which increased by 58% compared with $3.5 billion in the prior year quarter. Diluted earnings per common share was $3.46 in the current quarter, which increased by 62% compared with $2.13 in the prior year quarter.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Revenus Equities 6 300 M$ au T2 2026, +69 % ; Institutional Securities 11 040 M$, +44 %, soit environ 52 % des revenus du groupe",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Equity 6,300 3,721 69 %\" ; \"Institutional Securities net revenues of $11,040 million in the current quarter ... increased 44% ... primarily reflecting higher results in Equity on increased client activity\". Revenus groupe T2 2026 = 21,3 Mds $ ; 11 040/21 348 = 51,7 %.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Historique Equities : 3 721 M$ T2 2025, 4 116 M$ T3 2025, 3 666 M$ T4 2025, 5 148 M$ T1 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut/MS.json (Equity_rev) ; T2 2025 recoupe par le 10-Q T2 2026.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "ROTCE de 26,6 % au T2 2026 vs 18,2 % au T2 2025, 21,8 % au T4 2025, 27,1 % au T1 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"The Firm delivered ROE of 20.7% and ROTCE of 26.6%\" ; tableau \"ROTCE 26.6 % 18.2 % 26.8 % 20.6 %\". T4 2025 et T1 2026 issus de kpis-haut/MS.json (21.8 et 27.1).",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Gestion de fortune : 8,9 Mds $ de revenus au T2 2026 avec une marge avant impots de 30,5 %",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Wealth Management net revenues of $8,856 million in the current quarter\" ; \"Income before provision for income taxes 2,697\". 2 697/8 856 = 30,45 %. Le 10-Q affiche 30 % arrondi dans son tableau de marges.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Revenus de gestion d'actifs +19 %, tires d'abord de niveaux de marche plus eleves",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Asset management revenues of $5,261 million in the current quarter ... increased 19% ... primarily reflecting higher fee-based assets due to higher market levels and the cumulative impact of positive fee-based flows.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Revenus nets d'interets environ 13 % des revenus du groupe (2 703 M$ au T1 2026 sur 20 580 M$)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T1 2026 : \"Net interest 2,703 2,353\" et \"Net revenues 20,580 17,739\". 2 703/20 580 = 13,1 %.",
+      "correction_proposee": "Nuance de fraicheur : l'ATT est arretee au T2 2026 mais utilise le ratio du T1 2026. Le 10-Q T2 2026 permet de le recalculer sur le trimestre courant."
+    },
+    {
+      "affirmation": "Actifs fee-based 3 022 Mds $, +22 % ; collecte nette record 148,1 Mds $ au T2 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Fee-based client assets $3,022 $2,753\" (10-Q T2 2026) ; \"Net new assets $148.1 $59.2\". Le +22 % est mesure sur un an (2 478 Mds $ au T2 2025, kpis-haut/MS.json), pas sur le 2 753 de fin 2025 affiche dans le tableau du 10-Q.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Dividende releve a 1,15 $, autorisation de rachats de 20 Mds $, depots 446,1 Mds $, prets Wealth Management 195,7 Mds $",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Amount per share $1.15\" ; \"reauthorized a multi-year repurchase program of up to $20 billion of outstanding common stock\" (annonce du 24 juin 2026, presente aussi dans le 10-Q T1 2026) ; \"Deposits $446,068\" (bilan) ; \"Total Wealth Management loans $195.7 $181.2\".",
+      "correction_proposee": null
+    }
+  ]
+}

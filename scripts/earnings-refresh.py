@@ -300,7 +300,14 @@ def call_claude_cli(prompt: str) -> str:
         input=prompt, capture_output=True, text=True, timeout=420, env=env_vars,
     )
     if out.returncode != 0:
-        raise RuntimeError(f"claude-cli rc={out.returncode}: {out.stderr[:200]}")
+        # 3 sept 2026 : les warnings de permission occupaient les 200 premiers
+        # caracteres de stderr et masquaient la vraie cause. On les filtre et
+        # on garde la FIN du message (la ou l erreur reelle se trouve).
+        utile = "\n".join(
+            l for l in out.stderr.splitlines()
+            if l.strip() and "Permission allow rule" not in l
+        )
+        raise RuntimeError(f"claude-cli rc={out.returncode}: {utile[-400:] or out.stderr[-400:]}")
     # Le CLI repond « Not logged in » avec un code de retour 0 : sans ce controle
     # la reponse part au parseur JSON, qui echoue sur une exception non rattrapee
     # et fait tomber toute la passe au lieu d ecrire un dossier de travail.

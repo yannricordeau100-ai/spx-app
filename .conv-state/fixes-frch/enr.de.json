@@ -1,0 +1,38 @@
+{
+  "ticker": "ENR.DE",
+  "verdict": "contamine",
+  "note": "Pas de trace d'Energizer Holdings dans l'identite. Mais la repartition du CA est publiee en dollars pour une societe qui publie en euros, avec des valeurs trimestrielles presentees comme annuelles. Identite, PDG (Christian Bruch), secteur, tagline: corrects. Fonde 2014 est douteux (spin-off Siemens en 2020, IPO 2020 correcte).",
+  "problemes": [
+    {
+      "bloc": "revenue_by_segment",
+      "valeur_actuelle": "Gas Services 3,1 'Mds $', Grid Technologies 3,1 'Mds $' (valeur dupliquee), Transformation of Industry 1,3, Siemens Gamesa 2,4, total 9,9 Mds $ = chiffres d'UN trimestre libelles en dollars",
+      "valeur_correcte": "Exercice 2025 en euros: Gas Services 12,198 Mds EUR (31,2%), Grid Technologies 11,305 Mds EUR, Transformation of Industry et Siemens Gamesa le solde, total 39,077 Mds EUR",
+      "source": "src/data/v2-pipeline/enr.de.json + .batches-drafts-safe/kpis-haut/ENR.DE.json REV_GAS_SERVICES"
+    },
+    {
+      "bloc": "risks",
+      "valeur_actuelle": "[] (vide) ; _risks_source='scripts/interp-risks-fill/fill-risks.py (heuristic sector template v1)'",
+      "valeur_correcte": "5 risques rediges et sources (geopolitique, execution des projets, chaine d'approvisionnement...)",
+      "source": "src/data/v2-pipeline/enr.de.json risks"
+    },
+    {
+      "bloc": "hero_kpi / hero_kpi_rationale",
+      "valeur_actuelle": "hero_kpi='Siemens Gamesa Revenue' (10,375 Mds EUR) mais rationale parle des commandes record de 17,6 Mds EUR au T1 FY2026: rationale du KPI 'Orders', pas du hero",
+      "valeur_correcte": "hero BACKLOG_Q (carnet de commandes, 162 Mds EUR au T3-2026) avec son rationale",
+      "source": ".batches-drafts-safe/kpis-haut/ENR.DE.json"
+    },
+    {
+      "bloc": "revenue_by_geography",
+      "valeur_actuelle": "null",
+      "valeur_correcte": "EMEA 20,69 Mds EUR (52,9%), Ameriques 11,935 Mds EUR, Asie-Australie 6,453 Mds EUR (FY2025)",
+      "source": ".batches-drafts-safe/kpis-haut/ENR.DE.json REV_EMEA/REV_AMERICAS/REV_ASIA"
+    },
+    {
+      "bloc": "ranks",
+      "valeur_actuelle": "tous 'N/A'",
+      "valeur_correcte": "global_world '#79', sector '#1 in Energy Equipment & Solutions'",
+      "source": "src/data/companies/enr.de.json champ enrich_ranks"
+    }
+  ],
+  "confiance": "elevee"
+}

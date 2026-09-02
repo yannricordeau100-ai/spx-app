@@ -1,0 +1,79 @@
+{
+  "ticker": "GIS",
+  "verdict_global": "a_corriger",
+  "_sources_consultees": [
+    "data-lake/GIS/8K/GIS_ER_0001628280-26-046337.htm.gz (8-K EX-99 resultats T4/FY2026, 2026-07-01)",
+    "data-lake/GIS/10K/GIS_2026-07-01.htm.gz (10-K FY2026)",
+    ".batches-drafts-safe/kpis-haut/GIS.json",
+    "data-lake/GIS/profit_warning_fr.json"
+  ],
+  "_note_judiciaire": "Aucune affirmation judiciaire ou reglementaire dans cette ATT. Rien a verifier sur ce plan.",
+  "controles": [
+    {
+      "affirmation": "Resultat operationnel T4 passe de +504 M$ a une perte de 2,1 Mds $, cause principale une charge non monetaire de 1,8 Md $ de depreciation de survaleur et de marques",
+      "verdict": "CONFORME",
+      "verbatim_source": "Operating loss totaled $2.1 billion compared to operating profit of $504 million a year ago. The change in operating profit was due primarily to $1.8 billion in non-cash goodwill and brand intangible asset charges driven primarily by an increase in discount rates",
+      "correction_proposee": "Aucune sur le fond. Reserve de forme : la citation entre guillemets de l'ATT ecrit \"Operating loss totaled $2.1 billion, driven primarily by $1.8 billion...\" alors que la source enchaine deux phrases distinctes. Retablir le verbatim exact."
+    },
+    {
+      "affirmation": "Perte de valorisation non monetaire de 1,0 Md $ liee a la cession prevue de l'activite bresilienne",
+      "verdict": "CONFORME",
+      "verbatim_source": "a $1.0 billion non-cash pre-tax valuation loss related to the planned divestiture of the Brazil business",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Ventes nettes FY2026 de 18,4 Mds $ en baisse de 5%, ventes organiques en baisse de 2% sur l'exercice",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net sales were down 5 percent to $18.4 billion... Organic net sales were down 2 percent, due in part to weaker consumer sentiment and significant volatility that weighed on category volume growth",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le segment North America Retail affiche une croissance organique de -4% sur l'exercice",
+      "verdict": "FAUX",
+      "verbatim_source": "Full Year North America Retail (1) pt (2) pts (3)% -- (9) pts 1 pt (11)%  |  et en clair : \"For the full year, North America Retail segment net sales were down 11 percent to $10.6 billion... Organic net sales were down 3 percent.\"",
+      "correction_proposee": "Ecrire -3% et non -4%. Le -4% est le recul des ventes NAR PUBLIEES du seul T4 FY2026 ; l'organique NAR du T4 est \"Flat\" et celui de l'exercice est -3%. La valeur NAR_organic_growth = -4 de .batches-drafts-safe/kpis-haut/GIS.json est elle-meme erronee (son propre signal indique volume -2 pts et prix/mix -1 pt, soit -3%)."
+    },
+    {
+      "affirmation": "Au 31 mai 2026, dette totale et interets minoritaires de 13,6 Mds $ ; le groupe reconnait que ce niveau peut limiter sa flexibilite",
+      "verdict": "CONFORME",
+      "verbatim_source": "As of May 31, 2026, we had total debt and noncontrolling interests of $13.6 billion. ... Our level of indebtedness may limit our:",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Walmart represente 22% des ventes nettes consolidees FY2026 et 31% des ventes du segment North America Retail",
+      "verdict": "CONFORME",
+      "verbatim_source": "In fiscal 2026, Walmart accounted for 22 percent of our consolidated net sales and 31 percent of net sales of our North America Retail segment.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "BPA ajuste 2027 attendu entre 3,00 et 3,20 $ contre 3,55 $ realises en 2026 ; objectif de 3 Mds $ d'economies cumulees d'ici 2030 dont 750 M$ des 2027",
+      "verdict": "CONFORME",
+      "verbatim_source": "Adjusted diluted earnings are expected to be between $3.00 and $3.20 per share... Targeting $3 Billion Cost Savings by Fiscal 2030... General Mills expects to generate at least $750 million in total savings in fiscal 2027 toward this $3 billion target.",
+      "correction_proposee": "Reserve mineure : le \"-16%\" repris de profit_warning_fr.json ne vaut qu'au bas de fourchette (3,00 $ vs 3,55 $ = -15,5%) ; au point median (3,10 $) l'ecart est de -12,7%. L'argument de l'ATT ne cite pas ce pourcentage, seule la ligne de preuve le porte."
+    },
+    {
+      "affirmation": "Perte nette part du groupe de 88 M$ sur FY2026, BPA dilue -0,16 $, contre 2,3 Mds $ et 4,10 $ en FY2025 ; resultat operationnel 886 M$ en baisse de 73%",
+      "verdict": "CONFORME",
+      "verbatim_source": "Operating profit of $886 million was down 73 percent... Diluted loss per share totaled $0.16 compared to EPS of $4.10 last year adjusted diluted EPS of $3.55 was down 16 percent in constant currency  |  10-K, table trimestrielle : Net earnings (loss) attributable to General Mills 1,204.2 / 413.0 / 303.1 / (2,007.9) = -87,6 M$ FY2026 ; 579.9 + 795.7 + 625.6 + 294.0 = 2 295,2 M$ FY2025",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Ventes de yaourt en chute de 92,7% sur l'exercice, consequence de la cession des activites yaourt aux Etats-Unis et au Canada engagee en fiscal 2026",
+      "verdict": "FAUX",
+      "verbatim_source": "Yogurt 102.0 1,391.6 1,482.5 (note 17 du 10-K, soit -92,7% : conforme) MAIS \"During the first quarter of fiscal 2026, we completed the sale of our United States yogurt business to Groupe Lactalis S.A. ... During the third quarter of fiscal 2025, we completed the sale of our Canada yogurt business to Sodiaal International\"",
+      "correction_proposee": "Le chiffre -92,7% est exact. La datation est fausse : seule la cession americaine est intervenue en fiscal 2026 ; la cession canadienne a ete finalisee au T3 fiscal 2025. Ecrire \"cession de l'activite yaourt americaine au T1 fiscal 2026, apres celle de l'activite canadienne au T3 fiscal 2025\"."
+    },
+    {
+      "affirmation": "20,6 Mds $ de survaleur et d'actifs incorporels a duree de vie indefinie au bilan ; Blue Buffalo et Progresso signalees comme presentant un risque de perte de marge de couverture",
+      "verdict": "CONFORME",
+      "verbatim_source": "As of May 31, 2026, we had $20.6 billion of goodwill and indefinite-lived intangible assets. ... Our Blue Buffalo and Progresso brands had risk of decreasing coverage and we continue to monitor these businesses.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dividende trimestriel declare au taux en vigueur, dividende par action FY2026 a 2,44 $ en hausse de 1,7%",
+      "verdict": "CONFORME",
+      "verbatim_source": "Board Declares Quarterly Dividend at Prevailing Rate ... declared a quarterly dividend at the prevailing rate of $0.61 per share  |  kpis-haut GIS : dps 2,44 $ +1,7%",
+      "correction_proposee": ""
+    }
+  ]
+}

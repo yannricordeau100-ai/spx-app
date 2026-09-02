@@ -1,0 +1,118 @@
+{
+  "ticker": "DLR",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "\"Sur le premier semestre 2026, les flux de tresorerie d'exploitation atteignent 1 062,8 M$ mais les investissements (capex) 914,2 M$\"",
+      "verdict": "FAUX",
+      "verbatim_source": "Tableau de flux du 10-Q, six mois clos le 30 juin : \"Net cash provided by operating activities 1,595,227 / 1,040,322\" et \"Improvements to investments in real estate (1,784,229) / (1,491,626)\". Les valeurs 1 062,8 et 914,2 n'apparaissent nulle part dans le 10-Q (verifie personnellement) : elles correspondent au SEUL T2 2026 (S1 moins T1 : 1 595,2 - 532,4 et 1 784,2 - 870,0).",
+      "correction_proposee": "Ecrire soit \"au deuxieme trimestre 2026, OCF 1 062,8 M$ et capex 914,2 M$\", soit reprendre les vrais chiffres du semestre : OCF 1 595,2 M$ et capex 1 784,2 M$.",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz et data-lake/DLR/10Q/DLR_2026-05-01.htm.gz"
+    },
+    {
+      "affirmation": "\"ne laissant que 148,6 M$ de free cash flow [sur le S1 2026] ; ce montant est tres inferieur au dividende verse sur la periode\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"Payments of dividends and distributions (1,325,782)\" pour les six mois clos le 30 juin 2026. Le free cash flow reel du semestre est NEGATIF : 1 595,2 - 1 784,2 = -189,0 M$.",
+      "correction_proposee": "Le +148,6 M$ est un chiffre trimestriel presente comme semestriel. L'argument de fond tient et se trouve meme renforce (FCF negatif de 189 M$ face a 1 325,8 M$ de dividendes et distributions), mais les trois chiffres et la periode doivent etre corriges.",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz"
+    },
+    {
+      "affirmation": "\"occupation globale du portefeuille de 90,1 % au T1 2026 (+6 pt sur un an selon kpis-haut)\"",
+      "verdict": "FAUX",
+      "verbatim_source": "Tableau du 10-Q T2 2026 : \"Consolidated Portfolio 310 2,515 89.8 % / 311 2,363 89.3 %\" (30 juin 2026 contre 31 decembre 2025), soit +0,5 pt en six mois. Le 10-K FY2025 mesure l'occupation en NRSF : 82,6 % fin 2025 contre 82,9 % fin 2024, soit -0,3 pt.",
+      "correction_proposee": "Le +6 pt est un artefact de changement de base de calcul (NRSF contre White Space IT Load en MW). Supprimer le +6 pt ou le remplacer par 89,8 % contre 89,3 % en base MW comparable.",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz et data-lake/DLR/10K/DLR_2026-02-13.htm.gz"
+    },
+    {
+      "affirmation": "JUDICIAIRE / REGLEMENTAIRE : \"Apparition d'un litige majeur ou d'une nouvelle enquete reglementaire (absents a ce jour)\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-K FY2025, que l'ATT cite par ailleurs : \"Regulators around the world are increasingly focusing on, and investigating, cybersecurity matters. For example, as we most recently disclosed in our Quarterly Report on Form 10-Q filed on October 31, 2025, we cooperated with the Division of Enforcement of the U.S. Securities and Exchange Commission (SEC) in their investigation into the adequacy of our disclosures of cybersecurity risks and our related disclosure controls and procedures. By letter dated December 22, 2025, the SEC Division of Enforcement informed us that... it had concluded the investigation and did not intend to recommend an enforcement action against the Company.\" et \"As of December 31, 2025, we are under examination for taxable year ended 2021 within the United States. Additionally, we are under examination for various taxable years ended 2017 onward within various foreign jurisdictions.\"",
+      "correction_proposee": "L'affirmation d'absence est trop absolue. Reformuler : \"aucun litige materiel en cours ; l'enquete de la SEC sur l'adequation des informations publiees en matiere de risque cyber a ete cloturee sans suite le 22 decembre 2025 ; des controles fiscaux restent ouverts aux Etats-Unis et a l'etranger\". L'omission de cette enquete SEC dans une anti-these est en soi une lacune a combler.",
+      "fichier_source": "data-lake/DLR/10K/DLR_2026-02-13.htm.gz"
+    },
+    {
+      "affirmation": "\"La duree moyenne ponderee restante des baux est de 4,3 annees, en baisse de 0,8 an sur un an\" (preuve : 10-Q T1 2026)",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "10-Q T1 2026 : \"As of March 31, 2026, our average remaining lease term was approximately four years.\" 10-K FY2025 : \"As of December 31, 2025, our average remaining lease term was approximately five years.\" Ni 4,3 annees ni -0,8 an n'apparaissent dans la source citee.",
+      "correction_proposee": "Ces valeurs viennent du supplement trimestriel (absent du data-lake). Soit sourcer explicitement le supplement, soit ecrire \"environ quatre ans au 31 mars 2026 contre environ cinq ans au 31 decembre 2025\".",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-05-01.htm.gz et data-lake/DLR/10K/DLR_2026-02-13.htm.gz"
+    },
+    {
+      "affirmation": "\"Spreads de renouvellement +6,3 % en base GAAP sur les grands baux, +8,1 % et +4,3 % respectivement sur les baux larges et petits\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Aucun des trois pourcentages n'apparait dans les 10-Q T1 ou T2 2026. Le 10-Q publie des loyers cash : \"Expiring cash rent per Kilowatt / NRSF $302 $150 $31\" contre \"Renewed cash rent per Kilowatt / NRSF $318 $248 $37\".",
+      "correction_proposee": "Les chiffres viennent des supplements trimestriels. La qualification est en outre fausse selon la source interne elle-meme : le 6,3 % GAAP consolide TOUTES les tailles de baux (pas \"les grands baux\"), et 8,1 % / 4,3 % sont des spreads CASH du T4 2025 (plus de 1 MW et 0-1 MW), pas GAAP. Reecrire avec la bonne base, la bonne taille et le bon trimestre, ou utiliser les loyers cash du 10-Q.",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz et .batches-drafts-safe/kpis-haut/DLR.json"
+    },
+    {
+      "affirmation": "\"Dette nette 16,77 Mds $ au 30 juin 2026, +12,6 % sur un an\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Le 10-Q ne contient ni le chiffre 16,77 Mds $ ni une variation sur un an (il compare au 31 decembre 2025, pas au 30 juin 2025). Son arithmetique donne 18 767,6 M$ de dette totale moins 1 864,8 M$ de tresorerie, soit 16 902,8 M$.",
+      "correction_proposee": "Corriger a 16,9 Mds $ ou sourcer explicitement le calcul, et retirer le +12,6 % sur un an, non verifiable dans la source citee.",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz"
+    },
+    {
+      "affirmation": "Hook et resume : \"le chiffre d'affaires a bondi de 28,9 % au T2 2026\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"Total operating revenues $1,924,040 $1,493,150 $430,890 28.9 %\" mais aussi \"Fee income and other increased by approximately $213.6 million and $227.8 million in the three and six months ended June 30, 2026... primarily due to $201 million of promote income related to achievement of certain performance hurdles associated with the June 2026 Acquisition.\"",
+      "correction_proposee": "Le +28,9 % est exact au mot pres mais gonfle par 201 M$ de promote income non recurrent. Hors cet element la croissance du T2 ressort a environ +15 %, et le semestre affiche +22,7 %. Mentionner le caractere exceptionnel des 201 M$.",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz"
+    },
+    {
+      "affirmation": "\"Dette securisee nouvellement assumee couteuse\" : de 876,5 M$ fin 2025 a 1 593,7 M$ au 30 juin 2026, a 7,49 % contre 2,99 % pour l'ensemble de la dette",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Secured and other debt (1)(2) 7.49 % 1,593,735 / 9.02 % 876,528\" et \"Total 2.99 % $18,767,604 / 2.90 % $18,556,770\".",
+      "correction_proposee": "Omission a corriger : le taux moyen de la dette securisee a BAISSE de 9,02 % a 7,49 % (-153 pb) sur la periode. Le titre laisse croire a un rencherissement alors que le filing montre l'inverse. Ajouter la nuance.",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz"
+    },
+    {
+      "affirmation": "JUDICIAIRE : absence de litige materiel a ce jour",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"As of June 30, 2026, we were not a party to any legal proceedings which we believe would have a material adverse effect on our operations or financial position.\"",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz"
+    },
+    {
+      "affirmation": "Concentration client : les 3 plus gros clients representent 26 % de l'ARR fin 2025, les 20 plus gros 51 % ; 20 des 310 data centers occupes par un seul client",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"As of December 31, 2025, the 20 largest customers in our portfolio represented approximately 51% of the total annualized recurring revenue generated by our properties. Our top three customers represented approximately 26%... In addition, 20 of our 310 data centers are occupied by single customers, including data centers occupied solely by our top three customers.\"",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/DLR/10K/DLR_2026-02-13.htm.gz"
+    },
+    {
+      "affirmation": "Au 30 juin 2026 les deux plus gros clients pesent 21 % du chiffre d'affaires total",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"As of June 30, 2026, our two largest customers accounted for approximately 11 % and 10 %, respectively, of our total revenue. No other individual customer makes up more than 10 % of our total revenue.\"",
+      "correction_proposee": "Nuance a ajouter : le 21 % est une somme de deux approximations, et le 26 % porte sur l'ARR quand le 21 % porte sur le CA total, deux bases differentes.",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz"
+    },
+    {
+      "affirmation": "Pret de construction de 726 M$ assume lors de l'acquisition de juin 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"As part of the June 2026 Acquisition, we assumed a construction loan in the amount of $726 million. The current maturity date for the loan is December 24, 2027.\"",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz"
+    },
+    {
+      "affirmation": "Covenants : dette securisee sur actifs a 6 % (limite 40 %), dette totale sur actifs a 35 % (limite 60 %), couverture EBITDA sur interets a 5,2x (minimum 1,5x)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total outstanding debt / total assets Less than 60% 35%... Secured debt / total assets Less than 40% 6%... Consolidated EBITDA / interest expense Greater than 1.50x 5.2 x\".",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz"
+    },
+    {
+      "affirmation": "Occupation EMEA 81,9 % au 30 juin 2026 contre 83,8 % au 31 decembre 2025 ; Americas de 93,6 % a 95,2 %",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Americas 156 1,421 95.2 % / 158 1,324 93.6 % ... EMEA 130 870 81.9 % / 129 822 83.8 %\".",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/DLR/10Q/DLR_2026-07-31.htm.gz"
+    },
+    {
+      "affirmation": "Dependance a l'electricite de fournisseurs tiers (citation Item 1A)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"We depend upon third-party suppliers for power and we are vulnerable to service failures and price increases by such suppliers...\" et \"Even if we have additional space available for lease at any one of our data centers, our ability to lease this space to existing or new customers could be constrained by our ability to provide sufficient electrical power.\"",
+      "correction_proposee": "Les deux fragments sont verbatim mais proviennent de DEUX facteurs de risque distincts assembles par des points de suspension ; le lien avec l'IA est un ajout editorial absent du 10-K. Signaler les deux titres separement ou retirer l'incise IA.",
+      "fichier_source": "data-lake/DLR/10K/DLR_2026-02-13.htm.gz"
+    }
+  ]
+}

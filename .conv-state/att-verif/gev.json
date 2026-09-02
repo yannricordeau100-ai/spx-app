@@ -1,0 +1,78 @@
+{
+  "ticker": "GEV",
+  "verdict_global": "a_corriger",
+  "sources_verifiees": [
+    "data-lake/GEV/10Q/GEV_2026-07-22.htm.gz",
+    "data-lake/GEV/10Q/GEV_2026-04-22.htm.gz",
+    "data-lake/GEV/10K/GEV_2026-01-29.htm.gz",
+    ".batches-drafts-safe/kpis-haut/GEV.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "L'offshore americain suspendu par decision gouvernementale : le 22 decembre 2025 le Department of Interior a suspendu les concessions de tous les grands projets eoliens offshore en construction, avec un impact direct sur le calendrier d'achevement de Vineyard Wind. Risque politique hors du controle de l'entreprise.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "On December 22, 2025, the United States Department of Interior announced that it was pausing the leases for all large-scale offshore wind projects under construction in the United States, which had a direct impact on the Vineyard Wind project completion timeline. On January 27, that pause was lifted and during the first quarter of 2026, we successfully completed the installation of all remaining wind turbines at the Vineyard Wind project and now have moved on to the remaining commissioning activities.",
+      "correction_proposee": "Le 10-Q cite dit explicitement que la suspension a ete levee le 27 janvier et que toutes les eoliennes de Vineyard Wind ont ete installees au T1 2026. Presenter la suspension comme un risque en cours est contredit par la source. Reformuler au passe : 'une suspension des concessions offshore de decembre 2025 a janvier 2026 a decale le calendrier de Vineyard Wind ; l'installation est desormais achevee et il reste des reclamations et contre-reclamations a resoudre avec le client'. Corriger aussi la ligne ce_qui_affaiblirait 'La levee de la suspension des concessions offshore americaines et l'achevement du projet Vineyard Wind' : les deux evenements ont deja eu lieu."
+    },
+    {
+      "affirmation": "La perte d'EBITDA du segment Wind a quasiment double en un an au T2 2026",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Segment EBITDA $(275) | $(165) [T2 2026 vs T2 2025] ; 'segment EBITDA was down $0.1 billion (67%)'",
+      "correction_proposee": "La perte progresse de 67% au T2, pas de 100%. Ecrire 'la perte d'EBITDA progresse de 67% en un an au T2 2026' (le doublement, +110%, ne vaut que pour le semestre : -657 contre -312 M$)."
+    },
+    {
+      "affirmation": "Degradation du segment Wind sans inflexion visible sur six trimestres",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Le 10-Q T2 2026 cite ne publie que le trimestre et le semestre. La serie WIND_EBITDA_MARGIN de .batches-drafts-safe/kpis-haut/GEV.json donne : T1-2025 -7,9 ; T2-2025 -7,3 ; T3-2025 -2,3 ; T4-2025 -9,5 ; T1-2026 -26,7 ; T2-2026 -13,6.",
+      "correction_proposee": "La serie n'est pas monotone : nette amelioration au T3 2025 (-2,3%) et rebond de -26,7% a -13,6% entre le T1 et le T2 2026. Remplacer par 'une serie tres volatile, restee negative sur chacun des six derniers trimestres' plutot que 'sans inflexion visible'."
+    },
+    {
+      "affirmation": "Tarifs douaniers : surcout 2026 estime entre 100 et 200 M$, estimation pouvant etre significativement differente",
+      "verdict": "CONFORME",
+      "verbatim_source": "The current total estimated cost impact from the global tariffs as outlined is approximately $100 million to $200 million in 2026, after taking into consideration contractual protections and mitigating actions [...] The actual impacts of tariffs may be significantly different than our current estimate",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "EBITDA Wind de -275 M$ au T2 2026 (marge -13,6%) contre -165 M$ (-7,3%) ; -657 M$ (-19,0%) au S1 contre -312 M$ (-7,6%) ; Power a +18,8% et Electrification a +18,4% ; Wind ne pese que 18% du CA du trimestre",
+      "verdict": "CONFORME",
+      "verbatim_source": "Segment EBITDA $(275) | $(165) | $(657) | $(312) ; Segment EBITDA margin (13.6)% | (7.3)% | (19.0)% | (7.6)% ; Power 18.8% ; Electrification 18.4% (Wind 2 026 sur 11 104 M$ = 18,2%)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "3 236 M$ de goodwill Wind au 30/06/2026, coussin de juste valeur de 27% fin 2025 en forte diminution, aucune depreciation au S1 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "Balance as of June 30, 2026 [Wind] $3,236 ; In the six months ended June 30, 2026, we did not identify any reporting units that were impaired (10-Q) ; 'we identified one reporting unit for which the fair value in excess of carrying value declined significantly since the prior year. The fair value of our Wind reporting unit, which has $3.3 billion of goodwill, exceeds the carrying value by 27%' (10-K FY2025)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "12,1 GW de commandes de turbines a gaz au T2 2026 pour seulement 3,3 GW livres, contre 5,2 GW livres au T2 2025 ; capex S1 de 783 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Orders in units [...] Gas Turbine Gigawatts 12.1 | 5.1 ; Sales in units [...] Gas Turbine Gigawatts 3.3 | 5.2 ; Additions to property, plant, and equipment and internal-use software (783) | (359)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Gain non monetaire de 3 992 M$ sur la reevaluation de Prolec GE ; BPA dilue de 17,44 $ au T1 2026 puis 2,47 $ au T2 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "resulting pre-tax gain of $3,992 million recognized within Other income (expense) - net [...] during the first quarter of 2026 ; 'Diluted earnings (loss) per share was $17.44 for the three months ended March 31, 2026' (10-Q T1 2026) ; 'Diluted earnings (loss) per share was $2.47' (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Commandes eoliennes tombees a 147 unites au T2 2026 contre 381 (0,6 GW contre 1,6 GW) ; RPO Wind 20 388 M$ contre 22 508 M$ (-9%), seul carnet en contraction, RPO total de 128,7 a 176,3 Mds$ (+37%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Onshore and Offshore Wind orders in units | Wind Turbines 147 | 381 ; Wind Turbine and Repower Units Gigawatts 0.6 | 1.6 ; Total RPO $20,388 | $21,630 | $22,508 ; 'decreased $2.1 billion (9%) from June 30, 2025, primarily due to a decrease at Offshore Wind [...] and at Onshore Wind due to a decrease in orders primarily in North America' ; 'RPO was $176.3 billion and $128.7 billion as of June 30, 2026 and 2025'",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Environ 8 Mds$ de contrats couverts par des garanties de General Electric, reduites de plus de 77% depuis la scission ; perte du statut investment grade compromettrait l'attribution de nouveaux contrats",
+      "verdict": "CONFORME",
+      "verbatim_source": "we estimated GE Vernova RPO and other obligations that relate to GE credit support to be approximately $8 billion, an over 77% reduction since the Spin-Off ; 'If we are unable to maintain investment grade ratings, we could face significant challenges in being awarded new contracts, substantially increasing financing and hedging costs'",
+      "correction_proposee": "Omission a signaler : la phrase suivante du 10-K precise 'As of December 31, 2025, we estimated an insignificant liquidity impact of a ratings downgrade below investment grade'. Ajouter cette nuance pour ne pas laisser l'argument sans contrepoids."
+    },
+    {
+      "affirmation": "Contrats de services de 5 a 25 ans ; une revision de 1% de la profitabilite estimee impacterait d'environ 200 M$ le bilan de ces contrats",
+      "verdict": "CONFORME",
+      "verbatim_source": "long-term service agreements with our customers within our Power and Wind segments [...] which generally range from 5 to 25 years [...] Revisions to our estimates of future billings or costs that increase or decrease total estimated contract profitability by one percentage point would increase or decrease the long-term service agreements contract assets balance by $0.2 billion",
+      "correction_proposee": null
+    }
+  ]
+}

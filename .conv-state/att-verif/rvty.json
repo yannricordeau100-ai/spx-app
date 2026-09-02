@@ -1,0 +1,62 @@
+{
+  "ticker": "RVTY",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/RVTY/10Q/RVTY_2026-08-11.htm.gz ; data-lake/RVTY/10K/RVTY_2026-02-24.htm.gz ; data-lake/RVTY/8K/RVTY_2026-08-04_0000031791-26-000022.htm.gz ; .batches-drafts-safe/kpis-haut/RVTY.json",
+  "note_generale": "Aucune affirmation judiciaire ou reglementaire dans cette ATT. Les defauts portent tous sur des KPI cites comme 'derniers disponibles' alors que la source citee a ete mise a jour au T2 2026 (last_data_date 2026-07-05) et contredit desormais l'ATT (fichier KPI date du 18 aout, ATT du 17 aout).",
+  "controles": [
+    {
+      "affirmation": "Flux de tresorerie operationnel en baisse de 10,1% et flux de tresorerie disponible en baisse de 14,9% sur la periode mesuree dans les derniers KPI publies (source citee : kpis-haut RVTY.json, ocf et fcf)",
+      "verdict": "FAUX",
+      "verbatim_source": ".batches-drafts-safe/kpis-haut/RVTY.json, dernier point disponible (last_data_date 2026-07-05) : ocf value 191.9 M USD, yoy \"+42.9%\" ; fcf value 180.9 M USD, yoy \"+56.6%\".",
+      "correction_proposee": "Le sens est inverse dans la source citee : au T2 2026 le flux de tresorerie operationnel progresse de 42,9% et le flux de tresorerie disponible de 56,6% sur un an. Les chiffres -10,1% et -14,9% correspondaient au T1 2026, desormais perimes. Supprimer ce bloc 'quantitatif' ou le reecrire avec les valeurs du T2 2026 ; la 'perspective' associee (CA trimestriel +7%) est elle aussi un chiffre de T1, le CA du T2 2026 ne progressant que de 1%."
+    },
+    {
+      "affirmation": "Le dernier point de KPI disponible (T1 2026) situait le levier dette nette sur EBITDA a 3,04x, en hausse de 18,8% sur un an",
+      "verdict": "EXAGERE",
+      "verbatim_source": ".batches-drafts-safe/kpis-haut/RVTY.json, KPI leverage : value 2.83, yoy \"+1.1%\", historique \"Q1-2026\": 3.04 puis \"Q2-2026\": 2.83 ; signal : \"Levier de 2,8x l'EBITDA des 12 derniers mois au 5 juillet 2026, contre 2,8x un an plus tot : stabilisation apres la remontee liee aux rachats d'actions\".",
+      "correction_proposee": "Le dernier point disponible n'est plus le T1 2026 mais le T2 2026 : levier de 2,83x, quasi stable sur un an (+1,1%), en repli par rapport aux 3,04x du T1. Presenter 3,04x '+18,8%' comme la donnee la plus recente surestime la degradation du bilan. Le point 'ce_qui_affaiblirait' visant un levier sous 3x est deja atteint."
+    },
+    {
+      "affirmation": "La marge operationnelle du segment Life Sciences se contracte de 2,4 points sur la periode recente (source citee : kpis-haut RVTY.json, LS_margin -2,4pts)",
+      "verdict": "EXAGERE",
+      "verbatim_source": ".batches-drafts-safe/kpis-haut/RVTY.json, KPI LS_margin : value 31.1, yoy \"-0.5pts\", historique \"Q1-2025\": 31.1, \"Q1-2026\": 28.7, \"Q2-2025\": 31.6, \"Q2-2026\": 31.1.",
+      "correction_proposee": "La contraction de 2,4 points est celle du T1 2026 (28,7% contre 31,1%). Au T2 2026, periode sur laquelle porte le reste de l'argument, la marge du segment revient a 31,1%, soit -0,5 point seulement sur un an. Aligner le chiffre sur le trimestre traite."
+    },
+    {
+      "affirmation": "CA total T2 2026 de 720,3 a 729,7 M$, resultat net de 53,9 a 51,8 M$, marge operationnelle consolidee de 12,6% a 12,2% pour cause de charges de restructuration et d'investissements numeriques",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total revenue 729,688 720,284\" ; \"Net income $ 51,820 $ 53,948\" ; \"Our consolidated operating margins decreased from 12.6% to 12.2% in the second quarter of fiscal year 2026, as compared to the second quarter of fiscal year 2025, primarily due to restructuring charges and digital investments.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Au 5 juillet 2026, goodwill de 6 608 M$, capitaux propres de 7 229 M$, actifs incorporels nets de 2 224 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Intangible assets, net 2,224,001 ... Goodwill 6,607,802\" ; \"Total stockholders' equity 7,228,758\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CA du segment Life Sciences de 365,9 a 358,7 M$ au T2 2026, tire par un repli de 10,2 M$ des revenus Software",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Life Sciences segment revenue was $358.7 million for the three months ended July 5, 2026, as compared to $365.9 million for the three months ended June 29, 2025, a decrease of $7.2 million, or 2%, driven by a decrease of $10.2 million in Software revenue, partially offset by an increase of $3.0 million in Life Sciences Solutions revenue.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "La societe reconnait que des changements recents de financement et de reglementation aux Etats-Unis ont cree un climat de depenses plus prudent chez ses clients",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 (RVTY_2026-02-24) : \"Recently announced and proposed changes in U.S. funding and regulations have created a more cautious spending environment for our customers and could cause them to become more conservative with both instrumentation and consumable purchases due to funding and regulatory uncertainty. Our revenues may be adversely affected if our customers delay or reduce purchases\"",
+      "correction_proposee": "Citation exacte. Corriger seulement la reference : la source est le 10-K FY2025 (Item 1A), pas 'v2-pipeline RVTY'."
+    },
+    {
+      "affirmation": "Accord definitif du 31 juillet 2026 pour ceder l'activite Immunodiagnostics en Chine, environ 6% du CA total 2025, pour un montant pouvant atteindre 200 M$, cloture attendue d'ici fin 2027",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q Note 15 : \"On July 31, 2026, the Company entered into a definitive agreement to divest its Immunodiagnostics business in China, which represented approximately 6 % of the Company's total revenue in fiscal year 2025. The transaction is expected to close by the end of 2027, subject to customary closing conditions and regulatory approvals.\" ; 8-K du 4 aout 2026 : \"the probable sale of substantially all of the assets related to the Company's Immunodiagnostics business in China (\"China IDX\") pursuant to a definitive agreement signed on July 31, 2026. The agreement provides for the sale of China IDX for up to $200 million, subject to adjustments and satisfaction of conditions.\"",
+      "correction_proposee": "Exact. Nuance : 'la cloture est jugee probable d'ici fin 2027' traduit 'expected to close by the end of 2027' ; le terme 'probable' du 8-K qualifie le traitement comptable pro forma de la cession, pas le calendrier. Preferer 'attendue d'ici fin 2027'."
+    },
+    {
+      "affirmation": "Dette totale de 3 205 M$ (572 M$ courante + 2 633 M$ long terme) contre 1 023 M$ de tresorerie au 5 juillet 2026 ; dette nette d'environ 2,18 Mds$ ; CA Chine -5,5%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Cash and cash equivalents $ 1,022,943\" ; \"Current portion of long-term debt $ 572,156\" ; \"Long-term debt 2,633,094\" ; kpis-haut RVTY.json : net_debt value 2.18 Mds USD ; china_rev value 425.1, yoy \"-5.5%\"",
+      "correction_proposee": null
+    }
+  ]
+}

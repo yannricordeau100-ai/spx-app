@@ -1,0 +1,61 @@
+{
+  "ticker": "APP",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/APP/10Q/APP_2026-08-05.htm.gz (10-Q T2 2026, clos le 30 juin 2026), data-lake/APP/DEF14A/APP_2026-04-21.htm.gz, .batches-drafts-safe/kpis-haut/APP.json",
+  "controles": [
+    {
+      "affirmation": "HOOK + argument 1 + quantitatif 1 : \"Au T2 2026, le revenu net par installation publicitaire a progresse de 72% sur un an ; le volume d'installations n'a augmente que de 3% sur la meme periode\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q du 5 aout 2026 : \"For the three months ended June 30, 2026, our revenue increased by $664.9 million, or 53%, compared to the same period in the prior year due primarily to improved AppLovin Ads performance, where net revenue per installation increased 58%, partially offset by a decrease in the volume of installations of 2%.\"",
+      "correction_proposee": "Les valeurs +72% et +3% sont les variations ANNUELLES FY2025 vs FY2024 de kpis-haut (last_data_date 2025-12-31), pas celles du T2 2026. Au T2 2026 le document dit +58% sur le revenu net par installation et une BAISSE de 2% du volume d'installations (et sur le semestre : +75% et -10%). Reformuler : \"Au T2 2026, le revenu net par installation a progresse de 58% pendant que le volume d'installations reculait de 2%.\" Le sens de l'anti-these est renforce, mais les chiffres publies sont faux."
+    },
+    {
+      "affirmation": "\"AppLovin a consacre 2 191,9 M$ a des rachats d'actions au T2 2026, en hausse de 123% sur un an\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q, etat de variation des capitaux propres : \"Repurchase of Class A common stock ( 1,105 ) ... ( 531,682 )\" pour le trimestre clos le 30 juin 2026 ; \"( 732 ) ... ( 270,118 )\" pour le trimestre clos le 30 juin 2025 ; tableau de flux : \"Repurchases of common stock ( 1,532,952 ) ( 1,272,429 )\" pour les six mois",
+      "correction_proposee": "2 191,9 M$ et +123% sont le total de l'exercice FY2025 (kpis-haut), pas le T2 2026. Les vrais chiffres : 531,7 M$ rachetes au T2 2026 contre 270,1 M$ au T2 2025 (+97%), et 1 533,0 M$ sur le premier semestre 2026 contre 1 272,4 M$."
+    },
+    {
+      "affirmation": "\"898 employes (-43% YoY) pour un chiffre d'affaires trimestriel de 1 923,7 M$\", source indiquee \"kpis-haut APP, T2 2026\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "kpis-haut APP : \"Effectifs ... history [FY2024 1563, FY2025 898] ... last_data_date 2025-12-31\" ; signal : \"898 employes fin 2025 ... Effectif publie annuellement dans le 10-K\"",
+      "correction_proposee": "Le chiffre de 898 employes et le -43% datent du 31 decembre 2025 (10-K FY2025), pas du T2 2026. Il est accole a un CA trimestriel du T2 2026, ce qui melange deux periodes. Preciser : \"898 employes au 31 decembre 2025, en baisse de 43% sur un an apres la cession du segment Apps\"."
+    },
+    {
+      "affirmation": "\"la dette long terme reste quasi inchangee a 3 515,1 M$ (+0,1% sur un an)\", preuve citant \"Dette LT 3513.0 M$ yoy +0.1%\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q, bilan : \"Long-term debt 3,515,072 3,512,987\" (30 juin 2026 vs 31 decembre 2025)",
+      "correction_proposee": "Le solde de 3 515,1 M$ au 30 juin 2026 est exact, mais le \"+0,1% sur un an\" est la variation annuelle FY2024 -> FY2025 de kpis-haut, pas une variation sur douze mois glissants au T2 2026. Incoherence interne supplementaire : la preuve cite 3 513,0 M$ quand l'argument cite 3 515,1 M$. Ecrire : \"quasi inchangee a 3 515,1 M$ au 30 juin 2026 contre 3 513,0 M$ au 31 decembre 2025\"."
+    },
+    {
+      "affirmation": "Contentieux boursier : plaintes depuis mars 2025 contre la societe, Foroughi, Stumpf et Chen ; classe du 7 novembre 2024 au 27 mars 2025 ; requete en rejet \"entierement plaidee en fevrier 2026\" ; pas d'estimation d'exposition",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"The defendants filed a motion to dismiss the Amended Complaint in November 2025, and that motion was fully briefed as of February 2026.\" ; \"The Amended Complaint alleges a putative class period running from November 7, 2024 through March 27, 2025.\" ; \"it is not possible to determine the ultimate outcome at this time, and thus we cannot reasonably estimate the maximum potential exposure or range of possible loss.\"",
+      "correction_proposee": "Le fond est exact mais \"entierement plaidee\" surtraduit \"fully briefed\", qui signifie seulement que tous les memoires ecrits ont ete deposes, sans audience de plaidoirie. Ecrire : \"les memoires des parties sur la requete en rejet etaient integralement deposes en fevrier 2026, sans decision rendue a ce jour\". A completer : la plainte amendee a aussi ajoute Basil Shikin comme defendeur (12 septembre 2025), et des actions derivatives d'actionnaires, consolidees et suspendues dans l'attente de la decision sur la requete en rejet, ne sont pas mentionnees par l'ATT."
+    },
+    {
+      "affirmation": "Dependance a un nombre limite de plateformes tierces : \"une deterioration de la relation avec l'une d'elles aurait un impact direct et amplifie\" (Apple App Store, Google Play, Meta)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"Further, a significant amount of our total revenue is derived through mobile applications subject to a limited number of third-party distribution platforms, such as the Apple App Store, the Google Play Store, and Meta. Because Meta and Google are also significant partners of AppLovin and Adjust, a deterioration in our or Adjust's relationship with such companies would have a greater impact on our business...\"",
+      "correction_proposee": "L'elision de la citation supprime \"Because Meta and Google are also significant partners of AppLovin and Adjust\", qui restreint l'impact amplifie a Meta et Google. Le filing ne dit pas cela d'Apple. Reformuler : \"une deterioration de la relation avec Meta ou Google, qui sont aussi des partenaires majeurs, aurait un impact amplifie\"."
+    },
+    {
+      "affirmation": "Foroughi detient 92,5% des actions de Classe B (20 voix par action) et 61,6% des droits de vote ; accord de vote avec Herald Chen",
+      "verdict": "CONFORME",
+      "verbatim_source": "DEF 14A du 21 avril 2026 : \"2,420,296 * 27,936,907 92.5 61.6\" ; \"our Class B common stock has 20 votes per share, Class A common stock has one vote per share\" ; \"Mr. Foroughi and Mr. Chen collectively can determine or significantly influence any action requiring the approval of our stockholders, including the election of our board of directors...\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Concentration sur l'ecosysteme mobile et le jeu mobile",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"We face concentration risk in that our advertising solutions primarily operate in the mobile app ecosystem and specifically mobile gaming. As such, our business depends, in part, on the continued health and growth of these app ecosystems.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CA T2 2026 de 1 923,7 M$ (+52,8%), marge nette 65,8%, tresorerie 3 053,3 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Revenue $ 1,923,686 $ 1,258,754\" ; \"Net income $ 1,266,538\" ; \"Cash and cash equivalents $ 3,053,306 $ 2,487,096\"",
+      "correction_proposee": null
+    }
+  ]
+}

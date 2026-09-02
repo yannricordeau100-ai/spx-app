@@ -1,0 +1,32 @@
+{
+  "ticker": "ALV.DE",
+  "verdict": "propre",
+  "note": "Aucune trace d'Autoliv. Identite, gouvernance, secteur, tagline, ranks, KPI: tout est Allianz. Defauts residuels ci-dessous, non lies a l'homonyme.",
+  "problemes": [
+    {
+      "bloc": "revenue_by_segment",
+      "valeur_actuelle": "P&C 70 Mds et Life/Health 70 Mds (valeur dupliquee), total 153, unite 'Mds ' et libelle 'Rpartition ... oprationnel' (caracteres accentues perdus)",
+      "valeur_correcte": "Vie-Sante 92,314 Mds EUR (49,4%), Dommages 86,741 Mds EUR (46,4%), Gestion d'actifs le solde, exercice 2025",
+      "source": "src/data/v2-pipeline/alv.de.json revenue_by_segment"
+    },
+    {
+      "bloc": "hero_kpi / hero_kpi_rationale",
+      "valeur_actuelle": "hero_kpi='motor_reinsurance_gpw' (7221 M EUR, valeur reelle Allianz, Reassurance ligne Motor 2024) mais rationale decrit une hausse de 12,4% en 2022 = le KPI 'P&C Revenue', pas le hero",
+      "valeur_correcte": "hero OP (resultat operationnel trimestriel, 42 trimestres, 4874 M EUR au T2-2026) avec son rationale associe",
+      "source": ".batches-drafts-safe/kpis-haut/ALV.DE.json + sec-data/cat3-european/ALV.DE/annual-text/2024.txt ligne 718"
+    },
+    {
+      "bloc": "kpis / risks / ai_positioning",
+      "valeur_actuelle": "Bloc KPI et risques dates de l'exercice 2022 (_risks_source='Annual 2022'), ai_positioning stance='absent' fonde sur le rapport 2022",
+      "valeur_correcte": "Series 2016-T2 2026 disponibles (OP, TBV, CR, SII, AUM3P...)",
+      "source": ".batches-drafts-safe/kpis-haut/ALV.DE.json"
+    },
+    {
+      "bloc": "ranks",
+      "valeur_actuelle": "global_world '≈ #50', global_us '...'",
+      "valeur_correcte": "'#80' selon enrich_ranks du meme fichier ; global_us doit valoir 'Non US'",
+      "source": "src/data/companies/alv.de.json champ enrich_ranks"
+    }
+  ],
+  "confiance": "elevee"
+}

@@ -1,0 +1,67 @@
+{
+  "ticker": "PAYX",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/PAYX/10K/PAYX_2026-07-17.htm.gz (10-K FY2026, exercice clos le 31 mai 2026) ; src/data/v2-pipeline/payx.json",
+  "controles": [
+    {
+      "affirmation": "Au 31 mai 2026, la DETTE LONG TERME NETTE ressort a 4 556 M$ pour des capitaux propres de 3 735 M$ ; 'pris separement, la dette nette et le goodwill depassent chacun le montant des capitaux propres'.",
+      "verdict": "FAUX",
+      "verbatim_source": "Bilan consolide : 'Long-term debt, NET OF DEBT ISSUANCE COSTS 4,556.1' (contre 4,548.4 un an plus tot). Actif : 'Cash and cash equivalents $ 1,088.2'. 'Net of debt issuance costs' signifie net des FRAIS D'EMISSION, pas net de la tresorerie.",
+      "correction_proposee": "Ce n'est pas une dette NETTE. La dette nette de tresorerie ressort a environ 4 556 - 1 088 = 3 468 M$, soit EN DESSOUS des capitaux propres (3 735 M$). L'affirmation 'la dette nette depasse les capitaux propres' est donc fausse. Ecrire : 'dette long terme brute (nette des frais d'emission) de 4 556 M$, superieure aux capitaux propres de 3 735 M$ ; nette de la tresorerie de 1 088 M$, elle repasse legerement sous ce niveau'."
+    },
+    {
+      "affirmation": "Hook : 'La QUASI-TOTALITE de la croissance vient de l'acquisition de Paycor'.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Total revenue increased to $6.5 billion for fiscal 2026, reflecting an increase of 17% compared to the prior year. Paycor, acquired in April 2025, contributed approximately 12% to total revenue growth for fiscal 2026.",
+      "correction_proposee": "12 points sur 17, soit environ 70 % de la croissance, pas la 'quasi-totalite'. Le corps de l'ATT le dit d'ailleurs correctement ('croissance organique sous-jacente autour de 5 %'). Ecrire : 'environ 70 % de la croissance affichee vient de Paycor'."
+    },
+    {
+      "affirmation": "L'ecart s'explique notamment par des couts lies a l'acquisition de 304,2 M$, en hausse de 87 %, ET par l'amortissement des incorporels acquis avec Paycor.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "The Company recognized $ 304.2 million of acquisition-related costs, INCLUDING $ 242.0 MILLION RELATED TO AMORTIZATION FOR STEP-UP BASIS INTANGIBLE ASSETS, during fiscal 2026, and $ 49.2 million during fiscal 2025.",
+      "correction_proposee": "Double comptage : l'amortissement des incorporels (242,0 M$) est DEJA inclus dans les 304,2 M$. Ecrire 'des couts lies a l'acquisition de 304,2 M$, DONT 242,0 M$ d'amortissement des incorporels'. A noter aussi une incoherence interne du 10-K : le MD&A annonce '+87 %' alors que la note passe de 49,2 a 304,2 M$."
+    },
+    {
+      "affirmation": "Environ un client sur six ou sept quitte Paychex chaque annee (retention paie 82 % a 83 %).",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Payroll client retention was in the range of 82% to 83% of our beginning client base FOR BOTH FISCAL 2026 AND FISCAL 2025 and we have sustained high revenue retention.",
+      "correction_proposee": "17 a 18 % d'attrition = environ un client sur six (1/6 = 16,7 %), pas 'sur six ou sept'. Surtout, le 10-K precise que ce taux est IDENTIQUE en 2025 et 2026 : ce n'est donc pas une degradation mais un niveau stable, ce que l'ATT n'indique pas."
+    },
+    {
+      "affirmation": "CA FY2026 6,5 Mds $ (+17 %), Paycor contribue environ 12 points de croissance ; resultat net 1 760 M$ contre 1 690 M$ (+4 %) ; resultat operationnel 2,5 Mds $ (+14 %).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Total revenue increased to $6.5 billion for fiscal 2026, reflecting an increase of 17% ... Paycor ... contributed approximately 12% to total revenue growth ; Net income 1,760.1 / 1,690.4 ; 'Fiscal 2026 operating income was $2.5 billion, an increase of 14% compared to fiscal 2025.'",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Paycor paye environ 4,1 Mds $ ; Paychex a emis 4,2 Mds $ d'obligations d'entreprise en 2025 ; capitaux propres 3 735,1 M$ contre 4 128,0 M$ (-9 %).",
+      "verdict": "CONFORME",
+      "verbatim_source": "On April 14, 2025, the Company completed its acquisition of Paycor HCM, Inc. for total purchase consideration of approximately $ 4.1 billion ... To finance the purchase consideration, Paychex issued a $ 4.2 billion aggregate principal amount of fixed-rate corporate bonds. ; Total stockholders' equity 3,735.1 / 4,128.0.",
+      "correction_proposee": "Nuance : le groupe portait deja 0,4 Md $ de Senior Notes en placement prive ('We have borrowed $4.2 billion through ... Corporate Bonds and $0.4 billion through ... Senior Notes'), donc 'historiquement quasiment sans emprunt' est a nuancer."
+    },
+    {
+      "affirmation": "Goodwill 4 527 M$ au 31 mai 2026, superieur aux capitaux propres (3 735 M$) ; risque interne 'Integration de Paycor', tendance emerging, score 4/5.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Bilan : Goodwill 4,527.4 ; 'The goodwill is attributable primarily to the expected revenue synergies expected from combining the operations of both entities, and intangible assets that do not qualify for separate recognition' ; v2-pipeline/payx.json : {score 4, trend emerging, categorie Capital, 'Integration de Paycor et acquisitions futures'}.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dividendes declares 1 589,9 M$ (4,43 $/action contre 4,02 $) pour un resultat net de 1 760 M$, soit un taux de distribution proche de 90 % ; 584 M$ de rachats (5,6 M d'actions a 108,81 $).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Dividends declared ($ 4.43 per share) ... ( 1,589.9 ) ; 'Cumulative dividends paid at $4.02 per share for fiscal 2025' ; 'Repurchases of 5.6 million shares of our common stock at a weighted-average price of $108.81' ; ( 584.0 ). Ratio 1 589,9 / 1 760,1 = 90,3 %.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Marche concurrentiel et fragmente avec un concurrent national principal ; notation de credit de qualite investissement.",
+      "verdict": "CONFORME",
+      "verbatim_source": "The market for HCM solutions is highly competitive and fragmented. We compete with one primary national competitor as well as other national, international, regional, local, and online payroll providers. ; 'The major credit rating agencies periodically evaluate our creditworthiness and have given us a strong, investment-grade long-term debt rating.'",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Absence de contentieux ou d'enquete reglementaire materielle (aucune affirmation judiciaire dans l'ATT).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Item 3. Legal Proceedings — We are subject to various claims and legal matters that arise in the normal course of our business. Refer to Note Q ... for further discussion of our legal proceedings, if any.",
+      "correction_proposee": ""
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "ticker": "O",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "\"notations investment grade stables (A3/A-/F1)\" (repete dans le resume, dans fondamental_interne et dans ce_qui_affaiblirait)",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : \"We are currently assigned the following investment grade corporate credit ratings on our senior unsecured notes and bonds: Moody's Investors Service has assigned a rating of A3 with a \"stable\" outlook, Standard & Poor's Ratings Group has assigned a rating of A- with a \"stable\" outlook, and on August 3, 2026, we received a credit rating of A with a \"stable\" outlook from Fitch Ratings. In addition, we are assigned the following ratings on our commercial paper: Moody's Investors Service has assigned a rating of P-2, Standard & Poor's Ratings Group has assigned a rating of A-2, and Fitch Ratings has assigned a rating of F1.\"",
+      "correction_proposee": "F1 est la notation Fitch du PAPIER COMMERCIAL (court terme), pas la notation long terme. Les trois notations corporate sont A3 (Moody's) / A- (S&P) / A (Fitch, assignee le 3 aout 2026). Remplacer \"A3/A-/F1\" par \"A3/A-/A\" partout."
+    },
+    {
+      "affirmation": "\"une dette totale de 25 092 M$ (+0,8% YoY)\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : \"our total outstanding borrowings of credit facilities, commercial paper, term loans, mortgages payable, and senior unsecured notes and bonds were $31.0 billion\" ; tableau du levier : \"Total debt per the consolidated balance sheets, excluding deferred financing costs and net discounts $30,990,552 ; Less: Cash and cash equivalents (552,648) ; Net Debt $30,437,904\". kpis-haut/O.json precise que 25 092 M$ correspond a la \"dette (billets et obligations)\" seule.",
+      "correction_proposee": "La dette totale est de 31,0 Mds $ (dette nette 30,4 Mds $). Les 25,1 Mds $ ne couvrent que les senior unsecured notes and bonds. En l'etat le chiffre est incoherent avec le ratio 5,4x cite dans la meme fiche, qui repose sur 30,4 Mds $ de dette nette. Ecrire : \"dette totale de 31,0 Mds $, dont 25,1 Mds $ d'obligations et notes non garanties\"."
+    },
+    {
+      "affirmation": "\"Le flux de tresorerie disponible apres investissements immobiliers est negatif de 755,6 M$ sur les six premiers mois 2026\"",
+      "verdict": "FAUX",
+      "verbatim_source": "kpis-haut/O.json : fcf_after_re -755,6 M$ \"au T2 2026 ; les acquisitions immobilieres (1 901 M$) depassent le cash operationnel\" ; ocf 1 145,1 M$ \"au T2 2026, derive du cumul semestriel de 2 020 M$\" ; re_acq_cash 1 900,7 M$ \"au T2 2026, derives du cumul semestriel de 3 550 M$\"",
+      "correction_proposee": "Mauvaise periode : -755,6 M$ est le SEUL T2 2026 (1 145,1 - 1 900,7). Sur les six premiers mois 2026 le chiffre est d'environ -1 530 M$ (2 020 - 3 550). Soit ecrire \"au T2 2026\", soit remplacer par le montant semestriel."
+    },
+    {
+      "affirmation": "hook + argument : \"la derniere hausse ne represente que +0,7% sur un an\" / \"Le dividende par action verse n'a progresse que de 0,7% sur un an au T2 2026\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"The dividends paid per share during the six months ended June 30, 2026 totaled $1.6215, as compared to $1.6015 during the six months ended June 30, 2025, an increase of $0.020, or 1.2%.\" ; tableau des trois hausses 2026 : +0,0005 $ par action a chaque fois (0,2700 puis 0,2705 puis 0,2710)",
+      "correction_proposee": "Le chiffre de 0,7% n'apparait pas dans le 10-Q ; il provient d'un calcul trimestriel de kpis-haut. Le chiffre publie par la societe est +1,2% sur le semestre. Par ailleurs \"la derniere hausse\" vaut 0,0005 $ par action, soit +0,18%, pas 0,7%. Reformuler : \"le dividende verse par action progresse de 1,2% sur le premier semestre 2026, via trois hausses de 0,0005 $ chacune\"."
+    },
+    {
+      "affirmation": "\"Taux d'interet moyen pondere de 3,9% sur les obligations et notes non garanties, contre un coupon de 3,75% sur les nouvelles obligations convertibles ... toute nouvelle emission obligataire se fait desormais a un cout proche de la moyenne historique du portefeuille plutot qu'en dessous\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"our total outstanding borrowings of credit facilities, commercial paper, term loans, mortgages payable, and senior unsecured notes and bonds were $31.0 billion, with a weighted average maturity of 5.1 years and a weighted average interest rate of 3.9%\" ; \"In March 2026, we closed a $693.9 million unsecured term loan due January 2036 with an affiliate of The Goldman Sachs Group, Inc. at a fixed rate of 4.91%\"",
+      "correction_proposee": "Deux erreurs. (1) Le 3,9% porte sur la TOTALITE des emprunts (31,0 Mds $, toutes categories), pas seulement sur les obligations et notes non garanties. (2) Le coupon convertible de 3,750% est INFERIEUR a 3,9%, ce qui contredit la conclusion \"plutot qu'en dessous\" ; et un coupon de convertible n'est pas comparable a de la dette seche, il est structurellement bas du fait de l'option de conversion. L'exemple pertinent d'un cout en hausse est plutot le term loan de mars 2026 a 4,91%."
+    },
+    {
+      "affirmation": "\"673 dividendes mensuels consecutifs verses depuis sa creation\" ; \"taux de distribution a 73,0% de l'AFFO\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Since our founding, we have declared 673 consecutive monthly dividends and are a member of the S&P 500 Dividend Aristocrats index for having increased our dividend for over 31 consecutive years.\" ; \"We distributed $1.62 per share to stockholders during the six months ended June 30, 2026, representing 73.0% of our diluted Adjusted Funds from Operations Available to Common Stockholders (\"AFFO\") per share of $2.22.\"",
+      "correction_proposee": "Nuance : le document dit \"declared\" (declares), l'ATT dit \"verses\". Ecart mineur, preferer \"declares\"."
+    },
+    {
+      "affirmation": "\"840,0 M$ d'actions brutes emises via le programme ATM sur les six premiers mois 2026\" ; \"1,0 Md$ d'obligations convertibles a 3,75% echeance 2031 le 14 aout 2026\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Shares of common stock issued under the ATM program ... Gross proceeds $840.0\" (six mois 2026, contre $1,260.7 sur six mois 2025) ; 8-K du 14 aout 2026 : \"On August 14, 2026, Realty Income Corporation (the \"Company\") issued $1.0 billion principal amount of its 3.750% Convertible Senior Notes due 2031\"",
+      "correction_proposee": "Element a charge inverse non exploite : les 840,0 M$ d'ATM sur six mois 2026 sont EN BAISSE par rapport aux 1 260,7 M$ des six mois 2025."
+    },
+    {
+      "affirmation": "\"provisions pour pertes de credit sur prets et creances de financement 46,4 M$ sur six mois 2026 contre 20,3 M$ (+129%) ; provisions pour depreciation d'actifs immobiliers 144,4 M$ contre 239,7 M$\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Provisions for impairment of real estate 54,185 / 142,255 / 144,350 / 239,673\" ; \"Provisions for credit losses on loans and financing receivables 7,258 / 1,108 / 46,361 / 20,279\" (T2 2026 / T2 2025 / 6 mois 2026 / 6 mois 2025)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"34,3% du loyer de base annualise provient de locataires investment grade ; Dollar General 3,3% ; les 20 premiers clients cumulent 34,8%\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"approximately 34.3% of our total portfolio annualized base rent comes from properties leased to our investment grade clients, their subsidiaries or affiliated companies\" ; \"our top 20 clients ... represented approximately 34.8% of our annualized base rent and 13 of these clients have investment grade credit ratings\" ; tableau clients : Dollar General 1,855 / 3.3%",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"le Royaume-Uni seul represente 15,0% du loyer de base annualise ; part internationale des revenus a 20,5%, +3,2 points sur un an\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, tableau geographique (colonnes : Number of Properties / Percent Leased / Approximate Leasable Square Feet / Percentage of Annualized Base Rent) : \"United Kingdom 390 99 38,290 15.0\" ; kpis-haut/O.json : intl_pct 20,5%, yoy +3,2pp",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"Net Debt/Annualized Pro Forma Adjusted EBITDAre de 5,4x ; 91% de la dette totale a taux fixe ; occupation 98,8% ; charges d'interets +10,0% a 312,1 M$\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Net Debt/Annualized Pro Forma Adjusted EBITDAre 5.4x\" ; \"As of June 30, 2026, approximately 91% of our total debt was fixed rate debt\" ; \"our portfolio of 15,588 properties was 98.8% leased with 188 properties available for lease\" ; kpis-haut : interest_expense 312,1 M$ (+10,0%)",
+      "correction_proposee": "Nuance : la comparaison \"niveau comparable a W.P. Carey ou National Retail Properties, autour de 5 a 6x\" n'est adossee a aucune source du dossier. Soit sourcer, soit retirer. (National Retail Properties a par ailleurs ete renomme NNN REIT en 2023.)"
+    }
+  ]
+}

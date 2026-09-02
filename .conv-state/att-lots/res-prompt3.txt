@@ -1,0 +1,23 @@
+Tu corriges des points residuels mineurs dans des fiches ATT (anti-these d'investissement) du repo ~/spx-app.
+
+FICHIER DE TRAVAIL : /Users/yann/spx-app/.conv-state/att-lots/res-lot3.json
+Il contient un dict {ticker_minuscule: [liste de points a corriger]}.
+
+Pour CHAQUE ticker :
+1. Ouvre src/data/att/<ticker>.json
+2. Ouvre le rapport de verification .conv-state/att-verif/<TICKER_MAJUSCULE>.json pour le contexte (verbatim, correction proposee)
+3. Verifie chaque point contre la source reelle dans data-lake/<TICKER_MAJUSCULE>/ (fichiers .txt/.json, certains en .gz : zcat)
+4. Applique la correction dans src/data/att/<ticker>.json UNIQUEMENT si la source la confirme
+
+REGLES ABSOLUES
+- Si la correction rend le bear case PLUS fort, tu l'appliques quand meme. La verite prime.
+- Si tu ne trouves pas la source, tu ne corriges PAS et tu le signales.
+- N'invente jamais un chiffre, une citation ou une source.
+- Pas de tiret cadratin. Francais, vocabulaire non technique.
+- Ne touche a AUCUN autre champ que ceux concernes par les points listes.
+- Le JSON doit rester valide (indent 1, ensure_ascii=False si tu passes par python).
+
+INTERDIT ABSOLU : lancer des sous-agents ou deleguer (tu fais TOUT le travail TOI-MEME, sequentiellement, ticker par ticker : le Mac crashe sur les pics de RAM). AUCUN sous-agent. INTERDIT aussi : rm, toucher a d'autres fichiers que src/data/att/<ticker>.json, ouvrir un navigateur, lancer un serveur, git commit, git push, deploiement.
+
+REPONSE FINALE : uniquement du JSON compact, rien d'autre :
+{"resultats":[{"ticker":"xxx","corriges":N,"non_confirmes":M,"detail":"une ligne max"}]}

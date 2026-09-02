@@ -1,0 +1,79 @@
+{
+  "ticker": "APA",
+  "verdict_global": "a_corriger",
+  "sources_controlees": [
+    "data-lake/APA/10Q/APA_2026-08-06.htm.gz (10-Q T2 2026)",
+    "data-lake/APA/10Q/APA_2025-08-07.htm.gz (10-Q T2 2025)",
+    "data-lake/APA/10K/APA_2026-02-26.htm.gz (10-K FY2025)",
+    "data-lake/APA/10K/APA_2025-02-28.htm.gz (10-K FY2024)",
+    "data-lake/APA/10K/APA_2024-02-22.htm.gz (10-K FY2023)"
+  ],
+  "controles": [
+    {
+      "affirmation": "Le regulateur federal BSEE a emis des ordres de demantelement directement a Apache en tant qu'ancien proprietaire des actifs du golfe du Mexique, apres defaillance de GOM Shelf / Fieldwood",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"By letter dated April 5, 2022 (replacing two earlier letters) and by subsequent letter dated March 1, 2023, GOM Shelf notified the Bureau of Safety and Environmental Enforcement (BSEE) that it was unable to fund the decommissioning obligations that it was obligated to perform on certain of the Legacy GOA Assets. As a result, Apache and other current and former owners in these assets have received orders from BSEE and demands from third parties to decommission certain of the Legacy GOA Assets (...)\" (10-Q T2 2026, Note 10)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"Passif de demantelement herite du golfe du Mexique EN HAUSSE : la part courante de cette provision passe de 99 M$ a 170 M$ EN UN AN (+72%)\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, Note 6 (colonnes 30 juin 2026 et 31 DECEMBRE 2025) : \"Current decommissioning contingency for sold Gulf of America properties | 170 | 99\". Bilan : \"Decommissioning contingency for sold Gulf of America properties (Note 10) | 677 | 782\" (part non courante).",
+      "correction_proposee": "Deux erreurs. (1) La comparaison est sur six mois (31/12/2025 vers 30/06/2026), pas sur un an. (2) Le passif total de demantelement du golfe du Mexique a BAISSE : 847 M$ au 30/06/2026 (170 courant + 677 non courant) contre 881 M$ au 31/12/2025 (99 + 782), soit -3,9%. Seule la part courante augmente, par reclassement. Reformulation : \"la part courante du passif est multipliee par 1,7 en six mois, signe d'un calendrier de demantelement qui se rapproche, meme si le passif total recule legerement a 847 M$\"."
+    },
+    {
+      "affirmation": "796 M$ de depreciations sur les actifs Mer du Nord en 2024 en raison de nouvelles obligations reglementaires britanniques",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"For example, during 2024, the Company recorded $796 million of impairments for certain of its North Sea proved properties as a result of several new regulatory guidelines and obligations in the U.K.\" (10-K FY2025)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Prix moyen realise du gaz naturel aux Etats-Unis a -2,98 $/Mcf au T2 2026 ; baisse de 74% des prix moyens liee a des periodes de prix negatifs dans le bassin permien et aux ecarts de base Waha",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Average Natural Gas Price - Per Mcf : United States $ (2.98) (389)% $ 1.03\" ; \"A 74 percent decrease in average realized prices, driven by periods of negative pricing across the Permian Basin, decreased second-quarter 2026 natural gas revenues by $135 million\" ; \"increased volume curtailments at Alpine High compared with the 2025 period in response to extreme Waha basis differentials, including periods of negative pricing\" (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Production totale 409 959 boe/j au T2 2026 (-11,9%), avec Etats-Unis -9,2%, Egypte -13,3%, Mer du Nord -29,6% ; production brute Egypte +2% contre production nette -13,3% du fait du cost recovery",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"BOE per day : United States 263,187 (9)% 289,902 ; Egypt 124,687 (13)% 143,818 ; North Sea 22,085 (30)% 31,358 ; Total 409,959 (12)% 465,078\" ; \"Second quarter 2026 net production was negatively impacted by higher price realizations and lower cost recovery volumes under the merged concession agreement.\" ; production brute Egypte : petrole 117 056 b/j (2025 : 123 852) et gaz 538 925 Mcf/j (2025 : 479 235), soit +1,5% en boe (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"Effectifs en repli DEUX ANNEES DE SUITE\" / \"ce rythme sur deux exercices consecutifs signale une pression continue\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-K FY2025 : \"As of December 31, 2025, APA employed approximately 1,791 full-time equivalent employees\" ; 10-K FY2024 : \"employed approximately 2,305 full-time equivalent employees\" ; 10-K FY2023 : \"employed approximately 2,271 full-time equivalent employees\"",
+      "correction_proposee": "Les effectifs ont AUGMENTE entre fin 2023 (2 271) et fin 2024 (2 305) avant de chuter a 1 791 fin 2025. Un seul exercice de repli, mais brutal : -22,3%. Retirer \"deux annees de suite\"."
+    },
+    {
+      "affirmation": "Resultat net attribuable 747 M$ au T2 2026 (+23,9%) ; prix realise du petrole +49,8% ; dette financiere 3 743 M$ (-17,8%) et dette nette 3 299 M$ (-25,8%) ; ARO 2 930 M$ (+7,6%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"NET INCOME ATTRIBUTABLE TO COMMON STOCK | $ 747 | $ 603\" ; \"Average Oil Price - Per barrel : Total 98.24 50% 65.58\" (98,24/65,58 = +49,8%) ; bilan 30/06/2026 : dette courante 2 + long terme 3 741 = 3 743 M$, contre 263 + 4 288 = 4 551 M$ au 30/06/2025 (-17,8%) ; ARO 2 723 non courant + 207 courant = 2 930 M$ contre 2 621 + 103 = 2 724 M$ un an plus tot (+7,6%) (10-Q T2 2026 et T2 2025)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"Reserves prouvees totales 1 100 MMboe (+13,5% sur un an)\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-K FY2025, tableau des reserves prouvees au 31/12/2025 : \"Total Proved 509 | 240 | 1,845 | 1,056\" (MMboe). 10-K FY2024 : \"Total Proved 500 | 209 | 1,563 | 969\".",
+      "correction_proposee": "Le total prouve publie est de 1 056 MMboe au 31/12/2025 contre 969 MMboe au 31/12/2024, soit +9,0%. Le chiffre de 1 100 MMboe reprend l'arrondi de redaction du 10-K (\"the volume equivalent of 1.1 billion boe\") et gonfle la variation de 4,5 points."
+    },
+    {
+      "affirmation": "\"elle reflete PRINCIPALEMENT L'INTEGRATION DE L'ACQUISITION CALLON dans le Permien plutot qu'une acceleration organique du remplacement des reserves\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-K FY2025 : \"During 2025, the Company added approximately 100 MMboe from extensions, discoveries, and other additions. (...) The Company realized combined upward revision of previously estimated reserves of 175 MMboe. Upward revisions related to pricing and interest totaled 37 MMboe (...) Engineering and well performance adjustments totaled 138 MMboe in the U.S. and Egypt.\" L'acquisition Callon a ete finalisee le 1er avril 2024 (balise XBRL CallonPetroleumCompanyMember 2024-04-01), donc deja integralement incluse dans la base de 969 MMboe au 31/12/2024.",
+      "correction_proposee": "Callon est dans la base de comparaison depuis fin 2024 et n'explique pas la hausse 2025. Le 10-K attribue celle-ci a 100 MMboe d'extensions et decouvertes et 175 MMboe de revisions positives (dont 138 MMboe de performance de puits), moins 19 MMboe de cessions."
+    },
+    {
+      "affirmation": "\"la TOTALITE du gain vient de la hausse du prix du petrole (+49,8%), pas des volumes\" (hook)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-K FY2025 : \"The Company also recorded lower operating expenses in 2025 compared to the prior-year period, the result of focused cost-reduction efforts\". Le 10-Q T2 2026 cite egalement la baisse des charges operationnelles parmi les moteurs du resultat.",
+      "correction_proposee": "Remplacer \"la totalite du gain\" par \"l'essentiel du gain\" : la hausse du prix realise du brut est le moteur principal, mais la baisse des charges operationnelles y contribue aussi."
+    },
+    {
+      "affirmation": "Couts de restructuration 2026 lies a une reorganisation, apres des departs de salaries lies a des economies de couts en 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"TRS costs incurred in the first six months of 2026 comprised primarily organization restructuring and other consulting and transaction costs. TRS costs incurred in the first six months of 2025 comprised primarily employee separations and other cost-saving initiatives.\" (10-Q T2 2026)",
+      "correction_proposee": null
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "ticker": "WRB",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "HOOK + argument : \"le developpement des reserves reste favorable pour le groupe, mais seulement de 1 M$ au T1 2026\" / \"le developpement net des reserves du groupe reste favorable mais s'est reduit a seulement 1 M$ au T1 2026\", preuve attribuee au 10-Q T2 2026.",
+      "verdict": "FAUX",
+      "verbatim_source": "Dans le document CITE (10-Q T2 2026), le chiffre de 1 M$ concerne l'exercice PRECEDENT : \"During the six months ended June 30, 2025, favorable prior year development (net of additional and return premiums) of $1 million...\". Le chiffre 2026 du meme document est de 3 M$ : \"During the six months ended June 30, 2026, favorable prior year development (net of additional and return premiums) of $3 million included $10 million of favorable prior year development for the Reinsurance & Monoline Excess segment partially offset by $7 million of adverse prior year development for the Insurance segment.\" ; tableau : \"Net favorable prior year development | $ 2,685 | $ 1,483\" (milliers, 2026 vs 2025). Le 1 M$ du T1 2026 existe mais dans un AUTRE document, non cite dans _sources (10-Q T1 2026, data-lake/WRB/10Q/WRB_2026-05-01.htm.gz), qui precise en outre : \"Favorable development, net of additional and return premiums, was $1 million for both the three months ended March 31, 2026 and 2025.\"",
+      "correction_proposee": "Double faute. (1) Source : citer le 10-Q T1 2026 et l'ajouter a _sources, ou basculer sur la donnee fraiche du document reellement cite. (2) Sens inverse : le verbe \"s'est reduit\" est contredit par les deux filings. Le T1 2026 est STABLE (1 M$ au T1 2026 comme au T1 2025) et le semestre s'AMELIORE (3 M$ au S1 2026 contre 1 M$ au S1 2025). Reformuler : \"le developpement net des reserves reste tout juste favorable, a 3 M$ sur le premier semestre 2026 (contre 1 M$ un an plus tot), un solde net qui masque 7 M$ de developpement adverse sur le segment Assurance.\""
+    },
+    {
+      "affirmation": "Le conseil d'administration ne compte que 5 membres, avec 73% d'independance declaree.",
+      "verdict": "FAUX",
+      "verbatim_source": "DEF14A 2026 (data-lake/WRB/DEF14A/WRB_2026-04-22.htm.gz) : \"Majority of Independent Directors: 8 of 11 (with the Election of all Directors Nominated for Election at the Annual Meeting)\" et \"73% independent directors\". Le proxy mentionne aussi \"All directors and executive officers as a group (14 persons)\".",
+      "correction_proposee": "Le conseil compte 11 administrateurs, dont 8 independants (73%). La donnee board_size:5 de data-lake/WRB/gouvernance_fr.json et de governance/extracted.json est fausse et se contredit d'ailleurs elle-meme (73% de 5 = 3,65 administrateurs). Ecrire : \"le conseil compte 11 membres, dont 8 independants (73%)\". Corriger aussi la source amont. NB : l'argument de gouvernance concentree ne repose plus sur la taille du conseil."
+    },
+    {
+      "affirmation": "Le developpement adverse concerne les annees de survenance ... 2021-2022 pour l'auto commercial (presente comme un fait courant 2026).",
+      "verdict": "FAUX",
+      "verbatim_source": "Cette plage d'annees figure uniquement dans le paragraphe COMPARATIF S1 2025 du 10-Q T2 2026 : \"[During the six months ended June 30, 2025...] The adverse commercial auto liability development was concentrated in accident years 2021 and 2022.\" Le paragraphe 2026 du meme 10-Q, comme le 10-Q T1 2026, ne donnent aucune annee de survenance pour l'auto : ils mentionnent seulement \"adverse development for other liability and auto liability\".",
+      "correction_proposee": "Supprimer l'attribution \"2021-2022 pour l'auto commercial\" ou la dater explicitement du premier semestre 2025. Pour 2026, s'en tenir a ce que disent les filings : developpement adverse sur la responsabilite civile generale et l'auto, sans plage d'annees publiee pour l'auto."
+    },
+    {
+      "affirmation": "Au 30 juin 2026, 3,4 Mds$ soit 17,3% des reserves nettes proviennent du segment Reinsurance & Monoline Excess, avec un degre d'incertitude plus eleve.",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Approximately $3.4 billion, or 17.3%, of the Company's net loss reserves as of June 30, 2026 relate to the Reinsurance & Monoline Excess segment. There is a higher degree of uncertainty and greater variability regarding estimates of excess workers' compensation and assumed reinsurance loss reserves, which predominantly comprise these reserves.\" (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Le developpement adverse de responsabilite civile generale concerne les annees de survenance 2019 a 2023.",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"The other liability development was concentrated in accident years 2019 through 2023.\" (10-Q T2 2026, paragraphe S1 2026 ; identique dans le 10-Q T1 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Preuve citee sur l'inflation sociale (2 phrases reliees par [...]).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Les deux phrases sont bien presentes mot a mot dans le 10-Q T2 2026. Nuance : la 1re (\"The Company believes that auto-related claims are being particularly impacted by social inflation...\") figure dans le paragraphe 2026 ; la 2e (\"Social inflation can include higher settlement demands from plaintiffs, use of tactics such as litigation funding by the plaintiffs' bar, negative public sentiment towards large businesses and corporations, and erosion of tort reforms\") ne figure que dans le paragraphe comparatif S1 2025.",
+      "correction_proposee": "Facultatif : signaler que la definition de l'inflation sociale est reprise du paragraphe comparatif 2025. Aucune deformation de sens."
+    },
+    {
+      "affirmation": "MSI detient 15,8% du capital et, via un accord-cadre, un administrateur designe est recommande au conseil ; William R. Berkley detient 23,3%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Pursuant to an arrangement (\"the Framework Agreement\") entered between Mitsui Sumitomo Insurance Co., Ltd. (\"MSI\") and a company owned by members of the Berkley family... as of June 30, 2026, MSI owned 15.8 % of the Company's outstanding common stock... pursuant to the Framework Agreement, the Berkley Family recommended to the Company's Board of Directors (the \"Board\") that MSI's designee be nominated to stand for election to the Board\". DEF14A 2026 : \"William R. Berkley ... 90,998,374 ... 23.3 %\" et \"Mitsui Sumitomo Insurance Co. Ltd. ... 15.7 %\".",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Taux de renouvellement (hors accidents du travail) passe de 8,3% au T1 2025 a 7,2% au T1 2026 ; NWP Reassurance -9,3% a 306,3 M$ au T2 2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "ER T2 2026 : \"Net premiums written | 306,251 | 337,736\" pour Reinsurance & Monoline Excess, soit -9,32%. Taux de renouvellement : kpis-haut/WRB.json, historique Q1-2025 8,3 / Q1-2026 7,2 (last_data_date 2026-03-31).",
+      "correction_proposee": "Le taux de renouvellement n'est pas un verbatim de l'ER T2 2026 (le KPI note lui-meme \"T2 2026: 10-Q non encore depose\"). La preuve mentionne \"verbatim ER T2 2026\" alors que seul le NWP en provient. Preciser la provenance T1."
+    },
+    {
+      "affirmation": "Pertes catastrophes nettes : 111 M$ au T1 2025, 99,2 M$ au T2 2025, 62,4 M$ au T2 2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "ER T2 2026, \"Current accident year losses from catastrophes\" : T2 2026 Insurance 59,784 + Reinsurance 2,584 = 62,368 (62,4 M$) ; T2 2025 77,631 + 21,603 = 99,234 (99,2 M$) ; S1 2025 148,248 + 62,094 = 210,342, moins T2 2025 = 111,108 (111,1 M$).",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "444,3 M$ de moins-values brutes latentes sur 7,64 Mds$ de juste valeur ; AOCI a -640,0 M$ ; 9,83 Mds$ de capitaux propres ; dette totale 2,84 Mds$ soit un levier d'environ 29%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Fixed maturity securities | $ 2,988,258 | $ 28,408 | $ 4,652,566 | $ 415,924 | $ 7,640,824 | $ 444,332\" ; \"Accumulated other comprehensive loss | ( 640,007 )\" ; \"Total stockholders' equity | 9,833,239\" ; \"Subordinated debentures | 1,010,887\" et \"Senior notes and other debt | 1,829,445\" (total 2 840 332, soit 28,9% des capitaux propres).",
+      "correction_proposee": "Nuance de formulation : les \"environ 6,5% de fonds propres immobilises en moins-values non realisees\" correspondent au ratio AOCI/capitaux propres (640,0/9 833,2). Or l'AOCI comprend -322,6 M$ d'ecart de conversion et seulement -317,4 M$ de moins-values de placement. L'ATT le mentionne juste avant, mais la formule finale melange les deux natures."
+    }
+  ]
+}

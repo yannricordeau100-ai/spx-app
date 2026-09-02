@@ -1,0 +1,78 @@
+{
+  "ticker": "DOC",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "hook + quantitatif : \"croissance NOI a perimetre constant de -7,2% au dernier trimestre connu\" / \"-7,2% (laboratoires) contre +2,5% (ambulatoire) au dernier trimestre disponible\"",
+      "verdict": "FAUX",
+      "verbatim_source": ".batches-drafts-safe/kpis-haut/DOC.json, lab_ss_noi_growth : valeur courante -3,2 %, historique ... ('Q4-2025', -0.3), ('Q1-2026', -7.2), ('Q2-2026', -3.2) ; mob_ss_noi_growth : ('Q1-2026', 2.4), ('Q2-2026', 2.5)",
+      "correction_proposee": "Le dernier trimestre publie est le T2-2026 : lab -3,2 % et ambulatoire +2,5 %. Le -7,2 % est le T1-2026. L'ATT accole le pire trimestre labo au trimestre le plus recent de l'ambulatoire. Ecrire : \"-3,2 % pour les laboratoires contre +2,5 % pour l'ambulatoire au T2-2026, apres un point bas a -7,2 % au T1-2026\"."
+    },
+    {
+      "affirmation": "\"La croissance NOI a perimetre constant du segment laboratoires est passee de +7,7% (T4 2024) a -7,2% au dernier trimestre publie, en baisse continue sur 7 trimestres consecutifs\"",
+      "verdict": "FAUX",
+      "verbatim_source": "kpis-haut/DOC.json lab_ss_noi_growth : ('Q4-2024', 4.9), ('Q1-2025', 7.7), ('Q2-2025', 1.5), ('Q3-2025', -3.2), ('Q4-2025', -0.3), ('Q1-2026', -7.2), ('Q2-2026', -3.2)",
+      "correction_proposee": "Deux erreurs. (1) +7,7 % est le T1-2025, pas le T4-2024 (qui vaut +4,9 %). (2) La baisse n'est pas continue : rebond au T4-2025 (-0,3 % apres -3,2 %) et au T2-2026 (-3,2 % apres -7,2 %). Ecrire : \"de +7,7 % au T1-2025 a -3,2 % au T2-2026, avec cinq trimestres consecutifs sous le niveau du T1-2025 et un passage en territoire negatif depuis le T3-2025\"."
+    },
+    {
+      "affirmation": "quantitatif perspective : \"au T1 2025, ou les deux segments evoluaient encore de facon proche (respectivement +1,5% et +3,9%)\"",
+      "verdict": "FAUX",
+      "verbatim_source": "kpis-haut/DOC.json : lab ('Q1-2025', 7.7), ('Q2-2025', 1.5) ; ambulatoire ('Q1-2025', 5.0), ('Q2-2025', 3.9)",
+      "correction_proposee": "+1,5 % et +3,9 % sont les valeurs du T2-2025, pas du T1-2025 (qui vaut +7,7 % et +5,0 %). Corriger le libelle du trimestre."
+    },
+    {
+      "affirmation": "\"La charge d'interets consolidee est passee de 145,9 M$ a 178,9 M$ sur le premier semestre (T1+T2 2026 vs periode comparable), soit +22,6%\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2-2026, compte de resultat consolide, ligne \"Interest expense\" : 92,280 / 75,063 (3 mois) et 179,572 / 147,756 (6 mois). Les chaines \"178,9\" et \"145,9\" sont absentes du 10-Q ; kpis-haut interest_expense donne Q1-2026 87,3 + Q2-2026 92,3 = 179,6 et Q1-2025 72,7 + Q2-2025 75,1 = 147,8.",
+      "correction_proposee": "\"de 147,8 M$ a 179,6 M$ sur le premier semestre, soit +21,5%\". Les deux montants cites sont introuvables dans la source."
+    },
+    {
+      "affirmation": "\"le nombre de proprietes du segment ambulatoire est passe de 527 a 484 sur la periode comparee\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2-2026, tableau segment ambulatoire, ligne \"Property count (3)\" : 484 | 484 | 501 | 527 (3 mois) et 481 | 481 | 501 | 527 (6 mois). Les deux premieres colonnes sont le perimetre same-store (identique par construction dans les deux periodes), les deux dernieres le portefeuille total 2026 puis 2025.",
+      "correction_proposee": "Le portefeuille ambulatoire total est passe de 527 a 501 proprietes (-26). 484 est le nombre d'actifs same-store, identique sur les deux periodes, et ne peut pas etre compare a 527."
+    },
+    {
+      "affirmation": "resume + quantitatif : \"La scission de la filiale logement senior Janus Living en 2026 change aussi le perimetre du groupe\" / \"la consolidation initiale de Janus Living avant sa scission\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2-2026, Note 1 : \"On March 23, 2026, Janus Living, Inc. ... completed its initial public offering (the \"Janus Living IPO\") to become a public company\" ; \"As of June 30, 2026, Healthpeak's ownership ... provides Healthpeak with voting and economic rights of 73.6 % of Janus Living. Janus Living is externally managed by Healthpeak Investment Management, LLC, an indirect subsidiary of the Company, and is consolidated by Healthpeak.\" ; \"As of June 30, 2026, Janus Living public investors represent a 26.4 % interest in Janus Living, a consolidated subsidiary of Healthpeak\". Le 10-K ne parle que de \"Janus Living Offering\", jamais d'une scission. risks/extracted.json : \"Risques lies a l'introduction en bourse de Janus Living\".",
+      "correction_proposee": "Il ne s'agit pas d'une scission mais d'une introduction en bourse d'une participation minoritaire : Healthpeak conserve 73,6 % des droits de vote et economiques et continue de consolider Janus Living (interets minoritaires publics de 26,4 %, 979 M$ au bilan). Le perimetre du groupe n'a pas ete reduit. Reecrire : \"l'introduction en bourse de la filiale logement senior Janus Living en mars 2026, qui reste consolidee a 73,6 %\"."
+    },
+    {
+      "affirmation": "\"a decrease in Adjusted NOI generated from our lab segment related to: (i) lower occupancy, (ii) dispositions of real estate in 2026, and (iii) assets placed into development and redevelopment in 2025\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2-2026 : texte identique mot a mot, suivi de \"partially offset by: (i) development and redevelopment projects placed in service during 2025 and 2026 and (ii) new leasing activity during 2025 and 2026\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dividende trimestriel fige a 0,305 $ (0,610 $ sur 6 mois) et \"Cumulative dividends in excess of earnings (6,129,129) (5,952,920)\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2-2026 : \"During each of the three months ended June 30, 2026 and 2025, the Company declared and paid common stock cash dividends of $ 0.305 per share. During each of the six months ended June 30, 2026 and 2025, the Company declared and paid common stock cash dividends of $ 0.610 per share.\" ; bilan : \"Cumulative dividends in excess of earnings ( 6,129,129 ) ( 5,952,920 )\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Vente en mars 2026 de 80% de six immeubles ambulatoires pour 163 M$, participation residuelle de 20%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2-2026 : \"In March 2026, the Company sold an 80 % interest in six outpatient medical buildings to a third party for net proceeds of $ 163 million and formed two JVs... recognizing its retained 20 % investment in the JVs at fair value\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette consolidee ~10,03 Mds $ (1,50 + 1,65 + 6,79 + 0,10), capitaux propres totaux 9,47 Mds $, total bilan 21,68 Mds $ vs 20,34 Mds $ (+6,6%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2-2026, bilan : Bank line of credit and commercial paper 1,495,994 ; Term loans 1,646,282 ; Senior unsecured notes 6,785,697 ; Mortgage debt 104,213 (somme 10,032,186) ; Total equity 9,470,745 ; Total assets 21,680,046 vs 20,336,018",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Reglementaire/risques 10-K : concentration sectorielle, dependance RIDEA, dependance Medicare/Medicaid",
+      "verdict": "CONFORME",
+      "verbatim_source": "data-lake/DOC/_risks_src.txt (10-K DOC_2026-02-03, Item 1A) : \"our concentration of real estate investments in the healthcare property sector, which makes us more vulnerable to a downturn in that specific sector than if we invested across multiple sectors\" ; risks/extracted.json titres \"Dependance aux operateurs tiers pour le logement senior (RIDEA)\" et \"Evolution des programmes de remboursement Medicare et Medicaid\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "\"occupation stable autour de 92%\" (ambulatoire)",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut mob_occupancy 91,9 % au T2-2026 ; 10-Q \"End of period occupancy 91.9% ... 92.4%\"",
+      "correction_proposee": ""
+    }
+  ]
+}

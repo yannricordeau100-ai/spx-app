@@ -1,0 +1,67 @@
+{
+  "ticker": "TDG",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/TDG/10Q/TDG_2026-08-04.htm.gz ; data-lake/TDG/10K/TDG_2025-11-12.htm.gz",
+  "controles": [
+    {
+      "affirmation": "hook : \"TransDigm a verse plus d'interets (514 M$) que ce qu'il lui restait de benefice net (540 M$) sur le seul dernier trimestre\"",
+      "verdict": "FAUX",
+      "verbatim_source": "INTEREST EXPENSE-NET | 514 | ... NET INCOME | 540 (10-Q T3 FY2026, treize semaines closes le 27 juin 2026)",
+      "correction_proposee": "514 M$ est INFERIEUR a 540 M$. Le corps de l'ATT dit d'ailleurs correctement \"95% du benefice net\". Reformuler : \"a verse en interets (514 M$) l'equivalent de 95% de son benefice net trimestriel (540 M$)\"."
+    },
+    {
+      "affirmation": "\"une partie de cette dette (1,7 Md $ ... emises en fevrier puis avril 2026) a servi a financer les rachats de JPE et VSA ainsi que l'acquisition annoncee de Stellant\" + ce_qui_affaiblirait : \"L'abandon ou le financement par capitaux propres de futures acquisitions comme Stellant\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"On July 13, 2026, the Company announced that it elected to withdraw from its proposed acquisition of Stellant Systems, Inc.\" ; \"The Company intended to use the net proceeds from the April 17, 2026 issuances ... to fund the purchase price of the proposed acquisition of Stellant ... Notwithstanding the July 13, 2026 announcement that the Company elected to withdraw ... there was no special mandatory redemption of the April 17, 2026 debt issuances and they remain outstanding.\"",
+      "correction_proposee": "Stellant a ete ABANDONNE le 13 juillet 2026, soit avant la date d'arret des donnees (04/08/2026). Les 1,2 Md$ de fevrier ont finance JPE et VSA ; les 500 M$ d'avril etaient DESTINES a Stellant, projet retire, et la dette reste au bilan sans emploi affecte. C'est un argument plus fort que celui ecrit, mais il faut le dire correctement."
+    },
+    {
+      "affirmation": "\"Les filiales de TransDigm sont periodiquement soumises a des audits du Departement de la Defense americain sur le caractere juste et raisonnable de leurs prix\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"Our subsidiaries are periodically subject to pricing reviews and government buying agencies that purchase some of our subsidiaries' products are periodically subject to audits by the U.S. Department of Defense (\"DOD\") with respect to prices paid for such products.\" (10-K FY2025)",
+      "correction_proposee": "L'ellipse du verbatim cite dans l'ATT (\"pricing reviews and ... audits by the DOD\") supprime le sujet reel : ce sont les AGENCES D'ACHAT gouvernementales qui sont auditees par le DOD, pas les filiales de TransDigm. Les filiales sont soumises a des \"pricing reviews\". Reformuler : \"Les filiales font l'objet de revues tarifaires periodiques, et les agences d'achat de l'Etat qui achetent leurs produits sont periodiquement auditees par le DOD sur les prix payes.\""
+    },
+    {
+      "affirmation": "Deficit des capitaux propres de 9 809 M$ au 27 juin 2026 contre 9 686 M$ au 30 septembre 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"TD Group stockholders' deficit | (9,809) | (9,686)\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette totale passee de 30 015 M$ a 33 485 M$ en neuf mois (+3,47 Mds$)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total debt (1) | 33,485 | 30,015\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Aucun covenant de maintien hors revolver ; levier max 7,50x declenche au-dela de 40% de tirage",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"With the exception of the revolving credit facility, the Company has no maintenance covenants in its existing term loan and indenture agreements. Under the Credit Agreement, if the usage of the revolving credit facility exceeds 40% (or, currently, $364 million) ... maximum consolidated net leverage ratio ... of 7.50x (or, solely with respect to the first four fiscal quarters ending after the consummation of any material acquisition, 8.00x)\"",
+      "correction_proposee": "Exact. Signaler pour completude que le plafond monte a 8,00x pendant les quatre trimestres suivant une acquisition significative."
+    },
+    {
+      "affirmation": "Defense = 41,9% des ventes du dernier trimestre",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Defense | 733 | 415 | 1,148\" sur NET SALES 2,741 => 41,88%",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Tresorerie 2 773 M$ contre 2 808 M$ au 30 septembre 2025 ; dette nette ~30,7 Mds$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Cash and cash equivalents | $2,773 | $2,808\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Croissance OEM commerciale liee aux cadences Boeing et Airbus",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Commercial OEM sales increased in the first nine months of fiscal 2026 compared to fiscal 2025 primarily due to the aircraft production increases by Boeing and Airbus.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "40% du CA sur les 10 premiers clients, contre 42% l'exercice precedent",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Our top ten customers for fiscal year 2025 accounted for approximately 40% of our net sales. ... None of our customers individually accounted for greater than 10% of our net sales for fiscal year 2025.\" (10-K FY2025) ; 42% en FY2024 confirme par kpis-haut",
+      "correction_proposee": "Chiffres exacts, mais la perspective \"un niveau reste eleve\" presente une BAISSE de 2 points comme une stabilite, et omet qu'aucun client ne depasse 10% des ventes. Nuancer."
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "ticker": "MBG.DE",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/MBG.DE/ir/RFS/MBG.DE_RFS_S1-2026_2026-07-27.txt.gz ; data-lake/MBG.DE/ir/URD/MBG.DE_URD_FY2025_2026-02-28.txt.gz ; data-lake/MBG.DE/risks/extracted.json ; .batches-drafts-safe/kpis-haut/MBG.DE.json",
+  "controles": [
+    {
+      "affirmation": "En juillet 2026, la Haute Cour d'Angleterre et du Pays de Galles a juge qu'une des dix fonctions contestees constituait un DISPOSITIF DE FRAUDE ILLEGAL, les neuf autres ayant ete jugees legales, le jugement n'etant pas definitif et sujet a appel.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "The court held that nine of the ten contested functions alleged to constitute unlawful defeat devices were lawful, while one function was found to be unlawful. However, with regard to the function deemed unlawful, THE COURT HAS NOT YET RULED ON ANY CLAIMED DAMAGES. The court further found that THERE WAS NEITHER INTENT NOR ANY INTENTION TO DECEIVE, and that the function in question - which was subsequently deactivated through a software update - DID NOT RESULT IN ANY REDUCTION OF EMISSIONS CONTROL. The judgment is not yet final and remains subject to appeal.",
+      "correction_proposee": "Remplacer 'dispositif de fraude illegal' par 'dispositif d'invalidation (defeat device) juge illicite'. Le tribunal a explicitement conclu a l'ABSENCE d'intention de tromper, a l'absence de reduction du controle des emissions et n'a PAS statue sur les dommages. Ces trois nuances doivent figurer, sinon l'affirmation transforme une illegalite technique en fraude."
+    },
+    {
+      "affirmation": "Un accord de principe a ete conclu en 2025 avec des autorites americaines pour un montant de l'ordre de PLUSIEURS CENTAINES DE MILLIONS D'EUROS.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "in the third quarter of 2025, Mercedes-Benz Group reached an agreement in principle with US STATE AUTHORITIES to settle claims under local environmental and consumer protection laws ... the Mercedes-Benz Group expects the total costs for these settlements to reach A LOW THREE-DIGIT MILLION-EURO AMOUNT.",
+      "correction_proposee": "'low three-digit million-euro amount' = un montant a trois chiffres BAS en millions, soit de l'ordre de la centaine de millions d'euros, pas 'plusieurs centaines de millions'. Preciser aussi 'autorites d'Etats americains' (US state authorities) et non 'autorites americaines' au sens federal."
+    },
+    {
+      "affirmation": "Ce risque porte le score interne le plus eleve (5 sur 5) du REFERENTIEL DE RISQUES DU GROUPE.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "data-lake/MBG.DE/risks/extracted.json : le score 5 est attribue par l'extraction interne Mettrik ('Juridique — Procedures judiciaires et contentieux diesel'), seul a 5 sur les 7 risques. Le rapport annuel de Mercedes-Benz ne publie pas de note sur 5 ; il classe les risques en niveaux (High/Medium/Low).",
+      "correction_proposee": "Ecrire 'le score le plus eleve de notre grille interne de risques (5/5)' et non 'du referentiel de risques du groupe', qui laisse croire a une notation publiee par Mercedes-Benz."
+    },
+    {
+      "affirmation": "Une procedure collective (KapMuG) reste pendante devant la cour d'appel de Stuttgart depuis 2021.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Since 2021, model case proceedings under the German Act on Model Case Proceedings in Disputes under Capital Markets Law (KapMuG) (model case proceedings) have been pending before the Stuttgart Higher Regional Court in this context. Multiple investors have used the possibility to register claims ... (URD FY2025)",
+      "correction_proposee": "Nuance : la procedure KapMuG est une action d'INVESTISSEURS (droit des marches de capitaux), pas de clients. Le glossaire de l'ATT la definit a tort comme regroupant 'les plaintes similaires deposees par de nombreux clients' : a corriger en 'par de nombreux investisseurs'. Ne pas la confondre avec la Musterfeststellungsklage consommateurs (Stuttgart 2021, largement accueillie en mars 2024, desormais en appel devant la Cour federale de justice)."
+    },
+    {
+      "affirmation": "En mars 2026, la Cour federale de justice allemande a rejete un recours distinct visant l'interdiction de vente de vehicules thermiques apres 2030.",
+      "verdict": "CONFORME",
+      "verbatim_source": "in 2021, individual persons associated with Deutsche Umwelthilfe e.V. (DUH) had filed a lawsuit before the Stuttgart Regional Court against Mercedes-Benz AG. They claimed injunctive relief, demanding that Mercedes-Benz AG refrain from distributing passenger cars with combustion engines after November 2030 ... In March 2026, the German Federal Court of Justice finally dismissed the claim.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Marge ajustee (RoS) Mercedes-Benz Cars a 4,0 % au T2 2026 contre 5,1 % au T2 2025 ; EBIT ajuste 909 M EUR contre 1 228 M EUR (-26 %) ; 14,6 % en 2022 a 5,0 % en 2025.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Rapport semestriel 2026, Financial key figures of the segments : 'Adjusted EBIT 909 / 1,228 / -26' ; 'Adjusted return on sales (in %) 4.0 / 5.1'. kpis-haut ROS-AJ-CARS : FY2022 14.6, FY2025 5.0.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "4,0 % est le plus bas niveau depuis la scission de Daimler Truck, contre 16,4 % au T1 2022, plus haut niveau publie depuis cette scission.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "kpis-haut ROS-AJ-CARS-T : Q1-2022 16.4 ... Q2-2026 4.0. La serie trimestrielle disponible ne contient AUCUN quatrieme trimestre (Q4-2022 a Q4-2025 absents) ni Q4-2021.",
+      "correction_proposee": "L'affirmation 'plus haut'/'plus bas depuis la scission' n'est pas verifiable sur la serie disponible, amputee de tous les T4. Ecrire 'le plus bas des trimestres publies dans notre serie' ou completer la serie avant de publier le superlatif."
+    },
+    {
+      "affirmation": "Ventes Chine -30 % au T2 2026 a 98 624 vehicules et -28 % sur le semestre a 210 245 ; Europe +4 %/+5 %, Amerique du Nord +13 %/+15 %.",
+      "verdict": "CONFORME",
+      "verbatim_source": "thereof China3 98,624 / 140,397 / -30 / 210,245 / 293,172 / -28 ; Europe1 166,433 / 159,682 / +4 / 324,976 / 308,348 / +5 ; North America2 91,338 / 80,622 / +13 / 180,927 / 157,529 / +15",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Free cash flow ajuste industriel -35 % au T2 (1 276 contre 1 976 M EUR) et -6 % sur le semestre (4 116 contre 4 381) ; tresorerie nette industrielle -1,7 Md a 30,4 Mds ; dividendes 3 355 M EUR (3,50 EUR/action pour 2025).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Adjusted free cash flow of the industrial business 1,276 / 1,976 / -35 / 4,116 / 4,381 / -6 ; Net liquidity of the industrial business 30,434 / 32,162 / -5 ; 'A dividend of EUR3.50 per share entitled to a dividend was decided for the 2025 financial year' ; Dividends paid -3,355.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Offensive de productivite pour l'Allemagne lancee en juin 2026 : report a 2027 d'un paiement de transformation prevu en juillet 2026, temps de travail augmente sans compensation, sans impact significatif a ce stade.",
+      "verdict": "CONFORME",
+      "verbatim_source": "the Board of Management of Mercedes-Benz Group AG launched the productivity offensive for Germany in June 2026 ... more working hours without additional pay. In addition to postponing the so-called transformation component - a payment originally scheduled for July 2026 - to 2027, the continuation of other compensation components and special payments is also currently being reviewed. The actions already decided upon have no significant impact on the Group's profitability, cash flows and financial position.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Prevision de CA abaissee de 'At the prior-year level' a 'Slightly below the prior-year level' au 30 juin 2026 ; prevision d'EBIT inchangee a 'Significantly above the prior-year level'.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Outlook for the key performance indicators : Revenue — At the prior-year level / - / Slightly below the prior-year level ; EBIT — Significantly above the prior-year level / - / - ; Mercedes-Benz Cars Unit sales — At the prior-year level / - / Slightly below the prior-year level.",
+      "correction_proposee": ""
+    }
+  ]
+}

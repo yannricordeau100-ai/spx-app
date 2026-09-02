@@ -1,0 +1,84 @@
+{
+  "ticker": "TEL",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Le 10-K cite explicitement \"the evolving regulatory system in China\" parmi les facteurs de risque macro et geopolitiques",
+      "verdict": "CONFORME",
+      "verbatim_source": "global risks of political, economic, and military instability, including the continuing military conflicts in certain parts of the world, and volatile and uncertain economic conditions and the evolving regulatory system in China; (10-K FY2025, section Forward-Looking Information, renvoyant a Item 1A Risk Factors)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "\"Transportation Solutions Our net sales decreased 1.0% in fiscal 2025\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "Transportation Solutions -Our net sales decreased 1.0% in fiscal 2025 due primarily to sales declines in the sensors and commercial transportation end markets. (10-K FY2025)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Un quart du chiffre d'affaires depend de la Chine : 4 610 M$ soit 26,7% du total FY2025",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Chine 4,610 / total 17,262 (10-K FY2025) MAIS note de bas de tableau : \"Net sales to external customers are attributed to individual countries based on the legal entity that records the sale.\"",
+      "correction_proposee": "Le chiffre est exact mais il mesure les ventes comptabilisees par les entites juridiques chinoises, pas la demande finale chinoise. Reformuler : \"4 610 M$ de ventes ont ete enregistrees par les entites chinoises du groupe en FY2025, soit 26,7% du total ; le 10-K precise que l'affectation geographique se fait selon l'entite qui enregistre la vente, une part de ces ventes correspondant a de la production exportee.\" Retirer \"depend de la Chine\" comme marche final."
+    },
+    {
+      "affirmation": "Le groupe a emis pour 750 M$ d'obligations senior SUPPLEMENTAIRES depuis le debut de l'exercice, en partie pour financer les rachats d'actions",
+      "verdict": "EXAGERE",
+      "verbatim_source": "During the nine months ended June 26, 2026, [TEGSA] issued $200 million ... of 4.50% senior notes due in February 2031 and $550 million ... of 4.875% senior notes due in February 2036. / During the nine months ended June 26, 2026, TEGSA repaid, at maturity, $500 million of 4.50% senior notes and $350 million of 3.70% senior notes, both due in February 2026.",
+      "correction_proposee": "Le mot \"supplementaires\" est faux : 750 M$ emis mais 850 M$ rembourses a echeance sur la meme periode, soit une emission nette NEGATIVE de 100 M$. Reformuler : \"le groupe a emis 750 M$ d'obligations senior et en a rembourse 850 M$ a echeance sur les neuf mois.\" La hausse de la dette long terme vient du reclassement et du papier commercial, pas d'emissions nettes."
+    },
+    {
+      "affirmation": "1 348 M$ de rachats d'actions sur neuf mois, un montant SUPERIEUR au flux de tresorerie disponible genere sur la meme periode (2,2 Mds $)",
+      "verdict": "FAUX",
+      "verbatim_source": "Repurchase of ordinary shares (1,348) ; Net cash provided by operating activities 2,997 ; Capital expenditures (832) -> FCF = 2 165 M$ (10-Q Q3 FY2026)",
+      "correction_proposee": "Contradiction arithmetique interne : 1 348 M$ est INFERIEUR a 2 165 M$. Les rachats representent 62% du FCF, ils ne le depassent pas. Supprimer l'affirmation et l'item correspondant de \"ce_qui_affaiblirait\" (\"Les rachats d'actions redeviennent inferieurs au FCF\"), qui repose sur la meme premisse fausse."
+    },
+    {
+      "affirmation": "Les charges d'interets NETTES ont quasiment double, de 48 M$ a 93 M$",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Ligne du 10-Q intitulee \"Interest expense\" : 93 (9M FY2026) contre 48 (9M FY2025). Le 10-Q presente separement une ligne \"Interest income\".",
+      "correction_proposee": "Retirer \"nettes\" : il s'agit de la charge d'interets brute. Ecrire \"les charges d'interets sont passees de 48 M$ a 93 M$\"."
+    },
+    {
+      "affirmation": "Ratio de remuneration patronale de 621:1 (CEO 18,33 M$ contre mediane employes 29 529 $), score de bonus corporate 132,4%",
+      "verdict": "CONFORME",
+      "verbatim_source": "the newly identified median employee had an annual total compensation of $29,529 ... The annual total compensation for our CEO, Mr. Curtin, was $18,325,536 ... the ratio of CEO to median employee compensation is 621:1. / bonus score of 132.4% (DEF 14A depose le 2026-01-15)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "L'approbation actionnariale de cette remuneration reste elevee, a 91,07% des votes exprimes lors de l'AGM de MARS 2026",
+      "verdict": "FAUX",
+      "verbatim_source": "In fiscal year 2025, approximately 91.07% of votes cast approved the compensation of our named executive officers (DEF 14A depose le 2026-01-15)",
+      "correction_proposee": "Mauvaise assemblee : le DEF 14A a ete depose le 15 janvier 2026, AVANT l'AGM du 11 mars 2026 qu'il convoque justement (le Say on Pay y figure comme point 3 a voter). Le 91,07% se rapporte au vote de l'exercice fiscal 2025, tenu a l'AGM de mars 2025. Ecrire : \"91,07% des votes exprimes lors du vote consultatif de l'exercice 2025\"."
+    },
+    {
+      "affirmation": "[Ratio de remuneration] En hausse de 8,8% sur un an",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Aucune occurrence de 8,8% ni de ratio de l'exercice precedent dans le DEF 14A 2026-01-15. Le DEF 14A precise au contraire : \"As the previously identified median employee had been used for three consecutive years, a new median employee was selected for fiscal year 2025.\"",
+      "correction_proposee": "Le +8,8% provient du champ interne comp_vs_prior_year_pct de src/data/v2-pipeline/tel.json, qui mesure la variation de la REMUNERATION du CEO, pas celle du RATIO. Le DEF 14A ne publie pas de ratio comparatif et signale un changement d'employe median en 2025, ce qui rend toute comparaison annuelle du ratio non pertinente. Supprimer \"En hausse de 8,8% sur un an\" ou le requalifier explicitement en variation de la remuneration du dirigeant."
+    },
+    {
+      "affirmation": "Transportation T3 FY2026 : CA +6,7%, resultat operationnel -3,9% a 444 M$, marge 17,2% (-1,9 pt)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Operating income 444 / 462 ; Operating margin 17.2% / 19.1% (trimestre) MAIS memes colonnes neuf mois : Operating income 1,448 / 1,353 (+7,0%) ; Operating margin 19.4% / 19.4% (10-Q Q3 FY2026)",
+      "correction_proposee": "Les chiffres trimestriels sont exacts mais le meme tableau montre, sur neuf mois, un resultat operationnel Transportation en HAUSSE de 7,0% et une marge STABLE a 19,4%. Le titre \"voit sa rentabilite reculer\" generalise un seul trimestre. Ajouter la donnee neuf mois pour ne pas laisser croire a une degradation etablie."
+    },
+    {
+      "affirmation": "Dette long terme 4 842 M$ -> 5 530 M$ (+14,2%), tresorerie 1 239 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Long-term debt 5,530 / 4,842 ; tresorerie 1,239 (10-Q Q3 FY2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Digital data networks +48,8% sur neuf mois, de 1 501 M$ a 2 234 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Digital data networks 813 / 606 (trimestre) ; 2,234 / 1,501 (neuf mois) (10-Q Q3 FY2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Industrial Solutions : marge +2,1 pts a 20,8%, resultat operationnel +35,9%",
+      "verdict": "CONFORME",
+      "verbatim_source": "Operating income 537 / 395 ; Operating margin 20.8% / 18.7% (10-Q Q3 FY2026)",
+      "correction_proposee": ""
+    }
+  ]
+}

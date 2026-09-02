@@ -1,0 +1,104 @@
+{
+  "ticker": "DTG.DE",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/DTG.DE/ir/RFS/DTG.DE_RFS_S1-2026_2026-08-07.txt.gz + data-lake/DTG.DE/ir/URD/DTG.DE_URD_FY2025_2026-03-12.txt.gz",
+  "note": "Les sous-dossiers SEC de data-lake/DTG.DE (10K, 10Q, 8K, DEF14A, 424B, SC13G, xbrl) contiennent les filings de DTE Energy et non de Daimler Truck (fichier _WRONG_COMPANY.txt). L'ATT le signale correctement et ne les utilise pas. Verification faite exclusivement sur les documents IR.",
+  "controles": [
+    {
+      "affirmation": "Une decision de la Commission europeenne de juillet 2016 a inflige une amende de 1,09 Md EUR a Daimler AG, ancienne maison mere, integralement payee en 2016",
+      "verdict": "CONFORME",
+      "verbatim_source": "The fine imposed against Mercedes-Benz Group AG amounted at the time to EUR 1.09 billion and was paid in full in 2016. ; \"... by the European Commission's settlement decision amounted to EUR 1.09 billion and was fully paid in 2016.\"",
+      "correction_proposee": "Exact sur le fond (Daimler AG a ete renommee Mercedes-Benz Group AG en 2022, meme entite juridique). Pour coller au document, l'URD nomme l'entite \"Mercedes-Benz Group AG\" : mentionner \"Daimler AG, devenue Mercedes-Benz Group AG\"."
+    },
+    {
+      "affirmation": "Des actions en dommages, y compris des actions de groupe, sont pendantes ou ont ete engagees dans une vingtaine de pays dont l'Allemagne, le Royaume-Uni, les Pays-Bas et l'Espagne",
+      "verdict": "CONFORME",
+      "verbatim_source": "In addition to the cartel infringement described above, the substantial claims (including certain types of class actions or aggregator claims) are pending or have been initiated in Germany, the United Kingdom, ... in certain other European countries and in Israel (in a total of approximately 20 countries).",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Le document annuel evalue ce risque a impact eleve et probabilite moyenne, la probabilite la plus haute de tout le chapitre risques avec le risque de marche",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "As in the previous year, the legal risks continue to be assessed as having a \"high\" impact and a \"medium\" probability of occurrence. Further information on legal proceedings can be found in Note 31. Legal Proceedings.",
+      "correction_proposee": "La notation impact eleve / probabilite moyenne est CONFORME, mais elle porte sur la categorie \"legal risks\" dans son ensemble, pas sur le seul contentieux de l'entente camions. Surtout, le superlatif \"la probabilite la plus haute de tout le chapitre risques\" n'est enonce nulle part dans l'URD : c'est une deduction du redacteur a partir du tableau, non une affirmation du document. Supprimer le superlatif ou le presenter explicitement comme une lecture du tableau B.113."
+    },
+    {
+      "affirmation": "Le risque de marche : \"General market risks continue to be rated as high\", probabilite relevee de faible a medium",
+      "verdict": "EXAGERE",
+      "verbatim_source": "As in the prior year, general market risks continue to be rated as \"high\". The probability of occurrence has changed to \"medium\".",
+      "correction_proposee": "L'URD dit seulement que la probabilite \"a change\" vers medium ; il n'indique pas le niveau de depart. Le \"de faible a\" est une inference non sourcee. Reformuler : \"la probabilite d'occurrence a ete portee a medium\"."
+    },
+    {
+      "affirmation": "Le risque de cybersecurite passe d'un impact classe moyen a eleve sur la meme periode",
+      "verdict": "CONFORME",
+      "verbatim_source": "... [informati]on technology risks are classified as \"high\" in terms of their potential impact, compared to \"medium\" in the previous year. The probability of occurrence is still considered \"low\".",
+      "correction_proposee": "Exact. Nuance : la categorie de l'URD est \"information technology risks\" (risques informatiques), un perimetre plus large que la seule cybersecurite."
+    },
+    {
+      "affirmation": "Le risque de change a ete releve de faible a eleve d'une annee sur l'autre, la probabilite d'occurrence restant faible ; verbatim cite : \"[Currency risk] has increased from low to high, while the probability of occurrence remains low.\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Aucune occurrence de \"from low to high\", \"remains low\" ni d'une phrase equivalente sur le risque de change dans data-lake/DTG.DE/ir/URD/DTG.DE_URD_FY2025_2026-03-12.txt.gz. Les seules mentions du risque de change dans l'URD portent sur la couverture (\"currency risk exposures are continuously hedged using suitable financial instruments (predominantly currency forwards)\"), sans notation impact/probabilite.",
+      "correction_proposee": "Retirer ce verbatim ou le remplacer par une citation reellement presente dans l'URD. Le passage cite n'a pas ete retrouve dans le document source (extraction texte du PDF, tableaux B.111/B.112 compris). A defaut de verification sur le PDF d'origine, retirer l'affirmation."
+    },
+    {
+      "affirmation": "Le resultat net des activites poursuivies tombe a 277 M EUR au S1 2026 contre 994 M EUR un an plus tot (-72%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "The net profit from continuing operations after tax amounted to EUR 277 million in the first half of 2026 (Q1-2 2025: EUR 994 million).",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Le benefice net du T2 2026 de 1 468 M EUR comprend 1 340 M EUR de gain lie a la sortie de Mitsubishi Fuso, contre 65 M EUR un an plus tot",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net profit of EUR 1,468 million for the second quarter of 2026 ... The net profit from discontinued operations after tax amounted to EUR 1,340 million (Q2 2025: EUR 65 million) and resulted from the deconsolidation of Mitsubishi Fuso and its fully consolidated subsidiaries in the second quarter of 2026.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Depreciation supplementaire de 297 M EUR sur la portion de l'investissement NON DEDUCTIBLE FISCALEMENT",
+      "verdict": "EXAGERE",
+      "verbatim_source": "During the second quarter of 2026, an impairment loss of ... EUR 297 million was recognized on the portion of investment in ARCHION THAT IS NOT HELD FOR SALE. ; separement : \"In the second quarter of 2026, an impairment loss on the investment in ARCHION which cannot be recognized for tax purposes had an increasing effect on the effective tax rate.\"",
+      "correction_proposee": "Le rapport rattache les 297 M EUR a la portion de l'investissement ARCHION NON DETENUE EN VUE DE LA VENTE (\"not held for sale\"), pas a une portion \"non deductible fiscalement\". La non-deductibilite fiscale fait l'objet d'une phrase distincte expliquant l'effet sur le taux d'impot. Le verbatim de l'ATT coud les deux passages. Reformuler : \"une depreciation supplementaire de 297 M EUR sur la portion de la participation ARCHION non detenue en vue de la vente ; cette depreciation, non deductible fiscalement, a fait grimper le taux d'imposition effectif.\""
+    },
+    {
+      "affirmation": "Depreciation de 222 M EUR sur les actions ARCHION detenues en vue de la vente",
+      "verdict": "CONFORME",
+      "verbatim_source": "This included a special item of -EUR 222 million from the impairment of the shares in ARCHION held for sale since April 01, 2026.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Taux d'imposition effectif de 67,5% au T2 2026 contre 39,2% un an plus tot",
+      "verdict": "CONFORME",
+      "verbatim_source": "The effective tax rate was significantly higher than the previous year at 67.5% (Q2 2025: 39.2%). ; tableau : \"Effective tax rate 67.5% 39.2% 60.5% 30.8%\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Charge de 266 M EUR au T2 2026 liee aux provisions du programme Cost Down Europe",
+      "verdict": "CONFORME",
+      "verbatim_source": "In the second quarter of 2026, an expense of EUR 266 million (Q2 2025: expense of EUR 158 million) was recognized under ... creation of provisions in connection with the restructuring and efficiency program \"Cost Down Europe\".",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Les prises de commandes du T2 2026 reculent de 15,6% sur un an a 74 448 unites, inferieures de 33% aux 111 412 commandes du T2 2022",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Ni 74 448 ni 88 241 (T2 2025 implicite) ne figurent dans data-lake/DTG.DE/ir/RFS/DTG.DE_RFS_S1-2026_2026-08-07.txt.gz : le rapport semestriel ne publie pas d'agregat groupe de prises de commandes dans le texte extrait. Le chiffre provient de .batches-drafts-safe/kpis-haut/DTG.DE.json (CMD-T value 74448, yoy -15,6%, history Q2-2025 = 88241 : le calcul est coherent avec l'historique). ALERTE : le champ \"signal\" de ce meme KPI affirme l'inverse : \"74 448 unites commandees au 2e trimestre 2026, EN HAUSSE DE 27% SUR UN AN. Sur le premier semestre les prises de commandes bondissent de 40% a 188 491 unites\". Le RFS va d'ailleurs dans le sens d'une amelioration : \"improved order intake at the end of the previous year and in the first quarter of 2026\" et \"a build-up arising from higher order intake\".",
+      "correction_proposee": "Ne pas publier ce chiffre en l'etat. Le fichier KPI source se contredit lui-meme (yoy -15,6% contre un texte de synthese annoncant +27% sur un an et +40% sur le semestre, alors que l'historique donne un S1 2026 a 188 491 contre 191 392 en S1 2025, soit -1,5%). Verifier 74 448 et 88 241 sur le PDF du rapport semestriel ou le communique avant tout usage. L'argument \"le marche du vehicule industriel se retourne\" et le bloc quantitatif n 3 reposent entierement sur ce chiffre."
+    },
+    {
+      "affirmation": "422 510 vehicules vendus sur l'exercice 2025, en baisse de 8% sur un an",
+      "verdict": "CONFORME",
+      "verbatim_source": ".batches-drafts-safe/kpis-haut/DTG.DE.json : VENTES-A value 422510, yoy -8,2%, history FY2024 = 460409",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Dividende stable a 1,9 EUR pour 2025 alors que le BPA annuel recule de 29,7% a 2,56 EUR ; taux de distribution passant d'environ 52% a environ 74%",
+      "verdict": "CONFORME",
+      "verbatim_source": ".batches-drafts-safe/kpis-haut/DTG.DE.json : BPA-A value 2.56 yoy -29,7% ; DIV-A 1,9 EUR yoy +0,0%. Calcul verifie : 1,9/2,56 = 74,2% ; 1,9/3,64 (BPA FY2024 implicite) = 52,2%.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Marge operationnelle ajustee de l'activite industrielle de 6,8% au T2 2026, -26,9% sur un an, contre un pic de 10,6% au T4 2023 et un creux de 5,0% au T1 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": ".batches-drafts-safe/kpis-haut/DTG.DE.json : marge operationnelle ajustee trimestrielle de l'activite industrielle, value 6.8%, yoy -26,9%",
+      "correction_proposee": "Chiffre conforme au KPI source. A noter : les trois blocs \"quantitatif\" de cette ATT ne comportent aucun champ \"source\", contrairement aux autres ATT verifiees."
+    }
+  ]
+}

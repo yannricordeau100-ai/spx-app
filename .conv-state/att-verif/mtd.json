@@ -1,0 +1,67 @@
+{
+  "ticker": "MTD",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/MTD/10Q/MTD_2026-07-31.htm.gz (10-Q T2 2026) + data-lake/MTD/10K/MTD_2026-02-06.htm.gz (10-K FY2025)",
+  "controles": [
+    {
+      "affirmation": "Aucune affirmation judiciaire ou reglementaire de type enquete, poursuite, amende ou fraude n'est presente dans l'ATT. Verification du volet contentieux du 10-Q pour s'assurer qu'aucune procedure n'est passee sous silence ou surinterpretee.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Note 14 : \"The Company is also party to various legal proceedings, including certain environmental matters, incidental to the normal course of business. Management does not expect that any of such proceedings, either individually or in the aggregate, will have a material adverse effect on the Company's financial condition, results of operations or cash flows.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Marche americain en repli : le segment U.S. Operations a vu ses ventes reculer de 5% au T2 2026 et de 2% sur le semestre par rapport a 2025.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026, U.S. Operations : \"Net sales to external customers | $ 352,477 | $ 372,516 | (5)% | $ 701,024 | $ 718,274 | (2)%\" MAIS la phrase suivante du meme paragraphe indique : \"Organic total net sales and Organic net sales to external customers increased 5% and 1% for the three and six months ended June 30, 2026, respectively.\" et \"Segment profit | $ 129,566 | $ 92,700 | 40% | $ 217,390 | $ 176,996 | 23%\". Le 10-Q precise en outre : \"revenue for the three and six months ended June 30, 2026 includes a one-time reduction of net sales of $27.8 million for tariff-related customer refunds, which is included in the U.S. Operations segment.\"",
+      "correction_proposee": "Le recul publie du segment U.S. Operations, moins 5% au T2 et moins 2% au semestre, provient de la reduction ponctuelle de 27,8 M$ de chiffre d'affaires liee aux remboursements tarifaires imputee a ce seul segment. Retraite de cet effet, le meme document indique une croissance organique de 5% au T2 et de 1% au semestre, et un profit de segment en hausse de 40% et de 23%. Presenter ce segment comme etant en repli sans mentionner ces deux elements deforme le sens du document source."
+    },
+    {
+      "affirmation": "La societe prevoit de reverser une partie supplementaire de ces remboursements aux clients au troisieme trimestre 2026, ce qui reduira d'autant le resultat de ce trimestre-la.",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, Note 14 : \"In addition, the Company committed to refund approximately $27.8 million to customers, which reduced net sales for the three and six months ended June 30, 2026. This is included in accrued and other liabilities on the interim consolidated balance sheet as of June 30, 2026. The Company anticipates distributing tariff-related refunds to customers during the third quarter of 2026.\"",
+      "correction_proposee": "Les 27,8 M$ de remboursements clients ont deja ete comptabilises en reduction du chiffre d'affaires du T2 2026 et provisionnes au bilan au 30 juin 2026. Ce qui interviendra au T3 2026 est le versement en tresorerie de cette somme deja passee en resultat, et non une charge supplementaire. Ecrire que le resultat du T3 sera reduit d'autant est faux."
+    },
+    {
+      "affirmation": "Ventes totales de 1 974,4 M$ au S1 2026 contre 1 867,0 M$ au S1 2025, soit +5,8% ; ce chiffre inclut le benefice ponctuel de 52,4 M$ sur le cout des ventes lie aux remboursements tarifaires, ce qui rend la progression sous-jacente plus modeste que la variation affichee.",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : \"Total net sales | 1,974,441 | 1,866,965\" (conforme) mais \"a one-time benefit of $52.4 million from U.S. government IEEPA tariff refunds that reduced cost of sales, offset in part by tariff-related customer refunds of $27.8 million that reduced net sales\".",
+      "correction_proposee": "Le benefice de 52,4 M$ a reduit le cout des ventes, il n'est donc pas inclus dans le chiffre d'affaires de 1 974,4 M$. C'est l'inverse qui s'est produit sur les ventes : elles ont ete diminuees de 27,8 M$ par les remboursements clients. Le chiffre d'affaires publie du semestre est donc minore, pas majore, par l'episode tarifaire. Formulation correcte : le CA du S1 2026 progresse de 5,8% en valeur alors meme qu'il supporte une reduction ponctuelle de 27,8 M$ ; c'est la marge brute, et non le CA, qui est gonflee par les 52,4 M$."
+    },
+    {
+      "affirmation": "Le meme trimestre inclut un benefice fiscal ponctuel de 52,4 M$ (hook) ; titre : Resultat du semestre gonfle par un remboursement fiscal ponctuel.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"we received refunds, including interest, from the U.S. Customs and Border Protection of $42.9 million and concluded the remaining $9.5 million of refunds due were realizable... This resulted in a one-time gross benefit of $52.4 million that reduced cost of sales\".",
+      "correction_proposee": "Il ne s'agit pas d'un benefice fiscal ni d'un remboursement fiscal mais d'un remboursement de droits de douane par les douanes americaines, comptabilise en reduction du cout des ventes et non dans la charge d'impot. Remplacer benefice fiscal par benefice douanier ou remboursement de droits de douane. Le montant net de l'operation est d'ailleurs de 24,6 M$ au niveau du profit de segment : \"Segment profit during the three and six months ended June 30, 2026 includes a net benefit of $24.6 million related to one-time tariff-related refunds.\""
+    },
+    {
+      "affirmation": "Ce niveau de capitaux propres proche de zero resulte des rachats d'actions massifs finances en partie par la dette.",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Le 10-Q T2 2026 n'enonce nulle part ce lien de causalite. Le tableau de flux montre au contraire sur le S1 2026 : \"Proceeds from borrowings | 955,995\" et \"Repayments of borrowings | ( 966,911 )\", soit un desendettement net de 10,9 M$, face a \"Repurchases of common stock | ( 412,500 )\" et un cash d'exploitation de 450 210 K$. La dette long terme recule de 2 088 241 K$ a 2 044 673 K$.",
+      "correction_proposee": "Sur la periode couverte par le document cite, les rachats d'actions ont ete finances par le cash d'exploitation, la dette ayant legerement diminue. Soit retirer l'affirmation de financement par la dette, soit la sourcer sur un exercice anterieur ou elle serait etablie, soit la reformuler : les rachats cumules ont efface les capitaux propres alors que le groupe porte une dette long terme de 2 044,7 M$."
+    },
+    {
+      "affirmation": "Capitaux propres totaux de 12,8 M$ au 30/06/2026 contre un deficit de 23,6 M$ fin 2025 ; actif total 3 671 M$ ; resultat net 402,4 M$ au S1 2026 ; tresorerie d'exploitation 450,2 M$ au S1 2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Total shareholders' equity | 12,823 | ( 23,636 )\" ; \"Total assets | $ 3,670,944 | $ 3,712,646\" ; \"Net earnings | $ 402,353 | $ 365,935\" ; \"Net cash provided by operating activities | 450,210 | 430,815\" (en milliers de dollars).",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette long terme de 2 044,7 M$ au 30 juin 2026, en legere baisse face aux 2 088,2 M$ de fin 2025.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Long-term debt | 2,044,673 | 2,088,241\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "La Chine represente 16% des ventes du groupe mais 29% du profit et 29% de la production selon le dernier 10-K ; la demande y a nettement recule au second semestre 2023 et en 2024.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 : \"our Chinese operations accounted for 16% of sales to external customers, 29% of total segment profit, and approximately 29% of our global production during 2025\" ; \"market demand in China declined significantly during the second half of 2023, which continued in 2024\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Les segments chinois (+14% au T2) et suisse tirent la croissance du groupe sur la periode ; les ventes chinoises reprennent au premier semestre 2026 (+7%).",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026, Chinese Operations : \"Net sales to external customers | $ 187,249 | $ 162,017 | 16% | $ 340,772 | $ 303,185 | 12%\" ; \"Segment net sales | 274,931 | 245,333 | 12%\" ; \"Segment profit | $ 102,125 | $ 89,338 | 14%\". Le +7% correspond a un autre agregat : \"Organic local currency net sales in Asia/Rest of World includes an increase of 7% in China during the six months ended June 30, 2026.\"",
+      "correction_proposee": "Le chiffre de +14% au T2 est la croissance du PROFIT du segment chinois, pas de ses ventes (ventes externes +16%, ventes de segment +12%). Le +7% du semestre est la croissance ORGANIQUE en devise locale en Chine, a distinguer des +12% de ventes externes publiees. Preciser la nature de chaque pourcentage pour eviter la confusion entre ventes publiees, ventes organiques et profit de segment."
+    }
+  ]
+}

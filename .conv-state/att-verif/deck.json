@@ -1,0 +1,72 @@
+{
+  "ticker": "DECK",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "T1 FY2027 : CA +5,7% à 1 019 531 k$, SG&A +12,7% à 419 862 k$, résultat opérationnel -6,0% à 155 301 k$, marge opérationnelle -190 pb à 15,2%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net sales increased 5.7% to $1,019,531... SG&A expenses increased 12.7% to $419,862. Income from operations decreased 6.0% to $155,301. Income from operations as a percentage of net sales (operating margin) decreased 190 basis points to 15.2%.\" (10-Q T1 FY2027, 30 juillet 2026)",
+      "correction_proposee": "Point de forme : la citation de l'ATT écrit \"operating margin decreased 190 basis points\" alors que le filing dit \"Income from operations as a percentage of net sales (operating margin) decreased 190 basis points\". Substance identique."
+    },
+    {
+      "affirmation": "\"une marge brute record de 56,4%\" (repris dans le résumé et dans fondamental_interne)",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q : \"Gross margin increased 60 basis points to 56.4%\" — le filing ne dit jamais \"record\". Série gross_margin (kpis-haut/DECK.json) : Q3-2024 58,7 / Q3-2025 60,3 / Q4-2025 56,7 / Q3-2026 59,8 / Q4-2026 57,6 / Q1-2027 56,4.",
+      "correction_proposee": "56,4% n'est pas un record : au moins cinq trimestres des trois derniers exercices sont supérieurs, dont 60,3% au T3 FY2025. Supprimer \"record\" et écrire \"une marge brute en hausse de 60 points de base à 56,4%\"."
+    },
+    {
+      "affirmation": "HOOK : le BPA progresse \"uniquement grâce aux 338 M$ de rachats d'actions du trimestre\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q : \"Total number of shares repurchased 3,258,352... Dollar value of shares repurchased $338,186\" ; \"Weighted-average common shares outstanding... Diluted 138,559 [T1 FY2027] 149,635 [T1 FY2026]\".",
+      "correction_proposee": "Les 338 M$ du trimestre représentent 3,26 M d'actions, soit environ un cinquième seulement de la réduction de 11,1 M d'actions (-7,4%) constatée sur un an. La progression du BPA vient de douze mois de rachats, pas du seul trimestre. Écrire \"grâce à la réduction de 7,4% du nombre d'actions sur un an, produit d'un programme de rachats continu\"."
+    },
+    {
+      "affirmation": "Résultat net -6,6% (139,2 → 130,0 M$), BPA dilué 0,93 → 0,94 $, -7,4% d'actions, 338,2 M$ rachetés, produits d'intérêts 18,7 → 15,9 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net income 129,972 [vs] 139,203... Diluted $0.94 [vs] $0.93... Interest income (15,868) (18,696)\" ; \"Repurchases of common stock (338,186)\" ; \"Diluted 138,559 / 149,635\" (10-Q T1 FY2027). Flux : opérationnel +47 904, financement -338 477, variation nette de trésorerie -304 660, ce qui confirme le financement par la trésorerie disponible.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Croissance comparable DTC : 25,4% FY2024, 13,4% FY2025, 4,6% FY2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "Série comp_dtc_growth (kpis-haut/DECK.json) : FY2023 23,1 / FY2024 25,4 / FY2025 13,4 / FY2026 4,6. Recoupé sur le communiqué T4 FY2026 : \"DTC comparable net sales increased 4.6%\" (exercice).",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "GOUVERNANCE : \"La rémunération du PDG a plus que doublé en un an\" — 10,05 M$ sur l'exercice 2025, ratio 198x, salaire médian 50 714 $, +113%",
+      "verdict": "EXAGERE",
+      "verbatim_source": "DEF 14A du 24 juillet 2026 (listé dans les _sources de l'ATT, antérieur à la date d'arrêt des données du 30 juillet 2026) : \"For fiscal year 2026, the annual total compensation of our principal executive officer was $11,904,992, and the annual total compensation of our median employee was $51,638... the fiscal year 2026 ratio... was approximately 231:1.\" Summary Compensation Table : \"Stefano Caroti 2026 ... 11,904,992 / 2025 ... 10,051,429 / 2024 ... 4,724,554\".",
+      "correction_proposee": "Deux défauts. (1) Données périmées : le proxy FY2026, cité dans les sources de l'ATT et publié avant la date d'arrêt, donne 11,90 M$ et un ratio de 231:1 (médian 51 638 $), et une progression de +18% et non +113%. (2) Le +113% de FY2025 correspond au premier exercice complet de Caroti comme PDG (FY2024 = 4,72 M$ avant sa nomination) : c'est un effet de promotion, pas un doublement de la rémunération du poste. Reformuler sur FY2026 : \"11,90 M$, ratio de 231 fois le salaire médian (51 638 $), en hausse de 18% sur un an\"."
+    },
+    {
+      "affirmation": "\"Autres marques\" (principalement Teva) : -18,1% à 37,9 M$ au T1 FY2027 après -35,6% au trimestre précédent ; 3,7% du CA groupe",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Chiffres exacts : \"Other brands net sales decreased 18.1% to $37,944\" (10-Q T1 FY2027) et \"Other brands net sales decreased 35.6% to $39.5 million compared to $61.3 million\" (CP T4 FY2026). Mais le 10-Q précise : \"The Other brands reportable operating segment for the prior period includes financial results for the phase out of the Koolaburra brand and AHNU brand.\" Le CP T2 FY2026 ajoute : \"Other brands net sales decrease includes the impact from the phase-out of the Koolaburra brand standalone operations.\"",
+      "correction_proposee": "Le repli n'est pas \"principalement Teva\" : la sté attribue explicitement une partie de la baisse à l'arrêt volontaire des marques Koolaburra et AHNU, présentes dans la base de comparaison. Écrire \"le segment Autres marques recule de 18,1% à 37,9 M$, une baisse qui reflète à la fois l'arrêt programmé des marques Koolaburra et AHNU et l'érosion de Teva\"."
+    },
+    {
+      "affirmation": "JUDICIAIRE : deux actions de groupe de consommateurs liées aux hausses de prix attribuées aux tarifs douaniers, défense \"vigoureuse\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"The Company was named as a defendant in two purported consumer class actions relating to alleged tariff-related pricing actions and potential governmental tariff reimbursements. The Company intends to defend these matters vigorously.\" (10-Q T1 FY2027, note 6)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "REGLEMENTAIRE : Cour suprême US a invalidé les tarifs IEEPA en février 2026 ; ~120 M$ payés ; aucune créance ni réduction de coût des ventes comptabilisée au 30 juin 2026 ; montant net possiblement inférieur au brut",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"In February 2026, the US Supreme Court invalidated tariffs imposed under the International Emergency Economic Power Act (IEEPA).\" ; \"The Company previously paid an aggregate gross amount of approximately $120,000 in IEEPA tariffs. The net effect... may be less than the gross amount... including accommodations provided under cost-sharing arrangements with independent manufacturers\" ; \"As of June 30, 2026... the Company has not recognized any receivable and corresponding reduction to cost of sales related to any IEEPA tariff refunds\" (10-Q T1 FY2027, note 6)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Dépendance aux fabricants tiers — preuve citée : \"the geographic concentration of manufacturing operations\" ; \"we cannot be [certain]\", 10-Q T1 FY2027",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "\"the geographic concentration of manufacturing operations\" existe bien, mais dans la liste des énoncés prospectifs du 10-Q, pas dans un facteur de risque. La formule \"we cannot be [certain]\" n'apparaît nulle part dans le 10-Q (zéro occurrence de \"we cannot be\"). Le passage qui soutient réellement l'affirmation est : \"Independent third-party contractors manufacture all of the Company's products (independent manufacturers).\"",
+      "correction_proposee": "Remplacer la citation entre crochets, qui n'existe pas dans le document, par le verbatim réel : \"Independent third-party contractors manufacture all of the Company's products\" (10-Q T1 FY2027, note 1)."
+    },
+    {
+      "affirmation": "338,2 M$ rachetés au T1, autorisation restante 4,71 Mds $, capitaux propres 2,499 → 2,302 Mds $",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"As of June 30, 2026, the aggregate remaining authorization under the stock repurchase program is $4,711,416.\" ; \"Balance, March 31, 2026... $2,499,638 ... Balance, June 30, 2026... $2,301,682\" (10-Q T1 FY2027)",
+      "correction_proposee": null
+    }
+  ]
+}

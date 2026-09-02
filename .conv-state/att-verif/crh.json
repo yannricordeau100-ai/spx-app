@@ -1,0 +1,66 @@
+{
+  "ticker": "CRH",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Dette nette passee de 13 406 M USD (30 juin 2025) a 14 151 M USD (31 dec 2025) puis 15 416 M USD (30 juin 2026)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"June 30 December 31 June 30 / 2026 2025 2025 [...] Net Debt (15,416) (14,151) (13,406)\" - 10-Q T2 2026 (data-lake/CRH/10Q/CRH_2026-07-30.htm.gz)",
+      "correction_proposee": "Chiffres exacts, mais la citation entre guillemets de l'ATT (\"Net Debt* as of June 30, 2026, was $15,416 million\") n'existe pas telle quelle dans le 10-Q : c'est un tableau de rapprochement. Retirer les guillemets ou citer le tableau."
+    },
+    {
+      "affirmation": "\"L'entreprise a mis en place le 22 juin 2026 une facilite relais de 5 Mds USD sur 364 jours et un term loan de 5 Mds USD pour financer l'acquisition d'Arcosa\", preuve citee : \"a 364-day $5 billion term loan facility in connection with the Arcosa Acquisition\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"on June 22, 2026 [...] the lenders committed to provide a 364-day $5.8 billion U.S. dollar term loan facility (the 'Bridge Facility') [...] As of June 30, 2026, there were no outstanding borrowings under the Bridge Facility. On July 17, 2026 [...] entered into a three-year $2.5 billion term loan facility in connection with the Arcosa Acquisition (the 'Term Loan Facility'). As a result of the Term Loan Facility, the commitments under the Bridge Facility were reduced from $5.8 billion to $3.3 billion.\" La citation \"$5 billion term loan\" est introuvable dans le document.",
+      "correction_proposee": "Ecrire : \"facilite relais de 5,8 Mds USD sur 364 jours mise en place le 22 juin 2026, non tiree au 30 juin, ramenee a 3,3 Mds USD apres la signature le 17 juillet 2026 d'un term loan a trois ans de 2,5 Mds USD\". L'ATT double le montant reel des engagements (10 Mds USD affiches contre 5,8 Mds USD au total) et attribue au 22 juin une operation du 17 juillet."
+    },
+    {
+      "affirmation": "Acquisition d'Arcosa en cash a 150 USD par action, valeur d'entreprise d'environ 8,5 Mds USD, cloture attendue au T1 2027",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"a definitive agreement to acquire Arcosa [...] in an all-cash transaction for $150 per share reflecting a total enterprise value of approximately $8.5 billion. The acquisition is expected to close in the first quarter of 2027\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "La charge d'interets a augmente de 32,4% sur l'exercice complet le plus recent",
+      "verdict": "CONFORME",
+      "verbatim_source": "Serie interest_exp de .batches-drafts-safe/kpis-haut/CRH.json : FY2025 = 181+200+209+220 = 810 M USD contre environ 612 M USD en FY2024, soit +32%. Le 10-Q confirme la tendance : \"Interest expense was $220 million for the three months ended June 30, 2026, an increase of $20 million\".",
+      "correction_proposee": "Preciser l'exercice de reference (FY2025 vs FY2024), non identifiable en l'etat."
+    },
+    {
+      "affirmation": "\"un Adjusted EBITDA en hausse de 10,8%\" et \"EBITDA ajuste de 7,68 Mds USD sur douze mois\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "Serie adj_ebitda kpis-haut CRH : FY2025 = 495+2 463+2 695+2 028 = 7 681 M USD, contre 6 932 M USD en FY2024, soit +10,8%. Sur le trimestre publie, le 10-Q donne \"Adjusted EBITDA 2,627 2,463\" (+6,7%) et sur le semestre 3 213 contre 2 958 (+8,6%).",
+      "correction_proposee": "Preciser que les +10,8% portent sur l'exercice 2025 complet, et non sur le trimestre publie (+6,7%) ni sur le semestre (+8,6%)."
+    },
+    {
+      "affirmation": "\"Le resultat net attribuable a CRH progresse de 1 310 M USD a 1 296 M USD sur six mois (periode comparable EPS)\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"Net income attributable to CRH 1,486 1,319 1,310 1,225\" (T2 2026 / T2 2025 / S1 2026 / S1 2025) ; \"Net income attributable to CRH for EPS - basic and diluted 1,479 1,313 1,296 1,212\"",
+      "correction_proposee": "Les deux chiffres cites sont deux mesures du MEME semestre 2026 (1 310 M USD attribuable, 1 296 M USD base EPS), pas deux periodes. Ecrire : \"le resultat net attribuable a CRH progresse de 1 225 M USD (S1 2025) a 1 310 M USD (S1 2026), soit +6,9%\"."
+    },
+    {
+      "affirmation": "Cash net d'exploitation en recul de 29% (513 M USD contre 719 M USD), tire par une consommation de 1 824 M USD en creances clients contre 1 397 M USD",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net cash provided by operating activities 513 719\" ; \"Accounts receivable, net (1,824) (1,397)\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "L'accord Arcosa depend de l'approbation des actionnaires d'Arcosa, d'autorisations reglementaires antitrust et d'autres conditions ; CRH liste le risque de non-realisation",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"the failure to obtain the required approval of Arcosa's stockholders; the failure to satisfy the other conditions to the completion of the Arcosa Acquisition, including the receipt of required regulatory approvals; risks that the Arcosa Acquisition disrupts CRH's current plans and operations\" ; \"may be subject to increased legal and regulatory scrutiny, including under the Hart-Scott-Rodino Antitrust Improvements Act of 1976\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Taux d'imposition effectif de 31% au T2 2026 contre 24% au T2 2025, et 31% au S1 contre 23%, du fait de la cession lawn and garden and construction accessories",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total tax expense 661 425 606 367 / Effective income tax rate 31 % 24 % 31 % 23 %\" ; \"The increase in the effective tax rate is mainly driven by the divestiture of the lawn and garden and construction accessories operations in the period.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Depreciation de survaleur de 48 M USD au T1 2026 sur les actifs cedes, accord du 27 janvier 2026 pour 0,7 Md USD",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On January 27, 2026, the Company entered into an agreement to divest of its construction accessories operations for consideration of $0.7 billion. A goodwill impairment of $48 million was recognized on the operations' assets in the first quarter of 2026 to reflect the reduction to fair value less costs to sell\"",
+      "correction_proposee": ""
+    }
+  ]
+}

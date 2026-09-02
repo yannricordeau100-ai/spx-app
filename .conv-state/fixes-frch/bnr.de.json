@@ -1,0 +1,13 @@
+{
+  "ticker": "BNR.DE",
+  "verdict": "defauts",
+  "confiance": "haute",
+  "problemes": [
+    "AUCUNE CONTAMINATION Burning Rock Biotech dans les donnees publiees. Identite correcte partout : Brenntag SE, Materiaux / Distribution de produits chimiques, description, evenements (BNTGF, ETR:BNR), gouvernance (Jens Birgersson, CEO de Brenntag), risques (talc, distribution chimique, CSRD) authentiques.",
+    "Ordres de grandeur conformes : CA 16,2 Mds E (FY2024) et 15,171.5 M E (FY2025), marge brute operationnelle 4,0 Mds E, verifies verbatim dans sec-data/cat3-european/BNR.DE/annual-text/2024.txt. Hero RBO (950 M E, 33 trimestres) coherent avec son rationale.",
+    "DEFAUT PUBLIE. src/data/companies/bnr.de.json .revenue_by_geography est faux sur deux plans : unit = '$B' et source = '10-K 2024' (Brenntag ne depose pas de 10-K), et surtout le perimetre est celui de la SEULE division Brenntag Essentials, pas du groupe. Les valeurs 5.16 / 3.74 / 1.01 / 0.34 / 0.76, total 11.01, sont exactement le tableau 'segment information for the reportable segments of the global Brenntag Essentials division' du rapport 2024 (North America 5 162,6 / EMEA 3 741,2 / APAC 1 005,5 / Transregional 335,0 / Latin America 763,4 = 11 007,7 M EUR). Le CA groupe est 16 237,4 M EUR. A requalifier en M EUR + libelle 'division Essentials', ou a remplacer par une vraie repartition geographique groupe.",
+    "DEFAUT PUBLIE MINEUR. src/data/companies/bnr.de.json .revenue_by_segment a ses deux slices (Essentials, Specialties) avec value = null et share_pct = null : bloc vide. La bonne repartition existe deja dans src/data/v2-pipeline/BNR.DE.json et src/data/v2-pipeline-enrich/bnr.de.json (Essentials 10 370,3 / Specialties 4 801,2 M E, total 15 171,5, exercice 2025).",
+    "DEFAUT MINEUR : plusieurs KPI de companies/bnr.de.json ont un history a 5 cases dont 3 nulls (Sales, Operating gross profit, Total assets...), et hero_kpi_override = 'Essentials Gross Profit' est deja marque orphelin (_hero_kpi_override_orphan_flag) donc sans effet ; le hero rendu reste RBO.",
+    "RESIDUS NON PUBLIES : data-lake/BNR.DE/xbrl/facts.json contient les faits Burning Rock en CNY (revenue 507 862 000 CNY FY2021), dossiers SC13G/424B idem, marqueur _WRONG_COMPANY.txt en place. data-lake/BNR.DE/kpis/extracted.json porte unit = 'M USD' pour des valeurs en euros (meme defaut d'etiquette que Vinci). La purge a bien retire 7 KPI generiques de v2-pipeline-enrich/bnr.de.json (Op Margin, Gross Margin, Free Cash Flow, Operating Cash Flow, Total Assets, R&D, Capex), conserves dans le .bak-secpollution."
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "ticker": "AKAM",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "JURIDIQUE/REGLEMENTAIRE : aucune affirmation d'enquete, poursuite, amende, litige, fraude ou antitrust dans l'ATT AKAM.",
+      "verdict": "CONFORME",
+      "verbatim_source": "n/a - balayage integral du fichier akam.json : zero mention judiciaire ou reglementaire.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "fondamental_externe #1 : \"Le 10-K de la societe qualifie ce risque de severite elevee (4 sur 5)\" (concurrence hyperscalers).",
+      "verdict": "FAUX",
+      "verbatim_source": "La note 4/5 provient de data-lake/AKAM/risks/extracted.json (fichier derive interne Mettrik, champ \"severity\": 4). Le 10-K FY2025 ne publie AUCUNE echelle de severite : la SEC n'impose ni note ni classement des facteurs de risque. L'ATT se contredit elle-meme plus bas : \"Le 10-K ne publie ni note ni tendance de risque\".",
+      "correction_proposee": "Remplacer par : \"Le 10-K cite Amazon, Google et Microsoft comme concurrents disposant de ressources superieures ; notre grille interne classe ce risque en severite elevee (4 sur 5).\""
+    },
+    {
+      "affirmation": "fondamental_externe #3 : \"Le 10-K attribue a ce risque la severite maximale (5 sur 5)\" (cybersecurite).",
+      "verdict": "FAUX",
+      "verbatim_source": "Meme defaut : \"severity\": 5 figure dans risks/extracted.json, pas dans le 10-K. Aucune notation de risque n'existe dans le document SEC.",
+      "correction_proposee": "Remplacer par : \"Le 10-K decrit la sophistication croissante des attaques, y compris assistees par IA ; notre grille interne classe ce risque en severite maximale (5 sur 5).\""
+    },
+    {
+      "affirmation": "quantitatif #4 : \"205,9 M$ de rachats d'actions au T1 2026, en baisse de 58,8% sur un an\" avec perspective \"ralentissement net du rythme de rachat\".",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"During the six months ended June 30, 2026, we repurchased 5.0 million shares of common stock at a weighted average price of $123.19 per share for an aggregate of $615.7 million\" ; \"During the three and six months ended June 30, 2026, the Company repurchased 3.0 million and 5.0 million shares ... for $409.9\" ; cash-flow S1 : \"Repurchases of common stock (615,744) (799,963)\". Le chiffre T1 2026 de 205,9 M$ est exact (10-Q T1 2026), mais le T2 2026 remonte a 409,9 M$ et le semestre ne recule que de 23% (615,7 vs 800,0), pas de 58,8%.",
+      "correction_proposee": "Utiliser le semestre issu du filing cite : \"615,7 M$ de rachats sur le S1 2026 contre 800,0 M$ un an plus tot, soit -23%\". Le trimestre isole le plus ancien exagere le ralentissement. A noter : le 10-Q precise \"We do not expect any share repurchases for the remainder of 2026\", ce qui contredit la piste \"reprise du rythme de rachat\" listee dans ce_qui_affaiblirait."
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 1 : resultat des operations 80,3 M$ au T2 2026 contre 151,5 M$, soit -47%, avec CA +5,4% (1 099,7 vs 1 043,5 M$).",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Income from operations 80,284 / 151,461\" ; \"Revenue $1,099,682 / $1,043,494\". Calcul : -47,0% et +5,39%. Charges verifiees : R&D 148,821/125,838 (+18,3%), S&M 170,045/146,239 (+16,3%), G&A 187,686/162,597 (+15,4%).",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 2 : encours obligataire convertible de 7 640,0 M$ nominal sur cinq tranches (2027-2033) contre 4 105,4 M$ fin 2025, quasi doublement, finance par 3 452,7 M$ de produits nets.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"As of June 30, 2026, we had $7,640.0 million in aggregate principal amount of convertible senior notes outstanding\" ; tranches 1 150 + 1 265 + 1 750 + 1 750 + 1 725 = 7 640,0 ; \"Proceeds from the issuance of convertible senior notes, net of issuance costs 3,452,749\" ; \"Total liabilities 10,324,903 / 6,502,272\" ; \"Total stockholders' equity 4,748,517 / 4,977,371\" ; tresorerie 1 480 257 + 1 875 130 + 1 260 918 = 4 616,3 M$.",
+      "correction_proposee": "Defaut de citation seulement : la preuve donnee (\"Convertible senior notes 5,857,252\" + \"1,705,576\") totalise 7 562,8 M$ de valeur COMPTABLE, pas les 7 640,0 M$ nominaux. Citer la phrase \"aggregate principal amount\" du 10-Q. Preciser aussi que le nominal fin 2025 valait 4 140,0 M$ (et non 4 105,4 M$ qui est le comptable) : la comparaison nominal/comptable melange deux bases."
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 3 : Delivery a recule de 420,1 a 395,9 M$ au T2 2026 (-5,8%) et de 4,6% sur l'exercice 2025 ; recul lie a la migration vers des architectures multi-CDN autonomes documentee par la societe.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Delivery and other cloud applications 395,927 420,117\" (-5,76%). 10-K FY2025 : segment \"Delivery 1,256,721 / 1,318,131\" (-4,66%). 10-K Item 1A : \"economic pressures on our customers that can cause them to take steps to optimize their platforms, including through \\\"do-it-yourself\\\" (\\\"DIY\\\") initiatives or redistributing traffic among multiple providers\".",
+      "correction_proposee": "Nuance : le terme \"multi-CDN\" n'apparait pas dans le 10-K, la societe ecrit \"DIY initiatives or redistributing traffic among multiple providers\" ; reprendre cette formulation. Autre nuance : le -4,6% FY2025 porte sur le segment \"Delivery\" du 10-K, perimetre plus etroit que \"Delivery and other cloud applications\" du 10-Q."
+    },
+    {
+      "affirmation": "fondamental_externe #2 : verbatim anglais sur les 6% d'effectifs en Israel, appeles sous les drapeaux ; mentions Iran, Hezbollah, Ukraine, droits de douane.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 (depose 2026-02-20) : \"approximately six percent of our global employees are located in Israel and have been and may continue to be impacted by hostilities in the region, including being required to report for military duty, which could impact our ability to operate and successfully complete ongoing initiatives\". Mentions confirmees : \"the escalation of military conflict between Israel and Iran\", Hezbollah (1 occurrence), guerre en Ukraine.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Autres chiffres : resultat net 79,4 vs 103,6 M$ (T2), 185,7 vs 226,8 M$ (S1) ; flux operationnel 638,8 vs 710,3 M$ (-10,1%) ; FCF 221,2 vs 290,5 M$ (-24%) ; Cloud Infrastructure a 9% du CA.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Net cash provided by operating activities 638,774 710,349\" ; \"Purchases of property and equipment and capitalization of internal-use software development costs (417,600) (419,789)\" ; resultat net T2 = 100,027 - 20,623 = 79,404 et 151,938 - 48,320 = 103,618 ; S1 = 222,025 - 36,302 = 185,723 et 325,321 - 98,532 = 226,789 ; \"Cloud infrastructure services 99,319\" / 1 099 682 = 9,03%.",
+      "correction_proposee": ""
+    }
+  ]
+}

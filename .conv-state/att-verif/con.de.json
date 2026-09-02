@@ -1,0 +1,96 @@
+{
+  "ticker": "CON.DE",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "« EBIT publie du groupe FY2025 : 272 M€ (FY2024 : 2 287 M€, -86,7%) » et « l'EBIT publie du groupe s'est lui aussi effondre de 86,7% sur l'annee, a 272 M€, ce qui montre que les couts de restructuration ont pese au-dela du seul effet comptable de la scission »",
+      "verdict": "FAUX",
+      "verbatim_source": "\"EBIT was down by €1,771 million year-on-year in 2025 to €272 million (PY: €2,043 million), a decrease of 86.7%. ... The operating result was heavily encumbered by expenses in connection with the deconsolidation of foreign companies of the former Automotive and Contract Manufacturing group sectors and the valuation of the OESL disposal group, as well as by restructuring expenses. ... EBIT from discontinued operations was €451 million (PY: €244 million), resulting in total EBIT for continuing and discontinued operations of €723 million (PY: €2,287 million)\" ; \"Total consolidated expense from special effects in 2025 amounted to €1,718 million\" (URD FY2025)",
+      "correction_proposee": "Le -86,7% se calcule sur 2 043 M€ (EBIT 2024 retraite, activites poursuivies), pas sur 2 287 M€ qui est l'EBIT total 2024 activites poursuivies + abandonnees. Rapporte a 2 287 M€ la baisse serait de -88,1%. Ecrire : « EBIT publie des activites poursuivies : 272 M€ en 2025 contre 2 043 M€ en 2024 retraite, -86,7% ». La conclusion causale est egalement a retirer : le rapport attribue la chute d'abord a la deconsolidation des societes etrangeres de l'ex-Automotive (680 M€) et a la valorisation du groupe de cession OESL (124 M€ de goodwill + 367 M€ d'autres depreciations), c'est-a-dire precisement aux effets comptables de la scission et de la cession."
+    },
+    {
+      "affirmation": "« Ce niveau [5 154 M€] depasse le precedent record de la serie 2016-2025, atteint en 2020 en pleine crise sanitaire (4 139 M€) »",
+      "verdict": "FAUX",
+      "verbatim_source": "Serie DETTE_NETTE, .batches-drafts-safe/kpis-haut/CON.DE.json : FY2016 2 797,8 / FY2017 2 047,6 / FY2018 1 661,3 / FY2019 4 071,7 / FY2020 4 139,1 / FY2021 3 765,5 / FY2022 4 499,4 / FY2023 4 037,9 / FY2024 3 712,0 / FY2025 5 154,0",
+      "correction_proposee": "Le precedent point haut de la serie 2016-2025 est FY2022 a 4 499 M€, superieur aux 4 139 M€ de 2020. Corriger l'annee et le montant de reference."
+    },
+    {
+      "affirmation": "« Des actions collectives ont par ailleurs ete engagees aux Etats-Unis et au Canada contre Continental et d'autres fabricants de pneus » (titre : « actions en cours sur trois continents »)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"In this context, class action lawsuits have already been filed in the USA and Canada against Continental and other tire manufacturers. The lawsuits in the USA have been consolidated before the United States District Court, Northern District of Ohio. The court granted these motions filed by the defendant tire manufacturers to dismiss the lawsuits on February 25, 2025; further motions filed by the claimants were dismissed by the court on March 31, 2026. Two of the three groups of claimants involved in the proceedings have appealed this decision.\" (RFS S1 2026, Litigation and compensation claims)",
+      "correction_proposee": "Le document precise que les recours americains ont ete REJETES le 25 fevrier 2025, que les requetes complementaires des demandeurs ont ete rejetees le 31 mars 2026, et que deux des trois groupes de demandeurs ont fait appel (memoires attendus a l'ete 2026). Presenter ces actions comme simplement « engagees » omet un fait materiellement favorable. Reformuler."
+    },
+    {
+      "affirmation": "« au 30 juin 2026, les deux procedures [Commission europeenne et Bundeskartellamt] en sont toujours a un stade precoce, sans provision constituee »",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "\"Both proceedings are still at an early stage. In the event that any such violation is identified, and Continental proves to be responsible for said violation, the European Commission and the Bundeskartellamt could each impose substantial fines on Continental. ... In accordance with IAS 37.92 and GAS 20.154, no further disclosures will be made with regard to the proceedings and the related measures so as not to adversely affect the company's interests.\" (RFS S1 2026)",
+      "correction_proposee": "« stade precoce » est verbatim, mais aucun document ne dit qu'aucune provision n'a ete constituee : Continental invoque au contraire l'exemption de publication de l'IAS 37.92. L'affirmation « sans provision constituee » est une inference du bloc risks de src/data/v2-pipeline/con.de.json, pas un fait source. La retirer."
+    },
+    {
+      "affirmation": "« le chiffre d'affaires consolide publie est ainsi passe de 39,7 Mds € en 2024 a 19,7 Mds € en 2025 par retraitement de perimetre, et les effectifs de 190 159 a 92 653 salaries sur la meme periode »",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Communique FY2025 : \"Sales 19,676 20,077 -2.0 ... Number of employees 92,653 97,418 -4.9\" ; note de perimetre kpis-haut CON.DE : \"Scission d'AUMOVIO, effective le 18 septembre 2025 ... le chiffre d'affaires 2024 est retraite de 39 719 a 20 077 M€, les effectifs de 190 159 a 97 418\"",
+      "correction_proposee": "Les deux chiffres bruts sont exacts mais la comparaison n'est pas homogene. Continental publie ses propres comparatifs 2024 retraites : 20 077 M€ de CA et 97 418 salaries, soit -2,0% et -4,9% a perimetre comparable, et non un CA divise par deux et des effectifs divises par deux. Presenter les deux lectures ou n'utiliser que la base retraitee."
+    },
+    {
+      "affirmation": "« l'EBIT de ContiTech a recule de 32,0% a 43 M€ et sa marge de rentabilite est tombee a 1,9% (contre 2,1%) », presente comme preuve d'une « rentabilite du secteur en recul avant la cloture »",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"the ContiTech group sector reported a decline in EBIT of €20 million or 32.0% to €43 million (PY: €64 million) in the first six months of 2026. The return on sales fell to 1.9% (PY: 2.1%).\" ; mais aussi \"Adjusted EBIT for the ContiTech group sector decreased by €1 million or 0.6% year-on-year to €168 million (PY: €169 million) in the first six months of 2026, corresponding to 7.4% (PY: 7.1%) of adjusted sales.\" ; tableau ContiTech : \"thereof impairment 13 0\" (RFS S1 2026)",
+      "correction_proposee": "Les chiffres cites sont exacts mais selectionnes. Sur la mesure ajustee, l'EBIT ContiTech est quasi stable (168 vs 169 M€, -0,6%) et la MARGE AJUSTEE PROGRESSE de 7,1% a 7,4%. Le recul de l'EBIT publie tient aux depreciations (13 M€) et aux effets speciaux. Mentionner les deux mesures, d'autant que le bloc ce_qui_affaiblirait de l'ATT raisonne lui-meme en marge EBIT ajustee."
+    },
+    {
+      "affirmation": "« en Afrique du Sud, la filiale Continental Tyre South Africa encourt une amende pouvant atteindre 10% de son chiffre d'affaires pour infraction au droit local de la concurrence »",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"On October 2, 2006, South African antitrust authorities received a complaint from a third party ... On August 31, 2010, the South African antitrust authorities came to the conclusion that CTSA had violated South African antitrust law and referred the matter to the responsible antitrust court for decision. CTSA denies the allegation of infringements of South African antitrust law. However, the tribunal could impose a fine of up to 10% of CTSA's sales.\" (RFS S1 2026)",
+      "correction_proposee": "Le plafond de 10% est exact, mais « pour infraction » presuppose une infraction etablie : le document precise que CTSA conteste et que le tribunal n'a pas tranche. Ecrire « en cas d'infraction retenue ». Ajouter que la procedure remonte a une plainte de 2006 et a un renvoi de 2010, sans quoi elle est lue comme un contentieux recent."
+    },
+    {
+      "affirmation": "FY2025 : resultat net part du groupe -165 M€ (BPA -0,83 €) contre +1 168 M€ (BPA 5,84 €) ; ratio de fonds propres 23,4% contre 40,0% ; dette financiere nette 5 154 M€ (+38,8%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net income attributable to the shareholders of the parent -165 1,168 -114.1 / Basic earnings per share in € -0.83 5.84 -114.1 / Net indebtedness 5,154 3,712 / Total equity 4,158 14,798 -71.9 / Equity ratio in % 23.4 40.0\" (communique FY2025 du 4 mars 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Levier statutaire 2,9x (PY 2,1) au 30 juin 2026 contre un levier pro forma communique de 2,0x (PY 2,1), le pro forma neutralisant la scission d'AUMOVIO et la cession d'Original Equipment Solutions",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"The leverage ratio rose to 2.9 (PY: 2.1).\" et tableau \"Leverage ratio 2.9 2.1\" (RFS S1 2026) ; \"(Pro forma) leverage ratio 2.0 2.1\" avec note 5 \"Pro forma leverage ratio: EBITDA adjusted for the impact of -€680 million from divestments relating to the Aumovio spin-off and valuation effects relating to the sale of Original Equipment Solutions (-€156 million).\" (communique S1 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Accord de cession de ContiTech a Lone Star Funds signe le 4 juillet 2026, valeur d'entreprise 4,0 Mds €, cloture soumise aux autorites antitrust, « pourrait encore etre finalisee d'ici la fin de l'annee »",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On July 4, 2026, following approval by the Executive Board and the Supervisory Board, an agreement to was signed to sell the ContiTech segment to Lone Star Funds. The agreed enterprise value is €4.0 billion, plus possible performance-based components of up to €250 million\" (RFS S1 2026) ; \"The closing of the transaction remains subject to regulatory approval, including by the relevant antitrust authorities, as well as other market-standard closing conditions. The transaction could still be completed by the turn of the year.\" (communique S1 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Continental AG est une societe dependante d'INA-Holding Schaeffler GmbH & Co. KG au sens de l'article 312 AktG, 46,00% des droits de vote attribues a Georg F. W. Schaeffler",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"In fiscal 2025, Continental AG was a dependent company of INA-Holding Schaeffler GmbH & Co. KG, Herzogenaurach, Germany, as defined under Section 312 AktG.\" ; \"46.00% of the voting rights in Continental AG are attributed to [Georg F. W. Schaeffler]\" (URD FY2025)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Perquisitions de la Commission europeenne chez Continental AG le 30 janvier 2024 et du Bundeskartellamt le meme jour chez une filiale allemande, dans le cadre de recherches sectorielles",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"As part of industry-wide searches, the European Commission began conducting a search of the premises of Continental AG on January 30, 2024, due to alleged antitrust violations. On the same day, Germany's Federal Cartel Office (Bundeskartellamt) searched the premises of TON Tyres Over Night Trading GmbH, Schondra-Schildeck, Germany (a subsidiary of Continental that is no longer active), also due to alleged industry-wide antitrust violations.\" (RFS S1 2026)",
+      "correction_proposee": "Precision facultative : le document indique que la filiale perquisitionnee (TON Tyres Over Night Trading GmbH) n'est plus en activite."
+    },
+    {
+      "affirmation": "Repartition geographique FY2025 : Europe hors Allemagne 35%, Allemagne 14%, Amerique du Nord 29%, Asie-Pacifique 16%, autres 6% (Europe 49%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Sales by region in % 2025 2024 / Germany 14 14 / Europe excluding Germany 35 35 / North America 29 30 / Asia-Pacific 16 16 / Other countries 6 6\" (URD FY2025, p. 49)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Durcissement du langage sur le protectionnisme : « persistently strong trend toward protectionism » en 2025 contre « ongoing trend toward protectionism » en 2024 ; les droits de douane americains ont pese sur le resultat 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Due to the persistently strong trend toward protectionism and the...\" (URD FY2025) ; \"Due to the ongoing trend toward protectionism and escalating...\" (URD FY2024) ; \"Higher US import tariffs and exchange-rate effects, particularly in the Tires group sector, as well as the persistently weak industrial environment in the ContiTech group sector also had a negative impact.\" (URD FY2025)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Ratio de fonds propres jamais descendu sous 31,9% sur la serie 2016-2025 (creux 2020)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Serie RATIO_FONDS_PROPRES, .batches-drafts-safe/kpis-haut/CON.DE.json : FY2016 40,7 / FY2017 43,5 / FY2018 45,3 / FY2019 37,3 / FY2020 31,9 / FY2021 35,3 / FY2022 36,2 / FY2023 37,4 / FY2024 40,0 / FY2025 23,4",
+      "correction_proposee": null
+    }
+  ]
+}

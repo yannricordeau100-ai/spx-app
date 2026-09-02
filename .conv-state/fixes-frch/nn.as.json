@@ -1,0 +1,26 @@
+{
+  "ticker": "NN.AS",
+  "verdict": "partiellement contamine (devise)",
+  "audit": "2026-08-14",
+  "sources_verite": [
+    "src/data/v2-pipeline/NN.AS.json",
+    ".batches-drafts-safe/kpis-haut/NN.AS.json",
+    "data-lake/NN.AS/geo_fr.json + segments_fr.json + gouvernance_fr.json + ia_positionnement_fr.json (URD FY2025 du 5 mars 2026)"
+  ],
+  "filings_homonymes": "data-lake/NN.AS sous-dossiers SEC (10K, 10Q, 8K, DEF14A, S1, S4...) = NextNav, marques par _WRONG_COMPANY.txt. sec-data/cat3-european/NN.AS/annual-text/2025.txt = vrai rapport annuel NN Group (960 occurrences 'NN Group').",
+  "problemes": [
+    "KPI EN DOLLARS. kpis[] revenue 8,574 / operating_income -1,2 / net_income 1,188 portent unit = 'Mds $' alors que NN Group publie en euros ; _super_kpi_inputs du meme fichier indique currency EUR.",
+    "RESULTAT OPERATIONNEL INCOHERENT : kpis operating_income = -1,2 alors que _super_kpi_inputs donne op_income_q = 2,709 Mds EUR pour FY2025 (marge 31,6%). Signe et valeur a verifier avant toute publication.",
+    "RANKS PLACEHOLDER visibles : global_world '≈ #XX', global_us '...', sector '...', subsector '...'.",
+    "REPARTITION DU CA VIDE ET NON SOURCEE : revenue_by_segment et revenue_by_geography n'ont que des libelles avec pct = null et _source = 'Sub-agent Claude connaissances'. Reference FY2025 : segments Pays-Bas Vie 4,575 / Pays-Bas Dommages 4,165 / Assurance Europe 2,226 / Japon Vie 0,531 Mds EUR ; geographie Pays-Bas 13,449 (72,9%) / Pologne 0,941 / Japon 0,821 Mds EUR.",
+    "market_positions et transcript_summary = null (blocs vides)."
+  ],
+  "non_contamine": [
+    "name NN Group, sector Finance, subsector Assurance : corrects",
+    "tagline 'Helping people care for what matters most to them' = baseline reelle de NN Group",
+    "governance.ceo_name = Dr. David E. Knibbe : correct, aucun dirigeant NextNav",
+    "hero_kpi 'Operating Capital Generation' coherent avec son rationale et avec v2/kpis-haut (OCG 1 073 M EUR au S1 2026)",
+    "risques issus du vrai rapport annuel 2025 (taux, spread, modele interne, immobilier, hypotheques) : typiques d'un assureur vie, rien de NextNav",
+    "ordres de grandeur coherents : revenus 8,6 Mds EUR, OCG 2,089 Mds EUR en 2025, objectif 2,2 Mds EUR en 2028"
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "ticker": "CVNA",
+  "verdict_global": "a_corriger",
+  "sources_utilisees": [
+    "data-lake/CVNA/10Q/CVNA_2026-07-29.htm.gz (10-Q T2 2026)",
+    "data-lake/CVNA/10K/CVNA_2026-02-18.htm.gz (10-K exercice 2025)",
+    "data-lake/CVNA/DEF14A/CVNA_2026-03-25.htm.gz (proxy 2026)",
+    ".batches-drafts-safe/kpis-haut/CVNA.json (series trimestrielles)"
+  ],
+  "controles": [
+    {
+      "affirmation": "JUDICIAIRE - Titre + resume + ce_qui_affaiblirait : 'Une enquete de la SEC ouverte depuis juin 2025 et toujours non close' / 'une enquete de la SEC ouverte en juin 2025 reste non close' / 'La cloture de l'enquete de la SEC ouverte en juin 2025'",
+      "verdict": "EXAGERE",
+      "verbatim_source": "In June 2025, we received a subpoena from the SEC requesting information that we believe primarily relates to the allegations raised by the report. We are fully cooperating with the SEC Staff. (10-Q T2 2026, Partie II, Item 1 Legal Proceedings)",
+      "correction_proposee": "Le filing ne dit nulle part qu'une enquete a ete 'ouverte' en juin 2025. Il dit que la societe a recu en juin 2025 une injonction de produire des documents (subpoena) et qu'elle coopere. Le corps de l'argument est deja correct sur ce point ; ce sont le titre, le resume et le point 'ce_qui_affaiblirait' qui renforcent le verbe. Remplacer par : 'Une injonction de produire des documents (subpoena) de la SEC recue en juin 2025, dossier toujours ouvert' et 'La cloture sans suite du dossier ouvert par la SEC depuis juin 2025'."
+    },
+    {
+      "affirmation": "JUDICIAIRE - Preuve citee mot a mot du dossier SEC (fondamental_interne #5)",
+      "verdict": "CONFORME",
+      "verbatim_source": "In June 2025, we received a subpoena from the SEC requesting information that we believe primarily relates to the allegations raised by the report. We are fully cooperating with the SEC Staff.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "JUDICIAIRE - Nuances : Carvana a contacte la SEC de sa propre initiative, a fait evaluer les allegations par un cabinet externe, les juge inexactes et trompeuses, et decrit le cabinet a l'origine du rapport comme aujourd'hui disparu",
+      "verdict": "CONFORME",
+      "verbatim_source": "In January 2025, a now-defunct short-selling firm published a report including inaccurate, incomplete, and otherwise misleading information about us. We engaged outside legal counsel to independently evaluate the allegations, and voluntarily contacted the U.S. Securities and Exchange Commission ('SEC').",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "JUDICIAIRE - OMISSION : l'ATT ne mentionne aucun autre litige. Le 10-Q en declare plusieurs, dont une class action boursiere active",
+      "verdict": "EXAGERE",
+      "verbatim_source": "the Company is currently a party to legal and regulatory disputes, including putative class action lawsuits, alleging, among other things, the violation of federal securities laws and state laws regarding consumer protection, stockholders' rights, labor and employment, and the titling and registration of vehicles sold to its customers [...] On April 6, 2026, the plaintiff filed a motion for class certification, which Carvana opposed and the Court has not yet ruled on [...] Additionally, the Attorney General offices of various states, from time to time, conduct inquiries regarding the Company's inspection, reconditioning, advertising, sale, delivery, titling, registration, lending practices, and post-sale service of retail vehicles [...] have resulted, and may again result in state Attorney General offices filing claims against the Company. (10-Q, Note 16, Legal Matters)",
+      "correction_proposee": "Rien de faux, mais une anti-these vendue a des investisseurs qui ne retient que le subpoena SEC laisse de cote le dossier judiciaire le plus avance : In re Carvana Co. Securities Litigation (D. Ariz., CV-22-2126-PHX-MTL), toujours en cours, requete de certification de classe deposee le 6 avril 2026 non encore tranchee, provision pour litiges de 10 M$ au 30 juin 2026. A ajouter, avec les litiges titres/immatriculation et les enquetes des procureurs generaux d'Etats."
+    },
+    {
+      "affirmation": "REGLEMENTAIRE - Statut controlled company NYSE, exemptions non utilisees mais option conservee",
+      "verdict": "CONFORME",
+      "verbatim_source": "we continue to be a controlled company within the meaning of the NYSE corporate governance standards [...] We do not currently utilize these exemptions; however, for so long as we qualify as a controlled company, we will maintain the option to utilize some or all of these exemptions. (10-K 2025)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "GOUVERNANCE - Les Garcia detiennent environ 83 % des droits de vote ; a 25 % du capital ils controleraient encore 71 % des voix",
+      "verdict": "CONFORME",
+      "verbatim_source": "The Garcia Parties together hold approximately 83% of the voting power of our outstanding capital stock through their beneficial ownership of our Class A and Class B common stock as of December 31, 2025 [...] if the Garcia Parties hold Class B common stock representing 25% of our outstanding capital stock, they would collectively control 71% of the voting power of our capital stock. (10-K 2025)",
+      "correction_proposee": "Precision facultative : le 83 % est date au 31 decembre 2025 dans le filing."
+    },
+    {
+      "affirmation": "GOUVERNANCE - 'le conseil compte six membres', attribue au 10-K exercice 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "our Board, which is composed of six directors, divided into three classes with staggered three-year terms (DEF 14A du 25 mars 2026)",
+      "correction_proposee": "Fait exact mais mal source : il vient du proxy DEF 14A du 25 mars 2026, pas du 10-K. Ajouter cette source dans _sources."
+    },
+    {
+      "affirmation": "TRA - Clause d'exigibilite immediate en cas de changement de controle",
+      "verdict": "CONFORME",
+      "verbatim_source": "The TRA provides that if (i) certain mergers, asset sales, other forms of business combinations, or other changes of control were to occur [...] then the TRA will terminate and the Company's obligations, or the Company's successor's obligations, under the TRA will accelerate and become due and payable (10-Q, Note 14)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - Dette TRA de 2 229 M$ au 30 juin 2026, dont environ 1,7 Mds $ dus a des parties liees, 85 % des economies d'impot futures",
+      "verdict": "CONFORME",
+      "verbatim_source": "Beginning balance $2,228 [...] Ending balance 2,229 [...] Less: current portion (99) [...] TRA liability, net of current portion $2,130 (10-Q, Note 14) ; the Company recorded a tax receivable agreement ('TRA') liability of $2.2 billion and $2.3 billion, respectively, of which $1.7 billion in both periods is due to related parties (10-Q, Note 6) ; the Company generally will be required to pay to the LLC Unitholders 85% of the amount of cash savings (Note 14)",
+      "correction_proposee": "Citation exacte, mais la phrase '$1.7 billion in both periods' figure en Note 6 - Related Party Transactions, pas en Note 14. Corriger le renvoi. (Le bilan detaille 1 645 M$ dus aux parties liees au 30 juin 2026, arrondi a 1,7 Mds $ par la societe.)"
+    },
+    {
+      "affirmation": "HOOK - 'le deuxieme actif de son bilan est deja promis a 85 % a la famille fondatrice'",
+      "verdict": "EXAGERE",
+      "verbatim_source": "the Company generally will be required to pay to the LLC Unitholders 85% of the amount of cash savings ; Tax receivable agreement liability, including $1,645 and $1,721, respectively, due to related parties 2,130 2,228 (bilan au 30 juin 2026)",
+      "correction_proposee": "Les 85 % vont aux porteurs de parts (LLC Unitholders) dans leur ensemble, pas a la seule famille Garcia : sur les 2 229 M$ de dette TRA, 1 645 M$ (74 %) sont dus aux parties liees. Le corps du texte le dit correctement ('pour l'essentiel a la famille Garcia'), c'est le hook qui compresse. Reformuler : 'promis a 85 % aux porteurs de parts du groupe, dont les trois quarts a la famille fondatrice'."
+    },
+    {
+      "affirmation": "CHIFFRE - Le benefice net 2025 de 1 895 M$ recouvre une perte avant impots de 890 M$, un produit d'impot de 2 785 M$ et 2,2 Mds $ de charge TRA ; resultat d'exploitation 2025 de 1 881 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Operating income (loss) 1,881 [...] Other expense (income), net 2,250 [...] Net (loss) income before income taxes (890) [...] Income tax (benefit) provision (2,785) [...] Net income 1,895 (10-K 2025) ; Other expense (income), net was an expense of $2.3 billion during the year ended December 31, 2025 and was primarily due to $2.2 billion of TRA expense ; We released $2.2 billion of our valuation allowance during the year ended December 31, 2025",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - Taux d'impot effectif 11,4 % au T2 2026 contre 0,0 % un an plus tot, sous les 21 % du taux federal",
+      "verdict": "CONFORME",
+      "verbatim_source": "The Company's effective tax rates for the three months ended June 30, 2026 and 2025 were 11.4 % and 0.0 %, respectively [...] differed from the expected U.S. federal statutory rate of 21%",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - Actifs d'impot differe 2 968 M$ sur 14 552 M$ d'actif total (20 %), 74 % des fonds propres attribuables a Carvana Co., deuxieme actif du bilan",
+      "verdict": "CONFORME",
+      "verbatim_source": "Deferred tax assets 2,968 [...] Vehicle inventory 3,263 [...] Property and equipment, net 2,859 [...] Total assets $14,552 [...] Total stockholders' equity attributable to Carvana Co. 4,028 (bilan 30 juin 2026). 2 968/14 552 = 20,4 % ; 2 968/4 028 = 73,7 % ; deuxieme poste apres le stock de vehicules (3 263).",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - Paiements TRA 37 M$ au S1 2026 contre 17 M$ un an plus tot, dont 29 M$ aux parties liees",
+      "verdict": "CONFORME",
+      "verbatim_source": "During the six months ended June 30, 2026 and 2025, the Company made TRA payments of $37 million and $17 million, respectively, of which $29 million and $13 million, respectively, was paid to related parties.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - Profit brut par voiture 7 014 $ au T2 2026 contre 7 426 $ (-5,5 %) et recul des trois composantes : 3 547/3 636 (-2,4 %), 801/921 (-13,0 %), 2 666/2 869 (-7,1 %) ; S1 a 6 901 $",
+      "verdict": "CONFORME",
+      "verbatim_source": "Per retail unit gross profit: Retail vehicle gross profit $3,547 $3,636 (2.4)% ; Wholesale gross profit 801 921 (13.0)% ; Other gross profit 2,666 2,869 (7.1)% ; Total gross profit $7,014 $7,426 (5.5)% [...] $6,901 $7,190 (4.0)%",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - 'le niveau du T2 2026 efface deux ans de progression' (vs 7 026 $ exercice 2025 et 6 908 $ exercice 2024)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Total gross profit per retail unit $7,026 $6,908 $5,511 (10-K 2025, exercices 2025 / 2024 / 2023)",
+      "correction_proposee": "Avec les deux reperes cites par l'ATT elle-meme, 7 014 $ reste AU-DESSUS de l'exercice 2024 (6 908 $) et tres au-dessus de 2023 (5 511 $). Le T2 2026 efface la progression du seul exercice 2025, pas deux ans. Remplacer par : 'ramene le niveau sous celui de l'exercice 2025 (7 026 $), tout juste au-dessus de l'exercice 2024 (6 908 $)'."
+    },
+    {
+      "affirmation": "CHIFFRE - Marge d'EBITDA ajuste 10,4 % au T2 2026 contre 12,4 % ; 11,0 % exercice 2025 et 10,1 % exercice 2024 ; CA +52,4 % ; SG&A par unite -7,2 %",
+      "verdict": "CONFORME",
+      "verbatim_source": "Adjusted EBITDA margin 10.4 % 12.4 % 10.4 % 12.0 % ; Total revenues $7,376 $4,840 [...] 52.4% ; Total SG&A expenses per retail unit $3,568 $3,846 (10-Q) ; Adjusted EBITDA margin 11.0 % 10.1 % 3.1 % (10-K 2025). 3 846 -> 3 568 = -7,2 %.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - 310 M$ attribuables a Carvana Co. sur 513 M$ de benefice net (60,4 %), Carvana Co. detient 65,0 % de Carvana Group, actionnaires hors Garcia = 17 % des voix",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net income 513 [...] Net income attributable to Carvana Co. $310 (10-Q, compte de resultat) ; As of June 30, 2026, Carvana Co. owned approximately 65.0 % of Carvana Group with the LLC Unitholders owning the remaining 35.0 % (Note 11). 100 % - 83 % = 17 %.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - 345 M$ de tresorerie d'exploitation au S1 2026 pour 918 M$ de benefice net ; 261 M$ pour 681 M$ au S1 2025 ; stocks -833 M$ ; gains sur cessions de credits 703 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net cash provided by operating activities $345 $261 ; Net income $918 $681 ; Vehicle inventory (833) (404) ; Gain on loan sales (703) (547) ; Originations of finance receivables (9,005) (5,746)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - 5 133 M$ de dette totale, dont 3 929 M$ d'obligations securisees a 9 % en numeraire, echeances 2030 et 2031 ; tresorerie 2 630 M$ ; dette nette 2 503 M$ ; interets nets 282 -> 200 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Total debt 5,133 4,976 ; Senior Secured Notes 3,929 (Note 9) ; Notes due June 1, 2030 $1,660 9 % ; Notes due June 1, 2031 2,269 9 % ; Cash and cash equivalents $2,630 ; Interest expense, net 101 143 200 282",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - 'ces 200 M$ semestriels representent pres de 16 % du resultat avant impots'",
+      "verdict": "FAUX",
+      "verbatim_source": "Net income before income taxes 579 308 1,020 683 ; Interest expense, net 101 143 200 282 ; Operating income 680 511 1,261 905 (10-Q, compte de resultat, S1 2026)",
+      "correction_proposee": "200 / 1 020 = 19,6 % du resultat avant impots du S1 2026, pas 16 %. Le 16 % correspond en fait au resultat d'exploitation (200 / 1 261 = 15,9 %). Corriger en : 'ces 200 M$ semestriels representent pres de 20 % du resultat avant impots (1 020 M$)'."
+    },
+    {
+      "affirmation": "CHIFFRE - Revenu par voiture 27 908 $ contre 23 765 $, +17,4 %, attribue par la direction en partie a l'appreciation du marche de detail",
+      "verdict": "CONFORME",
+      "verbatim_source": "an increase in retail revenue per retail unit sold to $27,908 from $23,765 in the prior year, primarily due to lower retail marketplace units sold as a share of total retail units sold and overall appreciation in the retail market",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - 'Sur les 61,7 % de croissance du chiffre d'affaires retail du trimestre, 17,4 points viennent de cet effet prix et non des volumes'",
+      "verdict": "EXAGERE",
+      "verbatim_source": "an increase in retail revenue per retail unit sold to $27,908 from $23,765 in the prior year, primarily due to lower retail marketplace units sold as a share of total retail units sold and overall appreciation in the retail market",
+      "correction_proposee": "Le filing donne DEUX causes au +17,4 % et cite en PREMIER l'effet de mix (part plus faible des unites marketplace dans le total), l'appreciation du marche venant ensuite. Attribuer les 17,4 points au seul effet prix depasse la source. Ecrire : 'les 17,4 % de hausse du revenu par voiture viennent d'un effet de mix et d'une appreciation du marche de l'occasion, deux facteurs qui ne sont pas des volumes'. (Accessoirement, 37,7 % et 17,4 % se composent, ils ne s'additionnent pas exactement en 61,7 points.)"
+    },
+    {
+      "affirmation": "CHIFFRE - Publicite 121 M$ contre 84 M$ (+44,0 %), 239 M$ contre 156 M$ au S1, alors que les volumes progressent de 37,7 %",
+      "verdict": "CONFORME",
+      "verbatim_source": "Advertising 121 84 239 156 (Note 2, information sectorielle) ; Retail vehicle unit sales 197,325 143,280 [...] 37.7%",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - Gain sur reventes de credits 349 M$ au T2 2026 contre 274 M$, soit 25 % de la marge brute de 1 384 M$ ; marges de revente en baisse",
+      "verdict": "CONFORME",
+      "verbatim_source": "The total gain related to finance receivables sold to financing partners and pursuant to securitization transactions was $349 million and $274 million during the three months ended June 30, 2026 and 2025 (Note 7) ; partially offset by lower loan sale spreads (MD&A) ; Total gross profit $1,384",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - Ally s'engage par avenant du 27 juillet 2026 a acheter jusqu'a 8 Mds $ sur douze mois, apres 3,7 Mds $ absorbes au S1 ; trois acheteurs de blocs pour 12 Mds $ jusqu'a fin 2027 ; sept lignes de credit revolving",
+      "verdict": "CONFORME",
+      "verbatim_source": "On July 27, 2026, the Company and Ally amended the Ally MPSA to [...] increase the commitment by Ally to purchase up to $8.0 billion of principal balances of finance receivables between July 27, 2026 and July 26, 2027 ; During the six months ended June 30, 2026 [...] the Company sold $3.7 billion [...] under the Ally MPSA ; three separate definitive loan purchase agreements with three separate independent, third-party purchasers for the sale of up to a total of $12 billion [...] through the fourth quarter of 2027 ; Note 9 decrit sept preteurs revolving (un premier plus 'a second' a 'a seventh lender')",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "PARTIES LIEES - 224 M$ de commissions sur contrats d'entretien administres par DriveTime au S1 2026 contre 151 M$ au S1 2025, plus locations, administration de la garantie et service des creances",
+      "verdict": "CONFORME",
+      "verbatim_source": "during the six months ended June 30, 2026 and 2025, the Company recognized $224 million and $151 million, respectively, of commissions earned on VSCs sold to its customers and administered by DriveTime (Note 6). Note 6 couvre aussi les baux, l'administration de la garantie limitee et les frais de servicing.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - Un seul segment, quasi-totalite du CA aux Etats-Unis ; exposition residuelle 502 M$ ; credits cedes sans recours ; risque de prix de revente en cas de pertes superieures aux previsions",
+      "verdict": "CONFORME",
+      "verbatim_source": "Substantially all revenue is generated and all assets are held in the U.S. for all periods presented (Note 2) ; Beneficial interests in securitizations 502 ; The Company completes loan sales without recourse for their post-sale performance (Note 7) ; if the receivables we sell experience higher loss rates than forecasted, we may obtain less favorable pricing on the receivables we sell to financing partners or in securitizations in the future (10-K 2025, facteurs de risque)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - Environ 37 millions de transactions d'occasion aux Etats-Unis en 2024 selon Cox Automotive, dix premiers distributeurs sous 10 % de part ; 3,1 millions de vehicules vendus depuis 2012 ; environ 2 % des transactions annuelles",
+      "verdict": "CONFORME",
+      "verbatim_source": "approximately 37 million used auto retail transactions in the United States ('U.S.') in 2024 according to Cox Automotive [...] with the top 10 used auto retailers in the U.S. accounting for less than 10% of the market share in 2024 [...] to sell 3.1 million retail vehicles, generating $97.9 billion in total revenue since inception in 2012 through June 30, 2026. Volumes 12 mois glissants 704 181 unites / 37 M = 1,9 %.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - Stock de vehicules 3 263 M$ au 30 juin 2026 contre 2 408 M$ au 31 decembre 2025, +35 % en six mois ; ventes retail 5 507 M$ contre 3 405 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Vehicle inventory 3,263 2,408 (bilan) ; Retail vehicle sales, net $5,507 $3,405 61.7% . 3 263/2 408 = +35,5 %, periode correctement libellee (six mois).",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE - 197 325 voitures vendues au T2 2026 (+38 %) et 513 M$ de benefice net",
+      "verdict": "CONFORME",
+      "verbatim_source": "Retail vehicle unit sales 197,325 143,280 384,718 277,178 [...] 37.7% ; Net income $513 $308 $918 $681",
+      "correction_proposee": ""
+    }
+  ]
+}

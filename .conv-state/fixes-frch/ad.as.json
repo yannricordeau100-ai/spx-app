@@ -1,0 +1,27 @@
+{
+  "ticker": "AD.AS",
+  "verdict": "contamine",
+  "audit": "2026-08-14",
+  "sources_verite": [
+    "src/data/v2-pipeline/AD.AS.json",
+    ".batches-drafts-safe/kpis-haut/AD.AS.json",
+    "data-lake/AD.AS/geo_fr.json + segments_fr.json + gouvernance_fr.json + ia_positionnement_fr.json (issus de ir/URD/AD.AS_URD_FY2025_2026-02-25)"
+  ],
+  "filings_homonymes": "data-lake/AD.AS sous-dossiers SEC (10K, 10Q, 8K, DEF14A, ER, xbrl...) = US Cellular, marques par _WRONG_COMPANY.txt. sec-data/cat3-european/AD.AS/annual-text = vrais documents Ahold (0 occurrence US Cellular).",
+  "problemes": [
+    "IDENTITE. companies/AD.AS.json porte sector = 'Consommation discretionnaire', subsector = 'Retail', subsector_fr = 'Commerce de detail'. v2-pipeline (chaine AEX du 9 aout, sourcee URD) donne 'Consommation de base' / 'Distribution alimentaire'. Un distributeur alimentaire n'est pas de la consommation discretionnaire.",
+    "TAGLINE non sourcee : 'Empowering people to eat and live better'. v2-pipeline a tagline = null ; le purpose publie par Ahold Delhaize est 'Eat well. Save time. Live better.'",
+    "HERO INCOHERENT, triple libelle. hero_kpi = 'Female Rep SVP+' (KPI de diversite, 36%, present seulement dans kpis_supplementary) alors que hero_kpi_rationale parle de la marge brute de 23,4%, et que hero_kpi_override dit 'Comparable Sales Growth'. Hero attendu (v2 + kpis-haut) : ONLINE_SALES_Q, ventes en ligne, 2 667 M EUR au Q2 2026.",
+    "KPI EN DOLLARS. kpis[] revenue 92,352 / gross_profit 24,514 / operating_income 3,542 / net_income 2,264 portent unit = 'Mds $'. Les valeurs sont les agregats EUR (le champ _super_kpi_inputs du meme fichier indique revenue_unit = 'Mds E' et 'rapport financier income_stmt annual (EUR)').",
+    "REPARTITION DU CA FAUSSE (devise + perimetre). revenue_by_segment et revenue_by_geography donnent US 12,692 / Europe 9,583, total 22,28 avec unit 'Mds $' et currency 'USD', year 2026 : c'est un trimestre, en dollars. Reference data-lake/AD.AS/geo_fr.json (URD FY2025) : Etats-Unis 53,063 (57,5%) / Europe 39,289 (42,5%), total 92,352 Mds EUR."
+  ],
+  "non_contamine": [
+    "name = Ahold Delhaize",
+    "governance.ceo_name = Frans W. H. Muller, CFO Jolanda Poots-Bijl : correct, aucun dirigeant US Cellular",
+    "ranks : global_world '≈ #350' et subsector 'Top 5 Global Food Retail' plausibles, global_us N/A",
+    "risks (8) tous propres a la distribution alimentaire, extraits de sec-data/.../2026.txt qui est bien le rapport Ahold",
+    "ai_positioning stance integrator, coherent avec data-lake/AD.AS/ia_positionnement_fr.json",
+    "ordre de grandeur CA 92,4 Mds EUR FY2025 : correct",
+    "DPS 1,18 EUR et EPS 2,50 EUR : bien libelles en euros"
+  ]
+}

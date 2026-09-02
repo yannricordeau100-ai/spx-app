@@ -1,0 +1,54 @@
+{
+  "ticker": "CIEN",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "hook + titre fondamental_interne 3 : \"le carnet de commandes qui porte cette croissance n'engage aucun d'eux a acheter\" / \"Carnet de commandes record mais non contractuel\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 FY2026 : \"Remaining Performance Obligations (“RPO”) are comprised of non-cancelable customer purchase orders for products and services that are awaiting transfer of control for revenue recognition under the applicable contract terms. ... As of May 2, 2026, the aggregate amount of RPO was $2.5 billion.\"",
+      "correction_proposee": "Le RPO est explicitement constitue de commandes clients NON ANNULABLES. Le fait exact issu du 10-K FY2025 est distinct : les contrats clients ne comportent pas de minimums d'achat garantis et une part significative du CA provient de commandes recues dans le trimestre meme. Reformuler : \"les contrats clients ne prevoient aucun minimum d'achat garanti, meme si le carnet deja enregistre (RPO) porte sur des commandes non annulables\"."
+    },
+    {
+      "affirmation": "\"le flux de tresorerie operationnel du trimestre a plus que double sur un an (259,7 M$ contre 156,9 M$)\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "kpis-haut CIEN.json, serie OCF : Q2-2025 = 156.9, Q2-2026 = 259.7. Le 10-Q ne publie que le semestre : \"Net cash provided by operating activities 487,347 / 260,669\".",
+      "correction_proposee": "259,7 / 156,9 = +65,5%. Remplacer \"a plus que double\" par \"a progresse de 65,5%\" (le doublement supposerait 313,8 M$)."
+    },
+    {
+      "affirmation": "\"La dette long terme nette ... quasiment stable depuis fin FY2023 (1,55 Mds $)\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "kpis-haut CIEN.json, serie LT_DEBT : Q4-2023 = 1.54 (1,55 correspond a Q1/Q2-2023). 10-Q T2 FY2026 : \"Long-term debt, net 1,519,539\" au 2 mai 2026 et 1,524,158 au 1er novembre 2025.",
+      "correction_proposee": "Ecrire 1,54 Mds $ fin FY2023 (Q4-2023) au lieu de 1,55 Mds $."
+    },
+    {
+      "affirmation": "Deux clients cloud = 533,5 M$ sur 1 570,7 M$ soit ~34% du T2 FY2026 ; Cloud provider A seul > 20% du CA trimestriel",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 FY2026 : \"Cloud provider A $321,224 ... Cloud provider B 212,288 ... Total $533,512\" ; \"Total revenue by geographic distribution $1,570,739\". 533 512/1 570 739 = 33,96% ; 321 224/1 570 739 = 20,45%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Benefice net multiplie par 24 : 218,2 M$ au T2 FY2026 contre 8,97 M$ au T2 FY2025 ; 368,5 M$ contre 53,5 M$ sur 6 mois ; marge nette 0,8% -> 13,9%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 FY2026 : \"Net income $218,220 | $8,969 | $368,503 | $53,541\". 218 220/8 969 = 24,3x. 218 220/1 570 739 = 13,9% ; 8 969/1 125 878 = 0,8%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CA +39,5% au T2 FY2026, RPO 2,5 Mds$ vs 1,7 Mds$ un an plus tot, stocks nets 808,4 M$, tresorerie 1 045,1 M$ + placements CT 157,7 M$, rachats 84,4 M$ au T2",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q : \"Inventories, net 808,447\" ; \"Cash and cash equivalents $1,045,126\" ; \"Short-term investments 157,708\" ; \"the aggregate amount of RPO was $2.5 billion\" ; kpis-haut series RPO_TOTAL (Q2-2025 = 1.7), BUYBACK (Q2-2026 = 84.4). 1 570 739/1 125 878 = +39,5% (le 10-Q arrondit a 40%).",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Citations du 10-K FY2025 : 72% du CA aux Etats-Unis / tarifs Canada-Mexique-Chine ; concurrents mieux dotes ; absence de minimums garantis dans les contrats clients",
+      "verdict": "CONFORME",
+      "verbatim_source": "data-lake/CIEN/risks/extracted.json : les trois descriptions citees existent mot pour mot dans les risques \"Impact des droits de douane...\", \"Concurrence intense...\", \"Volatilite trimestrielle des resultats...\".",
+      "correction_proposee": "Reserve de methode : ces \"verbatim\" sont ceux d'une extraction FR interne, pas du texte original du 10-K. La formulation \"le 10-K FY2025 precise\" devrait etre attenuee ou la citation confrontee au texte anglais d'origine."
+    },
+    {
+      "affirmation": "Part cloud 12,8% (FY2023) -> 17,9% (FY2025), en hausse continue ; top 10 clients 57,9% en FY2024, derniere annee disponible",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut CIEN.json : CLOUD_MIX FY2023 12.8 / FY2024 13.3 / FY2025 17.9 ; TOP10_MIX derniere valeur FY2024 = 57.9.",
+      "correction_proposee": ""
+    }
+  ]
+}

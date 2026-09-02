@@ -1,0 +1,90 @@
+{
+  "ticker": "MSCI",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Le Global Controller et Chief Accounting Officer a quitte ses fonctions (annonce le 31 mars 2026) ; au 7 aout 2026 le poste reste sans titulaire permanent, le CFO Andrew C. Wiechmann est responsable comptable principal par interim, epaule par une controleuse generale par interim.",
+      "verdict": "CONFORME",
+      "verbatim_source": "8-K 2026-08-07 : \"in connection with the previously disclosed departure of the Global Controller and Chief Accounting Officer of MSCI Inc. ... as disclosed in the Company's Current Report on Form 8-K filed with the SEC on March 31, 2026, the Board of Directors of the Company appointed Andrew C. Wiechmann, the Company's Chief Financial Officer, to serve as the Company's principal accounting officer on an interim basis, effective August 10, 2026, until a successor is designated ... Kristine Johnson was appointed to serve as the Company's interim Global Controller\"",
+      "correction_proposee": "Aucune. Precision possible : la nomination prend effet le 10 aout 2026 (annoncee le 7 aout)."
+    },
+    {
+      "affirmation": "Capitaux propres negatifs de 2 689,5 M$ au 30 juin 2026 contre -2 654,5 M$ fin 2025.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Total shareholders' equity (deficit) ( 2,689.5 ) ( 2,654.5 )\"",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "6,0 Mds $ de senior unsecured notes et 475 M$ tires sur la ligne de credit renouvelable.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"As of June 30, 2026, the Company had outstanding an aggregate of $ 6.0 billion in senior unsecured notes ... and $ 475.0 million of revolving loans under the Revolving Credit Facility\" ; \"Long-term debt 6,380.4 6,202.3\"",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "La dette long terme a bondi de 41,5% sur un an, a 6,38 Mds $.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Long-term debt 6,380.4\" ; serie kpis-haut/MSCI.json dette_lt : Q2-2025 4,51 Mds $ -> Q2-2026 6,38 Mds $ (+41,5%)",
+      "correction_proposee": "Aucune sur le fond. Le +41,5% n'est PAS dans le 10-Q cite en preuve (qui ne presente que le comparatif au 31/12/2025) ; citer explicitement kpis-haut/MSCI.json pour le glissement annuel."
+    },
+    {
+      "affirmation": "EBITDA ajuste Analytics -5,0% sur un an au T2 2026, marge -5,6 pts a 46,5% ; Actifs prives -14,1%, marge -5,1 pts a 22,9%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Analytics : \"Adjusted EBITDA $ 88.0 $ 92.6 (5.0 %) ... Adjusted EBITDA margin % 46.5 % 52.1 %\" ; All Other - Private Assets : \"Adjusted EBITDA $ 17.1 $ 19.9 (14.1 %) ... Adjusted EBITDA margin % 22.9 % 28.0 %\"",
+      "correction_proposee": "Chiffres exacts, mais la citation de preuve est recomposee : le document ecrit \"...higher information technology costs and market data costs, as well as a decrease in the favorable fair value adjustment on contingent consideration related to the Fabric RQ, Inc. acquisition. The increase was also driven by compensation and benefits costs due to increased headcount costs.\" L'ATT fusionne deux phrases et supprime l'element non recurrent Fabric RQ. Retablir la citation integrale ou couper la citation avant."
+    },
+    {
+      "affirmation": "\"alors que la marge consolidee du groupe reste a 56,2%\" (dans une phrase comparant les marges d'EBITDA ajuste des segments).",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"Operating margin % 56.2 % 55.0 % ... Adjusted EBITDA margin % 62.1 % 61.4 %\"",
+      "correction_proposee": "56,2% est la marge OPERATIONNELLE consolidee, pas la marge d'EBITDA ajuste. La grandeur comparable aux marges segmentaires citees (46,5% et 22,9%, qui sont des marges d'EBITDA ajuste) est 62,1%. Ecrire : \"alors que la marge d'EBITDA ajuste consolidee du groupe atteint 62,1%\". En l'etat, la comparaison ecrase artificiellement l'ecart entre segments et groupe."
+    },
+    {
+      "affirmation": "BlackRock a represente 10,8% du chiffre d'affaires consolide en 2025, dont 96,5% de commissions assises sur les actifs de ses ETF et produits non-ETF indexes MSCI.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 : \"For the year ended December 31, 2025, our largest client organization by revenue, BlackRock, accounted for 10.8% of our consolidated operating revenues, with 96.5% of the operating revenues from BlackRock coming from fees based on the assets in BlackRock's ETFs and non-ETF products that are based on our indexes\"",
+      "correction_proposee": "Exact mais perime a la date d'arret des donnees (2026-08-07). Le 10-Q du 21 juillet 2026 indique : \"For the six months ended June 30, 2026 and 2025, BlackRock, Inc. accounted for 11.8 % and 10.3 % of the Company's consolidated operating revenues\". Mentionner les 11,8% du S1 2026 et corriger le declencheur \"ce_qui_affaiblirait\" qui parle de redescendre \"sous 10,8%\" alors que la part a deja monte a 11,8%."
+    },
+    {
+      "affirmation": "BlackRock detient 8,13% du capital et 7,6% des droits de vote de MSCI, deuxieme actionnaire derriere Vanguard.",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "DEF14A 2026-03-11 : \"BlackRock, Inc. ... 5,942,793 (3) 8.13 %\" ; \"The Vanguard Group ... 9,376,828 (2) 12.82 %\". Aucun chiffre de 7,6% de droits de vote dans le proxy ; MSCI n'a qu'une classe d'actions ordinaires et src/data/v2-pipeline/msci.json indique lui-meme \"voting_structure\": \"One share, one vote\".",
+      "correction_proposee": "Supprimer \"et 7,6% des droits de vote\". Le 7,6% provient du champ top_voting de v2-pipeline/msci.json (mesure de \"voting power\" de Schedule 13G, non un droit de vote statutaire) et contredit la structure une action = une voix. Conserver uniquement : \"deuxieme actionnaire avec 8,13% du capital, derriere Vanguard (12,82%)\"."
+    },
+    {
+      "affirmation": "GICS est developpe et maintenu conjointement avec S&P Dow Jones Indices, division de S&P Global.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 : \"revenues from licenses of GICS Direct, the global industry classification standard jointly developed and maintained by MSCI and S&P Dow Jones Indices, a division of S&P Global Inc.\"",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "6 800 clients au 31 decembre 2025, en baisse de 4,2% sur un an.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 : \"As of December 31, 2025, we served approximately 6,800 clients in more than 100 countries\" ; 10-K FY2024 : \"approximately 7,100 clients\"",
+      "correction_proposee": "Le sens est exact mais les deux bornes sont des arrondis (\"approximately\") : un taux a la decimale (-4,2%) donne une fausse precision ; preferer \"environ 7 100 clients fin 2024 contre environ 6 800 fin 2025\". A ajouter aussi : le 10-Q du 21 juillet 2026 indique toujours \"approximately 6,800 clients\" au 30 juin 2026, donc pas de degradation supplementaire au S1 2026."
+    },
+    {
+      "affirmation": "Remuneration totale du CEO Henry Fernandez de 33,32 M$ en 2025, +112% sur un an, soit 592 fois la remuneration mediane (56 294 $) ; options 25,22 M$, salaire 1 M$, prime non-equity 1,35 M$.",
+      "verdict": "CONFORME",
+      "verbatim_source": "DEF14A 2026 : \"Henry A. Fernandez ... 2025 1,000,000 - 4,380,024 25,220,304 1,346,950 1,373,312 33,320,590 ; 2024 ... 15,696,607\" ; \"the median of the annual total compensation of all our employees (except our Chief Executive Officer) was $56,294 ... the annual total compensation of our Chief Executive Officer was $33,320,590 ... the ratio of these two amounts was 592 (1) to 1\"",
+      "correction_proposee": "Aucune sur les chiffres. Par honnetete, le meme paragraphe publie l'alternative : \"or $18,320,508 excluding the special PPO award ... or 325 (2) to 1 excluding the special PPO award\" ; la mentionner evite le reproche de citation selective."
+    },
+    {
+      "affirmation": "L'approbation de la remuneration a recueilli 94% de votes favorables lors de l'AG du 21 avril 2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "8-K 2026-04-23 : \"Proposal 2 - Approval, by advisory vote, of the Company's executive compensation. For Against Abstain Broker Non-Vote 59,076,413 4,061,619 106,659 3,158,970. The foregoing Proposal 2 was approved.\" (93,6% des voix pour/contre)",
+      "correction_proposee": "Aucune (94% est l'arrondi de 93,6%)."
+    },
+    {
+      "affirmation": "Commission moyenne ETF de 2,28 points de base, -0,15 pdb sur un an ; encours d'ETF lies aux indices MSCI +39,2% a 2 818 Mds $.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"AUM in ETFs linked to MSCI equity indexes $ 1,783 $ 2,025 $ 2,211 $ 2,341 $ 2,403 $ 2,818\" (2 025 au 30/06/2025 -> 2 818 au 30/06/2026 = +39,2%) ; \"increase in average AUM, partially offset by a decrease in average basis point fees\" ; kpis-haut/MSCI.json etf_bps_fee : Q2-2025 2,43 -> Q2-2026 2,28",
+      "correction_proposee": "Aucune sur le fond. Le chiffre de 2,28 pdb n'est pas publie tel quel dans le 10-Q (qui ne donne que la tendance qualitative) : la source reelle est kpis-haut/MSCI.json, a citer."
+    },
+    {
+      "affirmation": "Taux de retention de 95,3%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Retention Rate, Total : \"95.3%\" (T2 2026 et S1 2026)",
+      "correction_proposee": "Aucune. Preciser qu'il s'agit du T2/S1 2026 annualise : le taux de l'exercice 2025 complet etait de 94,4% (10-K FY2025)."
+    }
+  ]
+}

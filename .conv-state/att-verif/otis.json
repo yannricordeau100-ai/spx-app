@@ -1,0 +1,73 @@
+{
+  "ticker": "OTIS",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/OTIS/10Q/OTIS_2026-07-23.htm.gz ; data-lake/OTIS/10K/OTIS_2026-02-05.htm.gz ; data-lake/OTIS/8K/OTIS_2026-05-07 et OTIS_2026-07-22",
+  "controles": [
+    {
+      "affirmation": "Le carnet de commandes bat un record historique / est a son plus haut (hook et resume)",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "10-Q T2 2026 : 'As of June 30, 2026, our total RPO was approximately $19.7 billion.' Aucune mention de 'record', 'highest' ou 'backlog' ailleurs dans le 10-Q. Le 8-K du 22/07/2026 present au data-lake ne contient que la page de garde, sans communique de resultats. Serie RPO (kpis-haut/OTIS) : T1-2026 19,8 Mds$ > T2-2026 19,7 Mds$",
+      "correction_proposee": "Aucune source du data-lake n'etaye le record. La seule serie disponible (RPO) montre meme un recul sequentiel depuis le T1 2026 (19,8 Mds$). Retirer la mention du record, ou la remplacer par un fait verifiable : 'un carnet de commandes (RPO) de 19,7 Mds$, en hausse de 2,1% sur un an'. Le hook repose actuellement sur une affirmation invérifiable."
+    },
+    {
+      "affirmation": "Recul organique superieur a 20% en Chine sur S1 2026, a comparer a une croissance organique d'environ 10% en Ameriques sur la meme periode",
+      "verdict": "FAUX",
+      "verbatim_source": "Six Months Ended June 30, 2026 : 'The organic sales decrease of (3)% was primarily driven by a greater than (20)% decline in China, low single-digit decline in EMEA and Asia Pacific, partially offset by mid single-digit growth in Americas.' Quarter Ended June 30, 2026 : '...offset by approximately 10% growth in Americas'",
+      "correction_proposee": "Les +10% en Ameriques sont le chiffre du TRIMESTRE, pas du semestre. Sur le S1, le 10-Q indique 'mid single-digit growth in Americas'. Ecrire : 'a comparer a une croissance organique a un chiffre moyen en Ameriques sur le semestre (environ 10% sur le seul deuxieme trimestre)'."
+    },
+    {
+      "affirmation": "Litige fiscal allemand : decision favorable en 2024 mais Otis reste redevable de 56 M$ a RTX au 31 decembre 2025 ; le resultat net du S1 2025 incluait 58 M$ de charge d'indemnisation",
+      "verdict": "EXAGERE",
+      "verbatim_source": "the Company estimated the amount payable to RTX as a result of the outcome of the German tax litigation to be $56 million as of December 31, 2025... the Company now estimates the remaining amount payable to RTX to be $55 million [au 30 juin 2026]... compared to $6 million and $58 million for the quarter and six months ended June 30, 2025. [ET, Note 15] In the third quarter of 2024, Otis prevailed in a German tax litigation case... the Company expects to receive total refunds of prepaid tax, prepaid interest, overpayment interest, and court fees of approximately EUR 313 million net of tax (approximately $356 million) as of June 30, 2026.",
+      "correction_proposee": "Deux corrections. 1) Chiffre perime : le solde du au 30 juin 2026 est de 55 M$, pas 56 M$. 2) Omission materielle : l'ATT ne mentionne pas que la victoire vaut a Otis environ 356 M$ (313 M EUR) de remboursements, deja encaisses en partie. Presenter la seule indemnite de 55 M$ inverse le sens economique du dossier. Reecrire : 'Otis doit indemniser RTX a hauteur de 55 M$ au titre du Tax Matters Agreement, sur des remboursements attendus d'environ 356 M$'."
+    },
+    {
+      "affirmation": "Sur le S1 2026 : 807 M$ de rachats et 330 M$ de dividendes (1 137 M$) contre un free cash-flow d'environ 603 M$ ; l'ecart de 534 M$ couvert par une hausse de l'endettement plutot que par le cash genere",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Repurchases of Common Stock (807) ; Dividends paid on Common Stock (330) ; Net cash flows provided by operating activities 680 ; Capital expenditures (77) ; Proceeds from issuance of long-term debt 700 ; Repayment of long-term debt (135) ; Net proceeds from (repayments of) borrowings (maturities of 90 days or less) (33). Cash and cash equivalents 813 (30/06/2026) vs 1,096 (31/12/2025)",
+      "correction_proposee": "L'arithmetique est juste mais l'attribution est trop tranchee : la tresorerie a aussi recule de 283 M$ sur la periode, et le 8-K du 07/05/2026 affecte explicitement les 700 M$ emis au remboursement des obligations 0,318% echeance decembre 2026, pas aux rachats d'actions. Ecrire : 'l'ecart a ete comble par une combinaison de dette nouvelle et de ponction sur la tresorerie, qui recule de 1 096 a 813 M$'."
+    },
+    {
+      "affirmation": "Marge Nouvel Equipement a 3,1% au T2 2026 contre 5,3%, soit -220 pb ; resultat operationnel du segment -41% (40 M$ contre 68 M$) ; -42% sur 6 mois (78 M$ contre 134 M$)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Operating profit $40 / $68 / $(28) / (41)% ; $78 / $134 / $(56) / (42)% ; Operating profit margin 3.1% / 5.3% ; 3.2% / 5.5%. 'Operating margin decreased (220) basis points' (trimestre)",
+      "correction_proposee": "Le verbatim cite en preuve, 'Operating margin decreased (230) basis points', est celui des SIX MOIS. Pour le trimestre le 10-Q dit bien '(220) basis points'. Remplacer le verbatim par la bonne periode."
+    },
+    {
+      "affirmation": "Marge Service de 23,2% sur la meme periode (6 mois), soit environ 7 fois la marge Nouvel Equipement",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Service, Operating profit margin : 23.2% (T2 2026) / 24.9% (T2 2025) ; 23.1% (S1 2026) / 24.7% (S1 2025)",
+      "correction_proposee": "Melange de periodes : 23,2% est la marge du TRIMESTRE ; sur six mois elle est de 23,1%. Le rapport d'environ 7 fois reste juste (23,1 / 3,2). Corriger le chiffre en 23,1% ou preciser qu'il s'agit du trimestre."
+    },
+    {
+      "affirmation": "Reorganisation des operations chinoises annoncee en janvier 2025, environ 30 M$ de restructuration ; la Chine pese 11,4% du CA FY2025 (1,65 Mds$ sur environ 14,4 Mds$)",
+      "verdict": "CONFORME",
+      "verbatim_source": "In January 2025, we announced the reorganization of our operations in China... this reorganization resulted in restructuring actions of approximately $30 million. 10-K FY2025, Geographic External Sales : China 1,650 ; Total 14,431",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Capitaux propres de -5 560 M$ au 30 juin 2026 contre -5 346 M$ ; dette totale 8 436 M$ contre 7 956 M$ ; tresorerie 813 M$ contre 1 096 M$ ; dette nette / capitalisation nette de 453% a 370%",
+      "verdict": "CONFORME",
+      "verbatim_source": "Cash and cash equivalents $813 / $1,096 ; Total debt 8,436 / 7,956 ; Total equity (5,560) / (5,346) ; Net debt to net capitalization 370% / 453%",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "En mai 2026, emission de 700 M$ d'obligations 4,488% echeance 2029 pour rembourser les obligations 0,318% echeance decembre 2026 (600 M EUR, environ 695 M$), soit un cout multiplie par plus de 14",
+      "verdict": "CONFORME",
+      "verbatim_source": "On May 7, 2026, Otis Worldwide Corporation issued $700,000,000 aggregate principal amount of its 4.488% Notes due 2029... The Company intends to use the net proceeds from this offering to fund the repayment at maturity of its 0.318% Notes due December 15, 2026, of which EUR 600 million (approximately $695 million) principal amount was outstanding as of March 31, 2026.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Litige fiscal belge perdu en 2023, pas d'appel ; reclamations pour surfacturation liees a des ententes civiles sur ascenseurs et escaliers dans plusieurs pays europeens, provisionnees",
+      "verdict": "CONFORME",
+      "verbatim_source": "A subsidiary of Otis lost a tax litigation case in Belgium in 2023 and decided not to appeal. Otis may receive the assessment for tax and interest within the next 12 months. The associated tax and interest have been fully reserved. [et] In certain European countries, claims for overcharges on elevators and escalators related to civil cartel cases have been made, which we have accrued for based on our evaluation of the claims.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Nouveaux tarifs douaniers americains 2025-2026, impact net non quantifie, dependant de negociations avec clients et fournisseurs",
+      "verdict": "CONFORME",
+      "verbatim_source": "New import tariffs implemented in 2025 and 2026 by the U.S. and other countries, as currently in effect, could have a material impact on our results in 2026 and future years. The impact of tariffs is dependent upon negotiations with customers and suppliers and other mitigation efforts and potential further changes in global trade policies",
+      "correction_proposee": null
+    }
+  ]
+}

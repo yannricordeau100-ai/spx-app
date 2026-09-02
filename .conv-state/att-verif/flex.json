@@ -1,0 +1,72 @@
+{
+  "ticker": "FLEX",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Flex a annonce le 5 mai 2026 son intention de separer le segment CPI en societe cotee independante (SpinCo), operation attendue au T1 calendaire 2027, soumise a l'approbation du conseil, des actionnaires, de la Haute Cour de Singapour et a l'entree en vigueur du Form 10 aupres de la SEC.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T1 FY2027 (FLEX_2026-07-31.htm.gz) : \"On May 5, 2026, Flex announced its intention to separate its CPI segment from Flex and into an independent, publicly traded company (“SpinCo”)... The spin-off of CPI from Flex is expected to be completed in the first quarter of calendar 2027 and is subject to the approval of Flex's Board of Directors, shareholders, and the High Court of the Republic of Singapore and the SEC declaring SpinCo's Form 10 registration statement effective.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le 10-K liste ce projet en position 2 sur 25 dans ses facteurs de risque, avec la formule verbatim « may not be completed on the terms or timeline currently contemplated, if at all ».",
+      "verdict": "FAUX",
+      "verbatim_source": "Le verbatim existe bien : 10-K FY2026 (FLEX_2026-05-20.htm.gz), Summary of Risk Factors, 2e puce : \"The planned spin-off of our Cloud and Power Infrastructure businesses may not be completed on the terms or timeline currently contemplated, if at all, and involves significant costs and risks.\" MAIS le denominateur est faux : le Summary of Risk Factors du 10-K FY2026 compte environ 45 puces, pas 25. Et la source citee dans la preuve (data-lake/FLEX/risks/extracted.json) ne contient que 7 risques, pas 25 : le \"25\" n'existe dans aucune des deux sources.",
+      "correction_proposee": "Ecrire : « le 10-K FY2026 place ce risque en 2e position de son resume des facteurs de risque », sans denominateur, ou « position 2 sur environ 45 » si un denominateur est requis."
+    },
+    {
+      "affirmation": "Le 10-Q qualifie lui-meme le contexte tarifaire de mouvant : « the global tariff landscape continues to shift rapidly ».",
+      "verdict": "FAUX",
+      "verbatim_source": "Cette phrase n'existe dans AUCUN filing FLEX du data-lake. Le 10-Q cite (FLEX_2026-07-31.htm.gz) dit : \"The U.S. tariffs initially announced in April 2025, which continue to evolve, and other countries' potential retaliatory tariffs and import/export restrictions may materially increase our product input costs...\". La formulation la plus proche se trouve dans les 10-Q ANTERIEURS (FLEX_2025-07-25, 2025-10-31, 2026-02-06) : \"the global tariff landscape, which continues to evolve, has the potential to meaningfully impact end customer demand\" — \"continues to evolve\", pas \"continues to shift rapidly\".",
+      "correction_proposee": "Remplacer la citation par le verbatim reel du 10-Q T1 FY2027 : « The U.S. tariffs initially announced in April 2025, which continue to evolve », et supprimer les guillemets autour d'une phrase qui n'a jamais ete ecrite par Flex."
+    },
+    {
+      "affirmation": "Des droits de douane americains sont actifs depuis fevrier 2025 sur l'acier, l'aluminium et les importations en provenance de Chine, du Mexique et du Canada.",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Ni le 10-Q T1 FY2027 ni le 10-K FY2026 ne mentionnent \"steel\", \"aluminum\", \"Canada\" ni des tarifs datant de \"February 2025\" (0 occurrence de chacun). Le 10-Q date les tarifs d'avril 2025 et signale au contraire un renversement : \"On February 20, 2026, the U.S. Supreme Court struck down tariffs imposed under the International Emergency Economic Powers Act (“IEEPA”) and on April 20, 2026 the U.S. government opened a system to facilitate refunds for IEEPA tariffs paid. We have requested and received a portion of our requested IEEPA tariff refunds\".",
+      "correction_proposee": "Reecrire l'argument sur la base du 10-Q : tarifs annonces en avril 2025, encore en evolution, impact d'environ 1 % sur revenus et cout des ventes au T1 FY2027 et effet negligeable sur la profitabilite, avec mention de l'invalidation IEEPA du 20 fevrier 2026 par la Cour supreme et des remboursements en cours. En l'etat l'affirmation presente comme actif un regime tarifaire partiellement annule."
+    },
+    {
+      "affirmation": "La dette bancaire et obligataire passe de 3 751 M$ (31 mars 2026) a 5 219 M$ (26 juin 2026), soit +39,1 % en un trimestre, via un pret a terme de 1,45 Md$ finançant l'acquisition d'EPP a 1,2 Md$, integree au segment CPI ; tresorerie 2,8 Mds$ et revolver 2,75 Mds$ non tire.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T1 FY2027 : \"Long-term debt, net of current portion 5,219 / 3,751\" ; \"In April 2026, the Company entered into a $1.45 billion loan agreement to finance the acquisition of Electrical Power Products, Inc.\" ; \"On May 1, 2026, the Company completed the acquisition of 100% ownership of Electrical Power Products, Inc. (“EPP”)... for a total estimated purchase consideration of $1.2 billion in cash... The business is included in the CPI segment.\" ; \"we had cash and cash equivalents of approximately $2.8 billion, bank and other borrowings of approximately $5.2 billion and a $2.75 billion revolving credit facility under which we had no borrowings outstanding\". Calcul verifie : 5219/3751 = +39,1 %.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Les dix plus gros clients representent 49 % du CA au T1 FY2027 (48 % un an plus tot), un client unique 12 % du CA avec la majorite de ce revenu dans le segment CPI, aucun autre client au-dela de 10 %.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T1 FY2027 : \"Our ten largest customers during both the three-month periods ended June 26, 2026 and June 27, 2025 accounted for approximately 49% and 48% of net sales. A significant customer accounted for 12% of net sales during the first quarter of fiscal year 2027 with the majority of this revenue being reported in our CPI segment. No other customer accounted for more than 10% of net sales\".",
+      "correction_proposee": "Nuance : le resume ecrit « un client representant 12 % du chiffre d'affaires est concentre dans ce meme segment CPI » alors que le filing dit « la majorite de ce revenu ». Prefer « majoritairement comptabilise dans le segment CPI », formulation deja utilisee correctement ailleurs dans l'ATT."
+    },
+    {
+      "affirmation": "Concentration « en hausse continue depuis 37 % en FY2024 et 44 % en FY2025 » jusqu'a 49 % au T1 FY2027.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-K FY2026 : \"Our ten largest customers accounted for 45%, 44% and 37% of net sales in fiscal years 2026, 2025 and 2024, respectively.\" La serie annuelle s'arrete a 45 % (FY2026) ; le 49 % est une donnee TRIMESTRIELLE (T1 FY2027), non comparable a la serie annuelle, et le point FY2026 a 45 % est omis.",
+      "correction_proposee": "Ecrire : « 37 % en FY2024, 44 % en FY2025, 45 % en FY2026 (base annuelle), et 49 % sur le seul T1 FY2027 (base trimestrielle, non comparable) »."
+    },
+    {
+      "affirmation": "Segment historique ITS « en repli continu » : 11 109 M$ en FY2026 contre 12 636 M$ en FY2024, -12 % en deux ans, environ 40 % du CA.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Les chiffres sont exacts (10-K FY2026 : ITS 11,109 / 12,636 ; CA total FY2026 27,9 Mds$, soit 40 %). Mais « repli continu » est contredit par le meme 10-Q cite comme source principale : \"Net sales for our ITS segment increased $0.5 billion, or 20% from the three-month period ended June 27, 2025, primarily driven by strong growth in the Communications business\". Le segment ITS est en croissance de 20 % au dernier trimestre publie.",
+      "correction_proposee": "Ecrire : « ITS en repli de 12 % sur deux ans (FY2024-FY2026) mais reparti a la hausse au T1 FY2027 (+20 % sur un an, porte par les Communications) ». Le mot « continu » doit disparaitre."
+    },
+    {
+      "affirmation": "Le 10-K FY2026 introduit un facteur de risque absent l'an dernier : moratoires sur les nouveaux developpements de centres de donnees.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2026 : \"certain jurisdictions have imposed or are considering moratoria or pauses on new data center development, enhanced permitting and environmental review processes... Given our Cloud and Power Infrastructure businesses' exposure to data center development activity, any sustained reduction or delay in data center investment resulting from regulatory developments could materially and adversely affect demand\". Verification de nouveaute : 0 occurrence de \"moratori\" dans le 10-K FY2025 (FLEX_2025-05-21.htm.gz).",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Segment CPI a 6 614 M$ en FY2026 (24 % du CA) contre 3 244 M$ en FY2024 (12 %), soit +104 % en deux ans ; 2 202 M$ au T1 FY2027 contre 1 626 M$ (+35 %).",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2026 : CPI 6,614 (FY2026) / 3,244 (FY2024). 10-Q T1 FY2027 : CPI 2,202 / 1,626 et \"Net sales for our CPI segment increased $0.6 billion, or 35% from the three-month period ended June 27, 2025\". Calcul verifie : 6614/3244 = +103,9 %.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Precedent comparable : scission de Nextracker effective le 2 janvier 2024.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2026 : \"On January 2, 2024, the Company completed its previously announced spin-off of its remaining interests in Nextracker Inc. (“Nextracker”) to Flex shareholders on a pro-rata basis... as of December 29, 2023\".",
+      "correction_proposee": ""
+    }
+  ]
+}

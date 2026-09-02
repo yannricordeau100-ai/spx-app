@@ -1,0 +1,55 @@
+{
+  "ticker": "TRI",
+  "verdict_global": "a_corriger",
+  "note": "Aucune affirmation judiciaire ni reglementaire (pas d'enquete, de litige ni de sanction alleguee). Controles portes sur la gouvernance et sur les chiffres les plus spectaculaires.",
+  "controles": [
+    {
+      "affirmation": "Le recul de marge semestriel de Reuters est \"la seule degradation de marge semestrielle parmi les cinq segments\"",
+      "verdict": "FAUX",
+      "verbatim_source": "MD&A T2 2026, tableau des marges d'EBITDA ajuste sur six mois : \"Adjusted EBITDA Margin | Legal Professionals | 48.2% | 48.4% | (20)bp | Corporates | 38.7% | 37.6% | 110bp | Tax, Audit & Accounting Professionals | 47.3% | 48.9% | (160)bp | 'Big 3' Segments Combined | 44.8% | 44.9% | (10)bp | Reuters | 18.6% | 20.4% | (180)bp | Global Print | 38.2% | 36.9% | 130bp | Total Adjusted EBITDA Margin | 40.2% | 40.1% | 10bp\"",
+      "correction_proposee": "Trois des cinq segments voient leur marge semestrielle reculer : Legal Professionals (-20 pb), Tax, Audit & Accounting Professionals (-160 pb) et Reuters (-180 pb). Ecrire : \"c'est la plus forte degradation de marge semestrielle des cinq segments\" (et non la seule)."
+    },
+    {
+      "affirmation": "Woodbridge detient environ 71 % des actions ordinaires au 4 aout 2026 ; conseil independant a 57 %, 14 membres",
+      "verdict": "CONFORME",
+      "verbatim_source": "MD&A T2 2026 : \"As of August 4, 2026, our principal shareholder, Woodbridge (together with its affiliates), beneficially owned approximately 71% of our common shares.\" ; data-lake/TRI/gouvernance_fr.json : \"board_independence_pct\": 57, \"board_size\": 14, source \"Management Proxy Circular and Notice of Annual Meeting of Shareholders, deposee le 16 avril 2026\". Le meme fichier precise : \"Une seule categorie d'actions ordinaires, avec une voix par action. Il n'existe pas d'actions a vote multiple.\"",
+      "correction_proposee": "Exact. Precision utile pour l'equilibre : le controle vient d'une detention de 71 % du capital, non d'actions a droit de vote multiple."
+    },
+    {
+      "affirmation": "Resultat operationnel +28 % au T2 2026 contre +10 % pour l'EBITDA ajuste ; +20 % contre +9 % sur le semestre ; ecart lie aux \"other operating gains\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Operating profit | 558 | 436 | 28% | 1,197 | 999 | 20%\" ; \"Adjusted EBITDA | 745 | 678 | 10% | 9% | 1,626 | 1,487 | 9% | 9%\" ; \"Operating profit increased 28% and 20% in the second quarter and six-month period, respectively, as the net impact of higher revenues and operating expenses as well as higher other operating gains, were partly offset by higher amortization of software.\" ; \"we cannot reasonably predict the occurrence or amount of other operating gains and losses, which generally arise from business transactions we do not currently anticipate.\"",
+      "correction_proposee": "Chiffres et citations exacts. Nuance de precision : l'ecart entre les deux mesures ne tient pas aux seuls \"other operating gains\". Le document definit l'EBITDA ajuste comme excluant \"other operating gains, amortization of software, as well as other adjustments\", et mentionne l'amortissement des logiciels en sens inverse. Ecrire \"l'ecart s'expliquant principalement par des other operating gains et par le traitement de l'amortissement des logiciels\"."
+    },
+    {
+      "affirmation": "EBITDA ajuste du segment Reuters -3 % sur six mois, marge -180 pb a 18,6 %, du fait de couts editoriaux plus eleves ; Big 3 a 44,8 %",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"In the six-month period, segment adjusted EBITDA decreased 3% and the related margin decreased 180bp to 18.6% due to higher editorial costs.\" ; \"'Big 3' Segments ... Adjusted EBITDA margin | 42.7% | 42.3% | 40bp | 30bp | 44.8% | 44.9%\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Global Print : recul organique de 3 a 4 % ; cession de 51 % a KKR pour environ 500 M$ de produit brut ; garantie de rendement minimum a KKR ; 49 % conserves",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Revenues | 111 | 114 | (3%) | (3%) | (3%) | 223 | 230 | (3%) | (4%) | (4%)\" ; \"Revenues decreased in total, in constant currency, and on an organic basis in both periods primarily due to lower shipment volumes.\" ; \"we will sell a 51% stake in our Global Print business to capital accounts advised by KKR and retain a 49% equity interest in the joint venture. We will receive approximately $500 million in gross proceeds at closing and expect the transaction to close in the fourth quarter of 2026\" ; \"we have agreed to provide certain financial support designed to give KKR a minimum return on its equity investment in the joint venture under certain circumstances.\"",
+      "correction_proposee": "Exact. L'ATT omet deux elements favorables mentionnes au meme endroit : \"we expect our total company organic revenue growth rate will increase 60bp to 70bp on an annual basis\" et \"We expect to record a pre-tax gain on the transaction at the time of closing\". Acceptable dans une anti-these, a signaler."
+    },
+    {
+      "affirmation": "Reuters a facture 207 M$ a LSEG au S1 2026, pres de la moitie des 441 M$ de CA du segment ; accord courant jusqu'en octobre 2048",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Reuters and the Data & Analytics business of LSEG have an agreement pursuant to which Reuters supplies news and information services to LSEG through October 1, 2048. In the first six months of 2026, Reuters recorded revenues of $207 million under this agreement, compared to $199 million in the prior-year period.\" ; tableau segment Reuters : \"Revenues | 229 | 218 | 5% | 5% | 4% | 441 | 414 | 6% | 6% | 5%\". 207/441 = 46,9 %.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Marge Reuters 18,6 % contre 44,8 % pour les Big 3 et 38,2 % pour Global Print ; Reuters segment le moins rentable",
+      "verdict": "CONFORME",
+      "verbatim_source": "Tableau six mois : \"Reuters | 18.6% | 20.4% | (180)bp\" ; \"'Big 3' Segments Combined | 44.8% | 44.9%\" ; \"Global Print | 38.2% | 36.9% | 130bp\". Reuters est bien la marge la plus basse des cinq segments.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Fourchette relevee de 9,5 % a 10 % de croissance organique pour les Big 3 en 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"In August 2026, we raised our 2026 full-year outlook for total and organic revenue growth to approximately 8.0% for our total company, and to a range of 9.5% to 10.0% for our 'Big 3' segments.\"",
+      "correction_proposee": ""
+    }
+  ]
+}

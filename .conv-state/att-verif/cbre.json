@@ -1,0 +1,103 @@
+{
+  "ticker": "CBRE",
+  "verdict_global": "a_corriger",
+  "_sources_verifiees": [
+    "data-lake/CBRE/10Q/CBRE_2026-07-29.htm.gz (10-Q T2 2026)",
+    "data-lake/CBRE/10Q/CBRE_2026-04-23.htm.gz et CBRE_2025-07-29.htm.gz (comparaisons)",
+    "data-lake/CBRE/10K/CBRE_2026-02-12.htm.gz",
+    "data-lake/CBRE/DEF14A/CBRE_2026-04-03.htm.gz",
+    ".batches-drafts-safe/kpis-haut/CBRE.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "JUDICIAIRE - controle de non-affirmation : l'ATT ne formule aucune allegation d'enquete, de poursuite ni d'action de regulateur ; la provision Telford est presentee comme un passif d'assainissement, pas comme une sanction.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Item 1 Legal Proceedings : \"There have been no material changes to our legal proceedings as previously disclosed in our 2025 Annual Report.\"",
+      "correction_proposee": "Aucune. Aucune requalification abusive detectee."
+    },
+    {
+      "affirmation": "Hook et quantitatif : chiffre d'affaires T2 2026 de 11 226 M$ \"en hausse de 15,1% sur un an\" (contre 9 717 M$).",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, MD&A : \"Revenue increased 15.5% reflecting double-digit growth across the Advisory Services, Building Operations & Experience (BOE) and Project Management segments, partially offset by a decrease in revenue in the Real Estate Investments (REI) segment.\" Recalcul : 11 226 / 9 717 = +15,53%. Le 15,1% du 10-Q correspond a une autre grandeur : \"Pass-through costs increased 15.1% during the six months ended June 30, 2026\".",
+      "correction_proposee": "Remplacer +15,1% par +15,5% dans le hook ET dans le quantitatif. L'erreur est heritee de kpis-haut CBRE (ca_total yoy +15.1%), a corriger aussi a la source."
+    },
+    {
+      "affirmation": "\"le Core EBITDA ajuste progresse de 27,1% a 836 M$\".",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, tableau consolide : \"Core EBITDA $836 7.4% / $626 6.4% / $1,667 7.7% / $1,144 6.2%\". Recalcul : 836 / 626 = +33,5%. La propre \"preuve\" de l'ATT cite 836 contre 626, ce qui contredit son propre pourcentage.",
+      "correction_proposee": "Remplacer +27,1% par +33,5%. Erreur heritee de kpis-haut CBRE (core_ebitda yoy +27.1%)."
+    },
+    {
+      "affirmation": "Pearce Services acquis pour 1 186 M$ en novembre 2025, \"finances notamment par une emission d'obligations senior a 5,5%\".",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, note Acquisitions : \"We financed the acquisition with (i) cash on hand and (ii) borrowings under our existing commercial paper program, which were partially repaid with the net proceeds from the issuance of $750 million in aggregate principal amount of 4.900% senior notes in November 2025.\"",
+      "correction_proposee": "Le coupon est de 4,900%, pas 5,5%. CBRE a bien des \"5.500% senior notes due 2029\" et \"5.500% senior notes due 2035\" a son bilan, mais elles ne financent pas Pearce. Ecrire : \"finances par la tresorerie et le programme de billets de tresorerie, partiellement rembourses par une emission de 750 M$ d'obligations senior a 4,900%\"."
+    },
+    {
+      "affirmation": "\"les actifs sous gestion de CBRE Investment Management sont quasi stables, a 154,8 Mds$ (-0,3% sur un an)\".",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, rollforward AUM trois mois : \"Balance at March 31, 2026 $155.2 ... Balance at June 30, 2026 $154.8\". Rollforward six mois : \"Balance at December 31, 2025 $155.5 ... Balance at June 30, 2026 $154.8\". Le 10-Q ne publie aucun AUM a fin juin 2025.",
+      "correction_proposee": "-0,3% est la variation du TRIMESTRE (155,2 -> 154,8), pas d'un an. Sur six mois la variation est de -0,45% (155,5 -> 154,8). La variation annuelle n'est pas disponible dans le document cite. Ecrire : \"quasi stables a 154,8 Mds$, -0,3% sur le trimestre\"."
+    },
+    {
+      "affirmation": "Provision d'assainissement incendie Telford : 456 M$ au 30/06/2026 contre 321 M$ fin 2025, +135 M$ net dont 168 M$ de charge sur le seul T2 ; estimation reposant sur des hypotheses \"subjectives, complexes et variables\".",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, note 17 : \"The accompanying consolidated balance sheets include an estimated liability of approximately $456 million and $321 million as of June 30, 2026 and December 31, 2025, respectively... The $135 million net increase compared to year end 2025 reflects an expansion in the estimated scope and cost of remediation works of $168 million, net of the amount spent during the period.\" ; \"reflects the subjective, complex, and variable nature of these remediation activities\". Tableau segments : \"Provision associated with Telford's fire safety remediation efforts 168 / - / 168 / -\" (trois mois et six mois identiques), ce qui confirme que la charge est entierement comptabilisee au T2.",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "\"CBRE a decide d'arreter (wind-down) l'activite de promotion immobiliere historique de sa filiale Telford Homes\".",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026, note aux tableaux segments : \"Management made the decision to wind down the legacy Telford Homes' construction self-delivery business and certain businesses within the BOE Segment.\"",
+      "correction_proposee": "Le perimetre arrete est l'activite de construction en propre (construction self-delivery), pas la promotion immobiliere dans son ensemble. Ecrire : \"l'activite historique de construction en propre de sa filiale Telford Homes\"."
+    },
+    {
+      "affirmation": "Resultat net part du groupe 204 M$ contre 215 M$ (-5,1%), BPA dilue 0,69 $ contre 0,72 $ (-4,2%), marge operationnelle 3,3% (-0,5 pt), marge nette 1,8% (-0,4 pt), 190 M$ de dotations aux amortissements.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Net income attributable to CBRE Group, Inc. $204 1.8% / $215 2.2%\" ; \"Diluted income per share... $0.69 / $0.72\" ; \"Operating income 365 3.3% / 374 3.8%\" ; \"Depreciation and amortization 190 / 145\".",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "Segment Real Estate Investments : CA -10,2% a 193 M$ en raison d'honoraires de developpement plus faibles ; \"sa marge operationnelle de segment a neanmoins bondi de 10,2 points a 21,8%\".",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026, segment REI : \"Revenue decreased 10.2% for the current quarter primarily due to lower fees from development services\" ; \"Segment operating profit $42 / $25\". Le meme tableau montre la ligne \"Provision associated with Telford's fire safety remediation efforts 168 87.0%\" ajoutee en retraitement pour aboutir aux 42 M$ : la charge Telford de 168 M$ est logee dans ce segment et exclue de la marge affichee.",
+      "correction_proposee": "Les 21,8% sont une marge retraitee qui exclut les 168 M$ de charge Telford imputes a ce meme segment ; le resultat operationnel REI avant retraitement ressort autour de -126 M$. Ajouter cette precision, sans quoi la \"nuance positive\" est trompeuse."
+    },
+    {
+      "affirmation": "Dette long terme 5 731 M$ au 30/06/2026 contre 5 050 M$ fin 2025 (+13,5%) et +32,1% sur un an ; tresorerie de 1 864 a 1 489 M$.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, bilan : \"Long-term debt, net of current maturities 5,731 / 5,050\" ; cash \"$1,489 / $1,864\". 10-Q T2 2025, bilan : \"Long-term debt, net of current maturities 4,340\" (5 731 / 4 340 = +32,05%).",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "Rachats d'actions de 410 M$ au T2 seul (+56,5% sur un an) ; \"preuve\" citee : \"Repurchase of common stock (419)\".",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : tableau de flux de tresorerie six mois \"Repurchase of common stock (940) / (680)\" ; etat de variation des capitaux propres T2 2026 total \"(419)\" et T2 2025 \"(261)\". Le 410 M$ correspond a la base flux de tresorerie (940 - 530 au T1), et 410/262 donne bien +56,5%.",
+      "correction_proposee": "Chiffre correct mais la preuve citee (419, base capitaux propres) ne correspond pas au chiffre avance (410, base flux de tresorerie). Aligner la preuve sur la base utilisee."
+    },
+    {
+      "affirmation": "\"ratio d'endettement net rapporte au Core EBITDA... a 1,54x\" et \"plafond contractuel de 4,25x fixe par ses accords de credit\".",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Le plafond est verbatim : 10-Q T2 2026 : \"The 2023 Credit Agreement also requires us to maintain a maximum leverage ratio of total debt less available cash to consolidated EBITDA (as defined in the 2023 Credit Agreement) of 4.25x (and in the case of the first four full fiscal quarters following consummation of a qualified acquisition, 4.75x) as of the end of each fiscal quarter. We were in compliance with the covenants under this agreement as of June 30, 2026.\" En revanche le ratio de 1,54x n'apparait nulle part dans le 10-Q : c'est un calcul interne (kpis-haut net_leverage_ratio).",
+      "correction_proposee": "Ne pas presenter 1,54x comme un \"dernier point de mesure publie\" : le 10-Q ne publie aucun ratio de levier, seulement une attestation de conformite au covenant. Ecrire : \"ratio recalcule a environ 1,5x\" ou s'en tenir a \"CBRE se declare en conformite avec le covenant de 4,25x\". Mentionner aussi la derogation a 4,75x apres acquisition qualifiee."
+    },
+    {
+      "affirmation": "Remuneration du PDG Robert Sulentic de 24,33 M$ pour 2025, ratio de 341 fois la remuneration mediane (71 351 $) ; 155 000 salaries dont une large part de personnel de terrain refacture.",
+      "verdict": "CONFORME",
+      "verbatim_source": "DEF 14A 2026 : \"In 2025, the ratio of CEO pay of $24,343,379 to median employee pay of $71,351 was 341:1.\" 10-K FY2025 : \"At December 31, 2025, we had more than 155,000 employees (including Turner & Townsend employees) worldwide. The costs associated with approximately 61% of CBRE employees (excluding Turner & Townsend employees) are reimbursed by clients and are mainly in our BOE segment.\"",
+      "correction_proposee": "Ecart d'arrondi mineur : 24 343 379 $ arrondit a 24,34 M$, pas 24,33 M$. Defaut de sourcing : la preuve ne cite que src/data/v2-pipeline/cbre.json alors que la source primaire est le DEF 14A du 3 avril 2026."
+    },
+    {
+      "affirmation": "BOE pese 6 686 M$ sur 11 226 M$ (59,6%) pour une marge de segment de 10,6% contre 19,5% pour Advisory ; 4 622 M$ de couts refactures sur le trimestre.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, segment BOE : \"Total segment revenue 6,686 100.0% / 5,833\" ; \"Pass-through costs 3,534 52.9%\" ; segment operating profit 335 (335 / (6 686 - 3 534) = 10,6%). Advisory : 449 / 2 306 = 19,5%. Couts refactures groupe T2 : 4 622 M$, \"Pass-through costs increased 13.1% during the quarter\".",
+      "correction_proposee": "Aucune. A noter pour la transparence : la marge BOE de 10,6% est calculee sur le revenu net (hors couts refactures) ; rapportee au revenu total du segment elle tomberait a 5,0%."
+    },
+    {
+      "affirmation": "Flux de tresorerie disponible de 24 M$ au T2 2026 (OCF 138 M$, capex 114 M$) contre -17 M$ au T2 2025.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Grandeurs derivees, coherentes : 10-Q T2 2026 : \"Net cash used in operating activities totaled $687 million for the six months ended June 30, 2026\" et \"During the six months ended June 30, 2026, we incurred $195 million of capital expenditures\" ; 10-Q T1 2026 : \"Net cash used in operating activities totaled $825 million for the three months ended March 31, 2026\" et capex 81 M$. Donc T2 : OCF = -687 - (-825) = +138 ; capex = 195 - 81 = 114 ; FCF = 24.",
+      "correction_proposee": "Aucune sur le calcul. Preciser que ces montants trimestriels sont derives : le 10-Q ne publie que des flux cumules sur six mois, et le cumul semestriel reste negatif (-687 M$ d'OCF)."
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "ticker": "CBK.DE",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "CONTAMINATION DE SOURCE : l'ATT s'appuie-t-elle sur les filings SEC stockes sous data-lake/CBK.DE (10K, 10Q, 8K, 424B, DEF14A, S1, xbrl) qui appartiennent a Commercial Bancgroup et non a Commerzbank ?",
+      "verdict": "CONFORME",
+      "verbatim_source": "ATTENTION: les sous-dossiers SEC de ce repertoire contiennent les filings de Commercial Bancgroup, PAS de la societe europeenne CBK.DE. Ne pas utiliser comme source. Audit du 14 aout 2026. (data-lake/CBK.DE/_WRONG_COMPANY.txt, marqueurs identiques dans 10K/, 10Q/, 8K/, xbrl/, DEF14A/)",
+      "correction_proposee": "Aucune. L'ATT a explicitement ecarte ces documents dans son bloc _sources (ligne 'ECARTES : data-lake/CBK.DE/10K, 10Q, 8K, 424B, DEF14A, S1, xbrl'). Verification croisee : chaque chiffre et chaque verbatim de l'ATT a ete retrouve dans les documents IR authentiques de Commerzbank (ir/CP, ir/RFS, ir/URD). ZERO contamination detectee."
+    },
+    {
+      "affirmation": "Le resultat du risque du groupe s'est degrade de 300 M EUR a 344 M EUR sur le S1-2026 (-14,7%) ; au T2 seul de 176 M EUR a 202 M EUR (-14,5%).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Risk result | -202 | -176 | -14.5 | -142 | -344 | -300 | -14.7 (CP S1-2026, 6 aout 2026, tableau 'Financial figures at a glance')",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Sur l'exercice 2025, l'exposition au defaut du groupe est passee de 549 Mds EUR a 586 Mds EUR et la densite de risque de 19 a 23 points de base, avec 147 M EUR de surcouches destinees a couvrir les incertitudes macroeconomiques.",
+      "verdict": "CONFORME",
+      "verbatim_source": "The Group's exposure at default increased from EUR549bn to EUR586bn in 2025. / The risk density increased from 19 basis points to 23 basis points over the same period. / Risk provisions include overlays of EUR147m to cover uncertainties arising from macroeconomic developments and novel risks such as climate and environmental risks. (URD FY2025, rapport sur les risques)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "La banque nuance en indiquant que le taux de prets non performants reste stable a 1,1% et que le trimestre est 'in line with expectations'.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Q2 risk result of minus EUR202m in line with expectations - NPE ratio unchanged at 1.1% (CP S1-2026, chapeau)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Effet de base : 534 M EUR de charges de restructuration au S1-2025 contre 1 M EUR au S1-2026 ; resultat avant impots 1 862 -> 2 724 M EUR (+46,3%) ; resultat operationnel 2 396 -> 2 725 M EUR (+13,8%).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Restructuring expenses | 493 | 1 | 1 | 534 ; Pre-tax result | 2,724 | 1,862 | +46.3 ; Operating result | 2,725 | 2,396 | +13.8 (CP S1-2026, tableau financier)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le groupe maintient une provision de 622 M EUR pour les risques lies aux prets indexes sur devises etrangeres de mBank, en baisse depuis 823 M EUR L'AN DERNIER.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "The Group recognised a provision of EUR622m (prior year: EUR823m) for the risks arising from the matter, including potential settlement payments and the class action lawsuit, which relates predominantly to loans indexed to Swiss francs. (RFS S1-2026, note Legal disputes) -- et dans l'URD FY2025 : 'The Group recognised a provision of EUR823m for the risks arising from the matter, including potential settlement payments and the class action lawsuit (31 December 2024: EUR1.6bn)'",
+      "correction_proposee": "Le montant de 823 M EUR est le solde au 31 decembre 2025, soit six mois plus tot et non 'l'an dernier'. Ecrire : 'en baisse depuis 823 M EUR au 31 decembre 2025'. Le mot 'maintient' est en outre trompeur : la provision suit une decrue rapide et documentee, 1,6 Md EUR fin 2024 -> 823 M EUR fin 2025 -> 622 M EUR au 30 juin 2026. Preferer 'le groupe porte encore une provision de 622 M EUR, en decrue continue depuis 1,6 Md EUR fin 2024'."
+    },
+    {
+      "affirmation": "Une part de la hausse des revenus du T2-2026 vient de provisions nettement plus basses sur le contentieux devises de mBank ; hors cet effet, la croissance des revenus retombe a 6% au lieu des 9% affiches.",
+      "verdict": "CONFORME",
+      "verbatim_source": "A further positive contribution came from substantially lower provisions for legal risks related to foreign currency loans at the Polish subsidiary mBank. Revenues increased by 6% year-on-year even excluding this one-off effect. (CP S1-2026) -- headline : 'Commerzbank increased its revenues by 9% to EUR3,299m in the second quarter'",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le litige mBank sur les prets indexes en francs suisses reste actif (nombreuses procedures individuelles plus une action de groupe).",
+      "verdict": "CONFORME",
+      "verbatim_source": "mBank is facing lawsuits from numerous borrowers of loans indexed to foreign currencies, alleging that the indexation clauses are invalid. In addition to the large number of individual proceedings, a class action lawsuit is pending. (RFS S1-2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "UniCredit detenait environ 26% du capital de Commerzbank au 31 decembre 2025.",
+      "verdict": "CONFORME",
+      "verbatim_source": "As of the reporting date, the UniCredit Group held approximately 26% of the shares. (URD FY2025, section Shareholder structure) -- complement : 'the Italian UniCredit Group had increased its shareholding in Commerzbank to approximately 26% of the shares, supplemented by 3.3% in financial instruments'",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "17,60% des actions supplementaires ont ete apportees a l'offre publique d'echange a l'issue de la periode d'acceptation prolongee close le 3 juillet 2026 ; le transfert des titres et des droits de vote reste soumis aux autorisations reglementaires.",
+      "verdict": "CONFORME",
+      "verbatim_source": "A total of 17.60% of Commerzbank shares had been tendered by the end of the extended acceptance period on 3 July 2026. The transfer of the tendered shares and the associated voting rights to UniCredit remains subject to the required regulatory approvals. (RFS S1-2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "HOOK : UniCredit 'engrangeait 17,60% de titres supplementaires apportes a son offre publique d'echange debut juillet 2026'.",
+      "verdict": "EXAGERE",
+      "verdict_detail": "verbe",
+      "verbatim_source": "A total of 17.60% of Commerzbank shares had been tendered... The transfer of the tendered shares and the associated voting rights to UniCredit remains subject to the required regulatory approvals.",
+      "correction_proposee": "'Engrangeait' laisse entendre que UniCredit a effectivement acquis ces titres, alors que le transfert des actions et des droits de vote n'est pas realise et reste suspendu aux autorisations reglementaires. Ecrire : 'pendant que 17,60% du capital etaient apportes a son offre publique d'echange debut juillet 2026, transfert encore suspendu aux autorisations reglementaires'. Le corps de l'ATT, lui, pose correctement la reserve."
+    },
+    {
+      "affirmation": "Le directoire et le conseil de surveillance ont conclu qu'UniCredit n'a propose ni prime adequate aux actionnaires ni plan strategique de rapprochement comprehensible et fiable.",
+      "verdict": "CONFORME",
+      "verbatim_source": "both boards reached a clear conclusion: UniCredit has not offered Commerzbank's shareholders an adequate premium, nor has it presented a comprehensible and reliable strategic plan for a merger. (RFS S1-2026, evenements posterieurs)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "La direction reconnait qu'UniCredit pourrait detenir la majorite a la prochaine assemblee generale, tout en soulignant que cela ne lui permettrait pas de decider seul des mesures structurelles fondamentales.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Even when UniCredit holds a majority at the next Annual General Meeting, it cannot unilaterally decide on fundamental structural measures. (Bettina Orlopp, CP S1-2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "TITRE : 'Le risque informatique et cyber est classe au niveau de gravite maximal par la banque elle-meme'.",
+      "verdict": "FAUX",
+      "verbatim_source": "Aucune classification de gravite du risque ICT/cyber n'existe dans l'URD FY2025. La seule classification formelle trouvee est une materialite ESG : 'operational risk (including compliance, third-party and ICT risk) has been classified as materially exposed in the long term' -- ce qui n'est ni une echelle de gravite ni un niveau maximal. L'URD ajoute au contraire : 'At the time of reporting, the Bank had adequate safeguards in place to ensure lasting protection against the attack vectors described above.'",
+      "correction_proposee": "Supprimer 'classe au niveau de gravite maximal par la banque elle-meme'. Le score 5 provient de la grille de notation interne Mettrik (data-lake/CBK.DE/risks/extracted.json, champ 'score'), pas d'une classification de Commerzbank. Titre correct : 'La banque decrit une menace cyber accrue d'acteurs etatiques sur les infrastructures critiques'. Mentionner aussi que la banque se declare dotee de protections adequates a la date du rapport."
+    },
+    {
+      "affirmation": "'Le rapport annuel qualifie LA MENACE CYBER de facteur de risque etabli et hautement critique' (verbatim cite : 'an established and highly critical threat factor').",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Ransomware continues to represent an established and highly critical threat factor in organised cyber crime. It has been among the top ICT risks for several years and has significant potential for damage. (URD FY2025, section 'The current ICT risk situation', page 278)",
+      "correction_proposee": "Le qualificatif 'established and highly critical threat factor' vise SPECIFIQUEMENT les rancongiciels dans la criminalite organisee, pas la menace cyber dans son ensemble. L'ATT elargit le perimetre du verbatim. Ecrire : 'la banque qualifie les rancongiciels de facteur de menace etabli et hautement critique, present depuis plusieurs annees parmi les principaux risques informatiques'. Corriger aussi la reference de page : le passage cyber est en page 278, pas 'pages 274 et suivantes'."
+    },
+    {
+      "affirmation": "Risque cyber : 'la tendance est jugee en hausse par rapport a l'exercice precedent'.",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Aucun tableau ni indicateur de tendance annuelle pour le risque ICT/cyber dans l'URD FY2025. La seule formulation proche est : 'The risk situation is characterised by an increased threat of attacks by state actors on critical infrastructure' -- qui decrit un niveau de menace, sans comparaison chiffree ou qualifiee avec 2024. La mention 'trend: up' provient du champ interne de data-lake/CBK.DE/risks/extracted.json, ou les DIX risques portent tous 'trend: up', ce qui rend ce champ non discriminant.",
+      "correction_proposee": "Supprimer la phrase, ou la remplacer par le fait sourcable : 'la banque decrit une situation de risque caracterisee par une menace accrue d'attaques d'acteurs etatiques contre les infrastructures critiques'."
+    },
+    {
+      "affirmation": "Risque cyber : 'le sujet est suivi directement par le comite des risques du conseil de surveillance'.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Commerzbank's Risk Committee held five regular meetings in 2025... The committee also addressed the impact of cyber risk on the Bank and necessary preventive security measures, the implementation of DORA and Third-Party Risk Management. (URD FY2025, rapport du conseil de surveillance)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Attention politique et reglementaire soutenue sur les sanctions liees a la Russie, 19e paquet de l'Union europeenne et extension selective des sanctions americaines y compris sanctions secondaires dans l'energie.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Overall, there continues to be an increased focus on ensuring the implementation of sanctions requirements and the prosecution of possible sanction violations. Close political and regulatory attention continues to be paid to Russia-related sanctions. The latest tightening measures as part of the EU's sanctions package - the 19th such package - together with the maintenance and selective extension of US sanctions (including comprehensive secondary sanctions in the energy sector) clearly demonstrate this. (URD FY2025, Compliance risk / Current developments, page 274)",
+      "correction_proposee": "Aucune correction sur le fond. Point positif a preserver : l'ATT ne transforme nulle part ce durcissement en accusation contre Commerzbank. Aucune enquete, poursuite ou amende n'est imputee a la banque, conformement au texte source qui decrit un environnement reglementaire, pas une procedure visant Commerzbank."
+    },
+    {
+      "affirmation": "Sanctions : 'ce risque de conformite est classe en tendance haussiere par rapport a 2024'.",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Aucune classification de tendance du risque de conformite dans l'URD FY2025. Le texte dit 'there CONTINUES to be an increased focus' -- une continuite d'attention des autorites, pas un classement de tendance par la banque, et sans comparaison explicite a 2024.",
+      "correction_proposee": "Remplacer par : 'la banque indique que l'attention portee a l'application des exigences de sanctions et a la poursuite des violations eventuelles reste elevee'."
+    },
+    {
+      "affirmation": "CHIFFRE : ratio CET1 a 14,4% au T2-2026 contre 14,6% au T2-2025, nouveau rachat d'actions de 1,2 Md EUR deja approuve par la BCE, cible de rester au-dessus de 14% en fin d'annee.",
+      "verdict": "CONFORME",
+      "verbatim_source": "CET 1 ratio (%) | 14.4 | 14.6 (tableau) ; 'Next share buyback of up to EUR1.2bn planned and approved by ECB - CET 1 ratio remained strong at 14.4%' ; 'In July, Commerzbank applied for its next share buyback of up to EUR1.2bn. The European Central Bank (ECB) has already approved the share buyback.' ; 'Commerzbank continues to expect its CET 1 ratio to remain above 14% at year-end.' (CP S1-2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE : degradation du cout du risque de 14,7% quand les revenus n'ont progresse que de 7,0% (6 518 M EUR contre 6 092 M EUR).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Total revenues | 3,299 | 3,019 | +9,3 | 3,219 | 6,518 | 6,092 | +7.0 ; Risk result | ... | -344 | -300 | -14.7 (CP S1-2026, tableau financier)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CHIFFRE : coefficient d'exploitation y compris contributions obligatoires a 52,9% au S1-2026 contre 55,8% au S1-2025, cible de 53% pour l'ensemble de 2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Cost-income ratio incl. compulsory contributions (%) | 52.4 | 55.4 | 53.4 | 52.9 | 55.8 (tableau) ; 'On costs, the Bank still targets approximately EUR7bn and plans for a cost-income ratio of around 53%, including compulsory contributions.' (CP S1-2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "HOOK : semestre le plus rentable de l'histoire, 1 810 M EUR de resultat net.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Consolidated result | 898 | 462 | +94.2 | 913 | 1,810 | 1,296 | +39.6 ; 'The net result was also the highest in the Bank's history, rising by around 40% to EUR1,810m (H1 2025: EUR1,296m).' (CP S1-2026)",
+      "correction_proposee": ""
+    }
+  ],
+  "notes": [
+    "OMISSION SIGNALEE (pas un faux) : le RFS S1-2026 documente un contentieux russe non repris par l'ATT -- en juin 2024 un tribunal russe a condamne solidairement Commerzbank et deux de ses filiales russes a payer au titre d'une garantie que le regime de sanctions empeche la banque d'honorer, avec appels en cours et actions d'execution attendues. Une ATT a charge aurait pu s'en saisir ; son absence n'induit pas le lecteur en erreur.",
+    "Aucune affirmation de l'ATT n'impute a Commerzbank une enquete, une poursuite, une amende ou une infraction (blanchiment, fraude, antitrust). Le piege de type 'requests for information transformees en enquete' n'est pas present dans ce fichier."
+  ],
+  "_verifie_le": "2026-08-21",
+  "_sources_verifiees": [
+    "data-lake/CBK.DE/ir/CP/CBK.DE_CP_S1-2026_2026-08-06.txt.gz",
+    "data-lake/CBK.DE/ir/RFS/CBK.DE_RFS_S1-2026_2026-08-06.txt.gz",
+    "data-lake/CBK.DE/ir/URD/CBK.DE_URD_FY2025_2026-03-25.txt.gz",
+    "data-lake/CBK.DE/risks/extracted.json",
+    "data-lake/CBK.DE/_WRONG_COMPANY.txt (et 10K/, 10Q/, 8K/, xbrl/, DEF14A/)"
+  ]
+}

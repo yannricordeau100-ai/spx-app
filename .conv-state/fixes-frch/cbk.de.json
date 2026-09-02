@@ -1,0 +1,13 @@
+{
+  "ticker": "CBK.DE",
+  "verdict": "defauts",
+  "confiance": "haute",
+  "problemes": [
+    "AUCUNE CONTAMINATION Commercial Bancgroup dans les donnees publiees. Identite correcte : Commerzbank AG, Finance / Banque, description, gouvernance (Dr. Bettina Orlopp, CEO de Commerzbank), evenements (offre UniCredit), risques (credit, mBank, strategie Momentum) authentiques et sources sur ir/URD/CBK.DE_URD_FY2025_2026-03-25.pdf.",
+    "DEFAUT PUBLIE. src/data/companies/cbk.de.json KPI 'Total Revenue' = 12,36 Mds E, history [9,64 / 10,39 / 11,81 / 12,36], ne correspond a AUCUN produit net bancaire publie par Commerzbank. La serie publiee, reconstituee trimestre par trimestre depuis .batches-drafts-safe/kpis-haut/CBK.DE.json (REV_Q, 42 trimestres), donne 9,462 (2022) / 10,461 (2023) / 11,106 (2024) / 12,171 (2025) Mds E. L'agregat publie est donc decale d'un exercice et gonfle d'environ 1,2 Md E. Le resultat net de la meme source (1 435 / 2 224 / 2 677 / 2 625 M E) est lui exact, ce qui isole le probleme sur la ligne revenus.",
+    "DEFAUT PUBLIE. Incoherence hero_kpi / hero_kpi_rationale dans companies/cbk.de.json : hero_kpi = 'Total Revenue' mais le rationale decrit la marge nette d'interet ('La marge nette d'interet est le pilier central...'). Cote v2-pipeline le couple est coherent (NET_Q + rationale resultat net). hero_kpi_override = 'Operating Profit' (v2-pipeline-enrich/cbk.de.json) est orphelin donc sans effet.",
+    "DEFAUT MINEUR : les 3 premiers KPI de companies/cbk.de.json ont des valeurs textuelles non chiffrees (NIM 'stable', Op Margin 'stable', Tech Invest 'faible', history vides) et ranks est encore en gabarit ('≈ #XX', '...'), alors que enrich_ranks donne #306 / Top 50 Finance.",
+    "Total du bilan 554,65 Mds E et effectif 48 000 sont du bon ordre de grandeur pour Commerzbank. Repartition des revenus par segment (Particuliers 6 936 / Entreprises 4 865 M E) et positionnement IA sourcees sur l'URD FY2025 et les CP, hors SEC.",
+    "RESIDUS NON PUBLIES : data-lake/CBK.DE/xbrl/facts.json contient les faits Commercial Bancgroup (net_income 31 409 926 USD FY2024, accn 0001213900-*), dossiers 10K/10Q/8K/S1/DEF14A/424B idem, _WRONG_COMPANY.txt en place. kpis/extracted.json porte unit = 'M USD' sur des valeurs en euros."
+  ]
+}

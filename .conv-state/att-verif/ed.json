@@ -1,0 +1,67 @@
+{
+  "ticker": "ED",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/ED/10Q/ED_2026-08-06.htm.gz (10-Q T2 2026) + data-lake/ED/10K/ED_2026-02-19.htm.gz (10-K FY2025) + .batches-drafts-safe/kpis-haut/ED.json",
+  "controles": [
+    {
+      "affirmation": "Malfacons sur soudures gaz/vapeur : substitution de films dupliques par des sous-traitants, deux employes inculpes en aout 2025 par le tribunal federal du district sud de New York pour fraude electronique, enquete du NYSDPS ouverte et toujours en cours, CECONY n'anticipe pas d'impact significatif",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Other Regulatory Matters : \"CECONY discovered non-conforming gas and steam main welds... third-party contractors engaged in misconduct by substituting duplicate weld films for different welds, while another third-party contractor had created poor quality weld films. CECONY voluntarily disclosed its initial review and findings to the NYSDPS which, in turn, initiated its own investigation into CECONY's compliance with weld requirements under the New York State Public Service Law... CECONY continues to cooperate with the NYSDPS in its investigation... In August 2025, two employees of the third-party contractors were indicted in the U.S. District Court for the Southern District of New York for wire fraud arising out of their scheme to defraud CECONY... CECONY does not anticipate significant impact to the operation of its gas and steam mains.\" La distinction inculpation de sous-traitants / absence de mise en cause penale de CECONY est bien respectee.",
+      "correction_proposee": "Aucune. Element factuel non exploite mais disponible si l'on veut chiffrer l'enjeu : 33,3 M$ de revenu gaz annuel (100 M$ cumules 2026-2028) recouvres sous reserve de restitution aux clients au titre de ce dossier."
+    },
+    {
+      "affirmation": "Le cash-flow libre est negatif sur trois des quatre derniers trimestres (hook)",
+      "verdict": "FAUX",
+      "verbatim_source": "Serie FCF de .batches-drafts-safe/kpis-haut/ED.json, quatre derniers trimestres : Q3-2025 -536 M$, Q4-2025 +176 M$, Q1-2026 -998 M$, Q2-2026 +496 M$. Deux trimestres negatifs sur quatre, pas trois. La somme Q1+Q2 2026 (-502 M$) est bien celle citee ailleurs dans l'ATT.",
+      "correction_proposee": "\"...mais son cash-flow libre est negatif sur deux des quatre derniers trimestres et ressort a -502 M$ sur le premier semestre 2026 : le dividende et les investissements sont finances par de la dette et des emissions d'actions.\""
+    },
+    {
+      "affirmation": "Le flux de tresorerie libre ressort a -502 M$ au S1 2026 contre +396 M$ un an plus tot ; 884 M$ d'actions nouvelles emises ; plan d'investissement de plus de 37,1 Mds$ sur cinq ans",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q : \"NET CASH FLOWS FROM OPERATING ACTIVITIES | 1,971 | 2,816\" ; \"Utility capital expenditures | ( 2,473 ) | ( 2,420 )\" -> 1 971-2 473 = -502 ; 2 816-2 420 = +396. \"Issuance of common shares - public offering | 884 | 1,308\". 10-K FY2025, Item 1A : \"The Utilities estimate that their capital expenditures will exceed $37,100 million over the next five years.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette long terme 26 843 M$ au 30 juin 2026 contre 25 551 M$ au 31 decembre 2025, +8,8% sur un an et +1,29 Md$ sur le dernier trimestre ; charge d'interets 313 M$ contre 292 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q, bilan : \"LONG-TERM DEBT | 26,843 | 25,551\" ; compte de resultat : \"Interest on long-term debt | 313 | 292 | 621 | 584\". Serie kpis-haut lt_debt : Q2-2025 24,66 -> Q2-2026 26,84 (+8,8%) et Q1-2026 25,55 -> Q2-2026 26,84 (+1,29 Md$ sur le trimestre).",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le ratio dette/capitalisation reste eleve a 54 %, meme s'il recule par rapport aux 56 % de l'exercice 2024",
+      "verdict": "FAUX",
+      "verbatim_source": "Aucun des deux niveaux ne se retrouve dans les documents cites. 10-K FY2025 : \"For each of the Companies, the common equity ratio for the last five years was: [Percent of total capitalization] 2025 | 2024 | 2023 | 2022 | 2021 -- Con Edison | 48.6 | 47.1 | 49.1 | 50.9 | 47.4\", soit une dette/capitalisation de 51,4% en 2025 et 52,9% en 2024. Recalcul au 30 juin 2026 sur le bilan du 10-Q : dette totale 26 843 + 250 + 721 = 27 814 M$ ; capitaux propres 25 719 M$ ; ratio = 51,9%. (Le 54% correspond a CECONY seul en 2024, pas au groupe.)",
+      "correction_proposee": "\"...le ratio dette/capitalisation reste eleve a environ 52 % au 30 juin 2026, contre 52,9 % a la cloture 2024.\""
+    },
+    {
+      "affirmation": "Le regulateur new-yorkais vient de relever le rendement autorise sur fonds propres (resume et hook)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025, plans tarifaires CECONY electricite et gaz : \"Authorized return on common equity | 9.25 percent | | 9.40 percent\". Serie kpis-haut cecony_authorized_roe : 9,25% de FY2023 a FY2025, 9,40% en FY2026. A noter pour la nuance : dans le dossier vapeur en cours, le NYSDPS recommande au contraire un ROE de 9,3% contre 9,9% demande par CECONY, et le releve a 9,6% de RECO est le fait du regulateur du New Jersey (NJBPU), pas du NYSPSC.",
+      "correction_proposee": "Aucune correction obligatoire. Preciser \"le ROE autorise de CECONY passe de 9,25% a 9,40%\" eviterait toute ambiguite avec le dossier vapeur et avec RECO."
+    },
+    {
+      "affirmation": "Les plans tarifaires ne garantissent pas la recuperation integrale des couts ; le regulateur peut refuser de faire payer aux clients des couts imprudemment engages ; le recouvrement lent des creances agees pese sur la liquidite",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025, Item 1A : \"The Utilities have rate plans approved by state utility regulators that limit the rates they can charge their customers. The rates are generally designed for, but do not guarantee, the recovery of the Utilities' cost of providing service (including a return on equity)... State utility regulators can initiate proceedings to prohibit the Utilities from recovering from their customers the cost of service... that the regulators determine to have been imprudently incurred.\" ; \"a continued slow recovery of accounts receivable balances has impacted and is expected to continue to impact the Companies' liquidity\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Incidents cyber deja survenus (exploitation d'une vulnerabilite, tentatives de perturbation des sites web, attaques contre des fournisseurs tiers), sans impact materiel a ce jour, risque croissant y compris via l'IA",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025, Item 1A : \"The Companies have experienced cyber incidents and attacks in the past (such as threat actors exploiting a vulnerability in the Companies' information technology system, malicious attempts to disrupt traffic to their websites and attacks against third-party vendors used by the Companies) and expect to experience them in the future. Although none of these incidents has had a material impact on the Companies, the scope and impact of any future incident cannot be predicted.\" ; \"Cyber threats... are increasing in sophistication, magnitude and frequency... including from emerging technologies, such as artificial intelligence (AI)\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette nette 26,09 Mds$ au T2 2026 contre 24,37 Mds$ au T2 2025 (+7,1 %), resultat net +25,2 % a 308 M$ ; OCF du T1 2026 a 174 M$ contre 837 M$ un an plus tot ; charge d'interets en hausse chaque trimestre depuis le T4 2025 (301, 308, 313)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q : \"NET INCOME FOR COMMON STOCK | $ 308 | $ 246\" (+25,2%). kpis-haut : net_debt Q2-2025 24,37 -> Q2-2026 26,09 ; ocf Q1-2026 174 (Q1-2025 = 2 816 - 1 979 = 837) ; interest_expense Q4-2025 301, Q1-2026 308, Q2-2026 313.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "OMISSION SIGNALEE (hors grille) : deux dossiers reglementaires et judiciaires du meme 10-Q ne sont pas repris dans l'ATT",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"In July 2026, the NYSPSC ordered New York utilities, including CECONY and O&R, to show cause why the NYSPSC should not commence a prudence review and an administrative penalty proceeding related to electric vehicle make-ready program data collection and reporting deficiencies.\" et \"In May 2026, a woman died after falling into a manhole with a dislodged cover in Midtown Manhattan. A lawsuit has been filed against CECONY seeking unspecified compensatory and punitive damages...\" Rien de faux dans l'ATT ; simple signalement d'elements disponibles et non exploites.",
+      "correction_proposee": "Envisager d'ajouter l'ordonnance de show cause du NYSPSC de juillet 2026 (procedure de penalite administrative possible) au volet reglementaire."
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "ticker": "HIG",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/HIG/10Q/HIG_2026-07-23.htm.gz",
+  "controles": [
+    {
+      "affirmation": "fondamental_externe #1 : \"Les charges de catastrophes atteignent 4 178 M$ sur le premier semestre 2026 contre 3 843 M$ un an plus tot\" (preuve citee : \"catastrophes $ 2,134 $ 1,952 $ 4,178 $ 3,843\")",
+      "verdict": "FAUX",
+      "verbatim_source": "Business Insurance | Current accident year losses and loss adjustment expenses (\"LAE\") BEFORE catastrophes | $ 2,134 | $ 1,952 | | $ 4,178 | $ 3,843  --- et juste en dessous : Current accident year catastrophe losses and LAE | 129 | 114 | | 300 | 394",
+      "correction_proposee": "La ligne citee est \"avant catastrophes\" (hors catastrophes) et concerne le seul segment Business Insurance. Les vraies charges de catastrophes de ce segment sont de 300 M$ au S1 2026 contre 394 M$ au S1 2025, soit un RECUL de 24%. La citation a ete tronquee de son mot cle (\"before\"), ce qui inverse le sens. Supprimer l'affirmation ou la reecrire : \"les charges de catastrophes de Business Insurance reculent de 24% a 300 M$ au S1 2026\"."
+    },
+    {
+      "affirmation": "fondamental_interne #3 : \"Le developpement favorable des reserves atteint 111 M$ au premier semestre 2026 contre 187 M$ sur la meme periode en 2025, soit un recul de 41%\"",
+      "verdict": "FAUX",
+      "verbatim_source": "Les 111 / 187 figurent dans la section \"Three months ended June 30, 2026 compared to 2025\" : \"– Less P&C favorable net prior accident year reserve development of $76, with favorable development in the 2026 period of $111, compared to $187 in the prior year period.\" La section six mois dit : \"A decline in P&C favorable net prior accident year reserve development of $157, with favorable development in the 2026 period of $152, compared to $309 in the prior year period.\"",
+      "correction_proposee": "Chiffres trimestriels presentes comme semestriels. Soit ecrire \"111 M$ au T2 2026 contre 187 M$ au T2 2025 (-41%)\", soit utiliser les vrais chiffres du semestre : 152 M$ contre 309 M$, soit -51%."
+    },
+    {
+      "affirmation": "fondamental_interne #4 : \"Le ratio de sinistres du segment Employee Benefits augmente de 3,4 points a 72,5% au premier semestre 2026 ; le resultat net du segment recule de 2,0% sur un an\"",
+      "verdict": "FAUX",
+      "verbatim_source": "Ratios, Excluding Buyouts | Three Months Ended June 30 | Total loss ratio | 72.5 % | 69.1 % | 3.4 | Six Months Ended June 30 | 72.1 % | 70.5 % | 1.6 ; Net income | $ 147 | $ 150 | (2)% | $ 265 | $ 283 | (6)%",
+      "correction_proposee": "72,5% / +3,4 pts et -2,0% sont des chiffres du T2 2026, pas du S1. Au S1 le ratio est de 72,1% (+1,6 pt) et le resultat net recule de 6%. Corriger l'intitule de periode."
+    },
+    {
+      "affirmation": "hook + quantitatif #1 : \"les gains nets realises sur placements passent de 27 M$ a 121 M$ sur la periode : une bonne partie de la hausse ne vient pas de l'assurance\" ; \"l'ecart s'explique en grande partie par les gains nets realises\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Compte de resultat consolide : \"Net realized gains (losses) | 64 | (19)\" (T2 2026 vs T2 2025). Les 121 / 27 sont une sous-ligne : \"Net realized and unrealized gains (losses) on equity securities | 121 | 27\". Le 10-Q attribue la hausse ainsi : \"Net income available to common stockholders increased by $303, primarily driven by: • A $261 increase in income from discontinued operations, net of tax, primarily due to a $251 income tax benefit... • Higher net investment income of $142, before tax, and an increase of $83, before tax, due to a change to net realized gains in the current period from net realized losses\"",
+      "correction_proposee": "Les gains nets realises totaux passent de -19 M$ a +64 M$ (et non de 27 a 121, chiffre qui ne concerne que les titres de capitaux propres). Surtout, le 10-Q attribue la hausse du resultat net d'abord aux activites abandonnees (+261 M$ dont 251 M$ de credit d'impot), puis au produit financier (+142 M$), les gains realises n'expliquant que 83 M$ sur 303 M$. Reecrire le hook autour du credit d'impot sur activites abandonnees, qui est le vrai moteur non assurantiel."
+    },
+    {
+      "affirmation": "fondamental_externe #1 : \"facteur de risque cite en premier rang : climate change and its potential impact on weather patterns\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Le passage figure dans la liste a puces des enonces prospectifs (Forward-Looking Statements), sous-puce : \"weather and other natural physical events, including the intensity and frequency of thunderstorms, tornadoes, hail, wildfires, flooding, winter storms, hurricanes and tropical storms, as well as climate change and its potential impact on weather patterns\"",
+      "correction_proposee": "Ce n'est pas un facteur de risque classe ni cite \"en premier rang\", c'est une sous-puce dans la liste des enonces prospectifs. Retirer la mention de rang."
+    },
+    {
+      "affirmation": "fondamental_interne #1 : ratio combine Business Insurance 91,4% vs 87,0% (+4,4 pts), gain de souscription -28,8%, primes souscrites +5,4%, ratio combine sous-jacent 89,3% (+1,3 pt)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Business Insurance Underwriting Ratios : \"Combined ratio | 91.4 | 87.0 | 4.4\" ; \"Underlying combined ratio | 89.3 | 88.0 | 1.3\" ; Underwriting Summary : \"Written premiums | $ 4,022 | $ 3,816 | 5 %\" ; \"Underwriting gain | 316 | 444 | (29 %)\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "fondamental_interne #2 : couverture de reassurance A&E ADC integralement consommee au 31 decembre 2025, Navigators ADC au 31 decembre 2023",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"The Company had previously ceded all available limits under the agreements. As such, no remaining limit was available under the A&E ADC as of December 31, 2025, and no remaining limit was available under the Navigators' ADC as of December 31, 2023.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "quantitatif #1 : resultat net disponible 1 293 M$ vs 990 M$ (+30,6%) ; core earnings 945 M$ vs 932 M$ (+1,4%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net income available to common stockholders | $ 1,293 | $ 990 | 31 %\" ; \"Core earnings | $ 945 | $ 932\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "fondamental_externe #2 : risque concurrentiel lie a l'apprentissage automatique et a l'analyse predictive",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"technological changes, including usage-based methods of determining premiums, advancements in certain emerging technologies, including machine learning, predictive analytics, “big data” analysis or other artificial intelligence functions... could provide our competitors with a competitive advantage and could impact the rate and severity of claims, as well as the demand for our products\"",
+      "correction_proposee": ""
+    }
+  ]
+}

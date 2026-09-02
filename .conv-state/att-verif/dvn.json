@@ -1,0 +1,84 @@
+{
+  "ticker": "DVN",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Hook + fondamental_interne : \"seulement 64,5% de ses actionnaires approuvaient la rémunération de ses dirigeants sur le même exercice\" / \"Le vote say-on-pay sur l'exercice 2025 n'a recueilli que 64,5% d'approbation\", preuve : \"(proxy / rapport financier, AG du 30 juin 2026)\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"Last year, ISS recommended that the Company's stockholders vote against the executive compensation proposal. Prior to Devon's 2025 Annual Meeting, the Company engaged with stockholders to discuss its 2024 executive compensation program and the concerns addressed by ISS. Despite this outreach effort, approximately 64.5% of the shares voted at Devon's 2025 annual meeting were voted in favor of the Company's proposal for executive compensation.\" (DEF14A déposé le 28 mai 2026)",
+      "correction_proposee": "Double erreur d'imputation : les 64,5 % sont le résultat de l'assemblée générale 2025, portant sur la rémunération de l'exercice 2024. Ils ne concernent ni l'exercice 2025 ni l'AG du 30 juin 2026 — le proxy du 28 mai 2026 est la convocation de cette AG et ne peut donc pas en publier le résultat, qui n'est présent dans aucune source du data-lake. Consequence directe : le hook lie le vote de défiance à la fusion Coterra et à la hausse de rémunération 2025, alors que le vote leur est antérieur. Ecrire : \"lors de l'AG 2025, seulement 64,5 % des actionnaires ont approuvé la rémunération des dirigeants au titre de l'exercice 2024\"."
+    },
+    {
+      "affirmation": "\"Devon a comptabilisé 265 M$ de coûts de restructuration et de transaction liés à la fusion sur le premier semestre 2026, dont 198 M$ de restructuration au seul deuxième trimestre\"",
+      "verdict": "FAUX",
+      "verbatim_source": "Compte de résultat 10-Q T2 2026 : \"Restructuring and transaction costs 246 9 265 27\" (T2 2026 : 246 ; T2 2025 : 9 ; S1 2026 : 265 ; S1 2025 : 27). Note : \"In conjunction with the Merger closing, Devon recognized $198 million of restructuring expenses during the first six months of 2026 primarily related to employee severance, termination and...\"",
+      "correction_proposee": "Les 265 M$ sur le semestre sont exacts, mais les 198 M$ sont un chiffre SEMESTRIEL (\"during the first six months of 2026\"), pas trimestriel. Le deuxième trimestre seul porte 246 M$ de coûts de restructuration et de transaction. Ecrire : \"265 M$ de coûts de restructuration et de transaction sur le S1 2026, dont 246 M$ sur le seul deuxième trimestre ; la composante restructuration proprement dite représente 198 M$ sur le semestre.\""
+    },
+    {
+      "affirmation": "\"le ratio net dette/EBITDAX de 0,9x publié fin 2025 n'a pas été republié dans les mêmes termes pour le nouveau périmètre combiné\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Aucune occurrence de \"0.9x\", \"0.9 times\", \"net debt to EBITDAX\", \"net debt-to-EBITDAX\" ni \"leverage ratio\" dans data-lake/DVN/10K/DVN_2026-02-18.htm.gz ni dans data-lake/DVN/10Q/DVN_2026-08-05.htm.gz. Le 10-K définit et réconcilie l'EBITDAX seul, sans ratio de levier associé",
+      "correction_proposee": "Supprimer la référence au 0,9x ou en produire la source exacte (présentation investisseurs ou communiqué non présent dans le data-lake). En l'état, ce chiffre n'est adossé à aucun des documents cités par l'ATT (\"10-K FY2025 et 10-Q T2 2026\")."
+    },
+    {
+      "affirmation": "Devon a reçu plusieurs avis de violation de l'EPA entre 2020 et 2025 sur des sites au Texas, au Nouveau-Mexique et dans le Dakota du Nord, pouvant donner lieu à des amendes supérieures à 1 M$ par dossier",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On April 7, 2020, WPX Energy, Inc. ... received a notice of violation (\"NOV\") from the EPA relating to specific historical air emission events occurring on the Fort Berthold Indian Reservation in North Dakota. On July 22, 2022, we received an updated NOV ... On June 4, 2021, we received a NOV from the EPA relating to alleged air permit violations by WPX Energy Permian, LLC ... during 2020 in western Texas. On February 1, 2023, we received a NOV ... during 2020 in New Mexico. On June 1, 2023, we received a NOV ... by Devon Energy Production Company, L.P. ... during 2020 and 2022 in New Mexico. On August 28, 2025, we received a NOV ... during 2024 in New Mexico and western Texas. The Company has been engaging with the EPA to resolve each of these matters, which remain ongoing, and management cannot predict their ultimate outcome; however, resolution of each of these matters may result in a fine or penalty in excess of $1 million.\" (10-K FY2025, Item 3 Legal Proceedings)",
+      "correction_proposee": "Affirmation exacte et prudemment formulée (\"pouvant donner lieu\" correspond bien à \"may result in\"). Recommandation d'enrichissement, non de correction : l'ATT sous-estime plutôt le dossier en omettant qu'un projet de consent decree est en négociation avec l'EPA ET le ministère de la Justice sur le volet Dakota du Nord — \"Devon is currently negotiating a draft consent decree with the EPA and the U.S. Department of Justice with respect to the North Dakota NOV matter. If finalized, the consent decree may include monetary sanctions and obligations to complete mitigation projects and implement specific injunctive relief.\" (10-Q T2 2026). Attention à la formulation si ce point est ajouté : il s'agit d'une négociation de règlement, pas d'une enquête du DOJ."
+    },
+    {
+      "affirmation": "Fusion tout-actions avec Coterra finalisée le 7 mai 2026 ; total du bilan de 31,6 Mds$ fin 2025 à 70,9 Mds$ au 30 juin 2026 ; dette totale de 8,4 Mds$ à 11,4 Mds$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On May 7, 2026, Devon completed an all-stock merger of equals with Coterra\" ; \"Total assets $ 70,893 $ 31,599\" ; \"Total debt $ 11,388 $ 8,389\" (10-Q T2 2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Passif d'impôts différés de 9,6 Mds$ au 30 juin 2026 contre 2,6 Mds$ fin 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Deferred income taxes 9,647 2,627\" (10-Q T2 2026, bilan consolidé, en millions)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Devon est toujours en train d'intégrer les processus et systèmes de Coterra dans sa structure de contrôle interne",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Changes in Internal Control Over Financial Reporting. In connection with the Merger, we are in the process of integrating Coterra's operations, processes and systems into our internal control structure.\" (10-Q T2 2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Objectif d'au moins 1 Md$ de synergies annuelles avant impôts d'ici fin 2027, dont environ 600 M$ attendus captés en 2027",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"we remain on track to deliver at least $1.0 billion of annual pre-tax run-rate synergies by year end 2027, with approximately $600 million expected to be captured in 2027\" (10-Q T2 2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Environ 30% de la production pétrolière restante 2026 et 25% de la production gazière couverts ; 15% et 10% pour 2027",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"We currently have approximately 30% and 25% of our remaining anticipated 2026 oil and gas production hedged, respectively. For 2027, we currently have approximately 15% and 10% of our anticipated oil and gas production hedged, respectively.\" (10-Q T2 2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Actions en circulation : 1 150 M au 30 juin 2026 contre 622 M fin 2025 (+85%), après émission de 532 M d'actions pour payer la fusion",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Common stock, $ 0.10 par value. Authorized 2.0 billion shares; issued 1,150 million and 622 million shares in 2026 and 2025, respectively\" et \"Devon issued approximately 532 million shares of Devon common stock to holders of Coterra common stock to effect the Merger on May 7, 2026.\" (10-Q T2 2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "BPA dilué de 2,03 $ au T2 2026 contre 1,41 $ au T2 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Diluted net earnings per share $ 2.03 $ 1.41\" (10-Q T2 2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dividende relevé de 33% et programme de rachat de 8 Mds$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"we announced a new $8.0 billion share repurchase program that expires on June 30, 2029. We also raised our fixed dividend by approximately 33% from $0.24 to $0.32 per share in the second quarter of 2026.\" (10-Q T2 2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "La rémunération totale du PDG Clay Gaspar a progressé d'environ 79% sur un an à 12,57 M$, dont 9,63 M$ en actions",
+      "verdict": "CONFORME",
+      "verbatim_source": "Summary Compensation Table : \"Clay M. Gaspar, President and Chief Executive Officer 2025 938,125 | 9,633,689 | 1,612,000 | 0 | 382,570 | 12,566,384\" et \"2024 703,315 | 4,959,051 | 1,117,900 | 0 | 226,527 | 7,006,793\" (DEF14A du 28 mai 2026). Soit +79,3 %",
+      "correction_proposee": "Chiffres exacts, mais contexte manquant : Clay Gaspar n'a été nommé PDG qu'en mars 2025 (\"Clay Gaspar was appointed President and Chief Executive Officer and as a member of the board of directors in March 2025\"). La hausse de 79 % compare une année pleine de PDG à une année de directeur des opérations : c'est un effet de promotion, pas une augmentation de salaire à poste constant. Ajouter cette précision."
+    }
+  ]
+}

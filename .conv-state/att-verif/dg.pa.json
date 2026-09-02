@@ -1,0 +1,72 @@
+{
+ "ticker": "DG.PA",
+ "verdict_global": "a_corriger",
+ "controles": [
+  {
+   "affirmation": "Taux effectif d'impot de 39,7% au S1 2026 (1 335 M€), dont 323 M€ de contribution exceptionnelle ; 39,8% et 297 M€ au S1 2025 ; retraite 30,1% vs 30,2%",
+   "verdict": "CONFORME",
+   "verbatim_source": "RFS S1 2026 (30/07/2026) : \"La charge d'impot du semestre s'eleve a 1 335 millions d'euros correspondant a un taux effectif d'impot de 39,7 % (respectivement 1 238 millions d'euros et 39,8 % au premier semestre 2025) (...) Cette charge d'impot complementaire s'eleve a 323 millions d'euros (...) (297 millions d'euros au premier semestre 2025). Retraite de cet element, le taux effectif d'impot ressortirait a 30,1 % au premier semestre 2026 (a comparer a 30,2 % au premier semestre 2025).\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "La France represente 41,3% du chiffre d'affaires du groupe en 2025, contre 53,3% en 2021 ; 58,7% realise hors de France",
+   "verdict": "CONFORME",
+   "verbatim_source": "URD 2025, Chiffres cles : \"Chiffre d'affaires 74 599 (...) Chiffre d'affaires realise en France 30 787 (...) % du chiffre d'affaires 41,3 % (...) Chiffre d'affaires realise a l'international 43 813 (...) 58,7 %\". Le 53,3% de 2021 se derive de kpis-haut REV_FR FY2021 = 26,319 Mds€ sur un CA 2021 de 49,4 Mds€.",
+   "correction_proposee": "Le 53,3% de 2021 n'est pas dans l'URD 2025 : citer kpis-haut REV_FR (ou l'URD 2021) plutot que l'URD 2025."
+  },
+  {
+   "affirmation": "L'URD 2025 cite dans ses facteurs de risques : « le deficit budgetaire des Etats combine a des perspectives economiques poussives pourrait conduire les gouvernements a rechercher de nouvelles recettes »",
+   "verdict": "CONFORME",
+   "verbatim_source": "URD 2025, p.171, Risques financiers et economiques : \"Le deficit budgetaire des Etats combine a des perspectives economiques poussives pourrait conduire les gouvernements a rechercher de nouvelles recettes, au travers de taxes ou d'impots additionnels. Les discussions budgetaires en France qui se sont tenues depuis octobre 2025 illustrent cette tendance.\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "L'URD 2025 souligne que les peages autoroutiers francais sont directement exposes a une taxation ciblee",
+   "verdict": "INTROUVABLE",
+   "verbatim_source": "Les expressions 'taxation ciblee' et 'peages autoroutiers' n'apparaissent nulle part dans le chapitre facteurs de risques de l'URD 2025 (0 occurrence de 'taxation ciblee' dans tout le document). La formulation provient du champ score_rationale de src/data/v2-pipeline/dg.pa.json, une analyse interne, pas de VINCI. Le passage reel de l'URD est : \"la recherche de recettes additionnelles par certains Etats pour redresser leur trajectoire budgetaire peut conduire ces derniers a faire evoluer - de maniere unilaterale et sans toujours respecter l'esprit et la lettre des contrats de concession - la fiscalite et/ou la reglementation propre aux actifs sous contrats de concession.\"",
+   "correction_proposee": "Remplacer par le verbatim reel de l'URD sur la fiscalite des actifs sous contrats de concession, sans attribuer a VINCI une mention specifique des peages autoroutiers francais."
+  },
+  {
+   "affirmation": "Contexte de degradation de la notation de la dette francaise par Fitch et S&P",
+   "verdict": "CONFORME",
+   "verbatim_source": "URD 2025 : \"Les agences de notation Fitch et S&P, sceptiques sur la capacite du pays a s'inscrire dans une trajectoire durable de reduction de son deficit, ont abaisse la note de la dette francaise.\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Le risque « Cyberattaques » est classe au rang 9 sur 18 dans le tableau de synthese de l'URD 2025",
+   "verdict": "FAUX",
+   "verbatim_source": "Le tableau de synthese des risques de l'URD 2025 comporte 17 lignes de risques (15 codes distincts, de 1.1.1 a 1.7.2). '1.3.1 Cyberattaques' y figure en 7e ligne, en tete du bloc Cyberrisques. Il n'y a ni numerotation ni classement par gravite dans le tableau. Le 'rang 9 sur 18' provient du score_rationale de src/data/v2-pipeline/dg.pa.json (analyse interne).",
+   "correction_proposee": "Supprimer le rang chiffre ou ecrire : « premier risque du bloc Cyberrisques dans le tableau de synthese de l'URD 2025, criticite Eleve »."
+  },
+  {
+   "affirmation": "Criticite « Eleve » avec une tendance jugee en aggravation ; le nouveau plan cyber 2026-2028 est le signe que le dispositif actuel est juge insuffisant",
+   "verdict": "EXAGERE",
+   "verbatim_source": "URD 2025 : \"1.3.1 Cyberattaques Eleve\" (criticite CONFORME). Sur la tendance, l'analyse interne v2-pipeline indique elle-meme \"criticite Eleve stable vs 2024\" et une \"tendance en aggravation implicite\". L'URD ecrit : \"Le nouveau plan etabli pour 2026-2028 s'inscrit dans la continuite du programme precedent et prend en compte l'evolution des menaces et des risques.\"",
+   "correction_proposee": "La criticite est Eleve et stable vs 2024 ; VINCI presente le plan 2026-2028 comme s'inscrivant « dans la continuite du programme precedent », pas comme un aveu d'insuffisance. Retirer « tendance jugee en aggravation » et « signe que le dispositif actuel est juge insuffisant »."
+  },
+  {
+   "affirmation": "Verbatims cyber : cyberattaques « de plus en plus sophistiquees », « monde hyperconnecte » devenu « une source de vulnerabilite », plan de transformation 2026-2028",
+   "verdict": "CONFORME",
+   "verbatim_source": "URD 2025 : \"Dans un monde hyper-connecte, elles sont devenues une source de vulnerabilite. Les systemes d'information (...) sont en effet exposes aux cyberattaques, lesquelles peuvent revetir des formes tres diverses et de plus en plus sophistiquees.\" et \"Le nouveau plan etabli pour 2026-2028 (...) La resilience des infrastructures critiques : garantir la continuite des operations notamment dans les concessions face aux menaces cyber\".",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "VINCI Construction 32,1 Mds€ (43% du CA) et 4,2% de marge, la plus faible des cinq poles ; Concessions 12,2 Mds€ (16,4%), ROPA 5 935 M€, marge 48,6%, 62% du ROPA groupe ; ROPA total 9 558 M€",
+   "verdict": "CONFORME",
+   "verbatim_source": "URD 2025 : \"VINCI CONSTRUCTION 32 137 M€\" ; \"CONCESSIONS 12 219 M€\" ; \"Concessions 12 219 16,4 % (...) Concessions 5 935 62,1 %\" ; \"VINCI Construction 1 353 4,2 %\" ; \"Resultat operationnel sur activite (ROPA) 9 558 12,8 %\" ; CA groupe 74 599 M€ (32 137/74 599 = 43,1%).",
+   "correction_proposee": "Nuance : VINCI Immobilier affiche une marge ROPA de 0,3% en 2025, inferieure aux 4,2% de VINCI Construction. La formule « la plus faible des cinq poles » ne tient que si l'on exclut VINCI Immobilier."
+  },
+  {
+   "affirmation": "Cash-flow libre de 264 M€ au S1 2026 (+473,9%) contre 7,01 Mds€ sur l'ensemble de 2025, soit moins de 4% du total annuel au premier semestre",
+   "verdict": "CONFORME",
+   "verbatim_source": "RFS S1 2026, tableau chiffres cles : \"264 | 46 | 473,5 % | 7 010\". kpis-haut FCF_H : H1-2026 0,264 ; H1-2025 0,046 ; FCF_FY FY2025 7,01.",
+   "correction_proposee": "Le RFS affiche +473,5% (le +473,9% est le calcul sur valeurs arrondies). Aligner sur le document."
+  },
+  {
+   "affirmation": "Chiffre d'affaires consolide de 35,6 Mds€ au S1 2026, meilleur premier semestre de l'histoire du groupe",
+   "verdict": "CONFORME",
+   "verbatim_source": "RFS S1 2026 : \"Le chiffre d'affaires consolide du premier semestre 2026 s'eleve a 35,6 milliards d'euros, en hausse de 2,1 %\".",
+   "correction_proposee": "VINCI n'ecrit pas « meilleur premier semestre de son histoire » : c'est une deduction (CA en hausse). Formulation a assumer comme telle ou a supprimer."
+  }
+ ]
+}

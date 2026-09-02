@@ -1,0 +1,55 @@
+{
+  "ticker": "VTRS",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/VTRS/10Q/VTRS_2026-08-06.htm.gz (10-Q T2 2026) ; .batches-drafts-safe/kpis-haut/VTRS.json",
+  "controles": [
+    {
+      "affirmation": "La societe a recu une citation a comparaitre du procureur general du Mississippi portant sur la commercialisation de l'EpiPen Auto-Injector (presentee comme une fragilite externe actuelle, et reprise dans ce_qui_affaiblirait sous forme de 'cloture definitive... sans suite contentieuse')",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : 'In June 2024, the Company received a civil subpoena from the Attorney General of the State of Mississippi seeking information relating to the sales and/or marketing of EpiPen Auto-Injector. The Company was subsequently contacted by certain other State Attorneys General regarding similar issues... The Company has reached settlements with Mississippi and all of those certain other State Attorneys General. These matters are now closed.'",
+      "correction_proposee": "Le dossier Mississippi est CLOS : Viatris a transige avec le Mississippi et les autres procureurs generaux concernes. Retirer cet argument, ou le reformuler au passe en precisant qu'il a donne lieu a des transactions et qu'il est ferme. Retirer aussi la ligne correspondante de ce_qui_affaiblirait, qui suppose un dossier encore ouvert."
+    },
+    {
+      "affirmation": "Ce sont des demandes d'informations, et non des enquetes formellement ouvertes par un regulateur federal (a propos des citations Mississippi et Connecticut)",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : 'On December 21, 2015, the Company received a subpoena and interrogatories from the Connecticut Office of the Attorney General... On December 14, 2016, attorneys general of certain states filed a complaint in the United States District Court for the District of Connecticut against several generic pharmaceutical drug manufacturers, including the Company, alleging anticompetitive conduct... The operative complaint includes attorneys general of forty-two states, the District of Columbia and the Commonwealth of Puerto Rico. The Company is alleged to have engaged in anticompetitive conduct with respect to four generic drug products sold by the Company as well as an \"overarching conspiracy\"... The operative complaint seeks declaratory and injunctive relief, disgorgement, attorneys' fees and costs, and certain states seek monetary damages, civil penalties, restitution.'",
+      "correction_proposee": "La citation du Connecticut de 2015 n'en est plus au stade de la demande d'informations : elle a debouche en decembre 2016 sur une plainte antitrust deposee devant le tribunal federal du Connecticut, aujourd'hui portee par les procureurs generaux de 42 Etats, du District de Columbia et de Porto Rico, toujours en cours, avec demandes de dommages, penalites civiles et restitution. Reformuler : 'un contentieux antitrust multi-Etats est en cours, ne le presenter en aucun cas comme une simple demande d'informations.' C'est exactement l'inverse du defaut classique : ici l'ATT sous-estime gravement la portee du dossier."
+    },
+    {
+      "affirmation": "Les dix premiers produits representaient 40% du chiffre d'affaires au premier trimestre 2026, une concentration en hausse de 2 points sur un an",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 (source egalement citee par l'ATT) : 'Our top ten products in terms of net sales, in the aggregate, represented approximately 38% and 37% for the three months ended June 30, 2026 and 2025, respectively' et 'approximately 39% and 37% for the six months ended June 30, 2026 and 2025'. Le 40% provient de .batches-drafts-safe/kpis-haut/VTRS.json (top10_conc, value 40, yoy +2 pts, T1 2026).",
+      "correction_proposee": "Le chiffre le plus recent, issu du meme 10-Q que les autres donnees de l'ATT (arretee au 6 aout 2026), est de 38% au T2 2026 (contre 37%) et 39% sur le semestre (contre 37%). Utiliser 39% sur le S1 2026, +2 points sur un an, au lieu de 40% au T1 2026."
+    },
+    {
+      "affirmation": "Depuis une inspection FDA en 2024 a Indore (Inde), Viatris est sous lettre d'avertissement et alerte a l'importation empechant 11 produits d'entrer aux Etats-Unis ; impact aussi sur l'antiretroviral en marches emergents et certains generiques en Europe",
+      "verdict": "CONFORME",
+      "verbatim_source": "'Following an inspection by the FDA at our oral finished dose manufacturing facility in Indore, India in 2024, the FDA issued a warning letter and an import alert related to this facility. The import alert affects 11 products that will no longer be accepted into the U.S. until the warning letter is lifted.' / 'we have also experienced a negative impact in other markets, including the ARV business in Emerging Markets and select generic products in Europe.'",
+      "correction_proposee": "Precision de date : l'ATT dit 'un plan de remediation engage en 2025'. Le 10-Q dit 'the Company immediately implemented a comprehensive remediation plan' apres les observations de l'inspection de 2024, et 'During 2025, we made substantial progress'. Le plan a donc demarre des 2024. A noter aussi une omission : le 10-Q mentionne un incendie en fevrier 2026 sur le site de Nashik et des observations Form 483 de la FDA en mai 2026, ainsi qu'une class action securities (WDPA Indore Class Action Litigation) et des actions derivees liees aux communications sur Indore, non reprises par l'ATT."
+    },
+    {
+      "affirmation": "Reglement opioides : jusqu'a 335 M$ sur 9 ans, par tranches annuelles d'environ 27,5 a 40 M$, cadre finalise couvrant la quasi-totalite des Etats, territoires et tribus",
+      "verdict": "CONFORME",
+      "verbatim_source": "'the Company would pay up to a maximum of $ 335 million, consisting of annual payments over a nine-year period of between approximately $ 27.5 million and $ 40 million each... the settlement framework achieved high levels of participation, including all States and Territories, all litigating Native American Tribes, and the vast majority of litigating local governments.'",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Dette totale de 13,35 Mds$ au 30 juin 2026 contre 14,26 Mds$ de capitaux propres ; tresorerie -33% en six mois (1,32 Md$ a 886,5 M$) ; dette totale en baisse de 1,06 Md$ depuis fin 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "Bilan : 'Long-term debt 11,612.4 / 12,480.6' ; 'Current portion of long-term debt and other long-term obligations 1,738.9 / 1,933.3' ; 'Total equity 14,260.4' ; 'Cash and cash equivalents $ 886.5 $ 1,322.4'. Calculs : 13 351,3 M$ vs 14 413,9 M$ (-1 062,6 M$) ; tresorerie -33,0%.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Actifs incorporels nets passes de 15,10 Mds$ a 13,68 Mds$ entre le 31 decembre 2025 et le 30 juin 2026, soit -9,4% en six mois ; hausse du CA du T2 2026 tiree par les nouveaux lancements et la Grande Chine",
+      "verdict": "CONFORME",
+      "verbatim_source": "Bilan : 'Intangible assets, net 13,676.9 / 15,102.1' (-9,44%). MD&A T2 : 'The increase was the result of new product sales, primarily in Developed Markets, of approximately $101.0 million, and net base business growth of approximately $26.7 million, driven by strong net sales in Greater China.'",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Le chiffre d'affaires a progresse de 6,4% au premier semestre 2026 (hook) ; depreciation de goodwill de 2,94 Mds$ en 2025 ; levier net de 2,93 fois l'EBITDA ajuste au T1 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "'For the six months ended June 30, 2026, Viatris reported total revenues of $7.27 billion, compared to $6.84 billion... an increase of $437.4 million, or 6%' (soit +6,4%). 'recorded a non-cash goodwill impairment charge of $ 2.94 billion' (T1 2025). net_leverage 2.93x, yoy -4% (kpis-haut, T1 2026).",
+      "correction_proposee": null
+    }
+  ]
+}

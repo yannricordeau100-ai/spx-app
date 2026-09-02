@@ -1,0 +1,91 @@
+{
+  "ticker": "GM",
+  "verdict_global": "a_corriger",
+  "sources_verifiees": [
+    "data-lake/GM/10Q/GM_2026-07-21.htm.gz",
+    "data-lake/GM/8K/GM_2026-08-11_0001193125-26-344698.htm.gz",
+    "data-lake/GM/10K/GM_2026-01-27.htm.gz",
+    "data-lake/GM/10Q/GM_2025-05-01.htm.gz",
+    ".batches-drafts-safe/kpis-haut/GM.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "\"Deux composantes distinctes progressent : les garanties produit emises sur la periode passent de 1 676 M$ a 1 941 M$ sur le semestre, et GM a du reviser a la hausse ses garanties deja comptabilisees pour 947 M$.\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, note 11 (colonnes : T2 2026 / T2 2025 / S1 2026 / S1 2025) : \"Warranties issued and assumed in period - recall campaigns 162 471 310 614\" ; \"Warranties issued and assumed in period - product warranty 1,013 887 1,941 1,676\" ; \"Adjustments to pre-existing warranties 616 741 947 1,306\".",
+      "correction_proposee": "Une seule composante progresse. Les ajustements sur garanties preexistantes RECULENT de 1 306 M$ (S1 2025) a 947 M$ (S1 2026), soit -27 %, et les garanties emises au titre des campagnes de rappel tombent de 614 a 310 M$ (-50 %) : au total les garanties emises sur le semestre passent de 2 290 a 2 251 M$, en baisse. Reformulation correcte : \"Les garanties produit emises progressent de 1 676 a 1 941 M$ sur le semestre (+16 %), mais les campagnes de rappel et les ajustements sur garanties preexistantes reculent ; la hausse du solde de provision a 14,0 Mds $ vient de l'ecart entre garanties emises (2 251 M$) et paiements (2 774 M$) cumule sur douze mois, pas d'une acceleration des emissions du semestre.\""
+    },
+    {
+      "affirmation": "\"La defense classique est que 80 % des prets accordes relevent du segment prime, ce qui est exact\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, note 4, qualite de credit des creances de detail au 30/06/2026 : \"Prime - FICO score 680 and greater ... $56,339 74.1%\" ; \"Near-prime - FICO score 620 to 679 ... 9,498 12.5%\" ; \"Sub-prime - FICO score less than 620 ... 10,227 13.4%\". 10-K FY2025 au 31/12/2025 : prime 56 440 M$, soit 74,9 %. Aucun chiffre de 80 % dans les documents deposes ni dans le KPI cite.",
+      "correction_proposee": "Remplacer \"80 %\" par \"74,1 % au 30 juin 2026 (74,9 % au 31 decembre 2025)\". Sur les seules originations 2026 la part prime est encore plus basse, 72,7 %."
+    },
+    {
+      "affirmation": "\"La partie heritee est lourde egalement : le rappel des coussins gonflables Takata sur les pickups et SUV pleine taille GMT900 est decrit par GM comme devant prendre plusieurs annees.\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"In November 2020, the National Highway Traffic Safety Administration (NHTSA) directed that we replace the Takata airbag inflators in our GMT900 vehicles... the recall will take several years to be completed. Accordingly, in the year ended December 31, 2020, we recorded a warranty accrual of $1.1 billion... At June 30, 2026, our remaining accrual for these matters was $0.3 billion, and we believe the currently accrued amount remains reasonable.\"",
+      "correction_proposee": "Le verbatim \"plusieurs annees\" est exact, mais le qualificatif \"lourde\" n'est pas soutenu : la provision residuelle Takata est de 0,3 Md $, soit 2 % des 14,0 Mds $ de provision de garantie, et GM la juge \"reasonable\". Reformulation : \"La partie heritee reste presente mais residuelle : 0,3 Md $ de provision restante sur le rappel Takata GMT900, que GM decrit comme devant encore prendre plusieurs annees.\""
+    },
+    {
+      "affirmation": "Le retrait de la strategie electrique a coute 11,3 Mds $ en dix-huit mois (7,9 Mds $ en 2025 et 3,4 Mds $ au S1 2026, dont 2,3 Mds $ au T2), dont 2,5 Mds $ a impact tresorerie, et n'est pas solde",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"During the year ended December 31, 2025, we recorded charges of $7.9 billion in GMNA related to our EV strategic realignment... In the three months ended June 30, 2026, we recorded additional net charges of $2.3 billion, primarily related to $1.3 billion for ongoing commercial negotiations with our supply base and joint venture partners, $1.1 billion of losses on contractual supply agreements, and $493 million associated with compliance-related assets, net of $660 million of recoveries... For the six months ended June 30, 2026, net charges were $3.4 billion... Of these charges, $2.5 billion will have a cash impact when paid... We expect to recognize additional charges in the year ending December 31, 2026\"",
+      "correction_proposee": "Aucune correction obligatoire. Mention facultative de la phrase attenuante omise : \"while circumstances may change in the future, we believe we have substantially completed the recognition of material cash charges related to our EV strategic realignment\"."
+    },
+    {
+      "affirmation": "ROE de 3,1 % sur quatre trimestres glissants contre 7,1 % un an plus tot, pour 1,9 Md $ de resultat net, quand le ROIC ajuste affiche 22,9 % et l'EBIT ajuste 14,4 Mds $",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Non-GAAP Measures : \"Net income attributable to stockholders $1.9 $4.8 / Average equity $63.0 $66.8 / ROE 3.1% 7.1%\" ; \"EBIT-adjusted $14.4 $13.2 ... ROIC-adjusted 22.9% 19.0%\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Programme de financement de stocks de 4,5 Mds $ signe le 7 aout 2026, IPU comptabilises en dette non garantie, SOFR + 1,55 %, echeance au plus tard le 6 aout 2029, paiement exclu du cash-flow libre automobile ajuste",
+      "verdict": "CONFORME",
+      "verbatim_source": "8-K du 11/08/2026 : \"On August 7, 2026, General Motors Company... entered into a Master IPU Agreement...\" ; \"The Program provides for a maximum aggregate outstanding face amount of IPUs of $4.5 billion at any time\" ; \"no later than August 6, 2029\" ; \"Interest will accrue on outstanding IPUs at a rate equal to the Secured Overnight Financing Rate plus 1.55% per annum\" ; \"each IPU will be reflected as unsecured debt\" ; \"The payment made by the Paying Agent will be excluded from Adjusted Automotive Free Cash Flow until the Inventory is purchased by the Company.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "GM Financial : 111,7 Mds $ de dette contre 16,0 Mds $ de dette automobile ; provisionnement de 2,9 % a 3,1 % ; pertes constatees 1 079 M$ contre 968 M$ ; 22,9 % des valeurs residuelles sur des vehicules electriques ; EBT ajuste 605 M$ (-14 %)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Total GM Financial debt $111,719\" ; \"Total automotive debt $15,979\" ; \"The allowance for loan losses as a percentage of finance receivables was 3.1% and 2.9% at June 30, 2026 and December 31, 2025\" ; \"Charge-offs (538) (490) (1,079) (968)\" ; \"At June 30, 2026 and December 31, 2025, residual values of leased EVs represented 22.9% and 21.1% of total residual values\" (total 24 776 M$) ; \"EBT-adjusted $605 $704 $(99) (14.0)%\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Impayes a plus de 30 jours de 3,7 % fin 2025 contre 2,4 % fin 2021",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 (depose le 27/01/2026), note creances GM Financial : \"Finance receivables more than 30 days delinquent ... 2,806 3.7%\". Serie historique 2,4 % (FY2021) confirmee dans .batches-drafts-safe/kpis-haut/GM.json.",
+      "correction_proposee": "La source citee par l'ATT (\"communique de resultats du 8 janvier 2026\") est inexacte : la metrique n'est publiee qu'en 10-K. Corriger la reference de source."
+    },
+    {
+      "affirmation": "Chine : marche adresse de 10,3 M d'unites (-16,6 %), 0,7 M de ventes pour 6,8 % de part (-0,4 pt) ; coentreprises a 591 M$ de resultat net contre 197 M$, dont 248 M$ de quote-part GM",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Industry sales in China were 10.3 million units in the six months ended June 30, 2026, representing a decrease of 16.6%... Our total vehicle sales in China were 0.7 million units for a market share of 6.8%... representing a decrease of 0.4 percentage points\" ; \"Automotive China JVs' net income (loss) $252 $127 $591 $197\" ; \"Equity income (loss) - Automotive China $248 $116\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Droits de douane : impact de 2,5 a 3,5 Mds $ sur l'EBIT ajuste 2026, environnement \"hautement dynamique\" ; prevision 2026 de 8,4 a 9,8 Mds $ de resultat net ; revision de mai 2025 a 8,2-10,1 Mds $ ; resultat net 2023 de 10,1 Mds $",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"The tariff environment remains highly dynamic\" ; \"we estimate that impacts to EBIT-adjusted could range from $2.5 billion to $3.5 billion for the year ending December 31, 2026 and may be subject to change...\" ; \"we expect Net income attributable to stockholders of between $8.4 billion and $9.8 billion\". 10-Q du 01/05/2025 : \"Net income attributable to stockholders of between $8.2 billion and $10.1 billion\". 10-K FY2025 : \"Net income attributable to stockholders $2,697 $6,008 $10,127\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Amerique du Nord : industrie a 10,0 M d'unites (-2,6 %), Etats-Unis 8,1 M (-3,4 %) ; GMNA 76 312 M$ de CA et 7 107 M$ d'EBIT ajuste sur le semestre ; volumes de gros stables a 848 000 contre 849 000 ; prix favorable du fait de stocks concessionnaires tendus",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Industry sales in North America were 10.0 million units in the six months ended June 30, 2026, representing a decrease of 2.6%... U.S. industry sales were 8.1 million units... a decrease of 3.4%\" ; \"Net sales and revenue $76,312\" et \"Earnings (loss) before interest and taxes-adjusted $7,107\" (six mois) ; \"GMNA 848 85.7% 849 87.2%\" (T2) ; \"favorable Price as a result of lean dealer inventory levels due to strong demand for our products\".",
+      "correction_proposee": "Precision de periode a apporter : 848 / 849 milliers sont les volumes de gros du SEUL T2. Sur le semestre, comparable aux donnees d'industrie citees, les volumes GMNA reculent de 1 676 a 1 641 milliers (-2,1 %)."
+    },
+    {
+      "affirmation": "2,8 Mds $ de rachats d'actions au S1 2026 et 3,6 Mds $ rachats plus dividendes ; liquidite automobile disponible de 33,6 Mds $ contre 35,7 Mds $ fin 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"In the six months ended June 30, 2026, we repurchased 36 million outstanding shares of our common stock for $2.8 billion\" ; tableau de tresorerie : \"Shares repurchased and dividends paid (3.6)\" ; \"Total Automotive available liquidity $33.6 $35.7\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Marge nette de 2,7 % au T2 2026 (1 305 M$ pour 48 026 M$) contre 4,0 % au T2 2025 ; provision de garantie de 14 023 M$ contre 11 698 M$ (+19,9 %) alors que le CA semestriel ne progresse que de 0,6 %",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Total net sales and revenue 48,026 47,122 91,650 91,141\" ; \"Net income (loss) attributable to stockholders $1,305 $1,895 $3,932 $4,680\" ; \"Warranty balance at end of period 14,023 11,698\".",
+      "correction_proposee": ""
+    }
+  ]
+}

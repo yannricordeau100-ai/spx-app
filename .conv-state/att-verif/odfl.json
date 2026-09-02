@@ -1,0 +1,71 @@
+{
+  "ticker": "ODFL",
+  "verdict_global": "a_corriger",
+  "_sources_verifiees": [
+    "data-lake/ODFL/10Q/ODFL_2026-08-05.htm.gz (10-Q T2 2026)",
+    "data-lake/ODFL/10K/ODFL_2026-02-24.htm.gz (10-K FY2025)",
+    ".batches-drafts-safe/kpis-haut/ODFL.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "JUDICIAIRE/REGLEMENTAIRE - controle de non-affirmation : l'ATT ne formule aucune allegation d'enquete, poursuite, amende ou action de regulateur.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Item 1 Legal Proceedings : \"We are involved in or addressing various legal proceedings and claims, governmental inquiries, notices and investigations that have arisen in the ordinary course of our business... We do not believe that the resolution of any of these matters will have a material adverse effect\" ; \"Applying this threshold, there are no such unresolved proceedings to disclose as of June 30, 2026.\"",
+      "correction_proposee": "Aucune. L'ATT s'abstient correctement de transformer le boilerplate judiciaire en allegation."
+    },
+    {
+      "affirmation": "Hook + quantitatif : \"un pic de 39 941 tonnes/jour au 3e trimestre 2022\" / \"20% de tonnage en moins par jour qu'a son pic de fin 2022\" (recul de 20,4%).",
+      "verdict": "FAUX",
+      "verbatim_source": "Serie kpis-haut ODFL ltl_tons_per_day : Q4-2021 = 42 020 ; Q1-2022 = 41 454 ; Q2-2022 = 41 746 ; Q3-2022 = 39 941 ; Q2-2026 = 31 804. Le T3-2022 n'est pas un pic, c'est deja le 3e trimestre de repli depuis le sommet de Q4-2021.",
+      "correction_proposee": "Ecrire : \"a recule de 24,3% par rapport au pic de 42 020 tonnes/jour du 4e trimestre 2021\". Ou, si l'on garde le point de depart T3-2022, supprimer le mot \"pic\" : \"est passe de 39 941 tonnes/jour au 3e trimestre 2022 a 31 804 au 2e trimestre 2026\"."
+    },
+    {
+      "affirmation": "Quantitatif tonnage : \"le recul s'est etale sur pratiquement 14 trimestres consecutifs\".",
+      "verdict": "FAUX",
+      "verbatim_source": "Serie kpis-haut ODFL ltl_tons_per_day : hausses sequentielles a Q3-2023 (37 181 vs 35 878), Q4-2023 (37 419), Q2-2024 (36 560 vs 35 380) et Q2-2026 (31 804 vs 30 584). Le recul n'est donc pas consecutif en sequentiel.",
+      "correction_proposee": "Preciser la base : \"14 trimestres consecutifs de recul en glissement annuel\" (vrai depuis le T4-2022), ou supprimer \"consecutifs\"."
+    },
+    {
+      "affirmation": "Tonnage LTL/jour 31 804 au T2-2026 (-4,1%), expeditions/jour -5,7% au T2 et -6,8% sur le semestre, revenu au cwt +15,2%, CA +10,4%, tonnage juillet 2026 -1,0%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"LTL tonnage per day decreased 4.1% and 5.9%...\" ; tableau : LTL tonnage per day 31,804 (4.1)% ; LTL shipments per day 42,332 (5.7)% / 41,689 (6.8)% ; LTL revenue per hundredweight $37.84 15.2% ; \"Revenue increased $146.3 million, or 10.4%\" ; \"LTL tons per day decreased 1.0% due to a 3.0% decrease in LTL shipments per day\".",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "Capex nets 366,5 M$ en 2025 contre 751,2 M$ en 2024 (-51,2%), sous la fourchette historique de 10-15% du CA, ~380 M$ prevus pour 2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, tableau Capital Expenditures : Total $100,214 / $366,511 / $751,194. \"We historically spend 10% to 15% of our revenue on capital expenditures each year... Our capital expenditures were below this range in 2025 and we expect our capital expenditures to remain below this range in 2026\" ; \"We currently estimate capital expenditures will be approximately $380 million for the year ending December 31, 2026\".",
+      "correction_proposee": "Aucune sur les chiffres."
+    },
+    {
+      "affirmation": "Cadrage \"Investissements coupes de moitie\" / \"sa direction a coupe son budget d'investissement de moitie en un an\" presente comme une tendance en cours.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"We currently estimate capital expenditures will be approximately $380 million for the year ending December 31, 2026, which is an increase of $115 million from our initial plan.\" Le 10-K FY2025 tablait sur ~265 M$ ; le plan a donc ete RELEVE de 115 M$ en cours d'annee, et 380 M$ > 366,5 M$ realises en 2025.",
+      "correction_proposee": "Ajouter la clause omise : \"la societe a toutefois releve son plan 2026 de 115 M$ par rapport a son budget initial, a environ 380 M$, soit au-dessus du realise 2025\". La coupe est un fait 2024-2025, pas une trajectoire qui se poursuit."
+    },
+    {
+      "affirmation": "Le 10-K ecrit que les mesures tarifaires ont deja reduit la demande (langage factuel, non conditionnel).",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025, Item 1A : \"These changes in trade policy and tariffs have decreased demand for our services and have caused uncertainty and volatility in financial markets and may continue to adversely impact our customers, our industry and our business.\"",
+      "correction_proposee": "Aucune. Le verbatim est exact et la lecture \"deja survenu, pas seulement un risque\" est correcte."
+    },
+    {
+      "affirmation": "Les 5 plus grands transporteurs LTL representaient 56% du marche en 2024 ; le 10-K cite la poursuite des M&A comme facteur de concurrents plus forts.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025, Item 1 : \"The largest 5 and 10 LTL motor carriers accounted for approximately 56% and 81%, respectively, of the domestic LTL market in 2024 according to information reported in Transport Topics.\" Item 1A : \"continued merger and acquisition or other transaction activity in transportation and logistics could result in stronger or new competitors\".",
+      "correction_proposee": "Sourcing a corriger seulement : le chiffre de 56% vient de l'Item 1 du 10-K FY2025, pas de \"l'extraction risques v2-pipeline\"."
+    },
+    {
+      "affirmation": "Effectif moyen 20 264 salaries au T1-2026, -10,7% vs 22 702 au T2-2024, \"reduction continue depuis six trimestres consecutifs\".",
+      "verdict": "CONFORME",
+      "verbatim_source": "Serie kpis-haut ODFL avg_fulltime_employees : Q1-2024 22 891, Q2-2024 22 702, Q3-2024 22 465, Q4-2024 22 032, Q1-2025 21 817, Q2-2025 21 621, Q3-2025 21 073, Q4-2025 20 706, Q1-2026 20 264. 10-Q T2 2026 : \"a 7.1% decrease in the average number of active full-time employees\".",
+      "correction_proposee": "Chiffres exacts. Deux imprecisions dans le sens conservateur : la baisse est continue depuis 8 trimestres (Q1-2024), pas 6 ; et le T2-2026 est disponible (-7,1% sur un an, soit ~20 100) alors que l'ATT s'arrete au T1-2026."
+    },
+    {
+      "affirmation": "Parc de tracteurs 11 284 (fin 2024) a 10 184 (fin 2025), -9,7% ; centres de service 261 a 260 ; tresorerie 283,9 M$ au 30 juin 2026 ; marge nette 22,6%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 : \"At December 31, 2025, we owned 10,184 tractors\" ; \"a total of 260 service centers at December 31, 2025\". 10-Q T2 2026, bilan : cash 283,939 k$ ; net income 350,601 k$ sur un CA de ~1 552 M$ = 22,6%.",
+      "correction_proposee": "Aucune."
+    }
+  ]
+}

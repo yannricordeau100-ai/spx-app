@@ -1,0 +1,84 @@
+{
+  "ticker": "VTR",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Ventas a emis 34,7 millions d'actions nouvelles au premier semestre 2026 pour 3,0 Mds $ de produit brut, a un prix moyen de 86,02 $ par action",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"During the six months ended June 30, 2026, we ENTERED INTO EQUITY FORWARD SALES AGREEMENTS under the ATM Program for 34.7 million shares of our common stock for gross proceeds of $3.0 billion, representing an average price of $86.02 per share. During the six months ended June 30, 2026, we SETTLED 31.4 million shares of common stock under outstanding equity forward sales agreements... for net cash proceeds of $2.5 billion. As of June 30, 2026, we maintained unsettled equity forward sales agreements for 17.2 million shares of common stock, or approximately $1.5 billion in gross proceeds.\"",
+      "correction_proposee": "Meme nature d'erreur que l'exemple DOJ : conclure un contrat a terme de vente d'actions n'est pas emettre des actions. Le 10-Q distingue explicitement \"entered into\" (34,7 M d'actions, 3,0 Mds $) et \"settled\" (31,4 M d'actions, 2,5 Mds $ nets), avec 17,2 M d'actions encore non reglees au 30 juin 2026. Reformuler : \"Ventas a conclu au S1 2026 des contrats a terme de vente portant sur 34,7 millions d'actions pour 3,0 Mds $ bruts (prix moyen 86,02 $), dont 31,4 millions effectivement reglees pour 2,5 Mds $ nets ; 17,2 millions restaient non reglees au 30 juin 2026.\""
+    },
+    {
+      "affirmation": "Le FFO normalise par action progresse de 11,5% au T2 2026 (affirme trois fois : resume, argument 2, argument 3)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"Normalized FFO attributable to common stockholders (1) $483,716 $408,868\" avec note (1) : \"Beginning with the first quarter of 2026, the Company excludes non-cash stock-based compensation expense from the calculation of Normalized FFO. RESULTS FOR PRIOR PERIODS HAVE BEEN UPDATED TO CONFORM TO THIS PRESENTATION.\" Denominateur dilue : 497 724 (T2 2026) et 459 088 (T2 2025). Calcul a base comparable : 483 716/497 724 = 0,972 $ contre 408 868/459 088 = 0,891 $, soit +9,1%.",
+      "correction_proposee": "Le +11,5% provient de kpis-haut VTR (0,97 vs 0,87), qui compare le T2 2026 en NOUVELLE base (hors remuneration en actions) au T2 2025 en ANCIENNE base (0,87 $ = 401 185/459 088, soit 408 868 moins les 7 683 K$ de stock-based compensation). Le 10-Q retraite explicitement 2025 a 408 868. Sur base comparable la croissance est de +9,1%, pas +11,5%. Corriger les trois occurrences."
+    },
+    {
+      "affirmation": "Atria represente 17,9% de l'investissement du segment SHOP et 17,7% du NOI de ce segment, operant 194 des 813 communautes du portefeuille (source citee : 10-Q T2 2026)",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : \"Investment mix by manager and tenant: Atria 17.9% [30/06/2026] 19.6% [31/12/2025]\" — ce ratio porte sur la valeur brute comptable de TOUS les investissements immobiliers consolides, pas sur le seul segment SHOP. Le chiffre 17,7% et le compte 194 ne figurent PAS dans le 10-Q (aucune occurrence de \"17.7\" ni de \"194\"). Ils viennent du 10-K FY2025 : \"Percentage of Total NOI for the year ended December 31, 2025 | Segment Properties as of December 31, 2025 | Percentage of Segment Properties as of December 31, 2025 : Atria Senior Living, Inc. 17.7 % 194 14.1 %\".",
+      "correction_proposee": "Trois erreurs cumulees. (1) Mauvaise source : 17,7% et 194 viennent du 10-K FY2025, pas du 10-Q T2 2026. (2) 17,7% est le pourcentage du NOI TOTAL du groupe pour l'exercice 2025, pas du NOI du segment SHOP. (3) Melange de dates : 194 proprietes au 31/12/2025 rapportees a 813 communautes au 30/06/2026, ce qui donne 23,9% alors que le 10-K indique 14,1%. De plus 17,9% est un ratio d'investissement sur l'ensemble du portefeuille, pas sur le segment SHOP. Reformuler a partir du seul 10-K FY2025 : \"Atria represente 17,7% du NOI total du groupe en 2025 et gere 194 proprietes, soit 14,1% du parc.\""
+    },
+    {
+      "affirmation": "Citation du 10-K a l'appui de la dependance a un nombre restreint de locataires : \"the properties we lease to Brookdale... Ardent and Kindred... accounted for a significant portion of our NNN segment revenues and NOI\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-K FY2025 : \"The properties we lease to Brookdale Senior Living, Inc. (together with its subsidiaries, 'Brookdale'), Ardent and Kindred Healthcare, LLC (together with its subsidiaries, 'Kindred') accounted for a significant portion of our NNN segment revenues and NOI for the year ended December 31, 2025. AS NOTED PREVIOUSLY, BROOKDALE IS NOT EXPECTED TO REPRESENT A SIGNIFICANT PORTION OF THE TOTAL NOI OR PROPERTIES FOR OUR NNN SEGMENT IN 2026 AND GOING FORWARD.\"",
+      "correction_proposee": "La citation est exacte mot a mot mais s'arrete juste avant la phrase qui la neutralise partiellement. Le 10-K precise immediatement que Brookdale n'est PAS attendu comme contributeur significatif du segment NNN en 2026 et au-dela (56 baux expires, 42 proprietes converties en SHOP en 2025, 3 au 1er janvier 2026, 2 cedees, 9 detenues en vue de la vente). Citer Brookdale comme facteur de concentration prospectif sans cette phrase est trompeur. Soit ajouter la phrase, soit ne conserver qu'Ardent et Kindred, qui restent effectivement significatifs."
+    },
+    {
+      "affirmation": "Huit trimestres consecutifs de desendettement (levier net/EBITDA ajuste)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "kpis-haut VTR, KPI \"Net debt / EBITDA\", historique complet : Q2-2024 6,4 ; Q3-2024 6,3 ; Q4-2024 6,0 ; Q1-2025 5,7 ; Q2-2025 5,6 ; Q3-2025 5,3 ; Q4-2025 5,2 ; Q1-2026 5,0. La serie ne contient que huit points, donc au plus SEPT baisses consecutives observables.",
+      "correction_proposee": "Ecrire \"sept trimestres consecutifs de desendettement\" (Q3-2024 a Q1-2026), seul chiffre verifiable a partir de la source citee. Le huitieme trimestre exigerait une donnee Q1-2024 absente du fichier."
+    },
+    {
+      "affirmation": "Marge de NOI de 39,6% au T2 2026 contre 41,4% au T2 2025 (presente entre guillemets comme un verbatim du 10-Q, table NOI margin)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Note 16 Segment Information. T2 2026 : Total revenues 1 729 614, NOI total 685 208 = 39,62%. T2 2025 : Total revenues 1 420 893, moins interest and other income 5 871, moins property-level operating expenses 825 269, moins third-party capital management expenses 1 627 = NOI 588 126 = 41,39%.",
+      "correction_proposee": "Les chiffres sont exacts. En revanche la \"preuve\" presente une PHRASE EN FRANCAIS entre guillemets attribuee a une \"table NOI margin\" du 10-Q : ce tableau n'existe pas et un 10-Q americain ne contient pas de texte francais. Meme defaut pour la preuve du bloc NNN. Remplacer ces faux verbatim par le renvoi reel : 10-Q T2 2026, Note 16 Segment Information, avec le calcul."
+    },
+    {
+      "affirmation": "Le segment SHOP represente 78,8% du CA trimestriel au T2 2026 contre 72,7% un an plus tot ; marge de NOI SHOP 29,6%, NNN 97,5%, immobilier medical 66,1%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Operations mix by manager and tenant and business model: Total Revenues: SHOP 78.8 % 72.7 %\". Note 16 T2 2026 : SHOP revenus 1 363 498 / NOI 403 499 = 29,59% ; NNN revenus 124 856 / NOI 121 714 = 97,48% ; OM&R revenus 229 313 / NOI 151 532 = 66,08%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "BPA dilue attribuable aux actionnaires ordinaires de 0,14 $ au T2 2026 contre 0,15 $ un an plus tot (-6,7%) ; FFO normalise 483 716 K$ vs 408 868 K$ ; actions diluees 497,7 M vs 459,1 M (+8,4%) ; amortissements 407,7 M$ (+17,3%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Diluted: Net income attributable to common stockholders 0.14 0.15\" ; \"Normalized FFO attributable to common stockholders $483,716 $408,868\" ; \"Denominator for diluted earnings per share—adjusted weighted average shares 497,724 459,088\" ; \"Depreciation and amortization 407,711 347,719\" (+17,25%).",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Ardent Health Partners 5,7% du NOI total et Kindred Healthcare 5,1% du NOI total au T2 2026 ; 813 communautes SHOP",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Note 3 Concentration of Credit Risk : \"Contribution as a Percentage of Total NOI: Ardent 5.7 % 6.5 % ... Kindred 5.1 5.9\" (trois mois clos le 30 juin). Note 1 : \"Senior housing operating portfolio (SHOP) $777,957 58.2 % 813\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CA du segment triple net de 124,9 M$ au T2 2026 contre 152,7 M$ au T2 2025 (-18,2%) ; 42 proprietes Brookdale converties en SHOP en 2025, 3 au 1er janvier 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Note 16 : NNN Total revenues 124 856 (T2 2026) et 152 702 (T2 2025), soit -18,24%. 10-K FY2025 : \"(i) 42 of the Brookdale Conversion and Sale Communities were converted to our SHOP segment during 2025... (ii) 3 of the Brookdale Conversion and Sale Communities were converted to our SHOP segment on January 1, 2026\".",
+      "correction_proposee": "Chiffres exacts. Meme reserve de forme que ci-dessus : la preuve du bloc est une phrase francaise entre guillemets attribuee au 10-Q."
+    },
+    {
+      "affirmation": "NOI du segment SHOP de 403,5 M$ au T2 2026 (+40,9%), soit 58,9% du NOI total contre 48,7% un an plus tot ; NNN -18,2% et immobilier medical +3,4%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Note 16 : SHOP NOI 403 499 (T2 2026), 286 412 implicite T2 2025 (kpis-haut VTR SHOP Segment NOI Q2-2025 = 286,412), soit +40,9%. \"Net operating income (NOI): SHOP 58.9 % 48.7 %\". NNN NOI 121 714 vs 148 736 = -18,2%. OM&R NOI 151 532 vs 146 486 = +3,4%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette nette de 12,49 Mds $ au 30 juin 2026 (+0,4% sur un an), 1 477,3 M$ d'acquisitions au T2 2026 (+663,6%), levier 5,0x au T1 2026 contre 5,7x un an plus tot, occupation same-store SHOP 90,9%",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut VTR : Net debt 12,489 Mds $ yoy +0,4% (Q2-2025 12,442) ; Acquisitions 1 477,299 M$ yoy +663,6% ; Net debt / EBITDA 5,0x (Q1-2026) contre 5,7x (Q1-2025) ; SHOP SS Occupancy 90,9%. 10-Q T2 2026 : \"90.9 % 87.9 %\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le chiffre d'affaires de Ventas a bondi de 21,7% au T2 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Total revenues 1,729,614 1,420,893\" (trois mois clos le 30 juin 2026 et 2025), soit +21,72%.",
+      "correction_proposee": ""
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "ticker": "AIR.PA",
+  "verdict": "propre",
+  "confiance": "haute",
+  "synthese": "Aucune trace d'AAR Corp (aucune mention MRO, aviation services ou USD). Tous les blocs sont sources sur les documents IR Airbus SE (URD FY2024 du 2025-04-09, CP FY2025 et CP HY2026). Devise EUR. PDG Guillaume Faury correct. En revanche la page est nettement en retard: le hero a deux trimestres de retard et les blocs CA/segments sont restes sur l'exercice 2024 alors que FY2025 est publie et present dans le data-lake.",
+  "controles_ok": [
+    "Nom Airbus SE, secteur Industrie / Aeronautique & Defense, pays FR",
+    "Devise: 11 occurrences 'Mds EUR' + 1 'avions', aucune valeur en USD",
+    "Segments FY2024: Airbus 49.639 + Helicopters 7.596 + Defence and Space 11.995 = 69.23 Mds EUR (CA externe par segment, coherent avec le total publie)",
+    "Zones geo FY2024: 27.804 + 17.769 + 16.43 + 3.101 + 1.723 + 2.403 = 69.23 Mds EUR",
+    "Gouvernance: Guillaume Faury, conseil de 12, SOGEPA 10.83 / GZBV 10.82 / SEPI 4.08, source URD FY2024",
+    "Risques: 7 risques tous Airbus (montee en cadence avions commerciaux, decarbonation du transport aerien, commande publique defense), aucun risque de prestataire MRO",
+    "Positionnement IA 'integrator', source URD FY2024 section 1.5",
+    "Recoupement direct CP FY2025 (2026-02-19): '793 commercial aircraft delivered', CA '73,420' -> la serie de livraisons de la page est juste jusqu'a Q4-2025",
+    "Recoupement direct CP HY2026 (2026-07-29): '351 delivered (H1 2025: 306 aircraft)' soit Q1-2026 = 114 et Q2-2026 = 237, CA Q2-2026 '20,525'",
+    "v2-pipeline/air.pa.json identique a companies/air.pa.json hors accents"
+  ],
+  "problemes": [
+    {
+      "bloc": "hero_kpi DELIV (kpis[0].value, yoy, history)",
+      "valeur_actuelle": "value 286 avions, yoy +6.3%, historique de 20 points s'arretant a Q4-2025",
+      "valeur_correcte": "value 237 avions, yoy +39.4%, historique de 22 points avec Q1-2026 = 114 et Q2-2026 = 237",
+      "gravite": "majeur",
+      "nature": "fraicheur, pas contamination. Le chiffre le plus visible de la page a deux trimestres de retard.",
+      "source": ".batches-drafts-safe/kpis-haut/AIR.PA.json (DELIV) et data-lake/AIR.PA/ir/CP/AIR.PA_CP_HY2026_2026-07-29.pdf verbatim '351 delivered (H1 2025: 306 aircraft)'"
+    },
+    {
+      "bloc": "hero_kpi_rationale",
+      "valeur_actuelle": "\"Livraisons trimestrielles d'avions commerciaux : 20 trimestres 2021-2025 (793 en 2025, record post-Covid)\"",
+      "valeur_correcte": "22 trimestres 2021-2026, a reformuler apres mise a jour de la serie (793 en 2025 reste exact)",
+      "gravite": "mineur",
+      "nature": "coherence avec la serie corrigee",
+      "source": "data-lake/AIR.PA/ir/CP/AIR.PA_CP_FY2025_2026-02-19.pdf verbatim '793 commercial aircraft delivered'"
+    },
+    {
+      "bloc": "description / company_description",
+      "valeur_actuelle": "Chiffre d'affaires 2024 : 69,2 Mds EUR",
+      "valeur_correcte": "Chiffre d'affaires 2025 : 73,4 Mds EUR",
+      "gravite": "majeur",
+      "nature": "fraicheur, pas contamination",
+      "source": "data-lake/AIR.PA/ir/CP/AIR.PA_CP_FY2025_2026-02-19.pdf verbatim '73,420'"
+    },
+    {
+      "bloc": "revenue_by_segment",
+      "valeur_actuelle": "exercice 2024, total 69.23 Mds EUR (label 'Repartition du chiffre d'affaires par division' sans annee)",
+      "valeur_correcte": "exercice 2025 disponible: Avions commerciaux 52.577, Helicopteres 8.972, Defence and Space 13.405 (CA total par segment, avant eliminations, total groupe 73.420). A defaut de mise a jour, le label doit porter la mention 'exercice 2024'.",
+      "gravite": "majeur",
+      "nature": "fraicheur + label ambigu. Les series semestrielles FY2025 sont deja dans le draft kpis-haut (CA_CIAL, CA_HELI, CA_DS).",
+      "source": ".batches-drafts-safe/kpis-haut/AIR.PA.json (CA_CIAL H1-2025 20.829 + H2-2025 31.748; CA_HELI 3.693 + 5.279; CA_DS 5.813 + 7.592)"
+    },
+    {
+      "bloc": "revenue_by_geography",
+      "valeur_actuelle": "exercice 2024, total 69.23 Mds EUR, label sans annee",
+      "valeur_correcte": "ajouter la mention 'exercice 2024' au label. Pas de mise a jour possible: la ventilation geographique FY2025 n'existe pas dans le data-lake (URD FY2025 absent, seuls FY2021 a FY2024 presents).",
+      "gravite": "mineur",
+      "nature": "label ambigu, donnee non actualisable en l'etat",
+      "source": "ls data-lake/AIR.PA/ir/URD/ et .batches-drafts-safe/kpis-haut/AIR.PA.json (series GEO_* s'arretant a FY2024)"
+    },
+    {
+      "bloc": "governance",
+      "valeur_actuelle": "fiscal_year 2024, agm_date 2025-04-15 (source URD FY2024)",
+      "valeur_correcte": "exercice 2025 souhaitable, non corrigeable: URD FY2025 absent du data-lake",
+      "gravite": "mineur",
+      "nature": "fraicheur, pas contamination",
+      "source": "ls data-lake/AIR.PA/ir/URD/"
+    }
+  ]
+}

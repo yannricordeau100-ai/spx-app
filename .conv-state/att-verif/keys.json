@@ -1,0 +1,72 @@
+{
+  "ticker": "KEYS",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "hook + fondamental_interne 1 : \"93 M$ de ce resultat viennent d'un remboursement ponctuel de droits de douane\" et \"sans cet effet ponctuel, le resultat operationnel du trimestre (407 M$, marge de 23,7%) reviendrait proche de 314 M$, soit une marge d'environ 18%\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q Q2 FY2026, tableau \"net impact of IEEPA tariff refund claims and related customer surcharge refunds on our reportable segments\" : \"Revenue $(34) | $(6) | $(40)\" ; \"Income from operations $38 | $19 | $57\" ; \"Operating margin impact 3.9 ppts | 4.2 ppts | 3.8 ppts\". Le meme document precise : \"we recorded a $40 million liability ... as a result of our decision to refund IEEPA tariff surcharges collected from our customers, with a corresponding reduction of revenue\".",
+      "correction_proposee": "Keysight chiffre elle-meme l'effet NET sur le resultat operationnel a +57 M$ et +3,8 points de marge, pas 93 M$. Hors IEEPA, le resultat operationnel ressort a environ 350 M$ et la marge a environ 19,9%, pas 314 M$ / 18%. L'ATT retient le brut (93 M$ en cout des ventes) en ignorant les -40 M$ de chiffre d'affaires restitue aux clients."
+    },
+    {
+      "affirmation": "\"ce remboursement depend d'une decision judiciaire en appel, ce qui expose l'entreprise a un risque d'inversion comptable si la decision est infirmee\" (repris dans ce_qui_affaiblirait : \"Une decision d'appel confirmant definitivement l'annulation des droits de douane IEEPA\")",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q Q2 FY2026 : \"In February 2026, the Supreme Court of the United States (“U.S. Supreme Court”) determined that certain tariffs imposed pursuant to the International Emergency Economic Powers Act (“IEEPA”) were not authorized by law.\" Facteur de risque : \"uncertainty remains regarding the ultimate outcome of these claims, including: the administrative procedures and timing for processing claims, the availability of government funding or appropriations to support refund payments (including accrued interest), and the impacts of any further litigation, appeals or regulatory action.\"",
+      "correction_proposee": "La decision est celle de la Cour supreme des Etats-Unis, definitive, pas une decision \"en appel\". L'incertitude porte sur les procedures administratives de remboursement, la disponibilite des credits budgetaires et d'eventuels litiges ou actions reglementaires ulterieurs. Reformuler en consequence."
+    },
+    {
+      "affirmation": "\"Centripetal maintient des plaintes actives en Allemagne portant sur trois brevets distincts, ce qui laisse un front judiciaire ouvert hors des Etats-Unis\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q Q2 FY2026, note Commitments and contingencies : \"in February 2022, Centripetal filed complaints in Germany alleging infringement of three of Centripetal's German patents. Keysight challenged the validity of the claims of these patents in German nullity or European Patent Office (“EPO”) opposition procedures. Two of the three patents were invalidated, and the appeals process has ended. The third patent had all but one claim invalidated at trial and is under appeal.\"",
+      "correction_proposee": "Les trois brevets datent du depot de 2022 ; a la date du 10-Q, deux sont invalides et les appels sont clos. Il ne reste qu'un brevet, reduit a une seule revendication, sous appel. Ecrire \"un seul brevet allemand subsiste, reduit a une revendication et sous appel\"."
+    },
+    {
+      "affirmation": "\"en avril 2026, la Cour d'appel du circuit federal a confirme l'invalidation de plusieurs brevets Centripetal aux Etats-Unis et Centripetal a meme ete condamnee a rembourser des frais de defense de Keysight dans deux procedures\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q Q2 FY2026 : la phrase \"Centripetal was ordered to repay Keysight's defense costs in two of these cases\" figure dans le paragraphe consacre aux procedures ALLEMANDES (nullite / opposition EPO), pas dans le paragraphe sur le Federal Circuit americain.",
+      "correction_proposee": "La condamnation aux frais de defense concerne deux des procedures allemandes, pas les procedures americaines. Dissocier les deux faits."
+    },
+    {
+      "affirmation": "Titre \"699 M$ de dette reclassee en echeance court terme apres l'acquisition de Spirent\" et \"cette echeance rapprochee intervient un an apres l'acquisition de Spirent Communications, payee 1 564 M$ en cash\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q Q2 FY2026 : \"2027 Senior Notes at 4.60% ($700 face amount less unamortized costs of $1 and $1)\" ; \"There have been no changes to the principal, maturity, interest rates, and interest payment terms of our senior notes during the six months ended April 30, 2026 as compared to the senior notes described in our Annual Report on Form 10-K for the fiscal year ended October 31, 2025.\" ; \"On October 15, 2025, we completed the acquisition of ... Spirent ... for $1,564 million, using existing cash\".",
+      "correction_proposee": "Le basculement des 699 M$ est le reclassement mecanique des 2027 Senior Notes (700 M$ nominal, 4,60%) arrivant a moins de douze mois : aucun lien avec Spirent, dont l'acquisition a ete payee en tresorerie existante. Supprimer le lien de causalite dans le titre et dans l'argument."
+    },
+    {
+      "affirmation": "Fourchette de marge operationnelle \"15,5% a 17,3% observes sur les quatre trimestres precedents\" (fondamental_interne)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "kpis-haut KEYS.json, serie OP_MARGIN : Q2-2025 15,8 ; Q3-2025 17,3 ; Q4-2025 15,3 ; Q1-2026 15,5",
+      "correction_proposee": "Le plancher est 15,3% (Q4 FY2025), pas 15,5%. Le bloc quantitatif du meme fichier ecrit d'ailleurs correctement \"15,3% a 17,3%\" : harmoniser."
+    },
+    {
+      "affirmation": "Creance IEEPA de 100 M$ avec contreparties de 93 M$ en cout des ventes, 4 M$ en SG&A et 3 M$ en produits d'interets",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q Q2 FY2026 : \"we recorded a receivable of $100 million within “other current assets” ... with corresponding offsets of $93 million to “cost of sales,” $4 million to “selling, general and administrative expenses,” and $3 million to “interest income”\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "87 M$ de benefices fiscaux discrets sur six mois, dont 97 M$ de reglement d'audit favorable et 12 M$ de reprise pour prescription, moins 15 M$ lies aux reclamations IEEPA",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q Q2 FY2026 : \"we recorded net income tax benefits of $87 million from discrete items, driven by a $97 million net benefit from a favorable audit settlement and a $12 million release of reserves due to the expiration of the statute of limitations. These items were partially offset by a $15 million expense related to IEEPA tariff refund claims and $10 million expense from unrecognized tax benefits\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "699 M$ en portion courante contre 0 M$ un an plus tot, dette long terme 1 832 vs 2 534 M$, total ~2 531 M$, tresorerie 2 412 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q Q2 FY2026, bilan : \"Current portion of long-term debt $699 | $—\" ; \"Long-term debt 1,832 | 2,534\" ; \"Cash and cash equivalents $2,412 | $1,873\"",
+      "correction_proposee": "Precision : le comparatif \"$—\" est celui du 31 octobre 2025 (cloture FY2025), pas \"un an plus tot\"."
+    },
+    {
+      "affirmation": "Goodwill total 3 465 M$ au 30 avril 2026 contre 3 424 M$ six mois plus tot, dont 713 M$ pour Spirent ; Spirent, OSG et PowerArtist acquis en octobre 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q Q2 FY2026 : \"Goodwill 3,465 | 3,424\" ; \"Goodwill at October 31, 2025 ... $3,424\" ; allocation Spirent \"Goodwill 713\" et \"Total consideration $1,564\" ; dates \"On October 15, 2025\" (Spirent), \"On October 17, 2025\" (OSG et PowerArtist)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Marge operationnelle 23,7% au T2 FY2026 contre 15,8% ; commandes 2 051 M$ (+56%) contre 1 316 M$ ; backlog 2 375 -> 2 697 M$ (+14%) ; rachats 220 M$ (+47%) ; revenus produits FY2022-FY2025 : 4 386 / 4 336 / 3 717 / 4 063 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q : \"Income from operations 407 | 207\" sur \"Total revenue 1,717 | 1,306\" = 23,7% et 15,8% ; \"Total orders for the three ... months ended April 30, 2026 were $2,051 million ... an increase of 56 percent\". kpis-haut KEYS : BACKLOG FY2024 2375 / FY2025 2697 ; BUYBACK_Q Q2-2025 150, Q2-2026 220. 10-K FY2024 : \"Products $3,717 | $4,336 | $4,386\".",
+      "correction_proposee": "Note : la serie trimestrielle PROD_REV de kpis-haut somme 4 474 M$ pour FY2022, en contradiction avec les 4 386 M$ des 10-K FY2023 et FY2024. L'ATT retient la bonne valeur ; c'est le KPI trimestriel qui est a verifier."
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "ticker": "EW",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/EW/10Q/EW_2026-08-04.htm.gz (10-Q T2 2026) ; .batches-drafts-safe/kpis-haut/EW.json",
+  "controles": [
+    {
+      "affirmation": "Le flux de tresorerie operationnel du T2 2026 chute de 84,4% sur un an a 43,8 M$ ; capex 64,9 M$ ; free cash flow negatif a -21,1 M$ (yoy -109,4%)",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, tableau de flux (six mois) : \"Net cash provided by operating activities 695.7 | 570.6\" ; \"Capital expenditures ( 131.8 ) | ( 105.3 )\". Fichier kpis-haut EW : ocf/fcf/capex/net_cash portent last_data_date 2026-03-31 et history se termine a Q1-2026.",
+      "correction_proposee": "Ce sont les chiffres du T1 2026, pas du T2 2026. Preuve arithmetique : le yoy -84,4% se calcule contre Q1-2025 (280,4 M$), pas contre Q2-2025 (290,2 M$) ; idem fcf -109,4% contre 224,4 M$ (Q1-2025) et capex +15,9% contre 56,0 M$ (Q1-2025). Par difference sur le 10-Q, le T2 2026 seul affiche un OCF d'environ 651,9 M$ (695,7 - 43,8) et un capex d'environ 66,9 M$ (131,8 - 64,9), soit un FCF POSITIF d'environ +585 M$. L'affirmation inverse le signe du fait. A supprimer ou a reecrire : \"Au T1 2026, le FCF est devenu negatif a -21,1 M$ ; il est redevenu fortement positif au T2 2026.\""
+    },
+    {
+      "affirmation": "Free cash flow trimestriel -21,1 M$ au T2 2026 (yoy -109,4%) ; premier trimestre recent ou le FCF devient negatif malgre une tresorerie nette de 3 073,0 M$ (yoy -6,9%)",
+      "verdict": "FAUX",
+      "verbatim_source": "kpis-haut EW : fcf history se termine a {\"q\": \"Q1-2026\", \"v\": -21.1} ; net_cash history se termine a {\"q\": \"Q1-2026\", \"v\": 3073.0} ; last_data_date 2026-03-31 pour les deux.",
+      "correction_proposee": "Meme defaut de periode : -21,1 M$ de FCF et 3 073,0 M$ de tresorerie nette sont des donnees au 31 mars 2026, presentees comme T2 2026. Reperiodiser en T1 2026 ou retirer le bloc quantitatif."
+    },
+    {
+      "affirmation": "Une loi budgetaire californienne qui supprime durablement l'utilisation des credits R&D reportes",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"the enactment of California budget legislation on June 29, 2026, that, as noted below, permanently limits the utilization of most business tax credits, including carryovers of research and development tax credits\"",
+      "correction_proposee": "Le document dit \"limits\" (limite de facon permanente), pas \"supprime\". Reecrire : \"une loi budgetaire californienne qui limite durablement l'utilisation de la plupart des credits d'impot d'entreprise, dont les reports de credits R&D\"."
+    },
+    {
+      "affirmation": "Pilier 2 : charge fiscale supplementaire d'environ 50,0 M$ en 2026 avant compensations, un cout recurrent qui vient s'ajouter a la perte des credits R&D californiens",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"In 2026, the Company expects the Pillar Two provision to result in additional tax expense of approximately $ 50.0 million prior to offsets under current law. As countries enact the Side-by-Side Safe Harbour, the Pillar Two UTPR tax expense will be reduced accordingly.\" ; \"In January 2026, the OECD released its Side-by-Side Safe Harbour package, intended to reduce double taxation and compliance burdens by deeming Pillar Two top-up tax to be zero under the Income Inclusion Rule and Undertaxed Profits Rule for groups headquartered in the United States\"",
+      "correction_proposee": "Le chiffre de 50,0 M$ est une prevision pour la seule annee 2026, et la societe indique explicitement que cette charge sera reduite a mesure que les pays adoptent le Safe Harbour (qui ramene le top-up a zero pour les groupes a siege americain). Supprimer \"un cout recurrent\" et mentionner l'attenuation prevue."
+    },
+    {
+      "affirmation": "L'IRS conteste le prix de transfert des redevances intragroupe TAVR/Chirurgie entre les filiales americaine et suisse pour 2015-2017 ; redressement de 269,3 M$ avant interets ; aucun montant supplementaire provisionne ; pas de resolution attendue avant 12 mois ; litiges similaires possibles sur 2018-2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"transfer pricing involving Surgical/TAVR intercompany royalty transactions between the Company's United States and Switzerland subsidiaries\" ; \"The additional tax sought in excess of the Company's filing position is $ 269.3 million before consideration of interest and a repatriation tax offset\" ; \"has not accrued any additional amount based on the NOD and other proceedings to date\" ; \"Final resolution of this matter is not likely within the next 12 months\" ; \"similar material tax disputes may arise for the 2018 through 2026 tax years\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Taux effectif d'imposition de 53,6% au T2 2026 (yoy +37,5 pt), tres au-dessus du taux federal statutaire de 21,0%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"The Company's effective income tax rate attributable to continuing operations was 53.6 % and 16.1 % for the three months ended June 30, 2026 and 2025, respectively\" ; \"the effective tax rate for the six months ended June 30, 2026 was higher than the federal statutory rate of 21.0%\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CA T2 2026 1 741,0 M$ (+13,6%) ; resultat net attribuable 241,9 M$ (-27,4% vs 333,2 M$) ; BPA dilue 0,42 $ (-25,0%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total net sales $ 1,741.0 | $ 1,532.2 | $ 208.8 | 13.6 %\" ; \"Net income attributable to Edwards Lifesciences Corporation $ 241.9 | $ 333.2\" ; \"Diluted earnings per share $ 0.42 | $ 0.56\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Perte sur depreciation 163,6 M$ sur six mois contre 47,1 M$ ; frais de litige 43,4 M$ contre 26,4 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Loss on impairment (Note 6) | 40.0 | 47.1 | 163.6 | 47.1\" ; \"Certain litigation expenses | 6.3 | 15.5 | 43.4 | 26.4\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "TAVR 72,3% du CA total du T2 2026 (yoy -1,5 pt) ; TAVR 1 258,3 M$ (+11,3%) ; TMTT +47,7%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Transcatheter Aortic Valve Replacement $ 1,258.3 | $ 1,130.9 | $ 127.4 | 11.3 %\" ; \"Transcatheter Mitral and Tricuspid Therapies 198.6 | 134.5 | 64.1 | 47.7 %\" ; 1 258,3 / 1 741,0 = 72,3%",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Exposition tarifaire que l'entreprise ne peut pas quantifier",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Given the uncertainties around U.S. trade policy and future tariff rates, we are unable to predict the nature of the tariffs and whether we will be able to successfully mitigate their impact.\"",
+      "correction_proposee": ""
+    }
+  ]
+}

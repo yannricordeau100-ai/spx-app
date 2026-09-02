@@ -1,0 +1,42 @@
+{
+  "ticker": "SU.PA",
+  "verdict": "propre",
+  "confiance": "haute",
+  "synthese": "Aucune trace de Suncor Energy (aucune mention de petrole, sables bitumineux ou CAD). Tous les blocs sont sources sur les documents IR Schneider Electric. Devise EUR. PDG Olivier Blum correct. Un defaut latent serieux dans v2-pipeline (hero incoherent avec son propre rationale) qui corromprait le hero publie au prochain rebuild.",
+  "controles_ok": [
+    "Nom Schneider Electric, secteur Industrie / Industrial Automation & Controls, fonde 1836",
+    "Devise: 8 occurrences 'Mds EUR' + 1 '%', aucune valeur en USD/CAD",
+    "Hero EBITA_MARGIN 18.7% FY2025 (+0.1 pt) identique au draft kpis-haut, historique 6 exercices identique",
+    "Segments FY2025: Gestion de l'energie 33.13 + Automatismes industriels 7.02 = 40.15 Mds EUR",
+    "Zones geo FY2025: 15.44 + 10.5 + 9.32 + 4.9 = 40.16 Mds EUR, coherent avec les segments",
+    "Risques: 8 risques tous Schneider (cyber produits connectes, 155 000 references, 160 usines, semi-conducteurs, terres rares), aucun risque petrolier",
+    "Positionnement IA 'leader' (NVIDIA, EcoStruxure, AVEVA, AI @ scale), source SLIDES FY2025 + URD FY2024",
+    "Recoupement direct communique FY2025 (2026-02-27): '40,152 +5.2% +8.9%', '18.7% +10bps +50bps', '4,163 -2%', '33,130 +6.4%', '7,022 0.0%' -> identiques a la page et au draft"
+  ],
+  "problemes": [
+    {
+      "bloc": "hero_kpi (src/data/v2-pipeline/su.pa.json uniquement)",
+      "valeur_actuelle": "hero_kpi = \"EM_REV\" alors que hero_kpi_rationale decrit la marge d'EBITA ajuste (\"6 annees publiees 2020-2025, de 15,6% a 18,7%\")",
+      "valeur_correcte": "hero_kpi = \"EBITA_MARGIN\" (valeur deja correcte dans src/data/companies/su.pa.json et dans .batches-drafts-safe/kpis-haut/SU.PA.json)",
+      "gravite": "majeur (latent)",
+      "nature": "defaut connu 'kpis-haut ecrase le hero'. La page publiee est correcte aujourd'hui, mais un rebuild depuis v2-pipeline basculerait le hero sur EM_REV avec un rationale qui ne lui correspond pas.",
+      "source": ".batches-drafts-safe/kpis-haut/SU.PA.json (hero_kpi = EBITA_MARGIN) et src/data/companies/su.pa.json"
+    },
+    {
+      "bloc": "governance",
+      "valeur_actuelle": "fiscal_year = 2024, agm_date = 2025-05-07 (source URD FY2024 du 2025-03-26)",
+      "valeur_correcte": "exercice 2025 souhaitable pour s'aligner sur les blocs CA/segments/geo qui sont deja en FY2025",
+      "gravite": "mineur",
+      "nature": "fraicheur, pas contamination. Non corrigeable en l'etat: l'URD FY2025 est absent de data-lake/SU.PA/ir/URD/ (seuls FY2023 et FY2024 y figurent).",
+      "source": "ls data-lake/SU.PA/ir/URD/"
+    },
+    {
+      "bloc": "governance.top_capital",
+      "valeur_actuelle": "BlackRock 8 + Salaries 3.2 + Auto-detention 2.5 + Public 86.3 = 100.0",
+      "valeur_correcte": "coherent en somme mais BlackRock est normalement inclus dans le flottant public: la ligne 'Public' devrait valoir ~86.3 hors BlackRock ou le total depasse la realite du flottant",
+      "gravite": "mineur",
+      "nature": "presentation potentiellement trompeuse, a verifier contre l'URD chap. 7.1.1",
+      "source": "data-lake/SU.PA/gouvernance_fr.json (URD FY2024 chap. 7.1.1)"
+    }
+  ]
+}

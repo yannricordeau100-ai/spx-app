@@ -1,0 +1,73 @@
+{
+  "ticker": "BKR",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/BKR/10Q/BKR_2026-07-27.htm.gz (10-Q T2 2026) ; data-lake/BKR/10K/BKR_2026-02-05.htm.gz (10-K FY2025) ; data-lake/BKR/8K/BKR_2026-07-16_...htm.gz ; data-lake/BKR/ER/BKR_2026-01-26_ER.htm et BKR_2026-04-23_ER.htm",
+  "controles": [
+    {
+      "affirmation": "Preuve citee entre guillemets : « On July 16, 2026, we completed our previously announced acquisition of Chart Industries, Inc. ('Chart'), for $210 per share, representing an enterprise value of approximately $13.6 billion ».",
+      "verdict": "FAUX",
+      "verbatim_source": "On July 16, 2026, the Company completed the previously announced acquisition of Chart for $210 per share in cash, representing an enterprise value of approximately $13.6 billion. (10-Q T2 2026, Note 19)",
+      "correction_proposee": "Defaut de citation, pas de fond : les faits (date, 210 $/action, 13,6 Mds $ d'EV, paiement cash) sont exacts, mais le texte place entre guillemets n'existe nulle part sous cette forme (« we completed our previously announced acquisition of Chart Industries, Inc. »). Le 8-K de cloture du 16 juillet 2026 dit de son cote : « On July 16, 2026, Baker Hughes completed its acquisition of Chart in accordance with the Merger Agreement ». Remplacer par le verbatim exact du 10-Q."
+    },
+    {
+      "affirmation": "« EBITDA ajuste 2025 de Baker Hughes seul (4 825 M$) », source annoncee : « 10-K FY2025 (EBITDA ajuste) ».",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "10-K FY2025 : « Total segment 5,100 | 4,931 | 4,121 » (EBITDA par segment, aucune mention de 4 825 M$ ni du terme « Adjusted EBITDA »). La valeur exacte figure ailleurs : « Adjusted EBITDA* of $4,825 million, up 5% year-over-year. » (communique de resultats T4/FY2025, 8-K du 26 janvier 2026).",
+      "correction_proposee": "Le chiffre est juste mais le document cite ne le contient pas. Corriger la source en « communique de resultats FY2025 du 26 janvier 2026 (mesure non-GAAP) », et signaler qu'il s'agit d'une mesure non-GAAP retraitee par la societe."
+    },
+    {
+      "affirmation": "« Rapportee a l'EBITDA ajuste 2025 ... le nouvel endettement represente deja environ 3,4 fois cet EBITDA », presente sous le titre « Levier financier apres l'acquisition Chart ».",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Total debt $16,253 | $6,087 ; Cash and cash equivalents $15,727 | $3,715 (10-Q T2 2026, 30 juin 2026 vs 31 decembre 2025)",
+      "correction_proposee": "Le ratio 16 253 / 4 825 = 3,4x est un ratio de dette BRUTE presente comme un levier. Au 30 juin 2026 la tresorerie s'eleve a 15 727 M$ (la dette avait ete levee en mars et juillet pour financer une acquisition non encore payee), soit une dette nette d'environ 526 M$, ou 0,1x l'EBITDA. Reformuler : « la dette brute passe a 3,4x l'EBITDA ajuste 2025, mais la tresorerie de 15,7 Mds $ au 30 juin n'avait pas encore ete employee ; le levier net reel n'apparaitra qu'apres la consolidation de Chart au T3 2026. »"
+    },
+    {
+      "affirmation": "Hook : « l'entreprise a totalement arrete de racheter ses propres actions pour preserver sa liquidite ».",
+      "verdict": "EXAGERE",
+      "verbatim_source": "There were no shares of Class A common stock repurchased during the three and six months ended June 30, 2026. ... As of June 30, 2026, the Company had authorization remaining to repurchase up to approximately $1.3 billion of its Class A common stock.",
+      "correction_proposee": "Le fait (zero rachat au S1 2026 contre 384 M$ au S1 2025) est exact, mais le MOTIF « pour preserver sa liquidite » n'est ecrit nulle part dans le 10-Q ; la societe indique seulement que le programme « may be suspended or discontinued at any time » et qu'il reste 1,3 Md $ d'autorisation. Reformuler en fait constate + inference explicitement signalee comme telle : « aucun rachat d'actions au S1 2026 contre 384 M$ un an plus tot, alors que 1,3 Md $ d'autorisation reste disponible — une pause qui coincide avec le financement de l'acquisition. »"
+    },
+    {
+      "affirmation": "Dette totale de 16 253 M$ au 30 juin 2026 contre 6 087 M$ fin 2025 (+167%), financee par 9,885 Mds $ d'obligations (mars 2026, dollars et euros) et 2 Mds $ de prets a terme du 15 juillet 2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Total debt $16,253 | $6,087 ; Proceeds from issuance of long-term debt 9,885 ; On March 11, 2026, the Company completed an offering of $6.5 billion in U.S. dollar-denominated notes, along with EUR 3.0 billion of Euro-denominated notes (the \"Notes Offering\") ; On July 15, 2026 ... two separate $1.0 billion, 2-year senior, unsecured term loan agreements",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Resultat net attribuable de 1 611 M$ au S1 2026 contre 1 103 M$ (+46%), hausse expliquee par 697 M$ de plus-values (225 M$ JV Cactus, 497 M$ cession PSI a Crane) ; T2 en recul de 3% (681 vs 701 M$), BPA dilue 0,68 $ vs 0,71 $.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net income attributable to Baker Hughes Company $681 | $701 | $1,611 | $1,103 ; Gain on business dispositions (697) | — ; resulted in an initial gain of approximately $225 million ; The Company recognized an initial gain of approximately $497 million ; Diluted income per Class A common stock $0.68 | $0.71 | $1.62 | $1.11",
+      "correction_proposee": "Verifie : hors plus-values, le resultat avant impots S1 2026 (2 165 - 697 = 1 468 M$) serait inferieur a celui du S1 2025 (1 528 M$). L'affirmation « integralement expliquee » tient."
+    },
+    {
+      "affirmation": "OFSE pese environ 50% du CA S1 2026, recule de 4,6% au T2 (3 451 vs 3 617 M$) et de 6,0% sur le semestre (6 688 vs 7 116 M$) ; marge EBITDA du segment de 18,7% a 17,5% ; Brent a +51% (102,63 $ vs 68,07 $).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Oilfield Services & Equipment $3,451 | $3,617 | $6,688 | $7,116 ; OFSE $605 | $677 | $1,170 | $1,300 ; Brent oil prices ($/Bbl) $102.63 | $68.07 | $91.50 | $72.03 ; Total revenue 6,742 | 6,910 | 13,329 | 13,337",
+      "correction_proposee": "Exact (6 688 / 13 329 = 50,2% ; 605/3 451 = 17,5% vs 677/3 617 = 18,7% ; Brent +50,8%)."
+    },
+    {
+      "affirmation": "La direction anticipe un recul des depenses amont au Moyen-Orient cette annee ; la hausse du Brent est attribuee aux perturbations du detroit d'Ormuz plutot qu'a une demande solide.",
+      "verdict": "CONFORME",
+      "verbatim_source": "we expect to see a decline in upstream spending in the Middle East this year, while spending in North American and other international markets is expected to remain broadly unchanged compared to 2025 ; During the second quarter of 2026, continued disruptions in the Middle East contributed to tighter oil and liquefied natural gas (\"LNG\") market balances and higher inflationary costs.",
+      "correction_proposee": "Conforme sur le fond. Nuance : le 10-Q ecrit aussi « As global energy demand continues to rise » ; la formule « plutot qu'a une demande solide » est une lecture de l'ATT, pas une phrase du document."
+    },
+    {
+      "affirmation": "Dependance a GE Vernova / GE Aerospace inchangee ; achats de 226 M$ aupres de l'Aero JV au T2 2026 comme au T2 2025 ; risques du 10-K FY2025 confirmes sans changement.",
+      "verdict": "CONFORME",
+      "verbatim_source": "The Company had purchases from the Aero JV of $226 million during each of the three months ended June 30, 2026 and 2025 ; As of the date of this filing, the Company and our operations continue to be subject to the risk factors previously discussed in the \"Risk Factors\" section contained in the 2025 Annual Report. ; The partial or complete loss of GE Vernova or GE Aerospace as suppliers, as well as contracts with our Aero JV with GE Vernova, may adversely affect our business, financial condition, results of operations and cash flows. (10-K FY2025)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Risque de ralentissement de la transition energetique (10-K FY2025).",
+      "verdict": "CONFORME",
+      "verbatim_source": "The potential slowdown and shift in the energy transition could have an adverse effect on the demand for our clean energy technologies and services.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Free cash flow de 1 209 M$ au S1 2026 (1 845 - 636) contre 618 M$ au S1 2025 (+96%) ; T1 2026 isole a 210 M$.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net cash flows provided by operating activities 1,845 | 1,219 ; Expenditures for capital assets (636) | (601) ; Cash flows from operating activities of $500 million and free cash flow* of $210 million (communique T1 2026, 23 avril 2026)",
+      "correction_proposee": null
+    }
+  ]
+}

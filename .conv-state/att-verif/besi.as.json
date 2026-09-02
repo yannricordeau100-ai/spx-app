@@ -1,0 +1,61 @@
+{
+  "ticker": "BESI.AS",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/BESI.AS/ir/CP/BESI.AS_CP_S1-2026_2026-07-23.txt.gz ; data-lake/BESI.AS/ir/URD/BESI.AS_URD_FY2025_2026-02-20.txt.gz ; data-lake/BESI.AS/ir/CP/BESI.AS_CP_FY2021_2022-02-18.txt.gz ; .batches-drafts-safe/kpis-haut/BESI.AS.json",
+  "controles": [
+    {
+      "affirmation": "Les commandes recues ont ete divisees par plus de trois entre le pic de 2021 (1 200 M EUR sur l'annee) et le creux de 2019 selon les donnees historiques du groupe",
+      "verdict": "FAUX",
+      "verbatim_source": "Communique de resultats annuels 2021 (BESI.AS_CP_FY2021_2022-02-18) : 'Orders of EUR 939.1 million grew EUR 467.0 million (+98.9%)' et tableau 'Orders ... 939.1 / 472.1 / +98.9%'. Serie ORD de kpis-haut/BESI.AS.json : totaux annuels 2019 = 348,8 M EUR, 2020 = 472,1, 2021 = 939,1, 2025 = 685,0.",
+      "correction_proposee": "Les commandes 2021 se sont elevees a 939,1 M EUR et non 1 200 M EUR. Le rapport entre le pic 2021 et le creux 2019 (348,8 M EUR) est de 2,7 fois, pas 'plus de trois'. Rediger : 'les commandes annuelles sont passees de 348,8 M EUR en 2019 a 939,1 M EUR en 2021, soit un facteur 2,7 en deux ans, avant de retomber a 548,3 M EUR en 2023'."
+    },
+    {
+      "affirmation": "Les capitaux propres 2025 reculent de 16,9% a 416,4 M EUR malgre un resultat net en forte hausse, sous l'effet combine de cette conversion [des obligations 2029] et d'un dividende 2025 de 125,4 M EUR verse au deuxieme trimestre",
+      "verdict": "FAUX",
+      "verbatim_source": "Communique S1 2026 : 'On May 5, 2026, Besi exercised its early redemption option with respect to its EUR 175 million 1.875% Senior Unsecured Convertible bonds due 2029 (the \"2029 Notes\") which resulted in the conversion into equity during Q2-26...' Bilan du meme communique : 'Total equity 573,252 (June 30, 2026) / 456,946 (March 31, 2026) / 416,397 (December 31, 2025, audited)'. Note du tableau de synthese : 'Reflects cash dividend payments of EUR 125.4 million and EUR 172.8 million in Q2-26 and Q2-25, respectively.'",
+      "correction_proposee": "Deux causes attribuees sont impossibles. (1) La conversion des obligations 2029 a eu lieu au deuxieme trimestre 2026, posterieurement au bilan du 31 decembre 2025 : elle ne peut pas expliquer un recul des capitaux propres 2025. Elle les a au contraire fait bondir de 456,9 M EUR (31 mars 2026) a 573,3 M EUR (30 juin 2026), tout en ramenant la dette long terme de 507,0 a 345,1 M EUR. (2) Le dividende decaisse en 2025 etait de 172,8 M EUR (T2-2025) ; les 125,4 M EUR ont ete verses au T2-2026. Rediger : 'les capitaux propres ont recule de 16,9% en 2025 a 416,4 M EUR, sous l'effet du dividende de 172,8 M EUR verse au T2-2025 et des rachats d'actions ; ils sont depuis remontes a 573,3 M EUR au 30 juin 2026 apres conversion des obligations 2029.'"
+    },
+    {
+      "affirmation": "Le rapport annuel cite un droit de douane reciproque de base de 10% instaure par les Etats-Unis a compter du 5 avril 2025, avec des taux individualises visant 57 pays (presente comme exposition externe actuelle)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "URD FY2025 : 'U.S. administration announced a \"baseline\" reciprocal tariff of 10% on all U.S. trading partners effective April 5, 2025, alongside higher individualized reciprocal tariffs targeting 57 countries.' Mais 10-Q GPC du 21 juillet 2026 : 'On February 20, 2026, the U.S. Supreme Court issued a decision invalidating tariffs imposed under the International Emergency Economic Powers Act', et 10-Q FTV du 29 juillet 2026 : 'the Supreme Court of the United States ruling invalidating certain tariffs imposed under the International Emergency Economic Powers Act'.",
+      "correction_proposee": "La citation est fidele au rapport annuel de fevrier 2026, mais le regime tarifaire decrit a ete invalide par la Cour supreme des Etats-Unis le 20 fevrier 2026, fait etabli par ailleurs dans la chaine ATT (FTV, GPC). Presenter le tarif reciproque de 10% d'avril 2025 comme contexte externe courant dans une ATT arretee au 23 juillet 2026 est perime. Ajouter la mention de l'invalidation et du fait que l'administration reimpose de nouveaux tarifs sur d'autres bases legales. A noter aussi que la citation d'alerte tarifaire du communique du 23 juillet 2026 provient du bloc de mise en garde generique (forward-looking statements), pas d'une analyse propre a Besi."
+    },
+    {
+      "affirmation": "Commandes de 292,9 M EUR au T2-2026, en hausse de 128,8% face au T2-2025 (128,0 M EUR), mais sous le pic historique de 327,1 M EUR du T1-2021",
+      "verdict": "CONFORME",
+      "verbatim_source": "Communique S1 2026 : 'Orders of EUR 292.9 million Up 128.8% vs. Q2-25' et tableau 'Orders 292.9 / 269.7 / +8.6% / 128.0 / +128.8%'. Serie ORD kpis-haut : Q1-2021 = 327,1 (point le plus haut de la serie), confirme par le communique S1-2021 : 'Orders 200.2 / 327.1 / -38.8%'.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Part de la Chine passee de 25% au T2-2025 a 39% au T2-2026 ; sur 2025 la Chine represente 35,0% du CA annuel et l'Asie 76,0%",
+      "verdict": "CONFORME",
+      "verbatim_source": "Tableau geographique du communique S1 2026 : 'China 98.3 39% ... 37.5 25%' (Q2-2026 vs Q2-2025). Calcul sur les quatre trimestres 2025 du meme tableau : Chine 207,2 sur 591,3 M EUR = 35,0% ; Chine + Asie-Pacifique hors Chine 449,5 sur 591,3 = 76,0%.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Conversion au T2-2026 de la totalite des obligations convertibles 2029, avec emission de 1,5 million d'actions detenues en tresorerie",
+      "verdict": "CONFORME",
+      "verbatim_source": "'the conversion into equity during Q2-26 of all of the 2029 Notes outstanding and the issuance of 1.5 million shares held in treasury related thereto. As a result, Besi held approximately 0.3 million shares in treasury at June 30, 2026, equal to 0.4% of its shares outstanding.'",
+      "correction_proposee": "Precision recommandee : l'operation a eteint 175 M EUR de dette convertible (dette long terme de 507,0 a 345,1 M EUR) et augmente les capitaux propres. Presenter la dilution sans mentionner la contrepartie desequilibre l'argument."
+    },
+    {
+      "affirmation": "Chiffre d'affaires 2025 en recul de 2,7% a 591,3 M EUR, reprise du marche de l'assemblage grand public differee pour la troisieme annee consecutive ; marge brute annuelle de 65,2% (2024) a 63,3% (2025) ; dividende 1,58 EUR (-27,5%) et BPA dilue 1,66 EUR (-27,8%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025 : 'For the year, revenue of EUR 591.3 million decreased by 2.7% versus 2024' ; 'a challenging mainstream assembly equipment market whose downward phase extended for a third year' ; '63.3% ... 2024: 65.2%' ; tableau pluriannuel 'Dividend per share (EUR) 1.58 / 2.18' et 'Diluted 1.66 / 2.30'.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Besi ne publie plus le carnet de commandes depuis le T3-2018 ni le ratio commandes sur facturations depuis le T4-2023",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut/BESI.AS.json : serie BACKLOG 'last_data_date 2018-09-30', 'Serie arretee par la societe apres le T3 2018' ; serie book-to-bill 'last_data_date 2023-12-31', 'Serie arretee par la societe apres le T4 2023'. Le communique du 23 juillet 2026 ne publie ni l'un ni l'autre (seule mention indirecte : 'Based on our backlog and feedback from customers').",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Citations de risques du rapport annuel : cyclicite du secteur, severite des retournements, concurrence mondiale substantielle",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025, chapitre Risk factors : 'The semiconductor industry is highly cyclical and volatile' ; 'Industry downturns can be severe and protracted' ; 'Besi faces substantial competition on a worldwide basis from established companies'.",
+      "correction_proposee": null
+    }
+  ]
+}

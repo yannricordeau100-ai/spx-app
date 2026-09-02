@@ -1,0 +1,67 @@
+{
+  "ticker": "WAT",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/WAT/10Q/WAT_2026-08-11.htm.gz (10-Q T2 2026) + data-lake/WAT/10K/WAT_2026-02-23.htm.gz (10-K FY2025) + .batches-drafts-safe/kpis-haut/WAT.json",
+  "controles": [
+    {
+      "affirmation": "Perte nette de 208 M$ (-2,31 $ par action diluee) sur le S1 2026 contre 268 M$ de benefice (4,50 $) ; amortissement des incorporels acquis 396 M$ contre 24 M$ ; restructuration 52 M$ contre 4 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q, six mois clos le 4 juillet 2026 : \"Purchased intangibles amortization | 396 | 24\" ; \"Restructuring charges | 52 | 4\" ; \"Net (loss) income | $ ( 208 ) | $ 268\" ; \"Net (loss) income per diluted common share | $ ( 2.31 ) | $ 4.50\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le total de dette est passe de 1 407 M$ a fin 2025 a 5 086 M$ au 4 juillet 2026 (x3,6)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total long-term debt | 4,886 | 947\" ; \"Total debt | $ 5,086 | $ 1,407\" (10-Q, Note dette)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dont 3,5 Mds $ arrivent a echeance le 6 fevrier 2027 ; la ste indique vouloir refinancer cette tranche par une emission obligataire long terme, mais tant que ce refinancement n'est pas boucle, l'echeance 2027 reste une contrainte de calendrier",
+      "verdict": "FAUX",
+      "verbatim_source": "Le refinancement est boucle depuis mars 2026, cinq mois AVANT le 10-Q cite comme source principale de l'ATT. 10-Q T2 2026 : \"On March 23, 2026, SpinCo issued senior notes... in the aggregate principal amount of $3.5 billion. Net proceeds from the offering of the Senior Notes, together with cash on hand, were used by the Company to repay $3.5 billion of indebtedness outstanding under the SpinCo Delayed Draw Term Loan.\" et \"The $ 3.5 billion of proceeds from the Senior Notes were used by the Company to repay the $ 3.5 billion principal balance on the SpinCo Delayed Draw Term Loan in March 2026.\" Le tableau de dette au 4 juillet 2026 ne comporte plus aucune echeance fevrier 2027 : Senior Notes 4,32% sept. 2027 (650), 4,40% mars 2029 (600), 4,66% mars 2031 (750), 4,95% mars 2033 (750), 5,25% mars 2036 (750) = 3 500 M$, plus SpinCo Term Loan 450 M$ echeance 4 fevrier 2028. La citation du 10-K FY2025 (\"a $3.5 billion tranche maturing and payable in full on February 6, 2027... The Company plans to refinance...\") est exacte mais perimee.",
+      "correction_proposee": "Supprimer l'argument ou le reecrire : \"La tranche relais de 3,5 Mds $ a ete refinancee en mars 2026 par cinq souches obligataires d'echeances 2027 a 2036 au taux moyen pondere de 4,44% (contre 3,35% fin 2025) ; il reste 450 M$ de SpinCo Term Loan a echeance du 4 fevrier 2028.\" Retirer aussi la ligne correspondante de ce_qui_affaiblirait (\"Le refinancement de la tranche de 3,5 Mds $ due en fevrier 2027 est boucle\"), deja realisee."
+    },
+    {
+      "affirmation": "Waters cible 200 M$ de synergies de couts sous 3 ans et 290 M$ de synergies de revenus sous 5 ans ; le 10-K liste le risque que ces synergies ne se materialisent pas",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025, Risk Factors : \"the Company expects to generate cost synergies of approximately $200 million within three years of the completion of the BDS Business Acquisition... and revenue synergies of approximately $290 million within five years\" ; \"The anticipated benefits and synergies of the BDS Business Acquisition may not be realized fully or at all, may take longer to realize than expected\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "TSA avec BD, cout annuel d'environ 90 M$ pendant jusqu'a trois ans, 40 M$ deja payes sur le S1 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q, Note 10 : \"The TSA is intended to provide continuity of operations during the post-transaction integration for a period of up to three years at an annual cost of approximately $ 90 million. The Company has incurred approximately $ 40 million of TSA costs for the six months ended July 4, 2026.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le Tax Matters Agreement impose des restrictions pendant deux ans (emissions d'actions, certaines fusions), avec un cout fiscal potentiel que le 10-K qualifie de materiel",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 : \"the Tax Matters Agreement, dated as of February 9, 2026... imposes certain restrictions on the Company and SpinCo during the two-year period following the SpinCo Cash Distribution... the Company's ability to engage in certain transactions, such as the issuance or purchase of stock or certain business combinations, may be limited\" ; \"Such taxes would be expected to be material\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "kpis-haut WAT_CHINA_PCT : \"La Chine pese 12,1% des ventes au 1er trimestre 2026 (-1,6pp sur un an)\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Ce verbatim n'existe plus dans le fichier cite. .batches-drafts-safe/kpis-haut/WAT.json (mis a jour le 18 aout 2026) contient desormais : WAT_CHINA_PCT valeur 12.5 %, yoy -2.7pp, signal \"12.5% (part chine dans ventes totales) au 2e trimestre 2026 (-2,7pp sur un an, periode close le 4 juillet 2026)\". Le 12,1% correspond a l'historique Q1-2026 de la serie.",
+      "correction_proposee": "\"La Chine pese 12,5% des ventes au 2e trimestre 2026 (-2,7 pp sur un an), alors que les revenus Chine progressent de 76% a 206 M$ : le recul de la part est bien mecanique, lie a l'elargissement du perimetre BDS.\""
+    },
+    {
+      "affirmation": "1 267 M$ de ventes au T1 2026 contre 661,7 M$ un an plus tot (+91%), dont 520 M$ issus des activites BD reprises, soit une croissance organique d'environ 13%",
+      "verdict": "CONFORME",
+      "verbatim_source": "Chiffres exacts et recoupes. T1 2026 = 2 912 (S1) - 1 645 (T2) = 1 267 M$ ; T1 2025 = 1 433 - 771 = 662 M$ ; contribution BDS au T1 = Biosciences (600-368=232) + Advanced Diagnostic Solutions hors Waters Clinical (349-61=288) = 520 M$, deduit de \"The Biosciences revenues of $368 million and $600 million in the second quarter and first half of 2026\" et \"The Advanced Diagnostic Solutions revenues of $521 million and $870 million... includes $72 million and $133 million of total revenue attributed to the Waters Clinical Business\". RESERVE DE FRAICHEUR : le T2 2026 etait publie au moment de la redaction (1 645 M$, +113% sur un an), l'ATT retient le T1.",
+      "correction_proposee": "Actualiser sur le T2 2026 : 1 645 M$ contre 771 M$ (+113%), ou signaler explicitement que le chiffre retenu est le T1."
+    },
+    {
+      "affirmation": "Le secteur pharmaceutique represente 58 a 59% des ventes, part stable a legerement croissante",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut WAT_PHARMA_PCT : valeur 58 %, yoy +0.8pp, signal \"59% des ventes nettes au secteur pharma; exposition elevee et croissante\" (derniere observation Q4-2025)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "108 M$ d'interets payes sur le S1 2026 contre 28 M$ un an plus tot (x3,9)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q : \"Interest expense | ( 108 ) | ( 28 )\" (six mois). Nuance de vocabulaire : il s'agit de la charge d'interets comptabilisee, pas des interets decaisses.",
+      "correction_proposee": "Ecrire \"108 M$ de charge d'interets\" plutot que \"d'interets payes\"."
+    }
+  ]
+}

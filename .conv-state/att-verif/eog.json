@@ -1,0 +1,111 @@
+{
+  "ticker": "EOG",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "JUDICIAIRE / REGLEMENTAIRE : balayage complet de l'ATT",
+      "verdict": "CONFORME",
+      "verbatim_source": "L'ATT ne contient AUCUNE affirmation judiciaire ou reglementaire. Cote filings, la seule mention est generique : \"There are currently various suits and claims pending against EOG that have arisen in the ordinary course of EOG's business... management believes that the resolution of these suits and claims will not, individually or in the aggregate, have a material adverse effect\". Zero occurrence de investigation, subpoena, lawsuit, antitrust, class action, penalty, Department of Justice, EPA, BLM, Railroad Commission ou Attorney General dans le 10-Q.",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/EOG/10Q/EOG_2026-08-04.htm.gz (Note Commitments and Contingencies)"
+    },
+    {
+      "affirmation": "Argument 2 : prix du brut cite a 98,18 $ le baril",
+      "verdict": "FAUX",
+      "verbatim_source": "\"EOG's composite crude oil and condensate price for the second quarter of 2026 increased 51% to $98.15 per barrel compared to $64.82 per barrel for the same period of 2025.\"",
+      "correction_proposee": "Le filing dit 98,15 $, pas 98,18 $. Corriger. Incoherence interne en prime : le hook, le premier argument et le bloc quantitatif utilisent bien 98,15 $.",
+      "fichier_source": "data-lake/EOG/10Q/EOG_2026-08-04.htm.gz"
+    },
+    {
+      "affirmation": "Argument 2 : \"les NGL progressent de 34 % a 24,41 $ le baril\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"NGL revenues for the second quarter of 2026 increased $236 million, or 44%... due to an increase of 88.4 MBbld, or 34%, in NGL deliveries ($182 million) and a higher composite average price ($54 million).\" et \"EOG's composite NGL price for the second quarter of 2026 increased 8% to $24.41 per barrel compared to $22.70 per barrel for the same period of 2025.\"",
+      "correction_proposee": "Place juste apres \"le gaz progresse de 39 % en volume mais son prix composite baisse de 2 %\", la phrase se lit comme un prix NGL en hausse de 34 %. Le PRIX NGL monte de 8 % (22,70 vers 24,41 $) ; les 34 % sont les VOLUMES livres. Reformuler : \"les volumes de NGL progressent de 34 % mais leur prix ne monte que de 8 %, a 24,41 $ le baril\".",
+      "fichier_source": "data-lake/EOG/10Q/EOG_2026-08-04.htm.gz"
+    },
+    {
+      "affirmation": "Prix du gaz encaisse aux Etats-Unis : \"il retombe a 2,77 $ sur le seul deuxieme trimestre, en baisse de 2 % sur un an\"",
+      "verdict": "FAUX",
+      "verbatim_source": "Tableau du 10-Q : \"Average Natural Gas Prices ($/Mcf) : United States $ 2.77 $ 2.87 / Trinidad 3.99 3.65 / Other International 3.27 -- / Composite 2.89 2.96\".",
+      "correction_proposee": "Les 3,25 $ (S1) et 2,77 $ (T2) sont exacts, mais le -2 % est la variation du COMPOSITE (2,89 contre 2,96), pas celle du prix americain qui recule de 3,5 % (2,77 contre 2,87). Corriger en \"en baisse de 3,5 % sur un an\", ou deplacer le -2 % sur le composite.",
+      "fichier_source": "data-lake/EOG/10Q/EOG_2026-08-04.htm.gz"
+    },
+    {
+      "affirmation": "\"le taux de remplacement affiche est de 254 %\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Zero occurrence de \"254%\", \"reserve replacement\" ou \"replacement ratio\" dans le 10-K FY2025 (448 603 caracteres de texte extrait) comme dans le 10-Q T2 2026. Les seules occurrences de 254 dans le 10-K sont \"United States 254\" (puits en cours fin 2023) et \"additional minimum lease payments of $254 million\". Verifie personnellement.",
+      "correction_proposee": "Chiffre introuvable dans les sources citees. Soit sourcer explicitement le communique de resultats FY2025 (exhibit absent du data-lake), soit supprimer, soit remplacer par un ratio recalcule et presente comme tel : (133 revisions + 749 achats + 336 extensions) / 452 produits = 269 %, ou 104 % hors achats.",
+      "fichier_source": "data-lake/EOG/10K/EOG_2026-02-24.htm.gz"
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 1 : \"EOG chiffre elle-meme la consequence : environ 172 M$ de resultat net par dollar de variation du baril sur l'annee 2026\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"Including the impact of EOG's NGL financial derivative contracts and based on EOG's tax position, EOG's price sensitivity as of June 30, 2026, for each $1.00 per barrel increase or decrease in crude oil and condensate price, combined with the estimated change in NGL price, is approximately $172 million for net income and $221 million for pretax cash flows from operating activities, in each case for the full-year 2026.\"",
+      "correction_proposee": "L'ellipse de l'ATT supprime le qualificatif materiel \"combined with the estimated change in NGL price\". Les 172 M$ ne mesurent pas le seul effet brut : ils incluent l'effet NGL correle et l'impact des derives NGL. Ecrire : \"environ 172 M$ de resultat net par dollar de variation du baril, effet NGL correle inclus\".",
+      "fichier_source": "data-lake/EOG/10Q/EOG_2026-08-04.htm.gz"
+    },
+    {
+      "affirmation": "\"un contrat a 10 ans a partir de 2027 pour vendre 180 000 MMBtu par jour de gaz indexes sur le Brent\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"in February 2024, EOG entered into a 10-year agreement, commencing in 2027, to sell 180,000 MMBtud of its domestic natural gas production, with 140,000 MMBtud to be sold at a price indexed to Brent and the remaining volumes to be sold at a price indexed to Brent or a U.S. Gulf Coast gas index at the counterparty's election.\"",
+      "correction_proposee": "Seuls 140 000 MMBtu/j sont fermement indexes Brent ; le solde de 40 000 est indexe Brent OU sur un indice gazier US Gulf Coast, au choix de la contrepartie. Reformuler : \"180 000 MMBtu par jour, dont 140 000 fermement indexes sur le Brent\".",
+      "fichier_source": "data-lake/EOG/10Q/EOG_2026-08-04.htm.gz"
+    },
+    {
+      "affirmation": "Hook et argument 1 : la hausse du baril de 64,82 a 98,15 $ est \"une hausse que la ste attribue elle-meme au conflit au Moyen-Orient\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"Compared to its expectations at the beginning of 2026, EOG realized higher crude oil and condensate prices in the first half of 2026 and anticipates realizing higher crude oil and condensate prices for the full-year 2026, in each case as a result of the ongoing conflict in the Middle East.\"",
+      "correction_proposee": "EOG rattache au conflit l'ecart entre les prix realises et SES PROPRES PREVISIONS de debut 2026, pas la totalite de la hausse de 51 % en glissement annuel. Le bloc fondamental_externe le formule correctement ; aligner le hook et le premier argument sur cette formulation.",
+      "fichier_source": "data-lake/EOG/10Q/EOG_2026-08-04.htm.gz"
+    },
+    {
+      "affirmation": "\"couts parmi les plus bas du secteur\" (resume) et \"le point mort d'EOG est parmi les plus bas du schiste americain\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "\"Maintaining the lowest possible operating cost structure, coupled with efficient and safe operations and robust environmental stewardship practices and performance, is integral in the implementation of EOG's strategy.\" Le mot breakeven / break-even est absent des deux documents (verifie personnellement : 0 occurrence).",
+      "correction_proposee": "Les filings n'enoncent qu'un objectif interne, jamais une comparaison chiffree avec les pairs. Soit sourcer sur des donnees de pairs, soit reformuler : \"EOG affiche un objectif explicite de structure de couts la plus basse possible\". Ce sont des nuances bull, l'erreur ne gonfle donc pas la these, mais elle reste non sourcee.",
+      "fichier_source": "data-lake/EOG/10K/EOG_2026-02-24.htm.gz et data-lake/EOG/10Q/EOG_2026-08-04.htm.gz"
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 2 : aucune couverture sur le brut, le recapitulatif arrete au 24 juillet 2026 ne contient que gaz, ethane et propane",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Presented below is a comprehensive summary of EOG's financial commodity derivative contracts settled during the period from January 1, 2026 to July 24, 2026 (closed) and outstanding as of July 24, 2026\" suivi des seuls tableaux Natural Gas Financial Price Swap, Natural Gas Collar, Ethane Financial Price Swap et Propane Financial Price Swap. Aucun tableau brut. Le 10-K (18 fevrier 2026) ajoute Natural Gas Basis Swap et Butane, egalement sans brut.",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/EOG/10Q/EOG_2026-08-04.htm.gz et data-lake/EOG/10K/EOG_2026-02-24.htm.gz"
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 3 : trois ans de baisse du benefice (7 594 / 6 403 / 4 980 M$) pendant que la production montait de 359,4 a 449,8 MMBoe et que le CA reculait de 24 186 a 22 632 M$ ; deprecations 202 / 391 / 843 M$ dont 709 M$ Barnett Shale et Woodford Oil Window",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net Income $ 4,980 $ 6,403 $ 7,594\" ; \"Total 449.8 388.7 359.4\" ; \"Composite 65.63 77.40 79.17\" ; \"Total 22,632 23,698 24,186\" ; \"Impairments 843 391 202\" ; \"During 2025, proved oil and gas properties with a carrying amount of $1,163 million were written down to their fair value of $454 million, resulting in pretax impairment charges of $709 million.\"",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/EOG/10K/EOG_2026-02-24.htm.gz"
+    },
+    {
+      "affirmation": "Prix du brut T2 2026 a 98,15 $ contre 64,82 $ (+51 %) et decomposition de la hausse de 1 927 M$ des revenus petroliers (1 667 M$ prix, 260 M$ volumes)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Crude oil and condensate revenues for the second quarter of 2026 increased $1,927 million, or 65%, to $4,901 million from $2,974 million... due to a higher composite average price ($1,667 million) and an increase of 44.6 MBbld, or 9%, in crude oil and condensate deliveries ($260 million).\"",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/EOG/10Q/EOG_2026-08-04.htm.gz"
+    },
+    {
+      "affirmation": "Acquisition Encino : 4 471 M$ cash + 1 200 M$ de dette reprise, 3 500 M$ de nouvelles obligations ; part petrole+NGL de la production US de 70 % a 66 %, part des revenus de 91 % a 84 %",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On August 1, 2025, EOG acquired all of the outstanding equity interest in Encino... for cash consideration of $4,471 million and the assumption of Encino's senior notes in an aggregate principal amount of $1,200 million... EOG issued $3,500 million aggregate principal amount of senior notes.\" ; \"crude oil and condensate and NGLs production accounted for approximately 66% and 70% of EOG's United States production during the first six months of 2026 and 2025\" ; \"Revenues from the sales of crude oil and condensate and NGLs in 2025 were 84% of total revenues... compared to 91% in 2024\".",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/EOG/10Q/EOG_2026-08-04.htm.gz et data-lake/EOG/10K/EOG_2026-02-24.htm.gz"
+    },
+    {
+      "affirmation": "Couts 20,90 $/Boe contre 20,74 $, GP&T 5,27 $ contre 4,41 $ (+219 M$ Utica) ; reserves ajoutees 336 / 580 / 607 MMBoe ; PUD petrole de 837 a 772 MMBbl malgre 749 MMBoe achetes ; reserves prouvees totales 5 514 MMBoe",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total (1) $ 20.90 $ 20.74\" ; \"Gathering, Processing and Transportation Costs (GP&T) 5.27 4.41\" ; \"GP&T costs of $676 million... increased $221 million... primarily due to increased GP&T costs related to increased production in the Utica ($219 million)\" ; \"NET PROVED UNDEVELOPED RESERVES Crude Oil (MMBbl) December 31, 2024 837 / December 31, 2025 772\" ; \"Purchases in place of 749 MMBoe were primarily related to the acquisition of Encino\" ; \"At December 31, 2025, EOG's total estimated net proved reserves were 5,514 million barrels of oil equivalent\".",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/EOG/10K/EOG_2026-02-24.htm.gz et data-lake/EOG/10Q/EOG_2026-08-04.htm.gz"
+    },
+    {
+      "affirmation": "Rachats de 9 576 509 actions a 135,13 $ au T2 2026, autorisation portee de 10 a 20 Mds $ le 20 mai 2026, dette 7 909 contre 4 220 M$, tresorerie 3 396 M$, ratio dette sur capitaux de 20 %, ligne de 3,0 Mds $ non tiree",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Includes 9,576,509 shares repurchased during the quarter ended June 30, 2026, at an average price of $135.13 per share\" ; \"Effective May 20, 2026, the Board again increased such share repurchase authorization, from $10 billion to $20 billion\" ; \"EOG's debt-to-total capitalization ratio was 20% at June 30, 2026\" ; \"$3.0 billion of availability under its senior unsecured revolving credit facility (which remained undrawn)\".",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/EOG/10Q/EOG_2026-08-04.htm.gz et data-lake/EOG/10K/EOG_2026-02-24.htm.gz"
+    }
+  ]
+}

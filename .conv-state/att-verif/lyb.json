@@ -1,0 +1,77 @@
+{
+  "ticker": "LYB",
+  "verdict_global": "a_corriger",
+  "_sources_consultees": [
+    "data-lake/LYB/10Q/LYB_2026-07-31.htm.gz (10-Q T2 2026)",
+    "data-lake/LYB/10K/LYB_2026-02-20.htm.gz (10-K FY2025) et data-lake/LYB/_risks_src.txt (Item 3 Legal Proceedings / Environmental)",
+    ".batches-drafts-safe/kpis-haut/LYB.json, src/data/v2-pipeline/lyb.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "JUDICIAIRE/REGLEMENTAIRE - Le 10-K signale des procedures en cours pour des violations alleguees du Clean Air Act sur des sites au TEXAS ET EN LOUISIANE, ainsi que des depassements d'emissions dans l'Illinois",
+      "verdict": "FAUX",
+      "verbatim_source": "In April 2025, the State of Texas filed suit against our subsidiary, Equistar Chemicals, L.P., in Travis County District Court seeking civil penalties and injunctive relief for violations of the Texas Clean Air Act related to several alleged emission events between May 2018 and April 2021. In May 2025, the Texas Commission on Environmental Quality issued a proposed Agreed Order to Equistar Chemicals, L.P. to resolve alleged air permitting exceedances at the La Porte Complex between 2020 and 2022. In November 2025, the Illinois Attorney General issued a proposed Stipulation to Equistar Chemicals, L.P. to resolve alleged air exceedances at the Morris Plant between 2018 and 2024.",
+      "correction_proposee": "AUCUNE procedure en Louisiane n'existe dans le document. Les trois seules matieres environnementales listees sont : deux au Texas (plainte de l'Etat du Texas devant le tribunal du comte de Travis, et Agreed Order propose par la TCEQ sur le site de La Porte) et une dans l'Illinois (Stipulation proposee par le procureur general de l'Illinois sur l'usine de Morris). Par ailleurs le texte vise le TEXAS Clean Air Act, une loi d'Etat, et non le Clean Air Act federal : ne pas ecrire \"Clean Air Act\" sans qualificatif. Corriger aussi la ligne correspondante de ce_qui_affaiblirait, qui repete l'erreur Louisiane."
+    },
+    {
+      "affirmation": "La societe estime qu'aucune de ces procedures ne devrait etre materielle sur ses comptes",
+      "verdict": "CONFORME",
+      "verbatim_source": "The matters below are disclosed solely pursuant to that requirement and we do not believe that any of these proceedings will have a material impact on the Company's Consolidated Financial Statements.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "La dette nette s'eleve a 8 846 M$ au 30 juin 2026",
+      "verdict": "FAUX",
+      "verbatim_source": "Bilan 10-Q T2 2026 : \"Cash and cash equivalents $ 2,630 $ 3,443\" ; \"Current maturities of long-term debt $ 1,461\" ; \"Short-term debt 234\" ; \"Long-term debt 11,215\". Et en note : \"As of June 30, 2026 and December 31, 2025, we had marketable securities CLASSIFIED AS Cash and cash equivalents of $1,434 million and $2,030 million, respectively.\"",
+      "correction_proposee": "Le calcul de kpis-haut (NetDebt_Q 8 846 M$) retranche deux fois les 1 434 M$ de titres de placement : ceux-ci sont deja compris dans la ligne \"Cash and cash equivalents\" de 2 630 M$ (le bilan ne comporte aucune ligne separee de placements a court terme). Dette nette reelle = 12 676 + 234 - 2 630 = environ 10,3 Mds $, et non 8,8 Mds $."
+    },
+    {
+      "affirmation": "Le segment O&P EAI pesait 28,2% du chiffre d'affaires 2025 (7,8 Mds $ sur 27,75 Mds $), la plus grosse part des cinq segments",
+      "verdict": "FAUX",
+      "verbatim_source": "10-K FY2025, produits par segment, ventes a des clients externes : \"Customers $ 7,669 $ 9,611 $ 8,953 $ 3,457 $ 463 $ $ 30,153\" (O&P-Americas / O&P-EAI / I&D / APS / Technology / total)",
+      "correction_proposee": "Les chiffres cites viennent de src/data/v2-pipeline/lyb.json, dont la repartition est perimee : elle totalise 27,75 Mds $ et comporte encore un segment \"Refining\" de 4,35 Mds $, alors que la raffinerie de Houston a cesse sa production debut 2025 et que le segment a ete supprime du reporting (10-K FY2025). Chiffres 2025 corrects : O&P-EAI 9 611 M$ de CA externe sur 30 153 M$, soit 31,9%. La conclusion (O&P-EAI est bien le premier segment par le chiffre d'affaires en 2025) reste valide, mais les trois nombres cites sont faux."
+    },
+    {
+      "affirmation": "O&P EAI affiche un EBITDA de -432 M$ au T2 2026, soit une marge de -14,6%, seul segment deficitaire du groupe ce trimestre",
+      "verdict": "CONFORME",
+      "verbatim_source": "EBITDA $ 1,183 $ ( 432 ) $ 377 $ 77 $ 73 $ ( 9 ) $ 1,269",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dividende trimestriel passe de 1,37 $ au T2 2025 a 0,69 $ depuis mars 2026 (-49,6%) ; aucun rachat au T2 2026 malgre une autorisation de 34 millions d'actions votee en mai 2026, CE QUI MONTRE QUE LA PRIORITE RESTE LA PRESERVATION DE TRESORERIE plutot que le retour aux actionnaires",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Dividends - common stock ($ 1.37 per share) ( 443 ) [T2 2025] ... March 2026 $ 0.69 $ 224 ... June 2026 0.69 224 ... In May 2026, our shareholders approved a proposal to authorize us to repurchase up to 34.0 million ordinary shares, through November 22, 2027 ... IN SEPTEMBER 2025, WE AMENDED OUR SENIOR REVOLVING CREDIT FACILITY WHICH NOW RESTRICTS SHARE REPURCHASES EXCEPT TO OFFSET DILUTION.",
+      "correction_proposee": "Tous les chiffres sont exacts. C'est l'interpretation qui est fautive : le 10-Q indique que les rachats d'actions sont CONTRACTUELLEMENT RESTREINTS depuis septembre 2025 par l'avenant a la ligne de credit revolving (sauf pour compenser la dilution). L'absence de rachats n'est donc pas seulement un arbitrage de la direction en faveur de la tresorerie, c'est d'abord une contrainte de covenant. Mentionner cette restriction, qui est un argument plus fort et exact."
+    },
+    {
+      "affirmation": "Cession d'actifs oleines et polyolefines europeens soldee par une perte de 734 M$ au T2 2026 ; fermeture de l'unite polypropylene de Brindisi avec 31 M$ de couts lies aux employes",
+      "verdict": "CONFORME",
+      "verbatim_source": "we recognized a pre-tax loss of $734 million, subject to post closing adjustments. The loss includes a $310 million cash contribution to the businesses at closing. ... During the second quarter of 2026, we recognized $31 million of employee-related costs associated with the planned closure of our polypropylene unit at our Brindisi site in Italy.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Depreciations de 837 M$ en 2024, 1 251 M$ en 2025 (972 M$ de goodwill et 279 M$ d'immobilisations) et 89 M$ au S1 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "In 2024, ... the recognition of a $837 million non-cash property, plant and equipment impairment charge in our O&P-EAI segment. ... Impairments: Goodwill $ $ 400 $ 572 $ 972 Intangible assets 111 111 Property, plant and equipment 9 56 99 164 Equity investments 4 4 Total $ 9 $ 460 $ 782 $ 1,251 ... 10-Q T2 2026 : Impairments 89 32",
+      "correction_proposee": "Precision : les 279 M$ regroupent 111 M$ d'incorporels, 164 M$ de corporels et 4 M$ de participations. Le libelle \"immobilisations\" est acceptable en francais mais gagnerait a etre precise."
+    },
+    {
+      "affirmation": "89 M$ de depreciations au S1 2026, dont 74 M$ lies a L'ARRET COMPLET D'UN INVESTISSEMENT dans une installation de tri de dechets plastiques a Houston, en raison d'un rythme d'investissement plus lent et du report de la decision finale sur MoReTec-2",
+      "verdict": "EXAGERE",
+      "verbatim_source": "We have a 50% ownership interest in a plastic waste sorting facility located in Houston, Texas. In the second quarter of 2026, we determined that our investment was FULLY IMPAIRED and recognized an impairment charge of $74 million in our O&P-Americas segment. The impairment was primarily attributable to the slower than anticipated pace of our circularity investments in the U.S., including our decision to POSTPONE the final investment decision on MoReTec-2.",
+      "correction_proposee": "\"Fully impaired\" signifie que la participation de 50% a ete integralement depreciee dans les comptes, pas que l'investissement ou le projet ont ete arretes. De meme, MoReTec-2 est \"reporte\" (postpone), pas annule. Ecrire : \"depreciation integrale de sa participation de 50% dans une installation de tri de dechets plastiques a Houston\"."
+    },
+    {
+      "affirmation": "La direction indique dans son 10-K que les marches petrochimiques ont fait face a des vents contraires significatifs lies aux perturbations du commerce mondial et a la baisse des prix du petrole, avec des ajouts de capacite depassant la demande",
+      "verdict": "CONFORME",
+      "verbatim_source": "Throughout 2025, petrochemical markets faced significant headwinds from global trade disruptions, falling oil prices and capacity additions which outpaced global demand growth.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette long terme de 12 676 M$ au 30 juin 2026 ; plan d'amelioration de tresorerie d'environ 1,3 Md$ ; desendettement discipline et remboursement d'une echeance obligataire en septembre 2026 ; EBITDA T2 2026 de 1 252 M$ (+106,6%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Long-term debt 11,215 ... Current maturities of long-term debt $ 1,461 (soit 12 676 M$) ; \"For 2026, we expect to generate an additional $500 million of cash savings relative to 2025 actuals for a cumulative target of $1.3 billion\" ; \"strengthen the balance sheet though disciplined deleveraging including the scheduled note maturity repayment in September 2026\" ; kpis-haut EBITDA_Q 1 252 M$ +106,6%",
+      "correction_proposee": ""
+    }
+  ]
+}

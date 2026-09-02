@@ -1,0 +1,61 @@
+{
+  "ticker": "GNRC",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/GNRC/10Q/GNRC_2026-08-04.htm.gz ; data-lake/GNRC/10Q/GNRC_2026-05-05.htm.gz",
+  "controles": [
+    {
+      "affirmation": "Reglement d'un recours collectif de 104,5 M$ ; Generac a accepte le 26 janvier 2026 de payer 104,5 M$ pour regler un recours collectif (titre, resume, quantitatif, glossaire 'Recours collectif')",
+      "verdict": "FAUX",
+      "verbatim_source": "\"On December 5, 2023, seven plaintiffs filed a product liability lawsuit in the Philadelphia County Court of Common Pleas against Generac Power, other Generac affiliates, and unrelated entities for damages sustained in an accident involving a GP15000E portable generator that occurred on October 4, 2023 (Zawaski, et al. v. Generac Power Systems, Inc., et al.). Plaintiffs pursued claims against Generac Power for negligence, strict liability, and loss of consortium... On January 26, 2026, the Company, together with other co-defendants, agreed to enter a settlement in principle to resolve all asserted claims, while denying any wrongdoing... The Company agreed to pay $ 104,500 in addition to the Company's excess insurance for the applicable policy year.\"",
+      "correction_proposee": "Il ne s'agit PAS d'un recours collectif mais d'une action en responsabilite du fait des produits (product liability) intentee par sept plaignants nommes devant le tribunal du comte de Philadelphie, apres un accident survenu le 4 octobre 2023 avec un groupe electrogene portable GP15000E (affaire Zawaski). Remplacer partout 'recours collectif' par 'action en responsabilite du fait des produits' et retirer l'entree de glossaire 'Recours collectif' ou la remplacer. Le 10-Q distingue d'ailleurs explicitement ce dossier des 'class action lawsuits', traitees dans une ligne separee de la reconciliation."
+    },
+    {
+      "affirmation": "Un recours collectif vient de couter plus de 100 M$ nets d'assurance ; le montant net a la charge de Generac depasse la moitie de son benefice net trimestriel de 143,0 M$ au T2 2026",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"As of March 31, 2026 and December 31, 2025, the Company has reflected a reserve for $ 206,500 within other accrued liabilities and an insurance receivable for $ 102,000 in prepaid expenses and other assets... The Company and its insurance carriers satisfied the payment obligation on April 1, 2026.\"",
+      "correction_proposee": "Les montants (206,5 M$ de provision, 102,0 M$ de creance d'assurance, 104,5 M$ a la charge de Generac) sont exacts, mais ils sont dates du 31 decembre 2025 et du 31 mars 2026 : la charge a ete comptabilisee AVANT le T2 2026 et l'obligation de paiement a ete satisfaite le 1er avril 2026. Ce cout ne greve donc pas le resultat net de 143,0 M$ du T2 2026. Reformuler : 'un litige provisionne des fin 2025 et solde le 1er avril 2026, pour un montant net de 104,5 M$ a la charge de Generac'."
+    },
+    {
+      "affirmation": "Le 10-Q attribue explicitement le recul des ventes Residential au faible niveau de pannes electriques du second semestre 2025",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Explication donnee au recul du trimestre : \"Residential segment total sales decreased approximately 2% to $621.3 million as compared to $634.7 million in the prior year quarter. This modest sales decrease was primarily driven by lower energy storage system and portable generator shipments compared to the prior year, mostly offset by growth in home standby generator sales.\" La phrase sur les pannes figure dans une section distincte sur la saisonnalite : \"The second half of 2025 represented a very low level of baseline power outage activity, impacting demand for our residential products and resulting in quarterly net sales being more evenly distributed compared to our historical averages.\"",
+      "correction_proposee": "Le 10-Q attribue le recul de 2% du T2 2026 aux moindres livraisons de systemes de stockage d'energie et de groupes electrogenes portables, partiellement compensees par la croissance des groupes de secours residentiels. Le faible niveau de pannes du S2 2025 est cite separement, comme facteur de saisonnalite de la demande, sans etre presente comme la cause du recul du trimestre. Distinguer les deux."
+    },
+    {
+      "affirmation": "Generac reconnait un impact negatif deja materialise sur son marche du stockage solaire et de l'energie du fait de l'OBBBA",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"On July 4, 2025, the United States signed into law the One Big Beautiful Bill Act (OBBBA). The OBBBA accelerates the phase-out of tax incentives for the solar market and includes certain domestic supply chain requirements to qualify for these incentives. While this phase-out of tax incentives will negatively impact the solar and storage markets in the near term, we believe the overall mega-trends that drive the solar, storage, and energy management markets will continue and provide sufficient incentive for long-term, value-creating investments for market participants in this space.\"",
+      "correction_proposee": "Le 10-Q emploie le futur ('will negatively impact ... in the near term') et assortit immediatement le constat d'une nuance de confiance sur le long terme. Ecrire : 'Generac anticipe un impact negatif a court terme sur les marches du solaire et du stockage, tout en jugeant les tendances de fond intactes a long terme'. Corriger aussi 'signee en juillet 2025' -> '4 juillet 2025' et le temps du verbe de la citation ('accelerates', pas 'accelerated')."
+    },
+    {
+      "affirmation": "Marge brute de 44,5% au T2 2026 contre 39,3% un an plus tot, dont 71,1 M$ de remboursement tarifaire enregistres en reduction du cout des marchandises vendues ; hors effet la marge serait proche de 38%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Gross profit margin was 44.5% as compared to 39.3% in the prior year second quarter. The increase was primarily driven by tariff refunds which contributed approximately 6% to gross margin growth during the quarter.\" ; \"Approximately $ 71,100 of the tariff recovery was recorded as a reduction of cost of goods sold in the condensed consolidated statements of comprehensive income for the three and six months ended June 30, 2026\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Le remboursement decoule d'une decision de la Cour supreme americaine de fevrier 2026 invalidant certains tarifs IEEPA",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On February 20, 2026, the U.S. Supreme Court issued a decision invalidating tariffs imposed under the International Emergency Economic Powers Act (IEEPA) and allowing for the recovery of IEEPA tariff amounts previously paid.\" ; \"During the three and six months ended June 30, 2026, we received tariff refunds totaling approximately $61 million. Additionally, we established a tariff refund receivable of approximately $27,700\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Ventes Residential -2% au T2 2026 a 621 M$ et -1% sur le semestre a 1 173 M$ ; Commercial & Industrial +29% a 556 M$ au T2 et 1 067 M$ sur le semestre",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Residential segment total sales decreased approximately 2% to $621.3 million as compared to $634.7 million\" ; \"Residential segment total sales decreased approximately 1% to $1,173 million as compared to $1,183 million\" ; \"Commercial & Industrial segment total sales increased approximately 29% to $556.5 million from $430.6 million\" ; \"increased approximately 29% to $1,067 million from $830 million\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Le 10-Q ajoute pour la premiere fois un facteur de risque sur les termes contractuels avec certains clients data centers, incluant des droits d'annulation",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"increase in contract risk related to terms with certain data center customers, including cancellation rights, delivery requirements, and potential liability exposure tied to our performance obligations or other claimed damages\" ; l'expression 'cancellation rights' est absente du 10-Q T1 2026 (GNRC_2026-05-05), ce qui confirme le caractere nouveau de la mention.",
+      "correction_proposee": "Exact, mais preciser qu'il s'agit d'un item de la liste des 'cautionary statements' accompagnant les declarations prospectives, et non d'un facteur de risque de l'Item 1A."
+    },
+    {
+      "affirmation": "Levier faible a 1,2x d'EBITDA ; benefice net trimestriel de 143,0 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"As of June 30, 2026, the Company's total leverage ratio was 1.20 to 1.00, and the Company's interest coverage ratio was 15.72 to 1.00\" ; compte de resultat : \"Net income 143,010 74,430\"",
+      "correction_proposee": null
+    }
+  ]
+}

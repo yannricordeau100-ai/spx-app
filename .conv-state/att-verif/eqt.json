@@ -1,0 +1,67 @@
+{
+  "ticker": "EQT",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/EQT/10Q/EQT_2026-07-22.htm.gz + src/data/v2-pipeline/eqt.json + .batches-drafts-safe/kpis-haut/EQT.json",
+  "controles": [
+    {
+      "affirmation": "EQT est notee Baa3 chez Moody's, BBB- chez S&P et BBB chez Fitch, le niveau le plus bas de la categorie investment grade",
+      "verdict": "EXAGERE",
+      "verbatim_source": "To be considered investment grade, a company must be rated \"Baa3\" or higher by Moody's, \"BBB-\" or higher by S&P and \"BBB-\" or higher by Fitch. Anything below these ratings is considered non-investment grade. As of June 30, 2026, EQT's senior notes were rated \"Baa3\" by Moody's, \"BBB-\" by S&P and \"BBB\" by Fitch.",
+      "correction_proposee": "Les notes sont exactes mais la qualification globale ne l'est pas : selon la definition donnee par le 10-Q lui-meme, le plancher investment grade chez Fitch est BBB-, or EQT est notee BBB chez Fitch, soit UN CRAN AU-DESSUS du plancher. Seules Moody's (Baa3) et S&P (BBB-) placent EQT au niveau le plus bas. Reformuler : \"EQT est au plancher de l'investment grade chez Moody's (Baa3) et S&P (BBB-), et un cran au-dessus chez Fitch (BBB)\". A noter egalement que le 10-Q indique des perspectives Positive (Moody's) et Stable (S&P, Fitch) au 14 juillet 2026, non mentionnees dans l'ATT."
+    },
+    {
+      "affirmation": "Le 10-K FY2025 cite les retards de permis et les contraintes sur la fracturation et les emissions de GES comme un facteur de risque de severite maximale",
+      "verdict": "EXAGERE",
+      "verbatim_source": "src/data/v2-pipeline/eqt.json : {\"title\": \"Reglementations environnementales et permis\", \"category\": \"Regulation\", \"severity\": 5, ...}. Le 10-Q liste ce risque sans notation : \"the ability to obtain environmental and other permits and the timing thereof; construction, business, economic, competitive, regulatory, judicial, environmental, political and legal uncertainties related to the development and construction by us or our joint ventures of pipeline and storage facilities\".",
+      "correction_proposee": "La \"severite maximale\" (severity 5) est un score interne attribue par le pipeline v2, pas une notation figurant dans le 10-K. Le 10-K enumere ce risque sans lui assigner de niveau. Reformuler : \"le 10-K FY2025 cite explicitement les retards de permis et les contraintes sur la fracturation et les emissions comme un risque pour la construction et le developpement des projets de pipeline et de stockage\" (sans lui attribuer un rang de severite issu du document)."
+    },
+    {
+      "affirmation": "Un passage sous le seuil de notation declencherait une obligation pour EQT de deposer du collateral aupres de ses contreparties",
+      "verdict": "CONFORME",
+      "verbatim_source": "Certain of the Company's OTC derivative instrument contracts provide that, if EQT's credit rating assigned by Moody's ..., S&P ... or Fitch ... is below the agreed-upon credit rating threshold (typically, below investment grade) and if the associated derivative liability exceeds the agreed-upon dollar threshold for such credit rating, the counterparty to such contract can require the Company to deposit collateral. Such collateral can be up to 100% of the derivative liability.",
+      "correction_proposee": "Fond exact. Le verbatim cite dans l'ATT (\"the Company can be required to remit funds as a margin deposit\") est une couture de deux passages distincts : la clause de notation se termine par \"can require the Company to deposit collateral\", tandis que \"remit funds as a margin deposit\" appartient a un autre paragraphe portant sur le seuil en dollars. Remplacer par la citation continue ci-dessus."
+    },
+    {
+      "affirmation": "Le gain sur instruments derives passe de 720,0 M$ au T2 2025 a 44,6 M$ au T2 2026, soit -93,8%",
+      "verdict": "CONFORME",
+      "verbatim_source": "Gain (loss) on derivatives 44,640 719,964 ; \"For the three months ended June 30, 2026, we recognized a gain on derivatives of approximately $45 million ... For the three months ended June 30, 2025, we recognized a gain on derivatives of approximately $720 million\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Resultat net attribuable a EQT de 211 M$ contre 784 M$ (-73%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net income attributable to EQT Corporation for the three months ended June 30, 2026 was approximately $211 million, $0.34 per diluted share, compared to approximately $784 million, $1.30 per diluted share, for the same period in 2025. The decrease was driven primarily by lower derivative gains and lower average realized natural gas prices",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Resultat operationnel du segment Production 109,4 M$ contre 1 007,1 M$ (-89,1%) ; Collecte +5,5% (216,7 M$) et Transmission +3,3% (93,0 M$) progressent",
+      "verdict": "CONFORME",
+      "verbatim_source": "Operating income $ 109,383 $ 1,007,110 $ (897,727) (89.1) ; segments T2 2026 : Upstream 109,383 / Gathering 216,740 / Transmission 93,003 ; segments T2 2025 : Upstream 1,007,110 / Gathering 205,405 / Transmission 90,056",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Marge nette 11,7% au T2 2026 (211 M$ pour 1 809,9 M$) contre environ 30,7% au T2 2025 (784 M$ pour 2 557,7 M$) ; couts unitaires -3%",
+      "verdict": "CONFORME",
+      "verbatim_source": "Total operating revenues 1,809,940 2,557,719 ; kpis-haut EQT : net_margin 11.7% yoy -62%, unit_costs 2.35 $/Mcfe yoy -3%",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Production physique nette en hausse de 12% sur un an ; quasi-totalite des actifs dans les Appalaches ; 93% des reserves prouvees dans le Marcellus ; 49% des volumes vendus hors Appalaches",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut EQT : net_prod 6.972 Bcfe/d yoy +12% ; marcellus 28 046 Bcfe dont 93% Marcellus Shale ; outside_appalachia 49% ; data-lake/EQT/geo_fr.json : \"Substantially all of our assets and operations are located in the Appalachian Basin.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Remuneration totale du CEO 16,09 M$ pour 2025, +43% sur un an, 103 fois la remuneration mediane (155 823 $), bonus finance a 1,69x l'objectif",
+      "verdict": "CONFORME",
+      "verbatim_source": "src/data/v2-pipeline/eqt.json : \"ceo_total_comp_m\": 16.087233, \"ceo_pay_ratio\": 103, \"median_employee_pay\": 155823, \"comp_vs_prior_year_pct\": \"+43%\", \"perf_metrics_bonus\": \"... flux de tresorerie disponible par action, depenses d'investissement (20%), couts d'exploitation en tresorerie par Mcfe (20%) et production (10%), avec un financement final de 1,69x la cible.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Dette nette en baisse de 27% sur un an ; solde de 1,4 Md$ encore autorise au titre des rachats d'actions",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut EQT : net_debt 5.87 Mds$ yoy -27% ; 10-Q : \"the approximate dollar value of shares that may yet be purchased under the Share Repurchase Program is $1.4 billion\"",
+      "correction_proposee": null
+    }
+  ]
+}

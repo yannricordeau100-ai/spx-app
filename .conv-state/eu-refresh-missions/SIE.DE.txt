@@ -1,0 +1,196 @@
+Mission : intégrer la ou les périodes manquantes dans les séries KPI de SIE.DE (SIE.DE).
+
+Budget DUR : 110k tokens, 40 appels d'outils. Répertoire /Users/yann/spx-app.
+
+CONTEXTE
+SIE.DE est une sté européenne (CAC 40 .PA ou SMI 20 .SW). Ses documents IR sont dans
+`data-lake/SIE.DE/ir/` (URD = rapport annuel, S1 = semestriel, TRIM = trimestriel,
+CP = communiqué de résultats, PRES = présentation), chaque PDF ayant son `.txt.gz` à côté.
+Le fichier `.batches-drafts-safe/kpis-haut/SIE.DE.json` contient des séries dont le dernier
+point est Q3-2026. Le watcher (`scripts/fr-doc-watcher.py`) a détecté des documents plus
+récents non encore intégrés :
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T1-2016_2016-01-25.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T1-2016_2016-01-26.pdf
+  - data-lake/SIE.DE/ir/RFS/SIE.DE_RFS_S1-2016_2016-05-04.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_S1-2016_2016-05-04.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T2-2016_2016-05-04.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T3-2016_2016-08-04.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T3-2016_2016-08-04.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_FY-2016_2016-11-10.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T4-2016_2016-11-10.pdf
+  - data-lake/SIE.DE/ir/URD/SIE.DE_URD_FY2016_2016-11-28.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T1-2017_2017-01-31.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T1-2017_2017-02-01.pdf
+  - data-lake/SIE.DE/ir/RFS/SIE.DE_RFS_S1-2017_2017-05-04.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_S1-2017_2017-05-04.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T2-2017_2017-05-04.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T3-2017_2017-08-03.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T3-2017_2017-08-03.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_FY-2017_2017-11-09.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T4-2017_2017-11-09.pdf
+  - data-lake/SIE.DE/ir/URD/SIE.DE_URD_FY2017_2017-11-27.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T1-2018_2018-01-31.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T1-2018_2018-01-31.pdf
+  - data-lake/SIE.DE/ir/RFS/SIE.DE_RFS_S1-2018_2018-05-09.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_S1-2018_2018-05-09.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T2-2018_2018-05-09.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T3-2018_2018-08-02.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T3-2018_2018-08-02.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_FY-2018_2018-11-08.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T4-2018_2018-11-08.pdf
+  - data-lake/SIE.DE/ir/URD/SIE.DE_URD_FY2018_2018-11-26.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T1-2019_2019-01-30.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T1-2019_2019-01-30.pdf
+  - data-lake/SIE.DE/ir/RFS/SIE.DE_RFS_S1-2019_2019-05-08.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_S1-2019_2019-05-08.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T2-2019_2019-05-08.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T3-2019_2019-08-01.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T3-2019_2019-08-01.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_FY-2019_2019-11-07.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T4-2019_2019-11-07.pdf
+  - data-lake/SIE.DE/ir/URD/SIE.DE_URD_FY2019_2019-12-03.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T1-2020_2020-02-05.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T1-2020_2020-02-05.pdf
+  - data-lake/SIE.DE/ir/RFS/SIE.DE_RFS_S1-2020_2020-05-08.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_S1-2020_2020-05-08.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T2-2020_2020-05-08.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_S1-2020_2020-05-08.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T3-2020_2020-08-06.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T3-2020_2020-08-06.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T3-2020_2020-08-06.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_FY-2020_2020-11-12.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T4-2020_2020-11-12.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_FY-2020_2020-11-12.pdf
+  - data-lake/SIE.DE/ir/URD/SIE.DE_URD_FY2020_2020-11-27.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T1-2021_2021-02-03.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T1-2021_2021-02-03.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T1-2021_2021-02-03.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_S1-2021_2021-05-06.pdf
+  - data-lake/SIE.DE/ir/RFS/SIE.DE_RFS_S1-2021_2021-05-07.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T2-2021_2021-05-07.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_S1-2021_2021-05-07.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T3-2021_2021-08-05.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T3-2021_2021-08-05.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T3-2021_2021-08-05.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_FY-2021_2021-11-11.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T4-2021_2021-11-11.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_FY-2021_2021-11-11.pdf
+  - data-lake/SIE.DE/ir/URD/SIE.DE_URD_FY2021_2021-11-30.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T1-2022_2022-02-10.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T1-2022_2022-02-10.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T1-2022_2022-02-10.pdf
+  - data-lake/SIE.DE/ir/RFS/SIE.DE_RFS_S1-2022_2022-05-12.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_S1-2022_2022-05-12.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T2-2022_2022-05-12.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_S1-2022_2022-05-12.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T3-2022_2022-08-11.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T3-2022_2022-08-11.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T3-2022_2022-08-11.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_FY-2022_2022-11-17.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T4-2022_2022-11-17.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_FY-2022_2022-11-17.pdf
+  - data-lake/SIE.DE/ir/URD/SIE.DE_URD_FY2022_2022-12-05.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T1-2023_2023-02-08.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T1-2023_2023-02-08.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T1-2023_2023-02-08.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_S1-2023_2023-05-16.pdf
+  - data-lake/SIE.DE/ir/RFS/SIE.DE_RFS_S1-2023_2023-05-17.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T2-2023_2023-05-17.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_S1-2023_2023-05-17.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T3-2023_2023-08-10.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T3-2023_2023-08-10.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T3-2023_2023-08-10.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_FY-2023_2023-11-16.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T4-2023_2023-11-16.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_FY-2023_2023-11-16.pdf
+  - data-lake/SIE.DE/ir/URD/SIE.DE_URD_FY2023_2023-12-04.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T1-2024_2024-02-08.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T1-2024_2024-02-08.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T1-2024_2024-02-08.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_S1-2024_2024-05-15.pdf
+  - data-lake/SIE.DE/ir/RFS/SIE.DE_RFS_S1-2024_2024-05-16.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T2-2024_2024-05-16.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_S1-2024_2024-05-16.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T3-2024_2024-08-08.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T3-2024_2024-08-08.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T3-2024_2024-08-08.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_FY-2024_2024-11-14.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T4-2024_2024-11-14.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_FY-2024_2024-11-14.pdf
+  - data-lake/SIE.DE/ir/URD/SIE.DE_URD_FY2024_2024-12-02.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T1-2025_2025-02-13.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T1-2025_2025-02-13.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T1-2025_2025-02-13.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_S1-2025_2025-05-14.pdf
+  - data-lake/SIE.DE/ir/RFS/SIE.DE_RFS_S1-2025_2025-05-15.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T2-2025_2025-05-15.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_S1-2025_2025-05-15.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T3-2025_2025-08-07.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T3-2025_2025-08-07.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T3-2025_2025-08-07.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_FY-2025_2025-11-13.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T4-2025_2025-11-13.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_FY-2025_2025-11-13.pdf
+  - data-lake/SIE.DE/ir/URD/SIE.DE_URD_FY2025_2025-12-01.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T1-2026_2026-02-12.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T1-2026_2026-02-12.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T1-2026_2026-02-12.pdf
+  - data-lake/SIE.DE/ir/RFS/SIE.DE_RFS_S1-2026_2026-05-13.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_S1-2026_2026-05-13.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T2-2026_2026-05-13.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_S1-2026_2026-05-13.pdf
+  - data-lake/SIE.DE/ir/SLIDES/SIE.DE_SLIDES_T3-2026_2026-08-06.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T3-2026_2026-08-06.pdf
+  - data-lake/SIE.DE/ir/CP/SIE.DE_CP_T3-2026_2026-08-06.pdf
+  - data-lake/SIE.DE/ir/TRIM/SIE.DE_TRIM_T32026_2026-08-26.pdf
+La page société de SIE.DE est donc en retard.
+
+DEVISE DE PUBLICATION : EUR (libellés "Mds EUR" / "M EUR").
+
+TÂCHE
+1. Lis les nouveaux documents ci-dessus via leur `.txt.gz`
+   (`gunzip -c data-lake/SIE.DE/ir/<TYPE>/<fichier>.txt.gz`). Identifie la période
+   exactement couverte (semestre, trimestre, exercice) et la date de clôture réelle.
+   Ne fais jamais confiance à un libellé de période trouvé tel quel : re-mappe par date.
+2. Si plusieurs périodes manquent entre Q3-2026 et le document le plus récent, intègre-les
+   TOUTES en utilisant aussi les documents intermédiaires déjà présents dans
+   `data-lake/SIE.DE/ir/`.
+3. Pour chaque série existante du fichier, ajoute le ou les nouveaux points au format déjà
+   utilisé (`history: [{q, v}]`, libellés cohérents avec l'existant), puis recale `value`
+   sur le nouveau dernier point et recalcule `yoy` contre la MÊME période de l'année
+   précédente.
+4. Cumuls : les stés européennes publient massivement en cumul (S1, 9M, exercice). Dérive
+   la période par différence quand c'est légitime et marque le point `_derived`. Ne dérive
+   JAMAIS une grandeur non additive (BPA, marges, taux, effectifs, encours, ratios) :
+   pour celles-là, ne prends que la valeur publiée, sinon laisse un trou.
+5. Mets à jour le champ `signal` de chaque série prolongée s'il cite une période ou des
+   chiffres devenus faux. Un signal qui parle de la période précédente alors que la valeur
+   affichée est la nouvelle est une faute.
+6. Contrôles obligatoires avant d'écrire : somme des segments = CA consolidé de la nouvelle
+   période ; somme des zones géographiques = CA ; cohérence des marges ; ordre chronologique
+   des points ; aucune valeur aberrante par rapport à la série ; devise cohérente.
+7. Si le KPI hero de la fiche `src/data/v2-pipeline/<t minuscule>.json` est prolongé,
+   réinjecte la série hero complète dans la fiche (règle heroKpiUsable : le hero doit
+   pointer un KPI présent DANS la fiche, sinon la page se vide).
+
+FICHIERS TEMPORAIRES (obligatoire)
+Plusieurs agents tournent en parallèle et partagent le même scratchpad. TOUT fichier
+temporaire DOIT être préfixé par le ticker : `SIE.DE_extract.txt`, `SIE.DE_s1.json`, etc.
+Jamais de nom générique (tmp.json, out.txt) : un autre agent l'écraserait et tu extrairais
+les chiffres d'une AUTRE société sans t'en apercevoir.
+
+RÈGLES
+- Zéro invention. Verbatim des documents locaux uniquement. Si une série n'est pas couverte
+  par les nouveaux documents, ne l'invente pas et signale-la.
+- Ne télécharge rien : les documents sont déjà sur disque (le watcher s'en charge). Si un
+  document manque, signale-le, ne va pas le chercher avec un User-Agent de navigateur.
+- Ne touche à AUCUN autre ticker. Aucun commit git.
+- Un seul lint final : `npx tsx scripts/kpi-lint.ts --tickers=SIE.DE`, exiger 0 rouge.
+
+RETOUR STRICT, 10 lignes maximum :
+SIE.DE: N séries prolongées au <période>, M signaux mis à jour, lint: X rouges Y oranges
+Les 4 valeurs clés extraites (CA, résultat net, et 2 métriques propres à la sté).
+Résultat du contrôle somme segments = consolidé.
+Séries NON prolongées et pourquoi (verbatim de la source).
+Si le rafraîchissement est IMPOSSIBLE, écris en première ligne :
+SIE.DE: IMPOSSIBLE — <raison factuelle courte + verbatim>

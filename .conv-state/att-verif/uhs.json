@@ -1,0 +1,78 @@
+{
+ "ticker": "UHS",
+ "verdict_global": "a_corriger",
+ "controles": [
+  {
+   "affirmation": "Bloc 1 : 'le reste du verdict fait l'objet d'un appel non tranche' / hook 'encore au stade des appels'",
+   "verdict": "FAUX",
+   "verbatim_source": "10-Q T2 2026 : \"Cumberland filed a notice of appeal on the remaining verdict. Plaintiffs separately filed a notice of appeal... These appeals were dismissed by the appellate court without prejudice as premature because the judgments in favor of the first three plaintiffs are neither final nor enforceable at this time.\"",
+   "correction_proposee": "Les appels ont ete rejetes comme prematures par la cour d'appel (sans prejudice), les jugements n'etant ni definitifs ni executoires ; ecrire 'les appels ont ete declares prematures et le jugement n'est ni definitif ni executoire' plutot que 'appel non tranche'."
+  },
+  {
+   "affirmation": "Hook : l'emission obligataire de 1,1 Md$ sert 'a financer un rachat de 835 M$'",
+   "verdict": "INTROUVABLE",
+   "verbatim_source": "8-K 13/08/2026 : seul emploi de fonds mentionne = \"the repayment of the outstanding borrowings under the Issuer's revolving credit facility\" et detenteurs des \"1.650% Senior Secured Notes due 2026\". 10-Q T2 2026 : \"We intend to finance the acquisition of Talkspace with additional borrowings pursuant to our Credit Agreement, as amended in April, 2026\" (400 M$ delayed draw term loan A), pas avec l'emission obligataire.",
+   "correction_proposee": "Le rachat Talkspace est finance par le delayed draw term loan A de 400 M$ du Credit Agreement, pas par les obligations ; retirer le lien de causalite ou le formuler comme indirect (l'emission rembourse le revolver et libere de la capacite)."
+  },
+  {
+   "affirmation": "Externe 1, titre et argument : impact OBBBA estime 'entre 432 et 480 M$ par an d'ici 2032'",
+   "verdict": "EXAGERE",
+   "verbatim_source": "Chiffre exact du 10-K FY2025 (\"reduced... by approximately $432 million to $480 million by 2032\") mais perime : le 10-Q T2 2026 depose le 7 aout 2026, anterieur a la date d'arret des donnees de l'ATT (13/08/2026), dit \"our aggregate annual net benefit will be reduced... by approximately $500 million by 2032\".",
+   "correction_proposee": "Utiliser ~500 M$ par an d'ici 2032 (10-Q T2 2026). L'ATT se contredit d'ailleurs elle-meme : le bloc interne 3 cite bien 'environ 500 M$ par an'."
+  },
+  {
+   "affirmation": "Verdict de jury du 27/09/2024 : 60 M$ compensatoires + 180 M$ tripes (VCPA) + 120 M$ punitifs pour 3 plaignants, punitifs ramenes a 1,05 M$ ; ~43 plaignants supplementaires ; proces consolide de 3 semaines en aout 2026 ; couverture d'assurance restante ~143 M$ (annee de police 2020)",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026 : \"On September 27, 2024, a jury entered a verdict... combined compensatory damages of $60 million... an additional combined $180 million in trebled damages for violation of the VCPA, and an additional combined $120 million in punitive damages... the Court reduced the punitive damage amount to a combined maximum of $1.05 million ($350,000 per plaintiff)... There are approximately 43 additional plaintiffs... a consolidated three-week jury trial for three plaintiffs to begin in August 2026... aggregate insurance coverage of approximately $143 million remaining under commercial policies for matters applicable to the 2020 policy year\"",
+   "correction_proposee": "Precision utile : UHS et UHS Delaware ont ete ecartes du proces d'aout 2026 et de la plupart des dossiers restants ; seule UHS Delaware reste defenderesse pour tous les plaignants restants."
+  },
+  {
+   "affirmation": "Bloc 2 : citation du risque d'impact materiel si le dossier Cumberland epuise la couverture d'assurance",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026, verbatim identique mot a mot : \"In the event the resolution of the Cumberland matter exhausts all or a significant portion of our/our subsidiaries' remaining commercial insurance coverage related to the 2020 policy year, or the Cumberland matter causes the posting of large bonds or other collateral during the appeal processes, our future results of operations and capital resources would be materially adversely impacted.\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Creances clients nettes 2 801 M$ fin juin 2026, +21,7% sur un an ; CA +8,3%",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026 bilan : \"Accounts receivable, net 2,801,108\" (30/06/2026) ; CA T2 4 638 012 vs 4 283 816 = +8,27%. Reserve : le +21,7% sur douze mois provient de kpis-haut, le 10-Q ne publie que le comparatif au 31/12/2025 (2 602 434, soit +7,6% depuis le 1er janvier).",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Benefice net des programmes Medicaid complementaires 442 M$ au T2 2026 (+33,9%) et 1 520 M$ projetes sur 2026",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026 : \"Aggregate net benefit from all Supplemental Programs $ 1,520 $ 442 $ 330 $ 811 $ 566\" (projete 2026 / T2 2026 / T2 2025 / S1 2026 / S1 2025) ; 442/330 = +33,9%",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Emission d'aout 2026 : 600 M$ a 5,500% echeance 2031 et 500 M$ a 6,000% echeance 2036 ; obligations 1,650% de 700 M$ arrivant a echeance en septembre 2026",
+   "verdict": "CONFORME",
+   "verbatim_source": "8-K 13/08/2026 : \"$600,000,000 aggregate principal amount of 5.500% Senior Secured Notes due 2031; and $500,000,000 aggregate principal amount of 6.000% Senior Secured Notes due 2036\" ; 10-Q : \"$700 million of aggregate principal amount of 1.65% senior secured notes due in September, 2026... maturity date of September 1, 2026\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "900 M$ de capacite de credit supplementaire en avril 2026, 700 M$ de tirage differe ajoute en juillet 2026, acquisition Talkspace 835 M$ annoncee en mars 2026, cloture attendue au T3 2026, conformite aux clauses au 30/06/2026",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026 : \"increased our borrowing capacity by an aggregate of $900 million\" (Eleventh Amendment, avril 2026) ; \"In July, 2026... added a new $700 million delayed draw short term loan\" ; \"acquire Talkspace, Inc. for $5.25 per share, or approximately $835 million in the aggregate... expected to close during the third quarter of 2026\" ; \"We were in compliance with all required covenants as of June 30, 2026\"",
+   "correction_proposee": "La dette totale de 4,852 Mds$ (+5,9%) vient de kpis-haut et n'apparait pas telle quelle dans le 10-Q ; les composantes citees (3,0 Mds$ d'obligations securisees, 1,448 Md$ de term loan A, 225 M$ de revolver) sont coherentes."
+  },
+  {
+   "affirmation": "Marge operationnelle 11,1% au T2 2026 (-0,6 pt), autres charges operationnelles 29,2% du CA (+2,1 pts), taxes fournisseurs Medicaid +47 M$, marge d'EBITDA 14,7% (-0,5 pt)",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026 : resultat operationnel 516 675/4 638 012 = 11,14% vs 500 270/4 283 816 = 11,68% ; autres charges 1 351 958 = 29,15% vs 1 162 566 = 27,14% ; D&A 167 338 => EBITDA 14,75% vs 15,23%. Taxes fournisseurs : \"Provider Taxes (725 ) (183 ) (134 )\" soit 183 M$ au T2 2026 contre 134 M$ au T2 2025, ecart de 49 M$ et non 47 M$.",
+   "correction_proposee": "Ecrire +49 M$ de taxes fournisseurs Medicaid sur un an (183 M$ contre 134 M$)."
+  },
+  {
+   "affirmation": "Reserve nette pour sinistres de responsabilite professionnelle et generale 499 M$ au 30/06/2026 contre 449 M$ fin 2025, relevee de 28 M$ au S1 2026, aucun ajustement equivalent en 2025 ; exclusions agressions sexuelles depuis mars 2025",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-Q T2 2026 : \"the total net accrual for our self-insured professional and general liability claims was $499 million... As of December 31, 2025... $449 million... included a $28 million pre-tax increase to our reserves... There were no adjustments recorded... during the three and six-month periods ended June 30, 2025\" ; \"Effective March, 2025, our commercial insurance coverage contains less favorable terms than previous years including coverage exclusions for incidents involving sexual molestation or abuse\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Soins non remuneres 3 949 M$ sur l'exercice 2025, charity care +20,1% ; H.R.1834 en suspens au Senat",
+   "verdict": "CONFORME",
+   "verbatim_source": "10-K FY2025 : \"Charity care $ 984,235 25 % $ 819,681 23 % ... Total uncompensated care $ 3,949,075\" (984 235/819 681 = +20,1%) ; 10-Q T2 2026 : \"no law extending the EPTCs has been enacted\"",
+   "correction_proposee": "Ce bloc externe 2 est le seul de l'ATT sans champ 'preuve' ; ajouter la citation. Nuance de lecture : au S1 2026 la charity care recule fortement (279 M$ contre 486 M$), la hausse des soins non remuneres vient des remises non-assures."
+  }
+ ]
+}

@@ -1,0 +1,80 @@
+{
+  "ticker": "SBAC",
+  "verdict_global": "a_corriger",
+  "_note_judiciaire": "Aucune affirmation judiciaire ni reglementaire dans cette ATT (pas d'enquete, poursuite, amende, litige, regulateur). Rien a controler sur ce volet.",
+  "_sources_verifiees": [
+    "data-lake/SBAC/10Q/SBAC_2026-08-06.htm.gz (10-Q T2 2026)",
+    "data-lake/SBAC/10K/SBAC_2026-02-27.htm.gz (10-K FY2025)",
+    "data-lake/SBAC/DEF14A/SBAC_2026-04-09.htm.gz (proxy 2026)",
+    ".batches-drafts-safe/kpis-haut/SBAC.json",
+    "src/data/v2-pipeline/sbac.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "Deficit des actionnaires 4 629,9 M$, deficit cumule 7 135,6 M$, dette totale 12 729,2 M$, actifs totaux 11 742,3 M$, echeances a moins d'un an passees de 1 935,8 M$ a 3 578,6 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Total assets $ 11,742,320 ... Current maturities of long-term debt 3,578,556 1,935,802 ... Long-term debt, net 9,150,666 ... Accumulated deficit ( 7,135,584 ) ... Total shareholders' deficit ( 4,629,854 ) (10-Q, bilan au 30 juin 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Remboursement en juillet 2026 de la ligne de credit renouvelable et du pret a terme 2024",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net proceeds from this offering were used to repay the aggregate principal amount outstanding on the Revolving Credit Facility ($ 1.0 billion), the 2024 Term Loan ($ 2.2 billion), and for general corporate purposes. In connection with the repayments, the Company, subsequent to June 30, 2026, expensed... (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Le revenu locatif domestique par tour n'a progresse que de 0,2% sur un an en 2025 (107,255 K$/tour contre 106,586 K$/tour en 2024)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-K FY2025 : Domestic site leasing revenues $ 1,865,602 vs $ 1,861,424 ; 'Domestic site leasing revenues increased $4.2 million for the year ended December 31, 2025'. Le fichier interne kpis-haut/SBAC.json donne value 107.255 (FY2025) et 106.586 (FY2024) avec un champ yoy '+0.2%'.",
+      "correction_proposee": "Les deux chiffres cites (107,255 contre 106,586) donnent +0,6% et non +0,2%. Le +0,2% est la progression du revenu locatif domestique TOTAL (+4,2 M$ sur 1 861,4 M$), pas du revenu par tour. Ecrire : 'le revenu locatif domestique total n'a progresse que de 0,2% en 2025 (+4,2 M$), et le revenu par tour de 0,6% (107,3 K$ contre 106,6 K$)'. Le champ yoy du fichier kpis-haut est incoherent avec ses propres valeurs."
+    },
+    {
+      "affirmation": "La direction attribue ce ralentissement aux non-renouvellements de baux lies a Sprint",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Domestic site leasing revenues increased $4.2 million ... primarily due to (1) organic site leasing growth ... and (2) revenues from 66 towers acquired and 54 towers built since January 1, 2024, partially offset by Sprint and other lease non-renewals and a decrease in non-cash straight line revenue. (10-K FY2025)",
+      "correction_proposee": "Le 10-K cite 'Sprint and other lease non-renewals' comme un facteur de compensation parmi d'autres (avec la baisse du revenu lineaire non cash), pas comme l'explication du ralentissement. Ecrire : 'la croissance est en partie neutralisee par les non-renouvellements de baux, notamment Sprint, et par une baisse du revenu lineaire non cash'. La preuve citee est par ailleurs un signal interne du data-lake, pas une declaration de la direction."
+    },
+    {
+      "affirmation": "Charges de depreciation et de demantelement de 51,9 M$ sur S1 2026 contre 82,3 M$ sur S1 2025, en lien notamment avec EchoStar et Oi",
+      "verdict": "CONFORME",
+      "verbatim_source": "Total asset impairment and decommission costs $ 22,566 $ 45,231 $ 51,867 $ 82,257 (10-Q T2 2026) ; '...primarily related to EchoStar and Oi), partially offset by a decrease in tower and equipment related decommission costs' (10-K FY2025)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Environ 30% des tours du groupe situees au Bresil, 13,6% du CA locatif total en 2025, aucun autre marche international au-dessus de 5% des tours ou du revenu locatif",
+      "verdict": "CONFORME",
+      "verbatim_source": "As of December 31, 2025, we owned 28,934 sites in our international markets, of which approximately 30% and 10% of our total towers are located in Brazil and Guatemala, respectively, and no other international market ... represented more than 5% of our total towers ; Site leasing revenue in Brazil represented 13.6% of total site leasing revenue for the period. No other individual international market represented more than 5% of our total site leasing revenue. (10-K FY2025)",
+      "correction_proposee": "Fidele au verbatim. Reserve : la phrase source est elle-meme ambigue ('28,934 sites in our international markets, of which approximately 30% ... of our total towers'), le total groupe etant de 46 328 tours. L'ATT reprend la lecture litterale ('des tours du groupe'), ce qui est defendable mais merite une formulation prudente."
+    },
+    {
+      "affirmation": "Churn eleve attendu pour le reste de 2026 : 132,0 a 136,0 M$ en domestique (Sprint, EchoStar), 36,0 a 40,0 M$ en international (Oi filaire)",
+      "verdict": "CONFORME",
+      "verbatim_source": "We expect churn to be elevated through 2026 ... In our domestic markets, we currently expect churn to represent an aggregate of between $132.0 million and $136.0 million of cash site leasing revenue due in part to Sprint and EchoStar churn. In our international markets, we currently expect churn to represent an aggregate of between $36.0 million and $40.0 million of cash site leasing revenue due in part to Oi wireline churn. (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Resultat net attribuable a SBA 198,8 M$ au T2 2026 contre 225,8 M$ au T2 2025 (-11,9%), CA de 698,98 a 715,27 M$ (+2,3%), charges d'interets de 119,7 a 127,8 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net income attributable to SBA Communications Corporation $ 198,777 $ 225,794 ; Total revenues 715,274 698,981 ; Interest expense ( 127,754 ) ( 119,658 ) (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Remuneration totale du PDG Brendan T. Cavanagh de 11,36 M$ pour 2025, en hausse de 29% ; ratio CEO/salarie median 131:1 ; salaire median 86 943 $",
+      "verdict": "CONFORME",
+      "verbatim_source": "the median employee's annual total compensation was $86,943 ... the annual total compensation of our CEO was $11,358,715. The resulting ratio ... was 131 to 1 (proxy 2026) ; SCT Cavanagh : 2025 total 11,358,715, 2024 total 8,817,502 (soit +28,8%)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Cette hausse de 29% depasse la progression du resultat net attribuable a SBA sur la meme periode",
+      "verdict": "FAUX",
+      "verbatim_source": "Net income attributable to SBA Communications Corporation $ 1,053,632 (FY2025) $ 749,536 (FY2024) $ 501,812 (FY2023) (10-K FY2025)",
+      "correction_proposee": "Le resultat net attribuable a SBA progresse de +40,6% en 2025 (1 053,6 M$ contre 749,5 M$), soit NETTEMENT PLUS que la hausse de 29% de la remuneration du PDG. L'affirmation dit l'inverse de ce que montrent les comptes. A supprimer ou remplacer par un autre point de comparaison (par exemple la remuneration rapportee au resultat operationnel segmentaire ou au TSR)."
+    },
+    {
+      "affirmation": "97,9% du profit operationnel provient de la location d'antennes",
+      "verdict": "CONFORME",
+      "verbatim_source": "Our primary business line is our site leasing business, which contributed 97.9% of our total segment operating profit for the year ended December 31, 2025. (10-K FY2025). Verification : (1 586 397 + 492 244) / (1 586 397 + 492 244 + 45 526) = 97,9%",
+      "correction_proposee": "Preciser 'profit operationnel segmentaire' plutot que 'profit operationnel', conformement au libelle de la source."
+    }
+  ]
+}

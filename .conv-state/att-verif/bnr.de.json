@@ -1,0 +1,96 @@
+{
+ "ticker": "BNR.DE",
+ "verdict_global": "a_corriger",
+ "controles": [
+  {
+   "affirmation": "Quantitatif 2 : 'prevision d'EBITDA operationnel 2026 (1 150 a 1 350 M€ confirmee par le groupe)'",
+   "verdict": "FAUX",
+   "verbatim_source": "Rapport semestriel du 12 aout 2026 (ir/RFS/BNR.DE_RFS_S1-2026, date identique a la date d'arret des donnees de l'ATT) : \"Brenntag has again raised its outlook for financial year 2026 and now expects operating EBITDA to be between EUR 1,350 million and EUR 1,450 million.\" La fourchette 1 150-1 350 M€ est celle du T1 2026, perimee. L'ATT se contredit d'ailleurs : le bloc interne 3 utilise bien 1 350-1 450 M€.",
+   "correction_proposee": "Utiliser 1 350-1 450 M€ et recalculer le ratio (2 685/1 400 = 1,9x au 31 mars 2026)."
+  },
+  {
+   "affirmation": "Bloc interne 2 : le rebond du RBO au T2 2026 est 'porte par l'acquisition d'Airedale Group'",
+   "verdict": "INTROUVABLE",
+   "verbatim_source": "Rapport semestriel S1 2026 : \"At the end of February 2026, Brenntag closed the acquisition of Airedale Group... In 2025, Airedale Group generated annual sales of GBP 77 million.\" Aucun lien de causalite avec la progression du resultat brut operationnel n'est etabli, et l'ordre de grandeur (77 M GBP de ventes annuelles) est sans commune mesure avec un RBO trimestriel de 1 146 M€. La croissance est portee par Brenntag Essentials (RBO T2 +21,5%).",
+   "correction_proposee": "Retirer l'attribution a Airedale ou la remplacer par la progression de Brenntag Essentials."
+  },
+  {
+   "affirmation": "Bloc interne 2, preuve citee : \"Operating EBITDA came to EUR 306 million, a decline of 8.3% compared with Q1 2025\" (rapport T1 2026)",
+   "verdict": "INTROUVABLE",
+   "verbatim_source": "La citation existe bien dans le rapport T1 2026, mais elle ne soutient aucune des affirmations du bloc, qui portent toutes sur le T2 2026 (RBO 1 146 M€, ratio 40,4% contre 34,3%). La source qui les soutient est le rapport semestriel du 12 aout 2026, absent de la liste _sources.",
+   "correction_proposee": "Remplacer la preuve par le rapport semestriel S1 2026 : \"Operating gross profit Q2 2026 1,146... Change versus Q2 2025 in % 17.7\" et ajouter ce document a _sources."
+  },
+  {
+   "affirmation": "Externe 2, preuve : \"could have a substantial impact on Brenntag's net assets, financial position and results of operations\"",
+   "verdict": "EXAGERE",
+   "verbatim_source": "URD FY2025, phrase complete : \"Any adverse decisions rendered in such cases could have a substantial impact on Brenntag's net assets, financial position and results of operations for a reporting period. However, Brenntag currently does not expect its net assets, financial position and results of operations to be materially affected.\" La citation s'arrete juste avant la phrase attenuante.",
+   "correction_proposee": "Citer la phrase entiere, y compris le 'However, Brenntag currently does not expect... to be materially affected'."
+  },
+  {
+   "affirmation": "Externe 1 et 3 : 'Le groupe classe la concurrence... au score de risque le plus eleve de sa cartographie (5 sur 5)' et cybersecurite 'cotee au meme niveau maximal (5 sur 5)'",
+   "verdict": "EXAGERE",
+   "verbatim_source": "Le score 5/5 est celui de data-lake/BNR.DE/risks/extracted.json (notation interne du pipeline), pas la classification de Brenntag. La cotation de Brenntag pour la concurrence est un risque global \"high\" au 31 decembre 2025, inchange sur un an, avec une ampleur de dommage \"critical\" partagee avec le risque sante-securite-environnement, et non avec la cybersecurite.",
+   "correction_proposee": "Ecrire 'la cartographie de risques Mettrik classe...' ou reprendre la terminologie de Brenntag (risque global 'high', ampleur 'critical'). L'ampleur 'critical' ne s'applique pas a la cybersecurite."
+  },
+  {
+   "affirmation": "Bloc interne 2, titre : 'Marge d'exploitation en repli continu depuis le pic de 2022'",
+   "verdict": "EXAGERE",
+   "verbatim_source": "Le corps du bloc dit lui-meme que le RBO rebondit a 1 146 M€ au T2 2026, soit AU-DESSUS du pic de 1 144,8 M€ du T2 2022 (historique RBO, kpis-haut). Le repli n'est donc plus continu.",
+   "correction_proposee": "Retitrer, par exemple 'Marge d'exploitation en repli de 2022 a fin 2025, rebond au T2 2026'."
+  },
+  {
+   "affirmation": "Bloc interne 3 : free cash flow du T2 2026 a 4 M€, -97,4% par rapport aux 154 M€ du T2 2025",
+   "verdict": "EXAGERE",
+   "verbatim_source": "Chiffres derives, non publies tels quels. Publie : rapport S1 2026 \"Free cash flow 97 316\" (H1 2026 / H1 2025, -69,3%) et rapport T1 2026 \"Free cash flow 91 163\". Le T2 2026 ressort donc a 6 M€ et le T2 2025 a 153 M€, soit -96,1%.",
+   "correction_proposee": "Ecrire 6 M€ contre 153 M€ (-96%), ou citer directement le semestre publie : 97 M€, -69,3%."
+  },
+  {
+   "affirmation": "Bloc interne 3 : absence de champ 'preuve'",
+   "verdict": "INTROUVABLE",
+   "verbatim_source": "Le bloc 'Free cash flow en fort recul et endettement net au plus haut' est le seul bloc de l'ATT depourvu de champ 'preuve', alors qu'il porte trois chiffres (4 M€, 3 100 M€, 2,2x).",
+   "correction_proposee": "Ajouter la preuve : rapport semestriel S1 2026, \"Net financial liabilities EUR m 3,100 2,528\" et \"Free cash flow 97 316\"."
+  },
+  {
+   "affirmation": "_sources : 'ir/TRIM/BNR.DE_TRIM_T1-2026_2026-05-13.txt.gz (document le plus recent utilise)'",
+   "verdict": "FAUX",
+   "verbatim_source": "L'ATT utilise des donnees du T2 2026 et du 30 juin 2026 (RBO 1 146 M€, dette nette 3 100 M€, guidance relevee 1 350-1 450 M€) qui ne figurent que dans ir/RFS/BNR.DE_RFS_S1-2026_2026-08-12, document absent de la liste des sources.",
+   "correction_proposee": "Ajouter le rapport semestriel du 12 aout 2026 a _sources et retirer la mention 'document le plus recent utilise' du rapport T1."
+  },
+  {
+   "affirmation": "Resultat net 886,8 M€ (2022) puis 714,9 / 536,2 / 264,6 M€ ; CA de 19 429,3 a 15 171,5 M€ (-22%) ; resultat operationnel de 1 382,4 a 617,6 M€",
+   "verdict": "CONFORME",
+   "verbatim_source": "URD FY2025 : \"Profit after tax 269.7 543.7 Attributable to: Shareholders of Brenntag SE 264.6 536.2\" ; \"Operating profit 617.6 915.4\" ; \"The Brenntag Group generated sales of EUR 15,171.5 million\". Serie annuelle = resultat attribuable aux actionnaires de Brenntag SE, coherente.",
+   "correction_proposee": "Preciser qu'il s'agit du resultat attribuable aux actionnaires (le resultat apres impots total 2025 est de 269,7 M€)."
+  },
+  {
+   "affirmation": "RBO trimestriel : pic 1 144,8 M€ au T2 2022, point bas 890,7 M€ au T4 2025, 1 146 M€ au T2 2026 (+17,6%) ; ratio EBITDA operationnel / RBO 40,4% au T2 2026 contre 34,3% au T2 2025",
+   "verdict": "CONFORME",
+   "verbatim_source": "Rapport S1 2026 : \"Operating gross profit Q2 2026... 1,146 Change versus Q2 2025 in % ... 17.7\" et \"Operating EBITDA Q2 2026... 463\" (463/1 146 = 40,4%) ; T2 2025 : RBO 974 M€, EBITDA operationnel 334 M€ (34,3%). Historique RBO kpis-haut : Q2-2022 1 144,8 ; Q4-2025 890,7.",
+   "correction_proposee": "La variation publiee est +17,7% et non +17,6%."
+  },
+  {
+   "affirmation": "Dette financiere nette 3 100 M€ au 30/06/2026 contre 2 528 M€ au 31/12/2025, plus haut sur dix ans ; environ 2,2 fois le point median de la guidance 2026",
+   "verdict": "CONFORME",
+   "verbatim_source": "Rapport S1 2026 : \"Net financial liabilities EUR m 3,100 2,528\" ; historique DFN kpis-haut depuis Q1-2016 : maximum anterieur 2 927,0 M€ (Q2-2025) ; 3 100/1 400 = 2,21x",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Quantitatif 2 : dette nette 2 685 M€ au 31/03/2026 contre capitaux propres de 4 518 M€",
+   "verdict": "CONFORME",
+   "verbatim_source": "Rapport T1 2026 : \"Equity EUR m 4,518 4,349\" et \"Net financial liabilities EUR m 2,685 2,528\" (31 mars 2026 / 31 decembre 2025)",
+   "correction_proposee": "Donnee perimee a la date d'arret de l'ATT (12 aout 2026) : au 30 juin 2026, capitaux propres 4 472 M€ et dette nette 3 100 M€."
+  },
+  {
+   "affirmation": "Contentieux talc : charge de 32,2 M€ sur l'exercice 2025 ; France : rejet des griefs d'abus de position dominante en decembre 2025, decision contestable au T1 2026 ; provision de 47 M€ maintenue apres remboursement en novembre 2023",
+   "verdict": "CONFORME",
+   "verbatim_source": "URD FY2025 : \"In financial year 2025, expenses of EUR 32.2 million were recognized for legal risks in connection with the sale of talc and similar products in North America\" ; \"In December 2020, the court imposed a fine of EUR 47 million... whereupon the paid fine was reimbursed in November 2023 and the proceedings referred back by the Cour de cassation... a provision was recognized in the amount of the EUR 47 million reimbursement. In December 2025, after more than 20 years of investigation, the French Competition Authority dismissed complaints concerning whether BRENNTAG SA made illegal use of its market position. The decision is not yet final and non-appealable, and can be contested by the original complainants during the first quarter of 2026.\"",
+   "correction_proposee": "Actualisation possible : le rapport S1 2026 chiffre a 15 M€ la charge talc du premier semestre 2026 et le risque litiges est passe de 'high' a 'medium'."
+  },
+  {
+   "affirmation": "Reseau de pres de 600 sites dans plus de 70 pays ; free cash flow positif",
+   "verdict": "CONFORME",
+   "verbatim_source": "Rapport S1 2026 : \"Brenntag operates a global network spanning around 600 sites in more than 70 countries\" ; \"Free cash flow 97\" (H1 2026)",
+   "correction_proposee": ""
+  }
+ ]
+}

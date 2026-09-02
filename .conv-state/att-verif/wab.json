@@ -1,0 +1,72 @@
+{
+  "ticker": "WAB",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Hook : \"Wabtec a payé environ 1,26 Mds $ pour racheter Dellner Couplers au T1 2026\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"On February 10, 2026, Wabtec acquired Dellner Couplers, a global leader in highly engineered safety-critical train connection systems and services for passenger rail rolling stock, for approximately $1.053 billion.\" (10-Q T2 2026, Note 3 ACQUISITIONS)",
+      "correction_proposee": "Le prix payé est d'environ 1,05 Md $ (\"Net assets acquired $1,053\"). Les 1 256 M$ utilisés par l'ATT sont la ligne \"Total assets acquired\", avant déduction des 203 M$ de passifs repris : ce n'est pas le prix. Ecrire : \"Wabtec a payé environ 1,05 Md $ pour racheter Dellner Couplers au T1 2026, dont 475 M$ rien qu'en survaleur comptable.\""
+    },
+    {
+      "affirmation": "\"l'acquisition de Dellner Couplers a elle seule ajouté 475 M$ de Goodwill pour 1 256 M$ d'actifs acquis, ce qui veut dire que 38 % du prix payé n'est adossé à aucun actif physique ou identifiable\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"Goodwill 475 ... Total assets acquired 1,256 ... Total liabilities assumed 203 ... Net assets acquired $ 1,053\" (10-Q T2 2026, Note 3)",
+      "correction_proposee": "Erreur de dénominateur : 475/1 256 = 38 % rapporte la survaleur aux actifs bruts acquis, pas au prix. Rapporté au prix réellement payé (1 053 M$), la survaleur représente 45 %. Ecrire : \"475 M$ de Goodwill sur un prix payé de 1 053 M$, soit 45 % du prix non adossé à un actif identifiable.\""
+    },
+    {
+      "affirmation": "\"La dette long terme est passée de 3 701 M$ (fin 2025) à 4 308 M$ au 30 juin 2026\", preuve citée : \"Long-term debt $ 4,308 $ 3,701\" (10-Q T2 2026, note Long-Term Debt)",
+      "verdict": "FAUX",
+      "verbatim_source": "Note 8 LONG-TERM DEBT : \"Total 6,571 ... Less: current portion (1,656) ... Long-term portion $ 4,915 ... $ 4,291\". Les chiffres 4,308/3,701 proviennent d'un tout autre tableau : \"Summarized Balance Sheet Unaudited Parent Company and Guarantor Subsidiaries ... Long-term debt $ 4,308 $ 3,701\" (information résumée des garants, Rule 13-01 Regulation S-X)",
+      "correction_proposee": "L'ATT attribue à la note Long-Term Debt des chiffres qui sont ceux du périmètre restreint \"maison mère + filiales garantes\", pas du groupe consolidé. Chiffres consolidés corrects : dette long terme 4 291 M$ (31 déc. 2025) puis 4 915 M$ (30 juin 2026) ; dette totale 5 541 M$ puis 6 571 M$ current portion incluse."
+    },
+    {
+      "affirmation": "\"the average service life of certain products in our end markets has increased ... which has also allowed end users to replace parts less often\" (10-Q, Item 1A Risk Factors)",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Aucune occurrence de \"service life\" dans data-lake/WAB/10Q/WAB_2026-07-22.htm.gz. Le passage existe mot pour mot dans le 10-K FY2025 : \"life of certain products in our end markets has increased in recent years due to innovations in technologies and manufacturing processes, which has also allowed end users to replace parts less often.\" (data-lake/WAB/10K/WAB_2026-02-13.htm.gz)",
+      "correction_proposee": "Le contenu est exact mais la source est fausse : un 10-Q ne contient pas l'Item 1A complet. Citer \"10-K FY2025 déposé le 13 février 2026, Item 1A Risk Factors\" et supprimer la formule \"selon le 10-Q lui-même\"."
+    },
+    {
+      "affirmation": "\"l'approbation say-on-pay a néanmoins recueilli 93 % de votes favorables lors de l'AGM 2026\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"The stockholder advisory vote in connection with our 2025 annual meeting received approximately 93% approval by our stockholders\" et \"at the 2025 annual meeting of Stockholders, approximately 93% of the votes cast (treating abstentions as \"Against\" votes) approved the compensation program described in the Company's 2025 proxy\" (DEF14A du 31 mars 2026)",
+      "correction_proposee": "Le vote à 93 % est celui de l'assemblée générale 2025, pas 2026. Le proxy du 31 mars 2026 convoque l'AG 2026 : il ne peut pas en publier le résultat. Ecrire : \"lors de l'AGM 2025\"."
+    },
+    {
+      "affirmation": "Goodwill 10 216 M$ -> 10 603 M$ ; autres incorporels nets 4 122 M$ ; total actifs 23 128 M$ ; les deux lignes = 64 % du bilan ; Goodwill seul = 46 % du bilan",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Goodwill 10,603 10,216 Other intangible assets, net 4,122 3,838 ... Total Assets $ 23,128 $ 22,069\" (10-Q T2 2026, bilan consolidé) ; \"Balance at December 31, 2025 $ 8,567 $ 1,649 $ 10,216 Additions/adjustments 8 475 483 ... Balance at June 30, 2026 $ 8,552 $ 2,051 $ 10,603\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Capitaux propres du groupe de 11 244 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total Equity 11,244 11,190\" (10-Q T2 2026, bilan consolidé)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "\"The Company has experienced increased tariff costs which unfavorably impacted our operating results and cash from operations for the six months ended June 30, 2026\" ; la direction n'attend pas d'impact matériel en 2026 grâce aux mesures d'atténuation mais invoque la volatilité de la politique commerciale",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"The Company has experienced increased tariff costs which unfavorably impacted our operating results and cash from operations for the six months ended June 30, 2026. Although we do not expect a material impact to our results of operations in 2026 because of mitigation efforts, due to the volatility of trade policies, we are unable to reasonably predict the future impact.\" (10-Q T2 2026, MD&A)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le segment Freight représente 72 % du chiffre d'affaires du groupe sur l'exercice 2025, contre 28 % pour Transit",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"for approximately 72% of Wabtec's total net sales, with approximately 60% of its net sales in the U.S. and approximately 58% of the Freight Segment's net sales in the aftermarket\" (10-K FY2025, Item 1)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Ratio de rémunération CEO / salarié médian de 509x, rémunération totale du CEO de 26,181 M$ (exercice 2025)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"the annual total compensation of our median employee of our company (other than our CEO) was $51,471; and the annual total compensation of our CEO ... was $26,181,461 ... the ratio ... was approximately 509 to 1\" (DEF14A du 31 mars 2026, CEO Pay Ratio)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Chiffre d'affaires 3 179 M$ au T2 2026 contre 2 706 M$ (+17,5 %) ; résultat net attribuable 395 M$ contre 336 M$ (+17,6 %)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total net sales 3,179 2,706\" ; \"Net income attributable to Wabtec shareholders $ 395 $ 336\" (10-Q T2 2026, compte de résultat consolidé)",
+      "correction_proposee": ""
+    }
+  ]
+}

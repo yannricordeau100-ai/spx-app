@@ -1,0 +1,72 @@
+{
+  "ticker": "EBAY",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "eBay cite les tarifs douaniers, la politique commerciale mondiale et les evenements geopolitiques comme facteurs susceptibles d'affecter significativement ses revenus, \"un langage renforce par rapport aux depots anterieurs\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, Item 1A : \"We are subject to various risks and uncertainties... including, but not limited to, those described in 'Part I — Item 1A: Risk Factors' in our 2025 Form 10-K. Current global economic and geopolitical events and conditions may amplify many of these risks... EXCEPT AS SET FORTH BELOW, THERE HAVE BEEN NO MATERIAL CHANGES TO THE COMPANY'S RISK FACTORS FROM THOSE DISCLOSED IN OUR 2025 FORM 10-K.\" La seule exception \"set forth below\" est le facteur de risque activisme actionnarial / offres non sollicitees. Verification directe : la phrase \"Current global economic and geopolitical events and conditions may amplify many of these risks\" figure MOT POUR MOT dans le 10-Q T3 2025 (EBAY_2025-10-30), avec la seule difference du millesime du 10-K reference (2024 au lieu de 2025).",
+      "correction_proposee": "Il n'y a aucun renforcement de langage : la phrase est du texte recurrent, identique d'un trimestre a l'autre, et le 10-Q affirme lui-meme l'absence de changement materiel des facteurs de risque hors celui de l'activisme. Supprimer \"un langage renforce par rapport aux depots anterieurs\", ou le remplacer par le seul changement reellement nouveau : l'ajout du facteur de risque sur l'activisme actionnarial et les offres non sollicitees."
+    },
+    {
+      "affirmation": "Plus de la moitie du volume d'activite depend du COMMERCE TRANSFRONTALIER, expose aux tarifs douaniers ; 51% du GMV et 43,9% du chiffre d'affaires realises hors des Etats-Unis",
+      "verdict": "EXAGERE",
+      "verbatim_source": "kpis-haut EBAY : GMVIntlPct = 51%, mais l'historique est ANNUEL (FY2020 62, FY2021 54, FY2022 51, FY2023 52, FY2024 49, FY2025 51) — c'est donc le chiffre FY2025, pas le T2 2026. IntlRevPct Q2-2026 = 43,9%, confirme par le 10-Q T2 2026 : \"International 1,377 1,333 3% ... Percentage of net revenues 44% 49%\" (1 377/3 134 = 43,94%).",
+      "correction_proposee": "Deux problemes. (1) GMV international n'est PAS du commerce transfrontalier : un acheteur britannique qui achete a un vendeur britannique compte dans les 51% mais n'est pas une transaction transfrontaliere. Le GMV transfrontalier (CBT) d'eBay est un indicateur distinct et nettement plus faible. Ecrire \"51% du GMV est realise hors des Etats-Unis\", pas \"depend du commerce transfrontalier\". (2) Melange de periodes : les 51% sont un chiffre ANNUEL FY2025, les 43,9% un chiffre TRIMESTRIEL T2 2026. Harmoniser ou dater chaque chiffre."
+    },
+    {
+      "affirmation": "Les rachats d'actions ont ete maintenus \"en piochant dans la dette plutot que dans le cash genere\" ; sur la meme periode la dette court terme a plus que double, de 750 M$ fin 2025 a 1 593 M$ au 30 juin 2026",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026, note Debt : \"Short-Term Debt: Current portion of long-term debt 850 750 ; Commercial paper 750 — ; Unamortized discount and debt issuance costs (7) — ; Total short-term debt 1,593 750. TOTAL DEBT $6,735 $6,746\". Egalement : \"In May 2026, we repaid the $750 [million]...\" de senior notes ; \"Total long-term debt 5,142 5,996\".",
+      "correction_proposee": "Le doublement de la dette COURT TERME est exact mais c'est essentiellement un reclassement d'echeance : la dette TOTALE passe de 6 746 M$ (31/12/2025) a 6 735 M$ (30/06/2026), soit une legere BAISSE. La hausse du court terme vient du passage en portion courante de 850 M$ de dette long terme et de l'emission de 750 M$ de papier commercial, apres remboursement de 750 M$ de senior notes en mai 2026. Citer le seul court terme pour etayer un financement des rachats par la dette est trompeur : mentionner la dette totale quasi inchangee."
+    },
+    {
+      "affirmation": "Offre de rachat non sollicitee du 3 mai 2026, jugee \"ni credible ni attractive\" par le conseil le 12 mai 2026 ; eBay ne peut garantir l'absence de nouvelle tentative",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Item 1A : \"For example, on May 3, 2026, the Company received an unsolicited, non-binding acquisition proposal from a third party. Although our Board determined on May 12, 2026 that the proposal was neither credible nor attractive and, to date, no changes to this proposal that would alter our Board's view have been proposed, we cannot predict whether this party or any other party will take further actions.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "GMV T2 2026 de 22 398 M$ (+15%), inferieur aux 24 127 M$ du T1 2021, apres un point bas de 17 715 M$ au T3 2022",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"GMV $22,398 $168 $22,230 $19,514 15% 14%\". kpis-haut EBAY, serie GMV : Q1-2021 = 24 127 ; Q3-2022 = 17 715, qui est bien le MINIMUM de toute la serie.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Acheteurs actifs : 185 M (FY2020) -> 132 M (FY2023) -> 135 M (FY2025), soit -27% par rapport au pic ; GMV par acheteur 474 $ (FY2020) -> 590 $ (FY2025), +24%",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut EBAY, ActiveBuyers : FY2020 185, FY2021 147, FY2022 134, FY2023 132, FY2024 134, FY2025 135. Calcul 135/185 = -27,0%. GMVperBuyer : FY2020 474, FY2025 590, soit +24,5%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "T4 2023 : FCF -3 M$ et rachat de 283 M$ ; T2 2025 : FCF -441 M$ et rachat de 624 M$ ; T2 2026 : rachat 323 M$ + dividende 138 M$ superieurs au FCF de 299 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut EBAY : FCF Q4-2023 = -3, Buyback Q4-2023 = 283 ; FCF Q2-2025 = -441, Buyback Q2-2025 = 624 ; FCF Q2-2026 = 299, Buyback Q2-2026 = 323, DivPaid Q2-2026 = 138 (323+138 = 461 > 299). Verification exhaustive : Q4-2023 et Q2-2025 sont les DEUX SEULS trimestres a FCF negatif de toute la serie, et un rachat a bien eu lieu dans chacun.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Au 30 juin 2026, capitaux propres 4 665 M$ pour un total de bilan de 17 933 M$ (26% des actifs), passif total 13 268 M$, dette financiere totale 6 735 M$ superieure aux capitaux propres ; actions diluees 1 102 M (T1 2017) -> 455 M (T2 2026), soit -59%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, bilan : \"Total liabilities 13,268 12,954 ... Total stockholders' equity 4,665 4,483 ... Total liabilities and stockholders' equity $17,933 $17,437\" ; note Debt : \"Total Debt $6,735\". Compte de resultat : \"Diluted 455 470 457 473\". kpis-haut DilShares : Q1-2017 = 1 102, Q2-2026 = 455, soit -58,7%. Calcul 4 665/17 933 = 26,0%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Take rate 13,99% au T2 2026 comme au T2 2025 (0 point d'ecart) ; sur six mois 13,95% contre 13,89% (+0,06 point) ; revenus publicitaires de 384 M$ (T1 2024) a 596 M$ (T2 2026), +55%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Take rate 13.99 % 13.99 % — %\" (trois mois) et \"Take rate 13.95 % 13.89 % 0.06 %\" (six mois). kpis-haut AdvRev : Q1-2024 = 384, Q2-2026 = 596, soit +55,2%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette nette 4 425 M$ au T2 2026 contre un point bas de 3 145 M$ au T1 2025, soit +41% en cinq trimestres",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut EBAY, NetDebt : Q1-2025 = 3 145 (point bas de la serie recente), Q2-2026 = 4 425. Calcul : +40,7% ; ecart Q1-2025 -> Q2-2026 = 5 trimestres.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Citation \"Current global economic and geopolitical events and conditions may amplify many of these risks\" attribuee au 10-Q T2 2026, Forward-Looking Statements et MD&A",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : la phrase est exacte mot pour mot, mais elle figure dans PART II, Item 1A: Risk Factors, et non dans la section Forward-Looking Statements ni dans le MD&A.",
+      "correction_proposee": "Corriger le renvoi de source : 10-Q T2 2026, Part II, Item 1A Risk Factors."
+    }
+  ]
+}

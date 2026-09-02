@@ -1,0 +1,66 @@
+{
+  "ticker": "AFL",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "\"contre 54% des revenus ajustes et 76% de l'actif total un an plus tot\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : \"Aflac Japan's adjusted revenues as a percentage of the Company's total adjusted revenues were 51% and 54% in the three-month periods ... ended June 30, 2026 and 2025, respectively. The percentage of the Company's total assets attributable to Aflac Japan was 75% at June 30, 2026, compared with 76% at December 31, 2025.\"",
+      "correction_proposee": "Le 54% est bien un comparatif a un an. Le 76% est mesure au 31 DECEMBRE 2025, pas un an plus tot. Ecrire \"contre 54% des revenus ajustes un an plus tot et 76% de l'actif total au 31 decembre 2025\"."
+    },
+    {
+      "affirmation": "\"les grands pairs americains de l'assurance-vie (MetLife, Prudential Financial) n'ont pas de dependance geographique unique comparable\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Aucune source dans le 10-Q T2 2026, le 10-K FY2025, risks/extracted.json ni kpis-haut/AFL.json. Le champ \"source\" du bloc renvoie a \"10-Q T2 2026, section Segment Information\", qui ne contient aucun comparatif concurrentiel.",
+      "correction_proposee": "Supprimer l'affirmation ou la sourcer sur les depots de MetLife et Prudential Financial. En l'etat elle est d'autant plus fragile que ces deux groupes exploitent eux-memes des activites japonaises majeures."
+    },
+    {
+      "affirmation": "\"le yen s'est affaibli de 9,3% en moyenne au T2 2026 face au dollar (159,45 contre 144 un an plus tot)\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"The average yen/dollar exchange rate for the three-month period ended June 30, 2026 was 159.45, or 9.3% weaker than the average rate of 144.60 for the same period in 2025.\"",
+      "correction_proposee": "Le taux de reference est 144,60, pas 144. Corriger le chiffre compare. Le -9,3% et le -6,2% sur six mois sont exacts."
+    },
+    {
+      "affirmation": "Resultat net 825 M$ (+37,7%), pertes de placement 153 M$ contre 421 M$, resultat ajuste -7,7%, BPA ajuste dilue -1,7%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Net earnings were $825 million, or $1.63 per diluted share, in the second quarter of 2026, compared with $599 million, or $1.11 per diluted share\" (825/599 = +37,7%) ; \"net investment losses of $153 million, compared with net investment losses of $421 million\" ; \"Adjusted earnings in the second quarter of 2026 were $883 million, or $1.75 per diluted share, compared with $957 million, or $1.78 per diluted share\" (-7,7% et -1,7%)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Aflac Japon = 51% des revenus ajustes et 75% de l'actif total au 30 juin 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Aflac Japan's adjusted revenues as a percentage of the Company's total adjusted revenues were 51% ... The percentage of the Company's total assets attributable to Aflac Japan was 75% at June 30, 2026\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "JGB disponibles a la vente : 4 047 M$ de moins-value latente sur 17 381 M$ de cout amorti (~23%) ; JGB detenus jusqu'a echeance : 1 209 M$ de moins-value sur 14 900 M$ de valeur comptable nette",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, note titres de placement : AFS \"Japan government and agencies $17,381 | $0 | $29 | $4,047 | $13,363\" ; HTM \"Japan government and agencies $14,901 | $1 | $14,900 | $5 | $1,209 | $13,696\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "NAP Japon -14,3% en dollars et -5,6% en yens au T2 2026 ; part du cancer 73,0% -> 55,2% (-17,8 points) ; base de comparaison elevee liee au lancement de Miraito en mars 2025 ; montee de Tsumitasu et Anshin Palette",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Aflac Japan Sales : \"New annualized premium sales $123 | $143 ... ¥19.6 | ¥20.7\" et \"Increase (decrease) over prior period (14.3)% ... (5.6)%\" ; \"Cancer 55.2% | 73.0%\" ; \"primarily reflects a high prior-year sales baseline for Miraito cancer insurance following its launch in March 2025, partially offset by strong growth in the refreshed Tsumitasu savings-type life insurance product and Anshin Palette\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Ratio combine US 79,1% (+1,6 pt) et ratio de sinistralite US 49,5% (+2,2 pts) au T2 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, operating ratios Aflac U.S., Ratios to total premiums : \"Total benefits and claims 49.5% | 47.3%\" (+2,2 pts). kpis-haut AFL : us_combined_ratio 79,1% (+1,6pp), us_benefit_ratio 49,5% (+2,2pp).",
+      "correction_proposee": "Reserve de methode : le 10-Q ne publie pas de \"ratio combine\" pour le segment US ; il s'agit d'un agregat derive par kpis-haut. Le ratio de sinistralite, lui, est verifie ligne a ligne."
+    },
+    {
+      "affirmation": "Taux d'imposition effectif combine \"en hausse de 15,2% a 19,6% en 2025\", \"cite en Item 1A du 10-K FY2025 comme risque reglementaire\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 : \"The Company's combined U.S. and Japanese effective income tax rate on pretax earnings was 19.6% in 2025 and 15.2% in 2024.\"",
+      "correction_proposee": "Chiffres exacts, mais ils figurent dans le MD&A du 10-K, pas dans l'Item 1A Facteurs de risque. La mention \"cite en Item 1A ... en tendance defavorable\" provient de la categorisation interne de risks/extracted.json : corriger le renvoi."
+    },
+    {
+      "affirmation": "Verbatim \"Japanese yen weakening has the effect of suppressing current period results in relation to the comparable prior period\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, section Aflac Japan : phrase reproduite mot pour mot.",
+      "correction_proposee": ""
+    }
+  ]
+}

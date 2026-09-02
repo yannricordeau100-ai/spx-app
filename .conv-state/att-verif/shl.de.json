@@ -1,0 +1,96 @@
+{
+  "ticker": "SHL.DE",
+  "verdict_global": "a_corriger",
+  "_sources_verifiees": [
+    "data-lake/SHL.DE/ir/CP/SHL.DE_CP_T3-2026_2026-07-31.txt.gz",
+    "data-lake/SHL.DE/ir/RFS/SHL.DE_RFS_S1-2026_2026-05-07.txt.gz",
+    "data-lake/SHL.DE/ir/URD/SHL.DE_URD_FY2025_2025-11-25.txt.gz",
+    "data-lake/SHL.DE/segments_fr.json, geo_fr.json, risks/extracted.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "REGLEMENTAIRE/RISQUE - \"Le rapport annuel 2025 classe la concurrence comme le troisieme risque le plus important de l'entreprise\".",
+      "verdict": "EXAGERE",
+      "verbatim_source": "URD FY2025, A.5.2 \"Assessment of the overall risk situation\" : \"The most significant risks we are currently exposed to are Economic, Political and Geopolitical Developments, Cybersecurity and Competitive Environment. As in the prior year, Economic, Political and Geopolitical Developments constitutes the most significant risk. We consider all other risks mentioned above not as high as the three most significant risks.\"",
+      "correction_proposee": "Le rapport nomme TROIS risques les plus importants et ne classe explicitement que le premier ; il n'attribue aucun rang au 2e ni au 3e. Ecrire : \"le rapport annuel 2025 range la concurrence parmi les trois risques les plus importants du groupe, aux cotes de l'environnement economique/geopolitique et de la cybersecurite\"."
+    },
+    {
+      "affirmation": "REGLEMENTAIRE/RISQUE - la concurrence est classee \"en hausse par rapport a l'exercice precedent\" par le rapport annuel.",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "URD FY2025, A.5.2 : \"Some of the assessments of individual risks have changed during fiscal year 2025... As in the prior year, Economic, Political and Geopolitical Developments constitutes the most significant risk.\" Aucune phrase n'indique que l'appreciation du risque concurrentiel a augmente. Le champ trend \"up\" provient de data-lake/SHL.DE/risks/extracted.json, dont le score_rationale dit : \"Tendance vs exercice precedent : en hausse, l'empreinte des concurrents chinois 'has grown and could further increase'\" - c'est une inference Mettrik a partir d'une phrase sur les concurrents, pas une notation de la societe.",
+      "correction_proposee": "Supprimer \"en hausse par rapport a l'exercice precedent\". Ne pas presenter la notation interne Mettrik comme un classement du rapport annuel."
+    },
+    {
+      "affirmation": "Citation \"In particular, the global footprint of our Chinese competitors has grown and could further increase\" et mention des nouveaux entrants IA sur le portefeuille numerique.",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025, Competitive Environment : \"In particular, the global footprint of our Chinese competitors has grown and could further increase. Against the backdrop of rapid technological progress, new companies previously outside the industry, such as IT companies or AI start-ups, could become competitors for our digital portfolio.\"",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "Guidance FY2026 : croissance comparable abaissee de 4,5/5,0% a 3,5/4,0% ; BPA ajuste releve de 2,20/2,30 EUR a 2,35/2,45 EUR ; la hausse de BPA vient des remboursements de droits de douane, pas de l'activite.",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP T3 FY2026 : \"For fiscal year 2026, we now expect comparable revenue growth between 3.5% and 4.0% over fiscal year 2025 (previously between 4.5% and 5.0%). For adjusted basic earnings per share, we now expect a range of between EUR2.35 and EUR2.45 (previously between EUR2.20 and EUR2.30).\" CEO Bernd Montag : \"Due to the revenue weakness in Diagnostics we are decreasing our revenue growth outlook while raising the EPS outlook by the amount of the tariff refunds.\"",
+      "correction_proposee": "Aucune. Le hook \"La societe le dit elle-meme\" est integralement soutenu par la citation du directeur general."
+    },
+    {
+      "affirmation": "Citation presentee comme verbatim : \"Tariff refunds more than offset lower earnings contributions from the operating business and the lower financial income, net.\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "CP T3 FY2026 : \"Adjusted basic earnings per share of EUR0.70 were above the prior-year quarter level of EUR0.64. Tariff refunds more than offset lower earnings contributions from the operating business and the lower than the prior-year financial income, net.\"",
+      "correction_proposee": "Le sens est preserve mais la citation entre guillemets est retouchee (\"the lower financial income\" au lieu de \"the lower than the prior-year financial income\"). Retablir le verbatim exact."
+    },
+    {
+      "affirmation": "Diagnostics T3 FY2026 : CA 992 M EUR contre 1 059 (-6,3% publie, -5,5% comparable), EBIT ajuste 40 contre 97 (-58,5%), marge 4,1% contre 9,2% ; \"clearly below the prior-year-quarter level\".",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP T3 FY2026, segment Diagnostics : \"Total adjusted revenue 992 / 1,059 / -6.3% / -5.5%\" ; \"Adjusted EBIT 40 / 97 / -58.5%\" ; \"Adjusted EBIT margin 4.1% / 9.2%\" ; \"The segment's adjusted EBIT margin of 4.1% was clearly below the prior-year-quarter level.\"",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "Marges T3 FY2026 : Imaging 26,5% (+2,8 pts), Precision Therapy 17,5% (+3,1 pts), Diagnostics 4,1% (perte de plus de 5 points).",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP T3 FY2026 : Imaging \"Adjusted EBIT margin 26.5% / 23.7%\" ; Precision Therapy \"17.5% / 14.4%\" ; Diagnostics \"4.1% / 9.2%\".",
+      "correction_proposee": "Aucune sur les chiffres. Nuance a envisager : la societe attribue aussi les hausses d'Imaging et de Precision Therapy aux remboursements tarifaires (\"Tariff refunds and low contributions from revenue growth had a positive effect\")."
+    },
+    {
+      "affirmation": "Diagnostics pesait 18,6% du CA groupe sur l'exercice 2025 ; la Chine 10,6%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025 : Diagnostics 4,346 M EUR ; total groupe 23,375 Mds EUR (4 346 / 23 375 = 18,59%). geo_fr.json (note geographique URD FY2025) : Chine 2,482 Mds EUR sur 23,375 = 10,62%.",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "\"Le chiffre d'affaires en Chine recule de 7,1% sur un an au troisieme trimestre, a comparer a une croissance mondiale de 2,8% en comparable\".",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP T3 FY2026, Revenue by region Q3 : \"China 576 / 620 / -7.1% (Act.) / -10.3% (Comp.)\" ; \"Siemens Healthineers 5,764 / 5,662 / 1.8% (Act.) / 2.8% (Comp.)\".",
+      "correction_proposee": "Chiffres exacts mais bases melangees : -7,1% est la variation PUBLIEE de la Chine alors que +2,8% est la croissance COMPARABLE du groupe. A base homogene l'ecart est plus large (-10,3% contre +2,8%). Erreur dans le sens conservateur, a harmoniser."
+    },
+    {
+      "affirmation": "Titre \"Recul structurel en Chine\" : la societe attribue le recul a un changement structurel de l'environnement de marche.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "CP T3 FY2026, section Diagnostics uniquement : \"The China region recorded a sharp revenue decline, mainly due to a structural change in the market environment.\" Pour les autres segments, le meme communique decrit une baisse \"very low double-digit\" (groupe), \"high single-digit\" et \"mid-single-digit\" sans invoquer de changement structurel.",
+      "correction_proposee": "L'attribution structurelle ne vaut que pour Diagnostics en Chine. Retitrer : \"Recul en Chine, qualifie de structurel sur le seul Diagnostics\". Le corps de l'argument scope correctement, le titre generalise."
+    },
+    {
+      "affirmation": "Dette nette (retraites incluses) 13 164 M EUR au 31 mars 2026, +692 M EUR sur six mois ; capitaux propres 18 261 M EUR (+170 M EUR) ; ratio d'environ 69% a 72%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "RFS S1 FY2026 : \"Net debt (including pensions) 13,164 / 12,472\" ; \"As of the reporting date, net debt (including pensions) amounted to EUR13,164 million, EUR692 million above the level of September 30, 2025.\" ; \"Total equity 18,261 / 18,091\" ; \"Equity increased by EUR170 million to EUR18,261 million.\"",
+      "correction_proposee": "Aucune. 13 164/18 261 = 72,1% ; 12 472/18 091 = 68,9%."
+    },
+    {
+      "affirmation": "L'essentiel du financement (14 535 M EUR) provient de prets intragroupe avec Siemens AG plutot que de dette bancaire tierce.",
+      "verdict": "CONFORME",
+      "verbatim_source": "RFS S1 FY2026, tableau Net debt : \"Current liabilities to the Siemens Group from financing activities 3,579\" + \"Non-current liabilities to the Siemens Group from financing activities 10,956\" = 14 535, contre \"Short-term financial debt and current maturities of long-term financial debt 318\" + \"Long-term financial debt 465\" = 783 de dette externe.",
+      "correction_proposee": "Aucune. La dette intragroupe represente 95% du financement brut."
+    },
+    {
+      "affirmation": "Siemens AG detient 68,70% du capital et des droits de vote au 30 septembre 2025 ; conseil de surveillance de 20 membres, 30% d'independants (6 sur 20).",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025 : Siemens AG \"as of September 30, 2025 directly and indirectly held 774,986,983 shares (equaling 68.70% of all shares), carrying 774,986,983 voting rights\" ; \"The Supervisory Board consists of 20 members... The percentage of independent members of the Supervisory Board is 30%.\" ; \"six shareholder representatives of the Supervisory Board are independent of the company, its Managing Board, and the controlling shareholder\".",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "\"un niveau que le rapport annuel explique lui-meme par le controle de Siemens AG et la codetermination salariale obligatoire\".",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "URD FY2025 enonce le chiffre de 30% et, separement, les criteres d'independance du GCGC (\"independent of the company and its Managing Board, and independent of any controlling shareholder\") ainsi que la composition paritaire (\"half being shareholder representatives and half representatives of the employees\"). Il ne formule nulle part cette explication causale du taux de 30%.",
+      "correction_proposee": "Retirer \"que le rapport annuel explique lui-meme par\". Presenter les deux facteurs comme une lecture de l'ATT, ou s'en tenir aux faits publies : 20 membres, moitie representants des salaries, 6 independants au sens du GCGC."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "ticker": "EL.PA",
+  "verdict": "propre",
+  "confiance": "haute",
+  "problemes": [
+    {
+      "bloc": "hero_kpi (src/data/v2-pipeline/el.pa.json)",
+      "valeur_actuelle": "CA_PS",
+      "valeur_correcte": "REV_Q",
+      "source": ".batches-drafts-safe/kpis-haut/EL.PA.json (hero_kpi = REV_Q, pv_score 10) ; le hero_kpi_rationale stocke decrit deja le CA trimestriel total, pas le segment Professional Solutions. Le runtime corrige de lui-meme (load-company.ts recalcule le hero par pv_score max) mais le champ stocke reste faux"
+    },
+    {
+      "bloc": "champs identite manquants",
+      "valeur_actuelle": "sector, subsector, founded, ipo, ranks, next_earnings_date, logo_treatment absents ; aucun fichier src/data/v2-pipeline-enrich/el.pa.*",
+      "valeur_correcte": "sector = Consommation discretionnaire / subsector = Eyewear, founded 1849 (Essilor) - 2018 (fusion), a completer",
+      "source": "src/data/v2-pipeline/el.pa.json ; comparaison avec san.pa/ora.pa/ai.pa qui ont ces champs"
+    },
+    {
+      "bloc": "description.long_fr",
+      "valeur_actuelle": "Chiffre d'affaires 2024 : ~26.5 Mds €",
+      "valeur_correcte": "Chiffre d'affaires 2025 : 28,5 Mds €",
+      "source": "data-lake/EL.PA/ir/CP/EL.PA_CP_FY2025_2026-02-11.txt.gz ligne 60 : 28 491 M€"
+    }
+  ],
+  "_controles_ok": [
+    "Identite : EssilorLuxottica SA, EUR, marques Ray-Ban/Varilux - aucune trace d'Estee Lauder (ni Stephane de La Faverie, ni parfums/cosmetiques)",
+    "Gouvernance : PDG Francesco Milleri, Delfin 32,4 %, AG 2026-04-28 - correct",
+    "CA T2-2026 7 692 M€ verifie CP S1-2026 ligne 86 ; CA FY2025 28 491 M€ verifie CP FY2025 ligne 60",
+    "Segments DTC 14 891 / PS 13 600 = 28 491 exact ; zones geo somment aussi a 28 491, valeurs identiques au CP lignes 83-104",
+    "Resultat net H1-2026 : 1 921 M€ ajuste et 1 566 M€ IFRS verifies CP S1-2026 lignes 59 et 69",
+    "Blocs risques / IA / gouvernance tous sources EL.PA_URD_2025 - contenu lunetterie coherent",
+    "Sous-dossiers SEC (10K, 10Q, DEF14A, 8K, xbrl) non references dans aucun bloc publie"
+  ]
+}

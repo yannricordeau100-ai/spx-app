@@ -1,0 +1,80 @@
+{
+  "ticker": "HOLN.SW",
+  "verdict_global": "a_corriger",
+  "document_verifie": "data-lake/HOLN.SW/ir/RFS/HOLN.SW_RFS_S12026_2026-08-02 ; ir/CP/HOLN.SW_CP_H1-2026_2026-07-31 ; ir/CP/HOLN.SW_CP_FY2025_2026-02-27 ; ir/URD/HOLN.SW_URD_FY2025-financier et -gouvernance_2026-02-27 ; ir/URD/HOLN.SW_URD_FY2024_2025-02-28",
+  "controles": [
+    {
+      "affirmation": "Holcim affiche une marge d'EBIT recurrent record (resume) / une marge record (titre du 3e bloc quantitatif)",
+      "verdict": "FAUX",
+      "verbatim_source": "Recurring EBIT margin (%) 18.1 / 18.3 / -20bps (tableau H1 2026). Communique CEO : 'we achieved strong profitable growth with an industry-leading recurring EBIT margin'. Le mot 'record' n'apparait dans aucun des deux documents du S1 2026.",
+      "correction_proposee": "La marge d'EBIT recurrent est de 18,1% au S1 2026, en RECUL de 20 points de base sur un an. Holcim la qualifie de 'industry-leading', jamais de record. Ecrire : 'une marge d'EBIT recurrent de 18,1%, que la societe presente comme la meilleure du secteur mais qui recule de 20 points de base sur un an'."
+    },
+    {
+      "affirmation": "Le resultat net publie a chute de 73% en 2025 essentiellement a cause de charges de depreciation et de cession liees au spin-off d'Amrize",
+      "verdict": "FAUX",
+      "verbatim_source": "Rapport financier FY2025 : 'Net income before impairment and divestments 1 878 / Impairment of goodwill and long-term assets, net of taxation (173) / Net loss on disposals of Group companies, joint ventures and associates, net of taxation (1 245) / Net income 460'. Note 5.3 : 'The \"Loss on disposals before taxes\" of CHF 1 384 million in 2025 mainly resulted from the realization of currency translation differences following the divestment of business in Nigeria'.",
+      "correction_proposee": "L'ecart vient a 90% d'une perte sur cessions de 1 384 M CHF resultant principalement du recyclage des ecarts de conversion lors de la cession de l'activite au Nigeria, plus 235 M CHF de depreciation de goodwill et d'actifs long terme. Les chiffres 387 et 1 456 sont ceux des activites poursuivies, qui excluent deja Amrize par construction : l'attribution au spin-off est erronee. Reecrire l'argument autour de la cession du Nigeria."
+    },
+    {
+      "affirmation": "Deux des trois regions (Europe et AMEA) ont vu leur chiffre d'affaires reculer en 2025, de 2,8% et 8,3%",
+      "verdict": "FAUX",
+      "verbatim_source": "Communique FY2025 : Europe 8 548 vs 8 794, -2,8% (croissance organique -2,4%) ; Asia, Middle East & Africa 3 623 vs 3 950, -8,3% (LC +2,2%, croissance organique +10,0%) ; Latin America 3 092 vs 3 138, -1,5% (LC +10,5%, organique +4,9%).",
+      "correction_proposee": "Les TROIS regions reculent en francs publies, l'Amerique latine incluse (-1,5%). Et le recul de 8,3% de l'AMEA est un pur effet de change : la region croit de 10,0% en organique et de 2,2% en monnaie locale. Ecrire : 'les trois regions reculent en francs publies sous l'effet du change, mais seule l'Europe recule aussi en organique (-2,4%)'."
+    },
+    {
+      "affirmation": "Le risque geopolitique est classe en hausse par la societe elle-meme / score de risque 4/5, tendance en hausse (source citee : Holcim URD FY2025-gouvernance)",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Le chapitre Enterprise Risk Report du Governance and Risk Report 2025 ne publie ni score chiffre ni fleche de tendance : il liste les risques par categorie avec definition, impact potentiel et reponse. Le score 4 et la tendance 'up' proviennent de data-lake/HOLN.SW/risks/extracted.json, dont le champ score_rationale explicite la derivation : 'Troisieme risque externe dans l'ordre du chapitre... Tendance en hausse vs 2024 ou le sujet etait absorbe dans \"Political risks\"'.",
+      "correction_proposee": "Le score et la tendance sont une derivation interne Mettrik, pas une classification publiee par Holcim. Ecrire : 'le sujet, absorbe en 2024 dans une categorie generale \"Political risks\", devient en 2025 un risque distinct et detaille' (fait verifiable), et supprimer 'classe en hausse par la societe elle-meme' ainsi que la mention d'un score 4/5 attribuee au document Holcim."
+    },
+    {
+      "affirmation": "Dette financiere nette de 3 785 M CHF fin 2025 a 7 300 M CHF au 30 juin 2026 (+93%), +31,6% sur un an",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net financial debt 7 300 (30.06.2026) / 3 785 (31.12.2025) / 5 548 (30.06.2025). Tableau H1 : 'Net financial debt million CHF 7 300 5 548 +31.6%'. Recalcul : 7300/3785 = +92,9%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Flux de tresorerie disponible de 36 M CHF au S1 2026 contre 156 M CHF, -77,2% ; guidance annuelle d'environ 2 Mds CHF",
+      "verdict": "CONFORME",
+      "verbatim_source": "Free cash flow million CHF 36 156 -77.2% / Guidance 2026 : 'Free cash flow of around CHF 2 billion'.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Impairment d'actifs operationnels de 4 a 93 M CHF, impairment de goodwill et actifs long terme de 4 a 97 M CHF, restructuration et litiges de 29 a 64 M CHF",
+      "verdict": "CONFORME",
+      "verbatim_source": "Restructuring, litigation and other non-recurring costs (64) (29) / Impairment of operating assets (93) (4) / Impairment of goodwill and long-term assets (97) (4).",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Spin-off d'Amrize effectif le 23 juin 2025, perimetre reduit d'environ 40%",
+      "verdict": "CONFORME",
+      "verbatim_source": "'Amrize refers to the North American business spun off on 23 June 2025.' / 'The distribution was effected on 23 June 2025'. Perimetre : CA 2024 total 26,4 Mds CHF (rapport annuel 2024) contre 16 201 M CHF retraite en activites poursuivies, soit -38,6%.",
+      "correction_proposee": "Les ~40% sont une estimation calculee, pas un chiffre publie. Acceptable, mais 'environ 39%' serait plus exact."
+    },
+    {
+      "affirmation": "Le rapport 2025 cite les tensions Chine-Taiwan, Russie-Ukraine, Inde-Pakistan, le Moyen-Orient et les differends commerciaux americains, avec risques de retards, de hausse des couts energetiques et d'acces reduit aux materiaux essentiels",
+      "verdict": "CONFORME",
+      "verbatim_source": "Ongoing tensions, such as those between China and Taiwan, Russia and Ukraine, India and Pakistan, conflicts in the Middle East, maritime disputes in the South China Sea, and trade disagreements between the US and key partners... create uncertainty for global supply chains, market stability, and workforce security. / supply chains can be disrupted by conflicts, trade restrictions, sanctions, or transportation issues, leading to delays, higher costs and reduced access to essential materials and utilities. These disruptions can also drive up energy prices and inflation.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Risque explicite que des acteurs malveillants exploitent l'IA pour amplifier les attaques et que l'usage de services d'IA externes expose des donnees sensibles ; risque en hausse",
+      "verdict": "CONFORME",
+      "verbatim_source": "This risk has become increasingly significant due to the ongoing rise of external threats, including cyber crime and cyber warfare. In addition, threat actors may exploit AI to scale cyber attacks, and the use of external AI services could expose sensitive data to leaks or unauthorized access.",
+      "correction_proposee": "La hausse est bien affirmee par Holcim pour ce risque precis ('has become increasingly significant'). Seule la mention du score 4/5 est a retirer (voir controle precedent)."
+    },
+    {
+      "affirmation": "Chiffre d'affaires S1 2026 +0,7% en publie (7 925 M CHF) contre +5,2% en organique",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net sales million CHF 7 925 7 871 +0.7% / +5.2% organic growth.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Holcim cite la vulnerabilite aux marches financiers et aux taux d'interet",
+      "verdict": "CONFORME",
+      "verbatim_source": "Financial market fluctuations... Adverse movements in financial markets could weaken the Group's liquidity and financial flexibility by increasing funding and debt-servicing costs (Governance and Risk Report 2025).",
+      "correction_proposee": ""
+    }
+  ],
+  "note": "Trois erreurs factuelles substantielles (marge 'record', attribution de la chute du resultat net 2025, nombre de regions en recul) et une misattribution de source (score de risque interne presente comme une classification Holcim)."
+}

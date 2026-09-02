@@ -1,0 +1,63 @@
+{
+  "ticker": "TTE.PA",
+  "verdict": "propre",
+  "problemes": [
+    {
+      "bloc": "sector / subsector",
+      "valeur_actuelle": "null / null",
+      "valeur_correcte": "Energie / Petrole et gaz integre",
+      "source": "champ absent, a renseigner",
+      "gravite": "mineure",
+      "nature": "champ vide, pas de contamination"
+    },
+    {
+      "bloc": "kpis (completude)",
+      "valeur_actuelle": "1 seul KPI publie (ELEC_PROD)",
+      "valeur_correcte": "35 KPI verifies disponibles dans kpis-haut, non appliques",
+      "source": ".batches-drafts-safe/kpis-haut/TTE.PA.json",
+      "gravite": "mineure",
+      "nature": "manque de donnees"
+    },
+    {
+      "bloc": "revenue_by_segment / revenue_by_geography (fraicheur)",
+      "valeur_actuelle": "exercice 2024 (total 214,55 Mds $)",
+      "valeur_correcte": "exact pour FY2024 ; FY2025 publie a 201,196 Mds $ mais la ventilation par zone n'est pas encore parue (URD 2025 non publie)",
+      "source": "data-lake/TTE.PA/ir/URD/TTE.PA_URD_FY2024_2025-03-31.txt.gz + _notes de kpis-haut",
+      "gravite": "mineure",
+      "nature": "donnee correcte mais datee"
+    }
+  ],
+  "controles_recoupes": [
+    {
+      "element": "Segments FY2024 : E&P 5 655 / LNG 9 885 / Power 22 127 / Raffinage-Chimie 93 515 / M&S 83 341 / Holding 27 = 214 550 M$",
+      "resultat": "conforme au chiffre pres",
+      "source": "data-lake/TTE.PA/ir/URD/TTE.PA_URD_FY2024_2025-03-31.txt.gz ligne 34812"
+    },
+    {
+      "element": "Zones FY2024 : France 49 269 / Reste Europe 89 077 / Amerique du Nord 17 915 / Afrique 21 901 / Reste du monde 36 388 = 214 550 M$",
+      "resultat": "conforme au chiffre pres",
+      "source": "data-lake/TTE.PA/ir/URD/TTE.PA_URD_FY2024_2025-03-31.txt.gz ligne 35258"
+    },
+    {
+      "element": "Hero ELEC_PROD 48,1 TWh FY2025, serie 21,2 / 33,2 / 33,4 / 41,1 / 48,1",
+      "resultat": "conforme",
+      "source": ".batches-drafts-safe/kpis-haut/TTE.PA.json (URD 2023 + CP T4 2025)"
+    },
+    {
+      "element": "Gouvernance : PDG Patrick Pouyanne, suppression du droit de vote double (AG 2023, 99,78%)",
+      "resultat": "conforme",
+      "source": "URD FY2024"
+    },
+    {
+      "element": "Recherche Maxeon Solar dans les donnees publiees",
+      "resultat": "0 occurrence dans companies/tte.pa.json et v2-pipeline/tte.pa.json ; aucun ordre de grandeur Maxeon (CA ~1 Md$) parmi les valeurs publiees",
+      "source": "grep -i maxeon"
+    },
+    {
+      "element": "Devise",
+      "resultat": "USD (Mds $) et non EUR : c'est la devise de publication officielle de TotalEnergies, donc correct",
+      "source": "URD FY2024 comptes consolides + _notes kpis-haut"
+    }
+  ],
+  "confiance": 0.96
+}

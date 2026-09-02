@@ -1,0 +1,78 @@
+{
+ "ticker": "ADYEN.AS",
+ "verdict_global": "a_corriger",
+ "controles": [
+  {
+   "affirmation": "Taux de commission de 23,6 bps (H1 2020) a 17,1 bps (H2 2025), -28% ; marge EBITDA de 54% a 55%, creux a 43% au H1 2023",
+   "verdict": "CONFORME",
+   "verbatim_source": "kpis-haut ADYEN.AS TAKE_RATE : H1-2020 23.6, H1-2024 14.7, H2-2025 17.1 ; EBITDA_MGN : H1-2020 54, H1-2023 43, H2-2025 55",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "\"la societe elle-meme le qualifie de 'premiere contribution mesurable' de cette gamme de produits\" (produits financiers embarques)",
+   "verdict": "FAUX",
+   "verbatim_source": "La formule n'existe dans AUCUN document Adyen : lettre aux actionnaires FY2025 (0 occurrence de \"measurable\"), RFS S2-2025 (2 occurrences, sans rapport : \"measurable revenue growth\", \"measurable improvements\"), URD FY2025 (5 occurrences, sans rapport). Elle provient du signal du KPI NII_EFP de .batches-drafts-safe/kpis-haut/ADYEN.AS.json : \"premiere contribution mesurable de la gamme de produits financiers embarques\".",
+   "correction_proposee": "Supprimer l'attribution a Adyen. Ecrire : \"un produit d'interets net de 6,6 M€ au second semestre 2025, soit environ 0,5% du revenu net du semestre\" sans guillemets ni \"la societe elle-meme\". Le chiffre 6,6 M€ / 1 270,7 M€ est exact. Noter aussi que l'ATT cite \"description_fr du KPI NII_EFP\" alors que le champ description du KPI est vide, le texte etant dans le champ signal."
+  },
+  {
+   "affirmation": "Talon.One : premiere acquisition consolidee depuis l'IPO de juin 2018, annoncee \"debut 2026\"",
+   "verdict": "EXAGERE",
+   "verbatim_source": "Communique T1 2026 du 6 mai 2026 : \"Subsequent to Q1, entered into a definitive agreement to acquire Talon.One\" et \"we agreed to acquire Talon.One, a natural extension of our platform\" ; _notes kpis-haut : \"Adyen n'a realise aucune acquisition consolidee sur la periode couverte (l'acquisition de Talon.One annoncee en 2026 n'est pas encore reflechie dans les comptes)\"",
+   "correction_proposee": "Les deux citations verbatim et le caractere de premiere acquisition consolidee sont exacts. Remplacer \"debut 2026\" par \"en mai 2026, posterieurement au premier trimestre\"."
+  },
+  {
+   "affirmation": "L'URD 2025 qualifie le risque d'execution lie a la croissance de \"Given our growth stage, this risk is top of mind\"",
+   "verdict": "CONFORME",
+   "verbatim_source": "URD FY2025 : \"...to expand through Embedded Financial Products (EFP) and platforms, naturally increases execution risk. Given our growth stage, this risk is top of mind.\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Le conseil de surveillance passe de 7 membres fin 2025 a 5 depuis janvier 2026 ; independance de 86% portant sur la composition a 7",
+   "verdict": "CONFORME",
+   "verbatim_source": "gouvernance_fr.json : \"Conseil de surveillance de 7 membres fin 2025, ramene a 5 membres depuis janvier 2026 apres le depart de Delfin Rueda Arroyo et de Joep van Beurden.\" ; board_independence_pct : 86",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "\"des risques cyber et reglementaire notes au maximum dans son propre rapport annuel\" ; \"Le risque cybersecurite est note au maximum\" ; \"Le risque reglementaire est note au maximum, comme le risque cyber\"",
+   "verdict": "EXAGERE",
+   "verbatim_source": "URD FY2025, cyber : \"In Adyen's company-wide risk assessment, we identify information security-related risks as inherently high to Adyen\". URD FY2025, reglementaire : \"the regulatory compliance risk and risks related to our product offering are identified as a moderate or high inherent risk in Adyen's company-wide risk assessment\". Les notes 5/5 proviennent du champ score de data-lake/ADYEN.AS/risks/extracted.json, une notation Mettrik, pas d'Adyen.",
+   "correction_proposee": "Ne pas presenter la notation Mettrik comme celle du rapport annuel. Pour le cyber : \"Adyen qualifie son exposition aux risques de securite de l'information d'intrinsequement elevee\". Pour le reglementaire : \"Adyen classe la conformite reglementaire comme un risque inherent modere a eleve\" — le \"note au maximum\" est directement contredit par le verbatim que l'ATT cite elle-meme en preuve."
+  },
+  {
+   "affirmation": "En 2025 un incident DDoS a du etre declare et a provoque une interruption temporaire du service ; hausse des incidents de securite dans l'industrie",
+   "verdict": "CONFORME",
+   "verbatim_source": "URD FY2025 : \"One regulatory-reportable DDoS incident occurred, triggering Adyen's early-warning alert and causing temporary disruption\" ; \"...no regulatory notification, and no intrusion incidents were recorded\" ; \"the increase in industry-wide security incidents\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Quatre chantiers reglementaires simultanes en 2025 : PSD3, PCI MPoC, PCI Software Security Framework, FRTB",
+   "verdict": "CONFORME",
+   "verbatim_source": "risks/extracted.json (base URD FY2025) : \"la future reglementation des paiements PSD3, les normes produit et logiciel PCI Mobile Payments on Commercial Devices et PCI Software Security Framework, ainsi que la revision bancaire Fundamental Review of the Trading Book\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Volume traite H2 2025 : 745,3 Mds€, +12% publie contre +19% hors un client unique a tres gros volume",
+   "verdict": "CONFORME",
+   "verbatim_source": "kpis-haut PROCESSED_VOL, signal H2-2025 : \"745,3 Mds € de paiements traites au second semestre 2025, +12% sur un an et +19% hors un client unique a tres gros volume, pour un total de 1 394,3 Mds € sur l'exercice\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "116,8 M€ investis en 2025 (+28,3%), soit 5% du revenu net ; plafond \"a sustainable capital expenditure level of up to 5% of our net revenue\"",
+   "verdict": "CONFORME",
+   "verbatim_source": "Communique T1 2026, Financial objectives : \"We expect to maintain a sustainable capital expenditure level of up to 5% of our net revenue.\" ; kpis-haut CAPEX FY2025 116.8 (+28,3%) ; 116,8 / 2 364,2 = 4,9%",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "\"1 062,5 M€ de resultat net et 606,8 M€ de flux de tresorerie disponible au second semestre 2025\"",
+   "verdict": "FAUX",
+   "verbatim_source": "kpis-haut NET_INCOME : H2-2025 = 581,6 M€ ; signal : \"581,6 M€ de resultat net au second semestre 2025, +13% sur un an, pour 1 062,5 M€ sur l'exercice, premiere annee au dessus du milliard\". FCF H2-2025 = 606,8 M€ (correct).",
+   "correction_proposee": "1 062,5 M€ est le resultat net de l'EXERCICE 2025 complet, pas du second semestre. Ecrire : \"1 062,5 M€ de resultat net sur l'exercice 2025 (dont 581,6 M€ au second semestre) et 606,8 M€ de flux de tresorerie disponible au second semestre\". En l'etat les deux chiffres sont rattaches au meme semestre, ce qui est faux."
+  },
+  {
+   "affirmation": "Adyen ne verse aucun dividende et n'a rachete aucune action en 2025",
+   "verdict": "CONFORME",
+   "verbatim_source": "_notes kpis-haut : \"Adyen ne verse aucun dividende (politique explicite du rapport annuel 2025 : le resultat est affecte aux reserves) et n'a rachete aucune action en 2025\"",
+   "correction_proposee": ""
+  }
+ ]
+}

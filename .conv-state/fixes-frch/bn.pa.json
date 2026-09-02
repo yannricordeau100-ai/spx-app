@@ -1,0 +1,63 @@
+{
+  "ticker": "BN.PA",
+  "verdict": "propre",
+  "problemes": [
+    {
+      "bloc": "hero_kpi (divergence companies vs v2-pipeline)",
+      "valeur_actuelle": "companies/bn.pa.json hero_kpi = SN_OP_INCOME ; v2-pipeline/bn.pa.json hero_kpi = WATERS_REV_Q",
+      "valeur_correcte": "SN_OP_INCOME (conforme au hero valide dans .batches-drafts-safe/kpis-haut/BN.PA.json)",
+      "source": ".batches-drafts-safe/kpis-haut/BN.PA.json",
+      "gravite": "mineure",
+      "nature": "incoherence interne, aucun lien avec la pollution Brookfield"
+    },
+    {
+      "bloc": "kpis (completude)",
+      "valeur_actuelle": "1 seul KPI publie (SN_OP_INCOME)",
+      "valeur_correcte": "46 KPI verifies disponibles dans kpis-haut, non appliques",
+      "source": ".batches-drafts-safe/kpis-haut/BN.PA.json",
+      "gravite": "mineure",
+      "nature": "manque de donnees, pas de contamination"
+    },
+    {
+      "bloc": "sector",
+      "valeur_actuelle": "Consommation discretionnaire",
+      "valeur_correcte": "Consommation de base (agroalimentaire = consumer staples)",
+      "source": "classification sectorielle standard, description interne du fichier",
+      "gravite": "mineure",
+      "nature": "misclassification, pas de contamination"
+    }
+  ],
+  "controles_recoupes": [
+    {
+      "element": "Chiffre d'affaires FY2025 27 283 M EUR (total revenue_by_segment et revenue_by_geography)",
+      "resultat": "conforme",
+      "source": "data-lake/BN.PA/ir/PR/BN.PA_PR_FY2025_2026-02-20.txt.gz lignes 8, 31, 109"
+    },
+    {
+      "element": "Hero SN_OP_INCOME 2 016 M EUR, marge 21,7%",
+      "resultat": "conforme",
+      "source": "data-lake/BN.PA/ir/PR/BN.PA_PR_FY2025_2026-02-20.txt.gz ligne 205"
+    },
+    {
+      "element": "Segments EDP 13 158 / Nutrition Specialisee 9 277 / Eaux 4 848 M EUR",
+      "resultat": "conforme",
+      "source": "data-lake/BN.PA/ir/PR/BN.PA_PR_FY2025_2026-02-20.txt.gz lignes 103-106"
+    },
+    {
+      "element": "Zones Europe 9 779 / Amerique du Nord 6 316 / Chine-Asie du Nord-Oceanie 3 953 ; AMEA 4 444 + LatAm 2 792 = 7 236",
+      "resultat": "conforme",
+      "source": "data-lake/BN.PA/ir/PR/BN.PA_PR_FY2025_2026-02-20.txt.gz ligne 177"
+    },
+    {
+      "element": "Gouvernance : PDG Antoine de Saint-Affrique",
+      "resultat": "conforme",
+      "source": "data-lake/BN.PA/ir/PR/BN.PA_PR_FY2025_2026-02-20.txt.gz ligne 58"
+    },
+    {
+      "element": "Devise EUR partout, risques sources ir/URD/BN.PA_URD_FY2025, IA = Microsoft AI Academy Danone",
+      "resultat": "conforme, aucune trace de Brookfield Corporation",
+      "source": "grep 'brookfield' sur companies et v2-pipeline : 0 occurrence"
+    }
+  ],
+  "confiance": 0.97
+}

@@ -1,0 +1,86 @@
+{
+  "ticker": "NN.AS",
+  "verdict_global": "a_corriger",
+  "_note_judiciaire": "Aucune affirmation judiciaire ni reglementaire dans cette ATT (pas d'enquete, poursuite, amende, litige). Le seul volet reglementaire est prudentiel (ratios Solvabilite II), controle ci-dessous.",
+  "_note_sources": "Les filings SEC du dossier data-lake/NN.AS (10K, 10Q, 8K, DEF14A, S1, S4, SC13D, SC13G, xbrl) appartiennent a NextNav Inc., pas a NN Group (cf. _WRONG_COMPANY.txt). L'ATT les ecarte explicitement, ce qui est correct. Verification faite sur data-lake/NN.AS/ir/CP/NN.AS_CP_S1-2026_2026-08-05.txt.gz, NN.AS_CP_FY2025_2026-02-11.txt.gz et data-lake/NN.AS/ir/URD/NN.AS_URD_FY2025_2026-03-05.txt.gz.",
+  "controles": [
+    {
+      "affirmation": "Resultat net S1 2026 de 1 066 M€ contre 391 M€ au S1 2025, soit +172,5% ; resultat operationnel 1 507 M€ (+4,4%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Operating result3) 1,507 1,443 4.4% ... Net result 1,066 391 172.5% (tableau 'Operating result and net result', CP 1H26)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Preuve citee : \"Result before tax increased to EUR 1,351 million from EUR 528 million in the first half of 2025, mainly due to positive revaluations and the negative result on divestments in 1H25\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "Result before tax increased to EUR 1,351 million from EUR 528 million in the first half of 2025, mainly due to positive revaluations and the negative result on divestments in 1H25. (CP 1H26, verbatim exact)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Preuve citee : \"Net result decreased to EUR 1,188 million... following the increase of long-term interest rates\" (CP FY2025)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Deux phrases distinctes et non contigues du CP FY2025 : (1) 'The net result decreased to EUR 1,188 million compared to EUR 1,583 million in 2024.' ; (2) '...revaluations had a negative impact of EUR -757 million compared with EUR 535 million in 2024, mainly due to revaluations on derivatives used for hedging purposes following the increase of long-term interest rates.'",
+      "correction_proposee": "La citation presentee comme un seul verbatim est un montage de deux phrases separees du communique. Le fond est exact mais la citation ne l'est pas. Remplacer par les deux phrases reelles, ou par : 'le resultat net recule a 1 188 M€ contre 1 583 M€ en 2024, sous l'effet de revalorisations negatives de -757 M€ sur derives de couverture liees a la hausse des taux longs'."
+    },
+    {
+      "affirmation": "Resultat net FY2025 en baisse de 24,9% a 1 188 M€ malgre une hausse de 17% du resultat operationnel",
+      "verdict": "CONFORME",
+      "verbatim_source": "Operating result3) 3,002 2,574 16.6% ; Net result 1,188 1,583 -24.9% (CP FY2025). Le communique titre lui-meme 'Operating result3) rose 17% to EUR 3,002 million; net result of EUR 1,188 million'.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "La hausse du ratio de solvabilite groupe de 220% a 224% vient surtout de l'exclusion de NN Bank du perimetre de calcul, et non d'un renforcement organique de meme ampleur",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Solvency II ratio of NN Group increased to 224% from 220% at the end of 2025, mainly driven by the exclusion of NN Bank from the NN Group Solvency II ratio AND OPERATING CAPITAL GENERATION NET OF CAPITAL FLOWS, partly offset by negative market impacts, as well as model and assumption changes (CP 1H26). Et le detail du pont : 'Operating capital generation added 13%-points to the solvency ratio, which is 4%-points higher than the capital flows we have offered to shareholders... Market variances had a -5%-points impact... Other had a 5%-points impact. The positive impact of the exclusion of NN Bank from the NN Group Solvency II ratio was partly offset by model and assumption changes, as well as the impact of a pension fund transaction.' Enfin le resume : 'NN Group Solvency II ratio increased to 224%, supported by net capital build and the exclusion of NN Bank...'",
+      "correction_proposee": "La preuve citee dans l'ATT tronque la phrase source par des points de suspension et supprime le co-facteur 'and operating capital generation net of capital flows', c'est-a-dire precisement le renforcement organique que l'ATT declare absent. Le pont publie par NN Group montre que la generation de capital operationnelle nette des flux aux actionnaires apporte +4 points, soit la totalite de la hausse de 4 points ; l'exclusion de NN Bank est logee dans le poste 'Other' (+5 points net) qui compense les variances de marche (-5 points). Reformuler : 'la hausse de 4 points combine une generation de capital operationnelle nette des flux actionnaires de +4 points, des variances de marche de -5 points et un poste Other de +5 points ou l'exclusion de NN Bank est en partie compensee par des changements de modeles et d'hypotheses et par une transaction de fonds de pension'. Supprimer le 'et non d'un renforcement organique de meme ampleur', contredit par la source."
+    },
+    {
+      "affirmation": "Le ratio de Solvabilite II de NN Life a recule de 223% a 213% SUR UN AN (repete dans le bloc quantitatif : 'a recule de 10 points sur un an')",
+      "verdict": "FAUX",
+      "verbatim_source": "The NN Life Solvency II ratio decreased to 213% from 223% AT THE END OF 2025, mainly due to the same negative market impacts, model and assumption changes, as well as the impact of the pension fund transaction. (CP 1H26). Tableau : NN Life Solvency II ratio 213% (30 juin 2026) / 223% (31 dec 2025).",
+      "correction_proposee": "Le recul de 10 points est mesure sur SIX MOIS (31 decembre 2025 au 30 juin 2026), pas sur un an. Le hook de l'ATT est correct ('sur la meme periode') mais l'argument et le bloc quantitatif disent 'sur un an'. Remplacer par 'sur le premier semestre 2026' ou 'depuis fin 2025'. Ajouter que la source cite les impacts de marche negatifs en premier facteur, avant la transaction de fonds de pension."
+    },
+    {
+      "affirmation": "Position de tresorerie de la holding tombee a 1,7 Md€ au S1 2026, reflet des versements aux actionnaires, du remboursement de titres subordonnes perpetuels et des frais et interets de holding, partiellement compenses par les remontees des filiales",
+      "verdict": "CONFORME",
+      "verbatim_source": "The cash capital position at the holding company decreased to EUR 1,738 million from EUR 1,843 million at the end of 2025. This reflects capital flows to shareholders, the repayment of EUR 237 million of undated subordinated notes, as well as other movements including holding company expenses, interest on loans and debt and other holding company cash flows, partly offset by remittances from subsidiaries. (CP 1H26)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Effet de levier financier en baisse a 17,3% contre 18,0% fin 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "Financial leverage ratio (b/(a+b)) 17.3% 18.0% ... The financial leverage ratio of NN Group decreased to 17.3% from 18.0% at the end 2025. (CP 1H26)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Japon : APE -22% (-11% a taux constant), VNB -16% (-5% a taux constant), demande deplacee vers des produits de plus courte duree ; 'remains well positioned to regain market leadership in the COLI market'",
+      "verdict": "CONFORME",
+      "verbatim_source": "VNB in Japan declined 16%, or 5% on a constant-currency basis, mainly due to lower volumes, partly offset by higher interest rates. Japan Life saw demand shift towards shorter-duration products, slowing the recovery in sales. APE declined 22%, or 11% on a constant currency basis. ; The business remains well positioned to regain market leadership in the COLI market, supported by its competitive advantages. (CP 1H26)",
+      "correction_proposee": "Verbatim exacts. Reserve de forme : la lecture 'ce qui signale une perte de leadership deja actee' est une inference de l'ATT, pas une declaration de NN Group ; la formuler comme une lecture et non comme un fait ('le verbe regain implique...')."
+    },
+    {
+      "affirmation": "OCG Non-vie Pays-Bas en recul de 4,4% a 168 M€ au S1 2026 (meteo defavorable, sinistres Group Income, courtage plus faible) ; ratio combine 90,5% sous la guidance 91-93%",
+      "verdict": "CONFORME",
+      "verbatim_source": "Tableau OCG : Netherlands Non-life 168 175 -4.4%. Narratif : 'Netherlands Non-life's OCG decreased by 4% to EUR 168 million compared with the first half of 2025, as adverse weather, higher claims in Group Income and lower broker results were partly offset by growth in the P&C portfolio and margin improvements in Motor.' ; 'The combined ratio for the first half year was 90.5%, below the 91%-93% guidance range' (CP 1H26)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Vie et Non-vie Pays-Bas = 75,9% des revenus d'assurance du groupe en 2025 (39,7% + 36,2%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025, note segments : Insurance income 4,575 (NL Life) 4,165 (NL Non-life) 2,226 (Insurance Europe) 531 (Japan Life) 20 (Other) = 11,517. Soit 39,7% + 36,2% = 75,9%.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Les Pays-Bas pesent 72,9% des revenus totaux du groupe par pays de destination, a comparer aux 19,3% d'Assurance Europe et aux 4,6% du Japon",
+      "verdict": "FAUX",
+      "verbatim_source": "URD FY2025, Note 30 'Principal subsidiaries and geographical information (2025)', colonne Total revenues : The Netherlands (NL) 13,449 ; Poland 941 ; Japan 821 ; Greece 819 ; Belgium 728 ; Spain 595 ; Romania 380 ; Czech Republic 286 ; Slovak Republic 205 ; Hungary 178 ; total 18,438.",
+      "correction_proposee": "Deux defauts. (1) Bases melangees : 72,9% est une part des REVENUS TOTAUX PAR PAYS (base 18,438 Mds€), tandis que 19,3% et 4,6% sont des parts des REVENUS D'ASSURANCE PAR SEGMENT (base 11,517 Mds€). La comparaison directe des trois chiffres est invalide. Sur la base geographique, le Japon pese 4,5% (821/18 438) et l'ensemble des pays europeens hors Pays-Bas pese environ 22,6%. (2) 'par pays de destination' est inexact : la note 30 ventile par pays d'implantation des filiales principales, pas par destination. Reformuler en gardant une seule base."
+    },
+    {
+      "affirmation": "Dividende en progression de 12%",
+      "verdict": "CONFORME",
+      "verbatim_source": "with a 2026 interim dividend of EUR 1.55 per ordinary share, up 12% compared with the 2025 interim dividend (CP 1H26)",
+      "correction_proposee": null
+    }
+  ]
+}

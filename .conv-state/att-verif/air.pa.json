@@ -1,0 +1,84 @@
+{
+  "ticker": "AIR.PA",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Preuve du facteur de risque tarifaire : « the United States has already imposed tariffs on new aircraft imported from the European Union and on parts from France and Germany delivered to the assembly line in Mobile, Alabama » (URD FY2024, section 3.1.1)",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Cette phrase ne figure pas dans data-lake/AIR.PA/ir/URD/AIR.PA_URD_FY2024_2025-04-09. Le texte reel est : « In the past, the US has imposed increased tariffs on new aircraft imported from the European Union to the US, and on imports of aircraft manufacturing parts and components from France and Germany delivered to the Company's final assembly line in Mobile, Alabama. The imposition of similar measures in the future, particularly by the US or China (and including any retaliatory trade measures), could have a material adverse effect on the Company's business, results of operations and financial condition. » La phrase citee entre guillemets est en realite la retraduction du resume francais produit par le pipeline Mettrik dans data-lake/AIR.PA/risks/extracted.json (« Le document rappelle que les Etats-Unis ont deja impose des droits sur les avions neufs importes d'Union europeenne... »), pas un verbatim d'Airbus.",
+      "correction_proposee": "Remplacer le verbatim par le texte reel de l'URD et corriger le temps : Airbus decrit des droits de douane imposes DANS LE PASSE (« In the past, the US has imposed increased tariffs... ») et un risque portant sur « the imposition of similar measures in the future ». Ecrire : « Airbus rappelle que les Etats-Unis ont, par le passe, impose des droits de douane majores sur les avions neufs importes d'Union europeenne et sur les pieces venant de France et d'Allemagne livrees a la chaine d'assemblage de Mobile (Alabama), et considere que l'imposition de mesures similaires a l'avenir pourrait avoir un effet significatif defavorable. »"
+    },
+    {
+      "affirmation": "« Airbus classe lui-meme ce risque au score maximal de sa propre grille interne » (repris dans le resume : « un nouveau risque de droits de douane americains que le groupe lui-meme classe au niveau maximal dans son document de reference »)",
+      "verdict": "FAUX",
+      "verbatim_source": "L'URD FY2024 d'Airbus ne publie aucune notation ni score de ses facteurs de risque : la section 3.1 se contente de lister les risques (« The Company is subject to the risks and uncertainties described below... »). Le score de 5 provient de data-lake/AIR.PA/risks/extracted.json, fichier produit par le pipeline Mettrik, qui contient les champs « score », « score_rationale » et « trend » avec un rationnel explicitement deductif (« Position : deuxieme risque expose dans la sous-section 3.1.1... Poids de la categorie : risque reglementaire et commercial, pondere haut par convention »). De plus ce score de 5 n'est pas exclusif : quatre risques sur sept y sont notes 5 (macroeconomie, douanes, chaine d'approvisionnement, cybersecurite).",
+      "correction_proposee": "Supprimer toute attribution de notation a Airbus. Ecrire au plus : « Ce risque est expose en deuxieme position de la sous-section 3.1.1, immediatement apres le risque macroeconomique, et Airbus y repete la formule d'effet significatif defavorable. » Ne pas parler de « score maximal » ni de « grille interne » d'Airbus."
+    },
+    {
+      "affirmation": "Preuve de l'actionnariat : « Ensemble elles representent 25,73% du capital et 25,87% des droits de vote, soit un poids nettement plus haut que la moyenne des grandes societes cotees, sans pour autant donner la majorite » (URD FY2024, section 4.2 Actionnariat et droits de vote)",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Cette phrase ne figure pas dans l'URD FY2024. Elle provient mot pour mot de data-lake/AIR.PA/gouvernance_fr.json, champ « voting_structure_note », texte redige par le pipeline Mettrik. L'URD publie uniquement le detail : « SOGEPA 10.83% (10.89%) / SEPI 4.08% (4.10%) / GZBV 10.82% (10.88%) / PUBLIC 73.72% (74.13%) ». La comparaison « nettement plus haut que la moyenne des grandes societes cotees » est une appreciation de l'app, pas une declaration d'Airbus.",
+      "correction_proposee": "Remplacer la preuve par la source reelle : « URD FY2024, Ownership Structure of Airbus SE as of 31 December 2024 : SOGEPA 10,83% (10,89% des droits de vote), GZBV 10,82% (10,88%), SEPI 4,08% (4,10%), part soumise au pacte d'actionnaires. Somme calculee : 25,73% du capital et 25,87% des droits de vote. » Retirer les guillemets autour de la phrase de comparaison, qui est une appreciation de l'auteur."
+    },
+    {
+      "affirmation": "La France (SOGEPA), l'Allemagne (GZBV/KfW) et l'Espagne (SEPI) detiennent ensemble 25,73% du capital et 25,87% des droits de vote via un pacte d'actionnaires commun",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2024 : « SOGEPA 10.83% (10.89%) / SEPI 4.08% (4.10%) / GZBV(2) 10.82% (10.88%) ... Share subject to Shareholders' Agreement ». Sommes : 25,73% et 25,87%. Chiffres exacts ; seule leur presentation comme citation est fautive (voir controle precedent).",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 1 : tresorerie nette de 8 360 M€ au 30 juin 2026 contre 12 171 M€ au 31 decembre 2025 (-31%) ; tresorerie brute de 27,2 a 23,4 Mds €",
+      "verdict": "CONFORME",
+      "verbatim_source": "Communique H1 2026 du 29 juillet 2026 : « Net Cash position, in millions of Euros 8,360 12,171 -31% » ; « The gross cash position stood at € 23.4 billion at the end of June 2026 (year-end 2025: € 27.2 billion), with a consolidated net cash position of € 8.4 billion (year-end 2025: € 12.2 billion) ».",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 2 : flux de tresorerie disponible avant financement client de -1 166 M€ au S1 2026 apres -1 610 M€ au S1 2025 ; second semestre 2025 a +6,18 Mds € ; objectif 2026 de +4,5 Mds €",
+      "verdict": "CONFORME",
+      "verbatim_source": "Communique H1 2026 : « Consolidated free cash flow before customer financing was € -1,166 million (H1 2025: € -1,610 million) » ; « Free Cash Flow before Customer Financing of around € 4.5 billion ». Communique FY2025 du 19 fevrier 2026 : « Consolidated free cash flow before customer financing was € 4,574 million (2024: € 4,463 million) » et « 2025 guidance achieved ». 4 574 - (-1 610) = 6 184 M€, soit +6,18 Mds € au S2 2025. Calcul exact, non publie tel quel.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 3 : ajustement Spirit AeroSystems de -123 M€ au S1 2026 dont -91 M€ au T2, seul poste d'ajustement negatif significatif avec -43 M€ d'autres couts, sur un EBIT ajuste de 2 727 M€",
+      "verdict": "CONFORME",
+      "verbatim_source": "Communique H1 2026, reconciliation EBIT reporte / EBIT Adjusted : « € -123 million related to the integration of the former Spirit AeroSystems work packages, of which € -91 million were in Q2 » ; « € -43 million of other costs including M&A, of which € -27 million were in Q2 » ; les deux autres ajustements sont positifs (+124 M€ et +60 M€). « EBIT Adjusted 2,727 ». 123/2 727 = 4,5%.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "« Le chiffre d'affaires d'Airbus Helicopters reste quasi stable a 3 680 M€ au premier semestre 2026 (+0%) et son EBIT ajuste recule de 3,6% a 240 M€, faute d'un mix de livraisons favorable »",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Communique H1 2026 : le mix de livraisons explique le chiffre d'affaires, pas la marge. « Airbus Helicopters' deliveries increased to 144 units (H1 2025: 138 units) with revenues broadly stable at € 3.7 billion, reflecting a less favourable delivery mix in the first half of 2026 » ; en revanche « Airbus Helicopters' EBIT Adjusted totalled € 240 million (H1 2025: € 249 million), reflecting a solid performance from programmes, offset by higher R&D expenses ». Airbus attribue donc explicitement le recul de l'EBIT ajuste a la hausse des depenses de R&D, en precisant que la performance des programmes est solide. Chiffres exacts par ailleurs (3 680 contre 3 693, tableau « 0% » ; 240 contre 249, tableau « -4% », soit -3,6% en calcul exact).",
+      "correction_proposee": "Ecrire : « Le chiffre d'affaires d'Airbus Helicopters reste stable a 3 680 M€ au premier semestre 2026, penalise par un mix de livraisons moins favorable, et son EBIT ajuste recule de 3,6% a 240 M€ sous l'effet de depenses de recherche et developpement plus elevees, la performance des programmes restant qualifiee de solide par le groupe. »"
+    },
+    {
+      "affirmation": "Cadence A320 de 70 a 75 par mois fin 2027 stabilisee a 75, cadence 5 A330 en 2029 et cadence 12 A350 en 2028 ; reussite dependante de facteurs « hors du controle » du groupe le long de la chaine de fournisseurs (moteurs, voilures, elements de structure, equipements de cabine)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Communique H1 2026 : « the Company continues to expect to reach a rate of between 70 and 75 aircraft a month by the end of 2027, stabilising at rate 75 thereafter. The Company continues to target rate 5 for the A330 programme in 2029 and rate 12 for the A350 programme in 2028. » URD FY2024, section 3.1 : « The success of this industrial adaptation and the production ramp-up depend not only on the Company effectively executing its plans, but also on external factors beyond the Company's control, with challenges arising across the value chain (including within the supply chain) » ; « suppliers' work packages (such as engines, wings, airframe components, cabin equipment or other parts or elements) ».",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Facteur de risque dedie aux droits de douane inexistant dans le document de l'exercice 2023 ; formule « could have a material adverse effect on the Company's business, results of operations and financial condition »",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2024 : intitule de risque autonome « Increased tariffs or other trade restrictions or regulations could increase the cost of or otherwise weaken demand for the Company's products in certain markets around the world », suivi de « could have a material adverse effect on the Company's business, results of operations and financial condition ». URD FY2023 (AIR.PA_URD_FY2023_2024-03-27) : trois occurrences seulement du mot « tariffs », toutes a l'interieur d'autres facteurs de risque (geopolitique, fournisseurs, enquetes), aucun intitule de risque dedie.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Poids de la division avions commerciaux : 71,7% du chiffre d'affaires groupe en 2024 (49,64 Mds € sur 69,23 Mds €)",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2024, information sectorielle : « Total revenue 50,646 7,941 12,082 – 70,669 / Inter-segment revenue (1,007) (345) (87) – (1,439) / Revenue 49,639 7,596 11,995 – 69,230 ». 49 639 / 69 230 = 71,70%. Calcul exact.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Accroche : 351 avions livres, chiffre d'affaires en hausse de 12% au S1 2026 ; EBIT ajuste Airbus commercial +16%, Defence and Space +84%",
+      "verdict": "CONFORME",
+      "verbatim_source": "Communique H1 2026 : « A total of 351 commercial aircraft were delivered (H1 2025: 306 aircraft) » ; « Consolidated revenues increased 12% year-on-year to € 33.2 billion » ; tableau EBIT Adjusted : « Airbus 1,987 1,714 +16% / Airbus Helicopters 240 249 -4% / Airbus Defence and Space 487 265 +84% ».",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Exclusion des sous-dossiers SEC de data-lake/AIR.PA (AAR Corp) comme source",
+      "verdict": "CONFORME",
+      "verbatim_source": "data-lake/AIR.PA/_WRONG_COMPANY.txt : « ATTENTION: les sous-dossiers SEC de ce repertoire contiennent les filings de AAR Corp, PAS de la societe europeenne AIR.PA. Ne pas utiliser comme source. » L'ATT le signale explicitement dans ses _sources et aucun chiffre verifie ne provient de ces dossiers.",
+      "correction_proposee": null
+    }
+  ]
+}

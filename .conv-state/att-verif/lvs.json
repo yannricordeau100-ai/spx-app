@@ -1,0 +1,91 @@
+{
+  "ticker": "LVS",
+  "verdict_global": "a_corriger",
+  "_verifie_le": "2026-08-21",
+  "_sources_consultees": [
+    "data-lake/LVS/10Q/LVS_2026-07-24.htm.gz (T2 2026)",
+    "data-lake/LVS/DEF14A/LVS_2026-04-01.htm.gz",
+    "data-lake/LVS/8K/ (aucun Item 5.07 pour l'AG du 14 mai 2026)",
+    "src/data/v2-pipeline/lvs.json, .batches-drafts-safe/kpis-haut/LVS.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "\"Le chiffre d'affaires du dernier trimestre se repartit entre Macao (38,8%) et Singapour (61,2%)\" - preuve citee : \"10-Q T2 2026 : repartition segment Macao 1,594 Mds $ / Singapour 2,516 Mds $ sur un total de 4,11 Mds $\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, note segments, trois mois clos le 30 juin 2026 : \"Net revenues ... Total Macao 1,776 ... Marina Bay Sands 1,378 ... Total 3,154\". Soit Macao 56,3% et Singapour 43,7%. Sur six mois : Macao 3,875 / MBS 2,864 sur 6,739 (57,5% / 42,5%). Les valeurs 1,594 / 2,516 / 4,11 n'apparaissent nulle part dans le 10-Q ; elles proviennent du bloc revenue_by_segment de src/data/v2-pipeline/lvs.json.",
+      "correction_proposee": "La repartition est INVERSEE : Macao est le plus gros segment en chiffre d'affaires (56,3% au T2 2026), Marina Bay Sands le plus petit (43,7%). Corriger l'ATT ET la source amont v2-pipeline (revenue_by_segment et revenue_by_geography), qui est fausse."
+    },
+    {
+      "affirmation": "\"ce segment (Marina Bay Sands) represente 61,2% du chiffre d'affaires du groupe\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : Marina Bay Sands net revenues 1,378 M$ sur 3,154 M$ = 43,7%",
+      "correction_proposee": "Ecrire 43,7% du chiffre d'affaires (T2 2026). En revanche l'affirmation voisine \"une part encore plus elevee de son EBITDA\" est exacte : MBS 689 M$ sur 1 119 M$ d'EBITDA ajuste consolide, soit 61,6%."
+    },
+    {
+      "affirmation": "\"un levier juge faible par la societe elle-meme (1,34x consolide)\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "10-Q T2 2026 : \"As of June 30, 2026, our U.S., SCL and Singapore leverage ratios, as defined per the respective credit facility agreements, were 1.53x, 3.18x and 1.42x, respectively, compared to the maximum leverage ratios allowed of 4.00x, 4.00x and 4.50x\". Aucune occurrence de 1,34x ni de levier consolide, et aucun jugement de la societe sur le caractere \"faible\" du levier.",
+      "correction_proposee": "Remplacer par les trois ratios reellement publies (US 1,53x, SCL 3,18x, Singapour 1,42x, contre des plafonds de 4,00x / 4,00x / 4,50x) et retirer l'attribution du jugement a la societe."
+    },
+    {
+      "affirmation": "MBS Expansion Project : achevement contractuel au 8 juillet 2029, estimation interne de fin de construction en juin 2030 et ouverture en janvier 2031 ; cout total 8,0 Mds $, 3,0 Mds $ engages au 30 juin 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"MBS has agreed with the Singapore government to complete construction by July 8, 2029. While the Company's current estimate is that construction will be complete by June 2030 with an anticipated opening date in January 2031, any extension of the completion date beyond the July 8, 2029 deadline is subject to the approval of the Singapore government. The Company's estimated total project cost is approximately $8.0 billion... The Company has incurred approximately $3.0 billion as of June 30, 2026\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Taxe sur le jeu premium a Singapour portee de 8% a 12% en juin 2026 (contre juillet 2025 l'annee precedente)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"an increase in gaming tax rates from 8% to 12% on premium play due to the tiered tax structure in Singapore as we met the threshold in June 2026 versus July 2025\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Engagement d'investissement Macao : au moins 35,84 Mds de patacas (env. 4,44 Mds $) dont 33,39 Mds de patacas (env. 4,13 Mds $) en non-gaming d'ici decembre 2032 ; 2,52 Mds de patacas (312 M$) depenses en 2025, audit en cours",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"VML has committed to invest, or cause to be invested, at least 35.84 billion patacas (approximately $4.44 billion...). Of this total, 33.39 billion patacas (approximately $4.13 billion...) must be invested in non-gaming projects. These investments must be accomplished by December 2032... For the year ended December 31, 2025, the Company spent approximately 2.52 billion patacas (approximately $312 million...); however, as of the date of this filing, the audit process for the 2025 investments is in progress and the ultimate amount confirmed as qualified spend under the Concession may differ from the amount reported above based on the results of the audit.\" Concession \"expires on December 31, 2032\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Verbatim cite : \"increases in table game hours and payroll and related expenses due to the competitive environment in Macao\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026, texte reel : \"$26 million in higher payroll and related expenses due to increases in table game hours and the competitive environment in Macao\"",
+      "correction_proposee": "Le passage entre guillemets n'est pas le texte du 10-Q : les mots ont ete reordonnes. Le fond (environnement concurrentiel a Macao invoque comme cause de hausse des couts) est correct. Retablir la citation exacte."
+    },
+    {
+      "affirmation": "Marge operationnelle de 24,7% (T2 2025) a 19,6% (T2 2026) ; EBITDA ajuste Macao 430 M$ contre 566 M$ (-24%) ; Venetian Macao -30,1% ; Plaza Macao et Four Seasons -69,7% ; Rolling Chip win percentage -1,15%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Operating income 618\" sur \"Net revenues 3,154\" = 19,59% ; T2 2025 : 783 sur 3,175 = 24,66%. Note segments : Total Macao adjusted property EBITDA 430 vs 566 (-24,0%) ; The Venetian Macao 165 vs 236 (-30,1%) ; The Plaza Macao and Four Seasons Macao 20 vs 66 (-69,7%). Tableau casino : \"The Plaza Macao and Four Seasons Macao... Rolling Chip win percentage (1.15)% 2.72%\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CA net 3,154 Mds $ (-0,7%), resultat net 373 M$ contre 519 M$ (-28,1%), EBITDA ajuste consolide 1,119 Md$ contre 1,334 Md$ (-16,1%) ; S1 2026 CA +11,6% et resultat net +9,4%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Total net revenues $3,154 $3,175 $(21) (0.7)%\" ; \"Net income 373 / 519\" (-28,1%) ; \"Segment/Consolidated adjusted property EBITDA $1,119 / $1,334\" (-16,1%) ; six mois : \"Total net revenues $6,739 $6,037 $702 11.6%\" et net income 1,014 vs 927 (+9,4%)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "EBITDA ajuste Macao au plus bas trimestriel depuis 2023, il faut remonter au T1 2023 (398 M$)",
+      "verdict": "CONFORME",
+      "verbatim_source": ".batches-drafts-safe/kpis-haut/LVS.json, macao_ebitda : T1-2023 398, T2-2023 541 ... T1-2026 633, T2-2026 430. Le dernier trimestre sous 430 est bien le T1 2023.",
+      "correction_proposee": "Serie derivee (KPI), pas verbatim du 10-Q. Coherente avec les valeurs 430 / 566 / 633 verifiables."
+    },
+    {
+      "affirmation": "Dette 15,252 Mds $ au 30 juin 2026 (contre 15,770 Mds $ au 31 decembre 2025), tresorerie 3,38 Mds $, 4,26 Mds $ de capacite de tirage revolving ; rachats d'actions 1,542 Md$ au S1 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, note Fair Value Disclosures : \"Debt (2)(3) $15,252\" (30 juin 2026) et \"$15,770\" (31 decembre 2025) ; MD&A : \"total unrestricted cash and cash equivalents of $3.38 billion, and access to $4.26 billion of available borrowing capacity under our U.S., SCL and Singapore revolving credit facilities as of June 30, 2026\" ; bilan : treasury stock (10,570) vs (9,028) = 1,542",
+      "correction_proposee": "Le MD&A chiffre les rachats a \"$1.53 billion (exclusive of commissions and excise tax)\" ; les 1,542 Md$ de l'ATT correspondent a la variation du treasury stock. Ecart non materiel, a preciser."
+    },
+    {
+      "affirmation": "\"Le vote consultatif des actionnaires sur la remuneration du PDG n'a recueilli que 62% d'approbation\" - source citee : \"derniere AG, 14 mai 2026\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "DEF 14A du 1er avril 2026 : \"At our 2025 Annual Meeting of Stockholders, our stockholders provided an advisory (non-binding) vote on the fiscal 2024 compensation of our NEOs... was approved, with more than 62% of the votes cast voting 'for' approval of the 'say-on-pay' proposal. The Compensation Committee acknowledges the lower than desired results of the 'say-on-pay' vote in 2025.\" Aucun 8-K Item 5.07 pour l'AG du 14 mai 2026 n'est present dans le data-lake.",
+      "correction_proposee": "Le 62% se rapporte a l'AG 2025 (sur la remuneration de l'exercice 2024), pas a l'AG du 14 mai 2026. Corriger la datation. Le resultat de l'AG 2026 n'est pas verifiable dans les documents disponibles."
+    },
+    {
+      "affirmation": "Conseil de 8 membres, 62,5% d'independants, 12,5% de femmes",
+      "verdict": "CONFORME",
+      "verbatim_source": "DEF 14A 2026 : \"Our Board currently has eight directors... Patrick Dumont, Mark Besca, Irwin Chafetz, Micheline Chau, Charles D. Forman, Lewis Kramer, Alain Li and Micky Pant\" (1 femme sur 8 = 12,5%) ; \"The Board consists of a majority of independent directors\"",
+      "correction_proposee": "Coherent. Point de gouvernance plus lourd et absent de l'ATT : \"We qualify as a 'controlled company' under NYSE corporate governance rules because Dr. Miriam Adelson and trusts... control more than 50 percent of the voting power\". Signaler aussi que src/data/v2-pipeline/lvs.json indique encore ceo_name Robert G. Goldstein alors que le proxy 2026 designe Patrick Dumont comme Chairman and CEO."
+    }
+  ]
+}

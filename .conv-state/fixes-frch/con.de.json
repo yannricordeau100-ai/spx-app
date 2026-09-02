@@ -1,0 +1,62 @@
+{
+  "ticker": "CON.DE",
+  "verdict": "contamine",
+  "note": "Pas de trace de Concentra Group. En revanche 6 KPI publies proviennent des comptes SOCIAUX de Continental Aktiengesellschaft (HGB, entite mere seule) et non des comptes consolides du groupe: erreur de perimetre d'ampleur equivalente. Identite, secteur, sous-secteur, tagline, PDG (Christian Kotz), fonde 1871: corrects.",
+  "problemes": [
+    {
+      "bloc": "kpis[0] Sales",
+      "valeur_actuelle": "396,1 M EUR (vs 337,0 l'an precedent, +17%)",
+      "valeur_correcte": "CA consolide FY2025 19 676 M EUR (activites poursuivies apres scission Aumovio) ; FY2024 20 077 M EUR ; FY2023 41 421 M EUR",
+      "source": "sec-data/cat3-european/CON.DE/annual-text/2024.txt lignes 46-58 (comptes sociaux AG) vs .batches-drafts-safe/kpis-haut/CON.DE.json CA_CONSOLIDE"
+    },
+    {
+      "bloc": "kpis[1] Gross Margin",
+      "valeur_actuelle": "3,7% (14,7 / 396,1)",
+      "valeur_correcte": "Marge brute groupe: 5 110 M EUR sur 19 676 M EUR = 26,0% FY2025",
+      "source": "data-lake/CON.DE/kpis/extracted.json gross_profit"
+    },
+    {
+      "bloc": "kpis[2] Op Margin (adj)",
+      "valeur_actuelle": "1,7%, description citant '6 720,6 M EUR / 396,1 M EUR'",
+      "valeur_correcte": "Marge EBIT ajustee du groupe 10,3% FY2025",
+      "source": ".batches-drafts-safe/kpis-haut/CON.DE.json MARGE_AJ_GROUPE"
+    },
+    {
+      "bloc": "kpis[3] Net Income",
+      "valeur_actuelle": "6,692 Mds EUR (vs -423,4 M EUR), tire d'un 'Net investment income' de 7 042,7 M EUR (dividende de filiales dans les comptes sociaux)",
+      "valeur_correcte": "Resultat net part du groupe FY2025: -165 M EUR",
+      "source": ".batches-drafts-safe/kpis-haut/CON.DE.json RESULTAT_NET"
+    },
+    {
+      "bloc": "kpis[4] R&D",
+      "valeur_actuelle": "6,9% du CA (27,2 M EUR / 396,1 M EUR)",
+      "valeur_correcte": "Frais de R&D groupe FY2024: 2 888 M EUR",
+      "source": ".batches-drafts-safe/kpis-haut/CON.DE.json RD_GROUPE"
+    },
+    {
+      "bloc": "kpis[5] Capex",
+      "valeur_actuelle": "10,9 M EUR",
+      "valeur_correcte": "Investissements du seul secteur Pneumatiques FY2025: 1 035 M EUR",
+      "source": ".batches-drafts-safe/kpis-haut/CON.DE.json CAPEX_TIRES"
+    },
+    {
+      "bloc": "hero_kpi_rationale",
+      "valeur_actuelle": "Rationale du hero 'tires_sales' parle de marge operationnelle 1,7% et de revenus d'investissement de 7 042,7 M EUR: texte issu des comptes sociaux, sans rapport avec le CA Pneumatiques",
+      "valeur_correcte": "Rationale EBIT_AJ_TIRES_Q (42 trimestres, 509 M EUR au T2-2026)",
+      "source": ".batches-drafts-safe/kpis-haut/CON.DE.json hero_kpi_rationale"
+    },
+    {
+      "bloc": "kpis DPS",
+      "valeur_actuelle": "2,5 EUR",
+      "valeur_correcte": "2,7 EUR (FY2025)",
+      "source": ".batches-drafts-safe/kpis-haut/CON.DE.json DIVIDENDE"
+    },
+    {
+      "bloc": "revenue_by_segment / revenue_by_geography",
+      "valeur_actuelle": "null",
+      "valeur_correcte": "Pneumatiques 13 798 M EUR (70,1%), ContiTech 6 005 M EUR (30,5%) ; geo: Europe hors Allemagne 35%, Amerique du Nord 29%, Asie-Pacifique 16%, Allemagne 14%, autres 6%",
+      "source": "src/data/v2-pipeline/con.de.json"
+    }
+  ],
+  "confiance": "elevee"
+}

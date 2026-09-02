@@ -1,0 +1,43 @@
+{
+  "ticker": "EME",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/EME/10Q/EME_2026-07-30.htm.gz ; data-lake/EME/10K/EME_2026-02-26.htm.gz",
+  "controles": [
+    {
+      "affirmation": "fondamental_interne #3 : \"Les filiales Repcon et EMCOR Industrial Services sont nommees dans plusieurs poursuites consolidees en multi-district litigation apres un accident a la raffinerie de Deer Park (Texas) ayant fait deux morts et environ 200 blesses ; le groupe indique croire que l'assurance couvrira la plupart ou la totalite des montants dus\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On October 10, 2024, a chemical release occurred at the PEMEX Deer Park Refinery in Deer Park, Texas. As a result of the release, two people were killed and approximately 200 others claim to have suffered bodily injuries... Those lawsuits were thereafter assigned the status of “multi-district litigation” and consolidated in the 281st District Court, Harris County. Repcon, Inc. (“Repcon”) and EMCOR Industrial Services, Inc. (“EIS”), indirect subsidiaries of the Company, have been named in several of the lawsuits... Based on currently available information, we believe insurance will cover much or all of any amounts required to be paid by Repcon or EIS in connection with these claims.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "hook + fondamental_externe #1 + quantitatif #1 : \"les revenus lies aux data centers ont atteint 1 772,3 M$ au T2 2026 (+67,3%), soit 34,4% du chiffre d'affaires\" ; \"environ 713 M$ de la hausse de 850,5 M$ proviennent des seuls revenus data centers\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "EMCOR ne publie aucune ligne \"data center revenues\". Les 1 772,3 M$ sont la somme du secteur \"Network and communications market sector\" des deux segments de construction : electrique 973,046 + mecanique 799,293 (T2 2026) contre 669,966 + 389,676 (T2 2025). Le 10-Q dit seulement : \"the largest increase was seen within the network and communications market sector, PREDOMINANTLY DRIVEN BY greater demand for data center construction projects\".",
+      "correction_proposee": "L'arithmetique est exacte mais le libelle assimile a tort la totalite du secteur \"reseaux et communications\" aux seuls data centers. Reecrire : \"le secteur reseaux et communications, dont la croissance est principalement portee par les projets de data centers, atteint 1 772,3 M$ (+67,3%) et represente 34,4% du CA trimestriel\", et remplacer \"les seuls projets de data centers\" par \"ce seul secteur\"."
+    },
+    {
+      "affirmation": "fondamental_interne #1 : Miller Electric 876,8 M$ cash, neuf autres acquisitions 182,3 M$, goodwill 1 457,9 M$, incorporables 1 078,0 M$, total bilan 10 157,1 M$ (25%), amortissement 69,1 M$ au S1 2026 (+22%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"we acquired 100% of Miller Electric's capital stock for total cash consideration of $876.8 million\" ; \"during calendar year 2025, we acquired nine companies for upfront consideration of $182.3 million\" ; bilan : \"Goodwill | 1,457,924\" ; \"Identifiable intangible assets, net | 1,078,045\" ; \"Total assets | $ 10,157,082\" ; \"Amortization of identifiable intangible assets | 69,083 | 56,452\" (soit +22,4%)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "fondamental_interne #2 : marge operationnelle industrial services 2,7% au T2 2026 contre 13,9% en electrique et 12,5% en mecanique ; RPO du segment -33,7% a 146,5 M$ ; RPO total du groupe +43,9%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"United States industrial services | 9,599 | 2.7 % | (419) | (0.1) %\" ; \"operating margin of this segment was 13.9%\" (electrique T2 2026) ; \"operating margin of this segment was 12.5%\" (mecanique T2 2026) ; RPO industrial services 146,528 (30 juin 2026) contre 221,102 (30 juin 2025), soit -33,7% ; \"Our remaining performance obligations at June 30, 2026 were a record $17.14 billion compared to... $11.91 billion at June 30, 2025\" (+43,9%)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "fondamental_externe #2 : marche transport -31,9% (52,2 M$), high-tech -18,5% (258,8 M$) au T2 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "Transportation market sector T2 2026 : electrique 41,835 + mecanique 10,359 = 52,194 contre 66,528 + 10,053 = 76,581 en T2 2025 (-31,8%) ; High-tech manufacturing market sector : 31,111 + 227,646 = 258,757 contre 36,114 + 281,434 = 317,548 (-18,5%)",
+      "correction_proposee": "Chiffres exacts. Nuance de vocabulaire : le 10-Q parle du secteur \"high-tech manufacturing\" (semi-conducteurs), pas de \"high-tech hors data center\". Preferer l'intitule du document."
+    },
+    {
+      "affirmation": "fondamental_externe #1 : citation du 10-K sur le capex data centers (\"is rapidly expanding\" / \"If such spending were to decrease, demand for our services could decline\")",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025, Item 1A : \"For example, capital spending on data center infrastructure to support cloud storage and artificial intelligence (“AI”) is rapidly expanding, which has increased demand for our services in recent years. If such spending were to decrease, demand for our services could decline as we transition our resources to other sectors.\"",
+      "correction_proposee": ""
+    }
+  ]
+}

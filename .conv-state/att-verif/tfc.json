@@ -1,0 +1,78 @@
+{
+  "ticker": "TFC",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Titres HTM inscrits 46,4 Mds USD pour une juste valeur de 38,1 Mds USD, soit environ 8,2 Mds USD de pertes latentes",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"HTM securities (fair value of $38,145 and $39,130, respectively) 46,351 47,186\" - 10-Q T2 2026 (data-lake/TFC/10Q/TFC_2026-07-31.htm.gz)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "AOCI negatif de 6 716 M USD, en aggravation de 947 M USD depuis fin 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"AOCI, net of deferred income taxes (6,716) (5,769)\" ; \"a $947 million decrease in AOCI\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Ratio CET1 de 10,9%, superieur au minimum reglementaire de 7,0% avec matelas",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"CET1 ratio was 10.9% as of June 30, 2026, up 10 basis points compared to December 31, 2025\" ; table : \"CET1 4.5 % NA 6.5 % 7.0 %\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "\"Les creances en souffrance (NPL) sur le pret auto indirect sont passees de 267 M USD a 569 M USD en un an\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"Table 8: Asset Quality (Dollars in millions) Jun 30, 2026 Mar 31, 2026 Dec 31, 2025 Sep 30, 2025 Jun 30, 2025 [...] Indirect auto 569 455 267 247 240\"",
+      "correction_proposee": "267 M USD est le solde au 31 decembre 2025, pas au 30 juin 2025. Sur un an, les NPL auto indirect passent de 240 M USD a 569 M USD, soit +137%. Ecrire : \"de 240 M USD (30 juin 2025) a 569 M USD (30 juin 2026), soit plus qu'un doublement ; 267 M USD au 31 decembre 2025\"."
+    },
+    {
+      "affirmation": "Les actifs non performants totaux progressent de 115 M USD, tires par le portefeuille auto indirect",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Nonperforming assets totaled $1.7 billion at June 30, 2026, up $115 million compared to December 31, 2025, primarily due to an increase in the indirect auto portfolio\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "\"Le taux global de NPL sur prets et credits-bails reste contenu a 0,51% du total, en hausse de seulement 3 points de base\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"Table 9: Asset Quality Ratios [...] NPLs as a percentage of loans and leases HFI 0.51 % 0.50 % 0.48 % 0.48 % 0.39 %\" (Jun 2026 / Mar 2026 / Dec 2025 / Sep 2025 / Jun 2025). KPI interne concordant : npl_ratio yoy \"+0,12 pt\".",
+      "correction_proposee": "Les +3 points de base valent par rapport au 31 decembre 2025. Sur un an le ratio passe de 0,39% a 0,51%, soit +12 points de base. Dans une phrase construite sur une comparaison annuelle, ecrire \"+12 points de base sur un an\"."
+    },
+    {
+      "affirmation": "William H. Rogers Jr. quitte ses fonctions de CEO le 1er septembre 2026 pour devenir President executif ; Michael P. Lyons prend la direction generale ; Rogers reste au conseil jusqu'a l'assemblee 2027",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"William H. Rogers, Jr. will retire as President and CEO effective September 1, 2026 and will serve as Executive Chair of Truist Financial Corporation and Truist Bank and continue to serve on the respective Boards through Truist's 2027 annual meeting of shareholders\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Truist est classee BHC de categorie III, supervisee par la Fed, la FDIC, le CFPB, la SEC et les regulateurs d'Etat ; Stress Capital Buffer de 2,5%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"TFC, en tant que BHC Category III, est soumis a FRB, FDIC, CFPB, SEC et regulateurs etatiques\" (data-lake/TFC/risks/extracted.json, 10-K 2026-02-24, Item 1A) ; \"Reflects an SCB requirement of 2.5% applicable to Truist as of June 30, 2026\" (10-Q T2 2026)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le 10-K 2026 a ajoute un risque specifique lie a l'usage de l'IA, avec un langage de biais de modele et de prejudice client",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K 2026-02-24 : facteur de risque dedie \"The use of AI in our products and services [...] may negatively impact our business, operations, financial condition, results of operations, prospects, and reputation.\" ; \"models, prompts, algorithms, and datasets [...] are flawed, inaccurate, of poor quality, insufficient, biased, or otherwise erroneous\". Absent du 10-K 2025-02-25, qui ne mentionne l'IA que dans les risques cyber et concurrence : le caractere nouveau est verifie.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Marge nette d'interet a 2,98% (-0,04 pt sur un an), rendement des prets 5,68% (-0,33 pt), cout des depots 1,56% (-0,29 pt)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"NIM - TE (1) 2.98 3.02 (4) bps\" (10-Q T2 2026) ; series kpis-haut TFC : loan_yield 5,68 (Q2-2025 6,01), dep_cost 1,56 (Q2-2025 1,85)",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "1,2 Md USD de rachats d'actions au T2 2026 (+60% sur un an), 7,7 Mds USD restants sur un programme de 10 Mds USD, actions en circulation -5,3%, BPA +36,7%",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"repurchased $1.2 billion of common stock\" ; \"In December 2025, Truist announced that its Board authorized the repurchase of up to $10.0 billion of common stock\" ; \"At June 30, 2026, Truist had remaining authorization to repurchase up to $7.7 billion\" ; \"Diluted net earnings per common share $1.23 $0.90\" (+36,7%) ; kpis-haut : buyback_q Q2-2025 750 M USD -> Q2-2026 1 200 M USD (+60%), shares_out -5,3%",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Les 8,2 Mds USD de pertes latentes representent environ 12,8% des capitaux propres totaux de 64,1 Mds USD",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Total shareholders' equity 64,095 65,189\" ; 8 206 / 64 095 = 12,8%",
+      "correction_proposee": ""
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "ticker": "ABN.AS",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/ABN.AS/ir/URD/ABN.AS_URD_FY2025_2026-03-10.txt.gz (Annual Report 2025) ; data-lake/ABN.AS/ir/CP/ABN.AS_CP_S1-2026_2026-08-12.txt.gz ; data-lake/ABN.AS/ir/RFS/ABN.AS_RFS_S1-2026_2026-08-12.txt.gz ; data-lake/ABN.AS/risks/extracted.json",
+  "controles": [
+    {
+      "affirmation": "HOOK + fondamental_interne : \"l'investisseur qui achète le titre coté à Amsterdam touche le dividende mais pas le droit de vote, réservé aux deux fondations\" / \"le droit de vote reste à la fondation STAK AAB\".",
+      "verdict": "FAUX",
+      "verbatim_source": "Furthermore, in principle STAK AAB has the obligation to grant a power of attorney to holders of depositary receipt holders so they can exercise the voting rights attached to the underlying shares and will not exercise voting rights on the shares in ABN AMRO (unless holders of depositary receipts have asked STAK AAB to do so). The foregoing could be different in the hostile situations described in Article 118a, Book 2, of the Dutch Civil Code. STAK AAB may then decide (a) to limit, exclude or revoke powers of attorney, and (b) not to observe voting instructions received...",
+      "correction_proposee": "Le rapport annuel dit l'inverse du régime normal décrit par l'ATT : STAK AAB est en principe OBLIGÉE d'accorder une procuration aux porteurs de certificats pour qu'ils exercent eux-mêmes les droits de vote, et n'exerce PAS ces droits de vote elle-même. La privation du droit de vote n'intervient que dans les situations hostiles de l'article 118a, livre 2, du Code civil néerlandais. Reformuler : « Le porteur du certificat coté peut exercer le droit de vote sur demande, via une procuration que STAK AAB est en principe tenue de lui accorder ; STAK AAB ne peut limiter, exclure ou révoquer ces procurations que dans les situations d'offre hostile prévues par la loi néerlandaise. » C'est la ligne la plus visible du document (hook) et elle est fausse en l'état."
+    },
+    {
+      "affirmation": "\"le droit de vote reste à la fondation STAK AAB (73% des droits de vote fin 2025)\".",
+      "verdict": "FAUX",
+      "verbatim_source": "STAK AAB was holding 72.5% of the shares in the issued capital of ABN AMRO Bank N.V. — et, dans le tableau de l'action : \"- of which held by other investors (depositary receipts) 597 513 - as a percentage of total outstanding shares 73% 62%\"",
+      "correction_proposee": "Deux erreurs cumulées. (1) Le chiffre de STAK AAB est 72,5% des ACTIONS du capital émis, pas 73%. (2) Le 73% du document désigne tout autre chose : la part détenue par les AUTRES investisseurs (flottant en certificats), passée de 62% à 73% à mesure que l'État se retirait. L'ATT a pris le pourcentage du flottant pour le pourcentage de droits de vote de la fondation. Écrire : « STAK AAB détenait 72,5% des actions du capital émis fin 2025 » et ne pas qualifier ce chiffre de \"droits de vote\"."
+    },
+    {
+      "affirmation": "PREUVE citée entre guillemets : \"the majority shareholder... NLFI has a stake of 27.5% (2024: 38.5%)\".",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Aucune phrase de ce type n'existe dans l'Annual Report 2025. Le rapport dit d'une part : \"As a majority shareholder, NLFI has participated pro-rata in the share buyback programme (30.5% of the total programme), thereby maintaining its relative stake in the company\" (contexte rachat d'actions), et d'autre part, dans une section distincte : \"The Dutch State reduced its stake in ABN AMRO from 38.5% in 2024 to 27.5% at the end of 2025.\"",
+      "correction_proposee": "La citation présentée comme verbatim est une couture de deux passages sans rapport, séparés par des dizaines de pages, dont l'assemblage n'existe nulle part dans le document. Les FAITS (27,5% fin 2025, 38,5% fin 2024) sont exacts, mais la preuve doit être recitée correctement : « The Dutch State reduced its stake in ABN AMRO from 38.5% in 2024 to 27.5% at the end of 2025. » Supprimer le fragment \"the majority shareholder\" qui provient d'un tout autre contexte."
+    },
+    {
+      "affirmation": "Cession d'Alfam (crédit à la consommation) prévue au quatrième trimestre 2026.",
+      "verdict": "FAUX",
+      "verbatim_source": "The expected closing of the Alfam transaction is in the third quarter of 2026, subject to regulatory approval. ABN AMRO anticipates a loss on sale of approximately € 118 million, which will not be accounted for until the conclusion of the transaction.",
+      "correction_proposee": "Le document du 12 août 2026, que l'ATT cite elle-même en source, annonce une clôture au TROISIÈME trimestre 2026, pas au quatrième. Corriger en « clôture attendue au troisième trimestre 2026, sous réserve d'approbation réglementaire ». À noter : l'ATT omet une perte de cession attendue d'environ 118 M€, information défavorable pertinente pour une anti-thèse."
+    },
+    {
+      "affirmation": "NLFI : participation de l'État passée de 38,5% fin 2024 à 27,5% fin 2025 ; objectif affiché de 20% ; le ministre des Finances doit approuver au préalable ses décisions de vote importantes.",
+      "verdict": "CONFORME",
+      "verbatim_source": "The Dutch State reduced its stake in ABN AMRO from 38.5% in 2024 to 27.5% at the end of 2025. In September 2025, the holder of the Dutch State's stake (NLFI) announced that it aims to further reduce its stake to around 20%. [...] important decisions taken by NLFI require prior approval by the Dutch Minister of Finance, who can also give binding voting instructions to NLFI with respect to such decisions.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Amende administrative de 15 M€ infligée par la DNB pour violation de l'interdiction de bonus sur 2016-2024 ; la banque reconnaît que son interprétation était erronée et a payé sans contester ; d'autres discussions sont en cours avec le régulateur sur les restrictions de rémunération.",
+      "verdict": "CONFORME",
+      "verbatim_source": "On 10 June 2025, the Dutch Central Bank (DNB) imposed an administrative fine of EUR 15 million on ABN AMRO for violating the bonus prohibition over the period from 2016 to 2024. Despite ABN AMRO's good-faith interpretation and application of the law, the bank admits its understanding was erroneous. ABN AMRO has decided to accept the penalty without further challenging it and paid the related amount. There are still some other discussions with the regulator on violation of remuneration restrictions.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Amende de 14 M€ imposée par le Parquet néerlandais (NPPS) pour implication dans des opérations liées, selon le NPPS, au dépôt de déclarations fiscales intentionnellement incorrectes par une filiale néerlandaise d'une institution financière étrangère sur 2010-2013.",
+      "verdict": "CONFORME",
+      "verbatim_source": "One fine was imposed by the Netherlands Public Prosecution Service (NPPS) for involvement in transactions connected, according to the NPPS, to the filing of intentionally incorrect tax returns by a Dutch subsidiary of a foreign financial institution in the period 2010-2013. For this imposed penalty order, ABN AMRO paid a fine of EUR 14 million.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CHIFFRE : 29 M€ d'amendes payées en un seul exercice (15 M€ DNB + 14 M€ NPPS).",
+      "verdict": "CONFORME",
+      "verbatim_source": "In Q2 2025, the bank paid two administrative fines: one for violating the bonus prohibition and one for incorrect tax filing, amounting to € 29 million in total.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Le DNB a identifié des insuffisances dans le processus de revue renforcée des clients à risque élevé (EDR) et indique que ces insuffisances peuvent conduire à des mesures d'exécution ; aucune provision comptabilisée car l'impact ne peut être estimé de façon fiable.",
+      "verdict": "CONFORME",
+      "verbatim_source": "DNB continues to monitor progress and provides observations, such as previously identified shortcomings in ABN AMRO's EDR process. DNB has indicated that these shortcomings may lead to enforcement measures. A potential financial impact cannot be reliably estimated, and no provision has been recorded.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Enquêtes pénales allemandes sur le dividend arbitrage (cum/ex, cum/cum) encore ouvertes ; Fortis Bank (Nederland), ABN AMRO et d'anciennes filiales impliqués ; des mandats de perquisition ont été délivrés contre ABN AMRO.",
+      "verdict": "CONFORME",
+      "verbatim_source": "ABN AMRO's legal predecessor, Fortis Bank (Nederland) N.V., ABN AMRO and several former subsidiaries were directly or indirectly involved in these transactions in the past in various capacities. Criminal investigation proceedings relating to the activities of these entities and individuals involved at the time were instigated. These proceedings also resulted in search warrants being issued against ABN AMRO.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Des plaintes civiles de contreparties liées aux transactions cum/cum restent pendantes, dont une devant un tribunal allemand.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Some counterparties of ABN AMRO have initiated civil law claims against ABN AMRO with respect to cum/cum securities lending transactions (one pending before a German court, two cases ruled in favor of ABN AMRO)...",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Deux groupes d'investisseurs institutionnels réclament environ 400 M€ de dommages liés aux communications 2015-2022 sur la conformité anti blanchiment ; ABN AMRO conteste, pas de provision, aucune procédure au fond engagée.",
+      "verdict": "CONFORME",
+      "verbatim_source": "The groups of investors hold liable ABN AMRO and certain former and current executive and supervisory board members for alleged damages of in total approximately EUR 400 million. ABN AMRO disputes these allegations and has not recognised a provision for this matter. No proceedings on the merits have been initiated yet by both groups of investors.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CHIFFRE : ROE 8,7% en 2025 contre objectif 2028 de plus de 12% ; ratio coûts/revenus 64,4% en 2025 contre objectif de moins de 55%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Financial targets Grow profitably 2025 Target (2028) Return on equity 8.7% > 12% [...] Right-size cost base 2025 Target (2028) Cost/income ratio 64.4% < 55%",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CHIFFRE T2 2026 : ROE 12,1%, ratio coûts/revenus 53,7% (contre 55,9% au T1 2026), NIM 149 pb inchangée sur un an et sur le trimestre, résultat net 781 M€, commissions nettes 617 M€ en hausse de 25%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net fee and commission income 617 492 25% 608 2% [...] 781 606 29% 693 13% [...] Net interest margin (NIM) (in bps) 149 149 149 149 152 Cost/income ratio 53.7% 61.5% 55.9% 54.7% 61.2% Return on average equity 12.1% 9.4% 10.7% 11.4% 9.6%",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Réduction de 5 200 ETP d'ici 2028, dont environ 1 500 réalisés en 2025, soit près de 45% de l'objectif atteint.",
+      "verdict": "CONFORME",
+      "verbatim_source": "ABN AMRO announced it would rightsize the organisation, resulting in a net total reduction of the global workforce by 5,200 FTEs by 2028 compared with year-end 2024. Around half of the reductions are expected to take place through attrition. In 2025, a reduction of approximately 1,500 FTEs was realised. — et : \"The total reduction since the end of 2024 now stands at approximately 45% of our 2028 target.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CHIFFRE : 163,2 Mds € de crédits immobiliers résidentiels sur 264,1 Mds € de prêts et avances fin 2025, soit environ 62%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "The residential mortgage portfolio increased by EUR 7.0 billion to EUR 163.2 billion in 2025 (31 December 2024: EUR 156.2 billion). — et : \"In 2025, total loans and advances increased to EUR 264.1 billion from EUR 256.2 billion a year earlier.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Acquisition de NIBC clôturée le 1er août 2026 ; fusion juridique de Hauck Aufhäuser Lampe dans ABN AMRO achevée en juin 2026 ; objectif de coûts 2026 abaissé à environ 5,5 Mds €.",
+      "verdict": "CONFORME",
+      "verbatim_source": "This includes NIBC, following the closing of the acquisition on 1 August. [...] With the legal merger of Hauck Aufhäuser Lampe (HAL) into ABN AMRO completed in June, the focus will now shift to the IT integration and synergy delivery. [...] Cost discipline remained strong; full-year 2026 guidance lowered to € 5.5 billion including NIBC",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "La banque anticipe une nouvelle hausse de taux de la BCE en septembre 2026 liée à l'inflation énergétique.",
+      "verdict": "CONFORME",
+      "verbatim_source": "As expected, the ECB raised its deposit rate by 25 basis points in June. With uncertainty remaining high and the full inflationary impact of the energy shock yet to play out, we expect another rate hike in September.",
+      "correction_proposee": null
+    }
+  ]
+}

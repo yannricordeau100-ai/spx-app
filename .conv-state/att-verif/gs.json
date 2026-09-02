@@ -1,0 +1,55 @@
+{
+  "ticker": "GS",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/GS/10Q/GS_2026-08-03.htm.gz (T2 2026, clos 30/06/2026) ; .batches-drafts-safe/kpis-haut/GS.json ; src/data/companies/gs.json",
+  "controles": [
+    {
+      "affirmation": "VaR moyenne quotidienne de 120 M$ au T2 2026 contre 98 M$ au T2 2025 (+22%) ; 'La ste attribue cette hausse a des niveaux de volatilite plus eleves, en partie compenses par des expositions reduites'",
+      "verdict": "FAUX",
+      "verbatim_source": "Our average daily VaR increased to $120 million for the three months ended June 2026 from $98 million for the three months ended June 2025 due to increased exposures and higher levels of volatility. [La formule 'partially offset by reduced exposures' appartient a la comparaison sequentielle : 'Our average daily VaR increased to $120 million for the three months ended June 2026 from $112 million for the three months ended March 2026 due to higher levels of volatility, partially offset by reduced exposures.']",
+      "correction_proposee": "L'ATT applique a la comparaison annuelle une explication que le 10-Q reserve a la comparaison trimestrielle, et inverse le sens du facteur expositions. Corriger : 'Sur un an, Goldman Sachs attribue cette hausse a des expositions accrues ET a des niveaux de volatilite plus eleves (sur le seul trimestre precedent, la hausse vient de la volatilite, en partie compensee par des expositions reduites).' Note : la version corrigee RENFORCE l'anti-these. Corriger aussi 'tiree par les actions et les matieres premieres' en 'actions, matieres premieres et taux d'interet' (verbatim : 'increases in the equity prices, commodity prices and interest rates categories')."
+    },
+    {
+      "affirmation": "Global Banking & Markets pese 15 520 M$ sur 20 338 M$ de revenus (76%) et 5 629 M$ sur 6 399 M$ de profit part du groupe (88%) au T2 2026 ; +53% sur un an ; 7 189 M$ au T2 2023",
+      "verdict": "CONFORME",
+      "verbatim_source": "GBM Total net revenues 15,520 / 10,133 (+53,2%) ; Net earnings to common $5,629 ; total groupe 15,520 + 4,597 + 221 = 20,338 et 5,629 + 820 - 50 = 6,399 ; kpis-haut GBM_REV : Q2-2023 = 7 189",
+      "correction_proposee": "Detail : le 10-Q T2 2026 affiche 10 133 M$ pour le T2 2025 alors que la serie kpis-haut porte 10 120 M$ (ecart de 13 M$, sans effet sur le raisonnement)."
+    },
+    {
+      "affirmation": "Asset & Wealth Management progresse de 20% sur un an mais ne represente que 23% des revenus ; ROE groupe 23,5% ; revenus 20,3 Mds $ au T2 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "AWM Total net revenues 4,597 / 3,831 (+20,0%) ; 4,597 / 20,338 = 22,6% ; Return on average common equity 23.5 %",
+      "correction_proposee": "Le qualificatif 'record' pour les 20,3 Mds $ n'apparait pas dans le 10-Q ; c'est une deduction de la serie Mettrik. A conserver seulement si la serie couvre bien tout l'historique."
+    },
+    {
+      "affirmation": "La carte GM a ete cedee et en decembre 2025 la ste a signe un accord pour transferer le programme Apple Card a un autre emetteur ; Platform Solutions : revenus 221 M$ contre 619 M$ (-64%), perte avant impots de 48 M$ au T2 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "In December 2025, the firm entered into an agreement to transition the Apple Card program to another issuer. The transition is expected to be completed in approximately 24 months from the date of the agreement. / Platform Solutions Total net revenues 221 619 ; Pre-tax earnings/(loss) $(48) $(29)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CET1 standardise de 14,3% fin 2025 a 12,9% au 30 juin 2026, exigence de 10,9% a 11,4% (surcharge G-SIB Method 2 de 3,0% a 3,5%) : coussin de 3,4 a 1,5 point ; RWA de 727 338 a 790 640 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "As of June 2026 : RWAs $790,640 ; CET1 capital ratio 12.9 % (Standardized). As of December 2025 : RWAs $727,338 ; CET1 capital ratio 14.3 %. Total risk-based capital requirements CET1 capital ratio 11.4 % (June 2026) / 10.9 % (December 2025). G-SIB surcharge (Method 2) 3.5 % / 3.0 %.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "La direction vise explicitement un coussin de 50 a 100 points de base seulement",
+      "verdict": "CONFORME",
+      "verbatim_source": "while targeting a 50 to 100 basis point buffer above our capital requirement / Our target is to maintain capital ratios with a buffer of 50 to 100 basis points above applicable regulatory requirements.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "9,0 Mds $ de rachats au 1er semestre 2026 a un cours moyen de 949,67 $ (984,57 $ au T2), 9,5 M de titres contre 12,5 M un an avant pour 1,6 Md $ de plus ; 'au prix le plus haut de l'histoire du titre'",
+      "verdict": "CONFORME",
+      "verbatim_source": "Common share repurchases 4.1 / 5.3 / 9.5 / 12.5 ; Average cost per share $984.57 / $564.57 / $949.67 / $590.94 ; Total cost of common share repurchases $4,000 / $3,000 / $9,000 / $7,360",
+      "correction_proposee": "Chiffres exacts. Le superlatif 'au prix le plus haut de l'histoire du titre' n'est pas dans le 10-Q : c'est une deduction. Il est coherent avec le snapshot (plus haut 52 semaines 1 016,54 $, plus bas 592,17 $) mais devrait etre formule 'au plus haut historique du titre selon les donnees de marche' ou remplace par la comparaison verifiable '984,57 $ au T2 2026 contre 564,57 $ au T2 2025'."
+    },
+    {
+      "affirmation": "Litiges : perte supplementaire raisonnablement possible d'environ 1,1 Md $ au-dessus des reserves ; la ste ecrit que ses frais de litiges peuvent rester eleves et etre significatifs sur un trimestre donne",
+      "verdict": "CONFORME",
+      "verbatim_source": "management has estimated the upper end of the range of reasonably possible aggregate loss ... to be approximately $1.1 billion in excess of the aggregate reserves for such matters. / will not have a material adverse effect on our financial condition, but may be material to our operating results in a given period. Given the range of litigation and investigations presently under way, our litigation expenses may remain high.",
+      "correction_proposee": null
+    }
+  ]
+}

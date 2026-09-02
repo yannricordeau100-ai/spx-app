@@ -1,0 +1,50 @@
+{
+  "ticker": "MRK.DE",
+  "verdict": "contamine",
+  "note": "Identite parfaitement protegee (name Merck KGaA, fonde 1668, tagline maison, PDG Kai Beckmann, description qui distingue explicitement Merck & Co). Les VALEURS des KPI sont les bonnes valeurs en euros. Seule sequelle de l'homonyme US: 4 KPI publies avec l'unite 'Mds $' alors que Merck KGaA publie en euros. La chaine amont (data-lake/MRK.DE/kpis/extracted.json) libelle tout en 'M USD'.",
+  "problemes": [
+    {
+      "bloc": "kpis[0] revenue",
+      "valeur_actuelle": "21,102 'Mds $'",
+      "valeur_correcte": "21,102 Mds EUR (FY2025)",
+      "source": ".batches-drafts-safe/kpis-haut/MRK.DE.json REV_Q (somme 2025) + src/data/v2-pipeline/mrk.de.json revenue_by_segment total"
+    },
+    {
+      "bloc": "kpis[1] gross_profit",
+      "valeur_actuelle": "12,346 'Mds $'",
+      "valeur_correcte": "12,346 Mds EUR",
+      "source": "data-lake/MRK.DE/kpis/extracted.json (valeurs EUR mal etiquetees 'M USD')"
+    },
+    {
+      "bloc": "kpis[2] operating_income",
+      "valeur_actuelle": "3,601 'Mds $'",
+      "valeur_correcte": "3,601 Mds EUR",
+      "source": "data-lake/MRK.DE/kpis/extracted.json"
+    },
+    {
+      "bloc": "kpis[3] net_income",
+      "valeur_actuelle": "2,608 'Mds $'",
+      "valeur_correcte": "2,608 Mds EUR",
+      "source": "data-lake/MRK.DE/kpis/extracted.json"
+    },
+    {
+      "bloc": "hero_kpi / hero_kpi_rationale",
+      "valeur_actuelle": "hero_kpi='Healthcare Net Sales', absent de la liste kpis publiee (les 8 KPI sont revenue, gross_profit, operating_income, net_income, DPS, Cap Return, Payout Ratio, EPS): le hero pointe dans le vide",
+      "valeur_correcte": "hero EBITDA_PRE (EBITDA pre-exceptionnels, 42 trimestres, 1 599 M EUR au T2-2026)",
+      "source": ".batches-drafts-safe/kpis-haut/MRK.DE.json hero_kpi"
+    },
+    {
+      "bloc": "revenue_by_segment / revenue_by_geography",
+      "valeur_actuelle": "Exercice 2024 (Life Science 8,916 / Healthcare 8,455 / Electronics 3,785)",
+      "valeur_correcte": "Exercice 2025: Life Science 8,98 Mds EUR (42%), Healthcare 8,607 (41%), Electronics 3,515 (17%), total 21,102",
+      "source": "src/data/v2-pipeline/mrk.de.json"
+    },
+    {
+      "bloc": "ranks",
+      "valeur_actuelle": "global_world '≈ #500'",
+      "valeur_correcte": "'#249'",
+      "source": "src/data/companies/mrk.de.json champ enrich_ranks"
+    }
+  ],
+  "confiance": "elevee"
+}

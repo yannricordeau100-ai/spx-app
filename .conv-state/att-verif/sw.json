@@ -1,0 +1,91 @@
+{
+  "ticker": "SW",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/SW/10Q/SW_2026-07-31.htm.gz (10-Q T2 2026) ; data-lake/SW/10Q/SW_2026-05-01.htm.gz (10-Q T1 2026) ; data-lake/SW/10K/SW_2026-02-27.htm.gz (10-K 2025)",
+  "controles": [
+    {
+      "affirmation": "HOOK : \"Smurfit Westrock a versé 474 M$ de dividendes au premier semestre 2026, soit plus que les 151 M$ de résultat net et les 300 M$ de free cash flow générés sur la même période.\"",
+      "verdict": "FAUX",
+      "verbatim_source": "Net cash provided by operating activities 969 1,064 Investing activities: Capital expenditures ( 1,089 ) ( 999 ) [six mois clos le 30 juin 2026 / 2025]",
+      "correction_proposee": "Le free cash flow du PREMIER SEMESTRE 2026 est NEGATIF : 969 M$ de cash operationnel moins 1 089 M$ d'investissements = -120 M$. Les 300 M$ cites sont le FCF du seul T2 2026 (valeur derivee interne), pas celui du semestre. Reformuler : « 474 M$ de dividendes verses au premier semestre 2026, alors que le free cash flow du semestre est negatif de 120 M$. » Verifie personnellement contre le 10-Q, pas seulement via agent."
+    },
+    {
+      "affirmation": "\"le resultat net du seul T2 2026 (88 M$) est en hausse de 117 M$ par rapport au T1 2026\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T1 2026 : \"Income tax expense ( 21 ) ( 8 ) Net income 63 382\" — 10-Q T2 2026 : \"Net income (loss) 88 ( 26 ) 151 356\"",
+      "correction_proposee": "Le resultat net du T1 2026 est de 63 M$. L'ecart T2 2026 vs T1 2026 est donc de +25 M$, pas +117 M$. Les +117 M$ correspondent en realite a la comparaison T2 2026 vs T2 2025 sur le resultat attribuable aux actionnaires (89 M$ contre -28 M$). Reformuler : « le resultat net du seul T2 2026 (88 M$) progresse de 25 M$ par rapport au T1 2026 (63 M$), et repasse en positif apres une perte de 26 M$ au T2 2025. » Verifie personnellement contre les deux 10-Q."
+    },
+    {
+      "affirmation": "\"Les charges d'integration liees a la fusion Smurfit Kappa/WestRock atteignent 122 M$ en 2025 [...] ces charges reculent par rapport aux 395 M$ de 2024\"",
+      "verdict": "FAUX",
+      "verbatim_source": "The Company incurred transaction and integration-related expenses associated with the Combination of $120 million and $395 million in the years ended December 31, 2025 and 2024, respectively. In the year ended December 31, 2025, transaction and integration-related expenses associated with the Combination consisted primarily of integration-related expenses associated with the Combination of $122 million. In the year ended December 31, 2024, transaction and integration-related expenses consisted of transaction-related expenses of $202 million and $193 million of integration-related expenses associated with the Combination.",
+      "correction_proposee": "Comparaison entre deux perimetres differents : les 122 M$ de 2025 sont la seule composante « integration-related », alors que les 395 M$ de 2024 incluent 202 M$ de frais de transaction PLUS 193 M$ d'integration. A perimetre comparable, les charges d'integration passent de 193 M$ (2024) a 122 M$ (2025), soit -37% et non -69%. Le total transaction + integration passe lui de 395 M$ a 120 M$."
+    },
+    {
+      "affirmation": "\"Le 29 juillet 2025, Smurfit Westrock plc, Smurfit Kappa North America LLC, WestRock CP LLC et sept autres acteurs ont ete nommes defendeurs dans une class action antitrust devant le tribunal federal du district nord de l'Illinois\" (resume : « le groupe fait face a une class action antitrust aux Etats-Unis »)",
+      "verdict": "EXAGERE",
+      "verbatim_source": "On October 17, 2025, the plaintiff voluntarily dismissed Smurfit Westrock plc from the lawsuit without prejudice to seek to rejoin it at a later date. The Company's subsidiaries Smurfit Kappa North America LLC and WestRock CP, LLC remain defendants in the lawsuit.",
+      "correction_proposee": "L'ATT omet un fait materiel posterieur : la maison mere Smurfit Westrock plc a ete retiree de la procedure par le demandeur lui-meme le 17 octobre 2025 (sans prejudice, avec possibilite de la reintegrer). Seules les filiales Smurfit Kappa North America LLC et WestRock CP, LLC restent defenderesses. Ajouter cette phrase, faute de quoi le lecteur croit la societe cotee toujours directement poursuivie."
+    },
+    {
+      "affirmation": "\"avec la fermeture definitive de deux usines aux Etats-Unis et deux sites en Allemagne\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "our announced plan to permanently close our coated recycled paperboard mill in St. Paul, Minnesota, U.S., discontinue production at our containerboard mill in Forney, Texas, U.S., and costs associated with two converting facilities in Germany that ceased production in the fourth quarter of 2025.",
+      "correction_proposee": "Le filing ne parle de fermeture definitive (« permanently close ») que pour l'usine de St. Paul (Minnesota). Pour Forney (Texas) il ecrit « discontinue production », ce qui n'est pas juridiquement une fermeture definitive. Reformuler : « fermeture definitive d'une usine a St. Paul (Minnesota), arret de la production a Forney (Texas) et deux sites de transformation en Allemagne ayant cesse leur production au T4 2025. »"
+    },
+    {
+      "affirmation": "La plainte reclame des dommages-interets, y compris des treble damages au titre du Clayton Act, ainsi que des mesures d'injonction ; la societe affirme disposer de defenses substantielles.",
+      "verdict": "CONFORME",
+      "verbatim_source": "The complaint seeks damages, including treble damages under the Clayton Act, pre- and post-judgment interest, injunctive relief and litigation expenses and attorneys' fees. The Company believes that it has substantial defenses and intends to vigorously defend against the lawsuit.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "La societe a depose une requete en rejet le 20 octobre 2025 et le tribunal doit statuer en 2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "On January 20, 2026, the Company completed briefing the court on its motion to dismiss the complaint, which was filed on October 20, 2025. The Company expects the court to rule on the motion to dismiss in 2026.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "L'autorite de la concurrence italienne (AGCM) a inflige en 2019 une amende d'environ 138 M$ a Smurfit Kappa Italia pour pratiques anticoncurrentielles, payee en 2021.",
+      "verdict": "CONFORME",
+      "verbatim_source": "In August 2019, the Italian Competition Authority (the \"AGCM\") notified approximately 30 companies, of which Smurfit Kappa Italia, a subsidiary of Smurfit Westrock, was one, that an investigation had found the companies to have engaged in anti-competitive practices, in relation to which the AGCM levied a fine of approximately $138 million on Smurfit Kappa Italia, which was paid in 2021.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Apres plusieurs appels, le Conseil d'Etat a ordonne une nouvelle reduction du montant en avril 2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "On March 7, 2024, the AGCM notified Smurfit Kappa Italia that its fine had been reduced by approximately $18 million and reimbursed the Company for this amount in 2024. Smurfit Kappa Italia appealed the amount of this reduction and on April 22, 2026, the Council of State directed the AGCM to further reduce the fine by approximately $16 million, plus interest. On July 29, 2026, the AGCM confirmed the amount of this reduction.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Plusieurs acheteurs de cartons et caisses ondulees ont engage des poursuites contre des filiales du groupe, et d'autres parties ont menace Smurfit Westrock de poursuites similaires.",
+      "verdict": "CONFORME",
+      "verbatim_source": "After publication of the AGCM's August 2019 decision, a number of purchasers of corrugated sheets and boxes initiated litigation proceedings against Smurfit Kappa companies, alleging that they were harmed by the alleged anti-competitive practices and seeking damages. In addition, other parties have threatened litigation against Smurfit Westrock seeking damages (either specified or unspecified).",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CHIFFRE : les depreciations et couts de restructuration ont bondi a 385 M$ en 2025 contre 56 M$ en 2024.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Impairment and restructuring costs increased by $329 million, to $385 million in the year ended December 31, 2025, from $56 million in the year ended December 31, 2024. In the year ended December 31, 2025, impairment and restructuring costs consisted of $246 million of impairment charges and $139 million of restructuring costs.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CHIFFRE : hors impact de l'acquisition WestRock, les volumes ont pese pour 716 M$ sur le chiffre d'affaires en 2025.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Excluding the impact of this acquisition, net sales increased by $225 million primarily resulting from a $487 million positive impact due to a higher selling price mix and a $452 million net positive foreign currency impact, partially offset by a negative volume impact of $716 million.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CHIFFRE : dette long terme 13 233 M$, charges d'interet 208 M$ au T2 2026 stables sur un an, absorbant les deux tiers du resultat operationnel du trimestre (309 M$).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Non-current debt due after one year 13,233 13,427 — Note 8. Interest : \"Interest expense $ ( 208 ) $ ( 208 ) $ ( 406 ) $ ( 403 )\" — \"Operating profit 309 251 562 804\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CHIFFRE : marge nette de 1,1% au T2 2026 (89 M$ pour 8 031 M$ de CA), resultat operationnel +23,1%, 474 M$ de dividendes verses au S1 2026 (0,45 $ par action declare au T2, +4,7% sur un an).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net sales $ 8,031 $ 7,940 $ 15,743 $ 15,596 [...] Operating profit 309 251 562 804 [...] Net income (loss) attributable to common shareholders $ 89 $ ( 28 ) $ 154 $ 356 — \"Dividends declared ($ 0.45 per share)\" contre \"($ 0.43 per share)\" au T2 2025 — \"Cash dividends paid to shareholders ( 474 ) ( 450 )\"",
+      "correction_proposee": null
+    }
+  ]
+}

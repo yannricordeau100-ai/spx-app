@@ -1,0 +1,2013 @@
+{
+ "genere_le": "2026-08-21",
+ "mission": "Audit lecture seule : recherche de contaminations d actionnariat ou d identite entre societes",
+ "perimetre_examine": {
+  "src/data/att/*.json": 656,
+  "src/data/v2-pipeline/*.json": 2267,
+  "src/data/companies/*.json": "1671 (croises comme reference, hors perimetre initial mais fortement touches)",
+  "total_fichiers_scannes": 2923,
+  "exclusions": "fichiers *.bak*, *.gemini.json et prefixes _"
+ },
+ "methodes": [
+  "Index de 1856 raisons sociales distinctives, recherche de chaque nom dans les fichiers des autres tickers (5452 occurrences brutes, filtrees par champ)",
+  "Comparaison name / i18n.name vs premiers mots de company_description et description.long_*",
+  "Regroupement des tickers partageant une meme valeur de name",
+  "Croisement des pourcentages capital / droits de vote cites dans les ATT avec governance.top_capital et governance.top_voting du v2-pipeline (56 ecarts examines, tous explicables : agregats, seuils, classes d actions)",
+  "Coherence pays : adjectif de nationalite present dans la description vs suffixe de cotation",
+  "Coherence devise : unites de KPI en USD / S$ sur tickers europeens",
+  "Detection d unites de KPI non corporate (participants, members, badges, K hours, publications)",
+  "Croisement name vs domaine du site officiel de src/data/ir-directory.json"
+ ],
+ "resultat_actionnariat": {
+  "conclusion": "Aucune contamination d actionnariat de type Thales / Dassault Aviation trouvee ailleurs.",
+  "detail": "Les 56 ecarts de pourcentage entre ATT et v2-pipeline correspondent tous a des agregats de plusieurs actionnaires, des seuils statutaires ou des classes d actions, pas a une attribution a la mauvaise entite. Les noms d actionnaires de governance.top_capital / top_voting sont coherents avec le pays et la structure de chaque societe. Le champ HO.PA porte deja les valeurs corrigees 26,60 % / 36,35 %.",
+  "note_ATT": "Les fichiers src/data/att/*.json sont propres : aucune trace IVR, aucun nom de societe etrangere dans les champs preuve / source. Les seules mentions de filings SEC dans des ATT europeens (AMRZ.SW, DBK.DE, LOGN.SW, MBG.DE) sont soit legitimes (Amrize et Logitech deposent bien des 10-K), soit des notes anti-pollution explicites."
+ },
+ "resultat_identite": {
+  "conclusion": "Contamination d IDENTITE massive et systemique, distincte de l actionnariat.",
+  "cause_racine_principale": "Un meme fichier data-lake/<TICKER>/annual-text/2025.txt, qui est en realite le rapport annuel de l IVR (Internationale Vereniging het Rijnschepenregister, association de la navigation fluviale rhenane), a ete utilise comme source pour des dizaines de tickers europeens. Le meme MD5 883e7ddf9ab015c8dcf7ab04d39e1313 est partage. Deja documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA, et dans enrich_ai_pos de CA.PA, mais jamais purge des fiches.",
+  "cause_racine_secondaire": "Resolution par sigle : le ticker ou le sigle de la societe a ete confondu avec une organisation homonyme (BKT -> federation suisse de vol libre, UCB -> University of California Berkeley, SSE -> Social Enterprise Sydney, SPIE -> societe savante d optique, IMI -> Institute of Mathematical Innovation, ADM.L -> Archer-Daniels-Midland, UCG -> International Game Technology), ou avec une filiale ou un concurrent du meme groupe."
+ },
+ "synthese": {
+  "cas_certains": 84,
+  "cas_probables": 2,
+  "cas_a_verifier": 2,
+  "total": 88,
+  "tickers_publies_touches": [
+   "CA.PA",
+   "DHL.DE",
+   "DSFIR.AS",
+   "EN.PA",
+   "FGR.PA",
+   "HNR1.DE",
+   "MBG.DE",
+   "RI.PA",
+   "VMRK",
+   "WKL.AS"
+  ],
+  "familles": {
+   "IVR": [
+    "AED.BR",
+    "AFX.DE",
+    "ALTR.LS",
+    "AUTO.L",
+    "BAKKA.OL",
+    "CA.PA",
+    "COFA.PA",
+    "CRDA.L",
+    "DEZ.DE",
+    "DHL.DE",
+    "DSFIR.AS",
+    "EDEN.PA",
+    "EDV.L",
+    "ELI.BR",
+    "EN.PA",
+    "ENI.MI",
+    "ENT.L",
+    "ERG.MI",
+    "FDR.MC",
+    "FER.MC",
+    "FGR.PA",
+    "GBLB.BR",
+    "GET.PA",
+    "GLPG.AS",
+    "GMAB.CO",
+    "HNR1.DE",
+    "HWDN.L",
+    "IBE.MC",
+    "JCQ.PA",
+    "KNEBV.HE",
+    "MAU.PA",
+    "MBG.DE",
+    "MNDI.L",
+    "MNDI.MI",
+    "MONC.MI",
+    "NEX.PA",
+    "NOS.LS",
+    "ORNBV.HE",
+    "OUT1V.HE",
+    "PGS.OL",
+    "PHR.LS",
+    "PVL.PA",
+    "RACE.MI",
+    "RMV.L",
+    "SCYR.MC",
+    "SGRO.L",
+    "SINCH.ST",
+    "SMIN.L",
+    "SN.L",
+    "SPX.L",
+    "STMMI.MI",
+    "SUBC.OL",
+    "TEL.OL",
+    "TEN.MI",
+    "UBI.PA",
+    "VEI.OL",
+    "VIV.PA",
+    "VLA.PA",
+    "WCH.DE",
+    "WKL.AS",
+    "WRT1V.HE"
+   ],
+   "homonyme_organisation_ou_sigle": [
+    "ADM.L",
+    "ADTTF",
+    "ATEYY",
+    "BKT.MC",
+    "DPLM.L",
+    "EVD.DE",
+    "FRO.OL",
+    "IMI.L",
+    "PSTG",
+    "RI.PA",
+    "SPIE.PA",
+    "SSE.L",
+    "UCB.BR",
+    "UCG.MI",
+    "UNI.MI"
+   ],
+   "filiale_ou_concurrent": [
+    "BPE.MI",
+    "ENEL.MI",
+    "NWG.L",
+    "PST.MI",
+    "SDR.L",
+    "SMDS.L",
+    "VOD.L"
+   ],
+   "autres": [
+    "BCP.LS",
+    "CSGKF",
+    "EXAE.PA",
+    "FR.PA",
+    "VMRK"
+   ]
+  }
+ },
+ "cas": [
+  {
+   "ticker": "DHL.DE",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/companies/dhl.de.json"
+   ],
+   "champs": [
+    ".ticker",
+    ".name",
+    ".tagline",
+    ".sector",
+    ".subsector"
+   ],
+   "extrait": "src/data/companies/dhl.de.json : \"ticker\": \"IVR\", \"name\": \"International Association for Inland Navigation\" (la company_description, elle, decrit correctement Deutsche Post AG)",
+   "entite_reellement_concernee": "IVR",
+   "confiance": "certain",
+   "correction_proposee": "Remettre ticker = \"DHL.DE\", name = \"DHL Group\", tagline / sector / subsector de DHL. Le champ ticker faux est le plus grave : il peut casser la resolution de la fiche.",
+   "publie": true
+  },
+  {
+   "ticker": "DSFIR.AS",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/dsfir.as.json",
+    "src/data/companies/dsfir.as.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": true
+  },
+  {
+   "ticker": "EN.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/en.pa.json",
+    "src/data/companies/en.pa.json"
+   ],
+   "champs": [
+    ".tagline",
+    ".sector",
+    ".subsector"
+   ],
+   "extrait": "name = \"Bouygues SA\" et company_description correctes, mais tagline = \"International representation body for inland waterway transport and maritime safety\", sector = \"Professional Services\", subsector = \"Industry Association\"",
+   "entite_reellement_concernee": "IVR",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer tagline / sector / subsector Bouygues (Industrie, Construction et medias).",
+   "publie": true
+  },
+  {
+   "ticker": "FGR.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/fgr.pa.json",
+    "src/data/companies/fgr.pa.json"
+   ],
+   "champs": [
+    ".tagline",
+    ".sector",
+    ".subsector"
+   ],
+   "extrait": "name = \"Eiffage\" et description correctes, mais sector = \"Non-Profit / Association\", subsector = \"Inland Waterway Transport Advocacy\", tagline = \"International Association for Inland Waterway Transport Safety and Regulation\"",
+   "entite_reellement_concernee": "IVR",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer sector Industrie / subsector Construction et concessions, tagline Eiffage.",
+   "publie": true
+  },
+  {
+   "ticker": "HNR1.DE",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/hnr1.de.json",
+    "src/data/companies/hnr1.de.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": true
+  },
+  {
+   "ticker": "MBG.DE",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/companies/mbg.de.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".sector",
+    ".subsector",
+    ".company_description",
+    ".hero_kpi_rationale"
+   ],
+   "extrait": "src/data/companies/mbg.de.json : name = \"IVR\", subsector = \"Inland Waterway Transport\", company_description = \"L'IVR est une association europeenne independante et neutre...\" alors que src/data/v2-pipeline/mbg.de.json est correct (name = \"Mercedes-Benz Group\")",
+   "entite_reellement_concernee": "IVR",
+   "confiance": "certain",
+   "correction_proposee": "Recopier l identite depuis src/data/v2-pipeline/mbg.de.json (Mercedes-Benz Group, Consommation discretionnaire, Automobile premium) et purger la description IVR.",
+   "publie": true
+  },
+  {
+   "ticker": "RI.PA",
+   "famille": "homonyme-secteur",
+   "fichiers": [
+    "src/data/v2-pipeline/ri.pa.json",
+    "src/data/companies/ri.pa.json"
+   ],
+   "champs": [
+    ".company_description"
+   ],
+   "extrait": "name = \"Pernod Ricard\" (correct) mais company_description = \"Remy Cointreau est un groupe francais de spiritueux premium (cognac Remy Martin, liqueur Cointreau, whiskies, rhums). Cote a Paris (RI.PA)...\" - le texte s attribue meme le ticker RI.PA",
+   "entite_reellement_concernee": "Remy Cointreau / RCO.PA",
+   "confiance": "certain",
+   "correction_proposee": "Remplacer la company_description par celle de Pernod Ricard (Absolut, Jameson, Martell, Chivas, Ricard). TICKER PUBLIE : a corriger en priorite.",
+   "publie": true
+  },
+  {
+   "ticker": "WKL.AS",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/companies/wkl.as.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".sector",
+    ".subsector",
+    ".kpis[]"
+   ],
+   "extrait": "companies/wkl.as.json : name = \"IVR\", tagline = \"International Representative Body for European Inland Waterway Transport\" (company_description correcte : Wolters Kluwer N.V.)",
+   "entite_reellement_concernee": "IVR",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"Wolters Kluwer\", sector Technologie, subsector Information professionnelle (cf v2-pipeline/wkl.as.json) et purger les KPI IVR.",
+   "publie": true
+  },
+  {
+   "ticker": "CA.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v1-9-5-names.json"
+   ],
+   "champs": [
+    "._decon_v195.summary",
+    "enrich_ai_pos.summary (companies)"
+   ],
+   "extrait": "Contamination Carrefour / Compagnie des Alpes deja nettoyee et documentee ; il ne reste que des traces dans les champs meta. En revanche src/data/v1-9-5-names.json associe encore CA.PA a \"Compagnie des Alpes\".",
+   "entite_reellement_concernee": "Compagnie des Alpes (CDA.PA)",
+   "confiance": "probable",
+   "correction_proposee": "Corriger l entree CA.PA de src/data/v1-9-5-names.json en \"Carrefour\". Les fiches companies/ et v2-pipeline/ sont propres. TICKER PUBLIE.",
+   "publie": true
+  },
+  {
+   "ticker": "VMRK",
+   "famille": "identite-synthetique",
+   "fichiers": [
+    "src/data/v2-pipeline/vmrk.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline"
+   ],
+   "extrait": "name = \"Vivmark Residential\", tagline = \"One of the Country's Leading Real Estate Companies\", mais les KPI sont prefixes AVB_ et EQR_ et le hero_kpi_rationale parle de \"la fusion de equals AvalonBay/Equity Residential\"",
+   "entite_reellement_concernee": "AvalonBay Communities (AVB) et Equity Residential (EQR)",
+   "confiance": "a verifier",
+   "correction_proposee": "Confirmer que VMRK est bien l entite fusionnee et fixer sa denomination officielle ; sinon retirer la fiche. TICKER PUBLIE.",
+   "publie": true
+  },
+  {
+   "ticker": "ADM.L",
+   "famille": "homonyme-sigle",
+   "fichiers": [
+    "src/data/v2-pipeline/adm.l.json",
+    "src/data/companies/adm.l.json"
+   ],
+   "champs": [
+    ".company_description",
+    ".name"
+   ],
+   "extrait": "name = \"ADM.L\" (placeholder) et company_description = \"Archer Daniels Midland processes agricultural commodities into food ingredients, animal feed, and biofuels.\"",
+   "entite_reellement_concernee": "Archer-Daniels-Midland Company / ADM (US)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"Admiral Group plc\" (assureur automobile britannique) et une description correspondante. Cas identique aux homonymes deja listes dans src/data/_data-lake-cross-pollution.json.",
+   "publie": false
+  },
+  {
+   "ticker": "ADTTF",
+   "famille": "homonyme-sigle",
+   "fichiers": [
+    "src/data/v2-pipeline/adttf.json",
+    "src/data/companies/adttf.json"
+   ],
+   "champs": [
+    ".company_description"
+   ],
+   "extrait": "name = \"Advantest\" et tagline \"Leading semiconductor test solutions for AI and HPC devices\" corrects, KPI en Mds JPY, mais company_description = \"Adidas est l un des deux principaux equipementiers sportifs mondiaux, base a Herzogenaurach (Allemagne)...\"",
+   "entite_reellement_concernee": "adidas AG / ADS.DE",
+   "confiance": "certain",
+   "correction_proposee": "Remplacer la company_description par celle d Advantest (testeurs de semi-conducteurs, Tokyo).",
+   "publie": false
+  },
+  {
+   "ticker": "AED.BR",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/aed.br.json",
+    "src/data/companies/aed.br.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "AFX.DE",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/afx.de.json",
+    "src/data/companies/afx.de.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "ALTR.LS",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/altr.ls.json",
+    "src/data/companies/altr.ls.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "ATEYY",
+   "famille": "homonyme-sigle",
+   "fichiers": [
+    "src/data/v2-pipeline/ateyy.json",
+    "src/data/companies/ateyy.json"
+   ],
+   "champs": [
+    ".company_description"
+   ],
+   "extrait": "name = \"Advantest\" correct mais company_description = \"Atlas Copco est un groupe suedois fournisseur mondial de compresseurs, outils industriels, equipements miniers...\"",
+   "entite_reellement_concernee": "Atlas Copco AB / ATCO-A.ST",
+   "confiance": "certain",
+   "correction_proposee": "Remplacer la company_description par celle d Advantest.",
+   "publie": false
+  },
+  {
+   "ticker": "AUTO.L",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/auto.l.json",
+    "src/data/companies/auto.l.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "BAKKA.OL",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/bakka.ol.json",
+    "src/data/companies/bakka.ol.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "BCP.LS",
+   "famille": "residu-nettoyage",
+   "fichiers": [
+    "src/data/v2-pipeline/bcp.ls.json",
+    "src/data/companies/bcp.ls.json"
+   ],
+   "champs": [
+    ".company_description"
+   ],
+   "extrait": "name = \"Banco Comercial Portugues (Millennium BCP)\" correct mais company_description = \"Banque cantonale suisse specialisee dans la gestion de patrimoine, le financement du commerce des matieres premieres et les investissements propres, avec une approche integree des criteres ESG.\"",
+   "entite_reellement_concernee": "Banque de Commerce et de Placements SA (Geneve, Suisse)",
+   "confiance": "certain",
+   "correction_proposee": "Remplacer la company_description par celle de Millennium BCP (banque de detail portugaise, Porto). Residu du nettoyage deja signale : present a l identique dans v2-pipeline ET companies.",
+   "publie": false
+  },
+  {
+   "ticker": "BKT.MC",
+   "famille": "homonyme-organisation",
+   "fichiers": [
+    "src/data/v2-pipeline/bkt.mc.json",
+    "src/data/companies/bkt.mc.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".sector",
+    ".subsector",
+    ".company_description",
+    ".kpis[]"
+   ],
+   "extrait": "name = \"SHV Schweizerischer Haengegleiter-Verband\", tagline = \"Swiss free flight federation promoting hang gliding and paragliding\", company_description = \"La SHV est la federation suisse du vol libre...\", KPI en tonnes CO2-eq",
+   "entite_reellement_concernee": "SHV - Schweizerischer Haengegleiter-Verband (federation suisse de vol libre, Suisse)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer l identite Bankinter S.A. (banque espagnole, Madrid, Finance / Banque) et purger integralement les KPI d empreinte carbone de la SHV.",
+   "publie": false
+  },
+  {
+   "ticker": "BPE.MI",
+   "famille": "filiale",
+   "fichiers": [
+    "src/data/v2-pipeline/bpe.mi.json",
+    "src/data/companies/bpe.mi.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".subsector"
+   ],
+   "extrait": "name = \"Factorit S.p.A.\", tagline = \"Leading Italian factoring and supply chain finance specialist\", subsector = \"Factoring & Supply Chain Finance\". La company_description decrit correctement BPER Banca SpA.",
+   "entite_reellement_concernee": "Factorit S.p.A. (societe d affacturage italienne, filiale de Banca Popolare di Sondrio)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"BPER Banca\", subsector Banque de detail.",
+   "publie": false
+  },
+  {
+   "ticker": "COFA.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/cofa.pa.json",
+    "src/data/companies/cofa.pa.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": false
+  },
+  {
+   "ticker": "CRDA.L",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/crda.l.json",
+    "src/data/companies/crda.l.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "DEZ.DE",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/dez.de.json",
+    "src/data/companies/dez.de.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": false
+  },
+  {
+   "ticker": "DPLM.L",
+   "famille": "homonyme-organisation",
+   "fichiers": [
+    "src/data/v2-pipeline/dplm.l.json",
+    "src/data/companies/dplm.l.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".sector",
+    ".subsector"
+   ],
+   "extrait": "name = \"Globe Institute of Recording and Production\", subsector = \"Education Technology\", tagline = \"Specialized certificate programs in sound therapy and recording\". La company_description decrit correctement Diploma PLC.",
+   "entite_reellement_concernee": "Globe Institute of Recording and Production (ecole americaine)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"Diploma PLC\", sector Industrie, subsector Distribution technique specialisee.",
+   "publie": false
+  },
+  {
+   "ticker": "EDEN.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/eden.pa.json",
+    "src/data/companies/eden.pa.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "EDV.L",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/edv.l.json",
+    "src/data/companies/edv.l.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "ELI.BR",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/eli.br.json",
+    "src/data/companies/eli.br.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "ENEL.MI",
+   "famille": "filiale",
+   "fichiers": [
+    "src/data/v2-pipeline/enel.mi.json",
+    "src/data/companies/enel.mi.json"
+   ],
+   "champs": [
+    ".name"
+   ],
+   "extrait": "name = \"Enel Americas\". La company_description decrit correctement Enel SpA (operateur integre italien).",
+   "entite_reellement_concernee": "Enel Americas S.A. (filiale latino-americaine cotee au NYSE sous ENIA)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"Enel SpA\".",
+   "publie": false
+  },
+  {
+   "ticker": "ENI.MI",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/eni.mi.json",
+    "src/data/companies/eni.mi.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "ENT.L",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/ent.l.json",
+    "src/data/companies/ent.l.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".sector",
+    ".subsector",
+    ".kpis[]"
+   ],
+   "extrait": "name = \"International Association of Classification...\", tagline = \"Representing the interests of inland shipping, insurance...\" (= IVR). La company_description decrit correctement Entain Plc.",
+   "entite_reellement_concernee": "IVR",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"Entain Plc\", sector Consommation discretionnaire, subsector Paris sportifs et jeux en ligne, et purger les KPI Congress / Loss Prevention.",
+   "publie": false
+  },
+  {
+   "ticker": "ERG.MI",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/erg.mi.json",
+    "src/data/companies/erg.mi.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "EVD.DE",
+   "famille": "homonyme-organisation",
+   "fichiers": [
+    "src/data/v2-pipeline/evd.de.json",
+    "src/data/companies/evd.de.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".sector",
+    ".subsector"
+   ],
+   "extrait": "name = \"National Treasury Management Agency\", tagline = \"Managing Ireland's debt and investing in economic development\", subsector = \"Government Financial Institution\". La company_description decrit correctement CTS Eventim AG & Co. KGaA.",
+   "entite_reellement_concernee": "National Treasury Management Agency (agence de la dette irlandaise)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"CTS Eventim\", sector Consommation discretionnaire, subsector Billetterie et evenementiel.",
+   "publie": false
+  },
+  {
+   "ticker": "EXAE.PA",
+   "famille": "place-de-cotation",
+   "fichiers": [
+    "src/data/v2-pipeline/exae.pa.json"
+   ],
+   "champs": [
+    ".company_description",
+    ".description.long_fr",
+    ".description.long_en",
+    ".description.long_de"
+   ],
+   "extrait": "name = \"Exail Technologies SA\" et tagline corrects, mais les quatre descriptions decrivent Euronext : \"Euronext est l operateur paneuropeen des marches financiers... Chiffre d affaires 2024 : ~1.62 Md EUR\"",
+   "entite_reellement_concernee": "Euronext N.V. / ENX.PA",
+   "confiance": "certain",
+   "correction_proposee": "Remplacer les quatre descriptions par celles d Exail Technologies (drones maritimes, navigation inertielle). Verifier aussi la validite du code EXAE.PA (Exail cote sous EXA.PA).",
+   "publie": false
+  },
+  {
+   "ticker": "FDR.MC",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/fdr.mc.json",
+    "src/data/companies/fdr.mc.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "FER.MC",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/fer.mc.json",
+    "src/data/companies/fer.mc.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "FR.PA",
+   "famille": "mixte",
+   "fichiers": [
+    "src/data/v2-pipeline/fr.pa.json",
+    "src/data/companies/fr.pa.json"
+   ],
+   "champs": [
+    ".tagline",
+    ".sector",
+    ".subsector",
+    ".description.long_fr",
+    ".description.long_en",
+    ".description.long_de",
+    ".kpis[]"
+   ],
+   "extrait": "DOUBLE contamination : tagline = \"International association representing inland shipping, insurance, and maritime survey sectors\" + sector \"Non-profit / Association\" (= IVR) ; ET description.long_fr/en/de = \"Verallia est un producteur europeen et latino-americain d emballages en verre...\" (= VRLA.PA). Seuls name = \"Valeo SA\", i18n et company_description sont corrects.",
+   "entite_reellement_concernee": "IVR (association fluviale) pour tagline/sector ; Verallia / VRLA.PA pour les descriptions longues",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer tagline / sector / subsector Valeo (Consommation discretionnaire, Equipementier automobile) ; remplacer les trois description.long_* par la description Valeo (l i18n.tagline_* du fichier est deja correcte et peut servir de base) ; purger les KPI en unite participants.",
+   "publie": false
+  },
+  {
+   "ticker": "FRO.OL",
+   "famille": "homonyme-sigle",
+   "fichiers": [
+    "src/data/v2-pipeline/fro.ol.json",
+    "src/data/companies/fro.ol.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".subsector",
+    ".kpis[].unit"
+   ],
+   "extrait": "name = \"Singtel\", tagline = \"Asia's leading communications technology group\", KPI en unite \"S$m\" (dollars de Singapour). La company_description decrit correctement Frontline plc (armateur petrolier).",
+   "entite_reellement_concernee": "Singtel - Singapore Telecommunications",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"Frontline plc\", sector Energie / Transport maritime, subsector Tankers, et purger les KPI en S$m.",
+   "publie": false
+  },
+  {
+   "ticker": "GBLB.BR",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/gblb.br.json",
+    "src/data/companies/gblb.br.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "GET.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/get.pa.json",
+    "src/data/companies/get.pa.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": false
+  },
+  {
+   "ticker": "GLPG.AS",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/glpg.as.json",
+    "src/data/companies/glpg.as.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "GMAB.CO",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/gmab.co.json",
+    "src/data/companies/gmab.co.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "HWDN.L",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/hwdn.l.json",
+    "src/data/companies/hwdn.l.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "IBE.MC",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/ibe.mc.json",
+    "src/data/companies/ibe.mc.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "IMI.L",
+   "famille": "homonyme-organisation",
+   "fichiers": [
+    "src/data/v2-pipeline/imi.l.json",
+    "src/data/companies/imi.l.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".sector",
+    ".subsector",
+    ".kpis[]"
+   ],
+   "extrait": "name = \"Institute of Mathematical Innovation\", tagline = \"Delivering world-class research with global impact through mathematical innovation\", KPI \"Grant Income\" / \"Consultancy Projects\". La company_description decrit correctement IMI plc.",
+   "entite_reellement_concernee": "Institute of Mathematical Innovation (University of Bath)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"IMI plc\", sector Industrie, subsector Controle des fluides et du mouvement, et purger les KPI de recherche academique.",
+   "publie": false
+  },
+  {
+   "ticker": "JCQ.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/jcq.pa.json",
+    "src/data/companies/jcq.pa.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": false
+  },
+  {
+   "ticker": "KNEBV.HE",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/knebv.he.json",
+    "src/data/companies/knebv.he.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "MAU.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/mau.pa.json",
+    "src/data/companies/mau.pa.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": false
+  },
+  {
+   "ticker": "MNDI.L",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/mndi.l.json",
+    "src/data/companies/mndi.l.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "MNDI.MI",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/mndi.mi.json",
+    "src/data/companies/mndi.mi.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "MONC.MI",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/monc.mi.json",
+    "src/data/companies/monc.mi.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "NEX.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/nex.pa.json",
+    "src/data/companies/nex.pa.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": false
+  },
+  {
+   "ticker": "NOS.LS",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/nos.ls.json",
+    "src/data/companies/nos.ls.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "ORNBV.HE",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/ornbv.he.json",
+    "src/data/companies/ornbv.he.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": false
+  },
+  {
+   "ticker": "OUT1V.HE",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/out1v.he.json",
+    "src/data/companies/out1v.he.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "PGS.OL",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/pgs.ol.json",
+    "src/data/companies/pgs.ol.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "PHR.LS",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/phr.ls.json",
+    "src/data/companies/phr.ls.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "PST.MI",
+   "famille": "filiale",
+   "fichiers": [
+    "src/data/v2-pipeline/pst.mi.json",
+    "src/data/companies/pst.mi.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".subsector"
+   ],
+   "extrait": "name = \"PostePay S.p.A.\", tagline = \"Italian prepaid card and digital payment solutions provider\". La company_description decrit correctement Poste Italiane S.p.A.",
+   "entite_reellement_concernee": "PostePay S.p.A. (filiale paiements de Poste Italiane)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"Poste Italiane\", subsector Services postaux et financiers diversifies.",
+   "publie": false
+  },
+  {
+   "ticker": "PSTG",
+   "famille": "homonyme-marque",
+   "fichiers": [
+    "src/data/v2-pipeline/pstg.json",
+    "src/data/companies/pstg.json"
+   ],
+   "champs": [
+    ".name"
+   ],
+   "extrait": "name = \"Everpure\". La tagline et la description decrivent correctement Pure Storage.",
+   "entite_reellement_concernee": "Everpure (marque de filtration d eau, groupe Pentair)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"Pure Storage\".",
+   "publie": false
+  },
+  {
+   "ticker": "PVL.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/pvl.pa.json",
+    "src/data/companies/pvl.pa.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": false
+  },
+  {
+   "ticker": "RACE.MI",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/race.mi.json",
+    "src/data/companies/race.mi.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "RMV.L",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/rmv.l.json",
+    "src/data/companies/rmv.l.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "SCYR.MC",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/scyr.mc.json",
+    "src/data/companies/scyr.mc.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "SDR.L",
+   "famille": "filiale",
+   "fichiers": [
+    "src/data/v2-pipeline/sdr.l.json",
+    "src/data/companies/sdr.l.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline"
+   ],
+   "extrait": "name = \"J. Henry Schroder Wagg & Co. Limited\", tagline = \"Trustee of the Schroders Medical Healthcare Scheme\". La company_description decrit correctement Schroders plc.",
+   "entite_reellement_concernee": "J. Henry Schroder Wagg & Co. Ltd (ancienne filiale / trustee du regime de retraite Schroders)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"Schroders plc\" et la tagline du groupe.",
+   "publie": false
+  },
+  {
+   "ticker": "SGRO.L",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/sgro.l.json",
+    "src/data/companies/sgro.l.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "SINCH.ST",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/sinch.st.json",
+    "src/data/companies/sinch.st.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "SMDS.L",
+   "famille": "concurrent",
+   "fichiers": [
+    "src/data/v2-pipeline/smds.l.json",
+    "src/data/companies/smds.l.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline"
+   ],
+   "extrait": "name = \"Smurfit Kappa\", tagline = \"Smurfit Kappa\". La company_description decrit correctement DS Smith (rachete par International Paper en 2024).",
+   "entite_reellement_concernee": "Smurfit Kappa Group / Smurfit Westrock (concurrent direct)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"DS Smith\" et une tagline propre, ou retirer la fiche puisque la societe n est plus cotee.",
+   "publie": false
+  },
+  {
+   "ticker": "SMIN.L",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/smin.l.json",
+    "src/data/companies/smin.l.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "SN.L",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/sn.l.json",
+    "src/data/companies/sn.l.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "SPIE.PA",
+   "famille": "homonyme-organisation",
+   "fichiers": [
+    "src/data/v2-pipeline/spie.pa.json",
+    "src/data/companies/spie.pa.json"
+   ],
+   "champs": [
+    ".company_description",
+    ".subsector",
+    ".tagline",
+    ".kpis[]"
+   ],
+   "extrait": "company_description = \"SPIE est une societe internationale a but non lucratif dediee aux domaines de l optique et de la photonique...\", subsector = \"Scientific and Technical Societies\", tagline = \"Connecting minds\", KPI \"Digital Library Access\" / \"Publications Added\"",
+   "entite_reellement_concernee": "SPIE - the international society for optics and photonics (association savante americaine)",
+   "confiance": "certain",
+   "correction_proposee": "Remplacer par la description de SPIE SA (services multi-techniques a l energie et aux communications, France), subsector Services industriels, et purger les KPI bibliotheque numerique / publications.",
+   "publie": false
+  },
+  {
+   "ticker": "SPX.L",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/spx.l.json",
+    "src/data/companies/spx.l.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "SSE.L",
+   "famille": "homonyme-organisation",
+   "fichiers": [
+    "src/data/v2-pipeline/sse.l.json",
+    "src/data/companies/sse.l.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".sector",
+    ".subsector",
+    ".kpis[]"
+   ],
+   "extrait": "name = \"Social Enterprise Sydney\", sector = \"Education\", tagline = \"Empowering communities through entrepreneurial education and skills development across NSW\", KPI \"Industry Badges Issued\". La company_description decrit correctement SSE plc (electricite).",
+   "entite_reellement_concernee": "Social Enterprise Sydney (organisme australien)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"SSE plc\", sector Services aux collectivites / Electricite, tagline SSE, et purger les KPI de programme educatif.",
+   "publie": false
+  },
+  {
+   "ticker": "STMMI.MI",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/stmmi.mi.json",
+    "src/data/companies/stmmi.mi.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "SUBC.OL",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/subc.ol.json",
+    "src/data/companies/subc.ol.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "TEL.OL",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/tel.ol.json",
+    "src/data/companies/tel.ol.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "TEN.MI",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/ten.mi.json",
+    "src/data/companies/ten.mi.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "UBI.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/ubi.pa.json",
+    "src/data/companies/ubi.pa.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": false
+  },
+  {
+   "ticker": "UCB.BR",
+   "famille": "homonyme-organisation",
+   "fichiers": [
+    "src/data/v2-pipeline/ucb.br.json",
+    "src/data/companies/ucb.br.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".sector",
+    ".subsector",
+    ".kpis[]"
+   ],
+   "extrait": "name = \"University of California, Berkeley\", sector = \"Technologie\", subsector = \"Education Technology\", KPI \"Audit Hours\" / \"Advisory Hours\" / \"Investigation Hours\" en K hours. La company_description decrit correctement UCB SA (biopharma).",
+   "entite_reellement_concernee": "University of California, Berkeley (service d audit interne)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"UCB SA\", sector Sante / Biopharmacie, tagline UCB, et purger les KPI d heures d audit.",
+   "publie": false
+  },
+  {
+   "ticker": "UCG.MI",
+   "famille": "homonyme-sigle",
+   "fichiers": [
+    "src/data/v2-pipeline/ucg.mi.json",
+    "src/data/companies/ucg.mi.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline",
+    ".subsector"
+   ],
+   "extrait": "name = \"International Game Technology PLC\", tagline = \"Global gaming leader providing integrated technology solutions\", subsector = \"Software & Services\". La company_description decrit correctement UniCredit S.p.A.",
+   "entite_reellement_concernee": "International Game Technology PLC / IGT",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"UniCredit\", sector Finance, subsector Banque.",
+   "publie": false
+  },
+  {
+   "ticker": "UNI.MI",
+   "famille": "homonyme-secteur",
+   "fichiers": [
+    "src/data/v2-pipeline/uni.mi.json",
+    "src/data/companies/uni.mi.json"
+   ],
+   "champs": [
+    ".company_description",
+    ".description.long_fr"
+   ],
+   "extrait": "name = \"Unipol Assicurazioni\" (correct) mais company_description = \"UniCredit est un groupe bancaire paneuropeen base a Milan\" et description.long_fr = \"UniCredit est l une des principales banques europeennes, presente dans 13 pays...\"",
+   "entite_reellement_concernee": "UniCredit / UCG.MI",
+   "confiance": "certain",
+   "correction_proposee": "Remplacer les descriptions par celles d Unipol (assurance dommages et vie, Bologne).",
+   "publie": false
+  },
+  {
+   "ticker": "VEI.OL",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/vei.ol.json",
+    "src/data/companies/vei.ol.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "VIV.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/viv.pa.json",
+    "src/data/companies/viv.pa.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": false
+  },
+  {
+   "ticker": "VLA.PA",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/vla.pa.json",
+    "src/data/companies/vla.pa.json"
+   ],
+   "champs": [
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description ou kpis[]"
+   ],
+   "extrait": "Identite de la societe conservee dans name, mais tagline / sector / subsector et/ou KPI proviennent de l'IVR (navigation fluviale, congres, colloque loss prevention)",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister",
+   "confiance": "certain",
+   "cause_racine": "Meme source annual-text/2025.txt partagee.",
+   "correction_proposee": "Purger tagline / sector / subsector / KPI issus de l'IVR et re-extraire depuis la source IR de la societe.",
+   "publie": false
+  },
+  {
+   "ticker": "VOD.L",
+   "famille": "filiale",
+   "fichiers": [
+    "src/data/v2-pipeline/vod.l.json",
+    "src/data/companies/vod.l.json"
+   ],
+   "champs": [
+    ".name",
+    ".tagline"
+   ],
+   "extrait": "name = \"Vodacom Group\", tagline = \"Connecting for a better future\". La company_description decrit correctement Vodafone Group Public Limited Company.",
+   "entite_reellement_concernee": "Vodacom Group Ltd (filiale sud-africaine de Vodafone, cotee a Johannesbourg)",
+   "confiance": "certain",
+   "correction_proposee": "Restaurer name = \"Vodafone Group\" et la tagline Vodafone.",
+   "publie": false
+  },
+  {
+   "ticker": "WCH.DE",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/wch.de.json",
+    "src/data/companies/wch.de.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "WRT1V.HE",
+   "famille": "IVR",
+   "fichiers": [
+    "src/data/v2-pipeline/wrt1v.he.json",
+    "src/data/companies/wrt1v.he.json"
+   ],
+   "champs": [
+    "name",
+    "tagline",
+    "sector",
+    "subsector",
+    "company_description (parfois)",
+    "kpis[] (Congress Participants / Loss Prevention Colloquium / Member Countries)",
+    "hero_kpi",
+    "hero_kpi_rationale"
+   ],
+   "extrait": "name = \"IVR\" ; tagline type \"International association representing inland shipping, insurance and ship survey\" ; KPI \"Congress Attendance\" en unite participants",
+   "entite_reellement_concernee": "IVR - Internationale Vereniging het Rijnschepenregister (association europeenne de la navigation fluviale rhenane, non cotee)",
+   "confiance": "certain",
+   "cause_racine": "Le fichier source data-lake/<TICKER>/annual-text/2025.txt est le rapport annuel IVR (meme MD5 partage par 8+ tickers). Documente dans _cross_pollution_detail de EDEN.PA, HEI.DE, MONC.MI, RMV.L, SGRO.L, SOLB.BR, EN.PA.",
+   "correction_proposee": "Restaurer name / tagline / sector / subsector reels de la societe (la description longue et l'i18n sont generalement restees correctes et peuvent servir de reference), purger tous les KPI issus du rapport IVR (Congress, Colloquium, Member Countries) et le hero_kpi associe, puis re-extraire depuis la source IR locale.",
+   "publie": false
+  },
+  {
+   "ticker": "NWG.L",
+   "famille": "filiale",
+   "fichiers": [
+    "src/data/v2-pipeline/nwg.l.json",
+    "src/data/companies/nwg.l.json"
+   ],
+   "champs": [
+    ".name"
+   ],
+   "extrait": "name = \"NatWest Holdings Limited\". La company_description decrit correctement NatWest Group plc.",
+   "entite_reellement_concernee": "NatWest Holdings Ltd (filiale intermediaire non cotee du groupe)",
+   "confiance": "probable",
+   "correction_proposee": "Restaurer name = \"NatWest Group plc\" (entite cotee sous NWG.L).",
+   "publie": false
+  },
+  {
+   "ticker": "CSGKF",
+   "famille": "code-ticker",
+   "fichiers": [
+    "src/data/v2-pipeline/csgkf.json"
+   ],
+   "champs": [
+    ".ticker (nom de fichier)"
+   ],
+   "extrait": "Le fichier src/data/v2-pipeline/csgkf.json porte l identite complete d AXA SA (name, tagline, KPI en Mds EUR, hero P&C GWP). Or CSGKF est le code OTC historique de Credit Suisse Group AG ; les lignes OTC d AXA sont AXAHY / AXAHF.",
+   "entite_reellement_concernee": "Credit Suisse Group AG (absorbe par UBS en 2023)",
+   "confiance": "a verifier",
+   "correction_proposee": "Verifier la table de correspondance ticker OTC. Si CSGKF n est pas un alias volontaire d AXA, renommer le fichier en axahy.json ou le supprimer.",
+   "publie": false
+  }
+ ],
+ "recommandation_prioritaire": [
+  "1. src/data/companies/dhl.de.json : le champ ticker vaut \"IVR\" au lieu de \"DHL.DE\". Ticker publie, risque de resolution de fiche.",
+  "2. src/data/companies/mbg.de.json : identite Mercedes-Benz entierement remplacee par celle de l IVR. Ticker publie. Le fichier v2-pipeline correspondant est sain et peut servir de source de restauration.",
+  "3. src/data/v2-pipeline/ri.pa.json et companies/ri.pa.json : la description de Pernod Ricard est celle de Remy Cointreau, et le texte revendique le ticker RI.PA. Ticker publie.",
+  "4. Purger la famille IVR sur les 61 tickers listes avant toute nouvelle publication ; le marqueur le plus fiable est un KPI en unite participants ou countries nomme Congress / Loss Prevention Colloquium / Member Countries.",
+  "5. Etendre src/data/_data-lake-cross-pollution.json aux nouveaux homonymes identifies : ADM.L, ADTTF, ATEYY, BKT.MC, DPLM.L, EVD.DE, IMI.L, SPIE.PA, SSE.L, UCB.BR, UCG.MI, FRO.OL."
+ ]
+}

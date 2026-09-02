@@ -1,0 +1,67 @@
+{
+  "ticker": "NFLX",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/NFLX/10Q/NFLX_2026-07-17.htm.gz ; data-lake/NFLX/10K/NFLX_2026-01-23.htm.gz ; data-lake/NFLX/risks/extracted.json ; .batches-drafts-safe/kpis-haut/NFLX.json",
+  "controles": [
+    {
+      "affirmation": "Le 10-K FY2025 place la concurrence en tete de ses facteurs de risque ('Concurrence intense, premier risque du 10-K')",
+      "verdict": "FAUX",
+      "verbatim_source": "Item 1A. Risk Factors / Risks Related to Our Business / 'If our efforts to attract and retain members are not successful, our business will be adversely affected.' Le facteur concurrence n'arrive qu'en troisieme position, sous l'intitule 'Changes in competitive offerings for entertainment video could adversely impact our business.'",
+      "correction_proposee": "Le premier facteur de risque du 10-K FY2025 est l'attraction et la retention des abonnes, pas la concurrence. Reformuler : 'La concurrence figure parmi les tout premiers facteurs de risque du 10-K FY2025, juste apres l'attraction et la retention des abonnes.' NB : l'erreur vient de data-lake/NFLX/risks/extracted.json qui se contredit lui-meme (il ecrit 'Risque cite en premier dans la section 1A' pour la concurrence ET 'Premier risque nominatif du 10-K' pour les abonnes) ; corriger aussi ce fichier source. Les mentions 'severite 4/5' et 'tendance en deterioration' sont des notations Mettrik, absentes du 10-K : ne pas les attribuer au document."
+    },
+    {
+      "affirmation": "De plus en plus de pays... certains peuvent restreindre les droits de propriete ou interdire le service",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Some even restrict the extent of ownership rights we can have both in our service and in our content. In certain countries, regulators are also looking at restrictions that could require formal reviews of and/or adjustments to content that appears on our service in their country. In general these regulations impact all services and may make operating in certain jurisdictions more expensive or restrictive as to the content offerings we may provide.",
+      "correction_proposee": "Le 10-K evoque des restrictions sur les droits de propriete et sur le contenu, jamais une interdiction du service. Supprimer 'ou interdire le service' et ecrire : 'certains pays restreignent les droits de propriete que Netflix peut detenir sur son service et son contenu, et des regulateurs etudient des revues formelles ou des ajustements du catalogue.' La formule 'plus couteuse ou plus restrictive' est bien conforme au verbatim 'more expensive or restrictive'."
+    },
+    {
+      "affirmation": "Croissance portee par les prix, pas par l'usage : 'La monetisation avance donc beaucoup plus vite que l'audience'",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Revenues for the three and six months ended June 30, 2026 increased 13% and 15% as compared to the three and six months ended June 30, 2025, respectively, primarily due to the growth in memberships, price increases, and increased advertising revenue.",
+      "correction_proposee": "Le 10-Q cite la croissance des abonnes EN PREMIER parmi les moteurs de la hausse de CA. Le titre 'portee par les prix, pas par l'usage' contredit le document. Reformuler : 'Croissance tiree par les abonnes, les prix et la publicite, alors que les heures visionnees plafonnent' et deplacer l'argument sur le seul ecart entre CA (+13%) et heures visionnees (+2%), qui est reel et documente par la serie Mettrik."
+    },
+    {
+      "affirmation": "Obligations de contenu de 25,1 Mds $ dont 11 940 M$ dus sous un an ; le 10-Q precise que des obligations supplementaires non chiffrees 'devraient etre significatives'",
+      "verdict": "CONFORME",
+      "verbatim_source": "Total content obligations $ 25,106,705 / Less than one year $ 11,939,734 / However, the unknown obligations are expected to be significant.",
+      "correction_proposee": "Exact, mais le 10-Q chiffre partiellement ces obligations inconnues plus loin : 'these unknown obligations are expected to be significant and we believe could include approximately $1 billion to $4 billion over the next three years'. Le mot 'non chiffrees' est donc a nuancer."
+    },
+    {
+      "affirmation": "WBD a resilie l'accord le 27 fevrier 2026 pour se vendre a Paramount Skydance, qui a verse 2,8 Mds $ d'indemnite de rupture ; environ 85 M$ de couts de financement au T1 2026 ; accord signe le 4 decembre 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "On December 4, 2025, the Company entered into a definitive agreement and plan of merger with Warner Bros. Discovery, Inc. ... On February 27, 2026, WBD provided notice to the Company that it had terminated the Amended and Restated Merger Agreement ... PSKY, on behalf of WBD, paid a $2.8 billion termination fee owed to Netflix ... approximately $85 million recognized in connection with the termination of financing arrangements associated with the WBD transaction",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "La publicite reste officiellement une composante non materielle du chiffre d'affaires au T2 2026 ; grille tarifaire de 1 a 38 $ par mois",
+      "verdict": "CONFORME",
+      "verbatim_source": "Revenues earned from sources other than monthly membership fees were not a material component of revenues for the three and six months ended June 30, 2026 and June 30, 2025. / pricing on our plans ranged from the U.S. dollar equivalent of $1 to $38 per month",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Flux operationnel -28% (1 744 M$), FCF -33% (1 525 M$), investissements contenu 4 928 M$ (+28,5%), rachats 4 714 M$, tresorerie de 12 267 a 9 103 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net cash provided by operating activities 1,743,812 / 2,423,258 ; Additions to content assets (4,927,523) / (3,835,813) ; Repurchases of common stock (4,714,403) ; cash 12,266,873 (31/03/2026) -> 9,102,786 (30/06/2026)",
+      "correction_proposee": "Nuance a garder en tete : le 10-Q precise que sur six mois la tresorerie totale (avec placements court terme) a AUGMENTE de 64 M$. L'ATT parle bien du seul trimestre, ce qui est exact, mais la formule 'la tresorerie a fondu de 3,2 Mds $' gagnerait a preciser 'sur le trimestre'."
+    },
+    {
+      "affirmation": "Marge operationnelle 33,4% au T2 2026 vs 34,1% (-0,7 pt) ; technologie et developpement +22% et marketing +15% contre +13% pour le CA",
+      "verdict": "CONFORME",
+      "verbatim_source": "Operating margin 33.4 % 34.1 % (0.7) % ; Technology and development $1,007,675 $824,683 ... 22 % ; Sales and marketing $823,838 $713,265 $110,573 16 %",
+      "correction_proposee": "Detail : le 10-Q affiche 16% pour sales and marketing au T2 (823,838 vs 713,265, soit +15,5%). Ecrire '+16%' pour coller au document."
+    },
+    {
+      "affirmation": "52,9 M d'actions rachetees au T2 2026 pour 4 714 M$, prix moyen mensuel de 97,47 $ (avril) a 79,08 $ (juin) ; 25 Mds $ d'autorisation supplementaire en avril 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "the Company repurchased 52,934,688 and 66,431,786 shares of common stock, respectively, for an aggregate amount of $4.7 billion and $5.9 billion ; most recently in April 2026, authorized the repurchase of an additional $25 billion ; 97.47 (avril) ... 79.08 (juin)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "301,6 M d'abonnes payants au T4 2024 (somme des 4 regions), series abonnes et revenu par abonne arretees au 31/12/2024 ; 96,0 Mds d'heures au S2 2025 (+2%), 93,6 Mds au S1 2023",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut NFLX : memb_ucan 89,625 + memb_emea 101,133 + memb_latam 53,327 + memb_apac 57,541 = 301,626 M, last_data_date 2024-12-31 ; NFLX_ENGAGEMENT_H : H1-2023 93,6 ... H2-2024 94,0 ... H2-2025 96,0",
+      "correction_proposee": "Verifie contre la source citee (series Mettrik). A signaler : la serie NFLX_ENGAGEMENT_H n'a aucun champ 'source' dans kpis-haut ; elle n'est pas tracable a un depot SEC. A documenter (rapports d'engagement semestriels Netflix) avant publication."
+    }
+  ]
+}

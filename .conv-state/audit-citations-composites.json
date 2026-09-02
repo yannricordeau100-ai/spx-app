@@ -1,0 +1,1793 @@
+{
+ "mission": "Audit par echantillon des citations composites dans les ATT (src/data/att). Lecture seule.",
+ "date": "2026-08-21",
+ "point_de_depart": ".conv-state/att-citations-composites.json : 496 ATT, 1458 citations contenant des points de suspension.",
+ "rappel_du_defaut_recherche": "COMPOSITE FAUTIF = deux passages de portees differentes (consolide/segment, groupe/region, exercice/trimestre, deux notes distinctes) joints par des points de suspension, ce qui transporte un chiffre d'un perimetre vers un autre. L'elision au sein d'un meme passage n'est pas un defaut.",
+ "methode": [
+  "1. Echantillon de 16 ATT : 5 a fort compte, 6 a compte moyen, 5 a compte faible, dont 3 europeennes (NESN.SW, ZURN.SW, plus ACA.PA en sonde).",
+  "2. Contrairement au plan initial (2 a 3 citations par ATT), TOUTES les citations a points de suspension des 16 ATT ont ete passees au crible, soit 107 citations.",
+  "3. Crible automatique : chaque citation est decoupee sur les points de suspension, chaque fragment est recherche dans le corpus data-lake du ticker (10-K, 10-Q, 8-K, DEF14A, communiques et rapports IR pour les europeennes, apres extraction du texte). On mesure l'ecart en caracteres entre les fragments dans le document source.",
+  "4. Ecart inferieur a 600 caracteres dans le meme document = elision au sein d'un meme passage, verdict LEGITIME automatique.",
+  "5. Toute citation signalee (ecart superieur a 600 caracteres, absence de document commun, fragment non localise) a ete lue manuellement dans la source, ainsi qu'un echantillon de citations non signalees : 23 citations adjugees a la main.",
+  "6. Sonde complementaire sur les 496 ATT : detection des citations dont les deux cotes portent des marqueurs de portee differents ET un chiffre de chaque cote (le profil exact du defaut DHI). 4 candidats sortis sur 1458 occurrences, tous verifies a la main."
+ ],
+ "echantillon": [
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "citations_examinees": 16
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "citations_examinees": 13
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "citations_examinees": 13
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "citations_examinees": 12
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "citations_examinees": 11
+  },
+  {
+   "ticker": "SPGI",
+   "profil": "moyen",
+   "citations_examinees": 7
+  },
+  {
+   "ticker": "WBD",
+   "profil": "moyen",
+   "citations_examinees": 6
+  },
+  {
+   "ticker": "AMAT",
+   "profil": "moyen",
+   "citations_examinees": 6
+  },
+  {
+   "ticker": "NESN.SW",
+   "profil": "moyen",
+   "citations_examinees": 5
+  },
+  {
+   "ticker": "NVDA",
+   "profil": "moyen",
+   "citations_examinees": 4
+  },
+  {
+   "ticker": "WMT",
+   "profil": "moyen",
+   "citations_examinees": 4
+  },
+  {
+   "ticker": "XOM",
+   "profil": "faible",
+   "citations_examinees": 3
+  },
+  {
+   "ticker": "ZURN.SW",
+   "profil": "faible",
+   "citations_examinees": 3
+  },
+  {
+   "ticker": "V",
+   "profil": "faible",
+   "citations_examinees": 2
+  },
+  {
+   "ticker": "UNH",
+   "profil": "faible",
+   "citations_examinees": 1
+  },
+  {
+   "ticker": "AEP",
+   "profil": "faible",
+   "citations_examinees": 1
+  }
+ ],
+ "citations": [
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "Total revenues increased $381 million, or 3%, in the second quarter of 2026 [...] reflecting an operational increase of $164 million, or 1% ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 143,
+   "documents_source": [
+    "10Q/PFE_2026-08-04.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[1].preuve",
+   "extrait": "Short-term borrowings, including current portion of long-term debt [...] 2,699 ",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/PFE_2024-02-22.htm.gz",
+    "10K/PFE_2025-02-27.htm.gz",
+    "10K/PFE_2026-02-26.htm.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[1].preuve",
+   "extrait": "The carrying value of Long-term debt, excluding the current portion, was $ 60 billion as of June 28, 2026 [...] The estimated fair value of such debt [...] was $ 58 billion ",
+   "nb_fragments": 3,
+   "ecart_max_caracteres": 146,
+   "documents_source": [
+    "10K/PFE_2024-02-22.htm.gz",
+    "10K/PFE_2025-02-27.htm.gz",
+    "10K/PFE_2026-02-26.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 PFE, note Fair Value : les deux fragments sont deux phrases consecutives du meme paragraphe, meme perimetre (dette long terme consolidee)."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "$ 525 million for Oxbryta (voxelotor) developed technology rights, after engaging with the FDA in July 2026 [...] it was determined there was no viable pathway to return Oxbryta to the market in the U.S. ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 161,
+   "documents_source": [
+    "10Q/PFE_2026-08-04.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "On October 5, 2022, we acquired GBT [...] The total fair value of the consideration transferred was $ 5.7 billion ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 248,
+   "documents_source": [
+    "10K/PFE_2024-02-22.htm.gz",
+    "10K/PFE_2025-02-27.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[4].preuve",
+   "extrait": "Our consolidated balance sheet contains significant amounts of intangible assets, including IPR&D and goodwill. For IPR&D assets, the risk of failure is significant [...] IPR&D assets have and may become impaired and/or be written off in the future ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 418,
+   "documents_source": [
+    "10K/PFE_2024-02-22.htm.gz",
+    "10K/PFE_2025-02-27.htm.gz",
+    "10K/PFE_2026-02-26.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[5].preuve",
+   "extrait": "In the third quarter of 2026, we identified additional productivity enhancements [...] approximately $ 2.0 billion ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10Q/PFE_2026-08-04.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 PFE : phrase unique, l'ellipse coupe le milieu ('We expect one-time costs...to total')."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[5].preuve",
+   "extrait": "In the third quarter of 2026, we announced the next phase of the program [...] approximately $ 4.0 billion ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10Q/PFE_2026-08-04.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 PFE : phrase unique du meme paragraphe sur le programme de restructuration."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "We anticipate a significant reduction of revenue from patent-based or regulatory exclusivity expiries in 2026 through 2030 [...] with the rate of the reduction [...] expected to significantly accelerate over the next few years. In 2026, we now expect an unfavorable revenue impact from patent-based or regulatory exclusivity expiries of approximately $1.1 billion ",
+   "nb_fragments": 3,
+   "ecart_max_caracteres": 188,
+   "documents_source": [
+    "10K/PFE_2026-02-26.htm.gz",
+    "10Q/PFE_2026-05-05.htm.gz",
+    "10Q/PFE_2026-08-04.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "the settled generic companies [...] permitting their launch of a generic version of Eliquis on April 1, 2028 ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 74,
+   "documents_source": [
+    "10K/PFE_2024-02-22.htm.gz",
+    "10K/PFE_2025-02-27.htm.gz",
+    "10K/PFE_2026-02-26.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "its government-set Maximum Fair Price (MFP) which became effective for Eliquis on January 1, 2026. Negotiated prices for Ibrance and Xtandi are effective in 2027 [...] no MFP for Xeljanz will be finalized or take effect ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 361,
+   "documents_source": [
+    "10Q/PFE_2026-08-04.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "Growth primarily driven by higher net price in the U.S. [...] including lower rebates ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10Q/PFE_2025-08-05.htm.gz",
+    "10Q/PFE_2026-08-04.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 PFE, tableau revenus Eliquis : commentaire unique, l'ellipse coupe 'primarily due to pricing dynamics'."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "The IRA Medicare Part D Redesign [...] negatively impacted our 2025 revenues by approximately $1 billion ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 120,
+   "documents_source": [
+    "10K/PFE_2026-02-26.htm.gz",
+    "10Q/PFE_2025-05-05.htm.gz",
+    "10Q/PFE_2025-08-05.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[2].preuve",
+   "extrait": "On November 13, 2025, we acquired Metsera, a clinical-stage biopharmaceutical company [...] for $ 65.60 per share in cash plus a contingent value right (CVR) of up to $ 20.65 per share (up to $ 2.3 billion) ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 174,
+   "documents_source": [
+    "10K/PFE_2026-02-26.htm.gz",
+    "10Q/PFE_2026-05-05.htm.gz",
+    "10Q/PFE_2026-08-04.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[3].preuve",
+   "extrait": "litigation is inherently unpredictable and excessive verdicts do occur [...] we could incur judgments, enter into settlements [...] which could have a material adverse effect on our results of operations and/or our cash flows ",
+   "nb_fragments": 3,
+   "ecart_max_caracteres": 188,
+   "documents_source": [
+    "10K/PFE_2024-02-22.htm.gz",
+    "10K/PFE_2025-02-27.htm.gz",
+    "10K/PFE_2026-02-26.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "PFE",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[3].preuve",
+   "extrait": "As of May 2026, Pfizer had settled, or entered into definitive agreements or agreements-in-principle to settle [...] a substantial majority of the cases filed in state ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 143,
+   "documents_source": [
+    "10K/PFE_2025-02-27.htm.gz",
+    "10K/PFE_2026-02-26.htm.gz",
+    "10Q/PFE_2024-11-04.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "As of June 30, 2026 and December 31, 2025, the Company had recorded 'other environmental liabilities' of $7.4 billion ($2.9 billion within other current liabilities and $4.5 billion within other liabilities...) and $7.7 billion",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 248,
+   "documents_source": [
+    "10Q/MMM_2026-04-21.htm.gz",
+    "10Q/MMM_2026-07-21.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "Under the PWS Settlement, the Company will pay $10.5 billion to $12.5 billion in total to resolve released claims... payments are scheduled from 2024 through 2036",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 477,
+   "documents_source": [
+    "10Q/MMM_2026-04-21.htm.gz",
+    "10Q/MMM_2026-07-21.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[1].preuve",
+   "extrait": "Organic sales change(b) | 2.3 % | ... | 0.5 %",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[1].preuve",
+   "extrait": "Organic sales change(b) | 0.9 % | ... | (0.2) %",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "In the first six months of 2026, the Company purchased $3.0 billion of its own stock... As of June 30, 2026, approximately $1.8 billion remained available under the authorization",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 163,
+   "documents_source": [
+    "10Q/MMM_2026-07-21.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "In the second quarter of 2026, 3M approved and completed the divestiture of its Dyneon GmbH subsidiary... The transaction resulted in a $324 million pre-tax loss on business divestiture... The transaction did not involve proceeds, but a balance of cash was left in the transferring business and an amount was paid to purchaser at close",
+   "nb_fragments": 3,
+   "ecart_max_caracteres": 228,
+   "documents_source": [
+    "10Q/MMM_2026-07-21.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "Cost of sales | 58.7 % | 57.5 % | ... | 59.0 % | 57.9 %",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10Q/MMM_2026-07-21.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 MMM : une seule ligne de tableau (cout des ventes en % du CA). L'ellipse remplace la colonne 'change'. 58,7/57,5 = 3 mois, 59,0/57,9 = 6 mois, et l'argument de l'ATT utilise bien le semestre."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "As of July 1, 2026, based upon information published by the JPML, approximately 15,200 cases relating in whole or in part to alleged PFAS contamination or exposure associated with AFFF were pending in the AFFF MDL. Many personal injury cases... include multiple plaintiffs, so the number of plaintiffs asserting AFFF-related claims is substantially higher",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 281,
+   "documents_source": [
+    "10Q/MMM_2026-04-21.htm.gz",
+    "10Q/MMM_2026-07-21.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "As of June 30, 2026, the Company is a named defendant... in numerous lawsuits pending in various courts that collectively involve approximately 4,000 individual claimants, compared to approximately 3,700 individual claimants... as of December 31, 2025",
+   "nb_fragments": 3,
+   "ecart_max_caracteres": 143117,
+   "documents_source": [
+    "10K/MMM_2026-02-03.htm.gz",
+    "10Q/MMM_2026-04-21.htm.gz",
+    "10Q/MMM_2026-07-21.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 MMM note 15 : phrase unique, meme perimetre (contentieux masques non-Aearo)."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "the Company's accruals for non-Aearo respirator mask/asbestos liabilities and defense costs were $456 million... an estimation period for future claims extending through approximately 2050. The Company cannot estimate the amount or upper end of the range by which actual liabilities may exceed recorded accruals",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 211,
+   "documents_source": [
+    "10Q/MMM_2026-04-21.htm.gz",
+    "10Q/MMM_2026-07-21.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "which seeks civil penalties of up to $5,000 per violation under the West Virginia Consumer Credit and Protection Act... An expert witness retained by the State has estimated that the Company sold over five million respirators in West Virginia during the relevant period, and the State has alleged that each respirator sold constitutes a separate violation... No liability has been recorded for this m",
+   "nb_fragments": 3,
+   "ecart_max_caracteres": 612,
+   "documents_source": [
+    "10Q/MMM_2026-04-21.htm.gz",
+    "10Q/MMM_2026-07-21.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 MMM note 15 : trois phrases consecutives du meme paragraphe WVCCPA."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[2].preuve",
+   "extrait": "Regulatory limits for PFAS in emissions and in environmental media... are being established at progressively lower levels, in some cases approaching limits that exceed current analytical detection capabilities",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 132,
+   "documents_source": [
+    "10K/MMM_2024-02-07.htm.gz",
+    "10K/MMM_2025-02-05.htm.gz",
+    "10K/MMM_2026-02-03.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "MMM",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[2].preuve",
+   "extrait": "As a result of the CERCLA designation of PFOA and PFOS as hazardous substances in 2024... 3M may be required to undertake additional investigative or remediation activities",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 158,
+   "documents_source": [
+    "10K/MMM_2024-02-07.htm.gz",
+    "10K/MMM_2025-02-05.htm.gz",
+    "10K/MMM_2026-02-03.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "Passage unique du 10-K, l'ellipse coupe une incise."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "The degree to which EYLEA HD net product sales may offset further potential decreases in EYLEA net product sales [...] is uncertain ",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/REGN_2026-02-04.htm.gz",
+    "10Q/REGN_2025-04-29.htm.gz",
+    "10Q/REGN_2025-08-01.htm.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "For the six months ended June 30, 2026 and 2025, Sanofi collaboration revenue [...] represented 48% and 39% of our total revenues, respectively ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 173,
+   "documents_source": [
+    "10Q/REGN_2026-07-30.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "The Sanofi development balance [...] was fully repaid as of June 30, 2026 ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 149,
+   "documents_source": [
+    "10Q/REGN_2026-07-30.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "On November 18, 2024, the Company filed a lawsuit [...] against Sanofi [...] On March 17, 2026, the court denied Sanofi's motion to dismiss the complaint. ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 754,
+   "documents_source": [
+    "10K/REGN_2025-02-05.htm.gz",
+    "10K/REGN_2026-02-04.htm.gz",
+    "10Q/REGN_2025-04-29.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 REGN note 12 section j : debut et fin du meme paragraphe Sanofi litigation."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[4].preuve",
+   "extrait": "On July 16, 2026, a purported shareholder filed a putative class action civil complaint [...] related to the Company's fianlimab clinical development program ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 332,
+   "documents_source": [
+    "10Q/REGN_2026-07-30.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[5].preuve",
+   "extrait": "Holders of Class A Stock [...] are entitled to ten votes per share, while holders of Common Stock are entitled to one vote per share. As of December 31, 2025, holders of Class A Stock held 14.9% of the combined voting power ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 131,
+   "documents_source": [
+    "10K/REGN_2024-02-05.htm.gz",
+    "10K/REGN_2025-02-05.htm.gz",
+    "10K/REGN_2026-02-04.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "On November 26, 2024 [...] the OD announced its decision to revoke the '306 Patent ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 49,
+   "documents_source": [
+    "10K/REGN_2025-02-05.htm.gz",
+    "10K/REGN_2026-02-04.htm.gz",
+    "10Q/REGN_2025-04-29.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "On April 21, 2026 [...] the OD invalidated the '049 Patent ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 46,
+   "documents_source": [
+    "10Q/REGN_2026-04-29.htm.gz",
+    "10Q/REGN_2026-07-30.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "Amgen filed its answer and counterclaims [...] alleging [...] that the Company obtained numerous patents fraudulently ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 71,
+   "documents_source": [
+    "10K/REGN_2026-02-04.htm.gz",
+    "10Q/REGN_2026-04-29.htm.gz",
+    "10Q/REGN_2026-07-30.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "each of EYLEA HD and EYLEA competes [...] with other VEGF inhibitors. These include Genentech/Roche's Vabysmo [...] and Susvimo [...]; Novartis and Genentech/Roche's Lucentis; Novartis' Beovu; and a biosimilar version of Lucentis [...]. In addition, biosimilar versions of EYLEA have been approved and/or launched [...] including Amgen's Pavblu ",
+   "nb_fragments": 5,
+   "ecart_max_caracteres": 172,
+   "documents_source": [
+    "10K/REGN_2024-02-05.htm.gz",
+    "10K/REGN_2025-02-05.htm.gz",
+    "10K/REGN_2026-02-04.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[2].preuve",
+   "extrait": "In April 2026, we announced agreements with the U.S. government [...] at prices no greater than [...] Most-Favored-Nation Pricing [...] to provide our recently FDA-approved gene therapy Otarmeni for free in the United States ",
+   "nb_fragments": 4,
+   "ecart_max_caracteres": 252,
+   "documents_source": [
+    "10Q/REGN_2026-04-29.htm.gz",
+    "10Q/REGN_2026-07-30.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 REGN : les quatre fragments sont issus du meme paragraphe 'U.S. Government Agreements'."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[2].preuve",
+   "extrait": "The U.S. Government Agreements will likely result [...] in reduced prices and reimbursement for certain of our current and future marketed products and may impact our results of operations ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 131,
+   "documents_source": [
+    "10Q/REGN_2026-04-29.htm.gz",
+    "10Q/REGN_2026-07-30.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "REGN",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[2].preuve",
+   "extrait": "the extent to which the policy changes described above will ultimately impact reimbursement levels of our marketed products, including those covered under Medicare Part B (such as EYLEA HD and EYLEA) [...] is currently unclear ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/REGN_2025-02-05.htm.gz",
+    "10Q/REGN_2024-10-31.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-K REGN : phrase unique, 'is currently unclear' en est la fin."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "adjusted operating income margin contracted by 180 basis points to 21.1%... adjusted net earnings per diluted share of $2.60, a decrease of 8.5% from 2025",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 87,
+   "documents_source": [
+    "10K/SYK_2024-02-14.htm.gz",
+    "10K/SYK_2025-02-12.htm.gz",
+    "10K/SYK_2026-02-11.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "Three Months 2025 24.8% ... Three Months 2026 21.8%",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 0,
+   "documents_source": [],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T1 2026 SYK : meme colonne du tableau de passage (segment MedSurg & Neurotechnology), l'ellipse remplace les lignes de bps. L'ATT prefixe explicitement la citation par 'MedSurg'."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[1].preuve",
+   "extrait": "Goodwill 3,117 ... Purchase price, net of cash acquired $4,810",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/SYK_2024-02-14.htm.gz",
+    "10K/SYK_2025-02-12.htm.gz",
+    "10K/SYK_2026-02-11.htm.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "Reported ... $4,889 | $(375) | $1,268 | $3,246 | 28.1% | $8.40",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/SYK_2026-02-11.htm.gz",
+    "_risks_src_30k.txt"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "Amortization of purchased intangible assets ... 732",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/SYK_2024-02-14.htm.gz",
+    "10K/SYK_2025-02-12.htm.gz",
+    "10K/SYK_2026-02-11.htm.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "Structural optimization and other special charges (b) ... 191",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/SYK_2024-02-14.htm.gz",
+    "10K/SYK_2025-02-12.htm.gz",
+    "10K/SYK_2026-02-11.htm.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "Goodwill and other impairments (c) ... 170",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/SYK_2025-02-12.htm.gz",
+    "10K/SYK_2026-02-11.htm.gz",
+    "10Q/SYK_2025-05-02.htm.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "Proceeds from the sale of the Spinal Implants business ... 165",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/SYK_2026-02-11.htm.gz",
+    "10Q/SYK_2025-08-01.htm.gz",
+    "10Q/SYK_2025-10-31.htm.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "Reversal of 2025 tariffs (158) | ... | (133) | ... | (0.34)",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10Q/SYK_2026-07-31.htm.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "The OECD... has put forth two proposed frameworks that revise the existing profit allocation and nexus rules (Pillar 1) and ensure a minimal level of taxation (Pillar 2)... These tax law changes and any additional contemplated tax law changes, could impact tax expense in future periods",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 634,
+   "documents_source": [
+    "10K/SYK_2025-02-12.htm.gz",
+    "10K/SYK_2026-02-11.htm.gz",
+    "_risks_src_30k.txt"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-K FY2025 SYK : meme paragraphe Pilier 1/Pilier 2."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "Our effective tax rates were 18.4% and 16.3% in the three and six months 2026 and 13.0% and 13.6% in the three and six months 2025... reflect the continued lower effective income tax rates as a result of our European operations",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 22070,
+   "documents_source": [
+    "10K/SYK_2024-02-14.htm.gz",
+    "10K/SYK_2025-02-12.htm.gz",
+    "10Q/SYK_2024-10-30.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 SYK, section MD&A Income taxes : les deux fragments sont dans le meme paragraphe (405 caracteres d'ecart), meme perimetre consolide."
+  },
+  {
+   "ticker": "SYK",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "In 2025 the United States government has announced new tariffs on goods imported into the United States from dozens of countries, including China and the European Union member states... Tariffs are expected to continue to result in an increase in certain product costs or have adverse impacts on, among other things, demand for our products and supply chains",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 412,
+   "documents_source": [
+    "10K/SYK_2026-02-11.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "Sales for the three month period ended May 2, 2026 increased by approximately $1,026 million, or 21% [...] This was primarily due to the 17% increase in comp store sales of $841 million and an increase in non-comp store sales of $185 million. The 17% increase in comp store sales was primarily driven by an approximately 11% increase in traffic and 6% increase in basket. ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 156,
+   "documents_source": [
+    "10Q/ROST_2026-06-02.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[1].preuve",
+   "extrait": "Ross is the largest off-price apparel and home fashion chain in the United States, with 1,917 locations in 44 states, the District of Columbia, Guam, and Puerto Rico as of May 2, 2026 [...] We also operate 365 dd's DISCOUNTS stores in 23 states ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 405,
+   "documents_source": [
+    "10K/ROST_2024-04-02.htm.gz",
+    "10K/ROST_2025-04-01.htm.gz",
+    "10K/ROST_2026-03-31.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "The Company has two operating segments: Ross and dd's DISCOUNTS [...] The Company determined that the two operating segments share similar economic and other qualitative characteristics and are therefore aggregated into one reportable segment. ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 215,
+   "documents_source": [
+    "10K/ROST_2024-04-02.htm.gz",
+    "10K/ROST_2025-04-01.htm.gz",
+    "10K/ROST_2026-03-31.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "With respect to last year's Say on Pay proposal, 86.0% of the votes cast were voted \"FOR\" approval of our executive compensation program [...] concluded that no major changes to our executive compensation policies were warranted ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 296,
+   "documents_source": [
+    "DEF14A/ROST_2026-04-07.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "The annual total compensation for fiscal 2025 for our CEO was $17,406,705 and for the median employee was $10,059. The resulting ratio [...] is 1,730 to 1 ",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "DEF14A/ROST_2026-04-07.htm.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "the median employee identified [...] was a part-time hourly retail store Associate. Our total number of associates varies seasonally, with over 85% of associates working in our retail locations ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 70,
+   "documents_source": [
+    "DEF14A/ROST_2024-04-09.htm.gz",
+    "DEF14A/ROST_2025-04-08.htm.gz",
+    "DEF14A/ROST_2026-04-07.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "Proxy ROST : phrase unique. Reserve mineure hors sujet : l'ATT ecrit 'over 85%' la ou la source dit 'approximately 85%'."
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "SG&A as a percentage of sales [...] increased by approximately 25 basis points [...] primarily due to higher incentive compensation expense ",
+   "nb_fragments": 3,
+   "ecart_max_caracteres": 97,
+   "documents_source": [
+    "10K/ROST_2024-04-02.htm.gz",
+    "10K/ROST_2025-04-01.htm.gz",
+    "10K/ROST_2026-03-31.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "The 2026 Plan is authorized to have an initial reserve of approximately 15.8 million shares [...] an increase of 9.0 million shares ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 176,
+   "documents_source": [
+    "10Q/ROST_2026-06-02.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "In February 2026, the U.S. Supreme Court issued a decision that tariffs imposed beginning in 2025 under the International Emergency Economic Powers Act (\"IEEPA\") were not authorized under the statute [...] the Company has submitted claims for IEEPA tariffs paid. The claims submitted remain subject to ongoing legal, regulatory, or administrative developments and the timing, amount, and availability",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 314,
+   "documents_source": [
+    "10Q/ROST_2026-06-02.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "We have a concentration of store locations in the states of California, Texas, and Florida; together those states include almost 50% of our stores. Approximately half of our distribution center and warehouse capacity, approximately 22% of our stores, and our corporate headquarters, are located in California. Natural or other disasters, such as wildfires, earthquakes, hurricanes, tornadoes, floods ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 544,
+   "documents_source": [
+    "10K/ROST_2024-04-02.htm.gz",
+    "10K/ROST_2025-04-01.htm.gz",
+    "10K/ROST_2026-03-31.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ROST",
+   "profil": "fort",
+   "chemin": ".fondamental_externe[2].preuve",
+   "extrait": "The retail industry is highly competitive and the marketplace is fragmented [...] We expect competition to increase in the future. There are limited economic barriers for others to enter the off-price retail sector. ",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 211,
+   "documents_source": [
+    "10K/ROST_2024-04-02.htm.gz",
+    "10K/ROST_2025-04-01.htm.gz",
+    "10K/ROST_2026-03-31.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "SPGI",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "on February 28, 2022, the Company completed its acquisition of IHS Markit Ltd., for aggregate consideration of $43.5 billion... fair value of identified intangible assets of $18.6 billion",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/SPGI_2024-02-09.htm.gz",
+    "10K/SPGI_2025-02-11.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-K FY2022 SPGI, rapport de l'auditeur (Critical Audit Matter) : les deux fragments sont deux phrases consecutives du meme paragraphe."
+  },
+  {
+   "ticker": "SPGI",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "Segment operating profit increased 23% as compared to 2025. Excluding the impact of a gain on dispositions in 2026 of 8 percentage points... operating profit increased 15%",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 4897,
+   "documents_source": [
+    "10K/SPGI_2024-02-09.htm.gz",
+    "10K/SPGI_2026-02-11.htm.gz",
+    "10Q/SPGI_2025-04-29.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 SPGI : meme paragraphe 'Segment operating profit', six mois."
+  },
+  {
+   "ticker": "SPGI",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "Operating profit increased 53%... operating profit increased 10% primarily due to revenue growth",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 361,
+   "documents_source": [
+    "10Q/SPGI_2026-07-28.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "SPGI",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "Operating profit increased 22%... operating profit increased 13%",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 473,
+   "documents_source": [
+    "10K/SPGI_2024-02-09.htm.gz",
+    "10K/SPGI_2025-02-11.htm.gz",
+    "10K/SPGI_2026-02-11.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 SPGI, Overview six mois : meme paragraphe, l'ellipse coupe l'enumeration des points de pourcentage."
+  },
+  {
+   "ticker": "SPGI",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "we recorded a pre-tax gain of $172 million ($168 million after-tax)... related to the sale of the Enterprise Data Management and thinkFolio businesses",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 132,
+   "documents_source": [
+    "10Q/SPGI_2026-04-28.htm.gz",
+    "10Q/SPGI_2026-07-28.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "SPGI",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[4].preuve",
+   "extrait": "an agreement with the minority partners that own 27% of our S&P Dow Jones Indices LLC joint venture contains redemption features... CME Group and CME Group Index Services LLC (",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 340,
+   "documents_source": [
+    "10K/SPGI_2024-02-09.htm.gz",
+    "10K/SPGI_2025-02-11.htm.gz",
+    "10K/SPGI_2026-02-11.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "SPGI",
+   "profil": "moyen",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "Our competitors are deploying AI in ways that could materially reduce demand for our products and services (for example, by deploying AI in ways that make collection and processing of information relatively inexpensive or free...)",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/SPGI_2026-02-11.htm.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "WBD",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[1].preuve",
+   "extrait": "a 46% ... decrease in theatrical product revenue",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/WBD_2025-02-27.htm.gz",
+    "10Q/WBD_2024-11-07.htm.gz",
+    "10Q/WBD_2025-05-08.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T2 2026 WBD : 'a 46% and 21% decrease in theatrical product revenue', l'ellipse retire le chiffre semestriel. Le 46% trimestriel est bien repris comme trimestriel."
+  },
+  {
+   "ticker": "WBD",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "maximum consolidated leverage ratio of 4.50 to 1.00 ... in compliance with all applicable covenants",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 90,
+   "documents_source": [
+    "10K/WBD_2025-02-27.htm.gz",
+    "10K/WBD_2026-02-27.htm.gz",
+    "10Q/WBD_2024-11-07.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "WBD",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "The 2025 annual total compensation for our CEO ... was $165,009,366. Therefore, the ratio ... was 1,378 to 1",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 99,
+   "documents_source": [
+    "DEF14A/WBD_2026-04-30.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "WBD",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[3].preuve",
+   "extrait": "Excluding the value of this one-time grant, Mr. Zaslav's annual total compensation for 2025 would have been $55,416,185 ... the ratio ... would have been 463 to 1",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 215,
+   "documents_source": [
+    "DEF14A/WBD_2026-04-30.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "WBD",
+   "profil": "moyen",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "a coalition of twelve state attorneys general and the Writers Guild of America ... alleging the transaction would violate Section 7 of the Clayton Act",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 152,
+   "documents_source": [
+    "10Q/WBD_2026-08-06.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "WBD",
+   "profil": "moyen",
+   "chemin": ".quantitatif[1].source",
+   "extrait": "require WBD to pay PSKY a termination fee of $3.0 billion and reimburse PSKY for ... any payment made by PSKY, which will in no event be more than $1,528 million ... or PSKY to pay WBD a termination fee of $7.0 billion",
+   "nb_fragments": 3,
+   "ecart_max_caracteres": 216,
+   "documents_source": [
+    "10K/WBD_2026-02-27.htm.gz",
+    "10Q/WBD_2026-05-06.htm.gz",
+    "10Q/WBD_2026-08-06.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "AMAT",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "During fiscal 2025, two customers accounted for approximately 19% and 15%... During fiscal 2024, two customers accounted for approximately 12% and 11%",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 261833,
+   "documents_source": [
+    "10K/AMAT_2025-12-12.htm.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-K FY2025 AMAT, note segments : les deux phrases sont consecutives dans la meme note (fiscal 2025 puis fiscal 2024), meme perimetre (net revenue consolide)."
+  },
+  {
+   "ticker": "AMAT",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[1].preuve",
+   "extrait": "we entered into a settlement agreement with the U.S. Commerce Department Bureau of Industry and Security (BIS)... agreed to pay BIS an amount of $253 million, which we paid in full during our second quarter of fiscal 2026",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 214,
+   "documents_source": [
+    "10Q/AMAT_2026-02-19.htm.gz",
+    "10Q/AMAT_2026-05-21.htm.gz",
+    "10Q/AMAT_2026-08-20.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "AMAT",
+   "profil": "moyen",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "The U.S. government continues to issue new export licensing requirements... that have had the effect of further limiting our ability to provide certain products and services",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 120,
+   "documents_source": [
+    "10K/AMAT_2024-12-13.htm.gz",
+    "10K/AMAT_2025-12-12.htm.gz",
+    "10Q/AMAT_2025-02-20.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "AMAT",
+   "profil": "moyen",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "Export controls... may also provide an advantage to our international competitors",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10K/AMAT_2024-12-13.htm.gz",
+    "10K/AMAT_2025-12-12.htm.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "AMAT",
+   "profil": "moyen",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "we approved a workforce reduction plan (Fiscal 2025 Restructuring Plan)... approximately 4% of our global workforce",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 169,
+   "documents_source": [
+    "10K/AMAT_2025-12-12.htm.gz",
+    "10Q/AMAT_2026-02-19.htm.gz",
+    "10Q/AMAT_2026-05-21.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "AMAT",
+   "profil": "moyen",
+   "chemin": ".fondamental_externe[2].preuve",
+   "extrait": "conditional reduced tax rates that expire beginning in fiscal 2030... tax benefits arising from these tax rates were $490 million or $0.61 per diluted share",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 166,
+   "documents_source": [
+    "10K/AMAT_2025-12-12.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "NESN.SW",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "the value gap to the market ... reduced by 60%, and the volume gap is now flat",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 105,
+   "documents_source": [
+    "ir/CP/NESN.SW_CP_FY2025_2026-02-18.txt.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "URD FY2025 Nestle : l'ellipse remplace la parenthese explicative de la meme phrase."
+  },
+  {
+   "ticker": "NESN.SW",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[1].preuve",
+   "extrait": "Net debt was CHF 56.3 billion as at June 30, 2026, compared to CHF 51.4 billion as at December 31, 2025 ... The increase versus December largely reflected cash outflows for the dividend payment of CHF 8.0 billion",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 146,
+   "documents_source": [
+    "ir/CP/NESN.SW_CP_HY2026_2026-07-22.txt.gz",
+    "ir/RFS/NESN.SW_RFS_HY2026_2026-07-23.txt.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "NESN.SW",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[1].preuve",
+   "extrait": "Free cash flow of CHF 9.2 billion ... net debt/Adjusted EBITDA 2.85x; proposed dividend per share increased to CHF 3.10",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 64,
+   "documents_source": [
+    "ir/CP/NESN.SW_CP_FY2025_2026-02-18.txt.gz"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "Communique FY2025 Nestle : trois puces consecutives du meme bloc de resultats annuels."
+  },
+  {
+   "ticker": "NESN.SW",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "Underlying trading operating profit margin 16.1% ... -110 bps",
+   "nb_fragments": 1,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "ir/CP/NESN.SW_CP_FY2025_2026-02-18.txt.gz",
+    "ir/URD/NESN.SW_URD_FY2022_2023-03-03.txt.gz",
+    "ir/URD/NESN.SW_URD_FY2024_2025-03-25.txt.gz"
+   ],
+   "verification": "automatique",
+   "verdict": "LEGITIME",
+   "explication": "Un seul fragment de plus de 15 caracteres : l'ellipse est en bordure de citation ou remplace des cellules de tableau, il n'y a pas de jonction de deux passages."
+  },
+  {
+   "ticker": "NESN.SW",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[4].preuve",
+   "extrait": "Board member since January 1, 2025 and CEO since September 1, 2025. ... The below disclosed compensation for 2024 refers to the former CEO Mark Schneider",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 152,
+   "documents_source": [
+    "ir/GOV/NESN.SW_GOV_FY2025_2026-02-18.txt.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "NVDA",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[1].preuve",
+   "extrait": "Hyperscaler revenue... remained at approximately 50% of Data Center revenue",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 0,
+   "documents_source": [
+    "10Q/NVDA_2026-05-20.htm.gz",
+    "ES/NVDA_2026-05-28_ES.htm",
+    "_srctext.txt"
+   ],
+   "verification": "manuelle (lecture de la source)",
+   "verdict": "LEGITIME",
+   "explication": "10-Q T1 FY2027 NVDA : phrase unique ('Hyperscaler revenue increased sequentially and remained at approximately 50% of Data Center revenue')."
+  },
+  {
+   "ticker": "NVDA",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "we incurred a $4.5 billion charge... associated with H20 excess inventory and purchase obligations",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 70,
+   "documents_source": [
+    "10K/NVDA_2026-02-25.htm.gz",
+    "10Q/NVDA_2025-05-28.htm.gz",
+    "10Q/NVDA_2025-08-27.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "NVDA",
+   "profil": "moyen",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "On September 15, 2025, China's antitrust regulators published their preliminary finding that our compliance with applicable U.S. export controls... violated the terms of China's approval of our Mellanox acquisition",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 289,
+   "documents_source": [
+    "10K/NVDA_2026-02-25.htm.gz",
+    "10Q/NVDA_2025-11-19.htm.gz",
+    "10Q/NVDA_2026-05-20.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "NVDA",
+   "profil": "moyen",
+   "chemin": ".fondamental_externe[2].preuve",
+   "extrait": "Export controls have already and may in the future encourage customers outside China... to 'design-out' certain U.S. semiconductors",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 112,
+   "documents_source": [
+    "10K/NVDA_2024-02-21.htm.gz",
+    "10K/NVDA_2025-02-26.htm.gz",
+    "10K/NVDA_2026-02-25.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "WMT",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "Operating expenses as a percentage of net sales increased 33 basis points [...] certain business reorganization charges of $0.2 billion",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 255,
+   "documents_source": [
+    "10Q/WMT_2026-05-29.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "WMT",
+   "profil": "moyen",
+   "chemin": ".fondamental_interne[2].preuve",
+   "extrait": "judgment of $ 100 million [...] reporting obligations for a period of 10 years",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 76,
+   "documents_source": [
+    "10K/WMT_2026-03-13.htm.gz",
+    "10Q/WMT_2026-05-29.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "WMT",
+   "profil": "moyen",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "the entry of new, well-funded competitors, or more rapid development of AI capabilities and agentic tools by these competitors [...] may increase competitive pressures",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 180,
+   "documents_source": [
+    "10K/WMT_2024-03-15.htm.gz",
+    "10K/WMT_2025-03-14.htm.gz",
+    "10K/WMT_2026-03-13.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "WMT",
+   "profil": "moyen",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "Some of our competitors have [...] more customers and greater brand recognition",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 74,
+   "documents_source": [
+    "10K/WMT_2024-03-15.htm.gz",
+    "10K/WMT_2025-03-14.htm.gz",
+    "10K/WMT_2026-03-13.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "XOM",
+   "profil": "faible",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "the timing and amount recovered can be affected by a number of factors including... government policies, consumer preferences, and significant changes in crude oil and natural gas price levels",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 162,
+   "documents_source": [
+    "10K/XOM_2024-02-28.htm.gz",
+    "10K/XOM_2025-02-19.htm.gz",
+    "10K/XOM_2026-02-18.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "XOM",
+   "profil": "faible",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "Effective July 31, 2026, the Corporation entered into a settlement with the state of Louisiana and the relevant coastal parishes... with estimated earnings impacts included in the second quarter financial reserve updates",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 226,
+   "documents_source": [
+    "10Q/XOM_2026-08-03.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "XOM",
+   "profil": "faible",
+   "chemin": ".quantitatif[2].source",
+   "extrait": "7.0 billion oil-equivalent barrels... 36 percent of the 19.3 GOEB reported in proved reserves",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 129,
+   "documents_source": [
+    "10K/XOM_2026-02-18.htm.gz",
+    "_risks_src_30k.txt"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ZURN.SW",
+   "profil": "faible",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "Beazley shareholders will be entitled to receive a cash consideration of 1,310 pence per Beazley share, in aggregate GBP 8.1 billion (approximately USD 10.8 billion)... Completion of the acquisition is subject to the satisfaction or waiver of all conditions, including receipt of the required regulatory approvals.",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 328,
+   "documents_source": [
+    "ir/S1/ZURN.SW_S1_2026_2026-08-06.txt.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ZURN.SW",
+   "profil": "faible",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "On March 4, 2026, Zurich Insurance Group Ltd placed 7,090,909 new registered shares with an issue price of CHF 550 per share... gross proceeds of CHF 3.9 billion (USD 4.9 billion)",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 178,
+   "documents_source": [
+    "ir/S1/ZURN.SW_S1_2026_2026-08-06.txt.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "ZURN.SW",
+   "profil": "faible",
+   "chemin": ".fondamental_interne[4].preuve",
+   "extrait": "Zurich Insurance Group has no ownership interest in the Farmers Exchanges. Farmers Group, Inc., a wholly owned subsidiary of the Group... provide certain non-claims and ancillary services to the Farmers Exchanges as their attorney-in-fact and receive fees for their services.",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 169,
+   "documents_source": [
+    "ir/CP/ZURN.SW_CP_9M-2025_2025-11-06.txt.gz",
+    "ir/CP/ZURN.SW_CP_FY2025_2026-02-19.txt.gz",
+    "ir/CP/ZURN.SW_CP_S1-2025_2025-08-07.txt.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "V",
+   "profil": "faible",
+   "chemin": ".fondamental_interne[0].preuve",
+   "extrait": "On April 21, 2026, three merchants that are members of the Damages Class filed a motion for partial summary judgment in MDL 1720 seeking a declaration that the forward-looking release... is invalid and unenforceable",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 255,
+   "documents_source": [
+    "10Q/V_2026-04-29.htm.gz",
+    "10Q/V_2026-07-29.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "V",
+   "profil": "faible",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "the U.S. Department of Justice filed a complaint... alleging Visa has monopolized and attempted to monopolize general purpose debit network services",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 189,
+   "documents_source": [
+    "10K/V_2024-11-13.htm.gz",
+    "10K/V_2025-11-06.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "UNH",
+   "profil": "faible",
+   "chemin": ".fondamental_externe[0].preuve",
+   "extrait": "Medicare Advantage rate notices for numerous years have resulted in industry base rates well below the industry forward medical cost trend... the Final Notice for 2027 moved towards the expected industry forward medical cost trend, it remains below",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 146,
+   "documents_source": [
+    "10K/UNH_2026-03-02.htm.gz",
+    "10Q/UNH_2025-05-07.htm.gz",
+    "10Q/UNH_2025-08-11.htm.gz"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  },
+  {
+   "ticker": "AEP",
+   "profil": "faible",
+   "chemin": ".fondamental_externe[1].preuve",
+   "extrait": "As of December 31, 2025, AEP Texas did business with approximately 146 REPs... In 2025, AEP Texas' two largest REPs accounted for 38% of its operating revenue.",
+   "nb_fragments": 2,
+   "ecart_max_caracteres": 380,
+   "documents_source": [
+    "10K/AEP_2026-02-12.htm.gz",
+    "_risks_src_30k.txt"
+   ],
+   "verification": "automatique (localisation dans la source)",
+   "verdict": "LEGITIME",
+   "explication": "Tous les fragments sont retrouves dans le meme document source, separes de moins de 600 caracteres : elision au sein d'un meme passage."
+  }
+ ],
+ "sonde_ciblee_hors_echantillon": {
+  "principe": "Sur les 496 ATT, recherche des citations dont les fragments de part et d'autre des points de suspension portent des marqueurs de portee differents (segment, consolide, region, exercice, trimestre) et un chiffre de chaque cote.",
+  "candidats_trouves": 4,
+  "detail": [
+   {
+    "ticker": "GM",
+    "profil": "sonde ciblee",
+    "chemin": ".fondamental_interne[1].preuve",
+    "extrait": "During the year ended December 31, 2025, we recorded charges of $7.9 billion in GMNA related to our EV strategic realignment. In the three months ended June 30, 2026, we recorded additional net charges of $2.3 billion... For the six months ended June 30, 2026, net charges were $3.4 billion... Of these charges, $2.5 billion will have a cash impact when paid.",
+    "nb_fragments": 3,
+    "ecart_max_caracteres": 1247,
+    "documents_source": [
+     "10Q/GM_2026-07-21.htm.gz"
+    ],
+    "verification": "manuelle (lecture de la source)",
+    "verdict": "LEGITIME",
+    "explication": "10-Q T2 2026 GM, section MD&A : le passage source enchaine exactement annee 2025 / trois mois / six mois. Les ellipses coupent le detail, aucun chiffre ne change de perimetre."
+   },
+   {
+    "ticker": "STX",
+    "profil": "sonde ciblee",
+    "chemin": ".fondamental_externe[0].preuve",
+    "extrait": "In fiscal year 2026, one customer accounted for approximately 14% of consolidated revenue. In fiscal year 2025, one customer accounted for approximately 10%... In fiscal year 2024, no customers accounted for more than 10%",
+    "nb_fragments": 2,
+    "ecart_max_caracteres": 182,
+    "documents_source": [
+     "10K/STX_2025-08-01.htm.gz",
+     "10K/STX_2026-08-04.htm.gz",
+     "DEF14A/STX_2024-09-03.htm.gz"
+    ],
+    "verification": "manuelle (lecture de la source)",
+    "verdict": "LEGITIME",
+    "explication": "10-K FY2026 STX : trois phrases consecutives de la meme note, meme perimetre (consolidated revenue)."
+   },
+   {
+    "ticker": "MNST",
+    "profil": "sonde ciblee",
+    "chemin": ".fondamental_interne[2].preuve",
+    "extrait": "Operating loss for the Alcohol Brands segment, exclusive of corporate and unallocated expenses, was $127.0 million for the year ended December 31, 2025 ... Operating loss for the Alcohol Brands segment, exclusive of the Alcohol Brands segment impairment charges and corporate and unallocated expenses, was $73.3 million and $61.6 million for the years ended December 31, 2025 and 2024",
+    "nb_fragments": 2,
+    "ecart_max_caracteres": 475,
+    "documents_source": [
+     "10K/MNST_2024-02-29.htm.gz",
+     "10K/MNST_2025-02-28.htm.gz",
+     "10K/MNST_2026-02-27.htm.gz"
+    ],
+    "verification": "manuelle (lecture de la source)",
+    "verdict": "LEGITIME",
+    "explication": "10-K FY2025 MNST : deux phrases du meme paragraphe, meme segment Alcohol Brands."
+   },
+   {
+    "ticker": "ACA.PA",
+    "profil": "sonde ciblee",
+    "chemin": ".fondamental_interne[1].preuve",
+    "extrait": "Net income Group share came to €2,051 million, down -11.9% compared to the second quarter of 2025 which included the +€304 million impact... Excluding this impact, the quarter-on-quarter change comes to +1.4%",
+    "nb_fragments": 2,
+    "ecart_max_caracteres": 208,
+    "documents_source": [
+     "ir/communique/ACA.PA_communique_T2-2026_2026-07-31.txt.gz"
+    ],
+    "verification": "manuelle (lecture de la source)",
+    "verdict": "LEGITIME",
+    "explication": "Communique T2 2026 ACA : phrases consecutives, meme perimetre (Credit Agricole S.A., 2e trimestre)."
+   }
+  ]
+ },
+ "taux": {
+  "citations_examinees": 107,
+  "LEGITIME": 107,
+  "COMPOSITE ANODIN": 0,
+  "COMPOSITE FAUTIF": 0,
+  "INVERIFIABLE": 0,
+  "taux_de_fautives": "0.0%",
+  "dont_adjugees_manuellement": 23
+ },
+ "conclusion": "Aucune citation composite fautive dans l'echantillon. Le defaut trouve chez DHI apparait isole et non representatif de la population des 1458 citations a points de suspension.",
+ "reserves": [
+  "Les points de suspension ne sont pas le bon marqueur du defaut DHI : chez DHI, les deux passages etaient joints par un point-virgule entre deux blocs entre guillemets, pas par des points de suspension. Un audit des citations multi-blocs separees par ' ; ' serait un complement utile et vise un ensemble different.",
+  "Deux ecarts mineurs releves au passage, hors du perimetre de cet audit et non corriges : ROST cite 'over 85%' la ou le proxy dit 'approximately 85%' ; NVDA supprime 'Excessive or shifting' en tete de citation sans le signaler."
+ ]
+}

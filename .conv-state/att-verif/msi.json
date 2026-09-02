@@ -1,0 +1,111 @@
+{
+  "ticker": "MSI",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Argument 3 : la marge brute beneficie de remboursements de droits de douane IEEPA, \"dont la societe ne chiffre pas le montant\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"Accordingly, during the quarter ended July 4, 2026, we recognized a favorable adjustment of $60 million recorded within Cost of sales in our Condensed Consolidated Statements of Operations.\" (10-Q, Recent Events / Macroeconomic Environment Update)",
+      "correction_proposee": "La societe chiffre explicitement le montant : 60 M$ en cout des ventes au T2 2026. Ecrire : \"La marge brute integre en plus 60 M$ de remboursements de droits de douane IEEPA comptabilises en cout des ventes au deuxieme trimestre.\" Cela renforce l'argument (60 M$ IEEPA + 40 M$ Hytera supplementaires pour 60 M$ seulement de hausse du resultat operationnel).",
+      "fichier_source": "data-lake/MSI/10Q/MSI_2026-08-05.htm.gz"
+    },
+    {
+      "affirmation": "Quantitatif 6 : \"Au rythme du premier semestre 2026 (444 M$ rachetes), l'autorisation actuelle couvre moins de deux trimestres.\"",
+      "verdict": "FAUX",
+      "verbatim_source": "\"During the three and six months ended July 4, 2026, we repurchased approximately 0.8 million and 1.1 million shares at an average price of $413.53 and $420.50 per share for an aggregate amount of $326 million and $444 million, respectively\" et \"leaving $0.6 billion of authority available for future repurchases.\"",
+      "correction_proposee": "Erreur arithmetique : au rythme du semestre (444 M$ sur deux trimestres, soit 222 M$ par trimestre), les 0,6 Md $ restants couvrent environ 2,7 trimestres. \"Moins de deux trimestres\" n'est vrai qu'au rythme du seul T2 (326 M$). Reformuler en consequence.",
+      "fichier_source": "data-lake/MSI/10Q/MSI_2026-08-05.htm.gz"
+    },
+    {
+      "affirmation": "Argument 6 : l'operation D-Fend est financee par \"un nouveau pret a terme de 300 M$\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"We are currently seeking lender commitments for a new $300 million term loan credit agreement (the \\\"proposed term loan\\\") that we expect to enter into in August 2026.\" Le prospectus liste aussi en facteur de risque \"our ability to enter into the proposed term loan\".",
+      "correction_proposee": "Le pret n'est pas conclu. Ecrire : \"un projet de pret a terme de 300 M$ encore en cours de syndication\".",
+      "fichier_source": "data-lake/MSI/424B/MSI_2026-08-06_0001193125-26-336923.htm.gz"
+    },
+    {
+      "affirmation": "Quantitatif 5, source indiquee : \"10-K FY2025 sur la volatilite du marche des memoires\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Le passage \"we are experiencing higher costs for memory in our products which is a result of substantial demand in the market driven by AI. As a result, we continue to observe elevated volatility and uncertainty around the global supply chain\" figure dans le 10-Q du 5 aout 2026, pas dans le 10-K FY2025. Le 10-K ne mentionne la memoire que dans un facteur de risque fournisseurs mono-source.",
+      "correction_proposee": "Corriger la source en \"10-Q du 5 aout 2026\". Le fond est exact.",
+      "fichier_source": "data-lake/MSI/10Q/MSI_2026-08-05.htm.gz"
+    },
+    {
+      "affirmation": "Champ _sources : \"data-lake/MSI/424B/MSI_2026-08-06.htm.gz\"",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Ce chemin n'existe pas dans le data-lake. Le fichier reel est data-lake/MSI/424B/MSI_2026-08-06_0001193125-26-336923.htm.gz.",
+      "correction_proposee": "Corriger le chemin dans _sources. Le contenu cite est bien dans ce fichier.",
+      "fichier_source": "data-lake/MSI/424B/MSI_2026-08-06_0001193125-26-336923.htm.gz"
+    },
+    {
+      "affirmation": "JUDICIAIRE : le tribunal a ordonne a Hytera de verser 100 M$ par an jusqu'a extinction du jugement civil, et Motorola Solutions a fait appel de la decision de sanction",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"As a condition of Hytera's probation, the District Court ordered Hytera to pay the Company $100 million in 2026 towards the civil judgment and $100 million for each succeeding year until the civil judgment is paid in full. The District Court also fined Hytera $50 million... The Company has appealed the District Court's sentencing order.\"",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/MSI/10Q/MSI_2026-08-05.htm.gz"
+    },
+    {
+      "affirmation": "JUDICIAIRE : le DOJ poursuit Hytera (et non Motorola Solutions)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On January 13, 2025, Hytera pleaded guilty to one federal felony count of conspiracy to steal the Company's trade secrets in a criminal action brought by the U.S. Department of Justice against Hytera and several of its employees in the District Court.\" L'ATT ne commet pas l'erreur de presenter MSI comme visee.",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/MSI/10Q/MSI_2026-08-05.htm.gz"
+    },
+    {
+      "affirmation": "Gains Hytera de 60 M$ au S1 2026 contre 20 M$ au S1 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"a $60 million gain on Hytera litigation for amounts recovered through legal proceedings due to the theft of our trade secrets recognized in the first half of 2026 compared to $20 million of gains on Hytera litigation in the first half of 2025.\"",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/MSI/10Q/MSI_2026-08-05.htm.gz"
+    },
+    {
+      "affirmation": "REGLEMENTAIRE : la CMA britannique a impose un plafonnement des prix sur Airwave, contrat prolonge jusqu'au 31 decembre 2029",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"the revenue reduction on Airwave services in accordance with the legal order imposed by the Competition and Markets Authority (CMA) which implemented a prospective price control on Airwave (the \\\"Charge Control\\\")\" et \"Home Office's notice of contract extension for the Airwave service through December 31, 2029.\"",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/MSI/10K/MSI_2026-02-12.htm.gz"
+    },
+    {
+      "affirmation": "REGLEMENTAIRE : lois et reglements sur l'IA et la biometrie (reconnaissance faciale, plaques, rapports de police IA, UE)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"The U.S. federal government and many state and local governments have adopted or are considering laws or regulations governing the use of AI and biometrics, including facial recognition, license plate recognition technology and AI-generated police reports... Similar laws and regulations are being enacted or considered in some jurisdictions outside the U.S., including the EU.\" Chiffre associe verifie : Video 584 M$ + Command Center 269 M$ = 853 M$ sur 3 133 M$, soit 27,2 %.",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/MSI/10K/MSI_2026-02-12.htm.gz"
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 1 : croissance interne quasi nulle au S1 2026 (392 + 71 + 94 = 557 M$ sur 555 M$ de hausse, 5 848 contre 5 293 M$)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net sales increased $555 million, or 10%... inclusive of $392 million of revenue from acquisitions... inclusive of $71 million of revenue from acquisitions... inclusive of $94 million from favorable currency rates.\" Reserve de forme : \"inclusive of\" signifie \"au moins\" ; la societe ne publie pas de chiffre de croissance organique, l'ATT presente bien le calcul comme une deduction.",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/MSI/10Q/MSI_2026-08-05.htm.gz"
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 2 : goodwill 6 883 M$ + incorporels 2 951 M$ = 9 834 M$, soit 51 % d'un bilan de 19 242 M$ et 3,7 fois les 2 688 M$ de capitaux propres ; dette de 9,0 Mds $",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"We had outstanding debt of $9.0 billion at July 4, 2026, of which $615 million was current.\" Postes de bilan verifies ligne a ligne : Goodwill 6 883, Intangible assets net 2 951, Total assets 19 242, Total stockholders' equity 2 688.",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/MSI/10Q/MSI_2026-08-05.htm.gz"
+    },
+    {
+      "affirmation": "Chiffre spectaculaire 3 : Silvus, 2,9 Mds $ de goodwill et 1,9 Md $ d'incorporels pour 53 M$ d'actifs corporels nets ; earnout jusqu'a 600 M$, charge de 91 M$ au S1 2026 contre une estimation initiale de 38 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"The Company recognized goodwill of $2.9 billion... $1.9 billion of intangible assets and $401 million of net liabilities, inclusive of $454 million of deferred tax liabilities and $53 million of net tangible assets.\" ; \"estimated fair value as of the acquisition date of $38 million... up to $600 million in total\" ; \"a $91 million contingent earnout charge related to the Silvus acquisition in the first half of 2026.\"",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/MSI/10K/MSI_2026-02-12.htm.gz et data-lake/MSI/10Q/MSI_2026-08-05.htm.gz"
+    },
+    {
+      "affirmation": "Carnet de commandes Produits 3 812 M$ contre 4 135 M$ (-8 %) ; Amerique du Nord Produits 2 426 contre 2 429 M$ ; BPA dilue 5,51 contre 5,57 $ ; stocks 1 333 contre 983 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Tableaux du 10-K et du 10-Q verifies ligne a ligne. Le 10-Q ecrit aussi \"while the North America region remained flat\".",
+      "correction_proposee": "",
+      "fichier_source": "data-lake/MSI/10K/MSI_2026-02-12.htm.gz et data-lake/MSI/10Q/MSI_2026-08-05.htm.gz"
+    },
+    {
+      "affirmation": "Argument 6 : D-Fend, 1,5 Md $ a la cloture, aucun compte historique ni pro forma publie",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"The Company has agreed to pay consideration in the D-Fend Acquisition of $1.5 billion at closing, subject to customary adjustments.\" et \"We are not providing... historical financial information of D-Fend or pro forma financial statement information.\"",
+      "correction_proposee": "Precision : la phrase du prospectus sur les investisseurs vise les souscripteurs de l'emprunt obligataire, pas les actionnaires en general.",
+      "fichier_source": "data-lake/MSI/424B/MSI_2026-08-06_0001193125-26-336923.htm.gz"
+    }
+  ]
+}

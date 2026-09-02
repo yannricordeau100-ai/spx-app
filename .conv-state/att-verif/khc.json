@@ -1,0 +1,90 @@
+{
+  "ticker": "KHC",
+  "verdict_global": "a_corriger",
+  "_verifie_le": "2026-08-21",
+  "_sources_consultees": [
+    "data-lake/KHC/10Q/KHC_2026-08-05.htm.gz (T2 2026, cloture 27 juin 2026)",
+    "data-lake/KHC/10K/KHC_2026-02-12.htm.gz (FY2025)",
+    "data-lake/KHC/governance/extracted.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "HOOK : \"Kraft Heinz a passe 7,4 Mds $ de depreciations sur un seul trimestre, deux ans de suite : au T2 2026 comme au T2 2025\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, compte de resultat : \"Goodwill impairment losses 2,441 / 6,694 ; Intangible asset impairment losses 4,911 / 2,572\" ; note segments : \"Impairment losses (7,352) / (9,266)\". Soit 7 352 M$ au T2 2026 et 9 266 M$ au T2 2025.",
+      "correction_proposee": "Le T2 2025 pesait 9,3 Mds $ et non 7,4 Mds $. Ecrire : \"7,4 Mds $ au T2 2026 apres 9,3 Mds $ au T2 2025\". Le hook contredit d'ailleurs le corps de l'ATT, qui donne bien 9 266 M$."
+    },
+    {
+      "affirmation": "Depreciations T2 2026 : 2 441 M$ de goodwill et 4 911 M$ d'incorporels, soit 7 352 M$ ; goodwill total passe de 22 179 M$ fin 2025 a 19 714 M$ fin juin 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Goodwill impairment losses 2,441\" ; \"Intangible asset impairment losses 4,911\" ; bilan : \"Goodwill 19,714 / 22,179\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Perte nette attribuable 5 460 M$ au T2 2026 apres 7 824 M$ au T2 2025 ; perte cumulee semestrielle 4 662 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Net income/(loss) attributable to common shareholders $(5,460) $(7,824) $(4,662) $(7,112)\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"Les ventes nettes organiques ont recule de 1,9% au T2 2026\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : \"Organic Net Sales (a) 6,207 6,287 (1.3)%\" et \"Organic Net Sales decreased 1.3% to $6.2 billion for the three months ended June 27, 2026\". Sur six mois : -0,9%. Le chiffre d'affaires publie recule de 1,4% au T2.",
+      "correction_proposee": "Remplacer -1,9% par -1,3% (organique, T2 2026). Aucun -1,9% n'apparait dans le 10-Q."
+    },
+    {
+      "affirmation": "Amerique du Nord 4 626 M$ sur 6 262 M$, -2,8% ; Europe et marches developpes -3,6% ; Emergence +10,5% a 771 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, note segments : \"North America $4,626 / $4,757\" (-2,75%) ; \"International Developed Markets 865 / 897\" (-3,57%) ; \"Emerging Markets 771 / 698\" (+10,46%) ; \"Total net sales $6,262\"",
+      "correction_proposee": "Le segment s'appelle \"International Developed Markets\", pas \"Europe et marches developpes\" : preferer la denomination du 10-Q."
+    },
+    {
+      "affirmation": "Scission annoncee le 2 septembre 2025, mise en pause le 11 fevrier 2026 ; verbatim \"On February 11, 2026, we announced that the Kraft Heinz Board of Directors has decided to pause work related to the Separation... The timing of the Separation and whether it will be completed is uncertain\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"On September 2, 2025, we announced a plan to separate the Company into two independent, publicly traded companies through a tax-free spin-off (the 'Separation'). On February 11, 2026, we announced that the Kraft Heinz Board of Directors (the 'Board') has decided to pause work related to the Separation... The timing of the Separation and whether it will be completed is uncertain and we cannot assure that the Separation will be completed on the anticipated timeline or at all\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Litige : \"Une action collective d'actionnaires (In re Kraft Heinz Company Derivative Litigation)... seconde plainte amendee consolidee le 8 mai 2026... Kraft Heinz declare ne pas pouvoir estimer raisonnablement l'ampleur d'une perte potentielle\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"Certain of The Kraft Heinz Company's current and former officers and directors and 3G Capital, Inc. and several of its subsidiaries and affiliates... have been named as defendants in a consolidated stockholder derivative action, In re Kraft Heinz Company Derivative Litigation\" ; \"The plaintiffs filed a verified consolidated second amended complaint on May 8, 2026. We intend to vigorously defend against this lawsuit; however, we cannot reasonably estimate the potential range of loss, if any, due to the early stage of the proceedings.\"",
+      "correction_proposee": "Ce n'est PAS une action collective (class action) mais une action derivee d'actionnaires (stockholder derivative action), exercee au nom de la societe. Corriger \"action collective\" en \"action derivee d'actionnaires\". De plus les defendeurs incluent les dirigeants ACTUELS et anciens ainsi que 3G Capital, et l'allegation centrale de la procedure encore vivante (Erste Asset Management) porte sur l'independance de deux administrateurs, pas seulement sur la communication relative aux depreciations."
+    },
+    {
+      "affirmation": "Chronologie du litige : rejete avec prejudice en 2021, puis en appel en 2024, relance par la Cour supreme du Delaware en juin 2025 et renvoye en premiere instance",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"the Delaware Chancery Court granted in an order dated December 15, 2021... the Delaware Supreme Court affirmed the trial court's dismissal with prejudice... in an order dated August 1, 2022\" ; \"the Delaware Chancery Court granted in an order dated August 8, 2024, dismissing the complaint with prejudice\" ; \"The Delaware Supreme Court issued an opinion and order on June 9, 2025, reversing the trial court's dismissal of the complaint and remanding\"",
+      "correction_proposee": "Le rejet initial date du 15 decembre 2021, mais la confirmation \"avec prejudice\" date du 1er aout 2022 : le raccourci \"rejetee avec prejudice en 2021\" est admissible mais imprecis."
+    },
+    {
+      "affirmation": "Capitaux propres 36 006 M$ au 27 juin 2026 contre 41 664 M$ au 27 decembre 2025, -13,6% en un semestre",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, bilan : \"Total shareholders' equity 36,006 41,664\" (-13,58%)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"la juste valeur totale de la dette est estimee a 20,4 Mds $ contre une valeur comptable de 21,2 Mds $\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, note dette : \"At June 27, 2026, the aggregate fair value of our total debt was $18.2 billion as compared with a carrying value of $19.0 billion. At December 27, 2025, the aggregate fair value of our total debt was $20.4 billion as compared with a carrying value of $21.2 billion.\"",
+      "correction_proposee": "Les chiffres 20,4 / 21,2 Mds $ sont ceux du 27 decembre 2025, pas de la date d'arret. A la date du bilan (27 juin 2026) : juste valeur 18,2 Mds $, valeur comptable 19,0 Mds $ (coherente avec les 19 001 M$ cites juste avant dans la meme puce)."
+    },
+    {
+      "affirmation": "Dette totale 19 001 M$ pour 2 419 M$ de tresorerie ; dividende semestriel 949 M$ ; flux operationnels 2 088 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, bilan : \"Current portion of long-term debt $1,382\" + \"Long-term debt 17,619\" = 19,001 ; \"Cash and cash equivalents $2,419\" ; flux : \"Dividends paid (949)\" ; MD&A : \"Net cash provided by operating activities was $2.1 billion for the six months ended June 27, 2026\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Walmart represente 21% du chiffre d'affaires ; Berkshire Hathaway detient 27,45% du capital, devant Vanguard 8,6% et BlackRock 5,87%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 : \"Our largest customer, Walmart Inc., represented approximately 21% of our net sales in 2025, 2024, and 2023.\" ; data-lake/KHC/governance/extracted.json : Berkshire Hathaway 27.45, The Vanguard Group 8.6, BlackRock 5.87",
+      "correction_proposee": "Le 21% Walmart est verifie sur le 10-K. Les participations proviennent d'une extraction derivee, non d'un document primaire local."
+    },
+    {
+      "affirmation": "OMISSION - aucune mention du dossier Clean Water Act DOJ/EPA",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Note 14 : \"Environmental Actions: Since March 2024, the Company has been engaged in ongoing discussions with the U.S. Department of Justice, joined by the U.S. Environmental Protection Agency ('U.S. EPA') and the Indiana Department of Environmental Management, concerning alleged violations of the Clean Water Act related to a Company facility in Kendallville, Indiana.\"",
+      "correction_proposee": "Rien de faux dans l'ATT, mais un item reglementaire materiel du meme 10-Q est absent. A envisager dans le bloc reglementaire. Noter la formulation exacte : \"discussions\" avec le DOJ, PAS une enquete."
+    }
+  ]
+}

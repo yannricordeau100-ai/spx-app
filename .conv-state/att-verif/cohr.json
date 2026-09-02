@@ -1,0 +1,79 @@
+{
+  "ticker": "COHR",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/COHR/10K/COHR_2026-08-14.htm.gz (10-K FY2026, clos le 30 juin 2026) ; data-lake/COHR/DEF14A/COHR_2025-10-02.htm.gz (proxy 2025, table des detenteurs >5%)",
+  "controles": [
+    {
+      "affirmation": "Hook : « son premier fournisseur d'ordres, a 20% du chiffre d'affaires, est aussi devenu son premier actionnaire externe » (identification implicite de NVIDIA comme le client a 20%).",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "One major customer accounted for 20%, 10%, and 10% of consolidated revenue during fiscal 2026, 2025 and 2024, respectively. A second major customer accounted for 12% of consolidated revenue during fiscal 2026. A third major customer accounted for 12% of consolidated revenue during fiscal 2025. Revenue from these customers was primarily attributable to our Datacenter & Communications segment.",
+      "correction_proposee": "Le 10-K FY2026 n'identifie JAMAIS le client a 20% du chiffre d'affaires. Aucune des huit occurrences de « NVIDIA » dans le document ne relie NVIDIA a ce pourcentage : le 10-K parle d'un « multi-billion-dollar purchase commitment » signe le 2 mars 2026, soit un engagement d'achat futur, pas d'un chiffre d'affaires FY2026 constate. Reformuler : « un client majeur non nomme a represente 20% du chiffre d'affaires FY2026 ; separement, NVIDIA a signe le 2 mars 2026 un accord pluriannuel comportant un engagement d'achat de plusieurs milliards de dollars. » Ne pas fusionner les deux."
+    },
+    {
+      "affirmation": "NVIDIA est « le premier actionnaire externe » de Coherent (repris dans le hook et dans l'argument « Client et actionnaire confondus »).",
+      "verdict": "FAUX",
+      "verbatim_source": "Bain Capital Investors, LLC 28,111,651 / 17.9% ; BlackRock, Inc. 13,179,003 / 8.4% ; FMR LLC 9,845,014 / 6.3% ... There were 156,917,911 shares of our Common Stock outstanding as of August 31, 2025. (DEF14A 2025) — a comparer aux 7,788,161 actions emises a NVIDIA le 2 mars 2026.",
+      "correction_proposee": "NVIDIA detient 7 788 161 actions, soit environ 4,7% du capital (env. 165 M d'actions apres emission ; moyenne ponderee FY2026 de 177,3 M). Bain Capital (17,9%), BlackRock (8,4%) et FMR (6,3%) sont tous devant. NVIDIA est au mieux le 4e actionnaire. Reformuler : « NVIDIA est devenu un actionnaire significatif (environ 5% du capital) tout en etant partenaire commercial et R&D », et supprimer « premier actionnaire externe »."
+    },
+    {
+      "affirmation": "Resume : « un chiffre d'affaires en hausse de 22% » en FY2026.",
+      "verdict": "FAUX",
+      "verbatim_source": "Revenues for the year ended June 30, 2026 increased 23% to $7,118 million, compared to $5,810 million for the same period last fiscal year.",
+      "correction_proposee": "Le 10-K ecrit explicitement 23% (le calcul exact donne 22,5%). Ecrire 23% pour rester aligne sur le document cite. Ecart mineur mais verifiable par un lecteur."
+    },
+    {
+      "affirmation": "Un premier client a represente 20% du CA en FY2026 contre 10% en FY2025 et 10% en FY2024 ; un deuxieme client 12% en FY2026 ; ensemble 32%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "One major customer accounted for 20%, 10%, and 10% of consolidated revenue during fiscal 2026, 2025 and 2024, respectively. A second major customer accounted for 12% of consolidated revenue during fiscal 2026.",
+      "correction_proposee": "Exact. Nuance a envisager : le 10-K precise aussi qu'« a third major customer accounted for 12% of consolidated revenue during fiscal 2025 » — en FY2025 le duo de tete pesait donc 22%, pas 10%. La hausse reste reelle (22% -> 32%) mais moins spectaculaire que ce que suggere l'omission."
+    },
+    {
+      "affirmation": "Flux de tresorerie operationnel tombe a 80 M$ en FY2026 contre 634 M$ en FY2025 ; capex a 1 103 M$ contre 441 M$ ; FCF d'environ -1,02 Md$ contre +193 M$.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net cash provided by operating activities 79,514 | 633,600 | 545,731 ; Additions to property, plant & equipment (1,102,909) | (440,836) | (346,816)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Dette totale de 3,22 Mds $ au 30 juin 2026 contre 3,69 Mds $ un an plus tot ; baisse permise par les 2 Mds $ recus de NVIDIA ; conformite aux covenants.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Total debt 3,222,224 | 3,686,921 ; The increase was primarily due to the $2 billion in proceeds from the issuance of Common Stock to NVIDIA, net of fees ; As of June 30, 2026, the Company was in compliance with all covenants under the Senior Credit Facilities.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Le 2 mars 2026, NVIDIA a investi 2 Mds $ via un placement prive de 7 788 161 actions, le meme jour que la signature d'un accord strategique pluriannuel.",
+      "verdict": "CONFORME",
+      "verbatim_source": "On March 2, 2026, the Company entered into a Securities Purchase Agreement (the \"Purchase Agreement\") with NVIDIA Corporation (\"NVIDIA\"), pursuant to which the Company issued and sold 7,788,161 shares of Common Stock at a price of $256.80 per share, for aggregate gross proceeds of $2 billion.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Risque de nouveaux controles a l'exportation visant les produits IA/datacenter.",
+      "verdict": "CONFORME",
+      "verbatim_source": "increasing geopolitical tensions could result in new export controls associated with products that support or enable AI or data center infrastructure applications which could, in turn, restrict future sales of certain products to certain markets in which we operate",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "La Chine est le producteur predominant de certaines terres rares utilisees par Coherent, sur fond de tarifs et sanctions actifs.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Although rare earth and other materials are generally available from multiple suppliers, China is the predominant producer of certain of these materials. ; A number of these tariffs remain in effect, including significant tariffs and trade sanctions between the United States and China.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Cession de l'activite aerospatiale et defense en septembre 2025 (environ 400 M$, gain de 115 M$), cession de Munich en janvier 2026, depreciations non-cash de 85 M$ puis 64 M$ dans le segment Industrial.",
+      "verdict": "CONFORME",
+      "verbatim_source": "On September 2, 2025, we completed the sale of our aerospace and defense business ... for approximately $400 million and recorded a gain of $115 million ; we recorded non-cash impairment charges of $85 million within the Industrial segment ... In the year ended June 30, 2026, we recorded additional non-cash impairment charges of $64 million",
+      "correction_proposee": "Exact. Preciser les exercices serait utile : les 85 M$ sont du T4 FY2025, les 64 M$ de FY2026."
+    },
+    {
+      "affirmation": "Datacenter & Communications = 5,28 Mds $ sur 7,12 Mds $ (74%) ; Industrial a 1,84 Mds $ (-10% vs 2,06 Mds $).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Datacenter & Communications $5,274,629 | $3,755,164 | $2,631,369 ; Revenues ... increased 23% to $7,118 million ; In the Industrial segment, revenue decreased $211 million, or 10%",
+      "correction_proposee": "Exact (5 274,6 M$, arrondi a 5,27 plutot que 5,28 ; 74,1% du total). Sans consequence."
+    },
+    {
+      "affirmation": "Le benefice net attribuable a ete multiplie par 16 en FY2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net Earnings Attributable to Coherent Corp. $805 | 11% | $49 | 1%",
+      "correction_proposee": null
+    }
+  ]
+}

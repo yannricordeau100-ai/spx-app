@@ -1,0 +1,58 @@
+{
+  "ticker": "IVZ",
+  "verdict_global": "a_corriger",
+  "commentaire": "Aucune affirmation judiciaire ou reglementaire dans cette ATT. Tous les chiffres controles sont exacts au mot pres. Seul defaut releve : un titre qui qualifie MassMutual de creancier alors qu'il s'agit d'actions preferentielles (capitaux propres).",
+  "sources_controlees": [
+    "data-lake/IVZ/10Q/IVZ_2026-08-04.htm.gz (10-Q T2 2026)"
+  ],
+  "controles": [
+    {
+      "affirmation": "Goodwill et incorporels nets de 12 306,0 M$ au 30/06/2026, soit 98,7% des 12 471,9 M$ de capitaux propres attribuables a Invesco Ltd, contre 12 404,4 M$ fin 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Goodwill and intangible assets, net | 12,306.0 | - | 12,306.0 | 12,404.4\" ; \"Total equity attributable to Invesco Ltd. | 12,471.9 | 12,231.0\" ; \"Goodwill and intangible assets, net decreased from $12,404.4 million at December 31, 2025 to $12,306.0 million at June 30, 2026.\" (10-Q T2 2026). 12 306,0 / 12 471,9 = 98,7%.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "La societe indique qu'une baisse prolongee du cours de l'action pourrait declencher une depreciation du goodwill",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"If our revenue and operating income are adversely impacted by unfavorable market conditions or if there is a significant decline in our stock price for an extended period of time, an impairment of goodwill and intangible assets may occur in future periods.\" (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "MassMutual detient environ 18,4% des actions ordinaires et la quasi-totalite des 2,5 Mds$ d'actions preferees perpetuelles, avec representation au conseil",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"MassMutual owns approximately 18.4% of the common stock of the company and owns substantially all of the outstanding $2.5 billion in perpetual, non-cumulative preferred shares as of June 30, 2026. Based on the level of shares owned by MassMutual and the corresponding customary minority shareholder rights, which includes representation on Invesco's Board of Directors, the company considers MassMutual a related party.\" (10-Q T2 2026, Note 12)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Titre : \"MassMutual, actionnaire et CREANCIER PRIVILEGIE\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"$2.5 billion in perpetual, NON-CUMULATIVE PREFERRED SHARES\" (10-Q T2 2026, Note 12). Ces titres figurent en capitaux propres au bilan, pas en dette, et le dividende preferentiel n'est pas cumulatif.",
+      "correction_proposee": "MassMutual n'est pas creancier : il detient des actions preferentielles perpetuelles non cumulatives, classees en capitaux propres. Titre corrige : \"MassMutual, actionnaire de reference et porteur des actions preferentielles\"."
+    },
+    {
+      "affirmation": "Le QQQ pesait 490,1 Mds$ sur 2 470,3 Mds$ d'encours au 30/06/2026 (19,8%), contre 352,7 Mds$ et 17,6% un an plus tot",
+      "verdict": "CONFORME",
+      "verbatim_source": "Tableau \"Total AUM by Investment Capability\", colonne \"QQQ (12)\" : \"Ending Assets (June 30) $ 2,470.3 (...) $ 490.1\" pour 2026 et \"$ 2,001.4 (...) $ 352.7\" pour 2025 (10-Q T2 2026). 490,1/2 470,3 = 19,8% ; 352,7/2 001,4 = 17,6%.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Rendement net des commissions hors frais de performance a 22,4 pb au T2 2026 contre 23,2 pb un an plus tot",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Net revenue yield ex performance fees (3)(4) | 22.4 | 23.2 | 22.7 | 23.4\" (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Encours passes de 2 159,5 a 2 470,3 Mds$ (+310,8 Mds$) au T2 2026, dont 256,8 Mds$ d'effet marche contre 62,7 Mds$ de collecte nette, soit plus de quatre fois la collecte",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Beginning Assets (April 1) $ 2,159.5\" ; \"Total net flows 62.7\" ; \"Market gains and losses 256.8\" ; \"Ending Assets (June 30) $ 2,470.3\" (10-Q T2 2026). 256,8/62,7 = 4,1x.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "La collecte s'oriente vers les ETF indiciels et les fonds monetaires, moins remunerateurs que la gestion active",
+      "verdict": "CONFORME",
+      "verbatim_source": "Flux nets T2 2026 par capacite : ETFs and Index +30,1 ; QQQ +13,8 ; Global Liquidity +13,2 ; Fundamental Equities -7,7 (10-Q T2 2026, tableau AUM by Investment Capability)",
+      "correction_proposee": null
+    }
+  ]
+}

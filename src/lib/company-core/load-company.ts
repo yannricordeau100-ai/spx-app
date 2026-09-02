@@ -1518,6 +1518,13 @@ export async function loadV17Company(
       data.kpis = (data.kpis as AnyKPI[]).map((k) => {
         const ext = extByShort.get(String(k.short));
         if (!ext || !Array.isArray(ext.history) || ext.history.length === 0) return k;
+        // Garde-fou 3 sept 2026 : une serie dont les etiquettes de periode ne
+        // correspondent pas au nombre de valeurs produit un graphique aux
+        // dates fausses (les labels sont refabriques a rebours). On l ignore.
+        if (
+          Array.isArray(ext.history_periods)
+          && ext.history_periods.length !== ext.history.length
+        ) return k;
         const curHist = Array.isArray(k.history) ? (k.history as number[]) : [];
         // Yann 16 mai 2026 : merge intelligent.
         // Si ext (XBRL) > cur (CONV-DATA) : prend ext comme base.

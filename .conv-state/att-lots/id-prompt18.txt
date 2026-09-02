@@ -1,0 +1,32 @@
+Tu rends lisibles les fiches ATT (anti-these d'investissement) du repo ~/spx-app.
+
+PROBLEME : certains champs "preuve" et "source" affichent encore des identifiants techniques internes
+(noms de variables comme ceo_pay_ratio, pcs_ebit, marge_sop_boe, ou codes de series comme TAKE_RATE,
+RN_PG_FY, NII_EFP). Ces champs sont VISIBLES par l'utilisateur dans l'infobulle "Preuve et source".
+
+FICHIER DE TRAVAIL : /Users/yann/spx-app/.conv-state/att-lots/id-lot18.json
+Dict {ticker: [{"champ": nom_du_champ, "codes": [identifiants reperes]}]}
+
+Pour CHAQUE ticker : ouvre src/data/att/<ticker>.json, trouve les chaines contenant ces identifiants,
+et remplace chaque identifiant par son libelle francais lisible, deduit du contexte de la phrase.
+
+EXEMPLES
+- "ceo_pay_ratio: 203" -> "ecart de remuneration entre le directeur general et le salarie median : 203"
+- "serie RN_PG_FY" -> "serie du resultat net part du groupe annuel"
+- "marge_sop_boe 12%" -> "marge operationnelle du segment courtage 12%"
+- "NII_EFP" -> "marge d'interets sur fonds propres"
+
+REGLES ABSOLUES
+- Tu ne changes QUE la forme, jamais un chiffre, jamais une citation entre guillemets, jamais un fait.
+- Si un identifiant est en realite un sigle connu du lecteur (EBITDA, FCF, CET1, ROTCE, DEF14A, FY2025,
+  un nom de medicament, un nom de societe), tu le LAISSES tel quel.
+- Si tu ne peux pas deduire le sens avec certitude, tu supprimes la mention du code plutot que d'inventer,
+  a condition que la phrase reste correcte. Sinon tu laisses en l'etat.
+- Pas de tiret cadratin. Francais, vocabulaire non technique.
+- JSON valide (indent 1, ensure_ascii=False si tu passes par python).
+
+INTERDIT ABSOLU : lancer des sous-agents ou deleguer (tu fais TOUT le travail TOI-MEME, sequentiellement, ticker par ticker : le Mac crashe sur les pics de RAM). AUCUN sous-agent. INTERDIT aussi : rm, toucher a d'autres fichiers que src/data/att/<ticker>.json, ouvrir un navigateur,
+lancer un serveur, git commit, git push, deploiement.
+
+REPONSE FINALE : uniquement du JSON compact :
+{"resultats":[{"ticker":"xxx","remplaces":N,"laisses":M}]}

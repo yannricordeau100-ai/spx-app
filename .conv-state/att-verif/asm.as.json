@@ -1,0 +1,84 @@
+{
+  "ticker": "ASM.AS",
+  "verdict_global": "a_corriger",
+  "_sources_verifiees": [
+    "data-lake/ASM.AS/ir/CP/ASM.AS_CP_FY2025_2026-03-03.txt.gz",
+    "data-lake/ASM.AS/ir/CP/ASM.AS_CP_S1-2026_2026-07-28.txt.gz (resultats T2 2026)",
+    "data-lake/ASM.AS/ir/URD/ASM.AS_URD_FY2025_2026-03-12.txt.gz",
+    "data-lake/ASM.AS/risks/extracted.json, gouvernance_fr.json, geo_fr.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "REGLEMENTAIRE - \"ASM classe elle-meme le risque 'Geopolitique, controles a l'exportation et droits de douane' au niveau maximal de sa grille interne (5 sur 5) dans son rapport annuel 2025, avec une tendance en hausse par rapport a 2024\".",
+      "verdict": "FAUX",
+      "verbatim_source": "URD FY2025, chapitre 25 Risk management : ASM ne publie AUCUN score numerique. La grille publiee est \"Risk universe and risk appetite\", avec un appetit qualitatif par CATEGORIE : \"Strategy - Appetite: Cautious / Flexible\", \"Financial - Appetite: Averse / Minimalist\", et une simple liste de risques (Innovation, People, Competition, Geopolitical, Intellectual property...). \"ASM's risk appetite is determined based on the nature of the risk... and ranges from open to averse.\" Le score 5/5 et le trend \"up\" proviennent de data-lake/ASM.AS/risks/extracted.json, dont le champ score_rationale dit explicitement : \"Position : troisieme risque de la categorie Strategie... Poids : risque a composante reglementaire, pondere haut par nature\" - c'est une notation Mettrik, pas ASM.",
+      "correction_proposee": "Supprimer toute attribution de score a ASM. Ecrire : \"le risque geopolitique et de controle a l'exportation figure parmi les risques strategiques du chapitre 25, categorie pour laquelle ASM affiche un appetit 'Cautious / Flexible'\". Ne jamais presenter la notation interne Mettrik comme la grille de la societe."
+    },
+    {
+      "affirmation": "REGLEMENTAIRE - \"Le risque 'Cyberattaques et perte de propriete intellectuelle' est note 4 sur 5 et en tendance a la hausse dans le rapport annuel 2025 ; un risque distinct 'Risques emergents lies a l'integration de l'intelligence artificielle' apparait pour la premiere fois cette annee (score 3, statut 'nouveau')\".",
+      "verdict": "FAUX",
+      "verbatim_source": "URD FY2025 : \"Cyber attacks may impact our operations and could lead to a loss of intellectual property.\" et \"The integration of Artificial Intelligence (AI) technologies into business operations presents emerging risks that require careful management.\" Aucun score, aucune tendance, aucun statut \"nouveau\" n'est publie. Le mot \"new\" et les scores 4 et 3 sont des champs de risks/extracted.json.",
+      "correction_proposee": "Retirer les scores et les statuts. Ecrire : \"le rapport annuel 2025 traite les cyberattaques et la perte de propriete intellectuelle, et decrit separement les risques emergents lies a l'integration de l'IA\". Le \"apparait pour la premiere fois cette annee\" n'est pas verifiable dans le document cite et doit sauter."
+    },
+    {
+      "affirmation": "REGLEMENTAIRE - \"les restrictions a l'export limitent deja sa capacite a vendre et a entretenir ses systemes dans certaines juridictions et pour certains clients\".",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025 : \"Export restrictions are increasing, impacting our ability to sell and service systems in certain jurisdictions and for certain customers. In addition, new restrictions could be implemented and could impact the movement of certain of our employees from certain nationalities across countries, and access to certain technology.\"",
+      "correction_proposee": "Aucune. Verbatim exact et lecture correcte (present, pas conditionnel)."
+    },
+    {
+      "affirmation": "Arret de la publication trimestrielle des commandes et du carnet a partir du T1 2026 ; carnet de 1 566 M EUR fin 2024 a 1 247 M EUR fin 2025 (-20,4%) ; book-to-bill FY2025 a 0,9 contre 1,0 en FY2024.",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP FY2025 : \"As of Q1 2026, ASM will discontinue the disclosure of quarterly bookings and backlog. Backlog will continue to be reported at year-end as part of the fourth-quarter results.\" ; \"Backlog decreased from EUR1,566 million at the end of Q4 2024 to EUR1,247 million as of December 31, 2025.\" ; tableau Bookings : new orders 3,000.0 (2024) / 2,976.4 (2025), revenue 2,932.7 / 3,173.2, book-to-bill 1.0 / 0.9.",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "Hook et titre : l'arret de publication est presente comme une perte seche d'information pour les investisseurs, survenue \"exactement au moment\" ou l'indicateur se degradait.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "CP FY2025, meme paragraphe \"Update to disclosure practices\" : \"In addition, beginning in 2026, ASM will introduce a sales breakdown by customer segment (logic/foundry, memory, and other), which will be reported on a half-yearly and annual basis.\" Et : \"New orders for the fourth quarter 2025 increased to EUR803 million, up by 26%... The book-to-bill ratio for the quarter increased to 1.1 compared to prior quarter of 0.8.\"",
+      "correction_proposee": "Deux omissions a reparer dans le hook : (1) la meme annonce ajoute une nouvelle ventilation des ventes par segment client ; (2) le dernier trimestre publie montrait un rebond (commandes +26%, book-to-bill remonte a 1,1). Le corps de l'ATT mentionne le point (2) dans une perspective, mais pas le hook."
+    },
+    {
+      "affirmation": "Titre : \"Les frais de R&D capitalises progressent plus vite que leur amortissement\".",
+      "verdict": "FAUX",
+      "verbatim_source": "CP T2 2026, tableau Adjusted research and development expenses (Q2 2026 / Q1 2026 / Q2 2025 / var. vs Q1 / var. vs Q2 2025) : \"Capitalization of development expenses (49.3) (48.2) (53.6) 2% (8%)\" ; \"Amortization of capitalized development expenses 23.4 22.7 22.9 3% 2%\".",
+      "correction_proposee": "Sur un an, la capitalisation RECULE de 8% (49,3 vs 53,6) tandis que l'amortissement PROGRESSE de 2% (23,4 vs 22,9) : l'ecart se resserre, il ne s'elargit pas. Retitrer : \"Les frais de R&D capitalises restent plus du double des amortissements\" - constat de niveau, pas de dynamique."
+    },
+    {
+      "affirmation": "Capitalisation 49,3 M EUR contre 23,4 M EUR amortis, R&D brute 137,6 M EUR ; \"Other intangible assets\" 1 043,7 M EUR au 30/06/2026 contre 995,9 M EUR au 31/12/2025.",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP T2 2026 : \"Adjusted gross research and development expenses 137.6\" ; capitalisation 49.3 ; amortissement 23.4 ; \"Adjusted net research and development expenses 111.7\". Bilan : \"Other intangible assets 1,043.7 / 995.9\".",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "Titre : \"Creances clients en forte hausse, au-dela du rythme du chiffre d'affaires\" (562,1 -> 969,8 M EUR, +72,5% en six mois, contre +11,4% de CA au S1).",
+      "verdict": "EXAGERE",
+      "verbatim_source": "CP T2 2026, Working capital : Accounts receivable 969.8 (30/06/2026) / 990.5 (31/03/2026) / 562.1 (31/12/2025). \"Net working capital decreased to EUR556 million at the end of Q2 2026 from EUR661 million at the end of Q1 2026, reflecting the collection of receivables... The number of outstanding days of working capital measured against quarterly sales improved to 50 days as of June 30, 2026, compared to 69 days as of March 31, 2026.\"",
+      "correction_proposee": "Chiffres exacts mais la dynamique est inversee : les creances ont DIMINUE au T2 (990,5 -> 969,8) et l'indicateur de la societe s'est ameliore a 50 jours contre 69. Le titre doit devenir : \"Un pic de creances clients au T1 2026, deja en partie resorbe au T2\"."
+    },
+    {
+      "affirmation": "Flux de tresorerie operationnel 43,8 M EUR au T1 2026 puis 466,3 M EUR au T2 2026 ; FCF record de 355 M EUR.",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP T2 2026 : \"Net cash from operating activities 466.3 / 43.8 / 237.8\" ; \"free cash flow 354.6 / (48.1) / 124.8\" ; \"Net cash from operating activities increased to EUR466 million in Q2 2026, driven by strong profitability and a normalization in working capital after the build-up in Q1 2026.\" ; \"Free cash flow increased to a record high EUR355 million in Q2 2026\".",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "Ratio de remuneration du directeur general de 33 en 2024 a 44 en 2025 ; LTI 3 950 000 EUR sur une remuneration totale de 5 718 000 EUR ; rapport 2024 approuve a 85,8%.",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025, chapitre 26 Remuneration report, ligne \"CEO pay ratio\" : 29 / 27 / 31 / 33 / 44 (2021 a 2025). gouvernance_fr.json (source URD ch. 26) : lti_k_eur 3950, total_k_eur 5718, exec_comp_approval_pct 85.8.",
+      "correction_proposee": "Fond exact. Defaut de forme : la \"preuve\" presente entre guillemets une phrase EN FRANCAIS comme un verbatim de l'URD, alors que l'URD est en anglais - le texte cite est en realite le champ ceo_pay_ratio_note de gouvernance_fr.json. Citer le verbatim anglais ou retirer les guillemets."
+    },
+    {
+      "affirmation": "CA T2 2026 de 1 003,1 M EUR (+20% sur un an, +16% sur le trimestre) ; guidance T3 a 1 100 M EUR ; S2 attendu >20% au-dessus du S1 ; tresorerie 1,18 Md EUR sans dette financiere ; marge operationnelle ajustee 33,0% ; CA S1 1 865,6 vs 1 674,8 M EUR (+11,4%).",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP T2 2026 : \"Revenue 1,003.1 862.5 835.6 16% 20%\" ; \"For Q3 2026, at constant currency, ASM expects revenue of EUR1,100 million, plus or minus 5%. For the second half of 2026, revenue is expected to increase by over 20% compared with the first half of the year\" ; \"Cash and cash equivalents 1,180.1\" (bilan sans ligne d'emprunt) ; \"Adjusted operating margin of 33.0% in Q2 2026\".",
+      "correction_proposee": "Aucune."
+    },
+    {
+      "affirmation": "80,2% du CA 2025 en Asie (2 544,1 M EUR sur 3 173,2 M EUR), 15,3% Etats-Unis, 4,5% Europe.",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025, note 22 Revenue : \"United States 486.9 15.3% 628.5 21.4%\" ; \"Europe 142.2 4.5% 169.2 5.8%\" ; \"Asia 2,544.1 80.2% 2,135.0 72.8%\".",
+      "correction_proposee": "Aucune."
+    }
+  ]
+}

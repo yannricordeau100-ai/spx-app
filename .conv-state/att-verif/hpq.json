@@ -1,0 +1,91 @@
+{
+  "ticker": "HPQ",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/HPQ/10Q/HPQ_2026-05-28.htm.gz (10-Q T2 fiscal 2026, periode close le 30 avril 2026) + data-lake/HPQ/10K/HPQ_2025-12-10.htm.gz (10-K FY2025, Item 1A) + data-lake/HPQ/8K/HPQ_2026-02-03_0001140361-26-003514.htm.gz (8-K transition de direction) + data-lake/HPQ/8K/HPQ_2026-05-27_0000047217-26-000027.htm.gz",
+  "controles": [
+    {
+      "affirmation": "La levee de l'incertitude sur l'appel du jugement de 1,24 Md GBP dans le litige Autonomy, avec un recouvrement effectif pour HP.",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, Autonomy-Related Legal Proceedings : \"On March 24, 2026, the court entered its judgment, awarding damages plus interest totaling $ 1.24 billion, and denying the Lynch estate's request for permission to appeal. The damages award includes a set-off for prior settlements. The Lynch estate has filed a request for permission to appeal with the appellate level court. The Claimants have opposed that request. No decision has been made as to whether the Lynch estate will be permitted to appeal. Litigation is unpredictable, and there can be no assurance of a recovery. Any amount ultimately recovered would be recorded in the period received. No adjustment has been recorded in the financial statements in relation to this potential recovery. Pursuant to the terms of the separation and distribution agreement, HP and Hewlett Packard Enterprise will share equally in any recovery.\"",
+      "correction_proposee": "Erreur de devise : le jugement porte sur 1,24 MILLIARD DE DOLLARS, pas de livres sterling (l'ecart depasse 300 M$). Deux precisions manquantes et importantes : la cour a DEJA REFUSE l'autorisation d'appel au 24 mars 2026, la succession Lynch ayant depuis depose une demande devant la juridiction d'appel sur laquelle aucune decision n'est prise ; et surtout HP ne toucherait que la MOITIE de tout recouvrement, partage a parts egales avec Hewlett Packard Enterprise, soit environ 620 M$ au maximum. Le 10-Q precise en outre qu'aucun montant n'est comptabilise et qu'aucun recouvrement n'est assure. Formulation correcte : un jugement de 1,24 Md$ rendu le 24 mars 2026 dans le litige Autonomy, dont HP ne percevrait que la moitie s'il etait effectivement recouvre, alors qu'une demande d'autorisation d'appel reste pendante."
+    },
+    {
+      "affirmation": "HP continuait de verser 551 M$ de dividendes et 100 M$ de rachats d'actions sur le trimestre.",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, tableau des flux de tresorerie, colonne \"Six months ended April 30\" : \"Repurchase of common stock | ( 425 ) | ( 200 )\" et \"Cash dividends paid | ( 551 ) | ( 546 )\". Pour le trimestre, Note 9 : \"During the three and six months ended April 30, 2026, HP executed share repurchases of 5.0 million and 18.3 million shares and settled total shares for $ 0.1 billion and $ 0.4 billion, respectively.\"",
+      "correction_proposee": "Les 551 M$ de dividendes sont le montant du SEMESTRE, pas du trimestre (environ 275 M$ par trimestre). Les 100 M$ de rachats sont bien trimestriels, mais les rachats du semestre s'elevent a 425 M$. Melanger un dividende semestriel et un rachat trimestriel dans la meme phrase minore fortement le retour au capital reel. Formulation correcte : sur le semestre, 551 M$ de dividendes et 425 M$ de rachats d'actions."
+    },
+    {
+      "affirmation": "Le segment Impression genere 59,1% du resultat operationnel de HP (767 M$ sur 1 268 M$) ; Personal Systems pese 71% du chiffre d'affaires pour seulement 42% (41,8%) du profit.",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, information sectorielle : \"Personal Systems | $ 530 | $ 409 | $ 1,041 | $ 916 | Printing | 767 | 804 | 1,532 | 1,605 | Corporate Investments | ( 29 ) | ( 27 ) | ( 53 ) | ( 45 ) | Total segment earnings from operations | 1,268 | 1,186 | 2,520 | 2,476\".",
+      "correction_proposee": "Le calcul annonce est faux : 767 divise par 1 268 fait 60,5%, pas 59,1%. Le chiffre de 59,1% s'obtient avec un denominateur de 1 297 M$ (somme des deux seuls segments beneficiaires, hors Corporate Investments a moins 29 M$), tandis que le 41,8% attribue a Personal Systems s'obtient avec 1 268 M$ : les deux parts additionnees donnent 100,9%, ce qui est impossible. Retenir un denominateur unique : sur les 1 297 M$ des deux segments beneficiaires, Impression pese 59,1% et Personal Systems 40,9% ; ou, sur le total sectoriel de 1 268 M$, 60,5% et 41,8%."
+    },
+    {
+      "affirmation": "La croissance du chiffre d'affaires vient presque uniquement d'une hausse des prix de vente moyens des PC (+22,3%) liee au renouvellement du parc sous Windows, pas d'une croissance des volumes vendus.",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : \"The net revenue increase was primarily due to a 22.3% increase in ASPs with a focus on higher value units in a dynamic commodity environment contributing to a 7.0% decrease in PCs unit volume. The increase in ASPs is primarily due to pricing actions, favorable currency impacts and mix shifts.\" Et sur le semestre : \"The net revenue increase was primarily due to a 10.1% increase in ASPs and a 2.4% increase in PC unit volume driven by the Windows-based PC operating system refresh as well as accelerated demand resulting from anticipated commodity cost increases\". Ainsi que : \"The increase in net revenue was primarily driven by products net revenue due to pricing actions to mitigate higher commodity costs in Personal Systems\".",
+      "correction_proposee": "Le document attribue la hausse de 22,3% des prix moyens a des hausses de tarifs decidees par HP pour repercuter la hausse du cout des composants, a un effet de change favorable et a un effet de mix, et NON au renouvellement du parc Windows. Le renouvellement Windows est au contraire cite comme moteur d'une HAUSSE de 2,4% des volumes de PC sur le semestre, ce qui contredit l'affirmation selon laquelle il n'y a pas de croissance des volumes. Formulation correcte : la croissance du CA du trimestre vient de hausses de prix destinees a compenser le rencherissement des composants, avec un recul de 7,0% des volumes de PC sur le trimestre, alors que sur le semestre les volumes de PC progressent de 2,4% grace au renouvellement Windows."
+    },
+    {
+      "affirmation": "Les volumes unitaires d'imprimantes reculent de 6,5% et les volumes unitaires de PC de 7,0% sur le trimestre.",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026, trimestre : \"Printer units decreased by 6.6% primarily due to demand softness and competitive pressures, while ASPs increased by 5.0%.\" Semestre : \"Printer unit volume decreased 6.5% driven by demand softness and competitive pressures, while hardware ASPs increased 3.0%.\"",
+      "correction_proposee": "Melange de periodes : le moins 6,5% sur les imprimantes est le chiffre du SEMESTRE ; sur le trimestre le recul est de 6,6%. Le moins 7,0% sur les PC est bien trimestriel. Aligner les deux chiffres sur la meme periode."
+    },
+    {
+      "affirmation": "Le deficit de capitaux propres resulte d'annees de rachats d'actions superieurs aux benefices cumules plutot que d'un probleme de rentabilite immediate.",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Le 10-Q ne formule nulle part ce lien de causalite. Il presente seulement : \"Additional paid-in capital | 2,308 | 2,129 | Accumulated deficit | ( 1,960 ) | ( 2,027 ) | Accumulated other comprehensive loss | ( 501 ) | ( 457 ) | Total stockholders' deficit | ( 144 ) | ( 346 )\".",
+      "correction_proposee": "Presenter l'explication comme une lecture et non comme un fait documente, ou la sourcer sur un document qui l'etablit. Le document cite constate le deficit sans en donner la cause."
+    },
+    {
+      "affirmation": "Deficit de capitaux propres de 144 M$ au 30 avril 2026 contre 346 M$ a la cloture de l'exercice 2025, avec un deficit cumule de 1 960 M$ ; 995 M$ de benefice net en six mois.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Accumulated deficit | ( 1,960 ) | ( 2,027 )\" ; \"Total stockholders' deficit | ( 144 ) | ( 346 )\" ; flux de tresorerie six mois : \"Net earnings | $ 995 | $ 971\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Enrique Lores a quitte ses fonctions de PDG le 2 fevrier 2026 pour poursuivre une opportunite en dehors de HP ; Bruce Broussard, ancien dirigeant de Humana, a ete nomme PDG par interim le temps qu'un comite de recherche trouve un successeur permanent.",
+      "verdict": "CONFORME",
+      "verbatim_source": "8-K du 3 fevrier 2026, Item 5.02 : \"On February 3, 2026, HP Inc. announced that Enrique Lores has stepped down as President and Chief Executive Officer and a member of the board of directors of HP, effective as of the end of day on February 2, 2026. Mr. Lores has elected to pursue an opportunity outside of HP. The Board has formed a CEO Search Committee to identify the Company's next permanent Chief Executive Officer. On February 2, 2026, HP appointed Bruce Broussard, age 63, who is currently serving as a member of the Board, as interim Chief Executive Officer, effective as of February 3, 2026. Since 2024, Mr. Broussard has served as an advisor to Humana Inc.... Before that, Mr. Broussard was Chief Executive Officer of McKesson Specialty/US Oncology, Inc.\"",
+      "correction_proposee": "Reserve mineure : le 8-K ne dit pas que M. Broussard est sans experience du materiel informatique, il enonce seulement un parcours dans la sante (Humana, McKesson Specialty/US Oncology). L'affirmation est une deduction du parcours liste, pas une citation ; elle reste exacte au vu du document mais gagnerait a etre formulee comme telle."
+    },
+    {
+      "affirmation": "Le Fiscal 2026 Plan, approuve en novembre 2025, prevoit de reduire les effectifs de 4 000 a 6 000 personnes pour un cout pre-taxe de 650 M$ dont 500 M$ de licenciements, etale jusqu'a l'exercice 2028 ; charges de restructuration de 365 M$ au T2 2026 contre 122 M$ ; le Fiscal 2023 Plan avait fait partir environ 9 500 employes pour 877 M$ de couts de depart.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Note 3 : \"On November 25, 2025, HP's Board of Directors approved the Fiscal 2026 Plan intended to drive customer satisfaction, product innovation, and productivity primarily through artificial intelligence adoption and enablement that HP expects will be implemented through fiscal 2028. HP expects to reduce global headcount by approximately 4,000 to 6,000 employees. HP estimates that it will incur pre-tax charges of approximately $ 650 million relating to labor and non-labor actions. During the course of the Fiscal 2026 Plan, HP expects to incur approximately $ 500 million in labor costs\" ; \"Approximately 9,500 employees departed as part of the plan... HP incurred $ 877 million in severance costs and $ 347 million in infrastructure costs\" ; compte de resultat : \"Restructuring and other charges | 365 | 122 | 491 | 192\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Marge nette de 3,1% au T2 fiscal 2026 (450 M$ de benefice net sur 14,41 Mds$ de chiffre d'affaires), inchangee sur un an ; chiffre d'affaires en hausse de 9% au T2.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Net earnings | $ 450 | $ 406\" ; \"Total net revenue | 14,408 | 13,220\" (450/14 408 = 3,12% ; 406/13 220 = 3,07%) ; \"For the three months ended April 30, 2026, net revenue increased 9.0% (increased 6.3% on a constant currency basis)\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dette financiere totale de 9,67 Mds$ (taux moyen 4,6%) pour 3,70 Mds$ de tresorerie ; dette totale quasiment stable sur six mois (9,666 Mds$ aux deux dates).",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Liquidity : \"Cash and cash equivalents | $ 3,703 | $ 3,690\" ; \"Total debt | $ 9,666 | $ 9,666\" ; Debt Levels : \"Short-term debt | $ 810 | $ 845 | Long-term debt | $ 8,856 | $ 8,821 | Weighted-average interest rate | 4.6 % | 4.6 %\".",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le 10-K mentionne des reculs de parts de marche deja survenus et la faiblesse du yen japonais comme facteur aggravant la pression sur les prix des produits d'impression ; HP depend de Canon en source unique pour certains moteurs laser et cartouches de toner, et d'Intel, AMD et NVIDIA pour la majorite des processeurs de ses PC et stations de travail.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025, Item 1A : \"We have faced, and may continue to face, declines in market share for our products.\" ; \"In addition, currency fluctuations, particularly weakness in the Japanese Yen, has and may continue to exacerbate pricing competition for our print products and services.\" ; \"we rely on Canon for certain laser printer engines and laser toner cartridges and certain key suppliers for application specific integrated circuits (ASICs). We also rely on Intel, AMD, and NVIDIA, or other suppliers to provide us with a sufficient supply of processors for the majority of our PCs and workstations.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le retour de tarifs douaniers americains plus eleves sur les composants referait peser un risque de couts deja partiellement retire par la decision de la Cour supreme de fevrier 2026.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Since April 2025, new, substantial tariffs have been imposed on imports to the United States. On February 20, 2026, the U.S. Supreme Court held that tariffs imposed under the International Emergency Economic Powers Act were not authorized by statute which removed the obligation for and collection of related tariffs. We are continuing to assess the impact of subsequent developments, including the potential recovery of tariffs previously paid, as well as the effects of any additional tariffs or trade actions that may be imposed.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Le segment Impression ne represente que 29% du chiffre d'affaires segmente ; marge operationnelle de 5,2% pour Personal Systems contre 18,3% pour Impression.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Total Printing | $ 4,195 | $ 4,197\" sur \"Total net revenue | 14,408\", soit 29,1% ; 767/4 195 = 18,3% et 530/10 213 = 5,2%.",
+      "correction_proposee": ""
+    }
+  ]
+}

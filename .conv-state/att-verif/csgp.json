@@ -1,0 +1,67 @@
+{
+  "ticker": "CSGP",
+  "verdict_global": "a_corriger",
+  "source_principale": "data-lake/CSGP/10Q/CSGP_2026-07-29.htm.gz ; data-lake/CSGP/8K/CSGP_2026-06-25_0001057352-26-000048.htm.gz ; data-lake/CSGP/DEF14A/CSGP_2026-04-30.htm.gz ; data-lake/CSGP/_srctext_60k.txt",
+  "controles": [
+    {
+      "affirmation": "Le pole Residentiel affiche un Adjusted EBITDA negatif de 76 M$ au T2 2026, la perte s'etant reduite de 27 M$ sur un an (hook, resume, fondamental_interne #1, quantitatif #3, ce_qui_affaiblirait)",
+      "verdict": "FAUX",
+      "verbatim_source": "Section 'Business Segment Results for Three Months Ended June 30, 2026 Compared to Three Months Ended June 30, 2025' : \"Residential Real Estate Adjusted EBITDA improved by $88 million to $12 million.\" -- La phrase citee par l'ATT (\"improved by $27 million to a loss of $76 million\") appartient a la section suivante du meme 10-Q, 'Business Segment Results for Three Months Ended June 30, 2025 Compared to Three Months Ended June 30, 2024', c'est-a-dire au T2 2025.",
+      "correction_proposee": "Au T2 2026, l'Adjusted EBITDA du segment Residentiel est POSITIF de 12 M$, en amelioration de 88 M$ sur un an ; la perte de 76 M$ etait celle du T2 2025. Sur le semestre, le segment reste en perte de 17 M$ (amelioration de 144 M$). Toute la these 'le pole Residentiel reste structurellement deficitaire ce trimestre' doit etre reecrite : le trimestre est le premier a l'equilibre positif, le deficit ne subsiste qu'au niveau semestriel."
+    },
+    {
+      "affirmation": "Le vote say-on-pay n'a recueilli que 53% d'approbation lors de l'assemblee generale de juin 2026, traduisant un desaccord actionnarial marque",
+      "verdict": "FAUX",
+      "verbatim_source": "8-K du 25 juin 2026 (resultats de l'AG du 23 juin 2026) : \"3. The advisory resolution to approve the Company's executive compensation was approved upon the following vote: Votes For 257,665,608 Votes Against 103,277,424 Abstentions 117,145 Broker Non-Votes 9,772,170\" (soit 71,4% des voix exprimees). Le chiffre de 53% provient du DEF 14A 2026 : \"At our 2025 Annual Meeting of Stockholders, our executive compensation program received the support of approximately 53% of votes cast, versus approximately 92% in the year prior.\"",
+      "correction_proposee": "Le score de 53% est celui de l'AG 2025, pas de juin 2026. A l'AG du 23 juin 2026, le say-on-pay a ete approuve a environ 71% des voix exprimees, soit un net rebond apres le 53% de 2025 (lui-meme en chute depuis 92% en 2024). L'argument doit etre reformule en dynamique de redressement partiel, pas en desaccord actuel. Le point 'ce_qui_affaiblirait' correspondant est egalement a revoir : la remontee a deja partiellement eu lieu. Source amont fautive : src/data/v2-pipeline/csgp.json, champ exec_comp_approval_pct=53."
+    },
+    {
+      "affirmation": "Le taux de renouvellement des contrats se stabilise a 89%, contre 92% deux ans plus tot",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : \"For each of the trailing 12 months ended June 30, 2026 and 2025, our contract renewal rates ... were approximately 89%\". 10-Q T2 2025 : \"...were approximately 89% and 90%, respectively\" (soit 90% pour les 12 mois glissants a juin 2024). 10-Q T2 2023 : \"...approximately 90% and 91%\".",
+      "correction_proposee": "Deux ans plus tot (12 mois glissants a juin 2024) le taux etait de 90%, pas 92%. Ecrire : 'le taux de renouvellement est stable a 89% sur les douze mois glissants a juin 2026 comme a juin 2025, contre 90% deux ans plus tot et 91% en 2022'. Le chiffre de 92% n'apparait dans aucun 10-Q du data-lake."
+    },
+    {
+      "affirmation": "Un litige herite du rachat de Matterport (Brown Judgment) a coute 109 M$ en cash au T2 2026, plus 9 M$ d'interets additionnels ; la Chancery Court avait accorde 79 M$ a William J. Brown",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"During the three months ended June 30, 2026, the Company paid a total of $109 million for the Brown Judgment. The Company recognized $9 million of additional interest expense related to the matter\" ; glossaire du 10-Q : \"Brown Judgment The Chancery Court awarded plaintiff William J. Brown, a former employee and a stockholder of Matterport, $79 million plus pre- and post-judgment interest\"",
+      "correction_proposee": "Exact, mais l'ATT omet la phrase immediatement suivante : \"In addition, the Company realized net recoveries related to this matter of $17 million in the second quarter of 2026, which were recorded as a reduction to general and administrative expenses\". Le cout net du trimestre est donc de 109 M$ de decaissement moins 17 M$ de recouvrements. A ajouter pour ne pas surestimer l'impact."
+    },
+    {
+      "affirmation": "Goodwill de 4 981 M$ sur 10 139 M$ d'actifs totaux (49% du bilan), dont 3 021 M$ (61%) alloues au segment Residentiel",
+      "verdict": "CONFORME",
+      "verbatim_source": "Bilan au 30 juin 2026 : \"Goodwill 4,981 ... Total assets $ 10,139\" ; note 7 GOODWILL : \"Goodwill, June 30, 2026 $ 1,960 [Commercial] $ 3,021 [Residential] $ 4,981 [Total]\" ; \"For the six months ended June 30, 2026 and 2025, the Company did not recognize any impairment losses on goodwill.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Part des abonnements 89% au T2 2026 contre 95% au T2 2025 ; nouvelles reservations nettes annualisees 69 M$ contre 93 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Revenue from subscription-based contracts was approximately 89 % and 95 % of total revenue for the three months ended June 30, 2026 and 2025\" ; \"our annualized net new bookings of subscription-based services on all contracts were $69 million and $93 million, respectively\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CA T2 2026 de 925 M$ (+18,4%), resultat net de 55 M$ contre 6 M$ ; CoStar 337 M$ (+9%) et LoopNet 87 M$ (+15%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"CoStar $ 337 $ 310 ... LoopNet 87 76 ... Total revenue $ 925 $ 781\" ; \"Net income (loss) $ 55 $ 6\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Revenus hors Etats-Unis de 150 M$ contre 61 M$ ; couverture de change deal-contingent de A$2,4 Mds (1,5 Md$) pour Domain",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Revenue earned outside the U.S. was $ 150 million and $ 61 million for the three months ended June 30, 2026 and 2025\" ; \"Deal-contingent foreign currency forward contracts had an aggregate notional amount of A$ 2.4 billion ($ 1.5 billion)\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Reseau Homes.com a 108 M de visiteurs uniques mensuels moyens en 2025 contre 235 M pour Zillow et 62 M pour Realtor.com ; CoStar se presente comme le deuxieme reseau",
+      "verdict": "CONFORME",
+      "verbatim_source": "Communique FY2025 (data-lake/CSGP/_srctext_60k.txt) : \"the Homes.com Network ... average monthly unique visitors (108 million) for the year ended December 31, 2025, according to Google Analytics, (2) Realtor.com s average monthly unique users (62 million) ... (3) Zillow Group s average monthly unique users (235 million) for the year ended December 31, 2025\" ; \"the Homes.com Network has become the second largest and is the fastest growing residential portal network in the U.S\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Remuneration totale du PDG Andrew Florance de 36,4 M$ en 2025, ratio de 303 fois le salaire median",
+      "verdict": "CONFORME",
+      "verbatim_source": "DEF 14A 2026 : \"Andrew C. Florance Founder and Chief Executive Officer 2025 $1,000,000 $28,318,400 $3,425,382 $3,000,000 $688,154 $36,431,936\" ; \"the ratio of the annual total compensation of our CEO to the annual total compensation of the median employee was 303 to 1\"",
+      "correction_proposee": null
+    }
+  ]
+}

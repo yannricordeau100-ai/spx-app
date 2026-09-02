@@ -1,0 +1,78 @@
+{
+ "ticker": "GEHC",
+ "verdict_global": "a_corriger",
+ "controles": [
+  {
+   "affirmation": "Un litige ancien (Iraqi Ministry of Health) vient de rouvrir et les parties sont en phase de discovery",
+   "verdict": "CONFORME",
+   "verbatim_source": "\"In January 2026, the Court of Appeals reversed the District Court's decision to dismiss the complaint and remanded the case for further proceedings. In April 2026, the Court of Appeals denied defendants' request for an en banc review... The parties are now in the discovery process.\" (10-Q T2 2026)",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Risque IRS : redressement materiel possible sur les annees fiscales GE 2016-2020",
+   "verdict": "CONFORME",
+   "verbatim_source": "\"we have been informed that the Internal Revenue Service (“IRS”) may assert a material amount of additional taxes related to an ongoing IRS audit of the GE consolidated U.S. income tax returns, in which we are included, for the years 2016-2020.\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Remboursement partiel de tarifs obtenu apres une decision de la Cour supreme \"invalidant leur base legale\" ; 106 M$ (tarifs 2025) et 23 M$ (tarifs 2026) ; impact -68 M$ sur le resultat d'exploitation au T2 2026",
+   "verdict": "EXAGERE",
+   "verbatim_source": "\"In February 2026, the U.S. Supreme Court ruled that the International Emergency Economic Powers Act (“IEEPA”) does not authorize the President to impose tariffs thereunder... U.S. Customs and Border Protection announced a new administrative process for importers to obtain refunds of certain tariffs imposed under IEEPA.\" ; \"we recognized pre-tax benefits from tariff refunds of $106 million related to tariffs incurred in 2025 and $23 million related to tariffs incurred in 2026\" ; \"Tariffs negatively impacted our Operating income by $68 million and $156 million for the three and six months ended June 30, 2026\"",
+   "correction_proposee": "Les chiffres sont exacts. Mais la Cour supreme n'a invalide que le fondement IEEPA, pas l'ensemble des tarifs imposes depuis fevrier 2025, et les remboursements ne portent que sur \"certain tariffs imposed under IEEPA\". Ecrire : \"une decision de la Cour supreme invalidant le recours a l'IEEPA comme base legale d'une partie de ces tarifs\"."
+  },
+  {
+   "affirmation": "Fonds propres tangibles negatifs d'environ -6 014 M$ (goodwill 15 095 + incorporels 1 894 vs capitaux propres 10 975)",
+   "verdict": "CONFORME",
+   "verbatim_source": "Bilan 10-Q T2 2026 : Goodwill 15,095 ; Other intangible assets – net 1,894 ; Total equity attributable to GE HealthCare 10,975",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Tresorerie de 4 492 M$ a 2 079 M$ sur le semestre, \"primarily due to the Intelerad acquisition\"",
+   "verdict": "CONFORME",
+   "verbatim_source": "\"The decrease in Cash and cash equivalents was primarily due to the Intelerad acquisition.\" ; 2,079 vs 4,492",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "PCS Segment EBIT $(26) M au T2 2026 (-85 M$), $(16) M au S1 (-124 M$) ; marge PCS -3,9% contre +7,7% un an plus tot",
+   "verdict": "CONFORME",
+   "verbatim_source": "\"PCS Segment EBIT was $(26) million, a decrease of $85 million due to a decline in sales volume and cost inflation.\" ; \"PCS Segment EBIT was $(16) million, a decrease of $124 million...\" ; kpis-haut pcs_margin : Q2-2026 -3.9, Q2-2025 7.7",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Dette totale 10 093 M$ (juste valeur 10 495 M$) contre 2 079 M$ de tresorerie",
+   "verdict": "CONFORME",
+   "verbatim_source": "\"As of June 30, 2026, we had $10,093 million of total debt\" ; \"The estimated fair value of borrowings as of June 30, 2026... was $10,495 million\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "Chine : 2 251 M$ en 2025 (-4,6% vs 2 360 M$) ; S1 2026 1 149 M$ (-0,6%) ; T2 2026 582 M$ (+3,4%)",
+   "verdict": "CONFORME",
+   "verbatim_source": "\"China region revenues were $582 million, growing 3.4%\" ; \"China region revenues were $1,149 million, decreasing 0.6%\" (10-Q T2 2026) ; stories_fr.json : \"Chine 2,251M$ (-4.6% YoY vs 2,360M$ en 2024)\"",
+   "correction_proposee": ""
+  },
+  {
+   "affirmation": "\"Croissance organique des commandes de +1,1% au dernier point disponible... Source : .batches-drafts-safe/kpis-haut/GEHC.json, indicateur Organic orders growth\"",
+   "verdict": "INTROUVABLE",
+   "verbatim_source": "Le fichier .batches-drafts-safe/kpis-haut/GEHC.json ne contient AUCUN indicateur de commandes (la chaine \"orders\" y est absente ; les 40 shorts vont de imaging_rev a buybacks). La valeur existe ailleurs : src/data/v2-pipeline/gehc.json, kpis[12] = {\"short\": \"Organic orders growth\", \"value\": 1.1, \"history\": [6,3,1,1,6,10,3,6,5.2,1.1], \"signal\": \"Indicateur avance de la demande, ralentit a +1.1% au T1-2026 sur base de comparaison elevee.\"}",
+   "correction_proposee": "Les valeurs (+1,1% dernier point, pic a +10%) sont exactes mais la source citee est fausse. Remplacer la source par : src/data/v2-pipeline/gehc.json, KPI \"Organic orders growth\". Preciser aussi que le dernier point est le T1-2026, la serie ne couvrant pas le T2-2026."
+  },
+  {
+   "affirmation": "Avertissement sur resultats du 29/04/2026 : EPS ajuste 2026 abaisse de 4,95-5,15 $ a 4,80-5,00 $, FCF de ~1,7 a ~1,6 Md$, titre -13%",
+   "verdict": "CONFORME",
+   "verbatim_source": "data-lake/GEHC/profit_warning_fr.json : \"Profit warning avril 2026 : guidance EPS ajuste 2026 abaissee de 4.95-5.15$ a 4.80-5.00$ (vs consensus 5.07$). FCF 2026 revu de ~1.7 Md$ a ~1.6 Md$. Titre -13%...\", last_date 2026-04-29, _profit_warning_adversarial_verified true",
+   "correction_proposee": "Source secondaire (WebSearch verifie le 13/07/2026), pas un depot SEC. L'ATT le signale correctement."
+  },
+  {
+   "affirmation": "Le 10-K cite le risque de produits moins chers proposes par des concurrents locaux, \"en particulier sur les marches emergents\"",
+   "verdict": "EXAGERE",
+   "verbatim_source": "\"We face substantial competition from international and domestic companies of all sizes... Competition is primarily focused on cost-effectiveness, pricing, service, product performance, and technological innovation.\" ; \"the introduction of new or more affordable products or product enhancements by competitors\" ; \"government policies supporting increased local competition\". La seule mention de \"emerging markets\" du chapitre porte sur le recouvrement des creances, pas sur les produits a bas cout.",
+   "correction_proposee": "Supprimer \"en particulier sur les marches emergents\" : ce qualificatif n'est pas dans le passage cite. Les deux citations verbatim sont exactes."
+  },
+  {
+   "affirmation": "Marge nette S1 9,1% vs 10,7% ; resultat net 950 M$ vs 1 049 M$ (-9,5%) ; CA 10 425 M$ vs 9 784 M$ (+6,6%)",
+   "verdict": "CONFORME",
+   "verbatim_source": "Compte de resultat 10-Q T2 2026 : 950 / 1,049 ; \"Total revenues were $10,425 million, growing 6.6% as reported and 3.2% organically\"",
+   "correction_proposee": ""
+  }
+ ]
+}

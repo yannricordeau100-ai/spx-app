@@ -1,0 +1,28 @@
+{
+  "ticker": "AI.PA",
+  "verdict": "propre",
+  "confiance": "haute",
+  "problemes": [
+    {
+      "bloc": "hero_kpi (src/data/v2-pipeline/ai.pa.json)",
+      "valeur_actuelle": "GS_REV",
+      "valeur_correcte": "OP_MARGIN",
+      "source": ".batches-drafts-safe/kpis-haut/AI.PA.json (hero_kpi = OP_MARGIN, pv_score 10) ; le hero_kpi_rationale stocke decrit deja la marge operationnelle, pas le CA Gaz et Services. Le runtime corrige de lui-meme (load-company.ts recalcule le hero par pv_score max) mais le champ stocke reste faux"
+    },
+    {
+      "bloc": "description.long_fr",
+      "valeur_actuelle": "Chiffre d'affaires 2024 : 27.1 Mds €",
+      "valeur_correcte": "Chiffre d'affaires 2025 : 26,9 Mds €",
+      "source": "data-lake/AI.PA/ir/COMM/AI.PA_COMM_FY2025_2026-02-20.txt.gz ligne 506 : 26 940 M€ (27 058 en 2024)"
+    }
+  ],
+  "_controles_ok": [
+    "Identite : L'Air Liquide S.A., EUR, gaz industriels - aucune trace de C3.ai (ni Thomas Siebel, ni revenus abonnement ~0,3 Md $, ni exercice fiscal avril)",
+    "Gouvernance : PDG Francois Jackow, conseil 14, AG 2026-05-05 - correct",
+    "Hero OP_MARGIN 20,7 % FY2025 verifie verbatim COMM FY2025 lignes 21 et 512 (+80 bps)",
+    "CA FY2025 26 940 M€ verifie ligne 506 ; resultat net part du Groupe 3 518 M€ verifie ligne 518 ; ROC 5 582 M€ ligne 2071",
+    "Segments 12,132 + 7,110 + 4,378 + 2,465 = 26,085 Mds € (Gaz et Services) + 0,855 Ingenierie = 26,94 total exact ; zones geo 10,616 + 10,351 + 5,118 = 26,085 exact",
+    "Risques (gaz, energie, climat) et IA (integrator, 500 projets, 8 centres de pilotage) sources AI.PA_URD_FY2025",
+    "Sous-dossiers SEC (10K, 10Q, DEF14A, 8K, S1, xbrl) non references dans aucun bloc publie"
+  ]
+}

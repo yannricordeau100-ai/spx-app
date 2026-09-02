@@ -1,0 +1,55 @@
+{
+  "ticker": "ALC.SW",
+  "verdict": "propre",
+  "problemes": [
+    {
+      "bloc": "kpis (completude)",
+      "valeur_actuelle": "1 seul KPI publie (CORE_EPS_Q)",
+      "valeur_correcte": "32 KPI verifies disponibles dans kpis-haut, non appliques",
+      "source": ".batches-drafts-safe/kpis-haut/ALC.SW.json",
+      "gravite": "mineure",
+      "nature": "manque de donnees"
+    },
+    {
+      "bloc": "latest_filing / next_earnings_date / company_description",
+      "valeur_actuelle": "null",
+      "valeur_correcte": "20-F 2025 depose le 2026-02-24 (present dans data-lake/ALC.SW/ir/URD)",
+      "source": "data-lake/ALC.SW/ir/URD/ALC.SW_URD_2025-20F_2026-02-24.txt.gz",
+      "gravite": "mineure",
+      "nature": "champs vides"
+    }
+  ],
+  "controles_recoupes": [
+    {
+      "element": "Chiffre d'affaires FY2025 10 319 M$ (total segments et zones)",
+      "resultat": "conforme",
+      "source": "data-lake/ALC.SW/ir/CP/ALC.SW_CP_FY2025_2026-02-24.txt.gz lignes 49, 295"
+    },
+    {
+      "element": "Segments Chirurgie 5 751 M$ / Vision Care 4 568 M$",
+      "resultat": "conforme",
+      "source": "data-lake/ALC.SW/ir/CP/ALC.SW_CP_FY2025_2026-02-24.txt.gz lignes 223, 277"
+    },
+    {
+      "element": "Gouvernance : PDG David J. Endicott",
+      "resultat": "conforme",
+      "source": "data-lake/ALC.SW/ir/CP/ALC.SW_CP_FY2025_2026-02-24.txt.gz ligne 23"
+    },
+    {
+      "element": "Hero CORE_EPS_Q 0,85 $ au T1 2026, serie trimestrielle 2021-2026 continue",
+      "resultat": "conforme au draft verifie",
+      "source": ".batches-drafts-safe/kpis-haut/ALC.SW.json"
+    },
+    {
+      "element": "Devise",
+      "resultat": "USD (M$) et non CHF : Alcon publie ses comptes en dollars US malgre sa cotation suisse, donc correct",
+      "source": "20-F 2025 et CP FY2025"
+    },
+    {
+      "element": "Risques, positionnement IA, geographie",
+      "resultat": "tous sources sur le 20-F 2025 d'Alcon (PanOptix, SMART Solutions, Bengaluru, EU AI Act) ; aucune trace d'un emetteur tiers",
+      "source": "data-lake/ALC.SW/ir/URD/ALC.SW_URD_2025-20F_2026-02-24.txt.gz"
+    }
+  ],
+  "confiance": 0.97
+}

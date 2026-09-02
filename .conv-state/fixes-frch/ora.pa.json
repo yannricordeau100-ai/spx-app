@@ -1,0 +1,34 @@
+{
+  "ticker": "ORA.PA",
+  "verdict": "propre",
+  "confiance": "haute",
+  "problemes": [
+    {
+      "bloc": "kpis legacy (src/data/v2-pipeline/ora.pa.json, 16 KPI ante-2023)",
+      "valeur_actuelle": "Mobile Customers 287 'M $', Fixed Broadband 24.3 'M $', Foyers raccordables FTTH 60.1 'Mds', Headcount 136000, Capex 8.7 Mds €, EBITDAaL 12.109, CA Groupe 40.3, ame_revenue 7.152",
+      "valeur_correcte": "Supprimer ces 16 KPI legacy. Valeurs IR a jour : acces mobiles 272,801 M, acces fixes tres haut debit 16,499 M, effectifs 123 503, eCAPEX 6,208 Mds €, EBITDAaL 12,470 Mds €, CA 40,396 Mds €, CA Afrique-Moyen-Orient 8,427 Mds €",
+      "source": ".batches-drafts-safe/kpis-haut/ORA.PA.json + data-lake/ORA.PA/ir/COMMUNIQUES/ORA.PA_COMMUNIQUE_FY2025_2026-02-18.txt.gz. Impact page nul aujourd'hui : load-company.ts remplace integralement data.kpis par les KPI kpis-haut, ces 16 entrees ne sont pas rendues. Nettoyage d'hygiene, pas de defaut visible"
+    },
+    {
+      "bloc": "data-lake/ORA.PA/kpis/extracted.json",
+      "valeur_actuelle": "unit = 'M USD' sur toutes les series (revenue 40 397, gross_profit 24 009...)",
+      "valeur_correcte": "unit = 'M EUR' - les montants sont bien ceux d'Orange en euros",
+      "source": "ORA.PA_COMMUNIQUE_FY2025_2026-02-18.txt.gz ligne 567 (40 396 M€). Fichier de travail data-lake, non publie"
+    },
+    {
+      "bloc": "description.long_fr",
+      "valeur_actuelle": "services financiers (Orange Bank, en cours de cession) ... ~298 millions de clients ... Chiffre d'affaires 2024 : ~40.3 Mds €",
+      "valeur_correcte": "Cession d'Orange Bank achevee ; base clients FY2025 = 272,8 M acces mobiles + 38,1 M acces fixes ; CA 2025 : 40,4 Mds €",
+      "source": "ORA.PA_COMMUNIQUE_FY2025_2026-02-18.txt.gz et .batches-drafts-safe/kpis-haut/ORA.PA.json (MOB_ACC, FIX_ACC)"
+    }
+  ],
+  "_controles_ok": [
+    "Identite : Orange SA, EUR - aucune trace d'Ormat Technologies (ni geothermie, ni Doron Blachar, ni ordres de grandeur ~0,9 Md $)",
+    "Gouvernance : PDG Christel Heydemann, Etat francais 13,39 % + Bpifrance 9,56 %, AG 2026-05-19 - correct",
+    "Hero EBITDAAL_H 6 128 M€ S1-2026 verifie verbatim COMMUNIQUE H1-2026 ligne 28 ; CA S1-2026 20 948 M€ meme ligne 27",
+    "CA FY2025 40 396 M€ et EBITDAaL FY2025 12 470 M€ verifies COMMUNIQUE FY2025 lignes 24-25",
+    "Segments France 17,473 / AMEA 8,427 / OB 7,325 / Europe 7,263 / ICSS 1,219 = 41,707 avant eliminations, coherent avec l'URD",
+    "Risques (cyber, concurrence telecom, Afrique mobile money) et IA (partenariats Mistral AI / OpenAI) sources ORA.PA_URD_FY2025",
+    "Sous-dossiers SEC (10K, 10Q, DEF14A, 8K, xbrl) non references dans aucun bloc publie"
+  ]
+}

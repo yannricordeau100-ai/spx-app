@@ -1,0 +1,97 @@
+{
+  "ticker": "WFC",
+  "verdict_global": "a_corriger",
+  "sources_verifiees": [
+    "data-lake/WFC/10Q/WFC_2026-07-28.htm.gz",
+    "data-lake/WFC/10K/WFC_2026-02-24.htm.gz",
+    "data-lake/WFC/ER/WFC_2025-07-11_ER.pdf",
+    ".batches-drafts-safe/kpis-haut/WFC.json",
+    "src/data/att/bac.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "Les 1,5 Md$ de pertes juridiques possibles recouvrent notamment une action en valeurs mobilieres sur les pratiques d'embauche (litige presente comme ouvert, et sa resolution listee dans ce_qui_affaiblirait)",
+      "verdict": "FAUX",
+      "verbatim_source": "On May 21, 2026, the court granted final approval of an agreement pursuant to which the Company agreed to pay $85 million to resolve the securities fraud class action. Allegations related to the Company's hiring practices related to diversity were also among the subjects of a shareholder derivative lawsuit [...] On May 15, 2026, the court granted final approval of an agreement to resolve the shareholder derivative lawsuit.",
+      "correction_proposee": "Le recours collectif en valeurs mobilieres sur les pratiques d'embauche a ete definitivement homologue le 21 mai 2026 pour 85 M$, avant la date d'arrete du 30 juin 2026 ; l'action derivee l'a ete le 15 mai 2026. Le retirer de la liste des litiges ouverts et de la ligne ce_qui_affaiblirait. Le remplacer par les dossiers reellement ouverts au 30/06/2026 : cash sweep des comptes de conseil, Seminole en appel, interchange (opt-out et actions directes), discrimination hypothecaire, et les enquetes AML/sanctions et fair access to banking."
+    },
+    {
+      "affirmation": "Le coussin de capital au-dessus du minimum est passe de 2,63 points a 1,76 point en un an",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "our Common Equity Tier 1 (CET1) ratio was 10.26% under the Standardized Approach (our binding framework), which continued to exceed the regulatory minimum and buffers of 8.50% [...] Our current SCB is 2.50% and we expect it will remain in effect through September 30, 2027. Le 10-Q ne documente l'exigence de 8,50% qu'au 30 juin 2026 et le 10-Q du T2 2025 est absent du data-lake.",
+      "correction_proposee": "L'exigence reglementaire applicable au 30 juin 2025 (fonction du stress capital buffer alors en vigueur) n'apparait dans aucune source citee. Appliquer retroactivement les 8,50% de 2026 est une hypothese non documentee. S'en tenir au fait verifiable : 'le ratio CET1 recule de 11,13% a 10,26% en un an, soit 0,87 point', et supprimer la conversion en points de coussin tant que l'exigence de mi-2025 n'est pas sourcee."
+    },
+    {
+      "affirmation": "Bank of America affiche 2,08% de marge nette d'interet, mais sa marge remonte depuis six trimestres quand celle de Wells Fargo descend",
+      "verdict": "FAUX",
+      "verbatim_source": "src/data/att/bac.json (source citee) : 'Meme en redressement depuis le creux de 1,92 % du T3 2024, redressement interrompu par une rechute au T2 2025, la marge nette d'interet reste a 2,08 %'",
+      "correction_proposee": "La source citee decrit un redressement interrompu par une rechute au T2 2025, donc pas six trimestres consecutifs de hausse. Ecrire 'sa marge se redresse depuis le creux de 1,92% du T3 2024, avec une rechute au T2 2025'."
+    },
+    {
+      "affirmation": "Haut de fourchette des pertes juridiques raisonnablement possibles au-dela des provisions : environ 1,5 Md$ au 30 juin 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "The high end of the range of reasonably possible losses in excess of the Company's accrual for probable and estimable losses was approximately $1.5 billion as of June 30, 2026",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Recours collectifs sur la remuneration des liquidites des comptes de conseil",
+      "verdict": "CONFORME",
+      "verbatim_source": "ADVISORY ACCOUNT CASH SWEEP LITIGATION. Putative class actions have been filed in federal district courts alleging that the Company breached its fiduciary duties or agreements with regard to rates paid to investment advisory clients in its cash sweep program",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Verdict defavorable dans l'affaire Seminole, en appel",
+      "verdict": "CONFORME",
+      "verbatim_source": "SEMINOLE TRIBE TRUSTEE LITIGATION [...] In March 2025, a trial verdict was entered against Wells Fargo. Wells Fargo has appealed.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Le DOJ et la SEC ont clos sans suite leurs enquetes sur les pratiques d'embauche",
+      "verdict": "CONFORME",
+      "verbatim_source": "The United States Department of Justice and the SEC have since closed their investigations without taking action.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Plafond d'actifs impose par la Fed en 2018 leve au T2 2025, apres la cloture de 13 consent orders depuis 2019 ; banque encore sous surveillance",
+      "verdict": "CONFORME",
+      "verbatim_source": "On February 2, 2018, the Company entered into a consent order with the FRB [...] On June 3, 2025, the Company confirmed that the FRB had removed the Company's limitation on growth in total assets imposed in the consent order. The remaining provisions of the consent order are still in place. (10-K FY2025) ; 'The lifting of the asset cap in the second quarter marked a pivotal milestone in Wells Fargo's ongoing transformation, along with the termination of thirteen consent orders since 2019, including seven this year alone' (communique T2 2025)",
+      "correction_proposee": "Renforcement possible et source : le 10-K FY2025 precise que les autres dispositions du consent order de 2018 restent en vigueur et mentionne l'accord formel du 12 septembre 2024 avec l'OCC sur l'anti-blanchiment et les sanctions, ainsi que des enquetes AML/sanctions et fair access to banking en cours. L'ATT omet ces elements alors qu'ils etayent directement son argument."
+    },
+    {
+      "affirmation": "Bilan +15% en un an (2 282 Mds$ contre 1 981 Mds$), PNI +5% seulement, NIM a 2,43% contre 2,68% et 2,47% au trimestre precedent, croissance sur des actifs peu remunerateurs",
+      "verdict": "CONFORME",
+      "verbatim_source": "Assets 2,282,201 | 2,205,752 | 1,981,269 | 3 | 15 ; Net interest margin on a taxable-equivalent basis 2.43 | 2.47 | 2.68 | 2.45 | 2.67 ; Net interest income $12,317 | 11,708 | 609 | 5% ; 'Net interest margin decreased in both the second quarter and first half of 2026 [...] driven by growth in lower-yielding assets in our Markets business as well as growth in interest-bearing deposits'",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Revenu total 22 622 M$ (+9%), revenus hors interet 10 305 M$ (+13%), Markets 2 206 M$ (+24%) dont actions 635 M$ (+64%), commissions de banque d'investissement 939 M$ (+35%), profit T2 6,4 Mds$ (+17%), ROTCE 17,7%",
+      "verdict": "CONFORME",
+      "verbatim_source": "Total revenue 22,622 | 20,822 | 1,800 | 9 ; Noninterest income 10,305 | 9,114 | 1,191 | 13 ; Total Markets 2,206 | 1,779 | 427 | 24 ; Equities 635 | 387 | 248 | 64 ; Investment banking fees 939 | 696 | 243 | 35 ; Wells Fargo net income 6,407 | 5,253 | 5,494 ; Return on average tangible common equity (ROTCE) 17.7",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "CET1 10,26% au 30/06/2026 pour une exigence de 8,50%, contre 11,13% un an avant ; RWA 1 342 Mds$ (+9%) ; 7,1 Mds$ de rachats au S1 avec 22,7 Mds$ d'autorisation restante",
+      "verdict": "CONFORME",
+      "verbatim_source": "Common Equity Tier 1 (CET1) 10.26% | 10.29 | 11.13 ; Risk-weighted assets (RWAs) (in billions) $1,342.3 | 1,316.0 | 1,225.9 | 2 | 9 ; 'we repurchased 84 million shares of common stock at a cost of $7.1 billion' ; 'At June 30, 2026, we had remaining Board authority to repurchase up to approximately $22.7 billion of common stock'",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "4 079 agences contre 4 944 au debut 2021 ; depots 1 501 Mds$ (+12%) tires par les depots remuneres",
+      "verdict": "CONFORME",
+      "verbatim_source": "Retail bank branches (#, period-end) 4,079 | 4,135 (10-Q) ; serie Branches de .batches-drafts-safe/kpis-haut/WFC.json : Q1-2021 = 4 944 ; Deposits 1,501,405 | 1,340,703 | 12 ; 'average deposits increased driven by growth in interest-bearing deposits'",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Comparables : JPMorgan 14,2% pour 11,5% exiges, Bank of America 11,2% pour 10,0%",
+      "verdict": "CONFORME",
+      "verbatim_source": "src/data/att/jpm.json : 'ratio CET1 de 14,2 % tres au-dessus de l'exigence de 11,5 %' ; src/data/att/bac.json : 'Le ratio CET1 est de 11,2 % pour une exigence minimale de 10,0 %, soit 1,2 point de coussin, contre 2,7 points chez JPMorgan'",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Glossaire : le plafond d'actifs interdisait de faire croitre le bilan au-dela de 1 950 Mds$",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Le 10-K FY2025 et le 10-Q T2 2026 decrivent 'the Company's limitation on growth in total assets imposed in the consent order' sans jamais chiffrer le plafond.",
+      "correction_proposee": "Aucune des sources citees ne donne le montant de 1 950 Mds$. Soit sourcer explicitement le consent order de la Fed de fevrier 2018, soit reformuler : 'interdiction de faire croitre le bilan au-dela de son niveau de fin 2017'."
+    }
+  ]
+}

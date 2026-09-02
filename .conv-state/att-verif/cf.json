@@ -1,0 +1,66 @@
+{
+  "ticker": "CF",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "REGLEMENTAIRE : \"Le president de la Federal Trade Commission (FTC) a annonce le 28 mai 2026 le lancement d'une enquete sectorielle sur les prix des engrais aux Etats-Unis\" ; resume : \"une enquete federale sur les prix du secteur ouverte en mai 2026\".",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"On May 28, 2026, the Chairman of the FTC announced that the FTC had launched an industry-wide investigation into fertilizer prices in the United States. The impact on our business and operations of any actions that the Trump administration or Congress could take to address fertilizer prices is uncertain.\" Le mot \"investigation\" est bien celui du filing, et l'ATT precise correctement qu'elle est SECTORIELLE et non dirigee contre CF.",
+      "correction_proposee": "Aucune. Bon point : l'ATT n'ecrit pas \"CF fait l'objet d'une enquete\". Complement possible : l'Executive Order du 6 decembre 2025 charge le DOJ et la FTC d'une task force sur le price-fixing incluant les engrais."
+    },
+    {
+      "affirmation": "\"la societe indique elle-meme que ces effets sont attendus pour persister SEULEMENT a court terme\" (choc Ormuz).",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"The scope and duration of these impacts are currently unknown; however, we believe that the impacts of these geopolitical events on the global nitrogen supply and demand balance, as described above, will persist in the near-term.\" La societe affirme que les effets VONT PERSISTER a court terme et que leur duree est INCONNUE ; elle ne dit nulle part qu'ils s'arreteront la.",
+      "correction_proposee": "Ecrire : \"la societe indique que la duree de ces effets est inconnue et qu'ils devraient persister a court terme\". Le verbatim cite dans l'ATT elide par \"...\" la phrase \"The scope and duration of these impacts are currently unknown; however,\" : cette elision retire precisement le qualificatif qui contredit la lecture \"seulement\"."
+    },
+    {
+      "affirmation": "quantitatif #2 : \"Ce recul [des tonnages expedies] touche l'ammoniac (-6,3%), l'UAN (-26,9%) et l'AN (-65,9%)\".",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, segment Ammonia : \"Sales volume by product tons (000s) 865 1,087 (222) (20)%\" soit -20,4% de VOLUMES VENDUS. Le -6,3% correspond au tableau \"Production volume by product tons (000s): Ammonia 2,397 2,557 (160) (6)%\", c'est-a-dire la PRODUCTION, pas les tonnages expedies. UAN 1,391 vs 1,902 = -26,9% (exact) et AN 129 vs 378 = -65,9% (exact).",
+      "correction_proposee": "Remplacer par \"l'ammoniac (-20,4% de volumes vendus)\". Le chiffre actuel sous-estime largement le recul reel et melange deux metriques dans une meme enumeration."
+    },
+    {
+      "affirmation": "\"seule l'uree granulee progresse en volume (+7,7%)\".",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, segment Other : \"Sales volume by product tons (000s) 587 466 121 26%\". Le segment Other (DEF, uree liquor, acide nitrique, ammoniaque) progresse de +26% en volume au T2 2026. Granular Urea : 1,280 vs 1,188 = +7,7% (exact).",
+      "correction_proposee": "Remplacer \"seule l'uree granulee progresse\" par \"l'uree granulee (+7,7%) et le segment Other (+26%) progressent\"."
+    },
+    {
+      "affirmation": "resume : \"flux de tresorerie disponible quasiment double sur un an\".",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"Net cash provided by operating activities 1,374 / 1,149\" et \"Capital expenditures totaled $494 million during the first six months of 2026 compared to $377 million\". FCF S1 2026 = 880 M$ contre 772 M$, soit +14%, pas +90%. Le +90,9% vient de .batches-drafts-safe/kpis-haut/CF.json, un T2 RECONSTITUE par soustraction (\"T2 2026 derive = cumul 6 mois du 10-Q moins T1 2026\"), absent tel quel du filing. De plus le 10-Q precise : \"The increase in cash flow from operations also includes $170 million of litigation settlement proceeds and $50 million of insurance proceeds\" ; l'encaissement Orica a eu lieu le 30 avril 2026, donc en plein T2.",
+      "correction_proposee": "Ecrire : \"flux de tresorerie disponible en hausse de 14% sur le semestre (880 M$ contre 772 M$), dont 220 M$ d'encaissements non recurrents (reglement Orica 170 M$ recu le 30 avril 2026 et 50 M$ d'indemnites d'assurance)\"."
+    },
+    {
+      "affirmation": "hook : \"Le resultat net a bondi de 88% au T2 2026 ... la totalite de la hausse vient du prix, pas de la demande\".",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026 : \"Net earnings attributable to common stockholders $727 / $386\" (+88,3%, exact) et \"Net sales $2,222 / $1,890\" (+17,6%, exact). Mais le T2 2026 comprend aussi 19 M$ de credits d'impot 45Q (\"in the three and six months ended June 30, 2026, we earned 45Q Tax Credits of approximately $19 million and $43 million\") et 28 M$ de produits divers en \"Other\". Sur le semestre, le resultat integre en outre un gain de 170 M$ sur reglement de litige, jamais mentionne dans l'ATT.",
+      "correction_proposee": "Remplacer \"la totalite\" par \"l'essentiel\". Et signaler dans le corps de l'ATT le gain de 170 M$ (reglement Orica, T1 2026) et les 75 M$ d'indemnites d'assurance Yazoo City : un lecteur qui regarde le semestre les verra."
+    },
+    {
+      "affirmation": "resume : \"dette nette divisee par pres de deux\".",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T2 2026, bilan : \"Long-term debt 3,216 / 3,215\" (dette brute strictement stable) et \"Cash and cash equivalents $2,480 / $1,982\". Dette nette = 736 M$ au 30/06/2026 contre 1 233 M$ au 31/12/2025, soit une division par 1,68 en six mois, pas \"pres de deux\" ni \"sur un an\".",
+      "correction_proposee": "Ecrire : \"dette nette reduite d'un tiers en six mois (736 M$ contre 1 233 M$), par accumulation de tresorerie et non par remboursement : la dette brute est inchangee a 3,22 Mds $\"."
+    },
+    {
+      "affirmation": "\"Les interets minoritaires representent 3 172 M$ sur des capitaux propres totaux de 8 920 M$ au 30 juin 2026, contre 2 858 M$ un an plus tot\" (preuve annoncee : bilan consolide).",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"Noncontrolling interests 3,172\" / \"Total equity 8,920\" (exact). Le 2 858 M$ est exact mais figure dans la Note 15 - Noncontrolling Interests (\"Balance as of June 30 ... $2,858\" pour 2025), PAS dans le bilan : la colonne comparative du bilan est le 31 decembre 2025, ou les interets minoritaires valent 2 937 M$.",
+      "correction_proposee": "Corriger la source : citer la Note 15 et non \"bilan consolide\", ou utiliser le comparatif du bilan (2 937 M$ au 31/12/2025)."
+    },
+    {
+      "affirmation": "\"60% du capital investi dans Blue Point One est finance par JERA et Mitsui, qui en recevront la part correspondante de la production future d'ammoniac bas carbone\" ; distributions aux minoritaires 201 M$ contre 129 M$ (+56%).",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, Note 12 : \"We hold 40% ownership, JERA holds 35% ownership, and Mitsui holds 25% ownership\" ; \"Pursuant to periodic capital calls, the Blue Point One joint venture members will fund the cost of the facility's engineering, procurement and construction according to their respective ownership percentages\" ; \"Once production commences, we, JERA and Mitsui are required to purchase low-carbon ammonia produced by the Blue Point One joint venture in accordance with our respective ownership percentages\". Cash-flow : \"Distributions to noncontrolling interests (201) (129)\" (+55,8%).",
+      "correction_proposee": "Nuance de vocabulaire : les partenaires sont OBLIGES D'ACHETER leur quote-part d'ammoniac, ils ne la \"recoivent\" pas. Ecrire \"qui devront acheter la part correspondante\"."
+    },
+    {
+      "affirmation": "Chiffres restants : marge brute AN de -31 $/tonne au T2 2026 (-147% YoY) ; 4,252 M tonnes expediees (-15,3%) ; gaz naturel = 36% des couts de production au S1 2026 contre 34% en 2025 ; Ormuz = 25-30% de l'ammoniac et 35-40% de l'uree echanges mondialement.",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : segment AN \"Gross margin per product ton $(31) $66 $(97) N/M\" (-147%) ; \"Sales volume by product tons (000s) 4,252 5,021 (769) (15)%\" ; \"representing approximately 36% and 34%, respectively, of our production costs in the first six months of 2026 and the year ended December 31, 2025\" ; \"Nitrogen production in the Middle East accounts for approximately 25-30% of globally traded ammonia and approximately 35-40% of globally traded urea annually\" ; \"safety concerns amid ongoing attacks by Iran and unavailability of war risk insurance coverage on affected vessels brought the flow of vessels ... to a halt\".",
+      "correction_proposee": ""
+    }
+  ]
+}

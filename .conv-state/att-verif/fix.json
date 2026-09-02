@@ -1,0 +1,73 @@
+{
+  "ticker": "FIX",
+  "verdict_global": "a_corriger",
+  "source_verifiee": "data-lake/FIX/10Q/FIX_2026-07-23.htm.gz (10-Q T2 2026) ; data-lake/FIX/10K/FIX_2026-02-19.htm.gz (10-K FY2025) ; data-lake/FIX/10Q/FIX_2025-07-24.htm.gz, FIX_2023-07-26.htm.gz, FIX_2021-07-28.htm.gz (historique du carnet)",
+  "controles": [
+    {
+      "affirmation": "Hook : « Comfort Systems previent elle-meme que son carnet de commandes record peut etre annule SANS PENALITE et que sa valeur predictive est limitee ».",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Our backlog is subject to unexpected adjustments and cancellations, which means that amounts included in our backlog may not result in actual revenue or translate into profits. ... The predictive value of backlog information is limited to indications of general revenue direction over the near term, and we cannot guarantee that the revenue projected from our backlog will be realized or, if realized, will be profitable. Projects may remain in our backlog for an extended period of time, or project cancellations or scope adjustments may occur with respect to contracts reflected in our backlog. (10-K FY2025, Item 1A)",
+      "correction_proposee": "Le mot « penalty » (ou toute mention d'absence de penalite d'annulation) n'apparait AUCUNE fois dans le 10-K FY2025 ni dans le 10-Q T2 2026 — verifie par recherche plein texte sur les deux documents. La societe dit que le carnet est sujet a des ajustements et annulations imprevus, jamais que ces annulations sont sans penalite. Supprimer « sans penalite » et reformuler : « son carnet de commandes record est sujet a des ajustements et annulations imprevus et sa valeur predictive est limitee a une indication de tendance a court terme. » La partie « valeur predictive limitee » est, elle, exacte et citable."
+    },
+    {
+      "affirmation": "« Le carnet de commandes a ete multiplie par pres de 7 en trois ans, atteignant 14,06 Md $ au 30 juin 2026 ».",
+      "verdict": "FAUX",
+      "verbatim_source": "Backlog as of June 30, 2026 was $14.06 billion ... and a 73.1% increase from June 30, 2025 backlog of $8.12 billion (10-Q T2 2026) ; Backlog as of June 30, 2023 was $4.19 billion (10-Q du 26 juillet 2023) ; Backlog as of June 30, 2021 was $1.84 billion (10-Q du 28 juillet 2021)",
+      "correction_proposee": "Sur trois ans le multiple est de x3,4 (4,19 Md $ au 30 juin 2023 -> 14,06 Md $ au 30 juin 2026), pas « pres de 7 ». Le multiple de x7,6 correspond a CINQ ans (1,84 Md $ au 30 juin 2021). Corriger soit l'horizon (« multiplie par plus de 7 en cinq ans »), soit le multiple (« multiplie par 3,4 en trois ans »)."
+    },
+    {
+      "affirmation": "« Le flux de tresorerie operationnel a bondi a 1,53 Md $ ... sur cette hausse de 1,36 Md $, 1,06 Md $ proviennent de l'augmentation des Facturations d'avance ».",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Billings in excess of costs and estimated earnings and deferred revenue 1,061,506 | 376,780 ; Net cash provided by operating activities 1,528,254 | 164,545 (10-Q T2 2026, six mois clos au 30 juin 2026 et 2025)",
+      "correction_proposee": "Erreur arithmetique : le poste Facturations d'avance valait deja +376,8 M$ au S1 2025. Sa contribution a la HAUSSE de 1,36 Md $ est donc de 1 061,5 - 376,8 = 684,7 M$, soit environ la moitie de l'augmentation, pas 1,06 Md $ (78%). Reformuler : « environ 685 M$ de la hausse de 1,36 Md $, soit la moitie, viennent de l'augmentation des Facturations d'avance. » La conclusion de l'argument reste valable, le chiffre non."
+    },
+    {
+      "affirmation": "La part du CA en construction neuve passe a 75,1% au T2 2026 contre 57,8% un an plus tot (+17,3 pts).",
+      "verdict": "FAUX",
+      "verbatim_source": "New Construction $2,454,064 | 75.1% | $1,256,866 | 57.9%",
+      "correction_proposee": "Le 10-Q indique 57,9% et non 57,8% ; l'ecart est donc de +17,2 pts. Ecart mineur mais a corriger pour rester alignee sur le document."
+    },
+    {
+      "affirmation": "Flux de tresorerie operationnel de 1,53 Md $ au S1 2026 contre 164,5 M$ un an plus tot ; resultat net en progression d'environ 412 M$.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Net cash provided by operating activities 1,528,254 | 164,545 ; NET INCOME $441,602 | $230,848 | $811,980 | $400,137",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Part des projets de service a 4,4% (contre 6,7%) et renovation de batiments existants a 14,8% (contre 27,9%).",
+      "verdict": "CONFORME",
+      "verbatim_source": "Existing Building Construction 483,469 | 14.8% | 607,236 | 27.9% ; Service Projects 144,742 | 4.4% | 146,271 | 6.7%",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Le marche final Technologie atteint 1,92 Md $ (x2,05 en un an) et 58,7% du CA total contre 43% un an plus tot.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Technology $1,917,354 | 58.7% | $934,199 | 43.0%",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Un seul client a genere environ 12,8% du CA consolide 2025 ; la societe juge son portefeuille clients raisonnablement diversifie.",
+      "verdict": "CONFORME",
+      "verbatim_source": "in 2025, one customer represented approximately 12.8% of our consolidated revenue. Although we have long-standing relationships with many of our significant customers and believe that our portfolio of customers is reasonably diverse, one or more of our significant customers may reduce, fail to renew, or terminate their contracts with us in the future.",
+      "correction_proposee": "Exact. Remarque de forme : cet argument est le seul du fichier sans champ « preuve » — ajouter le verbatim du 10-K FY2025 (Item 1A). Contexte utile : 13,3% en 2024 et 13,8% en 2023, la concentration diminue donc."
+    },
+    {
+      "affirmation": "Croissance a perimetre comparable de +43,8% au T2 2026 contre +18,6% un an plus tot.",
+      "verdict": "CONFORME",
+      "verbatim_source": "The increase included a 6.5% increase primarily related to the Hunt, Feyen Zylstra, and Meisner acquisitions, as well as a 43.8% increase in revenue related to same-store activity (10-Q T2 2026) ; The increase included an 18.6% increase in revenue related to same-store activity (10-Q T2 2025)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "188,9 M$ d'achats de batiments pour le developpement de l'activite modulaire ; capex en forte acceleration.",
+      "verdict": "CONFORME",
+      "verbatim_source": "The $284.5 million increase in net cash used in investing activities was primarily attributable to $188.9 million of building purchases during the first six months of 2026 to support growth in our modular business. ; Purchases of property and equipment (288,837) | (53,481)",
+      "correction_proposee": "Conforme. Le chiffre trimestriel de 141,4 M$ (+352%) provient de kpis-haut et non du 10-Q, qui ne publie que le cumul semestriel de 288,8 M$ contre 53,5 M$ ; citer le semestriel serait plus verifiable."
+    },
+    {
+      "affirmation": "Carnet de commandes de 14,06 Md $ au 30 juin 2026 contre 8,12 Md $ un an plus tot.",
+      "verdict": "CONFORME",
+      "verbatim_source": "Backlog as of June 30, 2026 was $14.06 billion, a 12.9% increase from March 31, 2026 backlog of $12.45 billion, and a 73.1% increase from June 30, 2025 backlog of $8.12 billion.",
+      "correction_proposee": null
+    }
+  ]
+}

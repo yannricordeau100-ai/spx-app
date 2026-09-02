@@ -1,0 +1,60 @@
+{
+  "ticker": "GL",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "« deux plaintes derivees d'actionnaires (consolidees, plus une troisieme deposee en novembre 2025) » ; hook : « deux plaintes derivees d'actionnaires »",
+      "verdict": "FAUX",
+      "verbatim_source": "\"On November 7, 2024, Globe Life Inc. shareholder Jui Cheng Hsiao (“Hsiao”) filed a shareholder derivative complaint ... On November 14, 2024, Globe Life Inc. shareholder Gautam Jadhav (“Jadhav”) filed a shareholder derivative complaint against the same set of defendants. ... On January 3, 2025, the Court consolidated the two actions ... (In re Globe Life Inc. Stockholder Derivative Litigation, Lead Case No. 4:24-cv-00993-ALM (E.D. Tex.)). On November 19, 2025, Globe Life Inc. shareholder Plymouth County Retirement Association (“Plymouth”) filed a Verified Shareholder Derivative Action Complaint ... On November 21, 2025, Globe Life Inc. shareholder Catherine M. Sugarbaker Family Trust (“Sugarbaker”) filed a Verified Shareholder Derivative Action Complaint ...\" (10-Q T2 2026, Note 5)",
+      "correction_proposee": "Il y a QUATRE plaintes derivees, pas trois : Hsiao (7 nov. 2024) et Jadhav (14 nov. 2024), consolidees le 3 janvier 2025 sous In re Globe Life Inc. Stockholder Derivative Litigation, PLUS Plymouth County Retirement Association (19 nov. 2025) ET Catherine M. Sugarbaker Family Trust (21 nov. 2025). Ecrire : « une action derivee consolidee, plus deux plaintes derivees supplementaires deposees en novembre 2025 »."
+    },
+    {
+      "affirmation": "Hook : « l'enquete du Departement de la Justice sur les memes faits a ete close mi 2025 sans poursuite »",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"On November 30, 2023, Globe Life Inc. and its subsidiary, American Income Life Insurance Company, received subpoenas from the U.S. Attorney's Office for the Western District of Pennsylvania, seeking documents relating to sales practices by certain independent sales agents contracted to sell American Income Life Insurance Company policies. ... On July 28, 2025, the Department of Justice informed the companies that it had closed its investigation. The closing of the investigation means the Department of Justice will not be taking enforcement action against Globe Life Inc. or American Income Life Insurance Company. In April 2024, Globe Life Inc. received an inquiry from the SEC's Fort Worth Regional Office requesting information related to recent short seller reports making allegations about Globe Life Inc. ... On July 24, 2025, SEC staff notified Globe Life Inc. that they had concluded their investigation and, based on the information gathered, did not intend to recommend an SEC enforcement action against Globe Life Inc.\" (10-Q T2 2025, data-lake/GL/10Q/GL_2025-08-06.htm.gz)",
+      "correction_proposee": "La cloture DOJ sans action coercitive le 28 juillet 2025 est exacte, mais « sur les memes faits » ne l'est pas : le dossier DOJ portait sur les pratiques de vente d'agents independants d'American Income (assignations du 30 nov. 2023), pas sur les communications financieres visees par l'action collective. C'est l'enquete de la SEC, ouverte en avril 2024 precisement sur les rapports de vendeurs a decouvert, qui portait sur les memes faits, et elle a ete close le 24 juillet 2025 sans recommandation d'action coercitive. Cette information favorable est absente de l'ATT alors qu'elle est directement materielle. Ajouter aussi la source primaire (10-Q T2 2025) : l'ATT ne cite qu'une extraction derivee (src/data/v2-pipeline/gl.json)."
+    },
+    {
+      "affirmation": "Filiale de reassurance bermudienne : « transfert initial de 1,2 Mds $ de reserves statutaires vie » et « objectif declare de porter jusqu'a 25% des reserves vie du groupe vers cette structure »",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Seule mention de Globe Life Re dans le data-lake : \"We are in the process of completing Globe Life Re's capital and solvency return in respect of the year ended December 31, 2025, which includes the BSCR. We expect that Globe Life Re s level of capitalization will exceed the minimum solvency margin ...\" (data-lake/GL/_risks_src.txt). Aucun document du data-lake ne contient les chiffres de 1,2 Md$ de reserves transferees ni de cible de 25%.",
+      "correction_proposee": "Ni le 10-Q T2 2026, ni le 10-K FY2025, ni les 8-K du data-lake ne mentionnent ces chiffres. La seule « preuve » citee est une extraction stories-calls redigee en francais, qui n'est pas un document source, et qui ne contient meme pas le chiffre de 1,2 Md$. Retirer ces deux chiffres ou les sourcer sur un document primaire (transcript de conference ou communique). Seule la phrase sur la supervision BMA est verifiable : \"our Bermuda-based insurance subsidiaries are subject to regulation in Bermuda. The Bermuda Monetary Authority (\"BMA\") has capital requirements and solvency standards including limitations on dividends or distributions to shareholders.\""
+    },
+    {
+      "affirmation": "Resume : « Le portefeuille obligataire reste concentre sur la categorie BBB, une caracteristique que la societe reconnait elle-meme comme superieure a celle de ses pairs »",
+      "verdict": "EXAGERE",
+      "verbatim_source": "\"Fixed maturities rated BBB are 41% of the total portfolio at June 30, 2026, down from 42% at December 31, 2025. While this ratio may be high relative to our peers, it is at its lowest level since 2003 and we have limited exposure to higher-risk assets such as derivatives, equities...\" (10-Q T2 2026)",
+      "correction_proposee": "La source est conditionnelle (« may be high relative to our peers »), pas affirmative. Ecrire : « une caracteristique dont la societe reconnait qu'elle peut etre elevee par rapport a ses pairs ». Le corps de l'ATT (bloc fondamental_interne) formule d'ailleurs correctement ; c'est le resume qui durcit."
+    },
+    {
+      "affirmation": "BBB = 41% du portefeuille au 30 juin 2026 (42% fin 2025) ; 3% supplementaires sous la categorie investissement (521 M$)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Fixed maturities rated BBB are 41% of the total portfolio at June 30, 2026, down from 42% at December 31, 2025.\" ; tableau Below Investment Grade : \"Total fixed maturities $ 521,332 ... $ 18,817,167\" soit 3% (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Dette long terme de 2 320,8 M$ a 2 665,3 M$ (+14,9%) ; 378 M$ + 134 M$ de rachats d'actions contre 558 M$ de benefice net semestriel",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Long-term debt (estimated fair value: 2026—$2,504,936; 2025—$2,225,320) 2,665,296 2,320,793\" ; \"shareholders' equity increased as a result of net income of $558 million during the first six months of 2026, but was offset by share repurchases of $378 million and an additional $134 million in share repurchases to offset the dilution from stock option exercises.\" (10-Q T2 2026)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "AOCI de -1 721,7 M$ sur 6 155,8 M$ de fonds propres au 30 juin 2026, soit 28% (29,6% fin 2025)",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"Accumulated other comprehensive income (loss) (1,721,729) (1,771,444) ... Total shareholders' equity 6,155,815 5,974,579\" (10-Q T2 2026, en milliers de $)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "685 M$ de rachats d'actions sur l'ensemble de l'exercice 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"During 2025, shareholders equity increased as a result of net income of $1.2 billion, but was offset by share repurchases of $685 million and an additional $190 million in share repurchases to offset the dilution from stock option exercises.\" (data-lake/GL/_risks_src.txt, 10-K FY2025)",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Action collective deposee le 30 avril 2024 contre Globe Life et six dirigeants/administrateurs devant le district Est du Texas ; demande de certification de classe deposee le 15 mai 2026, plaidoirie jusqu'au 30 octobre 2026 ; allegations « derive from certain short seller reports »",
+      "verdict": "CONFORME",
+      "verbatim_source": "\"On April 30, 2024, a putative securities class action was filed against Globe Life Inc. and six of its current/former executives and directors in the United States District Court for the Eastern District of Texas (City of Miami Gen. Emp. & Sanitation Emp. Ret. Trust, et al. v. Globe Life Inc., et al., Case No. 4:24-cv-00376).\" ; \"On May 15, 2026, the Lead Plaintiffs moved for class certification. The motion is scheduled to be fully briefed by October 30, 2026.\" ; \"The allegations are substantially similar to those made in the City of Miami Matter and derive from certain short seller reports.\" (10-Q T2 2026, Note 5)",
+      "correction_proposee": "Precision facultative : le nombre de defendeurs a augmente depuis le depot initial (« The Consolidated Complaint added four additional executives as defendants »), soit dix personnes physiques et non six a ce jour. Par ailleurs la formule « derive from certain short seller reports » est attachee dans le document aux plaintes derivees, pas a l'action collective elle-meme."
+    }
+  ]
+}

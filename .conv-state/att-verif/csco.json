@@ -1,0 +1,84 @@
+{
+  "ticker": "CSCO",
+  "verdict_global": "a_corriger",
+  "documents_verifies": [
+    "data-lake/CSCO/10Q/CSCO_2026-05-19.htm.gz (10-Q T3 FY2026)",
+    "data-lake/CSCO/10K/CSCO_2025-09-03.htm.gz (10-K FY2025)",
+    "data-lake/CSCO/risks/extracted.json",
+    "data-lake/CSCO/events_fr.json"
+  ],
+  "controles": [
+    {
+      "affirmation": "La Cour supreme americaine a juge le 20 fevrier 2026 que les tarifs IEEPA etaient ILLEGAUX",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q T3 FY2026 : \"On February 20, 2026, the U.S. Supreme Court ruled that the tariffs previously imposed under the International Emergency Economic Powers Act (“IEEPA”) were unauthorized. As a result of this ruling, we may be eligible for a refund of tariffs previously paid on imported goods. As the recoverability and timing of any such refund remains uncertain, we have not recorded a benefit for any potential refund and will not until such amounts are realizable. We will continue to monitor these developments and believe that any potential refund will not have a material impact on our business and Consolidated Financial Statements.\"",
+      "correction_proposee": "Le document dit \"were unauthorized\" (non autorises, faute de base legale), pas \"illegal\". Ecrire : \"a juge le 20 fevrier 2026 que les tarifs imposes au titre de l'IEEPA n'etaient pas autorises\". Ajouter aussi la reserve de Cisco, omise par l'ATT : la societe estime qu'un eventuel remboursement n'aura pas d'impact significatif."
+    },
+    {
+      "affirmation": "Cisco a tenu 64,4% de marge brute produit sur l'ENSEMBLE de l'exercice FY2025",
+      "verdict": "FAUX",
+      "verbatim_source": "10-K FY2025, tableau de reconciliation de la marge brute produit : \"Fiscal 2024 63.5 % / Productivity 2.0 % / Product pricing (1.6) % / Mix of products sold 1.1 % / Legal dispute with supplier (0.8) % / Amortization of purchased intangible assets (0.4) % / Others (0.1) % / Fiscal 2025 63.7 %\" ; et \"Product gross margin increased by 0.2 percentage points\"",
+      "correction_proposee": "Sur l'exercice complet FY2025 la marge brute produit est de 63,7%, pas 64,4%. Le 64,4% est la marge du T3 FY2025 et des 9 mois FY2025, periode de comparaison du 10-Q. Ecrire : \"Cisco affichait 64,4% de marge brute produit au T3 FY2025 et 63,7% sur l'ensemble de FY2025\"."
+    },
+    {
+      "affirmation": "Segment Securite a l'arret : 2 008 M$ au T3 FY2026 contre 2 013 M$ un an avant (0%), et 6 006 M$ sur 9 mois contre 6 142 M$ (-2%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T3 FY2026, revenus par categorie de produit : \"Security 2,008 / 2,013\" et \"6,006 / 6,142\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Splunk achete 27,1 Mds $ (157 $ par action, cloture le 18 mars 2024), dont 19,3 Mds $ de goodwill",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 : \"On March 18, 2024, we completed the acquisition of Splunk Inc. ... we agreed to pay $ 157 per share in cash, representing approximately $ 27 billion in merger consideration\" ; purchase consideration 27,090 ; goodwill 19,301",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Marge brute produit a 61,9% au T3 FY2026 contre 64,4% un an avant ; effet mix -4,4 points, productivite +1,2 point, prix -0,1 point ; marge brute totale 63,6% vs 65,6%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T3 FY2026 : Product \"61.9 % / 64.4 %\", Total \"63.6 % / 65.6 %\" ; tableau : \"Fiscal 2025 64.4 % / Productivity 1.2 % / Product pricing (0.1) % / Mix of products sold (4.4) %\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Engagements d'achat non annulables passes de 7,6 Mds $ (26 juillet 2025) a 16,0 Mds $ (25 avril 2026), avec exposition chaine d'approvisionnement significativement accrue",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T3 FY2026 : \"Total $ 16,033\" vs \"$ 7,599\" ; \"These purchase commitments have in turn significantly increased our supply chain exposure. This exposure includes potential material excess and obsolete or other charges if product demand significantly decreases for a sustained duration\" ; \"purchase commitments related to manufacturing Cisco Silicon One and other products to meet demand from hyperscalers\" et \"purchase commitments to help secure memory\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Plan de restructuration annonce au T4 FY2026, jusqu'a 1 Md $ de charges, acheve d'ici fin FY2027, apres le plan FY2025 visant environ 7% des effectifs (744 M$ de charges en FY2025) ; environ 4 000 emplois selon la presse du 14 mai 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T3 FY2026 : \"In the fourth quarter of fiscal 2026, we announced a restructuring plan (the “Fiscal 2026 Plan”)... The total pre-tax charges are estimated to be up to $ 1 billion... We expect this plan to be substantially completed by the end of fiscal 2027\". 10-K FY2025 : \"The Fiscal 2025 Plan is expected to impact approximately 7 % of our global workforce... we incurred charges of $ 744 million in fiscal 2025\". events_fr.json 2026-05-14 : \"Cisco bondit sur la demande IA T3 tout en supprimant 4 000 emplois dans une refonte\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Exposition aux tarifs douaniers : \"the extent of such exposure is uncertain but could be significant\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T3 FY2026 : \"while we are exposed to new and proposed tariffs and other trade policies, the extent of such exposure is uncertain but could be significant if the exposure remains and we are unable to mitigate it\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Networking +25% au T3 et +20% sur 9 mois, tire par l'infrastructure IA et le Campus Networking ; risque de ralentissement des depenses IT des clients cloud et service providers avec stocks excedentaires et surcapacite",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T3 FY2026 : \"Revenue from the Networking product category increased by 25%, or $1.7 billion primarily driven by our AI Infrastructure and Campus Networking solutions\" ; \"reduced demand for our products as a result of continued constraints on IT-related capital spending by our customers, particularly service provider and cloud... risk of excess and obsolete inventories; risk of supply constraints; risk of excess facilities and manufacturing capacity\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "10,9 Mds $ rendus aux actionnaires (dividendes 4 894 + rachats 4 605 + retenues fiscales 1 362) pour 8,8 Mds $ de flux d'exploitation sur 9 mois ; papier commercial +4,9 Mds $, dette court terme de 5 232 a 11 932 M$ ; dette totale 31,3 Mds $ contre 16,6 Mds $ de tresorerie et placements",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T3 FY2026 tableau des flux : \"Repurchases of common stock — repurchase program (4,605)\", \"Shares repurchased for tax withholdings (1,362)\", \"Dividends paid (4,894)\", \"Net cash provided by operating activities 8,791 / 9,959\" ; note dette court terme : \"Commercial paper 8,434\" vs \"3,482\", \"Total $ 11,932 / $ 5,232\" ; bilan : Long-term debt 19,371 (total 31 303) ; \"Cash and cash equivalents $ 7,083\" + \"Investments 9,557\" = 16 640. Sur 9 mois FY2025 : emissions 17 388 contre remboursements 18 545, soit un desendettement net",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Goodwill 59 292 M$ + intangibles acquis 7 850 M$ = 67,1 Mds $ contre 48,9 Mds $ de capitaux propres, sur un bilan de 125,5 Mds $",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T3 FY2026 bilan au 25 avril 2026 : Goodwill 59,292 ; Purchased intangible assets, net 7,850 ; Total equity 48,950 ; Total assets 125,546",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "Risques \"Concurrence intense des acteurs asiatiques et des geants tech\" et \"Exposition aux restrictions geopolitiques et controles export\" classes severite 4 et en deterioration",
+      "verdict": "CONFORME",
+      "verbatim_source": "data-lake/CSCO/risks/extracted.json : \"Concurrence intense des acteurs asiatiques et des geants tech\" severity 4, trend \"deteriorating\", citant Huawei, Amazon, Microsoft et Nvidia ; \"Exposition aux restrictions geopolitiques et controles export\" severity 4, trend \"deteriorating\"",
+      "correction_proposee": null
+    }
+  ]
+}

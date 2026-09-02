@@ -1,0 +1,72 @@
+{
+  "ticker": "L",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "Loews depend des dividendes de ses filiales et des revenus de son portefeuille pour financer ses obligations",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"As a holding company we depend on dividends from our subsidiaries and returns on our investment portfolio to fund our obligations.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "CNA est une filiale detenue a environ 92%",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"CNA Financial Corporation (\\\"CNA\\\"), an approximately 92% owned subsidiary\" ; identique dans le 10-K FY2025.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Ratio combine de CNA a 102,2% au T1 2026 puis 96,5% au T2 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T1 2026, Property & Casualty Operations, Three Months Ended March 31, 2026, colonne Total : \"Combined ratio 102.7 % 103.5 % 95.9 % 102.2 %\" ; 10-Q T2 2026, Three Months Ended June 30, 2026, colonne Total : \"Combined ratio 96.5 % 96.5 % 96.9 % 96.5 %\". Coherence verifiee : semestre 2026 a 99,4%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Charge apres impots de 77 M$ au T2 2026 contre 88 M$ au T2 2025 sur le developpement defavorable des reserves legacy mass tort",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026 : \"The current quarter includes a $77 million after-tax charge related to unfavorable net prior year loss reserve development largely associated with legacy mass tort abuse reserves as compared with an $88 million after-tax charge in 2025.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "EBITDA Boardwalk 360 M$ au T1 2026 contre 279 M$ au T2 2026 ; chiffre d'affaires 626 M$ puis 574 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, segment Boardwalk Pipelines : \"EBITDA $ 279 $ 274 $ 639 $ 620\" et \"Operating revenues and other $ 574 $ 534 $ 1,200 $ 1,155\" (3 mois 2026, 3 mois 2025, 6 mois 2026, 6 mois 2025). Par difference : T1 2026 EBITDA = 639 - 279 = 360 ; T1 2026 CA = 1 200 - 574 = 626.",
+      "correction_proposee": "Les valeurs T1 2026 sont derivees (semestre moins trimestre), non publiees telles quelles. Le mentionner si le chiffre est mis en avant."
+    },
+    {
+      "affirmation": "Reglementation FERC etendue sur le transport et le stockage de gaz de Boardwalk, pouvant limiter les tarifs",
+      "verdict": "CONFORME",
+      "verbatim_source": "data-lake/L/risks/extracted.json : \"Reglementation FERC extensive sur Boardwalk Pipelines (...) soumises a une reglementation stricte de la FERC, pouvant limiter les tarifs et les projets de croissance\", severity 3, source _risks_src_30k.txt",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Une partie de la degradation des reserves est attribuee aux « ongoing effects of social inflation »",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q T2 2026, developpement T2 2026 : \"unfavorable development was recorded largely associated with legacy mass tort abuse claim activity and the ongoing effects of social inflation.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "« le document precise que cette degradation [la charge de 77 M$ du T2 2026] est aussi liee (...) a un accord conclu avec le Diocese de Rochester »",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026, note Reserves, section \"Three Months\". Sous l'intertitre \"2026\" : \"Following the second quarter annual review of other insurance operations reserves, including legacy mass tort exposures, unfavorable development was recorded largely associated with legacy mass tort abuse claim activity and the ongoing effects of social inflation.\" (aucune mention de Rochester). Sous l'intertitre \"2025\" : \"Unfavorable development in other insurance operations was largely associated with legacy mass tort abuse claim activity, the ongoing effects of social inflation and an agreement with the Diocese of Rochester.\"",
+      "correction_proposee": "L'accord avec le Diocese de Rochester est rattache par le 10-Q au developpement du DEUXIEME TRIMESTRE 2025 (la charge de 88 M$), pas a celui de 2026 (77 M$). Le verbatim cite en preuve est la phrase 2025 presentee comme expliquant la charge 2026. Corriger : le T2 2026 est attribue au seul « legacy mass tort abuse claim activity » et aux « ongoing effects of social inflation »."
+    },
+    {
+      "affirmation": "« ces reprises negatives sur des sinistres anciens (amiante, mass tort) se repetent trimestre apres trimestre » / « deux trimestres consecutifs de charges nettes liees a des sinistres anciens »",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2 2026 : \"Following the second quarter annual review of other insurance operations reserves\" ; charge 6 mois 2026 = 77 M$, identique a celle du T2 2026 (donc zero au T1 2026) ; sur 2025 : 106 M$ sur 6 mois pour 88 M$ au T2. Par ailleurs l'amiante joue en sens inverse : \"an increase of $13 million after-tax associated with the amortization of the deferred gain related to the asbestos and environmental pollution (A&EP) loss portfolio transfer\".",
+      "correction_proposee": "Il s'agit d'une revue ANNUELLE des reserves conduite au deuxieme trimestre, pas d'une charge trimestrielle recurrente : 77 M$ (T2 2026) et 88 M$ (T2 2025) sont le meme trimestre a un an d'ecart, pas deux trimestres consecutifs. Retirer « trimestre apres trimestre » et « deux trimestres consecutifs ». Retirer aussi l'amiante de la liste : le poste A&EP contribue positivement (+13 M$ apres impots)."
+    },
+    {
+      "affirmation": "« CNA Financial represente 82,1 % du chiffre d'affaires consolide du groupe (14,989 Mds $ sur 18,258 Mds $) » ; Boardwalk 12,7 % et Loews Hotels 5,2 %",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-K FY2025, tableau par segment, Year Ended December 31, 2025 : \"Total 14,989 2,324 945 196 18,454\" (CNA, Boardwalk, Loews Hotels, Corporate, Total).",
+      "correction_proposee": "Le chiffre d'affaires consolide 2025 est de 18 454 M$, pas 18 258 M$ : ce dernier est la somme des trois seuls segments operationnels, hors segment Corporate (196 M$). Parts correctes : CNA 81,2 %, Boardwalk 12,6 %, Loews Hotels 5,1 %. Corriger aussi le hook et le resume qui arrondissent a « 82 % »."
+    },
+    {
+      "affirmation": "« le 10-K signale que les projets de croissance prevus necessitent un acces accru aux marches de la dette (\"expects to access debt markets\") »",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "La chaine \"expects to access debt markets\" n'apparait pas dans le 10-K FY2025. Le passage reel est : \"Boardwalk Pipelines intends to update its shelf registration statement and access the debt markets to fund some or all capital expenditures for growth projects or acquisitions, to refinance maturing debt or for general partnership purposes.\"",
+      "correction_proposee": "Remplacer la citation par le verbatim exact (\"intends to (...) access the debt markets\"). Retirer « necessitent un acces ACCRU » : le document exprime une intention de financement, pas un besoin accru."
+    }
+  ]
+}

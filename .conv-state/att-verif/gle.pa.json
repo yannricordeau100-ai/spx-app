@@ -1,0 +1,78 @@
+{
+  "ticker": "GLE.PA",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "\"la tendance est explicitement notee << en hausse >> par la banque elle-meme\" (titre : \"Risque juridique et de conformite que la banque reconnait elle-meme en hausse\")",
+      "verdict": "FAUX",
+      "verbatim_source": "L'URD FY2025, chapitre 4.1.5.3, n'attribue aucune tendance a ce facteur de risque. Il ecrit seulement : \"There has been an increase in client, depositor, creditor and investor litigation and regulatory proceedings against intermediaries such as banks and investment advisors in recent years\" (constat sectoriel). La mention \"trend\": \"up\" / \"Tendance par rapport a l'an dernier : en hausse\" figure uniquement dans data-lake/GLE.PA/risks/extracted.json, fichier de notation interne Mettrik, pas dans un document de la banque.",
+      "correction_proposee": "Supprimer \"explicitement notee en hausse par la banque elle-meme\". Ecrire : \"la banque a elargi cette annee l'intitule du facteur de risque de << legal risks >> a << legal and non compliance risks >>, ce qui en etend formellement le perimetre\" (fait, lui, verifiable dans les URD FY2024 et FY2025)."
+    },
+    {
+      "affirmation": "\"Le document de reference 2025 elargit l'intitule de ce facteur de risque de << risques juridiques >> a << risques juridiques et de non-conformite >>\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2024, 4.1.5.3 : \"The Group is exposed to legal risks that could have a...\" ; URD FY2025, 4.1.5.3 : \"The Group is exposed to legal and non compliance risks that could have a material adverse impact on its financial position or results of operations\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"entre 2021 et 2025, les litiges commerciaux representent 27% des pertes operationnelles du groupe et les litiges avec les autorites 14%, soit la premiere et la quatrieme source de pertes sur la periode\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025, 4.10.2.3 : \"Commercial disputes, is the first category and represent 27% of the Group's operational losses over the period but remained stable in 2025.\" ; \"Regulatory disputes represent 14% of the Group's operational losses over the period but were nonetheless the largest source of losses in 2025 due to significant disputes in the vehicle leasing business.\" (classement par montant : 27% / 26% fraude / 21% erreurs d'execution / 14% autorites / 9% erreurs de pricing)",
+      "correction_proposee": "Nuance omise : les litiges avec les autorites, 4e sur 2021-2025, ont ete la PREMIERE source de pertes en 2025. C'est un element a charge que l'ATT laisse de cote."
+    },
+    {
+      "affirmation": "\"Au T2-26, les revenus des activites de Taux, Credit et Change reculent de -11,3% vs T2-25\" + citation \"un environnement qui reste defavorable pour le portefeuille d'activites, qui est largement concentre sur l'Europe et les activites de taux\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP resultats T2-26/S1-26 du 30 juillet 2026 : \"de Taux, Credit et Change sont en recul de -11,3% par rapport au T2-25, dans un environnement qui reste defavorable pour le portefeuille d'activites, qui est largement concentre sur l'Europe et les activites de taux\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"coout net du risque 745 M EUR au S1-26, +6,6% vs S1-25 (+9,9% sur le seul T2-26 a 390 M EUR) ; fourchette cible 25 a 30 pb ; taux brut d'encours douteux 2,70% au 30 juin 2026\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP T2-26 : \"Cout net du risque (390) (355) +9,9% ... (745) (699) +6,6%\" ; \"Cout du risque a 26 pb au S1-26, en bas de la fourchette cible 2026 de 25 a 30 pb\" ; \"Le taux brut d'encours douteux s'eleve a 2,70% au 30 juin 2026 et est en baisse par rapport a son niveau du 31 mars 2026 (2,75%)\"",
+      "correction_proposee": "Nuance omise : le communique precise que le taux d'encours douteux est EN BAISSE (2,70% vs 2,75% au 31 mars 2026) et que le cout du risque est \"en bas\" de la fourchette cible. Citer 2,70% dans une section intitulee \"coout du risque en hausse\" sans mentionner ces deux points est selectif."
+    },
+    {
+      "affirmation": "\"44% du produit net bancaire du groupe provient de France et 35% d'Europe hors France, soit 79% du total en 2025\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025, 4.1.1.1 : \"The Group generates 44% of its business in France (in terms of net banking income for the financial year ended 31 December 2025), 35% in Europe, 10% in the Americas and 11% in the rest of the world.\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"le premier facteur de risque mentionne explicitement l'instabilite budgetaire francaise comme nouvelle menace ajoutee cette annee, aux cotes des droits de douane americains et du conflit au Moyen-Orient\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025, 4.1.1.1 : \"In France, fiscal adjustment is undermined by the absence of a parliamentary majority and persistent political instability.\" ; \"In the Middle East, the war started at the end of February by Israel and the United States against Iran stopped maritime traffic in the Strait of Hormuz\" ; \"This has resulted in increased tariffs whose long-term effects remain difficult to assess\". Verification du caractere \"nouveau\" : aucun de ces trois elements n'apparait dans le 4.1.1.1 de l'URD FY2024.",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"un manquement peut entrainer, dans les cas extremes, le retrait des agrements bancaires ; ce facteur reste en troisieme position du chapitre (4.1.1.3)\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "URD FY2025, 4.1.1.3 (troisieme facteur du chapitre) ; formulation \"withdrawal of operating licences\" reprise dans data-lake/GLE.PA/risks/extracted.json",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"2,0 Mds EUR de rachats exceptionnels en 2025 (-52 pb de CET1) puis 1,5 Md EUR annonce le 30 juillet 2026 (-39 pb) ; CET1 de 13,5% fin 2025 a 13,2% fin T2-26 ; environ 290 pb au-dessus de l'exigence reglementaire\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP du 30 juillet 2026 : \"rachat d'actions exceptionnel de 1,5 Md EUR (-39 pb de ratio CET1), qui sera lance le 3 aout 2026 au plus tot\" ; \"Ratio CET1 de 13,2% a fin T2-26 apres deduction du rachat d'actions exceptionnel, environ 290 pb au-dessus de l'exigence reglementaire\" ; comparatif CET1 13,5%. kpis-haut GLE.PA : \"Ratio CET1 de 13,5% fin 2025 malgre 2 Mds EUR de rachats d'actions exceptionnels (-52 pb)\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"resultat brut des ventes de vehicules d'occasion ramene a environ 330 EUR/unite ; le pole Mobilite, Banque de detail et Services Financiers a l'International recule de -4,9% a perimetre et change constants ; seule la Banque de detail a l'International progresse (+2,9%)\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP T2-26 : \"le resultat moyen d'environ 330 euros par vehicule s'inscrit dans la fourchette cible de 200 a 600 euros\" ; \"1 872 millions d'euros, en retrait de -4,9% a perimetre et change constants. La Banque de detail a l'International publie des revenus en hausse de +2,9%\"",
+      "correction_proposee": "Nuance omise : le communique precise que les ~330 EUR/unite se situent DANS la fourchette cible de 200 a 600 EUR annoncee par la direction. L'omettre laisse croire a une derive non anticipee."
+    },
+    {
+      "affirmation": "\"PNB Afrique de 1,347 Md EUR en 2025, en baisse de -33,3% sur un an\" (divise par 1,5)",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut GLE.PA : GEO_AF 1.347 Mds EUR, yoy -33.3%, \"PNB Afrique divise par 1,5 en 2025 a 1,35 Md EUR apres les cessions au Maroc, en Guinee et a Madagascar\"",
+      "correction_proposee": null
+    },
+    {
+      "affirmation": "\"RNPG record au S1-26 de 3,5 Mds EUR, ROTE 12,0%, cible de rentabilite 2026 relevee a ~11%\"",
+      "verdict": "CONFORME",
+      "verbatim_source": "CP du 30 juillet 2026 : \"RESULTAT NET PART DU GROUPE RECORD AU S1-26 DE 3,5 MD EUR\" ; \"ROTE de 12,0% au S1-26\" ; \"Cible de rentabilite (ROTE) 2026 rehaussee a ~11%, contre >10% precedemment\"",
+      "correction_proposee": null
+    }
+  ]
+}

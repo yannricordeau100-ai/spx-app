@@ -1,0 +1,78 @@
+{
+  "ticker": "AMKR",
+  "verdict_global": "a_corriger",
+  "controles": [
+    {
+      "affirmation": "hook + argument + quantitatif : \"La dette totale est passee de 1 445,2 M$ au 31 decembre 2025 a 2 727,0 M$ au 30 juin 2026, une hausse de 88,7% en six mois\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q T2-2026, Note 14 : \"We measure the fair value of our debt for disclosure purposes. The following table presents the fair value of our debt:\" — colonnes June 30, 2026 [Fair Value | Carrying Value] et December 31, 2025 [Fair Value | Carrying Value]. Ligne \"Total debt $ 2,727,002 $ 2,485,731 $ 1,459,906 $ 1,445,246\". Note 11 (principal) : total 2,515,751 au 30/06/2026 contre 1,456,171 au 31/12/2025.",
+      "correction_proposee": "2 727,0 M$ est la JUSTE VALEUR au 30/06/2026 ; 1 445,2 M$ est la VALEUR COMPTABLE au 31/12/2025. Les deux bases sont incompatibles. A base constante : valeur comptable 1 445,2 -> 2 485,7 M$, soit +72,0% ; juste valeur 1 459,9 -> 2 727,0 M$, soit +86,8%. Le +88,7% affiche ne correspond a aucune des deux."
+    },
+    {
+      "affirmation": "\"cette dette depasse desormais la tresorerie et les placements court terme disponibles (1 551,9 M$ + 960,3 M$ = 2 512,2 M$), une situation inedite pour une societe historiquement en position de tresorerie nette positive\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q bilan : \"Cash and cash equivalents $ 1,551,890\" ; \"Short-term investments ... 960,272\" (total 2 512,2 M$). Dette totale en valeur comptable au 30/06/2026 : 2 485 731 (Note 14).",
+      "correction_proposee": "En valeur comptable, la dette (2 485,7 M$) reste INFERIEURE a la tresorerie plus placements court terme (2 512,2 M$) : Amkor est encore en tresorerie nette legerement positive au 30 juin 2026. L'affirmation n'est vraie qu'en comparant la juste valeur de la dette a des actifs pris en valeur de bilan. Supprimer ou reecrire : \"la dette a presque rattrape la tresorerie et les placements court terme, effacant la position de tresorerie nette confortable d'avant\"."
+    },
+    {
+      "affirmation": "\"l'essentiel de la hausse vient de l'emission en mai 2026 d'Obligations convertibles a 0% echeance 2031 ET d'un tirage supplementaire de 1 150 M$ de dette a long terme\" ; preuve \"Proceeds from long-term debt 1,150,000\"",
+      "verdict": "FAUX",
+      "verbatim_source": "10-Q Note 11 : \"0.00 % Convertible senior notes, due July 2031 (1) 1,150,000 —\" et \"(1) In May 2026, we issued the 2031 Notes, which included the exercise in full of the option granted to the initial purchasers to purchase up to an additional $ 150 million aggregate principal amount\". Tableau de financement : seule ligne d'emission, \"Proceeds from long-term debt 1,150,000\", en regard de \"Payments of long-term debt ( 80,265 )\". Toutes les autres lignes de dette baissent (Term A Loans 500,000 -> 493,750 ; term loan Coree 150,000 -> 125,000 ; term loans Japon tous en baisse).",
+      "correction_proposee": "Double comptage : les 1 150 M$ de \"Proceeds from long-term debt\" SONT le produit des obligations convertibles 2031. Il n'y a pas de tirage supplementaire ; le reste de la dette a ete rembourse a hauteur de 80,3 M$. Ecrire : \"la hausse vient quasi integralement de l'emission en mai 2026 de 1 150 M$ d'obligations convertibles a 0% echeance juillet 2031\"."
+    },
+    {
+      "affirmation": "\"Amkor a par ailleurs achete en mai 2026 environ 67 acres supplementaires de terrain pour environ 33 M$\"",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-Q : \"In May 2026, we entered into an agreement to purchase approximately 67 additional acres of land for the Arizona Facility for approximately $ 33 million. The transaction is expected to close in the fourth quarter of 2026.\"",
+      "correction_proposee": "Il s'agit d'un accord d'achat signe, dont la realisation est attendue au quatrieme trimestre 2026 : le terrain n'est pas encore acquis. Ecrire : \"a signe en mai 2026 un accord d'achat portant sur environ 67 acres supplementaires pour environ 33 M$, dont la finalisation est attendue au T4 2026\"."
+    },
+    {
+      "affirmation": "FCF S1-2026 de -269,9 M$ contre +63,1 M$ un an plus tot ; capex 688,4 M$ contre 226,1 M$ ; capex 2026 attendu 2,5 a 3,0 Mds$",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q : \"Free cash flow (269,860) 63,080\" ; \"Our capital expenditures totaled $688.4 million for the six months ended June 30, 2026 compared to $226.1 million for the six months ended June 30, 2025\" ; \"We expect that our 2026 capital expenditures will be approximately $2.5 billion to $3.0 billion. The increase from 2025 is primarily due to the construction of the Arizona Facility.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Capex 2026 attendu = 2,8 a 3,3 fois le capex 2025 (904,6 M$), soit 37% a 45% du CA FY2025 (6 708,0 M$) contre 13,5% en 2025",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut/AMKR.json capex FY2025 904,614 M$ ; revenue FY2025 6 707,981 M$. Calculs verifies : 2500/904,6 = 2,76x ; 3000/904,6 = 3,32x ; 2500/6708 = 37,3% ; 3000/6708 = 44,7% ; 904,6/6708 = 13,5%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Resultat net 765,8 M$ en 2022 (marge nette 10,8%) contre 373,9 M$ en 2025 (marge nette 5,6%) ; CA 7 091,6 M$ vs 6 708,0 M$ ; marge brute FY2025 938,6 M$ = 14,0% contre 14,8% en 2024",
+      "verdict": "CONFORME",
+      "verbatim_source": "kpis-haut/AMKR.json : net_income FY2022 765,823 / FY2025 373,895 ; revenue FY2022 7 091,585 / FY2024 6 317,692 / FY2025 6 707,981 ; gross_profit FY2024 933,212 / FY2025 938,599. Ratios recalcules : 10,80% ; 5,57% ; 13,99% ; 14,77%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "T2-2026 : CA +25,6%, marge operationnelle 10,5% contre 6,1% un an plus tot",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q compte de resultat : \"Net sales $ 1,897,965 $ 1,511,392\" (+25,6%) ; T2-2026 resultat operationnel 318 590 - 118 736 = 199 854, soit 10,53% du CA ; T2-2025 181 897 - (47 922 + 42 008) = 91 967, soit 6,09%",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Famille Kim : environ 49,4% du capital au 12 fevrier 2026, contre environ 54% fin 2024",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-K FY2025 : \"As of February 12, 2026, Susan Y. Kim, the Chairman of our Board of Directors and members of the Kim family and affiliates owned approximately 122.1 million shares, or approximately 49.4%, of our outstanding common stock.\" ; 10-K FY2024 : \"As of December 31, 2024 ... approximately 132.1 million shares, or approximately 54%, of our outstanding common stock.\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Dix plus gros clients = 72% du CA 2025, pas de carnet de commandes materiel",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q : \"Our ten largest customers accounted for, in the aggregate, 72% of our net sales for the year ended December 31, 2025.\" ; \"Our packaging and test business does not typically operate with any material backlog\"",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Reglementaire : CHIPS Act jusqu'a 407 M$ conditionne a des jalons, reductible, resiliable ou recuperable",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q : \"In December 2024, the Commerce Department awarded us up to $407 million in direct funding pursuant to the CHIPS Act for the Arizona Facility. This award requires us to achieve construction and production milestones and restricts us from undertaking certain activities.\" ; \"Any awards or incentives we receive could be subject to reduction, termination, or clawback, and any decrease, termination, or clawback of such government awards and incentives could have a material adverse effect\". Note : \"no funds have been received to date\" (Note liquidite), precision utile absente de l'ATT.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Controles a l'export vers la Chine et concentration geographique (Coree, Coree du Nord)",
+      "verdict": "CONFORME",
+      "verbatim_source": "10-Q : \"export rules and regulations applicable to U.S. companies that sell certain semiconductor and chipmaking equipment products to customers in China\" ; \"North Korea's nuclear weapon and long-range missile programs as well as its military actions in the region\"",
+      "correction_proposee": ""
+    }
+  ]
+}

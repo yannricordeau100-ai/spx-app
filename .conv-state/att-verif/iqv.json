@@ -1,0 +1,104 @@
+{
+  "ticker": "IQV",
+  "verdict_global": "a_corriger",
+  "document_verifie": "data-lake/IQV/10Q/IQV_2026-07-28.htm.gz (10-Q T2 2026) ; data-lake/IQV/10Q/IQV_2025-07-22.htm.gz ; data-lake/IQV/10K/IQV_2026-02-17.htm.gz",
+  "controles": [
+    {
+      "affirmation": "Au premier semestre 2026 le chiffre d'affaires progresse de 8,7% mais le benefice net recule de 3,8% sur la meme periode (hook et 1er argument interne)",
+      "verdict": "FAUX",
+      "verbatim_source": "Compte de resultat : Revenues 4,368 / 4,017 (T2) et 8,519 / 7,846 (S1) ; Net income attributable to IQVIA Holdings Inc. $256 / $266 (T2) et $530 / $515 (S1). Recalculs : T2 CA +8,74%, T2 resultat net -3,76% ; S1 CA +8,58%, S1 resultat net +2,91%.",
+      "correction_proposee": "Les deux chiffres ne portent pas sur la meme periode. Sur le semestre le resultat net attribuable AUGMENTE de 2,9% (530 contre 515 M$). Le recul de 3,8% est celui du seul deuxieme trimestre. La preuve du fichier contient d'ailleurs deja les bons chiffres et contredit l'argument. Reecrire en isolant le T2 : 'au deuxieme trimestre 2026 le chiffre d'affaires progresse de 8,7% mais le resultat net recule de 3,8%'."
+    },
+    {
+      "affirmation": "La marge operationnelle baisse de 7,9% et la marge nette de 10,6% au premier semestre 2026",
+      "verdict": "FAUX",
+      "verbatim_source": "Income from operations 506 / 506 (T2) et 1,020 / 1,002 (S1). Recalculs T2 : marge op 11,58% vs 12,60% (-8,1%), marge nette 5,86% vs 6,62% (-11,5%). Recalculs S1 : marge op 11,97% vs 12,77% (-6,2%), marge nette 6,22% vs 6,56% (-5,2%).",
+      "correction_proposee": "Ce sont des variations du deuxieme trimestre, presentees comme semestrielles. Sur le semestre les reculs sont de 6,2% (marge op) et 5,2% (marge nette). Preciser la periode."
+    },
+    {
+      "affirmation": "Le benefice par action dilue reste quasiment stable, avec un tres leger recul, sur le premier semestre",
+      "verdict": "FAUX",
+      "verbatim_source": "Diluted EPS $1.53 / $1.54 (T2) et $3.14 / $2.94 (S1).",
+      "correction_proposee": "Sur le semestre le BPA dilue progresse de 6,8% (3,14 contre 2,94 $). La quasi-stabilite concerne le seul T2 (1,53 contre 1,54 $)."
+    },
+    {
+      "affirmation": "398 M$ de rachats d'actions sur la periode",
+      "verdict": "FAUX",
+      "verbatim_source": "Flux de tresorerie : Repurchase of common stock (950) (S1 2026) contre (1,032) (S1 2025). Note 9 : 'During the six months ended June 30, 2026, the Company repurchased 5.5 million shares of its common stock for $950 million under the Repurchase Program.' Etat des capitaux propres : 557 M$ au T1 2026 et 402 M$ au T2 2026 (nets d'impot).",
+      "correction_proposee": "Le montant du semestre est de 950 M$ (5,5 millions d'actions). Aucun poste du 10-Q n'est egal a 398 M$ ; le chiffre le plus proche est 402 M$, montant du seul T2 net d'impot. Remplacer par 950 M$."
+    },
+    {
+      "affirmation": "Le 10-Q evoque explicitement une annee d'incertitude macroeconomique qui a ralenti la prise de decision des clients pharmaceutiques et biotechs",
+      "verdict": "INTROUVABLE",
+      "verbatim_source": "Le mot 'macro' n'apparait pas une seule fois dans le 10-Q T2 2026 (0 occurrence). Le passage existe dans le 10-K FY2025 depose le 17 fevrier 2026 : 'We delivered solid results in 2025, navigating a year of industry uncertainty resulting from a variety of macroeconomic factors that together slowed customer decision-making.' La citation d'appui du fichier v2-pipeline ('We help our global customers across payers, providers, governments, and biopharmaceutical companies to answer critical') ne soutient pas l'affirmation.",
+      "correction_proposee": "Rattacher l'affirmation au 10-K FY2025 et non au 10-Q T2 2026, et reprendre la formulation exacte : 'une annee d'incertitude sectorielle resultant de divers facteurs macroeconomiques qui ont ensemble ralenti la prise de decision des clients', au passe et sur 2025."
+    },
+    {
+      "affirmation": "52,5% du chiffre d'affaires hors Ameriques, presente sous le titre 'Un tiers des revenus depend de la conversion de devises etrangeres'",
+      "verdict": "EXAGERE",
+      "verbatim_source": "10-K FY2025 : Americas $7,745 / Europe and Africa $5,185 / Asia-Pacific $3,380 / Total $16,310, soit 47,5% / 31,8% / 20,7% (repartition CONFORME). Mais : 'In 2025, approximately 30% of our revenues were denominated in currencies other than the United States dollar, which represents approximately 60 currencies.'",
+      "correction_proposee": "La zone geographique n'est pas la devise : les Ameriques hors Etats-Unis et une partie des autres regions facturent en dollar. L'exposition change reelle publiee par IQVIA est d'environ 30% des revenus. Le titre ('un tiers') est correct, c'est le corps de l'argument qui presente a tort les 52,5% comme une dependance au change. Aligner les deux sur 30%."
+    },
+    {
+      "affirmation": "Backlog RDS de 34,0 Mds$ au 31 decembre 2025 a 34,2 Mds$ au 30 juin 2026, dont 9,2 Mds$ attendus en revenus sur douze mois",
+      "verdict": "CONFORME",
+      "verbatim_source": "Research & Development Solutions' contracted backlog increased from $34.0 billion (recast amount to reflect segment changes noted above) as of December 31, 2025 to $34.2 billion as of June 30, 2026, and we expect approximately $9.2 billion of this backlog to convert to revenues in the next twelve months.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Les revenus du segment RDS progressent de 7,5% sur six mois (argument interne) / bondissent de 8,8% (resume)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Research & Development Solutions' revenues were $2,575 million for the second quarter of 2026, an increase of $209 million, or 8.8%. / Research & Development Solutions' revenues were $4,972 million for the first six months of 2026, an increase of $349 million, or 7.5%.",
+      "correction_proposee": "Les deux chiffres existent mais ne portent pas sur la meme periode. Le resume utilise le +8,8% du T2 face a une variation de backlog semestrielle. Harmoniser sur +7,5% (six mois) pour rester comparable au backlog."
+    },
+    {
+      "affirmation": "Dette totale 16,08 Mds$ (+3,3% sur un an) pour 1,91 Md$ de tresorerie (-6,4%), soit un ratio de 8,4x",
+      "verdict": "CONFORME",
+      "verbatim_source": "Note dette : 'Principal amount of debt 16,081 / 15,800' au 30 juin 2026 et 31 decembre 2025 ; 10-Q T2 2025 : 'Principal amount of debt 15,573' au 30 juin 2025 (+3,26%). Tresorerie : 'Cash and cash equivalents at end of period $1,909 / $2,039' (-6,4%). Recalcul : 16 081/1 909 = 8,42x.",
+      "correction_proposee": "Le champ preuve du fichier additionne 2 294 + 13 705 = 15 999 M$ (valeur nette des frais d'emission) alors que le corps annonce 16,08 Mds$ (principal). Les deux sont exacts mais devraient etre coherents : citer le principal de 16 081 M$."
+    },
+    {
+      "affirmation": "Charge d'interets nette de 372 M$ sur six mois, 389 M$ d'interets payes contre 347 M$ un an plus tot",
+      "verdict": "EXAGERE",
+      "verbatim_source": "Interest income (17) / (21) ; Interest expense 389 / 347 (six mois 2026 / 2025).",
+      "correction_proposee": "389 M$ est la CHARGE d'interets, pas les interets payes (notion de tresorerie differente). Et la comparaison melange un net (372) et un brut (347) : le net comparable de 2025 est 326 M$. Ecrire : 'charge d'interets de 389 M$ contre 347 M$, soit 372 M$ nets des produits d'interets contre 326 M$'."
+    },
+    {
+      "affirmation": "Goodwill de 16,6 Mds$, 55,5% du bilan de 29,9 Mds$, 2,6 fois les capitaux propres de 6,3 Mds$ ; test de depreciation au T1 2026 sans depreciation",
+      "verdict": "CONFORME",
+      "verbatim_source": "Goodwill 16,604 / Total liabilities and stockholders' equity $29,881 / Total stockholders' equity 6,301. Note 4 : 'the Company performed a goodwill impairment test, and the results of the analysis indicated that the fair values for all of its reporting units were in excess of their carrying values, indicating no impairment.' Recalcul : 55,6% et 2,63x.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Capitaux propres attribuables de 6 503 a 6 171 M$ en six mois ; treasury stock de 11 357 a 12 316 M$",
+      "verdict": "CONFORME",
+      "verbatim_source": "Equity attributable to IQVIA Holdings Inc.'s stockholders 6,171 / 6,503 ; Treasury stock, at cost (12,316) / (11,357).",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Perte de conversion de change de 42 M$ nette d'impots au S1 2026 contre un gain de 181 M$ un an plus tot",
+      "verdict": "CONFORME",
+      "verbatim_source": "Foreign currency translation, net of income tax expense (benefit) : (42) au S1 2026 et 181 au S1 2025.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "Couts de restructuration de 32 a 63 M$ au T2 (+97%)",
+      "verdict": "CONFORME",
+      "verbatim_source": "Restructuring costs 63 / 32 (T2) et 114 / 61 (S1). Recalcul : +96,9%.",
+      "correction_proposee": ""
+    },
+    {
+      "affirmation": "La majorite des contrats clients peuvent etre resilies a court preavis",
+      "verdict": "CONFORME",
+      "verbatim_source": "most of our contracts may be terminated on short notice, and we may lose or experience delays with large client contracts or be unable to enter into new contracts.",
+      "correction_proposee": "Le passage figure dans la liste des facteurs de risque des declarations prospectives, pas dans le MD&A comme indique dans le champ preuve."
+    },
+    {
+      "affirmation": "Book-to-bill RDS de 1,04x au T1 2026",
+      "verdict": "CONFORME",
+      "verbatim_source": "Non present dans le 10-Q. Valeur retrouvee dans .batches-drafts-safe/kpis-haut/IQV.json : {'short': 'Book-to-bill', 'value': 1.04, 'history': [... {'q': 'Q1-2026', 'v': 1.04}]}, source correctement citee par l'ATT.",
+      "correction_proposee": "Donnee du T1 2026 dans une ATT arretee au 28 juillet 2026, alors que le 10-Q T2 est disponible. Signaler la periode ou actualiser."
+    }
+  ],
+  "note": "Defaut systemique : melange de chiffres trimestriels et semestriels presentes comme semestriels, qui inverse le sens de trois affirmations (resultat net, marges, BPA). Plus une erreur de montant sur les rachats d'actions et une misattribution de source sur l'incertitude macroeconomique."
+}
