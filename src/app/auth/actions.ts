@@ -74,8 +74,11 @@ function safeNextParam(raw: FormDataEntryValue | null): string {
   // une page protégée précise (l'user avait cliqué sur /googl avant de
   // se connecter), on l'y envoie directement.
   if (typeof raw !== "string" || !raw) return "/";
-  if (!raw.startsWith("/") || raw.startsWith("//")) return "/";
-  return raw;
+  // Audit 2 sept 2026 : l antislash est normalise ("/\\evil.com" devient
+  // "//evil.com" et est rejete), /api et /auth exclus.
+  const n = raw.replace(/\\/g, "/");
+  if (!n.startsWith("/") || n.startsWith("//") || /^\/(api|auth)(\/|$)/.test(n)) return "/";
+  return n;
 }
 
 export async function signInWithPassword(formData: FormData) {

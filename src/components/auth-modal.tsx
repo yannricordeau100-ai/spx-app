@@ -169,13 +169,14 @@ export function AuthModal() {
       // visiteur connecte depuis /aapl retombait sur la home.
       void isStaging;
       let target = "/";
+      const nextNorm = (nextParam ?? "").replace(/\\/g, "/"); // antislash normalise (open redirect)
       if (
-        nextParam &&
-        nextParam.startsWith("/") &&
-        !nextParam.startsWith("//") &&
-        !/^\/(api|auth)\//.test(nextParam)
+        nextNorm &&
+        nextNorm.startsWith("/") &&
+        !nextNorm.startsWith("//") &&
+        !/^\/(api|auth)(\/|$)/.test(nextNorm)
       ) {
-        target = nextParam;
+        target = nextNorm;
       }
       // Yann 20 mai 2026 14h : retiré setTimeout 200ms.
       // Supabase v2 JS a déjà committé le cookie session avant que la promesse

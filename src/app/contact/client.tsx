@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { TurnstileWidget } from "@/components/turnstile-widget";
 import { motion } from "motion/react";
 import { Send, Lock } from "lucide-react";
 import type { Locale } from "@/lib/i18n/types";
@@ -38,13 +39,18 @@ export function ContactClient({ locale, strings }: { locale: Locale; strings: St
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    // Audit 2 sept 2026 : le jeton anti-robot n etait jamais envoye, le
+    // serveur refusait 100 % des messages (400 no_token). Le widget pose un
+    // champ cache "cf-turnstile-response" dans le formulaire.
+    const captchaToken =
+      (e.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? "";
     setBusy(true);
     setErr(null);
     try {
       const r = await fetch("/api/contact", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ recipient, name, email, subject, body, locale }),
+        body: JSON.stringify({ recipient, name, email, subject, body, locale, captchaToken }),
       });
       if (!r.ok) {
         setErr(strings.error);
@@ -180,6 +186,7 @@ export function ContactClient({ locale, strings }: { locale: Locale; strings: St
           {busy ? strings.sending : strings.submit}
         </button>
       </div>
+          <TurnstileWidget />
     </form>
   );
 }

@@ -22,8 +22,7 @@ import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import V19_UNIVERSE from "@/data/v1-9-universe.json";
 
-export const dynamic = "force-static";
-export const revalidate = 3600;
+export const dynamic = "force-dynamic"; // audit 2 sept 2026 : garde auth (cookies) incompatible avec le statique
 
 type V19Entry = {
   ticker: string;

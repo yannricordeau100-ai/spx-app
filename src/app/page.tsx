@@ -26,8 +26,9 @@ const IS_STAGING =
 
 function safeNextParam(raw: string | string[] | undefined): string | null {
   if (typeof raw !== "string" || !raw) return null;
-  if (!raw.startsWith("/") || raw.startsWith("//")) return null;
-  return raw;
+  const n = raw.replace(/\\/g, "/"); // audit 2 sept 2026 : antislash normalise
+  if (!n.startsWith("/") || n.startsWith("//") || /^\/(api|auth)(\/|$)/.test(n)) return null;
+  return n;
 }
 
 export const metadata = {

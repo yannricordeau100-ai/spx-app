@@ -19,8 +19,7 @@ import V17_SORTED from "@/data/v1-7-tickers-sorted.json";
 import fs from "node:fs"; import path from "node:path"; const MERGED = JSON.parse(fs.readFileSync(path.join(process.cwd(), "src/data/v2-pipeline/_merged.json"), "utf-8"));
 import type { Company } from "@/lib/data";
 
-export const dynamic = "force-static";
-export const revalidate = 3600; // 1 h
+export const dynamic = "force-dynamic"; // audit 2 sept 2026 : garde auth (cookies) incompatible avec le statique
 
 function csvEscape(v: unknown): string {
   if (v === null || v === undefined) return "";

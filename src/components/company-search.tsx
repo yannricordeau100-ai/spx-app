@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 /** Audit 2 sept 2026 : "hermes", "loreal", "societe generale" doivent trouver
  *  Hermès, L'Oréal, Société Générale. Minuscules + accents retires. */
 function pliAccents(v: string): string {
-  return v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  return v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/['’`]/g, "").toLowerCase();
 }
 
 /**

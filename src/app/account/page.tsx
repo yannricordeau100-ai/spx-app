@@ -12,6 +12,7 @@ import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { SignOutButton } from "@/components/account/signout-button";
+import { estCompteInterne } from "@/lib/freemium/tier-serveur";
 
 export const dynamic = "force-dynamic";
 
@@ -32,7 +33,10 @@ export default async function AccountPage({
   // Audit 2 sept 2026 : plan reel affiche (table subscriptions, alimentee par Stripe).
   let planLabel = "Gratuit";
   let planDetail = "Indicateur principal visible, analyses détaillées floutées";
-  try {
+  if (estCompteInterne(user.email)) {
+    planLabel = "Max";
+    planDetail = "Compte interne : accès complet";
+  } else try {
     const { data: abo } = await supabase
       .from("subscriptions")
       .select("plan,status,current_period_end,cancel_at_period_end")

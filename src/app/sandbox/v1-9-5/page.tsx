@@ -111,8 +111,11 @@ export default async function SandboxV195HubPage() {
   // ET dédup les doublons multi-classes via TICKER_DEDUP_ALIASES.
   // Audit 2 sept 2026 : la recherche couvre TOUT l univers en ligne (666),
   // pas seulement les 459 fiches du dataset strict affichees en cartes.
+  const listeEnLigne = JSON.parse(
+    await fs.readFile(path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json"), "utf8"),
+  ) as { tickers: string[] };
   const vus = new Set<string>();
-  const tickersRecherche = allCleanTickers.filter((t) => {
+  const tickersRecherche = listeEnLigne.tickers.map((t) => t.toUpperCase()).filter((t) => {
     const up = t.toUpperCase();
     const canonical = TICKER_DEDUP_ALIASES[up] ?? up;
     if (vus.has(canonical)) return false;
@@ -179,7 +182,7 @@ export default async function SandboxV195HubPage() {
             ★ Premium · à partir de 0,68 €/jour
           </span>
           <h2 className="mt-4 font-display text-[28px] font-bold tracking-tight text-zinc-50 sm:text-[34px]">
-            Toutes les fiches sont ouvertes en gratuit. Débloque les analyses détaillées des {allCleanTickers.length} sociétés.
+            Toutes les fiches sont ouvertes en gratuit. Débloque les analyses détaillées des {tickersRecherche.length} sociétés.
           </h2>
           <p className="mt-3 text-[14px] leading-relaxed text-zinc-400">
             Le tarif annuel revient à moins d'un café par jour. 30 secondes pour souscrire,
