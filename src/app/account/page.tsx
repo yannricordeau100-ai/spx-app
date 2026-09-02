@@ -18,7 +18,7 @@ export const dynamic = "force-dynamic";
 export default async function AccountPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; info?: string }>;
+  searchParams: Promise<{ error?: string; info?: string; billing?: string }>;
 }) {
   const supabase = await createSupabaseServerClient();
   const {
@@ -29,6 +29,29 @@ export default async function AccountPage({
   const locale = await getServerLocale();
   const t = (k: string) => translate(k, locale);
   const sp = await searchParams;
+  // Audit 2 sept 2026 : plan reel affiche (table subscriptions, alimentee par Stripe).
+  let planLabel = "Gratuit";
+  let planDetail = "Indicateur principal visible, analyses détaillées floutées";
+  try {
+    const { data: abo } = await supabase
+      .from("subscriptions")
+      .select("plan,status,current_period_end,cancel_at_period_end")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    const actif = abo && ["active", "trialing", "past_due"].includes(abo.status ?? "");
+    if (actif) {
+      const p = String(abo!.plan ?? "");
+      planLabel = p.startsWith("max") ? "Max" : p.startsWith("premium") ? "Premium" : "Gratuit";
+      const fin = abo!.current_period_end
+        ? new Date(abo!.current_period_end).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
+        : null;
+      planDetail = abo!.status === "past_due"
+        ? "Paiement en attente : mets à jour ta carte pour conserver l'accès"
+        : abo!.cancel_at_period_end && fin
+          ? `Résilié, accès conservé jusqu'au ${fin}`
+          : fin ? `${p.endsWith("yearly") ? "Annuel" : "Mensuel"}, prochaine échéance le ${fin}` : "Actif";
+    }
+  } catch { /* table absente : on reste sur Gratuit */ }
   const provider = (user.app_metadata?.provider as string | undefined) ?? "email";
   const isOAuth = provider !== "email";
   const created = user.created_at
@@ -37,7 +60,7 @@ export default async function AccountPage({
         month: "long",
         year: "numeric",
       })
-    : "—";
+    : "";
 
   return (
     <>
@@ -64,6 +87,11 @@ export default async function AccountPage({
         {sp.error && (
           <div className="mt-4 rounded-lg border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-[13.5px] text-rose-200">
             {sp.error}
+          </div>
+        )}
+        {sp.billing === "success" && (
+          <div className="mt-4 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-[13.5px] text-emerald-200">
+            Paiement confirmé : merci ! Ton accès complet est actif. Si une fiche apparaît encore floutée, recharge la page.
           </div>
         )}
         {sp.info && (
@@ -118,11 +146,14 @@ export default async function AccountPage({
               <CreditCard className="size-4" />
             </span>
             <div>
-              <div className="text-[14px] font-semibold text-zinc-50">
+              <div className="flex flex-wrap items-center gap-2 text-[14px] font-semibold text-zinc-50">
                 Facturation et abonnement
+                <span className="rounded-full border border-violet-400/40 bg-violet-500/10 px-2 py-0.5 font-mono text-[10.5px] uppercase tracking-wider text-violet-200">
+                  Plan {planLabel}
+                </span>
               </div>
               <div className="text-[11.5px] text-zinc-400">
-                Changer de plan, télécharger les factures, mettre à jour la carte
+                {planDetail}. Changer de plan, télécharger les factures, mettre à jour la carte.
               </div>
             </div>
           </a>

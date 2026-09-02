@@ -509,7 +509,7 @@ npx tsc --noEmit -p tsconfig.json 2>&1 | head -20
 
 ### Translate via Groq Llama 3.3 70B free
 
-- Clé dans `.env.local` : `GROQ_API_KEY=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`
+- Clé dans `.env.local` : `GROQ_API_KEY=gsk_[CLE_RETIREE_2sept2026]`
 - Script de référence : `/tmp/translate-findings.py` (existant dans cette session — à rejouer si besoin)
 
 ---

@@ -21,6 +21,7 @@ import {
   type EffectiveTier,
 } from "@/lib/desk/effective-tier-shared";
 import type { UserTier } from "./context";
+import { tierDepuisAbonnement } from "./tier-serveur";
 
 export async function getServerFreemiumTier(): Promise<UserTier> {
   // 1. Cookie simulate (override admin)
@@ -40,7 +41,7 @@ export async function getServerFreemiumTier(): Promise<UserTier> {
     const sb = await createSupabaseServerClient();
     const { data: { user } } = await sb.auth.getUser();
     if (user?.email === DESK_OWNER_EMAIL) return "max";
-    if (user) return "free"; // user connecté non-admin = free par défaut (V2 : lire subscription)
+    if (user) return await tierDepuisAbonnement(user); // palier reel (abonnement Stripe), sinon free
   } catch {
     // ignore
   }

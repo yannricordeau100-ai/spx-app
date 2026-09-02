@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, CreditCard } from "lucide-react";
 import { PLANS } from "@/lib/billing/stripe";
 import { BillingTestClient } from "./client";
+import { requireDeskOwner } from "@/lib/desk/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +11,8 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function SandboxBillingPage() {
+export default async function SandboxBillingPage() {
+  await requireDeskOwner(); // audit 2 sept 2026 : outil interne (prix legacy, champ Price ID libre)
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100">
       <div className="border-b border-white/8 px-6 py-3.5">

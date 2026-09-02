@@ -21,6 +21,7 @@ import { chargeZonesFloutage } from "@/lib/desk/floutage-zones";
 import { gateAttForTier } from "@/lib/att";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
 
 /** Visibilité V1.9.5 : la liste clean-all fait foi (mêmes variantes de
  *  séparateur que le loader V1.9.5 : BRK.B / BRK-B). */
@@ -93,7 +94,7 @@ async function resolveFreemiumTier(): Promise<UserTier> {
     const {
       data: { user },
     } = await sb.auth.getUser();
-    return user ? "max" : "anon";
+    return user ? await tierDepuisAbonnement(user) : "anon";
   } catch {
     return "anon";
   }
@@ -180,13 +181,19 @@ export default async function TickerPage({
   const transcript = await loadTranscript(ticker);
 
   if (r.kind !== "ready") {
+    // Audit 2 sept 2026 : le repli legacy passe par le meme palier et le
+    // meme fournisseur de floutage que le chemin principal.
+    const tierRepli = await resolveFreemiumTier();
     return (
       <>
-        <CompanyView
-          company={legacyCompany}
-          authSlot={<AuthNav scope="company" />}
-          transcript={transcript}
-        />
+        <FreemiumBlurProvider tier={tierRepli}>
+          <CompanyView
+            company={legacyCompany}
+            authSlot={<AuthNav scope="company" />}
+            transcript={tierRepli === "free" || tierRepli === "anon" ? null : transcript}
+            freemiumTier={tierRepli}
+          />
+        </FreemiumBlurProvider>
         <DisclaimerFooter />
       </>
     );

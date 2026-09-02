@@ -4,6 +4,12 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+/** Audit 2 sept 2026 : "hermes", "loreal", "societe generale" doivent trouver
+ *  Hermès, L'Oréal, Société Générale. Minuscules + accents retires. */
+function pliAccents(v: string): string {
+  return v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
 /**
  * Yann (26 mai 2026) : URL canonique de la DERNIÈRE version app pour
  * toute recherche. Centralisé ici → quand on passera à V2.0, V2.5, etc.
@@ -260,7 +266,7 @@ export function CompanySearch({
   const results = useMemo<
     { ticker: string; source: "v1" | "v17" | "v19"; score: number }[]
   >(() => {
-    const q = query.trim().toLowerCase();
+    const q = pliAccents(query.trim());
     // Yann (5 juin 2026) : règle anti-bruit (cf bug "Alibaba apparait partout").
     // Si la query fait < 3 caractères, on NE matche PAS via name.includes()
     // car "ali" matcherait Alibaba sur des recherches non pertinentes. Seul
@@ -288,14 +294,14 @@ export function CompanySearch({
       aliases: string[],
     ): number => {
       if (!q) return 1;
-      const tk = ticker.toLowerCase();
-      const nm = name.toLowerCase();
-      const sc = sector.toLowerCase();
-      const ss = subsector.toLowerCase();
+      const tk = pliAccents(ticker);
+      const nm = pliAccents(name);
+      const sc = pliAccents(sector);
+      const ss = pliAccents(subsector);
       if (tk === q) return 1000;
       if (tk.startsWith(q)) return 800;
       for (const a of aliases) {
-        const al = a.toLowerCase();
+        const al = pliAccents(a);
         if (al === q) return 600;
         if (al.startsWith(q)) return 500;
       }

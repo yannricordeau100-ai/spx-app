@@ -2,6 +2,26 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  // Audit securite 2 sept 2026 : en-tetes de protection (clickjacking, MIME
+  // sniffing, fuite de referer, API navigateur inutiles). Pas de CSP stricte
+  // pour l instant (Stripe, Supabase, polices, scripts inline Next) : une CSP
+  // cassee bloquerait le paiement ; frame-ancestors suffit contre l iframe.
+  poweredByHeader: false,
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(self \"https://js.stripe.com\" \"https://checkout.stripe.com\")" },
+          { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
+          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+        ],
+      },
+    ];
+  },
   turbopack: {
     // Force workspace root to this app, otherwise Turbopack picks up
     // /Users/yann/package-lock.json and resolves modules at the wrong level.

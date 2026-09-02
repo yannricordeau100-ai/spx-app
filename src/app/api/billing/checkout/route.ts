@@ -127,27 +127,41 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: `Code promo : ${promoError}` }, { status: 400 });
     }
 
-    // Cherche un customer existant pour ne pas en créer 2.
+    // Liste blanche (audit 2 sept 2026) : seul un prix actif de la grille
+    // publique est acceptable (20 anciens prix restent actifs chez Stripe).
+    const { data: prixOk } = await supabase
+      .from("pricing_prices")
+      .select("stripe_price_id")
+      .eq("stripe_price_id", priceId)
+      .eq("is_active", true)
+      .maybeSingle();
+    if (!prixOk) {
+      return NextResponse.json({ error: "Tarif inconnu ou plus proposé" }, { status: 400 });
+    }
+
+    // Cherche un customer existant pour ne pas en créer 2, et refuse un
+    // second abonnement si un est deja actif (gestion via le portail).
     let customerId: string | undefined;
     const { data: sub } = await supabase
       .from("subscriptions")
-      .select("stripe_customer_id")
+      .select("stripe_customer_id,status")
       .eq("user_id", user.id)
       .maybeSingle();
     if (sub?.stripe_customer_id) {
       customerId = sub.stripe_customer_id;
     }
+    if (sub && ["active", "trialing", "past_due"].includes(sub.status ?? "")) {
+      return NextResponse.json(
+        { error: "Tu as déjà un abonnement actif : change de plan depuis Mon compte > Facturation.", portal: "/api/billing/portal" },
+        { status: 409 },
+      );
+    }
 
     const origin = req.nextUrl.origin;
-    // Méthodes de paiement par devise : Stripe limite certaines selon currency.
-    // Card + PayPal partout. SEPA + Klarna seulement sur EUR. Bancontact/iDEAL
-    // auto-affichées par Stripe selon pays browser.
-    const paymentMethods: ("card" | "paypal" | "sepa_debit" | "klarna")[] = ["card", "paypal"];
-    if (currency === "eur") {
-      paymentMethods.push("sepa_debit", "klarna");
-    } else if (currency === "sek" || currency === "dkk") {
-      paymentMethods.push("klarna");
-    }
+    // Audit 2 sept 2026 : les methodes de paiement suivent la configuration
+    // du Dashboard Stripe (PayPal / SEPA n y etaient pas actives et faisaient
+    // echouer TOUTES les sessions : "payment method type provided: paypal is
+    // invalid"). Ne plus forcer payment_method_types.
 
     const session = await stripe.checkout.sessions.create({
       mode: body.mode ?? "subscription",
@@ -155,7 +169,6 @@ export async function POST(req: NextRequest) {
       customer_email: customerId ? undefined : user.email,
       client_reference_id: user.id,
       line_items: [{ price: priceId, quantity: 1 }],
-      payment_method_types: paymentMethods,
       // Stripe Tax gère TVA EU/UK/CH/CA automatiquement si activé dashboard.
       automatic_tax: { enabled: true },
       // Locale auto Stripe : se base sur Accept-Language du browser, fallback EN.

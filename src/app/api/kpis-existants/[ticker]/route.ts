@@ -8,6 +8,7 @@
  * uniquement short, noms, unite, cadence et profondeur d historique.
  */
 import { NextResponse } from "next/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
@@ -27,6 +28,14 @@ export async function GET(
   _req: Request,
   { params }: { params: Promise<{ ticker: string }> },
 ) {
+  // Audit 2 sept 2026 : dataset coeur de valeur, reserve aux comptes connectes.
+  try {
+    const sb = await createSupabaseServerClient();
+    const { data: { user } } = await sb.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Connexion requise" }, { status: 401 });
+  } catch {
+    return NextResponse.json({ error: "Connexion requise" }, { status: 401 });
+  }
   const { ticker } = await params;
   const t = String(ticker || "").toUpperCase().replace(/[^A-Z0-9.\-]/g, "");
   if (!t) return NextResponse.json({ error: "ticker requis" }, { status: 400 });

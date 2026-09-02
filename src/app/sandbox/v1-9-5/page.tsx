@@ -22,7 +22,8 @@ import V17_PUBLIC from "@/data/v1-7-public.json";
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
 export const metadata = {
-  title: "V1.9.5 · Stés validées qualité · Mettrik AI",
+  title: "Mettrik AI · KPI Intelligence : les indicateurs qui comptent pour 666 sociétés",
+  alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai" },
   robots: { index: false, follow: false },
 };
 
@@ -108,6 +109,16 @@ export default async function SandboxV195HubPage() {
   const allCleanTickers = await loadCleanAllTickers();
   // Garde uniquement les tickers présents aussi dans le dataset Pass 3 strict
   // ET dédup les doublons multi-classes via TICKER_DEDUP_ALIASES.
+  // Audit 2 sept 2026 : la recherche couvre TOUT l univers en ligne (666),
+  // pas seulement les 459 fiches du dataset strict affichees en cartes.
+  const vus = new Set<string>();
+  const tickersRecherche = allCleanTickers.filter((t) => {
+    const up = t.toUpperCase();
+    const canonical = TICKER_DEDUP_ALIASES[up] ?? up;
+    if (vus.has(canonical)) return false;
+    vus.add(canonical);
+    return true;
+  });
   const seen = new Set<string>();
   const tickers = allCleanTickers.filter((t) => {
     const up = t.toUpperCase();
@@ -144,10 +155,10 @@ export default async function SandboxV195HubPage() {
         tickers={tickers}
         showFAQ={false}
         routePrefix="/sandbox/v1-9-5"
-        searchScope={{ tickers, total: tickers.length }}
+        searchScope={{ tickers: tickersRecherche, total: tickersRecherche.length }}
         topNavLinks={[
-          { label: pricingLabel, href: "/sandbox/v1-8/pricing" },
-          { label: contactLabel, href: "/sandbox/v1-8/contact" },
+          { label: pricingLabel, href: "/pricing" },
+          { label: contactLabel, href: "/contact" },
         ]}
         requireSignupGate={!isAuthed}
         gatePath="/sandbox/v1-9-5"
@@ -168,7 +179,7 @@ export default async function SandboxV195HubPage() {
             ★ Premium · à partir de 0,68 €/jour
           </span>
           <h2 className="mt-4 font-display text-[28px] font-bold tracking-tight text-zinc-50 sm:text-[34px]">
-            Tu utilises déjà 2 sociétés en gratuit. Débloque les {tickers.length > 2 ? tickers.length - 2 : tickers.length} autres.
+            Toutes les fiches sont ouvertes en gratuit. Débloque les analyses détaillées des {allCleanTickers.length} sociétés.
           </h2>
           <p className="mt-3 text-[14px] leading-relaxed text-zinc-400">
             Le tarif annuel revient à moins d'un café par jour. 30 secondes pour souscrire,
@@ -190,7 +201,7 @@ export default async function SandboxV195HubPage() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-[12.5px]">
           <SignupGateOverlay enabled={!isAuthed} gatePath="/sandbox/v1-9-5" initialAuthed={isAuthed}>
             <Link
-              href="/sandbox/v1-8/pricing"
+              href="/pricing"
               data-pricing-cta="v195_home_see_full"
               className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/[0.08] px-3.5 py-2 font-semibold text-violet-100 hover:bg-violet-500/15"
             >
@@ -200,7 +211,7 @@ export default async function SandboxV195HubPage() {
           </SignupGateOverlay>
           <SignupGateOverlay enabled={!isAuthed} gatePath="/sandbox/v1-9-5" initialAuthed={isAuthed}>
             <Link
-              href="/sandbox/v1-8/contact"
+              href="/contact"
               className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3.5 py-2 font-semibold text-zinc-200 hover:bg-white/[0.07]"
             >
               <Mail className="size-3.5" />

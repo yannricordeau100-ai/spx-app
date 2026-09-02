@@ -7,6 +7,7 @@
  * deja. Volontairement compact : ticker -> liste des noms de KPI.
  */
 import { NextResponse } from "next/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
@@ -23,6 +24,14 @@ async function lit(p: string): Promise<Record<string, unknown> | null> {
 }
 
 export async function GET() {
+  // Audit 2 sept 2026 : dataset coeur de valeur, reserve aux comptes connectes.
+  try {
+    const sb = await createSupabaseServerClient();
+    const { data: { user } } = await sb.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Connexion requise" }, { status: 401 });
+  } catch {
+    return NextResponse.json({ error: "Connexion requise" }, { status: 401 });
+  }
   const uni = await lit(
     path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json"),
   );

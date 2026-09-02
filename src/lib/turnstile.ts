@@ -45,6 +45,10 @@ export async function verifyTurnstileToken(
   // Yann 13 mai 2026 : RE-STRICT. Refus si pas de token (= bot ou widget
   // bloqué). Le widget côté client gère son propre fallback "Captcha
   // indisponible. Recharge la page" en cas de souci CF.
+  // Audit 2 sept 2026 : sans cle Turnstile configuree en prod, le widget
+  // n est pas monte et AUCUN envoi ne passait (400 no_token, formulaire mort).
+  // Sans cle : on laisse passer (anti-spam = validation serveur + rate Resend).
+  if (!process.env.TURNSTILE_SECRET_KEY) return { ok: true };
   if (!token || typeof token !== "string") {
     return { ok: false, reason: "no_token" };
   }

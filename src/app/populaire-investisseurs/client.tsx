@@ -273,7 +273,7 @@ export function PopulaireClient({
         <div className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
             <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/[0.08] px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-violet-200">
-              <TrendingUp className="size-3" /> Live · 3 mois glissants
+              <TrendingUp className="size-3" /> Consultations sur 3 mois
             </div>
             <h1 className="font-display text-[32px] font-bold leading-tight tracking-tight text-zinc-50 sm:text-[40px]">
               {labels.title}

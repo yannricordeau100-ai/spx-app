@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { HomeView } from "@/components/home-view";
+import SandboxV195HubPage from "@/app/sandbox/v1-9-5/page";
 import { AuthNav } from "@/components/auth-nav";
 import { AuthModal } from "@/components/auth-modal";
 import { AuthRequiredBanner } from "@/components/auth-required-banner";
@@ -28,6 +29,13 @@ function safeNextParam(raw: string | string[] | undefined): string | null {
   if (!raw.startsWith("/") || raw.startsWith("//")) return null;
   return raw;
 }
+
+export const metadata = {
+  title: "Mettrik AI · KPI Intelligence : les indicateurs qui comptent pour 666 sociétés",
+  description: "Les KPI opérationnels des 666 sociétés du S&P 500, CAC 40, DAX 40, AEX 25, SMI et SOX : abonnés, volumes, marges par activité, risques, gouvernance et synthèses de résultats, extraits des rapports officiels.",
+  alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai" },
+  robots: { index: true, follow: true },
+};
 
 export default async function HomePage({
   searchParams,
@@ -71,8 +79,13 @@ export default async function HomePage({
   // re-redirect vers /sandbox/v1-9-5?auth=signin → boucle infinie → ERR_TOO_MANY_REDIRECTS
   // (= ce que Yann voit comme un "404" dans Safari).
   // On laisse tomber sur le rendu HomeView + AuthModal ci-dessous.
+  // Audit lancement 2 sept 2026 : mettrik.ai est le MEME deploiement que
+  // niveau2 (branche staging), donc cette redirection envoyait AUSSI les
+  // visiteurs de mettrik.ai vers /sandbox/v1-9-5 (noindex, interdit aux
+  // robots, titre interne). On rend le hub ICI, l URL reste "/" et la page
+  // est indexable avec les metadonnees publiques ci-dessus.
   if (IS_STAGING && !wantsAuth && !sp.error && !sp.info) {
-    redirect("/sandbox/v1-9-5");
+    return <SandboxV195HubPage />;
   }
 
   // Yann 14 mai 2026 : home prod lit aussi les overrides desk_page_content

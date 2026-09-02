@@ -19,6 +19,7 @@ import { chargeZonesFloutage } from "@/lib/desk/floutage-zones";
 import { gateAttForTier } from "@/lib/att";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
 
 // V1.9.5 = filtre strict is_clean_all (a-f + g-m post audit qualité).
 // Si la sté n'est pas clean_all → redirect vers /sandbox/v1-9-5 (overview).
@@ -121,7 +122,7 @@ export async function generateMetadata({
   const r = await loadV17Company(ticker, { mode: "v18" });
   if (r.kind === "missing") return { title: "Page introuvable · Mettrik AI" };
   return {
-    title: `${r.company.name} (${r.company.ticker}) · V1.9.5`,
+    title: `${r.company.name} (${r.company.ticker}) · Mettrik AI`,
     robots: { index: false, follow: false },
   };
 }
@@ -293,7 +294,7 @@ export default async function SandboxV195TickerPage({
       const sb = await createSupabaseServerClient();
       const { data: { user } } = await sb.auth.getUser();
       // user connecté → max par défaut (pas de blur). Anon → anon (blur tout).
-      freemiumTier = user ? "max" : "anon";
+      freemiumTier = user ? await tierDepuisAbonnement(user) : "anon";
     } catch {
       freemiumTier = "anon";
     }

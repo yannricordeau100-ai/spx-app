@@ -19,6 +19,7 @@
  * Format : RFC 4180, BOM UTF-8 pour Excel, quoted strings.
  */
 import { NextResponse } from "next/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import V19_UNIVERSE from "@/data/v1-9-universe.json";
 
 export const dynamic = "force-static";

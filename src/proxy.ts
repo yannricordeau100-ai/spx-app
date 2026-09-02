@@ -93,7 +93,7 @@ function isPublicPath(pathname: string): boolean {
   // download des charts). Yann 6 mai 2026.
   if (/\.(png|jpe?g|svg|webp|gif|ico|woff2?|ttf|otf)$/i.test(pathname)) return true;
   // /whoami = diag temporaire pour résoudre le 404 desk
-  if (pathname === "/whoami") return true;
+  // /whoami retire de la liste publique (audit 2 sept 2026) : exposait l email proprietaire.
   // /legal/* = pages légales (mentions, CGU, CGV, confidentialité) — publiques
   // car obligatoires accessibles sans inscription (RGPD + UX).
   if (pathname === "/legal" || pathname.startsWith("/legal/")) return true;
@@ -105,8 +105,11 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/maintenance") return true;
   // /parrainage = page publique (visible sans compte, propose le sign-in à l'intérieur).
   if (pathname === "/parrainage") return true;
-  // /contact = formulaire de contact RÉSERVÉ aux comptes inscrits
-  // (Yann 13 mai 2026). Non public, gate auth obligatoire.
+  // /contact : PUBLIC depuis le 2 sept 2026 (audit lancement). Les pages
+  // legales, la FAQ et le pied de page y renvoient pour les droits RGPD :
+  // un formulaire reserve aux inscrits n est pas conforme. Anti-spam par
+  // captcha cote serveur quand la cle Turnstile est configuree.
+  if (pathname === "/contact") return true;
   // Yann (12 mai 2026) : les HUBS V1.7/V1.8 restent publics, MAIS les
   // pages société individuelles sont gatées (signup requis). Avant, tout
   // /sandbox/v1-8/<ticker> était accessible sans compte → Yann a vu un
@@ -117,7 +120,7 @@ function isPublicPath(pathname: string): boolean {
   // V1.5/V1.6/V1.7/V1.7.5/V1.8/V1.9 routes supprimées + redirect 308 proxy.
   // V1.0 reste isolée (routes /<ticker> racine).
   if (pathname === "/sandbox/v1-9-5") return true; // V1.9.5 hub
-  if (pathname === "/sandbox/v1-9-status") return true; // page suivi public
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // Sous-routes publiques (sandbox utilitaires V1.9.5) : tout ce qui n'est
   // PAS une page société (= /sandbox/v1-9-5/<ticker>).
   if (pathname.startsWith("/sandbox/v1-9-5/")) {
@@ -126,14 +129,14 @@ function isPublicPath(pathname: string): boolean {
     // Liste blanche des sous-routes utilitaires (non-tickers)
     // /contact retiré (auth requise, Yann 13 mai 2026).
     const UTIL_SUBPATHS = new Set([
-      "pricing", "pages-toggle", "freshness-audit",
-      "i18n-audit", "geo-test", "data-status",
+      "pricing",
+      // pages-toggle, freshness-audit, i18n-audit, geo-test, data-status,
+      // languages-toggle : retires du public le 2 sept 2026 (outils internes).
       // Yann 27 mai 2026 : languages-toggle est un outil GLOBAL (affecte
       // toute l'app, pas seulement V1.8). La page canonique est désormais
       // /sandbox/languages-toggle (cf src/app/sandbox/languages-toggle).
       // L'ancien path /sandbox/v1-8/languages-toggle est conservé pour
       // backward-compat via rewrite ci-dessous.
-      "languages-toggle",
     ]);
     if (UTIL_SUBPATHS.has(firstSeg)) return true;
     // Sinon = page société (ex /sandbox/v1-8/nvda) → AUTH REQUISE
@@ -142,41 +145,41 @@ function isPublicPath(pathname: string): boolean {
   // /sandbox/data-status = dashboard interne agrégé (compteurs sec-data,
   // pipeline, audit V1.7, crédits LLM). Public car Yann le consulte
   // souvent sans vouloir signer. Aucune PII, aucune donnée client.
-  if (pathname === "/sandbox/data-status") return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // /sandbox/i18n-audit = audit des traductions par langue (Yann visualise
   // ce qui est couvert et ce qui manque). Pas de PII, public.
-  if (pathname === "/sandbox/i18n-audit") return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // /sandbox/geo-test = page de test détection géographique (visualise pays
   // détecté + langue + devise déduites). Public, pas de PII.
-  if (pathname === "/sandbox/geo-test") return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // /sandbox/visual-audit : RETIRE de la whitelist le 2 sept 2026 (audit
   // anti-triche) : la page publiait des URL contenant le token d audit.
   // Desormais soumise a l auth comme le reste.
   // /sandbox/quality-tree = registry unique des éléments contrôlables (IDs stables).
-  if (pathname === "/sandbox/quality-tree") return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // /sandbox/kpi-search = moteur de recherche KPIs Mettrik (7634 indexés sur
   // 640 stés V1.9.5). Pas de PII, public pour QA + démo. Yann 3 juin 2026.
-  if (pathname === "/sandbox/kpi-search") return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // /sandbox/languages-toggle = activer/désactiver les locales pour l'app
   // (outil global, ne dépend pas d'une version de fiche sté). Yann 27 mai 2026.
-  if (pathname === "/sandbox/languages-toggle") return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // /sandbox/logos-compare = page comparaison avant/apres Logo.dev pour
   // validation visuelle Yann (Yann 3 juin 2026). Public car validation
   // visuelle ponctuelle, aucune PII.
-  if (pathname === "/sandbox/logos-compare") return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // /sandbox/chart-export-tests = page tests modele PNG export (Yann 3 juin 2026).
   // Public pour validation visuelle, aucune PII.
-  if (pathname === "/sandbox/chart-export-tests") return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // /sandbox/ready-by-category = counts stés prêtes par catégorie + pays.
-  if (pathname === "/sandbox/ready-by-category") return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // /sandbox/earnings-schedule = calendrier prochaines executions cron earnings
   // refresh + couverture. Yann 4 juin 2026.
-  if (pathname === "/sandbox/earnings-schedule") return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // /sandbox/vip-inspection : RETIRE de la whitelist le 2 sept 2026 (audit
   // anti-triche) : la page revelait le mecanisme du parametre d audit.
   // /sandbox/coverage-matrix = matrice temps réel des blocs data par sté.
   // Lecture dynamique de v2-pipeline. Public pour Yann suivi enrichissement.
-  if (pathname === "/sandbox/coverage-matrix") return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   // /sandbox/top307-breakdown = tableau top 307 V1.8 avec pays + MC + rangs
   // (monde / US / FR / CH / DE). Public pour Yann.
   // /populaire-investisseurs = actions les plus consultées par langue
@@ -184,7 +187,7 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/populaire-investisseurs") return true;
   // /concepts/* = prototypes / mockups visuels CONV-CONCEPTS. Public car
   // utilisés pour vérification visuelle (Yann 13 mai 2026, pour chart-test).
-  if (pathname === "/concepts" || pathname.startsWith("/concepts/")) return true;
+  // (retire du public le 2 sept 2026 : outil interne, connexion requise)
   return false;
 }
 

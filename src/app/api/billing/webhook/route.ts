@@ -38,6 +38,16 @@ function getSupabaseAdmin() {
 
 export const runtime = "nodejs"; // Stripe SDK requires Node, not Edge
 
+/** Produits Stripe LIVE du plan Max (audit 2 sept 2026 : un acheteur Max
+ *  etait enregistre "premium"). */
+const PRODUITS_MAX = new Set(["prod_VAe7pzTlDFhMk2", "prod_VAe7FOb65PcSeu"]);
+function planDepuisPrix(price: Stripe.Price | undefined | null): string {
+  const interval = price?.recurring?.interval;
+  const produit = typeof price?.product === "string" ? price.product : price?.product?.id;
+  const famille = produit && PRODUITS_MAX.has(produit) ? "max" : "premium";
+  return `${famille}_${interval === "year" ? "yearly" : "monthly"}`;
+}
+
 export async function POST(req: NextRequest) {
   const stripe = getStripe();
   const sig = req.headers.get("stripe-signature");
@@ -47,9 +57,9 @@ export async function POST(req: NextRequest) {
   if (!secret || secret === "whsec_TODO_PASTE_AT_WAKE_UP") {
     // Webhook secret not yet set — accept but log warning so we don't fail
     // silently before Yann finishes the setup.
-    return NextResponse.json({
-      warning: "STRIPE_WEBHOOK_SECRET not yet configured (whsec_TODO_PASTE_AT_WAKE_UP). Voir HANDOFF-NIGHT.md.",
-    }, { status: 200 });
+    // Audit 2 sept 2026 : sans secret on REFUSE (500) au lieu d accepter en
+    // silence, sinon Stripe croit l evenement livre et ne le rejoue jamais.
+    return NextResponse.json({ error: "STRIPE_WEBHOOK_SECRET non configure" }, { status: 500 });
   }
 
   const rawBody = await req.text();
@@ -71,6 +81,16 @@ export async function POST(req: NextRequest) {
     processed_ok: false,
   }, { onConflict: "stripe_event_id" });
 
+  // Idempotence (audit 2 sept 2026) : un evenement deja traite avec succes
+  // n est pas rejoue (un rejeu de subscription.deleted -> updated aurait pu
+  // reactiver un abonnement annule).
+  const { data: deja } = await admin
+    .from("billing_events")
+    .select("processed_ok")
+    .eq("stripe_event_id", event.id)
+    .maybeSingle();
+  if (deja?.processed_ok) return NextResponse.json({ received: true, duplicate: true });
+
   try {
     switch (event.type) {
       case "checkout.session.completed": {
@@ -86,8 +106,23 @@ export async function POST(req: NextRequest) {
             stripe_subscription_id: typeof session.subscription === "string" ? session.subscription : session.subscription?.id ?? null,
             status: "active",
             currency: (session.currency ?? "eur").toUpperCase(),
-            plan: "premium_monthly", // affiné via subscription.updated juste après
+            plan: "premium_monthly", // affine ci-dessous depuis l abonnement reel
           }, { onConflict: "user_id" });
+          // L ordre des evenements Stripe n est pas garanti : on lit
+          // l abonnement reel tout de suite pour ecrire le bon plan.
+          const subId = typeof session.subscription === "string" ? session.subscription : session.subscription?.id;
+          if (subId) {
+            const subReel = await stripe.subscriptions.retrieve(subId);
+            const item = subReel.items.data[0];
+            const periodEndReel = (subReel as unknown as { current_period_end?: number }).current_period_end ?? item?.current_period_end ?? null;
+            await admin.from("subscriptions").update({
+              stripe_price_id: item?.price.id ?? null,
+              plan: planDepuisPrix(item?.price),
+              status: subReel.status,
+              current_period_end: periodEndReel ? new Date(periodEndReel * 1000).toISOString() : null,
+              cancel_at_period_end: subReel.cancel_at_period_end,
+            }).eq("user_id", userId);
+          }
         }
         break;
       }
@@ -98,8 +133,7 @@ export async function POST(req: NextRequest) {
         const sub = event.data.object as Stripe.Subscription;
         const stripeCustomerId = typeof sub.customer === "string" ? sub.customer : sub.customer.id;
         const priceId = sub.items.data[0]?.price.id ?? null;
-        const interval = sub.items.data[0]?.price.recurring?.interval; // "month" | "year"
-        const plan = interval === "year" ? "premium_yearly" : "premium_monthly";
+        const plan = planDepuisPrix(sub.items.data[0]?.price);
         const status = event.type === "customer.subscription.deleted" ? "canceled" : sub.status;
         // Newer Stripe API : current_period_end vit sur l'item, pas sur la sub
         const periodEnd =

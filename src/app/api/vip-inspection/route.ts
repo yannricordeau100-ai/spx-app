@@ -1,5 +1,17 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+
+/** Audit 2 sept 2026 : route interne, reservee au proprietaire (403 sinon). */
+async function refuseSiPasProprietaire(): Promise<NextResponse | null> {
+  try {
+    const sb = await createSupabaseServerClient();
+    const { data: { user } } = await sb.auth.getUser();
+    const owner = (process.env.DESK_OWNER_EMAIL ?? "").toLowerCase();
+    if (user?.email && owner && user.email.toLowerCase() === owner) return null;
+  } catch { /* refuse */ }
+  return NextResponse.json({ error: "forbidden" }, { status: 403 });
+}
 
 /**
  * API endpoint pour gérer la liste VIP inspection.
@@ -74,11 +86,15 @@ async function loadStatus(): Promise<StatusFile> {
 }
 
 export async function GET() {
+  const refus = await refuseSiPasProprietaire();
+  if (refus) return refus;
   const [list, status] = await Promise.all([loadList(), loadStatus()]);
   return NextResponse.json({ list, status });
 }
 
 export async function POST(req: Request) {
+  const refus = await refuseSiPasProprietaire();
+  if (refus) return refus;
   let body: { action?: string; ticker?: string; tickers?: string[]; note?: string } = {};
   try { body = await req.json(); } catch {}
   if (!body.action) {

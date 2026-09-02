@@ -39,7 +39,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/api/kpis-existants/"],
+        allow: ["/"],
         disallow: internes,
       },
       // Robots de RECHERCHE des assistants IA : bienvenus sur les pages
@@ -56,7 +56,7 @@ export default function robots(): MetadataRoute.Robots {
           "DuckAssistBot",
           "MistralAI-User",
         ],
-        allow: ["/", "/api/kpis-existants/"],
+        allow: ["/"],
         disallow: internes,
       },
       // Robots d'ENTRAÎNEMENT IA / LLM : interdiction TOTALE.
@@ -82,7 +82,7 @@ export default function robots(): MetadataRoute.Robots {
         // Meme opt-out qu avant, a une exception pres : l endpoint de
         // verification anti-doublon des KPI, concu pour etre lu par une
         // conversation Claude du compte de Yann.
-        allow: ["/api/kpis-existants/"],
+        allow: [],
       },
     ],
     sitemap: `${base}/sitemap.xml`,

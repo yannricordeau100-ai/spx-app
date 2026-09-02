@@ -13,9 +13,9 @@ import ssl
 from pathlib import Path
 
 CEREBRAS_KEYS = [
-    os.environ.get("CEREBRAS_API_KEY_0") or "csk-twetcf6mwdpf8kwjf5ct269c464ef5emytt8y96dx8tdwv6t",
-    os.environ.get("CEREBRAS_API_KEY_1") or "csk-ky54wh42fvycff3yyn88ty455kjeth4x8wnt6n3vvwm5xdd4",
-    os.environ.get("CEREBRAS_API_KEY_2") or "csk-8xjy6949c6e9djtkmyxk3pw4dc4j59wv82xfmn29xrcyv24x",
+    os.environ.get("CEREBRAS_API_KEY_0") or "",
+    os.environ.get("CEREBRAS_API_KEY_1") or "",
+    os.environ.get("CEREBRAS_API_KEY_2") or "",
 ]
 MODEL = "gpt-oss-120b"
 SSL_CTX = ssl.create_default_context()

@@ -290,8 +290,8 @@ export const DICTIONARY: Dict = {
 
   // Yann 5 juin 2026 : footer page sté = phrase value + copyright.
   "company.footer_value": {
-    fr: "Mettrik AI — KPIs spécifiques + interprétation investisseur, sur 5 ans +.",
-    en: "Mettrik AI — investor-grade KPIs with interpretation, 5y+ history.",
+    fr: "Mettrik AI : KPIs spécifiques + interprétation investisseur, sur 5 ans +.",
+    en: "Mettrik AI : investor-grade KPIs with interpretation, 5y+ history.",
   },
   "company.footer_copyright": {
     fr: "© 2026 Mettrik AI · Tous droits réservés",
@@ -406,7 +406,7 @@ export const DICTIONARY: Dict = {
   "company.save.button": { fr: "Enregistrer", en: "Save" },
   "company.kpi_table.title": { fr: "Indicateurs clés (KPIs)", en: "Key indicators (KPIs)", de: "Schlüsselindikatoren (KPIs)" },
   "company.kpi_table.subtitle": {
-    fr: "Cliquez sur un indicateur pour le promouvoir en KPI principal.",
+    fr: "Clique sur un indicateur pour le promouvoir en KPI principal.",
     en: "Click an indicator to promote it to the main KPI.",
   
     de: "Klicken Sie auf einen Indikator, um ihn zum wichtigsten KPI hochzustufen.",
@@ -452,7 +452,7 @@ export const DICTIONARY: Dict = {
   "stories.aria_pause": { fr: "Mettre en pause", en: "Pause" },
   "stories.aria_resume": { fr: "Reprendre", en: "Resume" },
   "stories.aria_jump": { fr: "Aller à la story", en: "Go to story" },
-  "stories.title": { fr: "Story (KPIs)", en: "Story (KPIs)" },
+  "stories.title": { fr: "Faits marquants (KPI)", en: "Story (KPIs)" },
   "stories.subtitle": {
     fr: "",
     en: "",
@@ -475,7 +475,7 @@ export const DICTIONARY: Dict = {
   "risks.title": { fr: "Facteurs de risque", en: "Risk factors" },
   "risks.severity": { fr: "Sévérité", en: "Severity" },
   "risks.subtitle": {
-    fr: "Propos directs de la direction, notés selon 4 critères. Cliquez pour voir la citation intégrale ; survolez l'icône « i » pour comprendre la note.",
+    fr: "Propos directs de la direction, notés selon 4 critères. Clique pour voir la citation intégrale ; survole l'icône « i » pour comprendre la note.",
     en: "Direct quotes from management, scored on 4 criteria. Click for the full quote; hover the \"i\" icon to understand the score.",
   },
   "risks.count": { fr: "risques", en: "risks" },
@@ -537,7 +537,7 @@ export const DICTIONARY: Dict = {
     fr: "Risque d'avertissement sur les résultats",
     en: "Profit warning risk",
   },
-  "risks.pw.last_date": { fr: "Date du dernier profit warning :", en: "Last profit warning date:" },
+  "risks.pw.last_date": { fr: "Date du dernier avertissement sur résultats :", en: "Last profit warning date:" },
   "risks.pw.never": { fr: "Jamais", en: "Never" },
   "risks.pw.margin_trend": { fr: "Tendance marges :", en: "Margin trend:" },
   "risks.pw.score.very_unlikely": { fr: "Très peu probable", en: "Very unlikely" },
@@ -618,14 +618,14 @@ export const DICTIONARY: Dict = {
     en: "Annual advisory shareholder vote on executive compensation (say-on-pay). Below 80% = notable dissent.",
   },
   "governance.metrics.board_independence_label": {
-    fr: "Indépendance du board",
+    fr: "Indépendance du conseil d'administration",
     en: "Board independence",
   },
   "governance.metrics.board_independence_tooltip": {
     fr: "Part des administrateurs indépendants (sans lien dirigeant, familial ou commercial). Les bourses NYSE / Nasdaq exigent une majorité.",
     en: "Share of independent directors (no executive, family or commercial ties). NYSE / Nasdaq require a majority.",
   },
-  "governance.metrics.board_size_label": { fr: "Taille du board", en: "Board size" },
+  "governance.metrics.board_size_label": { fr: "Taille du conseil d'administration", en: "Board size" },
   "governance.metrics.board_size_unit": { fr: "membres", en: "members" },
   "governance.metrics.board_size_tooltip_title": {
     fr: "Membres du conseil",
@@ -637,7 +637,7 @@ export const DICTIONARY: Dict = {
     fr: "Ancienneté moyenne des administrateurs. Trop court = manque d'expérience ; trop long (>10 ans) = renouvellement insuffisant.",
     en: "Average director tenure. Too short = lack of experience; too long (>10 years) = insufficient renewal.",
   },
-  "governance.metrics.women_label": { fr: "Diversité : femmes au board", en: "Diversity: women on board" },
+  "governance.metrics.women_label": { fr: "Diversité : femmes au conseil", en: "Diversity: women on board" },
   "governance.metrics.women_tooltip": {
     fr: "% de femmes au conseil. Médiane S&P 500 ≈ 32 %. Certains investisseurs institutionnels votent contre les boards sous 30 %.",
     en: "% of women on the board. S&P 500 median ≈ 32%. Some institutional investors vote against boards below 30%.",
@@ -662,7 +662,7 @@ export const DICTIONARY: Dict = {
   "governance.holder.fonds_souverain": { fr: "Fonds souverain", en: "Sovereign fund" },
 
   /* AI positioning */
-  "ai.title_prefix": { fr: "Positionnement de", en: "AI positioning of" },
+  "ai.title_prefix": { fr: "Positionnement IA :", en: "AI positioning of" },
   "ai.title_suffix": { fr: "sur l'IA", en: "" },
   "ai.stance.leader.label": { fr: "Acteur majeur", en: "Major player" },
   "ai.stance.leader.desc": {
@@ -814,16 +814,18 @@ export const DICTIONARY: Dict = {
     en: "Which companies are covered?",
   },
   "faq.a.coverage": {
-    fr: "À ce stade : les principales sociétés américaines cotées (S&P 500 + extension SP1500 en cours) et un échantillon européen et FPI étrangères. La couverture s'étend par vagues : nouvelles sociétés ajoutées dès que leur extraction et leur validation passent nos contrôles qualité (3 passes successives dont une revue par modèle premium).",
-    en: "At this stage: the main listed US companies (S&P 500 plus an in-progress SP1500 extension) and a European and foreign private issuer sample. Coverage expands in waves: new companies are added once their extraction and validation pass our quality checks (three successive passes including a premium model review).",
+    fr: "666 sociétés aujourd'hui : l'intégralité du S&P 500, le CAC 40, le DAX 40, l'AEX 25, le SMI suisse et l'indice des semi-conducteurs SOX. Les indices sont ajoutés par vagues, jamais société par société.",
+    en: "666 companies today: the full S&P 500, CAC 40, DAX 40, AEX 25, Swiss SMI and the SOX semiconductor index. Indices are added in waves, never company by company.",
+    de: "Heute 666 Unternehmen: der komplette S&P 500, CAC 40, DAX 40, AEX 25, Schweizer SMI und der Halbleiterindex SOX. Indizes kommen in Wellen hinzu, nie Unternehmen für Unternehmen.",
   },
   "faq.q.free_or_paid": {
     fr: "Est-ce gratuit ou payant ?",
     en: "Is it free or paid?",
   },
   "faq.a.free_or_paid": {
-    fr: "Une formule gratuite donne accès à un échantillon de sociétés de démonstration pour évaluer le service. Les formules payantes (Premium mensuel, Premium annuel, Enterprise/API) débloquent l'accès complet aux sociétés couvertes, la comparaison entre sociétés, les watchlists et les alertes. Les tarifs détaillés sont sur la page Tarifs.",
-    en: "A free plan grants access to a demo company sample so you can evaluate the service. Paid plans (Premium monthly, Premium annual, Enterprise/API) unlock full access to covered companies, company comparison, watchlists and alerts. Detailed pricing is on the Pricing page.",
+    fr: "Le plan Gratuit ouvre les 666 fiches : indicateur principal, valeur et graphique visibles, analyses détaillées floutées. Premium lève le floutage sur tout. Max ajoute l'anti-thèse de chaque société, les favoris illimités et le support prioritaire. Mensuel ou annuel, sans engagement.",
+    en: "The Free plan opens all 666 profiles: main indicator, value and chart visible, detailed analyses blurred. Premium removes the blurring everywhere. Max adds each company's counter-thesis, unlimited favorites and priority support. Monthly or yearly, no commitment.",
+    de: "Der kostenlose Plan öffnet alle 666 Profile: Hauptkennzahl, Wert und Chart sichtbar, Detailanalysen unkenntlich. Premium hebt die Unkenntlichmachung überall auf. Max ergänzt die Gegenthese jedes Unternehmens, unbegrenzte Favoriten und bevorzugten Support. Monatlich oder jährlich, ohne Bindung.",
   },
   "faq.q.cancel": {
     fr: "Comment annuler mon abonnement ?",
@@ -862,8 +864,9 @@ export const DICTIONARY: Dict = {
     en: "How can I reach you?",
   },
   "faq.a.support": {
-    fr: "Via le formulaire de la page contact. Les échanges sont traités en français ou en anglais uniquement. Délai de réponse moyen : 1 à 3 jours ouvrés.",
-    en: "Via the form on the contact page. Exchanges are handled in French or English only. Average response time: 1 to 3 business days.",
+    fr: "Via le formulaire de la page contact. Les échanges sont traités en français, en anglais ou en allemand. Délai de réponse moyen : 1 à 3 jours ouvrés.",
+    en: "Through the contact page form. Exchanges are handled in French, English or German. Average response time: 1 to 3 business days.",
+    de: "Über das Formular der Kontaktseite. Anfragen werden auf Französisch, Englisch oder Deutsch bearbeitet. Durchschnittliche Antwortzeit: 1 bis 3 Werktage.",
   },
   "faq.disclaimer.title": {
     fr: "Rappel important :",
@@ -910,7 +913,7 @@ export const DICTIONARY: Dict = {
   "timefrac.minute": { fr: "m", en: "m" },
   "timefrac.second": { fr: "s", en: "S" },
   /* Transcript stories (last earning call) */
-  "transcript.section_title": { fr: "Dernier earning call", en: "Last earnings call" },
+  "transcript.section_title": { fr: "Dernière conférence de résultats", en: "Last earnings call" },
   "transcript.section_subtitle": {
     fr: "Informations exclusives entre le top management et les investisseurs lors du dernier appel résultats.",
     en: "Exclusive insights from top management to investors during the latest earnings call.",
@@ -937,7 +940,7 @@ export const DICTIONARY: Dict = {
     de: "Wichtigste Punkte aus der neuesten offiziellen Ergebnismitteilung",
   },
   /* Transcript bullets block (Synthèse Earning Call) */
-  "transcript.bullets.section_title": { fr: "Synthèse Earning Call", en: "Earnings Call Summary", de: "Zusammenfassung Earning Call" },
+  "transcript.bullets.section_title": { fr: "Synthèse de la conférence de résultats", en: "Earnings call summary", de: "Zusammenfassung der Ergebniskonferenz" },
   "transcript.bullets.section_subtitle": {
     fr: "Points clés extraits du dernier transcript management × analystes",
     en: "Key takeaways extracted from the latest management × analysts transcript",
@@ -1082,7 +1085,7 @@ export const DICTIONARY: Dict = {
     de: "Der richtige Plan für deine Art zu investieren",
   },
   "pricing.intro": {
-    fr: "Découvre Mettrik AI gratuitement avec des fonctionnalités et indicateurs jamais vu ailleurs, rien que ça.\nSans engagement, annulation en 1 clic.",
+    fr: "Découvre Mettrik AI gratuitement avec des fonctionnalités et indicateurs jamais vus ailleurs, rien que ça.\nSans engagement, annulation en 1 clic.",
     en: "Discover Mettrik AI for free with features and indicators you won't find anywhere else.\nNo commitment, cancel in 1 click.",
     de: "Entdecke Mettrik AI kostenlos mit Funktionen und Kennzahlen, die du nirgendwo sonst findest.\nKeine Bindung, 1-Klick-Kündigung.",
   },
@@ -1152,9 +1155,9 @@ export const DICTIONARY: Dict = {
     de: "Kann ich Mettrik AI testen, ohne zu zahlen?",
   },
   "pricing.faq_a1": {
-    fr: "Oui, le plan Gratuit est gratuit à vie. Tu accèdes à l'intégralité de Google (GOOGL) et Meta (META) sans carte bancaire. C'est suffisant pour évaluer la profondeur de l'analyse avant de décider.",
-    en: "Yes, the Discovery plan is free forever. You get full access to Google (GOOGL) and Meta (META) with no credit card. Enough to evaluate the depth before deciding.",
-    de: "Ja, der Entdeckungs-Plan ist lebenslang kostenlos. Du bekommst vollen Zugang zu Google (GOOGL) und Meta (META) ohne Kreditkarte. Genug, um die Tiefe vor der Entscheidung zu prüfen.",
+    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres les 666 fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées. Assez pour juger la profondeur avant de décider.",
+    en: "Yes, the Free plan is free forever, no credit card. You can open all 666 profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred. Enough to judge the depth before deciding.",
+    de: "Ja, der kostenlose Plan ist lebenslang kostenlos, ohne Kreditkarte. Du kannst alle 666 Profile öffnen: Hauptkennzahl, Wert und Chart sind sichtbar, die Detailanalysen sind unkenntlich gemacht. Genug, um die Tiefe vor der Entscheidung zu prüfen.",
   },
   "pricing.faq_q2": {
     fr: "Comment annuler mon abonnement ?",
@@ -1172,9 +1175,9 @@ export const DICTIONARY: Dict = {
     de: "Welche Unternehmen sind in Premium und Max abgedeckt?",
   },
   "pricing.faq_a3": {
-    fr: "Bourses américaines : NYSE, NASDAQ (S&P 500, S&P MidCap 400, Nasdaq 100). Bourses européennes : Euronext Paris (CAC 40, SBF 120), Xetra (DAX), Bourse de Londres (FTSE 100), Borsa Italiana, BME Madrid, Euronext Amsterdam, SIX Suisse, Nasdaq Stockholm. Bourses asiatiques (en cours d'ajout) : Bourse de Tokyo (Japon), KRX (Corée), ASX (Australie), TWSE (Taïwan), SGX (Singapour). Le catalogue s'étoffe automatiquement chaque mois.",
-    en: "US exchanges: NYSE, NASDAQ (S&P 500, S&P MidCap 400, Nasdaq 100). European exchanges: Euronext Paris (CAC 40, SBF 120), Xetra (DAX), London Stock Exchange (FTSE 100), Borsa Italiana, BME Madrid, Euronext Amsterdam, SIX Swiss, Nasdaq Stockholm. Asian exchanges (rolling out): Tokyo Stock Exchange (Japan), KRX (Korea), ASX (Australia), TWSE (Taiwan), SGX (Singapore). The catalog grows automatically every month.",
-    de: "US-Börsen: NYSE, NASDAQ (S&P 500, S&P MidCap 400, Nasdaq 100). Europäische Börsen: Euronext Paris (CAC 40, SBF 120), Xetra (DAX), Londoner Börse (FTSE 100), Borsa Italiana, BME Madrid, Euronext Amsterdam, SIX Schweiz, Nasdaq Stockholm. Asiatische Börsen (im Aufbau): Tokioter Börse (Japan), KRX (Korea), ASX (Australien), TWSE (Taiwan), SGX (Singapur). Der Katalog wächst monatlich automatisch.",
+    fr: "Les mêmes 666 sociétés dans tous les plans : le S&P 500 au complet, le CAC 40, le DAX 40, l'AEX 25, le SMI suisse et l'indice des semi-conducteurs SOX. Premium et Max lèvent le floutage ; Max ajoute l'anti-thèse et le support prioritaire.",
+    en: "The same 666 companies in every plan: the full S&P 500, CAC 40, DAX 40, AEX 25, Swiss SMI and the SOX semiconductor index. Premium and Max remove the blurring; Max adds the counter-thesis and priority support.",
+    de: "Dieselben 666 Unternehmen in jedem Plan: der komplette S&P 500, CAC 40, DAX 40, AEX 25, Schweizer SMI und der Halbleiterindex SOX. Premium und Max heben die Unkenntlichmachung auf; Max ergänzt die Gegenthese und bevorzugten Support.",
   },
   "pricing.faq_q4": {
     fr: "Puis-je changer de plan plus tard ?",
@@ -1422,7 +1425,7 @@ export const DICTIONARY: Dict = {
     da: "Lyst tema er forbeholdt betalte abonnementer",
     "de-CH": "Helles Design ist zahlenden Abos vorbehalten",
   },
-  // Bouton pagination home — ton léger multilingue (Yann 16 mai 2026 :
+  // Bouton pagination home : ton léger multilingue (Yann 16 mai 2026 :
   // remplace "More ↓" jugé cheap, prefère phrase complète).
   // Yann 29 aout 2026 : la grille montre 20 societes puis les 20 suivantes.
   "home.show_next_20": {
@@ -1481,7 +1484,7 @@ export const DICTIONARY: Dict = {
   "lang.en_label": { fr: "Anglais", en: "English" },
   "lang.switch_label": { fr: "Changer de langue", en: "Switch language" },
 
-  // Dividend block (Yann 15 mai 2026 — extraction via Task agent)
+  // Dividend block (Yann 15 mai 2026 : extraction via Task agent)
   "div.stories.title": {
     fr: "Politique de dividende",
     en: "Dividend policy",
@@ -1738,7 +1741,7 @@ export const DICTIONARY: Dict = {
     de: "Annahme: jede erhaltene Dividende wird reinvestiert. Die Rendite kombiniert Dividendenrendite und Kursanstieg, als konstant unterstellt. Richtwert.",
   },
 
-  // i18n batch UI (Yann 15 mai 2026 — Phase A1 snapshot + super-KPI + profile)
+  // i18n batch UI (Yann 15 mai 2026 : Phase A1 snapshot + super-KPI + profile)
   "company.profile.section_title": {
     fr: "Comprendre la société",
     en: "About the company",
@@ -1892,7 +1895,7 @@ export const DICTIONARY: Dict = {
     "de-CH": "Interpretation",
   },
 
-  // Super-KPI board residual labels (Yann 17 mai 2026 — i18n résiduel)
+  // Super-KPI board residual labels (Yann 17 mai 2026 : i18n résiduel)
   "superkpi.methodology": {
     fr: "Méthodologie",
     en: "Methodology",

@@ -104,40 +104,52 @@ const DAY1: OnboardingTemplate = {
 /* ── J+3 ── */
 const DAY3: OnboardingTemplate = {
   subject: {
-    fr: "Le bouton « Comparer », ton meilleur ami",
-    en: "The Compare button, your best friend",
-    de: "Der Vergleichen-Button, Ihr bester Freund",
+    fr: "Le graphique fait tout le travail : 3 réglages à connaître",
+    en: "The chart does the work: 3 settings to know",
+    de: "Der Chart macht die Arbeit: 3 Einstellungen, die Sie kennen sollten",
   },
   body: make({
     fr: {
-      preheader: "CAGR 5 ans, momentum, volatilité : 30 minutes d'Excel en 2 secondes.",
-      title: "La fonction qui change tout : Comparer",
+      preheader: "Fenêtre 5 ans ou MAX, trimestriel ou annuel, téléchargement en un clic.",
+      title: "Trois réglages qui changent la lecture d'un KPI",
       body: (n) =>
         p(HI.fr(n)) +
-        p(`Tu as exploré plusieurs fiches société. Aujourd'hui, je te montre la fonction qui change tout : ${b("Comparer")}.`) +
-        p("Sur n'importe quelle fiche, clique sur « Comparer » en haut. Tu obtiens : CAGR 5 ans, momentum sur le dernier trimestre, volatilité, position vs sous-secteur. C'est l'équivalent de 30 minutes d'analyse Excel en 2 secondes.") +
-        p(`${b("Essaye :")} compare META vs GOOGL sur leur hero KPI. Verdict instantané.`),
-      cta: { label: "Comparer META vs GOOGL", url: APP_URL },
+        p("Tu as ouvert plusieurs fiches. Sur chacune, le graphique du KPI principal se règle en 3 gestes :") +
+        emailList([
+          `${b("Fenêtre")} : 5 ans par défaut, MAX pour remonter à l'origine de la série.`,
+          `${b("Fréquence")} : trimestriel pour voir l'inflexion, annuel pour la tendance.`,
+          `${b("Téléchargement")} : le bouton en haut du graphique exporte une image propre, prête à partager.`,
+        ]) +
+        p("Clique sur n'importe quel indicateur du tableau pour le promouvoir en KPI principal : le graphique suit."),
+      cta: { label: "Essayer sur une fiche", url: APP_URL },
     },
     en: {
-      preheader: "5-year CAGR, momentum, volatility: 30 minutes of Excel in 2 seconds.",
-      title: "The feature that changes everything: Compare",
+      preheader: "5-year or MAX window, quarterly or annual, one-click download.",
+      title: "Three settings that change how you read a KPI",
       body: (n) =>
         p(HI.en(n)) +
-        p(`You've explored a few company pages. Today, let me show you the feature that changes everything: ${b("Compare")}.`) +
-        p('On any page, click "Compare" at the top. You get: 5-year CAGR, last quarter momentum, volatility, position vs sub-sector. That\'s the equivalent of 30 minutes of Excel work in 2 seconds.') +
-        p(`${b("Try this:")} compare META vs GOOGL on their hero KPI. Instant verdict.`),
-      cta: { label: "Compare META vs GOOGL", url: APP_URL },
+        p("You have opened a few profiles. On each one, the main KPI chart adjusts in 3 moves:") +
+        emailList([
+          `${b("Window")}: 5 years by default, MAX to go back to the start of the series.`,
+          `${b("Frequency")}: quarterly to spot the inflection, annual for the trend.`,
+          `${b("Download")}: the button above the chart exports a clean image, ready to share.`,
+        ]) +
+        p("Click any indicator in the table to promote it as the main KPI: the chart follows."),
+      cta: { label: "Try it on a profile", url: APP_URL },
     },
     de: {
-      preheader: "5-Jahres-CAGR, Momentum, Volatilität: 30 Minuten Excel in 2 Sekunden.",
-      title: "Die Funktion, die alles verändert: Vergleichen",
+      preheader: "5 Jahre oder MAX, quartalsweise oder jährlich, Download mit einem Klick.",
+      title: "Drei Einstellungen, die die Lesart einer Kennzahl verändern",
       body: (n) =>
         p(HI.de(n)) +
-        p(`Sie haben einige Unternehmensseiten erkundet. Heute zeige ich Ihnen die Funktion, die alles verändert: ${b("Vergleichen")}.`) +
-        p('Klicken Sie auf einer beliebigen Seite oben auf "Vergleichen". Sie erhalten: 5-Jahres-CAGR, Momentum des letzten Quartals, Volatilität, Position vs Untersektor. Das entspricht 30 Minuten Excel-Arbeit in 2 Sekunden.') +
-        p(`${b("Probieren Sie:")} Vergleichen Sie META vs GOOGL beim Hero-KPI. Sofortiges Urteil.`),
-      cta: { label: "META vs GOOGL vergleichen", url: APP_URL },
+        p("Sie haben einige Profile geöffnet. Auf jedem lässt sich der Chart der Hauptkennzahl in 3 Schritten einstellen:") +
+        emailList([
+          `${b("Zeitfenster")}: standardmäßig 5 Jahre, MAX bis zum Beginn der Reihe.`,
+          `${b("Frequenz")}: quartalsweise für den Wendepunkt, jährlich für den Trend.`,
+          `${b("Download")}: der Button über dem Chart exportiert ein sauberes Bild zum Teilen.`,
+        ]) +
+        p("Klicken Sie auf eine beliebige Kennzahl in der Tabelle, um sie zur Hauptkennzahl zu machen: der Chart folgt."),
+      cta: { label: "Auf einem Profil ausprobieren", url: APP_URL },
     },
   }),
 };
@@ -224,46 +236,46 @@ const DAY14: OnboardingTemplate = {
 /* ── J+25 ── */
 const DAY25: OnboardingTemplate = {
   subject: {
-    fr: "Plan Pro : ce que tu débloques",
-    en: "Pro plan: what you unlock",
-    de: "Pro-Plan: Was Sie freischalten",
+    fr: "Premium et Max : ce que tu débloques",
+    en: "Premium and Max: what you unlock",
+    de: "Premium und Max: Was Sie freischalten",
   },
   body: make({
     fr: {
-      preheader: "Presque un mois sur Mettrik AI : voilà ce que Pro et Premium débloquent.",
+      preheader: "Presque un mois sur Mettrik AI : voilà ce que Premium et Max débloquent.",
       title: "Envie de passer la vitesse supérieure ?",
       body: (n) =>
         p(HI.fr(n)) +
         p("Tu utilises Mettrik AI depuis presque un mois. Si tu veux passer à la vitesse supérieure :") +
         emailList([
-          `${b("Pro")} : accès aux 1500+ sociétés (vs 300 en gratuit), comparaisons multi-sociétés, alertes earning dates.`,
-          `${b("Premium")} : tout Pro + export PDF des fiches, watchlists illimitées, données trimestrielles complètes.`,
+          `${b("Premium")} : toutes les fiches des 666 sociétés sans floutage, indicateurs et graphiques complets, risques, gouvernance et synthèses de résultats.`,
+          `${b("Max")} : tout Premium + l\'anti-thèse de chaque société, les favoris illimités et le support prioritaire.`,
         ]) +
         p("Si tu restes en gratuit, aucun souci : la base que tu as suffit pour un usage sérieux. Ce mail est juste pour information."),
       cta: { label: "Voir les plans", url: `${APP_URL}/pricing` },
     },
     en: {
-      preheader: "Almost a month on Mettrik AI: here is what Pro and Premium unlock.",
+      preheader: "Almost a month on Mettrik AI: here is what Premium and Max unlock.",
       title: "Ready to step it up?",
       body: (n) =>
         p(HI.en(n)) +
         p("You've been using Mettrik AI for almost a month. If you want to step it up:") +
         emailList([
-          `${b("Pro")}: access to all 1500+ companies (vs 300 on free), multi-company comparisons, earnings date alerts.`,
-          `${b("Premium")}: everything in Pro + PDF export of profiles, unlimited watchlists, full quarterly data.`,
+          `${b("Premium")}: every profile of the 666 companies without blurring, full indicators and charts, risks, governance and earnings summaries.`,
+          `${b("Max")}: everything in Premium + the counter-thesis of each company, unlimited favorites and priority support.`,
         ]) +
         p("If you stay on free, no worries: the base you have is enough for serious usage. This email is for info only."),
       cta: { label: "See the plans", url: `${APP_URL}/pricing` },
     },
     de: {
-      preheader: "Fast ein Monat mit Mettrik AI: Das schalten Pro und Premium frei.",
+      preheader: "Fast ein Monat mit Mettrik AI: Das schalten Premium und Max frei.",
       title: "Bereit für den nächsten Schritt?",
       body: (n) =>
         p(HI.de(n)) +
         p("Sie nutzen Mettrik AI seit fast einem Monat. Wenn Sie einen Schritt weitergehen möchten:") +
         emailList([
-          `${b("Pro")}: Zugriff auf alle 1500+ Unternehmen (vs 300 in der kostenlosen Version), Multi-Unternehmens-Vergleiche, Earnings-Date-Alerts.`,
-          `${b("Premium")}: Alles aus Pro + PDF-Export der Profile, unbegrenzte Watchlists, vollständige Quartalsdaten.`,
+          `${b("Premium")}: Alle Profile der 666 Unternehmen ohne Unkenntlichmachung, vollständige Kennzahlen und Charts, Risiken, Governance und Ergebniszusammenfassungen.`,
+          `${b("Max")}: Alles aus Premium + die Gegenthese jedes Unternehmens, unbegrenzte Favoriten und bevorzugter Support.`,
         ]) +
         p("Wenn Sie kostenlos bleiben, kein Problem: Die Basis, die Sie haben, reicht für ernsthafte Nutzung. Diese E-Mail dient nur zur Information."),
       cta: { label: "Pläne ansehen", url: `${APP_URL}/pricing` },

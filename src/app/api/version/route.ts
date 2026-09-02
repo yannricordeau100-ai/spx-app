@@ -42,6 +42,6 @@ export async function GET() {
     notes: release?.notes ?? null,
     variants_meta: release?.variants_meta ?? {},
     deployed_at: release?.deployed_at ?? null,
-    deployed_by: release?.deployed_by ?? null,
+    deployed_by: null, // masque (audit 2 sept 2026) : ne pas exposer l email du deployeur
   });
 }

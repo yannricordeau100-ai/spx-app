@@ -134,12 +134,20 @@ export async function GET(request: Request) {
   }
 
   try {
+    // Audit 2 sept 2026 : les classes d actions US s ecrivent BF.B / BRK.B
+    // chez nous mais BF-B / BRK-B chez Yahoo (BF.B n avait jamais ni cours
+    // ni capitalisation). Les suffixes de place (.PA, .DE, .SW...) sont
+    // laisses tels quels.
+    const versYahoo = (s: string) => s.replace(/^([A-Z]{1,5})\.([A-Z])$/, "$1-$2");
+    const origine = new Map(symbols.map((s) => [versYahoo(s), s]));
+    const symbolsYahoo = symbols.map(versYahoo);
     // Batch les symboles par paquets de 50 (limite Yahoo)
     const batches: string[][] = [];
-    for (let i = 0; i < symbols.length; i += BATCH_SIZE) {
-      batches.push(symbols.slice(i, i + BATCH_SIZE));
+    for (let i = 0; i < symbolsYahoo.length; i += BATCH_SIZE) {
+      batches.push(symbolsYahoo.slice(i, i + BATCH_SIZE));
     }
     const results = (await Promise.all(batches.map(fetchBatch))).flat();
+    for (const r of results) r.symbol = origine.get(r.symbol) ?? r.symbol;
 
     // Sort dans l'ordre de la requête (Yahoo ne garantit pas l'ordre)
     const byKey = new Map(results.map((r) => [r.symbol, r]));

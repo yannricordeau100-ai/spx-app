@@ -93,7 +93,8 @@ export const metadata: Metadata = {
   authors: [{ name: "Mettrik AI" }],
   creator: "Mettrik AI",
   publisher: "Mettrik AI",
-  alternates: { canonical: SITE_URL },
+  // canonical retire du layout (audit 2 sept 2026) : il s appliquait a TOUTES
+  // les pages sans canonical propre (fiches, tarifs...) et pointait la home.
   openGraph: {
     type: "website",
     siteName: "Mettrik AI",
