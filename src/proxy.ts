@@ -147,8 +147,9 @@ function isPublicPath(pathname: string): boolean {
   // /sandbox/geo-test = page de test détection géographique (visualise pays
   // détecté + langue + devise déduites). Public, pas de PII.
   if (pathname === "/sandbox/geo-test") return true;
-  // /sandbox/visual-audit = audit visuel Gemini 2.5 Flash (dashboard défauts UI).
-  if (pathname === "/sandbox/visual-audit") return true;
+  // /sandbox/visual-audit : RETIRE de la whitelist le 2 sept 2026 (audit
+  // anti-triche) : la page publiait des URL contenant le token d audit.
+  // Desormais soumise a l auth comme le reste.
   // /sandbox/quality-tree = registry unique des éléments contrôlables (IDs stables).
   if (pathname === "/sandbox/quality-tree") return true;
   // /sandbox/kpi-search = moteur de recherche KPIs Mettrik (7634 indexés sur
@@ -169,8 +170,8 @@ function isPublicPath(pathname: string): boolean {
   // /sandbox/earnings-schedule = calendrier prochaines executions cron earnings
   // refresh + couverture. Yann 4 juin 2026.
   if (pathname === "/sandbox/earnings-schedule") return true;
-  // /sandbox/vip-inspection = liste VIP stés à inspecter en profondeur.
-  if (pathname === "/sandbox/vip-inspection") return true;
+  // /sandbox/vip-inspection : RETIRE de la whitelist le 2 sept 2026 (audit
+  // anti-triche) : la page revelait le mecanisme du parametre d audit.
   // /sandbox/coverage-matrix = matrice temps réel des blocs data par sté.
   // Lecture dynamique de v2-pipeline. Public pour Yann suivi enrichissement.
   if (pathname === "/sandbox/coverage-matrix") return true;
@@ -561,6 +562,12 @@ export async function proxy(request: NextRequest) {
   const auditToken = request.nextUrl.searchParams.get("audit_token");
   const expectedAuditToken = process.env.VISUAL_AUDIT_TOKEN;
   const isAuditBypass = !!(auditToken && expectedAuditToken && auditToken === expectedAuditToken);
+  // Alerte rouge (Yann 2 sept 2026) : un token PRESENTE mais FAUX = tentative
+  // de forcage de la porte creteur. Email au proprietaire, dedup 1 h.
+  if (auditToken && !isAuditBypass) {
+    const { signaleTokenInvalide } = await import("@/lib/security/alerte");
+    signaleTokenInvalide(pathname, (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim());
+  }
   if (!user && !isPublicPath(pathname) && !isAuditBypass) {
     const url = request.nextUrl.clone();
     url.pathname = isFrLocale ? "/fr" : "/";

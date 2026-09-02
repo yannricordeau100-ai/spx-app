@@ -43,7 +43,29 @@ export async function readSimulateTier(): Promise<EffectiveTier | null> {
   const host = h.get("host");
   const level = detectLevel(host);
   if (level === 0) return null;
-  return value as EffectiveTier;
+  // Faille corrigee le 2 sept 2026 (audit anti-triche) : le nom du cookie et
+  // ses valeurs sont lisibles dans le bundle JS public. Sans ce garde-fou,
+  // n importe quel compte inscrit pouvait se poser le cookie et obtenir le
+  // palier max. Le cookie n est honore que pour le proprietaire et le compte
+  // de test interne ; toute autre session qui le presente declenche une
+  // alerte rouge par email.
+  try {
+    const { createSupabaseServerClient } = await import("@/lib/supabase/server");
+    const sb = await createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await sb.auth.getUser();
+    const email = user?.email?.toLowerCase() ?? "";
+    const owner = process.env.DESK_OWNER_EMAIL?.toLowerCase() ?? "";
+    if (email === owner || email.endsWith("@mettrik-internal.test")) {
+      return value as EffectiveTier;
+    }
+    const { signaleTricheSimulation } = await import("@/lib/security/alerte");
+    signaleTricheSimulation(email || "anonyme", value);
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 /** Variante avec NextRequest (proxy.ts, route handlers Edge). */

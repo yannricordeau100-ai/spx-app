@@ -147,6 +147,25 @@ export function caviardeCompanyPourGratuit(company: Company, zones: Zone[]): Com
 }
 
 /** Même principe pour la synthèse d'earning call (bloc transcripts). */
+/**
+ * Caviarde le transcript BRUT (TranscriptDoc) pour les paliers gratuits.
+ * Faille corrigée le 2 sept 2026 (audit anti-triche) : le texte intégral du
+ * call partait en clair dans le HTML servi au palier gratuit, lisible via
+ * "Voir la source" même sous le flou CSS. Meta de tête (ticker, dates)
+ * conservées, tout le contenu textuel remplacé par du charabia.
+ */
+export function caviardeTranscriptDocPourGratuit<
+  T extends { ticker: string; fetched_at?: string },
+>(doc: T | null, zones: Zone[]): T | null {
+  if (!doc || !estActive(zones, "transcripts", "texte")) return doc;
+  const d: T = JSON.parse(JSON.stringify(doc));
+  const { ticker, fetched_at } = d;
+  const caviarded = caviardeProfond(d);
+  caviarded.ticker = ticker;
+  if (fetched_at) caviarded.fetched_at = fetched_at;
+  return caviarded;
+}
+
 export function caviardeTranscriptsPourGratuit(
   summary: TranscriptBulletsSummary | null,
   zones: Zone[],

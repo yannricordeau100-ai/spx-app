@@ -19,7 +19,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 const BASE = "https://mettrik-staging.vercel.app";
-const TOKEN = process.env.VISUAL_AUDIT_TOKEN || "phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y";
+const TOKEN = process.env.VISUAL_AUDIT_TOKEN || "TOKEN_RETIRE";
 
 const TICKERS = [
   "TSLA", "BAC", "UPS", "URI", "TSN",

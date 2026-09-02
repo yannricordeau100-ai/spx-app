@@ -10,7 +10,11 @@ import { loadV17Company } from "@/lib/company-core/load-company";
 import { resolveDisabledForTicker } from "@/lib/disabled-blocks-server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
-import { caviardeCompanyPourGratuit, caviardeTranscriptsPourGratuit } from "@/lib/floutage-caviardage";
+import {
+  caviardeCompanyPourGratuit,
+  caviardeTranscriptDocPourGratuit,
+  caviardeTranscriptsPourGratuit,
+} from "@/lib/floutage-caviardage";
 import { chargeZonesFloutage } from "@/lib/desk/floutage-zones";
 import { gateAttForTier } from "@/lib/att";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
@@ -350,7 +354,7 @@ export default async function SandboxV195TickerPage({
       <CompanyView
         company={stripMeta(servedCompany)}
         authSlot={<AuthNav scope="company" />}
-        transcript={transcript}
+        transcript={estGratuit ? caviardeTranscriptDocPourGratuit(transcript, zonesEffectives) : transcript}
         transcriptSummary={servedTranscriptSummary}
         v18Mode
         freemiumTier={freemiumTier}

@@ -25,9 +25,13 @@ export const metadata = {
  * eu5n pour le 4e onglet.
  */
 
-const AUDIT_TOKEN = "phYUd19KP3T_apdLQmugGzF0yEEoAwM6C5JVp9-2z0Y";
+// Faille corrigee le 2 sept 2026 (audit anti-triche) : le token d audit etait
+// code en dur ici et serialise dans le HTML servi a tout compte inscrit.
+// Desormais : page reservee au proprietaire, token lu depuis l env serveur.
 
 // Mapping suffixe ticker -> pays (FR strict, ordre tel que donné par Yann)
+import { requireDeskOwner } from "@/lib/desk/auth";
+
 const SUFFIX_TO_COUNTRY: Record<string, string> = {
   ".PA": "France",
   ".L": "Royaume-Uni",
@@ -131,6 +135,8 @@ async function loadTickers(): Promise<{
 }
 
 export default async function UniverseToggleAdminPage() {
+  await requireDeskOwner();
+  const auditToken = process.env.VISUAL_AUDIT_TOKEN ?? "";
   const [data, eu5n] = await Promise.all([loadTickers(), loadEu5n()]);
 
   return (
@@ -155,7 +161,7 @@ export default async function UniverseToggleAdminPage() {
           euInTop307={data.euInTop307}
           countryCounts={data.countryCounts}
           eu5n={eu5n}
-          auditToken={AUDIT_TOKEN}
+          auditToken={auditToken}
           capOrder={data.capOrder}
           names={data.names}
           problemTickers={DATA_PENDING_TICKERS}
