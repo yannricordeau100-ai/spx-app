@@ -24,6 +24,7 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
           <Link href="/legal/mentions" className="hover:text-zinc-300">Mentions légales</Link>
           <Link href="/legal/conditions" className="hover:text-zinc-300">Conditions générales</Link>
           <Link href="/legal/confidentialite" className="hover:text-zinc-300">Confidentialité</Link>
+          <Link href="/faq" className="hover:text-zinc-300">FAQ</Link>
           <span>· © {new Date().getFullYear()} Mettrik AI</span>
         </div>
       </footer>
@@ -62,6 +63,7 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
           <div>
             <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-zinc-500">Communauté</div>
             <ul className="space-y-1.5 text-[12.5px]">
+              <li><Link href="/faq" className="text-zinc-300 hover:text-zinc-100">Questions fréquentes</Link></li>
               <li><Link href="/contact" className="text-zinc-300 hover:text-zinc-100">Contact</Link></li>
               <li><Link href="/pricing" className="text-zinc-300 hover:text-zinc-100">Tarifs</Link></li>
             </ul>

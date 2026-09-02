@@ -86,7 +86,7 @@ function isPublicPath(pathname: string): boolean {
   if (pathname.startsWith("/auth/")) return true;
   if (pathname.startsWith("/api/")) return true;
   if (pathname === "/favicon.ico") return true;
-  if (pathname === "/robots.txt" || pathname === "/sitemap.xml") return true;
+  if (pathname === "/robots.txt" || pathname === "/sitemap.xml" || pathname === "/llms.txt" || pathname === "/llms-full.txt") return true;
   // Assets statiques de public/ (.png, .jpg, .svg, .webp, .ico, etc.) :
   // toujours publics, sinon le proxy renvoie sur /login et casse les
   // <image> embeds (notamment /brand-mini-logo.png utilisé par le PNG
@@ -99,6 +99,8 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/legal" || pathname.startsWith("/legal/")) return true;
   // /pricing = page publique tarifs (voir avant de s'inscrire).
   if (pathname === "/pricing") return true;
+  // /faq = questions frequentes publiques (Yann 2 sept 2026), indexable.
+  if (pathname === "/faq") return true;
   // /maintenance = page de maintenance, toujours publique (sinon pas affichable).
   if (pathname === "/maintenance") return true;
   // /parrainage = page publique (visible sans compte, propose le sign-in à l'intérieur).
@@ -270,7 +272,7 @@ export async function proxy(request: NextRequest) {
     originalPathname.startsWith("/_next/") ||
     originalPathname === "/favicon.ico" ||
     originalPathname === "/robots.txt" ||
-    originalPathname === "/sitemap.xml";
+    originalPathname === "/sitemap.xml" || originalPathname === "/llms.txt" || originalPathname === "/llms-full.txt";
   let detectedLocaleForCookie: string | null = null;
   let detectedCurrencyForCookie: string | null = null;
   if (!isApiOrAsset && (!hasLocaleCookie || !hasCurrencyCookie)) {
@@ -427,7 +429,7 @@ export async function proxy(request: NextRequest) {
       estFichierStatique ||
       routePathname === "/favicon.ico" ||
       routePathname === "/robots.txt" ||
-      routePathname === "/sitemap.xml";
+      routePathname === "/sitemap.xml" || routePathname === "/llms.txt" || routePathname === "/llms-full.txt";
     if (!isMaintenancePage && !isTechnicalRoute) {
       const url = request.nextUrl.clone();
       url.pathname = isFrLocale ? "/fr/maintenance" : "/maintenance";
@@ -528,7 +530,7 @@ export async function proxy(request: NextRequest) {
       routePathname === "/api/version" ||
       routePathname === "/favicon.ico" ||
       routePathname === "/robots.txt" ||
-      routePathname === "/sitemap.xml" ||
+      routePathname === "/sitemap.xml" || routePathname === "/llms.txt" || routePathname === "/llms-full.txt" ||
       routePathname.startsWith("/_next/");
     if (!isAdmin && !isTechRoute) {
       const reqSearch = request.nextUrl.search;

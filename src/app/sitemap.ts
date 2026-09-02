@@ -1,55 +1,56 @@
 import type { MetadataRoute } from "next";
-import { TICKERS } from "@/lib/data";
+import { promises as fs } from "fs";
+import path from "path";
 
 /**
  * Sitemap auto-généré pour le SEO.
- * Listé : home + pages société pour chaque ticker + pages légales,
- * EN VERSION ANGLAISE (URL sans préfixe) ET FRANÇAISE (URL /fr/...).
  *
- * `alternates` indique aux moteurs de recherche que les deux URL pointent
- * vers le même contenu en deux langues (Google hreflang protocol).
- * Mis à jour à chaque build.
+ * Yann 2 sept 2026 (audit SEO) :
+ *  - le site est servi en français uniquement (Phase 1 FR-only, `/fr/<route>`
+ *    redirige en 308 vers `/<route>`). L'ancien sitemap déclarait chaque page
+ *    en double avec des URL /fr/... : des centaines d'URL en redirection et
+ *    des hreflang incohérents. Une seule URL canonique par page désormais.
+ *  - il ne listait que les 5 sociétés du dataset V1 (TICKERS legacy) : les
+ *    661 autres fiches en ligne étaient invisibles pour Google. Les pages
+ *    société viennent maintenant de la liste V1.9.5 clean-all (666 stés),
+ *    la même qui décide de la visibilité publique.
  */
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai";
   const now = new Date();
 
-  const staticRoutes = [
-    { path: "/", priority: 1.0, changeFrequency: "weekly" as const },
-    { path: "/legal/mentions", priority: 0.3, changeFrequency: "yearly" as const },
-    { path: "/legal/cgu", priority: 0.3, changeFrequency: "yearly" as const },
-    { path: "/legal/cgv", priority: 0.3, changeFrequency: "yearly" as const },
-    { path: "/legal/confidentialite", priority: 0.3, changeFrequency: "yearly" as const },
-    { path: "/pricing", priority: 0.5, changeFrequency: "monthly" as const },
+  const staticRoutes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
+    { path: "/", priority: 1.0, changeFrequency: "daily" },
+    { path: "/faq", priority: 0.8, changeFrequency: "weekly" },
+    { path: "/pricing", priority: 0.7, changeFrequency: "monthly" },
+    { path: "/contact", priority: 0.4, changeFrequency: "yearly" },
+    { path: "/parrainage", priority: 0.4, changeFrequency: "monthly" },
+    { path: "/legal/mentions", priority: 0.2, changeFrequency: "yearly" },
+    { path: "/legal/conditions", priority: 0.2, changeFrequency: "yearly" },
+    { path: "/legal/confidentialite", priority: 0.2, changeFrequency: "yearly" },
   ];
 
-  const tickerRoutes = TICKERS.map((t) => ({
-    path: `/${t.toLowerCase()}`,
-    priority: 0.9,
-    changeFrequency: "daily" as const,
-  }));
-
-  const allRoutes = [...staticRoutes, ...tickerRoutes];
-
-  const sitemap: MetadataRoute.Sitemap = [];
-  for (const r of allRoutes) {
-    const enUrl = `${base}${r.path}`;
-    const frUrl = r.path === "/" ? `${base}/fr` : `${base}/fr${r.path}`;
-    sitemap.push({
-      url: enUrl,
-      lastModified: now,
-      changeFrequency: r.changeFrequency,
-      priority: r.priority,
-      alternates: { languages: { en: enUrl, fr: frUrl } },
-    });
-    sitemap.push({
-      url: frUrl,
-      lastModified: now,
-      changeFrequency: r.changeFrequency,
-      priority: r.priority,
-      alternates: { languages: { en: enUrl, fr: frUrl } },
-    });
+  let tickers: string[] = [];
+  try {
+    const raw = await fs.readFile(path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json"), "utf-8");
+    const parsed = JSON.parse(raw) as { tickers?: string[] } | string[];
+    tickers = Array.isArray(parsed) ? parsed : parsed.tickers ?? [];
+  } catch {
+    tickers = [];
   }
 
-  return sitemap;
+  const tickerRoutes = tickers
+    .filter((t) => typeof t === "string" && t.length > 0 && !t.startsWith("_"))
+    .map((t) => ({
+      path: `/${t.toLowerCase()}`,
+      priority: 0.9,
+      changeFrequency: "daily" as const,
+    }));
+
+  return [...staticRoutes, ...tickerRoutes].map((r) => ({
+    url: `${base}${r.path}`,
+    lastModified: now,
+    changeFrequency: r.changeFrequency,
+    priority: r.priority,
+  }));
 }

@@ -79,8 +79,16 @@ export const metadata: Metadata = {
     // Le gabarit n ajoute la marque que si elle n y est pas deja.
     template: "%s",
   },
+  // Yann 2 sept 2026 (SEO) : description enrichie en mots-clés réels
+  // (KPI, indicateurs opérationnels, S&P 500, CAC 40, documents officiels).
+  // L ancienne accroche reste le titre OG/Twitter.
   description:
-    "Surperformer le marché avec les meilleurs KPIs de chaque action",
+    "Mettrik AI : les indicateurs clés (KPI) qui expliquent la performance de plus de 650 sociétés cotées (S&P 500, CAC 40, DAX 40, SMI, AEX). Extraits des documents officiels, notés, comparés au secteur, mis à jour à chaque publication de résultats. Surperformer le marché avec les meilleurs KPIs de chaque action.",
+  keywords: [
+    "KPI investisseur", "indicateurs clés société cotée", "analyse fondamentale", "KPI opérationnels",
+    "S&P 500", "CAC 40", "DAX 40", "résultats trimestriels", "facteurs de risque 10-K",
+    "rémunération dirigeants", "earnings call synthèse", "Mettrik", "Mettrik AI", "KPI Intelligence",
+  ],
   applicationName: "Mettrik AI",
   authors: [{ name: "Mettrik AI" }],
   creator: "Mettrik AI",
@@ -127,6 +135,54 @@ export default async function RootLayout({
         <meta name="robots" content="noai, noimageai" />
         <meta name="googlebot" content="noai, noimageai" />
         <meta name="ai-content-declaration" content="no-training" />
+        {/* Yann 2 sept 2026 (SEO + GEO) : identite structuree du service,
+            lue par Google (Knowledge panel, rich results) et par les moteurs
+            de reponse IA. Organisation, site, application et ses offres. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": `${SITE_URL}/#organization`,
+                  name: "Mettrik AI",
+                  alternateName: "Mettrik",
+                  url: SITE_URL,
+                  logo: `${SITE_URL}/brand/mettrik-ai-white-purple.png`,
+                  email: "contact@mettrik.ai",
+                  description:
+                    "Intelligence KPI pour investisseurs : les indicateurs opérationnels de plus de 650 sociétés cotées, extraits des documents officiels.",
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": `${SITE_URL}/#website`,
+                  url: SITE_URL,
+                  name: "Mettrik AI",
+                  inLanguage: "fr",
+                  publisher: { "@id": `${SITE_URL}/#organization` },
+                },
+                {
+                  "@type": "SoftwareApplication",
+                  "@id": `${SITE_URL}/#app`,
+                  name: "Mettrik AI",
+                  applicationCategory: "FinanceApplication",
+                  operatingSystem: "Web",
+                  url: SITE_URL,
+                  description:
+                    "Fiches société avec KPI principal, indicateurs clés notés, facteurs de risque scorés, gouvernance, positionnement IA et synthèse des appels de résultats, pour le S&P 500, le CAC 40, le DAX 40, l'AEX, le SMI et le SOX.",
+                  offers: [
+                    { "@type": "Offer", name: "Gratuit", price: "0", priceCurrency: "EUR", url: `${SITE_URL}/pricing` },
+                    { "@type": "Offer", name: "Premium", price: "29.90", priceCurrency: "EUR", url: `${SITE_URL}/pricing`, priceSpecification: { "@type": "UnitPriceSpecification", price: "29.90", priceCurrency: "EUR", billingDuration: "P1M" } },
+                    { "@type": "Offer", name: "Max", price: "59.90", priceCurrency: "EUR", url: `${SITE_URL}/pricing`, priceSpecification: { "@type": "UnitPriceSpecification", price: "59.90", priceCurrency: "EUR", billingDuration: "P1M" } },
+                  ],
+                  publisher: { "@id": `${SITE_URL}/#organization` },
+                },
+              ],
+            }),
+          }}
+        />
       </head>
       <body className="min-h-full bg-[#050505] text-base text-zinc-100">
         <I18nProvider locale={locale}>
