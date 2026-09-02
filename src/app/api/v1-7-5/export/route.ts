@@ -31,7 +31,15 @@ function csvEscape(v: unknown): string {
   return s;
 }
 
-export function GET() {
+export async function GET() {
+  // Audit 2 sept 2026 : export de l univers reserve aux comptes connectes.
+  try {
+    const sb = await createSupabaseServerClient();
+    const { data: { user } } = await sb.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Connexion requise" }, { status: 401 });
+  } catch {
+    return NextResponse.json({ error: "Connexion requise" }, { status: 401 });
+  }
   const publicDatasets = V17_PUBLIC as unknown as Record<string, Company>;
   const merged = MERGED as unknown as Record<string, Company>;
   const sorted = V17_SORTED as string[];

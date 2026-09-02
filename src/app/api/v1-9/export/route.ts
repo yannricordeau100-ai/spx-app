@@ -41,7 +41,15 @@ function csvEscape(v: unknown): string {
   return s;
 }
 
-export function GET() {
+export async function GET() {
+  // Audit 2 sept 2026 : export de l univers reserve aux comptes connectes.
+  try {
+    const sb = await createSupabaseServerClient();
+    const { data: { user } } = await sb.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Connexion requise" }, { status: 401 });
+  } catch {
+    return NextResponse.json({ error: "Connexion requise" }, { status: 401 });
+  }
   const universe = V19_UNIVERSE as unknown as V19Entry[];
   const headers = ["country", "source", "ticker"];
   const rows: string[] = [headers.join(",")];
