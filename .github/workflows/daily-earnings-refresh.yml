@@ -101,7 +101,17 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions (daily refresh)"
           FOREIGN=$(python3 -c "import json;print(' '.join('src/data/v2-pipeline/'+t.lower()+'.json' for t in json.load(open('src/data/foreign-earnings-sources.json'))['sources']))" 2>/dev/null)
-          git add src/data/v2-pipeline-enrich src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json $FOREIGN 2>/dev/null || true
+          # Garde-fou univers (Yann 2 sept 2026) : le refresh cree des fiches enrich
+          # pour des tickers HORS univers (aeo, bdrx, ciss...). Regle permanente :
+          # l univers = indices seulement (666 stes, v1-9-5-clean-all-tickers.json).
+          # On ne committe que les fichiers enrich des stes de cette liste.
+          ENRICH=$(python3 -c "
+          import json,glob,os
+          d=json.load(open('src/data/v1-9-5-clean-all-tickers.json')); ok={t.lower() for t in (d['tickers'] if isinstance(d,dict) else d)}
+          fs=[f for f in glob.glob('src/data/v2-pipeline-enrich/*.json') if os.path.basename(f).split('.')[0].lower() in ok]
+          print(' '.join(fs))")
+          git add $ENRICH src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json $FOREIGN 2>/dev/null || true
+          git status --short | grep -c "^A" | xargs -I{} echo "{} fichiers hors univers ignores (non ajoutes)" || true
           if git diff --staged --quiet; then
             echo "Aucun changement détecté, skip commit."
           else
