@@ -1696,7 +1696,7 @@ export function CompanyView({
                   poses sur le wrapper ; le telechargement PNG les lit via
                   closest() pour la ligne italique sous le titre francais. */}
               <div
-                className="max-lg:order-4"
+                className="max-lg:order-4 max-lg:-mx-5"
                 data-blur-part="graphique"
                 data-export-extra="true"
                 // Yann 2 sept 2026 : sur mobile, taper le graph l ouvre en
@@ -1723,7 +1723,9 @@ export function CompanyView({
                 onClose={() => setChartPleinEcran(false)}
                 titre={`${active.name_fr || active.short} · ${company.name}`}
               >
-                {heroChartNode}
+                {/* meme zone de floutage que le graph inline : au palier
+                    gratuit le plein ecran reste floute a l identique */}
+                <div data-blur="hero" data-blur-part="graphique">{heroChartNode}</div>
               </ChartFullscreen>
             </div>
           </div>
