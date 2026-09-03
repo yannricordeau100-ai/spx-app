@@ -113,7 +113,7 @@ export function StructureClient({ carte, jeton }: { carte: Carte; jeton: string 
       </div>
 
       {/* Colonnes par couche */}
-      <div className="mt-6 grid gap-5" style={{ gridTemplateColumns: `repeat(${filtre === "tous" ? 5 : 1}, minmax(0, 1fr))` }}>
+      <div className={`mt-6 grid gap-5 ${filtre === "tous" ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-5" : "grid-cols-1"}`}>
         {COUCHES.filter((c) => filtre === "tous" || c.id === filtre).map((couche) => {
           const items = noeuds.filter((n) => n.couche === couche.id);
           return (
