@@ -335,6 +335,117 @@ export type LoadOutcome =
  *  - `preparing` : ticker connu mais pas encore Pass 3 → "Fiche en préparation".
  *  - `missing`   : ticker inconnu → notFound.
  */
+/** Historique trimestriel verifie (v2-pipeline-enrich/<t>.quarterly-history.json). */
+type SerieTrimestrielleExt = {
+  method?: string;
+  kpis?: Array<{
+    short: string;
+    period_type?: string;
+    history?: number[];
+    history_periods?: string[];
+    last_data_date?: string;
+    unit?: string | null;
+  }>;
+};
+
+const ALLOWED_QUARTERLY_METHODS = new Set(["xbrl-companyfacts", "llm-filing-crosschecked"]);
+
+/**
+ * Fusionne les series trimestrielles verifiees dans une liste de KPI.
+ * Yann 3 sept 2026 : cette fusion etait appliquee AVANT l injection de la
+ * couche kpis-haut, qui remplace ensuite les KPI de meme identifiant. Les
+ * series verifiees du lot Q4 n arrivaient donc jamais a l ecran. La fusion
+ * est desormais une fonction, appelee aux DEUX endroits.
+ */
+function fusionneSeriesTrimestrielles(
+  kpis: AnyKPI[],
+  qExt: SerieTrimestrielleExt | null,
+): AnyKPI[] {
+    if (
+    !qExt
+    || typeof qExt.method !== "string"
+    || !ALLOWED_QUARTERLY_METHODS.has(qExt.method)
+    || !Array.isArray(qExt.kpis)
+  ) return kpis;
+  {
+    const extByShort = new Map(
+      qExt.kpis.filter((k) => k && k.short).map((k) => [k.short, k] as const),
+    );
+    return (kpis).map((k) => {
+      const ext = extByShort.get(String(k.short));
+      if (!ext || !Array.isArray(ext.history) || ext.history.length === 0) return k;
+      // Garde-fou 3 sept 2026 : une serie dont les etiquettes de periode ne
+      // correspondent pas au nombre de valeurs produit un graphique aux
+      // dates fausses (les labels sont refabriques a rebours). On l ignore.
+      if (
+        Array.isArray(ext.history_periods)
+        && ext.history_periods.length !== ext.history.length
+      ) return k;
+      const curHist = Array.isArray(k.history) ? (k.history as number[]) : [];
+      // Yann 16 mai 2026 : merge intelligent.
+      // Si ext (XBRL) > cur (CONV-DATA) : prend ext comme base.
+      // PUIS si CONV-DATA a un last_data_date plus récent ET des quarters
+      // au-delà de ext.last_data_date, on les APPEND. Évite de perdre
+      // Q1 2026 quand l'extracteur XBRL s'arrête à Q4 2025 alors que la
+      // sté a déjà publié Q1 2026 via 10-Q.
+      const useExt = ext.history.length > curHist.length;
+      const baseHist = useExt ? ext.history : curHist;
+      const baseLast = useExt ? ext.last_data_date : (k as AnyKPI & { last_data_date?: string }).last_data_date;
+      const otherLast = useExt ? (k as AnyKPI & { last_data_date?: string }).last_data_date : ext.last_data_date;
+      const otherHist = useExt ? curHist : ext.history;
+      let mergedHist = [...baseHist];
+      let mergedLast = baseLast;
+      const baseDate = typeof baseLast === "string" ? new Date(baseLast) : null;
+      const otherDate = typeof otherLast === "string" ? new Date(otherLast) : null;
+      if (baseDate && otherDate && !Number.isNaN(baseDate.getTime()) && !Number.isNaN(otherDate.getTime()) && otherDate > baseDate) {
+        // Combien de quarters between baseDate (exclu) et otherDate (inclus) ?
+        const monthsDiff = (otherDate.getUTCFullYear() - baseDate.getUTCFullYear()) * 12 + (otherDate.getUTCMonth() - baseDate.getUTCMonth());
+        const qDiff = Math.max(0, Math.round(monthsDiff / 3));
+        // Yann 19 mai 2026 : `otherHist.slice(-qDiff)` faisait l'hypothèse
+        // que les dernières N valeurs de l'history LLM main.kpis sont les
+        // quarters les plus récents. Or pour AAPL (et d'autres), main.kpi
+        // .history est désuète (10 quarters Q1 FY24 → Q2 FY26 = 23.9 last)
+        // alors que main.kpi.value = 30.976 = Q2 FY26 canonique. Append
+        // de 23.9 créait un faux drop visible sur le chart (30 → 23.9).
+        //
+        // Fix : préférer `main.kpi.value` (canonique = dernier quarter
+        // publié) au lieu de la queue history. Plus fiable parce que
+        // CONV-DATA rafraîchit `value` à chaque earnings mais pas
+        // toujours `history`.
+        if (qDiff > 0) {
+          // qDiff = 1 → append le seul main.kpi.value
+          // qDiff > 1 → append (qDiff-1) tail values + main.kpi.value en dernier
+          const mainValue = typeof (k as AnyKPI).value === "number"
+            ? ((k as AnyKPI).value as number)
+            : Number((k as AnyKPI).value);
+          if (Number.isFinite(mainValue)) {
+            const padding = qDiff > 1 && otherHist.length >= qDiff - 1
+              ? otherHist.slice(-(qDiff - 1), -1)
+              : [];
+            mergedHist = [...baseHist, ...padding, mainValue];
+            mergedLast = otherLast;
+          } else if (otherHist.length >= qDiff) {
+            // Fallback ancien comportement si main.kpi.value invalide
+            const tail = otherHist.slice(-qDiff);
+            mergedHist = [...baseHist, ...tail];
+            mergedLast = otherLast;
+          }
+        }
+      }
+      if (!useExt && mergedHist === baseHist) return k;
+      return {
+        ...k,
+        history: mergedHist,
+        history_periods: ext.history_periods,
+        period_type: ext.period_type ?? k.period_type ?? "quarter",
+        last_data_date: mergedLast ?? k.last_data_date,
+        unit: ext.unit ?? k.unit,
+      } as AnyKPI;
+    });
+  }
+  return kpis;
+}
+
 // Yann 3 sept 2026 : ouverture d une fiche trop lente (5 a 6 s a froid). Les
 // donnees d une societe ne changent qu au deploiement : cache memoire 10 min
 // par instance serveur, cle ticker + mode + langue. Le palier et l auth
@@ -1513,104 +1624,14 @@ async function loadV17CompanyBrut(
     // Opus/Sonnet, lecture directe des 10-Q/10-K, chaque valeur recoupée
     // FY = somme(Q1..Q4) quand applicable). Tag distinct de xbrl-companyfacts
     // pour rester réversible/traçable si un problème est détecté.
-    const ALLOWED_QUARTERLY_METHODS = new Set(["xbrl-companyfacts", "llm-filing-crosschecked"]);
     const qPath = path.join(
       ROOT,
       "src/data/v2-pipeline-enrich",
       `${ticker.toLowerCase()}.quarterly-history.json`,
     );
-    const qExt = await readJsonOrNull<{
-      method?: string;
-      kpis?: Array<{
-        short: string;
-        period_type?: string;
-        history?: number[];
-        history_periods?: string[];
-        last_data_date?: string;
-        unit?: string | null;
-      }>;
-    }>(qPath);
-    if (
-      qExt
-      && typeof qExt.method === "string"
-      && ALLOWED_QUARTERLY_METHODS.has(qExt.method)
-      && Array.isArray(qExt.kpis)
-      && Array.isArray(data.kpis)
-    ) {
-      const extByShort = new Map(
-        qExt.kpis.filter((k) => k && k.short).map((k) => [k.short, k] as const),
-      );
-      data.kpis = (data.kpis as AnyKPI[]).map((k) => {
-        const ext = extByShort.get(String(k.short));
-        if (!ext || !Array.isArray(ext.history) || ext.history.length === 0) return k;
-        // Garde-fou 3 sept 2026 : une serie dont les etiquettes de periode ne
-        // correspondent pas au nombre de valeurs produit un graphique aux
-        // dates fausses (les labels sont refabriques a rebours). On l ignore.
-        if (
-          Array.isArray(ext.history_periods)
-          && ext.history_periods.length !== ext.history.length
-        ) return k;
-        const curHist = Array.isArray(k.history) ? (k.history as number[]) : [];
-        // Yann 16 mai 2026 : merge intelligent.
-        // Si ext (XBRL) > cur (CONV-DATA) : prend ext comme base.
-        // PUIS si CONV-DATA a un last_data_date plus récent ET des quarters
-        // au-delà de ext.last_data_date, on les APPEND. Évite de perdre
-        // Q1 2026 quand l'extracteur XBRL s'arrête à Q4 2025 alors que la
-        // sté a déjà publié Q1 2026 via 10-Q.
-        const useExt = ext.history.length > curHist.length;
-        const baseHist = useExt ? ext.history : curHist;
-        const baseLast = useExt ? ext.last_data_date : (k as AnyKPI & { last_data_date?: string }).last_data_date;
-        const otherLast = useExt ? (k as AnyKPI & { last_data_date?: string }).last_data_date : ext.last_data_date;
-        const otherHist = useExt ? curHist : ext.history;
-        let mergedHist = [...baseHist];
-        let mergedLast = baseLast;
-        const baseDate = typeof baseLast === "string" ? new Date(baseLast) : null;
-        const otherDate = typeof otherLast === "string" ? new Date(otherLast) : null;
-        if (baseDate && otherDate && !Number.isNaN(baseDate.getTime()) && !Number.isNaN(otherDate.getTime()) && otherDate > baseDate) {
-          // Combien de quarters between baseDate (exclu) et otherDate (inclus) ?
-          const monthsDiff = (otherDate.getUTCFullYear() - baseDate.getUTCFullYear()) * 12 + (otherDate.getUTCMonth() - baseDate.getUTCMonth());
-          const qDiff = Math.max(0, Math.round(monthsDiff / 3));
-          // Yann 19 mai 2026 : `otherHist.slice(-qDiff)` faisait l'hypothèse
-          // que les dernières N valeurs de l'history LLM main.kpis sont les
-          // quarters les plus récents. Or pour AAPL (et d'autres), main.kpi
-          // .history est désuète (10 quarters Q1 FY24 → Q2 FY26 = 23.9 last)
-          // alors que main.kpi.value = 30.976 = Q2 FY26 canonique. Append
-          // de 23.9 créait un faux drop visible sur le chart (30 → 23.9).
-          //
-          // Fix : préférer `main.kpi.value` (canonique = dernier quarter
-          // publié) au lieu de la queue history. Plus fiable parce que
-          // CONV-DATA rafraîchit `value` à chaque earnings mais pas
-          // toujours `history`.
-          if (qDiff > 0) {
-            // qDiff = 1 → append le seul main.kpi.value
-            // qDiff > 1 → append (qDiff-1) tail values + main.kpi.value en dernier
-            const mainValue = typeof (k as AnyKPI).value === "number"
-              ? ((k as AnyKPI).value as number)
-              : Number((k as AnyKPI).value);
-            if (Number.isFinite(mainValue)) {
-              const padding = qDiff > 1 && otherHist.length >= qDiff - 1
-                ? otherHist.slice(-(qDiff - 1), -1)
-                : [];
-              mergedHist = [...baseHist, ...padding, mainValue];
-              mergedLast = otherLast;
-            } else if (otherHist.length >= qDiff) {
-              // Fallback ancien comportement si main.kpi.value invalide
-              const tail = otherHist.slice(-qDiff);
-              mergedHist = [...baseHist, ...tail];
-              mergedLast = otherLast;
-            }
-          }
-        }
-        if (!useExt && mergedHist === baseHist) return k;
-        return {
-          ...k,
-          history: mergedHist,
-          history_periods: ext.history_periods,
-          period_type: ext.period_type ?? k.period_type ?? "quarter",
-          last_data_date: mergedLast ?? k.last_data_date,
-          unit: ext.unit ?? k.unit,
-        } as AnyKPI;
-      });
+    const qExt = await readJsonOrNull<SerieTrimestrielleExt>(qPath);
+    if (Array.isArray(data.kpis)) {
+      data.kpis = fusionneSeriesTrimestrielles(data.kpis as AnyKPI[], qExt);
     }
     // Yann 2026-05-26 : MERGE `hero_quarterly_history` (mission extraction
     // Cerebras Qwen 235B sur ~258 stés clean_all dont hero KPI period_type
@@ -2783,6 +2804,16 @@ async function loadV17CompanyBrut(
         return true;
       });
       data.kpis = [...converted, ...keptExtras];
+      // Yann 3 sept 2026 : la couche kpis-haut vient de REMPLACER les KPI de
+      // meme identifiant, y compris ceux que la fusion trimestrielle avait
+      // enrichis plus haut. On rejoue donc la fusion sur le tableau final,
+      // sinon les series verifiees sur les rapports officiels (lot Q4) ne
+      // sont jamais affichees. La fusion ne garde que l historique le plus
+      // long : rejouer ne peut pas raccourcir une serie.
+      const qExtApresHaut = await readJsonOrNull<SerieTrimestrielleExt>(
+        path.join(ROOT, "src/data/v2-pipeline-enrich", `${ticker.toLowerCase()}.quarterly-history.json`),
+      );
+      data.kpis = fusionneSeriesTrimestrielles(data.kpis as AnyKPI[], qExtApresHaut);
       const bestHero = converted.reduce((best, k) =>
         ((k.pv_score as number) ?? 0) > ((best?.pv_score as number) ?? -1) ? k : best,
       converted[0]);
