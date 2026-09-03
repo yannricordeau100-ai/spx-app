@@ -58,3 +58,33 @@ print(','.join(reversed(ms)))")
   nice -n 10 python3 scripts/verifie-publications.py
   echo "=== $(date '+%F %T') fin ==="
 } >> /tmp/earnings-refresh.log 2>&1
+
+# ── Bilan et alerte (3 sept 2026) : 6 nuits avaient echoue en silence. ──
+# Rotation du journal au-dela de 50 Mo, bilan de la passe, email rouge au
+# proprietaire si le moteur n a rien traite (identifiants, quota, panne).
+if [ "$(stat -f%z /tmp/earnings-refresh.log 2>/dev/null || echo 0)" -gt 52428800 ]; then
+  mv /tmp/earnings-refresh.log "/tmp/earnings-refresh.$(date +%Y%m%d).log"
+fi
+BILAN=$(grep -E "FINI \{" /tmp/earnings-refresh.log | tail -1)
+TRAITE=$(printf '%s' "$BILAN" | sed -E "s/.*'traite': ([0-9]+).*/\1/")
+DOSSIERS=$(printf '%s' "$BILAN" | sed -E "s/.*'dossier prepare': ([0-9]+).*/\1/")
+MOTIF=$(grep -oE "motif=[^$]{0,160}" /tmp/earnings-refresh.log | tail -1)
+python3 - "$TRAITE" "$DOSSIERS" "$MOTIF" <<'PY'
+import json, sys, subprocess, re
+traite, dossiers, motif = sys.argv[1], sys.argv[2], sys.argv[3]
+etat = {"date": subprocess.run(["date","+%F %T"],capture_output=True,text=True).stdout.strip(),
+        "traite": traite, "dossiers_prepares": dossiers, "dernier_motif": motif}
+open("/Users/yann/spx-app/.conv-state/earnings-refresh-dernier-bilan.json","w").write(json.dumps(etat, ensure_ascii=False, indent=1))
+env = {}
+for l in open("/Users/yann/spx-app/.env.local"):
+    l = l.strip()
+    if "=" in l and not l.startswith("#"):
+        k, v = l.split("=", 1); env[k] = v.strip().strip('"')
+cle, dest = env.get("RESEND_API_KEY"), env.get("DESK_OWNER_EMAIL")
+ok_traite = traite.isdigit() and int(traite) > 0
+if cle and dest and not ok_traite:
+    corps = f"Passe de 23h : {traite or '?'} societe(s) traitee(s), {dossiers or '?'} dossier(s) prepares sans extraction.\nDernier motif : {motif or 'aucun'}\nJournal : /tmp/earnings-refresh.log"
+    subprocess.run(["curl","-s","-X","POST","https://api.resend.com/emails","-H",f"Authorization: Bearer {cle}","-H","Content-Type: application/json",
+        "-d", json.dumps({"from":"Mettrik Robots <noreply@mettrik.ai>","to":[dest],"subject":"🔴 Mise a jour des societes : le moteur n a rien extrait cette nuit","text":corps})],capture_output=True)
+print(f"bilan : traite={traite} dossiers={dossiers} alerte={'envoyee' if (cle and dest and not ok_traite) else 'non'}")
+PY

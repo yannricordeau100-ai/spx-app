@@ -108,6 +108,14 @@ def cibles_enrich(d: dict) -> list[tuple[dict, str]]:
 
 def cibles_pipeline(d: dict) -> list[tuple[dict, str]]:
     out = []
+    # Yann 1er sept 2026 (carte Fuze Tea "Presence"/"marches") : les textes des
+    # KPI et stories du pipeline (name_fr, unit, signal) sont AUSSI affiches
+    # quand kpis-haut ne les remplace pas. short reste intouchable.
+    for k in d.get("kpis") or []:
+        if isinstance(k, dict):
+            for c in ("name_fr", "unit", "signal"):
+                if isinstance(k.get(c), str) and k[c].strip():
+                    out.append((k, c))
     for r in d.get("risks") or []:
         if isinstance(r, dict):
             for c in CH_RISK:

@@ -59,6 +59,7 @@ import { CompanyHeader } from "@/components/company-header";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { PeriodToggle } from "@/components/period-toggle";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { lienCourtKpi, textePartageX } from "@/lib/kpi-link";
 import { expliqueUnite } from "@/lib/unites-explications";
 import { InterpretationBlock } from "@/components/interpretation-block";
 // Yann 12 juin 2026 : events liés au graph retirés (plus d'import getCompanyEvents).
@@ -418,6 +419,33 @@ export function CompanyView({
     () => company.kpis?.find((k) => k.short === activeKpiShort) ?? getHero(company),
     [activeKpiShort, company]
   );
+  // Yann 3 sept 2026 : ?kpi=<short> (micro-lien de partage /k/...) promeut
+  // directement le KPI demande en principal a l ouverture de la fiche.
+  useEffect(() => {
+    try {
+      const q = new URLSearchParams(window.location.search).get("kpi");
+      if (q && company.kpis?.some((k) => k.short === q)) setActiveKpiShort(q);
+    } catch { /* hors navigateur */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // Texte et micro-lien du post X, construits a partir du KPI actif.
+  const partage = useMemo(() => {
+    if (!active) return { texte: `${company.name} sur Mettrik AI`, lien: `https://mettrik.ai/${company.ticker.toLowerCase()}` };
+    const origine = typeof window !== "undefined" ? window.location.origin : "https://mettrik.ai";
+    const num = typeof active.value === "number" ? active.value : Number(String(active.value ?? "").replace(/,/g, ""));
+    const f = Number.isFinite(num) ? formatHeroValue(num, active.unit ?? "") : null;
+    return {
+      texte: textePartageX({
+        societe: company.name,
+        ticker: company.ticker,
+        kpi: active.name_fr || active.name_en || String(active.short),
+        valeur: f ? f.value : String(active.value ?? ""),
+        unite: f ? f.unit : (active.unit ?? ""),
+        variation: typeof active.yoy === "string" ? active.yoy : null,
+      }),
+      lien: lienCourtKpi(company.ticker, String(active.short), origine),
+    };
+  }, [active, company]);
 
   // Garde-fou : fiches sans aucun KPI (UUUU, SU, etc.) — afficher un message au lieu de crasher
   if (!active) {
@@ -1036,6 +1064,8 @@ export function CompanyView({
   // Noeud du graph hero, rendu inline ET dans le plein ecran mobile.
   const heroChartNode = (
     <ChartCycle
+      shareText={partage.texte}
+      shareUrl={partage.lien}
       mode={chartMode}
       data={scaleFactor !== 1 ? chartHistoryRaw.map((v) => (typeof v === "number" ? v * scaleFactor : v)) : chartHistoryRaw}
       labels={chartLabels}
@@ -1543,6 +1573,8 @@ export function CompanyView({
                 )}
                 </div>
                 <ChartCycleControls
+                  shareText={partage.texte}
+                  shareUrl={partage.lien}
                   mode={chartMode}
                   onChange={setChartMode}
                   color={accent}

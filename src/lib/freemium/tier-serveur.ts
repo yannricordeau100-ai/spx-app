@@ -52,3 +52,13 @@ export async function tierDepuisAbonnement(user: Pick<User, "id" | "email">): Pr
     return "free";
   }
 }
+
+/** Societes vitrine (Yann 3 sept 2026) : Google, Meta et Booking sont servies
+ *  SANS floutage aux inscrits du plan gratuit, pour juger la profondeur avant
+ *  de payer. Les anonymes les voient floutees comme le reste. */
+export const VITRINE_DEFLOUTEE = new Set(["GOOGL", "GOOG", "META", "BKNG"]);
+
+export function tierPourFiche(tier: UserTier, ticker: string): UserTier {
+  if (tier === "free" && VITRINE_DEFLOUTEE.has(ticker.toUpperCase())) return "max";
+  return tier;
+}

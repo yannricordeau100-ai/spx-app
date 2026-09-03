@@ -1,6 +1,21 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { signaleTokenInvalide } from "./lib/security/alerte";
+import CLEAN_ALL from "./data/v1-9-5-clean-all-tickers.json";
+
+// Yann 3 sept 2026 : seules les fiches de l univers en ligne (666) sont
+// publiques sans compte. Tout autre chemin d un segment (/account, /admin,
+// /desk-..., /whoami...) reste soumis a l authentification.
+const TICKERS_PUBLICS = new Set<string>();
+for (const t of (CLEAN_ALL as { tickers: string[] }).tickers) {
+  const u = t.toUpperCase();
+  TICKERS_PUBLICS.add(u);
+  TICKERS_PUBLICS.add(u.replace(/\./g, "-"));
+  TICKERS_PUBLICS.add(u.replace(/-/g, "."));
+}
+function estFichePublique(seg: string): boolean {
+  return TICKERS_PUBLICS.has(seg.toUpperCase());
+}
 
 /**
  * Proxy Next 16 (ex-middleware.ts, renommé selon la nouvelle convention) :
@@ -102,6 +117,8 @@ function isPublicPath(pathname: string): boolean {
   if (pathname === "/pricing") return true;
   // /faq = questions frequentes publiques (Yann 2 sept 2026), indexable.
   if (pathname === "/faq") return true;
+  // /k/<ticker>/<code> = micro-lien de partage d un KPI (apercu pour X, LinkedIn...). Public.
+  if (pathname.startsWith("/k/")) return true;
   // /maintenance = page de maintenance, toujours publique (sinon pas affichable).
   if (pathname === "/maintenance") return true;
   // /parrainage = page publique (visible sans compte, propose le sign-in à l'intérieur).
@@ -140,9 +157,14 @@ function isPublicPath(pathname: string): boolean {
       // backward-compat via rewrite ci-dessous.
     ]);
     if (UTIL_SUBPATHS.has(firstSeg)) return true;
-    // Sinon = page société (ex /sandbox/v1-8/nvda) → AUTH REQUISE
-    return false;
+    // Yann 3 sept 2026 : les fiches societe sont VISIBLES SANS COMPTE, floutees
+    // (palier anonyme caviarde cote serveur). Objectif : referencement Google
+    // et moteurs IA (GEO). Les inscrits gratuits voient Google, Meta et
+    // Booking en clair ; le reste se deverrouille avec Premium / Max.
+    return tail.split("/").length === 1 && estFichePublique(firstSeg);
   }
+  // Idem pour l URL canonique courte /<ticker> (ex /aapl, /mc.pa).
+  if (/^\/[^/]+$/.test(pathname) && estFichePublique(pathname.slice(1))) return true;
   // /sandbox/data-status = dashboard interne agrégé (compteurs sec-data,
   // pipeline, audit V1.7, crédits LLM). Public car Yann le consulte
   // souvent sans vouloir signer. Aucune PII, aucune donnée client.

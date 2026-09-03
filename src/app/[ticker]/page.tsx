@@ -21,7 +21,7 @@ import { chargeZonesFloutage } from "@/lib/desk/floutage-zones";
 import { gateAttForTier } from "@/lib/att";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
+import { tierDepuisAbonnement, tierPourFiche } from "@/lib/freemium/tier-serveur";
 
 /** Visibilité V1.9.5 : la liste clean-all fait foi (mêmes variantes de
  *  séparateur que le loader V1.9.5 : BRK.B / BRK-B). */
@@ -201,7 +201,7 @@ export default async function TickerPage({
 
   const transcriptSummary = await loadTranscriptSummary(ticker);
   const disabledBlocks = await resolveDisabledForTicker(ticker);
-  const freemiumTier = await resolveFreemiumTier();
+  const freemiumTier = tierPourFiche(await resolveFreemiumTier(), ticker);
 
   // ATT (anti-thèse) : même gating serveur que /sandbox/v1-9-5/<ticker>.
   // Le contenu complet n'est sérialisé que pour le plan Max.

@@ -14,7 +14,8 @@
 export type Plan = "free" | "premium_monthly" | "premium_yearly" | "enterprise";
 
 /** Tickers accessibles en intégralité au plan FREE. */
-export const FREE_TICKERS = new Set(["GOOGL", "META"]);
+// Yann 3 sept 2026 : vitrine defloutee pour les inscrits gratuits (Booking ajoute).
+export const FREE_TICKERS = new Set(["GOOGL", "META", "BKNG"]);
 
 export function isPremium(plan: Plan | null | undefined): boolean {
   return plan === "premium_monthly" || plan === "premium_yearly" || plan === "enterprise";

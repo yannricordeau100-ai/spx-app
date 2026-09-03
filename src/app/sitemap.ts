@@ -24,7 +24,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/faq", priority: 0.8, changeFrequency: "weekly" },
     { path: "/pricing", priority: 0.7, changeFrequency: "monthly" },
     { path: "/populaire-investisseurs", priority: 0.6, changeFrequency: "weekly" },
-    { path: "/parrainage", priority: 0.4, changeFrequency: "monthly" },
     { path: "/legal/mentions", priority: 0.2, changeFrequency: "yearly" },
     { path: "/legal/conditions", priority: 0.2, changeFrequency: "yearly" },
     { path: "/legal/confidentialite", priority: 0.2, changeFrequency: "yearly" },

@@ -158,11 +158,17 @@ const DY = -14;         // 3D depth offset (upward in SVG)
  * Y-axis ticks follow Mettrik's strict format rule : integer for currency,
  * 1 decimal max for percent, FR locale.
  */
+/** Couleur de la courbe (Yann 3 sept 2026) : neon bleu-violet Mettrik, quelle
+ *  que soit la categorie du KPI (avant : couleur de la categorie). */
+const COULEUR_COURBE = "#7c5cf0";
+
 export function CurveChart({
   data,
   labels,
   unit,
   color = "#a78bfa",
+  labelStep = 1,
+  onToggleLabels,
   anomalies = [],
   events = [],
   ttm = null,
@@ -178,6 +184,9 @@ export function CurveChart({
   labels: string[];
   unit: string;
   color?: string;
+  /** 1 = toutes les valeurs ; 2 = une sur deux (la plus recente masquee). */
+  labelStep?: 1 | 2;
+  onToggleLabels?: () => void;
   anomalies?: Anomaly[];
   events?: CompanyEvent[];
   /** Trailing 12 months : point + segment pointillé en fin de courbe. */
@@ -332,12 +341,13 @@ export function CurveChart({
   return (
     <div className="relative w-full">
       <svg
+        onClick={onToggleLabels}
         ref={svgRef}
         width="100%"
         height="auto"
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
-        style={{ display: "block", overflow: "visible" }}
+        style={{ display: "block", overflow: "visible", cursor: onToggleLabels ? "pointer" : undefined }}
         // Yann 8 juin 2026 : marqueurs lus par le bouton télécharger DÉPLACÉ
         // dans la barre d'onglets (ChartCycleControls). Le bouton récupère le
         // SVG visible via [data-chart-export] et les options d'export ici.
@@ -429,8 +439,8 @@ export function CurveChart({
           {/* Gradient horizontal violet → couleur sté → cyan pour le trait principal */}
           <linearGradient id={`${idGlow}-stroke`} x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#a78bfa" />
-            <stop offset="50%" stopColor={color} />
-            <stop offset="100%" stopColor="#22d3ee" />
+            <stop offset="50%" stopColor="#6366f1" />
+            <stop offset="100%" stopColor="#38bdf8" />
           </linearGradient>
         </defs>
 
@@ -485,7 +495,7 @@ export function CurveChart({
           data-export-hide="true"
           d={smoothFrom(backPts)}
           fill="none"
-          stroke={color}
+          stroke={COULEUR_COURBE}
           strokeOpacity="0.55"
           strokeWidth={2}
           strokeLinecap="round"
@@ -499,7 +509,7 @@ export function CurveChart({
         <motion.path
           d={frontPath}
           fill="none"
-          stroke={color}
+          stroke={COULEUR_COURBE}
           strokeWidth={6}
           strokeOpacity={0.45}
           strokeLinecap="round"
@@ -679,6 +689,7 @@ export function CurveChart({
                   zone chart (dans les 20% bas), on bascule aussi en dessous. */}
               {(() => {
                 const v = Number(allData[i]);
+                if (labelStep === 2 && !isTTM && (allData.length - 1 - i) % 2 === 0) return null;
                 const isNegative = v < 0;
                 // Distance entre le dot et le bas de la zone chart (y=baselineY).
                 // Si dot dans les 20 % bas du chart, on évite de mettre le label

@@ -164,6 +164,8 @@ export function ChartCycleControls({
   mode,
   onChange,
   color = "#a78bfa",
+  shareText,
+  shareUrl,
   barsVariant,
   onBarsVariantChange,
   graphPeriod,
@@ -173,6 +175,9 @@ export function ChartCycleControls({
   mode: ChartMode;
   onChange: (m: ChartMode) => void;
   color?: string;
+  /** Yann 3 sept 2026 : texte et micro-lien du post X (KPI actif), fournis par la fiche. */
+  shareText?: string;
+  shareUrl?: string;
   /** Variant sub-toggle quand mode === 'bars'. Optionnel : si non fourni, pas de toggle. */
   barsVariant?: BarsVariant;
   onBarsVariantChange?: (v: BarsVariant) => void;
@@ -323,8 +328,8 @@ export function ChartCycleControls({
       {mode !== "panel" && (
         <ShareDownloadMenu
           onDownload={downloadVisibleChart}
-          shareText={typeof document !== "undefined" ? document.title : "Mettrik AI"}
-          shareUrl={typeof window !== "undefined" ? window.location.href : "https://mettrik.ai"}
+          shareText={shareText ?? (typeof document !== "undefined" ? document.title : "Mettrik AI")}
+          shareUrl={shareUrl ?? (typeof window !== "undefined" ? window.location.href : "https://mettrik.ai")}
           accent={color}
           className="ml-1 shrink-0"
         />
@@ -354,6 +359,8 @@ export function ChartCycle({
   barsVariant = "iso3d",
   timeFraction = "year",
   exportTitle,
+  shareText,
+  shareUrl,
   exportCagr,
   exportInterpretation,
   titleLocale = "fr",
@@ -380,6 +387,9 @@ export function ChartCycle({
    *  donc pas répété live mais ajouté dans le download pour qu'il se suffise
    *  à lui-même hors du contexte page). */
   exportTitle?: string;
+  /** Yann 3 sept 2026 : texte et micro-lien du post X, construits par la fiche a partir du KPI actif. */
+  shareText?: string;
+  shareUrl?: string;
   /** Yann 10 juin 2026 (Point 3) : CAGR annualisé déjà formaté (ex "CAGR
    *  +47,8 %/an") injecté sous le titre dans le PNG. Calculé côté parent
    *  (company-view) sur la série de valeurs réelles du hero KPI. */
@@ -396,6 +406,10 @@ export function ChartCycle({
    *  Quand 'en', on applique translateUnitFrToEn sur l'unite display. */
   titleLocale?: "fr" | "en";
 }) {
+  // Yann 3 sept 2026 : un clic sur le graph masque une valeur sur deux
+  // (la plus recente, puis une sur deux en remontant) ; second clic = retour.
+  const [labelStep, setLabelStep] = useState<1 | 2>(1);
+  const basculeEtiquettes = () => setLabelStep((v) => (v === 1 ? 2 : 1));
   const { t } = useT();
   // Garde-fou : data peut être null/undefined dans certaines fiches. Forcer tableau.
   const safeData = Array.isArray(data) ? data : [];
@@ -435,10 +449,10 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} titleLocale={titleLocale} />
+            <CurveChart data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} labelStep={labelStep} onToggleLabels={basculeEtiquettes} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} titleLocale={titleLocale} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} titleLocale={titleLocale} />
+            <BarsIso3DStack data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} labelStep={labelStep} onToggleLabels={basculeEtiquettes} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} titleLocale={titleLocale} />
           )}
           {mode === "delta" && (
             <VariationIsoSteps3D data={scaledData as number[]} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} />

@@ -331,10 +331,15 @@ def extract_via_api(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]):
     """Decision Yann 27 aout 2026 : Claude est le SEUL moteur. Les
     fournisseurs API (Groq, Cerebras...) sont abandonnes pour ce pipeline."""
     prompt = build_prompt(ticker, kpis, docs)
-    try:
-        return parse_json_answer(call_claude_cli(prompt)), "claude-cli"
-    except Exception as err:  # noqa: BLE001
-        raise RuntimeError(f"claude-cli: {err}") from err
+    derniere = None
+    for tentative in range(2):  # 3 sept 2026 : une seconde chance apres 20 s
+        try:
+            return parse_json_answer(call_claude_cli(prompt)), "claude-cli"
+        except Exception as err:  # noqa: BLE001
+            derniere = err
+            import time as _t
+            _t.sleep(20)
+    raise RuntimeError(f"claude-cli: {derniere}") from derniere
 
 
 def source_compatible(kpi: dict) -> bool:
@@ -553,7 +558,17 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
 
     if retenus and apply:
         for path, data in sources:
-            path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf8")
+            # 3 sept 2026 : ecriture sure. Sauvegarde de l original, ecriture dans un
+            # fichier temporaire, relecture JSON, puis remplacement atomique.
+            texte = json.dumps(data, ensure_ascii=False)
+            json.loads(texte)
+            bk = ROOT / ".conv-state" / "quarterly-refresh-backups"
+            bk.mkdir(parents=True, exist_ok=True)
+            if path.exists():
+                (bk / f"{path.name}.{datetime.now(timezone.utc).strftime('%Y%m%d')}.bak").write_text(path.read_text(encoding="utf8"), encoding="utf8")
+            tmp = path.with_suffix(path.suffix + ".tmp")
+            tmp.write_text(texte, encoding="utf8")
+            tmp.replace(path)
 
     return {"ticker": ticker, "statut": "traite", "periode": periode,
             "retenus": len(retenus), "rejetes": rejetes, "motifs": motifs,

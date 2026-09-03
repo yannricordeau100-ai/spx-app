@@ -19,7 +19,7 @@ import { chargeZonesFloutage } from "@/lib/desk/floutage-zones";
 import { gateAttForTier } from "@/lib/att";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
+import { tierDepuisAbonnement, tierPourFiche } from "@/lib/freemium/tier-serveur";
 
 // V1.9.5 = filtre strict is_clean_all (a-f + g-m post audit qualité).
 // Si la sté n'est pas clean_all → redirect vers /sandbox/v1-9-5 (overview).
@@ -123,7 +123,10 @@ export async function generateMetadata({
   if (r.kind === "missing") return { title: "Page introuvable · Mettrik AI" };
   return {
     title: `${r.company.name} (${r.company.ticker}) · Mettrik AI`,
-    robots: { index: false, follow: false },
+    // Yann 3 sept 2026 : fiches indexables (visibles floutees sans compte),
+    // URL canonique courte /<ticker>.
+    alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai"}/${r.company.ticker.toLowerCase()}` },
+    robots: { index: true, follow: true }, // Yann 3 sept 2026 : fiches indexables (visibles floutees sans compte)
   };
 }
 
@@ -330,6 +333,7 @@ export default async function SandboxV195TickerPage({
   // complet (résumé, sections, glossaire) n'est envoyé au client QUE pour
   // le plan Max (l'admin/audit connecté est "max" par défaut). Les autres
   // tiers reçoivent uniquement titre + intensité + dates + hook + locked.
+  freemiumTier = tierPourFiche(freemiumTier, ticker);
   const gatedCompany = r.company.att
     ? { ...r.company, att: gateAttForTier(r.company.att, freemiumTier) }
     : r.company;

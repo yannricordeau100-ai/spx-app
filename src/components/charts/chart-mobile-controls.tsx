@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ChevronDown, Download, RotateCw, Settings2, Share2, X } from "lucide-react";
+import { ChevronDown, Download, Link2, RotateCw, Settings2, Share2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useT } from "@/lib/i18n/provider";
 import type { TimeFraction } from "@/components/charts/time-fraction-toggle";
@@ -285,14 +285,12 @@ export function ShareDownloadMenu({
 }) {
   const { t } = useT();
   const [open, setOpen] = useState(false);
+  const [copie, setCopie] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const panneauRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!open) return;
     const close = (e: MouseEvent | TouchEvent) => {
-      const cible = e.target as Node;
-      if (ref.current?.contains(cible) || panneauRef.current?.contains(cible)) return;
-      setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     };
     document.addEventListener("mousedown", close);
     document.addEventListener("touchstart", close);
@@ -301,52 +299,68 @@ export function ShareDownloadMenu({
       document.removeEventListener("touchstart", close);
     };
   }, [open]);
-  const styleFixe = usePanneauFixe(open, ref, () => setOpen(false), "right");
-  const partagerSurX = () => {
+  // Yann 3 sept 2026 : le post X est redige selon les regles X (texte court,
+  // chiffre + variation, un cashtag, un seul lien : le micro-lien /k/... qui
+  // ouvre directement le bon KPI et porte l apercu image du graph).
+  const publierSurX = () => {
     const u = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
-    window.open(u, "_blank", "noopener,noreferrer");
+    window.open(u, "_blank", "noopener,noreferrer,width=600,height=650");
     setOpen(false);
+  };
+  const copierLien = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopie(true);
+      setTimeout(() => { setCopie(false); setOpen(false); }, 900);
+    } catch { /* presse-papiers indisponible */ }
   };
   return (
     <div ref={ref} className={cn("relative", className)}>
       <button
         onClick={() => setOpen((o) => !o)}
-        aria-label={t("graph.download")}
-        title={t("graph.download")}
-        className="inline-flex size-8 items-center justify-center rounded-full border transition-colors"
-        style={{ borderColor: `${accent}55`, background: `${accent}14`, color: accent }}
+        aria-label="Partager ou télécharger"
+        aria-expanded={open}
+        title="Partager ou télécharger"
+        className="inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[12px] font-medium transition-colors"
+        style={{ borderColor: `${accent}55`, background: open ? `${accent}22` : `${accent}14`, color: accent }}
       >
-        {/* Icône combinée : partage + petite flèche de téléchargement */}
-        <span className="relative inline-flex">
-          <Share2 className="size-3.5" />
-          <Download className="absolute -bottom-1.5 -right-1.5 size-2.5 rounded-full bg-[#0b0b0e] p-[1px]" />
-        </span>
+        <Share2 className="size-3.5" />
+        <span className="hidden sm:inline">Partager</span>
+        <ChevronDown className={cn("size-3 transition-transform", open && "rotate-180")} />
       </button>
-      {open && styleFixe && createPortal(
-        <div
-          ref={panneauRef}
-          style={styleFixe}
-          className="z-[130] w-[210px] overflow-hidden rounded-xl border border-[#26262b] bg-[#0b0b0e] shadow-[0_18px_50px_rgba(0,0,0,0.6)]"
-        >
+      {open && (
+        <div className="absolute right-0 top-[calc(100%+6px)] z-40 w-[236px] overflow-hidden rounded-xl border border-[#26262b] bg-[#0b0b0e] shadow-[0_18px_50px_rgba(0,0,0,0.6)]">
           <button
-            onClick={() => {
-              onDownload();
-              setOpen(false);
-            }}
-            className="flex w-full items-center gap-2.5 px-3.5 py-3 text-left text-[13px] text-zinc-200 hover:bg-white/[0.05]"
+            onClick={publierSurX}
+            className="flex w-full items-center gap-3 px-3.5 py-3 text-left text-[13px] text-zinc-100 hover:bg-white/[0.05]"
           >
-            <Download className="size-4 text-zinc-400" />
-            Télécharger en PNG
+            <span className="inline-flex size-7 items-center justify-center rounded-lg bg-white/[0.06] font-display text-[13px] font-bold text-zinc-100">𝕏</span>
+            <span className="flex flex-col leading-tight">
+              Publier sur X
+              <span className="text-[11px] text-zinc-500">Texte prêt, aperçu du graph, lien court</span>
+            </span>
           </button>
           <button
-            onClick={partagerSurX}
-            className="flex w-full items-center gap-2.5 border-t border-white/[0.06] px-3.5 py-3 text-left text-[13px] text-zinc-200 hover:bg-white/[0.05]"
+            onClick={copierLien}
+            className="flex w-full items-center gap-3 border-t border-white/[0.06] px-3.5 py-3 text-left text-[13px] text-zinc-100 hover:bg-white/[0.05]"
           >
-            <span className="inline-flex size-4 items-center justify-center font-display text-[13px] font-bold text-zinc-400">𝕏</span>
-            Partager sur X
+            <span className="inline-flex size-7 items-center justify-center rounded-lg bg-white/[0.06] text-zinc-300"><Link2 className="size-3.5" /></span>
+            <span className="flex flex-col leading-tight">
+              {copie ? "Lien copié" : "Copier le lien du KPI"}
+              <span className="max-w-[170px] truncate text-[11px] text-zinc-500">{shareUrl.replace(/^https?:\/\//, "")}</span>
+            </span>
           </button>
-        </div>,
-        document.body,
+          <button
+            onClick={() => { onDownload(); setOpen(false); }}
+            className="flex w-full items-center gap-3 border-t border-white/[0.06] px-3.5 py-3 text-left text-[13px] text-zinc-100 hover:bg-white/[0.05]"
+          >
+            <span className="inline-flex size-7 items-center justify-center rounded-lg bg-white/[0.06] text-zinc-300"><Download className="size-3.5" /></span>
+            <span className="flex flex-col leading-tight">
+              {t("graph.download")}
+              <span className="text-[11px] text-zinc-500">Image PNG du graph, signée Mettrik</span>
+            </span>
+          </button>
+        </div>
       )}
     </div>
   );

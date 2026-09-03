@@ -88,6 +88,9 @@ type Props = {
   ttmLabel?: string;
   /** Style visuel : iso3d (par défaut, perspective isométrique) ou classique 2D. */
   variant?: "iso3d" | "classic";
+  /** Yann 3 sept 2026 : 1 = toutes les valeurs, 2 = une sur deux (la plus recente masquee). */
+  labelStep?: 1 | 2;
+  onToggleLabels?: () => void;
   /** Titre injecté DANS le PNG exporté (KPI name_fr). */
   exportTitle?: string;
   /** Ticker injecté dans le PNG exporté → logo société à droite du titre. */
@@ -128,7 +131,7 @@ function roundedBarPath(x: number, y: number, w: number, h: number, isNeg: boole
   // Coins arrondis en HAUT, bas carré.
   return `M ${x} ${y + h} L ${x} ${y + r} A ${r} ${r} 0 0 1 ${x + r} ${y} L ${x + w - r} ${y} A ${r} ${r} 0 0 1 ${x + w} ${y + r} L ${x + w} ${y + h} Z`;
 }
-export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", exportTitle, exportTicker, exportCagr, exportFrequency, exportInterpretation, titleLocale }: Props) {
+export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", labelStep = 1, onToggleLabels, exportTitle, exportTicker, exportCagr, exportFrequency, exportInterpretation, titleLocale }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware.
@@ -259,11 +262,12 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       title={isClassic ? "Cliquer pour changer le style des barres" : undefined}
     >
     <svg
+      onClick={onToggleLabels}
       ref={svgRef}
       width="100%"
       viewBox={`0 0 ${W} ${H}`}
       preserveAspectRatio="xMidYMid meet"
-      style={{ overflow: "visible" }}
+      style={{ overflow: "visible", cursor: onToggleLabels ? "pointer" : undefined }}
       data-chart-export="true"
       data-export-prefix="bars"
       data-export-title={exportTitle || ""}
@@ -477,9 +481,9 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
               /* 3D — dérivé du tube néon (style 2 extrudé) : faces sombres
                  creuses + arêtes néon lumineuses + reflet gauche. */
               <g filter={isTTM ? undefined : `url(#b26-glow-${color.slice(1)})`}>
-                <path d={side} fill={color} fillOpacity={0.05} stroke={color} strokeOpacity={0.6} strokeWidth={1} strokeDasharray={ttmDash} />
-                <path d={top} fill={color} fillOpacity={0.12} stroke={color} strokeOpacity={0.9} strokeWidth={1.3} strokeDasharray={ttmDash} />
-                <path d={front} fill={color} fillOpacity={isTTM ? 0.05 : 0.09} stroke={color} strokeWidth={isTTM ? 1.2 : 1.7} strokeDasharray={ttmDash} />
+                <path d={side} fill={color} fillOpacity={isTTM ? 0.25 : 0.55} stroke={color} strokeOpacity={0.6} strokeWidth={1} strokeDasharray={ttmDash} />
+                <path d={top} fill={color} fillOpacity={isTTM ? 0.3 : 0.7} stroke={color} strokeOpacity={0.9} strokeWidth={1.3} strokeDasharray={ttmDash} />
+                <path d={front} fill={color} fillOpacity={isTTM ? 0.35 : 0.88} stroke={color} strokeWidth={isTTM ? 1.2 : 1.7} strokeDasharray={ttmDash} />
                 {!isTTM && h > 6 && (
                   <line x1={x + 1.5} y1={yT + 3} x2={x + 1.5} y2={barBot - 2} stroke="#ffffff" strokeWidth={0.9} strokeOpacity={0.5} strokeLinecap="round" />
                 )}
@@ -494,6 +498,10 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
               // (plus de decimation pasLibelles). Le chevauchement des series
               // denses est resolu par le survol : la barre visee et SON chiffre
               // restent pleinement contrastes (halo), les autres s estompent.
+              // Yann 3 sept 2026 : clic sur le graph = une valeur sur deux, en
+              // commencant par masquer la plus recente (le TTM garde la sienne).
+              const nReel = ttm != null ? allLabels.length - 1 : allLabels.length;
+              if (labelStep === 2 && !isTTM && (nReel - 1 - i) % 2 === 0) return null;
               const cxLabel = x + barW / 2 + (isClassic ? 0 : DX / 2);
               const cyLabel = isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12);
               const labelOpacity = hover === null ? 1 : isH ? 1 : 0.3;
