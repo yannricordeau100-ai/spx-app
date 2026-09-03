@@ -67,6 +67,10 @@ const nextConfig: NextConfig = {
       "./.batches-drafts-safe/kpis-batch032-work/**/*",
       "./.batches-drafts-safe/tmp_txt/**/*",
       "./src/data/v2-pipeline/*.gemini.json",
+      // Etapes intermediaires des reperes annuels : seul kpi-annuel-fiche est
+      // lu au runtime, les deux autres servent a regenerer.
+      "./src/data/kpi-annuel-10ans/**/*",
+      "./src/data/kpi-effectifs/**/*",
       "./src/data/v2-pipeline-kpi-v2/**/*",
       "./src/data/v2-pipeline-exhaustive/**/*",
       "./src/data/v2-pipeline-i18n/**/*",

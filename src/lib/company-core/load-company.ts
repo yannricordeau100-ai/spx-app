@@ -2826,6 +2826,39 @@ async function loadV17CompanyBrut(
     console.error("DEBUG2 kpisHaut FILE NOT FOUND OR EMPTY at path=", kpisHautPath, "kpisHaut=", kpisHaut ? "exists-but-invalid" : "null");
   }
 
+  // ── Reperes annuels sur 10 ans (Yann 3 sept 2026) ────────────────────────
+  // Chiffre d affaires, flux de tresorerie libre, dette totale et effectifs,
+  // au meme instant : la cloture de l exercice decrite par le 10-K. Les trois
+  // premiers viennent du XBRL depose a la SEC, les effectifs sont lus dans le
+  // texte du rapport (ils ne sont pas balises). Injectes APRES la couche
+  // kpis-haut, sinon ils seraient ecrases comme l etaient les series
+  // trimestrielles. Un indicateur annuel deja present sous le meme nom n est
+  // pas double.
+  const reperesAnnuels = await readJsonOrNull<{ kpis?: AnyKPI[] }>(
+    path.join(ROOT, "src/data/kpi-annuel-fiche", `${ticker.toUpperCase()}.json`),
+  );
+  if (reperesAnnuels && Array.isArray(reperesAnnuels.kpis) && Array.isArray(data.kpis)) {
+    const normalise = (v: unknown) =>
+      String(v ?? "").toLowerCase().normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+    const existants = data.kpis as AnyKPI[];
+    const shortsPris = new Set(existants.map((k) => String(k.short ?? "").toLowerCase()));
+    const nomsAnnuelsPris = new Set(
+      existants
+        .filter((k) => (k as { period_type?: string }).period_type === "year")
+        .flatMap((k) => [normalise((k as { name_fr?: string }).name_fr), normalise((k as { name_en?: string }).name_en)])
+        .filter(Boolean),
+    );
+    const ajouts = reperesAnnuels.kpis.filter((k) => {
+      const sh = String(k.short ?? "").toLowerCase();
+      if (!sh || shortsPris.has(sh)) return false;
+      const nf = normalise((k as { name_fr?: string }).name_fr);
+      const ne = normalise((k as { name_en?: string }).name_en);
+      return !((nf && nomsAnnuelsPris.has(nf)) || (ne && nomsAnnuelsPris.has(ne)));
+    });
+    if (ajouts.length > 0) data.kpis = [...existants, ...ajouts];
+  }
+
   // Fresh / stale backfill via existing helper
   const company = enhanceFreshness(data as Company & Record<string, unknown>);
 
