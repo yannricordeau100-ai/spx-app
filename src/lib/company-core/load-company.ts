@@ -2843,20 +2843,40 @@ async function loadV17CompanyBrut(
         .replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
     const existants = data.kpis as AnyKPI[];
     const shortsPris = new Set(existants.map((k) => String(k.short ?? "").toLowerCase()));
-    const nomsAnnuelsPris = new Set(
-      existants
-        .filter((k) => (k as { period_type?: string }).period_type === "year")
-        .flatMap((k) => [normalise((k as { name_fr?: string }).name_fr), normalise((k as { name_en?: string }).name_en)])
-        .filter(Boolean),
-    );
-    const ajouts = reperesAnnuels.kpis.filter((k) => {
-      const sh = String(k.short ?? "").toLowerCase();
-      if (!sh || shortsPris.has(sh)) return false;
-      const nf = normalise((k as { name_fr?: string }).name_fr);
-      const ne = normalise((k as { name_en?: string }).name_en);
-      return !((nf && nomsAnnuelsPris.has(nf)) || (ne && nomsAnnuelsPris.has(ne)));
-    });
-    if (ajouts.length > 0) data.kpis = [...existants, ...ajouts];
+    const nbPoints = (k: AnyKPI) => (Array.isArray(k.history) ? k.history.length : 0);
+    const aDesAnnees = (k: AnyKPI) => Array.isArray((k as { history_periods?: unknown }).history_periods);
+    // Un indicateur annuel de meme nom peut deja exister, mais sans dates de
+    // periode (cas des effectifs Apple) : le graphique fabrique alors des
+    // etiquettes a rebours et l interface finit par ne rien afficher. On
+    // remplace donc l ancien quand le notre est meilleur, et on garde l ancien
+    // sinon. Jamais les deux : ce serait une ligne en double.
+    const remplaces = new Set<AnyKPI>();
+    const ajouts: AnyKPI[] = [];
+    for (const neuf of reperesAnnuels.kpis) {
+      const sh = String(neuf.short ?? "").toLowerCase();
+      if (!sh || shortsPris.has(sh)) continue;
+      const nf = normalise((neuf as { name_fr?: string }).name_fr);
+      const ne = normalise((neuf as { name_en?: string }).name_en);
+      const jumeau = existants.find((k) => {
+        if ((k as { period_type?: string }).period_type !== "year") return false;
+        const a = normalise((k as { name_fr?: string }).name_fr);
+        const b = normalise((k as { name_en?: string }).name_en);
+        return (nf && a === nf) || (ne && b === ne) || (nf && b === nf) || (ne && a === ne);
+      });
+      if (!jumeau) {
+        ajouts.push(neuf);
+        continue;
+      }
+      const meilleur = nbPoints(neuf) > nbPoints(jumeau)
+        || (nbPoints(neuf) === nbPoints(jumeau) && aDesAnnees(neuf) && !aDesAnnees(jumeau));
+      if (meilleur) {
+        remplaces.add(jumeau);
+        ajouts.push({ ...neuf, short: jumeau.short });
+      }
+    }
+    if (ajouts.length > 0) {
+      data.kpis = [...existants.filter((k) => !remplaces.has(k)), ...ajouts];
+    }
   }
 
   // Fresh / stale backfill via existing helper
