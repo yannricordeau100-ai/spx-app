@@ -143,7 +143,6 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const [yOnRight, setYOnRight] = useState(false);
   // Yann 11 juin 2026 : en 2D, un clic sur le graphe bascule entre 2 styles.
   // Yann 12 juin 2026 : barre couleur pleine classique (défaut) <-> Néon Tube creux.
-  const [flat2d, setFlat2d] = useState(true);
 
   // Étend data + labels avec TTM si fourni. Dernière barre stylée distinctement.
   // Yann 15 mai 2026 : si TTM est un OUTLIER (cumul 4Q >> max périodes),
@@ -255,12 +254,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
       : (Math.round(v * 10) / 10).toLocaleString(tickLoc);
 
   return (
-    <div
-      className="relative w-full"
-      style={isClassic ? { cursor: "pointer" } : undefined}
-      onClick={isClassic ? () => setFlat2d((v) => !v) : undefined}
-      title={isClassic ? "Cliquer pour changer le style des barres" : undefined}
-    >
+    <div className="relative w-full">
     <svg
       onClick={onToggleLabels}
       ref={svgRef}
@@ -430,53 +424,18 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
               <ellipse cx={x + barW / 2 + DX / 2} cy={barBot + 6} rx={barW * 0.7} ry={6} fill="#000" fillOpacity={0.4} />
             )}
             {isClassic ? (
-              flat2d ? (
-                /* 2D — barre COULEUR PLEINE classique. 2e style accessible en
-                   cliquant sur le graphe (Yann 11 juin 2026). */
-                <path
-                  d={roundedBarPath(x, yT, barW, h, isNeg)}
-                  fill={color}
-                  fillOpacity={isTTM ? 0.5 : 1}
-                  stroke={isTTM ? color : "none"}
-                  strokeWidth={isTTM ? 1.4 : 0}
-                  strokeDasharray={ttmDash}
-                />
-              ) : (
-                /* 2D — NÉON TUBE CREUX (style 2) : capsule arrondie, intérieur
-                   sombre, contour néon + lueur interne, glow doux. */
-                (() => {
-                  const cap = Math.min(barW / 2, 8);
-                  return (
-                    <g filter={`url(#b26-glow-${color.slice(1)})`}>
-                      <rect
-                        x={x}
-                        y={yT}
-                        width={barW}
-                        height={h}
-                        rx={cap}
-                        fill={color}
-                        fillOpacity={isTTM ? 0.04 : 0.06}
-                        stroke={color}
-                        strokeWidth={isTTM ? 1.2 : 1.6}
-                        strokeDasharray={ttmDash}
-                      />
-                      {!isTTM && h > 7 && (
-                        <rect
-                          x={x + 2.5}
-                          y={yT + 2.5}
-                          width={Math.max(barW - 5, 0)}
-                          height={Math.max(h - 5, 0)}
-                          rx={Math.max(cap - 2, 0)}
-                          fill="none"
-                          stroke={color}
-                          strokeOpacity={0.45}
-                          strokeWidth={1}
-                        />
-                      )}
-                    </g>
-                  );
-                })()
-              )
+              /* 2D — UN SEUL style de barre : couleur pleine. Yann 3 sept 2026 :
+                 le 2e style "tube neon creux" est supprime (demande deux fois),
+                 et le clic sur le graphe ne sert plus qu a n afficher qu une
+                 valeur sur deux au-dessus des barres. */
+              <path
+                d={roundedBarPath(x, yT, barW, h, isNeg)}
+                fill={color}
+                fillOpacity={isTTM ? 0.5 : 1}
+                stroke={isTTM ? color : "none"}
+                strokeWidth={isTTM ? 1.4 : 0}
+                strokeDasharray={ttmDash}
+              />
             ) : (
               /* 3D — dérivé du tube néon (style 2 extrudé) : faces sombres
                  creuses + arêtes néon lumineuses + reflet gauche. */
