@@ -131,6 +131,25 @@ export default async function RootLayout({
       className={`dark ${sans.variable} ${jetbrains.variable} ${display.variable} ${sora.variable} ${fraunces.variable} h-full antialiased`}
     >
       <head>
+        {/* Yann 3 sept 2026 : Vercel refuse de marquer "sensible" une variable
+            prefixee NEXT_PUBLIC_, la cle publique hCaptcha y est donc posee
+            sous le nom NEXT_PB_HCAPTCHA_SITE_KEY. Or seul le prefixe
+            NEXT_PUBLIC_ est inline dans le code envoye au navigateur : sans
+            ce relais, le widget ne voyait aucune cle et le formulaire partait
+            avec un jeton "bypass", refuse par Supabase depuis que le captcha
+            y est active (inscription impossible). On expose donc la cle
+            PUBLIQUE ici, cote serveur. Aucune donnee secrete : cette cle est
+            faite pour etre lue par le navigateur. */}
+        {(process.env.NEXT_PB_HCAPTCHA_SITE_KEY || process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY) && (
+          <script
+            id="cfg-hcaptcha"
+            dangerouslySetInnerHTML={{
+              __html: `window.__hcaptchaSiteKey=${JSON.stringify(
+                process.env.NEXT_PB_HCAPTCHA_SITE_KEY || process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY,
+              )};`,
+            }}
+          />
+        )}
         {/* Anti-IA training opt-out (cohérent CGV/CGU). Pas 100 % efficace
             mais signal opposable juridiquement. */}
         <meta name="robots" content="noai, noimageai" />

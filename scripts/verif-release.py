@@ -83,7 +83,7 @@ utilisees = set(re.findall(r"process\.env\.([A-Z_][A-Z0-9_]*)", sh("grep -rhoE '
 OPTIONNELLES = {"NEXT_PUBLIC_NIVEAU", "NEXT_PUBLIC_DEPLOY_TARGET", "VERCEL_GIT_COMMIT_REF", "VERCEL", "NODE_ENV",
                 "NEXT_PUBLIC_BUILD_VERSION", "NEXT_PUBLIC_PLAUSIBLE_DOMAIN", "PLAUSIBLE_API_KEY", "EMAIL_DRY_RUN",
                 "MAINTENANCE_MODE", "TELEMETRIE_SEL", "ANTHROPIC_API_KEY", "CEREBRAS_API_KEY", "CEREBRAS2_API_KEY",
-                "CEREBRAS3_API_KEY", "GROQ_API_KEY", "NEXT_PUBLIC_HCAPTCHA_SITE_KEY", "RESEND_WEBHOOK_SECRET",
+                "CEREBRAS3_API_KEY", "GROQ_API_KEY", "NEXT_PUBLIC_HCAPTCHA_SITE_KEY", "NEXT_PB_HCAPTCHA_SITE_KEY", "RESEND_WEBHOOK_SECRET",
                 "ADMIN_EMAILS", "GITHUB_DISPATCH_TOKEN", "TURNSTILE_SECRET_KEY", "NEXT_PUBLIC_TURNSTILE_SITE_KEY", "FMP_API_KEY",
                 "METTRIK_SEC_DIR", "PDFTOTEXT_BIN"}
 requises = sorted(utilisees - OPTIONNELLES)
@@ -103,8 +103,11 @@ importantes = ["STRIPE_SECRET_KEY", "STRIPE_PUBLISHABLE_KEY", "NEXT_PUBLIC_STRIP
 ecarts = [k for k in importantes if (k in par_cible["production"]) != (k in par_cible["preview"])]
 feu("orange" if ecarts else "vert", "Variables", "niveau2 (preview) et mettrik.ai (production) ont les memes variables cles",
     "presentes d un cote seulement : " + ", ".join(ecarts) if ecarts else "alignees")
-feu("orange" if "NEXT_PUBLIC_HCAPTCHA_SITE_KEY" not in par_cible["production"] else "vert", "Variables",
-    "Cle hCaptcha d inscription posee en production", "absente : inscription sans protection anti-robots" if "NEXT_PUBLIC_HCAPTCHA_SITE_KEY" not in par_cible["production"] else "")
+# La cle publique peut porter l un ou l autre nom (Vercel refuse de marquer
+# "sensible" une variable prefixee NEXT_PUBLIC_ ; Yann a donc pose NEXT_PB_).
+_cle_captcha = any(n in par_cible["production"] for n in ("NEXT_PB_HCAPTCHA_SITE_KEY", "NEXT_PUBLIC_HCAPTCHA_SITE_KEY"))
+feu("vert" if _cle_captcha else "orange", "Variables",
+    "Cle hCaptcha d inscription posee en production", "" if _cle_captcha else "absente : inscription sans protection anti-robots")
 
 # 4) NIVEAUX : mettrik.ai ne doit pas bouger tout seul ; niveau2 = preview du commit courant
 alias = sh("npx vercel alias ls 2>/dev/null")

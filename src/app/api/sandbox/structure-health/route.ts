@@ -51,7 +51,8 @@ export async function GET(req: NextRequest) {
   const rsCode = rk ? await ping("https://api.resend.com/domains", { headers: { Authorization: `Bearer ${rk}` } }) : 0;
   c.push({ id: "resend", feu: rsCode === 200 ? "vert" : rk ? "orange" : "rouge", libelle: "Resend (emails) : clé présente et acceptée", detail: rk ? `code ${rsCode}` : "clé absente dans cet environnement : aucun email ne part" });
   c.push({ id: "turnstile", feu: env("TURNSTILE_SECRET_KEY") ? "vert" : "orange", libelle: "Captcha du formulaire de contact", detail: env("TURNSTILE_SECRET_KEY") ? "" : "sans clé : contact accepté sans captcha" });
-  c.push({ id: "hcaptcha", feu: env("NEXT_PUBLIC_HCAPTCHA_SITE_KEY") ? "vert" : "orange", libelle: "Captcha d'inscription (hCaptcha)", detail: env("NEXT_PUBLIC_HCAPTCHA_SITE_KEY") ? "" : "clé absente : inscription sans anti-robots" });
+  const cleCaptcha = env("NEXT_PB_HCAPTCHA_SITE_KEY") || env("NEXT_PUBLIC_HCAPTCHA_SITE_KEY");
+  c.push({ id: "hcaptcha", feu: cleCaptcha ? "vert" : "orange", libelle: "Captcha d'inscription (hCaptcha)", detail: cleCaptcha ? "" : "clé absente : inscription sans anti-robots" });
   c.push({ id: "cron_secret", feu: env("CRON_SECRET") ? "vert" : "orange", libelle: "Secret des robots Vercel", detail: "" });
   c.push({ id: "github_dispatch", feu: env("GITHUB_DISPATCH_TOKEN") ? "vert" : "orange", libelle: "Jeton des robots GitHub", detail: "" });
   c.push({ id: "desk_owner", feu: env("DESK_OWNER_EMAIL") && env("DESK_SLUG") ? "vert" : "rouge", libelle: "Propriétaire et URL du desk définis", detail: "" });

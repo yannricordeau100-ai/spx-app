@@ -50,15 +50,23 @@ declare global {
 // Test site key fournie par hCaptcha (always passes en dev).
 const TEST_SITE_KEY = "10000000-ffff-ffff-ffff-000000000001";
 
+/** Cle publique posee par le serveur dans le document (cf. app/layout.tsx),
+ *  parce que la variable Vercel ne porte pas le prefixe NEXT_PUBLIC_. */
+function cleRelayee(): string | undefined {
+  if (typeof window === "undefined") return undefined;
+  const v = (window as unknown as { __hcaptchaSiteKey?: unknown }).__hcaptchaSiteKey;
+  return typeof v === "string" && v.length > 0 ? v : undefined;
+}
+
 export function getHCaptchaSiteKey(): string {
-  return process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ?? TEST_SITE_KEY;
+  return process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ?? cleRelayee() ?? TEST_SITE_KEY;
 }
 
 // Yann (5 juin 2026) : ne pas afficher le widget si on est sur la TEST key
 // (sinon banner rouge "Cet hCaptcha est uniquement destiné aux tests" visible
 // en prod). Render null + hidden field bypass pour ne pas casser le form.
 export function isHCaptchaConfigured(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY);
+  return Boolean(process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ?? cleRelayee());
 }
 
 const SCRIPT_ID = "hcaptcha-script";
@@ -105,13 +113,20 @@ export function HCaptchaWidget(props?: {
   size?: "normal" | "compact";
 }) {
   const fieldName = props?.fieldName ?? "h-captcha-response";
-  const siteKey = props?.siteKey ?? getHCaptchaSiteKey();
+  // Yann 3 sept 2026 : la cle relayee par le serveur n existe que dans le
+  // navigateur. Si on la lisait pendant le rendu, le serveur et le client ne
+  // produiraient pas le meme HTML (erreur d hydratation). On la lit donc
+  // apres le montage.
+  const [cleRelais, setCleRelais] = useState<string | undefined>(undefined);
+  useEffect(() => { setCleRelais(cleRelayee()); }, []);
+  const cleEnDur = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY;
+  const siteKey = props?.siteKey ?? cleEnDur ?? cleRelais ?? TEST_SITE_KEY;
   const theme = props?.theme ?? "dark";
   const size = props?.size ?? "normal";
 
   // Yann (5 juin 2026) : skip render si pas de vraie sitekey configurée.
   // Évite le banner rouge "uniquement destiné aux tests" en prod.
-  const skipRender = !props?.siteKey && !isHCaptchaConfigured();
+  const skipRender = !props?.siteKey && !cleEnDur && !cleRelais;
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
