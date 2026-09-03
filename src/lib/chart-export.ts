@@ -983,13 +983,17 @@ export async function downloadSvgAsPng(
       enEl.setAttribute("font-family", titleFontFamily);
       enEl.setAttribute("font-weight", "300");
       enEl.setAttribute("font-style", "italic");
-      enEl.setAttribute("font-size", "20");
+      // Yann 4 sept 2026 : les lignes en anglais sont un rappel, pas un titre.
+      enEl.setAttribute("font-size", "16");
       enEl.setAttribute("letter-spacing", "-0.01em");
       enEl.setAttribute("fill", subtitleColor);
       enEl.textContent = titreEn;
       clone.appendChild(enEl);
     }
-    if (uniteEn) {
+    // Yann 4 sept 2026 : ne pas ecrire "Y axis: %" quand l unite EST le
+    // pourcentage : l axe l affiche deja, la ligne n apprend rien.
+    const uniteEnUtile = !!uniteEn && uniteEn.replace(/\s/g, "") !== "%";
+    if (uniteEnUtile) {
       const unEl = document.createElementNS(NS, "text");
       unEl.setAttribute("x", String(origX + origW / 2));
       unEl.setAttribute("y", String(LINE_EN_UNIT_Y));
@@ -997,7 +1001,7 @@ export async function downloadSvgAsPng(
       unEl.setAttribute("font-family", titleFontFamily);
       unEl.setAttribute("font-weight", "300");
       unEl.setAttribute("font-style", "italic");
-      unEl.setAttribute("font-size", "16");
+      unEl.setAttribute("font-size", "13");
       unEl.setAttribute("letter-spacing", "0em");
       unEl.setAttribute("fill", subtitleColor);
       unEl.setAttribute("opacity", "0.85");
@@ -1030,6 +1034,20 @@ export async function downloadSvgAsPng(
       avgEl.setAttribute("fill", subtitleColor);
       avgEl.textContent = `Moyenne : ${options.avgPct}`;
       clone.appendChild(avgEl);
+      // Yann 4 sept 2026 : rappel en anglais sous la moyenne, discret, au
+      // meme titre que la traduction du nom du KPI.
+      const avgEnEl = document.createElementNS(NS, "text");
+      avgEnEl.setAttribute("x", String(graphCx));
+      avgEnEl.setAttribute("y", String(origY - PAD_TOP + 230));
+      avgEnEl.setAttribute("text-anchor", "middle");
+      avgEnEl.setAttribute("font-family", PNG_FONT_FAMILY);
+      avgEnEl.setAttribute("font-size", "13");
+      avgEnEl.setAttribute("font-weight", "300");
+      avgEnEl.setAttribute("font-style", "italic");
+      avgEnEl.setAttribute("fill", subtitleColor);
+      avgEnEl.setAttribute("opacity", "0.85");
+      avgEnEl.textContent = `Average: ${options.avgPct}`;
+      clone.appendChild(avgEnEl);
     }
     if (options.cagr) {
       const CAGR_FONT_SIZE = 22;
