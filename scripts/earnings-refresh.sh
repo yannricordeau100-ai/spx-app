@@ -23,9 +23,22 @@ export LOGNAME="$USER"
   echo "=== $(date '+%F %T') extraction ==="
   # Sonde moteur (2 sept 2026) : un appel minimal AVANT la passe, avec la
   # reponse ou l erreur exacte dans le log. 6 nuits ont echoue en silence.
+  # 3 sept 2026, cause prouvee : depuis un service de fond, le trousseau du
+  # Mac REFUSE l acces aux identifiants (security rc=36), donc le moteur
+  # repond "Not logged in" quoi qu on fasse ici. L extraction est confiee a
+  # la tache planifiee "maj-societes-nuit" (23h40), qui tourne dans une
+  # session authentifiee de l application. On sonde quand meme : si un jour
+  # l acces revient, la passe reprend ici sans rien changer.
   echo "--- sonde moteur claude -p :"
-  claude -p --model sonnet --output-format text <<< "Reponds exactement: SONDE-OK" 2>&1 | tail -2
-  nice -n 10 python3 scripts/earnings-refresh.py --apply
+  SONDE=$(claude -p --model sonnet --output-format text <<< "Reponds exactement: SONDE-OK" 2>&1 | tail -2)
+  echo "$SONDE"
+  if printf '%s' "$SONDE" | grep -q "SONDE-OK"; then
+    nice -n 10 python3 scripts/earnings-refresh.py --apply
+  else
+    echo "moteur non authentifie depuis un service de fond : extraction laissee"
+    echo "a la tache planifiee de 23h40 (session authentifiee). Aucune alerte."
+    echo "[earnings-refresh] EXTRACTION DEPORTEE"
+  fi
   echo "=== $(date '+%F %T') transcripts d earnings calls (Fool, 3 derniers mois) ==="
   # Yann 30 aout 2026 : la chaine transcripts/syntheses n etait branchee sur
   # aucun cron — les syntheses vieillissaient en silence (GOOGL bloque au T1,
@@ -65,13 +78,15 @@ print(','.join(reversed(ms)))")
 if [ "$(stat -f%z /tmp/earnings-refresh.log 2>/dev/null || echo 0)" -gt 52428800 ]; then
   mv /tmp/earnings-refresh.log "/tmp/earnings-refresh.$(date +%Y%m%d).log"
 fi
+DEPORTEE=$(tail -60 /tmp/earnings-refresh.log | grep -c "EXTRACTION DEPORTEE")
 BILAN=$(grep -E "FINI \{" /tmp/earnings-refresh.log | tail -1)
 TRAITE=$(printf '%s' "$BILAN" | sed -E "s/.*'traite': ([0-9]+).*/\1/")
 DOSSIERS=$(printf '%s' "$BILAN" | sed -E "s/.*'dossier prepare': ([0-9]+).*/\1/")
 MOTIF=$(grep -oE "motif=[^$]{0,160}" /tmp/earnings-refresh.log | tail -1)
-python3 - "$TRAITE" "$DOSSIERS" "$MOTIF" <<'PY'
+python3 - "$TRAITE" "$DOSSIERS" "$MOTIF" "$DEPORTEE" <<'PY'
 import json, sys, subprocess, re
 traite, dossiers, motif = sys.argv[1], sys.argv[2], sys.argv[3]
+deportee = len(sys.argv) > 4 and sys.argv[4] not in ("", "0")
 etat = {"date": subprocess.run(["date","+%F %T"],capture_output=True,text=True).stdout.strip(),
         "traite": traite, "dossiers_prepares": dossiers, "dernier_motif": motif}
 open("/Users/yann/spx-app/.conv-state/earnings-refresh-dernier-bilan.json","w").write(json.dumps(etat, ensure_ascii=False, indent=1))
@@ -82,9 +97,11 @@ for l in open("/Users/yann/spx-app/.env.local"):
         k, v = l.split("=", 1); env[k] = v.strip().strip('"')
 cle, dest = env.get("RESEND_API_KEY"), env.get("DESK_OWNER_EMAIL")
 ok_traite = traite.isdigit() and int(traite) > 0
-if cle and dest and not ok_traite:
+# Pas d alerte quand l extraction a ete volontairement laissee a la tache
+# planifiee : ce n est pas une panne (3 sept 2026).
+if cle and dest and not ok_traite and not deportee:
     corps = f"Passe de 23h : {traite or '?'} societe(s) traitee(s), {dossiers or '?'} dossier(s) prepares sans extraction.\nDernier motif : {motif or 'aucun'}\nJournal : /tmp/earnings-refresh.log"
     subprocess.run(["curl","-s","-X","POST","https://api.resend.com/emails","-H",f"Authorization: Bearer {cle}","-H","Content-Type: application/json",
         "-d", json.dumps({"from":"Mettrik Robots <noreply@mettrik.ai>","to":[dest],"subject":"🔴 Mise a jour des societes : le moteur n a rien extrait cette nuit","text":corps})],capture_output=True)
-print(f"bilan : traite={traite} dossiers={dossiers} alerte={'envoyee' if (cle and dest and not ok_traite) else 'non'}")
+print(f"bilan : traite={traite} dossiers={dossiers} extraction_deportee={deportee} alerte={'envoyee' if (cle and dest and not ok_traite and not deportee) else 'non'}")
 PY

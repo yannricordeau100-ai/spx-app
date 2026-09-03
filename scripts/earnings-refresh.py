@@ -285,6 +285,33 @@ def call_provider(spec, prompt: str, key: str) -> str:
     return payload["content"][0]["text"] if auth == "anthropic" else payload["choices"][0]["message"]["content"]
 
 
+_PROFIL_20X_OK: bool | None = None
+
+
+def profil_20x_utilisable(profil: Path, env_base: dict) -> bool:
+    """Sonde le profil dedie une seule fois par execution (reponse mise en
+    cache). Un profil deconnecte rendait toute la passe sterile."""
+    global _PROFIL_20X_OK
+    if _PROFIL_20X_OK is not None:
+        return _PROFIL_20X_OK
+    env = dict(env_base)
+    env["CLAUDE_CONFIG_DIR"] = str(profil)
+    try:
+        t = subprocess.run(
+            ["claude", "-p", "--model", "sonnet", "--output-format", "text"],
+            input="Reponds exactement: OK", capture_output=True, text=True,
+            timeout=120, env=env,
+        )
+        sortie = (t.stdout or "") + (t.stderr or "")
+        _PROFIL_20X_OK = t.returncode == 0 and "Not logged in" not in sortie
+    except Exception:  # noqa: BLE001
+        _PROFIL_20X_OK = False
+    if not _PROFIL_20X_OK:
+        print("[earnings-refresh] profil ~/.claude-20x non connecte : "
+              "bascule sur la session par defaut", flush=True)
+    return _PROFIL_20X_OK
+
+
 def call_claude_cli(prompt: str) -> str:
     """Extraction via la session Claude Code du Mac : aucune cle API.
     Si un profil dedie au compte MAX 20x existe (~/.claude-20x), il est
@@ -292,8 +319,13 @@ def call_claude_cli(prompt: str) -> str:
     l extraction verrouillee par la verification textuelle en aval."""
     import os
     env_vars = dict(os.environ)
+    # 3 sept 2026 : le profil dedie ~/.claude-20x existe encore mais n est
+    # PLUS connecte. Comme il etait force des qu il existait, chaque appel
+    # repondait "Not logged in" et la passe de 23h traitait 0 societe deux
+    # nuits de suite. On le sonde UNE fois par execution et on retombe sur la
+    # session par defaut s il n est pas utilisable.
     profil = Path.home() / ".claude-20x"
-    if profil.exists():
+    if profil.exists() and profil_20x_utilisable(profil, env_vars):
         env_vars["CLAUDE_CONFIG_DIR"] = str(profil)
     out = subprocess.run(
         ["claude", "-p", "--model", "sonnet", "--output-format", "text"],
