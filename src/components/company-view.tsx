@@ -1758,7 +1758,11 @@ export function CompanyView({
                   const vals = chartHistoryRaw.filter((x): x is number => typeof x === "number" && Number.isFinite(x));
                   if (vals.length < 2) return "";
                   const moy = vals.reduce((a, b) => a + b, 0) / vals.length;
-                  return `${moy >= 0 ? "+" : ""}${moy.toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %`;
+                  // Yann 4 sept 2026 : une MOYENNE n est pas une variation. Un
+                  // "+" devant laisse croire a une hausse alors qu il s agit du
+                  // niveau moyen de la serie. On n ecrit donc le signe que
+                  // lorsqu il est porteur de sens, c est-a-dire negatif.
+                  return `${moy.toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %`;
                 })()}
               >
               {heroChartNode}
