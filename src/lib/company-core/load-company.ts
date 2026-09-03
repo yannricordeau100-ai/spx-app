@@ -335,7 +335,32 @@ export type LoadOutcome =
  *  - `preparing` : ticker connu mais pas encore Pass 3 → "Fiche en préparation".
  *  - `missing`   : ticker inconnu → notFound.
  */
+// Yann 3 sept 2026 : ouverture d une fiche trop lente (5 a 6 s a froid). Les
+// donnees d une societe ne changent qu au deploiement : cache memoire 10 min
+// par instance serveur, cle ticker + mode + langue. Le palier et l auth
+// restent calcules a chaque requete par la page.
+const CACHE_FICHES = new Map<string, { at: number; valeur: LoadOutcome }>();
+const CACHE_TTL_MS = 10 * 60_000;
+
 export async function loadV17Company(
+  ticker: string,
+  opts: { mode?: "v17" | "v18"; locale?: string } = {}
+): Promise<LoadOutcome> {
+  const cle = `${ticker.toUpperCase()}|${opts.mode ?? "v17"}|${opts.locale ?? "fr"}`;
+  const hit = CACHE_FICHES.get(cle);
+  if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.valeur;
+  const valeur = await loadV17CompanyBrut(ticker, opts);
+  if (valeur.kind === "ready") {
+    CACHE_FICHES.set(cle, { at: Date.now(), valeur });
+    if (CACHE_FICHES.size > 400) {
+      const plusVieux = [...CACHE_FICHES.entries()].sort((a, b) => a[1].at - b[1].at)[0]?.[0];
+      if (plusVieux) CACHE_FICHES.delete(plusVieux);
+    }
+  }
+  return valeur;
+}
+
+async function loadV17CompanyBrut(
   ticker: string,
   opts: { mode?: "v17" | "v18"; locale?: string } = {}
 ): Promise<LoadOutcome> {

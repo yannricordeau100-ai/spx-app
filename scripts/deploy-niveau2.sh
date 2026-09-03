@@ -7,6 +7,9 @@ set -euo pipefail
 cd /Users/yann/spx-app
 TOKEN=$(grep "^VERCEL_TOKEN=" .env.local | cut -d= -f2)
 TEAM=team_3A8Ft1Kze0wYzGbuyHmsaEwC
+# Inventaire de la structure (page /sandbox/structure) toujours a jour : regenere et
+# commite si quelque chose a change (routes, API, tables, crons).
+python3 scripts/build-structure-map.py >/dev/null 2>&1 && if ! git diff --quiet -- src/data/_structure-map.json; then git add src/data/_structure-map.json && git commit -q -m "structure : inventaire regenere"; fi
 SHA=$(git rev-parse HEAD)
 git push origin HEAD >/dev/null 2>&1 || true
 echo "commit $SHA : attente du build preview..."

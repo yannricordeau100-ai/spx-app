@@ -139,7 +139,7 @@ function CompanyName({
           {tickerShown}
         </span>
         {aliases.length > 0 && (
-          <span className="text-[11px] font-medium text-zinc-500 whitespace-nowrap self-end pb-0.5">
+          <span className="self-baseline text-[11px] font-medium text-zinc-500 whitespace-nowrap">
             {alsoKnownLabel}{" "}
             <span className="font-mono text-zinc-400">{aliases.join(" / ")}</span>
           </span>

@@ -501,7 +501,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
               // Yann 3 sept 2026 : clic sur le graph = une valeur sur deux, en
               // commencant par masquer la plus recente (le TTM garde la sienne).
               const nReel = ttm != null ? allLabels.length - 1 : allLabels.length;
-              if (labelStep === 2 && !isTTM && (nReel - 1 - i) % 2 === 0) return null;
+              if (labelStep === 2 && !isTTM && !isH && (nReel - 1 - i) % 2 === 1) return null;
               const cxLabel = x + barW / 2 + (isClassic ? 0 : DX / 2);
               const cyLabel = isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12);
               const labelOpacity = hover === null ? 1 : isH ? 1 : 0.3;

@@ -46,7 +46,23 @@ async function lit(section: string): Promise<Zone[] | null> {
 }
 
 /** Zones EFFECTIVES pour une societe : override si present, sinon global. */
+const CACHE_ZONES = new Map<string, { at: number; v: { zones: Zone[]; portee: "societe" | "globale" } }>();
+
 export async function chargeZonesFloutage(ticker?: string | null): Promise<{
+  zones: Zone[];
+  portee: "societe" | "globale";
+}> {
+  // Yann 3 sept 2026 : cache 60 s par instance (un aller-retour base de moins
+  // par ouverture de fiche ; un changement de reglage est visible en 1 min).
+  const cle = (ticker ?? "*").toUpperCase();
+  const hit = CACHE_ZONES.get(cle);
+  if (hit && Date.now() - hit.at < 60_000) return hit.v;
+  const v = await chargeZonesFloutageBrut(ticker);
+  CACHE_ZONES.set(cle, { at: Date.now(), v });
+  return v;
+}
+
+async function chargeZonesFloutageBrut(ticker?: string | null): Promise<{
   zones: Zone[];
   portee: "societe" | "globale";
 }> {
