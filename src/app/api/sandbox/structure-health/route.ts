@@ -8,6 +8,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
+import inventaire from "@/data/_structure-map.json";
 
 export const dynamic = "force-dynamic";
 type Feu = "vert" | "orange" | "rouge" | "gris";
@@ -58,17 +59,23 @@ export async function GET(req: NextRequest) {
   // Donnees
   const uni = await lit<{ tickers: string[] }>("src/data/v1-9-5-clean-all-tickers.json");
   c.push({ id: "fichier_univers", feu: uni && uni.tickers?.length > 600 ? "vert" : "rouge", libelle: "Liste des sociétés en ligne", detail: `${uni?.tickers?.length ?? 0} tickers` });
-  const nPipe = await compte("src/data/v2-pipeline"); const nEnr = await compte("src/data/v2-pipeline-enrich"); const nHaut = await compte(".batches-drafts-safe/kpis-haut");
+  const nPipe = await compte("src/data/v2-pipeline"); const nEnr = await compte("src/data/v2-pipeline-enrich");
+  // kpis-haut n est embarque que dans les fonctions des pages societe (tracing par route) :
+  // la preuve de presence en ligne est le rendu d une fiche (controle fiche_aapl).
+  const nHaut = ((inventaire as { compteurs?: { fiches?: number } }).compteurs?.fiches ?? 0) > 0 ? (await compte(".batches-drafts-safe/kpis-haut")) || -1 : 0;
   c.push({ id: "donnees_pipeline", feu: nPipe > 600 ? "vert" : "rouge", libelle: "Fiches de données embarquées", detail: `${nPipe} fichiers` });
   c.push({ id: "donnees_enrich", feu: nEnr > 100 ? "vert" : "orange", libelle: "Enrichissements embarqués", detail: `${nEnr} fichiers` });
-  c.push({ id: "donnees_haut", feu: nHaut > 300 ? "vert" : "rouge", libelle: "Indicateurs en tête embarqués", detail: `${nHaut} fichiers` });
+  c.push({ id: "donnees_haut", feu: nHaut > 300 ? "vert" : nHaut === -1 ? "gris" : "rouge", libelle: "Indicateurs en tête embarqués", detail: nHaut === -1 ? "dossier lu par les pages société (non visible d ici) : vérifié via le rendu d une fiche" : `${nHaut} fichiers` });
 
   // Automates (statuts commites)
   const w = await lit<{ last_run_at?: string; docs_downloaded_last_run?: number }>("src/data/_daily-doc-watcher-status.json");
   const aw = ageH(w?.last_run_at);
   c.push({ id: "watcher_us", feu: aw == null ? "gris" : aw < 36 ? "vert" : aw < 96 ? "orange" : "rouge", libelle: "Veille des rapports US", detail: aw == null ? "statut absent" : `dernier passage il y a ${aw.toFixed(0)} h` });
-  const fw = await lit<{ last_run_at?: string; run_at?: string }>("src/data/_fr-doc-watcher-status.json");
-  const af = ageH(fw?.last_run_at ?? fw?.run_at);
+  const fw = await lit<Record<string, unknown>>("src/data/_fr-doc-watcher-status.json");
+  let fwDate: string | null = null;
+  const chercheDates = (o: unknown) => { if (typeof o === "string" && /^\d{4}-\d{2}-\d{2}T/.test(o)) { if (!fwDate || o > fwDate) fwDate = o; } else if (o && typeof o === "object") for (const v of Object.values(o as Record<string, unknown>)) chercheDates(v); };
+  chercheDates(fw);
+  const af = ageH(fwDate);
   c.push({ id: "watcher_eu", feu: af == null ? "gris" : af < 36 ? "vert" : af < 96 ? "orange" : "rouge", libelle: "Veille des pages investisseurs Europe", detail: af == null ? "statut absent" : `dernier passage il y a ${af.toFixed(0)} h` });
   const bilan = await lit<{ date?: string; traite?: string; dossiers_prepares?: string }>(".conv-state/earnings-refresh-dernier-bilan.json");
   const etat = await lit<Record<string, { at?: string; statut?: string }>>(".conv-state/earnings-refresh-state.json");
@@ -76,7 +83,7 @@ export async function GET(req: NextRequest) {
   if (etat) for (const v of Object.values(etat)) { if (v?.at && (!dernier || v.at > dernier)) dernier = v.at; if (v?.statut === "traite") traites++; }
   const ac = ageH(dernier);
   const traiteBilan = bilan?.traite && /^\d+$/.test(bilan.traite) ? Number(bilan.traite) : null;
-  c.push({ id: "cron_23h", feu: traiteBilan === 0 ? "rouge" : ac == null ? "gris" : ac < 36 ? "vert" : ac < 96 ? "orange" : "rouge", libelle: "Mise à jour des sociétés (23h)", detail: traiteBilan === 0 ? `dernière passe : 0 société traitée (${bilan?.date})` : ac == null ? "aucun état embarqué" : `dernier point écrit il y a ${ac.toFixed(0)} h, ${traites} sociétés traitées au dernier passage` });
+  c.push({ id: "cron_23h", feu: traiteBilan === 0 ? "rouge" : ac == null ? "gris" : ac < 36 ? "vert" : ac < 96 ? "orange" : "rouge", libelle: "Mise à jour des sociétés (23h)", detail: traiteBilan === 0 ? `dernière passe : 0 société traitée (${bilan?.date})` : ac == null ? "tourne sur le Mac de Yann : état non visible depuis le site (journal /tmp/earnings-refresh.log)" : `dernier point écrit il y a ${ac.toFixed(0)} h, ${traites} sociétés traitées au dernier passage` });
   const rel = await lit<{ genere_le?: string; bilan?: { rouge?: number; orange?: number; vert?: number } }>("src/data/_release-check.json");
   const ar = ageH(rel?.genere_le);
   c.push({ id: "release_check", feu: !rel ? "gris" : (rel.bilan?.rouge ?? 0) > 0 ? "rouge" : (rel.bilan?.orange ?? 0) > 0 ? "orange" : "vert", libelle: "Dernier contrôle avant ouverture", detail: rel ? `${rel.bilan?.vert ?? 0} verts, ${rel.bilan?.orange ?? 0} oranges, ${rel.bilan?.rouge ?? 0} rouges, il y a ${ar?.toFixed(0) ?? "?"} h` : "jamais lancé" });
