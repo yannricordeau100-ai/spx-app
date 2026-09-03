@@ -26,7 +26,9 @@ import {Rocket, CreditCard,
   HelpCircle,
   ScrollText,
   ListChecks,
-  Lock,, Network } from "lucide-react";
+  Lock,
+  Network,
+} from "lucide-react";
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
 import { brand } from "@/lib/brand";
