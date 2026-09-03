@@ -1,0 +1,776 @@
+{
+ "genere_le": "2026-09-03T02:28:44.623833Z",
+ "compteurs": {
+  "pages_publiques": 18,
+  "pages_internes": 82,
+  "api": 86,
+  "tables": 47,
+  "fiches": 666
+ },
+ "pages_publiques": [
+  "/",
+  "/[ticker]",
+  "/account",
+  "/account/favorites",
+  "/auth/update-password",
+  "/contact",
+  "/faq",
+  "/legal/cgu",
+  "/legal/cgv",
+  "/legal/conditions",
+  "/legal/confidentialite",
+  "/legal/mentions",
+  "/login",
+  "/maintenance",
+  "/parrainage",
+  "/populaire-investisseurs",
+  "/pricing",
+  "/signup"
+ ],
+ "api": [
+  "/api/admin/duplicates/confirm",
+  "/api/admin/kpis-toggle",
+  "/api/admin/kpis-toggle/list-overrides",
+  "/api/admin/kpis-toggle/set-hero",
+  "/api/billing/admin/features",
+  "/api/billing/admin/features/[id]",
+  "/api/billing/admin/features/[id]/copy",
+  "/api/billing/admin/features/rename-category",
+  "/api/billing/admin/features/reorder",
+  "/api/billing/admin/features/swap-order",
+  "/api/billing/admin/plan-features",
+  "/api/billing/admin/plans",
+  "/api/billing/admin/plans/[id]",
+  "/api/billing/admin/plans/[id]/duplicate",
+  "/api/billing/admin/prices",
+  "/api/billing/admin/promos",
+  "/api/billing/admin/promos/[id]",
+  "/api/billing/admin/promos/stripe-sync",
+  "/api/billing/admin/stripe-sync",
+  "/api/billing/checkout",
+  "/api/billing/health",
+  "/api/billing/portal",
+  "/api/billing/webhook",
+  "/api/contact",
+  "/api/contact-api",
+  "/api/cron/email-onboarding",
+  "/api/cron/kpi-worker-tick",
+  "/api/cron/quality-snapshot",
+  "/api/desk-mtk9x4kp/block-rules",
+  "/api/desk-mtk9x4kp/block-rules-apply",
+  "/api/desk-mtk9x4kp/blocks-control",
+  "/api/desk-mtk9x4kp/floutage-selections",
+  "/api/desk-mtk9x4kp/kpi-add-request",
+  "/api/desk-mtk9x4kp/kpi-requests",
+  "/api/desk-mtk9x4kp/kpi-search-tickers",
+  "/api/desk-mtk9x4kp/taglines",
+  "/api/desk/[table]",
+  "/api/desk/att",
+  "/api/desk/bugs",
+  "/api/desk/bugs/[id]",
+  "/api/desk/contact",
+  "/api/desk/curated-companies",
+  "/api/desk/data-quality-matrix",
+  "/api/desk/floutage-zones",
+  "/api/desk/hero",
+  "/api/desk/image-findings",
+  "/api/desk/image-findings/[id]/findings",
+  "/api/desk/ir-sources",
+  "/api/desk/ir-sources/[ticker]",
+  "/api/desk/notes",
+  "/api/desk/page-content",
+  "/api/desk/page-content/[id]",
+  "/api/desk/referrals-codes",
+  "/api/desk/referrals-settings",
+  "/api/desk/scan-pdfs",
+  "/api/desk/special-kpis",
+  "/api/desk/special-kpis/run-groq",
+  "/api/desk/story-kpis",
+  "/api/desk/story-kpis/extract",
+  "/api/desk/todos",
+  "/api/desk/user-preferences",
+  "/api/floutage-zones",
+  "/api/kpis-existants",
+  "/api/kpis-existants/[ticker]",
+  "/api/logotheque",
+  "/api/og/[ticker]x",
+  "/api/og/kpi/[ticker]/[code]x",
+  "/api/online-tickers",
+  "/api/popular-stocks",
+  "/api/referrals",
+  "/api/sandbox/active-wordmark",
+  "/api/sandbox/blocks-per-ste",
+  "/api/sandbox/daily-doc-watcher/run",
+  "/api/sandbox/faq",
+  "/api/sandbox/kpi-search/details",
+  "/api/sandbox/lancement",
+  "/api/sandbox/legal-editor",
+  "/api/sandbox/legal-editor/pdf-to-md",
+  "/api/sandbox/telemetrie",
+  "/api/stock-prices",
+  "/api/telemetrie",
+  "/api/v1-7-5/export",
+  "/api/v1-9/export",
+  "/api/version",
+  "/api/vip-inspection",
+  "/api/webhooks/resend"
+ ],
+ "tables": [
+  "billing_events",
+  "companies_v",
+  "desk_att",
+  "desk_block_rules",
+  "desk_block_rules_jobs",
+  "desk_bookmarks",
+  "desk_bugs",
+  "desk_calendar",
+  "desk_contact_messages",
+  "desk_curated_companies",
+  "desk_disabled_blocks",
+  "desk_drafts",
+  "desk_email_sequences",
+  "desk_email_unsubscribes",
+  "desk_floutage_selections",
+  "desk_hero_kpi_overrides",
+  "desk_ideas",
+  "desk_image_findings",
+  "desk_image_findings_requests",
+  "desk_inspiration",
+  "desk_ir_sources",
+  "desk_kpi_requests",
+  "desk_links",
+  "desk_notes",
+  "desk_page_content",
+  "desk_pipeline",
+  "desk_pitch_notes",
+  "desk_pricing_taglines",
+  "desk_quality_history",
+  "desk_referral_settings",
+  "desk_referrals",
+  "desk_releases",
+  "desk_special_kpis",
+  "desk_story_kpis",
+  "desk_todos",
+  "desk_user_preferences",
+  "desk_verification_matrix",
+  "pricing_features",
+  "pricing_plan_features",
+  "pricing_plans",
+  "pricing_prices",
+  "pricing_promo_codes",
+  "pricing_promo_redemptions",
+  "subscriptions",
+  "telemetrie_evenements",
+  "vip_inspection_list",
+  "vip_inspection_status"
+ ],
+ "noeuds": [
+  {
+   "id": "home",
+   "nom": "Page d'accueil",
+   "desc": "Ce que voit un visiteur en arrivant : recherche, vitrine des indicateurs, accès aux fiches.",
+   "couche": "front",
+   "critique": true,
+   "chemins": [
+    "/",
+    "src/app/page.tsx",
+    "src/app/sandbox/v1-9-5/page.tsx"
+   ],
+   "checks": [
+    "site_niveau2",
+    "home_index"
+   ]
+  },
+  {
+   "id": "recherche",
+   "nom": "Recherche de société",
+   "desc": "Barre de recherche (nom, ticker, accents tolérés) sur les 666 sociétés en ligne.",
+   "couche": "front",
+   "critique": true,
+   "chemins": [
+    "src/components/company-search.tsx"
+   ],
+   "checks": [
+    "fichier_univers"
+   ]
+  },
+  {
+   "id": "fiche",
+   "nom": "Fiche société",
+   "desc": "La page d'une société : indicateur principal et graphique, tableau des indicateurs, faits marquants, risques, gouvernance, IA, répartition du chiffre d'affaires, synthèse des résultats.",
+   "couche": "front",
+   "critique": true,
+   "chemins": [
+    "/<ticker>",
+    "/sandbox/v1-9-5/<ticker>",
+    "src/components/company-view.tsx"
+   ],
+   "checks": [
+    "fiche_aapl",
+    "fichier_univers",
+    "donnees_pipeline"
+   ],
+   "sous": [
+    "Indicateur principal + graphique",
+    "Tableau des indicateurs",
+    "Faits marquants (stories)",
+    "Facteurs de risque",
+    "Gouvernance et rémunération",
+    "Positionnement IA",
+    "Répartition du chiffre d'affaires",
+    "Synthèse des résultats"
+   ]
+  },
+  {
+   "id": "floutage",
+   "nom": "Floutage et paliers",
+   "desc": "Ce que voit un visiteur sans compte (flouté), un inscrit gratuit (Google, Meta, Booking en clair), un abonné Premium ou Max (tout).",
+   "couche": "front",
+   "critique": true,
+   "chemins": [
+    "src/lib/freemium/tier-serveur.ts",
+    "src/lib/floutage-caviardage.ts"
+   ],
+   "checks": [
+    "supabase",
+    "fiche_aapl"
+   ]
+  },
+  {
+   "id": "tarifs",
+   "nom": "Tarifs et paiement",
+   "desc": "Page des offres, paiement par carte via Stripe, portail client (factures, annulation).",
+   "couche": "front",
+   "critique": true,
+   "chemins": [
+    "/pricing",
+    "src/app/api/billing/checkout",
+    "src/app/api/billing/webhook",
+    "src/app/api/billing/portal"
+   ],
+   "checks": [
+    "stripe",
+    "stripe_webhook_secret",
+    "tarifs_page"
+   ]
+  },
+  {
+   "id": "compte",
+   "nom": "Inscription, connexion, compte",
+   "desc": "Créer un compte, se connecter, mot de passe oublié, page Mon compte (plan, favoris, suppression).",
+   "couche": "front",
+   "critique": true,
+   "chemins": [
+    "/account",
+    "src/components/auth-modal.tsx",
+    "src/app/auth/actions.ts"
+   ],
+   "checks": [
+    "supabase",
+    "hcaptcha"
+   ]
+  },
+  {
+   "id": "emails",
+   "nom": "Emails aux clients",
+   "desc": "Emails d'activation et de mot de passe (Supabase via Resend), série de bienvenue J+1 à J+25, alertes.",
+   "couche": "front",
+   "critique": true,
+   "chemins": [
+    "src/lib/email/*",
+    "email-templates/*"
+   ],
+   "checks": [
+    "resend"
+   ]
+  },
+  {
+   "id": "contact",
+   "nom": "Contact",
+   "desc": "Formulaire public, protégé par le captcha Turnstile quand la clé est posée.",
+   "couche": "front",
+   "critique": false,
+   "chemins": [
+    "/contact",
+    "src/app/api/contact"
+   ],
+   "checks": [
+    "turnstile"
+   ]
+  },
+  {
+   "id": "faq",
+   "nom": "FAQ",
+   "desc": "Questions fréquentes publiques (25), indexables, modifiables depuis le back-office.",
+   "couche": "front",
+   "critique": false,
+   "chemins": [
+    "/faq",
+    "/sandbox/faq"
+   ],
+   "checks": [
+    "faq_page"
+   ]
+  },
+  {
+   "id": "legal",
+   "nom": "Pages légales",
+   "desc": "Mentions, conditions générales, confidentialité.",
+   "couche": "front",
+   "critique": false,
+   "chemins": [
+    "/legal/mentions",
+    "/legal/conditions",
+    "/legal/confidentialite"
+   ],
+   "checks": [
+    "legal_page"
+   ]
+  },
+  {
+   "id": "partage",
+   "nom": "Partage d'un indicateur",
+   "desc": "Bouton Partager : texte prêt pour X, micro-lien /k/... vers le bon indicateur, carte image, PNG téléchargeable.",
+   "couche": "front",
+   "critique": false,
+   "chemins": [
+    "/k/<ticker>/<code>",
+    "src/app/api/og/kpi"
+   ],
+   "checks": [
+    "og_kpi"
+   ]
+  },
+  {
+   "id": "parrainage",
+   "nom": "Parrainage",
+   "desc": "Désactivé le 3 sept 2026 (récompense non câblée) : la page renvoie 404.",
+   "couche": "front",
+   "critique": false,
+   "chemins": [
+    "/parrainage"
+   ],
+   "checks": []
+  },
+  {
+   "id": "desk",
+   "nom": "Desk propriétaire",
+   "desc": "Tableau de bord privé de Yann (URL secrète) : notes, tarifs, parrainage, bugs, contenus des pages.",
+   "couche": "back",
+   "critique": false,
+   "chemins": [
+    "/desk-mtk9x4kp"
+   ],
+   "checks": [
+    "desk_owner"
+   ]
+  },
+  {
+   "id": "admin",
+   "nom": "Admin",
+   "desc": "Réglages avancés : choix des indicateurs principaux, blocs activés par société.",
+   "couche": "back",
+   "critique": false,
+   "chemins": [
+    "/admin/kpis-toggle",
+    "/admin/blocks"
+   ],
+   "checks": []
+  },
+  {
+   "id": "sb_floutage",
+   "nom": "Floutage (réglage)",
+   "desc": "Quelles zones sont floutées, par société.",
+   "couche": "back",
+   "critique": true,
+   "chemins": [
+    "/sandbox/admin/floutage-selector"
+   ],
+   "checks": [
+    "supabase"
+   ]
+  },
+  {
+   "id": "sb_logotheque",
+   "nom": "Logothèque",
+   "desc": "Images de marque et logo affiché par emplacement.",
+   "couche": "back",
+   "critique": false,
+   "chemins": [
+    "/sandbox/logotheque"
+   ],
+   "checks": []
+  },
+  {
+   "id": "sb_faq",
+   "nom": "FAQ (édition)",
+   "desc": "Modifier, ajouter, réordonner les questions.",
+   "couche": "back",
+   "critique": false,
+   "chemins": [
+    "/sandbox/faq"
+   ],
+   "checks": []
+  },
+  {
+   "id": "sb_telemetrie",
+   "nom": "Télémétrie",
+   "desc": "Visites et actions des visiteurs (tes visites exclues).",
+   "couche": "back",
+   "critique": false,
+   "chemins": [
+    "/sandbox/telemetrie"
+   ],
+   "checks": [
+    "supabase"
+   ]
+  },
+  {
+   "id": "sb_lancement",
+   "nom": "Lancement",
+   "desc": "Interrupteur de maintenance de mettrik.ai, sans redéploiement.",
+   "couche": "back",
+   "critique": true,
+   "chemins": [
+    "/sandbox/lancement"
+   ],
+   "checks": [
+    "supabase"
+   ]
+  },
+  {
+   "id": "sb_structure",
+   "nom": "Structure (cette page)",
+   "desc": "Carte de l'application et feux de santé.",
+   "couche": "back",
+   "critique": false,
+   "chemins": [
+    "/sandbox/structure"
+   ],
+   "checks": []
+  },
+  {
+   "id": "sb_autres",
+   "nom": "Autres outils internes (82 pages)",
+   "desc": "Audits, tests, prototypes : réservés aux comptes connectés.",
+   "couche": "back",
+   "critique": false,
+   "chemins": [
+    "/admin",
+    "/admin/blocks",
+    "/admin/kpis-toggle",
+    "/chart-lab/[ticker]",
+    "/concepts",
+    "/concepts/chart-test",
+    "/concepts/charts-bars",
+    "/concepts/charts-news",
+    "/concepts/contact-home",
+    "/concepts/graph-mobile",
+    "/concepts/logos",
+    "/concepts/price-target"
+   ],
+   "checks": []
+  },
+  {
+   "id": "univers",
+   "nom": "Univers en ligne",
+   "desc": "Liste des 666 sociétés visibles (S&P 500, CAC 40, DAX 40, AEX 25, SMI, SOX).",
+   "couche": "donnees",
+   "critique": true,
+   "chemins": [
+    "src/data/v1-9-5-clean-all-tickers.json"
+   ],
+   "checks": [
+    "fichier_univers"
+   ]
+  },
+  {
+   "id": "pipeline",
+   "nom": "Fiches de données",
+   "desc": "4761 fichiers : indicateurs, historiques, risques, gouvernance, IA de chaque société.",
+   "couche": "donnees",
+   "critique": true,
+   "chemins": [
+    "src/data/v2-pipeline/"
+   ],
+   "checks": [
+    "donnees_pipeline"
+   ]
+  },
+  {
+   "id": "enrich",
+   "nom": "Enrichissements",
+   "desc": "11769 fichiers : séries trimestrielles, événements, descriptions, traductions.",
+   "couche": "donnees",
+   "critique": false,
+   "chemins": [
+    "src/data/v2-pipeline-enrich/"
+   ],
+   "checks": [
+    "donnees_enrich"
+   ]
+  },
+  {
+   "id": "haut",
+   "nom": "Indicateurs en tête",
+   "desc": "681 fichiers : indicateurs principaux vérifiés, lus en priorité par la fiche.",
+   "couche": "donnees",
+   "critique": true,
+   "chemins": [
+    ".batches-drafts-safe/kpis-haut/"
+   ],
+   "checks": [
+    "donnees_haut"
+   ]
+  },
+  {
+   "id": "transcripts",
+   "nom": "Synthèses de résultats",
+   "desc": "632 transcriptions de conférences de résultats et leurs synthèses.",
+   "couche": "donnees",
+   "critique": false,
+   "chemins": [
+    "src/data/transcripts/",
+    "src/data/transcript-summaries/"
+   ],
+   "checks": []
+  },
+  {
+   "id": "lake",
+   "nom": "Data-lake (sources brutes)",
+   "desc": "2184 dossiers de rapports officiels (10-K, 10-Q, communiqués) : la matière première, jamais servie au public.",
+   "couche": "donnees",
+   "critique": false,
+   "chemins": [
+    "data-lake/"
+   ],
+   "checks": []
+  },
+  {
+   "id": "supabase_db",
+   "nom": "Base de données",
+   "desc": "47 tables : comptes, abonnements, tarifs, promos, réglages, télémétrie...",
+   "couche": "donnees",
+   "critique": true,
+   "chemins": [
+    "billing_events",
+    "companies_v",
+    "desk_att",
+    "desk_block_rules",
+    "desk_block_rules_jobs",
+    "desk_bookmarks",
+    "desk_bugs",
+    "desk_calendar",
+    "desk_contact_messages",
+    "desk_curated_companies",
+    "desk_disabled_blocks",
+    "desk_drafts",
+    "desk_email_sequences",
+    "desk_email_unsubscribes",
+    "desk_floutage_selections",
+    "desk_hero_kpi_overrides",
+    "desk_ideas",
+    "desk_image_findings",
+    "desk_image_findings_requests",
+    "desk_inspiration",
+    "desk_ir_sources",
+    "desk_kpi_requests",
+    "desk_links",
+    "desk_notes",
+    "desk_page_content",
+    "desk_pipeline",
+    "desk_pitch_notes",
+    "desk_pricing_taglines",
+    "desk_quality_history",
+    "desk_referral_settings",
+    "desk_referrals",
+    "desk_releases",
+    "desk_special_kpis",
+    "desk_story_kpis",
+    "desk_todos",
+    "desk_user_preferences",
+    "desk_verification_matrix",
+    "pricing_features",
+    "pricing_plan_features",
+    "pricing_plans",
+    "pricing_prices",
+    "pricing_promo_codes",
+    "pricing_promo_redemptions",
+    "subscriptions",
+    "telemetrie_evenements",
+    "vip_inspection_list",
+    "vip_inspection_status"
+   ],
+   "checks": [
+    "supabase"
+   ]
+  },
+  {
+   "id": "cron_23h",
+   "nom": "Mise à jour des sociétés (23h)",
+   "desc": "Chaque soir sur ton Mac : veille des nouveaux rapports, extraction des nouveaux points, synthèses. Alerte email si rien n'est extrait.",
+   "couche": "automates",
+   "critique": true,
+   "chemins": [
+    "scripts/earnings-refresh.sh",
+    "scripts/ai.mettrik.earnings-refresh.plist"
+   ],
+   "checks": [
+    "cron_23h"
+   ]
+  },
+  {
+   "id": "cron_watchers",
+   "nom": "Veilles documentaires (4h, 4h30)",
+   "desc": "Détection des nouveaux dépôts SEC (US) et pages investisseurs (Europe).",
+   "couche": "automates",
+   "critique": false,
+   "chemins": [
+    "scripts/daily-doc-watcher.sh",
+    "scripts/fr-doc-watcher.sh"
+   ],
+   "checks": [
+    "watcher_us",
+    "watcher_eu"
+   ]
+  },
+  {
+   "id": "cron_vercel",
+   "nom": "Robots Vercel",
+   "desc": "2 tâches côté serveur : kpi-worker-tick (23 4 * * *), email-onboarding (17 */4 * * *).",
+   "couche": "automates",
+   "critique": false,
+   "chemins": [
+    "vercel.json"
+   ],
+   "checks": [
+    "cron_secret"
+   ]
+  },
+  {
+   "id": "workflows",
+   "nom": "Robots GitHub",
+   "desc": "6 workflows : cron-email-onboarding, cron-quality-snapshot, daily-earnings-refresh, image-findings-autorun, vip-deep-fix-worker, vip-inspection-worker.",
+   "couche": "automates",
+   "critique": false,
+   "chemins": [
+    "cron-email-onboarding.yml",
+    "cron-quality-snapshot.yml",
+    "daily-earnings-refresh.yml",
+    "image-findings-autorun.yml",
+    "vip-deep-fix-worker.yml",
+    "vip-inspection-worker.yml"
+   ],
+   "checks": [
+    "github_dispatch"
+   ]
+  },
+  {
+   "id": "release",
+   "nom": "Contrôle avant ouverture",
+   "desc": "24 vérifications (code, variables, niveaux, Supabase, Stripe, DNS) avant toute promotion vers mettrik.ai.",
+   "couche": "automates",
+   "critique": true,
+   "chemins": [
+    "scripts/verif-release.py",
+    "scripts/go-n0.sh"
+   ],
+   "checks": [
+    "release_check"
+   ]
+  },
+  {
+   "id": "vercel",
+   "nom": "Hébergement Vercel (3 niveaux)",
+   "desc": "n0 = mettrik.ai (public), n1 = mettrik-niveau1, n2 = mettrik-niveau2 (travail). n2 ne touche jamais n0.",
+   "couche": "externes",
+   "critique": true,
+   "chemins": [
+    "scripts/deploy-niveau2.sh",
+    "scripts/go-n0.sh"
+   ],
+   "checks": [
+    "site_niveau2",
+    "site_n0"
+   ]
+  },
+  {
+   "id": "supabase",
+   "nom": "Supabase (comptes et base)",
+   "desc": "Authentification, base de données, emails d'authentification.",
+   "couche": "externes",
+   "critique": true,
+   "chemins": [],
+   "checks": [
+    "supabase",
+    "supabase_env"
+   ]
+  },
+  {
+   "id": "stripe",
+   "nom": "Stripe (paiement)",
+   "desc": "Encaissement, abonnements, factures, portail client.",
+   "couche": "externes",
+   "critique": true,
+   "chemins": [],
+   "checks": [
+    "stripe",
+    "stripe_webhook_secret"
+   ]
+  },
+  {
+   "id": "resend",
+   "nom": "Resend (emails)",
+   "desc": "Envoi de tous les emails de la marque.",
+   "couche": "externes",
+   "critique": true,
+   "chemins": [],
+   "checks": [
+    "resend"
+   ]
+  },
+  {
+   "id": "captcha",
+   "nom": "Turnstile et hCaptcha",
+   "desc": "Anti-robots : contact (Turnstile) et inscription (hCaptcha).",
+   "couche": "externes",
+   "critique": false,
+   "chemins": [],
+   "checks": [
+    "turnstile",
+    "hcaptcha"
+   ]
+  },
+  {
+   "id": "yfinance",
+   "nom": "Yahoo Finance",
+   "desc": "Cours de bourse et capitalisations affichés sur les fiches.",
+   "couche": "externes",
+   "critique": false,
+   "chemins": [
+    "src/app/api/stock-prices"
+   ],
+   "checks": [
+    "prix"
+   ]
+  },
+  {
+   "id": "sec",
+   "nom": "SEC EDGAR",
+   "desc": "Source des rapports officiels américains (10-K, 10-Q, 8-K).",
+   "couche": "externes",
+   "critique": false,
+   "chemins": [],
+   "checks": []
+  },
+  {
+   "id": "fool",
+   "nom": "Motley Fool",
+   "desc": "Source des transcriptions de conférences de résultats.",
+   "couche": "externes",
+   "critique": false,
+   "chemins": [],
+   "checks": []
+  }
+ ]
+}

@@ -26,7 +26,7 @@ import {Rocket, CreditCard,
   HelpCircle,
   ScrollText,
   ListChecks,
-  Lock,} from "lucide-react";
+  Lock,, Network } from "lucide-react";
 import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
 import { brand } from "@/lib/brand";
@@ -267,6 +267,12 @@ const SECTIONS: SandboxSection[] = [
         icon: Activity,
         label: "Télémétrie",
         desc: "Toutes les métriques d'usage première partie : audience, pages, clics, pays, erreurs, latence API, emails. Interrupteur global.",
+      },
+      {
+        href: "/sandbox/structure",
+        icon: Network,
+        label: "Structure du site",
+        desc: "Carte visuelle de toute l'application (visiteur, back-office, données, automates, services) avec un feu de santé par brique, testé en direct.",
       },
       {
         href: "/sandbox/logotheque",
