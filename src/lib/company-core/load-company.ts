@@ -2886,6 +2886,53 @@ async function loadV17CompanyBrut(
     }
   }
 
+  // ── Series trimestrielles amputees de tous leurs T4 (Yann 4 sept 2026) ──
+  // Une partie des extractions ne lisait que les 10-Q. Or il n existe PAS de
+  // 10-Q pour le quatrieme trimestre : les societes deposent un 10-K a la
+  // place. Resultat, ces series sautent chaque T4 (Q3-2021 suivi de Q1-2022)
+  // et le graphique, qui pose les barres cote a cote, laisse croire a une
+  // continuite. Mesure du 4 sept : 696 series sur 195 societes. Tant que le
+  // T4 n est pas extrait du 10-K, mieux vaut ne rien montrer qu un graphique
+  // faux : ces series sont retirees de la fiche, jamais affichees a moitie.
+  const periodesDe = (k: AnyKPI): string[] => {
+    const hp = (k as { history_periods?: unknown }).history_periods;
+    if (Array.isArray(hp)) return hp.map((x) => String(x));
+    const h = k.history as unknown;
+    if (Array.isArray(h) && h.length > 0 && typeof h[0] === "object" && h[0] !== null && "q" in (h[0] as object)) {
+      return (h as Array<{ q?: unknown }>).map((x) => String(x?.q ?? ""));
+    }
+    return [];
+  };
+  const amputeeDeSesT4 = (k: AnyKPI): boolean => {
+    const qs = periodesDe(k).filter((x) => /^Q[1-4][- ]\d{4}$/.test(x));
+    if (qs.length < 8) return false;
+    const parAnnee = new Map<string, Set<string>>();
+    for (const x of qs) {
+      const m = /^Q([1-4])[- ](\d{4})$/.exec(x);
+      if (!m) continue;
+      if (!parAnnee.has(m[2])) parAnnee.set(m[2], new Set());
+      parAnnee.get(m[2])!.add(m[1]);
+    }
+    // La premiere et la derniere annee sont partielles par nature : on ne
+    // juge que sur les annees entierement couvertes.
+    const annees = [...parAnnee.keys()].sort().slice(1, -1);
+    return annees.length > 0 && annees.every((a) => !parAnnee.get(a)!.has("4"));
+  };
+  if (Array.isArray(data.kpis)) {
+    const avant = data.kpis as AnyKPI[];
+    const gardes = avant.filter((k) => !amputeeDeSesT4(k));
+    if (gardes.length > 0 && gardes.length < avant.length) {
+      data.kpis = gardes;
+      const shortsGardes = new Set(gardes.map((k) => String(k.short ?? "")));
+      if (typeof data.hero_kpi === "string" && !shortsGardes.has(data.hero_kpi)) {
+        const remplacant = gardes.reduce((best, k) =>
+          (((k as { pv_score?: number }).pv_score ?? 0) > (((best as { pv_score?: number })?.pv_score) ?? -1) ? k : best),
+        gardes[0]);
+        data.hero_kpi = String(remplacant.short);
+      }
+    }
+  }
+
   // Fresh / stale backfill via existing helper
   const company = enhanceFreshness(data as Company & Record<string, unknown>);
 
