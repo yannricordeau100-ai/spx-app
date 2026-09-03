@@ -15,8 +15,19 @@
 # 10-Q US filés la veille soir sont indexés sur SEC EDGAR).
 on:
   schedule:
+    # Quotidien 06:00 UTC = 08:00 Paris (post-indexation SEC EDGAR overnight)
     - cron: "0 6 * * *"
+    # Yann 4 juin 2026 : run renforce LUNDI 01:00 Paris (= dimanche 23:00 UTC)
+    # post-weekend, pour extraire KPIs trimestriels des stes ayant publie
+    # pendant le weekend. Cerebras free tier (3 keys, 0 token Claude).
+    - cron: "0 23 * * 0"
   workflow_dispatch: # permet de lancer manuellement depuis GitHub UI
+
+# Fix 2 sept 2026 (Yann) : le push echouait en 403 "denied to
+# github-actions[bot]" depuis des semaines (30 runs failed d affilee) parce
+# que le GITHUB_TOKEN du workflow est en lecture seule par defaut.
+permissions:
+  contents: write
 
 jobs:
   refresh:
@@ -40,12 +51,12 @@ jobs:
         run: pip install yfinance pandas
 
       - name: Refresh SEC EDGAR filing dates (top 307 V1.8)
-        run: python3 scripts/fetch-filing-dates.py --top 307
+        run: python3 scripts/fetch-filing-dates.py --limit 640
         env:
           PYTHONUNBUFFERED: "1"
 
       - name: Refresh yfinance next_earnings_date (top 307)
-        run: python3 scripts/earnings-dates-yfinance.py --limit 307 --workers 20
+        run: python3 scripts/earnings-dates-yfinance.py --limit 640 --workers 20
         env:
           PYTHONUNBUFFERED: "1"
 
@@ -54,7 +65,30 @@ jobs:
       # quotidiennement. Source = yfinance (gratuit). Effet :
       # `financial_snapshot` à jour chaque jour pour le top 307.
       - name: Refresh yfinance financial_snapshot (top 307)
-        run: python3 scripts/enrich-company-profile-yfinance.py --limit 307 --force
+        run: python3 scripts/enrich-company-profile-yfinance.py --limit 640 --force
+        env:
+          PYTHONUNBUFFERED: "1"
+        continue-on-error: true
+
+      # Yann 11 juin 2026 : next_earnings_date pour les stes FOREIGN sans ADR
+      # couvert par FMP. Source = calendrier financier officiel (IR) de chaque
+      # ste, lue en continu (jamais de date inventee, repli gracieux si la
+      # prochaine date resultats n'est pas encore publiee).
+      # Tier http (curl, pages serveur) : leger, fiable.
+      - name: Refresh foreign earnings (IR calendar, tier http)
+        run: python3 scripts/refresh-foreign-earnings.py --mode http --apply
+        env:
+          PYTHONUNBUFFERED: "1"
+        continue-on-error: true
+
+      # Tier js (Playwright headless) pour les calendriers rendus cote client.
+      # Isole + best-effort : si l'install ou le rendu echoue, le refresh
+      # principal n'est pas impacte.
+      - name: Refresh foreign earnings (IR calendar, tier js / Playwright)
+        run: |
+          pip install playwright >/dev/null 2>&1 || true
+          python -m playwright install --with-deps chromium >/dev/null 2>&1 || true
+          python3 scripts/refresh-foreign-earnings.py --mode js --apply || true
         env:
           PYTHONUNBUFFERED: "1"
         continue-on-error: true
@@ -66,7 +100,13 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions (daily refresh)"
-          git add src/data/v2-pipeline-enrich src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json 2>/dev/null || true
+          FOREIGN=$(python3 -c "import json;print(' '.join('src/data/v2-pipeline/'+t.lower()+'.json' for t in json.load(open('src/data/foreign-earnings-sources.json'))['sources']))" 2>/dev/null)
+          # Garde-fou univers (Yann 2 sept 2026) : le refresh cree des fiches enrich
+          # pour des tickers HORS univers (aeo, bdrx, ciss...). Regle permanente :
+          # l univers = indices seulement (666 stes, v1-9-5-clean-all-tickers.json).
+          # On ne committe que les fichiers enrich des stes de cette liste.
+          ENRICH=$(python3 -c "import json,glob,os; d=json.load(open('src/data/v1-9-5-clean-all-tickers.json')); ok={t.lower() for t in (d['tickers'] if isinstance(d,dict) else d)}; print(' '.join(f for f in glob.glob('src/data/v2-pipeline-enrich/*.json') if os.path.basename(f).split('.')[0].lower() in ok))")
+          git add $ENRICH src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json $FOREIGN 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Aucun changement détecté, skip commit."
           else
