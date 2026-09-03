@@ -9,7 +9,14 @@ TOKEN=$(grep "^VERCEL_TOKEN=" .env.local | cut -d= -f2)
 TEAM=team_3A8Ft1Kze0wYzGbuyHmsaEwC
 # Inventaire de la structure (page /sandbox/structure) toujours a jour : regenere et
 # commite si quelque chose a change (routes, API, tables, crons).
-python3 scripts/build-structure-map.py >/dev/null 2>&1 && if ! git diff --quiet -- src/data/_structure-map.json; then git add src/data/_structure-map.json && git commit -q -m "structure : inventaire regenere"; fi
+# La date de generation change a chaque passage : on ne commite que si le
+# CONTENU a bouge (sinon un commit inutile a chaque mise en ligne).
+python3 scripts/build-structure-map.py >/dev/null 2>&1 || true
+if git diff --unified=0 -- src/data/_structure-map.json | grep -E "^[+-]" | grep -v "^[+-][+-]" | grep -qv "genere_le"; then
+  git add src/data/_structure-map.json && git commit -q -m "structure : inventaire regenere"
+else
+  git checkout -- src/data/_structure-map.json 2>/dev/null || true
+fi
 SHA=$(git rev-parse HEAD)
 git push origin HEAD >/dev/null 2>&1 || true
 echo "commit $SHA : attente du build preview..."

@@ -689,7 +689,13 @@ export function CurveChart({
                   zone chart (dans les 20% bas), on bascule aussi en dessous. */}
               {(() => {
                 const v = Number(allData[i]);
-                if (labelStep === 2 && !isTTM && !isHover && (allData.length - 1 - i) % 2 === 1) return null;
+                // Yann 3 sept 2026 : une valeur sur deux, en partant du point
+                // LE PLUS RECENT qui garde toujours la sienne. Le TTM occupe la
+                // derniere case de allData : on compte donc les points reels,
+                // sinon c est l avant-dernier (le vrai dernier trimestre) qui
+                // serait masque. Le point survole affiche toujours sa valeur.
+                const nReelPts = hasTTM ? allData.length - 1 : allData.length;
+                if (labelStep === 2 && !isTTM && !isHover && (nReelPts - 1 - i) % 2 === 1) return null;
                 const isNegative = v < 0;
                 // Distance entre le dot et le bas de la zone chart (y=baselineY).
                 // Si dot dans les 20 % bas du chart, on évite de mettre le label

@@ -457,8 +457,11 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
               // (plus de decimation pasLibelles). Le chevauchement des series
               // denses est resolu par le survol : la barre visee et SON chiffre
               // restent pleinement contrastes (halo), les autres s estompent.
-              // Yann 3 sept 2026 : clic sur le graph = une valeur sur deux, en
-              // commencant par masquer la plus recente (le TTM garde la sienne).
+              // Yann 3 sept 2026 : clic sur le graph = une valeur sur deux. On
+              // part de la barre LA PLUS RECENTE, qui garde toujours sa valeur,
+              // puis on masque une barre sur deux en remontant dans le temps.
+              // Le TTM garde la sienne, et la barre survolee affiche la sienne
+              // meme quand elle fait partie des masquees.
               const nReel = ttm != null ? allLabels.length - 1 : allLabels.length;
               if (labelStep === 2 && !isTTM && !isH && (nReel - 1 - i) % 2 === 1) return null;
               const cxLabel = x + barW / 2 + (isClassic ? 0 : DX / 2);
