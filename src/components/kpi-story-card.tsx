@@ -78,14 +78,25 @@ function useAjusteLargeur(dep: string) {
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // Yann 4 sept 2026, cause enfin identifiee des recidives ("600 00…" sur
+    // KO, "500 00(" sur Waymo) : l ancienne mesure comparait clientWidth a
+    // scrollWidth. Or sur un bloc en `overflow: visible` avec du texte en
+    // `nowrap`, Safari (donc tout iPhone) NE compte PAS le texte qui deborde
+    // dans scrollWidth : la condition etait fausse, aucune reduction n etait
+    // appliquee, et la carte parente coupait le chiffre. On mesure desormais
+    // la largeur REELLE du texte via son rectangle, ce qui est identique dans
+    // tous les navigateurs. Le texte est enveloppe dans un span en
+    // inline-block, car une transformation n a aucun effet sur un element
+    // inline.
     const ajuste = () => {
-      el.style.transform = "";
-      const w = el.clientWidth;
-      const sw = el.scrollWidth;
-      if (sw > w && sw > 0) {
-        const k = Math.max(0.45, (w - 2) / sw);
-        el.style.transform = `scale(${k})`;
-        el.style.transformOrigin = "center center";
+      const cible = (el.firstElementChild as HTMLElement | null) ?? el;
+      cible.style.transform = "";
+      const dispo = el.clientWidth;
+      const reel = cible.getBoundingClientRect().width;
+      if (dispo > 0 && reel > dispo - 2) {
+        const k = Math.max(0.3, (dispo - 4) / reel);
+        cible.style.transform = `scale(${k})`;
+        cible.style.transformOrigin = "center center";
       }
     };
     ajuste();
@@ -171,7 +182,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
             <div className="flex items-start gap-1.5 text-[22px] font-bold leading-tight text-zinc-50">
               {/* Yann 1er sept 2026 : titre jaune pour les stories du lot
                   kpi-sept-2026 (revue META/GOOGL), temporaire. */}
-              <span className={`min-w-0 text-left ${(kpi as { _added_batch?: string })._added_batch === "kpi-sept-2026" ? "text-yellow-300" : ""}`}>{kpi.name_fr}</span>
+              <span className="min-w-0 text-left">{kpi.name_fr}</span>
               {kpi.explanation && (
                 <InfoTooltip color={accent} size="sm">
                   <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
@@ -221,7 +232,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                 className="w-full max-w-full text-center font-display font-bold leading-none tracking-tight gradient-text"
                 style={{ fontSize: storyValueFont(storyFmt(kpi.value, kpi.unit).value), whiteSpace: "nowrap" }}
               >
-                {storyFmt(kpi.value, kpi.unit).value}
+                <span className="inline-block">{storyFmt(kpi.value, kpi.unit).value}</span>
               </div>
               {storyFmt(kpi.value, kpi.unit).unit && (
                 /* Yann 30 aout 2026 : une unite longue ("bouteilles/canettes")
@@ -312,6 +323,10 @@ function MarketPositionStoryCard({
   // Sinon affichage direct en bas (cas court type "Rapport interne 2024").
   const sourceFull = `${mp.source}${mp.source_note ? " · " + mp.source_note : ""}`;
   const sourceIsLong = wordCount(sourceFull) > 4;
+  // Meme blindage que la carte KPI : le gros chiffre ne doit jamais sortir de
+  // la carte, quelle que soit la police ou la largeur d ecran.
+  const refPart = useAjusteLargeur(String(sharePct ?? ""));
+  const refSegment = useAjusteLargeur(String(mp.segment_revenue ?? ""));
 
   return (
     <div
@@ -345,20 +360,24 @@ function MarketPositionStoryCard({
           {sharePct !== null ? (
             <>
               <div
-                className="font-display font-bold leading-none tracking-tight gradient-text"
-                style={{ fontSize: "clamp(72px, 25vw, 120px)" }}
+                ref={refPart}
+                className="w-full max-w-full font-display font-bold leading-none tracking-tight gradient-text"
+                style={{ fontSize: "clamp(72px, 25vw, 120px)", whiteSpace: "nowrap" }}
               >
-                {sharePct.toFixed(1).replace(".", ",")}&nbsp;%
+                <span className="inline-block">{sharePct.toFixed(1).replace(".", ",")}&nbsp;%</span>
               </div>
               <div className="mt-2 text-[18px] font-semibold text-zinc-100">{t("story.market_share")}</div>
             </>
           ) : (
             <>
               <div
-                className="font-display font-bold leading-none tracking-tight gradient-text"
-                style={{ fontSize: "clamp(56px, 18vw, 88px)" }}
+                ref={refSegment}
+                className="w-full max-w-full font-display font-bold leading-none tracking-tight gradient-text"
+                style={{ fontSize: "clamp(56px, 18vw, 88px)", whiteSpace: "nowrap" }}
               >
-                {mp.segment_revenue} <span className="text-[0.5em] font-medium text-zinc-300">{formatUnit(mp.segment_unit)}</span>
+                <span className="inline-block">
+                  {mp.segment_revenue} <span className="text-[0.5em] font-medium text-zinc-300">{formatUnit(mp.segment_unit)}</span>
+                </span>
               </div>
               <div className="mt-2 text-[16px] font-semibold text-zinc-100">{t("story.segment_revenue_label")}</div>
               <div className="mt-2 text-[12px] italic text-zinc-400">
