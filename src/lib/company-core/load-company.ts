@@ -2867,11 +2867,18 @@ async function loadV17CompanyBrut(
         ajouts.push(neuf);
         continue;
       }
-      const meilleur = nbPoints(neuf) > nbPoints(jumeau)
+      // Un jumeau porte par un identifiant "generique" (Headcount, Revenue...)
+      // est masque du rendu par isGenericKpi : le garder reviendrait a ne rien
+      // afficher du tout. Dans ce cas notre serie, datee et sur dix ans, prend
+      // sa place. On conserve NOTRE identifiant, sinon le masquage s applique
+      // de nouveau.
+      const jumeauMasque = isGenericKpi(String(jumeau.short ?? ""));
+      const meilleur = jumeauMasque
+        || nbPoints(neuf) > nbPoints(jumeau)
         || (nbPoints(neuf) === nbPoints(jumeau) && aDesAnnees(neuf) && !aDesAnnees(jumeau));
       if (meilleur) {
         remplaces.add(jumeau);
-        ajouts.push({ ...neuf, short: jumeau.short });
+        ajouts.push(neuf);
       }
     }
     if (ajouts.length > 0) {
