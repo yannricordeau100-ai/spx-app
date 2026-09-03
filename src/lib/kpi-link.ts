@@ -23,7 +23,8 @@ export function textePartageX(p: {
   societe: string; ticker: string; kpi: string; valeur: string; unite?: string; variation?: string | null; periode?: string | null;
 }): string {
   const val = `${p.valeur}${p.unite ? " " + p.unite : ""}`.trim();
-  const varia = p.variation ? ` (${p.variation} vs N-1)` : "";
+  const variaFr = p.variation ? p.variation.replace(".", ",").replace(/(\d)%/, "$1 %") : "";
+  const varia = variaFr ? ` (${variaFr} vs N-1)` : "";
   const per = p.periode ? ` au ${p.periode}` : "";
   const corps = `${p.societe} $${p.ticker.toUpperCase().replace(/[.-].*$/, "")} : ${p.kpi}${per} = ${val}${varia}.`;
   const signature = "\nChiffre extrait des rapports officiels, via Mettrik AI";

@@ -29,7 +29,8 @@ export async function generateMetadata({ params }: { params: Promise<{ ticker: s
   const v = typeof kpi.value === "number" ? formatHeroValue(kpi.value, kpi.unit ?? "") : null;
   const valeur = v ? `${v.value} ${v.unit}`.trim() : String(kpi.value ?? "");
   const title = `${nom} · ${company.name} (${company.ticker}) · Mettrik AI`;
-  const description = `${valeur}${kpi.yoy ? `, ${kpi.yoy} vs N-1` : ""}. Indicateur extrait des rapports officiels de ${company.name}.`;
+  const yoyFr = typeof kpi.yoy === "string" ? kpi.yoy.replace(".", ",").replace(/(\d)%/, "$1 %") : null;
+  const description = `${valeur}${yoyFr ? `, ${yoyFr} vs N-1` : ""}. Indicateur extrait des rapports officiels de ${company.name}.`;
   const image = `${BASE}/api/og/kpi/${ticker.toLowerCase()}/${code}`;
   const url = `${BASE}/k/${ticker.toLowerCase()}/${code}`;
   return {

@@ -1155,9 +1155,9 @@ export const DICTIONARY: Dict = {
     de: "Kann ich Mettrik AI testen, ohne zu zahlen?",
   },
   "pricing.faq_a1": {
-    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres les 666 fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées. Assez pour juger la profondeur avant de décider.",
-    en: "Yes, the Free plan is free forever, no credit card. You can open all 666 profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred. Enough to judge the depth before deciding.",
-    de: "Ja, der kostenlose Plan ist lebenslang kostenlos, ohne Kreditkarte. Du kannst alle 666 Profile öffnen: Hauptkennzahl, Wert und Chart sind sichtbar, die Detailanalysen sind unkenntlich gemacht. Genug, um die Tiefe vor der Entscheidung zu prüfen.",
+    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres les 666 fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées, sauf Google, Meta et Booking, entièrement en clair pour juger la profondeur avant de décider.",
+    en: "Yes, the Free plan is free forever, no credit card. You can open all 666 profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred, except Google, Meta and Booking, fully unblurred to judge the depth before deciding.",
+    de: "Ja, der kostenlose Plan ist lebenslang kostenlos, ohne Kreditkarte. Du kannst alle 666 Profile öffnen: Hauptkennzahl, Wert und Chart sind sichtbar, die Detailanalysen sind unkenntlich gemacht, außer Google, Meta und Booking, vollständig sichtbar, um die Tiefe vor der Entscheidung zu prüfen.",
   },
   "pricing.faq_q2": {
     fr: "Comment annuler mon abonnement ?",

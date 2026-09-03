@@ -25,16 +25,17 @@ export async function GET(_req: Request, ctx: { params: Promise<{ ticker: string
   const max = Math.max(...hist.map(Math.abs), 1);
   const yoy = typeof kpi.yoy === "string" ? kpi.yoy : null;
   const positif = yoy ? !yoy.trim().startsWith("-") : true;
+  const yoyFr = yoy ? yoy.replace(".", ",").replace(/(\d)%/, "$1 %") : "";
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, #07070c 0%, #0b0a14 60%, #0a1018 100%)", display: "flex", flexDirection: "column", padding: 56, color: "#fafafa", fontFamily: "Helvetica, Arial, sans-serif" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 22, color: "#a1a1aa", letterSpacing: 2, textTransform: "uppercase" }}>{c.name} · {c.ticker}</div>
+            <div style={{ fontSize: 22, color: "#a1a1aa", letterSpacing: 2, textTransform: "uppercase" }}>{`${c.name} · ${c.ticker}`}</div>
             <div style={{ fontSize: 40, fontWeight: 700, marginTop: 8, maxWidth: 760, lineHeight: 1.15 }}>{nom}</div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 26, fontWeight: 800 }}>
-            <span style={{ color: "#a78bfa" }}>Mettrik</span><span style={{ color: "#67e8f9" }}>AI</span>
+            <span style={{ color: "#a78bfa" }}>Mettrik</span><span style={{ color: "#67e8f9", marginLeft: 8 }}>AI</span>
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginTop: 40, flex: 1 }}>
@@ -46,7 +47,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ ticker: string
             {yoy && (
               <div style={{ marginTop: 18, display: "flex" }}>
                 <div style={{ fontSize: 28, fontWeight: 700, padding: "8px 18px", borderRadius: 999, background: positif ? "rgba(16,185,129,0.15)" : "rgba(244,63,94,0.15)", color: positif ? "#34d399" : "#fb7185", border: `1px solid ${positif ? "#10b98166" : "#f43f5e66"}` }}>
-                  {yoy} vs N-1
+                  {`${yoyFr} vs N-1`}
                 </div>
               </div>
             )}

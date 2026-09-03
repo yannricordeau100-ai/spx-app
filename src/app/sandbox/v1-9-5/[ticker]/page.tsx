@@ -303,12 +303,9 @@ export default async function SandboxV195TickerPage({
     }
   }
 
-  // Yann 18 août 2026 : anonyme = pas d'accès aux pages stés, redirection
-  // vers l'accueil (seuls accueil + pricing sont publics). Le cookie
-  // simulate "anonymous" (admin view-as) reste autorisé pour prévisualiser.
-  if (freemiumTier === "anon" && simulated !== "anonymous") {
-    redirect("/");
-  }
+  // Yann 3 sept 2026 : les anonymes voient la fiche FLOUTEE (caviardage
+  // serveur du palier "anon") pour le referencement Google et IA. L ancienne
+  // redirection vers l accueil (18 aout 2026) est retiree.
 
   // Yann 11 juin 2026 : retire des props sérialisées (HTML) toute métadonnée de
   // provenance (yfinance / mettrik / décontamination) pour qu'elle ne soit pas
