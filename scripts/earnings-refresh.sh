@@ -99,6 +99,13 @@ cle, dest = env.get("RESEND_API_KEY"), env.get("DESK_OWNER_EMAIL")
 ok_traite = traite.isdigit() and int(traite) > 0
 # Pas d alerte quand l extraction a ete volontairement laissee a la tache
 # planifiee : ce n est pas une panne (3 sept 2026).
+if not cle:
+    # 3 sept 2026 : RESEND_API_KEY n est PAS dans .env.local (elle n existe que
+    # sur Vercel). L alerte rouge ne pouvait donc jamais partir, en silence.
+    # On l ecrit au moins dans le journal et dans le bilan.
+    etat["alerte"] = "impossible : RESEND_API_KEY absente de .env.local"
+    open("/Users/yann/spx-app/.conv-state/earnings-refresh-dernier-bilan.json","w").write(json.dumps(etat, ensure_ascii=False, indent=1))
+    print("[earnings-refresh] ALERTE IMPOSSIBLE : RESEND_API_KEY absente de .env.local", flush=True)
 if cle and dest and not ok_traite and not deportee:
     corps = f"Passe de 23h : {traite or '?'} societe(s) traitee(s), {dossiers or '?'} dossier(s) prepares sans extraction.\nDernier motif : {motif or 'aucun'}\nJournal : /tmp/earnings-refresh.log"
     subprocess.run(["curl","-s","-X","POST","https://api.resend.com/emails","-H",f"Authorization: Bearer {cle}","-H","Content-Type: application/json",
