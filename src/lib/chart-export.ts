@@ -169,6 +169,22 @@ export async function downloadSvgAsPng(
   const clone = svg.cloneNode(true) as SVGSVGElement;
   clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 
+  // Yann 3 sept 2026 : la courbe se dessine en 1,3 s (animation du trace).
+  // Un telechargement lance pendant ce temps copiait l etat intermediaire et
+  // le document sortait avec une courbe A MOITIE tracee. L animation ecrit
+  // sur le style en ligne (stroke-dasharray / stroke-dashoffset), alors que
+  // les vrais pointilles du graph (TTM, reperes) sont poses en ATTRIBUT : on
+  // neutralise donc uniquement le style en ligne, sur le clone.
+  clone.querySelectorAll<SVGElement>("*").forEach((el) => {
+    if (el.style && (el.style.strokeDasharray || el.style.strokeDashoffset)) {
+      el.style.strokeDasharray = "";
+      el.style.strokeDashoffset = "";
+    }
+    if (el.style && el.style.opacity && Number(el.style.opacity) < 1 && el.hasAttribute("data-chart-line")) {
+      el.style.opacity = "1";
+    }
+  });
+
   // ── Suppression DOM des éléments marqués pour exclusion export ──
   // Yann 17 mai 2026 (v3) : `display:none` ne suffit pas — certains
   // navigateurs / serializers gardent l'élément en pixel data. Solution
@@ -830,9 +846,23 @@ export async function downloadSvgAsPng(
         steCtx.font = `300 ${TITLE_STE_FONT_SIZE}px ${PNG_FONT_FAMILY}`;
         stéW = steCtx.measureText(stéText).width;
       }
-      const totalL1 = hasLogo
-        ? TITLE_LOGO_SIZE + TITLE_LOGO_GAP + stéW
-        : stéW;
+      // Yann 3 sept 2026 : la largeur du nom n etait pas bornee. Un nom long
+      // (Munchener Ruckversicherungs-Gesellschaft) sortait coupe des deux
+      // cotes du document. On reduit la taille du texte jusqu a ce que le
+      // bloc logo + nom tienne dans la largeur utile, plancher a 26 px.
+      const LARGEUR_UTILE = origW - 48;
+      let steFontSize = TITLE_STE_FONT_SIZE;
+      const largeurBloc = (l: number) => (hasLogo ? TITLE_LOGO_SIZE + TITLE_LOGO_GAP + l : l);
+      while (steFontSize > 26 && largeurBloc(stéW) > LARGEUR_UTILE) {
+        steFontSize -= 2;
+        if (steCtx) {
+          steCtx.font = `300 ${steFontSize}px ${PNG_FONT_FAMILY}`;
+          stéW = steCtx.measureText(stéText).width;
+        } else {
+          stéW = stéText.length * TITLE_STE_CHAR_W * (steFontSize / TITLE_STE_FONT_SIZE);
+        }
+      }
+      const totalL1 = largeurBloc(stéW);
       const midX = origX + origW / 2;
       const startL1 = midX - totalL1 / 2;
 
@@ -892,7 +922,7 @@ export async function downloadSvgAsPng(
       // Yann 8 juin 2026 (PRIO 2) : graisse fine (300) sur le nom sté (titre).
       stéEl.setAttribute("font-weight", "300");
       stéEl.setAttribute("font-style", "normal");
-      stéEl.setAttribute("font-size", String(TITLE_STE_FONT_SIZE));
+      stéEl.setAttribute("font-size", String(steFontSize));
       stéEl.setAttribute("letter-spacing", "-0.01em");
       stéEl.setAttribute("fill", titleColor);
       stéEl.textContent = stéText;

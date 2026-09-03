@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { loadV17Company } from "@/lib/company-core/load-company";
 import { codeKpi } from "@/lib/kpi-link";
 import { formatHeroValue } from "@/lib/data";
@@ -12,6 +13,25 @@ import { formatHeroValue } from "@/lib/data";
 export const dynamic = "force-dynamic";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai";
+
+/**
+ * Yann 3 sept 2026 : l apercu du lien doit venir du site QUI SERT le lien.
+ * En figeant BASE, un lien partage depuis niveau2 faisait chercher son image
+ * sur www.mettrik.ai, qui est en maintenance : X affichait une carte cassee
+ * (308 puis 404, et og:url renvoyait sur /maintenance). On prend donc l hote
+ * de la requete, et on ne retombe sur BASE que si l en-tete manque.
+ */
+async function baseDeLaRequete(): Promise<string> {
+  try {
+    const h = await headers();
+    const hote = h.get("x-forwarded-host") ?? h.get("host");
+    if (!hote) return BASE;
+    const schema = h.get("x-forwarded-proto") ?? (hote.startsWith("localhost") ? "http" : "https");
+    return `${schema}://${hote}`;
+  } catch {
+    return BASE;
+  }
+}
 
 async function trouve(ticker: string, code: string) {
   const r = await loadV17Company(ticker, { mode: "v18", locale: "fr" });
@@ -31,11 +51,12 @@ export async function generateMetadata({ params }: { params: Promise<{ ticker: s
   const title = `${nom} · ${company.name} (${company.ticker}) · Mettrik AI`;
   const yoyFr = typeof kpi.yoy === "string" ? kpi.yoy.replace(".", ",").replace(/(\d)%/, "$1 %") : null;
   const description = `${valeur}${yoyFr ? `, ${yoyFr} vs N-1` : ""}. Indicateur extrait des rapports officiels de ${company.name}.`;
-  const image = `${BASE}/api/og/kpi/${ticker.toLowerCase()}/${code}`;
-  const url = `${BASE}/k/${ticker.toLowerCase()}/${code}`;
+  const base = await baseDeLaRequete();
+  const image = `${base}/api/og/kpi/${ticker.toLowerCase()}/${code}`;
+  const url = `${base}/k/${ticker.toLowerCase()}/${code}`;
   return {
     title, description,
-    alternates: { canonical: `${BASE}/${ticker.toLowerCase()}` },
+    alternates: { canonical: `${base}/${ticker.toLowerCase()}` },
     robots: { index: false, follow: true },
     openGraph: { title, description, url, siteName: "Mettrik AI", type: "website", images: [{ url: image, width: 1200, height: 630, alt: title }] },
     twitter: { card: "summary_large_image", title, description, images: [image] },

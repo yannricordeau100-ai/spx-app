@@ -146,7 +146,13 @@ export function downloadVisibleChart() {
   // wrapper [data-export-extra] (evite de faire transiter deux props par
   // chaque composant de chart).
   const extra = svg.closest<HTMLElement>("[data-export-extra]");
-  void downloadSvgAsPng(svg, `mettrik-${prefix}-${Date.now()}.png`, {
+  // Yann 3 sept 2026 : l export echouait EN SILENCE (promesse rejetee jamais
+  // rattrapee) : aucun fichier, aucun message. On rattrape, on previent, et
+  // on empeche deux telechargements simultanes.
+  if (exportEnCours) return;
+  exportEnCours = true;
+  setTimeout(() => { exportEnCours = false; }, 2500);
+  downloadSvgAsPng(svg, `mettrik-${prefix}-${Date.now()}.png`, {
     title: svg.getAttribute("data-export-title") || undefined,
     titleEn: extra?.getAttribute("data-export-title-en") || undefined,
     unitEn: extra?.getAttribute("data-export-unit-en") || undefined,
@@ -157,8 +163,17 @@ export function downloadVisibleChart() {
     // Yann juin 2026 : texte d'interprétation RETIRÉ du doc/graph exporté.
     interpretation: undefined,
     locale,
+  }).catch((e) => {
+    exportEnCours = false;
+    console.error("[export PNG]", e);
+    if (typeof window !== "undefined") {
+      window.alert("Le téléchargement de l'image a échoué. Réessaie dans un instant.");
+    }
   });
 }
+
+/** Verrou anti double-clic sur le telechargement (Yann 3 sept 2026). */
+let exportEnCours = false;
 
 export function ChartCycleControls({
   mode,
@@ -409,7 +424,14 @@ export function ChartCycle({
   // Yann 3 sept 2026 : un clic sur le graph masque une valeur sur deux
   // (la plus recente, puis une sur deux en remontant) ; second clic = retour.
   const [labelStep, setLabelStep] = useState<1 | 2>(1);
-  const basculeEtiquettes = () => setLabelStep((v) => (v === 1 ? 2 : 1));
+  // Yann 3 sept 2026 : sur mobile, taper le graph l ouvre en plein ecran
+  // (comportement voulu du 2 sept, pose par company-view sur le conteneur).
+  // Sans ce garde-fou, un seul tap faisait DEUX choses a la fois. Le clic
+  // "une valeur sur deux" est donc reserve a l ordinateur.
+  const basculeEtiquettes = () => {
+    if (typeof window !== "undefined" && window.innerWidth < 640) return;
+    setLabelStep((v) => (v === 1 ? 2 : 1));
+  };
   const { t } = useT();
   // Garde-fou : data peut être null/undefined dans certaines fiches. Forcer tableau.
   const safeData = Array.isArray(data) ? data : [];

@@ -88,7 +88,7 @@ type Props = {
   ttmLabel?: string;
   /** Style visuel : iso3d (par défaut, perspective isométrique) ou classique 2D. */
   variant?: "iso3d" | "classic";
-  /** Yann 3 sept 2026 : 1 = toutes les valeurs, 2 = une sur deux (la plus recente masquee). */
+  /** Yann 3 sept 2026 : 1 = toutes les valeurs, 2 = une sur deux, la plus recente TOUJOURS affichee. */
   labelStep?: 1 | 2;
   onToggleLabels?: () => void;
   /** Titre injecté DANS le PNG exporté (KPI name_fr). */
@@ -141,8 +141,9 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
   const effectiveLocale = titleLocale === "en" ? "en" : locale;
   // Yann 15 mai 2026 : click sur la zone axe Y → toggle gauche / droite.
   const [yOnRight, setYOnRight] = useState(false);
-  // Yann 11 juin 2026 : en 2D, un clic sur le graphe bascule entre 2 styles.
-  // Yann 12 juin 2026 : barre couleur pleine classique (défaut) <-> Néon Tube creux.
+  // Yann 3 sept 2026 : il n existe plus qu UN seul style de barre en 2D
+  // (couleur pleine). Le clic sur le graphe ne sert plus qu a n afficher
+  // qu une valeur sur deux au-dessus des barres.
 
   // Étend data + labels avec TTM si fourni. Dernière barre stylée distinctement.
   // Yann 15 mai 2026 : si TTM est un OUTLIER (cumul 4Q >> max périodes),
@@ -335,27 +336,6 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
         );
       })()}
       <defs>
-        <linearGradient id="b26-front" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={color} stopOpacity={0.95} />
-          <stop offset="100%" stopColor={color} stopOpacity={0.6} />
-        </linearGradient>
-        <linearGradient id="b26-side" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor={color} stopOpacity={0.7} />
-          <stop offset="100%" stopColor={color} stopOpacity={0.45} />
-        </linearGradient>
-        <linearGradient id="b26-top" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity={0.85} />
-          <stop offset="100%" stopColor={color} stopOpacity={0.85} />
-        </linearGradient>
-        {/* Filtre néon "whaou" : halo lumineux puissant + souflé secondaire
-            pour effet tube néon style enseigne. stdDeviation 8 (vs 5 avant)
-            pour un glow plus présent. (5 mai 2026) */}
-        <filter id={`b26-neon-${color.slice(1)}`} x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="8" />
-        </filter>
-        <filter id={`b26-neon-soft-${color.slice(1)}`} x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="14" />
-        </filter>
         {/* Glow tube néon (style 2) : blur + merge sur la source pour halo
             doux qui suit le tracé sans noyer l'intérieur. */}
         <filter id={`b26-glow-${color.slice(1)}`} x="-60%" y="-60%" width="220%" height="220%">
@@ -462,7 +442,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
               // puis on masque une barre sur deux en remontant dans le temps.
               // Le TTM garde la sienne, et la barre survolee affiche la sienne
               // meme quand elle fait partie des masquees.
-              const nReel = ttm != null ? allLabels.length - 1 : allLabels.length;
+              const nReel = hasTTM ? allLabels.length - 1 : allLabels.length;
               if (labelStep === 2 && !isTTM && !isH && (nReel - 1 - i) % 2 === 1) return null;
               const cxLabel = x + barW / 2 + (isClassic ? 0 : DX / 2);
               const cyLabel = isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12);

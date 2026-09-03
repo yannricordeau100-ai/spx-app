@@ -307,7 +307,9 @@ export function ShareDownloadMenu({
     };
   }, [open]);
   const publierSurX = () => {
-    const u = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+    // x.com/intent/post est l adresse actuelle (twitter.com/intent/tweet ne
+    // fait plus qu une redirection).
+    const u = `https://x.com/intent/post?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
     window.open(u, "_blank", "noopener,noreferrer,width=600,height=650");
     setOpen(false);
   };
