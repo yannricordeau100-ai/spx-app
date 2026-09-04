@@ -72,6 +72,7 @@ import { isGenericKpi } from "@/lib/kpi-generic";
 import { isTotalRevenueLabel } from "@/lib/kpi-total-revenue";
 import { RiskStack } from "@/components/risk-stack";
 import { AntiTheseCard } from "@/components/anti-these-card";
+import { AppelAbonnement } from "@/components/appel-abonnement";
 import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
 import { GovernanceCard } from "@/components/governance-card";
@@ -251,6 +252,10 @@ export function CompanyView({
   // sinon le hero restait brouille malgre l override vide.
   const [exemptionSociete, setExemptionSociete] = useState(false);
   const freeBlockedTier = freemiumTier === "free" || freemiumTier === "anon";
+  // Yann 4 sept 2026 : sur les grandes zones reservees, un flou muet ne dit
+  // rien au visiteur. On retient si le graphique du hero est effectivement
+  // floute pour lui, afin d y poser une invitation a s abonner.
+  const [graphiqueReserve, setGraphiqueReserve] = useState(false);
   const freeBlocked = freeBlockedTier && !exemptionSociete;
 
   // Yann (8 juin 2026) : thème clair réservé aux offres PAYANTES (premium + max).
@@ -297,6 +302,9 @@ export function CompanyView({
           setExemptionSociete(true);
         }
         if (zones.length > 0) {
+          setGraphiqueReserve(
+            zones.some((z) => z.bloc === "hero" && (z.partie === "graphique" || z.partie === "tout")),
+          );
           applique(zonesEnRegles(zones));
         } else if (j?.portee !== "societe") {
           // Liste vide GLOBALE = configuration pas encore posee : secours.
@@ -1740,8 +1748,11 @@ export function CompanyView({
               {/* Yann 1er sept 2026 : le nom EN du KPI et l unite EN sont
                   poses sur le wrapper ; le telechargement PNG les lit via
                   closest() pour la ligne italique sous le titre francais. */}
+              {/* Yann 4 sept 2026 : conteneur positionne, pour poser
+                  l invitation a s abonner PAR-DESSUS le graphique reserve
+                  sans qu elle soit floutee avec lui. */}
+              <div className="relative max-lg:order-4 max-lg:-mx-5">
               <div
-                className="max-lg:order-4 max-lg:-mx-5"
                 data-blur-part="graphique"
                 data-export-extra="true"
                 // Yann 2 sept 2026 : sur mobile, taper le graph l ouvre en
@@ -1766,6 +1777,13 @@ export function CompanyView({
                 })()}
               >
               {heroChartNode}
+              </div>
+              {graphiqueReserve && (
+                <AppelAbonnement
+                  titre="Graphique r\u00e9serv\u00e9 aux abonn\u00e9s"
+                  detail="Dix ans d\u2019historique, export en image et partage : tout est inclus d\u00e8s le plan Premium."
+                />
+              )}
               </div>
               <ChartFullscreen
                 open={chartPleinEcran}

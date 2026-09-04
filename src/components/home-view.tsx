@@ -18,6 +18,7 @@ import { HomeWowGrid } from "@/components/home-wow-grid";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { useT } from "@/lib/i18n/provider";
 import { LogoMettrik } from "@/components/logo-mettrik";
+import { AppelAbonnement } from "@/components/appel-abonnement";
 
 /**
  * BrandWordmark — wordmark "Mettrik" XL en Fraunces 800 italic, gradient
@@ -821,6 +822,18 @@ export function HomeView({
           )}
 
           {/* Yann 28 aout 2026 : section "Plus grandes capitalisations" supprimee. */}
+        </div>
+
+        {/* Yann 4 sept 2026 : la page d accueil ne disait nulle part ce que
+            l abonnement apporte. Un encart unique, avant la FAQ, avec une
+            promesse concrete et un bouton. */}
+        <div className="mx-auto mt-16 max-w-2xl px-4 sm:mt-20">
+          <AppelAbonnement
+            forme="encart"
+            titre="Voyez ce que les chiffres ne disent pas seuls"
+            detail="666 soci\u00e9t\u00e9s, dix ans d\u2019historique, les indicateurs qui comptent vraiment et l\u2019anti-th\u00e8se de chaque dossier. Sans flou, sans limite."
+            action="D\u00e9couvrir les offres"
+          />
         </div>
 
         {showFAQ && <HomeFAQ />}
