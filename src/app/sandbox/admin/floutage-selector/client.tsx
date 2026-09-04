@@ -152,7 +152,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
       <div className="w-full">
         <h1 className="font-display text-[19px] font-bold">Floutage par zones</h1>
         <p className="mt-1 text-[12px] leading-relaxed text-zinc-400">
-          Coche ce que le palier gratuit ne doit pas voir. L aperçu à droite est une vraie
+          Coche le detail a flouter, puis choisis les paliers concernes. Sans choix, un detail vaut pour anonyme et gratuit, comme avant. L aperçu à droite est une vraie
           page : ce qui y est flouté est exactement ce qui le sera en production, sur les
           666 pages, quel que soit leur agencement. « 0 élément » = partie pas encore
           ancrée dans le code, cocher n aurait aucun effet.
