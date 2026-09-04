@@ -51,7 +51,9 @@ jobs:
         run: pip install yfinance pandas
 
       - name: Refresh SEC EDGAR filing dates (top 307 V1.8)
-        run: python3 scripts/fetch-filing-dates.py --limit 640
+        # Yann 4 sept 2026 : le script attend --top, pas --limit. L option
+        # inconnue faisait echouer la tache des la premiere etape (code 2).
+        run: python3 scripts/fetch-filing-dates.py --top 666
         env:
           PYTHONUNBUFFERED: "1"
 
