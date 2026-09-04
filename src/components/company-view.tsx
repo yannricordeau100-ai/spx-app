@@ -1141,11 +1141,7 @@ export function CompanyView({
               className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
               aria-label={t("nav.home")}
             >
-              {/* Yann 5 sept 2026 : sous 640 px, la fleche seule ; le logo
-                  faisait deborder la barre (Connexion hors ecran en anonyme). */}
-              <span className="hidden sm:inline-flex">
-                <LogoMettrik emplacement="retour-societe" size="sm" animated={false} showRail={false} />
-              </span>
+              <LogoMettrik emplacement="retour-societe" size="sm" animated={false} showRail={false} />
               <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
             </Link>
             <PageSearch variant="default" />

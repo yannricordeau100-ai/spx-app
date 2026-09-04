@@ -457,7 +457,7 @@ export function CompanySearch({
         className={
           variant === "hero"
             ? "group relative inline-flex w-full max-w-2xl items-center gap-3 overflow-hidden rounded-full border border-white/10 bg-[#0a0a0e]/80 px-5 py-3.5 text-left text-zinc-400 backdrop-blur-md transition-all hover:border-white/25 hover:text-zinc-200 hover:shadow-[0_0_40px_-10px_rgba(167,139,250,0.45)]"
-            : "group relative inline-flex w-auto min-w-0 max-w-xs shrink items-center gap-2 sm:w-full overflow-hidden rounded-full border border-white/10 bg-[#0a0a0e]/80 px-3.5 py-2 text-left text-zinc-400 backdrop-blur transition-all hover:border-white/25 hover:text-zinc-200"
+            : "group relative inline-flex w-full max-w-xs items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-[#0a0a0e]/80 px-3.5 py-2 text-left text-zinc-400 backdrop-blur transition-all hover:border-white/25 hover:text-zinc-200"
         }
       >
         <span
@@ -480,9 +480,7 @@ export function CompanySearch({
           className={
             variant === "hero"
               ? "relative flex-1 text-[15px]"
-              // Yann 5 sept 2026 : sous 640 px, icone seule : le libelle
-              // faisait deborder la barre des fiches (Connexion hors ecran).
-              : "relative hidden flex-1 truncate text-[12.5px] sm:inline"
+              : "relative flex-1 truncate text-[12.5px]"
           }
         >
           {ph}
