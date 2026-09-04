@@ -83,7 +83,17 @@ export async function POST(req: NextRequest) {
           expires_at: p.expires_at ? Math.floor(new Date(p.expires_at).getTime() / 1000) : undefined,
           restrictions: p.new_customers_only ? { first_time_transaction: true } : undefined,
         };
-        await stripe.promotionCodes.create(promoCodeParams as unknown as Parameters<typeof stripe.promotionCodes.create>[0]);
+        // Yann 4 sept 2026, cause de l echec silencieux des codes promo :
+        // le compte est passe a la version d API 2026-04-22, qui n accepte
+        // PLUS le parametre `coupon` sur la creation d un code promotionnel.
+        // Stripe repondait "Received unknown parameter: coupon", l erreur
+        // n etait affichee nulle part et aucun code n arrivait chez Stripe.
+        // On epingle donc une version anterieure POUR CET APPEL uniquement :
+        // le reste du paiement continue d utiliser la version du compte.
+        await stripe.promotionCodes.create(
+          promoCodeParams as unknown as Parameters<typeof stripe.promotionCodes.create>[0],
+          { apiVersion: "2024-06-20" },
+        );
 
         await upsertPromoCode({ id: p.id, stripe_coupon_id: coupon.id });
         created++;
