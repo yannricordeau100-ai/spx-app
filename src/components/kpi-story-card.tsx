@@ -29,6 +29,13 @@ import { isFiscalShifted } from "@/lib/fiscal-calendar";
  * pour qu'un nombre long (ex "750 000") ne déborde pas ni ne se coupe au
  * milieu (Yann 11 juin 2026 : "750 0 00" cassé sur 2 lignes = non pro).
  */
+/** Remplace les espaces fines des milliers par une espace insecable normale,
+ *  qui accepte `word-spacing`. Sans cela "1 000 000" formait un bloc compact
+ *  et on ne distinguait pas le million au premier coup d oeil. */
+export function espacesLarges(s: string): string {
+  return s.replace(/[\u202f\u2009\u00a0 ]/g, "\u00a0");
+}
+
 export function storyValueFont(s: string): string {
   const n = s.replace(/[\s  ]/g, "").length;
   if (n <= 4) return "clamp(44px, 17vw, 104px)";
@@ -238,9 +245,20 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
               <div
                 ref={refValeur}
                 className="w-full max-w-full text-center font-display font-bold leading-none tracking-tight gradient-text"
-                style={{ fontSize: storyValueFont(storyFmt(kpi.value, kpi.unit).value), whiteSpace: "nowrap" }}
+                style={{
+                  // `containerType` fait de ce bloc la reference des unites
+                  // `cqw` : la police suit la largeur de la CARTE, jamais celle
+                  // de la fenetre.
+                  containerType: "inline-size",
+                  fontSize: storyValueFont(storyFmt(kpi.value, kpi.unit).value),
+                  whiteSpace: "nowrap",
+                  // Yann 4 sept 2026 : les separateurs de milliers etaient des
+                  // espaces fines, illisibles en grand. On les elargit pour
+                  // qu on voie d un coup d oeil qu il s agit d un million.
+                  wordSpacing: "0.16em",
+                }}
               >
-                <span className="inline-block">{storyFmt(kpi.value, kpi.unit).value}</span>
+                <span className="inline-block">{espacesLarges(storyFmt(kpi.value, kpi.unit).value)}</span>
               </div>
               {storyFmt(kpi.value, kpi.unit).unit && (
                 /* Yann 30 aout 2026 : une unite longue ("bouteilles/canettes")
