@@ -73,6 +73,7 @@ import { isTotalRevenueLabel } from "@/lib/kpi-total-revenue";
 import { RiskStack } from "@/components/risk-stack";
 import { AntiTheseCard } from "@/components/anti-these-card";
 import { AppelAbonnement } from "@/components/appel-abonnement";
+import { BoutonEnregistrer } from "@/components/bouton-enregistrer";
 import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
 import { GovernanceCard } from "@/components/governance-card";
@@ -1210,10 +1211,7 @@ export function CompanyView({
               }}
             />
             )}
-            <button className="inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-2.5 py-2 sm:px-3.5 text-sm font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-zinc-100">
-              <Bookmark className="size-4" />
-              <span className="hidden sm:inline">{t("company.save.button")}</span>
-            </button>
+            <BoutonEnregistrer ticker={company.ticker} paye={isPaidTier} />
             <ThemeToggle paid={isPaidTier} />
             {authSlot}
           </div>
