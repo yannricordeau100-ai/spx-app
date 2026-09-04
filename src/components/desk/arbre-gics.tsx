@@ -66,7 +66,7 @@ export function ArbreGics({ societesParSousIndustrie }: { societesParSousIndustr
               onClick={() =>
                 setSecteursRetenus((p) => (actif ? p.filter((c) => c !== s.code) : [...p, s.code]))
               }
-              className={`rounded-full border px-2.5 py-1 text-[11.5px] transition-colors ${
+              className={`rounded-full border px-3 py-1.5 text-[13px] transition-colors ${
                 actif
                   ? "border-violet-400/60 bg-violet-500/20 text-violet-100"
                   : "border-white/10 bg-white/[0.03] text-zinc-400 hover:text-zinc-200"
@@ -111,9 +111,10 @@ export function ArbreGics({ societesParSousIndustrie }: { societesParSousIndustr
                 className="flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-white/[0.03]"
               >
                 <ChevronRight className={`size-3.5 shrink-0 text-zinc-500 transition-transform ${sOuvert ? "rotate-90" : ""}`} />
-                <span className="text-[13px] font-semibold text-zinc-100">{s.name}</span>
-                <span className="font-mono text-[10.5px] text-zinc-600">{s.code}</span>
-                <span className="ml-auto font-mono text-[11px] text-zinc-500">
+                <span className="font-mono text-[12px] text-violet-300">{s.code}</span>
+                <span className="text-[16px] font-semibold text-zinc-100">{s.name}</span>
+                <span className="rounded border border-white/10 px-1.5 py-px text-[10.5px] uppercase tracking-wider text-zinc-500">Secteur</span>
+                <span className="ml-auto font-mono text-[12px] text-zinc-500">
                   {s.groups.length} groupes · {compteSous(s)} sous-industries
                 </span>
               </button>
@@ -129,8 +130,9 @@ export function ArbreGics({ societesParSousIndustrie }: { societesParSousIndustr
                           className="flex w-full items-center gap-2 py-1.5 text-left"
                         >
                           <ChevronRight className={`size-3 shrink-0 text-zinc-600 transition-transform ${gOuvert ? "rotate-90" : ""}`} />
-                          <span className="text-[12.5px] font-medium text-zinc-200">{g.name}</span>
-                          <span className="font-mono text-[10px] text-zinc-600">{g.code}</span>
+                          <span className="font-mono text-[11.5px] text-violet-300/80">{g.code}</span>
+                          <span className="text-[15px] font-medium text-zinc-200">{g.name}</span>
+                          <span className="rounded border border-white/10 px-1.5 py-px text-[10px] uppercase tracking-wider text-zinc-500">Groupe d’industries</span>
                         </button>
                         {gOuvert && (
                           <div className="ml-4 border-l border-white/[0.07] pl-3">
@@ -143,9 +145,11 @@ export function ArbreGics({ societesParSousIndustrie }: { societesParSousIndustr
                                     className="flex w-full items-center gap-2 py-1 text-left"
                                   >
                                     <ChevronRight className={`size-3 shrink-0 text-zinc-600 transition-transform ${iOuvert ? "rotate-90" : ""}`} />
-                                    <span className="text-[12px] text-zinc-300">{i.name}</span>
-                                    <span className="ml-auto font-mono text-[10px] text-zinc-600">
-                                      {i.subs.length}
+                                    <span className="font-mono text-[11px] text-violet-300/70">{i.code}</span>
+                                    <span className="text-[14px] text-zinc-300">{i.name}</span>
+                                    <span className="rounded border border-white/10 px-1.5 py-px text-[10px] uppercase tracking-wider text-zinc-500">Industrie</span>
+                                    <span className="ml-auto font-mono text-[11px] text-zinc-600">
+                                      {i.subs.length} sous-industries
                                     </span>
                                   </button>
                                   {iOuvert && (
@@ -153,11 +157,12 @@ export function ArbreGics({ societesParSousIndustrie }: { societesParSousIndustr
                                       {i.subs.map((sub) => (
                                         <li
                                           key={sub.code}
-                                          className="flex items-center gap-2 py-[3px] text-[11.5px] text-zinc-400"
+                                          className="flex items-center gap-2 py-[5px] text-[14px] text-zinc-300"
                                         >
-                                          <span className="size-1 shrink-0 rounded-full bg-zinc-700" />
+                                          <span className="size-1.5 shrink-0 rounded-full bg-violet-400/70" />
+                                          <span className="font-mono text-[11.5px] text-violet-300/70">{sub.code}</span>
                                           {sub.name}
-                                          <span className="font-mono text-[10px] text-zinc-700">{sub.code}</span>
+                                          <span className="rounded border border-white/10 px-1.5 py-px text-[9.5px] uppercase tracking-wider text-zinc-600">Sous-industrie</span>
                                           {nb(sub.code) != null && (
                                             <span className="ml-auto font-mono text-[10px] text-violet-300">
                                               {nb(sub.code)} sté{(nb(sub.code) ?? 0) > 1 ? "s" : ""}

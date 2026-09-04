@@ -277,6 +277,12 @@ const SECTIONS: SandboxSection[] = [
         desc: "Carte visuelle de toute l'application (visiteur, back-office, données, automates, services) avec un feu de santé par brique, testé en direct.",
       },
       {
+        href: "/sandbox/gics",
+        icon: Library,
+        label: "Classification GICS",
+        desc: "Les 4 niveaux (secteur, groupe, industrie, sous-industrie) avec codes, puis les KPI attendus par sous-industrie et le registre des prompts du Cahier (docs/cahier).",
+      },
+      {
         href: "/sandbox/logotheque",
         icon: Palette,
         label: "Logothèque",
