@@ -12,6 +12,7 @@ import { loadAllTaglines } from "@/lib/billing/pricing-taglines";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { isDeskOwner } from "@/lib/desk/auth";
+import { AuthNav } from "@/components/auth-nav";
 import V18_TICKERS from "@/data/v1-8-tickers-sorted.json";
 import { LogoMettrik } from "@/components/logo-mettrik";
 
@@ -76,15 +77,13 @@ export default async function PricingPage() {
         </Link>
         <div className="flex items-center gap-3">
           {showCurrencyPicker && <CurrencyPicker current={currency} />}
-          <Link href="/login" className="text-sm text-zinc-400 transition-colors hover:text-zinc-100">
-            Se connecter
-          </Link>
-          <Link
-            href="/signup"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/10 px-3.5 py-2 text-sm font-semibold text-violet-200 transition-colors hover:border-violet-500/50 hover:bg-violet-500/15"
-          >
-            S&apos;inscrire
-          </Link>
+          {/* Yann 4 sept 2026 : cette barre affichait "Se connecter" et
+              "S inscrire" EN DUR, sans jamais regarder la session. Un abonne
+              arrivant sur les tarifs se croyait deconnecte, alors que le
+              bouton Choisir lui repondait bien qu il avait deja un
+              abonnement. On utilise le meme composant que partout ailleurs,
+              qui lit la session cote serveur. */}
+          <AuthNav scope="home" />
         </div>
       </nav>
 

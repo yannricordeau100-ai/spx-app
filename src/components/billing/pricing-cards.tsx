@@ -123,7 +123,9 @@ export function PricingCards({
           remboursé, paiement sécurisé) sous le toggle augmente la
           conversion de 8 à 14 % sur SaaS B2C. Adapté au mode mensuel /
           annuel pour rester pertinent. */}
-      <div className="mb-7 mt-2 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11.5px] text-zinc-500">
+      {/* Yann 4 sept 2026 : ces trois garanties etaient trop discretes pour
+          rassurer avant un paiement. Taille et contraste releves. */}
+      <div className="mb-7 mt-2 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13.5px] text-zinc-400">
         {billing === "annual" ? (
           <>
             <span className="inline-flex items-center gap-1.5">
