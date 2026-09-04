@@ -90,7 +90,15 @@ export async function AuthNav({ scope = "home" }: { scope?: "home" | "company" }
         </span>
       </Link>
 
-      <Link href="/?auth=signup" className="group relative inline-block" aria-label={t("authnav.signup")}>
+      {/* Yann 5 sept 2026 : sur une fiche en mobile (375 px), le bouton
+          S inscrire faisait deborder la barre a droite (Connexion coupe).
+          Hors accueil il n apparait qu a partir de 640 px ; la fenetre de
+          connexion propose de toute facon "Creer un compte". */}
+      <Link
+        href="/?auth=signup"
+        className={`group relative ${scope === "home" ? "inline-block" : "hidden sm:inline-block"}`}
+        aria-label={t("authnav.signup")}
+      >
         <span
           aria-hidden
           className="hidden sm:block absolute inset-0 translate-x-[3px] translate-y-[3px] rounded-md border border-cyan-300/45 transition-transform duration-200 ease-out group-hover:translate-x-[5px] group-hover:translate-y-[5px]"

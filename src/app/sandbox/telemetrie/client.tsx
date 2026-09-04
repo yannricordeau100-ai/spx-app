@@ -212,7 +212,7 @@ export function TelemetrieClient() {
             <Tableau titre="Pages les plus vues" lignes={stats.top_pages} />
             <Tableau titre="Clics les plus fréquents" lignes={stats.top_clics} />
             <Tableau titre="Pays" lignes={stats.top_pays} />
-            <Tableau titre="D\u2019où viennent les visiteurs" lignes={stats.top_origines ?? []} />
+            <Tableau titre="D’où viennent les visiteurs" lignes={stats.top_origines ?? []} />
             <Tableau titre="Appareils" lignes={stats.appareils} />
             <Tableau titre="Navigateurs" lignes={stats.navigateurs} />
             <Tableau titre="Erreurs JavaScript" lignes={stats.erreurs} vide="Aucune erreur sur la fenêtre." />
