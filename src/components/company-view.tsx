@@ -1231,6 +1231,11 @@ export function CompanyView({
         <BandeauIpoRecente ipo={company.ipo} />
 
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
+        {/* Yann 4 sept 2026 : l appel a l abonnement etait rendu DANS la
+            section floutee : le flou et pointer-events:none s appliquaient a
+            lui aussi, il etait illisible et incliquable. Il est desormais
+            pose par-dessus, en dehors de la zone, dans une enveloppe relative. */}
+        <div className="relative">
         <section
           id="sec-hero" data-blur="hero"
           ref={heroRef}
@@ -1776,12 +1781,6 @@ export function CompanyView({
               >
               {heroChartNode}
               </div>
-              {graphiqueReserve && (
-                <AppelAbonnement
-                  titre="Graphique r\u00e9serv\u00e9 aux abonn\u00e9s"
-                  detail="Dix ans d\u2019historique, export en image et partage : tout est inclus d\u00e8s le plan Premium."
-                />
-              )}
               </div>
               <ChartFullscreen
                 open={chartPleinEcran}
@@ -1799,6 +1798,17 @@ export function CompanyView({
               sous le graph n apportait pas de valeur. Le composant et les
               donnees restent en place pour un eventuel retour. */}
         </section>
+        {graphiqueReserve && (
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex justify-center px-4 pb-5 sm:px-7">
+            <div className="pointer-events-auto w-full max-w-2xl">
+              <AppelAbonnement
+                titre="Graphique r\u00e9serv\u00e9 aux abonn\u00e9s"
+                detail="Dix ans d\u2019historique, export en image et partage : tout est inclus d\u00e8s le plan Premium."
+              />
+            </div>
+          </div>
+        )}
+        </div>
 
         {/* Compare panel */}
         <AnimatePresence>

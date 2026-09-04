@@ -660,10 +660,10 @@ function ResultCard({
   // jamais de "1 036 M $" dans les resultats de recherche (regle 1-999).
   const heroFmt = formatHeroValue(hero.value, hero.unit ?? "");
   const tickerShown = displayTicker(ticker, allTickers);
-  const palier = useFreemiumTier();
-  const estVitrine =
-    (palier === "anon" || palier === "free") &&
-    VITRINE_VISIBLE.has(ticker.toUpperCase());
+  // Yann 4 sept 2026 (2e passe) : la mise en avant vaut pour TOUT le monde,
+  // abonne compris : un visiteur doit voir d un coup d oeil que ces trois
+  // fiches sont differentes des autres (entierement lisibles sans abonnement).
+  const estVitrine = VITRINE_VISIBLE.has(ticker.toUpperCase());
 
   return (
     <Link

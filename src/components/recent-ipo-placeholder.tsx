@@ -89,30 +89,43 @@ export function RecentIpoPlaceholder({
 }
 
 /**
- * Table des 7 sociétés V1.9.5 avec IPO < 24 mois.
- * Clé = ticker tel qu'utilisé côté URL/dataset (insensible à la casse côté
- * lookup mais on garde la forme canonique d'écriture).
+ * Sociétés cotées récemment : mois d'entrée en bourse (AAAA-MM).
+ *
+ * Yann 4 sept 2026 : la table portait des délais figés ("prêt dans N mois")
+ * écrits le 1er juin 2026 et jamais recalculés : GEHC (janvier 2023), GEV et
+ * SOLV (printemps 2024) affichaient encore "IPO < 24 mois" trois ans plus
+ * tard, sans graphique, alors que leurs séries existent. Le seuil est
+ * désormais calculé à la date du jour : au-delà de 24 mois, la fiche
+ * complète s'affiche d'elle-même.
  */
-const RECENT_IPO_TABLE: Record<string, { ipoLabel: string; readyInMonths: number }> = {
-  CRWV: { ipoLabel: "mars 2026", readyInMonths: 22 },
-  "FLTR.L": { ipoLabel: "2024", readyInMonths: 6 },
-  GEHC: { ipoLabel: "janvier 2023", readyInMonths: 20 },
-  GEV: { ipoLabel: "mars 2024", readyInMonths: 4 },
-  Q: { ipoLabel: "juin 2025", readyInMonths: 13 },
-  // RDDT retiré le 18 août 2026 : 2,4 ans de cotation, 14 trimestres de
-  // séries publiées, entré au SP500 : la page complète est prête.
-  SNDK: { ipoLabel: "février 2025", readyInMonths: 9 },
-  SOLV: { ipoLabel: "avril 2024", readyInMonths: 5 },
+const RECENT_IPO_TABLE: Record<string, { ipo: string }> = {
+  CRWV: { ipo: "2025-03" },
+  "FLTR.L": { ipo: "2024-01" },
+  GEHC: { ipo: "2023-01" },
+  GEV: { ipo: "2024-04" },
+  Q: { ipo: "2025-06" },
+  SNDK: { ipo: "2025-02" },
+  SOLV: { ipo: "2024-04" },
 };
 
+const SEUIL_MOIS = 24;
+const MOIS_FR = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+
 /**
- * Renvoie les méta IPO récente pour un ticker donné si concerné, sinon null.
- * Matching insensible à la casse pour absorber l'écart URL/dataset.
+ * Renvoie les méta IPO récente pour un ticker donné si la cotation date de
+ * moins de 24 mois à la date du jour, sinon null (fiche complète).
  */
 export function getRecentIpoMeta(
   ticker: string,
+  maintenant: Date = new Date(),
 ): { ipoLabel: string; readyInMonths: number } | null {
   if (!ticker) return null;
   const up = ticker.toUpperCase();
-  return RECENT_IPO_TABLE[up] ?? null;
+  const e = RECENT_IPO_TABLE[up];
+  if (!e) return null;
+  const [y, m] = e.ipo.split("-").map(Number);
+  if (!y || !m) return null;
+  const mois = (maintenant.getFullYear() - y) * 12 + (maintenant.getMonth() + 1 - m);
+  if (mois >= SEUIL_MOIS) return null;
+  return { ipoLabel: `${MOIS_FR[m - 1]} ${y}`, readyInMonths: Math.max(1, SEUIL_MOIS - mois) };
 }
