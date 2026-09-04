@@ -846,13 +846,25 @@ function ResultCardV17({
     <Link
       href={href}
       onClick={onSelect}
-      className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-3 transition-all hover:border-white/20 hover:bg-white/[0.05]"
+      className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
+        VITRINE_VISIBLE.has(ticker.toUpperCase())
+          ? "border-violet-400/60 bg-violet-500/[0.08] ring-1 ring-violet-400/30 hover:border-violet-300/80 hover:bg-violet-500/[0.14]"
+          : "border-white/8 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.05]"
+      }`}
     >
       <span
         aria-hidden
         className="absolute left-0 top-0 h-full w-[3px] origin-bottom scale-y-0 transition-transform duration-300 group-hover:scale-y-100"
         style={{ background: accent }}
       />
+      {/* Yann 4 sept 2026 : Google, Meta et Booking sont entierement
+          lisibles sans abonnement ; tout visiteur doit le voir dans les
+          resultats, abonne compris. */}
+      {VITRINE_VISIBLE.has(ticker.toUpperCase()) && (
+        <span className="absolute right-2 top-2 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-wider text-violet-100">
+          Fiche complète offerte
+        </span>
+      )}
 
       {/* Logo : tente CompanyLogo (Clearbit / SVG si dispo), sinon placeholder lettre */}
       <div
@@ -914,13 +926,25 @@ function ResultCardV19({
     <Link
       href={href}
       onClick={onSelect}
-      className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-3 transition-all hover:border-white/20 hover:bg-white/[0.05]"
+      className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
+        VITRINE_VISIBLE.has(ticker.toUpperCase())
+          ? "border-violet-400/60 bg-violet-500/[0.08] ring-1 ring-violet-400/30 hover:border-violet-300/80 hover:bg-violet-500/[0.14]"
+          : "border-white/8 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.05]"
+      }`}
     >
       <span
         aria-hidden
         className="absolute left-0 top-0 h-full w-[3px] origin-bottom scale-y-0 transition-transform duration-300 group-hover:scale-y-100"
         style={{ background: accent }}
       />
+      {/* Yann 4 sept 2026 : Google, Meta et Booking sont entierement
+          lisibles sans abonnement ; tout visiteur doit le voir dans les
+          resultats, abonne compris. */}
+      {VITRINE_VISIBLE.has(ticker.toUpperCase()) && (
+        <span className="absolute right-2 top-2 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-wider text-violet-100">
+          Fiche complète offerte
+        </span>
+      )}
 
       <div
         className={`size-12 shrink-0 overflow-hidden rounded-xl border transition-transform duration-300 group-hover:scale-105 ${

@@ -1802,8 +1802,8 @@ export function CompanyView({
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex justify-center px-4 pb-5 sm:px-7">
             <div className="pointer-events-auto w-full max-w-2xl">
               <AppelAbonnement
-                titre="Graphique r\u00e9serv\u00e9 aux abonn\u00e9s"
-                detail="Dix ans d\u2019historique, export en image et partage : tout est inclus d\u00e8s le plan Premium."
+                titre="Graphique réservé aux abonnés"
+                detail="Dix ans d’historique, export en image et partage : tout est inclus dès le plan Premium."
               />
             </div>
           </div>

@@ -831,8 +831,8 @@ export function HomeView({
           <AppelAbonnement
             forme="encart"
             titre="Voyez ce que les chiffres ne disent pas seuls"
-            detail="666 soci\u00e9t\u00e9s, dix ans d\u2019historique, les indicateurs qui comptent vraiment et l\u2019anti-th\u00e8se de chaque dossier. Sans flou, sans limite."
-            action="D\u00e9couvrir les offres"
+            detail="666 sociétés, dix ans d’historique, les indicateurs qui comptent vraiment et l’anti-thèse de chaque dossier. Sans flou, sans limite."
+            action="Découvrir les offres"
           />
         </div>
 
