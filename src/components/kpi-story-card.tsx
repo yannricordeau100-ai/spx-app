@@ -224,7 +224,15 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
 
         {/* Chiffre principal : occupe le centre, beaucoup plus grand qu'avant
             (Yann 7 mai 2026 : "informations essentielles trop petites"). */}
-        <div className="my-auto flex w-full flex-col items-center px-4 text-center">
+        <div
+          className="my-auto flex w-full flex-col items-center px-4 text-center"
+          // Yann 4 sept 2026 : c est CE bloc qui sert de reference aux unites
+          // `cqw` du chiffre. Le poser sur le chiffre lui-meme ne servait a
+          // rien : un element ne peut pas se mesurer par rapport a soi, la
+          // taille retombait alors sur la valeur minimale et "600 000" restait
+          // coupe.
+          style={{ containerType: "inline-size" }}
+        >
           {/* Mini graph pour séries multi-données (story <3 ans avec >1 point).
               Chargé client-only (recharts SSR-unsafe). */}
           {!freeBlocked && Array.isArray(kpi.history) && kpi.history.length > 1 && typeof kpi.history[0] === "object" && (
@@ -246,10 +254,6 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                 ref={refValeur}
                 className="w-full max-w-full text-center font-display font-bold leading-none tracking-tight gradient-text"
                 style={{
-                  // `containerType` fait de ce bloc la reference des unites
-                  // `cqw` : la police suit la largeur de la CARTE, jamais celle
-                  // de la fenetre.
-                  containerType: "inline-size",
                   fontSize: storyValueFont(storyFmt(kpi.value, kpi.unit).value),
                   whiteSpace: "nowrap",
                   // Yann 4 sept 2026 : les separateurs de milliers etaient des
