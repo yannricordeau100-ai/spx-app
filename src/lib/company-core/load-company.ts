@@ -2669,6 +2669,10 @@ async function loadV17CompanyBrut(
   // existent. La cause est en aval : une des couches de fusion rendait la
   // liste vide. On garde donc une photo de la liste AVANT la couche
   // kpis-haut, pour pouvoir la restaurer si le resultat final est vide.
+  // Dernier recours : on garde aussi la liste CONVERTIE depuis kpis-haut, pour
+  // les societes dont la couche de base est vide (scissions recentes : GE
+  // HealthCare, GE Vernova, CoreWeave, SanDisk, Solventum, Quantum).
+  let convertisHaut: AnyKPI[] = [];
   const kpisAvantCoucheHaut: AnyKPI[] = Array.isArray(data.kpis)
     ? [...(data.kpis as AnyKPI[])]
     : [];
@@ -2851,6 +2855,7 @@ async function loadV17CompanyBrut(
         path.join(ROOT, "src/data/v2-pipeline-enrich", `${ticker.toLowerCase()}.quarterly-history.json`),
       );
       data.kpis = fusionneSeriesTrimestrielles(data.kpis as AnyKPI[], qExtApresHaut);
+      convertisHaut = converted;
       const bestHero = converted.reduce((best, k) =>
         ((k.pv_score as number) ?? 0) > ((best?.pv_score as number) ?? -1) ? k : best,
       converted[0]);
@@ -2974,8 +2979,12 @@ async function loadV17CompanyBrut(
   // portait. Sans lui, la page se resume a son en-tete et donne l impression
   // d une societe vide alors que la donnee est la.
   if (!Array.isArray(data.kpis) || (data.kpis as AnyKPI[]).length === 0) {
-    if (kpisAvantCoucheHaut.length > 0) {
-      data.kpis = kpisAvantCoucheHaut;
+    const secours = kpisAvantCoucheHaut.length > 0 ? kpisAvantCoucheHaut : convertisHaut;
+    if (secours.length > 0) {
+      data.kpis = secours;
+      if (typeof data.hero_kpi !== "string" || !secours.some((k) => k.short === data.hero_kpi)) {
+        data.hero_kpi = String(secours[0].short);
+      }
     }
   }
 
