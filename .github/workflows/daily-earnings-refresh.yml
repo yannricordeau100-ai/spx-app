@@ -58,7 +58,7 @@ jobs:
           PYTHONUNBUFFERED: "1"
 
       - name: Refresh yfinance next_earnings_date (top 307)
-        run: python3 scripts/earnings-dates-yfinance.py --limit 640 --workers 20
+        run: python3 scripts/earnings-dates-yfinance.py --top 666 --workers 20
         env:
           PYTHONUNBUFFERED: "1"
 
@@ -67,7 +67,7 @@ jobs:
       # quotidiennement. Source = yfinance (gratuit). Effet :
       # `financial_snapshot` à jour chaque jour pour le top 307.
       - name: Refresh yfinance financial_snapshot (top 307)
-        run: python3 scripts/enrich-company-profile-yfinance.py --limit 640 --force
+        run: python3 scripts/enrich-company-profile-yfinance.py --top 666 --force
         env:
           PYTHONUNBUFFERED: "1"
         continue-on-error: true
