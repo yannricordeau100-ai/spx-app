@@ -132,6 +132,22 @@ def last_period(kpi: dict) -> str | None:
     return None
 
 
+def index_periode(label: str) -> int | None:
+    """Position absolue d une periode, en trimestres depuis l an zero.
+    Permet de mesurer un ECART reel : Q4-2025 et Q1-2026 sont contigus,
+    alors que period_key() ferait un bond de 6 entre les deux."""
+    m = re.match(r"^[QT]([1-4])[- ](?:FY)?(\d{4})$", label or "", re.I)
+    if m:
+        return int(m.group(2)) * 4 + int(m.group(1)) - 1
+    m = re.match(r"^[HS]([12])[- ](\d{4})$", label or "", re.I)
+    if m:
+        return int(m.group(2)) * 4 + (int(m.group(1)) - 1) * 2
+    m = re.match(r"^(?:FY)?(\d{4})$", label or "", re.I)
+    if m:
+        return int(m.group(1)) * 4
+    return None
+
+
 def period_key(label: str) -> int:
     """Ordonne Q1-2026 < Q2-2026 < H1-2026 < FY2026. Inconnu = 0."""
     m = re.match(r"^Q([1-4])[- ](?:FY)?(\d{4})$", label or "", re.I)
@@ -580,7 +596,19 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
             rejeter("ordre de grandeur etranger a la serie")
             continue
         hist = kpi["history"]
+        # Yann 4 sept 2026 : ne JAMAIS ajouter un point qui laisserait un trou.
+        # La passe du 4 sept avait ajoute Q2-2026 apres Q2-2025 chez Marsh, et
+        # H1-2026 apres H1-2025 chez Renault : le graphique posait les barres
+        # cote a cote et faisait croire a une continuite. Mieux vaut ne rien
+        # ajouter et attendre le trimestre manquant.
         if hist and isinstance(hist[-1], dict):
+            precedent = index_periode(str(hist[-1].get("q") or ""))
+            suivant = index_periode(periode_v)
+            if precedent and suivant:
+                pas = 1 if str(periode_v).upper().startswith(("Q", "T")) else 2
+                if suivant - precedent > pas:
+                    rejeter(f"laisserait un trou entre {hist[-1].get('q')} et {periode_v}")
+                    continue
             hist.append({"q": periode_v, "v": val})
         else:
             hist.append(val)
