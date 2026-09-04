@@ -2,6 +2,22 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  // Yann 4 sept 2026 : les adresses courtes des pages legales tombaient sur la
+  // page de connexion (le proxy ne les reconnaissait ni comme fiche ni comme
+  // page publique). Elles menent desormais au bon contenu, ce qui compte aussi
+  // pour les formulaires exterieurs, Google et Stripe demandant une adresse de
+  // confidentialite accessible sans compte.
+  async redirects() {
+    return [
+      { source: "/confidentialite", destination: "/legal/confidentialite", permanent: true },
+      { source: "/politique-confidentialite", destination: "/legal/confidentialite", permanent: true },
+      { source: "/cgu", destination: "/legal/conditions", permanent: true },
+      { source: "/cgv", destination: "/legal/conditions", permanent: true },
+      { source: "/conditions", destination: "/legal/conditions", permanent: true },
+      { source: "/mentions-legales", destination: "/legal/mentions", permanent: true },
+      { source: "/mentions", destination: "/legal/mentions", permanent: true },
+    ];
+  },
   // Audit securite 2 sept 2026 : en-tetes de protection (clickjacking, MIME
   // sniffing, fuite de referer, API navigateur inutiles). Pas de CSP stricte
   // pour l instant (Stripe, Supabase, polices, scripts inline Next) : une CSP

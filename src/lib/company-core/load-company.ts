@@ -19,6 +19,7 @@
  * pas de stale data après un rebuild de pipeline). Next.js cache la route
  * via `revalidate` quand pertinent.
  */
+import { unstable_cache } from "next/cache";
 import { promises as fs } from "fs";
 import { definitionGeneriqueKpi } from "@/lib/kpi-definitions-generiques";
 import doublonsForcesJson from "@/data/kpi-doublons-forces.json";
@@ -453,6 +454,25 @@ function fusionneSeriesTrimestrielles(
 const CACHE_FICHES = new Map<string, { at: number; valeur: LoadOutcome }>();
 const CACHE_TTL_MS = 10 * 60_000;
 
+/**
+ * Cache PARTAGE entre instances (Yann 4 sept 2026).
+ *
+ * Mesure sur le site public : premiere ouverture d une fiche 1,4 a 9,2 s,
+ * ouvertures suivantes 0,5 s. Le cache memoire ne servait donc qu au visiteur
+ * suivant tombe sur la MEME instance serveur ; en pratique, beaucoup de
+ * visiteurs payaient le prix fort. Le cache de donnees de Next, lui, est
+ * partage entre toutes les instances : la premiere ouverture apres un
+ * deploiement paie, les autres non.
+ *
+ * Duree longue assumee : ces donnees ne changent qu au deploiement.
+ */
+const chargeAvecCachePartage = unstable_cache(
+  async (ticker: string, mode: "v17" | "v18", locale: string): Promise<LoadOutcome> =>
+    loadV17CompanyBrut(ticker, { mode, locale }),
+  ["fiche-societe"],
+  { revalidate: 21600, tags: ["fiches"] },
+);
+
 export async function loadV17Company(
   ticker: string,
   opts: { mode?: "v17" | "v18"; locale?: string } = {}
@@ -460,7 +480,14 @@ export async function loadV17Company(
   const cle = `${ticker.toUpperCase()}|${opts.mode ?? "v17"}|${opts.locale ?? "fr"}`;
   const hit = CACHE_FICHES.get(cle);
   if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.valeur;
-  const valeur = await loadV17CompanyBrut(ticker, opts);
+  let valeur: LoadOutcome;
+  try {
+    valeur = await chargeAvecCachePartage(ticker, opts.mode ?? "v17", opts.locale ?? "fr");
+  } catch {
+    // Fiche trop volumineuse pour le cache partage, ou cache indisponible :
+    // on sert la donnee directement plutot que d echouer.
+    valeur = await loadV17CompanyBrut(ticker, opts);
+  }
   if (valeur.kind === "ready") {
     CACHE_FICHES.set(cle, { at: Date.now(), valeur });
     if (CACHE_FICHES.size > 400) {
