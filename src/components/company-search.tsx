@@ -17,6 +17,11 @@ function pliAccents(v: string): string {
  * routent automatiquement vers la dernière version.
  */
 const LATEST_VERSION_PATH = "/sandbox/v1-9-5";
+
+/** Societes entierement lisibles sans abonnement. Doit rester alignee avec
+ *  VITRINE_DEFLOUTEE de src/lib/freemium/tier-serveur.ts (module serveur,
+ *  non importable ici). */
+const VITRINE_VISIBLE = new Set(["GOOGL", "GOOG", "META", "BKNG"]);
 // Yann 4 sept 2026 : les liens pointent sur l adresse PUBLIQUE /<ticker>,
 // pas sur le chemin interne /sandbox/v1-9-5/<ticker> qui s affichait dans la
 // barre d adresse des visiteurs.
@@ -61,6 +66,7 @@ import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
 import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
 import { displayTicker } from "@/lib/ticker-display";
+import { useFreemiumTier } from "@/lib/freemium/context";
 import {
   V17_SEARCH_INDEX,
   V17_SEARCH_BY_TICKER,
@@ -654,13 +660,30 @@ function ResultCard({
   // jamais de "1 036 M $" dans les resultats de recherche (regle 1-999).
   const heroFmt = formatHeroValue(hero.value, hero.unit ?? "");
   const tickerShown = displayTicker(ticker, allTickers);
+  const palier = useFreemiumTier();
+  const estVitrine =
+    (palier === "anon" || palier === "free") &&
+    VITRINE_VISIBLE.has(ticker.toUpperCase());
 
   return (
     <Link
       href={buildLatestHref(ticker)}
       onClick={onSelect}
-      className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-3 transition-all hover:border-white/20 hover:bg-white/[0.05]"
+      className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
+        estVitrine
+          ? "border-violet-400/50 bg-violet-500/[0.07] ring-1 ring-violet-400/25 hover:border-violet-300/70 hover:bg-violet-500/[0.12]"
+          : "border-white/8 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.05]"
+      }`}
     >
+      {/* Yann 4 sept 2026 : les trois societes entierement lisibles sans
+          abonnement sont mises en avant, mais uniquement pour un visiteur
+          anonyme ou gratuit : au-dela, toutes les fiches sont ouvertes et la
+          distinction n aurait plus de sens. */}
+      {estVitrine && (
+        <span className="absolute right-2 top-2 rounded-full border border-violet-400/40 bg-violet-500/20 px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-wider text-violet-100">
+          Fiche complète offerte
+        </span>
+      )}
       {/* Accent bar à gauche, pulsée au hover */}
       <span
         aria-hidden

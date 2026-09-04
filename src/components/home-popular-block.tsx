@@ -425,15 +425,8 @@ function ConstellationZones({
                 {labels[tb.key] || tb.key}
               </span>
             </button>
-            {isHovered && (
-              <div className="absolute left-1/2 top-full z-50 -translate-x-1/2">
-                <TabHoverPreview
-                  rows={tabRows as PopularRow[]}
-                  label={labels[tb.key] || tb.key}
-                  buildHref={buildHref}
-                />
-              </div>
-            )}
+            {/* Yann 4 sept 2026 : apercu au survol retire, il genait
+                la lecture de la carte. Le clic ouvre le pays. */}
           </div>
         );
       })}
@@ -627,13 +620,7 @@ export function HomePopularBlock({
                     {labels[tb.key] || tb.key}
                   </span>
                 </button>
-                {isHovered && (
-                  <TabHoverPreview
-                    rows={tabRows as PopularRow[]}
-                    label={labels[tb.key] || tb.key}
-                    buildHref={buildCompanyHref}
-                  />
-                )}
+                {/* apercu au survol retire (Yann 4 sept 2026) */}
               </div>
             );
           })}

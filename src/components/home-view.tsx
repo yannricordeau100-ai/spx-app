@@ -714,7 +714,9 @@ export function HomeView({
             ombre décalée 2px + bordure blanche subtile + translation -1px
             au hover (effet "le bouton se rapproche de toi"). */}
         {topNavLinks && topNavLinks.length > 0 && (
-          <nav className="mb-5 flex justify-center gap-3 text-[12.5px]">
+          /* Yann 4 sept 2026 : boutons Tarifs et Contact un peu plus grands,
+             ils passaient inapercus sur l accueil. */
+          <nav className="mb-5 flex justify-center gap-3.5 text-[14px]">
             {topNavLinks.map((l) => {
               // Yann (5 juin 2026 v2) : Tarif accessible 100% anonyme
               // (pas de gate signup). Contact + autres restent gated.
@@ -726,7 +728,7 @@ export function HomeView({
                     aria-hidden
                     className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md border border-white/25 transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:translate-y-[3px]"
                   />
-                  <span className="relative z-10 inline-flex items-center gap-1.5 rounded-md border border-white/40 bg-[#0a0a0e]/85 px-3.5 py-1.5 font-semibold tracking-[0.02em] text-zinc-100 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
+                  <span className="relative z-10 inline-flex items-center gap-1.5 rounded-md border border-white/40 bg-[#0a0a0e]/85 px-5 py-2.5 font-semibold tracking-[0.02em] text-zinc-100 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
                     {l.label}
                   </span>
                 </a>
