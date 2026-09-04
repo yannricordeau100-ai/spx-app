@@ -9,6 +9,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { OngletPaiements } from "@/components/sandbox/onglet-paiements";
 
 type Duo = [string, number];
 type Stats = {
@@ -102,12 +103,33 @@ export function TelemetrieClient() {
   }
 
   const serieMax = Math.max(1, ...(stats?.serie_pages.map(([, n]) => n) ?? [1]));
+  const [onglet, setOnglet] = useState<"trafic" | "paiements">("trafic");
+  const jetonAudit =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search).get("audit_token")
+      : null;
 
   return (
     <main className="mx-auto max-w-6xl px-5 py-10">
       <Link href="/sandbox" className="text-sm text-zinc-500 hover:text-zinc-300">← Sandbox</Link>
       <div className="mt-4 flex flex-wrap items-center gap-4">
         <h1 className="text-2xl font-semibold text-zinc-100">Statistiques</h1>
+        {/* Yann 4 sept 2026 : deux onglets. Le trafic existait, les paiements
+            n existaient nulle part cote Mettrik (motifs de desabonnement
+            compris, pourtant collectes par le portail Stripe). */}
+        <div className="inline-flex gap-1 rounded-full border border-white/10 bg-white/[0.03] p-0.5">
+          {(["trafic", "paiements"] as const).map((o) => (
+            <button
+              key={o}
+              onClick={() => setOnglet(o)}
+              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                onglet === o ? "bg-violet-500 text-white" : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              {o === "trafic" ? "Trafic" : "Paiements"}
+            </button>
+          ))}
+        </div>
         {stats && (
           <button
             onClick={() => void bascule()}
@@ -137,9 +159,14 @@ export function TelemetrieClient() {
         </div>
       </div>
       <p className="mt-2 max-w-3xl text-sm text-zinc-500">
-        Mesure première partie, sans aucun service tiers : audience, comportement,
-        couche logicielle (latence API, erreurs) et emails. IP jamais stockée en clair.
+        {onglet === "trafic"
+          ? "Mesure première partie, sans aucun service tiers : audience, comportement, couche logicielle (latence API, erreurs) et emails. IP jamais stockée en clair."
+          : "Tout ce qui touche à l\u2019argent, lu directement chez Stripe : encaissements, abonnés, résiliations et leurs motifs, remboursements et codes promo."}
       </p>
+
+      {onglet === "paiements" && <OngletPaiements jeton={jetonAudit} />}
+      {onglet === "trafic" && (
+      <>
 
       {erreur === "table_absente" && (
         <div className="mt-6 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-amber-200">
@@ -199,6 +226,8 @@ export function TelemetrieClient() {
             <Tableau titre="Événements serveur" lignes={stats.evenements_serveur} vide="Aucun (connexions, exports... apparaîtront ici)." />
           </div>
         </>
+      )}
+      </>
       )}
     </main>
   );
