@@ -109,13 +109,34 @@ export function generateStaticParams() {
   return TICKERS.map((ticker) => ({ ticker: ticker.toLowerCase() }));
 }
 
+type SocieteMeta = { name: string; ticker: string; sector: string };
+async function societePourMetadonnees(ticker: string): Promise<SocieteMeta | null> {
+  const upper = ticker.toUpperCase();
+  const statique = COMPANIES[upper];
+  if (statique) return { name: statique.name, ticker: statique.ticker, sector: statique.sector };
+  const v17 = (V17_PUBLIC as Record<string, { name?: string; ticker?: string; sector?: string }>)[upper];
+  if (v17?.name) return { name: v17.name, ticker: v17.ticker ?? upper, sector: v17.sector ?? "" };
+  try {
+    const raw = await fs.readFile(path.join(process.cwd(), "src/data/companies", `${upper}.json`), "utf-8");
+    const j = JSON.parse(raw) as { name?: string; ticker?: string; sector?: string };
+    if (j.name) return { name: j.name, ticker: j.ticker ?? upper, sector: j.sector ?? "" };
+  } catch {
+    /* pas de fichier : introuvable */
+  }
+  return null;
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ ticker: string }>;
 }) {
   const { ticker } = await params;
-  const c = COMPANIES[ticker.toUpperCase()];
+  // Yann 4 sept 2026 : depuis que la fiche est servie sur /<ticker>, le titre
+  // de l onglet et l apercu de partage disaient "Page introuvable" pour les
+  // 660 societes hors des 5 de la V1 : le nom etait cherche dans la vieille
+  // table statique. On lit la meme source que la page.
+  const c = await societePourMetadonnees(ticker);
   if (!c) return { title: "Page introuvable · Mettrik AI" };
   const slug = ticker.toLowerCase();
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai";

@@ -13,6 +13,8 @@ import { translate } from "@/lib/i18n/dictionary";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { SignOutButton } from "@/components/account/signout-button";
 import { estCompteInterne } from "@/lib/freemium/tier-serveur";
+import { getStripe } from "@/lib/billing/stripe";
+import { FileText } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -56,6 +58,31 @@ export default async function AccountPage({
           : fin ? `${p.endsWith("yearly") ? "Annuel" : "Mensuel"}, prochaine échéance le ${fin}` : "Actif";
     }
   } catch { /* table absente : on reste sur Gratuit */ }
+  // Yann 4 sept 2026 : "PDF de facture, rien nulle part". Le portail Stripe
+  // les propose, mais rien ne le disait sur la page. On liste ici les
+  // factures reglees du compte, chacune avec son PDF.
+  type Facture = { numero: string; date: string; montant: string; pdf: string | null; lien: string | null };
+  let factures: Facture[] = [];
+  try {
+    const { data: abo } = await supabase
+      .from("subscriptions")
+      .select("stripe_customer_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    const clientId = (abo as { stripe_customer_id?: string } | null)?.stripe_customer_id;
+    if (clientId) {
+      const liste = await getStripe().invoices.list({ customer: clientId, limit: 12 });
+      factures = liste.data
+        .filter((f) => f.status === "paid" || f.status === "open")
+        .map((f) => ({
+          numero: f.number ?? f.id,
+          date: new Date(f.created * 1000).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" }),
+          montant: `${(f.amount_paid / 100).toLocaleString("fr-FR", { minimumFractionDigits: 2 })} ${f.currency.toUpperCase()}`,
+          pdf: f.invoice_pdf ?? null,
+          lien: f.hosted_invoice_url ?? null,
+        }));
+    }
+  } catch { /* Stripe injoignable : la section reste vide */ }
   const provider = (user.app_metadata?.provider as string | undefined) ?? "email";
   const isOAuth = provider !== "email";
   const created = user.created_at
@@ -161,6 +188,31 @@ export default async function AccountPage({
               </div>
             </div>
           </a>
+
+          {factures.length > 0 && (
+            <div className="rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4">
+              <div className="flex items-center gap-2 text-[14px] font-semibold text-zinc-50">
+                <FileText className="size-4 text-violet-200" />
+                Mes factures
+              </div>
+              <ul className="mt-2.5 divide-y divide-white/[0.06]">
+                {factures.map((f) => (
+                  <li key={f.numero} className="flex items-center gap-3 py-2 text-[12.5px]">
+                    <span className="font-mono text-zinc-400">{f.date}</span>
+                    <span className="text-zinc-300">{f.numero}</span>
+                    <span className="ml-auto font-mono text-zinc-200">{f.montant}</span>
+                    {f.pdf ? (
+                      <a href={f.pdf} className="rounded-md border border-violet-400/40 px-2 py-0.5 text-[11.5px] font-semibold text-violet-200 hover:bg-violet-500/10">
+                        PDF
+                      </a>
+                    ) : f.lien ? (
+                      <a href={f.lien} target="_blank" rel="noreferrer" className="text-[11.5px] text-violet-300 hover:underline">voir</a>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <form action={signOut}>
             <SignOutButton label={t("account.signout")} sub={t("account.signout_sub")} />
