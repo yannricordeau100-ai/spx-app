@@ -32,7 +32,7 @@ CHIFFRE = r"(?:approximately |about |over |more than |nearly |around )?([\d]{1,3
 #     sans mot de personnel derriere : c est ce cas qui manquait.
 EFFECTIF = re.compile(
     rf"{CHIFFRE}\s+{PERSONNEL}|"
-    rf"(?:employed|employs|employ)\s+{CHIFFRE}|"
+    rf"(?:employed|employs|employ|had|have|with|totaling|totalling)\s+{CHIFFRE}\s*{PERSONNEL}?|"
     rf"(?:workforce|headcount|employee count|number of employees|total employment)"
     rf"[^.\d]{{0,60}}{CHIFFRE}",
     re.I,

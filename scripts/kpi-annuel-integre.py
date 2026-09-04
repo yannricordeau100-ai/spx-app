@@ -34,6 +34,14 @@ LIBELLES = {
                        "Dettes financi\u00e8res \u00e0 court et \u00e0 long terme \u00e0 la cl\u00f4ture de l\u2019exercice, hors dettes d\u2019exploitation."),
     "effectifs_annuels": ("Effectifs", "Employees", "salari\u00e9s",
                           "Nombre total de salari\u00e9s du groupe \u00e0 la cl\u00f4ture de l\u2019exercice, tel qu\u2019annonc\u00e9 dans le rapport annuel."),
+    "ca_par_salarie": ("Chiffre d\u2019affaires par salari\u00e9", "Revenue per employee", "k$ / salari\u00e9",
+                       "Ventes de l\u2019exercice divis\u00e9es par l\u2019effectif \u00e0 la m\u00eame cl\u00f4ture : \u00e0 activit\u00e9 \u00e9gale, plus le chiffre est \u00e9lev\u00e9, moins l\u2019entreprise a besoin de monde pour produire."),
+    "fcf_par_salarie": ("Tr\u00e9sorerie libre par salari\u00e9", "Free cash flow per employee", "k$ / salari\u00e9",
+                        "Tr\u00e9sorerie disponible apr\u00e8s investissements, rapport\u00e9e \u00e0 l\u2019effectif : combien de liquidit\u00e9s chaque salari\u00e9 laisse dans l\u2019entreprise."),
+    "dette_par_salarie": ("Dette par salari\u00e9", "Debt per employee", "k$ / salari\u00e9",
+                          "Dettes financi\u00e8res rapport\u00e9es \u00e0 l\u2019effectif \u00e0 la m\u00eame cl\u00f4ture."),
+    "dette_sur_ca": ("Dette rapport\u00e9e aux ventes", "Debt to revenue", "%",
+                     "Dettes financi\u00e8res divis\u00e9es par le chiffre d\u2019affaires de l\u2019exercice. Au-dessus de 100 %, l\u2019entreprise doit plus que ce qu\u2019elle vend en un an."),
 }
 
 
@@ -61,6 +69,17 @@ def phrase(short: str, hist: list[float], periodes: list[str], unite: str) -> st
     quand il a un sens (valeurs positives aux deux bouts)."""
     dernier, annee = hist[-1], periodes[-1]
     bouts = []
+    # Yann 4 sept 2026 : sur un indicateur DEJA exprime en pourcentage, une
+    # variation en pourcentage n a aucun sens lisible ("la dette passe de 27 %
+    # a 23 %" n est pas "moins 13 %"). On l exprime en POINTS.
+    if unite == "%" and len(hist) >= 2:
+        ecart = hist[-1] - hist[-2]
+        bouts.append(f"{'+' if ecart >= 0 else '\u2212'}{abs(ecart):.1f} point{'s' if abs(ecart) >= 2 else ''} sur un an".replace(".", ","))
+        if len(hist) >= 4:
+            e2 = hist[-1] - hist[0]
+            bouts.append(f"{'+' if e2 >= 0 else '\u2212'}{abs(e2):.1f} point{'s' if abs(e2) >= 2 else ''} depuis {periodes[0]}".replace(".", ","))
+        tete = "Dette rapport\u00e9e aux ventes"
+        return f"{tete} de {hist[-1]:.1f} %".replace(".", ",") + f" en {annee}, " + ", ".join(bouts) + "."
     if len(hist) >= 2 and hist[-2]:
         if hist[-2] > 0 and hist[-1] >= 0:
             v = (hist[-1] - hist[-2]) / hist[-2] * 100
@@ -78,6 +97,10 @@ def phrase(short: str, hist: list[float], periodes: list[str], unite: str) -> st
         "fcf_annuel": "Tr\u00e9sorerie libre",
         "dette_annuelle": "Dette",
         "effectifs_annuels": "Effectif",
+        "ca_par_salarie": "Ventes par salari\u00e9",
+        "fcf_par_salarie": "Tr\u00e9sorerie libre par salari\u00e9",
+        "dette_par_salarie": "Dette par salari\u00e9",
+        "dette_sur_ca": "Dette",
     }[short]
     debut = f"{tete} de {nombre_fr(dernier, unite)} en {annee}"
     if short == "fcf_annuel" and dernier < 0:
@@ -98,7 +121,7 @@ def kpi(short: str, hist: list[float], periodes: list[str], fin_date: str,
         "yoy": yoy(valeurs),
         "period_type": "year",
         "frequency": "annual",
-        "type": "Financials" if short != "effectifs_annuels" else "Human capital",
+        "type": "Human capital" if short == "effectifs_annuels" else ("Ratio" if "_par_salarie" in short or short == "dette_sur_ca" else "Financials"),
         "history": valeurs,
         "history_periods": periodes,
         "last_data_date": fin_date,
@@ -199,9 +222,57 @@ def traite(ticker: str) -> dict | None:
                             [par_annee[a][0] for a in annees], annees,
                             par_annee[annees[-1]][1], 1.0,
                             [par_annee[a][1] for a in annees]))
+    # ── Ratios (Yann 4 sept 2026) ────────────────────────────────────────────
+    # Regle imposee : un ratio n est publie QUE sur une suite d annees ou ses
+    # DEUX composants existent, sans le moindre trou. Une annee manquante sur
+    # l un des deux rendrait le graphique faux, donc on garde la plus longue
+    # suite continue et on n affiche rien en dessous de trois annees.
+    par_short = {k["short"]: k for k in kpis}
+
+    def suite_continue(a: dict, b: dict) -> tuple[list[str], list[float], list[float]]:
+        va = dict(zip(a["history_periods"], a["history"]))
+        vb = dict(zip(b["history_periods"], b["history"]))
+        communes = sorted(set(va) & set(vb))
+        meilleure: list[str] = []
+        courante: list[str] = []
+        for an in communes:
+            if courante and int(an) != int(courante[-1]) + 1:
+                courante = []
+            courante.append(an)
+            if len(courante) > len(meilleure):
+                meilleure = list(courante)
+        return meilleure, [va[x] for x in meilleure], [vb[x] for x in meilleure]
+
+    def ajoute_ratio(nom: str, num: str, den: str, facteur: float, arrondi: int) -> None:
+        a, b = par_short.get(num), par_short.get(den)
+        if not a or not b:
+            return
+        annees, hn, hd = suite_continue(a, b)
+        if len(annees) < 3 or any(x == 0 for x in hd):
+            return
+        valeurs = [round(n * facteur / d, arrondi) for n, d in zip(hn, hd)]
+        nom_fr, nom_en, unite, desc = LIBELLES[nom]
+        kpis.append({
+            "short": nom, "name_fr": nom_fr, "name_en": nom_en,
+            "value": valeurs[-1], "unit": unite, "yoy": yoy(valeurs),
+            "period_type": "year", "frequency": "annual", "type": "Ratio",
+            "history": valeurs, "history_periods": annees,
+            "last_data_date": a["last_data_date"],
+            "signal": phrase(nom, valeurs, annees, unite),
+            "description_fr": desc, "description_en": desc,
+            "is_generic": False, "method": "sec-10k", "sources": [],
+        })
+
+    # Ventes et tresorerie en milliards, effectifs en unites : le rapport donne
+    # des milliers de dollars par salarie.
+    ajoute_ratio("ca_par_salarie", "revenue_annuel", "effectifs_annuels", 1e6, 1)
+    ajoute_ratio("fcf_par_salarie", "fcf_annuel", "effectifs_annuels", 1e6, 1)
+    ajoute_ratio("dette_par_salarie", "dette_annuelle", "effectifs_annuels", 1e6, 1)
+    ajoute_ratio("dette_sur_ca", "dette_annuelle", "revenue_annuel", 100.0, 1)
+
     if not kpis:
         return None
-    return {"ticker": ticker, "genere_le": "2026-09-03", "kpis": kpis}
+    return {"ticker": ticker, "genere_le": "2026-09-04", "kpis": kpis}
 
 
 def main() -> int:

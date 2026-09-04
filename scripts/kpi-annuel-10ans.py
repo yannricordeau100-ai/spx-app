@@ -59,8 +59,24 @@ CONCEPTS = {
     # "AndCapitalLeaseObligations") : chaque poste accepte donc plusieurs noms.
     "_dette_courante_totale": ["DebtCurrent"],
     "_dette_part_courante": ["LongTermDebtCurrent", "LongTermDebtAndCapitalLeaseObligationsCurrent"],
-    "_dette_court_terme": ["ShortTermBorrowings", "OtherShortTermBorrowings", "CommercialPaper"],
-    "_dette_long": ["LongTermDebtNoncurrent", "LongTermDebtAndCapitalLeaseObligations", "LongTermDebt"],
+    "_dette_court_terme": [
+        "ShortTermBorrowings", "OtherShortTermBorrowings", "CommercialPaper",
+        # Emprunts reels a court terme des societes sans dette obligataire
+        # classique (Arista, Datadog, DoorDash, Cadence...). ATTENTION : on ne
+        # prend JAMAIS "LineOfCreditFacilityMaximumBorrowingCapacity" ni les
+        # "...BorrowingCapacity", qui sont des autorisations de tirage, pas de
+        # la dette ; ni les "AvailableForSale...DebtSecurities", qui sont des
+        # obligations DETENUES en placement, donc un actif.
+        "ConvertibleNotesPayableCurrent", "UnsecuredDebtCurrent",
+        "LineOfCreditFacilityAmountOutstanding", "LineOfCredit",
+        "ConvertibleDebtCurrent", "WarehouseAgreementBorrowings",
+    ],
+    "_dette_long": [
+        "LongTermDebtNoncurrent", "LongTermDebtAndCapitalLeaseObligations", "LongTermDebt",
+        "ConvertibleLongTermNotesPayable", "UnsecuredLongTermDebt",
+        "ConvertibleNotesPayable", "SeniorNotes", "NotesPayable",
+        "ConvertibleDebtNoncurrent", "SecuredLongTermDebt", "NonRecourseDebt",
+    ],
 }
 
 
@@ -259,6 +275,18 @@ def traite(ticker: str, cik: str) -> dict | None:
     ocf = valeurs_annuelles(us, CONCEPTS["operating_cash_flow"], instant=False)
     cap = valeurs_annuelles(us, CONCEPTS["capex"], instant=False)
     det = dette_totale(us)
+    if not det:
+        import re as _re
+        trace = any(_re.search(r"(Debt|Borrow|NotesPayable|LoansPayable)", k)
+                    and not _re.search(r"AvailableForSale|HeldToMaturity|DebtSecurities|Trading", k)
+                    for k in us)
+        if not trace:
+            # Societe sans aucun emprunt : la dette vaut zero, ce n est pas une
+            # donnee manquante. On la pose sur les memes exercices que le
+            # chiffre d affaires pour que les ratios restent calculables.
+            det = {an: {"valeur": 0.0, "fin": e["fin"], "concept": "aucun emprunt declare",
+                        "accn": e["accn"], "depose": e["depose"]}
+                   for an, e in rev.items()}
     toutes = sorted(set(rev) | set(ocf) | set(det), reverse=True)[:ANNEES]
     gardees = sorted(toutes)
     if not gardees:

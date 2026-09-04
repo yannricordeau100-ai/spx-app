@@ -21,6 +21,7 @@ import argparse, json, os, re, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TOLERANT = False
 ENTREE = ROOT / ".conv-state/effectifs-extraits"
 SORTIE = ROOT / "src/data/kpi-effectifs"
 
@@ -39,6 +40,21 @@ Regles strictes :
 Reponds UNIQUEMENT par un objet JSON, sans phrase autour :
 {"2025-10-31": 166000, "2024-11-01": null}
 Les cles sont exactement les dates de depot fournies."""
+
+
+# Seconde lecture, plus tolerante (Yann 4 sept 2026) : toute societe a un
+# effectif, et le moteur refusait de repondre quand la phrase ne portait pas de
+# date de cloture explicite (Allstate annoncait "53,000 employees" dans un
+# encart, sans "as of"). On accepte desormais un total d entreprise clairement
+# identifiable. Le garde-fou reste entier : la valeur doit figurer TELLE QUELLE
+# dans l extrait, sinon elle est rejetee.
+CONSIGNE_TOLERANTE = CONSIGNE.replace(
+    "- Si l effectif total ne figure pas dans l extrait, reponds null pour ce depot.",
+    "- Si l extrait donne un effectif d entreprise sans date explicite (encart, "
+    "chiffres cles, \"53,000 employees\"), retiens-le quand meme : il decrit la "
+    "societe a la cloture du rapport.\n"
+    "- Ne reponds null que si AUCUN effectif d entreprise n apparait.",
+)
 
 
 def appelle_moteur(prompt: str, essais: int = 2) -> str | None:
@@ -85,7 +101,8 @@ def traite(ticker: str) -> dict | None:
     for a in annees:
         extraits = " […] ".join(a["extraits"])[:4000]
         blocs.append(f'--- depot {a["depot"]} ---\n{extraits}')
-    prompt = f"{CONSIGNE}\n\nSociete : {ticker}\n\n" + "\n\n".join(blocs)
+    consigne = CONSIGNE_TOLERANTE if TOLERANT else CONSIGNE
+    prompt = f"{consigne}\n\nSociete : {ticker}\n\n" + "\n\n".join(blocs)
     rep = appelle_moteur(prompt)
     if not rep:
         return None
@@ -122,7 +139,10 @@ def main() -> int:
     # Trois tranches en parallele au maximum : au-dela, le Mac souffre et le
     # moteur se met a repondre plus lentement qu il n accelere le travail.
     ap.add_argument("--tranche", help="i/n, ex 1/3")
+    ap.add_argument("--tolerant", action="store_true", help="seconde lecture, consigne assouplie")
     a = ap.parse_args()
+    global TOLERANT
+    TOLERANT = bool(a.tolerant)
     SORTIE.mkdir(parents=True, exist_ok=True)
     if a.tickers:
         liste = [t.strip().upper() for t in a.tickers.split(",") if t.strip()]
