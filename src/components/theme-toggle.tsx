@@ -214,15 +214,33 @@ export function ThemeToggle({ paid = false }: { paid?: boolean }) {
           <Sun className="size-3.5" />
         </button>
       ) : (
-        // Non-payant : option claire grisée + cadenas + tooltip.
-        <span
-          aria-label={lockLabel}
-          aria-disabled="true"
-          title={lockLabel}
-          className="relative inline-flex cursor-not-allowed items-center justify-center rounded-full p-1.5 text-zinc-600"
-        >
-          <Sun className="size-3.5 opacity-50" />
-          <Lock className="absolute -bottom-0.5 -right-0.5 size-2 text-zinc-500" />
+        // Non-payant : option claire grisee + cadenas + invitation a s abonner.
+        // Yann 4 sept 2026 : un simple `title` ne se voyait pas et n invitait a
+        // rien. Au survol, on explique ce qui est verrouille et on propose de
+        // passer a l offre payante, en un clic.
+        <span className="group/clair relative inline-flex">
+          <span
+            aria-label={lockLabel}
+            aria-disabled="true"
+            className="relative inline-flex cursor-not-allowed items-center justify-center rounded-full p-1.5 text-zinc-600"
+          >
+            <Sun className="size-3.5 opacity-50" />
+            <Lock className="absolute -bottom-0.5 -right-0.5 size-2 text-zinc-500" />
+          </span>
+          <a
+            href="/pricing"
+            className="pointer-events-none absolute right-0 top-full z-[120] mt-2 w-[210px] rounded-xl border border-violet-400/30 bg-[#0b0b0e] p-3 text-left opacity-0 shadow-[0_18px_50px_rgba(0,0,0,0.6)] transition-opacity duration-150 group-hover/clair:pointer-events-auto group-hover/clair:opacity-100"
+          >
+            <span className="block text-[12px] font-semibold text-zinc-100">
+              Le mode clair est reserve aux abonnes
+            </span>
+            <span className="mt-1 block text-[11px] leading-snug text-zinc-400">
+              Debloquez aussi toutes les fiches, sans floutage.
+            </span>
+            <span className="mt-2 inline-flex items-center gap-1 rounded-md bg-violet-500 px-2.5 py-1 text-[11px] font-semibold text-white">
+              Voir les offres
+            </span>
+          </a>
         </span>
       )}
       <button
