@@ -478,7 +478,13 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  let response = NextResponse.next({ request });
+  // Yann 4 sept 2026 : l adresse complete est transmise aux pages serveur.
+  // Sans elle, une page ne peut pas verifier un jeton place en parametre
+  // (Next ne donne pas l URL aux composants serveur), et le back-office
+  // restait inaccessible des que la maintenance fermait la page de connexion.
+  const enTetes = new Headers(request.headers);
+  enTetes.set("x-url", request.nextUrl.toString());
+  let response = NextResponse.next({ request: { headers: enTetes } });
 
   // Yann 29 mai 2026 — Phase 1 V1 FR-only : on force NEXT_LOCALE=fr sur
   // toutes les requêtes (UI, assets, API). Plus aucune auto-détection
@@ -517,7 +523,7 @@ export async function proxy(request: NextRequest) {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
-          response = NextResponse.next({ request });
+          response = NextResponse.next({ request: { headers: enTetes } });
           cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options)
           );

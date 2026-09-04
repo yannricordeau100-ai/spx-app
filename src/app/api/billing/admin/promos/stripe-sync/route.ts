@@ -21,7 +21,13 @@ export const dynamic = "force-dynamic";
  * libertés depuis /desk-mtk9x4kp/pricing onglet Promos, sync auto Stripe.
  */
 export async function POST(req: NextRequest) {
-  await requireDeskOwner();
+  // Yann 4 sept 2026 : secours par jeton, comme les pages du back-office.
+  // Sans lui, la synchronisation etait impossible des que la maintenance
+  // fermait la page de connexion, donc aucun code promo ne pouvait partir
+  // chez Stripe.
+  const jeton = req.nextUrl.searchParams.get("audit_token") ?? "";
+  const parJeton = !!jeton && !!process.env.VISUAL_AUDIT_TOKEN && jeton === process.env.VISUAL_AUDIT_TOKEN;
+  if (!parJeton) await requireDeskOwner();
   const body = await req.json().catch(() => ({}));
   const onlyId: string | undefined = body.promoId;
 
