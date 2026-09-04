@@ -365,6 +365,7 @@ export async function downloadSvgAsPng(
   const AXIS_SCALE = 1.2;
   const isFrExport = String(options.locale ?? "fr").startsWith("fr");
 
+  let enTeteAxeY: SVGTextElement | null = null;
   clone.querySelectorAll("text").forEach((t) => {
     const fs = parseFloat(t.getAttribute("font-size") || "0");
     if (!fs) return;
@@ -400,6 +401,9 @@ export async function downloadSvgAsPng(
     }
 
     if (isYAxisTick || isXAxisLabel) {
+      // Yann 4 sept 2026 : on retient l en-tete d unite de l axe Y pour
+      // ecrire sa traduction anglaise juste dessous, dans l axe (option A).
+      if (isYAxisTick && Number.isFinite(ty) && ty < origY + 24) enTeteAxeY = t;
       // Yann 25 aout 2026 : l en-tete d unite ("B Subscribers") agrandi de
       // 50 % sortait du cadre a gauche et etait rogne. Quand le libelle
       // contient un mot de 7 caracteres ou plus, on reduit le facteur, puis
@@ -478,6 +482,34 @@ export async function downloadSvgAsPng(
       }
     }
   });
+
+  // Yann 4 sept 2026 (option A) : l unite anglaise s ecrit dans l axe Y,
+  // juste sous l unite francaise, en italique. La ligne "Y axis: ..." de
+  // l en-tete du document disparait. Rien quand l unite est "%" : l axe
+  // l affiche deja.
+  {
+    const uniteEnAxe = (options.unitEn ?? "").trim();
+    const utile = !!uniteEnAxe && uniteEnAxe.replace(/\s/g, "") !== "%";
+    const memeTexte = (a: string, b: string) =>
+      a.replace(/\s+/g, " ").trim().toLowerCase() === b.replace(/\s+/g, " ").trim().toLowerCase();
+    const entete = enTeteAxeY as SVGTextElement | null;
+    if (entete && utile && !memeTexte(uniteEnAxe, entete.textContent || "")) {
+      const fsFinal = parseFloat(entete.getAttribute("font-size") || "16") || 16;
+      const ty = parseFloat(entete.getAttribute("y") || "NaN");
+      const en = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      en.setAttribute("x", entete.getAttribute("x") || "0");
+      en.setAttribute("y", String((Number.isFinite(ty) ? ty : 0) + fsFinal * 0.95));
+      en.setAttribute("text-anchor", entete.getAttribute("text-anchor") || "start");
+      en.setAttribute("font-family", PNG_FONT_FAMILY);
+      en.setAttribute("font-weight", "300");
+      en.setAttribute("font-style", "italic");
+      en.setAttribute("font-size", String(Math.round(fsFinal * 0.8 * 10) / 10));
+      en.setAttribute("fill", entete.getAttribute("fill") || "#9ca3af");
+      en.setAttribute("opacity", "0.8");
+      en.textContent = uniteEnAxe;
+      entete.parentNode?.insertBefore(en, entete.nextSibling);
+    }
+  }
 
   // Padding ajouté autour du graph dans l'export.
   // Yann 2 juin 2026 (v7 polish FINAL) : PAD_TOP = 150 (+30 vs v6 pour
@@ -990,24 +1022,8 @@ export async function downloadSvgAsPng(
       enEl.textContent = titreEn;
       clone.appendChild(enEl);
     }
-    // Yann 4 sept 2026 : ne pas ecrire "Y axis: %" quand l unite EST le
-    // pourcentage : l axe l affiche deja, la ligne n apprend rien.
-    const uniteEnUtile = !!uniteEn && uniteEn.replace(/\s/g, "") !== "%";
-    if (uniteEnUtile) {
-      const unEl = document.createElementNS(NS, "text");
-      unEl.setAttribute("x", String(origX + origW / 2));
-      unEl.setAttribute("y", String(LINE_EN_UNIT_Y));
-      unEl.setAttribute("text-anchor", "middle");
-      unEl.setAttribute("font-family", titleFontFamily);
-      unEl.setAttribute("font-weight", "300");
-      unEl.setAttribute("font-style", "italic");
-      unEl.setAttribute("font-size", "13");
-      unEl.setAttribute("letter-spacing", "0em");
-      unEl.setAttribute("fill", subtitleColor);
-      unEl.setAttribute("opacity", "0.85");
-      unEl.textContent = `Y axis: ${uniteEn}`;
-      clone.appendChild(unEl);
-    }
+    // Yann 4 sept 2026 : la ligne "Y axis: ..." est remplacee par l unite
+    // anglaise ecrite dans l axe Y lui-meme (voir plus haut).
 
     // ── Ligne 3 : CAGR annualisé, centrée, discrète (Yann 10 juin 2026) ──
     // Le CAGR arrive déjà formaté + annualisé via options.cagr (calcul fait

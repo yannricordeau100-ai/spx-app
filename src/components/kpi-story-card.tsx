@@ -113,12 +113,6 @@ function ValeurSvg({ texte, hauteurMax = 108 }: { texte: string; hauteurMax?: nu
   );
 }
 
-/** Yann 4 sept 2026 ("reduire l espace") : entre les groupes de milliers,
- *  une espace fine, pas une espace pleine : "600 000" doit se lire d un bloc. */
-export function separateursFins(s: string): string {
-  return s.replace(/[\u202f\u2009\u00a0 ]/g, "\u2009");
-}
-
 export function storyValueFont(s: string): string {
   const n = s.replace(/[\s  ]/g, "").length;
   if (n <= 4) return "clamp(44px, 17vw, 104px)";
@@ -333,7 +327,7 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   gauche et la droite → auto-shrink + overflow-hidden +
                   wordBreak pour matcher la branche freeBlocked au-dessus. */}
               <div className="w-full max-w-full px-1">
-                <ValeurSvg texte={separateursFins(storyFmt(kpi.value, kpi.unit).value)} />
+                <ValeurSvg texte={espacesLarges(storyFmt(kpi.value, kpi.unit).value)} />
               </div>
               {storyFmt(kpi.value, kpi.unit).unit && (
                 /* Yann 30 aout 2026 : une unite longue ("bouteilles/canettes")
