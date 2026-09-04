@@ -17,7 +17,10 @@ function pliAccents(v: string): string {
  * routent automatiquement vers la dernière version.
  */
 const LATEST_VERSION_PATH = "/sandbox/v1-9-5";
-const buildLatestHref = (ticker: string) => `${LATEST_VERSION_PATH}/${ticker.toLowerCase()}`;
+// Yann 4 sept 2026 : les liens pointent sur l adresse PUBLIQUE /<ticker>,
+// pas sur le chemin interne /sandbox/v1-9-5/<ticker> qui s affichait dans la
+// barre d adresse des visiteurs.
+const buildLatestHref = (ticker: string) => `/${ticker.toLowerCase()}`;
 import { motion, AnimatePresence } from "motion/react";
 import { Search, X, ArrowRight, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import {

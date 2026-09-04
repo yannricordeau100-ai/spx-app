@@ -162,16 +162,16 @@ export default async function TickerPage({
   }
   const legacyCompany = getCompany(ticker);
   if (!legacyCompany) {
-    // Yann 21 mai 2026 : V1.9.5 = défaut. Si le ticker existe en V1.7-public,
-    // on redirige vers /sandbox/v1-9-5/<ticker> (UX : tape /AAPL → ouvre AAPL).
-    // Yann 2 sept 2026 (code rouge KO) : la vraie source de visibilité est la
-    // liste V1.9.5 clean-all, pas la vieille liste V1.7 (95 stés en ligne dont
-    // KO, JNJ, AMD, CSCO, GS y manquaient et tombaient en 404 sur /<ticker>).
+    // Yann 4 sept 2026 : cette route REDIRIGEAIT vers /sandbox/v1-9-5/<ticker>.
+    // Consequence visible pour un visiteur : l adresse publique d Apple
+    // affichait "mettrik.ai/sandbox/v1-9-5/aapl", un chemin interne, mauvais
+    // pour l image comme pour le referencement. La fiche est desormais SERVIE
+    // ici, sur /aapl, sans redirection. La route sandbox reste valide pour les
+    // liens deja partages.
     const v17 = V17_PUBLIC as unknown as Record<string, unknown>;
-    if (v17[upper] || (await estDansCleanAll(upper))) {
-      redirect(`/sandbox/v1-9-5/${ticker.toLowerCase()}`);
+    if (!(v17[upper] || (await estDansCleanAll(upper)))) {
+      notFound();
     }
-    notFound();
   }
 
   // Pipeline V1.9.5 (identique aux 498 autres stés). Fallback sur le dataset
@@ -182,6 +182,8 @@ export default async function TickerPage({
   const transcript = await loadTranscript(ticker);
 
   if (r.kind !== "ready") {
+    // Sans dataset legacy ET sans rendu du chargeur, il n y a rien a montrer.
+    if (!legacyCompany) notFound();
     // Audit 2 sept 2026 : le repli legacy passe par le meme palier et le
     // meme fournisseur de floutage que le chemin principal.
     const tierRepli = await resolveFreemiumTier();

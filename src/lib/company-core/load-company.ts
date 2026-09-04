@@ -2636,6 +2636,16 @@ async function loadV17CompanyBrut(
     if (/(production|deliveries|livraison|shipment|volume|throughput|tons|tonnes|unites|units|capacity|capacite)/.test(blob)) return "Volume";
     return "Volume";
   };
+  // Yann 4 sept 2026 : sept fiches (GE HealthCare, GE Vernova, CoreWeave,
+  // SanDisk, Solventum, Quantum, Klepierre) n affichaient que leur en-tete et
+  // le message "Donnees KPI en cours d extraction", alors que leurs donnees
+  // existent. La cause est en aval : une des couches de fusion rendait la
+  // liste vide. On garde donc une photo de la liste AVANT la couche
+  // kpis-haut, pour pouvoir la restaurer si le resultat final est vide.
+  const kpisAvantCoucheHaut: AnyKPI[] = Array.isArray(data.kpis)
+    ? [...(data.kpis as AnyKPI[])]
+    : [];
+
   if (kpisHaut && Array.isArray(kpisHaut.kpis) && kpisHaut.kpis.length > 0) {
     const converted: AnyKPI[] = kpisHaut.kpis
       .filter((k) => k && k.short && Array.isArray(k.history) && k.history.length > 0)
@@ -2930,6 +2940,15 @@ async function loadV17CompanyBrut(
         gardes[0]);
         data.hero_kpi = String(remplacant.short);
       }
+    }
+  }
+
+  // Filet : aucune fiche ne doit sortir sans indicateur quand une couche en
+  // portait. Sans lui, la page se resume a son en-tete et donne l impression
+  // d une societe vide alors que la donnee est la.
+  if (!Array.isArray(data.kpis) || (data.kpis as AnyKPI[]).length === 0) {
+    if (kpisAvantCoucheHaut.length > 0) {
+      data.kpis = kpisAvantCoucheHaut;
     }
   }
 
