@@ -157,7 +157,8 @@ export default async function SandboxV195HubPage() {
       <HomeView
         tickers={tickers}
         showFAQ={false}
-        routePrefix="/sandbox/v1-9-5"
+        // Yann 4 sept 2026 : adresse publique courte (/aapl) dans tous les liens,
+        // plus de chemin interne /sandbox/v1-9-5/<ticker>.
         searchScope={{ tickers: tickersRecherche, total: tickersRecherche.length }}
         topNavLinks={[
           { label: pricingLabel, href: "/pricing" },
