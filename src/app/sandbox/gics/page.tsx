@@ -9,7 +9,9 @@ import { redirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
-import { lireKpiParSousIndustrie, lirePrompts } from "@/lib/cahier";
+import { lireAnnuaireGics, lireKpiParSousIndustrie, lirePrompts } from "@/lib/cahier";
+import V17_PUBLIC from "@/data/v1-7-public.json";
+import { COMPANIES } from "@/lib/data";
 import { GicsAtelier } from "@/components/sandbox/gics-atelier";
 import { GICS } from "@/lib/desk/gics";
 
@@ -27,7 +29,10 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
     const { data: { user } } = await sb.auth.getUser();
     if (!user || user.email !== DESK_OWNER_EMAIL) redirect("/404");
   }
-  const [kpiParSousIndustrie, prompts] = await Promise.all([lireKpiParSousIndustrie(), lirePrompts()]);
+  const noms: Record<string, string> = {};
+  for (const [t, v] of Object.entries(V17_PUBLIC as Record<string, { name?: string }>)) if (v?.name) noms[t.toUpperCase()] = v.name;
+  for (const [t, v] of Object.entries(COMPANIES)) noms[t.toUpperCase()] = v.name;
+  const [kpiParSousIndustrie, prompts, annuaire] = await Promise.all([lireKpiParSousIndustrie(), lirePrompts(), lireAnnuaireGics(noms)]);
   const nbGroupes = GICS.reduce((t, s) => t + s.groups.length, 0);
   const nbIndustries = GICS.reduce((t, s) => t + s.groups.reduce((u, g) => u + g.industries.length, 0), 0);
   const nbSous = GICS.reduce((t, s) => t + s.groups.reduce((u, g) => u + g.industries.reduce((v, i) => v + i.subs.length, 0), 0), 0);
@@ -44,10 +49,10 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
       <main className="mx-auto max-w-7xl px-4 pb-20 sm:px-6">
         <h1 className="font-display text-[28px] font-bold tracking-tight">Classification GICS</h1>
         <p className="mt-1 text-[14px] text-zinc-400">
-          {GICS.length} secteurs, {nbGroupes} groupes d’industries, {nbIndustries} industries, {nbSous} sous-industries dans notre table (référentiel officiel : 163). Puis, par sous-industrie, les KPI qu’un investisseur attend, et les prompts qui servent à les trouver.
+          {GICS.length} secteurs, {nbGroupes} groupes d’industries, {nbIndustries} industries, {nbSous} sous-industries (structure GICS 2023). Puis, par sous-industrie, les KPI qu’un investisseur attend, et les prompts qui servent à les trouver.
         </p>
         <div className="mt-6">
-          <GicsAtelier kpiParSousIndustrie={kpiParSousIndustrie} prompts={prompts} />
+          <GicsAtelier kpiParSousIndustrie={kpiParSousIndustrie} prompts={prompts} annuaire={annuaire} />
         </div>
       </main>
     </div>

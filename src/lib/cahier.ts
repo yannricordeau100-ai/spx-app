@@ -26,8 +26,18 @@ export type KpiSouhaite = {
   frequence?: string;
   source_habituelle?: string;
   wow?: boolean;
+  /** organique = propre au metier de la sous-industrie ; complementaire = utile mais transversal. */
+  type?: "organique" | "complementaire";
   exemples_societes?: string[];
   statut?: string;
+};
+
+export type SocieteClassee = { ticker: string; name: string };
+
+export type AnnuaireGics = {
+  parSousIndustrie: Record<string, SocieteClassee[]>;
+  aClasser: SocieteClassee[];
+  source: string;
 };
 
 export type KpiParSousIndustrie = {
@@ -88,4 +98,28 @@ export async function lireKpiParSousIndustrie(): Promise<Record<string, KpiParSo
     }
   }
   return out;
+}
+
+/** Annuaire societes -> sous-industrie (docs/cahier/societes-gics.json). */
+export async function lireAnnuaireGics(noms: Record<string, string>): Promise<AnnuaireGics> {
+  const vide: AnnuaireGics = { parSousIndustrie: {}, aClasser: [], source: "" };
+  try {
+    const j = JSON.parse(await fs.readFile(path.join(RACINE(), "societes-gics.json"), "utf-8")) as {
+      source?: string;
+      societes?: Record<string, string>;
+      a_classer?: string[];
+    };
+    const par: Record<string, SocieteClassee[]> = {};
+    for (const [ticker, code] of Object.entries(j.societes ?? {})) {
+      (par[code] ??= []).push({ ticker, name: noms[ticker.toUpperCase()] ?? ticker });
+    }
+    for (const liste of Object.values(par)) liste.sort((a, b) => a.name.localeCompare(b.name, "fr"));
+    return {
+      parSousIndustrie: par,
+      aClasser: (j.a_classer ?? []).map((t) => ({ ticker: t, name: noms[t.toUpperCase()] ?? t })),
+      source: j.source ?? "",
+    };
+  } catch {
+    return vide;
+  }
 }
