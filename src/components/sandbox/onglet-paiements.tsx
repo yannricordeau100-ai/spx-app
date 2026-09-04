@@ -99,36 +99,6 @@ export function OngletPaiements({ jeton }: { jeton?: string | null }) {
         <Chiffre label="Codes promo" valeur={String(d.codes_promo.filter((c) => c.actif).length)} detail={`${d.codes_promo.length} au total`} />
       </div>
 
-      {/* Motifs de desabonnement : la question posee, mise en avant. */}
-      <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.02] p-4">
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
-          Pourquoi les clients partent
-        </div>
-        {d.motifs_resiliation.length === 0 ? (
-          <p className="mt-2 text-[12.5px] text-zinc-500">
-            Aucune résiliation avec motif pour l&apos;instant. Le portail pose la question à chaque annulation.
-          </p>
-        ) : (
-          <div className="mt-3 space-y-2">
-            {d.motifs_resiliation.map((m) => {
-              const total = d.motifs_resiliation.reduce((s, x) => s + x.nombre, 0);
-              const pct = Math.round((m.nombre / total) * 100);
-              return (
-                <div key={m.motif} className="flex items-center gap-3">
-                  <span className="w-52 shrink-0 text-[12.5px] text-zinc-300">{m.motif}</span>
-                  <span className="h-2 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
-                    <span className="block h-full rounded-full bg-violet-500" style={{ width: `${pct}%` }} />
-                  </span>
-                  <span className="w-16 shrink-0 text-right font-mono text-[12px] text-zinc-400">
-                    {m.nombre} · {pct} %
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
       {/* Etage 2 : le detail, replie. */}
       <Section titre="Paiements encaissés" compte={d.paiements.length}>
         <table className="w-full text-[12px]">

@@ -74,7 +74,7 @@ export async function GET(req: NextRequest) {
 
   const { data, error } = await admin()
     .from("telemetrie_evenements")
-    .select("ts,type,nom,session_id,user_id,chemin,pays,appareil,navigateur,os,duree_ms,ip_hash,props")
+    .select("ts,type,nom,session_id,user_id,chemin,pays,appareil,navigateur,os,duree_ms,ip_hash,props,referrer")
     .gte("ts", depuis)
     .order("ts", { ascending: false })
     .limit(20000);
@@ -118,6 +118,31 @@ export async function GET(req: NextRequest) {
     top_pages: compte(pages, (l) => l.chemin),
     top_clics: compte(lignes.filter((l) => l.type === "clic"), (l) => l.nom),
     top_pays: compte(lignes, (l) => l.pays, 10),
+    // Yann 4 sept 2026 : d ou viennent les visiteurs. Le referent etait
+    // collecte depuis le debut mais n etait jamais restitue. On garde le
+    // DOMAINE seul, plus lisible qu une adresse entiere, et on nomme
+    // explicitement l acces direct.
+    top_origines: compte(
+      pages,
+      (l) => {
+        const r = String((l as { referrer?: string | null }).referrer ?? "").trim();
+        if (!r) return "Accès direct";
+        try {
+          const h = new URL(r).hostname.replace(/^www\./, "");
+          if (h.endsWith("mettrik.ai")) return "Navigation interne";
+          if (/google\./.test(h)) return "Google";
+          if (/bing\./.test(h)) return "Bing";
+          if (/(twitter|x)\.com$/.test(h)) return "X";
+          if (/linkedin\./.test(h)) return "LinkedIn";
+          if (/facebook\./.test(h)) return "Facebook";
+          if (/reddit\./.test(h)) return "Reddit";
+          return h;
+        } catch {
+          return "Origine inconnue";
+        }
+      },
+      12,
+    ),
     appareils: compte(lignes, (l) => l.appareil, 4),
     navigateurs: compte(lignes, (l) => l.navigateur, 6),
     erreurs: compte(lignes.filter((l) => l.type === "erreur"), (l) => l.nom, 10),

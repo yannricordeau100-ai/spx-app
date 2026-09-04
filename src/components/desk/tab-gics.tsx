@@ -4,10 +4,14 @@ import { useMemo, useState } from "react";
 import { ChevronRight, Search, Library } from "lucide-react";
 import { GICS, countAll, searchGics } from "@/lib/desk/gics";
 import { DeskCard, HelpTip, Input, Pill } from "./ui";
+import { ArbreGics } from "./arbre-gics";
 
 export function TabGics() {
   const counts = useMemo(() => countAll(), []);
   const [query, setQuery] = useState("");
+  // Yann 4 sept 2026 : vue arborescente, pour voir la structure entiere ou
+  // seulement les secteurs choisis.
+  const [vue, setVue] = useState<"arbre" | "recherche">("arbre");
   const [selectedSector, setSelectedSector] = useState<string | null>(GICS[0]?.code ?? null);
 
   const searchResults = useMemo(() => searchGics(query), [query]);
@@ -30,12 +34,34 @@ export function TabGics() {
         </div>
       </DeskCard>
 
-      <div className="mb-4 flex items-center gap-2">
-        <Search className="size-4 text-zinc-500" />
-        <Input placeholder="Rechercher (ex : 'tech', 'aérospatiale', '15101010')" value={query} onChange={(e) => setQuery(e.target.value)} />
+      {/* Yann 4 sept 2026 : deux facons de lire la meme nomenclature.
+          L arbre pour voir la structure, la recherche pour retrouver un
+          libelle precis. */}
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <div className="inline-flex gap-1 rounded-full border border-white/10 bg-white/[0.03] p-0.5">
+          {(["arbre", "recherche"] as const).map((v) => (
+            <button
+              key={v}
+              onClick={() => setVue(v)}
+              className={`rounded-full px-3 py-1 text-[11.5px] font-medium transition-colors ${
+                vue === v ? "bg-violet-500 text-white" : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              {v === "arbre" ? "Arbre" : "Recherche"}
+            </button>
+          ))}
+        </div>
+        {vue === "recherche" && (
+          <>
+            <Search className="size-4 text-zinc-500" />
+            <Input placeholder="Rechercher (ex : 'tech', 'aérospatiale', '15101010')" value={query} onChange={(e) => setQuery(e.target.value)} />
+          </>
+        )}
       </div>
 
-      {query && (
+      {vue === "arbre" && <ArbreGics />}
+
+      {vue === "recherche" && query && (
         <DeskCard className="mb-4">
           <div className="mb-2 text-[12px] font-medium text-zinc-300">{searchResults.length} résultat{searchResults.length > 1 ? "s" : ""}</div>
           <div className="max-h-72 space-y-1 overflow-y-auto">
@@ -53,6 +79,7 @@ export function TabGics() {
         </DeskCard>
       )}
 
+      {vue === "recherche" && (
       <div className="grid gap-4 lg:grid-cols-[280px_1fr]">
         {/* Sectors list */}
         <div className="space-y-1">
@@ -111,6 +138,7 @@ export function TabGics() {
           </DeskCard>
         )}
       </div>
+      )}
     </div>
   );
 }
