@@ -20,7 +20,7 @@ export function storyFmt(value: string | number | null | undefined, unit?: strin
 import { InfoTooltip } from "@/components/info-tooltip";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
-import { useLayoutEffect, useRef } from "react";
+import { useId, useLayoutEffect, useRef, useState } from "react";
 import { kpiPeriodLabel } from "@/lib/period-label";
 import { isFiscalShifted } from "@/lib/fiscal-calendar";
 
@@ -34,6 +34,89 @@ import { isFiscalShifted } from "@/lib/fiscal-calendar";
  *  et on ne distinguait pas le million au premier coup d oeil. */
 export function espacesLarges(s: string): string {
   return s.replace(/[\u202f\u2009\u00a0 ]/g, "\u00a0");
+}
+
+
+/**
+ * Yann 4 sept 2026 : le gros chiffre des stories est desormais un SVG.
+ *
+ * Toutes les tentatives precedentes (taille par longueur, unites vw puis cqw,
+ * reduction par transformation, mesure scrollWidth) jouaient sur la taille de
+ * police d un texte HTML, avec a chaque fois un navigateur ou un ecran ou le
+ * chiffre finissait coupe ("600 00" chez Coca-Cola). Un SVG avec une boite
+ * mesuree sur le texte reel se met a l echelle de son conteneur par
+ * construction : il ne peut pas deborder, quels que soient la police, la
+ * langue ou l ecran. Le degrade est porte par le SVG lui-meme.
+ */
+function ValeurSvg({ texte, hauteurMax = 108 }: { texte: string; hauteurMax?: number }) {
+  const ref = useRef<SVGTextElement | null>(null);
+  const idDegrade = useId();
+  const [boite, setBoite] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let vivant = true;
+    const mesure = () => {
+      if (!vivant) return;
+      try {
+        const b = el.getBBox();
+        if (b.width > 0 && b.height > 0) setBoite({ x: b.x, y: b.y, w: b.width, h: b.height });
+      } catch {
+        /* SVG pas encore attache */
+      }
+    };
+    mesure();
+    // La police d affichage peut arriver apres le premier rendu : on remesure.
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(mesure).catch(() => {});
+    }
+    const minuteries = [120, 500, 1500].map((ms) => window.setTimeout(mesure, ms));
+    return () => {
+      vivant = false;
+      minuteries.forEach((m) => window.clearTimeout(m));
+    };
+  }, [texte]);
+  const marge = 6;
+  const vb = boite
+    ? `${boite.x - marge} ${boite.y - marge} ${boite.w + marge * 2} ${boite.h + marge * 2}`
+    : "0 0 300 110";
+  return (
+    <svg
+      viewBox={vb}
+      preserveAspectRatio="xMidYMid meet"
+      role="img"
+      aria-label={texte}
+      className="font-display block w-full"
+      style={{ height: "auto", maxHeight: hauteurMax, visibility: boite ? "visible" : "hidden" }}
+    >
+      <defs>
+        <linearGradient id={idDegrade} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="60%" stopColor="#d4d4d8" />
+          <stop offset="100%" stopColor="#a78bfa" />
+        </linearGradient>
+      </defs>
+      <text
+        ref={ref}
+        x="0"
+        y="0"
+        dominantBaseline="hanging"
+        fontSize="100"
+        fontWeight="700"
+        letterSpacing="-2"
+        fill={`url(#${idDegrade})`}
+        style={{ whiteSpace: "pre" }}
+      >
+        {texte}
+      </text>
+    </svg>
+  );
+}
+
+/** Yann 4 sept 2026 ("reduire l espace") : entre les groupes de milliers,
+ *  une espace fine, pas une espace pleine : "600 000" doit se lire d un bloc. */
+export function separateursFins(s: string): string {
+  return s.replace(/[\u202f\u2009\u00a0 ]/g, "\u2009");
 }
 
 export function storyValueFont(s: string): string {
@@ -168,7 +251,6 @@ export function KpiStoryCard({ slide, ticker, freeBlocked = false }: { slide: St
 function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI; accent: string; glow: string; ticker: string; freeBlocked?: boolean }) {
   const { t, locale } = useT();
   const periodLabel = formatStoryPeriod(kpi, ticker, locale);
-  const refValeur = useAjusteLargeur(String(kpi.value ?? ""));
   return (
     <div
       className="relative flex h-full flex-col overflow-hidden rounded-[36px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-4 pt-11"
@@ -250,19 +332,8 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   les chiffres ne doivent pas dépasser de l'écran sur la
                   gauche et la droite → auto-shrink + overflow-hidden +
                   wordBreak pour matcher la branche freeBlocked au-dessus. */}
-              <div
-                ref={refValeur}
-                className="w-full max-w-full text-center font-display font-bold leading-none tracking-tight gradient-text"
-                style={{
-                  fontSize: storyValueFont(storyFmt(kpi.value, kpi.unit).value),
-                  whiteSpace: "nowrap",
-                  // Yann 4 sept 2026 : les separateurs de milliers etaient des
-                  // espaces fines, illisibles en grand. On les elargit pour
-                  // qu on voie d un coup d oeil qu il s agit d un million.
-                  wordSpacing: "0.16em",
-                }}
-              >
-                <span className="inline-block">{espacesLarges(storyFmt(kpi.value, kpi.unit).value)}</span>
+              <div className="w-full max-w-full px-1">
+                <ValeurSvg texte={separateursFins(storyFmt(kpi.value, kpi.unit).value)} />
               </div>
               {storyFmt(kpi.value, kpi.unit).unit && (
                 /* Yann 30 aout 2026 : une unite longue ("bouteilles/canettes")
