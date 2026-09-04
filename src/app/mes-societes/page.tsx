@@ -13,6 +13,7 @@ import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
 import { AuthNav } from "@/components/auth-nav";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { COMPANIES } from "@/lib/data";
+import V17_PUBLIC from "@/data/v1-7-public.json";
 
 export const dynamic = "force-dynamic";
 
@@ -79,7 +80,10 @@ export default async function MesSocietesPage() {
             </p>
             <ul className="mt-5 grid gap-2 sm:grid-cols-2">
               {lignes.map((l) => {
-                const c = COMPANIES[l.ticker.toUpperCase()];
+                // Le nom vient de la table publique V1.9.5 (666 stes), la
+                // table statique ne connait que les 5 de la V1.
+                const upper = l.ticker.toUpperCase();
+                const c = COMPANIES[upper] ?? (V17_PUBLIC as Record<string, { name?: string }>)[upper];
                 return (
                   <li key={l.ticker}>
                     <Link
