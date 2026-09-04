@@ -48,7 +48,12 @@ export async function POST(req: NextRequest) {
   if (!/^[A-Z0-9.\-]{1,12}$/.test(ticker)) {
     return NextResponse.json({ error: "ticker invalide" }, { status: 400 });
   }
-  const { error } = await sb.from(TABLE).upsert({ user_id: user.id, ticker });
+  // La cle primaire est (user_id, ticker) : sans `onConflict`, un second clic
+  // sur la meme societe provoquait une erreur de doublon et le bouton
+  // revenait a son etat precedent sans rien dire.
+  const { error } = await sb
+    .from(TABLE)
+    .upsert({ user_id: user.id, ticker }, { onConflict: "user_id,ticker" });
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ ok: true, ticker });
 }

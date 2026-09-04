@@ -1211,7 +1211,7 @@ export function CompanyView({
               }}
             />
             )}
-            <BoutonEnregistrer ticker={company.ticker} paye={isPaidTier} />
+            <BoutonEnregistrer ticker={company.ticker} paye={isPaidTier} connecte={freemiumTier !== "anon"} />
             <ThemeToggle paid={isPaidTier} />
             {authSlot}
           </div>

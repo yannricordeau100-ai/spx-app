@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { Bookmark, Lock } from "lucide-react";
 import { useT } from "@/lib/i18n/provider";
 
-export function BoutonEnregistrer({ ticker, paye }: { ticker: string; paye: boolean }) {
+export function BoutonEnregistrer({ ticker, paye, connecte = false }: { ticker: string; paye: boolean; connecte?: boolean }) {
   const { t } = useT();
   const [enregistre, setEnregistre] = useState(false);
   const [enCours, setEnCours] = useState(false);
@@ -57,6 +57,21 @@ export function BoutonEnregistrer({ ticker, paye }: { ticker: string; paye: bool
 
   const base =
     "inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-2 sm:px-3.5 text-sm font-medium transition-colors";
+
+  // Yann 4 sept 2026 : sans compte, le clic doit MENER quelque part. On envoie
+  // vers l inscription, avec retour sur la fiche apres creation du compte.
+  if (!connecte) {
+    return (
+      <a
+        href={`/?auth=signup&next=${encodeURIComponent(typeof window !== "undefined" ? window.location.pathname : "/")}`}
+        title="Créer un compte pour enregistrer cette société"
+        className={`${base} border-[#262626] bg-[#0a0a0a] text-zinc-300 hover:border-violet-400/40 hover:text-zinc-100`}
+      >
+        <Bookmark className="size-4" />
+        <span className="hidden sm:inline">{t("company.save.button")}</span>
+      </a>
+    );
+  }
 
   if (!paye) {
     return (
