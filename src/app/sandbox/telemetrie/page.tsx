@@ -7,7 +7,7 @@ import { TelemetrieClient } from "./client";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "Télémétrie · Sandbox Mettrik",
+  title: "Statistiques · Sandbox Mettrik",
   robots: { index: false, follow: false },
 };
 

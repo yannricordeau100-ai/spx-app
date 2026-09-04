@@ -107,7 +107,7 @@ export function TelemetrieClient() {
     <main className="mx-auto max-w-6xl px-5 py-10">
       <Link href="/sandbox" className="text-sm text-zinc-500 hover:text-zinc-300">← Sandbox</Link>
       <div className="mt-4 flex flex-wrap items-center gap-4">
-        <h1 className="text-2xl font-semibold text-zinc-100">Télémétrie</h1>
+        <h1 className="text-2xl font-semibold text-zinc-100">Statistiques</h1>
         {stats && (
           <button
             onClick={() => void bascule()}

@@ -1672,15 +1672,36 @@ function PromoEditor({
           />
         </label>
 
-        {/* Date d'expiration */}
+        {/* Date d'expiration. Yann 4 sept 2026 : une fois une date posee, il
+            etait impossible de revenir a "sans expiration" — vider un champ
+            datetime-local ne declenche pas toujours l evenement selon le
+            navigateur. Un bouton explicite garantit le retour a l illimite. */}
         <label className="block">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Expire le (vide = jamais)</span>
-          <input
-            type="datetime-local"
-            value={draft.expires_at ? new Date(draft.expires_at).toISOString().slice(0, 16) : ""}
-            onChange={(e) => set({ expires_at: e.target.value ? new Date(e.target.value).toISOString() : null })}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[12.5px] text-zinc-100 outline-none focus:border-violet-500/50"
-          />
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+            Expire le (vide = jamais)
+          </span>
+          <div className="mt-1 flex items-center gap-2">
+            <input
+              type="datetime-local"
+              value={draft.expires_at ? new Date(draft.expires_at).toISOString().slice(0, 16) : ""}
+              onChange={(e) => set({ expires_at: e.target.value ? new Date(e.target.value).toISOString() : null })}
+              className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[12.5px] text-zinc-100 outline-none focus:border-violet-500/50"
+            />
+            <button
+              type="button"
+              onClick={() => set({ expires_at: null })}
+              disabled={!draft.expires_at}
+              title="Retirer la date : le code n expire jamais"
+              className="shrink-0 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-2 text-[11.5px] font-medium text-zinc-300 transition-colors hover:border-violet-400/40 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Sans expiration
+            </button>
+          </div>
+          <span className="mt-1 block text-[11px] text-zinc-500">
+            {draft.expires_at
+              ? `Expire le ${new Date(draft.expires_at).toLocaleString("fr-FR")}`
+              : "Aucune expiration : le code reste valable tant qu il est actif."}
+          </span>
         </label>
 
         {/* Plans applicables */}
