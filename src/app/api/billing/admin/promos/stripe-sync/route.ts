@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { requireDeskOwner } from "@/lib/desk/auth";
-import { listPromoCodes, upsertPromoCode } from "@/lib/billing/admin-queries";
+import { listPromoCodes, updatePromoCodeById } from "@/lib/billing/admin-queries";
 import { getStripe } from "@/lib/billing/stripe";
 
 export const dynamic = "force-dynamic";
@@ -95,7 +95,11 @@ export async function POST(req: NextRequest) {
           { apiVersion: "2024-06-20" },
         );
 
-        await upsertPromoCode({ id: p.id, stripe_coupon_id: coupon.id });
+        // Yann 4 sept 2026 : `upsert` exige toutes les colonnes obligatoires,
+        // dont `code`. Passer seulement l identifiant et le coupon violait la
+        // contrainte NOT NULL et faisait echouer la synchronisation APRES
+        // creation du coupon chez Stripe. Une simple mise a jour suffit ici.
+        await updatePromoCodeById(p.id, { stripe_coupon_id: coupon.id });
         created++;
       } else if (!p.is_active && p.stripe_coupon_id) {
         // Désactive le promotion_code Stripe correspondant (pas delete coupon)
