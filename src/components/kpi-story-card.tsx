@@ -420,8 +420,6 @@ function MarketPositionStoryCard({
   const sourceIsLong = wordCount(sourceFull) > 4;
   // Meme blindage que la carte KPI : le gros chiffre ne doit jamais sortir de
   // la carte, quelle que soit la police ou la largeur d ecran.
-  const refPart = useAjusteLargeur(String(sharePct ?? ""));
-  const refSegment = useAjusteLargeur(String(mp.segment_revenue ?? ""));
 
   return (
     <div
@@ -454,26 +452,17 @@ function MarketPositionStoryCard({
         <div className="my-auto flex flex-col items-center text-center">
           {sharePct !== null ? (
             <>
-              <div
-                ref={refPart}
-                className="w-full max-w-full font-display font-bold leading-none tracking-tight gradient-text"
-                style={{ fontSize: "clamp(72px, 25vw, 120px)", whiteSpace: "nowrap" }}
-              >
-                <span className="inline-block">{sharePct.toFixed(1).replace(".", ",")}&nbsp;%</span>
+              <div className="w-full max-w-full px-1">
+                <ValeurSvg texte={`${sharePct.toFixed(1).replace(".", ",")}\u00a0%`} />
               </div>
               <div className="mt-2 text-[18px] font-semibold text-zinc-100">{t("story.market_share")}</div>
             </>
           ) : (
             <>
-              <div
-                ref={refSegment}
-                className="w-full max-w-full font-display font-bold leading-none tracking-tight gradient-text"
-                style={{ fontSize: "clamp(56px, 18vw, 88px)", whiteSpace: "nowrap" }}
-              >
-                <span className="inline-block">
-                  {mp.segment_revenue} <span className="text-[0.5em] font-medium text-zinc-300">{formatUnit(mp.segment_unit)}</span>
-                </span>
+              <div className="w-full max-w-full px-1">
+                <ValeurSvg texte={espacesLarges(String(mp.segment_revenue ?? ""))} />
               </div>
+              <div className="mt-1 text-[18px] font-medium text-zinc-300">{formatUnit(mp.segment_unit)}</div>
               <div className="mt-2 text-[16px] font-semibold text-zinc-100">{t("story.segment_revenue_label")}</div>
               <div className="mt-2 text-[12px] italic text-zinc-400">
                 {t("story.tam_not_disclosed")}

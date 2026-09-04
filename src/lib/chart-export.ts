@@ -1047,7 +1047,9 @@ export async function downloadSvgAsPng(
       avgEl.setAttribute("font-family", PNG_FONT_FAMILY);
       avgEl.setAttribute("font-size", "22");
       avgEl.setAttribute("font-weight", "500");
-      avgEl.setAttribute("fill", subtitleColor);
+      // Yann 5 sept 2026 : la moyenne (graphs en %) en bleu Mettrik, assez
+      // fonce sur fond clair, un ton plus lumineux sur fond sombre.
+      avgEl.setAttribute("fill", isLight ? "#1d4ed8" : "#5b8cff");
       avgEl.textContent = `Moyenne : ${options.avgPct}`;
       clone.appendChild(avgEl);
       // Yann 4 sept 2026 : rappel en anglais sous la moyenne, discret, au
@@ -1086,7 +1088,9 @@ export async function downloadSvgAsPng(
       cagrEl.setAttribute("font-style", "normal");
       cagrEl.setAttribute("font-size", String(CAGR_FONT_SIZE));
       cagrEl.setAttribute("letter-spacing", "0.01em");
-      cagrEl.setAttribute("fill", subtitleColor);
+      // Yann 5 sept 2026 : "+x %/an (CAGR)" en vert assez clair si positif,
+      // rouge si negatif, dans le document telecharge.
+      cagrEl.setAttribute("fill", isNegative ? (isLight ? "#dc2626" : "#f87171") : (isLight ? "#15803d" : "#4ade80"));
       cagrEl.textContent = cagrText;
       clone.appendChild(cagrEl);
 
