@@ -88,6 +88,10 @@ export async function enregistreZonesFloutage(
       { onConflict: "page_key,section_key" },
     );
   if (error) throw new Error(error.message);
+  // Le cache memoire garderait l ancien reglage jusqu a 60 s : on le vide
+  // pour que l enregistrement se voie immediatement sur la fiche.
+  CACHE_ZONES.delete((ticker ?? "*").toUpperCase());
+  CACHE_ZONES.delete("*");
 }
 
 /** Retire l override d une societe : elle revient au reglage global. */

@@ -144,7 +144,37 @@ export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   note: "la note de sévérité (X/5)",
 };
 
-export type Zone = { bloc: BlockId; partie: PartieDeBloc };
+/** Paliers d abonnement, du plus ouvert au plus complet. */
+export type PalierFloutage = "anon" | "free" | "premium" | "max";
+
+export const PALIERS: PalierFloutage[] = ["anon", "free", "premium", "max"];
+
+export const LIBELLES_PALIERS: Record<PalierFloutage, string> = {
+  anon: "Anonyme",
+  free: "Gratuit",
+  premium: "Premium",
+  max: "Max",
+};
+
+/**
+ * Zone de floutage.
+ *
+ * `plans` (Yann 4 sept 2026) : paliers pour lesquels CE detail precis est
+ * floute. Absent = comportement historique, c est-a-dire anonyme et gratuit
+ * uniquement. Les reglages deja enregistres continuent donc de fonctionner a
+ * l identique sans migration.
+ */
+export type Zone = { bloc: BlockId; partie: PartieDeBloc; plans?: PalierFloutage[] };
+
+/** Paliers effectivement concernes par une zone. */
+export function paliersDeZone(z: Zone): PalierFloutage[] {
+  return Array.isArray(z.plans) && z.plans.length > 0 ? z.plans : ["anon", "free"];
+}
+
+/** Zones a appliquer pour un palier donne. */
+export function zonesPourPalier(zones: Zone[], palier: PalierFloutage): Zone[] {
+  return zones.filter((z) => paliersDeZone(z).includes(palier));
+}
 
 /** Selecteur applique a l identique en apercu et en production. */
 export function selecteurDeZone(z: Zone): string {

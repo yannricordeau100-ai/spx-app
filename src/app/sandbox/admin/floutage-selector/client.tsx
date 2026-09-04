@@ -17,8 +17,12 @@ import {
   LIBELLES_PARTIES,
   PARTIES_PAR_BLOC,
   selecteurDeZone,
+  paliersDeZone,
+  PALIERS,
+  LIBELLES_PALIERS,
   type PartieDeBloc,
   type Zone,
+  type PalierFloutage,
 } from "@/lib/floutage";
 
 const STYLE_ID = "mtk-floutage-apercu";
@@ -103,7 +107,23 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
     setZones((prev) =>
       prev.some((x) => cle(x) === cle(z))
         ? prev.filter((x) => cle(x) !== cle(z))
-        : [...prev, z],
+        : [...prev, { ...z, plans: ["anon", "free"] }],
+    );
+
+  // Yann 4 sept 2026 : chaque detail peut desormais etre floute pour les
+  // paliers de son choix. Une zone sans liste vaut "anonyme + gratuit", donc
+  // les reglages existants restent intacts ; des qu on touche une case, la
+  // liste devient explicite.
+  const basculePalier = (z: Zone, palier: PalierFloutage) =>
+    setZones((prev) =>
+      prev.map((x) => {
+        if (cle(x) !== cle(z)) return x;
+        const actuels = paliersDeZone(x);
+        const suivants = actuels.includes(palier)
+          ? actuels.filter((p) => p !== palier)
+          : [...actuels, palier];
+        return { ...x, plans: PALIERS.filter((p) => suivants.includes(p)) };
+      }),
     );
 
   const enregistre = async () => {
@@ -247,6 +267,37 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
                     </button>
                   );
                 })}
+                {/* Paliers concernes, detail par detail. N apparait que pour
+                    les details actives, sinon la grille devient illisible. */}
+                {(parties ?? [])
+                  .map((partie: PartieDeBloc) => ({ partie, z: { bloc: bloc as BlockId, partie } as Zone }))
+                  .filter(({ z }) => zones.some((x) => cle(x) === cle(z)))
+                  .map(({ partie, z }) => {
+                    const active = zones.find((x) => cle(x) === cle(z)) as Zone;
+                    const choisis = paliersDeZone(active);
+                    return (
+                      <div key={`plans-${partie}`} className="mt-1 flex w-full flex-wrap items-center gap-1">
+                        <span className="mr-1 text-[10px] text-zinc-500">
+                          {LIBELLES_PARTIES[partie]} :
+                        </span>
+                        {PALIERS.map((p) => (
+                          <button
+                            key={p}
+                            type="button"
+                            onClick={() => basculePalier(z, p)}
+                            title={`Flouter « ${LIBELLES_PARTIES[partie]} » pour le palier ${LIBELLES_PALIERS[p]}`}
+                            className={`rounded px-1.5 py-0.5 text-[10px] transition-colors ${
+                              choisis.includes(p)
+                                ? "bg-violet-500/25 text-violet-100 ring-1 ring-violet-400/40"
+                                : "bg-white/[0.04] text-zinc-500 hover:bg-white/[0.08]"
+                            }`}
+                          >
+                            {LIBELLES_PALIERS[p]}
+                          </button>
+                        ))}
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           ))}

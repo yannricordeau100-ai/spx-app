@@ -18,6 +18,7 @@ import {
   caviardeTranscriptsPourGratuit,
 } from "@/lib/floutage-caviardage";
 import { chargeZonesFloutage } from "@/lib/desk/floutage-zones";
+import { zonesPourPalier, type PalierFloutage } from "@/lib/floutage";
 import { gateAttForTier } from "@/lib/att";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -214,10 +215,13 @@ export default async function TickerPage({
   // ne part jamais au navigateur (copier-coller, impression, code source :
   // seul le charabia est recuperable). Les societes exemptees (zones vides)
   // et les offres payantes recoivent la fiche entiere.
-  const estGratuit = freemiumTier === "free" || freemiumTier === "anon";
-  const zonesEffectives = estGratuit
-    ? (await chargeZonesFloutage(r.company.ticker)).zones
-    : [];
+  // Yann 4 sept 2026 : le floutage n est plus reserve aux paliers gratuit et
+  // anonyme. Chaque zone porte desormais la liste des paliers qu elle
+  // concerne, et une zone sans liste garde l ancien comportement (anonyme +
+  // gratuit). On charge donc les zones pour TOUS les paliers, puis on filtre.
+  const zonesDuTicker = (await chargeZonesFloutage(r.company.ticker)).zones;
+  const zonesEffectives = zonesPourPalier(zonesDuTicker, freemiumTier as PalierFloutage);
+  const estGratuit = zonesEffectives.length > 0;
   const servedCompany = estGratuit
     ? caviardeCompanyPourGratuit(gatedCompany, zonesEffectives)
     : gatedCompany;
