@@ -116,12 +116,15 @@ async function societePourMetadonnees(ticker: string): Promise<SocieteMeta | nul
   if (statique) return { name: statique.name, ticker: statique.ticker, sector: statique.sector };
   const v17 = (V17_PUBLIC as Record<string, { name?: string; ticker?: string; sector?: string }>)[upper];
   if (v17?.name) return { name: v17.name, ticker: v17.ticker ?? upper, sector: v17.sector ?? "" };
+  // Dernier recours : le chargeur de la fiche lui-meme (mis en cache, donc
+  // sans cout : la page qui suit fait le meme appel). Les societes absentes
+  // de la table publique (ex KO) gardaient sinon "Page introuvable".
   try {
-    const raw = await fs.readFile(path.join(process.cwd(), "src/data/companies", `${upper}.json`), "utf-8");
-    const j = JSON.parse(raw) as { name?: string; ticker?: string; sector?: string };
-    if (j.name) return { name: j.name, ticker: j.ticker ?? upper, sector: j.sector ?? "" };
+    const r = await loadV17Company(upper, { mode: "v18", locale: "fr" });
+    const co = (r as { company?: { name?: string; ticker?: string; sector?: string } } | null)?.company;
+    if (co?.name) return { name: co.name, ticker: co.ticker ?? upper, sector: co.sector ?? "" };
   } catch {
-    /* pas de fichier : introuvable */
+    /* introuvable */
   }
   return null;
 }

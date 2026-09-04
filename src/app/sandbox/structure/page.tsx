@@ -10,7 +10,7 @@ import carte from "@/data/_structure-map.json";
 import { StructureClient, type Carte } from "./client";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Structure du site · Sandbox Mettrik", robots: { index: false, follow: false } };
+export const metadata = { title: "Panneau de contrôle Front / Back End · Sandbox Mettrik", robots: { index: false, follow: false } };
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ audit_token?: string }> }) {
   const sp = await searchParams;

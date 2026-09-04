@@ -63,7 +63,7 @@ export function StructureClient({ carte, jeton }: { carte: Carte; jeton: string 
       <Link href="/sandbox" className="text-sm text-zinc-500 hover:text-zinc-300">← Sandbox</Link>
       <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-[28px] font-bold tracking-tight">Structure du site</h1>
+          <h1 className="font-display text-[28px] font-bold tracking-tight">Panneau de contrôle Front / Back End</h1>
           <p className="mt-1 max-w-3xl text-[13.5px] leading-relaxed text-zinc-400">
             Chaque carte est une brique de Mettrik, expliquée en une phrase. Un feu indique si la brique fonctionne
             en ce moment, d&apos;après des tests réels (services joints, fichiers présents, pages qui répondent, automates passés).

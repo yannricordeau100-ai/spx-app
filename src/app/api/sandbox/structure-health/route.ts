@@ -46,7 +46,30 @@ export async function GET(req: NextRequest) {
   const sk = process.env.STRIPE_SECRET_KEY ?? "";
   const stCode = sk ? await ping("https://api.stripe.com/v1/prices?limit=1&active=true", { headers: { Authorization: `Bearer ${sk}` } }) : 0;
   c.push({ id: "stripe", feu: stCode === 200 ? (sk.startsWith("sk_live") ? "vert" : "orange") : "rouge", libelle: "Stripe joignable avec la clé", detail: stCode === 200 ? (sk.startsWith("sk_live") ? "clé live" : "clé de TEST") : `code ${stCode}` });
-  c.push({ id: "stripe_webhook_secret", feu: env("STRIPE_WEBHOOK_SECRET") && !String(process.env.STRIPE_WEBHOOK_SECRET).includes("TODO") ? "vert" : "rouge", libelle: "Secret du webhook Stripe", detail: "" });
+  // Yann 4 sept 2026 : ce feu ne regardait que la presence de la variable.
+  // Il verifie desormais le FORMAT du secret (whsec_ + 24 caracteres au
+  // moins, sans reste de gabarit) ET qu un point de reception Stripe actif
+  // vise bien l hote qui repond ici. Un secret pose sur le mauvais
+  // environnement, ou un webhook absent, passe au rouge avec l explication.
+  {
+    const secret = String(process.env.STRIPE_WEBHOOK_SECRET ?? "");
+    const formatOk = /^whsec_[A-Za-z0-9]{24,}$/.test(secret) && !/TODO|PASTE|xxx/i.test(secret);
+    const hote = (req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? "").split(",")[0].trim().toLowerCase();
+    let endpointOk: boolean | null = null;
+    let detail = formatOk ? "" : secret ? "valeur qui n a pas la forme d un secret Stripe (gabarit non remplace)" : "variable absente dans cet environnement";
+    if (sk && hote) {
+      try {
+        const r = await fetch("https://api.stripe.com/v1/webhook_endpoints?limit=20", { headers: { Authorization: `Bearer ${sk}` }, cache: "no-store" });
+        const j = (await r.json()) as { data?: Array<{ url: string; status: string }> };
+        const actifs = (j.data ?? []).filter((w) => w.status === "enabled");
+        endpointOk = actifs.some((w) => { try { return new URL(w.url).host.toLowerCase() === hote; } catch { return false; } });
+        if (formatOk && !endpointOk) detail = `aucun webhook Stripe actif ne vise ${hote}/api/billing/webhook`;
+      } catch {
+        endpointOk = null;
+      }
+    }
+    c.push({ id: "stripe_webhook_secret", feu: formatOk && endpointOk !== false ? "vert" : "rouge", libelle: "Secret du webhook Stripe", detail });
+  }
   const rk = process.env.RESEND_API_KEY ?? "";
   const rsCode = rk ? await ping("https://api.resend.com/domains", { headers: { Authorization: `Bearer ${rk}` } }) : 0;
   c.push({ id: "resend", feu: rsCode === 200 ? "vert" : rk ? "orange" : "rouge", libelle: "Resend (emails) : clé présente et acceptée", detail: rk ? `code ${rsCode}` : "clé absente dans cet environnement : aucun email ne part" });

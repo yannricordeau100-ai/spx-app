@@ -490,6 +490,10 @@ function StoryFrame({
                 accent,
               });
             }}
+            // Yann 4 sept 2026 : quand la story est floutee, le bouton de
+            // telechargement l est aussi (meme zone "texte") : quasi invisible
+            // et non actionnable, sinon il offrait le PNG d une story reservee.
+            data-blur-part="texte"
             className="absolute top-1.5 z-30 inline-flex size-5 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur transition-colors hover:bg-black/60"
             style={{ left: autoplay && slot === 0 ? "calc(50% + 84px)" : "calc(50% + 56px)" }}
             aria-label="Télécharger cette story"

@@ -273,7 +273,7 @@ const SECTIONS: SandboxSection[] = [
       {
         href: "/sandbox/structure",
         icon: Network,
-        label: "Structure du site",
+        label: "Panneau de contrôle Front / Back End",
         desc: "Carte visuelle de toute l'application (visiteur, back-office, données, automates, services) avec un feu de santé par brique, testé en direct.",
       },
       {

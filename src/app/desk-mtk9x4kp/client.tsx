@@ -140,7 +140,14 @@ const SECTIONS: TabSection[] = [
 const ALL_TABS = SECTIONS.flatMap((s) => s.items);
 
 export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
-  const [tab, setTab] = useState<TabId>("todos");
+  // Yann 4 sept 2026 : l onglet se lit dans l URL (?tab=gics) pour pouvoir
+  // donner un lien direct vers chaque outil du desk.
+  const [tab, setTab] = useState<TabId>(() => {
+    if (typeof window === "undefined") return "todos";
+    const voulu = new URLSearchParams(window.location.search).get("tab");
+    const connus = SECTIONS.flatMap((sec) => sec.items.map((i) => i.id));
+    return voulu && (connus as string[]).includes(voulu) ? (voulu as TabId) : "todos";
+  });
   // Persistance UI : sidebar collapse mémorisé en localStorage entre visites.
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
   useEffect(() => {
