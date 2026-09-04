@@ -88,15 +88,23 @@ function useAjusteLargeur(dep: string) {
     // tous les navigateurs. Le texte est enveloppe dans un span en
     // inline-block, car une transformation n a aucun effet sur un element
     // inline.
+    // Yann 4 sept 2026, deuxieme cause : le chiffre est peint par un degrade
+    // decoupe sur les lettres (-webkit-text-fill-color: transparent). Poser la
+    // reduction sur le span INTERIEUR lui donne son propre contexte de rendu :
+    // ses lettres ne sont plus remplies par le degrade du parent et le chiffre
+    // devient INVISIBLE (cas Coca-Cola "600 000"). On garde donc le span pour
+    // MESURER (son rectangle donne la vraie largeur, ce que scrollWidth ne fait
+    // pas sur Safari) mais on applique la reduction sur le PARENT, qui porte le
+    // degrade.
     const ajuste = () => {
-      const cible = (el.firstElementChild as HTMLElement | null) ?? el;
-      cible.style.transform = "";
+      const mesure = (el.firstElementChild as HTMLElement | null) ?? el;
+      el.style.transform = "";
       const dispo = el.clientWidth;
-      const reel = cible.getBoundingClientRect().width;
+      const reel = mesure.getBoundingClientRect().width;
       if (dispo > 0 && reel > dispo - 2) {
         const k = Math.max(0.3, (dispo - 4) / reel);
-        cible.style.transform = `scale(${k})`;
-        cible.style.transformOrigin = "center center";
+        el.style.transform = `scale(${k})`;
+        el.style.transformOrigin = "center center";
       }
     };
     ajuste();
