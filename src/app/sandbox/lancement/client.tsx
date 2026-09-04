@@ -18,6 +18,14 @@ type Etat = {
   niveaux: { n0: string; n1: string; n2: string };
 };
 
+/** Reporte le jeton d audit de l URL vers les appels d API, pour que
+ *  l interrupteur reste utilisable quand la connexion est inaccessible. */
+function jetonUrl(): string {
+  if (typeof window === "undefined") return "";
+  const t = new URLSearchParams(window.location.search).get("audit_token");
+  return t ? `?audit_token=${encodeURIComponent(t)}` : "";
+}
+
 export function LancementClient() {
   const [etat, setEtat] = useState<Etat | null>(null);
   const [envoi, setEnvoi] = useState(false);
@@ -26,7 +34,7 @@ export function LancementClient() {
   const [progQuand, setProgQuand] = useState("");
 
   const charge = useCallback(async () => {
-    const r = await fetch("/api/sandbox/lancement");
+    const r = await fetch(`/api/sandbox/lancement${jetonUrl()}`);
     if (r.ok) setEtat(await r.json());
   }, []);
   useEffect(() => {
@@ -39,7 +47,7 @@ export function LancementClient() {
     setEnvoi(true);
     setMessage("");
     try {
-      const r = await fetch("/api/sandbox/lancement", {
+      const r = await fetch(`/api/sandbox/lancement${jetonUrl()}`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(corps),

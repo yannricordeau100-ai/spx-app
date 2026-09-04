@@ -57,8 +57,21 @@ async function litReglage(): Promise<Reglage> {
   }
 }
 
-export async function GET() {
-  if (!(await estProprietaire())) {
+
+/**
+ * Yann 4 sept 2026 : l interrupteur doit rester actionnable meme quand la
+ * maintenance ferme l accueil, ou vit la page de connexion. On accepte donc,
+ * en plus du compte proprietaire, le jeton d audit passe en parametre, comme
+ * le fait deja /api/desk/hero.
+ */
+async function autorise(req: NextRequest): Promise<boolean> {
+  if (await estProprietaire()) return true;
+  const jeton = req.nextUrl.searchParams.get("audit_token") ?? "";
+  return !!jeton && !!process.env.VISUAL_AUDIT_TOKEN && jeton === process.env.VISUAL_AUDIT_TOKEN;
+}
+
+export async function GET(req: NextRequest) {
+  if (!(await autorise(req))) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
   const { mode, programme } = await litReglage();
@@ -84,7 +97,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  if (!(await estProprietaire())) {
+  if (!(await autorise(req))) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
   let corps: { mode?: unknown; programme?: unknown };
