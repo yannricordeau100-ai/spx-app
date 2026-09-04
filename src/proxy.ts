@@ -450,8 +450,22 @@ export async function proxy(request: NextRequest) {
       routePathname.startsWith("/logos/") ||
       routePathname.startsWith("/fonts/") ||
       routePathname.startsWith("/findings/");
+    // Yann 4 sept 2026 : sans cette ligne, la maintenance se verrouillait
+    // elle-meme. La page qui porte l interrupteur d ouverture vit sous
+    // /sandbox, et le back-office sous son adresse secrete : tous deux
+    // etaient renvoyes vers /maintenance, donc IMPOSSIBLE de rouvrir le site
+    // depuis le site. On les laisse passer ; ils restent proteges par leur
+    // propre controle proprietaire, un visiteur n y accede pas. /auth est
+    // ajoute pour pouvoir se connecter, sans quoi le controle proprietaire
+    // ne peut jamais reussir.
+    const estAccesProprietaire =
+      routePathname.startsWith("/sandbox/") ||
+      routePathname.startsWith("/auth/") ||
+      (!!process.env.DESK_SLUG && routePathname.startsWith(`/${process.env.DESK_SLUG}`)) ||
+      routePathname.startsWith("/desk-");
     const isTechnicalRoute =
       routePathname.startsWith("/api/") ||
+      estAccesProprietaire ||
       estFichierStatique ||
       routePathname === "/favicon.ico" ||
       routePathname === "/robots.txt" ||
