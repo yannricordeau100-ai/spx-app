@@ -19,7 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SORTIE = ROOT / ".conv-state/effectifs-extraits"
 FENETRE = 900          # caracteres de part et d autre de la mention
-MAX_EXTRAITS = 3       # par annee
+MAX_EXTRAITS = 5       # par annee
 
 # Un effectif s ecrit toujours "un nombre + un mot de personnel". On exige les
 # DEUX, sinon on ramasse n importe quel paragraphe contenant le mot employee.
@@ -42,6 +42,10 @@ TITRE = re.compile(r"human capital|our (?:people|employees|workforce)|employees\
 PARASITES = re.compile(r"(stock plan|401\(k\)|pension|espp|equity incentive|option grants|"
                        r"shareholders of record|holders of record|capital employed|"
                        r"collective bargaining agreement expir)", re.I)
+# En-tete technique du document XBRL : suite de jetons "us-gaap:XxxMember" qui
+# contient le mot workforce (AssembledWorkforceMember) sans aucun rapport avec
+# l effectif. Un extrait qui en contient est ecarte.
+BRUIT_XBRL = re.compile(r"(us-gaap:|srt:|dei:|[a-z]{2,6}:[A-Z][A-Za-z]*Member)")
 
 # Un intitule de section est le meilleur point d entree : le paragraphe qui
 # suit annonce presque toujours l effectif total (cas Boeing, ExxonMobil, ou
@@ -70,13 +74,13 @@ def extraits_du_depot(f: Path) -> list[str]:
     candidats = []
     for m in INTITULES.finditer(t):
         bout = t[m.start(): min(len(t), m.start() + 2600)].strip()
-        if EFFECTIF.search(bout) and not PARASITES.search(bout[:400]):
+        if EFFECTIF.search(bout) and not PARASITES.search(bout[:400]) and not BRUIT_XBRL.search(bout):
             candidats.append((10, m.start(), bout))
     for m in EFFECTIF.finditer(t):
         d = max(0, m.start() - FENETRE)
         fin = min(len(t), m.end() + FENETRE)
         bout = t[d:fin].strip()
-        if PARASITES.search(bout):
+        if PARASITES.search(bout) or BRUIT_XBRL.search(bout):
             continue
         # Note de pertinence : un intitule "Human Capital" a proximite, et une
         # formulation "approximately N employees" valent mieux qu une mention
