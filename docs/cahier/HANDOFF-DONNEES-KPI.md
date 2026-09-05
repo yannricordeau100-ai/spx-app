@@ -2,6 +2,21 @@
 
 > Ce fichier est tenu à jour à chaque lot terminé. Une session Claude Code qui reprend le travail lit ce fichier, puis `docs/cahier/README.md`, et continue exactement là où la précédente s'est arrêtée. Toujours `git pull` avant de commencer, `git push` à chaque étape.
 
+## REPRISE URGENTE (06/09/2026 00:25) : etat exact au moment du passage de relais
+
+La session precedente s est arretee (fin de tokens) avec des agents EN COURS. Leurs fichiers peuvent etre absents ou partiels : `_prochains.py` et `_allongement.py` le detectent, `_valide.py` refuse tout fichier incomplet. Tout ce qui est valide a ete pousse (commit « relais urgent »).
+
+- Sociétés faites : 387 / 666. Secteurs 45, 20, 40, 35 TERMINÉS (santé : 75/75, 371 KPI : 107 existent, 71 trouvés, 147 non publiés, 46 autre).
+- Contre-vérification santé (35) : un agent avait ete lance (il avait lui meme lance 6 sous-controleurs). Livrable attendu `donnees/_VERIFICATION-35.md`. S il est absent : RELANCER le prompt de contre-vérification (secteur 35, 75 sociétés).
+- Consommation discrétionnaire (25) : lots 25-01, 25-02, 25-03 etaient en cours. Relancer ce que `_prochains.py --prochains 6` affiche (les partiels d abord).
+- Allongement 20 ans (lots A) : A01 a A33 faits (A10-A19 : quelques KPI sans marqueur mais traites, voir `_allongement.py`), A34, A35, A36 etaient en cours ; reste A37 a A47 (finance). Prompt : troisieme bloc de `_PROMPT-AGENT.md`, liste des KPI par lot via `python3 docs/cahier/donnees/_allongement.py A37`.
+- Defauts en ligne ajoutes ce soir dans `_CORRECTIONS.md` (corrections sur fiches APRES validation du proprietaire) : AJG (marge EBITDAC consolidee artificielle), SYK (series Mako non sourcees), ARES (FRE avant retraitements), ABT, DXCM.
+- Raisons des KPI non renseignes (techno et industrie) deja classees et communiquees au proprietaire (37 % non publie, 20 a 30 % grille GICS inadaptee, 16 a 23 % variations seulement, 19 a 20 % donnee voisine inutilisable en annuel). Fichiers de classement dans le scratchpad de l ancienne session (perdus) ; refaire seulement si demande.
+- Hors Cahier, faits et pousses : export PNG des stories refait (format iPhone 1080 x 1920, logo + nom, fond travaille, encadre du signal), 2 KPI NVDA poses dans `.batches-drafts-safe/kpis-haut/NVDA.json` (INVENTORY_DAYS, AUTO_DESIGN_WINS, lot `kpi-cahier-sept-2026`). Version 2026.09.06.1 poussee ; le build Vercel etait en cours et le script d alias tournait (`scripts/alias-niveau2-attente.sh`, corrige pour prendre VERCEL_TOKEN de .env.local car le jeton du CLI est refuse par l API). VERIFIER que https://mettrik-niveau2.vercel.app affiche la version 2026.09.06.x (pied de page) ; sinon relancer le script d alias.
+- Fiche WKL.AS : modification locale NON commitee (KPI d une autre entite retires), en attente de l accord du proprietaire. Ne pas la commiter sans son OK. Les 22 fichiers kpis-haut modifies localement viennent du robot de rafraichissement de midi : ne pas y toucher.
+- Regles rappelees : agents en Opus (6 en parallele max, ne jamais laisser un agent en lancer 6 autres), jamais le navigateur integre pour les agents, jamais de valeur inventee, jamais de prenom ni de tiret long, qualite avant vitesse, n0 (mettrik.ai) seulement sur l accord explicite du proprietaire, numero de version a chaque push (`scripts/version-bump.sh`).
+- Ce que le proprietaire attend comme messages : ETA de fin de secteur de temps en temps, problemes importants, tableau recapitulatif a chaque secteur termine (societes, KPI existants / trouves / non publies / autre, defauts en ligne). Pas de blabla.
+
 ## Où en est le travail
 
 Voir la ligne « Dernière mise à jour » ci-dessous et lancer :
@@ -12,7 +27,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 05/09/2026 23:07. Sociétés faites : 347 / 666. Secteurs 45, 20, 40 terminés et TOUS CONTRE-VÉRIFIÉS (45 : 101/101 ; 20 : 204/205 ; 40 : 185/191 conformes, 6 non vérifiables, 0 corrigée, livrable _VERIFICATION-40.md). Allongement : A01-A23 validés, A24-A26 en cours (reste A27-A46). Santé (35) : 40/75 validées (lots 35-01 à 35-08), 35-09 à 35-11 en cours. Ordre : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 06/09/2026 00:19. Sociétés faites : 389 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 2 / 70 en cours. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
@@ -29,7 +44,7 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 
 ## Règles apprises (à ne pas réapprendre)
 
-- Depuis le 05/09 au soir (ordre du propriétaire) : l'allongement à 20 ans des KPI `existe` fait PARTIE de la passe de chaque secteur (plus de passe séparée). Les secteurs 45, 20 et 40, faits avant cette règle, sont rattrapés par les lots d'allongement A01 à A47 (235 sociétés, exhaustivité contrôlée).
+- Depuis le 05/09 au soir (ordre du propriétaire) : l'allongement à 20 ans des KPI `existe` fait PARTIE de la passe de chaque secteur (plus de passe séparée). Les secteurs 45, 20 et 40, faits avant cette règle, sont rattrapés par les lots d'allongement A01 à A47 : 235 sociétés ayant au moins un KPI `existe`, soit 492 KPI existants à allonger (115 techno, 155 industrie, 222 finance). Suivi : `python3 docs/cahier/donnees/_allongement.py --prochains 6` (marqueur « Allonge le » / « Allongement non realise » dans le commentaire).
 
 - Les agents n'ont JAMAIS le droit d'utiliser le navigateur intégré (`mcp__Claude_Browser__*`, `mcp__claude-in-chrome__*`) : il est partagé, un agent y a détruit une lecture Morningstar en cours.
 - Agents en Opus : 4 à 6 agents Fable en parallèle atteignent la limite de session en 10 minutes et cassent la chaîne (arrivé 3 fois le 5 sept). Si une limite tombe malgré tout, attendre la réinitialisation (heure indiquée dans l'erreur) et relancer les lots partiels : `_prochains.py` les liste.

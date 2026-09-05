@@ -41,3 +41,12 @@ Constat du lot 35-01 : la fiche en ligne affiche 0,004 et 0,006 Mds $ pour les o
 
 ## DXCM (Dexcom) : base clients en ligne perimee
 Constat du lot 35-05 : la fiche affiche 2,8 millions de clients alors que Dexcom communique environ 3,5 millions a fin 2025. A rafraichir sur la fiche apres validation du proprietaire.
+
+## AJG (Arthur J. Gallagher) : marge EBITDAC ajustee consolidee en ligne sans source
+Constat du lot A31 (allongement) : la serie en ligne Adjusted EBITDAC Margin (24,5 ; 24,8 ; 25,1 ... 26,9, progression reguliere de 0,3 point par periode) ne correspond a aucune valeur publiee : Gallagher ne publie cette marge que par segment. Valeurs officielles du segment Courtage : 26,9 % (2016), 27,4 % (2017), 27,8 % (2018), 28,6 % (2019), 34,0 % (2022), 34,3 % (2023), 35,1 % (2024), 36,5 % (2025). Serie en ligne a remplacer par la serie sectorielle Courtage, apres validation du proprietaire. Detail dans donnees/AJG.json.
+
+## SYK (Stryker) : series Mako en ligne non sourcees
+Constat du lot 35-13 : la fiche porte deux series incompatibles pour la base installee Mako (700 / 800 / 860 / 3000 et 1200 / 1400 / 1600 / 1850) et une serie de procedures Mako en milliers par an qui ne correspond a aucune publication de Stryker, laquelle ne donne que des jalons cumules arrondis (1 million en 2023, 1,5 million en 2024, plus de 2 millions en 2025). Series a retirer ou a remplacer par les jalons publies, apres validation du proprietaire. Detail dans donnees/SYK.json.
+
+## ARES (Ares Management) : resultat lie aux commissions en ligne anterieur aux retraitements
+Constat du lot A33 (allongement) : les valeurs 2022 et 2023 en ligne pour le resultat lie aux commissions (FRE) sont celles des publications d origine, avant les reaffectations de couts et le redecoupage des groupes d investissement republies par la societe (2022 : 943 694 puis 977 892 puis 1 017 926 K $). A aligner sur la derniere republication, apres validation du proprietaire. Detail dans donnees/ARES.json.

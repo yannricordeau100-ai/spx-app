@@ -5,7 +5,10 @@ set -u
 cd "$(dirname "$0")/.."
 SHA=$(git rev-parse HEAD); TEAM=team_3A8Ft1Kze0wYzGbuyHmsaEwC
 for i in $(seq 1 90); do
-  TOK=$(python3 -c "import json;print(json.load(open('$HOME/Library/Application Support/com.vercel.cli/auth.json'))['token'])")
+  # 6 sept 2026 : le jeton de session du CLI (auth.json) peut etre refuse par l API ("invalidToken") ;
+  # on prend d abord le jeton d acces VERCEL_TOKEN de .env.local, sinon celui du CLI.
+  TOK=$(grep -o '^VERCEL_TOKEN=[^ ]*' .env.local 2>/dev/null | cut -d= -f2)
+  [ -z "$TOK" ] && TOK=$(python3 -c "import json;print(json.load(open('$HOME/Library/Application Support/com.vercel.cli/auth.json'))['token'])")
   R=$(curl -s "https://api.vercel.com/v6/deployments?teamId=$TEAM&limit=6&app=mettrik" -H "Authorization: Bearer $TOK" | python3 -c "
 import sys,json; d=json.load(sys.stdin)
 for x in d.get('deployments',[]):
