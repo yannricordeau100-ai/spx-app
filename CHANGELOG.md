@@ -46,3 +46,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.05.36 (05 Sep 2026 21:34, apres ea1093d345)
 - Donnees KPI : finance terminee (100 societes)
+
+## v2026.09.05.37 (05 Sep 2026 21:53, apres 12f8a5af34)
+- Donnees KPI : allongement 20 ans lots A01 a A05 (297 annees ajoutees)
