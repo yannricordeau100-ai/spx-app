@@ -34,3 +34,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.05.32 (05 Sep 2026 19:24, apres a17992ffe5)
 - Donnees KPI : 29 societes industrie (lots 20-05 a 20-10)
+
+## v2026.09.05.33 (05 Sep 2026 19:49, apres f24eda67f9)
+- Donnees KPI : contre-verification technologie + lots industrie 20-11 a 20-16
