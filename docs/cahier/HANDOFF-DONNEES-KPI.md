@@ -12,7 +12,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 05/09/2026 20:17. Sociétés faites : 212 / 666. Technologie (45) : 97 / 97, contre-vérifiée (zéro écart). Industrie (20) : 115 / 115 TERMINÉE (571 KPI examinés : 154 existent, 135 trouvés, 185 non publiés, 96 autre, 1 valeur actuelle) ; contre-vérification lancée. Finance (40) : lots 40-01 à 40-05 en cours. Ordre : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 05/09/2026 21:04. Sociétés faites : 281 / 666. Techno et Industrie terminées et CONTRE-VÉRIFIÉES (45 : 101/101 conformes ; 20 : 205 séries, 204 conformes, 1 non vérifiable RHM.DE, 0 corrigée, livrable _VERIFICATION-20.md). Finance (40) : 69 / 100 (validés jusqu'au 40-13 ; 40-14 à 40-16 en cours). Pollution IVR purgée (WKL.AS, EDEN.PA, MBG.DE, HNR1.DE), FER sourcé Factbook, GWW reclassé 20107010 et refait. Ordre : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
@@ -39,6 +39,7 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 
 - Classification GICS 2023 (163 sous-industries), KPI organiques / complémentaires par sous-industrie (1 231 KPI, relus), 664 / 666 sociétés classées (2 arbitrées par le propriétaire).
 - Moat Morningstar lu pour 661 / 666 sociétés : `docs/cahier/moat.json` (usage interne uniquement). Introuvables : CBOE, DPW.DE (= DHL.DE), EA, JDEP.AS, ROG.SW.
+- Industrie (20) : contre-vérification du 05/09 : 205 séries sondées via 665 URL sources (EDGAR, XBRL, INFOFI), 204 conformes, zéro correction, 1 non vérifiable (RHM.DE book-to-bill 2024, source 403). Livrable : donnees/_VERIFICATION-20.md.
 - Industrie (20) : 115 sociétés, 571 KPI examinés (154 existent, 135 trouvés, 185 non publiés, 96 autre, 1 valeur actuelle). Défauts en ligne notés dans _CORRECTIONS.md : FER (carnet 2022 non rattachable), WKL.AS (fiche polluée par une autre entité), sous-industrie 20106020 inadaptée à GWW et SNA. Séries en ligne ALLONGÉES par les agents : XYL (backlog 2 vers 11 exercices), WM (volumes 2017-2020 ajoutés).
 - Technologie (45) : 97 sociétés, 410 KPI examinés (101 existent, 64 trouvés, 154 non publiés, 90 autre, 1 valeur actuelle). Contre-vérification du 05/09 : 101 séries sondées via XBRL EDGAR et 316 documents sources, 101 conformes, zéro écart, cinq définitions élargies assumées et documentées (ASML, MSFT, ORCL, SMCI, ZBRA). Livrable : donnees/_VERIFICATION-45.md.
 
