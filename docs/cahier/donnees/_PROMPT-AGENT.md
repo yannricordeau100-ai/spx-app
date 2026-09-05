@@ -27,3 +27,19 @@ Mission : pour CHAQUE série ayant au moins 2 années (statut `trouve`, ou `exis
 
 Livrable : `docs/cahier/donnees/_VERIFICATION-<SECTEUR>.md` (tableau ticker, KPI, années sondées, résultat, détail), puis UNIQUEMENT un JSON : {"series_sondees": n, "conformes": n, "corrigees": n, "non_verifiables": n, "passees_en_autre": n, "exemples": [...]}.
 ```
+
+# Prompt d allongement (lots A01 a A47, secteurs 45, 20, 40 faits avant la regle des 20 ans)
+
+Etat et lots : `python3 docs/cahier/donnees/_allongement.py --prochains 6` (liste, par lot, les KPI `existe` sans marqueur d allongement) ; `python3 docs/cahier/donnees/_allongement.py A31` donne les tickers du lot. Remplacer `<LISTE>` par la liste ticker : KPI affichee par le script.
+
+```
+Tu travailles dans le dépôt ~/spx-app (Mettrik AI). Mission : ALLONGER l historique des KPI déjà en ligne pour ces sociétés et KPI : <LISTE>. Pour chacun, ouvre `docs/cahier/donnees/<TICKER>.json`, repère l entrée `existe` du KPI (champ `short`), et lis d abord `docs/cahier/donnees/_BRIEF.md` (format, statuts, règles).
+
+INTERDIT : outils du navigateur intégré (mcp__Claude_Browser__*, mcp__claude-in-chrome__*). Utilise WebSearch, WebFetch, Bash (curl, /opt/homebrew/bin/pdftotext) et la lecture de fichiers. Ne modifie JAMAIS les fiches (`src/data/companies`, `.batches-drafts-safe`) : seul `docs/cahier/donnees/<TICKER>.json` est écrit.
+
+Travail par KPI : retrouver la série en ligne sur la fiche (`src/data/companies/<ticker>.json`, ticker parfois en minuscules ou autre place de cotation, sinon `.batches-drafts-safe/kpis-haut/<TICKER>.json`), noter sa définition, son unité et sa première année ; puis porter l historique ANNUEL à 20 exercices quand les sources officielles le permettent (rapports annuels, 10-K, API XBRL de la SEC pour les sociétés américaines, documents d enregistrement universel, communiqués annuels), sinon aussi loin que possible. Les exercices antérieurs vont dans `annees` (clé = exercice fiscal, valeur brute, même définition et même unité que la série en ligne). Arrêt propre à toute rupture de périmètre ou de norme, expliquée en commentaire. Jamais de valeur inventée ni estimée ; chaque valeur lue dans sa source, URL précise ajoutée dans `sources`. Si les valeurs en ligne contredisent les documents officiels, le dire en commentaire avec les valeurs officielles.
+
+OBLIGATOIRE : le commentaire de chaque KPI traité commence ou se termine par « Allonge le 06/09 : <exercices ajoutés> depuis <source> » ou « Allongement non realise le 06/09 : <raison précise> » (c est le marqueur que le script de suivi utilise). Un KPI dont le commentaire porte déjà ce marqueur est conservé tel quel. Pas de nom de personne ni de tiret long. La qualité prime sur la vitesse.
+
+Après chaque société : `python3 docs/cahier/donnees/_valide.py <TICKER>` doit afficher 0 problème. Réponds UNIQUEMENT par un JSON : {"faits": [tickers], "kpi_allonges": n, "annees_ajoutees": n, "non_realises": [{"ticker": "...", "kpi": "...", "raison": "..."}]} sans autre texte.
+```

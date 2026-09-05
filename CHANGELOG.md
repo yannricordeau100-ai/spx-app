@@ -55,3 +55,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.05.39 (05 Sep 2026 23:08, apres bbe3fc8230)
 - Export PNG : logo comme la page ste, unite EN capitalisee, en-tete axe Y remonte, titre KPI FR agrandi. Donnees KPI : sante 40/75, allongements A18-A23
+
+## v2026.09.06.1 (06 Sep 2026 00:03, apres 024e28b3ff)
+- Story PNG format iPhone (logo + nom, fond travaille, encadre dessine) ; 2 KPI NVDA poses depuis le Cahier ; suivi allongement sur disque ; sante 62/75
