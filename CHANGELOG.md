@@ -25,3 +25,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.05.29 (05 Sep 2026 18:03, apres 1580d5f3bf)
 - Donnees KPI : 77 societes technologie
+
+## v2026.09.05.30 (05 Sep 2026 18:10, apres d5d237e306)
+- Moat Morningstar (usage interne, docs/cahier/moat.json, 661/666) ; donnees KPI 82 societes
