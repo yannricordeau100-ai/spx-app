@@ -29,6 +29,8 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 
 ## Règles apprises (à ne pas réapprendre)
 
+- Depuis le 05/09 au soir (ordre du propriétaire) : l'allongement à 20 ans des KPI `existe` fait PARTIE de la passe de chaque secteur (plus de passe séparée). Les secteurs 45, 20 et 40, faits avant cette règle, sont rattrapés par les lots d'allongement A01 à A47 (235 sociétés, exhaustivité contrôlée).
+
 - Les agents n'ont JAMAIS le droit d'utiliser le navigateur intégré (`mcp__Claude_Browser__*`, `mcp__claude-in-chrome__*`) : il est partagé, un agent y a détruit une lecture Morningstar en cours.
 - Agents en Opus : 4 à 6 agents Fable en parallèle atteignent la limite de session en 10 minutes et cassent la chaîne (arrivé 3 fois le 5 sept). Si une limite tombe malgré tout, attendre la réinitialisation (heure indiquée dans l'erreur) et relancer les lots partiels : `_prochains.py` les liste.
 - Ne jamais écrire le prénom du propriétaire ni de tiret long dans les fichiers du Cahier (`_valide.py` le refuse).
