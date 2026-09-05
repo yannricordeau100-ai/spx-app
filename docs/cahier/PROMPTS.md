@@ -32,7 +32,7 @@ fréquence, limites connues. Signale les pièges (données retraitées, unités,
 
 ## kpi-societe · Créer ou compléter un KPI d'une société
 - Catégorie : KPI par société
-- Objectif : créer un KPI sur une fiche (ou compléter un KPI existant : années antérieures, trimestres manquants, correction), à partir des données fournies par Yann ou d'une source citée, puis vérifier en réel sur niveau2.
+- Objectif : créer un KPI sur une fiche (ou compléter un KPI existant : années antérieures, trimestres manquants, correction), à partir des données fournies en interne ou d'une source citée, puis vérifier en réel sur niveau2.
 - Entrée : ticker, nom du KPI (short ou nom FR), action (créer / compléter / corriger), période, unité, données ou source.
 - Sortie : `src/data/companies/<T>.json` (+ kpis-haut si concerné), fiche vérifiée sur niveau2, ligne dans le journal du Cahier.
 - Statut : pret
@@ -41,7 +41,7 @@ KPI <TICKER> · <nom du KPI> · <créer|compléter|corriger>
 Période : <ex. 2016-2020, ou T1 2024-T4 2025>
 Unité : <ex. Mds $, %, millions d abonnés>
 Données : <valeurs, une par période, ou "voir source">
-Source : <URL, document, ou "fournies par Yann">
+Source : <URL, document, ou "fournies en interne">
 Notes : <ex. exercice décalé, définition particulière>
 ```
 Règles d exécution : jamais inventer une valeur ; unités et périodes alignées sur la série existante ; vérifier 3 valeurs contre la source avant d écrire ; historique en nombres bruts ; pas de trou dans la série (garde-fou index_periode) ; déploiement niveau2 puis capture de contrôle.

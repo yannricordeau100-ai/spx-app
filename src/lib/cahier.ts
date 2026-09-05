@@ -28,8 +28,16 @@ export type KpiSouhaite = {
   wow?: boolean;
   /** organique = propre au metier de la sous-industrie ; complementaire = utile mais transversal. */
   type?: "organique" | "complementaire";
+  reference_standard?: string;
+  confiance?: string;
   exemples_societes?: string[];
   statut?: string;
+};
+
+export type CadreEuropeen = {
+  esrs?: { norme: string; datapoint: string; pertinence?: string }[];
+  esma_apm?: string;
+  note?: string;
 };
 
 export type SocieteClassee = { ticker: string; name: string };
@@ -43,8 +51,13 @@ export type AnnuaireGics = {
 export type KpiParSousIndustrie = {
   code: string;
   nom?: string;
+  nom_fr?: string;
+  nom_en?: string;
   statut?: string;
+  sources_consultees?: { type: string; reference: string; url?: string }[];
   kpis: KpiSouhaite[];
+  cadre_europeen?: CadreEuropeen;
+  notes?: string;
 };
 
 const RACINE = () => path.join(process.cwd(), "docs", "cahier");
