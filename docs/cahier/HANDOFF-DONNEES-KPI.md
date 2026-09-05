@@ -12,7 +12,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 5 sept 2026, 19h30. Sociétés faites : 109 / 666. Technologie (45) : 97 / 97 terminée, contre-vérification par sondage en cours (agent lancé 19h15, livrable `donnees/_VERIFICATION-45.md`). Industrie (20) : 12 / 115, lots 20-03 à 20-08 en cours par 6 agents. Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10 (du plus représenté au moins représenté).
+Dernière mise à jour : 05 Sep 2026, 18:37. Sociétés faites : 121 / 666. Technologie (45) : 97 / 97 terminée, contre-vérification par sondage en cours (livrable `donnees/_VERIFICATION-45.md`). Industrie (20) : en cours, lots lancés dans l'ordre (voir `_prochains.py`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
