@@ -23,3 +23,9 @@ Séries en ligne trop courtes, exercices antérieurs retrouvés (à allonger) : 
 
 ## FER (Ferrovial) : carnet de commandes 2022 en ligne non rattachable
 Le brouillon `.batches-drafts-safe/kpis-haut/FER.json` affiche 14392 pour le carnet 2022 alors que les rapports annuels 2022 et 2023 indiquent 14743 M EUR. La valeur 2023 du brouillon (15179) correspond au comparatif retraite du rapport 2024, la valeur publiee etant 15632. Constat du 05/09/2026 (lot 20-08), valeurs officielles dans `donnees/FER.json`.
+
+## Sous-industrie 20106020 (machines industrielles) : KPI sans objet pour les distributeurs et l'outillage a cycle court
+Constat des lots 20-10 et 20-20 : GWW (distributeur) et SNA (outillage vendu par franchises) n'ont aucun des 5 KPI organiques de leur sous-industrie (verifie sur 10 exercices de 10-K chacun). A trancher par le proprietaire : reclassement, ou passe "KPI propres a la societe" prevue dans les ameliorations du 5 sept.
+
+## WKL.AS (Wolters Kluwer) : fiche en ligne polluee par une autre entite
+Constat du lot 20-23 : `src/data/companies/WKL.AS.json` contient les donnees d une entite nommee IVR (participants a un congres, reunions de comites) et des agregats en euros non rattaches aux publications de Wolters Kluwer. Aucun KPI organique de la sous-industrie n y figure. Meme famille que la cross-pollution MC.PA/Moelis d aout. A corriger sur la fiche apres validation du proprietaire.
