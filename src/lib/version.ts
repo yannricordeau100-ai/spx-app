@@ -4,4 +4,4 @@
  * dans CHANGELOG.md (scripts/version-bump.sh "resume"). Format :
  * AAAA.MM.JJ.n ; la mise en ligne n0 reprend le numero du n2 promu.
  */
-export const VERSION = "2026.09.06.1";
+export const VERSION = "2026.09.06.2";

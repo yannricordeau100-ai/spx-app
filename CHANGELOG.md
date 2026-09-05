@@ -58,3 +58,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.06.1 (06 Sep 2026 00:03, apres 024e28b3ff)
 - Story PNG format iPhone (logo + nom, fond travaille, encadre dessine) ; 2 KPI NVDA poses depuis le Cahier ; suivi allongement sur disque ; sante 62/75
+
+## v2026.09.06.2 (06 Sep 2026 01:03, apres f8df38b327)
+- Donnees KPI : 32 societes (fin sante, debut conso discretionnaire), allongements A19-A36 partiels, contre-verif sante 1re passe

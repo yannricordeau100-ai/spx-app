@@ -50,3 +50,9 @@ Constat du lot 35-13 : la fiche porte deux series incompatibles pour la base ins
 
 ## ARES (Ares Management) : resultat lie aux commissions en ligne anterieur aux retraitements
 Constat du lot A33 (allongement) : les valeurs 2022 et 2023 en ligne pour le resultat lie aux commissions (FRE) sont celles des publications d origine, avant les reaffectations de couts et le redecoupage des groupes d investissement republies par la societe (2022 : 943 694 puis 977 892 puis 1 017 926 K $). A aligner sur la derniere republication, apres validation du proprietaire. Detail dans donnees/ARES.json.
+
+## APTV (06/09/2026, lot 25-01)
+Serie "Content per Vehicle" en ligne (180, 210, 230, 240) introuvable dans les documents officiels Aptiv : a retirer ou re-sourcer. Serie "growth over market" en ligne divergente des communiques annuels 2021, 2022, 2023 et 2025 (valeurs officielles 15, 11, 2 points ; 2024 et 2025 a 1 point derivees des deux grandeurs publiees). En attente de validation du proprietaire avant toute correction de fiche.
+
+## CON.DE (06/09/2026, lot 25-03)
+PREMIUM_MIX en ligne (52 %) contredit le rapport annuel 2025 : environ 62 % des ventes de la marque Continental en pneus 18 pouces et plus (49 % en 2020). Valeurs officielles dans le cahier, en attente de validation du proprietaire avant correction de fiche.
