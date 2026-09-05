@@ -159,3 +159,61 @@ export async function lireAnnuaireGics(noms: Record<string, string>, arbitrages:
     return vide;
   }
 }
+
+/* ───────── Donnees KPI par societe (docs/cahier/donnees) ───────── */
+
+export type DonneeKpi = {
+  short: string;
+  nom_fr?: string;
+  statut: "existe" | "trouve" | "non_trouve" | "actuel_seulement" | "autre" | string;
+  short_en_ligne?: string;
+  annees_en_ligne?: number;
+  unite?: string;
+  annees?: Record<string, number>;
+  complet?: boolean;
+  sources?: { url: string; titre?: string }[];
+  commentaire?: string;
+};
+
+export type DonneesSociete = { ticker: string; code: string; date?: string; kpis: DonneeKpi[] };
+
+export async function lireDonneesKpi(): Promise<Record<string, DonneesSociete>> {
+  const out: Record<string, DonneesSociete> = {};
+  let fichiers: string[] = [];
+  try {
+    fichiers = await fs.readdir(path.join(RACINE(), "donnees"));
+  } catch {
+    return out;
+  }
+  for (const f of fichiers) {
+    if (!f.endsWith(".json") || f.startsWith("_")) continue;
+    try {
+      const j = JSON.parse(await fs.readFile(path.join(RACINE(), "donnees", f), "utf-8")) as DonneesSociete;
+      const t = String(j.ticker ?? f.replace(/\.json$/, "")).toUpperCase();
+      out[t] = { ...j, ticker: t, kpis: Array.isArray(j.kpis) ? j.kpis : [] };
+    } catch {
+      /* fichier illisible : ignore */
+    }
+  }
+  return out;
+}
+
+/* ───────── Relecture KPI par sous-industrie : points a arbitrer ───────── */
+
+export type PointRelecture = { code: string; sousIndustrie: string; point: string };
+
+export async function lireRelecture(): Promise<{ intro: string; points: PointRelecture[] }> {
+  try {
+    const txt = await fs.readFile(path.join(RACINE(), "kpi", "_RELECTURE-2026-09-05.md"), "utf-8");
+    const points: PointRelecture[] = [];
+    for (const l of txt.split("\n")) {
+      const m = l.match(/^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|$/);
+      if (!m || /^-+$/.test(m[1]) || m[1] === "Code") continue;
+      points.push({ code: m[1], sousIndustrie: m[2], point: m[3] });
+    }
+    const intro = (txt.split("\n").find((l) => l.startsWith("Corrections")) ?? "").trim();
+    return { intro, points };
+  } catch {
+    return { intro: "", points: [] };
+  }
+}

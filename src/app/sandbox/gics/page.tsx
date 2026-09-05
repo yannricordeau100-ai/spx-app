@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
-import { lireAnnuaireGics, lireKpiParSousIndustrie, lirePrompts } from "@/lib/cahier";
+import { lireAnnuaireGics, lireDonneesKpi, lireKpiParSousIndustrie, lirePrompts, lireRelecture } from "@/lib/cahier";
 import V17_PUBLIC from "@/data/v1-7-public.json";
 import { COMPANIES } from "@/lib/data";
 import { GicsAtelier } from "@/components/sandbox/gics-atelier";
@@ -34,7 +34,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
   for (const [t, v] of Object.entries(V17_PUBLIC as Record<string, { name?: string }>)) if (v?.name) noms[t.toUpperCase()] = v.name;
   for (const [t, v] of Object.entries(COMPANIES)) noms[t.toUpperCase()] = v.name;
   const arbitrages = await lireArbitragesGics();
-  const [kpiParSousIndustrie, prompts, annuaire] = await Promise.all([lireKpiParSousIndustrie(), lirePrompts(), lireAnnuaireGics(noms, arbitrages)]);
+  const [kpiParSousIndustrie, prompts, annuaire, donnees, relecture] = await Promise.all([lireKpiParSousIndustrie(), lirePrompts(), lireAnnuaireGics(noms, arbitrages), lireDonneesKpi(), lireRelecture()]);
   const nbGroupes = GICS.reduce((t, s) => t + s.groups.length, 0);
   const nbIndustries = GICS.reduce((t, s) => t + s.groups.reduce((u, g) => u + g.industries.length, 0), 0);
   const nbSous = GICS.reduce((t, s) => t + s.groups.reduce((u, g) => u + g.industries.reduce((v, i) => v + i.subs.length, 0), 0), 0);
@@ -54,7 +54,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
           {GICS.length} secteurs, {nbGroupes} groupes d’industries, {nbIndustries} industries, {nbSous} sous-industries (structure GICS 2023). Puis, par sous-industrie, les KPI qu’un investisseur attend, et les prompts qui servent à les trouver.
         </p>
         <div className="mt-6">
-          <GicsAtelier kpiParSousIndustrie={kpiParSousIndustrie} prompts={prompts} annuaire={annuaire} jeton={parJeton ? sp.audit_token ?? null : null} />
+          <GicsAtelier kpiParSousIndustrie={kpiParSousIndustrie} prompts={prompts} annuaire={annuaire} donnees={donnees} relecture={relecture} jeton={parJeton ? sp.audit_token ?? null : null} />
         </div>
       </main>
     </div>

@@ -21,9 +21,9 @@ import { useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { ChevronDown, ChevronRight, ExternalLink, Minus, Plus, Search } from "lucide-react";
 import { GICS, type GicsSector, type GicsSubIndustry } from "@/lib/desk/gics";
-import type { AnnuaireGics, KpiParSousIndustrie, KpiSouhaite, PromptCahier } from "@/lib/cahier";
+import type { AnnuaireGics, DonneesSociete, KpiParSousIndustrie, KpiSouhaite, PointRelecture, PromptCahier } from "@/lib/cahier";
 
-type Onglet = "classification" | "societes" | "arbitrage" | "prompts";
+type Onglet = "classification" | "societes" | "arbitrage" | "relecture" | "prompts";
 
 const STATUT_CLASSE: Record<string, string> = {
   brouillon: "border-zinc-500/40 bg-zinc-500/10 text-zinc-300",
@@ -65,11 +65,16 @@ export function GicsAtelier({
   kpiParSousIndustrie,
   prompts,
   annuaire,
+  donnees = {},
+  relecture = { intro: "", points: [] },
   jeton = null,
 }: {
   kpiParSousIndustrie: Record<string, KpiParSousIndustrie>;
   prompts: PromptCahier[];
   annuaire: AnnuaireGics;
+  /** Resultats de la recherche de donnees KPI par societe (docs/cahier/donnees). */
+  donnees?: Record<string, DonneesSociete>;
+  relecture?: { intro: string; points: PointRelecture[] };
   /** Jeton d audit (verifications automatiques) ; null pour le proprietaire connecte. */
   jeton?: string | null;
 }) {
@@ -83,6 +88,7 @@ export function GicsAtelier({
     { id: "classification", label: "Classification et KPI", compte: `${nbSous} sous-industries · ${nbDocumentees} documentées` },
     { id: "societes", label: "Sociétés", compte: `${nbClassees} classées · ${annuaire.aClasser.length} à classer` },
     { id: "arbitrage", label: "À arbitrer", compte: `${annuaire.hesitations.length} société${annuaire.hesitations.length > 1 ? "s" : ""}` },
+    { id: "relecture", label: "Arbitrages KPI", compte: `${relecture.points.length} points` },
     { id: "prompts", label: "Prompts", compte: `${prompts.length}` },
   ];
 
@@ -125,10 +131,12 @@ export function GicsAtelier({
             <div className="mt-6">
               <Arbre
                 mode="societes"
-                rendu={(sub) => <ListeSocietes liste={annuaire.parSousIndustrie[sub.code] ?? []} />}
+                rendu={(sub) => <ListeSocietes liste={annuaire.parSousIndustrie[sub.code] ?? []} donnees={donnees} />}
                 compte={(sub) => {
-                  const n = annuaire.parSousIndustrie[sub.code]?.length ?? 0;
-                  return n > 0 ? `${n} sté${n > 1 ? "s" : ""}` : "";
+                  const liste = annuaire.parSousIndustrie[sub.code] ?? [];
+                  const n = liste.length;
+                  const cherchees = liste.filter((s) => donnees[s.ticker.toUpperCase()]).length;
+                  return n > 0 ? `${n} sté${n > 1 ? "s" : ""}${cherchees ? ` · ${cherchees} recherchée${cherchees > 1 ? "s" : ""}` : ""}` : "";
                 }}
               />
             </div>
@@ -150,6 +158,7 @@ export function GicsAtelier({
           </>
         )}
         {onglet === "arbitrage" && <OngletArbitrage hesitations={annuaire.hesitations} jeton={jeton} />}
+        {onglet === "relecture" && <OngletRelecture relecture={relecture} />}
         {onglet === "prompts" && <OngletPrompts prompts={prompts} />}
       </div>
     </div>
@@ -563,22 +572,95 @@ function TiroirsKpi({ doc, code }: { doc?: KpiParSousIndustrie; code: string }) 
 
 /* ───────────── Sociétés d une sous-industrie ───────────── */
 
-function ListeSocietes({ liste }: { liste: { ticker: string; name: string }[] }) {
+function ListeSocietes({ liste, donnees }: { liste: { ticker: string; name: string }[]; donnees: Record<string, DonneesSociete> }) {
   if (liste.length === 0) {
     return <div className="rounded-xl border border-dashed border-white/15 px-4 py-3 text-[13px] text-zinc-500">Aucune société de l’univers classée ici.</div>;
   }
   return (
     <ul className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">
-      {liste.map((s) => (
-        <li key={s.ticker}>
-          <Link href={`/${s.ticker.toLowerCase()}`} className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2 transition-colors hover:border-violet-400/50 hover:bg-white/[0.04]">
-            <span className="font-mono text-[12px] font-semibold text-violet-200">{s.ticker}</span>
-            <span className="min-w-0 flex-1 truncate text-[13.5px] text-zinc-200">{s.name}</span>
-            <ExternalLink className="size-3.5 shrink-0 text-zinc-600" />
-          </Link>
-        </li>
-      ))}
+      {liste.map((s) => {
+        const d = donnees[s.ticker.toUpperCase()];
+        return (
+          <li key={s.ticker} className="rounded-lg border border-white/10 bg-white/[0.02]">
+            <Link href={`/${s.ticker.toLowerCase()}`} className="flex items-center gap-2 px-3 py-2 transition-colors hover:bg-white/[0.04]">
+              <span className="font-mono text-[12px] font-semibold text-violet-200">{s.ticker}</span>
+              <span className="min-w-0 flex-1 truncate text-[13.5px] text-zinc-200">{s.name}</span>
+              <ExternalLink className="size-3.5 shrink-0 text-zinc-600" />
+            </Link>
+            {d && <StatutsKpi d={d} />}
+          </li>
+        );
+      })}
     </ul>
+  );
+}
+
+const STATUT_DONNEE: Record<string, { label: string; cls: string }> = {
+  existe: { label: "existe déjà", cls: "border-sky-400/40 bg-sky-500/10 text-sky-200" },
+  trouve: { label: "trouvé", cls: "border-emerald-400/40 bg-emerald-500/10 text-emerald-200" },
+  non_trouve: { label: "non trouvé", cls: "border-red-400/40 bg-red-500/10 text-red-200" },
+  actuel_seulement: { label: "valeur actuelle seulement", cls: "border-amber-400/40 bg-amber-500/10 text-amber-200" },
+  autre: { label: "autre", cls: "border-zinc-500/40 bg-zinc-500/10 text-zinc-300" },
+};
+
+function StatutsKpi({ d }: { d: DonneesSociete }) {
+  const [ouvert, setOuvert] = useState(false);
+  return (
+    <div className="border-t border-white/[0.06] px-3 py-2">
+      <button onClick={() => setOuvert((o) => !o)} className="flex w-full items-center gap-1.5 text-left text-[11.5px] text-zinc-400">
+        {ouvert ? <ChevronDown className="size-3" /> : <ChevronRight className="size-3" />}
+        Données KPI : {d.kpis.length} · recherche du {d.date ?? "?"}
+      </button>
+      <ul className={`mt-1.5 space-y-1.5 ${ouvert ? "" : "hidden"}`}>
+        {d.kpis.map((k) => {
+          const st = STATUT_DONNEE[k.statut] ?? STATUT_DONNEE.autre;
+          const annees = Object.keys(k.annees ?? {}).sort();
+          const detail =
+            k.statut === "trouve"
+              ? `${annees.length} année${annees.length > 1 ? "s" : ""} (${annees[0]} à ${annees[annees.length - 1]})${k.complet ? ", toutes présentes" : ", avec des trous"}`
+              : k.statut === "existe"
+                ? `en ligne${k.short_en_ligne ? ` (${k.short_en_ligne})` : ""}${k.annees_en_ligne ? `, ${k.annees_en_ligne} années` : ""}`
+                : "";
+          return (
+            <li key={k.short} className="text-[12px]">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className={`rounded-full border px-1.5 py-px text-[9.5px] uppercase tracking-wider ${st.cls}`}>{st.label}</span>
+                <span className="text-zinc-200">{k.nom_fr ?? k.short}</span>
+                {detail && <span className="text-zinc-500">· {detail}</span>}
+              </div>
+              {k.commentaire && <p className="ml-1 mt-0.5 text-[11.5px] italic text-zinc-500">{k.commentaire}</p>}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+/* ───────────── Arbitrages KPI (relecture) ───────────── */
+
+function OngletRelecture({ relecture }: { relecture: { intro: string; points: PointRelecture[] } }) {
+  if (relecture.points.length === 0) return <p className="text-[14px] text-zinc-400">Aucun point en attente.</p>;
+  return (
+    <div>
+      <p className="text-[13.5px] text-zinc-400">
+        Points laissés à ton arbitrage par la relecture indépendante des KPI par sous-industrie (5 sept 2026). Réponds par message : « garder » ou « retirer », ou la correction à faire. {relecture.intro}
+      </p>
+      <table className="mt-4 w-full text-[13px]">
+        <thead className="text-[10.5px] uppercase tracking-wider text-zinc-500">
+          <tr><th className="pb-2 text-left">Code</th><th className="pb-2 text-left">Sous-industrie</th><th className="pb-2 text-left">Point</th></tr>
+        </thead>
+        <tbody className="text-zinc-300">
+          {relecture.points.map((p, i) => (
+            <tr key={i} className="border-t border-white/[0.06] align-top">
+              <td className="py-2 pr-3 font-mono text-[12px] text-violet-300">{p.code}</td>
+              <td className="py-2 pr-3 text-zinc-200">{p.sousIndustrie}</td>
+              <td className="py-2 text-zinc-400">{p.point}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

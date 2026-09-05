@@ -50,10 +50,10 @@ function envoieAlerte(sujet: string, corps: string, cleDedup: string): void {
 }
 
 /** Un compte non-propriétaire a présenté le cookie de simulation de palier. */
-export function signaleTricheSimulation(email: string, valeur: string): void {
+export function signaleTricheSimulation(email: string, valeur: string, ip = ""): void {
   envoieAlerte(
     "ALERTE Mettrik : cookie de simulation présenté par un tiers",
-    `La session "${email}" a présenté le cookie de simulation de palier (valeur "${valeur}") sans être le compte propriétaire. Le cookie a été IGNORÉ (palier réel conservé). Si les tentatives se répètent, envisager de bannir ce compte.`,
+    `La session "${email}" a présenté le cookie de simulation de palier (valeur "${valeur}") sans être le compte propriétaire (ip ${ip || "inconnue"}). Le cookie a été IGNORÉ (palier réel conservé). Si les tentatives se répètent, envisager de bannir ce compte.`,
     `simulate:${email}`,
   );
 }

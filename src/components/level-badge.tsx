@@ -1,5 +1,6 @@
 "use client";
 
+import { VERSION } from "@/lib/version";
 import { useEffect, useState } from "react";
 import { SIMULATE_COOKIE, type EffectiveTier } from "@/lib/desk/effective-tier-shared";
 
@@ -45,7 +46,7 @@ const LEVEL_META: Record<Exclude<Level, 0>, {
       "Niveau 1 (shadow prod) : clone fidèle de la prod, sandbox de validation Yann. Stripe en test mode, Resend en dry-run, Supabase séparée. Aucune action ici ne pollue la vraie prod.",
   },
   2: {
-    label: "NIVEAU 2 · PREVIEW",
+    label: `NIVEAU 2 · PREVIEW · v${VERSION}`,
     shortLabel: "N2",
     bgClass: "bg-violet-500/15",
     borderClass: "border-violet-400/40",

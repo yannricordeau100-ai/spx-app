@@ -24,3 +24,6 @@ Conventions :
 | Hiérarchie des sources | Claude chat ou Claude Code, prompt `sources-internet` | même règle : dépôt final par Claude Code dans `sources.md` |
 
 Une seule session écrit à la fois ; les deux comptes lisent et écrivent le même dépôt (branche staging).
+
+## Archivé (décisions closes)
+- 5 sept 2026 : document PNG au style du graphique sombre du site (barres 3D, dégradés) : non retenu, le document garde son style d impression.

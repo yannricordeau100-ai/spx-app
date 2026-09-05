@@ -60,8 +60,23 @@ export async function readSimulateTier(): Promise<EffectiveTier | null> {
     if (email === owner || email.endsWith("@mettrik-internal.test")) {
       return value as EffectiveTier;
     }
-    const { signaleTricheSimulation } = await import("@/lib/security/alerte");
-    signaleTricheSimulation(email || "anonyme", value);
+    // 5 sept 2026 : sourdine quand la tentative vient du proprietaire lui-meme
+    // (IP declaree dans IPS_PROPRIETAIRE, liste separee par des virgules) ou
+    // d un environnement hors production (niveau2 : ce sont les tests).
+    let ip = "";
+    try {
+      const { headers } = await import("next/headers");
+      const h = await headers();
+      ip = (h.get("x-forwarded-for") ?? h.get("x-real-ip") ?? "").split(",")[0].trim();
+    } catch {
+      /* hors requete */
+    }
+    const ipsProprietaire = (process.env.IPS_PROPRIETAIRE ?? "").split(",").map((x) => x.trim()).filter(Boolean);
+    const horsProduction = (process.env.VERCEL_ENV ?? "development") !== "production";
+    if (!horsProduction && !(ip && ipsProprietaire.includes(ip))) {
+      const { signaleTricheSimulation } = await import("@/lib/security/alerte");
+      signaleTricheSimulation(email || "anonyme", value, ip);
+    }
     return null;
   } catch {
     return null;
