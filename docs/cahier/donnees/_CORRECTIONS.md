@@ -20,3 +20,6 @@ Séries en ligne trop courtes, exercices antérieurs retrouvés (à allonger) : 
 | BR | Croissance des revenus récurrents à change constant | valeurs en ligne 8, 8, 6 contre 9 / 6 / 7 / 8 % dans les 10-K (FY2023 à FY2026) | remplacer (fichier BR) |
 | CARR | Part de l'après-vente | série en ligne 22, 24, 26, 28, 30 sans rapport avec les 10-K (28, 27, 23, 24, 25, 28 pour 2020 à 2025) | remplacer (fichier CARR) |
 | CAT | Part services et pièces | renseignée en Mds $ alors que le KPI est un pourcentage ; Caterpillar ne publie que le montant | renommer en « Revenus de services » (Mds $) |
+
+## FER (Ferrovial) : carnet de commandes 2022 en ligne non rattachable
+Le brouillon `.batches-drafts-safe/kpis-haut/FER.json` affiche 14392 pour le carnet 2022 alors que les rapports annuels 2022 et 2023 indiquent 14743 M EUR. La valeur 2023 du brouillon (15179) correspond au comparatif retraite du rapport 2024, la valeur publiee etant 15632. Constat du 05/09/2026 (lot 20-08), valeurs officielles dans `donnees/FER.json`.
