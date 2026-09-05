@@ -21,8 +21,8 @@ Séries en ligne trop courtes, exercices antérieurs retrouvés (à allonger) : 
 | CARR | Part de l'après-vente | série en ligne 22, 24, 26, 28, 30 sans rapport avec les 10-K (28, 27, 23, 24, 25, 28 pour 2020 à 2025) | remplacer (fichier CARR) |
 | CAT | Part services et pièces | renseignée en Mds $ alors que le KPI est un pourcentage ; Caterpillar ne publie que le montant | renommer en « Revenus de services » (Mds $) |
 
-## FER (Ferrovial) : carnet de commandes 2022 en ligne non rattachable
-Le brouillon `.batches-drafts-safe/kpis-haut/FER.json` affiche 14392 pour le carnet 2022 alors que les rapports annuels 2022 et 2023 indiquent 14743 M EUR. La valeur 2023 du brouillon (15179) correspond au comparatif retraite du rapport 2024, la valeur publiee etant 15632. Constat du 05/09/2026 (lot 20-08), valeurs officielles dans `donnees/FER.json`.
+## FER (Ferrovial) : RESOLU le 05/09. Le 14 392 vient de la serie retraitee du Factbook officiel (6-K SEC)
+Le brouillon `.batches-drafts-safe/kpis-haut/FER.json` affiche 14392 pour le carnet 2022 alors que les rapports annuels 2022 et 2023 indiquent 14743 M EUR. La valeur 2023 du brouillon (15179) correspond au comparatif retraite du rapport 2024, la valeur publiee etant 15632. Constat du 05/09/2026 (lot 20-08). Resolution : les deux series sont officielles, celle en ligne suit le Factbook (base homogeneisee), l autre les valeurs a la cloture. La serie en ligne a ete etendue a 2016-2025 et sourcee (Factbook 2026).
 
 ## Sous-industrie 20106020 (machines industrielles) : KPI sans objet pour les distributeurs et l'outillage a cycle court
 Constat des lots 20-10 et 20-20 : GWW (distributeur) et SNA (outillage vendu par franchises) n'ont aucun des 5 KPI organiques de leur sous-industrie (verifie sur 10 exercices de 10-K chacun). A trancher par le proprietaire : reclassement, ou passe "KPI propres a la societe" prevue dans les ameliorations du 5 sept.
