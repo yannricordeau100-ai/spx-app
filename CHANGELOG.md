@@ -64,3 +64,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.06.3 (06 Sep 2026 01:37, apres 0c8a93b586)
 - Page GICS : suppression de l onglet A arbitrer (arbitrages societes termines)
+
+## v2026.09.06.4 (06 Sep 2026 01:42, apres 53f051404f)
+- Corrections fiches validees : ABT, DXCM, CON.DE, HCA, APTV, SREN.SW, AJG (le 10-K fait foi)

@@ -56,3 +56,14 @@ Serie "Content per Vehicle" en ligne (180, 210, 230, 240) introuvable dans les d
 
 ## CON.DE (06/09/2026, lot 25-03)
 PREMIUM_MIX en ligne (52 %) contredit le rapport annuel 2025 : environ 62 % des ventes de la marque Continental en pneus 18 pouces et plus (49 % en 2020). Valeurs officielles dans le cahier, en attente de validation du proprietaire avant correction de fiche.
+
+## Corrections appliquees le 06/09/2026 (regle du proprietaire : le 10-K / 10-Q fait foi, ecarts importants corriges)
+- ABT : RPO Diagnostics 0,004 / 0,006 corrige en 4,4 / 6,1 Mds $ (facteur 1000).
+- DXCM : base clients rafraichie a 3,5 millions fin 2025 (point ajoute).
+- CON.DE : part des pneus 18 pouces et plus 52 corrigee en 62 % (2025), point 2020 a 49 ajoute.
+- HCA : taux d occupation annuel 2021 corrige 71 en 74, 2022 corrige 71 en 72.
+- APTV : serie Content/Vehicle retiree (introuvable dans les documents officiels) ; growth over market remplacee par la serie des communiques (10, 15, 11, 2, 1, 1).
+- SREN.SW : ratio combine P&C Re 2023 corrige 94,8 en 85,0 (IFRS 17, coherent 2024-2025).
+- AJG : serie Adjusted EBITDAC Margin consolidee artificielle retiree (la serie officielle du segment Courtage existe deja sur la fiche).
+- Laisses tels quels (ecart mineur, tolerance des usages financiers) : HCA admissions (0,5 %), IDXX (1,3 %), PRU (0,7 pt).
+- Restent a traiter apres re-sourcage : SYK (series Mako), ARES (FRE avant retraitements).
