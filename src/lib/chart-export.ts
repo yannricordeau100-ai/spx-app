@@ -112,6 +112,8 @@ function isDarkColor(color: string): boolean {
   return true; // fallback sombre (cas le plus fréquent Mettrik)
 }
 
+import { logoNeedsLightBg } from "@/components/logos";
+
 export async function downloadSvgAsPng(
   svg: SVGSVGElement,
   filename: string,
@@ -496,9 +498,15 @@ export async function downloadSvgAsPng(
     if (entete && utile && !memeTexte(uniteEnAxe, entete.textContent || "")) {
       const fsFinal = parseFloat(entete.getAttribute("font-size") || "16") || 16;
       const ty = parseFloat(entete.getAttribute("y") || "NaN");
+      // Yann 5 sept 2026 : la ligne anglaise posee SOUS l en-tete venait
+      // chevaucher la premiere graduation de l axe (screen LVMH "8000").
+      // On remonte l en-tete francais d une ligne et l anglais prend son
+      // ancienne place : le bloc entier reste au-dessus des graduations.
+      const tyBase = Number.isFinite(ty) ? ty : 0;
+      entete.setAttribute("y", String(Math.round((tyBase - fsFinal * 0.95) * 10) / 10));
       const en = document.createElementNS("http://www.w3.org/2000/svg", "text");
       en.setAttribute("x", entete.getAttribute("x") || "0");
-      en.setAttribute("y", String((Number.isFinite(ty) ? ty : 0) + fsFinal * 0.95));
+      en.setAttribute("y", String(tyBase));
       en.setAttribute("text-anchor", entete.getAttribute("text-anchor") || "start");
       en.setAttribute("font-family", PNG_FONT_FAMILY);
       en.setAttribute("font-weight", "300");
@@ -506,7 +514,8 @@ export async function downloadSvgAsPng(
       en.setAttribute("font-size", String(Math.round(fsFinal * 0.8 * 10) / 10));
       en.setAttribute("fill", entete.getAttribute("fill") || "#9ca3af");
       en.setAttribute("opacity", "0.8");
-      en.textContent = uniteEnAxe;
+      // Yann 5 sept 2026 : premier mot avec majuscule, comme en francais.
+      en.textContent = uniteEnAxe.charAt(0).toUpperCase() + uniteEnAxe.slice(1);
       entete.parentNode?.insertBefore(en, entete.nextSibling);
     }
   }
@@ -777,7 +786,7 @@ export async function downloadSvgAsPng(
   // Yann 2 juin 2026 v9 : hiérarchie inversée — nom sté = focus #1 (gros),
   // titre du graph (KPI) = focus #2 juste en dessous.
   const TITLE_STE_FONT_SIZE = 51;       // ligne 1 (nom sté), focus #1 (+50 % Yann 24 aout 2026)
-  const TITLE_KPI_FONT_SIZE = 27;       // ligne 2 (nom KPI) (+50 % Yann 24 aout 2026)
+  const TITLE_KPI_FONT_SIZE = 33;       // ligne 2 (nom KPI) agrandie, FR seulement (Yann 5 sept 2026)
   const TITLE_STE_CHAR_W = 24;          // estimation Avenir 51px
   const TITLE_KPI_CHAR_W = 9;           // estimation Avenir 600 18px
   const TITLE_LOGO_SIZE = 48;           // logo sté (+50 % Yann 24 aout 2026)
@@ -922,10 +931,17 @@ export async function downloadSvgAsPng(
         bgRectEl.setAttribute("height", String(TITLE_LOGO_SIZE));
         bgRectEl.setAttribute("rx", String(logoRadius));
         bgRectEl.setAttribute("ry", String(logoRadius));
+        // Yann 5 sept 2026 : meme rendu que la page ste. Un logo sombre
+        // (liste light-bg) recoit une pastille BLANCHE opaque, les autres un
+        // fond noir #0a0a0a, comme le LogoTile de company-header. Fini le
+        // fond translucide qui rendait les logos sombres (LVMH) invisibles.
+        const fondClair = options.ticker ? logoNeedsLightBg(options.ticker) : false;
+        bgRectEl.setAttribute("fill", fondClair ? "#ffffff" : "#0a0a0a");
         bgRectEl.setAttribute(
-          "fill",
-          isDarkTheme ? "rgba(255,255,255,0.07)" : "rgba(10,10,10,0.05)"
+          "stroke",
+          fondClair ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.10)"
         );
+        bgRectEl.setAttribute("stroke-width", "1");
         clone.appendChild(bgRectEl);
         const stéImgEl = document.createElementNS(NS, "image");
         stéImgEl.setAttribute("href", stéLogoDataUrl);

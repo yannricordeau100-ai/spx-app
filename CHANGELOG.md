@@ -52,3 +52,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.05.38 (05 Sep 2026 22:17, apres fb66b68588)
 - Donnees KPI : allongement A06 a A12 + sante 35-01 35-02
+
+## v2026.09.05.39 (05 Sep 2026 23:08, apres bbe3fc8230)
+- Export PNG : logo comme la page ste, unite EN capitalisee, en-tete axe Y remonte, titre KPI FR agrandi. Donnees KPI : sante 40/75, allongements A18-A23

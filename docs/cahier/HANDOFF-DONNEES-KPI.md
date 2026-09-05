@@ -12,7 +12,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 05/09/2026 22:24. Sociétés faites : 329 / 666. Secteurs 45, 20, 40 terminés et TOUS CONTRE-VÉRIFIÉS (45 : 101/101 ; 20 : 204/205 ; 40 : 185/191 conformes, 6 non vérifiables, 0 corrigée, livrable _VERIFICATION-40.md). Allongement : A01-A13 validés, A14-A16 en cours. Santé (35) : 15/75. Ordre : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 05/09/2026 23:07. Sociétés faites : 347 / 666. Secteurs 45, 20, 40 terminés et TOUS CONTRE-VÉRIFIÉS (45 : 101/101 ; 20 : 204/205 ; 40 : 185/191 conformes, 6 non vérifiables, 0 corrigée, livrable _VERIFICATION-40.md). Allongement : A01-A23 validés, A24-A26 en cours (reste A27-A46). Santé (35) : 40/75 validées (lots 35-01 à 35-08), 35-09 à 35-11 en cours. Ordre : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
