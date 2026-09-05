@@ -3,7 +3,7 @@
 # les nouveaux 10-Q/10-K dans la foulée. Yann 12 mai 2026.
 #
 # Logique :
-#   1. Récupère le top 307 V1.8 (univers de référence).
+#   1. Univers de référence : les 666 sociétés V1.9.5 (indices), filtre en aval.
 #   2. Pour chaque sté dont `next_earnings_date < today` :
 #      a. Pull les filings SEC EDGAR les plus récents (fetch-filing-dates.py)
 #      b. Update `latest_filing` dans v2-pipeline-enrich/<ticker>.json
@@ -50,12 +50,12 @@ jobs:
       - name: Install Python deps
         run: pip install yfinance pandas
 
-      - name: Refresh SEC EDGAR filing dates (top 307 V1.8)
+      - name: Refresh SEC EDGAR filing dates (univers 666)
         run: python3 scripts/fetch-filing-dates.py --limit 640
         env:
           PYTHONUNBUFFERED: "1"
 
-      - name: Refresh yfinance next_earnings_date (top 307)
+      - name: Refresh yfinance next_earnings_date (univers 666)
         run: python3 scripts/earnings-dates-yfinance.py --limit 640 --workers 20
         env:
           PYTHONUNBUFFERED: "1"
@@ -63,8 +63,8 @@ jobs:
       # Yann 14 mai 2026 : snapshot boursier (market cap, P/E, EPS, beta,
       # dividende, plus-haut/plus-bas 52 sem, variation jour) actualisé
       # quotidiennement. Source = yfinance (gratuit). Effet :
-      # `financial_snapshot` à jour chaque jour pour le top 307.
-      - name: Refresh yfinance financial_snapshot (top 307)
+      # `financial_snapshot` à jour chaque jour pour l univers 666.
+      - name: Refresh yfinance financial_snapshot (univers 666)
         run: python3 scripts/enrich-company-profile-yfinance.py --limit 640 --force
         env:
           PYTHONUNBUFFERED: "1"
@@ -110,6 +110,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "Aucun changement détecté, skip commit."
           else
-            git commit -m "data(freshness): daily refresh top 307 V1.8 (cron $(date -u +%Y-%m-%d))"
+            git commit -m "data(freshness): daily refresh univers 666 (cron $(date -u +%Y-%m-%d))"
             git push origin staging
           fi
