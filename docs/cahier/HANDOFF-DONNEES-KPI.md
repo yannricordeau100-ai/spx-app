@@ -12,7 +12,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 05/09/2026 21:04. Sociétés faites : 281 / 666. Techno et Industrie terminées et CONTRE-VÉRIFIÉES (45 : 101/101 conformes ; 20 : 205 séries, 204 conformes, 1 non vérifiable RHM.DE, 0 corrigée, livrable _VERIFICATION-20.md). Finance (40) : 69 / 100 (validés jusqu'au 40-13 ; 40-14 à 40-16 en cours). Pollution IVR purgée (WKL.AS, EDEN.PA, MBG.DE, HNR1.DE), FER sourcé Factbook, GWW reclassé 20107010 et refait. Ordre : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 05/09/2026 21:34. Sociétés faites : 312 / 666. Techno, Industrie et FINANCE TERMINÉES (Finance : 100 stés, 532 KPI : 222 existent, 110 trouvés, 104 non publiés, 93 autre, 3 actuel). Contre-vérif finance lancée. NOUVELLE PASSE en cours (ordre du propriétaire) : allongement à 20 ans des KPI en statut existe des 3 secteurs finis (~200 stés), résultats dans annees des fichiers donnees/. Santé (35) démarre après. Ordre : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
@@ -36,6 +36,8 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 - Les fichiers de fiche société peuvent être en minuscules ou sous une autre place de cotation (ex. STMPA.PA absent, stmmi.mi présent) : le dire aux agents.
 
 ## Ce qui est terminé (ne pas refaire)
+
+- Finance (40) : 100 sociétés, 532 KPI examinés (222 existent, 110 trouvés, 104 non publiés, 93 autre, 3 valeur actuelle). Défauts en ligne notés dans _CORRECTIONS.md : SREN.SW (ratio combiné 2023 sur l ancien référentiel), PRU (ratio de prestations 2023-2024 différent des 10-K). Séries en ligne allongées par les agents : C (coefficient d exploitation 10 exercices), PNC (NIM et coefficient 2012-2025), AXP (série homogène 2017-2024), BRO (série annuelle ajoutée).
 
 - Classification GICS 2023 (163 sous-industries), KPI organiques / complémentaires par sous-industrie (1 231 KPI, relus), 664 / 666 sociétés classées (2 arbitrées par le propriétaire).
 - Moat Morningstar lu pour 661 / 666 sociétés : `docs/cahier/moat.json` (usage interne uniquement). Introuvables : CBOE, DPW.DE (= DHL.DE), EA, JDEP.AS, ROG.SW.

@@ -29,3 +29,9 @@ Constat des lots 20-10 et 20-20 : GWW (distributeur) et SNA (outillage vendu par
 
 ## WKL.AS (Wolters Kluwer) : fiche en ligne polluee par une autre entite
 Constat du lot 20-23 : `src/data/companies/WKL.AS.json` contient les donnees d une entite nommee IVR (participants a un congres, reunions de comites) et des agregats en euros non rattaches aux publications de Wolters Kluwer. Aucun KPI organique de la sous-industrie n y figure. Meme famille que la cross-pollution MC.PA/Moelis d aout. A corriger sur la fiche apres validation du proprietaire.
+
+## SREN.SW (Swiss Re) : ratio combine 2023 en ligne sur l ancien referentiel
+Constat du lot 40-18 : la fiche en ligne affiche 94,8 % pour 2023 (normes americaines) alors que Swiss Re publie 85,0 % pour le meme exercice retraite en IFRS 17. Rupture de referentiel a documenter ou serie a raccorder sur la fiche apres validation du proprietaire.
+
+## PRU (Prudential Financial) : ratio de prestations en ligne different des 10-K
+Constat du lot 40-16 : la serie en ligne donne 83,2 et 83,1 pour 2023 et 2024 alors que les 10-K publient 82,5 et 82,7. Serie officielle 2014-2025 dans donnees/PRU.json. A corriger sur la fiche apres validation du proprietaire.
