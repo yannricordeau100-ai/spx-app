@@ -61,3 +61,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.06.2 (06 Sep 2026 01:03, apres f8df38b327)
 - Donnees KPI : 32 societes (fin sante, debut conso discretionnaire), allongements A19-A36 partiels, contre-verif sante 1re passe
+
+## v2026.09.06.3 (06 Sep 2026 01:37, apres 0c8a93b586)
+- Page GICS : suppression de l onglet A arbitrer (arbitrages societes termines)

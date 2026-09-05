@@ -27,7 +27,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 06/09/2026 01:02. Sociétés faites : 419 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 32 / 70 en cours. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 06/09/2026 01:33. Sociétés faites : 446 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 59 / 70 en cours. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
@@ -53,6 +53,8 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 - Les fichiers de fiche société peuvent être en minuscules ou sous une autre place de cotation (ex. STMPA.PA absent, stmmi.mi présent) : le dire aux agents.
 
 ## Ce qui est terminé (ne pas refaire)
+
+- Santé (35) : contre-vérification du 06/09 en DEUX passes (la seconde ciblant les non vérifiables avec XBRL, EDGAR plein texte, comparatifs d autres exercices, archives). 162 séries sondées : 93 conformes, 0 corrigée, 0 passée en autre, 69 non vérifiables (surtout séries reconstituées ou sources jamais republiées ; VRTX PATIENTS_TREATED et BMY GROSS_TO_NET restent introuvables par cinq chemins). Zéro écart avéré. Livrable : donnees/_VERIFICATION-35.md.
 
 - Finance (40) : contre-vérification du 05/09 : 191 séries sondées via 417 documents sources, 185 conformes, 0 corrigée, 6 non vérifiables (composants non isolables ou source absente). Livrable : donnees/_VERIFICATION-40.md.
 - Finance (40) : 100 sociétés, 532 KPI examinés (222 existent, 110 trouvés, 104 non publiés, 93 autre, 3 valeur actuelle). Défauts en ligne notés dans _CORRECTIONS.md : SREN.SW (ratio combiné 2023 sur l ancien référentiel), PRU (ratio de prestations 2023-2024 différent des 10-K). Séries en ligne allongées par les agents : C (coefficient d exploitation 10 exercices), PNC (NIM et coefficient 2012-2025), AXP (série homogène 2017-2024), BRO (série annuelle ajoutée).
