@@ -23,7 +23,7 @@ import { ChevronDown, ChevronRight, ExternalLink, Minus, Plus, Search } from "lu
 import { GICS, type GicsSector, type GicsSubIndustry } from "@/lib/desk/gics";
 import type { AnnuaireGics, KpiParSousIndustrie, KpiSouhaite, PromptCahier } from "@/lib/cahier";
 
-type Onglet = "classification" | "societes" | "prompts";
+type Onglet = "classification" | "societes" | "arbitrage" | "prompts";
 
 const STATUT_CLASSE: Record<string, string> = {
   brouillon: "border-zinc-500/40 bg-zinc-500/10 text-zinc-300",
@@ -65,10 +65,13 @@ export function GicsAtelier({
   kpiParSousIndustrie,
   prompts,
   annuaire,
+  jeton = null,
 }: {
   kpiParSousIndustrie: Record<string, KpiParSousIndustrie>;
   prompts: PromptCahier[];
   annuaire: AnnuaireGics;
+  /** Jeton d audit (verifications automatiques) ; null pour le proprietaire connecte. */
+  jeton?: string | null;
 }) {
   const [onglet, setOnglet] = useState<Onglet>("classification");
 
@@ -79,6 +82,7 @@ export function GicsAtelier({
   const onglets: { id: Onglet; label: string; compte: string }[] = [
     { id: "classification", label: "Classification et KPI", compte: `${nbSous} sous-industries · ${nbDocumentees} documentées` },
     { id: "societes", label: "Sociétés", compte: `${nbClassees} classées · ${annuaire.aClasser.length} à classer` },
+    { id: "arbitrage", label: "À arbitrer", compte: `${annuaire.hesitations.length} société${annuaire.hesitations.length > 1 ? "s" : ""}` },
     { id: "prompts", label: "Prompts", compte: `${prompts.length}` },
   ];
 
@@ -145,8 +149,96 @@ export function GicsAtelier({
             )}
           </>
         )}
+        {onglet === "arbitrage" && <OngletArbitrage hesitations={annuaire.hesitations} jeton={jeton} />}
         {onglet === "prompts" && <OngletPrompts prompts={prompts} />}
       </div>
+    </div>
+  );
+}
+
+/* ───────────── Onglet temporaire : arbitrer entre deux sous-industries ───────────── */
+
+function OngletArbitrage({ hesitations, jeton }: { hesitations: AnnuaireGics["hesitations"]; jeton: string | null }) {
+  const [choix, setChoix] = useState<Record<string, string>>({});
+  const [enCours, setEnCours] = useState<string | null>(null);
+  const [erreur, setErreur] = useState<string | null>(null);
+
+  const libelle = (code: string) => {
+    const ch = cheminDe(code);
+    return ch ? `${ch.sub.code} · ${ch.sub.name}` : code;
+  };
+  const chemin = (code: string) => {
+    const ch = cheminDe(code);
+    return ch ? `${ch.secteur.name} › ${ch.groupe.name} › ${ch.industrie.name}` : "";
+  };
+
+  const enregistrer = async (ticker: string, code: string) => {
+    setEnCours(ticker);
+    setErreur(null);
+    try {
+      const q = jeton ? `?audit_token=${encodeURIComponent(jeton)}` : "";
+      const r = await fetch(`/api/sandbox/gics-arbitrage${q}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ticker, code }),
+      });
+      if (!r.ok) throw new Error(`réponse ${r.status}`);
+      setChoix((c) => ({ ...c, [ticker]: code }));
+    } catch (e) {
+      setErreur(`Enregistrement impossible pour ${ticker} : ${String((e as Error).message)}`);
+    } finally {
+      setEnCours(null);
+    }
+  };
+
+  if (hesitations.length === 0) {
+    return <p className="text-[14px] text-zinc-400">Aucune société en attente d’arbitrage : toutes sont classées.</p>;
+  }
+
+  return (
+    <div>
+      <p className="text-[13.5px] text-zinc-400">
+        Pour chaque société, coche la sous-industrie exacte. Le choix est enregistré aussitôt et la société rejoint sa sous-industrie dans l’onglet Sociétés au prochain chargement. Onglet temporaire : il disparaît quand tout est arbitré.
+      </p>
+      {erreur && <p className="mt-2 text-[13px] text-red-300">{erreur}</p>}
+      <ul className="mt-4 space-y-3">
+        {hesitations.map((h) => {
+          const retenu = choix[h.ticker];
+          return (
+            <li key={h.ticker} className={`rounded-2xl border p-4 ${retenu ? "border-emerald-400/40 bg-emerald-500/[0.05]" : "border-white/10 bg-white/[0.02]"}`}>
+              <div className="flex flex-wrap items-center gap-2">
+                <Link href={`/${h.ticker.toLowerCase()}`} className="font-mono text-[13px] font-semibold text-violet-200 hover:underline">{h.ticker}</Link>
+                <span className="text-[15px] font-semibold text-zinc-100">{h.name}</span>
+                {retenu && <span className="ml-auto rounded-full border border-emerald-400/40 bg-emerald-500/10 px-2 py-0.5 font-mono text-[10.5px] uppercase tracking-wider text-emerald-200">enregistré</span>}
+              </div>
+              {h.raison && <p className="mt-1 text-[12.5px] text-zinc-500">{h.raison}</p>}
+              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                {[h.code, h.alternative].map((code) => (
+                  <label
+                    key={code}
+                    className={`flex cursor-pointer items-start gap-3 rounded-xl border px-3 py-2.5 transition-colors ${
+                      retenu === code ? "border-emerald-400/60 bg-emerald-500/10" : "border-white/10 hover:border-violet-400/40"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name={`arb-${h.ticker}`}
+                      className="mt-1 accent-violet-400"
+                      checked={retenu === code}
+                      disabled={enCours === h.ticker}
+                      onChange={() => enregistrer(h.ticker, code)}
+                    />
+                    <span>
+                      <span className="block text-[14px] font-medium text-zinc-100">{libelle(code)}</span>
+                      <span className="block text-[11.5px] text-zinc-500">{chemin(code)}</span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

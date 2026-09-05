@@ -42,9 +42,19 @@ export type CadreEuropeen = {
 
 export type SocieteClassee = { ticker: string; name: string };
 
+export type Hesitation = {
+  ticker: string;
+  name: string;
+  code: string;
+  alternative: string;
+  raison?: string;
+};
+
 export type AnnuaireGics = {
   parSousIndustrie: Record<string, SocieteClassee[]>;
   aClasser: SocieteClassee[];
+  /** Societes dont le classement hesite entre deux sous-industries, a arbitrer. */
+  hesitations: Hesitation[];
   source: string;
 };
 
@@ -113,23 +123,36 @@ export async function lireKpiParSousIndustrie(): Promise<Record<string, KpiParSo
   return out;
 }
 
-/** Annuaire societes -> sous-industrie (docs/cahier/societes-gics.json). */
-export async function lireAnnuaireGics(noms: Record<string, string>): Promise<AnnuaireGics> {
-  const vide: AnnuaireGics = { parSousIndustrie: {}, aClasser: [], source: "" };
+/**
+ * Annuaire societes -> sous-industrie (docs/cahier/societes-gics.json).
+ * `arbitrages` = choix deja faits par le proprietaire (desk_page_content) :
+ * une hesitation arbitree rejoint sa sous-industrie.
+ */
+export async function lireAnnuaireGics(noms: Record<string, string>, arbitrages: Record<string, string> = {}): Promise<AnnuaireGics> {
+  const vide: AnnuaireGics = { parSousIndustrie: {}, aClasser: [], hesitations: [], source: "" };
   try {
     const j = JSON.parse(await fs.readFile(path.join(RACINE(), "societes-gics.json"), "utf-8")) as {
       source?: string;
       societes?: Record<string, string>;
       a_classer?: string[];
+      hesitations?: { ticker: string; code: string; alternative: string; raison?: string }[];
     };
     const par: Record<string, SocieteClassee[]> = {};
+    const nom = (t: string) => noms[t.toUpperCase()] ?? t;
     for (const [ticker, code] of Object.entries(j.societes ?? {})) {
-      (par[code] ??= []).push({ ticker, name: noms[ticker.toUpperCase()] ?? ticker });
+      (par[code] ??= []).push({ ticker, name: nom(ticker) });
+    }
+    const hesitations: Hesitation[] = [];
+    for (const h of j.hesitations ?? []) {
+      const choix = arbitrages[h.ticker.toUpperCase()];
+      if (choix) (par[choix] ??= []).push({ ticker: h.ticker, name: nom(h.ticker) });
+      else hesitations.push({ ...h, name: nom(h.ticker) });
     }
     for (const liste of Object.values(par)) liste.sort((a, b) => a.name.localeCompare(b.name, "fr"));
     return {
       parSousIndustrie: par,
-      aClasser: (j.a_classer ?? []).map((t) => ({ ticker: t, name: noms[t.toUpperCase()] ?? t })),
+      aClasser: (j.a_classer ?? []).map((t) => ({ ticker: t, name: nom(t) })),
+      hesitations,
       source: j.source ?? "",
     };
   } catch {
