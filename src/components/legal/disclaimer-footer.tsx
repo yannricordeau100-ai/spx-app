@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { VERSION } from "@/lib/version";
 import { LocaleFlagsRow } from "@/components/locale-flags-row";
 
 /**
@@ -71,7 +72,7 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
         </div>
 
         <div className="mt-8 flex flex-col items-baseline gap-3 border-t border-[#1a1a1a] pt-5 text-[11px] text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} Mettrik AI · Tous droits réservés.</span>
+          <span>© {new Date().getFullYear()} Mettrik AI · Tous droits réservés. · <span className="font-mono text-[10.5px] text-zinc-600">v{VERSION}</span></span>
           <LocaleFlagsRow align="center" />
           <span className="font-mono">www.mettrik.ai</span>
         </div>

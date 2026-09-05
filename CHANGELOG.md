@@ -16,3 +16,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.05.26 (05 Sep 2026 13:35, apres f923e71cb5)
 - Alerte securite en sourdine pour le proprietaire ; numero de version dans le badge + CHANGELOG ; onglet Arbitrages KPI ; statuts de recherche des donnees KPI sous chaque societe ; brief donnees KPI
+
+## v2026.09.05.27 (05 Sep 2026 13:55, apres 6553a102d0)
+- Donnees KPI : 34 premieres societes technologie (statuts visibles dans l onglet Societes) ; version dans le pied de page et le panneau
