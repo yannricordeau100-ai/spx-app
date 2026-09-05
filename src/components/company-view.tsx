@@ -552,7 +552,20 @@ export function CompanyView({
     const qPrefix = heroTitleLang === "en" ? "Q" : "T";
     const sPrefix = heroTitleLang === "en" ? "H" : "S";
     const pt = active.period_type;
-    if (pt !== "quarter" && pt !== "semester") return undefined;
+    // 5 sept 2026 (LVMH, nombre de magasins) : pour une serie ANNUELLE portant
+    // ses periodes reelles ("FY2017", ..., "FY2021", "FY2023"...), l axe X
+    // les affiche telles quelles. Avant : aucun libelle n etait fourni et le
+    // graphique reconstruisait des annees consecutives a rebours depuis
+    // aujourd hui, ce qui decalait tout d un an des qu une annee manquait
+    // (5 003 magasins de 2020 affiches sous 2021, 2022 invente).
+    if (pt !== "quarter" && pt !== "semester") {
+      const hp = (active as { history_periods?: unknown[] }).history_periods;
+      const n0 = active.history?.length ?? 0;
+      if (Array.isArray(hp) && hp.length === n0 && n0 > 0 && hp.every((x) => typeof x === "string" && /^(?:FY)?\s*\d{4}$/i.test(x.trim()))) {
+        return (hp as string[]).map((x) => x.trim().replace(/^FY\s*/i, ""));
+      }
+      return undefined;
+    }
     if (!active.last_data_date) return undefined;
     const d = new Date(active.last_data_date);
     if (Number.isNaN(d.getTime())) return undefined;

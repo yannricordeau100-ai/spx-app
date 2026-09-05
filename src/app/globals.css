@@ -214,6 +214,13 @@ html[data-theme="light"] .preserve-colors {
   filter: invert(1) hue-rotate(180deg);
 }
 
+/* 5 sept 2026 (logo LVMH noir sur noir en mode clair) : une tuile qui
+   preserve ses couleurs contient un logo qui les preserve aussi ; la
+   compensation ne doit s appliquer qu une fois, sinon le logo est inverse
+   une seconde fois (noir -> blanc sur tuile blanche, ou noir sur tuile
+   redevenue noire). */
+.preserve-colors .preserve-colors { filter: none; }
+
 /* Swap PNG wordmark Mettrik (clair = PNG black-purple, sombre = white-purple).
    Yann 10 juin 2026 : ces regles vivaient dans un <style> inline du composant
    wordmark, pas applique de facon fiable sur la page ste => le PNG blanc

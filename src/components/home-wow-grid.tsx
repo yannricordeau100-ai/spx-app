@@ -85,7 +85,7 @@ export function HomeWowGrid({
                   <div
                     className={`flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg ring-1 ${
                       logoNeedsLightBg(s.ticker)
-                        ? "bg-white ring-black/15"
+                        ? "preserve-colors bg-white ring-black/15"
                         : "bg-[#111] ring-white/10"
                     }`}
                   >
