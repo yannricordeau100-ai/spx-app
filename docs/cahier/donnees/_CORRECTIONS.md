@@ -35,3 +35,6 @@ Constat du lot 40-18 : la fiche en ligne affiche 94,8 % pour 2023 (normes americ
 
 ## PRU (Prudential Financial) : ratio de prestations en ligne different des 10-K
 Constat du lot 40-16 : la serie en ligne donne 83,2 et 83,1 pour 2023 et 2024 alors que les 10-K publient 82,5 et 82,7. Serie officielle 2014-2025 dans donnees/PRU.json. A corriger sur la fiche apres validation du proprietaire.
+
+## ABT (Abbott) : RPO Diagnostics affiche avec un facteur mille d ecart
+Constat du lot 35-01 : la fiche en ligne affiche 0,004 et 0,006 Mds $ pour les obligations de prestation restantes Diagnostics 2023 et 2025 alors que les 10-K donnent 4,4 et 6,1 Mds $. Erreur d unite (facteur 1000). Serie officielle 2018-2025 dans donnees/ABT.json. A corriger sur la fiche apres validation du proprietaire.

@@ -12,7 +12,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 05/09/2026 21:34. Sociétés faites : 312 / 666. Techno, Industrie et FINANCE TERMINÉES (Finance : 100 stés, 532 KPI : 222 existent, 110 trouvés, 104 non publiés, 93 autre, 3 actuel). Contre-vérif finance lancée. NOUVELLE PASSE en cours (ordre du propriétaire) : allongement à 20 ans des KPI en statut existe des 3 secteurs finis (~200 stés), résultats dans annees des fichiers donnees/. Santé (35) démarre après. Ordre : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 05/09/2026 22:17. Sociétés faites : 327 / 666. Secteurs 45, 20, 40 terminés et contre-vérifiés (45 et 20 : zéro écart ; 40 en cours). Allongement 20 ans : lots A01 à A12 validés (~65 KPI allongés, ~460 années ajoutées), A13-A14 en cours. Santé (35) : 10 / 75 (35-01, 35-02 validés dont défaut ABT facteur mille consigné ; 35-03, 35-04 en cours). Ordre : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
