@@ -19,3 +19,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.05.27 (05 Sep 2026 13:55, apres 6553a102d0)
 - Donnees KPI : 34 premieres societes technologie (statuts visibles dans l onglet Societes) ; version dans le pied de page et le panneau
+
+## v2026.09.05.28 (05 Sep 2026 14:13, apres c7d854f28e)
+- Donnees KPI : 60 societes technologie
