@@ -67,3 +67,6 @@ PREMIUM_MIX en ligne (52 %) contredit le rapport annuel 2025 : environ 62 % des 
 - AJG : serie Adjusted EBITDAC Margin consolidee artificielle retiree (la serie officielle du segment Courtage existe deja sur la fiche).
 - Laisses tels quels (ecart mineur, tolerance des usages financiers) : HCA admissions (0,5 %), IDXX (1,3 %), PRU (0,7 pt).
 - Restent a traiter apres re-sourcage : SYK (series Mako), ARES (FRE avant retraitements).
+
+## ROST (06/09/2026, lot 25-12)
+VENTES_SURFACE en ligne avec une valeur unique non issue d une publication de la societe (la serie officielle s arrete a l exercice 2019, rubrique Selected Financial Data disparue des 10-K). A re-sourcer ou retirer apres validation du proprietaire.
