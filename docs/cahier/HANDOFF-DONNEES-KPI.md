@@ -2,20 +2,18 @@
 
 > Ce fichier est tenu à jour à chaque lot terminé. Une session Claude Code qui reprend le travail lit ce fichier, puis `docs/cahier/README.md`, et continue exactement là où la précédente s'est arrêtée. Toujours `git pull` avant de commencer, `git push` à chaque étape.
 
-## REPRISE URGENTE (06/09/2026 00:25) : etat exact au moment du passage de relais
+## REPRISE URGENTE (06/09/2026 02:05) : etat exact au moment du passage de relais
 
-La session precedente s est arretee (fin de tokens) avec des agents EN COURS. Leurs fichiers peuvent etre absents ou partiels : `_prochains.py` et `_allongement.py` le detectent, `_valide.py` refuse tout fichier incomplet. Tout ce qui est valide a ete pousse (commit « relais urgent »).
+La session precedente peut s etre arretee (limite de session) avec des agents EN COURS. Leurs fichiers peuvent etre absents ou partiels : `_prochains.py` et `_allongement.py` le detectent, `_valide.py` refuse tout fichier incomplet. Tout ce qui est valide a ete pousse.
 
-- Sociétés faites : 387 / 666. Secteurs 45, 20, 40, 35 TERMINÉS (santé : 75/75, 371 KPI : 107 existent, 71 trouvés, 147 non publiés, 46 autre).
-- Contre-vérification santé (35) : un agent avait ete lance (il avait lui meme lance 6 sous-controleurs). Livrable attendu `donnees/_VERIFICATION-35.md`. S il est absent : RELANCER le prompt de contre-vérification (secteur 35, 75 sociétés).
-- Consommation discrétionnaire (25) : lots 25-01, 25-02, 25-03 etaient en cours. Relancer ce que `_prochains.py --prochains 6` affiche (les partiels d abord).
-- Allongement 20 ans (lots A) : A01 a A33 faits (A10-A19 : quelques KPI sans marqueur mais traites, voir `_allongement.py`), A34, A35, A36 etaient en cours ; reste A37 a A47 (finance). Prompt : troisieme bloc de `_PROMPT-AGENT.md`, liste des KPI par lot via `python3 docs/cahier/donnees/_allongement.py A37`.
-- Defauts en ligne ajoutes ce soir dans `_CORRECTIONS.md` (corrections sur fiches APRES validation du proprietaire) : AJG (marge EBITDAC consolidee artificielle), SYK (series Mako non sourcees), ARES (FRE avant retraitements), ABT, DXCM.
-- Raisons des KPI non renseignes (techno et industrie) deja classees et communiquees au proprietaire (37 % non publie, 20 a 30 % grille GICS inadaptee, 16 a 23 % variations seulement, 19 a 20 % donnee voisine inutilisable en annuel). Fichiers de classement dans le scratchpad de l ancienne session (perdus) ; refaire seulement si demande.
-- Hors Cahier, faits et pousses : export PNG des stories refait (format iPhone 1080 x 1920, logo + nom, fond travaille, encadre du signal), 2 KPI NVDA poses dans `.batches-drafts-safe/kpis-haut/NVDA.json` (INVENTORY_DAYS, AUTO_DESIGN_WINS, lot `kpi-cahier-sept-2026`). Version 2026.09.06.1 poussee ; le build Vercel etait en cours et le script d alias tournait (`scripts/alias-niveau2-attente.sh`, corrige pour prendre VERCEL_TOKEN de .env.local car le jeton du CLI est refuse par l API). VERIFIER que https://mettrik-niveau2.vercel.app affiche la version 2026.09.06.x (pied de page) ; sinon relancer le script d alias.
-- Fiche WKL.AS : modification locale NON commitee (KPI d une autre entite retires), en attente de l accord du proprietaire. Ne pas la commiter sans son OK. Les 22 fichiers kpis-haut modifies localement viennent du robot de rafraichissement de midi : ne pas y toucher.
-- Regles rappelees : agents en Opus (6 en parallele max, ne jamais laisser un agent en lancer 6 autres), jamais le navigateur integre pour les agents, jamais de valeur inventee, jamais de prenom ni de tiret long, qualite avant vitesse, n0 (mettrik.ai) seulement sur l accord explicite du proprietaire, numero de version a chaque push (`scripts/version-bump.sh`).
-- Ce que le proprietaire attend comme messages : ETA de fin de secteur de temps en temps, problemes importants, tableau recapitulatif a chaque secteur termine (societes, KPI existants / trouves / non publies / autre, defauts en ligne). Pas de blabla.
+- Secteurs 45, 20, 40, 35, 25 TERMINES et contre-verifies (45 : 101/101 ; 20 : 204/205 ; 40 : 185/191 ; 35 : 162 sondees en 2 passes, 0 ecart). Contre-verification du 25 EN COURS (livrable attendu `donnees/_VERIFICATION-25.md`, la relancer si absent : second prompt de `_PROMPT-AGENT.md`, avec l escalade 5 chemins avant de dire non verifiable).
+- Secteur 30 (conso de base, 48 stes) : lots 30-01 et 30-02 etaient chez des agents. Relancer ce que `python3 docs/cahier/donnees/_prochains.py --prochains 6` affiche (partiels d abord).
+- Allongement : A01 a A42 valides (216/235 stes). Restaient en cours : A43 (reliquat PGHN.SW), A44 (PYPL, RF, RJF), A45 (SCHW, SPGI, SREN.SW, STT, SYF). Reste ensuite A46, A47. Suivi : `python3 docs/cahier/donnees/_allongement.py --prochains 6` ; prompt = troisieme bloc de `_PROMPT-AGENT.md`.
+- Corrections de fiches APPLIQUEES le 06/09 (regle du proprietaire : le 10-K / 10-Q fait foi, ecart important corrige, ecart mineur tolere) : ABT, DXCM, CON.DE, HCA, APTV, SREN.SW, AJG (detail dans `_CORRECTIONS.md`). Restent a re-sourcer : SYK (series Mako), ARES (FRE), ROST (ventes/surface).
+- Onglet « A arbitrer » supprime de /sandbox/gics (v2026.09.06.3). L onglet « Arbitrages KPI » attend les reponses du proprietaire (19 points, reponse attendue : code : garder / retirer / correction).
+- Deploiement : jeton CLI Vercel EXPIRE. `scripts/alias-niveau2-attente.sh` utilise VERCEL_TOKEN de .env.local (API REST). Chaine : version-bump, commit, push staging, puis nohup bash scripts/alias-niveau2-attente.sh. Verifier ensuite l alias vers le build du SHA courant via l API v4/aliases.
+- Demandes du proprietaire encore ouvertes hors Cahier : (1) il configure lui-meme l ecran de consentement Google (Branding, nom Mettrik AI) : instructions deja donnees ; (2) messages attendus : ETA de fin de secteur de temps en temps, problemes importants, tableau recapitulatif par secteur termine. Pas de blabla.
+- Regles : agents en Opus (6 max, jamais de sous-agents d agents), jamais le navigateur integre pour les agents, jamais de valeur inventee, jamais de prenom ni de tiret long, qualite avant vitesse, n0 (mettrik.ai) uniquement sur accord explicite du proprietaire.
 
 ## Où en est le travail
 
@@ -27,7 +25,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 06/09/2026 01:52. Sociétés faites : 457 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 70 / 70 terminée. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 06/09/2026 01:54. Sociétés faites : 457 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 70 / 70 terminée. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
