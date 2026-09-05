@@ -12,7 +12,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 05/09/2026 22:17. Sociétés faites : 327 / 666. Secteurs 45, 20, 40 terminés et contre-vérifiés (45 et 20 : zéro écart ; 40 en cours). Allongement 20 ans : lots A01 à A12 validés (~65 KPI allongés, ~460 années ajoutées), A13-A14 en cours. Santé (35) : 10 / 75 (35-01, 35-02 validés dont défaut ABT facteur mille consigné ; 35-03, 35-04 en cours). Ordre : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 05/09/2026 22:24. Sociétés faites : 329 / 666. Secteurs 45, 20, 40 terminés et TOUS CONTRE-VÉRIFIÉS (45 : 101/101 ; 20 : 204/205 ; 40 : 185/191 conformes, 6 non vérifiables, 0 corrigée, livrable _VERIFICATION-40.md). Allongement : A01-A13 validés, A14-A16 en cours. Santé (35) : 15/75. Ordre : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
@@ -39,6 +39,7 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 
 ## Ce qui est terminé (ne pas refaire)
 
+- Finance (40) : contre-vérification du 05/09 : 191 séries sondées via 417 documents sources, 185 conformes, 0 corrigée, 6 non vérifiables (composants non isolables ou source absente). Livrable : donnees/_VERIFICATION-40.md.
 - Finance (40) : 100 sociétés, 532 KPI examinés (222 existent, 110 trouvés, 104 non publiés, 93 autre, 3 valeur actuelle). Défauts en ligne notés dans _CORRECTIONS.md : SREN.SW (ratio combiné 2023 sur l ancien référentiel), PRU (ratio de prestations 2023-2024 différent des 10-K). Séries en ligne allongées par les agents : C (coefficient d exploitation 10 exercices), PNC (NIM et coefficient 2012-2025), AXP (série homogène 2017-2024), BRO (série annuelle ajoutée).
 
 - Classification GICS 2023 (163 sous-industries), KPI organiques / complémentaires par sous-industrie (1 231 KPI, relus), 664 / 666 sociétés classées (2 arbitrées par le propriétaire).
