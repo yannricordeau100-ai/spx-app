@@ -76,3 +76,12 @@ Serie en ligne des epuisements Jack Daniel's Tennessee Whiskey (6 valeurs, 12,5 
 
 ## CCEP (06/09/2026, lot 30-02)
 Serie en ligne Volume Growth (unit cases) : les deux valeurs (0,5 et 3,6) ne correspondent a aucun taux publie (officiellement 0,0 % en 2024 et 0,2 % en 2025 en volume comparable ajuste). Serie officielle en volumes absolus dans donnees/CCEP.json. A corriger apres validation du proprietaire (ecart important : la regle du 10-K fait foi s applique, correction a faire).
+
+## JDEP.AS et KDP (06/09/2026, lot 30-05, ecarts importants : regle du 10-K fait foi, a corriger)
+- JDEP.AS : serie en ligne Croissance des ventes organiques erronee (4 valeurs entieres non datees 4, 16, 4, 4 marquees trimestrielles) ; serie officielle 2020-2025 dans donnees/JDEP.AS.json.
+- KDP : series annuelles Volume/mix et Net price realization non conformes aux 10-K ; valeurs officielles FY2019-FY2025 dans donnees/KDP.json. MARKET_SHARE reduit a deux points non dates.
+
+## Corrections appliquees le 06/09/2026 au matin (regle du 10-K fait foi)
+- JDEP.AS : serie Croissance des ventes organiques remplacee par la serie annuelle officielle 2020-2025 (-0,2 ; 6,1 ; 11,3 ; 3,9 ; 5,3 ; 15,3).
+- KDP : Volume / Mix et Net Price Realization remplacees par les series annuelles officielles des 10-K 2019-2025.
+- CCEP : Volume Growth (unit cases) corrigee en 0,0 (2024) et 0,2 (2025), volumes comparables ajustes.
