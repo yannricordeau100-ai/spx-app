@@ -94,6 +94,14 @@ def pose(ticker, autres=False, retire=False):
                     if fac is None:
                         bilan.append(f"{k['short']} : unite {k.get('unite')} vs {cible.get('unit')} non convertible, ignore")
                         continue
+                    # Les series annuelles de kpis-haut portent parfois des libelles
+                    # « Q4-2018 » ; le chargeur ne garde que les libelles FY pour une
+                    # serie annuelle, on les normalise donc en « FY2018 ».
+                    for x in cible.get("history", []):
+                        y0 = annee_de(x.get("q"))
+                        if y0 and not re.match(r"^(FY\d{4}|\d{4})$", str(x["q"])):
+                            x["_q_origine"] = x["q"]
+                            x["q"] = f"FY{y0}"
                     deja = {annee_de(x["q"]) for x in cible.get("history", [])}
                     ajout = []
                     for y in sorted(annees):
