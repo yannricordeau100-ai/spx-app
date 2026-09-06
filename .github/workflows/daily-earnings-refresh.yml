@@ -93,6 +93,17 @@ jobs:
           PYTHONUNBUFFERED: "1"
         continue-on-error: true
 
+      # 7 sept 2026 : rangs (mondial, Etats-Unis, secteur, sous-industrie) et
+      # ordre de capitalisation de l univers recalcules chaque jour depuis
+      # yfinance (aucun jeton d IA), puis grille de l accueil retriee.
+      - name: Refresh ranks and market cap order (univers 666)
+        run: |
+          python3 scripts/ranks-univers.py --workers 6
+          python3 scripts/build-home-wow.py
+        env:
+          PYTHONUNBUFFERED: "1"
+        continue-on-error: true
+
       - name: Rebuild merged dataset
         run: npx tsx scripts/build-v2-pipeline-merged.ts
 
@@ -106,7 +117,7 @@ jobs:
           # l univers = indices seulement (666 stes, v1-9-5-clean-all-tickers.json).
           # On ne committe que les fichiers enrich des stes de cette liste.
           ENRICH=$(python3 -c "import json,glob,os; d=json.load(open('src/data/v1-9-5-clean-all-tickers.json')); ok={t.lower() for t in (d['tickers'] if isinstance(d,dict) else d)}; print(' '.join(f for f in glob.glob('src/data/v2-pipeline-enrich/*.json') if os.path.basename(f).split('.')[0].lower() in ok))")
-          git add $ENRICH src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json $FOREIGN 2>/dev/null || true
+          git add $ENRICH src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json src/data/market-cap-order.json src/data/home-wow-kpis.json $FOREIGN 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Aucun changement détecté, skip commit."
           else

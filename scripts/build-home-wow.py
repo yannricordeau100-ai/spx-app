@@ -6,6 +6,15 @@ privilegiees, variations suspectes (>95 %) ecartees, valeurs formatees a la
 francaise."""
 import json,os,re,unicodedata
 POP=json.load(open('src/data/home-popular-fr.json',encoding='utf-8'))['tickers']
+# 7 sept 2026 (demande du proprietaire) : la grille de l accueil est triee par
+# capitalisation boursiere decroissante (src/data/market-cap-order.json, recalcule
+# chaque jour par scripts/ranks-univers.py). Une societe sans capitalisation du
+# jour garde sa place d origine, apres les autres.
+try:
+    _ORDRE={t.upper():i for i,t in enumerate(json.load(open('src/data/market-cap-order.json',encoding='utf-8'))['tickers'])}
+    POP=sorted(POP,key=lambda t:_ORDRE.get(t.upper(),10**6))
+except Exception:
+    pass
 # Yann 29 aout 2026 : l univers rendu par la home est le triple croisement de
 # src/app/sandbox/v1-9-5/page.tsx (loadCleanAllTickers + loadDatasets) : audit
 # pre-publication is_clean_all, liste curatee, dataset public. Filtrer sur la

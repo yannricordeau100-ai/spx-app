@@ -37,29 +37,28 @@ import {
 } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import capiSortedJson from "@/data/v1-8-tickers-sorted.json";
-import homeWowJson from "@/data/home-wow-kpis.json";
+import marketCapOrderJson from "@/data/market-cap-order.json";
 /**
- * Yann 30 aout 2026 : l ordre par defaut de la recherche = EXACTEMENT l ordre
- * de la home (home-wow-kpis.json, rendu tel quel par <HomeWowGrid />,
- * regenere par scripts/build-home-wow.py). Puis ordre capi pour le reste.
+ * 7 sept 2026 (demande du proprietaire) : l ordre par defaut de la recherche =
+ * capitalisation boursiere DECROISSANTE de tout l univers (market-cap-order.json,
+ * recalcule chaque jour par scripts/ranks-univers.py dans le cron quotidien).
+ * L ancienne liste capi de mai (v1-8-tickers-sorted.json) ne sert plus que de
+ * repli pour une societe absente du fichier du jour.
  */
-const HOME_RANK: Record<string, number> = Object.fromEntries(
-  (homeWowJson as { societes: { ticker: string }[] }).societes.map((s, i) => [
-    s.ticker.toUpperCase(),
-    i,
-  ]),
-);
-const HOME_RANK_SIZE = Object.keys(HOME_RANK).length;
 const CAPI_RANK: Record<string, number> = Object.fromEntries(
+  (marketCapOrderJson as { tickers: string[] }).tickers.map((t, i) => [t.toUpperCase(), i]),
+);
+const CAPI_RANK_SIZE = Object.keys(CAPI_RANK).length;
+const CAPI_RANK_ANCIEN: Record<string, number> = Object.fromEntries(
   (capiSortedJson as string[]).map((t, i) => [t.toUpperCase(), i]),
 );
-/** Rang d affichage par defaut : ordre home, puis capi, puis le reste. */
+/** Rang d affichage par defaut : capitalisation du jour, puis ancienne liste capi, puis le reste. */
 const homeOrderRank = (ticker: string): number => {
   const up = ticker.toUpperCase();
-  const h = HOME_RANK[up];
-  if (h !== undefined) return h;
   const c = CAPI_RANK[up];
-  return c !== undefined ? HOME_RANK_SIZE + c : 99999;
+  if (c !== undefined) return c;
+  const a = CAPI_RANK_ANCIEN[up];
+  return a !== undefined ? CAPI_RANK_SIZE + a : 99999;
 };
 import { yoyTone } from "@/lib/utils";
 import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
