@@ -165,6 +165,7 @@ const COULEUR_COURBE = "#7c5cf0";
 export function CurveChart({
   data,
   labels,
+  highlight = [],
   unit,
   color = "#a78bfa",
   labelStep = 1,
@@ -180,6 +181,8 @@ export function CurveChart({
   exportInterpretation,
   titleLocale,
 }: {
+  /** 6 sept 2026 : indices des points issus du Cahier, dessines en ambre. */
+  highlight?: number[];
   data: number[];
   labels: string[];
   unit: string;
@@ -636,8 +639,11 @@ export function CurveChart({
                 <circle cx={x} cy={y} r={isHover ? 9 : 7} fill="none" stroke={color} strokeWidth={2} strokeDasharray="3 2" />
               ) : (
                 <>
-                  <circle cx={x} cy={y} r={isHover ? 11 : 8} fill={color} fillOpacity={0.55} filter={`url(#${idGlow})`} />
+                  <circle cx={x} cy={y} r={isHover ? 11 : 8} fill={highlight.includes(i) ? "#f59e0b" : color} fillOpacity={0.55} filter={`url(#${idGlow})`} />
                   <circle cx={x} cy={y} r={isHover ? 4 : 2.8} fill="#ffffff" />
+                  {highlight.includes(i) && (
+                    <circle cx={x} cy={y} r={isHover ? 13 : 10.5} fill="none" stroke="#f59e0b" strokeWidth={2} />
+                  )}
                 </>
               )}
               {isAnomaly && (

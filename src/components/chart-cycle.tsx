@@ -379,12 +379,15 @@ export function ChartCycle({
   exportCagr,
   exportInterpretation,
   titleLocale = "fr",
+  highlight = [],
 }: {
   mode: ChartMode;
   data: number[];
   unit: string;
   color?: string;
   labels?: string[];
+  /** 6 sept 2026 : indices des points issus du Cahier (dessines en ambre). */
+  highlight?: number[];
   anomalies?: Anomaly[];
   events?: CompanyEvent[];
   company?: Company;
@@ -471,10 +474,10 @@ export function ChartCycle({
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {mode === "curve" && (
-            <CurveChart data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} labelStep={labelStep} onToggleLabels={basculeEtiquettes} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} titleLocale={titleLocale} />
+            <CurveChart data={scaledData as number[]} labels={xLabels} highlight={highlight} unit={displayUnit} color={color} labelStep={labelStep} onToggleLabels={basculeEtiquettes} anomalies={anomalies} events={events} ttm={scaledTtm} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} titleLocale={titleLocale} />
           )}
           {mode === "bars" && (
-            <BarsIso3DStack data={scaledData as number[]} labels={xLabels} unit={displayUnit} color={color} labelStep={labelStep} onToggleLabels={basculeEtiquettes} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} titleLocale={titleLocale} />
+            <BarsIso3DStack data={scaledData as number[]} labels={xLabels} highlight={highlight} unit={displayUnit} color={color} labelStep={labelStep} onToggleLabels={basculeEtiquettes} events={events} ttm={scaledTtm} variant={barsVariant} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} titleLocale={titleLocale} />
           )}
           {mode === "delta" && (
             <VariationIsoSteps3D data={scaledData as number[]} labels={xLabels} events={events} exportTitle={exportTitle} exportTicker={company?.ticker} exportCagr={exportCagr} exportFrequency={exportFrequency} exportInterpretation={exportInterpretation} />

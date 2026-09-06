@@ -165,7 +165,22 @@ export function KpiRow({
           <div className="min-w-0 leading-tight">
             {/* Yann 3 sept 2026 : fin du marquage jaune de revue du lot
                 kpi-sept-2026 (META/GOOGL), tous les titres en blanc. */}
-            <div className="text-[14px] font-medium leading-snug text-zinc-100">{primaryName}</div>
+            <div className="text-[14px] font-medium leading-snug text-zinc-100">
+              {primaryName}
+              {/* 6 sept 2026 : origine Cahier (revue du proprietaire) : violet =
+                  nouveau KPI, ambre = serie existante allongee, bleu = statut « autre ». */}
+              {(() => {
+                const c = (kpi as { _cahier?: string })._cahier;
+                if (!c) return null;
+                const cls = c === "nouveau"
+                  ? "border-violet-400/60 bg-violet-500/20 text-violet-100"
+                  : c === "allonge"
+                    ? "border-amber-400/60 bg-amber-500/20 text-amber-100"
+                    : "border-sky-400/60 bg-sky-500/20 text-sky-100";
+                const lib = c === "nouveau" ? "Nouveau" : c === "allonge" ? "Allongé" : "Autre";
+                return <span className={`ml-2 inline-block rounded-full border px-1.5 py-px align-middle text-[9.5px] font-semibold uppercase tracking-wider ${cls}`}>{lib}</span>;
+              })()}
+            </div>
             {secondaryName && secondaryName !== primaryName && (
               <div className="text-[11.5px] text-zinc-400">{secondaryName}</div>
             )}

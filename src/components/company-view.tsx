@@ -731,6 +731,22 @@ export function CompanyView({
   const chartLabels = rangeLimit !== Infinity && (chartLabelsFull?.length ?? 0) > rangeLimit
     ? chartLabelsFull!.slice(-rangeLimit)
     : chartLabelsFull;
+  // 6 sept 2026 : indices des points ajoutes depuis le Cahier (serie allongee
+  // ou KPI nouveau), en couleur dans le graphe. Compares sur les periodes
+  // reelles de la serie annuelle, puis decales par la coupe d affichage.
+  const chartHighlight = useMemo(() => {
+    const per = (active as { _cahier_periodes?: string[] } | null)?._cahier_periodes;
+    const hp = (active as { history_periods?: string[] } | null)?.history_periods;
+    if (!active || !Array.isArray(per) || per.length === 0 || !Array.isArray(hp)) return [] as number[];
+    if (hp.length !== chartHistoryRawFull.length) return [] as number[];
+    const set = new Set(per.map((x) => String(x).trim().replace(/^FY\s*/i, "")));
+    const offset = chartHistoryRawFull.length - chartHistoryRaw.length;
+    const out: number[] = [];
+    hp.forEach((x, i) => {
+      if (set.has(String(x).trim().replace(/^FY\s*/i, "")) && i - offset >= 0) out.push(i - offset);
+    });
+    return out;
+  }, [active, chartHistoryRawFull, chartHistoryRaw]);
 
   // Yann 16 mai 2026 — RECETTE CANONIQUE (cf. docs/CHART-RECIPE.md).
   //
@@ -1091,6 +1107,7 @@ export function CompanyView({
       mode={chartMode}
       data={scaleFactor !== 1 ? chartHistoryRaw.map((v) => (typeof v === "number" ? v * scaleFactor : v)) : chartHistoryRaw}
       labels={chartLabels}
+      highlight={chartHighlight}
       unit={displayUnit}
       color={accent}
       anomalies={anomalies}

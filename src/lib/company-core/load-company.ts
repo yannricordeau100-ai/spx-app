@@ -2779,6 +2779,14 @@ async function loadV17CompanyBrut(
           ...(typeof (k as { _added_batch?: string })._added_batch === "string"
             ? { _added_batch: (k as { _added_batch?: string })._added_batch }
             : {}),
+          // 6 sept 2026 : marquage des KPI poses depuis le Cahier (nouveau,
+          // allonge, autre) et des periodes ajoutees, pour l affichage en couleur.
+          ...(typeof (k as { _cahier?: string })._cahier === "string"
+            ? { _cahier: (k as { _cahier?: string })._cahier }
+            : {}),
+          ...(Array.isArray((k as { _cahier_periodes?: string[] })._cahier_periodes)
+            ? { _cahier_periodes: (k as { _cahier_periodes?: string[] })._cahier_periodes }
+            : {}),
           ...(typeof (k as { explanation_fr?: string }).explanation_fr === "string"
             ? { explanation_fr: (k as { explanation_fr?: string }).explanation_fr }
             : {}),

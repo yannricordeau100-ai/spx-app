@@ -79,6 +79,8 @@ function niceTicks(min: number, max: number, count = 5): number[] {
 type Props = {
   data: number[];
   labels: string[];
+  /** 6 sept 2026 : indices des barres issues du Cahier, dessinees en ambre. */
+  highlight?: number[];
   unit?: string;
   color?: string;
   events?: CompanyEvent[];
@@ -131,7 +133,7 @@ function roundedBarPath(x: number, y: number, w: number, h: number, isNeg: boole
   // Coins arrondis en HAUT, bas carré.
   return `M ${x} ${y + h} L ${x} ${y + r} A ${r} ${r} 0 0 1 ${x + r} ${y} L ${x + w - r} ${y} A ${r} ${r} 0 0 1 ${x + w} ${y + r} L ${x + w} ${y + h} Z`;
 }
-export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", labelStep = 1, onToggleLabels, exportTitle, exportTicker, exportCagr, exportFrequency, exportInterpretation, titleLocale }: Props) {
+export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", labelStep = 1, onToggleLabels, exportTitle, exportTicker, exportCagr, exportFrequency, exportInterpretation, titleLocale }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware.
@@ -410,7 +412,7 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
                  valeur sur deux au-dessus des barres. */
               <path
                 d={roundedBarPath(x, yT, barW, h, isNeg)}
-                fill={color}
+                fill={highlight.includes(i) ? "#f59e0b" : color}
                 fillOpacity={isTTM ? 0.5 : 1}
                 stroke={isTTM ? color : "none"}
                 strokeWidth={isTTM ? 1.4 : 0}
@@ -420,9 +422,9 @@ export function BarsIso3DStack({ data, labels, unit = "", color = "#a78bfa", eve
               /* 3D — dérivé du tube néon (style 2 extrudé) : faces sombres
                  creuses + arêtes néon lumineuses + reflet gauche. */
               <g filter={isTTM ? undefined : `url(#b26-glow-${color.slice(1)})`}>
-                <path d={side} fill={color} fillOpacity={isTTM ? 0.25 : 0.55} stroke={color} strokeOpacity={0.6} strokeWidth={1} strokeDasharray={ttmDash} />
-                <path d={top} fill={color} fillOpacity={isTTM ? 0.3 : 0.7} stroke={color} strokeOpacity={0.9} strokeWidth={1.3} strokeDasharray={ttmDash} />
-                <path d={front} fill={color} fillOpacity={isTTM ? 0.35 : 0.88} stroke={color} strokeWidth={isTTM ? 1.2 : 1.7} strokeDasharray={ttmDash} />
+                <path d={side} fill={highlight.includes(i) ? "#f59e0b" : color} fillOpacity={isTTM ? 0.25 : 0.55} stroke={highlight.includes(i) ? "#f59e0b" : color} strokeOpacity={0.6} strokeWidth={1} strokeDasharray={ttmDash} />
+                <path d={top} fill={highlight.includes(i) ? "#f59e0b" : color} fillOpacity={isTTM ? 0.3 : 0.7} stroke={highlight.includes(i) ? "#f59e0b" : color} strokeOpacity={0.9} strokeWidth={1.3} strokeDasharray={ttmDash} />
+                <path d={front} fill={highlight.includes(i) ? "#f59e0b" : color} fillOpacity={isTTM ? 0.35 : 0.88} stroke={highlight.includes(i) ? "#f59e0b" : color} strokeWidth={isTTM ? 1.2 : 1.7} strokeDasharray={ttmDash} />
                 {!isTTM && h > 6 && (
                   <line x1={x + 1.5} y1={yT + 3} x2={x + 1.5} y2={barBot - 2} stroke="#ffffff" strokeWidth={0.9} strokeOpacity={0.5} strokeLinecap="round" />
                 )}

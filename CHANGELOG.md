@@ -100,3 +100,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.06.15 (06 Sep 2026 21:45, apres c3bbfb30e8)
 - Interrupteur page tarifs en maintenance (proxy, lancement, page d attente zone tarifs)
+
+## v2026.09.06.16 (06 Sep 2026 23:36, apres 454e7eea26)
+- Pose des KPI du Cahier (demonstration NVDA NFLX NEM DD VIE.PA + autres SMCI SLHN.SW KDP) : pastilles et points ambre
