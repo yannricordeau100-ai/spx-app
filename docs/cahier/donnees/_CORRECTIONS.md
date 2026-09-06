@@ -117,3 +117,6 @@ Serie RateBase en ligne (20 a 24,5 Mds $) introuvable dans les 10-K : aucune bas
 ## PPL et SO (06/09/2026, lot 55-06)
 - PPL : serie Rate base growth (6,3 ; 9,8 ; 10,3 %) introuvable dans les 10-K, RETIREE de la fiche.
 - SO : la serie base tarifaire 73 a 98 Mds $ signalee n existe pas sur la fiche actuelle (rien a retirer) ; Southern ne publie pas sa base d actifs, statut non_trouve au cahier.
+
+## CBRE (06/09/2026, lot 60-01) : corrige
+Serie Resilient Revenue Mix (52 a 60 %, progression reguliere sans exercices ni source retrouvee dans les 10-K) RETIREE de la fiche ; la societe ne publie ce decoupage que depuis 2023 sous des definitions changeantes.
