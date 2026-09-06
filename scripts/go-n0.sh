@@ -8,13 +8,13 @@ cd /Users/yann/spx-app
 python3 scripts/verif-release.py --strict || { echo "VERIFICATION EN ECHEC : promotion refusee."; exit 1; }
 TOKEN=$(grep "^VERCEL_TOKEN=" .env.local | cut -d= -f2)
 TEAM=team_3A8Ft1Kze0wYzGbuyHmsaEwC
-N2=$(npx vercel alias ls 2>/dev/null | awk '$2=="mettrik-niveau2.vercel.app"{print $1}' | head -1)
+N2=$(npx vercel alias ls --token "$TOKEN" --scope $TEAM 2>/dev/null | awk '$2=="mettrik-niveau2.vercel.app"{print $1}' | head -1)
 [ -n "$N2" ] || { echo "alias niveau2 introuvable"; exit 1; }
 echo "Promotion en production de $N2 (identique a niveau2)..."
-npx vercel promote "https://$N2" --yes 2>&1 | tail -2
+npx vercel promote "https://$N2" --yes --token "$TOKEN" --scope $TEAM 2>&1 | tail -2
 for i in $(seq 1 40); do
-  CUR=$(npx vercel alias ls 2>/dev/null | awk '$2=="mettrik.ai"{print $1}' | head -1)
+  CUR=$(npx vercel alias ls --token "$TOKEN" --scope $TEAM 2>/dev/null | awk '$2=="mettrik.ai"{print $1}' | head -1)
   [ "$CUR" = "$N2" ] && break; sleep 15
 done
-echo "mettrik.ai = $(npx vercel alias ls 2>/dev/null | awk '$2=="mettrik.ai"{print $1}' | head -1)"
+echo "mettrik.ai = $(npx vercel alias ls --token "$TOKEN" --scope $TEAM 2>/dev/null | awk '$2=="mettrik.ai"{print $1}' | head -1)"
 curl -s -o /dev/null -w "mettrik.ai health: %{http_code}\n" https://mettrik.ai/api/billing/health
