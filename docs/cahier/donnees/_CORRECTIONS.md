@@ -94,3 +94,8 @@ Serie On-Site Mix en ligne (28 a 31 %) sans correspondance publiee ; remplacee p
 
 ## VMC (06/09/2026, lot 15-08) : corrige en partie
 Les series granulats en ligne melangeaient des trimestres de 2019, 2020 et 2024 sans libelle. Remplacees par les series ANNUELLES officielles des 10-K : expeditions 2010-2025, prix ajuste du fret 2016-2025, marge brute cash par tonne 2010-2025. Reste a re-sourcer : la serie hero Aggregates gross profit per ton (meme melange de trimestres, pas de serie annuelle officielle etablie).
+
+## STLD et SW (06/09/2026, lot 15-07) : corriges
+- STLD : Steel mill utilization rate (86, 86, 89, sans exercice identifiable) remplace par la serie officielle des 10-K 2015-2025 (79 a 86).
+- SW : serie Box Price (900 a 1100 $/t) introuvable dans les publications Smurfit Westrock, retiree (aucune valeur officielle de remplacement).
+- SHW : deux entrees de marge segment presentes mais vides sur la fiche, a nettoyer lors du prochain passage data.
