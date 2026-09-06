@@ -73,3 +73,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.06.6 (06 Sep 2026 05:08, apres d783997ff1)
 - Pre-lancement : pages legales et contact servies meme en maintenance (validation Google OAuth)
+
+## v2026.09.06.7 (06 Sep 2026 05:13, apres 3b3625f97d)
+- Arbitrages KPI appliques (17 points, 13 grilles) + corrections fiches JDEP KDP CCEP
