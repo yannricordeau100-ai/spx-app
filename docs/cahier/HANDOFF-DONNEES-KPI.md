@@ -2,6 +2,13 @@
 
 > Ce fichier est tenu à jour à chaque lot terminé. Une session Claude Code qui reprend le travail lit ce fichier, puis `docs/cahier/README.md`, et continue exactement là où la précédente s'est arrêtée. Toujours `git pull` avant de commencer, `git push` à chaque étape.
 
+## ETAT AU 07/09/2026 01:30 (arret demande par le proprietaire)
+
+- TAM : atelier /sandbox/tam en ligne (v2026.09.07.3+), Cahier docs/cahier/tam (brief, _valide.py, _prochains.py, _PROMPT-AGENT.md). 90 societes avec candidats validees et poussees (technologie presque complete : restent 45-18, 45-19 ; puis 20-01 a 10-xx). Reprise : `python3 docs/cahier/tam/_prochains.py --prochains 8`, 8 agents Opus, prompt dans _PROMPT-AGENT.md. Pose apres arbitrage : `python3 scripts/tam-pose.py` (lit les choix en base) puis commit des `src/data/v2-pipeline-enrich/<t>.tam.json` ; le bloc « Position marche » (V1.0) est remis dans company-view et s affiche des que market_positions existe.
+- Alias niveau2 : la v2026.09.07.5 (78 TAM) etait en attente d alias ; a relancer avec `nohup bash scripts/alias-niveau2-attente.sh` (la derniere version poussee est celle du commit HEAD).
+- Pose des KPI du Cahier : script `scripts/cahier-pose.py` (nouveau violet, allonge ambre, autre bleu), demonstration sur NVDA NFLX NEM DD SMCI SLHN.SW KDP en ligne ; a generaliser sur GO.
+- Tri par capitalisation + rangs quotidiens : en ligne (v2026.09.07.2), cron dans daily-earnings-refresh.yml.
+
 ## REPRISE (06/09/2026 11:40) : mission donnees KPI TERMINEE
 
 FAIT le 06/09 (14h) : n0 deploye (build 77b15e96, identique a niveau2), pages legales servies en pre-lancement, domaine mettrik.ai valide dans la Search Console pour yannricordeau100 ET mettrikai (deux TXT chez Spaceship, a conserver), branding OAuth Google valide et publie (nom Mettrik AI visible a la connexion Google). Ancienne consigne, pour memoire : DEPLOYER LE N0 (mettrik.ai) pour que Google puisse lire les pages legales pendant la validation OAuth. Procedure : verifier que l alias mettrik-niveau2.vercel.app pointe le build du HEAD de staging (sinon relancer scripts/alias-niveau2-attente.sh et attendre READY), puis `bash scripts/go-n0.sh` (corrige le 06/09 pour passer VERCEL_TOKEN explicitement, le jeton CLI etant mort ; il verifie la release puis promeut EXACTEMENT le build de niveau2). Le site RESTE en pre-lancement apres deploiement (interrupteur en base, rien ne s ouvre). Verifier ensuite : curl https://mettrik.ai/legal/confidentialite doit renvoyer 200 avec le texte legal (plus de redirection vers /maintenance). Les controles Google restants (page d accueil accessible et objectif de l app) exigent une ouverture temporaire du site via /sandbox/lancement par le proprietaire, puis re-fermeture.
