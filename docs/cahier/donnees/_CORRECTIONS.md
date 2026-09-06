@@ -85,3 +85,6 @@ Serie en ligne Volume Growth (unit cases) : les deux valeurs (0,5 et 3,6) ne cor
 - JDEP.AS : serie Croissance des ventes organiques remplacee par la serie annuelle officielle 2020-2025 (-0,2 ; 6,1 ; 11,3 ; 3,9 ; 5,3 ; 15,3).
 - KDP : Volume / Mix et Net Price Realization remplacees par les series annuelles officielles des 10-K 2019-2025.
 - CCEP : Volume Growth (unit cases) corrigee en 0,0 (2024) et 0,2 (2025), volumes comparables ajustes.
+
+## HEIA.AS (06/09/2026, lot 30-04) : identite corrigee
+La fiche nommait la societe Heineken Holding N.V. alors que le ticker HEIA.AS designe Heineken N.V. (le holding est HEIO.AS). Nom corrige sur la fiche. Les KPI operationnels sont ceux de Heineken N.V., seule entite qui les publie.
