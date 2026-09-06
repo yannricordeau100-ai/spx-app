@@ -135,3 +135,6 @@ Fiche nee de la fusion AvalonBay + Equity Residential (aout 2026) nommee « Vivm
 
 ## EOG (06/09/2026, lot 10-02) : corrige
 Serie FindingCost en ligne (5,5 a 8,5, sans correspondance publiee) remplacee par la serie officielle Reserve Replacement Cost 2017-2025 (8,4 ; 9,1 ; 8,02 ; 6,69 ; 5,57 ; 5,13 ; 7,2 ; 6,68 ; 14,54 $/Boe).
+
+## WMB (06/09/2026, lot 10-05) : corrige
+Serie des volumes Transco en ligne (trimestrielle, valeurs 2023-2025 non conformes aux communiques) remplacee par la serie annuelle officielle 2018-2025 (11,8 a 15,0).
