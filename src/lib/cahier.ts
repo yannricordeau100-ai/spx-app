@@ -217,3 +217,52 @@ export async function lireRelecture(): Promise<{ intro: string; points: PointRel
     return { intro: "", points: [] };
   }
 }
+
+// ---------------------------------------------------------------------------
+// TAM (marche adressable) par societe : docs/cahier/tam/<TICKER>.json (7 sept 2026)
+// ---------------------------------------------------------------------------
+export type TamCandidat = {
+  id: string;
+  segment: string;
+  segment_revenu: number;
+  segment_unite: string;
+  segment_exercice?: string;
+  segment_source?: { url?: string; titre?: string };
+  tam_intitule: string;
+  tam: number;
+  tam_unite: string;
+  tam_annee?: string;
+  tam_fourchette?: [number, number];
+  tam_source?: { url?: string; titre?: string };
+  croissance_marche_pct?: number | null;
+  fiabilite?: "haute" | "moyenne" | "faible";
+  commentaire?: string;
+};
+export type TamSociete = {
+  ticker: string;
+  date?: string;
+  activites_principales: string[];
+  candidats: TamCandidat[];
+  hesitation?: string;
+  commentaire?: string;
+};
+
+export async function lireTam(): Promise<Record<string, TamSociete>> {
+  const dir = path.join(process.cwd(), "docs/cahier/tam");
+  const out: Record<string, TamSociete> = {};
+  let fichiers: string[] = [];
+  try {
+    fichiers = (await fs.readdir(dir)).filter((f) => f.endsWith(".json") && !f.startsWith("_"));
+  } catch {
+    return out;
+  }
+  for (const f of fichiers) {
+    try {
+      const d = JSON.parse(await fs.readFile(path.join(dir, f), "utf8")) as TamSociete;
+      if (d?.ticker) out[d.ticker.toUpperCase()] = { ...d, candidats: Array.isArray(d.candidats) ? d.candidats : [] };
+    } catch {
+      /* fichier illisible : ignore */
+    }
+  }
+  return out;
+}
