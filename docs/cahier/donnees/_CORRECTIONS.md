@@ -45,7 +45,8 @@ Constat du lot 35-05 : la fiche affiche 2,8 millions de clients alors que Dexcom
 ## AJG (Arthur J. Gallagher) : marge EBITDAC ajustee consolidee en ligne sans source
 Constat du lot A31 (allongement) : la serie en ligne Adjusted EBITDAC Margin (24,5 ; 24,8 ; 25,1 ... 26,9, progression reguliere de 0,3 point par periode) ne correspond a aucune valeur publiee : Gallagher ne publie cette marge que par segment. Valeurs officielles du segment Courtage : 26,9 % (2016), 27,4 % (2017), 27,8 % (2018), 28,6 % (2019), 34,0 % (2022), 34,3 % (2023), 35,1 % (2024), 36,5 % (2025). Serie en ligne a remplacer par la serie sectorielle Courtage, apres validation du proprietaire. Detail dans donnees/AJG.json.
 
-## SYK (Stryker) : series Mako en ligne non sourcees
+## SYK (Stryker) : series Mako en ligne non sourcees : corrige
+DECISION 06/09 : les deux series de base installee, la serie de procedures annuelles et les deux series complementaires Mako RETIREES ; la serie des procedures cumulees remplacee par les jalons publies dans les 10-K (1 M fin 2023, 1,5 M fin 2024, plus de 2 M fin 2025).
 Constat du lot 35-13 : la fiche porte deux series incompatibles pour la base installee Mako (700 / 800 / 860 / 3000 et 1200 / 1400 / 1600 / 1850) et une serie de procedures Mako en milliers par an qui ne correspond a aucune publication de Stryker, laquelle ne donne que des jalons cumules arrondis (1 million en 2023, 1,5 million en 2024, plus de 2 millions en 2025). Series a retirer ou a remplacer par les jalons publies, apres validation du proprietaire. Detail dans donnees/SYK.json.
 
 ## ARES (Ares Management) : resultat lie aux commissions en ligne anterieur aux retraitements
@@ -71,7 +72,8 @@ PREMIUM_MIX en ligne (52 %) contredit le rapport annuel 2025 : environ 62 % des 
 ## ROST (06/09/2026, lot 25-12)
 VENTES_SURFACE en ligne avec une valeur unique non issue d une publication de la societe (la serie officielle s arrete a l exercice 2019, rubrique Selected Financial Data disparue des 10-K). A re-sourcer ou retirer apres validation du proprietaire.
 
-## BF.B (06/09/2026, lot 30-01)
+## BF.B (06/09/2026, lot 30-01) : corrige
+DECISION 06/09 : serie Jack Daniel s Tennessee Whiskey remplacee par la serie officielle des 10-K, exercices 2012 a 2018 (10,76 a 13,0 millions de caisses de 9 litres), avec mention de l arret de publication apres 2019.
 Serie en ligne des epuisements Jack Daniel's Tennessee Whiskey (6 valeurs, 12,5 a 13,4) non attribuable aux 10-K : Brown-Forman ne publie plus de volumes absolus par marque depuis l exercice 2019. Source a preciser ou serie a retirer apres validation du proprietaire.
 
 ## CCEP (06/09/2026, lot 30-02)
@@ -103,7 +105,8 @@ Les series granulats en ligne melangeaient des trimestres de 2019, 2020 et 2024 
 ## AEE (06/09/2026, lot 55-01) : corrige en partie
 Base tarifaire (hero) alignee sur les presentations officielles Ameren : 23,1 (2022), 27,0 (2024), 28,8 Mds $ (2025). Reste a clarifier : la serie Five-Year Capital Plan en ligne (6,3 a 20,8) dont la correspondance annee par annee avec les plans officiels (19,7 ; 26,3 ; 31,8) n est pas etablie ; a re-sourcer avant correction. AEP : plan quinquennal en ligne (78 Mds $) plus recent que le plan de cloture 2025 (72), pas d ecart avere.
 
-## DTE (06/09/2026, lot 55-02)
+## DTE (06/09/2026, lot 55-02) : corrige
+DECISION 06/09 : serie RateBase RETIREE de la fiche (aucune base d actifs publiee dans les 10-K, source jamais retrouvee).
 Serie RateBase en ligne (20 a 24,5 Mds $) introuvable dans les 10-K : aucune base d actifs publiee par la societe. Source a verifier ou serie a retirer apres validation du proprietaire (probablement issue de presentations investisseurs non citees).
 
 ## ED et EOAN.DE (06/09/2026, lot 55-03) : corriges
@@ -121,16 +124,19 @@ Serie RateBase en ligne (20 a 24,5 Mds $) introuvable dans les 10-K : aucune bas
 ## CBRE (06/09/2026, lot 60-01) : corrige
 Serie Resilient Revenue Mix (52 a 60 %, progression reguliere sans exercices ni source retrouvee dans les 10-K) RETIREE de la fiche ; la societe ne publie ce decoupage que depuis 2023 sous des definitions changeantes.
 
-## ORA.PA (06/09/2026, lot 50-04)
+## ORA.PA (06/09/2026, lot 50-04) : corrige
+DECISION 06/09 : serie scindee sur la fiche : perimetre actuel hors Espagne 60,1 (2024) et 65,5 millions (2025), ancien perimetre (56,5 ; 64,9 ; 71,7) rappele dans le signal ; unite corrigee (millions, la fiche affichait Mds).
 Serie PRISES_FIBRE en ligne (55,6 puis 60,1) en retard d un exercice ; valeur 2025 officielle 65,5 millions MAIS rupture de perimetre 2024 (sortie de l Espagne vers MasOrange) : les deux tranches ne sont pas chainables. A corriger en scindant la serie (pas de correction a l aveugle), donnees officielles dans donnees/ORA.PA.json.
 
 ## T (06/09/2026, lot 50-05) : corrige
 Serie AT&T Fiber Locations (16,5 a 28,3, aucun perimetre officiel correspondant) remplacee par la serie officielle des prises raccordables fibre 2023-2025 (26,5 ; 28,9 ; 32,0 millions).
 
-## TTD (06/09/2026, lot 50-06)
+## TTD (06/09/2026, lot 50-06) : corrige
+DECISION 06/09 : les trois series plates a 95 % (13 trimestres, 3 ans, complementaire) RETIREES ; seule reste la couche kpis-haut RETENTION, renommee « plancher publie : superieur a 95 % ».
 Serie en ligne Customer retention rate : 95 % identique sur 13 exercices alors que la societe ne publie qu un PLANCHER (superieur a 95 %), jamais de valeur exacte. Decision a prendre : annoter la serie comme plancher ou la retirer.
 
-## VMRK (06/09/2026, contre-verif 60)
+## VMRK (06/09/2026, contre-verif 60) : resolu
+DECISION 06/09 : identite confirmee par les communiques officiels des deux societes : Vivmark Residential, NYSE VMRK, fusion entre egaux close le 17 aout 2026 (AvalonBay acquereur comptable, 2,793 actions EQR par action AVB). Les depots AvalonBay restent la source jusqu au premier rapport de Vivmark. Rien a changer sur la fiche.
 Fiche nee de la fusion AvalonBay + Equity Residential (aout 2026) nommee « Vivmark Residential » dans le lot, emetteur inexistant sur EDGAR ; les sources sont des depots AvalonBay (acquereur comptable). Identite officielle a arbitrer par le proprietaire (nom exact de l entite fusionnee).
 
 ## EOG (06/09/2026, lot 10-02) : corrige
