@@ -27,3 +27,9 @@ Une seule session écrit à la fois ; les deux comptes lisent et écrivent le m�
 
 ## Archivé (décisions closes)
 - 5 sept 2026 : document PNG au style du graphique sombre du site (barres 3D, dégradés) : non retenu, le document garde son style d impression.
+
+## Navigateur Chrome (extension Claude in Chrome), note du 06/09/2026
+
+ATTENTION, COMPTE CLAUDE DU NAVIGATEUR : L EXTENSION CLAUDE IN CHROME EST RELIEE AU COMPTE CLAUDE PRINCIPAL DU PROPRIETAIRE (CELUI DE CETTE SESSION). SI UNE SESSION SUR L AUTRE COMPTE (MAX 20X) A BESOIN DU NAVIGATEUR CHROME, ELLE DOIT D ABORD DEMANDER AU PROPRIETAIRE, EN MAJUSCULES ET DEUX FOIS, DE CHANGER LE COMPTE CLAUDE CONNECTE DANS L EXTENSION.
+
+Consigne du proprietaire : privilegier Claude in Chrome (session Chrome reelle, deja connectee a Google, Vercel, Supabase, etc.) des que possible pour toutes les taches qui passent par un site : c est souvent plus rapide. Le navigateur integre (Browser pane) reste pour les verifications sans compte. Les agents (Agent tool) n utilisent jamais ni l un ni l autre.
