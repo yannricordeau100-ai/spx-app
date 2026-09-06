@@ -109,3 +109,7 @@ Serie RateBase en ligne (20 a 24,5 Mds $) introuvable dans les 10-K : aucune bas
 ## ED et EOAN.DE (06/09/2026, lot 55-03) : corriges
 - ED : serie Electric Rate Base (15,651 decroissant, sans correspondance 10-K) remplacee par la base CECONY electricite officielle 2014-2025 (17,3 a 29,4 Mds $).
 - EOAN.DE : RAB 2020-2023 alignee sur les rapports annuels (34,9 ; 35,0 ; 36,4 ; 42,0).
+
+## LNT et NRG (06/09/2026, lot 55-05) : corriges
+- LNT : serie Rate Base consolidee (10,5 a 14,5, progression arithmetique parfaite jamais publiee) RETIREE ; aucun 10-K ne publie de base d actifs consolidee IPL plus WPL. Les comptes clients IPL/WPL arrondis au millier restent (ecart mineur tolere).
+- NRG : capacite de production ramenee a 12 276 MW (10-K exercice 2025) ; les 25 GW etaient le perimetre annonce post LS Power, hors comptes.
