@@ -700,15 +700,23 @@ async function loadV17CompanyBrut(
   // src/data/v2-pipeline-enrich/<ticker>.tam.json séparément pour ne pas
   // écraser le pipeline. Merge ici si présent ET la fiche n'a pas déjà
   // ses propres market_positions). TAM honesty rule respectée par le batch.
-  if (!Array.isArray((data as Record<string, unknown>).market_positions)) {
+  {
     const tamPath = path.join(
       ROOT,
       "src/data/v2-pipeline-enrich",
       `${ticker.toLowerCase()}.tam.json`,
     );
-    const tam = await readJsonOrNull<{ market_positions?: unknown }>(tamPath);
-    if (tam && Array.isArray(tam.market_positions) && tam.market_positions.length > 0) {
+    const tam = await readJsonOrNull<{ market_positions?: unknown; _arbitrage_proprietaire?: boolean }>(tamPath);
+    // 7 sept 2026 : un fichier tam.json issu de l arbitrage du proprietaire
+    // (/sandbox/tam, scripts/tam-pose.py) PRIME sur les market_positions de la
+    // fiche, y compris pour masquer le bloc (liste vide). Sans cette marque,
+    // comportement historique : merge seulement si la fiche n en a pas.
+    if (tam && tam._arbitrage_proprietaire === true && Array.isArray(tam.market_positions)) {
       (data as Record<string, unknown>).market_positions = tam.market_positions;
+    } else if (!Array.isArray((data as Record<string, unknown>).market_positions)) {
+      if (tam && Array.isArray(tam.market_positions) && tam.market_positions.length > 0) {
+        (data as Record<string, unknown>).market_positions = tam.market_positions;
+      }
     }
   }
 

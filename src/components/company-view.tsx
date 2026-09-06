@@ -78,6 +78,7 @@ import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
 import { GovernanceCard } from "@/components/governance-card";
 import { RepartitionBlock } from "@/components/repartition-block";
+import { MarketPositionCard } from "@/components/market-position-card";
 import { FreshnessIndicator } from "@/components/freshness-indicator";
 import { getFreshnessReference } from "@/lib/freshness/compute-tier";
 import { CompanyNavChrome } from "@/components/company-nav-chrome";
@@ -2026,6 +2027,29 @@ export function CompanyView({
             fait qu'afficher, att.locked pilote le placeholder flouté. */}
         {company.att && !isDisabled("anti_these") && (
           <AntiTheseCard att={company.att} accent={accent} />
+        )}
+
+        {/* Position marche / TAM (7 sept 2026) : bloc de la V1.0 remis en place.
+            Rendu seulement quand la fiche porte des market_positions, c est a
+            dire apres arbitrage du proprietaire dans /sandbox/tam et pose
+            (scripts/tam-pose.py). Deux segments au plus. */}
+        {company.market_positions && company.market_positions.length > 0 && (
+          <section className="mt-9 animate-fade-up-d2">
+            <div className="mb-4 flex items-end justify-between">
+              <div>
+                <h2 className="text-[22px] font-semibold text-zinc-50">Position marché · TAM</h2>
+                <p className="mt-0.5 text-[13.5px] text-zinc-300">Part de marché de la société sur ses segments clés vs le Total Addressable Market.</p>
+              </div>
+              <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
+                {company.market_positions.length} segment{company.market_positions.length > 1 ? "s" : ""}
+              </span>
+            </div>
+            <div className={`grid gap-4 ${company.market_positions.length === 1 ? "grid-cols-1" : "lg:grid-cols-2"}`}>
+              {company.market_positions.slice(0, 2).map((p) => (
+                <MarketPositionCard key={p.segment_name} company={company} position={p} wide={company.market_positions!.length === 1} />
+              ))}
+            </div>
+          </section>
         )}
 
         {/* Répartition CA (géo + segment) — au-dessus de Gouvernance */}
