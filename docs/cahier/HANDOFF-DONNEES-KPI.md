@@ -2,18 +2,9 @@
 
 > Ce fichier est tenu à jour à chaque lot terminé. Une session Claude Code qui reprend le travail lit ce fichier, puis `docs/cahier/README.md`, et continue exactement là où la précédente s'est arrêtée. Toujours `git pull` avant de commencer, `git push` à chaque étape.
 
-## REPRISE URGENTE (06/09/2026 02:05) : etat exact au moment du passage de relais
+## REPRISE (06/09/2026 11:40) : mission donnees KPI TERMINEE
 
-La session precedente peut s etre arretee (limite de session) avec des agents EN COURS. Leurs fichiers peuvent etre absents ou partiels : `_prochains.py` et `_allongement.py` le detectent, `_valide.py` refuse tout fichier incomplet. Tout ce qui est valide a ete pousse.
-
-- Secteurs 45, 20, 40, 35, 25 TERMINES et contre-verifies (45 : 101/101 ; 20 : 204/205 ; 40 : 185/191 ; 35 : 162 sondees en 2 passes, 0 ecart). Contre-verification du 25 EN COURS (livrable attendu `donnees/_VERIFICATION-25.md`, la relancer si absent : second prompt de `_PROMPT-AGENT.md`, avec l escalade 5 chemins avant de dire non verifiable).
-- Secteur 30 (conso de base, 48 stes) : lots 30-01 et 30-02 etaient chez des agents. Relancer ce que `python3 docs/cahier/donnees/_prochains.py --prochains 6` affiche (partiels d abord).
-- Allongement : A01 a A42 valides (216/235 stes). Restaient en cours : A43 (reliquat PGHN.SW), A44 (PYPL, RF, RJF), A45 (SCHW, SPGI, SREN.SW, STT, SYF). Reste ensuite A46, A47. Suivi : `python3 docs/cahier/donnees/_allongement.py --prochains 6` ; prompt = troisieme bloc de `_PROMPT-AGENT.md`.
-- Corrections de fiches APPLIQUEES le 06/09 (regle du proprietaire : le 10-K / 10-Q fait foi, ecart important corrige, ecart mineur tolere) : ABT, DXCM, CON.DE, HCA, APTV, SREN.SW, AJG (detail dans `_CORRECTIONS.md`). Restent a re-sourcer : SYK (series Mako), ARES (FRE), ROST (ventes/surface).
-- Onglet « A arbitrer » supprime de /sandbox/gics (v2026.09.06.3). L onglet « Arbitrages KPI » attend les reponses du proprietaire (19 points, reponse attendue : code : garder / retirer / correction).
-- Deploiement : jeton CLI Vercel EXPIRE. `scripts/alias-niveau2-attente.sh` utilise VERCEL_TOKEN de .env.local (API REST). Chaine : version-bump, commit, push staging, puis nohup bash scripts/alias-niveau2-attente.sh. Verifier ensuite l alias vers le build du SHA courant via l API v4/aliases.
-- Demandes du proprietaire encore ouvertes hors Cahier : (1) il configure lui-meme l ecran de consentement Google (Branding, nom Mettrik AI) : instructions deja donnees ; (2) messages attendus : ETA de fin de secteur de temps en temps, problemes importants, tableau recapitulatif par secteur termine. Pas de blabla.
-- Regles : agents en Opus (6 max, jamais de sous-agents d agents), jamais le navigateur integre pour les agents, jamais de valeur inventee, jamais de prenom ni de tiret long, qualite avant vitesse, n0 (mettrik.ai) uniquement sur accord explicite du proprietaire.
+Les 11 secteurs sont faits et contre-verifies (voir « Ce qui est terminé »). Il ne reste AUCUN lot a lancer. Travaux residuels possibles : les 6 decisions du proprietaire listees en fin de `_CORRECTIONS.md` (TTD, ORA.PA, VMRK, DTE, BF.B, SYK), et les 2 societes jamais classees.
 
 ## Où en est le travail
 
@@ -51,6 +42,10 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 - Les fichiers de fiche société peuvent être en minuscules ou sous une autre place de cotation (ex. STMPA.PA absent, stmmi.mi présent) : le dire aux agents.
 
 ## Ce qui est terminé (ne pas refaire)
+
+- Energie (10) : contre-vérification du 06/09 : 72 séries sondées (144 valeurs), 72 conformes, 0 corrigée, 0 non vérifiable. Livrable : donnees/_VERIFICATION-10.md.
+
+- MISSION TERMINEE le 06/09/2026 : les 11 secteurs faits (664/666, les 2 restantes sont les 2 sociétés jamais classées) et TOUS contre-vérifiés. Sondages cumulés environ 1 460 séries, 5 corrigées, 0 invention dans le Cahier. Corrections de fiches en ligne appliquées sous la règle du 10-K fait foi : voir _CORRECTIONS.md (dont 6 cas restant à la décision du propriétaire).
 
 - Communication (50) : contre-vérification du 06/09 : 74 séries sondées (148 valeurs), 74 conformes, 0 corrigée, 0 non vérifiable. Livrable : donnees/_VERIFICATION-50.md.
 
