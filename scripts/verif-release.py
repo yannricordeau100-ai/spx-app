@@ -85,7 +85,10 @@ OPTIONNELLES = {"NEXT_PUBLIC_NIVEAU", "NEXT_PUBLIC_DEPLOY_TARGET", "VERCEL_GIT_C
                 "MAINTENANCE_MODE", "TELEMETRIE_SEL", "ANTHROPIC_API_KEY", "CEREBRAS_API_KEY", "CEREBRAS2_API_KEY",
                 "CEREBRAS3_API_KEY", "GROQ_API_KEY", "NEXT_PUBLIC_HCAPTCHA_SITE_KEY", "NEXT_PB_HCAPTCHA_SITE_KEY", "RESEND_WEBHOOK_SECRET",
                 "ADMIN_EMAILS", "GITHUB_DISPATCH_TOKEN", "TURNSTILE_SECRET_KEY", "NEXT_PUBLIC_TURNSTILE_SITE_KEY", "FMP_API_KEY",
-                "METTRIK_SEC_DIR", "PDFTOTEXT_BIN"}
+                "METTRIK_SEC_DIR", "PDFTOTEXT_BIN",
+                # 6 sept 2026 : VERCEL_ENV est une variable systeme fournie par Vercel (jamais listee dans le projet) ;
+                # IPS_PROPRIETAIRE est facultative (liste vide = aucune exemption d alerte).
+                "VERCEL_ENV", "IPS_PROPRIETAIRE"}
 requises = sorted(utilisees - OPTIONNELLES)
 tok = env_local("VERCEL_TOKEN")
 envs = curl_json("https://api.vercel.com/v9/projects/prj_2fwjkuSPPesO8Xj8gsVfw6KSHiPA/env?teamId=team_3A8Ft1Kze0wYzGbuyHmsaEwC",

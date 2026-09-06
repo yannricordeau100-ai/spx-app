@@ -15,7 +15,7 @@ for x in d.get('deployments',[]):
     if x.get('meta',{}).get('githubCommitSha')=='$SHA': print(x['state'], x['url']); break
 else: print('ABSENT')")
   case "$R" in
-    READY*) U=${R#READY }; npx vercel alias set "https://$U" mettrik-niveau2.vercel.app --scope $TEAM 2>&1 | tail -1; echo "NIVEAU 2 A JOUR sur $U ($SHA)"; exit 0;;
+    READY*) U=${R#READY }; npx vercel alias set "https://$U" mettrik-niveau2.vercel.app --token "$TOK" --scope $TEAM 2>&1 | tail -1; echo "NIVEAU 2 A JOUR sur $U ($SHA)"; exit 0;;
     ERROR*|CANCELED*) echo "ECHEC $R"; exit 1;;
   esac
   sleep 20
