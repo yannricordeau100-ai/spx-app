@@ -170,7 +170,8 @@ for hote in ("mettrik-niveau2.vercel.app", "mettrik.ai"):
 
 # 8) AUTOMATES
 la = sh("launchctl print gui/$(id -u)/ai.mettrik.earnings-refresh 2>/dev/null | grep -c state")
-feu("vert" if la.strip() == "1" else "rouge", "Automates", "Service de session 23h (extraction) charge sur le Mac", "")
+# 6 sept 2026 : launchctl print affiche desormais plusieurs lignes contenant "state" ; charge = au moins une.
+feu("vert" if la.strip().isdigit() and int(la.strip()) >= 1 else "rouge", "Automates", "Service de session 23h (extraction) charge sur le Mac", f"{la.strip()} ligne(s) d etat")
 cr = sh("crontab -l 2>/dev/null | grep -c earnings-refresh.sh")
 feu("vert" if cr.strip() == "0" else "orange", "Automates", "Ancien cron 23h (sans acces au trousseau) retire", "")
 
