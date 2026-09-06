@@ -88,3 +88,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.06.11 (06 Sep 2026 10:32, apres 98d1c5da2a)
 - Donnees KPI : secteurs 55 et 60 termines (68 stes)
+
+## v2026.09.06.12 (06 Sep 2026 11:19, apres bb6044aee5)
+- Donnees KPI : univers TERMINE, 664/666 stes (secteurs 50 et 10 clos), corrections T EOG WMB
