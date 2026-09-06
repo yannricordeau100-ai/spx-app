@@ -99,3 +99,6 @@ Les series granulats en ligne melangeaient des trimestres de 2019, 2020 et 2024 
 - STLD : Steel mill utilization rate (86, 86, 89, sans exercice identifiable) remplace par la serie officielle des 10-K 2015-2025 (79 a 86).
 - SW : serie Box Price (900 a 1100 $/t) introuvable dans les publications Smurfit Westrock, retiree (aucune valeur officielle de remplacement).
 - SHW : deux entrees de marge segment presentes mais vides sur la fiche, a nettoyer lors du prochain passage data.
+
+## AEE (06/09/2026, lot 55-01) : corrige en partie
+Base tarifaire (hero) alignee sur les presentations officielles Ameren : 23,1 (2022), 27,0 (2024), 28,8 Mds $ (2025). Reste a clarifier : la serie Five-Year Capital Plan en ligne (6,3 a 20,8) dont la correspondance annee par annee avec les plans officiels (19,7 ; 26,3 ; 31,8) n est pas etablie ; a re-sourcer avant correction. AEP : plan quinquennal en ligne (78 Mds $) plus recent que le plan de cloture 2025 (72), pas d ecart avere.
