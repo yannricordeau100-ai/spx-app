@@ -70,3 +70,9 @@ PREMIUM_MIX en ligne (52 %) contredit le rapport annuel 2025 : environ 62 % des 
 
 ## ROST (06/09/2026, lot 25-12)
 VENTES_SURFACE en ligne avec une valeur unique non issue d une publication de la societe (la serie officielle s arrete a l exercice 2019, rubrique Selected Financial Data disparue des 10-K). A re-sourcer ou retirer apres validation du proprietaire.
+
+## BF.B (06/09/2026, lot 30-01)
+Serie en ligne des epuisements Jack Daniel's Tennessee Whiskey (6 valeurs, 12,5 a 13,4) non attribuable aux 10-K : Brown-Forman ne publie plus de volumes absolus par marque depuis l exercice 2019. Source a preciser ou serie a retirer apres validation du proprietaire.
+
+## CCEP (06/09/2026, lot 30-02)
+Serie en ligne Volume Growth (unit cases) : les deux valeurs (0,5 et 3,6) ne correspondent a aucun taux publie (officiellement 0,0 % en 2024 et 0,2 % en 2025 en volume comparable ajuste). Serie officielle en volumes absolus dans donnees/CCEP.json. A corriger apres validation du proprietaire (ecart important : la regle du 10-K fait foi s applique, correction a faire).

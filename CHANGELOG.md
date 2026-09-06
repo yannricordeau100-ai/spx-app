@@ -70,3 +70,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.06.5 (06 Sep 2026 01:52, apres 7c04882b7e)
 - Donnees KPI : secteur 25 termine (70 stes), allongements A37-A41
+
+## v2026.09.06.6 (06 Sep 2026 05:08, apres d783997ff1)
+- Pre-lancement : pages legales et contact servies meme en maintenance (validation Google OAuth)

@@ -458,7 +458,16 @@ export async function proxy(request: NextRequest) {
     // propre controle proprietaire, un visiteur n y accede pas. /auth est
     // ajoute pour pouvoir se connecter, sans quoi le controle proprietaire
     // ne peut jamais reussir.
+    // Yann 6 sept 2026 : les pages legales et le contact restent servis meme
+    // en pre-lancement. Obligation RGPD, et le robot de validation Google
+    // (ecran de consentement OAuth) lit /legal/confidentialite : redirigee
+    // vers /maintenance, la page etait jugee sans contenu.
+    const estPageLegale =
+      routePathname === "/legal" ||
+      routePathname.startsWith("/legal/") ||
+      routePathname === "/contact";
     const estAccesProprietaire =
+      estPageLegale ||
       routePathname.startsWith("/sandbox/") ||
       routePathname.startsWith("/auth/") ||
       (!!process.env.DESK_SLUG && routePathname.startsWith(`/${process.env.DESK_SLUG}`)) ||
