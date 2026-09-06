@@ -25,7 +25,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 06/09/2026 11:00. Sociétés faites : 650 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 70 / 70 terminée ; Consommation de base (30) : 48 / 48 terminée ; Matériaux (15) : 36 / 36 terminée ; Collectivités (55) : 35 / 35 terminée ; Immobilier (60) : 33 / 33 terminée ; Communication (50) : 31 / 31 terminée ; Énergie (10) : 10 / 24 en cours. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 06/09/2026 11:11. Sociétés faites : 660 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 70 / 70 terminée ; Consommation de base (30) : 48 / 48 terminée ; Matériaux (15) : 36 / 36 terminée ; Collectivités (55) : 35 / 35 terminée ; Immobilier (60) : 33 / 33 terminée ; Communication (50) : 31 / 31 terminée ; Énergie (10) : 20 / 24 en cours. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
@@ -51,6 +51,8 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 - Les fichiers de fiche société peuvent être en minuscules ou sous une autre place de cotation (ex. STMPA.PA absent, stmmi.mi présent) : le dire aux agents.
 
 ## Ce qui est terminé (ne pas refaire)
+
+- Communication (50) : contre-vérification du 06/09 : 74 séries sondées (148 valeurs), 74 conformes, 0 corrigée, 0 non vérifiable. Livrable : donnees/_VERIFICATION-50.md.
 
 - Collectivites (55) : contre-vérification du 06/09 : 87 séries sondées (174 valeurs), 84 conformes, 1 corrigée (PPL : base d actifs 2016-2020 reprenait la colonne du segment britannique au lieu du Kentucky, valeurs rétablies), 2 non vérifiables (ATO 2021, source en 403). Livrable : donnees/_VERIFICATION-55.md.
 
