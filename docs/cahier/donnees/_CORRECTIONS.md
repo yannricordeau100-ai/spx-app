@@ -120,3 +120,9 @@ Serie RateBase en ligne (20 a 24,5 Mds $) introuvable dans les 10-K : aucune bas
 
 ## CBRE (06/09/2026, lot 60-01) : corrige
 Serie Resilient Revenue Mix (52 a 60 %, progression reguliere sans exercices ni source retrouvee dans les 10-K) RETIREE de la fiche ; la societe ne publie ce decoupage que depuis 2023 sous des definitions changeantes.
+
+## ORA.PA (06/09/2026, lot 50-04)
+Serie PRISES_FIBRE en ligne (55,6 puis 60,1) en retard d un exercice ; valeur 2025 officielle 65,5 millions MAIS rupture de perimetre 2024 (sortie de l Espagne vers MasOrange) : les deux tranches ne sont pas chainables. A corriger en scindant la serie (pas de correction a l aveugle), donnees officielles dans donnees/ORA.PA.json.
+
+## T (06/09/2026, lot 50-05) : corrige
+Serie AT&T Fiber Locations (16,5 a 28,3, aucun perimetre officiel correspondant) remplacee par la serie officielle des prises raccordables fibre 2023-2025 (26,5 ; 28,9 ; 32,0 millions).
