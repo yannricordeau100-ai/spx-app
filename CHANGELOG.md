@@ -97,3 +97,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.06.14 (06 Sep 2026 19:45, apres a93533cb6f)
 - Decisions _CORRECTIONS : TTD, ORA.PA, DTE, BF.B, SYK corriges sur les fiches, VMRK confirme
+
+## v2026.09.06.15 (06 Sep 2026 21:45, apres c3bbfb30e8)
+- Interrupteur page tarifs en maintenance (proxy, lancement, page d attente zone tarifs)

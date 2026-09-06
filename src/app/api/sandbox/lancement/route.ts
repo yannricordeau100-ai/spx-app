@@ -34,7 +34,8 @@ async function estProprietaire(): Promise<boolean> {
 }
 
 type Programme = { mode: "on" | "off"; quand: string } | null;
-type Reglage = { mode: "on" | "off" | "env"; programme: Programme };
+type Tarifs = "ouvert" | "maintenance";
+type Reglage = { mode: "on" | "off" | "env"; programme: Programme; tarifs: Tarifs };
 
 async function litReglage(): Promise<Reglage> {
   try {
@@ -51,9 +52,10 @@ async function litReglage(): Promise<Reglage> {
       p && (p.mode === "on" || p.mode === "off") && typeof p.quand === "string" && !Number.isNaN(Date.parse(p.quand))
         ? { mode: p.mode, quand: p.quand }
         : null;
-    return { mode, programme };
+    const tarifs: Tarifs = brut?.tarifs === "maintenance" ? "maintenance" : "ouvert";
+    return { mode, programme, tarifs };
   } catch {
-    return { mode: "env", programme: null };
+    return { mode: "env", programme: null, tarifs: "ouvert" };
   }
 }
 
@@ -74,7 +76,7 @@ export async function GET(req: NextRequest) {
   if (!(await autorise(req))) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
-  const { mode, programme } = await litReglage();
+  const { mode, programme, tarifs } = await litReglage();
   const env = (process.env.MAINTENANCE_MODE ?? "").toLowerCase();
   const envOn = env === "on" || env === "true" || env === "1";
   // Meme logique que le proxy : un programme echu remplace le mode courant.
@@ -86,6 +88,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({
     mode,
     programme,
+    tarifs,
     variable_env: envOn ? "on" : "off",
     maintenance_effective: effectif,
     niveaux: {
@@ -100,7 +103,7 @@ export async function POST(req: NextRequest) {
   if (!(await autorise(req))) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
-  let corps: { mode?: unknown; programme?: unknown };
+  let corps: { mode?: unknown; programme?: unknown; tarifs?: unknown };
   try {
     corps = await req.json();
   } catch {
@@ -127,16 +130,21 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "programme invalide ({mode, quand ISO})" }, { status: 400 });
     }
   }
+  // 6 sept 2026 : interrupteur de la page tarifs (« ouvert » ou « maintenance »),
+  // conserve tel quel quand la requete ne le mentionne pas.
+  const actuel = await litReglage();
+  const tarifs: Tarifs =
+    corps.tarifs === "maintenance" || corps.tarifs === "ouvert" ? corps.tarifs : actuel.tarifs;
   const { error } = await admin()
     .from("desk_page_content")
     .upsert(
       {
         page_key: "maintenance",
         section_key: "reglages",
-        content_fr: JSON.stringify({ mode, programme }),
+        content_fr: JSON.stringify({ mode, programme, tarifs }),
       },
       { onConflict: "page_key,section_key" },
     );
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ ok: true, mode, programme, delai: "effet sous ~20 secondes" });
+  return NextResponse.json({ ok: true, mode, programme, tarifs, delai: "effet sous ~20 secondes" });
 }

@@ -42,15 +42,16 @@ function estFichePublique(seg: string): boolean {
  *   - /favicon.ico, /robots.txt, /sitemap.xml : assets racine
  */
 // --- Interrupteur maintenance pilote en base (Yann 1er sept 2026) ---
-let maintenanceCache: { valeur: "on" | "off" | "env"; expire: number } = {
+let maintenanceCache: { valeur: "on" | "off" | "env"; tarifs: "ouvert" | "maintenance"; expire: number } = {
   valeur: "env",
+  tarifs: "ouvert",
   expire: 0,
 };
 async function modeMaintenanceEffectif(parEnv: boolean): Promise<boolean> {
   const maintenant = Date.now();
   if (maintenant > maintenanceCache.expire) {
     // Valeur par defaut si la lecture echoue : suivre l env.
-    maintenanceCache = { valeur: "env", expire: maintenant + 20_000 };
+    maintenanceCache = { valeur: "env", tarifs: "ouvert", expire: maintenant + 20_000 };
     try {
       const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
       const cle = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -69,7 +70,10 @@ async function modeMaintenanceEffectif(parEnv: boolean): Promise<boolean> {
             const reglage = JSON.parse(brut) as {
               mode?: string;
               programme?: { mode?: string; quand?: string };
+              tarifs?: string;
             };
+            // 6 sept 2026 : page tarifs en maintenance independamment du site.
+            if (reglage?.tarifs === "maintenance") maintenanceCache.tarifs = "maintenance";
             let mode = reglage?.mode;
             // Bascule programmee : passee l heure dite, le mode programme
             // remplace le mode courant (ex : ouverture du site a 9h00 pile).
@@ -484,6 +488,29 @@ export async function proxy(request: NextRequest) {
       url.pathname = isFrLocale ? "/fr/maintenance" : "/maintenance";
       url.search = "";
       return NextResponse.redirect(url, 307); // 307 = temporary, ne casse pas le SEO long terme
+    }
+  }
+
+  // 6 sept 2026 : PAGE TARIFS EN MAINTENANCE (interrupteur « tarifs » de
+  // /sandbox/lancement, meme ligne de reglage que la maintenance du site).
+  // Sur mettrik.ai seulement : /pricing et ses variantes sont renvoyees vers
+  // la page de maintenance (zone tarifs), et l ouverture d un paiement est
+  // refusee. Les pages lues par la validation Google (accueil, pages
+  // legales, contact) ne sont pas concernees.
+  if (isProdDomain) {
+    await modeMaintenanceEffectif(maintenanceParEnv);
+    if (maintenanceCache.tarifs === "maintenance") {
+      const estPageTarifs =
+        routePathname === "/pricing" || routePathname === "/sandbox/v1-9-5/pricing";
+      if (estPageTarifs) {
+        const url = request.nextUrl.clone();
+        url.pathname = isFrLocale ? "/fr/maintenance" : "/maintenance";
+        url.search = "?zone=tarifs";
+        return NextResponse.redirect(url, 307);
+      }
+      if (routePathname === "/api/billing/checkout") {
+        return NextResponse.json({ error: "tarifs_en_maintenance" }, { status: 503 });
+      }
     }
   }
 

@@ -13,6 +13,7 @@ type Programme = { mode: "on" | "off"; quand: string } | null;
 type Etat = {
   mode: "on" | "off" | "env";
   programme: Programme;
+  tarifs: "ouvert" | "maintenance";
   variable_env: "on" | "off";
   maintenance_effective: boolean;
   niveaux: { n0: string; n1: string; n2: string };
@@ -43,7 +44,7 @@ export function LancementClient() {
     return () => window.clearInterval(m);
   }, [charge]);
 
-  async function envoie(corps: { mode: "on" | "off" | "env"; programme?: Programme }) {
+  async function envoie(corps: { mode: "on" | "off" | "env"; programme?: Programme; tarifs?: "ouvert" | "maintenance" }) {
     setEnvoi(true);
     setMessage("");
     try {
@@ -98,6 +99,22 @@ export function LancementClient() {
         <button disabled={envoi} onClick={() => void envoie({ mode: "env", programme: etat?.programme ?? null })}
           className="rounded-lg border border-[#262626] px-4 py-2.5 text-sm text-zinc-400 hover:border-[#3a3a3a] disabled:opacity-50">
           Suivre la variable Vercel
+        </button>
+      </div>
+
+      <h2 className="mt-8 text-sm font-medium uppercase tracking-wide text-zinc-500">Page tarifs</h2>
+      <p className="mt-2 text-sm text-zinc-400">
+        État : {etat?.tarifs === "maintenance" ? "en maintenance (lien direct, boutons de l accueil et des fiches renvoyés vers la page d attente, paiement fermé)" : "ouverte"}.
+        Indépendant de l ouverture du site ; sans effet sur les pages lues par la validation Google (accueil, pages légales, contact).
+      </p>
+      <div className="mt-3 flex flex-wrap gap-3">
+        <button disabled={envoi || !etat} onClick={() => etat && void envoie({ mode: etat.mode, programme: etat.programme, tarifs: "maintenance" })}
+          className="rounded-lg border border-amber-500 bg-amber-500/15 px-4 py-2.5 text-sm font-semibold text-amber-200 hover:bg-amber-500/25 disabled:opacity-50">
+          Mettre la page tarifs en maintenance
+        </button>
+        <button disabled={envoi || !etat} onClick={() => etat && void envoie({ mode: etat.mode, programme: etat.programme, tarifs: "ouvert" })}
+          className="rounded-lg border border-emerald-500 bg-emerald-500/15 px-4 py-2.5 text-sm font-semibold text-emerald-200 hover:bg-emerald-500/25 disabled:opacity-50">
+          Rouvrir la page tarifs
         </button>
       </div>
 
