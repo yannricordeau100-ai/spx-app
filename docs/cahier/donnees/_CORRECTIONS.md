@@ -126,3 +126,12 @@ Serie PRISES_FIBRE en ligne (55,6 puis 60,1) en retard d un exercice ; valeur 20
 
 ## T (06/09/2026, lot 50-05) : corrige
 Serie AT&T Fiber Locations (16,5 a 28,3, aucun perimetre officiel correspondant) remplacee par la serie officielle des prises raccordables fibre 2023-2025 (26,5 ; 28,9 ; 32,0 millions).
+
+## TTD (06/09/2026, lot 50-06)
+Serie en ligne Customer retention rate : 95 % identique sur 13 exercices alors que la societe ne publie qu un PLANCHER (superieur a 95 %), jamais de valeur exacte. Decision a prendre : annoter la serie comme plancher ou la retirer.
+
+## VMRK (06/09/2026, contre-verif 60)
+Fiche nee de la fusion AvalonBay + Equity Residential (aout 2026) nommee « Vivmark Residential » dans le lot, emetteur inexistant sur EDGAR ; les sources sont des depots AvalonBay (acquereur comptable). Identite officielle a arbitrer par le proprietaire (nom exact de l entite fusionnee).
+
+## EOG (06/09/2026, lot 10-02) : corrige
+Serie FindingCost en ligne (5,5 a 8,5, sans correspondance publiee) remplacee par la serie officielle Reserve Replacement Cost 2017-2025 (8,4 ; 9,1 ; 8,02 ; 6,69 ; 5,57 ; 5,13 ; 7,2 ; 6,68 ; 14,54 $/Boe).

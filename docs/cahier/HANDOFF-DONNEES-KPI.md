@@ -25,7 +25,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 06/09/2026 10:41. Sociétés faites : 628 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 70 / 70 terminée ; Consommation de base (30) : 48 / 48 terminée ; Matériaux (15) : 36 / 36 terminée ; Collectivités (55) : 35 / 35 terminée ; Immobilier (60) : 33 / 33 terminée ; Communication (50) : 19 / 31 en cours. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 06/09/2026 10:56. Sociétés faites : 643 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 70 / 70 terminée ; Consommation de base (30) : 48 / 48 terminée ; Matériaux (15) : 36 / 36 terminée ; Collectivités (55) : 35 / 35 terminée ; Immobilier (60) : 33 / 33 terminée ; Communication (50) : 31 / 31 terminée ; Énergie (10) : 3 / 24 en cours. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
@@ -51,6 +51,8 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 - Les fichiers de fiche société peuvent être en minuscules ou sous une autre place de cotation (ex. STMPA.PA absent, stmmi.mi présent) : le dire aux agents.
 
 ## Ce qui est terminé (ne pas refaire)
+
+- Immobilier (60) : contre-vérification du 06/09 : 120 séries sondées, 119 conformes, 1 corrigée (CCI 2024/2025 intervertis, remis en ordre), 0 non vérifiable. VMRK (fusion AvalonBay + Equity Residential d août 2026) : identité de la fiche à arbitrer, sources = dépôts AvalonBay. Livrable : donnees/_VERIFICATION-60.md.
 
 - Conso discretionnaire (25) : contre-vérification du 06/09 : 200 séries sondées (400 valeurs, 671 documents), 199 conformes, 1 corrigée (ADS.DE BRAND_GROWTH 2017, 12 corrigé en 18, la source donnait la seule Europe de l Ouest), 0 non vérifiable. HD et ULTA datent leurs séries sur le nom d exercice de la société (décalage d un an vs la convention du brief), valeurs exactes, non re-datées. Livrable : donnees/_VERIFICATION-25.md.
 
