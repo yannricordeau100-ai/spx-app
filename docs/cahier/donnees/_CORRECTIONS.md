@@ -113,3 +113,7 @@ Serie RateBase en ligne (20 a 24,5 Mds $) introuvable dans les 10-K : aucune bas
 ## LNT et NRG (06/09/2026, lot 55-05) : corriges
 - LNT : serie Rate Base consolidee (10,5 a 14,5, progression arithmetique parfaite jamais publiee) RETIREE ; aucun 10-K ne publie de base d actifs consolidee IPL plus WPL. Les comptes clients IPL/WPL arrondis au millier restent (ecart mineur tolere).
 - NRG : capacite de production ramenee a 12 276 MW (10-K exercice 2025) ; les 25 GW etaient le perimetre annonce post LS Power, hors comptes.
+
+## PPL et SO (06/09/2026, lot 55-06)
+- PPL : serie Rate base growth (6,3 ; 9,8 ; 10,3 %) introuvable dans les 10-K, RETIREE de la fiche.
+- SO : la serie base tarifaire 73 a 98 Mds $ signalee n existe pas sur la fiche actuelle (rien a retirer) ; Southern ne publie pas sa base d actifs, statut non_trouve au cahier.
