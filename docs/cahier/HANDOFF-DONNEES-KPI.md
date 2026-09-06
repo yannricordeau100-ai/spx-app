@@ -52,6 +52,8 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 
 ## Ce qui est terminé (ne pas refaire)
 
+- Conso discretionnaire (25) : contre-vérification du 06/09 : 200 séries sondées (400 valeurs, 671 documents), 199 conformes, 1 corrigée (ADS.DE BRAND_GROWTH 2017, 12 corrigé en 18, la source donnait la seule Europe de l Ouest), 0 non vérifiable. HD et ULTA datent leurs séries sur le nom d exercice de la société (décalage d un an vs la convention du brief), valeurs exactes, non re-datées. Livrable : donnees/_VERIFICATION-25.md.
+
 - Materiaux (15) : contre-vérification du 06/09 : 86 séries sondées, 85 conformes, 0 corrigée, 1 non vérifiable (DSFIR.AS PRICE_MIX 2023, passée en autre). Livrable : donnees/_VERIFICATION-15.md.
 
 - Conso de base (30) : contre-vérification du 06/09 : 105 séries sondées (210 valeurs), 105 conformes, 0 corrigée, 0 non vérifiable. Une URL de source corrigée (BF.B 10-K 2018). Livrable : donnees/_VERIFICATION-30.md.

@@ -82,3 +82,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.06.9 (06 Sep 2026 06:28, apres ad49d26c16)
 - Donnees KPI : secteur 15 termine (36 stes), corrections LIN VMC STLD SW
+
+## v2026.09.06.10 (06 Sep 2026 06:49, apres b95c422e05)
+- Contre-verifications 25, 30, 15 terminees + corrections AEE STLD SW LIN VMC
