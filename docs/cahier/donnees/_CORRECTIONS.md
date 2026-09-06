@@ -91,3 +91,6 @@ La fiche nommait la societe Heineken Holding N.V. alors que le ticker HEIA.AS de
 
 ## LIN (06/09/2026, lot 15-05) : corrige
 Serie On-Site Mix en ligne (28 a 31 %) sans correspondance publiee ; remplacee par la note Revenue Recognition des 10-K (24, 27, 24, 23, 24 pour 2021-2025). Regle du 10-K fait foi.
+
+## VMC (06/09/2026, lot 15-08) : corrige en partie
+Les series granulats en ligne melangeaient des trimestres de 2019, 2020 et 2024 sans libelle. Remplacees par les series ANNUELLES officielles des 10-K : expeditions 2010-2025, prix ajuste du fret 2016-2025, marge brute cash par tonne 2010-2025. Reste a re-sourcer : la serie hero Aggregates gross profit per ton (meme melange de trimestres, pas de serie annuelle officielle etablie).
