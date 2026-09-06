@@ -112,3 +112,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.07.3 (07 Sep 2026 00:57, apres edded75b64)
 - Atelier TAM (/sandbox/tam) : candidats du Cahier, arbitrage a deux cases, hesitations
+
+## v2026.09.07.4 (07 Sep 2026 01:07, apres 347073acf3)
+- TAM : premiers candidats (30 societes technologie) dans l atelier
