@@ -88,3 +88,6 @@ Serie en ligne Volume Growth (unit cases) : les deux valeurs (0,5 et 3,6) ne cor
 
 ## HEIA.AS (06/09/2026, lot 30-04) : identite corrigee
 La fiche nommait la societe Heineken Holding N.V. alors que le ticker HEIA.AS designe Heineken N.V. (le holding est HEIO.AS). Nom corrige sur la fiche. Les KPI operationnels sont ceux de Heineken N.V., seule entite qui les publie.
+
+## LIN (06/09/2026, lot 15-05) : corrige
+Serie On-Site Mix en ligne (28 a 31 %) sans correspondance publiee ; remplacee par la note Revenue Recognition des 10-K (24, 27, 24, 23, 24 pour 2021-2025). Regle du 10-K fait foi.
