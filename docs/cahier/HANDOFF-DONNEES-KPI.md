@@ -25,7 +25,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 06/09/2026 10:56. Sociétés faites : 643 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 70 / 70 terminée ; Consommation de base (30) : 48 / 48 terminée ; Matériaux (15) : 36 / 36 terminée ; Collectivités (55) : 35 / 35 terminée ; Immobilier (60) : 33 / 33 terminée ; Communication (50) : 31 / 31 terminée ; Énergie (10) : 3 / 24 en cours. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 06/09/2026 11:00. Sociétés faites : 650 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 70 / 70 terminée ; Consommation de base (30) : 48 / 48 terminée ; Matériaux (15) : 36 / 36 terminée ; Collectivités (55) : 35 / 35 terminée ; Immobilier (60) : 33 / 33 terminée ; Communication (50) : 31 / 31 terminée ; Énergie (10) : 10 / 24 en cours. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
@@ -51,6 +51,8 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 - Les fichiers de fiche société peuvent être en minuscules ou sous une autre place de cotation (ex. STMPA.PA absent, stmmi.mi présent) : le dire aux agents.
 
 ## Ce qui est terminé (ne pas refaire)
+
+- Collectivites (55) : contre-vérification du 06/09 : 87 séries sondées (174 valeurs), 84 conformes, 1 corrigée (PPL : base d actifs 2016-2020 reprenait la colonne du segment britannique au lieu du Kentucky, valeurs rétablies), 2 non vérifiables (ATO 2021, source en 403). Livrable : donnees/_VERIFICATION-55.md.
 
 - Immobilier (60) : contre-vérification du 06/09 : 120 séries sondées, 119 conformes, 1 corrigée (CCI 2024/2025 intervertis, remis en ordre), 0 non vérifiable. VMRK (fusion AvalonBay + Equity Residential d août 2026) : identité de la fiche à arbitrer, sources = dépôts AvalonBay. Livrable : donnees/_VERIFICATION-60.md.
 
