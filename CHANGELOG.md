@@ -115,3 +115,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.07.4 (07 Sep 2026 01:07, apres 347073acf3)
 - TAM : premiers candidats (30 societes technologie) dans l atelier
+
+## v2026.09.07.5 (07 Sep 2026 01:22, apres 9b71e170ef)
+- TAM : 78 societes (technologie quasi complete) dans l atelier
