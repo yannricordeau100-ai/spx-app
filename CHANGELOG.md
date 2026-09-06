@@ -79,3 +79,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.06.8 (06 Sep 2026 05:44, apres b38e6ccd26)
 - Donnees KPI : secteur 30 termine (48 stes), corrections RI.PA HEIA.AS, arbitrages
+
+## v2026.09.06.9 (06 Sep 2026 06:28, apres ad49d26c16)
+- Donnees KPI : secteur 15 termine (36 stes), corrections LIN VMC STLD SW
