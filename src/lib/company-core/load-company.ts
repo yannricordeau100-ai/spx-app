@@ -20,6 +20,7 @@
  * via `revalidate` quand pertinent.
  */
 import { unstable_cache } from "next/cache";
+import { VERSION } from "@/lib/version";
 import { promises as fs } from "fs";
 import { definitionGeneriqueKpi } from "@/lib/kpi-definitions-generiques";
 import doublonsForcesJson from "@/data/kpi-doublons-forces.json";
@@ -469,7 +470,10 @@ const CACHE_TTL_MS = 10 * 60_000;
 const chargeAvecCachePartage = unstable_cache(
   async (ticker: string, mode: "v17" | "v18", locale: string): Promise<LoadOutcome> =>
     loadV17CompanyBrut(ticker, { mode, locale }),
-  ["fiche-societe"],
+  // 7 sept 2026 : la cle porte le numero de version, sinon le cache de donnees
+  // partage survivait au deploiement et servait les anciennes fiches (NEM :
+  // serie allongee invisible pendant 6 h apres la mise en ligne).
+  ["fiche-societe", VERSION],
   { revalidate: 21600, tags: ["fiches"] },
 );
 

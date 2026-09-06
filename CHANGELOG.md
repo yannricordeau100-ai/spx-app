@@ -103,3 +103,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.06.16 (06 Sep 2026 23:36, apres 454e7eea26)
 - Pose des KPI du Cahier (demonstration NVDA NFLX NEM DD VIE.PA + autres SMCI SLHN.SW KDP) : pastilles et points ambre
+
+## v2026.09.07.1 (07 Sep 2026 00:10, apres 06b7c1fae0)
+- Cache des fiches lie au numero de version (series allongees visibles des la mise en ligne)
