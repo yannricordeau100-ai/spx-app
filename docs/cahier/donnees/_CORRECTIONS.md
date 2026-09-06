@@ -105,3 +105,7 @@ Base tarifaire (hero) alignee sur les presentations officielles Ameren : 23,1 (2
 
 ## DTE (06/09/2026, lot 55-02)
 Serie RateBase en ligne (20 a 24,5 Mds $) introuvable dans les 10-K : aucune base d actifs publiee par la societe. Source a verifier ou serie a retirer apres validation du proprietaire (probablement issue de presentations investisseurs non citees).
+
+## ED et EOAN.DE (06/09/2026, lot 55-03) : corriges
+- ED : serie Electric Rate Base (15,651 decroissant, sans correspondance 10-K) remplacee par la base CECONY electricite officielle 2014-2025 (17,3 a 29,4 Mds $).
+- EOAN.DE : RAB 2020-2023 alignee sur les rapports annuels (34,9 ; 35,0 ; 36,4 ; 42,0).
