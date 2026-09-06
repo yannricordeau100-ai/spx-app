@@ -102,3 +102,6 @@ Les series granulats en ligne melangeaient des trimestres de 2019, 2020 et 2024 
 
 ## AEE (06/09/2026, lot 55-01) : corrige en partie
 Base tarifaire (hero) alignee sur les presentations officielles Ameren : 23,1 (2022), 27,0 (2024), 28,8 Mds $ (2025). Reste a clarifier : la serie Five-Year Capital Plan en ligne (6,3 a 20,8) dont la correspondance annee par annee avec les plans officiels (19,7 ; 26,3 ; 31,8) n est pas etablie ; a re-sourcer avant correction. AEP : plan quinquennal en ligne (78 Mds $) plus recent que le plan de cloture 2025 (72), pas d ecart avere.
+
+## DTE (06/09/2026, lot 55-02)
+Serie RateBase en ligne (20 a 24,5 Mds $) introuvable dans les 10-K : aucune base d actifs publiee par la societe. Source a verifier ou serie a retirer apres validation du proprietaire (probablement issue de presentations investisseurs non citees).

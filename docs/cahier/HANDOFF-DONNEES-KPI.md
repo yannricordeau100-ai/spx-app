@@ -25,7 +25,7 @@ python3 docs/cahier/donnees/_prochains.py --prochains 6
 
 qui affiche : sociétés faites / 666, l'avancement par secteur, et les 6 prochains lots à lancer (partiels d'abord).
 
-Dernière mise à jour : 06/09/2026 06:28. Sociétés faites : 541 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 70 / 70 terminée ; Consommation de base (30) : 48 / 48 terminée ; Matériaux (15) : 36 / 36 terminée. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
+Dernière mise à jour : 06/09/2026 06:43. Sociétés faites : 551 / 666. Technologie (45) : 97 / 97 terminée ; Industrie (20) : 115 / 115 terminée ; Finance (40) : 100 / 100 terminée ; Santé (35) : 75 / 75 terminée ; Consommation discrétionnaire (25) : 70 / 70 terminée ; Consommation de base (30) : 48 / 48 terminée ; Matériaux (15) : 36 / 36 terminée ; Collectivités (55) : 10 / 35 en cours. Contre-vérification : technologie lancée le 05/09 19h15 (livrable `donnees/_VERIFICATION-45.md`). Ordre des secteurs : 45, 20, 40, 35, 25, 30, 15, 55, 60, 50, 10.
 
 ## La mission (rappel)
 
@@ -51,6 +51,8 @@ Pour chaque société de l'univers (666), retrouver les valeurs ANNUELLES (idéa
 - Les fichiers de fiche société peuvent être en minuscules ou sous une autre place de cotation (ex. STMPA.PA absent, stmmi.mi présent) : le dire aux agents.
 
 ## Ce qui est terminé (ne pas refaire)
+
+- Materiaux (15) : contre-vérification du 06/09 : 86 séries sondées, 85 conformes, 0 corrigée, 1 non vérifiable (DSFIR.AS PRICE_MIX 2023, passée en autre). Livrable : donnees/_VERIFICATION-15.md.
 
 - Conso de base (30) : contre-vérification du 06/09 : 105 séries sondées (210 valeurs), 105 conformes, 0 corrigée, 0 non vérifiable. Une URL de source corrigée (BF.B 10-K 2018). Livrable : donnees/_VERIFICATION-30.md.
 
