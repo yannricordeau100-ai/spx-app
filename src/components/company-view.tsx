@@ -1505,7 +1505,9 @@ export function CompanyView({
                                 </span>
                               </>
                             )}
-                            {nextEarningsDate && (
+                            {/* Une date attendue deja passee ne s affiche jamais (Yann 07/09). */}
+                            {nextEarningsDate &&
+                              new Date(nextEarningsDate.split("T")[0]).getTime() >= today.getTime() && (
                               <>
                                 <br />
                                 <span style={{ color: isEarningPending ? "#fbbf24" : "#facc15" }}>

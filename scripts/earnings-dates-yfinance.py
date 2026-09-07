@@ -50,15 +50,10 @@ def main():
     p.add_argument("--workers", type=int, default=20)
     args = p.parse_args()
 
-    # Toutes stés validées
-    tickers = []
-    for f in OUT_DIR.glob("*.json"):
-        n = f.name
-        if n.startswith("_") or ".gemini.json" in n: continue
-        try: d = json.loads(f.read_text())
-        except: continue
-        if "_validation" not in d: continue
-        tickers.append(n[:-5].upper())
+    # Univers 666 d abord (l ancien glob v2-pipeline listait 2400+ fiches et le
+    # --limit 640 du cron laissait la majorite de l univers sans mise a jour).
+    uni_path = ROOT / "src/data/v1-9-5-clean-all-tickers.json"
+    tickers = [t.upper() for t in json.loads(uni_path.read_text())["tickers"]]
     if args.limit: tickers = tickers[:args.limit]
 
     print(f"Earnings dates : {len(tickers)} stés, {args.workers} threads")
@@ -76,6 +71,16 @@ def main():
                         d["next_earnings_date"] = next_ed
                         json_path.write_text(json.dumps(d, ensure_ascii=False, indent=2))
                         updated += 1
+                    except: pass
+                # L override enrich (load-company) doit rester coherent, sinon
+                # une vieille date enrich ecrase la date fraiche du pipeline.
+                enrich_path = ROOT / "src/data/v2-pipeline-enrich" / f"{tk.lower()}.json"
+                if enrich_path.exists():
+                    try:
+                        e = json.loads(enrich_path.read_text())
+                        if "next_earnings_date" in e and e["next_earnings_date"] != next_ed:
+                            e["next_earnings_date"] = next_ed
+                            enrich_path.write_text(json.dumps(e, ensure_ascii=False, indent=2))
                     except: pass
             if (i+1) % 100 == 0:
                 print(f"  {i+1}/{len(tickers)} ({time.time()-t0:.0f}s)")

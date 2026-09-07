@@ -1147,9 +1147,14 @@ async function loadV17CompanyBrut(
     // met à jour enrich.next_earnings_date via yfinance.calendar. Sans ce
     // merge, le SSR utilise la valeur stale de v2-pipeline/<t>.json
     // → bug "earning attendu" alors que publié (cas NVDA).
+    // Deux sources possibles (pipeline et enrich) : l une ou l autre peut etre
+    // en retard selon le dernier script passe, on garde la plus tardive.
     const enrichNextEarnings = (enrich as Record<string, unknown>).next_earnings_date;
     if (typeof enrichNextEarnings === "string" && enrichNextEarnings) {
-      (data as Record<string, unknown>).next_earnings_date = enrichNextEarnings;
+      const pipelineNext = (data as Record<string, unknown>).next_earnings_date;
+      if (typeof pipelineNext !== "string" || enrichNextEarnings >= pipelineNext) {
+        (data as Record<string, unknown>).next_earnings_date = enrichNextEarnings;
+      }
     }
     // Hero signal override (CONV-CONCEPTS 21 mai 2026, sub-agent #48 follow-up) :
     // fill heuristique signal vide sur hero KPI (7 stés publishable). Format :
