@@ -87,7 +87,6 @@ export function GicsAtelier({
   const onglets: { id: Onglet; label: string; compte: string }[] = [
     { id: "classification", label: "Classification et KPI", compte: `${nbSous} sous-industries · ${nbDocumentees} documentées` },
     { id: "societes", label: "Sociétés", compte: `${nbClassees} classées · ${annuaire.aClasser.length} à classer` },
-    { id: "relecture", label: "Arbitrages KPI", compte: `${relecture.points.length} points` },
     { id: "prompts", label: "Prompts", compte: `${prompts.length}` },
   ];
 
@@ -156,7 +155,6 @@ export function GicsAtelier({
             )}
           </>
         )}
-        {onglet === "relecture" && <OngletRelecture relecture={relecture} />}
         {onglet === "prompts" && <OngletPrompts prompts={prompts} />}
       </div>
     </div>
