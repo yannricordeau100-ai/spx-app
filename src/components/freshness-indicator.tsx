@@ -110,6 +110,7 @@ export function FreshnessIndicator({
   size = "sm",
   tooltipAlign = "left",
   iconOnly = false,
+  compact = false,
 }: {
   lastDate?: string;
   /** Date de publication SEC (filed_date du 10-Q/10-K). */
@@ -125,6 +126,10 @@ export function FreshnessIndicator({
   /** Yann 15 juin 2026 : home mini-cards = juste un gros "i" bleu (pas la
    *  chip "Prochain résultats J-x"). Le détail reste dans le tooltip. */
   iconOnly?: boolean;
+  /** Yann 7 sept 2026 : mode colonne ultra compacte pour le bandeau prix
+   *  (à gauche de la capitalisation boursière). Label sur 2 mini lignes +
+   *  "T3 2026 · J-12". Rend sa propre bordure droite de séparation. */
+  compact?: boolean;
 }) {
   const { t, locale } = useT();
   const isFr = locale === "fr";
@@ -214,6 +219,29 @@ export function FreshnessIndicator({
   if (!hasNext) return null;
   const prefix = isFr ? "Prochain résultats" : "Next results";
   const dLabel = isFr ? `J-${daysUntil}` : `D-${daysUntil}`;
+
+  // Yann 7 sept 2026 : colonne ultra compacte pour le bandeau prix, placée
+  // à gauche de la capitalisation boursière. Largeur minimale : label mono
+  // sur 2 mini lignes + valeur "T3 2026 · J-12" sur une seule ligne, puis
+  // mini ligne de séparation verticale (border droite).
+  if (compact) {
+    return (
+      <div className="flex shrink-0 flex-col items-start justify-center border-r border-white/15 pr-2 text-left sm:pr-3">
+        <span className="font-mono text-[9px] font-semibold uppercase leading-[1.2] tracking-[0.14em] text-zinc-100">
+          {isFr ? "Prochains" : "Next"}
+        </span>
+        <span className="font-mono text-[9px] font-semibold uppercase leading-[1.2] tracking-[0.14em] text-zinc-100">
+          {isFr ? "résultats" : "results"}
+        </span>
+        <span className="mt-1 inline-flex items-center gap-1 whitespace-nowrap font-mono text-[12px] font-bold leading-none" style={{ color }}>
+          {nextQuarter} <span className="opacity-90">{dLabel}</span>
+          <InfoTooltip color={color} size="sm" align={tooltipAlign}>
+            {tooltipBody}
+          </InfoTooltip>
+        </span>
+      </div>
+    );
+  }
 
   return (
     <span

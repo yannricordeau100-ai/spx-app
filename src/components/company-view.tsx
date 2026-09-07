@@ -80,8 +80,8 @@ import { PageSearch } from "@/components/page-search";
 import { GovernanceCard } from "@/components/governance-card";
 import { RepartitionBlock } from "@/components/repartition-block";
 import { MarketPositionCard } from "@/components/market-position-card";
-import { FreshnessIndicator } from "@/components/freshness-indicator";
-import { getFreshnessReference } from "@/lib/freshness/compute-tier";
+// Yann 7 sept 2026 : FreshnessIndicator deplace dans stock-price-block (COL 0).
+
 import { CompanyNavChrome } from "@/components/company-nav-chrome";
 import { KpiSwapTitle } from "@/components/kpi-swap-title";
 import { SuperKpiBoard } from "@/components/super-kpi-board";
@@ -1718,14 +1718,9 @@ export function CompanyView({
                     quand l'utilisateur clique un autre KPI ou quand
                     effectiveDefaultHero swap vers un quarterly. Voir
                     `src/lib/freshness/compute-tier.ts`. */}
-                <FreshnessIndicator
-                  lastDate={getFreshnessReference(company).lastDate ?? "2025-12-31"}
-                  publicationDate={getFreshnessReference(company).publicationDate}
-                  nextEarningsDate={company.next_earnings_date}
-                  ticker={company.ticker}
-                  alwaysShow
-                  size="sm"
-                />
+                {/* Yann 7 sept 2026 : chip "Prochains résultats J-x" retirée du
+                    hero KPI. Elle vit désormais dans le bandeau prix, à gauche
+                    de la capitalisation boursière (stock-price-block, COL 0). */}
                 {/* Yann 19 mai 2026 : garde-fou data — affiche un badge
                     "Data en cours" si le hero KPI a une history < 4 points
                     OU period_type=quarter avec une série monotone décr 3-5

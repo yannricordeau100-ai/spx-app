@@ -7,6 +7,8 @@ import type { Locale } from "@/lib/i18n/types";
 import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { SnapshotCard } from "@/components/company-profile-card";
+import { FreshnessIndicator } from "@/components/freshness-indicator";
+import { getFreshnessReference } from "@/lib/freshness/compute-tier";
 
 /**
  * StockPriceBlock — bandeau prix de l'action, design "S6 v2".
@@ -260,6 +262,19 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
 
       {/* Cadre flex auto-largeur, gap-x pour espacement régulier sans flex-1 */}
       <div className="relative flex items-stretch gap-x-2.5 sm:gap-x-4">
+        {/* COL 0 — Prochains résultats (Yann 7 sept 2026) : chip retirée du
+            hero KPI, affichée ici en colonne ultra compacte à gauche de la
+            capitalisation, avec sa mini séparation verticale (rendue par le
+            composant). Rien si pas de date sûre. */}
+        <FreshnessIndicator
+          compact
+          lastDate={getFreshnessReference(company).lastDate ?? "2025-12-31"}
+          publicationDate={getFreshnessReference(company).publicationDate}
+          nextEarningsDate={company.next_earnings_date}
+          ticker={company.ticker}
+          size="sm"
+        />
+
         {/* COL 1 — Capitalisation boursière (label 2 lignes + montant 3e ligne).
             Yann 3 juin 2026 22h55: alignement LEFT au lieu de RIGHT (texte aligne a gauche). */}
         <div className="flex shrink-0 flex-col items-start justify-center border-r border-white/15 pr-2.5 sm:pr-4 text-left">

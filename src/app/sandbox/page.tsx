@@ -295,6 +295,18 @@ const SECTIONS: SandboxSection[] = [
         desc: "Part du CA des tout premiers clients (1 à 3) et des plus gros clients élargis (6 à 10), par secteur GICS, sources officielles. Mission en cours.",
       },
       {
+        href: "/sandbox/services-max",
+        icon: Sparkles,
+        label: "Services Premium / Max",
+        desc: "La proposition d'offre du 7 sept (socle Gratuit / Premium / Max) et les 7 services Max candidats avec faisabilité, délai et cases à cocher pour tes choix.",
+      },
+      {
+        href: "/sandbox/bourses",
+        icon: Globe2,
+        label: "Bourses mondiales",
+        desc: "Arborescence par pays : indice principal et secondaire de chaque bourse (CAC 40 / SBF 120, DAX / MDAX, S&P 500 / Nasdaq 100 / SOXX...), sociétés déjà en ligne cliquables.",
+      },
+      {
         href: "/sandbox/moat",
         icon: Crown,
         label: "Moat Morningstar",
