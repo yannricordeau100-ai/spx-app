@@ -289,6 +289,12 @@ const SECTIONS: SandboxSection[] = [
         desc: "6 logos bandeau illisibles en carré : l'actuel et le candidat officiel côte à côte sur fond noir, case à cocher.",
       },
       {
+        href: "/sandbox/clients",
+        icon: Users,
+        label: "Concentration clients",
+        desc: "Part du CA des tout premiers clients (1 à 3) et des plus gros clients élargis (6 à 10), par secteur GICS, sources officielles. Mission en cours.",
+      },
+      {
         href: "/sandbox/moat",
         icon: Crown,
         label: "Moat Morningstar",
