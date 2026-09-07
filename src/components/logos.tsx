@@ -226,5 +226,8 @@ const LIGHT_BG_TICKERS = new Set<string>([
 ]);
 
 export function logoNeedsLightBg(ticker: string): boolean {
-  return LIGHT_BG_TICKERS.has(ticker.toUpperCase());
+  const t = ticker.toUpperCase();
+  // La liste auditee est nommee comme les fichiers (points convertis en
+  // tirets) : PAH3.DE doit matcher PAH3-DE (Yann 07 sept 2026).
+  return LIGHT_BG_TICKERS.has(t) || LIGHT_BG_TICKERS.has(t.replace(/\./g, "-"));
 }
