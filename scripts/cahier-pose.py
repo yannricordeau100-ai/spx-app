@@ -118,7 +118,8 @@ def pose(ticker, autres=False, retire=False):
                     bilan.append(f"{k['short']} : serie {cible['short']} allongee de {len(ajout)} exercices")
                     continue
                 # serie en ligne trimestrielle ou introuvable : serie annuelle a part
-                marque, suffixe = "allonge", " (série annuelle)"
+                # Yann 07/09/2026 : plus de mention (serie annuelle) dans les titres.
+                marque, suffixe = "allonge", ""
             else:
                 marque, suffixe = ("nouveau" if st == "trouve" else "autre"), ""
             short = f"CAHIER_{k['short']}"
@@ -144,12 +145,23 @@ def pose(ticker, autres=False, retire=False):
                 "_src_note": note,
             }
             if len(ys) < 5:
+                # Yann 07/09/2026 : un KPI en story doit dater d un an au plus.
+                # Derniere donnee avant 2025 = pas de pose, note au Cahier
+                # (visible dans le toggle GICS).
+                if ys[-1] < 2025:
+                    k["commentaire"] = ("Non pose en story le 07/09/2026, regle du proprietaire : "
+                        f"derniere donnee {ys[-1]}, une story doit dater d un an au plus. ") + (k.get("commentaire") or "")
+                    d["_maj_story"] = True
+                    bilan.append(f"{k['short']} : story {ys[-1]} non posee (regle 2025)")
+                    continue
                 nouveau["is_short_history"] = True
                 nouveau["story_category"] = "Adoption"
             kpis.append(nouveau)
             shorts.add(short)
             bilan.append(f"{k['short']} : nouveau ({marque}, {len(ys)} exercices)")
     json.dump(h, open(hp, "w"), ensure_ascii=False)
+    if d.pop("_maj_story", None):
+        json.dump(d, open(dp, "w"), ensure_ascii=False, indent=1)
     return f"{ticker} : " + ("; ".join(bilan) if bilan else "rien a poser")
 
 
