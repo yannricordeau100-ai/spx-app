@@ -144,3 +144,12 @@ Serie FindingCost en ligne (5,5 a 8,5, sans correspondance publiee) remplacee pa
 
 ## WMB (06/09/2026, lot 10-05) : corrige
 Serie des volumes Transco en ligne (trimestrielle, valeurs 2023-2025 non conformes aux communiques) remplacee par la serie annuelle officielle 2018-2025 (11,8 a 15,0).
+
+
+## Decisions du proprietaire du 07/09/2026 (transmises en session)
+- ARES : option B, les chiffres d origine restent (pas d alignement sur la republication).
+- ROST : VENTES_SURFACE a re-sourcer annee par annee puis publier (en cours).
+- VMC : option A appliquee, le hero melange de trimestres retire, hero = Aggregates cash gross profit per ton (serie annuelle officielle).
+- AEE : option B, serie Five-Year Capital Plan a re-sourcer depuis les presentations (en cours).
+- HD et ULTA : option A, re-datage des deux fiches sur l annee civile de cloture (en cours).
+- SHW : reconstitution des deux entrees de marge segment vides (en cours).
