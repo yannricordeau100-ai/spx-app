@@ -36,7 +36,21 @@ const IDEES: Idee[] = [
   { id: "7", titre: "Export CSV/API des séries KPI", plusValue: "forte pour les power users (tableurs, backtests) ; TIKR le vend cher", faisabilite: "élevée : les JSON existent", delai: "2 jours", cout: "nul", risque: "facilite le pillage des données, quota strict indispensable", avis: "seulement avec quota" },
 ];
 
-export function ServicesMaxAtelier({ auditToken }: { auditToken?: string }) {
+export type PreuveIdee = {
+  offert_par?: string[];
+  demande_client?: string;
+  verdict?: string;
+  confiance?: string;
+  note?: string;
+};
+
+export function ServicesMaxAtelier({
+  auditToken,
+  preuves,
+}: {
+  auditToken?: string;
+  preuves?: Record<string, PreuveIdee> | null;
+}) {
   const [choix, setChoix] = useState<Record<string, boolean>>({});
   const [charge, setCharge] = useState(false);
   const qs = auditToken ? `?audit_token=${encodeURIComponent(auditToken)}` : "";
@@ -136,6 +150,20 @@ export function ServicesMaxAtelier({ auditToken }: { auditToken?: string }) {
                     <div><span className="text-zinc-500">Délai :</span> <span className="text-zinc-300">{i.delai}</span> · <span className="text-zinc-500">Coût récurrent :</span> <span className="text-zinc-300">{i.cout}</span></div>
                     <div><span className="text-zinc-500">Risque :</span> <span className="text-zinc-300">{i.risque}</span></div>
                   </div>
+                  {preuves?.[i.id] && (
+                    <div className="mt-2 rounded-lg border border-cyan-400/20 bg-cyan-500/[0.05] p-2 text-[12px]">
+                      <span className={`mr-2 rounded-full border px-2 py-px font-mono text-[10px] ${preuves[i.id].verdict === "standard du marche" ? "border-emerald-400/40 text-emerald-200" : "border-amber-400/40 text-amber-200"}`}>
+                        Preuve marché : {preuves[i.id].verdict} · confiance {preuves[i.id].confiance}
+                      </span>
+                      <span className="text-zinc-300">{preuves[i.id].note}</span>
+                      {!!preuves[i.id].offert_par?.length && (
+                        <div className="mt-1 text-[11px] text-zinc-500">Offert par : {preuves[i.id].offert_par!.join(" · ")}</div>
+                      )}
+                      {preuves[i.id].demande_client && (
+                        <div className="mt-1 text-[11px] text-zinc-500">Demande client : {preuves[i.id].demande_client}</div>
+                      )}
+                    </div>
+                  )}
                 </div>
                 <div className="flex shrink-0 flex-col gap-1.5">
                   <button

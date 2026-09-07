@@ -3,6 +3,8 @@
  * proprietaire par cases a cocher (07 sept 2026).
  * Reserve au proprietaire ; le jeton d audit ouvre la page.
  */
+import fs from "node:fs";
+import path from "node:path";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -15,6 +17,16 @@ export const metadata = {
   title: "Services Max · Sandbox Mettrik",
   robots: { index: false, follow: false },
 };
+
+/** Preuves marche du benchmark concurrents (08 sept 2026), tolerant si absent. */
+function lirePreuves() {
+  try {
+    const p = path.join(process.cwd(), "docs/cahier/services-max-preuves.json");
+    return JSON.parse(fs.readFileSync(p, "utf-8")).idees ?? null;
+  } catch {
+    return null;
+  }
+}
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ audit_token?: string }> }) {
   const sp = await searchParams;
@@ -39,7 +51,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
           Proposition calée sur le marché (TIKR, Fiscal.ai, Simply Wall St, Koyfin). Coche les services Max que tu retiens : tes choix sont enregistrés et je chiffre puis je construis.
         </p>
         <div className="mt-6">
-          <ServicesMaxAtelier auditToken={parJeton ? sp.audit_token : undefined} />
+          <ServicesMaxAtelier auditToken={parJeton ? sp.audit_token : undefined} preuves={lirePreuves()} />
         </div>
       </main>
     </div>
