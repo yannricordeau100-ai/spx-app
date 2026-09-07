@@ -283,6 +283,12 @@ const SECTIONS: SandboxSection[] = [
         desc: "Les 4 niveaux (secteur, groupe, industrie, sous-industrie) avec codes, puis les KPI attendus par sous-industrie et le registre des prompts du Cahier (docs/cahier).",
       },
       {
+        href: "/sandbox/logos-arbitrage",
+        icon: ImageIcon,
+        label: "Arbitrage logos douteux",
+        desc: "6 logos bandeau illisibles en carré : l'actuel et le candidat officiel côte à côte sur fond noir, case à cocher.",
+      },
+      {
         href: "/sandbox/moat",
         icon: Crown,
         label: "Moat Morningstar",
