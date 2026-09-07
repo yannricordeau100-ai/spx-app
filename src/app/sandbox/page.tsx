@@ -283,6 +283,12 @@ const SECTIONS: SandboxSection[] = [
         desc: "Les 4 niveaux (secteur, groupe, industrie, sous-industrie) avec codes, puis les KPI attendus par sous-industrie et le registre des prompts du Cahier (docs/cahier).",
       },
       {
+        href: "/sandbox/moat",
+        icon: Crown,
+        label: "Moat Morningstar",
+        desc: "Avantage concurrentiel Wide / Narrow / None de tout l'univers : changements de note, allocation du capital, incertitude, étoiles, par secteur GICS.",
+      },
+      {
         href: "/sandbox/tam",
         icon: Library,
         label: "Atelier TAM",
@@ -595,7 +601,19 @@ export default function SandboxPage() {
 
         {/* Recherche intelligente : fuse.js, top 5 résultats, cmd+K */}
         <div className="mb-10">
-          <SandboxSearch />
+          {/* Yann 07 sept 2026 : la recherche recoit les entrees derivees des
+              SECTIONS reellement affichees, plus l index statique en complement.
+              Tout nouveau bloc ajoute ici est donc trouvable immediatement. */}
+          <SandboxSearch
+            entreesDynamiques={SECTIONS.flatMap((sec) =>
+              sec.items.map((it) => ({
+                url: it.href,
+                title: it.label,
+                description: it.desc,
+                keywords: [sec.title],
+              })),
+            )}
+          />
         </div>
 
         {/* ═══════ OUTILS SANDBOX PAR CATÉGORIE ═══════ */}

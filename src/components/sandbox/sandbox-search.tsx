@@ -13,14 +13,25 @@ type SearchEntry = {
   keywords?: string[];
 };
 
-const ENTRIES: SearchEntry[] = (indexData as { entries: SearchEntry[] }).entries;
+const STATIQUES: SearchEntry[] = (indexData as { entries: SearchEntry[] }).entries;
+
+/** Fusion index statique + entrees derivees de la page (les dynamiques
+ *  priment sur l URL : la recherche couvre ainsi tout ce qui est affiche,
+ *  meme ajoute apres la creation de l index). */
+function fusionner(dynamiques: SearchEntry[]): SearchEntry[] {
+  const parUrl = new Map<string, SearchEntry>();
+  for (const e of STATIQUES) parUrl.set(e.url, e);
+  for (const e of dynamiques) parUrl.set(e.url, { ...parUrl.get(e.url), ...e });
+  return [...parUrl.values()];
+}
 
 /**
  * Recherche intelligente dans le sandbox. Monté en haut de /sandbox + ouverture
  * via cmd+K (mac) / ctrl+K. Fuse.js scoring sur title / description / keywords.
  * Top 5 résultats dans un dropdown sous l'input.
  */
-export function SandboxSearch() {
+export function SandboxSearch({ entreesDynamiques = [] }: { entreesDynamiques?: SearchEntry[] }) {
+  const ENTRIES = useMemo(() => fusionner(entreesDynamiques), [entreesDynamiques]);
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [highlight, setHighlight] = useState(0);

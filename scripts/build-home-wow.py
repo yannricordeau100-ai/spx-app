@@ -20,8 +20,11 @@ except Exception:
 # pre-publication is_clean_all, liste curatee, dataset public. Filtrer sur la
 # seule liste curatee annoncait des societes invisibles en ligne.
 uni={str(x).upper() for x in json.load(open('src/data/v1-9-5-clean-all-tickers.json',encoding='utf-8'))['tickers']}
-uni&={a['ticker'].upper() for a in json.load(open('src/data/v1-9-pre-publication-audit.json',encoding='utf-8'))['audits'] if a.get('is_clean_all')}
-uni&={str(k).upper() for k in json.load(open('src/data/v1-7-public.json',encoding='utf-8'))}
+# 7 sept 2026 : les deux filtres supplementaires (audit pre-publication et
+# v1-7-public) dataient d avant les vagues europeennes et excluaient a tort
+# SIE.DE, ALV.DE, P911.DE... alors que leurs pages sont servies. La vraie
+# porte de visibilite est la liste clean-all (le chargeur redirige les
+# tickers absents de cette liste).
 # Yann 29 aout 2026 : les devises ecrites en toutes lettres (USD, EUR...) et
 # les unites de ratio financier (pb, x) etaient prises pour des unites
 # physiques et bonifiees a tort dans note().
