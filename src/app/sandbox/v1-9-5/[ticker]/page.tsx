@@ -88,6 +88,12 @@ export const dynamic = "force-dynamic";
 /** Doublons multi-classes : redirect vers le canonique. */
 const URL_ALIASES: Record<string, string> = {
   GOOG: "googl",
+  // Yann 8 sept 2026 (contre-expertise pollution) : doubles fiches divergentes
+  // reellement servies -> une seule fiche canonique par emetteur.
+  "HEN.DE": "hen3.de",
+  "DPW.DE": "dhl.de",
+  "AIR.DE": "air.pa",
+  "VOW.DE": "vow3.de",
   NWSA: "nws",
   UAA: "ua",
   FOX: "foxa",
