@@ -18,7 +18,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RE_URL = re.compile(r"https?://|www\.")
 RE_POSE = re.compile(r"allong[eé] le|pos[eé] depuis|docs/cahier|\.json|cahier le \d", re.I)
 RE_SERIE = re.compile(r"\((?:s[ée]rie annuelle|annual series|semi-annual series|s[ée]rie semestrielle|s[ée]rie trimestrielle)\)", re.I)
-RE_ELISION = re.compile(r"\b[ldnjcLDNJC] (?=[aeiouyhéèêàâîôûAEIOUYH])")
+RE_ELISION = re.compile(r"(?<![/\w])[ldnjcLDNJC] (?=[aeiouyhéèêàâîôûAEIOUYH])")
 RE_ACCENT = re.compile(r"[éèêàçùûôî]")
 
 
