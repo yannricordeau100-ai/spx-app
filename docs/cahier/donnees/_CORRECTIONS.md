@@ -148,8 +148,8 @@ Serie des volumes Transco en ligne (trimestrielle, valeurs 2023-2025 non conform
 
 ## Decisions du proprietaire du 07/09/2026 (transmises en session)
 - ARES : option B, les chiffres d origine restent (pas d alignement sur la republication).
-- ROST : VENTES_SURFACE a re-sourcer annee par annee puis publier (en cours).
+- ROST : fait, l entree CA / pied carre (valeur unique estimee ~410 $, rubrique Selected Financial Data disparue des 10-K apres l exercice 2019) est remplacee par la serie annuelle officielle du nombre de magasins en fin d exercice, 24 valeurs FY2002 a FY2025 (507 a 2 267), chaque valeur relevee dans un 10-K identifie.
 - VMC : option A appliquee, le hero melange de trimestres retire, hero = Aggregates cash gross profit per ton (serie annuelle officielle).
-- AEE : option B, serie Five-Year Capital Plan a re-sourcer depuis les presentations (en cours).
+- AEE : fait, correspondance annuelle etablie, la serie 6,3 a 20,8 est le Smart Energy Plan d Ameren Missouri depose chaque fevrier aupres de la MoPSC (plans 2019-2023 a 2026-2030, decrits dans les 10-K exercices 2018 a 2025) et non le plan consolide Ameren ; valeurs conservees, libelle corrige et annees datees.
 - HD et ULTA : option A, re-datage des deux fiches sur l annee civile de cloture (en cours).
-- SHW : reconstitution des deux entrees de marge segment vides (en cours).
+- SHW : fait, les deux entrees vides (Performance Coatings et Consumer Brands, Adj. Segment Margin) sont remplies avec la marge du resultat sectoriel ajuste en pourcentage des ventes nettes des 10-K, FY2020 a FY2025 (Performance Coatings 14,5 a 17,3 ; Consumer Brands 21,9 a 19,3).
