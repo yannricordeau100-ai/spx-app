@@ -219,7 +219,7 @@ function DepuisLaSociete({ annuaire }: { annuaire: AnnuaireGics }) {
 
 /* ───────────── Arbre à 4 niveaux + contenu sous chaque sous-industrie ───────────── */
 
-function Arbre({
+export function Arbre({
   mode,
   rendu,
   compte,

@@ -16,6 +16,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ChevronDown, ChevronRight, ExternalLink, Search } from "lucide-react";
 import { GICS, type GicsSubIndustry } from "@/lib/desk/gics";
+import { Arbre } from "@/components/sandbox/gics-atelier";
 import type { AnnuaireGics, TamCandidat, TamSociete } from "@/lib/cahier";
 
 type Onglet = "secteurs" | "hesitations" | "a_arbitrer" | "sans" | "arbitres";
@@ -105,8 +106,43 @@ export function TamAtelier({
     { id: "hesitations", label: "Hésitations signalées", n: listes.hes.length },
     { id: "arbitres", label: "Arbitrés", n: listes.arb.length },
     { id: "sans", label: "Sans candidat", n: listes.sans.length },
-    { id: "secteurs", label: "Par secteur", n: tickers.length },
+    { id: "secteurs", label: "Arborescence", n: tickers.length },
   ];
+
+  /* Bout de branche de l arborescence GICS (Yann 07 sept 2026) : les stés de
+     la sous-industrie avec le ou les TAM retenus (ou leur statut). */
+  function BoutDeBranche({ sub }: { sub: GicsSubIndustry }) {
+    const stes = (annuaire.parSousIndustrie[sub.code] ?? []).filter((s) => tam[s.ticker.toUpperCase()]);
+    if (stes.length === 0) return <p className="py-1 text-[12px] text-zinc-600">Pas encore de candidats TAM ici.</p>;
+    return (
+      <ul className="space-y-1 py-1">
+        {stes.map((s) => {
+          const t = s.ticker.toUpperCase();
+          const sel = choix[t];
+          const retenus = (sel ?? []).map((id) => tam[t].candidats.find((c) => c.id === id)).filter(Boolean) as TamCandidat[];
+          return (
+            <li key={t} className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 rounded-lg border border-white/[0.06] px-2.5 py-1.5 text-[12.5px]">
+              <Link href={`/${t.toLowerCase()}`} className="font-mono font-semibold text-violet-200 hover:underline">{t}</Link>
+              <span className="text-zinc-300">{noms[t] ?? t}</span>
+              {sel === undefined ? (
+                <span className="ml-auto rounded-full border border-zinc-500/40 px-2 py-px font-mono text-[10px] uppercase tracking-wider text-zinc-400">non arbitré · {tam[t].candidats.length} candidat{tam[t].candidats.length > 1 ? "s" : ""}</span>
+              ) : sel.length === 0 ? (
+                <span className="ml-auto rounded-full border border-rose-400/40 px-2 py-px font-mono text-[10px] uppercase tracking-wider text-rose-200">bloc masqué</span>
+              ) : (
+                <span className="ml-auto flex flex-wrap justify-end gap-1.5">
+                  {retenus.map((c) => (
+                    <span key={c.id} className="rounded-full border border-emerald-400/40 bg-emerald-500/[0.08] px-2 py-px text-[11px] text-emerald-100">
+                      {c.tam_intitule} · {fmt(c.tam)} {c.tam_unite} ({c.tam_annee})
+                    </span>
+                  ))}
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
 
   function Carte({ ticker }: { ticker: string }) {
     const d = tam[ticker];
@@ -166,23 +202,19 @@ export function TamAtelier({
           {listeCourante.filter(passeFiltre).length === 0 && <div className="text-[13px] text-zinc-500">Rien dans cette liste.</div>}
         </div>
       ) : (
-        <div className="mt-5 grid gap-2">
-          {GICS.map((s) => {
-            const stes = tickers.filter((t) => passeFiltre(t) && cheminDe(codeDe[t] ?? "")?.secteur === s.name);
-            if (stes.length === 0) return null;
-            const ouvert = ouverts.has(s.code);
-            return (
-              <div key={s.code} className="rounded-2xl border border-white/10">
-                <button onClick={() => setOuverts((prev) => { const n = new Set(prev); if (n.has(s.code)) n.delete(s.code); else n.add(s.code); return n; })} className="flex w-full items-center gap-2 px-4 py-3 text-left">
-                  {ouvert ? <ChevronDown className="size-4 text-zinc-500" /> : <ChevronRight className="size-4 text-zinc-500" />}
-                  <span className="font-mono text-[11px] text-zinc-500">{s.code}</span>
-                  <span className="text-[14.5px] font-semibold text-zinc-100">{s.name}</span>
-                  <span className="ml-auto font-mono text-[11px] text-zinc-500">{stes.length} sté{stes.length > 1 ? "s" : ""} · {stes.filter((t) => choix[t] !== undefined).length} arbitrée{stes.filter((t) => choix[t] !== undefined).length > 1 ? "s" : ""}</span>
-                </button>
-                {ouvert && <div className="grid gap-4 px-4 pb-4">{stes.map((t) => <Carte key={t} ticker={t} />)}</div>}
-              </div>
-            );
-          })}
+        <div className="mt-5">
+          {/* Yann 07 sept 2026 : meme arborescence 4 niveaux que l atelier
+              GICS, avec au bout de chaque branche les stés et le(s) TAM
+              retenus. */}
+          <Arbre
+            mode="societes"
+            rendu={(sub) => <BoutDeBranche sub={sub} />}
+            compte={(sub) => {
+              const stes = (annuaire.parSousIndustrie[sub.code] ?? []).filter((s) => tam[s.ticker.toUpperCase()]);
+              const arb = stes.filter((s) => choix[s.ticker.toUpperCase()] !== undefined).length;
+              return stes.length > 0 ? `${stes.length} sté${stes.length > 1 ? "s" : ""} · ${arb} arbitrée${arb > 1 ? "s" : ""}` : "";
+            }}
+          />
         </div>
       )}
     </div>
