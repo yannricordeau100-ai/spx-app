@@ -141,7 +141,15 @@ const TABS: { key: string; label_fr: string; label_en: string; flag: string; cou
   { key: "de-CH", label_fr: "Suisse", label_en: "Switzerland", flag: "🇨🇭", country: "CH" },
 ];
 
+// Yann 07 sept 2026 : page « actions les plus populaires » archivee (point 4).
+// Le code est conserve dans le depot ; la route renvoie vers l accueil.
 export default async function PopulairePage() {
+  const { redirect } = await import("next/navigation");
+  redirect("/");
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function PopulairePageArchivee() {
   const dataPath = path.join(process.cwd(), "src/data/popular-stocks-by-language.json");
   let data: PopularData = {};
   try {

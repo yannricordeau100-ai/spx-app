@@ -13,7 +13,10 @@ import { Spotlight } from "@/components/effects/spotlight";
 import { BackToTop } from "@/components/back-to-top";
 import { CompanySearch } from "@/components/company-search";
 import { HomeFAQ } from "@/components/home-faq";
-import { HomePopularBlock } from "@/components/home-popular-block";
+// Yann 07 sept 2026 : bloc « Actions les plus populaires » archive (le fichier
+// home-popular-block.tsx reste dans le depot). Sa carte des pays vit desormais
+// dans HomeCartePays, sous le bloc « Pourquoi utiliser Mettrik AI ? ».
+import { HomeCartePays } from "@/components/home-carte-pays";
 import { HomeWowGrid } from "@/components/home-wow-grid";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { useT } from "@/lib/i18n/provider";
@@ -769,6 +772,18 @@ export function HomeView({
           <MettrikCitationCard locale={locale} />
         </div>
 
+        {/* Yann 07 sept 2026 (point 9) : carte des pays, sous le bloc
+            « Pourquoi utiliser Mettrik AI ? ». Clic sur une zone = les plus
+            grandes capitalisations du pays, 10 puis 10, 20 au maximum. */}
+        {results.length > PAGE_SIZE && (
+          <HomeCartePays
+            locale={locale}
+            routePrefix={routePrefix}
+            requireSignupGate={requireSignupGate}
+            gatePath={gatePath}
+          />
+        )}
+
         {/* Pill "Données à jour" : Yann 10 mai 2026 déplacée ici, entre
             le bloc texte au-dessus et la barre de recherche. */}
         <div className="mt-6 flex justify-center sm:mt-8">
@@ -806,20 +821,9 @@ export function HomeView({
           />
 
 
-          {/* Bloc "Actions les plus populaires" intégré sous le top 30
-              (Yann 16 mai 2026 04h45 : remet la "partie populaire" + seules
-              les 30 premières ont l'aperçu de base, le reste via bouton).
-              Affiché uniquement si results.length > 30 (= sandbox V175/V18,
-              pas la home V1 demo 5 stés). */}
-          {results.length > PAGE_SIZE && (
-            <HomePopularBlock
-              locale={locale}
-              routePrefix={routePrefix}
-              t={t}
-              requireSignupGate={requireSignupGate}
-              gatePath={gatePath}
-            />
-          )}
+          {/* Yann 07 sept 2026 : bloc « Actions les plus populaires » archive
+              (composant home-popular-block.tsx conserve dans le depot). La
+              carte des pays est reprise par HomeCartePays plus haut. */}
 
           {/* Yann 28 aout 2026 : section "Plus grandes capitalisations" supprimee. */}
         </div>

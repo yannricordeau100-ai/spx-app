@@ -30,11 +30,11 @@ export type PopularRow = {
   tier?: "excellent" | "bon" | "moyen" | "faible";
 };
 
-type PopularData = Record<string, PopularRow[]> & {
+export type PopularData = Record<string, PopularRow[]> & {
   _meta?: { window?: string; source?: string };
 };
 
-const TABS: { key: string; flag: string; country: string }[] = [
+export const TABS: { key: string; flag: string; country: string }[] = [
   { key: "world", flag: "🌍", country: "" },
   { key: "en", flag: "🇺🇸", country: "US" },
   { key: "fr", flag: "🇫🇷", country: "FR" },
@@ -44,7 +44,7 @@ const TABS: { key: string; flag: string; country: string }[] = [
   { key: "de-CH", flag: "🇨🇭", country: "CH" },
 ];
 
-const TAB_LABELS_FR: Record<string, string> = {
+export const TAB_LABELS_FR: Record<string, string> = {
   world: "Monde",
   en: "USA",
   fr: "France",
@@ -54,7 +54,7 @@ const TAB_LABELS_FR: Record<string, string> = {
   "de-CH": "Suisse",
 };
 
-const TAB_LABELS_EN: Record<string, string> = {
+export const TAB_LABELS_EN: Record<string, string> = {
   world: "World",
   en: "USA",
   fr: "France",
@@ -312,7 +312,7 @@ const ETOILES: ReadonlyArray<readonly [number, number, number]> = [
   [93, 26, 1.1], [96, 74, 1.3], [12, 88, 1.2], [66, 90, 1.0], [88, 88, 1.2],
 ];
 
-function ConstellationZones({
+export function ConstellationZones({
   tabs,
   labels,
   activeTab,
