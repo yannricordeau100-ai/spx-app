@@ -111,36 +111,36 @@ export function TamAtelier({
 
   /* Bout de branche de l arborescence GICS (Yann 07 sept 2026) : les stés de
      la sous-industrie avec le ou les TAM retenus (ou leur statut). */
+  /* Yann 07 sept 2026 : au bout de chaque branche, la carte complete de
+     chaque sté (les memes cartes que les autres onglets : candidats, revenu
+     segment, taille du marché, part captée, sources, cases à cocher). Le
+     propriétaire valide ainsi tout depuis l arborescence, sans mise en
+     ligne. Une ligne compacte au-dessus résume le ou les TAM retenus. */
   function BoutDeBranche({ sub }: { sub: GicsSubIndustry }) {
     const stes = (annuaire.parSousIndustrie[sub.code] ?? []).filter((s) => tam[s.ticker.toUpperCase()]);
     if (stes.length === 0) return <p className="py-1 text-[12px] text-zinc-600">Pas encore de candidats TAM ici.</p>;
     return (
-      <ul className="space-y-1 py-1">
+      <div className="grid gap-3 py-1.5">
         {stes.map((s) => {
           const t = s.ticker.toUpperCase();
           const sel = choix[t];
           const retenus = (sel ?? []).map((id) => tam[t].candidats.find((c) => c.id === id)).filter(Boolean) as TamCandidat[];
           return (
-            <li key={t} className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 rounded-lg border border-white/[0.06] px-2.5 py-1.5 text-[12.5px]">
-              <Link href={`/${t.toLowerCase()}`} className="font-mono font-semibold text-violet-200 hover:underline">{t}</Link>
-              <span className="text-zinc-300">{noms[t] ?? t}</span>
-              {sel === undefined ? (
-                <span className="ml-auto rounded-full border border-zinc-500/40 px-2 py-px font-mono text-[10px] uppercase tracking-wider text-zinc-400">non arbitré · {tam[t].candidats.length} candidat{tam[t].candidats.length > 1 ? "s" : ""}</span>
-              ) : sel.length === 0 ? (
-                <span className="ml-auto rounded-full border border-rose-400/40 px-2 py-px font-mono text-[10px] uppercase tracking-wider text-rose-200">bloc masqué</span>
-              ) : (
-                <span className="ml-auto flex flex-wrap justify-end gap-1.5">
+            <div key={t}>
+              {retenus.length > 0 && (
+                <div className="mb-1 flex flex-wrap gap-1.5">
                   {retenus.map((c) => (
                     <span key={c.id} className="rounded-full border border-emerald-400/40 bg-emerald-500/[0.08] px-2 py-px text-[11px] text-emerald-100">
-                      {c.tam_intitule} · {fmt(c.tam)} {c.tam_unite} ({c.tam_annee})
+                      Retenu : {c.tam_intitule} · {fmt(c.tam)} {c.tam_unite} ({c.tam_annee})
                     </span>
                   ))}
-                </span>
+                </div>
               )}
-            </li>
+              <Carte ticker={t} />
+            </div>
           );
         })}
-      </ul>
+      </div>
     );
   }
 

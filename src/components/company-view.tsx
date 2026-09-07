@@ -73,6 +73,7 @@ import { isTotalRevenueLabel } from "@/lib/kpi-total-revenue";
 import { RiskStack } from "@/components/risk-stack";
 import { AntiTheseCard } from "@/components/anti-these-card";
 import { AppelAbonnement } from "@/components/appel-abonnement";
+import { UnitesMateriaux } from "@/components/unites-materiaux";
 import { BoutonEnregistrer } from "@/components/bouton-enregistrer";
 import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
@@ -1942,6 +1943,9 @@ export function CompanyView({
               </button>
             )}
           </div>
+          {/* Yann 07 sept 2026 (point 3) : depliable des unites, UNIQUEMENT
+              sur les fiches du secteur Materiaux. */}
+          {company.sector === "Matériaux" && <UnitesMateriaux />}
         </section>
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
