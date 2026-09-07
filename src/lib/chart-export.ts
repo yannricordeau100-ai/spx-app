@@ -398,6 +398,12 @@ export async function downloadSvgAsPng(
         l2.textContent = parts[1];
         t.appendChild(l1);
         t.appendChild(l2);
+        // Yann 8 sept 2026 (screen AAPL "Milliards/Abonnés") : ce return
+        // sortait AVANT l enregistrement de l en-tete, donc la traduction
+        // anglaise de l unite n etait jamais ecrite pour les unites
+        // eclatees sur 2 lignes. On memorise l en-tete ici aussi ; le bloc
+        // d insertion EN sait desormais gerer le cas multi-lignes (tspans).
+        enTeteAxeY = t;
         return;
       }
     }
@@ -495,7 +501,28 @@ export async function downloadSvgAsPng(
     const memeTexte = (a: string, b: string) =>
       a.replace(/\s+/g, " ").trim().toLowerCase() === b.replace(/\s+/g, " ").trim().toLowerCase();
     const entete = enTeteAxeY as SVGTextElement | null;
-    if (entete && utile && !memeTexte(uniteEnAxe, entete.textContent || "")) {
+    // Yann 8 sept 2026 : en-tete eclate sur 2 lignes (tspans "Milliards" +
+    // "Abonnés") : la traduction anglaise s ajoute en 3e ligne du MEME bloc
+    // (tspan italique), au lieu d un element frere qui chevauchait la 2e
+    // ligne. Le cas mono-ligne garde l ancien chemin.
+    if (entete && utile && entete.querySelector("tspan")) {
+      const tspans = entete.querySelectorAll("tspan");
+      const dernier = tspans[tspans.length - 1];
+      const fsDernier = parseFloat(dernier.getAttribute("font-size") || entete.getAttribute("font-size") || "16") || 16;
+      const en = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+      en.setAttribute("x", dernier.getAttribute("x") || entete.getAttribute("x") || "0");
+      en.setAttribute("dy", String(Math.round(fsDernier * 1.15)));
+      en.setAttribute("font-size", String(Math.round(fsDernier * 0.8 * 10) / 10));
+      en.setAttribute("font-style", "italic");
+      en.setAttribute("font-weight", "300");
+      en.setAttribute("opacity", "0.8");
+      en.textContent = uniteEnAxe.charAt(0).toUpperCase() + uniteEnAxe.slice(1);
+      entete.appendChild(en);
+      // La 3e ligne agrandit le bloc vers le bas : on remonte l ensemble
+      // d une demi-ligne pour ne pas toucher la premiere graduation.
+      const yBloc = parseFloat(entete.getAttribute("y") || "NaN");
+      if (Number.isFinite(yBloc)) entete.setAttribute("y", String(Math.round((yBloc - fsDernier * 0.9) * 10) / 10));
+    } else if (entete && utile && !memeTexte(uniteEnAxe, entete.textContent || "")) {
       const fsFinal = parseFloat(entete.getAttribute("font-size") || "16") || 16;
       const ty = parseFloat(entete.getAttribute("y") || "NaN");
       // Yann 5 sept 2026 : la ligne anglaise posee SOUS l en-tete venait
