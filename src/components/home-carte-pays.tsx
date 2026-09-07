@@ -1,27 +1,26 @@
 "use client";
 
 /**
- * Carte des pays de l accueil (Yann 07 sept 2026, point 9).
+ * Carte des pays de l accueil (Yann 07 sept 2026, point 9, revu le soir).
  *
- * L ancien bloc « Actions les plus populaires » est archive ; on GARDE sa
- * constellation des zones, placee sous le bloc « Pourquoi utiliser
- * Mettrik AI ? ». Au clic sur une zone : les societes du pays dans le meme
- * style de mini-blocs qu avant, 10 d un coup, puis un bouton « Montre-moi
- * les 10 suivants » une seule fois (20 societes par pays au maximum), tri
- * par capitalisation decroissante (src/data/market-cap-order.json via
- * /api/carte-pays).
+ * Placement : sous la mention « KPI = INDICATEUR », au-dessus des mini-blocs
+ * de societes. Au clic sur une zone : les plus grandes capitalisations du
+ * pays, rendues avec LES MEMES mini-blocs 3-KPI que la grille d accueil
+ * (memes filtres et restrictions de choix de KPI : scripts/build-home-wow.py,
+ * fichier src/data/carte-pays-kpis.json). 10 d un coup, puis un bouton
+ * « Montre-moi les 10 suivants » une seule fois (20 par pays au maximum).
  */
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useMemo, useRef, useState } from "react";
 import {
   ConstellationZones,
-  StockRow,
   TABS,
   TAB_LABELS_FR,
   TAB_LABELS_EN,
   type PopularData,
-  type PopularRow,
 } from "@/components/home-popular-block";
+import { CarteSteWow, type SteWow } from "@/components/home-wow-grid";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
+import ZONES_KPIS from "@/data/carte-pays-kpis.json";
 
 export function HomeCartePays({
   locale,
@@ -34,58 +33,16 @@ export function HomeCartePays({
   requireSignupGate?: boolean;
   gatePath?: string;
 }) {
-  const [data, setData] = useState<PopularData | null>(null);
-  const [activeTab, setActiveTab] = useState<string>("world");
+  const zones = (ZONES_KPIS as { zones: Record<string, SteWow[]> }).zones;
+  const [activeTab, setActiveTab] = useState<string>(() => (zones[locale]?.length ? locale : "world"));
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
-  const [pinned, setPinned] = useState(false);
   const [montrePlus, setMontrePlus] = useState(false);
   const hoverTimer = useRef<number | null>(null);
-
-  useEffect(() => {
-    let cancel = false;
-    (async () => {
-      try {
-        const r = await fetch("/api/carte-pays", { cache: "no-store" });
-        if (!r.ok) return;
-        const j = (await r.json()) as PopularData;
-        if (!cancel) setData(j);
-      } catch {
-        // silencieux
-      }
-    })();
-    return () => {
-      cancel = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    const visitorTab = TABS.find((tb) => tb.key === locale)?.key ?? "world";
-    setActiveTab(visitorTab);
-  }, [locale]);
-
-  // Parcours automatique des zones tant que le visiteur n a rien choisi.
-  useEffect(() => {
-    if (!data || pinned || hoveredTab) return;
-    const cles = TABS.filter((tb) => {
-      const zr = data[tb.key];
-      return Array.isArray(zr) && zr.length >= 3;
-    }).map((tb) => tb.key);
-    if (cles.length < 2) return;
-    const id = window.setInterval(() => {
-      if (document.hidden) return;
-      setActiveTab((cur) => cles[(cles.indexOf(cur) + 1) % cles.length]!);
-    }, 3500);
-    return () => window.clearInterval(id);
-  }, [data, pinned, hoveredTab]);
 
   const labels = locale === "fr" ? TAB_LABELS_FR : TAB_LABELS_EN;
   const isFr = locale === "fr";
 
-  const rows = useMemo<PopularRow[]>(() => {
-    if (!data) return [];
-    const list = data[activeTab];
-    return Array.isArray(list) ? (list as PopularRow[]).slice(0, 20) : [];
-  }, [data, activeTab]);
+  const rows = useMemo<SteWow[]>(() => (zones[activeTab] ?? []).slice(0, 20), [zones, activeTab]);
 
   const handleEnter = useCallback((key: string) => {
     if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
@@ -96,7 +53,7 @@ export function HomeCartePays({
     setHoveredTab(null);
   }, []);
 
-  if (!data || rows.length === 0) return null;
+  if (rows.length === 0) return null;
 
   const buildCompanyHref = (ticker: string): string =>
     routePrefix ? `${routePrefix}/${ticker.toLowerCase()}` : `/${ticker.toLowerCase()}`;
@@ -114,37 +71,23 @@ export function HomeCartePays({
     );
 
   return (
-    <section className="mx-auto mt-14 max-w-3xl px-4 sm:mt-16 sm:px-0">
-      <div className="mb-3 text-center font-mono text-[11px] uppercase tracking-[0.15em] text-zinc-500">
-        {isFr ? "Explorer par pays" : "Explore by country"}
-      </div>
-      <p className="mb-6 text-center text-[13px] leading-relaxed text-zinc-400">
-        {isFr
-          ? "Cliquez une zone : les plus grandes capitalisations du pays."
-          : "Click a region: the largest market caps of that country."}
-      </p>
+    <div className="mb-8">
       <ConstellationZones
-        tabs={TABS.filter((tb) => {
-          const zr = data[tb.key];
-          return Array.isArray(zr) && zr.length >= 3;
-        })}
+        tabs={TABS.filter((tb) => (zones[tb.key]?.length ?? 0) >= 3)}
         labels={labels}
         activeTab={activeTab}
         hoveredTab={hoveredTab}
-        data={data}
+        data={zones as unknown as PopularData}
         onPick={(k) => {
           setActiveTab(k);
-          setPinned(true);
           setMontrePlus(false);
         }}
         onEnter={handleEnter}
         onLeave={handleLeave}
         buildHref={buildCompanyHref}
       />
-      <div className="space-y-2">
-        {visibles.map((r, i) =>
-          wrapGate(r.ticker, <StockRow row={r} rank={i + 1} totalShown={visibles.length} buildHref={buildCompanyHref} />),
-        )}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {visibles.map((s) => wrapGate(s.ticker, <CarteSteWow s={s} buildHref={buildCompanyHref} />))}
       </div>
       {resteACharger && (
         <div className="mt-4 flex justify-center">
@@ -157,6 +100,6 @@ export function HomeCartePays({
           </button>
         </div>
       )}
-    </section>
+    </div>
   );
 }

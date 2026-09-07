@@ -22,7 +22,7 @@ import V17_PUBLIC from "@/data/v1-7-public.json";
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
 export const metadata = {
-  title: "Mettrik AI · KPI Intelligence : les indicateurs qui comptent pour 666 sociétés",
+  title: "Mettrik AI · KPI Intelligence : les indicateurs qui comptent pour des milliers de sociétés",
   alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai" },
   robots: { index: false, follow: false },
 };
@@ -179,11 +179,9 @@ export default async function SandboxV195HubPage() {
           La page /pricing reste accessible en mode anonyme via direct URL. */}
       <section className="relative mx-auto max-w-6xl px-4 pb-20 pt-10 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-block rounded-full border border-emerald-500/30 bg-emerald-500/[0.08] px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.18em] text-emerald-200">
-            ★ Premium · à partir de 0,68 €/jour
-          </span>
+          {/* Yann 07 sept 2026 : badge Premium 0,68 euro/jour retire de l accueil. */}
           <h2 className="mt-4 font-display text-[28px] font-bold tracking-tight text-zinc-50 sm:text-[34px]">
-            Toutes les fiches sont ouvertes en gratuit. Débloque les analyses détaillées des {tickersRecherche.length} sociétés.
+            Toutes les fiches sont ouvertes en gratuit. Débloque les analyses détaillées de milliers de sociétés.
           </h2>
           <p className="mt-3 text-[14px] leading-relaxed text-zinc-400">
             Le tarif annuel revient à moins d'un café par jour. 30 secondes pour souscrire,

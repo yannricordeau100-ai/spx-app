@@ -29,8 +29,8 @@ import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 const VISIBLE_PAR_DEFAUT = 20;
 const MAXIMUM = 40;
 
-type KpiWow = { nom: string; valeur: string; unite?: string | null; yoy?: string | null };
-type SteWow = { ticker: string; nom: string; kpis: KpiWow[] };
+export type KpiWow = { nom: string; valeur: string; unite?: string | null; yoy?: string | null };
+export type SteWow = { ticker: string; nom: string; kpis: KpiWow[] };
 
 function couleurYoy(yoy?: string | null): string {
   if (!yoy) return "#71717a";
@@ -162,5 +162,82 @@ export function HomeWowGrid({
         </div>
       )}
     </div>
+  );
+}
+
+/* Yann 07 sept 2026 : la meme carte 3-KPI, reutilisable par la carte des
+   pays (HomeCartePays). Extraction fidele du rendu de la grille. */
+export function CarteSteWow({
+  s,
+  buildHref,
+  tickersSet,
+}: {
+  s: SteWow;
+  buildHref: (t: string) => string;
+  tickersSet?: Set<string>;
+}) {
+  const accent = brand(s.ticker).primary;
+  return (
+    <Link
+      href={buildHref(s.ticker)}
+      className="conic-border group relative flex h-full flex-col rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4 transition-colors hover:border-[#2a2a2a]"
+    >
+      <div
+        className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
+        style={{ background: `${accent}55` }}
+      />
+      <div className="relative flex items-start justify-between gap-2">
+        <div className="flex min-w-0 items-center gap-2.5">
+          <div
+            className={`flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg ring-1 ${
+              logoNeedsLightBg(s.ticker)
+                ? "preserve-colors bg-white ring-black/15"
+                : "bg-[#111] ring-white/10"
+            }`}
+          >
+            <CompanyLogo ticker={s.ticker} />
+          </div>
+          <div className="min-w-0">
+            <div className="font-mono text-xs" style={{ color: accent }}>
+              {displayTicker(s.ticker, tickersSet ?? new Set([s.ticker]))}
+            </div>
+            <div className="mt-0.5 truncate text-[15px] font-medium leading-snug text-zinc-100">
+              {s.nom}
+            </div>
+          </div>
+        </div>
+        <ArrowRight className="mt-1 size-4 shrink-0 -translate-x-1 text-zinc-500 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
+      </div>
+      <div className="mt-2.5 divide-y divide-white/[0.05] border-t border-white/[0.07]">
+        {s.kpis.map((k, i) => (
+          <div key={i} className="flex items-baseline justify-between gap-2 py-[5px]">
+            <span className="min-w-0 flex-1 truncate text-[13px] text-zinc-300" title={k.nom}>
+              {k.nom}
+              {(k as { periode?: string | null }).periode && (
+                <span className="ml-1.5 font-mono text-[10px] uppercase tracking-wide text-zinc-500">
+                  {(k as { periode?: string | null }).periode}
+                </span>
+              )}
+            </span>
+            <span className="inline-flex shrink-0 items-baseline gap-1 whitespace-nowrap">
+              <span className="font-mono text-[15px] font-semibold tabular-nums text-zinc-100">
+                {k.valeur}
+              </span>
+              {k.unite && (
+                <span className="text-[12px] font-medium text-zinc-400">{k.unite}</span>
+              )}
+              {k.yoy && (
+                <span
+                  className="ml-1 font-mono text-[12px] tabular-nums"
+                  style={{ color: couleurYoy(k.yoy) }}
+                >
+                  {k.yoy}
+                </span>
+              )}
+            </span>
+          </div>
+        ))}
+      </div>
+    </Link>
   );
 }

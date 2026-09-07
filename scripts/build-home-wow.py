@@ -76,10 +76,9 @@ def periode_de(k):
     if isinstance(sm,str) and sm.strip(): return sm.strip()
     return None
 
-out=[]
-for t in POP:
-    T=t.upper()
-    if T not in uni: continue
+def fiche_wow(T):
+    """Selection des 3 KPI wow d une societe, regles communes a la grille
+    d accueil et a la carte des pays (Yann 07 sept 2026 : memes filtres)."""
     kpis=[];nom=None
     p1=f'.batches-drafts-safe/kpis-haut/{T}.json'
     if os.path.exists(p1):
@@ -117,14 +116,49 @@ for t in POP:
             continue
         tri.append(k)
         if len(tri)==3: break
-    if not tri: continue
-    out.append({'ticker':T,'nom':nom or T,'kpis':[
+    if not tri: return None
+    return {'ticker':T,'nom':nom or T,'kpis':[
         {'nom':k.get('name_fr') or k.get('name_en'),'valeur':fmt(k.get('value')),
          'unite':fmt(k['unit']) if k.get('unit') else None,'yoy':(lambda v: v and __import__('re').sub(r'\\s*(pp|pts?)\\b',' %',v))(fr_yoy(k.get('yoy'))),
          # Yann 30 aout 2026 : dater chaque chiffre de la vitrine (une IA externe
          # a lu des KPI de mars 2026 sans aucune indication de date).
-         'periode':periode_de(k)} for k in tri]})
+         'periode':periode_de(k)} for k in tri]}
+
+out=[]
+for t in POP:
+    T=t.upper()
+    if T not in uni: continue
+    f=fiche_wow(T)
+    if not f: continue
+    out.append(f)
     if len(out)>=40: break
 json.dump({'generation':'scripts/build-home-wow.py','societes':out},
  open('src/data/home-wow-kpis.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
-print(len(out),'societes')
+print(len(out),'societes home')
+
+# Carte des pays (Yann 07 sept 2026) : par zone, les plus grandes
+# capitalisations du pays (market-cap-order.json), 20 au plus, avec les memes
+# cartes 3-KPI que la grille d accueil.
+SUFFIXES={'en':'','fr':'.PA','en-GB':'.L','de':'.DE','nl':'.AS','de-CH':'.SW'}
+try:
+    ordre=[t.upper() for t in json.load(open('src/data/market-cap-order.json',encoding='utf-8'))['tickers']]
+except Exception:
+    ordre=[]
+def zone_de(T):
+    for z,suf in SUFFIXES.items():
+        if suf and T.endswith(suf): return z
+    return None if '.' in T else 'en'
+zones={z:[] for z in ['world']+list(SUFFIXES)}
+cache={}
+for T in ordre:
+    if T not in uni: continue
+    z=zone_de(T)
+    cibles=[k for k in (['world']+([z] if z else [])) if len(zones[k])<20]
+    if not cibles: continue
+    if T not in cache: cache[T]=fiche_wow(T)
+    f=cache[T]
+    if not f: continue
+    for k in cibles: zones[k].append(f)
+json.dump({'generation':'scripts/build-home-wow.py','zones':zones},
+ open('src/data/carte-pays-kpis.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
+print({z:len(l) for z,l in zones.items()},'carte des pays')

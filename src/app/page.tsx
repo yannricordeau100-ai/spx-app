@@ -32,7 +32,7 @@ function safeNextParam(raw: string | string[] | undefined): string | null {
 }
 
 export const metadata = {
-  title: "Mettrik AI · KPI Intelligence : les indicateurs qui comptent pour 666 sociétés",
+  title: "Mettrik AI · KPI Intelligence : les indicateurs qui comptent pour des milliers de sociétés",
   description: "Les KPI opérationnels des 666 sociétés du S&P 500, CAC 40, DAX 40, AEX 25, SMI et SOX : abonnés, volumes, marges par activité, risques, gouvernance et synthèses de résultats, extraits des rapports officiels.",
   alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai" },
   robots: { index: true, follow: true },

@@ -814,18 +814,18 @@ export const DICTIONARY: Dict = {
     en: "Which companies are covered?",
   },
   "faq.a.coverage": {
-    fr: "666 sociétés aujourd'hui : l'intégralité du S&P 500, le CAC 40, le DAX 40, l'AEX 25, le SMI suisse et l'indice des semi-conducteurs SOX. Les indices sont ajoutés par vagues, jamais société par société.",
-    en: "666 companies today: the full S&P 500, CAC 40, DAX 40, AEX 25, Swiss SMI and the SOX semiconductor index. Indices are added in waves, never company by company.",
-    de: "Heute 666 Unternehmen: der komplette S&P 500, CAC 40, DAX 40, AEX 25, Schweizer SMI und der Halbleiterindex SOX. Indizes kommen in Wellen hinzu, nie Unternehmen für Unternehmen.",
+    fr: "Des milliers de sociétés aujourd'hui : l'intégralité du S&P 500, le CAC 40, le DAX 40, l'AEX 25, le SMI suisse et l'indice des semi-conducteurs SOX. Les indices sont ajoutés par vagues, jamais société par société.",
+    en: "Thousands of companies today: the full S&P 500, CAC 40, DAX 40, AEX 25, Swiss SMI and the SOX semiconductor index. Indices are added in waves, never company by company.",
+    de: "Heute Tausende Unternehmen: der komplette S&P 500, CAC 40, DAX 40, AEX 25, Schweizer SMI und der Halbleiterindex SOX. Indizes kommen in Wellen hinzu, nie Unternehmen für Unternehmen.",
   },
   "faq.q.free_or_paid": {
     fr: "Est-ce gratuit ou payant ?",
     en: "Is it free or paid?",
   },
   "faq.a.free_or_paid": {
-    fr: "Le plan Gratuit ouvre les 666 fiches : indicateur principal, valeur et graphique visibles, analyses détaillées floutées. Premium lève le floutage sur tout. Max ajoute l'anti-thèse de chaque société, les favoris illimités et le support prioritaire. Mensuel ou annuel, sans engagement.",
-    en: "The Free plan opens all 666 profiles: main indicator, value and chart visible, detailed analyses blurred. Premium removes the blurring everywhere. Max adds each company's counter-thesis, unlimited favorites and priority support. Monthly or yearly, no commitment.",
-    de: "Der kostenlose Plan öffnet alle 666 Profile: Hauptkennzahl, Wert und Chart sichtbar, Detailanalysen unkenntlich. Premium hebt die Unkenntlichmachung überall auf. Max ergänzt die Gegenthese jedes Unternehmens, unbegrenzte Favoriten und bevorzugten Support. Monatlich oder jährlich, ohne Bindung.",
+    fr: "Le plan Gratuit ouvre les milliers de fiches : indicateur principal, valeur et graphique visibles, analyses détaillées floutées. Premium lève le floutage sur tout. Max ajoute l'anti-thèse de chaque société, les favoris illimités et le support prioritaire. Mensuel ou annuel, sans engagement.",
+    en: "The Free plan opens thousands of profiles: main indicator, value and chart visible, detailed analyses blurred. Premium removes the blurring everywhere. Max adds each company's counter-thesis, unlimited favorites and priority support. Monthly or yearly, no commitment.",
+    de: "Der kostenlose Plan öffnet Tausende Profile: Hauptkennzahl, Wert und Chart sichtbar, Detailanalysen unkenntlich. Premium hebt die Unkenntlichmachung überall auf. Max ergänzt die Gegenthese jedes Unternehmens, unbegrenzte Favoriten und bevorzugten Support. Monatlich oder jährlich, ohne Bindung.",
   },
   "faq.q.cancel": {
     fr: "Comment annuler mon abonnement ?",
@@ -1155,9 +1155,9 @@ export const DICTIONARY: Dict = {
     de: "Kann ich Mettrik AI testen, ohne zu zahlen?",
   },
   "pricing.faq_a1": {
-    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres les 666 fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées, sauf Google, Meta et Booking, entièrement en clair pour juger la profondeur avant de décider.",
-    en: "Yes, the Free plan is free forever, no credit card. You can open all 666 profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred, except Google, Meta and Booking, fully unblurred to judge the depth before deciding.",
-    de: "Ja, der kostenlose Plan ist lebenslang kostenlos, ohne Kreditkarte. Du kannst alle 666 Profile öffnen: Hauptkennzahl, Wert und Chart sind sichtbar, die Detailanalysen sind unkenntlich gemacht, außer Google, Meta und Booking, vollständig sichtbar, um die Tiefe vor der Entscheidung zu prüfen.",
+    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres des milliers de fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées, sauf Google, Meta et Booking, entièrement en clair pour juger la profondeur avant de décider.",
+    en: "Yes, the Free plan is free forever, no credit card. You can open thousands of profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred, except Google, Meta and Booking, fully unblurred to judge the depth before deciding.",
+    de: "Ja, der kostenlose Plan ist lebenslang kostenlos, ohne Kreditkarte. Du kannst Tausende Profile öffnen: Hauptkennzahl, Wert und Chart sind sichtbar, die Detailanalysen sind unkenntlich gemacht, außer Google, Meta und Booking, vollständig sichtbar, um die Tiefe vor der Entscheidung zu prüfen.",
   },
   "pricing.faq_q2": {
     fr: "Comment annuler mon abonnement ?",
@@ -1175,9 +1175,9 @@ export const DICTIONARY: Dict = {
     de: "Welche Unternehmen sind in Premium und Max abgedeckt?",
   },
   "pricing.faq_a3": {
-    fr: "Les mêmes 666 sociétés dans tous les plans : le S&P 500 au complet, le CAC 40, le DAX 40, l'AEX 25, le SMI suisse et l'indice des semi-conducteurs SOX. Premium et Max lèvent le floutage ; Max ajoute l'anti-thèse et le support prioritaire.",
-    en: "The same 666 companies in every plan: the full S&P 500, CAC 40, DAX 40, AEX 25, Swiss SMI and the SOX semiconductor index. Premium and Max remove the blurring; Max adds the counter-thesis and priority support.",
-    de: "Dieselben 666 Unternehmen in jedem Plan: der komplette S&P 500, CAC 40, DAX 40, AEX 25, Schweizer SMI und der Halbleiterindex SOX. Premium und Max heben die Unkenntlichmachung auf; Max ergänzt die Gegenthese und bevorzugten Support.",
+    fr: "Les mêmes milliers de sociétés dans tous les plans : le S&P 500 au complet, le CAC 40, le DAX 40, l'AEX 25, le SMI suisse et l'indice des semi-conducteurs SOX. Premium et Max lèvent le floutage ; Max ajoute l'anti-thèse et le support prioritaire.",
+    en: "The same thousands of companies in every plan: the full S&P 500, CAC 40, DAX 40, AEX 25, Swiss SMI and the SOX semiconductor index. Premium and Max remove the blurring; Max adds the counter-thesis and priority support.",
+    de: "Dieselben Tausende Unternehmen in jedem Plan: der komplette S&P 500, CAC 40, DAX 40, AEX 25, Schweizer SMI und der Halbleiterindex SOX. Premium und Max heben die Unkenntlichmachung auf; Max ergänzt die Gegenthese und bevorzugten Support.",
   },
   "pricing.faq_q4": {
     fr: "Puis-je changer de plan plus tard ?",

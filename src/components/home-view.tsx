@@ -772,17 +772,7 @@ export function HomeView({
           <MettrikCitationCard locale={locale} />
         </div>
 
-        {/* Yann 07 sept 2026 (point 9) : carte des pays, sous le bloc
-            « Pourquoi utiliser Mettrik AI ? ». Clic sur une zone = les plus
-            grandes capitalisations du pays, 10 puis 10, 20 au maximum. */}
-        {results.length > PAGE_SIZE && (
-          <HomeCartePays
-            locale={locale}
-            routePrefix={routePrefix}
-            requireSignupGate={requireSignupGate}
-            gatePath={gatePath}
-          />
-        )}
+
 
         {/* Pill "Données à jour" : Yann 10 mai 2026 déplacée ici, entre
             le bloc texte au-dessus et la barre de recherche. */}
@@ -808,6 +798,18 @@ export function HomeView({
           <div className="mb-4 text-center font-mono text-[11px] uppercase tracking-[0.15em] text-zinc-500">
             {t("brand.companies_available")}
           </div>
+          {/* Yann 07 sept 2026 (point 9, revu) : la carte des pays vit SOUS la
+              mention « KPI = INDICATEUR », au-dessus des mini-blocs de
+              societes. Clic sur une zone = les plus grandes capitalisations du
+              pays avec les memes mini-blocs 3-KPI, 10 puis 10, 20 maximum. */}
+          {results.length > PAGE_SIZE && (
+            <HomeCartePays
+              locale={locale}
+              routePrefix={routePrefix}
+              requireSignupGate={requireSignupGate}
+              gatePath={gatePath}
+            />
+          )}
           {/* Yann 28 aout 2026 : la grille de cartes hero (medailles, etoile,
               "i", KPI principal) laisse place a la grille des societes
               populaires aupres des investisseurs francais : 2 par ligne,
@@ -834,7 +836,7 @@ export function HomeView({
         <div className="mx-auto mt-16 max-w-2xl px-4 sm:mt-20">
           <AppelAbonnement
             forme="encart"
-            titre="Voyez ce que les chiffres ne disent pas seuls"
+            titre="Connaissez vous vraiment les sociétés de votre portefeuille ?"
             detail="Des milliers d’actions, jusqu’à 20 ans d’historique, les indicateurs qui comptent vraiment et l’anti-thèse de chaque dossier. Sans flou, sans limite."
             action="Découvrir les offres"
           />
