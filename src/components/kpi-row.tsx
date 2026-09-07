@@ -180,15 +180,10 @@ export function KpiRow({
                 const lib = c === "nouveau" ? "Nouveau" : c === "allonge" ? "Allongé" : "Autre";
                 return <span className={`ml-2 inline-block rounded-full border px-1.5 py-px align-middle text-[9.5px] font-semibold uppercase tracking-wider ${cls}`}>{lib}</span>;
               })()}
-            </div>
-            {secondaryName && secondaryName !== primaryName && (
-              <div className="text-[11.5px] text-zinc-400">{secondaryName}</div>
-            )}
-          </div>
-          {/* Yann 30 août 2026 (screen KO) : JAMAIS de tooltip "i" vide. Sans
-              définition ni nom EN, l'icône disparaît au lieu d'ouvrir un
-              panneau "DÉFINITION" sans contenu. */}
-          {(() => {
+              {/* Yann 07 sept 2026 : le "i" vit DANS la ligne de texte (inline),
+                  colle au dernier mot meme quand le nom passe sur 2 lignes.
+                  Avant, il etait un frere flex et partait tout a droite. */}
+              {(() => {
             const hasDef = typeof kpi.explanation === "string" && kpi.explanation.trim().length > 0;
             const hasEn = Boolean(kpi.name_en && kpi.name_en !== kpi.name_fr);
             // Yann 2 sept 2026 : une unite pas simple (bps, GW, Bcf/j...)
@@ -200,6 +195,7 @@ export function KpiRow({
             // abandonne, trop de travail pour l apport.
             if (!hasDef && !uniteExpliquee) return null;
             return (
+          <span className="ml-1.5 inline-flex align-middle">
           <InfoTooltip color={accent}>
             {hasDef && (
               <>
@@ -228,8 +224,14 @@ export function KpiRow({
               </div>
             )}
           </InfoTooltip>
+          </span>
             );
           })()}
+            </div>
+            {secondaryName && secondaryName !== primaryName && (
+              <div className="text-[11.5px] text-zinc-400">{secondaryName}</div>
+            )}
+          </div>
         </div>
 
         {/* Yann 24 aout 2026 : chip categorie/nature ("Structurel", "Volume"...)
