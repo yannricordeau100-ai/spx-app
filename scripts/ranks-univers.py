@@ -27,6 +27,11 @@ US_LIKE = {"United States"}
 # Symboles yfinance differents du ticker Mettrik.
 ALIAS = {"BF.B": "BF-B", "DPW.DE": "DHL.DE", "BRK-B": "BRK-B"}
 
+# Doubles classes d actions : la classe secondaire est la meme societe que la
+# principale (la capitalisation yfinance couvre deja toute la societe). Elle
+# recoit le meme rang que la principale et sort de l ordre de capitalisation.
+DOUBLE_CLASSE = {"GOOG": "GOOGL", "FOX": "FOXA", "NWS": "NWSA"}
+
 
 def yf_symbol(t):
     return ALIAS.get(t, t)
@@ -132,7 +137,7 @@ def main():
         f = fiche(t)
         v["sector"], v["subsector"] = f.get("sector"), f.get("subsector")
         rows.append(t)
-    ok = [t for t in rows if res[t]["mc_usd"]]
+    ok = [t for t in rows if res[t]["mc_usd"] and t not in DOUBLE_CLASSE]
     ok.sort(key=lambda t: -res[t]["mc_usd"])
     print(f"capitalisation obtenue : {len(ok)} / {len(rows)}")
     us = [t for t in ok if res[t]["country"] in US_LIKE]
@@ -157,6 +162,15 @@ def main():
         # Vercel (Linux) distingue la casse (regle Mettrik : majuscules = 404).
         p = ENR / f"{t.lower()}.ranks.json"
         json.dump(out, open(p, "w"), ensure_ascii=False, indent=2)
+        n += 1
+    # Classes secondaires : meme rang que la classe principale.
+    for sec, pri in DOUBLE_CLASSE.items():
+        if pri not in ok:
+            continue
+        base = json.load(open(ENR / f"{pri.lower()}.ranks.json"))
+        base["ticker"] = sec
+        base["source"] = f"yfinance ranks-univers (classe secondaire de {pri})"
+        json.dump(base, open(ENR / f"{sec.lower()}.ranks.json", "w"), ensure_ascii=False, indent=2)
         n += 1
     json.dump({"generation": now, "source": "scripts/ranks-univers.py", "tickers": ok,
                "market_cap_usd": {t: round(res[t]["mc_usd"]) for t in ok}},
