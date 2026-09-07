@@ -83,7 +83,7 @@ export function HomeWowGrid({
                 <div className="flex min-w-0 items-center gap-2.5">
                   {/* Yann 29 aout 2026 : logo de la societe sur chaque carte. */}
                   <div
-                    className={`flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg ring-1 ${
+                    className={`masquer-en-jour flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg ring-1 ${
                       logoNeedsLightBg(s.ticker)
                         ? "preserve-colors bg-white ring-black/15"
                         : "bg-[#111] ring-white/10"
@@ -189,7 +189,7 @@ export function CarteSteWow({
       <div className="relative flex items-start justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2.5">
           <div
-            className={`flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg ring-1 ${
+            className={`masquer-en-jour flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg ring-1 ${
               logoNeedsLightBg(s.ticker)
                 ? "preserve-colors bg-white ring-black/15"
                 : "bg-[#111] ring-white/10"

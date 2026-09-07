@@ -67,7 +67,7 @@ function LogoTile({ ticker }: { ticker: string }) {
     <div
       data-logo="true"
       aria-label={`${ticker} logo`}
-      className={`logo-wrapper relative flex h-[60px] w-[60px] shrink-0 items-center justify-center overflow-hidden rounded-xl ring-1 shadow-[0_3px_14px_rgba(0,0,0,0.4)] transition-shadow duration-300 hover:shadow-[0_6px_22px_rgba(0,0,0,0.55)] sm:h-[64px] sm:w-[64px] ${
+      className={`logo-wrapper masquer-en-jour relative flex h-[60px] w-[60px] shrink-0 items-center justify-center overflow-hidden rounded-xl ring-1 shadow-[0_3px_14px_rgba(0,0,0,0.4)] transition-shadow duration-300 hover:shadow-[0_6px_22px_rgba(0,0,0,0.55)] sm:h-[64px] sm:w-[64px] ${
         logoNeedsLightBg(ticker)
           ? "preserve-colors bg-white ring-black/15"
           : "bg-[#0a0a0a] ring-white/10"
