@@ -283,6 +283,12 @@ const SECTIONS: SandboxSection[] = [
         desc: "Les 4 niveaux (secteur, groupe, industrie, sous-industrie) avec codes, puis les KPI attendus par sous-industrie et le registre des prompts du Cahier (docs/cahier).",
       },
       {
+        href: "/sandbox/tam",
+        icon: Library,
+        label: "Atelier TAM",
+        desc: "Candidats de taille de marché du Cahier par société, arborescence GICS, cases à cocher (2 max) qui pilotent le bloc Position marché des fiches.",
+      },
+      {
         href: "/sandbox/logotheque",
         icon: Palette,
         label: "Logothèque",

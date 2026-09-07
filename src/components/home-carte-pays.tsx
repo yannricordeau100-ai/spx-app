@@ -36,7 +36,6 @@ export function HomeCartePays({
   const zones = (ZONES_KPIS as { zones: Record<string, SteWow[]> }).zones;
   const [activeTab, setActiveTab] = useState<string>(() => (zones[locale]?.length ? locale : "world"));
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
-  const [montrePlus, setMontrePlus] = useState(false);
   const hoverTimer = useRef<number | null>(null);
 
   const labels = locale === "fr" ? TAB_LABELS_FR : TAB_LABELS_EN;
@@ -58,8 +57,8 @@ export function HomeCartePays({
   const buildCompanyHref = (ticker: string): string =>
     routePrefix ? `${routePrefix}/${ticker.toLowerCase()}` : `/${ticker.toLowerCase()}`;
 
-  const visibles = rows.slice(0, montrePlus ? 20 : 10);
-  const resteACharger = !montrePlus && rows.length > 10;
+  // Yann 07 sept 2026 : exactement 10 stés (2 colonnes de 5), pas de bouton.
+  const visibles = rows.slice(0, 10);
 
   const wrapGate = (key: string, child: React.ReactNode) =>
     requireSignupGate ? (
@@ -78,10 +77,7 @@ export function HomeCartePays({
         activeTab={activeTab}
         hoveredTab={hoveredTab}
         data={zones as unknown as PopularData}
-        onPick={(k) => {
-          setActiveTab(k);
-          setMontrePlus(false);
-        }}
+        onPick={(k) => setActiveTab(k)}
         onEnter={handleEnter}
         onLeave={handleLeave}
         buildHref={buildCompanyHref}
@@ -89,17 +85,7 @@ export function HomeCartePays({
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {visibles.map((s) => wrapGate(s.ticker, <CarteSteWow s={s} buildHref={buildCompanyHref} />))}
       </div>
-      {resteACharger && (
-        <div className="mt-4 flex justify-center">
-          <button
-            type="button"
-            onClick={() => setMontrePlus(true)}
-            className="rounded-lg border border-violet-500/30 bg-violet-500/[0.06] px-3.5 py-2 text-[12.5px] font-medium text-violet-100 transition-all hover:bg-violet-500/15"
-          >
-            {isFr ? "Montre-moi les 10 suivants" : "Show me the next 10"}
-          </button>
-        </div>
-      )}
+
     </div>
   );
 }

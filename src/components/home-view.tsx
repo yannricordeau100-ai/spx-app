@@ -17,7 +17,7 @@ import { HomeFAQ } from "@/components/home-faq";
 // home-popular-block.tsx reste dans le depot). Sa carte des pays vit desormais
 // dans HomeCartePays, sous le bloc « Pourquoi utiliser Mettrik AI ? ».
 import { HomeCartePays } from "@/components/home-carte-pays";
-import { HomeWowGrid } from "@/components/home-wow-grid";
+// HomeWowGrid retire de l accueil le 07 sept 2026 (remplace par HomeCartePays).
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { useT } from "@/lib/i18n/provider";
 import { LogoMettrik } from "@/components/logo-mettrik";
@@ -810,17 +810,9 @@ export function HomeView({
               gatePath={gatePath}
             />
           )}
-          {/* Yann 28 aout 2026 : la grille de cartes hero (medailles, etoile,
-              "i", KPI principal) laisse place a la grille des societes
-              populaires aupres des investisseurs francais : 2 par ligne,
-              3 KPI wow chacune, 20 visibles, 40 au maximum. */}
-          <HomeWowGrid
-            universe={results}
-            buildHref={buildHref}
-            requireSignupGate={requireSignupGate}
-            gatePath={gatePath}
-            labelVoirPlus={t("home.show_next_20")}
-          />
+          {/* Yann 07 sept 2026 : la grille des societes populaires est retiree ;
+              la carte des pays ci-dessus affiche les 10 plus grosses
+              capitalisations de la zone choisie avec leurs 3 KPI. */}
 
 
           {/* Yann 07 sept 2026 : bloc « Actions les plus populaires » archive
