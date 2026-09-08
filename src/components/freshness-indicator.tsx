@@ -226,18 +226,23 @@ export function FreshnessIndicator({
   // mini ligne de séparation verticale (border droite).
   if (compact) {
     return (
-      <div className="flex shrink-0 flex-col items-start justify-center border-r border-white/15 pr-2 text-left sm:pr-3">
-        <span className="font-mono text-[9px] font-semibold uppercase leading-[1.2] tracking-[0.14em] text-zinc-100">
+      // 8 sept 2026 (demande du proprietaire) : dans le bandeau prix, le
+      // libelle, la valeur et l icone « i » sont BLANCS avec un leger contour
+      // noir (lisibles sur le fond colore du bandeau), pour toutes les stes.
+      <div className="flex shrink-0 flex-col items-start justify-center border-r border-white/15 pr-2 text-left sm:pr-3" style={{ textShadow: "0 0 2px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.9)" }}>
+        <span className="font-mono text-[9px] font-semibold uppercase leading-[1.2] tracking-[0.14em] text-white">
           {isFr ? "Prochains" : "Next"}
         </span>
-        <span className="font-mono text-[9px] font-semibold uppercase leading-[1.2] tracking-[0.14em] text-zinc-100">
+        <span className="font-mono text-[9px] font-semibold uppercase leading-[1.2] tracking-[0.14em] text-white">
           {isFr ? "résultats" : "results"}
         </span>
-        <span className="mt-1 inline-flex items-center gap-1 whitespace-nowrap font-mono text-[12px] font-bold leading-none" style={{ color }}>
+        <span className="mt-1 inline-flex items-center gap-1 whitespace-nowrap font-mono text-[12px] font-bold leading-none text-white">
           {nextQuarter} <span className="opacity-90">{dLabel}</span>
-          <InfoTooltip color={color} size="sm" align={tooltipAlign}>
-            {tooltipBody}
-          </InfoTooltip>
+          <span style={{ filter: "drop-shadow(0 0 1px rgba(0,0,0,0.95)) drop-shadow(0 0 1px rgba(0,0,0,0.6))" }}>
+            <InfoTooltip color="#ffffff" size="sm" align={tooltipAlign}>
+              {tooltipBody}
+            </InfoTooltip>
+          </span>
         </span>
       </div>
     );
