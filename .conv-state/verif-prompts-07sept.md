@@ -37,3 +37,14 @@ Chaque demande de la journee, mot a mot, avec statut. A re-verifier en fin de se
 - Prochains resultats deplace au bandeau prix (COL 0 compacte + separation verticale), retire du hero
 - Concentration clients 666/666 (validation 0 probleme, sondages ABBV/ABT/NRG/NEE/AMT coherents)
 - Estimation couleurs graph hero (8 teintes + sauvegarde compte) donnee : 3-4 h, en attente de GO
+
+## Etat au 8 sept 2026, 21h35 (compte 3)
+- A robots : 19 valides, 8 restaures (dont MSTR), 3 identiques ; Cahier pose sur 29 (68 KPI). En ligne v08.3.
+- B bandeau prix : blanc contour noir ; chip « Prochains resultats » tolere 30 j avant la fin de periode estimee (hero a date de publication, ex ADBE). Verifie visuellement sur ADBE (T3 2026 J-2). Export PNG AAPL : capture non faite (connexion navigateur bloquee par la regle mots de passe, a faire par le proprietaire).
+- C moat : tendance Mettrik 664 lignes + 3 maquettes /concepts. En ligne v08.4.
+- D clients : 45 lots faits (450 stes), 72 parts top 6-10 renseignees sur 666 fichiers, 6 plafonds. Commit v08.5. Exercices anciens a surveiller : CF 2010, EXPD 2002, CLX 2014, GLW 2015, MSCI 2018, ON 2018, OR.PA 2018, CTSH 2019.
+- E lenteur : squelette + prechauffage + lectures serveur en parallele. Apres : 1,1 a 3,6 s (avant 1,2 a 7 s, 13 s a froid HOT.DE).
+- F unites : Energie (GICS 10) + Materiaux (GICS 15) ; ordre exotiques d abord, durees et monnaies en dernier.
+- G TAM, I Qnity : en ligne v08.3.
+- Disque : 35 Go libres ; ~/Mettrik/sec-data 96 Go + docs 13 Go en attente de decision (garder ou corbeille).
+- Restent : J couleurs (GO), go n0 (GO), image de reference TAM, Claude in Chrome pour X (« Chrome pret »).
