@@ -187,3 +187,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.08.3 (08 Sep 2026 15:30, apres 703277b71c)
 - A : 29 fiches robots controlees (19 validees, 7 restaurees, 3 identiques) et Cahier pose (68 KPI) ; B : Prochains resultats en blanc ; F : unites Materiaux et Energie sur code GICS ; G : bloc TAM V1 sous Comprendre la societe ; I : Qnity x1000
+
+## v2026.09.08.4 (08 Sep 2026 15:38, apres 60eef364d2)
+- C : tendance du moat evaluee par Mettrik (664 stes) dans /sandbox/moat + 3 maquettes concept

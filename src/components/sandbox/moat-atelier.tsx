@@ -64,14 +64,41 @@ function secteurDe(code: string | undefined): { code: string; name: string } | n
   return s ? { code: s.code, name: s.name } : null;
 }
 
+export type MettrikTendance = {
+  tendance_mettrik: "hausse" | "stable" | "baisse";
+  justification_mettrik: string;
+  confiance?: "haute" | "moyenne" | "faible";
+  date?: string;
+};
+
+const MK_STYLE: Record<string, { cls: string; fleche: string; label: string }> = {
+  hausse: { cls: "border-emerald-400/50 bg-emerald-500/15 text-emerald-100", fleche: "↑", label: "en amélioration" },
+  stable: { cls: "border-white/15 bg-white/[0.05] text-zinc-300", fleche: "=", label: "stable" },
+  baisse: { cls: "border-rose-400/50 bg-rose-500/15 text-rose-100", fleche: "↓", label: "en dégradation" },
+};
+
+/** 8 sept 2026 : pastille « évaluation Mettrik » (tendance du moat), pas Morningstar. */
+function PastilleMettrik({ e }: { e?: MettrikTendance }) {
+  if (!e) return <span className="rounded-full border border-dashed border-white/15 px-2 py-px font-mono text-[10px] uppercase tracking-wider text-zinc-600" title="Évaluation Mettrik non encore produite">Mettrik : à venir</span>;
+  const st = MK_STYLE[e.tendance_mettrik] ?? MK_STYLE.stable;
+  return (
+    <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-px font-mono text-[10.5px] uppercase tracking-wider ${st.cls}`} title={`Évaluation Mettrik (pas Morningstar)${e.confiance ? `, confiance ${e.confiance}` : ""} : ${e.justification_mettrik}`}>
+      <span className="text-[9px] text-zinc-400">Mettrik</span> {st.fleche} {st.label}
+    </span>
+  );
+}
+
 export function MoatAtelier({
   societes,
   gics,
   noms,
+  mettrik = {},
 }: {
   societes: Record<string, MoatEntree>;
   gics: Record<string, string>;
   noms: Record<string, string>;
+  /** 8 sept 2026 : evaluation Mettrik de la tendance du moat, par ticker. */
+  mettrik?: Record<string, MettrikTendance>;
 }) {
   const [filtre, setFiltre] = useState("");
   const [notes, setNotes] = useState<string[]>([]);
@@ -184,6 +211,12 @@ export function MoatAtelier({
                         {m.moat && m.moat_precedent && m.moat_precedent !== m.moat && (
                           <span className="font-mono text-[11px] text-cyan-200/90" title={`Note précédente : ${m.moat_precedent}`}>
                             {m.moat_precedent} → {m.moat}{m.moat_depuis ? ` (${fmtDate(m.moat_depuis)})` : ""}
+                          </span>
+                        )}
+                        <PastilleMettrik e={mettrik[t]} />
+                        {mettrik[t]?.justification_mettrik && (
+                          <span className="basis-full pl-[86px] text-[11.5px] leading-snug text-zinc-400">
+                            <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">éval. Mettrik · </span>{mettrik[t].justification_mettrik}
                           </span>
                         )}
                         {m.quantitatif && (
