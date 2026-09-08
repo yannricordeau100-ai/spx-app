@@ -288,21 +288,21 @@ export default async function SandboxV195TickerPage({
   }
 
   const locale = await getServerLocale();
-  const r = await loadV17Company(ticker, { mode: "v18", locale });
+  // 8 sept 2026 (lenteur des fiches) : lectures independantes lancees en
+  // parallele (fiche, transcript, resume, blocs desactives, limite d historique).
+  const [r, transcript, transcriptSummary, disabledBlocks, historyLimitYears] = await Promise.all([
+    loadV17Company(ticker, { mode: "v18", locale }),
+    loadTranscript(ticker),
+    loadTranscriptSummary(ticker),
+    resolveDisabledForTicker(ticker),
+    loadHistoryLimit(ticker),
+  ]);
   if (r.kind === "missing") {
     notFound();
   }
   if (r.kind === "preparing") {
     redirect("/sandbox/v1-9-5");
   }
-
-  const transcript = await loadTranscript(ticker);
-  const transcriptSummary = await loadTranscriptSummary(ticker);
-
-  // Blocs désactivés (Supabase + fallback JSON) résolus pour ce ticker :
-  // union(global, per-sté) avec expansion legacy gouvernance_top3.
-  const disabledBlocks = await resolveDisabledForTicker(ticker);
-  const historyLimitYears = await loadHistoryLimit(ticker);
 
   // Yann (26 mai 2026) : floutage UNIQUEMENT pour plan free réel ou anon.
   // L'admin (DESK_OWNER_EMAIL) et tout user inscrit voit en clair par défaut

@@ -202,15 +202,25 @@ export default async function TickerPage({
   // legacy uniquement si le loader ne rend pas la sté, pour ne jamais servir
   // une page vide sur une URL publique indexée.
   const locale = await getServerLocale();
-  const r = await loadV17Company(ticker, { mode: "v18", locale });
-  const transcript = await loadTranscript(ticker);
+  // 8 sept 2026 (lenteur des fiches) : les lectures independantes partent EN
+  // MEME TEMPS au lieu de s enchainer (fiche, transcript, resume, blocs
+  // desactives, palier, zones de floutage). Mesure : 5 allers-retours
+  // sequentiels vers Supabase et le disque devenaient 1 seul temps d attente.
+  const [r, transcript, transcriptSummary, disabledBlocks, tierResolu, zonesChargees] = await Promise.all([
+    loadV17Company(ticker, { mode: "v18", locale }),
+    loadTranscript(ticker),
+    loadTranscriptSummary(ticker),
+    resolveDisabledForTicker(ticker),
+    resolveFreemiumTier(),
+    chargeZonesFloutage(ticker.toUpperCase()),
+  ]);
 
   if (r.kind !== "ready") {
     // Sans dataset legacy ET sans rendu du chargeur, il n y a rien a montrer.
     if (!legacyCompany) notFound();
     // Audit 2 sept 2026 : le repli legacy passe par le meme palier et le
     // meme fournisseur de floutage que le chemin principal.
-    const tierRepli = await resolveFreemiumTier();
+    const tierRepli = tierResolu;
     return (
       <>
         <FreemiumBlurProvider tier={tierRepli}>
@@ -226,9 +236,7 @@ export default async function TickerPage({
     );
   }
 
-  const transcriptSummary = await loadTranscriptSummary(ticker);
-  const disabledBlocks = await resolveDisabledForTicker(ticker);
-  const freemiumTier = tierPourFiche(await resolveFreemiumTier(), ticker);
+  const freemiumTier = tierPourFiche(tierResolu, ticker);
 
   // ATT (anti-thèse) : même gating serveur que /sandbox/v1-9-5/<ticker>.
   // Le contenu complet n'est sérialisé que pour le plan Max.
@@ -245,7 +253,9 @@ export default async function TickerPage({
   // anonyme. Chaque zone porte desormais la liste des paliers qu elle
   // concerne, et une zone sans liste garde l ancien comportement (anonyme +
   // gratuit). On charge donc les zones pour TOUS les paliers, puis on filtre.
-  const zonesDuTicker = (await chargeZonesFloutage(r.company.ticker)).zones;
+  const zonesDuTicker = (
+    r.company.ticker.toUpperCase() === ticker.toUpperCase() ? zonesChargees : await chargeZonesFloutage(r.company.ticker)
+  ).zones;
   const zonesEffectives = zonesPourPalier(zonesDuTicker, freemiumTier as PalierFloutage);
   const estGratuit = zonesEffectives.length > 0;
   const servedCompany = estGratuit
