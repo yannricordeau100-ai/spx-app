@@ -151,7 +151,11 @@ export function FreshnessIndicator({
   const nextDateIsCoherent =
     nextEarnTs !== null &&
     periodEndTs !== null &&
-    nextEarnTs >= periodEndTs &&
+    // 8 sept 2026 : tolerance de 30 j AVANT la fin de periode estimee. Le
+    // hero porte parfois une date de PUBLICATION (ex ADBE 2026-06-11) et non
+    // la fin de trimestre : la fin estimee tombait 1 jour APRES les vrais
+    // prochains resultats (10 sept) et la chip disparaissait a J-2.
+    nextEarnTs >= periodEndTs - 30 * 24 * 60 * 60 * 1000 &&
     nextEarnTs <= periodEndTs + 95 * 24 * 60 * 60 * 1000;
 
   // Jours restants avant les prochains résultats (date précise + sûre + future).

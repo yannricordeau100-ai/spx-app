@@ -36,7 +36,23 @@ export function UnitesMateriaux({ secteur = "materiaux" }: { secteur?: "materiau
       l.push(u);
       g.set(u.categorie, l);
     }
-    return [...g.entries()];
+    // 8 sept 2026 (demande du proprietaire) : unites exotiques du secteur en
+    // premier (energie, masses, prix physiques, cadences, surfaces), puis les
+    // ratios et comptages, et en dernier les unites connues de tous (durees,
+    // monnaies).
+    const ORDRE = [
+      "Énergie : pétrole, gaz et électricité",
+      "Masses et volumes de production",
+      "Prix par quantité physique",
+      "Rythmes et cadences",
+      "Surfaces et distances",
+      "Ratios, taux et scores",
+      "Effectifs, sites et volumes de comptage",
+      "Durées",
+      "Monnaies et montants",
+    ];
+    const rang = (c: string) => { const i = ORDRE.indexOf(c); return i < 0 ? ORDRE.length - 2.5 : i; };
+    return [...g.entries()].sort((a, b) => rang(a[0]) - rang(b[0]));
   }, [secteur]);
 
   return (
