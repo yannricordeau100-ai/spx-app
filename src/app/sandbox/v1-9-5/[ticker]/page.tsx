@@ -4,6 +4,7 @@ import path from "path";
 import { CompanyView } from "@/components/company-view";
 import { AuthNav } from "@/components/auth-nav";
 import { getDataPendingMeta, DataPendingPage } from "@/components/data-pending-placeholder";
+import QUARANTAINE from "@/data/quarantaine-pollution.json";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import { loadV17Company } from "@/lib/company-core/load-company";
@@ -250,6 +251,27 @@ export default async function SandboxV195TickerPage({
   const aliasTarget = URL_ALIASES[ticker.toUpperCase()];
   if (aliasTarget && aliasTarget !== ticker.toLowerCase()) {
     redirect(`/sandbox/v1-9-5/${aliasTarget}`);
+  }
+
+  // Yann 8 sept 2026 : QUARANTAINE pollution croisee (identite IVR). Ces
+  // tickers ne doivent JAMAIS etre traites comme une fiche classique le jour
+  // de leur integration : l avertissement s affiche EN PREMIER, avant tout
+  // rendu, et seul le proprietaire decide de la suite. Registre :
+  // src/data/quarantaine-pollution.json (+ champ _QUARANTAINE_POLLUTION dans
+  // chaque fichier de donnees concerne).
+  if ((QUARANTAINE.tickers as string[]).includes(ticker.toUpperCase())) {
+    return (
+      <div className="min-h-screen bg-[#050505] px-6 py-16 text-zinc-100">
+        <div className="mx-auto max-w-3xl rounded-3xl border-4 border-rose-500 bg-rose-950/40 p-8">
+          <div className="font-mono text-[13px] uppercase tracking-[0.2em] text-rose-300">Avertissement bloquant</div>
+          <h1 className="mt-3 font-display text-[34px] font-bold leading-tight text-rose-100">
+            {ticker.toUpperCase()} : fiche en quarantaine, pollution croisee
+          </h1>
+          <p className="mt-4 text-[16px] leading-relaxed text-rose-100/90">{QUARANTAINE.message}</p>
+          <p className="mt-4 font-mono text-[12px] text-rose-300/80">Registre : src/data/quarantaine-pollution.json ({QUARANTAINE.date}). Ne pas retirer ce ticker du registre sans decision du proprietaire.</p>
+        </div>
+      </div>
+    );
   }
 
   // Sociétés dont la fiche n'est pas encore publiable (données officielles en

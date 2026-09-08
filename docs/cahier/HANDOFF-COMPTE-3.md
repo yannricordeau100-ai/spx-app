@@ -42,7 +42,7 @@ les dossiers `docs/cahier/*`.
 | TAM comparabilite | 10 blocs non comparables retires (AAPL Services, ARM, MCD, HLT, UBER c1, TTD, MELI c1, PRX c1, ERIE, AC.PA) ; dominances reelles conservees (TSM, VRTX, ISRG, PFE) | rapport scratchpad perdu a la fermeture : re-auditer si besoin avec le meme critere |
 | Concentration clients 666/666 | termine (top 1-3 partout, top 6-10 MANQUANT sur 608 stes, voir chantier D) | /sandbox/clients, docs/cahier/clients |
 | Bourses mondiales 18 pays | termine, valide par le proprietaire | /sandbox/bourses, docs/cahier/bourses |
-| Services Premium/Max + preuves marche | toggle en ligne, 0 coche du proprietaire pour l instant | /sandbox/services-max, docs/cahier/services-max-preuves.json |
+| Services Premium/Max | page SUPPRIMEE le 08/09 (le proprietaire a decide seul de ce qu il integre, ne plus en parler) ; benchmark conserve dans docs/cahier/services-max-preuves.json | |
 | Logos douteux | 6 arbitres et appliques, valide | public/logos |
 | Constellation pays accueil | valide | home-carte-pays.tsx |
 | Prochains resultats deplace au bandeau prix | en ligne (voir chantier B pour la couleur) | stock-price-block.tsx COL 0, freshness-indicator.tsx compact |
@@ -54,7 +54,9 @@ les dossiers `docs/cahier/*`.
 
 ## 2. Chantiers a faire, dans l ordre demande par le proprietaire le 08/09
 
-### A. Toggle « 26 stes robots » (ETA 45 min)
+### A. 26 stes robots : DECISION PRISE PAR LE PROPRIETAIRE LE 08/09 = option A (valider apres controle puis poser le Cahier). ETA 2-3 h, agents
+Plus besoin de toggle de decision : EXECUTER. Etapes : (1) pour chacun des 29 fichiers, `git diff` vs HEAD pour isoler les points ajoutes ; (2) controle `scripts/scan-unit-magnitude*.py` + sondage de 3 valeurs par ste contre le dernier 10-Q / rapport (agents Opus, Sonnet si 429) ; (3) si le controle passe : committer le fichier ; sinon `git checkout -- <fichier>` (revenir a la version d avant) et le dire ; (4) poser le Cahier sur ces stes (`scripts/cahier-pose.py`, verifier avec `scripts/scan-cahier-conformite.py`) ; (5) version-bump, push, alias, verification en ligne de 3 fiches (ex ADI, DIS, LULU) et tableau au proprietaire (validees / restaurees).
+Rappel du contexte (pour le tableau) :
 Creer `/sandbox/robots` (carte sandbox + page gate audit_token/owner, meme pattern que
 `src/app/sandbox/clients/page.tsx`). Contenu, PRECIS :
 - Le probleme : 29 fichiers de travail `.batches-drafts-safe/kpis-haut/<T>.json` (ADI ATO
@@ -151,11 +153,15 @@ ENT.L ERG.MI FDR.MC FER.MC FR.PA GBLB.BR GEF GET.PA GLPG.AS GMAB.CO HSX.L HWDN.L
 JCQ.PA KNEBV.HE MAU.PA MNDI.L MNDI.MI MONC.MI NEX.PA NOS.LS ORNBV.HE OUT1V.HE PGS.OL PHR.LS
 PVL.PA RACE.MI RMV.L SCYR.MC SGRO.L SINCH.ST SMIN.L SN.L SOLB.BR SPX.L STMMI.MI SUBC.OL
 TEL.OL TEN.MI UBI.PA VEI.OL VIV.PA VLA.PA WCH.DE WRT1V.HE.
-Invisibles (hors `v1-9-5-clean-all-tickers.json`, redirection index). Options : (A) laisser
-tel quel (cout 0, risque 0 tant qu ils restent hors univers) ; (B) depolluer par agent
-(~1 h 30, meme methode que les 8 de l univers : reconstruire description + secteur +
-founded depuis les sources IR) ; (C) supprimer ces fichiers. Appliquer ce que decide le
-proprietaire. Le drapeau `_cross_pollution_flagged_at` (20 mai 2026) n avait jamais ete
+DECISION DU PROPRIETAIRE (08/09) : QUARANTAINE, FAIT. Registre `src/data/quarantaine-pollution.json`
+(56 tickers + message), champ `_QUARANTAINE_POLLUTION` ecrit dans 153 fichiers (v2-pipeline,
+description, companies), garde dans `src/app/sandbox/v1-9-5/[ticker]/page.tsx` : si un de
+ces tickers est appele, un ENORME avertissement rouge s affiche EN PREMIER, avant tout rendu.
+REGLE PERMANENTE : le jour ou des stes de ces pays sont integrees (n2 ou n0), ces 56 ne
+doivent JAMAIS etre fabriquees comme des nouvelles stes classiques : la chaine d integration
+(ajout a clean-all-tickers, build, pose Cahier, crons) doit refuser tout ticker present dans
+le registre et remonter le message ; le proprietaire decide alors quoi faire. Ne retirer un
+ticker du registre que sur son ordre explicite. Le drapeau `_cross_pollution_flagged_at` (20 mai 2026) n avait jamais ete
 traite : ajouter un detecteur dans le cron pour qu un drapeau non traite remonte.
 
 ### I. Q (Qnity Electronics, scission DuPont 2025) : `kpis Net Sales` value 4.754 en
@@ -171,11 +177,9 @@ session non sauvegardee. Reprendre les degrades violet/cyan codes en dur dans
 `src/components/charts/curve-chart.tsx` et `bars-chart.tsx`.
 
 ### K. En attente du proprietaire (a lui rappeler dans le premier message)
-- Coches services Max (`/sandbox/services-max`) : 0 coche ; benchmark : idees 1,3,5,6,7 =
-  standards du marche prouves, 2 et 4 = personne ne les propose, demande non prouvee.
 - GO chantier J (couleurs).
-- Decision chantier H (56 fiches hors univers) et chantier A (26 robots).
-- EL.PA logo : aucun candidat officiel, garde son bandeau (a confirmer).
+- Chantier H : DECIDE le 08/09 = quarantaine (fait, voir H). Chantier A : DECIDE = option A (executer).
+- EL.PA : logo officiel EssilorLuxottica pose le 08/09 (public/logos/EL-PA.png, pastille claire), fait.
 - « go n0 » pour mettrik.ai.
 - Style TAM : image de reference si differente du composant V1.
 
@@ -194,5 +198,5 @@ session non sauvegardee. Reprendre les degrades violet/cyan codes en dur dans
 
 ## 4. Prompt a coller dans l autre compte
 ```
-Tu reprends le travail Mettrik dans ~/spx-app. Commence par `git pull origin staging`, puis lis INTEGRALEMENT `docs/cahier/HANDOFF-COMPTE-3.md` (regles, etat au 08/09, chantiers A a K) et `.conv-state/verif-prompts-07sept.md`. Puis, dans cet ordre, un a la fois : A (toggle des 26 stes robots avec probleme precis et decisions A/B/C par ste), B (texte « Prochains resultats » + icone i en blanc avec leger contour noir dans le bandeau prix, puis verification visuelle de l export PNG AAPL avec l unite anglaise), C (tendance MOAT evaluee par Mettrik sur chaque ligne de /sandbox/moat, integree a l existant et marquee « evaluation Mettrik », puis maquettes sur la page concept et lien), D (concentration clients : relancer la recherche des top 6 a 10 sur les 608 stes sans donnee, agents Opus ou Sonnet avec sondage de 3 valeurs par lot, puis maquettes d integration sur la page concept et lien), E (lenteur d ouverture des fiches : mesurer, corriger, avant/apres chiffre), F (bloc « Comprendre les unites » invisible : conditionner sur le code GICS 15 et 10, etendre a l Energie, verifier en ligne), G (bloc TAM au design d origine market-position-card avec la part captee en % bien visible, place sous « Comprendre la societe », seulement les TAM comparables), I (Q Qnity 4,754 -> 4 754 M). Pour chaque chantier : fais-le en entier, tsc, commit, push, version-bump si des donnees changent, relance de l alias niveau2, verification en vue connectee, lien + tableau court, puis chantier suivant. Rappelle-moi au premier message les points en attente de ma decision (chantier K : coches services Max, GO couleurs graph J, 56 fiches hors univers H, 26 robots A, EL.PA, go n0, image de reference TAM). Reponses courtes en francais, sans tiret long, ETA a chaque tache, finir par TERMINE. Jamais le navigateur integre pour les agents. Jamais mettrik.ai sans mon « go n0 ». Jamais l interrupteur maintenance ni tarifs. Jamais committer src/data/companies/wkl.as.json. Commence maintenant par relancer l alias niveau2 (`nohup bash scripts/alias-niveau2-attente.sh > /tmp/alias.log 2>&1 &`) puis le chantier A.
+Tu reprends le travail Mettrik dans ~/spx-app. Commence par `git pull origin staging`, puis lis INTEGRALEMENT `docs/cahier/HANDOFF-COMPTE-3.md` (regles, etat au 08/09, chantiers A a K, decisions deja prises) et `.conv-state/verif-prompts-07sept.md`. TON PREMIER MESSAGE doit contenir, sans rien oublier : (1) le tuto de connexion Claude in Chrome pour X (section 3 du handoff : extension installee, connectee au MEME compte, panneau lateral ouvert, Chrome au premier plan avec l onglet X, puis me dire quand c est pret), (2) la liste COMPLETE de tout ce qui n est pas termine ou pas valide (chantiers A a J avec ETA chacun, points K en attente de moi : GO couleurs graph, go n0, image de reference TAM), (3) le rappel des decisions deja prises que tu vas appliquer sans me redemander (26 robots = option A executer ; 56 fiches hors univers = quarantaine deja en place ; services Max = page supprimee, sujet clos ; EL.PA logo pose). Puis, dans cet ordre, un a la fois : A (26 robots : controle, validation ou restauration, pose du Cahier), B (texte « Prochains resultats » + icone i en blanc avec leger contour noir dans le bandeau prix, puis verification visuelle de l export PNG AAPL avec l unite anglaise « Billions Subscribers »), C (tendance MOAT evaluee par Mettrik sur chaque ligne de /sandbox/moat, integree a l existant sans nouvel onglet et marquee « evaluation Mettrik, pas Morningstar », puis maquettes de design sur la page concept et lien), D (concentration clients : relancer la recherche des top 6 a 10 sur les 608 stes sans donnee, agents Opus ou Sonnet avec reglages adaptes et sondage de 3 valeurs par lot, puis maquettes d integration sur la page concept et lien), E (lenteur d ouverture des fiches depuis l accueil et la barre de recherche : mesurer, corriger, avant/apres chiffre), F (bloc « Comprendre les unites » invisible : conditionner sur le code GICS 15 Materiaux et 10 Energie, etendre le contenu a l Energie, verifier en ligne et me dire ou le voir), G (bloc TAM au design d origine market-position-card avec la part captee en % bien visible, place juste sous « Comprendre la societe », seulement les TAM comparables, legers ajustements seulement si absolument necessaires), I (Q Qnity 4,754 -> 4 754 M), puis J des que je dis GO. Pour chaque chantier : fais-le en entier, tsc, commit, push, version-bump obligatoire si des donnees changent (sinon l ancien cache des fiches est servi 6 h), relance de l alias niveau2, verification en vue connectee, lien + tableau court, puis chantier suivant. Reponses courtes en francais, sans tiret long, ETA a chaque tache, finir par TERMINE. Jamais le navigateur integre pour les agents. Jamais mettrik.ai sans mon « go n0 ». Jamais l interrupteur maintenance ni tarifs. Jamais committer src/data/companies/wkl.as.json. Jamais traiter un ticker du registre src/data/quarantaine-pollution.json comme une ste classique. Commence maintenant par relancer l alias niveau2 (`nohup bash scripts/alias-niveau2-attente.sh > /tmp/alias.log 2>&1 &`) puis le chantier A.
 ```

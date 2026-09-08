@@ -181,3 +181,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.08.1 (08 Sep 2026 02:10, apres dff6e020b8)
 - depollution IVR + NFLX 2025 + services Max
+
+## v2026.09.08.2 (08 Sep 2026 13:50, apres 6a8a8e7742)
+- quarantaine pollution 56 fiches, logo EL.PA, retrait services Max
