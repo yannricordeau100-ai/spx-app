@@ -190,3 +190,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.08.4 (08 Sep 2026 15:38, apres 60eef364d2)
 - C : tendance du moat evaluee par Mettrik (664 stes) dans /sandbox/moat + 3 maquettes concept
+
+## v2026.09.08.5 (08 Sep 2026 21:30, apres 6717921109)
+- D : concentration clients top 6-10 sur 450 stes (Cahier clients, 72 parts renseignees dont 6 plafonds)
