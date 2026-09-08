@@ -18,11 +18,12 @@ import { MockupEmailTemplates } from "./mockups/email-templates";
 import { MockupHeaderBarRedesign } from "./mockups/header-bar-redesign";
 import { MockupPriceChartTests } from "./mockups/price-chart-tests";
 import { MockupMoatTendance } from "./mockups/moat-tendance";
+import { MockupClientsConcentration } from "./mockups/clients-concentration";
 
 type Tab =
   | "email" | "chart"
   | "mk-screener" | "mk-compare" | "mk-landing" | "mk-onboarding" | "mk-email-templates"
-  | "mk-header-bar" | "mk-price-chart" | "mk-dividend" | "mk-moat-tendance";
+  | "mk-header-bar" | "mk-price-chart" | "mk-dividend" | "mk-moat-tendance" | "mk-clients";
 
 const TABS: { id: Tab; label: string; Icon: typeof Mail; group?: "visuels" | "mockups" }[] = [
   { id: "email", label: "Email", Icon: Mail, group: "visuels" },
@@ -36,6 +37,7 @@ const TABS: { id: Tab; label: string; Icon: typeof Mail; group?: "visuels" | "mo
   { id: "mk-header-bar", label: "Header bar (variation %)", Icon: LineChart, group: "mockups" },
   { id: "mk-price-chart", label: "Mini chart prix", Icon: Activity, group: "mockups" },
   { id: "mk-moat-tendance", label: "Moat : tendance Mettrik", Icon: Sparkles, group: "mockups" },
+  { id: "mk-clients", label: "Concentration clients", Icon: Layers, group: "mockups" },
 ];
 
 export function ConceptsClient() {
@@ -248,6 +250,7 @@ export function ConceptsClient() {
         {tab === "mk-header-bar" && company && <MockupHeaderBarRedesign company={company} />}
         {tab === "mk-price-chart" && company && <MockupPriceChartTests company={company} />}
         {tab === "mk-moat-tendance" && <MockupMoatTendance />}
+        {tab === "mk-clients" && <MockupClientsConcentration />}
       </div>
     </div>
   );
