@@ -121,3 +121,63 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.07.6 (07 Sep 2026 01:28, apres 2f526a58c0)
 - TAM : arret demande, 90 societes validees
+
+## v2026.09.07.7 (07 Sep 2026 02:13, apres 840e1e0548)
+- accueil : bloc abonnement, des milliers d actions et 20 ans d historique
+
+## v2026.09.07.8 (07 Sep 2026 02:14, apres 36a6bc4d0a)
+- gics : onglet Arbitrages KPI retire (17 points traites le 06 09)
+
+## v2026.09.07.9 (07 Sep 2026 02:16, apres e8f9cec874)
+- rangs : doubles classes dedupliquees (GOOG FOX NWS)
+
+## v2026.09.07.10 (07 Sep 2026 02:20, apres 223721d750)
+- dates de resultats : cron sur tout l univers + date passee jamais affichee
+
+## v2026.09.07.11 (07 Sep 2026 02:21, apres d6a11bf8f5)
+- tableau indicateurs : le i reste colle au nom sur 2 lignes
+
+## v2026.09.07.12 (07 Sep 2026 02:27, apres 46d8563cce)
+- accueil : populaires archive, carte des pays sous le bloc pourquoi
+
+## v2026.09.07.13 (07 Sep 2026 02:32, apres 8cc5a9fdb3)
+- tam : onglet arborescence GICS avec TAM retenus + design 2026 encart abonnement
+
+## v2026.09.07.14 (07 Sep 2026 02:33, apres 825fd8027b)
+- cahier : signaux reecrits, story perimee retiree, titres nettoyes
+
+## v2026.09.07.15 (07 Sep 2026 02:36, apres 001772139f)
+- cahier : accents et elisions remis sur les KPI poses
+
+## v2026.09.07.16 (07 Sep 2026 02:42, apres 943c339cf0)
+- tam : cartes completes dans l arborescence ; fiches Materiaux : depliable des unites
+
+## v2026.09.07.17 (07 Sep 2026 03:20, apres 89c5cfa780)
+- carte pays sous KPI INDICATEUR avec mini-blocs 3 KPI, textes accueil, SMCI retire, NFLX ARM 2025
+
+## v2026.09.07.18 (07 Sep 2026 03:35, apres c5854ea8b7)
+- accueil : 10 stes par zone sous la constellation, grille populaires retiree ; sandbox : lien atelier TAM
+
+## v2026.09.07.19 (07 Sep 2026 04:06, apres 04d84c5b27)
+- publication des KPI du Cahier sur tout l univers
+
+## v2026.09.07.20 (07 Sep 2026 04:26, apres 9623dbcbea)
+- accents des titres des KPI du Cahier
+
+## v2026.09.07.21 (07 Sep 2026 16:29, apres 2bac79af9e)
+- sandbox : page Moat Morningstar + recherche toujours a jour ; carte pays filtres corriges
+
+## v2026.09.07.22 (07 Sep 2026 16:30, apres bb1e3e06f4)
+- logos : audit fonds clairs relance, 147 logos sombres passes sur pastille blanche
+
+## v2026.09.07.23 (07 Sep 2026 16:44, apres 3d95cf325a)
+- arbitrage logos douteux : page de choix + candidats officiels
+
+## v2026.09.07.24 (07 Sep 2026 16:47, apres 9dbb4a72c8)
+- MOAT dans Comprendre la societe + logos retires en theme jour
+
+## v2026.09.07.25 (07 Sep 2026 21:59, apres 03e33e6d7d)
+- sandbox : arborescence concentration clients
+
+## v2026.09.08.1 (08 Sep 2026 02:10, apres dff6e020b8)
+- depollution IVR + NFLX 2025 + services Max
