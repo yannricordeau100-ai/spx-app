@@ -184,3 +184,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.08.2 (08 Sep 2026 13:50, apres 6a8a8e7742)
 - quarantaine pollution 56 fiches, logo EL.PA, retrait services Max
+
+## v2026.09.08.3 (08 Sep 2026 15:30, apres 703277b71c)
+- A : 29 fiches robots controlees (19 validees, 7 restaurees, 3 identiques) et Cahier pose (68 KPI) ; B : Prochains resultats en blanc ; F : unites Materiaux et Energie sur code GICS ; G : bloc TAM V1 sous Comprendre la societe ; I : Qnity x1000

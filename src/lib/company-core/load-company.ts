@@ -659,6 +659,17 @@ async function loadV17CompanyBrut(
   // un avant ce fix.
   sanitizeCompanyData(data);
 
+  // 8 sept 2026 : code GICS (8 chiffres) de l annuaire du Cahier, pour les
+  // conditions par secteur (ex. bloc « Comprendre les unites » : 15 Materiaux
+  // et 10 Energie). Le libelle `sector` varie d une fiche a l autre, le code non.
+  try {
+    const gics = await readJsonOrNull<{ societes?: Record<string, string> }>(path.join(ROOT, "docs/cahier/societes-gics.json"));
+    const code = gics?.societes?.[ticker.toUpperCase()];
+    if (typeof code === "string" && /^\d{8}$/.test(code)) (data as Record<string, unknown>).gics_code = code;
+  } catch {
+    /* annuaire absent : pas de code */
+  }
+
   // Enrichissement ranks : merge depuis `v2-pipeline-enrich/<ticker>.ranks.json`
   // produit par `scripts/enrich-ranks-v2.py` (CONV-MODULE-RANKS-V2, 8 mai 2026).
   // PRIORITÉ : ranks.json gagne sur v2-pipeline. Raison : les ranks

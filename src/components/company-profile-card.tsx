@@ -123,7 +123,11 @@ export function CompanyProfileCard({
   // désormais occupée par le TAM (positions marché). Si pas de TAM, la
   // description prend toute la largeur.
   const tam = company.market_positions;
-  const hasTam = Array.isArray(tam) && tam.length > 0;
+  // 8 sept 2026 : le TAM est rendu dans le bloc dedie « Position marche · TAM »
+  // (format V1, market-position-card) place juste sous ce bloc ; plus de
+  // colonne TAM ici, la description prend toute la largeur.
+  const hasTam: boolean = false;
+  void tam;
   const news = company.latest_news;
   const descTakesFullWidth = !hasTam;
 

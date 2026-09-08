@@ -318,6 +318,8 @@ export type Company = {
    * and a credible TAM are available. Not shown if missing (honesty rule).
    */
   market_positions?: MarketPosition[];
+  /** 8 sept 2026 : code GICS a 8 chiffres (annuaire docs/cahier/societes-gics.json). */
+  gics_code?: string;
   /** Répartition du chiffre d'affaires par zone géographique. */
   revenue_by_geography?: RevenueBreakdown;
   /** Répartition du chiffre d'affaires par segment opérationnel. */

@@ -23,18 +23,21 @@ type Unite = {
   comparatif: string;
 };
 
-export function UnitesMateriaux() {
+export function UnitesMateriaux({ secteur = "materiaux" }: { secteur?: "materiaux" | "energie" }) {
   const [ouvert, setOuvert] = useState(false);
   const groupes = useMemo(() => {
     const g = new Map<string, Unite[]>();
-    for (const u of (DATA as { unites: Unite[] }).unites) {
+    for (const u of (DATA as { unites: (Unite & { secteurs?: string[] })[] }).unites) {
       if (u.categorie.startsWith("Valeurs non numériques")) continue;
+      // 8 sept 2026 : une unite peut etre propre a un secteur (champ secteurs) ;
+      // sans ce champ elle vaut pour les deux.
+      if (u.secteurs && !u.secteurs.includes(secteur)) continue;
       const l = g.get(u.categorie) ?? [];
       l.push(u);
       g.set(u.categorie, l);
     }
     return [...g.entries()];
-  }, []);
+  }, [secteur]);
 
   return (
     <div className="mt-4 rounded-2xl border border-white/[0.08] bg-white/[0.015]">
@@ -44,7 +47,7 @@ export function UnitesMateriaux() {
         className="flex w-full items-center gap-2.5 px-4 py-3 text-left hover:bg-white/[0.03]"
       >
         <ChevronRight className={`size-4 shrink-0 text-zinc-500 transition-transform ${ouvert ? "rotate-90" : ""}`} />
-        <span className="text-[13.5px] font-semibold text-zinc-200">Comprendre les unités du secteur Matériaux</span>
+        <span className="text-[13.5px] font-semibold text-zinc-200">Comprendre les unités du secteur {secteur === "energie" ? "Énergie" : "Matériaux"}</span>
         <span className="ml-auto font-mono text-[11px] text-zinc-500">
           {groupes.reduce((t, [, l]) => t + l.length, 0)} unités
         </span>
