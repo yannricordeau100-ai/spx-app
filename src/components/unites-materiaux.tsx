@@ -55,6 +55,12 @@ const COULEURS: Record<string, string> = {
   "Effectifs, sites et volumes de comptage": "#c084fc",
   "Durées": "#94a3b8",
   "Monnaies et montants": "#60a5fa",
+  "Clients, abonnés et utilisateurs": "#f87171",
+  "Produits, véhicules et unités vendues": "#2dd4bf",
+  "Données, réseaux et capacités": "#e879f9",
+  "Actions, titres et marchés": "#facc15",
+  "Santé, science et essais": "#38bdf8",
+  "Transport et logistique": "#4ade80",
 };
 const PALETTE = ["#f87171", "#2dd4bf", "#e879f9", "#facc15", "#38bdf8", "#4ade80", "#fb7185", "#a78bfa"];
 function couleurDe(cat: string, index: number): string {
@@ -67,8 +73,14 @@ const ORDRE = [
   "Prix par quantité physique",
   "Rythmes et cadences",
   "Surfaces et distances",
+  "Santé, science et essais",
+  "Transport et logistique",
+  "Données, réseaux et capacités",
+  "Produits, véhicules et unités vendues",
+  "Clients, abonnés et utilisateurs",
   "Ratios, taux et scores",
   "Effectifs, sites et volumes de comptage",
+  "Actions, titres et marchés",
   "Durées",
   "Monnaies et montants",
 ];
