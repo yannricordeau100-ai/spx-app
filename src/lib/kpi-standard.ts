@@ -31,6 +31,10 @@ export function normaliseLibelle(v: unknown): string {
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
+    // 9 sept 2026 : les codes techniques (total_revenue, EPS_DIL, REVENUE_Q)
+    // sont decoupes en mots avant toute comparaison, sinon la frontiere de
+    // mot n existe pas et la famille n est jamais reconnue.
+    .replace(/[_/\-]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -58,12 +62,15 @@ export const FAMILLES: RegExp[] = [
   /\b(margin|marge)\b/,
   /\b(eps|bpa|earnings per share|benefice par action)\b/,
   /\b(free cash flow|fcf|operating cash flow|cash flow|flux de tresorerie)\b/,
-  /\b(dividend|dividende|dividends|dividendes)\b/,
+  /\b(dividend|dividende|dividends|dividendes|div|dps)\b/,
   /\b(capex|capital expenditures?|investissements?)\b/,
   /\b(debt|dette|endettement)\b/,
   /\b(employees|effectifs?|headcount|salaries|employes)\b/,
   /\b(buybacks?|rachats? d.actions|share repurchases?)\b/,
-  /\b(ebitda|ebit|operating income|resultat operationnel|resultat d.exploitation)\b/,
+  /\b(ebitda|ebit|operating income|op income|op inc|net inc|resultat operationnel|resultat d.exploitation|gross profit)\b/,
+  // 9 sept 2026 : postes de bilan et de charges, eux aussi retrouvables partout.
+  /\b(cash|tresorerie|cash equivalents|equivalents de tresorerie|placements|short term investments|receivable|receivables|creances|inventor(?:y|ies)|stocks|total assets|actif total|total liabilities|passif|equity|capitaux propres|shares outstanding|diluted shares|dil shares|actions en circulation|actions diluees|working capital|bfr)\b/,
+  /\b(r&d|r d|rd|research and development|recherche et developpement|sg&a|sga|selling general|frais generaux|opex|operating expenses|cogs|cost of goods|cost of revenue|cout des ventes|sbc|stock based compensation|remuneration en actions|tax rate|taux d.imposition|effective tax|income tax|impots?)\b/,
 ];
 
 /**
@@ -80,7 +87,16 @@ const MOTS_NEUTRES = new Set<string>([
   "of","the","and","or","de","du","des","la","le","les","l","d","en","et","on","to","for","with","from","at","by","vs","versus","y","yoy","qoq","ttm","ltm","n","n-1","1",
   "usd","eur","chf","gbp","dollars","euros","milliards","millions","md","mds","m","bn","b","k","%","pct","x",
   "ratio","rate","taux","level","niveau","amount","montant","value","valeur","figure","chiffre","reported","publie","published","expected","attendu","guidance","prevu","target","objectif","2026e","2027e",
-  "dilue","diluee","non","gaap","ifrs","hors","exceptionnels","normalise","normalized","underlying","sous-jacent","comparable","organique","organic","reporte","reported",
+  "dilue","diluee","non","gaap","ifrs","hors","exceptionnels","normalise","normalized","underlying","sous","jacent","comparable","organique","organic","reporte","reported",
+  // 9 sept 2026 : qualificatifs neutres supplementaires (controle sur MSFT, TSM, NVDA, LIN).
+  "q","fy","h","s","t","qtr","sem","annualise","annualized","run","depenses","expense","expenses","frais","couts","costs","cost","charges","charge",
+  "fin","end","cloture","closing","debut","moyen","moyenne","average","avg","totaux","consolides","consolidated",
+  "part","attributable","shareholders","actionnaires","parent","company","societe","holders","common","ordinary",
+  "equivalents","equivalent","court","terme","short","long","term","nets","nettes","net","clients","accounts","payable","dus",
+  "pct","percentage","pourcentage","dollars","usd","eur","chf","gbp","twd","jpy","krw","cny","hkd","sek","nok","dkk","aud","cad","brl","inr",
+  "programs","program","programme","under","buyback","declared","declare","paid","versement","additions","property","plant","equipment","immobilisations",
+  "wafer","less","moins","plus","minus","apres","after","before","avant","operations","from","exploitation","invest","investing",
+  "time","full","exp","div","verses","versees","investments","dil","outstanding","inc","op","ops","profit","profits","circulation",
 ]);
 
 export function famillesDe(libelles: unknown[]): number[] {

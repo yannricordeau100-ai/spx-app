@@ -205,3 +205,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.09.4 (09 Sep 2026 03:24, apres 44291ef64f)
 - Hermes 8 KPI sur 10 ans, marqueur estimation, synchro reference data-lake, chip blanche, GICS 4 niveaux, sandbox peu utilise
+
+## v2026.09.09.5 (09 Sep 2026 03:27, apres fd85e8dd1a)
+- classement KPI standard : codes techniques, bilan et charges reconnus
