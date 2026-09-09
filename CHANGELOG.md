@@ -208,3 +208,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.09.5 (09 Sep 2026 03:27, apres fd85e8dd1a)
 - classement KPI standard : codes techniques, bilan et charges reconnus
+
+## v2026.09.09.6 (09 Sep 2026 07:18, apres 9e81abd341)
+- clients top 6-10 : 661 stes couvertes (75 publiees, 586 estimations encadrees)
