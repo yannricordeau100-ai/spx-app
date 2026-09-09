@@ -48,3 +48,9 @@ Chaque demande de la journee, mot a mot, avec statut. A re-verifier en fin de se
 - G TAM, I Qnity : en ligne v08.3.
 - Disque : 35 Go libres ; ~/Mettrik/sec-data 96 Go + docs 13 Go en attente de decision (garder ou corbeille).
 - Restent : J couleurs (GO), go n0 (GO), image de reference TAM, Claude in Chrome pour X (« Chrome pret »).
+
+## Etat au 9 sept 2026, 07h20 (compte 3, apres la coupure de quota 03h45-07h00)
+- v2026.09.09.1 a .6 en ligne ou en build : ABT/DXCM/SYK corriges ; Clients V2 + Moat V2 sous Comprendre ; GICS accueil 4 niveaux ; concepts nettoyes ; badge Fiche offerte ; stories sans doublon (499 retirees) ; /sandbox/synchro (3 interrupteurs lus par earnings-refresh.sh + feux sur la donnee servie, reference data-lake committee src/data/_data-lake-dernier-doc.json) ; sandbox peu utilise + recherche paraphrase ; Nasdaq 100 revalide ; SPCX (logo, dates, rangs) ; tableau KPI avances / standard depliable (kpi-standard.ts) ; pastilles Cahier retirees ; floutage kpis / kpis_standard / moat / clients / tam / unites / prochains_resultats ; Hermes 8 KPI 10 ans (asterisque = estimation, champ _estime) ; chip Prochains resultats blanche.
+- Campagne clients top 6-10 : 661/666 (75 publiees, 586 estimations encadrees, affichees « ≈ ... estimation »). Manquent APO, APP, ARES, EXO.AS, PAH3.DE. Controle qualite par agent en cours.
+- Regle signalee en capitales : « KPI specifiques uniquement » (19 mai) vs barre KPI standard demandee le 9 sept ; standards replies par defaut.
+- Restent : J couleurs (GO), go n0 (GO), image de reference TAM, X pour la veille (connexion confirmee sur Chrome et navigateur integre).
