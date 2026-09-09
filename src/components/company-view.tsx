@@ -68,6 +68,7 @@ import { ComparePanel } from "@/components/compare-panel";
 import { KpiStories } from "@/components/kpi-stories";
 import { hasStories } from "@/lib/kpi-stories-ordering";
 import { orderKpis, isPhysicalKpi } from "@/lib/kpi-ordering";
+import { estKpiStandard } from "@/lib/kpi-standard";
 import { isGenericKpi } from "@/lib/kpi-generic";
 import { isTotalRevenueLabel } from "@/lib/kpi-total-revenue";
 import { RiskStack } from "@/components/risk-stack";
@@ -737,19 +738,9 @@ export function CompanyView({
   // 6 sept 2026 : indices des points ajoutes depuis le Cahier (serie allongee
   // ou KPI nouveau), en couleur dans le graphe. Compares sur les periodes
   // reelles de la serie annuelle, puis decales par la coupe d affichage.
-  const chartHighlight = useMemo(() => {
-    const per = (active as { _cahier_periodes?: string[] } | null)?._cahier_periodes;
-    const hp = (active as { history_periods?: string[] } | null)?.history_periods;
-    if (!active || !Array.isArray(per) || per.length === 0 || !Array.isArray(hp)) return [] as number[];
-    if (hp.length !== chartHistoryRawFull.length) return [] as number[];
-    const set = new Set(per.map((x) => String(x).trim().replace(/^FY\s*/i, "")));
-    const offset = chartHistoryRawFull.length - chartHistoryRaw.length;
-    const out: number[] = [];
-    hp.forEach((x, i) => {
-      if (set.has(String(x).trim().replace(/^FY\s*/i, "")) && i - offset >= 0) out.push(i - offset);
-    });
-    return out;
-  }, [active, chartHistoryRawFull, chartHistoryRaw]);
+  // 9 sept 2026 (demande du proprietaire) : plus aucune annotation « nouveau »
+  // ou « allonge » sur les fiches : les points du Cahier ne sont plus colores.
+  const chartHighlight = useMemo(() => [] as number[], []);
 
   // Yann 16 mai 2026 — RECETTE CANONIQUE (cf. docs/CHART-RECIPE.md).
   //
@@ -784,7 +775,7 @@ export function CompanyView({
   // `kpi-generic-library.json` (matching par `short`).
   // Activation possible par catégorie via `generic-kpi-activations.json`
   // (à venir Phase 2 — pour l'instant tout masqué).
-  const orderedKpis = useMemo(() => {
+  const groupesKpis = useMemo(() => {
     const all = orderKpis(company.kpis, company.hero_kpi);
     // Hero KPI toujours visible (même s'il est dans la library générique,
     // ex pour SP500 où on a activé manuellement Revenue comme hero).
@@ -822,7 +813,8 @@ export function CompanyView({
       // Yann 29 aout 2026 : un KPI cree a la main (hors_document) est TOUJOURS
       // accepte, quelle que soit sa cadence ou la longueur de son historique.
       if ((k as unknown as { hors_document?: boolean }).hors_document === true) return true;
-      if (isGenericKpi(k.short)) return false;
+      // 9 sept 2026 : les generiques ne sont plus ecartes, ils vont dans le
+      // groupe « KPI standard » (barre depliable separee), cf estKpiStandard.
       if (hiddenByRule.has(k.short)) return false;
       const hist = Array.isArray(k.history) ? k.history : [];
       const pt = (k as unknown as { period_type?: string }).period_type;
@@ -856,14 +848,25 @@ export function CompanyView({
         (k as unknown as { period_type?: string }).period_type === "quarter";
       return trimestriel && pts >= 20 ? 0 : 1;
     };
-    return [...filtered]
+    const tries = [...filtered]
       .map((k, i) => ({ k, i }))
       .sort(
         (a, b) =>
           rang(a.k) - rang(b.k) || anciennete(a.k) - anciennete(b.k) || a.i - b.i,
       )
       .map((x) => x.k);
+    // 9 sept 2026 (demande du proprietaire) : deux groupes dans le meme bloc.
+    // « KPI avances » = propres a la societe (hero compris), en clair ;
+    // « KPI standard » = intitules retrouvables partout (CA, marges, resultat,
+    // BPA, dette...), dans une barre depliable separee.
+    return {
+      avances: tries.filter((k) => k.short === heroShort || !estKpiStandard(k)),
+      standards: tries.filter((k) => k.short !== heroShort && estKpiStandard(k)),
+    };
   }, [company]);
+  const orderedKpis = groupesKpis.avances;
+  const kpisStandard = groupesKpis.standards;
+  const [showStandard, setShowStandard] = useState(false);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
   const hiddenCount = orderedKpis.length - VISIBLE_KPI_COUNT;
 
@@ -1862,7 +1865,7 @@ export function CompanyView({
         </AnimatePresence>
 
         {/* KPI table */}
-        <section id="sec-kpis" data-blur="kpis" className="mt-9 scroll-mt-24 animate-fade-up-d2">
+        <section id="sec-kpis" className="mt-9 scroll-mt-24 animate-fade-up-d2">
           <div className="mb-4 flex flex-col items-start gap-1.5 sm:flex-row sm:items-end sm:justify-between sm:gap-0">
             <div>
               <h2 className="text-[22px] font-semibold text-zinc-100">{t("company.kpi_table.title")}</h2>
@@ -1875,15 +1878,21 @@ export function CompanyView({
                   isGenericKpi) au lieu de company.kpis.length (total brut).
                   Avant : Broadcom affichait "31 indicateurs" mais ne montrait
                   que 5 (génériques filtrés), sans bouton "voir plus". */}
-              {orderedKpis.length} {t("company.kpi_table.count_label")}
+              {orderedKpis.length + kpisStandard.length} {t("company.kpi_table.count_label")}
             </span>
           </div>
           <div className="overflow-hidden rounded-2xl border border-[#1f1f1f] bg-[#080808]">
+          {/* 9 sept 2026 : groupe « KPI avances » (bloc de floutage kpis), puis
+              groupe « KPI standard » (bloc kpis_standard), pilotes separement. */}
+          <div data-blur="kpis">
             <div className="hidden sm:grid grid-cols-12 gap-3 border-b border-[#1a1a1a] bg-[#0c0c0c] px-5 py-3.5 font-sans text-[11.5px] font-semibold uppercase tracking-[0.12em] text-zinc-300 sm:px-6">
               <div className="col-span-3">{t("company.kpi_table.col_indicator")}</div>
               <div className="col-span-3">{t("company.kpi_table.col_value")} <span className="ml-0.5 italic text-zinc-400" title="Year-on-Year : variation vs même période l'an dernier">(vs N-1)</span></div>
               <div className="col-span-2">{t("company.kpi_table.col_trend")}</div>
               <div className="col-span-4">{t("company.kpi_table.col_quality")}</div>
+            </div>
+            <div className="border-b border-[#1a1a1a] bg-[#090909] px-5 py-2 font-mono text-[10.5px] font-semibold uppercase tracking-[0.16em] text-violet-300/90 sm:px-6">
+              {t("company.kpi_table.advanced_label")} <span className="text-zinc-600">· {orderedKpis.length}</span>
             </div>
             {/* Yann 8 juin 2026 (Point 3) : la valeur principale affichée à
                 GAUCHE du KPI actif doit TOUJOURS égaler le dernier point
@@ -1939,13 +1948,51 @@ export function CompanyView({
               </button>
             )}
           </div>
+          {kpisStandard.length > 0 && (
+            <div data-blur="kpis_standard" className="border-t border-[#1a1a1a]">
+              <button
+                data-blur-part="voir-plus"
+                disabled={freeBlocked}
+                aria-disabled={freeBlocked}
+                onClick={freeBlocked ? undefined : () => setShowStandard((v) => !v)}
+                className="group flex w-full items-center justify-center gap-2 bg-[#0a0a0a] px-6 py-4 text-sm text-zinc-400 transition-colors hover:bg-[#0e0e0e] hover:text-zinc-100"
+              >
+                <ChevronDown className={`size-4 transition-transform ${showStandard ? "rotate-180" : ""}`} />
+                {showStandard
+                  ? t("company.kpi_table.collapse_standard")
+                  : (kpisStandard.length > 1
+                      ? t("company.kpi_table.see_standard_many").replace("{n}", String(kpisStandard.length))
+                      : t("company.kpi_table.see_standard_one"))}
+              </button>
+              {showStandard && (
+                <div data-blur-part="tableau">
+                  <div className="border-y border-[#1a1a1a] bg-[#090909] px-5 py-2 font-mono text-[10.5px] font-semibold uppercase tracking-[0.16em] text-zinc-400 sm:px-6">
+                    {t("company.kpi_table.standard_label")} <span className="text-zinc-600">· {kpisStandard.length}</span>
+                  </div>
+                  {kpisStandard.map((kpi) => (
+                    <KpiRow
+                      key={kpi.short}
+                      kpi={kpi}
+                      active={kpi.short === active.short}
+                      subsector={company.subsector}
+                      ticker={company.ticker}
+                      onClick={() => handleKpiClick(kpi.short)}
+                      freeBlocked={freeBlocked}
+                      overrideValue={kpi.short === active.short ? heroLastVisibleValue : null}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+          </div>
           {/* Yann 07 sept 2026 (point 3) : depliable des unites, UNIQUEMENT
               sur les fiches du secteur Materiaux. */}
           {/* 8 sept 2026 : condition sur le CODE GICS (15 Materiaux, 10 Energie),
               le libelle `sector` variant d une fiche a l autre (Materiaux,
               Materials, Basic Materials...) ; contenu adapte au secteur. */}
-          {(company.gics_code ?? "").startsWith("15") && <UnitesMateriaux secteur="materiaux" />}
-          {(company.gics_code ?? "").startsWith("10") && <UnitesMateriaux secteur="energie" />}
+          {isBlockEnabled("unites", company.ticker) && (company.gics_code ?? "").startsWith("15") && <UnitesMateriaux secteur="materiaux" />}
+          {isBlockEnabled("unites", company.ticker) && (company.gics_code ?? "").startsWith("10") && <UnitesMateriaux secteur="energie" />}
         </section>
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
@@ -2016,15 +2063,20 @@ export function CompanyView({
         {/* 9 sept 2026 : rangee « Clients · Moat » sur deux demi-largeurs, juste
             sous « Comprendre la societe » (concentration clients V2 du Cahier a
             gauche, Moat V2 avec tendance Mettrik a droite). */}
-        <MoatClientsRow company={company} accent={accent} />
+        <MoatClientsRow
+          company={company}
+          accent={accent}
+          afficherMoat={isBlockEnabled("moat", company.ticker)}
+          afficherClients={isBlockEnabled("clients", company.ticker)}
+        />
 
         {/* Position marche / TAM (7 sept 2026) : bloc de la V1.0 remis en place,
             place juste sous « Comprendre la societe » (demande du 08/09).
             Rendu seulement quand la fiche porte des market_positions, c est a
             dire apres arbitrage du proprietaire dans /sandbox/tam et pose
             (scripts/tam-pose.py). Deux segments au plus. */}
-        {company.market_positions && company.market_positions.length > 0 && (
-          <section className="mt-9 animate-fade-up-d2">
+        {isBlockEnabled("tam", company.ticker) && company.market_positions && company.market_positions.length > 0 && (
+          <section data-blur="tam" className="mt-9 animate-fade-up-d2">
             <div className="mb-4 flex items-end justify-between">
               <div>
                 <h2 className="text-[22px] font-semibold text-zinc-50">Position marché · TAM</h2>

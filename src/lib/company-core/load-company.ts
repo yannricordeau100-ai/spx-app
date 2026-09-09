@@ -683,6 +683,16 @@ async function loadV17CompanyBrut(
     /* pas de fiche clients */
   }
 
+  // 9 sept 2026 : Moat attache cote serveur (avant : JSON de 664 entrees
+  // embarque dans le navigateur, et texte impossible a caviarder).
+  try {
+    const moat = await readJsonOrNull<Record<string, unknown>>(path.join(ROOT, "src/data/moat-univers.json"));
+    const m = moat?.[ticker.toUpperCase()];
+    if (m && typeof m === "object") (data as Record<string, unknown>).moat = m;
+  } catch {
+    /* pas de moat */
+  }
+
   // Enrichissement ranks : merge depuis `v2-pipeline-enrich/<ticker>.ranks.json`
   // produit par `scripts/enrich-ranks-v2.py` (CONV-MODULE-RANKS-V2, 8 mai 2026).
   // PRIORITÉ : ranks.json gagne sur v2-pipeline. Raison : les ranks

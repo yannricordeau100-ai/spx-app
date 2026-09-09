@@ -127,7 +127,11 @@ export type PartieDeBloc =
   | "qualite"      // colonne Qualite - Signal du tableau KPI
   | "voir-plus" // bouton "Voir x indicateurs supplementaires"
   // Yann 1er sept 2026 : jauge de severite X/5 des risques.
-  | "note";
+  | "note"
+  // 9 sept 2026 : blocs Moat et Clients.
+  | "niveau"      // pastille de note du Moat (Important / Moyen / Aucun)
+  | "tendance"    // carte Tendance Mettrik du Moat
+  | "noms";       // noms des clients cites
 
 export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   tout: "le bloc entier",
@@ -142,6 +146,9 @@ export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   qualite: "la colonne Qualité · Signal",
   "voir-plus": "le bouton voir plus",
   note: "la note de sévérité (X/5)",
+  niveau: "la note (Important / Moyen / Aucun)",
+  tendance: "la carte Tendance Mettrik",
+  noms: "les noms de clients",
 };
 
 /** Paliers d abonnement, du plus ouvert au plus complet. */
@@ -206,6 +213,15 @@ export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
   ranks: ["tout", "titre", "tableau", "valeur"],
   interpretation: ["tout", "texte"],
   company_logo: ["tout"],
+  // 9 sept 2026 : les deux groupes du tableau sont pilotes separement (KPI
+  // avances = bloc kpis ; KPI standard = bloc kpis_standard), puis chaque
+  // nouveau bloc ou partie de bloc apporte depuis le 4 septembre.
+  kpis_standard: ["tout", "tableau", "valeur", "variation", "indicateur", "qualite", "voir-plus"],
+  moat: ["tout", "titre", "niveau", "texte", "tendance"],
+  clients: ["tout", "titre", "graphique", "valeur", "noms", "texte"],
+  tam: ["tout", "titre", "valeur", "graphique", "texte", "source"],
+  unites: ["tout", "titre", "tableau"],
+  prochains_resultats: ["tout", "valeur"],
 };
 
 /** Transforme des zones nommees en regles, pour reutiliser applyFloutageRules. */

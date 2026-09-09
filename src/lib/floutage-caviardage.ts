@@ -19,6 +19,7 @@
 import type { Company } from "@/lib/data";
 import type { Zone } from "@/lib/floutage";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
+import { estKpiStandard } from "@/lib/kpi-standard";
 
 const CONSONNES = "bcdfghjklmnpqrstvwz";
 const VOYELLES = "aeiou";
@@ -109,14 +110,19 @@ export function caviardeCompanyPourGratuit(company: Company, zones: Zone[]): Com
 
   const nomsKpi = estActive(zones, "kpis", "indicateur") || estActive(zones, "hero", "tout");
   const signaux = estActive(zones, "kpis", "qualite") || estActive(zones, "stories", "texte");
+  // 9 sept 2026 : le groupe « KPI standard » a ses propres zones (kpis_standard).
+  const nomsStd = estActive(zones, "kpis_standard", "indicateur") || estActive(zones, "hero", "tout");
+  const signauxStd = estActive(zones, "kpis_standard", "qualite") || estActive(zones, "stories", "texte");
   const textesStories = estActive(zones, "stories", "texte");
 
   for (const k of c.kpis ?? []) {
-    if (nomsKpi) {
+    const estStory = !!k.is_short_history;
+    const standard = !estStory && k.short !== c.hero_kpi && estKpiStandard(k);
+    if (standard ? nomsStd : nomsKpi) {
       if (k.name_fr) k.name_fr = caviarde(k.name_fr);
       if (k.name_en) k.name_en = caviarde(k.name_en);
     }
-    if (signaux && k.signal) k.signal = caviarde(k.signal);
+    if ((standard ? signauxStd : signaux) && k.signal) k.signal = caviarde(k.signal);
     if (textesStories) {
       const kk = k as { description?: string; explanation?: string };
       if (kk.description) kk.description = caviarde(kk.description);
@@ -141,6 +147,45 @@ export function caviardeCompanyPourGratuit(company: Company, zones: Zone[]): Com
 
   if (estActive(zones, "ai_positioning", "texte") && c.ai_positioning) {
     c.ai_positioning = caviardeProfond(c.ai_positioning);
+  }
+
+  // 9 sept 2026 : Moat (texte de l avantage, justification de la tendance).
+  if (c.moat) {
+    if (estActive(zones, "moat", "texte") && c.moat.texte) c.moat.texte = caviarde(c.moat.texte);
+    if (estActive(zones, "moat", "tendance") && c.moat.justification_mettrik) {
+      c.moat.justification_mettrik = caviarde(c.moat.justification_mettrik);
+    }
+  }
+
+  // 9 sept 2026 : concentration clients (commentaires, noms, pourcentages).
+  if (c.clients_concentration) {
+    const cc = c.clients_concentration;
+    if (estActive(zones, "clients", "texte")) {
+      if (cc.top.commentaire) cc.top.commentaire = caviarde(cc.top.commentaire);
+      if (cc.top10?.commentaire) cc.top10.commentaire = caviarde(cc.top10.commentaire);
+    }
+    if (estActive(zones, "clients", "noms")) cc.top.clients = cc.top.clients.map((n) => caviarde(n));
+    if (estActive(zones, "clients", "valeur") || estActive(zones, "clients", "graphique")) {
+      if (typeof cc.top.pct === "number") cc.top.pct = Math.min(99, caviardeNombre(cc.top.pct));
+      if (cc.top10 && typeof cc.top10.pct === "number") cc.top10.pct = Math.min(99, caviardeNombre(cc.top10.pct));
+    }
+  }
+
+  // 9 sept 2026 : position marche / TAM.
+  if (c.market_positions && c.market_positions.length > 0) {
+    for (const p of c.market_positions) {
+      if (estActive(zones, "tam", "titre")) p.segment_name = caviarde(p.segment_name);
+      if (estActive(zones, "tam", "texte") || estActive(zones, "tam", "source")) {
+        if (p.source_note) p.source_note = caviarde(p.source_note);
+        if (p.source) p.source = caviarde(p.source);
+      }
+      if (estActive(zones, "tam", "valeur") || estActive(zones, "tam", "graphique")) {
+        p.segment_revenue = caviardeNombre(p.segment_revenue);
+        p.tam = caviardeNombre(p.tam);
+        if (p.tam_range) p.tam_range = [caviardeNombre(p.tam_range[0]), caviardeNombre(p.tam_range[1])];
+        if (typeof p.market_cagr === "number") p.market_cagr = caviardeNombre(p.market_cagr);
+      }
+    }
   }
 
   return c;

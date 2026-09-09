@@ -199,3 +199,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.09.2 (09 Sep 2026 02:36, apres 71711a3eba)
 - stories sans doublon des indicateurs cles, badge fiche offerte, synchro quotidienne, sandbox peu utilise, Nasdaq 100 revalide, SPCX
+
+## v2026.09.09.3 (09 Sep 2026 03:00, apres 9d4c1eaf33)
+- tableau KPI en deux groupes (avances, standard depliable), annotations Cahier retirees, floutage separe kpis/kpis_standard + moat, clients, tam, unites, prochains resultats

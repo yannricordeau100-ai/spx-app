@@ -8,6 +8,7 @@
  */
 
 import type { KPI, MarketPosition } from "./data";
+import { estFamilleGenerique, famillesDe, normaliseLibelle, residuSpecifique } from "./kpi-standard";
 
 /**
  * Yann 8 juin 2026 : generiques BASIQUES interdits en story (comptable banal).
@@ -37,107 +38,9 @@ function isBasicGenericKpi(short: string | null | undefined): boolean {
 
 /**
  * 9 sept 2026 (demande du proprietaire) : aucune story ne doit repeter un
- * indicateur deja present dans le tableau des indicateurs cles (chiffre
- * d affaires, marge, resultat, BPA, tresorerie, dette, effectifs...), ni sous
- * un autre libelle, ni sous une autre langue. Deux filtres :
- *  1. famille generique reconnue dans le libelle (FR ou EN), story refusee ;
- *  2. meme libelle (short, name_fr ou name_en normalises) qu un KPI du
- *     tableau, story refusee.
+ * indicateur deja present dans le tableau des indicateurs cles. La detection
+ * des familles standard vit dans kpi-standard.ts (partagee avec le tableau).
  */
-const GENERIQUE_LIBELLE = new RegExp(
-  [
-    "^(total |net |group |consolidated |consolidé |quarterly |annual )?(chiffre d.affaires?|revenue|revenues|net sales|sales|ventes( nettes)?|produits d.exploitation|turnover)( total| net| nets| consolidé| trimestriel| annuel| growth| croissance)?$",
-    "^(gross |operating |op |net |ebitda |ebit |fcf |adjusted |adj |core )?(marge|margin)( brute| opérationnelle| operationnelle| nette| d.exploitation| ebitda| ebit)?( %)?$",
-    "^(net |operating |adjusted |adj )?(income|profit|earnings|bénéfice|benefice|résultat|resultat)( net| opérationnel| operationnel| d.exploitation| avant impôt)?$",
-    "^(ebitda|ebit|eps|bpa)( ajusté| adjusted| dilué| diluted| basic)?$",
-    "^(diluted |adjusted )?(eps|earnings per share|bénéfice par action|benefice par action|bpa)( dilué| diluted)?$",
-    "^(free cash flow|fcf|operating cash flow|ocf|cash flow|flux de trésorerie( libre| d.exploitation)?|trésorerie|cash|cash & equivalents|cash and equivalents|cash position)$",
-    "^(total |net |long.term |lt )?(debt|dette)( nette| totale| long terme)?$",
-    "^(total assets|total liabilities|actif total|equity|capitaux propres|shares outstanding|diluted shares|actions en circulation)$",
-    "^(capex|investissements|r&d|rd expense|dépenses de r&d|headcount|effectifs?|employees|employés|salariés|tax rate|effective tax rate|taux d.imposition)$",
-    "^(dividend|dividende|dividend per share|dividende par action|dps|buybacks?|rachats? d.actions|share repurchases?)$",
-  ].join("|"),
-  "i",
-);
-
-function normaliseLibelle(v: unknown): string {
-  return String(v ?? "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-/**
- * Familles d indicateurs de base. Une story qui parle d une de ces familles
- * avec un marqueur generique (record, total, annuel, trimestriel, par action,
- * annees consecutives...) repete le tableau des indicateurs cles quand celui-ci
- * porte deja la famille : elle est refusee. Exemple : « CA trimestriel record »,
- * « Bénéfice net record exercice 2025 », « Dividende par action versé »,
- * « Investissements (capex) annuels ».
- */
-const FAMILLES: RegExp[] = [
-  /\b(revenue|revenues|net sales|sales|chiffre d.affaires?|ventes|\bca\b|turnover)\b/,
-  /\b(net income|net profit|benefice net|resultat net|net earnings)\b/,
-  /\b(margin|marge)\b/,
-  /\b(eps|bpa|earnings per share|benefice par action)\b/,
-  /\b(free cash flow|fcf|operating cash flow|cash flow|flux de tresorerie)\b/,
-  /\b(dividend|dividende|dividends|dividendes)\b/,
-  /\b(capex|capital expenditures?|investissements?)\b/,
-  /\b(debt|dette|endettement)\b/,
-  /\b(employees|effectifs?|headcount|salaries|employes)\b/,
-  /\b(buybacks?|rachats? d.actions|share repurchases?)\b/,
-  /\b(ebitda|ebit|operating income|resultat operationnel|resultat d.exploitation)\b/,
-];
-/**
- * Mots qui ne designent PAS un perimetre specifique : si, une fois la famille,
- * ces mots, les nombres et les monnaies retires, il ne reste rien du libelle,
- * la story ne dit rien de plus que le tableau (« CA trimestriel record »,
- * « Dividende par action versé », « Investissements (capex) annuels »). Si un
- * mot specifique subsiste (« Stelo », « Canada », « Sovereign AI »), la story
- * porte une information propre et reste.
- */
-const MOTS_NEUTRES = new Set<string>([
-  "record","records","total","totale","totaux","annual","annuel","annuelle","annuels","annuelles","quarterly","trimestriel","trimestrielle","trimestriels","quarter","trimestre",
-  "full","year","fy","exercice","fiscal","consolidated","consolide","consolidee","group","groupe","paid","verse","versee","per","par","share","action","shares","actions",
-  "consecutive","consecutives","years","ans","annees","annee","growth","croissance","increase","increases","hausse","augmentation","decrease","baisse","surpasses","surpass","exceeds","exceed","exceeding","depasse","depassant","above","au","dela","beyond",
-  "first","premier","premiere","milestone","jalon","cumulative","cumul","cumule","cumules","cumulee","since","depuis","inception","origine","in","a","row","third","second","fourth","fifth",
-  "net","nets","nette","gross","brute","brut","operating","operationnel","operationnelle","adjusted","adjusted","ajuste","ajustee","adj","diluted","dilue","basic","free","libre","disponible","cash","flow","flux","tresorerie",
-  "of","the","and","or","de","du","des","la","le","les","l","d","en","et","on","to","for","with","from","at","by","vs","versus","y","yoy","qoq","ttm","ltm","n","n-1","1",
-  "usd","eur","chf","gbp","dollars","euros","milliards","millions","md","mds","m","bn","b","k","%","pct","x",
-  "ratio","rate","taux","level","niveau","amount","montant","value","valeur","figure","chiffre","reported","publie","published","expected","attendu","guidance","prevu","target","objectif","2026e","2027e",
-]);
-
-function residuSpecifique(libelles: unknown[]): boolean {
-  let n = libelles.map(normaliseLibelle).join(" ");
-  for (const re of FAMILLES) n = n.replace(new RegExp(re.source, "g"), " ");
-  n = n.replace(/[()\[\],.:;!?'’"«»/+&_-]/g, " ").replace(/\$/g, " ");
-  const tokens = n.split(/\s+/).filter(Boolean);
-  for (const t of tokens) {
-    if (MOTS_NEUTRES.has(t)) continue;
-    if (/^\d+([.,]\d+)?[a-z%]*$/.test(t)) continue; // nombres, annees, "1b", "7.5b"
-    if (/^(q|t|h|s)[1-4]$/.test(t)) continue; // Q1, T2, H1
-    if (/^(fy)?\d{2,4}$/.test(t)) continue;
-    return true; // un mot specifique subsiste
-  }
-  return false;
-}
-
-function famillesDe(libelles: unknown[]): number[] {
-  const out: number[] = [];
-  const n = libelles.map(normaliseLibelle).join(" | ");
-  FAMILLES.forEach((re, i) => { if (re.test(n)) out.push(i); });
-  return out;
-}
-
-function estFamilleGenerique(k: KPI): boolean {
-  for (const v of [k.short, k.name_fr, k.name_en]) {
-    const n = normaliseLibelle(v);
-    if (n && GENERIQUE_LIBELLE.test(n)) return true;
-  }
-  return false;
-}
 
 /** Story d une famille de base, avec marqueur generique, alors que le tableau porte deja la famille. */
 function estRepetitionDeFamille(k: KPI, famillesTableau: Set<number>): boolean {

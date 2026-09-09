@@ -14,7 +14,14 @@ export type BlockId =
   | "transcripts"
   | "image_findings"
   | "ranks"
-  | "company_logo";
+  | "company_logo"
+  // 9 sept 2026 : nouveaux blocs et sous-blocs pilotables (affichage + floutage).
+  | "kpis_standard"
+  | "moat"
+  | "clients"
+  | "tam"
+  | "unites"
+  | "prochains_resultats";
 
 export const BLOCK_LABELS: Record<BlockId, string> = {
   hero: "Hero KPI",
@@ -31,6 +38,12 @@ export const BLOCK_LABELS: Record<BlockId, string> = {
   image_findings: "Image findings",
   ranks: "Classements & parts de marché",
   company_logo: "Logo société",
+  kpis_standard: "KPIs standard (barre dépliable)",
+  moat: "Moat · Avantage compétitif",
+  clients: "Clients · Concentration du chiffre d’affaires",
+  tam: "Position marché · TAM",
+  unites: "Comprendre les unités (Matériaux, Énergie)",
+  prochains_resultats: "Bandeau prix : Prochains résultats",
 };
 
 export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
@@ -48,6 +61,12 @@ export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
   image_findings: "Les findings visuels sont en cours d'extraction.",
   ranks: "Les classements et parts de marché se peaufinent.",
   company_logo: "Le logo société sera affiché ici.",
+  kpis_standard: "Les indicateurs standard (chiffre d’affaires, marges, résultat...) arrivent.",
+  moat: "L’avantage compétitif (note et tendance) est en préparation.",
+  clients: "La concentration du chiffre d’affaires sur les premiers clients est en préparation.",
+  tam: "La position marché (part captée du marché adressable) est en préparation.",
+  unites: "Le dépliant des unités du secteur arrive.",
+  prochains_resultats: "La date des prochains résultats arrive.",
 };
 
 type ControlData = {

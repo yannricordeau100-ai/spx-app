@@ -56,8 +56,9 @@ export function UnitesMateriaux({ secteur = "materiaux" }: { secteur?: "materiau
   }, [secteur]);
 
   return (
-    <div className="mt-4 rounded-2xl border border-white/[0.08] bg-white/[0.015]">
+    <div data-blur="unites" className="mt-4 rounded-2xl border border-white/[0.08] bg-white/[0.015]">
       <button
+        data-blur-part="titre"
         type="button"
         onClick={() => setOuvert((v) => !v)}
         className="flex w-full items-center gap-2.5 px-4 py-3 text-left hover:bg-white/[0.03]"
@@ -69,7 +70,7 @@ export function UnitesMateriaux({ secteur = "materiaux" }: { secteur?: "materiau
         </span>
       </button>
       {ouvert && (
-        <div className="border-t border-white/[0.05] px-4 py-3">
+        <div data-blur-part="tableau" className="border-t border-white/[0.05] px-4 py-3">
           {groupes.map(([cat, unites]) => (
             <div key={cat} className="mb-4 last:mb-0">
               <div className="mb-1.5 font-mono text-[10.5px] uppercase tracking-[0.15em] text-zinc-500">{cat}</div>

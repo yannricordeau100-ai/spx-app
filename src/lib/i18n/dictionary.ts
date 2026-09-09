@@ -427,6 +427,12 @@ export const DICTIONARY: Dict = {
     fr: "Voir {n} indicateurs supplémentaires",
     en: "See {n} more indicators",
   },
+  /* 9 sept 2026 : deux groupes dans le tableau, KPI avances puis KPI standard. */
+  "company.kpi_table.advanced_label": { fr: "KPI avancés", en: "Advanced KPIs", de: "Erweiterte KPIs" },
+  "company.kpi_table.standard_label": { fr: "KPI standard", en: "Standard KPIs", de: "Standard-KPIs" },
+  "company.kpi_table.see_standard_one": { fr: "Voir 1 KPI standard", en: "See 1 standard KPI", de: "1 Standard-KPI anzeigen" },
+  "company.kpi_table.see_standard_many": { fr: "Voir {n} KPI standard", en: "See {n} standard KPIs", de: "{n} Standard-KPIs anzeigen" },
+  "company.kpi_table.collapse_standard": { fr: "Réduire les KPI standard", en: "Collapse standard KPIs", de: "Standard-KPIs einklappen" },
 
   /* Quality tier */
   "tier.excellent": { fr: "Excellent", en: "Excellent" },

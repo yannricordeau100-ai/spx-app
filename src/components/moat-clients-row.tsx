@@ -11,21 +11,17 @@
  *    explique « moyenne des entreprises de rating de premier rang ») et carte
  *    « Tendance Mettrik » avec sa justification.
  * Chaque bloc ne garde que ses parties utiles.
+ *
+ * Floutage (9 sept 2026) : chaque bloc porte son identifiant stable
+ * (data-blur="clients" / "moat") et ses parties (data-blur-part), pilotables
+ * separement dans /sandbox/admin/floutage-selector ; le texte est caviarde
+ * cote serveur (floutage-caviardage.ts). Les donnees viennent de la fiche
+ * (company.clients_concentration, company.moat), jamais d un JSON embarque.
  */
 
 import { Shield, Users, TrendingUp, TrendingDown, Equal, Layers } from "lucide-react";
-import MOAT_UNIVERS from "@/data/moat-univers.json";
 import { InfoTooltip } from "@/components/info-tooltip";
-import type { Company, ClientsConcentration } from "@/lib/data";
-
-type MoatEntree = {
-  niveau: string;
-  tendance?: string;
-  texte?: string | null;
-  tendance_mettrik?: string;
-  justification_mettrik?: string;
-  confiance_mettrik?: string;
-};
+import type { Company, ClientsConcentration, MoatEntree } from "@/lib/data";
 
 const NIVEAU: Record<string, { cls: string; dot: string }> = {
   Important: { cls: "border-emerald-400/40 bg-emerald-500/10 text-emerald-100", dot: "#34d399" },
@@ -51,7 +47,7 @@ function Entete({ Icon, titre, sous, accent, droite }: { Icon: typeof Users; tit
       <span className="grid size-8 shrink-0 place-items-center rounded-lg" style={{ background: `${accent}1f`, boxShadow: `inset 0 0 0 1px ${accent}40` }}>
         <Icon className="size-4" style={{ color: accent }} />
       </span>
-      <span className="font-mono text-[10.5px] font-bold uppercase tracking-[0.14em] text-zinc-400">
+      <span data-blur-part="titre" className="font-mono text-[10.5px] font-bold uppercase tracking-[0.14em] text-zinc-400">
         {titre} <span className="text-zinc-500">·</span> <span className="text-zinc-300">{sous}</span>
       </span>
       {droite}
@@ -66,7 +62,7 @@ function BlocClients({ c, accent }: { c: ClientsConcentration; accent: string })
   const circ = 2 * Math.PI * r;
   const exercice = c.top.exercice ?? c.top10?.exercice;
   return (
-    <div className="rounded-xl border border-white/[0.08] bg-gradient-to-r from-white/[0.04] via-transparent to-transparent p-3.5">
+    <div data-blur="clients" className="rounded-xl border border-white/[0.08] bg-gradient-to-r from-white/[0.04] via-transparent to-transparent p-3.5">
       <Entete
         Icon={Users}
         titre="Clients"
@@ -75,7 +71,7 @@ function BlocClients({ c, accent }: { c: ClientsConcentration; accent: string })
         droite={exercice ? <span className="ml-auto font-mono text-[10px] uppercase tracking-wider text-zinc-500">exercice {exercice}</span> : undefined}
       />
       <div className="mt-3 flex items-start gap-4">
-        <svg width="92" height="92" viewBox="0 0 92 92" className="shrink-0" aria-hidden>
+        <svg data-blur-part="graphique" width="92" height="92" viewBox="0 0 92 92" className="shrink-0" aria-hidden>
           <circle cx="46" cy="46" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="9" />
           {p10 !== null && (
             <circle cx="46" cy="46" r={r} fill="none" stroke="#22d3ee" strokeOpacity="0.45" strokeWidth="9" strokeDasharray={`${(Math.min(100, p10) / 100) * circ} ${circ}`} transform="rotate(-90 46 46)" strokeLinecap="round" />
@@ -86,29 +82,31 @@ function BlocClients({ c, accent }: { c: ClientsConcentration; accent: string })
           </text>
         </svg>
         <div className="min-w-0 flex-1">
-          {c.top.pct !== null && c.top.pct !== undefined && (
-            <div className="text-[13px] text-zinc-200">
-              <span className="font-semibold" style={{ color: accent }}>{c.top.n === 1 ? "Premier client" : `${c.top.n} premiers clients`}</span> : {pctLabel(c.top.pct, c.top.plafond)} du chiffre d’affaires
-            </div>
-          )}
-          {c.top10 && c.top10.pct !== null && c.top10.pct !== undefined && (
-            <div className="mt-0.5 text-[13px] text-zinc-200">
-              <span className="font-semibold text-cyan-200">{c.top10.n} plus gros clients</span> : {pctLabel(c.top10.pct, c.top10.plafond)}
-            </div>
-          )}
-          {c.diffus && (
-            <div className="mt-0.5 text-[13px] text-emerald-200">
-              <Layers className="mr-1 inline size-3.5" />Base de clients très diffuse
-            </div>
-          )}
+          <div data-blur-part="valeur">
+            {c.top.pct !== null && c.top.pct !== undefined && (
+              <div className="text-[13px] text-zinc-200">
+                <span className="font-semibold" style={{ color: accent }}>{c.top.n === 1 ? "Premier client" : `${c.top.n} premiers clients`}</span> : {pctLabel(c.top.pct, c.top.plafond)} du chiffre d’affaires
+              </div>
+            )}
+            {c.top10 && c.top10.pct !== null && c.top10.pct !== undefined && (
+              <div className="mt-0.5 text-[13px] text-zinc-200">
+                <span className="font-semibold text-cyan-200">{c.top10.n} plus gros clients</span> : {pctLabel(c.top10.pct, c.top10.plafond)}
+              </div>
+            )}
+            {c.diffus && (
+              <div className="mt-0.5 text-[13px] text-emerald-200">
+                <Layers className="mr-1 inline size-3.5" />Base de clients très diffuse
+              </div>
+            )}
+          </div>
           {c.top.clients.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-1.5">
+            <div data-blur-part="noms" className="mt-2 flex flex-wrap gap-1.5">
               {c.top.clients.map((n) => (
                 <span key={n} className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-px text-[11px] text-zinc-300">{n}</span>
               ))}
             </div>
           )}
-          {c.top.commentaire && <p className="mt-2 text-[11.5px] leading-snug text-zinc-500">{c.top.commentaire}</p>}
+          {c.top.commentaire && <p data-blur-part="texte" className="mt-2 text-[11.5px] leading-snug text-zinc-500">{c.top.commentaire}</p>}
         </div>
       </div>
     </div>
@@ -121,7 +119,7 @@ function BlocMoat({ m, accent }: { m: MoatEntree; accent: string }) {
   const t = TEND[tendKey] ?? TEND.stable;
   const justification = m.justification_mettrik;
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.08] bg-gradient-to-r from-white/[0.04] via-transparent to-transparent p-3.5">
+    <div data-blur="moat" className="relative overflow-hidden rounded-xl border border-white/[0.08] bg-gradient-to-r from-white/[0.04] via-transparent to-transparent p-3.5">
       <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${st.dot}66, transparent)` }} />
       <Entete
         Icon={Shield}
@@ -130,7 +128,7 @@ function BlocMoat({ m, accent }: { m: MoatEntree; accent: string }) {
         accent={accent}
         droite={
           <>
-            <span className={`rounded-full border px-2.5 py-0.5 text-[12px] font-semibold ${st.cls}`}>{m.niveau}</span>
+            <span data-blur-part="niveau" className={`rounded-full border px-2.5 py-0.5 text-[12px] font-semibold ${st.cls}`}>{m.niveau}</span>
             <InfoTooltip color={accent} size="sm" align="left">
               <p className="text-[12px] leading-relaxed text-zinc-200">Note : moyenne des entreprises de rating de premier rang.</p>
             </InfoTooltip>
@@ -138,9 +136,9 @@ function BlocMoat({ m, accent }: { m: MoatEntree; accent: string }) {
         }
       />
       {m.niveau !== "Aucun" && m.texte && (
-        <p className="mt-2 text-[12.5px] leading-relaxed text-zinc-300">{m.texte}</p>
+        <p data-blur-part="texte" className="mt-2 text-[12.5px] leading-relaxed text-zinc-300">{m.texte}</p>
       )}
-      <div className="mt-3 rounded-lg border p-3" style={{ borderColor: `${t.c}40`, background: `${t.c}0d` }}>
+      <div data-blur-part="tendance" className="mt-3 rounded-lg border p-3" style={{ borderColor: `${t.c}40`, background: `${t.c}0d` }}>
         <div className="flex items-center gap-2">
           <t.Icon className="size-6 shrink-0" style={{ color: t.c }} />
           <div>
@@ -156,9 +154,20 @@ function BlocMoat({ m, accent }: { m: MoatEntree; accent: string }) {
   );
 }
 
-export function MoatClientsRow({ company, accent }: { company: Company; accent: string }) {
-  const clients = company.clients_concentration;
-  const moat = (MOAT_UNIVERS as Record<string, MoatEntree>)[company.ticker.toUpperCase()];
+export function MoatClientsRow({
+  company,
+  accent,
+  afficherMoat = true,
+  afficherClients = true,
+}: {
+  company: Company;
+  accent: string;
+  /** Interrupteurs du controle des blocs (moat, clients). */
+  afficherMoat?: boolean;
+  afficherClients?: boolean;
+}) {
+  const clients = afficherClients ? company.clients_concentration : undefined;
+  const moat = afficherMoat ? company.moat : undefined;
   if (!clients && !moat) return null;
   return (
     <div className="mt-4 grid gap-4 lg:grid-cols-2">

@@ -47,7 +47,7 @@ export function MarketPositionCard({
       }`}
     >
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
+        <div data-blur-part="titre" className="min-w-0">
           <div className="flex items-center gap-2">
             <Target className="size-4" style={{ color: c }} />
             <span className="font-sans text-[12.5px] font-semibold uppercase tracking-[0.12em] text-zinc-100">
@@ -82,7 +82,7 @@ export function MarketPositionCard({
       </div>
 
       {/* Hero share — the most important number, big */}
-      <div className="mt-5 flex items-end gap-3">
+      <div data-blur-part="valeur" className="mt-5 flex items-end gap-3">
         <div
           className="font-display font-bold leading-none tabular-nums"
           style={{
@@ -106,7 +106,7 @@ export function MarketPositionCard({
       </div>
 
       {/* Full-width animated market share bar */}
-      <div className="mt-5">
+      <div data-blur-part="graphique" className="mt-5">
         <div className="relative h-3 w-full overflow-hidden rounded-full bg-[#0e0e12]">
           <motion.div
             initial={{ width: 0 }}
@@ -136,7 +136,7 @@ export function MarketPositionCard({
       </div>
 
       {/* Numbers row : segment vs TAM, side by side, with growth */}
-      <div className="mt-5 grid grid-cols-2 gap-3">
+      <div data-blur-part="valeur" className="mt-5 grid grid-cols-2 gap-3">
         <div className="rounded-lg border border-[#1f1f1f] bg-[#0c0c0c] p-3">
           <div className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-300">
             Revenu du segment ({company.name})
@@ -163,6 +163,7 @@ export function MarketPositionCard({
 
       {position.market_cagr !== undefined && (
         <div
+          data-blur-part="texte"
           className="mt-3 flex items-center gap-2 rounded-lg border px-3 py-2"
           style={{ borderColor: `${c}33`, background: `${c}10` }}
         >
@@ -178,7 +179,7 @@ export function MarketPositionCard({
       )}
 
       {position.source && !isOfficialSource(position.source) && (
-        <div className="mt-3 text-[11px] italic text-zinc-400">
+        <div data-blur-part="source" className="mt-3 text-[11px] italic text-zinc-400">
           Source : {position.source}. Estimation indicative.
         </div>
       )}

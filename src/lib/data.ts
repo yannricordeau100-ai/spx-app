@@ -291,6 +291,16 @@ export type ClientsConcentration = {
   diffus: boolean;
 };
 
+export type MoatEntree = {
+  niveau: string;
+  tendance?: string;
+  depuis?: string | null;
+  texte?: string | null;
+  tendance_mettrik?: string;
+  justification_mettrik?: string;
+  confiance_mettrik?: string;
+};
+
 export type Company = {
   ticker: string;
   name: string;
@@ -330,6 +340,8 @@ export type Company = {
   gics_code?: string;
   /** 9 sept 2026 : concentration clients du Cahier (docs/cahier/clients/<T>.json). */
   clients_concentration?: ClientsConcentration;
+  /** 9 sept 2026 : Moat (note Morningstar traduite + tendance evaluee par Mettrik), src/data/moat-univers.json. */
+  moat?: MoatEntree;
   /** Répartition du chiffre d'affaires par zone géographique. */
   revenue_by_geography?: RevenueBreakdown;
   /** Répartition du chiffre d'affaires par segment opérationnel. */

@@ -167,19 +167,7 @@ export function KpiRow({
                 kpi-sept-2026 (META/GOOGL), tous les titres en blanc. */}
             <div className="text-[14px] font-medium leading-snug text-zinc-100">
               {primaryName}
-              {/* 6 sept 2026 : origine Cahier (revue du proprietaire) : violet =
-                  nouveau KPI, ambre = serie existante allongee, bleu = statut « autre ». */}
-              {(() => {
-                const c = (kpi as { _cahier?: string })._cahier;
-                if (!c) return null;
-                const cls = c === "nouveau"
-                  ? "border-violet-400/60 bg-violet-500/20 text-violet-100"
-                  : c === "allonge"
-                    ? "border-amber-400/60 bg-amber-500/20 text-amber-100"
-                    : "border-sky-400/60 bg-sky-500/20 text-sky-100";
-                const lib = c === "nouveau" ? "Nouveau" : c === "allonge" ? "Allongé" : "Autre";
-                return <span className={`ml-2 inline-block rounded-full border px-1.5 py-px align-middle text-[9.5px] font-semibold uppercase tracking-wider ${cls}`}>{lib}</span>;
-              })()}
+              {/* 9 sept 2026 : plus de pastille « Nouveau / Allonge / Autre » (demande du proprietaire). */}
               {/* Yann 07 sept 2026 : le "i" vit DANS la ligne de texte (inline),
                   colle au dernier mot meme quand le nom passe sur 2 lignes.
                   Avant, il etait un frere flex et partait tout a droite. */}
@@ -240,7 +228,7 @@ export function KpiRow({
       </div>
 
       {/* COL 2 — Valeur · variation (3 cols) */}
-      <div className="col-span-6 sm:col-span-3">
+      <div data-blur-part="valeur" className="col-span-6 sm:col-span-3">
         {/* Yann 24 aout 2026 : valeur et variation sur UNE ligne, la
             variation entre parentheses a droite de la valeur, nettement
             detachee (gap-x-4). */}
