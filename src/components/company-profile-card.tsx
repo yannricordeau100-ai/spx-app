@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import {
-  TrendingUp,
-  TrendingDown,
   ExternalLink,
   Newspaper,
   Sparkles,
@@ -16,10 +14,8 @@ import {
   Shield,
   AlertTriangle,
   MapPin,
-  Equal,
 } from "lucide-react";
 import type { Company, MarketPosition } from "@/lib/data";
-import MOAT_UNIVERS from "@/data/moat-univers.json";
 import { useT } from "@/lib/i18n/provider";
 
 /**
@@ -42,61 +38,9 @@ import { useT } from "@/lib/i18n/provider";
  * l'utilisateur qui veut savoir "d'où ça vient".
  */
 
-/* ─────────────── MOAT · Avantage compétitif (Yann 07 sept 2026) ───────────────
-   Niveau Morningstar traduit (None / Narrow / Wide -> Aucun / Moyen / Important),
-   flèche de tendance (dernier changement de note s il est récent), et une à
-   deux phrases sur la nature de l avantage (sauf s il n y en a aucun). */
-
-type MoatEntreeUnivers = { niveau: string; tendance: string; depuis?: string | null; texte?: string | null };
-
-const MOAT_NIVEAUX: Record<string, { cls: string; dot: string }> = {
-  Important: { cls: "border-emerald-400/40 bg-emerald-500/10 text-emerald-100", dot: "#34d399" },
-  Moyen: { cls: "border-amber-400/40 bg-amber-500/10 text-amber-100", dot: "#fbbf24" },
-  Aucun: { cls: "border-white/10 bg-white/[0.04] text-zinc-400", dot: "#71717a" },
-};
-
-function MoatStrip({ ticker, accent }: { ticker: string; accent: string }) {
-  const m = (MOAT_UNIVERS as Record<string, MoatEntreeUnivers>)[ticker.toUpperCase()];
-  if (!m) return null;
-  const style = MOAT_NIVEAUX[m.niveau] ?? MOAT_NIVEAUX.Aucun!;
-  const Tendance = m.tendance === "hausse" ? TrendingUp : m.tendance === "baisse" ? TrendingDown : Equal;
-  const tendCouleur = m.tendance === "hausse" ? "#34d399" : m.tendance === "baisse" ? "#f87171" : "#71717a";
-  const tendLabel =
-    m.tendance === "hausse" ? "en amélioration" : m.tendance === "baisse" ? "en dégradation" : "stable";
-  return (
-    <div className="relative mb-4 overflow-hidden rounded-xl border border-white/[0.08] bg-gradient-to-r from-white/[0.04] via-transparent to-transparent p-3.5">
-      {/* filet lumineux haut */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px"
-        style={{ background: `linear-gradient(90deg, transparent, ${style.dot}66, transparent)` }}
-      />
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <span
-          className="grid size-8 shrink-0 place-items-center rounded-lg"
-          style={{ background: `${accent}1f`, boxShadow: `inset 0 0 0 1px ${accent}40` }}
-        >
-          <Shield className="size-4" style={{ color: accent }} />
-        </span>
-        <span className="font-mono text-[10.5px] font-bold uppercase tracking-[0.14em] text-zinc-400">
-          Moat <span className="text-zinc-500">·</span> <span className="text-zinc-300">Avantage compétitif</span>
-        </span>
-        <span className={`rounded-full border px-2.5 py-0.5 text-[12px] font-semibold ${style.cls}`}>{m.niveau}</span>
-        <span
-          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[10.5px] uppercase tracking-wider"
-          style={{ color: tendCouleur, background: `${tendCouleur}14`, boxShadow: `inset 0 0 0 1px ${tendCouleur}33` }}
-          title="Tendance de la note : passé récent, présent et trajectoire proche"
-        >
-          <Tendance className="size-3.5" />
-          {tendLabel}
-        </span>
-      </div>
-      {m.niveau !== "Aucun" && m.texte && (
-        <p className="mt-2 pl-11 text-[12.5px] leading-relaxed text-zinc-300">{m.texte}</p>
-      )}
-    </div>
-  );
-}
+/* 9 sept 2026 : le bandeau Moat a quitte ce bloc. Il vit desormais dans la
+   rangee « Clients · Moat » (moat-clients-row.tsx) rendue juste sous
+   « Comprendre la societe » par company-view. */
 
 export function CompanyProfileCard({
   company,
@@ -209,7 +153,6 @@ export function CompanyProfileCard({
                 </button>
               </div>
             </div>
-            <MoatStrip ticker={company.ticker} accent={accent} />
             {/* Sections : 1 colonne sur mobile, 2 sur tablet+. Chaque section
                 = icône + label + texte. Indent visuel avec border-l accent. */}
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-3.5">

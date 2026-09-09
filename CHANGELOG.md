@@ -193,3 +193,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.08.5 (08 Sep 2026 21:30, apres 6717921109)
 - D : concentration clients top 6-10 sur 450 stes (Cahier clients, 72 parts renseignees dont 6 plafonds)
+
+## v2026.09.09.1 (09 Sep 2026 02:01, apres d516a88e02)
+- corrections ABT DXCM SYK servies, rangee Clients Moat V2 sous Comprendre, bloc GICS accueil, concepts nettoyes

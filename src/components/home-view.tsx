@@ -13,6 +13,7 @@ import { Spotlight } from "@/components/effects/spotlight";
 import { BackToTop } from "@/components/back-to-top";
 import { CompanySearch } from "@/components/company-search";
 import { HomeFAQ } from "@/components/home-faq";
+import { HomeGicsBlock } from "@/components/home-gics-block";
 // Yann 07 sept 2026 : bloc « Actions les plus populaires » archive (le fichier
 // home-popular-block.tsx reste dans le depot). Sa carte des pays vit desormais
 // dans HomeCartePays, sous le bloc « Pourquoi utiliser Mettrik AI ? ».
@@ -835,6 +836,10 @@ export function HomeView({
         </div>
 
         {showFAQ && <HomeFAQ />}
+
+        {/* 9 sept 2026 : bas de page, les categories de societes (GICS) :
+            noms des sous-industries et codes, rien d autre. */}
+        <HomeGicsBlock />
 
         <footer className="mt-20 pb-8 text-center font-mono text-[11px] uppercase tracking-wider text-zinc-500 sm:mt-24">
           Mettrik AI · {t("brand.subtitle")}

@@ -670,6 +670,19 @@ async function loadV17CompanyBrut(
     /* annuaire absent : pas de code */
   }
 
+  // 9 sept 2026 : concentration clients du Cahier (bloc « Clients » de la fiche,
+  // a cote du Moat). Attachee seulement si une mesure est renseignee.
+  try {
+    const cc = await readJsonOrNull<Record<string, unknown>>(path.join(ROOT, "docs/cahier/clients", `${ticker.toUpperCase()}.json`));
+    const top = cc?.top as { pct?: unknown } | undefined;
+    const top10 = cc?.top10 as { pct?: unknown } | null | undefined;
+    if (cc && ((top && top.pct !== null && top.pct !== undefined) || (top10 && top10.pct !== null && top10.pct !== undefined) || cc.diffus === true)) {
+      (data as Record<string, unknown>).clients_concentration = { top: cc.top, top10: cc.top10 ?? null, diffus: cc.diffus === true };
+    }
+  } catch {
+    /* pas de fiche clients */
+  }
+
   // Enrichissement ranks : merge depuis `v2-pipeline-enrich/<ticker>.ranks.json`
   // produit par `scripts/enrich-ranks-v2.py` (CONV-MODULE-RANKS-V2, 8 mai 2026).
   // PRIORITÉ : ranks.json gagne sur v2-pipeline. Raison : les ranks

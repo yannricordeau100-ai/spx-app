@@ -283,6 +283,14 @@ export type RevenueHistoryEntry = {
   }>;
 };
 
+/** Concentration du chiffre d affaires sur les premiers clients (Cahier, 9 sept 2026). */
+export type ClientsSource = { url: string; titre: string };
+export type ClientsConcentration = {
+  top: { n: number; pct: number | "<1" | null; plafond: boolean; exercice?: string; clients: string[]; commentaire?: string; source?: ClientsSource };
+  top10: { n: number; pct: number | "<1" | null; plafond: boolean; exercice?: string; commentaire?: string; source?: ClientsSource } | null;
+  diffus: boolean;
+};
+
 export type Company = {
   ticker: string;
   name: string;
@@ -320,6 +328,8 @@ export type Company = {
   market_positions?: MarketPosition[];
   /** 8 sept 2026 : code GICS a 8 chiffres (annuaire docs/cahier/societes-gics.json). */
   gics_code?: string;
+  /** 9 sept 2026 : concentration clients du Cahier (docs/cahier/clients/<T>.json). */
+  clients_concentration?: ClientsConcentration;
   /** Répartition du chiffre d'affaires par zone géographique. */
   revenue_by_geography?: RevenueBreakdown;
   /** Répartition du chiffre d'affaires par segment opérationnel. */

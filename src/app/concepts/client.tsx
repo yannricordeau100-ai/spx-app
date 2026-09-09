@@ -2,13 +2,11 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Mail, BarChart3, Search, Tag, Sliders, Layers, Home, Sparkles, AtSign, LineChart, Activity, Coins } from "lucide-react";
+import { Search, Tag } from "lucide-react";
 import { TICKERS } from "@/lib/data";
 import { CONCEPT_COMPANIES as COMPANIES, getConceptCompany as getCompany } from "@/lib/concepts-data";
 import { brand } from "@/lib/brand";
 import { CompanyLogo } from "@/components/logos";
-import { EmailLabClient } from "@/app/email-lab/client";
-import { ChartLabContent } from "@/app/chart-lab/[ticker]/content";
 import { MockupScreener } from "./mockups/screener";
 import { MockupDividend } from "./mockups/dividend";
 import { MockupCompareN } from "./mockups/compare-n";
@@ -19,29 +17,31 @@ import { MockupHeaderBarRedesign } from "./mockups/header-bar-redesign";
 import { MockupPriceChartTests } from "./mockups/price-chart-tests";
 import { MockupMoatTendance } from "./mockups/moat-tendance";
 import { MockupClientsConcentration } from "./mockups/clients-concentration";
+import { MockupGicsAccueil } from "./mockups/gics-accueil";
 
 type Tab =
-  | "email" | "chart"
   | "mk-screener" | "mk-compare" | "mk-landing" | "mk-onboarding" | "mk-email-templates"
-  | "mk-header-bar" | "mk-price-chart" | "mk-dividend" | "mk-moat-tendance" | "mk-clients";
+  | "mk-header-bar" | "mk-price-chart" | "mk-dividend" | "mk-moat-tendance" | "mk-clients" | "mk-gics";
 
-const TABS: { id: Tab; label: string; Icon: typeof Mail; group?: "visuels" | "mockups" }[] = [
-  { id: "email", label: "Email", Icon: Mail, group: "visuels" },
-  { id: "chart", label: "Chart", Icon: BarChart3, group: "visuels" },
-  { id: "mk-dividend", label: "Dividende", Icon: Coins, group: "mockups" },
-  { id: "mk-email-templates", label: "Email templates", Icon: AtSign, group: "mockups" },
-  { id: "mk-screener", label: "Screener", Icon: Sliders, group: "mockups" },
-  { id: "mk-compare", label: "Compare N-vs-N", Icon: Layers, group: "mockups" },
-  { id: "mk-landing", label: "Landing", Icon: Home, group: "mockups" },
-  { id: "mk-onboarding", label: "Onboarding", Icon: Sparkles, group: "mockups" },
-  { id: "mk-header-bar", label: "Header bar (variation %)", Icon: LineChart, group: "mockups" },
-  { id: "mk-price-chart", label: "Mini chart prix", Icon: Activity, group: "mockups" },
-  { id: "mk-moat-tendance", label: "Moat : tendance Mettrik", Icon: Sparkles, group: "mockups" },
-  { id: "mk-clients", label: "Concentration clients", Icon: Layers, group: "mockups" },
+// 9 sept 2026 : les doublons « Email » et « Chart » (labs deja accessibles sur
+// /email-lab et /chart-lab) sont retires ; un seul onglet par sujet, sans
+// pictogramme devant le titre.
+const TABS: { id: Tab; label: string }[] = [
+  { id: "mk-gics", label: "GICS accueil" },
+  { id: "mk-clients", label: "Concentration clients" },
+  { id: "mk-moat-tendance", label: "Moat : tendance Mettrik" },
+  { id: "mk-dividend", label: "Dividende" },
+  { id: "mk-email-templates", label: "Email" },
+  { id: "mk-screener", label: "Screener" },
+  { id: "mk-compare", label: "Compare N-vs-N" },
+  { id: "mk-landing", label: "Landing" },
+  { id: "mk-onboarding", label: "Onboarding" },
+  { id: "mk-header-bar", label: "Header bar (variation %)" },
+  { id: "mk-price-chart", label: "Chart prix" },
 ];
 
 export function ConceptsClient() {
-  const [tab, setTab] = useState<Tab>("mk-dividend");
+  const [tab, setTab] = useState<Tab>("mk-gics");
   const [ticker, setTicker] = useState<string>("META");
   const [query, setQuery] = useState<string>("");
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
@@ -109,48 +109,25 @@ export function ConceptsClient() {
             </Link>
           </div>
 
-          {/* TAB SWITCHER — 2 groupes : visuels (existants) + mockups (nouveaux) */}
-          <div className="flex items-center gap-2">
-            <div className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1">
-              {TABS.filter((t) => t.group === "visuels").map((t) => {
-                const isActive = tab === t.id;
-                return (
-                  <button
-                    key={t.id}
-                    onClick={() => setTab(t.id)}
-                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-all ${
-                      isActive
-                        ? "bg-violet-500/25 text-violet-100 shadow-[0_0_12px_rgba(167,139,250,0.35)]"
-                        : "text-zinc-400 hover:bg-white/[0.05] hover:text-zinc-100"
-                    }`}
-                  >
-                    <t.Icon className="size-3.5" />
-                    {t.label}
-                  </button>
-                );
-              })}
-            </div>
-            <span className="text-zinc-600">·</span>
-            <div className="inline-flex items-center gap-1 rounded-full border border-amber-500/20 bg-amber-500/[0.04] p-1">
-              {TABS.filter((t) => t.group === "mockups").map((t) => {
-                const isActive = tab === t.id;
-                return (
-                  <button
-                    key={t.id}
-                    onClick={() => setTab(t.id)}
-                    title={`Mockup : ${t.label}`}
-                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-all ${
-                      isActive
-                        ? "bg-amber-500/25 text-amber-100 shadow-[0_0_12px_rgba(251,191,36,0.35)]"
-                        : "text-amber-300/70 hover:bg-amber-500/10 hover:text-amber-100"
-                    }`}
-                  >
-                    <t.Icon className="size-3.5" />
-                    {t.label}
-                  </button>
-                );
-              })}
-            </div>
+          {/* TAB SWITCHER : un seul groupe, titres en clair (9 sept 2026) */}
+          <div className="flex flex-wrap items-center gap-1 rounded-2xl border border-amber-500/20 bg-amber-500/[0.04] p-1">
+            {TABS.map((t) => {
+              const isActive = tab === t.id;
+              return (
+                <button
+                  key={t.id}
+                  onClick={() => setTab(t.id)}
+                  title={`Maquette : ${t.label}`}
+                  className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-all ${
+                    isActive
+                      ? "bg-amber-500/25 text-amber-100 shadow-[0_0_12px_rgba(251,191,36,0.35)]"
+                      : "text-amber-300/70 hover:bg-amber-500/10 hover:text-amber-100"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              );
+            })}
           </div>
 
           {/* SEARCH */}
@@ -237,10 +214,6 @@ export function ConceptsClient() {
 
       {/* MAIN — pleine largeur, le contenu de chaque panel gère son propre padding */}
       <div>
-        {tab === "email" && <EmailLabClient />}
-        {tab === "chart" && (
-          <ChartLabContent ticker={ticker} showHeader={false} showNavChrome={true} />
-        )}
         {tab === "mk-dividend" && <MockupDividend />}
         {tab === "mk-screener" && <MockupScreener />}
         {tab === "mk-compare" && <MockupCompareN />}
@@ -251,6 +224,7 @@ export function ConceptsClient() {
         {tab === "mk-price-chart" && company && <MockupPriceChartTests company={company} />}
         {tab === "mk-moat-tendance" && <MockupMoatTendance />}
         {tab === "mk-clients" && <MockupClientsConcentration />}
+        {tab === "mk-gics" && <MockupGicsAccueil />}
       </div>
     </div>
   );

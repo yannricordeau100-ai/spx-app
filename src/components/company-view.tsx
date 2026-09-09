@@ -97,6 +97,7 @@ import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 import { BandeauIpoRecente, YoungIpoWarning } from "@/components/young-ipo-warning";
 import { CompanyProfileCard } from "@/components/company-profile-card";
+import { MoatClientsRow } from "@/components/moat-clients-row";
 import { RecentIpoPlaceholder, getRecentIpoMeta } from "@/components/recent-ipo-placeholder";
 import { getFiscalAudit, isFiscalShifted, fiscalLabelsForTicker, fiscalQuarterToCalendar } from "@/lib/fiscal-calendar";
 import { aggregateQuarterlyToAnnual, getKpiAggregationKind } from "@/lib/kpi-aggregation";
@@ -2011,6 +2012,11 @@ export function CompanyView({
           hideDescription={isDisabled("description_mettrik")}
           hideSnapshot={isDisabled("snapshot_boursier")}
         />
+
+        {/* 9 sept 2026 : rangee « Clients · Moat » sur deux demi-largeurs, juste
+            sous « Comprendre la societe » (concentration clients V2 du Cahier a
+            gauche, Moat V2 avec tendance Mettrik a droite). */}
+        <MoatClientsRow company={company} accent={accent} />
 
         {/* Position marche / TAM (7 sept 2026) : bloc de la V1.0 remis en place,
             place juste sous « Comprendre la societe » (demande du 08/09).
