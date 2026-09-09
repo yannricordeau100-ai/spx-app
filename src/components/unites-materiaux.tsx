@@ -105,6 +105,7 @@ export function UnitesMateriaux({
   unites?: (string | null | undefined)[];
 }) {
   const [ouvert, setOuvert] = useState(false);
+  const [toutVoir, setToutVoir] = useState(false);
   const secteur = secteurCle(gicsCode);
 
   const { groupes, total, surFiche, sansDefinition } = useMemo(() => {
@@ -180,8 +181,39 @@ export function UnitesMateriaux({
               </div>
             </div>
           )}
+          <button
+            type="button"
+            onClick={() => setToutVoir((v) => !v)}
+            className="mb-3 rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] text-zinc-400 hover:text-zinc-200"
+          >
+            {toutVoir ? "Ne montrer que les unités de cette fiche" : `Voir tout le relevé (${total} unités)`}
+          </button>
+          {/* 9 sept 2026 : le relevé couvre plus de 1 200 unités. Les unités de la
+              fiche sont montrées d abord, en clair ; le reste du relevé est replié. */}
           {groupes.map(([cat, unites], ci) => {
             const c = couleurDe(cat, ci);
+            const actives = unites.filter((u) => u.active);
+            const autres = unites.filter((u) => !u.active);
+            const Ligne = ({ u }: { u: (typeof unites)[number] }) => (
+              <div
+                className={`rounded-lg border px-3 py-2 ${u.active ? "" : "border-white/[0.06] opacity-60"}`}
+                style={u.active ? { borderColor: `${c}80`, background: `${c}14`, boxShadow: `inset 3px 0 0 ${c}` } : undefined}
+              >
+                <div className="flex flex-wrap items-baseline gap-x-2">
+                  <span className="font-mono text-[12.5px] font-semibold" style={{ color: u.active ? c : "#c4b5fd" }}>{u.unite}</span>
+                  <span className={`text-[13px] ${u.active ? "text-zinc-50" : "text-zinc-200"}`}>{u.nom}</span>
+                  {u.active && (
+                    <span className="rounded-full px-1.5 py-px font-mono text-[9.5px] font-bold uppercase tracking-wider text-black" style={{ background: c }}>sur cette fiche</span>
+                  )}
+                  {u.variantes.length > 0 && (
+                    <span className="font-mono text-[10.5px] text-zinc-600">aussi écrit {u.variantes.slice(0, 6).join(", ")}{u.variantes.length > 6 ? "…" : ""}</span>
+                  )}
+                </div>
+                <div className="mt-0.5 text-[12px] leading-relaxed text-zinc-400">{u.signification}</div>
+                <div className="mt-0.5 text-[12px] leading-relaxed text-cyan-200/80">{u.comparatif}</div>
+              </div>
+            );
+            if (actives.length === 0 && !toutVoir) return null;
             return (
               <div key={cat} className="mb-4 last:mb-0">
                 <div className="mb-1.5 flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.15em]" style={{ color: c }}>
@@ -192,26 +224,8 @@ export function UnitesMateriaux({
                   </span>
                 </div>
                 <div className="grid gap-1.5">
-                  {unites.map((u) => (
-                    <div
-                      key={u.unite}
-                      className={`rounded-lg border px-3 py-2 ${u.active ? "" : "border-white/[0.06] opacity-60"}`}
-                      style={u.active ? { borderColor: `${c}80`, background: `${c}14`, boxShadow: `inset 3px 0 0 ${c}` } : undefined}
-                    >
-                      <div className="flex flex-wrap items-baseline gap-x-2">
-                        <span className="font-mono text-[12.5px] font-semibold" style={{ color: u.active ? c : "#c4b5fd" }}>{u.unite}</span>
-                        <span className={`text-[13px] ${u.active ? "text-zinc-50" : "text-zinc-200"}`}>{u.nom}</span>
-                        {u.active && (
-                          <span className="rounded-full px-1.5 py-px font-mono text-[9.5px] font-bold uppercase tracking-wider text-black" style={{ background: c }}>sur cette fiche</span>
-                        )}
-                        {u.variantes.length > 0 && (
-                          <span className="font-mono text-[10.5px] text-zinc-600">aussi écrit {u.variantes.join(", ")}</span>
-                        )}
-                      </div>
-                      <div className="mt-0.5 text-[12px] leading-relaxed text-zinc-400">{u.signification}</div>
-                      <div className="mt-0.5 text-[12px] leading-relaxed text-cyan-200/80">{u.comparatif}</div>
-                    </div>
-                  ))}
+                  {actives.map((u) => <Ligne key={u.unite} u={u} />)}
+                  {toutVoir && autres.map((u) => <Ligne key={u.unite} u={u} />)}
                 </div>
               </div>
             );
