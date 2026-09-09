@@ -211,3 +211,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.09.6 (09 Sep 2026 07:18, apres 9e81abd341)
 - clients top 6-10 : 661 stes couvertes (75 publiees, 586 estimations encadrees)
+
+## v2026.09.09.7 (09 Sep 2026 07:23, apres 126bc9d852)
+- clients : corrections du controle (FRT 13,3, KIM, BMY, REGN, MCHP, CCL, TECH retires)
