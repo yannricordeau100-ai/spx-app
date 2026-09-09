@@ -196,3 +196,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.09.1 (09 Sep 2026 02:01, apres d516a88e02)
 - corrections ABT DXCM SYK servies, rangee Clients Moat V2 sous Comprendre, bloc GICS accueil, concepts nettoyes
+
+## v2026.09.09.2 (09 Sep 2026 02:36, apres 71711a3eba)
+- stories sans doublon des indicateurs cles, badge fiche offerte, synchro quotidienne, sandbox peu utilise, Nasdaq 100 revalide, SPCX

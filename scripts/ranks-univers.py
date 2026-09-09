@@ -38,8 +38,12 @@ def yf_symbol(t):
 
 
 def fiche(t):
+    # 9 sept 2026 : repli sur la fiche pipeline quand la fiche companies
+    # n existe pas (ex SPCX) : sans secteur, les rangs sectoriels sortaient "-".
     for c in (t, t.lower(), t.upper()):
         p = COMP / f"{c}.json"
+        if not p.exists():
+            p = ROOT / "src/data/v2-pipeline" / f"{c.lower()}.json"
         if p.exists():
             try:
                 return json.load(open(p))

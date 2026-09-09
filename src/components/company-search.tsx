@@ -678,11 +678,6 @@ function ResultCard({
           abonnement sont mises en avant, mais uniquement pour un visiteur
           anonyme ou gratuit : au-dela, toutes les fiches sont ouvertes et la
           distinction n aurait plus de sens. */}
-      {estVitrine && (
-        <span className="absolute right-2 top-2 rounded-full border border-violet-400/40 bg-violet-500/20 px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-wider text-violet-100">
-          Fiche complète offerte
-        </span>
-      )}
       {/* Accent bar à gauche, pulsée au hover */}
       <span
         aria-hidden
@@ -713,6 +708,11 @@ function ResultCard({
           >
             {tickerShown}
           </span>
+          {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
+              plus se superposer au KPI affiche a droite. */}
+          {estVitrine && (
+            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Fiche complète offerte</span>
+          )}
         </div>
         <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
           {c.sector} <span className="text-zinc-600">·</span> {c.subsector}
@@ -859,11 +859,6 @@ function ResultCardV17({
       {/* Yann 4 sept 2026 : Google, Meta et Booking sont entierement
           lisibles sans abonnement ; tout visiteur doit le voir dans les
           resultats, abonne compris. */}
-      {VITRINE_VISIBLE.has(ticker.toUpperCase()) && (
-        <span className="absolute right-2 top-2 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-wider text-violet-100">
-          Fiche complète offerte
-        </span>
-      )}
 
       {/* Logo : tente CompanyLogo (Clearbit / SVG si dispo), sinon placeholder lettre */}
       <div
@@ -887,6 +882,11 @@ function ResultCardV17({
           >
             {tickerShown}
           </span>
+          {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
+              plus se superposer au KPI affiche a droite. */}
+          {VITRINE_VISIBLE.has(ticker.toUpperCase()) && (
+            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Fiche complète offerte</span>
+          )}
         </div>
         <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
           {e.sector || "-"}
@@ -939,11 +939,6 @@ function ResultCardV19({
       {/* Yann 4 sept 2026 : Google, Meta et Booking sont entierement
           lisibles sans abonnement ; tout visiteur doit le voir dans les
           resultats, abonne compris. */}
-      {VITRINE_VISIBLE.has(ticker.toUpperCase()) && (
-        <span className="absolute right-2 top-2 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-wider text-violet-100">
-          Fiche complète offerte
-        </span>
-      )}
 
       <div
         className={`size-12 shrink-0 overflow-hidden rounded-xl border transition-transform duration-300 group-hover:scale-105 ${
@@ -966,6 +961,11 @@ function ResultCardV19({
           >
             {tickerShown}
           </span>
+          {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
+              plus se superposer au KPI affiche a droite. */}
+          {VITRINE_VISIBLE.has(ticker.toUpperCase()) && (
+            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Fiche complète offerte</span>
+          )}
           <span className="rounded-md border border-zinc-500/40 bg-zinc-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-zinc-300">
             V1.9
           </span>

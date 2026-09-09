@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import {Rocket, CreditCard,
+import {Rocket, CreditCard, ChevronRight,
   FlaskConical,
   Library,
   Sparkles,
@@ -33,6 +35,8 @@ import { CONCEPT_COMPANIES } from "@/lib/concepts-data";
 import { CompanyLogo } from "@/components/logos";
 import { brand } from "@/lib/brand";
 import { SandboxSearch } from "@/components/sandbox/sandbox-search";
+import { useEffect, useState } from "react";
+import LAST_TOUCH from "@/data/sandbox-last-touch.json";
 
 export const metadata = {
   title: "Sandbox · Mettrik",
@@ -48,6 +52,10 @@ type SandboxItem = {
   /** Couleur d'accentuation du contour de la card (Yann 21 mai 2026 : repérage admin).
    *  "default" (Yann 25 mai 2026) : accent vert/emerald pour signaler la version par défaut. */
   accent?: "blue" | "violet" | "default" | "orange" | "highlight";
+  /** 9 sept 2026 : mots cles et paraphrases (recherche + affichage sous le descriptif). */
+  mots?: string[];
+  /** 9 sept 2026 : menu deroulant commun pour les outils voisins peu utilises. */
+  groupe?: string;
 };
 
 type SandboxSection = {
@@ -95,6 +103,7 @@ const SECTIONS: SandboxSection[] = [
     items: [
       {
         href: "/sandbox/kpi-builder",
+        mots: ["créer un KPI", "indicateur sur mesure", "extraction depuis les documents", "nouvel indicateur", "ajouter une métrique"],
         icon: Wrench,
         label: "KPI builder (sur mesure)",
         desc: "Décris le KPI en langage naturel, choisis les sociétés, lance l'extraction depuis les documents déposés.",
@@ -102,6 +111,7 @@ const SECTIONS: SandboxSection[] = [
       },
       {
         href: "/sandbox/special-kpis",
+        mots: ["KPI hors documents", "recherche web d un chiffre", "historique long", "données externes"],
         icon: Sparkles,
         label: "KPI spéciaux (recherche hors documents)",
         desc: "Pour un chiffre absent des documents de résultats : profondeur d'historique, points manquants tolérés, plusieurs sociétés à la fois.",
@@ -109,6 +119,7 @@ const SECTIONS: SandboxSection[] = [
       },
       {
         href: "/sandbox/story-builder",
+        mots: ["story depuis un lien", "post X", "tweet", "carte story", "chiffre d une page web"],
         icon: Sparkles,
         label: "KPI story depuis un lien",
         desc: "Crée une carte story à partir d'une page web ou d'un post X : le chiffre est extrait avec sa phrase source.",
@@ -119,18 +130,21 @@ const SECTIONS: SandboxSection[] = [
         // S&P 500 / Nasdaq 100 / SOX / CAC 40 / SMI / AEX / DAX), KPI
         // consultables et filtrables par categorie.
         href: "/sandbox/hors-indices",
+        mots: ["sociétés retirées", "hors S&P 500", "hors Nasdaq 100", "hors CAC 40", "stés non publiées", "quarantaine"],
         icon: Search,
         label: "Sociétés hors indices (205)",
         desc: "KPI des sociétés retirées de la mise en ligne, filtrables par catégorie.",
       },
       {
         href: "/sandbox/kpi-search",
+        mots: ["chercher un indicateur", "moteur de recherche KPI", "trouver un KPI existant", "fuzzy"],
         icon: Search,
         label: "Recherche de KPI",
         desc: "Retrouver un indicateur existant dans la base, toutes sociétés confondues.",
       },
       {
         href: "/sandbox/kpi-lint",
+        mots: ["qualité des KPI", "séries incohérentes", "unités douteuses", "libellés fautifs", "contrôle", "lint"],
         icon: Wrench,
         label: "Contrôle qualité des KPI",
         desc: "Repère les séries incohérentes, les unités douteuses et les libellés fautifs.",
@@ -147,6 +161,7 @@ const SECTIONS: SandboxSection[] = [
       // Mise en première position + accent "DÉFAUT" pour clarté.
       {
         href: "/sandbox/v1-9-5",
+        mots: ["hub des fiches", "toutes les sociétés", "version par défaut", "liste des stés", "V1.9.5"],
         icon: Sparkles,
         label: "V1.9.5 · DÉFAUT — stés validées qualité",
         desc: "Hub par défaut de l'app. Stés clean audit strict (a-f publishable + g-m extensions), 0 hallucination, mises à jour cron horaire.",
@@ -154,6 +169,8 @@ const SECTIONS: SandboxSection[] = [
       },
       {
         href: "/sandbox/v1-9-status",
+        mots: ["suivi enrichissement", "top 307", "statut par société", "blocs manquants"],
+        groupe: "Couverture et statuts des données",
         icon: Activity,
         label: "V1.9 · Suivi enrichissement top 307",
         desc: "Statut temps réel : strict 11/11 ✅ vs en cours 🟠 vs bloquées 🔴. Score par sté + blocs manquants.",
@@ -169,30 +186,48 @@ const SECTIONS: SandboxSection[] = [
       {
         // Yann 29 aout 2026 : acces direct depuis Data quality.
         href: "/admin/kpis-toggle",
+        mots: ["activer un KPI", "désactiver un KPI", "masquer un indicateur", "par société", "interrupteur KPI"],
         icon: Wrench,
         label: "KPIs : activer / désactiver par sté",
         desc: "Vue alignée sur la réalité des pages (fusion kpis-haut + pipeline), filtres par secteur et par indice (SOXX compris). Les réglages ne valent que pour la suite : rien ne change tant que rien n'est coché.",
       },
       {
         href: "/sandbox/coverage-matrix",
+        mots: ["couverture des blocs", "ce qui manque", "matrice", "blocs remplis"],
+        groupe: "Couverture et statuts des données",
         icon: TableProperties,
         label: "Coverage matrix",
         desc: "Vue par blocs et par sté : ce qui est rempli, ce qui manque, codes couleur.",
       },
       {
         href: "/sandbox/ir-coverage",
+        mots: ["documents téléchargés", "couverture SEC", "IR scraper", "docs par société"],
+        groupe: "Couverture et statuts des données",
         icon: Database,
         label: "Couverture docs par sté",
         desc: "Bilan SEC EDGAR et IR scraper pour 344 stés (top 305 V1.8 et V1 demo). Détail par doc-type.",
       },
       {
         href: "/sandbox/data-status",
+        mots: ["statut des données", "qui fait quoi", "audit transverse"],
+        groupe: "Couverture et statuts des données",
         icon: Activity,
         label: "Statut des données",
         desc: "Qui fait quoi, Pass 3 par catégorie, audit transverse cat 1 / 2 / 3.",
       },
       {
+        // 9 sept 2026 : interrupteurs des mises a jour quotidiennes + feux
+        // calcules sur la donnee servie, pas sur les journaux des robots.
+        href: "/sandbox/synchro",
+        icon: Activity,
+        label: "Synchronisation quotidienne : interrupteurs et réalité",
+        desc: "Trois interrupteurs (transcripts d’earnings calls, KPI indicateurs clés, KPI stories) et, pour chacun, la part des pages réellement conformes au dernier dépôt SEC de la société.",
+        mots: ["cron", "23h", "mise à jour quotidienne", "earnings calls", "transcripts", "stories", "KPI IC", "à jour", "en retard", "réalité", "interrupteur", "synchro"],
+        accent: "highlight" as const,
+      },
+      {
         href: "/sandbox/refresh-status",
+        mots: ["nouveaux dépôts SEC", "10-Q", "10-K", "8-K", "cron 7h30", "update SEC", "USEC"],
         icon: Activity,
         label: "Update SEC (USEC)",
         desc: "Nouveaux dépôts SEC (8-K / 10-Q / 10-K) détectés par le cron 7h30 à intégrer dans les blocs sté (risks, stories, profit_warning, ai_positioning).",
@@ -204,42 +239,54 @@ const SECTIONS: SandboxSection[] = [
         // restant ici uniquement pour quality-tree (audit data, pas
         // création contenu).
         href: "/sandbox/quality-tree",
+        mots: ["arbre qualité", "éléments contrôlables", "registry", "audit"],
+        groupe: "Couverture et statuts des données",
         icon: TreePine,
         label: "Quality tree (registry)",
         desc: "Arbre dépliable des 101 éléments contrôlables d'une page sté. Source consolidée audit, coverage, fix dispatcher.",
       },
       {
         href: "/sandbox/ready-by-category",
+        mots: ["sociétés prêtes", "par pays", "par catégorie", "comptage"],
+        groupe: "Couverture et statuts des données",
         icon: Users,
         label: "Stés prêtes par catégorie et pays",
         desc: "Counts par catégorie (Top 307, SP500, SP1500, Stoxx 600, SMI Suisse, Cat 2 ADR) et par pays. Masque les ADR doublons.",
       },
       {
         href: "/sandbox/vip-inspection",
+        mots: ["inspection VIP", "sociétés phares", "auto-fix", "Gemini"],
+        groupe: "Couverture et statuts des données",
         icon: Crown,
         label: "VIP inspection",
         desc: "Liste des stés où tout doit être parfait. Inspection visuelle multi-mode, audit Gemini, auto-fix loop.",
       },
       {
         href: "/sandbox/kpi-quality-strategy",
+        mots: ["stratégie qualité", "hero KPI", "KPI génériques", "library"],
         icon: Sparkles,
         label: "KPI Quality Strategy",
         desc: "Audit historique hero KPI (451 stés ≥5 ans / 1608 stés <5 ans) + Library KPI génériques (Revenue, EBITDA, EPS, etc.) avec toggle activation par catégorie. Yann 19 mai 2026.",
       },
       {
         href: "/sandbox/kpi-search",
+        mots: ["chercher un indicateur", "moteur de recherche KPI", "trouver un KPI existant", "fuzzy"],
         icon: Sparkles,
         label: "Recherche KPIs (7634 indexés)",
         desc: "Moteur de recherche fuzzy sur les 7634 KPIs uniques de 640 stés V1.9.5. Filtres période/min stés/wow, top 20 résultats live, lazy load des détails par KPI.",
       },
       {
         href: "/sandbox/visual-audit",
+        mots: ["audit visuel", "défauts visuels", "Gemini", "capture des pages"],
+        groupe: "Couverture et statuts des données",
         icon: Eye,
         label: "Visual audit (Gemini 2.5 Flash)",
         desc: "Dashboard des défauts visuels détectés par Gemini sur chaque page sté. 31 checks, filtres severity et blocker.",
       },
       {
         href: "/sandbox/curated-companies",
+        mots: ["sociétés visibles en prod", "sélection par plan", "curation"],
+        groupe: "Couverture et statuts des données",
         icon: ListChecks,
         label: "Curated companies (sés en prod par plan)",
         desc: "Sélection manuelle des sés visibles en prod (niveau 0+1) par plan tier. Score 4 couleurs basé sur coverage-matrix + visual-audit Gemini.",
@@ -253,6 +300,8 @@ const SECTIONS: SandboxSection[] = [
     items: [
       {
         href: "/sandbox/logo-lab",
+        mots: ["génération de logos", "atelier logos"],
+        groupe: "Logos",
         icon: Palette,
         label: "Logo lab",
         desc: "Atelier de génération et validation de logos sté (à venir, pas encore live).",
@@ -260,72 +309,87 @@ const SECTIONS: SandboxSection[] = [
       },
       {
         href: "/sandbox/lancement",
+        mots: ["mode maintenance", "site ouvert", "page de pré-lancement", "interrupteur du site", "go live"],
         icon: Rocket,
         label: "Lancement",
         desc: "Interrupteur mettrik.ai : page de pré-lancement ou site ouvert, effet en ~20 s sans redéploiement.",
       },
       {
         href: "/sandbox/telemetrie",
+        mots: ["statistiques d usage", "audience", "clics", "erreurs", "latence", "emails envoyés", "télémétrie"],
         icon: Activity,
         label: "Statistiques",
         desc: "Toutes les métriques d'usage première partie : audience, pages, clics, pays, erreurs, latence API, emails. Interrupteur global.",
       },
       {
         href: "/sandbox/structure",
+        mots: ["carte de l application", "santé des briques", "front", "back", "feu vert rouge", "panneau de contrôle"],
         icon: Network,
         label: "Panneau de contrôle Front / Back End",
         desc: "Carte visuelle de toute l'application (visiteur, back-office, données, automates, services) avec un feu de santé par brique, testé en direct.",
       },
       {
         href: "/sandbox/gics",
+        mots: ["secteurs", "sous-industries", "codes GICS", "classification", "KPI attendus par sous-industrie", "Cahier"],
         icon: Library,
         label: "Classification GICS",
         desc: "Les 4 niveaux (secteur, groupe, industrie, sous-industrie) avec codes, puis les KPI attendus par sous-industrie et le registre des prompts du Cahier (docs/cahier).",
       },
       {
         href: "/sandbox/logos-arbitrage",
+        mots: ["logos douteux", "logo illisible", "choisir un logo", "arbitrage"],
+        groupe: "Logos",
         icon: ImageIcon,
         label: "Arbitrage logos douteux",
         desc: "6 logos bandeau illisibles en carré : l'actuel et le candidat officiel côte à côte sur fond noir, case à cocher.",
       },
       {
         href: "/sandbox/clients",
+        mots: ["concentration clients", "premiers clients", "top 10 clients", "part du CA", "dépendance client"],
         icon: Users,
         label: "Concentration clients",
         desc: "Part du CA des tout premiers clients (1 à 3) et des plus gros clients élargis (6 à 10), par secteur GICS, sources officielles. Mission en cours.",
       },
       {
         href: "/sandbox/bourses",
+        mots: ["bourses mondiales", "indices", "Nasdaq 100", "S&P 500", "CAC 40", "DAX", "SMI", "AEX", "SOX", "composition des indices", "arborescence par pays"],
         icon: Globe2,
         label: "Bourses mondiales",
         desc: "Arborescence par pays : indice principal et secondaire de chaque bourse (CAC 40 / SBF 120, DAX / MDAX, S&P 500 / Nasdaq 100 / SOXX...), sociétés déjà en ligne cliquables.",
       },
       {
         href: "/sandbox/moat",
+        mots: ["moat", "avantage compétitif", "Morningstar", "wide", "narrow", "tendance Mettrik"],
         icon: Crown,
         label: "Moat Morningstar",
         desc: "Avantage concurrentiel Wide / Narrow / None de tout l'univers : changements de note, allocation du capital, incertitude, étoiles, par secteur GICS.",
       },
       {
         href: "/sandbox/tam",
+        mots: ["TAM", "taille de marché", "position marché", "part captée"],
         icon: Library,
         label: "Atelier TAM",
         desc: "Candidats de taille de marché du Cahier par société, arborescence GICS, cases à cocher (2 max) qui pilotent le bloc Position marché des fiches.",
       },
       {
         href: "/sandbox/logotheque",
+        mots: ["logos Mettrik", "logo par emplacement", "marque", "wordmark"],
+        groupe: "Logos",
         icon: Palette,
         label: "Logothèque",
         desc: "Tous les logos Mettrik retenus + choix du logo par emplacement (maintenance, home, bouton retour, tarifs…)",
       },
       {
         href: "/sandbox/logos-compare",
+        mots: ["comparer les logos", "valider les logos", "logos des sociétés"],
+        groupe: "Logos",
         icon: ImageIcon,
         label: "Logos",
         desc: "Comparaison + validation logos V1.9.5 (687 stés)",
       },
       {
         href: "/sandbox/v2",
+        mots: ["prototype V2", "FPI", "étrangères", "seed"],
         icon: ImagePlus,
         label: "V2 (50 stés DRAFT seed)",
         desc: "Prototype visuel V1.5 cat 2 (FPI étrangères), 50 stés seed pour tests.",
@@ -343,6 +407,7 @@ const SECTIONS: SandboxSection[] = [
     items: [
       {
         href: "/sandbox/image-findings",
+        mots: ["graphiques", "schémas", "images", "carrousel sous le hero", "sources diverses"],
         icon: ImageIcon,
         label: "Graphiques et schémas (sources diverses)",
         desc: "Recherche manuelle de graphiques et schémas via Claude conv MAX 20×. Approbation Yann, carrousel sous le hero des pages sté.",
@@ -351,6 +416,8 @@ const SECTIONS: SandboxSection[] = [
       },
       {
         href: "/desk-mtk9x4kp/page-content?page=home",
+        mots: ["textes de l accueil", "tagline", "punchlines", "éditer la home"],
+        groupe: "Textes et réglages du back-office",
         icon: FileEdit,
         label: "Édition textes home",
         desc: "Modifier tagline, sous-titre, KPI Intelligence et 4 punchlines rotatives de la page d'accueil.",
@@ -358,6 +425,7 @@ const SECTIONS: SandboxSection[] = [
       },
       {
         href: "/desk-mtk9x4kp/blocks-control",
+        mots: ["activer un bloc", "désactiver un bloc", "hero", "stories", "gouvernance", "ON OFF", "par société", "global"],
         icon: ListChecks,
         label: "Blocks Control · ON/OFF par bloc",
         desc: "Panneau de contrôle complet : activer/désactiver chaque bloc (hero, stories, dividende, gouvernance, etc.) en GLOBAL toutes stés OU MANUELLEMENT par sté. Placeholder gracieux à la place du bloc OFF.",
@@ -365,6 +433,7 @@ const SECTIONS: SandboxSection[] = [
       },
       {
         href: "/sandbox/admin/floutage-selector",
+        mots: ["floutage", "zones floutées", "free tier", "gratuit", "sélection des zones"],
         icon: Lock,
         label: "Floutage admin : sélection zones",
         desc: "Page admin pour sélectionner et enregistrer les zones de floutage Free tier. Outil de tagging visuel des éléments à flouter.",
@@ -379,12 +448,16 @@ const SECTIONS: SandboxSection[] = [
     items: [
       {
         href: "/sandbox/geo-test",
+        mots: ["pays détecté", "langue", "devise", "géolocalisation", "Accept-Language"],
+        groupe: "Langues et géolocalisation",
         icon: MapPin,
         label: "Geo test",
         desc: "Visualise pays détecté, langue, devise, cookies et Accept-Language. Debug et QA en live.",
       },
       {
         href: "/sandbox/i18n-audit",
+        mots: ["traductions", "clés i18n", "6 langues", "couverture des langues"],
+        groupe: "Langues et géolocalisation",
         icon: Languages,
         label: "i18n audit",
         desc: "Visualisation 462 clés × 6 langues. Dropdown locale et tableau par groupe de pages.",
@@ -399,12 +472,14 @@ const SECTIONS: SandboxSection[] = [
     items: [
       {
         href: "/sandbox/billing",
+        mots: ["Stripe", "paiement test", "checkout", "abonnement", "webhook"],
         icon: CreditCard,
         label: "Billing test",
         desc: "Test du flow Stripe Checkout en mode test (carte 4242…). Webhook et table subscriptions internes.",
       },
       {
         href: "/desk-mtk9x4kp",
+        mots: ["desk", "bureau interne", "notes", "todos", "pipeline"],
         icon: Library,
         label: "Desk interne",
         desc: "Bureau de travail privé : notes, todos, GICS, pipeline V2. Accès restreint.",
@@ -414,12 +489,15 @@ const SECTIONS: SandboxSection[] = [
         // Yann (25 mai 2026) : page-content + blocks-control DÉPLACÉS vers
         // la section "🎨 Création & personnalisation".
         href: "/desk-mtk9x4kp/ir-sources",
+        mots: ["sources IR", "URL investisseurs", "téléchargement des PDF", "scraper"],
+        groupe: "Textes et réglages du back-office",
         icon: Download,
         label: "Sources IR (téléchargement docs)",
         desc: "URLs page corp, IR home et docs IR par sté. Le scraper télécharge auto les PDFs absents de SEC EDGAR.",
       },
       {
         href: "/desk-mtk9x4kp/pricing",
+        mots: ["tarifs", "prix", "plans", "codes promo", "devises", "Stripe"],
         icon: Tag,
         label: "Réglage pricing",
         desc: "Back office tarifs : plans, prix multi-devises, fonctionnalités, codes promo, sync Stripe.",
@@ -427,12 +505,15 @@ const SECTIONS: SandboxSection[] = [
       },
       {
         href: "/sandbox/legal-editor",
+        mots: ["CGU", "CGV", "conditions générales", "mentions légales", "markdown"],
+        groupe: "Textes et réglages du back-office",
         icon: ScrollText,
         label: "Legal editor (CGU/CGV)",
         desc: "Édition Markdown FR + EN des Conditions générales. Upload PDF, modification textarea, publication directe sur /legal/conditions.",
       },
       {
         href: "/admin/kpis-toggle",
+        mots: ["activer un KPI", "désactiver un KPI", "masquer un indicateur", "par société", "interrupteur KPI"],
         icon: ListChecks,
         label: "KPIs : activer / désactiver par sté",
         desc: "Toggle granulaire par KPI individuel pour chaque sté publishable (≥3 ans d'historique). Différent du toggle blocs.",
@@ -440,6 +521,7 @@ const SECTIONS: SandboxSection[] = [
       },
       {
         href: "/admin/blocks",
+        mots: ["blocs page société", "toggle global", "override par ticker", "19 blocs"],
         icon: ListChecks,
         label: "Blocs page société (global + per-sté)",
         desc: "Page unique back office : toggle global on/off des 19 blocs + override per-ticker. Version-agnostic (V1.7-5 / V1.8 / V1.9 / V1.9-5).",
@@ -447,6 +529,8 @@ const SECTIONS: SandboxSection[] = [
       },
       {
         href: "/sandbox/admin/block-rules",
+        mots: ["règles d écriture", "par bloc", "sub-agents", "consignes"],
+        groupe: "Textes et réglages du back-office",
         icon: FileEdit,
         label: "Règles par bloc",
         desc: "Règles d'écriture libres (fond + forme) par bloc page sté. Les sub-agents lisent ces règles AVANT chaque extraction. Auto-save 1s. Version-agnostic.",
@@ -460,6 +544,7 @@ const SECTIONS: SandboxSection[] = [
     items: [
       {
         href: "/sandbox/aide",
+        mots: ["aide", "FAQ interne", "problèmes connus", "URLs canoniques"],
         icon: HelpCircle,
         label: "Aide & FAQ interne",
         desc: "12 URLs canoniques et 14 fiches problèmes searchable par alias.",
@@ -473,6 +558,7 @@ const SECTIONS: SandboxSection[] = [
     items: [
       {
         href: "/concepts",
+        mots: ["maquettes", "prototypes visuels", "concepts", "mockups", "variantes"],
         icon: FlaskConical,
         label: "Concepts (visuels)",
         desc: "Hub des prototypes visuels : Email lab, Chart lab, modes Clair 1/2/3.",
@@ -514,7 +600,7 @@ const V2_CAT2_CANDIDATES: FPICandidate[] = [
 
 // Carte d'un item sandbox. `archived` = opacité réduite + grayscale,
 // mais le lien reste cliquable.
-function SandboxCard({ item, archived = false }: { item: SandboxItem; archived?: boolean }) {
+function SandboxCard({ item, archived = false, onOpen }: { item: SandboxItem; archived?: boolean; onOpen?: (href: string) => void }) {
   const Icon = item.icon;
   const isBlueAccent = item.accent === "blue";
   const isDefaultAccent = item.accent === "default";
@@ -581,6 +667,11 @@ function SandboxCard({ item, archived = false }: { item: SandboxItem; archived?:
           )}
         </div>
         <p className="mt-1 text-[12.5px] text-zinc-400">{item.desc}</p>
+        {item.mots && item.mots.length > 0 && (
+          <p className="mt-1.5 line-clamp-2 font-mono text-[10px] leading-relaxed text-zinc-600">
+            {item.mots.join(" · ")}
+          </p>
+        )}
       </div>
     </>
   );
@@ -594,14 +685,72 @@ function SandboxCard({ item, archived = false }: { item: SandboxItem; archived?:
   }
 
   return (
-    <Link href={item.href} className={cardClass}>
+    <Link href={item.href} className={cardClass} onClick={() => onOpen?.(item.href)}>
       {content}
     </Link>
   );
 }
 
+/* 9 sept 2026 : outils voisins peu utilises, ranges dans un menu deroulant de
+   la taille d une carte. Le resume dit ce qu il contient sans cliquer. */
+function GroupeCard({ titre, items, onOpen }: { titre: string; items: SandboxItem[]; onOpen: (href: string) => void }) {
+  return (
+    <details className="group rounded-xl border border-white/10 bg-white/[0.02] p-5 open:border-violet-500/30">
+      <summary className="flex cursor-pointer list-none items-start gap-4">
+        <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300">
+          <ChevronRight className="size-5 transition-transform group-open:rotate-90" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h4 className="text-[15px] font-semibold text-zinc-50">{titre} <span className="font-mono text-[11px] text-zinc-500">· {items.length} outils</span></h4>
+          <p className="mt-1 text-[12.5px] text-zinc-400">{items.map((i) => i.label).join(" · ")}</p>
+        </div>
+      </summary>
+      <div className="mt-4 grid gap-3 border-t border-white/[0.06] pt-4">
+        {items.map((it) => (
+          <SandboxCard key={it.href} item={it} onOpen={onOpen} />
+        ))}
+      </div>
+    </details>
+  );
+}
+
+const DEUX_MOIS_MS = 60 * 86_400_000;
+const DERNIERE_TOUCHE = (LAST_TOUCH as { routes: Record<string, string | null> }).routes;
+
+/** Peu utilise = ni vert (defaut), ni ouvert par le proprietaire depuis 2 mois,
+ *  ni modifie dans le depot depuis 2 mois. */
+function estPeuUtilise(item: SandboxItem, usage: Record<string, string>): boolean {
+  if (item.accent === "default" || item.soon) return false;
+  const maintenant = Date.now();
+  const clic = usage[item.href];
+  if (clic && maintenant - Date.parse(clic) < DEUX_MOIS_MS) return false;
+  const touche = DERNIERE_TOUCHE[item.href];
+  if (touche && maintenant - Date.parse(touche) < DEUX_MOIS_MS) return false;
+  return true;
+}
+
 export default function SandboxPage() {
   const archivedItems = SECTIONS.flatMap((s) => s.items).filter(isArchived);
+  // 9 sept 2026 : usage reel (clics du proprietaire, navigateur local).
+  const [usage, setUsage] = useState<Record<string, string>>({});
+  useEffect(() => {
+    try {
+      setUsage(JSON.parse(localStorage.getItem("sandbox:usage") ?? "{}") as Record<string, string>);
+    } catch {
+      /* stockage indisponible */
+    }
+  }, []);
+  const noter = (href: string) => {
+    const suivant = { ...usage, [href]: new Date().toISOString() };
+    setUsage(suivant);
+    try {
+      localStorage.setItem("sandbox:usage", JSON.stringify(suivant));
+    } catch {
+      /* stockage indisponible */
+    }
+  };
+  const peuUtilise = (item: SandboxItem) => !isArchived(item) && estPeuUtilise(item, usage);
+  const nbPeuUtilises = SECTIONS.flatMap((s) => s.items).filter(peuUtilise).length;
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100">
       <div className="mx-auto max-w-5xl px-6 py-12">
@@ -628,7 +777,7 @@ export default function SandboxPage() {
                 url: it.href,
                 title: it.label,
                 description: it.desc,
-                keywords: [sec.title],
+                keywords: [sec.title, ...(it.mots ?? [])],
               })),
             )}
           />
@@ -648,7 +797,7 @@ export default function SandboxPage() {
             {/* Yann 24 aout 2026 : la section Univers société est rendue en bas
                 de page (au-dessus des archives), avec le bloc Datasets. */}
             {SECTIONS.filter((sec) => sec.id !== "univers").map((section, sectionIdx) => {
-              const visibleItems = section.items.filter((item) => !isArchived(item));
+              const visibleItems = section.items.filter((item) => !isArchived(item) && !peuUtilise(item));
               if (visibleItems.length === 0) return null;
               return (
                 <div
@@ -668,7 +817,7 @@ export default function SandboxPage() {
 
                   <div className="grid gap-4 sm:grid-cols-2">
                     {visibleItems.map((item) => (
-                      <SandboxCard key={item.href} item={item} />
+                      <SandboxCard key={item.href} item={item} onOpen={noter} />
                     ))}
                   </div>
                 </div>
@@ -846,7 +995,7 @@ export default function SandboxPage() {
                 <p className="mb-4 text-[12px] text-zinc-500">{section.description}</p>
               )}
               <div className="grid gap-4 sm:grid-cols-2">
-                {section.items.filter((item) => !isArchived(item)).map((item) => (
+                {section.items.filter((item) => !isArchived(item) && !peuUtilise(item)).map((item) => (
                   <SandboxCard key={item.href} item={item} />
                 ))}
               </div>
@@ -855,6 +1004,47 @@ export default function SandboxPage() {
         </section>
 
         {/* ═══════ ARCHIVÉS ═══════ */}
+        {/* ═══════ TOGGLE PEU UTILISÉ (9 sept 2026) : memes categories, outils ni
+            verts ni ouverts ni modifies depuis deux mois. Un outil n est que
+            dans une zone. Les voisins sont ranges dans un menu deroulant. ═══════ */}
+        {nbPeuUtilises > 0 && (
+          <section className="mb-10 border-t border-white/5 pt-8">
+            <h2 className="mb-1 font-display text-[18px] font-bold tracking-tight text-zinc-100">Toggle peu utilisé</h2>
+            <p className="mb-5 text-[12.5px] text-zinc-400">
+              {nbPeuUtilises} outils ni ouverts ni modifiés depuis deux mois. Ils remontent dans la zone principale dès que tu les ouvres.
+            </p>
+            <div className="space-y-8">
+              {SECTIONS.map((section) => {
+                const items = section.items.filter(peuUtilise);
+                if (items.length === 0) return null;
+                const groupes = new Map<string, SandboxItem[]>();
+                const seuls: SandboxItem[] = [];
+                for (const it of items) {
+                  if (it.groupe) groupes.set(it.groupe, [...(groupes.get(it.groupe) ?? []), it]);
+                  else seuls.push(it);
+                }
+                return (
+                  <div key={`peu-${section.id}`}>
+                    <h3 className="mb-1 font-display text-[15px] font-bold tracking-tight text-zinc-200">{section.title}</h3>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      {[...groupes.entries()].map(([titre, its]) =>
+                        its.length > 1 ? (
+                          <GroupeCard key={titre} titre={titre} items={its} onOpen={noter} />
+                        ) : (
+                          <SandboxCard key={its[0]!.href} item={its[0]!} onOpen={noter} />
+                        ),
+                      )}
+                      {seuls.map((it) => (
+                        <SandboxCard key={it.href} item={it} onOpen={noter} />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
         {archivedItems.length > 0 && (
           <section className="mb-10 border-t border-white/5 pt-8">
             <h3 className="mb-4 font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">

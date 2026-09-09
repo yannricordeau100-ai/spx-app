@@ -46,19 +46,38 @@ export function SandboxSearch({ entreesDynamiques = [] }: { entreesDynamiques?: 
           { name: "keywords", weight: 0.35 },
           { name: "description", weight: 0.15 },
         ],
-        threshold: 0.42,
+        // 9 sept 2026 : seuil plus tolerant, une paraphrase doit suffire.
+        threshold: 0.55,
         ignoreLocation: true,
         includeScore: true,
         minMatchCharLength: 2,
       }),
-    [],
+    [ENTRIES],
   );
 
   const results = useMemo(() => {
     const q = query.trim();
     if (q.length < 2) return [];
-    return fuse.search(q).slice(0, 5).map((r) => r.item);
-  }, [query, fuse]);
+    const flous = fuse.search(q).map((r) => r.item);
+    // 9 sept 2026 : complement par recouvrement de mots (paraphrases) : chaque
+    // mot de la requete (3 lettres et plus) present dans titre, mots cles ou
+    // descriptif compte ; les entrees qui en ont le plus remontent.
+    const normaliser = (v: string) => v.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const mots = normaliser(q).split(/[^a-z0-9]+/).filter((m) => m.length >= 3);
+    const score = (e: SearchEntry) => {
+      const texte = normaliser(`${e.title} ${e.description} ${(e.keywords ?? []).join(" ")}`);
+      return mots.filter((m) => texte.includes(m)).length;
+    };
+    const parMots = mots.length > 0 ? ENTRIES.filter((e) => score(e) > 0).sort((a, b) => score(b) - score(a)) : [];
+    const vus = new Set<string>();
+    const fusion: SearchEntry[] = [];
+    for (const e of [...flous, ...parMots]) {
+      if (vus.has(e.url)) continue;
+      vus.add(e.url);
+      fusion.push(e);
+    }
+    return fusion.slice(0, 8);
+  }, [query, fuse, ENTRIES]);
 
   // Reset highlight when results change
   useEffect(() => {

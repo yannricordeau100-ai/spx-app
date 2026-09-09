@@ -2084,7 +2084,19 @@ export function CompanyView({
             v18Mode && <V18MissingPlaceholder id="sec-governance" data-blur="governance" label="Gouvernance & rémunération" hint="DEF14A (cat 1) ou rapport annuel à extraire." />
           )
         ) : (
-          <BlockComingSoon blockId="governance" id="sec-governance" data-blur="governance" />
+          <BlockComingSoon
+            blockId="governance"
+            id="sec-governance"
+            data-blur="governance"
+            {...(company.ipo && company.ipo >= new Date().getFullYear() - 1
+              ? {
+                  // 9 sept 2026 : societe introduite en bourse recemment (ex SpaceX,
+                  // juin 2026) : aucun document d assemblee generale n existe encore.
+                  hint: `Introduite en bourse en ${company.ipo} : le premier document d’assemblée générale (rémunération, actionnaires, votes) n’est pas encore publié.`,
+                  echeance: `Attendu au printemps ${company.ipo + 1}, après la première assemblée générale`,
+                }
+              : {})}
+          />
         )}
 
         {/* AI positioning — Yann 20 mai 2026 : masquer si stance=absent (= 10-K ne mentionne pas IA).

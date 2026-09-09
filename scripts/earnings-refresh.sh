@@ -32,7 +32,13 @@ export LOGNAME="$USER"
   echo "--- sonde moteur claude -p :"
   SONDE=$(claude -p --model sonnet --output-format text <<< "Reponds exactement: SONDE-OK" 2>&1 | tail -2)
   echo "$SONDE"
-  if printf '%s' "$SONDE" | grep -q "SONDE-OK"; then
+  # 9 sept 2026 : interrupteurs de /sandbox/synchro (Supabase). Arrete = on
+  # n ajoute rien. Les stories se coupent a part via SYNCHRO_STORIES=off.
+  python3 scripts/synchro_flags.py
+  if python3 scripts/synchro_flags.py kpi_stories; then export SYNCHRO_STORIES=on; else export SYNCHRO_STORIES=off; fi
+  if ! python3 scripts/synchro_flags.py kpi_ic; then
+    echo "[synchro] KPI indicateurs cles : interrupteur arrete, extraction sautee"
+  elif printf '%s' "$SONDE" | grep -q "SONDE-OK"; then
     nice -n 10 python3 scripts/earnings-refresh.py --apply
   else
     echo "moteur non authentifie depuis un service de fond : extraction laissee"
@@ -51,7 +57,11 @@ for _ in range(3):
     ms.append(f'{y}-{m:02d}'); m-=1
     if m==0: m,y=12,y-1
 print(','.join(reversed(ms)))")
-  nice -n 10 python3 scripts/transcripts-refresh.py --mois "$MOIS_TR"
+  if python3 scripts/synchro_flags.py transcripts; then
+    nice -n 10 python3 scripts/transcripts-refresh.py --mois "$MOIS_TR"
+  else
+    echo "[synchro] transcripts : interrupteur arrete, aucun telechargement"
+  fi
   echo "=== $(date '+%F %T') syntheses des transcripts mis a jour ==="
   # Fix 2 sept 2026 : le script exige --tickers, l appel nu echouait CHAQUE
   # nuit ("error: the following arguments are required: --tickers") et aucune
@@ -59,7 +69,9 @@ print(','.join(reversed(ms)))")
   # bouge dans les dernieres 24 h (mtime) ; s il n y en a aucun, on saute.
   TICKERS_FRAIS=$(find src/data/transcripts -name '*.json' -mtime -1 2>/dev/null \
     | sed 's|.*/||; s|\.json$||' | tr '[:lower:]' '[:upper:]' | paste -sd, -)
-  if [ -n "$TICKERS_FRAIS" ]; then
+  if ! python3 scripts/synchro_flags.py transcripts; then
+    echo "[synchro] syntheses : interrupteur transcripts arrete"
+  elif [ -n "$TICKERS_FRAIS" ]; then
     nice -n 10 python3 scripts/summaries-refresh.py --tickers "$TICKERS_FRAIS"
   else
     echo "aucun transcript modifie en 24 h : pas de synthese a refaire"

@@ -14,13 +14,19 @@ export function BlockComingSoon({
   blockId,
   id,
   className = "",
+  hint: hintProp,
+  echeance,
 }: {
   blockId: BlockId;
   id?: string;
   className?: string;
+  /** 9 sept 2026 : message contextuel (ex introduction en bourse recente). */
+  hint?: string;
+  /** 9 sept 2026 : remplace « Disponible dans les sept prochains jours ». */
+  echeance?: string;
 }) {
   const label = BLOCK_LABELS[blockId] ?? "Section";
-  const hint = BLOCK_PLACEHOLDER_HINTS[blockId] ?? "Cette section arrive bientôt.";
+  const hint = hintProp ?? BLOCK_PLACEHOLDER_HINTS[blockId] ?? "Cette section arrive bientôt.";
 
   return (
     <section
@@ -67,7 +73,7 @@ export function BlockComingSoon({
                 transition={{ duration: 2, repeat: Infinity }}
               />
               <span className="italic">
-                Disponible dans les sept prochains jours
+                {echeance ?? "Disponible dans les sept prochains jours"}
               </span>
             </div>
           </div>
