@@ -62,7 +62,8 @@ const UNITES = [
 ];
 // T4 FY26 : 39,3 + 37,8 + 12,9 = 90,0 Mds $.
 const REPARTITION = [["Intelligent Cloud", 43.7], ["Productivity & Business", 42.0], ["More Personal Computing", 14.3]] as [string, number][];
-const ANTITHESE = ["Capex 2026 en forte hausse pour l’IA : le retour sur ces investissements n’est pas encore démontré.", "Concentration du carnet cloud sur quelques très grands contrats d’IA.", "Pression réglementaire (Union européenne, FTC) sur les offres groupées."];
+// Extraits de l anti-thèse Mettrik de Microsoft (rédigée en juillet 2026).
+const ANTITHESE = ["116 Mds $ investis dans les centres de données en un an, près du double de l’exercice précédent, et 744 Mds $ de paiements futurs engagés.", "Le capex double presque et la trésorerie disponible recule.", "OpenAI, client et partenaire, pèse déjà 24 Mds $ du chiffre d’affaires annuel.", "Xbox décroche, avec dépréciation à la clé."];
 
 function Sparkline({ serie, t, fill = false }: { serie: [string, number][]; t: Theme; fill?: boolean }) {
   const W = 420, H = 120, p = 18;
@@ -255,7 +256,7 @@ function Terminal({ variante }: { variante: keyof typeof THEMES }) {
         <Panel t={t} code="ATT" titre="Anti-thèse d’investissement" className="lg:col-span-7">
           <div className="flex items-center gap-2 text-[11px]">
             <span className="px-1.5 py-px font-bold" style={{ background: t.accent, color: "#000" }}>Modérée</span>
-            <span style={{ color: t.dim }}>rédigée en août 2026, documents jusqu’en juillet 2026</span>
+            <span style={{ color: t.dim }}>rédigée en juillet 2026, documents jusqu’au 29 juillet 2026</span>
           </div>
           <ul className="mt-1.5 space-y-1 text-[11px]">
             {ANTITHESE.map((a) => <li key={a} className="flex gap-2"><span style={{ color: t.down }}>■</span><span>{a}</span></li>)}
