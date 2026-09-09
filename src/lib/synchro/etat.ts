@@ -70,6 +70,35 @@ function maxDate(dates: (string | undefined | null)[]): string | null {
   return m;
 }
 
+/** Date la plus recente trouvee dans les noms de fichiers du data-lake de la societe. */
+async function dernierDocDataLake(ticker: string): Promise<string | null> {
+  const base = path.join(ROOT, "data-lake", ticker.toUpperCase());
+  const dossiers = ["10Q", "10K", "ir/S1", "ir/URD", "ir/COMMUNIQUES", "ir/SLIDES", "8K"];
+  let max: string | null = null;
+  for (const d of dossiers) {
+    let noms: string[] = [];
+    try {
+      noms = await fs.readdir(path.join(base, d));
+    } catch {
+      continue;
+    }
+    for (const n of noms) {
+      const m = n.match(/(20\d{2}-\d{2}-\d{2})/);
+      if (m && (!max || m[1]! > max)) max = m[1]!;
+    }
+  }
+  return max;
+}
+
+/** Dernier jour du trimestre civil qui precede la date donnee. */
+function finTrimestrePrecedent(iso: string): string {
+  const d = new Date(iso);
+  const m = d.getUTCMonth();
+  const debutTrim = new Date(Date.UTC(d.getUTCFullYear(), m - (m % 3), 1));
+  const fin = new Date(debutTrim.getTime() - 86_400_000);
+  return fin.toISOString().slice(0, 10);
+}
+
 type Kpi = { short?: string; last_data_date?: string; is_short_history?: boolean; story_category?: string; history?: unknown[] };
 
 async function calculer(): Promise<EtatSynchro> {
@@ -93,8 +122,23 @@ async function calculer(): Promise<EtatSynchro> {
     const pageStories = maxDate(kpis.filter(estStory).map((k) => k.last_data_date));
     const pageTr = maxDate([tr?.latest?.date]);
     const depot = enrich?.latest_filing;
-    const reel = depot?.period_end && /^\d{4}-\d{2}-\d{2}/.test(depot.period_end) ? depot.period_end.slice(0, 10) : null;
-    const depose = depot?.date && /^\d{4}-\d{2}-\d{2}/.test(depot.date) ? depot.date.slice(0, 10) : null;
+    let reel = depot?.period_end && /^\d{4}-\d{2}-\d{2}/.test(depot.period_end) ? depot.period_end.slice(0, 10) : null;
+    let depose = depot?.date && /^\d{4}-\d{2}-\d{2}/.test(depot.date) ? depot.date.slice(0, 10) : null;
+    // Reference derivee (9 sept 2026) : quand la date SEC n est pas dans enrich
+    // (342 societes US) ou pour les societes europeennes, le document le plus
+    // recent du data-lake (10-Q, 10-K, rapport semestriel, URD, communique,
+    // date dans le nom du fichier) donne la date de publication ; la fin de
+    // periode retenue est la fin du trimestre civil qui precede. Tolerance
+    // elargie a 45 jours pour les exercices decales.
+    let derive = false;
+    if (!reel || !depose) {
+      const d = await dernierDocDataLake(t);
+      if (d) {
+        depose = d;
+        reel = finTrimestrePrecedent(d);
+        derive = true;
+      }
+    }
 
     const juger = (cat: CategorieSynchro, page: string | null, tolerance: number) => {
       const c = cats[cat];
@@ -117,8 +161,8 @@ async function calculer(): Promise<EtatSynchro> {
         c.retards.push({ ticker: t, page, reel, depose, joursRetard: jours(new Date().toISOString(), depose) });
       }
     };
-    juger("kpi_ic", pageIc, 10);
-    juger("kpi_stories", pageStories, 10);
+    juger("kpi_ic", pageIc, derive ? 45 : 10);
+    juger("kpi_stories", pageStories, derive ? 45 : 10);
     // Un transcript est date du jour de la conference, quelques jours autour
     // du depot : on compare a la date du depot avec 45 jours de marge.
     juger("transcripts", pageTr, reel && depose ? Math.max(45, jours(depose, reel) + 10) : 45);

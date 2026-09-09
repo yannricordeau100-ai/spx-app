@@ -50,3 +50,21 @@ Regles absolues :
 Contraintes de validation (_valide.py) : ticker conforme, top.n entre 1 et 3,
 top10.n entre 6 et 10 (ou bloc top10 null si vraiment rien), source presente des
 qu un pct est renseigne, pas de tiret long, JSON valide.
+
+## Complement du 9 sept 2026 : objectif 70 % de couverture top 6-10, estimations encadrees
+
+Le proprietaire veut au moins 70 % des societes avec une part top 6-10 (au 9 sept :
+72 sur 666). Ordre de recherche, exercices 2025 puis 2024 :
+ 1. documents officiels (10-K, 20-F, rapport annuel, URD, presentation investisseurs,
+    transcript de conference de resultats) ;
+ 2. sites de donnees et presse specialisee (CSIMarket, Bloomberg, Reuters, Statista,
+    Craft, Zippia, GlobalData, rapports sectoriels), posts X (recherche `site:x.com`) ;
+ 3. en dernier recours, ESTIMATION raisonnee par l agent a partir des faits publies
+    (nombre de clients, structure du marche, part du premier client, secteur), avec
+    une note de fiabilite honnete : `haute`, `moyenne` ou `faible`. Seules `haute`
+    et `moyenne` sont enregistrees ; `faible` reste null avec commentaire.
+
+Format d une estimation dans `top10` : `"estimation": true, "fiabilite": "moyenne",
+"methode": "phrase expliquant le raisonnement", "source": {"url": "document de
+reference utilise", "titre": "Estimation a partir de ..."}`. La fiche affiche alors
+« ≈ x % · estimation ». Une valeur publiee prime toujours sur une estimation.

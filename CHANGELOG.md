@@ -202,3 +202,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.09.3 (09 Sep 2026 03:00, apres 9d4c1eaf33)
 - tableau KPI en deux groupes (avances, standard depliable), annotations Cahier retirees, floutage separe kpis/kpis_standard + moat, clients, tam, unites, prochains resultats
+
+## v2026.09.09.4 (09 Sep 2026 03:24, apres 44291ef64f)
+- Hermes 8 KPI sur 10 ans, marqueur estimation, synchro reference data-lake, chip blanche, GICS 4 niveaux, sandbox peu utilise

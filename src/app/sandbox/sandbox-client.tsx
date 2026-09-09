@@ -265,13 +265,6 @@ const SECTIONS: SandboxSection[] = [
         desc: "Audit historique hero KPI (451 stés ≥5 ans / 1608 stés <5 ans) + Library KPI génériques (Revenue, EBITDA, EPS, etc.) avec toggle activation par catégorie. Yann 19 mai 2026.",
       },
       {
-        href: "/sandbox/kpi-search",
-        mots: ["chercher un indicateur", "moteur de recherche KPI", "trouver un KPI existant", "fuzzy"],
-        icon: Sparkles,
-        label: "Recherche KPIs (7634 indexés)",
-        desc: "Moteur de recherche fuzzy sur les 7634 KPIs uniques de 640 stés V1.9.5. Filtres période/min stés/wow, top 20 résultats live, lazy load des détails par KPI.",
-      },
-      {
         href: "/sandbox/visual-audit",
         mots: ["audit visuel", "défauts visuels", "Gemini", "capture des pages"],
         groupe: "Couverture et statuts des données",
@@ -713,15 +706,15 @@ function GroupeCard({ titre, items, onOpen }: { titre: string; items: SandboxIte
 const DEUX_MOIS_MS = 60 * 86_400_000;
 const DERNIERE_TOUCHE = (LAST_TOUCH as { routes: Record<string, string | null> }).routes;
 
-/** Peu utilise = ni vert (defaut), ni ouvert par le proprietaire depuis 2 mois,
- *  ni modifie dans le depot depuis 2 mois. */
+/** Peu utilise = ni signale (vert, orange, bleu, surligne), ni ouvert par le
+ *  proprietaire depuis 2 mois (clics enregistres dans ce navigateur). La date
+ *  du dernier commit de la route ne compte plus : les retouches de code ne
+ *  disent rien de l usage reel (controle du 9 sept 2026 : 9 outils seulement). */
 function estPeuUtilise(item: SandboxItem, usage: Record<string, string>): boolean {
-  if (item.accent === "default" || item.soon) return false;
-  const maintenant = Date.now();
+  if (item.accent || item.soon) return false;
   const clic = usage[item.href];
-  if (clic && maintenant - Date.parse(clic) < DEUX_MOIS_MS) return false;
-  const touche = DERNIERE_TOUCHE[item.href];
-  if (touche && maintenant - Date.parse(touche) < DEUX_MOIS_MS) return false;
+  if (clic && Date.now() - Date.parse(clic) < DEUX_MOIS_MS) return false;
+  void DERNIERE_TOUCHE;
   return true;
 }
 

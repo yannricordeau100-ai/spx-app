@@ -739,8 +739,22 @@ export function CompanyView({
   // ou KPI nouveau), en couleur dans le graphe. Compares sur les periodes
   // reelles de la serie annuelle, puis decales par la coupe d affichage.
   // 9 sept 2026 (demande du proprietaire) : plus aucune annotation « nouveau »
-  // ou « allonge » sur les fiches : les points du Cahier ne sont plus colores.
-  const chartHighlight = useMemo(() => [] as number[], []);
+  // ou « allonge » sur les fiches. Seuls les points ESTIMES (annee manquante
+  // reconstituee, champ _estime) restent signales dans le graphe, avec un
+  // asterisque explique sous la ligne du KPI.
+  const chartHighlight = useMemo(() => {
+    const per = (active as { _estime?: string[] } | null)?._estime;
+    const hp = (active as { history_periods?: string[] } | null)?.history_periods;
+    if (!active || !Array.isArray(per) || per.length === 0 || !Array.isArray(hp)) return [] as number[];
+    if (hp.length !== chartHistoryRawFull.length) return [] as number[];
+    const set = new Set(per.map((x) => String(x).trim().replace(/^FY\s*/i, "")));
+    const offset = chartHistoryRawFull.length - chartHistoryRaw.length;
+    const out: number[] = [];
+    hp.forEach((x, i) => {
+      if (set.has(String(x).trim().replace(/^FY\s*/i, "")) && i - offset >= 0) out.push(i - offset);
+    });
+    return out;
+  }, [active, chartHistoryRawFull, chartHistoryRaw]);
 
   // Yann 16 mai 2026 — RECETTE CANONIQUE (cf. docs/CHART-RECIPE.md).
   //
@@ -1902,6 +1916,7 @@ export function CompanyView({
                 non-TTM de `chartSpec.values`. Si timeFraction != "year",
                 applique le divisor déjà utilisé côté chart (cf
                 chart-cycle.tsx ligne 285). */}
+            <div data-blur-part="tableau">
             {visibleKpis.map((kpi) => {
               const isActive = kpi.short === active.short;
               // Yann 18 août 2026 : en tier free, la 1re ligne (KPI physique
@@ -1925,6 +1940,7 @@ export function CompanyView({
                 />
               );
             })}
+            </div>
             {hiddenCount > 0 && (
               <button
                 data-blur-part="voir-plus"

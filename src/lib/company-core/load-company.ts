@@ -2835,6 +2835,11 @@ async function loadV17CompanyBrut(
           ...(typeof (k as { _cahier?: string })._cahier === "string"
             ? { _cahier: (k as { _cahier?: string })._cahier }
             : {}),
+          // 9 sept 2026 : periodes ESTIMEES (annee manquante reconstituee par la
+          // moyenne des annees voisines), marquees d un asterisque sur la fiche.
+          ...(Array.isArray((k as { _estime?: string[] })._estime)
+            ? { _estime: (k as { _estime?: string[] })._estime }
+            : {}),
           ...(Array.isArray((k as { _cahier_periodes?: string[] })._cahier_periodes)
             ? { _cahier_periodes: (k as { _cahier_periodes?: string[] })._cahier_periodes }
             : {}),

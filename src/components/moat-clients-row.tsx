@@ -90,7 +90,8 @@ function BlocClients({ c, accent }: { c: ClientsConcentration; accent: string })
             )}
             {c.top10 && c.top10.pct !== null && c.top10.pct !== undefined && (
               <div className="mt-0.5 text-[13px] text-zinc-200">
-                <span className="font-semibold text-cyan-200">{c.top10.n} plus gros clients</span> : {pctLabel(c.top10.pct, c.top10.plafond)}
+                <span className="font-semibold text-cyan-200">{c.top10.n} plus gros clients</span> : {c.top10.estimation ? "≈ " : ""}{pctLabel(c.top10.pct, c.top10.plafond)}
+                {c.top10.estimation && <span className="ml-1 text-[10.5px] text-zinc-500" title={`Estimation (fiabilité ${c.top10.fiabilite ?? "moyenne"}), pas une donnée publiée`}>estimation</span>}
               </div>
             )}
             {c.diffus && (

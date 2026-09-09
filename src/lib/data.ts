@@ -29,6 +29,8 @@ export type KPI = {
    * compat; if missing we fall back to "unknown" indicator.
    */
   last_data_date?: string;
+  /** 9 sept 2026 : periodes dont la valeur est une ESTIMATION (moyenne des annees voisines), ex ["FY2019"]. Asterisque sur la fiche. */
+  _estime?: string[];
   /** French name (full). */
   name_fr: string;
   /** Original English name (kept under FR). Optional if FR == EN. */
@@ -287,7 +289,7 @@ export type RevenueHistoryEntry = {
 export type ClientsSource = { url: string; titre: string };
 export type ClientsConcentration = {
   top: { n: number; pct: number | "<1" | null; plafond: boolean; exercice?: string; clients: string[]; commentaire?: string; source?: ClientsSource };
-  top10: { n: number; pct: number | "<1" | null; plafond: boolean; exercice?: string; commentaire?: string; source?: ClientsSource } | null;
+  top10: { n: number; pct: number | "<1" | null; plafond: boolean; exercice?: string; commentaire?: string; source?: ClientsSource; estimation?: boolean; fiabilite?: string } | null;
   diffus: boolean;
 };
 

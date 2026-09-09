@@ -168,6 +168,9 @@ export function KpiRow({
             <div className="text-[14px] font-medium leading-snug text-zinc-100">
               {primaryName}
               {/* 9 sept 2026 : plus de pastille « Nouveau / Allonge / Autre » (demande du proprietaire). */}
+              {Array.isArray((kpi as { _estime?: string[] })._estime) && (kpi as { _estime?: string[] })._estime!.length > 0 && (
+                <span className="ml-1 align-middle font-mono text-[12px] text-amber-300" title="Une ou plusieurs annees estimees, voir la note sous le nom">*</span>
+              )}
               {/* Yann 07 sept 2026 : le "i" vit DANS la ligne de texte (inline),
                   colle au dernier mot meme quand le nom passe sur 2 lignes.
                   Avant, il etait un frere flex et partait tout a droite. */}
@@ -225,6 +228,11 @@ export function KpiRow({
         {/* Yann 24 aout 2026 : chip categorie/nature ("Structurel", "Volume"...)
             supprimee sous le nom du KPI. Elle allongeait la ligne sans apport
             de lecture. */}
+        {Array.isArray((kpi as { _estime?: string[] })._estime) && (kpi as { _estime?: string[] })._estime!.length > 0 && (
+          <div className="mt-0.5 text-[10.5px] leading-snug text-amber-300/80">
+            * {(kpi as { _estime?: string[] })._estime!.map((x) => x.replace(/^FY\s*/i, "")).join(", ")} : estimation, moyenne des années voisines (valeur non publiée).
+          </div>
+        )}
       </div>
 
       {/* COL 2 — Valeur · variation (3 cols) */}
@@ -246,7 +254,7 @@ export function KpiRow({
         {/* Yann 13 mai 2026 : tolère yoy nombre brut (ex GWW yoy=4.5, DINO yoy=-6
            sortis du pipeline LLM sans formatting) en plus de la string standard
            ("+4.5%"). Pour les nombres : ajoute le signe + et le %. */}
-        {(() => {
+        <span data-blur-part="variation">{(() => {
           // Yann 14 mai 2026 : fallback calculé depuis history quand kpi.yoy
           // est vide (1 049 KPIs concernés dans le SP1500). Évite pill vide.
           let yoyStr: string | null = null;
@@ -338,7 +346,7 @@ export function KpiRow({
               <span>)</span>
             </div>
           );
-        })()}
+        })()}</span>
         </div>
         {/* Ligne secondaire compacte : periode de reference + CAGR. */}
         <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
