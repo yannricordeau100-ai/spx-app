@@ -18,15 +18,17 @@ import { MockupPriceChartTests } from "./mockups/price-chart-tests";
 import { MockupMoatTendance } from "./mockups/moat-tendance";
 import { MockupClientsConcentration } from "./mockups/clients-concentration";
 import { MockupGicsAccueil } from "./mockups/gics-accueil";
+import { MockupTerminalBloomberg } from "./mockups/terminal-bloomberg";
 
 type Tab =
   | "mk-screener" | "mk-compare" | "mk-landing" | "mk-onboarding" | "mk-email-templates"
-  | "mk-header-bar" | "mk-price-chart" | "mk-dividend" | "mk-moat-tendance" | "mk-clients" | "mk-gics";
+  | "mk-header-bar" | "mk-price-chart" | "mk-dividend" | "mk-moat-tendance" | "mk-clients" | "mk-gics" | "mk-terminal";
 
 // 9 sept 2026 : les doublons « Email » et « Chart » (labs deja accessibles sur
 // /email-lab et /chart-lab) sont retires ; un seul onglet par sujet, sans
 // pictogramme devant le titre.
 const TABS: { id: Tab; label: string }[] = [
+  { id: "mk-terminal", label: "Page sté façon terminal" },
   { id: "mk-gics", label: "GICS accueil" },
   { id: "mk-clients", label: "Concentration clients" },
   { id: "mk-moat-tendance", label: "Moat : tendance Mettrik" },
@@ -41,7 +43,7 @@ const TABS: { id: Tab; label: string }[] = [
 ];
 
 export function ConceptsClient() {
-  const [tab, setTab] = useState<Tab>("mk-gics");
+  const [tab, setTab] = useState<Tab>("mk-terminal");
   const [ticker, setTicker] = useState<string>("META");
   const [query, setQuery] = useState<string>("");
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
@@ -225,6 +227,7 @@ export function ConceptsClient() {
         {tab === "mk-moat-tendance" && <MockupMoatTendance />}
         {tab === "mk-clients" && <MockupClientsConcentration />}
         {tab === "mk-gics" && <MockupGicsAccueil />}
+        {tab === "mk-terminal" && <MockupTerminalBloomberg />}
       </div>
     </div>
   );
