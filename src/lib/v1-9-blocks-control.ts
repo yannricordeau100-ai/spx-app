@@ -21,7 +21,8 @@ export type BlockId =
   | "clients"
   | "tam"
   | "unites"
-  | "prochains_resultats";
+  | "prochains_resultats"
+  | "antithese";
 
 export const BLOCK_LABELS: Record<BlockId, string> = {
   hero: "Hero KPI",
@@ -42,8 +43,9 @@ export const BLOCK_LABELS: Record<BlockId, string> = {
   moat: "Moat · Avantage compétitif",
   clients: "Clients · Concentration du chiffre d’affaires",
   tam: "Position marché · TAM",
-  unites: "Comprendre les unités (Matériaux, Énergie)",
-  prochains_resultats: "Bandeau prix : Prochains résultats",
+  unites: "Comprendre les unités (toutes les stés)",
+  prochains_resultats: "Bandeau prix : Prochains résultats (archivé)",
+  antithese: "Anti-thèse d’investissement",
 };
 
 export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
@@ -67,6 +69,7 @@ export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
   tam: "La position marché (part captée du marché adressable) est en préparation.",
   unites: "Le dépliant des unités du secteur arrive.",
   prochains_resultats: "La date des prochains résultats arrive.",
+  antithese: "L’anti-thèse d’investissement est en préparation.",
 };
 
 type ControlData = {

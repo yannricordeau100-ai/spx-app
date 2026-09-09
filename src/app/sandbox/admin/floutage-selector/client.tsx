@@ -335,7 +335,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
         </div>
         <iframe
           ref={frameRef}
-          src={`/sandbox/v1-9-5/${ticker.toLowerCase()}${search}`}
+          src={`/${ticker.toLowerCase()}${search}`}
           onLoad={injecte}
           className="h-[92vh] w-full rounded-xl border border-white/10 bg-black"
           title="aperçu"

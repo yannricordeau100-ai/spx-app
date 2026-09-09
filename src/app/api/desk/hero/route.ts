@@ -33,7 +33,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { NextResponse, type NextRequest } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
@@ -224,6 +224,9 @@ export async function POST(req: NextRequest) {
 
   try {
     revalidatePath("/", "layout");
+    // 9 sept 2026 : le hero est applique DANS la fiche mise en cache partage
+    // 6 h (tag « fiches ») ; sans cette purge le changement restait invisible.
+    revalidateTag("fiches", "max");
   } catch {
     // pas critique
   }
@@ -255,6 +258,9 @@ export async function DELETE(req: NextRequest) {
   invalidateHeroOverridesCache();
   try {
     revalidatePath("/", "layout");
+    // 9 sept 2026 : le hero est applique DANS la fiche mise en cache partage
+    // 6 h (tag « fiches ») ; sans cette purge le changement restait invisible.
+    revalidateTag("fiches", "max");
   } catch {
     // pas critique
   }

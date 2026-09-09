@@ -191,11 +191,11 @@ export function AntiTheseCard({
     : [];
 
   return (
-    <section id="sec-anti-these" className="mt-9 scroll-mt-24 animate-fade-up-d2">
+    <section id="sec-anti-these" data-blur="antithese" className="mt-9 scroll-mt-24 animate-fade-up-d2">
       {/* Header : titre + badge intensité + dates */}
       <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h2 className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
+          <h2 data-blur-part="titre" className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
             <Scale className="size-5" style={{ color: accent }} />
             Anti-thèse d&apos;investissement
             <span
@@ -224,8 +224,11 @@ export function AntiTheseCard({
         </div>
       </div>
 
-      {/* Hook : TOUJOURS visible, en clair, mis en valeur */}
+      {/* Hook : TOUJOURS visible, en clair, mis en valeur.
+          9 sept 2026 : bloc « antithese » pilotable dans le selecteur de
+          floutage (parties titre / texte). */}
       <div
+        data-blur-part="texte"
         className="relative overflow-hidden rounded-xl border p-5"
         style={{
           borderColor: "rgba(167, 139, 250, 0.35)",
@@ -238,6 +241,7 @@ export function AntiTheseCard({
         </p>
       </div>
 
+      <div data-blur-part="texte">
       {att.locked ? (
         <LockedPlaceholder />
       ) : (
@@ -337,6 +341,7 @@ export function AntiTheseCard({
           )}
         </div>
       )}
+      </div>
     </section>
   );
 }

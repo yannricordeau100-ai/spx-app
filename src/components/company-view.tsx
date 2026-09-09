@@ -2007,8 +2007,15 @@ export function CompanyView({
           {/* 8 sept 2026 : condition sur le CODE GICS (15 Materiaux, 10 Energie),
               le libelle `sector` variant d une fiche a l autre (Materiaux,
               Materials, Basic Materials...) ; contenu adapte au secteur. */}
-          {isBlockEnabled("unites", company.ticker) && (company.gics_code ?? "").startsWith("15") && <UnitesMateriaux secteur="materiaux" />}
-          {isBlockEnabled("unites", company.ticker) && (company.gics_code ?? "").startsWith("10") && <UnitesMateriaux secteur="energie" />}
+          {/* 9 sept 2026 (Yann) : sur TOUTES les fiches, avec surlignage des
+              unites reellement portees par les KPI de la sté (axe Y). */}
+          {isBlockEnabled("unites", company.ticker) && (
+            <UnitesMateriaux
+              gicsCode={company.gics_code}
+              secteurLabel={company.sector}
+              unites={company.kpis.map((k) => k.unit)}
+            />
+          )}
         </section>
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
@@ -2161,7 +2168,6 @@ export function CompanyView({
                   // 9 sept 2026 : societe introduite en bourse recemment (ex SpaceX,
                   // juin 2026) : aucun document d assemblee generale n existe encore.
                   hint: `Introduite en bourse en ${company.ipo} : le premier document d’assemblée générale (rémunération, actionnaires, votes) n’est pas encore publié.`,
-                  echeance: `Attendu au printemps ${company.ipo + 1}, après la première assemblée générale`,
                 }
               : {})}
           />

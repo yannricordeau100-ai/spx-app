@@ -2830,18 +2830,13 @@ async function loadV17CompanyBrut(
           ...(typeof (k as { _added_batch?: string })._added_batch === "string"
             ? { _added_batch: (k as { _added_batch?: string })._added_batch }
             : {}),
-          // 6 sept 2026 : marquage des KPI poses depuis le Cahier (nouveau,
-          // allonge, autre) et des periodes ajoutees, pour l affichage en couleur.
-          ...(typeof (k as { _cahier?: string })._cahier === "string"
-            ? { _cahier: (k as { _cahier?: string })._cahier }
-            : {}),
+          // 9 sept 2026 (Yann) : les marquages Cahier (_cahier « nouveau /
+          // allonge », _cahier_periodes) ne sont plus transmis a la fiche :
+          // aucune mention ne doit apparaitre sur les pages.
           // 9 sept 2026 : periodes ESTIMEES (annee manquante reconstituee par la
           // moyenne des annees voisines), marquees d un asterisque sur la fiche.
           ...(Array.isArray((k as { _estime?: string[] })._estime)
             ? { _estime: (k as { _estime?: string[] })._estime }
-            : {}),
-          ...(Array.isArray((k as { _cahier_periodes?: string[] })._cahier_periodes)
-            ? { _cahier_periodes: (k as { _cahier_periodes?: string[] })._cahier_periodes }
             : {}),
           ...(typeof (k as { explanation_fr?: string }).explanation_fr === "string"
             ? { explanation_fr: (k as { explanation_fr?: string }).explanation_fr }

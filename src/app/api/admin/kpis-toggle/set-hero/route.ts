@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { invalidateHeroOverridesCache } from "@/lib/company-core/hero-kpi-overrides";
@@ -161,6 +161,9 @@ export async function POST(req: NextRequest) {
   try {
     revalidatePath("/admin/kpis-toggle");
     revalidatePath("/", "layout");
+    // 9 sept 2026 : le hero est applique DANS la fiche mise en cache partage
+    // 6 h (tag « fiches ») ; sans cette purge le changement restait invisible.
+    revalidateTag("fiches", "max");
   } catch {
     // pas critique
   }

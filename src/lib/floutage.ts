@@ -222,6 +222,7 @@ export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
   tam: ["tout", "titre", "valeur", "graphique", "texte", "source"],
   unites: ["tout", "titre", "tableau"],
   prochains_resultats: ["tout", "valeur"],
+  antithese: ["tout", "titre", "texte"],
 };
 
 /** Transforme des zones nommees en regles, pour reutiliser applyFloutageRules. */

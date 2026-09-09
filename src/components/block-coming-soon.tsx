@@ -8,7 +8,8 @@ import { BLOCK_LABELS, BLOCK_PLACEHOLDER_HINTS } from "@/lib/v1-9-blocks-control
 /**
  * Placeholder gracieux affiché à la place d'un bloc désactivé (admin V1.9.5).
  * Style cohérent V1.9.5 : carte zinc/emerald, icône horloge animée,
- * message contextuel par bloc, "Disponible dans les 7 prochains jours".
+ * message contextuel par bloc, "Disponible bientôt" (Yann 9 sept 2026 :
+ * jamais de délai chiffré, quel que soit le bloc).
  */
 export function BlockComingSoon({
   blockId,
@@ -22,7 +23,7 @@ export function BlockComingSoon({
   className?: string;
   /** 9 sept 2026 : message contextuel (ex introduction en bourse recente). */
   hint?: string;
-  /** 9 sept 2026 : remplace « Disponible dans les sept prochains jours ». */
+  /** Ligne d échéance libre (rarement utilisée) ; par défaut « Disponible bientôt ». */
   echeance?: string;
 }) {
   const label = BLOCK_LABELS[blockId] ?? "Section";
@@ -73,7 +74,7 @@ export function BlockComingSoon({
                 transition={{ duration: 2, repeat: Infinity }}
               />
               <span className="italic">
-                {echeance ?? "Disponible dans les sept prochains jours"}
+                {echeance ?? "Disponible bientôt"}
               </span>
             </div>
           </div>
