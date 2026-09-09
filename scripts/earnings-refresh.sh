@@ -76,6 +76,8 @@ print(','.join(reversed(ms)))")
   else
     echo "aucun transcript modifie en 24 h : pas de synthese a refaire"
   fi
+  echo "=== $(date '+%F %T') dates du data-lake (reference /sandbox/synchro) ==="
+  python3 scripts/data-lake-dates.py
   echo "=== $(date '+%F %T') controle des publications attendues ==="
   # Compare le calendrier des resultats a ce qui est reellement tombe dans le
   # data-lake. Sans ce controle, une publication captee par personne passe

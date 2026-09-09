@@ -103,6 +103,7 @@ type Kpi = { short?: string; last_data_date?: string; is_short_history?: boolean
 
 async function calculer(): Promise<EtatSynchro> {
   const uni = await lireJson<{ tickers: string[] }>(path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json"));
+  const datesLake = await lireJson<{ dates?: Record<string, string> }>(path.join(ROOT, "src/data/_data-lake-dernier-doc.json"));
   const tickers = uni?.tickers ?? [];
   const vide = (): EtatCategorie => ({ aJour: 0, enRetard: 0, sansDonnee: 0, horsSec: 0, retards: [], horsSecListe: [], pointLePlusRecent: null });
   const cats: Record<CategorieSynchro, EtatCategorie> = { transcripts: vide(), kpi_ic: vide(), kpi_stories: vide() };
@@ -132,7 +133,10 @@ async function calculer(): Promise<EtatSynchro> {
     // elargie a 45 jours pour les exercices decales.
     let derive = false;
     if (!reel || !depose) {
-      const d = await dernierDocDataLake(t);
+      // Sur Vercel le data-lake n est pas deploye : on lit le releve committe
+      // (src/data/_data-lake-dernier-doc.json, scripts/data-lake-dates.py),
+      // puis le disque en local.
+      const d = datesLake?.dates?.[t] ?? (await dernierDocDataLake(t));
       if (d) {
         depose = d;
         reel = finTrimestrePrecedent(d);
