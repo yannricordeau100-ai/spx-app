@@ -2,27 +2,52 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown, GitCompare } from "lucide-react";
+import { useEffect, useState } from "react";
 import type { KPI } from "@/lib/data";
-import type { findComparable } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { useT } from "@/lib/i18n/provider";
 
-type Comparables = ReturnType<typeof findComparable>;
+type Item = { ticker: string; name: string; short: string };
+
+/** Suffixe ?audit_token=... repris de l adresse de la page (controle interne). */
+export function suffixeJeton(prefixe: "?" | "&"): string {
+  if (typeof window === "undefined") return "";
+  const j = new URLSearchParams(window.location.search).get("audit_token");
+  return j ? `${prefixe}audit_token=${encodeURIComponent(j)}` : "";
+}
 
 export function CompareControl({
-  comparables,
+  ticker,
   activeKpi,
   open,
   onToggle,
   onPick,
 }: {
-  comparables: Comparables;
+  ticker: string;
   activeKpi: KPI;
   open: boolean;
   onToggle: () => void;
   onPick: (t: string) => void;
 }) {
   const { t, locale } = useT();
+  // Yann 11 sept 2026 : liste servie par /api/compare sur les 666 fiches
+  // (cle de comparabilite = libelle normalise + famille d unite).
+  const [comparables, setComparables] = useState<Item[] | null>(null);
+  const [refus, setRefus] = useState(false);
+  useEffect(() => {
+    if (!open) return;
+    let vivant = true;
+    setComparables(null);
+    fetch(`/api/compare?t=${encodeURIComponent(ticker)}&k=${encodeURIComponent(activeKpi.short)}${suffixeJeton("&")}`)
+      .then(async (r) => {
+        if (!vivant) return;
+        if (r.status === 403) { setRefus(true); setComparables([]); return; }
+        const j = (await r.json()) as { items?: Item[] };
+        setComparables(j.items ?? []);
+      })
+      .catch(() => vivant && setComparables([]));
+    return () => { vivant = false; };
+  }, [open, ticker, activeKpi.short]);
   const kpiName = locale === "en" && activeKpi.name_en ? activeKpi.name_en : activeKpi.name_fr;
   const triggerClass =
     "inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-2.5 py-2 sm:px-3.5 text-sm font-medium text-zinc-200 transition-colors hover:border-[#3a3a3a] hover:text-zinc-50 disabled:opacity-50";
@@ -31,7 +56,6 @@ export function CompareControl({
     <div className="relative">
       <button
         onClick={onToggle}
-        disabled={comparables.length === 0}
         className={triggerClass}
       >
         <GitCompare className="size-4" />
@@ -61,42 +85,33 @@ export function CompareControl({
               </div>
             </div>
             <div className="max-h-72 overflow-y-auto py-1">
-              {comparables.length === 0 ? (
+              {comparables === null ? (
+                <div className="px-3 py-4 text-[12px] text-zinc-400">Recherche des sociétés comparables…</div>
+              ) : refus ? (
+                <div className="px-3 py-4 text-[12px] text-zinc-300">La comparaison entre sociétés est réservée aux abonnés.</div>
+              ) : comparables.length === 0 ? (
                 <div className="px-3 py-4 text-[12px] text-zinc-400">
                   {t("company.compare.empty")}&nbsp;
-                  <em>{activeKpi.short}</em>.
+                  <em>{kpiName}</em>.
                 </div>
               ) : (
-                comparables.map(({ ticker, company, matchedKpi, score }) => {
-                  const accent = brand(ticker).primary;
+                comparables.map(({ ticker: tk, name, short }) => {
+                  const accent = brand(tk).primary;
                   return (
                     <button
-                      key={ticker}
-                      onClick={() => onPick(ticker)}
+                      key={tk}
+                      onClick={() => onPick(tk)}
                       className="flex w-full items-start justify-between gap-3 px-3 py-2.5 text-left transition-colors hover:bg-[#141414]"
                     >
                       <div className="flex min-w-0 items-start gap-2.5">
-                        <span
-                          className="mt-1 size-2 shrink-0 rounded-full"
-                          style={{ background: accent }}
-                        />
+                        <span className="mt-1 size-2 shrink-0 rounded-full" style={{ background: accent }} />
                         <div className="min-w-0">
-                          <div className="text-[13px] font-medium text-zinc-100">
-                            {company.name}
-                          </div>
-                          <div className="truncate text-[11px] text-zinc-400">
-                            ↳ {matchedKpi.short} · {locale === "en" && matchedKpi.name_en ? matchedKpi.name_en : matchedKpi.name_fr}
-                          </div>
+                          <div className="text-[13px] font-medium text-zinc-100">{name}</div>
+                          <div className="truncate text-[11px] text-zinc-400">{short}</div>
                         </div>
                       </div>
-                      <span
-                        className={`mt-0.5 shrink-0 rounded-md px-1.5 py-0.5 font-mono text-[9.5px] uppercase tracking-wider ${
-                          score >= 100
-                            ? "bg-emerald-500/15 text-emerald-300"
-                            : "bg-zinc-700/30 text-zinc-300"
-                        }`}
-                      >
-                        {score >= 100 ? t("company.compare.direct") : t("company.compare.connex")}
+                      <span className="mt-0.5 shrink-0 rounded-md bg-emerald-500/15 px-1.5 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-emerald-300">
+                        {t("company.compare.direct")}
                       </span>
                     </button>
                   );

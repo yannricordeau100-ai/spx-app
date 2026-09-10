@@ -36,7 +36,6 @@ import {
   formatCAGR,
   formatKpiValue,
   formatUnit,
-  findComparable,
   getHero,
   interpretStructured,
   formatHeroValue,
@@ -476,7 +475,7 @@ export function CompanyView({
   // Yann 1er sept 2026 : fonctionnalite Comparer ARCHIVEE (retiree de l UI,
   // code conserve : CompareControl, ComparePanel, compare-overlay-chart).
   // Reactivation : passer COMPARER_ACTIF a true, rien d autre a toucher.
-  const COMPARER_ACTIF = false;
+  const COMPARER_ACTIF = true; // Yann 11 sept 2026 : Comparer remis, branche sur les 666 fiches
   const [compareOpen, setCompareOpen] = useState(false);
   const [chartMode, setChartMode] = useChartMode("bars");
   // 10 sept 2026 (Yann) : plus de vue 3D, barres classiques uniquement (toggle 2D/3D retire).
@@ -1162,10 +1161,6 @@ export function CompanyView({
     />
   );
 
-  const comparables = useMemo(
-    () => findComparable(company.ticker, active.short),
-    [company.ticker, active.short]
-  );
 
   // Yann (1er juin 2026) : sociétés cotées depuis moins de 24 mois (7 stés
   // identifiées sur V1.9.5 = CRWV / FLTR.L / GEV / Q / RDDT / SNDK / SOLV).
@@ -1253,7 +1248,7 @@ export function CompanyView({
           <div className="ml-auto flex shrink-0 items-center gap-2">
             {COMPARER_ACTIF && (
             <CompareControl
-              comparables={comparables}
+              ticker={company.ticker}
               activeKpi={active}
               open={compareOpen}
               onToggle={() => setCompareOpen((o) => !o)}

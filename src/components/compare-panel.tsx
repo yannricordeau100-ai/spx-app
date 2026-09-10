@@ -11,13 +11,9 @@ import {
   Telescope,
   X,
 } from "lucide-react";
-import {
-  type Company,
-  type KPI,
-  COMPANIES,
-  formatHeroValue,
-  getHero,
-} from "@/lib/data";
+import { useEffect, useState } from "react";
+import { type Company, type KPI, formatHeroValue } from "@/lib/data";
+import { suffixeJeton } from "@/components/compare-control";
 import { yoyTone } from "@/lib/utils";
 import { brand, rate } from "@/lib/brand";
 import { buildCompareAnalysis, type CompareReadingTone } from "@/lib/compare";
@@ -35,10 +31,13 @@ const TONE_META: Record<
   watch: { color: "#06b6d4", icon: Telescope },
 };
 
-function defaultLabels(n: number): string[] {
-  const end = 2025;
-  return Array.from({ length: n }, (_, i) => String(end - n + 1 + i));
-}
+type Paire = {
+  labels: string[];
+  a: { ticker: string; name: string; subsector: string; kpi: KPI; valeurs: number[] };
+  b: { ticker: string; name: string; subsector: string; kpi: KPI; valeurs: number[]; uniteAlignee: string };
+  convertible: boolean;
+  notes: string[];
+};
 
 export function ComparePanel({
   sourceCompany,
@@ -51,23 +50,52 @@ export function ComparePanel({
   targetTicker: string;
   onClose: () => void;
 }) {
-  const target = COMPANIES[targetTicker];
-  if (!target) return null;
+  // Yann 11 sept 2026 : les deux series viennent du serveur, alignees sur
+  // les memes periodes et ramenees a la meme echelle d unite.
+  const [paire, setPaire] = useState<Paire | null>(null);
+  const [erreur, setErreur] = useState<string | null>(null);
+  useEffect(() => {
+    let vivant = true;
+    setPaire(null);
+    setErreur(null);
+    fetch(`/api/compare?a=${encodeURIComponent(sourceCompany.ticker)}&ka=${encodeURIComponent(sourceKpi.short)}&b=${encodeURIComponent(targetTicker)}${suffixeJeton("&")}`)
+      .then(async (r) => {
+        const j = await r.json();
+        if (!vivant) return;
+        if (!r.ok) setErreur(r.status === 403 ? "La comparaison entre sociétés est réservée aux abonnés." : j.message ?? "Comparaison impossible pour ce KPI.");
+        else setPaire(j as Paire);
+      })
+      .catch(() => vivant && setErreur("Comparaison indisponible pour le moment."));
+    return () => { vivant = false; };
+  }, [sourceCompany.ticker, sourceKpi.short, targetTicker]);
 
-  // Match the target KPI on compare_key, else fall back to hero
-  const matchedKpi =
-    target.kpis.find((k) => k.compare_key && k.compare_key === sourceKpi.compare_key) ??
-    getHero(target);
+  if (!paire) {
+    return (
+      <div className="relative rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-5 text-[13px] text-zinc-300">
+        <button onClick={onClose} className="absolute right-3 top-3 rounded-md p-1.5 text-zinc-300 hover:bg-[#161616]" aria-label="Fermer"><X className="size-4" /></button>
+        {erreur ?? "Chargement de la comparaison…"}
+      </div>
+    );
+  }
+  return <ComparePanelContenu paire={paire} sourceCompany={sourceCompany} onClose={onClose} />;
+}
+
+function ComparePanelContenu({ paire, sourceCompany, onClose }: { paire: Paire; sourceCompany: Company; onClose: () => void }) {
+  const target = { ticker: paire.b.ticker, name: paire.b.name, subsector: paire.b.subsector } as Company;
+  const sourceKpi: KPI = { ...paire.a.kpi, history: paire.a.valeurs, compare_key: "x" };
+  const matchedKpi: KPI = { ...paire.b.kpi, history: paire.b.valeurs, compare_key: "x" };
+  const kpiAnalyseB: KPI = { ...matchedKpi, unit: paire.b.uniteAlignee };
 
   const aAccent = brand(sourceCompany.ticker).primary;
   const bAccent = brand(target.ticker).primary;
 
   const analysis = buildCompareAnalysis(
     { ticker: sourceCompany.ticker, name: sourceCompany.name, kpi: sourceKpi },
-    { ticker: target.ticker, name: target.name, kpi: matchedKpi }
+    { ticker: target.ticker, name: target.name, kpi: kpiAnalyseB }
   );
+  if (paire.notes.length) analysis.watch.unshift(...paire.notes);
 
-  const labels = defaultLabels(sourceKpi.history.length);
+  const labels = paire.labels;
 
   const aTone = yoyTone(sourceKpi.yoy, sourceKpi.type);
   const bTone = yoyTone(matchedKpi.yoy, matchedKpi.type);
@@ -184,7 +212,7 @@ export function ComparePanel({
 
             {/* Per-side stats grid */}
             <div className="mt-4 grid grid-cols-3 gap-2">
-              <Stat label="CAGR 5 ans" value={stats.cagr === null ? "n/a" : pct(stats.cagr)} />
+              <Stat label="CAGR" value={stats.cagr === null ? "n/a" : pct(stats.cagr)} />
               <Stat label="Constance" value={stats.consistency} mono={false} />
               <Stat
                 label="Momentum"

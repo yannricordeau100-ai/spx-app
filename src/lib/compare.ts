@@ -205,7 +205,7 @@ export function buildCompareAnalysis(
           ? "écart de croissance significatif"
           : "écart de croissance majeur";
     readings.push({
-      label: "Vitesse de croissance composée (CAGR 5 ans)",
+      label: "Vitesse de croissance composée (CAGR sur la période commune)",
       body: `<strong>${a.name}</strong> : ${fmtPct(a.stats.cagr)} par an. <strong>${b.name}</strong> : ${fmtPct(
         b.stats.cagr
       )} par an. ${verdict.charAt(0).toUpperCase() + verdict.slice(1)} ; sur la durée, <strong>${cagrLeader.name}</strong> élargit l'écart contre <strong>${cagrLagger.name}</strong>.`,
