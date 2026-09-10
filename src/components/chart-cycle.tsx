@@ -371,7 +371,7 @@ export function ChartCycle({
   activeShort,
   onPickKpi,
   ttm = null,
-  barsVariant = "iso3d",
+  barsVariant = "classic",
   timeFraction = "year",
   exportTitle,
   shareText,

@@ -92,6 +92,97 @@ function secteurCle(gics: string | null | undefined): "materiaux" | "energie" | 
   return null;
 }
 
+/* 10 sept 2026 (Yann) : mini calculette de conversion vers l unité européenne
+   (celle donnée en référence dans les explications), et trois notions
+   expliquées simplement : le Mix, le WACC, la note « investment grade ». */
+const CONVERSIONS: { id: string; de: string; vers: string; f: (x: number) => number; note?: string }[] = [
+  { id: "lb", de: "lb (livre)", vers: "kg", f: (x) => x * 0.45359 },
+  { id: "oz", de: "oz (once)", vers: "g", f: (x) => x * 28.3495 },
+  { id: "ozt", de: "oz troy (or, argent)", vers: "g", f: (x) => x * 31.1035 },
+  { id: "ston", de: "short ton (tonne US)", vers: "t", f: (x) => x * 0.90718 },
+  { id: "gal", de: "gallon US", vers: "L", f: (x) => x * 3.78541 },
+  { id: "bbl", de: "baril (bbl)", vers: "L", f: (x) => x * 158.987 },
+  { id: "cf", de: "pied cube (cf)", vers: "m³", f: (x) => x * 0.0283168 },
+  { id: "mcf", de: "Mcf (1 000 pieds cubes)", vers: "m³", f: (x) => x * 28.3168 },
+  { id: "mmbtu", de: "MMBtu", vers: "kWh", f: (x) => x * 293.071 },
+  { id: "mile", de: "mile", vers: "km", f: (x) => x * 1.60934 },
+  { id: "ft", de: "pied (ft)", vers: "m", f: (x) => x * 0.3048 },
+  { id: "in", de: "pouce (in)", vers: "cm", f: (x) => x * 2.54 },
+  { id: "sqft", de: "pied carré (sq ft)", vers: "m²", f: (x) => x * 0.092903 },
+  { id: "acre", de: "acre", vers: "ha", f: (x) => x * 0.404686 },
+  { id: "f", de: "°F", vers: "°C", f: (x) => (x - 32) / 1.8 },
+  { id: "bu", de: "boisseau (bushel, volume)", vers: "L", f: (x) => x * 35.2391, note: "En masse : blé et soja 27,2 kg, maïs 25,4 kg par boisseau." },
+  { id: "hp", de: "cheval-vapeur (hp)", vers: "kW", f: (x) => x * 0.7457 },
+  { id: "mpg", de: "miles par gallon (mpg)", vers: "L/100 km", f: (x) => (x > 0 ? 235.215 / x : 0) },
+  { id: "usdlb", de: "$ par lb", vers: "$ par kg", f: (x) => x * 2.20462 },
+  { id: "usdgal", de: "$ par gallon", vers: "$ par L", f: (x) => x / 3.78541 },
+  { id: "usdbbl", de: "$ par baril", vers: "$ par L", f: (x) => x / 158.987 },
+  { id: "usdmmbtu", de: "$ par MMBtu", vers: "$ par MWh", f: (x) => x * 3.41214 },
+  { id: "usdsqft", de: "$ par sq ft", vers: "$ par m²", f: (x) => x * 10.7639 },
+];
+
+function Convertisseur() {
+  const [id, setId] = useState(CONVERSIONS[0]!.id);
+  const [val, setVal] = useState("1");
+  const c = CONVERSIONS.find((x) => x.id === id) ?? CONVERSIONS[0]!;
+  const x = Number(String(val).replace(",", "."));
+  const res = Number.isFinite(x) ? c.f(x) : NaN;
+  const fmt = (n: number) => (Math.abs(n) >= 100 ? n.toLocaleString("fr-FR", { maximumFractionDigits: 1 }) : n.toLocaleString("fr-FR", { maximumFractionDigits: 3 }));
+  return (
+    <div className="mb-4 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2.5">
+      <div className="font-mono text-[10.5px] uppercase tracking-[0.15em] text-zinc-400">Calculette : unité américaine vers unité européenne</div>
+      <div className="mt-2 flex flex-wrap items-center gap-2 text-[13px]">
+        <input value={val} onChange={(e) => setVal(e.target.value)} inputMode="decimal" className="w-24 rounded-md border border-white/10 bg-black/40 px-2 py-1 font-mono text-zinc-100" aria-label="valeur" />
+        <select value={id} onChange={(e) => setId(e.target.value)} className="rounded-md border border-white/10 bg-black/40 px-2 py-1 text-zinc-100">
+          {CONVERSIONS.map((o) => <option key={o.id} value={o.id}>{o.de}</option>)}
+        </select>
+        <span className="text-zinc-500">=</span>
+        <span className="font-mono font-semibold text-emerald-300">{Number.isFinite(res) ? fmt(res) : "?"} {c.vers}</span>
+      </div>
+      {c.note && <div className="mt-1 text-[11.5px] text-zinc-500">{c.note}</div>}
+    </div>
+  );
+}
+
+const NOTIONS: { titre: string; texte: string[] }[] = [
+  {
+    titre: "Le « Mix » (mix prix, mix produit, mix alimentaire…)",
+    texte: [
+      "Quand une société vend plusieurs produits à des prix différents, son chiffre d’affaires bouge pour trois raisons : elle vend plus d’unités (volume), elle vend plus cher (prix), ou la part des produits chers dans le panier change (mix).",
+      "Exemple : un supermarché vend autant d’articles qu’avant, aux mêmes prix, mais les clients achètent plus de plats préparés et moins de pâtes. Le panier moyen monte : c’est un effet mix positif, ici un « mix alimentaire » exprimé en dollars parce qu’il se mesure sur le chiffre d’affaires.",
+      "Un mix négatif est l’inverse : les clients glissent vers les produits d’entrée de gamme.",
+    ],
+  },
+  {
+    titre: "Le WACC (coût moyen pondéré du capital), en deux étapes",
+    texte: [
+      "Étape 1 : une société finance ses usines et ses projets avec deux sortes d’argent. L’argent prêté par les banques et les obligataires (la dette), qui coûte un intérêt. Et l’argent des actionnaires (les fonds propres), qui attendent un rendement plus élevé parce qu’ils prennent plus de risque.",
+      "Étape 2 : le WACC est la moyenne de ces deux coûts, pondérée par le poids de chacun. Exemple : 40 % de dette à 4 % et 60 % de fonds propres à 9 % donnent un WACC d’environ 7 %. Un projet ne crée de la valeur que s’il rapporte plus que ce 7 %.",
+    ],
+  },
+  {
+    titre: "« Investment grade » pour une foncière (REIT)",
+    texte: [
+      "Les agences de notation (Moody’s, S&P, Fitch) donnent une note à la dette d’une société. Au-dessus d’un certain seuil (BBB- chez S&P, Baa3 chez Moody’s), la dette est dite « investment grade » : jugée sûre, elle peut être achetée par les grands investisseurs prudents comme les assureurs.",
+      "Pour une foncière (REIT), qui vit d’emprunts pour acheter des immeubles, être investment grade est vital : elle emprunte moins cher, sur des durées plus longues, et garde l’accès au marché même quand il se tend. Perdre cette note renchérit toute la dette d’un coup.",
+    ],
+  },
+];
+
+function Notions() {
+  return (
+    <div className="mt-4 grid gap-2">
+      <div className="font-mono text-[10.5px] uppercase tracking-[0.15em] text-zinc-400">Notions utiles</div>
+      {NOTIONS.map((n) => (
+        <details key={n.titre} className="rounded-lg border border-white/[0.06] px-3 py-2">
+          <summary className="cursor-pointer text-[13px] font-semibold text-zinc-200">{n.titre}</summary>
+          {n.texte.map((t, i) => <p key={i} className="mt-1.5 text-[12.5px] leading-relaxed text-zinc-400">{t}</p>)}
+        </details>
+      ))}
+    </div>
+  );
+}
+
 export function UnitesMateriaux({
   gicsCode,
   secteurLabel,
@@ -171,6 +262,7 @@ export function UnitesMateriaux({
       </button>
       {ouvert && (
         <div data-blur-part="tableau" className="border-t border-white/[0.05] px-4 py-3">
+          <Convertisseur />
           {sansDefinition.length > 0 && (
             <div className="mb-4 rounded-lg border border-amber-400/30 bg-amber-500/[0.07] px-3 py-2">
               <div className="font-mono text-[10.5px] uppercase tracking-[0.15em] text-amber-300">Unités de cette fiche sans définition encore</div>
@@ -230,6 +322,7 @@ export function UnitesMateriaux({
               </div>
             );
           })}
+          <Notions />
         </div>
       )}
     </div>

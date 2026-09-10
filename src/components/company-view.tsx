@@ -479,7 +479,8 @@ export function CompanyView({
   const COMPARER_ACTIF = false;
   const [compareOpen, setCompareOpen] = useState(false);
   const [chartMode, setChartMode] = useChartMode("bars");
-  const [barsVariant, setBarsVariant] = useState<"iso3d" | "classic">("classic");
+  // 10 sept 2026 (Yann) : plus de vue 3D, barres classiques uniquement (toggle 2D/3D retire).
+  const [barsVariant] = useState<"iso3d" | "classic">("classic");
   const [timeFraction, setTimeFraction] = useState<TimeFraction>("year");
   // Toggle Annuel / Trimestriel / Semestriel selon period_type du hero KPI
   // (6 mai 2026 : extension semester pour stés EU qui reportent 2x/an).
@@ -1619,7 +1620,6 @@ export function CompanyView({
                     periodAvailable={mobilePeriodAvailable}
                     mode={chartMode}
                     barsVariant={barsVariant}
-                    onBarsVariant={setBarsVariant}
                   />
                   {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
                     <TimeUnitSelect value={timeFraction} onChange={setTimeFraction} accent={accent} />
@@ -1642,7 +1642,6 @@ export function CompanyView({
                   onChange={setChartMode}
                   color={accent}
                   barsVariant={barsVariant}
-                  onBarsVariantChange={setBarsVariant}
                   graphPeriod={graphPeriod}
                   onGraphPeriodChange={setGraphPeriod}
                   graphPeriodAvailable={mobilePeriodAvailable}
