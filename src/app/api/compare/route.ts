@@ -76,13 +76,15 @@ export async function GET(req: Request) {
   const a = sp.get("a")?.toUpperCase(), ka = sp.get("ka") ?? "", b = sp.get("b")?.toUpperCase();
   if (!a || !b) return NextResponse.json({ error: "parametres" }, { status: 400 });
   const cle = IDX.byT[a]?.[ka];
-  const kb = cle ? Object.entries(IDX.byT[b] ?? {}).find(([, c]) => c === cle)?.[0] : undefined;
-  if (!cle || !kb) return NextResponse.json({ error: "pas de KPI comparable" }, { status: 404 });
+  const candidatsB = cle ? Object.entries(IDX.byT[b] ?? {}).filter(([, c]) => c === cle).map(([s]) => s) : [];
+  if (!cle || candidatsB.length === 0) return NextResponse.json({ error: "pas de KPI comparable" }, { status: 404 });
 
   const [ra, rb] = await Promise.all([loadV17Company(a, { mode: "v18", locale: "fr" }), loadV17Company(b, { mode: "v18", locale: "fr" })]);
   if (ra.kind !== "ready" || rb.kind !== "ready") return NextResponse.json({ error: "fiche indisponible" }, { status: 404 });
   const kpiA = ra.company.kpis.find((k) => k.short === ka) as unknown as K | undefined;
-  const kpiB = rb.company.kpis.find((k) => k.short === kb) as unknown as K | undefined;
+  // Meme KPI publie en trimestriel ET en annuel : on prend la meme periodicite que A.
+  const ksB = rb.company.kpis.filter((k) => candidatsB.includes(k.short)) as unknown as K[];
+  const kpiB = ksB.find((k) => (k.period_type ?? "year") === (kpiA?.period_type ?? "year")) ?? ksB[0];
   if (!kpiA || !kpiB) return NextResponse.json({ error: "KPI introuvable" }, { status: 404 });
 
   const ua = parseUnite(kpiA.unit), ub = parseUnite(kpiB.unit);
