@@ -467,24 +467,6 @@ export function ChartCycle({
   // (meme calcul utilise par le gros chiffre hero dans company-view).
   const { scaledData, scaledTtm, displayUnit } = computeChartDisplay(safeData, unit, ttm, divisor);
 
-  // 10 sept 2026 (Yann) : CAGR de la periode AFFICHEE (serie a l ecran, pas
-  // tout l historique), sur les graphes Courbe et Barres. Masque pour les
-  // taux (%) et les series trop courtes (calculeCagr renvoie null).
-  const cagrAffiche = (() => {
-    if (mode !== "curve" && mode !== "bars") return null;
-    const pas = periodType;
-    const c = calculeCagr(safeData, unit, pas);
-    if (c === null) return null;
-    const parAn = pas === "quarter" ? 4 : pas === "semester" ? 2 : 1;
-    const ans = Math.round(((safeData.length - 1) / parAn) * 10) / 10;
-    if (ans < 1) return null;
-    const fr = titleLocale === "fr";
-    const numLoc = fr ? "fr-FR" : "en-US";
-    const perYear = fr ? "/an" : "/year";
-    const sur = fr ? `sur ${ans.toLocaleString(numLoc)} ans` : `over ${ans.toLocaleString(numLoc)} years`;
-    return { txt: `CAGR ${c > 0 ? "+" : ""}${c.toLocaleString(numLoc, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %${perYear}`, sur, up: c >= 0 };
-  })();
-
   return (
     <div className="relative min-h-0 sm:min-h-[320px]">
       <AnimatePresence mode="wait">
@@ -513,19 +495,6 @@ export function ChartCycle({
           )}
         </motion.div>
       </AnimatePresence>
-      {cagrAffiche && (
-        <div data-blur-part="variation" className="mt-3 flex items-center justify-center">
-          <span
-            className={`inline-flex items-center gap-2 rounded-2xl border px-4 py-2 font-mono text-[15px] font-bold tabular-nums sm:text-[17px] ${cagrAffiche.up ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-200 shadow-[0_0_18px_rgba(52,211,153,0.15)]" : "border-red-400/40 bg-red-500/10 text-red-200 shadow-[0_0_18px_rgba(248,113,113,0.15)]"}`}
-          >
-            {cagrAffiche.txt}
-            <span className="text-zinc-500">·</span>
-            <InfoTooltip color={cagrAffiche.up ? "#34d399" : "#f87171"} size="sm" align="left">
-              <p className="text-[12px] leading-relaxed text-zinc-200">{titleLocale === "fr" ? "Taux de croissance annuel moyen, calculé " : "Compound annual growth rate, computed "}{cagrAffiche.sur}{titleLocale === "fr" ? " (période affichée sur le graphe)." : " (period shown on the chart)."}</p>
-            </InfoTooltip>
-          </span>
-        </div>
-      )}
     </div>
   );
 }
@@ -536,4 +505,35 @@ export function ChartCycle({
  */
 export function useChartMode(initial: ChartMode = "bars") {
   return useState<ChartMode>(initial);
+}
+
+
+/**
+ * 10 sept 2026 (Yann) : chip CAGR de la periode AFFICHEE, placee a droite du
+ * titre du KPI (company-view). Masquee pour les taux (%) et series courtes.
+ * Le nombre d annees est dans le « i » apres le point de separation.
+ */
+export function CagrChip({ data, unit, periodType = "year", locale = "fr" }: { data: number[]; unit: string; periodType?: "year" | "quarter" | "semester"; locale?: string }) {
+  const c = calculeCagr(Array.isArray(data) ? data : [], unit, periodType);
+  if (c === null) return null;
+  const parAn = periodType === "quarter" ? 4 : periodType === "semester" ? 2 : 1;
+  const ans = Math.round(((data.length - 1) / parAn) * 10) / 10;
+  if (ans < 1) return null;
+  const fr = locale === "fr";
+  const numLoc = fr ? "fr-FR" : "en-US";
+  const txt = `CAGR ${c > 0 ? "+" : ""}${c.toLocaleString(numLoc, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %${fr ? "/an" : "/year"}`;
+  const sur = fr ? `sur ${ans.toLocaleString(numLoc)} ans` : `over ${ans.toLocaleString(numLoc)} years`;
+  const up = c >= 0;
+  return (
+    <span
+      data-blur-part="variation"
+      className={`inline-flex shrink-0 items-center gap-1.5 self-center rounded-xl border px-2.5 py-1 font-mono text-[12px] font-bold tabular-nums sm:text-[13px] ${up ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-200" : "border-red-400/40 bg-red-500/10 text-red-200"}`}
+    >
+      {txt}
+      <span className="text-zinc-500">·</span>
+      <InfoTooltip color={up ? "#34d399" : "#f87171"} size="sm" align="left">
+        <p className="text-[12px] leading-relaxed text-zinc-200">{fr ? "Taux de croissance annuel moyen, calculé " : "Compound annual growth rate, computed "}{sur}{fr ? " (période affichée sur le graphe)." : " (period shown on the chart)."}</p>
+      </InfoTooltip>
+    </span>
+  );
 }

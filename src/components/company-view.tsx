@@ -50,7 +50,7 @@ import { brand, rate, detectAnomalies } from "@/lib/brand";
 import { smoothScrollTo } from "@/lib/scroll";
 import { Spotlight } from "@/components/effects/spotlight";
 import { NumberTicker } from "@/components/effects/number-ticker";
-import { ChartCycle, ChartCycleControls, useChartMode, computeChartDisplay } from "@/components/chart-cycle";
+import { CagrChip, ChartCycle, ChartCycleControls, useChartMode, computeChartDisplay } from "@/components/chart-cycle";
 import { TimeFractionToggle, timeFractionDivisor, type TimeFraction } from "@/components/charts/time-fraction-toggle";
 import { ChartSettingsMenu, TimeUnitSelect, ChartFullscreen } from "@/components/charts/chart-mobile-controls";
 import { KpiRow } from "@/components/kpi-row";
@@ -1682,6 +1682,8 @@ export function CompanyView({
                     suffixClassName="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]"
                   />
                 </BlurredFreeText>
+                {/* 10 sept 2026 (Yann) : CAGR de la periode affichee, a droite du titre. */}
+                <CagrChip data={chartHistoryRaw as number[]} unit={displayUnit} periodType={graphPeriod} locale={heroTitleLang === "en" ? "en" : locale} />
                 {/* Yann 15 mai 2026 : tooltip masqué si pas de contenu.
                     Yann 19 mai 2026 : prise en compte des champs i18n
                     `explanation_fr` / `explanation_en` si présents dans le
