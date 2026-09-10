@@ -79,6 +79,8 @@ const ARCHIVED_BLOCKS: string[] = [
   // Yann 28 aout 2026 : Regles par bloc archive.
   "Règles par bloc",
   "v2",
+  // Yann 11 sept 2026 : page temporaire, rangee directement dans les archives.
+  "unites-source",
 ];
 
 const isArchived = (item: SandboxItem) =>
@@ -210,6 +212,14 @@ const SECTIONS: SandboxSection[] = [
         icon: Activity,
         label: "Statut des données",
         desc: "Qui fait quoi, Pass 3 par catégorie, audit transverse cat 1 / 2 / 3.",
+      },
+      {
+        // 11 sept 2026 : page temporaire (archivee), unites mal annotees a la source.
+        href: "/sandbox/unites-source",
+        icon: Activity,
+        label: "Unités mal annotées à la source",
+        desc: "KPI dont les valeurs ne sont pas dans l unité affichée : cause, période, correction proposée ; corriger, bloqué en l état ou non résolvable.",
+        mots: ["unité", "échelle", "milliers", "Mds", "Comparer", "annotation", "toggle"],
       },
       {
         // 9 sept 2026 : produit phare, exceptions a trancher (A / B / pas de KPI).
