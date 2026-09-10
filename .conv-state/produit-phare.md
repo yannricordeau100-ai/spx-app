@@ -9,3 +9,5 @@ Etat : P1 lots 01-08 lancés le 9 sept ~15h.
 ## TAM (Yann 9 sept 19h20) : 253 stes avec 2 candidats coches -> arbitrage Sonnet (scratchpad tam/lotNN.json -> outNN.json), decides = 1 seul id dans Supabase desk_page_content tam/arbitrages ; indecis = laisses a 2 ; raisonnement ecrit dans docs/cahier/tam/<T>.json (arbitrage_ia).
 
 ## Etat 09/09 19:37 : P1 lots 01-15 faits (16,17,18 en cours ; 19-24 a lancer), V1 01-15 faits, P2 valides : 32 (echecs : AD.AS ; a allonger : ALLE, BBY, BG). Page /sandbox/produit-phare + API + lib src/lib/produit-phare.ts ecrits (registre src/data/produit-phare.json, rempli par pose.py --apply --hero). TAM termine (253/253).
+
+## 10 sept 2026 (matin) : ARRET PROPRE. 89 series posees (53 hero + candidats A/B des exceptions), page /sandbox/produit-phare avec choix de Yann appliques via Supabase. Reste : 168 stes non traitees (kit IA externe dans docs/cahier/produit-phare/externe/), exceptions apres LOW sans series (a faire par l IA externe), a-allonger.txt et echecs.txt dans le scratchpad phare. Reprise : deposer les sorties dans externe/sorties/ puis pose.py --apply --hero.
