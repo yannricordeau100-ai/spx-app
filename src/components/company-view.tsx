@@ -1139,6 +1139,7 @@ export function CompanyView({
       ttm={chartTTM}
       barsVariant={barsVariant}
       timeFraction={effectiveTimeFraction}
+      periodType={graphPeriod}
       titleLocale={heroTitleLang}
       exportCagr={exportCagr}
       exportInterpretation={exportInterp}

@@ -12,7 +12,7 @@ import { downloadSvgAsPng } from "@/lib/chart-export";
 import { ShareDownloadMenu } from "@/components/charts/chart-mobile-controls";
 import { cn } from "@/lib/utils";
 import type { Anomaly } from "@/lib/brand";
-import type { Company } from "@/lib/data";
+import { cagr as calculeCagr, type Company } from "@/lib/data";
 import type { CompanyEvent } from "@/lib/events";
 import { useT } from "@/lib/i18n/provider";
 import { translate } from "@/lib/i18n/dictionary";
@@ -373,6 +373,7 @@ export function ChartCycle({
   ttm = null,
   barsVariant = "classic",
   timeFraction = "year",
+  periodType = "year",
   exportTitle,
   shareText,
   shareUrl,
@@ -401,6 +402,8 @@ export function ChartCycle({
   /** Fraction de temps : year (défaut) divise pas, month=/12, day=/365, etc.
    *  Affecte uniquement les valeurs affichées (data + ttm). YoY% inchangé. */
   timeFraction?: TimeFraction;
+  /** 10 sept 2026 : pas de la serie affichee (annuel, trimestriel, semestriel), pour le CAGR du graphe. */
+  periodType?: "year" | "quarter" | "semester";
   /** Titre injecté dans le PNG exporté (KPI name_fr, déjà visible côté HTML
    *  donc pas répété live mais ajouté dans le download pour qu'il se suffise
    *  à lui-même hors du contexte page). */
@@ -463,8 +466,40 @@ export function ChartCycle({
   // (meme calcul utilise par le gros chiffre hero dans company-view).
   const { scaledData, scaledTtm, displayUnit } = computeChartDisplay(safeData, unit, ttm, divisor);
 
+  // 10 sept 2026 (Yann) : CAGR de la periode AFFICHEE (serie a l ecran, pas
+  // tout l historique), sur les graphes Courbe et Barres. Masque pour les
+  // taux (%) et les series trop courtes (calculeCagr renvoie null).
+  const cagrAffiche = (() => {
+    if (mode !== "curve" && mode !== "bars") return null;
+    const pas = periodType;
+    const c = calculeCagr(safeData, unit, pas);
+    if (c === null) return null;
+    const parAn = pas === "quarter" ? 4 : pas === "semester" ? 2 : 1;
+    const ans = Math.round(((safeData.length - 1) / parAn) * 10) / 10;
+    if (ans < 1) return null;
+    const fr = titleLocale === "fr";
+    const numLoc = fr ? "fr-FR" : "en-US";
+    const perYear = fr ? "/an" : "/year";
+    const sur = fr ? `sur ${ans.toLocaleString(numLoc)} ans` : `over ${ans.toLocaleString(numLoc)} years`;
+    return { txt: `CAGR ${c > 0 ? "+" : ""}${c.toLocaleString(numLoc, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %${perYear}`, sur, up: c >= 0 };
+  })();
+
   return (
     <div className="relative min-h-0 sm:min-h-[320px]">
+      {cagrAffiche && (
+        <div
+          data-blur-part="variation"
+          className="mb-2 flex items-center gap-2 sm:absolute sm:right-2 sm:top-2 sm:z-10 sm:mb-0"
+        >
+          <span
+            className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] font-semibold tabular-nums backdrop-blur-sm ${cagrAffiche.up ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-200" : "border-red-400/40 bg-red-500/10 text-red-200"}`}
+            title={cagrAffiche.sur}
+          >
+            {cagrAffiche.txt}
+            <span className="font-normal text-zinc-400">· {cagrAffiche.sur}</span>
+          </span>
+        </div>
+      )}
       <AnimatePresence mode="wait">
         <motion.div
           key={mode}
