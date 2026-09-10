@@ -39,10 +39,19 @@ function serie(k: K): Map<string, number> {
   const h = (k.history ?? []) as Array<number | null>;
   const hp = Array.isArray(k.history_periods) && k.history_periods.length === h.length ? (k.history_periods as string[]) : null;
   const m = new Map<string, number>();
-  const finAn = Number(String(k.last_data_date ?? "").slice(0, 4)) || 2025;
+  const fin = String(k.last_data_date ?? "").match(/^(\d{4})-(\d{2})/);
+  const finAn = fin ? Number(fin[1]) : 2025;
   h.forEach((v, i) => {
     if (typeof v !== "number" || !Number.isFinite(v)) return;
-    const cle = hp ? periodeCle(hp[i], k.period_type) : (k.period_type ?? "year") === "year" ? String(finAn - (h.length - 1 - i)) : null;
+    let cle: string | null = null;
+    if (k.period_type === "quarter" && fin) {
+      // Trimestre CIVIL (Yann 11 sept 2026) : les exercices fiscaux different
+      // (T2 Apple = janv-mars, T2 Microsoft = oct-dec). On repart de la date
+      // de fin de la derniere valeur et on recule de 3 mois par point.
+      const mois = Number(fin[1]) * 12 + (Number(fin[2]) - 1) - 3 * (h.length - 1 - i);
+      cle = `T${Math.floor((mois % 12) / 3) + 1}-${Math.floor(mois / 12)}`;
+    } else if (hp) cle = periodeCle(hp[i], k.period_type);
+    else if ((k.period_type ?? "year") === "year") cle = String(finAn - (h.length - 1 - i));
     if (cle) m.set(cle, v);
   });
   return m;
@@ -110,6 +119,8 @@ export async function GET(req: Request) {
 
   const memeDevise = ua.cur === ub.cur;
   const convertible = memeDevise && ua.fam === ub.fam;
+  if (pa === "quarter" && pb === "quarter") notes.push("Trimestres alignés sur le calendrier civil (les exercices fiscaux des deux sociétés peuvent différer).");
+  else if (pa === "year" && pb === "year" && String(kpiA.last_data_date ?? "").slice(5, 7) !== String(kpiB.last_data_date ?? "").slice(5, 7) && kpiA.last_data_date && kpiB.last_data_date) notes.push(`Exercices clos à des mois différents (${String(kpiA.last_data_date).slice(0, 7)} et ${String(kpiB.last_data_date).slice(0, 7)}) : chaque année porte l année de clôture.`);
   if (!memeDevise) notes.push(`Devises différentes (${ua.cur ?? "sans devise"} et ${ub.cur ?? "sans devise"}) : seules les dynamiques sont comparées, pas les montants.`);
   let facteur = convertible ? ub.scale / ua.scale : 1;
   let comparableEnMontant = convertible;
@@ -127,6 +138,7 @@ export async function GET(req: Request) {
   return NextResponse.json({
     cle,
     labels: communs.map((c) => c.replace(/^T([1-4])-(\d{4})$/, "T$1 $2")),
+    calendrier: (kpiA.period_type === "quarter" || kpiB.period_type === "quarter") ? "civil" : "exercice",
     a: { ticker: ra.company.ticker, name: ra.company.name, subsector: ra.company.subsector, kpi: kpiA, valeurs: communs.map((c) => sa.get(c)!) },
     b: { ticker: rb.company.ticker, name: rb.company.name, subsector: rb.company.subsector, kpi: kpiB, valeurs: communs.map((c) => sb.get(c)! * facteur), uniteAlignee: comparableEnMontant ? kpiA.unit : kpiB.unit },
     convertible: comparableEnMontant,
