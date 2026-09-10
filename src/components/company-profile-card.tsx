@@ -155,7 +155,7 @@ export function CompanyProfileCard({
             </div>
             {/* Sections : 1 colonne sur mobile, 2 sur tablet+. Chaque section
                 = icône + label + texte. Indent visuel avec border-l accent. */}
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-3.5">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-4 sm:items-start">
               {(descMode === "simple" ? SIMPLE_SECTIONS : ADVANCED_SECTIONS).map((s) => {
                 const content = (
                   descMode === "simple"
@@ -165,7 +165,7 @@ export function CompanyProfileCard({
                 const text = content?.[s.key] ?? "";
                 if (!text) return null;
                 return (
-                  <div key={s.key} className="pl-3" style={{ borderLeft: `2px solid ${accent}33` }}>
+                  <div key={s.key} className="h-full pl-3" style={{ borderLeft: `2px solid ${accent}33` }}>
                     <div className="mb-1 flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: accent }}>
                       <s.Icon className="size-3" />
                       {sectionLabel(s)}

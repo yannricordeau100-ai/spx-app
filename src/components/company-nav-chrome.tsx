@@ -9,7 +9,7 @@ import {
   Brain,
   Sparkles,
 } from "lucide-react";
-import { DockSpyLeft, type DockSpySection } from "@/components/dock-spy";
+import { DockRailLeft, type DockSpySection } from "@/components/dock-spy";
 import { BackToTop } from "@/components/back-to-top";
 import { useT } from "@/lib/i18n/provider";
 
@@ -27,7 +27,7 @@ export function CompanyNavChrome() {
   ];
   return (
     <>
-      <DockSpyLeft sections={sections} showSocial />
+      <DockRailLeft sections={sections} showSocial />
       <BackToTop />
     </>
   );

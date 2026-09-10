@@ -13,6 +13,7 @@ import { ShareDownloadMenu } from "@/components/charts/chart-mobile-controls";
 import { cn } from "@/lib/utils";
 import type { Anomaly } from "@/lib/brand";
 import { cagr as calculeCagr, type Company } from "@/lib/data";
+import { InfoTooltip } from "@/components/info-tooltip";
 import type { CompanyEvent } from "@/lib/events";
 import { useT } from "@/lib/i18n/provider";
 import { translate } from "@/lib/i18n/dictionary";
@@ -513,16 +514,15 @@ export function ChartCycle({
         </motion.div>
       </AnimatePresence>
       {cagrAffiche && (
-        <div
-          data-blur-part="variation"
-          className="mt-2 flex items-center justify-center gap-2 sm:justify-end"
-        >
+        <div data-blur-part="variation" className="mt-3 flex items-center justify-center">
           <span
-            className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] font-semibold tabular-nums backdrop-blur-sm ${cagrAffiche.up ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-200" : "border-red-400/40 bg-red-500/10 text-red-200"}`}
-            title={cagrAffiche.sur}
+            className={`inline-flex items-center gap-2 rounded-2xl border px-4 py-2 font-mono text-[15px] font-bold tabular-nums sm:text-[17px] ${cagrAffiche.up ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-200 shadow-[0_0_18px_rgba(52,211,153,0.15)]" : "border-red-400/40 bg-red-500/10 text-red-200 shadow-[0_0_18px_rgba(248,113,113,0.15)]"}`}
           >
             {cagrAffiche.txt}
-            <span className="font-normal text-zinc-400">· {cagrAffiche.sur}</span>
+            <span className="text-zinc-500">·</span>
+            <InfoTooltip color={cagrAffiche.up ? "#34d399" : "#f87171"} size="sm" align="left">
+              <p className="text-[12px] leading-relaxed text-zinc-200">{titleLocale === "fr" ? "Taux de croissance annuel moyen, calculé " : "Compound annual growth rate, computed "}{cagrAffiche.sur}{titleLocale === "fr" ? " (période affichée sur le graphe)." : " (period shown on the chart)."}</p>
+            </InfoTooltip>
           </span>
         </div>
       )}

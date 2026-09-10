@@ -255,3 +255,47 @@ export function DockSpyRight({ sections }: { sections: DockSpySection[] }) {
     </nav>
   );
 }
+
+
+/**
+ * 10 sept 2026 (Yann) : rail de navigation FIXE, sans aucun mouvement lie au
+ * scroll (plus de scroll-spy, plus de loupe). Icones toujours visibles ; au
+ * survol du rail, les libelles se deplient a droite. La section cliquee reste
+ * marquee jusqu au clic suivant. Halo discret sur l item actif.
+ */
+export function DockRailLeft({ sections, showSocial = false }: { sections: DockSpySection[]; showSocial?: boolean }) {
+  const [actif, setActif] = useState<string | null>(null);
+  const go = (id: string) => {
+    setActif(id);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  return (
+    <nav className="group/rail hidden sm:block fixed left-3 top-1/2 z-40 -translate-y-1/2" aria-label="Sections de la fiche">
+      <div className="flex flex-col items-start">
+        <div className="relative flex flex-col gap-1 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a]/90 p-1.5 backdrop-blur-md transition-[width] duration-200">
+          <span aria-hidden className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-violet-400/50 to-transparent" />
+          {sections.map((s) => {
+            const on = actif === s.id;
+            const Icon = s.Icon;
+            return (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => go(s.id)}
+                aria-label={s.label}
+                aria-current={on ? "true" : undefined}
+                className={`flex items-center gap-2.5 rounded-xl px-2 py-1.5 text-left transition-colors ${on ? "bg-violet-500/20 text-violet-100 shadow-[0_0_14px_rgba(167,139,250,0.35)]" : "text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100"}`}
+              >
+                <Icon className="size-4 shrink-0" />
+                <span className="max-w-0 overflow-hidden whitespace-nowrap font-mono text-[10.5px] uppercase tracking-wider opacity-0 transition-all duration-200 group-hover/rail:max-w-[160px] group-hover/rail:opacity-100">
+                  {s.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        {showSocial && <SocialMiniRack />}
+      </div>
+    </nav>
+  );
+}
