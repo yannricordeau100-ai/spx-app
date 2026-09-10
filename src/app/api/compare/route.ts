@@ -109,14 +109,25 @@ export async function GET(req: Request) {
   const memeDevise = ua.cur === ub.cur;
   const convertible = memeDevise && ua.fam === ub.fam;
   if (!memeDevise) notes.push(`Devises différentes (${ua.cur ?? "sans devise"} et ${ub.cur ?? "sans devise"}) : seules les dynamiques sont comparées, pas les montants.`);
-  const facteur = convertible ? ub.scale / ua.scale : 1;
+  let facteur = convertible ? ub.scale / ua.scale : 1;
+  let comparableEnMontant = convertible;
+  if (convertible && ua.fam !== "pct") {
+    // Garde-fou : un ecart d echelle superieur a 1000 entre les deux series
+    // trahit une unite mal annotee a la source. Montants non compares.
+    const med = (xs: number[]) => { const t = xs.map(Math.abs).filter((x) => x > 0).sort((p, q) => p - q); return t[Math.floor(t.length / 2)] ?? 0; };
+    const ma = med(communs.map((c) => sa.get(c)!)), mb = med(communs.map((c) => sb.get(c)! * facteur));
+    if (ma > 0 && mb > 0 && (ma / mb > 1000 || mb / ma > 1000)) {
+      comparableEnMontant = false; facteur = 1;
+      notes.push("Écart d échelle anormal entre les deux séries (unité probablement mal annotée à la source) : seules les dynamiques sont comparées.");
+    }
+  }
 
   return NextResponse.json({
     cle,
     labels: communs.map((c) => c.replace(/^T([1-4])-(\d{4})$/, "T$1 $2")),
     a: { ticker: ra.company.ticker, name: ra.company.name, subsector: ra.company.subsector, kpi: kpiA, valeurs: communs.map((c) => sa.get(c)!) },
-    b: { ticker: rb.company.ticker, name: rb.company.name, subsector: rb.company.subsector, kpi: kpiB, valeurs: communs.map((c) => sb.get(c)! * facteur), uniteAlignee: convertible ? kpiA.unit : kpiB.unit },
-    convertible,
+    b: { ticker: rb.company.ticker, name: rb.company.name, subsector: rb.company.subsector, kpi: kpiB, valeurs: communs.map((c) => sb.get(c)! * facteur), uniteAlignee: comparableEnMontant ? kpiA.unit : kpiB.unit },
+    convertible: comparableEnMontant,
     notes,
   });
 }

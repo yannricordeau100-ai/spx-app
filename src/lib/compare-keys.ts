@@ -37,9 +37,9 @@ export function libelleCanonique(nameEn: string | undefined | null, short?: stri
 }
 
 const DEVISES: Array<[RegExp, string]> = [
-  [/\$|usd/i, "USD"], [/€|eur/i, "EUR"], [/chf/i, "CHF"], [/£|gbp/i, "GBP"],
-  [/rmb|cny/i, "CNY"], [/twd/i, "TWD"], [/¥|jpy/i, "JPY"], [/krw|₩/i, "KRW"],
-  [/sek/i, "SEK"], [/dkk/i, "DKK"], [/nok/i, "NOK"], [/hkd/i, "HKD"], [/cad/i, "CAD"],
+  [/\$|\busd\b/i, "USD"], [/€|\beur\b/i, "EUR"], [/\bchf\b/i, "CHF"], [/£|\bgbp\b/i, "GBP"],
+  [/\b(rmb|cny)\b/i, "CNY"], [/\btwd\b/i, "TWD"], [/¥|\bjpy\b/i, "JPY"], [/₩|\bkrw\b/i, "KRW"],
+  [/\bsek\b/i, "SEK"], [/\bdkk\b/i, "DKK"], [/\bnok\b/i, "NOK"], [/\bhkd\b/i, "HKD"], [/\bcad\b/i, "CAD"],
 ];
 
 const COMPTES = /(employ|salari|personne|etp|unit|client|magasin|store|site|centre|brevet|marque|pays|v[eé]hicule|agence|usine|logement|home|abonn|subscri|member|membre|restaurant|h[oô]tel|user|utilisat|compte|account|avion|aircraft|navire|ship|room|chambre|lit|bed|point de vente|outlet|location)/i;
@@ -49,10 +49,12 @@ export function parseUnite(raw: string | undefined | null): UniteParsee {
   const l = u.toLowerCase();
   if (/points? de base|bps|pb\b/.test(l)) return { fam: "bps", cur: null, scale: 1 };
   if (l.includes("%")) return { fam: "pct", cur: null, scale: 1 };
+  if (/points? de|ratio combin/.test(l)) return { fam: "autre:" + l, cur: null, scale: 1 };
   let cur: string | null = null;
   for (const [re, c] of DEVISES) if (re.test(u)) { cur = c; break; }
   let scale = 1;
   if (/\b(bln|tn)\b|\$t\b|^t\b/i.test(u)) scale = 1e12;
+  else if (/^g\s?\$|^g\s?€|\bg(usd|eur)\b/i.test(u)) scale = 1e9;
   else if (/mds|md\b|mrd|milliard|billion|\bbn\b|\$b\b|^b\$|\bb\b|b \$/i.test(u) || /\$md/i.test(u)) scale = 1e9;
   else if (/(^|[^a-z])m($|[^a-z])|millions?|\$m\b|m\$|m€/i.test(u)) scale = 1e6;
   else if (/(^|[^a-z])k($|[^a-z])|milliers|thousands?|^000$|k\$|\$k/i.test(u)) scale = 1e3;
