@@ -23,6 +23,7 @@ import { useMemo, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import DATA from "@/data/unites-materiaux.json";
 import UNIVERS from "@/data/unites-univers.json";
+import METIERS from "@/data/unites-metiers.json";
 
 type Unite = {
   categorie: string;
@@ -61,6 +62,7 @@ const COULEURS: Record<string, string> = {
   "Actions, titres et marchés": "#facc15",
   "Santé, science et essais": "#38bdf8",
   "Transport et logistique": "#4ade80",
+  "Indicateurs métiers par secteur": "#fb7185",
 };
 const PALETTE = ["#f87171", "#2dd4bf", "#e879f9", "#facc15", "#38bdf8", "#4ade80", "#fb7185", "#a78bfa"];
 function couleurDe(cat: string, index: number): string {
@@ -68,6 +70,7 @@ function couleurDe(cat: string, index: number): string {
 }
 
 const ORDRE = [
+  "Indicateurs métiers par secteur",
   "Énergie : pétrole, gaz et électricité",
   "Masses et volumes de production",
   "Prix par quantité physique",
@@ -208,6 +211,7 @@ export function UnitesMateriaux({
     const toutes = [
       ...((DATA as { unites: Unite[] }).unites ?? []),
       ...((UNIVERS as { unites: Unite[] }).unites ?? []),
+      ...((METIERS as { unites: Unite[] }).unites ?? []),
     ];
     const vues = new Set<string>();
     const g = new Map<string, (Unite & { active: boolean })[]>();

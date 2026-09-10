@@ -6,7 +6,7 @@ Version du 10 septembre 2026. Document commun aux deux IA : chacune produit son 
 
 Un système d assistance client pour Mettrik (site Next.js 16, React 19, Tailwind v4, Supabase, e-mails via Resend), comme sur les SaaS en ligne :
 1. Une aide intégrée : questions fréquentes avec réponses complètes, recherche instantanée, classées par thème (compte, abonnement et paiement, données et KPI, fiches sociétés, confidentialité, problème technique).
-2. Un formulaire de ticket : sujet, catégorie, message, capture facultative, e-mail de l utilisateur pré-rempli s il est connecté. Le ticket est enregistré en base et un e-mail part vers l adresse dédiée du support (variable d environnement `SUPPORT_EMAIL`, valeur fournie par le propriétaire). Accusé de réception à l utilisateur.
+2. Un formulaire de ticket : sujet, catégorie, message, capture facultative, e-mail de l utilisateur pré-rempli s il est connecté. Le ticket est enregistré en base et un e-mail part vers l adresse dédiée du support (variable d environnement `SUPPORT_EMAIL`, valeur : support@mettrik.ai). Accusé de réception à l utilisateur.
 3. Escalade : si la réponse intégrée ne résout pas la question (bouton « ça ne répond pas à ma question »), ouverture directe du ticket avec la question déjà remplie.
 4. Zéro ralentissement du site : le widget se charge à la demande (import dynamique au clic), les réponses sont un fichier JSON statique servi avec le site (pas d appel réseau pour lire l aide), aucune dépendance nouvelle lourde.
 

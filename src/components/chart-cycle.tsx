@@ -486,20 +486,6 @@ export function ChartCycle({
 
   return (
     <div className="relative min-h-0 sm:min-h-[320px]">
-      {cagrAffiche && (
-        <div
-          data-blur-part="variation"
-          className="mb-2 flex items-center gap-2 sm:absolute sm:right-2 sm:top-2 sm:z-10 sm:mb-0"
-        >
-          <span
-            className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] font-semibold tabular-nums backdrop-blur-sm ${cagrAffiche.up ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-200" : "border-red-400/40 bg-red-500/10 text-red-200"}`}
-            title={cagrAffiche.sur}
-          >
-            {cagrAffiche.txt}
-            <span className="font-normal text-zinc-400">· {cagrAffiche.sur}</span>
-          </span>
-        </div>
-      )}
       <AnimatePresence mode="wait">
         <motion.div
           key={mode}
@@ -526,6 +512,20 @@ export function ChartCycle({
           )}
         </motion.div>
       </AnimatePresence>
+      {cagrAffiche && (
+        <div
+          data-blur-part="variation"
+          className="mt-2 flex items-center justify-center gap-2 sm:justify-end"
+        >
+          <span
+            className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] font-semibold tabular-nums backdrop-blur-sm ${cagrAffiche.up ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-200" : "border-red-400/40 bg-red-500/10 text-red-200"}`}
+            title={cagrAffiche.sur}
+          >
+            {cagrAffiche.txt}
+            <span className="font-normal text-zinc-400">· {cagrAffiche.sur}</span>
+          </span>
+        </div>
+      )}
     </div>
   );
 }

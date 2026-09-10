@@ -1422,7 +1422,8 @@ export function CompanyView({
                     periode en dessous), contenu centre dans la bulle, et "i"
                     exercice fiscal a droite, hors bulle, centre verticalement. */}
                 <div className="flex w-fit items-center gap-2">
-                {heroCAGR && (
+                {/* 10 sept 2026 (Yann) : la bulle CAGR quitte le bloc gauche ; le CAGR est affiche sous le graphe (chart-cycle). */}
+                {false && heroCAGR && (
                   <div className="inline-flex w-fit flex-col items-center justify-center rounded-2xl border border-[#262626] bg-[#0d0d0d] px-3 py-1.5 text-center font-mono text-[12px] tabular-nums text-zinc-200">
                     <span className="leading-tight">
                       {freeBlocked ? (
