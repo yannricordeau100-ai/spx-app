@@ -212,6 +212,15 @@ const SECTIONS: SandboxSection[] = [
         desc: "Qui fait quoi, Pass 3 par catégorie, audit transverse cat 1 / 2 / 3.",
       },
       {
+        // 9 sept 2026 : produit phare, exceptions a trancher (A / B / pas de KPI).
+        href: "/sandbox/produit-phare",
+        icon: Activity,
+        label: "Produit phare : exceptions à trancher",
+        desc: "KPI hero « produit phare » (Industrie, Consommation) : seules les sociétés où deux produits se disputent la place, ou sans produit phare, sont listées. Coche A, B ou pas de KPI : le hero change aussitôt.",
+        mots: ["produit phare", "hero", "Birkin", "LEAP", "Falcon 9", "bulldozer", "produit le plus vendu", "hésitation", "toggle", "A ou B"],
+        accent: "highlight" as const,
+      },
+      {
         // 9 sept 2026 : interrupteurs des mises a jour quotidiennes + feux
         // calcules sur la donnee servie, pas sur les journaux des robots.
         href: "/sandbox/synchro",
