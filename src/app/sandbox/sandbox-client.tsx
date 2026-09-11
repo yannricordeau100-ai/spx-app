@@ -214,6 +214,14 @@ const SECTIONS: SandboxSection[] = [
         desc: "Qui fait quoi, Pass 3 par catégorie, audit transverse cat 1 / 2 / 3.",
       },
       {
+        // 12 sept 2026 : vocabulaire officiel (KPI total, KPI IC total, KPI = type comparable) + unites par secteur.
+        href: "/sandbox/kpi-definitions",
+        icon: Activity,
+        label: "KPI et définitions",
+        desc: "KPI total, KPI IC total, KPI (types comparables) : définitions, règle du concurrent, exemples, et unités par secteur.",
+        mots: ["définition", "type de KPI", "KPI comparable", "KPI unique", "part de marché", "unités", "secteur", "glossaire"],
+      },
+      {
         // 11 sept 2026 : page temporaire (archivee), unites mal annotees a la source.
         href: "/sandbox/unites-source",
         icon: Activity,

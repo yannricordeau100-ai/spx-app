@@ -65,3 +65,31 @@ export async function isDeskOwner(): Promise<boolean> {
     return false;
   }
 }
+
+/**
+ * Yann 12 sept 2026 : les outils sandbox qui ecrivent (unites-source,
+ * produit-phare) refusaient Yann connecte avec son compte de marque
+ * mettrikai@gmail.com (403). Comptes admin = proprietaire + compte de marque
+ * (surcharge possible par DESK_ADMIN_EMAILS, liste separee par des virgules),
+ * ou jeton d audit dans l adresse de l appel ou de la page appelante.
+ */
+export const DESK_ADMIN_EMAILS: string[] = (process.env.DESK_ADMIN_EMAILS ?? `${DESK_OWNER_EMAIL},mettrikai@gmail.com`)
+  .split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
+
+export async function estAdminSandbox(req: Request): Promise<boolean> {
+  const attendu = process.env.VISUAL_AUDIT_TOKEN;
+  if (attendu) {
+    for (const src of [req.url, req.headers.get("referer") ?? ""]) {
+      try {
+        if (src && new URL(src, "https://mettrik.ai").searchParams.get("audit_token") === attendu) return true;
+      } catch { /* adresse illisible */ }
+    }
+  }
+  try {
+    const sb = await createSupabaseServerClient();
+    const { data } = await sb.auth.getUser();
+    return !!data.user?.email && DESK_ADMIN_EMAILS.includes(data.user.email.toLowerCase());
+  } catch {
+    return false;
+  }
+}

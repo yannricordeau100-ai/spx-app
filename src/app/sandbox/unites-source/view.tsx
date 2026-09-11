@@ -15,7 +15,8 @@ const PROMPT = `Reprise « unités mal annotées + Comparer » (état : .conv-st
 2) Détecteur d unités sur TOUS les KPI servis et toute leur histoire (pas seulement la dernière valeur) : écart d échelle entre sociétés d une même clé, ruptures d un facteur 1 000 dans une série, unité contre 10-K/10-Q du data-lake.
 3) Corrections automatiques des cas résolvables avec preuve (10-K fait foi, trois valeurs sondées contre la source avant écriture), version-bump, déploiement niveau2.
 4) Remplir src/data/unites-a-corriger.json avec les SEULS cas restants qu Opus et Sonnet n ont pas pu résoudre (pas les KPI propres à une société comme le CA iPhone) : KPI, couche fautive, cause, période, exemple brut, valeur attendue, sources consultées. Appliquer ensuite les décisions déjà prises sur /sandbox/unites-source (desk_page_content unites_source/decisions).
-5) Tableau récapitulatif avec liens, TERMINE.`;
+5) Types de KPI (définitions sur /sandbox/kpi-definitions) : classer chaque KPI IC (standard + avancés) en type comparable ou KPI unique avec la règle du concurrent ; généraliser les KPI uniques dont l actif sous-jacent est comparable (ex : part de marché de Chrome -> part de marché des navigateurs web) ; poser le type dans un champ invisible, l afficher dans le « i » et le brancher dans le Comparer (remplace la clé par libellé du point 1). Compter KPI total, KPI IC total et KPI (global et par société). Travail minutieux, Opus puis Sonnet vérificateur, échantillon relu.
+6) Tableau récapitulatif avec liens, TERMINE.`;
 
 export function UnitesSourceView({ cas, maj, etat, decisionsInitiales, jeton }: { cas: Cas[]; maj: string; etat: string; decisionsInitiales: Record<string, Decision>; jeton: string | null }) {
   const [dec, setDec] = useState<Record<string, Decision>>(decisionsInitiales);

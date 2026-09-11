@@ -1,20 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
+import { estAdminSandbox } from "@/lib/desk/auth";
 import { appliquerChoixPhare, exceptionsPhare, lireChoixPhare, type ChoixPhare } from "@/lib/produit-phare";
 
 export const dynamic = "force-dynamic";
 
 async function autorise(req: NextRequest): Promise<boolean> {
-  try {
-    const supabase = await createSupabaseServerClient();
-    const { data } = await supabase.auth.getUser();
-    if (data.user && data.user.email === DESK_OWNER_EMAIL) return true;
-  } catch {
-    /* pas de session */
-  }
-  const jeton = req.nextUrl.searchParams.get("audit_token") ?? "";
-  return !!jeton && !!process.env.VISUAL_AUDIT_TOKEN && jeton === process.env.VISUAL_AUDIT_TOKEN;
+  return estAdminSandbox(req);
 }
 
 /** GET : exceptions du registre + choix déjà faits. */
