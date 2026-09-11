@@ -660,6 +660,9 @@ export function CurveChart({
               {(() => {
                 // Quarter only sur l'axe X (T1/T2/T3/T4). Year est rendu UNE
                 // SEULE FOIS via le year-band en bas (cf. yearGroups.map).
+                // Yann 11 sept 2026 : libelle X masque en meme temps que la valeur.
+                const nReelX = hasTTM ? allData.length - 1 : allData.length;
+                if (labelStep === 2 && !isTTM && (nReelX - 1 - i) % 2 === 1) return null;
                 const split = splitQuarterLabel(allLabels[i] ?? "");
                 const yQuarter = H - PAD_BOTTOM + 26;
                 const fz = xLabelFontSize;

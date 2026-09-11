@@ -472,6 +472,11 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
             {(() => {
               const cx = x + barW / 2 + (isClassic ? 0 : DX / 2);
               const yQuarter = H - PAD_BOTTOM + 26;
+              // Yann 11 sept 2026 : le clic « une valeur sur deux » masque aussi
+              // le libelle de l axe X correspondant (web et export PNG, qui
+              // recopie ce SVG), synchronise avec les valeurs.
+              const nReelX = hasTTM ? allLabels.length - 1 : allLabels.length;
+              if (labelStep === 2 && !isTTM && (nReelX - 1 - i) % 2 === 1) return null;
               const split = splitQuarterLabel(allLabels[i]);
               const fz = labelFontSize;
               const fill = isTTM ? "#a1a1aa" : "#e4e4e7";
