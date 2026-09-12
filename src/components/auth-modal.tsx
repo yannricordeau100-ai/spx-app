@@ -133,6 +133,9 @@ export function AuthModal() {
           const res = await Promise.race([signinPromise, timeoutPromise]) as Awaited<typeof signinPromise>;
           data = res.data;
           error = res.error;
+          // Yann 13 sept 2026 : un jeton hCaptcha ne vaut qu UNE verification.
+          // Les tentatives suivantes le rejouaient (« already-seen-response »).
+          if (error && /captcha/i.test(error.message ?? "")) break;
           // Retry uniquement si l'erreur Supabase est un Lock contention
           const isLockErr = error?.message?.toLowerCase().includes("lock") &&
                             error.message.toLowerCase().includes("stole");
@@ -202,7 +205,7 @@ export function AuthModal() {
       const msg = errMsg === "timeout"
         ? "Connexion trop longue (15s). Vérifie ton réseau et réessaie."
         : `Erreur : ${errMsg.slice(0, 200)}`;
-      setSigninErr(msg);
+      setSigninErr(/captcha/i.test(msg) ? "Vérification anti-robot à refaire : recoche la case puis reclique sur Se connecter." : msg);
       setSigninBusy(false);
       setCleCaptcha((k) => k + 1);
     }

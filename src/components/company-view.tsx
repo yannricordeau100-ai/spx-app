@@ -75,7 +75,6 @@ import { RiskStack } from "@/components/risk-stack";
 import { AntiTheseCard } from "@/components/anti-these-card";
 import { AppelAbonnement } from "@/components/appel-abonnement";
 import { UnitesMateriaux } from "@/components/unites-materiaux";
-import { BoutonEnregistrer } from "@/components/bouton-enregistrer";
 import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
 import { GovernanceCard } from "@/components/governance-card";
@@ -1260,7 +1259,6 @@ export function CompanyView({
             />
             )}
             {freemiumTier !== "anon" && <MesListesMenu />}
-            <BoutonEnregistrer ticker={company.ticker} paye={isPaidTier} connecte={freemiumTier !== "anon"} />
             <ThemeToggle paid={isPaidTier} />
             {authSlot}
           </div>

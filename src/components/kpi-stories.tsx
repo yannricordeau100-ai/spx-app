@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Download, Pause, Play } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Company } from "@/lib/data";
 import { brand } from "@/lib/brand";
+import { StarButton } from "@/components/star-button";
 import { buildStories, hasStories, type StorySlide } from "@/lib/kpi-stories-ordering";
 import { KpiStoryCard, storyFmt } from "@/components/kpi-story-card";
 import { downloadStoryAsPng } from "@/lib/story-export";
@@ -501,6 +502,13 @@ function StoryFrame({
           >
             <Download className="size-2.5" />
           </button>
+
+          {/* Yann 13 sept 2026 : mise en favori d une story KPI. */}
+          {slide.kind === "kpi" && (slide.data as { short?: string }).short && (
+            <span className="absolute top-1.5 z-30" style={{ left: "calc(50% - 84px)" }}>
+              <StarButton ticker={company.ticker} mode="kpi" kpiShort={(slide.data as { short: string }).short} size="sm" stopPropagation />
+            </span>
+          )}
 
           {/* Story content (fill) — animation slide horizontale au switch */}
           <div className="absolute inset-0">

@@ -292,3 +292,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.12.9 (12 Sep 2026 15:58, apres 565cd12faa)
 - Fiche : bouton Mes listes (societes + favoris) a cote de Comparer, recherche plus etroite ; calculette 45 unites americaines
+
+## v2026.09.13.1 (13 Sep 2026 00:58, apres e8c783caf7)
+- Fiche : etoile favori a cote du ticker, menu Mes favoris (societes, KPI), story KPI en favori ; captcha non rejoue

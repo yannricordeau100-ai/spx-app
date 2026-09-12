@@ -26,8 +26,8 @@ export function MesListesMenu() {
         aria-expanded={ouvert}
         className="inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-2.5 py-2 text-sm font-medium text-zinc-200 transition-colors hover:border-[#3a3a3a] hover:text-zinc-50 sm:px-3.5"
       >
-        <Bookmark className="size-4" />
-        <span className="hidden sm:inline">Mes listes</span>
+        <Star className="size-4 text-amber-300" />
+        <span className="hidden sm:inline">Mes favoris</span>
         <ChevronDown className={`size-3.5 transition-transform ${ouvert ? "rotate-180" : ""}`} />
       </button>
       {ouvert && (
@@ -36,7 +36,7 @@ export function MesListesMenu() {
             <Bookmark className="size-4 text-violet-300" /> Mes sociétés
           </Link>
           <Link href="/account/favorites" className={lien} onClick={() => setOuvert(false)}>
-            <Star className="size-4 text-amber-300" /> Mes favoris
+            <Star className="size-4 text-amber-300" /> Mes KPI
           </Link>
         </div>
       )}

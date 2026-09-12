@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { StarButton } from "@/components/star-button";
 import type { Company } from "@/lib/data";
 import { TICKER_ALIASES } from "@/lib/data";
 import { brand } from "@/lib/brand";
@@ -138,6 +139,8 @@ function CompanyName({
         >
           {tickerShown}
         </span>
+        {/* Yann 13 sept 2026 : mise en favori de la societe ici, a droite du ticker. */}
+        <StarButton ticker={ticker} mode="company" size="sm" />
         {aliases.length > 0 && (
           <span className="self-baseline text-[11px] font-medium text-zinc-500 whitespace-nowrap">
             {alsoKnownLabel}{" "}
