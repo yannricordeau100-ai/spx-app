@@ -70,11 +70,9 @@ export async function isDeskOwner(): Promise<boolean> {
  * Yann 12 sept 2026 : les outils sandbox qui ecrivent (unites-source,
  * produit-phare) refusaient Yann connecte avec son compte de marque
  * mettrikai@gmail.com (403). Comptes admin = proprietaire + compte de marque
- * (surcharge possible par DESK_ADMIN_EMAILS, liste separee par des virgules),
  * ou jeton d audit dans l adresse de l appel ou de la page appelante.
  */
-export const DESK_ADMIN_EMAILS: string[] = (process.env.DESK_ADMIN_EMAILS ?? `${DESK_OWNER_EMAIL},mettrikai@gmail.com`)
-  .split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
+export const DESK_ADMIN_EMAILS: string[] = [DESK_OWNER_EMAIL, "mettrikai@gmail.com"].map((s) => s.trim().toLowerCase());
 
 export async function estAdminSandbox(req: Request): Promise<boolean> {
   const attendu = process.env.VISUAL_AUDIT_TOKEN;

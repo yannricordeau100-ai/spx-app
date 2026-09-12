@@ -280,3 +280,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.12.5 (12 Sep 2026 05:05, apres 1a632865f1)
 - Accueil sans mention KPI Intelligence ; Apple et Netflix gratuites (acces Max) ; telemetrie : provenance detaillee
+
+## v2026.09.12.6 (12 Sep 2026 05:25, apres 99ac1845be)
+- Comptes admin sandbox sans variable d environnement (controle de lancement)
