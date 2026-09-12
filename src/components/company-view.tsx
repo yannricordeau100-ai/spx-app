@@ -62,6 +62,7 @@ import { lienCourtKpi, textePartageX } from "@/lib/kpi-link";
 import { expliqueUnite } from "@/lib/unites-explications";
 import { InterpretationBlock } from "@/components/interpretation-block";
 // Yann 12 juin 2026 : events liés au graph retirés (plus d'import getCompanyEvents).
+import { MesListesMenu } from "@/components/mes-listes-menu";
 import { CompareControl } from "@/components/compare-control";
 import { ComparePanel } from "@/components/compare-panel";
 import { KpiStories } from "@/components/kpi-stories";
@@ -1258,6 +1259,7 @@ export function CompanyView({
               }}
             />
             )}
+            {freemiumTier !== "anon" && <MesListesMenu />}
             <BoutonEnregistrer ticker={company.ticker} paye={isPaidTier} connecte={freemiumTier !== "anon"} />
             <ThemeToggle paid={isPaidTier} />
             {authSlot}

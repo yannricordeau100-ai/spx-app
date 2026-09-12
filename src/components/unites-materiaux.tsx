@@ -98,51 +98,106 @@ function secteurCle(gics: string | null | undefined): "materiaux" | "energie" | 
 /* 10 sept 2026 (Yann) : mini calculette de conversion vers l unité européenne
    (celle donnée en référence dans les explications), et trois notions
    expliquées simplement : le Mix, le WACC, la note « investment grade ». */
-const CONVERSIONS: { id: string; de: string; vers: string; f: (x: number) => number; note?: string }[] = [
-  { id: "lb", de: "lb (livre)", vers: "kg", f: (x) => x * 0.45359 },
-  { id: "oz", de: "oz (once)", vers: "g", f: (x) => x * 28.3495 },
-  { id: "ozt", de: "oz troy (or, argent)", vers: "g", f: (x) => x * 31.1035 },
-  { id: "ston", de: "short ton (tonne US)", vers: "t", f: (x) => x * 0.90718 },
-  { id: "gal", de: "gallon US", vers: "L", f: (x) => x * 3.78541 },
-  { id: "bbl", de: "baril (bbl)", vers: "L", f: (x) => x * 158.987 },
-  { id: "cf", de: "pied cube (cf)", vers: "m³", f: (x) => x * 0.0283168 },
-  { id: "mcf", de: "Mcf (1 000 pieds cubes)", vers: "m³", f: (x) => x * 28.3168 },
-  { id: "mmbtu", de: "MMBtu", vers: "kWh", f: (x) => x * 293.071 },
-  { id: "mile", de: "mile", vers: "km", f: (x) => x * 1.60934 },
-  { id: "ft", de: "pied (ft)", vers: "m", f: (x) => x * 0.3048 },
-  { id: "in", de: "pouce (in)", vers: "cm", f: (x) => x * 2.54 },
-  { id: "sqft", de: "pied carré (sq ft)", vers: "m²", f: (x) => x * 0.092903 },
-  { id: "acre", de: "acre", vers: "ha", f: (x) => x * 0.404686 },
-  { id: "f", de: "°F", vers: "°C", f: (x) => (x - 32) / 1.8 },
-  { id: "bu", de: "boisseau (bushel, volume)", vers: "L", f: (x) => x * 35.2391, note: "En masse : blé et soja 27,2 kg, maïs 25,4 kg par boisseau." },
-  { id: "hp", de: "cheval-vapeur (hp)", vers: "kW", f: (x) => x * 0.7457 },
-  { id: "mpg", de: "miles par gallon (mpg)", vers: "L/100 km", f: (x) => (x > 0 ? 235.215 / x : 0) },
-  { id: "usdlb", de: "$ par lb", vers: "$ par kg", f: (x) => x * 2.20462 },
-  { id: "usdgal", de: "$ par gallon", vers: "$ par L", f: (x) => x / 3.78541 },
-  { id: "usdbbl", de: "$ par baril", vers: "$ par L", f: (x) => x / 158.987 },
-  { id: "usdmmbtu", de: "$ par MMBtu", vers: "$ par MWh", f: (x) => x * 3.41214 },
-  { id: "usdsqft", de: "$ par sq ft", vers: "$ par m²", f: (x) => x * 10.7639 },
+// Yann 12 sept 2026 : toutes les unites americaines relevees dans les KPI
+// (petrole et gaz, energie, masse, volume, surface, distance, prix unitaires),
+// classees par categorie. Facteurs : definitions officielles (NIST).
+type Conv = { id: string; cat: string; de: string; vers: string; f: (x: number) => number; k?: number; note?: string };
+const lin = (id: string, cat: string, de: string, vers: string, k: number, note?: string): Conv => ({ id, cat, de, vers, k, f: (x) => x * k, note });
+const CONVERSIONS: Conv[] = [
+  lin("bbl", "Pétrole et gaz", "baril (bbl)", "L", 158.987),
+  lin("mbbld", "Pétrole et gaz", "MBbl/d, kbd, mbpd (milliers de barils par jour)", "m³ par jour", 158.987),
+  lin("mmbbl", "Pétrole et gaz", "MMBbl (millions de barils)", "millions de m³", 0.158987),
+  lin("boe", "Pétrole et gaz", "boe (baril équivalent pétrole)", "GJ", 6.12, "1 boe ≈ 6 000 pieds cubes de gaz ≈ 6,12 GJ."),
+  lin("mboed", "Pétrole et gaz", "Mboe/d, kboe/jour (milliers de boe par jour)", "m³ par jour", 158.987),
+  lin("mmboe", "Pétrole et gaz", "MMBoe (millions de boe)", "millions de m³", 0.158987),
+  lin("mcf", "Pétrole et gaz", "Mcf (milliers de pieds cubes)", "m³", 28.3168),
+  lin("mmcfd", "Pétrole et gaz", "MMcf/d (millions de pieds cubes par jour)", "milliers de m³ par jour", 28.3168),
+  lin("bcf", "Pétrole et gaz", "Bcf, Bcfe (milliards de pieds cubes)", "millions de m³", 28.3168, "Le « e » (Bcfe, Mcfe) signifie équivalent gaz : le pétrole y est converti à 1 baril = 6 Mcf."),
+  lin("bcfd", "Pétrole et gaz", "Bcf/d (milliards de pieds cubes par jour)", "millions de m³ par jour", 28.3168),
+  lin("tcf", "Pétrole et gaz", "Tcf, Tcfe (billions de pieds cubes)", "milliards de m³", 28.3168),
+  lin("cf", "Pétrole et gaz", "pied cube (cf)", "m³", 0.0283168),
+  lin("mmbtu", "Énergie", "MMBtu (million de Btu)", "kWh", 293.071),
+  lin("bbtud", "Énergie", "BBtu/d (milliards de Btu par jour)", "MWh par jour", 293.071),
+  lin("therm", "Énergie", "therm", "kWh", 29.3071),
+  lin("dth", "Énergie", "dekatherm (Dth)", "MWh", 2.93071),
+  lin("hp", "Énergie", "cheval-vapeur (hp)", "kW", 0.7457),
+  lin("lb", "Masse", "lb, lbs (livre)", "kg", 0.453592),
+  lin("mlb", "Masse", "M lbs (millions de livres)", "tonnes", 453.592),
+  lin("oz", "Masse", "oz (once)", "g", 28.3495),
+  lin("ozt", "Masse", "oz troy (or, argent, AgEq)", "g", 31.1035, "AgEq : équivalent argent, les autres métaux convertis au prix de l argent."),
+  lin("ston", "Masse", "short ton (tonne US)", "t", 0.907185),
+  lin("cwt", "Masse", "cwt (quintal US, hundredweight)", "kg", 45.3592),
+  lin("bu", "Masse", "boisseau (bushel, volume)", "L", 35.2391, "En masse : blé et soja 27,2 kg, maïs 25,4 kg par boisseau."),
+  lin("gal", "Volume", "gallon US", "L", 3.78541),
+  lin("mdsgal", "Volume", "Mds gallons (milliards de gallons)", "milliards de L", 3.78541),
+  lin("sqft", "Surface", "pied carré (sq ft)", "m²", 0.092903),
+  lin("msqft", "Surface", "M sq ft (millions de pieds carrés)", "milliers de m²", 92.903),
+  lin("acre", "Surface", "acre", "ha", 0.404686),
+  lin("kacre", "Surface", "K acres (milliers d acres)", "km²", 4.04686),
+  lin("mile", "Distance et vitesse", "mile", "km", 1.60934),
+  lin("ft", "Distance et vitesse", "pied (ft)", "m", 0.3048),
+  lin("in", "Distance et vitesse", "pouce (in)", "cm", 2.54),
+  lin("mph", "Distance et vitesse", "mph (miles par heure)", "km/h", 1.60934),
+  { id: "mpg", cat: "Distance et vitesse", de: "miles par gallon (mpg)", vers: "L/100 km", f: (x) => (x > 0 ? 235.215 / x : 0), note: "Relation inverse : plus de mpg = moins de L/100 km." },
+  { id: "f", cat: "Distance et vitesse", de: "°F", vers: "°C", f: (x) => (x - 32) / 1.8 },
+  lin("usdbbl", "Prix unitaires", "$ par baril, $/boe", "$ par L", 1 / 158.987),
+  lin("usdmcf", "Prix unitaires", "$ par Mcf, $/Mcfe", "$ par m³", 1 / 28.3168),
+  lin("usdmmbtu", "Prix unitaires", "$ par MMBtu", "$ par MWh", 3.41214),
+  lin("usdlb", "Prix unitaires", "$ par lb", "$ par kg", 2.20462),
+  lin("usdoz", "Prix unitaires", "$ par oz troy", "$ par g", 1 / 31.1035),
+  lin("usdcwt", "Prix unitaires", "$ par cwt", "$ par tonne", 22.0462),
+  lin("usdgal", "Prix unitaires", "$ par gallon", "$ par L", 1 / 3.78541),
+  lin("usdsqft", "Prix unitaires", "$ par sq ft", "$ par m²", 10.7639),
+  lin("ctsmile", "Prix unitaires", "cents par mile (CASM, RASM)", "cents par km", 1 / 1.60934),
 ];
+
+const fmtNb = (n: number) => (Math.abs(n) >= 100 ? n.toLocaleString("fr-FR", { maximumFractionDigits: 1 }) : Math.abs(n) >= 1 ? n.toLocaleString("fr-FR", { maximumFractionDigits: 3 }) : n.toLocaleString("fr-FR", { maximumSignificantDigits: 4 }));
 
 function Convertisseur() {
   const [id, setId] = useState(CONVERSIONS[0]!.id);
   const [val, setVal] = useState("1");
   const c = CONVERSIONS.find((x) => x.id === id) ?? CONVERSIONS[0]!;
-  const x = Number(String(val).replace(",", "."));
+  const x = Number(String(val).replace(/\s/g, "").replace(",", "."));
   const res = Number.isFinite(x) ? c.f(x) : NaN;
-  const fmt = (n: number) => (Math.abs(n) >= 100 ? n.toLocaleString("fr-FR", { maximumFractionDigits: 1 }) : n.toLocaleString("fr-FR", { maximumFractionDigits: 3 }));
+  const cats = [...new Set(CONVERSIONS.map((o) => o.cat))];
   return (
-    <div className="mb-4 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2.5">
-      <div className="font-mono text-[10.5px] uppercase tracking-[0.15em] text-zinc-400">Calculette : unité américaine vers unité européenne</div>
-      <div className="mt-2 flex flex-wrap items-center gap-2 text-[13px]">
-        <input value={val} onChange={(e) => setVal(e.target.value)} inputMode="decimal" className="w-24 rounded-md border border-white/10 bg-black/40 px-2 py-1 font-mono text-zinc-100" aria-label="valeur" />
-        <select value={id} onChange={(e) => setId(e.target.value)} className="rounded-md border border-white/10 bg-black/40 px-2 py-1 text-zinc-100">
-          {CONVERSIONS.map((o) => <option key={o.id} value={o.id}>{o.de}</option>)}
-        </select>
-        <span className="text-zinc-500">=</span>
-        <span className="font-mono font-semibold text-emerald-300">{Number.isFinite(res) ? fmt(res) : "?"} {c.vers}</span>
+    <div className="mb-4 overflow-hidden rounded-xl border border-emerald-400/20 bg-gradient-to-br from-emerald-500/[0.06] via-white/[0.02] to-cyan-500/[0.05]">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] px-3.5 py-2">
+        <div className="font-mono text-[10.5px] uppercase tracking-[0.15em] text-emerald-200/90">Calculette : unités américaines vers unités européennes</div>
+        <div className="font-mono text-[10px] text-zinc-500">{CONVERSIONS.length} conversions · toutes les unités des KPI</div>
       </div>
-      {c.note && <div className="mt-1 text-[11.5px] text-zinc-500">{c.note}</div>}
+      <div className="grid gap-3 p-3.5 lg:grid-cols-[minmax(0,19rem)_1fr]">
+        <div className="rounded-lg border border-white/[0.08] bg-black/30 p-3">
+          <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-500">Valeur</label>
+          <input value={val} onChange={(e) => setVal(e.target.value)} inputMode="decimal" aria-label="valeur" className="mt-1 w-full rounded-md border border-white/10 bg-black/50 px-2.5 py-1.5 font-mono text-[16px] text-zinc-50 outline-none focus:border-emerald-400/50" />
+          <label className="mt-2 block font-mono text-[10px] uppercase tracking-wider text-zinc-500">Unité américaine</label>
+          <select value={id} onChange={(e) => setId(e.target.value)} className="mt-1 w-full rounded-md border border-white/10 bg-black/50 px-2 py-1.5 text-[12.5px] text-zinc-100">
+            {cats.map((k) => (
+              <optgroup key={k} label={k}>
+                {CONVERSIONS.filter((o) => o.cat === k).map((o) => <option key={o.id} value={o.id}>{o.de}</option>)}
+              </optgroup>
+            ))}
+          </select>
+          <div className="mt-3 rounded-md border border-emerald-400/25 bg-emerald-500/[0.08] px-2.5 py-2">
+            <div className="font-mono text-[10px] uppercase tracking-wider text-emerald-300/80">Résultat</div>
+            <div className="font-mono text-[20px] font-semibold leading-tight text-emerald-200">{Number.isFinite(res) ? fmtNb(res) : "?"} <span className="text-[13px] font-medium text-emerald-300/80">{c.vers}</span></div>
+          </div>
+          {c.note && <div className="mt-2 text-[11.5px] leading-snug text-zinc-400">{c.note}</div>}
+        </div>
+        <div className="columns-1 gap-3 sm:columns-2 xl:columns-3">
+          {cats.map((k) => (
+            <div key={k} className="mb-3 break-inside-avoid rounded-lg border border-white/[0.06] bg-white/[0.015] p-2">
+              <div className="mb-1 font-mono text-[9.5px] uppercase tracking-[0.14em] text-cyan-300/80">{k}</div>
+              {CONVERSIONS.filter((o) => o.cat === k).map((o) => (
+                <button key={o.id} type="button" onClick={() => setId(o.id)} className={`flex w-full items-baseline justify-between gap-2 rounded px-1.5 py-[3px] text-left text-[11.5px] transition-colors ${o.id === id ? "bg-emerald-500/15 text-emerald-100" : "text-zinc-300 hover:bg-white/[0.05]"}`}>
+                  <span className="truncate">{o.de.split(" (")[0]}</span>
+                  <span className="shrink-0 font-mono text-[10.5px] text-zinc-500">{o.k !== undefined ? `× ${fmtNb(o.k)} ${o.vers}` : o.vers}</span>
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
