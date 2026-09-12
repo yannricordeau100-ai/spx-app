@@ -52,13 +52,7 @@ export async function AuthNav({ scope = "home" }: { scope?: "home" | "company" }
         {/* Yann 4 sept 2026 : le bouton Enregistrer n avait aucune destination.
             Le raccourci vers la liste vit ici, a cote du compte. */}
         {/* Yann 12 sept 2026 : sur les fiches, remplace par le bouton « Mes listes » a cote de Comparer. */}
-        {scope !== "company" && <Link
-          href="/mes-societes"
-          className="hidden items-center gap-1.5 rounded-full border border-[#2a2a2a] bg-[#0a0a0a] px-2.5 py-1 text-[12.5px] font-medium text-zinc-300 transition-colors hover:border-violet-500/50 hover:text-violet-200 sm:inline-flex"
-          title="Mes sociétés enregistrées"
-        >
-          Mes sociétés
-        </Link>}
+        {/* Yann 13 sept 2026 : bouton « Mes sociétés » retire de toutes les pages (menu Mes favoris sur les fiches). */}
         <Link
           href="/account"
           className="inline-flex items-center gap-2 rounded-full border border-[#2a2a2a] bg-[#0a0a0a] px-2.5 py-1 text-[12.5px] font-medium text-zinc-100 transition-colors hover:border-violet-500/50 hover:text-violet-200"

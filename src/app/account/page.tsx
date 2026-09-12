@@ -15,6 +15,7 @@ import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { SignOutButton } from "@/components/account/signout-button";
 import { estCompteInterne } from "@/lib/freemium/tier-serveur";
 import { getStripe } from "@/lib/billing/stripe";
+import { FacturesTable, type Facture } from "@/components/factures-table";
 import { FileText } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -62,7 +63,6 @@ export default async function AccountPage({
   // Yann 4 sept 2026 : "PDF de facture, rien nulle part". Le portail Stripe
   // les propose, mais rien ne le disait sur la page. On liste ici les
   // factures reglees du compte, chacune avec son PDF.
-  type Facture = { numero: string; date: string; montant: string; pdf: string | null; lien: string | null };
   let factures: Facture[] = [];
   try {
     const { data: abo } = await supabase
@@ -73,15 +73,21 @@ export default async function AccountPage({
     const clientId = (abo as { stripe_customer_id?: string } | null)?.stripe_customer_id;
     if (clientId) {
       const liste = await getStripe().invoices.list({ customer: clientId, limit: 12 });
+      const jour = (s: number) => new Date(s * 1000).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
       factures = liste.data
         .filter((f) => f.status === "paid" || f.status === "open")
-        .map((f) => ({
-          numero: f.number ?? f.id,
-          date: new Date(f.created * 1000).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" }),
-          montant: `${(f.amount_paid / 100).toLocaleString("fr-FR", { minimumFractionDigits: 2 })} ${f.currency.toUpperCase()}`,
-          pdf: f.invoice_pdf ?? null,
-          lien: f.hosted_invoice_url ?? null,
-        }));
+        .map((f) => {
+          const l = f.lines?.data?.[0]?.period;
+          return {
+            numero: f.number ?? f.id ?? "",
+            date: jour(f.created),
+            periode: l?.start && l?.end ? `${jour(l.start)} au ${jour(l.end)}` : null,
+            montant: `${((f.status === "paid" ? f.amount_paid : f.amount_due) / 100).toLocaleString("fr-FR", { minimumFractionDigits: 2 })} ${f.currency.toUpperCase()}`,
+            statut: (f.status === "paid" ? "Payée" : "À payer") as Facture["statut"],
+            pdf: f.invoice_pdf ?? null,
+            lien: f.hosted_invoice_url ?? null,
+          };
+        });
     }
   } catch { /* Stripe injoignable : la section reste vide */ }
   const provider = (user.app_metadata?.provider as string | undefined) ?? "email";
@@ -100,7 +106,7 @@ export default async function AccountPage({
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[700px] bg-radial-glow" />
       <div className="pointer-events-none absolute inset-0 bg-grid" />
 
-      <div className="relative mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-14">
+      <div className="relative mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
         <Link href="/" className="mb-8 inline-flex items-center gap-2.5">
           <span className="inline-flex size-7 items-center justify-center rounded-lg border border-[#2a2a2a] bg-[#0a0a0a]">
             <span className="size-1.5 animate-pulse-dot rounded-full bg-violet-400" />
@@ -190,35 +196,27 @@ export default async function AccountPage({
             </div>
           </a>
 
-          {factures.length > 0 && (
-            <div className="rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4">
-              <div className="flex items-center gap-2 text-[14px] font-semibold text-zinc-50">
-                <FileText className="size-4 text-violet-200" />
-                Mes factures
-              </div>
-              <ul className="mt-2.5 divide-y divide-white/[0.06]">
-                {factures.map((f) => (
-                  <li key={f.numero} className="flex items-center gap-3 py-2 text-[12.5px]">
-                    <span className="font-mono text-zinc-400">{f.date}</span>
-                    <span className="text-zinc-300">{f.numero}</span>
-                    <span className="ml-auto font-mono text-zinc-200">{f.montant}</span>
-                    {f.pdf ? (
-                      <a href={f.pdf} className="rounded-md border border-violet-400/40 px-2 py-0.5 text-[11.5px] font-semibold text-violet-200 hover:bg-violet-500/10">
-                        PDF
-                      </a>
-                    ) : f.lien ? (
-                      <a href={f.lien} target="_blank" rel="noreferrer" className="text-[11.5px] text-violet-300 hover:underline">voir</a>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
           <form action={signOut}>
             <SignOutButton label={t("account.signout")} sub={t("account.signout_sub")} />
           </form>
         </div>
+
+        {/* FACTURES (Yann 13 sept 2026) : section dediee, tableau complet. */}
+        <section className="mt-8 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-6">
+          <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <span className="inline-flex size-9 items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/10 text-violet-200">
+                <FileText className="size-4" />
+              </span>
+              <div>
+                <h2 className="text-[15.5px] font-semibold text-zinc-50">Factures</h2>
+                <p className="mt-0.5 text-[12.5px] text-zinc-400">Chaque paiement génère une facture au format PDF, conservée ici et dans l espace de facturation.</p>
+              </div>
+            </div>
+            <a href="/api/billing/portal" className="rounded-lg border border-[#2a2a2a] px-3 py-1.5 text-[12.5px] text-zinc-200 transition-colors hover:border-violet-400/50 hover:text-violet-200">Espace de facturation</a>
+          </header>
+          <FacturesTable factures={factures} />
+        </section>
 
         {/* SECURITE — mot de passe */}
         <section className="mt-8 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-6">

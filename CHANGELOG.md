@@ -301,3 +301,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.13.3 (13 Sep 2026 01:20, apres f9466bccc1)
 - Page KPI et definitions : referentiel officiel des 74 industries affiche
+
+## v2026.09.13.4 (13 Sep 2026 01:58, apres 9ec0d8a915)
+- Compte reorganise avec section Factures ; doublons annuels supprimes (67) ; bouton Mes societes retire ; recherche elargie
