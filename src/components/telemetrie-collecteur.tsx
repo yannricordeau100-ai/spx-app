@@ -93,7 +93,12 @@ export function TelemetrieCollecteur() {
     let debut = performance.now();
     let scrollMax = 0;
     const finDePage = () => {
-      pousse({ type: "page", nom: "vue", chemin: cheminCourant, referrer: document.referrer.slice(0, 300), duree_ms: Math.round(performance.now() - debut) });
+      // Yann 12 sept 2026 : provenance detaillee (site, parametres de campagne,
+      // lien de partage Mettrik) pour savoir d ou viennent les visiteurs.
+      const q = new URLSearchParams(location.search);
+      const provenance: Record<string, string> = { hote: location.host };
+      for (const k of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "ref", "src", "s"]) { const v = q.get(k); if (v) provenance[k] = v.slice(0, 120); }
+      pousse({ type: "page", nom: "vue", chemin: cheminCourant, referrer: document.referrer.slice(0, 300), duree_ms: Math.round(performance.now() - debut), props: provenance });
       if (scrollMax > 0) pousse({ type: "scroll", nom: "profondeur", chemin: cheminCourant, props: { pct: scrollMax } });
     };
     const surScroll = () => {

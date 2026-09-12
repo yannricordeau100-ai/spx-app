@@ -21,7 +21,7 @@ const LATEST_VERSION_PATH = "/sandbox/v1-9-5";
 /** Societes entierement lisibles sans abonnement. Doit rester alignee avec
  *  VITRINE_DEFLOUTEE de src/lib/freemium/tier-serveur.ts (module serveur,
  *  non importable ici). */
-const VITRINE_VISIBLE = new Set(["GOOGL", "GOOG", "META", "BKNG"]);
+const VITRINE_VISIBLE = new Set(["GOOGL", "GOOG", "META", "BKNG", "AAPL", "NFLX"]);
 // Yann 4 sept 2026 : les liens pointent sur l adresse PUBLIQUE /<ticker>,
 // pas sur le chemin interne /sandbox/v1-9-5/<ticker> qui s affichait dans la
 // barre d adresse des visiteurs.

@@ -841,9 +841,8 @@ export function HomeView({
             noms des sous-industries et codes, rien d autre. */}
         <HomeGicsBlock />
 
-        <footer className="mt-20 pb-8 text-center font-mono text-[11px] uppercase tracking-wider text-zinc-500 sm:mt-24">
-          Mettrik AI · {t("brand.subtitle")}
-        </footer>
+        {/* Yann 12 sept 2026 : mention « Mettrik AI · KPI Intelligence » retiree. */}
+        <div className="mt-20 pb-8 sm:mt-24" />
       </div>
       <BackToTop />
     </div>

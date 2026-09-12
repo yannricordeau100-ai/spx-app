@@ -27,6 +27,8 @@ type Stats = {
   top_clics: Duo[];
   top_pays: Duo[];
   top_origines: Duo[];
+  top_campagnes?: Duo[];
+  top_sites?: Duo[];
   appareils: Duo[];
   navigateurs: Duo[];
   erreurs: Duo[];
@@ -213,6 +215,8 @@ export function TelemetrieClient() {
             <Tableau titre="Clics les plus fréquents" lignes={stats.top_clics} />
             <Tableau titre="Pays" lignes={stats.top_pays} />
             <Tableau titre="D’où viennent les visiteurs" lignes={stats.top_origines ?? []} />
+            <Tableau titre="Campagnes et liens de partage (utm, ref)" lignes={stats.top_campagnes ?? []} />
+            <Tableau titre="Site visité (mettrik.ai ou niveau2)" lignes={stats.top_sites ?? []} />
             <Tableau titre="Appareils" lignes={stats.appareils} />
             <Tableau titre="Navigateurs" lignes={stats.navigateurs} />
             <Tableau titre="Erreurs JavaScript" lignes={stats.erreurs} vide="Aucune erreur sur la fenêtre." />

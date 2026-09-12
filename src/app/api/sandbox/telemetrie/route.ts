@@ -122,6 +122,13 @@ export async function GET(req: NextRequest) {
     // collecte depuis le debut mais n etait jamais restitue. On garde le
     // DOMAINE seul, plus lisible qu une adresse entiere, et on nomme
     // explicitement l acces direct.
+    // Yann 12 sept 2026 : parametres de campagne et liens de partage (utm, ref, src) + site servi.
+    top_campagnes: compte(lignes, (l) => {
+      const p = (l.props ?? {}) as Record<string, unknown>;
+      const morceaux = ["utm_source", "utm_medium", "utm_campaign", "ref", "src", "s"].filter((k) => typeof p[k] === "string" && p[k]).map((k) => `${k}=${String(p[k])}`);
+      return morceaux.length ? morceaux.join(" · ") : null;
+    }, 15),
+    top_sites: compte(lignes, (l) => { const h = ((l.props ?? {}) as Record<string, unknown>).hote; return typeof h === "string" ? h : null; }, 5),
     top_origines: compte(
       pages,
       (l) => {

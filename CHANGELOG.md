@@ -214,3 +214,69 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.09.7 (09 Sep 2026 07:23, apres 126bc9d852)
 - clients : corrections du controle (FRT 13,3, KIM, BMY, REGN, MCHP, CCL, TECH retires)
+
+## v2026.09.09.8 (09 Sep 2026 13:39, apres 31b4cd2284)
+- Disponible bientot, chip prochains resultats archivee, hero override purge cache, floutage antithese + iframe page publique, unites toutes stes surlignees, logo SpaceX Wikipedia
+
+## v2026.09.09.9 (09 Sep 2026 13:48, apres 04d37aa01f)
+- releve des unites : 1217 entrees toutes stes (couverture 100 % des unites des KPI)
+
+## v2026.09.09.10 (09 Sep 2026 13:52, apres 8eee602515)
+- accents des libelles KPI francais (487 libelles, 150 stes)
+
+## v2026.09.09.11 (09 Sep 2026 14:12, apres 9031a7d923)
+- bloc unites : unites de la fiche d abord, relevé complet replié
+
+## v2026.09.09.12 (09 Sep 2026 14:22, apres 276f79e0c1)
+- concepts : page ste facon terminal (3 styles)
+
+## v2026.09.10.1 (10 Sep 2026 05:23, apres dd58f22506)
+- produit phare : 53 hero poses, page exceptions ; TAM arbitrages IA
+
+## v2026.09.10.2 (10 Sep 2026 05:26, apres a9c0ed4c7b)
+- unites : calculette de conversion + notions (mix, WACC, investment grade) ; plus de toggle 3D ; docs missions IA externe
+
+## v2026.09.10.3 (10 Sep 2026 11:04, apres 9f1a2ea34e)
+- CAGR affiche sur les graphes Courbe et Barres (periode a l ecran)
+
+## v2026.09.10.4 (10 Sep 2026 12:14, apres 9482fe1cdf)
+- CAGR sous le graphe, bulle gauche retiree ; indicateurs metiers (AISC, ASM, RevPAR, NIM...) ; KPI milles renommes
+
+## v2026.09.10.5 (10 Sep 2026 12:50, apres 3068f9f31d)
+- CAGR centre sous le graphe avec i ; rail de navigation fixe ; description alignee
+
+## v2026.09.10.6 (10 Sep 2026 15:04, apres 26bd0b9040)
+- CAGR a droite du titre du graphe
+
+## v2026.09.10.7 (10 Sep 2026 15:12, apres 8f8a18657a)
+- produit phare : 11 series d exceptions posees (89 series, 53 hero)
+
+## v2026.09.11.1 (11 Sep 2026 00:41, apres c3737b304a)
+- Comparer remis : 666 fiches, KPI apparies par libelle normalise et unite, series alignees sur les memes periodes
+
+## v2026.09.11.2 (11 Sep 2026 00:42, apres 00be9be356)
+- Comparer : devises lues par mot entier, G$, garde-fou d echelle
+
+## v2026.09.11.3 (11 Sep 2026 00:43, apres 444a2034ec)
+- Comparer : meme periodicite preferee
+
+## v2026.09.11.4 (11 Sep 2026 01:01, apres d954710b9b)
+- Comparer : trimestres alignes sur le calendrier civil
+
+## v2026.09.11.5 (11 Sep 2026 13:52, apres a5328c1de5)
+- Unites corrigees QCOM CL LMT ; graphe : libelle X masque avec la valeur
+
+## v2026.09.12.1 (12 Sep 2026 01:57, apres 9080d69003)
+- Page KPI et definitions ; sandbox : compte mettrikai autorise (403 corrige) ; prompt dimanche complete
+
+## v2026.09.12.2 (12 Sep 2026 03:30, apres e0a392f815)
+- Types de KPI : definitions validees (univers et par societe, seuil theorique, Waymo)
+
+## v2026.09.12.3 (12 Sep 2026 04:04, apres 3373a4cc56)
+- Accueil GICS : KPI totaux par industrie en orange
+
+## v2026.09.12.4 (12 Sep 2026 04:24, apres 332f33d95d)
+- Connexion par mot de passe : captcha transmis (no captcha_token found corrige)
+
+## v2026.09.12.5 (12 Sep 2026 05:05, apres 1a632865f1)
+- Accueil sans mention KPI Intelligence ; Apple et Netflix gratuites (acces Max) ; telemetrie : provenance detaillee
