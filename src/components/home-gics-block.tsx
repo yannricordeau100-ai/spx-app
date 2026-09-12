@@ -14,6 +14,11 @@ import { useState } from "react";
 import { GICS, type GicsSector } from "@/lib/desk/gics";
 import { GICS_SUB_EN } from "@/lib/desk/gics-en";
 import { useT } from "@/lib/i18n/provider";
+import COMPTES from "@/data/kpi-comptes-industries.json";
+
+// Yann 12 sept 2026 : KPI totaux par industrie (IC standard + avances + stories),
+// en orange. Genere par scripts/compte-kpi-industries.ts (+ agregation).
+const KPI_PAR_INDUSTRIE = (COMPTES as { par_industrie: Record<string, { total: number; stes: number }> }).par_industrie;
 
 export type GicsVariante = "toggle" | "colonnes" | "tuiles";
 type Lang = "fr" | "en" | "de";
@@ -55,6 +60,11 @@ function Arbre({ s, lang, compact = false }: { s: GicsSector; lang: Lang; compac
                   <span className="font-mono text-[10.5px] tracking-wider text-emerald-300/90">{i.code}</span>
                   <span className="text-[12.5px] font-medium text-zinc-200">{i.name}</span>
                   <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-600">{NIVEAUX[lang][2]}</span>
+                  {KPI_PAR_INDUSTRIE[i.code] && (
+                    <span className="ml-auto whitespace-nowrap font-mono text-[10.5px] font-semibold text-orange-400" title={`${KPI_PAR_INDUSTRIE[i.code].stes} ${lang === "en" ? "companies" : lang === "de" ? "Unternehmen" : "sociétés"}`}>
+                      {KPI_PAR_INDUSTRIE[i.code].total.toLocaleString(lang === "en" ? "en-US" : lang === "de" ? "de-DE" : "fr-FR")} {lang === "en" ? "total KPIs" : lang === "de" ? "KPI gesamt" : "KPI totaux"}
+                    </span>
+                  )}
                 </div>
                 <div className="mt-1.5 flex flex-wrap gap-1.5">
                   {i.subs.map((u) => (
