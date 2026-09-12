@@ -295,3 +295,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.13.1 (13 Sep 2026 00:58, apres e8c783caf7)
 - Fiche : etoile favori a cote du ticker, menu Mes favoris (societes, KPI), story KPI en favori ; captcha non rejoue
+
+## v2026.09.13.2 (13 Sep 2026 01:14, apres b3f978f446)
+- Referentiel KPI GICS 74 industries ajoute au Cahier et au prompt du dimanche
