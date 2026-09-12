@@ -64,7 +64,8 @@ export async function adminSendReset(formData: FormData) {
     redirect(`/admin?error=${encodeURIComponent("Email manquant.")}`);
   }
 
-  const supabase = await createSupabaseServerClient();
+  // Yann 12 sept 2026 : client de service (le captcha Supabase ne s applique pas a lui).
+  const supabase = createSupabaseAdminClient();
   const origin = await getOrigin();
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${origin}/auth/callback?next=/auth/update-password`,

@@ -38,6 +38,8 @@ declare global {
           callback?: (token: string) => void;
           "error-callback"?: () => void;
           "expired-callback"?: () => void;
+          "open-callback"?: () => void;
+          "close-callback"?: () => void;
         },
       ) => string;
       remove: (widgetId: string) => void;
@@ -130,6 +132,7 @@ export function HCaptchaWidget(props?: {
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
+  const defilementAvantDefi = useRef<string | null>(null);
   const [token, setToken] = useState<string>("");
   const [status, setStatus] = useState<"loading" | "ready" | "error" | "expired">("loading");
 
@@ -147,6 +150,17 @@ export function HCaptchaWidget(props?: {
             callback: (tok: string) => {
               setToken(tok);
               setStatus("ready");
+            },
+            // Yann 12 sept 2026 : la fenetre de connexion bloque le defilement
+            // de la page ; le defi hCaptcha (plus haut que l ecran) avait son
+            // bouton de validation hors de vue. On debloque pendant le defi.
+            "open-callback": () => {
+              defilementAvantDefi.current = document.body.style.overflow;
+              document.body.style.overflow = "";
+            },
+            "close-callback": () => {
+              if (defilementAvantDefi.current !== null) document.body.style.overflow = defilementAvantDefi.current;
+              defilementAvantDefi.current = null;
             },
             "error-callback": () => setStatus("error"),
             "expired-callback": () => {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HCaptchaWidget } from "@/components/hcaptcha-widget";
 import { redirect } from "next/navigation";
 import { Star, User, KeyRound, AtSign, Trash2, CreditCard } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -262,6 +263,8 @@ export default async function AccountPage({
                 minLength={8}
                 required
               />
+              {/* Yann 12 sept 2026 : captcha exige par Supabase pour verifier l ancien mot de passe. */}
+              <HCaptchaWidget theme="dark" />
               <button
                 type="submit"
                 className="mt-2 inline-flex items-center gap-2 rounded-lg bg-violet-500 px-4 py-2.5 text-[13.5px] font-semibold text-white transition-colors hover:bg-violet-400"

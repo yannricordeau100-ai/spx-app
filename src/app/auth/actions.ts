@@ -290,9 +290,11 @@ export async function updatePassword(formData: FormData) {
 
   // Re-vérifier le mot de passe actuel pour empêcher un cookie volé
   // de changer le mot de passe sans connaître l'ancien.
+  // Yann 12 sept 2026 : captcha exige par Supabase aussi pour cette verification.
   const { error: signinError } = await supabase.auth.signInWithPassword({
     email: user.email,
     password: current,
+    options: { captchaToken: getCaptchaToken(formData) || undefined },
   });
   if (signinError) {
     redirect(
