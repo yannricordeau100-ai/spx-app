@@ -9,10 +9,10 @@ type U = { categorie: string; unite: string; nom?: string; signification?: strin
 const DEFS = [
   ["KPI total", "Somme de tous les KPI IC (standard et avancés) et des KPI stories."],
   ["KPI IC total", "Somme de tous les KPI IC (standard et avancés)."],
-  ["KPI", "Nombre de TYPES de KPI IC différents (standard et avancés). Un type est une mesure qui peut s appliquer à un concurrent : elle est comparable. Sinon c est un KPI unique."],
+  ["Types de KPI", "Nombre de types de KPI IC différents (standard et avancés), compté sur tout l univers ET par société. Un type est une mesure qu un concurrent peut publier, même en théorie : elle est comparable. Sinon c est un KPI unique."],
 ];
 const OUI = ["Nombre d employés", "BPA dilué", "Nombre de systèmes d exploitation mobile sur le marché", "Coût d acquisition de trafic", "Part de marché des navigateurs web"];
-const NON = ["Nombre de systèmes Android sur le marché", "Villes desservies par Waymo", "Part de marché de Chrome (tel quel)"];
+const NON = ["Nombre de systèmes Android sur le marché", "Villes desservies par Waymo (tel quel ; généralisé : villes couvertes par un service de robotaxi)", "Part de marché de Chrome (tel quel ; généralisé : part de marché des navigateurs web)"];
 
 function Groupes({ liste }: { liste: U[] }) {
   const g = new Map<string, U[]>();
@@ -43,7 +43,7 @@ export default function Page() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-8 text-zinc-100">
       <h1 className="font-display text-[26px] font-bold">KPI et définitions</h1>
-      <p className="mt-1 text-[13px] text-zinc-400">Vocabulaire officiel de Mettrik, fixé le 12 septembre 2026. Tout changement de nom attend la validation du propriétaire.</p>
+      <p className="mt-1 text-[13px] text-zinc-400">Vocabulaire officiel de Mettrik, fixé et validé le 12 septembre 2026. Tout changement de nom attend la validation du propriétaire.</p>
       <table className="mt-5 w-full text-[13.5px]"><tbody>
         {DEFS.map(([t, d]) => <tr key={t} className="border-t border-white/10 align-top"><td className="w-40 py-2 pr-4 font-semibold text-violet-200">{t}</td><td className="py-2 text-zinc-200">{d}</td></tr>)}
       </tbody></table>
