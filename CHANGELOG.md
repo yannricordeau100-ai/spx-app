@@ -298,3 +298,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.13.2 (13 Sep 2026 01:14, apres b3f978f446)
 - Referentiel KPI GICS 74 industries ajoute au Cahier et au prompt du dimanche
+
+## v2026.09.13.3 (13 Sep 2026 01:20, apres f9466bccc1)
+- Page KPI et definitions : referentiel officiel des 74 industries affiche

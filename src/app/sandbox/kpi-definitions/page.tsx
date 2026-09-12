@@ -1,3 +1,4 @@
+import REFERENTIEL from "@/data/kpi-referentiel-gics-74.json";
 import METIERS from "@/data/unites-metiers.json";
 import UNIVERS from "@/data/unites-univers.json";
 
@@ -38,6 +39,7 @@ function Groupes({ liste }: { liste: U[] }) {
 }
 
 export default function Page() {
+  const ref = REFERENTIEL as { industries: number; kpis: number; liste: { code: string; industrie: string; secteur: string; kpis: { fr: string; en: string }[] }[] };
   const metiers = (METIERS as { unites: U[] }).unites;
   const univers = (UNIVERS as { unites: U[] }).unites;
   return (
@@ -55,6 +57,27 @@ export default function Page() {
       </div>
       <h2 className="mt-7 text-[17px] font-semibold">Où vit le type comparable</h2>
       <p className="mt-1 text-[13px] text-zinc-300">Aucune colonne en plus dans le tableau. Chaque KPI reçoit un champ de données invisible « type de KPI ». Il est affiché dans le « i », par exemple « Comparable : part de marché des navigateurs web », et le Comparer l utilise pour rapprocher les sociétés.</p>
+      <h2 className="mt-7 text-[17px] font-semibold">Référentiel officiel : KPI par industrie GICS</h2>
+      <p className="mt-1 text-[12.5px] text-zinc-400">{ref.industries} industries, {ref.kpis.toLocaleString("fr-FR")} KPI en français et en anglais, hors métriques financières communes à toutes les sociétés. Source : document fourni par le propriétaire le 13 septembre 2026. C est la liste de référence des types de KPI.</p>
+      <div className="mt-3 grid gap-2">
+        {ref.liste.map((ind) => (
+          <details key={ind.code} className="rounded-lg border border-white/10 p-3">
+            <summary className="cursor-pointer text-[13px] text-zinc-100">
+              <span className="font-mono text-[11px] text-emerald-300/90">{ind.code}</span> {ind.industrie}
+              <span className="ml-2 font-mono text-[11px] text-zinc-500">{ind.secteur} · {ind.kpis.length} KPI</span>
+            </summary>
+            <table className="mt-2 w-full text-[12px]"><tbody>
+              {ind.kpis.map((k, i) => (
+                <tr key={ind.code + i} className="border-t border-white/5 align-top">
+                  <td className="py-1 pr-3 text-zinc-200">{k.fr}</td>
+                  <td className="py-1 text-zinc-500">{k.en}</td>
+                </tr>
+              ))}
+            </tbody></table>
+          </details>
+        ))}
+      </div>
+
       <h2 className="mt-7 text-[17px] font-semibold">Unités par secteur</h2>
       <p className="mt-1 text-[12.5px] text-zinc-400">Indicateurs métiers ({metiers.length}) puis relevé complet des unités de l univers ({univers.length}).</p>
       <div className="mt-3"><Groupes liste={metiers} /></div>
