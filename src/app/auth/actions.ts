@@ -90,7 +90,10 @@ export async function signInWithPassword(formData: FormData) {
   const password = String(formData.get("password") ?? "");
   const next = safeNextParam(formData.get("next"));
   const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  // Yann 12 sept 2026 : le captcha est exige par Supabase sur TOUTE
+  // connexion par mot de passe ; sans jeton, refus « no captcha_token found ».
+  const captchaToken = getCaptchaToken(formData) || undefined;
+  const { error } = await supabase.auth.signInWithPassword({ email, password, options: { captchaToken } });
   if (error) {
     redirect(`/?auth=signin&error=${await authErr(error.message)}`);
   }

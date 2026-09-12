@@ -77,6 +77,8 @@ export function AuthModal() {
   // avec le redirect serveur).
   const [signinErr, setSigninErr] = useState<string | null>(null);
   const [signinBusy, setSigninBusy] = useState(false);
+  // Un jeton hCaptcha ne sert qu une fois : apres un echec, on recree le widget.
+  const [cleCaptcha, setCleCaptcha] = useState(0);
 
   async function handleSigninClient(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -85,8 +87,17 @@ export function AuthModal() {
     const fd = new FormData(e.currentTarget);
     const emailV = String(fd.get("email") ?? "").trim();
     const passwordV = String(fd.get("password") ?? "");
+    // Yann 12 sept 2026 : Supabase exige le captcha sur la connexion par mot
+    // de passe (« no captcha_token found » sinon). « bypass » = widget non configure.
+    const jetonCaptcha = String(fd.get("h-captcha-response") ?? "");
+    const captchaToken = jetonCaptcha && jetonCaptcha !== "bypass" ? jetonCaptcha : undefined;
     if (!emailV || !passwordV) {
       setSigninErr("Email + mot de passe requis");
+      setSigninBusy(false);
+      return;
+    }
+    if (!captchaToken && jetonCaptcha !== "bypass") {
+      setSigninErr("Coche la vérification anti-robot puis réessaie.");
       setSigninBusy(false);
       return;
     }
@@ -114,7 +125,7 @@ export function AuthModal() {
       let error: Awaited<ReturnType<typeof supa.auth.signInWithPassword>>["error"] | null = null;
       const maxAttempts = 3;
       for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-        const signinPromise = supa.auth.signInWithPassword({ email: emailV, password: passwordV });
+        const signinPromise = supa.auth.signInWithPassword({ email: emailV, password: passwordV, options: { captchaToken } });
         const timeoutPromise = new Promise<never>((_, reject) =>
           setTimeout(() => reject(new Error("timeout")), 15000),
         );
@@ -145,6 +156,7 @@ export function AuthModal() {
               : (error?.message ?? "Connexion impossible. Réessaie dans un instant."),
         );
         setSigninBusy(false);
+        setCleCaptcha((k) => k + 1);
         return;
       }
       // Yann (12 mai 2026) : fix 404 après login.
@@ -192,6 +204,7 @@ export function AuthModal() {
         : `Erreur : ${errMsg.slice(0, 200)}`;
       setSigninErr(msg);
       setSigninBusy(false);
+      setCleCaptcha((k) => k + 1);
     }
   }
   // Conserve le `next` URL pour le passer en hidden input à tous les forms
@@ -420,6 +433,9 @@ export function AuthModal() {
                         className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
                       />
                     </Field>
+                    <div className="flex justify-center">
+                      <HCaptchaWidget key={cleCaptcha} theme="dark" />
+                    </div>
                     {signinErr && (
                       <div className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-[12.5px] text-rose-200">
                         {signinErr}
