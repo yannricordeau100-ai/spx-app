@@ -16,7 +16,7 @@ import { useT } from "@/lib/i18n/provider";
  * parent via le contexte billing.
  */
 const PERIODS = [
-  { id: "5y", labelKey: "company.period.5y" },
+  { id: "3y", labelKey: "company.period.3y" },
   { id: "max", labelKey: "company.period.max" },
 ] as const;
 
@@ -28,12 +28,12 @@ export function PeriodToggle({
 }: {
   accent?: string;
   hasMaxPlan?: boolean;
-  /** Yann 8 juin 2026 : toggle controle. value = "5y" | "max", onChange
+  /** Yann 8 juin 2026 : toggle controle. value = "3y" | "max", onChange
    *  remonte le choix au parent qui filtre reellement l'history du chart. */
-  value?: "5y" | "max";
-  onChange?: (p: "5y" | "max") => void;
+  value?: "3y" | "max";
+  onChange?: (p: "3y" | "max") => void;
 }) {
-  const [internal, setInternal] = useState<string>("5y");
+  const [internal, setInternal] = useState<string>("3y");
   const active = value ?? internal;
   const [showLockMsg, setShowLockMsg] = useState<string | null>(null);
   const { t } = useT();
@@ -53,7 +53,7 @@ export function PeriodToggle({
                 return;
               }
               setInternal(p.id);
-              onChange?.(p.id as "5y" | "max");
+              onChange?.(p.id as "3y" | "max");
             }}
             className={cn(
               "relative inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium transition-colors",

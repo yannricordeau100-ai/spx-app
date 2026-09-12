@@ -187,6 +187,7 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
     de: "6 Indikatoren auf einen Blick",
     nl: "6 indicatoren in één oogopslag" },
   "company.period.5y": { de: "5 Jahre", nl: "5 jaar" },
+  "company.period.3y": { de: "3 Jahre", nl: "3 jaar" },
   "company.period.10y": { de: "10 Jahre", nl: "10 jaar" },
   "company.period.20y": { de: "20 Jahre", nl: "20 jaar" },
   "company.period.locked": {

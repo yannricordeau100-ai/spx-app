@@ -286,3 +286,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.12.7 (12 Sep 2026 05:37, apres 411e4807ae)
 - Captcha : defi hCaptcha accessible (defilement), mot de passe du compte, reset admin
+
+## v2026.09.12.8 (12 Sep 2026 14:23, apres 4fb53f4eb4)
+- Graphe et tendance : 3 ans ou Max (Max reserve au forfait Max) ; rail : Gouv. et Remuneration

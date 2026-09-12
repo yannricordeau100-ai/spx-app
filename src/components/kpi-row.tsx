@@ -54,6 +54,7 @@ export function KpiRow({
   ticker,
   freeBlocked = false,
   overrideValue = null,
+  plageTendance = "3y",
 }: {
   kpi: KPI;
   active?: boolean;
@@ -67,6 +68,8 @@ export function KpiRow({
    *  affichée à gauche avec le dernier point visible du chart à droite
    *  (mise à jour live selon frequency / view quarterly vs annual). */
   overrideValue?: number | null;
+  /** Yann 12 sept 2026 : la tendance suit le reglage du graphe (3 ans ou Max). */
+  plageTendance?: "3y" | "max";
 }) {
   const { t, locale } = useT();
   // Yann FIX 4d : en FR on affiche name_fr en priorité ; si absent fallback name_en
@@ -395,7 +398,13 @@ export function KpiRow({
 
       {/* COL 3 — Tendance (2 cols) */}
       <div className="col-span-6 self-start pt-1.5 sm:col-span-2 sm:self-auto sm:pt-0">
-        <Sparkline data={kpi.history} height={30} color={accent} className="h-8 w-full sm:h-auto" />
+        <Sparkline data={(() => {
+          const h = Array.isArray(kpi.history) ? kpi.history : [];
+          if (plageTendance === "max") return h;
+          const pt = (kpi as { period_type?: string }).period_type;
+          const n = pt === "quarter" ? 12 : pt === "semester" ? 6 : 3;
+          return h.length > n ? h.slice(-n) : h;
+        })()} height={30} color={accent} className="h-8 w-full sm:h-auto" />
       </div>
 
       {/* COL 4 — Qualité (stacked) + Signal */}

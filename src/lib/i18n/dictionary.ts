@@ -314,6 +314,7 @@ export const DICTIONARY: Dict = {
   },
 
   "company.period.5y": { fr: "5 ans", en: "5y" },
+  "company.period.3y": { fr: "3 ans", en: "3y" },
   "company.period.10y": { fr: "10 ans", en: "10y" },
   "company.period.20y": { fr: "20 ans", en: "20y" },
   "company.period.max": { fr: "MAX", en: "MAX" },
@@ -1395,7 +1396,7 @@ export const DICTIONARY: Dict = {
   "nav.kpi_table": { fr: "Tableau des KPI", en: "KPI table" },
   "nav.market_position": { fr: "Position marché", en: "Market position" },
   "nav.risks": { fr: "Facteurs de risque", en: "Risk factors" },
-  "nav.governance": { fr: "Gouvernance & rémunération", en: "Governance & comp" },
+  "nav.governance": { fr: "Gouv. et Rémunération", en: "Governance & comp" },
   "nav.ai": { fr: "Positionnement IA", en: "AI positioning" },
   "nav.senate": { fr: "Trades du Sénat US", en: "US Senate trades" },
   "nav.super_kpi": { fr: "Super-KPI Mettrik", en: "Mettrik Super-KPIs" },

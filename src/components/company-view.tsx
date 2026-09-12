@@ -501,7 +501,7 @@ export function CompanyView({
   const [graphPeriod, setGraphPeriod] = useState<"year" | "quarter" | "semester">(heroDefaultPeriod);
   // Yann 8 juin 2026 : fenetre temporelle du chart. "5y" = 5 dernieres annees
   // (= 20 trimestres / 10 semestres selon la frequence), "max" = tout dispo.
-  const [chartRange, setChartRange] = useState<"5y" | "max">("5y");
+  const [chartRange, setChartRange] = useState<"3y" | "max">("3y"); // Yann 12 sept 2026 : 3 ans (au lieu de 5), Max reserve au forfait Max
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
   // Yann 8 juin 2026 (Point 4) : state lifte ici pour que la bascule FR/EN
   // du titre KPI hero (via KpiSwapTitle) propage aussi a l'axe Y du graph.
@@ -728,7 +728,7 @@ export function CompanyView({
   // au chart ET au gros chiffre hero (qui lit chartHistoryRangeApplied).
   const rangeLimit = chartRange === "max"
     ? Infinity
-    : graphPeriod === "quarter" ? 20 : graphPeriod === "semester" ? 10 : 5;
+    : graphPeriod === "quarter" ? 12 : graphPeriod === "semester" ? 6 : 3;
   const chartHistoryRaw = rangeLimit !== Infinity && chartHistoryRawFull.length > rangeLimit
     ? chartHistoryRawFull.slice(-rangeLimit)
     : chartHistoryRawFull;
@@ -1611,7 +1611,7 @@ export function CompanyView({
                     accent={accent}
                     range={chartRange}
                     onRange={setChartRange}
-                    hasMaxPlan={!freeBlocked}
+                    hasMaxPlan={freemiumTier === "max"}
                     graphPeriod={graphPeriod}
                     onGraphPeriod={setGraphPeriod}
                     periodAvailable={mobilePeriodAvailable}
@@ -1623,7 +1623,7 @@ export function CompanyView({
                   )}
                 </div>
                 <div className="hidden sm:contents">
-                <PeriodToggle accent={accent} value={chartRange} onChange={setChartRange} hasMaxPlan={!freeBlocked} />
+                <PeriodToggle accent={accent} value={chartRange} onChange={setChartRange} hasMaxPlan={freemiumTier === "max"} />
                 {(chartMode === "curve" || chartMode === "bars") && isTimeFractionApplicableKpi(active) && (
                   <TimeFractionToggle
                     value={timeFraction}
@@ -1933,6 +1933,7 @@ export function CompanyView({
                   subsector={company.subsector}
                   ticker={company.ticker}
                   onClick={() => handleKpiClick(kpi.short)}
+                  plageTendance={chartRange}
                   freeBlocked={freeBlocked}
                   overrideValue={isActive ? heroLastVisibleValue : null}
                 />
@@ -1991,6 +1992,7 @@ export function CompanyView({
                       subsector={company.subsector}
                       ticker={company.ticker}
                       onClick={() => handleKpiClick(kpi.short)}
+                      plageTendance={chartRange}
                       freeBlocked={freeBlocked}
                       overrideValue={kpi.short === active.short ? heroLastVisibleValue : null}
                     />

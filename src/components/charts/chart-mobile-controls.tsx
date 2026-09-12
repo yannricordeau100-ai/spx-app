@@ -178,8 +178,8 @@ export function ChartSettingsMenu({
   onBarsVariant,
 }: {
   accent?: string;
-  range: "5y" | "max";
-  onRange: (r: "5y" | "max") => void;
+  range: "3y" | "max";
+  onRange: (r: "3y" | "max") => void;
   hasMaxPlan: boolean;
   graphPeriod: GraphPeriod;
   onGraphPeriod: (p: GraphPeriod) => void;
@@ -233,7 +233,7 @@ export function ChartSettingsMenu({
           <GroupePills
             titre="Fenêtre"
             options={[
-              { id: "5y" as const, label: "5 ans" },
+              { id: "3y" as const, label: "3 ans" },
               { id: "max" as const, label: "MAX", disabled: !hasMaxPlan },
             ]}
             value={range}
