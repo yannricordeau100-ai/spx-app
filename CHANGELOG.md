@@ -313,3 +313,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.13.7 (13 Sep 2026 02:45, apres 92add2e5a5)
 - Marquage des valeurs approximatives transmis a la fiche
+
+## v2026.09.13.8 (13 Sep 2026 03:11, apres 82808137de)
+- Stories : valeurs approximatives affichees 100+

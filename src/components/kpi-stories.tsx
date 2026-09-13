@@ -485,7 +485,10 @@ function StoryFrame({
                 companyName: company.name,
                 title: estKpi ? (d.name_fr ?? "") : (d.segment_name ?? ""),
                 period: null,
-                value: estKpi ? (fmt?.value ?? "") : String(d.segment_revenue ?? ""),
+                // Yann 13 sept 2026 : valeur non exacte a la source -> « 100+ » ou « ~100 ».
+                value: estKpi
+                  ? (() => { const v = fmt?.value ?? ""; const a = (d as { approx?: string }).approx; return a === "min" ? `${v}+` : a === "env" ? `≈${v}` : v; })()
+                  : String(d.segment_revenue ?? ""),
                 unit: estKpi ? fmt?.unit : d.segment_unit,
                 signal: estKpi ? d.signal : null,
                 accent,
