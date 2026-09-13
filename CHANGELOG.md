@@ -343,3 +343,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.13.17 (13 Sep 2026 23:27, apres 168d9f0d73)
 - Connexion : le captcha n est plus rejoue (jeton a usage unique, remise a zero apres chaque envoi, remontage si le navigateur renvoie le meme jeton). Transcripts d earnings call de toutes les places par stockanalysis.com : 109 societes europeennes equipees, 670 sur 673 couvertes. Calendrier des resultats europeen (136 societes) par la meme source, FMP devenu facultatif. Bloom Energy : base installee en megawatts 2022-2025 en haut de fiche, sourcee des depots. Reddit : series etendues a cinq exercices et au premier trimestre 2022. Page valeurs approximatives : avertissement quand les decisions sont verrouillees. Traductions arretees partout.
+
+## v2026.09.13.18 (13 Sep 2026 23:53, apres b4fa15f9d5)
+- Bloom Energy : base installee en megawatts (973 MW fin 2022 a plus de 1 800 MW fin 2025) ecrite dans la couche lue par la fiche, valeurs exactes publiees et arrondis 2024-2025 signales ; Reddit : historique etendu dans la couche lue par la fiche (trimestres depuis le premier trimestre 2022, exercices depuis 2021) ; transcripts rafraichis par la chaine de nuit
