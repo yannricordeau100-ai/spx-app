@@ -346,3 +346,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.13.18 (13 Sep 2026 23:53, apres b4fa15f9d5)
 - Bloom Energy : base installee en megawatts (973 MW fin 2022 a plus de 1 800 MW fin 2025) ecrite dans la couche lue par la fiche, valeurs exactes publiees et arrondis 2024-2025 signales ; Reddit : historique etendu dans la couche lue par la fiche (trimestres depuis le premier trimestre 2022, exercices depuis 2021) ; transcripts rafraichis par la chaine de nuit
+
+## v2026.09.14.1 (14 Sep 2026 00:20, apres a320398005)
+- Fiche Reddit reparee : une clientele diffuse sans premier client publie faisait planter la page (floutage et bloc Clients lisaient une valeur vide) ; transcripts rafraichis

@@ -677,7 +677,15 @@ async function loadV17CompanyBrut(
     const top = cc?.top as { pct?: unknown } | undefined;
     const top10 = cc?.top10 as { pct?: unknown } | null | undefined;
     if (cc && ((top && top.pct !== null && top.pct !== undefined) || (top10 && top10.pct !== null && top10.pct !== undefined) || cc.diffus === true)) {
-      (data as Record<string, unknown>).clients_concentration = { top: cc.top, top10: cc.top10 ?? null, diffus: cc.diffus === true };
+      // 14 sept 2026 : une clientele diffuse peut n avoir aucun « premier
+      // client » publie (top = null, cas Reddit). Le type attend un objet :
+      // on fournit un premier client neutre, qui porte le commentaire de la
+      // fiche, sinon le floutage et le bloc Clients lisaient null et la page
+      // entiere tombait en erreur.
+      const topSur = cc.top && typeof cc.top === "object"
+        ? cc.top
+        : { n: 0, pct: null, plafond: false, clients: [], commentaire: typeof cc.commentaire === "string" ? cc.commentaire : undefined };
+      (data as Record<string, unknown>).clients_concentration = { top: topSur, top10: cc.top10 ?? null, diffus: cc.diffus === true };
     }
   } catch {
     /* pas de fiche clients */

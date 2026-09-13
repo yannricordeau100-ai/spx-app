@@ -160,13 +160,15 @@ export function caviardeCompanyPourGratuit(company: Company, zones: Zone[]): Com
   // 9 sept 2026 : concentration clients (commentaires, noms, pourcentages).
   if (c.clients_concentration) {
     const cc = c.clients_concentration;
+    // 14 sept 2026 : une clientele « diffuse » n a pas de premier client
+    // (top = null, cas Reddit). L acces direct a cc.top faisait planter la fiche.
     if (estActive(zones, "clients", "texte")) {
-      if (cc.top.commentaire) cc.top.commentaire = caviarde(cc.top.commentaire);
+      if (cc.top?.commentaire) cc.top.commentaire = caviarde(cc.top.commentaire);
       if (cc.top10?.commentaire) cc.top10.commentaire = caviarde(cc.top10.commentaire);
     }
-    if (estActive(zones, "clients", "noms")) cc.top.clients = cc.top.clients.map((n) => caviarde(n));
+    if (estActive(zones, "clients", "noms") && cc.top && Array.isArray(cc.top.clients)) cc.top.clients = cc.top.clients.map((n) => caviarde(n));
     if (estActive(zones, "clients", "valeur") || estActive(zones, "clients", "graphique")) {
-      if (typeof cc.top.pct === "number") cc.top.pct = Math.min(99, caviardeNombre(cc.top.pct));
+      if (cc.top && typeof cc.top.pct === "number") cc.top.pct = Math.min(99, caviardeNombre(cc.top.pct));
       if (cc.top10 && typeof cc.top10.pct === "number") cc.top10.pct = Math.min(99, caviardeNombre(cc.top10.pct));
     }
   }
