@@ -1,3 +1,4 @@
+import { NB_SOCIETES } from "@/lib/univers";
 /**
  * onboarding-templates.ts — séquence onboarding J+1 / J+3 / J+7 / J+14 / J+25.
  *
@@ -248,7 +249,7 @@ const DAY25: OnboardingTemplate = {
         p(HI.fr(n)) +
         p("Tu utilises Mettrik AI depuis presque un mois. Si tu veux passer à la vitesse supérieure :") +
         emailList([
-          `${b("Premium")} : toutes les fiches des 666 sociétés sans floutage, indicateurs et graphiques complets, risques, gouvernance et synthèses de résultats.`,
+          `${b("Premium")} : toutes les fiches des ${NB_SOCIETES} sociétés sans floutage, indicateurs et graphiques complets, risques, gouvernance et synthèses de résultats.`,
           `${b("Max")} : tout Premium + l\'anti-thèse de chaque société, les favoris illimités et le support prioritaire.`,
         ]) +
         p("Si tu restes en gratuit, aucun souci : la base que tu as suffit pour un usage sérieux. Ce mail est juste pour information."),

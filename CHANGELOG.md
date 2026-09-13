@@ -328,3 +328,9 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.13.12 (13 Sep 2026 15:06, apres 5feea5320a)
 - Emails clients bloques sauf necessaires ; veille des indices ; page par indice ; calendrier MarketBeat
+
+## v2026.09.13.13 (13 Sep 2026 15:53, apres d8c3b03806)
+- Univers 670 : RDDT, FERG, FLEX, FDXF ajoutees et raccordees ; Nasdaq 100 via le portail Nasdaq ; compteur de societes dynamique
+
+## v2026.09.13.14 (13 Sep 2026 16:17, apres 0e506bacdc)
+- SPCX complete (prospectus, 18 KPI, 17 stories, risques, gouvernance) ; comptages 670 ; textes 670
