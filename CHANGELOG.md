@@ -355,3 +355,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.14.3 (14 Sep 2026 01:46, apres 15a47cde9e)
 - Vivmark Residential reconstruite sur les depots d Equity Residential (11 KPI longs, 7 stories, repartition, risques, gouvernance, moat source, anti-these) ; titres de KPI trop longs ecrits sur deux lignes dans les exports (largeur mesuree) ; le « i » du titre suit le dernier mot sur la fiche
+
+## v2026.09.14.4 (14 Sep 2026 01:57, apres 01ebdd5ee9)
+- Societes ajoutees completees bloc par bloc (BE, FERG, FDXF, FLEX, RDDT) : moat source Morningstar, positionnement IA, repartitions et historiques, anti-theses approfondies, KPI prolonges (FDXF depuis 2016, RDDT depuis 2021), textes de KPI en explication de 150 caracteres au plus

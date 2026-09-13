@@ -4,8 +4,8 @@
  "extracted_at": "2026-08-19",
  "extracted_by": "claude-direct-sox30",
  "sources_used": "data-lake/FERG/10Q (12 rapports, T1-FY2023 clos oct 2022 a T2 calendaire 2026 clos juin 2026, tables Results of Operations et segments) + data-lake/FERG/10K (FY2021 a FY2025, comptes consolides et notes segments) + data-lake/FERG/10K FERG_2026-02-27 (Transition Report, periode transitoire 5 mois aout-dec 2025, changement d'exercice fiscal). Aucun 10-K ne publie de table trimestrielle recapitulative ; les 8-K du dossier ne contiennent que la couverture Item 2.02 sans l'exhibit 99.1 (communique de resultats absent du data-lake), donc series trimestrielles reconstituees depuis les 10-Q.",
- "hero_kpi": "BRANCHES",
- "hero_kpi_rationale": "Ferguson exploite 1 746 succursales aux Etats-Unis et au Canada en FY2025 (1 519 US + 227 Canada), contre 1 679 en FY2021, une expansion structurelle du reseau de distribution physique qui sous-tend la croissance organique et les acquisitions bolt-on (51 sur 5 exercices). C'est le meilleur proxy physique et verifiable de la taille de Ferguson, plus parlant que le seul chiffre d'affaires pour un distributeur.",
+ "hero_kpi": "ORGANIC_GROWTH_Q",
+ "hero_kpi_rationale": "La croissance organique des ventes isole la dynamique propre du reseau, hors acquisitions : 15 trimestres publies par la societe, du trimestre clos le 31 octobre 2022 au trimestre clos le 30 juin 2026. Apres sept trimestres negatifs en 2023 et 2024, elle redevient positive a partir du premier trimestre 2025 et atteint +3,8 % au deuxieme trimestre 2026. C est la mesure la plus fraiche et la plus lisible de la sante d un distributeur ; le nombre de succursales (1 746 en 2025) reste suivi a part comme repere physique annuel.",
  "_notes": "Ferguson a change d'exercice fiscal (cloture 31 juillet -> 31 decembre) via une periode de transition de 5 mois (aout-decembre 2025, Transition Report Form 10-KT depose le 27 fevrier 2026, fichier data-lake FERG_2026-02-27.htm.gz dans le dossier 10K). Mapping calendaire applique : pour les trimestres fiscaux pre-transition, le trimestre calendaire retenu est celui du mois de cloture (cloture oct->Q4, janv->Q1, avr->Q2, juil->Q3). A partir de janv-mars 2026, l'exercice est deja calendaire (Q1-2026 clos 31 mars 2026, Q2-2026 clos 30 juin 2026). Pour Q1-2025 et Q2-2025, les valeurs recast fournies verbatim par les 10-Q post-transition (colonnes comparatives 'three months ended March 31, 2025' et 'three months ended June 30, 2025') ont ete utilisees de preference a l'approximation par trimestre fiscal decale, car elles couvrent le vrai trimestre calendaire (verifie : le +5,0% YoY publie par la societe sur le resultat net T2 calendaire 2026 correspond exactement au calcul 666/634 fait a partir de ces valeurs recast). Les points Q3-2022, Q3-2023, Q3-2024 et Q3-2025 (trimestre fiscal cloture juillet, non couvert par un 10-Q car il correspond a l'annee fiscale complete) sont calcules par soustraction verbatim (total FY 10-K moins somme des 3 autres trimestres fiscaux verbatim de la meme annee fiscale) ; marques comme calcules dans le signal. Q3-2021 reste absent (premier 10-Q disponible dans le data-lake date de decembre 2022, aucune donnee anterieure pour reconstituer ce trimestre). Le resultat net des trimestres fiscaux 2021-2022 melange 'Income from continuing operations' et 'Net income' selon le libelle du 10-Q d'origine (activites abandonnees mineures cette periode, +23M$ sur FY2022 non attribuables a un trimestre precis) ; ecart potentiel de quelques millions sur Q3-2022 uniquement, signale dans le KPI. Segments US/Canada verifies egaux au consolide sur les 5 exercices (controle somme segments = consolide OK). Nombre d'associates volontairement exclu des KPI publies (effectifs, hors perimetre de cette mission).",
  "kpis": [
   {
@@ -94,7 +94,7 @@
     }
    ],
    "pv_score": 7,
-   "signal": "CA de 8 751 M$ au T2 calendaire 2026 (clos 30 juin 2026), +4,6% sur un an, porté par l'inflation prix, le volume et les acquisitions bolt-on. Points Q3-2022/2023/2024/2025 calculés par soustraction (total annuel 10-K moins les 3 autres trimestres fiscaux verbatim), le trimestre fiscal clôturé juillet n'étant publié qu'en 10-K annuel.",
+   "signal": "8 751 M$ au trimestre clos le 30 juin 2026, +4,6 % : prix, volume et acquisitions ; points T3 déduits du total annuel, non publiés à part.",
    "frequency": "quarterly",
    "last_data_date": "2026-08-10",
    "_extraction_note": "Verbatim 10-Q FERG_2026-08-10.htm.gz table 'Results of Operations', ligne Net sales, trimestre clos 30 juin 2026 vs 30 juin 2025 (recast calendaire)."
@@ -185,7 +185,7 @@
     }
    ],
    "pv_score": 6,
-   "signal": "Résultat opérationnel de 893 M$ au T2 calendaire 2026, +6,1% sur un an, marge opérationnelle stable grâce à la discipline sur les coûts variables malgré la hausse des coûts SG&A. Points T3 (2022-2025) calculés par soustraction du total annuel 10-K.",
+   "signal": "893 M$ au trimestre clos le 30 juin 2026, +6,1 % : la marge tient grâce aux coûts variables malgré la hausse des frais généraux.",
    "frequency": "quarterly",
    "last_data_date": "2026-08-10",
    "_extraction_note": "Verbatim 10-Q, ligne Operating profit."
@@ -276,7 +276,7 @@
     }
    ],
    "pv_score": 7,
-   "signal": "Résultat net de 666 M$ au T2 calendaire 2026, +5,0% sur un an (chiffre exact publié par la société : +32 M$ soit +5,0% vs T2 2025), porté par la hausse du résultat opérationnel et les rachats d'actions. Q3-2022 approximé sur base activités poursuivies (activités abandonnées mineures +23 M$ sur FY2022 non attribuables à un trimestre précis).",
+   "signal": "666 M$ au trimestre clos le 30 juin 2026, +5,0 % : résultat opérationnel en hausse et rachats d'actions qui relèvent le bénéfice par action.",
    "frequency": "quarterly",
    "last_data_date": "2026-08-10",
    "_extraction_note": "Verbatim 10-Q, ligne Net income (ou Income from continuing operations pour les trimestres fiscaux 2021-2022)."
@@ -311,7 +311,7 @@
     }
    ],
    "pv_score": 6,
-   "signal": "Le segment États-Unis, 95% du CA du groupe, atteint 29 269 M$ en FY2025 (+3,8%), porté par les marchés non-résidentiels (infrastructures, industriel, waterworks) qui compensent un résidentiel plus faible.",
+   "signal": "95 % du groupe : 29 269 M$ sur l'exercice 2025 (+3,8 %), les marchés non résidentiels compensant un résidentiel toujours faible.",
    "frequency": "annual",
    "last_data_date": "2025-09-26",
    "_extraction_note": "Verbatim 10-K FY2025, note segments, table 'Net sales: United States'. Controle : US + Canada = total consolide sur les 5 exercices (verifie exact chaque annee)."
@@ -346,7 +346,7 @@
     }
    ],
    "pv_score": 5,
-   "signal": "Le segment Canada (marque Wolseley), 5% du CA du groupe, atteint 1 493 M$ en FY2025 (+3,7%), porte par l'inflation prix et une acquisition, partiellement compense par des cessions d'activites non-coeur.",
+   "signal": "5 % du groupe sous la marque Wolseley : 1 493 M$ sur l'exercice 2025 (+3,7 %), porté par les prix et une acquisition malgré des cessions.",
    "frequency": "annual",
    "last_data_date": "2025-09-26",
    "_extraction_note": "Verbatim 10-K FY2025, note segments, table 'Net sales: Canada'."
@@ -381,7 +381,7 @@
     }
    ],
    "pv_score": 8,
-   "signal": "1 746 succursales au 31 juillet 2025 (1 519 aux États-Unis + 227 au Canada), en repli de 1,5% sur un an après le pic de FY2024 (1 773), la société ayant fermé certaines succursales sous-performantes tout en poursuivant les acquisitions bolt-on.",
+   "signal": "1 746 succursales au 31 juillet 2025 (-1,5 %), après le pic de 1 773 : fermetures de sites sous-performants alors que les acquisitions continuent.",
    "frequency": "annual",
    "last_data_date": "2025-09-26",
    "_extraction_note": "Verbatim 10-K, section Business (Item 1), decompte au 31 juillet de chaque exercice : US business operated X branches + Canada business operated Y branches."
@@ -416,7 +416,7 @@
     }
    ],
    "pv_score": 6,
-   "signal": "9 acquisitions bolt-on réalisées en FY2025, après un pic exceptionnel de 17 en FY2022 (rattrapage post-Covid). Levier de croissance structurel du réseau de distribution, en complément de la croissance organique.",
+   "signal": "9 acquisitions sur l'exercice 2025 après 17 en 2022 : la consolidation d'un marché fragmenté reste le second moteur de croissance du réseau.",
    "frequency": "annual",
    "last_data_date": "2025-09-26",
    "_extraction_note": "Verbatim 10-K, Item 1A Risk Factors, phrase 'During fiscal [X], [Y] and [Z], we completed a total of N, N, N acquisitions, respectively.'"
@@ -447,7 +447,7 @@
     }
    ],
    "pv_score": 5,
-   "signal": "948 M$ de rachats d'actions en FY2025 (+49,5% vs FY2024), dans le cadre du programme autorisé à 5,0 Mds$ dont 4,0 Mds$ déjà réalisés au 31 juillet 2025.",
+   "signal": "948 M$ rachetés sur l'exercice 2025 (+49,5 %) : 4,0 Mds $ exécutés sur un programme de 5,0 Mds $, soutien mécanique du bénéfice par action.",
    "frequency": "annual",
    "last_data_date": "2025-09-26",
    "_extraction_note": "Verbatim 10-K, section Liquidity, 'Share repurchases under the Company's announced share repurchase program were $X million and $Y million in fiscal N and N-1, respectively.' Recoupe sur 4 exercices via 3 10-K successifs."
@@ -478,7 +478,7 @@
     }
    ],
    "pv_score": 5,
-   "signal": "489 M$ de dividendes versés en FY2025, en forte baisse apparente (-37,6%) mais due à un effet de calendrier explicitement signalé par la société : le dividende du T4 FY2024 a été versé par anticipation dès le T4 FY2024 (redomiciliation aux États-Unis), d'où aucun versement au T1 FY2025.",
+   "signal": "489 M$ versés sur l'exercice 2025 (-37,6 %) : effet de calendrier, le dividende du T4 2024 ayant été payé en avance lors de la redomiciliation.",
    "frequency": "annual",
    "last_data_date": "2025-09-26",
    "_extraction_note": "Verbatim 10-K, section Liquidity, 'Dividends paid to shareholders were $X million and $Y million in fiscal N and N-1, respectively.' Recoupe sur 4 exercices via 3 10-K successifs."
@@ -492,7 +492,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "architecture logistique propre au modèle de distribution en gros de Ferguson, pas un chiffre financier standard",
+   "signal": "14 centres (9 régionaux, 5 de marché) qui alimentent les succursales : l'ossature logistique qui permet la livraison rapide sur chantier.",
    "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
   },
   {
@@ -504,7 +504,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "base client très fragmentée (aucun client >1% du CA), signal de résilience propre au B2B de distribution",
+   "signal": "Environ un million de clients, aucun au-delà de 1 % des ventes : une base très fragmentée qui amortit la perte d'un compte.",
    "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
   },
   {
@@ -516,7 +516,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "diversification amont propre à un grossiste, absente des chiffres financiers classiques",
+   "signal": "Environ 37 000 fournisseurs, aucun dominant dans le coût des ventes : la diversification amont limite le pouvoir de prix des industriels.",
    "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx",
    "approx": "min",
    "_approx_avant": "37000 | fournisseurs (aucun >5% du coût des ventes)"
@@ -530,7 +530,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "largeur de catalogue, mesure opérationnelle propre à un distributeur multi-marques",
+   "signal": "Environ un million de références : la largeur du catalogue est ce qui fait venir l'artisan chez un distributeur plutôt que chez le fabricant.",
    "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
   },
   {
@@ -542,7 +542,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "empreinte immobilière physique du réseau de distribution, indicateur sectoriel non financier",
+   "signal": "Environ 60 millions de pieds carrés de surface logistique et commerciale : l'empreinte physique qu'un concurrent devrait reproduire.",
    "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
   },
   {
@@ -554,7 +554,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "capacite logistique propre a la derniere livraison sur chantier, coeur du modele Ferguson",
+   "signal": "Environ 6 000 véhicules en propre : la livraison du jour même ou du lendemain sur chantier est au cœur du modèle.",
    "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
   },
   {
@@ -566,7 +566,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "mix d'activité propre au secteur du bâtiment, protégé partiellement des cycles de construction neuve",
+   "signal": "Environ 66 % des ventes en rénovation et maintenance, 34 % en construction neuve : un mix qui amortit les cycles du bâtiment.",
    "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
   },
   {
@@ -578,7 +578,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "densité du maillage logistique, avantage compétitif propre au métier de distribution rapide",
+   "signal": "95 % des clients nord-américains à moins de 60 miles d'un site : la densité du maillage fait la rapidité de livraison, avantage clé.",
    "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
   },
   {
@@ -590,7 +590,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "mesure de leadership local marché par marché, propre à un distributeur régionalisé",
+   "signal": "75 % des ventes américaines réalisées sur des marchés où Ferguson est numéro un ou deux : le leadership se mesure marché par marché.",
    "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
   },
   {
@@ -602,7 +602,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "illustre la fragmentation du marché nord-américain de la distribution, contexte concurrentiel propre au secteur",
+   "signal": "Environ 10 000 concurrents de petite ou moyenne taille : un marché très fragmenté qui nourrit la stratégie d'acquisitions.",
    "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
   },
   {
@@ -614,7 +614,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "TAM disclosé par la société elle-même (construction résidentielle et non résidentielle), pas un chiffre CA",
+   "signal": "Marché adressable de 340 Mds $ chiffré par la société (résidentiel et non résidentiel) : environ 9 % de part, marge de conquête large.",
    "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
   },
   {
@@ -626,7 +626,7 @@
    "is_short_history": true,
    "story_category": "Marche",
    "history": [],
-   "signal": "structure commerciale go-to-market propre à Ferguson (Ferguson Home, Commercial/Mechanical, Facilities Supply, Residential Trade Plumbing, Fire & Fabrication, HVAC, Industrial, Waterworks)",
+   "signal": "8 segments de clientèle aux États-Unis (maison, commercial, plomberie, HVAC, industrie, eau) : une organisation commerciale par métier.",
    "_source": "https://www.corporate.ferguson.com/about-us/Our-Businesses/default.aspx"
   },
   {
@@ -661,7 +661,7 @@
     }
    ],
    "pv_score": 8,
-   "signal": "Marge brute de 30,7 % sur l exercice 2025, en hausse de 20 points de base sur un an et au plus haut de la periode, la societe expliquant ce gain par des actions de tarification et le calendrier des hausses de prix fournisseurs.",
+   "signal": "30,7 % sur l'exercice 2025, +20 points de base et au plus haut de la période : effet des actions de prix et du calendrier des hausses fournisseurs.",
    "_source": "Rapports annuels Ferguson : marge brute publiee en clair dans la partie Resultats (30,6 % en 2021, 30,7 % en 2022, 30,4 % en 2023, 30,5 % en 2024, 30,7 % en 2025). 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
   },
   {
@@ -696,7 +696,7 @@
     }
    ],
    "pv_score": 7,
-   "signal": "Marge operationnelle publiee de 8,5 % sur l exercice 2025 (2 606 M$ de resultat operationnel pour 30 762 M$ de ventes nettes), en repli apres le pic de 9,9 % de l exercice 2022.",
+   "signal": "8,5 % sur l'exercice 2025 (2 606 M$ pour 30 762 M$ de ventes), sous le pic de 9,9 % de 2022 : les coûts progressent plus vite que les prix.",
    "_source": "Calcul resultat operationnel / ventes nettes, les deux lignes etant reprises telles quelles des comptes consolides. 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
   },
   {
@@ -731,7 +731,7 @@
     }
    ],
    "pv_score": 8,
-   "signal": "14 598 M$ de ventes sur le marche residentiel americain sur l exercice 2025, en hausse de 0,9 % apres deux exercices de repli, dans un marche de la renovation et de la construction neuve toujours atone.",
+   "signal": "14 598 M$ sur l'exercice 2025 (+0,9 %) après deux exercices de repli : rénovation et construction neuve restent atones.",
    "_source": "Note de desagregation des ventes nettes par marche final. 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
   },
   {
@@ -766,7 +766,7 @@
     }
    ],
    "pv_score": 8,
-   "signal": "14 671 M$ sur le marche non residentiel americain sur l exercice 2025 (commercial 10 088 M$, genie civil et infrastructures 2 609 M$, industrie 1 974 M$), en hausse de 6,8 % : c est le moteur de la croissance et le poste depasse pour la premiere fois le residentiel.",
+   "signal": "14 671 M$ sur l'exercice 2025 (+6,8 %) : commercial, infrastructures et industrie tirent la croissance et dépassent le résidentiel, une première.",
    "_source": "Note de desagregation des ventes nettes par marche final. 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
   },
   {
@@ -801,7 +801,7 @@
     }
    ],
    "pv_score": 8,
-   "signal": "Le marche residentiel americain represente 47,5 % des ventes nettes consolidees de l exercice 2025, contre 52,6 % quatre exercices plus tot : le mix bascule progressivement vers le non residentiel, moins expose au cycle du logement.",
+   "signal": "47,5 % des ventes en 2025 contre 52,6 % quatre ans plus tôt : le mix bascule vers le non résidentiel, moins exposé au cycle du logement.",
    "_source": "Ventes residentielles aux Etats-Unis rapportees aux ventes nettes totales, les deux valeurs etant publiees dans la note de desagregation par marche final. La societe decrit elle meme un partage a peu pres egal entre residentiel et non residentiel. 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
   },
   {
@@ -836,7 +836,7 @@
     }
    ],
    "pv_score": 6,
-   "signal": "Environ 35 000 collaborateurs au 31 juillet 2025 (32 000 aux Etats-Unis, 3 000 au Canada), effectif stable depuis trois exercices alors que les ventes ont progresse de 3,5 % sur la periode.",
+   "signal": "Environ 35 000 collaborateurs au 31 juillet 2025, stables depuis trois exercices alors que les ventes ont gagné 3,5 % : gain de productivité.",
    "_source": "Chiffre arrondi publie par la societe dans la partie Activite (reseau de distribution). 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
   },
   {
@@ -871,7 +871,7 @@
     }
    ],
    "pv_score": 7,
-   "signal": "Environ 5 900 vehicules de livraison au 31 juillet 2025, soit 600 de plus qu en 2021 : la flotte en propre est ce qui permet la livraison le jour meme ou le lendemain depuis les succursales.",
+   "signal": "Environ 5 900 véhicules de livraison, 600 de plus qu'en 2021 : la flotte en propre conditionne la livraison le jour même depuis les succursales.",
    "_source": "Chiffre arrondi publie par la societe dans la partie Activite (reseau de distribution). 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
   },
   {
@@ -946,7 +946,7 @@
     }
    ],
    "pv_score": 9,
-   "signal": "Croissance organique de 3,8 % sur le trimestre clos le 30 juin 2026, cinquieme trimestre consecutif de progression apres neuf trimestres de repli ou de quasi stagnation. C est l equivalent des ventes a perimetre comparable chez Ferguson, qui ne publie pas d indicateur de ventes a magasins comparables.",
+   "signal": "3,8 % au trimestre clos le 30 juin 2026, cinquième trimestre de hausse après neuf de repli : l'équivalent des ventes à périmètre comparable.",
    "_source": "Communiques de resultats trimestriels de la societe, rubrique Summary of financial results, ligne organic revenue growth, du trimestre clos le 31 octobre 2022 au trimestre clos le 30 juin 2026 (exhibits 99.1 joints aux depots 8-K).",
    "_gap_note": "Pas de point pour les deux mois de novembre et decembre 2025 : le changement d exercice fiscal a remplace ce trimestre par une periode de transition de cinq mois, pour laquelle la societe n a publie qu une croissance organique en annee civile pleine (4,5 %). Les trimestres sont etiquetes par le trimestre calendaire de leur date de cloture, comme la serie de chiffre d affaires."
   },
@@ -990,7 +990,7 @@
     }
    ],
    "pv_score": 6,
-   "signal": "Cinq acquisitions bouclees sur le trimestre clos le 30 juin 2026, plus un accord signe pour reprendre FloWorks, distributeur de vannes et de solutions de controle de debit : c est le trimestre le plus actif de la serie et la consolidation d un marche tres fragmente reste le second moteur de croissance.",
+   "signal": "Cinq acquisitions bouclées au trimestre clos le 30 juin 2026, plus l'accord FloWorks : trimestre le plus actif de la série sur un marché fragmenté.",
    "_source": "Communiques de resultats trimestriels, ligne Completed X acquisitions during the quarter (exhibits 99.1 des depots 8-K du 10 decembre 2024, 11 mars 2025, 3 juin 2025, 16 septembre 2025, 9 decembre 2025, 5 mai 2026 et 10 aout 2026). Serie demarree au premier communique ou la societe donne ce compte trimestriel.",
    "is_short_history": true,
    "story_category": "Croissance externe"
@@ -1035,7 +1035,7 @@
     }
    ],
    "pv_score": 6,
-   "signal": "Dividende trimestriel de 0,89 $ par action declare au titre du trimestre clos le 30 juin 2026, apres une hausse de 7 % annoncee en decembre 2025.",
+   "signal": "0,89 $ par action au titre du trimestre clos le 30 juin 2026, après une hausse de 7 % annoncée en décembre 2025.",
    "_source": "Communiques de resultats trimestriels joints aux depots 8-K du 10 decembre 2024, 11 mars 2025, 3 juin 2025, 16 septembre 2025, 9 decembre 2025, 5 mai 2026 et 10 aout 2026, rubrique des points cles du trimestre. Les trimestres sont etiquetes par le trimestre calendaire de leur date de cloture ; le trimestre clos le 31 janvier 2026 n existe pas, remplace par la periode de transition liee au changement d exercice.",
    "is_short_history": true,
    "story_category": "Retour aux actionnaires"
@@ -1080,7 +1080,7 @@
     }
    ],
    "pv_score": 6,
-   "signal": "202 M$ d actions rachetees sur le trimestre clos le 30 juin 2026 ; le programme tourne sans interruption depuis au moins sept trimestres, pour environ 220 M$ par trimestre en moyenne.",
+   "signal": "202 M$ rachetés au trimestre clos le 30 juin 2026 : programme ininterrompu depuis sept trimestres, environ 220 M$ par trimestre en moyenne.",
    "_source": "Communiques de resultats trimestriels joints aux depots 8-K du 10 decembre 2024, 11 mars 2025, 3 juin 2025, 16 septembre 2025, 9 decembre 2025, 5 mai 2026 et 10 aout 2026, rubrique des points cles du trimestre. Les trimestres sont etiquetes par le trimestre calendaire de leur date de cloture ; le trimestre clos le 31 janvier 2026 n existe pas, remplace par la periode de transition liee au changement d exercice.",
    "is_short_history": true,
    "story_category": "Retour aux actionnaires"
@@ -1125,7 +1125,7 @@
     }
    ],
    "pv_score": 7,
-   "signal": "1,3 fois au 30 juin 2026, contre 1,0 fois au trimestre precedent : la remontee accompagne cinq acquisitions bouclees dans le trimestre et la signature de l accord FloWorks. La societe se dit toujours dans sa fourchette cible.",
+   "signal": "1,3 fois au 30 juin 2026 contre 1,0 fois au trimestre précédent : cinq acquisitions et l'accord FloWorks pèsent, dans la fourchette cible affichée.",
    "_source": "Communiques de resultats trimestriels joints aux depots 8-K du 10 decembre 2024, 11 mars 2025, 3 juin 2025, 16 septembre 2025, 9 decembre 2025, 5 mai 2026 et 10 aout 2026, rubrique des points cles du trimestre. Les trimestres sont etiquetes par le trimestre calendaire de leur date de cloture ; le trimestre clos le 31 janvier 2026 n existe pas, remplace par la periode de transition liee au changement d exercice.",
    "is_short_history": true,
    "story_category": "Structure financiere"
