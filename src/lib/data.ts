@@ -557,6 +557,11 @@ export const TICKER_ALIASES: Record<string, string> = {
   "HEN3.DE": "HEN.DE",
   // Airbus : double cotation, la fiche canonique est AIR.PA (Paris).
   "AIR.DE": "AIR.PA",
+  // Yann 14 sept 2026 : AvalonBay et Equity Residential ont fusionne le
+  // 17 aout 2026 dans Vivmark Residential (VMRK). Les anciennes adresses
+  // renvoient vers la societe issue de la fusion.
+  AVB: "VMRK",
+  EQR: "VMRK",
 };
 
 /** Renvoie le ticker canonique (majuscules), résout les alias. */

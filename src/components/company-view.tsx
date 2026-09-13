@@ -2219,11 +2219,8 @@ export function CompanyView({
           {t("company.provenance")}
         </p>
 
-        {/* Yann 11 juin 2026 : ligne "valeur ajoutée" (KPIS SPÉCIFIQUES +
-            INTERPRÉTATION INVESTISSEUR SUR 5 ANS) retirée. Copyright seul. */}
-        <footer className="mt-6 pb-8 text-center font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-          {t("company.footer_copyright")}
-        </footer>
+        {/* Yann 14 sept 2026 : ligne de copyright retiree du bas de la fiche. */}
+        <div className="pb-8" />
       </main>
 
       <CompanyNavChrome />

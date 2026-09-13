@@ -11,7 +11,7 @@ mises a jour generales l ignorent. Modele a copier pour la structure : TSM (amer
 5. `src/data/transcripts/<t>.json` (scripts/marketbeat-transcripts.py --tickers T pour les americaines, scripts/stockanalysis-transcripts.py --tickers T sinon) et `src/data/transcript-summaries/<t>.json` (scripts/summaries-refresh.py --tickers T).
 6. `src/data/att/<t>.json` : anti-these (procedure .conv-state/ATT-PROCEDURE.md).
 7. `src/data/companies/<t>.json` : donnees legacy si le loader les lit (verifier load-company.ts ; TSM en a un).
-8. `public/logos/<T>.png` : scripts/fetch-logo-wikipedia.py T "Titre Wikipedia".
+8. `public/logos/<T>.png` : scripts/fetch-logo-wikipedia.py T "Titre Wikipedia", PUIS verifier l image a l oeil (bonne societe, pas une photo ni une icone d application) et ajouter T (points remplaces par des tirets) dans `src/data/logo-tickers.json`, sinon la fiche affiche un monogramme.
 9. `docs/cahier/donnees/<T>.json`, `docs/cahier/clients/<T>.json`, `docs/cahier/tam/<T>.json`, `docs/cahier/kpi/` (sous-industrie deja couverte).
 10. Traductions : INTERDITES depuis le 13 sept 2026 (Yann). Ne pas produire `src/data/v2-pipeline-i18n/<t>.en.json` ni `<t>.de.json`, ne pas lancer scripts/cron-translate-en-de.sh (cron desactive).
 11. data-lake/<T>/ : 10K, 10Q, 8K, DEF14A (scripts/fetch-filing-dates.py + daily-doc-watcher) ; ir/ pour les europeennes.

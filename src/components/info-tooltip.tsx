@@ -46,6 +46,19 @@ export function InfoTooltip({
     right: number;
   } | null>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  // 14 sept 2026 : largeur reelle de la popup, mesuree apres rendu. La
+  // constante 288 px ne valait que pour une police racine de 16 px ; sur les
+  // grands ecrans la popup etait plus large et partait loin du « i ».
+  const popupRef = useRef<HTMLDivElement>(null);
+  const [largeurPopup, setLargeurPopup] = useState(288);
+  useEffect(() => {
+    if (!open) return;
+    const id = requestAnimationFrame(() => {
+      const w = popupRef.current?.offsetWidth;
+      if (w && Math.abs(w - largeurPopup) > 1) setLargeurPopup(w);
+    });
+    return () => cancelAnimationFrame(id);
+  }, [open, coords, largeurPopup]);
   const isSm = size === "sm";
 
   // Calcule la position de la popup à partir du bouton déclencheur.
@@ -77,26 +90,25 @@ export function InfoTooltip({
 
   const popupStyle: React.CSSProperties = (() => {
     if (!coords) return { display: "none" };
-    if (align === "right") return { top: coords.top, right: coords.right };
-    if (align === "center")
-      return {
-        top: coords.top,
-        left: coords.left,
-        transform: "translateX(-50%)",
-      };
+    // 14 sept 2026 : la popup reste toujours collee au « i » et entierement
+    // visible : position calculee en pixels puis bornee aux bords de l ecran.
+    const MARGE = 12;
+    const vw = typeof window !== "undefined" ? window.innerWidth : 1440;
+    const borne = (x: number) => Math.max(MARGE, Math.min(x, vw - largeurPopup - MARGE));
+    const gaucheBouton = coords.left;
+    const droiteBouton = vw - coords.right;
+    if (align === "center") {
+      return { top: coords.top, left: borne((gaucheBouton + droiteBouton) / 2 - largeurPopup / 2) };
+    }
+    if (align === "right") return { top: coords.top, left: borne(droiteBouton - largeurPopup) };
     // Yann 8 juin 2026 : auto-flip. La popup fait w-72 (288px). Si elle
     // depasserait le bord droit de l'ecran (cas du "i" en bout de titre KPI a
     // droite, ex "Revenus des frais de membership (i)"), on l'ouvre vers la
     // GAUCHE (right-align) pour ne plus tronquer le texte de definition.
-    const POPUP_W = 288;
-    const MARGIN = 12;
-    if (
-      typeof window !== "undefined" &&
-      coords.left + POPUP_W + MARGIN > window.innerWidth
-    ) {
-      return { top: coords.top, right: coords.right };
+    if (gaucheBouton + largeurPopup + MARGE > vw) {
+      return { top: coords.top, left: borne(droiteBouton - largeurPopup) };
     }
-    return { top: coords.top, left: coords.left };
+    return { top: coords.top, left: borne(gaucheBouton) };
   })();
 
   return (
@@ -135,6 +147,7 @@ export function InfoTooltip({
                 transition={{ duration: 0.16, ease: "easeOut" }}
                 onMouseEnter={() => setOpen(true)}
                 onMouseLeave={() => setOpen(false)}
+                ref={popupRef}
                 className="pointer-events-auto fixed z-[1000] w-72 rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-3.5 text-[12.5px] leading-relaxed text-zinc-200 shadow-2xl"
                 style={popupStyle}
               >

@@ -531,7 +531,7 @@ export function CagrChip({ data, unit, periodType = "year", locale = "fr" }: { d
     >
       {txt}
       <span className="text-zinc-500">·</span>
-      <InfoTooltip color={up ? "#34d399" : "#f87171"} size="sm" align="left">
+      <InfoTooltip color={up ? "#34d399" : "#f87171"} size="sm" align="center">
         <p className="text-[12px] leading-relaxed text-zinc-200">{fr ? "Taux de croissance annuel moyen, calculé " : "Compound annual growth rate, computed "}{sur}{fr ? " (période affichée sur le graphe)." : " (period shown on the chart)."}</p>
       </InfoTooltip>
     </span>

@@ -27,6 +27,12 @@ fiche=js(obl["v2-pipeline"]) or {}
 kp=[k for k in fiche.get("kpis",[]) if len(k.get("history") or [])>=5]
 haut=js(obl["kpis-haut"]) or {}
 res["contenu"]={"kpis_5ans":len(kp),"kpis_haut":len(haut.get("kpis",[])),"risques":len(fiche.get("risks") or []),"gouvernance":bool(fiche.get("governance")),"positionnement_ia":bool(fiche.get("ai_positioning")),"hero":fiche.get("hero_kpi"),"gics":fiche.get("gics_code"),"repartition":bool((js(obl["v2-pipeline-enrich"]) or {}).get("revenue_by_segment"))}
+# 14 sept 2026 : sans entree dans logo-tickers.json, la fiche affiche un monogramme
+# au lieu du logo, meme si public/logos/<T>.png existe (cas de 24 societes ajoutees).
+try:
+    res["listes"]["logo-tickers.json"]=T.replace(".","-") in set(json.load(open(os.path.join(ROOT,"src/data/logo-tickers.json"))))
+except Exception:
+    res["listes"]["logo-tickers.json"]=False
 manque=[k for k,v in res["artefacts"].items() if not v]+[k for k,v in res["listes"].items() if v is False]
 # carte-pays-kpis et home-wow-kpis sont des selections curatees : informatif seulement
 res["listes"]["carte-pays-kpis.json (curatee)"]=dans("src/data/carte-pays-kpis.json"); res["listes"]["home-wow-kpis.json (curatee)"]=dans("src/data/home-wow-kpis.json")

@@ -32,7 +32,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
         <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-[14px] text-emerald-100">Aucun bloc en retard au-delà de J+3.</div>
       )}
       <h1 className="mt-6 font-display text-[26px] font-bold">Mises à jour des fiches</h1>
-      <p className="mt-1 text-[13px] text-zinc-400">Calendrier des publications de résultats (passé et à venir, source FMP mise à jour chaque jour), puis état de chaque bloc selon les règles. Calculé le {etat.calculeLe.slice(0, 16).replace("T", " ")} sur {etat.univers} sociétés. Calendrier du {cal.MAJ}.</p>
+      <p className="mt-1 text-[13px] text-zinc-400">Calendrier des publications de résultats (passé et à venir, sources MarketBeat pour les sociétés américaines et stockanalysis.com pour les autres, mis à jour chaque jour), puis état de chaque bloc selon les règles. Calculé le {etat.calculeLe.slice(0, 16).replace("T", " ")} sur {etat.univers} sociétés. Calendrier du {cal.MAJ}.</p>
       <Calendrier parJour={parJour} />
       <h2 className="mt-8 text-[17px] font-semibold">Règles et état par bloc</h2>
       <p className="mt-1 text-[12.5px] text-zinc-400">{regles.regle_generale}</p>
