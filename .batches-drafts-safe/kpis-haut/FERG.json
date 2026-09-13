@@ -1,633 +1,1135 @@
 {
-  "ticker": "FERG",
-  "company": "Ferguson Enterprises",
-  "extracted_at": "2026-08-19",
-  "extracted_by": "claude-direct-sox30",
-  "sources_used": "data-lake/FERG/10Q (12 rapports, T1-FY2023 clos oct 2022 a T2 calendaire 2026 clos juin 2026, tables Results of Operations et segments) + data-lake/FERG/10K (FY2021 a FY2025, comptes consolides et notes segments) + data-lake/FERG/10K FERG_2026-02-27 (Transition Report, periode transitoire 5 mois aout-dec 2025, changement d'exercice fiscal). Aucun 10-K ne publie de table trimestrielle recapitulative ; les 8-K du dossier ne contiennent que la couverture Item 2.02 sans l'exhibit 99.1 (communique de resultats absent du data-lake), donc series trimestrielles reconstituees depuis les 10-Q.",
-  "hero_kpi": "BRANCHES",
-  "hero_kpi_rationale": "Ferguson exploite 1 746 succursales aux Etats-Unis et au Canada en FY2025 (1 519 US + 227 Canada), contre 1 679 en FY2021, une expansion structurelle du reseau de distribution physique qui sous-tend la croissance organique et les acquisitions bolt-on (51 sur 5 exercices). C'est le meilleur proxy physique et verifiable de la taille de Ferguson, plus parlant que le seul chiffre d'affaires pour un distributeur.",
-  "_notes": "Ferguson a change d'exercice fiscal (cloture 31 juillet -> 31 decembre) via une periode de transition de 5 mois (aout-decembre 2025, Transition Report Form 10-KT depose le 27 fevrier 2026, fichier data-lake FERG_2026-02-27.htm.gz dans le dossier 10K). Mapping calendaire applique : pour les trimestres fiscaux pre-transition, le trimestre calendaire retenu est celui du mois de cloture (cloture oct->Q4, janv->Q1, avr->Q2, juil->Q3). A partir de janv-mars 2026, l'exercice est deja calendaire (Q1-2026 clos 31 mars 2026, Q2-2026 clos 30 juin 2026). Pour Q1-2025 et Q2-2025, les valeurs recast fournies verbatim par les 10-Q post-transition (colonnes comparatives 'three months ended March 31, 2025' et 'three months ended June 30, 2025') ont ete utilisees de preference a l'approximation par trimestre fiscal decale, car elles couvrent le vrai trimestre calendaire (verifie : le +5,0% YoY publie par la societe sur le resultat net T2 calendaire 2026 correspond exactement au calcul 666/634 fait a partir de ces valeurs recast). Les points Q3-2022, Q3-2023, Q3-2024 et Q3-2025 (trimestre fiscal cloture juillet, non couvert par un 10-Q car il correspond a l'annee fiscale complete) sont calcules par soustraction verbatim (total FY 10-K moins somme des 3 autres trimestres fiscaux verbatim de la meme annee fiscale) ; marques comme calcules dans le signal. Q3-2021 reste absent (premier 10-Q disponible dans le data-lake date de decembre 2022, aucune donnee anterieure pour reconstituer ce trimestre). Le resultat net des trimestres fiscaux 2021-2022 melange 'Income from continuing operations' et 'Net income' selon le libelle du 10-Q d'origine (activites abandonnees mineures cette periode, +23M$ sur FY2022 non attribuables a un trimestre precis) ; ecart potentiel de quelques millions sur Q3-2022 uniquement, signale dans le KPI. Segments US/Canada verifies egaux au consolide sur les 5 exercices (controle somme segments = consolide OK). Nombre d'associates volontairement exclu des KPI publies (effectifs, hors perimetre de cette mission).",
-  "kpis": [
+ "ticker": "FERG",
+ "company": "Ferguson Enterprises",
+ "extracted_at": "2026-08-19",
+ "extracted_by": "claude-direct-sox30",
+ "sources_used": "data-lake/FERG/10Q (12 rapports, T1-FY2023 clos oct 2022 a T2 calendaire 2026 clos juin 2026, tables Results of Operations et segments) + data-lake/FERG/10K (FY2021 a FY2025, comptes consolides et notes segments) + data-lake/FERG/10K FERG_2026-02-27 (Transition Report, periode transitoire 5 mois aout-dec 2025, changement d'exercice fiscal). Aucun 10-K ne publie de table trimestrielle recapitulative ; les 8-K du dossier ne contiennent que la couverture Item 2.02 sans l'exhibit 99.1 (communique de resultats absent du data-lake), donc series trimestrielles reconstituees depuis les 10-Q.",
+ "hero_kpi": "BRANCHES",
+ "hero_kpi_rationale": "Ferguson exploite 1 746 succursales aux Etats-Unis et au Canada en FY2025 (1 519 US + 227 Canada), contre 1 679 en FY2021, une expansion structurelle du reseau de distribution physique qui sous-tend la croissance organique et les acquisitions bolt-on (51 sur 5 exercices). C'est le meilleur proxy physique et verifiable de la taille de Ferguson, plus parlant que le seul chiffre d'affaires pour un distributeur.",
+ "_notes": "Ferguson a change d'exercice fiscal (cloture 31 juillet -> 31 decembre) via une periode de transition de 5 mois (aout-decembre 2025, Transition Report Form 10-KT depose le 27 fevrier 2026, fichier data-lake FERG_2026-02-27.htm.gz dans le dossier 10K). Mapping calendaire applique : pour les trimestres fiscaux pre-transition, le trimestre calendaire retenu est celui du mois de cloture (cloture oct->Q4, janv->Q1, avr->Q2, juil->Q3). A partir de janv-mars 2026, l'exercice est deja calendaire (Q1-2026 clos 31 mars 2026, Q2-2026 clos 30 juin 2026). Pour Q1-2025 et Q2-2025, les valeurs recast fournies verbatim par les 10-Q post-transition (colonnes comparatives 'three months ended March 31, 2025' et 'three months ended June 30, 2025') ont ete utilisees de preference a l'approximation par trimestre fiscal decale, car elles couvrent le vrai trimestre calendaire (verifie : le +5,0% YoY publie par la societe sur le resultat net T2 calendaire 2026 correspond exactement au calcul 666/634 fait a partir de ces valeurs recast). Les points Q3-2022, Q3-2023, Q3-2024 et Q3-2025 (trimestre fiscal cloture juillet, non couvert par un 10-Q car il correspond a l'annee fiscale complete) sont calcules par soustraction verbatim (total FY 10-K moins somme des 3 autres trimestres fiscaux verbatim de la meme annee fiscale) ; marques comme calcules dans le signal. Q3-2021 reste absent (premier 10-Q disponible dans le data-lake date de decembre 2022, aucune donnee anterieure pour reconstituer ce trimestre). Le resultat net des trimestres fiscaux 2021-2022 melange 'Income from continuing operations' et 'Net income' selon le libelle du 10-Q d'origine (activites abandonnees mineures cette periode, +23M$ sur FY2022 non attribuables a un trimestre precis) ; ecart potentiel de quelques millions sur Q3-2022 uniquement, signale dans le KPI. Segments US/Canada verifies egaux au consolide sur les 5 exercices (controle somme segments = consolide OK). Nombre d'associates volontairement exclu des KPI publies (effectifs, hors perimetre de cette mission).",
+ "kpis": [
+  {
+   "short": "REVENUE",
+   "name_fr": "Chiffre d'affaires",
+   "name_en": "Net sales",
+   "value": 8751.0,
+   "unit": "M$",
+   "yoy": "+4.6%",
+   "history": [
     {
-      "short": "REVENUE",
-      "name_fr": "Chiffre d'affaires",
-      "name_en": "Net sales",
-      "value": 8751.0,
-      "unit": "M$",
-      "yoy": "+4.6%",
-      "history": [
-        {
-          "q": "Q4-2021",
-          "v": 6803
-        },
-        {
-          "q": "Q1-2022",
-          "v": 6508
-        },
-        {
-          "q": "Q2-2022",
-          "v": 7284
-        },
-        {
-          "q": "Q3-2022",
-          "v": 7971
-        },
-        {
-          "q": "Q4-2022",
-          "v": 7931
-        },
-        {
-          "q": "Q1-2023",
-          "v": 6825
-        },
-        {
-          "q": "Q2-2023",
-          "v": 7140
-        },
-        {
-          "q": "Q3-2023",
-          "v": 7838
-        },
-        {
-          "q": "Q4-2023",
-          "v": 7708
-        },
-        {
-          "q": "Q1-2024",
-          "v": 6673
-        },
-        {
-          "q": "Q2-2024",
-          "v": 7308
-        },
-        {
-          "q": "Q3-2024",
-          "v": 7946
-        },
-        {
-          "q": "Q4-2024",
-          "v": 7772
-        },
-        {
-          "q": "Q1-2025",
-          "v": 7213
-        },
-        {
-          "q": "Q2-2025",
-          "v": 8363
-        },
-        {
-          "q": "Q3-2025",
-          "v": 8497
-        },
-        {
-          "q": "Q4-2025",
-          "v": 8169
-        },
-        {
-          "q": "Q1-2026",
-          "v": 7472
-        },
-        {
-          "q": "Q2-2026",
-          "v": 8751
-        }
-      ],
-      "pv_score": 7,
-      "signal": "CA de 8 751 M$ au T2 calendaire 2026 (clos 30 juin 2026), +4,6% sur un an, porté par l'inflation prix, le volume et les acquisitions bolt-on. Points Q3-2022/2023/2024/2025 calculés par soustraction (total annuel 10-K moins les 3 autres trimestres fiscaux verbatim), le trimestre fiscal clôturé juillet n'étant publié qu'en 10-K annuel.",
-      "frequency": "quarterly",
-      "last_data_date": "2026-08-10",
-      "_extraction_note": "Verbatim 10-Q FERG_2026-08-10.htm.gz table 'Results of Operations', ligne Net sales, trimestre clos 30 juin 2026 vs 30 juin 2025 (recast calendaire)."
+     "q": "Q4-2021",
+     "v": 6803
     },
     {
-      "short": "OP_PROFIT",
-      "name_fr": "Résultat opérationnel",
-      "name_en": "Operating profit",
-      "value": 893.0,
-      "unit": "M$",
-      "yoy": "+6.1%",
-      "history": [
-        {
-          "q": "Q4-2021",
-          "v": 739
-        },
-        {
-          "q": "Q1-2022",
-          "v": 555
-        },
-        {
-          "q": "Q2-2022",
-          "v": 712
-        },
-        {
-          "q": "Q3-2022",
-          "v": 814
-        },
-        {
-          "q": "Q4-2022",
-          "v": 831
-        },
-        {
-          "q": "Q1-2023",
-          "v": 549
-        },
-        {
-          "q": "Q2-2023",
-          "v": 497
-        },
-        {
-          "q": "Q3-2023",
-          "v": 782
-        },
-        {
-          "q": "Q4-2023",
-          "v": 739
-        },
-        {
-          "q": "Q1-2024",
-          "v": 477
-        },
-        {
-          "q": "Q2-2024",
-          "v": 625
-        },
-        {
-          "q": "Q3-2024",
-          "v": 811
-        },
-        {
-          "q": "Q4-2024",
-          "v": 665
-        },
-        {
-          "q": "Q1-2025",
-          "v": 507
-        },
-        {
-          "q": "Q2-2025",
-          "v": 842
-        },
-        {
-          "q": "Q3-2025",
-          "v": 925
-        },
-        {
-          "q": "Q4-2025",
-          "v": 771
-        },
-        {
-          "q": "Q1-2026",
-          "v": 612
-        },
-        {
-          "q": "Q2-2026",
-          "v": 893
-        }
-      ],
-      "pv_score": 6,
-      "signal": "Résultat opérationnel de 893 M$ au T2 calendaire 2026, +6,1% sur un an, marge opérationnelle stable grâce à la discipline sur les coûts variables malgré la hausse des coûts SG&A. Points T3 (2022-2025) calculés par soustraction du total annuel 10-K.",
-      "frequency": "quarterly",
-      "last_data_date": "2026-08-10",
-      "_extraction_note": "Verbatim 10-Q, ligne Operating profit."
+     "q": "Q1-2022",
+     "v": 6508
     },
     {
-      "short": "NET_INCOME",
-      "name_fr": "Résultat net",
-      "name_en": "Net income",
-      "value": 666.0,
-      "unit": "M$",
-      "yoy": "+5.0%",
-      "history": [
-        {
-          "q": "Q4-2021",
-          "v": 535
-        },
-        {
-          "q": "Q1-2022",
-          "v": 436
-        },
-        {
-          "q": "Q2-2022",
-          "v": 546
-        },
-        {
-          "q": "Q3-2022",
-          "v": 582
-        },
-        {
-          "q": "Q4-2022",
-          "v": 595
-        },
-        {
-          "q": "Q1-2023",
-          "v": 374
-        },
-        {
-          "q": "Q2-2023",
-          "v": 336
-        },
-        {
-          "q": "Q3-2023",
-          "v": 584
-        },
-        {
-          "q": "Q4-2023",
-          "v": 519
-        },
-        {
-          "q": "Q1-2024",
-          "v": 322
-        },
-        {
-          "q": "Q2-2024",
-          "v": 443
-        },
-        {
-          "q": "Q3-2024",
-          "v": 451
-        },
-        {
-          "q": "Q4-2024",
-          "v": 470
-        },
-        {
-          "q": "Q1-2025",
-          "v": 345
-        },
-        {
-          "q": "Q2-2025",
-          "v": 634
-        },
-        {
-          "q": "Q3-2025",
-          "v": 700
-        },
-        {
-          "q": "Q4-2025",
-          "v": 570
-        },
-        {
-          "q": "Q1-2026",
-          "v": 414
-        },
-        {
-          "q": "Q2-2026",
-          "v": 666
-        }
-      ],
-      "pv_score": 7,
-      "signal": "Résultat net de 666 M$ au T2 calendaire 2026, +5,0% sur un an (chiffre exact publié par la société : +32 M$ soit +5,0% vs T2 2025), porté par la hausse du résultat opérationnel et les rachats d'actions. Q3-2022 approximé sur base activités poursuivies (activités abandonnées mineures +23 M$ sur FY2022 non attribuables à un trimestre précis).",
-      "frequency": "quarterly",
-      "last_data_date": "2026-08-10",
-      "_extraction_note": "Verbatim 10-Q, ligne Net income (ou Income from continuing operations pour les trimestres fiscaux 2021-2022)."
+     "q": "Q2-2022",
+     "v": 7284
     },
     {
-      "short": "SEGMENT_US",
-      "name_fr": "CA segment États-Unis",
-      "name_en": "United States segment net sales",
-      "value": 29269.0,
-      "unit": "M$",
-      "yoy": "+3.8%",
-      "history": [
-        {
-          "q": "FY2021",
-          "v": 21478
-        },
-        {
-          "q": "FY2022",
-          "v": 27067
-        },
-        {
-          "q": "FY2023",
-          "v": 28291
-        },
-        {
-          "q": "FY2024",
-          "v": 28195
-        },
-        {
-          "q": "FY2025",
-          "v": 29269
-        }
-      ],
-      "pv_score": 6,
-      "signal": "Le segment États-Unis, 95% du CA du groupe, atteint 29 269 M$ en FY2025 (+3,8%), porté par les marchés non-résidentiels (infrastructures, industriel, waterworks) qui compensent un résidentiel plus faible.",
-      "frequency": "annual",
-      "last_data_date": "2025-09-26",
-      "_extraction_note": "Verbatim 10-K FY2025, note segments, table 'Net sales: United States'. Controle : US + Canada = total consolide sur les 5 exercices (verifie exact chaque annee)."
+     "q": "Q3-2022",
+     "v": 7971
     },
     {
-      "short": "SEGMENT_CANADA",
-      "name_fr": "CA segment Canada",
-      "name_en": "Canada segment net sales",
-      "value": 1493.0,
-      "unit": "M$",
-      "yoy": "+3.7%",
-      "history": [
-        {
-          "q": "FY2021",
-          "v": 1314
-        },
-        {
-          "q": "FY2022",
-          "v": 1499
-        },
-        {
-          "q": "FY2023",
-          "v": 1443
-        },
-        {
-          "q": "FY2024",
-          "v": 1440
-        },
-        {
-          "q": "FY2025",
-          "v": 1493
-        }
-      ],
-      "pv_score": 5,
-      "signal": "Le segment Canada (marque Wolseley), 5% du CA du groupe, atteint 1 493 M$ en FY2025 (+3,7%), porte par l'inflation prix et une acquisition, partiellement compense par des cessions d'activites non-coeur.",
-      "frequency": "annual",
-      "last_data_date": "2025-09-26",
-      "_extraction_note": "Verbatim 10-K FY2025, note segments, table 'Net sales: Canada'."
+     "q": "Q4-2022",
+     "v": 7931
     },
     {
-      "short": "BRANCHES",
-      "name_fr": "Nombre de succursales",
-      "name_en": "Branch count",
-      "value": 1746.0,
-      "unit": "succursales",
-      "yoy": "-1.5%",
-      "history": [
-        {
-          "q": "FY2021",
-          "v": 1679
-        },
-        {
-          "q": "FY2022",
-          "v": 1720
-        },
-        {
-          "q": "FY2023",
-          "v": 1762
-        },
-        {
-          "q": "FY2024",
-          "v": 1773
-        },
-        {
-          "q": "FY2025",
-          "v": 1746
-        }
-      ],
-      "pv_score": 8,
-      "signal": "1 746 succursales au 31 juillet 2025 (1 519 aux États-Unis + 227 au Canada), en repli de 1,5% sur un an après le pic de FY2024 (1 773), la société ayant fermé certaines succursales sous-performantes tout en poursuivant les acquisitions bolt-on.",
-      "frequency": "annual",
-      "last_data_date": "2025-09-26",
-      "_extraction_note": "Verbatim 10-K, section Business (Item 1), decompte au 31 juillet de chaque exercice : US business operated X branches + Canada business operated Y branches."
+     "q": "Q1-2023",
+     "v": 6825
     },
     {
-      "short": "ACQUISITIONS",
-      "name_fr": "Acquisitions bolt-on par exercice",
-      "name_en": "Bolt-on acquisitions per fiscal year",
-      "value": 9.0,
-      "unit": "acquisitions",
-      "yoy": "-10%",
-      "history": [
-        {
-          "q": "FY2021",
-          "v": 7
-        },
-        {
-          "q": "FY2022",
-          "v": 17
-        },
-        {
-          "q": "FY2023",
-          "v": 8
-        },
-        {
-          "q": "FY2024",
-          "v": 10
-        },
-        {
-          "q": "FY2025",
-          "v": 9
-        }
-      ],
-      "pv_score": 6,
-      "signal": "9 acquisitions bolt-on réalisées en FY2025, après un pic exceptionnel de 17 en FY2022 (rattrapage post-Covid). Levier de croissance structurel du réseau de distribution, en complément de la croissance organique.",
-      "frequency": "annual",
-      "last_data_date": "2025-09-26",
-      "_extraction_note": "Verbatim 10-K, Item 1A Risk Factors, phrase 'During fiscal [X], [Y] and [Z], we completed a total of N, N, N acquisitions, respectively.'"
+     "q": "Q2-2023",
+     "v": 7140
     },
     {
-      "short": "BUYBACKS",
-      "name_fr": "Rachats d'actions",
-      "name_en": "Share repurchases",
-      "value": 948.0,
-      "unit": "M$",
-      "yoy": "+49.5%",
-      "history": [
-        {
-          "q": "FY2022",
-          "v": 1545
-        },
-        {
-          "q": "FY2023",
-          "v": 908
-        },
-        {
-          "q": "FY2024",
-          "v": 634
-        },
-        {
-          "q": "FY2025",
-          "v": 948
-        }
-      ],
-      "pv_score": 5,
-      "signal": "948 M$ de rachats d'actions en FY2025 (+49,5% vs FY2024), dans le cadre du programme autorisé à 5,0 Mds$ dont 4,0 Mds$ déjà réalisés au 31 juillet 2025.",
-      "frequency": "annual",
-      "last_data_date": "2025-09-26",
-      "_extraction_note": "Verbatim 10-K, section Liquidity, 'Share repurchases under the Company's announced share repurchase program were $X million and $Y million in fiscal N and N-1, respectively.' Recoupe sur 4 exercices via 3 10-K successifs."
+     "q": "Q3-2023",
+     "v": 7838
     },
     {
-      "short": "DIVIDENDS_PAID",
-      "name_fr": "Dividendes versés",
-      "name_en": "Dividends paid",
-      "value": 489.0,
-      "unit": "M$",
-      "yoy": "-37.6%",
-      "history": [
-        {
-          "q": "FY2022",
-          "v": 538
-        },
-        {
-          "q": "FY2023",
-          "v": 711
-        },
-        {
-          "q": "FY2024",
-          "v": 784
-        },
-        {
-          "q": "FY2025",
-          "v": 489
-        }
-      ],
-      "pv_score": 5,
-      "signal": "489 M$ de dividendes versés en FY2025, en forte baisse apparente (-37,6%) mais due à un effet de calendrier explicitement signalé par la société : le dividende du T4 FY2024 a été versé par anticipation dès le T4 FY2024 (redomiciliation aux États-Unis), d'où aucun versement au T1 FY2025.",
-      "frequency": "annual",
-      "last_data_date": "2025-09-26",
-      "_extraction_note": "Verbatim 10-K, section Liquidity, 'Dividends paid to shareholders were $X million and $Y million in fiscal N and N-1, respectively.' Recoupe sur 4 exercices via 3 10-K successifs."
+     "q": "Q4-2023",
+     "v": 7708
     },
     {
-      "short": "WEB_CENTRES_DE_DISTRIBUTION_NORD_AMERICAINS",
-      "name_fr": "Centres de distribution nord-américains",
-      "value": 14,
-      "unit": "centres (9 régionaux + 5 marché)",
-      "periode": "releve 2026",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "architecture logistique propre au modèle de distribution en gros de Ferguson, pas un chiffre financier standard",
-      "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
+     "q": "Q1-2024",
+     "v": 6673
     },
     {
-      "short": "WEB_NOMBRE_DE_CLIENTS_DESSERVIS",
-      "name_fr": "Nombre de clients desservis",
-      "value": 1000000,
-      "unit": "clients",
-      "periode": "2025",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "base client très fragmentée (aucun client >1% du CA), signal de résilience propre au B2B de distribution",
-      "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
+     "q": "Q2-2024",
+     "v": 7308
     },
     {
-      "short": "WEB_NOMBRE_DE_FOURNISSEURS",
-      "name_fr": "Nombre de fournisseurs",
-      "value": 37000.0,
-      "unit": "fournisseurs (aucun du coût des ventes)",
-      "periode": "releve 2026",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "diversification amont propre à un grossiste, absente des chiffres financiers classiques",
-      "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx",
-      "approx": "min",
-      "_approx_avant": "37000 | fournisseurs (aucun >5% du coût des ventes)"
+     "q": "Q3-2024",
+     "v": 7946
     },
     {
-      "short": "WEB_NOMBRE_DE_REFERENCES_PRODUITS_SKU",
-      "name_fr": "Nombre de références produits (SKU)",
-      "value": 1000000,
-      "unit": "références",
-      "periode": "releve 2026",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "largeur de catalogue, mesure opérationnelle propre à un distributeur multi-marques",
-      "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
+     "q": "Q4-2024",
+     "v": 7772
     },
     {
-      "short": "WEB_SURFACE_LOGISTIQUE_ET_COMMERCIALE_TOTALE",
-      "name_fr": "Surface logistique et commerciale totale",
-      "value": 60000000,
-      "unit": "pieds carrés",
-      "periode": "releve 2026",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "empreinte immobilière physique du réseau de distribution, indicateur sectoriel non financier",
-      "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
+     "q": "Q1-2025",
+     "v": 7213
     },
     {
-      "short": "WEB_FLOTTE_DE_VEHICULES_DE_LIVRAISON",
-      "name_fr": "Flotte de véhicules de livraison",
-      "value": 6000,
-      "unit": "véhicules",
-      "periode": "releve 2026",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "capacite logistique propre a la derniere livraison sur chantier, coeur du modele Ferguson",
-      "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
+     "q": "Q2-2025",
+     "v": 8363
     },
     {
-      "short": "WEB_REPARTITION_CA_RENOVATION_MAINTENANCE_VS",
-      "name_fr": "Répartition CA rénovation/maintenance vs construction neuve",
-      "value": "66/34",
-      "unit": "% RMI vs neuf",
-      "periode": "releve 2026",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "mix d'activité propre au secteur du bâtiment, protégé partiellement des cycles de construction neuve",
-      "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
+     "q": "Q3-2025",
+     "v": 8497
     },
     {
-      "short": "WEB_PART_DES_CLIENTS_NORD_AMERICAINS_A_MOINS",
-      "name_fr": "Part des clients nord-américains à moins de 60 miles d'un site",
-      "value": 95,
-      "unit": "%",
-      "periode": "releve 2026",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "densité du maillage logistique, avantage compétitif propre au métier de distribution rapide",
-      "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
+     "q": "Q4-2025",
+     "v": 8169
     },
     {
-      "short": "WEB_PART_DU_CA_US_SUR_DES_MARCHES_OU_FERGUSO",
-      "name_fr": "Part du CA US sur des marchés où Ferguson est n°1 ou n°2",
-      "value": 75,
-      "unit": "%",
-      "periode": "2025",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "mesure de leadership local marché par marché, propre à un distributeur régionalisé",
-      "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
+     "q": "Q1-2026",
+     "v": 7472
     },
     {
-      "short": "WEB_NOMBRE_DE_CONCURRENTS_DE_PETITE_MOYENNE_",
-      "name_fr": "Nombre de concurrents de petite/moyenne taille face à Ferguson",
-      "value": 10000,
-      "unit": "concurrents",
-      "periode": "releve 2026",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "illustre la fragmentation du marché nord-américain de la distribution, contexte concurrentiel propre au secteur",
-      "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
-    },
-    {
-      "short": "WEB_MARCHE_ADRESSABLE_NORD_AMERICAIN_TAM",
-      "name_fr": "Marché adressable nord-américain (TAM)",
-      "value": 340,
-      "unit": "Md$",
-      "periode": "releve 2026",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "TAM disclosé par la société elle-même (construction résidentielle et non résidentielle), pas un chiffre CA",
-      "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
-    },
-    {
-      "short": "WEB_SEGMENTS_DE_CLIENTELE_DEDIES_US",
-      "name_fr": "Segments de clientèle dédiés (US)",
-      "value": 8,
-      "unit": "segments",
-      "periode": "2025",
-      "is_short_history": true,
-      "story_category": "Marche",
-      "history": [],
-      "signal": "structure commerciale go-to-market propre à Ferguson (Ferguson Home, Commercial/Mechanical, Facilities Supply, Residential Trade Plumbing, Fire & Fabrication, HVAC, Industrial, Waterworks)",
-      "_source": "https://www.corporate.ferguson.com/about-us/Our-Businesses/default.aspx"
+     "q": "Q2-2026",
+     "v": 8751
     }
-  ]
+   ],
+   "pv_score": 7,
+   "signal": "CA de 8 751 M$ au T2 calendaire 2026 (clos 30 juin 2026), +4,6% sur un an, porté par l'inflation prix, le volume et les acquisitions bolt-on. Points Q3-2022/2023/2024/2025 calculés par soustraction (total annuel 10-K moins les 3 autres trimestres fiscaux verbatim), le trimestre fiscal clôturé juillet n'étant publié qu'en 10-K annuel.",
+   "frequency": "quarterly",
+   "last_data_date": "2026-08-10",
+   "_extraction_note": "Verbatim 10-Q FERG_2026-08-10.htm.gz table 'Results of Operations', ligne Net sales, trimestre clos 30 juin 2026 vs 30 juin 2025 (recast calendaire)."
+  },
+  {
+   "short": "OP_PROFIT",
+   "name_fr": "Résultat opérationnel",
+   "name_en": "Operating profit",
+   "value": 893.0,
+   "unit": "M$",
+   "yoy": "+6.1%",
+   "history": [
+    {
+     "q": "Q4-2021",
+     "v": 739
+    },
+    {
+     "q": "Q1-2022",
+     "v": 555
+    },
+    {
+     "q": "Q2-2022",
+     "v": 712
+    },
+    {
+     "q": "Q3-2022",
+     "v": 814
+    },
+    {
+     "q": "Q4-2022",
+     "v": 831
+    },
+    {
+     "q": "Q1-2023",
+     "v": 549
+    },
+    {
+     "q": "Q2-2023",
+     "v": 497
+    },
+    {
+     "q": "Q3-2023",
+     "v": 782
+    },
+    {
+     "q": "Q4-2023",
+     "v": 739
+    },
+    {
+     "q": "Q1-2024",
+     "v": 477
+    },
+    {
+     "q": "Q2-2024",
+     "v": 625
+    },
+    {
+     "q": "Q3-2024",
+     "v": 811
+    },
+    {
+     "q": "Q4-2024",
+     "v": 665
+    },
+    {
+     "q": "Q1-2025",
+     "v": 507
+    },
+    {
+     "q": "Q2-2025",
+     "v": 842
+    },
+    {
+     "q": "Q3-2025",
+     "v": 925
+    },
+    {
+     "q": "Q4-2025",
+     "v": 771
+    },
+    {
+     "q": "Q1-2026",
+     "v": 612
+    },
+    {
+     "q": "Q2-2026",
+     "v": 893
+    }
+   ],
+   "pv_score": 6,
+   "signal": "Résultat opérationnel de 893 M$ au T2 calendaire 2026, +6,1% sur un an, marge opérationnelle stable grâce à la discipline sur les coûts variables malgré la hausse des coûts SG&A. Points T3 (2022-2025) calculés par soustraction du total annuel 10-K.",
+   "frequency": "quarterly",
+   "last_data_date": "2026-08-10",
+   "_extraction_note": "Verbatim 10-Q, ligne Operating profit."
+  },
+  {
+   "short": "NET_INCOME",
+   "name_fr": "Résultat net",
+   "name_en": "Net income",
+   "value": 666.0,
+   "unit": "M$",
+   "yoy": "+5.0%",
+   "history": [
+    {
+     "q": "Q4-2021",
+     "v": 535
+    },
+    {
+     "q": "Q1-2022",
+     "v": 436
+    },
+    {
+     "q": "Q2-2022",
+     "v": 546
+    },
+    {
+     "q": "Q3-2022",
+     "v": 582
+    },
+    {
+     "q": "Q4-2022",
+     "v": 595
+    },
+    {
+     "q": "Q1-2023",
+     "v": 374
+    },
+    {
+     "q": "Q2-2023",
+     "v": 336
+    },
+    {
+     "q": "Q3-2023",
+     "v": 584
+    },
+    {
+     "q": "Q4-2023",
+     "v": 519
+    },
+    {
+     "q": "Q1-2024",
+     "v": 322
+    },
+    {
+     "q": "Q2-2024",
+     "v": 443
+    },
+    {
+     "q": "Q3-2024",
+     "v": 451
+    },
+    {
+     "q": "Q4-2024",
+     "v": 470
+    },
+    {
+     "q": "Q1-2025",
+     "v": 345
+    },
+    {
+     "q": "Q2-2025",
+     "v": 634
+    },
+    {
+     "q": "Q3-2025",
+     "v": 700
+    },
+    {
+     "q": "Q4-2025",
+     "v": 570
+    },
+    {
+     "q": "Q1-2026",
+     "v": 414
+    },
+    {
+     "q": "Q2-2026",
+     "v": 666
+    }
+   ],
+   "pv_score": 7,
+   "signal": "Résultat net de 666 M$ au T2 calendaire 2026, +5,0% sur un an (chiffre exact publié par la société : +32 M$ soit +5,0% vs T2 2025), porté par la hausse du résultat opérationnel et les rachats d'actions. Q3-2022 approximé sur base activités poursuivies (activités abandonnées mineures +23 M$ sur FY2022 non attribuables à un trimestre précis).",
+   "frequency": "quarterly",
+   "last_data_date": "2026-08-10",
+   "_extraction_note": "Verbatim 10-Q, ligne Net income (ou Income from continuing operations pour les trimestres fiscaux 2021-2022)."
+  },
+  {
+   "short": "SEGMENT_US",
+   "name_fr": "CA segment États-Unis",
+   "name_en": "United States segment net sales",
+   "value": 29269.0,
+   "unit": "M$",
+   "yoy": "+3.8%",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 21478
+    },
+    {
+     "q": "FY2022",
+     "v": 27067
+    },
+    {
+     "q": "FY2023",
+     "v": 28291
+    },
+    {
+     "q": "FY2024",
+     "v": 28195
+    },
+    {
+     "q": "FY2025",
+     "v": 29269
+    }
+   ],
+   "pv_score": 6,
+   "signal": "Le segment États-Unis, 95% du CA du groupe, atteint 29 269 M$ en FY2025 (+3,8%), porté par les marchés non-résidentiels (infrastructures, industriel, waterworks) qui compensent un résidentiel plus faible.",
+   "frequency": "annual",
+   "last_data_date": "2025-09-26",
+   "_extraction_note": "Verbatim 10-K FY2025, note segments, table 'Net sales: United States'. Controle : US + Canada = total consolide sur les 5 exercices (verifie exact chaque annee)."
+  },
+  {
+   "short": "SEGMENT_CANADA",
+   "name_fr": "CA segment Canada",
+   "name_en": "Canada segment net sales",
+   "value": 1493.0,
+   "unit": "M$",
+   "yoy": "+3.7%",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 1314
+    },
+    {
+     "q": "FY2022",
+     "v": 1499
+    },
+    {
+     "q": "FY2023",
+     "v": 1443
+    },
+    {
+     "q": "FY2024",
+     "v": 1440
+    },
+    {
+     "q": "FY2025",
+     "v": 1493
+    }
+   ],
+   "pv_score": 5,
+   "signal": "Le segment Canada (marque Wolseley), 5% du CA du groupe, atteint 1 493 M$ en FY2025 (+3,7%), porte par l'inflation prix et une acquisition, partiellement compense par des cessions d'activites non-coeur.",
+   "frequency": "annual",
+   "last_data_date": "2025-09-26",
+   "_extraction_note": "Verbatim 10-K FY2025, note segments, table 'Net sales: Canada'."
+  },
+  {
+   "short": "BRANCHES",
+   "name_fr": "Nombre de succursales",
+   "name_en": "Branch count",
+   "value": 1746.0,
+   "unit": "succursales",
+   "yoy": "-1.5%",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 1679
+    },
+    {
+     "q": "FY2022",
+     "v": 1720
+    },
+    {
+     "q": "FY2023",
+     "v": 1762
+    },
+    {
+     "q": "FY2024",
+     "v": 1773
+    },
+    {
+     "q": "FY2025",
+     "v": 1746
+    }
+   ],
+   "pv_score": 8,
+   "signal": "1 746 succursales au 31 juillet 2025 (1 519 aux États-Unis + 227 au Canada), en repli de 1,5% sur un an après le pic de FY2024 (1 773), la société ayant fermé certaines succursales sous-performantes tout en poursuivant les acquisitions bolt-on.",
+   "frequency": "annual",
+   "last_data_date": "2025-09-26",
+   "_extraction_note": "Verbatim 10-K, section Business (Item 1), decompte au 31 juillet de chaque exercice : US business operated X branches + Canada business operated Y branches."
+  },
+  {
+   "short": "ACQUISITIONS",
+   "name_fr": "Acquisitions bolt-on par exercice",
+   "name_en": "Bolt-on acquisitions per fiscal year",
+   "value": 9.0,
+   "unit": "acquisitions",
+   "yoy": "-10%",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 7
+    },
+    {
+     "q": "FY2022",
+     "v": 17
+    },
+    {
+     "q": "FY2023",
+     "v": 8
+    },
+    {
+     "q": "FY2024",
+     "v": 10
+    },
+    {
+     "q": "FY2025",
+     "v": 9
+    }
+   ],
+   "pv_score": 6,
+   "signal": "9 acquisitions bolt-on réalisées en FY2025, après un pic exceptionnel de 17 en FY2022 (rattrapage post-Covid). Levier de croissance structurel du réseau de distribution, en complément de la croissance organique.",
+   "frequency": "annual",
+   "last_data_date": "2025-09-26",
+   "_extraction_note": "Verbatim 10-K, Item 1A Risk Factors, phrase 'During fiscal [X], [Y] and [Z], we completed a total of N, N, N acquisitions, respectively.'"
+  },
+  {
+   "short": "BUYBACKS",
+   "name_fr": "Rachats d'actions",
+   "name_en": "Share repurchases",
+   "value": 948.0,
+   "unit": "M$",
+   "yoy": "+49.5%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 1545
+    },
+    {
+     "q": "FY2023",
+     "v": 908
+    },
+    {
+     "q": "FY2024",
+     "v": 634
+    },
+    {
+     "q": "FY2025",
+     "v": 948
+    }
+   ],
+   "pv_score": 5,
+   "signal": "948 M$ de rachats d'actions en FY2025 (+49,5% vs FY2024), dans le cadre du programme autorisé à 5,0 Mds$ dont 4,0 Mds$ déjà réalisés au 31 juillet 2025.",
+   "frequency": "annual",
+   "last_data_date": "2025-09-26",
+   "_extraction_note": "Verbatim 10-K, section Liquidity, 'Share repurchases under the Company's announced share repurchase program were $X million and $Y million in fiscal N and N-1, respectively.' Recoupe sur 4 exercices via 3 10-K successifs."
+  },
+  {
+   "short": "DIVIDENDS_PAID",
+   "name_fr": "Dividendes versés",
+   "name_en": "Dividends paid",
+   "value": 489.0,
+   "unit": "M$",
+   "yoy": "-37.6%",
+   "history": [
+    {
+     "q": "FY2022",
+     "v": 538
+    },
+    {
+     "q": "FY2023",
+     "v": 711
+    },
+    {
+     "q": "FY2024",
+     "v": 784
+    },
+    {
+     "q": "FY2025",
+     "v": 489
+    }
+   ],
+   "pv_score": 5,
+   "signal": "489 M$ de dividendes versés en FY2025, en forte baisse apparente (-37,6%) mais due à un effet de calendrier explicitement signalé par la société : le dividende du T4 FY2024 a été versé par anticipation dès le T4 FY2024 (redomiciliation aux États-Unis), d'où aucun versement au T1 FY2025.",
+   "frequency": "annual",
+   "last_data_date": "2025-09-26",
+   "_extraction_note": "Verbatim 10-K, section Liquidity, 'Dividends paid to shareholders were $X million and $Y million in fiscal N and N-1, respectively.' Recoupe sur 4 exercices via 3 10-K successifs."
+  },
+  {
+   "short": "WEB_CENTRES_DE_DISTRIBUTION_NORD_AMERICAINS",
+   "name_fr": "Centres de distribution nord-américains",
+   "value": 14,
+   "unit": "centres (9 régionaux + 5 marché)",
+   "periode": "releve 2026",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "architecture logistique propre au modèle de distribution en gros de Ferguson, pas un chiffre financier standard",
+   "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
+  },
+  {
+   "short": "WEB_NOMBRE_DE_CLIENTS_DESSERVIS",
+   "name_fr": "Nombre de clients desservis",
+   "value": 1000000,
+   "unit": "clients",
+   "periode": "2025",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "base client très fragmentée (aucun client >1% du CA), signal de résilience propre au B2B de distribution",
+   "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
+  },
+  {
+   "short": "WEB_NOMBRE_DE_FOURNISSEURS",
+   "name_fr": "Nombre de fournisseurs",
+   "value": 37000.0,
+   "unit": "fournisseurs (aucun du coût des ventes)",
+   "periode": "releve 2026",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "diversification amont propre à un grossiste, absente des chiffres financiers classiques",
+   "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx",
+   "approx": "min",
+   "_approx_avant": "37000 | fournisseurs (aucun >5% du coût des ventes)"
+  },
+  {
+   "short": "WEB_NOMBRE_DE_REFERENCES_PRODUITS_SKU",
+   "name_fr": "Nombre de références produits (SKU)",
+   "value": 1000000,
+   "unit": "références",
+   "periode": "releve 2026",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "largeur de catalogue, mesure opérationnelle propre à un distributeur multi-marques",
+   "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
+  },
+  {
+   "short": "WEB_SURFACE_LOGISTIQUE_ET_COMMERCIALE_TOTALE",
+   "name_fr": "Surface logistique et commerciale totale",
+   "value": 60000000,
+   "unit": "pieds carrés",
+   "periode": "releve 2026",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "empreinte immobilière physique du réseau de distribution, indicateur sectoriel non financier",
+   "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
+  },
+  {
+   "short": "WEB_FLOTTE_DE_VEHICULES_DE_LIVRAISON",
+   "name_fr": "Flotte de véhicules de livraison",
+   "value": 6000,
+   "unit": "véhicules",
+   "periode": "releve 2026",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "capacite logistique propre a la derniere livraison sur chantier, coeur du modele Ferguson",
+   "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
+  },
+  {
+   "short": "WEB_REPARTITION_CA_RENOVATION_MAINTENANCE_VS",
+   "name_fr": "Répartition CA rénovation/maintenance vs construction neuve",
+   "value": "66/34",
+   "unit": "% RMI vs neuf",
+   "periode": "releve 2026",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "mix d'activité propre au secteur du bâtiment, protégé partiellement des cycles de construction neuve",
+   "_source": "https://www.corporate.ferguson.com/about-us/business-model-and-core-strengths/default.aspx"
+  },
+  {
+   "short": "WEB_PART_DES_CLIENTS_NORD_AMERICAINS_A_MOINS",
+   "name_fr": "Part des clients nord-américains à moins de 60 miles d'un site",
+   "value": 95,
+   "unit": "%",
+   "periode": "releve 2026",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "densité du maillage logistique, avantage compétitif propre au métier de distribution rapide",
+   "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
+  },
+  {
+   "short": "WEB_PART_DU_CA_US_SUR_DES_MARCHES_OU_FERGUSO",
+   "name_fr": "Part du CA US sur des marchés où Ferguson est n°1 ou n°2",
+   "value": 75,
+   "unit": "%",
+   "periode": "2025",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "mesure de leadership local marché par marché, propre à un distributeur régionalisé",
+   "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
+  },
+  {
+   "short": "WEB_NOMBRE_DE_CONCURRENTS_DE_PETITE_MOYENNE_",
+   "name_fr": "Nombre de concurrents de petite/moyenne taille face à Ferguson",
+   "value": 10000,
+   "unit": "concurrents",
+   "periode": "releve 2026",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "illustre la fragmentation du marché nord-américain de la distribution, contexte concurrentiel propre au secteur",
+   "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
+  },
+  {
+   "short": "WEB_MARCHE_ADRESSABLE_NORD_AMERICAIN_TAM",
+   "name_fr": "Marché adressable nord-américain (TAM)",
+   "value": 340,
+   "unit": "Md$",
+   "periode": "releve 2026",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "TAM disclosé par la société elle-même (construction résidentielle et non résidentielle), pas un chiffre CA",
+   "_source": "https://www.corporate.ferguson.com/investor/why-ferguson/default.aspx"
+  },
+  {
+   "short": "WEB_SEGMENTS_DE_CLIENTELE_DEDIES_US",
+   "name_fr": "Segments de clientèle dédiés (US)",
+   "value": 8,
+   "unit": "segments",
+   "periode": "2025",
+   "is_short_history": true,
+   "story_category": "Marche",
+   "history": [],
+   "signal": "structure commerciale go-to-market propre à Ferguson (Ferguson Home, Commercial/Mechanical, Facilities Supply, Residential Trade Plumbing, Fire & Fabrication, HVAC, Industrial, Waterworks)",
+   "_source": "https://www.corporate.ferguson.com/about-us/Our-Businesses/default.aspx"
+  },
+  {
+   "short": "GROSS_MARGIN_FY",
+   "name_fr": "Marge brute",
+   "name_en": "Gross margin",
+   "value": 30.7,
+   "unit": "%",
+   "yoy": "+0,2 pt",
+   "frequency": "annual",
+   "last_data_date": "2025-07-31",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 30.6
+    },
+    {
+     "q": "FY2022",
+     "v": 30.7
+    },
+    {
+     "q": "FY2023",
+     "v": 30.4
+    },
+    {
+     "q": "FY2024",
+     "v": 30.5
+    },
+    {
+     "q": "FY2025",
+     "v": 30.7
+    }
+   ],
+   "pv_score": 8,
+   "signal": "Marge brute de 30,7 % sur l exercice 2025, en hausse de 20 points de base sur un an et au plus haut de la periode, la societe expliquant ce gain par des actions de tarification et le calendrier des hausses de prix fournisseurs.",
+   "_source": "Rapports annuels Ferguson : marge brute publiee en clair dans la partie Resultats (30,6 % en 2021, 30,7 % en 2022, 30,4 % en 2023, 30,5 % en 2024, 30,7 % en 2025). 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
+  },
+  {
+   "short": "OP_MARGIN_FY",
+   "name_fr": "Marge operationnelle",
+   "name_en": "Operating margin",
+   "value": 8.5,
+   "unit": "%",
+   "yoy": "-0,5 pt",
+   "frequency": "annual",
+   "last_data_date": "2025-07-31",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 8.6
+    },
+    {
+     "q": "FY2022",
+     "v": 9.9
+    },
+    {
+     "q": "FY2023",
+     "v": 8.9
+    },
+    {
+     "q": "FY2024",
+     "v": 8.9
+    },
+    {
+     "q": "FY2025",
+     "v": 8.5
+    }
+   ],
+   "pv_score": 7,
+   "signal": "Marge operationnelle publiee de 8,5 % sur l exercice 2025 (2 606 M$ de resultat operationnel pour 30 762 M$ de ventes nettes), en repli apres le pic de 9,9 % de l exercice 2022.",
+   "_source": "Calcul resultat operationnel / ventes nettes, les deux lignes etant reprises telles quelles des comptes consolides. 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
+  },
+  {
+   "short": "US_RESIDENTIAL_FY",
+   "name_fr": "Ventes du marche residentiel aux Etats-Unis",
+   "name_en": "US residential net sales",
+   "value": 14598.0,
+   "unit": "M$",
+   "yoy": "+0,9 %",
+   "frequency": "annual",
+   "last_data_date": "2025-07-31",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 11990
+    },
+    {
+     "q": "FY2022",
+     "v": 14657
+    },
+    {
+     "q": "FY2023",
+     "v": 14820
+    },
+    {
+     "q": "FY2024",
+     "v": 14464
+    },
+    {
+     "q": "FY2025",
+     "v": 14598
+    }
+   ],
+   "pv_score": 8,
+   "signal": "14 598 M$ de ventes sur le marche residentiel americain sur l exercice 2025, en hausse de 0,9 % apres deux exercices de repli, dans un marche de la renovation et de la construction neuve toujours atone.",
+   "_source": "Note de desagregation des ventes nettes par marche final. 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
+  },
+  {
+   "short": "US_NONRES_FY",
+   "name_fr": "Ventes du marche non residentiel aux Etats-Unis",
+   "name_en": "US non-residential net sales",
+   "value": 14671.0,
+   "unit": "M$",
+   "yoy": "+6,8 %",
+   "frequency": "annual",
+   "last_data_date": "2025-07-31",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 9488
+    },
+    {
+     "q": "FY2022",
+     "v": 12410
+    },
+    {
+     "q": "FY2023",
+     "v": 13471
+    },
+    {
+     "q": "FY2024",
+     "v": 13731
+    },
+    {
+     "q": "FY2025",
+     "v": 14671
+    }
+   ],
+   "pv_score": 8,
+   "signal": "14 671 M$ sur le marche non residentiel americain sur l exercice 2025 (commercial 10 088 M$, genie civil et infrastructures 2 609 M$, industrie 1 974 M$), en hausse de 6,8 % : c est le moteur de la croissance et le poste depasse pour la premiere fois le residentiel.",
+   "_source": "Note de desagregation des ventes nettes par marche final. 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
+  },
+  {
+   "short": "RESIDENTIAL_MIX_FY",
+   "name_fr": "Part du residentiel dans les ventes",
+   "name_en": "Residential share of net sales",
+   "value": 47.5,
+   "unit": "%",
+   "yoy": "-1,3 pt",
+   "frequency": "annual",
+   "last_data_date": "2025-07-31",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 52.6
+    },
+    {
+     "q": "FY2022",
+     "v": 51.3
+    },
+    {
+     "q": "FY2023",
+     "v": 49.8
+    },
+    {
+     "q": "FY2024",
+     "v": 48.8
+    },
+    {
+     "q": "FY2025",
+     "v": 47.5
+    }
+   ],
+   "pv_score": 8,
+   "signal": "Le marche residentiel americain represente 47,5 % des ventes nettes consolidees de l exercice 2025, contre 52,6 % quatre exercices plus tot : le mix bascule progressivement vers le non residentiel, moins expose au cycle du logement.",
+   "_source": "Ventes residentielles aux Etats-Unis rapportees aux ventes nettes totales, les deux valeurs etant publiees dans la note de desagregation par marche final. La societe decrit elle meme un partage a peu pres egal entre residentiel et non residentiel. 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
+  },
+  {
+   "short": "ASSOCIATES_FY",
+   "name_fr": "Effectifs",
+   "name_en": "Associates",
+   "value": 35000.0,
+   "unit": "collaborateurs",
+   "yoy": "0,0 %",
+   "frequency": "annual",
+   "last_data_date": "2025-07-31",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 31000
+    },
+    {
+     "q": "FY2022",
+     "v": 36000
+    },
+    {
+     "q": "FY2023",
+     "v": 35000
+    },
+    {
+     "q": "FY2024",
+     "v": 35000
+    },
+    {
+     "q": "FY2025",
+     "v": 35000
+    }
+   ],
+   "pv_score": 6,
+   "signal": "Environ 35 000 collaborateurs au 31 juillet 2025 (32 000 aux Etats-Unis, 3 000 au Canada), effectif stable depuis trois exercices alors que les ventes ont progresse de 3,5 % sur la periode.",
+   "_source": "Chiffre arrondi publie par la societe dans la partie Activite (reseau de distribution). 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
+  },
+  {
+   "short": "FLEET_FY",
+   "name_fr": "Vehicules de livraison",
+   "name_en": "Fleet vehicles",
+   "value": 5900.0,
+   "unit": "vehicules",
+   "yoy": "0,0 %",
+   "frequency": "annual",
+   "last_data_date": "2025-07-31",
+   "history": [
+    {
+     "q": "FY2021",
+     "v": 5300
+    },
+    {
+     "q": "FY2022",
+     "v": 5600
+    },
+    {
+     "q": "FY2023",
+     "v": 5700
+    },
+    {
+     "q": "FY2024",
+     "v": 5900
+    },
+    {
+     "q": "FY2025",
+     "v": 5900
+    }
+   ],
+   "pv_score": 7,
+   "signal": "Environ 5 900 vehicules de livraison au 31 juillet 2025, soit 600 de plus qu en 2021 : la flotte en propre est ce qui permet la livraison le jour meme ou le lendemain depuis les succursales.",
+   "_source": "Chiffre arrondi publie par la societe dans la partie Activite (reseau de distribution). 10-K exercice 2025 clos le 31 juillet 2025 (depot du 26 septembre 2025) et 10-K des exercices 2022 et 2023 pour les exercices anterieurs, comptes consolides et note de desagregation du chiffre d affaires par marche final"
+  },
+  {
+   "short": "ORGANIC_GROWTH_Q",
+   "name_fr": "Croissance organique des ventes",
+   "name_en": "Organic revenue growth",
+   "value": 3.8,
+   "unit": "%",
+   "yoy": "-1,2 pt",
+   "frequency": "quarterly",
+   "last_data_date": "2026-06-30",
+   "history": [
+    {
+     "q": "Q4-2022",
+     "v": 12.7
+    },
+    {
+     "q": "Q1-2023",
+     "v": 2.7
+    },
+    {
+     "q": "Q2-2023",
+     "v": -2.5
+    },
+    {
+     "q": "Q3-2023",
+     "v": -5.3
+    },
+    {
+     "q": "Q4-2023",
+     "v": -4.9
+    },
+    {
+     "q": "Q1-2024",
+     "v": -3.7
+    },
+    {
+     "q": "Q2-2024",
+     "v": -0.9
+    },
+    {
+     "q": "Q3-2024",
+     "v": -0.2
+    },
+    {
+     "q": "Q4-2024",
+     "v": -0.3
+    },
+    {
+     "q": "Q1-2025",
+     "v": 2.1
+    },
+    {
+     "q": "Q2-2025",
+     "v": 5.0
+    },
+    {
+     "q": "Q3-2025",
+     "v": 5.8
+    },
+    {
+     "q": "Q4-2025",
+     "v": 4.2
+    },
+    {
+     "q": "Q1-2026",
+     "v": 2.8
+    },
+    {
+     "q": "Q2-2026",
+     "v": 3.8
+    }
+   ],
+   "pv_score": 9,
+   "signal": "Croissance organique de 3,8 % sur le trimestre clos le 30 juin 2026, cinquieme trimestre consecutif de progression apres neuf trimestres de repli ou de quasi stagnation. C est l equivalent des ventes a perimetre comparable chez Ferguson, qui ne publie pas d indicateur de ventes a magasins comparables.",
+   "_source": "Communiques de resultats trimestriels de la societe, rubrique Summary of financial results, ligne organic revenue growth, du trimestre clos le 31 octobre 2022 au trimestre clos le 30 juin 2026 (exhibits 99.1 joints aux depots 8-K).",
+   "_gap_note": "Pas de point pour les deux mois de novembre et decembre 2025 : le changement d exercice fiscal a remplace ce trimestre par une periode de transition de cinq mois, pour laquelle la societe n a publie qu une croissance organique en annee civile pleine (4,5 %). Les trimestres sont etiquetes par le trimestre calendaire de leur date de cloture, comme la serie de chiffre d affaires."
+  },
+  {
+   "short": "ACQUISITIONS_SIGNED_Q",
+   "name_fr": "Acquisitions realisees dans le trimestre",
+   "name_en": "Acquisitions completed in the quarter",
+   "value": 5.0,
+   "unit": "acquisitions",
+   "yoy": "+4",
+   "frequency": "quarterly",
+   "last_data_date": "2026-06-30",
+   "history": [
+    {
+     "q": "Q4-2024",
+     "v": 1
+    },
+    {
+     "q": "Q1-2025",
+     "v": 1
+    },
+    {
+     "q": "Q2-2025",
+     "v": 3
+    },
+    {
+     "q": "Q3-2025",
+     "v": 4
+    },
+    {
+     "q": "Q4-2025",
+     "v": 1
+    },
+    {
+     "q": "Q1-2026",
+     "v": 2
+    },
+    {
+     "q": "Q2-2026",
+     "v": 5
+    }
+   ],
+   "pv_score": 6,
+   "signal": "Cinq acquisitions bouclees sur le trimestre clos le 30 juin 2026, plus un accord signe pour reprendre FloWorks, distributeur de vannes et de solutions de controle de debit : c est le trimestre le plus actif de la serie et la consolidation d un marche tres fragmente reste le second moteur de croissance.",
+   "_source": "Communiques de resultats trimestriels, ligne Completed X acquisitions during the quarter (exhibits 99.1 des depots 8-K du 10 decembre 2024, 11 mars 2025, 3 juin 2025, 16 septembre 2025, 9 decembre 2025, 5 mai 2026 et 10 aout 2026). Serie demarree au premier communique ou la societe donne ce compte trimestriel.",
+   "is_short_history": true,
+   "story_category": "Croissance externe"
+  },
+  {
+   "short": "DPS_Q",
+   "name_fr": "Dividende trimestriel par action",
+   "name_en": "Quarterly dividend per share",
+   "value": 0.89,
+   "unit": "$",
+   "yoy": "+7,2 %",
+   "frequency": "quarterly",
+   "last_data_date": "2026-08-10",
+   "history": [
+    {
+     "q": "Q4-2024",
+     "v": 0.83
+    },
+    {
+     "q": "Q1-2025",
+     "v": 0.83
+    },
+    {
+     "q": "Q2-2025",
+     "v": 0.83
+    },
+    {
+     "q": "Q3-2025",
+     "v": 0.83
+    },
+    {
+     "q": "Q4-2025",
+     "v": 0.89
+    },
+    {
+     "q": "Q1-2026",
+     "v": 0.89
+    },
+    {
+     "q": "Q2-2026",
+     "v": 0.89
+    }
+   ],
+   "pv_score": 6,
+   "signal": "Dividende trimestriel de 0,89 $ par action declare au titre du trimestre clos le 30 juin 2026, apres une hausse de 7 % annoncee en decembre 2025.",
+   "_source": "Communiques de resultats trimestriels joints aux depots 8-K du 10 decembre 2024, 11 mars 2025, 3 juin 2025, 16 septembre 2025, 9 decembre 2025, 5 mai 2026 et 10 aout 2026, rubrique des points cles du trimestre. Les trimestres sont etiquetes par le trimestre calendaire de leur date de cloture ; le trimestre clos le 31 janvier 2026 n existe pas, remplace par la periode de transition liee au changement d exercice.",
+   "is_short_history": true,
+   "story_category": "Retour aux actionnaires"
+  },
+  {
+   "short": "BUYBACK_Q",
+   "name_fr": "Rachats d actions du trimestre",
+   "name_en": "Share repurchases in the quarter",
+   "value": 202.0,
+   "unit": "M$",
+   "yoy": "-19,5 %",
+   "frequency": "quarterly",
+   "last_data_date": "2026-08-10",
+   "history": [
+    {
+     "q": "Q4-2024",
+     "v": 256
+    },
+    {
+     "q": "Q1-2025",
+     "v": 252
+    },
+    {
+     "q": "Q2-2025",
+     "v": 251
+    },
+    {
+     "q": "Q3-2025",
+     "v": 189
+    },
+    {
+     "q": "Q4-2025",
+     "v": 208
+    },
+    {
+     "q": "Q1-2026",
+     "v": 236
+    },
+    {
+     "q": "Q2-2026",
+     "v": 202
+    }
+   ],
+   "pv_score": 6,
+   "signal": "202 M$ d actions rachetees sur le trimestre clos le 30 juin 2026 ; le programme tourne sans interruption depuis au moins sept trimestres, pour environ 220 M$ par trimestre en moyenne.",
+   "_source": "Communiques de resultats trimestriels joints aux depots 8-K du 10 decembre 2024, 11 mars 2025, 3 juin 2025, 16 septembre 2025, 9 decembre 2025, 5 mai 2026 et 10 aout 2026, rubrique des points cles du trimestre. Les trimestres sont etiquetes par le trimestre calendaire de leur date de cloture ; le trimestre clos le 31 janvier 2026 n existe pas, remplace par la periode de transition liee au changement d exercice.",
+   "is_short_history": true,
+   "story_category": "Retour aux actionnaires"
+  },
+  {
+   "short": "NET_DEBT_EBITDA_Q",
+   "name_fr": "Dette nette rapportee a l excedent brut ajuste",
+   "name_en": "Net debt to adjusted EBITDA",
+   "value": 1.3,
+   "unit": "x",
+   "yoy": "+0,1 x",
+   "frequency": "quarterly",
+   "last_data_date": "2026-08-10",
+   "history": [
+    {
+     "q": "Q4-2024",
+     "v": 1.2
+    },
+    {
+     "q": "Q1-2025",
+     "v": 1.2
+    },
+    {
+     "q": "Q2-2025",
+     "v": 1.2
+    },
+    {
+     "q": "Q3-2025",
+     "v": 1.1
+    },
+    {
+     "q": "Q4-2025",
+     "v": 1.1
+    },
+    {
+     "q": "Q1-2026",
+     "v": 1.0
+    },
+    {
+     "q": "Q2-2026",
+     "v": 1.3
+    }
+   ],
+   "pv_score": 7,
+   "signal": "1,3 fois au 30 juin 2026, contre 1,0 fois au trimestre precedent : la remontee accompagne cinq acquisitions bouclees dans le trimestre et la signature de l accord FloWorks. La societe se dit toujours dans sa fourchette cible.",
+   "_source": "Communiques de resultats trimestriels joints aux depots 8-K du 10 decembre 2024, 11 mars 2025, 3 juin 2025, 16 septembre 2025, 9 decembre 2025, 5 mai 2026 et 10 aout 2026, rubrique des points cles du trimestre. Les trimestres sont etiquetes par le trimestre calendaire de leur date de cloture ; le trimestre clos le 31 janvier 2026 n existe pas, remplace par la periode de transition liee au changement d exercice.",
+   "is_short_history": true,
+   "story_category": "Structure financiere"
+  }
+ ],
+ "_maj_13sept2026": "Ajout des KPI operationnels a cinq ans (marge brute, marge operationnelle, ventes residentielles et non residentielles aux Etats-Unis, part du residentiel, effectifs, flotte) et des series trimestrielles croissance organique et acquisitions, extraites des rapports annuels et des communiques de resultats presents dans data-lake/FERG."
 }

@@ -5,7 +5,7 @@ societes dans 2 indices, societes en ligne sans indice. Utilise par /sandbox/ind
 et par la veille (/api/cron/veille-indices)."""
 import json,re,html,os,subprocess,datetime
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-UA="Mozilla/5.0 (Mettrik indices)"
+UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/124 Safari/537.36"
 PAGES={
  "sp500":("S&P 500","US","https://en.wikipedia.org/wiki/List_of_S%26P_500_companies","constituents",0,1,".","-"),
  "nasdaq100":("Nasdaq 100","US","https://en.wikipedia.org/wiki/Nasdaq-100","constituents",None,None,".","-"),
@@ -27,6 +27,11 @@ def lignes(tb):
     return out
 def membres(cle):
     nom,pays,url,ident,_,_,_,suf=PAGES[cle]
+    if cle=="nasdaq100":
+        r=subprocess.run(["curl","-s","-A",UA,"-H","Accept: application/json","--max-time","40","https://api.nasdaq.com/api/quote/list-type/nasdaq100"],capture_output=True,text=True)
+        try: rows=[(x["symbol"].replace(".","-"),re.sub(r" (Common Stock|Class [A-C].*|Ordinary Shares.*)$","",x["companyName"])) for x in json.loads(r.stdout)["data"]["data"]["rows"]]
+        except Exception: rows=[]
+        return nom,pays,rows
     if cle=="sox":
         us=json.load(open(os.path.join(ROOT,"docs/cahier/bourses/US.json")))
         rows=[(s["ticker"],s["nom"]) for i in us["indices"] if i["cle"]=="soxx" for s in i.get("stes",[]) if s.get("ticker")]

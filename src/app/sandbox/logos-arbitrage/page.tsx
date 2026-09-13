@@ -48,7 +48,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
       <main className="mx-auto max-w-5xl px-4 pb-20 sm:px-6">
         <h1 className="font-display text-[28px] font-bold tracking-tight">Arbitrage des logos douteux</h1>
         <p className="mt-1 text-[14px] text-zinc-400">
-          Revue des 666 logos faite : seuls ces 6 cas hésitent. Coche le logo à garder ; j&apos;applique ensuite ton choix.
+          Revue de tous les logos faite : seuls ces 6 cas hésitent. Coche le logo à garder ; j&apos;applique ensuite ton choix.
           EssilorLuxottica n&apos;a aucun emblème officiel compact : son bandeau actuel reste tel quel.
         </p>
         <div className="mt-6">

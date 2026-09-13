@@ -36,10 +36,11 @@ export async function GET(req: NextRequest) {
   const ua = { headers: { "User-Agent": "Mozilla/5.0 (Mettrik veille indices)" } };
   const [sp, nd] = await Promise.all([
     fetch("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies", ua).then((r) => r.text()).catch(() => ""),
-    fetch("https://en.wikipedia.org/wiki/Nasdaq-100", ua).then((r) => r.text()).catch(() => ""),
+    fetch("https://api.nasdaq.com/api/quote/list-type/nasdaq100", { headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/124 Safari/537.36", Accept: "application/json" } }).then((r) => r.json()).catch(() => null),
   ]);
   const spW = tickersWikipedia(sp, "constituents");
-  const ndW = tickersWikipedia(nd, "constituents");
+  // Nasdaq 100 : le portail Nasdaq (JSON), Wikipedia n affiche plus les tickers.
+  const ndW: { ticker: string; nom: string; ajout: string }[] = ((nd as { data?: { data?: { rows?: { symbol: string; companyName: string }[] } } } | null)?.data?.data?.rows ?? []).map((r) => ({ ticker: r.symbol.replace(/\./g, "-"), nom: r.companyName.replace(/ (Common Stock|Class [A-C].*|Ordinary Shares.*)$/, ""), ajout: "" }));
   const spLocal = new Set((SP500 as string[]).map(norm));
   const ndLocal = new Set(((NDX as { tickers: string[] }).tickers ?? []).map(norm));
   const ecart = {
@@ -47,6 +48,8 @@ export async function GET(req: NextRequest) {
     nasdaq100: { entrees: ndW.filter((x) => !ndLocal.has(norm(x.ticker))), sorties: [...ndLocal].filter((t) => !ndW.some((x) => norm(x.ticker) === t)), lu: ndW.length },
   };
   if (spW.length < 450) return NextResponse.json({ ok: false, erreur: "lecture Wikipedia S&P 500 incomplete", lu: spW.length });
+  // Garde-fou : une lecture incomplete du Nasdaq 100 ne doit jamais produire de fausses sorties.
+  if (ndW.length < 90) { ecart.nasdaq100 = { entrees: [], sorties: [], lu: ndW.length }; }
   const empreinte = JSON.stringify({ a: ecart.sp500.entrees.map((x) => x.ticker), b: ecart.sp500.sorties, c: ecart.nasdaq100.entrees.map((x) => x.ticker), d: ecart.nasdaq100.sorties });
   const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false, autoRefreshToken: false } });
   let precedente = "";
