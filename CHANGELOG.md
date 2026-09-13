@@ -316,3 +316,9 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.13.8 (13 Sep 2026 03:11, apres 82808137de)
 - Stories : valeurs approximatives affichees 100+
+
+## v2026.09.13.9 (13 Sep 2026 04:53, apres 3992f5ceb6)
+- Mises a jour des fiches (calendrier, regles, alerte rouge), produit phare externe integre, risques GOOGL META, titre, TAM masque, anti-these en bas, valeurs approximatives, bourses 2 indices
+
+## v2026.09.13.10 (13 Sep 2026 05:16, apres 64737a9902)
+- Transcripts US rafraichis via MarketBeat (177) ; calendrier des publications regenere (529 stes, historique) ; workflow calendrier

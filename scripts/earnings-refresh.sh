@@ -86,6 +86,7 @@ print(','.join(reversed(ms)))")
   # data-lake. Sans ce controle, une publication captee par personne passe
   # totalement inapercue. Purement mecanique, aucun appel LLM ni reseau.
   nice -n 10 python3 scripts/verifie-publications.py
+  nice -n 10 python3 scripts/build-earnings-calendar.py || true
   python3 scripts/alerte-mises-a-jour.py --email || true
   echo "=== $(date '+%F %T') fin ==="
 } >> /tmp/earnings-refresh.log 2>&1

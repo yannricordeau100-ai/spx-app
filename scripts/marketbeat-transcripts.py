@@ -220,6 +220,32 @@ def calcule_cible():
 
 # ---------------------------------------------------------------- traitement
 
+def variantes_rapport(date_iso, url):
+    """Variantes plausibles d une page rapport (slug sans suffixe, J+/-1)."""
+    m = re.search(r'/earnings/reports/(\d{4})-(\d{1,2})-(\d{1,2})-([a-z0-9\-]+)/$', url)
+    if not m:
+        return []
+    y, mo, d, slug = int(m.group(1)), int(m.group(2)), int(m.group(3)), m.group(4)
+    slugs = [slug]
+    base = re.sub(r'-\d+$', "", slug)
+    if base != slug:
+        slugs.append(base)
+    from datetime import date as _date, timedelta as _td
+    sorties, vus = [], {url}
+    for delta in (0, 1, -1):
+        try:
+            dd = _date(y, mo, d) + _td(days=delta)
+        except ValueError:
+            continue
+        for sl in slugs:
+            u = "%s/earnings/reports/%d-%d-%d-%s/" % (BASE, dd.year, dd.month, dd.day, sl)
+            if u in vus:
+                continue
+            vus.add(u)
+            sorties.append((dd.isoformat(), u))
+    return sorties[:5]
+
+
 def traite(ticker, dry_run=False):
     """Retourne (categorie, detail)."""
     existant = date_existante(ticker)
@@ -238,10 +264,23 @@ def traite(ticker, dry_run=False):
 
     extrait = extrait_transcript(body)
     if not extrait or len(extrait["content"]) < MIN_LEN:
+        # certaines fiches listent une page « stub » (slug suffixe -1) :
+        # la page canonique porte le meme slug sans suffixe, a J ou J+1
+        for date_alt, url_alt in variantes_rapport(date_mb, url):
+            code, body = fetch(url_alt)
+            time.sleep(PAUSE)
+            if code == 200 and body:
+                alt = extrait_transcript(body)
+                if alt and len(alt["content"]) >= MIN_LEN:
+                    extrait, date_mb, url = alt, date_alt, url_alt
+                    break
+
+    if not extrait or len(extrait["content"]) < MIN_LEN:
         # on tente le rapport precedent si le plus recent n a pas de transcript
         for date_alt, url_alt in rapports[1:3]:
             if existant and existant >= date_alt:
-                break
+                # le fichier local est deja au moins aussi recent
+                return "plus_recent_deja", date_alt
             code, body = fetch(url_alt)
             time.sleep(PAUSE)
             if code == 200 and body:
