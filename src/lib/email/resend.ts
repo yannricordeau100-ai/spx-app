@@ -41,7 +41,26 @@ export type SendEmailParams = {
   tag?: string;
 };
 
+/**
+ * Yann 13 sept 2026 : AUCUN email d information ou commercial aux clients.
+ * Seuls les emails necessaires au service partent (echec de paiement, reponse
+ * au formulaire de contact). Bienvenue et accompagnement (onboarding) sont
+ * bloques, sauf pour les adresses @mettrik.ai (tests internes). Les emails de
+ * connexion (confirmation, mot de passe, changement d adresse) sont envoyes
+ * par Supabase et ne passent pas ici.
+ */
+const TAGS_NECESSAIRES = new Set(["billing-failed", "contact", "contact-ack", "support", "alerte"]);
+export function emailAutorise(to: string | string[], tag?: string): boolean {
+  const dest = Array.isArray(to) ? to : [to];
+  if (dest.every((d) => d.toLowerCase().endsWith("@mettrik.ai"))) return true;
+  return !!tag && TAGS_NECESSAIRES.has(tag);
+}
+
 export async function sendEmail(params: SendEmailParams): Promise<{ ok: boolean; id?: string; error?: string }> {
+  if (!emailAutorise(params.to, params.tag)) {
+    console.warn(`[Resend] email bloque (regle du 13 sept 2026, tag=${params.tag ?? "-"}) : ${Array.isArray(params.to) ? params.to.join(",") : params.to}`);
+    return { ok: false, error: "email non necessaire : bloque" };
+  }
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey || apiKey === "re_TODO") {
     console.warn("[Resend] RESEND_API_KEY missing — email not sent. Add it to .env.local.");

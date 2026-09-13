@@ -99,12 +99,13 @@ jobs:
       # 13 sept 2026 (Yann) : calendrier des publications (passe + 200 jours),
       # source FMP. Le secret FMP_PAID_API_KEY doit exister dans GitHub ; sans
       # lui l etape est sautee et le calendrier reste celui du depot.
-      - name: Refresh earnings calendar (FMP, passe et futur)
-        if: ${{ env.FMP_PAID_API_KEY != '' }}
+      - name: Refresh earnings calendar (MarketBeat, gratuit, US) puis fusion
         env:
           FMP_PAID_API_KEY: ${{ secrets.FMP_PAID_API_KEY }}
           FMP_API_KEY: ${{ secrets.FMP_PAID_API_KEY }}
-        run: python3 scripts/build-earnings-calendar.py || true
+        run: |
+          python3 scripts/marketbeat-calendar.py || true
+          python3 scripts/build-earnings-calendar.py || true
 
       - name: Refresh ranks and market cap order (univers 666)
         run: |
@@ -127,7 +128,7 @@ jobs:
           # l univers = indices seulement (666 stes, v1-9-5-clean-all-tickers.json).
           # On ne committe que les fichiers enrich des stes de cette liste.
           ENRICH=$(python3 -c "import json,glob,os; d=json.load(open('src/data/v1-9-5-clean-all-tickers.json')); ok={t.lower() for t in (d['tickers'] if isinstance(d,dict) else d)}; print(' '.join(f for f in glob.glob('src/data/v2-pipeline-enrich/*.json') if os.path.basename(f).split('.')[0].lower() in ok))")
-          git add $ENRICH src/data/earnings-calendar.json src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json src/data/market-cap-order.json src/data/home-wow-kpis.json $FOREIGN 2>/dev/null || true
+          git add $ENRICH src/data/earnings-calendar.json src/data/earnings-calendar-marketbeat.json src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json src/data/market-cap-order.json src/data/home-wow-kpis.json $FOREIGN 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Aucun changement détecté, skip commit."
           else

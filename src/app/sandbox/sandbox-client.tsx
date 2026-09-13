@@ -214,6 +214,14 @@ const SECTIONS: SandboxSection[] = [
         desc: "Qui fait quoi, Pass 3 par catégorie, audit transverse cat 1 / 2 / 3.",
       },
       {
+        // 13 sept 2026 : societes du site par indice (S&P 500, Nasdaq 100, SOX, CAC 40, DAX, AEX, SMI), doubles appartenances.
+        href: "/sandbox/indices",
+        icon: Activity,
+        label: "Sociétés par indice",
+        desc: "Toutes les sociétés du site classées par indice, membres absents en gris, sociétés présentes dans deux indices, veille quotidienne des entrées et sorties.",
+        mots: ["indice", "S&P 500", "Nasdaq 100", "SOX", "CAC 40", "DAX", "AEX", "SMI", "composition", "deux indices", "veille"],
+      },
+      {
         // 13 sept 2026 : calendrier des publications + etat des blocs + alerte rouge.
         href: "/sandbox/mises-a-jour",
         icon: Activity,

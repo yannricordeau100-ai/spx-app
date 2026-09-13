@@ -53,6 +53,14 @@ PAS_JOURS = 30        # le calendrier global est interroge par tranches
 PAUSE = 0.12          # petite pause entre appels, on ne bouscule pas l API
 
 
+def cle_api_optionnelle():
+    try:
+        return cle_api()
+    except SystemExit:
+        return None
+    except Exception:
+        return None
+
 def cle_api():
     """Lit la cle FMP dans .env.local. On privilegie la cle payante."""
     chemin = os.path.join(RACINE, ".env.local")
@@ -180,6 +188,33 @@ def historique_dates(sortie):
         hist[t] = sorted(dates)
     sortie["historique"] = hist
 
+def fusion_marketbeat(sortie):
+    """13 sept 2026 : MarketBeat (gratuit) est la source de secours ET de
+    complement pour les societes americaines : historique et prochaine date
+    (scripts/marketbeat-calendar.py -> src/data/earnings-calendar-marketbeat.json).
+    Une date MarketBeat remplace une date FMP estimee ; l historique est fusionne."""
+    p = os.path.join(RACINE, "src", "data", "earnings-calendar-marketbeat.json")
+    try:
+        mb = json.load(open(p, encoding="utf-8")).get("par_ticker", {})
+    except Exception:
+        return
+    pt = sortie.setdefault("par_ticker", {}); hist = sortie.setdefault("historique", {})
+    n = 0
+    for t, e in mb.items():
+        h = set(hist.get(t, [])) | set(e.get("historique", []))
+        if e.get("prochaine"):
+            h.add(e["prochaine"])
+            cur = pt.get(t) or {}
+            if not cur.get("prochaine") or cur.get("estimee", True):
+                pt[t] = {"prochaine": e["prochaine"], "precedente": cur.get("precedente") or max([d for d in h if d < e["prochaine"]], default=None), "estimee": bool(e.get("estimee", True)), "source": "marketbeat"}
+        elif t not in pt and h:
+            pt[t] = {"prochaine": None, "precedente": max(h), "estimee": True, "source": "marketbeat"}
+        hist[t] = sorted(h); n += 1
+    sortie["couverts"] = len([t for t, e in pt.items() if e.get("prochaine") or e.get("precedente")])
+    sortie["introuvables"] = [t for t in sortie.get("introuvables", []) if t not in pt]
+    sortie["source"] = sortie.get("source", "") + " + marketbeat"
+    print("MarketBeat fusionne :", n, "societes")
+
 def main():
     cle = cle_api()
     aujourdhui = date.today()
@@ -284,6 +319,7 @@ def main():
     with open(SORTIE, "w", encoding="utf-8") as f:
         json.dump(sortie, f, ensure_ascii=False, indent=1)
     historique_dates(sortie)
+    fusion_marketbeat(sortie)
     with open(SORTIE, "w", encoding="utf-8") as f:
         json.dump(sortie, f, ensure_ascii=False, indent=1)
         f.write("\n")

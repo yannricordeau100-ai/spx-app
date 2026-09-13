@@ -325,3 +325,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.13.11 (13 Sep 2026 05:39, apres 327f397a9f)
 - Alerte rouge visible sur l accueil de la sandbox
+
+## v2026.09.13.12 (13 Sep 2026 15:06, apres 5feea5320a)
+- Emails clients bloques sauf necessaires ; veille des indices ; page par indice ; calendrier MarketBeat
