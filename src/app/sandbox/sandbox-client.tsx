@@ -778,7 +778,7 @@ function estPeuUtilise(item: SandboxItem, usage: Record<string, string>): boolea
   return true;
 }
 
-export function SandboxClient() {
+export function SandboxClient({ alerte = null }: { alerte?: { rougesTotal: number; stesRouges: string[]; calculeLe: string; resume: string[] } | null }) {
   const archivedItems = SECTIONS.flatMap((s) => s.items).filter(isArchived);
   // 9 sept 2026 : usage reel (clics du proprietaire, navigateur local).
   const [usage, setUsage] = useState<Record<string, string>>({});
@@ -801,6 +801,14 @@ export function SandboxClient() {
   const peuUtilise = (item: SandboxItem) => !isArchived(item) && estPeuUtilise(item, usage);
   const nbPeuUtilises = SECTIONS.flatMap((s) => s.items).filter(peuUtilise).length;
   return (
+    <>
+      {alerte && alerte.rougesTotal > 0 && (
+        <div className="mx-auto mb-4 max-w-6xl rounded-xl border border-rose-500/50 bg-rose-500/10 px-4 py-3 text-[13px] text-rose-100">
+          <span className="font-mono text-[10.5px] uppercase tracking-wider text-rose-300">Alerte rouge · mises à jour</span>
+          <div className="mt-0.5 font-semibold">{alerte.rougesTotal} bloc(s) de fiche en retard (J+3 dépassé) sur {alerte.stesRouges.length} société(s), calculé le {alerte.calculeLe.slice(0, 16).replace("T", " ")}.</div>
+          <a href="/sandbox/mises-a-jour" className="text-[12px] underline">Voir le détail par bloc</a>
+        </div>
+      )}
     <div className="min-h-screen bg-[#050507] text-zinc-100">
       <div className="mx-auto max-w-5xl px-6 py-12">
         <div className="mb-8 flex items-baseline gap-3">
@@ -1120,5 +1128,6 @@ export function SandboxClient() {
         </div>
       </div>
     </div>
+    </>
   );
 }

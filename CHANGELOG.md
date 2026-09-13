@@ -322,3 +322,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.13.10 (13 Sep 2026 05:16, apres 64737a9902)
 - Transcripts US rafraichis via MarketBeat (177) ; calendrier des publications regenere (529 stes, historique) ; workflow calendrier
+
+## v2026.09.13.11 (13 Sep 2026 05:39, apres 327f397a9f)
+- Alerte rouge visible sur l accueil de la sandbox
