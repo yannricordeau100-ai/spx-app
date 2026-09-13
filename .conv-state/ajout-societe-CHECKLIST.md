@@ -8,12 +8,12 @@ mises a jour generales l ignorent. Modele a copier pour la structure : TSM (amer
 2. `src/data/v2-pipeline-enrich/<t>.json` : revenue_by_segment, revenue_by_geography (source, source_date), financial_snapshot, key_facts, company_description, peers, latest_filing, next_earnings_date, publication_date, dividend_meta.
 3. `src/data/v2-pipeline-enrich/<t>.ranks.json` (genere par scripts/ranks-univers.py) et `<t>.description.json`, `<t>.tam.json` (bloc Position de marche, cf docs/cahier/tam/<T>.json).
 4. `.batches-drafts-safe/kpis-haut/<T>.json` : KPI avances (history {q,v}, frequency, pv_score, signal, description_fr/en) ; c est la couche la plus lue.
-5. `src/data/transcripts/<t>.json` (scripts/marketbeat-transcripts.py --tickers T) et `src/data/transcript-summaries/<t>.json` (scripts/summaries-refresh.py --tickers T).
+5. `src/data/transcripts/<t>.json` (scripts/marketbeat-transcripts.py --tickers T pour les americaines, scripts/stockanalysis-transcripts.py --tickers T sinon) et `src/data/transcript-summaries/<t>.json` (scripts/summaries-refresh.py --tickers T).
 6. `src/data/att/<t>.json` : anti-these (procedure .conv-state/ATT-PROCEDURE.md).
 7. `src/data/companies/<t>.json` : donnees legacy si le loader les lit (verifier load-company.ts ; TSM en a un).
 8. `public/logos/<T>.png` : scripts/fetch-logo-wikipedia.py T "Titre Wikipedia".
 9. `docs/cahier/donnees/<T>.json`, `docs/cahier/clients/<T>.json`, `docs/cahier/tam/<T>.json`, `docs/cahier/kpi/` (sous-industrie deja couverte).
-10. `src/data/v2-pipeline-i18n/<t>.en.json` et `<t>.de.json` (scripts/cron-translate-en-de.sh les produit ; sinon a lancer).
+10. Traductions : INTERDITES depuis le 13 sept 2026 (Yann). Ne pas produire `src/data/v2-pipeline-i18n/<t>.en.json` ni `<t>.de.json`, ne pas lancer scripts/cron-translate-en-de.sh (cron desactive).
 11. data-lake/<T>/ : 10K, 10Q, 8K, DEF14A (scripts/fetch-filing-dates.py + daily-doc-watcher) ; ir/ pour les europeennes.
 
 ## Listes et index a mettre a jour (sinon la societe est invisible ou ignoree)

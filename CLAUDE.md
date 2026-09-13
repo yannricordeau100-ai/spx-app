@@ -521,3 +521,7 @@ Source de verite : `src/data/mise-a-jour-regles.json` (lu par la page /sandbox/m
 - Convention : toute passe qui met un bloc a jour ecrit `_maj_<bloc>` (ISO) dans `src/data/v2-pipeline-enrich/<t>.json`. Sans cette date, le bloc est orange (inconnu) dans l etat.
 - Alerte rouge independante : route `/api/cron/alertes-maj` (cron Vercel quotidien + chaine 23h), email au proprietaire, banniere en haut de /sandbox/mises-a-jour. Claude lit `src/data/alertes-maj.json` (ou la page) EN DEBUT DE SESSION et corrige les blocs rouges AVANT que le proprietaire n ouvre la notification.
 - Doublons de KPI : `scripts/scan-kpi-doublons.py --apply` tourne dans la chaine 23h (serie la plus longue gardee, garde-fou facteur 3).
+
+## 9. UNIVERS ET TRADUCTIONS (Yann, 13 sept 2026)
+- Une societe sortie d un indice RESTE dans l univers Mettrik : page en ligne et presence dans toutes les listes (recherche, comptages, comparaison). La veille des indices signale les sorties par email, elle ne retire jamais personne. Cette regle prime sur project_mettrik_univers_indices_only du 28 aout (qui avait retire AVB et EQR).
+- AUCUNE TRADUCTION, nulle part : les crons de traduction (cron-translate-en-de.sh, auto-translate-on-fr-change.sh) sont desactives dans crontab le 13 sept 2026 ; ne pas produire ni relancer de fichiers v2-pipeline-i18n, ne pas ajouter d etape de traduction dans une chaine.

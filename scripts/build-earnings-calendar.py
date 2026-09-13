@@ -170,7 +170,7 @@ def historique_dates(sortie):
             ancien = json.load(f).get("historique", {}) or {}
     except Exception:
         ancien = {}
-    cle = cle_api()
+    cle = None if "--sans-fmp" in sys.argv else cle_api_optionnelle()
     hist = {t: sorted(set(v)) for t, v in ancien.items()}
     for t, e in sortie.get("par_ticker", {}).items():
         dates = set(hist.get(t, []))
@@ -215,8 +215,56 @@ def fusion_marketbeat(sortie):
     sortie["source"] = sortie.get("source", "") + " + marketbeat"
     print("MarketBeat fusionne :", n, "societes")
 
+def fusion_stockanalysis(sortie):
+    """13 sept 2026 : stockanalysis.com (gratuit) couvre les places non
+    americaines (scripts/stockanalysis-calendar.py). Meme logique que MarketBeat."""
+    p = os.path.join(RACINE, "src", "data", "earnings-calendar-stockanalysis.json")
+    try:
+        sa = json.load(open(p, encoding="utf-8")).get("par_ticker", {})
+    except Exception:
+        return
+    pt = sortie.setdefault("par_ticker", {}); hist = sortie.setdefault("historique", {})
+    n = 0
+    for t, e in sa.items():
+        h = set(hist.get(t, [])) | set(e.get("historique", []))
+        if e.get("prochaine"):
+            h.add(e["prochaine"])
+            cur = pt.get(t) or {}
+            if not cur.get("prochaine") or cur.get("estimee", True):
+                pt[t] = {"prochaine": e["prochaine"], "precedente": cur.get("precedente") or max([d for d in h if d < e["prochaine"]], default=None), "estimee": bool(e.get("estimee", False)), "source": "stockanalysis"}
+        elif t not in pt and h:
+            pt[t] = {"prochaine": None, "precedente": max(h), "estimee": True, "source": "stockanalysis"}
+        hist[t] = sorted(h); n += 1
+    sortie["couverts"] = len([t for t, e in pt.items() if e.get("prochaine") or e.get("precedente")])
+    sortie["introuvables"] = [t for t in sortie.get("introuvables", []) if t not in pt]
+    sortie["source"] = sortie.get("source", "") + " + stockanalysis"
+    print("stockanalysis fusionne :", n, "societes")
+
+def sans_fmp():
+    """13 sept 2026 : FMP est optionnel. Sans cle, le calendrier est construit
+    depuis le fichier precedent + MarketBeat (US) + stockanalysis (autres places)."""
+    print("Sans cle FMP : calendrier construit depuis MarketBeat et stockanalysis")
+    try:
+        sortie = json.load(open(SORTIE, encoding="utf-8"))
+    except Exception:
+        sortie = {"fenetre_jours": JOURS, "par_ticker": {}, "introuvables": {}}
+    sortie["MAJ"] = date.today().isoformat()
+    sortie["source"] = "sans FMP"
+    historique_dates(sortie)
+    fusion_marketbeat(sortie)
+    fusion_stockanalysis(sortie)
+    with open(SORTIE, "w", encoding="utf-8") as f:
+        json.dump(sortie, f, ensure_ascii=False, indent=1)
+        f.write("\n")
+    print("Ecrit %s : %d societes couvertes" % (SORTIE, sortie.get("couverts", 0)))
+
+
 def main():
-    cle = cle_api()
+    # --sans-fmp : n interroge pas FMP du tout (utile quand la cle est
+    # restreinte : MarketBeat et stockanalysis suffisent).
+    cle = None if "--sans-fmp" in sys.argv else cle_api_optionnelle()
+    if cle is None:
+        return sans_fmp()
     aujourdhui = date.today()
     debut = aujourdhui - timedelta(days=RECUL)
     fin = aujourdhui + timedelta(days=JOURS)
@@ -320,6 +368,7 @@ def main():
         json.dump(sortie, f, ensure_ascii=False, indent=1)
     historique_dates(sortie)
     fusion_marketbeat(sortie)
+    fusion_stockanalysis(sortie)
     with open(SORTIE, "w", encoding="utf-8") as f:
         json.dump(sortie, f, ensure_ascii=False, indent=1)
         f.write("\n")

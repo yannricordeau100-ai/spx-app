@@ -59,6 +59,13 @@ for _ in range(3):
 print(','.join(reversed(ms)))")
   if python3 scripts/synchro_flags.py transcripts; then
     nice -n 10 python3 scripts/transcripts-refresh.py --mois "$MOIS_TR"
+    # 13 sept 2026 (Yann) : sources gratuites completes. MarketBeat pour les
+    # societes US, stockanalysis.com pour toutes les places (texte complet,
+    # dont Europe). Chaque script ne remplace que par un transcript plus recent.
+    nice -n 10 python3 scripts/marketbeat-transcripts.py || true
+    # sans --all : seules les places non americaines, les americaines etant
+    # deja couvertes par MarketBeat et Fool (evite 500 appels inutiles).
+    nice -n 10 python3 scripts/stockanalysis-transcripts.py || true
   else
     echo "[synchro] transcripts : interrupteur arrete, aucun telechargement"
   fi
@@ -87,6 +94,7 @@ print(','.join(reversed(ms)))")
   # totalement inapercue. Purement mecanique, aucun appel LLM ni reseau.
   nice -n 10 python3 scripts/verifie-publications.py
   nice -n 10 python3 scripts/marketbeat-calendar.py || true
+  nice -n 10 python3 scripts/stockanalysis-calendar.py || true
   nice -n 10 python3 scripts/build-earnings-calendar.py || true
   python3 scripts/alerte-mises-a-jour.py --email || true
   echo "=== $(date '+%F %T') fin ==="

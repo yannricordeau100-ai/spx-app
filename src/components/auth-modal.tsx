@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
@@ -77,11 +77,21 @@ export function AuthModal() {
   // avec le redirect serveur).
   const [signinErr, setSigninErr] = useState<string | null>(null);
   const [signinBusy, setSigninBusy] = useState(false);
-  // Un jeton hCaptcha ne sert qu une fois : apres un echec, on recree le widget.
+  // Un jeton hCaptcha ne sert qu une fois. Yann 13 sept 2026 : le widget
+  // renvoyait le meme jeton apres un echec (« already-seen-response »). On le
+  // reinitialise apres CHAQUE tentative et on refuse de renvoyer un jeton deja
+  // soumis, quelle que soit la cause (double clic, remplissage automatique).
   const [cleCaptcha, setCleCaptcha] = useState(0);
+  const jetonsSoumis = useRef<Set<string>>(new Set());
+  const envoiEnCours = useRef(false);
+  // Si hCaptcha renvoie malgre tout le meme jeton (reponse mise en cache par
+  // le navigateur), on recree entierement le widget pour forcer un defi neuf.
+  const [cleMontageCaptcha, setCleMontageCaptcha] = useState(0);
 
   async function handleSigninClient(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (envoiEnCours.current) return; // double clic ou double envoi du formulaire
+    envoiEnCours.current = true;
     setSigninErr(null);
     setSigninBusy(true);
     const fd = new FormData(e.currentTarget);
@@ -94,13 +104,25 @@ export function AuthModal() {
     if (!emailV || !passwordV) {
       setSigninErr("Email + mot de passe requis");
       setSigninBusy(false);
+      envoiEnCours.current = false;
       return;
     }
     if (!captchaToken && jetonCaptcha !== "bypass") {
       setSigninErr("Coche la vérification anti-robot puis réessaie.");
       setSigninBusy(false);
+      envoiEnCours.current = false;
       return;
     }
+    if (captchaToken && jetonsSoumis.current.has(captchaToken)) {
+      // jeton deja consomme par une tentative precedente : Supabase le
+      // refuserait avec « already-seen-response ». On remet la case a zero.
+      setSigninErr("Vérification anti-robot à refaire : recoche la case puis reclique sur Se connecter.");
+      setSigninBusy(false);
+      envoiEnCours.current = false;
+      setCleMontageCaptcha((k) => k + 1);
+      return;
+    }
+    if (captchaToken) jetonsSoumis.current.add(captchaToken);
     try {
       // Yann 20 mai 17h : fix DÉFINITIF Lock "sb-...-auth-token released
       // because another request stole it".
@@ -151,14 +173,18 @@ export function AuthModal() {
         }
       }
       if (error || !data || !data.session) {
+        const m = error?.message ?? "";
         setSigninErr(
-          error?.message?.includes("Invalid login")
+          m.includes("Invalid login")
             ? "Email ou mot de passe incorrect."
-            : error?.message?.includes("Email not confirmed")
+            : m.includes("Email not confirmed")
               ? "Email pas encore confirmé. Vérifie ta boîte mail."
-              : (error?.message ?? "Connexion impossible. Réessaie dans un instant."),
+              : /captcha/i.test(m)
+                ? "Vérification anti-robot à refaire : recoche la case puis reclique sur Se connecter."
+                : (m || "Connexion impossible. Réessaie dans un instant."),
         );
         setSigninBusy(false);
+        envoiEnCours.current = false;
         setCleCaptcha((k) => k + 1);
         return;
       }
@@ -207,6 +233,7 @@ export function AuthModal() {
         : `Erreur : ${errMsg.slice(0, 200)}`;
       setSigninErr(/captcha/i.test(msg) ? "Vérification anti-robot à refaire : recoche la case puis reclique sur Se connecter." : msg);
       setSigninBusy(false);
+      envoiEnCours.current = false;
       setCleCaptcha((k) => k + 1);
     }
   }
@@ -437,7 +464,7 @@ export function AuthModal() {
                       />
                     </Field>
                     <div className="flex justify-center">
-                      <HCaptchaWidget key={cleCaptcha} theme="dark" />
+                      <HCaptchaWidget key={cleMontageCaptcha} signalReset={cleCaptcha} theme="dark" />
                     </div>
                     {signinErr && (
                       <div className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-[12.5px] text-rose-200">

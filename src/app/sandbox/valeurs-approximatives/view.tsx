@@ -6,7 +6,7 @@ import type { DecisionApprox } from "@/lib/valeurs-approx";
 
 export type CasApprox = { id: string; ticker: string; short: string; avant: string; applique: string | null; affichage: string | null; type: "corrige" | "doute"; propositions: string[] };
 
-export function ValeursApproxView({ cas, maj, regle, decisionsInitiales, jeton }: { cas: CasApprox[]; maj: string; regle: string; decisionsInitiales: Record<string, DecisionApprox>; jeton: string | null }) {
+export function ValeursApproxView({ cas, maj, regle, decisionsInitiales, jeton, admin }: { admin: boolean; cas: CasApprox[]; maj: string; regle: string; decisionsInitiales: Record<string, DecisionApprox>; jeton: string | null }) {
   const [dec, setDec] = useState(decisionsInitiales);
   const [autre, setAutre] = useState<Record<string, string>>({});
   const [statut, setStatut] = useState("");
@@ -27,6 +27,11 @@ export function ValeursApproxView({ cas, maj, regle, decisionsInitiales, jeton }
       <div className="mt-3 flex gap-2 text-[12px]">
         {(["doute", "corrige", "tous"] as const).map((f) => <button key={f} onClick={() => setFiltre(f)} className={`rounded-md border px-2.5 py-1 ${filtre === f ? "border-violet-400/60 bg-violet-500/15" : "border-white/10"}`}>{f === "doute" ? "À trancher" : f === "corrige" ? "Corrigés" : "Tous"}</button>)}
       </div>
+      {!admin && (
+        <p className="mt-3 rounded-lg border border-amber-400/40 bg-amber-500/10 px-3 py-2 text-[12.5px] text-amber-200">
+          Décisions verrouillées : connecte-toi avec le compte propriétaire (ou ouvre la page avec le jeton d audit). Sans cela, chaque décision répond « échec (403) ».
+        </p>
+      )}
       {statut && <p className="mt-2 font-mono text-[12px] text-cyan-300">{statut}</p>}
       <div className="mt-4 grid gap-2">
         {liste.map((c) => {

@@ -113,6 +113,11 @@ export function HCaptchaWidget(props?: {
   fieldName?: string;
   theme?: "dark" | "light";
   size?: "normal" | "compact";
+  /** Yann 13 sept 2026 : incrementer ce nombre remet le captcha a zero.
+   *  hCaptcha rend le MEME jeton tant que le widget n est pas reinitialise :
+   *  le renvoyer donne « already-seen-response ». On appelle donc reset()
+   *  apres chaque tentative de connexion. */
+  signalReset?: number;
 }) {
   const fieldName = props?.fieldName ?? "h-captcha-response";
   // Yann 3 sept 2026 : la cle relayee par le serveur n existe que dans le
@@ -186,6 +191,36 @@ export function HCaptchaWidget(props?: {
       }
     };
   }, [siteKey, theme, size]);
+
+  // Yann 13 sept 2026 : formulaires en action serveur (inscription, mot de
+  // passe oublie, changement d email). Apres un envoi, le jeton est consomme
+  // cote serveur ; s il restait affiche coche, l envoi suivant renvoyait le
+  // meme jeton et Supabase repondait « already-seen-response ». On remet donc
+  // le captcha a zero juste apres chaque envoi du formulaire qui le contient.
+  useEffect(() => {
+    const form = containerRef.current?.closest("form");
+    if (!form) return;
+    const apresEnvoi = () => {
+      window.setTimeout(() => {
+        setToken("");
+        if (widgetIdRef.current && window.hcaptcha) {
+          try { window.hcaptcha.reset(widgetIdRef.current); } catch { /* widget deja retire */ }
+        }
+      }, 0);
+    };
+    form.addEventListener("submit", apresEnvoi);
+    return () => form.removeEventListener("submit", apresEnvoi);
+  }, [skipRender]);
+
+  // Reinitialisation demandee par le formulaire (jeton deja consomme).
+  const premierSignal = useRef(true);
+  useEffect(() => {
+    if (premierSignal.current) { premierSignal.current = false; return; }
+    setToken("");
+    if (widgetIdRef.current && window.hcaptcha) {
+      try { window.hcaptcha.reset(widgetIdRef.current); } catch { /* widget deja retire */ }
+    }
+  }, [props?.signalReset]);
 
   if (skipRender) {
     return <input type="hidden" name={fieldName} value="bypass" />;
