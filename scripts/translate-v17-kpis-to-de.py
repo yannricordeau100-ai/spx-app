@@ -106,7 +106,7 @@ USE_ANTHROPIC = os.environ.get("USE_ANTHROPIC", "0") == "1"
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
-MODEL = "qwen-3-235b-a22b-instruct-2507"
+MODEL = os.environ.get("CEREBRAS_MODEL", "gpt-oss-120b")  # 13 sept 2026 : qwen-3-235b-a22b-instruct-2507 retire du catalogue Cerebras (404)
 
 ACRONYMS = {
     "KPI", "EPS", "FCF", "TTM", "ARPP", "CAGR", "IPO", "EBITDA", "ROIC",

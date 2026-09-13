@@ -23,3 +23,4 @@ C3 S&P 500 : RDDT, FERG, FLEX, FDXF ajoutees (agents Opus, verif-societe.py sans
 C4 Produit phare : 108 stes restantes (.conv-state/phare-reste.json), lots de 20 par agent Opus, sorties docs/cahier/produit-phare/externe/sorties/claude/, integration par scripts/phare-integrer-externe.py (adapter EXT).
 C5 « 666 » : src/lib/univers.ts NB_SOCIETES (dynamique) dans layout et page ; sandbox : textes generiques.
 C6 Indices : /sandbox/indices (S&P 500, Nasdaq 100, SOXX, CAC 40, DAX, AEX, SMI), src/data/indices-composition.json (scripts/indices-wikipedia.py).
+- build-v17-public.ts DETRUIT v1-7-public.json (isStrictPass3 rejette tout) : NE PAS LANCER (audit 13 sept). Traductions EN/DE : cles Cerebras/Groq HS (payment_required, 401) : action Yann.

@@ -67,7 +67,8 @@ export async function calculerEtatMisesAJour(): Promise<EtatMisesAJour> {
     const publication = iso(cal?.par_ticker?.[t]?.precedente) ?? iso((enrich?.latest_filing as { date?: string } | undefined)?.date);
     const filing = enrich?.latest_filing as { date?: string; form?: string } | undefined;
     const rapportAnnuel = filing && /10-K|20-F|40-F/.test(filing.form ?? "") ? iso(filing.date) : null;
-    const maj = (k: string) => iso(enrich?.[`_maj_${k}`]);
+    // Convention : _maj_<bloc> ; on accepte aussi les variantes posees par certaines passes (_maj_repartition_ca).
+    const maj = (k: string) => iso(enrich?.[`_maj_${k}`]) ?? (k === "repartition" ? iso(enrich?.["_maj_repartition_ca"]) : null);
     // rang : hebdomadaire, reference = aujourd hui - 7 jours
     { const b = parId.rang; if (b) { const r = rangDate ? (jours(today, rangDate) > 7 ? "rouge" : "vert") : "orange"; pose(b, { ticker: t, nom, feu: r, bloc_date: rangDate, reference: today, jours: rangDate ? Math.max(0, jours(today, rangDate) - 7) : null, motif: rangDate ? `dernier classement le ${rangDate}` : "date du classement inconnue" }); } }
     { const b = parId.synthese; if (b) { const d = iso(resume?.fetched_at); const f = feu(d, publication, b.delai_jours, today); pose(b, { ticker: t, nom, bloc_date: d, reference: publication, ...f }); } }

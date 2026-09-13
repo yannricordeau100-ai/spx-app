@@ -8,6 +8,8 @@ candidat nomme sans serie -> combler ; produit different -> 3e candidat.
 import json,glob,os,re,sys,unicodedata,collections,datetime
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXT=os.path.join(ROOT,"docs/cahier/produit-phare/externe/sorties/_zip/docs/cahier/produit-phare/externe/sorties")
+if "--dossier" in sys.argv: EXT=os.path.join(ROOT,sys.argv[sys.argv.index("--dossier")+1])
+SOURCE="externe (ChatGPT, mission produit phare, 13 sept 2026)" if "--source" not in sys.argv else sys.argv[sys.argv.index("--source")+1]
 apply="--apply" in sys.argv
 def norm(s):
     s=unicodedata.normalize("NFD",str(s or "")).encode("ascii","ignore").decode().lower()
@@ -20,7 +22,7 @@ def unite(u): return UNITES.get(str(u or "").strip().lower(),str(u or "").strip(
 uni=set(json.load(open(os.path.join(ROOT,"src/data/v1-9-5-clean-all-tickers.json")))["tickers"])
 regp=os.path.join(ROOT,"src/data/produit-phare.json"); reg=json.load(open(regp))
 stes=reg["stes"]
-raisons=json.load(open(os.path.join(EXT,"RAISONS_INDISPONIBILITE.json")))
+raisons=json.load(open(os.path.join(EXT,"RAISONS_INDISPONIBILITE.json"))) if os.path.exists(os.path.join(EXT,"RAISONS_INDISPONIBILITE.json")) else {}
 bilan=collections.Counter(); journal=[]; integres=[]
 for f in sorted(glob.glob(os.path.join(EXT,"P2/*.json"))):
     j=json.load(open(f)); t=j["ticker"]
@@ -61,16 +63,16 @@ for f in sorted(glob.glob(os.path.join(EXT,"P2/*.json"))):
     ordre=sorted(annees); hist=[{"q":f"FY{a}","v":annees[a]} for a in ordre]
     last=annees[ordre[-1]]; prev=annees.get(str(int(ordre[-1])-1))
     yoy=f"{(last-prev)/abs(prev)*100:+.1f}%".replace(".",",") if prev else None
-    kpi={"short":short,"name_fr":k.get("name_fr") or produit,"name_en":k.get("name_en"),"unit":unite(k.get("unit")),"value":last,"yoy":yoy,"period_type":"year","frequency":"annual","type":"Revenue" if str(k.get("type","")).lower().startswith("rev") else "Volume","pv_score":8,"signal":f"Produit phare : {produit}","description_fr":(j.get("note") or "")[:300],"history":hist,"last_data_date":f"{ordre[-1]}-12-31","is_short_history":len(hist)<5,"_estime":[f"FY{a}" for a in (j.get("estime") or [])],"_source":"externe (ChatGPT, mission produit phare, 13 sept 2026)","_produit_phare":produit}
+    kpi={"short":short,"name_fr":k.get("name_fr") or produit,"name_en":k.get("name_en"),"unit":unite(k.get("unit")),"value":last,"yoy":yoy,"period_type":"year","frequency":"annual","type":"Revenue" if str(k.get("type","")).lower().startswith("rev") else "Volume","pv_score":8,"signal":f"Produit phare : {produit}","description_fr":(j.get("note") or "")[:300],"history":hist,"last_data_date":f"{ordre[-1]}-12-31","is_short_history":len(hist)<5,"_estime":[f"FY{a}" for a in (j.get("estime") or [])],"_source":SOURCE,"_produit_phare":produit}
     haut["kpis"]=[x for x in haut["kpis"] if x.get("short")!=short]+[kpi]
     json.dump(haut,open(hp,"w"),ensure_ascii=False,indent=2)
-    e[cible]={"produit":produit,"short":short,"points":len(hist),"statut":"ok" if len(hist)>=8 else "court","source":"externe"}
+    e[cible]={"produit":produit,"short":short,"points":len(hist),"statut":"ok" if len(hist)>=8 else "court","source":"externe" if "ChatGPT" in SOURCE else "claude"}
     tp=os.path.join(ROOT,"docs/cahier/produit-phare",t.replace(".","-")+("~"+cible[-1] if cible!="candidat_A" else "")+"~ext.json")
     j["_integration"]={"le":"2026-09-13","candidat":cible,"short":short,"action":action[0]}
     json.dump(j,open(tp,"w"),ensure_ascii=False,indent=1)
     integres.append({"ticker":t,"candidat":cible,"produit":produit,"short":short,"points":len(hist)})
-reg["indisponibles_externe"]={t:{"type":v.get("type"),"produit":v.get("produit"),"raison":(v.get("raison") or "")[:400]} for t,v in raisons.items() if t in uni}
-reg["integres_externe"]=integres if apply else reg.get("integres_externe",[])
+if raisons: reg["indisponibles_externe"]={t:{"type":v.get("type"),"produit":v.get("produit"),"raison":(v.get("raison") or "")[:400]} for t,v in raisons.items() if t in uni}
+reg["integres_externe"]=(reg.get("integres_externe",[])+integres) if apply else reg.get("integres_externe",[])
 if apply: json.dump(reg,open(regp,"w"),ensure_ascii=False,indent=1)
 print(dict(bilan)); print("indisponibles retenus :",len(reg["indisponibles_externe"]))
 for l in journal[:12]: print(" ",l)
