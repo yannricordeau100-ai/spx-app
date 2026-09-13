@@ -23,11 +23,21 @@ function admin() {
   );
 }
 
+/**
+ * Comptes de reglage (Yann 13 sept 2026) : le proprietaire, le compte de
+ * marque et les comptes internes de test ont TOUS les acces (palier Max),
+ * quel que soit leur abonnement. Sans cela, Yann connecte avec son compte de
+ * marque voyait le site comme un visiteur gratuit (menus et blocs caches).
+ */
+const COMPTES_REGLAGE = ["yannricordeau100@gmail.com", "mettrikai@gmail.com"];
+
 export function estCompteInterne(email: string | null | undefined): boolean {
   const e = (email ?? "").toLowerCase();
   if (!e) return false;
   const owner = (process.env.DESK_OWNER_EMAIL ?? "").toLowerCase();
-  return (owner !== "" && e === owner) || e.endsWith("@mettrik-internal.test");
+  if (owner !== "" && e === owner) return true;
+  if (e.endsWith("@mettrik-internal.test")) return true;
+  return COMPTES_REGLAGE.includes(e);
 }
 
 export function tierDepuisPlan(plan: string | null | undefined, status: string | null | undefined): UserTier {

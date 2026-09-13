@@ -45,6 +45,8 @@ export type KPI = {
   comparable: string;
   /** Comparability key: KPIs sharing the same key across companies are auto-matched in Compare. */
   compare_key?: string;
+  /** Yann 13 sept 2026 : valeur non exacte a la source. « min » -> affichee « 100+ », « env » -> « ≈100 ». */
+  approx?: "min" | "env";
   signal: string;
   description: string;
   history: number[];

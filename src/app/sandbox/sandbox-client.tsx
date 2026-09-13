@@ -214,6 +214,22 @@ const SECTIONS: SandboxSection[] = [
         desc: "Qui fait quoi, Pass 3 par catégorie, audit transverse cat 1 / 2 / 3.",
       },
       {
+        // 13 sept 2026 : tous les emails envoyes, rendu reel.
+        href: "/sandbox/emails",
+        icon: Activity,
+        label: "Tous les emails envoyés",
+        desc: "Les 12 emails : bienvenue, accompagnement jour 1 à 25, échec de paiement, confirmation d inscription, changement d adresse, mot de passe, lien de connexion, invitation.",
+        mots: ["email", "mail", "design", "onboarding", "bienvenue", "mot de passe", "changement d adresse", "facture"],
+      },
+      {
+        // 13 sept 2026 : apercu du tableau des factures sur un vrai client Stripe.
+        href: "/sandbox/factures-apercu",
+        icon: Activity,
+        label: "Aperçu des factures",
+        desc: "Rendu de la section Factures de la page compte, sur un client Stripe réel (paramètre email).",
+        mots: ["facture", "Stripe", "compte", "PDF", "abonnement"],
+      },
+      {
         // 12 sept 2026 : vocabulaire officiel (KPI total, KPI IC total, KPI = type comparable) + unites par secteur.
         href: "/sandbox/kpi-definitions",
         icon: Activity,

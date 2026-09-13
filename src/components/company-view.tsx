@@ -1041,7 +1041,7 @@ export function CompanyView({
   const heroFormatted = heroPercentAnomaly
     ? { value: "—", unit: "" }
     : (heroMagnitude
-      ? { value: heroMagnitude.value, unit: heroMagnitude.unit }
+      ? { value: ((active as { approx?: string }).approx === "min" ? `${heroMagnitude.value}+` : (active as { approx?: string }).approx === "env" ? `≈${heroMagnitude.value}` : heroMagnitude.value), unit: heroMagnitude.unit }
       : { value: formatKpiValue(scaledValue, heroAxisUnit), unit: formattedUnit });
   // Yann 8 juin 2026 (Point 4 bis) : si KpiSwapTitle a bascule le titre en EN,
   // l'unite affichee a cote du hero number doit suivre la MEME regle que l'axe

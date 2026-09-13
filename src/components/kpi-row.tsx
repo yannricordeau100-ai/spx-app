@@ -101,7 +101,8 @@ export function KpiRow({
   // "5 848 M €" devient "5,85 Mds €"). Regle CLAUDE.md S6 : chiffres 1-999 + bonne
   // unite de magnitude. La valeur ET l'unite sont rescalees ensemble (coherent).
   const heroFmt = Number.isFinite(valueAsNum) ? formatHeroValue(valueAsNum, kpi.unit ?? "") : null;
-  const formattedValue = heroFmt ? heroFmt.value : String(kpi.value ?? "—");
+  const marque = (v: string) => ((kpi as { approx?: string }).approx === "min" ? `${v}+` : (kpi as { approx?: string }).approx === "env" ? `≈${v}` : v);
+  const formattedValue = marque(heroFmt ? heroFmt.value : String(kpi.value ?? "—"));
   const formattedUnit = heroFmt ? heroFmt.unit : formatUnit(kpi.unit);
 
   // Yann 15 mai 2026 : KPI "incomplet" (juste une value, sans history/yoy/signal)

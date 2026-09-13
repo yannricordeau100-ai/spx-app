@@ -117,7 +117,7 @@ function normalizeEmailLocale(loc: string | undefined | null): EmailLocale {
 }
 
 /* ── WELCOME ── */
-const WELCOME_SUBJECT: Record<EmailLocale, string> = {
+export const WELCOME_SUBJECT: Record<EmailLocale, string> = {
   fr: "Bienvenue sur Mettrik AI",
   en: "Welcome to Mettrik AI",
   de: "Willkommen bei Mettrik AI",
@@ -166,7 +166,7 @@ const WELCOME_COPY: Record<
   },
 };
 
-const WELCOME_BODY: Record<EmailLocale, (name: string) => string> = {
+export const WELCOME_BODY: Record<EmailLocale, (name: string) => string> = {
   fr: (n) => renderWelcome("fr", n),
   en: (n) => renderWelcome("en", n),
   de: (n) => renderWelcome("de", n),
@@ -199,7 +199,7 @@ export async function sendWelcomeEmail(
 }
 
 /* ── BILLING FAILED ── */
-const BILLING_SUBJECT: Record<EmailLocale, string> = {
+export const BILLING_SUBJECT: Record<EmailLocale, string> = {
   fr: "Problème de paiement · Mettrik AI",
   en: "Payment issue · Mettrik AI",
   de: "Zahlungsproblem · Mettrik AI",
@@ -248,7 +248,7 @@ const BILLING_COPY: Record<
   },
 };
 
-const BILLING_BODY: Record<EmailLocale, string> = {
+export const BILLING_BODY: Record<EmailLocale, string> = {
   fr: renderBilling("fr"),
   en: renderBilling("en"),
   de: renderBilling("de"),

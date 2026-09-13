@@ -1,5 +1,7 @@
 "use client";
 
+import ETAT from "@/data/kpi-industries-etat.json";
+
 /**
  * Atelier GICS (/sandbox/gics), 5 sept 2026.
  *
@@ -23,7 +25,67 @@ import { ChevronDown, ChevronRight, ExternalLink, Minus, Plus, Search } from "lu
 import { GICS, type GicsSector, type GicsSubIndustry } from "@/lib/desk/gics";
 import type { AnnuaireGics, DonneesSociete, KpiParSousIndustrie, KpiSouhaite, PointRelecture, PromptCahier } from "@/lib/cahier";
 
-type Onglet = "classification" | "societes" | "relecture" | "prompts";
+const ETAT_IND = ETAT as {
+  maj: string; total_kpi: number; deja_presents: number;
+  industries: { code: string; industrie: string; secteur: string; secteur_code: string; stes: string[]; kpis: { fr: string; en: string; stes_avec: string[] }[] }[];
+};
+
+/**
+ * Yann 13 sept 2026 : KPI au niveau des 74 industries GICS (referentiel
+ * officiel). Vert = deja present dans au moins une fiche de l industrie ;
+ * gris = a rechercher (travail du dimanche, 5 ans, trimestriel si possible).
+ */
+function OngletIndustries() {
+  const parSecteur = new Map<string, typeof ETAT_IND.industries>();
+  for (const i of ETAT_IND.industries) parSecteur.set(i.secteur, [...(parSecteur.get(i.secteur) ?? []), i]);
+  return (
+    <div>
+      <div className="flex flex-wrap items-center gap-3 rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2 text-[12px]">
+        <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-400">Légende</span>
+        <span className="text-emerald-300">● vert : KPI déjà présent dans une fiche de l industrie</span>
+        <span className="text-zinc-400">● gris : KPI à rechercher, 5 ans, trimestriel ou semestriel si possible</span>
+        <span className="ml-auto font-mono text-[11px] text-zinc-400">{ETAT_IND.total_kpi} KPI · {ETAT_IND.deja_presents} déjà présents · {ETAT_IND.total_kpi - ETAT_IND.deja_presents} à faire</span>
+      </div>
+      <div className="mt-4 grid gap-4">
+        {[...parSecteur.entries()].map(([sec, inds]) => {
+          const n = inds.reduce((a, i) => a + i.kpis.length, 0);
+          const v = inds.reduce((a, i) => a + i.kpis.filter((k) => k.stes_avec.length > 0).length, 0);
+          return (
+            <div key={sec}>
+              <div className="mb-1.5 flex items-baseline gap-2">
+                <span className="text-[13.5px] font-semibold text-zinc-100">{sec}</span>
+                <span className="font-mono text-[11px] text-zinc-500">{inds.length} industries · {n} KPI · {v} déjà présents</span>
+              </div>
+              <div className="grid gap-2">
+                {inds.map((i) => (
+                  <details key={i.code} className="rounded-lg border border-white/[0.07] bg-white/[0.015] p-2.5">
+                    <summary className="cursor-pointer text-[12.5px] text-zinc-200">
+                      <span className="font-mono text-[11px] text-emerald-300/80">{i.code}</span> {i.industrie}
+                      <span className="ml-2 font-mono text-[10.5px] text-zinc-500">{i.kpis.length} KPI · {i.stes.length} sociétés</span>
+                    </summary>
+                    {i.stes.length > 0 && (
+                      <div className="mt-1.5 font-mono text-[10.5px] text-zinc-500">{i.stes.join(" · ")}</div>
+                    )}
+                    <ul className="mt-2 grid gap-0.5 sm:grid-cols-2">
+                      {i.kpis.map((k, idx) => (
+                        <li key={i.code + idx} className={`text-[12px] ${k.stes_avec.length > 0 ? "text-emerald-300" : "text-zinc-300"}`}>
+                          {k.fr}
+                          {k.stes_avec.length > 0 && <span className="ml-1 font-mono text-[10px] text-emerald-400/70">({k.stes_avec.slice(0, 4).join(", ")}{k.stes_avec.length > 4 ? "…" : ""})</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+type Onglet = "classification" | "societes" | "relecture" | "prompts" | "industries";
 
 const STATUT_CLASSE: Record<string, string> = {
   brouillon: "border-zinc-500/40 bg-zinc-500/10 text-zinc-300",
@@ -87,6 +149,7 @@ export function GicsAtelier({
   const onglets: { id: Onglet; label: string; compte: string }[] = [
     { id: "classification", label: "Classification et KPI", compte: `${nbSous} sous-industries · ${nbDocumentees} documentées` },
     { id: "societes", label: "Sociétés", compte: `${nbClassees} classées · ${annuaire.aClasser.length} à classer` },
+    { id: "industries", label: "KPI par industrie", compte: `${ETAT_IND.industries.length} industries · ${ETAT_IND.total_kpi} KPI` },
     { id: "prompts", label: "Prompts", compte: `${prompts.length}` },
   ];
 
@@ -123,6 +186,7 @@ export function GicsAtelier({
             }}
           />
         )}
+        {onglet === "industries" && <OngletIndustries />}
         {onglet === "societes" && (
           <>
             <DepuisLaSociete annuaire={annuaire} />
