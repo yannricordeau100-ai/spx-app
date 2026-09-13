@@ -1,5 +1,4 @@
-import { promises as fs } from "fs";
-import path from "path";
+import AUTH_HTML from "@/data/email-auth-templates.json";
 import { ONBOARDING_TEMPLATES, ONBOARDING_DAYS, type OnboardingKey } from "@/lib/email/onboarding-templates";
 import { WELCOME_BODY, WELCOME_SUBJECT, BILLING_BODY, BILLING_SUBJECT } from "@/lib/email/resend";
 
@@ -8,8 +7,8 @@ export const dynamic = "force-dynamic";
 /** Yann 13 sept 2026 : tous les emails envoyes par Mettrik, avec leur rendu reel. */
 type Mail = { id: string; titre: string; sujet: string; envoi: string; html: string };
 
-async function authMails(): Promise<Mail[]> {
-  const dir = path.join(process.cwd(), "email-templates");
+function authMails(): Mail[] {
+  const html = AUTH_HTML as Record<string, string>;
   const fiches: { f: string; titre: string; sujet: string; envoi: string }[] = [
     { f: "confirm-signup.html", titre: "Confirmation d inscription", sujet: "Confirme ton adresse", envoi: "À l inscription par email" },
     { f: "change-email.html", titre: "Changement d adresse email", sujet: "Confirme ta nouvelle adresse", envoi: "Quand l utilisateur change son email depuis son compte" },
@@ -17,14 +16,7 @@ async function authMails(): Promise<Mail[]> {
     { f: "magic-link.html", titre: "Lien de connexion", sujet: "Ton lien de connexion", envoi: "Connexion sans mot de passe" },
     { f: "invite.html", titre: "Invitation", sujet: "Tu es invité sur Mettrik", envoi: "Invitation envoyée depuis l administration" },
   ];
-  const out: Mail[] = [];
-  for (const x of fiches) {
-    try {
-      const html = await fs.readFile(path.join(dir, x.f), "utf-8");
-      out.push({ id: x.f, titre: x.titre, sujet: x.sujet, envoi: x.envoi, html });
-    } catch { /* modele absent */ }
-  }
-  return out;
+  return fiches.filter((x) => html[x.f]).map((x) => ({ id: x.f, titre: x.titre, sujet: x.sujet, envoi: x.envoi, html: html[x.f] }));
 }
 
 function appMails(): Mail[] {
@@ -61,7 +53,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
   if (process.env.VISUAL_AUDIT_TOKEN && sp.audit_token !== process.env.VISUAL_AUDIT_TOKEN) {
     return <main className="p-8 text-zinc-300">Jeton requis.</main>;
   }
-  const [auth, app] = [await authMails(), appMails()];
+  const [auth, app] = [authMails(), appMails()];
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 text-zinc-100">
       <h1 className="font-display text-[26px] font-bold">Tous les emails envoyés</h1>

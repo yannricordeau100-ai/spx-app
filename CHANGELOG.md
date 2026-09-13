@@ -307,3 +307,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.13.5 (13 Sep 2026 02:25, apres 58643ba1c0)
 - Comptes de reglage en acces Max ; page emails ; onglet KPI par industrie ; valeurs approximatives en 100+ ; unites effet prix
+
+## v2026.09.13.6 (13 Sep 2026 02:44, apres 984230b952)
+- Emails d authentification embarques dans la page
