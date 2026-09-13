@@ -214,6 +214,23 @@ const SECTIONS: SandboxSection[] = [
         desc: "Qui fait quoi, Pass 3 par catégorie, audit transverse cat 1 / 2 / 3.",
       },
       {
+        // 13 sept 2026 : calendrier des publications + etat des blocs + alerte rouge.
+        href: "/sandbox/mises-a-jour",
+        icon: Activity,
+        label: "Mises à jour des fiches",
+        desc: "Calendrier des publications de résultats (passé et futur), règles par bloc (J+3), état vert / orange / rouge, alerte rouge indépendante par email.",
+        mots: ["calendrier", "earnings", "publication", "mise à jour", "J+3", "alerte", "rouge", "cron", "bloc", "retard"],
+        accent: "highlight" as const,
+      },
+      {
+        // 13 sept 2026 : valeurs non exactes a la source (100+, ~100), decisions par cas.
+        href: "/sandbox/valeurs-approximatives",
+        icon: Activity,
+        label: "Valeurs approximatives",
+        desc: "KPI dont la source dit « plus de » ou « environ » : correction appliquée (100+, ≈100) ou cas à trancher, avec choix par cas.",
+        mots: ["approximatif", "plus de", "environ", "100+", "valeur", "correction"],
+      },
+      {
         // 13 sept 2026 : tous les emails envoyes, rendu reel.
         href: "/sandbox/emails",
         icon: Activity,

@@ -28,6 +28,20 @@ function unitLabel(unit: string) {
   return normalized;
 }
 
+/**
+ * Yann 13 sept 2026 : la source detaillee du TAM n est plus affichee telle
+ * quelle (elle permettait de remonter au fournisseur). On affiche une
+ * categorie vraie mais generique, derivee de la source reelle.
+ */
+function sourceMasquee(source: string): string {
+  const s = source.toLowerCase();
+  if (/statista|idc|gartner|forrester|frost|grand view|mordor|markets ?and ?markets|euromonitor|mckinsey|bcg|bain|deloitte|pwc|kpmg|research|etude|étude|study|analyst|cabinet/.test(s)) return "cabinets d études sectorielles";
+  if (/10-k|annual report|rapport annuel|investor|resultats|résultats|earnings|presentation|présentation|communique|communiqué|press release|20-f|document d enregistrement/.test(s)) return "documents publiés par la société";
+  if (/oecd|ocde|world bank|banque mondiale|eurostat|census|gouvern|ministry|ministere|ministère|commission|agence|agency/.test(s)) return "statistiques publiques et organismes internationaux";
+  if (/bloomberg|reuters|financial times|journal|presse|news|article/.test(s)) return "presse économique";
+  return "données de marché recoupées";
+}
+
 export function MarketPositionCard({
   company,
   position,
@@ -62,7 +76,7 @@ export function MarketPositionCard({
               </div>
               {!isOfficialSource(position.source) && (
                 <div className="mb-2 text-[12px] font-semibold text-zinc-100">
-                  {position.source}
+                  {sourceMasquee(position.source)}
                 </div>
               )}
               {position.source_note && (
@@ -180,7 +194,7 @@ export function MarketPositionCard({
 
       {position.source && !isOfficialSource(position.source) && (
         <div data-blur-part="source" className="mt-3 text-[11px] italic text-zinc-400">
-          Source : {position.source}. Estimation indicative.
+          Source : {sourceMasquee(position.source)}. Estimation indicative.
         </div>
       )}
     </div>

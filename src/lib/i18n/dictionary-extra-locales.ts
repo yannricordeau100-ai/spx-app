@@ -292,12 +292,12 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
     nl: "Hoe deze score is berekend" },
   "risks.score_scale_title": { de: "Skala", nl: "Schaal" },
   "risks.score_scale_1": {
-    de: "Position im 10-K (offizielle Reihenfolge)",
-    nl: "Positie in de 10-K (officiële volgorde)" },
+    de: "Position im Unternehmensbericht (offizielle Reihenfolge)",
+    nl: "Positie in het bedrijfsrapport (officiële volgorde)" },
   "risks.score_scale_2": {
     de: "Intensität der juristischen Sprache",
     nl: "Intensiteit van juridische taal" },
-  "risks.score_scale_3": { de: "Trend vs. Vorjahres-10-K", nl: "Trend vs. 10-K vorig jaar" },
+  "risks.score_scale_3": { de: "Trend vs. Unternehmensbericht des Vorjahres", nl: "Trend vs. bedrijfsrapport vorig jaar" },
   "risks.score_scale_4": {
     de: "Kategoriegewicht (Cyber, Regulatorik hoch gewichtet)",
     nl: "Categoriegewicht (cyber, regelgeving hoog gewogen)" },

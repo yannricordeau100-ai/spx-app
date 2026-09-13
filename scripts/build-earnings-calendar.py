@@ -44,7 +44,7 @@ try:
     CONTEXTE_SSL = ssl.create_default_context(cafile=certifi.where())
 except ImportError:
     CONTEXTE_SSL = ssl.create_default_context()
-JOURS = 120           # profondeur demandee du calendrier
+JOURS = 200           # profondeur demandee du calendrier (13 sept 2026 : 200 jours)
 RECUL = 15            # on remonte aussi un peu en arriere : sans la derniere
                       # date DEJA passee, le controle des publications manquees
                       # n aurait jamais rien a examiner (le script est rejoue
@@ -150,6 +150,36 @@ def date_precedente(entrees, aujourdhui):
     return passees[-1] if passees else None
 
 
+def historique_dates(sortie):
+    """13 sept 2026 (Yann) : historique des dates de publication par societe, pour
+    le calendrier (jours passes). Fusion de l ancien fichier, des dates
+    « precedente » et, pour les societes US, de /stable/earnings (dates
+    passees et futures, avec BPA publie). Les societes europeennes sont
+    fermees sur cet endpoint : leur historique vient des passes precedentes."""
+    ancien = {}
+    try:
+        with open(SORTIE, encoding="utf-8") as f:
+            ancien = json.load(f).get("historique", {}) or {}
+    except Exception:
+        ancien = {}
+    cle = cle_api()
+    hist = {t: sorted(set(v)) for t, v in ancien.items()}
+    for t, e in sortie.get("par_ticker", {}).items():
+        dates = set(hist.get(t, []))
+        for d in (e.get("precedente"), e.get("prochaine")):
+            if d:
+                dates.add(d)
+        if "." not in t and cle:
+            try:
+                rep = appel("earnings", {"symbol": t, "limit": 16}, cle)
+                for x in rep or []:
+                    if x.get("date"):
+                        dates.add(x["date"][:10])
+            except Exception:
+                pass
+        hist[t] = sorted(dates)
+    sortie["historique"] = hist
+
 def main():
     cle = cle_api()
     aujourdhui = date.today()
@@ -251,6 +281,9 @@ def main():
         "par_ticker": dict(sorted(par_ticker.items())),
         "introuvables": dict(sorted(introuvables.items())),
     }
+    with open(SORTIE, "w", encoding="utf-8") as f:
+        json.dump(sortie, f, ensure_ascii=False, indent=1)
+    historique_dates(sortie)
     with open(SORTIE, "w", encoding="utf-8") as f:
         json.dump(sortie, f, ensure_ascii=False, indent=1)
         f.write("\n")

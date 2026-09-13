@@ -72,7 +72,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Mettrik AI · KPI Intelligence",
+    default: "Mettrik AI · Les chiffres qui font bouger chaque action",
     // Yann 30 aout 2026 (audit de lancement) : beaucoup de pages incluent
     // deja "· Mettrik AI" dans leur titre, le gabarit le doublait
     // ("... · Mettrik AI · Mettrik AI" dans l onglet et sur Google).
@@ -98,8 +98,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Mettrik AI",
-    title: "Mettrik AI · KPI Intelligence",
-    description: "Surperformer le marché avec les meilleurs KPIs de chaque action",
+    title: "Mettrik AI · Les chiffres qui font bouger chaque action",
+    description: "iPhone vendus, abonnés Netflix, moteurs LEAP livrés : les KPI opérationnels de 666 sociétés cotées, mis à jour à chaque publication de résultats.",
     url: SITE_URL,
     locale: "fr_FR",
     // Yann 30 aout 2026 (audit de lancement) : aucun visuel de partage
@@ -108,8 +108,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mettrik AI · KPI Intelligence",
-    description: "Surperformer le marché avec les meilleurs KPIs de chaque action",
+    title: "Mettrik AI · Les chiffres qui font bouger chaque action",
+    description: "iPhone vendus, abonnés Netflix, moteurs LEAP livrés : les KPI opérationnels de 666 sociétés cotées, mis à jour à chaque publication de résultats.",
     images: [`${SITE_URL}/og-cover.png`],
   },
   robots: {

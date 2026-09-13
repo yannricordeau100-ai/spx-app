@@ -22,7 +22,7 @@ import V17_PUBLIC from "@/data/v1-7-public.json";
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
 export const metadata = {
-  title: "Mettrik AI · KPI Intelligence : les indicateurs qui comptent pour des milliers de sociétés",
+  title: "Mettrik AI · Les chiffres qui font bouger chaque action",
   alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai" },
   robots: { index: false, follow: false },
 };

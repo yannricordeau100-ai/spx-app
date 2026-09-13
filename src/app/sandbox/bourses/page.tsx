@@ -38,6 +38,16 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
       }
     }
   }
+  // Yann 13 sept 2026 : societes presentes dans deux indices ou plus (ex GOOGL : S&P 500 et Nasdaq 100).
+  const appartenance = new Map<string, { nom: string; indices: string[] }>();
+  for (const pb of pays) for (const ind of pb.indices ?? []) for (const st of ind.stes ?? []) {
+    const t = (st.mettrik ?? st.ticker ?? "").toUpperCase();
+    if (!t) continue;
+    const e = appartenance.get(t) ?? { nom: st.nom, indices: [] };
+    if (!e.indices.includes(ind.nom)) e.indices.push(ind.nom);
+    appartenance.set(t, e);
+  }
+  const multi = [...appartenance.entries()].filter(([, e]) => e.indices.length > 1).map(([ticker, e]) => ({ ticker, ...e })).sort((a, b) => a.ticker.localeCompare(b.ticker));
   return (
     <div className="min-h-screen bg-[#050505] text-zinc-100">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6">
@@ -53,7 +63,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
           Par pays : indice principal et indice secondaire de la bourse (compositions 2026), sociétés déjà en ligne cliquables. Mission en cours sur 18 pays.
         </p>
         <div className="mt-6">
-          <BoursesAtelier pays={pays} />
+          <BoursesAtelier pays={pays} multi={multi} />
         </div>
       </main>
     </div>

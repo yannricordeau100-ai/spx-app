@@ -1,0 +1,6 @@
+13:35 | P2 | NDSN | echec | fichier obligatoire créé; validateur: NDSN.json echec 0 ['0 points']
+13:35 | P2 | NESN.SW | echec | fichier obligatoire créé; validateur: NESN.SW.json echec 0 ['0 points']
+13:35 | P2 | NVR | echec | fichier obligatoire créé; validateur: NVR.json echec 0 ['0 points']
+13:35 | P2 | OR.PA | echec | fichier obligatoire créé; validateur: OR.PA.json echec 0 ['0 points']
+13:35 | P2 | OTIS | echec | fichier obligatoire créé; validateur: OTIS.json echec 0 ['0 points']
+13:35 | P2 | PEP | echec | fichier obligatoire créé; validateur: PEP.json echec 0 ['0 points']

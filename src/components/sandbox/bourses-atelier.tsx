@@ -45,7 +45,7 @@ function libelleCle(cle: string): string {
   return cle;
 }
 
-export function BoursesAtelier({ pays }: { pays: PaysBourse[] }) {
+export function BoursesAtelier({ pays, multi = [] }: { pays: PaysBourse[]; multi?: { ticker: string; nom: string; indices: string[] }[] }) {
   const [filtre, setFiltre] = useState("");
   const [ouverts, setOuverts] = useState<Set<string>>(new Set());
 
@@ -84,6 +84,16 @@ export function BoursesAtelier({ pays }: { pays: PaysBourse[] }) {
 
   return (
     <div>
+      {multi.length > 0 && (
+        <details className="mb-4 rounded-xl border border-amber-400/25 bg-amber-500/[0.05] p-3">
+          <summary className="cursor-pointer text-[13px] font-semibold text-amber-200">{multi.length} sociétés présentes dans deux indices ou plus</summary>
+          <ul className="mt-2 grid gap-1 text-[12px] sm:grid-cols-2 lg:grid-cols-3">
+            {multi.map((m) => (
+              <li key={m.ticker} className="text-zinc-300"><span className="font-mono text-amber-200">{m.ticker}</span> {m.nom} <span className="text-zinc-500">· {m.indices.join(" + ")}</span></li>
+            ))}
+          </ul>
+        </details>
+      )}
       <div className="flex flex-wrap items-center gap-2">
         <span className="rounded-full border border-violet-400/40 bg-violet-500/10 px-3 py-1.5 text-[13px] text-violet-200">
           Pays reçus <span className="ml-1 font-mono text-[12px] font-bold">{pays.length} / 18</span>

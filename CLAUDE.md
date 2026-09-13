@@ -512,3 +512,12 @@ because it leaks IP and adds warning pages.
 ---
 
 End of CLAUDE.md.
+
+## 8. REGLES DE MISE A JOUR DES FICHES (Yann, 13 sept 2026) — OBLIGATOIRES
+
+Source de verite : `src/data/mise-a-jour-regles.json` (lu par la page /sandbox/mises-a-jour et par l alerte).
+- Objectif : chaque bloc d une fiche est a jour au plus tard J+3 apres la publication de resultats (semestrielle pour certaines europeennes).
+- Rang (ligne des rangs) : chaque semaine. KPI IC : chaque publication. KPI stories : chaque publication (ajout des KPI des documents de la societe et du transcript, jamais un doublon d un KPI IC, retrait des KPI anterieurs a N-2). Synthese du communique : chaque publication. Positionnement IA : chaque publication (tout le contenu revu, seul le pertinent garde). Facteurs de risque, repartition du CA, gouvernance et remuneration : chaque rapport annuel (10-K ou equivalent).
+- Convention : toute passe qui met un bloc a jour ecrit `_maj_<bloc>` (ISO) dans `src/data/v2-pipeline-enrich/<t>.json`. Sans cette date, le bloc est orange (inconnu) dans l etat.
+- Alerte rouge independante : route `/api/cron/alertes-maj` (cron Vercel quotidien + chaine 23h), email au proprietaire, banniere en haut de /sandbox/mises-a-jour. Claude lit `src/data/alertes-maj.json` (ou la page) EN DEBUT DE SESSION et corrige les blocs rouges AVANT que le proprietaire n ouvre la notification.
+- Doublons de KPI : `scripts/scan-kpi-doublons.py --apply` tourne dans la chaine 23h (serie la plus longue gardee, garde-fou facteur 3).

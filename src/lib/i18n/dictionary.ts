@@ -497,14 +497,14 @@ export const DICTIONARY: Dict = {
   },
   "risks.score_scale_title": { fr: "Barème", en: "Scale" },
   "risks.score_scale_1": {
-    fr: "Position dans le 10-K (ordre officiel)",
-    en: "Position in the 10-K (official order)",
+    fr: "Position dans le rapport de la société (ordre officiel)",
+    en: "Position in the company report (official order)",
   },
   "risks.score_scale_2": {
     fr: "Intensité du langage juridique",
     en: "Intensity of legal language",
   },
-  "risks.score_scale_3": { fr: "Tendance vs 10-K N-1", en: "Trend vs prior-year 10-K" },
+  "risks.score_scale_3": { fr: "Tendance vs rapport de la société N-1", en: "Trend vs prior-year company report" },
   "risks.score_scale_4": {
     fr: "Poids de catégorie (cyber, regulatory élevés)",
     en: "Category weight (cyber, regulatory weighted high)",

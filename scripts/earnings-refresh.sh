@@ -77,12 +77,16 @@ print(','.join(reversed(ms)))")
     echo "aucun transcript modifie en 24 h : pas de synthese a refaire"
   fi
   echo "=== $(date '+%F %T') dates du data-lake (reference /sandbox/synchro) ==="
+  # 13 sept 2026 (Yann) : doublons de KPI retires automatiquement (serie la
+  # plus longue gardee), puis alerte rouge independante des mises a jour.
+  nice -n 10 python3 scripts/scan-kpi-doublons.py --apply || true
   python3 scripts/data-lake-dates.py
   echo "=== $(date '+%F %T') controle des publications attendues ==="
   # Compare le calendrier des resultats a ce qui est reellement tombe dans le
   # data-lake. Sans ce controle, une publication captee par personne passe
   # totalement inapercue. Purement mecanique, aucun appel LLM ni reseau.
   nice -n 10 python3 scripts/verifie-publications.py
+  python3 scripts/alerte-mises-a-jour.py --email || true
   echo "=== $(date '+%F %T') fin ==="
 } >> /tmp/earnings-refresh.log 2>&1
 

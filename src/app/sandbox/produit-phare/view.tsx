@@ -11,11 +11,15 @@ export function ProduitPhareView({
   choixInitial,
   total,
   jeton,
+  integres = [],
+  indisponibles = [],
 }: {
   exceptions: Ligne[];
   choixInitial: Record<string, ChoixPhare>;
   total: number;
   jeton: string | null;
+  integres?: { ticker: string; candidat: string; produit: string; short: string; points: number }[];
+  indisponibles?: { ticker: string; type?: string; produit?: string | null; raison?: string }[];
 }) {
   const [choix, setChoix] = useState<Record<string, ChoixPhare>>(choixInitial);
   const [statut, setStatut] = useState<string>("");
@@ -91,6 +95,16 @@ export function ProduitPhareView({
         })}
         {exceptions.length === 0 && <p className="text-[13px] text-zinc-500">Aucune exception : toutes les sociétés ont un produit phare tranché.</p>}
       </div>
+      {/* Yann 13 sept 2026 : series integrees depuis la mission externe (ChatGPT) et KPI indisponibles avec leur raison. */}
+      <h2 className="mt-10 text-[17px] font-semibold">KPI produit phare intégrés depuis la mission externe ({integres.length})</h2>
+      <ul className="mt-2 grid gap-0.5 text-[12.5px] sm:grid-cols-2">
+        {integres.map((i) => <li key={i.ticker + i.short} className="text-zinc-300"><Link href={`/${i.ticker.toLowerCase()}${q}`} className="font-mono text-violet-200 hover:underline">{i.ticker}</Link> {i.produit} <span className="font-mono text-[11px] text-zinc-500">· {i.short} · {i.points} exercices · candidat {i.candidat.slice(-1)}</span></li>)}
+      </ul>
+      <h2 className="mt-8 text-[17px] font-semibold">KPI indisponibles ({indisponibles.length})</h2>
+      <p className="mt-1 text-[12px] text-zinc-500">Raison donnée par la mission externe : pas de produit physique, ou données jamais publiées.</p>
+      <ul className="mt-2 grid gap-1 text-[12px]">
+        {indisponibles.map((i) => <li key={i.ticker} className="text-zinc-400"><span className="font-mono text-amber-200">{i.ticker}</span> <span className="text-zinc-500">{i.type}</span>{i.produit ? ` · ${i.produit}` : ""} : {i.raison}</li>)}
+      </ul>
     </main>
   );
 }

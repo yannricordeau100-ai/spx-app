@@ -12,6 +12,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
   const sp = await searchParams;
   const parJeton = !!sp.audit_token && !!process.env.VISUAL_AUDIT_TOKEN && sp.audit_token === process.env.VISUAL_AUDIT_TOKEN;
   const [choix] = await Promise.all([lireChoixPhare()]);
-  const total = Object.keys(lireRegistre().stes).length;
-  return <ProduitPhareView exceptions={exceptionsPhare()} choixInitial={choix} total={total} jeton={parJeton ? sp.audit_token ?? null : null} />;
+  const reg = lireRegistre() as unknown as { stes: Record<string, unknown>; integres_externe?: { ticker: string; candidat: string; produit: string; short: string; points: number }[]; indisponibles_externe?: Record<string, { type?: string; produit?: string | null; raison?: string }> };
+  const total = Object.keys(reg.stes).length;
+  return <ProduitPhareView exceptions={exceptionsPhare()} choixInitial={choix} total={total} jeton={parJeton ? sp.audit_token ?? null : null} integres={reg.integres_externe ?? []} indisponibles={Object.entries(reg.indisponibles_externe ?? {}).map(([ticker, v]) => ({ ticker, ...v }))} />;
 }

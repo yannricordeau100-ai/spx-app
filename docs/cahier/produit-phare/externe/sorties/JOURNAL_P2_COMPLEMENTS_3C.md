@@ -1,0 +1,5 @@
+2026-09-12 00:10 Europe/Zurich | RHM.DE | P2 | echec, 0 point | Produit confirmé par source officielle; série annuelle introuvable; valide.py: RHM.DE.json echec 0 ['0 points', 'pas de controle']
+2026-09-12 00:10 Europe/Zurich | TT | P2 | echec, 0 point | Produit confirmé par source officielle; série annuelle introuvable; valide.py: TT.json echec 0 ['0 points', 'pas de controle']
+2026-09-12 00:10 Europe/Zurich | VLTO | P2 | echec, 0 point | Produit confirmé par source officielle; série annuelle introuvable; valide.py: VLTO.json echec 0 ['0 points', 'pas de controle']
+2026-09-12 00:10 Europe/Zurich | VRT | P2 | echec, 0 point | Produit confirmé par source officielle; série annuelle introuvable; valide.py: VRT.json echec 0 ['0 points', 'pas de controle']
+2026-09-12 00:10 Europe/Zurich | WAB | P2 | echec, 0 point | Produit confirmé par source officielle; série annuelle introuvable; valide.py: WAB.json echec 0 ['0 points', 'pas de controle']
