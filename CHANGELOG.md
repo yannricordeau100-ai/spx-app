@@ -352,3 +352,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.14.2 (14 Sep 2026 01:08, apres 376000680b)
 - Logos affiches pour 24 societes ajoutees (liste d autorisation completee, 5 images fautives remplacees : EchoStar, Honeywell Aerospace, Ferrovial, Rambus, BNY) ; infobulles ouvertes au plus pres du « i » (largeur reelle mesuree, bornes de l ecran) ; ligne de copyright retiree du bas des fiches ; AVB et EQR renvoient vers Vivmark Residential ; page mises a jour : sources du calendrier corrigees
+
+## v2026.09.14.3 (14 Sep 2026 01:46, apres 15a47cde9e)
+- Vivmark Residential reconstruite sur les depots d Equity Residential (11 KPI longs, 7 stories, repartition, risques, gouvernance, moat source, anti-these) ; titres de KPI trop longs ecrits sur deux lignes dans les exports (largeur mesuree) ; le « i » du titre suit le dernier mot sur la fiche

@@ -1023,22 +1023,78 @@ export async function downloadSvgAsPng(
     // sous-titre garde taille / couleur. Centrage inchangé (text-anchor
     // middle mesure la largeur réelle du <text> complet, tspan inclus).
     const freq = options.frequency?.trim();
-    if (freq && kpiText.endsWith(freq) && kpiText.length > freq.length) {
-      const base = kpiText.slice(0, kpiText.length - freq.length); // garde l'espace avant "par"
-      const baseSpan = document.createElementNS(NS, "tspan");
-      baseSpan.textContent = base;
-      kpiEl.appendChild(baseSpan);
-      const freqSpan = document.createElementNS(NS, "tspan");
-      freqSpan.setAttribute("font-size", String(TITLE_KPI_FONT_SIZE - 2));
-      freqSpan.setAttribute("fill", "#a78bfa");
-      freqSpan.setAttribute("opacity", "0.85");
-      freqSpan.textContent = freq;
-      kpiEl.appendChild(freqSpan);
+    // Yann 14 sept 2026 : un titre de KPI trop long est ecrit sur deux
+    // lignes. Le seuil n est pas un nombre de caracteres fixe : la largeur
+    // du titre complet (suffixe de frequence compris) est mesuree avec la
+    // police du document et comparee a la largeur utile du graphique. Au
+    // dela, coupure au dernier espace avant la moitie, police ramenee a
+    // 28 px pour que les deux lignes tiennent au-dessus de la ligne anglaise.
+    const LARGEUR_UTILE_KPI = origW - 48;
+    const kpiCtx = document.createElement("canvas").getContext("2d");
+    const largeurTitre = (txt: string, taille: number) => {
+      if (kpiCtx) {
+        kpiCtx.font = `300 ${taille}px ${PNG_FONT_FAMILY}`;
+        return kpiCtx.measureText(txt).width;
+      }
+      return txt.length * TITLE_KPI_CHAR_W * (taille / 18);
+    };
+    const coupeEnDeux = (txt: string): [string, string] | null => {
+      const mots = txt.split(" ");
+      if (mots.length < 2) return null;
+      let meilleur: [string, string] | null = null;
+      let ecart = Infinity;
+      for (let i = 1; i < mots.length; i++) {
+        const a = mots.slice(0, i).join(" ");
+        const b = mots.slice(i).join(" ");
+        const d = Math.abs(a.length - b.length);
+        if (d < ecart) { ecart = d; meilleur = [a, b]; }
+      }
+      return meilleur;
+    };
+    const lignesKpi: string[] = [kpiText];
+    let tailleKpi = TITLE_KPI_FONT_SIZE;
+    if (largeurTitre(kpiText, TITLE_KPI_FONT_SIZE) > LARGEUR_UTILE_KPI) {
+      const deux = coupeEnDeux(kpiText);
+      if (deux) {
+        lignesKpi.splice(0, 1, deux[0], deux[1]);
+        tailleKpi = 28;
+        // securite : si une ligne deborde encore, on reduit jusqu a 22 px
+        while (tailleKpi > 22 && Math.max(...lignesKpi.map((l) => largeurTitre(l, tailleKpi))) > LARGEUR_UTILE_KPI) {
+          tailleKpi -= 2;
+        }
+      }
+    }
+    kpiEl.setAttribute("font-size", String(tailleKpi));
+    const ajouteLigne = (texte: string, dy: number, premiere: boolean) => {
+      const derniere = texte === lignesKpi[lignesKpi.length - 1];
+      if (derniere && freq && texte.endsWith(freq) && texte.length > freq.length) {
+        const base = texte.slice(0, texte.length - freq.length); // garde l'espace avant "par"
+        const baseSpan = document.createElementNS(NS, "tspan");
+        if (!premiere) { baseSpan.setAttribute("x", String(origX + origW / 2)); baseSpan.setAttribute("dy", String(dy)); }
+        baseSpan.textContent = base;
+        kpiEl.appendChild(baseSpan);
+        const freqSpan = document.createElementNS(NS, "tspan");
+        freqSpan.setAttribute("font-size", String(tailleKpi - 2));
+        freqSpan.setAttribute("fill", "#a78bfa");
+        freqSpan.setAttribute("opacity", "0.85");
+        freqSpan.textContent = freq;
+        kpiEl.appendChild(freqSpan);
+      } else {
+        const span = document.createElementNS(NS, "tspan");
+        if (!premiere) { span.setAttribute("x", String(origX + origW / 2)); span.setAttribute("dy", String(dy)); }
+        span.textContent = texte;
+        kpiEl.appendChild(span);
+      }
+    };
+    if (lignesKpi.length === 2) {
+      // deux lignes centrees autour de LINE2_Y
+      kpiEl.setAttribute("y", String(LINE2_Y - Math.round(tailleKpi * 0.55)));
+      ajouteLigne(lignesKpi[0], 0, true);
+      ajouteLigne(lignesKpi[1], Math.round(tailleKpi * 1.15), false);
     } else {
-      kpiEl.textContent = kpiText;
+      ajouteLigne(lignesKpi[0], 0, true);
     }
     clone.appendChild(kpiEl);
-    void TITLE_KPI_CHAR_W; // réservé pour calculs futurs si besoin
 
     // ── Lignes EN (Yann 1er sept 2026) : nom du KPI en anglais puis unite
     // de l axe Y en anglais, toutes deux en italique, centrees sous le

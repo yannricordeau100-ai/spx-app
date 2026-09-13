@@ -1665,6 +1665,10 @@ export function CompanyView({
                     gratuit, meme lorsqu'un autre KPI est selectionne (KpiSwapTitle
                     lit `active`, donc le floutage suit la selection). GOOGL/META
                     gratuits restent nets via freeBlocked. */}
+                {/* Yann 14 sept 2026 : le « i » suit le dernier mot du titre,
+                    meme quand le titre passe sur deux lignes (titre et « i »
+                    dans un meme bloc de texte en ligne), puis vient le CAGR. */}
+                <span className="inline">
                 <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} mode="full" as="span">
                   <KpiSwapTitle
                     nameFr={active.name_fr}
@@ -1677,14 +1681,8 @@ export function CompanyView({
                     suffixClassName="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]"
                   />
                 </BlurredFreeText>
-                {/* 10 sept 2026 (Yann) : CAGR de la periode affichee, a droite du titre. */}
-                <CagrChip data={chartHistoryRaw as number[]} unit={displayUnit} periodType={graphPeriod} locale={heroTitleLang === "en" ? "en" : locale} />
-                {/* Yann 15 mai 2026 : tooltip masqué si pas de contenu.
-                    Yann 19 mai 2026 : prise en compte des champs i18n
-                    `explanation_fr` / `explanation_en` si présents dans le
-                    dataset (CONV-TRAD enrichira progressivement). Fallback
-                    sur `active.explanation` (souvent EN brut de pipeline). */}
-                {(() => {
+                  <span className="ml-1.5 inline-flex align-middle">
+{(() => {
                   type WithI18n = typeof active & { explanation_fr?: string; explanation_en?: string };
                   const a = active as WithI18n;
                   const isFr = locale === "fr";
@@ -1723,6 +1721,12 @@ export function CompanyView({
                     </InfoTooltip>
                   );
                 })()}
+                  </span>
+                </span>
+                {/* 10 sept 2026 (Yann) : CAGR de la periode affichee, a droite du titre. */}
+                
+                <CagrChip data={chartHistoryRaw as number[]} unit={displayUnit} periodType={graphPeriod} locale={heroTitleLang === "en" ? "en" : locale} />
+
                 {/* Yann 21 août 2026 : badges meta (freshness, "i" data en
                     cours, "i" exercice fiscal décalé) REMONTÉS ici, collés au
                     titre du KPI. Avant : ligne dédiée dans la colonne gauche,
