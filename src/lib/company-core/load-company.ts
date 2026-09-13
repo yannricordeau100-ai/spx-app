@@ -2835,6 +2835,12 @@ async function loadV17CompanyBrut(
           // aucune mention ne doit apparaitre sur les pages.
           // 9 sept 2026 : periodes ESTIMEES (annee manquante reconstituee par la
           // moyenne des annees voisines), marquees d un asterisque sur la fiche.
+          // 13 sept 2026 (Yann) : valeur non exacte a la source, affichee
+          // « 100+ » ou « ~100 ». Sans ce passthrough, la liste blanche
+          // supprimait le marquage et la fiche affichait un chiffre exact.
+          ...((k as { approx?: string }).approx === "min" || (k as { approx?: string }).approx === "env"
+            ? { approx: (k as { approx?: "min" | "env" }).approx }
+            : {}),
           ...(Array.isArray((k as { _estime?: string[] })._estime)
             ? { _estime: (k as { _estime?: string[] })._estime }
             : {}),
