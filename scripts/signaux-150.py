@@ -46,7 +46,7 @@ LOT = 20
 CONSIGNE = """Tu reecris les textes courts affiches sous les graphiques de KPI d une application pour investisseurs francophones (societe : {nom}, {ticker}).
 
 REGLE ABSOLUE pour chaque texte :
-- 150 caracteres MAXIMUM, espaces compris (vise 110 a 145).
+- 150 caracteres MAXIMUM, espaces compris (vise 100 a 130 : compte les caracteres avant de repondre).
 - Une EXPLICATION, pas une description : le lecteur voit deja le chiffre et sa courbe sur le graphique. Ne repete pas la valeur ni la tendance. Dis plutot ce qui fait bouger l indicateur, ce qu il revele de la societe, ou pourquoi il compte pour la valeur de l action.
 - Un seul chiffre au plus, et seulement s il n est pas sur le graphique (part du chiffre d affaires, objectif publie, comparaison).
 - AUCUN fait nouveau : n utilise que les informations presentes dans le texte actuel et la description fournis. Si l explication n y est pas, reformule prudemment ce qui y est, sans rien inventer.
@@ -146,7 +146,9 @@ def traite(ticker, tous, dry):
             rep = appelle(CONSIGNE.format(nom=nom, ticker=ticker, lot=json.dumps(payload, ensure_ascii=False, indent=1)))
         except Exception as e:  # noqa
             log("%s : ECHEC lot %d (%s)" % (ticker, debut // LOT, e))
-            raise
+            if "moteur indisponible" in str(e):
+                raise
+            continue  # reponse mal formee : on passe au lot suivant
         for j, (couche, p, i, cle, k) in enumerate(lot):
             nouveau = valide(rep.get(str(j)))
             if not nouveau:

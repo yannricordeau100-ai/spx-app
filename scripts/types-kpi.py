@@ -73,10 +73,14 @@ def appelle(modele, prompt):
     out = r.stdout or ""
     if r.returncode != 0 or ("limit" in out[:200].lower() and "{" not in out):
         raise RuntimeError("moteur indisponible : " + (out[:150] or r.stderr[:150]))
-    m = re.search(r"\{.*\}", out, re.S)
-    if not m:
+    i = out.find("{")
+    if i < 0:
         raise RuntimeError("pas de JSON : " + out[:150])
-    return json.loads(m.group(0))
+    try:
+        return json.JSONDecoder().raw_decode(out[i:])[0]
+    except Exception:
+        m = re.search(r"\{.*\}", out, re.S)
+        return json.loads(m.group(0))
 
 
 def propre(s):
@@ -149,7 +153,9 @@ def main():
                     elif isinstance(v, dict) and v.get("fr") and v.get("en"):
                         result[(c, i)] = {"fr": propre(v["fr"]), "en": propre(v["en"]), "origine": "referentiel" if v.get("origine") == "referentiel" else "nouveau"}
         except Exception as e:
-            log("%s : ARRET (%s)" % (t, e)); break
+            if "moteur indisponible" in str(e):
+                log("%s : ARRET (%s)" % (t, e)); break
+            log("%s : lot ignore (%s)" % (t, e))
         if not a.dry_run and result:
             for chemin, couche in ((ph, "haut"), (pv, "base")):
                 sel = {i: v for (c, i), v in result.items() if c == couche}

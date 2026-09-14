@@ -222,6 +222,11 @@ def chemin(ticker):
 
 RE_LIEN = re.compile(r'href="(/(?:quote/[a-z]+|stocks)/[^/"]+/transcripts/(\d+)-([a-z0-9\-]+)/)"')
 RE_PERIODE = re.compile(r'^(?:q([1-4])|h([12])|fy)-(\d{4})$')
+
+
+def periode_norm(slug):
+    """14 sept 2026 : exercices a cheval (Sonova « h2-25-26 ») ramenes a l annee de cloture."""
+    return re.sub(r'-(\d{2})-(\d{2})$', lambda m: '-20' + m.group(2), slug)
 RE_DATE = re.compile(r'\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? (\d{1,2}), (\d{4})\b')
 RE_H1 = re.compile(r'(?is)<h1[^>]*>(.*?)</h1>')
 
@@ -238,7 +243,7 @@ def liste_transcripts(ticker):
         i += 1
         code, body = fetch(url)
         time.sleep(PAUSE)
-        if code == 200 and body and "Earnings Call:" in body:
+        if code == 200 and body and ("Earnings Call:" in body or "Earnings Call Transcripts" in body):  # 14 sept 2026 : pages sans libelle par ligne (Sonova, semestres)
             # adresse issue de la recherche : on verifie que la page est bien
             # celle de la societe (titre) avant d y prendre un transcript
             if i > directes and mots and not (mots & mots_distinctifs(nom_page(body))):
@@ -259,7 +264,7 @@ def liste_transcripts(ticker):
         if ident in vus:
             continue
         vus.add(ident)
-        if not RE_PERIODE.match(slug):
+        if not RE_PERIODE.match(periode_norm(slug)):
             continue  # lancements produit, journees investisseurs, etc.
         sorties.append((ident, slug, BASE + href))
     return sorties, code
@@ -343,7 +348,7 @@ def traite(ticker, dry_run=False):
             return "erreurs", "date introuvable sur %s" % url
         if existant and existant >= date_sa:
             return "plus_recent_deja", date_sa
-        mp = RE_PERIODE.match(slug)
+        mp = RE_PERIODE.match(periode_norm(slug))
         quarter = ex["quarter"]
         year = ex["year"]
         if mp:
