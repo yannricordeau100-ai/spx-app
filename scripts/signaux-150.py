@@ -165,9 +165,24 @@ def traite(ticker, tous, dry):
                 log("  %s | %s -> %s" % (cible.get("short"), (cible.get("signal") or "")[:80], nouveau))
             faits += 1
     if not dry:
+        # 14 sept 2026 : d autres passes (agents KPI par industrie) ecrivent les
+        # memes fichiers en parallele. On relit le fichier juste avant d ecrire
+        # et on ne remplace que les textes reecrits (par identifiant), pour ne
+        # jamais ecraser un KPI ajoute entre-temps.
         for p, doc in fichiers.items():
+            nouveaux = {}
+            for cle in ("kpis", "stories_kpis"):
+                for k in doc.get(cle) or []:
+                    if k.get("_signal_regle_150"):
+                        nouveaux[(cle, k.get("short"))] = (k.get("signal"), k.get("_signal_regle_150"))
+            frais = lire(p) or doc
+            for cle in ("kpis", "stories_kpis"):
+                for k in frais.get(cle) or []:
+                    v = nouveaux.get((cle, k.get("short")))
+                    if v:
+                        k["signal"], k["_signal_regle_150"] = v
             with open(p, "w", encoding="utf-8") as f:
-                json.dump(doc, f, ensure_ascii=False, indent=1)
+                json.dump(frais, f, ensure_ascii=False, indent=1)
     return faits, echecs
 
 
