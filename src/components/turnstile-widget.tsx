@@ -92,7 +92,8 @@ export function TurnstileWidget(props?: {
     const v = (window as unknown as { __turnstileSiteKey?: unknown }).__turnstileSiteKey;
     setCleRelais(typeof v === "string" && v.length > 0 ? v : undefined);
   }, []);
-  const siteKey = props?.siteKey ?? process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? cleRelais ?? getTurnstileSiteKey();
+  // Priorite a la cle relayee (widget « Mettrik » cree le 14 sept 2026), puis l ancienne NEXT_PUBLIC_.
+  const siteKey = props?.siteKey ?? cleRelais ?? getTurnstileSiteKey();
   const theme = props?.theme ?? "dark";
   const size = (props?.size === "invisible" ? "normal" : props?.size) ?? "normal";
 
