@@ -18,7 +18,7 @@ export function ProduitPhareView({
   choixInitial: Record<string, ChoixPhare>;
   total: number;
   jeton: string | null;
-  integres?: { ticker: string; candidat: string; produit: string; short: string; points: number }[];
+  integres?: { ticker: string; candidat: string; produit: string; short: string; points: number; integre_le?: string; fiabilite?: string }[];
   indisponibles?: { ticker: string; type?: string; produit?: string | null; raison?: string }[];
 }) {
   const [choix, setChoix] = useState<Record<string, ChoixPhare>>(choixInitial);
@@ -101,7 +101,7 @@ export function ProduitPhareView({
       {/* Yann 13 sept 2026 : series integrees depuis la mission externe (ChatGPT) et KPI indisponibles avec leur raison. */}
       <h2 className="mt-10 text-[17px] font-semibold">KPI produit phare intégrés depuis la mission externe ({integres.length})</h2>
       <ul className="mt-2 grid gap-0.5 text-[12.5px] sm:grid-cols-2">
-        {integres.map((i) => <li key={i.ticker + i.short} className="text-zinc-300"><Link href={`/${i.ticker.toLowerCase()}${q}`} className="font-mono text-violet-200 hover:underline">{i.ticker}</Link> {i.produit} <span className="font-mono text-[11px] text-zinc-500">· {i.short} · {i.points} exercices · candidat {i.candidat.slice(-1)}</span></li>)}
+        {[...integres].sort((x, y) => (y.integre_le ?? "").localeCompare(x.integre_le ?? "")).map((i) => <li key={i.ticker + i.short} className={i.integre_le && i.integre_le >= "2026-09-14" ? "rounded-md border border-cyan-400/30 bg-cyan-400/[0.06] px-1.5 py-0.5 text-cyan-100" : "text-zinc-300"}>{/* Yann 14 sept 2026 : les series trouvees par la recherche du 14 sept sont mises en evidence. */}{i.integre_le && i.integre_le >= "2026-09-14" && <span className="mr-1.5 rounded bg-cyan-400/20 px-1 font-mono text-[10px] uppercase text-cyan-200">nouveau {i.integre_le.slice(8, 10)}/{i.integre_le.slice(5, 7)}</span>}<Link href={`/${i.ticker.toLowerCase()}${q}`} className="font-mono text-violet-200 hover:underline">{i.ticker}</Link> {i.produit} <span className="font-mono text-[11px] text-zinc-500">{i.short} · {i.points} points{i.fiabilite === "approximatif" ? " · valeur approximative" : ""}</span></li>)}
       </ul>
       <h2 className="mt-8 text-[17px] font-semibold">KPI indisponibles ({indisponibles.length})</h2>
       <p className="mt-1 text-[12px] text-zinc-500">Raison donnée par la mission externe : pas de produit physique, ou données jamais publiées.</p>
