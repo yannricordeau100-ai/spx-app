@@ -210,6 +210,13 @@ export function KpiRow({
                 <div className="mt-0.5 text-[12px] text-zinc-300">{uniteExpliquee}</div>
               </div>
             )}
+            {/* 14 sept 2026 : type comparable (ou KPI unique) dans le « i ». */}
+            {"type_comparable" in kpi && (
+              <div className={hasDef || uniteExpliquee ? "mt-2 border-t border-white/10 pt-2" : ""}>
+                <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">Type</span>{" "}
+                <span className="text-[12px] text-zinc-300">{kpi.type_comparable ? kpi.type_comparable.fr : "KPI unique à cette société"}</span>
+              </div>
+            )}
             {/* Yann FIX 4d (29 mai 2026) : nom EN du KPI dans tooltip "i" quand
                 différent du nom FR principal affiché dans le tableau. */}
             {hasEn && (

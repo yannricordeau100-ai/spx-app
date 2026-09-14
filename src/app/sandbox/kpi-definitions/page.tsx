@@ -1,6 +1,7 @@
 import REFERENTIEL from "@/data/kpi-referentiel-gics-74.json";
 import METIERS from "@/data/unites-metiers.json";
 import UNIVERS from "@/data/unites-univers.json";
+import COMPTES from "@/data/kpi-types-comptes.json";
 
 export const dynamic = "force-static";
 
@@ -57,6 +58,22 @@ export default function Page() {
       </div>
       <h2 className="mt-7 text-[17px] font-semibold">Où vit le type comparable</h2>
       <p className="mt-1 text-[13px] text-zinc-300">Aucune colonne en plus dans le tableau. Chaque KPI reçoit un champ de données invisible « type de KPI ». Il est affiché dans le « i », par exemple « Comparable : part de marché des navigateurs web », et le Comparer l utilise pour rapprocher les sociétés.</p>
+      {/* 14 sept 2026 : comptages du chantier Types de KPI (scripts/compte-types-kpi.py). */}
+      {(() => {
+        const c = (COMPTES as { maj: string; univers: { societes: number; kpi_total: number; kpi_ic_total: number; types: number; kpi_ic_classes: number; kpi_uniques: number }; par_ste: Record<string, { kpi_total: number; kpi_ic_total: number; types: number; uniques: number; classes: number }> });
+        const top = Object.entries(c.par_ste).sort((a, b) => b[1].types - a[1].types).slice(0, 12);
+        return (
+          <>
+            <h2 className="mt-7 text-[17px] font-semibold">Comptages sur l univers (au {c.maj})</h2>
+            <div className="mt-2 grid gap-2 text-[13px] sm:grid-cols-3">
+              <div className="rounded-lg border border-white/10 p-3"><div className="text-zinc-400">KPI total</div><div className="font-mono text-[20px] text-zinc-100">{c.univers.kpi_total.toLocaleString("fr-FR")}</div></div>
+              <div className="rounded-lg border border-white/10 p-3"><div className="text-zinc-400">KPI IC total</div><div className="font-mono text-[20px] text-zinc-100">{c.univers.kpi_ic_total.toLocaleString("fr-FR")}</div></div>
+              <div className="rounded-lg border border-emerald-400/30 p-3"><div className="text-zinc-400">Types de KPI</div><div className="font-mono text-[20px] text-emerald-200">{c.univers.types.toLocaleString("fr-FR")}</div><div className="text-[11px] text-zinc-500">{c.univers.kpi_ic_classes.toLocaleString("fr-FR")} KPI IC classés, {c.univers.kpi_uniques.toLocaleString("fr-FR")} uniques</div></div>
+            </div>
+            <p className="mt-2 text-[12px] text-zinc-500">Par société (12 premières par nombre de types) : {top.map(([t, v]) => `${t} ${v.types} types / ${v.kpi_ic_total} KPI IC`).join(" · ")}</p>
+          </>
+        );
+      })()}
       <h2 className="mt-7 text-[17px] font-semibold">Référentiel officiel : KPI par industrie GICS</h2>
       <p className="mt-1 text-[12.5px] text-zinc-400">{ref.industries} industries, {ref.kpis.toLocaleString("fr-FR")} KPI en français et en anglais, hors métriques financières communes à toutes les sociétés. Source : document fourni par le propriétaire le 13 septembre 2026. C est la liste de référence des types de KPI.</p>
       <div className="mt-3 grid gap-2">

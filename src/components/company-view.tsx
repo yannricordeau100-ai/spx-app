@@ -1713,6 +1713,12 @@ export function CompanyView({
                           <div className="mt-0.5 text-[12px] text-zinc-300">{uniteExpliquee}</div>
                         </div>
                       )}
+                      {"type_comparable" in active && (
+                        <div className="mt-2 border-t border-white/5 pt-2">
+                          <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">Type</span>{" "}
+                          <span className="text-[12px] text-zinc-300">{active.type_comparable ? active.type_comparable.fr : "KPI unique à cette société"}</span>
+                        </div>
+                      )}
                       {active.name_en && active.name_en !== active.name_fr && (
                         <div className="mt-2 border-t border-white/5 pt-2 font-mono text-[11px] italic text-zinc-400">
                           {active.name_en}

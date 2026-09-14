@@ -2852,6 +2852,10 @@ async function loadV17CompanyBrut(
           ...(Array.isArray((k as { _estime?: string[] })._estime)
             ? { _estime: (k as { _estime?: string[] })._estime }
             : {}),
+          // 14 sept 2026 : type comparable (chantier Types de KPI).
+          ...("type_comparable" in (k as object)
+            ? { type_comparable: (k as { type_comparable?: { fr: string; en: string; origine: "referentiel" | "nouveau" } | null }).type_comparable ?? null }
+            : {}),
           ...(typeof (k as { explanation_fr?: string }).explanation_fr === "string"
             ? { explanation_fr: (k as { explanation_fr?: string }).explanation_fr }
             : {}),

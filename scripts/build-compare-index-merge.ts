@@ -8,13 +8,15 @@ import { cleComparaison } from "@/lib/compare-keys";
   let nk = 0, stes = 0;
   for (const f of parts) {
     const j = JSON.parse(await fs.readFile(`${dir}/${f}`, "utf-8"));
-    for (const [t, v] of Object.entries(j) as Array<[string, { name?: string; kpis?: Array<{ s: string; en: string; u: string; n: number }> }]>) {
+    for (const [t, v] of Object.entries(j) as Array<[string, { name?: string; kpis?: Array<{ s: string; en: string; u: string; n: number; ty?: string | null }> }]>) {
       if (!v.kpis) continue;
       stes++; names[t] = v.name ?? t;
       for (const k of v.kpis) {
         nk++;
         if (k.n < 2) continue;
-        const c = cleComparaison({ name_en: k.en, short: k.s, unit: k.u });
+        // 14 sept 2026 : le type comparable (chantier Types de KPI) prime sur
+        // le libelle catalogue quand il est pose.
+        const c = cleComparaison({ name_en: k.ty || k.en, short: k.s, unit: k.u });
         if (!c) continue;
         (byT[t] ??= {})[k.s] = c;
         const l = (keys[c] ??= []);

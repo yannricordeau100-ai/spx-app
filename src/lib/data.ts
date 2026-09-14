@@ -47,6 +47,11 @@ export type KPI = {
   compare_key?: string;
   /** Yann 13 sept 2026 : valeur non exacte a la source. « min » -> affichee « 100+ », « env » -> « ≈100 ». */
   approx?: "min" | "env";
+  /** 14 sept 2026 : type comparable (mesure generique qu un concurrent peut
+   *  publier), libelle du referentiel GICS ou libelle nouveau ; null = KPI
+   *  unique. Invisible dans le tableau, affiche dans le « i », utilise par le
+   *  Comparer. */
+  type_comparable?: { fr: string; en: string; origine: "referentiel" | "nouveau" } | null;
   signal: string;
   description: string;
   history: number[];

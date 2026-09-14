@@ -20,6 +20,7 @@ import { loadV17Company } from "@/lib/company-core/load-company";
         name: c.name,
         kpis: c.kpis.map((k) => ({
           s: k.short, en: k.name_en ?? null, fr: k.name_fr ?? null, u: k.unit ?? "",
+          ty: (k as { type_comparable?: { en?: string } | null }).type_comparable?.en ?? null,
           pt: k.period_type ?? "year", n: Array.isArray(k.history) ? (k.history as unknown[]).filter((v) => typeof v === "number").length : 0,
         })),
       };
