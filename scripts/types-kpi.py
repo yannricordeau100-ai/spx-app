@@ -92,6 +92,8 @@ def main():
     ap.add_argument("--tickers", default="")
     ap.add_argument("--exclure", default="")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--export", default="", help="14 sept 2026 : ecrit les prompts dans ce dossier (sans moteur)")
+    ap.add_argument("--import-dir", default="", help="applique les reponses <T>.<n>.json de ce dossier")
     a = ap.parse_args()
     ref = lire(REF)
     par_ind = {i["code"]: i for i in ref["liste"]}
@@ -124,6 +126,30 @@ def main():
         try:
             for d in range(0, len(todo), LOT):
                 lot = todo[d:d + LOT]
+                if a.export or a.import_dir:
+                    payload = {str(j): {"nom": k.get("name_fr") or k.get("short"), "en": k.get("name_en") or "", "unite": k.get("unit") or "",
+                                        "description": propre(k.get("description_fr") or k.get("explanation") or k.get("signal") or "")[:220]}
+                               for j, (c, i, k) in enumerate(lot)}
+                    nom_lot = "%s.%d" % (t, d // LOT)
+                    if a.export:
+                        os.makedirs(a.export, exist_ok=True)
+                        open(os.path.join(a.export, nom_lot + ".prompt.txt"), "w", encoding="utf-8").write(
+                            CONSIGNE.format(nom=base.get("name") or t, ticker=t, industrie=ind.get("industrie") or code or "inconnue",
+                                            referentiel=refs, lot=json.dumps(payload, ensure_ascii=False, indent=0)))
+                        continue
+                    pr = os.path.join(a.import_dir, nom_lot + ".json")
+                    rep = lire(pr)
+                    if not isinstance(rep, dict):
+                        continue
+                    for j, (c, i, k) in enumerate(lot):
+                        v = rep.get(str(j), "absent")
+                        if v == "absent":
+                            continue
+                        if v is None:
+                            result[(c, i)] = None
+                        elif isinstance(v, dict) and v.get("fr") and v.get("en"):
+                            result[(c, i)] = {"fr": propre(v["fr"]), "en": propre(v["en"]), "origine": "referentiel" if v.get("origine") == "referentiel" else "nouveau"}
+                    continue
                 payload = {str(j): {"nom": k.get("name_fr") or k.get("short"), "en": k.get("name_en") or "", "unite": k.get("unit") or "",
                                     "description": propre(k.get("description_fr") or k.get("explanation") or k.get("signal") or "")[:220]}
                            for j, (c, i, k) in enumerate(lot)}
@@ -171,7 +197,7 @@ def main():
                 json.dump(frais, open(chemin, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         nb_types = sum(1 for v in result.values() if v); nb_uniques = sum(1 for v in result.values() if v is None)
         log("%d/%d %s : %d types, %d uniques, %d non classes" % (n, len(cible), t, nb_types, nb_uniques, len(todo) - len(result)))
-        if not a.dry_run and not a.tickers:
+        if not a.dry_run and not a.tickers and not a.export:
             etat["faites"].append(t); json.dump(etat, open(ETAT, "w"))
         if a.dry_run:
             for (c, i), v in list(result.items())[:12]:
