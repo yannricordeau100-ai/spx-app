@@ -358,3 +358,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.14.4 (14 Sep 2026 01:57, apres 01ebdd5ee9)
 - Societes ajoutees completees bloc par bloc (BE, FERG, FDXF, FLEX, RDDT) : moat source Morningstar, positionnement IA, repartitions et historiques, anti-theses approfondies, KPI prolonges (FDXF depuis 2016, RDDT depuis 2021), textes de KPI en explication de 150 caracteres au plus
+
+## v2026.09.14.5 (14 Sep 2026 06:10, apres 99b6e7c4fe)
+- Logos MarketBeat : 670 recuperes sur 671, onglet MarketBeat de la logotheque (liste complete, pourcentages), 120 logos non americains remplaces apres controle visuel ; valeurs approximatives tranchees ; 13 KPI de periode fixe retires ; produit phare complete ; syntheses europeennes ; KPI de 6 industries GICS

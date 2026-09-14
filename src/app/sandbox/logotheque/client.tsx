@@ -30,6 +30,7 @@ import {
   type ReglagesLogotheque,
 } from "@/lib/logotheque";
 import { rafraichitLogotheque } from "@/components/logo-mettrik";
+import { OngletMarketBeat, type LigneMarketBeat } from "./marketbeat";
 
 type Etat = "repos" | "envoi" | "ok" | "erreur";
 
@@ -80,10 +81,13 @@ function CroixEtCase({
 export function LogothequeClient({
   initial,
   masquesInitial,
+  lignesMarketBeat,
 }: {
   initial: ReglagesLogotheque;
   masquesInitial: MasquesLogotheque;
+  lignesMarketBeat: LigneMarketBeat[];
 }) {
+  const [onglet, setOnglet] = useState<"marque" | "marketbeat">("marque");
   const [reglages, setReglages] = useState<ReglagesLogotheque>(initial);
   const [masques, setMasques] = useState<MasquesLogotheque>(masquesInitial);
   const [selection, setSelection] = useState<{ variantes: string[]; assets: string[] }>({
@@ -201,6 +205,31 @@ export function LogothequeClient({
         détruit, tout est restaurable en bas de page.
       </p>
 
+      <div className="mt-6 flex flex-wrap items-center gap-2 border-b border-[#1c1c1c] pb-3">
+        {(
+          [
+            { id: "marque" as const, label: "Marque et emplacements" },
+            { id: "marketbeat" as const, label: "MarketBeat" },
+          ]
+        ).map((o) => (
+          <button
+            key={o.id}
+            onClick={() => setOnglet(o.id)}
+            className={`rounded-full border px-4 py-1.5 text-xs transition-colors ${
+              onglet === o.id
+                ? "border-purple-500 bg-purple-500/15 text-purple-200"
+                : "border-[#262626] bg-[#0a0a0a] text-zinc-400 hover:border-[#3a3a3a]"
+            }`}
+          >
+            {o.label}
+          </button>
+        ))}
+      </div>
+
+      {onglet === "marketbeat" && <OngletMarketBeat lignes={lignesMarketBeat} />}
+
+      {onglet === "marque" && (
+      <>
       {nbSelection > 0 && (
         <div className="sticky top-2 z-20 mt-4 flex items-center gap-3 rounded-xl border border-purple-500/50 bg-[#141019] px-4 py-2.5">
           <span className="text-sm text-zinc-200">{nbSelection} sélectionné(s)</span>
@@ -407,6 +436,8 @@ export function LogothequeClient({
             })}
           </div>
         </section>
+      )}
+      </>
       )}
     </main>
   );
