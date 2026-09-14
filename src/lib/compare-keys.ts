@@ -5,6 +5,12 @@
  * seules la cle et l echelle de l unite (M, Mds...) sont calculees.
  */
 
+import CATALOGUE_JSON from "@/data/compare-catalogue.json";
+
+// 14 sept 2026 : catalogue canonique de comparabilite (Opus, verifie par Sonnet) :
+// libelle normalise -> cle canonique (meme mesure, meme perimetre).
+const CATALOGUE: Record<string, string> = (CATALOGUE_JSON as { catalogue?: Record<string, string> }).catalogue ?? {};
+
 export type FamilleUnite = "money" | "per_share" | "pct" | "bps" | "ratio" | "days" | "count" | string;
 export type UniteParsee = { fam: FamilleUnite; cur: string | null; scale: number };
 
@@ -33,7 +39,7 @@ export function libelleCanonique(nameEn: string | undefined | null, short?: stri
   let s = String(nameEn || short || "").toLowerCase();
   s = s.replace(/&/g, " and ").replace(/\([^)]*\)/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
   for (const [re, v] of SYNONYMES) if (re.test(s)) return v;
-  return s;
+  return CATALOGUE[s] ?? s;
 }
 
 const DEVISES: Array<[RegExp, string]> = [
