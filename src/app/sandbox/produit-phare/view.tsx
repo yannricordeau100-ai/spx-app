@@ -66,17 +66,20 @@ export function ProduitPhareView({
                   const cand = k === "A" ? e.candidat_A : e.candidat_B;
                   const nomProduit = cand?.produit ?? (k === "A" ? det?.A?.produit : det?.B?.produit) ?? null;
                   if (!nomProduit) return <div key={k} className="rounded-lg border border-dashed border-white/10 p-3 text-[12px] text-zinc-600">{k} : aucun candidat</div>;
-                  const dispo = !!cand;
+                  const dispo = !!cand && cand.statut !== "indisponible" && !!cand.short;
                   return (
-                    <label key={k} className={`flex cursor-pointer items-start gap-2 rounded-lg border p-3 ${c === k ? "border-emerald-400/60 bg-emerald-500/10" : "border-white/10 hover:border-white/25"} ${dispo ? "" : "opacity-60"}`}>
+                    <label key={k} className={`flex items-start gap-2 rounded-lg border p-3 ${dispo ? "cursor-pointer" : "cursor-not-allowed"} ${c === k ? "border-emerald-400/60 bg-emerald-500/10" : dispo ? "border-white/10 hover:border-white/25" : "border-white/[0.06] bg-white/[0.01]"} ${dispo ? "" : "opacity-55"}`}>
                       <input type="radio" name={e.ticker} checked={c === k} disabled={!dispo} onChange={() => coche(e.ticker, k)} className="mt-1" />
                       <span>
                         <span className="font-mono text-[10.5px] text-zinc-500">{k}</span>
                         <span className="block text-[13px] text-zinc-100">{nomProduit}</span>
-                        {cand ? (
-                          <span className="block font-mono text-[10.5px] text-zinc-500">{cand.short} · {cand.points} exercices{cand.statut === "court" ? " (série courte)" : ""}</span>
+                        {dispo && cand ? (
+                          <span className="block font-mono text-[10.5px] text-zinc-500">{cand.short} · {cand.points} points{cand.statut === "court" ? " (série courte)" : ""}</span>
                         ) : (
-                          <span className="block font-mono text-[10.5px] text-amber-300">série de données pas encore disponible</span>
+                          <>
+                            <span className="block font-mono text-[10.5px] text-amber-300">donnée indisponible · non sélectionnable</span>
+                            <span className="mt-0.5 block text-[11px] text-zinc-500">{cand?.raison ?? indisponibles.find((i) => i.ticker === e.ticker)?.raison ?? "Aucune série annuelle publiée n a été trouvée pour ce produit."}</span>
+                          </>
                         )}
                       </span>
                     </label>

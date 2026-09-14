@@ -15,7 +15,7 @@ import REGISTRE from "@/data/produit-phare.json";
  * immédiatement sur le hero (Supabase desk_hero_kpi_overrides).
  */
 
-export type CandidatPhare = { produit: string; short: string; points: number; statut: string };
+export type CandidatPhare = { produit: string; short: string | null; points: number; statut: string; raison?: string | null; source?: string | null };
 export type EntreePhare = {
   candidat_A?: CandidatPhare;
   candidat_B?: CandidatPhare;
