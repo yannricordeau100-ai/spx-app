@@ -361,3 +361,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.14.5 (14 Sep 2026 06:10, apres 99b6e7c4fe)
 - Logos MarketBeat : 670 recuperes sur 671, onglet MarketBeat de la logotheque (liste complete, pourcentages), 120 logos non americains remplaces apres controle visuel ; valeurs approximatives tranchees ; 13 KPI de periode fixe retires ; produit phare complete ; syntheses europeennes ; KPI de 6 industries GICS
+
+## v2026.09.14.6 (14 Sep 2026 11:23, apres 8ab55dfb79)
+- KPI des 74 industries GICS : 750 KPI du referentiel couverts sur 1 044 (69 industries avec societes traitees, environ 190 series ajoutees) ; Comparer : catalogue canonique et index regenere (20 203 KPI comparables) ; 46 unites corrigees avec preuve ; textes de KPI reecrits en explication de 150 caracteres sur 3 500 KPI
