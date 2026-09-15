@@ -35,49 +35,85 @@ const ETAT_IND = ETAT as {
  * officiel). Vert = deja present dans au moins une fiche de l industrie ;
  * gris = a rechercher (travail du dimanche, 5 ans, trimestriel si possible).
  */
+function Pourcent({ n, d }: { n: number; d: number }) {
+  const pct = d > 0 ? Math.round((n / d) * 100) : 0;
+  const cl = d === 0 ? "text-zinc-500" : pct >= 80 ? "text-emerald-300" : pct >= 40 ? "text-amber-200" : pct > 0 ? "text-orange-300" : "text-zinc-400";
+  return <span className={`font-mono text-[11px] ${cl}`}>{d === 0 ? "aucune société" : `${pct} % (${n}/${d})`}</span>;
+}
+
+/** Yann 15 sept 2026 : arbre secteur > groupe d industries > industrie > KPI, avec pour
+ *  chaque KPI le pourcentage de societes de l industrie qui le possedent (5 ans suffisent ;
+ *  un KPI deja present avant le chantier compte comme couvert). */
 function OngletIndustries() {
-  const parSecteur = new Map<string, typeof ETAT_IND.industries>();
-  for (const i of ETAT_IND.industries) parSecteur.set(i.secteur, [...(parSecteur.get(i.secteur) ?? []), i]);
+  const parCode = new Map(ETAT_IND.industries.map((i) => [i.code, i] as const));
+  const couverture = (inds: (typeof ETAT_IND.industries)[number][]) => {
+    let n = 0, d = 0;
+    for (const i of inds) for (const k of i.kpis) { n += k.stes_avec.length; d += i.stes.length; }
+    return { n, d };
+  };
   return (
     <div>
       <div className="flex flex-wrap items-center gap-3 rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2 text-[12px]">
-        <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-400">Légende</span>
-        <span className="text-emerald-300">● vert : KPI déjà présent dans une fiche de l industrie</span>
-        <span className="text-zinc-400">● gris : KPI à rechercher, 5 ans, trimestriel ou semestriel si possible</span>
-        <span className="ml-auto font-mono text-[11px] text-zinc-400">{ETAT_IND.total_kpi} KPI · {ETAT_IND.deja_presents} déjà présents · {ETAT_IND.total_kpi - ETAT_IND.deja_presents} à faire</span>
+        <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-400">Lecture</span>
+        <span className="text-zinc-300">Pour chaque KPI : part des sociétés de l industrie qui le publient dans leur fiche (vert 80 % et plus, ambre 40 à 79 %, orange en dessous).</span>
+        <span className="ml-auto font-mono text-[11px] text-zinc-400">{ETAT_IND.total_kpi} KPI · {ETAT_IND.deja_presents} présents chez au moins une société</span>
       </div>
-      <div className="mt-4 grid gap-4">
-        {[...parSecteur.entries()].map(([sec, inds]) => {
-          const n = inds.reduce((a, i) => a + i.kpis.length, 0);
-          const v = inds.reduce((a, i) => a + i.kpis.filter((k) => k.stes_avec.length > 0).length, 0);
+      <div className="mt-4 grid gap-2">
+        {GICS.map((sec) => {
+          const indsSec = sec.groups.flatMap((g) => g.industries.map((i) => parCode.get(i.code)).filter(Boolean)) as (typeof ETAT_IND.industries)[number][];
+          const cs = couverture(indsSec);
           return (
-            <div key={sec}>
-              <div className="mb-1.5 flex items-baseline gap-2">
-                <span className="text-[13.5px] font-semibold text-zinc-100">{sec}</span>
-                <span className="font-mono text-[11px] text-zinc-500">{inds.length} industries · {n} KPI · {v} déjà présents</span>
+            <details key={sec.code} className="rounded-lg border border-white/[0.09] bg-white/[0.02] p-2.5">
+              <summary className="cursor-pointer text-[13.5px] font-semibold text-zinc-100">
+                <span className="font-mono text-[11px] text-zinc-500">{sec.code}</span> {sec.name}
+                <span className="ml-2 font-mono text-[10.5px] text-zinc-500">{sec.groups.length} groupes · {indsSec.length} industries · {indsSec.reduce((a, i) => a + i.kpis.length, 0)} KPI</span>
+                <span className="ml-2"><Pourcent n={cs.n} d={cs.d} /></span>
+              </summary>
+              <div className="mt-2 grid gap-1.5 pl-3">
+                {sec.groups.map((g) => {
+                  const indsG = g.industries.map((i) => parCode.get(i.code)).filter(Boolean) as (typeof ETAT_IND.industries)[number][];
+                  const cg = couverture(indsG);
+                  return (
+                    <details key={g.code} className="rounded-md border border-white/[0.07] bg-white/[0.015] p-2">
+                      <summary className="cursor-pointer text-[12.5px] text-zinc-200">
+                        <span className="font-mono text-[11px] text-zinc-500">{g.code}</span> {g.name}
+                        <span className="ml-2 font-mono text-[10.5px] text-zinc-500">{indsG.length} industries</span>
+                        <span className="ml-2"><Pourcent n={cg.n} d={cg.d} /></span>
+                      </summary>
+                      <div className="mt-1.5 grid gap-1 pl-3">
+                        {g.industries.map((gi) => {
+                          const i = parCode.get(gi.code);
+                          if (!i) return <div key={gi.code} className="text-[12px] text-zinc-500"><span className="font-mono text-[11px]">{gi.code}</span> {gi.name} : hors référentiel</div>;
+                          const ci = couverture([i]);
+                          return (
+                            <details key={i.code} className="rounded-md border border-white/[0.06] p-2">
+                              <summary className="cursor-pointer text-[12.5px] text-zinc-200">
+                                <span className="font-mono text-[11px] text-emerald-300/80">{i.code}</span> {i.industrie}
+                                <span className="ml-2 font-mono text-[10.5px] text-zinc-500">{i.kpis.length} KPI · {i.stes.length} sociétés</span>
+                                <span className="ml-2"><Pourcent n={ci.n} d={ci.d} /></span>
+                              </summary>
+                              {i.stes.length > 0 && <div className="mt-1 font-mono text-[10.5px] text-zinc-500">{i.stes.join(" · ")}</div>}
+                              <ul className="mt-1.5 grid gap-0.5">
+                                {i.kpis.map((k, idx) => (
+                                  <li key={i.code + idx} className="flex flex-wrap items-baseline gap-x-2 text-[12px] text-zinc-300">
+                                    <Pourcent n={k.stes_avec.length} d={i.stes.length} />
+                                    <span>{k.fr}</span>
+                                    {k.stes_avec.length > 0 && <span className="font-mono text-[10px] text-emerald-400/70">{k.stes_avec.join(", ")}</span>}
+                                    {Object.keys((k as { stes_sans?: Record<string, string> }).stes_sans ?? {}).length > 0 && (
+                                      <span className="font-mono text-[10px] text-zinc-500" title={Object.entries((k as { stes_sans?: Record<string, string> }).stes_sans ?? {}).map(([t, r]) => `${t} : ${r}`).join("\n")}>sans : {Object.keys((k as { stes_sans?: Record<string, string> }).stes_sans ?? {}).join(", ")}</span>
+                                    )}
+                                  </li>
+                                ))}
+                              </ul>
+                            </details>
+                          );
+                        })}
+                      </div>
+                    </details>
+                  );
+                })}
               </div>
-              <div className="grid gap-2">
-                {inds.map((i) => (
-                  <details key={i.code} className="rounded-lg border border-white/[0.07] bg-white/[0.015] p-2.5">
-                    <summary className="cursor-pointer text-[12.5px] text-zinc-200">
-                      <span className="font-mono text-[11px] text-emerald-300/80">{i.code}</span> {i.industrie}
-                      <span className="ml-2 font-mono text-[10.5px] text-zinc-500">{i.kpis.length} KPI · {i.stes.length} sociétés</span>
-                    </summary>
-                    {i.stes.length > 0 && (
-                      <div className="mt-1.5 font-mono text-[10.5px] text-zinc-500">{i.stes.join(" · ")}</div>
-                    )}
-                    <ul className="mt-2 grid gap-0.5 sm:grid-cols-2">
-                      {i.kpis.map((k, idx) => (
-                        <li key={i.code + idx} className={`text-[12px] ${k.stes_avec.length > 0 ? "text-emerald-300" : "text-zinc-300"}`}>
-                          {k.fr}
-                          {k.stes_avec.length > 0 && <span className="ml-1 font-mono text-[10px] text-emerald-400/70">({k.stes_avec.slice(0, 4).join(", ")}{k.stes_avec.length > 4 ? "…" : ""})</span>}
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                ))}
-              </div>
-            </div>
+            </details>
           );
         })}
       </div>
