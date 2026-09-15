@@ -48,6 +48,11 @@ def univers() -> dict[str, str]:
     tk = d.get("tickers") if isinstance(d, dict) else d
     table: dict[str, str] = {}
     for t in (str(x).upper() for x in tk):
+        # 15 sept 2026 : Motley Fool ne couvre que les places americaines. Une societe
+        # europeenne (suffixe .PA, .DE, .SW, .AS, .L, .MC...) recevait le transcript de la
+        # societe americaine portant le meme symbole (AI.PA = C3.ai, DG.PA = Dollar General).
+        if re.search(r"\.(PA|DE|SW|AS|L|MC|MI|BR|HE|CO|ST|OL|LS|IR|VI|T|KS|HK)$", t):
+            continue
         base = t.split(".")[0].lower()
         table[base] = t
         table[base.replace("-", "")] = t
@@ -64,9 +69,11 @@ def lit_url(u: str, table: dict[str, str]):
     if not m:
         return None
     tete = slug[: m.start()].strip("-")
-    for tok in reversed(tete.split("-")):
-        if tok in table:
-            return table[tok], int(m.group(1)), int(m.group(2))
+    # 15 sept 2026 : le symbole est TOUJOURS le dernier mot avant le trimestre
+    # (« red-cat-rcat-q2-2026 ») ; prendre n importe quel mot donnait CAT pour Red Cat.
+    tok = tete.split("-")[-1] if tete else ""
+    if tok in table:
+        return table[tok], int(m.group(1)), int(m.group(2))
     return None
 
 
