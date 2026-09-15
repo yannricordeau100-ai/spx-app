@@ -388,3 +388,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.15.7 (15 Sep 2026 14:10, apres 215c724123)
 - cle de cache des fiches : version commitee (les 3 derniers deploiements servaient le cache de la 15.3)
+
+## v2026.09.15.8 (15 Sep 2026 20:38, apres c73a87c3a2)
+- bascule Turnstile (Supabase attend des jetons Turnstile)
