@@ -812,6 +812,7 @@ export function HomeView({
             <HomeCartePays
               locale={locale}
               routePrefix={routePrefix}
+              anonLinks={anonLinks}
               requireSignupGate={requireSignupGate}
               gatePath={gatePath}
             />

@@ -25,11 +25,14 @@ import ZONES_KPIS from "@/data/carte-pays-kpis.json";
 export function HomeCartePays({
   locale,
   routePrefix,
+  anonLinks = false,
   requireSignupGate = false,
   gatePath = "/",
 }: {
   locale: string;
   routePrefix?: string;
+  /** Yann 15 sept 2026 : visiteur anonyme, chaque lien de fiche pointe vers l inscription gratuite. */
+  anonLinks?: boolean;
   requireSignupGate?: boolean;
   gatePath?: string;
 }) {
@@ -54,8 +57,10 @@ export function HomeCartePays({
 
   if (rows.length === 0) return null;
 
-  const buildCompanyHref = (ticker: string): string =>
-    routePrefix ? `${routePrefix}/${ticker.toLowerCase()}` : `/${ticker.toLowerCase()}`;
+  const buildCompanyHref = (ticker: string): string => {
+    const base = routePrefix ? `${routePrefix}/${ticker.toLowerCase()}` : `/${ticker.toLowerCase()}`;
+    return anonLinks ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
+  };
 
   // Yann 07 sept 2026 : exactement 10 stés (2 colonnes de 5), pas de bouton.
   const visibles = rows.slice(0, 10);

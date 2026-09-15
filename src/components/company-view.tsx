@@ -1286,6 +1286,7 @@ export function CompanyView({
           disabledBlocks={disabledBlocks}
         />
         <BandeauIpoRecente ipo={company.ipo} />
+        <ZoneReservee actif={anonPage} palier="anon">
 
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
         {/* Yann 4 sept 2026 : l appel a l abonnement etait rendu DANS la
@@ -2244,6 +2245,7 @@ export function CompanyView({
 
         {/* Yann 14 sept 2026 : ligne de copyright retiree du bas de la fiche. */}
         <div className="pb-8" />
+        </ZoneReservee>
       </main>
 
       <CompanyNavChrome />
