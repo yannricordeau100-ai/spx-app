@@ -373,3 +373,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.15.2 (15 Sep 2026 03:12, apres 40326722c0)
 - produit phare 20 series, 46 syntheses, 23 transcripts EU corriges, zone anonyme, emails
+
+## v2026.09.15.3 (15 Sep 2026 03:51, apres 980dd3404e)
+- KPI par industrie : pourcentages hors sans-objet
