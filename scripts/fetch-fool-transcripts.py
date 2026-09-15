@@ -61,7 +61,8 @@ def parse_url(u):
     q, y = m.group(1), m.group(2)
     # token ticker = dernier token court avant qN
     head = slug[: m.start()].strip("-")
-    for tok in reversed(head.split("-")):
+    # 15 sept 2026 : le symbole est le dernier mot du slug avant le trimestre (voir transcripts-refresh.py).
+    for tok in [head.split("-")[-1]] if head else []:
         if tok in slug2ticker:
             return slug2ticker[tok], f"Q{q}", y
     return None
