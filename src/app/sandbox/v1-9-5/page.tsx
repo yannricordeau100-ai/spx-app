@@ -177,7 +177,7 @@ export default async function SandboxV195HubPage() {
           cette section (cards pricing + boutons comparatif/contact) sont
           gates derrière le popup signup pour les visiteurs non connectés.
           La page /pricing reste accessible en mode anonyme via direct URL. */}
-      <section className="relative mx-auto max-w-6xl px-4 pb-20 pt-10 sm:px-6">
+      <section className="relative mx-auto max-w-6xl px-4 pb-20 pt-2 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
           {/* Yann 07 sept 2026 : badge Premium 0,68 euro/jour retire de l accueil. */}
           <h2 className="mt-4 font-display text-[28px] font-bold tracking-tight text-zinc-50 sm:text-[34px]">

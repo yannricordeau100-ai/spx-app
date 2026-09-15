@@ -194,9 +194,7 @@ export function KpiRow({
           <InfoTooltip color={accent}>
             {hasDef && (
               <>
-                <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-                  {t("kpi.definition")}
-                </div>
+                {/* Yann 15 sept 2026 : en-tete « Definition » retire, « Type » devient « KPI Type ». */}
                 <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="div" className="text-zinc-200" mode="full">
                   {kpi.explanation}
                 </BlurredFreeText>
@@ -213,7 +211,7 @@ export function KpiRow({
             {/* 14 sept 2026 : type comparable (ou KPI unique) dans le « i ». */}
             {"type_comparable" in kpi && (
               <div className={hasDef || uniteExpliquee ? "mt-2 border-t border-white/10 pt-2" : ""}>
-                <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">Type</span>{" "}
+                <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">KPI Type</span>{" "}
                 <span className="text-[12px] text-zinc-300">{kpi.type_comparable ? kpi.type_comparable.fr : "KPI unique à cette société"}</span>
               </div>
             )}
@@ -241,7 +239,7 @@ export function KpiRow({
             de lecture. */}
         {Array.isArray((kpi as { _estime?: string[] })._estime) && (kpi as { _estime?: string[] })._estime!.length > 0 && (
           <div className="mt-0.5 text-[10.5px] leading-snug text-amber-300/80">
-            * {(kpi as { _estime?: string[] })._estime!.map((x) => x.replace(/^FY\s*/i, "")).join(", ")} : estimation, moyenne des années voisines (valeur non publiée).
+            * {(kpi as { _estime?: string[] })._estime!.map((x) => x.replace(/^FY\s*/i, "")).join(", ")} : {(kpi as { _estime_libelle?: string })._estime_libelle || "estimation, moyenne des années voisines (valeur non publiée)"}.{/* Yann 15 sept 2026 : libelle propre au KPI (ex. Hermes : reconstitue a partir d autres donnees). */}
           </div>
         )}
       </div>

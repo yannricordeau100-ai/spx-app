@@ -1681,7 +1681,8 @@ export function CompanyView({
                     suffixClassName="ml-2 text-[18px] font-medium text-zinc-300 sm:text-[22px]"
                   />
                 </BlurredFreeText>
-                  <span className="ml-1.5 inline-flex align-middle">
+                  {/* Yann 15 sept 2026 : « i » et CAGR centres en hauteur sur le titre. */}
+                  <span className="ml-1.5 inline-flex items-center align-middle" style={{ verticalAlign: "middle", position: "relative", top: "-0.1em" }}>
 {(() => {
                   type WithI18n = typeof active & { explanation_fr?: string; explanation_en?: string };
                   const a = active as WithI18n;
@@ -1699,9 +1700,7 @@ export function CompanyView({
                   if (!hasContent) return null;
                   return (
                     <InfoTooltip color={accent}>
-                      <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-                        {t("kpi.definition")}
-                      </div>
+                      {/* Yann 15 sept 2026 : en-tete « Definition » retire, « Type » devient « KPI Type ». */}
                       {localExplanation && localExplanation.trim() && (
                         <div className="text-zinc-200">{localExplanation}</div>
                       )}
@@ -1715,7 +1714,7 @@ export function CompanyView({
                       )}
                       {"type_comparable" in active && (
                         <div className="mt-2 border-t border-white/5 pt-2">
-                          <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">Type</span>{" "}
+                          <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">KPI Type</span>{" "}
                           <span className="text-[12px] text-zinc-300">{active.type_comparable ? active.type_comparable.fr : "KPI unique à cette société"}</span>
                         </div>
                       )}
@@ -1731,7 +1730,9 @@ export function CompanyView({
                 </span>
                 {/* 10 sept 2026 (Yann) : CAGR de la periode affichee, a droite du titre. */}
                 
-                <CagrChip data={chartHistoryRaw as number[]} unit={displayUnit} periodType={graphPeriod} locale={heroTitleLang === "en" ? "en" : locale} />
+                <span className="ml-2 inline-flex items-center align-middle" style={{ verticalAlign: "middle", position: "relative", top: "-0.1em" }}>
+                  <CagrChip data={chartHistoryRaw as number[]} unit={displayUnit} periodType={graphPeriod} locale={heroTitleLang === "en" ? "en" : locale} />
+                </span>
 
                 {/* Yann 21 août 2026 : badges meta (freshness, "i" data en
                     cours, "i" exercice fiscal décalé) REMONTÉS ici, collés au

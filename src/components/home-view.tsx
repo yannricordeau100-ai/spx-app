@@ -842,7 +842,7 @@ export function HomeView({
         <HomeGicsBlock />
 
         {/* Yann 12 sept 2026 : mention « Mettrik AI · KPI Intelligence » retiree. */}
-        <div className="mt-20 pb-8 sm:mt-24" />
+        <div className="mt-6 sm:mt-8" />{/* Yann 15 sept 2026 : espace reduit avant la section « Toutes les fiches sont ouvertes en gratuit ». */}
       </div>
       <BackToTop />
     </div>

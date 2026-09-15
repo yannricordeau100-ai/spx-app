@@ -8,7 +8,7 @@
  */
 
 import type { KPI, MarketPosition } from "./data";
-import { estFamilleGenerique, famillesDe, normaliseLibelle, residuSpecifique } from "./kpi-standard";
+import { estFamilleGenerique, estKpiStandard, famillesDe, normaliseLibelle, residuSpecifique } from "./kpi-standard";
 
 /**
  * Yann 8 juin 2026 : generiques BASIQUES interdits en story (comptable banal).
@@ -162,8 +162,8 @@ export function buildStories(
       !!(k as { story_category?: string }).story_category && historique <= 2;
     if (!k.is_short_history && !storySansDrapeau) continue;
     if (!isStoryKpiUsable(k)) continue;
-    // 9 sept 2026 : pas de doublon des indicateurs cles.
-    if (estFamilleGenerique(k) || estDoublonDuTableau(k, tableau) || estRepetitionDeFamille(k, famillesTab)) continue;
+    // 9 sept 2026 : pas de doublon des indicateurs cles. 15 sept 2026 (Yann) : aucun KPI de style standard dans les stories.
+    if (estFamilleGenerique(k) || estKpiStandard(k) || estDoublonDuTableau(k, tableau) || estRepetitionDeFamille(k, famillesTab)) continue;
     const cat = k.story_category || DEFAULT_CATEGORY;
     if (!buckets.has(cat)) buckets.set(cat, []);
     buckets.get(cat)!.push({ kind: "kpi", data: k });
@@ -226,7 +226,7 @@ export function __auditStories(kpis: KPI[]): { avant: string[]; apres: string[] 
     if (!isStoryKpiUsable(k)) continue;
     const lib = `${k.short} | ${k.name_fr ?? ""}`;
     avant.push(lib);
-    if (estFamilleGenerique(k) || estDoublonDuTableau(k, tableau) || estRepetitionDeFamille(k, famillesTab)) continue;
+    if (estFamilleGenerique(k) || estKpiStandard(k) || estDoublonDuTableau(k, tableau) || estRepetitionDeFamille(k, famillesTab)) continue;
     apres.push(lib);
   }
   return { avant, apres };
