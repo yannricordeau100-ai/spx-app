@@ -364,3 +364,12 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.14.6 (14 Sep 2026 11:23, apres 8ab55dfb79)
 - KPI des 74 industries GICS : 750 KPI du referentiel couverts sur 1 044 (69 industries avec societes traitees, environ 190 series ajoutees) ; Comparer : catalogue canonique et index regenere (20 203 KPI comparables) ; 46 unites corrigees avec preuve ; textes de KPI reecrits en explication de 150 caracteres sur 3 500 KPI
+
+## v2026.09.14.7 (14 Sep 2026 22:20, apres b2f095eb57)
+- textes KPI 150 caracteres termines, 30 logos Wikipedia, 16 anti-theses EU, Sonova transcript, types de KPI partiels (239/671)
+
+## v2026.09.15.1 (15 Sep 2026 02:44, apres 9aa29a980d)
+- types de KPI 671 societes, Comparer reindexe, infobulle KPI Type, Free/anonyme, arbre des 74 industries, produit phare
+
+## v2026.09.15.2 (15 Sep 2026 03:12, apres 40326722c0)
+- produit phare 20 series, 46 syntheses, 23 transcripts EU corriges, zone anonyme, emails

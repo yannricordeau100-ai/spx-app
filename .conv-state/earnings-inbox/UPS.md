@@ -24,7 +24,7 @@
 - `logistics_rev` — Revenu Logistics (SCS) (M $), dernière période connue FY2025
 - `hc_portfolio` — Chiffre d'affaires portefeuille santé mondial (Mds $), dernière période connue FY2025
 - `cargo_other_us` — Revenu Cargo & Other US (contrat USPS) (M $), dernière période connue FY2025
-- `rev_total` — Chiffre d affaires consolidé (M $), dernière période connue Q2-2026
+- `rev_total` — Chiffre d'affaires consolidé (M $), dernière période connue Q2-2026
 - `net_income` — Résultat net (M $), dernière période connue Q2-2026
 
 ## Règle
