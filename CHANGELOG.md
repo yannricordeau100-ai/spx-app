@@ -376,3 +376,15 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.15.3 (15 Sep 2026 03:51, apres 980dd3404e)
 - KPI par industrie : pourcentages hors sans-objet
+
+## v2026.09.15.4 (15 Sep 2026 13:28, apres bba7ea909b)
+- Hermes artisans 2023-2025 estimes, heros KPI industrie option B
+
+## v2026.09.15.5 (15 Sep 2026 13:42, apres c18b00c9b3)
+- libelle d estimation propre au KPI transmis a la fiche
+
+## v2026.09.15.6 (15 Sep 2026 13:56, apres 9c0ec4436c)
+- audit_token accepte sur l adresse publique des fiches
+
+## v2026.09.15.7 (15 Sep 2026 14:10, apres 215c724123)
+- cle de cache des fiches : version commitee (les 3 derniers deploiements servaient le cache de la 15.3)
