@@ -409,3 +409,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.2 (16 Sep 2026 00:33, apres b63b48fd78)
 - filtres heros, recherche des unites, parcours anonyme, vitrine Google, page Reglages KPI, KPI de l accueil
+
+## v2026.09.16.3 (16 Sep 2026 00:48, apres 184d906503)
+- vitrine Google anonyme : capture du clic sur les deux rendus

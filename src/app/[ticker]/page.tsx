@@ -287,6 +287,7 @@ export default async function TickerPage({
         <CompanyView
           company={servedCompany}
           authSlot={<AuthNav scope="company" />}
+          captureInscription={vitrineAnon}
           transcript={estGratuit ? caviardeTranscriptDocPourGratuit(transcript, zonesEffectives) : transcript}
           transcriptSummary={servedTranscriptSummary}
           v18Mode
