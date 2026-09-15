@@ -668,6 +668,7 @@ export function HomeView({
   searchScope,
   topNavLinks,
   requireSignupGate = false,
+  anonLinks = false,
   gatePath = "/",
   contentOverrides,
 }: {
@@ -679,6 +680,8 @@ export function HomeView({
   topNavLinks?: { label: string; href: string }[];
   /** Si true, tout clic sur la search bar ou une card sté ouvre AuthModal (anonyme). */
   requireSignupGate?: boolean;
+  /** Yann 15 sept 2026 : visiteur anonyme, chaque lien de fiche pointe vers l inscription gratuite. */
+  anonLinks?: boolean;
   /** Page qui monte <AuthModal /> (utilisée pour le redirect signup). */
   gatePath?: string;
   /** Yann 12 mai 2026 : textes editables via /desk-mtk9x4kp/page-content.
@@ -692,8 +695,10 @@ export function HomeView({
   const tt = (key: string, overrideKey: string) =>
     (contentOverrides && contentOverrides[overrideKey]?.trim()) || t(key);
   const results = tickersProp ?? (UNIVERSE as { tickers: string[] }).tickers;
-  const buildHref = (tk: string): string =>
-    routePrefix ? `${routePrefix}/${tk.toLowerCase()}` : `/${tk.toLowerCase()}`;
+  const buildHref = (tk: string): string => {
+    const base = routePrefix ? `${routePrefix}/${tk.toLowerCase()}` : `/${tk.toLowerCase()}`;
+    return anonLinks ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
+  };
   // Yann 4 juin 2026 : ticker affiché sur les cards = displayTicker (strip
   // suffixe place boursière .PA/.SW/.L/etc sauf si conflit avec un short
   // existant). URL conserve le ticker complet via `buildHref` ci-dessus.

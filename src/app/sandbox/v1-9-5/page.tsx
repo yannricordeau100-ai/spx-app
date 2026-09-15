@@ -164,7 +164,8 @@ export default async function SandboxV195HubPage() {
           { label: pricingLabel, href: "/pricing" },
           { label: contactLabel, href: "/contact" },
         ]}
-        requireSignupGate={false} // Yann 3 sept 2026 : fiches ouvertes aux anonymes (floutees)
+        requireSignupGate={freemiumTier === "anon"} // Yann 15 sept 2026 : anonyme = inscription avant toute fiche
+        anonLinks={freemiumTier === "anon"}
         gatePath="/sandbox/v1-9-5"
         contentOverrides={homeOverrides}
       />

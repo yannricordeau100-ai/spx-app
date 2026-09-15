@@ -26,6 +26,8 @@ const VITRINE_VISIBLE = new Set(["GOOGL", "GOOG", "META", "BKNG", "AAPL", "NFLX"
 // pas sur le chemin interne /sandbox/v1-9-5/<ticker> qui s affichait dans la
 // barre d adresse des visiteurs.
 const buildLatestHref = (ticker: string) => `/${ticker.toLowerCase()}`;
+// Yann 15 sept 2026 : en anonyme, chaque lien vers une fiche mene a l inscription gratuite.
+const lienInscription = (ticker: string) => `/?auth=signup&next=${encodeURIComponent(buildLatestHref(ticker))}`;
 import { motion, AnimatePresence } from "motion/react";
 import { Search, X, ArrowRight, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import {
@@ -178,6 +180,7 @@ export function CompanySearch({
   /** Override du compteur affiché (sinon = TICKERS V1 + V1.7 valid). */
   totalLabel?: number;
 }) {
+  const anonLiens = useFreemiumTier() === "anon";
   const { t, locale } = useT();
   const ph =
     placeholder ??
@@ -559,7 +562,7 @@ export function CompanySearch({
                     if (e.key === "Enter" && results.length === 1) {
                       e.preventDefault();
                       close();
-                      router.push(buildLatestHref(results[0].ticker));
+                      router.push(anonLiens ? lienInscription(results[0].ticker) : buildLatestHref(results[0].ticker));
                     }
                   }}
                   className="flex-1 bg-transparent text-[16px] text-zinc-100 outline-none placeholder:text-zinc-500"
@@ -649,6 +652,7 @@ function ResultCard({
   onSelect: () => void;
   allTickers: Set<string> | ReadonlySet<string>;
 }) {
+  const anonLiens = useFreemiumTier() === "anon";
   const c = COMPANIES[ticker];
   const hero = getHero(c);
   const tone = yoyTone(hero.yoy, hero.type);
@@ -666,7 +670,7 @@ function ResultCard({
 
   return (
     <Link
-      href={buildLatestHref(ticker)}
+      href={anonLiens ? lienInscription(ticker) : buildLatestHref(ticker)}
       onClick={onSelect}
       className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
         estVitrine
@@ -711,7 +715,7 @@ function ResultCard({
           {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
               plus se superposer au KPI affiche a droite. */}
           {estVitrine && (
-            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Fiche complète offerte</span>
+            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Complètement gratuit</span>
           )}
         </div>
         <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
@@ -835,12 +839,13 @@ function ResultCardV17({
   onSelect: () => void;
   allTickers: Set<string> | ReadonlySet<string>;
 }) {
+  const anonLiens = useFreemiumTier() === "anon";
   const e = V17_SEARCH_BY_TICKER[ticker.toUpperCase()];
   const accent = brand(ticker).primary;
   if (!e) return null;
   const tickerShown = displayTicker(ticker, allTickers);
   // Yann 26 mai 2026 : toutes les recherches routent vers la dernière version.
-  const href = buildLatestHref(ticker);
+  const href = anonLiens ? lienInscription(ticker) : buildLatestHref(ticker);
   return (
     <Link
       href={href}
@@ -885,7 +890,7 @@ function ResultCardV17({
           {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
               plus se superposer au KPI affiche a droite. */}
           {VITRINE_VISIBLE.has(ticker.toUpperCase()) && (
-            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Fiche complète offerte</span>
+            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Complètement gratuit</span>
           )}
         </div>
         <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
@@ -916,10 +921,11 @@ function ResultCardV19({
   onSelect: () => void;
   allTickers: Set<string> | ReadonlySet<string>;
 }) {
+  const anonLiens = useFreemiumTier() === "anon";
   const e = V19_SEARCH_BY_TICKER[ticker.toUpperCase()];
   const accent = brand(ticker).primary;
   if (!e) return null;
-  const href = buildLatestHref(ticker);
+  const href = anonLiens ? lienInscription(ticker) : buildLatestHref(ticker);
   const tickerShown = displayTicker(ticker, allTickers);
   return (
     <Link
@@ -964,7 +970,7 @@ function ResultCardV19({
           {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
               plus se superposer au KPI affiche a droite. */}
           {VITRINE_VISIBLE.has(ticker.toUpperCase()) && (
-            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Fiche complète offerte</span>
+            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Complètement gratuit</span>
           )}
           <span className="rounded-md border border-zinc-500/40 bg-zinc-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-zinc-300">
             V1.9

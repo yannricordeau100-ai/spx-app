@@ -66,6 +66,7 @@ import { MesListesMenu } from "@/components/mes-listes-menu";
 import { CompareControl } from "@/components/compare-control";
 import { ComparePanel } from "@/components/compare-panel";
 import { KpiStories } from "@/components/kpi-stories";
+import { ZoneReservee } from "@/components/freemium/zone-reservee";
 import { hasStories } from "@/lib/kpi-stories-ordering";
 import { orderKpis, isPhysicalKpi } from "@/lib/kpi-ordering";
 import { estKpiStandard } from "@/lib/kpi-standard";
@@ -261,6 +262,9 @@ export function CompanyView({
   // floute pour lui, afin d y poser une invitation a s abonner.
   const [graphiqueReserve, setGraphiqueReserve] = useState(false);
   const freeBlocked = freeBlockedTier && !exemptionSociete;
+  // Yann 15 sept 2026 : visiteur anonyme = seule la partie haute (en-tete) est lisible,
+  // tout le reste est floute et renvoie a l inscription gratuite ; boutons du haut inertes.
+  const anonPage = freemiumTier === "anon";
 
   // Yann (8 juin 2026) : thème clair réservé aux offres PAYANTES (premium + max).
   // Anonyme + free = non payant → toggle clair verrouillé + thème sombre forcé.
@@ -1205,13 +1209,15 @@ export function CompanyView({
             disabledBlocks={disabledBlocks}
           />
         <BandeauIpoRecente ipo={company.ipo} />
+        <ZoneReservee actif={anonPage} palier="anon">
 
           <RecentIpoPlaceholder
             ticker={company.ticker}
             ipoLabel={recentIpoMeta.ipoLabel}
             monthsUntilReady={recentIpoMeta.readyInMonths}
           />
-        </main>
+          </ZoneReservee>
+      </main>
       </div>
     );
   }
@@ -1236,6 +1242,7 @@ export function CompanyView({
               Réutilise le composant MettrikWordmark identique au logo home
               et à la page maintenance. Cohérence brand sur toutes les
               pages. (8 mai 2026) */}
+          <div className={`flex min-w-0 flex-nowrap items-center gap-1.5 sm:gap-3 ${anonPage ? "pointer-events-none opacity-40" : ""}`} aria-disabled={anonPage || undefined}>
           <Link
             href="/"
             className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
@@ -1245,7 +1252,9 @@ export function CompanyView({
             <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
           </Link>
           <PageSearch variant="default" />
+          </div>
           <div className="ml-auto flex shrink-0 items-center gap-2">
+            <div className={`flex items-center gap-2 ${anonPage ? "pointer-events-none opacity-40" : ""}`} aria-disabled={anonPage || undefined}>
             {COMPARER_ACTIF && (
             <CompareControl
               ticker={company.ticker}
@@ -1260,6 +1269,7 @@ export function CompanyView({
             )}
             {freemiumTier !== "anon" && <MesListesMenu />}
             <ThemeToggle paid={isPaidTier} />
+            </div>
             {authSlot}
           </div>
         </nav>
@@ -1888,6 +1898,7 @@ export function CompanyView({
         </AnimatePresence>
 
         {/* KPI table */}
+        <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="Indicateurs clés réservés aux abonnés" detail="Tous les indicateurs de la société, dix ans d’historique et le comparateur : inclus dès le plan Premium.">
         <section id="sec-kpis" className="mt-9 scroll-mt-24 animate-fade-up-d2">
           <div className="mb-4 flex flex-col items-start gap-1.5 sm:flex-row sm:items-end sm:justify-between sm:gap-0">
             <div>
@@ -2028,11 +2039,12 @@ export function CompanyView({
             />
           )}
         </section>
+        </ZoneReservee>
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
         {isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories") ? (
           hasStories(company.kpis, []) && (
-            <KpiStories company={company} freeBlocked={freeBlocked} />
+            <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="KPI stories réservés aux abonnés"><KpiStories company={company} freeBlocked={freeBlocked} /></ZoneReservee>
           )
         ) : (
           <BlockComingSoon blockId="stories" />
