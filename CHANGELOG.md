@@ -397,3 +397,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.15.10 (15 Sep 2026 22:18, apres 5813344072)
 - sources externes par fiche, prix/mix defini, clic exterieur ferme le deplie, mention source retiree
+
+## v2026.09.15.11 (15 Sep 2026 22:54, apres d5750292f5)
+- code d erreur Turnstile affiche, equivalence GRR ServiceNow

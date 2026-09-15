@@ -26,7 +26,7 @@ declare global {
           size?: "normal" | "flexible" | "compact";
           appearance?: "always" | "execute" | "interaction-only";
           callback?: (token: string) => void;
-          "error-callback"?: () => void;
+          "error-callback"?: (code?: string) => void;
           "expired-callback"?: () => void;
           "timeout-callback"?: () => void;
         },
@@ -101,6 +101,9 @@ export function TurnstileWidget(props?: {
   const widgetIdRef = useRef<string | null>(null);
   const [token, setToken] = useState<string>("");
   const [status, setStatus] = useState<"loading" | "ready" | "error" | "expired">("loading");
+  // Yann 15 sept 2026 : le code d erreur Cloudflare est affiche, il dit la cause
+  // (110200 = domaine non autorise sur le widget, 300xxx = reseau ou extension).
+  const [codeErreur, setCodeErreur] = useState<string>("");
 
   useEffect(() => {
     let cancelled = false;
@@ -117,7 +120,10 @@ export function TurnstileWidget(props?: {
               setToken(tok);
               setStatus("ready");
             },
-            "error-callback": () => setStatus("error"),
+            "error-callback": (code?: string) => {
+              setCodeErreur(String(code ?? ""));
+              setStatus("error");
+            },
             "expired-callback": () => {
               setToken("");
               setStatus("expired");
@@ -174,7 +180,7 @@ export function TurnstileWidget(props?: {
       <input type="hidden" name={fieldName} value={token} />
       {status === "error" && (
         <p className="mt-1 text-[11px] text-rose-400">
-          Captcha indisponible. Recharge la page.
+          Captcha indisponible{codeErreur ? ` (code ${codeErreur})` : ""}. Recharge la page.
         </p>
       )}
       {status === "expired" && (
