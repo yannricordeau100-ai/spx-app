@@ -46,16 +46,19 @@ function Pourcent({ n, d }: { n: number; d: number }) {
  *  un KPI deja present avant le chantier compte comme couvert). */
 function OngletIndustries() {
   const parCode = new Map(ETAT_IND.industries.map((i) => [i.code, i] as const));
+  // 15 sept 2026 : les societes pour lesquelles le KPI est sans objet (activite absente)
+  // sortent du denominateur ; le pourcentage mesure les societes qui pourraient publier le KPI.
+  const sansObjet = (k: unknown) => ((k as { sans_objet?: string[] }).sans_objet ?? []).length;
   const couverture = (inds: (typeof ETAT_IND.industries)[number][]) => {
     let n = 0, d = 0;
-    for (const i of inds) for (const k of i.kpis) { n += k.stes_avec.length; d += i.stes.length; }
+    for (const i of inds) for (const k of i.kpis) { n += k.stes_avec.length; d += i.stes.length - sansObjet(k); }
     return { n, d };
   };
   return (
     <div>
       <div className="flex flex-wrap items-center gap-3 rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2 text-[12px]">
         <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-400">Lecture</span>
-        <span className="text-zinc-300">Pour chaque KPI : part des sociétés de l industrie qui le publient dans leur fiche (vert 80 % et plus, ambre 40 à 79 %, orange en dessous).</span>
+        <span className="text-zinc-300">Pour chaque KPI : part des sociétés de l industrie qui le publient dans leur fiche, hors sociétés pour lesquelles le KPI est sans objet (vert 80 % et plus, ambre 40 à 79 %, orange en dessous).</span>
         <span className="ml-auto font-mono text-[11px] text-zinc-400">{ETAT_IND.total_kpi} KPI · {ETAT_IND.deja_presents} présents chez au moins une société</span>
       </div>
       <div className="mt-4 grid gap-2">
@@ -96,9 +99,10 @@ function OngletIndustries() {
                               <ul className="mt-1.5 grid gap-0.5">
                                 {i.kpis.map((k, idx) => (
                                   <li key={i.code + idx} className="flex flex-wrap items-baseline gap-x-2 text-[12px] text-zinc-300">
-                                    <Pourcent n={k.stes_avec.length} d={i.stes.length} />
+                                    <Pourcent n={k.stes_avec.length} d={i.stes.length - sansObjet(k)} />
                                     <span>{k.fr}</span>
                                     {k.stes_avec.length > 0 && <span className="font-mono text-[10px] text-emerald-400/70">{k.stes_avec.join(", ")}</span>}
+                                    {sansObjet(k) > 0 && <span className="font-mono text-[10px] text-zinc-600">sans objet : {(k as { sans_objet?: string[] }).sans_objet!.join(", ")}</span>}
                                     {Object.keys((k as { stes_sans?: Record<string, string> }).stes_sans ?? {}).length > 0 && (
                                       <span className="font-mono text-[10px] text-zinc-500" title={Object.entries((k as { stes_sans?: Record<string, string> }).stes_sans ?? {}).map(([t, r]) => `${t} : ${r}`).join("\n")}>sans : {Object.keys((k as { stes_sans?: Record<string, string> }).stes_sans ?? {}).join(", ")}</span>
                                     )}
