@@ -13,7 +13,7 @@ import {
 } from "@/app/auth/actions";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useT } from "@/lib/i18n/provider";
-import { HCaptchaWidget } from "@/components/hcaptcha-widget";
+import { TurnstileWidget } from "@/components/turnstile-widget";
 
 /**
  * Bouton submit avec état "pending" automatique via useFormStatus.
@@ -98,8 +98,8 @@ export function AuthModal() {
     const emailV = String(fd.get("email") ?? "").trim();
     const passwordV = String(fd.get("password") ?? "");
     // Yann 12 sept 2026 : Supabase exige le captcha sur la connexion par mot
-    // de passe (« no captcha_token found » sinon). « bypass » = widget non configure.
-    const jetonCaptcha = String(fd.get("h-captcha-response") ?? "");
+    // de passe (« no captcha_token found » sinon). Yann 14 sept 2026 : Cloudflare Turnstile remplace hCaptcha (gratuit, illimite).
+    const jetonCaptcha = String(fd.get("cf-turnstile-response") ?? "");
     const captchaToken = jetonCaptcha && jetonCaptcha !== "bypass" ? jetonCaptcha : undefined;
     if (!emailV || !passwordV) {
       setSigninErr("Email + mot de passe requis");
@@ -404,7 +404,7 @@ export function AuthModal() {
                     />
                   </Field>
                   <div className="flex justify-center">
-                    <HCaptchaWidget theme="dark" />
+                    <TurnstileWidget theme="dark" />
                   </div>
                   <SubmitButton>{t("auth.cta.send_reset")}</SubmitButton>
                 </form>
@@ -464,7 +464,7 @@ export function AuthModal() {
                       />
                     </Field>
                     <div className="flex justify-center">
-                      <HCaptchaWidget key={cleMontageCaptcha} signalReset={cleCaptcha} theme="dark" />
+                      <TurnstileWidget key={cleMontageCaptcha} signalReset={cleCaptcha} theme="dark" />
                     </div>
                     {signinErr && (
                       <div className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-[12.5px] text-rose-200">
@@ -509,7 +509,7 @@ export function AuthModal() {
                     {/* Captcha Turnstile : token injecté dans le form en tant
                         que champ caché 'cf-turnstile-response'. */}
                     <div className="flex justify-center">
-                      <HCaptchaWidget theme="dark" />
+                      <TurnstileWidget theme="dark" />
                     </div>
                     <SubmitButton>{t("auth.cta.signup")}</SubmitButton>
                     {/* Yann 31 aout 2026 : acceptation par le clic (clickwrap).

@@ -80,9 +80,20 @@ export function TurnstileWidget(props?: {
   fieldName?: string;
   theme?: "dark" | "light" | "auto";
   size?: "normal" | "flexible" | "compact" | "invisible";
+  /** Yann 14 sept 2026 : incrementer ce nombre remet le captcha a zero (un
+   *  jeton ne vaut qu une verification cote Supabase). */
+  signalReset?: number;
 }) {
   const fieldName = props?.fieldName ?? "cf-turnstile-response";
-  const siteKey = props?.siteKey ?? getTurnstileSiteKey();
+  // Yann 14 sept 2026 : cle publique relayee par app/layout.tsx quand elle est
+  // posee sous NEXT_PB_TURNSTILE_SITE_KEY (Vercel refuse « sensible » sur NEXT_PUBLIC_).
+  const [cleRelais, setCleRelais] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    const v = (window as unknown as { __turnstileSiteKey?: unknown }).__turnstileSiteKey;
+    setCleRelais(typeof v === "string" && v.length > 0 ? v : undefined);
+  }, []);
+  // Priorite a la cle relayee (widget « Mettrik » cree le 14 sept 2026), puis l ancienne NEXT_PUBLIC_.
+  const siteKey = props?.siteKey ?? cleRelais ?? getTurnstileSiteKey();
   const theme = props?.theme ?? "dark";
   const size = (props?.size === "invisible" ? "normal" : props?.size) ?? "normal";
 
@@ -131,6 +142,31 @@ export function TurnstileWidget(props?: {
       }
     };
   }, [siteKey, theme, size]);
+
+  // Remise a zero apres chaque envoi du formulaire parent et sur signalReset :
+  // Turnstile rend le meme jeton tant que le widget n est pas reinitialise.
+  useEffect(() => {
+    const form = containerRef.current?.closest("form");
+    if (!form) return;
+    const apresEnvoi = () => {
+      window.setTimeout(() => {
+        setToken("");
+        if (widgetIdRef.current && window.turnstile) {
+          try { window.turnstile.reset(widgetIdRef.current); } catch { /* widget deja retire */ }
+        }
+      }, 0);
+    };
+    form.addEventListener("submit", apresEnvoi);
+    return () => form.removeEventListener("submit", apresEnvoi);
+  }, []);
+  const premierSignal = useRef(true);
+  useEffect(() => {
+    if (premierSignal.current) { premierSignal.current = false; return; }
+    setToken("");
+    if (widgetIdRef.current && window.turnstile) {
+      try { window.turnstile.reset(widgetIdRef.current); } catch { /* widget deja retire */ }
+    }
+  }, [props?.signalReset]);
 
   return (
     <div className="inline-block">

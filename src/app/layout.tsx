@@ -133,20 +133,16 @@ export default async function RootLayout({
     >
       <head>
         {/* Yann 3 sept 2026 : Vercel refuse de marquer "sensible" une variable
-            prefixee NEXT_PUBLIC_, la cle publique hCaptcha y est donc posee
-            sous le nom NEXT_PB_HCAPTCHA_SITE_KEY. Or seul le prefixe
-            NEXT_PUBLIC_ est inline dans le code envoye au navigateur : sans
-            ce relais, le widget ne voyait aucune cle et le formulaire partait
-            avec un jeton "bypass", refuse par Supabase depuis que le captcha
-            y est active (inscription impossible). On expose donc la cle
-            PUBLIQUE ici, cote serveur. Aucune donnee secrete : cette cle est
-            faite pour etre lue par le navigateur. */}
-        {(process.env.NEXT_PB_HCAPTCHA_SITE_KEY || process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY) && (
+            prefixee NEXT_PUBLIC_, la cle publique du captcha est donc posee
+            sous le nom NEXT_PB_TURNSTILE_SITE_KEY et relayee ici au navigateur.
+            Yann 14 sept 2026 : Cloudflare Turnstile remplace hCaptcha.
+            Aucune donnee secrete : cette cle est faite pour etre lue par le navigateur. */}
+        {(process.env.NEXT_PB_TURNSTILE_SITE_KEY || process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) && (
           <script
-            id="cfg-hcaptcha"
+            id="cfg-turnstile"
             dangerouslySetInnerHTML={{
-              __html: `window.__hcaptchaSiteKey=${JSON.stringify(
-                process.env.NEXT_PB_HCAPTCHA_SITE_KEY || process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY,
+              __html: `window.__turnstileSiteKey=${JSON.stringify(
+                process.env.NEXT_PB_TURNSTILE_SITE_KEY || process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
               )};`,
             }}
           />

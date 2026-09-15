@@ -12,7 +12,7 @@ import { authErrorParam, type Locale } from "@/lib/auth-errors";
  *  appels auth, vérifié par Supabase avec le secret configuré dans
  *  Auth Settings → Bot/Spam protection → hCaptcha). */
 function getCaptchaToken(formData: FormData): string {
-  const token = formData.get("h-captcha-response");
+  const token = formData.get("cf-turnstile-response");
   return typeof token === "string" ? token : "";
 }
 
