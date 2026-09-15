@@ -216,7 +216,18 @@ const ZONES_LARGES = [
   "europe", "emea", "eu", "zone euro", "euro area", "asie", "asia", "apac", "asie pacifique", "asia pacific",
   "reste du monde", "rest of world", "row", "autres pays", "other countries", "afrique", "africa", "moyen orient", "middle east",
 ];
-function estCaAnnuelRedondant(k: { short?: string; name_fr?: string; name_en?: string; period_type?: string }, libelles: Set<string>): boolean {
+/* Un vrai montant de chiffre d affaires : en monnaie, et pas une croissance,
+   une part, une marge ni un taux (« Croissance revenu Azure » ou « Part des
+   hyperscalers dans le Data Center » restent des KPI a part entiere). */
+const RE_PAS_MONTANT = /(croissance|growth|\bpart\b|\bshare\b|marge|margin|taux|\brate\b|ratio|run rate|par action|per share|pourcentage|percent)/;
+function estMontantCa(k: { name_fr?: string; name_en?: string; short?: string; unit?: string }): boolean {
+  const u = String(k.unit ?? "");
+  if (!u || /%|pts|points/.test(u)) return false;
+  if (!/[$€£]|chf|usd|eur|gbp|mds|\bm\b|milliard|million/i.test(u)) return false;
+  return !RE_PAS_MONTANT.test(sansAccent([k.name_fr, k.name_en, k.short].filter(Boolean).join(" ")));
+}
+function estCaAnnuelRedondant(k: { short?: string; name_fr?: string; name_en?: string; period_type?: string; unit?: string }, libelles: Set<string>): boolean {
+  if (!estMontantCa(k)) return false;
   const pt = k.period_type;
   if (pt === "quarter" || pt === "semester") return false;
   const nom = sansAccent([k.name_fr, k.name_en, k.short].filter(Boolean).join(" "));
@@ -231,8 +242,9 @@ function estCaAnnuelRedondant(k: { short?: string; name_fr?: string; name_en?: s
   for (const z of ZONES_LARGES) if (reste === z || reste.startsWith(z + " ") || reste.endsWith(" " + z)) return true;
   return false;
 }
-function estCaTrimestriel(k: { short?: string; name_fr?: string; name_en?: string; period_type?: string }): boolean {
+function estCaTrimestriel(k: { short?: string; name_fr?: string; name_en?: string; period_type?: string; unit?: string }): boolean {
   if (k.period_type !== "quarter") return false;
+  if (!estMontantCa(k)) return false;
   return RE_CA.test(sansAccent([k.name_fr, k.name_en, k.short].filter(Boolean).join(" ")));
 }
 
@@ -879,9 +891,9 @@ export function CompanyView({
       if (!kpiHasUsableValue(k)) return false;
       if (k.short === heroShort) return true;
       // Le chiffre d affaires annuel deja porte par le bloc de repartition sort du tableau.
-      if (estCaAnnuelRedondant(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string }, libellesRepartition)) return false;
+      if (estCaAnnuelRedondant(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string; unit?: string }, libellesRepartition)) return false;
       // Le chiffre d affaires trimestriel est regroupe sous le bloc de repartition.
-      if (estCaTrimestriel(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string })) return false;
+      if (estCaTrimestriel(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string; unit?: string })) return false;
       // Yann 29 aout 2026 : un KPI cree a la main (hors_document) est TOUJOURS
       // accepte, quelle que soit sa cadence ou la longueur de son historique.
       if ((k as unknown as { hors_document?: boolean }).hors_document === true) return true;
@@ -935,7 +947,7 @@ export function CompanyView({
       avances: tries.filter((k) => k.short === heroShort || !estKpiStandard(k)),
       standards: tries.filter((k) => k.short !== heroShort && estKpiStandard(k)),
       caTrimestriels: all.filter(
-        (k) => k.short !== heroShort && kpiHasUsableValue(k) && estCaTrimestriel(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string }),
+        (k) => k.short !== heroShort && kpiHasUsableValue(k) && estCaTrimestriel(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string; unit?: string }),
       ),
     };
   }, [company]);

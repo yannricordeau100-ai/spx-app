@@ -415,3 +415,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.4 (16 Sep 2026 01:33, apres 7b1a4637ce)
 - KPI de chiffre d affaires regroupes, zone Monde par defaut, case d opposition, interrupteur tarifs
+
+## v2026.09.16.5 (16 Sep 2026 01:35, apres c2dd52c998)
+- KPI de chiffre d affaires : regle restreinte aux montants
