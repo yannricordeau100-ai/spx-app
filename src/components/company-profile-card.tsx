@@ -104,7 +104,7 @@ export function CompanyProfileCard({
       <div className="mb-3 flex items-baseline justify-between">
         {/* Yann 14 mai 2026 : "Profil société & marché" → "Comprendre la société" */}
         <h2 className="sr-only">{t("company.profile.section_title")}</h2>
-        <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">{t("company.profile.source")}</span>
+        {/* Yann 15 sept 2026 : mention « Source : Mettrik AI » retiree du bloc. */}
       </div>
 
       {/* Layout principal : Description Mettrik (2/3) + Snapshot boursier (1/3).

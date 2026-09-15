@@ -75,6 +75,7 @@ import { isTotalRevenueLabel } from "@/lib/kpi-total-revenue";
 import { RiskStack } from "@/components/risk-stack";
 import { AntiTheseCard } from "@/components/anti-these-card";
 import { AppelAbonnement } from "@/components/appel-abonnement";
+import { SourcesExternes } from "@/components/sources-externes";
 import { UnitesMateriaux } from "@/components/unites-materiaux";
 import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
@@ -2053,6 +2054,8 @@ export function CompanyView({
               unites={company.kpis.map((k) => k.unit)}
             />
           )}
+          {/* Yann 15 sept 2026 : sources autres que les documents de la societe. */}
+          <SourcesExternes ticker={company.ticker} paid={isPaidTier} />
         </section>
         </ZoneReservee>
 

@@ -19,7 +19,7 @@
  *    pour qu aucune unité vue sur un axe ne manque au dépliant.
  */
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import DATA from "@/data/unites-materiaux.json";
 import UNIVERS from "@/data/unites-univers.json";
@@ -255,6 +255,16 @@ export function UnitesMateriaux({
 }) {
   const [ouvert, setOuvert] = useState(false);
   const [toutVoir, setToutVoir] = useState(false);
+  // Yann 15 sept 2026 : un clic en dehors du deplie le referme.
+  const boite = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!ouvert) return;
+    const dehors = (e: MouseEvent) => {
+      if (boite.current && !boite.current.contains(e.target as Node)) setOuvert(false);
+    };
+    document.addEventListener("mousedown", dehors);
+    return () => document.removeEventListener("mousedown", dehors);
+  }, [ouvert]);
   const secteur = secteurCle(gicsCode);
 
   const { groupes, total, surFiche, sansDefinition } = useMemo(() => {
@@ -305,7 +315,7 @@ export function UnitesMateriaux({
   const titreSecteur = secteurLabel?.trim() ? `du secteur ${secteurLabel.trim()}` : "de cette fiche";
 
   return (
-    <div data-blur="unites" className="mt-4 rounded-2xl border border-white/[0.08] bg-white/[0.015]">
+    <div ref={boite} data-blur="unites" className="mt-4 rounded-2xl border border-white/[0.08] bg-white/[0.015]">
       <button
         data-blur-part="titre"
         type="button"
