@@ -2849,6 +2849,9 @@ async function loadV17CompanyBrut(
           ...((k as { approx?: string }).approx === "min" || (k as { approx?: string }).approx === "env"
             ? { approx: (k as { approx?: "min" | "env" }).approx }
             : {}),
+          ...(typeof (k as { _estime_libelle?: string })._estime_libelle === "string"
+            ? { _estime_libelle: (k as { _estime_libelle?: string })._estime_libelle }
+            : {}),
           ...(Array.isArray((k as { _estime?: string[] })._estime)
             ? { _estime: (k as { _estime?: string[] })._estime }
             : {}),

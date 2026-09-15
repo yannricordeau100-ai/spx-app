@@ -31,6 +31,8 @@ export type KPI = {
   last_data_date?: string;
   /** 9 sept 2026 : periodes dont la valeur est une ESTIMATION (moyenne des annees voisines), ex ["FY2019"]. Asterisque sur la fiche. */
   _estime?: string[];
+  /** Yann 15 sept 2026 : phrase propre au KPI sous les annees estimees. */
+  _estime_libelle?: string;
   /** French name (full). */
   name_fr: string;
   /** Original English name (kept under FR). Optional if FR == EN. */
