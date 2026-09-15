@@ -49,8 +49,9 @@ const C = {
 const FONT =
   "'Helvetica Neue',Helvetica,Arial,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
 
+// Yann 15 sept 2026 : logo servi depuis le domaine public stable (niveau2 change a chaque build).
 const LOGO_URL =
-  "https://mettrik-niveau2.vercel.app/brand/mettrik-ai-white-purple.png";
+  "https://mettrik.ai/brand/mettrik-ai-white-purple.png";
 
 const STR: Record<
   LayoutLocale,

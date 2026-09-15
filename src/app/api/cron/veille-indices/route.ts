@@ -1,3 +1,4 @@
+import { renderEmailLayout } from "@/lib/email/layout";
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import SP500 from "@/data/sp500-tickers.json";
@@ -60,7 +61,7 @@ export async function GET(req: NextRequest) {
   if (changement && empreinte !== precedente && process.env.RESEND_API_KEY && process.env.DESK_OWNER_EMAIL) {
     const li = (l: { ticker: string; nom: string; ajout: string }[]) => l.map((x) => `<li>${x.ticker} · ${x.nom}${x.ajout ? ` (ajout ${x.ajout})` : ""}</li>`).join("");
     const html = `<p>Changement de composition détecté.</p><p><strong>S&P 500</strong> : entrées <ul>${li(ecart.sp500.entrees)}</ul> sorties : ${ecart.sp500.sorties.join(", ") || "aucune"}</p><p><strong>Nasdaq 100</strong> : entrées <ul>${li(ecart.nasdaq100.entrees)}</ul> sorties : ${ecart.nasdaq100.sorties.join(", ") || "aucune"}</p><p>À faire : ajouter les nouvelles sociétés au site (fiche complète et raccordement back-office).</p>`;
-    const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" }, body: JSON.stringify({ from: "Mettrik alertes <noreply@mettrik.ai>", to: [process.env.DESK_OWNER_EMAIL], subject: `Indices : ${ecart.sp500.entrees.length + ecart.nasdaq100.entrees.length} nouvelle(s) société(s), ${ecart.sp500.sorties.length + ecart.nasdaq100.sorties.length} sortie(s)`, html }) });
+    const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" }, body: JSON.stringify({ from: "Mettrik alertes <noreply@mettrik.ai>", to: [process.env.DESK_OWNER_EMAIL], subject: `Indices : ${ecart.sp500.entrees.length + ecart.nasdaq100.entrees.length} nouvelle(s) société(s), ${ecart.sp500.sorties.length + ecart.nasdaq100.sorties.length} sortie(s)`, html: renderEmailLayout({ locale: "fr", preheader: "Changement de composition des indices", title: "Veille des indices", bodyHtml: html }) }) });
     email = r.ok ? "envoyé" : `échec ${r.status}`;
     if (r.ok) await sb.from("desk_page_content").upsert({ page_key: "veille_indices", section_key: "empreinte", content_fr: empreinte }, { onConflict: "page_key,section_key" });
   } else if (changement) email = "inchangé, déjà notifié";

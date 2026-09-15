@@ -1,3 +1,4 @@
+import { renderEmailLayout } from "@/lib/email/layout";
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { calculerEtatMisesAJour } from "@/lib/mises-a-jour/etat";
@@ -36,7 +37,7 @@ export async function GET(req: NextRequest) {
   const doitEnvoyer = etat.rougesTotal > 0 && empreinte !== precedente && req.nextUrl.searchParams.get("email") !== "0";
   if (doitEnvoyer && process.env.RESEND_API_KEY && process.env.DESK_OWNER_EMAIL) {
     const corps = `<p><strong>${etat.rougesTotal} bloc(s) de fiche en retard (J+3 dépassé)</strong>, ${etat.stesRouges.length} société(s).</p><ul>${resume.map((l) => `<li>${l}</li>`).join("")}</ul><p>Détail : https://mettrik-niveau2.vercel.app/sandbox/mises-a-jour</p><p>Claude corrige les blocs rouges en début de session.</p>`;
-    const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" }, body: JSON.stringify({ from: "Mettrik alertes <noreply@mettrik.ai>", to: [process.env.DESK_OWNER_EMAIL], subject: `ALERTE ROUGE : ${etat.rougesTotal} bloc(s) de fiche en retard`, html: corps }) });
+    const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" }, body: JSON.stringify({ from: "Mettrik alertes <noreply@mettrik.ai>", to: [process.env.DESK_OWNER_EMAIL], subject: `ALERTE ROUGE : ${etat.rougesTotal} bloc(s) de fiche en retard`, html: renderEmailLayout({ locale: "fr", preheader: `${etat.rougesTotal} bloc(s) de fiche en retard`, title: "Mises à jour des fiches : blocs en retard", bodyHtml: corps }) }) });
     email = r.ok ? "envoyé" : `échec ${r.status}`;
     if (r.ok) await sb.from("desk_page_content").upsert({ page_key: "alertes_maj", section_key: "empreinte", content_fr: empreinte }, { onConflict: "page_key,section_key" });
   } else if (etat.rougesTotal > 0 && empreinte === precedente) email = "inchangé, déjà notifié";
