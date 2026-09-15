@@ -406,3 +406,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.1 (16 Sep 2026 00:32, apres 53a1734737)
 - Mise a jour nocturne : 9 societes (ADBE, CPRT, KR, CSCO, INTU, SMCI, WDC, DE, RJF) avec points KPI verifies, positionnement IA et stories ; 14 syntheses d appels ; 6 transcripts corriges
+
+## v2026.09.16.2 (16 Sep 2026 00:33, apres b63b48fd78)
+- filtres heros, recherche des unites, parcours anonyme, vitrine Google, page Reglages KPI, KPI de l accueil

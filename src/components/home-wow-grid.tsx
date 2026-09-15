@@ -171,10 +171,13 @@ export function CarteSteWow({
   s,
   buildHref,
   tickersSet,
+  flouKpis = false,
 }: {
   s: SteWow;
   buildHref: (t: string) => string;
   tickersSet?: Set<string>;
+  /** Yann 16 sept 2026 : visiteur anonyme, valeurs floutees (sauf la vitrine Google). */
+  flouKpis?: boolean;
 }) {
   const accent = brand(s.ticker).primary;
   return (
@@ -208,7 +211,7 @@ export function CarteSteWow({
         </div>
         <ArrowRight className="mt-1 size-4 shrink-0 -translate-x-1 text-zinc-500 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
       </div>
-      <div className="mt-2.5 divide-y divide-white/[0.05] border-t border-white/[0.07]">
+      <div className={`mt-2.5 divide-y divide-white/[0.05] border-t border-white/[0.07] ${flouKpis ? "select-none blur-[5px]" : ""}`} aria-hidden={flouKpis || undefined}>
         {s.kpis.map((k, i) => (
           <div key={i} className="flex items-baseline justify-between gap-2 py-[5px]">
             <span className="min-w-0 flex-1 truncate text-[13px] text-zinc-300" title={k.nom}>

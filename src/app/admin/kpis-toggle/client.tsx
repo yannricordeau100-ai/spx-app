@@ -16,6 +16,8 @@ export type KpiRow = {
   is_hero: boolean;
   is_generic: boolean;
   pv_score: number | null;
+  /** Yann 16 sept 2026 : produit phare, KPI d industrie, KPI standard ou KPI « wow ». */
+  categorie?: "phare" | "industrie" | "standard" | "wow";
 };
 
 export type SteRow = {
@@ -94,6 +96,9 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
   // Yann 29 aout 2026 : filtres par secteur (11) et par indice, SOXX compris.
   const [secteurFiltre, setSecteurFiltre] = useState<string>("Tous");
   const [indiceFiltre, setIndiceFiltre] = useState<string>("Tous");
+  // Yann 16 sept 2026 : filtres zone (USA / Europe) et categorie du heros en place.
+  const [zoneFiltre, setZoneFiltre] = useState<string>("Toutes");
+  const [heroFiltre, setHeroFiltre] = useState<string>("Tous");
   const [openSet, setOpenSet] = useState<Set<string>>(new Set());
   const [showGenericSet, setShowGenericSet] = useState<Set<string>>(new Set());
   const [pendingKey, setPendingKey] = useState<string | null>(null);
@@ -195,6 +200,20 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
     if (indiceFiltre !== "Tous") {
       list = list.filter((s) => (s.indices ?? []).includes(indiceFiltre));
     }
+    if (zoneFiltre !== "Toutes") {
+      const EU = new Set(["CAC 40", "SMI", "AEX", "DAX"]);
+      list = list.filter((s) => {
+        const europe = (s.indices ?? []).some((i) => EU.has(i)) || s.ticker.includes(".");
+        return zoneFiltre === "Europe" ? europe : !europe;
+      });
+    }
+    if (heroFiltre !== "Tous") {
+      list = list.filter((s) => {
+        const h = heroOverrides[s.ticker] ?? s.hero_kpi;
+        const cat = s.kpis.find((k) => k.short === h)?.categorie ?? "aucun";
+        return cat === heroFiltre;
+      });
+    }
     if (q) {
       list = list.filter(
         (s) =>
@@ -213,7 +232,7 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
       });
     }
     return list;
-  }, [stes, query, sortMode, secteurFiltre, indiceFiltre]);
+  }, [stes, query, sortMode, secteurFiltre, indiceFiltre, zoneFiltre, heroFiltre, heroOverrides]);
 
   // Compteurs status
   const counts = useMemo(() => {
@@ -399,6 +418,29 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
               <option key={i} value={i}>{i}</option>
             ))}
           </select>
+          <select
+            value={zoneFiltre}
+            onChange={(e) => setZoneFiltre(e.target.value)}
+            className="rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-2 text-[12px] text-zinc-100 focus:border-white/20 focus:outline-none"
+            aria-label="Filtrer par zone"
+          >
+            <option value="Toutes">Zone : toutes</option>
+            <option value="USA">USA</option>
+            <option value="Europe">Europe</option>
+          </select>
+          <select
+            value={heroFiltre}
+            onChange={(e) => setHeroFiltre(e.target.value)}
+            className="rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-2 text-[12px] text-zinc-100 focus:border-white/20 focus:outline-none"
+            aria-label="Filtrer par type de héros"
+          >
+            <option value="Tous">Héros : tous</option>
+            <option value="industrie">Héros = KPI d industrie</option>
+            <option value="wow">Héros = KPI wow</option>
+            <option value="phare">Héros = produit phare</option>
+            <option value="standard">Héros = KPI standard</option>
+          </select>
+          <span className="font-mono text-[11px] text-zinc-500">{sortedAndFiltered.length} sociétés</span>
         </div>
         {/* Légende couleurs */}
         <div className="mt-3 flex flex-wrap items-center gap-2 text-[10.5px] uppercase tracking-wider">

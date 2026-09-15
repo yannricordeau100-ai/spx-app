@@ -208,6 +208,7 @@ export function CompanyView({
   transcriptSummary = null,
   v18Mode = false,
   freemiumTier,
+  captureInscription = false,
   disabledBlocks,
   historyLimitYears,
 }: {
@@ -227,6 +228,8 @@ export function CompanyView({
    *  chiffres importants + textes plus-value. Provider FreemiumBlurProvider
    *  doit être posé côté SSR (page.tsx V1.9 / V1.9.5). */
   freemiumTier?: UserTier;
+  /** Yann 16 sept 2026 : vitrine anonyme (Google) : tout clic hors connexion mene a l inscription. */
+  captureInscription?: boolean;
   /** Yann 9 juin 2026 : liste des blocs désactivés (Supabase + fallback
    *  JSON) résolue côté serveur via `resolveDisabledForTicker(ticker)` et
    *  passée en prop. Si fournie, prime sur le fallback client
@@ -1199,7 +1202,7 @@ export function CompanyView({
             <PageSearch variant="default" />
             <div className="ml-auto flex shrink-0 items-center gap-2">
               <ThemeToggle paid={isPaidTier} />
-              {authSlot}
+              <div className="relative z-[70]">{authSlot}</div>
             </div>
           </nav>
 
@@ -1236,6 +1239,13 @@ export function CompanyView({
       <CmdFSearch scopeSelector="main" />
 
       <main className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
+        {captureInscription && (
+          <a
+            href={`/?auth=signup&next=${encodeURIComponent("/" + company.ticker.toLowerCase())}`}
+            aria-label="Inscris-toi gratuitement pour accéder à toutes les fiches"
+            className="fixed inset-0 z-[60] cursor-pointer"
+          />
+        )}
         {/* Top nav — tout sur une ligne : back + recherche (collée à gauche)
             puis actions à droite (variant, comparer, enregistrer, compte). */}
         <nav className="mb-9 flex flex-nowrap items-center gap-1.5 sm:gap-3 whitespace-nowrap">
@@ -1271,7 +1281,7 @@ export function CompanyView({
             {freemiumTier !== "anon" && <MesListesMenu />}
             <ThemeToggle paid={isPaidTier} />
             </div>
-            {authSlot}
+            <div className="relative z-[70]">{authSlot}</div>
           </div>
         </nav>
 

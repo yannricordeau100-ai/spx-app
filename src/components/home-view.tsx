@@ -669,6 +669,7 @@ export function HomeView({
   topNavLinks,
   requireSignupGate = false,
   anonLinks = false,
+  accueilKpis,
   gatePath = "/",
   contentOverrides,
 }: {
@@ -682,6 +683,8 @@ export function HomeView({
   requireSignupGate?: boolean;
   /** Yann 15 sept 2026 : visiteur anonyme, chaque lien de fiche pointe vers l inscription gratuite. */
   anonLinks?: boolean;
+  /** Yann 16 sept 2026 : KPI de l accueil choisis par le proprietaire (ticker -> 3 KPI). */
+  accueilKpis?: Record<string, { nom: string; valeur: string; unite: string; yoy: string | null; periode: string | null }[]>;
   /** Page qui monte <AuthModal /> (utilisée pour le redirect signup). */
   gatePath?: string;
   /** Yann 12 mai 2026 : textes editables via /desk-mtk9x4kp/page-content.
@@ -697,7 +700,7 @@ export function HomeView({
   const results = tickersProp ?? (UNIVERSE as { tickers: string[] }).tickers;
   const buildHref = (tk: string): string => {
     const base = routePrefix ? `${routePrefix}/${tk.toLowerCase()}` : `/${tk.toLowerCase()}`;
-    return anonLinks ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
+    return anonLinks && !["GOOGL", "GOOG"].includes(tk.toUpperCase()) ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
   };
   // Yann 4 juin 2026 : ticker affiché sur les cards = displayTicker (strip
   // suffixe place boursière .PA/.SW/.L/etc sauf si conflit avec un short
@@ -813,6 +816,7 @@ export function HomeView({
               locale={locale}
               routePrefix={routePrefix}
               anonLinks={anonLinks}
+              kpisPerso={accueilKpis}
               requireSignupGate={requireSignupGate}
               gatePath={gatePath}
             />

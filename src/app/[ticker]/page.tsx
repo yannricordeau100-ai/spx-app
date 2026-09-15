@@ -217,6 +217,14 @@ export default async function TickerPage({
     chargeZonesFloutage(ticker.toUpperCase()),
   ]);
 
+  const sp = searchParams ? await searchParams : undefined;
+  const auditBypass =
+    !!sp?.audit_token &&
+    !!process.env.VISUAL_AUDIT_TOKEN &&
+    sp.audit_token === process.env.VISUAL_AUDIT_TOKEN;
+  // Yann 16 sept 2026 : la fiche Google est la vitrine complete des anonymes ;
+  // un clic n importe ou (hors connexion / inscription) mene a l inscription.
+  const vitrineAnon = !auditBypass && tierResolu === "anon" && ["GOOGL", "GOOG"].includes(ticker.toUpperCase());
   if (r.kind !== "ready") {
     // Sans dataset legacy ET sans rendu du chargeur, il n y a rien a montrer.
     if (!legacyCompany) notFound();
@@ -229,6 +237,7 @@ export default async function TickerPage({
           <CompanyView
             company={legacyCompany}
             authSlot={<AuthNav scope="company" />}
+          captureInscription={vitrineAnon}
             transcript={tierRepli === "free" || tierRepli === "anon" ? null : transcript}
             freemiumTier={tierRepli}
           />
@@ -243,12 +252,7 @@ export default async function TickerPage({
   // l adresse publique /<ticker> lisaient donc une page anonyme (textes
   // caviardes), et l alerte de securite signalait un jeton « invalide » alors
   // qu il etait simplement ignore ici.
-  const sp = searchParams ? await searchParams : undefined;
-  const auditBypass =
-    !!sp?.audit_token &&
-    !!process.env.VISUAL_AUDIT_TOKEN &&
-    sp.audit_token === process.env.VISUAL_AUDIT_TOKEN;
-  const freemiumTier = auditBypass ? "max" : tierPourFiche(tierResolu, ticker);
+  const freemiumTier = auditBypass || vitrineAnon ? "max" : tierPourFiche(tierResolu, ticker);
 
   // ATT (anti-thèse) : même gating serveur que /sandbox/v1-9-5/<ticker>.
   // Le contenu complet n'est sérialisé que pour le plan Max.

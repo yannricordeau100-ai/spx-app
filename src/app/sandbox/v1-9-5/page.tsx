@@ -1,3 +1,4 @@
+import { kpisAccueilPersonnalises } from "@/lib/accueil-kpis";
 import Link from "next/link";
 import { Suspense } from "react";
 import path from "node:path";
@@ -146,6 +147,8 @@ export default async function SandboxV195HubPage() {
 
   // Yann (8 juin 2026) : thème clair réservé aux offres payantes (premium + max).
   const freemiumTier = await getServerFreemiumTier();
+  // Yann 16 sept 2026 : KPI de l accueil choisis depuis /sandbox/accueil-kpis.
+  const accueilKpis = await kpisAccueilPersonnalises().catch(() => ({}));
   const themePaid = freemiumTier === "premium" || freemiumTier === "max";
 
   return (
@@ -161,18 +164,23 @@ export default async function SandboxV195HubPage() {
         // plus de chemin interne /sandbox/v1-9-5/<ticker>.
         searchScope={{ tickers: tickersRecherche, total: tickersRecherche.length }}
         topNavLinks={[
-          { label: pricingLabel, href: "/pricing" },
+          // Yann 16 sept 2026 : le lien Tarifs n apparait qu aux inscrits.
+          ...(isAuthed ? [{ label: pricingLabel, href: "/pricing" }] : []),
           { label: contactLabel, href: "/contact" },
         ]}
         requireSignupGate={freemiumTier === "anon"} // Yann 15 sept 2026 : anonyme = inscription avant toute fiche
         anonLinks={freemiumTier === "anon"}
         gatePath="/sandbox/v1-9-5"
         contentOverrides={homeOverrides}
+        accueilKpis={accueilKpis}
       />
       <Suspense fallback={null}>
         <AuthModal />
       </Suspense>
 
+      {/* Yann 16 sept 2026 : section tarifs et abonnement reservee aux inscrits. */}
+      {isAuthed && (
+      <>
       {/* Section pricing inline (style V1.8).
           Yann (5 juin 2026) : verrouillage mode anonyme. Tous les CTA de
           cette section (cards pricing + boutons comparatif/contact) sont
@@ -223,6 +231,8 @@ export default async function SandboxV195HubPage() {
           </SignupGateOverlay>
         </div>
       </section>
+      </>
+      )}
     </>
   );
 }

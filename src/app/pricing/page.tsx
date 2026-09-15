@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { ArrowLeft, Check, Mail } from "lucide-react";
@@ -48,6 +50,14 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function PricingPage() {
+  // Yann 16 sept 2026 : les tarifs ne se voient qu une fois inscrit ; un
+  // visiteur anonyme est renvoye vers l inscription (tous les liens « Tarifs »
+  // du site aboutissent donc a l inscription sans modifier chaque lien).
+  {
+    const sbTarifs = await createSupabaseServerClient();
+    const { data: { user: visiteur } } = await sbTarifs.auth.getUser();
+    if (!visiteur) redirect("/?auth=signup&next=/pricing");
+  }
   const currency = await detectCurrency();
   // Yann (25 mai 2026) : passer currency au catalog → auto-conversion EUR→cible
   // si pas de prix natif en BDD (fix bug "USD ne fonctionne pas dans le picker").

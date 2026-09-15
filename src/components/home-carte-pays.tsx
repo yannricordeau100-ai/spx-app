@@ -26,6 +26,7 @@ export function HomeCartePays({
   locale,
   routePrefix,
   anonLinks = false,
+  kpisPerso,
   requireSignupGate = false,
   gatePath = "/",
 }: {
@@ -33,6 +34,7 @@ export function HomeCartePays({
   routePrefix?: string;
   /** Yann 15 sept 2026 : visiteur anonyme, chaque lien de fiche pointe vers l inscription gratuite. */
   anonLinks?: boolean;
+  kpisPerso?: Record<string, { nom: string; valeur: string; unite: string; yoy: string | null; periode: string | null }[]>;
   requireSignupGate?: boolean;
   gatePath?: string;
 }) {
@@ -44,7 +46,13 @@ export function HomeCartePays({
   const labels = locale === "fr" ? TAB_LABELS_FR : TAB_LABELS_EN;
   const isFr = locale === "fr";
 
-  const rows = useMemo<SteWow[]>(() => (zones[activeTab] ?? []).slice(0, 20), [zones, activeTab]);
+  const rows = useMemo<SteWow[]>(
+    () =>
+      (zones[activeTab] ?? []).slice(0, 20).map((s) =>
+        kpisPerso?.[s.ticker.toUpperCase()]?.length ? ({ ...s, kpis: kpisPerso[s.ticker.toUpperCase()] } as unknown as SteWow) : s,
+      ),
+    [zones, activeTab, kpisPerso],
+  );
 
   const handleEnter = useCallback((key: string) => {
     if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
@@ -57,9 +65,11 @@ export function HomeCartePays({
 
   if (rows.length === 0) return null;
 
+  // Yann 16 sept 2026 : Google reste la vitrine ouverte aux anonymes (lien direct, KPI lisibles).
+  const VITRINE_ANON = new Set(["GOOGL", "GOOG"]);
   const buildCompanyHref = (ticker: string): string => {
     const base = routePrefix ? `${routePrefix}/${ticker.toLowerCase()}` : `/${ticker.toLowerCase()}`;
-    return anonLinks ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
+    return anonLinks && !VITRINE_ANON.has(ticker.toUpperCase()) ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
   };
 
   // Yann 07 sept 2026 : exactement 10 stés (2 colonnes de 5), pas de bouton.
@@ -88,7 +98,7 @@ export function HomeCartePays({
         buildHref={buildCompanyHref}
       />
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {visibles.map((s) => wrapGate(s.ticker, <CarteSteWow s={s} buildHref={buildCompanyHref} />))}
+        {visibles.map((s) => (anonLinks && VITRINE_ANON.has(s.ticker.toUpperCase()) ? <CarteSteWow key={s.ticker} s={s} buildHref={buildCompanyHref} /> : wrapGate(s.ticker, <CarteSteWow s={s} buildHref={buildCompanyHref} flouKpis={anonLinks} />)))}
       </div>
 
     </div>

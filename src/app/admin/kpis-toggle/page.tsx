@@ -5,6 +5,9 @@ import { ArrowLeft } from "lucide-react";
 import { requireDeskOwner } from "@/lib/desk/auth";
 import { loadDisabledKpisPerSte } from "@/lib/disabled-kpis";
 import { isGenericKpi } from "@/lib/kpi-generic";
+import { estKpiStandard } from "@/lib/kpi-standard";
+import PHARE from "@/data/produit-phare.json";
+import ETAT_IND from "@/data/kpi-industries-etat.json";
 import { autoPromoteHero } from "@/lib/hero-auto-promote";
 import { getHeroKpiOverride } from "@/lib/company-core/hero-kpi-overrides";
 import KpisToggleClient, {
@@ -35,6 +38,36 @@ export const metadata = {
 export const dynamic = "force-dynamic";
 
 const ROOT = process.cwd();
+
+// Yann 16 sept 2026 : categorie de chaque KPI pour filtrer les heros
+// (produit phare, KPI d industrie, KPI standard, sinon KPI « wow »).
+const PHARE_PAR_TICKER = new Map<string, Set<string>>();
+for (const [t, e] of Object.entries((PHARE as unknown as { stes: Record<string, Record<string, { short?: string | null } | null | string | undefined>> }).stes)) {
+  const set = new Set<string>();
+  for (const c of ["candidat_A", "candidat_B", "candidat_C"]) {
+    const v = e[c];
+    if (v && typeof v === "object" && v.short) set.add(v.short);
+  }
+  if (typeof e.hero === "string") set.add(e.hero);
+  PHARE_PAR_TICKER.set(t.toUpperCase(), set);
+}
+const IND_PAR_TICKER = new Map<string, Set<string>>();
+for (const i of (ETAT_IND as unknown as { industries: { kpis: { en: string; stes_avec: string[] }[] }[] }).industries)
+  for (const k of i.kpis)
+    for (const t of k.stes_avec) {
+      const set = IND_PAR_TICKER.get(t) ?? new Set<string>();
+      set.add(k.en.toLowerCase());
+      IND_PAR_TICKER.set(t, set);
+    }
+function categorieKpi(ticker: string, k: AnyKPI, short: string): "phare" | "industrie" | "standard" | "wow" {
+  if (PHARE_PAR_TICKER.get(ticker)?.has(short)) return "phare";
+  const tc = (k as { type_comparable?: { en?: string; origine?: string } | null }).type_comparable;
+  if (tc && tc.origine === "referentiel" && tc.en && IND_PAR_TICKER.get(ticker)?.has(tc.en.toLowerCase())) return "industrie";
+  const nf = typeof k.name_fr === "string" ? k.name_fr : "";
+  const ne = typeof k.name_en === "string" ? k.name_en : "";
+  if (isGenericKpi(short) || estKpiStandard({ short, name_fr: nf, name_en: ne })) return "standard";
+  return "wow";
+}
 
 type AnyKPI = {
   short?: unknown;
@@ -245,6 +278,7 @@ async function loadStes(): Promise<SteRow[]> {
             is_hero: short === heroShort,
             is_generic: isGenericKpi(short),
             pv_score: pv,
+            categorie: categorieKpi(ticker, k, short),
           };
         })
         .sort((a, b) => {

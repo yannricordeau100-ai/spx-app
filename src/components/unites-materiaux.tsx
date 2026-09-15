@@ -241,6 +241,67 @@ function Notions() {
   );
 }
 
+
+/* Yann 16 sept 2026 : recherche par mots clefs, francais ou anglais, tolerante
+   aux petites fautes (une lettre de difference, ou deux pour les mots longs)
+   et aux formes proches (« mixed » trouve « mix »). Un petit lexique relie les
+   mots francais et anglais les plus courants. */
+const LEXIQUE: [string, string][] = [
+  ["prix", "price"], ["mix", "mixed"], ["volume", "volumes"], ["marge", "margin"], ["chiffre", "revenue"],
+  ["ventes", "sales"], ["client", "customer"], ["abonne", "subscriber"], ["part", "share"], ["marche", "market"],
+  ["cout", "cost"], ["rendement", "yield"], ["taux", "rate"], ["croissance", "growth"], ["capacite", "capacity"],
+  ["commande", "order"], ["carnet", "backlog"], ["stock", "inventory"], ["effectif", "headcount"], ["employe", "employee"],
+  ["benefice", "earnings"], ["resultat", "income"], ["dette", "debt"], ["tresorerie", "cash"], ["loyer", "rent"],
+  ["surface", "area"], ["passager", "passenger"], ["siege", "seat"], ["production", "output"], ["reserve", "reserves"],
+  ["prime", "premium"], ["sinistre", "claim"], ["depot", "deposit"], ["pret", "loan"], ["actif", "asset"],
+  ["utilisateur", "user"], ["recurrent", "recurring"], ["mensuel", "monthly"], ["annuel", "annual"], ["moyen", "average"],
+  ["change", "currency"], ["perimetre", "scope"], ["organique", "organic"], ["retention", "retention"], ["attrition", "churn"],
+];
+function normal(v: string): string {
+  return v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9%$€/ ]+/g, " ");
+}
+function distance(a: string, b: string): number {
+  if (Math.abs(a.length - b.length) > 2) return 3;
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+function formesDe(mot: string): string[] {
+  const f = new Set([mot]);
+  for (const [fr, en] of LEXIQUE) {
+    if (mot.startsWith(fr) || fr.startsWith(mot)) f.add(en);
+    if (mot.startsWith(en) || en.startsWith(mot)) f.add(fr);
+  }
+  return [...f];
+}
+function motTrouve(mot: string, jetons: string[]): boolean {
+  const tol = mot.length >= 7 ? 2 : mot.length >= 4 ? 1 : 0;
+  return formesDe(mot).some((m) =>
+    jetons.some((j) => j === m || (m.length >= 3 && (j.startsWith(m) || (j.length >= 3 && m.startsWith(j)))) || (tol > 0 && distance(m, j) <= tol)),
+  );
+}
+export function chercheUnites<T extends { unite: string; nom?: string; signification?: string; variantes?: string[] }>(liste: T[], requete: string): T[] {
+  const mots = normal(requete).split(/\s+/).filter((m) => m.length >= 2);
+  if (mots.length === 0) return [];
+  const out: { u: T; score: number }[] = [];
+  for (const u of liste) {
+    const titre = normal([u.unite, u.nom ?? "", ...(u.variantes ?? [])].join(" ")).split(/\s+/).filter(Boolean);
+    const texte = normal(u.signification ?? "").split(/\s+/).filter(Boolean);
+    let score = 0;
+    let tous = true;
+    for (const m of mots) {
+      if (motTrouve(m, titre)) score += 3;
+      else if (motTrouve(m, texte)) score += 1;
+      else { tous = false; break; }
+    }
+    if (tous) out.push({ u, score });
+  }
+  return out.sort((a, b) => b.score - a.score).slice(0, 40).map((x) => x.u);
+}
+
 export function UnitesMateriaux({
   gicsCode,
   secteurLabel,
@@ -255,6 +316,7 @@ export function UnitesMateriaux({
 }) {
   const [ouvert, setOuvert] = useState(false);
   const [toutVoir, setToutVoir] = useState(false);
+  const [recherche, setRecherche] = useState("");
   // Yann 15 sept 2026 : un clic en dehors du deplie le referme.
   const boite = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -312,6 +374,17 @@ export function UnitesMateriaux({
     return { groupes, total, surFiche, sansDefinition };
   }, [secteur, unites]);
 
+  const resultats = useMemo(() => {
+    if (!recherche.trim()) return [] as Unite[];
+    const toutes = [
+      ...((DATA as { unites: Unite[] }).unites ?? []),
+      ...((UNIVERS as { unites: Unite[] }).unites ?? []),
+      ...((METIERS as { unites: Unite[] }).unites ?? []),
+    ].filter((u) => u && !u.categorie.startsWith("Valeurs non numériques"));
+    const vues = new Set<string>();
+    return chercheUnites(toutes.filter((u) => (vues.has(u.unite) ? false : (vues.add(u.unite), true))), recherche);
+  }, [recherche]);
+
   const titreSecteur = secteurLabel?.trim() ? `du secteur ${secteurLabel.trim()}` : "de cette fiche";
 
   return (
@@ -331,6 +404,30 @@ export function UnitesMateriaux({
       </button>
       {ouvert && (
         <div data-blur-part="tableau" className="border-t border-white/[0.05] px-4 py-3">
+          <input
+            type="search"
+            value={recherche}
+            onChange={(e) => setRecherche(e.target.value)}
+            placeholder="Chercher un terme, en français ou en anglais (ex. prix mix, backlog, churn)"
+            className="mb-3 w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-[13px] text-zinc-100 placeholder:text-zinc-500 focus:border-violet-400/50 focus:outline-none"
+          />
+          {recherche.trim() ? (
+            <div className="mb-2 grid gap-1.5">
+              <div className="font-mono text-[10.5px] uppercase tracking-[0.15em] text-zinc-500">{resultats.length} résultat{resultats.length > 1 ? "s" : ""}</div>
+              {resultats.map((u) => (
+                <div key={u.categorie + u.unite} className="rounded-lg border border-white/[0.08] px-3 py-2">
+                  <div className="flex flex-wrap items-baseline gap-x-2">
+                    <span className="font-mono text-[12.5px] font-semibold text-violet-200">{u.unite}</span>
+                    <span className="text-[13px] text-zinc-100">{u.nom}</span>
+                    <span className="font-mono text-[10px] text-zinc-600">{u.categorie}</span>
+                  </div>
+                  <div className="mt-0.5 text-[12px] leading-relaxed text-zinc-400">{u.signification}</div>
+                  {u.comparatif && <div className="mt-0.5 text-[12px] leading-relaxed text-cyan-200/80">{u.comparatif}</div>}
+                </div>
+              ))}
+            </div>
+          ) : (
+          <>
           <Convertisseur />
           {sansDefinition.length > 0 && (
             <div className="mb-4 rounded-lg border border-amber-400/30 bg-amber-500/[0.07] px-3 py-2">
@@ -392,6 +489,8 @@ export function UnitesMateriaux({
             );
           })}
           <Notions />
+          </>
+          )}
         </div>
       )}
     </div>

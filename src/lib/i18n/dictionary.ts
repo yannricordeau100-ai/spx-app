@@ -137,7 +137,7 @@ export const DICTIONARY: Dict = {
   "auth.signup.legal_terms": { fr: "Conditions", en: "Terms" },
   "auth.signup.legal_and": { fr: "et la", en: "and the" },
   "auth.signup.legal_privacy": { fr: "Politique de confidentialité", en: "Privacy Policy" },
-  "auth.signup.legal_suffix": { fr: ", qui décrivent notamment nos mesures d'usage et de qualité de service.", en: ", which describe among other things our usage and service-quality measurements." },
+  "auth.signup.legal_suffix": { fr: ", qui décrivent notamment nos mesures d'usage et de qualité de service. Ton adresse e-mail peut servir à t'informer des nouvelles fonctionnalités de Mettrik ; elle n'est ni revendue ni partagée avec des sociétés tierces.", en: ", which describe among other things our usage and service-quality measurements. Your email address may be used to inform you about new Mettrik features; it is never sold or shared with third-party companies." },
   "auth.reset.title": { fr: "Mot de passe oublié", en: "Forgot password" },
   "auth.signin.subtitle": {
     fr: "Accède aux KPI des plus grandes sociétés américaines et européennes.",

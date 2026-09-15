@@ -27,7 +27,8 @@ const VITRINE_VISIBLE = new Set(["GOOGL", "GOOG", "META", "BKNG", "AAPL", "NFLX"
 // barre d adresse des visiteurs.
 const buildLatestHref = (ticker: string) => `/${ticker.toLowerCase()}`;
 // Yann 15 sept 2026 : en anonyme, chaque lien vers une fiche mene a l inscription gratuite.
-const lienInscription = (ticker: string) => `/?auth=signup&next=${encodeURIComponent(buildLatestHref(ticker))}`;
+const lienInscription = (ticker: string) =>
+  ["GOOGL", "GOOG"].includes(ticker.toUpperCase()) ? buildLatestHref(ticker) : `/?auth=signup&next=${encodeURIComponent(buildLatestHref(ticker))}`;
 import { motion, AnimatePresence } from "motion/react";
 import { Search, X, ArrowRight, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import {
