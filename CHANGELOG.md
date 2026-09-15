@@ -403,3 +403,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.15.12 (15 Sep 2026 22:57, apres 2dd4ee8e15)
 - 35 termes metiers ajoutes au deplie des unites
+
+## v2026.09.16.1 (16 Sep 2026 00:32, apres 53a1734737)
+- Mise a jour nocturne : 9 societes (ADBE, CPRT, KR, CSCO, INTU, SMCI, WDC, DE, RJF) avec points KPI verifies, positionnement IA et stories ; 14 syntheses d appels ; 6 transcripts corriges
