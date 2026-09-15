@@ -175,8 +175,10 @@ export async function generateMetadata({
 
 export default async function TickerPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ ticker: string }>;
+  searchParams?: Promise<{ audit_token?: string }>;
 }) {
   const { ticker } = await params;
   const upper = ticker.toUpperCase();
@@ -236,7 +238,17 @@ export default async function TickerPage({
     );
   }
 
-  const freemiumTier = tierPourFiche(tierResolu, ticker);
+  // Yann 15 sept 2026 : le contournement audit_token n existait que sur la
+  // route interne /sandbox/v1-9-5/<ticker>. Les verifications automatiques de
+  // l adresse publique /<ticker> lisaient donc une page anonyme (textes
+  // caviardes), et l alerte de securite signalait un jeton « invalide » alors
+  // qu il etait simplement ignore ici.
+  const sp = searchParams ? await searchParams : undefined;
+  const auditBypass =
+    !!sp?.audit_token &&
+    !!process.env.VISUAL_AUDIT_TOKEN &&
+    sp.audit_token === process.env.VISUAL_AUDIT_TOKEN;
+  const freemiumTier = auditBypass ? "max" : tierPourFiche(tierResolu, ticker);
 
   // ATT (anti-thèse) : même gating serveur que /sandbox/v1-9-5/<ticker>.
   // Le contenu complet n'est sérialisé que pour le plan Max.
