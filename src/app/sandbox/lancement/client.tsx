@@ -14,6 +14,7 @@ type Etat = {
   mode: "on" | "off" | "env";
   programme: Programme;
   tarifs: "ouvert" | "maintenance";
+  tarifs_anonymes?: "ouvert" | "inscrits";
   variable_env: "on" | "off";
   maintenance_effective: boolean;
   niveaux: { n0: string; n1: string; n2: string };
@@ -44,7 +45,7 @@ export function LancementClient() {
     return () => window.clearInterval(m);
   }, [charge]);
 
-  async function envoie(corps: { mode: "on" | "off" | "env"; programme?: Programme; tarifs?: "ouvert" | "maintenance" }) {
+  async function envoie(corps: { mode: "on" | "off" | "env"; programme?: Programme; tarifs_anonymes?: "ouvert" | "inscrits"; tarifs?: "ouvert" | "maintenance" }) {
     setEnvoi(true);
     setMessage("");
     try {
@@ -115,6 +116,26 @@ export function LancementClient() {
         <button disabled={envoi || !etat} onClick={() => etat && void envoie({ mode: etat.mode, programme: etat.programme, tarifs: "ouvert" })}
           className="rounded-lg border border-emerald-500 bg-emerald-500/15 px-4 py-2.5 text-sm font-semibold text-emerald-200 hover:bg-emerald-500/25 disabled:opacity-50">
           Rouvrir la page tarifs
+        </button>
+      </div>
+
+      {/* Yann 16 sept 2026 : un seul bouton, à presser une fois mettrik.ai en ligne
+          et Stripe activé en réel. Il réserve les tarifs aux inscrits : les deux pages
+          de tarifs renvoient alors les visiteurs non inscrits vers l inscription. */}
+      <h2 className="mt-8 text-sm font-medium uppercase tracking-wide text-zinc-500">Tarifs et visiteurs non inscrits</h2>
+      <p className="mt-2 text-sm text-zinc-400">
+        État : {etat?.tarifs_anonymes === "inscrits"
+          ? "réservés aux inscrits (un visiteur non inscrit qui ouvre les tarifs est renvoyé vers l inscription)"
+          : "lisibles par adresse directe, sans aucun lien sur le site pour les visiteurs non inscrits (nécessaire tant que Stripe n est pas activé en réel)"}.
+      </p>
+      <div className="mt-3 flex flex-wrap gap-3">
+        <button disabled={envoi || !etat} onClick={() => etat && void envoie({ mode: etat.mode, programme: etat.programme, tarifs_anonymes: "inscrits" })}
+          className="rounded-lg border border-violet-500 bg-violet-500/15 px-4 py-2.5 text-sm font-semibold text-violet-200 hover:bg-violet-500/25 disabled:opacity-50">
+          Réserver les tarifs aux inscrits
+        </button>
+        <button disabled={envoi || !etat} onClick={() => etat && void envoie({ mode: etat.mode, programme: etat.programme, tarifs_anonymes: "ouvert" })}
+          className="rounded-lg border border-[#262626] px-4 py-2.5 text-sm text-zinc-400 hover:border-[#3a3a3a] disabled:opacity-50">
+          Laisser les tarifs lisibles par adresse directe
         </button>
       </div>
 

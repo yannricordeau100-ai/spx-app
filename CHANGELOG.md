@@ -412,3 +412,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.3 (16 Sep 2026 00:48, apres 184d906503)
 - vitrine Google anonyme : capture du clic sur les deux rendus
+
+## v2026.09.16.4 (16 Sep 2026 01:33, apres 7b1a4637ce)
+- KPI de chiffre d affaires regroupes, zone Monde par defaut, case d opposition, interrupteur tarifs

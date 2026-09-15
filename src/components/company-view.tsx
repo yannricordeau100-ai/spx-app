@@ -200,6 +200,42 @@ function isTimeFractionApplicableKpi(kpi?: KPI | null): boolean {
   return true;
 }
 
+
+/* Yann 16 sept 2026 : le chiffre d affaires a son bloc dedie (repartition par
+   zone et par segment). Les KPI ANNUELS qui repetent ce bloc (CA total, CA
+   d une grande zone, CA d un segment deja montre) sortent du tableau ; les KPI
+   TRIMESTRIELS de chiffre d affaires sont regroupes sous le bloc de
+   repartition, dans un deplie. Les petites zones geographiques restent. */
+function sansAccent(v: unknown): string {
+  return String(v ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+}
+const RE_CA = /(chiffre d affaires|\bca\b|revenue|revenues|net sales|\bsales\b|turnover|ventes)/;
+const ZONES_LARGES = [
+  "monde", "mondial", "worldwide", "global", "international", "groupe", "group", "total",
+  "amerique", "ameriques", "america", "americas", "north america", "amerique du nord", "latam", "amerique latine", "latin america",
+  "europe", "emea", "eu", "zone euro", "euro area", "asie", "asia", "apac", "asie pacifique", "asia pacific",
+  "reste du monde", "rest of world", "row", "autres pays", "other countries", "afrique", "africa", "moyen orient", "middle east",
+];
+function estCaAnnuelRedondant(k: { short?: string; name_fr?: string; name_en?: string; period_type?: string }, libelles: Set<string>): boolean {
+  const pt = k.period_type;
+  if (pt === "quarter" || pt === "semester") return false;
+  const nom = sansAccent([k.name_fr, k.name_en, k.short].filter(Boolean).join(" "));
+  if (!RE_CA.test(nom)) return false;
+  const reste = nom
+    .replace(RE_CA, " ")
+    .replace(/(total|totaux|net|nets|annuel|annuelle|consolide|consolidee|groupe|group|du|de|des|la|le|les|par|en|d|l|segment|division|activite|activites|zone|geographique|region|regional)/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!reste) return true; // CA total
+  if (libelles.has(reste)) return true; // segment ou zone deja dans le bloc de repartition
+  for (const z of ZONES_LARGES) if (reste === z || reste.startsWith(z + " ") || reste.endsWith(" " + z)) return true;
+  return false;
+}
+function estCaTrimestriel(k: { short?: string; name_fr?: string; name_en?: string; period_type?: string }): boolean {
+  if (k.period_type !== "quarter") return false;
+  return RE_CA.test(sansAccent([k.name_fr, k.name_en, k.short].filter(Boolean).join(" ")));
+}
+
 export function CompanyView({
   company,
   authSlot,
@@ -799,6 +835,16 @@ export function CompanyView({
   // (à venir Phase 2 — pour l'instant tout masqué).
   const groupesKpis = useMemo(() => {
     const all = orderKpis(company.kpis, company.hero_kpi);
+    // Libelles deja montres par le bloc de repartition du chiffre d affaires.
+    const libellesRepartition = new Set<string>();
+    for (const b of [company.revenue_by_geography, company.revenue_by_segment]) {
+      for (const sl of ((b?.slices ?? []) as { name?: string; label?: string; label_en?: string }[])) {
+        for (const v of [sl.name, sl.label, sl.label_en]) {
+          const n = sansAccent(v);
+          if (n) libellesRepartition.add(n);
+        }
+      }
+    }
     // Hero KPI toujours visible (même s'il est dans la library générique,
     // ex pour SP500 où on a activé manuellement Revenue comme hero).
     const heroShort = company.hero_kpi;
@@ -832,6 +878,10 @@ export function CompanyView({
       // avoir une vraie valeur.
       if (!kpiHasUsableValue(k)) return false;
       if (k.short === heroShort) return true;
+      // Le chiffre d affaires annuel deja porte par le bloc de repartition sort du tableau.
+      if (estCaAnnuelRedondant(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string }, libellesRepartition)) return false;
+      // Le chiffre d affaires trimestriel est regroupe sous le bloc de repartition.
+      if (estCaTrimestriel(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string })) return false;
       // Yann 29 aout 2026 : un KPI cree a la main (hors_document) est TOUJOURS
       // accepte, quelle que soit sa cadence ou la longueur de son historique.
       if ((k as unknown as { hors_document?: boolean }).hors_document === true) return true;
@@ -884,10 +934,15 @@ export function CompanyView({
     return {
       avances: tries.filter((k) => k.short === heroShort || !estKpiStandard(k)),
       standards: tries.filter((k) => k.short !== heroShort && estKpiStandard(k)),
+      caTrimestriels: all.filter(
+        (k) => k.short !== heroShort && kpiHasUsableValue(k) && estCaTrimestriel(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string }),
+      ),
     };
   }, [company]);
   const orderedKpis = groupesKpis.avances;
   const kpisStandard = groupesKpis.standards;
+  const caTrimestriels = groupesKpis.caTrimestriels;
+  const [showCaTrim, setShowCaTrim] = useState(false);
   const [showStandard, setShowStandard] = useState(false);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
   const hiddenCount = orderedKpis.length - VISIBLE_KPI_COUNT;
@@ -2113,7 +2168,30 @@ export function CompanyView({
           <div className="grid gap-4">
         {/* Répartition CA (géo + segment) — au-dessus de Gouvernance */}
         {isBlockEnabled("repartition", company.ticker) ? (
+          <>
           <RepartitionBlock company={company} disabledBlocks={disabledBlocks} />
+          {/* Yann 16 sept 2026 : KPI trimestriels de chiffre d affaires, sous le bloc de repartition. */}
+          {caTrimestriels.length > 0 && (
+            <div className="mt-3">
+              <button
+                type="button"
+                onClick={() => setShowCaTrim((v) => !v)}
+                className="flex w-full items-center gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.015] px-4 py-2.5 text-left text-[13px] font-semibold text-zinc-200 hover:bg-white/[0.03]"
+              >
+                <span className={`inline-block transition-transform ${showCaTrim ? "rotate-90" : ""}`}>›</span>
+                Voir plus de KPI chiffre d’affaires (trimestriels)
+                <span className="ml-auto font-mono text-[11px] text-zinc-500">{caTrimestriels.length}</span>
+              </button>
+              {showCaTrim && (
+                <div className="mt-2 grid gap-1.5">
+                  {caTrimestriels.map((k) => (
+                    <KpiRow key={k.short} kpi={k} subsector={company.subsector} ticker={company.ticker} freeBlocked={freeBlocked} />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+          </>
         ) : (
           <BlockComingSoon blockId="repartition" />
         )}

@@ -1,3 +1,4 @@
+import { tarifsReservesAuxInscrits } from "@/lib/tarifs-anonymes";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import Link from "next/link";
@@ -58,9 +59,11 @@ export default async function V195PricingPage() {
   // visiteur anonyme est renvoye vers l inscription (tous les liens « Tarifs »
   // du site aboutissent donc a l inscription sans modifier chaque lien).
   {
-    const sbTarifs = await createSupabaseServerClient();
-    const { data: { user: visiteur } } = await sbTarifs.auth.getUser();
-    if (!visiteur) redirect("/?auth=signup&next=/pricing");
+    if (await tarifsReservesAuxInscrits()) {
+      const sbTarifs = await createSupabaseServerClient();
+      const { data: { user: visiteur } } = await sbTarifs.auth.getUser();
+      if (!visiteur) redirect("/?auth=signup&next=/pricing");
+    }
   }
   const currency = await detectCurrency();
   const catalog = await loadPricingCatalog(currency);

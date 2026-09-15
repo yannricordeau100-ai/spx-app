@@ -35,7 +35,8 @@ async function estProprietaire(): Promise<boolean> {
 
 type Programme = { mode: "on" | "off"; quand: string } | null;
 type Tarifs = "ouvert" | "maintenance";
-type Reglage = { mode: "on" | "off" | "env"; programme: Programme; tarifs: Tarifs };
+type TarifsAnonymes = "ouvert" | "inscrits";
+type Reglage = { mode: "on" | "off" | "env"; programme: Programme; tarifs: Tarifs; tarifs_anonymes: TarifsAnonymes };
 
 async function litReglage(): Promise<Reglage> {
   try {
@@ -53,9 +54,11 @@ async function litReglage(): Promise<Reglage> {
         ? { mode: p.mode, quand: p.quand }
         : null;
     const tarifs: Tarifs = brut?.tarifs === "maintenance" ? "maintenance" : "ouvert";
-    return { mode, programme, tarifs };
+    // 16 sept 2026 : « inscrits » = les tarifs ne sont visibles qu une fois inscrit.
+    const tarifs_anonymes: TarifsAnonymes = brut?.tarifs_anonymes === "inscrits" ? "inscrits" : "ouvert";
+    return { mode, programme, tarifs, tarifs_anonymes };
   } catch {
-    return { mode: "env", programme: null, tarifs: "ouvert" };
+    return { mode: "env", programme: null, tarifs: "ouvert", tarifs_anonymes: "ouvert" };
   }
 }
 
@@ -103,7 +106,7 @@ export async function POST(req: NextRequest) {
   if (!(await autorise(req))) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
-  let corps: { mode?: unknown; programme?: unknown; tarifs?: unknown };
+  let corps: { mode?: unknown; programme?: unknown; tarifs?: unknown; tarifs_anonymes?: unknown };
   try {
     corps = await req.json();
   } catch {
@@ -135,16 +138,18 @@ export async function POST(req: NextRequest) {
   const actuel = await litReglage();
   const tarifs: Tarifs =
     corps.tarifs === "maintenance" || corps.tarifs === "ouvert" ? corps.tarifs : actuel.tarifs;
+  const tarifs_anonymes: TarifsAnonymes =
+    corps.tarifs_anonymes === "inscrits" || corps.tarifs_anonymes === "ouvert" ? corps.tarifs_anonymes : actuel.tarifs_anonymes;
   const { error } = await admin()
     .from("desk_page_content")
     .upsert(
       {
         page_key: "maintenance",
         section_key: "reglages",
-        content_fr: JSON.stringify({ mode, programme, tarifs }),
+        content_fr: JSON.stringify({ mode, programme, tarifs, tarifs_anonymes }),
       },
       { onConflict: "page_key,section_key" },
     );
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ ok: true, mode, programme, tarifs, delai: "effet sous ~20 secondes" });
+  return NextResponse.json({ ok: true, mode, programme, tarifs, tarifs_anonymes, delai: "effet sous ~20 secondes" });
 }

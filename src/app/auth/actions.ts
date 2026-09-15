@@ -114,7 +114,12 @@ export async function signUpWithPassword(formData: FormData) {
   const { error } = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${origin}/auth/callback`, captchaToken },
+    options: {
+      emailRedirectTo: `${origin}/auth/callback`,
+      captchaToken,
+      // Yann 16 sept 2026 : case d opposition du formulaire (cocher = ne rien recevoir).
+      data: { communications: String(formData.get("sans_communications") ?? "") === "1" ? "refusees" : "acceptees" },
+    },
   });
   if (error) {
     redirect(`/?auth=signup&error=${await authErr(error.message)}`);

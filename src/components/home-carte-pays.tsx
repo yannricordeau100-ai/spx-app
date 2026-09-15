@@ -39,7 +39,8 @@ export function HomeCartePays({
   gatePath?: string;
 }) {
   const zones = (ZONES_KPIS as { zones: Record<string, SteWow[]> }).zones;
-  const [activeTab, setActiveTab] = useState<string>(() => (zones[locale]?.length ? locale : "world"));
+  // Yann 16 sept 2026 : la zone Monde est affichee par defaut (Google y figure).
+  const [activeTab, setActiveTab] = useState<string>(() => (zones.world?.length ? "world" : zones[locale]?.length ? locale : "world"));
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const hoverTimer = useRef<number | null>(null);
 

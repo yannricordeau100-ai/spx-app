@@ -512,6 +512,13 @@ export function AuthModal() {
                       <TurnstileWidget theme="dark" />
                     </div>
                     <SubmitButton>{t("auth.cta.signup")}</SubmitButton>
+                    {/* Yann 16 sept 2026 : opposition, pas consentement : sans rien
+                        cocher, l inscrit reçoit les informations ; cocher la case
+                        l en dispense. */}
+                    <label className="relative flex items-start gap-2 pt-1 text-left text-[11.5px] leading-relaxed text-zinc-400">
+                      <input type="checkbox" name="sans_communications" value="1" className="mt-0.5 size-3.5 shrink-0 accent-violet-500" />
+                      <span>Je ne souhaite pas recevoir d’offres, d’informations professionnelles ni d’annonces de nouvelles fonctionnalités Mettrik.</span>
+                    </label>
                     {/* Yann 31 aout 2026 : acceptation par le clic (clickwrap).
                         La creation du compte vaut acceptation des Conditions et
                         prise de connaissance de la politique de confidentialite,
