@@ -391,3 +391,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.15.8 (15 Sep 2026 20:38, apres c73a87c3a2)
 - bascule Turnstile (Supabase attend des jetons Turnstile)
+
+## v2026.09.15.9 (15 Sep 2026 20:41, apres 871f2d0402)
+- fiche : description sous les rangs, bloc commun CA MOAT TAM, synthese de l appel en bas

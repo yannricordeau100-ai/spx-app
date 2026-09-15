@@ -103,7 +103,7 @@ export function CompanyProfileCard({
     <section id="sec-profile" className="mt-9 scroll-mt-24">
       <div className="mb-3 flex items-baseline justify-between">
         {/* Yann 14 mai 2026 : "Profil société & marché" → "Comprendre la société" */}
-        <h2 className="font-display text-[20px] font-bold tracking-tight text-zinc-100">{t("company.profile.section_title")}</h2>
+        <h2 className="sr-only">{t("company.profile.section_title")}</h2>
         <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">{t("company.profile.source")}</span>
       </div>
 
@@ -120,9 +120,11 @@ export function CompanyProfileCard({
             }
           >
             <div className="mb-4 flex items-center justify-between gap-3">
+              {/* Yann 15 sept 2026 : « Description Mettrik AI » remplace par le titre
+                  de section « Comprendre la societe », porte par le h2 ci-dessus. */}
               <h3 className="flex items-center gap-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-200">
                 <Sparkles className="size-3.5" style={{ color: accent }} />
-                {t("company.profile.desc_title")}
+                {t("company.profile.section_title")}
               </h3>
               {/* Toggle Simple / Avancée */}
               <div className="inline-flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] p-0.5">

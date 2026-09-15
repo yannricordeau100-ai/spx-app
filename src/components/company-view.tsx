@@ -1288,6 +1288,20 @@ export function CompanyView({
         <BandeauIpoRecente ipo={company.ipo} />
         <ZoneReservee actif={anonPage} palier="anon">
 
+        {/* Yann 15 sept 2026 : la description de la societe vient juste sous les rangs. */}
+        {/* Profil société & marché — description longue + snapshot
+            boursier + faits clés + sés comparables. (7 mai 2026).
+            Yann 26 mai 2026 : description_mettrik + snapshot (carte
+            "Snapshot boursier" dans le bloc) désactivables séparément
+            via /sandbox/v1-8/blocks-toggle. Si snapshot off → description
+            full-width automatique. */}
+        <CompanyProfileCard
+          company={company}
+          accent={accent}
+          hideDescription={isDisabled("description_mettrik")}
+          hideSnapshot={isDisabled("snapshot_boursier")}
+        />
+
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
         {/* Yann 4 sept 2026 : l appel a l abonnement etait rendu DANS la
             section floutee : le flou et pointer-events:none s appliquaient a
@@ -2072,41 +2086,24 @@ export function CompanyView({
             dans /concepts/mockups/dividend.tsx tant que la partie n'est pas
             prête. Plus de déploiement V1 ni V1.7 sur ce bloc. */}
 
-        {/* Synthèse Earning Call — bullets PV-driven avec tooltip "i" auto
-            sur abréviations / termes techniques. Format unique pour TOUTES
-            les sociétés (Yann 11 mai 2026). Bloc rendu UNIQUEMENT si bullets
-            dispo. Si pas de bullets et pas de transcript brut : RIEN ne
-            s'affiche (Yann 12 mai 2026 : ex AAPL, ne pas afficher de bloc
-            vide pour les stés sans transcript accessible). */}
-        {isBlockEnabled("transcripts", company.ticker) && !isDisabled("transcript_bullets") ? (
-          transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
-            <TranscriptBulletsBlock ticker={company.ticker} summary={transcriptSummary} />
-          ) : transcript && (
-              (transcript.extracts?.quotes && transcript.extracts.quotes.length > 0) ||
-              (transcript.extracts?.figures && transcript.extracts.figures.length > 0) ||
-              (transcript.latest?.content && transcript.latest.content.length > 200)
-            ) ? (
-            <TranscriptStories ticker={company.ticker} doc={transcript} />
-          ) : null
-        ) : (
-          <BlockComingSoon blockId="transcripts" />
-        )}
 
         {/* Bloc Graphiques et Schémas remonté SOUS les Stories (15 mai v2). */}
 
-        {/* Profil société & marché — description longue + snapshot
-            boursier + faits clés + sés comparables. (7 mai 2026).
-            Yann 26 mai 2026 : description_mettrik + snapshot (carte
-            "Snapshot boursier" dans le bloc) désactivables séparément
-            via /sandbox/v1-8/blocks-toggle. Si snapshot off → description
-            full-width automatique. */}
-        <CompanyProfileCard
-          company={company}
-          accent={accent}
-          hideDescription={isDisabled("description_mettrik")}
-          hideSnapshot={isDisabled("snapshot_boursier")}
-        />
 
+
+
+        {/* Risk factors */}
+        {/* Yann 15 sept 2026 : bloc commun « Chiffre d affaires, avantage concurrentiel et marche ».
+            Les trois parties s adaptent : chacune ne s affiche que si la societe porte la donnee. */}
+        <section id="sec-ca-moat-tam" className="mt-9 scroll-mt-24">
+          <h2 className="mb-3 font-display text-[20px] font-bold tracking-tight text-zinc-100">Chiffre d’affaires, avantage concurrentiel et marché</h2>
+          <div className="grid gap-4">
+        {/* Répartition CA (géo + segment) — au-dessus de Gouvernance */}
+        {isBlockEnabled("repartition", company.ticker) ? (
+          <RepartitionBlock company={company} disabledBlocks={disabledBlocks} />
+        ) : (
+          <BlockComingSoon blockId="repartition" />
+        )}
         {/* 9 sept 2026 : rangee « Clients · Moat » sur deux demi-largeurs, juste
             sous « Comprendre la societe » (concentration clients V2 du Cahier a
             gauche, Moat V2 avec tendance Mettrik a droite). */}
@@ -2116,7 +2113,6 @@ export function CompanyView({
           afficherMoat={isBlockEnabled("moat", company.ticker)}
           afficherClients={isBlockEnabled("clients", company.ticker)}
         />
-
         {/* Position marche / TAM (7 sept 2026) : bloc de la V1.0 remis en place,
             place juste sous « Comprendre la societe » (demande du 08/09).
             Rendu seulement quand la fiche porte des market_positions, c est a
@@ -2140,8 +2136,9 @@ export function CompanyView({
             </div>
           </section>
         )}
+          </div>
+        </section>
 
-        {/* Risk factors */}
         {isBlockEnabled("risks", company.ticker) && !isDisabled("risks") ? (
           company.risks && company.risks.length > 0 ? (
             <div id="sec-risks" data-blur="risks" className="scroll-mt-24">
@@ -2164,12 +2161,6 @@ export function CompanyView({
         )}
 
 
-        {/* Répartition CA (géo + segment) — au-dessus de Gouvernance */}
-        {isBlockEnabled("repartition", company.ticker) ? (
-          <RepartitionBlock company={company} disabledBlocks={disabledBlocks} />
-        ) : (
-          <BlockComingSoon blockId="repartition" />
-        )}
 
         {/* Bloc Dividendes RETIRÉ pour toutes les stés (Yann 15 juin 2026). */}
 
@@ -2245,6 +2236,26 @@ export function CompanyView({
 
         {/* Yann 14 sept 2026 : ligne de copyright retiree du bas de la fiche. */}
         <div className="pb-8" />
+        {/* Yann 15 sept 2026 : la synthese de l appel de resultats passe en bas de fiche. */}
+        {/* Synthèse Earning Call — bullets PV-driven avec tooltip "i" auto
+            sur abréviations / termes techniques. Format unique pour TOUTES
+            les sociétés (Yann 11 mai 2026). Bloc rendu UNIQUEMENT si bullets
+            dispo. Si pas de bullets et pas de transcript brut : RIEN ne
+            s'affiche (Yann 12 mai 2026 : ex AAPL, ne pas afficher de bloc
+            vide pour les stés sans transcript accessible). */}
+        {isBlockEnabled("transcripts", company.ticker) && !isDisabled("transcript_bullets") ? (
+          transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
+            <TranscriptBulletsBlock ticker={company.ticker} summary={transcriptSummary} />
+          ) : transcript && (
+              (transcript.extracts?.quotes && transcript.extracts.quotes.length > 0) ||
+              (transcript.extracts?.figures && transcript.extracts.figures.length > 0) ||
+              (transcript.latest?.content && transcript.latest.content.length > 200)
+            ) ? (
+            <TranscriptStories ticker={company.ticker} doc={transcript} />
+          ) : null
+        ) : (
+          <BlockComingSoon blockId="transcripts" />
+        )}
         </ZoneReservee>
       </main>
 
