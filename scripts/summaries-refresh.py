@@ -78,6 +78,10 @@ def json_de(brut: str) -> dict:
     return json.loads(m.group(0))
 
 
+EXPORT = ""
+IMPORT = ""
+
+
 def traite(ticker: str) -> str:
     src = TRANS / f"{ticker.lower()}.json"
     if not src.exists():
@@ -96,7 +100,18 @@ def traite(ticker: str) -> str:
                 return "deja a jour"
         except Exception:  # noqa: BLE001
             pass
-    resume = json_de(appelle(consigne(ticker, quarter, contenu)))
+    # 15 sept 2026 : mode sans moteur local (prompts exportes, reponses importees)
+    if EXPORT:
+        Path(EXPORT).mkdir(parents=True, exist_ok=True)
+        (Path(EXPORT) / f"{ticker}.prompt.txt").write_text(consigne(ticker, quarter, contenu), encoding="utf8")
+        return "prompt exporte"
+    if IMPORT:
+        rep = Path(IMPORT) / f"{ticker}.json"
+        if not rep.exists():
+            return "reponse absente"
+        resume = json_de(rep.read_text(encoding="utf8"))
+    else:
+        resume = json_de(appelle(consigne(ticker, quarter, contenu)))
     if not resume.get("bullets"):
         return "synthese vide, rejetee"
     SORTIE.mkdir(parents=True, exist_ok=True)
@@ -115,9 +130,13 @@ def traite(ticker: str) -> str:
 
 
 def main() -> int:
+    global EXPORT, IMPORT
     ap = argparse.ArgumentParser()
     ap.add_argument("--tickers", required=True)
+    ap.add_argument("--export", default="")
+    ap.add_argument("--import-dir", default="")
     args = ap.parse_args()
+    EXPORT, IMPORT = args.export, args.import_dir
     for t in [x.strip().upper() for x in args.tickers.split(",") if x.strip()]:
         try:
             note(f"{t} : {traite(t)}")
