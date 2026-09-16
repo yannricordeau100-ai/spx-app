@@ -131,11 +131,21 @@ export async function reinitialiseFaq(): Promise<void> {
 
 /** Texte brut (sans liens markdown) pour les données structurées et llms.txt. */
 export function texteBrut(reponse: string): string {
-  return reponse.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/\s*\n\s*\n\s*/g, " ").trim();
+  return reponse
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/==([^=]+)==/g, "$1")
+    .replace(/\s*\n\s*\n\s*/g, " ")
+    .trim();
 }
 
 /** Découpe une réponse en paragraphes et segments (texte | lien). */
-export type Segment = { type: "texte"; texte: string } | { type: "lien"; texte: string; href: string };
+/** Yann 16 sept 2026 : **gras** et ==surligne== en plus des liens markdown. */
+export type Segment =
+  | { type: "texte"; texte: string }
+  | { type: "gras"; texte: string }
+  | { type: "surligne"; texte: string }
+  | { type: "lien"; texte: string; href: string };
 export function paragraphes(reponse: string): Segment[][] {
   return reponse
     .split(/\n\s*\n/)
@@ -143,12 +153,14 @@ export function paragraphes(reponse: string): Segment[][] {
     .filter(Boolean)
     .map((p) => {
       const segs: Segment[] = [];
-      const re = /\[([^\]]+)\]\(([^)]+)\)/g;
+      const re = /\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|==([^=]+)==/g;
       let last = 0;
       let m: RegExpExecArray | null;
       while ((m = re.exec(p))) {
         if (m.index > last) segs.push({ type: "texte", texte: p.slice(last, m.index) });
-        segs.push({ type: "lien", texte: m[1], href: m[2] });
+        if (m[1] !== undefined) segs.push({ type: "lien", texte: m[1], href: m[2] });
+        else if (m[3] !== undefined) segs.push({ type: "gras", texte: m[3] });
+        else segs.push({ type: "surligne", texte: m[4] });
         last = m.index + m[0].length;
       }
       if (last < p.length) segs.push({ type: "texte", texte: p.slice(last) });

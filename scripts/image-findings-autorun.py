@@ -405,11 +405,13 @@ def scrape_x_anon(query: str, tickers: list) -> list[dict]:
 
 def scrape_reddit(query: str, tickers: list) -> list[dict]:
     """Reddit public JSON. Pick general subs."""
-    subs = ["investing", "stocks", "wallstreetbets", "SecurityAnalysis"]
+    # Yann 16 sept 2026 : les subreddits qui publient des graphiques passent en
+    # premier, les subs de discussion generale servent de repli.
+    subs = ["dataisbeautiful", "investing", "stocks", "SecurityAnalysis", "wallstreetbets"]
     # Optional sector-specific by detecting tickers
     q_lower = query.lower()
-    if any(w in q_lower for w in ["semi", "chip", "tsm", "amd", "nvda", "asml"]):
-        subs += ["semiconductors", "hardware"]
+    if any(w in q_lower for w in ["semi", "chip", "gpu", "tsm", "amd", "nvda", "asml", "accel"]):
+        subs = ["dataisbeautiful", "semiconductors", "hardware"] + subs[1:]
     findings = []
     for sub in subs[:3]:
         q = urllib.parse.quote_plus(query)
@@ -417,6 +419,9 @@ def scrape_reddit(query: str, tickers: list) -> list[dict]:
         log(f"    [reddit] r/{sub}")
         r = http_get(url, timeout=15)
         if not r or not r.ok:
+            # Reddit renvoie 403 des qu il refuse l adresse appelante : le dire,
+            # sinon la source parait juste vide (constate le 16 sept 2026).
+            log(f"    [reddit] r/{sub} refuse ({r.status_code if r else 'pas de reponse'})")
             time.sleep(1)
             continue
         try:

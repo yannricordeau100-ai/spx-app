@@ -133,7 +133,7 @@ export function FaqEditeur() {
         <p className={`mt-3 text-sm ${etat === "erreur" ? "text-red-400" : "text-emerald-400"}`}>{message}</p>
       )}
       <p className="mt-4 rounded-lg border border-white/[0.06] bg-white/[0.02] p-3 text-[12px] text-zinc-500">
-        Réponses : sépare les paragraphes par une ligne vide ; un lien s&apos;écrit [texte](/pricing). Pas de tiret cadratin.
+        Réponses : sépare les paragraphes par une ligne vide ; un lien s&apos;écrit [texte](/pricing) ; **texte** met en gras ; ==texte== surligne en violet. Pas de tiret cadratin.
         Les champs anglais sont facultatifs (réserve pour la version EN).
       </p>
 

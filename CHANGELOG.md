@@ -460,3 +460,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.19 (16 Sep 2026 18:52, apres 84e79eb470)
 - Toggle unique creation KPI, graphiques NVDA reconstruits au gabarit Mettrik, FAQ fournisseurs
+
+## v2026.09.16.20 (16 Sep 2026 21:17, apres ba2ebc6899)
+- JSON-LD fiches, gras et surlignage FAQ, exceptions a trancher filtrees, NVDA nettoye

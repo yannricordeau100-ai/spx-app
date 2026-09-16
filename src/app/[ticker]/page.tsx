@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { CompanyView } from "@/components/company-view";
 import { AuthNav } from "@/components/auth-nav";
+import { FicheJsonLd } from "@/components/seo/fiche-jsonld";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { COMPANIES, TICKERS, TICKER_ALIASES, getCompany } from "@/lib/data";
 import type { TranscriptDoc } from "@/components/transcript-stories";
@@ -281,8 +282,29 @@ export default async function TickerPage({
     ? caviardeTranscriptsPourGratuit(transcriptSummary ?? null, zonesEffectives)
     : transcriptSummary;
 
+  // Yann 16 sept 2026 (referencement classique et moteurs de reponse IA) :
+  // la fiche declare explicitement la societe, ses indicateurs et sa date de
+  // mise a jour. Sans cela, un robot ne voit qu un mur de chiffres.
+  const kpisDeclares = (servedCompany.kpis ?? [])
+    .map((k) => k.name_fr || k.short)
+    .filter((x): x is string => !!x);
+  const derniereDate = (servedCompany.kpis ?? [])
+    .map((k) => k.last_data_date)
+    .filter((d): d is string => !!d)
+    .sort()
+    .at(-1);
+
   return (
     <>
+      <FicheJsonLd
+        ticker={servedCompany.ticker}
+        nom={servedCompany.name}
+        secteur={servedCompany.sector ?? null}
+        description={servedCompany.tagline ?? null}
+        url={`${process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai"}/${servedCompany.ticker.toLowerCase()}`}
+        kpis={kpisDeclares}
+        misAJour={derniereDate ?? null}
+      />
       <FreemiumBlurProvider tier={freemiumTier}>
         <CompanyView
           company={servedCompany}

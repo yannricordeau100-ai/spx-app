@@ -23,6 +23,8 @@ export function ProduitPhareView({
 }) {
   const [choix, setChoix] = useState<Record<string, ChoixPhare>>(choixInitial);
   const [statut, setStatut] = useState<string>("");
+  // Yann 16 sept 2026 : ne montrer que ce qui reste a trancher.
+  const [voirTranchees, setVoirTranchees] = useState(false);
   const q = jeton ? `?audit_token=${encodeURIComponent(jeton)}` : "";
 
   async function coche(ticker: string, c: ChoixPhare) {
@@ -38,16 +40,25 @@ export function ProduitPhareView({
   }
 
   const faits = exceptions.filter((e) => choix[e.ticker]).length;
+  const aTrancher = exceptions.filter((e) => !choix[e.ticker]);
+  const affichees = voirTranchees ? exceptions : aTrancher;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 text-zinc-100">
       <h1 className="font-display text-[26px] font-bold">Produit phare : exceptions à trancher</h1>
       <p className="mt-2 text-[13.5px] text-zinc-400">
-        {total} sociétés traitées (Industrie, Consommation discrétionnaire, Consommation de base). Seules les {exceptions.length} exceptions apparaissent ici : hésitation entre deux produits, ou aucun produit phare identifiable. Coche A, B ou « pas de KPI » : le hero de la fiche change immédiatement. {faits} / {exceptions.length} tranchées.
+        {total} sociétés traitées (Industrie, Consommation discrétionnaire, Consommation de base). Seules les {exceptions.length} exceptions apparaissent ici : hésitation entre deux produits, ou aucun produit phare identifiable. Coche A, B ou « pas de KPI » : le hero de la fiche change immédiatement. {faits} / {exceptions.length} tranchées, il en reste {aTrancher.length}.
       </p>
+      <button
+        type="button"
+        onClick={() => setVoirTranchees((v) => !v)}
+        className="mt-3 rounded-full border border-white/15 px-3 py-1 text-[12.5px] text-zinc-300 hover:border-violet-400/50 hover:text-violet-200"
+      >
+        {voirTranchees ? "Ne montrer que celles à trancher" : `Revoir les ${faits} déjà tranchées`}
+      </button>
       {statut && <p className="mt-2 font-mono text-[12px] text-cyan-300">{statut}</p>}
       <div className="mt-6 grid gap-3">
-        {exceptions.map((e) => {
+        {affichees.map((e) => {
           const c = choix[e.ticker];
           const det = e.exception_detail;
           return (

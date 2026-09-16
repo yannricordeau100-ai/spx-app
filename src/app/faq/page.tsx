@@ -148,6 +148,10 @@ export default async function FaqPage() {
                                 <Link key={j} href={s.href} className="text-violet-300 underline decoration-violet-300/40 underline-offset-2 hover:text-violet-200">
                                   {s.texte}
                                 </Link>
+                              ) : s.type === "gras" ? (
+                                <strong key={j} className="font-semibold text-zinc-100">{s.texte}</strong>
+                              ) : s.type === "surligne" ? (
+                                <mark key={j} className="rounded bg-violet-400/20 px-1 text-zinc-100">{s.texte}</mark>
                               ) : (
                                 <span key={j}>{s.texte}</span>
                               ),
