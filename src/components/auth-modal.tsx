@@ -87,6 +87,8 @@ export function AuthModal() {
   // Si hCaptcha renvoie malgre tout le meme jeton (reponse mise en cache par
   // le navigateur), on recree entierement le widget pour forcer un defi neuf.
   const [cleMontageCaptcha, setCleMontageCaptcha] = useState(0);
+  // Yann 16 sept 2026 : jeton demande au dernier moment (usage unique, expire vite).
+  const apiCaptcha = useRef<{ jetonFrais: () => Promise<string> } | null>(null);
 
   async function handleSigninClient(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -99,7 +101,16 @@ export function AuthModal() {
     const passwordV = String(fd.get("password") ?? "");
     // Yann 12 sept 2026 : Supabase exige le captcha sur la connexion par mot
     // de passe (« no captcha_token found » sinon). Yann 14 sept 2026 : Cloudflare Turnstile remplace hCaptcha (gratuit, illimite).
-    const jetonCaptcha = String(fd.get("cf-turnstile-response") ?? "");
+    let jetonCaptcha = String(fd.get("cf-turnstile-response") ?? "");
+    // Un jeton ne vaut qu une verification et expire : on en demande un neuf
+    // juste avant l envoi, sinon Supabase le refuse.
+    if (jetonCaptcha !== "bypass" && apiCaptcha.current) {
+      try {
+        jetonCaptcha = await apiCaptcha.current.jetonFrais();
+      } catch {
+        /* le captcha ne repond pas : on garde le jeton du formulaire */
+      }
+    }
     const captchaToken = jetonCaptcha && jetonCaptcha !== "bypass" ? jetonCaptcha : undefined;
     if (!emailV || !passwordV) {
       setSigninErr("Email + mot de passe requis");
@@ -464,7 +475,7 @@ export function AuthModal() {
                       />
                     </Field>
                     <div className="flex justify-center">
-                      <TurnstileWidget key={cleMontageCaptcha} signalReset={cleCaptcha} theme="dark" />
+                      <TurnstileWidget key={cleMontageCaptcha} signalReset={cleCaptcha} theme="dark" apiRef={apiCaptcha} />
                     </div>
                     {signinErr && (
                       <div className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-[12.5px] text-rose-200">

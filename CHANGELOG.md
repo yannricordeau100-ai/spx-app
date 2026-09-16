@@ -430,3 +430,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.9 (16 Sep 2026 03:04, apres d91798dc89)
 - captcha : jeton neuf demande a chaque envoi
+
+## v2026.09.16.10 (16 Sep 2026 03:06, apres feaa578812)
+- captcha : jeton neuf a chaque envoi

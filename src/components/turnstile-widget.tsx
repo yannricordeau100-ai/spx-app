@@ -83,6 +83,10 @@ export function TurnstileWidget(props?: {
   /** Yann 14 sept 2026 : incrementer ce nombre remet le captcha a zero (un
    *  jeton ne vaut qu une verification cote Supabase). */
   signalReset?: number;
+  /** Yann 16 sept 2026 : « jetonFrais() » remet le captcha a zero et attend un
+   *  jeton neuf. A appeler juste avant chaque envoi : un jeton ne vaut qu une
+   *  verification et expire au bout de quelques minutes. */
+  apiRef?: { current: { jetonFrais: () => Promise<string> } | null };
 }) {
   const fieldName = props?.fieldName ?? "cf-turnstile-response";
   // Yann 14 sept 2026 : cle publique relayee par app/layout.tsx quand elle est
@@ -102,6 +106,7 @@ export function TurnstileWidget(props?: {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
   const [token, setToken] = useState<string>("");
+  const attente = useRef<((t: string) => void) | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error" | "expired">("loading");
   // Yann 15 sept 2026 : le code d erreur Cloudflare est affiche, il dit la cause
   // (110200 = domaine non autorise sur le widget, 300xxx = reseau ou extension).
@@ -121,6 +126,11 @@ export function TurnstileWidget(props?: {
             callback: (tok: string) => {
               setToken(tok);
               setStatus("ready");
+              if (attente.current) {
+                const f = attente.current;
+                attente.current = null;
+                f(tok);
+              }
             },
             "error-callback": (code?: string) => {
               setCodeErreur(String(code ?? ""));
@@ -167,6 +177,37 @@ export function TurnstileWidget(props?: {
     form.addEventListener("submit", apresEnvoi);
     return () => form.removeEventListener("submit", apresEnvoi);
   }, []);
+  useEffect(() => {
+    const ref = props?.apiRef;
+    if (!ref) return;
+    ref.current = {
+      jetonFrais: () =>
+        new Promise<string>((resolve, reject) => {
+          if (!widgetIdRef.current || !window.turnstile) {
+            reject(new Error("captcha_non_pret"));
+            return;
+          }
+          attente.current = resolve;
+          try {
+            window.turnstile.reset(widgetIdRef.current);
+          } catch {
+            attente.current = null;
+            reject(new Error("captcha_reset_impossible"));
+            return;
+          }
+          window.setTimeout(() => {
+            if (attente.current) {
+              attente.current = null;
+              reject(new Error("captcha_timeout"));
+            }
+          }, 15000);
+        }),
+    };
+    return () => {
+      ref.current = null;
+    };
+  }, [props, props?.apiRef]);
+
   const premierSignal = useRef(true);
   useEffect(() => {
     if (premierSignal.current) { premierSignal.current = false; return; }
