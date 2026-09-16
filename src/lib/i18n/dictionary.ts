@@ -95,7 +95,7 @@ export const DICTIONARY: Dict = {
   // i18n FR/EN/DE. EN sert de fallback automatique pour autres locales
   // (en-GB, sv, da, nl, de-CH) via le helper translate() dictionary.
   "image_findings.section_title": {
-    fr: "Graphiques et Schémas - Mettrik AI Analytics / Données de marché",
+    fr: "Indicateurs variés - Moyen terme",
     en: "Charts & Visuals - Mettrik AI Analytics / Market data",
     de: "Diagramme und Schemata - Mettrik AI Analytics / Marktdaten",
   },
@@ -405,7 +405,7 @@ export const DICTIONARY: Dict = {
   "company.compare.direct": { fr: "Direct", en: "Direct" },
   "company.compare.connex": { fr: "Connexe", en: "Related" },
   "company.save.button": { fr: "Enregistrer", en: "Save" },
-  "company.kpi_table.title": { fr: "Indicateurs clés (KPIs)", en: "Key indicators (KPIs)", de: "Schlüsselindikatoren (KPIs)" },
+  "company.kpi_table.title": { fr: "Indicateurs clés long terme (KPIs)", en: "Key indicators (KPIs)", de: "Schlüsselindikatoren (KPIs)" },
   "company.kpi_table.subtitle": {
     fr: "Clique sur un indicateur pour le promouvoir en KPI principal.",
     en: "Click an indicator to promote it to the main KPI.",
@@ -459,7 +459,7 @@ export const DICTIONARY: Dict = {
   "stories.aria_pause": { fr: "Mettre en pause", en: "Pause" },
   "stories.aria_resume": { fr: "Reprendre", en: "Resume" },
   "stories.aria_jump": { fr: "Aller à la story", en: "Go to story" },
-  "stories.title": { fr: "Faits marquants (KPI)", en: "Story (KPIs)" },
+  "stories.title": { fr: "Faits marquants - Court terme", en: "Story (KPIs)" },
   "stories.subtitle": {
     fr: "",
     en: "",

@@ -7,12 +7,14 @@ import {
   signOut,
   updatePassword,
   updateEmail,
+  updatePseudo,
   deleteAccount,
 } from "@/app/auth/actions";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { SignOutButton } from "@/components/account/signout-button";
+import { PseudoGraphCookie } from "@/components/account/pseudo-graph-cookie";
 import { estCompteInterne } from "@/lib/freemium/tier-serveur";
 import { getStripe } from "@/lib/billing/stripe";
 import { FacturesTable, type Facture } from "@/components/factures-table";
@@ -30,6 +32,9 @@ export default async function AccountPage({
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/?auth=signin&next=/account");
+
+  const pseudoActuel = String(user.user_metadata?.pseudo ?? "");
+  const pseudoSurGraph = user.user_metadata?.pseudo_sur_graph === true;
 
   const locale = await getServerLocale();
   const t = (k: string) => translate(k, locale);
@@ -218,6 +223,49 @@ export default async function AccountPage({
           <FacturesTable factures={factures} />
         </section>
 
+        {/* PSEUDO (Yann 16 sept 2026) : affichage optionnel sur les graphiques exportes. */}
+        <section className="mt-4 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-6">
+          <PseudoGraphCookie valeur={pseudoSurGraph && pseudoActuel ? pseudoActuel : ""} />
+          <header className="mb-5 flex items-center gap-3">
+            <span className="inline-flex size-9 items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/10 text-violet-200">
+              <User className="size-4" />
+            </span>
+            <div>
+              <h2 className="text-[15.5px] font-semibold text-zinc-50">Pseudo</h2>
+              <p className="mt-0.5 text-[12.5px] text-zinc-400">
+                3 a 20 caracteres, lettres et chiffres uniquement. Il peut etre ajoute a gauche de la mention Mettrik sur les graphiques telecharges.
+              </p>
+            </div>
+          </header>
+
+          <form action={updatePseudo} className="space-y-3">
+            <Field
+              label="Pseudo"
+              name="pseudo"
+              type="text"
+              defaultValue={pseudoActuel}
+              maxLength={20}
+              pattern="[A-Za-z0-9]{3,20}"
+              placeholder="ex : yann75"
+            />
+            <label className="flex items-start gap-2.5 text-[13px] text-zinc-300">
+              <input
+                type="checkbox"
+                name="pseudo_sur_graph"
+                defaultChecked={pseudoSurGraph}
+                className="mt-0.5 size-4 rounded border-[#2a2a2a] bg-[#0a0a0a] accent-violet-500"
+              />
+              <span>Afficher mon pseudo sur les graphiques exportes</span>
+            </label>
+            <button
+              type="submit"
+              className="mt-2 inline-flex items-center gap-2 rounded-lg bg-violet-500 px-4 py-2.5 text-[13.5px] font-semibold text-white transition-colors hover:bg-violet-400"
+            >
+              Enregistrer
+            </button>
+          </form>
+        </section>
+
         {/* SECURITE — mot de passe */}
         <section className="mt-8 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-6">
           <header className="mb-5 flex items-center gap-3">
@@ -355,6 +403,8 @@ function Field({
   autoComplete,
   required,
   minLength,
+  maxLength,
+  pattern,
   placeholder,
   defaultValue,
 }: {
@@ -364,6 +414,8 @@ function Field({
   autoComplete?: string;
   required?: boolean;
   minLength?: number;
+  maxLength?: number;
+  pattern?: string;
   placeholder?: string;
   defaultValue?: string;
 }) {
@@ -378,6 +430,8 @@ function Field({
         autoComplete={autoComplete}
         required={required}
         minLength={minLength}
+        maxLength={maxLength}
+        pattern={pattern}
         placeholder={placeholder}
         defaultValue={defaultValue}
         className="block w-full rounded-lg border border-[#262626] bg-[#0c0c0c] px-3 py-2.5 text-[14px] text-zinc-100 outline-none placeholder:text-zinc-600 focus:border-violet-400/60"

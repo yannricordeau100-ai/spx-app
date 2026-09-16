@@ -729,6 +729,35 @@ export async function downloadSvgAsPng(
   wmTextEl.textContent = "KPIs Powered by";
   clone.appendChild(wmTextEl);
 
+  // Yann 16 sept 2026 : pseudo optionnel a gauche de "KPIs Powered by",
+  // separe par une barre verticale. Source : cookie mettrik:pseudo_graph,
+  // pose depuis user_metadata (src/lib/user-prefs.ts). Vide = rien affiche.
+  const pseudoGraph = (() => {
+    if (typeof document === "undefined") return "";
+    const m = document.cookie.match(/(?:^|;\s*)mettrik:pseudo_graph=([^;]*)/);
+    if (!m) return "";
+    try {
+      const v = decodeURIComponent(m[1]).trim();
+      return /^[A-Za-z0-9]{1,20}$/.test(v) ? v : "";
+    } catch {
+      return "";
+    }
+  })();
+  if (pseudoGraph) {
+    const pseudoEl = document.createElementNS(NS, "text");
+    pseudoEl.setAttribute("x", String(wmStartX - 7));
+    pseudoEl.setAttribute("y", String(wmY + WM_LOGO_H / 2 + 5));
+    pseudoEl.setAttribute("text-anchor", "end");
+    pseudoEl.setAttribute("font-family", PNG_FONT_FAMILY);
+    pseudoEl.setAttribute("font-size", "14");
+    pseudoEl.setAttribute("font-weight", "300");
+    pseudoEl.setAttribute("letter-spacing", "0.02em");
+    pseudoEl.setAttribute("fill", titleColor);
+    pseudoEl.setAttribute("opacity", "0.85");
+    pseudoEl.textContent = `${pseudoGraph}  |`;
+    clone.appendChild(pseudoEl);
+  }
+
   const wmLogoEl = document.createElementNS(NS, "image");
   wmLogoEl.setAttribute("x", String(wmLogoX));
   wmLogoEl.setAttribute("y", String(wmY));

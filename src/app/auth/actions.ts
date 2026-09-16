@@ -317,6 +317,45 @@ export async function updatePassword(formData: FormData) {
 
 /* ─── Update email (déclenche un mail de vérification) ──────────────── */
 
+/**
+ * Yann 16 sept 2026 : pseudo affiche sur les graphiques exportes.
+ * Stocke pseudo + pseudo_sur_graph dans user_metadata (source multi-device),
+ * relaye cote client par le cookie mettrik:pseudo_graph (src/lib/user-prefs.ts).
+ * Contraintes : 3 a 20 caracteres, lettres et chiffres uniquement.
+ */
+export async function updatePseudo(formData: FormData) {
+  const pseudo = String(formData.get("pseudo") ?? "").trim();
+  const surGraph = formData.get("pseudo_sur_graph") === "on";
+
+  if (pseudo && !/^[A-Za-z0-9]{3,20}$/.test(pseudo)) {
+    redirect(
+      `/account?error=${encodeURIComponent(
+        "Pseudo invalide : 3 a 20 caracteres, lettres et chiffres uniquement."
+      )}`
+    );
+  }
+  if (!pseudo && surGraph) {
+    redirect(
+      `/account?error=${encodeURIComponent("Renseigne un pseudo avant de l afficher sur les graphiques.")}`
+    );
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/?auth=signin&next=/account");
+
+  const { error } = await supabase.auth.updateUser({
+    data: { pseudo, pseudo_sur_graph: surGraph },
+  });
+  if (error) {
+    redirect(`/account?error=${await authErr(error.message)}`);
+  }
+
+  redirect(`/account?info=${encodeURIComponent("Pseudo enregistre.")}`);
+}
+
 export async function updateEmail(formData: FormData) {
   const newEmail = String(formData.get("email") ?? "").trim();
 

@@ -292,7 +292,7 @@ export function CompanyHeader({
     !isBlockEnabled("company_logo", company.ticker);
 
   return (
-    <div className="mb-4">
+    <div className="mb-1">
       <div
         data-header-row="true"
         className="flex flex-wrap items-start gap-x-5 gap-y-4"

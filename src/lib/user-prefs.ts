@@ -26,13 +26,21 @@ export function setLocaleCookie(locale: Locale): void {
   document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=${COOKIE_MAX_AGE}; samesite=lax`;
 }
 
+/** Cookie du pseudo affiché sur les graphiques exportés (vide = désactivé). */
+export const PSEUDO_GRAPH_COOKIE = "mettrik:pseudo_graph";
+
+export function setPseudoGraphCookie(pseudo: string): void {
+  if (typeof document === "undefined") return;
+  document.cookie = `${PSEUDO_GRAPH_COOKIE}=${encodeURIComponent(pseudo)}; path=/; max-age=${COOKIE_MAX_AGE}; samesite=lax`;
+}
+
 /**
  * Synchronise une préférence utilisateur vers Supabase user_metadata.
  * Best-effort : si pas connecté ou erreur réseau, échoue silencieusement
  * (la pref reste dans le cookie).
  */
 export async function pushUserPref(
-  key: "currency" | "locale" | "theme",
+  key: "currency" | "locale" | "theme" | "pseudo" | "pseudo_sur_graph",
   value: string,
 ): Promise<void> {
   try {
@@ -66,6 +74,12 @@ export async function syncUserPrefsFromSupabase(): Promise<{
     const { data } = await supabase.auth.getUser();
     const user = data.user;
     if (!user) return { currency: null, locale: null, changed: false };
+
+    // Yann 16 sept 2026 : pseudo affiche sur les graphiques exportes.
+    // Cookie local lu par src/lib/chart-export.ts (pas de requete en plus).
+    const pseudo = String(user.user_metadata?.pseudo ?? "").trim();
+    const surGraph = user.user_metadata?.pseudo_sur_graph === true;
+    setPseudoGraphCookie(surGraph && pseudo ? pseudo : "");
 
     const remoteCurrency = user.user_metadata?.currency as Currency | undefined;
     const remoteLocale = user.user_metadata?.locale as Locale | undefined;

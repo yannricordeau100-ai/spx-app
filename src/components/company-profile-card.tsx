@@ -100,7 +100,7 @@ export function CompanyProfileCard({
     lang === "de" ? s.labelDe : lang === "en" ? s.labelEn : s.label;
 
   return (
-    <section id="sec-profile" className="mt-4 scroll-mt-24">
+    <section id="sec-profile" className="mt-2 scroll-mt-24">
       {/* Yann 16 sept 2026 : bandeau de titre vide retire, le bloc commence directement. */}
       <h2 className="sr-only">{t("company.profile.section_title")}</h2>
 

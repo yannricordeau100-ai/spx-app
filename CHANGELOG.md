@@ -454,3 +454,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.17 (16 Sep 2026 15:16, apres 1c2aafeec7)
 - date des graphiques, alerte sur graphiques de plus de deux ans
+
+## v2026.09.16.18 (16 Sep 2026 16:23, apres c26ed16209)
+- Titres long/moyen/court terme, espace reduit avant Comprendre la societe, pseudo sur graphiques exportes
