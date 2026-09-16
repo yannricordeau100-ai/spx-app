@@ -100,12 +100,9 @@ export function CompanyProfileCard({
     lang === "de" ? s.labelDe : lang === "en" ? s.labelEn : s.label;
 
   return (
-    <section id="sec-profile" className="mt-9 scroll-mt-24">
-      <div className="mb-3 flex items-baseline justify-between">
-        {/* Yann 14 mai 2026 : "Profil société & marché" → "Comprendre la société" */}
-        <h2 className="sr-only">{t("company.profile.section_title")}</h2>
-        {/* Yann 15 sept 2026 : mention « Source : Mettrik AI » retiree du bloc. */}
-      </div>
+    <section id="sec-profile" className="mt-4 scroll-mt-24">
+      {/* Yann 16 sept 2026 : bandeau de titre vide retire, le bloc commence directement. */}
+      <h2 className="sr-only">{t("company.profile.section_title")}</h2>
 
       {/* Layout principal : Description Mettrik (2/3) + Snapshot boursier (1/3).
           Yann 14 mai 2026 v2 : structure sections (~150 mots), look pro. */}

@@ -672,6 +672,7 @@ function ResultCard({
   return (
     <Link
       href={anonLiens ? lienInscription(ticker) : buildLatestHref(ticker)}
+      prefetch
       onClick={onSelect}
       className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
         estVitrine
@@ -850,6 +851,7 @@ function ResultCardV17({
   return (
     <Link
       href={href}
+      prefetch
       onClick={onSelect}
       className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
         VITRINE_VISIBLE.has(ticker.toUpperCase())
@@ -931,6 +933,7 @@ function ResultCardV19({
   return (
     <Link
       href={href}
+      prefetch
       onClick={onSelect}
       className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
         VITRINE_VISIBLE.has(ticker.toUpperCase())

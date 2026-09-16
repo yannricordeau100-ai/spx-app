@@ -448,3 +448,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.15 (16 Sep 2026 14:04, apres 4a6dfd2b62)
 - graphiques sur Max en forfait Max, sources en bas sans Fool ni Wikipedia, KPI de CA dans le tableau
+
+## v2026.09.16.16 (16 Sep 2026 14:53, apres a208249644)
+- espacements haut de fiche, prechargement des fiches, titres du bloc graphiques

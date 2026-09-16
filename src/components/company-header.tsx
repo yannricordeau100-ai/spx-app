@@ -292,7 +292,7 @@ export function CompanyHeader({
     !isBlockEnabled("company_logo", company.ticker);
 
   return (
-    <div className="mb-8">
+    <div className="mb-4">
       <div
         data-header-row="true"
         className="flex flex-wrap items-start gap-x-5 gap-y-4"
@@ -348,7 +348,7 @@ export function CompanyHeader({
           </>
         );
         return (
-          <div ref={chipsRef} className="mt-5 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div ref={chipsRef} className="mt-2.5 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <div className="flex shrink-0 items-center gap-1.5">{chips}</div>
             {/* Yann 2 sept 2026 : copie pour la boucle infinie du defilement
                 mobile (le bandeau avance de droite a gauche sans demi-tour).

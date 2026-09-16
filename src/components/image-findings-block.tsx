@@ -94,7 +94,7 @@ export function ImageFindingsBlock({
             Le SVG n'a plus son titre rasterisé (strip), donc on l'affiche en
             HTML i18n FR/EN/DE pour avoir des titres traduits propres. */}
         {displayTitle && (
-          <h3 className="mb-3 text-center text-[15px] font-semibold leading-snug text-zinc-100">
+          <h3 className="mb-1 mt-0 text-center text-[15px] font-semibold leading-tight text-zinc-100">
             {displayTitle}
           </h3>
         )}
@@ -114,13 +114,13 @@ export function ImageFindingsBlock({
             Le toggle "masquer la lecture" est désormais dans la sandbox admin
             (per finding). Ici on respecte le flag f.show_summary !== false. */}
         {displaySummary && f.show_summary !== false && (
-          <p className="mt-3 text-[12.5px] leading-relaxed text-zinc-400">{displaySummary}</p>
+          <p className="mt-2 text-[12.5px] leading-relaxed text-zinc-400">{displaySummary}</p>
         )}
       </div>
 
       {/* Dots indicators */}
       {findings.length > 1 && (
-        <div className="mt-3 flex justify-center gap-1.5">
+        <div className="mt-2 flex justify-center gap-1.5">
           {findings.map((_, i) => (
             <button
               key={i}
