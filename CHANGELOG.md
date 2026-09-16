@@ -436,3 +436,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.11 (16 Sep 2026 03:31, apres 767a563425)
 - effet de change : societes europeennes et premieres americaines
+
+## v2026.09.16.12 (16 Sep 2026 03:52, apres c2face9883)
+- effet de change : premieres societes americaines
