@@ -11,6 +11,8 @@ import { RepartitionHistory } from "@/components/charts/repartition-history";
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
+import { InfoTooltip } from "@/components/info-tooltip";
+import FX from "@/data/fx-effet-change.json";
 
 /**
  * RepartitionBlock — vue répartition CA par dimension (géographique
@@ -271,6 +273,45 @@ export function RepartitionBlock({
         </div>
         </div>
       </div>
+
+      {/* Yann 16 sept 2026 : effet de change publie par la societe, annee par annee.
+          Un signe + veut dire que les devises ont aide, un signe - qu elles ont pese. */}
+      {(() => {
+        const fx = ((FX as { par_ticker: Record<string, { unite: string; annees: { annee: number; valeur: number; montant?: string | null; source_url?: string | null }[]; note?: string }> }).par_ticker ?? {})[company.ticker.toUpperCase()];
+        if (!fx || fx.annees.length === 0) return null;
+        return (
+          <div className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1.5 rounded-xl border border-white/[0.07] bg-white/[0.015] px-3 py-2">
+            <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">Effet de change</span>
+            <InfoTooltip color={accent}>
+              <div className="text-zinc-200">
+                L’effet de change dit ce que les monnaies ont ajouté ou retiré à la croissance du chiffre d’affaires, en points.
+              </div>
+              <div className="mt-1.5 text-[12px] text-zinc-400">
+                Exemple : la société vend pour 100 en euros. Si l’euro baisse face au dollar, ces 100 valent moins une fois convertis, et l’effet est négatif.
+              </div>
+              <div className="mt-1.5 text-[12px] text-zinc-400">
+                Les chiffres de ce bloc tiennent déjà compte du change. Retire l’effet pour voir ce que la société aurait encaissé si les monnaies n’avaient pas bougé.
+              </div>
+            </InfoTooltip>
+            {fx.annees.map((a) => {
+              const couleur = a.valeur > 0 ? "#6ee7b7" : a.valeur < 0 ? "#fca5a5" : "#a1a1aa";
+              const bord = a.valeur > 0 ? "#10b98155" : a.valeur < 0 ? "#ef444455" : "#52525b55";
+              return (
+                <span
+                  key={a.annee}
+                  title={a.montant ? `${a.annee} : ${a.montant}` : `${a.annee}`}
+                  className="inline-flex items-baseline gap-1 rounded-full border px-2 py-0.5 font-mono text-[11.5px]"
+                  style={{ borderColor: bord, color: couleur }}
+                >
+                  <span className="text-zinc-500">{a.annee}</span>
+                  {a.valeur > 0 ? `+${a.valeur}` : a.valeur}
+                </span>
+              );
+            })}
+            <span className="font-mono text-[10.5px] text-zinc-600">points de croissance, publiés par la société</span>
+          </div>
+        );
+      })()}
 
       {tab === "ai_customer" && (aiConfidence || (aiSources && aiSources.length > 0)) && (
         <div className="mb-3 flex flex-wrap items-center gap-2 text-[11px] text-zinc-400">

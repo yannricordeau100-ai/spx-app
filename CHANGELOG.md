@@ -418,3 +418,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.5 (16 Sep 2026 01:35, apres c2dd52c998)
 - KPI de chiffre d affaires : regle restreinte aux montants
+
+## v2026.09.16.6 (16 Sep 2026 02:27, apres 087a8356da)
+- effet de change dans le bloc repartition (Alphabet, Meta, Booking)
