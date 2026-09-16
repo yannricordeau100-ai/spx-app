@@ -463,3 +463,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.20 (16 Sep 2026 21:17, apres ba2ebc6899)
 - JSON-LD fiches, gras et surlignage FAQ, exceptions a trancher filtrees, NVDA nettoye
+
+## v2026.09.16.21 (16 Sep 2026 23:44, apres ed49725fba)
+- REITs MAA et VTR en FFO, FAQ accessibilite, raison d etre de l anti-these
