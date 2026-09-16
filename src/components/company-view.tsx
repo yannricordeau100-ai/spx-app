@@ -557,7 +557,8 @@ export function CompanyView({
   const [graphPeriod, setGraphPeriod] = useState<"year" | "quarter" | "semester">(heroDefaultPeriod);
   // Yann 8 juin 2026 : fenetre temporelle du chart. "5y" = 5 dernieres annees
   // (= 20 trimestres / 10 semestres selon la frequence), "max" = tout dispo.
-  const [chartRange, setChartRange] = useState<"3y" | "max">("3y"); // Yann 12 sept 2026 : 3 ans (au lieu de 5), Max reserve au forfait Max
+  // Yann 16 sept 2026 : le forfait Max ouvre les graphiques sur toute la profondeur.
+  const [chartRange, setChartRange] = useState<"3y" | "max">(freemiumTier === "max" ? "max" : "3y"); // Yann 12 sept 2026 : 3 ans (au lieu de 5), Max reserve au forfait Max
   const [compareTicker, setCompareTicker] = useState<string | null>(null);
   // Yann 8 juin 2026 (Point 4) : state lifte ici pour que la bascule FR/EN
   // du titre KPI hero (via KpiSwapTitle) propage aussi a l'axe Y du graph.
@@ -892,8 +893,6 @@ export function CompanyView({
       if (k.short === heroShort) return true;
       // Le chiffre d affaires annuel deja porte par le bloc de repartition sort du tableau.
       if (estCaAnnuelRedondant(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string; unit?: string }, libellesRepartition)) return false;
-      // Le chiffre d affaires trimestriel est regroupe sous le bloc de repartition.
-      if (estCaTrimestriel(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string; unit?: string })) return false;
       // Yann 29 aout 2026 : un KPI cree a la main (hors_document) est TOUJOURS
       // accepte, quelle que soit sa cadence ou la longueur de son historique.
       if ((k as unknown as { hors_document?: boolean }).hors_document === true) return true;
@@ -2132,7 +2131,6 @@ export function CompanyView({
             />
           )}
           {/* Yann 15 sept 2026 : sources autres que les documents de la societe. */}
-          <SourcesExternes ticker={company.ticker} paid={isPaidTier} />
         </section>
         </ZoneReservee>
 
@@ -2177,33 +2175,10 @@ export function CompanyView({
             Les trois parties s adaptent : chacune ne s affiche que si la societe porte la donnee. */}
         <section id="sec-ca-moat-tam" className="mt-9 scroll-mt-24">
           <h2 className="mb-3 font-display text-[20px] font-bold tracking-tight text-zinc-100">Chiffre d’affaires, avantage concurrentiel et marché</h2>
-          <div className="grid gap-4">
+          <div className="grid gap-4 [&>*]:mt-0 [&>*>*]:mt-0">
         {/* Répartition CA (géo + segment) — au-dessus de Gouvernance */}
         {isBlockEnabled("repartition", company.ticker) ? (
-          <>
           <RepartitionBlock company={company} disabledBlocks={disabledBlocks} />
-          {/* Yann 16 sept 2026 : KPI trimestriels de chiffre d affaires, sous le bloc de repartition. */}
-          {caTrimestriels.length > 0 && (
-            <div className="mt-3">
-              <button
-                type="button"
-                onClick={() => setShowCaTrim((v) => !v)}
-                className="flex w-full items-center gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.015] px-4 py-2.5 text-left text-[13px] font-semibold text-zinc-200 hover:bg-white/[0.03]"
-              >
-                <span className={`inline-block transition-transform ${showCaTrim ? "rotate-90" : ""}`}>›</span>
-                Voir plus de KPI chiffre d’affaires (trimestriels)
-                <span className="ml-auto font-mono text-[11px] text-zinc-500">{caTrimestriels.length}</span>
-              </button>
-              {showCaTrim && (
-                <div className="mt-2 grid gap-1.5">
-                  {caTrimestriels.map((k) => (
-                    <KpiRow key={k.short} kpi={k} subsector={company.subsector} ticker={company.ticker} freeBlocked={freeBlocked} />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-          </>
         ) : (
           <BlockComingSoon blockId="repartition" />
         )}
@@ -2359,6 +2334,8 @@ export function CompanyView({
         ) : (
           <BlockComingSoon blockId="transcripts" />
         )}
+        {/* Yann 16 sept 2026 : sources en dernier bloc de la fiche. */}
+        <SourcesExternes ticker={company.ticker} paid={isPaidTier} />
         </ZoneReservee>
       </main>
 

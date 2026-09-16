@@ -12,7 +12,9 @@ import { ChevronRight, Lock } from "lucide-react";
 import SOURCES from "@/data/sources-externes.json";
 
 export function SourcesExternes({ ticker, paid }: { ticker: string; paid: boolean }) {
-  const liste = ((SOURCES as { par_ticker: Record<string, string[]> }).par_ticker ?? {})[ticker.toUpperCase()] ?? [];
+  // Yann 16 sept 2026 : Motley Fool et Wikipédia ne sont pas comptés comme sources.
+  const ECARTEES = /motley fool|wikip/i;
+  const liste = (((SOURCES as { par_ticker: Record<string, string[]> }).par_ticker ?? {})[ticker.toUpperCase()] ?? []).filter((x) => !ECARTEES.test(x));
   const [ouvert, setOuvert] = useState(false);
   const boite = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
