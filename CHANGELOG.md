@@ -466,3 +466,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.21 (16 Sep 2026 23:44, apres ed49725fba)
 - REITs MAA et VTR en FFO, FAQ accessibilite, raison d etre de l anti-these
+
+## v2026.09.17.1 (17 Sep 2026 00:06, apres a67ba86cef)
+- Mise a jour nocturne : 7 societes au trimestre publie (JCI, BEN, APD, COR, CAH, AMCR, GLE.PA, 100 points KPI verifies), positionnement IA et stories refaits, dates des indicateurs cles realignees sur 17 societes
