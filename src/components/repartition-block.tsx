@@ -277,7 +277,7 @@ export function RepartitionBlock({
       {/* Yann 16 sept 2026 : effet de change publie par la societe, annee par annee.
           Un signe + veut dire que les devises ont aide, un signe - qu elles ont pese. */}
       {(() => {
-        const fx = ((FX as { par_ticker: Record<string, { unite: string; annees: { annee: number; valeur: number; montant?: string | null; source_url?: string | null }[]; note?: string }> }).par_ticker ?? {})[company.ticker.toUpperCase()];
+        const fx = ((FX as { par_ticker: Record<string, { unite: string; annees: { annee: number; valeur: number; montant?: string | null; origine?: string | null; source_url?: string | null }[]; note?: string }> }).par_ticker ?? {})[company.ticker.toUpperCase()];
         if (!fx || fx.annees.length === 0) return null;
         return (
           <div className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1.5 rounded-xl border border-white/[0.07] bg-white/[0.015] px-3 py-2">
@@ -299,16 +299,20 @@ export function RepartitionBlock({
               return (
                 <span
                   key={a.annee}
-                  title={a.montant ? `${a.annee} : ${a.montant}` : `${a.annee}`}
+                  title={[`${a.annee}`, a.montant, a.origine].filter(Boolean).join(" : ")}
                   className="inline-flex items-baseline gap-1 rounded-full border px-2 py-0.5 font-mono text-[11.5px]"
                   style={{ borderColor: bord, color: couleur }}
                 >
                   <span className="text-zinc-500">{a.annee}</span>
-                  {a.valeur > 0 ? `+${a.valeur}` : a.valeur}
+                  {`${a.valeur > 0 ? "+" : ""}${a.valeur.toLocaleString("fr-FR", { maximumFractionDigits: 1 })}`}
+                  {a.origine?.startsWith("moyenne") && <span className="text-zinc-500">*</span>}
                 </span>
               );
             })}
-            <span className="font-mono text-[10.5px] text-zinc-600">points de croissance : + la croissance a été avantagée, - elle a été pénalisée</span>
+            <span className="font-mono text-[10.5px] text-zinc-600">
+              points de croissance : + la croissance a été avantagée, - elle a été pénalisée
+              {fx.annees.some((a) => a.origine?.startsWith("moyenne")) && " · * moyenne des points annoncés trimestre par trimestre, la société ne publiant pas de chiffre annuel"}
+            </span>
           </div>
         );
       })()}
