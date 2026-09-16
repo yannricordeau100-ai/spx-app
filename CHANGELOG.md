@@ -442,3 +442,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.13 (16 Sep 2026 04:07, apres 1b802569c9)
 - effet de change : 158 societes
+
+## v2026.09.16.14 (16 Sep 2026 13:06, apres ff7ab08eca)
+- effet de change : univers complet
