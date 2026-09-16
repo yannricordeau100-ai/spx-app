@@ -95,7 +95,9 @@ export function TurnstileWidget(props?: {
   // Priorite a la cle relayee (widget « Mettrik » cree le 14 sept 2026), puis l ancienne NEXT_PUBLIC_.
   const siteKey = props?.siteKey ?? cleRelais ?? getTurnstileSiteKey();
   const theme = props?.theme ?? "dark";
-  const size = (props?.size === "invisible" ? "normal" : props?.size) ?? "normal";
+  // Yann 16 sept 2026 : « flexible » = la carte Cloudflare prend la largeur
+  // disponible au lieu de deborder de la fenetre de connexion.
+  const size = (props?.size === "invisible" ? "flexible" : props?.size) ?? "flexible";
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
@@ -175,8 +177,8 @@ export function TurnstileWidget(props?: {
   }, [props?.signalReset]);
 
   return (
-    <div className="inline-block">
-      <div ref={containerRef} />
+    <div className="w-full max-w-full">
+      <div ref={containerRef} className="mx-auto w-full max-w-[330px] overflow-hidden" />
       <input type="hidden" name={fieldName} value={token} />
       {status === "error" && (
         <p className="mt-1 text-[11px] text-rose-400">

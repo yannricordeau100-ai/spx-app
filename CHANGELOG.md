@@ -421,3 +421,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.6 (16 Sep 2026 02:27, apres 087a8356da)
 - effet de change dans le bloc repartition (Alphabet, Meta, Booking)
+
+## v2026.09.16.7 (16 Sep 2026 02:40, apres eeb1d96a30)
+- carte Cloudflare a la bonne largeur, effet de change exprime en croissance

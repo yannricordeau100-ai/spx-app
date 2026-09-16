@@ -284,13 +284,13 @@ export function RepartitionBlock({
             <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">Effet de change</span>
             <InfoTooltip color={accent}>
               <div className="text-zinc-200">
-                L’effet de change dit ce que les monnaies ont ajouté ou retiré à la croissance du chiffre d’affaires, en points.
+                L’effet de change dit de combien de points les monnaies ont avantagé ou pénalisé la CROISSANCE du chiffre d’affaires, telle que la société la publie.
               </div>
               <div className="mt-1.5 text-[12px] text-zinc-400">
                 Exemple : la société vend pour 100 en euros. Si l’euro baisse face au dollar, ces 100 valent moins une fois convertis, et l’effet est négatif.
               </div>
               <div className="mt-1.5 text-[12px] text-zinc-400">
-                Les chiffres de ce bloc tiennent déjà compte du change. Retire l’effet pour voir ce que la société aurait encaissé si les monnaies n’avaient pas bougé.
+                Les chiffres de ce bloc tiennent déjà compte du change. Retire l’effet pour voir la croissance qu’aurait connue la société si les monnaies n’avaient pas bougé.
               </div>
             </InfoTooltip>
             {fx.annees.map((a) => {
@@ -308,7 +308,7 @@ export function RepartitionBlock({
                 </span>
               );
             })}
-            <span className="font-mono text-[10.5px] text-zinc-600">points de croissance, publiés par la société</span>
+            <span className="font-mono text-[10.5px] text-zinc-600">points de croissance : + la croissance a été avantagée, - elle a été pénalisée</span>
           </div>
         );
       })()}
