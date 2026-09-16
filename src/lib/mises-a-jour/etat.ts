@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import REGLES from "@/data/mise-a-jour-regles.json";
 import { etatSynchro } from "@/lib/synchro/etat";
+import { createClient } from "@supabase/supabase-js";
 
 /**
  * Etat de mise a jour des fiches par bloc (Yann 13 sept 2026).
@@ -32,6 +33,44 @@ function feu(blocDate: string | null, reference: string | null, delai: number, t
   return { feu: "rouge", jours: retard, motif: `publication le ${reference}, bloc daté du ${blocDate}` };
 }
 
+/** Yann 16 sept 2026 : graphiques repris de sources exterieures. Rouge quand la
+ *  source a deux ans ou plus, ou quand l annee la plus recente citee dans le
+ *  titre ou la lecture a deux ans ou plus (l axe des abscisses s arrete la). */
+async function graphiquesAnciens(): Promise<Map<string, { date: string | null; motif: string }[]>> {
+  const out = new Map<string, { date: string | null; motif: string }[]>();
+  try {
+    const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+    const { data } = await sb
+      .from("desk_image_findings")
+      .select("target_tickers, source_date, title, summary, approved, rejected");
+    const limite = new Date().getFullYear() - 2;
+    for (const f of (data ?? []) as { target_tickers?: unknown; source_date?: string | null; title?: string | null; summary?: string | null; approved?: boolean; rejected?: boolean }[]) {
+      if (f.approved === false || f.rejected === true) continue;
+      const anSource = f.source_date ? Number(String(f.source_date).slice(0, 4)) : NaN;
+      const annees = `${f.title ?? ""} ${f.summary ?? ""}`.match(/\b(20[12][0-9])\b/g)?.map(Number) ?? [];
+      const anDonnees = annees.length ? Math.max(...annees) : NaN;
+      const motifs: string[] = [];
+      if (Number.isFinite(anSource) && anSource <= limite) motifs.push(`source de ${anSource}`);
+      if (Number.isFinite(anDonnees) && anDonnees <= limite) motifs.push(`données arrêtées en ${anDonnees}`);
+      if (motifs.length === 0) continue;
+      let cibles: string[] = [];
+      const tt = f.target_tickers;
+      if (Array.isArray(tt)) cibles = tt.map(String);
+      else if (typeof tt === "string") cibles = tt.replace(/[\[\]'\"]/g, "").split(",").map((x) => x.trim()).filter(Boolean);
+      for (const t of cibles) {
+        const l = out.get(t.toUpperCase()) ?? [];
+        l.push({ date: f.source_date ?? null, motif: motifs.join(" et ") });
+        out.set(t.toUpperCase(), l);
+      }
+    }
+  } catch {
+    /* base indisponible : le bloc reste vide */
+  }
+  return out;
+}
+
 export async function calculerEtatMisesAJour(): Promise<EtatMisesAJour> {
   const today = new Date().toISOString().slice(0, 10);
   const uni = (await lire<{ tickers: string[] }>(path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json")))?.tickers ?? [];
@@ -39,6 +78,7 @@ export async function calculerEtatMisesAJour(): Promise<EtatMisesAJour> {
   const noms = (await lire<Record<string, { name?: string }>>(path.join(ROOT, "src/data/v1-7-public.json"))) ?? {};
   const rangs = await lire<{ generation?: string }>(path.join(ROOT, "src/data/market-cap-order.json"));
   const synchro = await etatSynchro();
+  const vieuxGraphiques = await graphiquesAnciens();
   const regles = (REGLES as { blocs: Regle[] }).blocs;
   const blocs: EtatBloc[] = regles.map((r) => ({ ...r, vert: 0, orange: 0, rouge: 0, rouges: [], oranges_exemples: [] }));
   const parId = Object.fromEntries(blocs.map((b) => [b.id, b]));
@@ -70,6 +110,7 @@ export async function calculerEtatMisesAJour(): Promise<EtatMisesAJour> {
     // Convention : _maj_<bloc> ; on accepte aussi les variantes posees par certaines passes (_maj_repartition_ca).
     const maj = (k: string) => iso(enrich?.[`_maj_${k}`]) ?? (k === "repartition" ? iso(enrich?.["_maj_repartition_ca"]) : null);
     // rang : hebdomadaire, reference = aujourd hui - 7 jours
+    { const b = parId.graphiques; if (b) { const v = vieuxGraphiques.get(t.toUpperCase()); if (v && v.length) pose(b, { ticker: t, nom, feu: "rouge", bloc_date: v[0].date, reference: null, jours: null, motif: `${v.length} graphique(s) à rafraîchir : ${v[0].motif}` }); else b.vert++; } }
     { const b = parId.rang; if (b) { const r = rangDate ? (jours(today, rangDate) > 7 ? "rouge" : "vert") : "orange"; pose(b, { ticker: t, nom, feu: r, bloc_date: rangDate, reference: today, jours: rangDate ? Math.max(0, jours(today, rangDate) - 7) : null, motif: rangDate ? `dernier classement le ${rangDate}` : "date du classement inconnue" }); } }
     { const b = parId.synthese; if (b) { const d = iso(resume?.fetched_at); const f = feu(d, publication, b.delai_jours, today); pose(b, { ticker: t, nom, bloc_date: d, reference: publication, ...f }); } }
     { const b = parId.positionnement_ia; if (b) { const d = maj("positionnement_ia"); const f = feu(d, publication, b.delai_jours, today); pose(b, { ticker: t, nom, bloc_date: d, reference: publication, ...f }); } }

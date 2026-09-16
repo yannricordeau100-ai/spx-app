@@ -116,6 +116,20 @@ export function ImageFindingsBlock({
         {displaySummary && f.show_summary !== false && (
           <p className="mt-2 text-[12.5px] leading-relaxed text-zinc-400">{displaySummary}</p>
         )}
+        {/* Yann 16 sept 2026 : date de la source, signalee au dela de deux ans. */}
+        {(() => {
+          const d = f.source_date ?? null;
+          if (!d) return null;
+          const an = Number(String(d).slice(0, 4));
+          const vieux = Number.isFinite(an) && an <= new Date().getFullYear() - 2;
+          return (
+            <div className={`mt-1.5 font-mono text-[10.5px] ${vieux ? "text-amber-300/90" : "text-zinc-500"}`}>
+              {f.source_author ? `${f.source_author} · ` : ""}
+              {String(d).slice(0, 10).split("-").reverse().join("/")}
+              {vieux ? " · source de plus de deux ans" : ""}
+            </div>
+          );
+        })()}
       </div>
 
       {/* Dots indicators */}

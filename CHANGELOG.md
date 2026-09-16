@@ -451,3 +451,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.16 (16 Sep 2026 14:53, apres a208249644)
 - espacements haut de fiche, prechargement des fiches, titres du bloc graphiques
+
+## v2026.09.16.17 (16 Sep 2026 15:16, apres 1c2aafeec7)
+- date des graphiques, alerte sur graphiques de plus de deux ans
