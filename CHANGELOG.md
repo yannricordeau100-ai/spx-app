@@ -427,3 +427,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.16.8 (16 Sep 2026 02:47, apres 16bdef7134)
 - effet de change : Apple, en moyenne des points trimestriels annonces
+
+## v2026.09.16.9 (16 Sep 2026 03:04, apres d91798dc89)
+- captcha : jeton neuf demande a chaque envoi
