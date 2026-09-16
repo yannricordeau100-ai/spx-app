@@ -4,7 +4,7 @@ import { ImageFindingsClient } from "./client";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "Graphiques et Schémas · Mettrik (sandbox)",
+  title: "Indicateurs variés - Moyen terme · Mettrik (sandbox)",
   robots: { index: false, follow: false },
 };
 

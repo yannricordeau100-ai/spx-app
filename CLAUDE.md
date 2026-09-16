@@ -525,3 +525,26 @@ Source de verite : `src/data/mise-a-jour-regles.json` (lu par la page /sandbox/m
 ## 9. UNIVERS ET TRADUCTIONS (Yann, 13 sept 2026)
 - Une societe sortie d un indice RESTE dans l univers Mettrik : page en ligne et presence dans toutes les listes (recherche, comptages, comparaison). La veille des indices signale les sorties par email, elle ne retire jamais personne. Cette regle prime sur project_mettrik_univers_indices_only du 28 aout (qui avait retire AVB et EQR).
 - AUCUNE TRADUCTION, nulle part : les crons de traduction (cron-translate-en-de.sh, auto-translate-on-fr-change.sh) sont desactives dans crontab le 13 sept 2026 ; ne pas produire ni relancer de fichiers v2-pipeline-i18n, ne pas ajouter d etape de traduction dans une chaine.
+
+## 10. « LANCE LA DEMANDE X » — INDICATEURS VARIÉS - MOYEN TERME (Yann, 16 sept 2026)
+
+Yann crée une demande dans l'onglet « Indicateurs variés - Moyen terme » de
+`/sandbox/reglages-kpi` (page `/sandbox/image-findings`) et clique « Lancer ».
+La demande passe en `claude_pending` dans `desk_image_findings_requests`.
+
+**N'importe quelle session Claude Code convient** (compte Max 5× ou Max 20×) :
+aucun compte n'est imposé, la file est en base. Quand Yann tape
+« lance la demande X » :
+
+1. `python3 scripts/lance-demande.py X` : affiche la demande et ses tickers.
+2. Chercher les données, uniquement des valeurs publiées et sourçables
+   (jamais de valeur inventée, jamais d'estimation maison).
+3. **Interdiction absolue de copier-coller une image de source extérieure.**
+   Le fond reste (les valeurs publiées, la source citée), la forme est refaite :
+   une spec JSON dans `scripts/specs-findings/` puis
+   `python3 scripts/finding-svg.py scripts/specs-findings/<slug>.json`, qui
+   produit les versions sombre et claire au gabarit Mettrik.
+4. Insérer les lignes dans `desk_image_findings` (`image_url_dark`,
+   `image_url_light`, `title`, `summary`, `source_url`, `source_author`,
+   `source_date`, `target_tickers`), rejeter les images copiées, puis passer la
+   demande en `pending_review`. Yann approuve ensuite dans la page.

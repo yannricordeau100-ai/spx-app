@@ -147,11 +147,17 @@ export function ImageFindingsClient({
       body: JSON.stringify({ action: "mark_claude_pending", id }),
     });
     await refresh();
+    // Yann 16 sept 2026 : la demande est mise en attente en base, donc
+    // n importe quelle session Claude Code (compte Max 5x ou 20x) peut la
+    // prendre. Aucun compte n est impose.
     alert(
-      "Demande marquée. Va dans ta conv Claude MAX 20× et tape :\n\n" +
+      `Demande #${num} mise en attente.\n\n` +
+        "Dans la conversation Claude Code ouverte sur le compte que tu utilises " +
+        "en ce moment (Max 5x ou Max 20x), tape :\n\n" +
         `lance la demande ${
           requests.find((r) => r.id === id)?.display_number ?? id.slice(0, 8)
-        }\n\nClaude fera la recherche WebSearch X + insérera les images.`,
+        }\n\nLa session lira la demande en base, fera la recherche et ` +
+        "reconstruira chaque graphique au format Mettrik.",
     );
   }
 
@@ -200,7 +206,7 @@ export function ImageFindingsClient({
           <div>
             <h1 className="font-display text-3xl font-semibold">
               <ImageIcon className="mr-2 inline size-7 text-cyan-400" />
-              Graphiques et Schémas de sources diverses
+              Indicateurs variés - Moyen terme
             </h1>
             <p className="mt-2 max-w-3xl text-sm text-zinc-400">
               Recherche manuelle de graphiques / schémas (principalement X /
