@@ -2134,17 +2134,8 @@ export function CompanyView({
         </section>
         </ZoneReservee>
 
-        {/* Stories — KPIs short-history + MarketPositions intégrées */}
-        {isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories") ? (
-          hasStories(company.kpis, []) && (
-            <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="KPI stories réservés aux abonnés"><KpiStories company={company} freeBlocked={freeBlocked} /></ZoneReservee>
-          )
-        ) : (
-          <BlockComingSoon blockId="stories" />
-        )}
-
         {/* Graphiques et Schémas de sources diverses (Yann 15 mai 2026 v2).
-            Placé SOUS les Stories. Images approuvées dans
+            Yann 18 sept 2026 : place AU-DESSUS des Stories (moyen terme avant court terme) ; sans graphique approuve, rien ne change. Images approuvées dans
             /sandbox/image-findings mergées au SSR dans company.image_findings. */}
         {isBlockEnabled("image_findings", company.ticker) && !isDisabled("graphiques_schemas") ? (
           Array.isArray((company as Company & { image_findings?: unknown[] }).image_findings) &&
@@ -2157,6 +2148,15 @@ export function CompanyView({
           ) : null
         ) : (
           <BlockComingSoon blockId="image_findings" />
+        )}
+
+        {/* Stories — KPIs short-history + MarketPositions intégrées */}
+        {isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories") ? (
+          hasStories(company.kpis, []) && (
+            <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="KPI stories réservés aux abonnés"><KpiStories company={company} freeBlocked={freeBlocked} /></ZoneReservee>
+          )
+        ) : (
+          <BlockComingSoon blockId="stories" />
         )}
 
         {/* Stories Dividendes — RETIRÉ de company-view le 7 mai 2026.

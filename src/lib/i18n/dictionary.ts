@@ -144,7 +144,7 @@ export const DICTIONARY: Dict = {
     en: "Access the KPIs of the biggest US and European companies.",
   },
   "auth.signup.subtitle": {
-    fr: "Plus que 3 clics pour découvrir les KPI indispensables et Super KPI privées.",
+    fr: "Plus que 3 clics pour découvrir les meilleurs indicateurs concret d'évaluation de sociétés",
     en: "3 clicks away from the essential KPIs and private Super KPIs.",
   },
   "auth.reset.subtitle": {
