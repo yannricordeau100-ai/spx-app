@@ -478,3 +478,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.4 (17 Sep 2026 13:27, apres 1b85066f64)
 - Chantier KPI star : 37 heros bascules (banques, assureurs, petrole, sante, mines, logiciel), vocabulaire secteur
+
+## v2026.09.17.5 (17 Sep 2026 13:50, apres 6b25130927)
+- KPI star : DCF, AFFO, CET1 EBA, ratio combine Zurich, AFFO SBA ; overrides sur shorts servis

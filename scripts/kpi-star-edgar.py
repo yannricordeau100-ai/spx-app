@@ -39,11 +39,9 @@ def exhibits(cik, phrase, depuis):
         if not re.search(r"ex[-_]?99|ex991|exhibit99|press", fn, re.I) and not fn.endswith(".htm"):
             continue
         out.append({"date": h["_source"]["file_date"], "url": f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{adsh.replace('-', '')}/{fn}", "fn": fn})
-    # un seul document par date (le premier exhibit)
-    vus = {}
-    for e in sorted(out, key=lambda x: (x["date"], x["fn"])):
-        vus.setdefault(e["date"], e)
-    return sorted(vus.values(), key=lambda x: x["date"])
+    # tous les exhibits d une meme date sont gardes : le communique de resultats
+    # n est pas toujours le premier (ex. Targa : ex99_1 = communique, ex991_6 = autre)
+    return sorted(out, key=lambda x: (x["date"], x["fn"]))
 
 def trimestre_du_depot(date):
     """Un 8-K de resultats depose en janvier porte sur T4 de l annee precedente, etc."""
@@ -96,12 +94,16 @@ def main():
     docs = exhibits(a.cik, a.phrase, a.depuis)
     print(f"{a.ticker}: {len(docs)} communiques", file=sys.stderr)
     serie, controle, sources = {}, {}, []
+    faits = set()
     for d in docs:
-        v = lire(d["url"], a.ligne, a.colonnes)
         an, tr = trimestre_du_depot(d["date"])
+        cle = f"T{tr} {an}"
+        if cle in faits:
+            continue
+        v = lire(d["url"], a.ligne, a.colonnes)
         if not v:
-            print(f"  {d['date']} T{tr} {an}: ligne introuvable", file=sys.stderr); continue
-        cle = f"T{tr} {an}"; serie[cle] = v[0] / a.diviseur
+            print(f"  {d['date']} {cle}: ligne introuvable dans {d['fn']}", file=sys.stderr); continue
+        faits.add(cle); serie[cle] = v[0] / a.diviseur
         if a.colonnes >= 2: controle[f"T{tr} {an-1}"] = v[1] / a.diviseur
         sources.append(d["url"]); time.sleep(0.15)
     ecarts = [(k, serie[k], controle[k]) for k in serie if k in controle and abs(serie[k] - controle[k]) > 0.005 * max(1, abs(serie[k]))]
