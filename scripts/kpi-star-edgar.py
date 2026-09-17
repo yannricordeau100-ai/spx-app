@@ -90,6 +90,7 @@ def main():
     p.add_argument("--depuis", default="2020-10-01"); p.add_argument("--libelle", required=True)
     p.add_argument("--unite", default=""); p.add_argument("--sortie", required=True)
     p.add_argument("--colonnes", type=int, default=2); p.add_argument("--diviseur", type=float, default=1.0)
+    p.add_argument("--controle", type=int, default=1, help="indice de la valeur du meme trimestre de l annee precedente (1 par defaut ; 2 quand le tableau donne trimestre courant, trimestre precedent, annee precedente)")
     a = p.parse_args()
     docs = exhibits(a.cik, a.phrase, a.depuis)
     print(f"{a.ticker}: {len(docs)} communiques", file=sys.stderr)
@@ -100,11 +101,11 @@ def main():
         cle = f"T{tr} {an}"
         if cle in faits:
             continue
-        v = lire(d["url"], a.ligne, a.colonnes)
+        v = lire(d["url"], a.ligne, max(a.colonnes, a.controle + 1))
         if not v:
             print(f"  {d['date']} {cle}: ligne introuvable dans {d['fn']}", file=sys.stderr); continue
         faits.add(cle); serie[cle] = v[0] / a.diviseur
-        if a.colonnes >= 2: controle[f"T{tr} {an-1}"] = v[1] / a.diviseur
+        if len(v) > a.controle: controle[f"T{tr} {an-1}"] = v[a.controle] / a.diviseur
         sources.append(d["url"]); time.sleep(0.15)
     ecarts = [(k, serie[k], controle[k]) for k in serie if k in controle and abs(serie[k] - controle[k]) > 0.005 * max(1, abs(serie[k]))]
     # completer avec les valeurs "annee precedente" quand le document courant manque
