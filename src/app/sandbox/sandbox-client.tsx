@@ -52,6 +52,8 @@ type SandboxItem = {
   mots?: string[];
   /** 9 sept 2026 : menu deroulant commun pour les outils voisins peu utilises. */
   groupe?: string;
+  /** 17 sept 2026 : onglets d un toggle a plusieurs onglets, visibles sans cliquer. */
+  onglets?: { label: string; mots: string; onglet: string }[];
 };
 
 type SandboxSection = {
@@ -99,6 +101,27 @@ const SECTIONS: SandboxSection[] = [
     description:
       "Les trois façons d'ajouter un indicateur à une page société, et les outils pour le relire ensuite.",
     items: [
+      {
+        href: "/sandbox/reglages-kpi",
+        icon: Layers,
+        label: "Création KPI et données · toggle unique (11 onglets)",
+        desc: "Tout ce qui crée ou règle un KPI, par horizon : long terme (héros, produit phare, industries, secteurs, spéciaux, constructeur, accueil, approximatives, définitions), moyen terme (graphiques) et court terme (stories).",
+        accent: "highlight",
+        mots: ["toggle unique", "long terme", "moyen terme", "court terme", "KPI star", "graphiques", "stories"],
+        onglets: [
+          { onglet: "heros", label: "KPI héros", mots: "KPI principal de chaque fiche, activer ou désactiver" },
+          { onglet: "phare", label: "Produit phare", mots: "exceptions à trancher, A / B / aucun" },
+          { onglet: "industries", label: "KPI par industrie", mots: "GICS, KPI attendus, qui a quoi" },
+          { onglet: "secteurs", label: "KPI star par secteur", mots: "NIM, ratio combiné, FFO, production : sociétés avec ou sans" },
+          { onglet: "speciaux", label: "KPI spéciaux", mots: "recherche hors documents" },
+          { onglet: "constructeur", label: "Constructeur de KPI", mots: "créer un KPI depuis une demande" },
+          { onglet: "accueil", label: "KPI de l’accueil", mots: "les 3 KPI de la page d'accueil" },
+          { onglet: "approx", label: "Valeurs approximatives", mots: "estimations signalées" },
+          { onglet: "definitions", label: "Définitions et unités", mots: "référentiel, unités, infobulles" },
+          { onglet: "moyen-terme", label: "Moyen terme", mots: "graphiques reconstruits, approuver / retirer" },
+          { onglet: "court-terme", label: "Court terme", mots: "stories depuis un lien" },
+        ],
+      },
       {
         href: "/sandbox/kpi-builder",
         mots: ["créer un KPI", "indicateur sur mesure", "extraction depuis les documents", "nouvel indicateur", "ajouter une métrique"],
@@ -728,6 +751,15 @@ function SandboxCard({ item, archived = false, onOpen }: { item: SandboxItem; ar
           <p className="mt-1.5 line-clamp-2 font-mono text-[10px] leading-relaxed text-zinc-600">
             {item.mots.join(" · ")}
           </p>
+        )}
+        {item.onglets && item.onglets.length > 0 && (
+          <ul className="mt-2 grid gap-0.5 sm:grid-cols-2">
+            {item.onglets.map((o) => (
+              <li key={o.onglet} className="text-[11.5px] text-zinc-400">
+                <span className="text-zinc-200">{o.label}</span> <span className="text-zinc-500">· {o.mots}</span>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </>
