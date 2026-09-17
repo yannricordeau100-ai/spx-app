@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 import { requireDeskOwner } from "@/lib/desk/auth";
 import {
   listFindings,
@@ -23,6 +24,10 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   const body = await req.json();
   const row = await upsertFinding(body);
   await refreshRequestCounters(id);
+  // Yann 17 sept 2026 : la fiche est mise en cache 6 h ; sans ceci, un
+  // graphique approuve n apparaissait sur la fiche qu au prochain deploiement
+  // ou a l expiration du cache (constate sur GOOG).
+  revalidateTag("fiches", "max");
   return NextResponse.json({ row });
 }
 
@@ -33,5 +38,6 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
   if (!findingId) return NextResponse.json({ error: "findingId required" }, { status: 400 });
   await deleteFinding(findingId);
   await refreshRequestCounters(id);
+  revalidateTag("fiches", "max");
   return NextResponse.json({ ok: true });
 }

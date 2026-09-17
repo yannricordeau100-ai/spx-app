@@ -472,3 +472,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.2 (17 Sep 2026 01:08, apres e445c24fbf)
 - REITs : FFO/AFFO annuel en hero sur 19 foncieres
+
+## v2026.09.17.3 (17 Sep 2026 13:12, apres d22e8c31a8)
+- Approbation d un graphique vide le cache des fiches ; Cahier : allocations strategiques
