@@ -529,3 +529,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.21 (17 Sep 2026 22:17, apres 4ac0262e01)
 - KPI star : Hilton 47 trimestres, Royal Caribbean, book-to-bill IQVIA L3Harris Cognizant ; Cahier : carnets de commandes, clients EIA-861
+
+## v2026.09.17.22 (17 Sep 2026 23:41, apres 605497c747)
+- Accueil : classement des societes + total KPI ; tarifs : commentaire promo ; CGU-CGV TTC ; page secteurs : marqueur moyen terme
