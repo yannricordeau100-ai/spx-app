@@ -6,9 +6,33 @@ import { useRouter } from "next/navigation";
 import {
   toggleCompanyFavorite,
   toggleKpiFavorite,
-  isCompanyFavorited,
-  isKpiFavorited,
 } from "@/app/favorites/actions";
+
+/**
+ * Yann 17 sept 2026 : l etat initial des etoiles est lu UNE fois par fiche
+ * (un JSON de quelques octets) et partage entre tous les boutons, au lieu
+ * d une action serveur par bouton qui renvoyait la page entiere en RSC.
+ */
+type EtatFavoris = { company: boolean; kpis: string[] };
+const etatParTicker = new Map<string, Promise<EtatFavoris>>();
+function chargeEtat(ticker: string): Promise<EtatFavoris> {
+  const cle = ticker.toUpperCase();
+  let p = etatParTicker.get(cle);
+  if (!p) {
+    p = fetch(`/api/company/favorites-state?ticker=${encodeURIComponent(cle)}`)
+      .then((r) => (r.ok ? r.json() : { company: false, kpis: [] }))
+      .catch(() => ({ company: false, kpis: [] }));
+    etatParTicker.set(cle, p);
+  }
+  return p;
+}
+/** Apres un clic, l etat en cache est mis a jour pour les autres boutons. */
+function majEtat(ticker: string, mode: "company" | "kpi", kpiShort: string | undefined, valeur: boolean) {
+  const cle = ticker.toUpperCase();
+  const p = etatParTicker.get(cle);
+  if (!p) return;
+  etatParTicker.set(cle, p.then((e) => mode === "company" ? { ...e, company: valeur } : { ...e, kpis: valeur ? [...new Set([...e.kpis, kpiShort ?? ""])] : e.kpis.filter((k) => k !== kpiShort) }));
+}
 
 /**
  * Bouton étoile générique — favori sté ou favori KPI.
@@ -38,10 +62,8 @@ export function StarButton(props: Props) {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const fav =
-        mode === "company"
-          ? await isCompanyFavorited(ticker)
-          : await isKpiFavorited(ticker, props.kpiShort);
+      const etat = await chargeEtat(ticker);
+      const fav = mode === "company" ? etat.company : etat.kpis.includes(props.kpiShort ?? "");
       if (!cancelled) {
         setFavorited(fav);
         setLoaded(true);
@@ -77,6 +99,7 @@ export function StarButton(props: Props) {
         }
       } else if (typeof res.favorited === "boolean") {
         setFavorited(res.favorited);
+        majEtat(ticker, mode, mode === "kpi" ? props.kpiShort : undefined, res.favorited);
       }
     });
   };

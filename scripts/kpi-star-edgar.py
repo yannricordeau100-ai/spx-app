@@ -29,14 +29,17 @@ def get(url, binaire=False):
     d = urllib.request.urlopen(r, timeout=60, context=CTX).read()
     return d if binaire else d.decode("utf-8", "ignore")
 
-def exhibits(cik, phrase, depuis, forms="8-K"):
+def exhibits(cik, phrase, depuis, forms="8-K", principal=False):
     q = urllib.parse.quote(f'"{phrase}"')
     url = f"https://efts.sec.gov/LATEST/search-index?q={q}&ciks={int(cik):010d}&forms={forms}&startdt={depuis}&enddt=2030-12-31"
     hits = json.loads(get(url)).get("hits", {}).get("hits", [])
     out = []
     for h in hits:
         adsh, fn = h["_id"].split(":", 1)
-        if not re.search(r"ex[-_]?99|ex991|exhibit99|press", fn, re.I) and not fn.endswith(".htm"):
+        if principal:
+            if not fn.endswith(".htm") or re.search(r"ex[-_]?\d|exhibit", fn, re.I):
+                continue
+        elif not re.search(r"ex[-_]?99|ex991|exhibit99|press", fn, re.I) and not fn.endswith(".htm"):
             continue
         out.append({"date": h["_source"]["file_date"], "url": f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{adsh.replace('-', '')}/{fn}", "fn": fn})
     # tous les exhibits d une meme date sont gardes : le communique de resultats
@@ -90,29 +93,32 @@ def main():
     p.add_argument("--depuis", default="2020-10-01"); p.add_argument("--libelle", required=True)
     p.add_argument("--unite", default=""); p.add_argument("--sortie", required=True)
     p.add_argument("--colonnes", type=int, default=2); p.add_argument("--diviseur", type=float, default=1.0)
-    p.add_argument("--forms", default="8-K", help="type de depot EDGAR (8-K, 6-K)")
+    p.add_argument("--forms", default="8-K", help="type de depot EDGAR (8-K, 6-K, 10-K)")
+    p.add_argument("--principal", action="store_true", help="lire le document principal du depot (10-K) et non un exhibit")
     p.add_argument("--controle", type=int, default=1, help="indice de la valeur du meme trimestre de l annee precedente (1 par defaut ; 2 quand le tableau donne trimestre courant, trimestre precedent, annee precedente)")
     a = p.parse_args()
-    docs = exhibits(a.cik, a.phrase, a.depuis, a.forms)
+    docs = exhibits(a.cik, a.phrase, a.depuis, a.forms, a.principal)
     print(f"{a.ticker}: {len(docs)} communiques", file=sys.stderr)
     serie, controle, sources = {}, {}, []
     faits = set()
     for d in docs:
         an, tr = trimestre_du_depot(d["date"])
         cle = f"T{tr} {an}"
+        if a.forms == "10-K":
+            an = int(d["date"][:4]) - 1; cle = str(an)
         if cle in faits:
             continue
         v = lire(d["url"], a.ligne, max(a.colonnes, a.controle + 1))
         if not v:
             print(f"  {d['date']} {cle}: ligne introuvable dans {d['fn']}", file=sys.stderr); continue
         faits.add(cle); serie[cle] = v[0] / a.diviseur
-        if len(v) > a.controle: controle[f"T{tr} {an-1}"] = v[a.controle] / a.diviseur
+        if len(v) > a.controle: controle[(str(an-1) if a.forms == "10-K" else f"T{tr} {an-1}")] = v[a.controle] / a.diviseur
         sources.append(d["url"]); time.sleep(0.6)
     ecarts = [(k, serie[k], controle[k]) for k in serie if k in controle and abs(serie[k] - controle[k]) > 0.005 * max(1, abs(serie[k]))]
     # completer avec les valeurs "annee precedente" quand le document courant manque
     for k, v in controle.items(): serie.setdefault(k, v)
-    ordre = sorted(serie, key=lambda k: (int(k[3:]), int(k[1])))
-    out = [{"ticker": a.ticker, "libelle": a.libelle, "unite": a.unite, "frequence": "trimestriel",
+    ordre = sorted(serie, key=lambda k: (int(k[3:]), int(k[1])) if k.startswith("T") else (int(k), 0))
+    out = [{"ticker": a.ticker, "libelle": a.libelle, "unite": a.unite, "frequence": ("annuel" if a.forms == "10-K" else "trimestriel"),
             "periodes": ordre, "valeurs": [serie[k] for k in ordre],
             "source": f"Communiques de resultats 8-K (exhibit 99) deposes a la SEC, {docs[0]['date'][:4]}-{docs[-1]['date'][:4]}, lus par script",
             "note": ("Ecarts de recoupement : " + "; ".join(f"{k} {x} vs {y}" for k, x, y in ecarts)) if ecarts else "Recoupement document N / document N+4 sans ecart",
