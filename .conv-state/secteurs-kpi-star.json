@@ -45,7 +45,8 @@
     "C": {
      "code": "40101010",
      "hero_actuel": "rotce",
-     "statut": "a_faire"
+     "statut": "a_faire",
+     "note": "Exhibits 8-K de Citi non tabules (2 points seulement) ; utiliser le supplement financier"
     },
     "CBK.DE": {
      "code": "40101010",
@@ -424,7 +425,7 @@
      "code": "10102040",
      "hero_actuel": "Natural Gas Pipelines Segment EBDA",
      "statut": "fait",
-     "note": "22 trimestres T3 2019 a T4 2024 lus par script dans les 8-K, recoupement sans ecart ; a prolonger 2025-2026",
+     "note": "22 trimestres T3 2019 a T4 2024 lus par script dans les 8-K, recoupement sans ecart ; a prolonger 2025-2026 ; depuis 2025 les communiques 8-K ne tabulent plus le DCF trimestriel (seuls T3-T4 2023-2024 ressortent) : prolongation a faire via le supplement financier",
      "hero_nouveau": "cash_flow_distribuable_dcf",
      "points": 22
     },
@@ -836,7 +837,7 @@
      "code": "15104050",
      "hero_actuel": "steel_mills_avg_price_per_ton",
      "statut": "a_faire",
-     "note": "8-K : libelle des expeditions non trouve dans les tableaux, a decouvrir"
+     "note": "Exhibit 8-K sans tableau HTML ; utiliser le communique PDF"
     },
     "STLD": {
      "code": "15104050",
@@ -1220,7 +1221,7 @@
   "URW.PA": "AREPS + infobulle equivalent FFO",
   "VNA.DE": "Adjusted EBT 5 exercices",
   "SBAC": "FAIT : AFFO par action, 28 trimestres T3 2019 a T2 2026 (8-K), hero pose",
-  "CCI": "serie sur base homogene si retraitee"
+  "CCI": "8-K : ligne AFFO per share presente dans plusieurs tableaux (trimestre et perspectives annuelles), recoupement echoue ; a faire avec le libelle exact du tableau trimestriel"
  },
  "journal": [
   {
@@ -1238,6 +1239,49 @@
   {
    "date": "2026-09-17",
    "evenement": "L override de heros exige le short SERVI (apres kpis-haut et dedoublonnage), pas celui du fichier v2-pipeline : 16 overrides reposes sur les shorts servis (NIM, CET1, DCF, affo, MLR, Ratio combine). Regle : toujours controler sur la page servie."
+  },
+  {
+   "date": "2026-09-17",
+   "evenement": "Cause des heros introuvables : la fusion kpis-haut remplace tous les KPI de base sauf ceux dont _source est dans KEPT_SOURCES. Correctif : tag _source = kpi-star (detail dans _source_detail), ajoute a KEPT_SOURCES. Verification a refaire sur la page servie apres le deploiement v7."
+  },
+  {
+   "date": "2026-09-17",
+   "evenement": "Verification finale sur niveau2 2026.09.17.7 : 72 heros sur 73 servis sur la metrique reine (PLD repose sur Core FFO per diluted share, a controler au prochain deploiement)."
   }
- ]
+ ],
+ "bilan_17_sept": {
+  "heros_sur_metrique_reine": 72,
+  "controles": 73,
+  "series_nouvelles": [
+   "KMI",
+   "WMB",
+   "TRGP",
+   "EQT",
+   "SBAC",
+   "FITB",
+   "ABN.AS",
+   "BNP.PA",
+   "CBK.DE",
+   "DBK.DE",
+   "GLE.PA",
+   "INGA.AS",
+   "ALV.DE",
+   "CS.PA",
+   "MUV2.DE",
+   "HNR1.DE",
+   "ZURN.SW",
+   "MAA",
+   "VTR"
+  ],
+  "reste": [
+   "utilities (base d actifs regulee, 35)",
+   "hotels (RevPAR niveau)",
+   "mines (FCX, NUE, MT.PA)",
+   "SHELL.AS, TTE.PA, PSX (PDF)",
+   "C, HUM, PGR, CCI (tableaux 8-K ambigus)",
+   "CBRE, LI.PA, URW.PA, VNA.DE",
+   "assureurs vie (decision A)",
+   "prolongation KMI 2025-2026"
+  ]
+ }
 }
