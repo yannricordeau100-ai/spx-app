@@ -170,7 +170,7 @@ export default async function SandboxV195HubPage() {
         ]}
         requireSignupGate={freemiumTier === "anon"} // Yann 15 sept 2026 : anonyme = inscription avant toute fiche
         anonLinks={freemiumTier === "anon"}
-        gatePath="/sandbox/v1-9-5"
+        gatePath="/"
         contentOverrides={homeOverrides}
         accueilKpis={accueilKpis}
       />
@@ -199,7 +199,7 @@ export default async function SandboxV195HubPage() {
         </div>
 
         <div className="mt-10">
-          <SignupGateOverlay enabled={!isAuthed} gatePath="/sandbox/v1-9-5" initialAuthed={isAuthed}>
+          <SignupGateOverlay enabled={!isAuthed} gatePath="/" initialAuthed={isAuthed}>
             <PricingCards
               ctaTrackingPrefix="v195_home_inline_"
               plans={catalog.plans}
@@ -210,7 +210,7 @@ export default async function SandboxV195HubPage() {
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-[12.5px]">
-          <SignupGateOverlay enabled={!isAuthed} gatePath="/sandbox/v1-9-5" initialAuthed={isAuthed}>
+          <SignupGateOverlay enabled={!isAuthed} gatePath="/" initialAuthed={isAuthed}>
             <Link
               href="/pricing"
               data-pricing-cta="v195_home_see_full"
@@ -220,7 +220,7 @@ export default async function SandboxV195HubPage() {
               <ArrowRight className="size-3.5" />
             </Link>
           </SignupGateOverlay>
-          <SignupGateOverlay enabled={!isAuthed} gatePath="/sandbox/v1-9-5" initialAuthed={isAuthed}>
+          <SignupGateOverlay enabled={!isAuthed} gatePath="/" initialAuthed={isAuthed}>
             <Link
               href="/contact"
               className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3.5 py-2 font-semibold text-zinc-200 hover:bg-white/[0.07]"

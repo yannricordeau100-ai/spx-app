@@ -734,7 +734,8 @@ export function HomeView({
               // Yann (5 juin 2026 v2) : Tarif accessible 100% anonyme
               // (pas de gate signup). Contact + autres restent gated.
               // Détection via href contenant "/pricing".
-              const isPricingLink = l.href.includes("/pricing");
+              // Yann 18 sept 2026 : Contact est une page publique (proxy) : jamais de gate, comme Tarifs.
+              const isPricingLink = l.href.includes("/pricing") || l.href.includes("/contact");
               const linkNode = (
                 <a href={l.href} className="group relative inline-block">
                   <span

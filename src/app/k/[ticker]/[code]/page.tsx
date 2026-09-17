@@ -67,7 +67,7 @@ export default async function Page({ params }: { params: Promise<{ ticker: strin
   const { ticker, code } = await params;
   const t = await trouve(ticker, code);
   const cible = t
-    ? `/sandbox/v1-9-5/${ticker.toLowerCase()}?kpi=${encodeURIComponent(String(t.kpi.short))}`
+    ? `/${ticker.toLowerCase()}?kpi=${encodeURIComponent(String(t.kpi.short))}`
     : `/${ticker.toLowerCase()}`;
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#050507] px-6 text-center text-zinc-300">

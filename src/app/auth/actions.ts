@@ -264,7 +264,9 @@ export async function signOut() {
     process.env.VERCEL_GIT_COMMIT_REF === "staging" ||
     process.env.NEXT_PUBLIC_DEPLOY_TARGET === "staging";
   // Yann 21 mai 2026 : V1.9.5 = défaut staging (au lieu de V1.8).
-  redirect(isStaging ? "/sandbox/v1-9-5" : "/");
+  // Yann 18 sept 2026 : jamais un chemin interne apres une deconnexion (mettrik.ai est aussi la branche staging).
+  void isStaging;
+  redirect("/");
 }
 
 /* ─── Update password (user déjà connecté) ──────────────────────────── */
