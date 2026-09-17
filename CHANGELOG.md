@@ -514,3 +514,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.16 (17 Sep 2026 21:02, apres 66090974b7)
 - KPI star : ArcelorMittal, Gallagher, Freeport, Nucor ; sandbox : deux toggles KPI (Voir / Creation)
+
+## v2026.09.17.17 (17 Sep 2026 21:23, apres c25322bda9)
+- KPI star : 11 utilities (volumes, clients), 4 courtiers, ArcelorMittal, Con Edison ; definitions ; obligations de prestation XBRL
