@@ -493,3 +493,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.9 (17 Sep 2026 16:15, apres 116bcf129d)
 - Zurich IFRS 17, ABN AMRO corrige, choix produit phare
+
+## v2026.09.17.10 (17 Sep 2026 16:29, apres 36ef1ef9ee)
+- Graphiques de repli, Xcel, heros decides
