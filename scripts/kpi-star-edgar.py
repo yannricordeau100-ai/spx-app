@@ -29,9 +29,9 @@ def get(url, binaire=False):
     d = urllib.request.urlopen(r, timeout=60, context=CTX).read()
     return d if binaire else d.decode("utf-8", "ignore")
 
-def exhibits(cik, phrase, depuis):
+def exhibits(cik, phrase, depuis, forms="8-K"):
     q = urllib.parse.quote(f'"{phrase}"')
-    url = f"https://efts.sec.gov/LATEST/search-index?q={q}&ciks={int(cik):010d}&forms=8-K&startdt={depuis}&enddt=2030-12-31"
+    url = f"https://efts.sec.gov/LATEST/search-index?q={q}&ciks={int(cik):010d}&forms={forms}&startdt={depuis}&enddt=2030-12-31"
     hits = json.loads(get(url)).get("hits", {}).get("hits", [])
     out = []
     for h in hits:
@@ -90,9 +90,10 @@ def main():
     p.add_argument("--depuis", default="2020-10-01"); p.add_argument("--libelle", required=True)
     p.add_argument("--unite", default=""); p.add_argument("--sortie", required=True)
     p.add_argument("--colonnes", type=int, default=2); p.add_argument("--diviseur", type=float, default=1.0)
+    p.add_argument("--forms", default="8-K", help="type de depot EDGAR (8-K, 6-K)")
     p.add_argument("--controle", type=int, default=1, help="indice de la valeur du meme trimestre de l annee precedente (1 par defaut ; 2 quand le tableau donne trimestre courant, trimestre precedent, annee precedente)")
     a = p.parse_args()
-    docs = exhibits(a.cik, a.phrase, a.depuis)
+    docs = exhibits(a.cik, a.phrase, a.depuis, a.forms)
     print(f"{a.ticker}: {len(docs)} communiques", file=sys.stderr)
     serie, controle, sources = {}, {}, []
     faits = set()
