@@ -475,3 +475,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.3 (17 Sep 2026 13:12, apres d22e8c31a8)
 - Approbation d un graphique vide le cache des fiches ; Cahier : allocations strategiques
+
+## v2026.09.17.4 (17 Sep 2026 13:27, apres 1b85066f64)
+- Chantier KPI star : 37 heros bascules (banques, assureurs, petrole, sante, mines, logiciel), vocabulaire secteur

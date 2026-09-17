@@ -17,6 +17,20 @@
  */
 
 const DEFS: Array<[RegExp, string]> = [
+  // Yann 17 sept 2026 : vocabulaire des secteurs a metrique propre (chantier KPI star)
+  [/medical (loss|care) ratio|\bmlr\b|\bmcr\b|benefit (expense )?ratio|health benefits ratio|sinistralit[ée] m[ée]dicale/i, "Part des primes reversée en soins chez un assureur santé. Plus elle est basse, plus il reste de marge ; la loi américaine impose un plancher de 80 à 85 %."],
+  [/distributable cash flow|cash.?flow distribuable|available funds from operations|adjusted free cash flow/i, "Trésorerie dégagée par les pipelines et terminaux après intérêts et entretien, disponible pour le dividende. L'équivalent du FFO des foncières pour le midstream."],
+  [/all.?in sustaining|\baisc\b|co[uû]t complet de maintien/i, "Coût total pour produire une once ou une livre de métal en maintenant la mine en état. Comparé au prix du métal, il donne la marge réelle du mineur."],
+  [/rate base|base d.actifs r[ée]gul[ée]e|base tarifaire/i, "Valeur des actifs sur lesquels le régulateur autorise la société de services publics à gagner un rendement. Sa croissance est le moteur du bénéfice d'un réseau régulé."],
+  [/\brevpar\b|revenu par chambre disponible/i, "Revenu par chambre disponible : prix moyen multiplié par le taux d'occupation. La mesure de référence des hôteliers, qui combine remplissage et prix."],
+  [/net yields?\b|rendement net par (jour|passager)/i, "Revenu net par jour et par passager disponible chez un croisiériste, après commissions. L'équivalent du RevPAR des hôtels pour les croisières."],
+  [/gross gaming revenue|\bggr\b|produit brut des jeux/i, "Mises des joueurs moins les gains reversés : le chiffre d'affaires brut d'un casino, comparable d'un opérateur à l'autre."],
+  [/\b(k?boe|mboed)\b|barils? [ée]quivalents?|production (totale )?d.hydrocarbures|net production|total production/i, "Volume quotidien de pétrole et de gaz produit, exprimé en barils équivalent pétrole. Multiplié par le prix réalisé, il donne le chiffre d'affaires du producteur."],
+  [/reserve replacement|remplacement des r[ée]serves/i, "Réserves ajoutées dans l'année rapportées à la production de l'année. Au-dessus de 100 %, la société renouvelle plus qu'elle ne produit."],
+  [/\bareps\b|adjusted recurring earnings|r[ée]sultat (net )?r[ée]current ajust[ée]|cash.?flow net courant/i, "Bénéfice récurrent par action d'une foncière européenne, hors variations de valeur des immeubles. L'équivalent européen du FFO par action."],
+  [/adjusted ebt|\bebt ajust[ée]/i, "Résultat avant impôts hors effets de valorisation et éléments non récurrents. Indicateur directeur de Vonovia depuis 2024, à la place du FFO, et base de son dividende."],
+  [/steel shipments|tons shipped|tonnes exp[ée]di[ée]es|exp[ée]ditions d.acier/i, "Tonnes d'acier livrées sur la période. Le volume de base d'un sidérurgiste, à multiplier par le prix moyen par tonne pour retrouver le chiffre d'affaires."],
+  [/net interest income|produit net d.int[ée]r[eê]ts?|revenu net d.int[ée]r[eê]ts?/i, "Intérêts reçus sur les prêts moins intérêts payés sur les dépôts et la dette. C'est la première source de revenus d'une banque de détail."],
   // Ultra-specifiques testes en premier (sinon un pattern large les capte)
   [/marge nette d.int[ée]r[eê]t|\bnim\b/i, "Écart entre ce que la banque gagne sur ses prêts et ce qu'elle paie sur les dépôts. C'est le cœur de la rentabilité bancaire."],
   // --- Marges et rentabilité -------------------------------------------------
