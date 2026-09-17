@@ -153,10 +153,12 @@ export default async function SandboxV195HubPage() {
 
   return (
     <>
-      <div className="relative z-50 flex w-full items-center justify-between gap-2 px-4 pt-4 sm:fixed sm:left-auto sm:right-6 sm:top-6 sm:w-auto sm:justify-end sm:gap-3 sm:px-0 sm:pt-0">
+      <div className="fixed left-0 right-0 top-0 z-50 flex w-full items-center justify-between gap-2 bg-[#050505]/70 px-4 py-3 backdrop-blur-sm sm:left-auto sm:right-6 sm:top-6 sm:w-auto sm:justify-end sm:gap-3 sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-0">
         <ThemeToggle paid={themePaid} />
         <AuthNav scope="home" />
       </div>
+      {/* Yann 18 sept 2026 : l en-tete est fixe sur mobile, on reserve sa hauteur. */}
+      <div className="h-14 sm:hidden" />
       <HomeView
         tickers={tickers}
         showFAQ={false}

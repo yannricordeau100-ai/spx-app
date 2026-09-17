@@ -188,7 +188,7 @@ export function GicsAtelier({
 
   const onglets: { id: Onglet; label: string; compte: string }[] = [
     { id: "classification", label: "Classification et KPI", compte: `${nbSous} sous-industries · ${nbDocumentees} documentées` },
-    { id: "societes", label: "Sociétés", compte: `${nbClassees} classées · ${annuaire.aClasser.length} à classer` },
+    { id: "societes", label: "Sociétés", compte: `${nbClassees + annuaire.aClasser.length} sociétés au total · ${nbClassees} classées · ${annuaire.aClasser.length} à classer` },
     { id: "industries", label: "KPI par industrie", compte: `${ETAT_IND.industries.length} industries · ${ETAT_IND.total_kpi} KPI` },
     { id: "prompts", label: "Prompts", compte: `${prompts.length}` },
   ];

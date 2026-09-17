@@ -105,6 +105,8 @@ export default async function HomePage({
         <ThemeToggle paid={themePaid} />
         <AuthNav />
       </div>
+      {/* Yann 18 sept 2026 : l en-tete est fixe sur mobile, on reserve sa hauteur. */}
+      <div className="h-14 sm:hidden" />
       <HomeView contentOverrides={homeOverrides} />
       {!user && (
         <Suspense fallback={null}>
