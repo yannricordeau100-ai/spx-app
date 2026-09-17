@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, Download, ImageIcon } from "lucide-react";
+import { downloadSvgAsPng } from "@/lib/chart-export";
 import { pickI18n, type LocalizedString } from "@/lib/desk/image-findings";
 import { translate } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/types";
@@ -36,16 +37,41 @@ export function ImageFindingsBlock({
   findings,
   accent = "#06b6d4",
   locale = "fr",
+  ticker,
 }: {
   findings: ImageFindingPublic[];
   accent?: string;
   locale?: string;
+  /** Yann 18 sept 2026 : ticker pour le nom du fichier exporte et la signature. */
+  ticker?: string;
 }) {
   const [idx, setIdx] = useState(0);
+  // Yann 18 sept 2026 : export PNG comme les graphiques long terme (signature Mettrik,
+  // pseudo). Le SVG local est charge en texte et rendu inline pour etre exportable.
+  const [svgText, setSvgText] = useState<Record<string, string>>({});
+  const boxRef = useRef<HTMLDivElement>(null);
+  const displayTitleRef = useRef<string | null>(null);
+  const n = findings?.length ?? 0;
+  const safeIdx = n > 0 ? idx % n : 0;
+  const local = n > 0 ? findings[safeIdx].image_local_path : null;
+  useEffect(() => {
+    if (!local || !local.endsWith(".svg") || svgText[local] !== undefined) return;
+    let vivant = true;
+    fetch(local).then((r) => (r.ok ? r.text() : "")).then((t) => { if (vivant) setSvgText((m) => ({ ...m, [local]: t })); }).catch(() => { if (vivant) setSvgText((m) => ({ ...m, [local]: "" })); });
+    return () => { vivant = false; };
+  }, [local, svgText]);
   if (!findings || findings.length === 0) return null;
-  const safe = idx % findings.length;
+  const safe = safeIdx;
   const f = findings[safe];
+  const inlineSvg = f.image_local_path ? svgText[f.image_local_path] : undefined;
+  const exporter = async () => {
+    const svg = boxRef.current?.querySelector("svg") as SVGSVGElement | null;
+    if (!svg) return;
+    const nom = `mettrik-${(ticker ?? "graphique").toLowerCase()}-moyen-terme-${safe + 1}.png`;
+    await downloadSvgAsPng(svg, nom, { title: displayTitleRef.current ?? undefined, ticker, locale: (locale as "fr" | "en" | "de") });
+  };
   const displayTitle = pickI18n(f.title_i18n, locale, f.title);
+  displayTitleRef.current = displayTitle;
   const displaySummary = pickI18n(f.summary_i18n, locale, f.summary);
   // i18n FR/EN/DE pour chrome du composant. EN fallback auto pour autres
   // locales (en-GB, sv, da, nl, de-CH) via translate() qui descend sur EN
@@ -78,6 +104,17 @@ export function ImageFindingsBlock({
           >
             <ChevronLeft className="size-4" />
           </button>
+          {inlineSvg ? (
+            <button
+              type="button"
+              onClick={exporter}
+              className="rounded-md border border-white/[0.08] p-1.5 text-zinc-300 hover:bg-white/5"
+              aria-label="Exporter le graphique"
+              title="Exporter le graphique (PNG)"
+            >
+              <Download className="size-4" />
+            </button>
+          ) : null}
           <button
             type="button"
             onClick={() => setIdx((i) => (i + 1) % findings.length)}
@@ -107,12 +144,16 @@ export function ImageFindingsBlock({
           {/* Yann 18 mai 2026 : priorité au SVG local recréé. f.image_url
               pointe vers la source externe (PDF / article) qui n'est pas
               le visuel attendu. */}
-          <img
-            src={f.image_local_path || f.image_url}
-            alt={displayTitle ?? tt("image_findings.image_alt_fallback")}
-            className="size-full object-contain"
-            referrerPolicy="no-referrer"
-          />
+          {inlineSvg ? (
+            <div ref={boxRef} className="size-full [&>svg]:size-full [&>svg]:object-contain" dangerouslySetInnerHTML={{ __html: inlineSvg }} />
+          ) : (
+            <img
+              src={f.image_local_path || f.image_url}
+              alt={displayTitle ?? tt("image_findings.image_alt_fallback")}
+              className="size-full object-contain"
+              referrerPolicy="no-referrer"
+            />
+          )}
         </div>
         {/* Lecture toujours visible (Yann 17 mai 2026 : remettre comme avant).
             Le toggle "masquer la lecture" est désormais dans la sandbox admin

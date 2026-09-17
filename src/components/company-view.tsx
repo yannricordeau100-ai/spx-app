@@ -2144,6 +2144,7 @@ export function CompanyView({
               findings={(company as Company & { image_findings?: ImageFindingPublic[] }).image_findings ?? []}
               accent={accent}
               locale={locale}
+              ticker={company.ticker}
             />
           ) : null
         ) : (
