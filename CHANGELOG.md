@@ -538,3 +538,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.2 (18 Sep 2026 00:27, apres db80e55654)
 - Urgences : phrase d inscription, moyen terme avant court terme, URL publiques sans sandbox, communications dans Mon compte, export moyen terme, en-tete fixe
+
+## v2026.09.18.3 (18 Sep 2026 01:05, apres d246659db7)
+- ASML : 4 series trimestrielles ; NCLH rendement net ; etats
