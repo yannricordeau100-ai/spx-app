@@ -517,3 +517,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.17 (17 Sep 2026 21:23, apres c25322bda9)
 - KPI star : 11 utilities (volumes, clients), 4 courtiers, ArcelorMittal, Con Edison ; definitions ; obligations de prestation XBRL
+
+## v2026.09.17.18 (17 Sep 2026 21:29, apres 39981021a2)
+- Correctif type page KPI secteurs

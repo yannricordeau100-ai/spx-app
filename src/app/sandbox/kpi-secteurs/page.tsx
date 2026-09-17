@@ -35,7 +35,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
     const { data: { user } } = await sb.auth.getUser();
     if (!user || user.email !== DESK_OWNER_EMAIL) redirect("/404");
   }
-  const secteurs = (ETAT as { secteurs: Record<string, Secteur>; cree_le?: string }).secteurs;
+  const secteurs = (ETAT as unknown as { secteurs: Record<string, Secteur>; cree_le?: string }).secteurs;
   const ok = new Set(["fait", "fait_partiel", "hero_bascule", "deja_star"]);
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 text-zinc-100">
