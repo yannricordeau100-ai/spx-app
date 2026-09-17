@@ -84,7 +84,7 @@ def construit(spec: dict, theme: str) -> str:
     for i, s in enumerate(series):
         s.setdefault("couleur", ORDRE[i % len(ORDRE)])
 
-    maxi = max(max(s["valeurs"]) for s in series)
+    maxi = max(v for s in series for v in s["valeurs"] if isinstance(v, (int, float)))
     grads = graduations(maxi)
     plafond = grads[-1] or maxi
     ech = (BAS - HAUT) / plafond if plafond else 0
