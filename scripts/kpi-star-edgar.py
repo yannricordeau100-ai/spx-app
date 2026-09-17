@@ -106,7 +106,7 @@ def main():
             print(f"  {d['date']} {cle}: ligne introuvable dans {d['fn']}", file=sys.stderr); continue
         faits.add(cle); serie[cle] = v[0] / a.diviseur
         if len(v) > a.controle: controle[f"T{tr} {an-1}"] = v[a.controle] / a.diviseur
-        sources.append(d["url"]); time.sleep(0.15)
+        sources.append(d["url"]); time.sleep(0.6)
     ecarts = [(k, serie[k], controle[k]) for k in serie if k in controle and abs(serie[k] - controle[k]) > 0.005 * max(1, abs(serie[k]))]
     # completer avec les valeurs "annee precedente" quand le document courant manque
     for k, v in controle.items(): serie.setdefault(k, v)
