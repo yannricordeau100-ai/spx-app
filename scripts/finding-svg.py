@@ -31,7 +31,7 @@ from pathlib import Path
 
 W, H = 800, 450
 MARGE_G, MARGE_D = 80, 30
-HAUT, BAS = 100, 380
+HAUT, BAS = 32, 380  # Yann 18 sept 2026 : plus de titre dans le SVG, marge haute reduite
 
 PALETTE = {
     "violet": "#a78bfa",
