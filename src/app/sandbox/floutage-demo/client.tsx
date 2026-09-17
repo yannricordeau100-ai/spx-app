@@ -14,7 +14,9 @@ import type { BlockId } from "@/lib/v1-9-blocks-control";
 import { BLOCK_LABELS } from "@/lib/v1-9-blocks-control";
 
 /** Zones deja ancrees dans les pages (attribut data-blur emis par le code). */
-const ZONES_DISPO: BlockId[] = ["hero", "kpis", "risks", "governance", "ai_positioning"];
+// Yann 18 sept 2026 : zones du bloc moyen terme (fleches de defilement, titre, textes sous l axe X).
+const ZONES_MT: Record<string, string> = { mt_titre: "Moyen terme : titre", mt_fleches: "Moyen terme : flèches de défilement", mt_sources: "Moyen terme : sources et précisions sous le graphique" };
+const ZONES_DISPO: string[] = ["hero", "kpis", "risks", "governance", "ai_positioning", ...Object.keys(ZONES_MT)];
 
 const STYLE_ID = "mtk-floutage-demo";
 
@@ -111,7 +113,7 @@ export function FloutageDemoClient() {
               onChange={() => bascule(z)}
               className="size-3.5"
             />
-            {BLOCK_LABELS[z] ?? z}
+            {ZONES_MT[z] ?? BLOCK_LABELS[z as BlockId] ?? z}
           </label>
         ))}
       </div>

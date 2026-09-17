@@ -838,12 +838,15 @@ export function HomeView({
             l abonnement apporte. Un encart unique, avant la FAQ, avec une
             promesse concrete et un bouton. */}
         <div className="mx-auto mt-16 max-w-2xl px-4 sm:mt-20">
+          {/* Yann 18 sept 2026 : aucun prix visible en anonyme, l encart passe par la porte d inscription. */}
+          <SignupGateOverlay enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
           <AppelAbonnement
             forme="encart"
             titre="Connaissez vous vraiment les sociétés de votre portefeuille ?"
             detail="Des milliers d’actions, jusqu’à 20 ans d’historique, les indicateurs qui comptent vraiment et l’anti-thèse de chaque dossier. Sans flou, sans limite."
             action="Découvrir les offres"
           />
+          </SignupGateOverlay>
         </div>
 
         {showFAQ && <HomeFAQ />}

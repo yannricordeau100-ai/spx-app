@@ -92,9 +92,10 @@ def construit(spec: dict, theme: str) -> str:
     out = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" font-family="ui-sans-serif, system-ui">',
         f'<rect width="{W}" height="{H}" fill="{c["fond"]}"/>',
-        f'<text x="40" y="34" fill="{c["titre"]}" font-size="16" font-weight="700">{echappe(spec["titre"])}</text>',
     ]
-    if spec.get("sous_titre"):
+    # Yann 18 sept 2026 : le titre et le sous-titre ne sont plus dessines dans le SVG ;
+    # la fiche les affiche en HTML, centres et a la ligne (export PNG : titre ajoute par chart-export).
+    if False and spec.get("sous_titre"):
         # Sous-titre long : coupe en deux lignes sur un espace (jamais tronque).
         st = spec["sous_titre"]
         if len(st) > 105:

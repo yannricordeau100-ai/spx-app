@@ -92,7 +92,7 @@ export function ImageFindingsBlock({
             {tt("image_findings.section_subtitle")}
           </p>
         </div>
-        <div className="flex items-center gap-1.5">
+        <div data-blur="mt_fleches" className="flex items-center gap-1.5">
           <span className="mr-1 text-[12px] text-zinc-500">
             ({safe + 1}/{findings.length})
           </span>
@@ -134,8 +134,9 @@ export function ImageFindingsBlock({
             graphiques reconstruits portent leur titre en gros dans l image ;
             pour les anciens (image de source exterieure), le titre en gros est
             rendu ici, dans le meme style. */}
-        {displayTitle && !f.image_local_path && (
-          <h3 className="mb-2 mt-0 px-2 text-left text-[16px] font-bold leading-tight text-zinc-50">
+        {/* Yann 18 sept 2026 : titre en HTML pour TOUS les graphiques, centre, a la ligne si long. */}
+        {displayTitle && (
+          <h3 data-blur="mt_titre" className="mx-auto mb-3 mt-0 max-w-[92%] text-center text-[16px] font-bold leading-snug text-zinc-50 sm:text-[17px]">
             {displayTitle}
           </h3>
         )}
@@ -155,6 +156,12 @@ export function ImageFindingsBlock({
             />
           )}
         </div>
+        {/* Yann 18 sept 2026 : sous-titre (unite, source, precisions) sous le graphique, centre, a la ligne. */}
+        {f.caption && f.caption.trim().length > 0 && (
+          <p data-blur="mt_sources" className="mx-auto mt-2 max-w-[92%] text-center text-[11.5px] leading-snug text-zinc-400">
+            {f.caption}
+          </p>
+        )}
         {/* Lecture toujours visible (Yann 17 mai 2026 : remettre comme avant).
             Le toggle "masquer la lecture" est désormais dans la sandbox admin
             (per finding). Ici on respecte le flag f.show_summary !== false. */}

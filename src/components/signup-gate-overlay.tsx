@@ -83,7 +83,7 @@ export function SignupGateOverlay({
   }
 
   // Anonyme : overlay clickable qui capture tout
-  const target = `${gatePath}?auth=signup&next=${encodeURIComponent(typeof window !== "undefined" ? window.location.pathname : gatePath)}`;
+  const target = `${gatePath}?auth=signup&gate=1&next=${encodeURIComponent(typeof window !== "undefined" ? window.location.pathname : gatePath)}`;
   return (
     <div className="relative">
       {children}

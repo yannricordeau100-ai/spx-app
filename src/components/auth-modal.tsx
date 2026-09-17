@@ -68,6 +68,8 @@ export function AuthModal() {
     auth === "signup" ? "signup" : auth === "reset" ? "reset" : "signin";
   const error = params.get("error");
   const info = params.get("info");
+  // Yann 18 sept 2026 : arrivee par la porte d inscription (clic sur un lien reserve).
+  const parPorte = params.get("gate") === "1";
 
   const [mode, setMode] = useState<Mode>(initialMode);
   const [email, setEmail] = useState("");
@@ -385,6 +387,11 @@ export function AuthModal() {
               </div>
             )}
 
+            {parPorte && !error && !info && (
+              <div className="relative mb-3 rounded-lg border border-violet-400/40 bg-violet-500/10 px-3 py-2 text-[13px] text-violet-100">
+                Pour continuer et accéder à toutes les pages Mettrik AI, connecte-toi ou crée ton compte gratuit.
+              </div>
+            )}
             {/* Messages flash (error / info) */}
             {error && (
               <div className="relative mb-3 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-[13px] text-rose-200">
