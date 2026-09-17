@@ -487,3 +487,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.7 (17 Sep 2026 14:21, apres a7603a3e8f)
 - Series KPI star conservees a la fusion kpis-haut
+
+## v2026.09.17.8 (17 Sep 2026 15:58, apres 36101f730c)
+- Cadre rotatif attenue, titres du bloc moyen terme, DCF au referentiel

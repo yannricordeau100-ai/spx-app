@@ -93,8 +93,12 @@ export function ImageFindingsBlock({
         {/* Titre du graph AU-DESSUS (Yann 17 mai 2026 : remettre comme avant).
             Le SVG n'a plus son titre rasterisé (strip), donc on l'affiche en
             HTML i18n FR/EN/DE pour avoir des titres traduits propres. */}
-        {displayTitle && (
-          <h3 className="mb-1 mt-0 text-center text-[15px] font-semibold leading-tight text-zinc-100">
+        {/* Yann 17 sept 2026 : plus de petit titre au-dessus du graphique. Les
+            graphiques reconstruits portent leur titre en gros dans l image ;
+            pour les anciens (image de source exterieure), le titre en gros est
+            rendu ici, dans le meme style. */}
+        {displayTitle && !f.image_local_path && (
+          <h3 className="mb-2 mt-0 px-2 text-left text-[16px] font-bold leading-tight text-zinc-50">
             {displayTitle}
           </h3>
         )}
