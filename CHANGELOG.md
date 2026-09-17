@@ -544,3 +544,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.4 (18 Sep 2026 01:20, apres 66065ec379)
 - Retrait des graphiques moyen terme issus de series de fiche ; total societes atelier GICS ; en-tete mobile
+
+## v2026.09.18.5 (18 Sep 2026 01:46, apres 87098ff7bd)
+- Moyen terme : titres centres, floutage ; porte d inscription avec message
