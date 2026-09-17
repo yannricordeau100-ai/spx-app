@@ -532,3 +532,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.22 (17 Sep 2026 23:41, apres 605497c747)
 - Accueil : classement des societes + total KPI ; tarifs : commentaire promo ; CGU-CGV TTC ; page secteurs : marqueur moyen terme
+
+## v2026.09.18.1 (18 Sep 2026 00:19, apres a1130274b0)
+- LEN T3-2026 : 39 points KPI, positionnement IA et KPI stories refaits ; syntheses LEN, STZ, FDX
