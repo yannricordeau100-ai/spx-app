@@ -2895,6 +2895,11 @@ async function loadV17CompanyBrut(
         // (StatCounter, Nielsen, Swiss Re, eMarketer...). Sans ce tag, le
         // remplacement kpis-haut les eliminait silencieusement.
         "stories-tiers",
+        // 17 sept 2026 : series du chantier KPI star (metrique reine par
+        // secteur, lues par script dans les documents officiels). Sans ce
+        // tag, le remplacement kpis-haut les eliminait (constate sur MUV2,
+        // ALV, VTR : hero introuvable sur la page servie).
+        "kpi-star",
       ]);
       const hautShorts = new Set(
         converted.map((k) => String(k.short ?? "").toLowerCase()),

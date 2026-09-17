@@ -484,3 +484,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.6 (17 Sep 2026 14:04, apres af4773c63e)
 - KPI star : assureurs IFRS 17, Fifth Third, EQT, SBA
+
+## v2026.09.17.7 (17 Sep 2026 14:21, apres a7603a3e8f)
+- Series KPI star conservees a la fusion kpis-haut
