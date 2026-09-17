@@ -173,6 +173,7 @@ export async function loadPricingForPublic(targetCurrency?: string): Promise<Loa
         price_monthly_eur: eurMonthly,
         price_annual_eur: eurAnnual,
         annual_savings_label: annualSavingsLabel,
+        promo_note: (dbPlan as { promo_note?: string | null }).promo_note ?? null,
         accent: dbPlan.accent_color ?? "#a78bfa",
         highlight: !!dbPlan.is_highlight,
         cta_label: dbPlan.cta_label_fr ?? "Choisir",

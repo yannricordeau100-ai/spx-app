@@ -1,0 +1,42 @@
+# Yann 17 sept 2026 : mise a jour quotidienne du nombre de KPI par industrie
+# et du total « KPI Mettrik AI » affiches dans le bloc « Comment sont classees
+# les societes ? » de l accueil (src/data/kpi-comptes-industries.json).
+name: kpi-comptes-daily
+on:
+  schedule:
+    - cron: "30 4 * * *"   # 06:30 Paris, avant le refresh des resultats
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  comptes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: staging
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: npm ci --no-audit --no-fund
+      - name: Comptage par societe (memes regles que la fiche)
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npx tsx scripts/compte-kpi-industries.ts 0 800 /tmp/comptes.json
+      - name: Agregation par industrie et total
+        run: python3 scripts/agrege-comptes-kpi.py /tmp/comptes.json
+      - name: Commit et push si changement
+        run: |
+          git config user.name "mettrik-cron"
+          git config user.email "cron@mettrik.ai"
+          git add src/data/kpi-comptes-industries.json
+          git diff --cached --quiet && echo "aucun changement" && exit 0
+          git commit -m "Cron : comptes KPI par industrie et total Mettrik AI ($(date -u +%F))"
+          git pull --rebase origin staging && git push origin staging

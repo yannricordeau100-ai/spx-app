@@ -22,6 +22,8 @@ export type PlanDisplay = {
   price_annual_eur: number;
   /** Mention promo annuelle ("2 mois offerts", etc.). */
   annual_savings_label: string;
+  /** Yann 17 sept 2026 : commentaire promo sous le prix par semaine (rouge), optionnel. */
+  promo_note?: string | null;
   /** Couleur d'accent (hex). */
   accent: string;
   /** Plan le plus populaire ? (badge "Recommandé"). */

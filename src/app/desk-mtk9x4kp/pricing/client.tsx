@@ -314,6 +314,8 @@ function PlansSection({
                   <FieldRow label="Mention sous le prix (FR)" value={d.price_caption_fr ?? ""} onChange={(v) => setDraft({ ...draft, price_caption_fr: v })} cols={3} />
                   <FieldRow label="Mention sous le prix (EN)" value={d.price_caption_en ?? ""} onChange={(v) => setDraft({ ...draft, price_caption_en: v })} cols={3} />
                   <FieldRow label="Mention sous le prix (DE)" value={d.price_caption_de ?? ""} onChange={(v) => setDraft({ ...draft, price_caption_de: v })} cols={3} />
+                  {/* Yann 17 sept 2026 : commentaire promo affiche en rouge, cadre arrondi rouge, sous le prix par semaine. Texte libre, vide = rien. */}
+                  <FieldRow label="Commentaire promo sous le prix par semaine (rouge)" value={d.promo_note ?? ""} onChange={(v) => setDraft({ ...draft, promo_note: v })} cols={3} />
 
                   <FieldRow label="Audience cible (FR)" value={d.audience_fr ?? ""} onChange={(v) => setDraft({ ...draft, audience_fr: v })} cols={3} />
                   <FieldRow label="Audience (EN)" value={d.audience_en ?? ""} onChange={(v) => setDraft({ ...draft, audience_en: v })} cols={3} />

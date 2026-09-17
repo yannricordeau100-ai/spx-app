@@ -32,6 +32,8 @@ export type PricingPlan = {
   price_caption_fr: string | null;
   price_caption_en: string | null;
   price_caption_de: string | null;
+  /** Yann 17 sept 2026 : commentaire promo (rouge, cadre arrondi) sous le prix par semaine. */
+  promo_note: string | null;
   tier_order: number;
   accent_color: string;
   is_highlight: boolean;

@@ -482,6 +482,13 @@ function PricingCard({
                       {taglineText}
                     </p>
                   )}
+                  {/* Yann 17 sept 2026 : commentaire promo (texte libre du back-office),
+                      en rouge dans un cadre arrondi rouge, sous le prix par semaine. */}
+                  {plan.promo_note && plan.promo_note.trim().length > 0 && (
+                    <p className="mt-2 inline-block whitespace-pre-line rounded-lg border border-red-500/80 px-2.5 py-1 text-[11.5px] font-semibold leading-snug text-red-400">
+                      {plan.promo_note}
+                    </p>
+                  )}
                 </div>
               );
             })()}
