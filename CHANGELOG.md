@@ -523,3 +523,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.19 (17 Sep 2026 21:44, apres 20e86a2451)
 - KPI star Nucor 47 trimestres, book-to-bill IQVIA, correctif KPI secteurs
+
+## v2026.09.17.20 (17 Sep 2026 22:00, apres c396f44e5c)
+- Cahier : carnets de commandes de 7 societes
