@@ -166,3 +166,9 @@ export async function processOnboardingQueue(): Promise<{
 
   return { picked: pending?.length ?? 0, sent, errors, details };
 }
+
+/** Yann 18 sept 2026 : l utilisateur accepte de nouveau les communications (Mon compte). */
+export async function resubscribeUser(email: string): Promise<void> {
+  const supa = adminClient();
+  await supa.from("desk_email_unsubscribes").delete().eq("user_email", email);
+}

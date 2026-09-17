@@ -8,6 +8,7 @@ import {
   updatePassword,
   updateEmail,
   updatePseudo,
+  updateCommunications,
   deleteAccount,
 } from "@/app/auth/actions";
 import { getServerLocale } from "@/lib/i18n/server";
@@ -267,6 +268,19 @@ export default async function AccountPage({
         </section>
 
         {/* SECURITE — mot de passe */}
+        {/* Yann 18 sept 2026 : preference communications (deplacee depuis la modale d inscription). */}
+        <section className="mt-4 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-6">
+          <h2 className="text-[15.5px] font-semibold text-zinc-50">Communications</h2>
+          <p className="mt-1 text-[12.5px] text-zinc-400">Sans action de ta part, tu reçois les informations, nouveautés et offres Mettrik. Coche la case pour ne plus rien recevoir (les e-mails liés à ton compte et à ta facturation restent envoyés).</p>
+          <form action={updateCommunications} className="mt-3 space-y-3">
+            <label className="flex items-start gap-2 text-[13px] text-zinc-200">
+              <input type="checkbox" name="sans_communications" defaultChecked={(user.user_metadata as { communications?: string } | undefined)?.communications === "refusees"} className="mt-0.5 size-4 accent-violet-500" />
+              <span>Je ne souhaite pas recevoir d’offres, d’informations professionnelles ni d’annonces de nouvelles fonctionnalités Mettrik.</span>
+            </label>
+            <button type="submit" className="rounded-lg border border-white/15 px-3 py-1.5 text-[12.5px] font-semibold text-zinc-100 hover:bg-white/5">Enregistrer</button>
+          </form>
+        </section>
+
         <section className="mt-8 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-6">
           <header className="mb-5 flex items-center gap-3">
             <span className="inline-flex size-9 items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/10 text-violet-200">

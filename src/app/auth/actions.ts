@@ -100,6 +100,8 @@ export async function signInWithPassword(formData: FormData) {
   redirect(next);
 }
 
+import { unsubscribeUser, resubscribeUser } from "@/lib/email/onboarding";
+
 export async function signUpWithPassword(formData: FormData) {
   // Captcha hCaptcha (Yann 13 mai 2026) — vérifié par Supabase via
   // options.captchaToken (config secret dans Auth Settings).
@@ -426,4 +428,23 @@ export async function deleteAccount(formData: FormData) {
   redirect(
     `/?info=${encodeURIComponent("Compte supprimé. À la prochaine.")}`
   );
+}
+
+/** Yann 18 sept 2026 : reglage « ne pas recevoir d offres » depuis Mon compte.
+ *  Ecrit user_metadata.communications ET la table desk_email_unsubscribes,
+ *  la seule lue par les envois (sequence d accueil). Sans action de l utilisateur,
+ *  il recoit les communications (opposition, pas consentement). */
+export async function updateCommunications(formData: FormData) {
+  const supabase = await createSupabaseServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user?.email) redirect("/?auth=signin&next=%2Faccount");
+  const refuse = formData.get("sans_communications") === "on";
+  await supabase.auth.updateUser({ data: { communications: refuse ? "refusees" : "acceptees" } });
+  try {
+    if (refuse) await unsubscribeUser(user.email, "choix dans Mon compte");
+    else await resubscribeUser(user.email);
+  } catch (e) {
+    console.error("[updateCommunications]", e);
+  }
+  redirect(`/account?ok=${encodeURIComponent(refuse ? "Tu ne recevras plus d offres ni d informations Mettrik." : "Tu recevras les informations et nouveautes Mettrik.")}`);
 }
