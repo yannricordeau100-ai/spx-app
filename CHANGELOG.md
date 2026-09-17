@@ -481,3 +481,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.5 (17 Sep 2026 13:50, apres 6b25130927)
 - KPI star : DCF, AFFO, CET1 EBA, ratio combine Zurich, AFFO SBA ; overrides sur shorts servis
+
+## v2026.09.17.6 (17 Sep 2026 14:04, apres af4773c63e)
+- KPI star : assureurs IFRS 17, Fifth Third, EQT, SBA
