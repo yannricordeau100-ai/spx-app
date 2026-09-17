@@ -508,3 +508,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.14 (17 Sep 2026 20:17, apres 2a8f50084a)
 - Toggle unique par horizon, onglet KPI star par secteur, carte dans la sandbox
+
+## v2026.09.17.15 (17 Sep 2026 20:43, apres e1699e6a7e)
+- Fiche : favoris lus en un seul appel (lenteur corrigee)
