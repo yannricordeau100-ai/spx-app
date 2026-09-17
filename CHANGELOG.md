@@ -502,3 +502,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.12 (17 Sep 2026 17:11, apres 2b89ffa468)
 - KPI star : Klepierre, UBS, Expand, Vistra, AES
+
+## v2026.09.17.13 (17 Sep 2026 18:15, apres 8019eb0780)
+- Hotels RevPAR, utilities graphiques de repli, Klepierre, UBS
