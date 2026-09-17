@@ -511,3 +511,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.17.15 (17 Sep 2026 20:43, apres e1699e6a7e)
 - Fiche : favoris lus en un seul appel (lenteur corrigee)
+
+## v2026.09.17.16 (17 Sep 2026 21:02, apres 66090974b7)
+- KPI star : ArcelorMittal, Gallagher, Freeport, Nucor ; sandbox : deux toggles KPI (Voir / Creation)
