@@ -19,12 +19,14 @@ import COMPTES from "@/data/kpi-comptes-industries.json";
 // Yann 12 sept 2026 : KPI totaux par industrie (IC standard + avances + stories),
 // en orange. Genere par scripts/compte-kpi-industries.ts (+ agregation).
 const KPI_PAR_INDUSTRIE = (COMPTES as { par_industrie: Record<string, { total: number; stes: number }> }).par_industrie;
+// Yann 17 sept 2026 : total de tous les KPI (« KPI Mettrik AI ») en bas du bloc, mis a jour chaque jour par le cron kpi-comptes.
+const KPI_GLOBAL = (COMPTES as { global: { total: number; stes: number }; maj: string }).global;
 
 export type GicsVariante = "toggle" | "colonnes" | "tuiles";
 type Lang = "fr" | "en" | "de";
 
 const TITRES = {
-  fr: { titre: "Où se range chaque société ?", sous: "11 secteurs, 25 groupes, 74 industries, 163 sous-industries : la classification GICS, celle des indices mondiaux." },
+  fr: { titre: "Comment sont classées les sociétés ?", sous: "11 secteurs, 25 groupes, 74 industries, 163 sous-industries : la classification GICS, celle des indices mondiaux." },
   en: { titre: "Where does each company belong?", sous: "11 sectors, 25 industry groups, 74 industries, 163 sub-industries: the GICS classification used by global indices." },
   de: { titre: "Wohin gehört jedes Unternehmen?", sous: "11 Sektoren, 25 Branchengruppen, 74 Branchen, 163 Teilbranchen: die GICS-Klassifikation der globalen Indizes." },
 } as const;
@@ -190,6 +192,11 @@ export function HomeGicsBlock({ variante = "toggle", sansTitre = false }: { vari
       {variante === "toggle" && <VarianteToggle lang={lang} />}
       {variante === "colonnes" && <VarianteColonnes lang={lang} />}
       {variante === "tuiles" && <VarianteTuiles lang={lang} />}
+      {!sansTitre && (
+        <p className="mt-6 text-center font-mono text-[13px] text-orange-400">
+          {KPI_GLOBAL.total.toLocaleString(lang === "en" ? "en-US" : lang === "de" ? "de-DE" : "fr-FR")} KPI Mettrik AI
+        </p>
+      )}
     </section>
   );
 }

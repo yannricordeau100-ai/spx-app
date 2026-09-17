@@ -40,6 +40,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 text-zinc-100">
       <h1 className="font-display text-[26px] font-bold">KPI star par secteur</h1>
+      <p className="mt-1 text-[12px] text-cyan-300">Cadre pointillé cyan et « 📊 MT » : société dont le KPI spécifique est rendu en KPI moyen terme (graphique reconstruit), faute de série longue.</p>
       <p className="mt-2 max-w-3xl text-[13.5px] text-zinc-400">
         Pour chaque secteur à métrique propre, la métrique reine choisie et, société par société, son état : posée en héros, KPI secondaire seulement, repli en graphique moyen terme, ou données introuvables. État du chantier au {(ETAT as { cree_le?: string }).cree_le ?? ""}, mis à jour à chaque déploiement.
       </p>
@@ -56,7 +57,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
               <p className="mt-1 text-[12.5px] text-zinc-300"><span className="text-zinc-500">Métrique reine : </span>{s.kpi_star.choix}<span className="text-zinc-500"> · fréquence : </span>{s.kpi_star.freq}</p>
               <div className="mt-3 grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
                 {stes.sort(([a], [b]) => a.localeCompare(b)).map(([t, x]) => (
-                  <div key={t} className="flex items-baseline gap-2 rounded-lg border border-white/[0.05] px-2 py-1 text-[12px]">
+                  <div key={t} className={`flex items-baseline gap-2 rounded-lg px-2 py-1 text-[12px] ${(x.statut ?? "").startsWith("repli") ? "border-2 border-dashed border-cyan-400/60 bg-cyan-500/[0.06]" : "border border-white/[0.05]"}`} title={(x.statut ?? "").startsWith("repli") ? "KPI spécifique rendu en graphique moyen terme (pas de série longue)" : undefined}>
+                    {(x.statut ?? "").startsWith("repli") && <span className="shrink-0 font-mono text-[10px] text-cyan-300">📊 MT</span>}
                     <a href={`/${t.toLowerCase()}`} className="w-16 shrink-0 font-mono font-semibold text-violet-200 hover:underline">{t}</a>
                     <span className={`shrink-0 ${COULEUR[x.statut ?? ""] ?? "text-zinc-400"}`}>{LIB[x.statut ?? ""] ?? x.statut}</span>
                     <span className="truncate text-zinc-500" title={x.note ?? ""}>{(x.hero_nouveau ?? x.hero_actuel ?? "").slice(0, 34)}</span>

@@ -26,7 +26,7 @@ Le site www.mettrik.ai et la marque Mettrik AI sont exploités par R consulting,
 
 Contact : par voie électronique, à l'adresse contact@mettrik.ai, qui permet une prise de contact rapide et une communication directe et efficace au sens de l'art. 3 al. 1 let. s LCD.
 
-La facturation et l'encaissement des abonnements souscrits sur www.mettrik.ai sont assurés par R consulting. Les prix affichés sont des prix nets ; aucune TVA n'est facturée en sus.
+La facturation et l'encaissement des abonnements souscrits sur www.mettrik.ai sont assurés par R consulting. Les prix affichés sont des prix TTC (toutes taxes comprises) ; aucune TVA n'est facturée en sus.
 
 ## Partie I · Utilisation du service
 
@@ -97,7 +97,7 @@ Aux fins d'exploitation, de sécurisation, de facturation et d'amélioration du 
 
 ### II.1 Offres d'abonnement
 
-Mettrik AI propose les abonnements suivants (prix de référence en euros ; le prix affiché au moment du paiement dans la devise choisie fait seul foi) :
+Mettrik AI propose les abonnements suivants (prix de référence en euros, toutes taxes comprises (TTC) ; le prix affiché au moment du paiement dans la devise choisie fait seul foi) :
 
 - Free : 0 € / mois. Accès limité. Le plan gratuit est une faculté offerte sans contrepartie : son périmètre peut être modifié, restreint ou supprimé à tout moment, sans préavis ni indemnité.
 - Premium mensuel : 29,90 € / mois. Accès complet aux sociétés couvertes, comparaison, watchlists, alertes.
@@ -105,7 +105,7 @@ Mettrik AI propose les abonnements suivants (prix de référence en euros ; le p
 - Max mensuel : 59,90 € / mois. Fonctionnalités étendues.
 - Max annuel : 478,80 € / an. Mêmes fonctionnalités, tarif préférentiel.
 
-Les prix affichés sont les prix finaux dus par l'utilisateur, sans TVA additionnelle. Les paiements sont traités via le prestataire sécurisé Stripe (norme PCI-DSS).
+Tous les prix indiqués sur le site et au moment du paiement sont des prix TTC (toutes taxes comprises) : ce sont les prix finaux dus par l'utilisateur, sans aucun montant additionnel. Les paiements sont traités via le prestataire sécurisé Stripe (norme PCI-DSS).
 
 ### II.2 Souscription et paiement
 
