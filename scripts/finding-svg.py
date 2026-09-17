@@ -95,7 +95,15 @@ def construit(spec: dict, theme: str) -> str:
         f'<text x="40" y="34" fill="{c["titre"]}" font-size="16" font-weight="700">{echappe(spec["titre"])}</text>',
     ]
     if spec.get("sous_titre"):
-        out.append(f'<text x="40" y="54" fill="{c["gris"]}" font-size="11">{echappe(spec["sous_titre"])}</text>')
+        # Sous-titre long : coupe en deux lignes sur un espace (jamais tronque).
+        st = spec["sous_titre"]
+        if len(st) > 105:
+            i = st.rfind(" ", 0, 105)
+            l1, l2 = st[:i], st[i + 1:]
+            out.append(f'<text x="40" y="52" fill="{c["gris"]}" font-size="11">{echappe(l1)}</text>')
+            out.append(f'<text x="40" y="66" fill="{c["gris"]}" font-size="11">{echappe(l2)}</text>')
+        else:
+            out.append(f'<text x="40" y="54" fill="{c["gris"]}" font-size="11">{echappe(st)}</text>')
 
     for g in grads:
         y = BAS - g * ech
@@ -129,7 +137,10 @@ def construit(spec: dict, theme: str) -> str:
                     f'font-size="10" font-family="ui-monospace" transform="rotate(-90 {cx:.0f} {BAS - h - 6:.0f})">'
                     f'{format_valeur(v, suffixe)}</text>'
                 )
-        out.append(f'<text x="{centre:.0f}" y="{BAS + 22}" text-anchor="middle" fill="{c["axe"]}" font-size="11">{echappe(cat)}</text>')
+        # Beaucoup de periodes : une etiquette sur n, sinon elles se chevauchent.
+        pas = max(1, -(-len(cats) // 12))
+        if i % pas == 0 or i == len(cats) - 1:
+            out.append(f'<text x="{centre:.0f}" y="{BAS + 22}" text-anchor="middle" fill="{c["axe"]}" font-size="11">{echappe(cat)}</text>')
 
     if spec.get("legende", True) and n > 1:
         out.append('<g transform="translate(0,424)">')
