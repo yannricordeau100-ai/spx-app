@@ -451,6 +451,16 @@ export function CompanyView({
       String(heroKpi?.unit ?? "").trim() === "%" ||
       /margin|marge|ratio|taux|growth|croissance|yield|rendement/i.test(String(heroShort ?? "")) ||
       ["GM", "ROE", "ROTE", "ROIC", "ROA", "ROCE", "NIM", "ROTCE"].includes(String(heroShort ?? ""));
+    // Yann 18 sept 2026 : un hero pose a la main (override Supabase) prime,
+    // meme en pourcentage ou en marge. Sert la marge nette d'interet des
+    // societes bancaires, que la regle du 9 juin 2026 ecartait.
+    const heroForce =
+      (company as { hero_kpi_force?: boolean }).hero_kpi_force === true;
+    // Garde-fou : une serie trop courte ne merite pas le grand graphique.
+    const heroHistLenForce = Array.isArray(heroKpi?.history)
+      ? heroKpi.history.length
+      : 0;
+    if (heroUsable && heroForce && heroHistLenForce >= 6) return heroShort;
     if (heroUsable && heroIsQuarterly && !heroPct) return heroShort;
     // Yann 15 aout 2026 : un hero explicite VALIDE (valeur reelle, non %, non
     // generique, non CA total, serie >=3 points) n'est plus ecrase par le

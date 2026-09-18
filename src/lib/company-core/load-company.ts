@@ -3101,6 +3101,10 @@ async function loadV17CompanyBrut(
       );
       if (shorts.has(override)) {
         company.hero_kpi = override;
+        // Yann 18 sept 2026 : un hero pose a la main prime sur la regle du
+        // 9 juin 2026 qui interdit les heros en pourcentage (marge nette
+        // d'interet des banques).
+        (company as { hero_kpi_force?: boolean }).hero_kpi_force = true;
       }
     }
   } catch (err) {

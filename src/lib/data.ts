@@ -326,6 +326,13 @@ export type Company = {
   att?: import("@/lib/att").CompanyAtt;
   hero_kpi: string; // matches KPI.short
   /**
+   * Vrai quand `hero_kpi` vient de l'override humain Supabase
+   * (`desk_hero_kpi_overrides`). Le rendu respecte alors ce choix meme si le
+   * KPI est un pourcentage ou une marge (sinon la regle du 9 juin 2026 le
+   * remplacerait). Yann 18 sept 2026, marge nette d'interet des banques.
+   */
+  hero_kpi_force?: boolean;
+  /**
    * Rationale (1-2 phrases) expliquant POURQUOI ce KPI a été choisi comme
    * Hero pour cette société. Lu lors de l'audit éditorial. Pas affiché à
    * l'utilisateur final (sauf en mode debug). Voir CLAUDE.md § ORDRE.
