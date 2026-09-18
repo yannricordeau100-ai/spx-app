@@ -13,6 +13,7 @@
  * Données : /api/popular-stocks (SSR enrichi : hero_yoy + hero_short + tier).
  */
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowRight, Crown } from "lucide-react";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 
@@ -143,6 +144,7 @@ export function PodiumCard({
   totalShown: number;
   buildHref: (t: string) => string;
 }) {
+  const routeur = useRouter();
   const pct = rankBarPct(rank, totalShown);
   const accent =
     rank === 1
@@ -154,6 +156,7 @@ export function PodiumCard({
   return (
     <a
       href={buildHref(row.ticker)}
+      onMouseEnter={() => routeur.prefetch(buildHref(row.ticker))}
       className={`group relative block h-full overflow-hidden rounded-2xl border ${accent.border} bg-gradient-to-br ${accent.bg} p-4 transition-all hover:scale-[1.02] hover:shadow-lg`}
     >
       <div className="absolute -top-10 -right-10 size-32 rounded-full bg-white/[0.03] blur-3xl" />
@@ -198,10 +201,12 @@ export function StockRow({
   totalShown: number;
   buildHref: (t: string) => string;
 }) {
+  const routeur = useRouter();
   const pct = rankBarPct(rank, totalShown);
   return (
     <a
       href={buildHref(row.ticker)}
+      onMouseEnter={() => routeur.prefetch(buildHref(row.ticker))}
       className="group relative flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.015] p-2.5 transition-all hover:border-violet-500/30 hover:bg-violet-500/[0.04]"
     >
       <div className="grid size-9 shrink-0 place-items-center rounded-lg bg-white/[0.04] font-mono text-[12px] font-bold text-zinc-300">
@@ -248,6 +253,7 @@ function TabHoverPreview({
   label: string;
   buildHref: (t: string) => string;
 }) {
+  const routeur = useRouter();
   return (
     <div className="pointer-events-none absolute left-1/2 top-full z-50 mt-2 w-60 -translate-x-1/2 rounded-xl border border-violet-500/25 bg-[#0a0a0e]/95 p-3 shadow-2xl backdrop-blur-md">
       {/* petite flèche pointant vers le tab */}
@@ -260,6 +266,7 @@ function TabHoverPreview({
           <a
             key={r.ticker}
             href={buildHref(r.ticker)}
+      onMouseEnter={() => routeur.prefetch(buildHref(r.ticker))}
             className="flex items-center gap-2 rounded-lg px-1.5 py-1.5 transition-colors hover:bg-white/[0.04]"
           >
             <span className="grid size-5 shrink-0 place-items-center rounded bg-violet-500/15 font-mono text-[10px] font-bold text-violet-200">

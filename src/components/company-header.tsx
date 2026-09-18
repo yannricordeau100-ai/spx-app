@@ -251,22 +251,16 @@ function translateRankPreposition(value: string, locale: string): string {
   return out;
 }
 
-/** Yann 18 sept 2026 : ce qui suit le bandeau est la propriete de Mettrik AI ou des societes. */
-function ProprieteInfo() {
-  const [ouvert, setOuvert] = useState(false);
+/** Yann 18 sept 2026 : ce qui suit le bandeau est la propriete de Mettrik AI ou des societes.
+ *  Rendu avec InfoTooltip (portail, positionnement borne a l ecran) : l ancien
+ *  panneau en absolute ne s ouvrait pas dans la rangee des rangs. */
+function ProprieteInfo({ accent }: { accent: string }) {
   return (
-    <span className="relative inline-flex shrink-0 items-center">
-      <button type="button" onClick={() => setOuvert((v) => !v)} aria-label="Information sur les contenus" title="Information sur les contenus"
-        className="inline-flex size-6 items-center justify-center rounded-full border border-white/20 text-zinc-300 hover:bg-white/10">
-        <ChevronDown className="size-3.5" />
-      </button>
-      {ouvert && (
-        <span className="absolute right-0 top-8 z-50 w-[300px] rounded-lg border border-white/15 bg-[#0a0a0e] p-3 text-left text-[12px] leading-relaxed text-zinc-200 shadow-xl">
-          En dessous, à l&apos;exception des blocs « Gouvernance et rémunération » et « Répartition du chiffre d&apos;affaires* », toutes les informations affichées sont la propriété de Mettrik AI, spécifiques à Mettrik AI, ou proviennent des sociétés concernées à travers leurs rapports réglementaires.
-          <br /><span className="text-zinc-500">* à l&apos;exception de pages société spécifiques.</span>
-        </span>
-      )}
-    </span>
+    <InfoTooltip color={accent} size="md" align="right" icone={<ChevronDown className="size-4" strokeWidth={2.5} aria-hidden />}>
+      En dessous, à l&apos;exception des blocs « Gouvernance et rémunération » et « Répartition du chiffre d&apos;affaires* », toutes les informations affichées sont la propriété de Mettrik AI, spécifiques à Mettrik AI, ou proviennent des sociétés concernées à travers leurs rapports réglementaires.
+      <br />
+      <span className="text-zinc-500">* à l&apos;exception de pages société spécifiques.</span>
+    </InfoTooltip>
   );
 }
 
@@ -371,7 +365,7 @@ export function CompanyHeader({
             sans 10-K ou au chiffre non fiable n affichent pas la chip. */}
         <StatChip label={t("company.employees")} value={employeeCountLabel(company.ticker, locale)} />
         {/* Yann 18 sept 2026 : fleche d information tout a droite des rangs (meme role qu un i). */}
-        <ProprieteInfo />
+        <ProprieteInfo accent={accent} />
           </>
         );
         return (

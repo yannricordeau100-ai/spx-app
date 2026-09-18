@@ -24,6 +24,7 @@ export function InfoTooltip({
   color = "#a78bfa",
   align = "left",
   size = "sm",
+  icone,
 }: {
   children: React.ReactNode;
   color?: string;
@@ -37,11 +38,14 @@ export function InfoTooltip({
    */
   align?: "left" | "right" | "center";
   size?: "sm" | "md";
+  /** Yann 18 sept 2026 : icone de remplacement (ex. fleche vers le bas). */
+  icone?: React.ReactNode;
 }) {
   const { t } = useT();
   const [open, setOpen] = useState(false);
   const [coords, setCoords] = useState<{
     top: number;
+    haut: number;
     left: number;
     right: number;
   } | null>(null);
@@ -51,14 +55,19 @@ export function InfoTooltip({
   // grands ecrans la popup etait plus large et partait loin du « i ».
   const popupRef = useRef<HTMLDivElement>(null);
   const [largeurPopup, setLargeurPopup] = useState(288);
+  // Yann 18 sept 2026 : hauteur mesuree aussi, pour ouvrir vers le haut quand
+  // le bouton est en bas de l ecran (la popup sortait de l ecran).
+  const [hauteurPopup, setHauteurPopup] = useState(0);
   useEffect(() => {
     if (!open) return;
     const id = requestAnimationFrame(() => {
       const w = popupRef.current?.offsetWidth;
       if (w && Math.abs(w - largeurPopup) > 1) setLargeurPopup(w);
+      const h = popupRef.current?.offsetHeight;
+      if (h && Math.abs(h - hauteurPopup) > 1) setHauteurPopup(h);
     });
     return () => cancelAnimationFrame(id);
-  }, [open, coords, largeurPopup]);
+  }, [open, coords, largeurPopup, hauteurPopup]);
   const isSm = size === "sm";
 
   // Calcule la position de la popup à partir du bouton déclencheur.
@@ -71,6 +80,7 @@ export function InfoTooltip({
       const r = btn.getBoundingClientRect();
       setCoords({
         top: r.bottom + 6, // 6px sous le bouton
+        haut: r.top, // bord haut du bouton, pour ouvrir au-dessus si besoin
         left: r.left,
         right: window.innerWidth - r.right,
       });
@@ -94,21 +104,28 @@ export function InfoTooltip({
     // visible : position calculee en pixels puis bornee aux bords de l ecran.
     const MARGE = 12;
     const vw = typeof window !== "undefined" ? window.innerWidth : 1440;
+    const vh = typeof window !== "undefined" ? window.innerHeight : 900;
     const borne = (x: number) => Math.max(MARGE, Math.min(x, vw - largeurPopup - MARGE));
+    // Vertical : sous le bouton si la place suffit, sinon au-dessus, toujours
+    // dans l ecran et jamais loin du « i ».
+    const h = hauteurPopup || 160;
+    const dessous = coords.top;
+    const dessus = coords.haut - 6 - h;
+    const top = dessous + h + MARGE <= vh ? dessous : Math.max(MARGE, dessus >= MARGE ? dessus : vh - h - MARGE);
     const gaucheBouton = coords.left;
     const droiteBouton = vw - coords.right;
     if (align === "center") {
-      return { top: coords.top, left: borne((gaucheBouton + droiteBouton) / 2 - largeurPopup / 2) };
+      return { top, left: borne((gaucheBouton + droiteBouton) / 2 - largeurPopup / 2) };
     }
-    if (align === "right") return { top: coords.top, left: borne(droiteBouton - largeurPopup) };
+    if (align === "right") return { top, left: borne(droiteBouton - largeurPopup) };
     // Yann 8 juin 2026 : auto-flip. La popup fait w-72 (288px). Si elle
     // depasserait le bord droit de l'ecran (cas du "i" en bout de titre KPI a
     // droite, ex "Revenus des frais de membership (i)"), on l'ouvre vers la
     // GAUCHE (right-align) pour ne plus tronquer le texte de definition.
     if (gaucheBouton + largeurPopup + MARGE > vw) {
-      return { top: coords.top, left: borne(droiteBouton - largeurPopup) };
+      return { top, left: borne(droiteBouton - largeurPopup) };
     }
-    return { top: coords.top, left: borne(gaucheBouton) };
+    return { top, left: borne(gaucheBouton) };
   })();
 
   return (
@@ -129,11 +146,13 @@ export function InfoTooltip({
         style={{ borderColor: `${color}99`, color }}
         aria-label={t("ui.more_info")}
       >
-        <Info
-          className={isSm ? "size-[14px]" : "size-4"}
-          strokeWidth={2.5}
-          aria-hidden
-        />
+        {icone ?? (
+          <Info
+            className={isSm ? "size-[14px]" : "size-4"}
+            strokeWidth={2.5}
+            aria-hidden
+          />
+        )}
       </button>
       {mounted &&
         createPortal(

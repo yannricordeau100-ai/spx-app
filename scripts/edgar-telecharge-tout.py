@@ -3,7 +3,7 @@
 (depuis la creation). Priorite : 10-K, 20-F, 40-F, 10-Q, DEF 14A, puis 8-K/6-K.
 Arret si l espace libre passe sous le seuil. Usage :
   python3 scripts/edgar-telecharge-tout.py [--tickers A,B] [--formes 10K,10Q] [--min-go 15] [--max-par-ste 0]"""
-import json,os,ssl,sys,time,gzip,shutil,urllib.request,urllib.error
+import json,os,re,ssl,sys,time,gzip,shutil,urllib.request,urllib.error
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA={'User-Agent':'Mettrik research contact@mettrik.ai'}; CTX=ssl._create_unverified_context()
 ARG=sys.argv
@@ -32,6 +32,16 @@ tot=err=0
 for t in tickers:
     v=inv['stes'].get(t) or {}
     liste=[x for x in (v.get('liste') or []) if x['dossier'] in FORMES]
+    # Yann 18 sept 2026 : uniquement les NOUVEAUX depots, c est a dire ceux posterieurs
+    # au document le plus recent deja present pour cette societe et cette forme.
+    if '--tout-historique' not in ARG:
+        import glob as _g
+        recent={}
+        for d in set(x['dossier'] for x in liste):
+            noms=[os.path.basename(q) for q in _g.glob(f"{ROOT}/data-lake/{t}/{d}/*")]
+            dates=[m.group(0) for n in noms for m in [re.search(r'\d{4}-\d{2}-\d{2}',n)] if m]
+            recent[d]=max(dates) if dates else None
+        liste=[x for x in liste if not recent.get(x['dossier']) or x['date']>recent[x['dossier']]]
     liste.sort(key=lambda x:(ORDRE.index(x['dossier']) if x['dossier'] in ORDRE else 9, x['date']),reverse=False)
     if MAXST: liste=liste[:MAXST]
     n=0

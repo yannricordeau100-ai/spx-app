@@ -15,6 +15,7 @@
  *   - ni medaille, ni etoile de favori, ni indicateur "i".
  */
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { ArrowRight } from "lucide-react";
 
@@ -52,6 +53,7 @@ export function HomeWowGrid({
   gatePath?: string;
   labelVoirPlus: string;
 }) {
+  const routeur = useRouter();
   const [visible, setVisible] = useState(VISIBLE_PAR_DEFAUT);
 
   const { rows, tickersSet } = useMemo(() => {
@@ -73,6 +75,7 @@ export function HomeWowGrid({
           const card = (
             <Link
               href={buildHref(s.ticker)}
+      onMouseEnter={() => routeur.prefetch(buildHref(s.ticker))}
               className="conic-border group relative flex h-full flex-col rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4 transition-colors hover:border-[#2a2a2a]"
             >
               <div
@@ -180,9 +183,11 @@ export function CarteSteWow({
   flouKpis?: boolean;
 }) {
   const accent = brand(s.ticker).primary;
+  const routeur = useRouter();
   return (
     <Link
       href={buildHref(s.ticker)}
+      onMouseEnter={() => routeur.prefetch(buildHref(s.ticker))}
       className="conic-border group relative flex h-full flex-col rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4 transition-colors hover:border-[#2a2a2a]"
     >
       <div
