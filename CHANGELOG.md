@@ -604,3 +604,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.24 (18 Sep 2026 19:10, apres b2c2beb7e7)
 - Assureurs : libelles de ratio combine raccourcis
+
+## v2026.09.18.25 (18 Sep 2026 21:21, apres 76dcf5bd5c)
+- Munich Re : ratio combine reassurance en heros sur 20 trimestres
