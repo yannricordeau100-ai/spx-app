@@ -610,3 +610,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.26 (18 Sep 2026 21:56, apres 3450c7e560)
 - Chaine post-resultats, delai J+7, KPI par secteur avec le nom du KPI
+
+## v2026.09.18.27 (18 Sep 2026 23:23, apres 4e4f0f0f8e)
+- KPI stories : rattrapage de 100 societes
