@@ -589,3 +589,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.19 (18 Sep 2026 15:56, apres a955d74903)
 - Infobulle placement, fleche du bandeau, prechargement des fiches, EDGAR nouveaux depots
+
+## v2026.09.18.20 (18 Sep 2026 16:55, apres 25629d61c7)
+- Banques : marge nette d interet en KPI heros
