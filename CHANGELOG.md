@@ -574,3 +574,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.14 (18 Sep 2026 05:30, apres eb8191ef70)
 - KPI MT par societe : Nestle, Shell, Amazon, Airbus, Safran, Deutsche Telekom, Schneider, Allianz, Lilly
+
+## v2026.09.18.15 (18 Sep 2026 06:26, apres dfcff12b28)
+- KPI MT par societe : 26 societes
