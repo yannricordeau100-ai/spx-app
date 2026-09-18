@@ -103,6 +103,14 @@ type Kpi = { short?: string; last_data_date?: string; is_short_history?: boolean
 
 async function calculer(): Promise<EtatSynchro> {
   const uni = await lireJson<{ tickers: string[] }>(path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json"));
+  // Yann 18 sept 2026 : une societe qui ne tient aucun appel de resultats ne
+  // peut pas avoir de transcript a jour. Elle est classee hors perimetre pour
+  // ce bloc au lieu d etre comptee en retard indefiniment.
+  const sansAppel = new Set(
+    Object.keys(
+      (await lireJson<{ tickers?: Record<string, string> }>(path.join(ROOT, "src/data/sans-appel-resultats.json")))?.tickers ?? {},
+    ).map((x) => x.toUpperCase()),
+  );
   const datesLake = await lireJson<{ dates?: Record<string, string> }>(path.join(ROOT, "src/data/_data-lake-dernier-doc.json"));
   const tickers = uni?.tickers ?? [];
   const vide = (): EtatCategorie => ({ aJour: 0, enRetard: 0, sansDonnee: 0, horsSec: 0, retards: [], horsSecListe: [], pointLePlusRecent: null });
@@ -169,7 +177,12 @@ async function calculer(): Promise<EtatSynchro> {
     juger("kpi_stories", pageStories, derive ? 45 : 10);
     // Un transcript est date du jour de la conference, quelques jours autour
     // du depot : on compare a la date du depot avec 45 jours de marge.
-    juger("transcripts", pageTr, reel && depose ? Math.max(45, jours(depose, reel) + 10) : 45);
+    if (sansAppel.has(t.toUpperCase())) {
+      cats.transcripts.horsSec += 1;
+      cats.transcripts.horsSecListe.push(t);
+    } else {
+      juger("transcripts", pageTr, reel && depose ? Math.max(45, jours(depose, reel) + 10) : 45);
+    }
   }
   for (const cat of Object.keys(cats) as CategorieSynchro[]) {
     cats[cat].retards.sort((a, b) => b.joursRetard - a.joursRetard);
