@@ -601,3 +601,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.23 (18 Sep 2026 18:55, apres 5fbc4b6f6d)
 - GS et MS : produits nets d interets en heros sur 42 trimestres
+
+## v2026.09.18.24 (18 Sep 2026 19:10, apres b2c2beb7e7)
+- Assureurs : libelles de ratio combine raccourcis

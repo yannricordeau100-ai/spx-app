@@ -18,8 +18,10 @@ for (const t of tickers) {
     await page.waitForSelector(sel, { timeout: 45000 });
     titre = (await page.locator(sel).first().innerText()).replace(/\s+/g,' ').trim();
   } catch (e) { titre = 'ERREUR ' + String(e).slice(0,60); }
-  out.push({ t, titre });
-  console.log(`${t} | ${titre}`);
+  let ver = '';
+  try { ver = (await page.locator('text=/V2026\\.[0-9.]+/').first().innerText()).trim(); } catch {}
+  out.push({ t, titre, ver });
+  console.log(`${t} | ${titre} | ${ver}`);
 }
 fs.writeFileSync('/tmp/verif-hero-affiche.json', JSON.stringify(out,null,1));
 await b.close();
