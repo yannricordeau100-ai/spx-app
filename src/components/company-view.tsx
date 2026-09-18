@@ -344,6 +344,7 @@ export function CompanyView({
     const applique = (rules: FloutageRule[]) => {
       if (annule || rules.length === 0) return;
       cleanups.push(applyFloutageRules(rules));
+      cleanups.push(ajouteAppelsAbonnement(String(freemiumTier ?? "")));
       let minuterie: ReturnType<typeof setTimeout> | null = null;
       observer = new MutationObserver(() => {
         if (annule || minuterie) return;
