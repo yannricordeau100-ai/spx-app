@@ -595,3 +595,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.21 (18 Sep 2026 17:02, apres 1b24046cbe)
 - Banques : marge d interet en heros, rattrapage EDGAR 4410 documents
+
+## v2026.09.18.22 (18 Sep 2026 18:11, apres c49482bf21)
+- Banques : marge d interet en heros sur les 27 fiches, libelles nettoyes
