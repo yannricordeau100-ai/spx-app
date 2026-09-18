@@ -55,7 +55,13 @@ async function graphiquesAnciens(): Promise<Map<string, { date: string | null; m
       const anDonnees = annees.length ? Math.max(...annees) : NaN;
       const motifs: string[] = [];
       if (Number.isFinite(anSource) && anSource <= limite) motifs.push(`source de ${anSource}`);
-      if (Number.isFinite(anDonnees) && anDonnees <= limite) motifs.push(`données arrêtées en ${anDonnees}`);
+      // Yann 19 sept 2026 : des donnees annuelles ne peuvent pas etre plus
+      // recentes que la derniere publication de l organisme qui les mesure. Une
+      // annee de reference ancienne ne vaut signalement que si le releve lui
+      // meme n a pas ete refait depuis plus d un an.
+      const sourceRecente = Number.isFinite(anSource) && anSource > limite + 1;
+      if (Number.isFinite(anDonnees) && anDonnees <= limite && !sourceRecente)
+        motifs.push(`données arrêtées en ${anDonnees}`);
       if (motifs.length === 0) continue;
       let cibles: string[] = [];
       const tt = f.target_tickers;
