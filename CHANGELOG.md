@@ -553,3 +553,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.7 (18 Sep 2026 02:52, apres 503e7621ab)
 - Pseudo, i anti-these, appel abonnement par bloc floute, bloc API, pied de page SEO, FAQ
+
+## v2026.09.18.8 (18 Sep 2026 02:52, apres 0a2cd1723e)
+- FAQ : sauts de ligne
