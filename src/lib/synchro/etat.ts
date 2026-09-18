@@ -133,6 +133,11 @@ async function calculer(): Promise<EtatSynchro> {
     const depot = enrich?.latest_filing;
     let reel = depot?.period_end && /^\d{4}-\d{2}-\d{2}/.test(depot.period_end) ? depot.period_end.slice(0, 10) : null;
     let depose = depot?.date && /^\d{4}-\d{2}-\d{2}/.test(depot.date) ? depot.date.slice(0, 10) : null;
+    // Yann 19 sept 2026 : quelques fiches portent une fin de periode egale ou
+    // posterieure a la date de depot, ce qui est impossible et faisait passer la
+    // societe en retard a tort (ARM). On retombe alors sur la fin du trimestre
+    // civil precedant le depot.
+    if (reel && depose && reel >= depose) reel = finTrimestrePrecedent(depose);
     // Reference derivee (9 sept 2026) : quand la date SEC n est pas dans enrich
     // (342 societes US) ou pour les societes europeennes, le document le plus
     // recent du data-lake (10-Q, 10-K, rapport semestriel, URD, communique,

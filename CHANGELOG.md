@@ -613,3 +613,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.27 (18 Sep 2026 23:23, apres 4e4f0f0f8e)
 - KPI stories : rattrapage de 100 societes
+
+## v2026.09.19.1 (19 Sep 2026 00:04, apres b7f36a3e3d)
+- Rattrapage des blocs en retard, 148 a 9
