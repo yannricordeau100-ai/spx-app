@@ -607,3 +607,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.25 (18 Sep 2026 21:21, apres 76dcf5bd5c)
 - Munich Re : ratio combine reassurance en heros sur 20 trimestres
+
+## v2026.09.18.26 (18 Sep 2026 21:56, apres 3450c7e560)
+- Chaine post-resultats, delai J+7, KPI par secteur avec le nom du KPI

@@ -1,6 +1,6 @@
 {
- "maj": "2026-09-13",
- "regle_generale": "Chaque bloc d une fiche est remis a jour au plus tard 3 jours apres la date de publication des resultats (J+3). Les societes europeennes a publication semestrielle sont evaluees sur leur calendrier semestriel. Chaque passe qui met un bloc a jour ecrit la date dans le champ _maj_<bloc> du fichier src/data/v2-pipeline-enrich/<ticker>.json (convention obligatoire, lue par l etat et par l alerte).",
+ "maj": "2026-09-18",
+ "regle_generale": "Chaque bloc d une fiche est remis a jour au plus tard 7 jours apres la date de publication des resultats (J+7). Le delai de 3 jours a ete porte a 7 le 18 sept 2026 : la chaine post-resultats (scripts/post-earnings-pipeline.py, cron horaire) attend d abord que les documents soient telechargeables selon la place de cotation, les telecharge en plusieurs tentatives, puis lance l extraction des KPI immediatement apres chaque telechargement. Un document non encore disponible ne declenche donc JAMAIS d alerte rouge ; l alerte rouge ne sanctionne que l absence de mise a jour des KPI sept jours apres la publication. Les societes europeennes a publication semestrielle sont evaluees sur leur calendrier semestriel. Chaque passe qui met un bloc a jour ecrit la date dans le champ _maj_<bloc> du fichier src/data/v2-pipeline-enrich/<ticker>.json.",
  "blocs": [
   {
    "id": "rang",
@@ -14,7 +14,7 @@
    "id": "kpi_ic",
    "nom": "Indicateurs cles (KPI avances et standard)",
    "declencheur": "chaque publication de resultats",
-   "delai_jours": 3,
+   "delai_jours": 7,
    "source": "scripts/earnings-refresh.py (chaine 23h) ; controle synchro kpi_ic",
    "champ_date": "last_data_date des KPI"
   },
@@ -22,7 +22,7 @@
    "id": "kpi_stories",
    "nom": "KPI stories : ajout des KPI des documents de la societe et du transcript (sans doublon avec les indicateurs cles), retrait des KPI anterieurs a l annee N-2",
    "declencheur": "chaque publication de resultats",
-   "delai_jours": 3,
+   "delai_jours": 7,
    "source": "chaine 23h (stories) + scan-kpi-doublons",
    "champ_date": "_maj_kpi_stories"
   },
@@ -30,7 +30,7 @@
    "id": "synthese",
    "nom": "Synthese du communique de resultats",
    "declencheur": "chaque publication de resultats",
-   "delai_jours": 3,
+   "delai_jours": 7,
    "source": "scripts/summaries-refresh.py (chaine 23h)",
    "champ_date": "transcript-summaries/<t>.json fetched_at"
   },
@@ -38,7 +38,7 @@
    "id": "transcript",
    "nom": "Transcript de l appel de resultats et extraction de tous ses KPI",
    "declencheur": "chaque publication de resultats",
-   "delai_jours": 3,
+   "delai_jours": 7,
    "source": "scripts/transcripts-refresh.py + scripts/marketbeat-transcripts.py",
    "champ_date": "transcripts/<t>.json latest.date"
   },
@@ -46,7 +46,7 @@
    "id": "positionnement_ia",
    "nom": "Positionnement IA (contenu entierement revu, seul le pertinent est garde)",
    "declencheur": "chaque publication de resultats",
-   "delai_jours": 3,
+   "delai_jours": 7,
    "source": "chaine 23h (a brancher)",
    "champ_date": "_maj_positionnement_ia"
   },
@@ -83,5 +83,22 @@
    "champ_date": "source_date"
   }
  ],
- "alerte": "Independante des mises a jour : calculee uniquement a partir des dates presentes dans les donnees et du calendrier des resultats, par la route /api/cron/alertes-maj (cron Vercel quotidien, email Resend au proprietaire) et par la chaine 23h du Mac. Lue en debut de session par Claude (src/data/alertes-maj.json), correction avant que le proprietaire n ouvre la notification."
+ "alerte": "Independante des mises a jour : calculee uniquement a partir des dates presentes dans les donnees et du calendrier des resultats, par la route /api/cron/alertes-maj (cron Vercel quotidien, email Resend au proprietaire) et par la chaine 23h du Mac. Lue en debut de session par Claude (src/data/alertes-maj.json), correction avant que le proprietaire n ouvre la notification.",
+ "chaine_post_resultats": {
+  "script": "scripts/post-earnings-pipeline.py",
+  "cadence": "cron local toutes les heures a la minute 15",
+  "etat": ".conv-state/post-earnings-etat.json",
+  "etapes": [
+   "attente du delai de mise a disposition propre a la place de cotation",
+   "telechargement des documents, retente chaque heure jusqu a J+12",
+   "extraction des KPI lancee immediatement apres chaque nouveau document",
+   "journal par societe : tentatives, documents, extraction, statut"
+  ],
+  "delais_par_place": {
+   "Etats-Unis": "communique le jour meme, rapport trimestriel sous 3 jours",
+   "Paris, Francfort, Amsterdam, Bruxelles, Madrid, Milan": "communique le jour meme, document complet sous 2 jours",
+   "Zurich, Londres, Stockholm, Oslo, Copenhague, Helsinki": "communique le jour meme, document complet le lendemain",
+   "Lisbonne": "communique le jour meme, document complet sous 3 jours"
+  }
+ }
 }

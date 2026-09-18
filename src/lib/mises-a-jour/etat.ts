@@ -71,8 +71,27 @@ async function graphiquesAnciens(): Promise<Map<string, { date: string | null; m
   return out;
 }
 
+/** Yann 18 sept 2026 : journal de la chaine post-resultats (telechargement des
+ *  documents puis extraction). Sert a expliquer pourquoi un bloc est en retard :
+ *  document pas encore disponible, ou documents la et extraction en defaut. */
+async function journalPostResultats(): Promise<Record<string, { statut?: string; tentatives?: unknown[]; dernier_document?: string | null; extraction?: { le?: string } | null }>> {
+  const j = await lire<{ stes?: Record<string, { statut?: string; tentatives?: unknown[]; dernier_document?: string | null; extraction?: { le?: string } | null }> }>(
+    path.join(ROOT, ".conv-state/post-earnings-etat.json"),
+  );
+  return j?.stes ?? {};
+}
+
 export async function calculerEtatMisesAJour(): Promise<EtatMisesAJour> {
   const today = new Date().toISOString().slice(0, 10);
+  const journal = await journalPostResultats();
+  const explique = (t: string) => {
+    const j = journal[t.toUpperCase()];
+    if (!j) return "";
+    const n = Array.isArray(j.tentatives) ? j.tentatives.length : 0;
+    if (j.extraction?.le) return ` · documents récupérés, extraction lancée le ${String(j.extraction.le).slice(0, 10)}`;
+    if (j.dernier_document) return ` · dernier document du ${j.dernier_document}, ${n} tentative(s)`;
+    return ` · documents pas encore disponibles, ${n} tentative(s)`;
+  };
   const uni = (await lire<{ tickers: string[] }>(path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json")))?.tickers ?? [];
   const cal = await lire<{ par_ticker: Record<string, { prochaine?: string | null; precedente?: string | null }> }>(path.join(ROOT, "src/data/earnings-calendar.json"));
   const noms = (await lire<Record<string, { name?: string }>>(path.join(ROOT, "src/data/v1-7-public.json"))) ?? {};
@@ -95,7 +114,7 @@ export async function calculerEtatMisesAJour(): Promise<EtatMisesAJour> {
     if (!b || !c) continue;
     b.vert = c.aJour; b.orange = c.sansDonnee + c.horsSec;
     for (const r of c.retards) {
-      if (r.joursRetard > b.delai_jours) pose(b, { ticker: r.ticker, nom: noms[r.ticker]?.name ?? r.ticker, feu: "rouge", bloc_date: r.page, reference: r.reel, jours: r.joursRetard - b.delai_jours, motif: `dépôt du ${r.depose}, page datée du ${r.page ?? "?"}` });
+      if (r.joursRetard > b.delai_jours) pose(b, { ticker: r.ticker, nom: noms[r.ticker]?.name ?? r.ticker, feu: "rouge", bloc_date: r.page, reference: r.reel, jours: r.joursRetard - b.delai_jours, motif: `dépôt du ${r.depose}, page datée du ${r.page ?? "?"}` + explique(r.ticker) });
       else b.orange++;
     }
   }
@@ -112,8 +131,8 @@ export async function calculerEtatMisesAJour(): Promise<EtatMisesAJour> {
     // rang : hebdomadaire, reference = aujourd hui - 7 jours
     { const b = parId.graphiques; if (b) { const v = vieuxGraphiques.get(t.toUpperCase()); if (v && v.length) pose(b, { ticker: t, nom, feu: "rouge", bloc_date: v[0].date, reference: null, jours: null, motif: `${v.length} graphique(s) à rafraîchir : ${v[0].motif}` }); else b.vert++; } }
     { const b = parId.rang; if (b) { const r = rangDate ? (jours(today, rangDate) > 7 ? "rouge" : "vert") : "orange"; pose(b, { ticker: t, nom, feu: r, bloc_date: rangDate, reference: today, jours: rangDate ? Math.max(0, jours(today, rangDate) - 7) : null, motif: rangDate ? `dernier classement le ${rangDate}` : "date du classement inconnue" }); } }
-    { const b = parId.synthese; if (b) { const d = iso(resume?.fetched_at); const f = feu(d, publication, b.delai_jours, today); pose(b, { ticker: t, nom, bloc_date: d, reference: publication, ...f }); } }
-    { const b = parId.positionnement_ia; if (b) { const d = maj("positionnement_ia"); const f = feu(d, publication, b.delai_jours, today); pose(b, { ticker: t, nom, bloc_date: d, reference: publication, ...f }); } }
+    { const b = parId.synthese; if (b) { const d = iso(resume?.fetched_at); const f = feu(d, publication, b.delai_jours, today); pose(b, { ticker: t, nom, bloc_date: d, reference: publication, ...f, motif: f.motif + (f.feu === "rouge" ? explique(t) : "") }); } }
+    { const b = parId.positionnement_ia; if (b) { const d = maj("positionnement_ia"); const f = feu(d, publication, b.delai_jours, today); pose(b, { ticker: t, nom, bloc_date: d, reference: publication, ...f, motif: f.motif + (f.feu === "rouge" ? explique(t) : "") }); } }
     for (const id of ["risques", "repartition", "gouvernance"]) {
       const b = parId[id]; if (!b) continue;
       let d = maj(id);
