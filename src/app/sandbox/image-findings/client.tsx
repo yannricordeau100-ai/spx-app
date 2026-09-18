@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import DEMANDES_PAR_STE from "@/data/kpi-mt-demandes.json";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -97,6 +98,8 @@ export function ImageFindingsClient({
   // Yann 18 mai 2026 : cloche notification erreur. Compteur badge rouge =
   // demandes avec error_msg non null OU status "error" en BDD.
   const [showNotifPopup, setShowNotifPopup] = useState(false);
+  // Yann 18 sept 2026 : sous-onglet « Par société » (10 plus grosses capitalisations par zone, KPI d industrie et demandes preparees).
+  const [sousOnglet, setSousOnglet] = useState<"demandes" | "societes">("demandes");
 
   const errorRequests = requests.filter(
     (r) => r.error_msg != null || r.status === "error",
@@ -202,6 +205,15 @@ export function ImageFindingsClient({
           <ArrowLeft className="size-4" /> Retour sandbox
         </Link>
 
+        <div className="mb-4 flex gap-2">
+          {(["demandes", "societes"] as const).map((o) => (
+            <button key={o} type="button" onClick={() => setSousOnglet(o)} className={`rounded-full border px-3 py-1 text-[12.5px] ${sousOnglet === o ? "border-cyan-400/60 bg-cyan-500/20 text-cyan-100" : "border-white/10 text-zinc-400 hover:text-zinc-200"}`}>
+              {o === "demandes" ? "Demandes" : "Par société (KPI d’industrie à couvrir)"}
+            </button>
+          ))}
+        </div>
+        {sousOnglet === "societes" && <DemandesParSociete />}
+        <div className={sousOnglet === "societes" ? "hidden" : ""}>
         <div className="flex items-start justify-between gap-4">
           <div>
             <h1 className="font-display text-3xl font-semibold">
@@ -283,6 +295,7 @@ export function ImageFindingsClient({
             />
           ))}
         </div>
+      </div>
       </div>
     </div>
   );
@@ -1012,6 +1025,60 @@ function NotifPopup({
           </ul>
         )}
       </div>
+    </div>
+  );
+}
+
+
+type DemandeMt = { kpi_short: string; titre: string; requete: string; pourquoi?: string; sources_pressenties?: string[]; note?: string };
+type SteMt = { nom: string; cap_mds?: number; industrie?: string; code?: string; kpis?: { short: string; nom_fr?: string; couvert: boolean }[]; demandes: DemandeMt[] };
+
+/** Yann 18 sept 2026 : liste par zone puis capitalisation decroissante, KPI d industrie
+ *  couverts ou non, et demandes de KPI moyen terme preparees (fichier src/data/kpi-mt-demandes.json). */
+function DemandesParSociete() {
+  const data = DEMANDES_PAR_STE as unknown as { genere_le: string; zones: Record<string, Record<string, SteMt>> };
+  const zones = Object.entries(data.zones);
+  if (zones.length === 0) return <p className="text-sm text-zinc-500">Liste en préparation.</p>;
+  return (
+    <div className="space-y-8">
+      <p className="text-[12.5px] text-zinc-500">Généré le {data.genere_le}. Hors ASML, GOOG, NVDA. Une demande par KPI d’industrie non couvert, plus quelques demandes complémentaires.</p>
+      {zones.map(([zone, stes]) => (
+        <section key={zone}>
+          <h2 className="mb-3 font-display text-xl font-semibold text-zinc-50">{zone}</h2>
+          <div className="space-y-3">
+            {Object.entries(stes).map(([t, s]) => (
+              <details key={t} className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-3">
+                <summary className="cursor-pointer text-[14px] text-zinc-100">
+                  <span className="font-mono font-semibold text-violet-200">{t}</span> · {s.nom}
+                  {s.cap_mds ? <span className="ml-2 font-mono text-[11px] text-zinc-500">{s.cap_mds} Mds $</span> : null}
+                  {s.industrie ? <span className="ml-2 text-[12px] text-zinc-400">{s.industrie}{s.code ? ` (${s.code})` : ""}</span> : null}
+                  <span className="ml-2 font-mono text-[11px] text-cyan-300">{s.demandes.length} demande{s.demandes.length > 1 ? "s" : ""}</span>
+                </summary>
+                {s.kpis && (
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {s.kpis.map((k) => (
+                      <span key={k.short} className={`rounded-full border px-2 py-0.5 text-[11px] ${k.couvert ? "border-emerald-400/40 text-emerald-200" : "border-rose-400/40 text-rose-200"}`} title={k.nom_fr ?? k.short}>
+                        {k.couvert ? "✓" : "✗"} {k.nom_fr ?? k.short}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <ol className="mt-3 space-y-2">
+                  {s.demandes.map((d, i) => (
+                    <li key={i} className="rounded-lg border border-white/[0.06] p-2.5 text-[12.5px]">
+                      <div className="font-semibold text-zinc-100">{d.titre} <span className="ml-1 font-mono text-[10.5px] text-zinc-500">{d.kpi_short}</span></div>
+                      <div className="mt-1 text-zinc-300">{d.requete}</div>
+                      {d.pourquoi && <div className="mt-1 text-[11.5px] text-zinc-500">{d.pourquoi}</div>}
+                      {d.sources_pressenties && d.sources_pressenties.length > 0 && <div className="mt-1 text-[11px] text-zinc-500">Sources pressenties : {d.sources_pressenties.join(" · ")}</div>}
+                      {d.note && <div className="mt-1 text-[11px] text-amber-300">{d.note}</div>}
+                    </li>
+                  ))}
+                </ol>
+              </details>
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }
