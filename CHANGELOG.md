@@ -586,3 +586,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.18 (18 Sep 2026 14:37, apres 9d010ae1d2)
 - MAJ fiches en retard : points KPI du dernier trimestre (84 societes), transcripts, syntheses
+
+## v2026.09.18.19 (18 Sep 2026 15:56, apres a955d74903)
+- Infobulle placement, fleche du bandeau, prechargement des fiches, EDGAR nouveaux depots
