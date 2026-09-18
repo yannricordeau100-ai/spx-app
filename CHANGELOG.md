@@ -577,3 +577,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.15 (18 Sep 2026 06:26, apres dfcff12b28)
 - KPI MT par societe : 26 societes
+
+## v2026.09.18.16 (18 Sep 2026 07:11, apres c5ee0d0c1e)
+- KPI MT par societe : 41 societes
