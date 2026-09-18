@@ -547,3 +547,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.5 (18 Sep 2026 01:46, apres 87098ff7bd)
 - Moyen terme : titres centres, floutage ; porte d inscription avec message
+
+## v2026.09.18.6 (18 Sep 2026 02:17, apres 633e9aa473)
+- Correctif 500 des toggles KPI avec onglet
