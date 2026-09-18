@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
-import { ONGLETS, ReglagesKpiClient } from "../reglages-kpi/client";
+import { ReglagesKpiClient } from "../reglages-kpi/client";
+import { ONGLETS } from "../reglages-kpi/onglets";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Voir les KPI · Mettrik AI", robots: { index: false, follow: false } };
