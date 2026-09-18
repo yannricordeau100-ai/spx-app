@@ -556,3 +556,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.8 (18 Sep 2026 02:52, apres 0a2cd1723e)
 - FAQ : sauts de ligne
+
+## v2026.09.18.9 (18 Sep 2026 03:27, apres 709f0ec5eb)
+- Appel abonnement par bloc floute au premier passage
