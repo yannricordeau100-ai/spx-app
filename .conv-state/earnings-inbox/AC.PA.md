@@ -1,7 +1,7 @@
 # AC.PA — nouvelle publication
 
 ## KPI à mettre à jour
-- `ROOMS` — Nombre de chambres du parc (chambres), dernière période connue FY2025
+- `ROOMS` — Nombre de chambres du parc hotelier au 31 decembre (chambres), dernière période connue FY2025
 - `HOTELS` — Nombre d'hôtels du parc (hôtels), dernière période connue FY2025
 - `REVENUE` — Chiffre d'affaires consolidé (M€), dernière période connue FY2025
 - `REVENUE_H` — Chiffre d'affaires semestriel (M€), dernière période connue H1-2026

@@ -19,7 +19,7 @@
 - `EMPLOYEES` — Effectifs (personnes), dernière période connue FY2025
 - `FCF_FY` — Free cash flow annuel (M$), dernière période connue FY2025
 - `ELEC_REV_FY` — CA Électrification (M$), dernière période connue FY2025
-- `MOTION_REV_FY` — CA Motion (M$), dernière période connue FY2025
+- `MOTION_REV_FY` — Chiffre d'affaires annuel de la division Motion (M USD), dernière période connue FY2025
 - `AUTO_REV_FY` — CA Automation (M$), dernière période connue FY2025
 - `GEO_EUROPE` — CA Europe (M$), dernière période connue FY2025
 - `GEO_AMERICAS` — CA Amériques (M$), dernière période connue FY2025

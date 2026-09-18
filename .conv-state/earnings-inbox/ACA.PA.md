@@ -19,13 +19,13 @@
 - `TNBV_PS` — Actif net tangible par action (€), dernière période connue FY2025
 - `WEB_SOCIETAI` — Nombre de sociétaires (millions), dernière période connue 2026
 - `WEB_AGENCES` — Nombre d'agences du Groupe dans le monde (agences), dernière période connue 2026
-- `WEB_ENCOURS_SOUS_GESTION` — Encours sous gestion d'Amundi (Mds €), dernière période connue 2026
-- `WEB_CLIENTS_AMUNDI` — Nombre de clients d'Amundi (millions), dernière période connue 2026
-- `WEB_PRESENCE_GEOGRAPH_AMUNDI` — Présence géographique d'Amundi (pays (environ)), dernière période connue 2026
+- `WEB_ENCOURS_SOUS_GESTION` — Encours sous gestion d'Amundi (Mds €), dernière période connue FY2025
+- `WEB_CLIENTS_AMUNDI` — Nombre de clients d'Amundi (millions), dernière période connue FY2025
+- `WEB_PRESENCE_GEOGRAPH_AMUNDI` — Présence géographique d'Amundi (pays), dernière période connue 2026
 - `WEB_ACTIFS_CONSERVA_CHEZ` — Actifs en conservation chez CACEIS (Mds €), dernière période connue 2026
 - `WEB_CLIENTS_PARTICUL_LCL` — Nombre de clients particuliers de LCL (millions), dernière période connue 2026
 - `WEB_PRESENCE_CREDIT_AGRICOLE` — Présence de Crédit Agricole Leasing & Factoring (pays en Europe), dernière période connue 2026
-- `REV_FY` — Produit net bancaire (Mds €), dernière période connue FY2025
+- `CAHIER_CET1` — Ratio de fonds propres de base de catégorie 1 (%), dernière période connue FY2025
 
 ## Règle
 Une valeur n'est retenue que si elle est écrite telle quelle dans un des

@@ -13,7 +13,9 @@
 - `geo_revenue_europe` — CA Europe (M$), dernière période connue FY2025
 - `WEB_UPGRADES_PARC_INSTALLE` — Nombre d'upgrades sur le parc installé (upgrades), dernière période connue 2026
 - `ACTIVE_PATENTS` — Portefeuille de brevets actifs (brevets), dernière période connue FY2025
-- `backlog` — Carnet de commandes (systemes) (M$), dernière période connue FY2025
+- `CAHIER_INSTALLED_BASE_SERVICE` — Revenus de services et pièces sur base installée ($), dernière période connue FY2025
+- `CAHIER_ORDER_MIX` — Répartition des commandes par technologie et par usage (%), dernière période connue FY2025
+- `backlog` — Carnet de commandes (systèmes) (M$), dernière période connue FY2025
 
 ## Règle
 Une valeur n'est retenue que si elle est écrite telle quelle dans un des

@@ -12,7 +12,7 @@
 - `RHYTHM_MGT` — Rythmologie cardiaque ($M), dernière période connue Q2-2026
 - `VASCULAR` — Vasculaire ($M), dernière période connue Q2-2026
 - `NEUROMOD` — Neuromodulation ($M), dernière période connue Q2-2026
-- `RPO_DIAG` — Carnet de commandes (RPO) Diagnostics (Mds $), dernière période connue Q4-2025
+- `RPO_DIAG` — Carnet de commandes (RPO) Diagnostics (Mds $), dernière période connue FY2025
 - `BPA_DILUE` — BPA dilué ($), dernière période connue Q2-2026
 - `MARGE_BRUTE` — Marge brute (%), dernière période connue Q2-2026
 - `MARGE_OP` — Marge opérationnelle (%), dernière période connue Q2-2026
