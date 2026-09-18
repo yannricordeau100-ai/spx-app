@@ -598,3 +598,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.22 (18 Sep 2026 18:11, apres c49482bf21)
 - Banques : marge d interet en heros sur les 27 fiches, libelles nettoyes
+
+## v2026.09.18.23 (18 Sep 2026 18:55, apres 5fbc4b6f6d)
+- GS et MS : produits nets d interets en heros sur 42 trimestres
