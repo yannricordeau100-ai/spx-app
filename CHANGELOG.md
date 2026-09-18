@@ -562,3 +562,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.10 (18 Sep 2026 03:39, apres 87a62354b1)
 - Bandeau GICS + information propriete ; moyen terme sans source ; mentions legales et CGV
+
+## v2026.09.18.11 (18 Sep 2026 04:07, apres 8486753b99)
+- KPI MT : sous-onglet par societe
