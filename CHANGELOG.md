@@ -592,3 +592,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.20 (18 Sep 2026 16:55, apres 25629d61c7)
 - Banques : marge nette d interet en KPI heros
+
+## v2026.09.18.21 (18 Sep 2026 17:02, apres 1b24046cbe)
+- Banques : marge d interet en heros, rattrapage EDGAR 4410 documents
