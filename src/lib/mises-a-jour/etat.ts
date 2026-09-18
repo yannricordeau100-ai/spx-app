@@ -59,7 +59,8 @@ async function graphiquesAnciens(): Promise<Map<string, { date: string | null; m
       // recentes que la derniere publication de l organisme qui les mesure. Une
       // annee de reference ancienne ne vaut signalement que si le releve lui
       // meme n a pas ete refait depuis plus d un an.
-      const sourceRecente = Number.isFinite(anSource) && anSource > limite + 1;
+      const sourceRecente =
+        !!f.source_date && jours(new Date().toISOString(), String(f.source_date)) < 365;
       if (Number.isFinite(anDonnees) && anDonnees <= limite && !sourceRecente)
         motifs.push(`données arrêtées en ${anDonnees}`);
       if (motifs.length === 0) continue;
