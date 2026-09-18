@@ -550,3 +550,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.6 (18 Sep 2026 02:17, apres 633e9aa473)
 - Correctif 500 des toggles KPI avec onglet
+
+## v2026.09.18.7 (18 Sep 2026 02:52, apres 503e7621ab)
+- Pseudo, i anti-these, appel abonnement par bloc floute, bloc API, pied de page SEO, FAQ
