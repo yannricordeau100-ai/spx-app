@@ -568,3 +568,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.18.12 (18 Sep 2026 04:40, apres b36f38553f)
 - KPI MT par societe : Apple, LVMH, Siemens, L Oreal
+
+## v2026.09.18.13 (18 Sep 2026 04:56, apres 17d476becc)
+- KPI MT par societe : SAP, Hermes, Novartis, Meta, TotalEnergies, Siemens
