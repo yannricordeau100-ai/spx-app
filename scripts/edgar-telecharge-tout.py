@@ -49,7 +49,8 @@ for t in tickers:
         if libre_go()<MIN_GO: print('ARRET espace libre',round(libre_go(),1),'Go',flush=True); json.dump({'tot':tot,'err':err},open('/tmp/edgar_dl_etat.json','w')); sys.exit(2)
         d=f"{ROOT}/data-lake/{t}/{x['dossier']}"; os.makedirs(d,exist_ok=True)
         p=f"{d}/{t}_{x['date']}_{x['acc']}.htm.gz"
-        if os.path.exists(p): continue
+        p_simple=f"{d}/{t}_{x['date']}.htm.gz"
+        if os.path.exists(p) or os.path.exists(p_simple): continue
         acc=x['acc'].replace('-','')
         url=f"https://www.sec.gov/Archives/edgar/data/{int(v['cik'])}/{acc}/{x['prim']}"
         try:
