@@ -16,17 +16,15 @@ Mettrik AI publie des indicateurs financiers (KPIs), scores composites, classeme
 
 L'exploitant n'est ni une entreprise d'investissement, ni un gestionnaire de fortune, ni un conseiller en placement au sens de la législation suisse sur les marchés financiers (LSFin, LEFin), et n'est soumis à aucune surveillance prudentielle de la FINMA. Le service est un service d'information et de presse éditoriale, pas un service financier.
 
-Les chaînes d'extraction automatisée et de traitement algorithmique utilisées par Mettrik AI peuvent comporter, malgré les contrôles successifs mis en œuvre, des erreurs, omissions, retards ou imprécisions indépendantes de la volonté de l'exploitant (mauvaise interprétation d'un PDF, erreur OCR, ambiguïté d'un libellé source, valeur manquante, retard de mise à jour). Toute donnée affichée doit être systématiquement vérifiée auprès de la source officielle citée avant tout usage engageant.
-
 Toute décision d'investissement, d'arbitrage ou d'allocation patrimoniale relève de la seule et entière responsabilité de l'utilisateur, ou le cas échéant de son conseiller financier habilité. L'exploitant ne saurait être tenu responsable des conséquences directes ou indirectes d'une décision prise sur la base d'un contenu publié.
 
-## 0. Identité de l'exploitant et du vendeur
+## Identité de l'exploitant et du vendeur
 
 Le site www.mettrik.ai et la marque Mettrik AI sont exploités par R consulting, entreprise individuelle de droit suisse, IDE CHE-281.919.422, établie à l'adresse : Leubernstrasse 3, 8280 Kreuzlingen, Suisse (ci-après « l'Exploitant » ou « Mettrik AI »).
 
 Contact : par voie électronique, à l'adresse contact@mettrik.ai, qui permet une prise de contact rapide et une communication directe et efficace au sens de l'art. 3 al. 1 let. s LCD.
 
-La facturation et l'encaissement des abonnements souscrits sur www.mettrik.ai sont assurés par R consulting. Les prix affichés sont des prix TTC (toutes taxes comprises) ; aucune TVA n'est facturée en sus.
+La facturation et l'encaissement des abonnements souscrits sur www.mettrik.ai sont assurés par R consulting. Les prix affichés sont des prix TTC (toutes taxes comprises), sauf mention contraire la TVA n'est pas due.
 
 ## Partie I · Utilisation du service
 

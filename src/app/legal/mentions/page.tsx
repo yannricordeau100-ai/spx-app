@@ -27,14 +27,14 @@ const STR = {
     s1_pub_label: "Responsable de la publication :",
     s1_pub_value: "R consulting",
     s2_title: "2. Hébergement",
-    s2_p1_a: "Le site est hébergé par",
-    s2_p1_b: "Vercel Inc.",
-    s2_p1_c: ", 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis. Site web :",
-    s2_p2_a: "La base de données et l'authentification sont fournies par",
-    s2_p2_b: "Supabase Inc.",
-    s2_p2_c: "(région d'hébergement :",
-    s2_p2_tofill: "Dublin, Irlande (Union européenne)",
-    s2_p2_d: ").",
+    s2_p1_a: "Les données liées à l'hébergement du service et les données personnelles sont stockées et situées dans l'Union européenne (Irlande).",
+    s2_p1_b: "",
+    s2_p1_c: "",
+    s2_p2_a: "",
+    s2_p2_b: "",
+    s2_p2_c: "",
+    s2_p2_tofill: "",
+    s2_p2_d: "",
     s3_title: "3. Propriété intellectuelle",
     s3_p1: "L'ensemble des contenus présents sur le site (textes, graphismes, logos, icônes, images, vidéos, code source) est la propriété exclusive de Mettrik AI ou de ses partenaires, et est protégé par les lois en vigueur sur la propriété intellectuelle.",
     s3_p2: "Toute reproduction, représentation, modification, publication, transmission, dénaturation, totale ou partielle du site ou de son contenu, par quelque procédé que ce soit, et sur quelque support que ce soit, est interdite sans autorisation écrite préalable de Mettrik AI.",
@@ -48,7 +48,7 @@ const STR = {
     s5_p1_e: ", ni une recommandation d'achat ou de vente d'instruments financiers. Les performances passées ne préjugent pas des performances futures. Toute décision d'investissement basée sur les contenus du site relève de la seule responsabilité de l'utilisateur.",
     s5_p2: "Mettrik AI s'efforce d'assurer l'exactitude des informations diffusées, mais ne peut garantir l'exactitude, la précision ou l'exhaustivité des informations mises à disposition sur le site. La responsabilité de Mettrik AI ne saurait être engagée en cas d'erreur ou d'omission.",
     s6_title: "6. Droit applicable et juridiction",
-    s6_p1: "Les présentes mentions légales sont régies par le droit suisse. Tout litige relatif à leur interprétation ou à leur exécution relèvera de la compétence des tribunaux ordinaires du siège de l'exploitant (Kreuzlingen, Thurgovie), sous réserve des dispositions impératives protégeant les consommateurs.",
+    s6_p1: "Les présentes mentions légales sont régies par le droit suisse. Tout litige relatif à leur interprétation ou à leur exécution relèvera de la compétence des tribunaux ordinaires suisses, sous réserve des dispositions impératives protégeant les consommateurs.",
   },
   en: {
     title: "Legal Notice",
@@ -118,21 +118,18 @@ export default async function MentionsPage() {
           <strong>{t.s1_siren_label}</strong> {t.s1_siren_value}
         </p>
         <p>
-          <strong>{t.s1_tva_label}</strong> {t.s1_tva_value}
-        </p>
-        <p>
           <strong>{t.s1_pub_label}</strong> {t.s1_pub_value}
         </p>
       </LegalSection>
 
       <LegalSection title={t.s2_title}>
         <p>
-          {t.s2_p1_a} <strong>{t.s2_p1_b}</strong>{t.s2_p1_c}{" "}
-          <a href="https://vercel.com" className="text-violet-300 hover:underline">vercel.com</a>
+          {t.s2_p1_a} {t.s2_p1_b && <strong>{t.s2_p1_b}</strong>}{t.s2_p1_c}{" "}
+          {t.s2_p1_b && <a href="https://vercel.com" className="text-violet-300 hover:underline">vercel.com</a>}
         </p>
         <p>
-          {t.s2_p2_a} <strong>{t.s2_p2_b}</strong> {t.s2_p2_c}{" "}
-          <ToFill>{t.s2_p2_tofill}</ToFill>
+          {t.s2_p2_a} {t.s2_p2_b && <strong>{t.s2_p2_b}</strong>} {t.s2_p2_c}{" "}
+          {t.s2_p2_tofill && <ToFill>{t.s2_p2_tofill}</ToFill>}
           {t.s2_p2_d}
         </p>
       </LegalSection>

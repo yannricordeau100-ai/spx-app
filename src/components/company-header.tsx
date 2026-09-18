@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 import { useEffect, useRef } from "react";
 import { StarButton } from "@/components/star-button";
@@ -249,6 +251,25 @@ function translateRankPreposition(value: string, locale: string): string {
   return out;
 }
 
+/** Yann 18 sept 2026 : ce qui suit le bandeau est la propriete de Mettrik AI ou des societes. */
+function ProprieteInfo() {
+  const [ouvert, setOuvert] = useState(false);
+  return (
+    <span className="relative inline-flex shrink-0 items-center">
+      <button type="button" onClick={() => setOuvert((v) => !v)} aria-label="Information sur les contenus" title="Information sur les contenus"
+        className="inline-flex size-6 items-center justify-center rounded-full border border-white/20 text-zinc-300 hover:bg-white/10">
+        <ChevronDown className="size-3.5" />
+      </button>
+      {ouvert && (
+        <span className="absolute right-0 top-8 z-50 w-[300px] rounded-lg border border-white/15 bg-[#0a0a0e] p-3 text-left text-[12px] leading-relaxed text-zinc-200 shadow-xl">
+          En dessous, à l&apos;exception des blocs « Gouvernance et rémunération » et « Répartition du chiffre d&apos;affaires* », toutes les informations affichées sont la propriété de Mettrik AI, spécifiques à Mettrik AI, ou proviennent des sociétés concernées à travers leurs rapports réglementaires.
+          <br /><span className="text-zinc-500">* à l&apos;exception de pages société spécifiques.</span>
+        </span>
+      )}
+    </span>
+  );
+}
+
 export function CompanyHeader({
   company,
   hidePriceBar = false,
@@ -308,6 +329,10 @@ export function CompanyHeader({
           />
           <div className="mt-1.5 text-[14px] text-zinc-400">
             {translateSubsectorLocale(company.sector, locale)} <span className="text-zinc-700">·</span> {translateSubsectorLocale(company.subsector, locale)}
+            {/* Yann 18 sept 2026 : code GICS numerique a droite de la sous-industrie. */}
+            {(company as { gics_code?: string }).gics_code && (
+              <span className="ml-2 font-mono text-[11px] text-zinc-500">{(company as { gics_code?: string }).gics_code}</span>
+            )}
           </div>
           {/* Yann (1er juin 05:15) : tagline supprimée de V1.9.5
               (risque hallucination LLM + Yann préfère épure).
@@ -345,6 +370,8 @@ export function CompanyHeader({
             controle de coherence (voir scripts d extraction) : les sociétés
             sans 10-K ou au chiffre non fiable n affichent pas la chip. */}
         <StatChip label={t("company.employees")} value={employeeCountLabel(company.ticker, locale)} />
+        {/* Yann 18 sept 2026 : fleche d information tout a droite des rangs (meme role qu un i). */}
+        <ProprieteInfo />
           </>
         );
         return (

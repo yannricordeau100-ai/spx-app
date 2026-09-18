@@ -7,6 +7,16 @@ import { pickI18n, type LocalizedString } from "@/lib/desk/image-findings";
 import { translate } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/types";
 
+/** Yann 18 sept 2026 : les KPI moyen terme n affichent jamais leur source, seulement la date. */
+function sansSource(t: string): string {
+  return t
+    .replace(/\s*Sources?\s*:\s*[^.\-–]*/gi, "")
+    .replace(/\.\s*[-–]\s*/g, " · ")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s+([.,])/g, "$1")
+    .trim();
+}
+
 export type ImageFindingPublic = {
   id: string;
   image_url: string;
@@ -159,7 +169,7 @@ export function ImageFindingsBlock({
         {/* Yann 18 sept 2026 : sous-titre (unite, source, precisions) sous le graphique, centre, a la ligne. */}
         {f.caption && f.caption.trim().length > 0 && (
           <p data-blur="mt_sources" className="mx-auto mt-2 max-w-[92%] text-center text-[11.5px] leading-snug text-zinc-400">
-            {f.caption}
+            {sansSource(f.caption)}
           </p>
         )}
         {/* Lecture toujours visible (Yann 17 mai 2026 : remettre comme avant).
@@ -176,7 +186,7 @@ export function ImageFindingsBlock({
           const vieux = Number.isFinite(an) && an <= new Date().getFullYear() - 2;
           return (
             <div className={`mt-1.5 font-mono text-[10.5px] ${vieux ? "text-amber-300/90" : "text-zinc-500"}`}>
-              {f.source_author ? `${f.source_author} · ` : ""}
+              {/* Yann 18 sept 2026 : la source n est plus affichee, seule la date reste. */}
               {String(d).slice(0, 10).split("-").reverse().join("/")}
               {vieux ? " · source de plus de deux ans" : ""}
             </div>
