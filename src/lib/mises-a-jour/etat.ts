@@ -49,7 +49,9 @@ async function graphiquesAnciens(): Promise<Map<string, { date: string | null; m
     for (const f of (data ?? []) as { target_tickers?: unknown; source_date?: string | null; title?: string | null; summary?: string | null; approved?: boolean; rejected?: boolean }[]) {
       if (f.approved === false || f.rejected === true) continue;
       const anSource = f.source_date ? Number(String(f.source_date).slice(0, 4)) : NaN;
-      const annees = `${f.title ?? ""} ${f.summary ?? ""}`.match(/\b(20[12][0-9])\b/g)?.map(Number) ?? [];
+      // Yann 19 sept 2026 : le motif s arretait a 2029, si bien qu un graphique de
+      // trajectoire « 2023-2030 » n exposait que 2023 et passait pour perime.
+      const annees = `${f.title ?? ""} ${f.summary ?? ""}`.match(/\b(20[1-4][0-9])\b/g)?.map(Number) ?? [];
       const anDonnees = annees.length ? Math.max(...annees) : NaN;
       const motifs: string[] = [];
       if (Number.isFinite(anSource) && anSource <= limite) motifs.push(`source de ${anSource}`);

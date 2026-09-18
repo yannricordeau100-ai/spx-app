@@ -616,3 +616,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.19.1 (19 Sep 2026 00:04, apres b7f36a3e3d)
 - Rattrapage des blocs en retard, 148 a 9
+
+## v2026.09.19.2 (19 Sep 2026 00:47, apres 2167502e60)
+- Derniers blocs en retard : syntheses, repartition RMD, graphiques ASML

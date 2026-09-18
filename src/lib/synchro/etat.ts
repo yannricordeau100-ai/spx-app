@@ -99,7 +99,7 @@ function finTrimestrePrecedent(iso: string): string {
   return fin.toISOString().slice(0, 10);
 }
 
-type Kpi = { short?: string; last_data_date?: string; is_short_history?: boolean; story_category?: string; history?: unknown[] };
+type Kpi = { short?: string; last_data_date?: string; is_short_history?: boolean; story_category?: string; history?: unknown[]; _maj_le?: string };
 
 async function calculer(): Promise<EtatSynchro> {
   const uni = await lireJson<{ tickers: string[] }>(path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json"));
@@ -128,7 +128,15 @@ async function calculer(): Promise<EtatSynchro> {
     const kpis: Kpi[] = [...(pipe?.kpis ?? []), ...(haut?.kpis ?? [])];
     const estStory = (k: Kpi) => !!k.is_short_history || (!!k.story_category && (Array.isArray(k.history) ? k.history.length : 0) <= 2);
     const pageIc = maxDate(kpis.filter((k) => !estStory(k)).map((k) => k.last_data_date));
-    const pageStories = maxDate(kpis.filter(estStory).map((k) => k.last_data_date));
+    // Yann 19 sept 2026 : la regle du bloc stories est « ajouter les KPI des
+    // documents et du transcript a chaque publication ». Beaucoup de ces KPI
+    // sont ponctuels (ouverture du 2000e magasin, croissance d un service) et
+    // n ont pas de point chaque trimestre : on retient donc aussi la date du
+    // dernier ajout ou de la derniere mise a jour, pas seulement la derniere
+    // periode couverte.
+    const pageStories = maxDate(
+      kpis.filter(estStory).flatMap((k) => [k.last_data_date, (k as { _maj_le?: string })._maj_le]),
+    );
     const pageTr = maxDate([tr?.latest?.date]);
     const depot = enrich?.latest_filing;
     let reel = depot?.period_end && /^\d{4}-\d{2}-\d{2}/.test(depot.period_end) ? depot.period_end.slice(0, 10) : null;
