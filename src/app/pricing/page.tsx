@@ -198,6 +198,23 @@ export default async function PricingPage() {
           </div>
         </section>
 
+        {/* Yann 18 sept 2026 : offre API pour les professionnels, en bas de page. */}
+        <section className="mx-auto mt-24 max-w-3xl rounded-3xl border border-white/10 bg-white/[0.02] p-8 text-center">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-zinc-50">API disponible pour les professionnels</h2>
+          <p className="mx-auto mt-3 max-w-xl text-[14px] leading-relaxed text-zinc-300">
+            Accès programmatique aux mêmes données que le site : indicateurs clés (KPI) opérationnels et financiers, séries historiques, scores et facteurs de risque, pour l&apos;ensemble des sociétés couvertes.
+          </p>
+          <ul className="mx-auto mt-5 grid max-w-xl gap-2 text-left text-[13px] text-zinc-300 sm:grid-cols-2">
+            <li className="rounded-lg border border-white/[0.07] px-3 py-2">Réponses en JSON, authentification par clé d&apos;API</li>
+            <li className="rounded-lg border border-white/[0.07] px-3 py-2">Documentation et exemples fournis à l&apos;ouverture de l&apos;accès</li>
+            <li className="rounded-lg border border-white/[0.07] px-3 py-2">Volumes et quotas définis selon votre usage</li>
+            <li className="rounded-lg border border-white/[0.07] px-3 py-2">Tarification sur devis, facturation séparée des forfaits</li>
+          </ul>
+          <a href="mailto:contact@mettrik.ai?subject=Acc%C3%A8s%20API%20Mettrik%20AI" className="mt-6 inline-flex items-center gap-2 rounded-xl border border-violet-400/50 bg-violet-500/15 px-6 py-3 text-[14px] font-bold text-violet-100 hover:bg-violet-500/25">
+            <Mail className="size-4" /> Demander un accès API
+          </a>
+        </section>
+
         <DisclaimerFooter />
       </main>
     </div>

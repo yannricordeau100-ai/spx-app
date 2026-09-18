@@ -247,7 +247,7 @@ export default async function AccountPage({
               defaultValue={pseudoActuel}
               maxLength={20}
               pattern="[A-Za-z0-9]{3,20}"
-              placeholder="ex : yann75"
+              placeholder="ex : W. Buffet"
             />
             <label className="flex items-start gap-2.5 text-[13px] text-zinc-300">
               <input

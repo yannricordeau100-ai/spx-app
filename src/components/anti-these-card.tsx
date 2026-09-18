@@ -198,6 +198,10 @@ export function AntiTheseCard({
           <h2 data-blur-part="titre" className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
             <Scale className="size-5" style={{ color: accent }} />
             Anti-thèse d&apos;investissement
+            {/* Yann 18 sept 2026 : « pourquoi ce bloc existe » dans un grand i a cote du titre. */}
+            <InfoTooltip color={accent} size="md">
+              Pourquoi ce bloc existe : on lit surtout ce qui conforte une position parfois déjà prise, et l&apos;information disponible pousse dans le même sens, puisque ni la société, ni le courtier, ni l&apos;analyste n&apos;ont intérêt à écrire l&apos;inverse. L&apos;anti-thèse force la lecture contraire, avec les mêmes documents officiels et la même exigence de source.
+            </InfoTooltip>
             <span
               className="rounded-md px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider"
               style={{
@@ -211,13 +215,6 @@ export function AntiTheseCard({
           </h2>
           <p className="mt-0.5 text-[13.5px] text-zinc-300">
             Les raisons objectives d&apos;être méfiant, figées à date. L&apos;autre côté du dossier.
-          </p>
-          {/* Yann 16 sept 2026 (argument D) : dire pourquoi ce bloc existe. */}
-          <p className="mt-1.5 max-w-[640px] text-[12.5px] leading-relaxed text-zinc-400">
-            Pourquoi ce bloc existe : on lit surtout ce qui conforte une position parfois déjà prise, et
-            l&apos;information disponible pousse dans le même sens, puisque ni la société, ni le courtier, ni
-            l&apos;analyste n&apos;ont intérêt à écrire l&apos;inverse. L&apos;anti-thèse force la lecture
-            contraire, avec les mêmes documents officiels et la même exigence de source.
           </p>
         </div>
         <div className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-zinc-400">

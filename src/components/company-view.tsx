@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { applyFloutageRules, zonesEnRegles, type FloutageRule, type Zone } from "@/lib/floutage";
+import { applyFloutageRules, ajouteAppelsAbonnement, zonesEnRegles, type FloutageRule, type Zone } from "@/lib/floutage";
 // Yann 30 aout 2026 : l ancien systeme de flou a chemins CSS
 // (floutage-free-mode.json, selecteurs fragiles casses a chaque refonte) est
 // ARCHIVE : plus importe, plus execute. Le secours si l API des zones est
@@ -349,7 +349,7 @@ export function CompanyView({
         if (annule || minuterie) return;
         minuterie = setTimeout(() => {
           minuterie = null;
-          if (!annule) cleanups.push(applyFloutageRules(rules));
+          if (!annule) { cleanups.push(applyFloutageRules(rules)); cleanups.push(ajouteAppelsAbonnement(String(freemiumTier ?? ""))); }
         }, 200);
       });
       observer.observe(document.body, { childList: true, subtree: true });

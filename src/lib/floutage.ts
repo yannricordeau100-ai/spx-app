@@ -234,3 +234,35 @@ export function zonesEnRegles(zones: Zone[]): FloutageRule[] {
     action: "blur" as const,
   }));
 }
+
+/**
+ * Yann 18 sept 2026 : chaque bloc (section) contenant au moins une partie floutee
+ * recoit un appel a l abonnement centre, sans mention de palier. Anonyme : lien
+ * vers l inscription ; gratuit : lien vers les offres. Retourne un nettoyage.
+ */
+export function ajouteAppelsAbonnement(palier: "anon" | "free" | string): () => void {
+  if (typeof document === "undefined" || (palier !== "anon" && palier !== "free")) return () => {};
+  const poses: HTMLElement[] = [];
+  const restaure: { el: HTMLElement; position: string }[] = [];
+  const floutes = document.querySelectorAll<HTMLElement>('[data-floutage-applied="1"]');
+  const blocs = new Set<HTMLElement>();
+  floutes.forEach((el) => {
+    const bloc = el.closest("section") as HTMLElement | null;
+    if (bloc && !bloc.querySelector('[data-zone-reservee]')) blocs.add(bloc);
+  });
+  blocs.forEach((bloc) => {
+    if (bloc.querySelector('[data-appel-abonnement]')) return;
+    if (getComputedStyle(bloc).position === "static") { restaure.push({ el: bloc, position: bloc.style.position }); bloc.style.position = "relative"; }
+    const a = document.createElement("a");
+    a.setAttribute("data-appel-abonnement", "1");
+    const next = encodeURIComponent(window.location.pathname);
+    a.href = palier === "anon" ? `/?auth=signup&gate=1&next=${next}` : "/pricing";
+    a.textContent = palier === "anon" ? "Inscris-toi gratuitement pour lire cette section" : "Contenu réservé aux abonnés · Voir les offres";
+    a.className = "absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-violet-400/60 bg-[#0a0a0e]/95 px-5 py-2.5 text-[13.5px] font-semibold text-violet-100 shadow-lg backdrop-blur hover:bg-violet-500/20";
+    bloc.appendChild(a); poses.push(a);
+  });
+  return () => {
+    for (const a of poses) a.remove();
+    for (const r of restaure) r.el.style.position = r.position;
+  };
+}

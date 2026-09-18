@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { VERSION } from "@/lib/version";
 import { LocaleFlagsRow } from "@/components/locale-flags-row";
 
 /**
@@ -18,8 +17,8 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
     return (
       <footer className="border-t border-[#1a1a1a] bg-[#070707] px-4 py-5 text-center text-[11px] text-zinc-500 sm:px-6">
         <p className="mx-auto max-w-2xl">
-          Le contenu de Mettrik AI est fourni à titre informatif uniquement et ne constitue pas un conseil
-          en investissement.
+          Mettrik AI, intelligence KPI pour investisseurs : contenus informatifs, pouvant contenir des erreurs, qui ne
+          constituent pas un conseil en investissement.
         </p>
         <div className="mt-2 inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] text-zinc-500">
           <Link href="/legal/mentions" className="hover:text-zinc-300">Mentions légales</Link>
@@ -43,10 +42,13 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
               KPI Intelligence pour investisseurs
             </div>
             <p className="mt-4 max-w-md text-[12.5px] leading-relaxed text-zinc-400">
-              Le contenu de Mettrik AI est fourni <strong>à titre informatif uniquement</strong> et ne constitue pas
-              un conseil en investissement, ni une recommandation d&apos;achat ou de vente d&apos;instruments
-              financiers. Les performances passées ne préjugent pas des performances futures. Tout investissement
-              comporte des risques, y compris la perte totale du capital investi.
+              <strong>Mettrik AI</strong> est une plateforme d&apos;intelligence KPI pour investisseurs : indicateurs clés
+              opérationnels et financiers, historiques jusqu&apos;à vingt ans, scores et facteurs de risque de 671 sociétés
+              cotées (S&amp;P 500, CAC 40, DAX 40, SMI, AEX, SOX), extraits et reconstitués à partir des documents officiels
+              (rapports annuels, 10-K, 10-Q, communiqués). Ces contenus sont publiés à titre informatif et pédagogique,
+              peuvent contenir des erreurs ou des retards de mise à jour, et ne constituent ni un conseil en investissement,
+              ni une recommandation d&apos;achat ou de vente. Les performances passées ne préjugent pas des performances
+              futures ; tout investissement comporte un risque de perte en capital.
             </p>
           </div>
 
@@ -72,7 +74,7 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
         </div>
 
         <div className="mt-8 flex flex-col items-baseline gap-3 border-t border-[#1a1a1a] pt-5 text-[11px] text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} Mettrik AI · Tous droits réservés. · <span className="font-mono text-[10.5px] text-zinc-600">v{VERSION}</span></span>
+          <span>© {new Date().getFullYear()} Mettrik AI · Tous droits réservés.</span>
           <LocaleFlagsRow align="center" />
           <span className="font-mono">www.mettrik.ai</span>
         </div>
