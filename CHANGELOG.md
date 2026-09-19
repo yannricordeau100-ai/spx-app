@@ -628,3 +628,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.19.5 (19 Sep 2026 01:58, apres d70a39361c)
 - Graphiques : fraicheur de la source mesuree en jours
+
+## v2026.09.19.6 (19 Sep 2026 02:32, apres 24bb28ba1a)
+- Graphique des modeles de raisonnement rafraichi
