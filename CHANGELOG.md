@@ -652,3 +652,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.19.13 (19 Sep 2026 14:45, apres e493c4c3cd)
 - Thèse et anti-thèse en bas de fiche, conditions allégées, thèses Oracle, Chevron, Palantir, Coca-Cola, Costco
+
+## v2026.09.19.14 (19 Sep 2026 17:31, apres 40b10fd0db)
+- Conditions et confidentialité révisées (juridiction unifiée, retraits demandés), 107 thèses d'investissement
