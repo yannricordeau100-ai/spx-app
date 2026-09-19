@@ -377,7 +377,7 @@ export type Company = {
     geo?: RevenueHistoryEntry[];
   };
   /**
-   * Yann 21 mai 2026 : pour les stés qui vendent de l'IA (NVDA, MSFT,
+   * Yann 21 mai 2026 : pour les sociétés qui vendent de l'IA (NVDA, MSFT,
    * GOOGL, etc.), split du CA IA entre clients PROFESSIONNELS (B2B) et
    * PARTICULIERS (B2C). Données non présentes dans les filings — donc
    * sourcées externes (analyst reports, articles tier 1). Visible
@@ -521,7 +521,7 @@ export type ProfitWarning = {
   margin_trend?: string;
 };
 
-// META en 1er = société par défaut (fallback partout où une sté doit
+// META en 1er = société par défaut (fallback partout où une société doit
 // être chargée sans contexte). Ordre = ordre d'affichage des cards home.
 export const COMPANIES: Record<string, Company> = {
   META: meta as Company,
@@ -1155,11 +1155,11 @@ export function interpretStructured(
     ["Demand", "User", "Adoption"].includes(k.type)
   );
   const revenueDrivers = company.kpis.filter((k) => k.type === "Revenue");
-  // Yann 16 mai 2026 : élargir les types acceptés pour driver — si une sté
+  // Yann 16 mai 2026 : élargir les types acceptés pour driver — si une société
   // n'a pas de KPI Demand/User/Adoption/Revenue, fallback sur Volume,
   // Pricing, Growth, Engagement, Capacity, Productivity, puis sur le
   // premier KPI non-hero. Évite l'absence du bullet "Moteur de croissance"
-  // sur 39+ stés (sectorielles non-revenue, financières, etc.).
+  // sur 39+ sociétés (sectorielles non-revenue, financières, etc.).
   const extendedDrivers = company.kpis.filter((k) =>
     [
       "Volume",
@@ -1194,7 +1194,7 @@ export function interpretStructured(
     segmentDrivers[0] ??
     firstNonHero;
   // Yann 21 mai 2026 : élargir détection risk pour garantir 4 sous-blocs
-  // d'interprétation. Avant : Cost↑ ou Margin↓ uniquement (manque sur 196 stés).
+  // d'interprétation. Avant : Cost↑ ou Margin↓ uniquement (manque sur 196 sociétés).
   // Maintenant : on accepte aussi Margin/Profitability sans condition (signal
   // structurel sectoriel) en fallback, ou Cost/Investment quel que soit yoy.
   // Yann 19 juil 2026 : le label du sous-bloc suit la vraie nature du KPI
@@ -1514,7 +1514,7 @@ export function findComparable(sourceTicker: string, sourceKpiShort?: string) {
 }
 
 /**
- * True si la source indiquée provient d'un document officiel de la sté
+ * True si la source indiquée provient d'un document officiel de la société
  * (10-K, 10-Q, 8-K, DEF 14A, Earnings Release/Call, Investor Day, Investor
  * Deck, etc.). Dans ce cas l'app n'affiche PAS la source à l'utilisateur :
  * c'est implicite que la donnée vient des filings officiels Mettrik.

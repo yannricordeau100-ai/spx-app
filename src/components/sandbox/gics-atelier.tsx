@@ -238,7 +238,7 @@ export function GicsAtelier({
                   const liste = annuaire.parSousIndustrie[sub.code] ?? [];
                   const n = liste.length;
                   const cherchees = liste.filter((s) => donnees[s.ticker.toUpperCase()]).length;
-                  return n > 0 ? `${n} sté${n > 1 ? "s" : ""}${cherchees ? ` · ${cherchees} recherchée${cherchees > 1 ? "s" : ""}` : ""}` : "";
+                  return n > 0 ? `${n} société${n > 1 ? "s" : ""}${cherchees ? ` · ${cherchees} recherchée${cherchees > 1 ? "s" : ""}` : ""}` : "";
                 }}
               />
             </div>

@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-05-21T10:30:00Z",
   "source_audit": "src/data/v1-9-pre-publication-audit.json",
-  "scope": "265 stés à 1 critère failed (énorme réservoir quick wins)",
+  "scope": "265 sociétés à 1 critère failed (énorme réservoir quick wins)",
   "baseline_clean_af": 100,
   "single_failure_count": 265,
   "distribution_by_blocking_criterion": {
@@ -38,21 +38,21 @@
   "sequence_recommended": [
     {
       "step": 1,
-      "scope": "b_interpretation (18 stés, 85% recovery)",
+      "scope": "b_interpretation (18 sociétés, 85% recovery)",
       "action": "Patch kpi types tag (driver/vigilance/cash/watch) sur v2-pipeline/<t>.json",
       "eta_h": "0.5-1",
-      "rationale": "Quick win pur tagging, ~15 stés instantanées"
+      "rationale": "Quick win pur tagging, ~15 sociétés instantanées"
     },
     {
       "step": 2,
-      "scope": "e_risks (10 stés, 95% recovery)",
+      "scope": "e_risks (10 sociétés, 95% recovery)",
       "action": "Verif merge load-company.ts + cleanup",
       "eta_h": "0.5",
       "rationale": "Audit fix already done par CONV-DATA, just merge"
     },
     {
       "step": 3,
-      "scope": "f_repartition (154 stés, 70% recovery)",
+      "scope": "f_repartition (154 sociétés, 70% recovery)",
       "action": "Cerebras Qwen-3 235B re-extract segments+geography depuis cat3-european/annual-text",
       "eta_h": "3-4",
       "rationale": "Sources déjà locales, prompt éprouvé (scripts/extract-seggeo-eu-haiku.py)"
@@ -60,7 +60,7 @@
     {
       "step": 4,
       "scope": "d_stories (groupe principal selon distrib)",
-      "action": "Cerebras stories extraction (cible 5-8 stories par sté)",
+      "action": "Cerebras stories extraction (cible 5-8 stories par société)",
       "eta_h": "4-6",
       "rationale": "CRON #46 prévu, ou sub-agents Claude (forfait Max gratuit)"
     },

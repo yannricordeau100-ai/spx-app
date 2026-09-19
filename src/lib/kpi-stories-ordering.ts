@@ -111,7 +111,7 @@ const CATEGORY_ORDER: Record<string, number> = {
  * Yann 4 juin 2026 : une story KPI n'est éligible que si elle dispose
  * d'un minimum d'info lisibles. Sinon la carte affichait juste un badge
  * "STORY" + signal en bas avec un centre VIDE / flou (cf bug "blocs à
- * moitié terminés" sur ~énormément de stés). Exigences minimales :
+ * moitié terminés" sur ~énormément de sociétés). Exigences minimales :
  *  - value numérique OU string courte non vide (sinon centre vide)
  *  - name_fr non vide (sinon plus de titre KPI lisible)
  * Si signal ET description manquent aussi → on garde pas la story (rien à dire).

@@ -65,7 +65,11 @@ jobs:
       # quotidiennement. Source = yfinance (gratuit). Effet :
       # `financial_snapshot` à jour chaque jour pour l univers 666.
       - name: Refresh yfinance financial_snapshot (univers 666)
-        run: python3 scripts/enrich-company-profile-yfinance.py --limit 640 --force
+        # 19 sept 2026 (Yann) : plus de --limit. Le script lit desormais
+        # l univers (671 societes) et non les 640 premieres entrees de
+        # v1-7-public, sinon ~149 societes (surtout europeennes) n avaient
+        # jamais de capitalisation rafraichie.
+        run: python3 scripts/enrich-company-profile-yfinance.py --force
         env:
           PYTHONUNBUFFERED: "1"
         continue-on-error: true

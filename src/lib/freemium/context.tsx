@@ -6,7 +6,7 @@
  *
  * Yann (25 mai 2026) : floutage "inviolable" des chiffres clés pour les
  * utilisateurs en plan FREE. Inviolabilité = la valeur réelle N'EST PAS
- * envoyée côté client si l'utilisateur est en plan free pour une sté
+ * envoyée côté client si l'utilisateur est en plan free pour une société
  * verrouillée. Le serveur rend un placeholder (`***` ou skeleton). Pas
  * possible de voir la valeur via devtools / curl / source HTML.
  *
@@ -67,15 +67,15 @@ export function useFreemiumTier(): UserTier {
 }
 
 /**
- * Détermine si une sté est verrouillée pour le tier courant.
+ * Détermine si une société est verrouillée pour le tier courant.
  *
- * Règle Yann : seules 2 stés sont accessibles en free (Google + Meta par
+ * Règle Yann : seules 2 sociétés sont accessibles en free (Google + Meta par
  * tradition V1, override BDD via `pricing_plan_features` plus tard).
- * Premium / Max → toutes les stés accessibles.
+ * Premium / Max → toutes les sociétés accessibles.
  *
- * @param ticker  Ticker de la sté affichée (ex "AAPL")
+ * @param ticker  Ticker de la société affichée (ex "AAPL")
  * @param tier    Tier user effectif
- * @returns true si la sté est verrouillée (= chiffres à flouter), false sinon
+ * @returns true si la société est verrouillée (= chiffres à flouter), false sinon
  */
 export function isTickerLockedForTier(ticker: string, tier: UserTier): boolean {
   // Yann 29 aout 2026 : le systeme de floutage s applique a TOUTES les

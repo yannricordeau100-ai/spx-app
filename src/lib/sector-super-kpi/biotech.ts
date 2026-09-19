@@ -1,7 +1,7 @@
 /**
  * Super-KPIs sectoriels Biotech V1.9.5
  *
- * Sociétés concernées (bucket biotech, 10 stés) :
+ * Sociétés concernées (bucket biotech, 10 sociétés) :
  *   ABVX, AMGN, ARGX, BIIB, BMRN, INCY, MRNA, NBIX, REGN, VRTX
  *
  * 2 super-KPIs propres au secteur :

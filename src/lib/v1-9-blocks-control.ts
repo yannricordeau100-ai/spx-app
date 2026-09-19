@@ -44,14 +44,14 @@ export const BLOCK_LABELS: Record<BlockId, string> = {
   moat: "Moat · Avantage compétitif",
   clients: "Clients · Concentration du chiffre d’affaires",
   tam: "Position marché · TAM",
-  unites: "Comprendre les unités (toutes les stés)",
+  unites: "Comprendre les unités (toutes les sociétés)",
   prochains_resultats: "Bandeau prix : Prochains résultats (archivé)",
   antithese: "Anti-thèse d’investissement",
   these: "Thèse d’investissement",
 };
 
 export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
-  hero: "Le KPI principal de cette sté arrive bientôt.",
+  hero: "Le KPI principal de cette société arrive bientôt.",
   interpretation: "L'analyse en quatre lectures (Lead, Moteur, Vigilance, Veille) est en préparation.",
   kpis: "Le panneau de KPIs détaillés se peaufine.",
   stories: "Les histoires derrière chaque indicateur prennent forme.",

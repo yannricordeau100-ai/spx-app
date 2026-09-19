@@ -12,7 +12,7 @@ import path from "path";
  *    des hreflang incohérents. Une seule URL canonique par page désormais.
  *  - il ne listait que les 5 sociétés du dataset V1 (TICKERS legacy) : les
  *    661 autres fiches en ligne étaient invisibles pour Google. Les pages
- *    société viennent maintenant de la liste V1.9.5 clean-all (666 stés),
+ *    société viennent maintenant de la liste V1.9.5 clean-all (666 sociétés),
  *    la même qui décide de la visibilité publique.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

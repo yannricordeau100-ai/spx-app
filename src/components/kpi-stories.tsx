@@ -38,7 +38,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
   const categories = buildStories(company.kpis, []);
   const allSlides = categories.flatMap((c) => c.slides);
 
-  /* ── Rangement des stories (pilote 10 stés, Yann 26 aout 2026) ──────────
+  /* ── Rangement des stories (pilote 10 sociétés, Yann 26 aout 2026) ──────────
      Certaines fiches cumulent 40 a 70 stories : sans tri, la decomposition
      du chiffre d affaires noie les faits marquants. Trois leviers :
        - onglets par FAMILLE (usage, clients, capacite, revenus, ...)

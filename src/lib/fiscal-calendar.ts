@@ -29,7 +29,7 @@ export type FiscalAuditEntry = {
   latestFilingDate?: string | null; // ISO date
   latestPeriodEnd?: string | null; // ISO date
   /**
-   * Yann 8 août 2026 : convention de nommage des labels FY de la sté.
+   * Yann 8 août 2026 : convention de nommage des labels FY de la société.
    *  - "end" (défaut) : FY2026 = exercice qui se CLÔT en 2026 (AAPL, V, MSFT)
    *  - "start" : FY2026 = exercice qui COMMENCE en 2026 (HD, TGT, KR, DG...)
    * Calibrée par scripts/kpi-lag-detect.py contre la période réelle du dernier
@@ -49,7 +49,7 @@ export function getFiscalAudit(ticker: string): FiscalAuditEntry | undefined {
   return FISCAL_AUDIT[up];
 }
 
-/** True si la sté a une fin d'exercice ≠ décembre (= décalée). */
+/** True si la société a une fin d'exercice ≠ décembre (= décalée). */
 export function isFiscalShifted(ticker: string): boolean {
   const a = getFiscalAudit(ticker);
   return !!a && a.fiscalYearEndMonth !== 12;
@@ -156,7 +156,7 @@ export function fiscalLabelsForTicker(
   if (!periodEnd) return null;
 
   // Mois de fin d'exercice : SEC si dispo, sinon 12 (calendrier).
-  // Cas 52/53 semaines : une sté calendaire dont l'exercice se termine le
+  // Cas 52/53 semaines : une société calendaire dont l'exercice se termine le
   // dimanche le plus proche du 31 déc peut déclarer une fin début janvier
   // (ex JNJ "01-03"). La traiter comme fiscale décalée faisait afficher
   // "Prochain earning T2 2027" au lieu de "T2 2026". Si fin ≤ 15 janvier,
@@ -180,7 +180,7 @@ export function fiscalLabelsForTicker(
   const nextPeriodEnd = estimateNextPeriodEnd(periodEnd);
 
   // Yann 16 juil 2026 : plus de libellés fiscaux "FY26 Q3" côté utilisateur.
-  // Les stés à exercice décalé sont converties en trimestre CALENDAIRE réel.
+  // Les sociétés à exercice décalé sont converties en trimestre CALENDAIRE réel.
   const toCalendarLabel = (q: number, fy: number): string => {
     if (fyEndMonth === 12) return `Q${q} ${fy}`;
     const fullFy = fy < 100 ? 2000 + fy : fy;
@@ -200,7 +200,7 @@ export function fiscalLabelsForTicker(
 /**
  * Convertit un trimestre FISCAL (q, fy) en trimestre CALENDAIRE réel.
  * Yann 16 juil 2026 : l'utilisateur doit savoir DE QUAND datent les chiffres,
- * sans connaître le calendrier fiscal de la sté. Ex AAPL (fyEnd=septembre) :
+ * sans connaître le calendrier fiscal de la société. Ex AAPL (fyEnd=septembre) :
  * Q1 FY2026 = oct-déc 2025 → { q: 4, year: 2025 } → affiché "T4 2025".
  */
 export function fiscalQuarterToCalendar(

@@ -160,7 +160,7 @@ const SECTIONS: SandboxSection[] = [
         // S&P 500 / Nasdaq 100 / SOX / CAC 40 / SMI / AEX / DAX), KPI
         // consultables et filtrables par categorie.
         href: "/sandbox/hors-indices",
-        mots: ["sociétés retirées", "hors S&P 500", "hors Nasdaq 100", "hors CAC 40", "stés non publiées", "quarantaine"],
+        mots: ["sociétés retirées", "hors S&P 500", "hors Nasdaq 100", "hors CAC 40", "sociétés non publiées", "quarantaine"],
         icon: Search,
         label: "Sociétés hors indices (205)",
         desc: "KPI des sociétés retirées de la mise en ligne, filtrables par catégorie.",
@@ -185,16 +185,16 @@ const SECTIONS: SandboxSection[] = [
     id: "univers",
     title: "🧭 Univers société",
     description:
-      "Hubs principaux des fiches sté et leurs sous-pages dynamiques [ticker].",
+      "Hubs principaux des fiches société et leurs sous-pages dynamiques [ticker].",
     items: [
       // Yann (25 mai 2026) : V1.9.5 = VERSION PAR DÉFAUT partout dans l'app.
       // Mise en première position + accent "DÉFAUT" pour clarté.
       {
         href: "/sandbox/v1-9-5",
-        mots: ["hub des fiches", "toutes les sociétés", "version par défaut", "liste des stés", "V1.9.5"],
+        mots: ["hub des fiches", "toutes les sociétés", "version par défaut", "liste des sociétés", "V1.9.5"],
         icon: Sparkles,
-        label: "V1.9.5 · DÉFAUT — stés validées qualité",
-        desc: "Hub par défaut de l'app. Stés clean audit strict (a-f publishable + g-m extensions), 0 hallucination, mises à jour cron horaire.",
+        label: "V1.9.5 · DÉFAUT — sociétés validées qualité",
+        desc: "Hub par défaut de l'app. Sociétés clean audit strict (a-f publishable + g-m extensions), 0 hallucination, mises à jour cron horaire.",
         accent: "default" as const,
       },
       {
@@ -203,7 +203,7 @@ const SECTIONS: SandboxSection[] = [
         groupe: "Couverture et statuts des données",
         icon: Activity,
         label: "V1.9 · Suivi enrichissement top 307",
-        desc: "Statut temps réel : strict 11/11 ✅ vs en cours 🟠 vs bloquées 🔴. Score par sté + blocs manquants.",
+        desc: "Statut temps réel : strict 11/11 ✅ vs en cours 🟠 vs bloquées 🔴. Score par société + blocs manquants.",
       },
     ],
   },
@@ -211,14 +211,14 @@ const SECTIONS: SandboxSection[] = [
     id: "data-quality",
     title: "📊 Data quality & qualité",
     description:
-      "Audits, couvertures, statuts et outils de qualité sur les datasets sté.",
+      "Audits, couvertures, statuts et outils de qualité sur les datasets société.",
     items: [
       {
         // Yann 29 aout 2026 : acces direct depuis Data quality.
         href: "/admin/kpis-toggle",
         mots: ["activer un KPI", "désactiver un KPI", "masquer un indicateur", "par société", "interrupteur KPI"],
         icon: Wrench,
-        label: "KPIs : activer / désactiver par sté",
+        label: "KPIs : activer / désactiver par société",
         desc: "Vue alignée sur la réalité des pages (fusion kpis-haut + pipeline), filtres par secteur et par indice (SOXX compris). Les réglages ne valent que pour la suite : rien ne change tant que rien n'est coché.",
       },
       {
@@ -227,15 +227,15 @@ const SECTIONS: SandboxSection[] = [
         groupe: "Couverture et statuts des données",
         icon: TableProperties,
         label: "Coverage matrix",
-        desc: "Vue par blocs et par sté : ce qui est rempli, ce qui manque, codes couleur.",
+        desc: "Vue par blocs et par société : ce qui est rempli, ce qui manque, codes couleur.",
       },
       {
         href: "/sandbox/ir-coverage",
         mots: ["documents téléchargés", "couverture SEC", "IR scraper", "docs par société"],
         groupe: "Couverture et statuts des données",
         icon: Database,
-        label: "Couverture docs par sté",
-        desc: "Bilan SEC EDGAR et IR scraper pour 344 stés (top 305 V1.8 et V1 demo). Détail par doc-type.",
+        label: "Couverture docs par société",
+        desc: "Bilan SEC EDGAR et IR scraper pour 344 sociétés (top 305 V1.8 et V1 demo). Détail par doc-type.",
       },
       {
         href: "/sandbox/data-status",
@@ -326,7 +326,7 @@ const SECTIONS: SandboxSection[] = [
         mots: ["nouveaux dépôts SEC", "10-Q", "10-K", "8-K", "cron 7h30", "update SEC", "USEC"],
         icon: Activity,
         label: "Update SEC (USEC)",
-        desc: "Nouveaux dépôts SEC (8-K / 10-Q / 10-K) détectés par le cron 7h30 à intégrer dans les blocs sté (risks, stories, profit_warning, ai_positioning).",
+        desc: "Nouveaux dépôts SEC (8-K / 10-Q / 10-K) détectés par le cron 7h30 à intégrer dans les blocs société (risks, stories, profit_warning, ai_positioning).",
       },
       {
         // Yann (25 mai 2026) : kpi-builder + special-kpis + image-findings
@@ -339,14 +339,14 @@ const SECTIONS: SandboxSection[] = [
         groupe: "Couverture et statuts des données",
         icon: TreePine,
         label: "Quality tree (registry)",
-        desc: "Arbre dépliable des 101 éléments contrôlables d'une page sté. Source consolidée audit, coverage, fix dispatcher.",
+        desc: "Arbre dépliable des 101 éléments contrôlables d'une page société. Source consolidée audit, coverage, fix dispatcher.",
       },
       {
         href: "/sandbox/ready-by-category",
         mots: ["sociétés prêtes", "par pays", "par catégorie", "comptage"],
         groupe: "Couverture et statuts des données",
         icon: Users,
-        label: "Stés prêtes par catégorie et pays",
+        label: "Sociétés prêtes par catégorie et pays",
         desc: "Counts par catégorie (Top 307, SP500, SP1500, Stoxx 600, SMI Suisse, Cat 2 ADR) et par pays. Masque les ADR doublons.",
       },
       {
@@ -355,14 +355,14 @@ const SECTIONS: SandboxSection[] = [
         groupe: "Couverture et statuts des données",
         icon: Crown,
         label: "VIP inspection",
-        desc: "Liste des stés où tout doit être parfait. Inspection visuelle multi-mode, audit Gemini, auto-fix loop.",
+        desc: "Liste des sociétés où tout doit être parfait. Inspection visuelle multi-mode, audit Gemini, auto-fix loop.",
       },
       {
         href: "/sandbox/kpi-quality-strategy",
         mots: ["stratégie qualité", "hero KPI", "KPI génériques", "library"],
         icon: Sparkles,
         label: "KPI Quality Strategy",
-        desc: "Audit historique hero KPI (451 stés ≥5 ans / 1608 stés <5 ans) + Library KPI génériques (Revenue, EBITDA, EPS, etc.) avec toggle activation par catégorie. Yann 19 mai 2026.",
+        desc: "Audit historique hero KPI (451 sociétés ≥5 ans / 1608 sociétés <5 ans) + Library KPI génériques (Revenue, EBITDA, EPS, etc.) avec toggle activation par catégorie. Yann 19 mai 2026.",
       },
       {
         href: "/sandbox/visual-audit",
@@ -370,7 +370,7 @@ const SECTIONS: SandboxSection[] = [
         groupe: "Couverture et statuts des données",
         icon: Eye,
         label: "Visual audit (Gemini 2.5 Flash)",
-        desc: "Dashboard des défauts visuels détectés par Gemini sur chaque page sté. 31 checks, filtres severity et blocker.",
+        desc: "Dashboard des défauts visuels détectés par Gemini sur chaque page société. 31 checks, filtres severity et blocker.",
       },
       {
         href: "/sandbox/curated-companies",
@@ -393,7 +393,7 @@ const SECTIONS: SandboxSection[] = [
         groupe: "Logos",
         icon: Palette,
         label: "Logo lab",
-        desc: "Atelier de génération et validation de logos sté (à venir, pas encore live).",
+        desc: "Atelier de génération et validation de logos société (à venir, pas encore live).",
         soon: true,
       },
       {
@@ -474,21 +474,21 @@ const SECTIONS: SandboxSection[] = [
         groupe: "Logos",
         icon: ImageIcon,
         label: "Logos",
-        desc: "Comparaison + validation logos V1.9.5 (687 stés)",
+        desc: "Comparaison + validation logos V1.9.5 (687 sociétés)",
       },
       {
         href: "/sandbox/v2",
         mots: ["prototype V2", "FPI", "étrangères", "seed"],
         icon: ImagePlus,
-        label: "V2 (50 stés DRAFT seed)",
-        desc: "Prototype visuel V1.5 cat 2 (FPI étrangères), 50 stés seed pour tests.",
+        label: "V2 (50 sociétés DRAFT seed)",
+        desc: "Prototype visuel V1.5 cat 2 (FPI étrangères), 50 sociétés seed pour tests.",
       },
     ],
   },
   {
     // Yann (25 mai 2026) : nouvelle section rassemblant tous les outils
     // d'ajout/édition/personnalisation du contenu affiché sur les pages
-    // sté + home. Avant : éclaté entre data-quality, ui, billing-admin.
+    // société + home. Avant : éclaté entre data-quality, ui, billing-admin.
     id: "personnalisation",
     title: "🎨 Création & personnalisation",
     description:
@@ -499,7 +499,7 @@ const SECTIONS: SandboxSection[] = [
         mots: ["graphiques", "schémas", "images", "carrousel sous le hero", "sources diverses"],
         icon: ImageIcon,
         label: "Graphiques et schémas (sources diverses)",
-        desc: "Recherche manuelle de graphiques et schémas via Claude conv MAX 20×. Approbation Yann, carrousel sous le hero des pages sté.",
+        desc: "Recherche manuelle de graphiques et schémas via Claude conv MAX 20×. Approbation Yann, carrousel sous le hero des pages société.",
         // Yann 15 juil 2026 : contour rouge/jaune pour repérage immédiat.
         accent: "highlight" as const,
       },
@@ -517,7 +517,7 @@ const SECTIONS: SandboxSection[] = [
         mots: ["activer un bloc", "désactiver un bloc", "hero", "stories", "gouvernance", "ON OFF", "par société", "global"],
         icon: ListChecks,
         label: "Blocks Control · ON/OFF par bloc",
-        desc: "Panneau de contrôle complet : activer/désactiver chaque bloc (hero, stories, dividende, gouvernance, etc.) en GLOBAL toutes stés OU MANUELLEMENT par sté. Placeholder gracieux à la place du bloc OFF.",
+        desc: "Panneau de contrôle complet : activer/désactiver chaque bloc (hero, stories, dividende, gouvernance, etc.) en GLOBAL toutes sociétés OU MANUELLEMENT par société. Placeholder gracieux à la place du bloc OFF.",
         accent: "default" as const,
       },
       {
@@ -582,7 +582,7 @@ const SECTIONS: SandboxSection[] = [
         groupe: "Textes et réglages du back-office",
         icon: Download,
         label: "Sources IR (téléchargement docs)",
-        desc: "URLs page corp, IR home et docs IR par sté. Le scraper télécharge auto les PDFs absents de SEC EDGAR.",
+        desc: "URLs page corp, IR home et docs IR par société. Le scraper télécharge auto les PDFs absents de SEC EDGAR.",
       },
       {
         href: "/desk-mtk9x4kp/pricing",
@@ -604,15 +604,15 @@ const SECTIONS: SandboxSection[] = [
         href: "/admin/kpis-toggle",
         mots: ["activer un KPI", "désactiver un KPI", "masquer un indicateur", "par société", "interrupteur KPI"],
         icon: ListChecks,
-        label: "KPIs : activer / désactiver par sté",
-        desc: "Toggle granulaire par KPI individuel pour chaque sté publishable (≥3 ans d'historique). Différent du toggle blocs.",
+        label: "KPIs : activer / désactiver par société",
+        desc: "Toggle granulaire par KPI individuel pour chaque société publishable (≥3 ans d'historique). Différent du toggle blocs.",
         accent: "blue",
       },
       {
         href: "/admin/blocks",
         mots: ["blocs page société", "toggle global", "override par ticker", "19 blocs"],
         icon: ListChecks,
-        label: "Blocs page société (global + per-sté)",
+        label: "Blocs page société (global + per-société)",
         desc: "Page unique back office : toggle global on/off des 19 blocs + override per-ticker. Version-agnostic (V1.7-5 / V1.8 / V1.9 / V1.9-5).",
         accent: "blue",
       },
@@ -622,7 +622,7 @@ const SECTIONS: SandboxSection[] = [
         groupe: "Textes et réglages du back-office",
         icon: FileEdit,
         label: "Règles par bloc",
-        desc: "Règles d'écriture libres (fond + forme) par bloc page sté. Les sub-agents lisent ces règles AVANT chaque extraction. Auto-save 1s. Version-agnostic.",
+        desc: "Règles d'écriture libres (fond + forme) par bloc page société. Les sub-agents lisent ces règles AVANT chaque extraction. Auto-save 1s. Version-agnostic.",
         accent: "orange",
       },
     ],
@@ -1076,7 +1076,7 @@ export function SandboxClient({ alerte = null }: { alerte?: { rougesTotal: numbe
                   href="/sandbox/v1-9-5"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-emerald-500/60 bg-emerald-500/20 px-4 py-2.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider text-emerald-100 transition-all hover:border-emerald-400/80 hover:bg-emerald-500/30"
                 >
-                  Ouvrir 1.9.5 · DÉFAUT (stés validées qualité)
+                  Ouvrir 1.9.5 · DÉFAUT (sociétés validées qualité)
                   <span className="text-base">→</span>
                 </Link>
                 <Link

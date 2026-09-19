@@ -72,7 +72,7 @@ export function CoverageClient({ initialRows }: { initialRows: Row[] }) {
           <div>
             <h1 className="font-display text-[28px] font-bold tracking-tight">Coverage Matrix</h1>
             <p className="text-[13px] text-zinc-400">
-              État temps réel par sté × bloc (lecture dynamique v2-pipeline + enrich).
+              État temps réel par société × bloc (lecture dynamique v2-pipeline + enrich).
               Légende cellule : <span className="font-mono text-emerald-400">✓ A+B+C OK</span>{" "}
               · <span className="font-mono text-lime-400">✓ A+C OK, B stale</span>{" "}
               · <span className="font-mono text-amber-400">⚠ A OK, composant cache (C ✗)</span>{" "}

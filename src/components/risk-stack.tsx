@@ -136,7 +136,7 @@ const CATEGORY_META: Record<
   technology: { labelKey: "risks.category.technology", color: "#fb923c", Icon: Cpu },
 };
 
-/** Yann 9 août 2026 : ~3 500 stés portent des catégories en texte FR/EN
+/** Yann 9 août 2026 : ~3 500 sociétés portent des catégories en texte FR/EN
  *  ("Régulation", "Concurrence", "Cybersécurité", "Industriel", "Capital"…)
  *  qui tombaient toutes dans le fallback "Opérationnel". Normalisation par
  *  mots-clés vers les 7 familles visuelles, sans toucher aux données. */
@@ -215,7 +215,7 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
 
   // Yann 29 mai 2026 : fallback `severity` quand `score` est null (data
   // historique pré-§0quinquies sur NVDA / AMZN / TSLA / V notamment). Toutes
-  // les stés ont au moins l'un des deux. Default neutre 3 en cas absolu.
+  // les sociétés ont au moins l'un des deux. Default neutre 3 en cas absolu.
   const rawScore = (risk as unknown as { score?: number; severity?: number });
   const effectiveScore = (typeof rawScore.score === "number" && rawScore.score > 0)
     ? rawScore.score

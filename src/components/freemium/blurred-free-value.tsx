@@ -2,7 +2,7 @@
 
 /**
  * BlurredFreeValue — affiche la valeur réelle avec un filtre CSS blur
- * par-dessus quand la sté est verrouillée pour le tier free.
+ * par-dessus quand la société est verrouillée pour le tier free.
  *
  * Yann (26 mai 2026) — refonte : ancien comportement = remplace par
  * placeholder ████ + cadenas + lien upgrade = catastrophe visuelle
@@ -28,7 +28,7 @@ type Props = {
   suffix?: string;
   /** Override : force le floutage (true) ou la lisibilité (false). Si undefined, auto via contexte + ticker. */
   blocked?: boolean;
-  /** Ticker de la sté courante (utilisé si blocked=undefined pour décider). */
+  /** Ticker de la société courante (utilisé si blocked=undefined pour décider). */
   ticker?: string;
   /** Classe CSS appliquée. */
   className?: string;

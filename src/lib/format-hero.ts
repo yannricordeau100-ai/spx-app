@@ -1,11 +1,11 @@
 /**
- * Hero KPI formatting helpers — pipeline partagé entre la page sté
+ * Hero KPI formatting helpers — pipeline partagé entre la page société
  * (`company-view.tsx`) et la home preview (`home-view.tsx` →
  * renderCompanyCard / TickerPreviewCard) pour garantir un rendu cohérent.
  *
  * Avant l'extraction (15 mai 2026, Yann), `autoRescaleSmallUnit` était
  * inline dans company-view.tsx → la home affichait "0,4 M units" pour
- * TSLA alors que la page sté affichait "410 K unités". Idem unit
+ * TSLA alors que la page société affichait "410 K unités". Idem unit
  * "B €" non normalisée en "Mds €" sur ASMLF. Idem magnitude % aberrante
  * sur ASML (32 milliards de %, data fake non guardée).
  *
@@ -75,7 +75,7 @@ export function isPercentMagnitudeAnomaly(
  * incohérente détectée (à utiliser pour afficher "—" + tooltip).
  *
  * Utilisé par :
- *  - company-view.tsx (HERO section, page sté)
+ *  - company-view.tsx (HERO section, page société)
  *  - home-view.tsx (TickerPreviewCard, home preview)
  *  - tout autre composant qui affiche un hero value+unit
  */

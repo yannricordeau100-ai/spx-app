@@ -1,7 +1,7 @@
 /**
  * Super-KPIs sectoriels Hardware V1.9.5
  *
- * Sociétés concernées (bucket hardware, 10 stés) :
+ * Sociétés concernées (bucket hardware, 10 sociétés) :
  *   AAPL, ANET, AXON, CIEN, CSCO, DELL, GRMN, HPQ, IBM, LOGN.SW
  *
  * 2 super-KPIs propres au secteur :

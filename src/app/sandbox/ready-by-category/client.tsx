@@ -21,7 +21,7 @@ export function ReadyByCategoryClient({
     <div className="min-h-screen bg-[#050507] text-zinc-100">
       <div className="mx-auto max-w-5xl px-4 py-8">
         <header className="mb-6">
-          <h1 className="font-display text-[30px] font-bold tracking-tight">Stés prêtes par catégorie & pays</h1>
+          <h1 className="font-display text-[30px] font-bold tracking-tight">Sociétés prêtes par catégorie & pays</h1>
           <p className="mt-1 text-[13.5px] text-zinc-400">
             Critères "complètement prêt" : Pass 3 validé + ≥5 KPIs + ≥3 risks + hero KPI + governance (CEO) + AI positioning.
             Cf. <code className="rounded bg-white/[0.06] px-1 font-mono text-[11px]">src/lib/quality-tree.ts</code> pour la liste complète.
@@ -105,7 +105,7 @@ export function ReadyByCategoryClient({
             </button>
           )}
           <p className="mt-2 text-[11.5px] text-zinc-500">
-            Note : la valeur "(non renseigné)" correspond aux stés sans champ `country` dans le dataset (ex BABA actuellement).
+            Note : la valeur "(non renseigné)" correspond aux sociétés sans champ `country` dans le dataset (ex BABA actuellement).
             CONV-DATA est ordonné de combler ce champ.
           </p>
         </section>

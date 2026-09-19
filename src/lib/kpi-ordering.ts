@@ -5,7 +5,7 @@
  * `autoPromoteHero` pour cohérence sélection hero ↔ ordre indicateurs clés.
  *
  * Critères de priorité (descendants) :
- *   1. is_wow=true (KPI distinctif propre à la sté ou sous-secteur)
+ *   1. is_wow=true (KPI distinctif propre à la société ou sous-secteur)
  *   2. history.length plus long
  *   3. period_type="quarter" (tie-breaker uniquement, peu importe annuel
  *      ou absence de type/nature/catégorie)

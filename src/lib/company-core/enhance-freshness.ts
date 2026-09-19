@@ -9,12 +9,12 @@ import type { Company } from "@/lib/data";
  *
  * Ordre fallback :
  *   1. KPI's own last_data_date (si présent et plus récent que les autres)
- *   2. Max(last_data_date sur tous les KPIs de la sté)
+ *   2. Max(last_data_date sur tous les KPIs de la société)
  *   3. Top-level last_filing_date / _last_validation_date / _validation_date
  *   4. "2025-12-31" (dernière clôture US standard)
  *
  * Template uniforme : utilisé par /sandbox/v1-6/[ticker], /sandbox/v1-7/[ticker]
- * et toutes futures pages sté pipeline (2.0+). À chaque nouvelle sté ajoutée,
+ * et toutes futures pages société pipeline (2.0+). À chaque nouvelle société ajoutée,
  * pas besoin de toucher à ses dates : la fonction backfill au render.
  */
 export function enhanceFreshness<T extends Company & Record<string, unknown>>(data: T): T {
@@ -35,7 +35,7 @@ export function enhanceFreshness<T extends Company & Record<string, unknown>>(da
   // borne (Headcount yfinance = aujourd'hui → décalait les sommes par
   // 1-2 trimestres). On backfill UNIQUEMENT les KPIs sans date.
   // Yann 9 août 2026 : le backfill par maxDate mentait dès qu'un KPI web
-  // scrapé récemment tirait la date de toute la sté vers le présent
+  // scrapé récemment tirait la date de toute la société vers le présent
   // (Effectifs annuels TTE.PA badgés "T3 2026"). Priorité au dernier label
   // de history_periods du KPI lui-même ("FY2025" → 2025-12-31,
   // "Q2 2026" → 2026-06-30, "H1 2025" → 2025-06-30) ; maxDate en dernier

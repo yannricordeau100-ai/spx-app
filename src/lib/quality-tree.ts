@@ -18,7 +18,7 @@
  * communication ("corrige NVDA hero.chart.y_axis.no_overlap_with_tabs").
  *
  * Variantes : règles spéciales par fiscal year décalé, secteur, cat 1-4,
- * fréquence publication, dual-class, IPO récente, sté sans dividende.
+ * fréquence publication, dual-class, IPO récente, société sans dividende.
  *
  * Yann 16 mai 2026 — Phase 2 du chantier Quality Registry.
  */
@@ -31,19 +31,19 @@ export type AuditorType =
   | "manual";         // Revue humaine uniquement
 
 export type VariantSpec = {
-  /** Règle spéciale si la sté a un fiscal year décalé (NVDA, AAPL, MSFT, Toyota, etc.) */
+  /** Règle spéciale si la société a un fiscal year décalé (NVDA, AAPL, MSFT, Toyota, etc.) */
   fiscal_shifted?: string;
   /** Règle par catégorie source : 1=US 10-K, 2=FPI 20-F, 3=EU pure, 4=autres */
   cat?: { "1"?: string; "2"?: string; "3"?: string; "4"?: string };
   /** Règle par secteur (banques, utilities, biotech, etc.) */
   sector?: Record<string, string>;
-  /** Règle pour sté sans wow KPI distinctif */
+  /** Règle pour société sans wow KPI distinctif */
   no_wow?: string;
   /** Règle pour dual-class shares (GOOG/GOOGL, BRK.A/B) */
   dual_class?: string;
   /** Règle pour IPO récente (<6 ans) */
   young_ipo?: string;
-  /** Règle pour sté non-payeuse de dividende */
+  /** Règle pour société non-payeuse de dividende */
   no_dividend?: string;
   /** Règle par fréquence de publication (quarterly US, semestrial EU, annual seul) */
   frequency?: { quarterly?: string; semestrial?: string; annual?: string };
@@ -83,14 +83,14 @@ export const QUALITY_TREE: QualityNode[] = [
   {
     id: "global",
     title: "Règles globales",
-    description: "S'applique à toute la page sté, peu importe le bloc.",
+    description: "S'applique à toute la page société, peu importe le bloc.",
     level: 0,
     parent: null,
   },
   {
     id: "global.lang",
     title: "Langue cohérente",
-    description: "Page FR doit avoir <html lang=\"fr\">, aucun mot anglais user-facing (sauf taglines anglaises originales de la sté).",
+    description: "Page FR doit avoir <html lang=\"fr\">, aucun mot anglais user-facing (sauf taglines anglaises originales de la société).",
     level: 1,
     parent: "global",
   },
@@ -100,7 +100,7 @@ export const QUALITY_TREE: QualityNode[] = [
     description: "La balise <html> a l'attribut lang qui matche la locale active (fr / de / en / nl / en-GB / de-CH).",
     level: 2,
     parent: "global.lang",
-    anti_patterns: ["<html lang=\"en\"> sur page FR (228 stés flag par UI-AUDIT)"],
+    anti_patterns: ["<html lang=\"en\"> sur page FR (228 sociétés flag par UI-AUDIT)"],
     code_hooks: ["src/app/layout.tsx"],
     auditor: "regex",
     severity_if_fail: 2,
@@ -121,7 +121,7 @@ export const QUALITY_TREE: QualityNode[] = [
     auditor: "regex",
     severity_if_fail: 2,
     variants: {
-      cat: { "2": "Stés FPI ADR : tagline EN tolérée car officielle.", "3": "Stés EU : terminologie locale si pas de traduction FR officielle." },
+      cat: { "2": "Sociétés FPI ADR : tagline EN tolérée car officielle.", "3": "Sociétés EU : terminologie locale si pas de traduction FR officielle." },
     },
   },
   {
@@ -234,15 +234,15 @@ export const QUALITY_TREE: QualityNode[] = [
   // ════════════════════════════════════════════════════════════════════
   {
     id: "header",
-    title: "Header de page sté",
+    title: "Header de page société",
     description: "Bloc en haut : logo + nom + ticker + tagline + 6 chips stats.",
     level: 1,
     parent: null,
   },
   {
     id: "header.logo",
-    title: "Logo sté",
-    description: "Le logo réel de la sté (pas un fallback monogramme).",
+    title: "Logo société",
+    description: "Le logo réel de la société (pas un fallback monogramme).",
     level: 2,
     parent: "header",
   },
@@ -297,7 +297,7 @@ export const QUALITY_TREE: QualityNode[] = [
     severity_if_fail: 3,
     variants: {
       young_ipo: "IPO récente (<3 ans) : afficher l'année + badge 'IPO récente'.",
-      cat: { "3": "Stés EU pures : Rang USA peut être '-' (pas listée NYSE), c'est OK." },
+      cat: { "3": "Sociétés EU pures : Rang USA peut être '-' (pas listée NYSE), c'est OK." },
     },
   },
   {
@@ -335,7 +335,7 @@ export const QUALITY_TREE: QualityNode[] = [
   },
   {
     id: "header.tagline",
-    title: "Tagline sté",
+    title: "Tagline société",
     description: "Phrase de mission/positionnement (italique, sous le nom).",
     level: 2,
     parent: "header",
@@ -343,7 +343,7 @@ export const QUALITY_TREE: QualityNode[] = [
   {
     id: "header.tagline.present",
     title: "Tagline présente",
-    description: "Chaque sté a une tagline officielle (souvent EN, italique).",
+    description: "Chaque société a une tagline officielle (souvent EN, italique).",
     level: 3,
     parent: "header.tagline",
     code_hooks: ["src/data/v2-pipeline/*.json (tagline field)"],
@@ -353,7 +353,7 @@ export const QUALITY_TREE: QualityNode[] = [
   {
     id: "header.young_ipo_warning",
     title: "Badge 'IPO récente' si <6 ans",
-    description: "Pour stés ayant IPO il y a <6 ans, afficher un badge orange 'IPO récente' avec tooltip.",
+    description: "Pour sociétés ayant IPO il y a <6 ans, afficher un badge orange 'IPO récente' avec tooltip.",
     level: 2,
     parent: "header",
     anti_patterns: ["RDDT (IPO 2024) sans badge → user pense que history complete"],
@@ -385,7 +385,7 @@ export const QUALITY_TREE: QualityNode[] = [
   {
     id: "hero.sidebar.value_plausible",
     title: "Valeur hero plausible",
-    description: "La grosse valeur affichée a une magnitude réaliste pour la sté et le KPI. Vérifier vs valeur réelle (rapport sté / Bloomberg).",
+    description: "La grosse valeur affichée a une magnitude réaliste pour la société et le KPI. Vérifier vs valeur réelle (rapport société / Bloomberg).",
     level: 3,
     parent: "hero.sidebar",
     anti_patterns: [
@@ -577,7 +577,7 @@ export const QUALITY_TREE: QualityNode[] = [
   {
     id: "hero.chart.x_axis.labels_fiscal_aware",
     title: "Labels fiscal-aware",
-    description: "Pour stés à FY décalé : labels Tx FY (ex 'T2 FY26' pour NVDA) au lieu de calendaire 'T2 25'.",
+    description: "Pour sociétés à FY décalé : labels Tx FY (ex 'T2 FY26' pour NVDA) au lieu de calendaire 'T2 25'.",
     level: 4,
     parent: "hero.chart.x_axis",
     code_hooks: ["src/lib/chart-template.ts buildQuarterLabels", "src/lib/fiscal-calendar.ts"],
@@ -600,7 +600,7 @@ export const QUALITY_TREE: QualityNode[] = [
   {
     id: "hero.chart.events_dots",
     title: "Event dots (timeline)",
-    description: "Petits points violets sur l'axe X correspondant aux events clés (4 par sté). Cliquables.",
+    description: "Petits points violets sur l'axe X correspondant aux events clés (4 par société). Cliquables.",
     level: 3,
     parent: "hero.chart",
   },
@@ -661,9 +661,9 @@ export const QUALITY_TREE: QualityNode[] = [
     severity_if_fail: 2,
     variants: {
       frequency: {
-        quarterly: "Stés US cat 1 : toggle trimestriel par défaut.",
-        semestrial: "Stés EU cat 3 reportant 2x/an : toggle semestriel actif, trimestriel grisé.",
-        annual: "Stés à reporting annuel seul : toggle annuel only, trimestriel grisé.",
+        quarterly: "Sociétés US cat 1 : toggle trimestriel par défaut.",
+        semestrial: "Sociétés EU cat 3 reportant 2x/an : toggle semestriel actif, trimestriel grisé.",
+        annual: "Sociétés à reporting annuel seul : toggle annuel only, trimestriel grisé.",
       },
     },
   },
@@ -766,7 +766,7 @@ export const QUALITY_TREE: QualityNode[] = [
     auditor: "data-structure",
     severity_if_fail: 3,
     variants: {
-      no_wow: "Sté sans KPIs wow short-history : skip le bloc Stories (au lieu d'afficher 0-1 card).",
+      no_wow: "Société sans KPIs wow short-history : skip le bloc Stories (au lieu d'afficher 0-1 card).",
     },
   },
   {
@@ -968,7 +968,7 @@ export const QUALITY_TREE: QualityNode[] = [
     description: "Si revenue_by_segment.slices est null, le bloc doit se masquer proprement (pas crash 500).",
     level: 2,
     parent: "repartition",
-    anti_patterns: ["77 stés HTTP 500 sur sandbox V1.8 (commit 7397ac86 fix Array.isArray garde)"],
+    anti_patterns: ["77 sociétés HTTP 500 sur sandbox V1.8 (commit 7397ac86 fix Array.isArray garde)"],
     code_hooks: ["src/components/repartition-block.tsx:36"],
     auditor: "auto-test",
     severity_if_fail: 5,
@@ -995,13 +995,13 @@ export const QUALITY_TREE: QualityNode[] = [
     auditor: "data-structure",
     severity_if_fail: 3,
     variants: {
-      cat: { "3": "Stés EU sans transcript public : skip bloc.", "1": "Stés US cat 1 : transcript obligatoire (8-K + IR scrape)." },
+      cat: { "3": "Sociétés EU sans transcript public : skip bloc.", "1": "Sociétés US cat 1 : transcript obligatoire (8-K + IR scrape)." },
     },
   },
   {
     id: "transcript.fiscal_quarter_label",
     title: "Label Tx FY fiscal-aware",
-    description: "Pour stés FY décalé, label = 'FY26 T4' au lieu de 'T4 2026'.",
+    description: "Pour sociétés FY décalé, label = 'FY26 T4' au lieu de 'T4 2026'.",
     level: 2,
     parent: "transcript",
     code_hooks: ["src/components/transcript-stories.tsx (quarterLabel)"],
@@ -1028,14 +1028,14 @@ export const QUALITY_TREE: QualityNode[] = [
   {
     id: "dividend",
     title: "Stories dividendes",
-    description: "3 cartes : Aristocrat / Calculator / Snowball. Visible si sté paie un dividende.",
+    description: "3 cartes : Aristocrat / Calculator / Snowball. Visible si société paie un dividende.",
     level: 1,
     parent: null,
   },
   {
     id: "dividend.visible_only_if_payer",
-    title: "Visible UNIQUEMENT si sté payeuse",
-    description: "Si la sté ne paie pas de dividende, le bloc entier est skip (pas de placeholder vide).",
+    title: "Visible UNIQUEMENT si société payeuse",
+    description: "Si la société ne paie pas de dividende, le bloc entier est skip (pas de placeholder vide).",
     level: 2,
     parent: "dividend",
     code_hooks: ["src/components/dividend-stories.tsx (shorts check)"],
@@ -1082,7 +1082,7 @@ export const QUALITY_TREE: QualityNode[] = [
     description: "'À jour' / 'Récent' / 'Périmé' / 'Inconnu'. Jamais 'Fresh' / 'Recent' / 'Stale' / 'Unknown'.",
     level: 2,
     parent: "freshness",
-    anti_patterns: ["40 stés flag UI_FRESHNESS_LABEL_EN par module audit"],
+    anti_patterns: ["40 sociétés flag UI_FRESHNESS_LABEL_EN par module audit"],
     code_hooks: ["src/components/freshness-indicator.tsx", "src/lib/ui-fix-templates.ts (translateFreshnessLabel)"],
     auditor: "regex",
     severity_if_fail: 2,
@@ -1122,10 +1122,10 @@ export const QUALITY_TREE: QualityNode[] = [
   {
     id: "layout.no_500_error",
     title: "Page sert HTTP 200",
-    description: "Aucune page sté ne doit retourner 500. Si data manquante, bloc se masque, page reste 200.",
+    description: "Aucune page société ne doit retourner 500. Si data manquante, bloc se masque, page reste 200.",
     level: 2,
     parent: "layout",
-    anti_patterns: ["77 stés V1.8 en 500 avant fix Array.isArray (commit 7397ac86)"],
+    anti_patterns: ["77 sociétés V1.8 en 500 avant fix Array.isArray (commit 7397ac86)"],
     code_hooks: ["proxy.ts", "src/app/sandbox/v1-8/[ticker]/page.tsx"],
     auditor: "auto-test",
     severity_if_fail: 5,

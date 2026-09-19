@@ -6,10 +6,10 @@
  *   1. operatingRatioCompetitive : Operating Ratio = OpEx / Revenue (rail/trucking KPI clé)
  *   2. volumeYieldComposite      : composite (Volume YoY + Yield YoY) / 2
  *
- * Univers cible : 11 stés (CHRW, CSX, EXPD, FDX, JBHT, LUV, NSC, UAL, UNP, UPS, WAB).
+ * Univers cible : 11 sociétés (CHRW, CSX, EXPD, FDX, JBHT, LUV, NSC, UAL, UNP, UPS, WAB).
  *
  * i18n : EN + FR obligatoires (EN = canonical). Pas d'em-dash dans FR.
- * Vocabulaire FR strict (stés, pas "sociétés cotées").
+ * Vocabulaire FR strict (sociétés, pas "sociétés cotées").
  *
  * IMPORTANT : pas de commit, pas d'edit sur src/lib/super-kpi.ts. Le
  * caller intégrera lui-même les exports `SECTOR_KPIS` et `SECTOR_STRINGS`.
@@ -117,7 +117,7 @@ export const SECTOR_STRINGS = {
   // ── Generic na fallback ────────────────────────────────────────────
   na_data: {
     en: "Required data not available for this company.",
-    fr: "Données nécessaires non disponibles pour cette sté.",
+    fr: "Données nécessaires non disponibles pour cette société.",
   },
 } as const satisfies Record<string, LocalizedString>;
 

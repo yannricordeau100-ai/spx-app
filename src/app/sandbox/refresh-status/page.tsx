@@ -13,8 +13,8 @@ export const metadata = {
 };
 
 /**
- * Mapping des flags du cron 7h30 vers les blocs UI côté sté.
- * Seuls les blocs "sté" au sens Yann (risks, stories, profit_warning,
+ * Mapping des flags du cron 7h30 vers les blocs UI côté société.
+ * Seuls les blocs "société" au sens Yann (risks, stories, profit_warning,
  * ai_positioning) sont exposés ici. Les autres flags (ec_synthesis,
  * segments_geo, events, governance, dilution, description, headcount,
  * governance_top_holders) restent traités par leurs pipelines dédiés.
@@ -109,13 +109,13 @@ export default async function RefreshStatusPage() {
 
   const tickers = Object.keys(todo.todo);
   const rows: RefreshRow[] = [];
-  // sérialisé pour ne pas saturer le FS sur ~500 stés
+  // sérialisé pour ne pas saturer le FS sur ~500 sociétés
   for (const t of tickers) {
     rows.push(await buildRow(t, todo.todo[t]!));
   }
 
   // VERROU 4 (Yann 16 juil 2026) : historique des runs du cron avec le statut
-  // des 4 verrous par sté (double extraction, complétude, audit rendu).
+  // des 4 verrous par société (double extraction, complétude, audit rendu).
   const history: RunHistoryEntry[] =
     ((historyRaw as unknown as { runs?: RunHistoryEntry[] }).runs ?? []).slice(0, 30);
 

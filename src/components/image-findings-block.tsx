@@ -41,7 +41,7 @@ export type ImageFindingPublic = {
 /**
  * Bloc "Graphiques et Schémas de sources diverses".
  * Carrousel mobile (style Stories) qui affiche les images approuvées
- * pour la sté courante, filtrées par locale active.
+ * pour la société courante, filtrées par locale active.
  */
 export function ImageFindingsBlock({
   findings,

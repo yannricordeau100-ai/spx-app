@@ -199,7 +199,7 @@ export function DockSpyLeft({
 }: {
   sections: DockSpySection[];
   /** Si true, ajoute un mini rack social sous le rack de navigation
-   *  (Yann 19 mai 2026 : présence permanente RS sur les pages sté). */
+   *  (Yann 19 mai 2026 : présence permanente RS sur les pages société). */
   showSocial?: boolean;
 }) {
   const { active, hoverIdx, setHoverIdx, go } = useDockNav(sections);

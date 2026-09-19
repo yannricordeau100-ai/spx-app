@@ -1,7 +1,7 @@
 /**
  * Sector Super-KPIs — PHARMA V1.9.5
  *
- * Cible : 33 stés pharma (PFE, LLY, MRK, NVS, NVO, AZN, JNJ, ROG.SW, etc.)
+ * Cible : 33 sociétés pharma (PFE, LLY, MRK, NVS, NVO, AZN, JNJ, ROG.SW, etc.)
  * Bucket source : /tmp/sector-buckets.json clé "pharma"
  *
  * Deux super-KPIs spécifiques au business model pharmaceutique :

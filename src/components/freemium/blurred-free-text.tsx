@@ -27,7 +27,7 @@ type Props = {
   children: ReactNode;
   /** Override : force le floutage (true) ou la lisibilité (false). */
   blocked?: boolean;
-  /** Ticker de la sté courante. */
+  /** Ticker de la société courante. */
   ticker?: string;
   /** Classe CSS appliquée dans les 2 modes. */
   className?: string;

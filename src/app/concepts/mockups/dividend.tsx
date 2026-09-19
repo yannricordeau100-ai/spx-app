@@ -139,7 +139,7 @@ export function MockupDividend() {
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
       {/* Sticky bar : ticker + variante */}
       <div className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-3">
-        {/* Sélection sté */}
+        {/* Sélection société */}
         <div className="flex items-center gap-2">
           <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-400">
             Société

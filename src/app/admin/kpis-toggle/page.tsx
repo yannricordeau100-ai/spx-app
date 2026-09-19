@@ -20,7 +20,7 @@ import KpisToggleClient, {
  * individuellement les KPIs par société (granulaire, différent du toggle
  * blocs).
  *
- * Source data : pour chaque sté publishable V1.9.5
+ * Source data : pour chaque société publishable V1.9.5
  * (`src/data/v1-9-publishable.json`), lit `v2-pipeline/<t>.json` +
  * `v2-pipeline-enrich/<t>.json`, merge `kpis` + `kpis_supplementary`,
  * filtre `history.length >= 3`, affiche checkbox + métadonnées.
@@ -31,7 +31,7 @@ import KpisToggleClient, {
  * Auth-gate Yann uniquement.
  */
 export const metadata = {
-  title: "KPIs : activer / désactiver par sté · admin · Mettrik AI",
+  title: "KPIs : activer / désactiver par société · admin · Mettrik AI",
   robots: { index: false, follow: false },
 };
 
@@ -198,7 +198,7 @@ async function loadStes(): Promise<SteRow[]> {
 
   const disabledCfg = loadDisabledKpisPerSte();
 
-  // Lire chaque sté en parallèle (cap raisonnable pour le SSR)
+  // Lire chaque société en parallèle (cap raisonnable pour le SSR)
   const rows: SteRow[] = await Promise.all(
     tickers.map(async (tickerRaw): Promise<SteRow | null> => {
       const ticker = tickerRaw.toUpperCase();
@@ -321,7 +321,7 @@ async function loadStes(): Promise<SteRow[]> {
       else hero_review_status = "validated"; // hero spécifique pré-existant = ok
 
       // Yann 5 juin 2026 — Auto-promote hero refactor : point coloré à
-      // gauche de chaque ligne sté.
+      // gauche de chaque ligne société.
       // 🟢 emerald : hero KPI configuré matche un KPI du dataset ET
       //              auto-promote confidence="high".
       // 🟡 amber   : auto-promote confidence="medium" (2 candidats ≥ similaires)
@@ -414,7 +414,7 @@ export default async function KpisTogglePage() {
         </Link>
 
         <h1 className="mb-2 font-display text-[28px] font-bold tracking-tight">
-          KPIs : activer / désactiver par sté
+          KPIs : activer / désactiver par société
         </h1>
         <p className="mb-2 max-w-2xl text-[13.5px] text-zinc-400">
           Cochez pour activer un KPI, décochez pour le cacher sur la fiche
@@ -422,7 +422,7 @@ export default async function KpisTogglePage() {
           affichés sont ceux qui ont au moins 3 ans d&apos;historique.
         </p>
         <p className="mb-6 max-w-2xl text-[12px] text-zinc-500">
-          Source : {stes.length} stés en ligne (univers V1.9.5) ·{" "}
+          Source : {stes.length} sociétés en ligne (univers V1.9.5) ·{" "}
           {totalKpis} KPIs au total · {totalDisabled} KPIs désactivés.
           Persistance : <code className="font-mono">disabled-kpis-per-ste.json</code>.
         </p>

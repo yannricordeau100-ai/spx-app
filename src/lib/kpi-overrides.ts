@@ -6,7 +6,7 @@
  *
  * Format des entrées :
  *
- *   { scope: "ticker:NFLX",            // une sté précise
+ *   { scope: "ticker:NFLX",            // une société précise
  *     action: "add_kpi",
  *     kpi: { ... } }
  *
@@ -98,7 +98,7 @@ export const KPI_OVERRIDES: KpiOverride[] = [
 ];
 
 /**
- * Helper : récupère les overrides applicables à une sté donnée.
+ * Helper : récupère les overrides applicables à une société donnée.
  */
 export function getOverridesForTicker(
   ticker: string,

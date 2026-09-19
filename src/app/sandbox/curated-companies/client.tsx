@@ -208,7 +208,7 @@ export function CuratedCompaniesClient({ rows }: { rows: CurationRow[] }) {
       if (filterPlan !== "all" && plan !== filterPlan) return false;
       if (q && !r.ticker.toUpperCase().includes(q) && !r.name.toUpperCase().includes(q)) return false;
       if (activeFilters.length > 0) {
-        // OR logic : garder si la sté matche au moins un filtre actif
+        // OR logic : garder si la société matche au moins un filtre actif
         const matches = activeFilters.some((k) => r.flags[k]);
         if (!matches) return false;
       }
@@ -533,7 +533,7 @@ export function CuratedCompaniesClient({ rows }: { rows: CurationRow[] }) {
               {filtered.length === 0 && !loading && (
                 <tr>
                   <td colSpan={5} className="px-3 py-6 text-center text-[12px] text-zinc-500">
-                    Aucune sté ne correspond aux filtres actuels.
+                    Aucune société ne correspond aux filtres actuels.
                   </td>
                 </tr>
               )}

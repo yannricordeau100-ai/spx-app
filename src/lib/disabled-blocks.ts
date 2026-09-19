@@ -142,7 +142,7 @@ export function isBlockDisabled(key: DisabledBlockKey | string): boolean {
 }
 
 /* ------------------------------------------------------------------ */
-/* Per-sté overrides                                                  */
+/* Per-société overrides                                                  */
 /* ------------------------------------------------------------------ */
 
 export type DisabledBlocksPerSteConfig = {
@@ -166,7 +166,7 @@ export function loadDisabledBlocksPerSte(): DisabledBlocksPerSteConfig {
 }
 
 /**
- * Renvoie la liste des blocs désactivés pour un ticker donné (per-sté UNIQUEMENT,
+ * Renvoie la liste des blocs désactivés pour un ticker donné (per-société UNIQUEMENT,
  * pas le global). Utilisé par l'UI admin pour pré-cocher les cases.
  */
 export function getDisabledBlocksForTicker(ticker: string): string[] {
@@ -177,7 +177,7 @@ export function getDisabledBlocksForTicker(ticker: string): string[] {
 /**
  * Renvoie true si le bloc est masqué pour ce ticker, soit parce qu'il est
  * désactivé globalement, soit parce qu'il est désactivé spécifiquement pour
- * cette sté. Utilisé côté `company-view.tsx`.
+ * cette société. Utilisé côté `company-view.tsx`.
  */
 export function isBlockDisabledForTicker(
   ticker: string,
@@ -186,7 +186,7 @@ export function isBlockDisabledForTicker(
   if (isBlockDisabled(blockKey)) return true;
   const perSte = getDisabledBlocksForTicker(ticker);
   if (perSte.includes(blockKey)) return true;
-  // Rétro-compatibilité per-sté : ancienne clé legacy `gouvernance_top3`
+  // Rétro-compatibilité per-société : ancienne clé legacy `gouvernance_top3`
   // couvre les 2 nouvelles clés votes + capital.
   if (
     (blockKey === "gouvernance_top3_votes" || blockKey === "gouvernance_top3_capital") &&

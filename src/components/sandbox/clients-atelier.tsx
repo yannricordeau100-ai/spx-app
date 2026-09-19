@@ -142,7 +142,7 @@ export function ClientsAtelier({
                 <ChevronRight className={`size-4 shrink-0 text-zinc-500 transition-transform ${ouvert ? "rotate-90" : ""}`} />
                 <span className="font-mono text-[12px] text-violet-300">{s.code}</span>
                 <span className="text-[15px] font-semibold text-zinc-100">{s.name}</span>
-                <span className="ml-auto font-mono text-[12px] text-zinc-500">{stes.length} sté{stes.length > 1 ? "s" : ""}</span>
+                <span className="ml-auto font-mono text-[12px] text-zinc-500">{stes.length} société{stes.length > 1 ? "s" : ""}</span>
               </button>
               {ouvert && (
                 <div className="border-t border-white/[0.05] px-3 py-2">

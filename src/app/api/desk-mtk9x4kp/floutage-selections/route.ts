@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
   const ticker = (req.nextUrl.searchParams.get("ticker") ?? "GOOGL").toUpperCase();
   const supa = createSupabaseAdminClient();
   // Yann 2 juin 2026 : on agrège TOUTES les soumissions historiques pour
-  // cette sté (auparavant `.limit(1)` ne renvoyait que la dernière session,
+  // cette société (auparavant `.limit(1)` ne renvoyait que la dernière session,
   // donc Yann perdait ses zones précédentes au reload). Chaque POST crée
   // une nouvelle ligne, donc on merge toutes les `selections` en
   // déduplicant par (dom_selector + label + rect).
@@ -189,7 +189,7 @@ export async function POST(req: NextRequest) {
       "utf-8",
     );
 
-    // Génère aussi floutage-rules.json (règles applicables sur autres stés).
+    // Génère aussi floutage-rules.json (règles applicables sur autres sociétés).
     const rulesPath = path.join(
       projectRoot,
       "src",

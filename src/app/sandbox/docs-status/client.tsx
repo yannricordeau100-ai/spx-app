@@ -39,7 +39,7 @@ export function DocsStatusClient() {
       <h1 className="text-2xl font-bold text-zinc-50">Documents par société</h1>
       <p className="mt-1 text-sm text-zinc-400">
         SP500 avec ES ou ER : <b className="text-emerald-400">{spEser}/503</b>{" · "}
-        toutes stés avec ES/ER : {eserAll}{" · "}total : {INV.length}{" · "}affichées : {rows.length}
+        toutes sociétés avec ES/ER : {eserAll}{" · "}total : {INV.length}{" · "}affichées : {rows.length}
       </p>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">

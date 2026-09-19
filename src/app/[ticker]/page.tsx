@@ -99,12 +99,12 @@ const loadTranscriptSummary = unstable_cache(
 );
 
 /**
- * Yann 28 juillet 2026 : les 5 stés du dataset V1 legacy (GOOGL, META, MSCI,
+ * Yann 28 juillet 2026 : les 5 sociétés du dataset V1 legacy (GOOGL, META, MSCI,
  * SPGI, CAT) étaient les SEULES de tout l'univers à ne pas passer par le
  * loader V1.9.5. Résultat sur /googl : 5 indicateurs annuels (dataset figé
  * `src/data/google.json`) au lieu des 60 KPI trimestriels de la chaîne KPI v3,
  * et bouton "Trimestriel" grisé sur le hero faute de `period_type: "quarter"`.
- * Les 498 autres stés étaient déjà correctes via /sandbox/v1-9-5/<ticker>.
+ * Les 498 autres sociétés étaient déjà correctes via /sandbox/v1-9-5/<ticker>.
  * On aligne donc la route publique sur le même pipeline (règle d'or §0 :
  * dernière version uniquement), en gardant l'URL canonique /<ticker> pour
  * le SEO et le floutage freemium géré par FreemiumBlurProvider.
@@ -225,8 +225,8 @@ export default async function TickerPage({
     }
   }
 
-  // Pipeline V1.9.5 (identique aux 498 autres stés). Fallback sur le dataset
-  // legacy uniquement si le loader ne rend pas la sté, pour ne jamais servir
+  // Pipeline V1.9.5 (identique aux 498 autres sociétés). Fallback sur le dataset
+  // legacy uniquement si le loader ne rend pas la société, pour ne jamais servir
   // une page vide sur une URL publique indexée.
   const locale = await getServerLocale();
   // 8 sept 2026 (lenteur des fiches) : les lectures independantes partent EN

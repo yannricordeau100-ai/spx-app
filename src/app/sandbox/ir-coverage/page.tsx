@@ -94,7 +94,7 @@ export default function IrCoveragePage() {
                 <span className={`rounded-full px-2 py-0.5 text-[10.5px] font-semibold uppercase tracking-wider ${catBadge(cat)}`}>
                   {cat}
                 </span>
-                <span className="text-[11.5px] text-zinc-400">{s.count} stés</span>
+                <span className="text-[11.5px] text-zinc-400">{s.count} sociétés</span>
               </div>
               <div className="mt-2 grid grid-cols-2 gap-3 text-sm">
                 <div>

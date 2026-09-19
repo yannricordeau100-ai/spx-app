@@ -107,7 +107,7 @@ export function BlocksControlClient({
           </span>
         </div>
         <p className="text-sm text-zinc-400">
-          Active ou désactive chaque bloc globalement, ou par sté en exception. Désactivé = placeholder &laquo; Bientôt disponible &raquo; affiché à la place du bloc.
+          Active ou désactive chaque bloc globalement, ou par société en exception. Désactivé = placeholder &laquo; Bientôt disponible &raquo; affiché à la place du bloc.
         </p>
         <div className="mt-3 flex items-center gap-3 text-xs">
           {saving && <span className="text-emerald-400 animate-pulse">Sauvegarde…</span>}
@@ -122,7 +122,7 @@ export function BlocksControlClient({
           <div>
             <h2 className="text-lg font-semibold">Toggles globaux</h2>
             <p className="text-xs text-zinc-500 mt-1">
-              S'appliquent à toutes les stés. Désactiver ici masque le bloc partout (les overrides par sté ne peuvent pas le rouvrir).
+              S'appliquent à toutes les sociétés. Désactiver ici masque le bloc partout (les overrides par société ne peuvent pas le rouvrir).
             </p>
           </div>
           <div className="flex gap-2">
@@ -163,9 +163,9 @@ export function BlocksControlClient({
 
       {/* Per ticker overrides */}
       <section className="max-w-5xl rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
-        <h2 className="text-lg font-semibold mb-1">Exceptions par sté</h2>
+        <h2 className="text-lg font-semibold mb-1">Exceptions par société</h2>
         <p className="text-xs text-zinc-500 mb-5">
-          Définit un override par sté. N'a effet QUE si le toggle global du bloc est activé.
+          Définit un override par société. N'a effet QUE si le toggle global du bloc est activé.
         </p>
 
         <div className="flex gap-2 mb-6">

@@ -2,7 +2,7 @@
  * Sector Super-KPIs — SEMIS V1.9.5
  *
  * 2 super-KPIs sectoriels pour semiconducteurs (NVDA, TSM, AVGO, AMD, QCOM,
- * MU, AMAT, LRCX, KLAC, 36 stés) :
+ * MU, AMAT, LRCX, KLAC, 36 sociétés) :
  *   1. dataCenterMix         : part du revenu Data Center / AI (Stratégie)
  *   2. capexIntensityVsGross : Capex / Gross Profit (Risque)
  *

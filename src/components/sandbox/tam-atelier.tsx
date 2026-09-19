@@ -109,10 +109,10 @@ export function TamAtelier({
     { id: "secteurs", label: "Arborescence", n: tickers.length },
   ];
 
-  /* Bout de branche de l arborescence GICS (Yann 07 sept 2026) : les stés de
+  /* Bout de branche de l arborescence GICS (Yann 07 sept 2026) : les sociétés de
      la sous-industrie avec le ou les TAM retenus (ou leur statut). */
   /* Yann 07 sept 2026 : au bout de chaque branche, la carte complete de
-     chaque sté (les memes cartes que les autres onglets : candidats, revenu
+     chaque société (les memes cartes que les autres onglets : candidats, revenu
      segment, taille du marché, part captée, sources, cases à cocher). Le
      propriétaire valide ainsi tout depuis l arborescence, sans mise en
      ligne. Une ligne compacte au-dessus résume le ou les TAM retenus. */
@@ -204,7 +204,7 @@ export function TamAtelier({
       ) : (
         <div className="mt-5">
           {/* Yann 07 sept 2026 : meme arborescence 4 niveaux que l atelier
-              GICS, avec au bout de chaque branche les stés et le(s) TAM
+              GICS, avec au bout de chaque branche les sociétés et le(s) TAM
               retenus. */}
           <Arbre
             mode="societes"
@@ -212,7 +212,7 @@ export function TamAtelier({
             compte={(sub) => {
               const stes = (annuaire.parSousIndustrie[sub.code] ?? []).filter((s) => tam[s.ticker.toUpperCase()]);
               const arb = stes.filter((s) => choix[s.ticker.toUpperCase()] !== undefined).length;
-              return stes.length > 0 ? `${stes.length} sté${stes.length > 1 ? "s" : ""} · ${arb} arbitrée${arb > 1 ? "s" : ""}` : "";
+              return stes.length > 0 ? `${stes.length} société${stes.length > 1 ? "s" : ""} · ${arb} arbitrée${arb > 1 ? "s" : ""}` : "";
             }}
           />
         </div>

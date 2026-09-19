@@ -12,7 +12,7 @@ export const metadata = {
 export default async function IrSourcesAdminPage() {
   await requireDeskOwner();
   const rows = await listIrSources();
-  // Liste top 307 V1.8 pour pré-seed les stés manquantes côté client
+  // Liste top 307 V1.8 pour pré-seed les sociétés manquantes côté client
   const top307 = (V18_TICKERS as string[]).slice(0, 307);
   return <IrSourcesClient initialRows={rows} top307Tickers={top307} />;
 }

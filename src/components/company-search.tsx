@@ -82,7 +82,7 @@ import v195CleanAllJson from "@/data/v1-9-5-clean-all-tickers.json";
 import heroKpiIndexJson from "@/data/v2-pipeline/_hero-kpi-index.json";
 
 /**
- * Yann (2 juin 2026) : index hero KPI compact (151 KB, 1992 stés) pour
+ * Yann (2 juin 2026) : index hero KPI compact (151 KB, 1992 sociétés) pour
  * afficher le hero KPI à droite de chaque résultat de recherche, pas
  * juste pour les 5 V1.0. Source `_merged.json` (44 MB, server-only).
  * Régénération : `python3 scripts/build-hero-kpi-index.py`.
@@ -101,11 +101,11 @@ const HERO_KPI_INDEX: Record<string, HeroKpiEntry> = heroKpiIndexJson as unknown
 
 /**
  * Yann (30 mai 2026, révisé 8 juin 2026) : V1.9.5 strict = univers clean_all
- * uniquement. La recherche n'affiche QUE les stés de cette liste (source de
+ * uniquement. La recherche n'affiche QUE les sociétés de cette liste (source de
  * vérité = `v1-9-5-clean-all-tickers.json`). Les autres tickers du pipeline
  * `_merged.json` (Pass 3 validés mais pas clean_all) sont volontairement
  * masqués sinon `/sandbox/v1-9-5/<ticker>` redirige silencieusement vers
- * l'overview (cf. logique `loadCleanAllSet` côté page sté). Set figé au build.
+ * l'overview (cf. logique `loadCleanAllSet` côté page société). Set figé au build.
  *
  * IMPORTANT (fix 8 juin 2026) : la liste contient parfois la classe d'action
  * "alias" (ex `BRK.B`) alors que l'index de recherche et `_merged.json`
@@ -194,7 +194,7 @@ export function CompanySearch({
   const router = useRouter();
 
   /**
-   * Yann 9 juin 2026 : la search ne montre QUE les stés "online" (publiées).
+   * Yann 9 juin 2026 : la search ne montre QUE les sociétés "online" (publiées).
    * Source de vérité runtime = /api/online-tickers (lit desk_curated_companies).
    * Tant que la liste n'est pas chargée (null) on garde le comportement
    * historique (tout clean_all) pour ne jamais casser la search ; une fois
@@ -247,7 +247,7 @@ export function CompanySearch({
    * source puis on priorise les 5 V1 en tête (plus riches : hero KPI,
    * secteur, etc.). Chaque résultat porte son origine ("v1" | "v17" | "v19")
    * pour que ResultCard route correctement :
-   *   - v1    → `/<ticker>` (5 stés démo V1)
+   *   - v1    → `/<ticker>` (5 sociétés démo V1)
    *   - v17   → `/sandbox/v1-7-5/<ticker>` si Pass 3 validé, sinon
    *             `/sandbox/v1-8/<ticker>` (V1.8 relâché)
    *   - v19   → `/sandbox/v1-9/<ticker>` (fiche "en préparation" pour
@@ -329,7 +329,7 @@ export function CompanySearch({
       return 0;
     };
 
-    // V1 (5 stés, riches)
+    // V1 (5 sociétés, riches)
     for (const t of TICKERS) {
       const aliases = Object.entries(TICKER_ALIASES)
         .filter(([, target]) => target === t)
@@ -351,7 +351,7 @@ export function CompanySearch({
     // validée Pass 3 (ils tomberont sur la fiche V1.8 relâchée).
     // Skip ceux déjà présents en V1 (évite doublon).
     // Si `searchableTickers` est fourni, on restreint le scope (ex V1.8
-    // = top 308 hors Chine = 306 stés).
+    // = top 308 hors Chine = 306 sociétés).
     const v1Set = new Set(TICKERS.map((t) => t.toUpperCase()));
     const scopeSet = searchableTickers
       ? new Set(searchableTickers.map((t) => t.toUpperCase()))
@@ -413,7 +413,7 @@ export function CompanySearch({
     // │ DEDUP final par ticker upper-case. Même si _tickers-index.json │
     // │ ou v1-9-missing.json se polluent avec des doublons (BABA × 2,  │
     // │ class-shares oubliés, alias mal mappés), la search NE DOIT     │
-    // │ JAMAIS afficher la même sté deux fois.                         │
+    // │ JAMAIS afficher la même société deux fois.                         │
     // │                                                                │
     // │ Historique : 5 juin 2026 — Yann a vu BABA apparaître 2× sur    │
     // │ "AVGO" et 4× sur "app". Cause : duplicate dans index +         │
@@ -430,7 +430,7 @@ export function CompanySearch({
       seen.add(key);
       deduped.push(r);
     }
-    // Filtre online (Yann 9 juin 2026) : ne montrer que les stés publiées.
+    // Filtre online (Yann 9 juin 2026) : ne montrer que les sociétés publiées.
     // onlineSet === null = pas encore chargé → comportement historique (tout
     // clean_all). Une fois chargé, filtre strict aux online.
     const onlineFiltered = onlineSet
@@ -439,7 +439,7 @@ export function CompanySearch({
     return onlineFiltered;
   }, [query, searchableTickers, v19UniverseSet, onlineSet]);
 
-  // Compteur "X stés au total" : override fourni en prop, sinon V1 (5) +
+  // Compteur "X sociétés au total" : override fourni en prop, sinon V1 (5) +
   // V1.7 Pass 3 validées (le défaut historique).
   const totalCatalog =
     totalLabel ??
@@ -557,7 +557,7 @@ export function CompanySearch({
                   data-1p-ignore
                   data-lpignore="true"
                   onKeyDown={(e) => {
-                    // Yann 14 mai 2026 : Entrée ouvre la sté quand 1 seul résultat.
+                    // Yann 14 mai 2026 : Entrée ouvre la société quand 1 seul résultat.
                     // Yann 26 mai 2026 : toute recherche route vers la DERNIÈRE
                     // version (LATEST_VERSION_PATH), peu importe la source.
                     if (e.key === "Enter" && results.length === 1) {
@@ -765,10 +765,10 @@ function ResultCard({
 /**
  * Rend le hero KPI dans la colonne droite des cartes V17/V19, façon
  * carte ResultCard V1 (label uppercase tracking-wider + valeur mono +
- * variation YoY colorée). Renvoie null si la sté n'est pas dans l'index
+ * variation YoY colorée). Renvoie null si la société n'est pas dans l'index
  * hero (cas rare) ou si la valeur n'est pas formattable.
  *
- * Yann 2 juin 2026 : couvre les 673 stés V1.9.5 (clean_all ∪ top 307 ∪
+ * Yann 2 juin 2026 : couvre les 673 sociétés V1.9.5 (clean_all ∪ top 307 ∪
  * SP500), pas juste les 5 V1.0. Cohérent avec le screenshot DAP/Cloud/
  * Backlog côté V1.
  */
@@ -824,9 +824,9 @@ function ResultHeroKpi({ ticker }: { ticker: string }) {
   );
 }
 
-/* ─── Carte résultat V1.7 (sté pipeline, format léger) ──────────────── */
+/* ─── Carte résultat V1.7 (société pipeline, format léger) ──────────────── */
 /**
- * Variante de ResultCard pour les 1602 stés V1.7 (pipeline LLM).
+ * Variante de ResultCard pour les 1602 sociétés V1.7 (pipeline LLM).
  * On a moins d'info qu'en V1 : pas de hero KPI calculé, pas de yoy.
  * On affiche logo (placeholder ticker), nom, ticker, secteur, et un
  * petit chip "V1.7" pour signaler que c'est une fiche pipeline.
@@ -908,9 +908,9 @@ function ResultCardV17({
   );
 }
 
-/* ─── Carte résultat V1.9 (sté EU non encore extraite) ──────────────── */
+/* ─── Carte résultat V1.9 (société EU non encore extraite) ──────────────── */
 /**
- * Variante de ResultCard pour les 78 stés V1.9 absentes de `_merged.json`.
+ * Variante de ResultCard pour les 78 sociétés V1.9 absentes de `_merged.json`.
  * On n'a aucune donnée pipeline encore (pas de sector, pas de hero), juste
  * un nom (Wikipedia) + un pays. Route vers `/sandbox/v1-9/<ticker>` (page
  * "Fiche en préparation" gérée par Agent B).

@@ -22,7 +22,7 @@ type TestCase = {
   type: ChartType;
   values: number[];
   labels: string[];
-  /** Couleur brand sté pour courbe/barre (sinon cyan default) */
+  /** Couleur brand société pour courbe/barre (sinon cyan default) */
   brandColor?: string;
   brandColor2?: string; // pour gradient
 };
@@ -696,10 +696,10 @@ export function ChartExportTestsClient() {
           <p className="mt-2 max-w-3xl text-sm text-zinc-400">
             6 tests référence (3 types × 2 thèmes). Modèles T12 (courbe NVIDIA
             quarterly), T3 (barres Microsoft Cloud), T10 (variation
-            TotalEnergies). Couleurs brand sté pour courbe/barres.
+            TotalEnergies). Couleurs brand société pour courbe/barres.
           </p>
           <p className="mt-2 text-xs text-zinc-500">
-            Le téléchargement live sur la page sté reproduit le graph affiché
+            Le téléchargement live sur la page société reproduit le graph affiché
             (courbe/barres/variation + thème + axe Y). Cette page sert à
             valider le template overlay (header + footer + signature).
           </p>
@@ -713,7 +713,7 @@ export function ChartExportTestsClient() {
 
         <footer className="mt-10 border-t border-white/10 pt-6 text-xs text-zinc-500">
           <p>
-            Spec v2 (3 juin 2026 22h47): logo sté plus petit, &laquo; Powered
+            Spec v2 (3 juin 2026 22h47): logo société plus petit, &laquo; Powered
             by &raquo; à la place de &laquo; KPIs &amp; Data :&raquo;, Mettrik AI
             logo agrandi, Y-axis label centré sur l&apos;axe, X handle
             &laquo; @Mettrik_AI &raquo; bottom-center.

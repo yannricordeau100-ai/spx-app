@@ -4,16 +4,16 @@
  * 2 super-KPIs calibrés sur le business model mining + metals :
  *   1. aisCostPosition    : All-In Sustaining Cost, positionnement dans
  *                           la courbe de coûts du métal extrait (or, cuivre,
- *                           autres). Plus le coût est bas, mieux la sté
+ *                           autres). Plus le coût est bas, mieux la société
  *                           résiste aux cycles de prix.
  *   2. productionGrowth   : croissance annuelle de la production du volume
  *                           principal (or, cuivre, fer, autres) sur 5 ans.
  *
- * Univers cible : 26 stés Mining + Metals (BHP, RIO, GLEN.L, NEM, FCX,
+ * Univers cible : 26 sociétés Mining + Metals (BHP, RIO, GLEN.L, NEM, FCX,
  * NHY.OL, FRES.L, NUE, STLD, MLM, VMC, et autres chemicals/materials liés).
  *
  * i18n : EN + FR obligatoires (règle Yann 17 mai 2026 : EN = canonical).
- * Anti-em-dash dans rationale FR. Vocabulaire FR strict (stés, etc.).
+ * Anti-em-dash dans rationale FR. Vocabulaire FR strict (sociétés, etc.).
  *
  * IMPORTANT : pas de commit, pas d'edit sur src/lib/super-kpi.ts. Le
  * caller intégrera lui-même les exports `SECTOR_KPIS` et `SECTOR_STRINGS`.
@@ -65,7 +65,7 @@ export const SECTOR_STRINGS = {
   },
   aisc_interp_top: {
     en: "Best-in-class cost position. The company sits in the bottom quartile of the industry cost curve, capable of generating cash even at depressed commodity prices. Structural moat in a cyclical business.",
-    fr: "Positionnement de coût best-in-class. La sté est dans le quartile bas de la courbe de coûts sectorielle, capable de générer du cash même à prix de matière déprimés. Avantage structurel dans un business cyclique.",
+    fr: "Positionnement de coût best-in-class. La société est dans le quartile bas de la courbe de coûts sectorielle, capable de générer du cash même à prix de matière déprimés. Avantage structurel dans un business cyclique.",
   },
   aisc_interp_mid: {
     en: "Solid cost position, around the industry average. Generates cash through the cycle but margin compression hits faster when commodity prices fall.",
@@ -111,7 +111,7 @@ export const SECTOR_STRINGS = {
   },
   prod_growth_interp_top: {
     en: "Strong production growth. The company grows its main volume well above the industry average, sign of successful project pipeline execution and reserve replacement. Embedded operating leverage if commodity prices stay supportive.",
-    fr: "Forte croissance de production. La sté fait croître son volume principal nettement au-dessus de la moyenne sectorielle, signe d'une bonne exécution du pipeline de projets et du remplacement des réserves. Levier opérationnel embarqué si les prix de matière restent porteurs.",
+    fr: "Forte croissance de production. La société fait croître son volume principal nettement au-dessus de la moyenne sectorielle, signe d'une bonne exécution du pipeline de projets et du remplacement des réserves. Levier opérationnel embarqué si les prix de matière restent porteurs.",
   },
   prod_growth_interp_mid: {
     en: "Solid production growth, broadly in line with the industry. The reserve base is maintained without aggressive expansion. Standard organic profile.",
@@ -133,7 +133,7 @@ export const SECTOR_STRINGS = {
   // ── Generic na fallback ────────────────────────────────────────────
   na_data: {
     en: "Required data not available for this company.",
-    fr: "Données nécessaires non disponibles pour cette sté.",
+    fr: "Données nécessaires non disponibles pour cette société.",
   },
 } as const satisfies Record<string, LocalizedString>;
 

@@ -52,7 +52,7 @@ function defaultLabels(n: number): string[] {
  * Yann 17 mai 2026 — D1 fix cascade.
  * `rescaleForReadability` retourne toujours en RAW USD ($T/$B/$M/$K/$) car
  * les facteurs (1e9/1e6/1e3) sont identiques quelle que soit la devise.
- * Pour préserver la devise à l'affichage de l'axe Y sur les stés non-USD
+ * Pour préserver la devise à l'affichage de l'axe Y sur les sociétés non-USD
  * (1604 Mds €, 43 Mds £, ~168 Mds CHF/JPY/DKK/INR/etc), on restitue le
  * symbole d'origine ici. ChartAxisHeader gère "€B", "€M", "£B", "£M",
  * "Mds CHF", "Mds JPY", "M CHF", etc.
@@ -338,7 +338,7 @@ export function ChartCycleControls({
       {/* Yann 8 juin 2026 : bouton TÉLÉCHARGER déplacé ici, tout à droite de
           la ligne des onglets (au-dessus du titre du graph). Plus visible
           qu'avant (était opacity-50 sur le chart) : fond teinté à la couleur
-          de la sté + bordure + texte/icône net. Exporte le chart visible. */}
+          de la société + bordure + texte/icône net. Exporte le chart visible. */}
       {/* Yann 2 sept 2026 : le bouton telecharger devient un menu a deux
           usages (telecharger le PNG, partager sur X), web ET mobile. */}
       {mode !== "panel" && (

@@ -45,7 +45,7 @@ export default async function FavoritesPage({
         </h1>
         <p className="mt-1 text-[14px] text-zinc-400">
           Sociétés et KPI que tu suis activement. Stockés séparément pour suivre des
-          KPI précis sans toute la sté.
+          KPI précis sans toute la société.
         </p>
 
         {/* Tabs */}

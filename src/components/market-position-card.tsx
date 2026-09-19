@@ -16,7 +16,7 @@ function fmt(n: number, decimals = 0) {
 /**
  * Format l'unité pour affichage compact "Md $" (au lieu de "Mds $" long).
  * Yann 17 mai 2026 : avant, conditionnelle stricte `$B → "Md $"` ratait
- * "Mds $" (2173 stés), "B $" mixte (270 stés), "Mds €" (1604 stés).
+ * "Mds $" (2173 sociétés), "B $" mixte (270 sociétés), "Mds €" (1604 sociétés).
  * Fix : passer par formatUnit puis raccourcir "Mds X" → "Md X".
  */
 function unitLabel(unit: string) {

@@ -54,7 +54,7 @@ export function KpiLintView({ report }: { report: Report }) {
     <div className="mx-auto max-w-6xl px-4 py-8 text-zinc-100">
       <h1 className="text-2xl font-bold">KPI Lint : conformité de tous les KPI</h1>
       <p className="mt-1 text-sm text-zinc-400">
-        Vérification programmatique de chaque KPI de chaque sté ({report.universe} stés) via le loader et les
+        Vérification programmatique de chaque KPI de chaque société ({report.universe} sociétés) via le loader et les
         fonctions de rendu réels. Généré le {new Date(report.generated_at).toLocaleString("fr-FR")}. Relance :
         <code className="ml-1 rounded bg-white/10 px-1">npx tsx scripts/kpi-lint.ts</code>
       </p>
@@ -63,7 +63,7 @@ export function KpiLintView({ report }: { report: Report }) {
       <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3">
           <div className="text-2xl font-bold text-emerald-400">{cleanStes}</div>
-          <div className="text-xs text-zinc-400">stés 100 % conformes</div>
+          <div className="text-xs text-zinc-400">sociétés 100 % conformes</div>
         </div>
         <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-3">
           <div className="text-2xl font-bold text-rose-400">{report.rouges}</div>
@@ -75,7 +75,7 @@ export function KpiLintView({ report }: { report: Report }) {
         </div>
         <div className="rounded-xl border border-white/10 bg-white/5 p-3">
           <div className="text-2xl font-bold">{report.stes_avec_issues}</div>
-          <div className="text-xs text-zinc-400">stés avec au moins 1 anomalie</div>
+          <div className="text-xs text-zinc-400">sociétés avec au moins 1 anomalie</div>
         </div>
       </div>
 
@@ -108,8 +108,8 @@ export function KpiLintView({ report }: { report: Report }) {
         </table>
       </div>
 
-      {/* Stés les plus touchées */}
-      <h2 className="mt-8 text-lg font-semibold">Par sté</h2>
+      {/* Sociétés les plus touchées */}
+      <h2 className="mt-8 text-lg font-semibold">Par société</h2>
       <div className="mt-3 flex flex-wrap gap-1.5">
         {byTicker.slice(0, 60).map(([t, c]) => (
           <button
@@ -164,7 +164,7 @@ export function KpiLintView({ report }: { report: Report }) {
         <table className="w-full text-left text-sm">
           <thead className="bg-white/5 text-xs uppercase text-zinc-400">
             <tr>
-              <th className="px-3 py-2">Sté</th>
+              <th className="px-3 py-2">Société</th>
               <th className="px-3 py-2">KPI</th>
               <th className="px-3 py-2">Règle</th>
               <th className="px-3 py-2">Détail</th>
@@ -174,7 +174,7 @@ export function KpiLintView({ report }: { report: Report }) {
             {filtered.slice(0, 400).map((i, n) => (
               <tr key={n} className="border-t border-white/5">
                 <td className="px-3 py-1.5 font-mono text-xs">{i.ticker}</td>
-                <td className="max-w-[220px] truncate px-3 py-1.5 text-xs">{i.kpi || "(sté)"}</td>
+                <td className="max-w-[220px] truncate px-3 py-1.5 text-xs">{i.kpi || "(société)"}</td>
                 <td className="whitespace-nowrap px-3 py-1.5">
                   <span
                     className={`rounded px-1.5 py-0.5 font-mono text-[10px] ${
@@ -190,7 +190,7 @@ export function KpiLintView({ report }: { report: Report }) {
           </tbody>
         </table>
         {filtered.length > 400 && (
-          <div className="px-3 py-2 text-xs text-zinc-500">Affichage limité aux 400 premières lignes ; filtre par sté ou règle pour affiner.</div>
+          <div className="px-3 py-2 text-xs text-zinc-500">Affichage limité aux 400 premières lignes ; filtre par société ou règle pour affiner.</div>
         )}
       </div>
     </div>

@@ -82,7 +82,7 @@ export function KpiSearchClient({ initial }: { initial: KpiSearchInitialPayload 
           </h1>
           <p className="mt-2 text-sm text-zinc-400">
             {uniqueShorts.toLocaleString("fr-FR")} KPIs uniques sur{" "}
-            {universeSize.toLocaleString("fr-FR")} stés &middot; V1.9.5
+            {universeSize.toLocaleString("fr-FR")} sociétés &middot; V1.9.5
           </p>
 
           {/* Search input */}
@@ -128,7 +128,7 @@ export function KpiSearchClient({ initial }: { initial: KpiSearchInitialPayload 
             {/* Min count slider */}
             <div className="flex items-center gap-3">
               <span className="text-xs uppercase tracking-wider text-zinc-500">
-                Min stés :
+                Min sociétés :
               </span>
               <input
                 type="range"
@@ -150,7 +150,7 @@ export function KpiSearchClient({ initial }: { initial: KpiSearchInitialPayload 
                 className="size-4 rounded border-zinc-700 bg-zinc-950 accent-violet-500"
               />
               <span className="text-xs text-zinc-300">
-                Seulement KPIs wow (≥ 3 stés)
+                Seulement KPIs wow (≥ 3 sociétés)
               </span>
             </label>
           </div>
@@ -258,7 +258,7 @@ function KpiResultCard({
             <Users className="size-3.5 text-zinc-500" aria-hidden />
             Présent dans{" "}
             <span className="font-mono text-violet-300">{tickers.length}</span>{" "}
-            sté{tickers.length > 1 ? "s" : ""}
+            société{tickers.length > 1 ? "s" : ""}
           </p>
         </div>
       </header>
@@ -287,7 +287,7 @@ function KpiResultCard({
             ) : (
               <>
                 <ChevronDown className="size-3.5" aria-hidden />
-                Voir toutes les {tickers.length} stés
+                Voir toutes les {tickers.length} sociétés
               </>
             )}
           </button>

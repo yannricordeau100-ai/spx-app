@@ -65,14 +65,14 @@ export function IrSourcesClient({
   }
 
   async function seedTop307() {
-    if (!confirm(`Pré-remplir la table avec les ${top307Tickers.length} stés du top 307 V1.8 ? (statut TODO)`)) return;
+    if (!confirm(`Pré-remplir la table avec les ${top307Tickers.length} sociétés du top 307 V1.8 ? (statut TODO)`)) return;
     const result = await api<{ inserted: number; skipped: number }>(
       "/api/desk/ir-sources",
       "POST",
       { action: "seed", tickers: top307Tickers },
     );
     if (result) {
-      setMsg({ type: "ok", text: `✅ ${result.inserted} stés ajoutées, ${result.skipped} déjà présentes` });
+      setMsg({ type: "ok", text: `✅ ${result.inserted} sociétés ajoutées, ${result.skipped} déjà présentes` });
       await refresh();
     }
   }
@@ -94,13 +94,13 @@ export function IrSourcesClient({
   }
 
   async function deleteRow(ticker: string) {
-    if (!confirm(`Supprimer la sté ${ticker} de la table IR ?`)) return;
+    if (!confirm(`Supprimer la société ${ticker} de la table IR ?`)) return;
     await api(`/api/desk/ir-sources/${ticker}`, "DELETE");
     await refresh();
   }
 
   async function newTicker() {
-    const ticker = prompt("Ticker de la nouvelle sté :");
+    const ticker = prompt("Ticker de la nouvelle société :");
     if (!ticker) return;
     await api("/api/desk/ir-sources", "POST", { ticker: ticker.toUpperCase() });
     await refresh();
@@ -181,12 +181,12 @@ export function IrSourcesClient({
           disabled={busy}
           className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 font-semibold text-zinc-100 hover:bg-white/[0.08] disabled:opacity-50"
         >
-          <Plus className="size-3.5" />Ajouter sté
+          <Plus className="size-3.5" />Ajouter société
         </button>
       </div>
 
       <p className="mb-4 rounded-lg border border-violet-500/20 bg-violet-500/[0.05] px-3 py-2 text-[12px] text-zinc-300">
-        Pour chaque sté, saisir <strong>jusqu'à 4 URLs</strong> : site corp (accueil), page d'accueil IR,
+        Pour chaque société, saisir <strong>jusqu'à 4 URLs</strong> : site corp (accueil), page d'accueil IR,
         page principale des docs IR, et 0-N pages additionnelles (si docs éclatés). Exemple NVDA :
         un seul lien (<code>investor.nvidia.com/financial-info/financial-reports/default.aspx</code>) car tout est regroupé.
         Le scraper Python (CONV-DATA) utilisera ces URLs pour télécharger les CFO commentary, press releases,
@@ -196,8 +196,8 @@ export function IrSourcesClient({
       {filtered.length === 0 ? (
         <div className="rounded-xl border border-amber-500/20 bg-amber-500/[0.05] p-6 text-center text-[13px] text-amber-200">
           {rows.length === 0
-            ? "Aucune sté. Clique « Pré-remplir top 307 V1.8 » pour seeder."
-            : `Aucune sté correspondant au filtre (${filter}${search ? ` + recherche "${search}"` : ""}).`}
+            ? "Aucune société. Clique « Pré-remplir top 307 V1.8 » pour seeder."
+            : `Aucune société correspondant au filtre (${filter}${search ? ` + recherche "${search}"` : ""}).`}
         </div>
       ) : (
         <div className="overflow-x-auto rounded-xl border border-white/[0.06]">

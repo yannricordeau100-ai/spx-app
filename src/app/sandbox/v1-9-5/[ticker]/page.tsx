@@ -25,11 +25,11 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { tierDepuisAbonnement, tierPourFiche } from "@/lib/freemium/tier-serveur";
 
 // V1.9.5 = filtre strict is_clean_all (a-f + g-m post audit qualité).
-// Si la sté n'est pas clean_all → redirect vers /sandbox/v1-9-5 (overview).
+// Si la société n'est pas clean_all → redirect vers /sandbox/v1-9-5 (overview).
 async function loadCleanAllSet(): Promise<Set<string>> {
   // Yann 4 juillet 2026 : scope public = SP500 uniquement. La liste
   // v1-9-5-clean-all-tickers.json (SP500 avec KPIs complets) est la source
-  // de vérité de visibilité : toute sté hors liste => notFound, même par URL.
+  // de vérité de visibilité : toute société hors liste => notFound, même par URL.
   const sp500Path = path.join(
     process.cwd(),
     "src/data/v1-9-5-clean-all-tickers.json",
@@ -38,7 +38,7 @@ async function loadCleanAllSet(): Promise<Set<string>> {
     const sp500Raw = await fs.readFile(sp500Path, "utf-8");
     const tickers = (JSON.parse(sp500Raw) as { tickers: string[] }).tickers;
     // Yann 29 mai 2026 : normaliser les variantes de séparateur (BRK.B / BRK-B
-    // / BRK_B = même sté). Le set contient TOUTES les variantes pour absorber
+    // / BRK_B = même société). Le set contient TOUTES les variantes pour absorber
     // l'écart entre la liste (utilise ".") et URL ("-").
     const out = new Set<string>();
     for (const t of tickers) {
@@ -242,7 +242,7 @@ export default async function SandboxV195TickerPage({
 }) {
   const { ticker } = await params;
   const sp = searchParams ? await searchParams : {};
-  // Yann 18 août 2026 : les non-inscrits n'accèdent PAS aux pages stés
+  // Yann 18 août 2026 : les non-inscrits n'accèdent PAS aux pages sociétés
   // (uniquement accueil + pricing). Bypass audit_token pour les vérifs
   // automatisées (curl, crons, inspections).
   const auditBypass =

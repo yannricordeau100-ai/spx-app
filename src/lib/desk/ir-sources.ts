@@ -1,7 +1,7 @@
 /**
  * ir-sources.ts — wrappers Supabase pour le module sources IR.
  *
- * Yann remplit ici les URLs IR de chaque sté (home corp + page IR home +
+ * Yann remplit ici les URLs IR de chaque société (home corp + page IR home +
  * page docs + pages additionnelles). Le scraper Python (CONV-DATA) lit
  * ces URLs et télécharge auto les PDFs (press releases, CFO commentary,
  * transcripts, earning slides) qui ne sont PAS sur SEC EDGAR.

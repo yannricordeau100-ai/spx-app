@@ -8,7 +8,7 @@ import { ArrowLeft, ShieldCheck, FileSearch, BadgeCheck } from "lucide-react";
  * de chiffres inventés).
  *
  * IMPORTANT : composant 100% autonome (aucun PageSearch/ThemeToggle/AuthNav ni
- * provider), car il est rendu hors de l'arbre company-view (la sté n'a pas de
+ * provider), car il est rendu hors de l'arbre company-view (la société n'a pas de
  * données chargeables). Toute dépendance à un provider ferait planter le SSR.
  *
  * Table éditable : ajouter / retirer un ticker selon l'avancement des données.

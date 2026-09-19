@@ -9,7 +9,7 @@ import { SocialLinksRow } from "@/components/social-links-row";
  * Yann 20 mai 2026 16h :
  *  - Sur pages SOCIÉTÉ (V1.8 / V1.9 avec DockSpy gauche qui contient déjà
  *    les liens sociaux) : NE RIEN AFFICHER.
- *  - Sur pages NON-sté (home, /pricing, /contact, /legal/*, /maintenance,
+ *  - Sur pages NON-société (home, /pricing, /contact, /legal/*, /maintenance,
  *    /concepts publics, etc.) : bouton X seul (style V7 holographic conic).
  *
  * Yann (25 mai 2026) :

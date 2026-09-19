@@ -154,7 +154,7 @@ const STR = {
   },
   conc_interp_low: {
     en: "Healthy diversification. No single segment weighs more than a third of revenue, so an isolated downturn won't push the company into recession.",
-    fr: "Diversification saine. Aucun segment ne pèse plus du tiers du CA, donc un retournement isolé n'enverra pas la sté en récession.",
+    fr: "Diversification saine. Aucun segment ne pèse plus du tiers du CA, donc un retournement isolé n'enverra pas la société en récession.",
   },
   // Templated narratives (used with replace())
   conc_interp_mid: {
@@ -163,7 +163,7 @@ const STR = {
   },
   conc_interp_high: {
     en: "Monoculture on {seg} ({pct} %). The company is exposed to the cycle of this single segment. Binary structural risk.",
-    fr: "Monoculture sur {seg} ({pct} %). La sté est exposée au cycle de ce segment unique. Risque structurel binaire.",
+    fr: "Monoculture sur {seg} ({pct} %). La société est exposée au cycle de ce segment unique. Risque structurel binaire.",
   },
 
   // Capital Intensity
@@ -189,7 +189,7 @@ const STR = {
   },
   cap_interp_mid: {
     en: "Normalized capex for the sector. The company invests to maintain and grow its asset base without excessive pressure on margins.",
-    fr: "Capex normalisé pour le secteur. La sté investit pour maintenir et développer son outil sans peser excessivement sur les marges.",
+    fr: "Capex normalisé pour le secteur. La société investit pour maintenir et développer son outil sans peser excessivement sur les marges.",
   },
   cap_interp_high: {
     en: "Major infrastructure investment. Often justified by a strategic pivot (AI, cloud, industrial capacity). To evaluate based on future ROIC.",
@@ -197,7 +197,7 @@ const STR = {
   },
   cap_interp_over: {
     en: "Extraordinary capex: the company is funding a structural bet (generative AI, datacenters, capacity). Real near-term risk on free cash flow.",
-    fr: "Capex extraordinaire : la sté finance un pari structurel (IA générative, datacenters, capacités). Risque réel sur le free cash flow à court terme.",
+    fr: "Capex extraordinaire : la société finance un pari structurel (IA générative, datacenters, capacités). Risque réel sur le free cash flow à court terme.",
   },
 
   // Profit Power Index
@@ -215,7 +215,7 @@ const STR = {
   },
   ppi_interp_top: {
     en: "World-class score. The company combines growth, profitability, diversification and margin expansion. Very few S&P 500 companies exceed 75.",
-    fr: "Note world-class. La société conjugue croissance, profitabilité, diversification et expansion de marges. Très peu de stés du S&P 500 dépassent 75.",
+    fr: "Note world-class. La société conjugue croissance, profitabilité, diversification et expansion de marges. Très peu de sociétés du S&P 500 dépassent 75.",
   },
   ppi_interp_high: {
     en: "Premium profile. At least 3 of the 4 dimensions are at the top. One axis of improvement remains (often concentration or margin trend).",
@@ -277,7 +277,7 @@ const STR = {
   cloud_label_massive:    { en: "Massive bet", fr: "Pari massif" },
   cloud_interp: {
     en: "Measures the return on AI/cloud capex. A ratio < 0.5 signals that the company is investing much more in infrastructure than it currently harvests in cloud revenue: a bet on generative AI.",
-    fr: "Mesure la rentabilisation du Capex IA / cloud. Un ratio < 0,5 signale que la sté investit beaucoup plus dans l'infrastructure qu'elle n'en récolte encore en revenus cloud : pari sur l'IA générative.",
+    fr: "Mesure la rentabilisation du Capex IA / cloud. Un ratio < 0,5 signale que la société investit beaucoup plus dans l'infrastructure qu'elle n'en récolte encore en revenus cloud : pari sur l'IA générative.",
   },
 
   name_ad_sat: { en: "Ad Engine Saturation", fr: "Ad Engine Saturation" },
@@ -389,7 +389,7 @@ const STR = {
   },
   vit_interp: {
     en: "SPGI proprietary metric: share of revenue from products launched in the last 3 years. Measures the company's innovation machine, tracked at investor day as a management commitment.",
-    fr: "Métrique propriétaire SPGI : part du revenu venant de produits lancés dans les 3 dernières années. Mesure la machine d'innovation de la sté, suivi en investor day comme un commitment du management.",
+    fr: "Métrique propriétaire SPGI : part du revenu venant de produits lancés dans les 3 dernières années. Mesure la machine d'innovation de la société, suivi en investor day comme un commitment du management.",
   },
 
   name_backlog: { en: "Backlog Coverage", fr: "Backlog Coverage" },
@@ -454,7 +454,7 @@ function findKpi(c: Company, short: string): KPI | undefined {
 /**
  * Cherche un KPI Revenue (top-line, en valeur absolue $/€).
  * Élargit le matching au-delà de findKpi(c, "Revenue") qui ne couvrait
- * que ~50 stés. Couvre top-line "Total Revenue", "Net Sales", "Total Net Sales",
+ * que ~50 sociétés. Couvre top-line "Total Revenue", "Net Sales", "Total Net Sales",
  * "Sales", + hero KPI Revenue-like si pas de générique trouvé.
  * Filtre les KPI en % (R&D as %, marges).
  */
@@ -510,7 +510,7 @@ function findRevenueKpi(c: Company): KPI | undefined {
   });
   if (candidate) return candidate;
 
-  // Priorité 3 : si la sté a un hero_kpi qui matche un KPI Revenue-like
+  // Priorité 3 : si la société a un hero_kpi qui matche un KPI Revenue-like
   // (NVDA: "Data Center Revenue" peut servir de proxy si Total Revenue absent)
   // SKIPPED pour rester honnête : un revenu de segment n'est pas un proxy
   // fiable pour Rule of 40 global. Mieux vaut N/A que faux signal.
@@ -692,7 +692,7 @@ function cagr(history: number[], periodType?: string): number | null {
  * FAUX sur une série trimestrielle (on comparait au trimestre précédent,
  * pas au même trimestre N-1). Depuis la chaîne KPI v3 la quasi-totalité des
  * séries est trimestrielle, donc le "Revenue YoY" du Rule of 40 était
- * séquentiel sur les 503 stés (ex GOOGL : -3,4 % affiché = T1 2026 vs
+ * séquentiel sur les 503 sociétés (ex GOOGL : -3,4 % affiché = T1 2026 vs
  * T4 2025, alors que le vrai YoY est +21,8 % = 109,9 vs 90,2).
  * Si l'historique est trop court pour un vrai YoY, on retourne null plutôt
  * qu'un chiffre faux.
@@ -877,7 +877,7 @@ function qualityOfCompounding(c: Company, locale: Locale): SuperKpi {
  *  ═══════════════════════════════════════════════════════════════════════ */
 function concentrationRisk(c: Company, locale: Locale): SuperKpi {
   // Source 1 (prioritaire) : revenue_by_segment.slices avec share_pct calculé.
-  // Couvre 1000+ stés au lieu des 5 du SEGMENT_MAP hardcodé.
+  // Couvre 1000+ sociétés au lieu des 5 du SEGMENT_MAP hardcodé.
   const rbs = c.revenue_by_segment;
   let topName: string | null = null;
   let topPct: number | null = null;
@@ -908,7 +908,7 @@ function concentrationRisk(c: Company, locale: Locale): SuperKpi {
     }
   }
 
-  // Source 2 (fallback legacy) : SEGMENT_MAP pour les 5 stés V1.
+  // Source 2 (fallback legacy) : SEGMENT_MAP pour les 5 sociétés V1.
   if (topPct === null) {
     // Yann 2 juin 2026 v10 : findRevenueKpi fait fallback Total Revenue/Net Sales/etc
 
@@ -984,7 +984,7 @@ function concentrationRisk(c: Company, locale: Locale): SuperKpi {
 function capitalIntensity(c: Company, locale: Locale): SuperKpi {
   // Cherche Capex en testant plusieurs variations de nommage (Capex, CapEx,
   // Capex Total, Capital Expenditure, name_en/name_fr contenant "capex").
-  // Couvre ~830 stés au lieu de la trentaine du strict "Capex" short match.
+  // Couvre ~830 sociétés au lieu de la trentaine du strict "Capex" short match.
   const capex = findCapexKpi(c);
   // Yann 2 juin 2026 v10 : findRevenueKpi fait fallback Total Revenue/Net Sales/etc
 
@@ -1072,7 +1072,7 @@ function profitPowerIndex(c: Company, locale: Locale): SuperKpi {
   }
 
   // Calcul partiel : on accepte de calculer dès qu'on a au moins MARGIN
-  // (input central, présent sur ~95% des stés). Les autres inputs sont
+  // (input central, présent sur ~95% des sociétés). Les autres inputs sont
   // pondérés dynamiquement en fonction de leur disponibilité.
   // Honesty rule : si seulement margin disponible, retourner N/A
   // (un score "Profit Power" basé uniquement sur la marge n'a aucun sens).
@@ -1222,7 +1222,7 @@ export function computeSuperKpis(c: Company, locale: Locale = "en"): SuperKpi[] 
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
- *  Super-KPI sector-specific — 2 par sté, calibrés sur le business model
+ *  Super-KPI sector-specific — 2 par société, calibrés sur le business model
  *  ═══════════════════════════════════════════════════════════════════════ */
 
 function tacRatio(c: Company, locale: Locale): SuperKpi {
@@ -1602,7 +1602,7 @@ function pickSectorKpis(c: Company): SectorComputer[] {
   return [];
 }
 
-/** Calcule 2 super-KPIs sector-specific. V1 5 stés gardent leurs surcharges. */
+/** Calcule 2 super-KPIs sector-specific. V1 5 sociétés gardent leurs surcharges. */
 export function computeSectorSuperKpis(c: Company, locale: Locale = "en"): SuperKpi[] {
   switch (c.ticker) {
     case "GOOGL":

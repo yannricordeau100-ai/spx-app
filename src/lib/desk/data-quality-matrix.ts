@@ -346,7 +346,7 @@ function checkDividend(ds: Datasets[string]): CellAuto {
   // KPI "DPS" ou "Dividend per share" présent ?
   const hasDps = ds.kpis?.some((k) => /dividend|dps|dividende/i.test(k.short ?? "") || /dividend|dps|dividende/i.test(k.name_fr ?? ""));
   if (hasDps) return { status: "auto_ok", hint: "KPI DPS détecté" };
-  return { status: "na", detail: "Sté ne verse pas de dividende (probablement)" };
+  return { status: "na", detail: "Société ne verse pas de dividende (probablement)" };
 }
 
 function checkSuperKpis(ticker: string, ds: Datasets[string]): CellAuto {

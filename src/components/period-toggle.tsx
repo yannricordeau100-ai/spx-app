@@ -8,7 +8,7 @@ import { useT } from "@/lib/i18n/provider";
 
 /**
  * Yann 16 mai 2026 : toggle simplifié `5y / MAX`. L'option MAX affiche
- * toute l'history disponible (peut être < 5 ans selon la sté). MAX est
+ * toute l'history disponible (peut être < 5 ans selon la société). MAX est
  * réservé au plan MAX (premium accède seulement à 5y avec cadenas).
  *
  * Prop `hasMaxPlan` : si true, MAX déverrouillé ; sinon cadenas + tooltip

@@ -9,7 +9,7 @@ export const metadata = {
 /**
  * Yann 18 juil 2026 : rapport du linter KPI (scripts/kpi-lint.ts).
  * Toutes les règles d'affichage et de fond, vérifiées programmatiquement sur
- * chaque KPI de chaque sté via le loader réel. Zéro LLM. Relançable :
+ * chaque KPI de chaque société via le loader réel. Zéro LLM. Relançable :
  *   npx tsx scripts/kpi-lint.ts
  */
 export default function KpiLintPage() {

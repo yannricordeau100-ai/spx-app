@@ -14,7 +14,7 @@
  *
  * Schéma table (cf supabase/migrations/20260609_desk_disabled_blocks.sql) :
  *   - scope text PK : '__global__' = blocs désactivés globalement,
- *     '<TICKER>' (majuscules) = blocs désactivés pour cette sté.
+ *     '<TICKER>' (majuscules) = blocs désactivés pour cette société.
  *   - blocks jsonb : tableau des clés de bloc désactivées.
  *   - updated_at timestamptz.
  *
@@ -111,7 +111,7 @@ export async function getDisabledBlocksState(): Promise<DisabledBlocksState> {
 /**
  * Résout la liste des blocs désactivés pour un ticker : union(global,
  * perSte[TICKER]) avec expansion legacy. Si 'gouvernance_top3' est présent
- * (global ou per-sté), on ajoute aussi 'gouvernance_top3_votes' +
+ * (global ou per-société), on ajoute aussi 'gouvernance_top3_votes' +
  * 'gouvernance_top3_capital' (rétro-compat avec l'ancienne clé unique).
  *
  * C'est ce que la page société passe en prop `disabledBlocks` à
@@ -132,8 +132,8 @@ export async function resolveDisabledForTicker(
   // Yann (11 juin 2026) : la répartition CA est désactivée globalement, MAIS
   // explicitement RÉACTIVÉE pour META et GOOGL/GOOG uniquement. On retire donc
   // toutes les clés repartition_* (geo + segment, tous styles) du set désactivé
-  // pour ces 2 stés. Scope strict (exception §0undecies : "laisse pour META et
-  // Google" = ces 2 stés seulement).
+  // pour ces 2 sociétés. Scope strict (exception §0undecies : "laisse pour META et
+  // Google" = ces 2 sociétés seulement).
   if (upper === "META" || upper === "GOOGL" || upper === "GOOG") {
     for (const k of Array.from(merged)) {
       if (k.startsWith("repartition_")) merged.delete(k);
@@ -163,7 +163,7 @@ export async function setGlobalDisabled(blocks: string[]): Promise<void> {
 }
 
 /**
- * Définit la liste des blocs désactivés pour une sté précise. Si la liste
+ * Définit la liste des blocs désactivés pour une société précise. Si la liste
  * est vide → supprime l'override (delete) plutôt que de garder une ligne
  * vide. Invalide le cache.
  */
@@ -192,7 +192,7 @@ export async function setPerSteDisabled(
 }
 
 /**
- * Supprime l'override per-sté pour un ticker (delete sur scope = TICKER).
+ * Supprime l'override per-société pour un ticker (delete sur scope = TICKER).
  * Invalide le cache.
  */
 export async function removePerSteOverrideSb(ticker: string): Promise<void> {

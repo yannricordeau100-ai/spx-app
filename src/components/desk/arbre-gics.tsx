@@ -165,7 +165,7 @@ export function ArbreGics({ societesParSousIndustrie }: { societesParSousIndustr
                                           <span className="rounded border border-white/10 px-1.5 py-px text-[9.5px] uppercase tracking-wider text-zinc-600">Sous-industrie</span>
                                           {nb(sub.code) != null && (
                                             <span className="ml-auto font-mono text-[10px] text-violet-300">
-                                              {nb(sub.code)} sté{(nb(sub.code) ?? 0) > 1 ? "s" : ""}
+                                              {nb(sub.code)} société{(nb(sub.code) ?? 0) > 1 ? "s" : ""}
                                             </span>
                                           )}
                                         </li>

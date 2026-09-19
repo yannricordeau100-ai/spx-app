@@ -145,7 +145,7 @@ export function DividendStories({
 
   // Récupération de meta dividend_meta (extrait par CONV-DIV depuis 10-K).
   // Champ optionnel : si absent → la card calcule rien, n'affiche pas le focal
-  // "X ans de hausse" (anti-fallback hardcodé sur stés inconnues).
+  // "X ans de hausse" (anti-fallback hardcodé sur sociétés inconnues).
   // CAT garde son fallback explicite yearsStreak=31 (V1 démo cas connu).
   type CompanyWithMeta = typeof company & {
     dividend_meta?: {

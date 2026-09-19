@@ -297,7 +297,7 @@ export function CompanyHeader({
     disabledBlocks
       ? disabledBlocks.includes(k)
       : isBlockDisabledForTicker(company.ticker, k);
-  // Yann 29 mai 2026 : toggle global/per-sté pour masquer le bloc logo
+  // Yann 29 mai 2026 : toggle global/per-société pour masquer le bloc logo
   // (header). Quand désactivé : layout alternatif sans le carré 56-64px,
   // nom + catégorie + tagline alignés à gauche du conteneur.
   // Yann 2 juin 2026 : second système de toggle (blocks-control V1.9.5)

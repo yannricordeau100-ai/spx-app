@@ -1,4 +1,4 @@
-# `src/data/companies/` — source unique par sté (Phase 3A)
+# `src/data/companies/` — source unique par société (Phase 3A)
 
 Chaque fichier `<ticker>.json` est un artefact **généré automatiquement** qui
 consolide :
@@ -23,7 +23,7 @@ npx tsx scripts/build-companies-unified.ts
 
 ## Statut Phase 3A migration
 
-- ✅ Source unique générée pour ~2270 stés.
+- ✅ Source unique générée pour ~2270 sociétés.
 - ✅ `v2-pipeline/` et `v2-pipeline-enrich/` **restent autoritaires** pour les
   writes (scope CONV-DATA / enrichers existants inchangés).
 - ✅ `src/lib/company-core/load-company.ts` lit en priorité ce dossier si présent,

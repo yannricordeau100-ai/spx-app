@@ -68,7 +68,7 @@ function parsePct(s: string | null | undefined): number | null {
 export function rate(kpi: KPI): Rating {
   // Yann 15 mai 2026 : fallback yoy depuis history si kpi.yoy vide/null.
   // Sinon rate() retourne yoy=0 → "Moyen Top 50%" générique faux sur 22 %
-  // des KPIs secondaires (audit 20 stés top 307 = 51/235 yoy vide).
+  // des KPIs secondaires (audit 20 sociétés top 307 = 51/235 yoy vide).
   let yoy = parsePct(kpi.yoy);
   if (yoy === null && Array.isArray(kpi.history) && kpi.history.length >= 2) {
     const last = kpi.history[kpi.history.length - 1];

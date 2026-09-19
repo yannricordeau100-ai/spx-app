@@ -15,7 +15,7 @@ type SearchParams = Promise<{ audit_token?: string }>;
  * /sandbox/admin/block-rules
  *
  * Page admin orange (couleur dominante distinctive vs autres sandbox).
- * 1 textarea libre par bloc page sté (12 blocs canoniques) où Yann écrit
+ * 1 textarea libre par bloc page société (12 blocs canoniques) où Yann écrit
  * ses règles fond + forme. Auto-save 1s. Lu ensuite par les sub-agents
  * via `getBlockRules(blockKey)` AVANT chaque extraction / écriture.
  *

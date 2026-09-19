@@ -33,9 +33,9 @@ const UNIVERSE_BADGE: Record<UniverseKey, string> = {
 };
 
 // Catégories d'activation de la library générique (nettoyées août 2026 :
-// Top 307 V1.8 / V1.9 924 stés / V1.7.5 supprimées, périmées).
+// Top 307 V1.8 / V1.9 924 sociétés / V1.7.5 supprimées, périmées).
 const CATEGORIES = [
-  { key: "all", label: "Toutes les stés" },
+  { key: "all", label: "Toutes les sociétés" },
   { key: "sp500", label: "SP500" },
   { key: "nasdaq100", label: "Nasdaq 100" },
   { key: "cac40", label: "CAC 40" },
@@ -114,7 +114,7 @@ export function KpiQualityStrategyClient({
               : "text-zinc-400 hover:text-zinc-200"
           }`}
         >
-          Stés univers ({rows.length})
+          Sociétés univers ({rows.length})
         </button>
         <button
           onClick={() => setTab("generic")}
@@ -182,7 +182,7 @@ function StesPanel({ rows, capsSource }: { rows: SteRow[]; capsSource: "att-stat
     return { ...emptyHero(), hero: r.hero };
   };
 
-  // Chargement paresseux des options : KPI réels de la sté (short + name_fr)
+  // Chargement paresseux des options : KPI réels de la société (short + name_fr)
   // depuis les données réellement chargées (loadV17Company côté API).
   const ensureOptions = (r: SteRow) => {
     const cur = stateFor(r);
@@ -341,10 +341,10 @@ function StesPanel({ rows, capsSource }: { rows: SteRow[]; capsSource: "att-stat
       </div>
 
       <div className="mb-3 text-[11.5px] text-zinc-500">
-        {filtered.length} stés affichées sur {rows.length} (toutes les stés de
+        {filtered.length} sociétés affichées sur {rows.length} (toutes les sociétés de
         l&apos;app : SP500, Nasdaq 100, CAC 40, DAX 40, AEX, SMI, SOXX, et
         Autres pour celles hors de ces univers).
-        Le menu Hero KPI charge les KPI réels de la sté au clic ; choisir un KPI
+        Le menu Hero KPI charge les KPI réels de la société au clic ; choisir un KPI
         change le hero en direct (override prioritaire au rendu).
       </div>
 

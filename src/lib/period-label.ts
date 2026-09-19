@@ -1,5 +1,5 @@
 /**
- * Libellé de période UNIQUE pour toutes les pages sté (Yann 25 août 2026).
+ * Libellé de période UNIQUE pour toutes les pages société (Yann 25 août 2026).
  *
  * Règle produit : partout où une période est affichée (hero, tableau
  * Indicateurs clés, Stories, earning call, bullets), on montre le

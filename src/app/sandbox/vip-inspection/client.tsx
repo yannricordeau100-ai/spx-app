@@ -137,7 +137,7 @@ export function VipInspectionClient({
         <header className="mb-6">
           <h1 className="font-display text-[30px] font-bold tracking-tight">VIP Inspection</h1>
           <p className="mt-1 text-[13.5px] text-zinc-400">
-            Liste des stés où tout doit être <strong className="text-amber-300">PARFAIT</strong>.
+            Liste des sociétés où tout doit être <strong className="text-amber-300">PARFAIT</strong>.
             Chaque inspection lance un audit visuel approfondi (Courbe / Barres 2D-3D / Variation / Tableau de bord, par /an /mois /semaine /jour /heure /minute /seconde, trimestriel + annuel), télécharge les charts en PNG, les passe à Gemini, applique les auto-fixes connus, re-vérifie.
           </p>
         </header>
@@ -238,18 +238,18 @@ export function VipInspectionClient({
               type="button"
               onClick={() => {
                 startTransition(async () => {
-                  // Lance toutes les stés VIP non-running
+                  // Lance toutes les sociétés VIP non-running
                   await apiGroup("launch_group", []);
                 });
               }}
               disabled={isPending || list.tickers.length === 0}
               className="rounded-md border border-amber-500/40 bg-amber-500/[0.08] px-3 py-1.5 text-[12px] text-amber-100 hover:bg-amber-500/15 disabled:opacity-40"
             >
-              ⚡ Lancer TOUTES les stés VIP (en série)
+              ⚡ Lancer TOUTES les sociétés VIP (en série)
             </button>
           </div>
           <p className="mt-2 text-[10.5px] text-zinc-500">
-            Les stés sont inspectées <strong>séquentiellement</strong> (1 par 1) par le worker
+            Les sociétés sont inspectées <strong>séquentiellement</strong> (1 par 1) par le worker
             GitHub Action sur le Mac runner. Chaque inspection = audit visuel Gemini + auto-fixes + re-vérif.
           </p>
         </div>
@@ -257,7 +257,7 @@ export function VipInspectionClient({
         {/* List + status */}
         {list.tickers.length === 0 ? (
           <p className="rounded-md border border-amber-500/30 bg-amber-500/[0.05] p-4 text-[13px] text-amber-200">
-            Aucune sté VIP encore. Ajoute un ticker ci-dessus pour démarrer.
+            Aucune société VIP encore. Ajoute un ticker ci-dessus pour démarrer.
           </p>
         ) : (
           <div className="space-y-3">
@@ -275,7 +275,7 @@ export function VipInspectionClient({
                           rel="noopener"
                           className="ml-2 text-[12px] font-normal text-violet-300 hover:text-violet-200"
                         >
-                          → page sté
+                          → page société
                         </a>
                       </h2>
                       {entry.note ? <p className="mt-0.5 text-[11.5px] text-zinc-400">{entry.note}</p> : null}
@@ -361,7 +361,7 @@ export function VipInspectionClient({
         <section className="mt-6 rounded-md border border-white/10 bg-[#080808] p-4">
           <h3 className="text-[13px] font-semibold text-zinc-300">Ce que fait une inspection « VIP »</h3>
           <ul className="mt-2 ml-4 list-disc space-y-1 text-[12px] text-zinc-400">
-            <li>Visite la page sté via Chrome headless (avec bypass audit_token)</li>
+            <li>Visite la page société via Chrome headless (avec bypass audit_token)</li>
             <li>Toggle chaque mode chart (Courbe / Barres 2D / Barres 3D / Variation / Tableau de bord)</li>
             <li>Toggle chaque temporalité (Annuel / Trimestriel) — si dispo</li>
             <li>Toggle chaque fraction de temps ($/an / $/mois / $/semaine / $/jour / $/heure / $/minute / $/seconde) — si applicable au KPI hero</li>

@@ -197,7 +197,7 @@ function formatDate(iso: string | null | undefined, locale: Locale = "fr"): stri
 }
 
 /**
- * Détecte si la sté a une structure dual-class (Class A / Class B avec
+ * Détecte si la société a une structure dual-class (Class A / Class B avec
  * droits de vote différenciés).
  *
  * Source 1 (prioritaire) : le texte `voting_structure` lui-même. Quand le
@@ -243,7 +243,7 @@ function detectDualClass(
     if (dualSignals.some((s) => v.includes(s))) return true;
     // Mono-class explicite = tout aussi fiable que le dual explicite. Sans ce
     // court-circuit, le repli heuristique (source 2) déclarait DUAL-CLASS des
-    // stés mono-class (JPM, JNJ, WMT, PYPL) simplement parce que leurs listes
+    // sociétés mono-class (JPM, JNJ, WMT, PYPL) simplement parce que leurs listes
     // top_voting et top_capital différaient.
     const monoSignals = [
       "one share one vote",
@@ -276,7 +276,7 @@ function detectDualClass(
  * Extrait le symbole devise depuis un libellé d'unité KPI (ex "Mds $",
  * "Mds €", "M £", "Mds CHF"). Retourne le symbole canonique ou null si
  * indétectable. Ajouté 17 mai 2026 pour fixer le bug "M $" hardcodé sur
- * les stés cotées € / £ / CHF (1604 stés Mds €, 43 stés Mds £ dans le
+ * les sociétés cotées € / £ / CHF (1604 sociétés Mds €, 43 sociétés Mds £ dans le
  * dataset).
  */
 function extractCurrencySymbol(unit?: string | null): string | null {
@@ -658,7 +658,7 @@ export function GovernanceCard({
       {/* Top shareholders : voting rights + capital.
           Yann 29 mai 2026 : 2 toggles indépendants (gouvernance_top3_votes,
           gouvernance_top3_capital). Rétro-compat : si l'ancienne clé legacy
-          `gouvernance_top3` est présente (global ou per-sté), elle désactive
+          `gouvernance_top3` est présente (global ou per-société), elle désactive
           automatiquement les 2 sous-blocs via la logique de
           isBlockDisabledForTicker. */}
       {(() => {

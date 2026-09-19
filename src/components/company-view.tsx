@@ -213,7 +213,7 @@ function kpiHasUsableValue(k?: { value?: unknown } | null): boolean {
  * Pour Headcount, NPS, subscribers count, etc. → toggle masqué.
  */
 // Yann 15 mai 2026 / 16 mai 2026 : helper `autoRescaleSmallUnit` extrait
-// dans `@/lib/format-hero` pour réutilisation entre page sté et home preview
+// dans `@/lib/format-hero` pour réutilisation entre page société et home preview
 // (TickerPreviewCard). Voir le fichier lib pour la doc et la suite des
 // helpers (isPercentMagnitudeAnomaly, prepareHeroDisplay).
 
@@ -342,10 +342,10 @@ export function CompanyView({
   /** Résumé bullets PV-driven du dernier earning call (Yann 11 mai 2026). */
   transcriptSummary?: TranscriptBulletsSummary | null;
   /** V1.8 : affiche les blocs manquants en placeholder rouge au lieu de
-   *  les masquer. Permet à Yann de voir ce qu'il manque sur chaque sté. */
+   *  les masquer. Permet à Yann de voir ce qu'il manque sur chaque société. */
   v18Mode?: boolean;
   /** Yann (25 mai 2026) : tier freemium pour floutage chiffres + textes PV.
-   *  Si "free"/"anon" sur une sté non accessible (≠ GOOGL/META), floute les
+   *  Si "free"/"anon" sur une société non accessible (≠ GOOGL/META), floute les
    *  chiffres importants + textes plus-value. Provider FreemiumBlurProvider
    *  doit être posé côté SSR (page.tsx V1.9 / V1.9.5). */
   freemiumTier?: UserTier;
@@ -357,7 +357,7 @@ export function CompanyView({
    *  `isBlockDisabledForTicker` (JSON only). Les pages qui ne la passent
    *  pas encore (v1-8, v1-7-5) gardent le fallback JSON sans régression. */
   disabledBlocks?: string[];
-  /** Yann 9 juin 2026 : si la profondeur de données réelle d'une sté est
+  /** Yann 9 juin 2026 : si la profondeur de données réelle d'une société est
    *  limitée (ex rupture de segment : APH/AIZ/CAH = 4 ans), affiche un "i"
    *  permanent à gauche du titre hero (indépendant du KPI sélectionné). */
   historyLimitYears?: number;
@@ -374,7 +374,7 @@ export function CompanyView({
           disabledBlocks.includes("gouvernance_top3"))
       : isBlockDisabledForTicker(company.ticker, k);
   // Yann (25 mai 2026) : helper local — true si on doit flouter pour ce tier
-  // sur cette sté (free + sté non accessible en free).
+  // sur cette société (free + société non accessible en free).
   // Yann 29 aout 2026 : le floutage s applique a TOUTES les societes, et les
   // exemptions se pilotent DEPUIS L OUTIL (override de zones vide pour la
   // societe = tout net, ex GOOGL/META). Quand l API signale cette exemption,
@@ -622,9 +622,9 @@ export function CompanyView({
   const [barsVariant] = useState<"iso3d" | "classic">("classic");
   const [timeFraction, setTimeFraction] = useState<TimeFraction>("year");
   // Toggle Annuel / Trimestriel / Semestriel selon period_type du hero KPI
-  // (6 mai 2026 : extension semester pour stés EU qui reportent 2x/an).
-  // Yann (1er juin 2026) : default Trimestriel pour TOUTES les stés. Pour les
-  // stés qui reportent en semestriel, on bascule sur semester. Sinon quarter.
+  // (6 mai 2026 : extension semester pour sociétés EU qui reportent 2x/an).
+  // Yann (1er juin 2026) : default Trimestriel pour TOUTES les sociétés. Pour les
+  // sociétés qui reportent en semestriel, on bascule sur semester. Sinon quarter.
   // L'utilisateur peut toujours switcher vers Annuel via le toggle.
   const heroDefaultPeriod = (() => {
     // Yann 2 juin 2026 — fix onglet trimestriel par défaut (AAPL/GOOGL).
@@ -683,7 +683,7 @@ export function CompanyView({
   // Trimestriel : génère "T1 21", "T2 21"... pour 20 trimestres.
   // Annuel : génère "2021", "2022"... pour 5 années (= Q4 de chaque année).
   //
-  // Yann 15 mai 2026 : pour les stés à exercice fiscal décalé (Apple FY end
+  // Yann 15 mai 2026 : pour les sociétés à exercice fiscal décalé (Apple FY end
   // sept, Microsoft FY end juin, NVIDIA FY end janvier, etc.), on utilise
   // les trimestres FISCAUX au lieu des trimestres calendaires. Ex : une
   // period_end 2024-12-31 sur AAPL = T1 FY25 (= "T1 25"), pas T4 24.
@@ -780,7 +780,7 @@ export function CompanyView({
         return (hp as string[]).map((s) => {
           const m = s.trim().match(/^Q([1-4])[\s-]+(?:FY)?(\d{4})$/)!;
           // Yann 16 juil 2026 : plus de trimestres FISCAUX à l'écran. Les
-          // périodes des stés à exercice décalé sont converties en trimestre
+          // périodes des sociétés à exercice décalé sont converties en trimestre
           // CALENDAIRE réel (AAPL Q1 FY2026 → T4 25 = oct-déc 2025).
           const cal = isFiscalShifted
             ? fiscalQuarterToCalendar(Number(m[1]), Number(m[2]), fyEndMonth, audit?.fyLabelConvention ?? "end")
@@ -925,7 +925,7 @@ export function CompanyView({
   // Ordering : règle Hero / Indicateurs clés / Stories (cf. CLAUDE.md § ORDRE)
   // Yann 19 mai 2026 — masquage des KPIs génériques (Revenue, Op Margin,
   // EPS, EBITDA, etc.) : ces KPIs sont présents par défaut chez 95 % des
-  // stés et n'apportent aucune PV différentiante. Ils sont conservés en
+  // sociétés et n'apportent aucune PV différentiante. Ils sont conservés en
   // data mais retirés du rendu app par défaut. Source de vérité = liste
   // `kpi-generic-library.json` (matching par `short`).
   // Activation possible par catégorie via `generic-kpi-activations.json`
@@ -967,7 +967,7 @@ export function CompanyView({
     // Income / Capex / R&D / Headcount / etc.) en violation directe de la
     // règle §0septies "KPI SPÉCIFIQUES UNIQUEMENT" (édictée 19 mai).
     // Aucun fallback n'inclut plus de génériques. Si <5 spécifiques
-    // disponibles pour une sté, on affiche MOINS de 5 — c'est honnête
+    // disponibles pour une société, on affiche MOINS de 5 — c'est honnête
     // côté contenu vs faux confort "5 visibles" avec génériques.
     const filtered = all.filter((k) => {
       // Yann 8 juin 2026 : jamais de KPI a valeur 0/null affiche (meme le
@@ -1320,7 +1320,7 @@ export function CompanyView({
   );
 
 
-  // Yann (1er juin 2026) : sociétés cotées depuis moins de 24 mois (7 stés
+  // Yann (1er juin 2026) : sociétés cotées depuis moins de 24 mois (7 sociétés
   // identifiées sur V1.9.5 = CRWV / FLTR.L / GEV / Q / RDDT / SNDK / SOLV).
   // On garde le bloc TOP (logo, nom, ticker, variation %, prix via
   // CompanyHeader + StockPriceBlock) et on remplace tout le reste par le
@@ -1580,7 +1580,7 @@ export function CompanyView({
                       ) : (() => {
                         // Yann 16 mai 2026 : normalise yoy en format FR
                         // (virgule décimale + espace insécable avant %).
-                        // Fix audit Playwright (48/50 stés concernées).
+                        // Fix audit Playwright (48/50 sociétés concernées).
                         if (typeof effectiveYoy === "number") {
                           const n = effectiveYoy as number;
                           return `${n > 0 ? "+" : ""}${n.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`;
@@ -1735,7 +1735,7 @@ export function CompanyView({
                 {/* Yann 16 juil 2026 : chip percentile "Top X % · sous-secteur"
                     SUPPRIMÉE. C'était une heuristique sur le YoY (yoy>=0 → "Top 50 %"),
                     pas un vrai classement vs pairs : impossible à rendre juste pour
-                    des KPI propres à chaque sté (CA iPhone n'a pas de pairs). */}
+                    des KPI propres à chaque société (CA iPhone n'a pas de pairs). */}
                 {isIncompleteKpi && (
                   <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/[0.06] px-3 py-1 text-[11.5px] font-medium text-amber-400">
                     <span className="size-1.5 rounded-full bg-amber-400" />
@@ -1775,7 +1775,7 @@ export function CompanyView({
               {/* Yann 19 mai 2026 : toggles TOUJOURS centrés.
                   Avant : `justify-between` poussait ChartCycleControls à
                   gauche + PeriodToggle à droite → quand l'un des deux
-                  était caché (ex : sté sans quarterly history), le reste
+                  était caché (ex : société sans quarterly history), le reste
                   flottait collé sur sa bordure (très moche).
                   Après : `justify-center` + gap. Les groupes restent
                   centrés ensemble, séparés par un petit dot iridescent
@@ -1926,7 +1926,7 @@ export function CompanyView({
                     qui gaspillait une ligne entière pour un seul "i". */}
               <div className="flex flex-wrap items-center gap-1.5">
                 {/* Yann (V1.9.5, juin 2026) : chip freshness identique entre
-                    card home et page sté. On utilise le hero KPI **configuré**
+                    card home et page société. On utilise le hero KPI **configuré**
                     (= getHero(company)), pas l'`active` qui peut diverger
                     quand l'utilisateur clique un autre KPI ou quand
                     effectiveDefaultHero swap vers un quarterly. Voir
@@ -1938,7 +1938,7 @@ export function CompanyView({
                     "Data en cours" si le hero KPI a une history < 4 points
                     OU period_type=quarter avec une série monotone décr 3-5
                     pts (= probablement de l'annuel mal étiqueté, cf audit
-                    81/307 stés top V1.8). Signal honnête pour l'investisseur
+                    81/307 sociétés top V1.8). Signal honnête pour l'investisseur
                     + ping CONV-DATA pour enrichissement. */}
                 {(() => {
                   const h = Array.isArray(active.history) ? active.history : [];
@@ -2211,7 +2211,7 @@ export function CompanyView({
               le libelle `sector` variant d une fiche a l autre (Materiaux,
               Materials, Basic Materials...) ; contenu adapte au secteur. */}
           {/* 9 sept 2026 (Yann) : sur TOUTES les fiches, avec surlignage des
-              unites reellement portees par les KPI de la sté (axe Y). */}
+              unites reellement portees par les KPI de la société (axe Y). */}
           {isBlockEnabled("unites", company.ticker) && (
             <UnitesMateriaux
               gicsCode={company.gics_code}
@@ -2322,7 +2322,7 @@ export function CompanyView({
 
         {/* Anti-thèse d'investissement — juste APRÈS Facteurs de risque
             (Yann 14 août 2026). Rendu uniquement si une ATT existe pour la
-            sté (src/data/att/<t>.json ou override desk_att). Le gating plan
+            société (src/data/att/<t>.json ou override desk_att). Le gating plan
             Max est déjà appliqué côté serveur (gateAttForTier) : ici on ne
             fait qu'afficher, att.locked pilote le placeholder flouté. */}
         {/* Yann 19 sept 2026 : la these d investissement (cas favorable) precede
@@ -2330,7 +2330,7 @@ export function CompanyView({
 
 
 
-        {/* Bloc Dividendes RETIRÉ pour toutes les stés (Yann 15 juin 2026). */}
+        {/* Bloc Dividendes RETIRÉ pour toutes les sociétés (Yann 15 juin 2026). */}
 
         {/* Governance */}
         {isBlockEnabled("governance", company.ticker) && !isDisabled("gouvernance") ? (
@@ -2357,7 +2357,7 @@ export function CompanyView({
         )}
 
         {/* AI positioning — Yann 20 mai 2026 : masquer si stance=absent (= 10-K ne mentionne pas IA).
-            Pas de bloc vide ou "Absent". Soit la sté a du AI réel à montrer, soit on masque. */}
+            Pas de bloc vide ou "Absent". Soit la société a du AI réel à montrer, soit on masque. */}
         {isBlockEnabled("ai_positioning", company.ticker) && !isDisabled("ai_positioning") ? (
           (() => {
             const ai = company.ai_positioning;
@@ -2404,7 +2404,7 @@ export function CompanyView({
             les sociétés (Yann 11 mai 2026). Bloc rendu UNIQUEMENT si bullets
             dispo. Si pas de bullets et pas de transcript brut : RIEN ne
             s'affiche (Yann 12 mai 2026 : ex AAPL, ne pas afficher de bloc
-            vide pour les stés sans transcript accessible). */}
+            vide pour les sociétés sans transcript accessible). */}
         {isBlockEnabled("transcripts", company.ticker) && !isDisabled("transcript_bullets") ? (
           transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
             <TranscriptBulletsBlock ticker={company.ticker} summary={transcriptSummary} />

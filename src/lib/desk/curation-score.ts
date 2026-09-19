@@ -64,7 +64,7 @@ function isHeroOk(blocks: Record<string, BlockStatus>): boolean {
 }
 
 /**
- * Calcule la couleur de curation d'une sté.
+ * Calcule la couleur de curation d'une société.
  *
  * Règles (ordre d'évaluation) :
  *   ROUGE   : hero KPI manquant (data) OU ≥1 fail Gemini severity 5 (blocker)

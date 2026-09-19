@@ -24,7 +24,7 @@
 type AxisLocale = "fr" | "en" | "en-GB" | "de" | "de-CH" | "nl";
 
 // Yann 17 mai 2026 (v2) : ajout T (Trillions) et K (Milliers) pour couvrir
-// les rescales d'unité time-fraction (ex /minute = $K, /year d'une méga-sté = $T).
+// les rescales d'unité time-fraction (ex /minute = $K, /year d'une méga-société = $T).
 // Yann 2 juin 2026 v9 : forme COURTE (Mds/M) pour l'axe Y, aligné CLAUDE.md §6.
 const SCALE_WORDS: Record<AxisLocale, { T: string; B: string; M: string; K: string }> = {
   "fr":    { T: "Bln",  B: "Mds", M: "M",   K: "K" },

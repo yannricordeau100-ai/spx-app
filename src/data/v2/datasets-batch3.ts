@@ -1,7 +1,7 @@
 /**
  * V2 cat 2 : Batch 3 (28 sociétés FPI ADR US restantes pour atteindre top 50).
  *
- * Format ultra-compact : Hero KPI + 4-5 indicateurs sectoriels par sté.
+ * Format ultra-compact : Hero KPI + 4-5 indicateurs sectoriels par société.
  * Pas de governance / AI positioning / risks (à enrichir round 2).
  * Source : connaissances publiques 2024-2025, statut DRAFT.
  */

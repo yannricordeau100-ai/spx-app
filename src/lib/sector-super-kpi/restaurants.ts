@@ -9,11 +9,11 @@
  *      pré-existant, mesure la capacité à ouvrir des unités rentables sans
  *      cannibaliser les comps.
  *
- * Univers cible : 6 stés restaurants (MCD, SBUX, CMG, YUM, DPZ, DRI, QSR,
+ * Univers cible : 6 sociétés restaurants (MCD, SBUX, CMG, YUM, DPZ, DRI, QSR,
  * CAVA inclus dans le bucket).
  *
  * i18n : EN + FR obligatoires (règle Yann : EN = canonical).
- * Anti-em-dash dans rationale FR. Vocabulaire FR strict (stés, parc, etc.).
+ * Anti-em-dash dans rationale FR. Vocabulaire FR strict (sociétés, parc, etc.).
  *
  * IMPORTANT : pas de commit, pas d'edit sur src/lib/super-kpi.ts. Le caller
  * intégrera lui-même les exports `SECTOR_KPIS` et `SECTOR_STRINGS`.
@@ -57,7 +57,7 @@ export const SECTOR_STRINGS = {
   },
   sssg_interp_top: {
     en: "Strong same-store sales growth. The chain combines traffic and ticket gains on the existing fleet, sign of brand momentum, menu pricing power and operational execution.",
-    fr: "Croissance forte des ventes comparables. La sté combine gains de trafic et de ticket sur le parc existant, signe de momentum de marque, de pricing power sur le menu et d'exécution opérationnelle.",
+    fr: "Croissance forte des ventes comparables. La société combine gains de trafic et de ticket sur le parc existant, signe de momentum de marque, de pricing power sur le menu et d'exécution opérationnelle.",
   },
   sssg_interp_mid: {
     en: "Solid same-store sales growth in line with quality restaurant operators. Underlying demand healthy, the brand grows organically beyond inflation.",
@@ -65,7 +65,7 @@ export const SECTOR_STRINGS = {
   },
   sssg_interp_avg: {
     en: "Flat to low same-store sales growth. The chain barely keeps up with menu price increases, traffic is weak. To watch: real traffic, ticket mix.",
-    fr: "Croissance des ventes comparables faible ou stable. La sté absorbe à peine les hausses de prix du menu, le trafic est mou. À surveiller : trafic réel, mix ticket.",
+    fr: "Croissance des ventes comparables faible ou stable. La société absorbe à peine les hausses de prix du menu, le trafic est mou. À surveiller : trafic réel, mix ticket.",
   },
   sssg_interp_low: {
     en: "Same-store sales contracting. Structural concern: traffic erosion, the brand is losing relevance or being challenged by competing concepts.",
@@ -103,7 +103,7 @@ export const SECTOR_STRINGS = {
   },
   unit_growth_interp_top: {
     en: "Aggressive yet disciplined unit expansion. The chain rolls out new restaurants at a fast pace without cannibalizing existing comps, signal of a replicable concept with strong returns on invested capital per unit.",
-    fr: "Expansion du parc agressive mais disciplinée. La sté déploie de nouveaux restaurants à un rythme soutenu sans cannibaliser les comps existants, signal d'un concept réplicable avec de forts retours sur capital investi par unité.",
+    fr: "Expansion du parc agressive mais disciplinée. La société déploie de nouveaux restaurants à un rythme soutenu sans cannibaliser les comps existants, signal d'un concept réplicable avec de forts retours sur capital investi par unité.",
   },
   unit_growth_interp_mid: {
     en: "Solid unit growth in line with mature quick-service standards. Expansion is steady, the development pipeline is healthy.",
@@ -111,7 +111,7 @@ export const SECTOR_STRINGS = {
   },
   unit_growth_interp_avg: {
     en: "Moderate unit growth. The chain expands cautiously, possibly limited by white space saturation or franchisee development capacity.",
-    fr: "Croissance modérée du parc. La sté s'étend prudemment, possiblement limitée par la saturation du white space ou la capacité de développement des franchisés.",
+    fr: "Croissance modérée du parc. La société s'étend prudemment, possiblement limitée par la saturation du white space ou la capacité de développement des franchisés.",
   },
   unit_growth_interp_low: {
     en: "Very low or negative unit growth. Concept saturated or under pressure: closures offset openings. To watch: refranchising programs, fleet rationalization.",
@@ -129,7 +129,7 @@ export const SECTOR_STRINGS = {
   // ── Generic na fallback ────────────────────────────────────────────
   na_data: {
     en: "Required data not available for this company.",
-    fr: "Données nécessaires non disponibles pour cette sté.",
+    fr: "Données nécessaires non disponibles pour cette société.",
   },
 } as const satisfies Record<string, LocalizedString>;
 

@@ -1,11 +1,11 @@
 /**
  * Helper unique pour calculer le tier de freshness (À jour / Récent / Périmé)
- * affiché sur la card aperçu home ET sur la page sté.
+ * affiché sur la card aperçu home ET sur la page société.
  *
  * Mission Yann (V1.9.5, juin 2026) : avant ce helper, la card home et la page
- * sté pouvaient diverger pour la MÊME sté car :
+ * société pouvaient diverger pour la MÊME société car :
  *   - home utilisait `getHero(company).last_data_date` (KPI configuré comme hero)
- *   - page sté utilisait `active.last_data_date` (KPI courant, qui peut être
+ *   - page société utilisait `active.last_data_date` (KPI courant, qui peut être
  *     swappé par `effectiveDefaultHero` quand le hero configuré est annuel)
  *
  * Règle commune : la chip freshness reflète TOUJOURS la fraîcheur du hero
@@ -34,8 +34,8 @@ export function getFreshnessReference(company: Company): {
 }
 
 /**
- * Calcule le tier de freshness pour une sté, en utilisant la même source que
- * la page sté et la card home preview.
+ * Calcule le tier de freshness pour une société, en utilisant la même source que
+ * la page société et la card home preview.
  *
  * @param company société source
  * @param now date courante (injectable pour tests)

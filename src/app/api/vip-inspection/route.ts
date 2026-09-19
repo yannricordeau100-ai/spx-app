@@ -132,7 +132,7 @@ export async function POST(req: Request) {
   }
 
   if (body.action === "launch_group") {
-    // Lance toutes les stés VIP non-done en passant chacune à state='running'.
+    // Lance toutes les sociétés VIP non-done en passant chacune à state='running'.
     // Le worker GitHub Action picks one-by-one les 'running' et exécute
     // l'inspection séquentiellement.
     const list = await loadList();
@@ -155,7 +155,7 @@ export async function POST(req: Request) {
       .upsert(rows, { onConflict: "ticker" });
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     // Trigger 1 seul workflow_dispatch (le worker traite les 'running' un par un)
-    let webhook_hint = `${targets.length} sté(s) mises à 'running'. Le worker GHA traite séquentiellement (cron horaire max).`;
+    let webhook_hint = `${targets.length} société(s) mises à 'running'. Le worker GHA traite séquentiellement (cron horaire max).`;
     const ghToken = process.env.GITHUB_DISPATCH_TOKEN;
     if (ghToken) {
       try {
@@ -175,7 +175,7 @@ export async function POST(req: Request) {
           },
         );
         if (resp.ok) {
-          webhook_hint = `${targets.length} sté(s) en queue. Worker GHA déclenché en mode batch (séquentiel 1 par 1).`;
+          webhook_hint = `${targets.length} société(s) en queue. Worker GHA déclenché en mode batch (séquentiel 1 par 1).`;
         }
       } catch {}
     }

@@ -6,7 +6,7 @@ import { CompanyLogo } from "@/components/logos";
 
 /**
  * Concept : intégration du price target consensus analystes (futur flux FMP)
- * dans le bandeau nom/prix des pages sté. 5 variantes statiques, données
+ * dans le bandeau nom/prix des pages société. 5 variantes statiques, données
  * mock NVDA. Aucune donnée live : tout est figé pour comparaison visuelle.
  */
 
@@ -454,7 +454,7 @@ export function PriceTargetClient() {
 
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <p className="mb-2 text-[14px] text-zinc-400">
-          5 intégrations possibles du consensus analystes (futur flux FMP) dans le bandeau des pages sté.
+          5 intégrations possibles du consensus analystes (futur flux FMP) dans le bandeau des pages société.
         </p>
         <p className="mb-10 font-mono text-[11px] uppercase tracking-wider text-zinc-500">
           Mock NVDA : prix 210,96 $ · {MOCK.deltaPct} · capi {MOCK.marketCap} · cible {MOCK.target} $ ({MOCK.upside}) · fourchette {MOCK.targetLow} $ à {MOCK.targetHigh} $ · {MOCK.analysts} analystes

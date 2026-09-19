@@ -88,7 +88,7 @@ const TIER_OPTIONS: Array<{ value: EffectiveTier; label: string }> = [
 ];
 
 // Versions disponibles (hardcodé). Yann 21 mai 2026 : V1.9.5 = défaut,
-// stés validées qualité audit strict. V1.9.5 en haut de la liste.
+// sociétés validées qualité audit strict. V1.9.5 en haut de la liste.
 const VERSION_OPTIONS: Array<{ slug: string; label: string }> = [
   { slug: "v1-9-5", label: "V1.9.5" },
   { slug: "v1-9", label: "V1.9" },

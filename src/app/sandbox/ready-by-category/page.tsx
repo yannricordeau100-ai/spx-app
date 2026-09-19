@@ -11,7 +11,7 @@ export const metadata = {
 
 type AnyCo = Record<string, unknown>;
 
-/** Une sté est "complètement prête" si :
+/** Une société est "complètement prête" si :
  *  - _fit_for_site != false
  *  - _validation OR _validation_global (Pass 3 LLM passé)
  *  - hero_kpi non vide + au moins 5 KPIs avec value non null
@@ -99,7 +99,7 @@ function loadTop307(): Set<string> {
   }
 }
 
-// Stoxx 600 EU pure approximation : ticker contient un point ET la sté
+// Stoxx 600 EU pure approximation : ticker contient un point ET la société
 // a un dossier sec-data/cat3-european. Approximation OK pour l'aperçu.
 function loadStoxx600(rows: Row[]): Set<string> {
   return new Set(
@@ -114,7 +114,7 @@ function loadSmi(rows: Row[]): Set<string> {
   return new Set(rows.filter((r) => r.ticker.endsWith(".SW")).map((r) => r.ticker));
 }
 
-// Cat 2 ADR top 50 = stés FPI ADR US (ticker sans dot, country != US).
+// Cat 2 ADR top 50 = sociétés FPI ADR US (ticker sans dot, country != US).
 // Approximation : on ne dispose pas d'une liste canonique pour le moment.
 function loadCat2Adr(rows: Row[]): Set<string> {
   return new Set(

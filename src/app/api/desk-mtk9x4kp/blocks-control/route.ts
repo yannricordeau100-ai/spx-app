@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     }
     const next = {
       _doc:
-        "Block visibility control for V1.9.5. Global toggles apply to all stés; per_ticker overrides apply only when global=true (cannot force-enable when global=false).",
+        "Block visibility control for V1.9.5. Global toggles apply to all sociétés; per_ticker overrides apply only when global=true (cannot force-enable when global=false).",
       _updated_at: new Date().toISOString(),
       global: body.global ?? {},
       per_ticker_overrides: body.per_ticker_overrides ?? {},

@@ -94,10 +94,10 @@ export default function V19PublishableClient({
     <main className="min-h-screen bg-zinc-950 p-6 text-zinc-100">
       <header className="mb-6">
         <h1 className="font-display text-2xl font-bold">
-          V1.9 Publishable — Stés clean a-f + g-m
+          V1.9 Publishable — Sociétés clean a-f + g-m
         </h1>
         <p className="mt-1 text-sm text-zinc-400">
-          {filtered.length} stés affichées sur {totalClean} clean totales (audit live).{" "}
+          {filtered.length} sociétés affichées sur {totalClean} clean totales (audit live).{" "}
           Généré : {new Date(generatedAt).toLocaleString("fr-FR")}
         </p>
       </header>
@@ -149,7 +149,7 @@ export default function V19PublishableClient({
 
       {filtered.length === 0 ? (
         <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-8 text-center text-zinc-400">
-          Aucune sté ne correspond aux filtres.
+          Aucune société ne correspond aux filtres.
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

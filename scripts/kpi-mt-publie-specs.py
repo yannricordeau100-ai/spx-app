@@ -62,7 +62,7 @@ def req(path,method='GET',data=None):
     r=urllib.request.Request(u+'/rest/v1/'+path,method=method,headers=HH,data=json.dumps(data).encode() if data is not None else None)
     try: return json.loads(urllib.request.urlopen(r,context=CTX).read() or b'[]')
     except urllib.error.HTTPError as e: print('HTTP',e.code,e.read()[:300].decode(),'|',json.dumps(data,ensure_ascii=False)[:200] if data else ''); return []
-titre=f"Par société : {T} (KPI d industrie)"
+titre=sys.argv[sys.argv.index('--titre')+1] if '--titre' in sys.argv else f"Par société : {T} (KPI d industrie)"
 ex=req(f"desk_image_findings_requests?title=eq.{urllib.request.quote(titre)}&select=id")
 if ex: rid=ex[0]['id']
 else: rid=req('desk_image_findings_requests','POST',{'title':titre,'query':f'KPI d industrie non couverts de {T}, graphiques reconstruits depuis des sources externes','target_tickers':[T],'languages':['fr'],'status':'pending_review'})[0]['id']

@@ -1,18 +1,18 @@
 /**
  * GET /api/v1-9/export
  *
- * Export CSV de l'univers V1.9 (924 stés). Yann 19 mai 2026.
+ * Export CSV de l'univers V1.9 (924 sociétés). Yann 19 mai 2026.
  *
  * Univers = union de :
- *   - SP500 (503 stés US)
- *   - Top 307 V1.8 (307 stés mondial par market cap)
+ *   - SP500 (503 sociétés US)
+ *   - Top 307 V1.8 (307 sociétés mondial par market cap)
  *   - Indices européens principaux : CAC 40 (FR), FTSE 100 (UK), DAX 40 (DE),
  *     SMI (CH), BEL 20 (BE), FTSE MIB (IT), AEX (NL), ATX (AT)
  *
  * Colonnes (demande Yann) : country, source, ticker.
  *   - country : ISO 2 lettres (US, FR, GB, DE, CH, BE, IT, NL, AT)
  *   - source : catégorie interne (sp500, top307, cac40, ftse100, dax40,
- *     smi, bel20, ftsemib, aex, atx). Si une sté appartient à plusieurs,
+ *     smi, bel20, ftsemib, aex, atx). Si une société appartient à plusieurs,
  *     les sources sont concaténées avec "+" (ex "cac40+top307").
  *   - ticker : ticker Yahoo Finance (avec suffixe place boursière pour EU)
  *

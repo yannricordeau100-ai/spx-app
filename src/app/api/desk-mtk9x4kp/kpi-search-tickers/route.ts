@@ -3,7 +3,7 @@
  *
  * Prend une description en langage naturel et renvoie la liste des tickers
  * pertinents trouvés par Groq Llama 3.3 70B (free tier) parmi l'univers
- * complet Mettrik (V1.8 top 307 + v2-pipeline _tickers-index ~2200 stés).
+ * complet Mettrik (V1.8 top 307 + v2-pipeline _tickers-index ~2200 sociétés).
  *
  * Auth : requireDeskOwner() (Yann uniquement).
  *
@@ -54,7 +54,7 @@ async function loadUniverse(): Promise<UniverseEntry[]> {
 
   // Yann 18 mai 2026 : on charge en PRIORITÉ V18 top 307 (déjà trié par
   // capitalisation), PUIS _tickers-index.json pour combler jusqu'au cap.
-  // L'ordre garantit que les stés majeures (NVDA, AAPL, MSFT, etc.) sont
+  // L'ordre garantit que les sociétés majeures (NVDA, AAPL, MSFT, etc.) sont
   // toujours dans le contexte LLM même si l'univers est tronqué.
 
   // 1. v1-8-tickers-sorted.json (top 307 V18, en priorité)
@@ -141,7 +141,7 @@ function normalizeDescription(input: string): string {
 function buildPrompt(description: string, universe: UniverseEntry[]): string {
   // Yann 18 mai 2026 : prompt compact pour respecter Groq free tier 12k TPM.
   // ticker + nom uniquement (secteur retiré, le LLM l'infère du nom).
-  // Universe cappé à 700 stés (cf MAX_UNIVERSE_SIZE) × ~40 chars =
+  // Universe cappé à 700 sociétés (cf MAX_UNIVERSE_SIZE) × ~40 chars =
   // ~28 KB texte ≈ 7-8k tokens. Marge confortable sous le cap free tier.
   const lines = universe.map((e) =>
     e.name ? `${e.ticker} | ${e.name}` : e.ticker,

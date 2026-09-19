@@ -68,7 +68,7 @@ export type BlockApplyReport = {
   needs_review: { line: string; reason: string }[];
   /** Compte des modifs data par type. */
   data_modifications: Record<string, number>;
-  /** Stés touchées par les modifs data. */
+  /** Sociétés touchées par les modifs data. */
   modified_tickers: string[];
 };
 

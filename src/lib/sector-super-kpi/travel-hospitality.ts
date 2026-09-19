@@ -2,7 +2,7 @@
  * Sector Super-KPIs — TRAVEL-HOSPITALITY V1.9.5
  *
  * 2 super-KPIs sectoriels pour travel & hospitality (LUV, UAL, DAL, AAL,
- * NCLH, RCL, CCL, MAR, HLT, IHG, 7 stés) :
+ * NCLH, RCL, CCL, MAR, HLT, IHG, 7 sociétés) :
  *   1. revparMomentum         : croissance RevPAR (hotels) / RASM (airlines) YoY (Croissance)
  *   2. loadFactorEfficiency   : Load Factor / Occupancy / Capacity Utilization (Profitabilité)
  *

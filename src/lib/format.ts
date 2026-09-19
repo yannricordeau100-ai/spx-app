@@ -73,7 +73,7 @@ const RAW_UNIT_NORMALIZE: Record<string, string> = {
  * écrites SANS espace ("M$", "M€", "Md€") ou avec un code devise en magnitude
  * M/K ("M USD", "M CHF") n'étaient pas reconnues comme monétaires : aucun
  * rescale M -> Mds n'était appliqué et les labels tombaient sur le compact
- * générique "k". Défaut systémique : 450 stés, 4 100+ séries.
+ * générique "k". Défaut systémique : 450 sociétés, 4 100+ séries.
  * `canonicalMoneyUnit` ramène toutes ces écritures à la forme canonique
  * "<magnitude> <devise>" avant lookup. Les unités non monétaires qui
  * ressemblent à une devise (MBOE, MMBF, MMSF...) sont protégées par la

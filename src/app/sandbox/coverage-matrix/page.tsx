@@ -60,8 +60,8 @@ export type Row = {
   missing_count: number;
   // Score visuel : combien de blocs ont A+B+C OK
   good_count: number;
-  // Yann 17 mai 2026 : ADR duplicate flag. Si défini, la sté reste visible
-  // dans la matrice mais barrée/grisée (= masquée du hub + page sté frontend).
+  // Yann 17 mai 2026 : ADR duplicate flag. Si défini, la société reste visible
+  // dans la matrice mais barrée/grisée (= masquée du hub + page société frontend).
   adr_duplicate_of?: string | null;
 };
 
@@ -152,7 +152,7 @@ function computeBlocks(d: AnyCo, ticker: string, logoSet: Set<string>, transcrip
   const isCat = ticker === "CAT";
   const dividendVisible = isCat || (shorts.has("DPS") && shorts.has("Cap Return") && shorts.has("Payout Ratio"));
 
-  // last_data_date est stocké sur le KPI hero (et chaque KPI), pas au niveau sté.
+  // last_data_date est stocké sur le KPI hero (et chaque KPI), pas au niveau société.
   // Cherche d'abord hero.last_data_date, sinon n'importe quel KPI valide.
   const heroLastDate = hero?.last_data_date as string | undefined;
   const anyKpiDate = kpis.find((k) => k?.last_data_date)?.last_data_date as string | undefined;

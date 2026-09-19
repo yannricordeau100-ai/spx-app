@@ -11,7 +11,7 @@ export const metadata = {
  * 7 variants "wow + sérieux" pour la présence Mettrik AI sur les RS.
  * Yann 17 mai 2026 : "fait d'autre style sur une page dédiée dans la
  * page concept. fait en autant que possible sachant que je ne veux pas
- * qq chose de classique/déjà vu chez toutes les stés. sois innovant et
+ * qq chose de classique/déjà vu chez toutes les sociétés. sois innovant et
  * n'hésites pas à apporter de la nouveauté, dans le sens double / triple
  * usage, à la fois sur l'app mettrik mais aussi lorsque l'on clic."
  */

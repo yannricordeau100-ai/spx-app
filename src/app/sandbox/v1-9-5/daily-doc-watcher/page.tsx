@@ -17,10 +17,10 @@ export const metadata = {
  * /sandbox/v1-9-5/daily-doc-watcher
  *
  * Page admin-only (gate isDeskOwner) qui pilote la veille documentaire
- * quotidienne sur les 660 stés clean_all V1.9.5.
+ * quotidienne sur les 660 sociétés clean_all V1.9.5.
  *
  * Yann (27 mai 2026) : permet de visualiser le dernier run du cron 04h00,
- * voir les stés flaggées (earning attendu mais publié / docs périmés > 90j),
+ * voir les sociétés flaggées (earning attendu mais publié / docs périmés > 90j),
  * et déclencher un run manuel via API.
  */
 
@@ -95,7 +95,7 @@ export default async function DailyDocWatcherPage() {
             Daily Doc Watcher
           </h1>
           <p className="text-sm text-slate-400 max-w-2xl">
-            Veille documentaire quotidienne des stés clean_all V1.9.5. Tourne automatiquement à 04h00
+            Veille documentaire quotidienne des sociétés clean_all V1.9.5. Tourne automatiquement à 04h00
             via crontab. Cette page affiche le dernier run et permet d&apos;en déclencher un manuellement.
           </p>
         </header>
@@ -146,10 +146,10 @@ export default async function DailyDocWatcherPage() {
           <div className="flex items-center gap-2">
             <AlertTriangle className="h-4 w-4 text-amber-400" />
             <h2 className="text-sm font-semibold tracking-wide uppercase text-slate-300">
-              Stés flaggées &quot;earning attendu mais publié&quot;
+              Sociétés flaggées &quot;earning attendu mais publié&quot;
             </h2>
             <span className="ml-auto text-xs text-slate-500">
-              {status.stes_flagged_earning_pending_resolved.length} sté
+              {status.stes_flagged_earning_pending_resolved.length} société
               {status.stes_flagged_earning_pending_resolved.length > 1 ? "s" : ""}
             </span>
           </div>
@@ -164,10 +164,10 @@ export default async function DailyDocWatcherPage() {
           <div className="flex items-center gap-2">
             <Clock className="h-4 w-4 text-rose-400" />
             <h2 className="text-sm font-semibold tracking-wide uppercase text-slate-300">
-              Stés avec docs périmés (&gt; 90 jours)
+              Sociétés avec docs périmés (&gt; 90 jours)
             </h2>
             <span className="ml-auto text-xs text-slate-500">
-              {status.stes_flagged_docs_stale.length} sté
+              {status.stes_flagged_docs_stale.length} société
               {status.stes_flagged_docs_stale.length > 1 ? "s" : ""}
             </span>
           </div>
@@ -224,7 +224,7 @@ function StatCard({
 
 function TickerGrid({ tickers, tone }: { tickers: string[]; tone: "amber" | "rose" }) {
   if (tickers.length === 0) {
-    return <p className="text-xs text-slate-500 italic">Aucune sté flaggée.</p>;
+    return <p className="text-xs text-slate-500 italic">Aucune société flaggée.</p>;
   }
   const chipClass =
     tone === "amber"

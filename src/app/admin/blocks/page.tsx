@@ -38,8 +38,8 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-// Liste tickers = union de la liste V1.8 figée (344) ET de TOUTES les stés
-// clean_all de l'audit (= pages société réelles publiables). Ainsi les stés
+// Liste tickers = union de la liste V1.8 figée (344) ET de TOUTES les sociétés
+// clean_all de l'audit (= pages société réelles publiables). Ainsi les sociétés
 // ajoutees recemment (des qu'elles passent clean_all + sont publiees) apparaissent
 // automatiquement ici, sans toucher au code. Yann 2026-06-09.
 const CLEAN_ALL_TICKERS = (
@@ -156,7 +156,7 @@ export default async function AdminBlocksPage({
         <p className="mb-8 max-w-xl text-[13.5px] text-zinc-400">
           Page unique et version-agnostic pour activer / désactiver les{" "}
           {DISABLED_BLOCKS_KEYS.length} blocs de la page société. Toggle global
-          + override per-sté. S&apos;applique à toutes les versions actives
+          + override per-société. S&apos;applique à toutes les versions actives
           (V1.7-5, V1.8, V1.9, V1.9-5). Le code reste en place : réactivation
           d&apos;un clic.
         </p>
@@ -211,13 +211,13 @@ export default async function AdminBlocksPage({
         {/* ─── Section 2 : override per-ticker ─── */}
         <section className="border-t border-white/[0.06] pt-10">
           <h2 className="mb-3 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">
-            2. Override per-sté
+            2. Override per-société
           </h2>
           <p className="mb-5 max-w-xl text-[12.5px] text-zinc-400">
-            Désactive un bloc UNIQUEMENT pour une sté précise (ex : gouvernance
+            Désactive un bloc UNIQUEMENT pour une société précise (ex : gouvernance
             globalement activée mais masquée pour BABA, ADR Chinois sans
             DEF14A). Le global gagne toujours : si un bloc est désactivé
-            globalement, l&apos;override per-sté n&apos;a pas d&apos;effet.
+            globalement, l&apos;override per-société n&apos;a pas d&apos;effet.
           </p>
 
           {/* Sélection ticker */}
@@ -259,7 +259,7 @@ export default async function AdminBlocksPage({
                 <span className="font-mono text-violet-200">{ticker}</span>
               </h3>
               <p className="mb-4 text-[12px] text-zinc-500">
-                Coche les blocs que tu veux MASQUER pour cette sté uniquement.
+                Coche les blocs que tu veux MASQUER pour cette société uniquement.
               </p>
 
               <form action={savePerSteOverride} className="space-y-2">
@@ -339,7 +339,7 @@ export default async function AdminBlocksPage({
             </h3>
             {Object.keys(perSteOverrides).length === 0 ? (
               <p className="text-[12.5px] text-zinc-500">
-                Aucun override per-sté pour le moment. Tape un ticker ci-dessus
+                Aucun override per-société pour le moment. Tape un ticker ci-dessus
                 pour en créer un.
               </p>
             ) : (

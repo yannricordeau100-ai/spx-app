@@ -14,7 +14,7 @@
  * Comment ce fichier est utilisé :
  *
  *   1. Le pipeline LLM identifie le secteur GICS de la société (champ
- *      `sector` du JSON sté).
+ *      `sector` du JSON société).
  *   2. Il prend `KPI_TEMPLATES[sector]` comme grille de KPI candidats.
  *   3. Pour chaque KPI candidat, il cherche les chiffres dans le 20-F
  *      ou 10-K + ER + ES + transcripts.
@@ -25,16 +25,16 @@
  *   5. En plus, il ajoute systématiquement les 3 KPI universels (CA/sec,
  *      profit/sec, CA/employé).
  *   6. Il consulte aussi `kpi-overrides.ts` pour les demandes user
- *      sté-spécifiques (ex : Netflix Subscribers calculé manuellement).
+ *      société-spécifiques (ex : Netflix Subscribers calculé manuellement).
  *
  * RÈGLES STRICTES qualité :
  *
  *   - Chaque KPI doit avoir une PV (plus-value) claire pour l'investisseur.
  *     "CA total" est OK comme info de base mais doit être en générique
  *     (générique = position basse dans la liste, pas en Hero).
- *   - Hero KPI = LE chiffre wow propre à la sté qui change la trajectoire.
- *     Si la sté n'a pas de wow distinctif → Hero = KPI maître secteur
- *     (banal mais le plus regardé) + société classée dans bloc "stés
+ *   - Hero KPI = LE chiffre wow propre à la société qui change la trajectoire.
+ *     Si la société n'a pas de wow distinctif → Hero = KPI maître secteur
+ *     (banal mais le plus regardé) + société classée dans bloc "sociétés
  *     sans wow" du sandbox.
  *   - Stories : valeur 2025 (ou exercice fiscal le plus récent) obligatoire.
  *   - Toujours apporter quelque chose en + dans une story (vs le simple
@@ -84,7 +84,7 @@ export type GicsSectorTemplate = {
   sector_en: string;
   /** Description rapide du secteur en 1 phrase. */
   description: string;
-  /** 1-3 KPI candidats Hero (le pipeline choisit le plus pertinent par sté). */
+  /** 1-3 KPI candidats Hero (le pipeline choisit le plus pertinent par société). */
   hero_candidates: KpiTemplate[];
   /** 5-7 KPI standards 5+ ans d'historique. */
   standard_kpis: KpiTemplate[];
@@ -92,7 +92,7 @@ export type GicsSectorTemplate = {
   story_short_history: KpiTemplate[];
   /** 1-2 super-KPI Mettrik (dérivés, croisés). */
   super_kpi_mettrik: KpiTemplate[];
-  /** Exemples sté-spécifiques de Hero "wow" (rappel pour le pipeline). */
+  /** Exemples société-spécifiques de Hero "wow" (rappel pour le pipeline). */
   hero_override_examples: string[];
 };
 
@@ -490,7 +490,7 @@ export const KPI_TEMPLATES: Record<string, GicsSectorTemplate> = {
         explanation:
           "Croissance des ventes en volume seul (hors hausse de prix).",
         why_pv:
-          "Indique si la sté grandit vraiment ou juste profite de l'inflation.",
+          "Indique si la société grandit vraiment ou juste profite de l'inflation.",
         unit: "%",
         type: "Demand",
         wow_or_generic: "wow",
@@ -1416,7 +1416,7 @@ export const KPI_TEMPLATES: Record<string, GicsSectorTemplate> = {
         name_fr: "Prix de vente réalisé",
         name_en: "Realized Price per tonne / oz",
         explanation:
-          "Prix moyen pondéré reçu par la sté (vs prix spot LME ou COMEX).",
+          "Prix moyen pondéré reçu par la société (vs prix spot LME ou COMEX).",
         why_pv:
           "Cyclique. Différence vs spot = qualité du produit + contrats long-terme.",
         unit: "$/t ou $/oz",
@@ -1689,7 +1689,7 @@ export const KPI_TEMPLATES: Record<string, GicsSectorTemplate> = {
         name_fr: "Base d'actifs régulés (Rate Base)",
         name_en: "Regulated Asset Base (RAB)",
         explanation:
-          "Total des actifs régulés sur lesquels la sté gagne un rendement autorisé. Driver direct du revenu garanti.",
+          "Total des actifs régulés sur lesquels la société gagne un rendement autorisé. Driver direct du revenu garanti.",
         why_pv:
           "KPI maître utilities régulés. Croissance RAB = croissance revenu garantie.",
         unit: "$B",
@@ -1837,9 +1837,9 @@ export const KPI_TEMPLATES: Record<string, GicsSectorTemplate> = {
 export const PIPELINE_NOTES = `
 RAPPELS QUALITÉ POUR LE PIPELINE :
 
-1. Hero KPI = LE chiffre wow propre à la sté. Si pas de wow distinctif :
+1. Hero KPI = LE chiffre wow propre à la société. Si pas de wow distinctif :
    → utilise le KPI maître secteur (générique mais le plus regardé)
-   → ajoute la sté dans la liste "noWowSocieties" pour le bloc dédié sandbox
+   → ajoute la société dans la liste "noWowSocieties" pour le bloc dédié sandbox
 
 2. Stories : valeur dernier exercice fiscal OBLIGATOIRE.
    - Si valeur 2023 + 2024 mais pas 2025 → SKIP même si KPI intéressant
@@ -1854,12 +1854,12 @@ RAPPELS QUALITÉ POUR LE PIPELINE :
 
 5. Année fiscale :
    - Par défaut, utiliser l'année calendaire (2025 = jan-déc 2025).
-   - Si la sté ferme à une autre date (Toyota mars, Microsoft juin) :
+   - Si la société ferme à une autre date (Toyota mars, Microsoft juin) :
      → préciser dans le dataset le champ \`fiscal_year_end_month\` (mois 1-12)
      → le frontend affichera un toggle "Vue calendaire / Vue fiscale".
 
 6. Devises : reporter dans la devise locale principale (TWD/EUR/JPY/CNY/DKK/etc.)
-   sauf si la sté reporte naturellement en USD (Shell, BP, HSBC, MUFG GAAP).
+   sauf si la société reporte naturellement en USD (Shell, BP, HSBC, MUFG GAAP).
    Format unit : "Mds €", "Mds DKK", "Mds JPY", etc.
    Le \`$B\` est auto-converti en "Mds $" par formatUnit().
 
@@ -1868,7 +1868,7 @@ RAPPELS QUALITÉ POUR LE PIPELINE :
 
 8. Lecture des fichiers — ORDRE DE PRIORITÉ par cat :
 
-   ─── Cat 1 (US 2 500 stés) ───
+   ─── Cat 1 (US 2 500 sociétés) ───
    1) 10-K dernier : revenu segments + history 5-10 ans + risks + governance
    2) 10-Q dernier (Q1-Q4) : chiffres trimestriels validés, historique 5+ ans
    3) **8-K Item 2.02 + exhibit 99.1** = EARNINGS RELEASE complet (déjà télé-

@@ -35,7 +35,7 @@ function majEtat(ticker: string, mode: "company" | "kpi", kpiShort: string | und
 }
 
 /**
- * Bouton étoile générique — favori sté ou favori KPI.
+ * Bouton étoile générique — favori société ou favori KPI.
  *
  * Behavior :
  *   - Au mount, fetch le statut de favori côté serveur (RLS-protected)

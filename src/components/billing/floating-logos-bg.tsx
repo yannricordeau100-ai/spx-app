@@ -12,7 +12,7 @@
  * - DOM fixed full-height, z-index -1 (sous tout le contenu)
  * - 4 colonnes verticales (2 à gauche, 2 à droite) hors zone centrale
  *   max-w-5xl (= zone safe texte + cards + FAQ + form CTA)
- * - 6 logos espacés verticalement par colonne, sélection top 12-15 stés
+ * - 6 logos espacés verticalement par colonne, sélection top 12-15 sociétés
  * - Opacité 0.06, filtre invert pour silhouette blanche translucide
  * - Logos centrés horizontalement dans chaque colonne marginale
  *
@@ -21,7 +21,7 @@
  * META AMZN TSLA V JPM BRK-B ASML JNJ UNH WMT XOM MC tous présents.
  */
 
-// Top 14 stés mondial par capi (sélection diversifiée tech + finance +
+// Top 14 sociétés mondial par capi (sélection diversifiée tech + finance +
 // luxe + santé + énergie pour éviter monoculture tech). Tickers
 // vérifiés présents dans /public/logos/.
 const TOP_LOGOS = [

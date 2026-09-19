@@ -4,12 +4,12 @@
  * Retourne la liste des tickers "online" (= publiés / trouvables), source de
  * vérité = table Supabase `desk_curated_companies` (min_plan != 'hidden').
  *
- * Consommé par la search (company-search.tsx) pour n'afficher QUE les stés
+ * Consommé par la search (company-search.tsx) pour n'afficher QUE les sociétés
  * réellement publiées. Runtime (pas de rebuild requis quand on publie/retire
- * une sté via le toggle curated-companies ou via script).
+ * une société via le toggle curated-companies ou via script).
  *
  * Yann 9 juin 2026 : "la fenêtre de recherche doit toujours afficher
- * uniquement les stés que l'on peut réellement trouver" (N0/N1/N2).
+ * uniquement les sociétés que l'on peut réellement trouver" (N0/N1/N2).
  */
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";

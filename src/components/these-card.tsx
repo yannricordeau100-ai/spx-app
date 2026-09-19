@@ -8,6 +8,10 @@
  * (investisseur célèbre, banque ou méthode reconnue), dates et hook visibles
  * par tous ; le reste réservé au plan Max (these.locked pilote le placeholder).
  * La valorisation est volontairement ignorée, le préambule le dit.
+ *
+ * 19 sept 2026 : cadre visuel net autour du bloc entier (teinte émeraude, en
+ * miroir de la teinte violette de l'anti-thèse) et parties numérotées dans un
+ * médaillon avec bandeau de titre, pour voir la délimitation d'un coup d'oeil.
  */
 
 import Link from "next/link";
@@ -23,9 +27,13 @@ import {
   Compass,
   LineChart,
   Lightbulb,
+  FileText,
 } from "lucide-react";
 import { InfoTooltip } from "@/components/info-tooltip";
 import type { CompanyThese, TheseArgument, TheseQuantitatif } from "@/lib/these";
+
+/** Teinte du cadre général de la thèse (l'anti-thèse prend le violet). */
+const CADRE = "#10b981";
 
 const CONVICTION_META: Record<CompanyThese["conviction"], { label: string; color: string }> = {
   faible: { label: "Conviction faible", color: "#f59e0b" },
@@ -54,12 +62,48 @@ function splitEnPoints(texte: string): string[] {
   return [texte];
 }
 
-function SectionTitle({ icon, color, children }: { icon: React.ReactNode; color: string; children: React.ReactNode }) {
+/**
+ * Une partie de la thèse : médaillon numéroté, bandeau de titre coloré,
+ * fine ligne de séparation puis le contenu.
+ */
+function Partie({
+  n,
+  icon,
+  color,
+  titre,
+  children,
+}: {
+  n: number;
+  icon: React.ReactNode;
+  color: string;
+  titre: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
-    <h3 className="mb-3 flex items-center gap-2.5 font-mono text-[15px] font-semibold uppercase tracking-[0.14em]" style={{ color }}>
-      {icon}
-      {children}
-    </h3>
+    <div className="overflow-hidden rounded-xl border border-[#151515] bg-[#050505]">
+      <div
+        className="flex items-center gap-2.5 border-b px-4 py-2.5"
+        style={{
+          borderColor: `${color}26`,
+          background: `linear-gradient(90deg, ${color}14 0%, rgba(7, 7, 7, 0) 70%)`,
+        }}
+      >
+        <span
+          className="inline-flex size-6 shrink-0 items-center justify-center rounded-full border font-mono text-[11px] font-semibold leading-none"
+          style={{ borderColor: `${color}59`, background: `${color}1f`, color }}
+        >
+          {n}
+        </span>
+        <h3
+          className="flex items-center gap-2 font-mono text-[12.5px] font-semibold uppercase tracking-[0.14em]"
+          style={{ color }}
+        >
+          {icon}
+          {titre}
+        </h3>
+      </div>
+      <div className="p-4">{children}</div>
+    </div>
   );
 }
 
@@ -157,159 +201,223 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
   const graphique = these.graphique_externe && (these.graphique_externe.image_dark || these.graphique_externe.image_light) ? these.graphique_externe : null;
   const criteres = Array.isArray(these.style?.criteres) ? these.style.criteres : [];
 
+  /* Parties numérotées : l'ordre de cette liste donne les numéros 1, 2, 3... */
+  const parties: { key: string; color: string; icon: React.ReactNode; titre: React.ReactNode; contenu: React.ReactNode }[] = [];
+
+  if (these.resume) {
+    parties.push({
+      key: "resume",
+      color: "#10b981",
+      icon: <FileText className="size-3.5" />,
+      titre: "En résumé",
+      contenu: <p className="text-[13.5px] leading-relaxed text-zinc-300">{these.resume}</p>,
+    });
+  }
+
+  if (interne.length > 0) {
+    parties.push({
+      key: "interne",
+      color: "#10b981",
+      icon: <Landmark className="size-3.5" />,
+      titre: "Qualité interne",
+      contenu: <div className="grid gap-3">{interne.map((a, i) => <ArgumentCard key={`int-${i}`} arg={a} />)}</div>,
+    });
+  }
+
+  if (externe.length > 0) {
+    parties.push({
+      key: "externe",
+      color: "#34d399",
+      icon: <Globe2 className="size-3.5" />,
+      titre: "Dynamique externe",
+      contenu: <div className="grid gap-3">{externe.map((a, i) => <ArgumentCard key={`ext-${i}`} arg={a} />)}</div>,
+    });
+  }
+
+  if (quant.length > 0) {
+    parties.push({
+      key: "quant",
+      color: "#22d3ee",
+      icon: <Calculator className="size-3.5" />,
+      titre: "Quantitatif",
+      contenu: <div className="grid gap-3 md:grid-cols-3">{quant.map((q, i) => <QuantCard key={`q-${i}`} q={q} />)}</div>,
+    });
+  }
+
+  if (graphique) {
+    parties.push({
+      key: "graphique",
+      color: "#a78bfa",
+      icon: <LineChart className="size-3.5" />,
+      titre: "Le regard extérieur",
+      contenu: (
+        <div>
+          <div className="text-[13.5px] font-semibold text-zinc-100">{graphique.titre}</div>
+          <div className="mt-3 overflow-hidden rounded-lg">
+            {graphique.image_dark && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={graphique.image_dark} alt={graphique.titre} className="block w-full dark-only" />
+            )}
+            {graphique.image_light && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={graphique.image_light} alt="" aria-hidden className="hidden w-full light-only" />
+            )}
+          </div>
+          {graphique.lecture && <p className="mt-3 text-[13px] leading-[1.75] text-zinc-300">{graphique.lecture}</p>}
+          {graphique.source_date && (
+            <p className="mt-2 font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">Données au {formatMoisAn(graphique.source_date)}</p>
+          )}
+        </div>
+      ),
+    });
+  }
+
+  if (these.element_additionnel && these.element_additionnel.texte) {
+    parties.push({
+      key: "additionnel",
+      color: "#f59e0b",
+      icon: <Lightbulb className="size-3.5" />,
+      titre: "Un élément en plus",
+      contenu: (
+        <div>
+          <div className="flex items-start justify-between gap-2">
+            <div className="text-[13.5px] font-semibold text-zinc-100">{these.element_additionnel.titre}</div>
+            {these.element_additionnel.source && <SourceInfo label="Source" contenu={these.element_additionnel.source} />}
+          </div>
+          <div className="mt-2"><Corps texte={these.element_additionnel.texte} /></div>
+        </div>
+      ),
+    });
+  }
+
+  if (invaliderait.length > 0) {
+    parties.push({
+      key: "invaliderait",
+      color: "#f43f5e",
+      icon: <ShieldAlert className="size-3.5" />,
+      titre: "Ce qui invaliderait cette thèse",
+      contenu: (
+        <ul className="grid gap-2">
+          {invaliderait.map((item, i) => (
+            <li key={`w-${i}`} className="flex items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 text-[13px] leading-relaxed text-zinc-300">
+              <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-rose-400/80" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      ),
+    });
+  }
+
+  if (glossaire.length > 0) {
+    parties.push({
+      key: "glossaire",
+      color: "#71717a",
+      icon: <BookOpen className="size-3.5" />,
+      titre: "Glossaire (termes suivis d'un astérisque)",
+      contenu: (
+        <dl className="grid gap-x-6 gap-y-2 md:grid-cols-2">
+          {glossaire.map(([term, def]) => (
+            <div key={term} className="text-[12.5px] leading-relaxed">
+              <dt className="inline font-mono font-semibold text-zinc-200">{term.replace(/\*+$/, "")}*</dt>
+              <dd className="inline text-zinc-400"> : {def}</dd>
+            </div>
+          ))}
+        </dl>
+      ),
+    });
+  }
+
   return (
     <section id="sec-these" data-blur="these" className="mt-9 scroll-mt-24 animate-fade-up-d2">
-      <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
-        <div>
-          <h2 data-blur-part="titre" className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
-            <Sparkles className="size-5" style={{ color: accent }} />
-            Thèse d&apos;investissement
-            <InfoTooltip color={accent} size="md">
-              Pourquoi ce bloc existe : le cas favorable, rédigé avec les mêmes documents officiels et la même exigence de source que l&apos;anti-thèse, mais selon les critères publiés d&apos;un investisseur célèbre, d&apos;une grande banque ou d&apos;une méthode reconnue. La valorisation est volontairement laissée de côté : la thèse juge l&apos;entreprise, pas son prix.
-            </InfoTooltip>
-            <span className="rounded-md px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider" style={{ background: `${meta.color}1a`, color: meta.color, border: `1px solid ${meta.color}40` }}>
-              {meta.label}
-            </span>
-          </h2>
-          <p className="mt-0.5 text-[13.5px] text-zinc-300">Le cas favorable, figé à date, sans tenir compte du prix.</p>
-        </div>
-        <div className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
-          <CalendarDays className="size-3.5" />
-          <span>
-            Rédigée en {formatMoisAn(these.redigee_le)}
-            {these.donnees_arretees_au ? `, sur la base des documents publiés jusqu'en ${formatMoisAn(these.donnees_arretees_au)}` : ""}
-          </span>
-        </div>
-      </div>
-
-      {/* Style d'analyse : toujours visible. */}
-      <div data-blur-part="texte" className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border border-[#1a1a1a] bg-[#070707] px-4 py-3">
-        <Compass className="size-4 shrink-0" style={{ color: accent }} />
-        <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">{STYLE_LABEL[these.style.type] ?? "Selon"}</span>
-        <span className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-zinc-100">
-          {these.style.nom}
-          {criteres.length > 0 && !these.locked && (
-            <InfoTooltip color={accent} align="right" size="md">
-              <div className="mb-1 font-mono text-[10.5px] uppercase tracking-wider text-emerald-300">Critères appliqués</div>
-              <ul className="grid gap-1 text-[12px] leading-relaxed text-zinc-300">
-                {criteres.map((c, i) => (
-                  <li key={i}>· {c}</li>
-                ))}
-              </ul>
-            </InfoTooltip>
-          )}
-        </span>
-        {these.style.justification && <span className="basis-full text-[12.5px] text-zinc-400 sm:basis-auto">{these.style.justification}</span>}
-      </div>
-
-      {these.preambule && (
-        <p data-blur-part="texte" className="mb-3 text-[12.5px] italic leading-relaxed text-zinc-400">{these.preambule}</p>
-      )}
-
+      {/* Cadre général du bloc : teinte émeraude, en miroir du violet de l'anti-thèse. */}
       <div
-        data-blur-part="texte"
-        className="relative overflow-hidden rounded-xl border p-5"
+        className="overflow-hidden rounded-2xl border"
         style={{
-          borderColor: "rgba(16, 185, 129, 0.35)",
-          background: "linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(7, 7, 7, 0.9) 45%, rgba(34, 211, 238, 0.08) 100%)",
+          borderColor: `${CADRE}4d`,
+          background: `linear-gradient(180deg, ${CADRE}0d 0%, rgba(7, 7, 7, 0) 260px)`,
         }}
       >
-        <p className="text-[15.5px] font-medium leading-relaxed text-zinc-100">{these.hook}</p>
-      </div>
+        {/* Bandeau de titre du bloc */}
+        <div
+          className="flex flex-wrap items-end justify-between gap-2 border-b px-5 py-4 sm:px-6"
+          style={{
+            borderColor: `${CADRE}33`,
+            background: `linear-gradient(90deg, ${CADRE}1a 0%, rgba(7, 7, 7, 0) 70%)`,
+          }}
+        >
+          <div>
+            <h2 data-blur-part="titre" className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
+              <Sparkles className="size-5" style={{ color: accent }} />
+              Thèse d&apos;investissement
+              <InfoTooltip color={accent} size="md">
+                Pourquoi ce bloc existe : le cas favorable, rédigé avec les mêmes documents officiels et la même exigence de source que l&apos;anti-thèse, mais selon les critères publiés d&apos;un investisseur célèbre, d&apos;une grande banque ou d&apos;une méthode reconnue. La valorisation est volontairement laissée de côté : la thèse juge l&apos;entreprise, pas son prix.
+              </InfoTooltip>
+              <span className="rounded-md px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider" style={{ background: `${meta.color}1a`, color: meta.color, border: `1px solid ${meta.color}40` }}>
+                {meta.label}
+              </span>
+            </h2>
+            <p className="mt-0.5 text-[13.5px] text-zinc-300">Le cas favorable, figé à date, sans tenir compte du prix.</p>
+          </div>
+          <div className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
+            <CalendarDays className="size-3.5" />
+            <span>
+              Rédigée en {formatMoisAn(these.redigee_le)}
+              {these.donnees_arretees_au ? `, sur la base des documents publiés jusqu'en ${formatMoisAn(these.donnees_arretees_au)}` : ""}
+            </span>
+          </div>
+        </div>
 
-      <div data-blur-part="texte">
-        {these.locked ? (
-          <LockedPlaceholder />
-        ) : (
-          <div className="mt-4 grid gap-6">
-            {these.resume && <p className="text-[13.5px] leading-relaxed text-zinc-300">{these.resume}</p>}
+        <div className="p-5 sm:p-6">
+          {/* Style d'analyse : toujours visible. */}
+          <div data-blur-part="texte" className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border border-[#1a1a1a] bg-[#070707] px-4 py-3">
+            <Compass className="size-4 shrink-0" style={{ color: accent }} />
+            <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">{STYLE_LABEL[these.style.type] ?? "Selon"}</span>
+            <span className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-zinc-100">
+              {these.style.nom}
+              {criteres.length > 0 && !these.locked && (
+                <InfoTooltip color={accent} align="right" size="md">
+                  <div className="mb-1 font-mono text-[10.5px] uppercase tracking-wider text-emerald-300">Critères appliqués</div>
+                  <ul className="grid gap-1 text-[12px] leading-relaxed text-zinc-300">
+                    {criteres.map((c, i) => (
+                      <li key={i}>· {c}</li>
+                    ))}
+                  </ul>
+                </InfoTooltip>
+              )}
+            </span>
+            {these.style.justification && <span className="basis-full text-[12.5px] text-zinc-400 sm:basis-auto">{these.style.justification}</span>}
+          </div>
 
-            {interne.length > 0 && (
-              <div>
-                <SectionTitle icon={<Landmark className="size-3.5" />} color="#10b981">Qualité interne</SectionTitle>
-                <div className="grid gap-3">{interne.map((a, i) => <ArgumentCard key={`int-${i}`} arg={a} />)}</div>
-              </div>
-            )}
+          {these.preambule && (
+            <p data-blur-part="texte" className="mb-3 text-[12.5px] italic leading-relaxed text-zinc-400">{these.preambule}</p>
+          )}
 
-            {externe.length > 0 && (
-              <div>
-                <SectionTitle icon={<Globe2 className="size-3.5" />} color="#10b981">Dynamique externe</SectionTitle>
-                <div className="grid gap-3">{externe.map((a, i) => <ArgumentCard key={`ext-${i}`} arg={a} />)}</div>
-              </div>
-            )}
+          <div
+            data-blur-part="texte"
+            className="relative overflow-hidden rounded-xl border p-5"
+            style={{
+              borderColor: "rgba(16, 185, 129, 0.35)",
+              background: "linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(7, 7, 7, 0.9) 45%, rgba(34, 211, 238, 0.08) 100%)",
+            }}
+          >
+            <p className="text-[15.5px] font-medium leading-relaxed text-zinc-100">{these.hook}</p>
+          </div>
 
-            {quant.length > 0 && (
-              <div>
-                <SectionTitle icon={<Calculator className="size-3.5" />} color="#22d3ee">Quantitatif</SectionTitle>
-                <div className="grid gap-3 md:grid-cols-3">{quant.map((q, i) => <QuantCard key={`q-${i}`} q={q} />)}</div>
-              </div>
-            )}
-
-            {graphique && (
-              <div>
-                <SectionTitle icon={<LineChart className="size-3.5" />} color="#a78bfa">Le regard extérieur</SectionTitle>
-                <div className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4">
-                  <div className="text-[13.5px] font-semibold text-zinc-100">{graphique.titre}</div>
-                  <div className="mt-3 overflow-hidden rounded-lg">
-                    {graphique.image_dark && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={graphique.image_dark} alt={graphique.titre} className="block w-full dark-only" />
-                    )}
-                    {graphique.image_light && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={graphique.image_light} alt="" aria-hidden className="hidden w-full light-only" />
-                    )}
-                  </div>
-                  {graphique.lecture && <p className="mt-3 text-[13px] leading-[1.75] text-zinc-300">{graphique.lecture}</p>}
-                  {graphique.source_date && (
-                    <p className="mt-2 font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">Données au {formatMoisAn(graphique.source_date)}</p>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {these.element_additionnel && these.element_additionnel.texte && (
-              <div>
-                <SectionTitle icon={<Lightbulb className="size-3.5" />} color="#f59e0b">Un élément en plus</SectionTitle>
-                <div className="rounded-xl border border-amber-500/25 bg-amber-500/[0.04] p-4">
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="text-[13.5px] font-semibold text-zinc-100">{these.element_additionnel.titre}</div>
-                    {these.element_additionnel.source && <SourceInfo label="Source" contenu={these.element_additionnel.source} />}
-                  </div>
-                  <div className="mt-2"><Corps texte={these.element_additionnel.texte} /></div>
-                </div>
-              </div>
-            )}
-
-            {invaliderait.length > 0 && (
-              <div>
-                <SectionTitle icon={<ShieldAlert className="size-3.5" />} color="#f43f5e">Ce qui invaliderait cette thèse</SectionTitle>
-                <ul className="grid gap-2">
-                  {invaliderait.map((item, i) => (
-                    <li key={`w-${i}`} className="flex items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 text-[13px] leading-relaxed text-zinc-300">
-                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-rose-400/80" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {glossaire.length > 0 && (
-              <div>
-                <SectionTitle icon={<BookOpen className="size-3.5" />} color="#71717a">Glossaire (termes suivis d&apos;un astérisque)</SectionTitle>
-                <dl className="grid gap-x-6 gap-y-2 rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 md:grid-cols-2">
-                  {glossaire.map(([term, def]) => (
-                    <div key={term} className="text-[12.5px] leading-relaxed">
-                      <dt className="inline font-mono font-semibold text-zinc-200">{term.replace(/\*+$/, "")}*</dt>
-                      <dd className="inline text-zinc-400"> : {def}</dd>
-                    </div>
-                  ))}
-                </dl>
+          <div data-blur-part="texte">
+            {these.locked ? (
+              <LockedPlaceholder />
+            ) : (
+              <div className="mt-4 grid gap-4">
+                {parties.map((p, i) => (
+                  <Partie key={p.key} n={i + 1} color={p.color} icon={p.icon} titre={p.titre}>
+                    {p.contenu}
+                  </Partie>
+                ))}
               </div>
             )}
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

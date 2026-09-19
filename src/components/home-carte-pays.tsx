@@ -73,7 +73,7 @@ export function HomeCartePays({
     return anonLinks && !VITRINE_ANON.has(ticker.toUpperCase()) ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
   };
 
-  // Yann 07 sept 2026 : exactement 10 stés (2 colonnes de 5), pas de bouton.
+  // Yann 07 sept 2026 : exactement 10 sociétés (2 colonnes de 5), pas de bouton.
   const visibles = rows.slice(0, 10);
 
   const wrapGate = (key: string, child: React.ReactNode) =>

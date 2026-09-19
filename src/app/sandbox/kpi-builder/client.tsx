@@ -338,7 +338,7 @@ export function KpiBuilderClient({
   /* ─── Actions sur lignes existantes ────────────────────────────── */
   async function cancelRequest(id: string) {
     if (
-      !confirm("Annuler cette demande ? Les stés non encore traitées seront skip.")
+      !confirm("Annuler cette demande ? Les sociétés non encore traitées seront skip.")
     )
       return;
     await fetch("/api/desk-mtk9x4kp/kpi-requests", {
@@ -354,7 +354,7 @@ export function KpiBuilderClient({
   }
 
   async function relaunchRequest(id: string) {
-    if (!confirm("Relancer l'extraction sur les stés en erreur ?")) return;
+    if (!confirm("Relancer l'extraction sur les sociétés en erreur ?")) return;
     await fetch("/api/desk-mtk9x4kp/kpi-requests", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -393,14 +393,14 @@ export function KpiBuilderClient({
           <div>
             <h1 className="font-display text-3xl font-semibold">
               <Sparkles className="mr-2 inline size-7 text-violet-300" />
-              Ajouter un KPI multi-stés
+              Ajouter un KPI multi-sociétés
             </h1>
             <p className="mt-2 max-w-3xl text-sm text-zinc-400">
               Crée une demande d&apos;extraction d&apos;un nouveau KPI sur
               plusieurs sociétés à la fois. Décris ta demande en langage
               naturel, laisse Claude suggérer la liste de tickers, ajuste,
               renseigne la définition du KPI puis lance l&apos;extraction.
-              Le résultat sera publié sur les fiches sté concernées.
+              Le résultat sera publié sur les fiches société concernées.
             </p>
           </div>
         </div>
@@ -702,7 +702,7 @@ export function KpiBuilderClient({
                     <th className="px-3 py-2">Date</th>
                     <th className="px-3 py-2">Description</th>
                     <th className="px-3 py-2">KPI</th>
-                    <th className="px-3 py-2 text-right">Stés</th>
+                    <th className="px-3 py-2 text-right">Sociétés</th>
                     <th className="px-3 py-2">Statut</th>
                     <th className="px-3 py-2">Progression</th>
                     <th className="px-3 py-2 text-right">Actions</th>

@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 
 /**
- * 3 propositions de charts pour la fiche société (page sté + cartes home),
+ * 3 propositions de charts pour la fiche société (page société + cartes home),
  * testées sur 2 profils :
  *  - Volatile (NVDA, ×16 en 14 trim)
  *  - Stable (CAT, croissance lente régulière)

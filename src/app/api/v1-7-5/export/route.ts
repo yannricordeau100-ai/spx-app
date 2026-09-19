@@ -1,13 +1,13 @@
 /**
  * GET /api/v1-7-5/export
  *
- * Export CSV de toutes les sociétés V1.7.5 (univers brut 626 stés, sorted
+ * Export CSV de toutes les sociétés V1.7.5 (univers brut 626 sociétés, sorted
  * by market cap décroissant). Yann 19 mai 2026 (v2 simplifié).
  *
  * Colonnes : rank, ticker, name, sector, subsector, publishable.
- *  - publishable=true → sté Pass 3 strict (502 stés visibles sur
+ *  - publishable=true → société Pass 3 strict (502 sociétés visibles sur
  *    /sandbox/v1-7-5)
- *  - publishable=false → sté brute pas encore validée (124 stés)
+ *  - publishable=false → société brute pas encore validée (124 sociétés)
  *
  * Format : RFC 4180, BOM UTF-8 pour Excel, quoted strings.
  * Cliquer le lien dans le navigateur déclenche le download.

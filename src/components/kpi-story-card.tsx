@@ -409,7 +409,7 @@ function MarketPositionStoryCard({
   freeBlocked?: boolean;
 }) {
   const { t } = useT();
-  // Yann 8 mai 2026 : si TAM=null (honesty rule, sté n'a pas publié),
+  // Yann 8 mai 2026 : si TAM=null (honesty rule, société n'a pas publié),
   // segment_revenue/null = NaN/Infinity. On affiche un placeholder propre
   // au lieu d'un chiffre absurde (ex : "Infinity %" sur Apple Services).
   const tamUsable = typeof mp.tam === "number" && Number.isFinite(mp.tam) && mp.tam > 0;

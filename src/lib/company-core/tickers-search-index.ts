@@ -1,11 +1,11 @@
 /**
  * Index léger de TOUS les tickers du pipeline v2 disponibles dans
- * `src/data/v2-pipeline/_merged.json` (1607+ stés). Format minimal
+ * `src/data/v2-pipeline/_merged.json` (1607+ sociétés). Format minimal
  * (ticker, name, sector) pour rester sous 150 KB et ne pas alourdir
  * le bundle home.
  *
  * Servi à `<CompanySearch />` pour étendre le périmètre de recherche
- * au-delà des 5 stés V1. Chaque résultat v2-pipeline route vers
+ * au-delà des 5 sociétés V1. Chaque résultat v2-pipeline route vers
  * `/sandbox/v1-7/<ticker>` (la fiche pipeline) plutôt que vers
  * `/<ticker>` (route V1).
  *
@@ -26,11 +26,11 @@ export type V17SearchEntry = {
   name: string;
   sector: string;
   /**
-   * `true` si la sté a passé Pass 3 (validation Sonnet du dataset par CONV-DATA).
-   * Ces stés sont la "top top" qualité, route vers /sandbox/v1-7/<ticker>.
+   * `true` si la société a passé Pass 3 (validation Sonnet du dataset par CONV-DATA).
+   * Ces sociétés sont la "top top" qualité, route vers /sandbox/v1-7/<ticker>.
    * Les autres routent vers /sandbox/v1-6/<ticker> (extraction Pass 1/2 brute,
    * non validée mais utilisable). Permet à la search de proposer toutes les
-   * 1606 stés tout en pointant l'utilisateur sur la fiche de meilleure qualité
+   * 1606 sociétés tout en pointant l'utilisateur sur la fiche de meilleure qualité
    * disponible.
    */
   validated: boolean;
@@ -46,7 +46,7 @@ export const V17_SEARCH_BY_TICKER: Record<string, V17SearchEntry> =
   Object.fromEntries(V17_SEARCH_INDEX.map((e) => [e.ticker.toUpperCase(), e]));
 
 /**
- * V1.9 search entries : tickers présents dans l'univers V1.9 (924 stés EU+US,
+ * V1.9 search entries : tickers présents dans l'univers V1.9 (924 sociétés EU+US,
  * cf `src/data/v1-9-universe.json`) MAIS absents de `_merged.json` (= pas
  * encore extraits par le pipeline data). Source : `v1-9-missing-from-merged.json`.
  *

@@ -126,7 +126,7 @@ export function SynchroView({ etat, interrupteurs: init }: { etat: EtatSynchro; 
                   <div className="mt-2 max-h-80 overflow-auto rounded-lg border border-white/[0.06]">
                     <table className="w-full text-[11.5px]">
                       <thead className="sticky top-0 bg-[#0a0a0c] text-left font-mono text-[10px] uppercase tracking-wider text-zinc-500">
-                        <tr><th className="px-2 py-1">Sté</th><th className="px-2 py-1">Page</th><th className="px-2 py-1">Réel (fin de période)</th><th className="px-2 py-1">Déposé</th><th className="px-2 py-1">Retard</th></tr>
+                        <tr><th className="px-2 py-1">Société</th><th className="px-2 py-1">Page</th><th className="px-2 py-1">Réel (fin de période)</th><th className="px-2 py-1">Déposé</th><th className="px-2 py-1">Retard</th></tr>
                       </thead>
                       <tbody>
                         {c.retards.map((r) => (

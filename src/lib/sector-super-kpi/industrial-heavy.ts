@@ -5,10 +5,10 @@
  *   1. backlogCoverage : Backlog / Revenue annuel × 12 = mois de visibilité
  *   2. bookToBill      : Orders / Sales = ratio croissance future
  *
- * Univers cible : 12 stés (CAT, DE, HON, EMR, ETN, ITW, ROK, ...).
+ * Univers cible : 12 sociétés (CAT, DE, HON, EMR, ETN, ITW, ROK, ...).
  *
  * i18n : EN + FR obligatoires (EN = canonical). Pas d'em-dash dans FR.
- * Vocabulaire FR strict (stés, pas "sociétés cotées").
+ * Vocabulaire FR strict (sociétés, pas "sociétés cotées").
  *
  * IMPORTANT : pas de commit, pas d'edit sur src/lib/super-kpi.ts. Le
  * caller intégrera lui-même les exports `SECTOR_KPIS` et `SECTOR_STRINGS`.
@@ -60,7 +60,7 @@ export const SECTOR_STRINGS = {
   },
   backlog_cov_interp_low: {
     en: "Thin backlog coverage. Less than 3 months of visibility leaves the business exposed to order slowdowns. To watch: incoming orders trend and cancellation rates.",
-    fr: "Couverture backlog faible. Moins de 3 mois de visibilité laisse la sté exposée à un ralentissement des commandes. À surveiller : tendance des commandes entrantes et taux d'annulation.",
+    fr: "Couverture backlog faible. Moins de 3 mois de visibilité laisse la société exposée à un ralentissement des commandes. À surveiller : tendance des commandes entrantes et taux d'annulation.",
   },
   backlog_cov_input_backlog: {
     en: "Backlog",
@@ -120,7 +120,7 @@ export const SECTOR_STRINGS = {
   // ── Generic na fallback ────────────────────────────────────────────
   na_data: {
     en: "Required data not available for this company.",
-    fr: "Données nécessaires non disponibles pour cette sté.",
+    fr: "Données nécessaires non disponibles pour cette société.",
   },
 } as const satisfies Record<string, LocalizedString>;
 

@@ -10,9 +10,9 @@
  *    Positionné bottom-center juste au-dessus de l'axe X.
  *  - Le TITRE du KPI est en **Bricolage Grotesque 700** (24px, letter-spacing
  *    -0.025em, NON italic). Disposition : "Revenus Google Cloud [LOGO]
- *    Alphabet Inc." avec logo sté COMME SÉPARATEUR central entre les 2 parties
+ *    Alphabet Inc." avec logo société COMME SÉPARATEUR central entre les 2 parties
  *    si options.title contient " · " (espace point milieu espace).
- *  - Logo sté monochrome (filter feColorMatrix) : noir en thème clair, blanc
+ *  - Logo société monochrome (filter feColorMatrix) : noir en thème clair, blanc
  *    en thème sombre. Même tonalité que titleColor.
  *  - Suppression DOM complète (removeChild) de tout élément `[data-chart-logo]`,
  *    `[data-chart-watermark]`, `[data-export-hide="true"]` dans le clone pour
@@ -29,7 +29,7 @@
  *  4. Insérer un rect background (couleur selon thème).
  *  5. Insérer <defs> avec filtres monochromes.
  *  6. Insérer watermark "Powered by Mettrik" texte SVG inline en bas.
- *  7. Injecter le titre KPI au top (Bricolage 700 24px) + logo sté monochrome
+ *  7. Injecter le titre KPI au top (Bricolage 700 24px) + logo société monochrome
  *     en séparateur central si options.title contient " · ".
  *  8. Sérialiser via XMLSerializer → <Image> → <canvas> 2× → blob → download.
  */
@@ -279,7 +279,7 @@ export async function downloadSvgAsPng(
     clone.querySelectorAll("text").forEach((t) => {
       const fill = (t.getAttribute("fill") || "").toLowerCase();
       // Cible uniquement les gris clairs natifs du chart (pas les éléments
-      // déjà recolorés ou colorés volontairement type couleur sté).
+      // déjà recolorés ou colorés volontairement type couleur société).
       if (
         fill === "#e4e4e7" ||
         fill === "#a1a1aa" ||
@@ -832,21 +832,21 @@ export async function downloadSvgAsPng(
 
   // ── Titre 2 lignes centrées au-dessus du PNG (Yann 2 juin 2026) ──
   // Refonte v7 — style Bourseko / Fiscal.ai :
-  //   Ligne 1 (petite, ~20px) : [logo sté] [nom sté]
+  //   Ligne 1 (petite, ~20px) : [logo société] [nom société]
   //   Ligne 2 (grosse, ~26px) : [nom du KPI]
   // Les deux centrées, Fraunces serif élégant, même tonalité (gradient
-  // titleColor). Logo sté à gauche du nom sté ligne 1.
+  // titleColor). Logo société à gauche du nom société ligne 1.
   // options.title contient toujours "kpiText · stéText" :
   //   - ligne 1 = stéText (sans "Inc" déjà retiré côté data)
   //   - ligne 2 = kpiText
-  // Yann 2 juin 2026 v9 : hiérarchie inversée — nom sté = focus #1 (gros),
+  // Yann 2 juin 2026 v9 : hiérarchie inversée — nom société = focus #1 (gros),
   // titre du graph (KPI) = focus #2 juste en dessous.
-  const TITLE_STE_FONT_SIZE = 51;       // ligne 1 (nom sté), focus #1 (+50 % Yann 24 aout 2026)
+  const TITLE_STE_FONT_SIZE = 51;       // ligne 1 (nom société), focus #1 (+50 % Yann 24 aout 2026)
   const TITLE_KPI_FONT_SIZE = 33;       // ligne 2 (nom KPI) agrandie, FR seulement (Yann 5 sept 2026)
   const TITLE_STE_CHAR_W = 24;          // estimation Avenir 51px
   const TITLE_KPI_CHAR_W = 9;           // estimation Avenir 600 18px
-  const TITLE_LOGO_SIZE = 48;           // logo sté (+50 % Yann 24 aout 2026)
-  const TITLE_LOGO_GAP = 26;            // Yann 10 juin 2026 : + d'espace entre logo et nom sté
+  const TITLE_LOGO_SIZE = 48;           // logo société (+50 % Yann 24 aout 2026)
+  const TITLE_LOGO_GAP = 26;            // Yann 10 juin 2026 : + d'espace entre logo et nom société
   const LINE1_Y = origY - PAD_TOP + 72;
   const LINE2_Y = origY - PAD_TOP + 122;
 
@@ -863,7 +863,7 @@ export async function downloadSvgAsPng(
     const kpiText = hasSeparator ? options.title.slice(0, sepIdx) : options.title;
     const stéText = hasSeparator ? options.title.slice(sepIdx + SEPARATOR.length) : "";
 
-    // Récupère le logo sté si dispo (DOM ou fallback).
+    // Récupère le logo société si dispo (DOM ou fallback).
     let stéLogoDataUrl: string | null = null;
 
     if (options.ticker) {
@@ -927,12 +927,12 @@ export async function downloadSvgAsPng(
           }
         }
       } catch {
-        /* skip silencieux si logo sté indispo */
+        /* skip silencieux si logo société indispo */
         stéLogoDataUrl = null;
       }
     }
 
-    // ── Ligne 1 : logo + nom sté, centrée ──
+    // ── Ligne 1 : logo + nom société, centrée ──
     // Yann 24 aout 2026 : largeur du nom mesuree au canvas (plus d estimation
     // par nombre de caracteres) pour un centrage exact du bloc logo + nom.
     if (stéText) {
@@ -964,7 +964,7 @@ export async function downloadSvgAsPng(
       const startL1 = midX - totalL1 / 2;
 
       if (hasLogo && stéLogoDataUrl) {
-        // Yann 10 juin 2026 : logo sté en carre-arrondi (meme forme que les
+        // Yann 10 juin 2026 : logo société en carre-arrondi (meme forme que les
         // pages stes) = fond arrondi subtil + logo clippe aux coins arrondis.
         const logoTop = LINE1_Y - TITLE_LOGO_SIZE * 0.85;
         const logoRadius = TITLE_LOGO_SIZE * 0.22;
@@ -1023,7 +1023,7 @@ export async function downloadSvgAsPng(
       stéEl.setAttribute("y", String(LINE1_Y));
       stéEl.setAttribute("text-anchor", "middle");
       stéEl.setAttribute("font-family", titleFontFamily);
-      // Yann 8 juin 2026 (PRIO 2) : graisse fine (300) sur le nom sté (titre).
+      // Yann 8 juin 2026 (PRIO 2) : graisse fine (300) sur le nom société (titre).
       stéEl.setAttribute("font-weight", "300");
       stéEl.setAttribute("font-style", "normal");
       stéEl.setAttribute("font-size", String(steFontSize));

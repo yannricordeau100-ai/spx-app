@@ -26,7 +26,7 @@ type Tab = "all" | "sp500" | "top307" | "country";
  * Toggle de publication V1.9.5 (Yann 9 juin 2026).
  * - "Tout" par défaut + SP500 / Top 307 hors SP500 / Par pays.
  * - Tri par capi décroissante (ordre v1-8-sorted, NVDA en tête), inconnus en fin.
- * - Case cochée = sté EN LIGNE sur N2 (source = desk_curated_companies via
+ * - Case cochée = société EN LIGNE sur N2 (source = desk_curated_companies via
  *   /api/online-tickers). Auto-refresh 20s → on voit les cases se cocher au fil
  *   des publications. Clic = publie/retire (PATCH /api/desk/curated-companies,
  *   nécessite session admin).
@@ -46,13 +46,13 @@ export function UniverseToggleClient({
   const [onlineSet, setOnlineSet] = useState<Set<string> | null>(null);
   const [busy, setBusy] = useState<Set<string>>(new Set());
 
-  // Stés mises de côté à cause d'un problème de données (placeholder "Analyse
+  // Sociétés mises de côté à cause d'un problème de données (placeholder "Analyse
   // en préparation") : affichées en rouge, case décochée et désactivée.
   const problemSet = useMemo(
     () => new Set(problemTickers.map((t) => t.toUpperCase())),
     [problemTickers],
   );
-  // Stés traitées partiellement (technique réduite) à retraiter : violet,
+  // Sociétés traitées partiellement (technique réduite) à retraiter : violet,
   // retirées du live, case désactivée.
   const partialSet = useMemo(
     () => new Set(partialTickers.map((t) => t.toUpperCase())),

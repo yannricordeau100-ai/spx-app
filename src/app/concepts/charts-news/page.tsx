@@ -5,8 +5,8 @@ import { ChartPulse, ChartRibbon, ChartQuartz } from "@/components/lab/news-char
 /**
  * /concepts/charts-news — galerie 3 styles charts × 2 profils sé.
  *
- * Yann (11 mai 2026) : "affiche moi 2-3 concepts pour une sté tech avec
- * bcp de changement, et idem pour une sté avec peu de changement. Met
+ * Yann (11 mai 2026) : "affiche moi 2-3 concepts pour une société tech avec
+ * bcp de changement, et idem pour une société avec peu de changement. Met
  * un nom de style pour chaque."
  *
  * Profils :
@@ -91,7 +91,7 @@ export default function ChartsNewsConceptPage() {
           Charts concepts
         </h1>
         <p className="mt-2 max-w-2xl text-[14px] text-zinc-400">
-          3 styles testés sur 2 profils : sté volatile (NVDA) et sté stable (CAT).
+          3 styles testés sur 2 profils : société volatile (NVDA) et société stable (CAT).
           Chaque style a un caractère visuel propre. Dis-moi celui que tu préfères
           et ce qu&apos;on peut améliorer.
         </p>

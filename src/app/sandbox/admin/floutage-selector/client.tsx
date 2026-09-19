@@ -138,7 +138,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
         r.ok
           ? portee === "societe"
             ? `enregistré pour ${ticker} (${zones.length} zones${zones.length === 0 ? " : exemption totale" : ""})`
-            : `enregistré pour toutes les stés (${zones.length} zones)`
+            : `enregistré pour toutes les sociétés (${zones.length} zones)`
           : `échec ${r.status}`,
       );
       if (r.ok) chargePropres();
@@ -182,7 +182,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
                 if (v) { setTicker(v); setPortee("societe"); (e.target as HTMLInputElement).value = ""; }
               }
             }}
-            placeholder="+ Ajouter une sté (ticker + Entrée)"
+            placeholder="+ Ajouter une société (ticker + Entrée)"
             className="w-[210px] rounded-full border border-dashed border-white/20 bg-black/40 px-3 py-1 font-mono text-[11px] uppercase text-zinc-100 outline-none focus:border-violet-400/60"
             title="Choisis n importe quelle société, coche/décoche ses blocs, puis Enregistrer : elle rejoint les réglages propres."
           />
@@ -193,7 +193,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
             onClick={() => setPortee("globale")}
             className={`rounded-full px-2.5 py-1 ${portee === "globale" ? "bg-violet-500/30 text-violet-100" : "text-zinc-400 hover:text-zinc-100"}`}
           >
-            Toutes les stés
+            Toutes les sociétés
           </button>
           <button
             type="button"

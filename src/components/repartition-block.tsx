@@ -53,14 +53,14 @@ function translateLabelFr(label: string): string {
 
 function adaptForLocale(b: RevenueBreakdown | undefined | null, locale: Locale) {
   if (!b) return undefined;
-  // Garde-fou : certaines stés ont `revenue_by_*` présent mais avec
+  // Garde-fou : certaines sociétés ont `revenue_by_*` présent mais avec
   // `slices: null` (data partiellement extraite). On retourne undefined
   // pour que hasGeo/hasSegment soit false et que le bloc se masque.
   if (!Array.isArray(b.slices)) return undefined;
   return {
     ...b,
     slices: b.slices.map((s) => {
-      // Yann 9 août 2026 : certaines stés (OR.PA) n'ont que `name`, pas
+      // Yann 9 août 2026 : certaines sociétés (OR.PA) n'ont que `name`, pas
       // `label` → le treemap rendait des tranches sans nom de zone.
       const base = s.label || (s as { name?: string }).name || "";
       return {
@@ -97,7 +97,7 @@ export function RepartitionBlock({
 
   const geo = adaptForLocale(company.revenue_by_geography, locale);
   const segment = adaptForLocale(company.revenue_by_segment, locale);
-  // Yann 21 mai 2026 : onglet "IA Pro/Particulier" pour les stés qui vendent
+  // Yann 21 mai 2026 : onglet "IA Pro/Particulier" pour les sociétés qui vendent
   // de l'IA. Visible UNIQUEMENT si data présente (sourcée externe).
   const aiCustomer = adaptForLocale(company.revenue_by_ai_customer_type, locale);
   const aiConfidence = company.revenue_by_ai_customer_type?.confidence;

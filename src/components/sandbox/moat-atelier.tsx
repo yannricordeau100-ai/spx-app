@@ -193,7 +193,7 @@ export function MoatAtelier({
                 <span className="font-mono text-[12px] text-violet-300">{s.code}</span>
                 <span className="text-[15px] font-semibold text-zinc-100">{s.name}</span>
                 <span className="ml-auto font-mono text-[12px] text-zinc-500">
-                  {stes.length} sté{stes.length > 1 ? "s" : ""} · {wide} Wide
+                  {stes.length} société{stes.length > 1 ? "s" : ""} · {wide} Wide
                 </span>
               </button>
               {ouvert && (

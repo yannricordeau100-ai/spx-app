@@ -100,7 +100,7 @@ export function RefreshStatusView({
         </div>
         <p className="mb-6 max-w-3xl text-[13.5px] leading-relaxed text-zinc-400">
           Nouveaux dépôts SEC (8-K / 10-Q / 10-K) détectés par le cron 7h30
-          à intégrer dans les blocs sté (risks, stories, profit_warning,
+          à intégrer dans les blocs société (risks, stories, profit_warning,
           ai_positioning). Cliquer sur une ligne pour lancer la mise à jour.
         </p>
 
@@ -141,7 +141,7 @@ export function RefreshStatusView({
             <table className="w-full min-w-[900px] border-collapse text-[12.5px]">
               <thead>
                 <tr className="border-b border-white/[0.08] text-left text-[11px] uppercase tracking-wider text-zinc-500">
-                  <th className="px-3 py-3 font-semibold">Sté</th>
+                  <th className="px-3 py-3 font-semibold">Société</th>
                   <th className="px-3 py-3 font-semibold">Nom</th>
                   <th className="px-3 py-3 font-semibold">Dernière MAJ blocs</th>
                   <th className="px-3 py-3 font-semibold">Nouveaux dépôts détectés</th>
@@ -157,7 +157,7 @@ export function RefreshStatusView({
                       colSpan={7}
                       className="px-3 py-8 text-center text-[12.5px] text-zinc-500"
                     >
-                      Aucune sté ne correspond au filtre.
+                      Aucune société ne correspond au filtre.
                     </td>
                   </tr>
                 )}
@@ -249,14 +249,14 @@ export function RefreshStatusView({
           <p className="mt-1 text-[12.5px] text-zinc-400">
             Chaque run : verrou 1 = double extraction indépendante (API SEC vs document téléchargé),
             verrou 2 = 100 % des KPI mis à jour + blocs texte traités, verrou 3 = audit du rendu.
-            Une sté n&apos;est PUBLIABLE que si les 3 sont verts.
+            Une société n&apos;est PUBLIABLE que si les 3 sont verts.
           </p>
           <div className="mt-3 space-y-2">
             {history.map((h, i) => (
               <details key={i} className="rounded-lg border border-[#1f1f1f] bg-[#0a0a0a] p-3">
                 <summary className="cursor-pointer text-[13px] text-zinc-200">
                   <span className="font-mono">{new Date(h.run_at).toLocaleString("fr-FR")}</span>
-                  {" · "}{h.traitees} sté(s) traitée(s)
+                  {" · "}{h.traitees} société(s) traitée(s)
                   {" · "}<span className="text-emerald-400">{h.publiables} publiable(s)</span>
                   {" · "}<span className={h.bloquees > 0 ? "text-rose-400" : "text-zinc-500"}>{h.bloquees} bloquée(s)</span>
                 </summary>

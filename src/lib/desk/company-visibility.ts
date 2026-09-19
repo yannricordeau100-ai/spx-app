@@ -45,11 +45,11 @@ async function loadCurationMap(): Promise<Map<string, MinPlan>> {
   return map;
 }
 
-/** Détermine si une sté est visible selon le tier effectif (cumulatif). */
+/** Détermine si une société est visible selon le tier effectif (cumulatif). */
 export function isPlanReachable(minPlan: MinPlan, tier: EffectiveTier): boolean {
   if (minPlan === "hidden") return false;
   // tier null = visiteur anonyme (= "new")
-  // Une sté min_plan=free n'est PAS visible pour un anonyme par défaut, sauf
+  // Une société min_plan=free n'est PAS visible pour un anonyme par défaut, sauf
   // si la stratégie produit veut afficher en teaser → ici on choisit la voie
   // stricte : seulement connectés voient les sés curated. À ajuster selon Yann.
   if (tier === null) return false;
@@ -63,10 +63,10 @@ export function isPlanReachable(minPlan: MinPlan, tier: EffectiveTier): boolean 
  * Filter principal pour le frontend. À appeler côté Server Component / API
  * avant de rendre une page société ou une liste.
  *
- * @param ticker      Le ticker de la sté (case insensitive).
+ * @param ticker      Le ticker de la société (case insensitive).
  * @param tier        Le tier effectif de l'user (computeEffectiveTier).
  * @param level       Le niveau infra (0/1/2/3) — voir effective-tier-shared.ts
- * @returns           true si la sté doit être affichée à cet user.
+ * @returns           true si la société doit être affichée à cet user.
  */
 export async function isCompanyVisible(
   ticker: string,

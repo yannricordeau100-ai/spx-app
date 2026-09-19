@@ -4,7 +4,7 @@ import { KpiBuilderClient, type KpiRequestRow } from "./client";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "Ajouter un KPI multi-stés · Mettrik (sandbox)",
+  title: "Ajouter un KPI multi-sociétés · Mettrik (sandbox)",
   robots: { index: false, follow: false },
 };
 

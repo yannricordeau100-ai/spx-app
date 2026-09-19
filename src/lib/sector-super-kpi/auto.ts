@@ -2,7 +2,7 @@
  * Sector Super-KPIs — AUTO V1.9.5
  *
  * 2 super-KPIs sectoriels pour automobile (TSLA, F, GM, STLA, BMW, MBG, VOW,
- * RACE, 20 stés) :
+ * RACE, 20 sociétés) :
  *   1. evMixGrowth         : croissance du mix EV (BEV + PHEV) (Stratégie)
  *   2. vehicleAspMomentum  : YoY ASP / Average Selling Price (Profitabilité)
  *

@@ -1,5 +1,5 @@
 /**
- * block-rules.ts — règles d'écriture par bloc page sté.
+ * block-rules.ts — règles d'écriture par bloc page société.
  *
  * Source de vérité = table Supabase `desk_block_rules` (1 ligne par bloc).
  * Yann écrit librement les règles dans /sandbox/admin/block-rules.

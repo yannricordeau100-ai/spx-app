@@ -29,7 +29,7 @@ export const metadata = {
 };
 
 /**
- * /sandbox/v1-9-5 = hub V1.9.5 = stés clean_all (audit a-f publishable +
+ * /sandbox/v1-9-5 = hub V1.9.5 = sociétés clean_all (audit a-f publishable +
  * g-m extensions, 0 hallucination).
  *
  * Yann (25 mai 2026, 03h30) : refonte complète pour reprendre le DESIGN

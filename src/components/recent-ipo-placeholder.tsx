@@ -4,7 +4,7 @@ import { Clock, Sparkles } from "lucide-react";
 
 /**
  * Bloc affiché à la place du contenu analytique sur les sociétés cotées
- * depuis moins de 24 mois (IPO récente). Préserve le top de la page sté
+ * depuis moins de 24 mois (IPO récente). Préserve le top de la page société
  * (stock-price-block, logo, nom, ticker, variation %, prix) puis remplace
  * tous les blocs en dessous par ce message à plus-value.
  *

@@ -30,7 +30,24 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 V17 = PROJECT_ROOT / "src/data/v1-7-public.json"
+# 19 sept 2026 (Yann) : la capitalisation boursiere doit etre rafraichie chaque
+# jour pour TOUTES les societes de l univers (indices), pas pour les 640
+# premieres entrees de l ancienne liste v1-7-public (1608 tickers, dont des
+# societes hors univers). L univers est la source de verite ; v1-7-public reste
+# un repli si le fichier d univers venait a manquer.
+UNIVERS = PROJECT_ROOT / "src/data/v1-9-5-clean-all-tickers.json"
 ENR = PROJECT_ROOT / "src/data/v2-pipeline-enrich"
+
+# Symboles Yahoo differents du ticker Mettrik (meme table que ranks-univers.py).
+ALIAS = {"BF.B": "BF-B", "DPW.DE": "DHL.DE"}
+
+
+def univers_tickers():
+    """Tickers de l univers (indices). Repli sur v1-7-public si absent."""
+    if UNIVERS.exists():
+        d = json.loads(UNIVERS.read_text())
+        return list(d["tickers"] if isinstance(d, dict) else d)
+    return list(json.loads(V17.read_text()).keys())
 
 
 def fetch_profile(ticker: str):
@@ -95,13 +112,12 @@ def main():
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
 
-    if not V17.exists():
-        print(f"❌ {V17} introuvable", file=sys.stderr)
+    if not UNIVERS.exists() and not V17.exists():
+        print(f"❌ {UNIVERS} introuvable", file=sys.stderr)
         sys.exit(1)
     ENR.mkdir(parents=True, exist_ok=True)
 
-    v17 = json.loads(V17.read_text())
-    tickers = list(v17.keys())
+    tickers = univers_tickers()
 
     pending = []
     for t in tickers:
@@ -125,7 +141,7 @@ def main():
     ok = 0
     fail = 0
     for i, t in enumerate(pending):
-        prof = fetch_profile(t)
+        prof = fetch_profile(ALIAS.get(t, t))
         if not prof:
             fail += 1
             time.sleep(0.4)

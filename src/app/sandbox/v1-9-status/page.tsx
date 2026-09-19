@@ -112,7 +112,7 @@ function ScopeSection({
       {details.length > 0 && (
         <div className="mt-4 overflow-hidden rounded-xl border border-amber-500/20">
           <div className="border-b border-amber-500/20 bg-amber-500/[0.04] px-4 py-2 font-mono text-[10.5px] uppercase tracking-wider text-amber-300">
-            Stés non publiables ({details.length}) — détail + justification
+            Sociétés non publiables ({details.length}) — détail + justification
           </div>
           <table className="w-full text-[12px]">
             <thead className="bg-amber-500/[0.02] text-[10px] uppercase tracking-wider text-amber-400/80">
@@ -141,7 +141,7 @@ function ScopeSection({
         <details className="mt-4 group overflow-hidden rounded-xl border border-emerald-500/20 bg-emerald-500/[0.02]">
           <summary className="cursor-pointer list-none border-b border-emerald-500/20 bg-emerald-500/[0.04] px-4 py-2 font-mono text-[10.5px] uppercase tracking-wider text-emerald-300 hover:bg-emerald-500/[0.06]">
             <span className="inline-block transition-transform group-open:rotate-90">▶</span>{" "}
-            Stés publiables ({published.length}) — cliquer pour déplier
+            Sociétés publiables ({published.length}) — cliquer pour déplier
           </summary>
           <div className="flex flex-wrap gap-1.5 p-3">
             {published.map((p) => (
@@ -203,7 +203,7 @@ export default function V19StatusPage() {
           Suivi enrichissement V1.9 — Top 307 + SP500 + Indices EU
         </h1>
         <p className="mt-2 max-w-3xl text-[13.5px] leading-relaxed text-zinc-400">
-          Statut pipeline Mettrik AI sur les <strong>{totalT}</strong> stés
+          Statut pipeline Mettrik AI sur les <strong>{totalT}</strong> sociétés
           V1.9. Critères publishable :{" "}
           <strong>hero KPI spécifique + 3+ ans d&apos;historique + 3+ KPI
           spécifiques + description ≥ 100 chars</strong>.
@@ -265,8 +265,8 @@ export default function V19StatusPage() {
           stat={data.top307}
           details={DETAILS_TYPED.scopes.top307}
           published={PUB_DETAILS_TYPED.scopes.top307}
-          difficileTooltip="307 plus grosses stés mondiales. Docs locaux disponibles, mais extraction KPI à reprendre (hero générique, KPIs purgés par reverify)."
-          impossibleTooltip="Stés du top 307 sans documents 10-K/20-F/annual-text. Probablement delisted, fusionnées ou ADR sans filing SEC."
+          difficileTooltip="307 plus grosses sociétés mondiales. Docs locaux disponibles, mais extraction KPI à reprendre (hero générique, KPIs purgés par reverify)."
+          impossibleTooltip="Sociétés du top 307 sans documents 10-K/20-F/annual-text. Probablement delisted, fusionnées ou ADR sans filing SEC."
         />
 
         <ScopeSection
@@ -276,7 +276,7 @@ export default function V19StatusPage() {
           details={DETAILS_TYPED.scopes.sp500}
           published={PUB_DETAILS_TYPED.scopes.sp500}
           difficileTooltip="Index S&P 500 US. Toutes ont 10-K dans sec-data, extraction LLM à compléter (sub-agents Claude en cours)."
-          impossibleTooltip="Stés SP500 sans 10-K local : très rare, généralement spin-off très récents ou multi-classes mal mappés."
+          impossibleTooltip="Sociétés SP500 sans 10-K local : très rare, généralement spin-off très récents ou multi-classes mal mappés."
         />
 
         <ScopeSection
@@ -286,13 +286,13 @@ export default function V19StatusPage() {
           details={DETAILS_TYPED.scopes.indices_eu}
           published={PUB_DETAILS_TYPED.scopes.indices_eu}
           difficileTooltip="CAC 40 + FTSE 100 + DAX 40 + SMI + BEL 20 + FTSE MIB + AEX + ATX (hors top 307 + SP500). Docs locaux partiels — scrape complément via organismes pays nécessaire (AMF.fr, BaFin, Companies House, SIX, CONSOB, AFM, FSMA, FMA)."
-          impossibleTooltip="Stés européennes sans aucun document local. Scrape externe via IR pages officielles ou organismes pays."
+          impossibleTooltip="Sociétés européennes sans aucun document local. Scrape externe via IR pages officielles ou organismes pays."
         />
 
         <p className="mt-8 text-[11px] italic text-zinc-500">
           Mise à jour automatique au rebuild pipeline (script{" "}
           <span className="font-mono">scripts/audit-v1-9-publishable.js</span>).
-          Les stés publishable apparaissent sur{" "}
+          Les sociétés publishable apparaissent sur{" "}
           <span className="font-mono">/sandbox/v1-9/&lt;ticker&gt;</span>.
         </p>
       </div>

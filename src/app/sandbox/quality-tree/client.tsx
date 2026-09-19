@@ -87,7 +87,7 @@ export function QualityTreeClient({ tree }: { tree: QualityNode[] }) {
         <header className="mb-5">
           <h1 className="font-display text-[30px] font-bold tracking-tight">Quality Tree · Page société</h1>
           <p className="mt-1 text-[13.5px] text-zinc-400">
-            Registry unique des éléments contrôlables de la page sté. Tag d'ID stable pour communication 1-tag = 1 fix.
+            Registry unique des éléments contrôlables de la page société. Tag d'ID stable pour communication 1-tag = 1 fix.
             Source : <code className="rounded bg-white/[0.06] px-1 py-0.5 font-mono text-[11px]">src/lib/quality-tree.ts</code> · Doc :
             <code className="ml-1 rounded bg-white/[0.06] px-1 py-0.5 font-mono text-[11px]">docs/CHART-RECIPE.md</code>
           </p>

@@ -2,14 +2,14 @@
  * chart-export-v2.ts — Refonte modèle PDF Yann 3 juin 2026 v2.
  *
  * Itération sur feedback Yann (22h47 3 juin):
- *   - Logo sté plus PETIT vs texte (ratio modèle PDF respecté)
+ *   - Logo société plus PETIT vs texte (ratio modèle PDF respecté)
  *   - Signature: "KPIs & Data :" → "Powered by"
  *   - Logo Mettrik AI signature: AGRANDI (50px au lieu de 28px)
  *   - Y-axis label: bigger + plus haut + centré sur axe (50/50)
  *   - Bottom-center: [X logo] @Mettrik_AI au même niveau que signature
  *
  * HEADER (centré):
- *   - [Logo cercle 54px] [Nom sté] | [Titre graph]   (sur 1 ligne)
+ *   - [Logo cercle 54px] [Nom société] | [Titre graph]   (sur 1 ligne)
  *   - CAGR : X%  (sous-titre)
  * CHART:
  *   - Y-axis unit en haut, centré sur l'axe Y (50% gauche / 50% droite)
@@ -160,7 +160,7 @@ async function composeAndExport(
   bg.setAttribute("fill", bgColor);
   clone.insertBefore(bg, clone.firstChild);
 
-  // ── HEADER : [Logo carre-arrondi 62px] [Nom sté] | [Titre KPI] CENTRÉ ──
+  // ── HEADER : [Logo carre-arrondi 62px] [Nom société] | [Titre KPI] CENTRÉ ──
   // Yann 4 juin 2026 : (a) Logo decale vers le bas pour occuper hauteur
   // titre + ligne CAGR (titleY a titleY+30). (b) Carre-arrondi au lieu de
   // cercle pour eliminer bordures noires des PNG non-carres (TotalEnergies).

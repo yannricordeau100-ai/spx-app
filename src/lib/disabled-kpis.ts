@@ -8,7 +8,7 @@
  * des indicateurs clés et le carrousel Stories.
  *
  * Cas d'usage : Yann veut afficher MU "Data Center Revenue" mais cacher
- * MU "Capex" pour cette sté précise sans toucher au dataset.
+ * MU "Capex" pour cette société précise sans toucher au dataset.
  *
  * Source de vérité : `src/data/disabled-kpis-per-ste.json`.
  *

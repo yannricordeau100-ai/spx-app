@@ -347,7 +347,7 @@ export function PopulaireClient({
                 {[10, 20, 50, 9999].map((n) => {
                   // Yann 16 mai 2026 : masquer les boutons "Top N" qui
                   // donnent un résultat IDENTIQUE au plus petit déjà
-                  // affichable. Ex : Suisse a 20 stés → Top 50 et "Tous"
+                  // affichable. Ex : Suisse a 20 sociétés → Top 50 et "Tous"
                   // donnent même chose que Top 20 → on les masque pour
                   // éviter le faux bug "rien ne se passe".
                   const cap = Math.min(n, allRows.length);

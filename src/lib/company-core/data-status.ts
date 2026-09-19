@@ -163,7 +163,7 @@ export type DataStatusSnapshot = {
     paths: string[];
     description: string;
   };
-  /** Pass 3 stés par catégorie + liste nominative (Sonnet vs Haiku). */
+  /** Pass 3 sociétés par catégorie + liste nominative (Sonnet vs Haiku). */
   pass3_by_cat: {
     cat1: { sonnet: string[]; haiku: string[]; total: number };
     cat2: { sonnet: string[]; haiku: string[]; total: number };
@@ -392,7 +392,7 @@ const RESPONSIBILITY_MAP: Array<{
   block_id: string;
   block_label: string;
   conv: "CONV-SYSTEMS" | "CONV-DATA" | "CONV-CONCEPTS" | "CONV-BRAND";
-  /** Predicate qui dit si la sté a ce bloc rempli. */
+  /** Predicate qui dit si la société a ce bloc rempli. */
   isFilled: (e: AnyRec) => boolean;
 }> = [
   {

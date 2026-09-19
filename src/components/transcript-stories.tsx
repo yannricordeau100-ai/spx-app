@@ -58,7 +58,7 @@ function EarningCallInfo({ accent }: { accent: string }) {
             société cotée commente ses résultats face aux analystes. On y
             trouve : chiffres-clés, contexte, perspectives (guidance), réponses
             aux questions. Une des sources les plus riches pour anticiper la
-            trajectoire de la sté.
+            trajectoire de la société.
           </p>
         </div>,
         document.body,
@@ -69,7 +69,7 @@ function EarningCallInfo({ accent }: { accent: string }) {
 
 /**
  * TranscriptStories — 2 blocs côte à côte (largeur page) qui exposent les
- * extraits "plus-value" du DERNIER earning call de la sté.
+ * extraits "plus-value" du DERNIER earning call de la société.
  *
  * Sources : `src/data/transcripts/<ticker>.json` créé par CONV-DATA.
  * Format : { ticker, fetched_at, latest: { quarter, year, date, content } }.
@@ -124,7 +124,7 @@ function quarterLabel(q?: number, y?: number, ticker?: string): string {
   if (!q || !y) return "Dernier earning call";
   // Yann 16 juil 2026 : plus de libellés fiscaux "FYyy Qq" côté utilisateur.
   // La date est déjà calendaire : on affiche le trimestre calendaire réel
-  // pour toutes les stés, décalées ou non (abroge la règle du 14 mai 2026).
+  // pour toutes les sociétés, décalées ou non (abroge la règle du 14 mai 2026).
   void ticker;
   return `T${q} ${y}`;
 }

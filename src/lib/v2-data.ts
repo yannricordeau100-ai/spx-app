@@ -7,7 +7,7 @@
  *   - V2_BATCH2 (11)    : pharma + banks + EU + China internet (raffinés moyens)
  *   - V2_BATCH3 (29)    : Asia tech, mining, EU consumer, Canada rail/energy (minimal)
  *
- * Live (V1 5 stés US) intacte.
+ * Live (V1 5 sociétés US) intacte.
  */
 
 import { V2_COMPANIES as V2_BATCH1 } from "@/data/v2/datasets";
@@ -39,9 +39,9 @@ function loadV2PipelineMerged(): Record<string, Company> {
 /**
  * Companies V2 = fusion des 4 sources, ordre de priorité (dernière gagne) :
  *   1. V2_BATCH1   : top 10 raffinés manuels (TSM/ASML/NVO + 7)
- *   2. V2_BATCH2   : 11 stés enrichies seed
- *   3. V2_BATCH3   : 29 stés minimales seed
- *   4. V2_PIPELINE : 32+ stés extraites par pipeline LLM (priorité absolue)
+ *   2. V2_BATCH2   : 11 sociétés enrichies seed
+ *   3. V2_BATCH3   : 29 sociétés minimales seed
+ *   4. V2_PIPELINE : 32+ sociétés extraites par pipeline LLM (priorité absolue)
  */
 function buildV2Companies(): Record<string, Company> {
   const V2_PIPELINE_TYPED = loadV2PipelineMerged();

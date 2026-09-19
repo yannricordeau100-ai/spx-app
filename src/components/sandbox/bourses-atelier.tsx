@@ -139,7 +139,7 @@ export function BoursesAtelier({ pays, multi = [] }: { pays: PaysBourse[]; multi
                           {libelleCle(i.cle)}
                         </span>
                         <span className="text-[13.5px] font-semibold text-zinc-100">{i.nom}</span>
-                        <span className="font-mono text-[10.5px] text-zinc-500">{i.stes?.length ?? 0} stés{i.reference ? ` · ${i.reference}` : ""}</span>
+                        <span className="font-mono text-[10.5px] text-zinc-500">{i.stes?.length ?? 0} sociétés{i.reference ? ` · ${i.reference}` : ""}</span>
                         {(i.cle === "nasdaq100" || i.cle === "soxx") && (
                           <span className="font-mono text-[10px] text-amber-300/90">● = aussi dans le S&P 500</span>
                         )}

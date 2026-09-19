@@ -1,20 +1,20 @@
 /**
  * Super-KPIs sectoriels AERO-DEFENSE V1.9.5
  *
- * Bucket aero-defense (8 stés cibles) :
+ * Bucket aero-defense (8 sociétés cibles) :
  *   BA, LMT, RTX, NOC, GD, LHX, TDG, HII
  *
  * 2 super-KPIs propres au secteur :
  *   1. backlogYearsCoverage   — Backlog / Revenue annuel = années visibilité (Stratégie)
  *   2. defenseProgramsMix     — % revenu défense gouv + international (Risque)
  *
- * Heuristique fallback : si le bucket ne reconnaît pas la sté, on tente un
+ * Heuristique fallback : si le bucket ne reconnaît pas la société, on tente un
  * match subsector ("aerospace", "defense", "defence") avant de bailer en N/A.
  *
  * Règles communes :
  *   - EN canonical, FR traduction
  *   - Pas d'em-dash dans les strings FR
- *   - Vocabulaire FR strict (Mettrik) : stés, pas "sociétés cotées"
+ *   - Vocabulaire FR strict (Mettrik) : sociétés, pas "sociétés cotées"
  *   - Pas de commit, pas d'edit sur src/lib/super-kpi.ts
  */
 
@@ -56,7 +56,7 @@ export const SECTOR_STRINGS = {
   // Generic
   na_data: {
     en: "Required data not available for this company.",
-    fr: "Données nécessaires non disponibles pour cette sté.",
+    fr: "Données nécessaires non disponibles pour cette société.",
   },
   na_missing_prefix: {
     en: "Cannot compute. Missing inputs: ",
@@ -90,7 +90,7 @@ export const SECTOR_STRINGS = {
   },
   backlog_interp_premium: {
     en: "Backlog covers more than 4 years of revenue. Exceptional visibility on long-cycle programs, the company can absorb a defense budget slowdown without immediate revenue impact.",
-    fr: "Le backlog couvre plus de 4 ans de revenu. Visibilité exceptionnelle sur les programmes longs, la sté peut absorber un ralentissement des budgets défense sans impact immédiat sur le revenu.",
+    fr: "Le backlog couvre plus de 4 ans de revenu. Visibilité exceptionnelle sur les programmes longs, la société peut absorber un ralentissement des budgets défense sans impact immédiat sur le revenu.",
   },
   backlog_interp_solid: {
     en: "Backlog covers 2.5 to 4 years of revenue. Solid visibility on long-cycle production and services contracts, in line with sector standards.",
@@ -98,7 +98,7 @@ export const SECTOR_STRINGS = {
   },
   backlog_interp_average: {
     en: "Backlog covers 1.5 to 2.5 years of revenue. Average visibility, the company depends more on new contract wins to sustain growth.",
-    fr: "Le backlog couvre 1,5 à 2,5 ans de revenu. Visibilité moyenne, la sté dépend davantage des nouvelles prises de contrats pour soutenir la croissance.",
+    fr: "Le backlog couvre 1,5 à 2,5 ans de revenu. Visibilité moyenne, la société dépend davantage des nouvelles prises de contrats pour soutenir la croissance.",
   },
   backlog_interp_below: {
     en: "Backlog covers less than 1.5 years of revenue. Low visibility for an aero-defense player, structural exposure to short-cycle commercial or services activity.",

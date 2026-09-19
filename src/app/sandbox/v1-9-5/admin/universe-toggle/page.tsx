@@ -15,9 +15,9 @@ export const metadata = {
  * /sandbox/v1-9-5/admin/universe-toggle
  *
  * Page admin (§0septies) qui décompose l'univers V1.9.5 en 4 onglets :
- *  1. SP500 (503 stés US-listed)
- *  2. Top 307 hors SP500 (170 stés)
- *  3. EU dans top 307 (90 stés, groupées par pays)
+ *  1. SP500 (503 sociétés US-listed)
+ *  2. Top 307 hors SP500 (170 sociétés)
+ *  3. EU dans top 307 (90 sociétés, groupées par pays)
  *  4. EU5+N (cohort séparé, 9 pays européens, sous-décomposition par pays)
  *
  * Yann (29 mai 2026) : page de stats admin pure, pas de générique KPI.
@@ -150,7 +150,7 @@ export default async function UniverseToggleAdminPage() {
             Composition de l'univers V1.9.5
           </h1>
           <p className="mt-2 text-sm text-zinc-400">
-            Décomposition en 4 onglets : SP500, top 307 hors SP500, stés
+            Décomposition en 4 onglets : SP500, top 307 hors SP500, sociétés
             européennes (dans top 307) par pays, et cohort EU5+N (9 pays).
           </p>
         </header>

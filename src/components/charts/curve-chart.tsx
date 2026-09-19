@@ -51,7 +51,7 @@ function niceTicks(min: number, max: number, count = 5): number[] {
  * Bug à corriger : Math.round(0.41) = 0 → tous les points Tesla affichaient
  * "0" alors que les vraies valeurs étaient 0.3-0.5 (M units / véhicules).
  *
- * Règle universelle (marche sur TOUTES les stés actuelles et futures) :
+ * Règle universelle (marche sur TOUTES les sociétés actuelles et futures) :
  *   - dataMax < 1   → 2 décimales (ex Tesla M units 0,41)
  *   - dataMax < 10  → 1 décimale (ex marges %, ratios)
  *   - dataMax < 100 → 1 décimale (ex EPS $)
@@ -439,7 +439,7 @@ export function CurveChart({
             <stop offset="0%" stopColor={color} stopOpacity="0.35" />
             <stop offset="100%" stopColor={color} stopOpacity="0" />
           </linearGradient>
-          {/* Gradient horizontal violet → couleur sté → cyan pour le trait principal */}
+          {/* Gradient horizontal violet → couleur société → cyan pour le trait principal */}
           <linearGradient id={`${idGlow}-stroke`} x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#a78bfa" />
             <stop offset="50%" stopColor="#6366f1" />

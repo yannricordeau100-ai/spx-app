@@ -1,7 +1,7 @@
 /**
  * kpi-requests.ts — helpers BDD pour la file `desk_kpi_requests`.
  *
- * Une demande KPI multi-sté est créée depuis le desk admin (UI Agent F1)
+ * Une demande KPI multi-société est créée depuis le desk admin (UI Agent F1)
  * via /api/desk-mtk9x4kp/kpi-add-request. Le script Python
  * scripts/run-kpi-add-request.py la traite ensuite (LLM Cerebras / Haiku
  * sur sec-data local). Pas d'écriture directe v2-pipeline/ : Yann valide

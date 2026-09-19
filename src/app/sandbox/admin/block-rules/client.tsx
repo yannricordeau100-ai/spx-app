@@ -576,13 +576,13 @@ export function BlockRulesClient({
                         </p>
                         <p>
                           Sert à définir des règles différentes pour
-                          certaines stés. Par défaut, TOUTES les stés
+                          certaines sociétés. Par défaut, TOUTES les sociétés
                           appliquent les règles du champ principal
                           ci-dessus.
                         </p>
                         <p>
                           Ici, tu peux préciser des exceptions : règles
-                          qui s&apos;appliquent uniquement aux stés en
+                          qui s&apos;appliquent uniquement aux sociétés en
                           dehors du top 1 (ex : banques régionales,
                           sub-secteur spécifique, cas particuliers).
                         </p>
@@ -594,7 +594,7 @@ export function BlockRulesClient({
                     </InfoTooltip>
                   </div>
                   <p className="mb-2 text-xs text-neutral-500">
-                    Règles qui s&apos;appliquent uniquement aux stés en
+                    Règles qui s&apos;appliquent uniquement aux sociétés en
                     dehors du top 1 (ex : banques, sub-secteur spécifique,
                     cas particuliers).
                   </p>

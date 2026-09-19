@@ -3,7 +3,7 @@
  * sources diverses" fait doublon avec un KPI déjà publié dans Mettrik
  * pour la même société (KPI normal ou story).
  *
- * Approche : pour chaque ticker cible du finding, on charge la sté via
+ * Approche : pour chaque ticker cible du finding, on charge la société via
  * loadV17Company et on compare les "keywords" extraits du title+summary
  * du finding avec les KPI existants (short + name_fr + name_en + nature).
  *
@@ -59,7 +59,7 @@ function topicsFromKpi(short: string, nameFr?: string, nameEn?: string): string[
 
 /**
  * Détecte les doublons d'un finding contre les KPI publiés d'une liste
- * de sté. Retourne un array de matches (peut être vide).
+ * de société. Retourne un array de matches (peut être vide).
  */
 export async function detectDuplicates(
   findingTitle: string,

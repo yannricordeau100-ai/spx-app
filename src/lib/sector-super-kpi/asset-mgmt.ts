@@ -6,11 +6,11 @@
  *   2. feeRevenueMix   : % revenus commissions / management fees vs
  *                        revenus financiers volatils
  *
- * Univers cible : ~10 stés direct (BLK, GS, MS, SCHW, BX, KKR, ICE, CME,
+ * Univers cible : ~10 sociétés direct (BLK, GS, MS, SCHW, BX, KKR, ICE, CME,
  * NDAQ, CBOE) + fallback subsector.
  *
  * i18n : EN + FR obligatoires (règle Yann 17 mai 2026 : EN = canonical).
- * Anti-em-dash dans rationale FR. Vocabulaire FR strict (stés, pas
+ * Anti-em-dash dans rationale FR. Vocabulaire FR strict (sociétés, pas
  * "sociétés cotées", etc.).
  *
  * IMPORTANT : pas de commit, pas d'edit sur src/lib/super-kpi.ts. Le
@@ -123,7 +123,7 @@ export const SECTOR_STRINGS = {
   // ── Generic na fallback ────────────────────────────────────────────
   na_data: {
     en: "Required data not available for this company.",
-    fr: "Données nécessaires non disponibles pour cette sté.",
+    fr: "Données nécessaires non disponibles pour cette société.",
   },
 } as const satisfies Record<string, LocalizedString>;
 

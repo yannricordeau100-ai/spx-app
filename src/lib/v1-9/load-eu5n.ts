@@ -98,7 +98,7 @@ export async function loadEu5n(): Promise<Eu5nData> {
     const raw = await fs.readFile(manifestPath, "utf8");
     manifest = JSON.parse(raw) as Manifest;
   } catch {
-    // Manifest absent : fallback structure vide, onglet affichera 0 sté.
+    // Manifest absent : fallback structure vide, onglet affichera 0 société.
     return emptyEu5nData();
   }
 

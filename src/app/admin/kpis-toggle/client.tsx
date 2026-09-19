@@ -30,7 +30,7 @@ export type SteRow = {
   market_cap: number;
   hero_kpi: string;
   hero_review_status: "needs_review" | "auto_proposed_uncertain" | "validated";
-  // Yann 5 juin 2026 — Point coloré à gauche de chaque ligne sté.
+  // Yann 5 juin 2026 — Point coloré à gauche de chaque ligne société.
   //   🟢 emerald : hero validé OK, pas de doute
   //   🟡 amber   : doute (auto-promote hésite OU override ≠ auto-promote)
   //   🔴 red     : hero configuré ne matche AUCUN KPI dataset
@@ -481,7 +481,7 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
         </div>
       </div>
 
-      {/* Liste pliable par sté */}
+      {/* Liste pliable par société */}
       <div className="space-y-2">
         {sortedAndFiltered.map((sIn) => {
           const status = effectiveStatus(sIn);
@@ -686,7 +686,7 @@ export default function KpisToggleClient({ stes }: { stes: SteRow[] }) {
         })}
         {sortedAndFiltered.length === 0 && (
           <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-8 text-center text-[13px] text-zinc-500">
-            Aucune sté ne correspond à la recherche.
+            Aucune société ne correspond à la recherche.
           </div>
         )}
       </div>

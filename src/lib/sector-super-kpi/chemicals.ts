@@ -11,11 +11,11 @@
  *                                Plus le CoV est bas, plus l'EBITDA est
  *                                stable à travers le cycle commodité.
  *
- * Univers cible : 8 stés Chemicals (DOW, LIN, DD, APD, ECL, SHW, FMC, MOS),
- * 2 stés direct (CTVA, LIN) + fallback subsector.
+ * Univers cible : 8 sociétés Chemicals (DOW, LIN, DD, APD, ECL, SHW, FMC, MOS),
+ * 2 sociétés direct (CTVA, LIN) + fallback subsector.
  *
  * i18n : EN + FR obligatoires (règle Yann 17 mai 2026 : EN = canonical).
- * Anti-em-dash dans rationale FR. Vocabulaire FR strict (stés, etc.).
+ * Anti-em-dash dans rationale FR. Vocabulaire FR strict (sociétés, etc.).
  *
  * IMPORTANT : pas de commit, pas d'edit sur src/lib/super-kpi.ts. Le
  * caller intégrera lui-même les exports `SECTOR_KPIS` et `SECTOR_STRINGS`.
@@ -59,7 +59,7 @@ export const SECTOR_STRINGS = {
   },
   spec_mix_interp_top: {
     en: "Specialty-heavy mix. The company derives most of its revenue from value-added specialty chemicals, less exposed to commodity price cycles. Structurally higher and more stable margins through the cycle.",
-    fr: "Mix orienté spécialités. La sté tire la majorité de son revenu de chimies de spécialité à valeur ajoutée, moins exposée aux cycles de prix commodité. Marges structurellement plus élevées et stables sur le cycle.",
+    fr: "Mix orienté spécialités. La société tire la majorité de son revenu de chimies de spécialité à valeur ajoutée, moins exposée aux cycles de prix commodité. Marges structurellement plus élevées et stables sur le cycle.",
   },
   spec_mix_interp_mid: {
     en: "Balanced mix between specialties and commodity chemicals. Margins benefit from the specialty share but remain partly exposed to commodity cycles. Standard portfolio profile.",
@@ -105,7 +105,7 @@ export const SECTOR_STRINGS = {
   },
   ebitda_res_interp_top: {
     en: "Very resilient EBITDA. The company keeps an EBITDA stream remarkably stable across the chemicals cycle, sign of a defensive mix (specialties, contracted volumes, industrial gases). Strong through-cycle cash generation profile.",
-    fr: "EBITDA très résilient. La sté maintient un flux d'EBITDA remarquablement stable à travers le cycle chimie, signe d'un mix défensif (spécialités, volumes contractés, gaz industriels). Profil de génération de cash through-cycle solide.",
+    fr: "EBITDA très résilient. La société maintient un flux d'EBITDA remarquablement stable à travers le cycle chimie, signe d'un mix défensif (spécialités, volumes contractés, gaz industriels). Profil de génération de cash through-cycle solide.",
   },
   ebitda_res_interp_mid: {
     en: "Standard EBITDA resilience for the chemicals sector. The cycle leaves a visible mark on profitability but the amplitude stays manageable. Typical portfolio profile.",
@@ -127,7 +127,7 @@ export const SECTOR_STRINGS = {
   // ── Generic na fallback ────────────────────────────────────────────
   na_data: {
     en: "Required data not available for this company.",
-    fr: "Données nécessaires non disponibles pour cette sté.",
+    fr: "Données nécessaires non disponibles pour cette société.",
   },
 } as const satisfies Record<string, LocalizedString>;
 

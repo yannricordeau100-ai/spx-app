@@ -1,13 +1,13 @@
 /**
- * strict-pass3.ts — source unique de vérité pour décider si une sté V1.7
+ * strict-pass3.ts — source unique de vérité pour décider si une société V1.7
  * est "vraiment prête" à être affichée publiquement (hub + ticker page).
  *
- * Yann 6 mai 2026 : refus catégorique d'afficher des stés non-Pass 3 dans
+ * Yann 6 mai 2026 : refus catégorique d'afficher des sociétés non-Pass 3 dans
  * V1.7. Avant ce module, deux builders étaient en conflit :
  *   - build-public-files.ts : strict (validation + qualité KPI + Pass 2)
- *     → 1052 stés
+ *     → 1052 sociétés
  *   - build-v17-public.ts   : lenient (validation + format hero string)
- *     → 1158 stés (incluait des stés sans risks/governance/AI)
+ *     → 1158 sociétés (incluait des sociétés sans risks/governance/AI)
  *
  * Désormais une seule fonction `isStrictPass3` partagée. Tout consommateur
  * (hub `/sandbox/v1-7`, ticker page `/sandbox/v1-7/[ticker]`, search index)
@@ -73,7 +73,7 @@ function hasWeakMarker(v: AnyRecord): boolean {
   // Faux-positif : si Sonnet a flag "halluciné" mais a aussi APPLIQUÉ une
   // correction (objet { corrected: ... }), le KPI a été remplacé → la note
   // historique reste mais ne doit plus bloquer la fiche. Ex : AMZN "GMV
-  // halluciné" → corrigé en "Op Cash Flow", sté affichable. Yann 7 mai 2026.
+  // halluciné" → corrigé en "Op Cash Flow", société affichable. Yann 7 mai 2026.
   if (hasSonnetCorrections(v)) return false;
   // Strip phrases positives ou rapports neutres qui mentionnent le marker
   // sans qu'il soit un statut effectif. Patterns observés :
@@ -120,8 +120,8 @@ function heroKpiUsable(v: AnyRecord): boolean {
   // "Store Count" / "Headcount" / "Streak" / etc.) car le composant gère
   // unit absent. Yann 14 mai 2026 (CASY bloqué à tort).
   // Yann 2 juillet 2026 : "type" retiré des champs obligatoires — le pipeline
-  // data-lake (644 stés, 21 juin 2026) n'émet plus ce champ sur les KPIs
-  // segment, ce qui bloquait quasi toutes les fiches sté (redirect silencieux
+  // data-lake (644 sociétés, 21 juin 2026) n'émet plus ce champ sur les KPIs
+  // segment, ce qui bloquait quasi toutes les fiches société (redirect silencieux
   // vers l'overview, bug live détecté par Yann sur AAPL). Le composant gère
   // déjà un type absent (fallback affichage neutre) ; seul "short" reste
   // strictement requis.
@@ -157,7 +157,7 @@ function heroKpiUsable(v: AnyRecord): boolean {
 }
 
 /**
- * Décide si une sté est admissible au hub V1.7 et à sa page détail.
+ * Décide si une société est admissible au hub V1.7 et à sa page détail.
  *
  *  1. `_validation` ou `_validation_global` posé par CONV-DATA (Sonnet).
  *  2. Pas de marqueur de qualité douteuse dans la note de validation.
@@ -175,7 +175,7 @@ export function isStrictPass3(v: unknown): boolean {
   if ((obj._fit_for_site as boolean | undefined) === false) return false;
   // Yann 17 mai 2026 : ADR duplicate filter — masque la fiche ADR US si
   // elle est marquée comme doublon de sa version d'origine (ex BABA → BABA).
-  // La sté reste dans v2-pipeline/_merged.json (visible dans le back-office
+  // La société reste dans v2-pipeline/_merged.json (visible dans le back-office
   // /sandbox/coverage-matrix barrée), mais exclue du hub + page société.
   if (typeof obj._adr_duplicate_of === "string" && obj._adr_duplicate_of.length > 0) return false;
   if (!(obj._validation || obj._validation_global)) return false;

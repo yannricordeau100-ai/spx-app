@@ -12,7 +12,7 @@
  *   - `src/data/transcripts/<TICKER>.json` → transcript story bloc
  *
  * Auto-applique le filtre admission Pass 3 strict via `isStrictPass3`. Si
- * la sté n'est pas Pass 3 → renvoie `null` (la route appelle alors notFound
+ * la société n'est pas Pass 3 → renvoie `null` (la route appelle alors notFound
  * ou un "Fiche en préparation").
  *
  * Intentionnellement pur lecture FS : pas de cache mémoire (Yann ne veut
@@ -32,7 +32,7 @@ import { isGenericKpi } from "@/lib/kpi-generic";
 import { cleanSourceCitations } from "@/lib/ui-fix-templates";
 
 /**
- * Yann 21 août 2026 — nettoyage des citations de source pour TOUTES les stés.
+ * Yann 21 août 2026 — nettoyage des citations de source pour TOUTES les sociétés.
  *
  * Les libellés type "(10-Q MU 2026-06-25, XBRL EarningsPerShareDiluted)" sont
  * figés dans les datasets (signal, description, interprétation, risques…).
@@ -212,7 +212,7 @@ function sanitizeCompanyData(data: AnyCo): AnyCo {
   // 1. Hero KPI : match EXACT sur k.short uniquement. Si aucun match exact,
   //    on laisse hero_kpi tel quel : le merge enrich complétera. Yann 11 juil
   //    2026 : ancien fuzzy substring provoquait cross-pollution KPI (bug graph
-  //    ~250 stés).
+  //    ~250 sociétés).
   const kpis = (data.kpis as AnyKPI[] | undefined) ?? [];
   const heroShort = data.hero_kpi as string | undefined;
   if (heroShort && kpis.length > 0) {
@@ -240,7 +240,7 @@ function sanitizeCompanyData(data: AnyCo): AnyCo {
       // Yann 14 mai 2026 : si la direction history first→last contredit
       // le sign du yoy (ex Tesla Cash [44.1, 36.6] mais yoy +20.54%),
       // on inverse l'history côté affichage. Bug détecté sur 75/200
-      // stés. Évite le sparkline qui descend alors que yoy monte.
+      // sociétés. Évite le sparkline qui descend alors que yoy monte.
       const yoyStr = typeof out.yoy === "string" ? out.yoy : "";
       const unitStr = typeof out.unit === "string" ? out.unit : "";
       if (yoyStr && Array.isArray(out.history) && out.history.length >= 2) {
@@ -389,7 +389,7 @@ function fusionneSeriesTrimestrielles(
       // PUIS si CONV-DATA a un last_data_date plus récent ET des quarters
       // au-delà de ext.last_data_date, on les APPEND. Évite de perdre
       // Q1 2026 quand l'extracteur XBRL s'arrête à Q4 2025 alors que la
-      // sté a déjà publié Q1 2026 via 10-Q.
+      // société a déjà publié Q1 2026 via 10-Q.
       const useExt = ext.history.length > curHist.length;
       const baseHist = useExt ? ext.history : curHist;
       const baseLast = useExt ? ext.last_data_date : (k as AnyKPI & { last_data_date?: string }).last_data_date;
@@ -856,7 +856,7 @@ async function loadV17CompanyBrut(
     //   "Indicateurs clés" car leur history est insuffisante (filtré côté UI).
     // Yann 27 mai 2026 (point 4) : hero_kpi_override seulement si l'override
     // correspond à un short présent dans data.kpis (ou enrich.kpis qui sera
-    // mergé juste après). Sinon des stés comme ATO (override='Distribution
+    // mergé juste après). Sinon des sociétés comme ATO (override='Distribution
     // Customer Count' absent des data.kpis) se retrouvent avec un hero_kpi
     // pointant dans le vide → erreur 500 server-side au render.
     if (typeof enrich.hero_kpi_override === "string" && enrich.hero_kpi_override.trim()) {
@@ -954,7 +954,7 @@ async function loadV17CompanyBrut(
     // fusionner les deux listes (dedup par title+date, sort date desc, cap 8).
     // Sans ce merge, les events programmatic (earnings, dividends, splits)
     // ajoutés par scripts/fill-events-programmatic.py restent invisibles sur
-    // les fiches sté qui ont déjà 1-3 events news.
+    // les fiches société qui ont déjà 1-3 events news.
     if (Array.isArray(enrich.events) && enrich.events.length > 0) {
       const cur = Array.isArray((data as Record<string, unknown>).events)
         ? ((data as Record<string, unknown>).events as Array<Record<string, unknown>>)
@@ -1000,20 +1000,20 @@ async function loadV17CompanyBrut(
     // Yann 21 mai 2026 (sub-agent #52 CONV-CONCEPTS hero signal fix follow-up) :
     // kpis_type_overrides field-by-field. Pure heuristique pattern match sur
     // KPI.short / name_fr (cf scripts/heuristic-fill-kpi-types.py). Pour les
-    // ~313 stés où des KPIs ont des types non reconnus par interpretStructured
+    // ~313 sociétés où des KPIs ont des types non reconnus par interpretStructured
     // (Balance Sheet / Comptes / Profit / Risk / Specific / Pipeline / etc.),
     // on remappe le `type` field vers les catégories Driver (Revenue, Demand,
     // User, Adoption) / Vigilance (Margin, Profitability, Cost, Investment) /
     // Surveillance (Cash Flow, Capital, Dividende). N'écrase JAMAIS le type si
     // déjà reconnu côté CONV-DATA. Merge SSR-only, n'altère pas v2-pipeline/.
     const RECOGNIZED_TYPES = new Set([
-      // EN canoniques (legacy, gardés pour les ~2200 stés autres)
+      // EN canoniques (legacy, gardés pour les ~2200 sociétés autres)
       "Demand", "User", "Adoption", "Revenue", "Volume", "Pricing", "Growth",
       "Engagement", "Capacity", "Productivity", "Operations", "Production",
       "Quality", "Innovation", "Subscription",
       "Cost", "Margin", "Profitability", "Investment",
       "Cash", "Cash Flow", "Capital", "Dividende",
-      // FR canoniques (Yann 30 mai 2026, mission catégories KPI témoin 11 stés)
+      // FR canoniques (Yann 30 mai 2026, mission catégories KPI témoin 11 sociétés)
       "Revenus", "Marges", "Trésorerie", "Solidité financière",
       "Capacité", "Clientèle", "Investissement", "Productivité",
       "Engagement", "Pipeline", "Distribution", "Coûts", "Demande", "Prix",
@@ -1031,7 +1031,7 @@ async function loadV17CompanyBrut(
       [/^dps$|^payout\s*ratio$|^cap\s*return$/i, "Dividende"],
     ];
     // Sub-agent #58 (b_interpretation residual) : Vigilance targets forcent
-    // override même si type courant reconnu, pour débloquer 2 stés restantes
+    // override même si type courant reconnu, pour débloquer 2 sociétés restantes
     // (KEY Tier 1, MAR Adj EBITDA Margin). Sécurité : seulement pour cibles
     // Vigilance strictes (Cost/Margin/Profitability/Investment). Évite de
     // déstabiliser les overrides Driver/Surveillance déjà OK.
@@ -1087,7 +1087,7 @@ async function loadV17CompanyBrut(
       data.governance = existingGov as typeof data.governance;
     }
     // Yann 21 mai 2026 : risks_rationale_overrides (CONV-CONCEPTS sub-agent #24
-    // Cerebras Qwen-3 235B). Pour les 391 stés avec weak_rationale identifiés
+    // Cerebras Qwen-3 235B). Pour les 391 sociétés avec weak_rationale identifiés
     // par v1-9-risks-audit.json, override le score_rationale du risk matchant
     // (title + category) sans toucher v2-pipeline/<t>.json (scope CONV-DATA).
     // Format enrich: { risks_rationale_overrides: [{title, category, score_rationale}] }
@@ -1199,7 +1199,7 @@ async function loadV17CompanyBrut(
       }
     }
     // Hero signal override (CONV-CONCEPTS 21 mai 2026, sub-agent #48 follow-up) :
-    // fill heuristique signal vide sur hero KPI (7 stés publishable). Format :
+    // fill heuristique signal vide sur hero KPI (7 sociétés publishable). Format :
     // { overrides_hero_signal: { hero_short, signal, _source } }. N'écrase pas
     // un signal existant. Merge SSR-only (n'altère pas v2-pipeline/<t>.json).
     const overrideSignal = (enrich as Record<string, unknown>).overrides_hero_signal;
@@ -1309,11 +1309,11 @@ async function loadV17CompanyBrut(
       data.kpis = mergedKpis;
     }
     // Yann 19 mai 2026 : KPI SPÉCIFIQUES dispatchés par sub-agents Claude
-    // (146 stés priorité 0 re-extracted, scope CONV-CONCEPTS).
+    // (146 sociétés priorité 0 re-extracted, scope CONV-CONCEPTS).
     // Source : `src/data/v2-pipeline-specific-kpis/<ticker>.json`.
     // Format : { kpis: [...] } avec champs short/name/value/unit/yoy/
     // history/period_type/description_fr/en/_specific_to.
-    // Si `_fit_for_site: false` → sté marquée non-publishable (skip merge).
+    // Si `_fit_for_site: false` → société marquée non-publishable (skip merge).
     try {
       // Yann 30 mai 2026 (Bug GOOGL 4 KPIs prod) : fallback case-insensitive.
       // Convention canonique = lowercase. On essaie d'abord lowercase, puis
@@ -1465,7 +1465,7 @@ async function loadV17CompanyBrut(
       // best effort, silent fail si le fichier n'existe pas pour ce ticker
     }
     // Yann 20 mai 2026 : EXTENSION HERO HISTORY (mission CONV-CONCEPTS).
-    // Pour les ~28 stés US où le hero_kpi est SPÉCIFIQUE mais history <3 ans
+    // Pour les ~28 sociétés US où le hero_kpi est SPÉCIFIQUE mais history <3 ans
     // (bloquait publishable), extraction multi-année 10-K Segment Reporting.
     // Source : `_hero_history_extension` dans v2-pipeline-enrich/<ticker>.json.
     // Format : { hero_kpi_short, history: number[], _source, _extracted_at }.
@@ -1507,7 +1507,7 @@ async function loadV17CompanyBrut(
       }
     }
     // Yann 2 juin 2026 — MERGE FORMAT OBJET `_quarterly_history_extension`.
-    // 492 stés ont un payload de la forme :
+    // 492 sociétés ont un payload de la forme :
     //   {
     //     hero_kpi_short: "Microsoft Cloud",
     //     period_type: "quarter",
@@ -1534,7 +1534,7 @@ async function loadV17CompanyBrut(
         && typeof rawHist[0] === "object"
         && rawHist[0] !== null
         && !Array.isArray(rawHist[0]);
-      // Yann 2 juin 2026 v10 : accepte aussi "semester" pour les stés EU
+      // Yann 2 juin 2026 v10 : accepte aussi "semester" pour les sociétés EU
       // semestrielles (BN.PA, ROG.SW, etc.).
       if (
         isObjectFormat
@@ -1593,7 +1593,7 @@ async function loadV17CompanyBrut(
       }
     }
     // Yann 30 mai 2026 — MISSION 4b · MERGE MULTI-KPI QUARTERLY EXTENSION.
-    // Produit par scripts/merge-quarterly-to-hq-180.py sur 180 stés haute
+    // Produit par scripts/merge-quarterly-to-hq-180.py sur 180 sociétés haute
     // qualité (union v2-pipeline-kpi-v2 + v2-pipeline-exhaustive).
     // Source : `_quarterly_history_extension` dans v2-pipeline-enrich/<t>.json.
     // Format réel observé :
@@ -1630,9 +1630,9 @@ async function loadV17CompanyBrut(
     // ne fait rien (no-op silencieux).
     //
     // Le champ `_legacy_hero_extension` (ancien format hero-only sur ~7
-    // stés) est préservé dans le payload mais le merge effectif a déjà
+    // sociétés) est préservé dans le payload mais le merge effectif a déjà
     // été fait au bloc précédent via `_hero_history_extension`. Le
-    // fallback ascendant fonctionne donc tel quel : si une sté n'a que
+    // fallback ascendant fonctionne donc tel quel : si une société n'a que
     // l'ancien hero extension (= pas migrée), elle est servie par le
     // bloc d'au-dessus. Si elle a l'extension multi-KPI nouvelle, on
     // applique celle-ci ici en plus.
@@ -1702,7 +1702,7 @@ async function loadV17CompanyBrut(
     // Yann 15 mai 2026 v2 : RÉACTIVÉ avec contrainte stricte.
     // Le merge accepte les fichiers .quarterly-history.json marqués
     // method="xbrl-companyfacts" (extraction directe XBRL SEC EDGAR,
-    // chiffres taggés par la sté elle-même). Tout fichier sans une des
+    // chiffres taggés par la société elle-même). Tout fichier sans une des
     // marques autorisées (= ancien script LLM Cerebras qui hallucinait) est
     // ignoré.
     // Yann 2 juillet 2026 : ajout method="llm-filing-crosschecked" — go
@@ -1720,7 +1720,7 @@ async function loadV17CompanyBrut(
       data.kpis = fusionneSeriesTrimestrielles(data.kpis as AnyKPI[], qExt);
     }
     // Yann 2026-05-26 : MERGE `hero_quarterly_history` (mission extraction
-    // Cerebras Qwen 235B sur ~258 stés clean_all dont hero KPI period_type
+    // Cerebras Qwen 235B sur ~258 sociétés clean_all dont hero KPI period_type
     // était undefined ou "year"). Source :
     // `v2-pipeline-enrich/<ticker>.json` field `hero_quarterly_history`.
     // Format payload :
@@ -1995,7 +1995,7 @@ async function loadV17CompanyBrut(
       // quand locale=fr. Sources extraction LLM CONV-DATA contenaient
       // souvent des libellés EN bruts (Banking, Financial Services,
       // Integrated Oil & Gas, etc.) qui apparaissaient sur les chips
-      // header de page sté FR. Yann 28 mai 2026 : audit visuel confirmé
+      // header de page société FR. Yann 28 mai 2026 : audit visuel confirmé
       // sur BNP.PA, TTE.PA, ROG.SW, AAPL. Le dict EN→FR est appliqué côté
       // pipeline sub-agent dans v2-pipeline-enrich/<ticker>.json. On
       // remplace data.sector/subsector in-place (pas de duplication
@@ -2034,8 +2034,8 @@ async function loadV17CompanyBrut(
 
     try {
       // 3. events_fr → match par date avec data.events. Supporte 2 formats :
-      //  - {date, title_fr, description_fr} (407 stés, le plus courant)
-      //  - {date, title, description} (44 stés, déjà FR du sub-agent)
+      //  - {date, title_fr, description_fr} (407 sociétés, le plus courant)
+      //  - {date, title, description} (44 sociétés, déjà FR du sub-agent)
       // Set title/description in-place quand locale=fr.
       if (
         isFr &&
@@ -2290,7 +2290,7 @@ async function loadV17CompanyBrut(
     try {
       // 8. CRITIQUE — kpis_supplementary (array nouveaux KPIs spec) :
       // APPEND à data.kpis avec anti-doublon sur le champ `short`.
-      // Source unique des KPIs spécifiques pour ~570 stés. Spread
+      // Source unique des KPIs spécifiques pour ~570 sociétés. Spread
       // immutable (pas de push) pour éviter mutation accidentelle.
       if (Array.isArray(enrich.kpis_supplementary) && Array.isArray(data.kpis)) {
         const existingShortsSupp = new Set(
@@ -2409,7 +2409,7 @@ async function loadV17CompanyBrut(
   }
 
   // Hero name_fr override (CONV-CONCEPTS 21 mai 2026, sub-agent l_hero_name_fr) :
-  // fix critère audit l_hero_name_fr KO (55 stés où name_fr du hero KPI est
+  // fix critère audit l_hero_name_fr KO (55 sociétés où name_fr du hero KPI est
   // vide, identique au short, ou en anglais). Source :
   // `src/data/v2-pipeline-enrich/<ticker>.hero_name_fr.json`. Format :
   // { overrides_hero_name_fr: { hero_short, name_fr }, hero_kpi_override?: "..." }
@@ -2633,7 +2633,7 @@ async function loadV17CompanyBrut(
     }
   }
 
-  // Yann 29 mai 2026 : filtre KPIs désactivés individuellement par sté
+  // Yann 29 mai 2026 : filtre KPIs désactivés individuellement par société
   // (granulaire, via /admin/kpis-toggle). Source de vérité unique :
   // `src/data/disabled-kpis-per-ste.json`. Appliqué APRÈS tous les merges
   // (enrich, supplementary, overrides) pour cacher exactement les KPIs
@@ -2682,7 +2682,7 @@ async function loadV17CompanyBrut(
   // Revenue" legacy + "DC_REV" kpis-haut coexistant dans le tableau — bug
   // détecté par Yann le 4 juillet 2026). Un KPI haut de gamme n'est jamais
   // un simple earning/CA/revenu générique — c'est un indicateur distinctif
-  // propre à la sté (production rate, backlog, NIM, attach rate, etc.).
+  // propre à la société (production rate, backlog, NIM, attach rate, etc.).
   const kpisHautPath = path.join(
     ROOT,
     ".batches-drafts-safe/kpis-haut",
@@ -2811,7 +2811,7 @@ async function loadV17CompanyBrut(
           // 12 juil 2026 (fix DLR/KR) : passthrough du last_data_date propre
           // au KPI haut de gamme quand le fichier le fournit. Sans lui,
           // enhanceFreshness backfillait la date max des AUTRES KPIs de la
-          // sté → axe trimestriel décalé (KR héritait d'une date bidon →
+          // société → axe trimestriel décalé (KR héritait d'une date bidon →
           // labels jusqu'à "T2 27"). Optionnel : aucun impact si absent.
           ...(typeof k.last_data_date === "string" && k.last_data_date.trim().length > 0
             ? { last_data_date: k.last_data_date }
@@ -2870,7 +2870,7 @@ async function loadV17CompanyBrut(
             ? { _value_note: k._value_note }
             : {}),
           // 18 juil 2026 (vagues R3) : passthrough des notes de trou de série
-          // (trimestre non publié par la sté) pour que le linter classe le
+          // (trimestre non publié par la société) pour que le linter classe le
           // trou en orange documenté au lieu de rouge.
           ...(typeof k._gap_note === "string" && k._gap_note.trim().length > 0
             ? { _gap_note: k._gap_note }
@@ -2904,7 +2904,7 @@ async function loadV17CompanyBrut(
       const hautShorts = new Set(
         converted.map((k) => String(k.short ?? "").toLowerCase()),
       );
-      // Yann 17 juil 2026 (audit 100 stés : 36 doublons visibles dans les
+      // Yann 17 juil 2026 (audit 100 sociétés : 36 doublons visibles dans les
       // Indicateurs clés, ex ABT "Électrophysiologie" présent via le short
       // legacy ELECTROPHYS ET via le kpis-haut "Electrophysiology") : la
       // dédup par short ne suffit pas, les couches nomment différemment le
@@ -3138,8 +3138,8 @@ async function loadV17CompanyBrut(
   // Yann 18 mai 2026 : injecte traduction FR du tagline depuis le fichier
   // global taglines-fr.json. Source tagline = EN (CLAUDE.md §6).
   // Yann 28 mai 2026 : ne PAS écraser une trad FR déjà posée par
-  // `enrich.tagline_fr` (cf merge ligne ~1167). La trad par-sté dans enrich
-  // est canonique (rédigée spécifiquement pour la sté), alors que le fichier
+  // `enrich.tagline_fr` (cf merge ligne ~1167). La trad par-société dans enrich
+  // est canonique (rédigée spécifiquement pour la société), alors que le fichier
   // global est un fallback générique. Cas observé : MU enrich.tagline_fr
   // "Leader mondial des semi-conducteurs de mémoire et stockage, au service
   // de l'IA et du cloud." vs taglines-fr.json "semiconducteurs..." (générique
@@ -3160,13 +3160,13 @@ async function loadV17CompanyBrut(
 
   // Yann 21 août 2026 : dernier passage AVANT sérialisation — supprime les
   // citations SEC techniques ("10-Q", "XBRL", noms de balises) de tous les
-  // textes affichés, sur toutes les stés.
+  // textes affichés, sur toutes les sociétés.
   deepCleanCitations(company as unknown as Record<string, unknown>);
 
   // Yann 30 août 2026 (KO "Effet prix/mix" affiché en double) : dédup finale
   // des KPI dont les séries se recouvrent (mêmes chiffres sous deux libellés,
   // sources pipeline/kpis-haut/enrich avec des shorts différents). Audit du
-  // 30 août : 197 paires rendues sur 129 stés. On garde la série qui va le
+  // 30 août : 197 paires rendues sur 129 sociétés. On garde la série qui va le
   // plus loin dans le temps et on lui greffe les champs manquants de l'autre.
   // Yann 30 août 2026 : 35 789 KPI rendus sur 35 949 n'avaient AUCUNE
   // définition (tooltip "i" vide, screen KO). Repli serveur : définition
@@ -3190,7 +3190,7 @@ async function loadV17CompanyBrut(
 
 // ---------------------------------------------------------------------------
 // Dédup par recouvrement de séries (Yann 30 août 2026).
-// Deux KPI d'une même sté qui partagent une sous-série contiguë d'au moins
+// Deux KPI d'une même société qui partagent une sous-série contiguë d'au moins
 // 10 points identiques sont le même indicateur sous deux libellés. Le loader
 // fusionne par short, mais les shorts diffèrent souvent entre sources
 // ("Price/mix" pipeline vs "price_mix_impact" kpis-haut).

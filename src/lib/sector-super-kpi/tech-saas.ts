@@ -2,7 +2,7 @@
  * Sector Super-KPIs — TECH-SAAS V1.9.5
  *
  * 3 super-KPIs sectoriels pour Tech SaaS / Software (CRM, ORCL, NOW, ADBE,
- * INTU, WDAY, SNOW, DDOG, 17 stés total) :
+ * INTU, WDAY, SNOW, DDOG, 17 sociétés total) :
  *   1. netRevenueRetention : NRR (Croissance)
  *   2. arrGrowth           : croissance ARR YoY (Croissance)
  *   3. ruleOf50            : ARR Growth % + FCF Margin % (Composite)
@@ -57,7 +57,7 @@ function pickLoc(s: LocalizedString, locale: Locale): string {
 export const SECTOR_STRINGS = {
   na_data: {
     en: "Required data not available for this SaaS company.",
-    fr: "Données nécessaires non disponibles pour cette sté SaaS.",
+    fr: "Données nécessaires non disponibles pour cette société SaaS.",
   },
 
   // ── Net Revenue Retention ──────────────────────────────────────────
@@ -71,7 +71,7 @@ export const SECTOR_STRINGS = {
   },
   nrr_formula: {
     en: "NRR % disclosed by the company",
-    fr: "NRR % publié par la sté",
+    fr: "NRR % publié par la société",
   },
   nrr_benchmark: {
     en: ">= 130 % premium · 115-130 % solid · 105-115 % average · < 105 % below",
@@ -117,7 +117,7 @@ export const SECTOR_STRINGS = {
   },
   arr_interp_premium: {
     en: "Hyper-growth ARR trajectory. The company adds recurring revenue at a rate reserved for category leaders, often paired with land-and-expand motion and strong NRR.",
-    fr: "Trajectoire ARR en hyper-croissance. La sté ajoute du revenu récurrent à un rythme réservé aux category leaders, souvent couplé à un motion land-and-expand et à une NRR élevée.",
+    fr: "Trajectoire ARR en hyper-croissance. La société ajoute du revenu récurrent à un rythme réservé aux category leaders, souvent couplé à un motion land-and-expand et à une NRR élevée.",
   },
   arr_interp_solid: {
     en: "Solid ARR growth. The recurring base scales fast enough to justify a premium multiple while leaving room for margin expansion.",
@@ -125,7 +125,7 @@ export const SECTOR_STRINGS = {
   },
   arr_interp_average: {
     en: "Average ARR growth. The company is past hyper-growth and enters the maturity phase where margin discipline matters more than topline acceleration.",
-    fr: "Croissance ARR moyenne. La sté sort de l'hyper-croissance et entre dans la phase de maturité où la discipline de marge prime sur l'accélération du topline.",
+    fr: "Croissance ARR moyenne. La société sort de l'hyper-croissance et entre dans la phase de maturité où la discipline de marge prime sur l'accélération du topline.",
   },
   arr_interp_below: {
     en: "ARR growth below standard. The recurring engine is decelerating, valuation multiples are likely to compress unless margin or capital return offsets emerge.",
@@ -159,11 +159,11 @@ export const SECTOR_STRINGS = {
   },
   r50_interp_premium: {
     en: "Best-in-class combination of growth and free cash flow. The company hits the SaaS holy grail: hyper-growth without burning cash, the most valued profile by software investors.",
-    fr: "Combinaison best-in-class de croissance et de cash flow disponible. La sté coche le graal SaaS : hyper-croissance sans brûler de cash, le profil le plus valorisé par les investisseurs software.",
+    fr: "Combinaison best-in-class de croissance et de cash flow disponible. La société coche le graal SaaS : hyper-croissance sans brûler de cash, le profil le plus valorisé par les investisseurs software.",
   },
   r50_interp_solid: {
     en: "Solid Rule of 50. Growth and free cash flow are well balanced, the company sustains a high multiple while staying self-financed.",
-    fr: "Rule of 50 solide. Croissance et cash flow disponible sont bien équilibrés, la sté tient un multiple élevé tout en restant autofinancée.",
+    fr: "Rule of 50 solide. Croissance et cash flow disponible sont bien équilibrés, la société tient un multiple élevé tout en restant autofinancée.",
   },
   r50_interp_average: {
     en: "Average score. Either growth or cash flow has to lift to keep a premium multiple, the current combination is standard for the SaaS universe.",

@@ -1,5 +1,5 @@
 /**
- * /api/desk/hero — changement du hero KPI d'une sté depuis le back-office
+ * /api/desk/hero — changement du hero KPI d'une société depuis le back-office
  * /sandbox/kpi-quality-strategy (Yann 21 août 2026).
  *
  * Modelé sur /api/desk/att (gating DESK_OWNER_EMAIL) + bypass audit_token
@@ -153,7 +153,7 @@ export async function POST(req: NextRequest) {
   if (!heroKpi) return NextResponse.json({ error: "hero_kpi requis" }, { status: 400 });
 
   // Validation serveur : le hero demandé doit exister dans les KPI
-  // RÉELLEMENT chargés par la page sté (loadV17Company, pas les fichiers bruts).
+  // RÉELLEMENT chargés par la page société (loadV17Company, pas les fichiers bruts).
   const eff = await loadEffective(ticker);
   if (!eff.ok) {
     return NextResponse.json({ error: eff.error }, { status: eff.status });
@@ -161,7 +161,7 @@ export async function POST(req: NextRequest) {
   if (!eff.kpis.some((k) => k.short === heroKpi)) {
     return NextResponse.json(
       {
-        error: "hero_kpi absent des KPI de la sté",
+        error: "hero_kpi absent des KPI de la société",
         ticker,
         hero_kpi: heroKpi,
         available: eff.kpis.map((k) => k.short).slice(0, 60),

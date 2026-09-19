@@ -12,7 +12,7 @@
  *                   ratios. Aggregation annuelle = LAST quarter (snapshot fin
  *                   d'année).
  *
- * Référence : règle Yann 16 mai 2026 — "le revenu annuel d'une sté = somme
+ * Référence : règle Yann 16 mai 2026 — "le revenu annuel d'une société = somme
  * des 4 trimestres, pas le Q4 seul ; mais le nombre d'abonnés en fin d'année
  * = le dernier Q (= état au moment T)".
  */

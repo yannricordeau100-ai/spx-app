@@ -14,7 +14,7 @@
  *   alter table public.desk_att enable row level security;
  *
  * Endpoints :
- *   GET             → liste des 651 stés V1.9.5 avec statut ATT
+ *   GET             → liste des 651 sociétés V1.9.5 avec statut ATT
  *   GET ?ticker=X   → payload effectif (Supabase prioritaire, sinon local)
  *   POST {ticker, payload} → upsert override desk_att
  *   DELETE ?ticker=X → supprime l'override (retour au JSON local)
@@ -99,7 +99,7 @@ export async function GET(req: NextRequest) {
   const ticker = req.nextUrl.searchParams.get("ticker")?.toUpperCase() ?? null;
   const admin = createSupabaseAdminClient();
 
-  // Détail d'une sté : payload effectif + provenance.
+  // Détail d'une société : payload effectif + provenance.
   if (ticker) {
     let source: "supabase" | "local" | null = null;
     let payload: Record<string, unknown> | null = null;
@@ -124,7 +124,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ ticker, source, payload });
   }
 
-  // Liste : univers 651 stés + statut local + overrides Supabase.
+  // Liste : univers 651 sociétés + statut local + overrides Supabase.
   const tickers = await loadUniverseTickers();
 
   const localByTicker = new Map<string, Record<string, unknown>>();

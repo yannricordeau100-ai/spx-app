@@ -408,7 +408,7 @@ function KpiForm({
             onChange={(e) => setMode(e.target.value as Mode)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[12.5px] text-zinc-100"
           >
-            <option value="single">1 sté</option>
+            <option value="single">1 société</option>
             <option value="multi">Liste de tickers</option>
           </select>
         </label>

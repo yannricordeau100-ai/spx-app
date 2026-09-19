@@ -9,7 +9,7 @@ import { AlertTriangle } from "lucide-react";
  * de masquer un bloc absent (risks, governance, AI positioning, etc.),
  * on affiche une bordure rouge + libellé "Bloc à compléter" avec un hint
  * sur ce qui manque concrètement. Permet de voir d'un coup d'œil ce qui
- * doit être enrichi avant qu'une sté soit "client-ready".
+ * doit être enrichi avant qu'une société soit "client-ready".
  *
  * Ne s'affiche JAMAIS sur la prod ni sur /sandbox/v1-7 (mode strict).
  */

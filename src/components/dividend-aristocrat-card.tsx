@@ -122,7 +122,7 @@ export function DividendAristocratCard({
   const { t } = useT();
   // yearsStreak dynamique : si non fourni en prop, calculer depuis
   // meta.first_year (si dispo). Si aucun des deux : null = ne pas afficher
-  // la mention "X ans de hausse" (pas de fallback hardcodé sur des stés
+  // la mention "X ans de hausse" (pas de fallback hardcodé sur des sociétés
   // dont on ne sait rien) — règle CONV-DIV 9 mai 2026.
   const computedStreak: number | null = (() => {
     if (typeof yearsStreak === "number" && yearsStreak > 0) return yearsStreak;
@@ -141,7 +141,7 @@ export function DividendAristocratCard({
 
   // ─────── CAGR multi-périodes (Yann 19 mai 2026) ───────
   // Étend le calcul au-delà des 5 ans de `dpsHistory` en utilisant l'historique
-  // XBRL SEC stocké dans `meta.dps_xbrl_history` (jusqu'à ~18 ans pour stés US).
+  // XBRL SEC stocké dans `meta.dps_xbrl_history` (jusqu'à ~18 ans pour sociétés US).
   // Périodes affichées : 5 / 10 / 20 ans + "depuis création" (= depuis
   // `meta.first_year` ou première année avec data XBRL).
   // Compute "extended history" : merge dpsHistory (5 ans) avec XBRL
@@ -211,7 +211,7 @@ export function DividendAristocratCard({
   const cagrSince = cagrSinceFirst();
 
   // Fallback ancien comportement pour la "shoulder" en bas — utilisée par les
-  // anciennes stés sans XBRL extended.
+  // anciennes sociétés sans XBRL extended.
   const cagrFallback =
     n >= 2 && dpsHistory[0] > 0
       ? (Math.pow(dpsHistory[n - 1] / dpsHistory[0], 1 / (n - 1)) - 1) * 100

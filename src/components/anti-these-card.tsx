@@ -3,7 +3,7 @@
 /**
  * anti-these-card.tsx — bloc "Anti-thèse d'investissement" (Yann 14 août 2026).
  *
- * Placé juste APRÈS le bloc Facteurs de risque sur la page sté V1.9.5.
+ * Placé juste APRÈS le bloc Facteurs de risque sur la page société V1.9.5.
  * Spec : .conv-state/att-spec.md. FR uniquement, pas d'em-dash.
  *
  * Toujours visibles (tous tiers) : titre, badge intensité, dates, hook.
@@ -11,6 +11,10 @@
  * autres tiers, le serveur envoie `att.locked = true` SANS le contenu
  * (gateAttForTier) et ce composant rend un placeholder flouté + CTA.
  * Anti-triche : le texte réel n'est jamais dans le HTML des non-abonnés.
+ *
+ * 19 sept 2026 : cadre visuel net autour du bloc entier (teinte violette, en
+ * miroir de la teinte émeraude de la thèse) et parties numérotées dans un
+ * médaillon avec bandeau de titre, pour voir la délimitation d'un coup d'oeil.
  */
 
 import Link from "next/link";
@@ -23,9 +27,13 @@ import {
   ShieldCheck,
   BookOpen,
   Lock,
+  FileText,
 } from "lucide-react";
 import { InfoTooltip } from "@/components/info-tooltip";
 import type { CompanyAtt, AttArgument, AttQuantitatif } from "@/lib/att";
+
+/** Teinte du cadre général de l'anti-thèse (la thèse prend l'émeraude). */
+const CADRE = "#a78bfa";
 
 const INTENSITE_META: Record<
   CompanyAtt["intensite"],
@@ -60,23 +68,48 @@ function splitEnPoints(texte: string): string[] {
   return [texte];
 }
 
-function SectionTitle({
+/**
+ * Une partie de l'anti-thèse : médaillon numéroté, bandeau de titre coloré,
+ * fine ligne de séparation puis le contenu.
+ */
+function Partie({
+  n,
   icon,
   color,
+  titre,
   children,
 }: {
+  n: number;
   icon: React.ReactNode;
   color: string;
+  titre: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
-    <h3
-      className="mb-3 flex items-center gap-2.5 font-mono text-[15px] font-semibold uppercase tracking-[0.14em]"
-      style={{ color }}
-    >
-      {icon}
-      {children}
-    </h3>
+    <div className="overflow-hidden rounded-xl border border-[#151515] bg-[#050505]">
+      <div
+        className="flex items-center gap-2.5 border-b px-4 py-2.5"
+        style={{
+          borderColor: `${color}26`,
+          background: `linear-gradient(90deg, ${color}14 0%, rgba(7, 7, 7, 0) 70%)`,
+        }}
+      >
+        <span
+          className="inline-flex size-6 shrink-0 items-center justify-center rounded-full border font-mono text-[11px] font-semibold leading-none"
+          style={{ borderColor: `${color}59`, background: `${color}1f`, color }}
+        >
+          {n}
+        </span>
+        <h3
+          className="flex items-center gap-2 font-mono text-[12.5px] font-semibold uppercase tracking-[0.14em]"
+          style={{ color }}
+        >
+          {icon}
+          {titre}
+        </h3>
+      </div>
+      <div className="p-4">{children}</div>
+    </div>
   );
 }
 
@@ -190,161 +223,202 @@ export function AntiTheseCard({
     ? Object.entries(att.glossaire).filter(([k, v]) => k && typeof v === "string")
     : [];
 
+  /* Parties numérotées : l'ordre de cette liste donne les numéros 1, 2, 3... */
+  const parties: { key: string; color: string; icon: React.ReactNode; titre: React.ReactNode; contenu: React.ReactNode }[] = [];
+
+  if (att.resume) {
+    parties.push({
+      key: "resume",
+      color: "#a78bfa",
+      icon: <FileText className="size-3.5" />,
+      titre: "En résumé",
+      contenu: <p className="text-[13.5px] leading-relaxed text-zinc-300">{att.resume}</p>,
+    });
+  }
+
+  if (interne.length > 0) {
+    parties.push({
+      key: "interne",
+      color: "#a78bfa",
+      icon: <Landmark className="size-3.5" />,
+      titre: "Fondamental interne",
+      contenu: (
+        <div className="grid gap-3">
+          {interne.map((a, i) => (
+            <ArgumentCard key={`int-${i}`} arg={a} />
+          ))}
+        </div>
+      ),
+    });
+  }
+
+  if (externe.length > 0) {
+    parties.push({
+      key: "externe",
+      color: "#c4b5fd",
+      icon: <Globe2 className="size-3.5" />,
+      titre: "Fondamental externe",
+      contenu: (
+        <div className="grid gap-3">
+          {externe.map((a, i) => (
+            <ArgumentCard key={`ext-${i}`} arg={a} />
+          ))}
+        </div>
+      ),
+    });
+  }
+
+  if (quant.length > 0) {
+    parties.push({
+      key: "quant",
+      color: "#22d3ee",
+      icon: <Calculator className="size-3.5" />,
+      titre: "Quantitatif",
+      contenu: (
+        <div className="grid gap-3 md:grid-cols-3">
+          {quant.map((q, i) => (
+            <QuantCard key={`q-${i}`} q={q} />
+          ))}
+        </div>
+      ),
+    });
+  }
+
+  if (affaiblirait.length > 0) {
+    parties.push({
+      key: "affaiblirait",
+      color: "#10b981",
+      icon: <ShieldCheck className="size-3.5" />,
+      titre: "Ce qui affaiblirait cette anti-thèse",
+      contenu: (
+        <ul className="grid gap-2">
+          {affaiblirait.map((item, i) => (
+            <li
+              key={`w-${i}`}
+              className="flex items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 text-[13px] leading-relaxed text-zinc-300"
+            >
+              <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-emerald-400/80" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      ),
+    });
+  }
+
+  if (glossaire.length > 0) {
+    parties.push({
+      key: "glossaire",
+      color: "#71717a",
+      icon: <BookOpen className="size-3.5" />,
+      titre: "Glossaire (termes suivis d'un astérisque)",
+      contenu: (
+        <dl className="grid gap-x-6 gap-y-2 md:grid-cols-2">
+          {glossaire.map(([term, def]) => (
+            <div key={term} className="text-[12.5px] leading-relaxed">
+              <dt className="inline font-mono font-semibold text-zinc-200">
+                {(() => {
+                  const t = term.replace(/\*+$/, "").trim();
+                  // Majuscule initiale, le reste en minuscules sauf sigles
+                  // (BPA, EBITDA, FCF restent tels quels).
+                  if (t.length > 5 && t === t.toUpperCase()) {
+                    return t.charAt(0) + t.slice(1).toLowerCase();
+                  }
+                  return t.charAt(0).toUpperCase() + t.slice(1);
+                })()}
+              </dt>
+              <dd className="inline text-zinc-400"> : {def}</dd>
+            </div>
+          ))}
+        </dl>
+      ),
+    });
+  }
+
   return (
     <section id="sec-anti-these" data-blur="antithese" className="mt-9 scroll-mt-24 animate-fade-up-d2">
-      {/* Header : titre + badge intensité + dates */}
-      <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
-        <div>
-          <h2 data-blur-part="titre" className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
-            <Scale className="size-5" style={{ color: accent }} />
-            Anti-thèse d&apos;investissement
-            {/* Yann 18 sept 2026 : « pourquoi ce bloc existe » dans un grand i a cote du titre. */}
-            <InfoTooltip color={accent} size="md">
-              Pourquoi ce bloc existe : on lit surtout ce qui conforte une position parfois déjà prise, et l&apos;information disponible pousse dans le même sens, puisque ni la société, ni le courtier, ni l&apos;analyste n&apos;ont intérêt à écrire l&apos;inverse. L&apos;anti-thèse force la lecture contraire, avec les mêmes documents officiels et la même exigence de source.
-            </InfoTooltip>
-            <span
-              className="rounded-md px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider"
-              style={{
-                background: `${meta.color}1a`,
-                color: meta.color,
-                border: `1px solid ${meta.color}40`,
-              }}
-            >
-              {meta.label}
-            </span>
-          </h2>
-          <p className="mt-0.5 text-[13.5px] text-zinc-300">
-            Les raisons objectives d&apos;être méfiant, figées à date. L&apos;autre côté du dossier.
-          </p>
-        </div>
-        <div className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
-          <CalendarDays className="size-3.5" />
-          <span>
-            Rédigée en {formatMoisAn(att.redigee_le)}
-            {att.donnees_arretees_au
-              ? `, sur la base des documents publiés jusqu'en ${formatMoisAn(att.donnees_arretees_au)}`
-              : ""}
-          </span>
-        </div>
-      </div>
-
-      {/* Hook : TOUJOURS visible, en clair, mis en valeur.
-          9 sept 2026 : bloc « antithese » pilotable dans le selecteur de
-          floutage (parties titre / texte). */}
+      {/* Cadre général du bloc : teinte violette, en miroir de l'émeraude de la thèse. */}
       <div
-        data-blur-part="texte"
-        className="relative overflow-hidden rounded-xl border p-5"
+        className="overflow-hidden rounded-2xl border"
         style={{
-          borderColor: "rgba(167, 139, 250, 0.35)",
-          background:
-            "linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(7, 7, 7, 0.9) 45%, rgba(34, 211, 238, 0.08) 100%)",
+          borderColor: `${CADRE}4d`,
+          background: `linear-gradient(180deg, ${CADRE}0d 0%, rgba(7, 7, 7, 0) 260px)`,
         }}
       >
-        <p className="text-[15.5px] font-medium leading-relaxed text-zinc-100">
-          {att.hook}
-        </p>
-      </div>
-
-      <div data-blur-part="texte">
-      {att.locked ? (
-        <LockedPlaceholder />
-      ) : (
-        <div className="mt-4 grid gap-6">
-          {/* Résumé */}
-          {att.resume && (
-            <p className="text-[13.5px] leading-relaxed text-zinc-300">{att.resume}</p>
-          )}
-
-          {/* Fondamental interne */}
-          {interne.length > 0 && (
-            <div>
-              <SectionTitle icon={<Landmark className="size-3.5" />} color="#a78bfa">
-                Fondamental interne
-              </SectionTitle>
-              <div className="grid gap-3">
-                {interne.map((a, i) => (
-                  <ArgumentCard key={`int-${i}`} arg={a} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Fondamental externe */}
-          {externe.length > 0 && (
-            <div>
-              <SectionTitle icon={<Globe2 className="size-3.5" />} color="#a78bfa">
-                Fondamental externe
-              </SectionTitle>
-              <div className="grid gap-3">
-                {externe.map((a, i) => (
-                  <ArgumentCard key={`ext-${i}`} arg={a} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Quantitatif */}
-          {quant.length > 0 && (
-            <div>
-              <SectionTitle icon={<Calculator className="size-3.5" />} color="#22d3ee">
-                Quantitatif
-              </SectionTitle>
-              <div className="grid gap-3 md:grid-cols-3">
-                {quant.map((q, i) => (
-                  <QuantCard key={`q-${i}`} q={q} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Ce qui affaiblirait cette anti-thèse */}
-          {affaiblirait.length > 0 && (
-            <div>
-              <SectionTitle icon={<ShieldCheck className="size-3.5" />} color="#10b981">
-                Ce qui affaiblirait cette anti-thèse
-              </SectionTitle>
-              <ul className="grid gap-2">
-                {affaiblirait.map((item, i) => (
-                  <li
-                    key={`w-${i}`}
-                    className="flex items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 text-[13px] leading-relaxed text-zinc-300"
-                  >
-                    <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-emerald-400/80" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Glossaire (termes marqués d'un astérisque dans les textes) */}
-          {glossaire.length > 0 && (
-            <div>
-              <SectionTitle icon={<BookOpen className="size-3.5" />} color="#71717a">
-                Glossaire (termes suivis d&apos;un astérisque)
-              </SectionTitle>
-              <dl className="grid gap-x-6 gap-y-2 rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 md:grid-cols-2">
-                {glossaire.map(([term, def]) => (
-                  <div key={term} className="text-[12.5px] leading-relaxed">
-                    <dt className="inline font-mono font-semibold text-zinc-200">
-                      {(() => {
-                        const t = term.replace(/\*+$/, "").trim();
-                        // Majuscule initiale, le reste en minuscules sauf sigles
-                        // (BPA, EBITDA, FCF restent tels quels).
-                        if (t.length > 5 && t === t.toUpperCase()) {
-                          return t.charAt(0) + t.slice(1).toLowerCase();
-                        }
-                        return t.charAt(0).toUpperCase() + t.slice(1);
-                      })()}
-                    </dt>
-                    <dd className="inline text-zinc-400"> : {def}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          )}
+        {/* Bandeau de titre du bloc : titre + badge intensité + dates */}
+        <div
+          className="flex flex-wrap items-end justify-between gap-2 border-b px-5 py-4 sm:px-6"
+          style={{
+            borderColor: `${CADRE}33`,
+            background: `linear-gradient(90deg, ${CADRE}1a 0%, rgba(7, 7, 7, 0) 70%)`,
+          }}
+        >
+          <div>
+            <h2 data-blur-part="titre" className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
+              <Scale className="size-5" style={{ color: accent }} />
+              Anti-thèse d&apos;investissement
+              {/* Yann 18 sept 2026 : « pourquoi ce bloc existe » dans un grand i a cote du titre. */}
+              <InfoTooltip color={accent} size="md">
+                Pourquoi ce bloc existe : on lit surtout ce qui conforte une position parfois déjà prise, et l&apos;information disponible pousse dans le même sens, puisque ni la société, ni le courtier, ni l&apos;analyste n&apos;ont intérêt à écrire l&apos;inverse. L&apos;anti-thèse force la lecture contraire, avec les mêmes documents officiels et la même exigence de source.
+              </InfoTooltip>
+              <span
+                className="rounded-md px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider"
+                style={{
+                  background: `${meta.color}1a`,
+                  color: meta.color,
+                  border: `1px solid ${meta.color}40`,
+                }}
+              >
+                {meta.label}
+              </span>
+            </h2>
+            <p className="mt-0.5 text-[13.5px] text-zinc-300">
+              Les raisons objectives d&apos;être méfiant, figées à date. L&apos;autre côté du dossier.
+            </p>
+          </div>
+          <div className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
+            <CalendarDays className="size-3.5" />
+            <span>
+              Rédigée en {formatMoisAn(att.redigee_le)}
+              {att.donnees_arretees_au
+                ? `, sur la base des documents publiés jusqu'en ${formatMoisAn(att.donnees_arretees_au)}`
+                : ""}
+            </span>
+          </div>
         </div>
-      )}
+
+        <div className="p-5 sm:p-6">
+          {/* Hook : TOUJOURS visible, en clair, mis en valeur.
+              9 sept 2026 : bloc « antithese » pilotable dans le selecteur de
+              floutage (parties titre / texte). */}
+          <div
+            data-blur-part="texte"
+            className="relative overflow-hidden rounded-xl border p-5"
+            style={{
+              borderColor: "rgba(167, 139, 250, 0.35)",
+              background:
+                "linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(7, 7, 7, 0.9) 45%, rgba(34, 211, 238, 0.08) 100%)",
+            }}
+          >
+            <p className="text-[15.5px] font-medium leading-relaxed text-zinc-100">
+              {att.hook}
+            </p>
+          </div>
+
+          <div data-blur-part="texte">
+            {att.locked ? (
+              <LockedPlaceholder />
+            ) : (
+              <div className="mt-4 grid gap-4">
+                {parties.map((p, i) => (
+                  <Partie key={p.key} n={i + 1} color={p.color} icon={p.icon} titre={p.titre}>
+                    {p.contenu}
+                  </Partie>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 /**
  * /api/desk-mtk9x4kp/kpi-add-request — POST
  *
- * Crée une nouvelle demande KPI multi-sté en statut `pending`. Le script
+ * Crée une nouvelle demande KPI multi-société en statut `pending`. Le script
  * Python scripts/run-kpi-add-request.py la prendra en charge ensuite.
  *
  * Body attendu :

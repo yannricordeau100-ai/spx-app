@@ -17,7 +17,7 @@ export const dynamic = "force-dynamic";
 
 /**
  * Sur staging (`VERCEL_GIT_COMMIT_REF=staging`), la home `/` affiche
- * le hub V1.7 (stés Pass 3 validées) au lieu de la home V1 (5 stés).
+ * le hub V1.7 (sociétés Pass 3 validées) au lieu de la home V1 (5 sociétés).
  * En prod, comportement V1 inchangé.
  */
 const IS_STAGING =
@@ -69,7 +69,7 @@ export default async function HomePage({
   }
 
   // Staging : root '/' redirige vers /sandbox/v1-9-5 (hub V1.9.5 par défaut
-  // depuis Yann le 21 mai 2026 ; V1.9.5 = stés validées qualité audit strict,
+  // depuis Yann le 21 mai 2026 ; V1.9.5 = sociétés validées qualité audit strict,
   // standard désormais. URLs explicites /sandbox/v1-8 et /sandbox/v1-7-5
   // restent accessibles pour rétrocompatibilité.
   //

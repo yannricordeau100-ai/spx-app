@@ -6,10 +6,10 @@
  *   2. tier1RegulatoryBuffer    : marge CET1 / Tier 1 au-dessus du minimum
  *                                 réglementaire (10 %)
  *
- * Univers cible : ~86 stés US banks (JPM/BAC/C/WFC/USB/MTB/TFC/PNC/KEY/...).
+ * Univers cible : ~86 sociétés US banks (JPM/BAC/C/WFC/USB/MTB/TFC/PNC/KEY/...).
  *
  * i18n : EN + FR obligatoires (règle Yann 17 mai 2026 : EN = canonical).
- * Anti-em-dash dans rationale FR. Vocabulaire FR strict (stés, pas
+ * Anti-em-dash dans rationale FR. Vocabulaire FR strict (sociétés, pas
  * "sociétés cotées", etc.).
  *
  * IMPORTANT : pas de commit, pas d'edit sur src/lib/super-kpi.ts. Le
@@ -104,7 +104,7 @@ export const SECTOR_STRINGS = {
   },
   t1_buffer_interp_mid: {
     en: "Solid capital buffer. The bank can absorb a normal stress test and still return capital, but room for buyback acceleration remains limited.",
-    fr: "Marge de capital solide. La sté peut absorber un stress test normal et continuer à redistribuer du capital, mais la marge d'accélération des rachats reste limitée.",
+    fr: "Marge de capital solide. La société peut absorber un stress test normal et continuer à redistribuer du capital, mais la marge d'accélération des rachats reste limitée.",
   },
   t1_buffer_interp_low: {
     en: "Thin capital buffer above the minimum. Any stress event or rising RWA could force capital actions to be cut. To watch closely.",
@@ -122,7 +122,7 @@ export const SECTOR_STRINGS = {
   // ── Generic na fallback ────────────────────────────────────────────
   na_data: {
     en: "Required data not available for this company.",
-    fr: "Données nécessaires non disponibles pour cette sté.",
+    fr: "Données nécessaires non disponibles pour cette société.",
   },
 } as const satisfies Record<string, LocalizedString>;
 

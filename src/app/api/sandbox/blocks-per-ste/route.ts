@@ -9,7 +9,7 @@ import { DISABLED_BLOCKS_KEYS } from "@/lib/disabled-blocks";
  * POST /api/sandbox/blocks-per-ste
  * Body : { ticker: string, blocks: string[] }
  *
- * Réécrit l'entrée per-sté dans `src/data/disabled-blocks-per-ste.json`.
+ * Réécrit l'entrée per-société dans `src/data/disabled-blocks-per-ste.json`.
  * Si blocks=[] → retire l'entrée. Sinon → la remplace.
  *
  * Auth-gate : Yann uniquement (DESK_OWNER_EMAIL).
@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
 
   const payload = {
     _doc: current._doc ??
-      "Overrides per-sté pour masquer des blocs page société sur un ticker précis. Géré via /sandbox/v1-8/blocks-per-ste.",
+      "Overrides per-société pour masquer des blocs page société sur un ticker précis. Géré via /sandbox/v1-8/blocks-per-ste.",
     overrides,
     updated_at: new Date().toISOString(),
   };

@@ -91,7 +91,7 @@ export const DICTIONARY: Dict = {
   },
 
   /* ──────────────────────── IMAGE FINDINGS BLOCK ──────────────────────── */
-  // Bloc "Graphiques et Schémas de sources diverses" sur les fiches sté.
+  // Bloc "Graphiques et Schémas de sources diverses" sur les fiches société.
   // i18n FR/EN/DE. EN sert de fallback automatique pour autres locales
   // (en-GB, sv, da, nl, de-CH) via le helper translate() dictionary.
   "image_findings.section_title": {
@@ -288,7 +288,7 @@ export const DICTIONARY: Dict = {
     en: "",
   },
 
-  // Yann 5 juin 2026 : footer page sté = phrase value + copyright.
+  // Yann 5 juin 2026 : footer page société = phrase value + copyright.
   "company.footer_value": {
     fr: "Mettrik AI : KPIs spécifiques + interprétation investisseur, sur 5 ans +.",
     en: "Mettrik AI : investor-grade KPIs with interpretation, 5y+ history.",
@@ -1009,7 +1009,7 @@ export const DICTIONARY: Dict = {
   },
   "transcript.bullets.earning_call_label": { fr: "Earning Call", en: "Earnings Call", de: "Earnings Call" },
   "transcript.bullets.earning_call_explainer": {
-    fr: "Conférence téléphonique trimestrielle où la direction d'une société cotée commente ses résultats financiers face aux analystes. On y trouve : chiffres-clés, contexte, perspectives (guidance), réponses aux questions des analystes. C'est l'une des sources les plus riches pour anticiper la trajectoire de la sté.",
+    fr: "Conférence téléphonique trimestrielle où la direction d'une société cotée commente ses résultats financiers face aux analystes. On y trouve : chiffres-clés, contexte, perspectives (guidance), réponses aux questions des analystes. C'est l'une des sources les plus riches pour anticiper la trajectoire de la société.",
     en: "Quarterly conference call where the management of a listed company comments on its financial results to analysts. Includes: key figures, context, outlook (guidance), Q&A. One of the richest sources to anticipate the company's trajectory.",
   
     de: "Vierteljährliche Telefonkonferenz, bei der das Management eines börsennotierten Unternehmens seine Finanzergebnisse gegenüber Analysten erläutert. Sie enthält: Schlüsselzahlen, Kontext, Ausblick (Guidance), Antworten auf Fragen der Analysten. Sie ist eine der reichhaltigsten Quellen, um die Entwicklungsbahn des Unternehmens vorherzusehen.",
@@ -1272,7 +1272,7 @@ export const DICTIONARY: Dict = {
     de: "Sobald ein Unternehmen seine Quartals- oder Jahresergebnisse veröffentlicht, erkennen unsere Pipelines das neue Dokument, extrahieren die KPIs und veröffentlichen sie innerhalb von 24 bis 48 Stunden auf Mettrik AI. Du kannst das letzte Aktualisierungsdatum jedes KPIs direkt auf der Unternehmensseite einsehen (Anzeige Aktuell oder Kürzlich).",
   },
   /* Yann 5 juin 2026 : Q8 + Q9 ajoutées pour clarifier (a) la variabilité
-     du nombre de KPI entre stés (premier doute investisseur particulier
+     du nombre de KPI entre sociétés (premier doute investisseur particulier
      quand il compare 2 fiches) et (b) la provenance des données (objection
      fiabilité classique avant achat). Reformulé pour public 16+ non-tech. */
   "pricing.faq_q8": {

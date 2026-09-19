@@ -9,7 +9,7 @@ import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
  * POST /api/admin/kpis-toggle
  * Body : { ticker: string, kpi_short: string, disabled: boolean }
  *
- * Toggle ATOMIQUE d'un KPI précis pour une sté précise. Lit/écrit
+ * Toggle ATOMIQUE d'un KPI précis pour une société précise. Lit/écrit
  * `src/data/disabled-kpis-per-ste.json`. Auth-gate Yann uniquement
  * (DESK_OWNER_EMAIL).
  *
@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Revalidate l'admin page + une sté (best-effort, layout-wide pour
+  // Revalidate l'admin page + une société (best-effort, layout-wide pour
   // toucher aussi /sandbox/v1-7-5/<ticker> et /sandbox/v1-8/<ticker>).
   try {
     revalidatePath("/admin/kpis-toggle");

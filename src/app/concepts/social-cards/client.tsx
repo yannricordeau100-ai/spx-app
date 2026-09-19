@@ -263,7 +263,7 @@ function VariantBrandMorph() {
 }
 
 // ───────────────────────────────────────────────
-// V4 — CONTEXT-AWARE COMPOSE : sur une fiche sté, le clic pré-remplit un tweet
+// V4 — CONTEXT-AWARE COMPOSE : sur une fiche société, le clic pré-remplit un tweet
 //                              "Je découvre @TICKER sur @mettrik_ai"
 // ───────────────────────────────────────────────
 function VariantContextCompose({ ticker = "NVDA" }: { ticker?: string }) {
@@ -291,7 +291,7 @@ function VariantContextCompose({ ticker = "NVDA" }: { ticker?: string }) {
         Aperçu tweet pré-rempli : « {tweetText} »
       </div>
       <div className="text-[11px] text-zinc-500">
-        Triple usage : présence brand + croissance virale + contextualisation par sté courante.
+        Triple usage : présence brand + croissance virale + contextualisation par société courante.
       </div>
     </div>
   );
@@ -871,7 +871,7 @@ export function SocialCardsLab() {
 
       <Section
         id="V4"
-        title="Context Compose — partage tweet pré-rempli sté courante"
+        title="Context Compose — partage tweet pré-rempli société courante"
         subtitle="Sur une fiche société, le bouton pré-remplit un tweet avec le ticker + via @mettrik_ai. Croissance virale ciblée."
       >
         <VariantContextCompose ticker="NVDA" />

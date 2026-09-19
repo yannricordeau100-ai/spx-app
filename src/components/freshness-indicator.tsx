@@ -117,7 +117,7 @@ export function FreshnessIndicator({
   publicationDate?: string;
   /** Date approximative des prochains résultats. */
   nextEarningsDate?: string;
-  /** Ticker de la sté courante. Sert au fiscal calendar (FY + dates SEC). */
+  /** Ticker de la société courante. Sert au fiscal calendar (FY + dates SEC). */
   ticker?: string;
   /** Conservé pour compat des call sites — ignoré (la visibilité dépend de la date sûre). */
   alwaysShow?: boolean;

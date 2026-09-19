@@ -17,11 +17,11 @@ export const metadata = {
 /**
  * /sandbox/kpi-quality-strategy — REWORK Yann 21 août 2026.
  *
- * 1. LISTE DES STÉS : TOUTES les stés présentes sur l'app
+ * 1. LISTE DES SOCIÉTÉS : TOUTES les sociétés présentes sur l'app
  *    (`src/data/v1-9-5-clean-all-tickers.json`, liste canonique V1.9.5,
- *    656 tickers). Chaque sté est rattachée à un ou plusieurs univers ;
+ *    656 tickers). Chaque société est rattachée à un ou plusieurs univers ;
  *    celles qui n'appartiennent à aucun univers connu tombent dans le
- *    groupe "Autres" pour qu'aucune sté de l'app ne reste hors filtre.
+ *    groupe "Autres" pour qu'aucune société de l'app ne reste hors filtre.
  *
  *    Sources des listes d'appartenance :
  *    - SP500, CAC 40, DAX 40, SMI, AEX : `src/data/v1-9-universe.json`
@@ -34,7 +34,7 @@ export const metadata = {
  *      Inlinée car `.conv-state/` n'est pas déployé.
  *    - NASDAQ 100 : `src/data/nasdaq100-members.json` — AUCUNE liste
  *      officielle du Nasdaq 100 n'existe dans le repo (`.conv-state/
- *      n100-state.json` ne contient que les 14 stés AJOUTÉES en août 2026).
+ *      n100-state.json` ne contient que les 14 sociétés AJOUTÉES en août 2026).
  *      Ce fichier est donc une composition issue de la connaissance du
  *      modèle, RESTREINTE aux tickers réellement présents dans l'app.
  *      ⚠️ À REVALIDER contre la composition officielle avant tout usage
@@ -57,9 +57,9 @@ export const metadata = {
  *    Toggle capi/alpha côté client.
  *
  * 3. FILTRES : Toutes | SP500 | Nasdaq 100 | CAC | DAX | AEX | SMI | SOXX
- *    | Autres (une sté peut appartenir à plusieurs univers).
+ *    | Autres (une société peut appartenir à plusieurs univers).
  *
- * 4. HERO KPI : colonne <select> par sté. Valeur initiale = snapshot
+ * 4. HERO KPI : colonne <select> par société. Valeur initiale = snapshot
  *    `companies/<t>.json` (fallback `v2-pipeline/<t>.json`), corrigée au
  *    mount par les overrides Supabase (couche gagnante) via
  *    GET /api/desk/hero. Options chargées à la demande (KPI réels via
@@ -183,8 +183,8 @@ async function buildRows(): Promise<{ rows: SteRow[]; capsSource: "att-state" | 
     addMember(t.toUpperCase(), "nasdaq100");
   }
 
-  // Univers page = TOUTES les stés de l'app. Celles rattachées à aucun
-  // univers connu sont regroupées dans "Autres" (aucune sté hors filtre).
+  // Univers page = TOUTES les sociétés de l'app. Celles rattachées à aucun
+  // univers connu sont regroupées dans "Autres" (aucune société hors filtre).
   const kept = [...clean].sort();
   for (const t of kept) {
     if (!membership.get(t)?.size) addMember(t, "autres");
@@ -238,12 +238,12 @@ export default async function KpiQualityStrategyPage() {
           KPI Quality Strategy
         </h1>
         <p className="mt-2 max-w-3xl text-[13.5px] leading-relaxed text-zinc-400">
-          Pilotage du hero KPI de toutes les stés de l&apos;app, filtrées par
+          Pilotage du hero KPI de toutes les sociétés de l&apos;app, filtrées par
           univers{" "}
           <strong className="text-zinc-200">
             SP500, Nasdaq 100, CAC 40, DAX 40, AEX, SMI, SOXX
           </strong>{" "}
-          (+ Autres pour les stés hors de ces univers).
+          (+ Autres pour les sociétés hors de ces univers).
           Tri par capi décroissante (toggle alphabétique), filtres par univers,
           changement du hero KPI directement depuis la liste. Library des KPI
           génériques conservée en second onglet.

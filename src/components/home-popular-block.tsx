@@ -6,7 +6,7 @@
  *
  * Refonte Yann 18 mai 2026 (sans 2ème ligne déséquilibrée) :
  *   - tabs zones géo : grid 3×3 mobile / grid-cols-9 desktop, équilibré, jamais d'orphan
- *   - hover preview : popover sous le tab survolé, top 3 stés du pays
+ *   - hover preview : popover sous le tab survolé, top 3 sociétés du pays
  *   - PV Mettrik réelle : pill YoY (vert/rouge) + chip tier qualité Mettrik
  *     (Excellent/Bon/Moyen/Faible) sur la barre violet/cyan
  *
@@ -242,7 +242,7 @@ export function StockRow({
   );
 }
 
-// === Hover preview popover (top 3 stés du pays survolé) ======================
+// === Hover preview popover (top 3 sociétés du pays survolé) ======================
 
 function TabHoverPreview({
   rows,
@@ -488,7 +488,7 @@ export function HomePopularBlock({
         if (!r.ok) return;
         const j = (await r.json()) as PopularData;
         // Yann 11 juil 2026 : scope public = SP500 strict. On filtre chaque
-        // marché aux 503 stés visibles ; les onglets vidés sont masqués.
+        // marché aux 503 sociétés visibles ; les onglets vidés sont masqués.
         const spSet = new Set(
           (v195CleanAll as { tickers: string[] }).tickers.map((x) => x.toUpperCase()),
         );
@@ -590,7 +590,7 @@ export function HomePopularBlock({
       {/* Yann 18 mai 2026 : refonte zones géo.
           - Grid 3×3 sur mobile (parfaitement équilibré, jamais d'orphan)
           - Grid 9 colonnes sur desktop (1 seule ligne, équidistant)
-          - Hover preview popover (top 3 stés du pays survolé, 220 ms delay)
+          - Hover preview popover (top 3 sociétés du pays survolé, 220 ms delay)
           - Layout vertical par cellule : drapeau + label en colonne pour
             une lecture rapide et un footprint compact. */}
       <div className="relative mb-5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1.5">

@@ -258,7 +258,7 @@ export function MatrixClient({
           <thead className="sticky top-0 z-10 bg-zinc-900/95 backdrop-blur">
             <tr className="border-b border-white/[0.08]">
               <th className="sticky left-0 z-20 bg-zinc-900/95 px-3 py-2 text-left font-bold text-zinc-300">
-                <div>Sté</div>
+                <div>Société</div>
                 <div className="text-[9px] font-normal text-zinc-500">↓ tendance % OK</div>
               </th>
               {COLUMN_KEYS.map((col) => {
@@ -270,7 +270,7 @@ export function MatrixClient({
                 const lastOk = last?.ok ?? 0;
                 const deltaPct = lastPct !== undefined && firstPct !== undefined ? lastPct - firstPct : null;
 
-                // Delta 24 h : compteur OK absolu (∆ stés) entre le dernier
+                // Delta 24 h : compteur OK absolu (∆ sociétés) entre le dernier
                 // snapshot et le snapshot le plus proche de now - 24 h.
                 let delta24h: number | null = null;
                 if (last && points.length >= 2) {
@@ -304,10 +304,10 @@ export function MatrixClient({
                         </span>
                       )}
                     </div>
-                    {/* Ligne dédiée au delta 24h en stés (compteur absolu) */}
+                    {/* Ligne dédiée au delta 24h en sociétés (compteur absolu) */}
                     <div className="mt-0.5 text-[9px] font-mono">
                       {delta24h !== null ? (
-                        <span className={delta24h > 0 ? "text-emerald-400" : delta24h < 0 ? "text-rose-400" : "text-zinc-500"} title="Stés gagnées sur 24h (snapshot le plus proche de hier)">
+                        <span className={delta24h > 0 ? "text-emerald-400" : delta24h < 0 ? "text-rose-400" : "text-zinc-500"} title="Sociétés gagnées sur 24h (snapshot le plus proche de hier)">
                           24h : {delta24h > 0 ? "+" : ""}{delta24h} sé{Math.abs(delta24h) > 1 ? "s" : ""}
                         </span>
                       ) : (

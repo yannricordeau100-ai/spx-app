@@ -9,9 +9,9 @@ export const metadata = {
 
 /**
  * /sandbox/v2 (= alias historique pour V1.5) : même structure que la home
- * (`/`) avec les 50 stés FPI étrangères du dataset DRAFT seed.
+ * (`/`) avec les 50 sociétés FPI étrangères du dataset DRAFT seed.
  *
- * Décision Yann 4 mai 2026 : V1.5 = 50 DRAFT seed, V1.6 = toutes stés
+ * Décision Yann 4 mai 2026 : V1.5 = 50 DRAFT seed, V1.6 = toutes sociétés
  * pipeline (1606), V1.7 = Pass 3 validées (421). Tous trois utilisent
  * HomeView avec dataset custom + showFAQ=false.
  */

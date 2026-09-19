@@ -267,7 +267,7 @@ export function KpiRow({
           // Yann 14 mai 2026 : fallback calculé depuis history quand kpi.yoy
           // est vide (1 049 KPIs concernés dans le SP1500). Évite pill vide.
           let yoyStr: string | null = null;
-          // Yann 17 juil 2026 (audit 100 stés : 31 KPI avec yoy stocké de signe
+          // Yann 17 juil 2026 (audit 100 sociétés : 31 KPI avec yoy stocké de signe
           // opposé à l'history, ex AAPL Chine -7,7 % vs +37,9 % réel, TSLA auto,
           // ORCL OCI, GS EQ_REV) : pour un KPI trimestriel avec ≥5 points, le
           // YoY affiché est TOUJOURS recalculé vs même trimestre N-1 depuis
@@ -417,7 +417,7 @@ export function KpiRow({
       <div data-blur-part="qualite" className="col-span-12 sm:col-span-4">
         {isIncompleteKpi ? (
           // Yann (26 mai 2026) : retire le badge alarmant "Données partielles"
-          // qui apparaissait sur 5-10 KPIs par sté ayant une valeur claire mais
+          // qui apparaissait sur 5-10 KPIs par société ayant une valeur claire mais
           // pas encore d'historique/yoy/signal extraits (ex GOOGL Cloud Backlog
           // 460 Mds $, Google Search Revenue 60,4 Mds $, YouTube Ads 9,88 Mds $).
           // La présence de la valeur seule = info utile, pas une "data partielle".

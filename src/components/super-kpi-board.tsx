@@ -343,7 +343,7 @@ export function SuperKpiBoard({
         ))}
       </div>
 
-      {/* Sous-bloc sector-specific — calibré sur le business model de la sté */}
+      {/* Sous-bloc sector-specific — calibré sur le business model de la société */}
       {usableSector.length > 0 && !hideSector && (
         <div className="mt-7 border-t border-[#1f1f1f] pt-5">
           <h3 className="mb-3 flex items-center gap-2 text-[16px] font-semibold text-zinc-50">

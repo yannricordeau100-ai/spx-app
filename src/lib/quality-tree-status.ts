@@ -1,6 +1,6 @@
 /**
  * quality-tree-status.ts — agrège les résultats des 3 auditeurs et produit
- * un statut par sté × ID quality-tree. Source consommée par :
+ * un statut par société × ID quality-tree. Source consommée par :
  *  - /sandbox/quality-tree (vue humaine, statut par ID)
  *  - scripts/fix-element.py (fix dispatcher, applique fix par ID)
  *
@@ -64,7 +64,7 @@ export function getStatusForTicker(ticker: string, rootDir: string = process.cwd
 }
 
 /**
- * Stats globales par ID quality-tree : combien de stés ont fail/pass cet ID.
+ * Stats globales par ID quality-tree : combien de sociétés ont fail/pass cet ID.
  */
 export function getIdStats(rootDir: string = process.cwd()): Map<string, { fails: number; total: number; sample_tickers: string[] }> {
   const out = new Map<string, { fails: number; total: number; sample_tickers: string[] }>();

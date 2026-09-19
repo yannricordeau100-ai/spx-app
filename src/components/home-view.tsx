@@ -649,12 +649,12 @@ function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
  * (wordmark + search + grille de cards) mais avec un dataset différent et
  * une route de navigation différente.
  *
- * Sans prop : comportement V1 historique (5 stés handcrafted, route /<ticker>).
+ * Sans prop : comportement V1 historique (5 sociétés handcrafted, route /<ticker>).
  * Avec props :
  *   - companies : Record<ticker, Company>
  *   - tickers : string[] dans l'ordre d'affichage
  *   - hrefBuilder : (ticker) => string (ex: t => `/sandbox/v1-7/${t.toLowerCase()}`)
- *   - title (optionnel) : override le wordmark "Mettrik AI" (ex: "V1.7 · 421 stés")
+ *   - title (optionnel) : override le wordmark "Mettrik AI" (ex: "V1.7 · 421 sociétés")
  *   - subtitle (optionnel) : override la headline secondaire
  */
 export function HomeView({
@@ -679,7 +679,7 @@ export function HomeView({
   searchScope?: { tickers: string[]; total: number };
   /** Yann 10 mai 2026 : liens au-dessus du logo (ex Pricing / Contact). */
   topNavLinks?: { label: string; href: string }[];
-  /** Si true, tout clic sur la search bar ou une card sté ouvre AuthModal (anonyme). */
+  /** Si true, tout clic sur la search bar ou une card société ouvre AuthModal (anonyme). */
   requireSignupGate?: boolean;
   /** Yann 15 sept 2026 : visiteur anonyme, chaque lien de fiche pointe vers l inscription gratuite. */
   anonLinks?: boolean;
@@ -709,7 +709,7 @@ export function HomeView({
 
   // Pagination par paquet de 30 (Yann 16 mai 2026) : top 30 affiché, puis
   // flèche "Déployer 30 de plus" pour en révéler 30 supplémentaires, etc.
-  // Activé uniquement si results.length > 30 (V1 demo 5 stés non concerné).
+  // Activé uniquement si results.length > 30 (V1 demo 5 sociétés non concerné).
   // Yann 28 aout 2026 : la pagination interne vit dans HomeWowGrid.
   const PAGE_SIZE = 30;
   // Note : la date "Données à jour au X" est désormais rendue côté client
@@ -866,4 +866,4 @@ export function HomeView({
   );
 }
 
-/** Card sté de la home : extraite pour pouvoir try/catch autour. */
+/** Card société de la home : extraite pour pouvoir try/catch autour. */

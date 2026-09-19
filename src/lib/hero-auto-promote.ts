@@ -1,9 +1,9 @@
 /**
  * Auto-promote hero KPI — refactor Yann 5 juin 2026.
  *
- * Logique : sélectionne le meilleur KPI hero candidat pour une sté en
+ * Logique : sélectionne le meilleur KPI hero candidat pour une société en
  * privilégiant :
- *   1. is_wow=true (KPI distinctif propre à la sté ou sous-secteur)
+ *   1. is_wow=true (KPI distinctif propre à la société ou sous-secteur)
  *   2. plus long historique (history.length)
  *   3. trimestriel (tie-breaker uniquement, peu importe annuel sinon)
  *
@@ -22,8 +22,8 @@
  *
  * Utilisé par :
  *   - `/admin/kpis-toggle` (page SSR) pour calculer le statut visuel des
- *     points colorés à gauche de chaque ligne sté.
- *   - À terme : pages sté V1.9.5 pour proposer un hero auto si Yann
+ *     points colorés à gauche de chaque ligne société.
+ *   - À terme : pages société V1.9.5 pour proposer un hero auto si Yann
  *     n'a pas validé d'override Supabase.
  */
 import { isGenericKpi } from "./kpi-generic";
@@ -57,7 +57,7 @@ export function autoPromoteHero(
   const specific = kpis.filter((k) => !isGenericKpi(k.short));
 
   // Fallback : aucun KPI spécifique → on prend le plus long history parmi
-  // les génériques. Confidence "low" pour signaler que la sté n'a aucun
+  // les génériques. Confidence "low" pour signaler que la société n'a aucun
   // KPI distinctif disponible.
   if (specific.length === 0) {
     const sorted = [...kpis].sort(

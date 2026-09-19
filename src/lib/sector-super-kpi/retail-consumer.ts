@@ -8,12 +8,12 @@
  *   2. inventoryTurns       : rotation des stocks (COGS / Inventory), mesure
  *      d'efficacité opérationnelle critique en distribution.
  *
- * Univers cible : 27 stés retail (WMT, TGT, COST, HD, LOW, AMZN, ULTA, TJX,
+ * Univers cible : 27 sociétés retail (WMT, TGT, COST, HD, LOW, AMZN, ULTA, TJX,
  * KR, DG, DLTR, ROST, BURL, BBY, ORLY, AZO, BJ, CHWY, CVNA, DKS, WSM, SBUX,
  * SPG, GDDY, AD.AS, LI.PA, 9988.HK).
  *
  * i18n : EN + FR obligatoires (règle Yann 17 mai 2026 : EN = canonical).
- * Anti-em-dash dans rationale FR. Vocabulaire FR strict (stés, pas
+ * Anti-em-dash dans rationale FR. Vocabulaire FR strict (sociétés, pas
  * "sociétés cotées", etc.).
  *
  * IMPORTANT : pas de commit, pas d'edit sur src/lib/super-kpi.ts. Le
@@ -58,7 +58,7 @@ export const SECTOR_STRINGS = {
   },
   sss_growth_interp_top: {
     en: "Strong same-store sales growth. The retailer captures share organically without relying on new store openings, sign of brand momentum and pricing power.",
-    fr: "Croissance forte des ventes comparables. La sté capte des parts organiquement sans s'appuyer sur l'expansion réseau, signe de momentum de marque et de pricing power.",
+    fr: "Croissance forte des ventes comparables. La société capte des parts organiquement sans s'appuyer sur l'expansion réseau, signe de momentum de marque et de pricing power.",
   },
   sss_growth_interp_mid: {
     en: "Solid same-store sales growth in line with retail sector standards. Stable underlying demand, traffic and ticket holding up.",
@@ -66,7 +66,7 @@ export const SECTOR_STRINGS = {
   },
   sss_growth_interp_avg: {
     en: "Flat to low same-store sales growth. The retailer struggles to grow organically. To watch: traffic erosion, share loss to online or value competitors.",
-    fr: "Croissance des ventes comparables faible ou stable. La sté peine à croître organiquement. À surveiller : érosion du trafic, perte de parts au profit du online ou des enseignes value.",
+    fr: "Croissance des ventes comparables faible ou stable. La société peine à croître organiquement. À surveiller : érosion du trafic, perte de parts au profit du online ou des enseignes value.",
   },
   sss_growth_interp_low: {
     en: "Same-store sales contracting. Structural concern: store productivity drops, the network needs reshaping or the format is losing relevance.",
@@ -104,7 +104,7 @@ export const SECTOR_STRINGS = {
   },
   inv_turns_interp_top: {
     en: "Very high inventory rotation. The retailer operates a tight supply chain, minimizing working capital tied up in stock and markdown risk. Hallmark of best-in-class operators (COST, WMT food).",
-    fr: "Rotation des stocks très élevée. La sté opère une supply chain tendue, minimisant le BFR immobilisé en stock et le risque de démarque. Signature des meilleurs opérateurs (COST, WMT alimentaire).",
+    fr: "Rotation des stocks très élevée. La société opère une supply chain tendue, minimisant le BFR immobilisé en stock et le risque de démarque. Signature des meilleurs opérateurs (COST, WMT alimentaire).",
   },
   inv_turns_interp_mid: {
     en: "Solid inventory rotation in line with quality retail. Inventory management is under control, working capital intensity is reasonable.",
@@ -130,7 +130,7 @@ export const SECTOR_STRINGS = {
   // ── Generic na fallback ────────────────────────────────────────────
   na_data: {
     en: "Required data not available for this company.",
-    fr: "Données nécessaires non disponibles pour cette sté.",
+    fr: "Données nécessaires non disponibles pour cette société.",
   },
 } as const satisfies Record<string, LocalizedString>;
 

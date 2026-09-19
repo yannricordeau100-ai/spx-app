@@ -213,7 +213,7 @@ export function CompanyLogo({ ticker }: { ticker: string }) {
  * conteneur logo doit utiliser un fond blanc/clair pour assurer le contraste.
  *
  * Liste auto-générée par audit PIL (luminosité moyenne pixels centraux
- * < 80 → DARK → fond clair requis). 232 stés V1.9.5 + 3 V1 historiques.
+ * < 80 → DARK → fond clair requis). 232 sociétés V1.9.5 + 3 V1 historiques.
  * Régénérer via scripts/audit-dark-logos.py si nouveaux logos.
  */
 import lightBgList from "@/data/light-bg-tickers.json";

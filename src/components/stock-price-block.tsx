@@ -109,7 +109,7 @@ function useLivePrice(ticker: string): LivePrice {
 
 /** Yann 9 août 2026 : devise déduite du suffixe ticker (.PA cote en €,
  *  .SW en CHF, reste de l'univers en $). Le "$" codé en dur affichait
- *  "Mds $" et un prix en $ sur LVMH et les stés suisses. */
+ *  "Mds $" et un prix en $ sur LVMH et les sociétés suisses. */
 const DEVISE_PAR_PLACE: Record<string, string> = {
   // Zone euro
   PA: "€", DE: "€", AS: "€", MI: "€", MC: "€", BR: "€", LS: "€",

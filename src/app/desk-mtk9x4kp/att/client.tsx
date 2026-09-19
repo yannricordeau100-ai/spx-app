@@ -3,11 +3,11 @@
 /**
  * Desk ATT — back-office Anti-thèse d'investissement (Yann 14 août 2026).
  *
- * Tableau des 651 stés V1.9.5 : ticker, intensité, rédigée le, figée,
+ * Tableau des 651 sociétés V1.9.5 : ticker, intensité, rédigée le, figée,
  * présent/absent + provenance (local / Supabase). Recherche par ticker.
  * Clic sur une ligne → éditeur JSON (textarea) qui sauvegarde dans la table
  * Supabase `desk_att` via /api/desk/att (l'override REMPLACE le JSON local
- * au chargement de la page sté). Bouton "Figer" pose `_fige: true`.
+ * au chargement de la page société). Bouton "Figer" pose `_fige: true`.
  */
 
 import { useEffect, useMemo, useState } from "react";
@@ -179,7 +179,7 @@ export function AttDeskClient() {
             ATT : Anti-thèse d&apos;investissement
           </h1>
           <p className="mt-0.5 text-[13px] text-zinc-400">
-            {presentCount} / {rows.length} stés couvertes. Un override Supabase remplace le JSON local.
+            {presentCount} / {rows.length} sociétés couvertes. Un override Supabase remplace le JSON local.
           </p>
         </div>
         <button

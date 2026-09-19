@@ -172,7 +172,7 @@ function humanizeRemainingForms(text: string): string {
 
 /**
  * Yann 21 août 2026 : nettoyage GLOBAL des citations de source affichées
- * sous les graphiques et dans les textes narratifs (656 stés).
+ * sous les graphiques et dans les textes narratifs (656 sociétés).
  *
  * Règles :
  *  - "10-K" / "10-Q" / "8-K" disparaissent : remplacés par le trimestre
@@ -413,7 +413,7 @@ export function translateSubsectorLocale(s: string, locale: string = "fr"): stri
  * Labels des chips affichés dans `CompanyHeader` (sandbox V1.8 actuelle :
  * `Sector`, `Sub-sector`, `Founded`, `IPO`). Sur app FR ils doivent être en
  * français. Mapping découvert par audit `npx tsx scripts/audit-ui-pages.ts`
- * (codes UI_LABEL_EN, audit du 8 mai 2026 : 227/305 stés concernées).
+ * (codes UI_LABEL_EN, audit du 8 mai 2026 : 227/305 sociétés concernées).
  */
 export const CHIP_LABEL_FR: Record<string, string> = {
   "Sector": "Secteur",
@@ -513,7 +513,7 @@ export const ACRONYM_GLOSSARY: Record<string, string> = {
   CIB: "Corporate & Investment Banking : la « banque d'affaires » : fusions-acquisitions, levées de fonds, marchés. Plus rentable mais plus volatil que la banque de détail.",
   AUM: "Assets Under Management : montant total des actifs confiés à un gérant. Le revenu vient en commission % de l'AUM (typiquement 0,5 à 1 %).",
   AUC: "Assets Under Custody : actifs détenus en conservation par une banque dépositaire pour le compte de clients. Pas de risque marché pour la banque.",
-  SG_A: "Selling, General & Administrative : frais commerciaux, généraux, administratifs (marketing, RH, juridique). Doit baisser en % du CA quand la sté grandit.",
+  SG_A: "Selling, General & Administrative : frais commerciaux, généraux, administratifs (marketing, RH, juridique). Doit baisser en % du CA quand la société grandit.",
   bp: "Basis Points (point de base) : unité = 0,01 %. \"+25 bp\" = +0,25 %. Très utilisé pour les taux d'intérêt et écarts de crédit.",
   bps: "Basis Points (point de base) : unité = 0,01 %. \"+25 bps\" = +0,25 %. Très utilisé pour les taux d'intérêt et écarts de crédit.",
   EPS: "Earnings Per Share : bénéfice net divisé par le nombre d'actions. Comparable entre sociétés et dans le temps. Référence pour calculer le P/E.",

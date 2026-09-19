@@ -33,7 +33,7 @@ type Tab =
 // pictogramme devant le titre.
 const TABS: { id: Tab; label: string }[] = [
   { id: "mk-vs-bloomberg", label: "Mettrik vs Bloomberg" },
-  { id: "mk-terminal", label: "Page sté façon terminal" },
+  { id: "mk-terminal", label: "Page société façon terminal" },
   { id: "mk-gics", label: "GICS accueil" },
   { id: "mk-clients", label: "Concentration clients" },
   { id: "mk-moat-tendance", label: "Moat : tendance Mettrik" },

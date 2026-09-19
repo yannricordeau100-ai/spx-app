@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Maquettes « page sté façon terminal » (9 sept 2026, demande du propriétaire).
+ * Maquettes « page société façon terminal » (9 sept 2026, demande du propriétaire).
  *
  * Trois styles inspirés des terminaux de marché, pour choix du DESIGN
  * uniquement : rien n est fonctionnel, les chiffres sont ceux de Microsoft
@@ -275,7 +275,7 @@ export function MockupTerminalBloomberg() {
   return (
     <div className="space-y-14 px-4 pb-16 pt-6">
       <p className="mx-auto max-w-3xl text-center text-[13px] text-zinc-400">
-        Trois styles « terminal de marché » pour la page sté, à partir de Microsoft (exercice 2026). Design uniquement : rien n’est cliquable, les blocs (hero, KPI avancés et standard, TAM, Moat, clients, unités, anti-thèse, répartition) sont représentés en grille dense.
+        Trois styles « terminal de marché » pour la page société, à partir de Microsoft (exercice 2026). Design uniquement : rien n’est cliquable, les blocs (hero, KPI avancés et standard, TAM, Moat, clients, unités, anti-thèse, répartition) sont représentés en grille dense.
       </p>
       {([
         ["V1 · Terminal ambre : noir, orange et blanc, grille dense, codes de fonction", "ambre"],

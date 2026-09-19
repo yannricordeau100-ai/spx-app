@@ -209,7 +209,7 @@ export function AuthModal() {
       //
       // Sur staging : "/sandbox/v1-8" directement (la home staging).
       // Sur prod : "/" (la home prod).
-      // Si nextParam pointe sur une page sté valide (ex /sandbox/v1-8/nvda)
+      // Si nextParam pointe sur une page société valide (ex /sandbox/v1-8/nvda)
       // on l'autorise, sinon fallback safe.
       // Yann 19 mai 2026 : ajout /sandbox/v1-9 dans l'allowlist sinon le
       // user qui se connecte depuis une page V1.9 atterrit sur V1.8 (faute

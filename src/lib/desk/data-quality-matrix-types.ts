@@ -52,7 +52,7 @@ export const COLUMN_LABEL: Record<ColumnKey, string> = {
   hero_interpretation: "Interprétation",
   kpi_count: "Nb KPIs",
   transcript: "Transcript",
-  company_profile: "Profil sté",
+  company_profile: "Profil société",
   risks: "Risques",
   segments: "Segments",
   geography: "Géographie",

@@ -119,11 +119,11 @@ export default function V195OverviewClient({
             Mettrik V1.9.5
           </h1>
           <span className="text-xs uppercase tracking-wider text-emerald-400/70">
-            Stés validées qualité
+            Sociétés validées qualité
           </span>
         </div>
         <p className="mt-2 text-sm text-zinc-400">
-          {filtered.length} stés affichées sur {totalClean} clean a-f+g-m
+          {filtered.length} sociétés affichées sur {totalClean} clean a-f+g-m
           (audit strict, 0 hallucination). Mis à jour :{" "}
           {new Date(generatedAt).toLocaleString("fr-FR")}
         </p>
@@ -221,10 +221,10 @@ export default function V195OverviewClient({
         <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-8 text-center">
           {searchHasNoMatch ? (
             <span className="text-amber-600">
-              Aucune sté validée qualité ne correspond à &laquo;&nbsp;{searchQuery}&nbsp;&raquo;. Cette sté n&apos;est peut-être pas encore dans V1.9.5 (en cours d&apos;audit). Vérifie l&apos;orthographe ou retire le filtre.
+              Aucune société validée qualité ne correspond à &laquo;&nbsp;{searchQuery}&nbsp;&raquo;. Cette société n&apos;est peut-être pas encore dans V1.9.5 (en cours d&apos;audit). Vérifie l&apos;orthographe ou retire le filtre.
             </span>
           ) : (
-            <span className="text-zinc-400">Aucune sté ne correspond aux filtres.</span>
+            <span className="text-zinc-400">Aucune société ne correspond aux filtres.</span>
           )}
         </div>
       ) : (

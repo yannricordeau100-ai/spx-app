@@ -6,7 +6,7 @@
  *   1. CONTRIBUTION (3 pts)    : importance du KPI dans le récit business
  *      - hero KPI                                       = +3
  *      - sub-segment majeur (>20% revenu)               = +2
- *      - niche / unique à la sté                        = +1
+ *      - niche / unique à la société                        = +1
  *
  *   2. TRAJECTOIRE (2 pts)     : profondeur historique disponible
  *      - history >= 5 ans                               = +2
@@ -56,7 +56,7 @@ export type ScoringContext = {
   heroShort?: string;
   /** Liste de KPI shorts considérés comme sub-segment majeur >20% revenu. */
   majorSegmentShorts?: string[];
-  /** Liste de compare_key où la sté est top-quartile de son sous-secteur. */
+  /** Liste de compare_key où la société est top-quartile de son sous-secteur. */
   topQuartileCompareKeys?: string[];
 };
 
