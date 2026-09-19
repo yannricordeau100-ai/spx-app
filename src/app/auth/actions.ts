@@ -299,7 +299,10 @@ export async function updatePassword(formData: FormData) {
 
   // Re-vérifier le mot de passe actuel pour empêcher un cookie volé
   // de changer le mot de passe sans connaître l'ancien.
-  // Yann 12 sept 2026 : captcha exige par Supabase aussi pour cette verification.
+  // Yann 19 sept 2026 : le captcha reste exige par Supabase sur cet appel,
+  // mais plus aucun cadre Cloudflare n est visible dans Mon compte : le
+  // widget tourne en mode invisible et ne se montre que si Cloudflare
+  // reclame vraiment un geste.
   const { error: signinError } = await supabase.auth.signInWithPassword({
     email: user.email,
     password: current,
@@ -390,43 +393,6 @@ export async function updateEmail(formData: FormData) {
     `/account?info=${encodeURIComponent(
       "Email de confirmation envoyé. Clique le lien pour valider la nouvelle adresse."
     )}`
-  );
-}
-
-/* ─── Delete account (irréversible) ─────────────────────────────────── */
-
-export async function deleteAccount(formData: FormData) {
-  const confirmText = String(formData.get("confirm") ?? "").trim();
-  if (confirmText !== "SUPPRIMER" && confirmText !== "DELETE") {
-    redirect(
-      `/account?error=${encodeURIComponent('Tape SUPPRIMER (ou DELETE) en majuscules pour confirmer. / Type SUPPRIMER (or DELETE) in caps to confirm.')}`
-    );
-  }
-
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) redirect("/?auth=signin");
-
-  // Suppression via service_role (l'user n'a pas le droit de se supprimer
-  // lui-même via la SDK client). Cascade via RLS ON DELETE.
-  const { createSupabaseAdminClient } = await import("@/lib/supabase/admin");
-  const admin = createSupabaseAdminClient();
-  // Yann 3 sept 2026 : la suppression du compte NE resilie PAS l abonnement
-  // Stripe. Une suppression par erreur ne doit pas faire perdre au client ses
-  // droits payes : la resiliation Stripe est un acte separe, fait par Yann a
-  // la demande du client. La ligne subscriptions est conservee via son
-  // stripe_customer_id pour permettre une remise en marche.
-  const { error } = await admin.auth.admin.deleteUser(user.id);
-  if (error) {
-    redirect(`/account?error=${await authErr(error.message)}`);
-  }
-
-  await supabase.auth.signOut();
-  revalidatePath("/", "layout");
-  redirect(
-    `/?info=${encodeURIComponent("Compte supprimé. À la prochaine.")}`
   );
 }
 

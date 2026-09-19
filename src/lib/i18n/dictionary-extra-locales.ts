@@ -640,14 +640,6 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "account.password.update": { de: "Passwort aktualisieren", nl: "Wachtwoord bijwerken" },
   "account.email.title": { de: "E-Mail-Adresse", nl: "E-mailadres" },
   "account.email.send_link": { de: "Bestätigungslink senden", nl: "Bevestigingslink verzenden" },
-  "account.delete.title": { de: "Mein Konto löschen", nl: "Mijn account verwijderen" },
-  "account.delete.warning": {
-    de: "Unwiderrufliche Aktion. Alle Ihre Daten (einschließlich Favoriten) werden sofort gelöscht.",
-    nl: "Onomkeerbare actie. Al uw gegevens (inclusief favorieten) worden onmiddellijk gewist." },
-  "account.delete.confirm_label": {
-    de: "LÖSCHEN eingeben zum Bestätigen",
-    nl: "Typ VERWIJDEREN ter bevestiging" },
-  "account.delete.button": { de: "Endgültig löschen", nl: "Permanent verwijderen" },
   "account.member_since_prefix": {
     de: "Anmeldung",
     nl: "Aanmelden via" },

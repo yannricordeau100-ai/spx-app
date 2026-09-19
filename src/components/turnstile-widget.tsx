@@ -29,6 +29,8 @@ declare global {
           "error-callback"?: (code?: string) => void;
           "expired-callback"?: () => void;
           "timeout-callback"?: () => void;
+          "before-interactive-callback"?: () => void;
+          "after-interactive-callback"?: () => void;
         },
       ) => string;
       remove: (widgetId: string) => void;
@@ -101,7 +103,12 @@ export function TurnstileWidget(props?: {
   const theme = props?.theme ?? "dark";
   // Yann 16 sept 2026 : « flexible » = la carte Cloudflare prend la largeur
   // disponible au lieu de deborder de la fenetre de connexion.
-  const size = (props?.size === "invisible" ? "flexible" : props?.size) ?? "flexible";
+  const size = props?.size ?? "flexible";
+  // Yann 19 sept 2026 : « invisible » = aucun cadre Cloudflare affiche (mode
+  // « interaction-only »). Le widget ne se montre que si Cloudflare reclame
+  // vraiment un geste de l utilisateur. Sert au changement de mot de passe
+  // depuis Mon compte, ou Supabase exige un jeton sans qu on veuille du visuel.
+  const invisible = size === "invisible";
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
@@ -111,6 +118,7 @@ export function TurnstileWidget(props?: {
   // Yann 15 sept 2026 : le code d erreur Cloudflare est affiche, il dit la cause
   // (110200 = domaine non autorise sur le widget, 300xxx = reseau ou extension).
   const [codeErreur, setCodeErreur] = useState<string>("");
+  const [interactionRequise, setInteractionRequise] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -121,8 +129,8 @@ export function TurnstileWidget(props?: {
           const id = window.turnstile.render(containerRef.current, {
             sitekey: siteKey,
             theme,
-            size: size as "normal" | "flexible" | "compact",
-            appearance: "always",
+            size: invisible ? "flexible" : (size as "normal" | "flexible" | "compact"),
+            appearance: invisible ? "interaction-only" : "always",
             callback: (tok: string) => {
               setToken(tok);
               setStatus("ready");
@@ -141,6 +149,8 @@ export function TurnstileWidget(props?: {
               setStatus("expired");
             },
             "timeout-callback": () => setStatus("expired"),
+            "before-interactive-callback": () => setInteractionRequise(true),
+            "after-interactive-callback": () => setInteractionRequise(false),
           });
           widgetIdRef.current = id;
         } catch {
@@ -219,14 +229,25 @@ export function TurnstileWidget(props?: {
 
   return (
     <div className="w-full max-w-full">
-      <div ref={containerRef} className="mx-auto w-full max-w-[330px] overflow-hidden" />
+      <div
+        ref={containerRef}
+        className={
+          invisible
+            ? interactionRequise
+              ? "mx-auto w-full max-w-[330px] overflow-hidden"
+              : "h-0 overflow-hidden"
+            : size === "compact"
+              ? "mx-auto w-[150px] min-h-[140px]"
+              : "mx-auto w-full max-w-[330px] overflow-hidden"
+        }
+      />
       <input type="hidden" name={fieldName} value={token} />
-      {status === "error" && (
+      {status === "error" && !invisible && (
         <p className="mt-1 text-[11px] text-rose-400">
           Captcha indisponible{codeErreur ? ` (code ${codeErreur})` : ""}. Recharge la page.
         </p>
       )}
-      {status === "expired" && (
+      {status === "expired" && !invisible && (
         <p className="mt-1 text-[11px] text-amber-400">
           Captcha expiré. Recommence l'opération.
         </p>

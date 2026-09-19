@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { TurnstileWidget } from "@/components/turnstile-widget";
 import { redirect } from "next/navigation";
-import { Star, User, KeyRound, AtSign, Trash2, CreditCard } from "lucide-react";
+import { Star, User, KeyRound, AtSign, CreditCard } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import {
   signOut,
@@ -9,7 +9,6 @@ import {
   updateEmail,
   updatePseudo,
   updateCommunications,
-  deleteAccount,
 } from "@/app/auth/actions";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
@@ -201,10 +200,6 @@ export default async function AccountPage({
               </div>
             </div>
           </a>
-
-          <form action={signOut}>
-            <SignOutButton label={t("account.signout")} sub={t("account.signout_sub")} />
-          </form>
         </div>
 
         {/* FACTURES (Yann 13 sept 2026) : section dediee, tableau complet. */}
@@ -323,8 +318,10 @@ export default async function AccountPage({
                 minLength={8}
                 required
               />
-              {/* Yann 12 sept 2026 : captcha exige par Supabase pour verifier l ancien mot de passe. */}
-              <TurnstileWidget theme="dark" />
+              {/* Yann 19 sept 2026 : captcha invisible (aucun cadre Cloudflare
+                  affiche) ; Supabase exige un jeton pour verifier l ancien
+                  mot de passe. */}
+              <TurnstileWidget theme="dark" size="invisible" />
               <button
                 type="submit"
                 className="mt-2 inline-flex items-center gap-2 rounded-lg bg-violet-500 px-4 py-2.5 text-[13.5px] font-semibold text-white transition-colors hover:bg-violet-400"
@@ -370,39 +367,10 @@ export default async function AccountPage({
           </form>
         </section>
 
-        {/* DANGER — supprimer compte */}
-        <section className="mt-4 rounded-2xl border border-rose-500/20 bg-rose-500/[0.04] p-6">
-          <header className="mb-4 flex items-center gap-3">
-            <span className="inline-flex size-9 items-center justify-center rounded-lg border border-rose-500/30 bg-rose-500/10 text-rose-300">
-              <Trash2 className="size-4" />
-            </span>
-            <div>
-              <h2 className="text-[15.5px] font-semibold text-zinc-50">
-                {t("account.delete.title")}
-              </h2>
-              <p className="mt-0.5 text-[12.5px] text-zinc-400">
-                {t("account.delete.warning")}
-              </p>
-            </div>
-          </header>
-
-          <form action={deleteAccount} className="space-y-3">
-            <Field
-              label={t("account.delete.confirm_label")}
-              name="confirm"
-              type="text"
-              autoComplete="off"
-              placeholder={locale === "en" ? "DELETE" : "SUPPRIMER"}
-              required
-            />
-            <button
-              type="submit"
-              className="mt-1 inline-flex items-center gap-2 rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-2.5 text-[13.5px] font-semibold text-rose-200 transition-colors hover:bg-rose-500/20"
-            >
-              {t("account.delete.button")}
-            </button>
-          </form>
-        </section>
+        {/* DECONNEXION (Yann 19 sept 2026) : tout en bas de la page. */}
+        <form action={signOut} className="mt-8">
+          <SignOutButton label={t("account.signout")} sub={t("account.signout_sub")} />
+        </form>
       </div>
     </div>
     <DisclaimerFooter />

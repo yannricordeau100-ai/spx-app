@@ -1400,16 +1400,6 @@ export const DICTIONARY: Dict = {
   "account.password.update": { fr: "Mettre à jour le mot de passe", en: "Update password" },
   "account.email.title": { fr: "Adresse email", en: "Email address" },
   "account.email.send_link": { fr: "Envoyer le lien de confirmation", en: "Send confirmation link" },
-  "account.delete.title": { fr: "Supprimer mon compte", en: "Delete my account" },
-  "account.delete.warning": {
-    fr: "Action irréversible. Toutes tes données (favoris compris) sont effacées immédiatement.",
-    en: "Irreversible action. All your data (including favorites) is wiped immediately.",
-  },
-  "account.delete.confirm_label": {
-    fr: "Tape SUPPRIMER pour confirmer",
-    en: "Type DELETE to confirm",
-  },
-  "account.delete.button": { fr: "Supprimer définitivement", en: "Delete permanently" },
   "account.member_since_prefix": {
     fr: "Connexion",
     en: "Sign-in via",

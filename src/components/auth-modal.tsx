@@ -422,7 +422,7 @@ export function AuthModal() {
                     />
                   </Field>
                   <div className="flex justify-center">
-                    <TurnstileWidget theme="dark" />
+                    <TurnstileWidget theme="dark" size="compact" />
                   </div>
                   <SubmitButton>{t("auth.cta.send_reset")}</SubmitButton>
                 </form>
@@ -482,7 +482,7 @@ export function AuthModal() {
                       />
                     </Field>
                     <div className="flex justify-center">
-                      <TurnstileWidget key={cleMontageCaptcha} signalReset={cleCaptcha} theme="dark" apiRef={apiCaptcha} />
+                      <TurnstileWidget key={cleMontageCaptcha} signalReset={cleCaptcha} theme="dark" size="compact" apiRef={apiCaptcha} />
                     </div>
                     {signinErr && (
                       <div className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-[12.5px] text-rose-200">
@@ -527,7 +527,7 @@ export function AuthModal() {
                     {/* Captcha Turnstile : token injecté dans le form en tant
                         que champ caché 'cf-turnstile-response'. */}
                     <div className="flex justify-center">
-                      <TurnstileWidget theme="dark" />
+                      <TurnstileWidget theme="dark" size="compact" />
                     </div>
                     <SubmitButton>{t("auth.cta.signup")}</SubmitButton>
                     {/* Yann 18 sept 2026 : la case « ne pas recevoir d offres » est deplacee dans Mon compte. */}
