@@ -643,3 +643,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.19.10 (19 Sep 2026 11:30, apres 1ffee68b2b)
 - Theses d investissement : 16 societes francaises
+
+## v2026.09.19.11 (19 Sep 2026 12:52, apres 0927ec4291)
+- Thèses d'investissement : 44 sociétés françaises rédigées selon les critères d'investisseurs et de banques, graphiques extérieurs, onglet Thèses
