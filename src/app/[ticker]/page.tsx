@@ -10,6 +10,8 @@ import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import V17_PUBLIC from "@/data/v1-7-public.json";
 import { loadV17Company } from "@/lib/company-core/load-company";
+import { unstable_cache } from "next/cache";
+import { VERSION } from "@/lib/version";
 import { resolveDisabledForTicker } from "@/lib/disabled-blocks-server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { FreemiumBlurProvider, type UserTier } from "@/lib/freemium/context";
@@ -48,7 +50,7 @@ async function estDansCleanAll(upper: string): Promise<boolean> {
   }
 }
 
-async function loadTranscript(ticker: string): Promise<TranscriptDoc | null> {
+async function loadTranscriptBrut(ticker: string): Promise<TranscriptDoc | null> {
   const root = process.cwd();
   for (const f of [`${ticker.toUpperCase()}.json`, `${ticker.toLowerCase()}.json`]) {
     try {
@@ -61,7 +63,7 @@ async function loadTranscript(ticker: string): Promise<TranscriptDoc | null> {
   return null;
 }
 
-async function loadTranscriptSummary(
+async function loadTranscriptSummaryBrut(
   ticker: string,
 ): Promise<TranscriptBulletsSummary | null> {
   try {
@@ -74,6 +76,27 @@ async function loadTranscriptSummary(
     return null;
   }
 }
+
+/**
+ * Yann 19 sept 2026 (ouverture d une fiche trop lente) : l appel de resultats
+ * et sa synthese etaient relus sur le disque a CHAQUE requete, pour chaque
+ * visiteur. Ces fichiers ne changent qu au deploiement : meme regle que le
+ * chargeur de fiche (src/lib/company-core/load-company.ts), la cle porte le
+ * numero de version pour qu une mise en ligne ne serve jamais l ancien
+ * contenu pendant 6 h. Seules les DONNEES sont mises en cache ; le HTML, lui,
+ * depend du palier du visiteur et reste calcule a chaque requete.
+ */
+const loadTranscript = unstable_cache(
+  loadTranscriptBrut,
+  ["fiche-transcript", VERSION],
+  { revalidate: 21600, tags: ["fiches"] },
+);
+
+const loadTranscriptSummary = unstable_cache(
+  loadTranscriptSummaryBrut,
+  ["fiche-transcript-synthese", VERSION],
+  { revalidate: 21600, tags: ["fiches"] },
+);
 
 /**
  * Yann 28 juillet 2026 : les 5 stés du dataset V1 legacy (GOOGL, META, MSCI,

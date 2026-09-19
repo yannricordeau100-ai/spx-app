@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { applyFloutageRules, ajouteAppelsAbonnement, zonesEnRegles, type FloutageRule, type Zone } from "@/lib/floutage";
 // Yann 30 aout 2026 : l ancien systeme de flou a chemins CSS
 // (floutage-free-mode.json, selecteurs fragiles casses a chaque refonte) est
@@ -64,43 +65,29 @@ import { InterpretationBlock } from "@/components/interpretation-block";
 // Yann 12 juin 2026 : events liés au graph retirés (plus d'import getCompanyEvents).
 import { MesListesMenu } from "@/components/mes-listes-menu";
 import { CompareControl } from "@/components/compare-control";
-import { ComparePanel } from "@/components/compare-panel";
-import { KpiStories } from "@/components/kpi-stories";
 import { ZoneReservee } from "@/components/freemium/zone-reservee";
 import { hasStories } from "@/lib/kpi-stories-ordering";
 import { orderKpis, isPhysicalKpi } from "@/lib/kpi-ordering";
 import { estKpiStandard } from "@/lib/kpi-standard";
 import { isGenericKpi } from "@/lib/kpi-generic";
 import { isTotalRevenueLabel } from "@/lib/kpi-total-revenue";
-import { RiskStack } from "@/components/risk-stack";
-import { AntiTheseCard } from "@/components/anti-these-card";
-import { TheseCard } from "@/components/these-card";
 import { AppelAbonnement } from "@/components/appel-abonnement";
-import { SourcesExternes } from "@/components/sources-externes";
-import { UnitesMateriaux } from "@/components/unites-materiaux";
-import { AIPositioningCard } from "@/components/ai-positioning-card";
 import { PageSearch } from "@/components/page-search";
-import { GovernanceCard } from "@/components/governance-card";
-import { RepartitionBlock } from "@/components/repartition-block";
-import { MarketPositionCard } from "@/components/market-position-card";
 // Yann 7 sept 2026 : FreshnessIndicator deplace dans stock-price-block (COL 0).
 
 import { CompanyNavChrome } from "@/components/company-nav-chrome";
 import { KpiSwapTitle } from "@/components/kpi-swap-title";
-import { SuperKpiBoard } from "@/components/super-kpi-board";
 import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
 import { useT } from "@/lib/i18n/provider";
-import { CmdFSearch } from "@/components/cmdf-search";
-import { TranscriptStories, type TranscriptDoc } from "@/components/transcript-stories";
-import { ImageFindingsBlock, type ImageFindingPublic } from "@/components/image-findings-block";
-import { TranscriptBulletsBlock, type TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
+import type { TranscriptDoc } from "@/components/transcript-stories";
+import type { ImageFindingPublic } from "@/components/image-findings-block";
+import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { BlockComingSoon } from "@/components/block-coming-soon";
 import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 import { BandeauIpoRecente, YoungIpoWarning } from "@/components/young-ipo-warning";
 import { CompanyProfileCard } from "@/components/company-profile-card";
-import { MoatClientsRow } from "@/components/moat-clients-row";
 import { RecentIpoPlaceholder, getRecentIpoMeta } from "@/components/recent-ipo-placeholder";
 import { getFiscalAudit, isFiscalShifted, fiscalLabelsForTicker, fiscalQuarterToCalendar } from "@/lib/fiscal-calendar";
 import { aggregateQuarterlyToAnnual, getKpiAggregationKind } from "@/lib/kpi-aggregation";
@@ -111,6 +98,91 @@ import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 import type { UserTier } from "@/lib/freemium/context";
 import { LogoMettrik } from "@/components/logo-mettrik";
 import { translateUnitEnToFr, translateUnitFrToEn } from "@/lib/i18n/unit-translations";
+
+/**
+ * Yann 19 sept 2026 (ouverture d une fiche > 5 s sur Safari) : tous les blocs
+ * SOUS LE PLI quittent le paquet initial. Ils gardent le rendu serveur
+ * (referencement et apparence inchanges) ; seul leur code JavaScript est
+ * telecharge apres coup. Les gros catalogues embarques partaient jusqu ici au
+ * premier ecran : unites-univers 432 ko + unites-metiers 52 ko +
+ * unites-materiaux 48 ko (UnitesMateriaux), fx-effet-change 364 ko
+ * (RepartitionBlock), sources-externes 68 ko (SourcesExternes).
+ * Le hero (KPI principal + graphique) reste importe normalement.
+ */
+const AttenteBloc = ({ h = 220 }: { h?: number }) => (
+  <div aria-hidden className="mt-9" style={{ minHeight: h }} />
+);
+
+const UnitesMateriaux = dynamic(
+  () => import("@/components/unites-materiaux").then((m) => m.UnitesMateriaux),
+  { loading: () => <AttenteBloc h={80} /> },
+);
+const ImageFindingsBlock = dynamic(
+  () => import("@/components/image-findings-block").then((m) => m.ImageFindingsBlock),
+  { loading: () => <AttenteBloc h={320} /> },
+);
+const KpiStories = dynamic(
+  () => import("@/components/kpi-stories").then((m) => m.KpiStories),
+  { loading: () => <AttenteBloc h={360} /> },
+);
+const RepartitionBlock = dynamic(
+  () => import("@/components/repartition-block").then((m) => m.RepartitionBlock),
+  { loading: () => <AttenteBloc h={320} /> },
+);
+const MoatClientsRow = dynamic(
+  () => import("@/components/moat-clients-row").then((m) => m.MoatClientsRow),
+  { loading: () => <AttenteBloc h={240} /> },
+);
+const MarketPositionCard = dynamic(
+  () => import("@/components/market-position-card").then((m) => m.MarketPositionCard),
+  { loading: () => <AttenteBloc h={240} /> },
+);
+const RiskStack = dynamic(
+  () => import("@/components/risk-stack").then((m) => m.RiskStack),
+  { loading: () => <AttenteBloc h={360} /> },
+);
+const TheseCard = dynamic(
+  () => import("@/components/these-card").then((m) => m.TheseCard),
+  { loading: () => <AttenteBloc h={280} /> },
+);
+const AntiTheseCard = dynamic(
+  () => import("@/components/anti-these-card").then((m) => m.AntiTheseCard),
+  { loading: () => <AttenteBloc h={280} /> },
+);
+const GovernanceCard = dynamic(
+  () => import("@/components/governance-card").then((m) => m.GovernanceCard),
+  { loading: () => <AttenteBloc h={360} /> },
+);
+const AIPositioningCard = dynamic(
+  () => import("@/components/ai-positioning-card").then((m) => m.AIPositioningCard),
+  { loading: () => <AttenteBloc h={280} /> },
+);
+const SuperKpiBoard = dynamic(
+  () => import("@/components/super-kpi-board").then((m) => m.SuperKpiBoard),
+  { loading: () => <AttenteBloc h={280} /> },
+);
+const TranscriptBulletsBlock = dynamic(
+  () => import("@/components/transcript-bullets-block").then((m) => m.TranscriptBulletsBlock),
+  { loading: () => <AttenteBloc h={320} /> },
+);
+const TranscriptStories = dynamic(
+  () => import("@/components/transcript-stories").then((m) => m.TranscriptStories),
+  { loading: () => <AttenteBloc h={320} /> },
+);
+const SourcesExternes = dynamic(
+  () => import("@/components/sources-externes").then((m) => m.SourcesExternes),
+  { loading: () => <AttenteBloc h={160} /> },
+);
+// Ouverts a la demande uniquement (jamais visibles au premier ecran) : pas de
+// rendu serveur, le code ne part qu au clic ou au raccourci clavier.
+const ComparePanel = dynamic(
+  () => import("@/components/compare-panel").then((m) => m.ComparePanel),
+  { ssr: false },
+);
+const CmdFSearch = dynamic(
+  () => import("@/components/cmdf-search").then((m) => m.CmdFSearch),
+  { ssr: false },
+);
 
 const VISIBLE_KPI_COUNT = 6;
 
