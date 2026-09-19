@@ -100,11 +100,6 @@ export default async function FaqPage() {
           <h1 className="mt-2 font-display text-[30px] font-bold leading-tight tracking-tight sm:text-[40px]">
             {en ? "Frequently asked questions" : "Questions fréquentes"}
           </h1>
-          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-zinc-400">
-            {en
-              ? "Everything investors ask before using Mettrik AI: covered companies, where the data comes from, how indicators are scored, plans and payment, privacy."
-              : "Tout ce que les investisseurs demandent avant d'utiliser Mettrik AI : sociétés couvertes, origine des données, notation des indicateurs, offres et paiement, confidentialité."}
-          </p>
 
           <nav aria-label={en ? "Categories" : "Catégories"} className="mt-6 flex flex-wrap gap-2">
             {contenu.categories.map((c) => (
