@@ -1967,7 +1967,12 @@ export function CompanyView({
               sous le graph n apportait pas de valeur. Le composant et les
               donnees restent en place pour un eventuel retour. */}
         </section>
-        {graphiqueReserve && (
+        {/* Yann 19 sept 2026 : quand la zone des indicateurs est elle aussi
+            reservee, son appel colle au defilement et venait recouvrir celui du
+            graphique (deux encarts superposes, bouton illisible). On n en garde
+            qu un seul, celui des indicateurs, dont le texte reprend l historique
+            et l export. */}
+        {graphiqueReserve && !(freeBlocked && !anonPage) && (
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex justify-center px-4 pb-5 sm:px-7">
             <div className="pointer-events-auto w-full max-w-2xl">
               <AppelAbonnement
@@ -2001,7 +2006,7 @@ export function CompanyView({
         </AnimatePresence>
 
         {/* KPI table */}
-        <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="Indicateurs clés réservés aux abonnés" detail="Tous les indicateurs de la société, dix ans d’historique et le comparateur : inclus dès le plan Premium.">
+        <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="Graphique et indicateurs réservés aux abonnés" detail="Tous les indicateurs de la société, dix ans d’historique, l’export en image et le comparateur : inclus dès le plan Premium.">
         <section id="sec-kpis" className="mt-9 scroll-mt-24 animate-fade-up-d2">
           <div className="mb-4 flex flex-col items-start gap-1.5 sm:flex-row sm:items-end sm:justify-between sm:gap-0">
             <div>
@@ -2156,6 +2161,7 @@ export function CompanyView({
               accent={accent}
               locale={locale}
               ticker={company.ticker}
+              nomSociete={company.name}
             />
           ) : null
         ) : (

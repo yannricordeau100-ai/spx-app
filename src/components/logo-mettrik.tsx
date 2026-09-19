@@ -68,21 +68,33 @@ function PngLibre({
       className={`wordmark-png-v2 relative block ${className}`}
       style={hauteur ? { height: hauteur, lineHeight: 0, fontSize: 0 } : undefined}
     >
-      <img
-        src="/brand/mettrik-ai-white-purple.png"
-        alt="Mettrik AI"
-        className="wordmark-png-dark preserve-colors block select-none"
-        style={dim}
-        draggable={false}
-      />
-      <img
-        src="/brand/mettrik-ai-black-purple.png"
-        alt=""
-        aria-hidden
-        className="wordmark-png-light preserve-colors absolute inset-0 hidden select-none"
-        style={dim}
-        draggable={false}
-      />
+      {/* Yann 19 sept 2026 : les deux versions du logo etaient telechargees sur
+          chaque page, soit 326 Ko de PNG alors qu une seule est visible. Le
+          navigateur prend maintenant le WebP quand il le sait lire (180 Ko au
+          lieu de 326), et la version du theme inactif est differee. */}
+      <picture className="wordmark-png-dark preserve-colors block select-none">
+        <source srcSet="/brand/mettrik-ai-white-purple.webp" type="image/webp" />
+        <img
+          src="/brand/mettrik-ai-white-purple.png"
+          alt="Mettrik AI"
+          className="block select-none"
+          style={dim}
+          draggable={false}
+          fetchPriority="high"
+        />
+      </picture>
+      <picture className="wordmark-png-light preserve-colors absolute inset-0 hidden select-none">
+        <source srcSet="/brand/mettrik-ai-black-purple.webp" type="image/webp" />
+        <img
+          src="/brand/mettrik-ai-black-purple.png"
+          alt=""
+          aria-hidden
+          className="block select-none"
+          style={dim}
+          draggable={false}
+          loading="lazy"
+        />
+      </picture>
       <style>{`
         html[data-theme="light"] .wordmark-png-dark { display: none; }
         html[data-theme="light"] .wordmark-png-light { display: block !important; position: static !important; }

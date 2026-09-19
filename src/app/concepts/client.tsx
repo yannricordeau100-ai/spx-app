@@ -19,15 +19,20 @@ import { MockupMoatTendance } from "./mockups/moat-tendance";
 import { MockupClientsConcentration } from "./mockups/clients-concentration";
 import { MockupGicsAccueil } from "./mockups/gics-accueil";
 import { MockupTerminalBloomberg } from "./mockups/terminal-bloomberg";
+import { VsBloombergA } from "@/components/concepts/vs-bloomberg-a";
+import { VsBloombergB } from "@/components/concepts/vs-bloomberg-b";
+import { VsBloombergC } from "@/components/concepts/vs-bloomberg-c";
 
 type Tab =
   | "mk-screener" | "mk-compare" | "mk-landing" | "mk-onboarding" | "mk-email-templates"
-  | "mk-header-bar" | "mk-price-chart" | "mk-dividend" | "mk-moat-tendance" | "mk-clients" | "mk-gics" | "mk-terminal";
+  | "mk-header-bar" | "mk-price-chart" | "mk-dividend" | "mk-moat-tendance" | "mk-clients" | "mk-gics" | "mk-terminal"
+  | "mk-vs-bloomberg";
 
 // 9 sept 2026 : les doublons « Email » et « Chart » (labs deja accessibles sur
 // /email-lab et /chart-lab) sont retires ; un seul onglet par sujet, sans
 // pictogramme devant le titre.
 const TABS: { id: Tab; label: string }[] = [
+  { id: "mk-vs-bloomberg", label: "Mettrik vs Bloomberg" },
   { id: "mk-terminal", label: "Page sté façon terminal" },
   { id: "mk-gics", label: "GICS accueil" },
   { id: "mk-clients", label: "Concentration clients" },
@@ -228,6 +233,55 @@ export function ConceptsClient() {
         {tab === "mk-clients" && <MockupClientsConcentration />}
         {tab === "mk-gics" && <MockupGicsAccueil />}
         {tab === "mk-terminal" && <MockupTerminalBloomberg />}
+        {tab === "mk-vs-bloomberg" && (
+          <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+            <p className="text-[12.5px] leading-relaxed text-zinc-400">
+              Trois propositions de comparatif Mettrik AI / Bloomberg Terminal,
+              destinées à la page d’accueil. Chaque bloc accepte une version
+              réduite via la prop <span className="font-mono text-[11.5px] text-amber-200">compact</span>.
+            </p>
+
+            {(
+              [
+                { id: "a", titre: "Proposition A · Tableau à deux colonnes", node: <VsBloombergA /> },
+                { id: "b", titre: "Proposition B · Balance et face à face animé", node: <VsBloombergB /> },
+                { id: "c", titre: "Proposition C · Bande de cartes empilables", node: <VsBloombergC /> },
+              ] as const
+            ).map((p) => (
+              <div key={p.id} className="mt-8">
+                <div className="mb-2 flex items-center gap-3">
+                  <h2 className="font-display text-[15px] font-bold tracking-tight text-amber-100">
+                    {p.titre}
+                  </h2>
+                  <div className="h-px flex-1 bg-white/10" />
+                </div>
+                <div className="overflow-hidden rounded-2xl border border-white/10">
+                  {p.node}
+                </div>
+              </div>
+            ))}
+
+            <div className="mt-10">
+              <div className="mb-2 flex items-center gap-3">
+                <h2 className="font-display text-[15px] font-bold tracking-tight text-amber-100">
+                  Versions compactes (intégration page d’accueil)
+                </h2>
+                <div className="h-px flex-1 bg-white/10" />
+              </div>
+              <div className="space-y-4">
+                <div className="overflow-hidden rounded-2xl border border-white/10">
+                  <VsBloombergA compact />
+                </div>
+                <div className="overflow-hidden rounded-2xl border border-white/10">
+                  <VsBloombergB compact />
+                </div>
+                <div className="overflow-hidden rounded-2xl border border-white/10">
+                  <VsBloombergC compact />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

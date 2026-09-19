@@ -13,7 +13,7 @@ export const metadata = { title: "KPI star par secteur · Sandbox Mettrik", robo
  * « KPI par industrie ». Source : src/data/kpi-secteurs-etat.json, copie de
  * l etat du chantier (.conv-state/secteurs-kpi-star.json).
  */
-type Ste = { code: string; hero_actuel?: string; hero_nouveau?: string; statut?: string; note?: string; points?: number; kpi_nom?: string; kpi_etat?: string };
+type Ste = { code: string; hero_actuel?: string; hero_nouveau?: string; statut?: string; note?: string; points?: number; kpi_nom?: string; kpi_etat?: string; graphiques_approuves?: boolean };
 type Secteur = { statut: string; kpi_star: { star: string[]; choix: string; freq: string }; societes: Record<string, Ste> };
 
 const LIB: Record<string, string> = {
@@ -27,11 +27,13 @@ const LIB: Record<string, string> = {
 // present dans les KPI IC mais n est pas le heros. Rouge : il n existe pas.
 const ETAT_COULEUR: Record<string, string> = {
   heros: "text-emerald-300",
+  moyen_terme: "text-emerald-300",
   present: "text-amber-300",
   absent: "text-rose-400",
 };
 const ETAT_LIB: Record<string, string> = {
   heros: "KPI présent et posé en héros",
+  moyen_terme: "Métrique couverte par au moins un graphique moyen terme approuvé",
   present: "KPI présent dans les KPI IC, mais pas en héros",
   absent: "KPI absent des KPI IC",
 };
@@ -55,7 +57,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
       <div className="mt-6 grid gap-4">
         {Object.entries(secteurs).map(([id, s]) => {
           const stes = Object.entries(s.societes);
-          const n = stes.length; const nOk = stes.filter(([, x]) => x.kpi_etat === "heros").length;
+          const n = stes.length; const nOk = stes.filter(([, x]) => x.kpi_etat === "heros" || x.kpi_etat === "moyen_terme").length;
           return (
             <section key={id} className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-2">

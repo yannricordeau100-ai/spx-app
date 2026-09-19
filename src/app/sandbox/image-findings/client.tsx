@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import DEMANDES_PAR_STE from "@/data/kpi-mt-demandes.json";
+import KPI_SECTEURS_ETAT from "@/data/kpi-secteurs-etat.json";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -83,6 +84,18 @@ function parseActiveBatches(notes: string | null): string[] {
     .filter(Boolean);
 }
 
+/* ─── Sous-onglets (Yann 19 sept 2026) ──────────────────────────── */
+type SousOnglet = "demandes" | "societes" | "secteurs";
+
+const SOUS_ONGLETS: { id: SousOnglet; label: string }[] = [
+  { id: "demandes", label: "Demandes" },
+  { id: "societes", label: "Par société (KPI d’industrie à couvrir)" },
+  { id: "secteurs", label: "Par secteur (séries d’industrie)" },
+];
+
+/** Pré-remplissage du formulaire « Nouvelle demande » depuis une ligne secteur. */
+type PrefillDemande = { query: string; tickers: string; notes: string; cle: string };
+
 export function ImageFindingsClient({
   initialRequests,
   initialFindings,
@@ -99,7 +112,34 @@ export function ImageFindingsClient({
   // demandes avec error_msg non null OU status "error" en BDD.
   const [showNotifPopup, setShowNotifPopup] = useState(false);
   // Yann 18 sept 2026 : sous-onglet « Par société » (10 plus grosses capitalisations par zone, KPI d industrie et demandes preparees).
-  const [sousOnglet, setSousOnglet] = useState<"demandes" | "societes">("demandes");
+  // Yann 19 sept 2026 : sous-onglet « Par secteur » (séries d’industrie, traitement secteur par secteur).
+  const [sousOnglet, setSousOnglet] = useState<SousOnglet>("demandes");
+  // Pré-remplissage du formulaire de demande depuis le sous-onglet « Par secteur ».
+  const [prefill, setPrefill] = useState<PrefillDemande | null>(null);
+
+  // Nombre de graphiques moyen terme approuvés par ticker, calculé à partir
+  // des findings déjà chargés côté serveur (aucun appel réseau supplémentaire).
+  const approuvesParTicker = useMemo(() => {
+    const acc: Record<string, number> = {};
+    for (const rows of Object.values(findings ?? {})) {
+      for (const f of rows ?? []) {
+        if (!f.approved || f.rejected) continue;
+        for (const t of f.target_tickers ?? []) {
+          const k = String(t).trim().toUpperCase();
+          if (k) acc[k] = (acc[k] ?? 0) + 1;
+        }
+      }
+    }
+    return acc;
+  }, [findings]);
+
+  function preparerDemande(p: PrefillDemande) {
+    setPrefill(p);
+    setEditing(null);
+    setShowForm(true);
+    setSousOnglet("demandes");
+    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   const errorRequests = requests.filter(
     (r) => r.error_msg != null || r.status === "error",
@@ -205,15 +245,21 @@ export function ImageFindingsClient({
           <ArrowLeft className="size-4" /> Retour sandbox
         </Link>
 
-        <div className="mb-4 flex gap-2">
-          {(["demandes", "societes"] as const).map((o) => (
-            <button key={o} type="button" onClick={() => setSousOnglet(o)} className={`rounded-full border px-3 py-1 text-[12.5px] ${sousOnglet === o ? "border-cyan-400/60 bg-cyan-500/20 text-cyan-100" : "border-white/10 text-zinc-400 hover:text-zinc-200"}`}>
-              {o === "demandes" ? "Demandes" : "Par société (KPI d’industrie à couvrir)"}
+        <div className="mb-4 flex flex-wrap gap-2">
+          {SOUS_ONGLETS.map((o) => (
+            <button key={o.id} type="button" onClick={() => setSousOnglet(o.id)} className={`rounded-full border px-3 py-1 text-[12.5px] ${sousOnglet === o.id ? "border-cyan-400/60 bg-cyan-500/20 text-cyan-100" : "border-white/10 text-zinc-400 hover:text-zinc-200"}`}>
+              {o.label}
             </button>
           ))}
         </div>
         {sousOnglet === "societes" && <DemandesParSociete />}
-        <div className={sousOnglet === "societes" ? "hidden" : ""}>
+        {sousOnglet === "secteurs" && (
+          <DemandesParSecteur
+            approuvesParTicker={approuvesParTicker}
+            onPreparerDemande={preparerDemande}
+          />
+        )}
+        <div className={sousOnglet !== "demandes" ? "hidden" : ""}>
         <div className="flex items-start justify-between gap-4">
           <div>
             <h1 className="font-display text-3xl font-semibold">
@@ -257,15 +303,19 @@ export function ImageFindingsClient({
 
         {showForm && (
           <RequestForm
+            key={editing ? `edit-${editing.id}` : (prefill?.cle ?? "new")}
             row={editing}
+            prefill={editing ? null : prefill}
             onCancel={() => {
               setShowForm(false);
               setEditing(null);
+              setPrefill(null);
             }}
             onSave={async (payload) => {
               await upsert(payload);
               setShowForm(false);
               setEditing(null);
+              setPrefill(null);
             }}
           />
         )}
@@ -824,19 +874,23 @@ function FindingCard({
 /* ─── Request form (create / edit) ──────────────────────────────── */
 function RequestForm({
   row,
+  prefill,
   onCancel,
   onSave,
 }: {
   row: ImageFindingRequest | null;
+  prefill?: PrefillDemande | null;
   onCancel: () => void;
   onSave: (p: Partial<ImageFindingRequest>) => Promise<void>;
 }) {
-  const [query, setQuery] = useState(row?.query ?? "");
-  const [tickers, setTickers] = useState((row?.target_tickers ?? []).join(", "));
+  const [query, setQuery] = useState(row?.query ?? prefill?.query ?? "");
+  const [tickers, setTickers] = useState(
+    row ? (row.target_tickers ?? []).join(", ") : (prefill?.tickers ?? ""),
+  );
   const [langs, setLangs] = useState<Locale[]>(
     (row?.languages as Locale[]) ?? ["fr", "en"],
   );
-  const [notes, setNotes] = useState(row?.notes ?? "");
+  const [notes, setNotes] = useState(row?.notes ?? prefill?.notes ?? "");
 
   return (
     <div className="mt-6 rounded-2xl border border-cyan-500/30 bg-cyan-500/[0.04] p-4">
@@ -1076,6 +1130,231 @@ function DemandesParSociete() {
                 </ol>
               </details>
             ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+/* ─── Sous-onglet « Par secteur (séries d’industrie) » ──────────── */
+/**
+ * Yann 19 sept 2026 : sépare les KPI créés un par un (onglet « Demandes »)
+ * de ceux créés en série pour couvrir un KPI d’industrie manquant.
+ * Source : src/data/kpi-secteurs-etat.json. Le nombre de graphiques moyen
+ * terme approuvés vient des findings déjà chargés par la page.
+ */
+type SteSecteur = {
+  code?: string;
+  hero_actuel?: string;
+  hero_nouveau?: string;
+  statut?: string;
+  note?: string;
+  kpi_nom?: string;
+  kpi_etat?: string;
+};
+type SecteurEtat = {
+  statut?: string;
+  kpi_star?: { star?: string[]; choix?: string; freq?: string };
+  societes?: Record<string, SteSecteur>;
+};
+
+const SECTEUR_LABELS: Record<string, string> = {
+  banques: "Banques",
+  assurance: "Assurance",
+  petrole_gaz: "Pétrole et gaz",
+  utilities: "Services aux collectivités",
+  assureurs_sante: "Assureurs santé",
+  hotels_casinos: "Hôtels et casinos",
+  mines: "Mines",
+  services_petroliers: "Services pétroliers",
+  gestion_actifs_credit: "Gestion d’actifs et crédit",
+  logiciel: "Logiciel",
+  courtiers_assurance: "Courtiers en assurance",
+  siderurgie: "Sidérurgie",
+  recherche_clinique: "Recherche clinique",
+  croisieres: "Croisières",
+  semi_conducteurs_equipements: "Semi-conducteurs et équipements",
+};
+
+function labelSecteur(id: string): string {
+  if (SECTEUR_LABELS[id]) return SECTEUR_LABELS[id];
+  const s = id.replace(/_/g, " ");
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+const ETAT_KPI_META: Record<string, { label: string; cls: string }> = {
+  heros: { label: "Héros", cls: "border-emerald-400/40 bg-emerald-500/10 text-emerald-200" },
+  present: { label: "Présent, pas héros", cls: "border-amber-400/40 bg-amber-500/10 text-amber-200" },
+  absent: { label: "Absent", cls: "border-rose-400/40 bg-rose-500/10 text-rose-200" },
+};
+
+function metaEtat(etat: string | undefined) {
+  return (
+    ETAT_KPI_META[etat ?? ""] ?? {
+      label: etat ? etat : "État inconnu",
+      cls: "border-white/15 bg-white/[0.04] text-zinc-300",
+    }
+  );
+}
+
+function DemandesParSecteur({
+  approuvesParTicker,
+  onPreparerDemande,
+}: {
+  approuvesParTicker: Record<string, number>;
+  onPreparerDemande: (p: PrefillDemande) => void;
+}) {
+  const data = KPI_SECTEURS_ETAT as unknown as {
+    maj_le?: string;
+    cree_le?: string;
+    regle?: string;
+    secteurs: Record<string, SecteurEtat>;
+  };
+  const [secteurChoisi, setSecteurChoisi] = useState<string>("tous");
+  const [sansApprouve, setSansApprouve] = useState(false);
+
+  const secteurs = useMemo(
+    () =>
+      Object.entries(data.secteurs ?? {}).sort((a, b) =>
+        labelSecteur(a[0]).localeCompare(labelSecteur(b[0]), "fr"),
+      ),
+    [data.secteurs],
+  );
+
+  const lignesParSecteur = useMemo(() => {
+    return secteurs
+      .filter(([id]) => secteurChoisi === "tous" || secteurChoisi === id)
+      .map(([id, sec]) => {
+        const lignes = Object.entries(sec.societes ?? {})
+          .map(([ticker, ste]) => ({
+            ticker,
+            ste,
+            approuves: approuvesParTicker[ticker.toUpperCase()] ?? 0,
+          }))
+          .filter((l) => (sansApprouve ? l.approuves === 0 : true))
+          .sort((a, b) => a.ticker.localeCompare(b.ticker, "fr"));
+        return { id, sec, lignes };
+      })
+      .filter((s) => s.lignes.length > 0);
+  }, [secteurs, secteurChoisi, sansApprouve, approuvesParTicker]);
+
+  const total = lignesParSecteur.reduce((n, s) => n + s.lignes.length, 0);
+
+  if (secteurs.length === 0) {
+    return <p className="text-sm text-zinc-500">Aucun secteur enregistré.</p>;
+  }
+
+  return (
+    <div className="space-y-6">
+      <p className="text-[12.5px] text-zinc-500">
+        KPI d’industrie créés en série, secteur par secteur.
+        {data.maj_le ? ` Mis à jour le ${data.maj_le}.` : ""} {total} société
+        {total > 1 ? "s" : ""} affichée{total > 1 ? "s" : ""}.
+      </p>
+
+      <div className="flex flex-col gap-3 rounded-xl border border-white/[0.08] bg-white/[0.02] p-3 sm:flex-row sm:items-center sm:justify-between">
+        <label className="flex min-w-0 flex-col gap-1 text-[11.5px] sm:flex-row sm:items-center sm:gap-2">
+          <span className="text-zinc-400">Secteur</span>
+          <select
+            value={secteurChoisi}
+            onChange={(e) => setSecteurChoisi(e.target.value)}
+            className="w-full min-w-0 rounded-lg border border-white/[0.08] bg-[#0b0b0b] px-2.5 py-1.5 text-[12.5px] text-zinc-100 sm:w-auto"
+          >
+            <option value="tous">Tous les secteurs</option>
+            {secteurs.map(([id, sec]) => (
+              <option key={id} value={id}>
+                {labelSecteur(id)} ({Object.keys(sec.societes ?? {}).length})
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="flex items-start gap-2 text-[12px] text-zinc-300">
+          <input
+            type="checkbox"
+            checked={sansApprouve}
+            onChange={(e) => setSansApprouve(e.target.checked)}
+            className="mt-0.5 size-4 shrink-0 accent-cyan-400"
+          />
+          <span>Seulement les sociétés sans KPI approuvé</span>
+        </label>
+      </div>
+
+      {lignesParSecteur.length === 0 && (
+        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 text-center text-[12.5px] text-zinc-500">
+          Aucune société ne correspond à ces filtres.
+        </div>
+      )}
+
+      {lignesParSecteur.map(({ id, sec, lignes }) => (
+        <section key={id}>
+          <div className="mb-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h2 className="font-display text-xl font-semibold text-zinc-50">
+              {labelSecteur(id)}
+            </h2>
+            <span className="font-mono text-[11px] text-zinc-500">
+              {lignes.length} société{lignes.length > 1 ? "s" : ""}
+            </span>
+            {sec.kpi_star?.choix && (
+              <span className="text-[11.5px] text-cyan-300">
+                KPI star : {sec.kpi_star.choix}
+                {sec.kpi_star.freq ? ` (${sec.kpi_star.freq})` : ""}
+              </span>
+            )}
+          </div>
+          <div className="space-y-2">
+            {lignes.map(({ ticker, ste, approuves }) => {
+              const meta = metaEtat(ste.kpi_etat);
+              const kpi = ste.kpi_nom ?? ste.hero_nouveau ?? "KPI à définir";
+              return (
+                <div
+                  key={ticker}
+                  className="flex flex-col gap-2 rounded-xl border border-white/[0.08] bg-white/[0.02] p-3 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <Link
+                        href={`/${ticker.toLowerCase()}`}
+                        className="font-mono text-[13px] font-semibold text-violet-200 hover:text-violet-100"
+                      >
+                        {ticker}
+                      </Link>
+                      <span
+                        className={`rounded-full border px-2 py-0.5 text-[10.5px] ${meta.cls}`}
+                      >
+                        {meta.label}
+                      </span>
+                      <span className="font-mono text-[10.5px] text-zinc-500">
+                        {approuves} graphique{approuves > 1 ? "s" : ""} approuvé
+                        {approuves > 1 ? "s" : ""}
+                      </span>
+                    </div>
+                    <div className="mt-1 break-words text-[12.5px] text-zinc-200">
+                      {kpi}
+                    </div>
+                    {ste.note && (
+                      <div className="mt-1 break-words text-[11px] text-zinc-500">
+                        {ste.note}
+                      </div>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      onPreparerDemande({
+                        cle: `${id}-${ticker}`,
+                        tickers: ticker.toUpperCase(),
+                        query: `Graphiques et schémas du KPI d’industrie « ${kpi} » pour ${ticker} (secteur ${labelSecteur(id)}) : publications de la société, rapports investisseurs, posts X et analystes, image attachée, valeurs publiées, historique le plus long possible.`,
+                        notes: `Série d’industrie ${labelSecteur(id)} · ${kpi} · état ${metaEtat(ste.kpi_etat).label.toLowerCase()}`,
+                      })
+                    }
+                    className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg border border-cyan-500/40 bg-cyan-500/10 px-3 py-1.5 text-[12px] font-semibold text-cyan-100 hover:bg-cyan-500/20"
+                  >
+                    <Plus className="size-3.5" /> Préparer une demande
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </section>
       ))}

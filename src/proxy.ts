@@ -435,6 +435,18 @@ export async function proxy(request: NextRequest) {
   // d environnement fait foi, le site ne casse jamais.
   const isMaintenanceOn =
     isProdDomain && (await modeMaintenanceEffectif(maintenanceParEnv));
+
+  // Yann 19 sept 2026 : le domaine public ne doit exposer AUCUNE route
+  // d outillage interne. Avant, /sandbox/... repondait 307 vers la page
+  // d inscription en recopiant le chemin interne dans l URL, ce qui revenait a
+  // annoncer l existence de ces pages. Sur mettrik.ai ces prefixes repondent
+  // desormais 404, sans redirection ni trace du chemin demande. Les outils
+  // restent accessibles sur le domaine de preversion (niveau2), ou l acces est
+  // deja restreint au proprietaire.
+  const PREFIXES_INTERNES = ["/sandbox", "/admin", "/desk-mtk9x4kp", "/email-lab"];
+  if (isProdDomain && PREFIXES_INTERNES.some((p) => routePathname === p || routePathname.startsWith(p + "/"))) {
+    return new NextResponse(null, { status: 404 });
+  }
   if (isMaintenanceOn) {
     const isMaintenancePage = routePathname === "/maintenance";
     // Strictement les routes techniques nécessaires au rendu du site lui-même.

@@ -48,12 +48,17 @@ export function ImageFindingsBlock({
   accent = "#06b6d4",
   locale = "fr",
   ticker,
+  nomSociete,
 }: {
   findings: ImageFindingPublic[];
   accent?: string;
   locale?: string;
   /** Yann 18 sept 2026 : ticker pour le nom du fichier exporte et la signature. */
   ticker?: string;
+  /** Yann 19 sept 2026 : nom de la societe, pose en premiere ligne du PNG
+   *  exporte avec son logo, comme pour les graphiques long terme. L export
+   *  attend un titre de la forme « titre du graphique · nom de la societe ». */
+  nomSociete?: string;
 }) {
   const [idx, setIdx] = useState(0);
   // Yann 18 sept 2026 : export PNG comme les graphiques long terme (signature Mettrik,
@@ -78,7 +83,9 @@ export function ImageFindingsBlock({
     const svg = boxRef.current?.querySelector("svg") as SVGSVGElement | null;
     if (!svg) return;
     const nom = `mettrik-${(ticker ?? "graphique").toLowerCase()}-moyen-terme-${safe + 1}.png`;
-    await downloadSvgAsPng(svg, nom, { title: displayTitleRef.current ?? undefined, ticker, locale: (locale as "fr" | "en" | "de") });
+    const titreGraphique = displayTitleRef.current ?? "";
+    const titreExport = nomSociete ? `${titreGraphique} · ${nomSociete}` : titreGraphique || undefined;
+    await downloadSvgAsPng(svg, nom, { title: titreExport, ticker, locale: (locale as "fr" | "en" | "de") });
   };
   const displayTitle = pickI18n(f.title_i18n, locale, f.title);
   displayTitleRef.current = displayTitle;

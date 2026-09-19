@@ -631,3 +631,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.19.6 (19 Sep 2026 02:32, apres 24bb28ba1a)
 - Graphique des modeles de raisonnement rafraichi
+
+## v2026.09.19.7 (19 Sep 2026 04:11, apres 64691ecc87)
+- FAQ KPI et donnees personnelles, contact, tarifs, routes internes fermees, onglet par secteur, comparatif Bloomberg, export moyen terme, logos WebP

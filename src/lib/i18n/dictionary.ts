@@ -784,6 +784,47 @@ export const DICTIONARY: Dict = {
     fr: "Mettrik AI agrège, structure et présente les KPIs les plus utiles des grandes sociétés cotées : indicateurs métier propres à chaque sous-secteur, scores de qualité, signaux comparatifs entre pairs, gouvernance, risques, positionnement IA. L'objectif : faire gagner du temps à un investisseur qui veut une lecture chiffrée et lisible d'une société, sans avoir à parcourir 200 pages de rapport annuel.",
     en: "Mettrik AI aggregates, structures and surfaces the most useful KPIs of large listed companies: industry-specific operational metrics, quality scores, peer comparison signals, governance, risks, AI positioning. The goal: save time for an investor who wants a quantitative, readable view of a company without going through 200 pages of annual report.",
   },
+  // Yann 19 sept 2026 : nouvelles entrees de la foire aux questions de l accueil.
+  "faq.q.devenir_donnees": {
+    fr: "Que deviennent mes données personnelles ?",
+    en: "What happens to my personal data?",
+  },
+  "faq.a.devenir_donnees": {
+    fr: "Rien n'est vendu. Mettrik AI ne vend ni ne loue tes données à des tiers. Pas de tracker publicitaire, pas de courtier en données, aucun cookie publicitaire ni de profilage. Les seuls cookies posés servent à ta session et à ton authentification.\nLa mesure d'audience est interne et première partie. Pages vues, clics et temps de réponse partent uniquement vers nos propres serveurs. Aucune donnée n'est transmise à un réseau publicitaire ou à un tiers de suivi, et ton adresse IP n'est jamais conservée en clair : elle est anonymisée au bout de 30 jours.\nCe que tu consultes reste à toi. Sociétés ouvertes, KPI favoris et watchlists servent seulement à personnaliser ton expérience sur le site.\nTes coordonnées bancaires ne passent pas par nous. Les paiements sont traités exclusivement par Stripe Payments Europe, certifié PCI-DSS Level 1, et aucun numéro de carte n'est stocké chez nous. Ton mot de passe est gardé sous forme de hash bcrypt, jamais en clair.\nLes durées sont écrites noir sur blanc. Ton compte vit tant que tu l'utilises, puis 30 jours après suppression. Les données de connexion sont gardées un an au maximum, puis anonymisées. Les logs techniques tiennent 90 jours. Seules les factures restent 10 ans, parce que la loi comptable l'impose.\nLa suppression est réelle. Tu supprimes ton compte quand tu veux depuis ton espace personnel : profil, watchlists, notes et données personnelles associées sont effacés dans les délais prévus par le RGPD.\nL'hébergement privilégie l'Espace économique européen. Nos sous-traitants sont choisis selon l'article 28 du RGPD, avec chiffrement et audits de sécurité. Les transferts éventuels hors Union européenne passent par les Clauses Contractuelles Types ou une décision d'adéquation. La liste détaillée t'est envoyée sur simple demande écrite à contact@mettrik.ai.\nTu gardes tous tes droits : accès, rectification, effacement, portabilité, opposition, limitation, retrait du consentement. Réponse sous 30 jours maximum.",
+    en: "Nothing is sold. Mettrik AI does not sell or rent your data to third parties: no advertising trackers, no data brokers, no profiling cookies. Only session and authentication cookies are set. Audience measurement is first party: page views, clicks and response times go to our own servers only, and your IP address is never kept in the clear, it is anonymised after 30 days. What you browse stays yours: companies opened, favourite KPIs and watchlists only personalise your experience. Card details never reach us, payments are handled by Stripe Payments Europe, PCI-DSS Level 1, and your password is stored as a bcrypt hash. Retention is written down: your account lives as long as you use it, then 30 days after deletion; connection data one year at most, then anonymised; technical logs 90 days; only invoices are kept 10 years, because accounting law requires it. Deletion is real: you can delete your account at any time from your personal space, profile, watchlists, notes and associated personal data are erased within the time limits set by the GDPR. Hosting favours the European Economic Area, subcontractors are chosen under article 28 of the GDPR, and any transfer outside the European Union goes through Standard Contractual Clauses or an adequacy decision. You keep every right: access, rectification, erasure, portability, objection, restriction, withdrawal of consent, with an answer within 30 days.",
+  },
+  "faq.q.kpi_definition": {
+    fr: "Qu'est-ce qu'un KPI (ou indicateur clé) ?",
+    en: "What is a KPI (key performance indicator)?",
+  },
+  "faq.a.kpi_definition": {
+    fr: "KPI est l'abréviation de « key performance indicator », que l'on traduit par indicateur clé de performance. C'est un chiffre choisi parce qu'il résume à lui seul une partie de la marche d'une entreprise, et parce qu'il bouge quand l'activité change. Un bon indicateur clé a trois qualités : il est mesurable et publié par la société, il est comparable d'une période à l'autre, et il explique une part réelle du résultat. Exemples : les abonnés payants pour un service par abonnement, le carnet de commandes pour un industriel, les ventes à magasins comparables pour un distributeur, la marge nette d'intérêt pour une banque. Le chiffre d'affaires et le bénéfice, eux, sont des résultats comptables : ils disent ce qui s'est passé, alors que les indicateurs clés bougent souvent avant.",
+    en: "KPI stands for key performance indicator. It is a figure chosen because it sums up part of how a company is running, and because it moves when the business moves. A good KPI has three qualities: it is measurable and published by the company, it is comparable from one period to the next, and it explains a real share of the outcome. Examples: paying subscribers for a subscription service, order backlog for an industrial group, same-store sales for a retailer, net interest margin for a bank. Revenue and profit are accounting outcomes: they say what happened, while KPIs often move first.",
+  },
+  "faq.q.essai_sans_payer": {
+    fr: "Puis-je tester Mettrik AI sans payer ?",
+    en: "Can I try Mettrik AI without paying?",
+  },
+  "faq.a.essai_sans_payer": {
+    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres des milliers de fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées, sauf Google, Meta et Booking, entièrement en clair pour juger la profondeur avant de décider.",
+    en: "Yes, the Free plan is free forever, no credit card. You can open thousands of profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred, except Google, Meta and Booking, fully unblurred to judge the depth before deciding.",
+  },
+  "faq.q.coverage_plans": {
+    fr: "Quelles sociétés sont couvertes en Premium et Max ?",
+    en: "Which companies are covered in Premium and Max?",
+  },
+  "faq.a.coverage_plans": {
+    fr: "Les mêmes sociétés dans tous les plans : le S&P 500 au complet, le CAC 40, le DAX 40, l'AEX 25, le SMI suisse et l'indice des semi-conducteurs SOX. Premium et Max lèvent le floutage ; Max ajoute l'anti-thèse et le support prioritaire.",
+    en: "The same companies in every plan: the full S&P 500, CAC 40, DAX 40, AEX 25, Swiss SMI and the SOX semiconductor index. Premium and Max remove the blurring; Max adds the counter-thesis and priority support.",
+  },
+  "faq.q.changer_plan": {
+    fr: "Puis-je changer de plan plus tard ?",
+    en: "Can I change my plan later?",
+  },
+  "faq.a.changer_plan": {
+    fr: "Oui, à tout moment. Si tu passes de Premium à Max, l'écart est facturé au prorata. Si tu redescends d'offre, le changement prend effet à la prochaine échéance.",
+    en: "Yes, anytime. Upgrading from Premium to Max is billed pro-rata. Downgrading takes effect at the next renewal.",
+  },
   "faq.q.data_sources": {
     fr: "D'où viennent les données ?",
     en: "Where does the data come from?",
@@ -1054,9 +1095,9 @@ export const DICTIONARY: Dict = {
   "contact.recipient_contact": { fr: "Contact général (commercial, presse, partenariat)", en: "General contact (sales, press, partnership)", de: "Allgemein (Vertrieb, Presse, Partnerschaft)" },
   "contact.recipient_support": { fr: "Support technique (bug, problème de compte)", en: "Technical support (bug, account issue)", de: "Technischer Support (Bug, Kontoproblem)" },
   "contact.name_label": { fr: "Votre nom", en: "Your name", de: "Dein Name" },
-  "contact.name_placeholder": { fr: "Marie Dupont", en: "Jane Doe", de: "Max Mustermann" },
+  "contact.name_placeholder": { fr: "Warren Buffet", en: "Warren Buffet", de: "Warren Buffet" },
   "contact.email_label": { fr: "Votre email", en: "Your email", de: "Deine E-Mail" },
-  "contact.email_placeholder": { fr: "marie@exemple.com", en: "jane@example.com", de: "max@beispiel.de" },
+  "contact.email_placeholder": { fr: "warren@buffet.com", en: "warren@buffet.com", de: "warren@buffet.com" },
   "contact.subject_label": { fr: "Sujet", en: "Subject", de: "Betreff" },
   "contact.subject_placeholder": { fr: "Quel est le sujet de votre message ?", en: "What's your message about?", de: "Worum geht's in deiner Nachricht?" },
   "contact.body_label": { fr: "Votre message", en: "Your message", de: "Deine Nachricht" },

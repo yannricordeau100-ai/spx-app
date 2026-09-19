@@ -150,25 +150,15 @@ export default async function PricingPage() {
           <PricingMatrix plans={catalog.plans} features={catalog.features} currency={currency} />
         </section>
 
-        <section className="mx-auto mt-24 grid max-w-5xl gap-5 sm:grid-cols-3">
+        {/* Yann 19 sept 2026 : l encadre « Pas de revente de tes donnees » est
+            devenu une question de la foire aux questions, plus complete. */}
+        <section className="mx-auto mt-24 grid max-w-3xl gap-5 sm:grid-cols-2">
           <TrustCard idx={1} title={t("pricing.trust1_title")} body={t("pricing.trust1_body")} />
-          <TrustCard idx={2} title={t("pricing.trust2_title")} body={t("pricing.trust2_body")} />
-          <TrustCard idx={3} title={t("pricing.trust3_title")} body={t("pricing.trust3_body")} />
+          <TrustCard idx={2} title={t("pricing.trust3_title")} body={t("pricing.trust3_body")} />
         </section>
 
-        <section className="mx-auto mt-24 max-w-3xl">
-          <div className="mb-7 text-center">
-            <h2 className="bg-gradient-to-br from-zinc-50 to-zinc-300 bg-clip-text font-display text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
-              {t("pricing.faq_title")}
-            </h2>
-          </div>
-          <div className="space-y-3">
-            <FaqItem q={t("pricing.faq_q1")} a={t("pricing.faq_a1")} />
-            <FaqItem q={t("pricing.faq_q2")} a={t("pricing.faq_a2")} />
-            <FaqItem q={t("pricing.faq_q3")} a={t("pricing.faq_a3")} />
-            <FaqItem q={t("pricing.faq_q4")} a={t("pricing.faq_a4")} />
-          </div>
-        </section>
+        {/* Yann 19 sept 2026 : les questions frequentes sont regroupees en bas
+            de la page d accueil, plus dans la page des tarifs. */}
 
         <section className="relative mx-auto mt-24 max-w-3xl overflow-hidden rounded-3xl border border-violet-500/40 bg-gradient-to-br from-violet-500/[0.14] via-violet-500/[0.06] to-cyan-500/[0.08] p-10 text-center shadow-[0_20px_60px_-30px_rgba(167,139,250,0.4)]">
           <div className="pointer-events-none absolute -left-20 -top-20 size-64 rounded-full bg-violet-500/20 blur-3xl" />
