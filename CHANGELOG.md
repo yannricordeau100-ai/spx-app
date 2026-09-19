@@ -634,3 +634,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.19.7 (19 Sep 2026 04:11, apres 64691ecc87)
 - FAQ KPI et donnees personnelles, contact, tarifs, routes internes fermees, onglet par secteur, comparatif Bloomberg, export moyen terme, logos WebP
+
+## v2026.09.19.8 (19 Sep 2026 04:33, apres 12b7e3cba0)
+- FAQ visible en bas de l accueil, FactSet et Halliburton

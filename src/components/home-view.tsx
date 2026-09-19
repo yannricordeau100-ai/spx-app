@@ -849,11 +849,14 @@ export function HomeView({
           </SignupGateOverlay>
         </div>
 
-        {showFAQ && <HomeFAQ />}
-
         {/* 9 sept 2026 : bas de page, les categories de societes (GICS) :
             noms des sous-industries et codes, rien d autre. */}
         <HomeGicsBlock />
+
+        {/* Yann 19 sept 2026 : les questions frequentes ferment la page, apres
+            les categories. L accueil reel (hub V1.9.5) les affichait a false
+            depuis des mois, elles n etaient donc jamais visibles. */}
+        {showFAQ && <HomeFAQ />}
 
         {/* Yann 12 sept 2026 : mention « Mettrik AI · KPI Intelligence » retiree. */}
         <div className="mt-6 sm:mt-8" />{/* Yann 15 sept 2026 : espace reduit avant la section « Toutes les fiches sont ouvertes en gratuit ». */}

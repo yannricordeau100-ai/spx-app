@@ -161,7 +161,7 @@ export default async function SandboxV195HubPage() {
       <div className="h-14 sm:hidden" />
       <HomeView
         tickers={tickers}
-        showFAQ={false}
+        showFAQ
         // Yann 4 sept 2026 : adresse publique courte (/aapl) dans tous les liens,
         // plus de chemin interne /sandbox/v1-9-5/<ticker>.
         searchScope={{ tickers: tickersRecherche, total: tickersRecherche.length }}

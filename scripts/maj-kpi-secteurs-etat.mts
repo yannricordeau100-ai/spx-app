@@ -61,7 +61,7 @@ const MOTS_SECTEUR: Record<string, string[]> = {
   hotels_casinos: ["revpar", "produitbrutdesjeux", "grossgamingrevenue", "nuitees", "nightsbooked", "rendementnet", "netyield"],
   mines: ["aisc", "allinsustaining", "production", "expeditions", "shipments", "tonnes"],
   services_petroliers: ["carnet", "backlog", "rpo", "tauxdutilisation", "utilization"],
-  gestion_actifs_credit: ["aum", "actifssousgestion", "assetsundermanagement", "encours", "tauxdepertes", "netchargeoff", "lossrate", "cet1", "margedinteret", "nim"],
+  gestion_actifs_credit: ["aum", "actifssousgestion", "assetsundermanagement", "encours", "tauxdepertes", "netchargeoff", "lossrate", "cet1", "margedinteret", "nim", "asv", "subscriptionvalue", "abonnements"],
   logiciel: ["arr", "nrr", "netretention", "rpo", "crpo", "remainingperformance"],
   courtiers_assurance: ["croissanceorganique", "organicgrowth", "organicrevenue", "croissancesousjacente", "underlyinggrowth"],
   siderurgie: ["expeditions", "shipments", "tonnes", "tons"],
