@@ -646,3 +646,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.19.11 (19 Sep 2026 12:52, apres 0927ec4291)
 - Thèses d'investissement : 44 sociétés françaises rédigées selon les critères d'investisseurs et de banques, graphiques extérieurs, onglet Thèses
+
+## v2026.09.19.12 (19 Sep 2026 13:57, apres e4b06857b6)
+- Thèses américaines (22), Mon compte simplifié, Cloudflare compact/invisible, liens d'e-mail sur mettrik.ai, graphiques de plus de 18 mois retirés, fiches plus légères
