@@ -228,7 +228,38 @@ def update_request(request_id: str, patch: dict):
         log(f"    [warn] update request fail HTTP {r.status_code} {r.text[:200]}")
 
 
+# Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois
+def limite_18_mois() -> datetime:
+    t = datetime.now(timezone.utc)
+    m = t.month - 18
+    a = t.year + (m - 1) // 12
+    m = (m - 1) % 12 + 1
+    return t.replace(year=a, month=m, day=min(t.day, 28), hour=0, minute=0, second=0, microsecond=0)
+
+
+def source_trop_vieille(d) -> tuple[bool, str]:
+    """(True, motif) si la date de source est absente, illisible ou anterieure a aujourd hui moins 18 mois."""
+    if not d:
+        return True, "source_date absente"
+    txt = str(d).strip()
+    if len(txt) == 4:
+        txt += "-01-01"
+    elif len(txt) == 7:
+        txt += "-01"
+    try:
+        dd = datetime.fromisoformat(txt[:10]).replace(tzinfo=timezone.utc)
+    except ValueError:
+        return True, f"source_date illisible ({d})"
+    lim = limite_18_mois()
+    return dd < lim, f"source datee du {txt[:10]}, limite {lim.date().isoformat()}"
+
+
 def insert_finding(finding: dict, dry_run: bool = False) -> bool:
+    # Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois
+    vieille, motif = source_trop_vieille(finding.get("source_date"))
+    if vieille:
+        log(f"    REJET source de plus de 18 mois : {str(finding.get('title'))[:60]} ({motif})")
+        return False
     if dry_run:
         log(f"    [dry-run] would insert: {finding.get('title')[:80]}")
         return True

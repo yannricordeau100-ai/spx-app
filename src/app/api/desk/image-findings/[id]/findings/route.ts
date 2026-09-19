@@ -6,6 +6,7 @@ import {
   upsertFinding,
   deleteFinding,
   refreshRequestCounters,
+  motifRejetSourceDate,
 } from "@/lib/desk/image-findings";
 
 export const runtime = "nodejs";
@@ -22,6 +23,16 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   await requireDeskOwner();
   const { id } = await params;
   const body = await req.json();
+  // Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois
+  if (!body.id || "source_date" in body) {
+    const motif = motifRejetSourceDate(body.source_date);
+    if (motif) {
+      return NextResponse.json(
+        { error: `REJET source de plus de 18 mois : ${motif}` },
+        { status: 400 },
+      );
+    }
+  }
   const row = await upsertFinding(body);
   await refreshRequestCounters(id);
   // Yann 17 sept 2026 : la fiche est mise en cache 6 h ; sans ceci, un

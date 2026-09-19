@@ -8,7 +8,7 @@
  *      exécute WebSearch site:x.com, extrait images + métadonnées,
  *      écrit dans desk_image_findings
  *   4. status='pending_review' → Yann approuve images dans sandbox
- *   5. images approuvées s'affichent sur les pages sté correspondantes
+ *   5. images approuvées s'affichent sur les pages société correspondantes
  *      via merge SSR dans load-company.
  */
 import { createClient } from "@supabase/supabase-js";
@@ -182,8 +182,52 @@ export async function deleteRequest(id: string): Promise<void> {
   await supa.from("desk_image_findings_requests").delete().eq("id", id);
 }
 
+/**
+ * Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois.
+ * Aucune ligne desk_image_findings ne peut etre creee si sa source_date est
+ * absente, illisible, ou anterieure a aujourd hui moins 18 mois.
+ */
+export function limiteSource18Mois(): Date {
+  const t = new Date();
+  const d = new Date(t.getTime());
+  d.setUTCHours(0, 0, 0, 0);
+  d.setUTCDate(1);
+  d.setUTCMonth(d.getUTCMonth() - 18);
+  const jour = Math.min(t.getUTCDate(), 28);
+  d.setUTCDate(jour);
+  return d;
+}
+
+/** Renvoie le motif de rejet, ou null si la date de source est acceptable. */
+export function motifRejetSourceDate(v: unknown): string | null {
+  if (v === null || v === undefined || String(v).trim() === "") {
+    return "source_date absente";
+  }
+  let txt = String(v).trim();
+  if (/^\d{4}$/.test(txt)) txt = `${txt}-01-01`;
+  else if (/^\d{4}-\d{2}$/.test(txt)) txt = `${txt}-01`;
+  const d = new Date(`${txt.slice(0, 10)}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return `source_date illisible (${txt})`;
+  const lim = limiteSource18Mois();
+  if (d.getTime() < lim.getTime()) {
+    return `source datee du ${txt.slice(0, 10)}, limite ${lim.toISOString().slice(0, 10)}`;
+  }
+  return null;
+}
+
+/** Leve une erreur explicite si la source est trop vieille (ou absente). */
+function verifieSourceDate(v: unknown): void {
+  const motif = motifRejetSourceDate(v);
+  if (motif) {
+    throw new Error(`REJET source de plus de 18 mois : ${motif}`);
+  }
+}
+
 export async function upsertFinding(p: Partial<ImageFinding>): Promise<ImageFinding> {
   const supa = admin();
+  // Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois
+  // (creation : toujours ; mise a jour : des que source_date est fournie)
+  if (!p.id || "source_date" in p) verifieSourceDate(p.source_date);
   const payload = {
     ...p,
     target_tickers: p.target_tickers?.map((t) => t.toUpperCase()),
@@ -204,6 +248,8 @@ export async function deleteFinding(id: string): Promise<void> {
 /** Insert plusieurs findings d'un coup (utilisé par Claude conv en bulk). */
 export async function insertFindings(rows: Partial<ImageFinding>[]): Promise<number> {
   if (rows.length === 0) return 0;
+  // Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois
+  rows.forEach((r) => verifieSourceDate(r.source_date));
   const supa = admin();
   const payload = rows.map((r) => ({
     ...r,

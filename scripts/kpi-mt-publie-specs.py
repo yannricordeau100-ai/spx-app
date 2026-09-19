@@ -2,6 +2,7 @@
 """Verifie les citations d un lot de specs (/tmp/mt_specs_<T>.json), genere les SVG et
 insere les findings en attente d approbation (max 9 par societe). Usage : publie_specs.py TICKER [--max 9]"""
 import json,re,sys,os,html as H,urllib.request,ssl,time,subprocess
+from datetime import date as _date
 T=sys.argv[1]; MAX=int(sys.argv[sys.argv.index('--max')+1]) if '--max' in sys.argv else 9
 CTX=ssl.create_default_context(); CTX.check_hostname=False; CTX.verify_mode=ssl.CERT_NONE
 UA={'User-Agent':'Mozilla/5.0 (Macintosh) Mettrik contact@mettrik.ai'}; cache={}
@@ -21,6 +22,17 @@ def normdate(d):
     if not d: return None
     d=str(d)
     return d+'-01' if len(d)==7 else (d+'-01-01' if len(d)==4 else d)
+# Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois
+def limite_18_mois():
+    t=_date.today(); m=t.month-18; a=t.year+(m-1)//12; m=(m-1)%12+1
+    return _date(a,m,min(t.day,28))
+def source_trop_vieille(d):
+    """(True, motif) si la date de source est absente, illisible ou anterieure a aujourd hui moins 18 mois."""
+    n=normdate(d)
+    if not n: return True,'source_date absente'
+    try: dd=_date.fromisoformat(str(n)[:10])
+    except ValueError: return True,f'source_date illisible ({n})'
+    return (dd<limite_18_mois()), f'source datee du {n}, limite {limite_18_mois().isoformat()}'
 def norm(s): return re.sub(r'[^a-z0-9]+',' ',str(s).lower()).strip()
 lot=json.load(open(f'/tmp/mt_specs_{T}.json')); ok_specs=[]
 for e in lot:
@@ -34,6 +46,11 @@ for e in lot:
     pages=' '.join(norm(texte(c['url'])) for c in list(cit.values())[:6])
     vok=sum(1 for v in valeurs if any(norm(f) in pages for f in {str(v),f"{v:,.0f}",f"{v:,.1f}",f"{v:g}"}))
     verdict = n>0 and ((ok>=1 and vok>=0.8*len(valeurs)) or vok==len(valeurs))
+    # Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois
+    vieille,motif=source_trop_vieille(e.get('source_date'))
+    if vieille:
+        verdict=False
+        print(f"{sp['slug']}: REJET source de plus de 18 mois ({motif})")
     print(f"{sp['slug']}: citations {ok}/{n}, valeurs {vok}/{len(valeurs)} -> {'OK' if verdict else 'REJET'} {ko[:3]}")
     if verdict: ok_specs.append(e)
 ok_specs=ok_specs[:MAX]; print('retenus',len(ok_specs))
@@ -56,6 +73,9 @@ for e in ok_specs:
     loc=f"/findings/societes/{T.lower()}/{sp['slug']}-dark.svg"
     if req(f"desk_image_findings?image_local_path=eq.{urllib.request.quote(loc)}&select=id"): print('deja en base',sp['slug']); continue
     if not os.path.exists('public'+loc): print('SVG manquant',loc); continue
+    # Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois
+    vieille,motif=source_trop_vieille(e.get('source_date'))
+    if vieille: print(f"REJET source de plus de 18 mois : {sp['slug']} ({motif})"); continue
     d=req('desk_image_findings','POST',{'request_id':rid,'target_tickers':[T],'languages':['fr'],'source_url':e.get('source_url'),'source_author':None,'source_platform':e.get('source_platform'),'source_date':normdate(e.get('source_date')),'image_url':e.get('source_url'),'image_local_path':loc,'title':sp['titre'],'caption':sp.get('sous_titre'),'summary':e.get('summary_fr'),'approved':False,'rejected':False,'show_summary':True})
     print('insere',sp['slug'],d[0]['id'][:8] if d else d)
 req(f"desk_image_findings_requests?id=eq.{rid}",'PATCH',{'findings_count':len(ok_specs),'status':'pending_review'})

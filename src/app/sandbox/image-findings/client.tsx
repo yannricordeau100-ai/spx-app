@@ -23,6 +23,29 @@ import type {
   ImageFinding,
 } from "@/lib/desk/image-findings";
 
+// Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois.
+// Copie locale du controle serveur (src/lib/desk/image-findings.ts) : ce fichier
+// est un composant client, il ne peut pas importer le module admin Supabase.
+// Le controle serveur reste celui qui fait foi.
+function motifRejetSourceDateClient(v: unknown): string | null {
+  if (v === null || v === undefined || String(v).trim() === "") return "source_date absente";
+  let txt = String(v).trim();
+  if (/^\d{4}$/.test(txt)) txt = `${txt}-01-01`;
+  else if (/^\d{4}-\d{2}$/.test(txt)) txt = `${txt}-01`;
+  const d = new Date(`${txt.slice(0, 10)}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return `source_date illisible (${txt})`;
+  const t = new Date();
+  const lim = new Date(t.getTime());
+  lim.setUTCHours(0, 0, 0, 0);
+  lim.setUTCDate(1);
+  lim.setUTCMonth(lim.getUTCMonth() - 18);
+  lim.setUTCDate(Math.min(t.getUTCDate(), 28));
+  if (d.getTime() < lim.getTime()) {
+    return `source datee du ${txt.slice(0, 10)}, limite ${lim.toISOString().slice(0, 10)}`;
+  }
+  return null;
+}
+
 // Yann 18 mai 2026 : EN = langue canonique du site, affichée en premier
 // (encadrée comme langue active du visiteur par défaut). FR + DE ensuite,
 // autres locales en fallback EN.
@@ -225,6 +248,15 @@ export function ImageFindingsClient({
   }
 
   async function updateFinding(reqId: string, p: Partial<ImageFinding>) {
+    // Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois
+    // (controle cote client en plus du controle serveur, qui fait foi)
+    if (!p.id || "source_date" in p) {
+      const motif = motifRejetSourceDateClient(p.source_date);
+      if (motif) {
+        alert(`REJET source de plus de 18 mois : ${motif}`);
+        return;
+      }
+    }
     await fetch(`/api/desk/image-findings/${reqId}/findings`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -271,7 +303,7 @@ export function ImageFindingsClient({
               Twitter) liés à une ou plusieurs sociétés. Tu rédiges une demande
               avec query libre (ex : "graphs en français sur la part de Google
               sur l'IA"), Claude conv MAX 20× la lance, tu approuves les images
-              une à une, elles s'affichent ensuite sur les pages sté
+              une à une, elles s'affichent ensuite sur les pages société
               concernées.
             </p>
           </div>
