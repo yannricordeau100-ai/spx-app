@@ -103,7 +103,7 @@ The subscription takes effect immediately upon payment confirmation. The user re
 
 Paid subscriptions renew automatically at the end of each period (monthly or annual), for a term identical to the initial period, without prior notice being required.
 
-Cancellation is possible at any time, in a few clicks, from your personal area: no justification, no fees, no notice period. You keep full access to the service until the last day of the period already paid. The current period remains due and is not refunded pro rata, unless a mandatory provision of the law applicable to a consumer provides otherwise.
+Cancellation is possible at any time, in a few clicks, from your personal area: no justification, no fees, no notice period. You keep full access to the service until the last day of the period already paid. The current period remains due and is not refunded pro rata.
 
 Unilateral termination by Mettrik AI. Mettrik AI reserves the right to terminate any subscription unilaterally and without notice in the event of (a) non-payment, (b) breach of these Terms, (c) fraudulent, abusive or non-compliant use of the service, (d) proven account sharing, (e) use of VPNs or anonymization means, (f) unauthorized automated extraction or AI use, (g) dispute, charge-back or banking litigation, (h) any other situation harming Mettrik AI or its other subscribers. Unilateral termination gives no right to any refund.
 
@@ -117,11 +117,11 @@ You stay in control: this box is never pre-ticked, and its effect is spelled out
 
 ### II.5 Price changes
 
-Mettrik AI reserves the right to change its prices at any time. Any change is notified to subscribers at least 30 days before it takes effect, by email to the address associated with the account. The user may cancel their subscription before the new price takes effect, free of charge.
+Mettrik AI reserves the right to change its prices at any time. Any change is notified to subscribers at least 14 days before it takes effect, by email to the address associated with the account. The user may cancel their subscription before the new price takes effect, free of charge.
 
 ### II.6 Invoicing
 
-An invoice is automatically issued at each subscription due date and sent by email. All invoices can also be downloaded from the personal area.
+An invoice is automatically issued at each subscription due date. All invoices can also be downloaded from the personal area.
 
 ## Part III · Common provisions
 

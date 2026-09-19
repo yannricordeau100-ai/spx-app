@@ -101,7 +101,7 @@ La souscription prend effet immédiatement après confirmation du paiement. L'ut
 
 Les abonnements payants se renouvellent automatiquement par tacite reconduction à la fin de chaque période (mensuelle ou annuelle), pour une durée identique à celle de la période initiale, sans nécessité de notification préalable.
 
-La résiliation est possible à tout moment, en quelques clics, depuis l'espace personnel : sans justification, sans frais, sans préavis. Vous conservez l'accès complet au service jusqu'au dernier jour de la période déjà payée. La période entamée reste due et ne fait pas l'objet d'un remboursement au prorata, sauf disposition impérative contraire du droit applicable à un consommateur.
+La résiliation est possible à tout moment, en quelques clics, depuis l'espace personnel : sans justification, sans frais, sans préavis. Vous conservez l'accès complet au service jusqu'au dernier jour de la période déjà payée. La période entamée reste due et ne fait pas l'objet d'un remboursement au prorata.
 
 Résolution unilatérale par Mettrik AI. Mettrik AI se réserve le droit de résilier unilatéralement et sans préavis tout abonnement en cas (a) d'impayé, (b) de violation des présentes Conditions, (c) d'usage frauduleux, abusif ou non conforme du service, (d) de partage avéré du compte, (e) d'usage de VPN ou de moyens d'anonymisation, (f) d'extraction automatisée ou d'usage IA non autorisé, (g) de contestation, charge-back ou litige bancaire, (h) de toute autre situation portant atteinte à Mettrik AI ou à ses autres abonnés. La résiliation unilatérale ne donne droit à aucun remboursement.
 
@@ -115,11 +115,11 @@ Vous gardez la main : cette case n'est jamais pré-cochée, et son effet est rap
 
 ### II.5 Modifications de prix
 
-Mettrik AI se réserve le droit de modifier ses tarifs à tout moment. Toute modification est notifiée aux abonnés au moins 30 jours avant son entrée en vigueur, par email à l'adresse associée au compte. L'utilisateur peut résilier son abonnement avant l'entrée en vigueur du nouveau tarif sans frais.
+Mettrik AI se réserve le droit de modifier ses tarifs à tout moment. Toute modification est notifiée aux abonnés au moins 14 jours avant son entrée en vigueur, par email à l'adresse associée au compte. L'utilisateur peut résilier son abonnement avant l'entrée en vigueur du nouveau tarif sans frais.
 
 ### II.6 Facturation
 
-Une facture est émise automatiquement à chaque échéance d'abonnement et envoyée par email. Toutes les factures sont également téléchargeables depuis l'espace personnel.
+Une facture est émise automatiquement à chaque échéance d'abonnement. Toutes les factures sont également téléchargeables depuis l'espace personnel.
 
 ## Partie III · Dispositions communes
 
