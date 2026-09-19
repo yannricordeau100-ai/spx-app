@@ -227,15 +227,30 @@ export function TurnstileWidget(props?: {
     }
   }, [props?.signalReset]);
 
+  // Yann 19 sept 2026 : en mode invisible sans geste demande, le cadre
+  // Cloudflare (environ 70 px) doit disparaitre COMPLETEMENT du flux, sinon il
+  // laisse un vide sous le dernier champ du formulaire. Le conteneur reste dans
+  // le DOM et visible (pas de display:none ni de visibility:hidden, Cloudflare
+  // refuse de rendre sinon), mais l enveloppe sort du flux : position absolue,
+  // taille nulle, debordement masque, donc zero hauteur et zero espacement.
+  const masque = invisible && !interactionRequise;
+
   return (
-    <div className="w-full max-w-full">
+    <div
+      className={
+        masque
+          ? "pointer-events-none absolute left-0 top-0 h-0 w-0 overflow-hidden"
+          : "w-full max-w-full"
+      }
+      aria-hidden={masque || undefined}
+    >
       <div
         ref={containerRef}
         className={
           invisible
             ? interactionRequise
               ? "mx-auto w-full max-w-[330px] overflow-hidden"
-              : "h-0 overflow-hidden"
+              : "h-0 w-0 overflow-hidden"
             : size === "compact"
               ? "mx-auto w-[150px] min-h-[140px]"
               : "mx-auto w-full max-w-[330px] overflow-hidden"
