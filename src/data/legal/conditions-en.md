@@ -40,24 +40,13 @@ Editorial status. The content published on Mettrik AI constitutes editorial opin
 
 Past performance is not indicative of future results. Any investment decision is the sole responsibility of the user.
 
-### I.2 User qualification (consumer or professional)
-
-When creating an account or subscribing, the user indicates their capacity: consumer or professional (acting in the course of their trade or profession).
-
-The professional capacity is selected by default, reflecting the primary target of the service.
-
-This qualification determines the applicable regimes:
-
-- Consumers (B2C): the mandatory consumer-protection provisions that benefit them apply (where applicable, the mandatory provisions of their state of habitual residence), including the regime described in Section II.4.
-- Professionals (B2B): none of the consumer protections apply; these Terms apply in full without qualification.
-
-### I.3 Access to the service
+### I.2 Access to the service
 
 The website is accessible 24/7, except in cases of force majeure or maintenance operations. The Operator cannot be held liable for interruptions or slowdowns of the service.
 
 Certain advanced contents are reserved for paying subscribers. Subscription terms are detailed in Part II below.
 
-### I.4 User account (personal and nominative)
+### I.3 User account (personal and nominative)
 
 Creating an account is free and gives access to a limited number of companies under the Free plan. The user undertakes to provide accurate and up-to-date information upon registration and to keep their password confidential.
 
@@ -69,19 +58,17 @@ To protect your account, your data and fairness between subscribers, Mettrik AI 
 
 The user is responsible for all activity performed from their account. In case of fraudulent use, they undertake to immediately inform Mettrik AI at contact@mettrik.ai.
 
-### I.5 VPNs and anonymization networks
+### I.4 VPNs and anonymization networks
 
 To protect accounts against fraud and account takeover, accessing the service through a virtual private network (VPN), proxy, IP-masking service or anonymization network (TOR, IPSec tunnel, equivalent services) is not permitted.
 
 A connection detected through a VPN or proxy triggers a temporary suspension of the account, lifted after verification. Corporate VPNs are subject to prior case-by-case approval upon reasoned request.
 
-### I.6 General obligations of the user
+### I.5 General obligations of the user
 
 The user undertakes to use the service in accordance with these Terms and applicable laws, and not to compromise the security or integrity of the service. Technical prohibitions and the anti-AI clause are set out in Section III.2 below.
 
-### I.7 Data and sources, update delays
-
-Mettrik AI uses publicly available financial data, mainly extracted from regulatory filings (10-K, 10-Q, 8-K in the United States; equivalent reports in Europe and Asia). Each figure is accompanied by a freshness indicator and, where possible, a link to the original source.
+### I.6 Data and sources, update delays
 
 Update delay. Even where a "real-time", "live", "up to date" or equivalent label is displayed, data may lag the effective market value by several seconds, minutes or even hours (feed delays, network latency, algorithmic processing, update windows). Mettrik AI does not guarantee strict real-time availability of data.
 
@@ -89,7 +76,7 @@ Third-party providers. Some data (stock prices, reference data, logos, news feed
 
 The user is invited to verify critical data against official sources before any investment decision.
 
-### I.8 Usage and service-quality measurement
+### I.7 Usage and service-quality measurement
 
 For the purposes of operating, securing, billing and improving the service, the Operator collects and analyzes technical and usage data relating to navigation and use of the website and of the communications attached to it (including pages viewed, interactions, technical performance, incidents, and the handling of service emails). This measurement is performed first-party, for the exclusive benefit of the Operator. Its details, the categories of data and the user's rights are set out in the privacy policy, which forms part of the contractual body.
 
@@ -97,13 +84,12 @@ For the purposes of operating, securing, billing and improving the service, the 
 
 ### II.1 Subscription plans
 
-Mettrik AI offers the following subscriptions (reference prices in euros; the price displayed at checkout in the selected currency alone is binding):
+Mettrik AI offers the following subscriptions (the price displayed on the Pricing page and at checkout in the selected currency alone is binding):
 
-- Free: €0 / month. Limited access. The free plan is offered without consideration: its scope may be modified, restricted or withdrawn at any time, without notice or compensation.
-- Premium monthly: €29.90 / month. Full access to covered companies, comparison, watchlists, alerts.
-- Premium annual: €238.80 / year. Same features, preferential rate.
-- Max monthly: €59.90 / month. Extended features.
-- Max annual: €478.80 / year. Same features, preferential rate.
+- Free.
+- Premium (monthly or annual).
+- Max (monthly or annual).
+- API access for professionals, on request.
 
 Displayed prices are the final prices payable by the user, with no additional VAT. Payments are processed through the secure provider Stripe (PCI-DSS standard).
 
