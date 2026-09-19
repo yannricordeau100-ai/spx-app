@@ -186,18 +186,20 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
       <div data-blur-part="texte" className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border border-[#1a1a1a] bg-[#070707] px-4 py-3">
         <Compass className="size-4 shrink-0" style={{ color: accent }} />
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">{STYLE_LABEL[these.style.type] ?? "Selon"}</span>
-        <span className="text-[14px] font-semibold text-zinc-100">{these.style.nom}</span>
-        {these.style.justification && <span className="text-[12.5px] text-zinc-400">· {these.style.justification}</span>}
-        {criteres.length > 0 && !these.locked && (
-          <InfoTooltip color={accent} align="right" size="md">
-            <div className="mb-1 font-mono text-[10.5px] uppercase tracking-wider text-emerald-300">Critères appliqués</div>
-            <ul className="grid gap-1 text-[12px] leading-relaxed text-zinc-300">
-              {criteres.map((c, i) => (
-                <li key={i}>· {c}</li>
-              ))}
-            </ul>
-          </InfoTooltip>
-        )}
+        <span className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-zinc-100">
+          {these.style.nom}
+          {criteres.length > 0 && !these.locked && (
+            <InfoTooltip color={accent} align="right" size="md">
+              <div className="mb-1 font-mono text-[10.5px] uppercase tracking-wider text-emerald-300">Critères appliqués</div>
+              <ul className="grid gap-1 text-[12px] leading-relaxed text-zinc-300">
+                {criteres.map((c, i) => (
+                  <li key={i}>· {c}</li>
+                ))}
+              </ul>
+            </InfoTooltip>
+          )}
+        </span>
+        {these.style.justification && <span className="basis-full text-[12.5px] text-zinc-400 sm:basis-auto">{these.style.justification}</span>}
       </div>
 
       {these.preambule && (
