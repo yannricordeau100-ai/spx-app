@@ -57,8 +57,6 @@ const STR = {
     s5_p1_b: "Stripe Payments Europe Ltd.",
     s5_p1_c: "(Irlande), conforme aux normes PCI-DSS Level 1 et au Règlement (UE) 2016/679 (RGPD). Stripe agit de manière autonome dans le traitement des données bancaires confiées par l'utilisateur lors du paiement.",
     s5_p2: "Pour les autres traitements techniques (hébergement, base de données, envoi d'emails transactionnels, analytics anonymes), Mettrik AI fait appel à des sous-traitants sélectionnés selon les critères de l'article 28 du RGPD : engagements contractuels, garanties de sécurité (chiffrement au repos et en transit, audits SOC 2, certifications ISO 27001 ou équivalentes), localisation préférentielle des données dans l'Espace Économique Européen.",
-    s5_p3_a: "La liste détaillée des sous-traitants techniques, avec leur rôle, leur base juridique et les garanties associées, est disponible sur demande écrite à",
-    s5_p3_b: ". Les éventuels transferts hors UE sont encadrés par des Clauses Contractuelles Types approuvées par la Commission européenne ou par des décisions d'adéquation en vigueur.",
     s6_title: "6. Durée de conservation",
     s6_intro: "Vos données sont conservées :",
     s6_li1_b: "Données de compte actif :",
@@ -94,9 +92,10 @@ const STR = {
     s8_p1: "Mettrik AI utilise un nombre minimal de cookies, strictement nécessaires au fonctionnement du service (cookies de session, cookies d'authentification). Aucun cookie publicitaire ou de profilage n'est utilisé.",
     s8_p2_a: "Pour les statistiques d'audience et de performance, Mettrik AI utilise",
     s8_p2_b: "une mesure interne première partie",
-    s8_p2_c: ": les événements (pages vues, clics, erreurs techniques, temps de réponse) sont envoyés uniquement à nos propres serveurs, sur la base de notre intérêt légitime à exploiter et améliorer le service. Aucune donnée n'est transmise à un réseau publicitaire ou à un tiers à des fins de suivi ; l'adresse IP n'est jamais conservée en clair.",
+    s8_p2_c: ": les événements (pages vues, clics, erreurs techniques, temps de réponse) sont envoyés uniquement à nos propres serveurs, sur la base de notre intérêt légitime à exploiter et améliorer le service.",
+    s8_p2_d: "Aucune donnée n'est transmise à un réseau publicitaire ou à un tiers à des fins de suivi.",
     s9_title: "9. Sécurité",
-    s9_p1: "Mettrik AI met en œuvre les mesures techniques et organisationnelles appropriées pour protéger vos données contre l'accès, la modification, la divulgation ou la destruction non autorisés : chiffrement HTTPS, authentification sécurisée (mots de passe hachés bcrypt), accès restreint aux bases de données, audits réguliers.",
+    s9_p1: "Mettrik AI met en œuvre les mesures techniques et organisationnelles appropriées pour protéger vos données contre l'accès, la modification, la divulgation ou la destruction non autorisés : chiffrement HTTPS, authentification sécurisée, accès restreint aux bases de données.",
     s10_title: "10. Modifications",
     s10_p1: "La présente politique peut être modifiée. Toute modification substantielle sera notifiée par email aux utilisateurs avec un compte actif au moins 30 jours avant son entrée en vigueur.",
   },
@@ -150,8 +149,6 @@ const STR = {
     s5_p1_b: "Stripe Payments Europe Ltd.",
     s5_p1_c: "(Ireland), compliant with PCI-DSS Level 1 standards and EU Regulation 2016/679 (GDPR). Stripe acts independently in the processing of banking data entrusted by the user at the time of payment.",
     s5_p2: "For other technical processing (hosting, database, transactional email delivery, anonymous analytics), Mettrik AI uses subprocessors selected according to the criteria of Article 28 of the GDPR: contractual commitments, security guarantees (encryption at rest and in transit, SOC 2 audits, ISO 27001 or equivalent certifications), with preferential data location in the European Economic Area.",
-    s5_p3_a: "A detailed list of technical subprocessors, with their role, legal basis and associated guarantees, is available upon written request to",
-    s5_p3_b: ". Any transfers outside the EU are governed by Standard Contractual Clauses approved by the European Commission or by adequacy decisions in force.",
     s6_title: "6. Retention Period",
     s6_intro: "Your data is retained as follows:",
     s6_li1_b: "Active account data:",
@@ -187,9 +184,10 @@ const STR = {
     s8_p1: "Mettrik AI uses a minimal number of cookies, strictly necessary for the operation of the service (session cookies, authentication cookies). No advertising or profiling cookies are used.",
     s8_p2_a: "For audience and performance statistics, Mettrik AI uses",
     s8_p2_b: "an internal first-party measurement",
-    s8_p2_c: ": events (page views, clicks, technical errors, response times) are sent only to our own servers, based on our legitimate interest in operating and improving the service. No data is transmitted to any advertising network or third party for tracking purposes; the IP address is never stored in clear text.",
+    s8_p2_c: ": events (page views, clicks, technical errors, response times) are sent only to our own servers, based on our legitimate interest in operating and improving the service.",
+    s8_p2_d: "No data is transmitted to any advertising network or third party for tracking purposes.",
     s9_title: "9. Security",
-    s9_p1: "Mettrik AI implements appropriate technical and organizational measures to protect your data against unauthorized access, modification, disclosure or destruction: HTTPS encryption, secure authentication (bcrypt-hashed passwords), restricted access to databases, regular audits.",
+    s9_p1: "Mettrik AI implements appropriate technical and organizational measures to protect your data against unauthorized access, modification, disclosure or destruction: HTTPS encryption, secure authentication, restricted access to databases.",
     s10_title: "10. Changes",
     s10_p1: "This policy may be modified. Any substantial change will be notified by email to users with an active account at least 30 days before its entry into force.",
   },
@@ -255,11 +253,6 @@ export default async function ConfidentialitePage() {
           {t.s5_p1_a} <strong>{t.s5_p1_b}</strong> {t.s5_p1_c}
         </p>
         <p>{t.s5_p2}</p>
-        <p>
-          {t.s5_p3_a}
-          <a href="mailto:contact@mettrik.ai" className="text-violet-300 hover:underline"> contact@mettrik.ai</a>
-          {t.s5_p3_b}
-        </p>
       </LegalSection>
 
       <LegalSection title={t.s6_title}>
@@ -297,7 +290,7 @@ export default async function ConfidentialitePage() {
       <LegalSection title={t.s8_title}>
         <p>{t.s8_p1}</p>
         <p>
-          {t.s8_p2_a} <strong>{t.s8_p2_b}</strong> {t.s8_p2_c}
+          {t.s8_p2_a} <strong>{t.s8_p2_b}</strong> {t.s8_p2_c} <strong>{t.s8_p2_d}</strong>
         </p>
       </LegalSection>
 

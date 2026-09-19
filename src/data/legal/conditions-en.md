@@ -130,7 +130,7 @@ An invoice is automatically issued at each subscription due date. All invoices c
 The content presented on Mettrik AI is of two kinds:
 
 - Primary source data: financial figures, statements, facts relating to the listed companies analyzed, taken from official publications (annual and quarterly reports, regulatory releases). This data remains the property of its respective authors.
-- Content generated and processed by Mettrik AI: scoring methodologies, composite indicators, editorial interpretations, comparative analyses, quality scores, risk scores, rankings, aggregations, visualizations. This content is the exclusive property of the Operator, protected by the Swiss Copyright Act (CopA), by the rules against parasitic exploitation of another's work product (Art. 5 UCA), and by applicable international conventions.
+- Content generated and processed by Mettrik AI: scoring methodologies, composite indicators, editorial interpretations, comparative analyses, quality scores, risk scores, rankings, aggregations, visualizations. This content is the exclusive property of the Operator, protected by the Swiss Copyright Act (CopA), by the rules against parasitic exploitation of another's work product (Art. 5 UCA).
 
 Cumulative derivative works. Each algorithmic, methodological or editorial update constitutes a new derivative work protected cumulatively. The end of the subscription grants no right of use over historically accessed versions.
 
@@ -140,7 +140,7 @@ The subscription grants the user a personal, non-exclusive and non-transferable 
 
 These rules protect the value of what you pay for: if Mettrik AI's content could be freely scraped or resold, the service you fund would lose its value. The user therefore undertakes not to:
 
-- Reverse-engineer the service, its code, its algorithms or its scoring methodologies, except in the cases strictly authorized by law;
+- Reverse-engineer the service, its code, its algorithms or its scoring methodologies;
 - Perform any automated data extraction (scraping, crawling, robots, scripts, plug-ins) outside any official APIs provided by Mettrik AI;
 - Attempt to circumvent technical limits (paywall, quotas, authentication, tokens, encryption);
 - Decompile, disassemble or modify the service's source code;
@@ -167,7 +167,7 @@ Any investment decision is the sole responsibility of the user. Past performance
 
 The Operator undertakes to provide the service with care and diligence: successive quality controls on data, cited sources, prompt correction of reported errors. That said, no data service can promise perfection: the service is provided "as is", without any warranty of fitness for a particular purpose, absence of errors, reliability, accuracy, completeness or continuity. This is precisely why every critical figure must be verified at the source before any decision.
 
-Limitation of liability. To the fullest extent permitted by applicable law, the Operator's liability for slight negligence is excluded, and the Operator's total aggregate liability towards the user, on all grounds combined, is strictly limited to the amount of subscriptions actually paid by the user over the 3 months preceding the triggering event, up to a maximum of €250. This limitation applies to any contractual or tortious action and includes without limitation: direct or indirect financial losses, loss of profit, loss of opportunity, moral prejudice, reputational harm. For free (Free) accounts, liability is limited to the fullest extent permitted by law. Liability for willful misconduct, gross negligence and personal injury remains reserved and cannot be excluded.
+Limitation of liability. To the fullest extent permitted by applicable law, the Operator's liability for slight negligence is excluded, and the Operator's total aggregate liability towards the user, on all grounds combined, is strictly limited to the amount of subscriptions actually paid by the user over the 3 months preceding the triggering event. This limitation applies to any contractual or tortious action and includes without limitation: direct or indirect financial losses, loss of profit, loss of opportunity, moral prejudice, reputational harm. For free (Free) accounts, liability is limited to the fullest extent permitted by law. Liability for willful misconduct, gross negligence and personal injury remains reserved and cannot be excluded.
 
 Individual handling of disputes. Every situation is reviewed individually: that is the guarantee of a real answer to your case rather than a mass procedure. To the extent permitted by applicable law, the user accordingly waives any form of collective action, group action or class action against the Operator.
 
@@ -189,9 +189,8 @@ A problem, a question, a disagreement? Write to contact@mettrik.ai: every compla
 
 ### III.8 Governing law and jurisdiction
 
-These Terms are governed by Swiss law, excluding its conflict-of-law rules and the Vienna Convention on the International Sale of Goods.
+These Terms are governed by Swiss law, excluding its conflict-of-law rules and the Vienna Convention on Contracts for the International Sale of Goods.
 
-- For professionals: exclusive jurisdiction of the ordinary courts of the Operator's seat (Kreuzlingen, canton of Thurgau, Switzerland), including in the event of multiple defendants or third-party proceedings.
-- For consumers: the jurisdiction of the courts of the Operator's seat applies subject to the mandatory jurisdiction provisions protecting the consumer in their state of habitual residence; the choice of Swiss law does not deprive the consumer of the protection of the mandatory provisions of the law of their state of habitual residence.
+Any dispute relating to these Terms falls within the exclusive jurisdiction of the ordinary courts of the Operator's registered office (Kreuzlingen, canton of Thurgau, Switzerland), even in the event of multiple defendants or third-party proceedings, subject only to mandatory rules on jurisdiction or applicable law binding on the Operator.
 
 If any provision of these Terms is held invalid or unenforceable, it shall be deemed replaced by the valid provision closest to the original intent, and the remaining provisions shall remain in full force.

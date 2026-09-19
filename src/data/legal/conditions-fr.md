@@ -128,7 +128,7 @@ Une facture est émise automatiquement à chaque échéance d'abonnement. Toutes
 Les contenus présentés sur Mettrik AI sont de deux natures :
 
 - Données primaires sources : chiffres financiers, déclarations, faits relatifs aux sociétés cotées analysées, issus de publications officielles (rapports annuels, trimestriels, communiqués réglementaires). Ces données restent la propriété de leurs auteurs respectifs.
-- Contenus générés et travaillés par Mettrik AI : méthodologies de scoring, indicateurs composites, interprétations éditoriales, analyses comparatives, scores de qualité, scores de risque, classements, agrégations, visualisations. Ces contenus sont la propriété exclusive de l'Exploitant, protégés par la loi fédérale suisse sur le droit d'auteur et les droits voisins (LDA), par les règles réprimant l'exploitation parasitaire d'une prestation d'autrui (art. 5 LCD), ainsi que par les conventions internationales applicables.
+- Contenus générés et travaillés par Mettrik AI : méthodologies de scoring, indicateurs composites, interprétations éditoriales, analyses comparatives, scores de qualité, scores de risque, classements, agrégations, visualisations. Ces contenus sont la propriété exclusive de l'Exploitant, protégés par la loi fédérale suisse sur le droit d'auteur et les droits voisins (LDA), par les règles réprimant l'exploitation parasitaire d'une prestation d'autrui (art. 5 LCD).
 
 Œuvres dérivées cumulatives. Chaque mise à jour algorithmique, méthodologique ou éditoriale constitue une œuvre dérivée nouvelle protégée de manière cumulative. La fin de l'abonnement ne donne aucun droit d'usage sur les versions accédées historiquement.
 
@@ -138,7 +138,7 @@ L'abonnement confère à l'utilisateur un droit d'usage personnel, non exclusif 
 
 Ces règles protègent la valeur de ce que vous payez : si les contenus de Mettrik AI pouvaient être aspirés ou revendus librement, le service que vous financez perdrait sa valeur. L'utilisateur s'engage donc à ne pas :
 
-- Procéder à toute forme de rétro-ingénierie du service, de son code, de ses algorithmes ou de ses méthodologies de scoring, sauf dans les cas strictement autorisés par la loi ;
+- Procéder à toute forme de rétro-ingénierie du service, de son code, de ses algorithmes ou de ses méthodologies de scoring ;
 - Effectuer toute extraction automatisée de données (scraping, crawling, robots, scripts, plug-ins) en dehors des éventuelles API officielles fournies par Mettrik AI ;
 - Tenter de contourner les limites techniques (paywall, quotas, authentification, jetons, chiffrements) ;
 - Décompiler, désassembler, modifier le code source du service ;
@@ -165,7 +165,7 @@ Toute décision d'investissement relève de la seule responsabilité de l'utilis
 
 L'Exploitant s'engage à fournir le service avec sérieux et diligence : contrôles qualité successifs sur les données, sources citées, correction rapide des erreurs signalées. Pour autant, aucun service de données ne peut promettre la perfection : le service est fourni « en l'état », sans garantie d'adéquation à un usage particulier, d'absence d'erreur, de fiabilité, d'exactitude, d'exhaustivité ou de continuité. C'est précisément pour cela que chaque donnée critique doit être vérifiée à la source avant toute décision.
 
-Limitation de responsabilité. Dans toute la mesure permise par le droit applicable, la responsabilité de l'Exploitant est exclue pour la faute légère, et la responsabilité totale et cumulée de l'Exploitant envers l'utilisateur, toutes causes confondues, est strictement limitée au montant des abonnements effectivement payés par l'utilisateur sur les 3 derniers mois précédant le fait générateur, dans la limite maximale de 250 €. Cette limitation s'applique à toute action contractuelle ou délictuelle, et inclut sans limitation : pertes financières directes ou indirectes, manque à gagner, perte de chance, préjudice moral, atteinte à la réputation. Pour les comptes gratuits (Free), la responsabilité est limitée dans toute la mesure permise par la loi. Demeure réservée la responsabilité pour dol, faute grave et dommages corporels, qui ne peut être exclue.
+Limitation de responsabilité. Dans toute la mesure permise par le droit applicable, la responsabilité de l'Exploitant est exclue pour la faute légère, et la responsabilité totale et cumulée de l'Exploitant envers l'utilisateur, toutes causes confondues, est strictement limitée au montant des abonnements effectivement payés par l'utilisateur sur les 3 derniers mois précédant le fait générateur. Cette limitation s'applique à toute action contractuelle ou délictuelle, et inclut sans limitation : pertes financières directes ou indirectes, manque à gagner, perte de chance, préjudice moral, atteinte à la réputation. Pour les comptes gratuits (Free), la responsabilité est limitée dans toute la mesure permise par la loi. Demeure réservée la responsabilité pour dol, faute grave et dommages corporels, qui ne peut être exclue.
 
 Traitement individuel des litiges. Chaque situation est examinée individuellement : c'est la garantie d'une vraie réponse à votre cas plutôt qu'une procédure de masse. Dans la mesure permise par le droit applicable, l'utilisateur renonce en conséquence à toute forme d'action collective, action de groupe ou recours collectif contre l'Exploitant.
 
@@ -189,7 +189,6 @@ Un problème, une question, un désaccord ? Écrivez à contact@mettrik.ai : cha
 
 Les présentes Conditions sont régies par le droit suisse, à l'exclusion de ses règles de conflit de lois et de la Convention de Vienne sur la vente internationale de marchandises.
 
-- Pour les professionnels : compétence exclusive des tribunaux ordinaires du siège de l'Exploitant (Kreuzlingen, canton de Thurgovie, Suisse), même en cas de pluralité de défendeurs ou d'appel en garantie.
-- Pour les particuliers : la compétence des tribunaux du siège de l'Exploitant s'applique sous réserve des dispositions impératives de compétence protégeant le consommateur dans son État de résidence habituelle ; le choix du droit suisse ne prive pas le consommateur de la protection des dispositions impératives du droit de son État de résidence habituelle.
+Tout litige relatif aux présentes Conditions relève de la compétence exclusive des tribunaux ordinaires du siège de l'Exploitant (Kreuzlingen, canton de Thurgovie, Suisse), même en cas de pluralité de défendeurs ou d'appel en garantie, sous la seule réserve des dispositions impératives de compétence ou de droit applicable qui s'imposeraient à l'Exploitant.
 
 Si une stipulation des présentes Conditions est jugée nulle ou inapplicable, elle est réputée remplacée par la stipulation valable la plus proche de l'intention initiale, et les autres stipulations demeurent pleinement en vigueur.
