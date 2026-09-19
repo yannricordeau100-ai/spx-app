@@ -649,3 +649,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.19.12 (19 Sep 2026 13:57, apres e4b06857b6)
 - Thèses américaines (22), Mon compte simplifié, Cloudflare compact/invisible, liens d'e-mail sur mettrik.ai, graphiques de plus de 18 mois retirés, fiches plus légères
+
+## v2026.09.19.13 (19 Sep 2026 14:45, apres e493c4c3cd)
+- Thèse et anti-thèse en bas de fiche, conditions allégées, thèses Oracle, Chevron, Palantir, Coca-Cola, Costco
