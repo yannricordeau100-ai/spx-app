@@ -661,3 +661,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.19.16 (19 Sep 2026 22:29, apres 00ffe92bd3)
 - 230 thèses d'investissement (44 françaises, 186 américaines)
+
+## v2026.09.19.17 (19 Sep 2026 23:11, apres 677bb38b01)
+- 286 thèses d'investissement (44 françaises, 242 américaines) ; Mon compte : le captcha invisible n'occupe plus d'espace ; 11 graphiques moyen terme Halliburton, L'Oréal, LVMH en attente d'approbation
