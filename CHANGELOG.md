@@ -637,3 +637,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.19.8 (19 Sep 2026 04:33, apres 12b7e3cba0)
 - FAQ visible en bas de l accueil, FactSet et Halliburton
+
+## v2026.09.19.9 (19 Sep 2026 10:45, apres 0dd5d03344)
+- Theses d investissement : LVMH, Hermes, TotalEnergies, L Oreal
