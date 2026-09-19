@@ -2327,12 +2327,6 @@ export function CompanyView({
             fait qu'afficher, att.locked pilote le placeholder flouté. */}
         {/* Yann 19 sept 2026 : la these d investissement (cas favorable) precede
             l anti-these. Meme gating plan Max, applique cote serveur. */}
-        {company.these && !isDisabled("these") && (
-          <TheseCard these={company.these} accent={accent} />
-        )}
-        {company.att && !isDisabled("anti_these") && (
-          <AntiTheseCard att={company.att} accent={accent} />
-        )}
 
 
 
@@ -2404,12 +2398,6 @@ export function CompanyView({
         {/* Provenance — Yann 26 mai 2026 : déplacée du haut (sous le header)
             vers le bas de page. Ligne discrète, italique, max-w-3xl, juste
             avant le footer. */}
-        <p className="mt-12 max-w-3xl text-[11.5px] italic leading-relaxed text-zinc-500">
-          {t("company.provenance")}
-        </p>
-
-        {/* Yann 14 sept 2026 : ligne de copyright retiree du bas de la fiche. */}
-        <div className="pb-8" />
         {/* Yann 15 sept 2026 : la synthese de l appel de resultats passe en bas de fiche. */}
         {/* Synthèse Earning Call — bullets PV-driven avec tooltip "i" auto
             sur abréviations / termes techniques. Format unique pour TOUTES
@@ -2432,6 +2420,18 @@ export function CompanyView({
         )}
         {/* Yann 16 sept 2026 : sources en dernier bloc de la fiche. */}
         <SourcesExternes ticker={company.ticker} paid={isPaidTier} />
+        {/* Yann 19 sept 2026 : these et anti-these tout en bas de la fiche,
+            apres la synthese du communique et les sources. Gating plan Max
+            deja applique cote serveur (these.locked / att.locked). */}
+        {company.these && !isDisabled("these") && (
+          <TheseCard these={company.these} accent={accent} />
+        )}
+        {company.att && !isDisabled("anti_these") && (
+          <AntiTheseCard att={company.att} accent={accent} />
+        )}
+        <p className="mt-10 max-w-3xl text-[11.5px] italic leading-relaxed text-zinc-500">
+          {t("company.provenance")}
+        </p>
         </ZoneReservee>
       </main>
 

@@ -38,24 +38,13 @@ Statut éditorial. Les contenus diffusés sur Mettrik AI constituent des opinion
 
 Les performances passées ne préjugent pas des performances futures. Toute décision d'investissement relève de la seule responsabilité de l'utilisateur.
 
-### I.2 Qualification de l'utilisateur (particulier ou professionnel)
-
-Lors de la création du compte ou de la souscription, l'utilisateur indique sa qualité : particulier (consommateur) ou professionnel (personne agissant dans le cadre de son activité professionnelle ou commerciale).
-
-La qualité professionnel est sélectionnée par défaut, reflétant la cible principale du service.
-
-Cette qualification détermine les régimes applicables :
-
-- Particuliers (B2C) : application des dispositions impératives de protection des consommateurs qui leur bénéficient (le cas échéant, les dispositions impératives de leur État de résidence habituelle), y compris le régime décrit à l'article II.4.
-- Professionnels (B2B) : aucune des protections consommateur ne s'applique ; les présentes Conditions s'appliquent dans leur intégralité sans tempérament.
-
-### I.3 Accès au service
+### I.2 Accès au service
 
 Le site est accessible 24 heures sur 24, 7 jours sur 7, sauf cas de force majeure ou opérations de maintenance. L'Exploitant ne saurait être tenu responsable des interruptions ou ralentissements du service.
 
 Certains contenus avancés sont réservés aux abonnés payants. Les modalités d'abonnement sont détaillées dans la Partie II ci-après.
 
-### I.4 Compte utilisateur (caractère personnel et nominatif)
+### I.3 Compte utilisateur (caractère personnel et nominatif)
 
 La création d'un compte est gratuite et donne accès à un nombre limité de sociétés en plan Free. L'utilisateur s'engage à fournir des informations exactes et à jour lors de son inscription, et à préserver la confidentialité de son mot de passe.
 
@@ -67,19 +56,17 @@ Pour protéger votre compte, vos données et l'équité entre abonnés, Mettrik 
 
 L'utilisateur est responsable de toute activité effectuée depuis son compte. En cas d'utilisation frauduleuse, il s'engage à en informer immédiatement Mettrik AI à l'adresse contact@mettrik.ai.
 
-### I.5 VPN et réseaux d'anonymisation
+### I.4 VPN et réseaux d'anonymisation
 
 Pour protéger les comptes contre la fraude et le piratage, l'accès au service via un réseau virtuel privé (VPN), un proxy, un service de masquage IP ou un réseau d'anonymisation (TOR, IPSec tunnel, services équivalents) n'est pas autorisé.
 
 Une connexion détectée via VPN ou proxy entraîne une suspension temporaire du compte, levée après vérification. Les VPN d'entreprise font l'objet d'un agrément préalable au cas par cas, sur demande motivée.
 
-### I.6 Obligations générales de l'utilisateur
+### I.5 Obligations générales de l'utilisateur
 
 L'utilisateur s'engage à utiliser le service conformément aux présentes Conditions et aux lois en vigueur, et à ne pas porter atteinte à la sécurité ou à l'intégrité du service. Les interdictions techniques et la clause anti-IA font l'objet de l'article III.2 ci-après.
 
-### I.7 Données et sources, délais d'actualisation
-
-Mettrik AI utilise des données financières publiquement disponibles, principalement extraites des dépôts réglementaires (10-K, 10-Q, 8-K aux États-Unis ; rapports équivalents en Europe et Asie). Chaque donnée est accompagnée d'un indicateur de fraîcheur et, lorsque possible, d'un lien vers la source originale.
+### I.6 Données et sources, délais d'actualisation
 
 Délai d'actualisation. Même lorsqu'une mention « en temps réel », « live », « à jour » ou équivalente est affichée, les données peuvent comporter un décalage de plusieurs secondes, plusieurs minutes voire plusieurs heures par rapport à la valeur effective sur les marchés (différé de feed, latences réseau, traitements algorithmiques, fenêtres de mise à jour). Mettrik AI ne garantit en aucun cas la disponibilité des données en temps réel strict.
 
@@ -87,7 +74,7 @@ Fournisseurs tiers. Certaines données (cours de bourse, référentiels, logos, 
 
 L'utilisateur est invité à vérifier les données critiques auprès des sources officielles avant toute décision d'investissement.
 
-### I.8 Mesure d'usage et de qualité de service
+### I.7 Mesure d'usage et de qualité de service
 
 Aux fins d'exploitation, de sécurisation, de facturation et d'amélioration du service, l'Exploitant collecte et analyse des données techniques et d'usage relatives à la navigation et à l'utilisation du site et des communications qui s'y rattachent (notamment pages consultées, interactions, performances techniques, incidents, suites données aux emails du service). Cette mesure est réalisée en première partie, pour le compte exclusif de l'Exploitant. Ses modalités, les catégories de données et les droits de l'utilisateur sont détaillés dans la politique de confidentialité, qui fait partie du corpus contractuel.
 
@@ -95,13 +82,12 @@ Aux fins d'exploitation, de sécurisation, de facturation et d'amélioration du 
 
 ### II.1 Offres d'abonnement
 
-Mettrik AI propose les abonnements suivants (prix de référence en euros, toutes taxes comprises (TTC) ; le prix affiché au moment du paiement dans la devise choisie fait seul foi) :
+Mettrik AI propose les abonnements suivants (le prix affiché sur la page Tarifs et au moment du paiement dans la devise choisie fait seul foi) :
 
-- Free : 0 € / mois. Accès limité. Le plan gratuit est une faculté offerte sans contrepartie : son périmètre peut être modifié, restreint ou supprimé à tout moment, sans préavis ni indemnité.
-- Premium mensuel : 29,90 € / mois. Accès complet aux sociétés couvertes, comparaison, watchlists, alertes.
-- Premium annuel : 238,80 € / an. Mêmes fonctionnalités, tarif préférentiel.
-- Max mensuel : 59,90 € / mois. Fonctionnalités étendues.
-- Max annuel : 478,80 € / an. Mêmes fonctionnalités, tarif préférentiel.
+- Free.
+- Premium (mensuel ou annuel).
+- Max (mensuel ou annuel).
+- Accès API pour les professionnels, sur demande.
 
 Tous les prix indiqués sur le site et au moment du paiement sont des prix TTC (toutes taxes comprises) : ce sont les prix finaux dus par l'utilisateur, sans aucun montant additionnel. Les paiements sont traités via le prestataire sécurisé Stripe (norme PCI-DSS).
 
