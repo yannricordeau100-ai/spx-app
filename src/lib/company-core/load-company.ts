@@ -3125,6 +3125,12 @@ async function loadV17CompanyBrut(
     if (att) {
       (company as Company & { att?: unknown }).att = att;
     }
+    // Yann 19 sept 2026 : these d investissement, meme mecanique que l ATT.
+    const { loadTheseForTicker } = await import("@/lib/these-server");
+    const these = await loadTheseForTicker(canonical);
+    if (these) {
+      (company as Company & { these?: unknown }).these = these;
+    }
   } catch (err) {
     console.warn("[load-company] att load failed", err);
   }

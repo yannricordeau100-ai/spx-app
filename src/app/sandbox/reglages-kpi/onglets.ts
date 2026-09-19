@@ -15,6 +15,7 @@ export const ONGLETS: { id: string; toggle: ToggleKpi; groupe: string; label: st
   { id: "industries", toggle: "voir", groupe: "Par industrie", label: "KPI par industrie", url: "/sandbox/gics", mots: "classification GICS, KPI attendus par sous-industrie, qui a quoi" },
   { id: "secteurs", toggle: "voir", groupe: "Par secteur", label: "KPI star par secteur", url: "/sandbox/kpi-secteurs", mots: "métrique reine par secteur (NIM, ratio combiné, FFO, production…), sociétés avec ou sans" },
   { id: "definitions", toggle: "voir", groupe: "Référentiel", label: "Définitions et unités", url: "/sandbox/kpi-definitions", mots: "référentiel, unités métiers, infobulles" },
+  { id: "theses", toggle: "voir", groupe: "Par société", label: "Thèses d’investissement", url: "/sandbox/theses", mots: "liste des thèses rédigées, style d'analyse, élément additionnel retirable" },
   { id: "constructeur", toggle: "creer", groupe: "Long terme", label: "Constructeur de KPI", url: "/sandbox/kpi-builder", mots: "créer un KPI multi-sociétés à partir d'une demande, extraction 10-K / 10-Q" },
   { id: "speciaux", toggle: "creer", groupe: "Long terme", label: "KPI spéciaux", url: "/sandbox/special-kpis", mots: "recherche manuelle hors documents (unités vendues, abonnés, livraisons)" },
   { id: "moyen-terme", toggle: "creer", groupe: "Moyen terme", label: "Indicateurs variés - Moyen terme", url: "/sandbox/image-findings", mots: "graphiques reconstruits depuis une demande, approuver ou retirer" },

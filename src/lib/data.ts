@@ -324,6 +324,9 @@ export type Company = {
    * page serveur : le contenu complet est réservé au plan Max.
    */
   att?: import("@/lib/att").CompanyAtt;
+  /** Thèse d'investissement (Yann 19 sept 2026), miroir favorable de l'anti-thèse,
+   *  chargée depuis src/data/these/<t>.json, gating plan Max via gateTheseForTier(). */
+  these?: import("@/lib/these").CompanyThese;
   hero_kpi: string; // matches KPI.short
   /**
    * Vrai quand `hero_kpi` vient de l'override humain Supabase

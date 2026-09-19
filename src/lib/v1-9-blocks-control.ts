@@ -22,7 +22,8 @@ export type BlockId =
   | "tam"
   | "unites"
   | "prochains_resultats"
-  | "antithese";
+  | "antithese"
+  | "these";
 
 export const BLOCK_LABELS: Record<BlockId, string> = {
   hero: "Hero KPI",
@@ -46,6 +47,7 @@ export const BLOCK_LABELS: Record<BlockId, string> = {
   unites: "Comprendre les unités (toutes les stés)",
   prochains_resultats: "Bandeau prix : Prochains résultats (archivé)",
   antithese: "Anti-thèse d’investissement",
+  these: "Thèse d’investissement",
 };
 
 export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
@@ -70,6 +72,7 @@ export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
   unites: "Le dépliant des unités du secteur arrive.",
   prochains_resultats: "La date des prochains résultats arrive.",
   antithese: "L’anti-thèse d’investissement est en préparation.",
+  these: "La thèse d’investissement est en préparation.",
 };
 
 type ControlData = {

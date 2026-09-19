@@ -19,6 +19,7 @@ import {
 import { chargeZonesFloutage } from "@/lib/desk/floutage-zones";
 import { zonesPourPalier, type PalierFloutage } from "@/lib/floutage";
 import { gateAttForTier } from "@/lib/att";
+import { gateTheseForTier } from "@/lib/these";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { tierDepuisAbonnement, tierPourFiche } from "@/lib/freemium/tier-serveur";
@@ -360,9 +361,11 @@ export default async function SandboxV195TickerPage({
   // le plan Max (l'admin/audit connecté est "max" par défaut). Les autres
   // tiers reçoivent uniquement titre + intensité + dates + hook + locked.
   freemiumTier = tierPourFiche(freemiumTier, ticker);
-  const gatedCompany = r.company.att
-    ? { ...r.company, att: gateAttForTier(r.company.att, freemiumTier) }
-    : r.company;
+  const gatedCompany = {
+    ...r.company,
+    ...(r.company.att ? { att: gateAttForTier(r.company.att, freemiumTier) } : {}),
+    ...(r.company.these ? { these: gateTheseForTier(r.company.these, freemiumTier) } : {}),
+  };
 
   // Yann 30 aout 2026 : palier gratuit et anonyme, le texte des zones
   // floutees est CAVIARDE ici, cote serveur, avant tout rendu. Le vrai texte

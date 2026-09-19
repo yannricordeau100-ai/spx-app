@@ -74,6 +74,7 @@ import { isGenericKpi } from "@/lib/kpi-generic";
 import { isTotalRevenueLabel } from "@/lib/kpi-total-revenue";
 import { RiskStack } from "@/components/risk-stack";
 import { AntiTheseCard } from "@/components/anti-these-card";
+import { TheseCard } from "@/components/these-card";
 import { AppelAbonnement } from "@/components/appel-abonnement";
 import { SourcesExternes } from "@/components/sources-externes";
 import { UnitesMateriaux } from "@/components/unites-materiaux";
@@ -2252,6 +2253,11 @@ export function CompanyView({
             sté (src/data/att/<t>.json ou override desk_att). Le gating plan
             Max est déjà appliqué côté serveur (gateAttForTier) : ici on ne
             fait qu'afficher, att.locked pilote le placeholder flouté. */}
+        {/* Yann 19 sept 2026 : la these d investissement (cas favorable) precede
+            l anti-these. Meme gating plan Max, applique cote serveur. */}
+        {company.these && !isDisabled("these") && (
+          <TheseCard these={company.these} accent={accent} />
+        )}
         {company.att && !isDisabled("anti_these") && (
           <AntiTheseCard att={company.att} accent={accent} />
         )}

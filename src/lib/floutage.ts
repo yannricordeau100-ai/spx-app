@@ -223,6 +223,7 @@ export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
   unites: ["tout", "titre", "tableau"],
   prochains_resultats: ["tout", "valeur"],
   antithese: ["tout", "titre", "texte"],
+  these: ["tout", "titre", "texte"],
 };
 
 /** Transforme des zones nommees en regles, pour reutiliser applyFloutageRules. */
