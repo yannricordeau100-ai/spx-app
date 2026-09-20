@@ -100,6 +100,49 @@ function dateCourteFr(iso: string | null | undefined): string {
   });
 }
 
+/**
+ * Sujets des graphiques d une demande, resumes sur une seule ligne.
+ * Le prefixe de societe (texte avant le premier deux-points) est retire
+ * seulement s il est commun a la majorite des graphiques de la demande.
+ * Trois sujets au maximum, puis « et N autres ».
+ */
+function sujetsDesGraphiques(rows: ImageFinding[]): string {
+  const titres = (rows ?? [])
+    .map((f) => (f.title ?? "").trim())
+    .filter((t) => t.length > 0);
+  if (titres.length === 0) return "";
+
+  // Comptage des prefixes candidats, pour ne retirer que le prefixe majoritaire.
+  const compte: Record<string, number> = {};
+  for (const t of titres) {
+    const i = t.indexOf(":");
+    if (i <= 0) continue;
+    const prefixe = t.slice(0, i).trim();
+    if (prefixe) compte[prefixe] = (compte[prefixe] ?? 0) + 1;
+  }
+  let prefixeMajoritaire = "";
+  let meilleur = 0;
+  for (const [prefixe, n] of Object.entries(compte)) {
+    if (n > meilleur) {
+      meilleur = n;
+      prefixeMajoritaire = prefixe;
+    }
+  }
+  const retirer = meilleur * 2 > titres.length ? prefixeMajoritaire : "";
+
+  const sujets = titres.map((t) => {
+    if (!retirer) return t;
+    const i = t.indexOf(":");
+    if (i <= 0) return t;
+    if (t.slice(0, i).trim() !== retirer) return t;
+    return t.slice(i + 1).trim() || t;
+  });
+
+  const visibles = sujets.slice(0, 3).join(", ");
+  const reste = sujets.length - 3;
+  return reste > 0 ? `${visibles} et ${reste} ${reste > 1 ? "autres" : "autre"}` : visibles;
+}
+
 function batchOf(platform: string | null | undefined) {
   if (!platform) return BATCH_META.web;
   return BATCH_META[platform] ?? { label: platform, short: platform, color: "#a1a1aa" };
@@ -451,6 +494,8 @@ function RequestRow({
   // anciennes), on retombe sur les 4 premiers caracteres de l identifiant.
   const numeroDemande = r.display_number ?? r.id.slice(0, 4);
   const dateCreation = dateCourteFr(r.created_at);
+  // Sujets des graphiques deja trouves, affiches sur la ligne de titre.
+  const sujets = sujetsDesGraphiques(findings);
 
   return (
     <div id={id} className="overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02]">
@@ -462,9 +507,14 @@ function RequestRow({
           #{numeroDemande}
         </span>
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <Search className="size-3.5 text-zinc-500" />
-            <span className="text-[13.5px] font-medium text-zinc-100">{r.query}</span>
+          <div className="flex min-w-0 items-center gap-2">
+            <Search className="size-3.5 shrink-0 text-zinc-500" />
+            <span className="truncate text-[13.5px] font-medium text-zinc-100">{r.query}</span>
+            {sujets && (
+              <span className="min-w-0 flex-1 truncate text-[11px] text-zinc-500" title={sujets}>
+                {sujets}
+              </span>
+            )}
           </div>
           <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-zinc-500">
             <span className="font-mono">
