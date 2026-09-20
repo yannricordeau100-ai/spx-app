@@ -25,6 +25,7 @@ declare global {
           theme?: "dark" | "light" | "auto";
           size?: "normal" | "flexible" | "compact";
           appearance?: "always" | "execute" | "interaction-only";
+          language?: string;
           callback?: (token: string) => void;
           "error-callback"?: (code?: string) => void;
           "expired-callback"?: () => void;
@@ -89,6 +90,12 @@ export function TurnstileWidget(props?: {
    *  jeton neuf. A appeler juste avant chaque envoi : un jeton ne vaut qu une
    *  verification et expire au bout de quelques minutes. */
   apiRef?: { current: { jetonFrais: () => Promise<string> } | null };
+  /** Yann 21 sept 2026 : langue officielle du widget Cloudflare. */
+  language?: string;
+  /** Yann 21 sept 2026 : « cadre » = habillage sobre aligne sur les champs du
+   *  formulaire sombre (bordure discrete, pleine largeur). Reserve aux pages
+   *  d authentification ; les autres emplacements gardent le rendu d origine. */
+  cadre?: boolean;
 }) {
   const fieldName = props?.fieldName ?? "cf-turnstile-response";
   // Yann 14 sept 2026 : cle publique relayee par app/layout.tsx quand elle est
@@ -109,6 +116,8 @@ export function TurnstileWidget(props?: {
   // vraiment un geste de l utilisateur. Sert au changement de mot de passe
   // depuis Mon compte, ou Supabase exige un jeton sans qu on veuille du visuel.
   const invisible = size === "invisible";
+  const language = props?.language ?? "fr";
+  const cadre = (props?.cadre ?? false) && !invisible;
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
@@ -131,6 +140,7 @@ export function TurnstileWidget(props?: {
             theme,
             size: invisible ? "flexible" : (size as "normal" | "flexible" | "compact"),
             appearance: invisible ? "interaction-only" : "always",
+            language,
             callback: (tok: string) => {
               setToken(tok);
               setStatus("ready");
@@ -169,7 +179,7 @@ export function TurnstileWidget(props?: {
         widgetIdRef.current = null;
       }
     };
-  }, [siteKey, theme, size]);
+  }, [siteKey, theme, size, language]);
 
   // Remise a zero apres chaque envoi du formulaire parent et sur signalReset :
   // Turnstile rend le meme jeton tant que le widget n est pas reinitialise.
@@ -244,26 +254,43 @@ export function TurnstileWidget(props?: {
       }
       aria-hidden={masque || undefined}
     >
-      <div
-        ref={containerRef}
-        className={
-          invisible
-            ? interactionRequise
-              ? "mx-auto w-full max-w-[330px] overflow-hidden"
-              : "h-0 w-0 overflow-hidden"
-            : size === "compact"
-              ? "mx-auto w-[150px] min-h-[140px]"
-              : "mx-auto w-full max-w-[330px] overflow-hidden"
-        }
-      />
+      {cadre ? (
+        // Yann 21 sept 2026 : habillage sobre pour les formulaires sombres.
+        // Le cadre (bordure + fond + marge interieure) n apparait qu a partir
+        // de 420 px de large : en dessous, la place disponible dans la fenetre
+        // d authentification tombe a la largeur minimale du widget Cloudflare
+        // (300 px), et la moindre marge rognerait la case a cocher. Aucun
+        // overflow masque, aucun pointer-events desactive ici : la case reste
+        // cliquable en toutes circonstances.
+        <div
+          className={`rounded-lg border-0 bg-transparent p-0 transition-colors min-[420px]:border min-[420px]:bg-white/[0.03] min-[420px]:p-2 ${
+            token ? "min-[420px]:border-emerald-400/30" : "min-[420px]:border-white/10"
+          }`}
+        >
+          <div ref={containerRef} className="w-full min-w-0" />
+        </div>
+      ) : (
+        <div
+          ref={containerRef}
+          className={
+            invisible
+              ? interactionRequise
+                ? "mx-auto w-full max-w-[330px] overflow-hidden"
+                : "h-0 w-0 overflow-hidden"
+              : size === "compact"
+                ? "mx-auto w-[150px] min-h-[140px]"
+                : "mx-auto w-full max-w-[330px] overflow-hidden"
+          }
+        />
+      )}
       <input type="hidden" name={fieldName} value={token} />
       {status === "error" && !invisible && (
-        <p className="mt-1 text-[11px] text-rose-400">
+        <p className="mt-1.5 text-[11px] text-rose-400">
           Captcha indisponible{codeErreur ? ` (code ${codeErreur})` : ""}. Recharge la page.
         </p>
       )}
       {status === "expired" && !invisible && (
-        <p className="mt-1 text-[11px] text-amber-400">
+        <p className="mt-1.5 text-[11px] text-amber-400">
           Captcha expiré. Recommence l'opération.
         </p>
       )}

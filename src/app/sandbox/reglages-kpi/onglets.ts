@@ -19,6 +19,9 @@ export const ONGLETS: { id: string; toggle: ToggleKpi; groupe: string; label: st
   { id: "speciaux", toggle: "creer", groupe: "Long terme", label: "KPI spéciaux", url: "/sandbox/special-kpis", mots: "recherche manuelle hors documents (unités vendues, abonnés, livraisons)" },
   { id: "moyen-terme", toggle: "creer", groupe: "Moyen terme", label: "Indicateurs variés - Moyen terme", url: "/sandbox/image-findings", mots: "graphiques reconstruits depuis une demande, approuver ou retirer" },
   { id: "court-terme", toggle: "creer", groupe: "Court terme", label: "Faits marquants - Court terme", url: "/sandbox/story-builder", mots: "stories du dernier trimestre depuis un lien" },
+  // Yann 21 sept 2026 : deux ateliers de recherche d indicateurs, en amont de la creation.
+  { id: "pistes", toggle: "creer", groupe: "Recherche", label: "Trouver les bons KPI", url: "/sandbox/kpi-pistes", mots: "questions des analystes, regulateurs, concurrents, referentiel, journees investisseurs" },
+  { id: "non-financiers", toggle: "creer", groupe: "Recherche", label: "Indicateurs non financiers", url: "/sandbox/kpi-non-financiers", mots: "par tickers, criteres cochables, propositions a valider" },
 ];
 
 export const TITRES: Record<ToggleKpi, string> = { voir: "Voir les KPI", creer: "Création KPI et données" };

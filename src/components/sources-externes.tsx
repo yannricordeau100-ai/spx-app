@@ -13,7 +13,8 @@ import SOURCES from "@/data/sources-externes.json";
 
 export function SourcesExternes({ ticker, paid }: { ticker: string; paid: boolean }) {
   // Yann 16 sept 2026 : Motley Fool et Wikipédia ne sont pas comptés comme sources.
-  const ECARTEES = /motley fool|wikip/i;
+  // Yann 21 sept 2026 : MarketBeat retiré de la liste des logos affichés.
+  const ECARTEES = /motley fool|wikip|marketbeat/i;
   const liste = (((SOURCES as { par_ticker: Record<string, string[]> }).par_ticker ?? {})[ticker.toUpperCase()] ?? []).filter((x) => !ECARTEES.test(x));
   const [ouvert, setOuvert] = useState(false);
   const boite = useRef<HTMLDivElement | null>(null);
@@ -36,7 +37,7 @@ export function SourcesExternes({ ticker, paid }: { ticker: string; paid: boolea
         className="flex w-full items-center gap-2.5 px-4 py-3 text-left hover:bg-white/[0.03]"
       >
         <ChevronRight className={`size-4 shrink-0 text-zinc-500 transition-transform ${ouvert ? "rotate-90" : ""}`} />
-        <span className="text-[13.5px] font-semibold text-zinc-200">Sources utilisées, hors documents de la société</span>
+        <span className="text-[13.5px] font-semibold text-zinc-200">Sources utilisées</span>
         <span className="ml-auto inline-flex items-center gap-1.5 font-mono text-[11px] text-zinc-500">
           {!paid && <Lock className="size-3" />}
           {liste.length} source{liste.length > 1 ? "s" : ""}

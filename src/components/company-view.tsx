@@ -56,6 +56,7 @@ import { ChartSettingsMenu, TimeUnitSelect, ChartFullscreen } from "@/components
 import { KpiRow } from "@/components/kpi-row";
 import { QualityBadge, QualityChipOnly, PercentileChipOnly } from "@/components/quality-badge";
 import { CompanyHeader } from "@/components/company-header";
+import { BandeauExclusif } from "@/components/bandeau-exclusif";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { PeriodToggle } from "@/components/period-toggle";
 import { InfoTooltip } from "@/components/info-tooltip";
@@ -1356,6 +1357,7 @@ export function CompanyView({
             </div>
           </nav>
 
+          <BandeauExclusif ticker={company.ticker} />
           <CompanyHeader
             company={company}
             hidePriceBar={hidePriceBar || isDisabled("snapshot_boursier")}
@@ -1440,6 +1442,7 @@ export function CompanyView({
             header) désactivable via /sandbox/v1-8/blocks-toggle. Quand
             désactivé, la description Mettrik passe full-width côté
             CompanyProfileCard (cf prop hideSnapshot ci-dessous). */}
+        <BandeauExclusif ticker={company.ticker} />
         <CompanyHeader
           company={company}
           hidePriceBar={hidePriceBar || isDisabled("snapshot_boursier")}
@@ -2418,8 +2421,6 @@ export function CompanyView({
         ) : (
           <BlockComingSoon blockId="transcripts" />
         )}
-        {/* Yann 16 sept 2026 : sources en dernier bloc de la fiche. */}
-        <SourcesExternes ticker={company.ticker} paid={isPaidTier} />
         {/* Yann 19 sept 2026 : these et anti-these tout en bas de la fiche,
             apres la synthese du communique et les sources. Gating plan Max
             deja applique cote serveur (these.locked / att.locked). */}
@@ -2429,6 +2430,9 @@ export function CompanyView({
         {company.att && !isDisabled("anti_these") && (
           <AntiTheseCard att={company.att} accent={accent} />
         )}
+        {/* Yann 21 sept 2026 : le bloc des sources passe tout en bas de la fiche,
+            apres la these et l anti-these. */}
+        <SourcesExternes ticker={company.ticker} paid={isPaidTier} />
         <p className="mt-10 max-w-3xl text-[11.5px] italic leading-relaxed text-zinc-500">
           {t("company.provenance")}
         </p>

@@ -302,7 +302,7 @@ export function AuthModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center px-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center px-3 sm:px-4"
         >
           <button
             type="button"
@@ -316,7 +316,7 @@ export function AuthModal() {
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 10, opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0e] p-6 shadow-[0_30px_120px_-20px_rgba(139,92,246,0.45)]"
+            className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0e] p-4 sm:p-6 shadow-[0_30px_120px_-20px_rgba(139,92,246,0.45)]"
           >
             <div
               aria-hidden
@@ -421,9 +421,7 @@ export function AuthModal() {
                       className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
                     />
                   </Field>
-                  <div className="flex justify-center">
-                    <TurnstileWidget theme="dark" size="compact" />
-                  </div>
+                  <TurnstileWidget theme="dark" size="flexible" cadre />
                   <SubmitButton>{t("auth.cta.send_reset")}</SubmitButton>
                 </form>
                 <button
@@ -481,9 +479,14 @@ export function AuthModal() {
                         className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
                       />
                     </Field>
-                    <div className="flex justify-center">
-                      <TurnstileWidget key={cleMontageCaptcha} signalReset={cleCaptcha} theme="dark" size="compact" apiRef={apiCaptcha} />
-                    </div>
+                    <TurnstileWidget
+                      key={cleMontageCaptcha}
+                      signalReset={cleCaptcha}
+                      theme="dark"
+                      size="flexible"
+                      cadre
+                      apiRef={apiCaptcha}
+                    />
                     {signinErr && (
                       <div className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-[12.5px] text-rose-200">
                         {signinErr}
@@ -526,9 +529,7 @@ export function AuthModal() {
                     </Field>
                     {/* Captcha Turnstile : token injecté dans le form en tant
                         que champ caché 'cf-turnstile-response'. */}
-                    <div className="flex justify-center">
-                      <TurnstileWidget theme="dark" size="compact" />
-                    </div>
+                    <TurnstileWidget theme="dark" size="flexible" cadre />
                     <SubmitButton>{t("auth.cta.signup")}</SubmitButton>
                     {/* Yann 18 sept 2026 : la case « ne pas recevoir d offres » est deplacee dans Mon compte. */}
                     {/* Yann 31 aout 2026 : acceptation par le clic (clickwrap).
