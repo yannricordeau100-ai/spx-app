@@ -688,3 +688,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.20.7 (20 Sep 2026 16:38, apres 5061441ceb)
 - Thèses d'investissement : univers complet, 670 sociétés sur 671
+
+## v2026.09.20.8 (20 Sep 2026 18:16, apres 41669fb478)
+- Thèse Wolters Kluwer, univers complet 671, réglage du nombre de graphiques moyen terme
