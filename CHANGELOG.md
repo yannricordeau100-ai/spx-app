@@ -682,3 +682,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.20.5 (20 Sep 2026 13:04, apres 847cf559ed)
 - 366 thèses d'investissement (44 françaises, 322 américaines)
+
+## v2026.09.20.6 (20 Sep 2026 14:32, apres 758487a6ce)
+- Thèses d'investissement : 43 sociétés supplémentaires (485 au total), graphiques extérieurs vérifiés
