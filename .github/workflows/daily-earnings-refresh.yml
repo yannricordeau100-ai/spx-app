@@ -3,7 +3,7 @@
 # les nouveaux 10-Q/10-K dans la foulée. Yann 12 mai 2026.
 #
 # Logique :
-#   1. Récupère le top 307 V1.8 (univers de référence).
+#   1. Univers de référence : les 666 sociétés V1.9.5 (indices), filtre en aval.
 #   2. Pour chaque sté dont `next_earnings_date < today` :
 #      a. Pull les filings SEC EDGAR les plus récents (fetch-filing-dates.py)
 #      b. Update `latest_filing` dans v2-pipeline-enrich/<ticker>.json
@@ -50,24 +50,26 @@ jobs:
       - name: Install Python deps
         run: pip install yfinance pandas
 
-      - name: Refresh SEC EDGAR filing dates (top 307 V1.8)
-        # Yann 4 sept 2026 : le script attend --top, pas --limit. L option
-        # inconnue faisait echouer la tache des la premiere etape (code 2).
-        run: python3 scripts/fetch-filing-dates.py --top 666
+      - name: Refresh SEC EDGAR filing dates (univers 666)
+        run: python3 scripts/fetch-filing-dates.py --limit 640
         env:
           PYTHONUNBUFFERED: "1"
 
-      - name: Refresh yfinance next_earnings_date (top 307)
-        run: python3 scripts/earnings-dates-yfinance.py --limit 640 --workers 20
+      - name: Refresh yfinance next_earnings_date (univers 666)
+        run: python3 scripts/earnings-dates-yfinance.py --workers 20
         env:
           PYTHONUNBUFFERED: "1"
 
       # Yann 14 mai 2026 : snapshot boursier (market cap, P/E, EPS, beta,
       # dividende, plus-haut/plus-bas 52 sem, variation jour) actualisé
       # quotidiennement. Source = yfinance (gratuit). Effet :
-      # `financial_snapshot` à jour chaque jour pour le top 307.
-      - name: Refresh yfinance financial_snapshot (top 307)
-        run: python3 scripts/enrich-company-profile-yfinance.py --limit 640 --force
+      # `financial_snapshot` à jour chaque jour pour l univers 666.
+      - name: Refresh yfinance financial_snapshot (univers 666)
+        # 19 sept 2026 (Yann) : plus de --limit. Le script lit desormais
+        # l univers (671 societes) et non les 640 premieres entrees de
+        # v1-7-public, sinon ~149 societes (surtout europeennes) n avaient
+        # jamais de capitalisation rafraichie.
+        run: python3 scripts/enrich-company-profile-yfinance.py --force
         env:
           PYTHONUNBUFFERED: "1"
         continue-on-error: true
@@ -95,6 +97,30 @@ jobs:
           PYTHONUNBUFFERED: "1"
         continue-on-error: true
 
+      # 7 sept 2026 : rangs (mondial, Etats-Unis, secteur, sous-industrie) et
+      # ordre de capitalisation de l univers recalcules chaque jour depuis
+      # yfinance (aucun jeton d IA), puis grille de l accueil retriee.
+      # 13 sept 2026 (Yann) : calendrier des publications (passe + 200 jours),
+      # entierement gratuit. MarketBeat couvre les societes americaines,
+      # stockanalysis.com les autres places. FMP est devenu facultatif : sans
+      # cle, build-earnings-calendar.py fusionne simplement les deux sources.
+      - name: Refresh earnings calendar (MarketBeat US, stockanalysis autres places)
+        env:
+          FMP_PAID_API_KEY: ${{ secrets.FMP_PAID_API_KEY }}
+          FMP_API_KEY: ${{ secrets.FMP_PAID_API_KEY }}
+        run: |
+          python3 scripts/marketbeat-calendar.py || true
+          python3 scripts/stockanalysis-calendar.py || true
+          python3 scripts/build-earnings-calendar.py || true
+
+      - name: Refresh ranks and market cap order (univers 666)
+        run: |
+          python3 scripts/ranks-univers.py --workers 6
+          python3 scripts/build-home-wow.py
+        env:
+          PYTHONUNBUFFERED: "1"
+        continue-on-error: true
+
       - name: Rebuild merged dataset
         run: npx tsx scripts/build-v2-pipeline-merged.ts
 
@@ -108,10 +134,10 @@ jobs:
           # l univers = indices seulement (666 stes, v1-9-5-clean-all-tickers.json).
           # On ne committe que les fichiers enrich des stes de cette liste.
           ENRICH=$(python3 -c "import json,glob,os; d=json.load(open('src/data/v1-9-5-clean-all-tickers.json')); ok={t.lower() for t in (d['tickers'] if isinstance(d,dict) else d)}; print(' '.join(f for f in glob.glob('src/data/v2-pipeline-enrich/*.json') if os.path.basename(f).split('.')[0].lower() in ok))")
-          git add $ENRICH src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json $FOREIGN 2>/dev/null || true
+          git add $ENRICH src/data/earnings-calendar.json src/data/earnings-calendar-marketbeat.json src/data/earnings-calendar-stockanalysis.json src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json src/data/market-cap-order.json src/data/home-wow-kpis.json $FOREIGN 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Aucun changement détecté, skip commit."
           else
-            git commit -m "data(freshness): daily refresh top 307 V1.8 (cron $(date -u +%Y-%m-%d))"
+            git commit -m "data(freshness): daily refresh univers 666 (cron $(date -u +%Y-%m-%d))"
             git push origin staging
           fi
