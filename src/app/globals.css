@@ -269,6 +269,23 @@ body { zoom: 1.1; }
    zoom du parent suffit. */
 html[data-integre="1"] body { zoom: 1; }
 
+/* Yann 20 sept 2026 (correction de fond) : la page hote des toggles a onglets
+   est une coquille calee sur la fenetre (« fixed inset-0 »). Un element cale
+   sur la fenetre place sous un corps zoome est calcule sur la fenetre entiere
+   PUIS agrandi par le zoom : il devient 10 % plus large que l ecran, d ou le
+   defilement horizontal et le contenu coupe une fois la page poussee vers la
+   droite. On retire donc le zoom du site sur cette page hote uniquement : la
+   coquille retrouve la taille exacte de la fenetre dans tous les navigateurs.
+   Le zoom du site est rendu a la page affichee dans le cadre (regle suivante),
+   donc l echelle visible ne change pas. */
+body:has(.coquille-onglets) { zoom: 1; }
+
+/* Une page affichee en plein cadre par un toggle a onglets dispose de toute la
+   largeur de la fenetre : elle reprend le zoom normal du site, comme si elle
+   etait ouverte directement. Les petits apercus (floutage, maquettes e-mail)
+   gardent le zoom neutre de la regle ci-dessus. */
+html[data-integre="1"][data-cadre="plein"] body { zoom: 1.1; }
+
 
 /* Yann 07 sept 2026 : en theme jour (fond blanc), les logos de societe sont
    retires des pages ste et de l accueil ; le texte occupe l espace. */

@@ -137,11 +137,16 @@ export default async function RootLayout({
             toggles a onglets). Le zoom global du site est alors deja applique
             par la page parente ; sans cette marque il se cumulerait et la page
             embarquee perdrait 17 % de sa largeur de mise en page. Pose avant le
-            rendu du corps pour eviter tout saut visuel. */}
+            rendu du corps pour eviter tout saut visuel.
+            20 sept (soir) : une page affichee en plein cadre (parametre
+            « cadre=plein ») dispose de toute la largeur de la fenetre et
+            reprend le zoom normal du site ; la page hote, elle, n a plus de
+            zoom, sans quoi sa coquille calee sur la fenetre debordait de 10 %
+            et le contenu se retrouvait coupe. */}
         <script
           id="marque-cadre"
           dangerouslySetInnerHTML={{
-            __html: `try{if(window.self!==window.top)document.documentElement.setAttribute("data-integre","1")}catch(e){document.documentElement.setAttribute("data-integre","1")}`,
+            __html: `try{if(window.self!==window.top){var h=document.documentElement;h.setAttribute("data-integre","1");if(location.search.indexOf("cadre=plein")>-1)h.setAttribute("data-cadre","plein")}}catch(e){document.documentElement.setAttribute("data-integre","1")}`,
           }}
         />
         {/* Yann 3 sept 2026 : Vercel refuse de marquer "sensible" une variable

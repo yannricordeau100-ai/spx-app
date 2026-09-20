@@ -21,9 +21,14 @@ export function ReglagesKpiClient({ jeton, ongletInitial, toggle }: { jeton: str
   // Yann 20 sept 2026 : coquille calee sur la fenetre. « h-screen » valait 110 %
   // de la hauteur visible a cause du zoom global (body { zoom: 1.1 }) : la page
   // etait plus grande que l ecran et la barre d onglets partait au defilement.
-  // « fixed inset-0 » donne exactement la fenetre, quel que soit le zoom.
+  // « fixed inset-0 » donne exactement la fenetre, a condition qu aucun zoom ne
+  // soit applique au-dessus : la classe « coquille-onglets » retire le zoom du
+  // site sur cette page hote (regle dans globals.css), sinon la coquille etait
+  // calculee sur la fenetre entiere puis agrandie de 10 %, d ou le defilement
+  // horizontal et le contenu coupe. Le zoom du site est rendu aux pages
+  // affichees dans les cadres par le parametre « cadre=plein ».
   return (
-    <div className="fixed inset-0 flex w-full min-w-0 max-w-full flex-col overflow-hidden bg-[#050505] text-zinc-100">
+    <div className="coquille-onglets fixed inset-0 flex w-full min-w-0 max-w-full flex-col overflow-hidden bg-[#050505] text-zinc-100">
       <nav className="flex w-full min-w-0 max-w-full shrink-0 flex-wrap items-center gap-1.5 border-b border-white/10 px-4 py-2.5">
         <span className="mr-2 font-display text-[15px] font-bold">{TITRES[toggle]}</span>
         {groupes.map((g) => (
@@ -43,7 +48,7 @@ export function ReglagesKpiClient({ jeton, ongletInitial, toggle }: { jeton: str
       {/* Chaque onglet est chargé à la première ouverture, puis conservé (les filtres et saisies ne se perdent pas). */}
       <div className="relative min-h-0 w-full min-w-0 max-w-full flex-1">
         {onglets.filter((o) => vus.has(o.id)).map((o) => (
-          <iframe key={o.id} title={o.label} src={o.url + q} className={`absolute inset-0 h-full w-full border-0 ${onglet === o.id ? "" : "hidden"}`} />
+          <iframe key={o.id} title={o.label} src={`${o.url}${q ? `${q}&` : "?"}cadre=plein`} className={`absolute inset-0 h-full w-full border-0 ${onglet === o.id ? "" : "hidden"}`} />
         ))}
       </div>
     </div>
