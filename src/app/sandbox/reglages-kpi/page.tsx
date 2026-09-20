@@ -22,5 +22,5 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
   if (sp.onglet && ONGLETS.some((o) => o.id === sp.onglet && o.toggle === "voir")) {
     redirect(`/sandbox/voir-kpi?onglet=${sp.onglet}${parJeton ? `&audit_token=${encodeURIComponent(sp.audit_token ?? "")}` : ""}`);
   }
-  return <ReglagesKpiClient toggle="creer" jeton={parJeton ? sp.audit_token ?? null : null} ongletInitial={sp.onglet ?? "constructeur"} />;
+  return <ReglagesKpiClient toggle="creer" jeton={parJeton ? sp.audit_token ?? null : null} ongletInitial={sp.onglet ?? "speciaux"} />;
 }

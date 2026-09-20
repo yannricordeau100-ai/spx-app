@@ -2,8 +2,7 @@
  * story-kpis.ts — file de création de KPI "story" à partir d'une SOURCE WEB
  * (article, page investisseurs, communiqué) ou d'un POST X (lien du post).
  *
- * Yann 26 août 2026. Troisième outil de création, à côté de :
- *   - kpi-builder    → KPI intégré au tableau "Indicateurs clés"
+ * Yann 26 août 2026. Outil de création, à côté de :
  *   - special-kpis   → bloc graphique dédié
  *   - story-kpis     → carte du bloc "Stories" (celui-ci)
  *

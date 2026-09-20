@@ -125,19 +125,10 @@ const SECTIONS: SandboxSection[] = [
         accent: "highlight",
         mots: ["création", "données", "long terme", "moyen terme", "court terme", "graphiques", "stories"],
         onglets: [
-          { onglet: "constructeur", label: "Constructeur de KPI", mots: "KPI multi-sociétés depuis une demande" },
           { onglet: "speciaux", label: "KPI spéciaux", mots: "recherche manuelle hors documents" },
           { onglet: "moyen-terme", label: "Moyen terme", mots: "graphiques reconstruits, approuver / retirer" },
           { onglet: "court-terme", label: "Court terme", mots: "stories depuis un lien" },
         ],
-      },
-      {
-        href: "/sandbox/kpi-builder",
-        mots: ["créer un KPI", "indicateur sur mesure", "extraction depuis les documents", "nouvel indicateur", "ajouter une métrique"],
-        icon: Wrench,
-        label: "KPI builder (sur mesure)",
-        desc: "Décris le KPI en langage naturel, choisis les sociétés, lance l'extraction depuis les documents déposés.",
-        accent: "orange" as const,
       },
       {
         href: "/sandbox/special-kpis",
@@ -329,7 +320,7 @@ const SECTIONS: SandboxSection[] = [
         desc: "Nouveaux dépôts SEC (8-K / 10-Q / 10-K) détectés par le cron 7h30 à intégrer dans les blocs société (risks, stories, profit_warning, ai_positioning).",
       },
       {
-        // Yann (25 mai 2026) : kpi-builder + special-kpis + image-findings
+        // Yann (25 mai 2026) : special-kpis + image-findings
         // + page-content + blocks-control DÉPLACÉS vers la section
         // "🎨 Création & personnalisation" pour les rassembler. Lien
         // restant ici uniquement pour quality-tree (audit data, pas

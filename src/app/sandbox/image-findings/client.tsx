@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import DEMANDES_PAR_STE from "@/data/kpi-mt-demandes.json";
 import KPI_SECTEURS_ETAT from "@/data/kpi-secteurs-etat.json";
 import Link from "next/link";
@@ -18,6 +18,7 @@ import {
   Bell,
   RotateCw,
 } from "lucide-react";
+import { ImageLightbox } from "@/components/desk/image-lightbox";
 import type {
   ImageFindingRequest,
   ImageFinding,
@@ -291,11 +292,14 @@ export function ImageFindingsClient({
         return;
       }
     }
-    await fetch(`/api/desk/image-findings/${reqId}/findings`, {
+    const rep = await fetch(`/api/desk/image-findings/${reqId}/findings`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(p),
     });
+    // L appelant a besoin de connaitre l echec (retour au titre precedent,
+    // affichage du message) : on remonte une erreur au lieu de l ignorer.
+    if (!rep.ok) throw new Error((await rep.text()) || "Enregistrement refusé");
     const f = await fetch(`/api/desk/image-findings/${reqId}/findings`).then((x) => x.json());
     setFindings((prev) => ({ ...prev, [reqId]: f.rows }));
     await refresh();
@@ -704,14 +708,26 @@ function FindingCard({
 }) {
   const [busy, setBusy] = useState(false);
   const [imgFailed, setImgFailed] = useState(false);
+  // Ouverture de la fenetre d agrandissement du graphique.
+  const [agrandi, setAgrandi] = useState(false);
 
   async function patch(p: Partial<ImageFinding>) {
     setBusy(true);
     try {
       await onUpdate({ ...p, id: f.id });
+    } catch (e) {
+      alert(`Erreur : ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setBusy(false);
     }
+  }
+
+  /**
+   * Meme mise a jour que patch(), mais l erreur remonte a l appelant pour
+   * qu il puisse revenir a l ancienne valeur (edition du titre en ligne).
+   */
+  async function patchBrut(p: Partial<ImageFinding>) {
+    await onUpdate({ ...p, id: f.id });
   }
 
   const batch = batchOf(f.source_platform);
@@ -735,6 +751,14 @@ function FindingCard({
   const allLangsActive = allLocales.every((l) => f.languages.includes(l));
 
   return (
+    <>
+    {agrandi && estUneImage && (
+      <ImageLightbox
+        src={displaySrc}
+        alt={f.title ?? "graphique"}
+        onClose={() => setAgrandi(false)}
+      />
+    )}
     <div
       className={`overflow-hidden rounded-xl border ${
         f.approved
@@ -769,9 +793,15 @@ function FindingCard({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {estUneImage && <img
           src={displaySrc}
-          alt={f.title ?? "graph"}
-          className="size-full object-contain"
+          alt={f.title ?? "graphique"}
+          title="Cliquer pour agrandir le graphique"
+          className="size-full cursor-zoom-in object-contain"
           referrerPolicy="no-referrer"
+          onClick={(e) => {
+            // Le clic ne doit pas declencher les actions de la vignette.
+            e.stopPropagation();
+            setAgrandi(true);
+          }}
           onError={() => {
             if (!imgFailed && fallback) setImgFailed(true);
           }}
@@ -793,18 +823,11 @@ function FindingCard({
         )}
       </div>
       <div className="space-y-2 p-3">
-        {f.title && (
-          <div
-            className={`text-[12.5px] font-semibold line-clamp-2 ${
-              isLow
-                ? "text-rose-300 underline decoration-rose-400 decoration-wavy underline-offset-4"
-                : "text-zinc-100"
-            }`}
-            title={isLow ? "Pertinence incertaine — relis bien" : undefined}
-          >
-            {f.title}
-          </div>
-        )}
+        <TitreModifiable
+          titre={f.title}
+          isLow={isLow}
+          onEnregistrer={(titre) => patchBrut({ title: titre })}
+        />
         {f.summary && (
           <div className="text-[11.5px] text-zinc-400 line-clamp-3">{f.summary}</div>
         )}
@@ -955,6 +978,136 @@ function FindingCard({
           </button>
         </div>
       </div>
+    </div>
+    </>
+  );
+}
+
+/* ─── Titre du graphique modifiable en ligne ────────────────────── */
+/**
+ * Un clic sur le titre le transforme en champ de saisie. La touche Entree
+ * valide, la touche Echap annule, la perte de focus enregistre aussi.
+ * En cas d echec, on revient a l ancien titre et le message est affiche.
+ */
+function TitreModifiable({
+  titre,
+  isLow,
+  onEnregistrer,
+}: {
+  titre: string | null;
+  isLow: boolean;
+  onEnregistrer: (titre: string) => Promise<void>;
+}) {
+  const [edition, setEdition] = useState(false);
+  const [valeur, setValeur] = useState(titre ?? "");
+  const [enregistrement, setEnregistrement] = useState(false);
+  const [erreur, setErreur] = useState<string | null>(null);
+  // Evite un enregistrement parasite quand la sortie du champ vient d Echap.
+  const annule = useRef(false);
+
+  useEffect(() => {
+    if (!edition) setValeur(titre ?? "");
+  }, [titre, edition]);
+
+  async function valider() {
+    const propre = valeur.trim();
+    if (propre === (titre ?? "").trim()) {
+      setEdition(false);
+      return;
+    }
+    setEnregistrement(true);
+    setErreur(null);
+    try {
+      await onEnregistrer(propre);
+      setEdition(false);
+    } catch (e) {
+      setValeur(titre ?? "");
+      setEdition(false);
+      setErreur(e instanceof Error ? e.message : String(e));
+    } finally {
+      setEnregistrement(false);
+    }
+  }
+
+  if (edition) {
+    return (
+      <div className="space-y-1">
+        <input
+          type="text"
+          autoFocus
+          value={valeur}
+          disabled={enregistrement}
+          onChange={(e) => setValeur(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              void valider();
+            } else if (e.key === "Escape") {
+              e.preventDefault();
+              annule.current = true;
+              setValeur(titre ?? "");
+              setEdition(false);
+            }
+          }}
+          onBlur={() => {
+            if (annule.current) {
+              annule.current = false;
+              return;
+            }
+            void valider();
+          }}
+          placeholder="Titre du graphique"
+          className={`w-full rounded border border-cyan-500/40 bg-black/40 px-2 py-1 text-[12.5px] font-semibold text-zinc-100 ${
+            enregistrement ? "opacity-50" : ""
+          }`}
+        />
+        <div className="text-[10px] text-zinc-500">
+          {enregistrement
+            ? "Enregistrement en cours..."
+            : "Entrée pour valider, Échap pour annuler"}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-1">
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={(e) => {
+          // Le clic sur le titre ne doit pas declencher les actions de la vignette.
+          e.stopPropagation();
+          setErreur(null);
+          setEdition(true);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setErreur(null);
+            setEdition(true);
+          }
+        }}
+        title={
+          isLow
+            ? "Pertinence incertaine, relis bien. Cliquer pour modifier le titre"
+            : "Cliquer pour modifier le titre"
+        }
+        className={`cursor-text rounded px-0.5 text-[12.5px] font-semibold line-clamp-2 hover:bg-white/[0.05] ${
+          titre
+            ? isLow
+              ? "text-rose-300 underline decoration-rose-400 decoration-wavy underline-offset-4"
+              : "text-zinc-100"
+            : "italic text-zinc-500"
+        }`}
+      >
+        {titre || "Ajouter un titre"}
+      </div>
+      {erreur && (
+        <div className="text-[10.5px] text-rose-300">
+          Titre non enregistré : {erreur}
+        </div>
+      )}
     </div>
   );
 }

@@ -381,6 +381,33 @@ function KpiForm({
   const [allowPartial, setAllowPartial] = useState(paramsInit.allow_partial_tickers);
   const [storyCat, setStoryCat] = useState(row?.story_category ?? "");
   const [desc, setDesc] = useState(row?.description ?? "");
+  // Yann 20 sept 2026 : suggestion automatique des sociétés à partir de la
+  // description du KPI (reprise de l'ancien constructeur de KPI, supprimé).
+  const [suggEnCours, setSuggEnCours] = useState(false);
+  const [suggMsg, setSuggMsg] = useState("");
+  async function suggererSocietes() {
+    const description = desc.trim();
+    if (!description) { setSuggMsg("Renseigne d'abord la description du KPI."); return; }
+    setSuggEnCours(true);
+    setSuggMsg("");
+    try {
+      const res = await fetch("/api/desk-mtk9x4kp/kpi-search-tickers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ description }),
+      });
+      const j = (await res.json()) as { tickers?: string[]; rationale?: string; error?: string };
+      if (!res.ok) { setSuggMsg(j.error ?? `Erreur HTTP ${res.status}`); return; }
+      const tickers = Array.isArray(j.tickers) ? j.tickers : [];
+      if (tickers.length === 0) { setSuggMsg("Aucune société pertinente trouvée."); return; }
+      setTargets(tickers.join(", "));
+      setSuggMsg(`${tickers.length} société(s) proposée(s). ${j.rationale ?? ""}`.trim());
+    } catch (e) {
+      setSuggMsg((e as Error).message);
+    } finally {
+      setSuggEnCours(false);
+    }
+  }
 
   // i18n + annotations
   // Init kpi_name_i18n : si vide mais row.kpi_name_fr/en présents → seed.
@@ -423,15 +450,26 @@ function KpiForm({
             />
           </label>
         ) : (
-          <label className="text-[11.5px]">
+          <div className="text-[11.5px]">
             <div className="mb-1 text-zinc-400">Tickers (séparés virgule)</div>
-            <input
-              value={targets}
-              onChange={(e) => setTargets(e.target.value.toUpperCase())}
-              placeholder="AAPL, GOOGL, META"
-              className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 font-mono text-[12.5px] text-zinc-100"
-            />
-          </label>
+            <div className="flex gap-2">
+              <input
+                value={targets}
+                onChange={(e) => setTargets(e.target.value.toUpperCase())}
+                placeholder="AAPL, GOOGL, META"
+                className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 font-mono text-[12.5px] text-zinc-100"
+              />
+              <button
+                type="button"
+                onClick={suggererSocietes}
+                disabled={suggEnCours}
+                className="shrink-0 rounded-lg border border-violet-400/30 bg-violet-500/10 px-3 py-2 text-[11.5px] text-violet-100 disabled:opacity-50"
+              >
+                {suggEnCours ? "Recherche..." : "Suggérer les sociétés"}
+              </button>
+            </div>
+            {suggMsg ? <div className="mt-1 text-[11px] text-zinc-400">{suggMsg}</div> : null}
+          </div>
         )}
         <label className="text-[11.5px]">
           <div className="mb-1 text-zinc-400">KPI short (acronyme)</div>
