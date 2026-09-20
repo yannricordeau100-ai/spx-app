@@ -54,7 +54,13 @@ ENV = ROOT / ".env.local"
 # US : 8-K (communiqué), ER (exhibit résultats), EP (présentation), 10-Q/10-K.
 # Hors US : CP (communiqué), SLIDES (présentation), TRIM, RFS (semestriel), URD.
 DOC_DIRS_US = ("ER", "8K", "EP", "10Q", "10K")
-DOC_DIRS_EU = ("ir/CP", "ir/SLIDES", "ir/TRIM", "ir/RFS", "ir/URD")
+# ir/SEMESTRIEL, ir/PRESENTATION et ir/S1 sont les dossiers ou la chaine
+# post-resultats depose les documents depuis le 18 sept 2026 : sans eux,
+# les semestriels europeens restaient invisibles et l extraction relisait
+# de vieux URD (Yann, 21 sept 2026).
+DOC_DIRS_EU = ("ir/CP", "ir/SLIDES", "ir/TRIM", "ir/RFS", "ir/URD",
+               "ir/SEMESTRIEL", "ir/PRESENTATION", "ir/S1", "ir/COMMUNIQUES",
+               "ir/COMMUNIQUE", "ir/PRES")
 MAX_DOCS = 4
 MAX_CHARS_PER_DOC = 60000
 
@@ -164,6 +170,21 @@ def period_key(label: str) -> int:
 
 # ── 2. Documents de la publication ──────────────────────────────────────────
 
+def date_doc(chemin: Path) -> tuple:
+    """Date du document, lue dans son nom de fichier plutot que dans le mtime :
+    un vieux depot retelecharge recemment prenait la tete du classement et
+    l extraction relisait 2014 au lieu de la publication du mois
+    (Yann, 21 sept 2026). Le mtime ne sert plus que de departage."""
+    m = re.search(r"(20\d{2})-(\d{2})-(\d{2})", chemin.name)
+    d = m.group(0) if m else ""
+    # Une date posterieure a aujourd hui vient d un nom de fichier errone
+    # (vu sur NTAP, un trimestre de l an dernier date en 2026) : on ne la
+    # laisse pas prendre la tete du classement.
+    if d > datetime.now(timezone.utc).date().isoformat():
+        d = ""
+    return (d, chemin.stat().st_mtime)
+
+
 def documents(ticker: str) -> list[Path]:
     """Tous les documents récents, US et hors US confondus, les plus récents
     d'abord. On prend plusieurs types : un chiffre absent du communiqué se
@@ -179,7 +200,7 @@ def documents(ticker: str) -> list[Path]:
             continue
         for pattern in ("*.pdf", "*.htm.gz", "*.html.gz", "*.txt.gz", "*.htm"):
             found.extend(d.glob(pattern))
-    found.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+    found.sort(key=date_doc, reverse=True)
     # Un meme document existe souvent en deux formats (.pdf et .txt.gz) : on ne
     # garde qu'un exemplaire par document, le texte plutot que le PDF.
     uniques: dict[str, Path] = {}
@@ -188,7 +209,7 @@ def documents(ticker: str) -> list[Path]:
         actuel = uniques.get(cle)
         if actuel is None or (actuel.suffix == ".pdf" and chemin.suffix != ".pdf"):
             uniques[cle] = chemin
-    dedup = sorted(uniques.values(), key=lambda p: p.stat().st_mtime, reverse=True)
+    dedup = sorted(uniques.values(), key=date_doc, reverse=True)
     return dedup[:MAX_DOCS]
 
 

@@ -82,10 +82,14 @@ def kpi_maj(t):
         if not d: continue
         ks = d.get("kpis") if isinstance(d, dict) else d
         for k in (ks or []):
-            for champ in ("_maj_le", "last_data_date", "_extrait_le"):
+            # `last_data_date` est la fin de la periode couverte par la donnee,
+            # pas la date du traitement : l utiliser faisait passer pour "a jour"
+            # des fiches dont les KPI dataient de mai (Yann, 21 sept 2026).
+            for champ in ("_maj_le", "_extrait_le"):
                 v = k.get(champ) if isinstance(k, dict) else None
                 if isinstance(v, str) and re.match(r"^\d{4}-\d{2}-\d{2}", v):
                     v = v[:10]
+                    if v > AUJ.isoformat(): continue   # date future : ignoree
                     if best is None or v > best: best = v
     return best
 
