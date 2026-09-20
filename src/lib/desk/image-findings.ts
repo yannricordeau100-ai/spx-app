@@ -61,6 +61,10 @@ export type ImageFinding = {
   /** i18n summary (= bloc "Lecture") : { fr, en, de } — fallback sur summary si vide. */
   summary_i18n?: LocalizedString;
   detected_kpi_topics: string[];
+  /** Yann 20 sept 2026 : nom du KPI d industrie que ce graphique couvre
+   *  (referentiel docs/cahier/donnees). Affiche en gras sur la ligne de titre
+   *  de la demande. Vide pour les graphiques hors KPI d industrie. */
+  industry_kpi?: string | null;
   approved: boolean;
   rejected: boolean;
   /** Yann 17 mai 2026 : toggle sandbox admin "afficher la lecture sur la

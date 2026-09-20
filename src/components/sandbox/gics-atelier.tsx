@@ -168,6 +168,7 @@ export function GicsAtelier({
   prompts,
   annuaire,
   donnees = {},
+  graphiquesMt = {},
   relecture = { intro: "", points: [] },
   jeton = null,
 }: {
@@ -176,6 +177,9 @@ export function GicsAtelier({
   annuaire: AnnuaireGics;
   /** Resultats de la recherche de donnees KPI par societe (docs/cahier/donnees). */
   donnees?: Record<string, DonneesSociete>;
+  /** Yann 20 sept 2026 : KPI d industrie couverts par un graphique moyen terme,
+   *  par ticker puis par code de KPI : « approuve » (en ligne) ou « attente ». */
+  graphiquesMt?: Record<string, Record<string, "approuve" | "attente">>;
   relecture?: { intro: string; points: PointRelecture[] };
   /** Jeton d audit (verifications automatiques) ; null pour le proprietaire connecte. */
   jeton?: string | null;
@@ -233,7 +237,7 @@ export function GicsAtelier({
             <div className="mt-6">
               <Arbre
                 mode="societes"
-                rendu={(sub) => <ListeSocietes liste={annuaire.parSousIndustrie[sub.code] ?? []} donnees={donnees} />}
+                rendu={(sub) => <ListeSocietes liste={annuaire.parSousIndustrie[sub.code] ?? []} donnees={donnees} graphiquesMt={graphiquesMt} />}
                 compte={(sub) => {
                   const liste = annuaire.parSousIndustrie[sub.code] ?? [];
                   const n = liste.length;
@@ -586,7 +590,7 @@ function TiroirsKpi({ doc, code }: { doc?: KpiParSousIndustrie; code: string }) 
 
 /* ───────────── Sociétés d une sous-industrie ───────────── */
 
-function ListeSocietes({ liste, donnees }: { liste: { ticker: string; name: string }[]; donnees: Record<string, DonneesSociete> }) {
+function ListeSocietes({ liste, donnees, graphiquesMt = {} }: { liste: { ticker: string; name: string }[]; donnees: Record<string, DonneesSociete>; graphiquesMt?: Record<string, Record<string, "approuve" | "attente">> }) {
   if (liste.length === 0) {
     return <div className="rounded-xl border border-dashed border-white/15 px-4 py-3 text-[13px] text-zinc-500">Aucune société de l’univers classée ici.</div>;
   }
@@ -601,7 +605,7 @@ function ListeSocietes({ liste, donnees }: { liste: { ticker: string; name: stri
               <span className="min-w-0 flex-1 truncate text-[13.5px] text-zinc-200">{s.name}</span>
               <ExternalLink className="size-3.5 shrink-0 text-zinc-600" />
             </Link>
-            {d && <StatutsKpi d={d} />}
+            {d && <StatutsKpi d={d} mt={graphiquesMt[s.ticker.toUpperCase()] ?? {}} />}
           </li>
         );
       })}
@@ -617,7 +621,7 @@ const STATUT_DONNEE: Record<string, { label: string; cls: string }> = {
   autre: { label: "autre", cls: "border-zinc-500/40 bg-zinc-500/10 text-zinc-300" },
 };
 
-function StatutsKpi({ d }: { d: DonneesSociete }) {
+function StatutsKpi({ d, mt = {} }: { d: DonneesSociete; mt?: Record<string, "approuve" | "attente"> }) {
   const [ouvert, setOuvert] = useState(false);
   return (
     <div className="border-t border-white/[0.06] px-3 py-2">
@@ -639,6 +643,13 @@ function StatutsKpi({ d }: { d: DonneesSociete }) {
             <li key={k.short} className="text-[12px]">
               <div className="flex flex-wrap items-center gap-1.5">
                 <span className={`rounded-full border px-1.5 py-px text-[9.5px] uppercase tracking-wider ${st.cls}`}>{st.label}</span>
+                {mt[k.short] && (
+                  <span
+                    className={`rounded-full border px-1.5 py-px text-[9.5px] uppercase tracking-wider ${mt[k.short] === "approuve" ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-200" : "border-amber-400/40 bg-amber-500/10 text-amber-200"}`}
+                  >
+                    {mt[k.short] === "approuve" ? "graphique en ligne" : "graphique en attente"}
+                  </span>
+                )}
                 <span className="text-zinc-200">{k.nom_fr ?? k.short}</span>
                 {detail && <span className="text-zinc-500">· {detail}</span>}
               </div>

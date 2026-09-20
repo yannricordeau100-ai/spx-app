@@ -106,6 +106,20 @@ function dateCourteFr(iso: string | null | undefined): string {
  * seulement s il est commun a la majorite des graphiques de la demande.
  * Trois sujets au maximum, puis « et N autres ».
  */
+/**
+ * Yann 20 sept 2026 : pour les demandes nees de la recherche des KPI d industrie,
+ * le nom du KPI d industrie couvert est ecrit en gras sur la ligne de titre.
+ * Les graphiques hors referentiel n ont pas de nom : ils restent dans les sujets.
+ */
+function kpisDIndustrie(rows: ImageFinding[]): string[] {
+  const vus: string[] = [];
+  for (const f of rows ?? []) {
+    const n = (f.industry_kpi ?? "").trim();
+    if (n && !vus.includes(n)) vus.push(n);
+  }
+  return vus;
+}
+
 function sujetsDesGraphiques(rows: ImageFinding[]): string {
   const titres = (rows ?? [])
     .map((f) => (f.title ?? "").trim())
@@ -496,6 +510,7 @@ function RequestRow({
   const dateCreation = dateCourteFr(r.created_at);
   // Sujets des graphiques deja trouves, affiches sur la ligne de titre.
   const sujets = sujetsDesGraphiques(findings);
+  const kpisIndustrie = kpisDIndustrie(findings);
 
   return (
     <div id={id} className="overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02]">
@@ -510,6 +525,15 @@ function RequestRow({
           <div className="flex min-w-0 items-center gap-2">
             <Search className="size-3.5 shrink-0 text-zinc-500" />
             <span className="truncate text-[13.5px] font-medium text-zinc-100">{r.query}</span>
+            {kpisIndustrie.length > 0 && (
+              <span
+                className="shrink-0 truncate text-[11.5px] font-bold text-zinc-200"
+                title={`KPI d’industrie : ${kpisIndustrie.join(", ")}`}
+              >
+                {kpisIndustrie.slice(0, 3).join(", ")}
+                {kpisIndustrie.length > 3 ? ` et ${kpisIndustrie.length - 3} autres` : ""}
+              </span>
+            )}
             {sujets && (
               <span className="min-w-0 flex-1 truncate text-[11px] text-zinc-500" title={sujets}>
                 {sujets}

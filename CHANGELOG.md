@@ -700,3 +700,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.20.11 (20 Sep 2026 18:51, apres 0d0380fcd3)
 - Fenêtres de réglages ajustées à la largeur de l'écran
+
+## v2026.09.20.12 (20 Sep 2026 20:48, apres bf2d024b17)
+- onglets sans ecran blanc, KPI d industrie en gras, pastilles graphiques sur la page GICS

@@ -8,6 +8,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
 import { lireAnnuaireGics, lireDonneesKpi, lireKpiParSousIndustrie, lirePrompts, lireRelecture } from "@/lib/cahier";
 import V17_PUBLIC from "@/data/v1-7-public.json";
@@ -35,6 +36,30 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
   for (const [t, v] of Object.entries(COMPANIES)) noms[t.toUpperCase()] = v.name;
   const arbitrages = await lireArbitragesGics();
   const [kpiParSousIndustrie, prompts, annuaire, donnees, relecture] = await Promise.all([lireKpiParSousIndustrie(), lirePrompts(), lireAnnuaireGics(noms, arbitrages), lireDonneesKpi(), lireRelecture()]);
+  // Yann 20 sept 2026 : les graphiques moyen terme produits pour combler un KPI
+  // d industrie doivent se voir ici (croisement par code de KPI). Pastille verte si le graphique est approuve,
+  // ambre tant qu il attend l approbation. Les statuts du cahier ne bougent pas.
+  const graphiquesMt: Record<string, Record<string, "approuve" | "attente">> = {};
+  try {
+    const admin = createSupabaseAdminClient();
+    const { data } = await admin
+      .from("desk_image_findings")
+      .select("industry_kpi_short,target_tickers,approved,rejected")
+      .not("industry_kpi_short", "is", null);
+    for (const f of (data ?? []) as { industry_kpi_short: string; target_tickers: string[] | null; approved: boolean; rejected: boolean }[]) {
+      if (f.rejected) continue;
+      for (const t of f.target_tickers ?? []) {
+        const cle = String(t).toUpperCase();
+        graphiquesMt[cle] = graphiquesMt[cle] ?? {};
+        if (f.approved || graphiquesMt[cle][f.industry_kpi_short] !== "approuve") {
+          graphiquesMt[cle][f.industry_kpi_short] = f.approved ? "approuve" : "attente";
+        }
+      }
+    }
+  } catch {
+    /* base indisponible : la page reste utilisable sans les pastilles */
+  }
+
   const nbGroupes = GICS.reduce((t, s) => t + s.groups.length, 0);
   const nbIndustries = GICS.reduce((t, s) => t + s.groups.reduce((u, g) => u + g.industries.length, 0), 0);
   const nbSous = GICS.reduce((t, s) => t + s.groups.reduce((u, g) => u + g.industries.reduce((v, i) => v + i.subs.length, 0), 0), 0);
@@ -54,7 +79,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
           {GICS.length} secteurs, {nbGroupes} groupes d’industries, {nbIndustries} industries, {nbSous} sous-industries (structure GICS 2023). Puis, par sous-industrie, les KPI qu’un investisseur attend, et les prompts qui servent à les trouver.
         </p>
         <div className="mt-6">
-          <GicsAtelier kpiParSousIndustrie={kpiParSousIndustrie} prompts={prompts} annuaire={annuaire} donnees={donnees} relecture={relecture} jeton={parJeton ? sp.audit_token ?? null : null} />
+          <GicsAtelier kpiParSousIndustrie={kpiParSousIndustrie} prompts={prompts} annuaire={annuaire} donnees={donnees} graphiquesMt={graphiquesMt} relecture={relecture} jeton={parJeton ? sp.audit_token ?? null : null} />
         </div>
       </main>
     </div>

@@ -9,6 +9,10 @@ export function ReglagesKpiClient({ jeton, ongletInitial, toggle }: { jeton: str
   const groupes = Array.from(new Set(onglets.map((o) => o.groupe)));
   const [onglet, setOnglet] = useState(onglets.some((o) => o.id === ongletInitial) ? ongletInitial : onglets[0].id);
   const [vus, setVus] = useState<Set<string>>(new Set([onglet]));
+  // Yann 20 sept 2026 : une page lourde (Indicateurs variés) met plusieurs
+  // secondes a repondre ; le cadre restait blanc pendant ce temps. On garde la
+  // trace des cadres reellement charges pour afficher un voile sombre a la place.
+  const [charges, setCharges] = useState<Set<string>>(new Set());
   useEffect(() => {
     setVus((v) => new Set(v).add(onglet));
     const u = new URL(window.location.href);
@@ -48,8 +52,22 @@ export function ReglagesKpiClient({ jeton, ongletInitial, toggle }: { jeton: str
       {/* Chaque onglet est chargé à la première ouverture, puis conservé (les filtres et saisies ne se perdent pas). */}
       <div className="relative min-h-0 w-full min-w-0 max-w-full flex-1">
         {onglets.filter((o) => vus.has(o.id)).map((o) => (
-          <iframe key={o.id} title={o.label} src={`${o.url}${q ? `${q}&` : "?"}cadre=plein`} className={`absolute inset-0 h-full w-full border-0 ${onglet === o.id ? "" : "hidden"}`} />
+          <iframe
+            key={o.id}
+            title={o.label}
+            src={`${o.url}${q ? `${q}&` : "?"}cadre=plein`}
+            onLoad={() => setCharges((c) => new Set(c).add(o.id))}
+            className={`absolute inset-0 h-full w-full border-0 bg-[#050505] ${onglet === o.id ? "" : "hidden"}`}
+          />
         ))}
+        {!charges.has(onglet) && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#050505]">
+            <span className="flex items-center gap-2 text-[13px] text-zinc-400">
+              <span className="size-3.5 animate-spin rounded-full border-2 border-violet-400/40 border-t-violet-300" />
+              Chargement de {onglets.find((o) => o.id === onglet)?.label}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

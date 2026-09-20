@@ -108,6 +108,15 @@ else:
         # Repli si la migration desired_count n est pas encore appliquee en base.
         _corps.pop('desired_count',None); _cree=req('desk_image_findings_requests','POST',_corps)
     rid=_cree[0]['id']
+# Yann 20 sept 2026 : nom lisible du KPI d industrie couvert (referentiel
+# docs/cahier/donnees), ecrit sur le finding pour l affichage en gras.
+NOMS_KPI={}
+import glob as _glob
+for _f in _glob.glob('docs/cahier/donnees/*.json'):
+    try: _d=json.load(open(_f))
+    except Exception: continue
+    for _k in _d.get('kpis',[]):
+        if _k.get('nom_fr') and _k.get('short') and _k['short'] not in NOMS_KPI: NOMS_KPI[_k['short']]=_k['nom_fr']
 os.makedirs('scripts/specs-findings/societes',exist_ok=True)
 for e in ok_specs:
     sp=e['spec']; sp['dossier']=f"public/findings/societes/{T.lower()}"; p=f"scripts/specs-findings/societes/{sp['slug']}.json"; json.dump(sp,open(p,'w'),ensure_ascii=False,indent=1)
@@ -118,6 +127,6 @@ for e in ok_specs:
     # Regle Yann 19 sept 2026 : jamais de source de plus de 18 mois
     vieille,motif=source_trop_vieille(e.get('source_date'))
     if vieille: print(f"REJET source de plus de 18 mois : {sp['slug']} ({motif})"); continue
-    d=req('desk_image_findings','POST',{'request_id':rid,'target_tickers':[T],'languages':['fr'],'source_url':e.get('source_url'),'source_author':None,'source_platform':e.get('source_platform'),'source_date':normdate(e.get('source_date')),'image_url':e.get('source_url'),'image_local_path':loc,'title':sp['titre'],'caption':sp.get('sous_titre'),'summary':e.get('summary_fr'),'approved':False,'rejected':False,'show_summary':True})
+    d=req('desk_image_findings','POST',{'request_id':rid,'target_tickers':[T],'languages':['fr'],'source_url':e.get('source_url'),'source_author':None,'source_platform':e.get('source_platform'),'source_date':normdate(e.get('source_date')),'image_url':e.get('source_url'),'image_local_path':loc,'industry_kpi':NOMS_KPI.get(e.get('kpi_short') or ''),'title':sp['titre'],'caption':sp.get('sous_titre'),'summary':e.get('summary_fr'),'approved':False,'rejected':False,'show_summary':True})
     print('insere',sp['slug'],d[0]['id'][:8] if d else d)
 req(f"desk_image_findings_requests?id=eq.{rid}",'PATCH',{'findings_count':len(ok_specs),'status':'pending_review'})
