@@ -676,3 +676,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.20.3 (20 Sep 2026 10:05, apres d9be324b88)
 - 333 thèses d'investissement ; graphiques marge opérationnelle et PE prévisionnel LVMH et Hermès (demande Yann)
+
+## v2026.09.20.4 (20 Sep 2026 10:11, apres 771329767f)
+- 345 thèses d'investissement ; export des graphiques moyen terme redessiné (en-tête compact, rangée multi-sociétés, titre sans dates, barre du pseudo espacée) et page de concepts ; toggles à onglets sans débordement
