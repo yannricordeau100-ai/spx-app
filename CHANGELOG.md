@@ -709,3 +709,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.20.14 (20 Sep 2026 22:12, apres bfb88f32fb)
 - page concept : indicateurs Netflix non financiers
+
+## v2026.09.20.15 (20 Sep 2026 23:21, apres 133e8db0ac)
+- graphique des heures visionnees Netflix, six semestres
