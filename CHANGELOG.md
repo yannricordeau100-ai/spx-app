@@ -703,3 +703,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.20.12 (20 Sep 2026 20:48, apres bf2d024b17)
 - onglets sans ecran blanc, KPI d industrie en gras, pastilles graphiques sur la page GICS
+
+## v2026.09.20.13 (20 Sep 2026 22:06, apres 7ff9ce3c18)
+- page concept : bandeau des indicateurs introuvables ailleurs
