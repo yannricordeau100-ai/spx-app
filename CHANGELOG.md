@@ -667,3 +667,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.19.18 (19 Sep 2026 23:47, apres 74086d863c)
 - 329 thèses d'investissement (44 françaises, 285 américaines) ; cadres et numérotation des parties des thèses et anti-thèses ; « sté » remplacé par « société » sur tout le site ; règle des 18 mois en dur dans l'outil moyen terme ; capitalisation quotidienne sur les 671 sociétés ; FAQ : phrase d'introduction retirée ; 41 graphiques moyen terme en attente d'approbation
+
+## v2026.09.20.1 (20 Sep 2026 02:52, apres c0a7dd937e)
+- 333 thèses d'investissement ; graphiques marge opérationnelle et PE prévisionnel Hermès (demande Yann, en attente d'approbation)
