@@ -16,14 +16,18 @@ name: Image Findings Autorun
 #   - GITHUB_DISPATCH_TOKEN       (pour le webhook depuis Vercel API)
 
 on:
-  schedule:
+  # Yann 21 sept 2026 : ROBOT DESACTIVE. Laisse seul, il produisait des
+  # resultats hors sujet (un article universitaire rattache a Netflix, avec
+  # une image inexistante) qui polluaient la file d approbation. Le
+  # declenchement automatique est coupe ; le declenchement manuel reste.
+  # schedule:
     # Filet de sécurité 2h : récupère les claude_pending au cas où le
     # webhook depuis Vercel API fail. Yann 18 mai 2026.
-    - cron: '0 */2 * * *'
-  repository_dispatch:
-    # Déclenché par /api/desk/image-findings POST action=mark_claude_pending
-    # via GitHub API. Type d'event = 'image-findings-launch'.
-    types: [image-findings-launch]
+    # - cron: '0 */2 * * *'
+  # Yann 21 sept 2026 : le bouton « Lancer » ne reveille plus ce robot. La
+  # demande passe en attente et c est une session Claude qui la traite.
+  # repository_dispatch:
+  #   types: [image-findings-launch]
   workflow_dispatch: # bouton manuel "Run workflow" depuis l'UI Actions
     inputs:
       request_id:

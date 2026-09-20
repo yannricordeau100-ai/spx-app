@@ -56,7 +56,6 @@ import { ChartSettingsMenu, TimeUnitSelect, ChartFullscreen } from "@/components
 import { KpiRow } from "@/components/kpi-row";
 import { QualityBadge, QualityChipOnly, PercentileChipOnly } from "@/components/quality-badge";
 import { CompanyHeader } from "@/components/company-header";
-import { BandeauExclusif } from "@/components/bandeau-exclusif";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { PeriodToggle } from "@/components/period-toggle";
 import { InfoTooltip } from "@/components/info-tooltip";
@@ -1357,8 +1356,7 @@ export function CompanyView({
             </div>
           </nav>
 
-          <BandeauExclusif ticker={company.ticker} />
-          <CompanyHeader
+            <CompanyHeader
             company={company}
             hidePriceBar={hidePriceBar || isDisabled("snapshot_boursier")}
             freeBlocked={false}
@@ -1442,7 +1440,6 @@ export function CompanyView({
             header) désactivable via /sandbox/v1-8/blocks-toggle. Quand
             désactivé, la description Mettrik passe full-width côté
             CompanyProfileCard (cf prop hideSnapshot ci-dessous). */}
-        <BandeauExclusif ticker={company.ticker} />
         <CompanyHeader
           company={company}
           hidePriceBar={hidePriceBar || isDisabled("snapshot_boursier")}

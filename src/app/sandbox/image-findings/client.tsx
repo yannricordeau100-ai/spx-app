@@ -763,6 +763,23 @@ function jpegFallbackPath(svgPath: string): string | null {
   return `${m[1]}.jpg`;
 }
 
+/**
+ * Yann 21 sept 2026 : double systeme d affichage. Safari refusait d afficher
+ * certains SVG locaux et montrait un carre avec un point d interrogation.
+ * Chaque SVG a desormais un jumeau PNG (scripts/findings-png.js) : on sert le
+ * PNG d abord, qui ne depend d aucun moteur de rendu vectoriel, et on revient
+ * au SVG puis au JPEG d origine si le fichier manque.
+ */
+function chaineDeSecours(chemin: string): string[] {
+  if (!chemin) return [];
+  const liste: string[] = [];
+  if (chemin.startsWith("/") && /\.svg$/i.test(chemin)) liste.push(chemin.replace(/\.svg$/i, ".png"));
+  liste.push(chemin);
+  const jpeg = jpegFallbackPath(chemin);
+  if (jpeg) liste.push(jpeg);
+  return liste;
+}
+
 function isLowConfidence(notes: string | null): boolean {
   return !!(notes && notes.includes("[FLAG:LOW]"));
 }
@@ -781,7 +798,8 @@ function FindingCard({
   allLocales: readonly string[];
 }) {
   const [busy, setBusy] = useState(false);
-  const [imgFailed, setImgFailed] = useState(false);
+  // Rang dans la chaine de secours : 0 = PNG, 1 = SVG, 2 = JPEG d origine.
+  const [imgFailed, setImgFailed] = useState(0);
   // Ouverture de la fenetre d agrandissement du graphique.
   const [agrandi, setAgrandi] = useState(false);
 
@@ -810,9 +828,12 @@ function FindingCard({
   // navigateur affiche la 1re page du PDF ou autre contenu non pertinent.
   // Fallback `image_url` uniquement si pas de SVG local. JPEG fallback en
   // dernier recours pour les batches wave-2X-raw/.
-  const fallback = jpegFallbackPath(f.image_url);
   const primarySrc = f.image_local_path || f.image_url;
-  const displaySrc = imgFailed && fallback ? fallback : primarySrc;
+  const secours = chaineDeSecours(primarySrc);
+  // imgFailed compte les echecs successifs : on descend la chaine PNG, SVG, JPEG.
+  const rang = imgFailed;
+  const displaySrc = secours[Math.min(rang, secours.length - 1)] ?? primarySrc;
+  const fallback = rang > 0;
   // Yann 27 aout 2026 : certaines passes enregistrent l adresse de la PAGE
   // source (huggingface.co/papers/..., x.com/.../status/...) au lieu d une
   // image. Le navigateur affichait alors une vignette cassee. On detecte le
@@ -877,7 +898,8 @@ function FindingCard({
             setAgrandi(true);
           }}
           onError={() => {
-            if (!imgFailed && fallback) setImgFailed(true);
+            const suivant = imgFailed + 1;
+            if (suivant < secours.length) setImgFailed(suivant);
           }}
         />}
         <span
@@ -887,7 +909,7 @@ function FindingCard({
         >
           {batch.short}
         </span>
-        {imgFailed && fallback && (
+        {fallback && (
           <span
             className="absolute right-2 top-2 rounded-md bg-amber-500/30 px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-amber-200 ring-1 ring-amber-500/50"
             title="Le SVG vectoriel n'a pas pu charger, image originale (JPEG) affichée"

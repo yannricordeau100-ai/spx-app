@@ -154,6 +154,8 @@ function CompanyName({
   );
 }
 
+import { BandeauExclusif } from "@/components/bandeau-exclusif";
+
 function StatChip({ label, value }: { label: string; value: string | null | undefined }) {
   // Yann (12 mai 2026) : chips compactes pour tenir tous les rangs sur
   // 1 ligne horizontale. Labels plus petits, padding réduit.
@@ -334,6 +336,8 @@ export function CompanyHeader({
         </div>
         {!hidePriceBar && <StockPriceBlock company={company} freeBlocked={freeBlocked} />}
       </div>
+
+      <BandeauExclusif ticker={company.ticker} accent={accent} />
 
       {/* Yann (12 mai 2026) : tous les rangs sur UNE ligne horizontale.
           flex-nowrap + overflow-x-auto = scroll discret si overflow petit

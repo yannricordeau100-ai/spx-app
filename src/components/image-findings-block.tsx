@@ -195,10 +195,24 @@ export function ImageFindingsBlock({
             <div ref={boxRef} className="size-full [&>svg]:size-full [&>svg]:object-contain" dangerouslySetInnerHTML={{ __html: inlineSvg }} />
           ) : (
             <img
-              src={f.image_local_path || f.image_url}
+              /* Yann 21 sept 2026 : double systeme. Quand le SVG n a pas pu etre
+                 charge en ligne, on sert le jumeau PNG (scripts/findings-png.js),
+                 qui s affiche sur tous les navigateurs, Safari compris, et on
+                 revient au SVG si le PNG manque. */
+              src={
+                f.image_local_path && f.image_local_path.endsWith(".svg")
+                  ? f.image_local_path.replace(/\.svg$/, ".png")
+                  : f.image_local_path || f.image_url
+              }
               alt={displayTitle ?? tt("image_findings.image_alt_fallback")}
               className="size-full object-contain"
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (f.image_local_path && img.getAttribute("src") !== f.image_local_path) {
+                  img.setAttribute("src", f.image_local_path);
+                }
+              }}
             />
           )}
         </div>
