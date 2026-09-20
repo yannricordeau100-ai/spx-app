@@ -529,3 +529,19 @@ plus de broadcast inter-conv.
 Convention multi-conv abrogée par Yann le 29 mai 2026 (Phase 3B). Plus
 d'ack obligatoire des broadcasts inter-conv.
 
+
+## 0duodecies. LIENS VERS L OUTILLAGE : JAMAIS SUR mettrik.ai (PERMANENT, Yann 20 sept 2026)
+
+Depuis le 19 septembre 2026, `src/proxy.ts` (constante `PREFIXES_INTERNES`)
+renvoie un **404 sec** sur le domaine public pour `/sandbox`, `/admin`,
+`/desk-mtk9x4kp` et `/email-lab`. Les pages `/concepts` et `/chart-lab` exigent
+une session et relèvent du même usage interne.
+
+**Règle dure, sans exception** : tout lien vers une de ces pages se donne sur
+`https://mettrik-niveau2.vercel.app`, JAMAIS sur `https://mettrik.ai`.
+Seules les pages clientes (accueil, fiches société, tarifs, compte, facturation)
+se donnent sur `mettrik.ai`.
+
+Avant d'envoyer un lien : regarder son préfixe. Interne = préversion. En cas de
+doute, tester le code HTTP avant de l'écrire dans la réponse. Un lien mettrik.ai
+vers un outil est toujours cassé : c'est une faute, pas un détail.
