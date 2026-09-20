@@ -706,3 +706,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.20.13 (20 Sep 2026 22:06, apres 7ff9ce3c18)
 - page concept : bandeau des indicateurs introuvables ailleurs
+
+## v2026.09.20.14 (20 Sep 2026 22:12, apres bfb88f32fb)
+- page concept : indicateurs Netflix non financiers
