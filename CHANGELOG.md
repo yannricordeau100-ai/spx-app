@@ -697,3 +697,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.20.10 (20 Sep 2026 18:49, apres dc25738579)
 - Libellés de KPI sans parenthèse, sujets des graphiques visibles en aperçu
+
+## v2026.09.20.11 (20 Sep 2026 18:51, apres 0d0380fcd3)
+- Fenêtres de réglages ajustées à la largeur de l'écran
