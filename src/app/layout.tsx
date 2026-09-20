@@ -127,11 +127,23 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
+      suppressHydrationWarning
       data-theme="dark"
       style={{ colorScheme: "dark" }}
       className={`dark ${sans.variable} ${jetbrains.variable} ${display.variable} ${sora.variable} ${fraunces.variable} h-full antialiased`}
     >
       <head>
+        {/* Yann 20 sept 2026 : marque les pages affichees dans un cadre (les
+            toggles a onglets). Le zoom global du site est alors deja applique
+            par la page parente ; sans cette marque il se cumulerait et la page
+            embarquee perdrait 17 % de sa largeur de mise en page. Pose avant le
+            rendu du corps pour eviter tout saut visuel. */}
+        <script
+          id="marque-cadre"
+          dangerouslySetInnerHTML={{
+            __html: `try{if(window.self!==window.top)document.documentElement.setAttribute("data-integre","1")}catch(e){document.documentElement.setAttribute("data-integre","1")}`,
+          }}
+        />
         {/* Yann 3 sept 2026 : Vercel refuse de marquer "sensible" une variable
             prefixee NEXT_PUBLIC_, la cle publique du captcha est donc posee
             sous le nom NEXT_PB_TURNSTILE_SITE_KEY et relayee ici au navigateur.

@@ -18,12 +18,16 @@ export function ReglagesKpiClient({ jeton, ongletInitial, toggle }: { jeton: str
   const q = jeton ? `?audit_token=${encodeURIComponent(jeton)}` : "";
   const autre: ToggleKpi = toggle === "voir" ? "creer" : "voir";
   const lienAutre = `/sandbox/${autre === "voir" ? "voir-kpi" : "reglages-kpi"}${q}`;
+  // Yann 20 sept 2026 : coquille calee sur la fenetre. « h-screen » valait 110 %
+  // de la hauteur visible a cause du zoom global (body { zoom: 1.1 }) : la page
+  // etait plus grande que l ecran et la barre d onglets partait au defilement.
+  // « fixed inset-0 » donne exactement la fenetre, quel que soit le zoom.
   return (
-    <div className="flex h-screen flex-col bg-[#050505] text-zinc-100">
-      <nav className="flex shrink-0 flex-wrap items-center gap-1.5 border-b border-white/10 px-4 py-2.5">
+    <div className="fixed inset-0 flex w-full min-w-0 max-w-full flex-col overflow-hidden bg-[#050505] text-zinc-100">
+      <nav className="flex w-full min-w-0 max-w-full shrink-0 flex-wrap items-center gap-1.5 border-b border-white/10 px-4 py-2.5">
         <span className="mr-2 font-display text-[15px] font-bold">{TITRES[toggle]}</span>
         {groupes.map((g) => (
-          <span key={g} className="flex flex-wrap items-center gap-1.5">
+          <span key={g} className="flex min-w-0 max-w-full flex-wrap items-center gap-1.5">
             <span className="ml-2 font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">{g}</span>
             {onglets.filter((o) => o.groupe === g).map((o) => (
               <button key={o.id} type="button" title={o.mots} onClick={() => setOnglet(o.id)} className={`rounded-full border px-3 py-1 text-[12.5px] ${onglet === o.id ? "border-violet-400/60 bg-violet-500/20 text-violet-100" : "border-white/10 text-zinc-400 hover:border-white/25 hover:text-zinc-200"}`}>
@@ -37,7 +41,7 @@ export function ReglagesKpiClient({ jeton, ongletInitial, toggle }: { jeton: str
         </a>
       </nav>
       {/* Chaque onglet est chargé à la première ouverture, puis conservé (les filtres et saisies ne se perdent pas). */}
-      <div className="relative min-h-0 flex-1">
+      <div className="relative min-h-0 w-full min-w-0 max-w-full flex-1">
         {onglets.filter((o) => vus.has(o.id)).map((o) => (
           <iframe key={o.id} title={o.label} src={o.url + q} className={`absolute inset-0 h-full w-full border-0 ${onglet === o.id ? "" : "hidden"}`} />
         ))}
