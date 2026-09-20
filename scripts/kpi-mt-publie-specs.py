@@ -1,9 +1,21 @@
 #!/usr/bin/env python3
 """Verifie les citations d un lot de specs (/tmp/mt_specs_<T>.json), genere les SVG et
-insere les findings en attente d approbation (max 9 par societe). Usage : publie_specs.py TICKER [--max 9]"""
+insere les findings en attente d approbation. Le plafond par defaut est le
+desired_count de la demande existante (3 sinon). Usage : publie_specs.py TICKER [--max 3]"""
 import json,re,sys,os,html as H,urllib.request,ssl,time,subprocess
 from datetime import date as _date
-T=sys.argv[1]; MAX=int(sys.argv[sys.argv.index('--max')+1]) if '--max' in sys.argv else 9
+T=sys.argv[1]
+# --max explicite = plafond force. Sinon on prendra le desired_count de la
+# demande existante (voir plus bas), et 3 a defaut.
+MAX_FORCE=int(sys.argv[sys.argv.index('--max')+1]) if '--max' in sys.argv else None
+MAX=MAX_FORCE if MAX_FORCE else 3
+titre=sys.argv[sys.argv.index('--titre')+1] if '--titre' in sys.argv else f"Par société : {T} (KPI d industrie)"
+# Garde-fou : aucun prenom dans un libelle visible par les lecteurs.
+PRENOMS_INTERDITS=('yann','oscar')
+_t=re.sub(r'[^a-z]+',' ',titre.lower()).split()
+if any(pr in _t for pr in PRENOMS_INTERDITS):
+    print(f"REFUS : le titre « {titre} » contient un prenom. La regle interne interdit les prenoms dans les libelles visibles. Choisis un titre neutre.")
+    sys.exit(2)
 CTX=ssl.create_default_context(); CTX.check_hostname=False; CTX.verify_mode=ssl.CERT_NONE
 UA={'User-Agent':'Mozilla/5.0 (Macintosh) Mettrik contact@mettrik.ai'}; cache={}
 def texte(url):
@@ -52,20 +64,50 @@ for e in lot:
         verdict=False
         print(f"{sp['slug']}: REJET source de plus de 18 mois ({motif})")
     print(f"{sp['slug']}: citations {ok}/{n}, valeurs {vok}/{len(valeurs)} -> {'OK' if verdict else 'REJET'} {ko[:3]}")
-    if verdict: ok_specs.append(e)
-ok_specs=ok_specs[:MAX]; print('retenus',len(ok_specs))
-if '--publie' not in sys.argv: sys.exit(0)
-env=dict(l.strip().split('=',1) for l in open('.env.local') if '=' in l and not l.startswith('#'))
+    if verdict:
+        # Critere de qualite (20 sept 2026), par ordre de poids decroissant :
+        #   1. nombre de citations reellement verifiees dans la page source (ok)
+        #   2. fraicheur de la source (source_date la plus recente)
+        #   3. nombre de points de la serie (un graphique plus dense est plus utile)
+        # Les N premiers apres tri sont donc les mieux etayes, pas les premiers du lot.
+        e['_qualite']=(ok, str(normdate(e.get('source_date')) or ''), len(valeurs))
+        ok_specs.append(e)
+# Tri qualite decroissant AVANT la coupe, pour que le plafond garde les meilleurs.
+ok_specs.sort(key=lambda x: x['_qualite'], reverse=True)
+
+# Connexion Supabase (necessaire pour lire le desired_count de la demande).
+env=None
+try:
+    env=dict(l.strip().split('=',1) for l in open('.env.local') if '=' in l and not l.startswith('#'))
+except OSError:
+    pass
+if env is None:
+    if MAX_FORCE is None: print('.env.local illisible : plafond par defaut 3')
+    ok_specs=ok_specs[:MAX]; print('retenus',len(ok_specs)); sys.exit(0)
 u=env['NEXT_PUBLIC_SUPABASE_URL'].strip('"');k=env['SUPABASE_SERVICE_ROLE_KEY'].strip('"')
 HH={'apikey':k,'Authorization':'Bearer '+k,'Content-Type':'application/json','Prefer':'return=representation'}
 def req(path,method='GET',data=None):
     r=urllib.request.Request(u+'/rest/v1/'+path,method=method,headers=HH,data=json.dumps(data).encode() if data is not None else None)
     try: return json.loads(urllib.request.urlopen(r,context=CTX).read() or b'[]')
     except urllib.error.HTTPError as e: print('HTTP',e.code,e.read()[:300].decode(),'|',json.dumps(data,ensure_ascii=False)[:200] if data else ''); return []
-titre=sys.argv[sys.argv.index('--titre')+1] if '--titre' in sys.argv else f"Par société : {T} (KPI d industrie)"
-ex=req(f"desk_image_findings_requests?title=eq.{urllib.request.quote(titre)}&select=id")
+ex=req(f"desk_image_findings_requests?title=eq.{urllib.request.quote(titre)}&select=id,desired_count")
+if not ex: ex=req(f"desk_image_findings_requests?title=eq.{urllib.request.quote(titre)}&select=id")
+# Plafond : --max explicite sinon le desired_count de la demande existante (3 a defaut).
+if MAX_FORCE is None and ex and isinstance(ex[0].get('desired_count'),int) and ex[0]['desired_count']>0:
+    MAX=ex[0]['desired_count']; print('plafond lu sur la demande existante :',MAX)
+ok_specs=ok_specs[:MAX]; print('retenus',len(ok_specs))
+if '--publie' not in sys.argv: sys.exit(0)
 if ex: rid=ex[0]['id']
-else: rid=req('desk_image_findings_requests','POST',{'title':titre,'query':f'KPI d industrie non couverts de {T}, graphiques reconstruits depuis des sources externes','target_tickers':[T],'languages':['fr'],'status':'pending_review'})[0]['id']
+else:
+    # Numero de demande : max existant + 1, pour que le badge « # » ne soit jamais vide.
+    _mx=req('desk_image_findings_requests?select=display_number&order=display_number.desc.nullslast&limit=1')
+    _num=(_mx[0].get('display_number') or 0)+1 if _mx else 1
+    _corps={'display_number':_num,'title':titre,'query':f'KPI d industrie non couverts de {T}, graphiques reconstruits depuis des sources externes','target_tickers':[T],'languages':['fr'],'desired_count':MAX,'status':'pending_review'}
+    _cree=req('desk_image_findings_requests','POST',_corps)
+    if not _cree:
+        # Repli si la migration desired_count n est pas encore appliquee en base.
+        _corps.pop('desired_count',None); _cree=req('desk_image_findings_requests','POST',_corps)
+    rid=_cree[0]['id']
 os.makedirs('scripts/specs-findings/societes',exist_ok=True)
 for e in ok_specs:
     sp=e['spec']; sp['dossier']=f"public/findings/societes/{T.lower()}"; p=f"scripts/specs-findings/societes/{sp['slug']}.json"; json.dump(sp,open(p,'w'),ensure_ascii=False,indent=1)

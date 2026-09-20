@@ -28,6 +28,8 @@ export type ImageFindingRequest = {
   query: string;
   target_tickers: string[];
   languages: string[];
+  /** Nombre de graphiques souhaite pour cette demande (20 sept 2026). Defaut 3. */
+  desired_count: number;
   status: ImageFindingRequestStatus;
   error_msg: string | null;
   findings_count: number;
@@ -129,7 +131,12 @@ export async function listRequests(): Promise<ImageFindingRequest[]> {
     .order("display_number", { ascending: false, nullsFirst: false })
     .order("created_at", { ascending: false });
   if (error) throw error;
-  return (data ?? []) as ImageFindingRequest[];
+  // Repli a 3 si la colonne est absente ou nulle (demandes creees avant le
+  // 20 sept 2026, ou migration pas encore appliquee).
+  return ((data ?? []) as ImageFindingRequest[]).map((r) => ({
+    ...r,
+    desired_count: typeof r.desired_count === "number" ? r.desired_count : 3,
+  }));
 }
 
 export async function getRequest(id: string): Promise<ImageFindingRequest | null> {
@@ -139,7 +146,13 @@ export async function getRequest(id: string): Promise<ImageFindingRequest | null
     .select("*")
     .eq("id", id)
     .maybeSingle();
-  return (data ?? null) as ImageFindingRequest | null;
+  if (!data) return null;
+  const ligne = data as ImageFindingRequest;
+  // Repli a 3 si la colonne desired_count est absente ou nulle.
+  return {
+    ...ligne,
+    desired_count: typeof ligne.desired_count === "number" ? ligne.desired_count : 3,
+  };
 }
 
 export async function listFindings(requestId: string): Promise<ImageFinding[]> {
@@ -165,16 +178,36 @@ export async function upsertRequest(p: Partial<ImageFindingRequest>): Promise<Im
       .maybeSingle();
     p.display_number = (maxRow?.display_number ?? 0) + 1;
   }
-  const payload = {
-    ...p,
-    target_tickers: p.target_tickers?.map((t) => t.toUpperCase()) ?? [],
-  };
-  const q = p.id
-    ? supa.from("desk_image_findings_requests").update(payload).eq("id", p.id).select().single()
-    : supa.from("desk_image_findings_requests").insert(payload).select().single();
-  const { data, error } = await q;
+  const payload: Record<string, unknown> = { ...p };
+  // A la creation on force les listes ; en mise a jour on n ecrit que les
+  // champs reellement fournis, sinon un envoi partiel (bouton « +3 ») viderait
+  // les tickers de la demande.
+  if (p.target_tickers !== undefined || !p.id) {
+    payload.target_tickers = p.target_tickers?.map((t) => t.toUpperCase()) ?? [];
+  }
+  if (p.desired_count !== undefined || !p.id) {
+    payload.desired_count =
+      typeof p.desired_count === "number" && p.desired_count > 0 ? p.desired_count : 3;
+  }
+  const ecrit = async (corps: Record<string, unknown>) =>
+    p.id
+      ? supa.from("desk_image_findings_requests").update(corps).eq("id", p.id).select().single()
+      : supa.from("desk_image_findings_requests").insert(corps).select().single();
+  let { data, error } = await ecrit(payload);
+  // Repli : tant que la migration 20260920_image_findings_desired_count.sql
+  // n est pas appliquee en base, la colonne n existe pas (code 42703). On
+  // reecrit alors sans elle plutot que de casser l enregistrement.
+  if (error && (error as { code?: string }).code === "42703") {
+    const sansColonne = { ...payload };
+    delete sansColonne.desired_count;
+    ({ data, error } = await ecrit(sansColonne));
+  }
   if (error) throw error;
-  return data as ImageFindingRequest;
+  const ligne = data as ImageFindingRequest;
+  return {
+    ...ligne,
+    desired_count: typeof ligne?.desired_count === "number" ? ligne.desired_count : 3,
+  };
 }
 
 export async function deleteRequest(id: string): Promise<void> {

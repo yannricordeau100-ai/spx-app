@@ -87,6 +87,18 @@ const BATCH_META: Record<
   x: { label: "X (legacy)", short: "X", color: "#a78bfa" },
 };
 
+/** Date de creation au format francais court, par exemple « 20 sept. 2026 ». */
+function dateCourteFr(iso: string | null | undefined): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
 function batchOf(platform: string | null | undefined) {
   if (!platform) return BATCH_META.web;
   return BATCH_META[platform] ?? { label: platform, short: platform, color: "#a1a1aa" };
@@ -196,6 +208,28 @@ export function ImageFindingsClient({
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
+    });
+    await refresh();
+  }
+
+  /**
+   * Bouton « +3 » : augmente de 3 le nombre de graphiques souhaite puis remet
+   * la demande en attente pour qu une session la reprenne (meme declencheur
+   * que le bouton « Lancer », action mark_claude_pending).
+   */
+  async function ajouterTroisGraphiques(id: string) {
+    const req = requests.find((r) => r.id === id);
+    if (!req) return;
+    const cible = Math.min((req.desired_count ?? 3) + 3, 12);
+    await fetch("/api/desk/image-findings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, desired_count: cible }),
+    });
+    await fetch("/api/desk/image-findings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "mark_claude_pending", id }),
     });
     await refresh();
   }
@@ -368,6 +402,7 @@ export function ImageFindingsClient({
               expanded={expandedId === r.id}
               onToggle={() => setExpandedId(expandedId === r.id ? null : r.id)}
               onLaunch={() => launchClaude(r.id)}
+              onAjouterTrois={() => ajouterTroisGraphiques(r.id)}
               onEdit={() => {
                 setEditing(r);
                 setShowForm(true);
@@ -391,6 +426,7 @@ function RequestRow({
   expanded,
   onToggle,
   onLaunch,
+  onAjouterTrois,
   onEdit,
   onDelete,
   onUpdateFinding,
@@ -401,11 +437,16 @@ function RequestRow({
   expanded: boolean;
   onToggle: () => void;
   onLaunch: () => void;
+  onAjouterTrois: () => void;
   onEdit: () => void;
   onDelete: () => void;
   onUpdateFinding: (p: Partial<ImageFinding>) => Promise<void>;
 }) {
   const st = STATUS_META[r.status];
+  // Le badge affiche toujours un numero : si display_number manque (demandes
+  // anciennes), on retombe sur les 4 premiers caracteres de l identifiant.
+  const numeroDemande = r.display_number ?? r.id.slice(0, 4);
+  const dateCreation = dateCourteFr(r.created_at);
 
   return (
     <div id={id} className="overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02]">
@@ -414,7 +455,7 @@ function RequestRow({
         onClick={onToggle}
       >
         <span className="rounded-full bg-cyan-500/15 px-2 py-0.5 font-mono text-[11.5px] font-bold text-cyan-200">
-          #{r.display_number ?? "—"}
+          #{numeroDemande}
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
@@ -425,11 +466,18 @@ function RequestRow({
             <span className="font-mono">
               Tickers : {r.target_tickers.length > 0 ? r.target_tickers.join(", ") : "(aucun)"}
             </span>
+            {dateCreation && (
+              <>
+                <span>·</span>
+                <span>Créée le {dateCreation}</span>
+              </>
+            )}
             <span>·</span>
             <span>Langues : {r.languages.join(", ")}</span>
             <span>·</span>
             <span>
-              {r.findings_count} images ({r.approved_count} approuvées)
+              {r.findings_count} images ({r.approved_count} approuvées) sur{" "}
+              {r.desired_count ?? 3} demandés
             </span>
           </div>
         </div>
@@ -448,6 +496,14 @@ function RequestRow({
             title="Lancer Claude conv MAX 20× (gratuit)"
           >
             <Play className="size-3" /> Lancer
+          </button>
+          <button
+            type="button"
+            onClick={onAjouterTrois}
+            className="inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 text-[11px] text-zinc-300 hover:bg-white/[0.08]"
+            title="Demander 3 graphiques de plus et remettre la demande en attente"
+          >
+            +3
           </button>
           <button
             type="button"
@@ -923,6 +979,8 @@ function RequestForm({
     (row?.languages as Locale[]) ?? ["fr", "en"],
   );
   const [notes, setNotes] = useState(row?.notes ?? prefill?.notes ?? "");
+  // Nombre de graphiques souhaite pour la demande (defaut 3, borne 1 a 12).
+  const [nbGraphiques, setNbGraphiques] = useState<number>(row?.desired_count ?? 3);
 
   return (
     <div className="mt-6 rounded-2xl border border-cyan-500/30 bg-cyan-500/[0.04] p-4">
@@ -945,6 +1003,20 @@ function RequestForm({
           value={tickers}
           onChange={(e) => setTickers(e.target.value.toUpperCase())}
           placeholder="GOOGL, META"
+          className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 font-mono text-[12.5px] text-zinc-100"
+        />
+      </label>
+      <label className="mt-3 block text-[11.5px]">
+        <div className="mb-1 text-zinc-400">Nombre de graphiques (1 à 12)</div>
+        <input
+          type="number"
+          min={1}
+          max={12}
+          value={nbGraphiques}
+          onChange={(e) => {
+            const v = Number(e.target.value);
+            setNbGraphiques(Number.isFinite(v) ? Math.min(12, Math.max(1, Math.round(v))) : 3);
+          }}
           className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 font-mono text-[12.5px] text-zinc-100"
         />
       </label>
@@ -998,6 +1070,7 @@ function RequestForm({
                 .map((t) => t.trim().toUpperCase())
                 .filter(Boolean),
               languages: langs,
+              desired_count: nbGraphiques,
               notes: notes || null,
               status: row?.status ?? "todo",
             })
