@@ -114,6 +114,44 @@ function isDarkColor(color: string): boolean {
 
 import { logoNeedsLightBg } from "@/components/logos";
 
+/**
+ * Yann 20 sept 2026 : logo d une societe depuis la logotheque publique
+ * (/logos/<TICKER>.png, points convertis en tirets comme les fichiers).
+ * Renvoie une data URL embarquable dans le SVG exporte, ou null si le
+ * fichier est absent ou trop petit (monogramme / favicon perime).
+ */
+async function chargerLogoTicker(
+  ticker: string,
+  largeurMini = 48,
+): Promise<string | null> {
+  const t = (ticker ?? "").toUpperCase().trim();
+  if (!t) return null;
+  const noms = [t, t.replace(/\./g, "-")].filter((v, i, a) => a.indexOf(v) === i);
+  for (const nom of noms) {
+    try {
+      const blob = await fetch(`/logos/${nom}.png`).then((r) =>
+        r.ok ? r.blob() : Promise.reject(new Error("404")),
+      );
+      const dataUrl: string = await new Promise((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onload = () => resolve(fr.result as string);
+        fr.onerror = reject;
+        fr.readAsDataURL(blob);
+      });
+      const probe = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const im = new Image();
+        im.onload = () => resolve(im);
+        im.onerror = reject;
+        im.src = dataUrl;
+      });
+      if (probe.naturalWidth >= largeurMini) return dataUrl;
+    } catch {
+      /* ticker suivant */
+    }
+  }
+  return null;
+}
+
 export async function downloadSvgAsPng(
   svg: SVGSVGElement,
   filename: string,
@@ -152,6 +190,18 @@ export async function downloadSvgAsPng(
     /** Yann 1er sept 2026 : moyenne de la serie pour les graphs en % (deja
      *  formatee, ex "+7,4 %"). Affichee en miroir gauche de la ligne CAGR. */
     avgPct?: string;
+    /** Yann 20 sept 2026 : gabarit « moyen terme ». L en-tete n a que deux
+     *  informations (societe, titre du graphique) : le gabarit long terme,
+     *  dimensionne pour cinq lignes, laissait un vide enorme entre le nom de
+     *  la societe et le graphique. En mode compact, la hauteur reservee en
+     *  haut est calculee sur le contenu reellement rendu, avec un ecart
+     *  CH_GAP identique entre chaque bloc, et le titre descend juste
+     *  au-dessus du graphique. */
+    headerCompact?: boolean;
+    /** Yann 20 sept 2026 : autres societes rattachees au graphique. Rendues
+     *  en rangee centree (logo + ticker) sous le bloc logo / nom principal et
+     *  au-dessus du titre. Le ticker principal est ignore s il y figure. */
+    peers?: string[];
   } = {},
   scale = 2
 ): Promise<void> {
@@ -558,12 +608,57 @@ export async function downloadSvgAsPng(
   // sa hauteur reservee — ste 72, KPI FR 122, nom EN 154, unite EN 178,
   // CAGR / Moyenne 208. Le premier jet posait le CAGR a 162 et le nom EN a
   // 156 : chevauchement direct (screen Threads).
-  const PAD_TOP = 252;
+  // ── Gabarit compact « moyen terme » (Yann 20 sept 2026) ──
+  // Rythme vertical unique : CH_GAP separe le haut du document du bloc
+  // logo / nom, ce bloc de la rangee des autres societes, cette rangee du
+  // titre, et le titre du graphique. Aucun ecart n est libre.
+  const COMPACT = options.headerCompact === true;
+  const CH_GAP = 28;          // ecart unique entre deux blocs de l en-tete
+  const CH_TOP = 34;          // marge haute du document
+  const CH_LOGO = 44;         // cote du logo societe (bloc ligne 1)
+  const CH_PEER_LOGO = 30;    // cote des logos de la rangee multi-societes
+  const CH_PEER_ROW = 34;     // hauteur reservee a la rangee multi-societes
+  // Le titre du graphique peut tomber sur deux lignes : on le mesure ici,
+  // avant de figer la hauteur d en-tete, sinon la deuxieme ligne mordrait
+  // sur la rangee des logos.
+  const kpiApercu = (() => {
+    const t = options.title ?? "";
+    const i = t.indexOf(" · ");
+    return i > 0 ? t.slice(0, i) : t;
+  })();
+  const kpiSurDeuxLignes =
+    COMPACT &&
+    (() => {
+      const c =
+        typeof document !== "undefined"
+          ? document.createElement("canvas").getContext("2d")
+          : null;
+      if (!c) return kpiApercu.length > 58;
+      c.font = `300 28px ${PNG_FONT_FAMILY}`; // = TITLE_KPI_FONT_SIZE compact
+      return c.measureText(kpiApercu).width > origW - 48;
+    })();
+  const CH_TITLE_ROW = kpiSurDeuxLignes ? 74 : 36; // hauteur reservee au titre
+  const mainTicker = (options.ticker ?? "").toUpperCase();
+  const peerTickers = COMPACT
+    ? (options.peers ?? [])
+        .map((t) => (t ?? "").toUpperCase().trim())
+        .filter((t) => t.length > 0 && t !== mainTicker)
+        .filter((t, i, a) => a.indexOf(t) === i)
+    : [];
+  const PAD_TOP = COMPACT
+    ? CH_TOP +
+      CH_LOGO +
+      CH_GAP +
+      (peerTickers.length > 0 ? CH_PEER_ROW + CH_GAP : 0) +
+      CH_TITLE_ROW +
+      CH_GAP
+    : 252;
   const PAD_SIDE = 36;
   // Yann 2 juin 2026 v10 : PAD_BOTTOM réduit à 50 pour rapprocher la
   // signature des labels X. Logo height 36 + margin 4 = 40 + 10px gap
   // au-dessus du label X = 50px total nécessaire après origH.
-  const PAD_BOTTOM = 50;
+  // Compact : la signature passe SOUS le graphique (14 + 43 + 17).
+  const PAD_BOTTOM = COMPACT ? 74 : 50;
 
   // ── Bloc interprétation IA (Yann 10 juin 2026) ──
   // Le "lead" de l'interprétation (1 phrase, texte brut déjà strippé des
@@ -630,8 +725,10 @@ export async function downloadSvgAsPng(
   // Yann 1er sept 2026 : 0.9 -> 0.96 (l espace perdu en largeur etait
   // trop grand), et le graph est abaisse de GRAPH_DY pour laisser respirer
   // le titre enrichi des deux lignes anglaises.
-  const GRAPH_SCALE = 0.96;
-  const GRAPH_DY = 26;
+  // Compact : plus de decalage ni de reduction, le titre est deja pose juste
+  // au-dessus du graphique et la signature passe dessous (Yann 20 sept 2026).
+  const GRAPH_SCALE = COMPACT ? 1 : 0.96;
+  const GRAPH_DY = COMPACT ? 0 : 26;
   const graphCx = origX + origW / 2;
   const graphCy = origY + origH / 2;
   const GRAPH_X = graphCx - (origW * GRAPH_SCALE) / 2;
@@ -708,7 +805,10 @@ export async function downloadSvgAsPng(
   // texte d'interprétation occupe [origY+origH, origY+origH+interpBlockH]).
   // Quand interpBlockH = 0 (pas d'interprétation), le footer garde sa
   // position d'origine.
-  const wmY = GRAPH_BOTTOM - 12 + interpBlockH;
+  // Compact : la signature est posee SOUS le graphique, a CH_GAP/2 du bas.
+  const wmY = COMPACT
+    ? GRAPH_BOTTOM + 14 + interpBlockH
+    : GRAPH_BOTTOM - 12 + interpBlockH;
   const wmTextRightX = wmStartX + KPIS_DATA_BY_TEXT_W;
   const wmLogoX = wmStartX + KPIS_DATA_BY_TEXT_W + WM_GAP;
 
@@ -744,18 +844,41 @@ export async function downloadSvgAsPng(
     }
   })();
   if (pseudoGraph) {
-    const pseudoEl = document.createElementNS(NS, "text");
-    pseudoEl.setAttribute("x", String(wmStartX - 7));
-    pseudoEl.setAttribute("y", String(wmY + WM_LOGO_H / 2 + 5));
-    pseudoEl.setAttribute("text-anchor", "end");
-    pseudoEl.setAttribute("font-family", PNG_FONT_FAMILY);
-    pseudoEl.setAttribute("font-size", "14");
-    pseudoEl.setAttribute("font-weight", "300");
-    pseudoEl.setAttribute("letter-spacing", "0.02em");
-    pseudoEl.setAttribute("fill", titleColor);
-    pseudoEl.setAttribute("opacity", "0.85");
-    pseudoEl.textContent = `${pseudoGraph}  |`;
-    clone.appendChild(pseudoEl);
+    // Yann 20 sept 2026 : la barre verticale doit avoir l equivalent de trois
+    // espaces a GAUCHE et a DROITE. Les espaces multiples d un <text> SVG
+    // sont ecrases au rendu : on pose donc la barre dans son propre element
+    // et on calcule la largeur reelle de trois espaces a la police du
+    // document (fallback 12 unites si le canvas est indisponible).
+    const sigY = wmY + WM_LOGO_H / 2 + 5;
+    const spaceCtx =
+      typeof document !== "undefined"
+        ? document.createElement("canvas").getContext("2d")
+        : null;
+    if (spaceCtx) spaceCtx.font = `300 14px ${PNG_FONT_FAMILY}`;
+    const trois = spaceCtx
+      ? Math.max(9, spaceCtx.measureText("   ").width)
+      : 12;
+    const poserTexte = (x: number, ancre: string, texte: string) => {
+      const el = document.createElementNS(NS, "text");
+      el.setAttribute("x", String(x));
+      el.setAttribute("y", String(sigY));
+      el.setAttribute("text-anchor", ancre);
+      el.setAttribute("font-family", PNG_FONT_FAMILY);
+      el.setAttribute("font-size", "14");
+      el.setAttribute("font-weight", "300");
+      el.setAttribute("letter-spacing", "0.02em");
+      el.setAttribute("fill", titleColor);
+      el.setAttribute("opacity", "0.85");
+      el.textContent = texte;
+      clone.appendChild(el);
+    };
+    // Barre a trois espaces a gauche de "KPIs Powered by".
+    const barreX = wmStartX - trois;
+    poserTexte(barreX, "end", "|");
+    // Pseudo a trois espaces a gauche de la barre (la barre est fine :
+    // on retire sa largeur approximative pour garder l ecart visuel).
+    const largeurBarre = spaceCtx ? spaceCtx.measureText("|").width : 4;
+    poserTexte(barreX - largeurBarre - trois, "end", pseudoGraph);
   }
 
   const wmLogoEl = document.createElementNS(NS, "image");
@@ -841,14 +964,25 @@ export async function downloadSvgAsPng(
   //   - ligne 2 = kpiText
   // Yann 2 juin 2026 v9 : hiérarchie inversée — nom société = focus #1 (gros),
   // titre du graph (KPI) = focus #2 juste en dessous.
-  const TITLE_STE_FONT_SIZE = 51;       // ligne 1 (nom société), focus #1 (+50 % Yann 24 aout 2026)
-  const TITLE_KPI_FONT_SIZE = 33;       // ligne 2 (nom KPI) agrandie, FR seulement (Yann 5 sept 2026)
+  const TITLE_STE_FONT_SIZE = COMPACT ? 38 : 51; // ligne 1 (nom société), focus #1 (+50 % Yann 24 aout 2026)
+  const TITLE_KPI_FONT_SIZE = COMPACT ? 28 : 33; // ligne 2 (nom KPI) agrandie, FR seulement (Yann 5 sept 2026)
   const TITLE_STE_CHAR_W = 24;          // estimation Avenir 51px
   const TITLE_KPI_CHAR_W = 9;           // estimation Avenir 600 18px
-  const TITLE_LOGO_SIZE = 48;           // logo société (+50 % Yann 24 aout 2026)
-  const TITLE_LOGO_GAP = 26;            // Yann 10 juin 2026 : + d'espace entre logo et nom société
-  const LINE1_Y = origY - PAD_TOP + 72;
-  const LINE2_Y = origY - PAD_TOP + 122;
+  const TITLE_LOGO_SIZE = COMPACT ? CH_LOGO : 48; // logo société (+50 % Yann 24 aout 2026)
+  const TITLE_LOGO_GAP = COMPACT ? 18 : 26; // Yann 10 juin 2026 : + d'espace entre logo et nom société
+  // Compact (Yann 20 sept 2026) : la ligne 1 est calee sur CH_TOP (le logo
+  // occupe [CH_TOP, CH_TOP + CH_LOGO]) et le titre descend juste au-dessus du
+  // graphique, a exactement CH_GAP du bord haut de celui-ci.
+  const LINE1_Y = COMPACT
+    ? origY - PAD_TOP + CH_TOP + TITLE_LOGO_SIZE * 0.85
+    : origY - PAD_TOP + 72;
+  const LINE2_Y = COMPACT
+    ? origY - CH_GAP - 8
+    : origY - PAD_TOP + 122;
+  // Centre vertical de la rangee des autres societes (entre le bloc
+  // logo / nom et le titre), meme ecart CH_GAP de part et d autre.
+  const PEER_ROW_CY =
+    origY - PAD_TOP + CH_TOP + CH_LOGO + CH_GAP + CH_PEER_ROW / 2;
 
   // Yann 2 juin 2026 v7 : police Avenir (au lieu de Fraunces) pour le
   // PNG download UNIQUEMENT. Web reste sur Fraunces.
@@ -1033,6 +1167,96 @@ export async function downloadSvgAsPng(
       clone.appendChild(stéEl);
     }
 
+    // ── Rangee des autres societes rattachees (Yann 20 sept 2026) ──
+    // Logo carre-arrondi + ticker, centres, sous le bloc logo / nom
+    // principal et au-dessus du titre. Rendue uniquement en mode compact et
+    // seulement si au moins une autre societe est rattachee au graphique.
+    if (COMPACT && peerTickers.length > 0) {
+      const PEER_FONT = 18;
+      const PEER_GAP_LOGO_TEXTE = 9;
+      const PEER_GAP_ENTRE = 30;
+      const mesureCtx =
+        typeof document !== "undefined"
+          ? document.createElement("canvas").getContext("2d")
+          : null;
+      if (mesureCtx) mesureCtx.font = `400 ${PEER_FONT}px ${PNG_FONT_FAMILY}`;
+      const largeurTexte = (s: string) =>
+        mesureCtx ? mesureCtx.measureText(s).width : s.length * PEER_FONT * 0.6;
+      const items = await Promise.all(
+        peerTickers.map(async (t) => ({
+          ticker: t,
+          logo: await chargerLogoTicker(t, 32),
+        })),
+      );
+      const largeurItem = (it: { ticker: string; logo: string | null }) =>
+        (it.logo ? CH_PEER_LOGO + PEER_GAP_LOGO_TEXTE : 0) +
+        largeurTexte(it.ticker);
+      const largeurRangee =
+        items.reduce((s, it) => s + largeurItem(it), 0) +
+        PEER_GAP_ENTRE * Math.max(0, items.length - 1);
+      let curseur = origX + origW / 2 - largeurRangee / 2;
+      for (const it of items) {
+        if (it.logo) {
+          const top = PEER_ROW_CY - CH_PEER_LOGO / 2;
+          const r = CH_PEER_LOGO * 0.22;
+          const clipId = `peerClip_${Math.random().toString(36).slice(2, 8)}`;
+          const clipEl = document.createElementNS(NS, "clipPath");
+          clipEl.setAttribute("id", clipId);
+          const clipRect = document.createElementNS(NS, "rect");
+          clipRect.setAttribute("x", String(curseur));
+          clipRect.setAttribute("y", String(top));
+          clipRect.setAttribute("width", String(CH_PEER_LOGO));
+          clipRect.setAttribute("height", String(CH_PEER_LOGO));
+          clipRect.setAttribute("rx", String(r));
+          clipRect.setAttribute("ry", String(r));
+          clipEl.appendChild(clipRect);
+          clone.appendChild(clipEl);
+          const fondClair = logoNeedsLightBg(it.ticker);
+          const fond = document.createElementNS(NS, "rect");
+          fond.setAttribute("x", String(curseur));
+          fond.setAttribute("y", String(top));
+          fond.setAttribute("width", String(CH_PEER_LOGO));
+          fond.setAttribute("height", String(CH_PEER_LOGO));
+          fond.setAttribute("rx", String(r));
+          fond.setAttribute("ry", String(r));
+          fond.setAttribute("fill", fondClair ? "#ffffff" : "#0a0a0a");
+          fond.setAttribute(
+            "stroke",
+            fondClair ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.10)",
+          );
+          fond.setAttribute("stroke-width", "1");
+          clone.appendChild(fond);
+          const img = document.createElementNS(NS, "image");
+          img.setAttribute("href", it.logo);
+          img.setAttributeNS(
+            "http://www.w3.org/1999/xlink",
+            "xlink:href",
+            it.logo,
+          );
+          img.setAttribute("x", String(curseur));
+          img.setAttribute("y", String(top));
+          img.setAttribute("width", String(CH_PEER_LOGO));
+          img.setAttribute("height", String(CH_PEER_LOGO));
+          img.setAttribute("preserveAspectRatio", "xMidYMid meet");
+          img.setAttribute("clip-path", `url(#${clipId})`);
+          clone.appendChild(img);
+          curseur += CH_PEER_LOGO + PEER_GAP_LOGO_TEXTE;
+        }
+        const tk = document.createElementNS(NS, "text");
+        tk.setAttribute("x", String(curseur));
+        tk.setAttribute("y", String(PEER_ROW_CY + PEER_FONT * 0.35));
+        tk.setAttribute("text-anchor", "start");
+        tk.setAttribute("font-family", PNG_FONT_FAMILY);
+        tk.setAttribute("font-weight", "400");
+        tk.setAttribute("font-size", String(PEER_FONT));
+        tk.setAttribute("letter-spacing", "0.04em");
+        tk.setAttribute("fill", subtitleColor);
+        tk.textContent = it.ticker;
+        clone.appendChild(tk);
+        curseur += largeurTexte(it.ticker) + PEER_GAP_ENTRE;
+      }
+    }
+
     // ── Ligne 2 : nom du KPI, centrée, plus gros ──
     const kpiEl = document.createElementNS(NS, "text");
     kpiEl.setAttribute("x", String(origX + origW / 2));
@@ -1116,8 +1340,17 @@ export async function downloadSvgAsPng(
       }
     };
     if (lignesKpi.length === 2) {
-      // deux lignes centrees autour de LINE2_Y
-      kpiEl.setAttribute("y", String(LINE2_Y - Math.round(tailleKpi * 0.55)));
+      // deux lignes centrees autour de LINE2_Y. En compact, LINE2_Y est la
+      // derniere ligne de base : les deux lignes remontent au-dessus du
+      // graphique dans la hauteur CH_TITLE_ROW deja reservee.
+      kpiEl.setAttribute(
+        "y",
+        String(
+          COMPACT
+            ? LINE2_Y - Math.round(tailleKpi * 1.15)
+            : LINE2_Y - Math.round(tailleKpi * 0.55),
+        ),
+      );
       ajouteLigne(lignesKpi[0], 0, true);
       ajouteLigne(lignesKpi[1], Math.round(tailleKpi * 1.15), false);
     } else {
@@ -1135,7 +1368,7 @@ export async function downloadSvgAsPng(
     const uniteEn = options.unitEn?.trim();
     const memeTexte = (a: string, b: string) =>
       a.toLowerCase().replace(/\s+/g, " ") === b.toLowerCase().replace(/\s+/g, " ");
-    if (titreEn && !memeTexte(titreEn, kpiText)) {
+    if (!COMPACT && titreEn && !memeTexte(titreEn, kpiText)) {
       const enEl = document.createElementNS(NS, "text");
       enEl.setAttribute("x", String(origX + origW / 2));
       enEl.setAttribute("y", String(LINE_EN_NAME_Y));
@@ -1167,7 +1400,7 @@ export async function downloadSvgAsPng(
     // Moyenne de la serie (% uniquement), CENTREE : elle prend lieu et place
     // du CAGR (Yann 2 sept 2026). Jamais de conflit : cagr() renvoie null des
     // que l unite contient "%" (data.ts), la moyenne n existe QUE dans ce cas.
-    if (options.avgPct) {
+    if (!COMPACT && options.avgPct) {
       const avgEl = document.createElementNS(NS, "text");
       avgEl.setAttribute("x", String(graphCx));
       avgEl.setAttribute("y", String(origY - PAD_TOP + 208));
@@ -1195,7 +1428,7 @@ export async function downloadSvgAsPng(
       avgEnEl.textContent = `Average: ${options.avgPct}`;
       clone.appendChild(avgEnEl);
     }
-    if (options.cagr) {
+    if (!COMPACT && options.cagr) {
       const CAGR_FONT_SIZE = 22;
       const rawCagr = options.cagr.replace(/^CAGR\s*/i, "").trim();
       // "(CAGR)" apres la valeur, petit espace avant. L acronyme CAGR est

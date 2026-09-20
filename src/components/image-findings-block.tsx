@@ -7,6 +7,24 @@ import { pickI18n, type LocalizedString } from "@/lib/desk/image-findings";
 import { translate } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/types";
 
+/**
+ * Yann 20 sept 2026 : le titre pose en haut du document exporte ne porte
+ * jamais de date. « NVIDIA : unites expediees par generation de puce,
+ * 2022-2026 » devient « NVIDIA : unites expediees par generation de puce ».
+ * La periode reste lisible sur l axe des abscisses du graphique.
+ */
+export function sansDates(t: string): string {
+  return t
+    // « , 2022-2026 », « (2025) », « , 2025 », « - 2022-2026 » en fin de titre
+    .replace(
+      /\s*[,;(\u2013\u2014-]\s*(?:19|20)\d{2}\s*(?:[\u2013\u2014/-]\s*(?:19|20)?\d{2})?\s*\)?\s*$/,
+      "",
+    )
+    .replace(/\s*[,;]?\s*\((?:19|20)\d{2}\)\s*$/, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 /** Yann 18 sept 2026 : les KPI moyen terme n affichent jamais leur source, seulement la date. */
 function sansSource(t: string): string {
   return t
@@ -36,6 +54,9 @@ export type ImageFindingPublic = {
   /** Toggle sandbox admin : si false, masque la lecture (summary) sur la
    *  fiche société publique (Yann 17 mai 2026). Default true. */
   show_summary?: boolean;
+  /** Yann 20 sept 2026 : societes rattachees au graphique. Rendues en rangee
+   *  de logos + tickers dans le document exporte quand il y en a plusieurs. */
+  target_tickers?: string[];
 };
 
 /**
@@ -83,9 +104,17 @@ export function ImageFindingsBlock({
     const svg = boxRef.current?.querySelector("svg") as SVGSVGElement | null;
     if (!svg) return;
     const nom = `mettrik-${(ticker ?? "graphique").toLowerCase()}-moyen-terme-${safe + 1}.png`;
-    const titreGraphique = displayTitleRef.current ?? "";
+    const titreGraphique = sansDates(displayTitleRef.current ?? "");
     const titreExport = nomSociete ? `${titreGraphique} · ${nomSociete}` : titreGraphique || undefined;
-    await downloadSvgAsPng(svg, nom, { title: titreExport, ticker, locale: (locale as "fr" | "en" | "de") });
+    await downloadSvgAsPng(svg, nom, {
+      title: titreExport,
+      ticker,
+      locale: locale as "fr" | "en" | "de",
+      // Gabarit moyen terme : en-tete calee sur son contenu, titre juste
+      // au-dessus du graphique, rangee des autres societes rattachees.
+      headerCompact: true,
+      peers: findings[safe]?.target_tickers ?? [],
+    });
   };
   const displayTitle = pickI18n(f.title_i18n, locale, f.title);
   displayTitleRef.current = displayTitle;

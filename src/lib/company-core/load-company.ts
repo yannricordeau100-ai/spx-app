@@ -1923,6 +1923,9 @@ async function loadV17CompanyBrut(
           source_platform: f.source_platform,
           // Toggle sandbox admin (Yann 17 mai 2026) : default true.
           show_summary: f.show_summary !== false,
+          // Yann 20 sept 2026 : societes rattachees au graphique, rendues en
+          // rangee de logos + tickers dans le document exporte.
+          target_tickers: f.target_tickers ?? [],
         }));
       }
     } catch (err) {
