@@ -685,3 +685,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.20.6 (20 Sep 2026 14:32, apres 758487a6ce)
 - Thèses d'investissement : 43 sociétés supplémentaires (485 au total), graphiques extérieurs vérifiés
+
+## v2026.09.20.7 (20 Sep 2026 16:38, apres 5061441ceb)
+- Thèses d'investissement : univers complet, 670 sociétés sur 671
