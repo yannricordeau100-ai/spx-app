@@ -62,3 +62,18 @@ Si un changement ou une nouvelle règle en cours de mise en place entre en
 conflit avec une règle précédente : LE SIGNALER IMMÉDIATEMENT, EN LETTRES
 CAPITALES, et suspendre provisoirement la modification concernée — sauf si une
 solution évidente existe (auquel cas l'appliquer et signaler quand même).
+
+## 8. REPRISE AU 21 SEPTEMBRE 2026
+
+Le document de reprise complet est `docs/REPRISE-2026-09-21.md` : etat du
+deploiement, ce qui a ete livre les 20 et 21 septembre, regles apprises, points
+ouverts classes par urgence, et ce qui a ete cherche puis acte comme inexistant.
+A lire EN PREMIER a la reprise, avant toute action.
+
+Premiere action attendue : lancer `bash scripts/go-n0.sh` pour la version
+2026.09.21.5, qui attend en preversion.
+
+Rapports joints : `docs/audit-circulation-2026-09-21.md` (tout ce qui empeche une
+donnee d arriver sur une fiche, classe par nombre de societes touchees) et
+`docs/theses-sources-avant-apres-2026-09-21.json` (les 68 passages de theses
+reecrits pour en retirer les sources).
