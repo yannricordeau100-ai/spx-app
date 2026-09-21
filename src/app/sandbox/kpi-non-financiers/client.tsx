@@ -214,9 +214,16 @@ export function KpiNonFinanciersClient({
       if (!r.ok || j.error) throw new Error(j.error ?? `HTTP ${r.status}`);
       setDemandes((prev) => [...(j.demandes ?? []), ...prev]);
       setTickers("");
+      // Yann 21 sept 2026 : le message doit suffire a lancer la recherche quand
+      // il est copie dans la conversation Claude. Il porte donc les tickers.
+      const listeTickers = (j.demandes ?? [])
+        .map((d) => d.ticker)
+        .filter(Boolean)
+        .join(", ");
       setMessage(
-        j.message ??
-          "Demande enregistrée au statut à traiter. La recherche démarrera au feu vert de Yann.",
+        listeTickers
+          ? `Demande enregistrée. Pour la lancer, copiez cette ligne dans Claude : « lance les indicateurs non financiers pour ${listeTickers} »`
+          : (j.message ?? "Demande enregistrée au statut à traiter."),
       );
     } catch (e) {
       setErreur((e as Error).message);

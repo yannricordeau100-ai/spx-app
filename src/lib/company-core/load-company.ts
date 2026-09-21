@@ -1834,38 +1834,6 @@ async function loadV17CompanyBrut(
       // Fail-safe : si BDD inaccessible, on continue sans special KPIs.
       console.warn(`special_kpis merge failed for ${ticker}:`, err);
     }
-    // Image findings approuvés (Yann 15 mai 2026) — bloc "Graphiques et
-    // Schémas de sources diverses".
-    try {
-      const { listApprovedForTicker } = await import("@/lib/desk/image-findings");
-      const findings = await listApprovedForTicker(ticker);
-      if (Array.isArray(findings) && findings.length > 0) {
-        (data as Record<string, unknown>).image_findings = findings.map((f) => ({
-          id: f.id,
-          image_url: f.image_url,
-          // Yann 18 mai 2026 : SVG local recréé (priorité affichage).
-          image_local_path: f.image_local_path,
-          title: f.title,
-          caption: f.caption,
-          summary: f.summary,
-          // i18n (FR/EN/DE) — picked côté UI selon locale active
-          title_i18n: f.title_i18n,
-          summary_i18n: f.summary_i18n,
-          source_url: f.source_url,
-          source_author: f.source_author,
-          source_handle: f.source_handle,
-          source_date: f.source_date,
-          source_platform: f.source_platform,
-          // Toggle sandbox admin (Yann 17 mai 2026) : default true.
-          show_summary: f.show_summary !== false,
-          // Yann 20 sept 2026 : societes rattachees au graphique, rendues en
-          // rangee de logos + tickers dans le document exporte.
-          target_tickers: f.target_tickers ?? [],
-        }));
-      }
-    } catch (err) {
-      console.warn(`image_findings merge failed for ${ticker}:`, err);
-    }
     // Exhaustive extract (CONV-DEPAN 16 mai 2026) : merge le JSON
     // 18-domaines `v2-pipeline-exhaustive/<ticker>.json` (Haiku/Sonnet)
     // dans `company.exhaustive`. Les nouveaux blocs UI peuvent consommer
@@ -2294,6 +2262,42 @@ async function loadV17CompanyBrut(
         };
       });
     }
+  }
+
+  // Yann 21 sept 2026 : SORTI du bloc enrich. Les societes sans fichier
+  // v2-pipeline-enrich (63 sur 671, surtout europeennes) n affichaient
+  // AUCUN graphique moyen terme, meme approuve : le bloc entier etait saute.
+  // Image findings approuvés (Yann 15 mai 2026) — bloc "Graphiques et
+  // Schémas de sources diverses".
+  try {
+    const { listApprovedForTicker } = await import("@/lib/desk/image-findings");
+    const findings = await listApprovedForTicker(ticker);
+    if (Array.isArray(findings) && findings.length > 0) {
+      (data as Record<string, unknown>).image_findings = findings.map((f) => ({
+        id: f.id,
+        image_url: f.image_url,
+        // Yann 18 mai 2026 : SVG local recréé (priorité affichage).
+        image_local_path: f.image_local_path,
+        title: f.title,
+        caption: f.caption,
+        summary: f.summary,
+        // i18n (FR/EN/DE) — picked côté UI selon locale active
+        title_i18n: f.title_i18n,
+        summary_i18n: f.summary_i18n,
+        source_url: f.source_url,
+        source_author: f.source_author,
+        source_handle: f.source_handle,
+        source_date: f.source_date,
+        source_platform: f.source_platform,
+        // Toggle sandbox admin (Yann 17 mai 2026) : default true.
+        show_summary: f.show_summary !== false,
+        // Yann 20 sept 2026 : societes rattachees au graphique, rendues en
+        // rangee de logos + tickers dans le document exporte.
+        target_tickers: f.target_tickers ?? [],
+      }));
+    }
+  } catch (err) {
+    console.warn(`image_findings merge failed for ${ticker}:`, err);
   }
 
   // Stories signal patch (Yann 5 juin 2026, sub-agent stories-signal) :

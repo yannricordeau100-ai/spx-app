@@ -548,3 +548,19 @@ aucun compte n'est imposé, la file est en base. Quand Yann tape
    `image_url_light`, `title`, `summary`, `source_url`, `source_author`,
    `source_date`, `target_tickers`), rejeter les images copiées, puis passer la
    demande en `pending_review`. Yann approuve ensuite dans la page.
+
+## 11. RECHERCHE D INDICATEURS PAR LES QUESTIONS DES ANALYSTES (Yann, 21 sept 2026)
+
+Atelier `/sandbox/kpi-pistes`, sous-onglet « Questions des analystes ».
+
+**Regle arretee apres test sur MPWR, YUM et AMGN** : on lit UNIQUEMENT LA
+DERNIERE conference de resultats de chaque societe, jamais deux. Le test a
+montre +57 % d idees pour +100 % de cout, et un gain quasi nul des que la fiche
+depasse ~25 indicateurs. La source est `src/data/transcripts/<ticker>.json`
+(champ `latest.content`), qui ne contient de toute facon que le dernier appel.
+
+Methode imposee, pour tenir l exigence d economie : isoler par script la section
+des questions et reponses AVANT toute lecture par un modele, ne jamais avaler un
+transcript entier dans le contexte, et ne garder que les elements chiffrables
+reclames par les analystes et absents de la fiche. Modele : Haiku ou moteur
+gratuit, jamais Opus.

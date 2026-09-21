@@ -149,16 +149,23 @@ def construit(spec: dict, theme: str) -> str:
         out.append(f'<line x1="{MARGE_G}" y1="{y:.0f}" x2="{W - MARGE_D}" y2="{y:.0f}" stroke="{c["grille"]}" stroke-width="1"/>')
         out.append(f'<text x="{MARGE_G - 8}" y="{y + 4:.0f}" text-anchor="end" fill="{c["gris"]}" font-size="11" font-family="ui-monospace">{format_valeur(g, "")}</text>')
 
-    if pourcent:
-        # Un seul signe pourcent, au milieu de l axe vertical, decale a gauche des
-        # graduations (largeur de la plus large) : il ne les touche jamais.
+    # Yann 21 sept 2026 : l unite doit se lire en une seconde. Le signe pourcent,
+    # ou le libelle d unite de la spec (champ « unite_axe », par exemple
+    # « milliers » ou « M$ »), est ecrit une seule fois au milieu de l axe
+    # vertical, a gauche des graduations, sans jamais les toucher.
+    marque_axe = "%" if pourcent else str(spec.get("unite_axe") or "").strip()
+    if marque_axe:
         large = max(largeur_texte(format_valeur(g, ""), 11, mono=True) for g in grads)
-        x_pct = max(12.0, (MARGE_G - 8) - large - 11)
+        taille_axe = 13 if marque_axe == "%" else 11
+        # Un libelle long se dresse a la verticale pour ne pas manger la place.
+        vertical = largeur_texte(marque_axe, taille_axe) > MARGE_G - 8 - large - 6
+        x_pct = max(10.0, (MARGE_G - 8) - large - (8 if vertical else 11))
         pas_y = (BAS - HAUT) / (len(grads) - 1) if len(grads) > 1 else 0
         y_pct = (HAUT + BAS) / 2 - pas_y / 2
+        rotation = f' transform="rotate(-90 {x_pct:.0f} {y_pct:.0f})"' if vertical else ""
         out.append(
             f'<text x="{x_pct:.0f}" y="{y_pct:.0f}" text-anchor="middle" fill="{c["axe"]}" '
-            f'font-size="13" font-family="ui-monospace">%</text>'
+            f'font-size="{taille_axe}" font-family="ui-monospace"{rotation}>{echappe(marque_axe)}</text>'
         )
 
     largeur_zone = (W - MARGE_D - MARGE_G) / len(cats)

@@ -13,8 +13,8 @@ import SOURCES from "@/data/sources-externes.json";
 
 export function SourcesExternes({ ticker, paid }: { ticker: string; paid: boolean }) {
   // Yann 16 sept 2026 : Motley Fool et Wikipédia ne sont pas comptés comme sources.
-  // Yann 21 sept 2026 : MarketBeat retiré de la liste des logos affichés.
-  const ECARTEES = /motley fool|wikip|marketbeat/i;
+  // Yann 21 sept 2026 : MarketBeat puis StockAnalysis retirés de la liste affichée.
+  const ECARTEES = /motley fool|wikip|marketbeat|stockanalysis/i;
   const liste = (((SOURCES as { par_ticker: Record<string, string[]> }).par_ticker ?? {})[ticker.toUpperCase()] ?? []).filter((x) => !ECARTEES.test(x));
   const [ouvert, setOuvert] = useState(false);
   const boite = useRef<HTMLDivElement | null>(null);
