@@ -1,0 +1,72 @@
+- [Mettrik (KPI Intelligence app)](project_mettrik.md) — app SaaS investisseurs ~/spx-app, V1.9.5 = SP500 ~656 stes
+- [Mettrik communication style](feedback_mettrik_communication.md) — pas d'em-dash, vocabulaire FR strict, pas de jargon dev, ordre langues
+- [Cadence & dispo Mettrik](feedback_mettrik_cadence.md) — sum-up HORAIRE heure pile, dispo 5 min, format bloc vert/rouge/orange
+- [Glossaire Mettrik](reference_mettrik_glossary.md) — abbreviations (PV, stes), filings SEC, metriques, termes UI
+- [spx-quant-engine autonomie](feedback_spx_autonomous.md) — autonomie totale dans ~/spx-quant-engine
+- [spx-quant-engine contexte](project_spx_quant_engine.md) — projet quant distinct, CLAUDE.md du repo = source verite
+- [Notifications pas autorisations](feedback_notifications.md) — notifier au lieu de bloquer
+- [Mac capacity](feedback_mac_capacity.md) — eviter pics CPU/RAM, Mac a deja crashe
+- [Mettrik V195 blocked tail](project_mettrik_v195_blocked_tail.md) — queue fermee (862/871 en ligne, 9 bloques structurels), 4 detecteurs qualite scripts/scan-*.py
+- [Defaut selection hero Mettrik](project_mettrik_hero_selection_defect.md) — kpis-haut ecrase le hero, underscore echappe a isGenericKpi, ~14% des pages
+- [Reponses concises](feedback_concise_replies.md) — reponse courte par defaut, max 8 lignes, zero blabla, finir par TERMINE
+- [Silence agents](feedback_silence_attente.md) — jamais "En attente..." pendant qu'un agent tourne, repondre uniquement si essentiel
+- [Deploy chain Mettrik](feedback_mettrik_deploy_chain.md) — edit→tsc→commit→push→deploy→alias→curl verify AVANT de dire "fait"
+- [Scope strict](feedback_mettrik_scope_strict.md) — QUE les modifs demandees, pas de refactor non demande
+- [Internet resilience](feedback_internet_resilience.md) — retry 30s si coupure, signaler si >3 min
+- [DOB raccourci](feedback_dob_shortcut.md) — Direct+Objectif+Bref, format bilans nuit
+- [Regression pipeline CA](project_mettrik_ca_pipeline_regression.md) — differ et rejeter avant deploy
+- [Recherche exhaustive](feedback_recherche_exhaustive.md) — verifier TOUS les emplacements avant de conclure absent
+- [Pas de contexte dans conversation](feedback_no_context_in_conversation.md) — etat/plans dans fichiers externes uniquement
+- [Anti-overflow Workflow](feedback_workflow_context.md) — sub-agents retournent {ticker,ok} uniquement
+- [Token economy extractions](feedback_token_economy.md) — jamais _risks_src.txt, toujours _30k.txt, max 3 agents
+- [Etat extractions data-lake](project_mettrik_extraction_state.md) — risks/KPI/stories, formats JSON, regles reprise
+- [Heure et timers](feedback_time_scheduling.md) — date reelle AVANT toute decision temporelle, timers en duree relative uniquement
+- [Vérif Mettrik en vue connectée](feedback_mettrik_verify_admin.md) — jamais vérifier en anonyme, compte test audit.claude
+- [Cron Mettrik autonome](project_mettrik_cron_autonome.md) — 4 verrous + auto-publication 3-verrous-verts depuis 16 juil, GO Yann
+- [Pièges Browser pane](reference_browser_pane_pieges.md) — cookies par path, Web Locks partagés, login formulaire fiable
+- [Norme KPI SP500 terminée](project_kpi_norm_sp500_done.md) — 503/503 le 22 juil, deployé, Vercel Pro
+- [Garde-fou quota Fable](feedback_fable_quota_guard.md) — jamais stoppé par une limite, bascule Opus avant
+- [KPI v3 terminé](project_kpi_v3_handoff.md) — 503/503 le 28 juil, audit fait, 3 défauts systémiques corrigés
+- [Vérif extractions agents](feedback_verif_extractions_agents.md) — sonder 3 valeurs contre les sources avant apply, un agent a inventé 17 trimestres
+- [CAC 40 handoff](project_cac40_handoff.md) — mission déléguée 31 juil, kit .conv-state/cac40-*, reprise possible par moi
+- [Univers 575](project_univers_575.md) — SP500+CAC+SMI+SOX depuis 8 août, corrections sur TOUT, docs sox30-HANDOFF + process web-KPI
+- [Pieges apply-hero-fix Mettrik](reference_mettrik_apply_hero_fix.md) — alias canoniques, history en nombres bruts, hero = dernier applique
+- [Gate visibilité V195](reference_mettrik_visibility_gate.md) — ticker absent de clean-all-tickers = redirect index silencieux, vérifier le title
+- [Annuaire IR + veille réparée](project_ir_directory_veille.md) — 650/651 URL IR, watchers corrigés 10 août, Quartr écarté
+- [AEX 25 + DAX 40 terminés](project_aexdax_done.md) — 62 stés le 9 août, univers 651, pièges casse/Supabase/alias
+- [Backlog post-Prompt D](project_mettrik_promptd_backlog.md) — sweeps univers restants (cross-pollution, accents EU, transcripts), fait/deploye 9 aout
+- [Hero override Supabase](reference_mettrik_hero_override_supabase.md) — la vraie source du hero, apply-hero-fix ne la touche pas
+- [Clarté réponses + comptes 5x/20x](feedback_clarte_reponses.md) — règles permanentes, HANDOFF-20X.md, cron 23h moteur Claude seul
+- [Casse des fichiers Mettrik](reference_mettrik_casse_fichiers.md) — nom en majuscules = 404 en prod, invisible sur macOS
+- [Garde-fous earnings-refresh](project_mettrik_earnings_refresh_gardes.md) — regression du 28 aout corrigee, 3 gardes, detecteurs scan-unit-magnitude
+- [Univers Mettrik = indices seulement](project_mettrik_univers_indices_only.md) — 666 fermes depuis le 28 aout, interdiction d ajouter par capitalisation, tache v195-resume desactivee
+- [KPI dedup + sync clic](reference_mettrik_kpi_dedup_sync.md) — overrideValue/resync graphPeriod, dedup runtime séries recouvrantes, YoY % en points " %"
+- [Chantiers ouverts 30 août](project_mettrik_chantiers_30aout.md) — 16k définitions KPI batch, 164 synthèses en retard (Fool lacunaire), 90 stances IA douteuses, logos SVG V1
+- [Pre-lancement Mettrik](project_mettrik_lancement.md) — audit 30 aout fait, 4 actions Yann (Stripe live, Resend, SMTP Supabase, test reel), go = MAINTENANCE_MODE off
+- [Logothèque Mettrik](reference_mettrik_logotheque.md) — réglage du logo par emplacement en base, pas dans le dépôt ; piège des statiques en mode maintenance
+- [Pas de questionnaire bloquant](feedback_pas_de_questionnaire.md) — Yann rejette AskUserQuestion : decider seul, lister decisions + options A/B dans la reponse
+- [Liens + builds Vercel](feedback_liens_et_builds_vercel.md) — toujours un lien par création, annuler les builds git intermédiaires, échappements JSX affichés en clair
+- [Cahier + atelier GICS](project_cahier_gics.md) — docs/cahier commun, /sandbox/gics 4 onglets, option B, prompts KPI dans Claude Code
+- [Bientôt sans délai + logos Wikipédia](feedback_mettrik_bientot_logos.md) — « Disponible bientôt » uniquement ; logos via scripts/fetch-logo-wikipedia.py, jamais par domaine/ticker
+- [Définitions KPI Mettrik](reference_mettrik_definitions_kpi.md) — KPI total, KPI IC total, KPI = type comparable (règle du concurrent), 12 sept
+- [Règles de mise à jour J+3 + alerte rouge](feedback_mettrik_mises_a_jour.md) — lire /sandbox/mises-a-jour en début de session, corriger le rouge avant Yann
+- [Sources gratuites Mettrik](reference_mettrik_sources_gratuites.md) — MarketBeat (transcripts, calendrier US), EDGAR, Wikipedia, portail Nasdaq ; FMP optionnel
+- [Traductions interdites Mettrik](feedback_mettrik_traductions_interdites.md) — aucune traduction nulle part depuis le 13 sept 2026, crons desactives
+- [Pièges maj-societes-nuit](project_mettrik_maj_nuit_pieges.md) — quota à tester avant (sinon agents + brouillons vérifiés), écrasements par autre session, comparatifs N-1, transcripts re-contaminés, 8-K sans communiqué depuis 27 août, kpis-haut hors src
+- [Cache des fiches et version](reference_mettrik_cache_fiches_version.md) — version.ts non commité = anciennes fiches servies 6 h
+- [KPI ajouté invisible + override sur short servi](reference_mettrik_kpi_ajoute_invisible.md) — kpis-haut remplace la base sauf _source dans KEPT_SOURCES ; vérifier hero_kpi sur la page servie
+- [Pièges chaîne de déploiement](reference_mettrik_chaine_deploiement_pieges.md) — aucun commit pendant la chaîne, fichiers de veille à committer juste avant go-n0, builds empilés à annuler
+- [Moyen terme : sources externes seulement](feedback_mettrik_moyen_terme_sources.md) — jamais recopier une série de fiche en graphique moyen terme (18 sept 2026)
+- [Ecriture des series KPI](reference_mettrik_kpi_ecriture_series.md) — deux formats d historique, garde-fou d echelle, exercices decales
+- [Chaine post-resultats](project_mettrik_chaine_post_resultats.md) — telechargement puis extraction, alerte rouge a J+7, registre des societes sans appel
+- [Hero en pourcentage](reference_mettrik_hero_pourcentage.md) — un override pose a la main prime depuis le 18 sept, verif du titre reellement affiche
+- [Concurrents Mettrik](reference_mettrik_concurrents.md) — 224 services mondiaux releves le 18 sept, docs/concurrents.md
+- [Thèses d investissement Mettrik](project_mettrik_theses.md) — cas favorable selon un investisseur ou une banque, chaîne agents + vérification, MC.PA référence
+- [Approbation KPI interdite sans demande](feedback_mettrik_approbation_kpi.md) — ne jamais approuver un graphique à la place de Yann, un « go » ne vaut pas approbation
+- [Liens vers les outils Mettrik](feedback_mettrik_liens_outils.md) — jamais mettrik.ai pour /sandbox /concepts /admin, toujours la préversion
+- [Sources hors des blocs](feedback_mettrik_sources_hors_blocs.md) — aucune source visible dans un bloc, tout dans le mini bloc du bas
+- [Front public Mettrik](feedback_mettrik_front_public.md) — jamais la liste des indices, jamais le nombre de KPI exclusifs
+- [Circulation des donnees sur les fiches](reference_mettrik_circulation_donnees.md) — blocs enfermes dans if (enrich), KEPT_SOURCES, protocole de preuve
+- [Support client Mettrik](project_mettrik_support_client.md) — bulle, tickets, courriel support@mettrik.ai, espace client
+- [Ateliers de recherche de KPI](project_mettrik_ateliers_kpi.md) — kpi-pistes et kpi-non-financiers, verrouilles sans feu vert, un seul transcript
+- [Affichage des graphiques moyen terme](reference_mettrik_graphiques_affichage.md) — jumeau PNG pour Safari, valeurs horizontales, unite sur l axe
