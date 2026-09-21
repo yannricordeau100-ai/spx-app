@@ -214,8 +214,8 @@ const STR = {
     fr: "≥ 75 = world-class · 55-75 = premium · 35-55 = solide · < 35 = en deçà",
   },
   ppi_interp_top: {
-    en: "World-class score. The company combines growth, profitability, diversification and margin expansion. Very few S&P 500 companies exceed 75.",
-    fr: "Note world-class. La société conjugue croissance, profitabilité, diversification et expansion de marges. Très peu de sociétés du S&P 500 dépassent 75.",
+    en: "World-class score. The company combines growth, profitability, diversification and margin expansion. Very few large listed companies exceed 75.",
+    fr: "Note world-class. La société conjugue croissance, profitabilité, diversification et expansion de marges. Très peu de grandes sociétés cotées dépassent 75.",
   },
   ppi_interp_high: {
     en: "Premium profile. At least 3 of the 4 dimensions are at the top. One axis of improvement remains (often concentration or margin trend).",

@@ -391,8 +391,8 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
     de: "Verhältnis CEO-Vergütung / Median-Mitarbeiter",
     nl: "Ratio CEO / mediaan werknemer" },
   "governance.metrics.pay_ratio_tooltip": {
-    de: "Vielfaches zwischen CEO-Vergütung und Median-Mitarbeiterlohn. S&P 500 Median ≈ 200×.",
-    nl: "Veelvoud tussen CEO-vergoeding en mediaan werknemersloon. S&P 500 mediaan ≈ 200×." },
+    de: "Vielfaches zwischen CEO-Vergütung und Median-Mitarbeiterlohn. Median der großen US-Börsenwerte ≈ 200×.",
+    nl: "Veelvoud tussen CEO-vergoeding en mediaan werknemersloon. Mediaan van de grote Amerikaanse beursfondsen ≈ 200×." },
   "governance.metrics.exec_approval_label": {
     de: "Vergütungsgenehmigung",
     nl: "Goedkeuring beloning" },
@@ -417,8 +417,8 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
     nl: "Gemiddelde anciënniteit van bestuurders. Te kort = gebrek aan ervaring; te lang (>10 jaar) = onvoldoende vernieuwing." },
   "governance.metrics.women_label": { de: "Diversität: Frauen im Board", nl: "Diversiteit: vrouwen in bestuur" },
   "governance.metrics.women_tooltip": {
-    de: "% Frauen im Board. S&P 500 Median ≈ 32 %. Einige institutionelle Investoren stimmen gegen Boards unter 30 %.",
-    nl: "% vrouwen in het bestuur. S&P 500 mediaan ≈ 32 %. Sommige institutionele beleggers stemmen tegen besturen onder 30 %." },
+    de: "% Frauen im Board. Median der großen US-Börsenwerte ≈ 32 %. Einige institutionelle Investoren stimmen gegen Boards unter 30 %.",
+    nl: "% vrouwen in het bestuur. Mediaan van de grote Amerikaanse beursfondsen ≈ 32 %. Sommige institutionele beleggers stemmen tegen besturen onder 30 %." },
   "governance.metrics.age_label": { de: "Durchschnittsalter des Boards", nl: "Gemiddelde leeftijd bestuur" },
   "governance.metrics.insider_label": {
     de: "Insider-Beteiligung (Management + Board)",
@@ -739,8 +739,8 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
     de: "In deinem persönlichen Bereich, mit einem Klick. Das Abonnement endet zum Ende der bereits bezahlten Periode und verlängert sich nicht automatisch.",
     nl: "Vanuit je persoonlijke ruimte, met één klik. Het abonnement stopt aan het einde van de reeds betaalde periode en wordt niet automatisch verlengd." },
   "faq.a.coverage": {
-    de: "Aktuell: die wichtigsten US-börsennotierten Unternehmen (S&P 500 plus eine laufende SP1500-Erweiterung) und eine europäische und ausländische Auswahl in Vorbereitung.",
-    nl: "Op dit moment: de belangrijkste Amerikaanse beursgenoteerde bedrijven (S&P 500 plus een lopende SP1500-uitbreiding) en een Europese en buitenlandse selectie in voorbereiding." },
+    de: "Heute Tausende Unternehmen: die großen börsennotierten Gesellschaften aus den USA und Europa, in großen Marktblöcken ausgewählt. Die Abdeckung wächst in Wellen, nie Unternehmen für Unternehmen.",
+    nl: "Vandaag duizenden bedrijven: de grote beursgenoteerde ondernemingen uit de Verenigde Staten en Europa, geselecteerd in brede marktblokken. De dekking groeit in golven, nooit bedrijf per bedrijf." },
   "faq.a.data_errors": {
     de: "Melde ihn über das Kontaktformular. Die angezeigten Daten stammen aus einer automatisierten Extraktionskette, die trotz unserer aufeinanderfolgenden Validierungen Fehler enthalten kann.",
     nl: "Meld het via het contactformulier. De getoonde gegevens komen uit een geautomatiseerde extractieketen die ondanks onze opeenvolgende validaties fouten kan bevatten." },
@@ -865,8 +865,8 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
     de: "Über dein Konto (Mein Profil > Abrechnung), mit einem Klick. Keine Strafe, dein Zugang bleibt bis zum Ende der bezahlten Periode aktiv.",
     nl: "Vanuit je account (Mijn profiel > Facturatie), met één klik. Geen boete, je toegang blijft actief tot het einde van de betaalde periode." },
   "pricing.faq_a3": {
-    de: "US-Börsen: NYSE, NASDAQ. Europäische Börsen: Euronext, Xetra (DAX), London (FTSE 100), Borsa Italiana, BME, SIX Schweiz, Nasdaq Stockholm. Asiatische Börsen (im Aufbau): Tokio (Japan), KRX (Korea), ASX (Australien), TWSE (Taiwan), SGX (Singapur). Der Katalog wächst monatlich.",
-    nl: "Amerikaanse beurzen: NYSE, NASDAQ. Europese beurzen: Euronext, Xetra (DAX), Londen (FTSE 100), Borsa Italiana, BME, SIX Zwitserland, Nasdaq Stockholm. Aziatische beurzen (in uitrol): Tokio (Japan), KRX (Korea), ASX (Australië), TWSE (Taiwan), SGX (Singapore). De catalogus groeit maandelijks." },
+    de: "Dieselben Tausende Unternehmen in jedem Plan: alle von Mettrik abgedeckten großen börsennotierten Gesellschaften aus den USA und Europa. Premium und Max heben die Unkenntlichmachung auf; Max ergänzt die Gegenthese und bevorzugten Support.",
+    nl: "Dezelfde duizenden bedrijven in elk abonnement: alle door Mettrik gedekte grote beursgenoteerde ondernemingen uit de Verenigde Staten en Europa. Premium en Max heffen de vervaging op; Max voegt de tegenthese en voorrangssupport toe." },
   "pricing.faq_a4": {
     de: "Ja, jederzeit. Wenn du von Premium zu Max wechselst, wird die Differenz anteilig berechnet. Bei einem Downgrade wird die Änderung bei der nächsten Verlängerung wirksam.",
     nl: "Ja, altijd. Bij upgrade van Premium naar Max wordt het verschil pro rata gefactureerd. Bij downgrade gaat de wijziging in bij de volgende verlenging." },

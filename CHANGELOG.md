@@ -721,3 +721,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.21.3 (21 Sep 2026 02:15, apres 9bcb6d069d)
 - graphiques moyen terme visibles partout, unite sur l axe, sources nettoyees
+
+## v2026.09.21.4 (21 Sep 2026 03:08, apres 86c3ce141d)
+- support client, clavier dans la recherche, sources hors des blocs, indices non cites

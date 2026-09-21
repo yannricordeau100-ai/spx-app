@@ -136,7 +136,7 @@ function ArgumentCard({ arg }: { arg: TheseArgument }) {
     <div className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
       <div className="flex items-start justify-between gap-2">
         <div className="text-[13.5px] font-semibold text-zinc-100">{arg.titre}</div>
-        {arg.preuve && <SourceInfo label="Preuve et source" contenu={arg.preuve} />}
+        {arg.preuve && <SourceInfo label="Preuve" contenu={arg.preuve} />}
       </div>
       {arg.critere_style && (
         <div className="mt-1 font-mono text-[10.5px] uppercase tracking-wider text-emerald-400/80">Critère : {arg.critere_style}</div>
@@ -153,7 +153,6 @@ function QuantCard({ q }: { q: TheseQuantitatif }) {
     <div className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
       <div className="flex items-start justify-between gap-2">
         <div className="text-[13.5px] font-semibold text-zinc-100">{q.titre}</div>
-        {q.source && <SourceInfo label="Source" contenu={q.source} />}
       </div>
       <div className="mt-1.5 font-mono text-[13px] text-emerald-300">{q.chiffre}</div>
       {q.perspective && (
@@ -282,7 +281,6 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
         <div>
           <div className="flex items-start justify-between gap-2">
             <div className="text-[13.5px] font-semibold text-zinc-100">{these.element_additionnel.titre}</div>
-            {these.element_additionnel.source && <SourceInfo label="Source" contenu={these.element_additionnel.source} />}
           </div>
           <div className="mt-2"><Corps texte={these.element_additionnel.texte} /></div>
         </div>

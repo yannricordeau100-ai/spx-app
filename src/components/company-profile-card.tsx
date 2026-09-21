@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import {
-  ExternalLink,
   Newspaper,
   Sparkles,
   BookOpen,
@@ -193,23 +192,10 @@ export function CompanyProfileCard({
               </h3>
               <span className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
                 {fmtNewsDate(news.date, locale)}
-                {news.source ? ` · ${news.source}` : ""}
               </span>
             </div>
             <p className="mb-2 text-[14px] font-semibold leading-snug text-zinc-100">{news.headline}</p>
             <p className="text-[13px] leading-relaxed text-zinc-300">{news.summary}</p>
-            {news.url && (
-              <a
-                href={news.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-1 text-[12px] underline-offset-2 hover:underline"
-                style={{ color: accent }}
-              >
-                Lire la source
-                <ExternalLink className="size-3" />
-              </a>
-            )}
           </div>
         ) : !mDesc && legacyDesc ? (
           <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
@@ -246,7 +232,6 @@ function MarketTamCard({ positions, accent }: { positions: MarketPosition[]; acc
                 </span>
               )}
             </div>
-            {p.source && <div className="mt-0.5 text-[10.5px] text-zinc-500">{p.source}</div>}
           </li>
         ))}
       </ul>

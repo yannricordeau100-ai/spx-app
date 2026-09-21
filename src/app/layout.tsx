@@ -6,6 +6,7 @@ import { I18nProvider } from "@/lib/i18n/provider";
 import { getServerLocale } from "@/lib/i18n/server";
 import { UserPrefsSync } from "@/components/user-prefs-sync";
 import { AdminFloatingPanel } from "@/components/admin-floating-panel";
+import { SupportLauncher } from "@/components/support/support-launcher";
 import "./globals.css";
 import { TelemetrieCollecteur } from "@/components/telemetrie-collecteur";
 
@@ -84,10 +85,10 @@ export const metadata: Metadata = {
   // (KPI, indicateurs opérationnels, S&P 500, CAC 40, documents officiels).
   // L ancienne accroche reste le titre OG/Twitter.
   description:
-    "Mettrik AI : les indicateurs clés (KPI) qui expliquent la performance de plus de 650 sociétés cotées (S&P 500, CAC 40, DAX 40, SMI, AEX). Extraits des documents officiels, notés, comparés au secteur, mis à jour à chaque publication de résultats. Surperformer le marché avec les meilleurs KPIs de chaque action.",
+    "Mettrik AI : les indicateurs clés (KPI) qui expliquent la performance de plus de 650 grandes sociétés cotées américaines et européennes. Extraits des documents officiels, notés, comparés au secteur, mis à jour à chaque publication de résultats. Surperformer le marché avec les meilleurs KPIs de chaque action.",
   keywords: [
     "KPI investisseur", "indicateurs clés société cotée", "analyse fondamentale", "KPI opérationnels",
-    "S&P 500", "CAC 40", "DAX 40", "résultats trimestriels", "facteurs de risque 10-K",
+    "grandes capitalisations américaines", "grandes capitalisations européennes", "résultats trimestriels", "facteurs de risque 10-K",
     "rémunération dirigeants", "earnings call synthèse", "Mettrik", "Mettrik AI", "KPI Intelligence",
   ],
   applicationName: "Mettrik AI",
@@ -205,7 +206,7 @@ export default async function RootLayout({
                   operatingSystem: "Web",
                   url: SITE_URL,
                   description:
-                    "Fiches société avec KPI principal, indicateurs clés notés, facteurs de risque scorés, gouvernance, positionnement IA et synthèse des appels de résultats, pour le S&P 500, le CAC 40, le DAX 40, l'AEX, le SMI et le SOX.",
+                    "Fiches société avec KPI principal, indicateurs clés notés, facteurs de risque scorés, gouvernance, positionnement IA et synthèse des appels de résultats, pour les grandes sociétés cotées américaines et européennes.",
                   offers: [
                     { "@type": "Offer", name: "Gratuit", price: "0", priceCurrency: "EUR", url: `${SITE_URL}/pricing` },
                     { "@type": "Offer", name: "Premium", price: "29.90", priceCurrency: "EUR", url: `${SITE_URL}/pricing`, priceSpecification: { "@type": "UnitPriceSpecification", price: "29.90", priceCurrency: "EUR", billingDuration: "P1M" } },
@@ -232,6 +233,7 @@ export default async function RootLayout({
             simulation tier, switch version (V1.7/V1.7.5/V1.8), switch
             niveau (1 ↔ 2). Masqué automatiquement en niveau 0 prod. */}
         <AdminFloatingPanel />
+        <SupportLauncher />
       </body>
     </html>
   );

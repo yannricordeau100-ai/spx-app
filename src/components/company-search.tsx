@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback, useId } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -191,7 +191,24 @@ export function CompanySearch({
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const declencheurRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
+
+  /**
+   * Yann 21 sept 2026 : pilotage clavier de la liste de resultats.
+   * `indexActif` = -1 signifie "aucune selection", etat volontaire a
+   * l ouverture pour qu une frappe d Entree involontaire n ouvre jamais
+   * une societe. Fleche bas / fleche haut deplacent la selection, Entree
+   * ouvre la societe selectionnee (ou la premiere de la liste).
+   */
+  const [indexActif, setIndexActif] = useState(-1);
+  const listeRef = useRef<HTMLUListElement>(null);
+  /** Vrai quand la selection vient des fleches : seul ce cas fait defiler la liste. */
+  const gesteClavierRef = useRef(false);
+  const optionsRef = useRef<(HTMLLIElement | null)[]>([]);
+  const idBase = useId().replace(/:/g, "");
+  const idListe = `recherche-societes-${idBase}`;
+  const idOption = (i: number) => `${idListe}-option-${i}`;
 
   /**
    * Yann 9 juin 2026 : la search ne montre QUE les sociétés "online" (publiées).
@@ -216,19 +233,36 @@ export function CompanySearch({
     };
   }, []);
 
+  /** Ferme la liste sans rien reprendre (cas d une navigation vers une fiche). */
+  const fermer = useCallback(() => {
+    setOpen(false);
+    setQuery("");
+    setIndexActif(-1);
+  }, []);
+
+  /** Ferme la liste et rend le champ : le focus revient sur la barre de recherche. */
+  const fermerEtRendreLeChamp = useCallback(() => {
+    fermer();
+    // Le pill remplace le champ une fois la liste fermee : c est lui qui
+    // doit reprendre le focus, sinon le lecteur d ecran repart du debut.
+    setTimeout(() => declencheurRef.current?.focus(), 0);
+  }, [fermer]);
+
   // ⌘K / Ctrl+K pour ouvrir, ESC pour fermer
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setOpen(true);
-      } else if (e.key === "Escape") {
-        setOpen(false);
+      } else if (e.key === "Escape" && open) {
+        // Garde : sans le test `open`, une touche Echap ailleurs sur la page
+        // volerait le focus pour le poser sur la barre de recherche.
+        fermerEtRendreLeChamp();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [fermerEtRendreLeChamp, open]);
 
   // Focus input à l'ouverture + lock du scroll
   useEffect(() => {
@@ -445,18 +479,71 @@ export function CompanySearch({
     totalLabel ??
     (TICKERS.length + V17_SEARCH_INDEX.filter((e) => e.validated).length);
 
-  const close = () => {
-    setOpen(false);
-    setQuery("");
+  const close = fermer;
+
+  /**
+   * Aucune selection au premier affichage, et remise a zero des que la liste
+   * change (nouvelle frappe, filtre online charge, ouverture/fermeture).
+   */
+  useEffect(() => {
+    setIndexActif(-1);
+  }, [query, open, results.length]);
+
+  // Defilement automatique : l element selectionne reste visible.
+  useEffect(() => {
+    if (indexActif < 0 || !gesteClavierRef.current) return;
+    optionsRef.current[indexActif]?.scrollIntoView({ block: "nearest" });
+  }, [indexActif]);
+
+  /** Ouvre la societe d un resultat (meme regle de lien que les cartes). */
+  const ouvrirResultat = useCallback(
+    (ticker: string) => {
+      fermer();
+      router.push(anonLiens ? lienInscription(ticker) : buildLatestHref(ticker));
+    },
+    [anonLiens, fermer, router],
+  );
+
+  /** Clavier du champ : fleches, Entree, Echap. */
+  const clavierChamp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (results.length === 0) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        fermerEtRendreLeChamp();
+      }
+      return;
+    }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      gesteClavierRef.current = true;
+      setIndexActif((i) => (i + 1 >= results.length ? 0 : i + 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      gesteClavierRef.current = true;
+      setIndexActif((i) => (i <= 0 ? results.length - 1 : i - 1));
+    } else if (e.key === "Enter") {
+      // Yann 14 mai 2026 : Entree ouvre la societe.
+      // Yann 21 sept 2026 : la societe selectionnee au clavier, ou a defaut
+      // la premiere de la liste.
+      e.preventDefault();
+      const cible = results[indexActif >= 0 ? indexActif : 0];
+      if (cible) ouvrirResultat(cible.ticker);
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      fermerEtRendreLeChamp();
+    }
   };
 
   return (
     <>
       {/* PILL FERMÉ — bords ultra-arrondis, halo subtil violet/cyan au hover */}
       <button
+        ref={declencheurRef}
         type="button"
         onClick={() => setOpen(true)}
         aria-label={t("search.placeholder_compact")}
+        aria-haspopup="dialog"
+        aria-expanded={open}
         className={
           variant === "hero"
             ? "group relative inline-flex w-full max-w-2xl items-center gap-3 overflow-hidden rounded-full border border-white/10 bg-[#0a0a0e]/80 px-5 py-3.5 text-left text-zinc-400 backdrop-blur-md transition-all hover:border-white/25 hover:text-zinc-200 hover:shadow-[0_0_40px_-10px_rgba(167,139,250,0.45)]"
@@ -556,16 +643,17 @@ export function CompanySearch({
                   enterKeyHint="search"
                   data-1p-ignore
                   data-lpignore="true"
-                  onKeyDown={(e) => {
-                    // Yann 14 mai 2026 : Entrée ouvre la société quand 1 seul résultat.
-                    // Yann 26 mai 2026 : toute recherche route vers la DERNIÈRE
-                    // version (LATEST_VERSION_PATH), peu importe la source.
-                    if (e.key === "Enter" && results.length === 1) {
-                      e.preventDefault();
-                      close();
-                      router.push(anonLiens ? lienInscription(results[0].ticker) : buildLatestHref(results[0].ticker));
-                    }
-                  }}
+                  // Yann 26 mai 2026 : toute recherche route vers la DERNIÈRE
+                  // version (LATEST_VERSION_PATH), peu importe la source.
+                  onKeyDown={clavierChamp}
+                  role="combobox"
+                  aria-controls={results.length > 0 ? idListe : undefined}
+                  aria-expanded={results.length > 0}
+                  aria-autocomplete="list"
+                  aria-activedescendant={
+                    indexActif >= 0 && indexActif < results.length ? idOption(indexActif) : undefined
+                  }
+                  aria-label={ph}
                   className="flex-1 bg-transparent text-[16px] text-zinc-100 outline-none placeholder:text-zinc-500"
                 />
                 {query && (
@@ -620,9 +708,31 @@ export function CompanySearch({
                     </div>
                   </div>
                 ) : (
-                  <ul className="grid grid-cols-1 gap-2">
-                    {results.map((r) => (
-                      <li key={`${r.source}-${r.ticker}`}>
+                  <ul
+                    ref={listeRef}
+                    id={idListe}
+                    role="listbox"
+                    aria-label={ph}
+                    className="grid grid-cols-1 gap-2"
+                  >
+                    {results.map((r, i) => (
+                      <li
+                        key={`${r.source}-${r.ticker}`}
+                        ref={(el) => {
+                          optionsRef.current[i] = el;
+                        }}
+                        id={idOption(i)}
+                        role="option"
+                        aria-selected={i === indexActif}
+                        // Souris et clavier restent coherents : survoler un
+                        // resultat en fait la selection courante.
+                        onMouseEnter={() => {
+                          gesteClavierRef.current = false;
+                          setIndexActif(i);
+                        }}
+                        data-selectionne={i === indexActif ? "oui" : undefined}
+                        className={`rounded-2xl ${i === indexActif ? "ring-2 ring-violet-400/70" : ""}`}
+                      >
                         {r.source === "v1" ? (
                           <ResultCard ticker={r.ticker} onSelect={close} allTickers={allTickersSet} />
                         ) : r.source === "v19" ? (
@@ -674,6 +784,9 @@ function ResultCard({
       href={anonLiens ? lienInscription(ticker) : buildLatestHref(ticker)}
       prefetch
       onClick={onSelect}
+      // Motif liste de suggestions : la navigation se fait aux fleches, les
+      // cartes ne prennent pas le focus au Tab.
+      tabIndex={-1}
       className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
         estVitrine
           ? "border-violet-400/50 bg-violet-500/[0.07] ring-1 ring-violet-400/25 hover:border-violet-300/70 hover:bg-violet-500/[0.12]"
@@ -853,6 +966,7 @@ function ResultCardV17({
       href={href}
       prefetch
       onClick={onSelect}
+      tabIndex={-1}
       className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
         VITRINE_VISIBLE.has(ticker.toUpperCase())
           ? "border-violet-400/60 bg-violet-500/[0.08] ring-1 ring-violet-400/30 hover:border-violet-300/80 hover:bg-violet-500/[0.14]"
@@ -935,6 +1049,7 @@ function ResultCardV19({
       href={href}
       prefetch
       onClick={onSelect}
+      tabIndex={-1}
       className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
         VITRINE_VISIBLE.has(ticker.toUpperCase())
           ? "border-violet-400/60 bg-violet-500/[0.08] ring-1 ring-violet-400/30 hover:border-violet-300/80 hover:bg-violet-500/[0.14]"

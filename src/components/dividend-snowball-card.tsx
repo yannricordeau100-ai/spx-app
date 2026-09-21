@@ -36,7 +36,7 @@ const PRESETS: ComparePreset[] = [
   { key: "pilier-3a", label: "3e pilier 3a (CH)", rate: 2.0, countries: ["CH"] },
   { key: "tagesgeld", label: "Tagesgeldkonto (DE)", rate: 3.0, countries: ["DE", "AT"] },
   { key: "bond-10y-monde", label: "Bond 10 ans monde", rate: 3.5 },
-  { key: "sp500-avg", label: "S&P 500 (~7 %)", rate: 7.0 },
+  { key: "sp500-avg", label: "Grandes actions américaines (~7 %)", rate: 7.0 },
 ];
 
 const INFLATION = 2.5; // moyenne 2026

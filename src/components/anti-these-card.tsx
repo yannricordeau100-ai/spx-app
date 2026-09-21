@@ -148,7 +148,7 @@ function ArgumentCard({ arg }: { arg: AttArgument }) {
     <div className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
       <div className="flex items-start justify-between gap-2">
         <div className="text-[13.5px] font-semibold text-zinc-100">{arg.titre}</div>
-        {arg.preuve && <SourceInfo label="Preuve et source" contenu={arg.preuve} />}
+        {arg.preuve && <SourceInfo label="Preuve" contenu={arg.preuve} />}
       </div>
       <div className="mt-2">
         <Corps texte={arg.argument} />
@@ -162,7 +162,6 @@ function QuantCard({ q }: { q: AttQuantitatif }) {
     <div className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
       <div className="flex items-start justify-between gap-2">
         <div className="text-[13.5px] font-semibold text-zinc-100">{q.titre}</div>
-        {q.source && <SourceInfo label="Source" contenu={q.source} />}
       </div>
       <div className="mt-1.5 font-mono text-[13px] text-cyan-300">{q.chiffre}</div>
       {q.perspective && (

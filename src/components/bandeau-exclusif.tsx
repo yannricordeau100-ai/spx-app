@@ -20,7 +20,6 @@ import { Sparkles } from "lucide-react";
 export const TICKERS_EXCLUSIFS = ["NFLX", "AAPL", "PLTR", "MC.PA", "RMS.PA", "TTE.PA"];
 
 const PHRASE = "Cette société a un ou plusieurs KPI exclusifs à Mettrik AI";
-const NOTE = "Aucune plateforme grand public ne les propose.";
 
 export function BandeauExclusif({ ticker, accent }: { ticker: string; accent: string }) {
   const [force, setForce] = useState<boolean | null>(null);
@@ -50,7 +49,6 @@ export function BandeauExclusif({ ticker, accent }: { ticker: string; accent: st
           {PHRASE}
         </span>
       </div>
-      <p className="mt-0.5 pl-[22px] text-[10.5px] text-zinc-500">{NOTE}</p>
     </div>
   );
 }

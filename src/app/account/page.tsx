@@ -15,6 +15,7 @@ import { translate } from "@/lib/i18n/dictionary";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { SignOutButton } from "@/components/account/signout-button";
 import { PseudoGraphCookie } from "@/components/account/pseudo-graph-cookie";
+import { SupportShortcut } from "@/components/account/support-shortcut";
 import { estCompteInterne } from "@/lib/freemium/tier-serveur";
 import { getStripe } from "@/lib/billing/stripe";
 import { FacturesTable, type Facture } from "@/components/factures-table";
@@ -178,6 +179,9 @@ export default async function AccountPage({
               </div>
             </div>
           </Link>
+
+          {/* Yann 21 sept 2026 : acces a l espace support depuis le compte. */}
+          <SupportShortcut />
 
           {/* Lien Stripe Customer Portal — gérer abonnement, factures,
               moyen de paiement. Si jamais abonné → redirige sur /pricing. */}

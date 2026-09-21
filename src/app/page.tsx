@@ -34,7 +34,7 @@ function safeNextParam(raw: string | string[] | undefined): string | null {
 
 export const metadata = {
   title: "Mettrik AI · Les chiffres qui font bouger chaque action",
-  description: `Les KPI opérationnels des ${NB_SOCIETES} sociétés du S&P 500, CAC 40, DAX 40, AEX 25, SMI et SOX : abonnés, volumes, marges par activité, risques, gouvernance et synthèses de résultats, extraits des rapports officiels.`,
+  description: `Les KPI opérationnels des ${NB_SOCIETES} grandes sociétés cotées américaines et européennes suivies par Mettrik : abonnés, volumes, marges par activité, risques, gouvernance et synthèses de résultats, extraits des rapports officiels.`,
   alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai" },
   robots: { index: true, follow: true },
 };

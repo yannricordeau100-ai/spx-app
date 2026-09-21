@@ -20,6 +20,7 @@ export function storyFmt(value: string | number | null | undefined, unit?: strin
 import { InfoTooltip } from "@/components/info-tooltip";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
+import { sansMentionSource } from "@/components/market-position-card";
 import { useId, useLayoutEffect, useRef, useState } from "react";
 import { kpiPeriodLabel } from "@/lib/period-label";
 import { isFiscalShifted } from "@/lib/fiscal-calendar";
@@ -386,15 +387,6 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
 
 /* -------- MarketPosition story card -------- */
 
-/** Compte le nombre de mots utiles d'une chaîne (split sur espaces / · / +). */
-function wordCount(s: string | null | undefined): number {
-  if (!s) return 0;
-  return s
-    .split(/[\s·+,]+/)
-    .map((w) => w.trim())
-    .filter(Boolean).length;
-}
-
 function MarketPositionStoryCard({
   mp,
   accent,
@@ -414,10 +406,9 @@ function MarketPositionStoryCard({
   // au lieu d'un chiffre absurde (ex : "Infinity %" sur Apple Services).
   const tamUsable = typeof mp.tam === "number" && Number.isFinite(mp.tam) && mp.tam > 0;
   const sharePct = tamUsable ? (mp.segment_revenue / (mp.tam as number)) * 100 : null;
-  // Source >4 mots = trop long pour l'écran story → on cache derrière un "i".
-  // Sinon affichage direct en bas (cas court type "Rapport interne 2024").
-  const sourceFull = `${mp.source}${mp.source_note ? " · " + mp.source_note : ""}`;
-  const sourceIsLong = wordCount(sourceFull) > 4;
+  // Yann 21 sept 2026 : plus aucune source dans la carte, seule la note de
+  // methode reste, nettoyee de toute mention de source.
+  const methode = mp.source_note ? sansMentionSource(mp.source_note) : "";
   // Meme blindage que la carte KPI : le gros chiffre ne doit jamais sortir de
   // la carte, quelle que soit la police ou la largeur d ecran.
 
@@ -541,31 +532,19 @@ function MarketPositionStoryCard({
           </div>
         )}
 
-        {/* Source : si <=4 mots, affichée inline. Sinon mise dans tooltip "i"
-            (règle template Yann 6 mai 2026 : aucune source externe longue ne
-            doit polluer l'écran principal).
-            Yann 9 juin 2026 (BUG B) : relative z-30 pour que le "i" source en
-            bas passe au-dessus des tap-zones du carrousel (z-10). */}
+        {/* Yann 21 sept 2026 : la source a disparu de la carte (regle « aucune
+            source visible dans un bloc »). Seule la note de methode subsiste,
+            derriere le « i ». */}
         <div className="relative z-30 mt-auto pt-3">
-          {sourceIsLong ? (
+          {methode && (
             <div className="inline-flex items-center gap-1 text-[10.5px] italic text-zinc-400">
-              <span>{t("story.source")}</span>
+              <span>Méthodologie</span>
               <InfoTooltip color={accent} size="sm">
                 <div className="mb-1 font-mono text-[10px] uppercase tracking-wider" style={{ color: accent }}>
-                  {t("story.source")}
+                  Méthodologie
                 </div>
-                <div className="not-italic text-zinc-200">{mp.source}</div>
-                {mp.source_note && (
-                  <div className="mt-1.5 border-t border-white/10 pt-1.5 text-[11.5px] leading-relaxed text-zinc-300">
-                    {mp.source_note}
-                  </div>
-                )}
+                <div className="not-italic text-[11.5px] leading-relaxed text-zinc-300">{methode}</div>
               </InfoTooltip>
-            </div>
-          ) : (
-            <div className="text-[10.5px] italic leading-snug text-zinc-400">
-              {t("story.source")} : {mp.source}
-              {mp.source_note && <> · {mp.source_note}</>}
             </div>
           )}
         </div>

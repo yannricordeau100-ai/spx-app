@@ -101,7 +101,6 @@ export function RepartitionBlock({
   // de l'IA. Visible UNIQUEMENT si data présente (sourcée externe).
   const aiCustomer = adaptForLocale(company.revenue_by_ai_customer_type, locale);
   const aiConfidence = company.revenue_by_ai_customer_type?.confidence;
-  const aiSources = company.revenue_by_ai_customer_type?.sources;
 
   // Treemap uniquement : on respecte quand même les toggles par dimension.
   const geoStyles: Style[] = STYLES.filter(
@@ -253,7 +252,7 @@ export function RepartitionBlock({
               className={`relative inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
                 tab === "ai_customer" ? "text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
               }`}
-              title="Revenu IA : clients pros vs particuliers (sources externes)"
+              title="Revenu IA : clients pros vs particuliers"
             >
               {tab === "ai_customer" && (
                 <motion.span
@@ -317,9 +316,11 @@ export function RepartitionBlock({
         );
       })()}
 
-      {tab === "ai_customer" && (aiConfidence || (aiSources && aiSources.length > 0)) && (
+      {/* Yann 21 sept 2026 : le libelle « Source externe » et la liste des
+          editeurs ont ete retires (regle « aucune source visible dans un
+          bloc »). Le niveau de confiance, lui, reste une precision utile. */}
+      {tab === "ai_customer" && aiConfidence && (
         <div className="mb-3 flex flex-wrap items-center gap-2 text-[11px] text-zinc-400">
-          <span className="font-mono uppercase tracking-wider text-zinc-500">Source externe</span>
           {aiConfidence && (
             <span
               className="rounded-full border px-2 py-0.5 font-mono uppercase tracking-wider"
@@ -331,11 +332,6 @@ export function RepartitionBlock({
               }}
             >
               Confiance {aiConfidence}
-            </span>
-          )}
-          {aiSources && aiSources.length > 0 && (
-            <span className="text-zinc-500">
-              {aiSources.length} source{aiSources.length > 1 ? "s" : ""} : {aiSources.map((s) => s.publisher).join(" · ")}
             </span>
           )}
         </div>

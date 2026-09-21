@@ -1308,92 +1308,101 @@ async function loadV17CompanyBrut(
       }
       data.kpis = mergedKpis;
     }
-    // Yann 19 mai 2026 : KPI SPÉCIFIQUES dispatchés par sub-agents Claude
-    // (146 sociétés priorité 0 re-extracted, scope CONV-CONCEPTS).
-    // Source : `src/data/v2-pipeline-specific-kpis/<ticker>.json`.
-    // Format : { kpis: [...] } avec champs short/name/value/unit/yoy/
-    // history/period_type/description_fr/en/_specific_to.
-    // Si `_fit_for_site: false` → société marquée non-publishable (skip merge).
-    try {
-      // Yann 30 mai 2026 (Bug GOOGL 4 KPIs prod) : fallback case-insensitive.
-      // Convention canonique = lowercase. On essaie d'abord lowercase, puis
-      // uppercase pour rétro-compatibilité avec anciens fichiers non normalisés.
-      // Sur Vercel Linux FS case-sensitive, sinon les uppercase ne matchent pas.
-      const specificDir = path.join(ROOT, "src/data/v2-pipeline-specific-kpis");
-      let specificData = await readJsonOrNull<{
+  }
+  // Yann 21 sept 2026 (audit de circulation, défaut 4) : SORTI du bloc
+  // enrich. Les KPI propres à la société (segments, ratios bancaires,
+  // RevPAR...) n'ont aucun rapport avec l'enrichissement, et 36 sociétés
+  // sans fichier v2-pipeline-enrich les perdaient entièrement (BNP.PA,
+  // MC.PA, SAF.PA...). L'ordre d'exécution relatif aux autres injections
+  // est conservé : le bloc enrich est refermé juste avant, puis rouvert
+  // juste après.
+  // Yann 19 mai 2026 : KPI SPÉCIFIQUES dispatchés par sub-agents Claude
+  // (146 sociétés priorité 0 re-extracted, scope CONV-CONCEPTS).
+  // Source : `src/data/v2-pipeline-specific-kpis/<ticker>.json`.
+  // Format : { kpis: [...] } avec champs short/name/value/unit/yoy/
+  // history/period_type/description_fr/en/_specific_to.
+  // Si `_fit_for_site: false` → société marquée non-publishable (skip merge).
+  try {
+    // Yann 30 mai 2026 (Bug GOOGL 4 KPIs prod) : fallback case-insensitive.
+    // Convention canonique = lowercase. On essaie d'abord lowercase, puis
+    // uppercase pour rétro-compatibilité avec anciens fichiers non normalisés.
+    // Sur Vercel Linux FS case-sensitive, sinon les uppercase ne matchent pas.
+    const specificDir = path.join(ROOT, "src/data/v2-pipeline-specific-kpis");
+    let specificData = await readJsonOrNull<{
+      kpis?: AnyKPI[];
+      _fit_for_site?: boolean;
+      _verification_needed?: boolean;
+    }>(path.join(specificDir, `${ticker.toLowerCase()}.json`));
+    if (!specificData) {
+      specificData = await readJsonOrNull<{
         kpis?: AnyKPI[];
         _fit_for_site?: boolean;
         _verification_needed?: boolean;
-      }>(path.join(specificDir, `${ticker.toLowerCase()}.json`));
-      if (!specificData) {
-        specificData = await readJsonOrNull<{
-          kpis?: AnyKPI[];
-          _fit_for_site?: boolean;
-          _verification_needed?: boolean;
-        }>(path.join(specificDir, `${ticker.toUpperCase()}.json`));
-      }
-      if (
-        specificData
-        && specificData._fit_for_site !== false
-        && specificData._verification_needed !== true
-        && Array.isArray(specificData.kpis)
-        && Array.isArray(data.kpis)
-      ) {
-        // FUSION par `short` (Yann 2 juin 2026) : si le KPI existe déjà,
-        // on garde la version avec history LA PLUS LONGUE (+ propage
-        // period_type du gagnant). En cas d'égalité de longueur, specific
-        // gagne (plus récent souvent). Préserve champs v2-pipeline absents
-        // côté specific (yoy / signal / description / etc.).
-        const specificKpis: AnyKPI[] = specificData.kpis
-          .filter((k) => k && typeof k === "object" && typeof k.short === "string" && k.short)
-          .map((k) => ({
-            ...k,
-            history: normalizeHistory(k.history),
-            _source: "v2-pipeline-specific-kpis",
-          }) as AnyKPI);
-        const dataKpis = data.kpis as AnyKPI[];
-        const mergedKpis: AnyKPI[] = [];
-        const dataByShort = new Map<string, AnyKPI>();
-        for (const k of dataKpis) {
-          if (typeof k?.short === "string" && k.short) dataByShort.set(k.short, k);
-        }
-        const consumedShorts = new Set<string>();
-        for (const sk of specificKpis) {
-          const skShort = sk.short as string;
-          const existing = dataByShort.get(skShort);
-          if (existing) {
-            consumedShorts.add(skShort);
-            const existingLen = Array.isArray(existing.history) ? (existing.history as unknown[]).length : 0;
-            const specificLen = Array.isArray(sk.history) ? (sk.history as unknown[]).length : 0;
-            const winner = specificLen >= existingLen ? sk : existing;
-            const loser = winner === sk ? existing : sk;
-            const merged: AnyKPI = { ...loser, ...winner };
-            if (winner === sk) {
-              merged.history = winner.history;
-              if (winner.period_type) merged.period_type = winner.period_type;
-            }
-            mergedKpis.push(merged);
-          }
-        }
-        for (const k of dataKpis) {
-          if (typeof k?.short === "string" && k.short && !consumedShorts.has(k.short)) {
-            mergedKpis.push(k);
-          }
-        }
-        const existingMergedShorts = new Set(
-          mergedKpis.map((k) => k?.short).filter((s): s is string => typeof s === "string" && Boolean(s)),
-        );
-        for (const sk of specificKpis) {
-          const skShort = sk.short as string;
-          if (!existingMergedShorts.has(skShort)) {
-            mergedKpis.push(sk);
-          }
-        }
-        data.kpis = mergedKpis;
-      }
-    } catch {
-      // best effort, silent fail si le fichier n'existe pas pour ce ticker
+      }>(path.join(specificDir, `${ticker.toUpperCase()}.json`));
     }
+    if (
+      specificData
+      && specificData._fit_for_site !== false
+      && specificData._verification_needed !== true
+      && Array.isArray(specificData.kpis)
+      && Array.isArray(data.kpis)
+    ) {
+      // FUSION par `short` (Yann 2 juin 2026) : si le KPI existe déjà,
+      // on garde la version avec history LA PLUS LONGUE (+ propage
+      // period_type du gagnant). En cas d'égalité de longueur, specific
+      // gagne (plus récent souvent). Préserve champs v2-pipeline absents
+      // côté specific (yoy / signal / description / etc.).
+      const specificKpis: AnyKPI[] = specificData.kpis
+        .filter((k) => k && typeof k === "object" && typeof k.short === "string" && k.short)
+        .map((k) => ({
+          ...k,
+          history: normalizeHistory(k.history),
+          _source: "v2-pipeline-specific-kpis",
+        }) as AnyKPI);
+      const dataKpis = data.kpis as AnyKPI[];
+      const mergedKpis: AnyKPI[] = [];
+      const dataByShort = new Map<string, AnyKPI>();
+      for (const k of dataKpis) {
+        if (typeof k?.short === "string" && k.short) dataByShort.set(k.short, k);
+      }
+      const consumedShorts = new Set<string>();
+      for (const sk of specificKpis) {
+        const skShort = sk.short as string;
+        const existing = dataByShort.get(skShort);
+        if (existing) {
+          consumedShorts.add(skShort);
+          const existingLen = Array.isArray(existing.history) ? (existing.history as unknown[]).length : 0;
+          const specificLen = Array.isArray(sk.history) ? (sk.history as unknown[]).length : 0;
+          const winner = specificLen >= existingLen ? sk : existing;
+          const loser = winner === sk ? existing : sk;
+          const merged: AnyKPI = { ...loser, ...winner };
+          if (winner === sk) {
+            merged.history = winner.history;
+            if (winner.period_type) merged.period_type = winner.period_type;
+          }
+          mergedKpis.push(merged);
+        }
+      }
+      for (const k of dataKpis) {
+        if (typeof k?.short === "string" && k.short && !consumedShorts.has(k.short)) {
+          mergedKpis.push(k);
+        }
+      }
+      const existingMergedShorts = new Set(
+        mergedKpis.map((k) => k?.short).filter((s): s is string => typeof s === "string" && Boolean(s)),
+      );
+      for (const sk of specificKpis) {
+        const skShort = sk.short as string;
+        if (!existingMergedShorts.has(skShort)) {
+          mergedKpis.push(sk);
+        }
+      }
+      data.kpis = mergedKpis;
+    }
+  } catch {
+    // best effort, silent fail si le fichier n'existe pas pour ce ticker
+  }
+  if (enrich) {
     // Yann 3 juin 2026 : merge SA22-D nouveaux KPIs sectoriels quarterly Cerebras.
     // Source : `src/data/v2-pipeline-enrich/<ticker>.sa22d.json`.
     // Format : { ticker, _sa22_d_extracted_at, model, kpis: [...] }.
@@ -1834,25 +1843,33 @@ async function loadV17CompanyBrut(
       // Fail-safe : si BDD inaccessible, on continue sans special KPIs.
       console.warn(`special_kpis merge failed for ${ticker}:`, err);
     }
-    // Exhaustive extract (CONV-DEPAN 16 mai 2026) : merge le JSON
-    // 18-domaines `v2-pipeline-exhaustive/<ticker>.json` (Haiku/Sonnet)
-    // dans `company.exhaustive`. Les nouveaux blocs UI peuvent consommer
-    // financials.balance_sheet, segments[].growth_yoy, events_milestones,
-    // kpis_proprietary, esg structuré, etc. sans nouveau Pass LLM.
-    // Optionnel : ne casse rien si fichier absent.
-    try {
-      const exhaustivePath = path.join(
-        process.cwd(),
-        "src/data/v2-pipeline-exhaustive",
-        `${ticker.toLowerCase()}.json`,
-      );
-      const exhaustive = await readJsonOrNull<Record<string, unknown>>(exhaustivePath);
-      if (exhaustive && typeof exhaustive === "object") {
-        (data as Record<string, unknown>).exhaustive = exhaustive;
-      }
-    } catch (err) {
-      console.warn(`exhaustive merge failed for ${ticker}:`, err);
+  }
+  // Yann 21 sept 2026 (audit de circulation, défaut 5) : SORTI du bloc
+  // enrich. Les sociétés sans fichier v2-pipeline-enrich (ALC.SW,
+  // GEBN.SW) n'obtenaient jamais company.exhaustive alors que leur
+  // fichier v2-pipeline-exhaustive existe. L'ordre d'exécution relatif
+  // aux autres injections est conservé : le bloc enrich est refermé
+  // juste avant, puis rouvert juste après.
+  // Exhaustive extract (CONV-DEPAN 16 mai 2026) : merge le JSON
+  // 18-domaines `v2-pipeline-exhaustive/<ticker>.json` (Haiku/Sonnet)
+  // dans `company.exhaustive`. Les nouveaux blocs UI peuvent consommer
+  // financials.balance_sheet, segments[].growth_yoy, events_milestones,
+  // kpis_proprietary, esg structuré, etc. sans nouveau Pass LLM.
+  // Optionnel : ne casse rien si fichier absent.
+  try {
+    const exhaustivePath = path.join(
+      process.cwd(),
+      "src/data/v2-pipeline-exhaustive",
+      `${ticker.toLowerCase()}.json`,
+    );
+    const exhaustive = await readJsonOrNull<Record<string, unknown>>(exhaustivePath);
+    if (exhaustive && typeof exhaustive === "object") {
+      (data as Record<string, unknown>).exhaustive = exhaustive;
     }
+  } catch (err) {
+    console.warn(`exhaustive merge failed for ${ticker}:`, err);
+  }
+  if (enrich) {
     // dividend_meta : propagé tel quel à la company (utilisé par
     // DividendAristocratCard pour calculer yearsStreak depuis first_year).
     // CONV-DIV 9 mai 2026.
@@ -2842,6 +2859,14 @@ async function loadV17CompanyBrut(
         // tag, le remplacement kpis-haut les eliminait (constate sur MUV2,
         // ALV, VTR : hero introuvable sur la page servie).
         "kpi-star",
+        // 21 sept 2026 (audit de circulation, défaut 1) : les deux couches
+        // ci-dessous étaient absentes de la liste blanche, donc effacées par
+        // le remplacement kpis-haut sur 510 sociétés (7 385 indicateurs).
+        // KPI propres à la société (segments, ratios bancaires, RevPAR...),
+        // étiquetés plus haut dans ce même chargeur.
+        "v2-pipeline-specific-kpis",
+        // KPI supplémentaires du fichier enrich (kpis_supplementary).
+        "kpis-supplementary",
       ]);
       const hautShorts = new Set(
         converted.map((k) => String(k.short ?? "").toLowerCase()),
@@ -2888,11 +2913,6 @@ async function loadV17CompanyBrut(
       converted[0]);
       data.hero_kpi = bestHero.short as string;
     }
-    if (ticker.toUpperCase() === "NVDA") {
-      console.error("DEBUG2 kpisHaut FINAL injected count=", converted.length, "data.kpis shorts=", (data.kpis as AnyKPI[]).map((k) => k.short));
-    }
-  } else if (ticker.toUpperCase() === "NVDA") {
-    console.error("DEBUG2 kpisHaut FILE NOT FOUND OR EMPTY at path=", kpisHautPath, "kpisHaut=", kpisHaut ? "exists-but-invalid" : "null");
   }
 
   // ── Reperes annuels sur 10 ans (Yann 3 sept 2026) ────────────────────────

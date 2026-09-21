@@ -44,7 +44,7 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
             <p className="mt-4 max-w-md text-[12.5px] leading-relaxed text-zinc-400">
               <strong>Mettrik AI</strong> est une plateforme d&apos;intelligence KPI pour investisseurs : indicateurs clés
               opérationnels et financiers, historiques jusqu&apos;à vingt ans, scores et facteurs de risque de 671 sociétés
-              cotées (S&amp;P 500, CAC 40, DAX 40, SMI, AEX, SOX), extraits et reconstitués à partir des documents officiels
+              cotées américaines et européennes, extraits et reconstitués à partir des documents officiels
               (rapports annuels, 10-K, 10-Q, communiqués). Ces contenus sont publiés à titre informatif et pédagogique,
               peuvent contenir des erreurs ou des retards de mise à jour, et ne constituent ni un conseil en investissement,
               ni une recommandation d&apos;achat ou de vente. Les performances passées ne préjugent pas des performances

@@ -613,8 +613,8 @@ export const DICTIONARY: Dict = {
     en: "CEO / median employee pay ratio",
   },
   "governance.metrics.pay_ratio_tooltip": {
-    fr: "Multiple entre la rémunération du CEO et celle de l'employé médian. Médiane S&P 500 ≈ 200×.",
-    en: "Multiple between CEO compensation and median employee compensation. S&P 500 median ≈ 200×.",
+    fr: "Multiple entre la rémunération du CEO et celle de l'employé médian. Médiane des grandes capitalisations américaines ≈ 200×.",
+    en: "Multiple between CEO compensation and median employee compensation. Median for large US listed companies ≈ 200×.",
   },
   "governance.metrics.exec_approval_label": {
     fr: "Approbation de la rémunération",
@@ -646,8 +646,8 @@ export const DICTIONARY: Dict = {
   },
   "governance.metrics.women_label": { fr: "Diversité : femmes au conseil", en: "Diversity: women on board" },
   "governance.metrics.women_tooltip": {
-    fr: "% de femmes au conseil. Médiane S&P 500 ≈ 32 %. Certains investisseurs institutionnels votent contre les boards sous 30 %.",
-    en: "% of women on the board. S&P 500 median ≈ 32%. Some institutional investors vote against boards below 30%.",
+    fr: "% de femmes au conseil. Médiane des grandes capitalisations américaines ≈ 32 %. Certains investisseurs institutionnels votent contre les boards sous 30 %.",
+    en: "% of women on the board. Median for large US listed companies ≈ 32%. Some institutional investors vote against boards below 30%.",
   },
   "governance.metrics.age_label": { fr: "Âge moyen du board", en: "Average board age" },
   "governance.metrics.insider_label": {
@@ -814,8 +814,8 @@ export const DICTIONARY: Dict = {
     en: "Which companies are covered in Premium and Max?",
   },
   "faq.a.coverage_plans": {
-    fr: "Les mêmes sociétés dans tous les plans : le S&P 500 au complet, le CAC 40, le DAX 40, l'AEX 25, le SMI suisse et l'indice des semi-conducteurs SOX. Premium et Max lèvent le floutage ; Max ajoute l'anti-thèse et le support prioritaire.",
-    en: "The same companies in every plan: the full S&P 500, CAC 40, DAX 40, AEX 25, Swiss SMI and the SOX semiconductor index. Premium and Max remove the blurring; Max adds the counter-thesis and priority support.",
+    fr: "Les mêmes sociétés dans tous les plans : toutes les grandes sociétés cotées américaines et européennes couvertes par Mettrik. Premium et Max lèvent le floutage ; Max ajoute l'anti-thèse et le support prioritaire.",
+    en: "The same companies in every plan: all the large listed companies of the United States and Europe covered by Mettrik. Premium and Max remove the blurring; Max adds the counter-thesis and priority support.",
   },
   "faq.q.changer_plan": {
     fr: "Puis-je changer de plan plus tard ?",
@@ -862,9 +862,9 @@ export const DICTIONARY: Dict = {
     en: "Which companies are covered?",
   },
   "faq.a.coverage": {
-    fr: "Des milliers de sociétés aujourd'hui : l'intégralité du S&P 500, le CAC 40, le DAX 40, l'AEX 25, le SMI suisse et l'indice des semi-conducteurs SOX. Les indices sont ajoutés par vagues, jamais société par société.",
-    en: "Thousands of companies today: the full S&P 500, CAC 40, DAX 40, AEX 25, Swiss SMI and the SOX semiconductor index. Indices are added in waves, never company by company.",
-    de: "Heute Tausende Unternehmen: der komplette S&P 500, CAC 40, DAX 40, AEX 25, Schweizer SMI und der Halbleiterindex SOX. Indizes kommen in Wellen hinzu, nie Unternehmen für Unternehmen.",
+    fr: "Des milliers de sociétés aujourd'hui : les grandes sociétés cotées des États-Unis et d'Europe, retenues par grands blocs de marché. La couverture s'élargit par vagues, jamais société par société.",
+    en: "Thousands of companies today: the large listed companies of the United States and Europe, selected in broad market blocks. Coverage widens in waves, never company by company.",
+    de: "Heute Tausende Unternehmen: die großen börsennotierten Gesellschaften aus den USA und Europa, in großen Marktblöcken ausgewählt. Die Abdeckung wächst in Wellen, nie Unternehmen für Unternehmen.",
   },
   "faq.q.free_or_paid": {
     fr: "Est-ce gratuit ou payant ?",
@@ -1223,9 +1223,9 @@ export const DICTIONARY: Dict = {
     de: "Welche Unternehmen sind in Premium und Max abgedeckt?",
   },
   "pricing.faq_a3": {
-    fr: "Les mêmes milliers de sociétés dans tous les plans : le S&P 500 au complet, le CAC 40, le DAX 40, l'AEX 25, le SMI suisse et l'indice des semi-conducteurs SOX. Premium et Max lèvent le floutage ; Max ajoute l'anti-thèse et le support prioritaire.",
-    en: "The same thousands of companies in every plan: the full S&P 500, CAC 40, DAX 40, AEX 25, Swiss SMI and the SOX semiconductor index. Premium and Max remove the blurring; Max adds the counter-thesis and priority support.",
-    de: "Dieselben Tausende Unternehmen in jedem Plan: der komplette S&P 500, CAC 40, DAX 40, AEX 25, Schweizer SMI und der Halbleiterindex SOX. Premium und Max heben die Unkenntlichmachung auf; Max ergänzt die Gegenthese und bevorzugten Support.",
+    fr: "Les mêmes milliers de sociétés dans tous les plans : toutes les grandes sociétés cotées américaines et européennes couvertes par Mettrik. Premium et Max lèvent le floutage ; Max ajoute l'anti-thèse et le support prioritaire.",
+    en: "The same thousands of companies in every plan: all the large listed companies of the United States and Europe covered by Mettrik. Premium and Max remove the blurring; Max adds the counter-thesis and priority support.",
+    de: "Dieselben Tausende Unternehmen in jedem Plan: alle von Mettrik abgedeckten großen börsennotierten Gesellschaften aus den USA und Europa. Premium und Max heben die Unkenntlichmachung auf; Max ergänzt die Gegenthese und bevorzugten Support.",
   },
   "pricing.faq_q4": {
     fr: "Puis-je changer de plan plus tard ?",
