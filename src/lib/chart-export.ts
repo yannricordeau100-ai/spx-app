@@ -990,7 +990,7 @@ export async function downloadSvgAsPng(
 
   if (options.title) {
     // Split sur " · " (espace point milieu espace).
-    const SEPARATOR = " · ";
+    const SEPARATOR = "\u00A0\u00B7\u00A0"; // espaces insecables : sinon le point se colle au texte
     const sepIdx = options.title.indexOf(SEPARATOR);
     const hasSeparator = sepIdx > 0;
 

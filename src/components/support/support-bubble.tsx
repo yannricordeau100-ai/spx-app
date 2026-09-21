@@ -85,9 +85,18 @@ export function SupportBubble() {
         </div>
       )}
 
+      {/* Yann 21 sept 2026 : quand le panneau est ouvert, la bulle ne doit pas
+          rester affichee en dessous sous forme de croix detachee. Le panneau a
+          deja sa propre croix ; deux croix pour une seule fenetre, dont une qui
+          flotte hors du cadre, ne veut rien dire. Le bouton reste dans le flux
+          pour garder le focus et l ancrage, mais il devient invisible et
+          intouchable tant que le panneau est ouvert. */}
       <button
         ref={boutonRef}
         type="button"
+        aria-hidden={ouvert}
+        tabIndex={ouvert ? -1 : undefined}
+        style={ouvert ? { opacity: 0, pointerEvents: "none" } : undefined}
         onClick={() => (ouvert ? fermer() : setOuvert(true))}
         aria-expanded={ouvert}
         aria-haspopup="dialog"

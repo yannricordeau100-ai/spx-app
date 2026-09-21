@@ -724,3 +724,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.21.4 (21 Sep 2026 03:08, apres 86c3ce141d)
 - support client, clavier dans la recherche, sources hors des blocs, indices non cites
+
+## v2026.09.21.5 (21 Sep 2026 14:38, apres 677bc4b15c)
+- resiliation Netflix approuvee, bulle de support corrigee, retour sur Mon compte

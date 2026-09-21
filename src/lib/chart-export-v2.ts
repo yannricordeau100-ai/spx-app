@@ -169,7 +169,10 @@ async function composeAndExport(
   const LOGO_GAP = 22;
   const TITLE_FONT_SIZE = 32;
   const TITLE_WEIGHT = 600;
-  const SEPARATOR = " | ";
+  // Yann 21 sept 2026 : les espaces ordinaires en bord de tspan sont avales au
+  // rendu SVG, le trait se collait au texte de droite. Espaces insecables, plus
+  // xml:space a preserve sur le texte, pour un ecart identique des deux cotes.
+  const SEPARATOR = "\u00A0|\u00A0";
 
   const titleY = origY - PAD_TOP + 60;
   const stéLogoDataUrl = await getCompanyLogoDataUrl(options.ticker);
@@ -257,6 +260,7 @@ async function composeAndExport(
   titleEl.setAttribute("font-weight", String(TITLE_WEIGHT));
   titleEl.setAttribute("letter-spacing", "-0.01em");
   titleEl.setAttribute("fill", titleColor);
+  titleEl.setAttribute("xml:space", "preserve");
   const stéSpan = document.createElementNS(NS, "tspan");
   stéSpan.textContent = companyName;
   titleEl.appendChild(stéSpan);

@@ -112,7 +112,12 @@ export function SupportPanel({
   const [question, setQuestion] = useState("");
   const [email, setEmail] = useState("");
   const [emailPrerempli, setEmailPrerempli] = useState(false);
-  const [aSession, setASession] = useState(false);
+  // Yann 21 sept 2026 : trois etats, pas deux. « null » veut dire que la
+  // verification de session n a pas encore repondu. Sans cela, un clic rapide
+  // sur « Ecrire a l equipe » partait avec aSession a faux et renvoyait un
+  // utilisateur DEJA CONNECTE vers la page de connexion.
+  const [aSession, setASession] = useState<boolean | null>(null);
+  const sessionPrete = useRef<Promise<boolean> | null>(null);
   const [nom, setNom] = useState("");
   const [sujet, setSujet] = useState("");
   const [categorie, setCategorie] = useState("autre");
@@ -145,20 +150,28 @@ export function SupportPanel({
   // Adresse pré-remplie quand une session existe. Silencieux en cas d'échec.
   useEffect(() => {
     let vivant = true;
-    (async () => {
+    sessionPrete.current = (async () => {
       try {
         const { createSupabaseBrowserClient } = await import("@/lib/supabase/client");
         const supabase = createSupabaseBrowserClient();
         const { data } = await supabase.auth.getUser();
         const adresse = data?.user?.email ?? "";
-        if (!vivant || !adresse) return;
+        if (!adresse) {
+          if (vivant) setASession(false);
+          return false;
+        }
+        if (!vivant) return true;
         setASession(true);
-        if (emailRef.current.trim()) return;
-        emailRef.current = adresse;
-        setEmail(adresse);
-        setEmailPrerempli(true);
+        if (!emailRef.current.trim()) {
+          emailRef.current = adresse;
+          setEmail(adresse);
+          setEmailPrerempli(true);
+        }
+        return true;
       } catch {
-        /* visiteur non connecté ou client indisponible : on continue */
+        // Client indisponible : on ne bloque personne, on laisse ecrire.
+        if (vivant) setASession(false);
+        return false;
       }
     })();
     return () => {
@@ -216,18 +229,23 @@ export function SupportPanel({
     return () => window.clearTimeout(minuteur);
   }, [etape]);
 
-  function versTicket() {
+  async function versTicket() {
     setErreur(null);
     if (!sujet.trim() && question.trim()) setSujet(question.trim().slice(0, 120));
     if (!message.trim() && question.trim()) setMessage(question.trim());
     // Yann 21 sept 2026 : la recherche dans les questions frequentes reste
-    // ouverte a tous, mais ecrire un message demande un compte. Le visiteur non
-    // connecte est renvoye vers la connexion, son brouillon etant deja conserve.
-    if (!aSession) {
-      setEtape("connexion");
-      return;
+    // ouverte a tous, mais ecrire un message demande un compte. On attend la
+    // reponse de la verification de session avant de trancher : sans cette
+    // attente, un utilisateur connecte se voyait renvoye vers la connexion.
+    let connecte = aSession;
+    if (connecte === null) {
+      try {
+        connecte = (await sessionPrete.current) ?? false;
+      } catch {
+        connecte = false;
+      }
     }
-    setEtape("ticket");
+    setEtape(connecte ? "ticket" : "connexion");
   }
 
   async function envoie(e: React.FormEvent) {
@@ -464,7 +482,7 @@ export function SupportPanel({
                   </label>
                 );
               })}
-              {canal === "espace" && !aSession && (
+              {canal === "espace" && aSession === false && (
                 <p className="text-[11.5px] leading-snug text-amber-300/80">{T.canal_espace_sans_compte}</p>
               )}
             </fieldset>

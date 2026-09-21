@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { TurnstileWidget } from "@/components/turnstile-widget";
 import { redirect } from "next/navigation";
-import { Star, User, KeyRound, AtSign, CreditCard } from "lucide-react";
+import { Star, User, KeyRound, AtSign, CreditCard, ArrowLeft } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import {
   signOut,
@@ -113,13 +113,19 @@ export default async function AccountPage({
       <div className="pointer-events-none absolute inset-0 bg-grid" />
 
       <div className="relative mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
-        <Link href="/" className="mb-8 inline-flex items-center gap-2.5">
+        {/* Yann 21 sept 2026 : meme repere de retour que sur les pages societe,
+            le logo suivi de la fleche vers la gauche. */}
+        <Link
+          href="/"
+          className="group mb-8 inline-flex items-center gap-2.5 transition-opacity hover:opacity-90"
+        >
           <span className="inline-flex size-7 items-center justify-center rounded-lg border border-[#2a2a2a] bg-[#0a0a0a]">
             <span className="size-1.5 animate-pulse-dot rounded-full bg-violet-400" />
           </span>
           <span className="font-display text-xl tracking-tight text-zinc-50">
             Mettrik
           </span>
+          <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
         </Link>
 
         <h1 className="text-[28px] font-semibold text-zinc-50">{t("account.title")}</h1>
