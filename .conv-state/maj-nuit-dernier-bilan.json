@@ -1,8 +1,11 @@
 {
- "date": "2026-09-19 00:10",
- "societes_traitees": "0 publication de resultats dans la fenetre : le calendrier interne ne montre rien entre le 17 et le 22 sept (FDS du 17 non depose sur EDGAR), et l inventaire des 8-K/6-K du 16 au 18 sept ne contient qu un seul Item 2.02, LEN, deja traite la nuit precedente (39 points)",
- "points_ecrits": 0,
- "echecs": "CLI Claude toujours en limite hebdomadaire jusqu au 21 sept 01h : earnings-refresh ne peut que preparer des dossiers (arrete apres 2 tickers, inutile sans moteur). Transcripts manquants confirmes introuvables chez MarketBeat pour AES, KVUE, BRK-B ; EA, QRVO, NVR n ont rien de plus recent. Les 3 rouges Synthese (JDEP.AS, EA, AES) restent bloques par l absence de transcript.",
- "deploiement_niveau2": "non : une autre session travaillait sur le depot pendant la tache (commits 245080d953 a 23h51 et b7f36a3e3d a 23h54 sur DSY.PA, PUB.PA, Q, OR.PA, VIE.PA, JPM, LMT, CCEP, soit les rouges Indicateurs cles). Aucune modification de ma part, aucun commit ni deploiement pour ne pas publier un etat partiel du travail en cours.",
- "note_rouges_ic": "ARM et Q sont des faux rouges : latest_filing.period_end recopie la date du 6-K/8-K (2026-09-10) alors que les KPI sont bien au 2026-06-30. AMRZ.SW et SOON.SW sont rouges faute de last_data_date sur les KPI non-story, pas faute de donnees."
+ "date": "2026-09-21 02:02",
+ "societes_traitees": 2,
+ "points_ecrits": 4,
+ "detail": "quarterly-refresh-detect : 0 publication en attente sur 671 societes, donc pas de passe complete (celle du 19 au 20 avait tourne 14h30 pour rien). Le journal post-resultats montrait en revanche 5 societes publiees les 1er et 2 sept jamais traitees. Trois corrections de chaine : earnings-refresh ignorait ir/SEMESTRIEL et ir/PRESENTATION, classait les documents par date de fichier (un vieux depot passait devant), et le controle de fraicheur prenait la fin de periode pour la date de traitement. PGHN.SW : AUM 186 Mds $ (H1-2026). SLHN.SW : GWP 12 331 M CHF et commissions 1 335 M CHF (H1-2026). Trois valeurs relues dans les documents sources, toutes retrouvees. Positionnement IA et KPI stories refaits sur les documents du jour pour les deux.",
+ "echecs": "PANW, NTAP et BF.B restent sans nouveau point : le garde-fou refuse les valeurs qu il ne retrouve pas telles quelles dans les documents. Leurs 8-K du 2 sept sont des coquilles sans communiqué (EX-99.1 non telecharge), defaut connu depuis le 27 aout.",
+ "alerte": "320 fiches portent des KPI stories issues des batches scaleub_* de mai-juin 2026 qui paraissent inventes (detail dans .conv-state/stories-inventees-rapport.json). Le bloc est affiche en ligne. Rien supprime en masse, decision a prendre.",
+ "autre_correction": "Cinq fiches affichaient le nom d une autre societe dans l onglet (Carrefour en Compagnie des Alpes, Partners Group en Danske Invest Allocation, Eiffage, Mercedes-Benz et Wolters Kluwer en IVR). Corrige et verifie en ligne.",
+ "page_mises_a_jour": "aucun rouge sur Indicateurs cles ni sur Synthese. Les 3 rouges restants sont des graphiques de sources exterieures : MC.PA (donnees 2023), NOVN.SW (2021), RMS.PA (2024). Non traites : il faut de nouvelles sources exterieures.",
+ "deploiement_niveau2": "oui, deux fois : commit 3f8c3119dd puis daf20b5852, alias mettrik-niveau2.vercel.app pose, health 200, titres et valeurs verifies sur les pages servies. mettrik.ai inchange."
 }
