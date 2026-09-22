@@ -23,9 +23,30 @@ UNI = json.load(open(ROOT / "src/data/v1-9-5-clean-all-tickers.json"))["tickers"
 
 US_LIKE = {"United States"}
 
+# Rang national, 22 sept 2026 (Yann, apres l audit des rangs).
+# Jusqu ici seules les societes americaines recevaient un rang national : les
+# 172 autres affichaient trois pastilles au lieu de quatre. Le pays est deja
+# dans chaque fiche de rangs (champ `country`, venu de yfinance), la meme
+# source que les capitalisations qui servent deja a tous les rangs : aucune
+# dependance nouvelle n est introduite.
+#
+# Garde fous :
+#   - un pays n obtient de rang que s il compte au moins SEUIL_PAYS societes
+#     dans l univers, sinon aucun rang n est ecrit pour ce pays ;
+#   - le pays vient du champ de donnees (yfinance, repli sur la fiche
+#     societe), jamais d une deduction a partir du suffixe du ticker ;
+#   - une societe sans pays exploitable reste sans rang national et est
+#     listee en fin d execution.
+SEUIL_PAYS = 15
+
 
 # Symboles yfinance differents du ticker Mettrik.
-ALIAS = {"BF.B": "BF-B", "DPW.DE": "DHL.DE", "BRK-B": "BRK-B"}
+# 22 sept 2026 : ROG.SW et MT.PA ne repondent plus chez yfinance (404), leurs
+# fiches de rangs restaient donc figees au 13 septembre et servaient un rang
+# perime, seule cause des inversions relevees par l audit. Les symboles RO.SW
+# (Roche) et MT.AS (ArcelorMittal) donnent la capitalisation de la meme
+# societe, chez le meme fournisseur.
+ALIAS = {"BF.B": "BF-B", "DPW.DE": "DHL.DE", "BRK-B": "BRK-B", "ROG.SW": "RO.SW", "MT.PA": "MT.AS"}
 
 # Doubles classes d actions : la classe secondaire est la meme societe que la
 # principale (la capitalisation yfinance couvre deja toute la societe). Elle
@@ -88,6 +109,25 @@ def fetch(t):
     return t, None, "", ""
 
 
+def pays_de(t, country_yf, f):
+    """Pays de la societe, depuis les champs de donnees uniquement.
+
+    1. `country` de yfinance (deja telecharge avec la capitalisation) ;
+    2. repli sur le champ `country` de la fiche societe quand yfinance est
+       muet (ex ML.PA, FISV au 22 sept 2026).
+    Aucune deduction a partir du suffixe du ticker : une societe sans pays
+    exploitable ressort vide et ne recevra aucun rang national.
+    """
+    c = (country_yf or "").strip()
+    if c:
+        return c
+    for cle in ("country", "pays", "headquarters_country"):
+        v = f.get(cle)
+        if isinstance(v, str) and v.strip():
+            return v.strip()
+    return ""
+
+
 def format_sector_rank(rank, sector):
     if not sector:
         return None
@@ -140,11 +180,28 @@ def main():
             v["mc_usd"] = None
         f = fiche(t)
         v["sector"], v["subsector"] = f.get("sector"), f.get("subsector")
+        v["country"] = pays_de(t, v.get("country"), f)
         rows.append(t)
     ok = [t for t in rows if res[t]["mc_usd"] and t not in DOUBLE_CLASSE]
     ok.sort(key=lambda t: -res[t]["mc_usd"])
     print(f"capitalisation obtenue : {len(ok)} / {len(rows)}")
     us = [t for t in ok if res[t]["country"] in US_LIKE]
+    # Rang national : un classement par pays, reserve aux pays qui atteignent
+    # le seuil. Les autres pays, et les societes sans pays, ne recoivent rien.
+    par_pays = {}
+    for t in ok:
+        c = res[t]["country"]
+        if c:
+            par_pays.setdefault(c, []).append(t)
+    pays_classes = {c: lst for c, lst in par_pays.items() if len(lst) >= SEUIL_PAYS}
+    sans_pays = [t for t in ok if not res[t]["country"]]
+    print(f"rang national : {len(pays_classes)} pays au dessus du seuil de {SEUIL_PAYS} "
+          f"({', '.join(f'{c} {len(l)}' for c, l in sorted(pays_classes.items(), key=lambda kv: -len(kv[1])))})")
+    hors_seuil = sorted({c: len(l) for c, l in par_pays.items() if len(l) < SEUIL_PAYS}.items(), key=lambda kv: -kv[1])
+    if hors_seuil:
+        print(f"pays sous le seuil, aucun rang national ecrit : {', '.join(f'{c} {n}' for c, n in hors_seuil)}")
+    if sans_pays:
+        print(f"sans pays exploitable, aucun rang national : {sans_pays}")
     by_sec, by_sub = {}, {}
     for t in ok:
         by_sec.setdefault(res[t]["sector"], []).append(t)
@@ -153,9 +210,16 @@ def main():
     n = 0
     for i, t in enumerate(ok, 1):
         v = res[t]
+        # Le rang national est porte par `global_us`, qui est le champ de rang
+        # national deja servi par load-company.ts. Le pays est inscrit dans la
+        # valeur, comme pour les rangs sectoriels : l en tete y lit le libelle
+        # de la pastille et n affiche que le numero.
+        c = v["country"]
+        national = f"#{pays_classes[c].index(t) + 1} in {c}" if c in pays_classes else "-"
         ranks = {
             "global_world": f"#{i}",
-            "global_us": f"#{us.index(t) + 1}" if t in us else "-",
+            "global_us": national,
+            "global_country": national,
             "sector": format_sector_rank(by_sec[v["sector"]].index(t) + 1, v["sector"]) or "-",
             "subsector": format_sector_rank(by_sub[v["subsector"]].index(t) + 1, v["subsector"]) or "-",
         }
@@ -179,6 +243,33 @@ def main():
     json.dump({"generation": now, "source": "scripts/ranks-univers.py", "tickers": ok,
                "market_cap_usd": {t: round(res[t]["mc_usd"]) for t in ok}},
               open(ROOT / "src/data/market-cap-order.json", "w"), ensure_ascii=False, indent=0)
+    avec_national = sum(1 for t in ok if res[t]["country"] in pays_classes)
+    print(f"rang national attribue a {avec_national} societes, dont "
+          f"{avec_national - len(pays_classes.get('United States', []))} hors Etats-Unis")
+    # Purge des fiches de rangs perimees (22 sept 2026, audit des rangs).
+    # Une societe dont la capitalisation n a pas pu etre relevee ce jour ci
+    # gardait son fichier d une execution precedente et continuait a servir un
+    # rang d une autre semaine, ce qui produisait des doublons et des
+    # inversions. On prefere ne rien afficher a afficher un rang faux : le
+    # fichier est conserve, mais vide de ses rangs.
+    perimes = []
+    for t in tickers:
+        if t in ok or t in DOUBLE_CLASSE:
+            continue
+        p = ENR / f"{t.lower()}.ranks.json"
+        if not p.exists():
+            continue
+        vieux = json.load(open(p))
+        if all(v in ("-", "", None) for v in (vieux.get("ranks") or {}).values()):
+            continue
+        vieux["ranks"] = {"global_world": "-", "global_us": "-", "global_country": "-", "sector": "-", "subsector": "-"}
+        vieux["_data_freshness_date"] = now
+        vieux["source"] = "yfinance ranks-univers : capitalisation indisponible ce jour, rangs retires plutot que perimes"
+        json.dump(vieux, open(p, "w"), ensure_ascii=False, indent=2)
+        perimes.append(t)
+    if perimes:
+        print(f"rangs perimes retires (capitalisation indisponible) : {perimes}")
+
     manq = [t for t in rows if not res[t]["mc_usd"]]
     print(f"{n} fichiers ranks ecrits, ordre de capitalisation : {len(ok)} societes ; sans capitalisation : {manq}")
 

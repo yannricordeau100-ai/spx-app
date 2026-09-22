@@ -157,7 +157,7 @@ function CompanyName({
 
 import { BandeauExclusif } from "@/components/bandeau-exclusif";
 
-function StatChip({ label, value }: { label: string; value: string | null | undefined }) {
+function StatChip({ label, value, survol }: { label: string; value: string | null | undefined; survol?: string }) {
   // Yann (12 mai 2026) : chips compactes pour tenir tous les rangs sur
   // 1 ligne horizontale. Labels plus petits, padding réduit.
   // Yann (15 mai 2026) : guard anti-"null" en plein texte. Si value est
@@ -184,8 +184,13 @@ function StatChip({ label, value }: { label: string; value: string | null | unde
     "?",
   ]);
   if (absent.has(v.toLowerCase())) return null;
+  // Yann 22 sept 2026 : pas de petit « i » sur les pastilles de rang, mais un
+  // texte au survol qui dit en clair sur quoi porte le classement.
   return (
-    <span className="inline-flex shrink-0 items-baseline gap-1.5 rounded-lg border border-[#262626] bg-[#0c0c0c] px-2 py-1.5">
+    <span
+      title={survol}
+      className={`inline-flex shrink-0 items-baseline gap-1.5 rounded-lg border border-[#262626] bg-[#0c0c0c] px-2 py-1.5${survol ? " cursor-help" : ""}`}
+    >
       <span className="text-[10.5px] font-medium uppercase tracking-wide text-zinc-400">
         {label}
       </span>
@@ -195,13 +200,105 @@ function StatChip({ label, value }: { label: string; value: string | null | unde
 }
 
 /**
- * Yann (12 mai 2026) : "Rang USA" doit être masqué pour les sés non-US
- * (= FPI EU pures avec un `.` dans le ticker : .PA, .L, .DE, .SW, .MI,
- * .ST, .OL, .HE, .AS, .MC, .CO, .T, etc.). Cat 1 (US sans suffixe) +
- * cat 2 (FPI ADR sans suffixe, listée US) = on garde la chip.
+ * Rang national, Yann 22 sept 2026 (audit des rangs).
+ *
+ * L ancienne pastille « Rang USA » etait reservee aux tickers sans point, et
+ * les sociétés européennes n avaient donc aucun rang national. Depuis le
+ * recalcul du 22 septembre, `ranks.global_us` porte le rang du pays de la
+ * société sous la forme « #3 in France », comme les rangs sectoriels portent
+ * déjà leur secteur. On n affiche la pastille que lorsque le pays est présent
+ * dans la valeur : cela écarte au passage les vieux rangs approximatifs
+ * extraits par modèle de langage sur les tickers sans fichier de rangs
+ * (« ≈ #184 » servi par exemple sur ASML.AS).
  */
-function isUsOrAdr(ticker: string): boolean {
-  return !ticker.includes(".") && !ticker.includes("-");
+function paysDuRang(value: string | null | undefined): string | null {
+  if (!value || typeof value !== "string") return null;
+  for (const sep of [" in ", " dans "]) {
+    const idx = value.indexOf(sep);
+    if (idx > 0) {
+      const pays = value.slice(idx + sep.length).trim();
+      if (pays) return pays;
+    }
+  }
+  return null;
+}
+
+/** Nom des pays classés, dans la langue de l interface. Liste courte : seuls
+ *  les pays qui atteignent le seuil de 15 sociétés reçoivent un rang. */
+const NOMS_PAYS: Record<string, Record<string, string>> = {
+  "United States": { fr: "États-Unis", en: "United States", de: "USA", nl: "Verenigde Staten" },
+  "Germany": { fr: "Allemagne", en: "Germany", de: "Deutschland", nl: "Duitsland" },
+  "France": { fr: "France", en: "France", de: "Frankreich", nl: "Frankrijk" },
+  "Netherlands": { fr: "Pays-Bas", en: "Netherlands", de: "Niederlande", nl: "Nederland" },
+  "Switzerland": { fr: "Suisse", en: "Switzerland", de: "Schweiz", nl: "Zwitserland" },
+};
+
+/** Le meme pays, mais sous la forme qui se glisse dans une phrase : « aux
+ *  États-Unis », « en Suisse ». Sans cela le texte au survol donnait « les
+ *  sociétés Suisse suivies par Mettrik ». */
+const PAYS_DANS_PHRASE: Record<string, Record<string, string>> = {
+  "United States": { fr: "aux États-Unis", en: "in the United States", de: "in den USA", nl: "in de Verenigde Staten" },
+  "Germany": { fr: "en Allemagne", en: "in Germany", de: "in Deutschland", nl: "in Duitsland" },
+  "France": { fr: "en France", en: "in France", de: "in Frankreich", nl: "in Frankrijk" },
+  "Netherlands": { fr: "aux Pays-Bas", en: "in the Netherlands", de: "in den Niederlanden", nl: "in Nederland" },
+  "Switzerland": { fr: "en Suisse", en: "in Switzerland", de: "in der Schweiz", nl: "in Zwitserland" },
+};
+
+function nomPays(pays: string, locale: string): string {
+  const langue = locale.split("-")[0];
+  return NOMS_PAYS[pays]?.[langue] ?? NOMS_PAYS[pays]?.fr ?? pays;
+}
+
+function paysDansPhrase(pays: string, locale: string): string {
+  const langue = locale.split("-")[0];
+  const tourne = PAYS_DANS_PHRASE[pays]?.[langue] ?? PAYS_DANS_PHRASE[pays]?.fr;
+  if (tourne) return tourne;
+  return `${langue === "fr" ? "en" : "in"} ${nomPays(pays, locale)}`;
+}
+
+/**
+ * Libellés et textes au survol des pastilles de rang, Yann 22 sept 2026.
+ *
+ * L audit du 22 septembre a montré que « Rang mondial » promettait bien plus
+ * que ce que la valeur mesure : le classement porte sur les sociétés suivies
+ * par Mettrik, qui ne comprennent ni Aramco, ni Tencent, ni Samsung, ni Novo
+ * Nordisk, ni Toyota, ni Shell, ni HSBC. Roche affichée « #40 mondiale » était
+ * donc fausse. Même remarque pour l ancien « Rang USA ». Les libellés disent
+ * désormais sur quoi porte le rang, et le survol précise le périmètre.
+ */
+const MOTS_RANGS: Record<string, { capi: string; capiSurvol: string; paysSurvol: (p: string) => string; secteurSurvol: string; sousSecteurSurvol: string }> = {
+  fr: {
+    capi: "Rang par capitalisation",
+    capiSurvol: "Classement par capitalisation boursière parmi les sociétés suivies par Mettrik, pas parmi toutes les sociétés du monde.",
+    paysSurvol: (p) => `Classement par capitalisation boursière parmi les sociétés suivies par Mettrik ${p}.`,
+    secteurSurvol: "Classement par capitalisation boursière dans ce secteur, parmi les sociétés suivies par Mettrik.",
+    sousSecteurSurvol: "Classement par capitalisation boursière dans cette sous-industrie, parmi les sociétés suivies par Mettrik.",
+  },
+  en: {
+    capi: "Market cap rank",
+    capiSurvol: "Ranking by market capitalisation among the companies covered by Mettrik, not among all companies worldwide.",
+    paysSurvol: (p) => `Ranking by market capitalisation among the companies covered by Mettrik ${p}.`,
+    secteurSurvol: "Ranking by market capitalisation within this sector, among the companies covered by Mettrik.",
+    sousSecteurSurvol: "Ranking by market capitalisation within this sub-industry, among the companies covered by Mettrik.",
+  },
+  de: {
+    capi: "Rang nach Marktkapitalisierung",
+    capiSurvol: "Rangfolge nach Marktkapitalisierung unter den von Mettrik abgedeckten Unternehmen, nicht unter allen Unternehmen weltweit.",
+    paysSurvol: (p) => `Rangfolge nach Marktkapitalisierung unter den von Mettrik abgedeckten Unternehmen ${p}.`,
+    secteurSurvol: "Rangfolge nach Marktkapitalisierung in diesem Sektor, unter den von Mettrik abgedeckten Unternehmen.",
+    sousSecteurSurvol: "Rangfolge nach Marktkapitalisierung in dieser Teilbranche, unter den von Mettrik abgedeckten Unternehmen.",
+  },
+  nl: {
+    capi: "Rang naar beurswaarde",
+    capiSurvol: "Rangschikking naar beurswaarde onder de bedrijven die Mettrik volgt, niet onder alle bedrijven wereldwijd.",
+    paysSurvol: (p) => `Rangschikking naar beurswaarde onder de bedrijven die Mettrik volgt ${p}.`,
+    secteurSurvol: "Rangschikking naar beurswaarde binnen deze sector, onder de bedrijven die Mettrik volgt.",
+    sousSecteurSurvol: "Rangschikking naar beurswaarde binnen deze subsector, onder de bedrijven die Mettrik volgt.",
+  },
+};
+
+function motsRangs(locale: string) {
+  return MOTS_RANGS[locale.split("-")[0]] ?? MOTS_RANGS.fr;
 }
 
 /**
@@ -370,10 +467,23 @@ export function CompanyHeader({
       {(() => {
         const chips = (
           <>
-        <StatChip label={t("company.rank_world")} value={company.ranks.global_world} />
-        {isUsOrAdr(company.ticker) && company.ranks.global_us && company.ranks.global_us.trim() !== "" && company.ranks.global_us !== "-" && (
-          <StatChip label={t("company.rank_us")} value={company.ranks.global_us} />
-        )}
+        <StatChip
+          label={motsRangs(locale).capi}
+          value={company.ranks.global_world}
+          survol={motsRangs(locale).capiSurvol}
+        />
+        {(() => {
+          const pays = paysDuRang(company.ranks.global_us);
+          if (!pays) return null;
+          const nom = nomPays(pays, locale);
+          return (
+            <StatChip
+              label={nom}
+              value={stripRankSuffix(company.ranks.global_us)}
+              survol={motsRangs(locale).paysSurvol(paysDansPhrase(pays, locale))}
+            />
+          );
+        })()}
         {/* Yann 19 mai 2026 : strip le suffixe "dans <sector_name>" sur les
             chips sector + subsector car le label affiche DÉJÀ le nom du
             secteur. Évite la redondance "TECHNOLOGIE #3 dans Technologies
@@ -381,10 +491,10 @@ export function CompanyHeader({
         {/* Yann 9 août 2026 : même garde que global_us sur "-" (sinon chip
             "Industrie -" quand le rang n'est pas sourcé, ex DG.PA/AC.PA). */}
         {company.ranks.sector && company.ranks.sector.trim() !== "" && company.ranks.sector.trim() !== "-" && (
-          <StatChip label={translateSubsectorLocale(company.sector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.sector, locale))} />
+          <StatChip label={translateSubsectorLocale(company.sector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.sector, locale))} survol={motsRangs(locale).secteurSurvol} />
         )}
         {company.ranks.subsector && company.ranks.subsector.trim() !== "" && company.ranks.subsector.trim() !== "-" && (
-          <StatChip label={translateSubsectorLocale(company.subsector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.subsector, locale))} />
+          <StatChip label={translateSubsectorLocale(company.subsector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.subsector, locale))} survol={motsRangs(locale).sousSecteurSurvol} />
         )}
         <StatChip label={t("company.founded")} value={company.founded != null ? String(company.founded) : null} />
         <StatChip label={t("company.ipo")} value={company.ipo != null ? String(company.ipo) : null} />

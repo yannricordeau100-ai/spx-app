@@ -736,3 +736,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.22.3 (22 Sep 2026 03:19, apres bc0b09e99b)
 - captcha : plus de debordement, affichage garanti
+
+## v2026.09.22.4 (22 Sep 2026 03:40, apres b551d1b780)
+- rangs exacts et rang national europeen, chaine quotidienne reparee
