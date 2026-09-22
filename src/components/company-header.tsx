@@ -12,6 +12,7 @@ import { StockPriceBlock } from "@/components/stock-price-block";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
 import { translateSubsector, translateSubsectorLocale } from "@/lib/ui-fix-templates";
+import { gicsNiveaux } from "@/lib/desk/gics-path";
 import { displayTicker } from "@/lib/ticker-display";
 import { employeeCountLabel } from "@/lib/employee-count";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
@@ -323,12 +324,36 @@ export function CompanyHeader({
             allTickers={allTickers}
             alsoKnownLabel={t("company.also_known_as")}
           />
-          <div className="mt-1.5 text-[14px] text-zinc-400">
-            {translateSubsectorLocale(company.sector, locale)} <span className="text-zinc-700">·</span> {translateSubsectorLocale(company.subsector, locale)}
-            {/* Yann 18 sept 2026 : code GICS numerique a droite de la sous-industrie. */}
-            {(company as { gics_code?: string }).gics_code && (
-              <span className="ml-2 font-mono text-[11px] text-zinc-500">{(company as { gics_code?: string }).gics_code}</span>
-            )}
+          {/* Yann 22 septembre 2026 : les QUATRE niveaux de la classification
+              (secteur, groupe d industries, industrie, sous-industrie), toujours
+              en francais, resolus depuis le code GICS a 8 chiffres de l annuaire
+              du Cahier. Chemin hierarchique qui passe a la ligne (flex-wrap) :
+              aucune troncature, aucun defilement horizontal a 380 comme a 1024.
+              Repli sur l ancien couple secteur / sous-secteur si le code manque. */}
+          <div className="mt-1.5 text-[13px] leading-snug text-zinc-400 sm:text-[14px]">
+            {(() => {
+              const code = (company as { gics_code?: string }).gics_code;
+              const niveaux = gicsNiveaux(code);
+              if (niveaux.length === 4) {
+                return (
+                  <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                    {niveaux.map((niveau, i) => (
+                      <span key={i} className="inline-flex min-w-0 items-center gap-x-1.5">
+                        {i > 0 && (
+                          <span aria-hidden className="text-zinc-700">›</span>
+                        )}
+                        <span className={i === 3 ? "text-zinc-300" : undefined}>{niveau}</span>
+                      </span>
+                    ))}
+                  </span>
+                );
+              }
+              return (
+                <>
+                  {translateSubsectorLocale(company.sector, locale)} <span className="text-zinc-700">·</span> {translateSubsectorLocale(company.subsector, locale)}
+                </>
+              );
+            })()}
           </div>
           {/* Yann (1er juin 05:15) : tagline supprimée de V1.9.5
               (risque hallucination LLM + Yann préfère épure).

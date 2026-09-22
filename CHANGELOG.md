@@ -730,3 +730,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.22.1 (22 Sep 2026 02:16, apres 39652792e2)
 - nombre de societes et indices retires du site public
+
+## v2026.09.22.2 (22 Sep 2026 02:37, apres c4272e4301)
+- classification a quatre niveaux sur les fiches, plus de 1000 societes annonce
