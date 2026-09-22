@@ -806,8 +806,8 @@ export const DICTIONARY: Dict = {
     en: "Can I try Mettrik AI without paying?",
   },
   "faq.a.essai_sans_payer": {
-    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres des milliers de fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées, sauf Google, Meta et Booking, entièrement en clair pour juger la profondeur avant de décider.",
-    en: "Yes, the Free plan is free forever, no credit card. You can open thousands of profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred, except Google, Meta and Booking, fully unblurred to judge the depth before deciding.",
+    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres les fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées, sauf Google, Meta et Booking, entièrement en clair pour juger la profondeur avant de décider.",
+    en: "Yes, the Free plan is free forever, no credit card. You can open the profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred, except Google, Meta and Booking, fully unblurred to judge the depth before deciding.",
   },
   "faq.q.coverage_plans": {
     fr: "Quelles sociétés sont couvertes en Premium et Max ?",
@@ -862,18 +862,18 @@ export const DICTIONARY: Dict = {
     en: "Which companies are covered?",
   },
   "faq.a.coverage": {
-    fr: "Des milliers de sociétés aujourd'hui : les grandes sociétés cotées des États-Unis et d'Europe, retenues par grands blocs de marché. La couverture s'élargit par vagues, jamais société par société.",
-    en: "Thousands of companies today: the large listed companies of the United States and Europe, selected in broad market blocks. Coverage widens in waves, never company by company.",
-    de: "Heute Tausende Unternehmen: die großen börsennotierten Gesellschaften aus den USA und Europa, in großen Marktblöcken ausgewählt. Die Abdeckung wächst in Wellen, nie Unternehmen für Unternehmen.",
+    fr: "Les grandes sociétés cotées américaines et européennes. La couverture s'élargit par vagues, jamais société par société.",
+    en: "The large listed companies of the United States and Europe. Coverage widens in waves, never company by company.",
+    de: "Die großen börsennotierten Gesellschaften aus den USA und Europa. Die Abdeckung wächst in Wellen, nie Unternehmen für Unternehmen.",
   },
   "faq.q.free_or_paid": {
     fr: "Est-ce gratuit ou payant ?",
     en: "Is it free or paid?",
   },
   "faq.a.free_or_paid": {
-    fr: "Le plan Gratuit ouvre les milliers de fiches : indicateur principal, valeur et graphique visibles, analyses détaillées floutées. Premium lève le floutage sur tout. Max ajoute l'anti-thèse de chaque société, les favoris illimités et le support prioritaire. Mensuel ou annuel, sans engagement.",
-    en: "The Free plan opens thousands of profiles: main indicator, value and chart visible, detailed analyses blurred. Premium removes the blurring everywhere. Max adds each company's counter-thesis, unlimited favorites and priority support. Monthly or yearly, no commitment.",
-    de: "Der kostenlose Plan öffnet Tausende Profile: Hauptkennzahl, Wert und Chart sichtbar, Detailanalysen unkenntlich. Premium hebt die Unkenntlichmachung überall auf. Max ergänzt die Gegenthese jedes Unternehmens, unbegrenzte Favoriten und bevorzugten Support. Monatlich oder jährlich, ohne Bindung.",
+    fr: "Le plan Gratuit ouvre les fiches : indicateur principal, valeur et graphique visibles, analyses détaillées floutées. Premium lève le floutage sur tout. Max ajoute l'anti-thèse de chaque société, les favoris illimités et le support prioritaire. Mensuel ou annuel, sans engagement.",
+    en: "The Free plan opens the profiles: main indicator, value and chart visible, detailed analyses blurred. Premium removes the blurring everywhere. Max adds each company's counter-thesis, unlimited favorites and priority support. Monthly or yearly, no commitment.",
+    de: "Der kostenlose Plan öffnet die Profile: Hauptkennzahl, Wert und Chart sichtbar, Detailanalysen unkenntlich. Premium hebt die Unkenntlichmachung überall auf. Max ergänzt die Gegenthese jedes Unternehmens, unbegrenzte Favoriten und bevorzugten Support. Monatlich oder jährlich, ohne Bindung.",
   },
   "faq.q.cancel": {
     fr: "Comment annuler mon abonnement ?",
@@ -1203,9 +1203,9 @@ export const DICTIONARY: Dict = {
     de: "Kann ich Mettrik AI testen, ohne zu zahlen?",
   },
   "pricing.faq_a1": {
-    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres des milliers de fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées, sauf Google, Meta et Booking, entièrement en clair pour juger la profondeur avant de décider.",
-    en: "Yes, the Free plan is free forever, no credit card. You can open thousands of profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred, except Google, Meta and Booking, fully unblurred to judge the depth before deciding.",
-    de: "Ja, der kostenlose Plan ist lebenslang kostenlos, ohne Kreditkarte. Du kannst Tausende Profile öffnen: Hauptkennzahl, Wert und Chart sind sichtbar, die Detailanalysen sind unkenntlich gemacht, außer Google, Meta und Booking, vollständig sichtbar, um die Tiefe vor der Entscheidung zu prüfen.",
+    fr: "Oui, le plan Gratuit est gratuit à vie et sans carte bancaire. Tu ouvres les fiches : l'indicateur principal, sa valeur et son graphique sont visibles, les analyses détaillées sont floutées, sauf Google, Meta et Booking, entièrement en clair pour juger la profondeur avant de décider.",
+    en: "Yes, the Free plan is free forever, no credit card. You can open the profiles: the main indicator, its value and its chart are visible, the detailed analyses are blurred, except Google, Meta and Booking, fully unblurred to judge the depth before deciding.",
+    de: "Ja, der kostenlose Plan ist lebenslang kostenlos, ohne Kreditkarte. Du kannst die Profile öffnen: Hauptkennzahl, Wert und Chart sind sichtbar, die Detailanalysen sind unkenntlich gemacht, außer Google, Meta und Booking, vollständig sichtbar, um die Tiefe vor der Entscheidung zu prüfen.",
   },
   "pricing.faq_q2": {
     fr: "Comment annuler mon abonnement ?",

@@ -739,8 +739,8 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
     de: "In deinem persönlichen Bereich, mit einem Klick. Das Abonnement endet zum Ende der bereits bezahlten Periode und verlängert sich nicht automatisch.",
     nl: "Vanuit je persoonlijke ruimte, met één klik. Het abonnement stopt aan het einde van de reeds betaalde periode en wordt niet automatisch verlengd." },
   "faq.a.coverage": {
-    de: "Heute Tausende Unternehmen: die großen börsennotierten Gesellschaften aus den USA und Europa, in großen Marktblöcken ausgewählt. Die Abdeckung wächst in Wellen, nie Unternehmen für Unternehmen.",
-    nl: "Vandaag duizenden bedrijven: de grote beursgenoteerde ondernemingen uit de Verenigde Staten en Europa, geselecteerd in brede marktblokken. De dekking groeit in golven, nooit bedrijf per bedrijf." },
+    de: "Die großen börsennotierten Gesellschaften aus den USA und Europa. Die Abdeckung wächst in Wellen, nie Unternehmen für Unternehmen.",
+    nl: "De grote beursgenoteerde ondernemingen uit de Verenigde Staten en Europa. De dekking groeit in golven, nooit bedrijf per bedrijf." },
   "faq.a.data_errors": {
     de: "Melde ihn über das Kontaktformular. Die angezeigten Daten stammen aus einer automatisierten Extraktionskette, die trotz unserer aufeinanderfolgenden Validierungen Fehler enthalten kann.",
     nl: "Meld het via het contactformulier. De getoonde gegevens komen uit een geautomatiseerde extractieketen die ondanks onze opeenvolgende validaties fouten kan bevatten." },

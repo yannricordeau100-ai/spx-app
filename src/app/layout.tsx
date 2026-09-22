@@ -1,4 +1,3 @@
-import { NB_SOCIETES } from "@/lib/univers";
 import type { Metadata, Viewport } from "next";
 import { Manrope, JetBrains_Mono, Bricolage_Grotesque, Sora, Fraunces } from "next/font/google";
 import { PlausibleScript } from "@/components/analytics/plausible";
@@ -82,10 +81,10 @@ export const metadata: Metadata = {
     template: "%s",
   },
   // Yann 2 sept 2026 (SEO) : description enrichie en mots-clés réels
-  // (KPI, indicateurs opérationnels, S&P 500, CAC 40, documents officiels).
+  // (KPI, indicateurs opérationnels, documents officiels).
   // L ancienne accroche reste le titre OG/Twitter.
   description:
-    "Mettrik AI : les indicateurs clés (KPI) qui expliquent la performance de plus de 650 grandes sociétés cotées américaines et européennes. Extraits des documents officiels, notés, comparés au secteur, mis à jour à chaque publication de résultats. Surperformer le marché avec les meilleurs KPIs de chaque action.",
+    "Mettrik AI : les indicateurs clés (KPI) qui expliquent la performance des grandes sociétés cotées américaines et européennes. Extraits des documents officiels, notés, comparés au secteur, mis à jour à chaque publication de résultats. Surperformer le marché avec les meilleurs KPIs de chaque action.",
   keywords: [
     "KPI investisseur", "indicateurs clés société cotée", "analyse fondamentale", "KPI opérationnels",
     "grandes capitalisations américaines", "grandes capitalisations européennes", "résultats trimestriels", "facteurs de risque 10-K",
@@ -101,7 +100,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Mettrik AI",
     title: "Mettrik AI · Les chiffres qui font bouger chaque action",
-    description: `iPhone vendus, abonnés Netflix, moteurs LEAP livrés : les KPI opérationnels de ${NB_SOCIETES} sociétés cotées, mis à jour à chaque publication de résultats.`,
+    description: `iPhone vendus, abonnés Netflix, moteurs LEAP livrés : les KPI opérationnels des grandes sociétés cotées américaines et européennes, mis à jour à chaque publication de résultats.`,
     url: SITE_URL,
     locale: "fr_FR",
     // Yann 30 aout 2026 (audit de lancement) : aucun visuel de partage
@@ -111,7 +110,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mettrik AI · Les chiffres qui font bouger chaque action",
-    description: `iPhone vendus, abonnés Netflix, moteurs LEAP livrés : les KPI opérationnels de ${NB_SOCIETES} sociétés cotées, mis à jour à chaque publication de résultats.`,
+    description: `iPhone vendus, abonnés Netflix, moteurs LEAP livrés : les KPI opérationnels des grandes sociétés cotées américaines et européennes, mis à jour à chaque publication de résultats.`,
     images: [`${SITE_URL}/og-cover.png`],
   },
   robots: {
@@ -188,7 +187,7 @@ export default async function RootLayout({
                   logo: `${SITE_URL}/brand/mettrik-ai-white-purple.png`,
                   email: "contact@mettrik.ai",
                   description:
-                    "Intelligence KPI pour investisseurs : les indicateurs opérationnels de plus de 650 sociétés cotées, extraits des documents officiels.",
+                    "Intelligence KPI pour investisseurs : les indicateurs opérationnels des grandes sociétés cotées américaines et européennes, extraits des documents officiels.",
                 },
                 {
                   "@type": "WebSite",
