@@ -45,6 +45,36 @@ const SCRIPT_ID = "cf-turnstile-script";
 const SCRIPT_SRC =
   "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback&render=explicit";
 
+// Yann 22 sept 2026 : le script Cloudflare pose LUI MEME, en mode « flexible »,
+// les styles « width:100% ; max-width:100vw ; min-width:300px ; height:65px » sur
+// l enveloppe du cadre incorpore (verifie dans api.js servi par Cloudflare).
+// C est ce « min-width:300px » qui fait deborder le widget vers la droite des
+// que la place disponible tombe sous 300 px : le widget garde 300 px, le cadre
+// est plus etroit, le logo Cloudflare sort a droite. On mesure donc la place
+// reelle avant de rendre, et on bascule sur la taille compacte (150 px) quand
+// les 300 px ne tiennent pas.
+const LARGEUR_MINI_FLEXIBLE = 300;
+
+// Le site applique « body { zoom: 1.1 } ». getBoundingClientRect rend des pixels
+// ecran (donc agrandis de 10 %), alors que le « min-width:300px » de Cloudflare
+// s applique en pixels de mise en page du sous arbre zoome. On divise donc la
+// mesure par le zoom cumule pour comparer les deux dans la meme unite.
+function largeurDeMiseEnPage(el: HTMLElement): number {
+  const rect = el.getBoundingClientRect();
+  const propre = (el as HTMLElement & { currentCSSZoom?: number }).currentCSSZoom;
+  let zoom = typeof propre === "number" && propre > 0 ? propre : 0;
+  if (!zoom) {
+    zoom = 1;
+    let n: HTMLElement | null = el;
+    while (n) {
+      const v = parseFloat(window.getComputedStyle(n).zoom || "1");
+      if (Number.isFinite(v) && v > 0) zoom *= v;
+      n = n.parentElement;
+    }
+  }
+  return rect.width / zoom;
+}
+
 let scriptLoadingPromise: Promise<void> | null = null;
 
 function loadScript(): Promise<void> {
@@ -128,9 +158,65 @@ export function TurnstileWidget(props?: {
   // (110200 = domaine non autorise sur le widget, 300xxx = reseau ou extension).
   const [codeErreur, setCodeErreur] = useState<string>("");
   const [interactionRequise, setInteractionRequise] = useState(false);
+  // Taille retenue apres mesure de la place disponible. `null` = pas encore
+  // mesuree : on ne rend pas le widget tant qu on ne sait pas s il tient.
+  const [tailleMesuree, setTailleMesuree] = useState<"flexible" | "compact" | null>(null);
+
+  // Mesure au montage puis a chaque changement de largeur du conteneur, donc a
+  // toutes les largeurs de fenetre entre 320 et 1600 px, sans point de rupture
+  // ecrit en dur. Aucun overflow masque, aucun transform: la zone cliquable
+  // reste exactement celle qui est dessinee.
+  const auto = !invisible && size === "flexible";
+  useEffect(() => {
+    if (!auto) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const mesurer = () => {
+      // Le conteneur est vide tant que Cloudflare n a rien dessine dedans, donc
+      // sa largeur propre peut valoir zero. On remonte alors aux ancetres pour
+      // trouver la premiere largeur reelle : sans cela, la mesure ne repondait
+      // jamais et le widget n etait JAMAIS rendu, ce qui empechait toute
+      // connexion et toute inscription (regression du 22 sept 2026).
+      let dispo = Math.floor(largeurDeMiseEnPage(el));
+      let parent: HTMLElement | null = el.parentElement;
+      let garde = 0;
+      while (dispo <= 0 && parent && garde < 8) {
+        dispo = Math.floor(largeurDeMiseEnPage(parent));
+        parent = parent.parentElement;
+        garde += 1;
+      }
+      if (dispo <= 0) return; // vraiment rien de mesurable : le repli ci dessous tranchera
+      setTailleMesuree(dispo >= LARGEUR_MINI_FLEXIBLE ? "flexible" : "compact");
+    };
+    mesurer();
+    // Filet de securite : quoi qu il arrive, le widget doit apparaitre. Si
+    // aucune mesure exploitable n est obtenue en 400 ms, on rend en pleine
+    // largeur. Mieux vaut un widget qui deborde de quelques pixels qu un
+    // formulaire de connexion sans captcha, donc inutilisable.
+    const filet = window.setTimeout(() => {
+      setTailleMesuree((t) => t ?? "flexible");
+    }, 400);
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(mesurer) : null;
+    if (ro) ro.observe(el);
+    window.addEventListener("resize", mesurer);
+    return () => {
+      window.clearTimeout(filet);
+      if (ro) ro.disconnect();
+      window.removeEventListener("resize", mesurer);
+    };
+  }, [auto]);
+
+  // Taille finalement envoyee a Cloudflare.
+  const tailleRendue: "normal" | "flexible" | "compact" | null = invisible
+    ? "flexible"
+    : auto
+      ? tailleMesuree
+      : (size as "normal" | "flexible" | "compact");
+  const compacte = tailleRendue === "compact";
 
   useEffect(() => {
     let cancelled = false;
+    if (!tailleRendue) return; // mesure en cours : on ne rend pas encore
     loadScript()
       .then(() => {
         if (cancelled || !containerRef.current || !window.turnstile) return;
@@ -138,7 +224,7 @@ export function TurnstileWidget(props?: {
           const id = window.turnstile.render(containerRef.current, {
             sitekey: siteKey,
             theme,
-            size: invisible ? "flexible" : (size as "normal" | "flexible" | "compact"),
+            size: tailleRendue,
             appearance: invisible ? "interaction-only" : "always",
             language,
             callback: (tok: string) => {
@@ -179,7 +265,7 @@ export function TurnstileWidget(props?: {
         widgetIdRef.current = null;
       }
     };
-  }, [siteKey, theme, size, language]);
+  }, [siteKey, theme, size, language, tailleRendue, invisible]);
 
   // Remise a zero apres chaque envoi du formulaire parent et sur signalReset :
   // Turnstile rend le meme jeton tant que le widget n est pas reinitialise.
@@ -255,19 +341,22 @@ export function TurnstileWidget(props?: {
       aria-hidden={masque || undefined}
     >
       {cadre ? (
-        // Yann 21 sept 2026 : habillage sobre pour les formulaires sombres.
-        // Le cadre (bordure + fond + marge interieure) n apparait qu a partir
-        // de 420 px de large : en dessous, la place disponible dans la fenetre
-        // d authentification tombe a la largeur minimale du widget Cloudflare
-        // (300 px), et la moindre marge rognerait la case a cocher. Aucun
-        // overflow masque, aucun pointer-events desactive ici : la case reste
-        // cliquable en toutes circonstances.
+        // Yann 21 sept 2026, revu le 22 sept 2026 : habillage sobre pour les
+        // formulaires sombres, aligne sur la largeur des champs. Le cadre est
+        // desormais present a TOUTES les largeurs : ce n est plus lui qui doit
+        // disparaitre quand la place manque, c est le widget qui passe en
+        // taille compacte (mesure ci dessus). Aucun overflow masque, aucun
+        // transform, aucun pointer-events desactive : la case a cocher reste
+        // entierement visible et cliquable.
         <div
-          className={`rounded-lg border-0 bg-transparent p-0 transition-colors min-[420px]:border min-[420px]:bg-white/[0.03] min-[420px]:p-2 ${
-            token ? "min-[420px]:border-emerald-400/30" : "min-[420px]:border-white/10"
+          className={`w-full max-w-full rounded-lg border bg-white/[0.03] p-2 transition-colors ${
+            token ? "border-emerald-400/30" : "border-white/10"
           }`}
         >
-          <div ref={containerRef} className="w-full min-w-0" />
+          <div
+            ref={containerRef}
+            className={`flex w-full min-w-0 max-w-full justify-center ${compacte ? "min-h-[140px]" : "min-h-[65px]"}`}
+          />
         </div>
       ) : (
         <div
@@ -277,9 +366,9 @@ export function TurnstileWidget(props?: {
               ? interactionRequise
                 ? "mx-auto w-full max-w-[330px] overflow-hidden"
                 : "h-0 w-0 overflow-hidden"
-              : size === "compact"
-                ? "mx-auto w-[150px] min-h-[140px]"
-                : "mx-auto w-full max-w-[330px] overflow-hidden"
+              : compacte
+                ? "mx-auto flex w-full max-w-[330px] min-w-0 justify-center min-h-[140px]"
+                : "mx-auto flex w-full max-w-[330px] min-w-0 justify-center min-h-[65px]"
           }
         />
       )}

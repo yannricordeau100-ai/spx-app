@@ -733,3 +733,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.22.2 (22 Sep 2026 02:37, apres c4272e4301)
 - classification a quatre niveaux sur les fiches, plus de 1000 societes annonce
+
+## v2026.09.22.3 (22 Sep 2026 03:19, apres bc0b09e99b)
+- captcha : plus de debordement, affichage garanti
