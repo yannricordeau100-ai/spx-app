@@ -10,6 +10,25 @@
 
 ---
 
+## 0terdecies. DEUX COMPTES, UN SEUL CONNECTE A LA FOIS (PERMANENT, Yann 23 sept 2026)
+
+Yann possede deux comptes Max 20x et SWITCHE de compte dans l application Mac.
+Il n utilise jamais les deux en meme temps. La facturation suit le compte
+CONNECTE AU MOMENT de l execution, pas celui qui a ecrit la demande. Du 20 au
+22 septembre, 864 M de tokens ont ete factures au mauvais compte parce que la
+session et ses agents tournaient encore apres le changement.
+
+Regles :
+1. Verifier `/status` avant de lancer une tache longue : le compte affiche paiera.
+2. Terminer ou arreter les sessions et agents en cours AVANT un changement de compte.
+3. AUCUNE tache automatique (cron, launchd, veille, rafraichissement) ne doit
+   appeler Claude : tout passe par Cerebras avec repli Groq. Voir
+   `docs/cahier/MISSION-CRONS-HORS-CLAUDE.md` (4 scripts a basculer).
+4. Sessions courtes : au dela de quelques heures, le contexte relu a chaque tour
+   coute plus cher que le travail lui meme. Compacter ou repartir d une session neuve.
+
+---
+
 ## 0undecies. UNE STÉ CITÉE = EXEMPLE D'UN BUG GÉNÉRAL, FIX À APPLIQUER PARTOUT (PERMANENT, Yann 2 juin 2026)
 
 **RÈGLE D'OR ABSOLUE. À CHECKER EXPLICITEMENT À CHAQUE PROMPT.**
