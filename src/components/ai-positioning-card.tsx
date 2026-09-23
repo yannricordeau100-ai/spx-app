@@ -1,6 +1,6 @@
 "use client";
 
-import { Brain, TrendingUp, Zap, ShieldAlert, MinusCircle } from "lucide-react";
+import { Brain, TrendingUp, Zap, ShieldAlert, MinusCircle, FileSearch } from "lucide-react";
 import { isOfficialSource, type AIPositioning } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { useT } from "@/lib/i18n/provider";
@@ -29,6 +29,12 @@ const STANCE_META: Record<
     descKey: "ai.stance.cautious.desc",
     color: "#f59e0b",
     Icon: ShieldAlert,
+  },
+  peu_documente: {
+    labelKey: "ai.stance.peu_documente.label",
+    descKey: "ai.stance.peu_documente.desc",
+    color: "#a1a1aa",
+    Icon: FileSearch,
   },
   absent: {
     labelKey: "ai.stance.absent.label",

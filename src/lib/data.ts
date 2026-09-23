@@ -268,8 +268,12 @@ export type Governance = {
 
 /** Company AI positioning — sourced from 10-K, 10-Q, and investor communications. */
 export type AIPositioning = {
-  /** Overall stance: "leader" | "integrator" | "cautious" | "absent". */
-  stance: "leader" | "integrator" | "cautious" | "absent";
+  /**
+   * Overall stance. Yann 24 sept 2026 : « peu_documente » ajoute pour les
+   * societes qui citent l IA sans montant, objectif ni indicateur ; « absent »
+   * reste reserve a zero mention dans le dernier rapport annuel.
+   */
+  stance: "leader" | "integrator" | "cautious" | "peu_documente" | "absent";
   /** 2-4 sentence summary of how the company positions itself on AI. */
   summary: string;
   /** 3-5 concrete examples of AI uses / products / investments. */

@@ -2366,8 +2366,10 @@ export function CompanyView({
             const ai = company.ai_positioning;
             // Yann 23 sept 2026 : sans positionnement IA, le bloc disparait.
             if (!ai) return null;
-            // Masque si stance="absent" OU pas d'evidence (= pas de positionnement réel à montrer)
-            if (ai.stance === "absent" || !Array.isArray(ai.evidence) || ai.evidence.length === 0) return null;
+            // Yann 24 sept 2026 : toutes les societes ont le bloc. Une fiche
+            // « absent » ou « peu documente » s affiche des qu elle porte un
+            // resume ; on ne masque plus que le vide total.
+            if (!ai.summary || !String(ai.summary).trim()) return null;
             return (
               <div id="sec-ai" data-blur="ai_positioning" className="scroll-mt-24">
                 <AIPositioningCard

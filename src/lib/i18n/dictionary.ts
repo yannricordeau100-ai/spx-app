@@ -686,9 +686,14 @@ export const DICTIONARY: Dict = {
     fr: "L'IA est mentionnée mais l'intégration reste limitée ou émergente.",
     en: "AI is mentioned but integration remains limited or emerging.",
   },
+  "ai.stance.peu_documente.label": { fr: "Peu documenté", en: "Sparsely documented" },
+  "ai.stance.peu_documente.desc": {
+    fr: "L'IA est citée dans le dernier rapport annuel, sans montant, objectif ni indicateur publié.",
+    en: "AI is cited in the latest annual report, with no published amount, target or indicator.",
+  },
   "ai.stance.absent.label": { fr: "Aucun positionnement", en: "No positioning" },
   "ai.stance.absent.desc": {
-    fr: "Aucune mention significative de l'IA dans les communications officielles.",
+    fr: "Le dernier rapport annuel ne mentionne pas l'intelligence artificielle.",
     en: "No meaningful mention of AI in official communications.",
   },
   "ai.absent_summary": {
