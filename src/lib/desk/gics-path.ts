@@ -55,3 +55,14 @@ export function gicsNiveaux(code: string | undefined | null): string[] {
   const p = gicsPath(code);
   return p ? [p.secteur, p.groupe, p.industrie, p.sousIndustrie] : [];
 }
+
+/**
+ * Yann 23 septembre 2026 : intitules francais des quatre niveaux, dans l ordre
+ * hierarchique. Utilises par le panneau en organigramme de la fiche societe.
+ */
+export const LIBELLES_NIVEAUX_GICS = [
+  "Secteur",
+  "Groupe d’industries",
+  "Industrie",
+  "Sous-industrie",
+] as const;

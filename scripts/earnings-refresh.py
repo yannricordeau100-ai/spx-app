@@ -18,10 +18,19 @@ disponible.
   5. ÉCRITURE    le point est ajouté à l'historique, jamais en remplacement
 
 Deux moteurs d'extraction, choisis automatiquement :
-  - `api`     : un fournisseur de modèle répond (Groq, Cerebras, Anthropic) ;
+  - `api`     : un moteur GRATUIT répond (Cerebras, puis Groq, puis Gemini,
+                via scripts/moteur_gratuit.py) ;
   - `dossier` : aucun ne répond, le script écrit alors un dossier de travail
                 complet par société dans .conv-state/earnings-inbox/, prêt à
                 être traité, plutôt que de ne rien faire.
+
+23 septembre 2026 : ce script n'appelle PLUS Claude, sous aucune condition.
+Une tâche automatique qui appelle Claude est facturée au compte connecté au
+hasard du moment : c'est ainsi que 864 millions de jetons ont été facturés au
+mauvais compte entre le 20 et le 22 septembre. Comme le moteur gratuit se
+trompe davantage qu'un grand modèle, les vérifications ont été RENFORCÉES :
+la phrase de preuve doit se retrouver mot pour mot dans un document, et elle
+doit contenir le chiffre annoncé.
 
 Usage :
   python3 scripts/earnings-refresh.py --scan                 # que faut-il traiter
@@ -40,6 +49,9 @@ import sys
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from moteur_gratuit import MoteurIndisponible, appelle as appelle_moteur_gratuit, charge_env  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 PIPE = ROOT / "src" / "data" / "v2-pipeline"
@@ -251,14 +263,11 @@ def appears_in(value: float, sources: list[str]) -> bool:
 
 # ── 4. Moteur d'extraction ──────────────────────────────────────────────────
 
-PROVIDERS = [
-    ("groq", "GROQ_API_KEY", "https://api.groq.com/openai/v1/chat/completions",
-     "llama-3.3-70b-versatile", "bearer"),
-    ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1/chat/completions",
-     "gpt-oss-120b", "bearer"),
-    ("anthropic", "ANTHROPIC_API_KEY", "https://api.anthropic.com/v1/messages",
-     "claude-haiku-4-5-20251001", "anthropic"),
-]
+# Les moteurs, leurs cles et leur ordre sont desormais tenus par
+# scripts/moteur_gratuit.py, partage avec les autres taches automatiques.
+# Aucune cle Anthropic ici : une tache automatique n appelle jamais Claude.
+CLES_MOTEURS = ("CEREBRAS_API_KEY", "CEREBRAS2_API_KEY", "CEREBRAS3_API_KEY",
+                "GROQ_API_KEY", "GEMINI_API_KEY")
 
 
 def build_prompt(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]) -> str:
@@ -296,96 +305,19 @@ def build_prompt(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]) -> 
     ])
 
 
-def call_provider(spec, prompt: str, key: str) -> str:
-    nom, _envkey, url, modele, auth = spec
-    if auth == "anthropic":
-        body = json.dumps({
-            "model": modele, "max_tokens": 3000,
-            "system": "Extraction stricte de KPI. Aucun calcul. JSON pur.",
-            "messages": [{"role": "user", "content": prompt}],
-        }).encode("utf8")
-        headers = {"x-api-key": key, "anthropic-version": "2023-06-01",
-                   "content-type": "application/json"}
-    else:
-        body = json.dumps({
-            "model": modele, "temperature": 0,
-            "response_format": {"type": "json_object"},
-            "messages": [
-                {"role": "system", "content": "Extraction stricte de KPI. Aucun calcul. JSON pur."},
-                {"role": "user", "content": prompt},
-            ],
-        }).encode("utf8")
-        headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
-    req = urllib.request.Request(url, data=body, headers=headers)
-    with urllib.request.urlopen(req, timeout=180, context=SSL_CTX) as resp:
-        payload = json.loads(resp.read())
-    return payload["content"][0]["text"] if auth == "anthropic" else payload["choices"][0]["message"]["content"]
+def appelle_moteur(ticker: str, prompt: str):
+    """Extraction par les moteurs GRATUITS (Cerebras, Groq, Gemini).
 
-
-_PROFIL_20X_OK: bool | None = None
-
-
-def profil_20x_utilisable(profil: Path, env_base: dict) -> bool:
-    """Sonde le profil dedie une seule fois par execution (reponse mise en
-    cache). Un profil deconnecte rendait toute la passe sterile."""
-    global _PROFIL_20X_OK
-    if _PROFIL_20X_OK is not None:
-        return _PROFIL_20X_OK
-    env = dict(env_base)
-    env["CLAUDE_CONFIG_DIR"] = str(profil)
-    try:
-        t = subprocess.run(
-            ["claude", "-p", "--model", "sonnet", "--output-format", "text"],
-            input="Reponds exactement: OK", capture_output=True, text=True,
-            timeout=120, env=env,
-        )
-        sortie = (t.stdout or "") + (t.stderr or "")
-        _PROFIL_20X_OK = t.returncode == 0 and "Not logged in" not in sortie
-    except Exception:  # noqa: BLE001
-        _PROFIL_20X_OK = False
-    if not _PROFIL_20X_OK:
-        print("[earnings-refresh] profil ~/.claude-20x non connecte : "
-              "bascule sur la session par defaut", flush=True)
-    return _PROFIL_20X_OK
-
-
-def call_claude_cli(prompt: str) -> str:
-    """Extraction via la session Claude Code du Mac : aucune cle API.
-    Si un profil dedie au compte MAX 20x existe (~/.claude-20x), il est
-    utilise ; sinon la session par defaut. Le modele Sonnet suffit pour de
-    l extraction verrouillee par la verification textuelle en aval."""
-    import os
-    env_vars = dict(os.environ)
-    # 3 sept 2026 : le profil dedie ~/.claude-20x existe encore mais n est
-    # PLUS connecte. Comme il etait force des qu il existait, chaque appel
-    # repondait "Not logged in" et la passe de 23h traitait 0 societe deux
-    # nuits de suite. On le sonde UNE fois par execution et on retombe sur la
-    # session par defaut s il n est pas utilisable.
-    profil = Path.home() / ".claude-20x"
-    if profil.exists() and profil_20x_utilisable(profil, env_vars):
-        env_vars["CLAUDE_CONFIG_DIR"] = str(profil)
-    out = subprocess.run(
-        ["claude", "-p", "--model", "sonnet", "--output-format", "text"],
-        input=prompt, capture_output=True, text=True, timeout=420, env=env_vars,
-    )
-    if out.returncode != 0:
-        # 3 sept 2026 : les warnings de permission occupaient les 200 premiers
-        # caracteres de stderr et masquaient la vraie cause. On les filtre et
-        # on garde la FIN du message (la ou l erreur reelle se trouve).
-        utile = "\n".join(
-            l for l in out.stderr.splitlines()
-            if l.strip() and "Permission allow rule" not in l
-        )
-        raise RuntimeError(f"claude-cli rc={out.returncode}: {utile[-400:] or out.stderr[-400:]}")
-    # Le CLI repond « Not logged in » avec un code de retour 0 : sans ce controle
-    # la reponse part au parseur JSON, qui echoue sur une exception non rattrapee
-    # et fait tomber toute la passe au lieu d ecrire un dossier de travail.
-    tete = out.stdout.strip()[:200]
-    if "Not logged in" in tete or "/login" in tete:
-        raise RuntimeError("claude-cli : session non connectee, lancer /login")
-    if "{" not in out.stdout:
-        raise RuntimeError(f"claude-cli : reponse sans JSON ({tete[:100]})")
-    return out.stdout
+    23 sept 2026 : remplace l ancien appel `claude -p`. Une tache automatique
+    ne doit jamais appeler Claude, la facturation tombant sur le compte
+    connecte au hasard du moment. Si aucun moteur ne repond, MoteurIndisponible
+    remonte jusqu a `process`, qui ecrit un dossier de travail dans
+    .conv-state et n ecrit RIEN dans src/data.
+    """
+    donnees, moteur = appelle_moteur_gratuit(prompt, json_attendu=True, temperature=0.0)
+    if not isinstance(donnees, dict):
+        raise ValueError(f"{moteur} : reponse hors format (pas un objet JSON)")
+    return donnees, moteur
 
 
 def parse_json_answer(raw: str) -> dict:
@@ -396,19 +328,39 @@ def parse_json_answer(raw: str) -> dict:
     return json.loads(m.group(0))
 
 
-def extract_via_api(ticker: str, kpis: list[dict], docs: list[tuple[str, str]]):
-    """Decision Yann 27 aout 2026 : Claude est le SEUL moteur. Les
-    fournisseurs API (Groq, Cerebras...) sont abandonnes pour ce pipeline."""
-    prompt = build_prompt(ticker, kpis, docs)
-    derniere = None
-    for tentative in range(2):  # 3 sept 2026 : une seconde chance apres 20 s
-        try:
-            return parse_json_answer(call_claude_cli(prompt)), "claude-cli"
-        except Exception as err:  # noqa: BLE001
-            derniere = err
-            import time as _t
-            _t.sleep(20)
-    raise RuntimeError(f"claude-cli: {derniere}") from derniere
+def _mots_normalises(texte: str) -> list[str]:
+    return re.sub(r"[^a-z0-9]+", " ", (texte or "").lower()).split()
+
+
+def preuve_fiable(evidence: str, valeur: float, corpus_mots: list[list[str]]) -> bool:
+    """Garde-fou ajoute le 23 sept 2026, parce que le moteur gratuit invente
+    plus volontiers qu un grand modele.
+
+    La phrase de preuve doit satisfaire DEUX conditions :
+      1. contenir elle-meme le chiffre annonce, sinon elle ne prouve rien ;
+      2. partager une suite de six mots consecutifs avec un document reel,
+         ce qui interdit une phrase reecrite de memoire par le modele.
+    Une tolerance de forme est laissee (ponctuation, espaces, majuscules),
+    aucune tolerance de fond.
+    """
+    if not isinstance(evidence, str) or len(evidence.strip()) < 20:
+        return False
+    chiffres = re.sub(r"\D", "", f"{valeur}")
+    if len(chiffres) < 2:
+        return False
+    tete = chiffres[:4] if len(chiffres) >= 4 else chiffres
+    if tete not in re.sub(r"[\s,.\u00a0\u202f\']", "", evidence):
+        return False
+    mots = _mots_normalises(evidence)
+    if len(mots) < 6:
+        return False
+    fenetres = {" ".join(mots[i:i + 6]) for i in range(len(mots) - 5)}
+    for doc_mots in corpus_mots:
+        plat = " ".join(doc_mots)
+        for f in fenetres:
+            if f in plat:
+                return True
+    return False
 
 
 def source_compatible(kpi: dict) -> bool:
@@ -566,8 +518,10 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
                 "kpis": len(kpis), "documents": len(docs)}
 
     try:
-        parsed, fournisseur = extract_via_api(ticker, kpis, docs)
+        parsed, fournisseur = appelle_moteur(ticker, build_prompt(ticker, kpis, docs))
     except (RuntimeError, ValueError) as err:
+        # MoteurIndisponible descend de RuntimeError : aucun moteur gratuit n a
+        # repondu. On ecrit le brouillon et on n ecrit RIEN dans src/data.
         # Moteur injoignable ou reponse inexploitable : on ne perd pas le
         # travail, on ecrit le dossier pour un traitement a la main.
         # Fix 2 sept 2026 : le MOTIF est logge. Sans lui, 6 nuits de
@@ -579,7 +533,9 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
 
     periode = str(parsed.get("periode") or "").strip()
     corpus = [t for _, t in docs]
+    corpus_mots = [_mots_normalises(t) for t in corpus]
     index = {k["short"]: k for k in kpis}
+    vus: set[str] = set()
     retenus, rejetes = [], 0
     motifs: dict[str, int] = {}
 
@@ -596,8 +552,22 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
         if short not in index or not isinstance(val, (int, float)):
             rejeter("KPI inconnu ou valeur non chiffree")
             continue
+        # 23 sept 2026 : un moteur gratuit renvoie parfois deux fois le meme
+        # KPI avec deux valeurs. On ne garde aucune des deux, faute de savoir
+        # laquelle est la bonne.
+        if short in vus:
+            rejeter("KPI annonce plusieurs fois dans la meme reponse")
+            continue
+        vus.add(short)
         if not appears_in(float(val), corpus):
             rejeter("chiffre absent des documents")
+            continue
+        # 23 sept 2026 : la phrase de preuve doit venir d un document reel et
+        # contenir le chiffre. Sans ce controle, une valeur inventee accompagnee
+        # d une phrase inventee passait des lors que quatre chiffres se
+        # retrouvaient quelque part dans le corpus.
+        if not preuve_fiable(v.get("evidence"), float(val), corpus_mots):
+            rejeter("phrase de preuve absente des documents ou sans le chiffre")
             continue
         kpi = index[short]
         if not source_compatible(kpi):
@@ -651,9 +621,18 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
             tmp.write_text(texte, encoding="utf8")
             tmp.replace(path)
 
+    # 23 sept 2026 : un moteur gratuit peut repondre et n avoir que des valeurs
+    # refusees par les garde-fous. Sans ce filet, la publication disparaissait
+    # en silence. On depose alors le dossier de travail, sans rien ecrire dans
+    # src/data, pour qu un humain le reprenne.
+    brouillon = None
+    if not retenus and rejetes:
+        brouillon = write_dossier(ticker, kpis, docs).name
+
     return {"ticker": ticker, "statut": "traite", "periode": periode,
             "retenus": len(retenus), "rejetes": rejetes, "motifs": motifs,
-            "moteur": fournisseur}
+            "moteur": fournisseur,
+            **({"brouillon a traiter": brouillon} if brouillon else {})}
 
 
 def main() -> int:
@@ -683,13 +662,16 @@ def main() -> int:
         return 0
 
     moteur = "api"
-    try:
-        subprocess.run(["claude", "--version"], capture_output=True, timeout=20, check=True)
-    except Exception:  # noqa: BLE001
-        cles = any(env(spec[1]) for spec in PROVIDERS)
-        if not cles:
+    charge_env(str(ENV))
+    if not any(env(k) for k in CLES_MOTEURS):
+        moteur = "dossier"
+        log("aucune cle de moteur gratuit dans .env.local : dossiers de travail")
+    else:
+        try:
+            appelle_moteur_gratuit("Reponds exactement : SONDE-OK")
+        except MoteurIndisponible as err:
             moteur = "dossier"
-            log("aucun moteur joignable (ni cle API ni claude-cli) : dossiers de travail")
+            log(f"aucun moteur gratuit ne repond ({str(err)[:80]}) : dossiers de travail")
 
     log(f"{len(cibles)} societe(s), moteur={moteur}")
     state = json.loads(STATE.read_text(encoding="utf8")) if STATE.exists() else {}

@@ -5,14 +5,13 @@
 # complete en une seule fenetre du soir.
 #   1. veille US (nouveaux depots SEC)
 #   2. veille Europe (pages investisseurs, 124 stes)
-#   3. extraction et ecriture des nouveaux points (moteur : session Claude
-#      Code locale — profil ~/.claude-20x s il existe, sinon profil defaut)
+#   3. extraction et ecriture des nouveaux points (moteurs gratuits :
+#      Cerebras, puis Groq, puis Gemini. Jamais Claude : voir la sonde.)
 cd /Users/yann/spx-app || exit 1
 export PATH="/usr/local/bin:/usr/bin:/bin"
-# cron ne transmet ni USER ni LOGNAME. Sans eux, le CLI Claude ne retrouve pas
-# ses identifiants dans le trousseau macOS et repond "Not logged in" avec un
-# code de retour 0. C est ce qui a fait tomber la passe du 27 aout dans le mode
-# dossier : 694 dossiers ecrits, aucun point extrait.
+# USER et LOGNAME restent poses pour les autres outils de la chaine : cron ne
+# les transmet pas. Ils ne servent plus au moteur, qui lit ses cles dans
+# .env.local depuis le 23 septembre 2026.
 export USER="${USER:-$(id -un)}"
 export LOGNAME="$USER"
 {
@@ -21,16 +20,19 @@ export LOGNAME="$USER"
   echo "=== $(date '+%F %T') veille EU ==="
   nice -n 10 python3 scripts/fr-doc-watcher.py
   echo "=== $(date '+%F %T') extraction ==="
-  # Sonde moteur (2 sept 2026) : un appel minimal AVANT la passe, avec la
-  # reponse ou l erreur exacte dans le log. 6 nuits ont echoue en silence.
-  # 3 sept 2026, cause prouvee : depuis un service de fond, le trousseau du
-  # Mac REFUSE l acces aux identifiants (security rc=36), donc le moteur
-  # repond "Not logged in" quoi qu on fasse ici. L extraction est confiee a
-  # la tache planifiee "maj-societes-nuit" (23h40), qui tourne dans une
-  # session authentifiee de l application. On sonde quand meme : si un jour
-  # l acces revient, la passe reprend ici sans rien changer.
-  echo "--- sonde moteur claude -p :"
-  SONDE=$(claude -p --model sonnet --output-format text <<< "Reponds exactement: SONDE-OK" 2>&1 | tail -2)
+  # Sonde moteur (2 sept 2026, refaite le 23 sept 2026) : un appel minimal
+  # AVANT la passe, avec la reponse ou l erreur exacte dans le log. 6 nuits
+  # avaient echoue en silence.
+  # 23 sept 2026 : la sonde n appelle PLUS Claude. Une tache automatique qui
+  # appelle Claude tombe sur le compte connecte au hasard du moment, et c est
+  # ainsi que 864 millions de jetons ont ete factures au mauvais compte entre
+  # le 20 et le 22 septembre. La sonde passe par les moteurs gratuits
+  # (Cerebras, puis Groq, puis Gemini) via scripts/sonde-moteur-gratuit.py,
+  # une passerelle minimale parce qu un script shell ne peut pas importer un
+  # module Python. Le probleme du trousseau macOS disparait du meme coup : les
+  # cles sont lues dans .env.local, pas dans le trousseau.
+  echo "--- sonde des moteurs gratuits :"
+  SONDE=$(nice -n 10 python3 scripts/sonde-moteur-gratuit.py 2>&1 | tail -2)
   echo "$SONDE"
   # 9 sept 2026 : interrupteurs de /sandbox/synchro (Supabase). Arrete = on
   # n ajoute rien. Les stories se coupent a part via SYNCHRO_STORIES=off.
@@ -41,15 +43,17 @@ export LOGNAME="$USER"
   elif printf '%s' "$SONDE" | grep -q "SONDE-OK"; then
     nice -n 10 python3 scripts/earnings-refresh.py --apply
   else
-    echo "moteur non authentifie depuis un service de fond : extraction laissee"
-    echo "a la tache planifiee de 23h40 (session authentifiee). Aucune alerte."
+    echo "aucun moteur gratuit ne repond : extraction laissee de cote."
+    echo "Les dossiers de travail sont deposes dans .conv-state/earnings-inbox/"
+    echo "et rien n est ecrit dans src/data. Aucun appel Claude, sous aucune"
+    echo "condition : la facturation tomberait sur le compte connecte au hasard."
     echo "[earnings-refresh] EXTRACTION DEPORTEE"
   fi
   echo "=== $(date '+%F %T') transcripts d earnings calls (Fool, 3 derniers mois) ==="
   # Yann 30 aout 2026 : la chaine transcripts/syntheses n etait branchee sur
   # aucun cron — les syntheses vieillissaient en silence (GOOGL bloque au T1,
   # 0/8 stes du 27 aout a jour). transcripts-refresh ne remplace que par plus
-  # recent ; summaries-refresh (moteur claude -p) ne regenere que si le
+  # recent ; summaries-refresh (moteurs gratuits) ne regenere que si le
   # transcript a change.
   MOIS_TR=$(python3 -c "from datetime import date
 d=date.today(); y,m=d.year,d.month; ms=[]

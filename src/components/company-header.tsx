@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Info } from "lucide-react";
 
 import { useEffect, useRef } from "react";
 import { StarButton } from "@/components/star-button";
@@ -12,7 +12,9 @@ import { StockPriceBlock } from "@/components/stock-price-block";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { useT } from "@/lib/i18n/provider";
 import { translateSubsector, translateSubsectorLocale } from "@/lib/ui-fix-templates";
-import { gicsNiveaux } from "@/lib/desk/gics-path";
+import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "motion/react";
+import { gicsNiveaux, LIBELLES_NIVEAUX_GICS } from "@/lib/desk/gics-path";
 import { displayTicker } from "@/lib/ticker-display";
 import { employeeCountLabel } from "@/lib/employee-count";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
@@ -364,6 +366,178 @@ function ProprieteInfo({ accent }: { accent: string }) {
   );
 }
 
+
+/**
+ * Yann 23 septembre 2026 : la ligne sous le nom de la societe ne porte plus que
+ * le SECTEUR, suivi d un petit « i ». Le chemin complet de la classification
+ * (secteur, groupe d industries, industrie, sous-industrie) s affiche dans un
+ * panneau au survol ou au clic, presente en organigramme : un niveau par ligne,
+ * decale et relie au precedent par un connecteur.
+ *
+ * Le panneau est rendu par portail en position fixe, sa largeur est bornee a la
+ * largeur de l ecran et sa position est ramenee dans l ecran : jamais de sortie
+ * d ecran, jamais de defilement horizontal, du telephone au grand ecran.
+ * Fermeture par Echap, par clic a l exterieur, par sortie du survol.
+ */
+function ArbreClassification({
+  niveaux,
+  libelles = LIBELLES_NIVEAUX_GICS,
+  accent,
+}: {
+  niveaux: string[];
+  libelles?: readonly string[];
+  accent: string;
+}) {
+  const [ouvert, setOuvert] = useState(false);
+  const [monte, setMonte] = useState(false);
+  const [coords, setCoords] = useState<{ bas: number; haut: number; gauche: number } | null>(null);
+  const [taille, setTaille] = useState({ largeur: 288, hauteur: 0 });
+  const boutonRef = useRef<HTMLButtonElement>(null);
+  const panneauRef = useRef<HTMLDivElement>(null);
+  const idPanneau = `classification-${niveaux.join("-").replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase()}`;
+
+  useEffect(() => setMonte(true), []);
+
+  useEffect(() => {
+    if (!ouvert) return;
+    const calculer = () => {
+      const b = boutonRef.current;
+      if (!b) return;
+      const r = b.getBoundingClientRect();
+      setCoords({ bas: r.bottom + 6, haut: r.top, gauche: r.left });
+    };
+    calculer();
+    const surEchap = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOuvert(false);
+        boutonRef.current?.focus();
+      }
+    };
+    const surClicDehors = (e: MouseEvent | TouchEvent) => {
+      const cible = e.target as Node;
+      if (boutonRef.current?.contains(cible) || panneauRef.current?.contains(cible)) return;
+      setOuvert(false);
+    };
+    window.addEventListener("scroll", calculer, true);
+    window.addEventListener("resize", calculer);
+    document.addEventListener("keydown", surEchap);
+    document.addEventListener("pointerdown", surClicDehors);
+    return () => {
+      window.removeEventListener("scroll", calculer, true);
+      window.removeEventListener("resize", calculer);
+      document.removeEventListener("keydown", surEchap);
+      document.removeEventListener("pointerdown", surClicDehors);
+    };
+  }, [ouvert]);
+
+  useEffect(() => {
+    if (!ouvert) return;
+    const id = requestAnimationFrame(() => {
+      const el = panneauRef.current;
+      if (!el) return;
+      const largeur = el.offsetWidth;
+      const hauteur = el.offsetHeight;
+      if (Math.abs(largeur - taille.largeur) > 1 || Math.abs(hauteur - taille.hauteur) > 1) {
+        setTaille({ largeur, hauteur });
+      }
+    });
+    return () => cancelAnimationFrame(id);
+  }, [ouvert, coords, taille]);
+
+  const stylePanneau: React.CSSProperties = (() => {
+    if (!coords) return { display: "none" };
+    const MARGE = 12;
+    const vw = typeof window !== "undefined" ? window.innerWidth : 1440;
+    const vh = typeof window !== "undefined" ? window.innerHeight : 900;
+    const h = taille.hauteur || 180;
+    const gauche = Math.max(MARGE, Math.min(coords.gauche, vw - taille.largeur - MARGE));
+    const dessous = coords.bas;
+    const dessus = coords.haut - 6 - h;
+    const top =
+      dessous + h + MARGE <= vh
+        ? dessous
+        : Math.max(MARGE, dessus >= MARGE ? dessus : vh - h - MARGE);
+    return { top, left: gauche };
+  })();
+
+  return (
+    <span className="relative inline-flex shrink-0">
+      <button
+        ref={boutonRef}
+        type="button"
+        aria-label="Afficher la classification complète de la société"
+        aria-expanded={ouvert}
+        aria-controls={ouvert ? idPanneau : undefined}
+        onMouseEnter={() => setOuvert(true)}
+        onMouseLeave={() => setOuvert(false)}
+        onFocus={() => setOuvert(true)}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          setOuvert((o) => !o);
+        }}
+        className="inline-flex size-[18px] shrink-0 items-center justify-center rounded-full border bg-[#0a0a0a] transition-colors hover:bg-[#161616]"
+        style={{ borderColor: `${accent}99`, color: accent }}
+      >
+        <Info className="size-[14px]" strokeWidth={2.5} aria-hidden />
+      </button>
+      {monte &&
+        createPortal(
+          <AnimatePresence>
+            {ouvert && coords && (
+              <motion.div
+                id={idPanneau}
+                role="tooltip"
+                ref={panneauRef}
+                initial={{ opacity: 0, y: 4, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 4, scale: 0.97 }}
+                transition={{ duration: 0.16, ease: "easeOut" }}
+                onMouseEnter={() => setOuvert(true)}
+                onMouseLeave={() => setOuvert(false)}
+                className="pointer-events-auto fixed z-[1000] overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-3.5 shadow-2xl"
+                style={{ ...stylePanneau, width: "min(20rem, calc(100vw - 24px))" }}
+              >
+                <p className="mb-2.5 text-[10.5px] font-semibold uppercase tracking-wide text-zinc-500">
+                  Classification
+                </p>
+                <ol className="space-y-1.5">
+                  {niveaux.map((niveau, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-1.5"
+                      style={{ paddingInlineStart: i * 14 }}
+                    >
+                      {i > 0 && (
+                        <span
+                          aria-hidden
+                          className="mt-[9px] h-[10px] w-[10px] shrink-0 rounded-bl-[3px] border-b border-l border-zinc-700"
+                        />
+                      )}
+                      <span className="min-w-0">
+                        <span className="block text-[10px] uppercase tracking-wide text-zinc-500">
+                          {libelles[i] ?? ""}
+                        </span>
+                        <span
+                          className={`block break-words text-[12.5px] leading-snug ${
+                            i === niveaux.length - 1 ? "font-semibold text-zinc-100" : "text-zinc-300"
+                          }`}
+                        >
+                          {niveau}
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
+    </span>
+  );
+}
+
 export function CompanyHeader({
   company,
   hidePriceBar = false,
@@ -433,22 +607,25 @@ export function CompanyHeader({
               const niveaux = gicsNiveaux(code);
               if (niveaux.length === 4) {
                 return (
-                  <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
-                    {niveaux.map((niveau, i) => (
-                      <span key={i} className="inline-flex min-w-0 items-center gap-x-1.5">
-                        {i > 0 && (
-                          <span aria-hidden className="text-zinc-700">›</span>
-                        )}
-                        <span className={i === 3 ? "text-zinc-300" : undefined}>{niveau}</span>
-                      </span>
-                    ))}
+                  <span className="inline-flex min-w-0 max-w-full items-center gap-x-1.5">
+                    <span className="min-w-0 truncate">{niveaux[0]}</span>
+                    <ArbreClassification niveaux={niveaux} accent={accent} />
                   </span>
                 );
               }
+              const secteur = translateSubsectorLocale(company.sector, locale);
+              const sousSecteur = translateSubsectorLocale(company.subsector, locale);
               return (
-                <>
-                  {translateSubsectorLocale(company.sector, locale)} <span className="text-zinc-700">·</span> {translateSubsectorLocale(company.subsector, locale)}
-                </>
+                <span className="inline-flex min-w-0 max-w-full items-center gap-x-1.5">
+                  <span className="min-w-0 truncate">{secteur}</span>
+                  {sousSecteur && sousSecteur !== secteur && (
+                    <ArbreClassification
+                      niveaux={[secteur, sousSecteur]}
+                      libelles={[LIBELLES_NIVEAUX_GICS[0], LIBELLES_NIVEAUX_GICS[3]]}
+                      accent={accent}
+                    />
+                  )}
+                </span>
               );
             })()}
           </div>

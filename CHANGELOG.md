@@ -739,3 +739,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.22.4 (22 Sep 2026 03:40, apres b551d1b780)
 - rangs exacts et rang national europeen, chaine quotidienne reparee
+
+## v2026.09.23.1 (23 Sep 2026 03:06, apres fcb1450320)
+- classification repliee, taches automatiques hors Claude

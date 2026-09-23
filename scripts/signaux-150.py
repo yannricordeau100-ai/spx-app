@@ -14,7 +14,11 @@ Couches traitees (celles que lit la fiche) :
   .batches-drafts-safe/kpis-haut/<T>.json   (prioritaire)
   src/data/v2-pipeline/<t>.json             (kpis + stories_kpis hors kpis-haut)
 
-Moteur : session Claude Code locale (claude -p), aucune cle API.
+Moteur : moteurs GRATUITS (Cerebras, puis Groq, puis Gemini) via
+         scripts/moteur_gratuit.py. Jamais Claude : une tache automatique
+         serait facturee au compte connecte au hasard du moment (23 sept 2026).
+         Si aucun moteur ne repond, un brouillon part dans .conv-state et
+         RIEN n est ecrit dans les fiches.
 Sauvegarde de chaque texte remplace : .conv-state/signaux-150-sauvegarde.jsonl
 Reprise : .conv-state/signaux-150-etat.json (societes deja traitees).
 
@@ -28,10 +32,13 @@ import argparse
 import json
 import os
 import re
-import subprocess
 import sys
-import time
 from datetime import datetime, timezone
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from moteur_gratuit import (  # noqa: E402
+    MoteurIndisponible, appelle as appelle_moteur, charge_env, ecris_brouillon,
+)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UNIVERS = os.path.join(ROOT, "src", "data", "v1-9-5-clean-all-tickers.json")
@@ -73,26 +80,54 @@ def lire(p):
 
 
 def appelle(prompt):
-    env = dict(os.environ)
-    env.setdefault("USER", "yann")
-    r = subprocess.run(["claude", "-p", "--model", "sonnet", "--output-format", "text"],
-                       input=prompt, capture_output=True, text=True, timeout=600, env=env)
-    sortie = r.stdout or ""
-    if r.returncode != 0 or "limit" in sortie[:200].lower() and "{" not in sortie:
-        raise RuntimeError("moteur indisponible : %s" % (sortie[:160] or r.stderr[:160]))
-    m = re.search(r"\{.*\}", sortie, re.S)
-    if not m:
-        raise RuntimeError("reponse sans JSON : %s" % sortie[:160])
-    return json.loads(m.group(0))
+    """Moteurs gratuits uniquement. MoteurIndisponible remonte a l appelant,
+    qui depose un brouillon et n ecrit rien."""
+    rep, moteur = appelle_moteur(prompt, json_attendu=True, temperature=0.0)
+    if not isinstance(rep, dict):
+        raise RuntimeError("reponse hors format (%s)" % moteur)
+    return rep, moteur
 
 
-def valide(txt):
+def _chiffres(texte):
+    """Suites de chiffres d un texte, separateurs de decimale et de milliers
+    retires, pour comparer une ecriture francaise et une ecriture anglaise."""
+    plat = re.sub("(?<=\\d)[ ,.\u00a0\u202f](?=\\d)", "", str(texte or ""))
+    return re.findall(r"\d+", plat)
+
+
+def valide(txt, source=""):
+    """Controle renforce le 23 sept 2026 : un moteur gratuit invente plus
+    volontiers qu un grand modele, on refuse au moindre doute.
+
+    Le controle decisif porte sur les chiffres : tout nombre du nouveau texte
+    doit deja figurer dans le texte d origine, dans la description ou dans les
+    derniers points. Un chiffre venu de nulle part est un fait invente.
+    """
     if not isinstance(txt, str):
         return None
     t = re.sub(r"\s+", " ", txt).strip().strip('"').strip()
-    t = t.replace("—", ",").replace("–", ",")
+    t = t.replace("\u2014", ",").replace("\u2013", ",")
     if not t or len(t) > MAX or "http" in t or "www." in t:
         return None
+    if len(t) < 40:
+        return None  # une explication de moins de 40 signes n explique rien
+    if '"' in t or "{" in t or "}" in t:
+        return None  # reste de JSON dans la reponse
+    # 23 sept 2026 : un moteur gratuit rend souvent un francais sans accents
+    # ("amelioration", "benefice"). Le texte part sur une fiche client : on
+    # refuse plutot que de publier une faute. Liste volontairement courte et
+    # sans ambiguite (aucun de ces mots n existe sans accent en francais).
+    bas = t.lower()
+    for mot in ("amelioration", "ameliore", "benefice", "activite", "strategie",
+                "reflete", "operations", "operationnel", "immediate", "developpement",
+                "resultat", "rentabilite", "generer", "elevee", "eleve", "qualite",
+                "securite", "reduit", "cle ", "financiere", "reguliere", "marches"):
+        if mot in bas:
+            return None
+    dispo = "".join(_chiffres(source))
+    for n in _chiffres(t):
+        if n not in dispo:
+            return None
     return t
 
 
@@ -142,18 +177,28 @@ def traite(ticker, tous, dry):
                 "texte_actuel": k.get("signal"),
                 "description": (k.get("description_fr") or k.get("description") or k.get("explanation") or "")[:600],
             }
+        prompt = CONSIGNE.format(nom=nom, ticker=ticker, lot=json.dumps(payload, ensure_ascii=False, indent=1))
         try:
-            rep = appelle(CONSIGNE.format(nom=nom, ticker=ticker, lot=json.dumps(payload, ensure_ascii=False, indent=1)))
+            rep, moteur = appelle(prompt)
+        except MoteurIndisponible as e:
+            # Regle absolue : jamais d appel Claude en secours. On depose le
+            # prompt en brouillon et on remonte l arret : rien n est ecrit.
+            chemin = ecris_brouillon("signaux-a-traiter", "%s-lot%d.prompt.txt" % (ticker, debut // LOT), prompt)
+            log("%s : BROUILLON A TRAITER %s (%s)" % (ticker, chemin, str(e)[:70]))
+            raise
         except Exception as e:  # noqa
             log("%s : ECHEC lot %d (%s)" % (ticker, debut // LOT, e))
-            if "moteur indisponible" in str(e):
-                raise
             continue  # reponse mal formee : on passe au lot suivant
         for j, (couche, p, i, cle, k) in enumerate(lot):
-            nouveau = valide(rep.get(str(j)))
+            # Source autorisee pour les chiffres : ce que le moteur a recu, et
+            # rien d autre. Tout nombre absent d ici est un fait invente.
+            source = json.dumps(payload[str(j)], ensure_ascii=False)
+            nouveau = valide(rep.get(str(j)), source)
             if not nouveau:
                 echecs += 1
                 continue
+            if nouveau == (k.get("signal") or "").strip():
+                continue  # texte inchange : rien a ecrire
             doc = fichiers.setdefault(p, lire(p))
             cible = doc[cle][i]
             if not dry:
@@ -195,6 +240,7 @@ def main():
     ap.add_argument("--tous", action="store_true", help="aussi les textes deja <= 150 caracteres")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
+    charge_env(os.path.join(ROOT, ".env.local"))
     os.makedirs(os.path.dirname(ETAT), exist_ok=True)
     etat = lire(ETAT) or {"faites": []}
     if a.tickers:
@@ -207,8 +253,13 @@ def main():
     for n, t in enumerate(cible, 1):
         try:
             f, e = traite(t, a.tous, a.dry_run)
-        except Exception:
-            log("arret : moteur indisponible, reprise possible (etat conserve)")
+        except MoteurIndisponible:
+            log("arret : aucun moteur gratuit ne repond. Brouillons deposes dans "
+                ".conv-state/signaux-a-traiter, rien ecrit dans les fiches. "
+                "Reprise possible (etat conserve). Jamais d appel Claude ici.")
+            break
+        except Exception as e:  # noqa
+            log("arret : %s (etat conserve)" % str(e)[:120])
             break
         total_f += f
         total_e += e
