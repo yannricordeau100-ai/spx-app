@@ -676,7 +676,12 @@ async function loadV17CompanyBrut(
     const cc = await readJsonOrNull<Record<string, unknown>>(path.join(ROOT, "docs/cahier/clients", `${ticker.toUpperCase()}.json`));
     const top = cc?.top as { pct?: unknown } | undefined;
     const top10 = cc?.top10 as { pct?: unknown } | null | undefined;
-    if (cc && ((top && top.pct !== null && top.pct !== undefined) || (top10 && top10.pct !== null && top10.pct !== undefined) || cc.diffus === true)) {
+    // Yann 24 sept 2026 : une absence DOCUMENTEE (aucune part publiee, avec la
+    // raison et la source) porte aussi le bloc, au lieu de le faire disparaitre.
+    const absenceDocumentee =
+      (top && typeof (top as { commentaire?: unknown }).commentaire === "string") ||
+      (top10 && typeof (top10 as { commentaire?: unknown }).commentaire === "string");
+    if (cc && ((top && top.pct !== null && top.pct !== undefined) || (top10 && top10.pct !== null && top10.pct !== undefined) || cc.diffus === true || absenceDocumentee)) {
       // 14 sept 2026 : une clientele diffuse peut n avoir aucun « premier
       // client » publie (top = null, cas Reddit). Le type attend un objet :
       // on fournit un premier client neutre, qui porte le commentaire de la

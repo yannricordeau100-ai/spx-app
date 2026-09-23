@@ -751,3 +751,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.2 (24 Sep 2026 00:18, apres 77d065e41c)
 - Positionnement IA sur les 83 fiches manquantes, categorie Peu documente, premiers blocs Comprendre la societe
+
+## v2026.09.24.3 (24 Sep 2026 00:26, apres 92c5b77265)
+- Blocs complets : clients documentes, anti-theses reparees, dates de publication, avantages EA et JDE Peet s, Comprendre la societe
