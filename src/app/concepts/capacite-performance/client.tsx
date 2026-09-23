@@ -58,7 +58,7 @@ export function CapacitePerformanceClient({
     <div className="min-h-screen bg-[#050505] text-zinc-100">
       <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
         <h1 className="font-display text-[26px] font-bold tracking-tight">
-          Capacité de la société à performer dans les conditions de marché actuelles
+          Capacité théorique de la société à performer selon le taux sans risque ou l'inflation
         </h1>
         <p className="mt-1 max-w-3xl text-[14px] text-zinc-400">
           Trois designs du même bloc, avec les vraies données de huit sociétés. Le bloc se placera juste au dessus de

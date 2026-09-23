@@ -57,7 +57,7 @@ export const TEXTES_REFERENCES: Record<TypeReference, Texte> = {
     titre: "Taux d'inflation",
     sigle: "Référence",
     phrase:
-      "C'est la hausse des prix sur un an. Il sert à savoir si un gain affiché est un vrai gain, ou seulement de l'argent qui a perdu de la valeur.",
+      "C'est la perte de valeur de la monnaie, qui se traduit concrètement par la hausse des prix. Il sert à savoir si un gain affiché est un vrai gain, ou seulement de l'argent qui a perdu de la valeur.",
     exemple:
       "Avec une inflation de 3 pour cent, un panier de courses à 100 euros l'an dernier en coûte 103 cette année. Une société qui rapporte 2 pour cent vous appauvrit, malgré un gain apparent.",
   },
@@ -65,12 +65,12 @@ export const TEXTES_REFERENCES: Record<TypeReference, Texte> = {
 
 /** Réserve affichée dès qu'un ratio dépasse 100 pour cent. */
 export const TEXTE_RESERVE = {
-  titre: "Pourquoi le chiffre n'est pas affiché",
+  titre: "Pourquoi ce chiffre est à lire avec réserve",
   phrase:
     "Ce ratio dépasse 100 pour cent. Cela ne veut pas dire que la société est cent fois meilleure : cela veut dire que le capital investi est devenu presque nul, souvent après des rachats d'actions massifs, un financement par la dette ou des actifs déjà amortis. Le calcul divise alors par un tout petit nombre et s'envole.",
   exemple:
     "La boulangerie gagne toujours 12 euros, mais son propriétaire a repris 99 des 100 euros qu'il avait mis. Le retour affiché devient 1 200 pour cent. Rien n'a changé dans le fournil.",
-  conclusion: "Le chiffre n'est donc pas comparable à un taux, et cette mesure n'est pas comptée comme un avantage.",
+  conclusion: "Le chiffre est affiché tel que publié, mais il n'est pas comparable à un taux et cette mesure n'est pas comptée comme un avantage.",
 };
 
 /** Texte affiché quand la donnée n'existe pas. Jamais de zéro ni de tiret seul. */

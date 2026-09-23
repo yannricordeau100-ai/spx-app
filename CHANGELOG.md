@@ -745,3 +745,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.23.2 (23 Sep 2026 22:46, apres ccc9b7e318)
 - Cuisine interne retiree du code source des fiches, bloc capacite a performer publie
+
+## v2026.09.24.1 (24 Sep 2026 00:00, apres cd3a227ee5)
+- Bloc capacite : design B retenu, chiffre reel a droite sur une ligne, titre et definition de l inflation revus

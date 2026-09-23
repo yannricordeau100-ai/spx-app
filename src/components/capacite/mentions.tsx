@@ -94,4 +94,4 @@ export function BandeauReserve({ nombre }: { nombre: number }) {
   );
 }
 
-export const TITRE_BLOC = "Capacité de la société à performer dans les conditions de marché actuelles";
+export const TITRE_BLOC = "Capacité théorique de la société à performer selon le taux sans risque ou l'inflation";

@@ -114,7 +114,7 @@ export function BlocCapaciteB({ societe, reglage: ctrl, onReglage }: PropsBloc) 
             const c = COULEURS[v.statut];
             const t = TEXTES_RATIOS[v.cle];
             const valeur = v.valeur ?? 0;
-            const gauche = v.statut === "reserve" ? posZero : Math.min(posZero, pos(valeur));
+            const gauche = Math.min(posZero, pos(valeur));
             const largeur = v.statut === "reserve" ? 100 - posZero : Math.abs(pos(valeur) - posZero);
             return (
               <li key={v.cle} className="sm:flex sm:items-center sm:gap-3">
@@ -123,27 +123,26 @@ export function BlocCapaciteB({ societe, reglage: ctrl, onReglage }: PropsBloc) 
                   <span className="truncate text-[13px] text-zinc-300">{t.titre}</span>
                   <InfoRatio cle={v.cle} couleur={c.trait} />
                 </span>
-                <span className="relative mt-1.5 block h-8 flex-1 overflow-hidden rounded-md border border-white/[0.06] bg-black/40 sm:mt-0">
-                  {/* Trait du taux, répété dans la piste pour rester visible sur téléphone. */}
-                  <span
-                    className="absolute inset-y-0 z-10 w-px"
-                    style={{ left: `${posRef}%`, backgroundColor: "#67e8f9" }}
-                    aria-hidden
-                  />
-                  {v.statut === "absent" ? (
-                    <span className="absolute inset-0 flex items-center gap-1.5 px-2 text-[12px] text-zinc-400">
-                      Non disponible
-                      <InfoAbsence />
-                    </span>
-                  ) : (
-                    <>
+                {/* Yann 23 sept 2026 : la piste est raccourcie pour laisser la
+                    place, a droite, au chiffre et a l ecart ecrits de force sur
+                    une seule ligne, en blanc avec un leger contour sombre pour
+                    rester lisibles sur n importe quel fond. Le chiffre reel est
+                    toujours affiche, meme au dela de 100 pour cent. */}
+                <span className="mt-1.5 flex flex-1 items-center gap-2.5 sm:mt-0">
+                  <span className="relative block h-8 flex-1 overflow-hidden rounded-md border border-white/[0.06] bg-black/40">
+                    <span
+                      className="absolute inset-y-0 z-10 w-px"
+                      style={{ left: `${posRef}%`, backgroundColor: "#67e8f9" }}
+                      aria-hidden
+                    />
+                    {v.statut !== "absent" && (
                       <span
                         className="absolute inset-y-[5px] rounded-[3px]"
                         style={{
                           left: `${gauche}%`,
                           width: `${Math.max(largeur, 0.6)}%`,
                           backgroundColor: c.trait,
-                          opacity: v.statut === "reserve" ? 0.35 : 0.85,
+                          opacity: v.statut === "reserve" ? 0.5 : 0.85,
                           backgroundImage:
                             v.statut === "reserve"
                               ? "repeating-linear-gradient(135deg, rgba(0,0,0,0.45) 0 5px, transparent 5px 10px)"
@@ -151,22 +150,19 @@ export function BlocCapaciteB({ societe, reglage: ctrl, onReglage }: PropsBloc) 
                         }}
                         aria-hidden
                       />
-                      <span
-                        className="absolute inset-y-0 z-20 flex items-center px-2 font-mono text-[12.5px] font-bold tabular-nums"
-                        style={{
-                          left: v.statut === "reserve" ? `${posZero}%` : `${Math.min(gauche + largeur, 88)}%`,
-                          color: c.texte,
-                        }}
-                      >
-                        {affichageValeur(v)}
-                        {v.ecart !== null && (
-                          <span className="ml-1.5 font-sans text-[11px] font-medium text-zinc-400">
-                            {formatEcart(v.ecart)}
-                          </span>
-                        )}
-                      </span>
-                    </>
-                  )}
+                    )}
+                  </span>
+                  <span
+                    className="w-[8.5rem] shrink-0 whitespace-nowrap font-mono text-[12.5px] font-bold tabular-nums text-white sm:w-[9.5rem]"
+                    style={{ textShadow: "0 0 2px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.9)" }}
+                  >
+                    {affichageValeur(v)}
+                    {v.statut === "absent" ? (
+                      <InfoAbsence />
+                    ) : v.ecart !== null ? (
+                      <span className="ml-1.5 font-sans text-[11px] font-medium text-zinc-200">{formatEcart(v.ecart)}</span>
+                    ) : null}
+                  </span>
                 </span>
               </li>
             );
@@ -175,7 +171,7 @@ export function BlocCapaciteB({ societe, reglage: ctrl, onReglage }: PropsBloc) 
         {/* Graduation sous la règle. */}
         <div className="mt-2 sm:flex sm:gap-3">
           <span className="hidden sm:block sm:w-44 sm:shrink-0" />
-          <div className="relative h-4 flex-1">
+          <div className="relative mr-[8.5rem] h-4 flex-1 sm:mr-[9.5rem]">
             <span className="absolute text-[10.5px] text-zinc-600" style={{ left: `${posZero}%` }}>
               0 %
             </span>

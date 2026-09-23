@@ -1,5 +1,5 @@
 /**
- * Bloc « Capacité de la société à performer dans les conditions de marché actuelles ».
+ * Bloc « Capacité théorique de la société à performer selon le taux sans risque ou l'inflation ».
  *
  * Modèle commun aux trois designs A, B et C : types, valeurs de référence,
  * seuils de classement et mise en forme. Ce fichier n'importe AUCUNE donnée,
@@ -113,8 +113,8 @@ export const MARGE_ORANGE_PTS = 2;
 /**
  * Au delà de 100 pour cent, le ratio n'est plus comparable à un taux : il
  * signale surtout un capital investi proche de zéro (rachats d'actions massifs,
- * financement par la dette, actifs largement amortis). On ne montre pas le
- * chiffre brut et on ne classe jamais ces cas en vert sans réserve.
+ * financement par la dette, actifs largement amortis). On montre le
+ * chiffre publié tel quel, mais on ne classe jamais ces cas en vert sans réserve.
  */
 export const PLAFOND_CREDIBLE_PCT = 100;
 
@@ -206,7 +206,8 @@ export function libelleVerdict(v: Verdict): string {
 /** Texte affiché à la place du chiffre. Jamais de zéro ni de tiret ambigu. */
 export function affichageValeur(v: Verdict): string {
   if (v.statut === "absent") return "Non disponible";
-  if (v.statut === "reserve") return "Supérieur à 100 %";
+  // Yann 23 sept 2026 : le chiffre publie est toujours ecrit, meme au dela
+  // de 100 pour cent ; la reserve se lit dans la couleur, le bandeau et le i.
   return formatPct(v.valeur as number);
 }
 
