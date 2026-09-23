@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { signaleTokenInvalide } from "./lib/security/alerte";
 import CLEAN_ALL from "./data/v1-9-5-clean-all-tickers.json";
+import { TICKER_ALIASES } from "./lib/ticker-aliases";
 
 // Yann 3 sept 2026 : seules les fiches de l univers en ligne (666) sont
 // publiques sans compte. Tout autre chemin d un segment (/account, /admin,
@@ -653,6 +654,22 @@ export async function proxy(request: NextRequest) {
   // gate ait le même comportement quelle que soit la langue. Le `next=`
   // garde le préfixe /fr d'origine pour que le user retombe en FR après login.
   const { search } = request.nextUrl;
+  // Yann 24 sept 2026 : une seule fiche par societe. Un code alias (GOOG,
+  // DPW.DE, HEN3.DE, AIR.DE...) redirige vers la fiche canonique, ici dans le
+  // proxy, car la page /<ticker> est servie par une reecriture interne qui
+  // court-circuitait la redirection posee dans la page.
+  {
+    const m = routePathname.match(/^(?:\/sandbox\/v1-9-5)?\/([^/]+)$/);
+    if (m) {
+      const seg = decodeURIComponent(m[1]).toUpperCase();
+      const canon = TICKER_ALIASES[seg] ?? TICKER_ALIASES[seg.replace(/-/g, ".")];
+      if (canon) {
+        const url = request.nextUrl.clone();
+        url.pathname = `/${canon.toLowerCase()}`;
+        return NextResponse.redirect(url, 308);
+      }
+    }
+  }
   const pathname = routePathname;
   // Bypass audit visuel : token dans query param ?audit_token=... matche
   // VISUAL_AUDIT_TOKEN env → laisse passer sans auth pour permettre les

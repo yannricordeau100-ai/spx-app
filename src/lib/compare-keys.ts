@@ -7,8 +7,9 @@
 
 import CATALOGUE_JSON from "@/data/compare-catalogue.json";
 
-// 14 sept 2026 : catalogue canonique de comparabilite (Opus, verifie par Sonnet) :
-// libelle normalise -> cle canonique (meme mesure, meme perimetre).
+// 23 sept 2026 : catalogue reconstruit a zero, vocabulaire unique tenu par le
+// script (scripts/catalogue_nomenclature.py, regles R1 a R8). Libelle
+// normalise -> cle canonique francaise (meme mesure, meme perimetre).
 const CATALOGUE: Record<string, string> = (CATALOGUE_JSON as { catalogue?: Record<string, string> }).catalogue ?? {};
 
 export type FamilleUnite = "money" | "per_share" | "pct" | "bps" | "ratio" | "days" | "count" | string;
@@ -35,11 +36,21 @@ const SYNONYMES: Array<[RegExp, string]> = [
   [/^(net income|net profit|net earnings)$/, "net income"],
 ];
 
+/**
+ * 23 sept 2026 : le CATALOGUE est consulte EN PREMIER. Auparavant la table
+ * SYNONYMES passait avant lui et rendait une cle anglaise, si bien que les
+ * libelles les plus frequents n atteignaient jamais le catalogue : deux
+ * vocabulaires cohabitaient. SYNONYMES ne sert plus que de repli pour un
+ * libelle absent du catalogue, et son resultat est lui meme represente dans
+ * le catalogue quand il s y trouve. Un seul vocabulaire en sortie.
+ */
 export function libelleCanonique(nameEn: string | undefined | null, short?: string | null): string {
   let s = String(nameEn || short || "").toLowerCase();
   s = s.replace(/&/g, " and ").replace(/\([^)]*\)/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
-  for (const [re, v] of SYNONYMES) if (re.test(s)) return v;
-  return CATALOGUE[s] ?? s;
+  const direct = CATALOGUE[s];
+  if (direct) return direct;
+  for (const [re, v] of SYNONYMES) if (re.test(s)) return CATALOGUE[v] ?? v;
+  return s;
 }
 
 const DEVISES: Array<[RegExp, string]> = [

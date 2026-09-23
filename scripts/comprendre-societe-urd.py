@@ -22,7 +22,7 @@ MISSION : deux blocs en français, JSON strict.
 Bloc "simple" (lecteur débutant, phrases courtes, 110 à 150 mots) : "activity" (ce que fait la société, verbe concret), "products" (produits ou services principaux, 2 à 4 exemples), "customers" (qui achète), "edge" (sa force principale).
 Bloc "advanced" (investisseur informé, 150 à 200 mots) : "positioning" (place dans la chaîne de valeur, ce qui fait varier les résultats : cycle, devises, matières), "tech_products" (activités ou produits clés et leur poids si connu), "moat" (avantages durables), "risks" (risques structurels documentés propres à la société).
 Cas particuliers : holding = parler des participations et des dividendes remontés ; banque = produit net bancaire, intérêts contre commissions, coût du risque ; assureur = primes vie et non vie, ratio combiné ; société en perte = chemin vers la rentabilité sans parler de marge.
-RÈGLES : français uniquement ; écrire « chiffre d'affaires » en toutes lettres, jamais « CA » ; un nom de programme ou de marque en anglais reste entre guillemets et est expliqué en français ; aucun tiret long ; aucun mot anglais non traduit ; aucun chiffre qui ne figure pas dans la matière ; aucun nom de dirigeant ; ton factuel, jamais promotionnel ; phrases complètes.
+RÈGLES : français uniquement ;{regle_chiffres} écrire « chiffre d'affaires » en toutes lettres, jamais « CA » ; un nom de programme ou de marque en anglais reste entre guillemets et est expliqué en français ; aucun tiret long ; aucun mot anglais non traduit ; aucun chiffre qui ne figure pas dans la matière ; aucun nom de dirigeant ; ton factuel, jamais promotionnel ; phrases complètes.
 FORMAT : {{"simple":{{"fr":{{"activity":"...","products":"...","customers":"...","edge":"..."}}}},"advanced":{{"fr":{{"positioning":"...","tech_products":"...","moat":"...","risks":"..."}}}}}}"""
 
 def nombres(s):
@@ -72,7 +72,11 @@ def traite(t):
     d = json.load(open(p))
     mat, doc = matiere(t, d)
     if not mat: return None, 'pas de rapport annuel dans le lac'
-    rep, moteur = appelle(PROMPT.format(name=d.get('name', t), ticker=t, sector=d.get('sector', ''), subsector=d.get('subsector', ''), doc=doc, matiere=mat), json_attendu=True, temperature=0.3)
+    # Yann 24 sept 2026 (cas ECHO) : quand le moteur invente un chiffre malgre la
+    # matiere, on interdit tout chiffre ; le texte reste juste et sans nombre.
+    sans_chiffres = '--sans-chiffres' in sys.argv
+    regle = " N'ÉCRIS AUCUN CHIFFRE, AUCUN NOMBRE, AUCUN POURCENTAGE, AUCUNE ANNÉE ;" if sans_chiffres else ""
+    rep, moteur = appelle(PROMPT.format(name=d.get('name', t), ticker=t, sector=d.get('sector', ''), subsector=d.get('subsector', ''), doc=doc, matiere=mat, regle_chiffres=regle), json_attendu=True, temperature=0.3)
     try:
         s = rep['simple']['fr']; a = rep['advanced']['fr']
         assert all(k in s and s[k].strip() for k in ('activity', 'products', 'customers', 'edge'))
@@ -81,6 +85,7 @@ def traite(t):
     for bloc in (s, a):
         for k in bloc: bloc[k] = bloc[k].replace(' — ', ' : ').replace('—', ':').replace(' – ', ' : ').replace('–', '-')
     tout = " ".join(list(s.values()) + list(a.values()))
+    if sans_chiffres and re.search(r'\d', tout): return None, 'chiffre present malgre l interdiction'
     manq = [n for n in nombres(tout) if n not in nombres(mat)]
     if manq: return None, f'chiffres non etayes {manq[:5]}'
     return {'ticker': t, 'mettrik_description': {'simple': rep['simple'], 'advanced': rep['advanced']},

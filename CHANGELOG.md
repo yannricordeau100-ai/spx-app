@@ -760,3 +760,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.5 (24 Sep 2026 01:20, apres cae1b9d95f)
 - Pages internes fermees, ROIC et ROE seuls, FAQ visibles, menu complet, DPW.DE redirige, tailles de marche 2025
+
+## v2026.09.24.6 (24 Sep 2026 01:35, apres d369195894)
+- Alias rediriges par le proxy, catalogue de comparabilite reconstruit, Puma, IMCD, Edenred, ECHO

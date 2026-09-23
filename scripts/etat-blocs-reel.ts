@@ -18,7 +18,8 @@ const nonVide = (v: unknown): boolean => {
 };
 
 const BLOCS: Bloc[] = [
-  { cle: "company_description", libelle: "Comprendre la societe", plein: (c) => nonVide(c.company_description) },
+  // Le bloc affiche la description Mettrik, sinon la description longue.
+  { cle: "company_description", libelle: "Comprendre la societe", plein: (c) => nonVide((c.mettrik_description as { simple?: unknown } | undefined)?.simple) || nonVide(c.company_description) },
   { cle: "kpis", libelle: "Indicateurs", plein: (c) => Array.isArray(c.kpis) && (c.kpis as unknown[]).length > 0 },
   { cle: "risks", libelle: "Facteurs de risque", plein: (c) => nonVide(c.risks) },
   { cle: "governance", libelle: "Gouvernance et remuneration", plein: (c) => nonVide(c.governance) },
@@ -27,8 +28,9 @@ const BLOCS: Bloc[] = [
   {
     cle: "ai_positioning", libelle: "Positionnement IA",
     plein: (c) => {
-      const a = c.ai_positioning as { stance?: string; evidence?: unknown[] } | undefined;
-      return !!a && a.stance !== "absent" && Array.isArray(a.evidence) && a.evidence.length > 0;
+      // Yann 24 sept 2026 : un « absent » documente (resume ecrit) est un bloc affiche.
+      const a = c.ai_positioning as { summary?: string } | undefined;
+      return !!a && typeof a.summary === "string" && a.summary.trim().length > 0;
     },
   },
   { cle: "these", libelle: "These d investissement", plein: (c) => nonVide(c.these) },
