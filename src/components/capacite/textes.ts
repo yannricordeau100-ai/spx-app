@@ -3,7 +3,7 @@ import type { CleRatio, TypeReference } from "./modele";
 /**
  * Explications du « i » : écrites pour une personne qui n'a jamais lu un bilan.
  * Règle de rédaction : une phrase de définition, puis un exemple chiffré avec
- * une boulangerie, toujours la même, pour que les quatre mesures se comparent
+ * une boulangerie, toujours la même, pour que les mesures se comparent
  * entre elles. Aucun mot de jargon sans traduction immédiate.
  */
 

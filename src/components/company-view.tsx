@@ -1455,12 +1455,14 @@ export function CompanyView({
             "Snapshot boursier" dans le bloc) désactivables séparément
             via /sandbox/v1-8/blocks-toggle. Si snapshot off → description
             full-width automatique. */}
+        <div id="sec-comprendre" className="scroll-mt-24">
         <CompanyProfileCard
           company={company}
           accent={accent}
           hideDescription={isDisabled("description_mettrik")}
           hideSnapshot={isDisabled("snapshot_boursier")}
         />
+        </div>
 
         {/* HERO SECTION — plain section (no motion opacity:0 -> mobile bug) */}
         {/* Yann 4 sept 2026 : l appel a l abonnement etait rendu DANS la
@@ -2225,6 +2227,7 @@ export function CompanyView({
         {/* Graphiques et Schémas de sources diverses (Yann 15 mai 2026 v2).
             Yann 18 sept 2026 : place AU-DESSUS des Stories (moyen terme avant court terme) ; sans graphique approuve, rien ne change. Images approuvées dans
             /sandbox/image-findings mergées au SSR dans company.image_findings. */}
+        <div id="sec-moyen-terme" className="scroll-mt-24">
         {isBlockEnabled("image_findings", company.ticker) && !isDisabled("graphiques_schemas") ? (
           Array.isArray((company as Company & { image_findings?: unknown[] }).image_findings) &&
           ((company as Company & { image_findings?: unknown[] }).image_findings as unknown[]).length > 0 ? (
@@ -2239,6 +2242,7 @@ export function CompanyView({
         ) : (
           <BlockComingSoon blockId="image_findings" />
         )}
+        </div>
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
         {isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories") ? (
@@ -2411,6 +2415,7 @@ export function CompanyView({
             dispo. Si pas de bullets et pas de transcript brut : RIEN ne
             s'affiche (Yann 12 mai 2026 : ex AAPL, ne pas afficher de bloc
             vide pour les sociétés sans transcript accessible). */}
+        <div id="sec-resultats" className="scroll-mt-24">
         {isBlockEnabled("transcripts", company.ticker) && !isDisabled("transcript_bullets") ? (
           transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
             <TranscriptBulletsBlock ticker={company.ticker} summary={transcriptSummary} />
@@ -2424,18 +2429,19 @@ export function CompanyView({
         ) : (
           <BlockComingSoon blockId="transcripts" />
         )}
+        </div>
         {/* Yann 19 sept 2026 : these et anti-these tout en bas de la fiche,
             apres la synthese du communique et les sources. Gating plan Max
             deja applique cote serveur (these.locked / att.locked). */}
         {company.these && !isDisabled("these") && (
-          <TheseCard these={company.these} accent={accent} />
+          <div className="scroll-mt-24"><TheseCard these={company.these} accent={accent} /></div>
         )}
         {company.att && !isDisabled("anti_these") && (
-          <AntiTheseCard att={company.att} accent={accent} />
+          <div id="sec-att" className="scroll-mt-24"><AntiTheseCard att={company.att} accent={accent} /></div>
         )}
         {/* Yann 21 sept 2026 : le bloc des sources passe tout en bas de la fiche,
             apres la these et l anti-these. */}
-        <SourcesExternes ticker={company.ticker} paid={isPaidTier} />
+        <div id="sec-sources" className="scroll-mt-24"><SourcesExternes ticker={company.ticker} paid={isPaidTier} /></div>
         <p className="mt-10 max-w-3xl text-[11.5px] italic leading-relaxed text-zinc-500">
           {t("company.provenance")}
         </p>

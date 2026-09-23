@@ -1,3 +1,4 @@
+import { estAlias } from "@/lib/data";
 import { promises as fs } from "fs";
 import path from "path";
 import { redirect } from "next/navigation";
@@ -42,7 +43,8 @@ async function charger(): Promise<Ligne[]> {
   const dossier = path.join(root, "src/data/these");
   let fichiers: string[] = [];
   try {
-    fichiers = (await fs.readdir(dossier)).filter((f) => f.endsWith(".json"));
+    // Yann 24 sept 2026 : les lignes de cotation secondaires (DPW.DE, HEN.DE, AIR.DE) ne sont pas des societes a part.
+    fichiers = (await fs.readdir(dossier)).filter((f) => f.endsWith(".json") && !estAlias(f.replace(/\.json$/, "")));
   } catch {
     return [];
   }

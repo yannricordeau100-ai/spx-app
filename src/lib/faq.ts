@@ -22,6 +22,8 @@ export type FaqItem = {
   r_fr: string;
   q_en: string;
   r_en: string;
+  /** Yann 24 sept 2026 : une question decochee reste en base mais n apparait nulle part sur le site. */
+  visible?: boolean;
 };
 export type FaqContenu = {
   version: number;
@@ -68,7 +70,7 @@ export function nettoieFaq(brut: unknown): FaqContenu | null {
     let id = slug(i.id || q_fr) || `q-${items.length + 1}`;
     while (vus.has(id)) id = `${id}-2`;
     vus.add(id);
-    items.push({ id, categorie, q_fr, r_fr, q_en: (i.q_en ?? "").trim(), r_en: (i.r_en ?? "").trim() });
+    items.push({ id, categorie, q_fr, r_fr, q_en: (i.q_en ?? "").trim(), r_en: (i.r_en ?? "").trim(), visible: i.visible !== false });
   }
   if (!items.length) return null;
   return {
@@ -85,6 +87,11 @@ function admin() {
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
     { auth: { persistSession: false, autoRefreshToken: false } },
   );
+}
+
+/** Questions affichees sur le site : celles cochees « visible » dans /sandbox/faq. */
+export function itemsVisibles(contenu: FaqContenu): FaqItem[] {
+  return contenu.items.filter((it) => it.visible !== false);
 }
 
 /** Contenu servi : base si elle a un contenu valide, sinon dépôt. */

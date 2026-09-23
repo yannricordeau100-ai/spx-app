@@ -43,7 +43,7 @@ export function InfoMethode({ couleur }: { couleur?: string }) {
         <p className="text-[12.5px] font-semibold text-zinc-100">Comment lire les couleurs</p>
         <p className="text-zinc-300">{texteMethode(MARGE_ORANGE_PTS)}</p>
         <p className="rounded-md bg-white/[0.04] p-2 text-[12px] text-zinc-400">
-          Les quatre mesures viennent des comptes publiés du dernier exercice clos. Elles sont comparées au taux que
+          Les deux mesures viennent des comptes publiés du dernier exercice clos. Elles sont comparées au taux que
           vous choisissez, et à rien d'autre.
         </p>
       </div>

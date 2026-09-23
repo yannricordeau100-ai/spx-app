@@ -560,7 +560,16 @@ export const TICKERS = Object.keys(COMPANIES);
  *                   À inverser quand CONV-DATA ajoute NWSA Class A (vote).
  *  - Under Armour : UA Class C présent → UAA alias dessus. Idem.
  */
+/** Vrai si ce code boursier n est qu un alias vers une autre fiche (jamais une societe a part). */
+export function estAlias(ticker: string): boolean {
+  return Object.prototype.hasOwnProperty.call(TICKER_ALIASES, (ticker ?? "").toUpperCase());
+}
+
 export const TICKER_ALIASES: Record<string, string> = {
+  // Yann 24 sept 2026 : Deutsche Post (DPW.DE) et DHL Group (DHL.DE) sont la
+  // meme societe ; l ancienne ligne redirige vers la fiche complete. Henkel
+  // (HEN3.DE -> HEN.DE) et Airbus (AIR.DE -> AIR.PA) etaient deja traites.
+  "DPW.DE": "DHL.DE",
   GOOG: "GOOGL",
   "BRK.A": "BRK-B",
   "BRK-A": "BRK-B",

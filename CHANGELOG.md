@@ -757,3 +757,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.4 (24 Sep 2026 00:41, apres 4fc18c33ce)
 - Doubles cotations completees (HEN.DE, DPW.DE, AIR.DE), Heineken par activite, descriptions Mettrik americaines
+
+## v2026.09.24.5 (24 Sep 2026 01:20, apres cae1b9d95f)
+- Pages internes fermees, ROIC et ROE seuls, FAQ visibles, menu complet, DPW.DE redirige, tailles de marche 2025

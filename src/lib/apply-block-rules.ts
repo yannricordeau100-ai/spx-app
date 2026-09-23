@@ -18,6 +18,7 @@
  * plus la 2e fois (les transformations sont déjà faites).
  */
 
+import { estAlias } from "@/lib/data";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
@@ -314,7 +315,8 @@ export async function runBlockRulesApply(jobId: string): Promise<JobReport> {
     // Liste des fichiers V1.9.5.
     let files: string[] = [];
     try {
-      files = (await fs.readdir(V1_9_5_DIR)).filter((f) => f.endsWith(".json"));
+      // Yann 24 sept 2026 : les alias de cotation (DPW.DE, HEN.DE, AIR.DE) sont ignores.
+      files = (await fs.readdir(V1_9_5_DIR)).filter((f) => f.endsWith(".json") && !estAlias(f.replace(/\.json$/, "")));
     } catch (e) {
       console.warn(`[block-rules-apply] readdir ${V1_9_5_DIR} : ${(e as Error).message}`);
     }

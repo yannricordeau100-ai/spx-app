@@ -93,7 +93,7 @@ let cacheIndex: Partial<Record<LangueSupport, Entree[]>> = {};
 function index(langue: LangueSupport): Entree[] {
   const deja = cacheIndex[langue];
   if (deja) return deja;
-  const items = Array.isArray(FICHIER.items) ? FICHIER.items : [];
+  const items = (Array.isArray(FICHIER.items) ? FICHIER.items : []).filter((it) => (it as { visible?: boolean }).visible !== false);
   const entrees: Entree[] = [];
   for (let i = 0; i < items.length; i += 1) {
     const it = items[i] ?? {};

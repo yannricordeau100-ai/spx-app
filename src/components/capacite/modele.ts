@@ -13,7 +13,9 @@
 
 export type CleRatio = "roic" | "roe" | "roa" | "roce";
 
-export const ORDRE_RATIOS: CleRatio[] = ["roic", "roce", "roe", "roa"];
+// Yann 24 sept 2026 : seuls le ROIC et le ROE sont affiches ; ROA et ROCE
+// restent collectes mais ne sont plus montres.
+export const ORDRE_RATIOS: CleRatio[] = ["roic", "roe"];
 
 export type PointHistorique = { exercice: string; cloture: string | null; valeur: number | null };
 

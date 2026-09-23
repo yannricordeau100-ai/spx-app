@@ -443,7 +443,9 @@ export async function proxy(request: NextRequest) {
   // desormais 404, sans redirection ni trace du chemin demande. Les outils
   // restent accessibles sur le domaine de preversion (niveau2), ou l acces est
   // deja restreint au proprietaire.
-  const PREFIXES_INTERNES = ["/sandbox", "/admin", "/desk-mtk9x4kp", "/email-lab"];
+  // Yann 24 sept 2026 : /concepts (maquettes), /chart-lab (galerie) et /whoami
+  // (diagnostic) sont des pages de travail, jamais servies sur le domaine public.
+  const PREFIXES_INTERNES = ["/sandbox", "/admin", "/desk-mtk9x4kp", "/email-lab", "/concepts", "/chart-lab", "/whoami"];
   if (isProdDomain && PREFIXES_INTERNES.some((p) => routePathname === p || routePathname.startsWith(p + "/"))) {
     return new NextResponse(null, { status: 404 });
   }

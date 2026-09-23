@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getServerLocale } from "@/lib/i18n/server";
-import { chargeFaq, paragraphes, texteBrut } from "@/lib/faq";
+import { chargeFaq, itemsVisibles, paragraphes, texteBrut } from "@/lib/faq";
 import { LogoMettrik } from "@/components/logo-mettrik";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 
@@ -21,7 +21,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { contenu } = await chargeFaq();
-  const n = contenu.items.length;
+  const n = itemsVisibles(contenu).length;
   const title = "FAQ Mettrik AI : questions fréquentes sur les KPI, les données et les offres";
   const description = `${n} réponses claires sur Mettrik AI : sociétés couvertes, origine des données, mises à jour, notes des indicateurs, offres Gratuit, Premium et Max, paiement, confidentialité.`;
   return {
@@ -55,7 +55,7 @@ export default async function FaqPage() {
     "@type": "FAQPage",
     "@id": `${SITE_URL}/faq#faq`,
     inLanguage: en ? "en" : "fr",
-    mainEntity: contenu.items.map((it) => ({
+    mainEntity: itemsVisibles(contenu).map((it) => ({
       "@type": "Question",
       name: q(it),
       url: `${SITE_URL}/faq#${it.id}`,
@@ -116,7 +116,7 @@ export default async function FaqPage() {
 
         <div className="mx-auto max-w-3xl space-y-12 px-5 pb-20">
           {contenu.categories.map((c) => {
-            const items = contenu.items.filter((it) => it.categorie === c.id);
+            const items = itemsVisibles(contenu).filter((it) => it.categorie === c.id);
             if (!items.length) return null;
             return (
               <section key={c.id} id={`cat-${c.id}`} aria-labelledby={`h-${c.id}`} className="scroll-mt-24">

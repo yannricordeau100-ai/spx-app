@@ -3,7 +3,7 @@
 /**
  * DESIGN B : « La règle graduée ».
  *
- * Parti pris : une seule règle horizontale commune aux quatre mesures, et un
+ * Parti pris : une seule règle horizontale commune aux deux mesures, et un
  * trait vertical qui marque le taux choisi. Le message se lit à la position
  * des barres, pas à leur couleur : ce qui dépasse le trait est au dessus du
  * taux, ce qui s'arrête avant est en dessous. Le curseur déplace le trait en

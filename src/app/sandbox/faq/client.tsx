@@ -92,7 +92,7 @@ export function FaqEditeur() {
     setContenu((c) => c && { ...c, items: c.items.filter((it) => it.id !== id) });
   const ajoute = (categorie: string) => {
     const id = `nouvelle-question-${Date.now().toString(36)}`;
-    setContenu((c) => c && { ...c, items: [...c.items, { id, categorie, q_fr: "", r_fr: "", q_en: "", r_en: "" }] });
+    setContenu((c) => c && { ...c, items: [...c.items, { id, categorie, q_fr: "", r_fr: "", q_en: "", r_en: "", visible: true }] });
     setOuvert(id);
   };
 
@@ -112,7 +112,7 @@ export function FaqEditeur() {
         <div>
           <h1 className="text-2xl font-semibold text-zinc-100">FAQ publique</h1>
           <p className="mt-1 text-sm text-zinc-400">
-            {contenu.items.length} questions · source actuelle : {source === "base" ? "base (tes modifications)" : "dépôt (contenu de départ)"} · mise à jour {contenu.mis_a_jour}.
+            {contenu.items.length} questions, {contenu.items.filter((it) => it.visible !== false).length} visibles sur le site · source actuelle : {source === "base" ? "base (tes modifications)" : "dépôt (contenu de départ)"} · mise à jour {contenu.mis_a_jour}.
             Voir <Link href="/faq" className="text-violet-300 underline" target="_blank">/faq</Link>.
           </p>
         </div>
@@ -154,7 +154,14 @@ export function FaqEditeur() {
                   return (
                     <div key={it.id} className="rounded-xl border border-[#262626] bg-[#0a0a0a]">
                       <div className="flex items-center gap-2 px-4 py-3">
-                        <button onClick={() => setOuvert(estOuvert ? null : it.id)} className="flex-1 text-left text-sm text-zinc-200">
+                        <input
+                          type="checkbox"
+                          checked={it.visible !== false}
+                          onChange={(e) => majItem(it.id, { visible: e.target.checked })}
+                          title="Cochee : visible sur le site. Decochee : conservee ici, jamais affichee."
+                          className="size-4 accent-violet-400"
+                        />
+                        <button onClick={() => setOuvert(estOuvert ? null : it.id)} className={`flex-1 text-left text-sm ${it.visible === false ? "text-zinc-500 line-through" : "text-zinc-200"}`}>
                           {it.q_fr || <span className="italic text-zinc-500">(question vide)</span>}
                         </button>
                         <button onClick={() => deplace(it.id, -1)} title="Monter" className="text-zinc-500 hover:text-zinc-200">↑</button>
