@@ -39,9 +39,24 @@ def nombres(s):
     return trouves
 
 def matiere(t, d):
-    u = [x for x in sorted(glob.glob(f'{ROOT}/data-lake/{t}/ir/URD/*.txt.gz') + glob.glob(f'{ROOT}/data-lake/{t}/ir/RFS/*.txt.gz')) if 'remuneration' not in x.lower()]
-    if not u: return None, None
-    txt = re.sub(r'\s+', ' ', gzip.open(u[-1], 'rt', errors='replace').read())
+    u = [x for x in sorted(glob.glob(f'{ROOT}/data-lake/{t}/ir/URD/*.txt.gz') + glob.glob(f'{ROOT}/data-lake/{t}/ir/RFS/*.txt.gz')) if 'remuneration' not in x.lower() and 'SFCR' not in x]
+    if u:
+        txt = re.sub(r'\s+', ' ', gzip.open(u[-1], 'rt', errors='replace').read()); doc = u[-1]
+    else:
+        # Societes americaines : le 10-K (ou 20-F) du lac, le plus gros des deux derniers depots.
+        import html as _html
+        # 40-F (Canada), prospectus S-1 / 424B4 (introduction recente) et
+        # information statement (scission) sont des documents de reference
+        # aussi complets qu un 10-K pour presenter la societe.
+        k = [x for x in sorted(glob.glob(f'{ROOT}/data-lake/{t}/10K/*.htm.gz') + glob.glob(f'{ROOT}/data-lake/{t}/20F/*.htm.gz') + glob.glob(f'{ROOT}/data-lake/{t}/40F/*.htm.gz')) if '_ER_' not in x and 'ex99' not in x.lower()]
+        if not k: k = sorted(glob.glob(f'{ROOT}/data-lake/{t}/424B4/*.htm.gz') + glob.glob(f'{ROOT}/data-lake/{t}/S1/*.htm.gz') + glob.glob(f'{ROOT}/data-lake/{t}/ir/*information-statement*.htm.gz'))
+        if len(k) >= 2: k = [max(k[-2:], key=os.path.getsize)]
+        if not k: return None, None
+        txt = re.sub(r'\s+', ' ', _html.unescape(re.sub(r'<[^>]+>', ' ', gzip.open(k[-1], 'rt', errors='replace').read()))); doc = k[-1]
+        # Item 1 « Business » : on saute la couverture et la table des matieres.
+        m = re.search(r'(?i)item 1\.?\s+business', txt[5000:]); 
+        if m: txt = txt[5000 + m.start():]
+    u = [doc]
     # Le debut du rapport porte la presentation du groupe : on prend 28 000 caracteres
     # apres avoir saute la table des matieres (premier tiers souvent numerique).
     debut = 0

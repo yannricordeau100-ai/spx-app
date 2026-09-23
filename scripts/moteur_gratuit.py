@@ -175,7 +175,7 @@ def _groq(prompt: str, json_attendu: bool, temperature: float):
     return None
 
 
-def _gemini(prompt: str, json_attendu: bool, temperature: float):
+def _gemini(prompt: str, json_attendu: bool, temperature: float, schema=None):
     cle = os.environ.get("GEMINI_API_KEY")
     if not cle:
         return None
@@ -184,6 +184,10 @@ def _gemini(prompt: str, json_attendu: bool, temperature: float):
             config = {"temperature": temperature}
             if json_attendu:
                 config["responseMimeType"] = "application/json"
+                # 24 sept 2026 : sur les longues reponses, Gemini oublie parfois
+                # une accolade ; un schema impose une sortie JSON valide.
+                if schema:
+                    config["responseSchema"] = schema
             rep = _poste(
                 f"https://generativelanguage.googleapis.com/v1beta/models/{modele}:generateContent?key={cle}",
                 {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": config},
@@ -195,7 +199,7 @@ def _gemini(prompt: str, json_attendu: bool, temperature: float):
     return None
 
 
-def appelle(prompt: str, json_attendu: bool = False, temperature: float = 0.0):
+def appelle(prompt: str, json_attendu: bool = False, temperature: float = 0.0, schema=None):
     """Interroge Cerebras, puis Groq, puis Gemini. Jamais Claude.
 
     Renvoie (reponse, moteur). `reponse` est le texte brut, ou l objet analyse
@@ -204,7 +208,7 @@ def appelle(prompt: str, json_attendu: bool = False, temperature: float = 0.0):
     """
     charge_env()
     for fonction in (_cerebras, _groq, _gemini):
-        res = fonction(prompt, json_attendu, temperature)
+        res = fonction(prompt, json_attendu, temperature, schema) if fonction is _gemini else fonction(prompt, json_attendu, temperature)
         if not res:
             continue
         txt, moteur = res

@@ -754,3 +754,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.3 (24 Sep 2026 00:26, apres 92c5b77265)
 - Blocs complets : clients documentes, anti-theses reparees, dates de publication, avantages EA et JDE Peet s, Comprendre la societe
+
+## v2026.09.24.4 (24 Sep 2026 00:41, apres 4fc18c33ce)
+- Doubles cotations completees (HEN.DE, DPW.DE, AIR.DE), Heineken par activite, descriptions Mettrik americaines
