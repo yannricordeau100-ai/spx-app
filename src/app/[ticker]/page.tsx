@@ -10,6 +10,7 @@ import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import V17_PUBLIC from "@/data/v1-7-public.json";
 import { loadV17Company } from "@/lib/company-core/load-company";
+import { assainirPourClient } from "@/lib/company-core/assainir-payload";
 import { unstable_cache } from "next/cache";
 import { VERSION } from "@/lib/version";
 import { resolveDisabledForTicker } from "@/lib/disabled-blocks-server";
@@ -260,10 +261,10 @@ export default async function TickerPage({
       <>
         <FreemiumBlurProvider tier={tierRepli}>
           <CompanyView
-            company={legacyCompany}
+            company={assainirPourClient(legacyCompany)}
             authSlot={<AuthNav scope="company" />}
           captureInscription={vitrineAnon}
-            transcript={tierRepli === "free" || tierRepli === "anon" ? null : transcript}
+            transcript={assainirPourClient(tierRepli === "free" || tierRepli === "anon" ? null : transcript)}
             freemiumTier={tierRepli}
           />
         </FreemiumBlurProvider>
@@ -333,12 +334,17 @@ export default async function TickerPage({
       />
       <FreemiumBlurProvider tier={freemiumTier}>
         <CompanyView
-          company={servedCompany}
+          company={assainirPourClient(servedCompany)}
           authSlot={<AuthNav scope="company" />}
           captureInscription={vitrineAnon}
-          transcript={estGratuit ? caviardeTranscriptDocPourGratuit(transcript, zonesEffectives) : transcript}
-          transcriptSummary={servedTranscriptSummary}
-          v18Mode
+          transcript={assainirPourClient(estGratuit ? caviardeTranscriptDocPourGratuit(transcript, zonesEffectives) : transcript)}
+          transcriptSummary={assainirPourClient(servedTranscriptSummary)}
+          // Yann 23 sept 2026 : v18Mode etait actif EN DUR ici, alors que le
+          // composant qu il declenche annonce lui meme ne jamais devoir
+          // s afficher en production. Resultat : un carton rouge « Bloc a
+          // completer » portant du jargon interne, noms de modeles compris,
+          // etait servi aux clients sur DPW.DE, P911.DE et PUM.DE. En
+          // production, un bloc absent se masque, il ne s annonce pas.
           freemiumTier={freemiumTier}
           disabledBlocks={disabledBlocks}
         />

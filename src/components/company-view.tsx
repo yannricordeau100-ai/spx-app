@@ -82,7 +82,6 @@ import { useT } from "@/lib/i18n/provider";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { ImageFindingPublic } from "@/components/image-findings-block";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
-import { V18MissingPlaceholder } from "@/components/v18-missing-placeholder";
 import { BlockComingSoon } from "@/components/block-coming-soon";
 import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
@@ -2314,7 +2313,10 @@ export function CompanyView({
               <RiskStack risks={company.risks} accent={accent} profitWarning={isDisabled("profit_warning") ? undefined : company.profit_warning} freeBlocked={freeBlocked} ticker={company.ticker} />
             </div>
           ) : (
-            v18Mode && <V18MissingPlaceholder id="sec-risks" data-blur="risks" label="Facteurs de risque" hint="Item 1A 10-K à extraire (Sonnet/Haiku Pass 2)." />
+            // Yann 23 sept 2026 : sans facteurs de risque, le bloc disparait.
+            // L ancien carton rouge « Bloc a completer » exposait au public du
+            // vocabulaire interne et des noms de moteurs d extraction.
+            null
           )
         ) : (
           <BlockComingSoon blockId="risks" id="sec-risks" data-blur="risks" />
@@ -2339,7 +2341,8 @@ export function CompanyView({
               <GovernanceCard governance={company.governance} ticker={company.ticker} company={company} freeBlocked={freeBlocked} disabledBlocks={disabledBlocks} />
             </div>
           ) : (
-            v18Mode && <V18MissingPlaceholder id="sec-governance" data-blur="governance" label="Gouvernance & rémunération" hint="DEF14A (cat 1) ou rapport annuel à extraire." />
+            // Yann 23 sept 2026 : sans gouvernance, le bloc disparait.
+            null
           )
         ) : (
           <BlockComingSoon
@@ -2361,7 +2364,8 @@ export function CompanyView({
         {isBlockEnabled("ai_positioning", company.ticker) && !isDisabled("ai_positioning") ? (
           (() => {
             const ai = company.ai_positioning;
-            if (!ai) return v18Mode ? <V18MissingPlaceholder id="sec-ai" data-blur="ai_positioning" label="Positionnement IA" hint="Mentions IA dans 10-K à parser via Cerebras Llama 3.3 70B." /> : null;
+            // Yann 23 sept 2026 : sans positionnement IA, le bloc disparait.
+            if (!ai) return null;
             // Masque si stance="absent" OU pas d'evidence (= pas de positionnement réel à montrer)
             if (ai.stance === "absent" || !Array.isArray(ai.evidence) || ai.evidence.length === 0) return null;
             return (
