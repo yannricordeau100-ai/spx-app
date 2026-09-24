@@ -11,7 +11,7 @@ t = sys.argv[1]; doc = json.load(open(f'{ROOT}/src/data/transcripts/{t.lower()}.
 calls = {c['date']: c for c in doc.get('calls', [])}
 if doc.get('latest', {}).get('date') and doc['latest'].get('content'): calls.setdefault(doc['latest']['date'], doc['latest'])
 sortie = {'ticker': t, 'calls': []}; bilan = []
-for f in sorted(glob.glob(f'/tmp/transcripts-kpi/{t}.*.json')):
+for f in sorted(g for g in glob.glob(f'/tmp/transcripts-kpi/{t}.*.json') if re.match(re.escape(t) + r'\.\d{4}-\d{2}-\d{2}\.json$', os.path.basename(g))):  # 24 sept : EL ne ramasse plus EL.PA
     d = json.load(open(f)); date = d.get('date'); c = calls.get(date)
     if not c: bilan.append((date, 'conference inconnue')); continue
     texte = norm(c['content']); ok = []; rej = 0

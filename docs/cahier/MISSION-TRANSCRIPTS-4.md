@@ -98,3 +98,9 @@ ETA global annonce a Yann : 4 jours, tableau d etat toutes les deux heures.
 - Pas de mise en ligne des donnees sans « go n0 » ; la route /api/transcripts et la navigation sont deja en preversion.
 - Controle de completude : densite mediane 9,4 KPI pour 10 000 caracteres. Sous 3, extraction jugee incomplete, supprimee et relancee avec la consigne « lire l integralite du texte » (cas CLX et CL sous Opus le 24 sept).
 - EA : derniere conference 2025-07-29 (societe en cours de retrait de la cote), deux des quatre conferences ont plus de 18 mois. Extraction suspendue, a trancher (regle des 18 mois).
+
+## Reprise du 24 sept 13 h 50 (compte ricordeauyann, apres coupure de l autre compte)
+- Cassure : l autre compte s est arrete en plein lot sur EDEN.PA, EL, EL.PA, ELV, EME (sorties partielles supprimees, rien n avait ete applique). Derniere societe appliquee : EG.
+- Nouveau pilote : `bash scripts/transcripts-4-extraction-lot.sh <liste.json> 4` : une societe par appel Claude sans interface (contexte neuf, pas de relecture d un gros contexte), Fable puis bascule Opus 5.5 si limite, verification, controle de densite (< 3 : relance integrale une fois), suivi, commit local sous verrou. S arrete net si le compte connecte change (regle 0terdecies). Journal : /tmp/transcripts-4-lot.log.
+- Correctif : `transcripts-kpi-verif.py` ramassait les fichiers d un homonyme a suffixe (EL prenait EL.PA ; idem DG/DG.PA, DTE/DTE.DE, MRK/MRK.DE). Corrige par un filtre exact sur le nom. DTE et DG deja extraits controles : aucune conference intruse.
+- Le binaire /usr/local/bin/claude (2.1.247) refuse Fable : le pilote prend celui de l app (2.1.280).
