@@ -83,3 +83,8 @@ Pour chacune des 664 societes de l univers :
 5. Controle final et deploiement : 2 h.
 
 ETA global annonce a Yann : 4 jours, tableau d etat toutes les deux heures.
+
+## Lacunes de sources relevees (24 sept)
+- ASML : MarketBeat ne publie que des videos courtes ; StockAnalysis (ams/ASML) ne liste pas T1-T3 2025 ni T1 2026. En base : 2026-07-16 (latest), 2026-01-28, 2025-01-29, 2024-10-16. Deux des quatre derniers trimestres manquent.
+- AWK : MarketBeat n a pas la conference du T3 2025 ; en base 2026-08-07, 2026-04-29, 2026-02-18, 2025-07-30.
+- Le collecteur garde desormais le champ `latest` comme candidat et accepte `--force` pour recollecter une societe deja complete.
