@@ -796,3 +796,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.25.2 (25 Sep 2026 00:34, apres 91d88eee4c)
 - Accents restaures dans les textes des fiches ; Criteres au lieu de Bareme
+
+## v2026.09.25.3 (25 Sep 2026 01:05, apres a3914bce63)
+- Vue admin : KPI que les institutionnels regardent

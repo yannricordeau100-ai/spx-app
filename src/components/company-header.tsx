@@ -4,6 +4,7 @@ import { ChevronDown, Info } from "lucide-react";
 
 import { useEffect, useRef } from "react";
 import { StarButton } from "@/components/star-button";
+import { KpiInstitutionnelsButton } from "@/components/kpi-institutionnels-button";
 import type { Company } from "@/lib/data";
 import { TICKER_ALIASES } from "@/lib/data";
 import { brand } from "@/lib/brand";
@@ -146,6 +147,8 @@ function CompanyName({
         </span>
         {/* Yann 13 sept 2026 : mise en favori de la societe ici, a droite du ticker. */}
         <StarButton ticker={ticker} mode="company" size="sm" />
+        {/* Yann 25 sept 2026 : KPI d industrie suivis par les institutionnels, vue admin seulement. */}
+        <KpiInstitutionnelsButton ticker={ticker} accent={accent} />
         {aliases.length > 0 && (
           <span className="self-baseline text-[11px] font-medium text-zinc-500 whitespace-nowrap">
             {alsoKnownLabel}{" "}
