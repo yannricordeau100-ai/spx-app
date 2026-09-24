@@ -26,7 +26,8 @@ def via_marketbeat(t):
         ex_ = MB.extrait_transcript(body)
         if not ex_ or len(ex_['content']) < MB.MIN_LEN: continue
         calls.append({'quarter': ex_.get('quarter'), 'year': ex_.get('year'), 'date': date_iso, 'source_url': url, 'content': ex_['content']})
-        if len(calls) >= N: break
+        if len(dedoublonne(calls)) >= N and all(len(c['content']) >= MIN_CAR for c in dedoublonne(calls)[:N]): break
+        if len(calls) >= N + 3: break
     return calls, 'marketbeat'
 def via_stockanalysis(t):
     liste, code = SA.liste_transcripts(t); calls = []
@@ -38,12 +39,28 @@ def via_stockanalysis(t):
         calls.append({'quarter': ex_.get('quarter'), 'year': ex_.get('year'), 'date': ex_.get('date'), 'source_url': url, 'content': ex_['content']})
         if len(calls) >= N: break
     return calls, 'stockanalysis'
+MIN_CAR = 15000  # en dessous, ce n est pas une conference complete (video de resultats, extrait)
+def dedoublonne(calls):
+    # MarketBeat publie parfois le meme trimestre sous deux dates : on garde le plus long.
+    vus = {}
+    for c in sorted(calls, key=lambda c: -len(c.get('content') or '')):
+        cle = (c.get('year'), c.get('quarter')) if c.get('year') and c.get('quarter') else c.get('date')
+        vus.setdefault(cle, c)
+    return sorted(vus.values(), key=lambda c: c.get('date') or '', reverse=True)
+def complet(calls):
+    calls = dedoublonne(calls or [])
+    return len(calls) >= N and all(len(c.get('content') or '') >= MIN_CAR for c in calls[:N])
 def traite(t):
     p = f'{ROOT}/src/data/transcripts/{t.lower()}.json'
     doc = json.load(open(p)) if os.path.exists(p) else {'ticker': t}
-    if len(doc.get('calls') or []) >= N: return 'deja complet'
+    if complet(doc.get('calls')): return 'deja complet'
     calls, source = (via_marketbeat(t) if est_us(t) else via_stockanalysis(t))
-    if not calls and est_us(t): calls, source = via_stockanalysis(t)
+    calls = dedoublonne(calls)
+    # MarketBeat insuffisant (trimestre en double, videos courtes) : StockAnalysis, qui a le texte complet.
+    if est_us(t) and not complet(calls):
+        alt, src2 = via_stockanalysis(t); alt = dedoublonne(alt)
+        if complet(alt) or len(alt) > len(calls): calls, source = alt, src2
+    calls = calls[:N]
     if not calls: journal(ticker=t, source=source, n=0, statut='aucune conference'); return 'aucune'
     calls.sort(key=lambda c: (c.get('date') or ''), reverse=True)
     doc['calls'] = calls; doc['_calls_source'] = source; doc['_calls_fetched_at'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
