@@ -53,12 +53,19 @@ def complet(calls):
 def traite(t):
     p = f'{ROOT}/src/data/transcripts/{t.lower()}.json'
     doc = json.load(open(p)) if os.path.exists(p) else {'ticker': t}
-    if complet(doc.get('calls')): return 'deja complet'
+    if complet(doc.get('calls')) and '--force' not in sys.argv: return 'deja complet'
     calls, source = (via_marketbeat(t) if est_us(t) else via_stockanalysis(t))
-    calls = dedoublonne(calls)
+    # La derniere conference deja en base (champ latest) est toujours candidate :
+    # certaines listes de sources n ont pas les trimestres les plus recents.
+    lt = doc.get('latest') or {}
+    def avec_latest(cs):
+        if lt.get('date') and len(lt.get('content') or '') >= MIN_CAR:
+            cs = cs + [{'quarter': lt.get('quarter'), 'year': lt.get('year'), 'date': lt['date'], 'source_url': lt.get('source_url'), 'content': lt['content']}]
+        return dedoublonne(cs)
+    calls = avec_latest(calls)
     # MarketBeat insuffisant (trimestre en double, videos courtes) : StockAnalysis, qui a le texte complet.
     if est_us(t) and not complet(calls):
-        alt, src2 = via_stockanalysis(t); alt = dedoublonne(alt)
+        alt, src2 = via_stockanalysis(t); alt = avec_latest(alt)
         if complet(alt) or len(alt) > len(calls): calls, source = alt, src2
     calls = calls[:N]
     if not calls: journal(ticker=t, source=source, n=0, statut='aucune conference'); return 'aucune'
