@@ -97,3 +97,4 @@ ETA global annonce a Yann : 4 jours, tableau d etat toutes les deux heures.
 - Avant de relancer une societe interrompue : supprimer ses sorties partielles dans /tmp/transcripts-kpi.
 - Pas de mise en ligne des donnees sans « go n0 » ; la route /api/transcripts et la navigation sont deja en preversion.
 - Controle de completude : densite mediane 9,4 KPI pour 10 000 caracteres. Sous 3, extraction jugee incomplete, supprimee et relancee avec la consigne « lire l integralite du texte » (cas CLX et CL sous Opus le 24 sept).
+- EA : derniere conference 2025-07-29 (societe en cours de retrait de la cote), deux des quatre conferences ont plus de 18 mois. Extraction suspendue, a trancher (regle des 18 mois).
