@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { enrollUserInOnboarding } from "@/lib/email/onboarding";
+import { evenement } from "@/lib/journal-emails";
 
 /**
  * Inscrit silencieusement un user dans la séquence onboarding 5 emails
@@ -101,6 +102,8 @@ export async function GET(request: NextRequest) {
         const ageMs = Date.now() - new Date(user.created_at).getTime();
         if (ageMs < 60_000) {
           await enrollSilently(user.email, cookieLocale);
+          // Compte cree par un fournisseur externe (Google...) : compte comme inscription.
+          if ((user.app_metadata as { provider?: string } | undefined)?.provider !== "email") await evenement("inscription");
         }
       }
       return NextResponse.redirect(`${origin}${next}`);

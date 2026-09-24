@@ -799,3 +799,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.25.3 (25 Sep 2026 01:05, apres a3914bce63)
 - Vue admin : KPI que les institutionnels regardent
+
+## v2026.09.25.4 (25 Sep 2026 01:11, apres af8b3885d7)
+- Emails et alertes (journal, alertes de volume contact et inscriptions) ; FAQ sources ; accueil sans agregats financiers ; rachats complets

@@ -1,4 +1,5 @@
 import { renderEmailLayout } from "@/lib/email/layout";
+import { journaliserEmail } from "@/lib/journal-emails";
 /**
  * Alertes rouges de sécurité (Yann 2 sept 2026, suite audit anti-triche).
  *
@@ -45,7 +46,9 @@ function envoieAlerte(sujet: string, corps: string, cleDedup: string): void {
         text: `${corps}\n\nHorodatage : ${new Date().toISOString()}\nDédup : 1 alerte max par heure et par signal.`,
         html: renderEmailLayout({ locale: "fr", preheader: sujet, title: sujet, bodyHtml: `<p>${corps}</p><p style="color:#8f8f9c;font-size:12px">Horodatage : ${new Date().toISOString()} · 1 alerte max par heure et par signal.</p>` }),
       }),
-    }).catch(() => {});
+    })
+      .then((r) => (r.ok ? journaliserEmail("alerte-securite", `🔴 ${sujet}`, dest) : undefined))
+      .catch(() => {});
   } catch {
     /* la securite ne casse jamais la requete */
   }

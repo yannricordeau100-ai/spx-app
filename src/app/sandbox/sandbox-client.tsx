@@ -245,6 +245,15 @@ const SECTIONS: SandboxSection[] = [
         mots: ["indice", "S&P 500", "Nasdaq 100", "SOX", "CAC 40", "DAX", "AEX", "SMI", "composition", "deux indices", "veille"],
       },
       {
+        // 25 sept 2026 : journal de tous les emails envoyes, alertes de volume.
+        href: "/sandbox/emails-alertes",
+        icon: Activity,
+        label: "Emails et alertes envoyés (alertes, notifications, réglages)",
+        desc: "Onglet Alertes : sécurité, rafales de messages de contact et de créations de compte (plus de 2 en 5 min, plus de 10 en 24 h), fiches en retard. Onglet Notifications : messages reçus, cap des 5 messages, veille des indices, emails aux clients. Nombre d envois, dernier envoi, réglages des seuils.",
+        mots: ["email", "alerte", "notification", "contact", "inscription", "compte", "rafale", "sécurité", "réglages", "seuil", "journal"],
+        accent: "highlight" as const,
+      },
+      {
         // 13 sept 2026 : calendrier des publications + etat des blocs + alerte rouge.
         href: "/sandbox/mises-a-jour",
         icon: Activity,

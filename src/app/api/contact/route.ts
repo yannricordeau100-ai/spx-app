@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { verifyTurnstileToken } from "@/lib/turnstile";
+import { evenement } from "@/lib/journal-emails";
 
 /**
  * POST /api/contact
@@ -56,5 +57,7 @@ export async function POST(req: NextRequest) {
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+  // Yann 25 sept 2026 : compteur et alertes de volume du formulaire de contact.
+  await evenement("contact");
   return NextResponse.json({ ok: true });
 }

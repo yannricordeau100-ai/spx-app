@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { headers, cookies } from "next/headers";
 import { authErrorParam, type Locale } from "@/lib/auth-errors";
+import { evenement } from "@/lib/journal-emails";
 // Captcha hCaptcha : vérification déléguée à Supabase via options.captchaToken.
 
 /** Extrait le token hCaptcha présent dans le form.
@@ -126,6 +127,8 @@ export async function signUpWithPassword(formData: FormData) {
   if (error) {
     redirect(`/?auth=signup&error=${await authErr(error.message)}`);
   }
+  // Yann 25 sept 2026 : compteur et alertes de volume des creations de compte.
+  await evenement("inscription");
   redirect(
     `/?auth=signup&info=${encodeURIComponent("Vérifie ton email pour valider ton compte.")}`
   );

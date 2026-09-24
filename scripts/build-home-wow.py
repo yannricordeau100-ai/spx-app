@@ -54,6 +54,14 @@ def slug(n):
     n=re.sub(r'\s+au\s+\d.*$','',n)
     n=re.sub(r'\b(trimestriel|semestriel|annuel|mensuel|hebdomadaire)\w*\b','',n)
     return re.sub(r'[^a-z]','',n)
+_AGR_BASE=r"(chiffre d affaires|revenus?|revenu net|ventes nettes|ventes|resultat net|benefice net|bpa|eps|marge brute|marge operationnelle|marge nette|marge d ebitda|flux de tresorerie|flux de tresorerie operationnels?|flux de tresorerie disponible|free cash flow|cash flow|ebitda|ebit|resultat operationnel|resultat d exploitation|dette nette|tresorerie nette|net income|net revenue|total revenue|revenue|operating income|gross margin|operating margin)"
+_AGR_QUAL=r"(trimestriels?|trimestrielle|semestriels?|semestrielle|annuels?|annuelle|ajuste|ajustee|ajustes|part du groupe|dilue|total|totale|du groupe|groupe|consolide|consolidee|publie|publiee|usd|eur|operationnels?|disponible|courant|courante|adjusted|diluted|fcf)"
+_AGR=re.compile(rf"^{_AGR_BASE}( {_AGR_QUAL})*$")
+def agregat_financier(nom):
+    n=unicodedata.normalize('NFD',str(nom or ''));n=''.join(c for c in n if unicodedata.category(c)!='Mn').lower()
+    n=re.sub(r"\(.*?\)"," ",n);n=re.sub(r"[^a-z0-9 ]+"," ",n);n=re.sub(r"\s+"," ",n).strip()
+    return bool(_AGR.match(n))
+
 def note(k):
     n=0
     if not financier(k.get('unit')): n+=5
@@ -109,6 +117,10 @@ def fiche_wow(T):
         seuil=4 if pt=='quarter' else 2 if pt=='semester' else 3
         return isinstance(h,list) and len(h)>=seuil
     kpis=[k for k in kpis if affichable(k)]
+    # Yann 25 sept 2026 (cas Broadcom, flux de tresorerie disponible) : la home
+    # ne montre JAMAIS un agregat financier de la societe (CA, resultat, BPA,
+    # marges, flux de tresorerie, EBITDA, dette nette), marque generique ou non.
+    kpis=[k for k in kpis if not k.get('is_generic') and not agregat_financier(k.get('name_fr') or k.get('name_en'))]
     # Yann 29 aout 2026 : deux KPI dont le libelle en recouvre un autre
     # (« Cout du risque » / « Cout du risque trimestriel ») faisaient doublon
     # sur la carte. On garde le mieux note des deux.

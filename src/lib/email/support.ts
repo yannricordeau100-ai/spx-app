@@ -140,7 +140,7 @@ export async function envoyerCourrielProprietaire(
     from: "support",
     subject: `[Support ${ticket.numero}] ${ticket.sujet}`,
     replyTo: ticket.email,
-    tag: "support",
+    tag: "support-proprietaire",
     html,
   });
 }
@@ -253,7 +253,7 @@ export async function envoyerAccuseReception(
     from: "support",
     subject: c.objet(ticket.numero),
     replyTo: SUPPORT_EMAIL,
-    tag: "support",
+    tag: "support-accuse",
     html,
   });
 }
@@ -340,7 +340,7 @@ export async function envoyerReponseAuClient(
     from: "support",
     subject: c.objet(ticket.numero, ticket.sujet).slice(0, 180),
     replyTo: SUPPORT_EMAIL,
-    tag: "support",
+    tag: "support-reponse",
     html,
   });
 }

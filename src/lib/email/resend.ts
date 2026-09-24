@@ -20,6 +20,7 @@
  */
 
 import { renderEmailLayout, emailParagraph as p } from "./layout";
+import { journaliserEmail } from "@/lib/journal-emails";
 
 type FromAddress = "contact" | "support" | "noreply";
 export type EmailLocale = "fr" | "en" | "de" | "nl";
@@ -49,7 +50,7 @@ export type SendEmailParams = {
  * connexion (confirmation, mot de passe, changement d adresse) sont envoyes
  * par Supabase et ne passent pas ici.
  */
-const TAGS_NECESSAIRES = new Set(["billing-failed", "contact", "contact-ack", "support", "alerte"]);
+const TAGS_NECESSAIRES = new Set(["billing-failed", "contact", "contact-ack", "support", "support-proprietaire", "support-accuse", "support-reponse", "alerte"]);
 export function emailAutorise(to: string | string[], tag?: string): boolean {
   const dest = Array.isArray(to) ? to : [to];
   if (dest.every((d) => d.toLowerCase().endsWith("@mettrik.ai"))) return true;
@@ -112,6 +113,8 @@ export async function sendEmail(params: SendEmailParams): Promise<{ ok: boolean;
     }
 
     const data = (await res.json()) as { id: string };
+    // Yann 25 sept 2026 : chaque envoi reussi est compte dans le journal des emails.
+    await journaliserEmail(params.tag ?? "autre", params.subject, params.to);
     return { ok: true, id: data.id };
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "unknown error";

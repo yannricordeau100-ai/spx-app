@@ -47,7 +47,7 @@ def texte_brut(h):
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", h)))
 
 
-GENERIQUES = re.compile(r"(?i)(acquisitions?|other|series|immaterial|individually|aggregate|various|certain|businesses|platform|portfolio|assets?|segment|transaction|combination|entities|companies|fiscal|year|\d{4})")
+GENERIQUES = re.compile(r"(?i)(subsidiary|acquiree|target|entity [a-z]|acquisitions?|other|series|immaterial|individually|aggregate|various|certain|businesses|platform|portfolio|assets?|segment|transaction|combination|entities|companies|fiscal|year|\d{4})")
 PREUVE = re.compile(r"BusinessCombinationRecognizedIdentifiableAssets|GoodwillAcquiredDuringPeriod|^Goodwill$|BusinessAcquisitionEffectiveDateOfAcquisition|PurchasePriceAllocation|BusinessAcquisitionsProForma|BusinessCombinationProForma")
 PRIX = ("BusinessCombinationConsiderationTransferred1", "BusinessCombinationConsiderationTransferred", "BusinessAcquisitionCostOfAcquiredEntityPurchasePrice",
         "BusinessCombinationPurchasePrice", "BusinessAcquisitionCostOfAcquiredEntityTransactionCosts0")
@@ -56,7 +56,13 @@ PRIX = ("BusinessCombinationConsiderationTransferred1", "BusinessCombinationCons
 def humain(membre):
     n = membre.split(":")[-1]
     n = re.sub(r"Member$", "", n)
-    return re.sub(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", " ", n).strip()
+    n = re.sub(r"(LLC|Inc|Ltd|GmbH|Corp|Limited|Holdings?|Group|AG|SA|BV|NV|SE|Plc|PLC)(?=[A-Z]|$)", r" \1 ", n)
+    n = re.sub(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", " ", n)
+    mots = n.split()
+    # artefacts du balisage : lettre isolee ou premier mot repete en fin de nom
+    while len(mots) > 1 and (len(mots[-1]) == 1 or mots[-1] == mots[0]):
+        mots.pop()
+    return " ".join(mots)
 
 
 def nom_litteral(n, texte):
@@ -121,8 +127,17 @@ def montant(x):
     return f"{x/1e9:.1f} Mds $".replace(".", ",") if x >= 1e9 else f"{x/1e6:.0f} M$"
 
 
+GICS = json.load(open(ROOT / "docs/cahier/societes-gics.json"))["societes"]
+
+
 def depuis_rapports(t, nom):
     """10-K du lac (XBRL inline) + 10-K 2018 de l EDGAR pour couvrir 2016-2018."""
+    # Lac marque « mauvaise societe » : ses rapports sont ceux d une autre.
+    if (ROOT / "data-lake" / t / "_WRONG_COMPANY.txt").exists():
+        return []
+    # Foncieres (GICS 60) : l axe des rachats liste des immeubles, pas des societes.
+    if str(GICS.get(t, "")).startswith("60"):
+        return []
     fichiers = []
     for sous in ("10K", "20F", "40F"):
         d = ROOT / "data-lake" / t / sous
@@ -185,7 +200,7 @@ def cik_de(t):
 
 
 def sec(url):
-    time.sleep(0.4)
+    time.sleep(0.7)
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     with urllib.request.urlopen(req, context=SSL_CTX, timeout=90) as r:
         return r.read()
@@ -221,12 +236,12 @@ def norm(s):
 
 def sparql(q):
     u = "https://query.wikidata.org/sparql?format=json&query=" + urllib.parse.quote(q)
-    for _ in range(3):
+    for _ in range(2):
         try:
-            with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": UA}), context=SSL_CTX, timeout=60) as r:
+            with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": UA}), context=SSL_CTX, timeout=25) as r:
                 return json.loads(r.read())["results"]["bindings"]
         except Exception:
-            time.sleep(10)
+            time.sleep(3)
     return []
 
 
@@ -322,7 +337,7 @@ def main():
             noms.setdefault(m["ticker"], m["nom"])
     liste = args or [t for t in univ if t not in quar]
     log(f"DEBUT {len(liste)} societes")
-    with ThreadPoolExecutor(max(1, len(CLES))) as ex:
+    with ThreadPoolExecutor(6) as ex:
         list(ex.map(lambda t: traite(t, noms, force), liste))
     log(f"FIN index {index()} societes")
 
