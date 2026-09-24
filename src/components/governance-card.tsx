@@ -91,7 +91,7 @@ function MetricCell({
   ticker?: string;
 }) {
   return (
-    <div className="flex items-start gap-3 rounded-lg border border-[#1a1a1a] bg-[#0a0a0a] p-3.5">
+    <div data-blur-part="ligne" className="flex items-start gap-3 rounded-lg border border-[#1a1a1a] bg-[#0a0a0a] p-3.5">
       <span
         className="mt-0.5 inline-flex size-8 shrink-0 items-center justify-center rounded-md"
         style={{ background: `${color}1a`, color, border: `1px solid ${color}40` }}
@@ -401,7 +401,7 @@ export function GovernanceCard({
             )}
           </p>
           {g.comp_detail && (
-            <ul className="mt-2 space-y-0.5 text-[11.5px] text-zinc-300">
+            <ul data-blur-part="remuneration" className="mt-2 space-y-0.5 text-[11.5px] text-zinc-300">
               {([
                 [locale === "fr" ? "Salaire" : "Salary", g.comp_detail.ceo_salary_m],
                 ["Bonus", g.comp_detail.ceo_bonus_m],
@@ -568,7 +568,7 @@ export function GovernanceCard({
     <section className="mt-9 animate-fade-up-d2 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a]/50 p-5 sm:p-6">
       <div className="mb-4 flex items-end justify-between">
         <div>
-          <h2 className="flex flex-wrap items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
+          <h2 data-blur-part="titre" className="flex flex-wrap items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
             <Building2 className="size-5" style={{ color: accent }} />
             {t("governance.title")}
             {(() => {
@@ -695,6 +695,7 @@ export function GovernanceCard({
             {showCapital && (
               <button
                 onClick={() => setPieOpen("capital")}
+                data-blur-part="actionnaires"
                 className="group relative overflow-hidden rounded-xl border border-[#1a1a1a] bg-[#080808] p-4 text-left transition-all hover:border-cyan-400/40 hover:bg-[#0c0c0c]"
               >
                 <div className="mb-2.5 flex items-center gap-2">

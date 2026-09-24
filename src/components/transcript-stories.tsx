@@ -153,7 +153,7 @@ function QuotesCard({ doc, accent, ticker }: { doc: TranscriptDoc; accent: strin
       {quotes.length > 0 ? (
         <ul className="space-y-3">
           {quotes.slice(0, 3).map((q, i) => (
-            <li key={i} className="border-l-2 pl-3" style={{ borderColor: `${accent}66` }}>
+            <li key={i} data-blur-part="citation" className="border-l-2 pl-3" style={{ borderColor: `${accent}66` }}>
               <p className="text-[13px] italic leading-relaxed text-zinc-200">« {q.text} »</p>
               <p className="mt-1 font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">
                 {q.speaker}{q.theme ? ` · ${q.theme}` : ""}
@@ -201,7 +201,7 @@ function FiguresCard({ doc, accent }: { doc: TranscriptDoc; accent: string }) {
       {figures.length > 0 ? (
         <ul className="space-y-2.5">
           {figures.slice(0, 5).map((f, i) => (
-            <li key={i} className="flex items-baseline justify-between gap-3">
+            <li key={i} data-blur-part="ligne" className="flex items-baseline justify-between gap-3">
               <span className="text-[12.5px] text-zinc-300">{f.metric}</span>
               <span className="font-mono text-[14px] font-semibold tabular-nums text-zinc-50">
                 {f.value}
@@ -251,7 +251,7 @@ export function TranscriptStories({
     >
       <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h2 className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
+          <h2 data-blur-part="titre" className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
             <MessageSquare className="size-5" style={{ color: accent }} />
             {t("transcript.section_title")}
             <EarningCallInfo accent={accent} />

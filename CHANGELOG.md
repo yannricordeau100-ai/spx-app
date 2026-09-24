@@ -766,3 +766,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.7 (24 Sep 2026 02:10, apres 59bec3a1ba)
 - FAQ et populaires retirees du public, menu compact sans Sources, univers 664, exercice clos affiche
+
+## v2026.09.24.8 (24 Sep 2026 03:27, apres 571fe2e848)
+- Citations IA en francais avec original dans le i, floutage fin par element, Prevnar aligne

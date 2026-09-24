@@ -131,7 +131,31 @@ export type PartieDeBloc =
   // 9 sept 2026 : blocs Moat et Clients.
   | "niveau"      // pastille de note du Moat (Important / Moyen / Aucun)
   | "tendance"    // carte Tendance Mettrik du Moat
-  | "noms";       // noms des clients cites
+  | "noms"        // noms des clients cites
+  // Yann 24 sept 2026, floutage fin : une partie par petit element, et des
+  // parties « par element repete » (carte, ligne, citation) qui suivent le
+  // nombre reel d elements de chaque societe.
+  | "carte"        // chaque carte d une liste (risque, story, position de marche)
+  | "ligne"        // chaque ligne d un tableau (KPI, segment, mesure de gouvernance)
+  | "categorie"    // pastille de categorie ou de classement (risque, IA)
+  | "citation"     // chaque citation ou preuve
+  | "original"     // texte original dans le « i »
+  | "synthese"     // phrase de synthese en tete de bloc
+  | "signal"       // colonne ou mention du signal
+  | "historique"   // mini graphique d historique
+  | "unite"        // unite affichee
+  | "periode"      // periode ou date d une valeur
+  | "onglets"      // onglets (geographie / activite)
+  | "pourcentage"  // parts en pourcentage
+  | "ceo"          // ligne du dirigeant
+  | "remuneration" // lignes de remuneration
+  | "actionnaires" // top 3 votes et capital
+  | "fleches"      // fleches de navigation (conferences, graphiques)
+  | "suivi"        // sous bloc de suivi des KPI (conferences)
+  | "cites-une-fois" // sous bloc des KPI cites une seule fois
+  | "reglage"      // curseur et choix de reference (bloc capacite)
+  | "ecart"        // ecart au taux (bloc capacite)
+  | "reserve";     // bandeau de reserve (bloc capacite)
 
 export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   tout: "le bloc entier",
@@ -149,6 +173,27 @@ export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   niveau: "la note (Important / Moyen / Aucun)",
   tendance: "la carte Tendance Mettrik",
   noms: "les noms de clients",
+  carte: "chaque carte (risque, story, position)",
+  ligne: "chaque ligne (KPI, segment, mesure)",
+  categorie: "la pastille de catégorie",
+  citation: "chaque citation ou preuve",
+  original: "le texte original dans le i",
+  synthese: "la phrase de synthèse",
+  signal: "le signal",
+  historique: "le mini historique",
+  unite: "l'unité",
+  periode: "la période ou la date",
+  onglets: "les onglets",
+  pourcentage: "les parts en pourcentage",
+  ceo: "la ligne du dirigeant",
+  remuneration: "les lignes de rémunération",
+  actionnaires: "les top 3 votes et capital",
+  fleches: "les flèches de navigation",
+  suivi: "le sous bloc Suivi des KPI",
+  "cites-une-fois": "le sous bloc Cités une fois",
+  reglage: "le réglage du taux",
+  ecart: "l'écart au taux",
+  reserve: "le bandeau de réserve",
 };
 
 /** Paliers d abonnement, du plus ouvert au plus complet. */
@@ -200,15 +245,16 @@ export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
   hero: ["tout", "titre", "valeur", "variation", "graphique", "source"],
   kpis: ["tout", "titre", "tableau", "valeur", "variation", "indicateur", "qualite", "voir-plus"],
   stories: ["tout", "titre", "texte", "source"],
-  repartition: ["tout", "titre", "graphique", "tableau"],
-  governance: ["tout", "titre", "tableau", "texte"],
+  repartition: ["tout", "titre", "onglets", "graphique", "tableau", "ligne", "valeur", "pourcentage"],
+  governance: ["tout", "titre", "tableau", "texte", "ligne", "remuneration", "actionnaires"],
   // "note" (Yann 1er sept 2026) : la jauge de severite X/5 de chaque risque,
   // desormais pilotable separement — et laissee VISIBLE par defaut.
-  risks: ["tout", "titre", "texte", "source", "note"],
+  risks: ["tout", "titre", "texte", "source", "note", "carte", "categorie", "tendance", "citation"],
   events: ["tout", "titre", "tableau"],
-  ai_positioning: ["tout", "titre", "texte", "source"],
+  ai_positioning: ["tout", "titre", "categorie", "texte", "citation", "original", "source"],
   dividend: ["tout", "titre", "valeur", "graphique"],
-  transcripts: ["tout", "titre", "texte", "source"],
+  // fleches, suivi et cites-une-fois seront ajoutes avec l interface des quatre conferences.
+  transcripts: ["tout", "titre", "texte", "source", "citation", "ligne"],
   image_findings: ["tout", "titre", "graphique", "source"],
   ranks: ["tout", "titre", "tableau", "valeur"],
   interpretation: ["tout", "texte"],
@@ -222,8 +268,8 @@ export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
   tam: ["tout", "titre", "valeur", "graphique", "texte", "source"],
   unites: ["tout", "titre", "tableau"],
   prochains_resultats: ["tout", "valeur"],
-  antithese: ["tout", "titre", "texte"],
-  these: ["tout", "titre", "texte"],
+  antithese: ["tout", "titre", "synthese", "texte", "carte", "ligne"],
+  these: ["tout", "titre", "synthese", "texte", "carte", "ligne"],
 };
 
 /** Transforme des zones nommees en regles, pour reutiliser applyFloutageRules. */

@@ -162,7 +162,7 @@ export function RepartitionBlock({
     >
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
+          <h2 data-blur-part="titre" className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
             <LayoutGrid className="size-5" style={{ color: accent }} />
             {t("repartition.title")}
           </h2>
@@ -195,7 +195,7 @@ export function RepartitionBlock({
           </div>
         )}
         {/* Tabs Géo / Segment */}
-        <div role="tablist" className="inline-flex items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
+        <div role="tablist" data-blur-part="onglets" className="inline-flex items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
           {hasGeo && (
             <button
               role="tab"

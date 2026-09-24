@@ -315,7 +315,7 @@ export function TranscriptBulletsBlock({
     >
       <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h2 className="flex items-center gap-3 text-[26px] font-semibold text-zinc-50">
+          <h2 data-blur-part="titre" className="flex items-center gap-3 text-[26px] font-semibold text-zinc-50">
             <MessageSquare className="size-6" style={{ color: accent }} />
             {summary.source === "earnings_release"
               ? t("transcript.bullets.er_title")
@@ -361,6 +361,7 @@ export function TranscriptBulletsBlock({
           return (
             <div
               key={i}
+              data-blur-part="ligne"
               className="flex items-start gap-3 rounded-xl border bg-gradient-to-br from-[#0a0a0a] to-[#070707] px-4 py-3"
               style={{ borderColor: `${meta.color}33` }}
             >

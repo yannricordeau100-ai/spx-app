@@ -112,7 +112,7 @@ export function RepartitionBars({
 
       <ul className="flex flex-col gap-2.5">
         {rows.map((s, i) => (
-          <li key={`${s.label ?? s.name ?? "s"}-${i}`} className="grid grid-cols-12 items-center gap-3">
+          <li key={`${s.label ?? s.name ?? "s"}-${i}`} data-blur-part="ligne" className="grid grid-cols-12 items-center gap-3">
             <div className="col-span-5 flex min-w-0 items-start gap-2 sm:col-span-4">
               <span
                 aria-hidden
@@ -124,7 +124,7 @@ export function RepartitionBars({
               </span>
             </div>
 
-            <div className="col-span-3 hidden h-2.5 overflow-hidden rounded-full bg-white/[0.05] sm:col-span-4 sm:block">
+            <div data-blur-part="graphique" className="col-span-3 hidden h-2.5 overflow-hidden rounded-full bg-white/[0.05] sm:col-span-4 sm:block">
               <div
                 className="h-full rounded-full"
                 style={{
@@ -134,10 +134,10 @@ export function RepartitionBars({
               />
             </div>
 
-            <div className="col-span-4 text-right font-mono text-[13.5px] font-semibold tabular-nums text-zinc-50 sm:col-span-2">
+            <div data-blur-part="valeur" className="col-span-4 text-right font-mono text-[13.5px] font-semibold tabular-nums text-zinc-50 sm:col-span-2">
               {fmtPct(s.share, locale)}
             </div>
-            <div className="col-span-3 text-right font-mono text-[12px] tabular-nums text-zinc-400 sm:col-span-2">
+            <div data-blur-part="pourcentage" className="col-span-3 text-right font-mono text-[12px] tabular-nums text-zinc-400 sm:col-span-2">
               {fmtValue(s.value, unit, locale)}
             </div>
           </li>
@@ -155,16 +155,16 @@ export function RepartitionBars({
                 {othersLabel} ({small.length})
               </button>
             </div>
-            <div className="col-span-3 hidden h-2.5 overflow-hidden rounded-full bg-white/[0.05] sm:col-span-4 sm:block">
+            <div data-blur-part="graphique" className="col-span-3 hidden h-2.5 overflow-hidden rounded-full bg-white/[0.05] sm:col-span-4 sm:block">
               <div
                 className="h-full rounded-full bg-zinc-600"
                 style={{ width: `${Math.max((othersShare / max) * 100, 1.5)}%` }}
               />
             </div>
-            <div className="col-span-4 text-right font-mono text-[13.5px] font-semibold tabular-nums text-zinc-50 sm:col-span-2">
+            <div data-blur-part="valeur" className="col-span-4 text-right font-mono text-[13.5px] font-semibold tabular-nums text-zinc-50 sm:col-span-2">
               {fmtPct(othersShare, locale)}
             </div>
-            <div className="col-span-3 text-right font-mono text-[12px] tabular-nums text-zinc-400 sm:col-span-2">
+            <div data-blur-part="pourcentage" className="col-span-3 text-right font-mono text-[12px] tabular-nums text-zinc-400 sm:col-span-2">
               {fmtValue(othersValue, unit, locale)}
             </div>
           </li>

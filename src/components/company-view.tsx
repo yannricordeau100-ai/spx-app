@@ -1541,6 +1541,7 @@ export function CompanyView({
                 ) : (
                   <>
                     <div
+                      data-blur-part="valeur"
                       className="font-display font-semibold leading-none tracking-tight gradient-text max-sm:!text-[52px]"
                       style={{
                         fontSize: "clamp(34px, 4.4vw, 56px)",
@@ -1552,6 +1553,7 @@ export function CompanyView({
                     </div>
                     {displayHeroUnit && (
                       <div
+                        data-blur-part="titre"
                         className="font-medium text-zinc-400 max-sm:!text-[17px]"
                         style={{ fontSize: "clamp(14px, 1.5vw, 19px)" }}
                       >

@@ -122,7 +122,7 @@ function Corps({ texte }: { texte: string }) {
   return (
     <ul className="grid gap-1.5">
       {points.map((p, i) => (
-        <li key={i} className="flex items-start gap-2 text-[13px] leading-[1.75] text-zinc-300">
+        <li key={i} data-blur-part="ligne" className="flex items-start gap-2 text-[13px] leading-[1.75] text-zinc-300">
           <span className="mt-[9px] size-1 shrink-0 rounded-full bg-zinc-600" />
           <span>{p}</span>
         </li>
@@ -145,7 +145,7 @@ function SourceInfo({ label, contenu }: { label: string; contenu: string }) {
 
 function ArgumentCard({ arg }: { arg: AttArgument }) {
   return (
-    <div className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
+    <div data-blur-part="carte" className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
       <div className="flex items-start justify-between gap-2">
         <div className="text-[13.5px] font-semibold text-zinc-100">{arg.titre}</div>
         {arg.preuve && <SourceInfo label="Preuve" contenu={arg.preuve} />}
@@ -159,7 +159,7 @@ function ArgumentCard({ arg }: { arg: AttArgument }) {
 
 function QuantCard({ q }: { q: AttQuantitatif }) {
   return (
-    <div className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
+    <div data-blur-part="carte" className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
       <div className="flex items-start justify-between gap-2">
         <div className="text-[13.5px] font-semibold text-zinc-100">{q.titre}</div>
       </div>
@@ -231,7 +231,7 @@ export function AntiTheseCard({
       color: "#a78bfa",
       icon: <FileText className="size-3.5" />,
       titre: "En résumé",
-      contenu: <p className="text-[13.5px] leading-relaxed text-zinc-300">{att.resume}</p>,
+      contenu: <p data-blur-part="synthese" className="text-[13.5px] leading-relaxed text-zinc-300">{att.resume}</p>,
     });
   }
 

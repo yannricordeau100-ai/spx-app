@@ -239,6 +239,7 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, delay: 0.04 * index, ease: [0.22, 1, 0.36, 1] }}
+      data-blur-part="carte"
       className="rounded-xl border border-[#1a1a1a] bg-[#070707] transition-colors hover:border-[#2a2a2a]"
     >
       <div
@@ -276,6 +277,7 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
               {t(meta.labelKey)}
             </span>
             <span
+              data-blur-part="tendance"
               className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10.5px] font-semibold uppercase tracking-wider"
               style={{
                 background: `${trend.color}1a`,
@@ -360,7 +362,7 @@ function RiskCard({ risk, index, freeBlocked = false, ticker }: { risk: CompanyR
               <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
                 {t("risks.management_quote")}
               </div>
-              <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="p" className="border-l-2 border-[#2a2a2a] pl-3 text-[13px] italic leading-relaxed text-zinc-200">
+              <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="p" data-blur-part="citation" className="border-l-2 border-[#2a2a2a] pl-3 text-[13px] italic leading-relaxed text-zinc-200">
                 {quoteOpen}{displayQuote}{quoteClose}
               </BlurredFreeText>
             </div>

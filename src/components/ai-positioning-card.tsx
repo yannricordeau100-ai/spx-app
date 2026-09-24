@@ -7,6 +7,7 @@ import { useT } from "@/lib/i18n/provider";
 import { normalizeNarrative, humanizeFinJargon } from "@/lib/ui-fix-templates";
 import { BlurredFreeText } from "@/components/freemium/blurred-free-text";
 import { AutoTooltipText } from "@/components/auto-tooltip-text";
+import { InfoTooltip } from "@/components/info-tooltip";
 
 const STANCE_META: Record<
   AIPositioning["stance"],
@@ -74,7 +75,7 @@ export function AIPositioningCard({
   return (
     <section className="mt-9 animate-fade-up-d1">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="flex items-start sm:items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
+        <h2 data-blur-part="titre" className="flex items-start sm:items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
           <Brain className="mt-1.5 size-5 shrink-0 sm:mt-0" style={{ color: accent }} />
           {t("ai.title_prefix")} {companyName} {t("ai.title_suffix")}
         </h2>
@@ -89,6 +90,7 @@ export function AIPositioningCard({
       >
         <div className="flex flex-wrap items-center gap-2.5">
           <span
+            data-blur-part="categorie"
             className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[11.5px] font-semibold uppercase tracking-wider"
             style={{
               background: `${meta.color}1f`,
@@ -126,6 +128,12 @@ export function AIPositioningCard({
           // strip des tags `xxx:YyyMember`, `us-gaap:...`, dates ISO)
           // fait moins de 25 chars. Puis cap à 8.
           const rawEvidence = Array.isArray(effective.evidence) ? effective.evidence : [];
+          // Yann 24 sept 2026 : version francaise alignee sur l index d origine,
+          // l original anglais se lit dans le « i ».
+          const frParIndex = new Map<unknown, string>();
+          if (Array.isArray(effective.evidence_fr) && effective.evidence_fr.length === rawEvidence.length) {
+            rawEvidence.forEach((e, i) => frParIndex.set(e, effective.evidence_fr![i]));
+          }
           const cleanEvidence = rawEvidence
             .filter((e) => {
               if (typeof e !== "string") return true;
@@ -150,6 +158,7 @@ export function AIPositioningCard({
               {cleanEvidence.map((e, i) => (
                 <li
                   key={i}
+                  data-blur-part="citation"
                   className="flex items-start gap-2.5 rounded-lg border border-[#1a1a1a] bg-[#0a0a0a] p-3 text-[15px] leading-snug text-zinc-200"
                 >
                   <TrendingUp
@@ -170,6 +179,18 @@ export function AIPositioningCard({
                           : raw && typeof raw === "object" && "text" in raw
                             ? String((raw as { text?: unknown }).text ?? "")
                             : "";
+                      const fr = frParIndex.get(raw);
+                      if (fr && txt && fr !== txt) {
+                        return (
+                          <>
+                            <AutoTooltipText text={humanizeFinJargon(normalizeNarrative(fr))} locale="fr" />
+                            <InfoTooltip color={meta.color}>
+                              <p data-blur-part="original" className="text-[12px] font-semibold text-zinc-100">Citation originale</p>
+                              <p className="mt-1 text-[12px] italic text-zinc-300">{txt}</p>
+                            </InfoTooltip>
+                          </>
+                        );
+                      }
                       return txt ? (
                         <AutoTooltipText text={humanizeFinJargon(normalizeNarrative(txt))} locale="fr" />
                       ) : null;

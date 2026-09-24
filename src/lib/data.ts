@@ -274,6 +274,8 @@ export type AIPositioning = {
    * reste reserve a zero mention dans le dernier rapport annuel.
    */
   stance: "leader" | "integrator" | "cautious" | "peu_documente" | "absent";
+  /** Yann 24 sept 2026 : citations traduites en francais, meme ordre que `evidence` ; l original reste dans le « i ». */
+  evidence_fr?: string[];
   /** 2-4 sentence summary of how the company positions itself on AI. */
   summary: string;
   /** 3-5 concrete examples of AI uses / products / investments. */
