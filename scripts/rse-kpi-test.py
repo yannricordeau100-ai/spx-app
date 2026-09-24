@@ -16,8 +16,19 @@ EXTRAIT :
 {txt}"""
 def norm(s): return re.sub(r'[^a-z0-9 ]', '', unicodedata.normalize('NFKD', s.lower()).encode('ascii', 'ignore').decode()).strip()
 def section(txt):
-    m = DEBUT.search(txt[100000:]) or DEBUT.search(txt)
-    deb = (m.start() + 100000) if m and m.start() + 100000 < len(txt) and DEBUT.search(txt[100000:]) else (m.start() if m else 0)
+    """Debut de l etat de durabilite : la fenetre de 40 000 caracteres la plus
+    dense en marqueurs ESRS / GRI / scope (les rapports recents), sinon le
+    premier titre de section apres la table des matieres (rapports anciens)."""
+    MARQ = re.compile(r'ESRS|GRI \d|(?i:scope ?[123])|(?i:tco2)|(?i:ghg emissions)')
+    meilleur, score = None, 0
+    for i in range(0, max(1, len(txt) - 40000), 20000):
+        n = len(MARQ.findall(txt[i:i + 40000]))
+        if n > score: meilleur, score = i, n
+    if meilleur is not None and score >= 15:
+        deb = max(0, meilleur - 20000)
+    else:
+        m = DEBUT.search(txt[100000:]) or DEBUT.search(txt)
+        deb = (m.start() + 100000) if m and m.start() + 100000 < len(txt) and DEBUT.search(txt[100000:]) else (m.start() if m else 0)
     return txt[deb:deb + 260000]
 def extrait(t, annee, path):
     txt = re.sub(r'\s+', ' ', gzip.open(path, 'rt', errors='replace').read()); sec = section(txt)
