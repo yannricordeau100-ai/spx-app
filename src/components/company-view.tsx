@@ -82,6 +82,7 @@ import { useT } from "@/lib/i18n/provider";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { ImageFindingPublic } from "@/components/image-findings-block";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
+import { TranscriptNavigation, type SuiviKpi } from "@/components/transcript-navigation";
 import { BlockComingSoon } from "@/components/block-coming-soon";
 import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
@@ -326,6 +327,8 @@ export function CompanyView({
   hidePriceBar = false,
   transcript = null,
   transcriptSummary = null,
+  transcriptDates = [],
+  transcriptSuivi = null,
   v18Mode = false,
   freemiumTier,
   captureInscription = false,
@@ -340,6 +343,9 @@ export function CompanyView({
   transcript?: TranscriptDoc | null;
   /** Résumé bullets PV-driven du dernier earning call (Yann 11 mai 2026). */
   transcriptSummary?: TranscriptBulletsSummary | null;
+  /** Yann 24 sept 2026 : dates des conferences disponibles et suivi des KPI entre conferences. */
+  transcriptDates?: string[];
+  transcriptSuivi?: SuiviKpi | null;
   /** V1.8 : affiche les blocs manquants en placeholder rouge au lieu de
    *  les masquer. Permet à Yann de voir ce qu'il manque sur chaque société. */
   v18Mode?: boolean;
@@ -2420,7 +2426,13 @@ export function CompanyView({
         <div id="sec-resultats" className="scroll-mt-24">
         {isBlockEnabled("transcripts", company.ticker) && !isDisabled("transcript_bullets") ? (
           transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
-            <TranscriptBulletsBlock ticker={company.ticker} summary={transcriptSummary} />
+            <TranscriptNavigation
+              ticker={company.ticker}
+              summary={transcriptSummary}
+              dates={transcriptDates.length ? transcriptDates : [transcriptSummary.fetched_at?.slice(0, 10) ?? ""].filter(Boolean)}
+              suivi={transcriptSuivi}
+              accesArchives={freemiumTier === "premium" || freemiumTier === "max"}
+            />
           ) : transcript && (
               (transcript.extracts?.quotes && transcript.extracts.quotes.length > 0) ||
               (transcript.extracts?.figures && transcript.extracts.figures.length > 0) ||

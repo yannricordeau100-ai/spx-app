@@ -262,8 +262,7 @@ export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
   events: ["tout", "titre", "tableau", "ligne"],
   ai_positioning: ["tout", "titre", "categorie", "texte", "citation", "original", "source"],
   dividend: ["tout", "titre", "valeur", "graphique"],
-  // fleches, suivi et cites-une-fois seront ajoutes avec l interface des quatre conferences.
-  transcripts: ["tout", "titre", "texte", "source", "citation", "ligne"],
+  transcripts: ["tout", "titre", "texte", "source", "citation", "ligne", "fleches", "suivi", "cites-une-fois"],
   image_findings: ["tout", "titre", "graphique", "source"],
   ranks: ["tout", "titre", "tableau", "valeur"],
   interpretation: ["tout", "texte"],

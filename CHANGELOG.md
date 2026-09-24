@@ -772,3 +772,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.9 (24 Sep 2026 03:47, apres 8cd45658e2)
 - Floutage fin : stories, evenements, graphiques moyen terme, bloc Comprendre la societe
+
+## v2026.09.24.10 (24 Sep 2026 04:05, apres 54a7404a52)
+- Navigation entre les quatre conferences, suivi des KPI, route de lecture reservee aux abonnes

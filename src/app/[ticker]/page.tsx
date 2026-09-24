@@ -93,6 +93,16 @@ const loadTranscript = unstable_cache(
   { revalidate: 21600, tags: ["fiches"] },
 );
 
+async function loadTranscriptSuiviBrut(ticker: string) {
+  try {
+    const raw = await fs.readFile(path.join(process.cwd(), "src/data/transcripts-kpi", `${ticker.toLowerCase()}.suivi.json`), "utf-8");
+    return JSON.parse(raw) as import("@/components/transcript-navigation").SuiviKpi;
+  } catch {
+    return null;
+  }
+}
+const loadTranscriptSuivi = unstable_cache(loadTranscriptSuiviBrut, ["fiche-transcript-suivi", VERSION], { revalidate: 21600, tags: ["fiches"] });
+
 const loadTranscriptSummary = unstable_cache(
   loadTranscriptSummaryBrut,
   ["fiche-transcript-synthese", VERSION],
@@ -234,14 +244,20 @@ export default async function TickerPage({
   // MEME TEMPS au lieu de s enchainer (fiche, transcript, resume, blocs
   // desactives, palier, zones de floutage). Mesure : 5 allers-retours
   // sequentiels vers Supabase et le disque devenaient 1 seul temps d attente.
-  const [r, transcript, transcriptSummary, disabledBlocks, tierResolu, zonesChargees] = await Promise.all([
+  const [r, transcript, transcriptSummary, disabledBlocks, tierResolu, zonesChargees, transcriptSuivi] = await Promise.all([
     loadV17Company(ticker, { mode: "v18", locale }),
     loadTranscript(ticker),
     loadTranscriptSummary(ticker),
     resolveDisabledForTicker(ticker),
     resolveFreemiumTier(),
     chargeZonesFloutage(ticker.toUpperCase()),
+    loadTranscriptSuivi(ticker),
   ]);
+  // Yann 24 sept 2026 : dates des conferences disponibles (la plus recente d abord).
+  const transcriptDates: string[] = ((transcript as { calls?: { date?: string }[] } | null)?.calls ?? [])
+    .map((c) => c.date ?? "")
+    .filter(Boolean);
+  if (transcriptDates.length === 0 && transcript?.latest?.date) transcriptDates.push(transcript.latest.date);
 
   const sp = searchParams ? await searchParams : undefined;
   const auditBypass =
@@ -339,6 +355,8 @@ export default async function TickerPage({
           captureInscription={vitrineAnon}
           transcript={assainirPourClient(estGratuit ? caviardeTranscriptDocPourGratuit(transcript, zonesEffectives) : transcript)}
           transcriptSummary={assainirPourClient(servedTranscriptSummary)}
+          transcriptDates={transcriptDates}
+          transcriptSuivi={freemiumTier === "premium" || freemiumTier === "max" ? transcriptSuivi : transcriptSuivi ? { ...transcriptSuivi } : null}
           // Yann 23 sept 2026 : v18Mode etait actif EN DUR ici, alors que le
           // composant qu il declenche annonce lui meme ne jamais devoir
           // s afficher en production. Resultat : un carton rouge « Bloc a
