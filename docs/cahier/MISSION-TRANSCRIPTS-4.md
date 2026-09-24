@@ -88,3 +88,11 @@ ETA global annonce a Yann : 4 jours, tableau d etat toutes les deux heures.
 - ASML : MarketBeat ne publie que des videos courtes ; StockAnalysis (ams/ASML) ne liste pas T1-T3 2025 ni T1 2026. En base : 2026-07-16 (latest), 2026-01-28, 2025-01-29, 2024-10-16. Deux des quatre derniers trimestres manquent.
 - AWK : MarketBeat n a pas la conference du T3 2025 ; en base 2026-08-07, 2026-04-29, 2026-02-18, 2025-07-30.
 - Le collecteur garde desormais le champ `latest` comme candidat et accepte `--force` pour recollecter une societe deja complete.
+
+## Reprise (sauvegarde integrale du 24 sept, 11 h)
+- Tout est pousse sur `staging` (commit « Sauvegarde integrale 24 sept »). Non pousses volontairement : PDF, archives .gz, XBRL du lac (retelechargeables par les collecteurs) et src/data/companies/wkl.as.json (interdit).
+- Etat : `python3 scripts/transcripts-4-etat.py` donne les societes restantes (fichier transcripts-kpi absent). Extraites : A a CHD dans l ordre alphabetique de la liste d etat, plus CFR.SW.
+- Boucle par societe : agent (prompt type dans le journal de session : lit src/data/transcripts/<t>.json, ecrit /tmp/transcripts-kpi/<T>.<date>.json, script auxiliaire nomme outil-<T>.py) puis `python3 scripts/transcripts-kpi-verif.py <T> --applique && python3 scripts/transcripts-kpi-suivi.py <T>` puis commit local.
+- Modele : Fable pour les taches cruciales ; si limite Fable atteinte, Opus 5.5 (bascule du 24 sept vers 11 h). Casse a respecter mot pour mot (« Mid-50s » refuse si ecrit « mid-50s »).
+- Avant de relancer une societe interrompue : supprimer ses sorties partielles dans /tmp/transcripts-kpi.
+- Pas de mise en ligne des donnees sans « go n0 » ; la route /api/transcripts et la navigation sont deja en preversion.
