@@ -40,34 +40,65 @@ function AdminPanelReminder() {
     </div>
   );
 }
-import { Lightbulb, ClipboardList, Info, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import {
+  FileText, ListTodo, Library, FolderOpen, Calendar, Bookmark, Cpu, Lightbulb,
+  Link as LinkIcon, ImageIcon, BarChart3, MessageSquare, Target, Map, Info, Gift,
+  PanelLeftClose, PanelLeftOpen, Mail, ClipboardList,
+} from "lucide-react";
+import { TabNotes } from "@/components/desk/tab-notes";
+import { TabTodos } from "@/components/desk/tab-todos";
+import { TabGics } from "@/components/desk/tab-gics";
+import { TabPipeline } from "@/components/desk/tab-pipeline";
 import { TabIdeas } from "@/components/desk/tab-ideas";
+import { TabReferrals } from "@/components/desk/tab-referrals";
+import { TabRoadmap } from "@/components/desk/tab-roadmap";
 import { TabTaches } from "@/components/desk/tab-taches";
 
-// 24 sept 2026 (demande du proprietaire) : onglets devenus inutiles retires du
-// menu (les composants restent dans src/components/desk) ; on garde « Idees
-// Mettrik » et on ajoute « Grandes taches ».
-type TabId = "taches" | "ideas";
+type TabId =
+  | "notes" | "todos" | "roadmap"
+  | "documents" | "gics" | "pipeline"
+  | "calendar" | "bookmarks" | "links"
+  | "drafts" | "pitch"
+  | "inspiration" | "ideas" | "metrics"
+  | "referrals" | "messages" | "taches";
 
 type TabSection = {
   label: string;
   hint: string;
-  items: { id: TabId; label: string; Icon: typeof Lightbulb; hint: string }[];
+  items: { id: TabId; label: string; Icon: typeof FileText; hint: string }[];
 };
 
 const SECTIONS: TabSection[] = [
   {
-    label: "Suivi",
-    hint: "Chantiers en cours",
+    label: "Quotidien",
+    hint: "Tes outils de tous les jours",
     items: [
-      { id: "taches", label: "Grandes tâches", Icon: ClipboardList, hint: "Chantiers commencés et restant à finir : ETA, modèle, réglages, état par société" },
+      { id: "todos",   label: "To-do",          Icon: ListTodo, hint: "Tâches avec priorité et projet" },
+      { id: "notes",   label: "Notes",          Icon: FileText, hint: "Notes markdown rangées par tag" },
+      { id: "taches",  label: "Grandes tâches", Icon: ClipboardList, hint: "Chantiers commencés et restant à finir : ETA, modèle, réglages, état par société" },
+      { id: "roadmap", label: "Roadmap launch", Icon: Map,      hint: "Tout ce qu'il reste à faire pour sortir l'app, trié par priorité" },
     ],
   },
   {
-    label: "Stratégie",
+    label: "Production data",
+    hint: "Sources, taxonomie, pipeline V2",
+    items: [
+      { id: "gics",      label: "Taxonomie GICS", Icon: Library, hint: "11 secteurs, 25 groupes, 74 industries, 163 sous-industries" },
+      { id: "pipeline",  label: "Pipeline V2", Icon: Cpu,        hint: "Sociétés à scraper (USA, CA, EU, JP)" },
+    ],
+  },
+  {
+    label: "Stratégie & com",
     hint: "Pour toi seul",
     items: [
-      { id: "ideas", label: "Idées Mettrik", Icon: Lightbulb, hint: "Carnet d'idées par catégorie + statut" },
+      { id: "ideas",  label: "Idées Mettrik", Icon: Lightbulb,    hint: "Carnet d'idées par catégorie + statut" },
+    ],
+  },
+  {
+    label: "Croissance",
+    hint: "Programmes user growth",
+    items: [
+      { id: "referrals", label: "Parrainage", Icon: Gift, hint: "Paramètres du programme de parrainage (page /parrainage publique)" },
     ],
   },
 ];
@@ -78,10 +109,10 @@ export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
   // Yann 4 sept 2026 : l onglet se lit dans l URL (?tab=gics) pour pouvoir
   // donner un lien direct vers chaque outil du desk.
   const [tab, setTab] = useState<TabId>(() => {
-    if (typeof window === "undefined") return "taches";
+    if (typeof window === "undefined") return "todos";
     const voulu = new URLSearchParams(window.location.search).get("tab");
     const connus = SECTIONS.flatMap((sec) => sec.items.map((i) => i.id));
-    return voulu && (connus as string[]).includes(voulu) ? (voulu as TabId) : "taches";
+    return voulu && (connus as string[]).includes(voulu) ? (voulu as TabId) : "todos";
   });
   // Persistance UI : sidebar collapse mémorisé en localStorage entre visites.
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
@@ -207,8 +238,14 @@ export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
                 via CSS quand on en change. 1er click sur un tab = fetch normal,
                 clicks suivants sur le même tab = instantané (data déjà en RAM).
                 Coût mémoire négligeable (quelques KB par tab). */}
+            <KeepAlive active={tab} id="notes"><TabNotes ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="todos"><TabTodos ownerEmail={ownerEmail} /></KeepAlive>
             <KeepAlive active={tab} id="taches"><TabTaches /></KeepAlive>
+            <KeepAlive active={tab} id="roadmap"><TabRoadmap /></KeepAlive>
+            <KeepAlive active={tab} id="gics"><TabGics /></KeepAlive>
+            <KeepAlive active={tab} id="pipeline"><TabPipeline /></KeepAlive>
             <KeepAlive active={tab} id="ideas"><TabIdeas ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="referrals"><TabReferrals /></KeepAlive>
           </div>
         </main>
       </div>

@@ -1,19 +1,19 @@
 {
- "maj": "2026-09-24 18:48",
- "total": 664,
+ "maj": "2026-09-24 19:26",
+ "total": 662,
  "taches": [
   {
    "titre": "Conférences de résultats : extraction des KPI (4 dernières par société)",
-   "etat": "244 sociétés complètes sur 664, 410 en attente d extraction",
-   "eta": "12.1 h de calcul (34 sociétés/h), coupé par les limites de session : fin estimée entre le 25 et le 26 sept",
+   "etat": "263 sociétés complètes sur 662, 390 en attente d extraction",
+   "eta": "ARRÊTÉE sur demande le 24 sept à 19 h 25 (les 4 sociétés en cours ont été terminées). Reste 11.5 h de calcul (34 sociétés/h) à la reprise",
    "modele": "Fable 5.1 (claude-fable-5-1), repli automatique Opus 5.5 (claude-opus-5-5)",
    "reglages": "claude -p en mode non interactif, une session neuve par société, 4 sociétés en parallèle, effort par défaut, prompt figé docs/cahier/PROMPT-TRANSCRIPT-KPI.md, vérification mot pour mot puis suivi, commit local",
    "commande": "bash scripts/transcripts-4-extraction-lot.sh <liste.json> 4"
   },
   {
-   "titre": "Conférences de résultats : 9 sociétés sans 4 conférences + EA",
-   "etat": "4 sans aucune conférence, 5 avec une seule (scissions, introductions récentes), EA en attente de la règle des 18 mois",
-   "eta": "1 h 30 après décision (EA) et recherche d autres sources",
+   "titre": "Conférences de résultats : 9 sociétés sans 4 conférences",
+   "etat": "4 sans aucune conférence, 5 avec une seule (scissions, introductions récentes) ; EA retirée du site (rachetée)",
+   "eta": "1 h 30 (recherche d autres sources)",
    "modele": "Aucun modèle Claude pour la collecte (MarketBeat, StockAnalysis) ; Fable 5.1 pour l extraction",
    "reglages": "scripts/transcripts-4-collecte.py puis même chaîne que ci-dessus"
   },
@@ -33,8 +33,8 @@
   },
   {
    "titre": "Sociétés disparues (rachat, faillite, retrait de la cote)",
-   "etat": "contrôle des 664 fait le 24 sept (indices du jour + cotation) ; décision de retrait à prendre",
-   "eta": "1 h après décision (retrait des listes, redirection des fiches)",
+   "etat": "FAIT le 24 sept : EA et JDEP.AS retirées du site (univers 662) ; ACLS, QRVO, WBD gardées tant que le rachat n est pas finalisé et que l action est cotée",
+   "eta": "À refaire chaque mois : 30 min (retirer une société dès que son rachat est finalisé)",
    "modele": "Sonnet 5 pour la vérification web une par une, effort bas",
    "reglages": "python3 scripts/indices-wikipedia.py puis contrôle des cotations et vérification web de chaque cas suspect"
   }
@@ -1014,8 +1014,84 @@
     "nom": "FedEx"
    },
    {
+    "t": "FE",
+    "nom": "FirstEnergy"
+   },
+   {
     "t": "FER",
     "nom": "Ferrovial N.V."
+   },
+   {
+    "t": "FERG",
+    "nom": "Ferguson Enterprises"
+   },
+   {
+    "t": "FFIV",
+    "nom": "F5, Inc."
+   },
+   {
+    "t": "FGR.PA",
+    "nom": ""
+   },
+   {
+    "t": "FICO",
+    "nom": "Fair Isaac"
+   },
+   {
+    "t": "FIS",
+    "nom": "Fidelity National Information Services"
+   },
+   {
+    "t": "FISV",
+    "nom": "Fiserv"
+   },
+   {
+    "t": "FITB",
+    "nom": "Fifth Third Bancorp"
+   },
+   {
+    "t": "FIX",
+    "nom": "Comfort Systems USA"
+   },
+   {
+    "t": "FLEX",
+    "nom": "Flex Ltd."
+   },
+   {
+    "t": "FME.DE",
+    "nom": "Fresenius Medical Care"
+   },
+   {
+    "t": "FOXA",
+    "nom": "Fox Corporation (Class A)"
+   },
+   {
+    "t": "FRE.DE",
+    "nom": "Fresenius"
+   },
+   {
+    "t": "FRT",
+    "nom": "Federal Realty Investment Trust"
+   },
+   {
+    "t": "FSLR",
+    "nom": "First Solar"
+   },
+   {
+    "t": "FTNT",
+    "nom": "Fortinet"
+   },
+   {
+    "t": "FTV",
+    "nom": "Fortive"
+   },
+   {
+    "t": "G1A.DE",
+    "nom": "GEA Group"
+   },
+   {
+    "t": "G24.DE",
+    "nom": "Scout24"
    }
   ],
   "partielles": [
@@ -1023,101 +1099,6 @@
     "t": "FDXF",
     "nom": "FedEx Freight",
     "raison": "1 conférence(s) sur 4 disponibles"
-   },
-   {
-    "t": "FE",
-    "nom": "FirstEnergy",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FERG",
-    "nom": "Ferguson Enterprises",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FFIV",
-    "nom": "F5, Inc.",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FGR.PA",
-    "nom": "",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FICO",
-    "nom": "Fair Isaac",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FIS",
-    "nom": "Fidelity National Information Services",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FISV",
-    "nom": "Fiserv",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FITB",
-    "nom": "Fifth Third Bancorp",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FIX",
-    "nom": "Comfort Systems USA",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FLEX",
-    "nom": "Flex Ltd.",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FME.DE",
-    "nom": "Fresenius Medical Care",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FOXA",
-    "nom": "Fox Corporation (Class A)",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FRE.DE",
-    "nom": "Fresenius",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FRT",
-    "nom": "Federal Realty Investment Trust",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FSLR",
-    "nom": "First Solar",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FTNT",
-    "nom": "Fortinet",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "FTV",
-    "nom": "Fortive",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "G1A.DE",
-    "nom": "GEA Group",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "G24.DE",
-    "nom": "Scout24",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
    },
    {
     "t": "GD",
@@ -1487,11 +1468,6 @@
    {
     "t": "JCI",
     "nom": "Johnson Controls",
-    "raison": "4 conférences collectées, extraction des KPI en attente"
-   },
-   {
-    "t": "JDEP.AS",
-    "nom": "",
     "raison": "4 conférences collectées, extraction des KPI en attente"
    },
    {
@@ -3100,11 +3076,6 @@
     "t": "BRK-B",
     "nom": "Berkshire Hathaway",
     "raison": "aucune conférence trouvée"
-   },
-   {
-    "t": "EA",
-    "nom": "",
-    "raison": "société rachetée le 4 août 2026, plus cotée"
    },
    {
     "t": "ED",

@@ -778,3 +778,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.11 (24 Sep 2026 18:48, apres bb51152f66)
 - Desk : onglet Grandes taches, onglets inutiles retires ; conferences de resultats des societes completes
+
+## v2026.09.24.12 (24 Sep 2026 19:26, apres 57e978b059)
+- Desk restaure (onglets vides seuls retires) ; EA et JDEP.AS retirees (rachetees) ; conferences de 263 societes
