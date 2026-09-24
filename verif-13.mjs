@@ -1,0 +1,31 @@
+import { chromium } from 'playwright';
+import fs from 'fs';
+const [name, ...rest] = fs.readFileSync('/tmp/audit_cookie.txt','utf8').trim().split('='); const value = rest.join('=');
+const base = process.env.BASE || 'https://mettrik-niveau2.vercel.app';
+const tok = '-mKbH0pR58PWo__wcp5LM1u520Lr92FTQl5bk2eTSwQ';
+const b = await chromium.launch(); const ctx = await b.newContext({ viewport:{width:1400,height:1000} });
+await ctx.addCookies([{ name, value, domain:new URL(base).hostname, path:'/', secure:true, sameSite:'Lax' }]);
+const p = await ctx.newPage();
+const shot = async (url, fichier, attendre) => {
+  await p.goto(url, { waitUntil:'load', timeout:120000 });
+  if (attendre) { try { await p.waitForSelector(attendre, { timeout: 30000 }); } catch {} }
+  await p.waitForTimeout(1500);
+  await p.screenshot({ path: `/tmp/v13_${fichier}.png`, fullPage: false });
+  console.log('capture', fichier);
+};
+await shot(`${base}/contact`, 'contact', 'form');
+await shot(`${base}/pricing`, 'tarifs');
+await p.goto(`${base}/`, { waitUntil:'load', timeout:120000 }); await p.waitForTimeout(2000);
+await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await p.waitForTimeout(1500);
+await p.screenshot({ path: '/tmp/v13_accueil_bas.png' }); console.log('capture accueil_bas');
+await shot(`${base}/concepts`, 'concepts');
+const texte = await p.evaluate(() => document.body.innerText);
+console.log('concepts contient Bloomberg :', /Bloomberg/.test(texte), '| Autre concurrent :', /Autre concurrent/.test(texte));
+await shot(`${base}/sandbox/image-findings?audit_token=${tok}`, 'moyen_terme');
+const t2 = await p.evaluate(() => document.body.innerText);
+console.log('sous-onglet Par secteur present :', /Par secteur/.test(t2));
+await shot(`${base}/sandbox/kpi-secteurs?audit_token=${tok}`, 'kpi_secteurs');
+await shot(`${base}/faq`, 'faq');
+const t3 = await p.evaluate(() => document.body.innerText);
+console.log('FAQ contient la question KPI :', /Qu'est-ce qu'un KPI \(ou indicateur clé\)/.test(t3));
+await b.close();

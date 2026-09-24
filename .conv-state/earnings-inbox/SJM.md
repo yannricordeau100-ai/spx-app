@@ -1,10 +1,10 @@
 # SJM — nouvelle publication
 
 ## KPI à mettre à jour
-- `pet_foods_rev` — Ventes U.S. Retail Pet Foods (Meow Mix/Milk-Bone/Pup-Peroni) ($M), dernière période connue Q1-2027
-- `coffee_rev` — Ventes U.S. Retail Coffee (Folgers/Café Bustelo/Dunkin') ($M), dernière période connue Q1-2027
-- `frozen_spreads_rev` — Ventes U.S. Retail Frozen Handheld & Spreads (Jif/Uncrustables/Smucker's) ($M), dernière période connue Q1-2027
-- `sweet_baked_rev` — Ventes Sweet Baked Snacks (Hostess) ($M), dernière période connue Q1-2027
+- `pet_foods_rev` — Ventes U.S. Retail Pet Foods (Meow Mix/Milk-Bone/Pup-Peroni) ($M), dernière période connue Q1-FY2027
+- `coffee_rev` — Ventes U.S. Retail Coffee (Folgers/Café Bustelo/Dunkin') ($M), dernière période connue Q1-FY2027
+- `frozen_spreads_rev` — Ventes U.S. Retail Frozen Handheld & Spreads (Jif/Uncrustables/Smucker's) ($M), dernière période connue Q1-FY2027
+- `sweet_baked_rev` — Ventes Sweet Baked Snacks (Hostess) ($M), dernière période connue Q1-FY2027
 - `intl_afh_rev` — Ventes International & Away From Home ($M), dernière période connue Q4-FY2026
 - `coffee_margin` — Marge du segment U.S. Retail Coffee (%), dernière période connue Q4-FY2026
 - `pet_foods_margin` — Marge du segment U.S. Retail Pet Foods (%), dernière période connue Q4-FY2026
@@ -14,13 +14,13 @@
 - `advertising_pct` — Dépenses publicitaires en part des ventes (%), dernière période connue FY2026
 - `walmart_concentration` — Concentration client Walmart (part des ventes) (%), dernière période connue FY2026
 - `away_from_home_rev` — Ventes segment Hors-domicile (Away From Home) ($M), dernière période connue FY2026
-- `revenue_q` — Chiffre d'affaires net consolidé (Mds $), dernière période connue Q4-FY2026
-- `gross_profit_q` — Marge brute (montant) ($M), dernière période connue Q1-2027
+- `revenue_q` — Chiffre d'affaires net consolidé (Mds $), dernière période connue Q1-FY2027
+- `gross_profit_q` — Marge brute (montant) ($M), dernière période connue Q1-FY2027
 - `op_margin` — Marge opérationnelle consolidée (%), dernière période connue Q4-FY2026
 - `net_margin` — Marge nette consolidée (%), dernière période connue Q4-FY2026
-- `operating_income_q` — Résultat opérationnel ($M), dernière période connue Q1-2027
-- `net_income_q` — Résultat net ($M), dernière période connue Q1-2027
-- `eps_diluted` — BPA dilué ($), dernière période connue Q1-2027
+- `operating_income_q` — Résultat opérationnel ($M), dernière période connue Q1-FY2027
+- `net_income_q` — Résultat net ($M), dernière période connue Q1-FY2027
+- `eps_diluted` — BPA dilué ($), dernière période connue Q1-FY2027
 - `capex_q` — Investissements (capex) ($M), dernière période connue Q4-FY2026
 - `ocf_q` — Flux de trésorerie opérationnel ($M), dernière période connue Q4-FY2026
 - `fcf_q` — Free cash flow ($M), dernière période connue Q4-FY2026

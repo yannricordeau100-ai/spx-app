@@ -24,8 +24,8 @@
 - `COMM_CONTRIB_MARGIN` — Marge de contribution Commercial (%), dernière période connue Q2-2026
 - `TOTAL_CONTRIB_MARGIN` — Marge de contribution totale (%), dernière période connue Q2-2026
 - `Pays partenaires` — Pays avec un accord Palantir rendu public (pays), dernière période connue 2025
-- `U.S. Commercial Revenue` — Revenu commercial US (M $), dernière période connue ?
-- `Commercial Revenue` — Revenu segment Commercial (M $), dernière période connue ?
+- `CAHIER_RPO_CRPO` — Obligations de prestation restantes, totales et à moins de douze mois (%), dernière période connue FY2025
+- `RD_PCT_REV` — Dépenses de R&D en % du chiffre d'affaires (%), dernière période connue Q2-2026
 
 ## Règle
 Une valeur n'est retenue que si elle est écrite telle quelle dans un des

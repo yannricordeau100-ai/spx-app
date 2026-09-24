@@ -3,6 +3,7 @@
 ## KPI à mettre à jour
 - `MedSurg+Neuro Rev` — Chiffre d'affaires MedSurg & Neurotechnologie (M USD), dernière période connue Q3-2025
 - `Ortho & Spine Rev` — Chiffre d'affaires Orthopédie & Spine (M USD), dernière période connue Q3-2025
+- `Mako >2M procédures` — Volume cumulatif de procédures Mako (procédures cumulées), dernière période connue FY2025
 - `CA international` — Chiffre d'affaires international (M USD), dernière période connue Q2-2026
 - `Vascular Rev` — Chiffre d'affaires Vasculaire (M USD), dernière période connue Q2-2026
 - `Organic growth total` — Croissance organique consolidée (hors FX et acquisitions) (%), dernière période connue Q2-2026
@@ -25,7 +26,6 @@
 - `Stocks` — Stocks (inventaires) (M USD), dernière période connue Q2-2026
 - `CA États-Unis` — Chiffre d'affaires États-Unis (M USD), dernière période connue Q2-2026
 - `Effectifs` — Effectifs (fin d'année) (employés), dernière période connue FY2025
-- `Rachats actions` — Rachats d'actions (programme) (M USD), dernière période connue Q2-2026
 
 ## Règle
 Une valeur n'est retenue que si elle est écrite telle quelle dans un des

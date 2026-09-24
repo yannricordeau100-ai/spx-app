@@ -18,7 +18,7 @@
 - `PR_CIVIL` — Croissance de l'après-vente civile (en USD) (%), dernière période connue FY2024
 - `CFM56` — Livraisons de moteurs CFM56 (moteurs), dernière période connue FY2025
 - `DPS` — Dividende par action (€), dernière période connue FY2025
-- `EMP` — Effectifs (salariés), dernière période connue FY2025
+- `EMP` — Effectifs (salariés), dernière période connue FY-2025
 - `CROIS_ORG` — Croissance organique du CA (%), dernière période connue FY2025
 - `CROIS_PUB` — Croissance publiée du CA (%), dernière période connue FY2025
 - `WEB_REDUCTIO_CO2_MOTEUR` — Réduction CO2 du moteur LEAP vs prédécesseur (%), dernière période connue releve 2025

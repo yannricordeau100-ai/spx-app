@@ -1,0 +1,11 @@
+import { chromium } from 'playwright'; import fs from 'fs';
+const [name, ...rest] = fs.readFileSync('/tmp/audit_cookie.txt','utf8').trim().split('='); const value = rest.join('=');
+const base = process.env.BASE || 'https://mettrik-niveau2.vercel.app'; const t = process.argv[2] || 'MC.PA';
+const b = await chromium.launch(); const ctx = await b.newContext({ viewport:{width:1400,height:1100} });
+await ctx.addCookies([{ name, value, domain:new URL(base).hostname, path:'/', secure:true, sameSite:'Lax' }]);
+const p = await ctx.newPage(); await p.goto(`${base}/${t}`, { waitUntil:'load', timeout:120000 }); await p.waitForTimeout(4000);
+const ok = await p.evaluate(() => { const h=[...document.querySelectorAll('#sec-these h3')].find(x=>/regard ext/i.test(x.textContent||'')); if(!h) return false; h.scrollIntoView(); return true; });
+console.log('section graphique trouvee :', ok); await p.waitForTimeout(1500); await p.screenshot({ path:`/tmp/these_graph_${t}.png` });
+const ok2 = await p.evaluate(() => { const h=[...document.querySelectorAll('#sec-these h3')].find(x=>/en plus/i.test(x.textContent||'')); if(!h) return false; h.scrollIntoView(); return true; });
+console.log('element additionnel trouve :', ok2); await p.waitForTimeout(1200); await p.screenshot({ path:`/tmp/these_add_${t}.png` });
+await b.close();

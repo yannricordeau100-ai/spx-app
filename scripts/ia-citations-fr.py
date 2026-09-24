@@ -11,7 +11,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA = {"type": "OBJECT", "properties": {"fr": {"type": "ARRAY", "items": {"type": "STRING"}}}, "required": ["fr"]}
 PROMPT = """Traduis fidèlement en français chacune de ces citations d'un rapport annuel, dans le même ordre, sans rien ajouter ni résumer, en gardant tous les nombres, noms propres et sigles tels quels, sans tiret long. Réponds en JSON {{"fr": [...]}} avec exactement {n} éléments.
 {lignes}"""
-def nombres(s): return sorted(re.findall(r'\d+(?:[.,]\d+)?', s.replace(' ', '')))
+def nombres(s): return sorted(x.replace(',', '.') for x in re.findall(r'\d+(?:[.,]\d+)?', s.replace('\u202f', '').replace('\u00a0', '')))
 def deja_fr(s): return bool(re.search(r"\b(le|la|les|des|une|est|sont|dans|pour|avec)\b", s)) and not re.search(r"\b(the|and|of|our|with|for)\b", s)
 def traite(p):
     d = json.load(open(p)); ai = d.get('ai_positioning')

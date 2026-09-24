@@ -18,14 +18,14 @@
 - `EPS_DILUTED` — BPA dilué (GAAP) ($), dernière période connue Q2-2026
 - `NET_INCOME_Q` — Résultat net (M $), dernière période connue Q2-2026
 - `NET_MARGIN` — Marge nette consolidée (%), dernière période connue Q2-2026
-- `REVENUE_Q` — Chiffre d affaires consolidé (M $), dernière période connue Q2-2026
+- `REVENUE_Q` — Chiffre d'affaires consolidé (M $), dernière période connue Q2-2026
 - `FCF_Q` — Free cash flow (exploit. moins CapEx) (M $), dernière période connue Q2-2026
 - `BUYBACKS_Q` — Rachats d actions (M $), dernière période connue Q2-2026
 - `INVENTORY_Q` — Stocks (M $), dernière période connue Q2-2026
 - `LT_DEBT_Q` — Dette long terme (M $), dernière période connue Q2-2026
 - `DPS_Q` — Dividende par action ($), dernière période connue Q2-2026
 - `FOREIGN_SALES_PCT` — Ventes hors États-Unis (%), dernière période connue FY2025
-- `PSG_STORES_TOTAL` — Magasins Paint Stores Group (magasins), dernière période connue FY2025
+- `PSG_STORES_TOTAL` — Magasins Paint Stores Group (magasins), dernière période connue Q2-2026
 
 ## Règle
 Une valeur n'est retenue que si elle est écrite telle quelle dans un des

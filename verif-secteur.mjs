@@ -1,0 +1,13 @@
+import { chromium } from 'playwright';
+import fs from 'fs';
+const [name, ...rest] = fs.readFileSync('/tmp/audit_cookie.txt','utf8').trim().split('='); const value = rest.join('=');
+const base='https://mettrik-niveau2.vercel.app'; const tok='-mKbH0pR58PWo__wcp5LM1u520Lr92FTQl5bk2eTSwQ';
+const b = await chromium.launch(); const ctx = await b.newContext({ viewport:{width:1400,height:1000} });
+await ctx.addCookies([{ name, value, domain:new URL(base).hostname, path:'/', secure:true, sameSite:'Lax' }]);
+const p = await ctx.newPage();
+await p.goto(`${base}/sandbox/image-findings?audit_token=${tok}`, { waitUntil:'load', timeout:120000 }); await p.waitForTimeout(1500);
+await p.getByText(/Par secteur/).first().click(); await p.waitForTimeout(1500);
+await p.screenshot({ path:'/tmp/v13_secteur_onglet.png' });
+const t = await p.evaluate(() => document.body.innerText);
+console.log('tri par secteur :', /Tous les secteurs/.test(t), '| filtre sans KPI approuve :', /sans KPI approuv/i.test(t), '| bouton demande :', /Préparer une demande/.test(t));
+await b.close();

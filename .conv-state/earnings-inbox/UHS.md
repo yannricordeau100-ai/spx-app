@@ -16,7 +16,7 @@
 - `BH_admissions` — Admissions santé comportementale (k unités), dernière période connue FY2025
 - `BH_occupancy` — Taux d'occupation santé comportementale (lits disponibles) (%), dernière période connue FY2025
 - `BH_length_stay` — Durée moyenne de séjour santé comportementale (jours), dernière période connue FY2025
-- `revenue` — Chiffre d affaires consolidé (Mds USD), dernière période connue Q2-2026
+- `revenue` — Chiffre d'affaires consolidé (Mds USD), dernière période connue Q2-2026
 - `op_income` — Résultat opérationnel (M USD), dernière période connue Q2-2026
 - `op_margin` — Marge opérationnelle (%), dernière période connue Q2-2026
 - `net_income` — Résultat net part du groupe (M USD), dernière période connue Q2-2026

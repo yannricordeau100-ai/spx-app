@@ -4,8 +4,8 @@
 - `Coach Rev` — Chiffre d'affaires Coach (M USD), dernière période connue Q3-2026
 - `Kate Spade Rev` — Chiffre d'affaires Kate Spade (M USD), dernière période connue Q3-2026
 - `Stuart Weitzman Rev` — Chiffre d'affaires Stuart Weitzman (M USD), dernière période connue Q1-2026
-- `DTC %` — Part revenus DTC (%), dernière période connue FY2025
-- `Coach % du CA` — Coach part du CA total (%), dernière période connue FY2025
+- `DTC %` — Part revenus DTC (%), dernière période connue FY2026
+- `Coach % du CA` — Coach part du CA total (%), dernière période connue FY2026
 - `Greater China Rev` — Revenus Greater China (M USD), dernière période connue Q3-2026
 - `North America Rev` — Revenus Amérique du Nord (M USD), dernière période connue Q3-2026
 - `Coach Gross Margin` — Marge brute Coach (%), dernière période connue Q3-2026

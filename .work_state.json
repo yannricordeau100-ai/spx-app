@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "updated_at": "2026-06-21",
+  "tasks": {
+    "risks_extraction": {
+      "status": "in_progress",
+      "description": "Extract risks from _srctext.txt for 73 rouge tickers",
+      "tickers_file": "/tmp/rouge_with_src.json",
+      "data_lake_path": "/Users/yann/spx-app/data-lake",
+      "output_per_ticker": "risks/extracted.json",
+      "note": "Previous attempt failed 73/73 due to wrong path /Users/yann/data-lake (missing /spx-app/). CORRECT path: /Users/yann/spx-app/data-lake/<TICKER>/_srctext.txt"
+    },
+    "stories_extraction": {
+      "status": "pending",
+      "description": "Extract KPI stories from _srctext.txt for 73 rouge tickers",
+      "tickers_file": "/tmp/rouge_with_src.json",
+      "data_lake_path": "/Users/yann/spx-app/data-lake",
+      "note": "Same path fix as risks. CORRECT path: /Users/yann/spx-app/data-lake/<TICKER>/_srctext.txt"
+    },
+    "monitor_cycle": {
+      "status": "pending_after_extractions",
+      "script": "~/spx-app/scripts/monitor_cycle.sh",
+      "description": "Run after extractions complete to sync data-lake + deploy to staging"
+    }
+  },
+  "last_monitor_result": {
+    "financier": {
+      "vert": 597,
+      "rouge": 2
+    },
+    "kpi_normaux": {
+      "vert": 654,
+      "rouge": 2
+    },
+    "story": {
+      "vert": 576,
+      "rouge": 75
+    },
+    "gouvernance": {
+      "vert": 640,
+      "rouge": 16
+    },
+    "stop": true
+  },
+  "loop_prompt": "Continuer extractions Mettrik: lire /Users/yann/spx-app/.work_state.json, si risks_extraction=pending lancer Workflow risks depuis /Users/yann/spx-app/data-lake/<TICKER>/_srctext.txt pour les 73 tickers dans /tmp/rouge_with_src.json (sub-agents ecrivent data-lake/<T>/risks/extracted.json, retournent {ticker,ok} seulement). Si stories_extraction=pending idem pour stories. Apres chaque extraction reussie mettre status=done dans .work_state.json. Puis monitor_cycle.sh et afficher compteurs."
+}

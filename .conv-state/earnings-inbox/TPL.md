@@ -1,26 +1,26 @@
 # TPL — nouvelle publication
 
 ## KPI à mettre à jour
-- `REV` — Chiffre d'affaires total (M$), dernière période connue Q1-2026
-- `NI` — Résultat net (M$), dernière période connue Q1-2026
-- `OPINC` — Résultat opérationnel (M$), dernière période connue Q1-2026
-- `OPEX` — Charges opérationnelles totales (M$), dernière période connue Q1-2026
-- `SHARES` — Actions en circulation (ajustées) (M actions), dernière période connue Q1-2026
-- `EPS_DIL` — BPA dilué (ajusté des divisions) ($), dernière période connue Q1-2026
+- `REV` — Chiffre d'affaires total (M$), dernière période connue Q2-2026
+- `NI` — Résultat net (M$), dernière période connue Q2-2026
+- `OPINC` — Résultat opérationnel (M$), dernière période connue Q2-2026
+- `OPEX` — Charges opérationnelles totales (M$), dernière période connue Q2-2026
+- `SHARES` — Actions en circulation (ajustées) (M actions), dernière période connue Q2-2026
+- `EPS_DIL` — BPA dilué (ajusté des divisions) ($), dernière période connue Q2-2026
 - `OCF` — Flux de trésorerie opérationnels (M$), dernière période connue Q1-2026
 - `CAPEX` — Investissements corporels (M$), dernière période connue Q1-2026
 - `FCF` — Free cash flow (M$), dernière période connue Q1-2026
 - `ACQ` — Acquisitions de redevances et de terres (M$), dernière période connue Q1-2026
-- `DIV_PAID` — Dividendes versés (M$), dernière période connue Q1-2026
+- `DIV_PAID` — Dividendes versés (M$), dernière période connue Q2-2026
 - `BUYBACK` — Rachats d'actions (M$), dernière période connue Q1-2026
-- `CASH` — Trésorerie et équivalents (M$), dernière période connue Q1-2026
-- `EQUITY` — Capitaux propres (Mds $), dernière période connue Q1-2026
-- `ASSETS` — Total actif (Mds $), dernière période connue Q1-2026
-- `DDA` — Amortissements et épuisement (M$), dernière période connue Q1-2026
-- `DEPLETION` — Épuisement des intérêts pétroliers (M$), dernière période connue Q1-2026
-- `GA` — Frais généraux et administratifs (M$), dernière période connue Q1-2026
-- `SALARIES` — Charges de personnel (M$), dernière période connue Q1-2026
-- `WATER_COSTS` — Charges des services d'eau (M$), dernière période connue Q1-2026
+- `CASH` — Trésorerie et équivalents (M$), dernière période connue Q2-2026
+- `EQUITY` — Capitaux propres (Mds $), dernière période connue Q2-2026
+- `ASSETS` — Total actif (Mds $), dernière période connue Q2-2026
+- `DDA` — Amortissements et épuisement (M$), dernière période connue Q2-2026
+- `DEPLETION` — Épuisement des intérêts pétroliers (M$), dernière période connue Q2-2026
+- `GA` — Frais généraux et administratifs (M$), dernière période connue Q2-2026
+- `SALARIES` — Charges de personnel (M$), dernière période connue Q2-2026
+- `WATER_COSTS` — Charges des services d'eau (M$), dernière période connue Q2-2026
 - `ADVAL_TAX` — Taxes foncières et autres (M$), dernière période connue Q1-2026
 - `SBC` — Rémunération en actions (M$), dernière période connue Q1-2026
 - `TAX_RATE` — Taux d'impôt effectif (%), dernière période connue Q1-2026

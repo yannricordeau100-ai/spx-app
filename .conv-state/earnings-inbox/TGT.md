@@ -2,7 +2,7 @@
 
 ## KPI à mettre à jour
 - `comp_sales` — Croissance ventes comparables (%), dernière période connue Q2-2026
-- `digital_comp` — Croissance ventes digitales comparables (%), dernière période connue Q3-2025
+- `digital_comp` — Croissance ventes digitales comparables (%), dernière période connue Q2-2026
 - `digital_mix` — Part des ventes digitales (%), dernière période connue FY2025
 - `owned_brands_pct` — Part des marques propres (%), dernière période connue FY2025
 - `gross_margin` — Taux de marge brute (%), dernière période connue Q2-2026
@@ -13,7 +13,7 @@
 - `hardlines_sales` — Ventes Biens durables (Hardlines) (M$), dernière période connue Q2-2026
 - `home_furnishings_sales` — Ventes Ameublement & Décoration (M$), dernière période connue Q2-2026
 - `household_essentials_sales` — Ventes Essentiels du foyer (M$), dernière période connue Q2-2026
-- `advertising_revenue` — Revenus publicitaires (Roundel) (M$), dernière période connue Q1-2026
+- `advertising_revenue` — Revenus publicitaires (Roundel) (M$), dernière période connue Q2-2026
 - `store_count` — Nombre de magasins (magasins), dernière période connue FY2025
 - `retail_sqft` — Surface de vente (M pi²), dernière période connue FY2025
 - `eps_diluted` — BPA dilué ($), dernière période connue Q2-2026
@@ -22,9 +22,9 @@
 - `fcf` — Free cash flow (M$), dernière période connue Q1-2026
 - `dps` — Dividende par action déclaré ($), dernière période connue Q2-2026
 - `buybacks` — Rachats d'actions (M$), dernière période connue Q1-2026
-- `op_income` — Résultat opérationnel (M$), dernière période connue Q1-2026
-- `op_margin` — Marge opérationnelle (%), dernière période connue Q1-2026
-- `net_income` — Résultat net (M$), dernière période connue Q1-2026
+- `op_income` — Résultat opérationnel (M$), dernière période connue Q2-2026
+- `op_margin` — Marge opérationnelle (%), dernière période connue Q2-2026
+- `net_income` — Résultat net (M$), dernière période connue Q2-2026
 - `net_margin` — Marge nette (%), dernière période connue Q1-2026
 
 ## Règle

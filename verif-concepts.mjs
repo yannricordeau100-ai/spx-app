@@ -1,0 +1,17 @@
+import { chromium } from 'playwright';
+import fs from 'fs';
+const [name, ...rest] = fs.readFileSync('/tmp/audit_cookie.txt','utf8').trim().split('='); const value = rest.join('=');
+const base='https://mettrik-niveau2.vercel.app';
+const b = await chromium.launch(); const ctx = await b.newContext({ viewport:{width:1400,height:1100} });
+await ctx.addCookies([{ name, value, domain:new URL(base).hostname, path:'/', secure:true, sameSite:'Lax' }]);
+const p = await ctx.newPage();
+await p.goto(`${base}/concepts`, { waitUntil:'load', timeout:120000 }); await p.waitForTimeout(1500);
+const onglet = p.getByText(/Mettrik vs Bloomberg/i).first();
+await onglet.click(); await p.waitForTimeout(2000);
+const t = await p.evaluate(() => document.body.innerText);
+console.log('Autre concurrent :', /Autre concurrent/.test(t), '| MCP :', /MCP/.test(t), '| API :', /API/.test(t));
+await p.screenshot({ path:'/tmp/v13_bloomberg_1.png' });
+await p.evaluate(() => window.scrollBy(0, 1000)); await p.waitForTimeout(800); await p.screenshot({ path:'/tmp/v13_bloomberg_2.png' });
+await p.evaluate(() => window.scrollBy(0, 1000)); await p.waitForTimeout(800); await p.screenshot({ path:'/tmp/v13_bloomberg_3.png' });
+await p.evaluate(() => window.scrollBy(0, 1000)); await p.waitForTimeout(800); await p.screenshot({ path:'/tmp/v13_bloomberg_4.png' });
+await b.close(); console.log('captures bloomberg faites');

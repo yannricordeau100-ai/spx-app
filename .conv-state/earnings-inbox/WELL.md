@@ -18,14 +18,14 @@
 - `OCF_Q` — Flux de trésorerie opérationnel (M $), dernière période connue Q2-2026
 - `NI_COMMON_Q` — Résultat net part du groupe (M $), dernière période connue Q2-2026
 - `NET_MARGIN_Q` — Marge nette (%), dernière période connue Q2-2026
+- `CAHIER_SS_NOI` — Croissance du résultat d'exploitation à périmètre constant (%), dernière période connue FY2025
+- `CAHIER_RENT_COVERAGE` — Couverture du loyer par l'exploitant (x), dernière période connue FY2025
+- `CAHIER_FFO_AFFO_PS` — Fonds provenant de l'exploitation et fonds ajustés par action ($/action), dernière période connue FY2025
 - `Resident fees and services` — Resident fees and services (Mds $), dernière période connue ?
 - `Other income` — Other income (Mds $), dernière période connue ?
 - `Rental income` — Rental income (Mds $), dernière période connue ?
 - `Interest income` — Interest income (Mds $), dernière période connue ?
 - `Resident fees and services` — Resident fees and services (Mds $), dernière période connue ?
-- `Rental income` — Rental income (Mds $), dernière période connue ?
-- `Interest income` — Interest income (Mds $), dernière période connue ?
-- `Other income` — Other income (Mds $), dernière période connue ?
 
 ## Règle
 Une valeur n'est retenue que si elle est écrite telle quelle dans un des

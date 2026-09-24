@@ -1,0 +1,17 @@
+import { chromium } from 'playwright';
+import fs from 'fs';
+const [name, ...rest] = fs.readFileSync('/tmp/audit_cookie.txt','utf8').trim().split('='); const value = rest.join('=');
+const b = await chromium.launch(); const ctx = await b.newContext({ viewport:{width:1440,height:900} });
+await ctx.addCookies([{ name, value, domain:'mettrik.ai', path:'/', secure:true, sameSite:'Lax' }]);
+const p = await ctx.newPage();
+const res = [];
+p.on('response', async (r) => { try { const b2 = (await r.body()).length; res.push({url:r.url(), type:r.request().resourceType(), ko:Math.round(b2/1024)}); } catch {} });
+const t0 = Date.now();
+await p.goto('https://mettrik.ai/NVDA', { waitUntil:'load', timeout:120000 });
+await p.waitForSelector('span.text-\\[24px\\].font-bold', { timeout: 60000 });
+console.log('total', Date.now()-t0, 'ms');
+const par = {}; for (const r of res) par[r.type]=(par[r.type]||0)+r.ko;
+console.log('poids par type (Ko) :', par);
+console.log('plus lourds :');
+res.sort((a,b)=>b.ko-a.ko).slice(0,8).forEach(r=>console.log(' ', r.ko, 'Ko', r.type, r.url.slice(-70)));
+await b.close();

@@ -17,7 +17,7 @@
 - `capex_q` — Investissements industriels (capex) (M USD), dernière période connue Q2-2026
 - `ocf_q` — Flux de trésorerie d'exploitation (M USD), dernière période connue Q2-2026
 - `fcf_q` — Flux de trésorerie disponible (M USD), dernière période connue Q2-2026
-- `dps_q` — Dividende par action déclaré ($ / action), dernière période connue Q2-2026
+- `dps_q` — Dividende par action déclaré ($ / action), dernière période connue Q3-2026
 - `buybacks_q` — Rachats d'actions (M USD), dernière période connue Q2-2026
 - `residential_rev` — Revenus collecte résidentielle (M USD), dernière période connue Q2-2026
 - `small_container_rev` — Revenus collecte petits conteneurs (M USD), dernière période connue Q2-2026
