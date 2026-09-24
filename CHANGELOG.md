@@ -784,3 +784,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.13 (24 Sep 2026 19:48, apres dd15746ed4)
 - Societes retirees : fiche 404 (EA, JDEP.AS)
+
+## v2026.09.24.14 (24 Sep 2026 21:26, apres 005f3106b8)
+- Societes retirees : vraie 404

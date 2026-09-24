@@ -172,6 +172,8 @@ export async function generateMetadata({
   params: Promise<{ ticker: string }>;
 }) {
   const { ticker } = await params;
+  // 24 sept 2026 : societe retiree = vraie 404 (statut HTTP et titre).
+  if (ticker.toUpperCase() in (RETIREES.tickers as Record<string, string>)) notFound();
   // Yann 4 sept 2026 : depuis que la fiche est servie sur /<ticker>, le titre
   // de l onglet et l apercu de partage disaient "Page introuvable" pour les
   // 660 societes hors des 5 de la V1 : le nom etait cherche dans la vieille
