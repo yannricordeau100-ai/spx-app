@@ -781,3 +781,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.12 (24 Sep 2026 19:26, apres 57e978b059)
 - Desk restaure (onglets vides seuls retires) ; EA et JDEP.AS retirees (rachetees) ; conferences de 263 societes
+
+## v2026.09.24.13 (24 Sep 2026 19:48, apres dd15746ed4)
+- Societes retirees : fiche 404 (EA, JDEP.AS)

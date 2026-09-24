@@ -9,6 +9,7 @@ import { COMPANIES, TICKERS, TICKER_ALIASES, getCompany } from "@/lib/data";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import V17_PUBLIC from "@/data/v1-7-public.json";
+import RETIREES from "@/data/societes-retirees.json";
 import { loadV17Company } from "@/lib/company-core/load-company";
 import { assainirPourClient } from "@/lib/company-core/assainir-payload";
 import { unstable_cache } from "next/cache";
@@ -218,6 +219,10 @@ export default async function TickerPage({
 }) {
   const { ticker } = await params;
   const upper = ticker.toUpperCase();
+  // 24 sept 2026 (demande du proprietaire) : une societe qui n existe plus
+  // (rachat finalise, faillite) est retiree du site, meme si un ancien jeu de
+  // donnees la contient encore.
+  if (upper in (RETIREES.tickers as Record<string, string>)) notFound();
   // Redirect alias tickers (e.g. GOOG → GOOGL) toward canonical URL.
   if (TICKER_ALIASES[upper]) {
     redirect(`/${TICKER_ALIASES[upper].toLowerCase()}`);
