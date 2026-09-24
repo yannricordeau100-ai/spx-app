@@ -20,6 +20,16 @@ for f in sorted(glob.glob(f'/tmp/transcripts-kpi/{t}.*.json')):
         if not cit or cit not in texte or not val or val not in cit: rej += 1; continue
         ok.append(k)
     sortie['calls'].append({'date': date, 'kpis': ok}); bilan.append((date, f'{len(ok)} verifies, {rej} rejetes'))
+# Controle mecanique de la societe : nombre de mentions du nom (ou du code) par conference.
+try:
+    import unicodedata
+    nom = json.load(open(f'{ROOT}/src/data/v2-pipeline/{t.lower()}.json')).get('name', '')
+    mots = [m for m in re.findall(r'[a-z]{4,}', unicodedata.normalize('NFKD', nom.lower()).encode('ascii', 'ignore').decode()) if m not in ('inc', 'corp', 'company', 'group', 'holdings', 'international', 'limited', 'plc', 'corporation')][:2]
+    for c in sortie['calls']:
+        txt = norm(calls[c['date']]['content']); n = sum(txt.count(m) for m in mots) + txt.count(t.split('.')[0].lower() + ' ')
+        c['_mentions_societe'] = n
+        if n < 3: print(t, c['date'], f'ATTENTION : societe peu mentionnee ({n}), verifier la source')
+except Exception: pass
 for b in bilan: print(t, *b)
 if '--applique' in sys.argv:
     os.makedirs(f'{ROOT}/src/data/transcripts-kpi', exist_ok=True)
