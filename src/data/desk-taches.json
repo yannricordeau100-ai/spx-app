@@ -1,0 +1,3170 @@
+{
+ "maj": "2026-09-24 18:48",
+ "total": 664,
+ "taches": [
+  {
+   "titre": "Conférences de résultats : extraction des KPI (4 dernières par société)",
+   "etat": "244 sociétés complètes sur 664, 410 en attente d extraction",
+   "eta": "12.1 h de calcul (34 sociétés/h), coupé par les limites de session : fin estimée entre le 25 et le 26 sept",
+   "modele": "Fable 5.1 (claude-fable-5-1), repli automatique Opus 5.5 (claude-opus-5-5)",
+   "reglages": "claude -p en mode non interactif, une session neuve par société, 4 sociétés en parallèle, effort par défaut, prompt figé docs/cahier/PROMPT-TRANSCRIPT-KPI.md, vérification mot pour mot puis suivi, commit local",
+   "commande": "bash scripts/transcripts-4-extraction-lot.sh <liste.json> 4"
+  },
+  {
+   "titre": "Conférences de résultats : 9 sociétés sans 4 conférences + EA",
+   "etat": "4 sans aucune conférence, 5 avec une seule (scissions, introductions récentes), EA en attente de la règle des 18 mois",
+   "eta": "1 h 30 après décision (EA) et recherche d autres sources",
+   "modele": "Aucun modèle Claude pour la collecte (MarketBeat, StockAnalysis) ; Fable 5.1 pour l extraction",
+   "reglages": "scripts/transcripts-4-collecte.py puis même chaîne que ci-dessus"
+  },
+  {
+   "titre": "Conférences de résultats : mise en production",
+   "etat": "préversion à jour pour les sociétés complètes ; production seulement sur « go n0 »",
+   "eta": "30 min par mise en ligne (préversion), 20 min pour go n0",
+   "modele": "Aucun (scripts de déploiement)",
+   "reglages": "bash scripts/deploy-niveau2.sh puis, sur ordre, bash scripts/go-n0.sh"
+  },
+  {
+   "titre": "Mises à jour automatiques hors Claude (Cerebras, repli Groq)",
+   "etat": "4 scripts appellent encore Claude ; tâche nocturne earnings-refresh coupée depuis le 23 sept en attendant",
+   "eta": "2 h (autre compte), puis réactivation de la tâche nocturne",
+   "modele": "Cerebras (gpt-oss-120b), repli Groq Llama 3.3 70B ; aucun modèle Claude",
+   "reglages": "docs/cahier/MISSION-CRONS-HORS-CLAUDE.md ; réactiver ~/Library/LaunchAgents/ai.mettrik.earnings-refresh.plist.disabled-claude-23sept"
+  },
+  {
+   "titre": "Sociétés disparues (rachat, faillite, retrait de la cote)",
+   "etat": "contrôle des 664 fait le 24 sept (indices du jour + cotation) ; décision de retrait à prendre",
+   "eta": "1 h après décision (retrait des listes, redirection des fiches)",
+   "modele": "Sonnet 5 pour la vérification web une par une, effort bas",
+   "reglages": "python3 scripts/indices-wikipedia.py puis contrôle des cotations et vérification web de chaque cas suspect"
+  }
+ ],
+ "societes": {
+  "completes": [
+   {
+    "t": "A",
+    "nom": "Agilent Technologies"
+   },
+   {
+    "t": "AALB.AS",
+    "nom": ""
+   },
+   {
+    "t": "AAPL",
+    "nom": "Apple Inc."
+   },
+   {
+    "t": "ABBN.SW",
+    "nom": "ABB Ltd"
+   },
+   {
+    "t": "ABBV",
+    "nom": "AbbVie"
+   },
+   {
+    "t": "ABN.AS",
+    "nom": "ABN AMRO"
+   },
+   {
+    "t": "ABNB",
+    "nom": "Airbnb"
+   },
+   {
+    "t": "ABT",
+    "nom": "Abbott Laboratories"
+   },
+   {
+    "t": "AC.PA",
+    "nom": "Accor"
+   },
+   {
+    "t": "ACA.PA",
+    "nom": "Crédit Agricole"
+   },
+   {
+    "t": "ACGL",
+    "nom": "Arch Capital Group"
+   },
+   {
+    "t": "ACLS",
+    "nom": ""
+   },
+   {
+    "t": "ACN",
+    "nom": "Accenture"
+   },
+   {
+    "t": "AD.AS",
+    "nom": "Ahold Delhaize"
+   },
+   {
+    "t": "ADBE",
+    "nom": "Adobe Inc."
+   },
+   {
+    "t": "ADI",
+    "nom": "Analog Devices"
+   },
+   {
+    "t": "ADM",
+    "nom": "Archer Daniels Midland"
+   },
+   {
+    "t": "ADP",
+    "nom": "Automatic Data Processing"
+   },
+   {
+    "t": "ADS.DE",
+    "nom": "Adidas"
+   },
+   {
+    "t": "ADSK",
+    "nom": "Autodesk"
+   },
+   {
+    "t": "ADYEN.AS",
+    "nom": "Adyen"
+   },
+   {
+    "t": "AEE",
+    "nom": "Ameren"
+   },
+   {
+    "t": "AEP",
+    "nom": "American Electric Power"
+   },
+   {
+    "t": "AES",
+    "nom": "AES Corporation"
+   },
+   {
+    "t": "AFL",
+    "nom": "Aflac"
+   },
+   {
+    "t": "AGN.AS",
+    "nom": "Aegon"
+   },
+   {
+    "t": "AI.PA",
+    "nom": "Air Liquide"
+   },
+   {
+    "t": "AIG",
+    "nom": "American International Group"
+   },
+   {
+    "t": "AIR.PA",
+    "nom": "Airbus"
+   },
+   {
+    "t": "AIZ",
+    "nom": "Assurant"
+   },
+   {
+    "t": "AJG",
+    "nom": "Arthur J. Gallagher & Co."
+   },
+   {
+    "t": "AKAM",
+    "nom": "Akamai Technologies"
+   },
+   {
+    "t": "AKZA.AS",
+    "nom": "AkzoNobel"
+   },
+   {
+    "t": "ALAB",
+    "nom": "Astera Labs, Inc."
+   },
+   {
+    "t": "ALB",
+    "nom": "Albemarle Corporation"
+   },
+   {
+    "t": "ALC.SW",
+    "nom": "Alcon Inc"
+   },
+   {
+    "t": "ALGM",
+    "nom": ""
+   },
+   {
+    "t": "ALGN",
+    "nom": "Align Technology"
+   },
+   {
+    "t": "ALL",
+    "nom": "Allstate"
+   },
+   {
+    "t": "ALLE",
+    "nom": "Allegion"
+   },
+   {
+    "t": "ALNY",
+    "nom": "Alnylam Pharmaceuticals, Inc."
+   },
+   {
+    "t": "ALV.DE",
+    "nom": "Allianz"
+   },
+   {
+    "t": "AMAT",
+    "nom": "Applied Materials"
+   },
+   {
+    "t": "AMCR",
+    "nom": "Amcor"
+   },
+   {
+    "t": "AMD",
+    "nom": "Advanced Micro Devices"
+   },
+   {
+    "t": "AME",
+    "nom": "Ametek"
+   },
+   {
+    "t": "AMGN",
+    "nom": "Amgen"
+   },
+   {
+    "t": "AMKR",
+    "nom": ""
+   },
+   {
+    "t": "AMP",
+    "nom": "Ameriprise Financial"
+   },
+   {
+    "t": "AMRZ.SW",
+    "nom": "Amrize AG"
+   },
+   {
+    "t": "AMT",
+    "nom": "American Tower"
+   },
+   {
+    "t": "AMZN",
+    "nom": "Amazon"
+   },
+   {
+    "t": "ANET",
+    "nom": "Arista Networks"
+   },
+   {
+    "t": "AON",
+    "nom": "Aon plc"
+   },
+   {
+    "t": "AOS",
+    "nom": "A. O. Smith"
+   },
+   {
+    "t": "APA",
+    "nom": "APA Corporation"
+   },
+   {
+    "t": "APD",
+    "nom": "Air Products"
+   },
+   {
+    "t": "APH",
+    "nom": "Amphenol"
+   },
+   {
+    "t": "APO",
+    "nom": "Apollo Global Management"
+   },
+   {
+    "t": "APP",
+    "nom": "AppLovin"
+   },
+   {
+    "t": "APTV",
+    "nom": "Aptiv"
+   },
+   {
+    "t": "ARE",
+    "nom": "Alexandria Real Estate Equities"
+   },
+   {
+    "t": "ARES",
+    "nom": "Ares Management"
+   },
+   {
+    "t": "ARM",
+    "nom": "Arm Holdings plc American Depositary Shares"
+   },
+   {
+    "t": "ASM.AS",
+    "nom": "ASM International"
+   },
+   {
+    "t": "ASML",
+    "nom": "ASML Holding N.V. New York Registry Shares"
+   },
+   {
+    "t": "ASRNL.AS",
+    "nom": "ASR Nederland"
+   },
+   {
+    "t": "ATO",
+    "nom": "Atmos Energy"
+   },
+   {
+    "t": "AVGO",
+    "nom": "Broadcom"
+   },
+   {
+    "t": "AVY",
+    "nom": "Avery Dennison"
+   },
+   {
+    "t": "AWK",
+    "nom": "American Water Works"
+   },
+   {
+    "t": "AXON",
+    "nom": "Axon Enterprise"
+   },
+   {
+    "t": "AXP",
+    "nom": "American Express"
+   },
+   {
+    "t": "AZO",
+    "nom": "AutoZone"
+   },
+   {
+    "t": "BA",
+    "nom": "Boeing"
+   },
+   {
+    "t": "BAC",
+    "nom": "Bank of America"
+   },
+   {
+    "t": "BALL",
+    "nom": "Ball Corporation"
+   },
+   {
+    "t": "BAS.DE",
+    "nom": "BASF"
+   },
+   {
+    "t": "BAX",
+    "nom": "Baxter International"
+   },
+   {
+    "t": "BAYN.DE",
+    "nom": "Bayer"
+   },
+   {
+    "t": "BBY",
+    "nom": "Best Buy"
+   },
+   {
+    "t": "BDX",
+    "nom": "Becton Dickinson"
+   },
+   {
+    "t": "BE",
+    "nom": "Bloom Energy"
+   },
+   {
+    "t": "BEI.DE",
+    "nom": "Beiersdorf"
+   },
+   {
+    "t": "BEN",
+    "nom": "Franklin Resources"
+   },
+   {
+    "t": "BESI.AS",
+    "nom": "BE Semiconductors"
+   },
+   {
+    "t": "BF.B",
+    "nom": ""
+   },
+   {
+    "t": "BG",
+    "nom": "Bunge Global"
+   },
+   {
+    "t": "BIIB",
+    "nom": "Biogen"
+   },
+   {
+    "t": "BKNG",
+    "nom": "Booking Holdings"
+   },
+   {
+    "t": "BKR",
+    "nom": "Baker Hughes"
+   },
+   {
+    "t": "BLDR",
+    "nom": ""
+   },
+   {
+    "t": "BLK",
+    "nom": "BlackRock"
+   },
+   {
+    "t": "BMW.DE",
+    "nom": "BMW"
+   },
+   {
+    "t": "BMY",
+    "nom": "Bristol Myers Squibb"
+   },
+   {
+    "t": "BN.PA",
+    "nom": "Danone"
+   },
+   {
+    "t": "BNP.PA",
+    "nom": "BNP Paribas"
+   },
+   {
+    "t": "BNR.DE",
+    "nom": "Brenntag"
+   },
+   {
+    "t": "BNY",
+    "nom": "BNY Mellon"
+   },
+   {
+    "t": "BR",
+    "nom": "Broadridge Financial Solutions"
+   },
+   {
+    "t": "BRO",
+    "nom": "Brown & Brown"
+   },
+   {
+    "t": "BSX",
+    "nom": "Boston Scientific"
+   },
+   {
+    "t": "BVI.PA",
+    "nom": "Bureau Veritas"
+   },
+   {
+    "t": "BX",
+    "nom": "Blackstone Inc."
+   },
+   {
+    "t": "BXP",
+    "nom": "BXP, Inc."
+   },
+   {
+    "t": "C",
+    "nom": "Citigroup"
+   },
+   {
+    "t": "CA.PA",
+    "nom": "Carrefour"
+   },
+   {
+    "t": "CAG",
+    "nom": ""
+   },
+   {
+    "t": "CAH",
+    "nom": "Cardinal Health"
+   },
+   {
+    "t": "CAP.PA",
+    "nom": "Capgemini"
+   },
+   {
+    "t": "CARR",
+    "nom": "Carrier Global"
+   },
+   {
+    "t": "CASY",
+    "nom": "Casey's"
+   },
+   {
+    "t": "CAT",
+    "nom": "Caterpillar Inc."
+   },
+   {
+    "t": "CB",
+    "nom": "Chubb Limited"
+   },
+   {
+    "t": "CBK.DE",
+    "nom": "Commerzbank"
+   },
+   {
+    "t": "CBOE",
+    "nom": "Cboe Global Markets"
+   },
+   {
+    "t": "CBRE",
+    "nom": "CBRE Group"
+   },
+   {
+    "t": "CCEP",
+    "nom": "Coca-Cola Europacific Partners plc"
+   },
+   {
+    "t": "CCI",
+    "nom": "Crown Castle"
+   },
+   {
+    "t": "CCL",
+    "nom": "Carnival Corporation"
+   },
+   {
+    "t": "CDNS",
+    "nom": "Cadence Design Systems"
+   },
+   {
+    "t": "CDW",
+    "nom": "CDW Corporation"
+   },
+   {
+    "t": "CEG",
+    "nom": "Constellation Energy"
+   },
+   {
+    "t": "CF",
+    "nom": "CF Industries"
+   },
+   {
+    "t": "CFG",
+    "nom": "Citizens Financial Group"
+   },
+   {
+    "t": "CFR.SW",
+    "nom": "Compagnie Financière Richemont SA"
+   },
+   {
+    "t": "CHD",
+    "nom": "Church & Dwight"
+   },
+   {
+    "t": "CHRW",
+    "nom": "C.H. Robinson"
+   },
+   {
+    "t": "CHTR",
+    "nom": "Charter Communications"
+   },
+   {
+    "t": "CI",
+    "nom": "Cigna"
+   },
+   {
+    "t": "CIEN",
+    "nom": "Ciena"
+   },
+   {
+    "t": "CINF",
+    "nom": "Cincinnati Financial"
+   },
+   {
+    "t": "CL",
+    "nom": "Colgate-Palmolive"
+   },
+   {
+    "t": "CLX",
+    "nom": "Clorox"
+   },
+   {
+    "t": "CMCSA",
+    "nom": "Comcast"
+   },
+   {
+    "t": "CME",
+    "nom": "CME Group"
+   },
+   {
+    "t": "CMG",
+    "nom": "Chipotle Mexican Grill"
+   },
+   {
+    "t": "CMI",
+    "nom": "Cummins"
+   },
+   {
+    "t": "CMS",
+    "nom": "CMS Energy"
+   },
+   {
+    "t": "CNC",
+    "nom": "Centene Corporation"
+   },
+   {
+    "t": "CNP",
+    "nom": "CenterPoint Energy"
+   },
+   {
+    "t": "COF",
+    "nom": "Capital One"
+   },
+   {
+    "t": "COHR",
+    "nom": "Coherent Corp."
+   },
+   {
+    "t": "COIN",
+    "nom": "Coinbase"
+   },
+   {
+    "t": "CON.DE",
+    "nom": "Continental"
+   },
+   {
+    "t": "COO",
+    "nom": "Cooper Companies (The)"
+   },
+   {
+    "t": "COP",
+    "nom": "ConocoPhillips"
+   },
+   {
+    "t": "COR",
+    "nom": "Cencora"
+   },
+   {
+    "t": "COST",
+    "nom": "Costco"
+   },
+   {
+    "t": "CPAY",
+    "nom": "Corpay"
+   },
+   {
+    "t": "CPB",
+    "nom": ""
+   },
+   {
+    "t": "CPRT",
+    "nom": "Copart"
+   },
+   {
+    "t": "CPT",
+    "nom": "Camden Property Trust"
+   },
+   {
+    "t": "CRH",
+    "nom": "CRH plc"
+   },
+   {
+    "t": "CRL",
+    "nom": "Charles River Laboratories"
+   },
+   {
+    "t": "CRM",
+    "nom": "Salesforce"
+   },
+   {
+    "t": "CRWD",
+    "nom": "CrowdStrike"
+   },
+   {
+    "t": "CRWV",
+    "nom": "CoreWeave, Inc."
+   },
+   {
+    "t": "CS.PA",
+    "nom": "Axa"
+   },
+   {
+    "t": "CSCO",
+    "nom": "Cisco"
+   },
+   {
+    "t": "CSGP",
+    "nom": "CoStar Group"
+   },
+   {
+    "t": "CSX",
+    "nom": "CSX Corporation"
+   },
+   {
+    "t": "CTAS",
+    "nom": "Cintas"
+   },
+   {
+    "t": "CTSH",
+    "nom": "Cognizant"
+   },
+   {
+    "t": "CTVA",
+    "nom": "Corteva"
+   },
+   {
+    "t": "CVNA",
+    "nom": "Carvana"
+   },
+   {
+    "t": "CVS",
+    "nom": "CVS Health"
+   },
+   {
+    "t": "CVX",
+    "nom": "Chevron Corporation"
+   },
+   {
+    "t": "D",
+    "nom": "Dominion Energy"
+   },
+   {
+    "t": "DAL",
+    "nom": "Delta Air Lines"
+   },
+   {
+    "t": "DASH",
+    "nom": "DoorDash"
+   },
+   {
+    "t": "DB1.DE",
+    "nom": "Deutsche Börse"
+   },
+   {
+    "t": "DBK.DE",
+    "nom": "Deutsche Bank"
+   },
+   {
+    "t": "DD",
+    "nom": "DuPont"
+   },
+   {
+    "t": "DDOG",
+    "nom": "Datadog"
+   },
+   {
+    "t": "DE",
+    "nom": "Deere & Company"
+   },
+   {
+    "t": "DECK",
+    "nom": "Deckers Brands"
+   },
+   {
+    "t": "DELL",
+    "nom": "Dell Technologies"
+   },
+   {
+    "t": "DG",
+    "nom": "Dollar General"
+   },
+   {
+    "t": "DG.PA",
+    "nom": "Vinci"
+   },
+   {
+    "t": "DGX",
+    "nom": "Quest Diagnostics"
+   },
+   {
+    "t": "DHI",
+    "nom": "D. R. Horton"
+   },
+   {
+    "t": "DHL.DE",
+    "nom": "Deutsche Post"
+   },
+   {
+    "t": "DHR",
+    "nom": "Danaher Corporation"
+   },
+   {
+    "t": "DIM.PA",
+    "nom": ""
+   },
+   {
+    "t": "DIS",
+    "nom": "Walt Disney Company (The)"
+   },
+   {
+    "t": "DLR",
+    "nom": "Digital Realty"
+   },
+   {
+    "t": "DLTR",
+    "nom": "Dollar Tree"
+   },
+   {
+    "t": "DOC",
+    "nom": "Healthpeak Properties"
+   },
+   {
+    "t": "DOV",
+    "nom": "Dover Corporation"
+   },
+   {
+    "t": "DOW",
+    "nom": "Dow Inc."
+   },
+   {
+    "t": "DPZ",
+    "nom": "Domino's"
+   },
+   {
+    "t": "DRI",
+    "nom": "Darden Restaurants"
+   },
+   {
+    "t": "DSFIR.AS",
+    "nom": "DSM Firmenich AG"
+   },
+   {
+    "t": "DSY.PA",
+    "nom": "Dassault Systèmes"
+   },
+   {
+    "t": "DTE",
+    "nom": "DTE Energy"
+   },
+   {
+    "t": "DTE.DE",
+    "nom": "Deutsche Telekom"
+   },
+   {
+    "t": "DTG.DE",
+    "nom": "Daimler Truck"
+   },
+   {
+    "t": "DUK",
+    "nom": "Duke Energy"
+   },
+   {
+    "t": "DVA",
+    "nom": "DaVita"
+   },
+   {
+    "t": "DVN",
+    "nom": "Devon Energy"
+   },
+   {
+    "t": "DXCM",
+    "nom": "Dexcom"
+   },
+   {
+    "t": "EBAY",
+    "nom": "eBay Inc."
+   },
+   {
+    "t": "ECHO",
+    "nom": "EchoStar"
+   },
+   {
+    "t": "ECL",
+    "nom": "Ecolab"
+   },
+   {
+    "t": "EDEN.PA",
+    "nom": "Edenred"
+   },
+   {
+    "t": "EFX",
+    "nom": "Equifax"
+   },
+   {
+    "t": "EG",
+    "nom": "Everest Group"
+   },
+   {
+    "t": "EIX",
+    "nom": "Edison International"
+   },
+   {
+    "t": "EL",
+    "nom": "Estée Lauder Companies (The)"
+   },
+   {
+    "t": "EL.PA",
+    "nom": "EssilorLuxottica"
+   },
+   {
+    "t": "ELV",
+    "nom": "Elevance Health"
+   },
+   {
+    "t": "EME",
+    "nom": "Emcor"
+   },
+   {
+    "t": "EMR",
+    "nom": "Emerson Electric"
+   },
+   {
+    "t": "EN.PA",
+    "nom": "Bouygues"
+   },
+   {
+    "t": "ENGI.PA",
+    "nom": "Engie"
+   },
+   {
+    "t": "ENR.DE",
+    "nom": "Siemens Energy"
+   },
+   {
+    "t": "ENTG",
+    "nom": "Entegris"
+   },
+   {
+    "t": "ENX.PA",
+    "nom": ""
+   },
+   {
+    "t": "EOAN.DE",
+    "nom": "E.ON"
+   },
+   {
+    "t": "EOG",
+    "nom": "EOG Resources"
+   },
+   {
+    "t": "EPAM",
+    "nom": ""
+   },
+   {
+    "t": "EQIX",
+    "nom": "Equinix"
+   },
+   {
+    "t": "EQT",
+    "nom": "EQT Corporation"
+   },
+   {
+    "t": "ERF.PA",
+    "nom": "Eurofins Scientific"
+   },
+   {
+    "t": "ERIE",
+    "nom": "Erie Indemnity"
+   },
+   {
+    "t": "ES",
+    "nom": "Eversource Energy"
+   },
+   {
+    "t": "ESS",
+    "nom": "Essex Property Trust"
+   },
+   {
+    "t": "ETN",
+    "nom": "Eaton Corporation"
+   },
+   {
+    "t": "ETR",
+    "nom": "Entergy"
+   },
+   {
+    "t": "EVRG",
+    "nom": "Evergy"
+   },
+   {
+    "t": "EW",
+    "nom": "Edwards Lifesciences"
+   },
+   {
+    "t": "EXC",
+    "nom": "Exelon"
+   },
+   {
+    "t": "EXE",
+    "nom": "Expand Energy"
+   },
+   {
+    "t": "EXO.AS",
+    "nom": "Exor"
+   },
+   {
+    "t": "EXPE",
+    "nom": "Expedia Group"
+   },
+   {
+    "t": "EXR",
+    "nom": "Extra Space Storage"
+   },
+   {
+    "t": "F",
+    "nom": "Ford Motor Company"
+   },
+   {
+    "t": "FANG",
+    "nom": "Diamondback Energy"
+   },
+   {
+    "t": "FAST",
+    "nom": "Fastenal"
+   },
+   {
+    "t": "FCX",
+    "nom": "Freeport-McMoRan"
+   },
+   {
+    "t": "FDS",
+    "nom": "FactSet"
+   },
+   {
+    "t": "FDX",
+    "nom": "FedEx"
+   },
+   {
+    "t": "FER",
+    "nom": "Ferrovial N.V."
+   }
+  ],
+  "partielles": [
+   {
+    "t": "FDXF",
+    "nom": "FedEx Freight",
+    "raison": "1 conférence(s) sur 4 disponibles"
+   },
+   {
+    "t": "FE",
+    "nom": "FirstEnergy",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FERG",
+    "nom": "Ferguson Enterprises",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FFIV",
+    "nom": "F5, Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FGR.PA",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FICO",
+    "nom": "Fair Isaac",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FIS",
+    "nom": "Fidelity National Information Services",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FISV",
+    "nom": "Fiserv",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FITB",
+    "nom": "Fifth Third Bancorp",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FIX",
+    "nom": "Comfort Systems USA",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FLEX",
+    "nom": "Flex Ltd.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FME.DE",
+    "nom": "Fresenius Medical Care",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FOXA",
+    "nom": "Fox Corporation (Class A)",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FRE.DE",
+    "nom": "Fresenius",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FRT",
+    "nom": "Federal Realty Investment Trust",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FSLR",
+    "nom": "First Solar",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FTNT",
+    "nom": "Fortinet",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "FTV",
+    "nom": "Fortive",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "G1A.DE",
+    "nom": "GEA Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "G24.DE",
+    "nom": "Scout24",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GD",
+    "nom": "General Dynamics",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GDDY",
+    "nom": "GoDaddy",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GE",
+    "nom": "GE Aerospace",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GEBN.SW",
+    "nom": "Geberit AG",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GEHC",
+    "nom": "GE HealthCare",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GEN",
+    "nom": "Gen Digital",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GEV",
+    "nom": "GE Vernova",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GFS",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GILD",
+    "nom": "Gilead Sciences",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GIS",
+    "nom": "General Mills",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GIVN.SW",
+    "nom": "Givaudan SA",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GL",
+    "nom": "Globe Life",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GLE.PA",
+    "nom": "Société Générale",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GLW",
+    "nom": "Corning Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GM",
+    "nom": "General Motors",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GNRC",
+    "nom": "Generac",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GOOGL",
+    "nom": "Alphabet Inc. (Class A)",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GPC",
+    "nom": "Genuine Parts Company",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GPN",
+    "nom": "Global Payments",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GRMN",
+    "nom": "Garmin",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GS",
+    "nom": "Goldman Sachs",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "GWW",
+    "nom": "W. W. Grainger",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HAL",
+    "nom": "Halliburton",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HAS",
+    "nom": "Hasbro",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HBAN",
+    "nom": "Huntington Bancshares",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HCA",
+    "nom": "HCA Healthcare",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HD",
+    "nom": "Home Depot (The)",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HEI.DE",
+    "nom": "Heidelberg Materials",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HEIA.AS",
+    "nom": "Heineken",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HEN.DE",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HIG",
+    "nom": "Hartford (The)",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HII",
+    "nom": "Huntington Ingalls Industries",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HLT",
+    "nom": "Hilton Worldwide",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HNR1.DE",
+    "nom": "Hannover Re",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HO.PA",
+    "nom": "Thales",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HOLN.SW",
+    "nom": "Holcim Limited",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HON",
+    "nom": "Honeywell Technologies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HONA",
+    "nom": "Honeywell Aerospace",
+    "raison": "1 conférence(s) sur 4 disponibles"
+   },
+   {
+    "t": "HOOD",
+    "nom": "Robinhood Markets",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HOT.DE",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HPE",
+    "nom": "Hewlett Packard Enterprise",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HPQ",
+    "nom": "HP Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HRL",
+    "nom": "Hormel Foods",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HSIC",
+    "nom": "Henry Schein",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HST",
+    "nom": "Host Hotels & Resorts",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HSY",
+    "nom": "Hershey Company (The)",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HUBB",
+    "nom": "Hubbell Incorporated",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HUM",
+    "nom": "Humana",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "HWM",
+    "nom": "Howmet Aerospace",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IBKR",
+    "nom": "Interactive Brokers",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IBM",
+    "nom": "IBM",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ICE",
+    "nom": "Intercontinental Exchange",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IDXX",
+    "nom": "Idexx Laboratories",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IEX",
+    "nom": "IDEX Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IFF",
+    "nom": "International Flavors & Fragrances",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IFX.DE",
+    "nom": "Infineon Technologies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IMCD.AS",
+    "nom": "IMCD",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "INCY",
+    "nom": "Incyte",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "INGA.AS",
+    "nom": "ING Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "INTC",
+    "nom": "Intel",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "INTU",
+    "nom": "Intuit",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "INVH",
+    "nom": "Invitation Homes",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IP",
+    "nom": "International Paper",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IQV",
+    "nom": "IQVIA",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IR",
+    "nom": "Ingersoll Rand",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IRM",
+    "nom": "Iron Mountain",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ISRG",
+    "nom": "Intuitive Surgical",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IT",
+    "nom": "Gartner",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ITW",
+    "nom": "Illinois Tool Works",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "IVZ",
+    "nom": "Invesco",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "J",
+    "nom": "Jacobs Solutions",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "JBHT",
+    "nom": "J.B. Hunt",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "JBL",
+    "nom": "Jabil",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "JCI",
+    "nom": "Johnson Controls",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "JDEP.AS",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "JKHY",
+    "nom": "Jack Henry & Associates",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "JNJ",
+    "nom": "Johnson & Johnson",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "JPM",
+    "nom": "JPMorgan Chase",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KDP",
+    "nom": "Keurig Dr Pepper",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KER.PA",
+    "nom": "Kering",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KEY",
+    "nom": "KeyCorp",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KEYS",
+    "nom": "Keysight Technologies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KHC",
+    "nom": "Kraft Heinz",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KIM",
+    "nom": "Kimco Realty",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KKR",
+    "nom": "KKR & Co.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KLAC",
+    "nom": "KLA Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KMB",
+    "nom": "Kimberly-Clark",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KMI",
+    "nom": "Kinder Morgan",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KNIN.SW",
+    "nom": "Kuehne + Nagel",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KO",
+    "nom": "Coca-Cola Company (The)",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KPN.AS",
+    "nom": "KPN",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KR",
+    "nom": "Kroger",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "KVUE",
+    "nom": "Kenvue",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "L",
+    "nom": "Loews Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LDOS",
+    "nom": "Leidos",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LEN",
+    "nom": "Lennar",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LH",
+    "nom": "Labcorp",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LHX",
+    "nom": "L3Harris",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LI.PA",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LII",
+    "nom": "Lennox International",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LIN",
+    "nom": "Linde plc",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LITE",
+    "nom": "Lumentum",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LLY",
+    "nom": "Lilly (Eli)",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LMT",
+    "nom": "Lockheed Martin",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LNT",
+    "nom": "Alliant Energy",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LOGN.SW",
+    "nom": "Logitech International SA",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LONN.SW",
+    "nom": "Lonza Group AG",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LOW",
+    "nom": "Lowe's",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LR.PA",
+    "nom": "Legrand",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LRCX",
+    "nom": "Lam Research",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LSCC",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LULU",
+    "nom": "Lululemon Athletica",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LUV",
+    "nom": "Southwest Airlines",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LVS",
+    "nom": "Las Vegas Sands",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LYB",
+    "nom": "LyondellBasell",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "LYV",
+    "nom": "Live Nation Entertainment",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MA",
+    "nom": "Mastercard",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MAA",
+    "nom": "Mid-America Apartment Communities",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MAR",
+    "nom": "Marriott International",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MAS",
+    "nom": "Masco",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MBG.DE",
+    "nom": "Mercedes-Benz Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MC.PA",
+    "nom": "LVMH",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MCD",
+    "nom": "McDonald's",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MCHP",
+    "nom": "Microchip Technology",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MCK",
+    "nom": "McKesson Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MCO",
+    "nom": "Moody's Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MDLZ",
+    "nom": "Mondelez International",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MDT",
+    "nom": "Medtronic",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MELI",
+    "nom": "MercadoLibre, Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MET",
+    "nom": "MetLife",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "META",
+    "nom": "Meta Platforms",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MGM",
+    "nom": "MGM Resorts",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MKC",
+    "nom": "McCormick & Company",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ML.PA",
+    "nom": "Michelin",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MLM",
+    "nom": "Martin Marietta Materials",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MMM",
+    "nom": "3M",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MNST",
+    "nom": "Monster Beverage",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MO",
+    "nom": "Altria",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MOS",
+    "nom": "Mosaic Company (The)",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MPC",
+    "nom": "Marathon Petroleum",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MPWR",
+    "nom": "Monolithic Power Systems",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MRK",
+    "nom": "Merck & Co.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MRK.DE",
+    "nom": "Merck",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MRNA",
+    "nom": "Moderna",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MRSH",
+    "nom": "Marsh McLennan",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MRVL",
+    "nom": "Marvell Technology",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MS",
+    "nom": "Morgan Stanley",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MSCI",
+    "nom": "MSCI",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MSFT",
+    "nom": "Microsoft",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MSI",
+    "nom": "Motorola Solutions",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MSTR",
+    "nom": "Strategy Inc Common Stock",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MT.PA",
+    "nom": "ArcelorMittal",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MTB",
+    "nom": "M&T Bank",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MTD",
+    "nom": "Mettler Toledo",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MTX.DE",
+    "nom": "MTU Aero Engines",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MU",
+    "nom": "Micron Technology",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "MUV2.DE",
+    "nom": "Munich Re",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NBIS",
+    "nom": "Nebius Group N.V.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NCLH",
+    "nom": "Norwegian Cruise Line Holdings",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NDAQ",
+    "nom": "Nasdaq, Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NDSN",
+    "nom": "Nordson Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NEE",
+    "nom": "NextEra Energy",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NEM",
+    "nom": "Newmont",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NESN.SW",
+    "nom": "Nestlé SA",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NFLX",
+    "nom": "Netflix",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NI",
+    "nom": "NiSource",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NKE",
+    "nom": "Nike, Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NN.AS",
+    "nom": "NN Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NOC",
+    "nom": "Northrop Grumman",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NOVN.SW",
+    "nom": "Novartis International AG",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NOW",
+    "nom": "ServiceNow",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NRG",
+    "nom": "NRG Energy",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NSC",
+    "nom": "Norfolk Southern",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NTAP",
+    "nom": "NetApp",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NTRS",
+    "nom": "Northern Trust",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NUE",
+    "nom": "Nucor",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NVDA",
+    "nom": "Nvidia",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NWS",
+    "nom": "News Corp (Class B)",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "NXPI",
+    "nom": "NXP Semiconductors",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "O",
+    "nom": "Realty Income",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ODFL",
+    "nom": "Old Dominion",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "OKE",
+    "nom": "Oneok",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "OMC",
+    "nom": "Omnicom Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ON",
+    "nom": "ON Semiconductor",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "OR.PA",
+    "nom": "L'Oréal",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ORA.PA",
+    "nom": "Orange",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ORCL",
+    "nom": "Oracle Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ORLY",
+    "nom": "O'Reilly Automotive",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "OTIS",
+    "nom": "Otis Worldwide",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "OXY",
+    "nom": "Occidental Petroleum",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "P911.DE",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PAH3.DE",
+    "nom": "Porsche SE",
+    "raison": "1 conférence(s) sur 4 disponibles"
+   },
+   {
+    "t": "PANW",
+    "nom": "Palo Alto Networks",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PAYX",
+    "nom": "Paychex",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PCAR",
+    "nom": "Paccar",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PCG",
+    "nom": "PG&E Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PDD",
+    "nom": "PDD Holdings Inc. American Depositary Shares",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PEG",
+    "nom": "Public Service Enterprise Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PEP",
+    "nom": "PepsiCo",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PFE",
+    "nom": "Pfizer",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PFG",
+    "nom": "Principal Financial Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PG",
+    "nom": "Procter & Gamble",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PGHN.SW",
+    "nom": "Partners Group Holding AG",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PGR",
+    "nom": "Progressive Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PH",
+    "nom": "Parker Hannifin",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PHIA.AS",
+    "nom": "Philips",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PHM",
+    "nom": "PulteGroup",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PKG",
+    "nom": "Packaging Corporation of America",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PLD",
+    "nom": "Prologis",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PLTR",
+    "nom": "Palantir Technologies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PM",
+    "nom": "Philip Morris International",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PNC",
+    "nom": "PNC Financial Services",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PNR",
+    "nom": "Pentair",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PNW",
+    "nom": "Pinnacle West Capital",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PODD",
+    "nom": "Insulet Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "POOL",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PPG",
+    "nom": "PPG Industries",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PPL",
+    "nom": "PPL Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PRU",
+    "nom": "Prudential Financial",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PRX.AS",
+    "nom": "Prosus",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PSA",
+    "nom": "Public Storage",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PSKY",
+    "nom": "Paramount Skydance Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PSX",
+    "nom": "Phillips 66",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PTC",
+    "nom": "PTC Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PUB.PA",
+    "nom": "Publicis",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PUM.DE",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PWR",
+    "nom": "Quanta Services",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "PYPL",
+    "nom": "PayPal",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "Q",
+    "nom": "Qnity Electronics",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "QCOM",
+    "nom": "Qualcomm",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "QIA.DE",
+    "nom": "Qiagen",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "QRVO",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RAND.AS",
+    "nom": "Randstad",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RCL",
+    "nom": "Royal Caribbean Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RDDT",
+    "nom": "Reddit",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "REG",
+    "nom": "Regency Centers",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "REGN",
+    "nom": "Regeneron Pharmaceuticals",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "REN.AS",
+    "nom": "RELX",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RF",
+    "nom": "Regions Financial Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RHM.DE",
+    "nom": "Rheinmetall",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RI.PA",
+    "nom": "Pernod Ricard",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RJF",
+    "nom": "Raymond James Financial",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RKLB",
+    "nom": "Rocket Lab Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RL",
+    "nom": "Ralph Lauren Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RMBS",
+    "nom": "Rambus",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RMD",
+    "nom": "ResMed|",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RMS.PA",
+    "nom": "Hermès",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RNO.PA",
+    "nom": "Renault",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ROG.SW",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ROK",
+    "nom": "Rockwell Automation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ROL",
+    "nom": "Rollins, Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ROP",
+    "nom": "Roper Technologies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ROST",
+    "nom": "Ross Stores",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RSG",
+    "nom": "Republic Services",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RTX",
+    "nom": "RTX Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RVTY",
+    "nom": "Revvity",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RWE.DE",
+    "nom": "RWE",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "RXL.PA",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SAF.PA",
+    "nom": "Safran",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SAN.PA",
+    "nom": "Sanofi",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SAP.DE",
+    "nom": "SAP",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SBAC",
+    "nom": "SBA Communications",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SBMO.AS",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SBUX",
+    "nom": "Starbucks",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SCHW",
+    "nom": "Charles Schwab Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SCMN.SW",
+    "nom": "Swisscom AG",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SGO.PA",
+    "nom": "Saint-Gobain",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SGSN.SW",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SHELL.AS",
+    "nom": "Shell plc",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SHL.DE",
+    "nom": "Siemens Healthineers",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SHOP",
+    "nom": "Shopify Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SHW",
+    "nom": "Sherwin-Williams",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SIE.DE",
+    "nom": "Siemens",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SIKA.SW",
+    "nom": "Sika AG",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SJM",
+    "nom": "J.M. Smucker Company (The)",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SLB",
+    "nom": "Schlumberger",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SLHN.SW",
+    "nom": "Swiss Life Holding AG",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SMCI",
+    "nom": "Supermicro",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SNA",
+    "nom": "Snap-on",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SNDK",
+    "nom": "Sandisk",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SNPS",
+    "nom": "Synopsys",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SO",
+    "nom": "Southern Company",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SOLV",
+    "nom": "Solventum",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SOON.SW",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SPCX",
+    "nom": "Space Exploration Technologies Corp.",
+    "raison": "1 conférence(s) sur 4 disponibles"
+   },
+   {
+    "t": "SPG",
+    "nom": "Simon Property Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SPGI",
+    "nom": "S&P Global",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SRE",
+    "nom": "Sempra",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SREN.SW",
+    "nom": "Swiss Reinsurance Company Ltd",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "STE",
+    "nom": "Steris",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "STLAP.PA",
+    "nom": "Stellantis",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "STLD",
+    "nom": "Steel Dynamics",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "STMPA.PA",
+    "nom": "STMicroelectronics",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "STT",
+    "nom": "State Street Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "STX",
+    "nom": "Seagate Technology",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "STZ",
+    "nom": "Constellation Brands",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SU.PA",
+    "nom": "Schneider Electric",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SW",
+    "nom": "Smurfit Westrock",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SWK",
+    "nom": "Stanley Black & Decker",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SWKS",
+    "nom": "Skyworks Solutions",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SY1.DE",
+    "nom": "Symrise",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SYF",
+    "nom": "Synchrony Financial",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SYK",
+    "nom": "Stryker Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "SYY",
+    "nom": "Sysco",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "T",
+    "nom": "AT&T",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TAP",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TDG",
+    "nom": "TransDigm Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TDY",
+    "nom": "Teledyne Technologies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TECH",
+    "nom": "Bio-Techne",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TEL",
+    "nom": "TE Connectivity",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TER",
+    "nom": "Teradyne",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TFC",
+    "nom": "Truist Financial",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TGT",
+    "nom": "Target Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TJX",
+    "nom": "TJX Companies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TKO",
+    "nom": "TKO Group Holdings",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TMO",
+    "nom": "Thermo Fisher Scientific",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TMUS",
+    "nom": "T-Mobile US",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TPL",
+    "nom": "Texas Pacific Land Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TPR",
+    "nom": "Tapestry, Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TRGP",
+    "nom": "Targa Resources",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TRI",
+    "nom": "Thomson Reuters Corporation Common Shares",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TRMB",
+    "nom": "Trimble Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TROW",
+    "nom": "T. Rowe Price",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TRV",
+    "nom": "Travelers Companies (The)",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TSCO",
+    "nom": "Tractor Supply",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TSLA",
+    "nom": "Tesla, Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TSM",
+    "nom": "Taiwan Semiconductor Manufacturing",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TSN",
+    "nom": "Tyson Foods",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TT",
+    "nom": "Trane Technologies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TTD",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TTE.PA",
+    "nom": "TotalEnergies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TTWO",
+    "nom": "Take-Two Interactive",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TXN",
+    "nom": "Texas Instruments",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TXT",
+    "nom": "Textron",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "TYL",
+    "nom": "Tyler Technologies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "UAL",
+    "nom": "United Airlines Holdings",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "UBER",
+    "nom": "Uber",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "UBSG.SW",
+    "nom": "UBS Group AG",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "UDR",
+    "nom": "UDR, Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "UHS",
+    "nom": "Universal Health Services",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ULTA",
+    "nom": "Ulta Beauty",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "UMG.AS",
+    "nom": "Universal Music Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "UNA.AS",
+    "nom": "Unilever",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "UNH",
+    "nom": "UnitedHealth Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "UNP",
+    "nom": "Union Pacific Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "UPS",
+    "nom": "United Parcel Service",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "URI",
+    "nom": "United Rentals",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "URW.PA",
+    "nom": "Unibail-Rodamco-Westfield",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "USB",
+    "nom": "U.S. Bancorp",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "V",
+    "nom": "Visa Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VEEV",
+    "nom": "Veeva Systems",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VICI",
+    "nom": "Vici Properties",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VIE.PA",
+    "nom": "Veolia",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VLO",
+    "nom": "Valero Energy",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VLTO",
+    "nom": "Veralto",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VMC",
+    "nom": "Vulcan Materials Company",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VMRK",
+    "nom": "Vivmark Residential",
+    "raison": "1 conférence(s) sur 4 disponibles"
+   },
+   {
+    "t": "VNA.DE",
+    "nom": "Vonovia",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VOW.DE",
+    "nom": "",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VRSK",
+    "nom": "Verisk Analytics",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VRSN",
+    "nom": "Verisign",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VRT",
+    "nom": "Vertiv",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VRTX",
+    "nom": "Vertex Pharmaceuticals",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VST",
+    "nom": "Vistra Corp.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VTR",
+    "nom": "Ventas",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VTRS",
+    "nom": "Viatris",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "VZ",
+    "nom": "Verizon",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WAB",
+    "nom": "Wabtec",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WAT",
+    "nom": "Waters Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WBD",
+    "nom": "Warner Bros. Discovery",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WDAY",
+    "nom": "Workday, Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WDC",
+    "nom": "Western Digital",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WEC",
+    "nom": "WEC Energy Group",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WELL",
+    "nom": "Welltower",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WFC",
+    "nom": "Wells Fargo",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WKL.AS",
+    "nom": "Wolters Kluwer",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WM",
+    "nom": "Waste Management",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WMB",
+    "nom": "Williams Companies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WMT",
+    "nom": "Walmart",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WRB",
+    "nom": "W. R. Berkley Corporation",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WSM",
+    "nom": "Williams-Sonoma, Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WST",
+    "nom": "West Pharmaceutical Services",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WTW",
+    "nom": "Willis Towers Watson",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WY",
+    "nom": "Weyerhaeuser",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "WYNN",
+    "nom": "Wynn Resorts",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "XEL",
+    "nom": "Xcel Energy",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "XOM",
+    "nom": "ExxonMobil",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "XYL",
+    "nom": "Xylem Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "XYZ",
+    "nom": "Block, Inc.",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "YUM",
+    "nom": "Yum! Brands",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ZAL.DE",
+    "nom": "Zalando",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ZBH",
+    "nom": "Zimmer Biomet",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ZBRA",
+    "nom": "Zebra Technologies",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ZTS",
+    "nom": "Zoetis",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   },
+   {
+    "t": "ZURN.SW",
+    "nom": "Zurich Insurance Group AG",
+    "raison": "4 conférences collectées, extraction des KPI en attente"
+   }
+  ],
+  "aucune": [
+   {
+    "t": "BRK-B",
+    "nom": "Berkshire Hathaway",
+    "raison": "aucune conférence trouvée"
+   },
+   {
+    "t": "EA",
+    "nom": "",
+    "raison": "société rachetée le 4 août 2026, plus cotée"
+   },
+   {
+    "t": "ED",
+    "nom": "Consolidated Edison",
+    "raison": "aucune conférence trouvée"
+   },
+   {
+    "t": "EXPD",
+    "nom": "Expeditors International",
+    "raison": "aucune conférence trouvée"
+   },
+   {
+    "t": "NVR",
+    "nom": "NVR, Inc.",
+    "raison": "aucune conférence trouvée"
+   }
+  ]
+ },
+ "disparues": [
+  {
+   "ticker": "ACLS",
+   "nom": "Axcelis",
+   "statut": "en cours de rachat",
+   "detail": "Fusion avec Veeco Instruments approuvee le 6 fevrier 2026, cloture attendue au 2e semestre 2026, l'entite combinee prendra un nouveau nom et ticker.",
+   "source_url": "https://www.tipranks.com/news/company-announcements/axcelis-veeco-advance-merger-ahead-of-shareholder-votes"
+  },
+  {
+   "ticker": "EA",
+   "nom": "Electronic Arts",
+   "statut": "disparue",
+   "detail": "Rachat par le consortium PIF, Silver Lake et Affinity Partners finalise le 4 aout 2026 a 210 $/action, EA est desormais privee.",
+   "source_url": "https://www.ea.com/news/ea-announces-completion-of-acquisition"
+  },
+  {
+   "ticker": "JDEP.AS",
+   "nom": "JDE Peet's",
+   "statut": "disparue",
+   "detail": "Rachetee par Keurig Dr Pepper (97,75% des titres acquis debut avril 2026), radiee d'Euronext Amsterdam le 30 avril 2026.",
+   "source_url": "https://www.streetinsider.com/Corporate+News/Keurig+Dr+Pepper+acquires+97.75%25+of+JDE+Peets+shares+in+takeover+offer/26306310.html"
+  },
+  {
+   "ticker": "QRVO",
+   "nom": "Qorvo",
+   "statut": "en cours de rachat",
+   "detail": "Fusion avec Skyworks Solutions non encore finalisee, cloture visee fin 2026 sous reserve des approbations chinoise et sud-coreenne.",
+   "source_url": "https://noah-news.com/skyworks-and-qorvo-rally-as-merger-timeline-accelerates-towards-2026-finish-line/"
+  },
+  {
+   "ticker": "WBD",
+   "nom": "Warner Bros Discovery",
+   "statut": "en cours de rachat",
+   "detail": "Rachat par Paramount Skydance approuve par les actionnaires (23 avril 2026) et le DOJ, mais bloque par un recours de 12 Etats americains ; accord trouve en septembre 2026, proces federal encore prevu jusqu'en avril 2027.",
+   "source_url": "https://www.npr.org/2026/06/13/nx-s1-5856558/doj-approves-paramount-skydances-111-billion-acquisition-of-warner-bros-discovery"
+  },
+  {
+   "ticker": "SWKS",
+   "nom": "Skyworks Solutions",
+   "statut": "acquéreur, fusion en cours",
+   "detail": "Acquereur de Qorvo dans une fusion non encore finalisee, cloture visee fin 2026 sous reserve des approbations chinoise et sud-coreenne.",
+   "source_url": "https://noah-news.com/skyworks-and-qorvo-rally-as-merger-timeline-accelerates-towards-2026-finish-line/"
+  }
+ ]
+}

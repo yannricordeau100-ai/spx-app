@@ -775,3 +775,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.10 (24 Sep 2026 04:05, apres 54a7404a52)
 - Navigation entre les quatre conferences, suivi des KPI, route de lecture reservee aux abonnes
+
+## v2026.09.24.11 (24 Sep 2026 18:48, apres bb51152f66)
+- Desk : onglet Grandes taches, onglets inutiles retires ; conferences de resultats des societes completes

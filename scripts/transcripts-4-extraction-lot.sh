@@ -32,7 +32,12 @@ une() {
       break
     done
     n=$(ls /tmp/transcripts-kpi/ 2>/dev/null | grep -cE "^$(echo "$T" | sed 's/\./\\./g')\.20[0-9-]+\.json$")
-    [ "$n" -eq 0 ] && { echo "$(date '+%d %H:%M') $T ECHEC aucune sortie ($MODELE) : $OUT" >> "$LOG"; return; }
+    if [ "$n" -eq 0 ]; then
+      echo "$(date '+%d %H:%M') $T ECHEC aucune sortie ($MODELE) : $OUT" >> "$LOG"
+      # limite de session atteinte : on s'arrete au lieu de griller toute la liste
+      echo "$OUT" | grep -qi "session limit\|hit your" && { echo "limite de session" > /tmp/transcripts-4-STOP; echo "$(date '+%d %H:%M') STOP limite de session" >> "$LOG"; }
+      return
+    fi
     python3 scripts/transcripts-kpi-verif.py "$T" --applique > /tmp/verif-$T.txt 2>&1 || { echo "$(date '+%d %H:%M') $T ECHEC verif" >> "$LOG"; return; }
     DENS=$(python3 -c "
 import json

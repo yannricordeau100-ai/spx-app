@@ -40,99 +40,34 @@ function AdminPanelReminder() {
     </div>
   );
 }
-import {
-  FileText, ListTodo, Library, FolderOpen, Calendar, Bookmark, Cpu, Lightbulb,
-  Link as LinkIcon, ImageIcon, BarChart3, MessageSquare, Target, Map, Info, Gift,
-  PanelLeftClose, PanelLeftOpen, Mail,
-} from "lucide-react";
-import { TabNotes } from "@/components/desk/tab-notes";
-import { TabTodos } from "@/components/desk/tab-todos";
-import { TabGics } from "@/components/desk/tab-gics";
-import { TabDocuments } from "@/components/desk/tab-documents";
-import { TabCalendar } from "@/components/desk/tab-calendar";
-import { TabBookmarks } from "@/components/desk/tab-bookmarks";
-import { TabPipeline } from "@/components/desk/tab-pipeline";
+import { Lightbulb, ClipboardList, Info, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { TabIdeas } from "@/components/desk/tab-ideas";
-import { TabLinks } from "@/components/desk/tab-links";
-import { TabInspiration } from "@/components/desk/tab-inspiration";
-import { TabMetrics } from "@/components/desk/tab-metrics";
-import { TabReferrals } from "@/components/desk/tab-referrals";
-import { TabMessages } from "@/components/desk/tab-messages";
-import { TabDrafts } from "@/components/desk/tab-drafts";
-import { TabPitch } from "@/components/desk/tab-pitch";
-import { TabRoadmap } from "@/components/desk/tab-roadmap";
+import { TabTaches } from "@/components/desk/tab-taches";
 
-type TabId =
-  | "notes" | "todos" | "roadmap"
-  | "documents" | "gics" | "pipeline"
-  | "calendar" | "bookmarks" | "links"
-  | "drafts" | "pitch"
-  | "inspiration" | "ideas" | "metrics"
-  | "referrals" | "messages";
+// 24 sept 2026 (demande du proprietaire) : onglets devenus inutiles retires du
+// menu (les composants restent dans src/components/desk) ; on garde « Idees
+// Mettrik » et on ajoute « Grandes taches ».
+type TabId = "taches" | "ideas";
 
 type TabSection = {
   label: string;
   hint: string;
-  items: { id: TabId; label: string; Icon: typeof FileText; hint: string }[];
+  items: { id: TabId; label: string; Icon: typeof Lightbulb; hint: string }[];
 };
 
 const SECTIONS: TabSection[] = [
   {
-    label: "Quotidien",
-    hint: "Tes outils de tous les jours",
+    label: "Suivi",
+    hint: "Chantiers en cours",
     items: [
-      { id: "todos",   label: "To-do",          Icon: ListTodo, hint: "Tâches avec priorité et projet" },
-      { id: "notes",   label: "Notes",          Icon: FileText, hint: "Notes markdown rangées par tag" },
-      { id: "roadmap", label: "Roadmap launch", Icon: Map,      hint: "Tout ce qu'il reste à faire pour sortir l'app, trié par priorité" },
+      { id: "taches", label: "Grandes tâches", Icon: ClipboardList, hint: "Chantiers commencés et restant à finir : ETA, modèle, réglages, état par société" },
     ],
   },
   {
-    label: "Production data",
-    hint: "Sources, taxonomie, pipeline V2",
-    items: [
-      { id: "documents", label: "Documents",   Icon: FolderOpen, hint: "PDFs scannés du dossier 10-K Desktop" },
-      { id: "gics",      label: "Taxonomie GICS", Icon: Library, hint: "11 secteurs, 25 groupes, 74 industries, 163 sous-industries" },
-      { id: "pipeline",  label: "Pipeline V2", Icon: Cpu,        hint: "Sociétés à scraper (USA, CA, EU, JP)" },
-    ],
-  },
-  {
-    label: "Veille & inspiration",
-    hint: "Externe au projet",
-    items: [
-      { id: "calendar",    label: "Calendrier",    Icon: Calendar,    hint: "Earnings, AGM, conférences sectorielles" },
-      { id: "bookmarks",   label: "Bookmarks",     Icon: Bookmark,    hint: "Articles, vidéos, ressources tagguées" },
-      { id: "links",       label: "Quick links",   Icon: LinkIcon,    hint: "Stripe, GitHub, dashboards techniques" },
-      { id: "inspiration", label: "Galerie inspi", Icon: ImageIcon,   hint: "Screenshots de visuels qui t'inspirent" },
-    ],
-  },
-  {
-    label: "Stratégie & com",
+    label: "Stratégie",
     hint: "Pour toi seul",
     items: [
-      { id: "ideas",  label: "Idées Mettrik", Icon: Lightbulb,    hint: "Carnet d'idées par catégorie + statut" },
-      { id: "drafts", label: "Brouillons com", Icon: MessageSquare, hint: "Newsletters, posts LinkedIn avant envoi" },
-      { id: "pitch",  label: "Mémo pitch",    Icon: Target,       hint: "Notes investisseurs (cloisonné des autres notes)" },
-    ],
-  },
-  {
-    label: "Analytics",
-    hint: "À câbler en V2",
-    items: [
-      { id: "metrics", label: "Métriques app", Icon: BarChart3, hint: "Visiteurs, MRR, churn (placeholder)" },
-    ],
-  },
-  {
-    label: "Croissance",
-    hint: "Programmes user growth",
-    items: [
-      { id: "referrals", label: "Parrainage", Icon: Gift, hint: "Paramètres du programme de parrainage (page /parrainage publique)" },
-    ],
-  },
-  {
-    label: "Communication",
-    hint: "Messages reçus + threads",
-    items: [
-      { id: "messages", label: "Messages reçus", Icon: Mail, hint: "Formulaires de contact + support reçus depuis /contact" },
+      { id: "ideas", label: "Idées Mettrik", Icon: Lightbulb, hint: "Carnet d'idées par catégorie + statut" },
     ],
   },
 ];
@@ -143,10 +78,10 @@ export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
   // Yann 4 sept 2026 : l onglet se lit dans l URL (?tab=gics) pour pouvoir
   // donner un lien direct vers chaque outil du desk.
   const [tab, setTab] = useState<TabId>(() => {
-    if (typeof window === "undefined") return "todos";
+    if (typeof window === "undefined") return "taches";
     const voulu = new URLSearchParams(window.location.search).get("tab");
     const connus = SECTIONS.flatMap((sec) => sec.items.map((i) => i.id));
-    return voulu && (connus as string[]).includes(voulu) ? (voulu as TabId) : "todos";
+    return voulu && (connus as string[]).includes(voulu) ? (voulu as TabId) : "taches";
   });
   // Persistance UI : sidebar collapse mémorisé en localStorage entre visites.
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
@@ -272,22 +207,8 @@ export function DeskClient({ ownerEmail }: { ownerEmail: string }) {
                 via CSS quand on en change. 1er click sur un tab = fetch normal,
                 clicks suivants sur le même tab = instantané (data déjà en RAM).
                 Coût mémoire négligeable (quelques KB par tab). */}
-            <KeepAlive active={tab} id="notes"><TabNotes ownerEmail={ownerEmail} /></KeepAlive>
-            <KeepAlive active={tab} id="todos"><TabTodos ownerEmail={ownerEmail} /></KeepAlive>
-            <KeepAlive active={tab} id="roadmap"><TabRoadmap /></KeepAlive>
-            <KeepAlive active={tab} id="documents"><TabDocuments /></KeepAlive>
-            <KeepAlive active={tab} id="gics"><TabGics /></KeepAlive>
-            <KeepAlive active={tab} id="pipeline"><TabPipeline /></KeepAlive>
-            <KeepAlive active={tab} id="calendar"><TabCalendar ownerEmail={ownerEmail} /></KeepAlive>
-            <KeepAlive active={tab} id="bookmarks"><TabBookmarks ownerEmail={ownerEmail} /></KeepAlive>
-            <KeepAlive active={tab} id="links"><TabLinks ownerEmail={ownerEmail} /></KeepAlive>
-            <KeepAlive active={tab} id="inspiration"><TabInspiration ownerEmail={ownerEmail} /></KeepAlive>
+            <KeepAlive active={tab} id="taches"><TabTaches /></KeepAlive>
             <KeepAlive active={tab} id="ideas"><TabIdeas ownerEmail={ownerEmail} /></KeepAlive>
-            <KeepAlive active={tab} id="drafts"><TabDrafts ownerEmail={ownerEmail} /></KeepAlive>
-            <KeepAlive active={tab} id="pitch"><TabPitch ownerEmail={ownerEmail} /></KeepAlive>
-            <KeepAlive active={tab} id="metrics"><TabMetrics /></KeepAlive>
-            <KeepAlive active={tab} id="referrals"><TabReferrals /></KeepAlive>
-            <KeepAlive active={tab} id="messages"><TabMessages /></KeepAlive>
           </div>
         </main>
       </div>
