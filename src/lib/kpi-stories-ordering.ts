@@ -107,6 +107,24 @@ const CATEGORY_ORDER: Record<string, number> = {
   Story: 99,
 };
 
+const AGREGAT_BASE =
+  "(chiffre d affaires|revenus?|revenu net|ventes nettes|ventes|resultat net|benefice net|bpa|marge brute|marge operationnelle|marge nette|marge d ebitda|flux de tresorerie|flux de tresorerie operationnels?|flux de tresorerie disponible|free cash flow|cash flow|ebitda|ebit|resultat operationnel|resultat d exploitation|dette nette|tresorerie nette)";
+const AGREGAT_QUALIF =
+  "(trimestriels?|trimestrielle|semestriels?|semestrielle|annuels?|annuelle|ajuste|ajustee|ajustes|part du groupe|dilue|total|totale|du groupe|groupe|consolide|consolidee|publie|publiee|usd|eur|operationnels?|disponible|courant|courante)";
+const RE_AGREGAT = new RegExp(`^${AGREGAT_BASE}( ${AGREGAT_QUALIF})*$`);
+
+function estAgregatFinancier(nom: string | undefined): boolean {
+  const n = String(nom ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\(.*?\)/g, " ")
+    .replace(/[^a-z0-9 ]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return RE_AGREGAT.test(n);
+}
+
 /**
  * Yann 4 juin 2026 : une story KPI n'est éligible que si elle dispose
  * d'un minimum d'info lisibles. Sinon la carte affichait juste un badge
@@ -123,6 +141,13 @@ function isStoryKpiUsable(k: KPI): boolean {
   // SONT acceptes en story (vraie PV investisseur). Le "0,0 Mds \$" casse de
   // Cap Return reste filtre par le garde-fou valeur-nulle ci-dessous.
   if (isBasicGenericKpi(k.short)) return false;
+  // 25 sept 2026 : le code court ne suffit pas (REV_Q, ANI_Q, CFFO_Q des
+  // series trimestrielles passaient). On regarde aussi le libelle : un agregat
+  // financier de la societe (chiffre d affaires, resultat net, BPA, marges,
+  // flux de tresorerie, EBITDA, dette nette), seul ou avec un simple
+  // qualificatif de periode, n est pas un fait marquant. Un libelle precise
+  // (« Chiffre d affaires Cloud ») reste une story.
+  if (estAgregatFinancier(k.name_fr)) return false;
   // Value usable : number fini NON nul OU string > 0 char non nulle. Une
   // story a "0,0" n'a aucun sens (et trahit souvent une extraction ratee).
   let hasValue = false;

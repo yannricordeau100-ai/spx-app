@@ -459,7 +459,7 @@ export const DICTIONARY: Dict = {
   "stories.aria_pause": { fr: "Mettre en pause", en: "Pause" },
   "stories.aria_resume": { fr: "Reprendre", en: "Resume" },
   "stories.aria_jump": { fr: "Aller à la story", en: "Go to story" },
-  "stories.title": { fr: "Faits marquants - Court terme", en: "Story (KPIs)" },
+  "stories.title": { fr: "Faits marquants - Court terme (Stories)", en: "Story (KPIs)" },
   "stories.subtitle": {
     fr: "",
     en: "",

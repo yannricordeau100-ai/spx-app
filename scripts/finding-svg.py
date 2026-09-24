@@ -33,7 +33,7 @@ Format de la spec (JSON) :
 }
 Couleurs disponibles : violet, vert, cyan, ambre, rose, gris.
 """
-import json
+import json, re
 import sys
 from pathlib import Path
 
@@ -110,6 +110,48 @@ def graduations(maxi: float) -> list[float]:
     return [pas * i for i in range(5)]
 
 
+
+# Yann 24 sept 2026 : TOUS les graphiques portent leur echelle sur l axe
+# vertical. Sans champ « unite_axe », on la deduit du suffixe des valeurs puis
+# du sous titre (« en milliers d emplois », « Milliards de dollars »...).
+ABREGES = {"M": "millions", "Mds": "milliards", "Md": "milliards", "k": "milliers", "K": "milliers", "B": "milliards"}
+
+
+def unite_axe_deduite(spec: dict) -> str:
+    u = str(spec.get("unite_axe") or "").strip()
+    if u:
+        return u
+    suf = str(spec.get("unite_suffixe") or "").strip()
+    if suf:
+        return ABREGES.get(suf, suf)
+    st = str(spec.get("sous_titre") or "")
+    m = re.search(r"(?i)\b(milliers|millions|milliards)(\s+d(?:e|es|\u2019|')\s?[\w\u00c0-\u017f$\u20ac%/\u2019' -]{1,28}?)?(?=[,.;(]|\s+(?:en|de|du|par|fin|au|a|\u00e0|entre|sur|dans|pour)\b|$)", st)
+    if m:
+        txt = (m.group(1).lower() + (m.group(2) or "")).strip()
+        txt = re.sub(r"(?i)^milliards de dollars$", "Mds $", txt)
+        txt = re.sub(r"(?i)^millions de dollars$", "M$", txt)
+        txt = re.sub(r"(?i)^milliards d'euros$|^milliards d\u2019euros$", "Mds \u20ac", txt)
+        return txt
+    m = re.search(r"(Mds ?\$|Mds ?\u20ac|M ?\$|M ?\u20ac|Bcf/j|\$/t|\$/kg|MW|GW|TWh)", st)
+    if m:
+        return m.group(1)
+    if re.search(r"(?i)m\u00e9gabits par seconde", st):
+        return "Mb/s"
+    if re.search(r"(?i)pour 100\s?000", st):
+        return "pour 100 000"
+    if re.search(r"(?i)\bindice\b", st):
+        return "indice"
+    m = re.search(r"(?i)barils par jour", st)
+    if m:
+        return "barils/j"
+    m = re.search(r"(?i)^(?:hausse du )?nombre (?:moyen |total )?d(?:e |es |\u2019|')([\w\u00c0-\u017f-]+)", st.strip())
+    if m:
+        return m.group(1).lower()
+    m = re.match(r"\s*([A-Za-z\u00c0-\u017f-]+[sx])\b", st)
+    if m and m.group(1).lower() not in ("dans", "sous", "vers", "plus", "moins", "taux", "prix", "ventes"):
+        return m.group(1).lower()
+    return ""
+
 def construit(spec: dict, theme: str) -> str:
     c = THEMES[theme]
     cats = spec["categories"]
@@ -153,7 +195,7 @@ def construit(spec: dict, theme: str) -> str:
     # ou le libelle d unite de la spec (champ « unite_axe », par exemple
     # « milliers » ou « M$ »), est ecrit une seule fois au milieu de l axe
     # vertical, a gauche des graduations, sans jamais les toucher.
-    marque_axe = "%" if pourcent else str(spec.get("unite_axe") or "").strip()
+    marque_axe = "%" if pourcent else unite_axe_deduite(spec)
     if marque_axe:
         large = max(largeur_texte(format_valeur(g, ""), 11, mono=True) for g in grads)
         taille_axe = 13 if marque_axe == "%" else 11

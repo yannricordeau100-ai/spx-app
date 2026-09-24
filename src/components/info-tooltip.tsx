@@ -58,6 +58,7 @@ export function InfoTooltip({
   // Yann 18 sept 2026 : hauteur mesuree aussi, pour ouvrir vers le haut quand
   // le bouton est en bas de l ecran (la popup sortait de l ecran).
   const [hauteurPopup, setHauteurPopup] = useState(0);
+  const [zoom, setZoom] = useState(1);
   useEffect(() => {
     if (!open) return;
     const id = requestAnimationFrame(() => {
@@ -78,11 +79,19 @@ export function InfoTooltip({
       const btn = triggerRef.current;
       if (!btn) return;
       const r = btn.getBoundingClientRect();
+      // 25 sept 2026 : le site applique « body { zoom: 1.1 } ». La popup, en
+      // position fixe DANS le corps zoome, voit ses coordonnees agrandies une
+      // seconde fois : elle partait en bas a droite, loin du « i », et sortait
+      // de l ecran. On ramene tout en pixels de mise en page (rapport entre la
+      // largeur affichee du bouton et sa largeur de mise en page).
+      const z = btn.offsetWidth > 0 ? r.width / btn.offsetWidth : 1;
+      const f = z > 0.5 && z < 3 ? z : 1;
+      setZoom(f);
       setCoords({
-        top: r.bottom + 6, // 6px sous le bouton
-        haut: r.top, // bord haut du bouton, pour ouvrir au-dessus si besoin
-        left: r.left,
-        right: window.innerWidth - r.right,
+        top: r.bottom / f + 6, // 6px sous le bouton
+        haut: r.top / f, // bord haut du bouton, pour ouvrir au-dessus si besoin
+        left: r.left / f,
+        right: (window.innerWidth - r.right) / f,
       });
     };
     compute();
@@ -103,8 +112,8 @@ export function InfoTooltip({
     // 14 sept 2026 : la popup reste toujours collee au « i » et entierement
     // visible : position calculee en pixels puis bornee aux bords de l ecran.
     const MARGE = 12;
-    const vw = typeof window !== "undefined" ? window.innerWidth : 1440;
-    const vh = typeof window !== "undefined" ? window.innerHeight : 900;
+    const vw = (typeof window !== "undefined" ? window.innerWidth : 1440) / zoom;
+    const vh = (typeof window !== "undefined" ? window.innerHeight : 900) / zoom;
     const borne = (x: number) => Math.max(MARGE, Math.min(x, vw - largeurPopup - MARGE));
     // Vertical : sous le bouton si la place suffit, sinon au-dessus, toujours
     // dans l ecran et jamais loin du « i ».
