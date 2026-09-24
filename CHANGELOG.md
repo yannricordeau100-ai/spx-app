@@ -769,3 +769,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.8 (24 Sep 2026 03:27, apres 571fe2e848)
 - Citations IA en francais avec original dans le i, floutage fin par element, Prevnar aligne
+
+## v2026.09.24.9 (24 Sep 2026 03:47, apres 8cd45658e2)
+- Floutage fin : stories, evenements, graphiques moyen terme, bloc Comprendre la societe

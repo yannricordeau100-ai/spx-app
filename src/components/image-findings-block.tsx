@@ -186,7 +186,7 @@ export function ImageFindingsBlock({
             {displayTitle}
           </h3>
         )}
-        <div className="aspect-video w-full overflow-hidden rounded-xl bg-black/60">
+        <div data-blur-part="graphique" className="aspect-video w-full overflow-hidden rounded-xl bg-black/60">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {/* Yann 18 mai 2026 : priorité au SVG local recréé. f.image_url
               pointe vers la source externe (PDF / article) qui n'est pas

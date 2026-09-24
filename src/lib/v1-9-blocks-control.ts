@@ -2,6 +2,7 @@ import controlData from "@/data/v1-9-blocks-control.json";
 
 export type BlockId =
   | "hero"
+  | "comprendre"
   | "interpretation"
   | "kpis"
   | "stories"
@@ -48,6 +49,7 @@ export const BLOCK_LABELS: Record<BlockId, string> = {
   prochains_resultats: "Bandeau prix : Prochains résultats (archivé)",
   antithese: "Anti-thèse d’investissement",
   these: "Thèse d’investissement",
+  comprendre: "Comprendre la société",
 };
 
 export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
@@ -73,6 +75,7 @@ export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
   prochains_resultats: "La date des prochains résultats arrive.",
   antithese: "L’anti-thèse d’investissement est en préparation.",
   these: "La thèse d’investissement est en préparation.",
+  comprendre: "La présentation de la société est en préparation.",
 };
 
 type ControlData = {

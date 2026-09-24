@@ -31,6 +31,7 @@ export function EventTimeline({
           return (
             <button
               key={e.year}
+              data-blur-part="ligne"
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(null)}
               onClick={() => setHover(isHover ? null : i)}

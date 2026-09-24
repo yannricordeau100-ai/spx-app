@@ -41,6 +41,9 @@ import { useT } from "@/lib/i18n/provider";
    rangee « Clients · Moat » (moat-clients-row.tsx) rendue juste sous
    « Comprendre la societe » par company-view. */
 
+// Yann 24 sept 2026 : partie de floutage de chaque section de la description.
+const PARTIE_FLOUTAGE: Record<string, string> = { activity: "activite", products: "produits", customers: "clientele", edge: "force", positioning: "avance", tech_products: "avance", moat: "avance", risks: "avance" };
+
 export function CompanyProfileCard({
   company,
   accent = "#a78bfa",
@@ -99,7 +102,7 @@ export function CompanyProfileCard({
     lang === "de" ? s.labelDe : lang === "en" ? s.labelEn : s.label;
 
   return (
-    <section id="sec-profile" className="mt-2 scroll-mt-24">
+    <section id="sec-profile" data-blur="comprendre" className="mt-2 scroll-mt-24">
       {/* Yann 16 sept 2026 : bandeau de titre vide retire, le bloc commence directement. */}
       <h2 className="sr-only">{t("company.profile.section_title")}</h2>
 
@@ -163,7 +166,7 @@ export function CompanyProfileCard({
                 const text = content?.[s.key] ?? "";
                 if (!text) return null;
                 return (
-                  <div key={s.key} className="h-full pl-3" style={{ borderLeft: `2px solid ${accent}33` }}>
+                  <div key={s.key} data-blur-part={PARTIE_FLOUTAGE[s.key] ?? "avance"} className="h-full pl-3" style={{ borderLeft: `2px solid ${accent}33` }}>
                     <div className="mb-1 flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: accent }}>
                       <s.Icon className="size-3" />
                       {sectionLabel(s)}
@@ -184,7 +187,7 @@ export function CompanyProfileCard({
       {/* Dernière actualité — bloc séparé, full-width, conditionnel */}
       <div className="mt-4">
         {news ? (
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
+          <div data-blur-part="actualite" className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
             <div className="mb-2 flex items-baseline justify-between gap-3">
               <h3 className="flex items-center gap-2 font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-300">
                 <Newspaper className="size-3.5" style={{ color: accent }} />
@@ -262,7 +265,7 @@ export function SnapshotCard({
   const inner = (
     <>
       <div className="mb-3">
-        <h3 className="font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-200">
+        <h3 data-blur-part="snapshot" className="font-display text-[14px] font-semibold uppercase tracking-wider text-zinc-200">
           {t("company.snapshot.title")}
         </h3>
       </div>

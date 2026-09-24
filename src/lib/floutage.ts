@@ -155,7 +155,9 @@ export type PartieDeBloc =
   | "cites-une-fois" // sous bloc des KPI cites une seule fois
   | "reglage"      // curseur et choix de reference (bloc capacite)
   | "ecart"        // ecart au taux (bloc capacite)
-  | "reserve";     // bandeau de reserve (bloc capacite)
+  | "reserve"      // bandeau de reserve (bloc capacite)
+  // Bloc Comprendre la societe
+  | "activite" | "produits" | "clientele" | "force" | "avance" | "actualite" | "snapshot";
 
 export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   tout: "le bloc entier",
@@ -194,6 +196,13 @@ export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   reglage: "le réglage du taux",
   ecart: "l'écart au taux",
   reserve: "le bandeau de réserve",
+  activite: "Ce qu'elle fait",
+  produits: "Produits et services",
+  clientele: "Clients",
+  force: "Sa force",
+  avance: "les sections avancées (positionnement, technologies, avantages, risques)",
+  actualite: "l'actualité",
+  snapshot: "le snapshot boursier",
 };
 
 /** Paliers d abonnement, du plus ouvert au plus complet. */
@@ -244,13 +253,13 @@ export function libelleDeZone(z: Zone): string {
 export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
   hero: ["tout", "titre", "valeur", "variation", "graphique", "source"],
   kpis: ["tout", "titre", "tableau", "valeur", "variation", "indicateur", "qualite", "voir-plus"],
-  stories: ["tout", "titre", "texte", "source"],
+  stories: ["tout", "titre", "texte", "source", "carte"],
   repartition: ["tout", "titre", "onglets", "graphique", "tableau", "ligne", "valeur", "pourcentage"],
   governance: ["tout", "titre", "tableau", "texte", "ligne", "remuneration", "actionnaires"],
   // "note" (Yann 1er sept 2026) : la jauge de severite X/5 de chaque risque,
   // desormais pilotable separement — et laissee VISIBLE par defaut.
   risks: ["tout", "titre", "texte", "source", "note", "carte", "categorie", "tendance", "citation"],
-  events: ["tout", "titre", "tableau"],
+  events: ["tout", "titre", "tableau", "ligne"],
   ai_positioning: ["tout", "titre", "categorie", "texte", "citation", "original", "source"],
   dividend: ["tout", "titre", "valeur", "graphique"],
   // fleches, suivi et cites-une-fois seront ajoutes avec l interface des quatre conferences.
@@ -270,6 +279,7 @@ export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
   prochains_resultats: ["tout", "valeur"],
   antithese: ["tout", "titre", "synthese", "texte", "carte", "ligne"],
   these: ["tout", "titre", "synthese", "texte", "carte", "ligne"],
+  comprendre: ["tout", "activite", "produits", "clientele", "force", "avance", "actualite", "snapshot"],
 };
 
 /** Transforme des zones nommees en regles, pour reutiliser applyFloutageRules. */
