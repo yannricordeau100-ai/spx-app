@@ -446,7 +446,8 @@ export async function proxy(request: NextRequest) {
   // deja restreint au proprietaire.
   // Yann 24 sept 2026 : /concepts (maquettes), /chart-lab (galerie) et /whoami
   // (diagnostic) sont des pages de travail, jamais servies sur le domaine public.
-  const PREFIXES_INTERNES = ["/sandbox", "/admin", "/desk-mtk9x4kp", "/email-lab", "/concepts", "/chart-lab", "/whoami"];
+  // Yann 24 sept 2026 : /faq et /populaire-investisseurs retires du site public.
+  const PREFIXES_INTERNES = ["/sandbox", "/admin", "/desk-mtk9x4kp", "/email-lab", "/concepts", "/chart-lab", "/whoami", "/faq", "/populaire-investisseurs"];
   if (isProdDomain && PREFIXES_INTERNES.some((p) => routePathname === p || routePathname.startsWith(p + "/"))) {
     return new NextResponse(null, { status: 404 });
   }

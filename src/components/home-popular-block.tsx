@@ -652,13 +652,10 @@ export function HomePopularBlock({
       </div>
 
       <div className="mt-6 flex justify-center">
-        <a
-          href="/populaire-investisseurs"
-          className="group inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/[0.06] px-3.5 py-2 text-[12.5px] font-medium text-violet-100 transition-all hover:bg-violet-500/15"
-        >
+        <span className="text-zinc-500">
           {t("home.popular.see_all")}
           <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-        </a>
+        </span>
       </div>
     </section>
   );

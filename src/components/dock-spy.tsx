@@ -272,7 +272,9 @@ export function DockRailLeft({ sections, showSocial = false }: { sections: DockS
   return (
     <nav className="group/rail hidden sm:block fixed left-3 top-1/2 z-40 -translate-y-1/2" aria-label="Sections de la fiche">
       <div className="flex flex-col items-start">
-        <div className="relative flex flex-col gap-1 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a]/90 p-1.5 backdrop-blur-md transition-[width] duration-200">
+        {/* Yann 24 sept 2026 : menu reduit au repos ; il reprend sa taille
+            pleine au survol et la garde tant que la souris reste dans la zone. */}
+        <div className="relative flex flex-col gap-0.5 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a]/90 p-1 backdrop-blur-md transition-all duration-200 group-hover/rail:gap-1 group-hover/rail:p-1.5">
           <span aria-hidden className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-violet-400/50 to-transparent" />
           {sections.map((s) => {
             const on = actif === s.id;
@@ -284,9 +286,9 @@ export function DockRailLeft({ sections, showSocial = false }: { sections: DockS
                 onClick={() => go(s.id)}
                 aria-label={s.label}
                 aria-current={on ? "true" : undefined}
-                className={`flex items-center gap-2.5 rounded-xl px-2 py-1.5 text-left transition-colors ${on ? "bg-violet-500/20 text-violet-100 shadow-[0_0_14px_rgba(167,139,250,0.35)]" : "text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100"}`}
+                className={`flex items-center gap-2.5 rounded-xl px-1.5 py-1 text-left transition-all group-hover/rail:px-2 group-hover/rail:py-1.5 ${on ? "bg-violet-500/20 text-violet-100 shadow-[0_0_14px_rgba(167,139,250,0.35)]" : "text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100"}`}
               >
-                <Icon className="size-4 shrink-0" />
+                <Icon className="size-3.5 shrink-0 transition-all group-hover/rail:size-4" />
                 <span className="max-w-0 overflow-hidden whitespace-nowrap font-mono text-[10.5px] uppercase tracking-wider opacity-0 transition-all duration-200 group-hover/rail:max-w-[160px] group-hover/rail:opacity-100">
                   {s.label}
                 </span>

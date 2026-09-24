@@ -191,8 +191,9 @@ export function BlocCapaciteB({ societe, reglage: ctrl, onReglage }: PropsBloc) 
       <BandeauReserve nombre={reserve} />
 
       <p className="mt-3 text-[11.5px] text-zinc-500">
-        Dernier exercice clos {societe.exercice ?? "non précisé"}
-        {societe.cloture ? `, arrêté au ${societe.cloture}` : ""}.
+        Données du dernier exercice fiscal clos
+        {societe.exercice ? ` (${societe.exercice}` : ""}
+        {societe.cloture ? `, arrêté au ${societe.cloture})` : societe.exercice ? ")" : ""}.
       </p>
     </section>
   );

@@ -13,7 +13,6 @@ import {
   Mic,
   Lightbulb,
   ShieldQuestion,
-  Link2,
 } from "lucide-react";
 import { DockRailLeft, type DockSpySection } from "@/components/dock-spy";
 import { BackToTop } from "@/components/back-to-top";
@@ -34,7 +33,6 @@ export function CompanyNavChrome() {
     { id: "sec-resultats", label: t("nav.resultats"), Icon: Mic },
     { id: "sec-these", label: t("nav.these"), Icon: Lightbulb },
     { id: "sec-att", label: t("nav.att"), Icon: ShieldQuestion },
-    { id: "sec-sources", label: t("nav.sources"), Icon: Link2 },
     // Yann 25 aout 2026 : bloc Super-KPI desactive, entree de nav retiree.
 
   ];

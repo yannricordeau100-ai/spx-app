@@ -21,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
     { path: "/", priority: 1.0, changeFrequency: "daily" },
-    { path: "/faq", priority: 0.8, changeFrequency: "weekly" },
+    // /faq retiree du site public (Yann 24 sept 2026)
     { path: "/pricing", priority: 0.7, changeFrequency: "monthly" },
     // populaire-investisseurs archivee (Yann 07 sept 2026)
     { path: "/legal/mentions", priority: 0.2, changeFrequency: "yearly" },

@@ -13,7 +13,7 @@ export async function GET() {
   const lignes: string[] = [
     "# Mettrik AI : questions fréquentes (texte intégral)",
     "",
-    `Source : ${base}/faq (mise à jour ${contenu.mis_a_jour}). Voir aussi ${base}/llms.txt`,
+    `Source : ${base} (mise à jour ${contenu.mis_a_jour}). Voir aussi ${base}/llms.txt`,
     "",
   ];
   for (const cat of contenu.categories) {
@@ -21,7 +21,7 @@ export async function GET() {
     if (!items.length) continue;
     lignes.push(`## ${cat.titre_fr}`, "");
     for (const it of items) {
-      lignes.push(`### ${it.q_fr}`, "", texteBrut(it.r_fr), "", `Lien : ${base}/faq#${it.id}`, "");
+      lignes.push(`### ${it.q_fr}`, "", texteBrut(it.r_fr), "", "");
     }
   }
   return new Response(lignes.join("\n"), {
