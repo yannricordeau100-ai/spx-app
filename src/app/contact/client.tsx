@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { TurnstileWidget } from "@/components/turnstile-widget";
 import { motion } from "motion/react";
-import { Send, Lock } from "lucide-react";
+import { Send } from "lucide-react";
 import type { Locale } from "@/lib/i18n/types";
 
 type Strings = {
   recipient_label: string;
   recipient_contact: string;
   recipient_support: string;
+  recipient_api: string;
   name_label: string;
   name_placeholder: string;
   email_label: string;
@@ -27,8 +28,8 @@ type Strings = {
   lang_notice: string;
 };
 
-export function ContactClient({ locale, strings }: { locale: Locale; strings: Strings }) {
-  const [recipient, setRecipient] = useState<"contact" | "support">("contact");
+export function ContactClient({ locale, strings, initialRecipient }: { locale: Locale; strings: Strings; initialRecipient?: "contact" | "support" | "api" }) {
+  const [recipient, setRecipient] = useState<"contact" | "support" | "api">(initialRecipient ?? "contact");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -90,11 +91,12 @@ export function ContactClient({ locale, strings }: { locale: Locale; strings: St
         </label>
         <select
           value={recipient}
-          onChange={(e) => setRecipient(e.target.value as "contact" | "support")}
+          onChange={(e) => setRecipient(e.target.value as "contact" | "support" | "api")}
           className="block w-full rounded-lg border border-[#262626] bg-[#0c0c0c] px-3 py-2.5 text-[14px] text-zinc-100 outline-none focus:border-violet-400/60"
         >
           <option value="contact">{strings.recipient_contact}</option>
           <option value="support">{strings.recipient_support}</option>
+          <option value="api">{strings.recipient_api}</option>
         </select>
       </div>
 
@@ -168,10 +170,8 @@ export function ContactClient({ locale, strings }: { locale: Locale; strings: St
       )}
 
       <div className="flex items-center justify-between gap-3 pt-2">
-        <p className="inline-flex items-start gap-1.5 text-[11px] text-zinc-500">
-          <Lock className="mt-0.5 size-3 shrink-0" />
-          <span>{strings.privacy_note}</span>
-        </p>
+        {/* Yann 24 sept 2026 : mention « Aucune revente » retiree. */}
+        <span />
         <button
           type="submit"
           disabled={busy}

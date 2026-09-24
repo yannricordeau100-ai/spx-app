@@ -1098,6 +1098,7 @@ export const DICTIONARY: Dict = {
   },
   "contact.recipient_label": { fr: "Type de demande", en: "Request type", de: "Anfragetyp" },
   "contact.recipient_contact": { fr: "Contact général (commercial, presse, partenariat)", en: "General contact (sales, press, partnership)", de: "Allgemein (Vertrieb, Presse, Partnerschaft)" },
+  "contact.recipient_api": { fr: "Accès API (professionnels)", en: "API access (professionals)", de: "API-Zugang (Unternehmen)" },
   "contact.recipient_support": { fr: "Support technique (bug, problème de compte)", en: "Technical support (bug, account issue)", de: "Technischer Support (Bug, Kontoproblem)" },
   "contact.name_label": { fr: "Votre nom", en: "Your name", de: "Dein Name" },
   "contact.name_placeholder": { fr: "Warren Buffet", en: "Warren Buffet", de: "Warren Buffet" },

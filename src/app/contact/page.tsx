@@ -11,7 +11,9 @@ export const metadata = {
   description: "Une question ? On répond. Contact général ou support technique.",
 };
 
-export default async function ContactPage() {
+export default async function ContactPage({ searchParams }: { searchParams?: Promise<{ type?: string }> }) {
+  const sp = searchParams ? await searchParams : undefined;
+  const initialRecipient = sp?.type === "api" ? "api" : sp?.type === "support" ? "support" : "contact";
   const locale = await getServerLocale();
   const t = (k: string) => translate(k, locale);
 
@@ -34,11 +36,13 @@ export default async function ContactPage() {
         </p>
 
         <ContactClient
+          initialRecipient={initialRecipient}
           locale={locale}
           strings={{
             recipient_label: t("contact.recipient_label"),
             recipient_contact: t("contact.recipient_contact"),
             recipient_support: t("contact.recipient_support"),
+            recipient_api: t("contact.recipient_api"),
             name_label: t("contact.name_label"),
             name_placeholder: t("contact.name_placeholder"),
             email_label: t("contact.email_label"),

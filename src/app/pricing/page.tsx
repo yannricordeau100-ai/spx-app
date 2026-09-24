@@ -200,7 +200,7 @@ export default async function PricingPage() {
             <li className="rounded-lg border border-white/[0.07] px-3 py-2">Volumes et quotas définis selon votre usage</li>
             <li className="rounded-lg border border-white/[0.07] px-3 py-2">Tarification sur devis, facturation séparée des forfaits</li>
           </ul>
-          <a href="mailto:contact@mettrik.ai?subject=Acc%C3%A8s%20API%20Mettrik%20AI" className="mt-6 inline-flex items-center gap-2 rounded-xl border border-violet-400/50 bg-violet-500/15 px-6 py-3 text-[14px] font-bold text-violet-100 hover:bg-violet-500/25">
+          <a href="/contact?type=api" className="mt-6 inline-flex items-center gap-2 rounded-xl border border-violet-400/50 bg-violet-500/15 px-6 py-3 text-[14px] font-bold text-violet-100 hover:bg-violet-500/25">
             <Mail className="size-4" /> Demander un accès API
           </a>
         </section>

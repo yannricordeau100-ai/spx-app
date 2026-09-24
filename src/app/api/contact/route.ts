@@ -23,7 +23,9 @@ export async function POST(req: NextRequest) {
   }
 
   // Validation basique
-  if (!recipient || (recipient !== "contact" && recipient !== "support")) {
+  // Yann 24 sept 2026 : type de demande « API ». La base n accepte que
+  // contact et support : une demande API est rangee en contact, sujet prefixe.
+  if (!recipient || (recipient !== "contact" && recipient !== "support" && recipient !== "api")) {
     return NextResponse.json({ error: "invalid_recipient" }, { status: 400 });
   }
   if (!name || !email || !subject || !msgBody) {
@@ -41,10 +43,10 @@ export async function POST(req: NextRequest) {
   const ua = req.headers.get("user-agent") ?? null;
 
   const { error } = await supabase.from("desk_contact_messages").insert({
-    recipient,
+    recipient: recipient === "api" ? "contact" : recipient,
     sender_name: String(name).slice(0, 100),
     sender_email: String(email).toLowerCase().trim(),
-    subject: String(subject).slice(0, 200),
+    subject: (recipient === "api" ? "[API] " : "") + String(subject).slice(0, 200),
     body: String(msgBody).slice(0, 5000),
     source_locale: locale ? String(locale).slice(0, 10) : null,
     source_ip: ip,

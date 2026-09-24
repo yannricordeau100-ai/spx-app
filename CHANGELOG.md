@@ -787,3 +787,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.24.14 (24 Sep 2026 21:26, apres 005f3106b8)
 - Societes retirees : vraie 404
+
+## v2026.09.24.15 (24 Sep 2026 23:32, apres c5b98a03d1)
+- Captcha invisible partout, type de demande API, concept rachats

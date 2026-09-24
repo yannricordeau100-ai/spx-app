@@ -25,6 +25,7 @@ declare global {
           theme?: "dark" | "light" | "auto";
           size?: "normal" | "flexible" | "compact";
           appearance?: "always" | "execute" | "interaction-only";
+          execution?: "render" | "execute";
           language?: string;
           callback?: (token: string) => void;
           "error-callback"?: (code?: string) => void;
@@ -36,6 +37,7 @@ declare global {
       ) => string;
       remove: (widgetId: string) => void;
       reset: (widgetId: string) => void;
+      execute: (widgetId: string) => void;
     };
     onloadTurnstileCallback?: () => void;
   }
@@ -140,7 +142,10 @@ export function TurnstileWidget(props?: {
   const theme = props?.theme ?? "dark";
   // Yann 16 sept 2026 : « flexible » = la carte Cloudflare prend la largeur
   // disponible au lieu de deborder de la fenetre de connexion.
-  const size = props?.size ?? "flexible";
+  // Yann 24 sept 2026 : captcha INVISIBLE par defaut, partout. Il ne tourne
+  // qu au clic sur le bouton d envoi et ne s affiche que si Cloudflare exige
+  // une verification (comme sur les autres sites).
+  const size = props?.size ?? "invisible";
   // Yann 19 sept 2026 : « invisible » = aucun cadre Cloudflare affiche (mode
   // « interaction-only »). Le widget ne se montre que si Cloudflare reclame
   // vraiment un geste de l utilisateur. Sert au changement de mot de passe
@@ -158,6 +163,10 @@ export function TurnstileWidget(props?: {
   // (110200 = domaine non autorise sur le widget, 300xxx = reseau ou extension).
   const [codeErreur, setCodeErreur] = useState<string>("");
   const [interactionRequise, setInteractionRequise] = useState(false);
+  const [essaiEnvoi, setEssaiEnvoi] = useState(false);
+  const champRef = useRef<HTMLInputElement | null>(null);
+  const invisibleRef = useRef(false);
+  invisibleRef.current = invisible;
   // Taille retenue apres mesure de la place disponible. `null` = pas encore
   // mesuree : on ne rend pas le widget tant qu on ne sait pas s il tient.
   const [tailleMesuree, setTailleMesuree] = useState<"flexible" | "compact" | null>(null);
@@ -226,9 +235,11 @@ export function TurnstileWidget(props?: {
             theme,
             size: tailleRendue,
             appearance: invisible ? "interaction-only" : "always",
+            ...(invisible ? { execution: "execute" as const } : {}),
             language,
             callback: (tok: string) => {
               setToken(tok);
+              if (champRef.current) champRef.current.value = tok;
               setStatus("ready");
               if (attente.current) {
                 const f = attente.current;
@@ -275,6 +286,7 @@ export function TurnstileWidget(props?: {
     const apresEnvoi = () => {
       window.setTimeout(() => {
         setToken("");
+        if (champRef.current) champRef.current.value = "";
         if (widgetIdRef.current && window.turnstile) {
           try { window.turnstile.reset(widgetIdRef.current); } catch { /* widget deja retire */ }
         }
@@ -296,6 +308,7 @@ export function TurnstileWidget(props?: {
           attente.current = resolve;
           try {
             window.turnstile.reset(widgetIdRef.current);
+            if (invisibleRef.current) window.turnstile.execute(widgetIdRef.current);
           } catch {
             attente.current = null;
             reject(new Error("captcha_reset_impossible"));
@@ -313,6 +326,33 @@ export function TurnstileWidget(props?: {
       ref.current = null;
     };
   }, [props, props?.apiRef]);
+
+  // Mode invisible : au clic sur le bouton d envoi, si aucun jeton n est pret,
+  // on suspend l envoi, on lance la verification Cloudflare (invisible sauf
+  // si un geste est exige), puis on renvoie le formulaire avec le jeton.
+  useEffect(() => {
+    if (!invisible) return;
+    const form = containerRef.current?.closest("form");
+    if (!form) return;
+    const auClic = (ev: Event) => {
+      if (champRef.current?.value) return; // jeton pret : l envoi continue
+      if (!widgetIdRef.current || !window.turnstile) return;
+      ev.preventDefault();
+      ev.stopImmediatePropagation();
+      setEssaiEnvoi(true);
+      attente.current = () => {
+        window.setTimeout(() => form.requestSubmit(), 0);
+      };
+      try {
+        window.turnstile.reset(widgetIdRef.current);
+        window.turnstile.execute(widgetIdRef.current);
+      } catch {
+        attente.current = null;
+      }
+    };
+    form.addEventListener("submit", auClic, true);
+    return () => form.removeEventListener("submit", auClic, true);
+  }, [invisible, tailleRendue]);
 
   const premierSignal = useRef(true);
   useEffect(() => {
@@ -372,8 +412,8 @@ export function TurnstileWidget(props?: {
           }
         />
       )}
-      <input type="hidden" name={fieldName} value={token} />
-      {status === "error" && !invisible && (
+      <input ref={champRef} type="hidden" name={fieldName} value={token} readOnly />
+      {status === "error" && (!invisible || essaiEnvoi) && (
         <p className="mt-1.5 text-[11px] text-rose-400">
           Captcha indisponible{codeErreur ? ` (code ${codeErreur})` : ""}. Recharge la page.
         </p>

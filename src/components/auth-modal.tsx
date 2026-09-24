@@ -121,7 +121,7 @@ export function AuthModal() {
       return;
     }
     if (!captchaToken && jetonCaptcha !== "bypass") {
-      setSigninErr("Coche la vérification anti-robot puis réessaie.");
+      setSigninErr("Vérification anti-robot impossible, réessaie dans quelques secondes.");
       setSigninBusy(false);
       envoiEnCours.current = false;
       return;
@@ -129,7 +129,7 @@ export function AuthModal() {
     if (captchaToken && jetonsSoumis.current.has(captchaToken)) {
       // jeton deja consomme par une tentative precedente : Supabase le
       // refuserait avec « already-seen-response ». On remet la case a zero.
-      setSigninErr("Vérification anti-robot à refaire : recoche la case puis reclique sur Se connecter.");
+      setSigninErr("Vérification anti-robot à refaire : reclique sur Se connecter.");
       setSigninBusy(false);
       envoiEnCours.current = false;
       setCleMontageCaptcha((k) => k + 1);
@@ -193,7 +193,7 @@ export function AuthModal() {
             : m.includes("Email not confirmed")
               ? "Email pas encore confirmé. Vérifie ta boîte mail."
               : /captcha/i.test(m)
-                ? "Vérification anti-robot à refaire : recoche la case puis reclique sur Se connecter."
+                ? "Vérification anti-robot à refaire : reclique sur Se connecter."
                 : (m || "Connexion impossible. Réessaie dans un instant."),
         );
         setSigninBusy(false);
@@ -244,7 +244,7 @@ export function AuthModal() {
       const msg = errMsg === "timeout"
         ? "Connexion trop longue (15s). Vérifie ton réseau et réessaie."
         : `Erreur : ${errMsg.slice(0, 200)}`;
-      setSigninErr(/captcha/i.test(msg) ? "Vérification anti-robot à refaire : recoche la case puis reclique sur Se connecter." : msg);
+      setSigninErr(/captcha/i.test(msg) ? "Vérification anti-robot à refaire : reclique sur Se connecter." : msg);
       setSigninBusy(false);
       envoiEnCours.current = false;
       setCleCaptcha((k) => k + 1);
@@ -421,7 +421,7 @@ export function AuthModal() {
                       className="w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
                     />
                   </Field>
-                  <TurnstileWidget theme="dark" size="flexible" cadre />
+                  <TurnstileWidget theme="dark" />
                   <SubmitButton>{t("auth.cta.send_reset")}</SubmitButton>
                 </form>
                 <button
@@ -483,8 +483,6 @@ export function AuthModal() {
                       key={cleMontageCaptcha}
                       signalReset={cleCaptcha}
                       theme="dark"
-                      size="flexible"
-                      cadre
                       apiRef={apiCaptcha}
                     />
                     {signinErr && (
@@ -529,7 +527,7 @@ export function AuthModal() {
                     </Field>
                     {/* Captcha Turnstile : token injecté dans le form en tant
                         que champ caché 'cf-turnstile-response'. */}
-                    <TurnstileWidget theme="dark" size="flexible" cadre />
+                    <TurnstileWidget theme="dark" />
                     <SubmitButton>{t("auth.cta.signup")}</SubmitButton>
                     {/* Yann 18 sept 2026 : la case « ne pas recevoir d offres » est deplacee dans Mon compte. */}
                     {/* Yann 31 aout 2026 : acceptation par le clic (clickwrap).
