@@ -157,7 +157,9 @@ export type PartieDeBloc =
   | "ecart"        // ecart au taux (bloc capacite)
   | "reserve"      // bandeau de reserve (bloc capacite)
   // Bloc Comprendre la societe
-  | "activite" | "produits" | "clientele" | "force" | "avance" | "actualite" | "snapshot";
+  | "activite" | "produits" | "clientele" | "force" | "avance" | "actualite" | "snapshot"
+  // 25 sept 2026 : bloc des societes rachetees.
+  | "frise" | "liste";
 
 export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   tout: "le bloc entier",
@@ -203,6 +205,8 @@ export const LIBELLES_PARTIES: Record<PartieDeBloc, string> = {
   avance: "les sections avancées (positionnement, technologies, avantages, risques)",
   actualite: "l'actualité",
   snapshot: "le snapshot boursier",
+  frise: "la frise des rachats (version A)",
+  liste: "la liste des sociétés rachetées (version B)",
 };
 
 /** Paliers d abonnement, du plus ouvert au plus complet. */
@@ -279,6 +283,7 @@ export const PARTIES_PAR_BLOC: Partial<Record<BlockId, PartieDeBloc[]>> = {
   antithese: ["tout", "titre", "synthese", "texte", "carte", "ligne"],
   these: ["tout", "titre", "synthese", "texte", "carte", "ligne"],
   comprendre: ["tout", "activite", "produits", "clientele", "force", "avance", "actualite", "snapshot"],
+  rachats: ["tout", "titre", "frise", "liste", "valeur", "ligne", "fleches"],
 };
 
 /** Transforme des zones nommees en regles, pour reutiliser applyFloutageRules. */

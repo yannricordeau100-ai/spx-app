@@ -24,7 +24,9 @@ export type BlockId =
   | "unites"
   | "prochains_resultats"
   | "antithese"
-  | "these";
+  | "these"
+  // 25 sept 2026 : societes rachetees depuis 2016 (versions A, B, C).
+  | "rachats";
 
 export const BLOCK_LABELS: Record<BlockId, string> = {
   hero: "Hero KPI",
@@ -50,6 +52,7 @@ export const BLOCK_LABELS: Record<BlockId, string> = {
   antithese: "Anti-thèse d’investissement",
   these: "Thèse d’investissement",
   comprendre: "Comprendre la société",
+  rachats: "Sociétés rachetées",
 };
 
 export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
@@ -76,6 +79,7 @@ export const BLOCK_PLACEHOLDER_HINTS: Record<BlockId, string> = {
   antithese: "L’anti-thèse d’investissement est en préparation.",
   these: "La thèse d’investissement est en préparation.",
   comprendre: "La présentation de la société est en préparation.",
+  rachats: "Les sociétés rachetées depuis 2016 arrivent.",
 };
 
 type ControlData = {

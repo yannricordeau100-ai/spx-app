@@ -263,13 +263,25 @@ def depuis_wikidata(t, nom):
       ?x wdt:P31/wdt:P279* wd:Q4830453 .
       SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en,fr,de" }} }}""")
     out = []
+    base_nom = norm(nom)[:6]
     for r in rows:
         d = r.get("d", {}).get("value", "")
         lab = r["xLabel"]["value"]
         if not d or int(d[:4]) < AN_MIN or re.fullmatch(r"Q\d+", lab):
             continue
-        out.append({"nom": lab, "annee": int(d[:4]), "montant": None, "citation": None,
+        if base_nom and base_nom in norm(lab):
+            continue  # filiale au nom du groupe (« Stellantis Europe ») : pas un rachat
+        out.append({"nom": lab, "annee": int(d[:4]), "_date": d[:10], "montant": None, "citation": None,
                     "source": f"Wikidata {r['x']['value'].rsplit('/', 1)[1]}", "moteur": "aucun"})
+    # 25 sept 2026 : une fusion ou une reorganisation change le proprietaire de
+    # nombreuses entites le MEME jour (PSA-FCA : Fiat, Maserati...). Quatre
+    # entites ou plus a la meme date = restructuration, pas des rachats.
+    parjour = {}
+    for x in out:
+        parjour[x["_date"]] = parjour.get(x["_date"], 0) + 1
+    out = [x for x in out if parjour[x["_date"]] < 4]
+    for x in out:
+        x.pop("_date", None)
     return out, q
 
 
@@ -319,6 +331,13 @@ def index():
         idx[d["ticker"]] = {"nom": d["nom"], "nb": d["nb"]}
     json.dump({"maj": time.strftime("%Y-%m-%d %H:%M"), "depuis": AN_MIN, "societes": idx},
               open(ROOT / "src/data/rachats-index.json", "w"), ensure_ascii=False, indent=1)
+    # classement du bloc de fiche (version C) : top 5 Etats-Unis et top 5 Europe
+    def top5(filtre):
+        ts = sorted([t for t in idx if filtre(t) and idx[t]["nb"] > 0], key=lambda t: -idx[t]["nb"])[:5]
+        return [{"ticker": t, "nom": idx[t]["nom"], "nb": idx[t]["nb"]} for t in ts]
+    eu = lambda t: "." in t and t not in ("BRK.B", "BF.B")
+    json.dump({"maj": time.strftime("%Y-%m-%d"), "depuis": AN_MIN, "us": top5(lambda t: not eu(t)), "eu": top5(eu)},
+              open(ROOT / "src/data/rachats-classement.json", "w"), ensure_ascii=False, indent=1)
     # detail des 40 plus gros acheteurs pour la page concept (import statique)
     top = sorted(idx, key=lambda t: -idx[t]["nb"])[:40]
     json.dump([json.load(open(OUT / f"{t.lower()}.json")) for t in top],

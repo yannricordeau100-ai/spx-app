@@ -802,3 +802,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.25.4 (25 Sep 2026 01:11, apres af8b3885d7)
 - Emails et alertes (journal, alertes de volume contact et inscriptions) ; FAQ sources ; accueil sans agregats financiers ; rachats complets
+
+## v2026.09.25.5 (25 Sep 2026 01:30, apres 4d0b3ff09c)
+- Bloc Societes rachetees (A B C) sous la gouvernance ; fuites sous le flou corrigees

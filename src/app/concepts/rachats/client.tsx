@@ -34,7 +34,7 @@ function totalPublie(r: Rachat[]): string | null {
 function BasDeBloc() {
   return (
     <p className="mt-3 border-t border-white/[0.06] pt-2 font-mono text-[10px] text-zinc-500">
-      Rachats finalisés depuis 2016, publiés par la société dans ses rapports annuels. Les petites acquisitions non nommées par la société n'apparaissent pas.
+      Rachats finalisés depuis 2016. Les petites acquisitions non nommées par la société n'apparaissent pas.
     </p>
   );
 }

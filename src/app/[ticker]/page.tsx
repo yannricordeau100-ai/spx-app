@@ -9,6 +9,7 @@ import { COMPANIES, TICKERS, TICKER_ALIASES, getCompany } from "@/lib/data";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import V17_PUBLIC from "@/data/v1-7-public.json";
+import RACHATS_CLASSEMENT from "@/data/rachats-classement.json";
 import RETIREES from "@/data/societes-retirees.json";
 import { loadV17Company } from "@/lib/company-core/load-company";
 import { assainirPourClient } from "@/lib/company-core/assainir-payload";
@@ -21,6 +22,8 @@ import {
   caviardeCompanyPourGratuit,
   caviardeTranscriptDocPourGratuit,
   caviardeTranscriptsPourGratuit,
+  caviardeSuiviPourGratuit,
+  caviardeRachatsPourGratuit,
 } from "@/lib/floutage-caviardage";
 import { chargeZonesFloutage } from "@/lib/desk/floutage-zones";
 import { zonesPourPalier, type PalierFloutage } from "@/lib/floutage";
@@ -103,6 +106,23 @@ async function loadTranscriptSuiviBrut(ticker: string) {
   }
 }
 const loadTranscriptSuivi = unstable_cache(loadTranscriptSuiviBrut, ["fiche-transcript-suivi", VERSION], { revalidate: 21600, tags: ["fiches"] });
+
+// Yann 25 sept 2026 : societes rachetees depuis 2016 (src/data/rachats) et
+// classement des plus gros acheteurs du site (versions A, B, C du bloc).
+async function loadRachats(ticker: string): Promise<import("@/components/rachats-block").RachatsFiche> {
+  const classement = RACHATS_CLASSEMENT as { depuis: number; us: { ticker: string; nom: string; nb: number }[]; eu: { ticker: string; nom: string; nb: number }[] };
+  let societe: import("@/components/rachats-block").RachatsFiche["societe"] = null;
+  try {
+    const raw = await fs.readFile(path.join(process.cwd(), "src/data/rachats", `${ticker.toLowerCase()}.json`), "utf-8");
+    const d = JSON.parse(raw) as { nb: number; rachats: { nom: string; annee: number | null; montant: string | null }[] };
+    const eu = ticker.includes(".") && !["BRK.B", "BF.B"].includes(ticker.toUpperCase());
+    // Europe : couverture partielle (Wikidata), un zero n est pas une preuve.
+    societe = { nb: d.nb, rachats: d.rachats.map((r) => ({ nom: r.nom, annee: r.annee, montant: r.montant })), couverte: !eu || d.nb > 0 };
+  } catch {
+    societe = null;
+  }
+  return { depuis: classement.depuis, societe, classement: { us: classement.us, eu: classement.eu } };
+}
 
 const loadTranscriptSummary = unstable_cache(
   loadTranscriptSummaryBrut,
@@ -251,7 +271,7 @@ export default async function TickerPage({
   // MEME TEMPS au lieu de s enchainer (fiche, transcript, resume, blocs
   // desactives, palier, zones de floutage). Mesure : 5 allers-retours
   // sequentiels vers Supabase et le disque devenaient 1 seul temps d attente.
-  const [r, transcript, transcriptSummary, disabledBlocks, tierResolu, zonesChargees, transcriptSuivi] = await Promise.all([
+  const [r, transcript, transcriptSummary, disabledBlocks, tierResolu, zonesChargees, transcriptSuivi, rachats] = await Promise.all([
     loadV17Company(ticker, { mode: "v18", locale }),
     loadTranscript(ticker),
     loadTranscriptSummary(ticker),
@@ -259,6 +279,7 @@ export default async function TickerPage({
     resolveFreemiumTier(),
     chargeZonesFloutage(ticker.toUpperCase()),
     loadTranscriptSuivi(ticker),
+    loadRachats(ticker),
   ]);
   // Yann 24 sept 2026 : dates des conferences disponibles (la plus recente d abord).
   const transcriptDates: string[] = ((transcript as { calls?: { date?: string }[] } | null)?.calls ?? [])
@@ -363,7 +384,8 @@ export default async function TickerPage({
           transcript={assainirPourClient(estGratuit ? caviardeTranscriptDocPourGratuit(transcript, zonesEffectives) : transcript)}
           transcriptSummary={assainirPourClient(servedTranscriptSummary)}
           transcriptDates={transcriptDates}
-          transcriptSuivi={freemiumTier === "premium" || freemiumTier === "max" ? transcriptSuivi : transcriptSuivi ? { ...transcriptSuivi } : null}
+          transcriptSuivi={freemiumTier === "premium" || freemiumTier === "max" ? transcriptSuivi : caviardeSuiviPourGratuit(transcriptSuivi)}
+          rachats={estGratuit ? caviardeRachatsPourGratuit(rachats, zonesEffectives) : rachats}
           // Yann 23 sept 2026 : v18Mode etait actif EN DUR ici, alors que le
           // composant qu il declenche annonce lui meme ne jamais devoir
           // s afficher en production. Resultat : un carton rouge « Bloc a

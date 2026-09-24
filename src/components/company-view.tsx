@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { RachatsBlock, type RachatsFiche } from "@/components/rachats-block";
 import { applyFloutageRules, ajouteAppelsAbonnement, zonesEnRegles, type FloutageRule, type Zone } from "@/lib/floutage";
 // Yann 30 aout 2026 : l ancien systeme de flou a chemins CSS
 // (floutage-free-mode.json, selecteurs fragiles casses a chaque refonte) est
@@ -329,6 +330,7 @@ export function CompanyView({
   transcriptSummary = null,
   transcriptDates = [],
   transcriptSuivi = null,
+  rachats = null,
   v18Mode = false,
   freemiumTier,
   captureInscription = false,
@@ -346,6 +348,8 @@ export function CompanyView({
   /** Yann 24 sept 2026 : dates des conferences disponibles et suivi des KPI entre conferences. */
   transcriptDates?: string[];
   transcriptSuivi?: SuiviKpi | null;
+  /** Yann 25 sept 2026 : societes rachetees depuis 2016 (bloc sous la gouvernance). */
+  rachats?: RachatsFiche | null;
   /** V1.8 : affiche les blocs manquants en placeholder rouge au lieu de
    *  les masquer. Permet à Yann de voir ce qu'il manque sur chaque société. */
   v18Mode?: boolean;
@@ -2369,6 +2373,11 @@ export function CompanyView({
                 }
               : {})}
           />
+        )}
+
+        {/* Yann 25 sept 2026 : societes rachetees, juste sous la gouvernance. */}
+        {rachats && isBlockEnabled("rachats", company.ticker) && !isDisabled("rachats") && (
+          <RachatsBlock data={rachats} accent={accent} />
         )}
 
         {/* AI positioning — Yann 20 mai 2026 : masquer si stance=absent (= 10-K ne mentionne pas IA).

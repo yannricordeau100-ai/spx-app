@@ -108,7 +108,7 @@ export function TranscriptNavigation({
       {suivi && (suivi.suivi.length > 0 || suivi.cites_une_fois.length > 0) && (
         <div className="mb-4 grid gap-3 lg:grid-cols-2">
           {suivi.suivi.length > 0 && (
-            <div data-blur-part="suivi" className="rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4">
+            <div data-blur-part="suivi" className={`rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4${accesArchives ? "" : " pointer-events-none select-none blur-[5px]"}`}>
               <div className="mb-2 font-mono text-[11px] uppercase tracking-wider text-zinc-400">Suivi des KPI sur {suivi.conferences.length} conférences</div>
               <ul className="space-y-1.5">
                 {suivi.suivi.slice(0, 12).map((g) => (
@@ -123,7 +123,7 @@ export function TranscriptNavigation({
             </div>
           )}
           {suivi.cites_une_fois.length > 0 && (
-            <div data-blur-part="cites-une-fois" className="rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4">
+            <div data-blur-part="cites-une-fois" className={`rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4${accesArchives ? "" : " pointer-events-none select-none blur-[5px]"}`}>
               <div className="mb-2 font-mono text-[11px] uppercase tracking-wider text-zinc-400">Cités une fois</div>
               <ul className="space-y-1.5">
                 {suivi.cites_une_fois.slice(0, 12).map((g) => (

@@ -155,6 +155,10 @@ export function caviardeCompanyPourGratuit(company: Company, zones: Zone[]): Com
     if (estActive(zones, "moat", "tendance") && c.moat.justification_mettrik) {
       c.moat.justification_mettrik = caviarde(c.moat.justification_mettrik);
     }
+    // 25 sept 2026 (audit du flou) : la note « Important / Moyen / Aucun »
+    // partait en clair sous le flou, et sa couleur la trahissait aussi. Elle
+    // est remplacee par un faux libelle (pastille grise neutre).
+    if (estActive(zones, "moat", "niveau") && c.moat.niveau) c.moat.niveau = caviarde(c.moat.niveau);
   }
 
   // 9 sept 2026 : concentration clients (commentaires, noms, pourcentages).
@@ -168,8 +172,9 @@ export function caviardeCompanyPourGratuit(company: Company, zones: Zone[]): Com
     }
     if (estActive(zones, "clients", "noms") && cc.top && Array.isArray(cc.top.clients)) cc.top.clients = cc.top.clients.map((n) => caviarde(n));
     if (estActive(zones, "clients", "valeur") || estActive(zones, "clients", "graphique")) {
-      if (cc.top && typeof cc.top.pct === "number") cc.top.pct = Math.min(99, caviardeNombre(cc.top.pct));
-      if (cc.top10 && typeof cc.top10.pct === "number") cc.top10.pct = Math.min(99, caviardeNombre(cc.top10.pct));
+      // 25 sept 2026 : la borne « < 1 % » (valeur texte) restait en clair.
+      if (cc.top && (typeof cc.top.pct === "number" || cc.top.pct === "<1")) cc.top.pct = Math.min(99, caviardeNombre(typeof cc.top.pct === "number" ? cc.top.pct : 0.7));
+      if (cc.top10 && (typeof cc.top10.pct === "number" || cc.top10.pct === "<1")) cc.top10.pct = Math.min(99, caviardeNombre(typeof cc.top10.pct === "number" ? cc.top10.pct : 0.7));
     }
   }
 
@@ -225,4 +230,60 @@ export function caviardeTranscriptsPourGratuit(
   caviarded.quarter = quarter;
   if (caviarded.summary && s.summary) caviarded.summary.sentiment = s.summary.sentiment;
   return caviarded;
+}
+
+/**
+ * 25 sept 2026 (audit du flou) : le suivi des KPI des conferences (Premium et
+ * Max) partait EN CLAIR aux paliers anonyme et gratuit (simple copie), soit
+ * toutes les valeurs et citations. Tout le contenu est remplace par du
+ * charabia de meme forme ; seuls les reperes de structure restent.
+ */
+const CLES_SUIVI_PRESERVEES = new Set(["ticker", "conferences", "date", "dates", "cle", "theme", "famille", "periode"]);
+function caviardeSuivi(v: unknown, cle = ""): unknown {
+  if (CLES_SUIVI_PRESERVEES.has(cle)) return v;
+  if (typeof v === "string") return caviarde(v);
+  if (typeof v === "number") return caviardeNombre(v);
+  if (Array.isArray(v)) return v.map((x) => caviardeSuivi(x));
+  if (v && typeof v === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, x] of Object.entries(v as Record<string, unknown>)) out[k] = caviardeSuivi(x, k);
+    return out;
+  }
+  return v;
+}
+export function caviardeSuiviPourGratuit<T>(suivi: T | null | undefined): T | null {
+  if (!suivi) return null;
+  return caviardeSuivi(JSON.parse(JSON.stringify(suivi))) as T;
+}
+
+/**
+ * 25 sept 2026 : bloc « Sociétés rachetées ». Si une de ses zones est floutée
+ * pour le palier, TOUT ce qui est sous le flou est crypté : noms, années,
+ * montants, nombre de rachats, lignes du classement. Les textes fixes (titre,
+ * « depuis 2016 ») ne sont pas des donnees et restent lisibles.
+ */
+export function caviardeRachatsPourGratuit<
+  T extends {
+    depuis: number;
+    societe: { nb: number; rachats: { nom: string; annee: number | null; montant: string | null }[]; couverte: boolean } | null;
+    classement: { us: { ticker: string; nom: string; nb: number }[]; eu: { ticker: string; nom: string; nb: number }[] };
+  },
+>(d: T | null, zones: Zone[]): T | null {
+  if (!d) return d;
+  const actif = (p: string) => estActive(zones, "rachats", p);
+  const c: T = JSON.parse(JSON.stringify(d));
+  if (c.societe && (actif("frise") || actif("liste") || actif("valeur"))) {
+    c.societe.nb = Math.max(1, Math.round(caviardeNombre(c.societe.nb)));
+    c.societe.rachats = c.societe.rachats.map((r) => ({
+      nom: caviarde(r.nom),
+      annee: r.annee ? 2016 + (Math.round(caviardeNombre(r.annee)) % 10) : null,
+      montant: r.montant ? caviarde(r.montant) : null,
+    }));
+  }
+  if (actif("ligne")) {
+    const f = (l: { ticker: string; nom: string; nb: number }[]) =>
+      l.map((x) => ({ ticker: "", nom: caviarde(x.nom), nb: Math.max(1, Math.round(caviardeNombre(x.nb))) }));
+    c.classement = { us: f(c.classement.us), eu: f(c.classement.eu) };
+  }
+  return c;
 }
