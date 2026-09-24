@@ -495,7 +495,7 @@ export const DICTIONARY: Dict = {
     fr: "Comment cette note a été calculée",
     en: "How this score was computed",
   },
-  "risks.score_scale_title": { fr: "Barème", en: "Scale" },
+  "risks.score_scale_title": { fr: "Critères", en: "Scale" },
   "risks.score_scale_1": {
     fr: "Position dans le rapport de la société (ordre officiel)",
     en: "Position in the company report (official order)",
