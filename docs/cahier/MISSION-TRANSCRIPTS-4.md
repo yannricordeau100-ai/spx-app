@@ -96,3 +96,4 @@ ETA global annonce a Yann : 4 jours, tableau d etat toutes les deux heures.
 - Modele : Fable pour les taches cruciales ; si limite Fable atteinte, Opus 5.5 (bascule du 24 sept vers 11 h). Casse a respecter mot pour mot (« Mid-50s » refuse si ecrit « mid-50s »).
 - Avant de relancer une societe interrompue : supprimer ses sorties partielles dans /tmp/transcripts-kpi.
 - Pas de mise en ligne des donnees sans « go n0 » ; la route /api/transcripts et la navigation sont deja en preversion.
+- Controle de completude : densite mediane 9,4 KPI pour 10 000 caracteres. Sous 3, extraction jugee incomplete, supprimee et relancee avec la consigne « lire l integralite du texte » (cas CLX et CL sous Opus le 24 sept).
