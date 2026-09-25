@@ -212,17 +212,20 @@ def construit(spec: dict, theme: str) -> str:
     # vertical, a gauche des graduations, sans jamais les toucher.
     marque_axe = "%" if pourcent else unite_axe_deduite(spec)
     if marque_axe:
-        large = max(largeur_texte(format_valeur(g, ""), 11, mono=True) for g in grads)
-        taille_axe = 13 if marque_axe == "%" else 11
-        # Un libelle long se dresse a la verticale pour ne pas manger la place.
-        vertical = largeur_texte(marque_axe, taille_axe) > MARGE_G - 8 - large - 6
-        x_pct = max(10.0, (MARGE_G - 8) - large - (8 if vertical else 11))
-        pas_y = (BAS - HAUT) / (len(grads) - 1) if len(grads) > 1 else 0
-        y_pct = (HAUT + BAS) / 2 - pas_y / 2
-        rotation = f' transform="rotate(-90 {x_pct:.0f} {y_pct:.0f})"' if vertical else ""
+        # Yann 25 sept 2026 : l unite se lit en haut de l axe vertical, juste
+        # au dessus de la graduation la plus haute, sans la toucher, a
+        # l horizontale, alignee a droite sur les graduations.
+        taille_axe = 12 if marque_axe == "%" else 11
+        while taille_axe > 8.5 and largeur_texte(marque_axe, taille_axe) > 180:
+            taille_axe -= 0.5
+        y_unite = HAUT - 11  # la graduation haute s ecrit a HAUT + 4 (hauteur ~9 px)
+        if largeur_texte(marque_axe, taille_axe) <= MARGE_G - 10:
+            x_unite, ancre = MARGE_G - 8, "end"
+        else:
+            x_unite, ancre = 6, "start"
         out.append(
-            f'<text x="{x_pct:.0f}" y="{y_pct:.0f}" text-anchor="middle" fill="{c["axe"]}" '
-            f'font-size="{taille_axe}" font-family="ui-monospace"{rotation}>{echappe(marque_axe)}</text>'
+            f'<text x="{x_unite:.0f}" y="{y_unite:.0f}" text-anchor="{ancre}" fill="{c["axe"]}" '
+            f'font-size="{taille_axe:g}" font-family="ui-monospace">{echappe(marque_axe)}</text>'
         )
 
     largeur_zone = (W - MARGE_D - MARGE_G) / len(cats)

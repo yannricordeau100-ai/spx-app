@@ -62,7 +62,7 @@ function VersionA({ d, accent }: { d: RachatsFiche; accent: string }) {
     <div data-blur-part="frise">
       <div className="flex items-baseline gap-3">
         <span className="font-mono text-[34px] font-bold leading-none text-zinc-50">{s.nb}</span>
-        <span className="text-[13.5px] text-zinc-300">sociétés rachetées depuis {d.depuis}</span>
+        <span className="text-[13.5px] text-zinc-300">{s.nb > 1 ? "sociétés rachetées" : "société rachetée"} depuis {d.depuis}</span>
         {t && <span className="ml-auto font-mono text-[12px]" style={{ color: accent }}>{t}</span>}
       </div>
       <div className="mt-4 flex gap-3 overflow-x-auto pb-1">

@@ -315,6 +315,22 @@ def traite(t, noms, force):
         a = depuis_rapports(t, nom)
         b, qid = depuis_wikidata(t, nom)
         rachats = fusion(a + b)
+        # 26 sept 2026 : les rachats ajoutes par recherche web verifiee (Europe)
+        # et les montants verifies ne sont jamais perdus a une relance.
+        if f.exists():
+            try:
+                ancien = json.load(open(f))
+                vus = {norm(r["nom"]) for r in rachats}
+                for r in ancien.get("rachats", []):
+                    k = norm(r["nom"])
+                    if r.get("moteur") == "recherche web verifiee" and k not in vus:
+                        rachats.append(r); vus.add(k)
+                    elif r.get("montant"):
+                        for x in rachats:
+                            if norm(x["nom"]) == k and not x.get("montant"):
+                                x["montant"] = r["montant"]
+            except Exception:
+                pass
         json.dump({"ticker": t, "nom": nom, "depuis": AN_MIN, "maj": time.strftime("%Y-%m-%d"), "wikidata": qid,
                    "nb": len(rachats), "rachats": rachats,
                    "_note": "Rachats finalises depuis 2016 : balises XBRL des rapports annuels (allocation du prix d achat ou ecart d acquisition = rachat finalise) et Wikidata (entrees datees). Petites acquisitions non nommees par la societe absentes."},

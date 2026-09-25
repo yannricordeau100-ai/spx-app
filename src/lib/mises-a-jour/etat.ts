@@ -132,8 +132,15 @@ export async function calculerEtatMisesAJour(): Promise<EtatMisesAJour> {
     const nom = noms[t]?.name ?? t;
     const enrich = await lire<Record<string, unknown>>(path.join(ROOT, "src/data/v2-pipeline-enrich", `${t.toLowerCase()}.json`));
     const resume = await lire<{ fetched_at?: string }>(path.join(ROOT, "src/data/transcript-summaries", `${t.toLowerCase()}.json`));
-    const publication = iso(cal?.par_ticker?.[t]?.precedente) ?? iso((enrich?.latest_filing as { date?: string } | undefined)?.date);
     const filing = enrich?.latest_filing as { date?: string; form?: string } | undefined;
+    // 26 sept 2026 (fausse alerte CCEP) : un 6-K ou un 8-K n est pas forcement
+    // une publication de resultats (changement d administrateurs, rachats
+    // d actions hebdomadaires...). Sans date au calendrier, la reference est la
+    // derniere conference de resultats, sinon un rapport periodique.
+    const conf = await lire<{ calls?: { date?: string }[]; latest?: { date?: string } }>(path.join(ROOT, "src/data/transcripts", `${t.toLowerCase()}.json`));
+    const derniereConf = iso(conf?.calls?.[0]?.date ?? conf?.latest?.date);
+    const rapportPeriodique = filing && /10-Q|10-K|20-F|40-F/.test(filing.form ?? "") ? iso(filing.date) : null;
+    const publication = iso(cal?.par_ticker?.[t]?.precedente) ?? derniereConf ?? rapportPeriodique;
     const rapportAnnuel = filing && /10-K|20-F|40-F/.test(filing.form ?? "") ? iso(filing.date) : null;
     // Convention : _maj_<bloc> ; on accepte aussi les variantes posees par certaines passes (_maj_repartition_ca).
     const maj = (k: string) => iso(enrich?.[`_maj_${k}`]) ?? (k === "repartition" ? iso(enrich?.["_maj_repartition_ca"]) : null);
