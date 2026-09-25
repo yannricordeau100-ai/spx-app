@@ -163,11 +163,32 @@ export function FaqEditeur() {
                         />
                         <button onClick={() => setOuvert(estOuvert ? null : it.id)} className={`flex-1 text-left text-sm ${it.visible === false ? "text-zinc-500 line-through" : "text-zinc-200"}`}>
                           {it.q_fr || <span className="italic text-zinc-500">(question vide)</span>}
+                          {it.propositions && it.propositions.length > 0 && <span className="ml-2 rounded-full bg-violet-500/20 px-1.5 py-0.5 text-[10px] text-violet-200">{it.propositions.length} propositions</span>}
                         </button>
                         <button onClick={() => deplace(it.id, -1)} title="Monter" className="text-zinc-500 hover:text-zinc-200">↑</button>
                         <button onClick={() => deplace(it.id, 1)} title="Descendre" className="text-zinc-500 hover:text-zinc-200">↓</button>
                         <button onClick={() => retire(it.id)} title="Retirer" className="text-zinc-500 hover:text-red-400">✕</button>
                       </div>
+                      {estOuvert && it.propositions && it.propositions.length > 0 && (
+                        <div className="border-t border-[#1f1f1f] bg-violet-500/[0.04] p-4">
+                          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-violet-300">Propositions de réponse ({it.propositions.length})</div>
+                          <div className="grid gap-3 md:grid-cols-2">
+                            {it.propositions.map((p, k) => (
+                              <div key={k} className="rounded-lg border border-violet-400/20 bg-black/30 p-3">
+                                <div className="mb-1 text-xs font-semibold text-violet-200">{p.titre}</div>
+                                {p.q_fr && p.q_fr !== it.q_fr && <div className="mb-1 text-[12.5px] font-medium text-zinc-200">Question : {p.q_fr}</div>}
+                                <div className="whitespace-pre-line text-[12.5px] leading-relaxed text-zinc-300">{p.r_fr}</div>
+                                <button
+                                  onClick={() => majItem(it.id, { r_fr: p.r_fr, ...(p.q_fr ? { q_fr: p.q_fr } : {}) })}
+                                  className="mt-2 rounded-md border border-violet-400/50 bg-violet-500/15 px-2.5 py-1 text-xs text-violet-100 hover:bg-violet-500/25"
+                                >
+                                  Utiliser cette version (modifiable ensuite)
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                       {estOuvert && (
                         <div className="grid gap-3 border-t border-[#1f1f1f] p-4 md:grid-cols-2">
                           <label className="text-xs text-zinc-500">

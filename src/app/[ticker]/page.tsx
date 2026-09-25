@@ -116,8 +116,11 @@ async function loadRachats(ticker: string): Promise<import("@/components/rachats
     const raw = await fs.readFile(path.join(process.cwd(), "src/data/rachats", `${ticker.toLowerCase()}.json`), "utf-8");
     const d = JSON.parse(raw) as { nb: number; rachats: { nom: string; annee: number | null; montant: string | null }[] };
     const eu = ticker.includes(".") && !["BRK.B", "BF.B"].includes(ticker.toUpperCase());
-    // Europe : couverture partielle (Wikidata), un zero n est pas une preuve.
-    societe = { nb: d.nb, rachats: d.rachats.map((r) => ({ nom: r.nom, annee: r.annee, montant: r.montant })), couverte: !eu || d.nb > 0 };
+    // 26 sept 2026 (cas Netflix) : un zero n est jamais une preuve. Certaines
+    // societes ne balisent pas leurs rachats (XBRL) : on affiche « Disponible
+    // bientot » plutot qu une affirmation qui peut etre fausse.
+    void eu;
+    societe = { nb: d.nb, rachats: d.rachats.map((r) => ({ nom: r.nom, annee: r.annee, montant: r.montant })), couverte: d.nb > 0 };
   } catch {
     societe = null;
   }

@@ -12,7 +12,6 @@
  */
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import { ChevronDown, ChevronLeft, ChevronRight, GitMerge } from "lucide-react";
 
 export type RachatFiche = { nom: string; annee: number | null; montant: string | null };
@@ -22,7 +21,9 @@ export type RachatsFiche = {
   classement: { us: { ticker: string; nom: string; nb: number }[]; eu: { ticker: string; nom: string; nb: number }[] };
 };
 
-const VERSIONS = ["La frise", "La liste", "Les plus gros acheteurs"] as const;
+// 26 sept 2026 : « La frise » n en etait pas une, et le classement des plus
+// gros acheteurs est retire. Deux versions, nommees pour ce qu elles montrent.
+const VERSIONS = ["Par année", "Liste"] as const;
 const PLIE = 5;
 
 function milliards(m: string | null): number {
@@ -123,54 +124,19 @@ function VersionB({ d }: { d: RachatsFiche }) {
   );
 }
 
-function VersionC({ d }: { d: RachatsFiche }) {
-  const colonne = (titre: string, l: RachatsFiche["classement"]["us"]) => {
-    const max = Math.max(1, ...l.map((x) => x.nb));
-    return (
-      <div>
-        <h3 className="mb-1.5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-zinc-400">{titre}</h3>
-        <ol className="space-y-1">
-          {l.map((x, i) => (
-            <li key={i} data-blur-part="ligne" className="flex items-center gap-2.5 text-[13px]">
-              <span className="w-4 font-mono text-[11px] text-zinc-500">{i + 1}</span>
-              {x.ticker ? (
-                <Link href={`/${x.ticker.toLowerCase()}`} className="w-40 truncate text-zinc-200 hover:text-violet-200">{x.nom}</Link>
-              ) : (
-                <span className="w-40 truncate text-zinc-200">{x.nom}</span>
-              )}
-              <span className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.05]">
-                <span className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-violet-500 to-cyan-400" style={{ width: `${(x.nb / max) * 100}%` }} />
-              </span>
-              <span className="w-7 text-right font-mono text-[12.5px] font-semibold text-zinc-50">{x.nb}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
-    );
-  };
-  return (
-    <div>
-      <h3 className="mb-3 text-[14.5px] font-semibold text-zinc-100">Les plus gros acheteurs <span className="font-normal text-zinc-400">depuis {d.depuis}</span></h3>
-      <div className="grid gap-5 sm:grid-cols-2">
-        {colonne("Sociétés américaines", d.classement.us)}
-        {colonne("Sociétés européennes", d.classement.eu)}
-      </div>
-    </div>
-  );
-}
-
 export function RachatsBlock({ data, accent = "#a78bfa" }: { data: RachatsFiche; accent?: string }) {
   const [v, setV] = useState(0);
   const n = VERSIONS.length;
   return (
     <section id="sec-rachats" data-blur="rachats" className="mt-9 scroll-mt-24">
       <div className="mb-3 flex items-end justify-between gap-3">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
           <GitMerge className="size-5" style={{ color: accent }} />
           <h2 className="text-[22px] font-semibold leading-tight text-zinc-50">Sociétés rachetées</h2>
           <span className="text-[13px] text-zinc-400">depuis {data.depuis}</span>
         </div>
-        <div data-blur-part="fleches" className="flex items-center gap-1.5">
+        {/* Ordinateur : fleches comme les KPI moyen terme. */}
+        <div data-blur-part="fleches" className="hidden items-center gap-1.5 sm:flex">
           <span className="mr-1 text-[12px] text-zinc-500">{VERSIONS[v]} ({v + 1}/{n})</span>
           <button type="button" onClick={() => setV((i) => (i - 1 + n) % n)} className="rounded-md border border-white/[0.08] p-1.5 text-zinc-300 hover:bg-white/5" aria-label="Version précédente">
             <ChevronLeft className="size-4" />
@@ -180,8 +146,16 @@ export function RachatsBlock({ data, accent = "#a78bfa" }: { data: RachatsFiche;
           </button>
         </div>
       </div>
+      {/* Mobile (choix C du 26 sept 2026) : onglets sous le titre. */}
+      <div className="-mt-1 mb-3 flex gap-1.5 sm:hidden" role="tablist">
+        {VERSIONS.map((nom, i) => (
+          <button key={nom} type="button" role="tab" aria-selected={i === v} onClick={() => setV(i)} className={`rounded-full border px-3 py-1 text-[12px] ${i === v ? "border-violet-400/60 bg-violet-500/15 text-violet-100" : "border-white/10 text-zinc-400"}`}>
+            {nom}
+          </button>
+        ))}
+      </div>
       <div className="rounded-2xl border border-white/[0.08] bg-[#0a0a0a] p-4">
-        {v === 0 ? <VersionA d={data} accent={accent} /> : v === 1 ? <VersionB d={data} /> : <VersionC d={data} />}
+        {v === 0 ? <VersionA d={data} accent={accent} /> : <VersionB d={data} />}
         <p className="mt-3 border-t border-white/[0.06] pt-2 font-mono text-[10px] text-zinc-500">
           Rachats finalisés depuis {data.depuis}. Les petites acquisitions non nommées par la société n&apos;apparaissent pas.
         </p>

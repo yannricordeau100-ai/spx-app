@@ -48,6 +48,11 @@ PALETTE = {
     "ambre": "#f59e0b",
     "rose": "#fb7185",
     "gris": "#94a3b8",
+    # 26 sept 2026 : noms courants acceptes (une couleur inconnue sortait en noir).
+    "bleu": "#60a5fa",
+    "orange": "#fb923c",
+    "rouge": "#f87171",
+    "jaune": "#facc15",
 }
 ORDRE = ["violet", "cyan", "vert", "ambre", "rose", "gris"]
 

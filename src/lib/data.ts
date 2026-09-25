@@ -951,6 +951,14 @@ export function getFreshness(lastDate?: string, now: Date = new Date()): Freshne
  * divise le nombre de périodes par 4 quand period_type === "quarter", ou
  * par 2 quand "semester".
  */
+/**
+ * 26 sept 2026 : un flux (ajouts nets, variation, solde, ecart) peut changer
+ * de signe et n est pas une grandeur qui « croit » : un CAGR n y a aucun sens.
+ */
+export function estKpiDeFlux(nom?: string | null): boolean {
+  return /\b(ajouts? nets?|net add(itions?)?|variation|solde|écart|ecart|flux net|entrées nettes|net inflows?|churn)\b/i.test(nom ?? "");
+}
+
 export function cagr(
   history: number[],
   unit?: string,

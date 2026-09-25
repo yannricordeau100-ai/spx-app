@@ -817,3 +817,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.26.1 (26 Sep 2026 00:10, apres a65d25d7b5)
 - Unite en haut de l axe Y, rachats europeens et montants verifies, alerte rouge sans faux 6-K, Rev traduit a la source
+
+## v2026.09.26.2 (26 Sep 2026 01:16, apres 3269de163e)
+- Catalogue des graphiques MT, propositions FAQ, rachats corriges, fleches dans la synthese, accents et nombres

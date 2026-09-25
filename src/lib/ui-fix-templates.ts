@@ -227,10 +227,23 @@ export function cleanSourceCitations(text: string): string {
     /\b(?:10-Q|6-K)\s+(?:[A-Z]{1,5}(?:[.\-][A-Z]{1,3})?\s+)?((?:19|20)\d{2}-(?:0[1-9]|1[0-2])-\d{2})\b/g,
     (m, iso: string) => quarterFromIsoDate(iso) ?? m,
   );
+  // 26 sept 2026 : « Le 10-K 2025 indique » donnait « Le exercice 2025 » (et
+  // « de 10-K » donnait « de exercice »). Apres un article ou une preposition,
+  // on ecrit « rapport annuel », accorde ; ailleurs (citations), « exercice ».
+  out = out.replace(
+    /\b(le|du|au|ce|son|leur|dernier|premier)\s+(?:10-K|20-F|40-F)\s+(?:FY\s?)?((?:19|20)\d{2})\b/gi,
+    (_m, art: string, y: string) => `${art} rapport annuel ${y}`,
+  );
+  out = out.replace(
+    /\b([Dd])e\s+(?:10-K|20-F|40-F)\s+(?:FY\s?)?((?:19|20)\d{2})\b/g,
+    (_m, d: string, y: string) => `${d}u rapport annuel ${y}`,
+  );
   out = out.replace(
     /\b(?:10-K|20-F|40-F)\s+(?:FY\s?)?((?:19|20)\d{2})\b/gi,
     (_m, y: string) => `exercice ${y}`,
   );
+  // Filet : toute elision oubliee devant « exercice ».
+  out = out.replace(/\b([Ll])e exercice\b/g, "$1'exercice").replace(/\b([Dd])e exercice\b/g, "$1'exercice").replace(/\b([Ll])a exercice\b/g, "$1'exercice");
   // 3. Balises XBRL et mot "XBRL" partout ailleurs.
   out = out.replace(/\bus-gaap\s*:\s*[A-Za-z0-9]+/gi, "");
   out = out.replace(/\bXBRL\b[\s:]*[A-Z][A-Za-z0-9_]*/g, "");

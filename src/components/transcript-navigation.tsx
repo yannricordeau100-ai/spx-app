@@ -75,7 +75,7 @@ export function TranscriptNavigation({
   const fleches = dates.length > 1 && (
     <div
       data-blur-part="fleches"
-      className={`mb-3 flex items-center gap-2 text-[12.5px] text-zinc-400 ${accesArchives ? "" : "pointer-events-none select-none blur-[3px]"}`}
+      className={`flex items-center gap-1.5 text-[12px] text-zinc-400 ${accesArchives ? "" : "pointer-events-none select-none blur-[3px]"}`}
       aria-hidden={!accesArchives}
     >
       <button
@@ -139,11 +139,13 @@ export function TranscriptNavigation({
           )}
         </div>
       )}
-      {fleches}
       {summaryAffiche ? (
-        <TranscriptBulletsBlock ticker={ticker} summary={summaryAffiche} />
+        <TranscriptBulletsBlock ticker={ticker} summary={summaryAffiche} navigation={fleches || undefined} />
       ) : derniere ? null : (
-        <p className="text-[13px] text-zinc-500">{chargement ? "Chargement de la conférence…" : "Synthèse de cette conférence en préparation."}</p>
+        <div className="mt-9 flex flex-wrap items-center gap-3">
+          {fleches}
+          <p className="text-[13px] text-zinc-500">{chargement ? "Chargement de la conférence…" : "Synthèse de cette conférence en préparation."}</p>
+        </div>
       )}
     </div>
   );

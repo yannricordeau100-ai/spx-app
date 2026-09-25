@@ -296,10 +296,14 @@ export function TranscriptBulletsBlock({
   ticker,
   summary,
   quarterLabel,
+  navigation,
 }: {
   ticker: string;
   summary: TranscriptBulletsSummary | null;
   quarterLabel?: string;
+  /** 26 sept 2026 : fleches de navigation entre conferences, DANS le bloc,
+   *  a gauche de l etat de confiance du management. */
+  navigation?: React.ReactNode;
 }) {
   const { t } = useT();
   if (!summary?.summary?.bullets || summary.summary.bullets.length === 0) return null;
@@ -328,7 +332,8 @@ export function TranscriptBulletsBlock({
               : t("transcript.bullets.section_subtitle")}
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {navigation}
           {sentimentChip(sentiment, t)}
           {(quarterLabel || summary.quarter) && (
             <span className="font-mono text-[12px] uppercase tracking-wider text-zinc-400">

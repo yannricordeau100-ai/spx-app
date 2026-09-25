@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { CatalogueGraphiques } from "./catalogue";
 import DEMANDES_PAR_STE from "@/data/kpi-mt-demandes.json";
 import KPI_SECTEURS_ETAT from "@/data/kpi-secteurs-etat.json";
 import Link from "next/link";
@@ -178,9 +179,11 @@ function parseActiveBatches(notes: string | null): string[] {
 }
 
 /* ─── Sous-onglets (Yann 19 sept 2026) ──────────────────────────── */
-type SousOnglet = "demandes" | "societes" | "secteurs";
+type SousOnglet = "catalogue" | "demandes" | "societes" | "secteurs";
 
 const SOUS_ONGLETS: { id: SousOnglet; label: string }[] = [
+  // 26 sept 2026 : vue par defaut, grille filtrable de tous les graphiques.
+  { id: "catalogue", label: "Catalogue des graphiques (filtres)" },
   { id: "demandes", label: "Demandes" },
   { id: "societes", label: "Par société (KPI d’industrie à couvrir)" },
   { id: "secteurs", label: "Par secteur (séries d’industrie)" },
@@ -206,7 +209,7 @@ export function ImageFindingsClient({
   const [showNotifPopup, setShowNotifPopup] = useState(false);
   // Yann 18 sept 2026 : sous-onglet « Par société » (10 plus grosses capitalisations par zone, KPI d industrie et demandes preparees).
   // Yann 19 sept 2026 : sous-onglet « Par secteur » (séries d’industrie, traitement secteur par secteur).
-  const [sousOnglet, setSousOnglet] = useState<SousOnglet>("demandes");
+  const [sousOnglet, setSousOnglet] = useState<SousOnglet>("catalogue");
   // Pré-remplissage du formulaire de demande depuis le sous-onglet « Par secteur ».
   const [prefill, setPrefill] = useState<PrefillDemande | null>(null);
 
@@ -379,6 +382,9 @@ export function ImageFindingsClient({
             </button>
           ))}
         </div>
+        {sousOnglet === "catalogue" && (
+          <CatalogueGraphiques requests={requests} findings={findings} onPatch={updateFinding} />
+        )}
         {sousOnglet === "societes" && <DemandesParSociete />}
         {sousOnglet === "secteurs" && (
           <DemandesParSecteur

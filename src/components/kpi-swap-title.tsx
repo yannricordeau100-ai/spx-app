@@ -88,7 +88,9 @@ export function KpiSwapTitle({
   };
 
   // Tooltip dans la langue courante (cohérent avec ce que l'utilisateur voit).
-  const tooltip = titleLang === "fr" ? tooltipFr : tooltipEn;
+  // 26 sept 2026 : l infobulle suit la langue du SITE, pas celle du titre
+  // affiche (un visiteur francais lisait « Click to switch FR/EN »).
+  const tooltip = typeof document !== "undefined" && (document.documentElement.lang || "fr").startsWith("fr") ? tooltipFr : titleLang === "fr" ? tooltipFr : tooltipEn;
 
   return (
     <>

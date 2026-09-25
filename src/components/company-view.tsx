@@ -31,7 +31,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-import {
+import { estKpiDeFlux,
   type Company,
   type KPI,
   cagr,
@@ -320,6 +320,19 @@ function estCaTrimestriel(k: { short?: string; name_fr?: string; name_en?: strin
   if (k.period_type !== "quarter") return false;
   if (!estMontantCa(k)) return false;
   return RE_CA.test(sansAccent([k.name_fr, k.name_en, k.short].filter(Boolean).join(" ")));
+}
+
+const GROUPE_ARRETES_ACTIF = false;
+
+/** 26 sept 2026 : KPI trimestriel dont le dernier point date de 2025 ou avant. */
+function estKpiArrete(k: { period_type?: string; frequency?: string; last_data_date?: string | null; history?: unknown[]; history_periods?: unknown[] }): boolean {
+  const lab = (x: unknown): string => (x && typeof x === "object" ? String((x as { q?: string }).q ?? "") : String(x ?? ""));
+  const periodes = Array.isArray(k.history_periods) && k.history_periods.length ? k.history_periods.map(lab) : Array.isArray(k.history) ? k.history.map(lab) : [];
+  const trimestriel = k.period_type === "quarter" || k.frequency === "quarterly" || periodes.some((p) => /Q[1-4]|T[1-4]/.test(p));
+  if (!trimestriel) return false;
+  const derniere = periodes.length ? periodes[periodes.length - 1] : "";
+  const an = Number((derniere.match(/(20\d\d)/) ?? [])[1] ?? String(k.last_data_date ?? "").slice(0, 4));
+  return Number.isFinite(an) && an > 2000 && an <= 2025;
 }
 
 export function CompanyView({
@@ -1035,9 +1048,17 @@ export function CompanyView({
     // « KPI avances » = propres a la societe (hero compris), en clair ;
     // « KPI standard » = intitules retrouvables partout (CA, marges, resultat,
     // BPA, dette...), dans une barre depliable separee.
+    // 26 sept 2026 (demande du proprietaire) : troisieme groupe, « KPI arretes
+    // par la societe » : series trimestrielles dont le dernier point date de
+    // 2025 ou avant (la societe ne les publie plus). Le hero reste en tete.
+    // Desactive tant que le proprietaire n a pas tranche : une partie de ces
+    // series est seulement en retard dans nos donnees, pas arretee par la societe.
+    const arretes = GROUPE_ARRETES_ACTIF ? tries.filter((k) => k.short !== heroShort && estKpiArrete(k)) : [];
+    const courants = tries.filter((k) => !arretes.includes(k));
     return {
-      avances: tries.filter((k) => k.short === heroShort || !estKpiStandard(k)),
-      standards: tries.filter((k) => k.short !== heroShort && estKpiStandard(k)),
+      avances: courants.filter((k) => k.short === heroShort || !estKpiStandard(k)),
+      standards: courants.filter((k) => k.short !== heroShort && estKpiStandard(k)),
+      arretes,
       caTrimestriels: all.filter(
         (k) => k.short !== heroShort && kpiHasUsableValue(k) && estCaTrimestriel(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string; unit?: string }),
       ),
@@ -1045,6 +1066,8 @@ export function CompanyView({
   }, [company]);
   const orderedKpis = groupesKpis.avances;
   const kpisStandard = groupesKpis.standards;
+  const kpisArretes = groupesKpis.arretes;
+  const [showArretes, setShowArretes] = useState(false);
   const caTrimestriels = groupesKpis.caTrimestriels;
   const [showCaTrim, setShowCaTrim] = useState(false);
   const [showStandard, setShowStandard] = useState(false);
@@ -1241,6 +1264,7 @@ export function CompanyView({
   // par minute, qui ne touche pas active.history). Format discret locale-aware
   // (Point 6) : "CAGR +47,8 %/an" (FR), "CAGR +47,8 %/yr" (EN).
   const exportCagr = (() => {
+    if (estKpiDeFlux(active.name_fr) || estKpiDeFlux(active.name_en)) return undefined;
     const c = cagr(active.history, displayUnit, active.period_type ?? "year");
     if (c === null) return undefined;
     // Yann 12 juil 2026 : le PNG exporté suit la langue du GRAPH au moment du
@@ -1930,7 +1954,7 @@ export function CompanyView({
                 {/* 10 sept 2026 (Yann) : CAGR de la periode affichee, a droite du titre. */}
                 
                 <span className="ml-2 inline-flex items-center align-middle" style={{ verticalAlign: "middle", position: "relative", top: "-0.1em" }}>
-                  <CagrChip data={chartHistoryRaw as number[]} unit={displayUnit} periodType={graphPeriod} locale={heroTitleLang === "en" ? "en" : locale} />
+                  {!estKpiDeFlux(active.name_fr) && !estKpiDeFlux(active.name_en) && <CagrChip data={chartHistoryRaw as number[]} unit={displayUnit} periodType={graphPeriod} locale={heroTitleLang === "en" ? "en" : locale} />}
                 </span>
 
                 {/* Yann 21 août 2026 : badges meta (freshness, "i" data en
@@ -2106,7 +2130,7 @@ export function CompanyView({
                   isGenericKpi) au lieu de company.kpis.length (total brut).
                   Avant : Broadcom affichait "31 indicateurs" mais ne montrait
                   que 5 (génériques filtrés), sans bouton "voir plus". */}
-              {orderedKpis.length + kpisStandard.length} {t("company.kpi_table.count_label")}
+              {orderedKpis.length + kpisStandard.length + kpisArretes.length} {t("company.kpi_table.count_label")}
             </span>
           </div>
           <div className="overflow-hidden rounded-2xl border border-[#1f1f1f] bg-[#080808]">
@@ -2201,6 +2225,41 @@ export function CompanyView({
                     {t("company.kpi_table.standard_label")} <span className="text-zinc-600">· {kpisStandard.length}</span>
                   </div>
                   {kpisStandard.map((kpi) => (
+                    <KpiRow
+                      key={kpi.short}
+                      kpi={kpi}
+                      active={kpi.short === active.short}
+                      subsector={company.subsector}
+                      ticker={company.ticker}
+                      onClick={() => handleKpiClick(kpi.short)}
+                      plageTendance={chartRange}
+                      freeBlocked={freeBlocked}
+                      overrideValue={kpi.short === active.short ? heroLastVisibleValue : null}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+          {kpisArretes.length > 0 && (
+            <div data-blur="kpis_standard" className="border-t border-[#1a1a1a]">
+              <button
+                data-blur-part="voir-plus"
+                disabled={freeBlocked}
+                aria-disabled={freeBlocked}
+                onClick={freeBlocked ? undefined : () => setShowArretes((v) => !v)}
+                className="group flex w-full items-center justify-center gap-2 bg-[#0a0a0a] px-6 py-4 text-sm text-zinc-400 transition-colors hover:bg-[#0e0e0e] hover:text-zinc-100"
+              >
+                <ChevronDown className={`size-4 transition-transform ${showArretes ? "rotate-180" : ""}`} />
+                {showArretes ? "Masquer les KPI arrêtés par la société" : `Voir ${kpisArretes.length} KPI arrêté${kpisArretes.length > 1 ? "s" : ""} par la société`}
+              </button>
+              {showArretes && (
+                <div data-blur-part="tableau">
+                  <div className="border-y border-[#1a1a1a] bg-[#090909] px-5 py-2 font-mono text-[10.5px] font-semibold uppercase tracking-[0.16em] text-zinc-400 sm:px-6">
+                    KPI arrêtés par la société <span className="text-zinc-600">· {kpisArretes.length}</span>
+                    <span className="ml-2 normal-case tracking-normal text-zinc-500">séries trimestrielles plus publiées depuis 2025 ou avant</span>
+                  </div>
+                  {kpisArretes.map((kpi) => (
                     <KpiRow
                       key={kpi.short}
                       kpi={kpi}

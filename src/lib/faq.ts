@@ -24,6 +24,8 @@ export type FaqItem = {
   r_en: string;
   /** Yann 24 sept 2026 : une question decochee reste en base mais n apparait nulle part sur le site. */
   visible?: boolean;
+  /** Yann 26 sept 2026 : versions de reponse proposees, a choisir puis modifier dans /sandbox/faq. */
+  propositions?: { titre: string; q_fr?: string; r_fr: string }[];
 };
 export type FaqContenu = {
   version: number;
@@ -70,7 +72,12 @@ export function nettoieFaq(brut: unknown): FaqContenu | null {
     let id = slug(i.id || q_fr) || `q-${items.length + 1}`;
     while (vus.has(id)) id = `${id}-2`;
     vus.add(id);
-    items.push({ id, categorie, q_fr, r_fr, q_en: (i.q_en ?? "").trim(), r_en: (i.r_en ?? "").trim(), visible: i.visible !== false });
+    const propositions = Array.isArray(i.propositions)
+      ? i.propositions
+          .filter((p) => p && typeof p.r_fr === "string" && p.r_fr.trim())
+          .map((p) => ({ titre: String(p.titre ?? "Proposition"), q_fr: typeof p.q_fr === "string" ? p.q_fr : undefined, r_fr: p.r_fr.trim() }))
+      : undefined;
+    items.push({ id, categorie, q_fr, r_fr, q_en: (i.q_en ?? "").trim(), r_en: (i.r_en ?? "").trim(), visible: i.visible !== false, ...(propositions && propositions.length ? { propositions } : {}) });
   }
   if (!items.length) return null;
   return {
@@ -91,7 +98,8 @@ function admin() {
 
 /** Questions affichees sur le site : celles cochees « visible » dans /sandbox/faq. */
 export function itemsVisibles(contenu: FaqContenu): FaqItem[] {
-  return contenu.items.filter((it) => it.visible !== false);
+  // Les propositions de reponse sont un outil interne : jamais servies au public.
+  return contenu.items.filter((it) => it.visible !== false).map(({ propositions: _p, ...it }) => it);
 }
 
 /** Contenu servi : base si elle a un contenu valide, sinon dépôt. */
