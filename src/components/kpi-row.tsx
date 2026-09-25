@@ -7,6 +7,7 @@ import { rate } from "@/lib/brand";
 import { Sparkline } from "@/components/effects/sparkline";
 import { QualityBadge } from "@/components/quality-badge";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { siglesDuNom } from "@/lib/sigles-kpi";
 import { expliqueUnite } from "@/lib/unites-explications";
 import { StarButton } from "@/components/star-button";
 import { AcronymHover } from "@/components/acronym-hover";
@@ -184,11 +185,13 @@ export function KpiRow({
             // Yann 2 sept 2026 : une unite pas simple (bps, GW, Bcf/j...)
             // justifie le "i" a elle seule, avec son explication.
             const uniteExpliquee = expliqueUnite(kpi.unit);
+            // Yann 25 sept 2026 : sigles peu clairs du nom (EBITDA, NOI, FFO...).
+            const sigles = siglesDuNom(primaryName);
             // Yann 30 aout 2026 : le "i" n existe que si une definition est
             // disponible (specifique ou repli generique). Un nom EN seul ne
             // justifie pas une icone ; le batch des 16 000 redactions est
             // abandonne, trop de travail pour l apport.
-            if (!hasDef && !uniteExpliquee) return null;
+            if (!hasDef && !uniteExpliquee && sigles.length === 0) return null;
             return (
           <span className="ml-1.5 inline-flex align-middle">
           <InfoTooltip color={accent}>
@@ -200,8 +203,17 @@ export function KpiRow({
                 </BlurredFreeText>
               </>
             )}
-            {uniteExpliquee && (
+            {sigles.length > 0 && (
               <div className={hasDef ? "mt-2 border-t border-white/10 pt-2" : ""}>
+                {sigles.map((x) => (
+                  <div key={x.sigle} className="text-[12px] text-zinc-300">
+                    <span className="font-mono text-[11px] font-semibold text-zinc-100">{x.sigle}</span> : {x.sens}
+                  </div>
+                ))}
+              </div>
+            )}
+            {uniteExpliquee && (
+              <div className={hasDef || sigles.length > 0 ? "mt-2 border-t border-white/10 pt-2" : ""}>
                 <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-500">
                   Unité · {kpi.unit}
                 </span>

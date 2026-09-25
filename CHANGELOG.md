@@ -805,3 +805,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.25.5 (25 Sep 2026 01:30, apres 4d0b3ff09c)
 - Bloc Societes rachetees (A B C) sous la gouvernance ; fuites sous le flou corrigees
+
+## v2026.09.25.6 (25 Sep 2026 02:20, apres e720399d6d)
+- Descriptions verifiees (59 corrections), sigles expliques dans le i des KPI, Rev traduit
