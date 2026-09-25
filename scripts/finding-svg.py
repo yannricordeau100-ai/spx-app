@@ -107,13 +107,25 @@ def graduations(maxi: float) -> list[float]:
     """5 lignes de grille sur un pas rond."""
     if maxi <= 0:
         return [0]
-    brut = maxi / 4
-    exp = 10 ** (len(str(int(brut))) - 1) if brut >= 1 else 0.1
-    for mult in (1, 2, 2.5, 5, 10):
-        pas = exp * mult
-        if pas * 4 >= maxi:
-            break
-    return [pas * i for i in range(5)]
+    # 26 sept 2026 : on choisit le plafond rond le plus proche du maximum
+    # (4 a 6 intervalles), pour ne plus laisser de grand vide en haut
+    # (axe a 80 000 pour un maximum a 44 924).
+    import math
+    meilleur = None
+    for n in (4, 5, 6):
+        brut = maxi / n
+        exp = 10 ** math.floor(math.log10(brut)) if brut > 0 else 1
+        for mult in (1, 2, 2.5, 5, 10):
+            pas = exp * mult
+            if maxi >= 5 and pas != int(pas):
+                continue  # graduations entieres des que l echelle le permet
+            if pas * n >= maxi * 1.03:
+                cand = (pas * n, n, pas)
+                if meilleur is None or cand[0] < meilleur[0] - 1e-9:
+                    meilleur = cand
+                break
+    _, n, pas = meilleur
+    return [round(pas * i, 10) for i in range(n + 1)]
 
 
 

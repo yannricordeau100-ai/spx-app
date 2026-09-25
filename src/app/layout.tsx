@@ -187,7 +187,7 @@ export default async function RootLayout({
                   logo: `${SITE_URL}/brand/mettrik-ai-white-purple.png`,
                   email: "contact@mettrik.ai",
                   description:
-                    "Intelligence KPI pour investisseurs : les indicateurs opérationnels de plus de 1 000 grandes sociétés cotées américaines et européennes, extraits des documents officiels.",
+                    "Intelligence KPI pour investisseurs : les indicateurs opérationnels de plus de 650 grandes sociétés cotées américaines et européennes, extraits des documents officiels.",
                 },
                 {
                   "@type": "WebSite",
@@ -205,7 +205,7 @@ export default async function RootLayout({
                   operatingSystem: "Web",
                   url: SITE_URL,
                   description:
-                    "Fiches société avec KPI principal, indicateurs clés notés, facteurs de risque scorés, gouvernance, positionnement IA et synthèse des appels de résultats, pour plus de 1 000 grandes sociétés cotées américaines et européennes.",
+                    "Fiches société avec KPI principal, indicateurs clés notés, facteurs de risque scorés, gouvernance, positionnement IA et synthèse des appels de résultats, pour plus de 650 grandes sociétés cotées américaines et européennes.",
                   offers: [
                     { "@type": "Offer", name: "Gratuit", price: "0", priceCurrency: "EUR", url: `${SITE_URL}/pricing` },
                     { "@type": "Offer", name: "Premium", price: "29.90", priceCurrency: "EUR", url: `${SITE_URL}/pricing`, priceSpecification: { "@type": "UnitPriceSpecification", price: "29.90", priceCurrency: "EUR", billingDuration: "P1M" } },

@@ -2144,7 +2144,16 @@ async function loadV17CompanyBrut(
         const ai = (data as Record<string, unknown>).ai_positioning as
           | Record<string, unknown>
           | undefined;
-        if (ai && typeof ai === "object") {
+        // 26 sept 2026 : ces traductions datent de mai 2026. Elles ecrasaient le
+        // resume francais a jour (84 fiches affichaient « La societe n'a pas
+        // mentionne l'IA... » sous une position « Acteur majeur »). On ne les
+        // applique plus que si le resume de base est encore en anglais, et
+        // jamais quand elles contiennent un commentaire de modele.
+        const baseSummary = typeof ai?.summary === "string" ? ai.summary : "";
+        const baseEnAnglais = (baseSummary.match(/\b(the|and|of|with|its|is|are|has)\b/gi) ?? []).length >= 3;
+        const summaryFrBrut = typeof aiFr.summary_fr === "string" ? aiFr.summary_fr : "";
+        const commentaireModele = /extraits fournis|n'a pas mentionn|pas évidente|10-K\/20-F/i.test(summaryFrBrut);
+        if (ai && typeof ai === "object" && baseEnAnglais && !commentaireModele) {
           const summaryFr = aiFr.summary_fr;
           if (typeof summaryFr === "string" && summaryFr.trim().length > 0) {
             ai.summary = summaryFr;

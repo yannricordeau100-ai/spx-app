@@ -820,3 +820,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.26.2 (26 Sep 2026 01:16, apres 3269de163e)
 - Catalogue des graphiques MT, propositions FAQ, rachats corriges, fleches dans la synthese, accents et nombres
+
+## v2026.09.26.3 (26 Sep 2026 01:59, apres f9964b2c9b)
+- Graphiques moyen terme : titres sans nom de societe quand elle est seule, majuscule apres les deux-points, axe vertical resserre ; bloc Position marche : nombres au format francais ; positionnement IA : fin des resumes perimes « n a pas mentionne l IA » (84 fiches) ; structure de vote en francais (28 fiches) ; rachats : libelles generiques retires ; unites en euros avec symbole ; pied de page : plus de 650 societes

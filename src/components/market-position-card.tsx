@@ -7,6 +7,13 @@ import { InfoTooltip } from "@/components/info-tooltip";
 import { brand } from "@/lib/brand";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 
+/** Valeur de marché : 1 décimale sous 100, entier au-delà, format français. */
+function fmtMontant(n: number) {
+  const v = Number(n);
+  if (!Number.isFinite(v)) return String(n);
+  return fmt(v, Math.abs(v) < 100 && !Number.isInteger(v) ? 1 : 0);
+}
+
 function fmt(n: number, decimals = 0) {
   return n.toLocaleString("fr-FR", {
     minimumFractionDigits: decimals,
@@ -83,7 +90,7 @@ export function MarketPositionCard({
             </InfoTooltip>
           </div>
           <div className="mt-1 text-[14px] font-medium text-zinc-100">
-            {position.segment_name}
+            {normalizeNarrative(position.segment_name)}
           </div>
         </div>
       </div>
@@ -149,7 +156,7 @@ export function MarketPositionCard({
             Revenu du segment ({company.name})
           </div>
           <div className="mt-1 font-mono text-2xl font-bold tabular-nums text-zinc-50">
-            {position.segment_revenue}
+            {fmtMontant(position.segment_revenue)}
             <span className="ml-1 text-sm font-medium text-zinc-300">
               {unitLabel(position.segment_unit)}
             </span>
@@ -160,7 +167,7 @@ export function MarketPositionCard({
             Taille totale du marché
           </div>
           <div className="mt-1 font-mono text-2xl font-bold tabular-nums text-zinc-50">
-            {position.tam}
+            {fmtMontant(position.tam)}
             <span className="ml-1 text-sm font-medium text-zinc-300">
               {unitLabel(position.tam_unit)}
             </span>
@@ -179,7 +186,7 @@ export function MarketPositionCard({
             Le marché grandit d'environ
           </span>
           <span className="font-mono text-[14px] font-bold tabular-nums" style={{ color: c }}>
-            +{position.market_cagr} %
+            +{fmt(Number(position.market_cagr), Number.isInteger(Number(position.market_cagr)) ? 0 : 1)} %
           </span>
           <span className="text-[12.5px] text-zinc-300">par an.</span>
         </div>

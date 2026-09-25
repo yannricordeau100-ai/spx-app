@@ -151,22 +151,24 @@ def main() -> int:
         date_m = re.search(r"(20\d\d-\d\d-\d\d)", url) or re.search(
             r'"datePublished"\s*:\s*"(20\d\d-\d\d-\d\d)', page
         )
-        cible.write_text(
-            json.dumps(
-                {
-                    "ticker": t,
-                    "latest": {
-                        "quarter": q,
-                        "year": y,
-                        "date": date_m.group(1) if date_m else "",
-                        "content": contenu,
-                        "source_url": url,
-                    },
-                },
-                ensure_ascii=False,
-            ),
-            encoding="utf8",
-        )
+        # 26 sept 2026 : on ne remplace QUE « latest ». Reecrire tout le fichier
+        # effacait l historique « calls » (4 conferences) de COST, CTAS, DRI,
+        # GIS et PAYX le 26 sept a 01:42.
+        existant: dict = {}
+        if cible.exists():
+            try:
+                existant = json.loads(cible.read_text(encoding="utf8"))
+            except Exception:  # noqa: BLE001
+                existant = {}
+        existant["ticker"] = t
+        existant["latest"] = {
+            "quarter": q,
+            "year": y,
+            "date": date_m.group(1) if date_m else "",
+            "content": contenu,
+            "source_url": url,
+        }
+        cible.write_text(json.dumps(existant, ensure_ascii=False, indent=2), encoding="utf8")
         ecrits += 1
         note(f"  {t} Q{q} {y} : {len(contenu)} caracteres")
     note(f"FINI {ecrits} transcripts ecrits")

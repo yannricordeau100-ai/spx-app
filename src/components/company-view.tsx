@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { RachatsBlock, type RachatsFiche } from "@/components/rachats-block";
 import { applyFloutageRules, ajouteAppelsAbonnement, zonesEnRegles, type FloutageRule, type Zone } from "@/lib/floutage";
 // Yann 30 aout 2026 : l ancien systeme de flou a chemins CSS
@@ -1791,7 +1792,7 @@ export function CompanyView({
                 <div className="order-4 max-lg:order-6 mt-3 flex max-w-md items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 max-lg:w-full max-lg:max-w-none lg:mt-5">
                   <BlurredFreeText blocked={freeBlocked} ticker={company.ticker} className="flex-1">
                     <div className="text-[14px] font-semibold leading-snug text-zinc-100">
-                      {active.signal}
+                      {normalizeNarrative(active.signal)}
                     </div>
                   </BlurredFreeText>
                 </div>
@@ -2366,7 +2367,7 @@ export function CompanyView({
             <div className="mb-4 flex items-end justify-between">
               <div>
                 <h2 className="text-[22px] font-semibold text-zinc-50">Position marché · TAM</h2>
-                <p className="mt-0.5 text-[13.5px] text-zinc-300">Part de marché de la société sur ses segments clés vs le Total Addressable Market.</p>
+                <p className="mt-0.5 text-[13.5px] text-zinc-300">Part de marché de la société sur ses segments clés, comparée à la taille totale du marché visé.</p>
               </div>
               <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
                 {company.market_positions.length} segment{company.market_positions.length > 1 ? "s" : ""}

@@ -80,6 +80,10 @@ export function normalizeNarrative(text: string): string {
   out = addNbspBeforePct(out);
   // Yann 16 mai 2026 : YoY → vs N-1 (convention FR Mettrik).
   out = out.replace(/\bYoY\b/g, "vs N-1");
+  // 26 sept 2026 : décimale anglaise devant une unité (« +5.7 % », « 8.399 Mds »)
+  // → virgule française. Limité aux nombres suivis de %, Mds, M$ ou pts pour ne
+  // jamais toucher un numéro de version (« Gemini 2.5 »).
+  out = out.replace(/(\d)\.(\d+)(?=\s?(?:%|Mds\b|Md\b|M\s?\$|pts?\b))/g, "$1,$2");
   // Yann 21 août 2026 : citations de source illisibles ("(10-Q MU 2026-06-25,
   // XBRL EarningsPerShareDiluted)") réduites à "(T2 2026, MU)".
   out = cleanSourceCitations(out);

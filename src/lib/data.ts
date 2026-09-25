@@ -699,6 +699,13 @@ export function formatUnit(unit: string): string {
   const mMatch = u.match(/^M\s+([€£¥$])$/);
   if (mMatch) return `M ${mMatch[1]}`;
   // Pass-through "Mds CHF" / "Mds JPY" / etc — déjà formatées correctement
+  // 26 sept 2026 : « Md EUR », « Mds EUR », « M EUR », « MEUR », « Mds USD »
+  // (≈ 340 KPI) s'affichaient avec le code ISO au lieu du symbole.
+  const echelleIso = u.match(/^(Mds?|Md|M|K)\s*(USD|EUR|GBP)$/i);
+  if (echelleIso) {
+    const e = /^md/i.test(echelleIso[1]) ? "Mds" : echelleIso[1].toUpperCase();
+    return `${e} ${isoSym[echelleIso[2].toUpperCase()]}`;
+  }
   const mdsDevise = u.match(/^Mds\s+[A-Z]{3}$/);
   if (mdsDevise) return u;
   return u;

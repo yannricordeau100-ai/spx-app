@@ -315,6 +315,16 @@ def traite(t, noms, force):
         a = depuis_rapports(t, nom)
         b, qid = depuis_wikidata(t, nom)
         rachats = fusion(a + b)
+        # 26 sept 2026 : libelles generiques retires et noms corriges a la main.
+        _ex = json.load(open(Path(__file__).parent / "rachats-exclus.json"))["exclus"].get(t.upper(), {})
+        _r = []
+        for r in rachats:
+            if r["nom"] in _ex:
+                if _ex[r["nom"]] is None:
+                    continue
+                r["nom"] = _ex[r["nom"]]
+            _r.append(r)
+        rachats = _r
         # 26 sept 2026 : les rachats ajoutes par recherche web verifiee (Europe)
         # et les montants verifies ne sont jamais perdus a une relance.
         if f.exists():
