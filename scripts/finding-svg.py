@@ -90,10 +90,11 @@ def unite_pourcent(suffixe: str) -> bool:
 def format_valeur(v: float, suffixe: str = "") -> str:
     if v == int(v):
         t = f"{int(v):,}".replace(",", " ")
-    elif v >= 10:
+    elif abs(v) >= 10:
         t = f"{v:,.1f}".replace(",", " ").replace(".", ",")
     else:
-        t = f"{v:.2f}".replace(".", ",")
+        # 25 sept 2026 : pas de zero inutile (« 2,5 » et non « 2,50 »).
+        t = f"{v:.2f}".rstrip("0").replace(".", ",")
     return t + suffixe
 
 
@@ -164,10 +165,24 @@ def construit(spec: dict, theme: str) -> str:
     for i, s in enumerate(series):
         s.setdefault("couleur", ORDRE[i % len(ORDRE)])
 
-    maxi = max(v for s in series for v in s["valeurs"] if isinstance(v, (int, float)))
-    grads = graduations(maxi)
-    plafond = grads[-1] or maxi
-    ech = (BAS - HAUT) / plafond if plafond else 0
+    vals = [v for s in series for v in s["valeurs"] if isinstance(v, (int, float))]
+    maxi = max(vals)
+    mini = min(0, min(vals))
+    if mini >= 0:
+        grads = graduations(maxi)
+        plafond = grads[-1] or maxi
+        plancher = 0
+    else:
+        # 25 sept 2026 : valeurs negatives (croissance organique...). L axe
+        # descend sous zero et les barres negatives partent vers le bas.
+        base = graduations(max(maxi, -mini))
+        pas = base[1] if len(base) > 1 else 1
+        import math
+        plafond = math.ceil(maxi / pas) * pas if maxi > 0 else 0
+        plancher = math.floor(mini / pas) * pas
+        grads = [plancher + pas * k for k in range(int(round((plafond - plancher) / pas)) + 1)]
+    ech = (BAS - HAUT) / (plafond - plancher) if plafond - plancher else 0
+    y0 = BAS - (0 - plancher) * ech  # ligne du zero
 
     out = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" font-family="ui-sans-serif, system-ui">',
@@ -187,7 +202,7 @@ def construit(spec: dict, theme: str) -> str:
             out.append(f'<text x="40" y="54" fill="{c["gris"]}" font-size="11">{echappe(st)}</text>')
 
     for g in grads:
-        y = BAS - g * ech
+        y = y0 - g * ech
         out.append(f'<line x1="{MARGE_G}" y1="{y:.0f}" x2="{W - MARGE_D}" y2="{y:.0f}" stroke="{c["grille"]}" stroke-width="1"/>')
         out.append(f'<text x="{MARGE_G - 8}" y="{y + 4:.0f}" text-anchor="end" fill="{c["gris"]}" font-size="11" font-family="ui-monospace">{format_valeur(g, "")}</text>')
 
@@ -220,13 +235,22 @@ def construit(spec: dict, theme: str) -> str:
             v = s["valeurs"][i]
             if v is None or v == 0:
                 continue  # une valeur nulle ne merite pas de barre ni d etiquette
-            h = max(1.0, v * ech)
+            h = max(1.0, abs(v) * ech)
             x = depart + barre_w * j
             couleur = PALETTE.get(s["couleur"], s["couleur"])
-            out.append(f'<rect x="{x:.0f}" y="{BAS - h:.0f}" width="{barre_w - 4:.0f}" height="{h:.0f}" fill="{couleur}" rx="3"/>')
+            haut_barre = y0 - h if v > 0 else y0
+            out.append(f'<rect x="{x:.0f}" y="{haut_barre:.0f}" width="{barre_w - 4:.0f}" height="{h:.0f}" fill="{couleur}" rx="3"/>')
             cx = x + (barre_w - 4) / 2
             etiquette = format_valeur(v, suffixe_barres)
-            sommet = BAS - h
+            if v < 0:
+                # Valeur negative : etiquette sous la barre, a l horizontale.
+                taille_n = next((e for e in (11.0, 10.0, 9.0, 8.0) if largeur_texte(etiquette, e, mono=True) <= barre_w + 6), 8.0)
+                out.append(
+                    f'<text x="{cx:.0f}" y="{y0 + h + 14:.0f}" text-anchor="middle" fill="{c["titre"]}" '
+                    f'font-size="{taille_n:g}" font-family="ui-monospace">{echappe(etiquette)}</text>'
+                )
+                continue
+            sommet = y0 - h
             # Yann 21 sept 2026 : les valeurs doivent etre ecrites NORMALEMENT,
             # a l horizontale. On ne bascule a la verticale que si aucune taille
             # lisible ne tient dans la largeur de la barre.
