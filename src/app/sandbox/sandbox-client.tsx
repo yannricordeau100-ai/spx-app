@@ -629,14 +629,24 @@ const SECTIONS: SandboxSection[] = [
   },
   {
     id: "aide",
-    title: "🆘 Aide & FAQ interne",
+    title: "❓ FAQ publique et aide interne",
     items: [
       {
-        href: "/sandbox/aide",
-        mots: ["aide", "FAQ interne", "problèmes connus", "URLs canoniques"],
+        // 25 sept 2026 : l editeur de la FAQ publique n etait reference nulle
+        // part ; taper « FAQ » menait a l aide interne, sans rapport.
+        href: "/sandbox/faq",
+        mots: ["faq", "FAQ publique", "questions", "réponses", "questions fréquentes", "aide client", "d'où viennent les données"],
         icon: HelpCircle,
-        label: "Aide & FAQ interne",
-        desc: "12 URLs canoniques et 14 fiches problèmes searchable par alias.",
+        label: "FAQ publique : modifier les questions et réponses",
+        desc: "Ajouter, modifier, réordonner ou retirer les questions de la FAQ du site et de la bulle d'aide. Chaque enregistrement est en ligne immédiatement, sans redéploiement.",
+        accent: "highlight" as const,
+      },
+      {
+        href: "/sandbox/aide",
+        mots: ["aide interne", "problèmes connus", "URLs canoniques", "dépannage"],
+        icon: HelpCircle,
+        label: "Aide interne (URLs et problèmes connus)",
+        desc: "Usage interne : 12 URLs canoniques et 14 fiches de problèmes connus, recherche par alias. Ce n'est pas la FAQ du site.",
       },
     ],
   },
