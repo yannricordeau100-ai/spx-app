@@ -80,6 +80,7 @@ export function normalizeNarrative(text: string): string {
   out = addNbspBeforePct(out);
   // Yann 16 mai 2026 : YoY → vs N-1 (convention FR Mettrik).
   out = out.replace(/\bYoY\b/g, "vs N-1");
+  out = out.replace(/\bGDPR\b/g, "RGPD");
   // 26 sept 2026 : décimale anglaise devant une unité (« +5.7 % », « 8.399 Mds »)
   // → virgule française. Limité aux nombres suivis de %, Mds, M$ ou pts pour ne
   // jamais toucher un numéro de version (« Gemini 2.5 »).

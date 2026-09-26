@@ -823,3 +823,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.26.3 (26 Sep 2026 01:59, apres f9964b2c9b)
 - Graphiques moyen terme : titres sans nom de societe quand elle est seule, majuscule apres les deux-points, axe vertical resserre ; bloc Position marche : nombres au format francais ; positionnement IA : fin des resumes perimes « n a pas mentionne l IA » (84 fiches) ; structure de vote en francais (28 fiches) ; rachats : libelles generiques retires ; unites en euros avec symbole ; pied de page : plus de 650 societes
+
+## v2026.09.26.4 (26 Sep 2026 02:26, apres e0a7459bba)
+- Textes : 3 909 textes réaccentués (Position marché, explications des KPI, concurrents, clients) ; RGPD au lieu de GDPR
