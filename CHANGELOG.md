@@ -826,3 +826,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.26.4 (26 Sep 2026 02:26, apres e0a7459bba)
 - Textes : 3 909 textes réaccentués (Position marché, explications des KPI, concurrents, clients) ; RGPD au lieu de GDPR
+
+## v2026.09.26.5 (26 Sep 2026 03:58, apres bc36f1b60f)
+- Textes : 4 157 textes supplementaires reaccentues (Position marche, moat, clients)
