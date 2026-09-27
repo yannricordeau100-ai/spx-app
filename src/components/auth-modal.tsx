@@ -106,7 +106,12 @@ export function AuthModal() {
     let jetonCaptcha = String(fd.get("cf-turnstile-response") ?? "");
     // Un jeton ne vaut qu une verification et expire : on en demande un neuf
     // juste avant l envoi, sinon Supabase le refuse.
-    if (jetonCaptcha !== "bypass" && apiCaptcha.current) {
+    // 27 sept 2026 (URGENT, boucle signalee par Yann) : le captcha invisible
+    // vient de produire ce jeton au clic (case cochee comprise). En redemander
+    // un ici relancait le defi, faisait disparaitre la case et exigeait un
+    // nouveau clic sur « Se connecter », sans fin. On ne redemande un jeton que
+    // s il n y en a pas, ou s il a deja ete utilise.
+    if (jetonCaptcha !== "bypass" && apiCaptcha.current && (!jetonCaptcha || jetonsSoumis.current.has(jetonCaptcha))) {
       try {
         jetonCaptcha = await apiCaptcha.current.jetonFrais();
       } catch {

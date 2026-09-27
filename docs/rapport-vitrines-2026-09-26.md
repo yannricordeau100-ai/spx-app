@@ -577,3 +577,18 @@
 | Export CSV d'un KPI sur 10 ans | Travail dans ses propres modèles |
 | Superposition cours de bourse / KPI principal | Voir si le marché a déjà intégré la tendance |
 | Saisonnalité : même trimestre sur 5 ans côte à côte | Éviter de lire un creux saisonnier comme une baisse |
+
+## 5. Suite du 27 septembre (doutes tranchés)
+
+| # | Choix | Fait |
+|---|---|---|
+| 1 | A | Variation publiée affichée dès qu'elle est compatible avec les arrondis (toutes fiches) ; KPI en % annuels en points (544 KPI) |
+| 2 | B | GOOGL : ce sont les impressions (−7 %) et le coût par impression (+7 %) du réseau Google, exercice 2025 ; libellés corrigés |
+| 3 | A | Dividendes GOOGL : +5,7 % |
+| 5 | A | Secteur et rang sectoriel selon GICS (185 fiches) |
+| 7 | A | Effet de change BKNG masqué ; 85 années non retrouvées dans leur source masquées sur 18 sociétés et plus |
+| 8 | A | META : « vote de l'AG 2025 » |
+| 10 | A | 104 citations de conférences et 358 preuves IA en français, original dans le « i » |
+| 12, 13, 14, 16, 17 | A | Étiquettes masquées sous 480 px, « position dominante », flèche selon le signe, dock masqué sous 768 px, « Mds $ » |
+| 15 | A | Moats UNH et BE corrigés |
+| 18 | A | Rachats BKNG : Getaroom confirmé ; 225 montants ajoutés sur l'univers |

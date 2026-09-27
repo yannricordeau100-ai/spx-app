@@ -835,3 +835,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.27.2 (27 Sep 2026 03:05, apres ab8aaf0ca1)
 - Captcha : relances automatiques et zoom annulé sur la zone Cloudflare (code 600010) ; 225 montants de rachats vérifiés ; effet de change : 85 années non retrouvées masquées
+
+## v2026.09.27.3 (27 Sep 2026 03:36, apres e4d922ef8b)
+- Connexion : fin de la boucle du captcha (le jeton obtenu au clic est utilisé tel quel)
