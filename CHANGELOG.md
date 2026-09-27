@@ -838,3 +838,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.27.3 (27 Sep 2026 03:36, apres e4d922ef8b)
 - Connexion : fin de la boucle du captcha (le jeton obtenu au clic est utilisé tel quel)
+
+## v2026.09.27.4 (27 Sep 2026 03:52, apres 651d0d779e)
+- Thèses et anti-thèses de nouveau affichées sur les fiches (fichiers inclus dans le paquet en ligne)

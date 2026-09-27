@@ -63,6 +63,13 @@ const nextConfig: NextConfig = {
   // rendu de page société. Sans ces dossiers dans le bundle, TOUTES les
   // pages /sandbox/v1-{7-5|8|9-5}/<ticker> renvoient 404 (loadV17Company
   // → kind:"missing" → notFound()).
+  // 27 sept 2026 : les theses et anti-theses sont lues a l execution par un
+  // chemin construit (src/data/these|att/<ticker>.json) que le tracage ne voit
+  // pas : aucune fiche ne les affichait en ligne. On les inclut explicitement.
+  outputFileTracingIncludes: {
+    "/[ticker]": ["./src/data/these/**/*", "./src/data/att/**/*"],
+    "/sandbox/**": ["./src/data/these/**/*", "./src/data/att/**/*"],
+  },
   outputFileTracingExcludes: {
     "*": [
       // Audits intermédiaires + datasets jamais lus au runtime
