@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 /**
  * anti-these-card.tsx — bloc "Anti-thèse d'investissement" (Yann 14 août 2026).
  *
@@ -27,8 +29,7 @@ import {
   ShieldCheck,
   BookOpen,
   Lock,
-  FileText,
-} from "lucide-react";
+  FileText, ChevronDown } from "lucide-react";
 import { InfoTooltip } from "@/components/info-tooltip";
 import type { CompanyAtt, AttArgument, AttQuantitatif } from "@/lib/att";
 
@@ -213,6 +214,8 @@ export function AntiTheseCard({
   att: CompanyAtt;
   accent?: string;
 }) {
+  // 28 sept 2026 (Yann) : bloc replie par defaut, apercu (accroche) + fleche pour tout ouvrir.
+  const [ouvert, setOuvert] = useState(false);
   const meta = INTENSITE_META[att.intensite] ?? INTENSITE_META.moderee;
   const interne = Array.isArray(att.fondamental_interne) ? att.fondamental_interne : [];
   const externe = Array.isArray(att.fondamental_externe) ? att.fondamental_externe : [];
@@ -346,7 +349,12 @@ export function AntiTheseCard({
       >
         {/* Bandeau de titre du bloc : titre + badge intensité + dates */}
         <div
-          className="flex flex-wrap items-end justify-between gap-2 border-b px-5 py-4 sm:px-6"
+          role="button"
+          tabIndex={0}
+          aria-expanded={ouvert}
+          onClick={(e) => { if ((e.target as HTMLElement).closest("button, [role=\"tooltip\"]")) return; setOuvert((o) => !o); }}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOuvert((o) => !o); } }}
+          className="flex cursor-pointer select-none flex-wrap items-end justify-between gap-2 border-b px-5 py-4 sm:px-6"
           style={{
             borderColor: `${CADRE}33`,
             background: `linear-gradient(90deg, ${CADRE}1a 0%, rgba(7, 7, 7, 0) 70%)`,
@@ -384,6 +392,10 @@ export function AntiTheseCard({
                 : ""}
             </span>
           </div>
+          <ChevronDown
+            aria-hidden
+            className={`size-5 shrink-0 self-center text-zinc-300 transition-transform duration-200 ${ouvert ? "rotate-180" : ""}`}
+          />
         </div>
 
         <div className="p-5 sm:p-6">
@@ -407,6 +419,15 @@ export function AntiTheseCard({
           <div data-blur-part="texte">
             {att.locked ? (
               <LockedPlaceholder />
+            ) : !ouvert ? (
+              <button
+                type="button"
+                onClick={() => setOuvert(true)}
+                className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-medium text-zinc-300 hover:text-zinc-100"
+              >
+                Lire la suite
+                <ChevronDown className="size-4" />
+              </button>
             ) : (
               <div className="mt-4 grid gap-4">
                 {parties.map((p, i) => (

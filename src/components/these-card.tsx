@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 /**
  * these-card.tsx — bloc « Thèse d'investissement » (Yann 19 sept 2026).
  *
@@ -27,8 +29,7 @@ import {
   Compass,
   LineChart,
   Lightbulb,
-  FileText,
-} from "lucide-react";
+  FileText, ChevronDown } from "lucide-react";
 import { InfoTooltip } from "@/components/info-tooltip";
 import type { CompanyThese, TheseArgument, TheseQuantitatif } from "@/lib/these";
 
@@ -191,6 +192,8 @@ function LockedPlaceholder() {
 }
 
 export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; accent?: string }) {
+  // 28 sept 2026 (Yann) : bloc replie par defaut, apercu (accroche) + fleche pour tout ouvrir.
+  const [ouvert, setOuvert] = useState(false);
   const meta = CONVICTION_META[these.conviction] ?? CONVICTION_META.moderee;
   const interne = Array.isArray(these.qualite_interne) ? these.qualite_interne : [];
   const externe = Array.isArray(these.dynamique_externe) ? these.dynamique_externe : [];
@@ -338,7 +341,12 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
       >
         {/* Bandeau de titre du bloc */}
         <div
-          className="flex flex-wrap items-end justify-between gap-2 border-b px-5 py-4 sm:px-6"
+          role="button"
+          tabIndex={0}
+          aria-expanded={ouvert}
+          onClick={(e) => { if ((e.target as HTMLElement).closest("button, [role=\"tooltip\"]")) return; setOuvert((o) => !o); }}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOuvert((o) => !o); } }}
+          className="flex cursor-pointer select-none flex-wrap items-end justify-between gap-2 border-b px-5 py-4 sm:px-6"
           style={{
             borderColor: `${CADRE}33`,
             background: `linear-gradient(90deg, ${CADRE}1a 0%, rgba(7, 7, 7, 0) 70%)`,
@@ -364,6 +372,10 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
               {these.donnees_arretees_au ? `, sur la base des documents publiés jusqu'en ${formatMoisAn(these.donnees_arretees_au)}` : ""}
             </span>
           </div>
+          <ChevronDown
+            aria-hidden
+            className={`size-5 shrink-0 self-center text-zinc-300 transition-transform duration-200 ${ouvert ? "rotate-180" : ""}`}
+          />
         </div>
 
         <div className="p-5 sm:p-6">
@@ -405,6 +417,15 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
           <div data-blur-part="texte">
             {these.locked ? (
               <LockedPlaceholder />
+            ) : !ouvert ? (
+              <button
+                type="button"
+                onClick={() => setOuvert(true)}
+                className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-medium text-zinc-300 hover:text-zinc-100"
+              >
+                Lire la suite
+                <ChevronDown className="size-4" />
+              </button>
             ) : (
               <div className="mt-4 grid gap-4">
                 {parties.map((p, i) => (

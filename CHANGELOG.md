@@ -853,3 +853,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.28.1 (28 Sep 2026 00:41, apres 3ef695f14f)
 - KPI d'industrie en premier dans le tableau ; bloc moyen terme avant le tableau quand le KPI d'industrie est un graphique
+
+## v2026.09.28.2 (28 Sep 2026 00:59, apres 7c5d578231)
+- Thèses et anti-thèses repliables (aperçu + flèche) ; connexion : un seul jeton captcha
