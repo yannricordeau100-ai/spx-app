@@ -103,7 +103,10 @@ export function AuthModal() {
     const passwordV = String(fd.get("password") ?? "");
     // Yann 12 sept 2026 : Supabase exige le captcha sur la connexion par mot
     // de passe (« no captcha_token found » sinon). Yann 14 sept 2026 : Cloudflare Turnstile remplace hCaptcha (gratuit, illimite).
-    let jetonCaptcha = String(fd.get("cf-turnstile-response") ?? "");
+    // 28 sept 2026 : on prend le jeton le plus recent jamais soumis (au cas ou
+    // plusieurs champs porteraient ce nom).
+    const jetonsForm = fd.getAll("cf-turnstile-response").map((v) => String(v ?? "")).filter(Boolean);
+    let jetonCaptcha = [...jetonsForm].reverse().find((j) => !jetonsSoumis.current.has(j)) ?? "";
     // Un jeton ne vaut qu une verification et expire : on en demande un neuf
     // juste avant l envoi, sinon Supabase le refuse.
     // 27 sept 2026 (URGENT, boucle signalee par Yann) : le captcha invisible

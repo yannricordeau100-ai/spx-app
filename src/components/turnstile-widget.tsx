@@ -27,6 +27,7 @@ declare global {
           appearance?: "always" | "execute" | "interaction-only";
           execution?: "render" | "execute";
           language?: string;
+          "response-field"?: boolean;
           callback?: (token: string) => void;
           "error-callback"?: (code?: string) => void | boolean;
           "expired-callback"?: () => void;
@@ -238,6 +239,10 @@ export function TurnstileWidget(props?: {
             appearance: invisible ? "interaction-only" : "always",
             ...(invisible ? { execution: "execute" as const } : {}),
             language,
+            // 28 sept 2026 (boucle de connexion) : Cloudflare ajoutait son propre
+            // champ cache « cf-turnstile-response » en plus du notre ; le
+            // formulaire relisait parfois l ancien jeton deja consomme.
+            "response-field": false,
             callback: (tok: string) => {
               relances.current = 0;
               setToken(tok);
@@ -335,12 +340,13 @@ export function TurnstileWidget(props?: {
             reject(new Error("captcha_reset_impossible"));
             return;
           }
+          // 28 sept 2026 : la case peut demander un geste humain : 2 minutes.
           window.setTimeout(() => {
             if (attente.current) {
               attente.current = null;
               reject(new Error("captcha_timeout"));
             }
-          }, 15000);
+          }, 120000);
         }),
     };
     return () => {
