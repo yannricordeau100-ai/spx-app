@@ -844,3 +844,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.27.5 (27 Sep 2026 04:10, apres c0ef699961)
 - Thèses et anti-thèses rétablies sur toutes les fiches ; 420 rachats ajoutés pour 125 sociétés qui n'en avaient aucun (dont TotalEnergies)
+
+## v2026.09.27.6 (27 Sep 2026 04:45, apres 11afe40c26)
+- Gouvernance exercice 2025 pour 15 sociétés (dont TotalEnergies, Engie, Thales, Saint-Gobain, TPL) ; preuves IA en français sur 78 fiches
