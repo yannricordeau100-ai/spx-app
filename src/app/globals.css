@@ -261,6 +261,14 @@ html[data-theme="light"] .company-logo-img {
    5 sept venait de l outil de capture, largeur minimale 500 px, pas du site.) */
 body { zoom: 1.1; }
 
+/* 27 sept 2026 (URGENT, captcha code 600010) : le cadre Cloudflare Turnstile ne
+   doit pas subir le zoom du site. Sous un corps zoome, la case a cocher etait
+   dessinee a une echelle et cliquee a une autre : Cloudflare voyait un geste
+   incoherent et refusait la verification. On annule le zoom sur sa zone. */
+body .cf-turnstile-zone { zoom: 0.909091; }
+html[data-integre="1"] body .cf-turnstile-zone,
+body:has(.coquille-onglets) .cf-turnstile-zone { zoom: 1; }
+
 /* Yann 20 sept 2026 : les toggles a onglets (Voir les KPI / Creation KPI et
    donnees) affichent une page du site dans un cadre. Le zoom global
    s appliquait alors deux fois (1.1 x 1.1 = 1.21) : sur un ecran de 1440 px la

@@ -832,3 +832,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.27.1 (27 Sep 2026 02:47, apres 74ceb18ffb)
 - TAM alignés et en Mds $, variation publiée prioritaire, écarts en points pour les KPI en %, secteur GICS, KPI arrêtés (4 trimestres), citations et preuves IA en français, Netflix InterPositive, dock masqué sous 768 px
+
+## v2026.09.27.2 (27 Sep 2026 03:05, apres ab8aaf0ca1)
+- Captcha : relances automatiques et zoom annulé sur la zone Cloudflare (code 600010) ; 225 montants de rachats vérifiés ; effet de change : 85 années non retrouvées masquées

@@ -28,7 +28,7 @@ declare global {
           execution?: "render" | "execute";
           language?: string;
           callback?: (token: string) => void;
-          "error-callback"?: (code?: string) => void;
+          "error-callback"?: (code?: string) => void | boolean;
           "expired-callback"?: () => void;
           "timeout-callback"?: () => void;
           "before-interactive-callback"?: () => void;
@@ -165,6 +165,7 @@ export function TurnstileWidget(props?: {
   const [interactionRequise, setInteractionRequise] = useState(false);
   const [essaiEnvoi, setEssaiEnvoi] = useState(false);
   const champRef = useRef<HTMLInputElement | null>(null);
+  const relances = useRef(0);
   const invisibleRef = useRef(false);
   invisibleRef.current = invisible;
   // Taille retenue apres mesure de la place disponible. `null` = pas encore
@@ -238,6 +239,7 @@ export function TurnstileWidget(props?: {
             ...(invisible ? { execution: "execute" as const } : {}),
             language,
             callback: (tok: string) => {
+              relances.current = 0;
               setToken(tok);
               if (champRef.current) champRef.current.value = tok;
               setStatus("ready");
@@ -247,9 +249,28 @@ export function TurnstileWidget(props?: {
                 f(tok);
               }
             },
+            // 27 sept 2026 (URGENT, code 600010 a la connexion) : les erreurs
+            // 300xxx / 600xxx sont des echecs passagers du defi Cloudflare
+            // (reseau, navigateur, defi a rejouer). On relance nous-memes jusqu a
+            // 3 fois avant d afficher quoi que ce soit, puis on propose
+            // « Réessayer » au lieu d exiger un rechargement de la page.
             "error-callback": (code?: string) => {
-              setCodeErreur(String(code ?? ""));
+              const c = String(code ?? "");
+              const passager = /^(3|6)\d{5}$/.test(c) || c === "";
+              if (passager && relances.current < 3 && widgetIdRef.current && window.turnstile) {
+                relances.current += 1;
+                const wid = widgetIdRef.current;
+                window.setTimeout(() => {
+                  try {
+                    window.turnstile?.reset(wid);
+                    if (invisibleRef.current && attente.current) window.turnstile?.execute(wid);
+                  } catch { /* widget retire entre temps */ }
+                }, 800 * relances.current);
+                return true;
+              }
+              setCodeErreur(c);
               setStatus("error");
+              return true;
             },
             "expired-callback": () => {
               setToken("");
@@ -395,13 +416,13 @@ export function TurnstileWidget(props?: {
         >
           <div
             ref={containerRef}
-            className={`flex w-full min-w-0 max-w-full justify-center ${compacte ? "min-h-[140px]" : "min-h-[65px]"}`}
+            className={`cf-turnstile-zone flex w-full min-w-0 max-w-full justify-center ${compacte ? "min-h-[140px]" : "min-h-[65px]"}`}
           />
         </div>
       ) : (
         <div
           ref={containerRef}
-          className={
+          className={"cf-turnstile-zone " + (
             invisible
               ? interactionRequise
                 ? "mx-auto w-full max-w-[330px] overflow-hidden"
@@ -409,13 +430,30 @@ export function TurnstileWidget(props?: {
               : compacte
                 ? "mx-auto flex w-full max-w-[330px] min-w-0 justify-center min-h-[140px]"
                 : "mx-auto flex w-full max-w-[330px] min-w-0 justify-center min-h-[65px]"
-          }
+          )}
         />
       )}
       <input ref={champRef} type="hidden" name={fieldName} value={token} readOnly />
       {status === "error" && (!invisible || essaiEnvoi) && (
         <p className="mt-1.5 text-[11px] text-rose-400">
-          Captcha indisponible{codeErreur ? ` (code ${codeErreur})` : ""}. Recharge la page.
+          La vérification anti-robot n&apos;a pas abouti{codeErreur ? ` (code ${codeErreur})` : ""}.{" "}
+          <button
+            type="button"
+            className="underline underline-offset-2 hover:text-rose-300"
+            onClick={() => {
+              relances.current = 0;
+              setCodeErreur("");
+              setStatus("loading");
+              if (widgetIdRef.current && window.turnstile) {
+                try {
+                  window.turnstile.reset(widgetIdRef.current);
+                  if (invisibleRef.current) window.turnstile.execute(widgetIdRef.current);
+                } catch { /* widget retire */ }
+              }
+            }}
+          >
+            Réessayer
+          </button>
         </p>
       )}
       {status === "expired" && !invisible && (

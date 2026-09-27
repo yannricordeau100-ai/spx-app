@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Target, TrendingUp } from "lucide-react";
+import { Target, TrendingDown, TrendingUp } from "lucide-react";
 import { formatUnit, isOfficialSource, type Company, type MarketPosition } from "@/lib/data";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { brand } from "@/lib/brand";
@@ -188,7 +188,7 @@ export function MarketPositionCard({
           className="mt-3 flex items-center gap-2 rounded-lg border px-3 py-2"
           style={{ borderColor: `${c}33`, background: `${c}10` }}
         >
-          <TrendingUp className="size-4" style={{ color: c }} />
+          {Number(position.market_cagr) < 0 ? <TrendingDown className="size-4" style={{ color: c }} /> : <TrendingUp className="size-4" style={{ color: c }} />}
           <span className="text-[12.5px] text-zinc-200">
             {Number(position.market_cagr) < 0 ? "Le marché recule d'environ" : "Le marché grandit d'environ"}
           </span>
