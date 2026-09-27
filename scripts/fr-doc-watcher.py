@@ -524,8 +524,14 @@ ESEF_API = "https://filings.xbrl.org/api/entities/{lei}/filings?sort=-period_end
 
 
 def rapport_annuel_present(ticker: str, exercice: int) -> bool:
-    d = DATA_LAKE / ticker / "ir" / "URD"
-    return d.exists() and any(d.glob(f"{ticker}_URD_FY{exercice}_*"))
+    """Rapport annuel de l exercice deja dans le lac, quel que soit son nommage
+    (FY2025, 2025_2026) ou son dossier (URD, RA, 20F)."""
+    motifs = [f"*FY{exercice}_*", f"*_{exercice}_{exercice + 1}*"]
+    for dossier in (DATA_LAKE / ticker / "ir" / "URD", DATA_LAKE / ticker / "ir" / "RA", DATA_LAKE / ticker / "20F"):
+        if dossier.exists() and any(any(dossier.glob(m)) for m in motifs):
+            return True
+    d20 = DATA_LAKE / ticker / "20F"
+    return d20.exists() and any(d20.glob(f"*_{exercice + 1}-*"))
 
 
 def verifie_rapport_annuel(ticker: str, entry: dict, dry_run: bool) -> None:
