@@ -114,13 +114,15 @@ async function loadRachats(ticker: string): Promise<import("@/components/rachats
   let societe: import("@/components/rachats-block").RachatsFiche["societe"] = null;
   try {
     const raw = await fs.readFile(path.join(process.cwd(), "src/data/rachats", `${ticker.toLowerCase()}.json`), "utf-8");
-    const d = JSON.parse(raw) as { nb: number; rachats: { nom: string; annee: number | null; montant: string | null }[] };
+    const d = JSON.parse(raw) as { nb: number; rachats: { nom: string; annee: number | null; montant: string | null }[]; aucun_rachat_confirme?: string };
     const eu = ticker.includes(".") && !["BRK.B", "BF.B"].includes(ticker.toUpperCase());
     // 26 sept 2026 (cas Netflix) : un zero n est jamais une preuve. Certaines
     // societes ne balisent pas leurs rachats (XBRL) : on affiche « Disponible
     // bientot » plutot qu une affirmation qui peut etre fausse.
     void eu;
-    societe = { nb: d.nb, rachats: d.rachats.map((r) => ({ nom: r.nom, annee: r.annee, montant: r.montant })), couverte: d.nb > 0 };
+    // 28 sept 2026 : zero CONFIRME par une recherche complete (preuve lue) :
+    // « Aucun rachat significatif publie depuis 2016 » au lieu de « Disponible bientot ».
+    societe = { nb: d.nb, rachats: d.rachats.map((r) => ({ nom: r.nom, annee: r.annee, montant: r.montant })), couverte: d.nb > 0 || Boolean(d.aucun_rachat_confirme) };
   } catch {
     societe = null;
   }

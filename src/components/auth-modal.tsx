@@ -106,21 +106,11 @@ export function AuthModal() {
     // 28 sept 2026 : on prend le jeton le plus recent jamais soumis (au cas ou
     // plusieurs champs porteraient ce nom).
     const jetonsForm = fd.getAll("cf-turnstile-response").map((v) => String(v ?? "")).filter(Boolean);
-    let jetonCaptcha = [...jetonsForm].reverse().find((j) => !jetonsSoumis.current.has(j)) ?? "";
-    // Un jeton ne vaut qu une verification et expire : on en demande un neuf
-    // juste avant l envoi, sinon Supabase le refuse.
-    // 27 sept 2026 (URGENT, boucle signalee par Yann) : le captcha invisible
-    // vient de produire ce jeton au clic (case cochee comprise). En redemander
-    // un ici relancait le defi, faisait disparaitre la case et exigeait un
-    // nouveau clic sur « Se connecter », sans fin. On ne redemande un jeton que
-    // s il n y en a pas, ou s il a deja ete utilise.
-    if (jetonCaptcha !== "bypass" && apiCaptcha.current && (!jetonCaptcha || jetonsSoumis.current.has(jetonCaptcha))) {
-      try {
-        jetonCaptcha = await apiCaptcha.current.jetonFrais();
-      } catch {
-        /* le captcha ne repond pas : on garde le jeton du formulaire */
-      }
-    }
+    const jetonCaptcha = [...jetonsForm].reverse().find((j) => !jetonsSoumis.current.has(j)) ?? "";
+    // 28 sept 2026 (boucle signalee par Yann) : un seul mecanisme. Le captcha
+    // invisible intercepte chaque clic et fournit un jeton NEUF avant l envoi
+    // (il se remet a zero apres chaque envoi). On ne redemande plus jamais de
+    // jeton ici : c est ce second mecanisme qui relancait le defi en boucle.
     const captchaToken = jetonCaptcha && jetonCaptcha !== "bypass" ? jetonCaptcha : undefined;
     if (!emailV || !passwordV) {
       setSigninErr("Email + mot de passe requis");

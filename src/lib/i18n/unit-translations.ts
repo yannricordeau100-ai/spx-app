@@ -116,6 +116,21 @@ export function translateUnitFrToEn(unit: string): string {
     if (stripAccents(fr).toLowerCase() === norm) return en;
   }
 
+  // 28 sept 2026 (Yann) : « Kboe / jour » restait en francais sous l axe de
+  // l export anglais. Les mots de periode et de mesure courants sont traduits
+  // mot a mot, en gardant le reste (sigles, echelle) tel quel.
+  const MOTS: [RegExp, string][] = [
+    [/\bpar jour\b/gi, "per day"], [/\bpar an\b/gi, "per year"], [/\bpar mois\b/gi, "per month"],
+    [/\bjours?\b/gi, "day"], [/\bann[ée]es?\b/gi, "year"], [/\ban\b/gi, "year"], [/\bmois\b/gi, "month"],
+    [/\bsemaines?\b/gi, "week"], [/\btrimestres?\b/gi, "quarter"], [/\bheures?\b/gi, "hour"],
+    [/\bbarils\b/gi, "barrels"], [/\btonnes\b/gi, "tonnes"], [/\bemploy[ée]s\b/gi, "employees"],
+    [/\babonn[ée]s\b/gi, "subscribers"], [/\bclients\b/gi, "customers"], [/\bv[ée]hicules\b/gi, "vehicles"],
+    [/\bmagasins\b/gi, "stores"], [/\butilisateurs\b/gi, "users"],
+  ];
+  let traduit = trimmed;
+  for (const [rx, en] of MOTS) traduit = traduit.replace(rx, en);
+  if (traduit !== trimmed) return traduit.replace(/^Mds\s/, "B ");
+
   // Cas composite type "Mds tonnes" ou "M unites" : on tente la traduction
   // sur la partie textuelle apres le prefixe scale (Mds/M/K).
   const parts = trimmed.split(/\s+/);
@@ -130,6 +145,7 @@ export function translateUnitFrToEn(unit: string): string {
       return `${translatedHead} ${translatedTail}`;
     }
   }
+
 
   return unit;
 }

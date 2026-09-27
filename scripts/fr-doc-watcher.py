@@ -33,6 +33,7 @@ Usage :
 from __future__ import annotations
 
 import gzip
+from html import unescape as html_unescape
 import json
 import re
 import ssl
@@ -470,6 +471,7 @@ def process_ticker(ticker: str, nom: str, status: dict, dry_run: bool) -> None:
         links = fetch_infofi_fallback(nom)
         if not links:
             entry["statut"] = source  # waf_bloque ou erreur_source
+            verifie_rapport_annuel(ticker, entry, dry_run)
             status[ticker] = entry
             log(f"  {ticker}: statut={source}, aucune source exploitable")
             return
@@ -504,8 +506,79 @@ def process_ticker(ticker: str, nom: str, status: dict, dry_run: bool) -> None:
         entry["derniere_publication_vue"] = new_docs[-1]
         entry["statut"] = "nouvelle_publication"
         entry["a_rafraichir"] = True
+    verifie_rapport_annuel(ticker, entry, dry_run)
     log(f"  {ticker}: {len(links)} PDF vus, {len(candidates)} candidats, {len(new_docs)} nouveaux, statut={entry['statut']}")
     status[ticker] = entry
+
+
+# 28 sept 2026 (Yann) : la veille ne voyait PAS les rapports annuels (elle lit
+# les pages de resultats) ; TotalEnergies avait encore sa gouvernance 2024 en
+# septembre 2026. Deuxieme passe par societe : si le rapport annuel de
+# l exercice precedent manque dans le lac apres le 1er mars, on le cherche dans
+# le registre europeen ESEF (filings.xbrl.org, gratuit, tous les emetteurs
+# cotes de l UE) grace au LEI (scripts/lei-europe.json, construit par
+# scripts/lei-europe-build.py). Sinon le statut « rapport_annuel_manquant »
+# le signale.
+LEI_PATH = PROJECT_ROOT / "scripts" / "lei-europe.json"
+ESEF_API = "https://filings.xbrl.org/api/entities/{lei}/filings?sort=-period_end&page%5Bsize%5D=10"
+
+
+def rapport_annuel_present(ticker: str, exercice: int) -> bool:
+    d = DATA_LAKE / ticker / "ir" / "URD"
+    return d.exists() and any(d.glob(f"{ticker}_URD_FY{exercice}_*"))
+
+
+def verifie_rapport_annuel(ticker: str, entry: dict, dry_run: bool) -> None:
+    now = datetime.now(timezone.utc)
+    exercice = now.year - 1
+    if now.month < 3 or rapport_annuel_present(ticker, exercice):
+        return
+    try:
+        lei = (json.load(open(LEI_PATH, encoding="utf8")).get(ticker) or {}).get("lei")
+    except (OSError, json.JSONDecodeError):
+        lei = None
+    if not lei:
+        entry["rapport_annuel"] = f"manquant FY{exercice} (pas de LEI, registre ESEF non interrogeable)"
+        entry["statut"] = "rapport_annuel_manquant"
+        return
+    try:
+        data = json.loads(http_get(ESEF_API.format(lei=lei)).decode("utf8", errors="replace"))
+    except Exception as e:
+        entry["rapport_annuel"] = f"manquant FY{exercice} (registre ESEF injoignable : {e})"
+        entry["statut"] = "rapport_annuel_manquant"
+        return
+    depots = [f.get("attributes", {}) for f in data.get("data", [])]
+    depots = [a for a in depots if str(a.get("period_end", "")).startswith(str(exercice)) and a.get("report_url")]
+    if not depots:
+        entry["rapport_annuel"] = f"manquant FY{exercice} (pas encore dans le registre ESEF)"
+        entry["statut"] = "rapport_annuel_manquant"
+        return
+    # langue francaise d abord pour les societes francaises, sinon le premier
+    depots.sort(key=lambda a: 0 if ("-fr" in a["report_url"] or a.get("country") == "FR") else 1)
+    a = depots[0]
+    url = "https://filings.xbrl.org" + a["report_url"]
+    date = str(a.get("date_added", ""))[:10] or now.date().isoformat()
+    cible = DATA_LAKE / ticker / "ir" / "URD" / f"{ticker}_URD_FY{exercice}_{date}.xhtml"
+    if dry_run:
+        log(f"  [dry-run] {ticker} : rapport annuel FY{exercice} trouve dans le registre ESEF : {url}")
+        return
+    try:
+        contenu = http_get(url, timeout=180)
+    except Exception as e:
+        entry["rapport_annuel"] = f"manquant FY{exercice} (telechargement ESEF echoue : {e})"
+        entry["statut"] = "rapport_annuel_manquant"
+        return
+    cible.parent.mkdir(parents=True, exist_ok=True)
+    cible.write_bytes(contenu)
+    texte = re.sub(r"<[^>]+>", " ", contenu.decode("utf8", errors="replace"))
+    texte = re.sub(r"[ \t]+", " ", html_unescape(texte))
+    with gzip.open(str(cible.with_suffix("")) + ".txt.gz", "wt", encoding="utf8") as f:
+        f.write(texte)
+    entry["rapport_annuel"] = f"FY{exercice} telecharge depuis le registre ESEF ({cible.name})"
+    entry["statut"] = "nouvelle_publication"
+    entry["a_rafraichir"] = True
+    entry["derniere_publication_vue"] = cible.name
+    log(f"  ↓ {ticker} rapport annuel FY{exercice} (ESEF) → {cible.relative_to(PROJECT_ROOT)} ({len(contenu)} o)")
 
 
 def main() -> int:

@@ -856,3 +856,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.28.2 (28 Sep 2026 00:59, apres 7c5d578231)
 - Thèses et anti-thèses repliables (aperçu + flèche) ; connexion : un seul jeton captcha
+
+## v2026.09.28.3 (28 Sep 2026 01:25, apres 063ca58b03)
+- Connexion : un seul mécanisme de captcha ; unités anglaises de l'axe (day, year) ; 142 rachats de plus et « aucun rachat » confirmé ; gouvernance, répartition et risques 2025 pour ArcelorMittal, SGS, Aegon, Airbus, Schneider ; 32 KPI complétés avec l'exercice 2025 ; veille des rapports annuels européens (registre ESEF)

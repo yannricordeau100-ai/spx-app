@@ -167,6 +167,7 @@ export function TurnstileWidget(props?: {
   const [essaiEnvoi, setEssaiEnvoi] = useState(false);
   const champRef = useRef<HTMLInputElement | null>(null);
   const relances = useRef(0);
+  const jetonPasse = useRef<string>("");
   const invisibleRef = useRef(false);
   invisibleRef.current = invisible;
   // Taille retenue apres mesure de la place disponible. `null` = pas encore
@@ -362,7 +363,10 @@ export function TurnstileWidget(props?: {
     const form = containerRef.current?.closest("form");
     if (!form) return;
     const auClic = (ev: Event) => {
-      if (champRef.current?.value) return; // jeton pret : l envoi continue
+      // 28 sept 2026 : un jeton ne laisse passer qu UN envoi. S il a deja servi
+      // (echec precedent, jeton refuse), on en redemande un neuf.
+      const v = champRef.current?.value;
+      if (v && v !== jetonPasse.current) { jetonPasse.current = v; return; } // jeton neuf : l envoi continue
       if (!widgetIdRef.current || !window.turnstile) return;
       ev.preventDefault();
       ev.stopImmediatePropagation();
