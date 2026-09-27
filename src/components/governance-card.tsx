@@ -456,7 +456,11 @@ export function GovernanceCard({
     }] : []),
     ...(hasNum(g.exec_comp_approval_pct) ? [{
       Icon: Vote,
-      label: t("governance.metrics.exec_approval_label"),
+      // 27 sept 2026 : quand le vote date d une AG anterieure (vote tous les
+      // trois ans, ex META : AG 2025), on le precise.
+      label: (g as { exec_comp_approval_ag?: string }).exec_comp_approval_ag
+        ? `${t("governance.metrics.exec_approval_label")} (vote de l'AG ${(g as { exec_comp_approval_ag?: string }).exec_comp_approval_ag})`
+        : t("governance.metrics.exec_approval_label"),
       value: `${fmt(g.exec_comp_approval_pct, 1, locale)} %`,
       color: "#06b6d4",
       tooltip: (

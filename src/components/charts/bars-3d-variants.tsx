@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { buildYearGroups } from "@/lib/chart-export";
@@ -135,6 +135,17 @@ function roundedBarPath(x: number, y: number, w: number, h: number, isNeg: boole
 }
 export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color = "#a78bfa", events = [], ttm = null, ttmLabel = "TTM", variant = "iso3d", labelStep = 1, onToggleLabels, exportTitle, exportTicker, exportCagr, exportFrequency, exportInterpretation, titleLocale }: Props) {
   const [hover, setHover] = useState<number | null>(null);
+  // 27 sept 2026 (Yann, doute n°12) : sous 480 px de large, les valeurs au-dessus
+  // des barres sont illisibles ; on ne garde que celle de la barre touchée.
+  const [etroit, setEtroit] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(max-width: 479px)");
+    const maj = () => setEtroit(mq.matches);
+    maj();
+    mq.addEventListener?.("change", maj);
+    return () => mq.removeEventListener?.("change", maj);
+  }, []);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware.
   const { locale } = useT();
@@ -446,6 +457,7 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
               // meme quand elle fait partie des masquees.
               const nReel = hasTTM ? allLabels.length - 1 : allLabels.length;
               if (labelStep === 2 && !isTTM && !isH && (nReel - 1 - i) % 2 === 1) return null;
+              if (etroit && !isH) return null;
               const cxLabel = x + barW / 2 + (isClassic ? 0 : DX / 2);
               const cyLabel = isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12);
               const labelOpacity = hover === null ? 1 : isH ? 1 : 0.3;

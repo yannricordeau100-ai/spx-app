@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowDownRight, ArrowUpRight, Check } from "lucide-react";
-import { type KPI, formatCAGR, formatUnit, formatHeroValue, yoySamePeriod } from "@/lib/data";
+import { type KPI, formatCAGR, formatUnit, formatHeroValue, yoySamePeriod, yoyPublieSiArrondi } from "@/lib/data";
 import { cn, yoyTone } from "@/lib/utils";
 import { rate } from "@/lib/brand";
 import { Sparkline } from "@/components/effects/sparkline";
@@ -303,6 +303,18 @@ export function KpiRow({
               yoyStr = `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")} %`;
             }
           }
+          // 27 sept 2026 : meme regle pour un KPI en % annuel (544 KPI
+          // affichaient un ratio de taux, ex GEHC « -480,0 % ») : ecart en
+          // points avec l'exercice precedent.
+          if (!yoyStr && isPctUnit && kpi.period_type !== "quarter" && Array.isArray(kpi.history) && kpi.history.length >= 2) {
+            const li = kpi.history.length - 1;
+            const lastV = kpi.history[li];
+            const prevV = kpi.history[li - 1];
+            if (typeof lastV === "number" && typeof prevV === "number") {
+              const diff = lastV - prevV;
+              yoyStr = `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")} %`;
+            }
+          }
           if (
             !yoyStr &&
             !isPctUnit &&
@@ -323,6 +335,9 @@ export function KpiRow({
                 pct = ((last - prev) / Math.abs(prev)) * 100;
             }
             if (pct !== null) {
+              const hh = kpi.history as number[];
+              const pub = yoyPublieSiArrondi(kpi, hh[hh.length - 1], hh[hh.length - 5]);
+              if (pub !== null) pct = pub;
               const sign = pct > 0 ? "+" : "";
               yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")} %`;
             }
@@ -361,8 +376,9 @@ export function KpiRow({
               style={{ color: yoyColor }}
             >
               <span>(</span>
-              {tone === "pos" && <ArrowUpRight className="mr-0.5 size-3" />}
-              {tone === "neg" && <ArrowDownRight className="mr-0.5 size-3" />}
+              {/* 27 sept 2026 : flèche selon le signe, couleur selon bon/mauvais. */}
+              {tone !== "neutral" && !/^[-−]/.test(yoyStr.trim()) && <ArrowUpRight className="mr-0.5 size-3" />}
+              {tone !== "neutral" && /^[-−]/.test(yoyStr.trim()) && <ArrowDownRight className="mr-0.5 size-3" />}
               {yoyStr}
               <span>)</span>
             </div>

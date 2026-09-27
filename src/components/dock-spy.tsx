@@ -206,7 +206,7 @@ export function DockSpyLeft({
 
   return (
     // Mobile (1er sept 2026) : la dock recouvrait le contenu sur 375px -> cachee, reapparait des sm:.
-    <nav className="hidden sm:block fixed left-3 top-1/2 z-40 -translate-y-1/2" onMouseLeave={() => setHoverIdx(null)}>
+    <nav className="hidden md:block fixed left-3 top-1/2 z-40 -translate-y-1/2" onMouseLeave={() => setHoverIdx(null)}>
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center gap-2 rounded-full border border-[#1f1f1f] bg-[#0a0a0a]/85 px-2 py-3 backdrop-blur-md">
           {sections.map((s, i) => {
@@ -235,7 +235,7 @@ export function DockSpyRight({ sections }: { sections: DockSpySection[] }) {
   const { active, hoverIdx, setHoverIdx, go } = useDockNav(sections);
 
   return (
-    <nav className="hidden sm:block fixed right-3 top-1/2 z-40 -translate-y-1/2" onMouseLeave={() => setHoverIdx(null)}>
+    <nav className="hidden md:block fixed right-3 top-1/2 z-40 -translate-y-1/2" onMouseLeave={() => setHoverIdx(null)}>
       <div className="flex flex-col items-center gap-2 rounded-full border border-[#1f1f1f] bg-[#0a0a0a]/85 px-2 py-3 backdrop-blur-md">
         {sections.map((s, i) => {
           const isActive = active === s.id;
@@ -270,7 +270,7 @@ export function DockRailLeft({ sections, showSocial = false }: { sections: DockS
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   return (
-    <nav className="group/rail hidden sm:block fixed left-3 top-1/2 z-40 -translate-y-1/2" aria-label="Sections de la fiche">
+    <nav className="group/rail hidden md:block fixed left-3 top-1/2 z-40 -translate-y-1/2" aria-label="Sections de la fiche">
       <div className="flex flex-col items-start">
         {/* Yann 24 sept 2026 : menu reduit au repos ; il reprend sa taille
             pleine au survol et la garde tant que la souris reste dans la zone. */}

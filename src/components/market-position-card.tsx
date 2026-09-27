@@ -7,11 +7,15 @@ import { InfoTooltip } from "@/components/info-tooltip";
 import { brand } from "@/lib/brand";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 
-/** Valeur de marché : 1 décimale sous 100, entier au-delà, format français. */
+/** Valeur de marché, format français, sans perte d'ordre de grandeur :
+ *  2 décimales sous 10, 1 décimale sous 1 000, entier au-delà
+ *  (294,691 Mds -> « 294,7 Mds », 4 000 -> « 4 000 »). */
 function fmtMontant(n: number) {
   const v = Number(n);
   if (!Number.isFinite(v)) return String(n);
-  return fmt(v, Math.abs(v) < 100 && !Number.isInteger(v) ? 1 : 0);
+  if (Number.isInteger(v)) return fmt(v, 0);
+  const a = Math.abs(v);
+  return fmt(v, a < 10 ? 2 : a < 1000 ? 1 : 0);
 }
 
 function fmt(n: number, decimals = 0) {
@@ -30,8 +34,7 @@ function unitLabel(unit: string) {
   const normalized = formatUnit(unit);
   // Raccourcir "Mds $" → "Md $", "Mds €" → "Md €", etc, pour cohérence
   // avec l'ancien label court de la card market-position.
-  const match = normalized.match(/^Mds(\s+\S+)?$/);
-  if (match) return `Md${match[1] ?? ""}`;
+  // 27 sept 2026 (Yann, doute n°17) : « Mds $ » comme partout ailleurs.
   return normalized;
 }
 
@@ -62,7 +65,7 @@ export function MarketPositionCard({
   return (
     <div
       className={`overflow-hidden rounded-2xl border border-[#1a1a1a] bg-gradient-to-b from-[#0a0a0a] to-[#070707] ${
-        wide ? "p-6 lg:p-7" : "p-5"
+        wide ? "p-6 lg:p-7" : "p-5 grid grid-rows-subgrid row-span-6 gap-y-0"
       }`}
     >
       <div className="flex items-start justify-between gap-3">
@@ -175,6 +178,10 @@ export function MarketPositionCard({
         </div>
       </div>
 
+      {/* 27 sept 2026 : les deux cartes côte à côte partagent les mêmes lignes
+          (sous-grille) : titre, part, barre, chiffres, croissance, mention.
+          Une ligne absente garde sa place vide pour que tout reste aligné. */}
+      {position.market_cagr === undefined && !wide && <div aria-hidden />}
       {position.market_cagr !== undefined && (
         <div
           data-blur-part="texte"
@@ -183,15 +190,16 @@ export function MarketPositionCard({
         >
           <TrendingUp className="size-4" style={{ color: c }} />
           <span className="text-[12.5px] text-zinc-200">
-            Le marché grandit d'environ
+            {Number(position.market_cagr) < 0 ? "Le marché recule d'environ" : "Le marché grandit d'environ"}
           </span>
           <span className="font-mono text-[14px] font-bold tabular-nums" style={{ color: c }}>
-            +{fmt(Number(position.market_cagr), Number.isInteger(Number(position.market_cagr)) ? 0 : 1)} %
+            {Number(position.market_cagr) > 0 ? "+" : ""}{fmt(Math.abs(Number(position.market_cagr)), Number.isInteger(Number(position.market_cagr)) ? 0 : 1)} %
           </span>
           <span className="text-[12.5px] text-zinc-300">par an.</span>
         </div>
       )}
 
+      {!(position.source && !isOfficialSource(position.source)) && !wide && <div aria-hidden />}
       {position.source && !isOfficialSource(position.source) && (
         <div data-blur-part="source" className="mt-3 text-[11px] italic text-zinc-400">
           Estimation indicative.

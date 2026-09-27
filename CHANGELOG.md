@@ -829,3 +829,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.26.5 (26 Sep 2026 03:58, apres bc36f1b60f)
 - Textes : 4 157 textes supplementaires reaccentues (Position marche, moat, clients)
+
+## v2026.09.27.1 (27 Sep 2026 02:47, apres 74ceb18ffb)
+- TAM alignés et en Mds $, variation publiée prioritaire, écarts en points pour les KPI en %, secteur GICS, KPI arrêtés (4 trimestres), citations et preuves IA en français, Netflix InterPositive, dock masqué sous 768 px

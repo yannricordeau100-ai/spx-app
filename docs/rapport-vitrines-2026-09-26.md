@@ -4,24 +4,24 @@
 
 | # | Où | Avant | Après | Portée |
 |---|---|---|---|---|
-| 1 | Bloc Position marché (TAM) | 294.691 Md $ · 1260 Md $ · +6.4 % | 295 Md $ · 1 260 Md $ · +6,4 % | toutes les fiches avec TAM |
+| 1 | Bloc Position marché (TAM) | 294.691 Md $ · 1260 Md $ · +6.4 % | 294,7 Mds $ · 1 260 Mds $ · +6,4 % | toutes les fiches avec TAM |
 | 2 | Sous-titre Position marché | … vs le Total Addressable Market. | … comparée à la taille totale du marché visé. | toutes |
 | 3 | Positionnement IA (BKNG et 83 autres, dont LLY, JNJ, TTD, XOM) | « Acteur majeur » + « La société n'a pas mentionné l'IA… dans les extraits fournis de son rapport rapport annuel » | Résumé à jour de la fiche (la traduction de mai ne l'écrase plus) | 84 fiches |
 | 4 | Structure de vote BKNG | The company has a dual-class share structure… Class B shares have 10 votes (FAUX : Booking n'a qu'une classe) | Une action une voix | BKNG |
 | 5 | Structure de vote, 28 fiches en anglais | ex. NDAQ « dual-class, Class B superior voting » (faux) ; NWS classes inversées | Textes français corrigés (NDAQ : une classe, vote plafonné à 5 % ; NWS : Class A NWSA sans vote, Class B NWS votante) | 28 fiches |
-| 6 | Rachats GOOGL | character · Mandiant sans montant · total 4,8 Mds $ | Character.AI (confirmé rachat, note 8 du 10-K 2024) · Mandiant 6,1 Mds $ (10-K 2022) · total 10,9 Mds $ | GOOGL |
+| 6 | Rachats GOOGL | character · Mandiant sans montant · total 4,8 Mds $ | Character.AI (confirmé rachat) · Mandiant 6,1 Mds $ · total 10,9 Mds $ | GOOGL |
 | 7 | Rachats, libellés génériques | « equity method investment », « battery storage company », « question », « ho. »… | 37 retirés, 10 renommés (Mailchimp, Yardbird, Say Technologies…), liste figée pour les relances | ≈ 30 fiches |
-| 8 | Moat META | +33 % sur le dernier trimestre (c'était le T1) | +27 % au deuxième trimestre 2026 (10-Q : 59 363 vs 46 563 M$) | META |
-| 9 | KPI META impressions | 3 cartes contradictoires T2 2026 : 14 %, 12 %, 19 % | Seule reste 14 % (10-Q) ; les 2 doublons périmés sont masqués | META |
+| 8 | Moat META | +33 % sur le dernier trimestre (c'était le T1) | +27 % au deuxième trimestre 2026 | META |
+| 9 | KPI META impressions | 3 cartes contradictoires T2 2026 : 14 %, 12 %, 19 % | Seule reste 14 % ; les 2 doublons périmés sont masqués | META |
 | 10 | Encadré du KPI principal | (+24% YoY) | (+24 % vs N-1) | toutes |
 | 11 | Textes KPI | +5.7% · 8.399 Mds | +5,7 % · 8,399 Mds | toutes |
 | 12 | Unités | Md EUR · Mds EUR · M EUR · MEUR | Mds € · M € | ≈ 340 KPI |
 | 13 | Unités sans accents | M nuitees · abonnes · annee · operations · vehicules | M nuitées · abonnés · année · opérations · véhicules | 86 KPI |
 | 14 | Story META | Amende GDPR de l'autorite irlandaise · 100% IA | Amende RGPD de l'autorité irlandaise · 100 % IA | META + « GDPR » → « RGPD » et « 100% » → « 100 % » dans tous les titres de stories |
-| 15 | Pied de page, métadonnées, FAQ | plus de 1 000 grandes sociétés · (rapports annuels, 10-K, 10-Q…) | plus de 650 grandes sociétés · (rapports annuels et trimestriels, communiqués) | site entier |
+| 15 | Pied de page, métadonnées, FAQ | plus de 1 000 grandes sociétés · (rapports annuels,,…) | plus de 650 grandes sociétés · (rapports annuels et trimestriels, communiqués) | site entier |
 | 16 | Graphiques MT, axe vertical | GOOGL/META : axe à 80 000 pour un max à 44 924 (moitié vide) | Plafond rond le plus proche (50 000), graduations entières | 1 136 SVG + 2 300 PNG |
 | 17 | Transcripts COST, CTAS, DRI, GIS, PAYX | Historique des 4 appels effacé cette nuit (01:42) par la collecte | Historique restauré ; le script ne remplace plus que le dernier appel | 5 fiches + cause corrigée |
-| 18 | Accents | Textes TAM, explications KPI, concurrents, clients : « Marche mondial… Perimetre… » | Réaccentués : 5 074 textes (passe 2) + 3 909 textes (passes 3 et 4), contrôle automatique : aucune lettre changée hors accents | 8 983 textes, 4 110 fichiers |
+| 18 | Accents | Textes TAM, explications KPI, concurrents, clients : « Marche mondial… Perimetre… » | Réaccentués : 5 074 + 3 909 + 2 451 + 1 706 textes (y compris docs/cahier, la vraie source des blocs Position marché, Moat et Clients) ; contrôle automatique : aucune lettre changée hors accents | 13 140 textes |
 
 ### Titres des graphiques moyen terme (423 modifiés en base)
 
@@ -536,16 +536,16 @@
 
 | # | Sujet | Constat | A (recommandé) | B | C |
 |---|---|---|---|---|---|
-| 1 | Variations recalculées sur des valeurs arrondies | BKNG : jours de location −4,2 % affiché, −6,5 % publié ; billets d'avion +6,3 % vs +3,7 % ; nuits +5,2 % vs +5,3 %. Même mécanisme probable sur toutes les fiches | Script sur tout l'univers : prendre la variation publiée quand le 10-Q/10-K la donne | Corriger seulement BKNG | Laisser |
+| 1 | Variations recalculées sur des valeurs arrondies | BKNG : jours de location −4,2 % affiché, −6,5 % publié ; billets d'avion +6,3 % vs +3,7 % ; nuits +5,2 % vs +5,3 %. Même mécanisme probable sur toutes les fiches | Script sur tout l'univers : prendre la variation publiée quand/ la donne | Corriger seulement BKNG | Laisser |
 | 2 | GOOGL : « Croissance du nombre d'annonces » −7 % et « prix moyen par annonce » +7 % (T4 2025) | Aucune source trouvée dans le communiqué T4 2025 | Masquer les 2 KPI jusqu'à preuve | Relancer une recherche (quota web épuisé, nouvelle session) | Laisser |
-| 3 | GOOGL story « Dividendes versés T2 2026 : +8,0 % » | 10-Q : +5,7 % (payés, 2 543 → 2 689 M$) ou +4,4 % (déclarés) | +5,7 % (cohérent avec la valeur 2,7 Mds $ payés) | +4,4 % | Laisser |
-| 4 | Montant Character.AI (GOOGL) | 2,7 Mds $ = écart d'acquisition seul ; + 413 M$ d'actifs incorporels (10-K) | Garder 2,7 Mds $ | Afficher 3,1 Mds $ | Retirer le montant |
+| 3 | GOOGL story « Dividendes versés T2 2026 : +8,0 % » | : +5,7 % (payés, 2 543 → 2 689 M$) ou +4,4 % (déclarés) | +5,7 % (cohérent avec la valeur 2,7 Mds $ payés) | +4,4 % | Laisser |
+| 4 | Montant Character.AI (GOOGL) | 2,7 Mds $ = écart d'acquisition seul ; + 413 M$ d'actifs incorporels | Garder 2,7 Mds $ | Afficher 3,1 Mds $ | Retirer le montant |
 | 5 | Secteur BKNG | En-tête « Consommation discrétionnaire » mais puce « Technologie Top 50 » et « unités du secteur Technologie » | Corriger BKNG + audit de toutes les fiches (secteur des puces vs GICS) | BKNG seul | Laisser |
 | 6 | Variation d'un pourcentage | « Part revenus merchant 73 % (+4,0 %) » : c'est +4,0 points | Afficher « pts » pour tous les KPI en % | Laisser « % » | |
-| 7 | BKNG « Effet de change » −4 / +5 pts (2024/2025) | 10-K : environ −1 / +3 pts. Origine inconnue | Masquer l'effet de change BKNG et auditer ce calcul partout | Laisser | |
+| 7 | BKNG « Effet de change » −4 / +5 pts (2024/2025) | : environ −1 / +3 pts. Origine inconnue | Masquer l'effet de change BKNG et auditer ce calcul partout | Laisser | |
 | 8 | META « Approbation de la rémunération 89 % » | Vote de l'AG 2025 (sur l'exercice 2024), présenté comme exercice 2025 | Libellé « vote de l'AG 2025 » | Laisser | |
 | 9 | META synthèse : rachats S1 2025 « 23,2 Mds $ » | Tableau des flux : 22,9 Mds $ ; 23,2 = capitaux propres | Laisser (les deux sont publiés) | 22,9 | |
-| 10 | Citations en anglais | Preuves IA « Extrait 10-K: We are executing… », citation de Sundar Pichai en anglais | Reformuler en français, citation originale en infobulle | Garder l'anglais entre guillemets | |
+| 10 | Citations en anglais | Preuves IA « Extrait: We are executing… », citation de Sundar Pichai en anglais | Reformuler en français, citation originale en infobulle | Garder l'anglais entre guillemets | |
 | 11 | Axes en casse anglaise | « Millions de Nuitées », « USD/Personne » | Casse française : « Millions de nuitées », « $ / personne » | Laisser | |
 | 12 | Graphique principal sur mobile | Étiquettes des barres illisibles (≈ 4 px) | Masquer les étiquettes sous 480 px, garder l'infobulle au toucher | Moins de barres (3 ans par défaut) | Laisser |
 | 13 | « monopole de la recherche » (GOOGL, Comprendre) | Formulation juridiquement sensible | « position dominante dans la recherche » | Laisser | |
@@ -553,7 +553,7 @@
 | 15 | Textes « moat » datés « dernier trimestre » | META contenait le chiffre du T1 ; d'autres fiches probablement | Audit de tous les moats avec chiffres trimestriels | Laisser | |
 | 16 | Dock gauche vers 717 px de large | Chevauche le contenu | Le masquer sous 768 px | Réduire la marge | |
 | 17 | TAM : « Md $ » | Le reste du site écrit « Mds $ » | « Mds $ » partout | Laisser | |
-| 18 | BKNG rachats Momondo, HotelsCombined, Getaroom | Montants et dates non revérifiés | Revérifier avec les 8-K d'époque (nouvelle session, quota web) | Laisser | |
+| 18 | BKNG rachats Momondo, HotelsCombined, Getaroom | Montants et dates non revérifiés | Revérifier avec d'époque (nouvelle session, quota web) | Laisser | |
 
 ## 3. Questions encore ouvertes des 3 dernières heures
 
@@ -562,7 +562,7 @@
 | Groupe « KPI arrêtés par la société » (codé, éteint) | A : n'y mettre que les KPI dont l'arrêt est écrit dans un document de la société ; B : tout KPI sans valeur depuis 4 trimestres ; C : laisser éteint |
 | Captcha invisible | Test réel à faire dans votre Chrome (le navigateur intégré bloque Cloudflare) : dites « teste dans Chrome » |
 | Quota de recherche web épuisé | Nouvelle session pour : 3 graphiques MT périmés (MC.PA coton, NOVN.SW, RMS.PA soie), ≈ 20 descriptions, montants de rachats restants et Europe, points 2 et 18 ci-dessus |
-| Netflix | Story et bloc rachats se contredisent ; rachat 2026 non nommé : A nommer si le 10-Q le nomme, B retirer la story |
+| Netflix | Story et bloc rachats se contredisent ; rachat 2026 non nommé : A nommer si le nomme, B retirer la story |
 | Mise en production | Tout ceci est sur la préversion : « go n0 » pour pousser sur mettrik.ai |
 
 ## 4. Fonctionnalités KPI non prévues (idées pour la FAQ et la feuille de route)

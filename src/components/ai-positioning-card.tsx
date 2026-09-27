@@ -186,7 +186,7 @@ export function AIPositioningCard({
                             <AutoTooltipText text={humanizeFinJargon(normalizeNarrative(fr))} locale="fr" />
                             <InfoTooltip color={meta.color}>
                               <p data-blur-part="original" className="text-[12px] font-semibold text-zinc-100">Citation originale</p>
-                              <p className="mt-1 text-[12px] italic text-zinc-300">{txt}</p>
+                              <p className="mt-1 text-[12px] italic text-zinc-300">{txt.replace(/^[^"“]*?(?:Extrait|Excerpt)[^:]*:\s*/i, "").replace(/^(?:Mention IA|Passage IA)[^:]*:\s*/i, "")}</p>
                             </InfoTooltip>
                           </>
                         );

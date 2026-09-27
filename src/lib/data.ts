@@ -592,6 +592,40 @@ export function getHero(company: Company): KPI {
  *  +27,6 % affiché au lieu de +17,7 % réel. Formats acceptés : "Q3-2025",
  *  "Q3 2025", "Q3-FY2025". Retourne null si labels absents ou période N-1
  *  introuvable (l'appelant garde alors son fallback positionnel). */
+/**
+ * 27 sept 2026 (Yann, doute n°1) : une variation recalculee sur des valeurs
+ * arrondies ment (BKNG jours de location : 23 vs 24 M donne -4,2 %, la
+ * societe publie -6,5 %). Si la variation stockee (publiee) reste compatible
+ * avec les valeurs arrondies (chaque valeur a +/- une demi-unite du dernier
+ * chiffre), on affiche la variation publiee. `yoy_publie` (nombre) prime
+ * toujours quand il existe.
+ */
+export function yoyPublieSiArrondi(
+  kpi: { yoy?: unknown; yoy_publie?: unknown },
+  last: number,
+  prev: number,
+): number | null {
+  if (typeof kpi.yoy_publie === "number" && Number.isFinite(kpi.yoy_publie)) return kpi.yoy_publie;
+  let stocke: number | null = null;
+  if (typeof kpi.yoy === "number" && Number.isFinite(kpi.yoy)) stocke = kpi.yoy;
+  else if (typeof kpi.yoy === "string") {
+    const m = kpi.yoy.replace(/\u00a0|\u202f/g, " ").match(/^\s*([+-−]?)\s*(\d+(?:[.,]\d+)?)\s*%\s*$/);
+    if (m) stocke = (m[1] === "-" || m[1] === "−" ? -1 : 1) * parseFloat(m[2].replace(",", "."));
+  }
+  if (stocke === null || !prev) return null;
+  const pas = (v: number) => {
+    const d = (String(v).split(".")[1] ?? "").length;
+    return 0.5 * Math.pow(10, -d);
+  };
+  const dl = pas(last), dp = pas(prev);
+  const bornes = [
+    ((last - dl) / (prev + dp) - 1) * 100,
+    ((last + dl) / (prev - dp) - 1) * 100,
+  ];
+  const lo = Math.min(...bornes) - 0.05, hi = Math.max(...bornes) + 0.05;
+  return stocke >= lo && stocke <= hi ? stocke : null;
+}
+
 export function yoySamePeriod(
   history: unknown,
   historyPeriods: unknown,

@@ -665,7 +665,20 @@ async function loadV17CompanyBrut(
   try {
     const gics = await readJsonOrNull<{ societes?: Record<string, string> }>(path.join(ROOT, "docs/cahier/societes-gics.json"));
     const code = gics?.societes?.[ticker.toUpperCase()];
-    if (typeof code === "string" && /^\d{8}$/.test(code)) (data as Record<string, unknown>).gics_code = code;
+    if (typeof code === "string" && /^\d{8}$/.test(code)) {
+      (data as Record<string, unknown>).gics_code = code;
+      // 27 sept 2026 (Yann, doute n°5) : le secteur affiché (pastille de rang,
+      // « unités du secteur ») suit la classification GICS. 185 fiches portaient
+      // un secteur divergent ou anglais (BKNG « Technologie » au lieu de
+      // « Consommation discrétionnaire »).
+      const SECTEURS_GICS: Record<string, string> = {
+        "10": "Énergie", "15": "Matériaux", "20": "Industrie", "25": "Consommation discrétionnaire",
+        "30": "Consommation de base", "35": "Santé", "40": "Finance", "45": "Technologie",
+        "50": "Services de communication", "55": "Services aux collectivités", "60": "Immobilier",
+      };
+      const secteurGics = SECTEURS_GICS[code.slice(0, 2)];
+      if (secteurGics) (data as Record<string, unknown>).sector = secteurGics;
+    }
   } catch {
     /* annuaire absent : pas de code */
   }

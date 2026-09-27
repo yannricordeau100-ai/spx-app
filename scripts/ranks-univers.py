@@ -23,6 +23,13 @@ UNI = json.load(open(ROOT / "src/data/v1-9-5-clean-all-tickers.json"))["tickers"
 
 US_LIKE = {"United States"}
 
+GICS_CODES = json.load(open(ROOT / "docs/cahier/societes-gics.json"))["societes"]
+SECTEURS_GICS = {
+    "10": "Énergie", "15": "Matériaux", "20": "Industrie", "25": "Consommation discrétionnaire",
+    "30": "Consommation de base", "35": "Santé", "40": "Finance", "45": "Technologie",
+    "50": "Services de communication", "55": "Services aux collectivités", "60": "Immobilier",
+}
+
 # Rang national, 22 sept 2026 (Yann, apres l audit des rangs).
 # Jusqu ici seules les societes americaines recevaient un rang national : les
 # 172 autres affichaient trois pastilles au lieu de quatre. Le pays est deja
@@ -180,6 +187,11 @@ def main():
             v["mc_usd"] = None
         f = fiche(t)
         v["sector"], v["subsector"] = f.get("sector"), f.get("subsector")
+        # 27 sept 2026 : le rang sectoriel se calcule dans le secteur GICS
+        # (celui qu affiche la fiche), pas dans le libelle libre de la fiche.
+        _code = str(GICS_CODES.get(t, ""))
+        if _code[:2] in SECTEURS_GICS:
+            v["sector"] = SECTEURS_GICS[_code[:2]]
         v["country"] = pays_de(t, v.get("country"), f)
         rows.append(t)
     ok = [t for t in rows if res[t]["mc_usd"] and t not in DOUBLE_CLASSE]

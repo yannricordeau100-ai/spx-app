@@ -43,6 +43,7 @@ import { estKpiDeFlux,
   interpretStructured,
   formatHeroValue,
   yoySamePeriod,
+  yoyPublieSiArrondi,
 } from "@/lib/data";
 import { yoyTone } from "@/lib/utils";
 import { autoRescaleSmallUnit, isPercentMagnitudeAnomaly } from "@/lib/format-hero";
@@ -323,17 +324,34 @@ function estCaTrimestriel(k: { short?: string; name_fr?: string; name_en?: strin
   return RE_CA.test(sansAccent([k.name_fr, k.name_en, k.short].filter(Boolean).join(" ")));
 }
 
-const GROUPE_ARRETES_ACTIF = false;
+const GROUPE_ARRETES_ACTIF = true;
 
-/** 26 sept 2026 : KPI trimestriel dont le dernier point date de 2025 ou avant. */
+/** 27 sept 2026 (Yann, choix B) : un KPI est « arrêté » quand il n'a plus de
+ *  valeur depuis 4 trimestres. Référence : le dernier trimestre clos et publié
+ *  (trimestre fini depuis plus de 45 jours). Pour un KPI annuel : dernier
+ *  exercice antérieur à l'avant-dernier exercice clos. */
 function estKpiArrete(k: { period_type?: string; frequency?: string; last_data_date?: string | null; history?: unknown[]; history_periods?: unknown[] }): boolean {
   const lab = (x: unknown): string => (x && typeof x === "object" ? String((x as { q?: string }).q ?? "") : String(x ?? ""));
   const periodes = Array.isArray(k.history_periods) && k.history_periods.length ? k.history_periods.map(lab) : Array.isArray(k.history) ? k.history.map(lab) : [];
-  const trimestriel = k.period_type === "quarter" || k.frequency === "quarterly" || periodes.some((p) => /Q[1-4]|T[1-4]/.test(p));
-  if (!trimestriel) return false;
   const derniere = periodes.length ? periodes[periodes.length - 1] : "";
+  const ref = new Date(Date.now() - 45 * 86400000);
+  const refIdx = ref.getUTCFullYear() * 4 + Math.floor(ref.getUTCMonth() / 3) - 1; // dernier trimestre clos
+  const mq = derniere.match(/(?:Q|T)([1-4])[^0-9]*(20\d\d)|(20\d\d)[^0-9]*(?:Q|T)([1-4])/);
+  if (mq) {
+    const t = Number(mq[1] ?? mq[4]), an = Number(mq[2] ?? mq[3]);
+    return refIdx - (an * 4 + t - 1) >= 4;
+  }
+  const trimestriel = k.period_type === "quarter" || k.frequency === "quarterly";
   const an = Number((derniere.match(/(20\d\d)/) ?? [])[1] ?? String(k.last_data_date ?? "").slice(0, 4));
-  return Number.isFinite(an) && an > 2000 && an <= 2025;
+  if (!Number.isFinite(an) || an < 2000) return false;
+  if (trimestriel) {
+    const d = String(k.last_data_date ?? "");
+    const mois = Number(d.slice(5, 7));
+    if (!mois) return false;
+    return refIdx - (an * 4 + Math.floor((mois - 1) / 3)) >= 4;
+  }
+  // annuel : exercice N-2 ou plus ancien par rapport au dernier exercice clos
+  return an <= ref.getUTCFullYear() - 2;
 }
 
 export function CompanyView({
@@ -1107,8 +1125,10 @@ export function CompanyView({
           const prevV = h[li - 4];
           if (typeof lastV === "number" && typeof prevV === "number") return ptsLabel(lastV - prevV);
         }
-        const sign = byLabel > 0 ? "+" : "";
-        return `${sign}${byLabel.toFixed(1).replace(".", ",")} %`;
+        const pub = yoyPublieSiArrondi(active, h[h.length - 1] as number, h[h.length - 5] as number);
+        const v = pub ?? byLabel;
+        const sign = v > 0 ? "+" : "";
+        return `${sign}${v.toFixed(1).replace(".", ",")} %`;
       }
       const last = h[h.length - 1];
       const prevY = h[h.length - 5];
@@ -1123,6 +1143,15 @@ export function CompanyView({
     }
     // Yann 30 aout 2026 : les yoy stockes "pp"/"pt(s)" s'affichent en " %"
     // (une variation de KPI en % s'ecrit comme un % qui change).
+    // 27 sept 2026 : KPI en % annuel : ecart en points calcule, jamais le
+    // yoy stocke (souvent un ratio de taux, ex GEHC « -480 % »).
+    if (String(active.unit ?? "").trim() === "%" && h.length >= 2) {
+      const a = h[h.length - 1], b = h[h.length - 2];
+      if (typeof a === "number" && typeof b === "number") {
+        const diff = a - b;
+        return `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")} %`;
+      }
+    }
     if (typeof active.yoy === "string" && active.yoy.trim())
       return active.yoy.replace(/\s*(pp|pts?)\b/g, " %");
     if (typeof active.yoy === "number" && Number.isFinite(active.yoy)) return active.yoy;
@@ -1610,8 +1639,11 @@ export function CompanyView({
                       background: `${freeBlocked ? "#52525b" : yoyColor}12`,
                     }}
                   >
-                    {!freeBlocked && tone === "pos" && <ArrowUpRight className="size-4" />}
-                    {!freeBlocked && tone === "neg" && <ArrowDownRight className="size-4" />}
+                    {/* 27 sept 2026 : la flèche suit le sens du chiffre, la couleur dit
+                        si c'est une bonne ou une mauvaise nouvelle (coût en hausse :
+                        flèche montante, rouge). */}
+                    {!freeBlocked && tone !== "neutral" && !String(effectiveYoy).trim().startsWith("-") && !String(effectiveYoy).trim().startsWith("−") && <ArrowUpRight className="size-4" />}
+                    {!freeBlocked && tone !== "neutral" && (String(effectiveYoy).trim().startsWith("-") || String(effectiveYoy).trim().startsWith("−")) && <ArrowDownRight className="size-4" />}
                     <span className="font-mono tabular-nums">
                       {freeBlocked ? (
                         <BlurredFreeValue value="+0,0" suffix=" %" ticker={company.ticker} />

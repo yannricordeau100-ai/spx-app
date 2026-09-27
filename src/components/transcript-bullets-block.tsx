@@ -7,6 +7,7 @@ import { brand } from "@/lib/brand";
 import { periodLabelFromRaw } from "@/lib/period-label";
 import { ACRONYM_GLOSSARY } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
+import { InfoTooltip } from "@/components/info-tooltip";
 
 /**
  * TermSup — mini-tooltip inline pour un terme technique.
@@ -159,6 +160,8 @@ export type BulletItem = {
   text: string;
   type?: "synthesis" | "tonalite" | "driver" | "vigilance" | "guidance" | "strategy" | "citation";
   terms_used?: string[];
+  /** 27 sept 2026 : citation anglaise d origine, lue dans le « i » (le texte est en francais). */
+  citation_originale?: string;
 };
 
 /** Bullet de la sous-section comparaison vs trimestre précédent. */
@@ -374,6 +377,12 @@ export function TranscriptBulletsBlock({
               <div className="min-w-0 flex-1">
                 <p className="text-[15px] leading-relaxed text-zinc-100">
                   {annotateTerms(b.text, accent)}
+                  {b.citation_originale && (
+                    <InfoTooltip color={meta.color}>
+                      <p className="text-[12px] font-semibold text-zinc-100">Citation originale</p>
+                      <p className="mt-1 text-[12px] italic text-zinc-300">{b.citation_originale}</p>
+                    </InfoTooltip>
+                  )}
                 </p>
               </div>
             </div>

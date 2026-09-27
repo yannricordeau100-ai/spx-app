@@ -160,7 +160,6 @@ function CompanyName({
   );
 }
 
-import { BandeauExclusif } from "@/components/bandeau-exclusif";
 
 function StatChip({ label, value, survol }: { label: string; value: string | null | undefined; survol?: string }) {
   // Yann (12 mai 2026) : chips compactes pour tenir tous les rangs sur
@@ -639,7 +638,7 @@ export function CompanyHeader({
         {!hidePriceBar && <StockPriceBlock company={company} freeBlocked={freeBlocked} />}
       </div>
 
-      <BandeauExclusif ticker={company.ticker} accent={accent} />
+      {/* 27 sept 2026 : bandeau « KPI exclusifs à Mettrik AI » retiré des fiches (demande Yann). */}
 
       {/* Yann (12 mai 2026) : tous les rangs sur UNE ligne horizontale.
           flex-nowrap + overflow-x-auto = scroll discret si overflow petit
