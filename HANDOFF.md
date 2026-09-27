@@ -77,3 +77,9 @@ Rapports joints : `docs/audit-circulation-2026-09-21.md` (tout ce qui empeche un
 donnee d arriver sur une fiche, classe par nombre de societes touchees) et
 `docs/theses-sources-avant-apres-2026-09-21.json` (les 68 passages de theses
 reecrits pour en retirer les sources).
+
+## 9. REPRISE AU 27 SEPTEMBRE 2026 (LIRE EN PREMIER)
+
+Le document de reprise le plus recent est `docs/REPRISE-2026-09-27.md` : etat du deploiement (mettrik.ai =
+niveau2 = commit 0fe0532f40, VERSION 2026.09.27.7), tout ce qui a ete fait du 24 au 27 septembre, pieges appris,
+reste a faire par priorite, journal complet des demandes de Yann et des commits. Il remplace le §8 pour l etat courant.
