@@ -1042,8 +1042,12 @@ export function CompanyView({
     const RX_CA = /\b(chiffre d.affaires|revenue|revenus?|net sales|total sales|\bca\b|\brev\b)\b/i;
     const RX_MONNAIE = /[$€¥£]|\b(chf|sek|dkk|nok|usd|eur|gbp|mds?)\b/i;
     const RX_FIN = /\b(marge|margin|b[ée]n[ée]fice|r[ée]sultat|income|profit|eps|bpa|dette|debt|fcf|cash.?flow|tr[ée]sorerie|capex|dividende|dividend|ebitda|ebit|buyback|rachats)\b/i;
+    // 28 sept 2026 (Yann) : le KPI d industrie de la societe vient en premier,
+    // juste apres le hero.
+    const industrie = new Set(company.kpi_industrie_shorts ?? []);
     const rang = (k: (typeof filtered)[number]): number => {
       if (k.short === heroShort) return -1;
+      if (industrie.has(k.short)) return -0.5;
       const nom = `${k.short ?? ""} ${k.name_fr ?? ""} ${k.name_en ?? ""}`;
       const unite = String((k as { unit?: string }).unit ?? "");
       const financier = RX_MONNAIE.test(unite) || RX_FIN.test(nom) || (unite.includes("%") && RX_FIN.test(nom));
@@ -1075,8 +1079,8 @@ export function CompanyView({
     const arretes = GROUPE_ARRETES_ACTIF ? tries.filter((k) => k.short !== heroShort && estKpiArrete(k)) : [];
     const courants = tries.filter((k) => !arretes.includes(k));
     return {
-      avances: courants.filter((k) => k.short === heroShort || !estKpiStandard(k)),
-      standards: courants.filter((k) => k.short !== heroShort && estKpiStandard(k)),
+      avances: courants.filter((k) => k.short === heroShort || industrie.has(k.short) || !estKpiStandard(k)),
+      standards: courants.filter((k) => k.short !== heroShort && !industrie.has(k.short) && estKpiStandard(k)),
       arretes,
       caTrimestriels: all.filter(
         (k) => k.short !== heroShort && kpiHasUsableValue(k) && estCaTrimestriel(k as { short?: string; name_fr?: string; name_en?: string; period_type?: string; unit?: string }),
@@ -1088,6 +1092,25 @@ export function CompanyView({
   const kpisArretes = groupesKpis.arretes;
   const [showArretes, setShowArretes] = useState(false);
   const caTrimestriels = groupesKpis.caTrimestriels;
+  const mtEnPremier = Boolean(company.mt_industrie_en_premier);
+  const blocMoyenTerme = (
+        <div id="sec-moyen-terme" className="scroll-mt-24">
+    {isBlockEnabled("image_findings", company.ticker) && !isDisabled("graphiques_schemas") ? (
+      Array.isArray((company as Company & { image_findings?: unknown[] }).image_findings) &&
+      ((company as Company & { image_findings?: unknown[] }).image_findings as unknown[]).length > 0 ? (
+        <ImageFindingsBlock
+          findings={(company as Company & { image_findings?: ImageFindingPublic[] }).image_findings ?? []}
+          accent={accent}
+          locale={locale}
+          ticker={company.ticker}
+          nomSociete={company.name}
+        />
+      ) : null
+    ) : (
+      <BlockComingSoon blockId="image_findings" />
+    )}
+    </div>
+  );
   const [showCaTrim, setShowCaTrim] = useState(false);
   const [showStandard, setShowStandard] = useState(false);
   const visibleKpis = showAll ? orderedKpis : orderedKpis.slice(0, VISIBLE_KPI_COUNT);
@@ -2148,6 +2171,10 @@ export function CompanyView({
           )}
         </AnimatePresence>
 
+        {/* 28 sept 2026 (Yann) : quand le KPI d industrie est un graphique
+            moyen terme, le bloc moyen terme passe AVANT le tableau des KPI. */}
+        {mtEnPremier && blocMoyenTerme}
+
         {/* KPI table */}
         <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="Graphique et indicateurs réservés aux abonnés" detail="Tous les indicateurs de la société, dix ans d’historique, l’export en image et le comparateur : inclus dès le plan Premium.">
         <section id="sec-kpis" className="mt-9 scroll-mt-24 animate-fade-up-d2">
@@ -2331,22 +2358,7 @@ export function CompanyView({
         {/* Graphiques et Schémas de sources diverses (Yann 15 mai 2026 v2).
             Yann 18 sept 2026 : place AU-DESSUS des Stories (moyen terme avant court terme) ; sans graphique approuve, rien ne change. Images approuvées dans
             /sandbox/image-findings mergées au SSR dans company.image_findings. */}
-        <div id="sec-moyen-terme" className="scroll-mt-24">
-        {isBlockEnabled("image_findings", company.ticker) && !isDisabled("graphiques_schemas") ? (
-          Array.isArray((company as Company & { image_findings?: unknown[] }).image_findings) &&
-          ((company as Company & { image_findings?: unknown[] }).image_findings as unknown[]).length > 0 ? (
-            <ImageFindingsBlock
-              findings={(company as Company & { image_findings?: ImageFindingPublic[] }).image_findings ?? []}
-              accent={accent}
-              locale={locale}
-              ticker={company.ticker}
-              nomSociete={company.name}
-            />
-          ) : null
-        ) : (
-          <BlockComingSoon blockId="image_findings" />
-        )}
-        </div>
+        {!mtEnPremier && blocMoyenTerme}
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
         {isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories") ? (

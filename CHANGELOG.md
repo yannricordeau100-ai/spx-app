@@ -850,3 +850,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.27.7 (27 Sep 2026 05:07, apres 677e9b33f9)
 - Rapports annuels 2025 : répartition du chiffre d'affaires et facteurs de risque mis à jour pour 9 sociétés européennes (dont TotalEnergies, Thales, Saint-Gobain, Volkswagen)
+
+## v2026.09.28.1 (28 Sep 2026 00:41, apres 3ef695f14f)
+- KPI d'industrie en premier dans le tableau ; bloc moyen terme avant le tableau quand le KPI d'industrie est un graphique

@@ -2308,6 +2308,21 @@ async function loadV17CompanyBrut(
     }
   }
 
+  // 28 sept 2026 (Yann) : KPI d industrie de la societe (annuaire du Cahier),
+  // a placer en premier dans le tableau des indicateurs.
+  try {
+    const ind = await readJsonOrNull<{ societes?: Record<string, { indicateurs?: { statut?: string; code_sur_fiche?: string | null }[] }> }>(
+      path.join(ROOT, "src/data/kpi-industrie-par-societe.json"),
+    );
+    const liste = ind?.societes?.[ticker.toUpperCase()]?.indicateurs ?? [];
+    const shorts = liste
+      .filter((i) => i.statut === "present_sur_fiche" && typeof i.code_sur_fiche === "string" && i.code_sur_fiche)
+      .map((i) => i.code_sur_fiche as string);
+    if (shorts.length > 0) (data as Record<string, unknown>).kpi_industrie_shorts = shorts;
+  } catch (err) {
+    console.warn(`kpi_industrie merge failed for ${ticker}:`, err);
+  }
+
   // Yann 21 sept 2026 : SORTI du bloc enrich. Les societes sans fichier
   // v2-pipeline-enrich (63 sur 671, surtout europeennes) n affichaient
   // AUCUN graphique moyen terme, meme approuve : le bloc entier etait saute.
@@ -2317,7 +2332,12 @@ async function loadV17CompanyBrut(
     const { listApprovedForTicker } = await import("@/lib/desk/image-findings");
     const findings = await listApprovedForTicker(ticker);
     if (Array.isArray(findings) && findings.length > 0) {
+      // 28 sept 2026 (Yann) : les graphiques lies a un KPI d industrie passent
+      // en tete du carrousel, et le bloc entier passe avant le tableau des KPI.
+      findings.sort((a, b) => Number(Boolean(b.industry_kpi)) - Number(Boolean(a.industry_kpi)));
+      (data as Record<string, unknown>).mt_industrie_en_premier = findings.some((f) => Boolean(f.industry_kpi));
       (data as Record<string, unknown>).image_findings = findings.map((f) => ({
+        industry_kpi: f.industry_kpi ?? null,
         id: f.id,
         image_url: f.image_url,
         // Yann 18 mai 2026 : SVG local recréé (priorité affichage).

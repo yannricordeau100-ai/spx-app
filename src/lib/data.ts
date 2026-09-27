@@ -363,6 +363,10 @@ export type Company = {
    * and a credible TAM are available. Not shown if missing (honesty rule).
    */
   market_positions?: MarketPosition[];
+  /** 28 sept 2026 : codes (short) des KPI d industrie de la societe (docs/cahier), affiches en premier. */
+  kpi_industrie_shorts?: string[];
+  /** 28 sept 2026 : vrai quand un graphique moyen terme approuve porte le KPI d industrie : le bloc passe avant le tableau. */
+  mt_industrie_en_premier?: boolean;
   /** 8 sept 2026 : code GICS a 8 chiffres (annuaire docs/cahier/societes-gics.json). */
   gics_code?: string;
   /** 9 sept 2026 : concentration clients du Cahier (docs/cahier/clients/<T>.json). */

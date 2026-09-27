@@ -57,6 +57,8 @@ export type ImageFindingPublic = {
   /** Yann 20 sept 2026 : societes rattachees au graphique. Rendues en rangee
    *  de logos + tickers dans le document exporte quand il y en a plusieurs. */
   target_tickers?: string[];
+  /** 28 sept 2026 : nom du KPI d industrie porte par le graphique, sinon null. */
+  industry_kpi?: string | null;
 };
 
 /**
