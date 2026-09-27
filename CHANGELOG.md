@@ -847,3 +847,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.27.6 (27 Sep 2026 04:45, apres 11afe40c26)
 - Gouvernance exercice 2025 pour 15 sociétés (dont TotalEnergies, Engie, Thales, Saint-Gobain, TPL) ; preuves IA en français sur 78 fiches
+
+## v2026.09.27.7 (27 Sep 2026 05:07, apres 677e9b33f9)
+- Rapports annuels 2025 : répartition du chiffre d'affaires et facteurs de risque mis à jour pour 9 sociétés européennes (dont TotalEnergies, Thales, Saint-Gobain, Volkswagen)
