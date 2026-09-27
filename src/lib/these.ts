@@ -81,6 +81,13 @@ export type CompanyThese = {
   _fige?: boolean;
 };
 
+
+/** 27 sept 2026 : une passe d accents du 25 sept a ecrit « modérée » / « élevée »
+ *  dans les fichiers ; la cle technique reste sans accent. */
+function sansAccents(v: string): string {
+  return v.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 const CONVICTIONS: ReadonlySet<string> = new Set(["faible", "moderee", "elevee"]);
 
 /** Coercion défensive : renvoie null si le JSON n'a pas le minimum requis. */
@@ -90,10 +97,10 @@ export function coerceThese(raw: unknown): CompanyThese | null {
   const hook = typeof o.hook === "string" ? o.hook.trim() : "";
   const redigee = typeof o.redigee_le === "string" ? o.redigee_le : "";
   const conviction =
-    typeof o.conviction === "string" && CONVICTIONS.has(o.conviction) ? (o.conviction as TheseConviction) : null;
+    typeof o.conviction === "string" && CONVICTIONS.has(sansAccents(o.conviction)) ? (sansAccents(o.conviction as string) as TheseConviction) : null;
   const style = o.style && typeof o.style === "object" && typeof (o.style as { nom?: unknown }).nom === "string" ? (o.style as TheseStyle) : null;
   if (!hook || !redigee || !conviction || !style) return null;
-  return o as unknown as CompanyThese;
+  return { ...o, conviction } as unknown as CompanyThese;
 }
 
 /**

@@ -47,6 +47,13 @@ export type CompanyAtt = {
   _fige?: boolean;
 };
 
+
+/** 27 sept 2026 : une passe d accents du 25 sept a ecrit « modérée » / « élevée »
+ *  dans les fichiers ; la cle technique reste sans accent. */
+function sansAccents(v: string): string {
+  return v.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 const INTENSITES: ReadonlySet<string> = new Set(["faible", "moderee", "elevee"]);
 
 /** Coercion défensive : renvoie null si le JSON n'a pas le minimum requis. */
@@ -55,11 +62,11 @@ export function coerceAtt(raw: unknown): CompanyAtt | null {
   const o = raw as Record<string, unknown>;
   const hook = typeof o.hook === "string" ? o.hook.trim() : "";
   const redigee = typeof o.redigee_le === "string" ? o.redigee_le : "";
-  const intensite = typeof o.intensite === "string" && INTENSITES.has(o.intensite)
-    ? (o.intensite as AttIntensite)
+  const intensite = typeof o.intensite === "string" && INTENSITES.has(sansAccents(o.intensite))
+    ? (sansAccents(o.intensite as string) as AttIntensite)
     : null;
   if (!hook || !redigee || !intensite) return null;
-  return o as unknown as CompanyAtt;
+  return { ...o, intensite } as unknown as CompanyAtt;
 }
 
 /**

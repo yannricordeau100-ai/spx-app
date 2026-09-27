@@ -841,3 +841,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.27.4 (27 Sep 2026 03:52, apres 651d0d779e)
 - Thèses et anti-thèses de nouveau affichées sur les fiches (fichiers inclus dans le paquet en ligne)
+
+## v2026.09.27.5 (27 Sep 2026 04:10, apres c0ef699961)
+- Thèses et anti-thèses rétablies sur toutes les fiches ; 420 rachats ajoutés pour 125 sociétés qui n'en avaient aucun (dont TotalEnergies)
