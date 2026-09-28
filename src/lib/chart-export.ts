@@ -210,7 +210,19 @@ export async function downloadSvgAsPng(
     typeof document !== "undefined"
       ? document.documentElement.getAttribute("data-theme")
       : null;
-  const isLight = themeAttr === "light";
+  let isLight = themeAttr === "light";
+  // 28 sept 2026 : un graphique moyen terme est une image a fond sombre fixe.
+  // En theme clair, l export posait ce cadre noir sur une page blanche. On
+  // suit le fond du graphique lui-meme quand il en porte un.
+  if (isLight && options.headerCompact) {
+    const vbFond = svg.viewBox?.baseVal;
+    const largeur = vbFond?.width || svg.clientWidth || 0;
+    const fond = Array.from(svg.querySelectorAll("rect")).find(
+      (r) => largeur > 0 && parseFloat(r.getAttribute("width") || "0") >= largeur * 0.9,
+    );
+    const f = (fond?.getAttribute("fill") || "").trim();
+    if (f && f !== "none" && isDarkColor(f)) isLight = false;
+  }
 
   const bgColor = isLight ? "#ffffff" : "#050505";
   const titleColor = isLight ? "#0a0a0a" : "#fafafa";
@@ -539,6 +551,53 @@ export async function downloadSvgAsPng(
         t.setAttribute("y", String(ty + 10));
       }
     }
+  });
+
+  // 28 sept 2026 (export MUV2.DE, 20 annees collees « 20062007… ») : les
+  // annees agrandies depassaient l ecart entre deux barres. On reduit leur
+  // taille jusqu a ce qu elles tiennent (plancher 12 px), puis on n en garde
+  // qu une sur deux (ou trois) si cela ne suffit toujours pas.
+  {
+    const annees = Array.from(clone.querySelectorAll("text")).filter((t) => {
+      const ty = parseFloat(t.getAttribute("y") || "NaN");
+      return Number.isFinite(ty) && ty > origY + origH - 70 && /^(19|20)\d{2}$/.test((t.textContent || "").trim());
+    });
+    const xs = annees.map((t) => parseFloat(t.getAttribute("x") || "NaN")).filter(Number.isFinite).sort((a, b) => a - b);
+    if (xs.length >= 3) {
+      let ecart = Infinity;
+      for (let i = 1; i < xs.length; i++) ecart = Math.min(ecart, xs[i] - xs[i - 1]);
+      const ctx = document.createElement("canvas").getContext("2d");
+      const largeurA = (fs: number) => {
+        if (!ctx) return fs * 2.3;
+        ctx.font = `300 ${fs}px ${PNG_FONT_FAMILY}`;
+        return ctx.measureText("2000").width;
+      };
+      let fs = parseFloat(annees[0].getAttribute("font-size") || "19") || 19;
+      while (fs > 12 && largeurA(fs) + 8 > ecart) fs -= 0.5;
+      annees.forEach((t) => t.setAttribute("font-size", String(fs)));
+      const pas = Math.max(1, Math.ceil((largeurA(fs) + 8) / ecart));
+      if (pas > 1) {
+        const tries = [...annees].sort(
+          (a, b) => parseFloat(a.getAttribute("x") || "0") - parseFloat(b.getAttribute("x") || "0"),
+        );
+        const n = tries.length;
+        // la derniere annee reste toujours visible
+        tries.forEach((t, i) => { if ((n - 1 - i) % pas !== 0) t.remove(); });
+      }
+    }
+  }
+
+  // 28 sept 2026 : les pointilles de la grille, plus foncés dans l export,
+  // barraient les valeurs posees au-dessus des barres (« 2819 », « 113,8 »).
+  // Un liseré de la couleur du fond derriere chaque valeur les efface.
+  clone.querySelectorAll("text").forEach((t) => {
+    if ((t.getAttribute("text-anchor") || "") !== "middle") return;
+    const ty = parseFloat(t.getAttribute("y") || "NaN");
+    if (!Number.isFinite(ty) || ty > origY + origH - 70) return;
+    t.setAttribute("paint-order", "stroke");
+    t.setAttribute("stroke", bgColor);
+    t.setAttribute("stroke-width", "5");
+    t.setAttribute("stroke-linejoin", "round");
   });
 
   // Yann 4 sept 2026 (option A) : l unite anglaise s ecrit dans l axe Y,
