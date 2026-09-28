@@ -462,12 +462,17 @@ export function HomePopularBlock({
   // Vrai des que le visiteur a choisi une zone : le parcours automatique
   // s arrete et respecte ce choix.
   const [pinned, setPinned] = useState(false);
+  // 28 sept 2026 (Yann : « la page de la ste d a cote s ouvre ») : le parcours
+  // automatique changeait la liste des societes SOUS la souris ; un clic
+  // ouvrait alors une autre societe. Il s arrete des que la souris ou le
+  // clavier est dans le bloc.
+  const [dansBloc, setDansBloc] = useState(false);
   const hoverTimer = useRef<number | null>(null);
 
   // Parcours automatique : zone apres zone, toutes les 3,5 secondes, tant
   // que le visiteur n a ni survole ni choisi une zone.
   useEffect(() => {
-    if (!data || pinned || hoveredTab) return;
+    if (!data || pinned || hoveredTab || dansBloc) return;
     const cles = TABS.filter((tb) => {
       const zr = data[tb.key];
       return Array.isArray(zr) && zr.length >= 3;
@@ -478,7 +483,7 @@ export function HomePopularBlock({
       setActiveTab((cur) => cles[(cles.indexOf(cur) + 1) % cles.length]);
     }, 3500);
     return () => window.clearInterval(id);
-  }, [data, pinned, hoveredTab]);
+  }, [data, pinned, hoveredTab, dansBloc]);
 
   useEffect(() => {
     let cancel = false;
@@ -551,7 +556,14 @@ export function HomePopularBlock({
     );
 
   return (
-    <section className="mx-auto mt-16 max-w-3xl sm:mt-20">
+    <section
+      className="mx-auto mt-16 max-w-3xl sm:mt-20"
+      onMouseEnter={() => setDansBloc(true)}
+      onMouseLeave={() => setDansBloc(false)}
+      onFocusCapture={() => setDansBloc(true)}
+      onBlurCapture={() => setDansBloc(false)}
+      onTouchStart={() => setDansBloc(true)}
+    >
       <div className="mb-3 text-center font-mono text-[11px] uppercase tracking-[0.15em] text-zinc-500">
         {t("home.popular.title")}
       </div>

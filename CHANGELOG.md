@@ -862,3 +862,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.28.4 (28 Sep 2026 02:08, apres 1b84caf3d5)
 - « cloud » au lieu de « nuage » ; pas de mode Variation pour les KPI en % ; jamais un code technique en titre anglais ; 140 noms de KPI traduits ; logo société sur tous les exports ; plus d'unité en double ; 12 730 précisions de source retirées des textes des KPI
+
+## v2026.09.28.5 (28 Sep 2026 02:27, apres b0e2150203)
+- Accueil : la liste des sociétés populaires ne change plus sous la souris ; rachats KKR, ArcelorMittal (Kenvue et Freeport sans rachat confirmé) ; tailles de marché 2025 (Thales, Crédit Agricole, ABB)
