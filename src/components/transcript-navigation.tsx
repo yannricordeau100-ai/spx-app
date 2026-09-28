@@ -105,40 +105,8 @@ export function TranscriptNavigation({
 
   return (
     <div id="sec-resultats-nav">
-      {suivi && (suivi.suivi.length > 0 || suivi.cites_une_fois.length > 0) && (
-        <div className="mb-4 grid gap-3 lg:grid-cols-2">
-          {suivi.suivi.length > 0 && (
-            <div data-blur-part="suivi" className={`rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4${accesArchives ? "" : " pointer-events-none select-none blur-[5px]"}`}>
-              <div className="mb-2 font-mono text-[11px] uppercase tracking-wider text-zinc-400">Suivi des KPI sur {suivi.conferences.length} conférences</div>
-              <ul className="space-y-1.5">
-                {suivi.suivi.slice(0, 12).map((g) => (
-                  <li key={g.cle} data-blur-part="ligne" className="flex flex-wrap items-baseline justify-between gap-x-3 text-[13px]">
-                    <span className="text-zinc-200">{g.nom_fr}</span>
-                    <span className="font-mono text-[12px] tabular-nums text-zinc-300">
-                      {[...g.points].sort((a, b) => a.date.localeCompare(b.date)).map((p) => `${p.valeur}${p.unite && !p.valeur.includes(p.unite) ? ` ${p.unite}` : ""} (${p.periode ?? dateFr(p.date)})`).join(" → ")}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {suivi.cites_une_fois.length > 0 && (
-            <div data-blur-part="cites-une-fois" className={`rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4${accesArchives ? "" : " pointer-events-none select-none blur-[5px]"}`}>
-              <div className="mb-2 font-mono text-[11px] uppercase tracking-wider text-zinc-400">Cités une fois</div>
-              <ul className="space-y-1.5">
-                {suivi.cites_une_fois.slice(0, 12).map((g) => (
-                  <li key={g.cle} data-blur-part="ligne" className="flex flex-wrap items-baseline justify-between gap-x-3 text-[13px]">
-                    <span className="text-zinc-200">{g.nom_fr}</span>
-                    <span className="font-mono text-[12px] tabular-nums text-zinc-300">
-                      {g.points[0]?.valeur}{g.points[0]?.unite && !g.points[0].valeur.includes(g.points[0].unite) ? ` ${g.points[0].unite}` : ""} ({g.points[0]?.periode ?? (g.points[0] ? dateFr(g.points[0].date) : "")})
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      )}
+      {/* 29 sept 2026 (Yann) : sous-blocs « Suivi des KPI sur N conferences »
+          et « Cites une fois » retires du bloc des conferences. */}
       {summaryAffiche ? (
         <TranscriptBulletsBlock ticker={ticker} summary={summaryAffiche} navigation={fleches || undefined} />
       ) : derniere ? null : (

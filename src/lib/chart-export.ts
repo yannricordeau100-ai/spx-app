@@ -152,6 +152,30 @@ async function chargerLogoTicker(
   return null;
 }
 
+/**
+ * Titre d export « KPI · Societe » coupe en deux parties.
+ * 28 sept 2026 : le separateur exigeait des espaces insecables depuis le
+ * 21 sept alors que les appelants envoient des espaces simples : le titre
+ * n etait plus coupe, donc ni ligne societe ni logo sur AUCUN export. On
+ * accepte les deux, sur le dernier « · » du titre.
+ * 29 sept 2026 (exports TTE « TotalEnergies : Intensite methane... », AVGO
+ * « Broadcom : ... ») : le nom de la societe, deja ecrit en grand au-dessus,
+ * n est pas repete en tete du titre.
+ */
+function decoupeTitreExport(titre: string): { kpiText: string; stéText: string } {
+  const sepMatches = [...titre.matchAll(/[ \u00A0\u202F]\u00B7[ \u00A0\u202F]/g)];
+  const sepLast = sepMatches[sepMatches.length - 1];
+  const sepIdx = sepLast?.index ?? -1;
+  let kpiText = sepIdx > 0 ? titre.slice(0, sepIdx).trim() : titre;
+  const stéText = sepIdx > 0 ? titre.slice(sepIdx + sepLast![0].length).trim() : "";
+  const m = kpiText.match(/^([^:]{2,40}?)\s*:\s+(.+)$/);
+  const norm = (x: string) => x.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+  if (m && stéText && norm(stéText).startsWith(norm(m[1]))) {
+    kpiText = m[2].charAt(0).toUpperCase() + m[2].slice(1);
+  }
+  return { kpiText, stéText };
+}
+
 export async function downloadSvgAsPng(
   svg: SVGSVGElement,
   filename: string,
@@ -749,11 +773,10 @@ export async function downloadSvgAsPng(
   // Le titre du graphique peut tomber sur deux lignes : on le mesure ici,
   // avant de figer la hauteur d en-tete, sinon la deuxieme ligne mordrait
   // sur la rangee des logos.
-  const kpiApercu = (() => {
-    const t = options.title ?? "";
-    const i = t.indexOf(" · ");
-    return i > 0 ? t.slice(0, i) : t;
-  })();
+  // 29 sept 2026 : meme decoupe que le rendu du titre (separateur a espaces
+  // simples ou insecables, prefixe « Societe : » retire), pour que la hauteur
+  // reservee corresponde au titre reellement ecrit.
+  const kpiApercu = decoupeTitreExport(options.title ?? "").kpiText;
   const kpiSurDeuxLignes =
     COMPACT &&
     (() => {
@@ -773,10 +796,19 @@ export async function downloadSvgAsPng(
   const INTERLIGNE_TITRE = 1.32;
   const CH_TITLE_ROW = kpiSurDeuxLignes ? Math.round(28 * 0.75 + 28 * INTERLIGNE_TITRE) + 4 : 36; // hauteur reservee au titre
   const mainTicker = (options.ticker ?? "").toUpperCase();
+  // 29 sept 2026 (export ASML) : ASMLF (cotation hors cote d ASML) figurait
+  // parmi les « autres societes ». Une variante de cotation de la societe
+  // principale (meme racine, suffixe F ou Y des cotations americaines, ou
+  // meme racine sur une autre place) est ecartee.
+  const racine = (t: string) => t.split(".")[0];
+  const memeSociete = (t: string) => {
+    const a = racine(t), b = racine(mainTicker);
+    return a === b || (a.length === b.length + 1 && a.startsWith(b) && /[FY]$/.test(a));
+  };
   const peerTickers = COMPACT
     ? (options.peers ?? [])
         .map((t) => (t ?? "").toUpperCase().trim())
-        .filter((t) => t.length > 0 && t !== mainTicker)
+        .filter((t) => t.length > 0 && t !== mainTicker && !memeSociete(t))
         .filter((t, i, a) => a.indexOf(t) === i)
     : [];
   const PAD_TOP = COMPACT
@@ -1124,17 +1156,7 @@ export async function downloadSvgAsPng(
 
   if (options.title) {
     // Split sur " · " (espace point milieu espace).
-    // 28 sept 2026 : le separateur exige des espaces insecables depuis le
-    // 21 sept alors que les appelants envoient des espaces simples : le titre
-    // n etait plus coupe, donc ni ligne societe ni logo sur AUCUN export.
-    // On accepte les deux, sur le dernier « · » du titre.
-    const sepMatches = [...options.title.matchAll(/[ \u00A0\u202F]\u00B7[ \u00A0\u202F]/g)];
-    const sepLast = sepMatches[sepMatches.length - 1];
-    const sepIdx = sepLast?.index ?? -1;
-    const hasSeparator = sepIdx > 0;
-
-    const kpiText = hasSeparator ? options.title.slice(0, sepIdx).trim() : options.title;
-    const stéText = hasSeparator ? options.title.slice(sepIdx + sepLast![0].length).trim() : "";
+    const { kpiText, stéText } = decoupeTitreExport(options.title);
 
     // Récupère le logo société si dispo (DOM ou fallback).
     let stéLogoDataUrl: string | null = null;
@@ -1278,12 +1300,21 @@ export async function downloadSvgAsPng(
       if (mesureCtx) mesureCtx.font = `400 ${PEER_FONT}px ${PNG_FONT_FAMILY}`;
       const largeurTexte = (s: string) =>
         mesureCtx ? mesureCtx.measureText(s).width : s.length * PEER_FONT * 0.6;
-      const items = await Promise.all(
+      const itemsBruts = await Promise.all(
         peerTickers.map(async (t) => ({
           ticker: t,
           logo: await chargerLogoTicker(t, 32),
         })),
       );
+      // Meme logo = meme societe cotee deux fois (8035.T et TOELY pour Tokyo
+      // Electron) : on ne garde que la premiere.
+      const logosVus = new Set<string>(stéLogoDataUrl ? [stéLogoDataUrl] : []);
+      const items = itemsBruts.filter((it) => {
+        if (!it.logo) return true;
+        if (logosVus.has(it.logo)) return false;
+        logosVus.add(it.logo);
+        return true;
+      });
       const largeurItem = (it: { ticker: string; logo: string | null }) =>
         (it.logo ? PEER_LOGO + PEER_GAP_LOGO_TEXTE : 0) +
         largeurTexte(it.ticker);

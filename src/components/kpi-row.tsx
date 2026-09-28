@@ -118,6 +118,7 @@ export function KpiRow({
   return (
     <div
       onClick={onClick}
+      data-kpi-short={kpi.short}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {

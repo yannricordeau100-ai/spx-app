@@ -1306,6 +1306,19 @@ export function CompanyView({
     : translateUnitEnToFr(heroFormatted.unit);
   // CAGR insensible au factor (ratios), donc on garde history brut.
   // Yann 15 mai 2026 : locale-aware suffix "/ an" → "/ Jahr" / "/ year".
+  // 29 sept 2026 (Yann : « le CAGR doit etre le meme en trimestriel ou en
+  // annuel, sur toute la periode affichee ») : une seule fenetre de calcul,
+  // la serie d origine du KPI (trimestres, semestres ou annees) coupee selon
+  // la duree choisie (3 ans ou Max), quel que soit le mode d affichage. Le
+  // calcul compare la moyenne des 4 premiers trimestres a celle des 4
+  // derniers (cagr()), donc la saison n intervient plus.
+  const cagrFenetre = (() => {
+    const pt = (active.period_type ?? "year") as "year" | "quarter" | "semester";
+    const parAn = pt === "quarter" ? 4 : pt === "semester" ? 2 : 1;
+    const h = (Array.isArray(active.history) ? active.history : []).filter((v): v is number => typeof v === "number" && Number.isFinite(v));
+    const data = chartRange === "max" ? h : h.slice(-3 * parAn);
+    return { data, pt };
+  })();
   const heroCAGR = formatCAGR(active.history, displayUnit, active.period_type ?? "year", locale);
   // Yann 15 mai 2026 : label CAGR dynamique selon nombre d'années dans history.
   // Évite "CAGR 5 ans" trompeur quand history = 2 ans (ex META DAP 8 trimestres).
@@ -1323,7 +1336,7 @@ export function CompanyView({
   // (Point 6) : "CAGR +47,8 %/an" (FR), "CAGR +47,8 %/yr" (EN).
   const exportCagr = (() => {
     if (estKpiDeFlux(active.name_fr) || estKpiDeFlux(active.name_en)) return undefined;
-    const c = cagr(active.history, displayUnit, active.period_type ?? "year");
+    const c = cagr(cagrFenetre.data, displayUnit, cagrFenetre.pt);
     if (c === null) return undefined;
     // Yann 12 juil 2026 : le PNG exporté suit la langue du GRAPH au moment du
     // téléchargement (heroTitleLang, toggle FR/EN du titre), pas la locale de
@@ -2016,7 +2029,7 @@ export function CompanyView({
                 {/* 10 sept 2026 (Yann) : CAGR de la periode affichee, a droite du titre. */}
                 
                 <span className="ml-2 inline-flex items-center align-middle" style={{ verticalAlign: "middle", position: "relative", top: "-0.1em" }}>
-                  {!estKpiDeFlux(active.name_fr) && !estKpiDeFlux(active.name_en) && <CagrChip data={chartHistoryRaw as number[]} unit={displayUnit} periodType={graphPeriod} locale={heroTitleLang === "en" ? "en" : locale} />}
+                  {!estKpiDeFlux(active.name_fr) && !estKpiDeFlux(active.name_en) && <CagrChip data={cagrFenetre.data} unit={displayUnit} periodType={cagrFenetre.pt} locale={heroTitleLang === "en" ? "en" : locale} />}
                 </span>
 
                 {/* Yann 21 août 2026 : badges meta (freshness, "i" data en
