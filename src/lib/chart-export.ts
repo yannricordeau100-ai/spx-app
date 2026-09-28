@@ -527,7 +527,9 @@ export async function downloadSvgAsPng(
           // bord gauche ne vaut que pour un axe a gauche, sinon l en-tete se
           // retrouvait isole en haut a gauche, a l oppose de ses graduations.
           const enTeteAxeGauche = Number.isFinite(tx) && tx < origX + origW / 2;
-          if (isAxisHeader && anchorAttr === "end" && enTeteAxeGauche) {
+          // 29 sept 2026 (export ASML « systemes » hors du cadre) : pas de recalage
+          // au bord gauche pour un graphique moyen terme, qui a son propre cadre.
+          if (isAxisHeader && anchorAttr === "end" && enTeteAxeGauche && !options.headerCompact) {
             const leftEdge = origX - PAD_SIDE_FOR_TEXT + 2;
             // Cette ligne (au-dessus du plot) est vide a droite : l en-tete
             // peut s etendre jusqu au premier tiers du graphe sans rien
