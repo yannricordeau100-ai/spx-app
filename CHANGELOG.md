@@ -871,3 +871,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.28.7 (28 Sep 2026 15:21, apres 6f5d3220ff)
 - Clients UPS, Hasbro, Amazon : Amazon au lieu de Amazon.com
+
+## v2026.09.29.1 (29 Sep 2026 01:21, apres 7e86406cfb)
+- KPI d industrie O, AAPL, TTE, LVMH ; CAGR identique trimestriel et annuel ; exports moyen terme ; Amazon
