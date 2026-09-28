@@ -865,3 +865,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.28.5 (28 Sep 2026 02:27, apres b0e2150203)
 - Accueil : la liste des sociétés populaires ne change plus sous la souris ; rachats KKR, ArcelorMittal (Kenvue et Freeport sans rachat confirmé) ; tailles de marché 2025 (Thales, Crédit Agricole, ABB)
+
+## v2026.09.28.6 (28 Sep 2026 14:46, apres 5fe039abdb)
+- Exports PNG : logo et nom de societe revenus, echelle des devises locales, etiquettes lisibles ; Amazon au lieu de Amazon.com ; capitalisation de 8 societes (ArcelorMittal, Roche, Allianz, Continental, Fresenius, GEA, Puma, Michelin)
