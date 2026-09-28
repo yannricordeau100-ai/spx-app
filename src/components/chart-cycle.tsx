@@ -524,8 +524,9 @@ export function CagrChip({ data, unit, periodType = "year", locale = "fr" }: { d
   const c = calculeCagr(Array.isArray(data) ? data : [], unit, periodType);
   if (c === null) return null;
   const parAn = periodType === "quarter" ? 4 : periodType === "semester" ? 2 : 1;
-  const ans = Math.round(((data.length - 1) / parAn) * 10) / 10;
-  if (ans < 1) return null;
+  // meme duree que le calcul (moyenne des 4 premiers / 4 derniers trimestres)
+  const ans = Math.round(((parAn > 1 && data.length >= parAn * 2 ? data.length - parAn : data.length - 1) / parAn) * 10) / 10;
+  if ((data.length - 1) / parAn < 1) return null;
   const fr = locale === "fr";
   const numLoc = fr ? "fr-FR" : "en-US";
   const txt = `CAGR ${c > 0 ? "+" : ""}${c.toLocaleString(numLoc, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %${fr ? "/an" : "/year"}`;

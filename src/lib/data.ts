@@ -1015,12 +1015,24 @@ export function cagr(
   const u = (unit || "").trim().toLowerCase();
   if (u.includes("%") || ["pts", "pb", "pp", "bps", "bp"].includes(u)) return null;
   if (!history || history.length < 2) return null;
-  const first = history[0];
-  const last = history[history.length - 1];
-  if (first <= 0 || last <= 0) return null;
   const stepsPerYear =
     period_type === "quarter" ? 4 : period_type === "semester" ? 2 : 1;
-  const years = (history.length - 1) / stepsPerYear;
+  let first = history[0];
+  let last = history[history.length - 1];
+  let years = (history.length - 1) / stepsPerYear;
+  // 29 sept 2026 (Yann, CA iPhone : +8,8 %/an en annuel, -0,5 %/an en
+  // trimestriel) : en trimestriel, le premier point (T4 2019, trimestre de
+  // Noel) et le dernier (T2 2026) ne sont pas la meme saison. On compare la
+  // moyenne des 4 premiers trimestres a celle des 4 derniers (2 semestres
+  // pour un semestriel) : saisonnalite neutralisee, valable pour un flux
+  // comme pour un stock.
+  if (stepsPerYear > 1 && history.length >= stepsPerYear * 2) {
+    const moyenne = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
+    first = moyenne(history.slice(0, stepsPerYear));
+    last = moyenne(history.slice(-stepsPerYear));
+    years = (history.length - stepsPerYear) / stepsPerYear;
+  }
+  if (first <= 0 || last <= 0) return null;
   if (years <= 0) return null;
   const result = (Math.pow(last / first, 1 / years) - 1) * 100;
   // Garde-fou (audit 15 juil 2026, GOOGL RPO "+746 %/an") : un CAGR annualisé

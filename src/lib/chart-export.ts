@@ -765,7 +765,13 @@ export async function downloadSvgAsPng(
       c.font = `300 28px ${PNG_FONT_FAMILY}`; // = TITLE_KPI_FONT_SIZE compact
       return c.measureText(kpiApercu).width > origW - 48;
     })();
-  const CH_TITLE_ROW = kpiSurDeuxLignes ? 74 : 36; // hauteur reservee au titre
+  // 29 sept 2026 (Yann, export AAPL « Apple face a Samsung ») : sur deux
+  // lignes, 74 laissait un grand vide sous le nom de la societe et les deux
+  // lignes etaient serrees. Interligne 1,32 et hauteur = contenu reel
+  // (hauteur de capitale 0,75 + interligne), pour un ecart CH_GAP identique
+  // au-dessus et au-dessous du titre.
+  const INTERLIGNE_TITRE = 1.32;
+  const CH_TITLE_ROW = kpiSurDeuxLignes ? Math.round(28 * 0.75 + 28 * INTERLIGNE_TITRE) + 4 : 36; // hauteur reservee au titre
   const mainTicker = (options.ticker ?? "").toUpperCase();
   const peerTickers = COMPACT
     ? (options.peers ?? [])
@@ -1452,12 +1458,12 @@ export async function downloadSvgAsPng(
         "y",
         String(
           COMPACT
-            ? LINE2_Y - Math.round(tailleKpi * 1.15)
+            ? LINE2_Y - Math.round(tailleKpi * INTERLIGNE_TITRE)
             : LINE2_Y - Math.round(tailleKpi * 0.35),
         ),
       );
       ajouteLigne(lignesKpi[0], 0, true);
-      ajouteLigne(lignesKpi[1], Math.round(tailleKpi * 1.15), false);
+      ajouteLigne(lignesKpi[1], Math.round(tailleKpi * (COMPACT ? INTERLIGNE_TITRE : 1.15)), false);
     } else {
       ajouteLigne(lignesKpi[0], 0, true);
     }
