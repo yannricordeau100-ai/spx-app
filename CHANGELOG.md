@@ -868,3 +868,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.28.6 (28 Sep 2026 14:46, apres 5fe039abdb)
 - Exports PNG : logo et nom de societe revenus, echelle des devises locales, etiquettes lisibles ; Amazon au lieu de Amazon.com ; capitalisation de 8 societes (ArcelorMittal, Roche, Allianz, Continental, Fresenius, GEA, Puma, Michelin)
+
+## v2026.09.28.7 (28 Sep 2026 15:21, apres 6f5d3220ff)
+- Clients UPS, Hasbro, Amazon : Amazon au lieu de Amazon.com
