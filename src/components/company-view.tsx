@@ -79,7 +79,7 @@ import { PageSearch } from "@/components/page-search";
 // Yann 7 sept 2026 : FreshnessIndicator deplace dans stock-price-block (COL 0).
 
 import { CompanyNavChrome } from "@/components/company-nav-chrome";
-import { KpiSwapTitle } from "@/components/kpi-swap-title";
+import { KpiSwapTitle, libelleAnglais } from "@/components/kpi-swap-title";
 import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
 import { useT } from "@/lib/i18n/provider";
 import type { TranscriptDoc } from "@/components/transcript-stories";
@@ -1250,6 +1250,11 @@ export function CompanyView({
   const allBelowOne = (hist.length > 0 && hist.every((v) => Math.abs(v) < 1) && (!Number.isFinite(rawNumericValue) || Math.abs(rawNumericValue) < 1));
   const { unit: scaledUnit, factor: scaleFactor } = autoRescaleSmallUnit(rawUnit, allBelowOne);
   const displayUnit = scaledUnit;
+  // 28 sept 2026 (Yann) : un KPI dont l axe est en % n a pas de mode « Variation ».
+  const axeEnPourcent = String(displayUnit ?? "").trim().startsWith("%") || String(active?.unit ?? "").trim() === "%";
+  useEffect(() => {
+    if (axeEnPourcent && chartMode === "delta") setChartMode("bars");
+  }, [axeEnPourcent, chartMode, setChartMode]);
   // Yann 8 juin 2026 (BUG Costco + frequences) : le gros chiffre hero DOIT etre
   // EXACTEMENT le dernier point visible du graph + son unite d'axe Y, a CHAQUE
   // changement de frequence. On reutilise le MEME helper que le chart
@@ -1397,7 +1402,7 @@ export function CompanyView({
         type N = typeof active & { name_en?: string; short?: string };
         const a = active as N;
         return heroTitleLang === "en"
-          ? (a.name_en || a.short || a.name_fr)
+          ? libelleAnglais(a.name_en, a.short, a.name_fr)
           : a.name_fr;
       })()}${
         timeFraction !== "year" ? ` ${translate(`timefrac.suffix.${timeFraction}`, heroTitleLang)}` : ""
@@ -1921,6 +1926,7 @@ export function CompanyView({
                   graphPeriod={graphPeriod}
                   onGraphPeriodChange={setGraphPeriod}
                   graphPeriodAvailable={mobilePeriodAvailable}
+                  sansVariation={axeEnPourcent}
                 />
               </div>
               <div className="max-lg:order-1 mb-3 flex flex-wrap items-baseline justify-center gap-2.5 text-center">
@@ -2098,7 +2104,7 @@ export function CompanyView({
                 onClick={() => {
                   if (typeof window !== "undefined" && window.innerWidth < 640) setChartPleinEcran(true);
                 }}
-                data-export-title-en={(active as { name_en?: string; short?: string }).name_en || (active as { short?: string }).short || ""}
+                data-export-title-en={libelleAnglais((active as { name_en?: string }).name_en, (active as { short?: string }).short, active.name_fr) || ""}
                 data-export-unit-en={translateUnitFrToEn(displayUnit || "")}
                 // Yann 1er sept 2026 : pour les graphs en %, le document
                 // telecharge affiche la moyenne de la serie visible.

@@ -187,6 +187,7 @@ export function ChartCycleControls({
   graphPeriod,
   onGraphPeriodChange,
   graphPeriodAvailable = { year: true, quarter: true, semester: false },
+  sansVariation,
 }: {
   mode: ChartMode;
   onChange: (m: ChartMode) => void;
@@ -202,6 +203,8 @@ export function ChartCycleControls({
   onGraphPeriodChange?: (p: GraphPeriod) => void;
   /** Quelles périodes sont dispo dans la data ? Bouton grisé si false. */
   graphPeriodAvailable?: { year: boolean; quarter: boolean; semester?: boolean };
+  /** 28 sept 2026 (Yann) : pas de mode « Variation » pour un KPI dont l axe est en %. */
+  sansVariation?: boolean;
 }) {
   const { t } = useT();
   return (
@@ -213,7 +216,7 @@ export function ChartCycleControls({
         role="tablist"
         className="relative inline-flex items-center gap-0.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-0.5"
       >
-        {MODES.map((m) => {
+        {MODES.filter((m) => !(sansVariation && m.id === "delta")).map((m) => {
           const Icon = m.icon;
           const active = mode === m.id;
           return (

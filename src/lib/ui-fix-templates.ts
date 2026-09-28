@@ -81,6 +81,10 @@ export function normalizeNarrative(text: string): string {
   // Yann 16 mai 2026 : YoY → vs N-1 (convention FR Mettrik).
   out = out.replace(/\bYoY\b/g, "vs N-1");
   out = out.replace(/\bGDPR\b/g, "RGPD");
+  // 28 sept 2026 (Yann) : jamais de precision de source dans un texte de fiche
+  // (« (10-Q) », « (Exercice 2017, table 'Net revenue by platform') », « Source : … »).
+  out = out.replace(/\s*\((?=[^()]*(?:\btable\b|\btableau\b|\bExercice \d{4}\s*,|\b10-K\b|\b10-Q\b|\b20-F\b|\b8-K\b|\bnote \d|\bpage \d|rapport annuel|annual report|communiqu[ée]|press release|earnings release|\bsource\b|\bURD\b|DEF ?14A|\bXBRL\b))[^()]*\)/gi, "");
+  out = out.replace(/\s*\bSources?\s*:\s*[^.]*(?:\.|$)/gi, "");
   // 26 sept 2026 : décimale anglaise devant une unité (« +5.7 % », « 8.399 Mds »)
   // → virgule française. Limité aux nombres suivis de %, Mds, M$ ou pts pour ne
   // jamais toucher un numéro de version (« Gemini 2.5 »).

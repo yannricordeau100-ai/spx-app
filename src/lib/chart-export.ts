@@ -555,7 +555,14 @@ export async function downloadSvgAsPng(
     // "Abonnés") : la traduction anglaise s ajoute en 3e ligne du MEME bloc
     // (tspan italique), au lieu d un element frere qui chevauchait la 2e
     // ligne. Le cas mono-ligne garde l ancien chemin.
-    if (entete && utile && entete.querySelector("tspan")) {
+    // 28 sept 2026 (Yann, export O « $ / $ ») : jamais la ligne anglaise
+    // quand elle repete le francais (symbole monetaire seul, sigle identique).
+    const dejaDit =
+      !!entete &&
+      (memeTexte(uniteEnAxe, entete.textContent || "") ||
+        [...entete.querySelectorAll("tspan")].some((t) => memeTexte(uniteEnAxe, t.textContent || "")) ||
+        /^[$€£¥%]$/.test(uniteEnAxe.replace(/\s/g, "")));
+    if (entete && utile && !dejaDit && entete.querySelector("tspan")) {
       const tspans = entete.querySelectorAll("tspan");
       const dernier = tspans[tspans.length - 1];
       const fsDernier = parseFloat(dernier.getAttribute("font-size") || entete.getAttribute("font-size") || "16") || 16;
@@ -572,7 +579,7 @@ export async function downloadSvgAsPng(
       // d une demi-ligne pour ne pas toucher la premiere graduation.
       const yBloc = parseFloat(entete.getAttribute("y") || "NaN");
       if (Number.isFinite(yBloc)) entete.setAttribute("y", String(Math.round((yBloc - fsDernier * 0.9) * 10) / 10));
-    } else if (entete && utile && !memeTexte(uniteEnAxe, entete.textContent || "")) {
+    } else if (entete && utile && !dejaDit) {
       const fsFinal = parseFloat(entete.getAttribute("font-size") || "16") || 16;
       const ty = parseFloat(entete.getAttribute("y") || "NaN");
       // Yann 5 sept 2026 : la ligne anglaise posee SOUS l en-tete venait
@@ -1001,68 +1008,24 @@ export async function downloadSvgAsPng(
     let stéLogoDataUrl: string | null = null;
 
     if (options.ticker) {
-      try {
-        // 1) Tentative DOM : SVG inline ou img de CompanyHeader.
-        const logoWrapper = document.querySelector('[data-logo="true"]');
-        if (logoWrapper) {
-          const innerSvg = logoWrapper.querySelector("svg");
-          const innerImg = logoWrapper.querySelector("img");
+      // 28 sept 2026 (Yann : « pourquoi pas le logo ? ») : le logo de la
+      // logotheque publique d abord, comme les exports moyen terme. L ancien
+      // chemin (image de la page copiee sur un canevas) levait une erreur de
+      // securite pour les logos d une autre origine, et cette erreur annulait
+      // aussi le repli : plus aucun logo sur les exports des graphiques.
+      stéLogoDataUrl = await chargerLogoTicker(options.ticker, 64);
+      if (!stéLogoDataUrl) {
+        try {
+          const innerSvg = document.querySelector('[data-logo="true"] svg');
           if (innerSvg) {
             const svgClone = innerSvg.cloneNode(true) as SVGElement;
-            if (!svgClone.getAttribute("xmlns")) {
-              svgClone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            }
+            if (!svgClone.getAttribute("xmlns")) svgClone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
             const svgXml = new XMLSerializer().serializeToString(svgClone);
-            stéLogoDataUrl =
-              "data:image/svg+xml;base64," +
-              btoa(unescape(encodeURIComponent(svgXml)));
-          } else if (
-            innerImg instanceof HTMLImageElement &&
-            innerImg.naturalWidth >= 64
-          ) {
-            // Yann 2 juin 2026 v7 : seuil bumpé 32→64 px pour rejeter
-            // les monogrammes/favicons low-res et forcer fallback vers
-            // /logos/<TICKER>.png (qui a été corrigé batch 1-4).
-            const canvas = document.createElement("canvas");
-            canvas.width = innerImg.naturalWidth;
-            canvas.height = innerImg.naturalHeight;
-            const ctx = canvas.getContext("2d");
-            if (ctx) {
-              ctx.drawImage(innerImg, 0, 0);
-              stéLogoDataUrl = canvas.toDataURL("image/png");
-            }
+            stéLogoDataUrl = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgXml)));
           }
+        } catch {
+          stéLogoDataUrl = null;
         }
-
-        // 2) Fallback : /logos/<TICKER>.png (le VRAI logo, ex MSCI bleu).
-        if (!stéLogoDataUrl) {
-          const stéLogoBlob = await fetch(
-            `/logos/${options.ticker.toUpperCase()}.png`
-          ).then((r) => (r.ok ? r.blob() : Promise.reject()));
-          const tempDataUrl: string = await new Promise((resolve, reject) => {
-            const fr = new FileReader();
-            fr.onload = () => resolve(fr.result as string);
-            fr.onerror = reject;
-            fr.readAsDataURL(stéLogoBlob);
-          });
-          const probe = await new Promise<HTMLImageElement>(
-            (resolve, reject) => {
-              const im = new Image();
-              im.onload = () => resolve(im);
-              im.onerror = reject;
-              im.src = tempDataUrl;
-            }
-          );
-          // Yann 2 juin 2026 v7 : seuil 64 px (cohérent avec DOM logo
-          // ci-dessus). Si /logos/<TICKER>.png est < 64 px, c'est un
-          // monogramme ou un favicon stale → on skip silencieusement.
-          if (probe.naturalWidth >= 64) {
-            stéLogoDataUrl = tempDataUrl;
-          }
-        }
-      } catch {
-        /* skip silencieux si logo société indispo */
-        stéLogoDataUrl = null;
       }
     }
 

@@ -35,6 +35,15 @@ const TIME_SUFFIX: Record<Exclude<TimeFraction, "year">, { fr: string; en: strin
 
 export type TitleLang = "fr" | "en";
 
+/** 28 sept 2026 (Yann, O « ffo_ps_annuel ») : jamais un code technique comme
+ *  titre anglais. Le code court ne sert que s il ressemble a un vrai libelle. */
+export function libelleAnglais(nameEn?: string | null, short?: string | null, nameFr?: string | null): string {
+  if (nameEn && nameEn.trim()) return nameEn;
+  const c = (short ?? "").trim();
+  const estCode = !c || /_/.test(c) || /^[A-Z0-9]+$/.test(c) || !/[A-Z]/.test(c);
+  return !estCode ? c : (nameFr ?? c);
+}
+
 export function KpiSwapTitle({
   nameFr,
   nameEn,
@@ -68,7 +77,7 @@ export function KpiSwapTitle({
 }) {
   const [titleLang, setTitleLang] = useState<TitleLang>(defaultLang);
 
-  const enLabel = nameEn || short || nameFr;
+  const enLabel = libelleAnglais(nameEn, short, nameFr);
   const label = titleLang === "fr" ? nameFr : enLabel;
 
   const suffix = timeFraction && timeFraction !== "year"

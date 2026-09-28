@@ -70,7 +70,7 @@ Controle de 101 series a deux annees ou plus (statut trouve, ou existe et autre 
 | PANW | CRPO | 2019 et 2025 | Conforme | 1,7 Md $ attendus sur douze mois au 31 juillet 2019 et 7,0 Mds $ au 31 juillet 2025, lus dans les 10-K. |
 | PLTR | RPO_CRPO | 2020 et 2025 | Conforme | 54 % fin 2020 et 38 % fin 2025 des obligations de prestation attendues sur douze mois, lus dans les 10-K. |
 | PTC | RPO_CRPO | 2022 et 2025 | Conforme | 57 % a l'exercice 2022 et 55 % a l'exercice 2025, lus dans les rapports annuels. |
-| PTC | SUBSCRIPTION_GROSS_MARGIN | 2019 et 2025 | Conforme | Taux de marge du support et des services en nuage 83 % en 2019 et 80 % en 2025, publies tels quels. |
+| PTC | SUBSCRIPTION_GROSS_MARGIN | 2019 et 2025 | Conforme | Taux de marge du support et des services cloud 83 % en 2019 et 80 % en 2025, publies tels quels. |
 | QCOM | ASP_VOLUMES | 2011 et 2020 | Conforme | 483 millions de circuits MSM a l'exercice 2011 et 575 millions a l'exercice 2020, lus dans les 10-K. |
 | QRVO | INVENTORY_CHANNEL | 2017 et 2026 | Conforme | Recalcul XBRL : 430,454/1 897,062 x 365 = 82,8 en 2017 ; 101,5 en 2026. |
 | RMBS | INVENTORY_CHANNEL | 2016 et 2025 | Conforme | 2016 : 5,633/21,3 x 365 = 96,4. 2025 : 44,098/134,681 x 365 = 119,5. Cout du chiffre d'affaires produits lu dans les 10-K. |
