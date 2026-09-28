@@ -556,7 +556,7 @@ export async function downloadSvgAsPng(
       // premier repere de lecture du PNG. La langue, la periode et tous les
       // reglages du graphe au moment du telechargement restent inchanges.
       const estAnnee =
-        isXAxisLabel && /^(19|20)\d{2}$/.test((t.textContent || "").trim());
+        isXAxisLabel && /^((19|20)\d{2}|TTM)$/.test((t.textContent || "").trim()); // 29 sept 2026 : TTM aligne sur les annees
       if (estAnnee) {
         // Yann 29 aout 2026 : meme taille finale que les graduations de
         // l axe Y (16 px avant agrandissement), quel que soit le corps de

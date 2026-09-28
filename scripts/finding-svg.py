@@ -314,8 +314,13 @@ def construit(spec: dict, theme: str) -> str:
                         f'transform="rotate(-90 {x_lab:.0f} {y_lab:.0f})">{echappe(etiquette)}</text>'
                     )
         # Beaucoup de periodes : une etiquette sur n, sinon elles se chevauchent.
-        pas = max(1, -(-len(cats) // 12))
-        if i % pas == 0 or i == len(cats) - 1:
+        # 29 sept 2026 (NFLX « juin 2026juil. 2026 ») : le pas tient compte de
+        # la largeur reelle des libelles, et se cale sur le DERNIER libelle
+        # (toujours visible) au lieu de le forcer a cote de son voisin.
+        ecart_cat = (W - MARGE_G - MARGE_D) / max(1, len(cats))
+        plus_large = max(largeur_texte(str(x), 11) for x in cats)
+        pas = max(1, -(-len(cats) // 12), int(-(-(plus_large + 8) // ecart_cat)))
+        if (len(cats) - 1 - i) % pas == 0:
             out.append(f'<text x="{centre:.0f}" y="{BAS + 22}" text-anchor="middle" fill="{c["axe"]}" font-size="11">{echappe(cat)}</text>')
 
     if spec.get("legende", True) and n > 1:
