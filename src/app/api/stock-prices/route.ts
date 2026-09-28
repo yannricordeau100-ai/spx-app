@@ -44,20 +44,33 @@ type PriceItem = {
   shortName: string | null;
 };
 
-async function fetchBatch(symbols: string[]): Promise<PriceItem[]> {
-  if (symbols.length === 0) return [];
+// 28 sept 2026 (Yann : capitalisation « — » sur ArcelorMittal) : symboles
+// Mettrik que Yahoo ne cote plus. MT.PA renvoie un fonds sans prix : la
+// ligne principale est Amsterdam (MT.AS, meme action, en euros). ROG.SW
+// n existe plus depuis le 17 mars 2026 : les Genussscheine Roche ont ete
+// echangees 1 pour 1 contre des bons de participation cotes ROP.
+const YAHOO_ALIAS: Record<string, string> = { "MT.PA": "MT.AS", "ROG.SW": "ROP.SW" };
+const YAHOO_ALIAS_INVERSE: Record<string, string> = Object.fromEntries(
+  Object.entries(YAHOO_ALIAS).map(([a, b]) => [b, a]),
+);
+
+async function fetchBatch(symbolsMettrik: string[]): Promise<PriceItem[]> {
+  if (symbolsMettrik.length === 0) return [];
+  const symbols = symbolsMettrik.map((s) => YAHOO_ALIAS[s] ?? s);
   const quotes = await yf.quote(symbols);
   const arr = Array.isArray(quotes) ? quotes : [quotes];
   const items = arr.map((q): PriceItem => ({
-    symbol: q.symbol,
+    symbol: YAHOO_ALIAS_INVERSE[q.symbol] && symbolsMettrik.includes(YAHOO_ALIAS_INVERSE[q.symbol]) ? YAHOO_ALIAS_INVERSE[q.symbol] : q.symbol,
     price: q.regularMarketPrice ?? null,
     deltaPct: q.regularMarketChangePercent ?? null,
     deltaAbs: q.regularMarketChange ?? null,
     // Yann 8 août 2026 (screen MU "0 Mds $") : Yahoo quote() omet parfois
     // marketCap sur certains symboles alors que prix et titres en circulation
     // sont présents. Fallback : prix x sharesOutstanding, sinon null (jamais 0).
+    // 28 sept 2026 (ML.PA) : Yahoo renvoie parfois 0 au lieu de rien : un 0
+    // bloquait les filets suivants. Traite comme absent.
     marketCap:
-      q.marketCap ??
+      (q.marketCap && q.marketCap > 0 ? q.marketCap : null) ??
       (q.regularMarketPrice != null && q.sharesOutstanding != null
         ? q.regularMarketPrice * q.sharesOutstanding
         : null),
@@ -73,7 +86,7 @@ async function fetchBatch(symbols: string[]): Promise<PriceItem[]> {
   await Promise.all(
     items.filter((it) => it.marketCap == null).map(async (it) => {
       try {
-        const qs = await yf.quoteSummary(it.symbol, { modules: ["price"] });
+        const qs = await yf.quoteSummary(YAHOO_ALIAS[it.symbol] ?? it.symbol, { modules: ["price"] });
         const mc = qs.price?.marketCap;
         if (typeof mc === "number" && mc > 0) it.marketCap = mc;
       } catch {
