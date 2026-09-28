@@ -48,7 +48,7 @@ import { estKpiDeFlux,
 import { yoyTone } from "@/lib/utils";
 import { autoRescaleSmallUnit, isPercentMagnitudeAnomaly } from "@/lib/format-hero";
 import { translate } from "@/lib/i18n/dictionary";
-import { chartAxisHeader } from "@/lib/chart-axis-header";
+import { chartAxisHeader, isCurrencyLikeUnit } from "@/lib/chart-axis-header";
 import { brand, rate, detectAnomalies } from "@/lib/brand";
 import { smoothScrollTo } from "@/lib/scroll";
 import { Spotlight } from "@/components/effects/spotlight";
@@ -2105,7 +2105,13 @@ export function CompanyView({
                   if (typeof window !== "undefined" && window.innerWidth < 640) setChartPleinEcran(true);
                 }}
                 data-export-title-en={libelleAnglais((active as { name_en?: string }).name_en, (active as { short?: string }).short, active.name_fr) || ""}
-                data-export-unit-en={translateUnitFrToEn(displayUnit || "")}
+                data-export-unit-en={(() => {
+                  // 28 sept 2026 (export NFLX « Mds $ » puis « M $ ») : l unite
+                  // anglaise suit l axe reellement affiche (apres mise a
+                  // l echelle), pas l unite brute du KPI.
+                  const u = heroChart.displayUnit || "";
+                  return (isCurrencyLikeUnit(u) ? chartAxisHeader(u, "en") : translateUnitFrToEn(u)).replace(/^Mds\s/, "B ");
+                })()}
                 // Yann 1er sept 2026 : pour les graphs en %, le document
                 // telecharge affiche la moyenne de la serie visible.
                 data-export-avg={(() => {

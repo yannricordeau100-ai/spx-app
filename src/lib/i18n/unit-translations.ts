@@ -126,6 +126,8 @@ export function translateUnitFrToEn(unit: string): string {
     [/\bbarils\b/gi, "barrels"], [/\btonnes\b/gi, "tonnes"], [/\bemploy[ée]s\b/gi, "employees"],
     [/\babonn[ée]s\b/gi, "subscribers"], [/\bclients\b/gi, "customers"], [/\bv[ée]hicules\b/gi, "vehicles"],
     [/\bmagasins\b/gi, "stores"], [/\butilisateurs\b/gi, "users"],
+    [/\bmilliers d['’]unit[ée]s\b/gi, "thousand units"], [/\bunit[ée]s\b/gi, "units"],
+    [/\bKbep\/j\b/gi, "kboe/d"], [/\bbep\/j\b/gi, "boe/d"], [/\bbep\b/gi, "boe"],
   ];
   let traduit = trimmed;
   for (const [rx, en] of MOTS) traduit = traduit.replace(rx, en);

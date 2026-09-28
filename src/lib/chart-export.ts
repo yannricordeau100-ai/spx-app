@@ -1199,9 +1199,10 @@ export async function downloadSvgAsPng(
     // principal et au-dessus du titre. Rendue uniquement en mode compact et
     // seulement si au moins une autre societe est rattachee au graphique.
     if (COMPACT && peerTickers.length > 0) {
-      const PEER_FONT = 18;
-      const PEER_GAP_LOGO_TEXTE = 9;
-      const PEER_GAP_ENTRE = 30;
+      let PEER_FONT = 18;
+      let PEER_GAP_LOGO_TEXTE = 9;
+      let PEER_GAP_ENTRE = 30;
+      let PEER_LOGO = CH_PEER_LOGO;
       const mesureCtx =
         typeof document !== "undefined"
           ? document.createElement("canvas").getContext("2d")
@@ -1216,24 +1217,39 @@ export async function downloadSvgAsPng(
         })),
       );
       const largeurItem = (it: { ticker: string; logo: string | null }) =>
-        (it.logo ? CH_PEER_LOGO + PEER_GAP_LOGO_TEXTE : 0) +
+        (it.logo ? PEER_LOGO + PEER_GAP_LOGO_TEXTE : 0) +
         largeurTexte(it.ticker);
-      const largeurRangee =
-        items.reduce((s, it) => s + largeurItem(it), 0) +
-        PEER_GAP_ENTRE * Math.max(0, items.length - 1);
+      const largeurDe = (liste: typeof items) =>
+        liste.reduce((s, it) => s + largeurItem(it), 0) +
+        PEER_GAP_ENTRE * Math.max(0, liste.length - 1);
+      // 28 sept 2026 (export ASML, 11 societes : AMAT et 005930.KS coupes
+      // aux bords) : la rangee est reduite pour tenir dans la largeur, puis,
+      // si elle deborde encore au plancher, les dernieres societes sont omises.
+      const LARGEUR_RANGEE_MAX = origW - 48;
+      const brute = largeurDe(items);
+      if (brute > LARGEUR_RANGEE_MAX) {
+        const f = Math.max(0.6, LARGEUR_RANGEE_MAX / brute);
+        PEER_FONT = Math.round(PEER_FONT * f * 10) / 10;
+        PEER_GAP_LOGO_TEXTE = Math.round(PEER_GAP_LOGO_TEXTE * f);
+        PEER_GAP_ENTRE = Math.round(PEER_GAP_ENTRE * f);
+        PEER_LOGO = Math.round(PEER_LOGO * f);
+        if (mesureCtx) mesureCtx.font = `400 ${PEER_FONT}px ${PNG_FONT_FAMILY}`;
+        while (items.length > 1 && largeurDe(items) > LARGEUR_RANGEE_MAX) items.pop();
+      }
+      const largeurRangee = largeurDe(items);
       let curseur = origX + origW / 2 - largeurRangee / 2;
       for (const it of items) {
         if (it.logo) {
-          const top = PEER_ROW_CY - CH_PEER_LOGO / 2;
-          const r = CH_PEER_LOGO * 0.22;
+          const top = PEER_ROW_CY - PEER_LOGO / 2;
+          const r = PEER_LOGO * 0.22;
           const clipId = `peerClip_${Math.random().toString(36).slice(2, 8)}`;
           const clipEl = document.createElementNS(NS, "clipPath");
           clipEl.setAttribute("id", clipId);
           const clipRect = document.createElementNS(NS, "rect");
           clipRect.setAttribute("x", String(curseur));
           clipRect.setAttribute("y", String(top));
-          clipRect.setAttribute("width", String(CH_PEER_LOGO));
-          clipRect.setAttribute("height", String(CH_PEER_LOGO));
+          clipRect.setAttribute("width", String(PEER_LOGO));
+          clipRect.setAttribute("height", String(PEER_LOGO));
           clipRect.setAttribute("rx", String(r));
           clipRect.setAttribute("ry", String(r));
           clipEl.appendChild(clipRect);
@@ -1242,8 +1258,8 @@ export async function downloadSvgAsPng(
           const fond = document.createElementNS(NS, "rect");
           fond.setAttribute("x", String(curseur));
           fond.setAttribute("y", String(top));
-          fond.setAttribute("width", String(CH_PEER_LOGO));
-          fond.setAttribute("height", String(CH_PEER_LOGO));
+          fond.setAttribute("width", String(PEER_LOGO));
+          fond.setAttribute("height", String(PEER_LOGO));
           fond.setAttribute("rx", String(r));
           fond.setAttribute("ry", String(r));
           fond.setAttribute("fill", fondClair ? "#ffffff" : "#0a0a0a");
@@ -1262,12 +1278,12 @@ export async function downloadSvgAsPng(
           );
           img.setAttribute("x", String(curseur));
           img.setAttribute("y", String(top));
-          img.setAttribute("width", String(CH_PEER_LOGO));
-          img.setAttribute("height", String(CH_PEER_LOGO));
+          img.setAttribute("width", String(PEER_LOGO));
+          img.setAttribute("height", String(PEER_LOGO));
           img.setAttribute("preserveAspectRatio", "xMidYMid meet");
           img.setAttribute("clip-path", `url(#${clipId})`);
           clone.appendChild(img);
-          curseur += CH_PEER_LOGO + PEER_GAP_LOGO_TEXTE;
+          curseur += PEER_LOGO + PEER_GAP_LOGO_TEXTE;
         }
         const tk = document.createElementNS(NS, "text");
         tk.setAttribute("x", String(curseur));
@@ -1375,7 +1391,7 @@ export async function downloadSvgAsPng(
         String(
           COMPACT
             ? LINE2_Y - Math.round(tailleKpi * 1.15)
-            : LINE2_Y - Math.round(tailleKpi * 0.55),
+            : LINE2_Y - Math.round(tailleKpi * 0.35),
         ),
       );
       ajouteLigne(lignesKpi[0], 0, true);
@@ -1389,7 +1405,11 @@ export async function downloadSvgAsPng(
     // de l axe Y en anglais, toutes deux en italique, centrees sous le
     // titre francais. Le nom EN est omis s il est identique au titre deja
     // affiche (cas ou l utilisateur a bascule le titre en anglais).
-    const LINE_EN_NAME_Y = origY - PAD_TOP + 154;
+    // 28 sept 2026 (export TSM) : un titre sur deux lignes descendait sur la
+    // ligne anglaise. Elle se place alors sous la seconde ligne.
+    const LINE_EN_NAME_Y = lignesKpi.length === 2 && !COMPACT
+      ? Math.max(origY - PAD_TOP + 154, LINE2_Y - Math.round(tailleKpi * 0.35) + Math.round(tailleKpi * 1.15) + 24)
+      : origY - PAD_TOP + 154;
     const LINE_EN_UNIT_Y = origY - PAD_TOP + 178;
     const titreEn = options.titleEn?.trim();
     const uniteEn = options.unitEn?.trim();
