@@ -585,6 +585,68 @@ export async function downloadSvgAsPng(
         tries.forEach((t, i) => { if ((n - 1 - i) % pas !== 0) t.remove(); });
       }
     }
+    // Meme regle pour les periodes sous les barres (T1..T4, S1, S2) : quand
+    // elles se touchent (MT.PA, 44 trimestres « T4T1T2T3 »), on les retire et
+    // seules restent les annees sous leurs crochets ; sans annees, une sur n.
+    const periodes = Array.from(clone.querySelectorAll("text")).filter((t) => {
+      const ty = parseFloat(t.getAttribute("y") || "NaN");
+      return Number.isFinite(ty) && ty > origY + origH - 70 && /^[TSQH][1-4]$/.test((t.textContent || "").trim());
+    });
+    const px = periodes.map((t) => parseFloat(t.getAttribute("x") || "NaN")).filter(Number.isFinite).sort((a, b) => a - b);
+    if (px.length >= 3) {
+      let ecartP = Infinity;
+      for (let i = 1; i < px.length; i++) ecartP = Math.min(ecartP, px[i] - px[i - 1]);
+      const ctxP = document.createElement("canvas").getContext("2d");
+      const fsP = parseFloat(periodes[0].getAttribute("font-size") || "16") || 16;
+      let wP = fsP * 1.3;
+      if (ctxP) { ctxP.font = `300 ${fsP}px ${PNG_FONT_FAMILY}`; wP = ctxP.measureText("T4").width; }
+      if (wP + 6 > ecartP) {
+        if (annees.length > 0) periodes.forEach((t) => t.remove());
+        else {
+          const pasP = Math.ceil((wP + 6) / ecartP);
+          const triesP = [...periodes].sort((a, b) => parseFloat(a.getAttribute("x") || "0") - parseFloat(b.getAttribute("x") || "0"));
+          triesP.forEach((t, i) => { if ((triesP.length - 1 - i) % pasP !== 0) t.remove(); });
+        }
+      }
+    }
+  }
+
+  // 28 sept 2026 (MT.PA, 44 barres : « 21,522,1 » colles) : les valeurs
+  // au-dessus des barres sont reduites pour tenir dans l ecart entre deux
+  // barres (plancher 9), puis une sur deux est retiree si cela ne suffit pas.
+  if (!options.headerCompact) {
+    const valeurs = Array.from(clone.querySelectorAll("text")).filter((t) => {
+      if ((t.getAttribute("text-anchor") || "") !== "middle") return false;
+      if ((t.getAttribute("transform") || "").includes("rotate")) return false;
+      const ty = parseFloat(t.getAttribute("y") || "NaN");
+      return Number.isFinite(ty) && ty > origY + 24 && ty < origY + origH - 70 && /\d/.test(t.textContent || "");
+    });
+    const triesV = valeurs
+      .map((t) => ({ t, x: parseFloat(t.getAttribute("x") || "NaN") }))
+      .filter((o) => Number.isFinite(o.x))
+      .sort((a, b) => a.x - b.x);
+    if (triesV.length >= 8) {
+      let ecartV = Infinity;
+      for (let i = 1; i < triesV.length; i++) {
+        const d = triesV[i].x - triesV[i - 1].x;
+        if (d > 0.5) ecartV = Math.min(ecartV, d);
+      }
+      const ctxV = document.createElement("canvas").getContext("2d");
+      const largeurMax = (fs: number) => {
+        if (!ctxV) return fs * 2.2;
+        ctxV.font = `300 ${fs}px ${PNG_FONT_FAMILY}`;
+        return Math.max(...triesV.map((o) => ctxV.measureText((o.t.textContent || "").trim()).width));
+      };
+      let fsV = parseFloat(triesV[0].t.getAttribute("font-size") || "11") || 11;
+      const fsDepart = fsV;
+      while (fsV > 9 && largeurMax(fsV) + 3 > ecartV) fsV -= 0.5;
+      if (fsV !== fsDepart) triesV.forEach((o) => o.t.setAttribute("font-size", String(fsV)));
+      if (largeurMax(fsV) + 3 > ecartV) {
+        const pasV = Math.ceil((largeurMax(fsV) + 3) / ecartV);
+        const n = triesV.length;
+        triesV.forEach((o, i) => { if ((n - 1 - i) % pasV !== 0) o.t.remove(); });
+      }
+    }
   }
 
   // 28 sept 2026 : les pointilles de la grille, plus foncés dans l export,
@@ -1228,7 +1290,7 @@ export async function downloadSvgAsPng(
       const LARGEUR_RANGEE_MAX = origW - 48;
       const brute = largeurDe(items);
       if (brute > LARGEUR_RANGEE_MAX) {
-        const f = Math.max(0.6, LARGEUR_RANGEE_MAX / brute);
+        const f = Math.max(0.6, (LARGEUR_RANGEE_MAX / brute) * 0.97);
         PEER_FONT = Math.round(PEER_FONT * f * 10) / 10;
         PEER_GAP_LOGO_TEXTE = Math.round(PEER_GAP_LOGO_TEXTE * f);
         PEER_GAP_ENTRE = Math.round(PEER_GAP_ENTRE * f);

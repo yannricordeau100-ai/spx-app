@@ -69,7 +69,11 @@ export function formatChartValueLabel(
   // clair. On ecrit donc le nombre en entier.
   // Plafond a 100 000 : au-dela le nombre entier devient trop long pour les
   // series denses, le compact reprend la main.
-  if (isPhysicalUnitLabel(unit) && maxAbs < 100_000) {
+  // 28 sept 2026 (export TSM « 2,2 k » sous un axe « Mds TWD ») : une unite
+  // deja mise a l echelle (Mds, M, K devant une devise) ne prend jamais de
+  // « k » en plus : 2 179 Mds TWD s ecrit en entier, comme sur l axe.
+  const uniteDejaEchelonnee = /^(Mds|Md|M|K)\s/.test(String(unit ?? "").trim()) || /^[$€£][BMK]$/.test(String(unit ?? "").trim());
+  if ((isPhysicalUnitLabel(unit) || uniteDejaEchelonnee) && maxAbs < 100_000) {
     // Meme nombre de decimales pour toute la serie : sans minimum, 1,0
     // s affichait "1" a cote de "0,9" (capture Apple, abonnements payants).
     // Yann 28 aout 2026 (KPI pays PLTR "25,0 pays") : si TOUTE la serie est
