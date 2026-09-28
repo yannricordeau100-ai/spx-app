@@ -997,12 +997,17 @@ export async function downloadSvgAsPng(
 
   if (options.title) {
     // Split sur " · " (espace point milieu espace).
-    const SEPARATOR = "\u00A0\u00B7\u00A0"; // espaces insecables : sinon le point se colle au texte
-    const sepIdx = options.title.indexOf(SEPARATOR);
+    // 28 sept 2026 : le separateur exige des espaces insecables depuis le
+    // 21 sept alors que les appelants envoient des espaces simples : le titre
+    // n etait plus coupe, donc ni ligne societe ni logo sur AUCUN export.
+    // On accepte les deux, sur le dernier « · » du titre.
+    const sepMatches = [...options.title.matchAll(/[ \u00A0\u202F]\u00B7[ \u00A0\u202F]/g)];
+    const sepLast = sepMatches[sepMatches.length - 1];
+    const sepIdx = sepLast?.index ?? -1;
     const hasSeparator = sepIdx > 0;
 
-    const kpiText = hasSeparator ? options.title.slice(0, sepIdx) : options.title;
-    const stéText = hasSeparator ? options.title.slice(sepIdx + SEPARATOR.length) : "";
+    const kpiText = hasSeparator ? options.title.slice(0, sepIdx).trim() : options.title;
+    const stéText = hasSeparator ? options.title.slice(sepIdx + sepLast![0].length).trim() : "";
 
     // Récupère le logo société si dispo (DOM ou fallback).
     let stéLogoDataUrl: string | null = null;
