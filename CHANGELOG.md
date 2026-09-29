@@ -877,3 +877,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.29.2 (29 Sep 2026 01:40, apres be0db901fa)
 - Doublons de KPI supprimes sur O, AAPL, NFLX, LVMH
+
+## v2026.09.29.3 (29 Sep 2026 22:10, apres 0bfb3b33c9)
+- Dette annuelle verifiee sur 491 societes ; KPI d industrie ; CAGR ; exports
