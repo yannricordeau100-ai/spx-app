@@ -664,7 +664,10 @@ export async function proxy(request: NextRequest) {
     if (m) {
       const seg = decodeURIComponent(m[1]).toUpperCase();
       const canon = TICKER_ALIASES[seg] ?? TICKER_ALIASES[seg.replace(/-/g, ".")];
-      if (canon) {
+      // 29 sept 2026 : /brk-b bouclait sur lui-meme (BRK.B est un alias de
+      // BRK-B, et le code demande, une fois les tirets convertis en points,
+      // retombait sur cet alias). Pas de redirection vers la page deja servie.
+      if (canon && canon.toUpperCase() !== seg && canon.toUpperCase().replace(/\./g, "-") !== seg) {
         const url = request.nextUrl.clone();
         url.pathname = `/${canon.toLowerCase()}`;
         return NextResponse.redirect(url, 308);
