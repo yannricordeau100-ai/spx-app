@@ -880,3 +880,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.29.3 (29 Sep 2026 22:10, apres 0bfb3b33c9)
 - Dette annuelle verifiee sur 491 societes ; KPI d industrie ; CAGR ; exports
+
+## v2026.09.29.4 (29 Sep 2026 23:03, apres 2dd0771035)
+- Verification des 662 fiches : textes, dates, noms de KPI, doublons ; /brk-b
