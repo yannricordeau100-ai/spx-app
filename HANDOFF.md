@@ -83,3 +83,9 @@ reecrits pour en retirer les sources).
 Le document de reprise le plus recent est `docs/REPRISE-2026-09-27.md` : etat du deploiement (mettrik.ai =
 niveau2 = commit 0fe0532f40, VERSION 2026.09.27.7), tout ce qui a ete fait du 24 au 27 septembre, pieges appris,
 reste a faire par priorite, journal complet des demandes de Yann et des commits. Il remplace le §8 pour l etat courant.
+
+## 10. REPRISE AU 29 SEPTEMBRE 2026 (LIRE EN PREMIER)
+
+`docs/REPRISE-2026-09-29.md` : état du déploiement (mettrik.ai = f6f9819838, préversion en attente de « go n0 »
+avec la vérification des 662 fiches), travail des 28 et 29 septembre, corrections automatiques, hésitations,
+pièges. Outils de vérification dans `scripts/verif-fiches/`.
