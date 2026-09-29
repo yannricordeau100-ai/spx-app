@@ -883,3 +883,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.29.4 (29 Sep 2026 23:03, apres 2dd0771035)
 - Verification des 662 fiches : textes, dates, noms de KPI, doublons ; /brk-b
+
+## v2026.09.29.5 (29 Sep 2026 23:24, apres 1ffab3e3ee)
+- Prochaines dates de publication, KPI errones retires
