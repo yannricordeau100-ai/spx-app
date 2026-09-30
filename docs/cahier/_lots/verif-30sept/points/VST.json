@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition du CA incohérente avec le KPI CA Retail : Retail affiché à 51 % alors que la série trimestrielle donne environ 81 % des ventes 2025.",
+  "preuve": "revenue_by_segment Retail 51 ; ca_retail 2025 = 3,17+3,53+4,14+3,50 = 14,34 Mds $ sur revenue_annuel 17,738 Mds $ = 80,8 %",
+  "correction_validee": "Recalculer la répartition 2025 sur les ventes externes publiées par segment (avec West et Asset Closure) ou indiquer clairement la base avant éliminations.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "prod_solaire",
+  "probleme": "Variation annuelle calculée sans point de comparaison : la série n'a pas de T2 à T4 2025.",
+  "preuve": "serie ... Q4-2024=152, Q1-2025=206, Q1-2026=289, Q2-2026=492 ; yoy=+75,7 % alors que Q2-2025 est absent (Q2-2024=216 donnerait +128 %)",
+  "correction_validee": "Compléter T2 à T4 2025 depuis les rapports trimestriels, ou masquer la variation annuelle.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_dilue / div_par_action",
+  "probleme": "Tous les T4 manquent dans les séries trimestrielles (BPA, dividende), ce qui fausse les graphiques.",
+  "preuve": "eps_dilue : Q3-2024 puis Q1-2025, Q3-2025 puis Q1-2026 ; div_par_action : Q3-2024=0,2195 puis Q1-2025=0,2235",
+  "correction_validee": "Dériver les T4 à partir de l'annuel moins neuf mois (BPA) et reprendre les dividendes déclarés au T4.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Value delivered via share repurchases / Shares retired since Nov 2021",
+  "probleme": "Deux chiffres de rachats contradictoires côte à côte : 169 M d'actions à environ 37 $ font environ 6,3 Mds $, pas « plus de 20 Md$ ».",
+  "preuve": "« Environ 169 M d'actions retirées à un coût moyen d'environ 37$ » vs « Plus de 20 Md$ de valeur livrée aux actionnaires ... via le programme de rachat »",
+  "correction_validee": "Supprimer « Valeur livrée via rachats » et garder les actions retirées avec leur coût moyen.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "U.S. electricity consumption / Hyperscaler capital spending 2026",
+  "probleme": "Indicateurs macro sans lien avec l'activité de Vistra présentés comme KPI de la société.",
+  "preuve": "Consommation électrique US 4200 TWh ; CapEx hyperscalers attendu 2026 700 Mds $",
+  "correction_validee": "Retirer ces deux lignes des KPI, et au besoin les citer dans le contexte de marché.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat / ia / these",
+  "champ": "moat.summary, ai_positioning",
+  "probleme": "Moat nul et justifié par une tendance de ventes, alors que la thèse repose sur 6,4 GW de nucléaire et des contrats de 20 ans. Le positionnement IA dit « un PPA hyperscaler » alors que la fiche en compte deux.",
+  "preuve": "moat : « La vente en gros s'effondre de 82,3 % ... sans barrière identifiée » ; IA : « un PPA hyperscaler » vs dc_mw_contracted « AWS 1200MW + Meta 2609MW »",
+  "correction_validee": "Réécrire le moat (parc nucléaire amorti, flotte gaz dispatchable, base retail TXU) et corriger le texte IA à deux contrats.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.simple",
+  "probleme": "La description présente Vistra comme un fournisseur de détail et omet qu'il s'agit d'abord d'un producteur de 44 GW (nucléaire, gaz, charbon).",
+  "preuve": "« Vistra fournit de l'électricité et du gaz naturel aux foyers et aux entreprises » ; total_gen_capacity 44000 MW",
+  "correction_validee": "Mettre en avant la production (parc nucléaire et gaz, ERCOT et PJM) avant le détail.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "nuclear_cap_factor",
+  "probleme": "Facteur de charge du hero supérieur à 100 % sans explication, ce qui semble être une erreur pour un lecteur.",
+  "preuve": "Q1-2025=100.9, Q1-2026=100.8",
+  "correction_validee": "Ajouter dans la description que le taux est calculé sur la puissance nette nominale et peut dépasser 100 % en hiver.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "manquant",
+  "probleme": "Il manque l'indicateur clé d'un producteur marchand : le prix moyen couvert ou réalisé en $/MWh. Seul le pourcentage couvert figure sur la fiche.",
+  "preuve": "Seul « Volume de production couvert » à 98 % figure, sans prix",
+  "correction_validee": "Ajouter le prix couvert par année ($/MWh, ERCOT et PJM) publié dans les présentations trimestrielles.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

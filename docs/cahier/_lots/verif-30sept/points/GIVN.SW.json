@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Revenu Givaudan / Resultat op",
+  "probleme": "Deux series avec quatre zeros fabriques, mention de Wikipedia et aveu d absence de source dans le signal ; contredisent aussi la repartition par segment",
+  "preuve": "serie « 0, 0, 0, 0, 7.472 » ; signal « Niveau 2025 ~7.5 Mds CHF (Wikipedia). Historique 5 ans non disponible via sources publiques accessibles » ; description « Taste & Wellbeing (~52 %) » alors que revenue_by_segment donne Fragrance & Beauty 51,3",
+  "correction_validee": "Supprimer Revenu Givaudan et Resultat op. Si besoin, creer un CA annuel (somme des semestres CA_FB_S + CA_TW_S, 2025 = 7 472 M CHF) et un resultat d'exploitation annuel (RES_EXPL_S, 2025 = 1 381 M CHF).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CA annuel (manquant)",
+  "probleme": "Aucune serie de chiffre d affaires annuel fiable alors que le hero est le dividende ; un investisseur attend le CA groupe en premier",
+  "preuve": "hero = DIV_FY ; seules series de ventes : CA_Q (trimestres depuis Q3-2024) et semestres par segment",
+  "correction_validee": "Ajouter CA_FY 2021-2025 (somme des semestres disponibles, sinon rapport annuel) et le mettre en hero",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Texte perime : affirme qu un seul indicateur est disponible alors que la fiche compte plus de vingt series",
+  "preuve": "« Seul le dividende par action est disponible et progresse modestement, ce qui reste trop mince pour juger l evolution du savoir-faire de formulation »",
+  "correction_validee": "Reecrire le moat a partir de LFL_FY (5,1 % en 2025), MARGE_EBITDA_COMP_FY (24,2 %) et FCF_PCT_FY (14,1 %).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SEGMENT_EBITDA_MARGIN",
+  "probleme": "Nom faux : « par segment » mais une seule serie, qui correspond a la marge Fragrance & Beauty ; yoy en % au lieu de points",
+  "preuve": "FY2025 = 25,7 = marge F&B citee dans EBITDA_FB_FY (« marge de 25,7 % ») ; yoy affiche -4.5 % pour 26,9 vers 25,7 (soit -1,2 pt)",
+  "correction_validee": "Renommer en « Marge EBITDA Fragrance & Beauty » et afficher le yoy « -1,2 pt ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "clients",
+  "champ": "clients.top",
+  "probleme": "Concentration avec n=1 et 6,8 % mais liste de clients vide",
+  "preuve": "{'n': 1, 'pct': 6.8, 'clients': []}",
+  "correction_validee": "Indiquer « premier client non nomme » ou retirer n",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions_de_marche",
+  "champ": "position de marche 1",
+  "probleme": "Position de marche sans nom ni part",
+  "preuve": "« None | taille 66 | part None »",
+  "correction_validee": "Nommer le marche (aromes et parfums mondial) et donner la part, ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

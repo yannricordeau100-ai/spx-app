@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "moat.text",
+  "probleme": "Moat périmé et contradictoire : dit que CA et résultat net reculent alors que la fiche affiche +19,5 % et +72,4 % au T2-2026, avec tendance « hausse »",
+  "preuve": "moat : « le chiffre d'affaires et le résultat net reculent sur l'exercice » ; REVENUE yoy=+19.5%, NET_INCOME yoy=+72.4% ; att : « chiffre d'affaires en hausse de 19,5% »",
+  "correction_validee": "Réécrire le moat sur les données S1-2026 (reprise du CA et du résultat net).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Comms Infra / Comm Infra & Other / Mobile CA",
+  "probleme": "Trois séries annuelles sans signal, doublons de COMM_REV et MOBILE_REV, avec des valeurs incohérentes entre elles et avec les trimestriels",
+  "preuve": "Comms Infra : 172, 45, 258, 108, 417, 401, 1697, 1296 (suite absurde) ; Comm Infra & Other 2025=1.83 Mds contre somme trimestrielle 2025 = 1 296 M$ ; Mobile CA 1.43 Mds contre somme 2025 = 1 584 M$ ; dates « 2026-09-02 » pour des annuels",
+  "correction_validee": "Supprimer « Comms Infra », « Comm Infra & Other » et « Mobile CA ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "China Sales % vs CHINA_REV",
+  "probleme": "Deux mesures de l'exposition Chine qui se contredisent (33 % contre 16,6 %) sans explication de périmètre, signal vide sur la première",
+  "preuve": "China Sales % val=33 (serie 37,35,36,34,33) ; CHINA_REV signal : « La Chine pèse environ 16,6% du CA selon la méthode révisée par lieu d'origine »",
+  "correction_validee": "Supprimer « China Sales % » ou le renommer « Grande Chine, lieu de livraison » avec un signal expliquant l'écart avec CHINA_REV.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ADJ_EBITDA.signal / yoy",
+  "probleme": "Signal et variation annuelle calculés sur le T1-2026 alors que la série va au T2-2026",
+  "preuve": "val=1369 (Q2-2026) mais signal « EBITDA ajusté de 1 186 M$ au T1-2026 (+10,5% YoY) » ; 1369/1103 = +24,1 %",
+  "correction_validee": "Mettre yoy à +24,1 % (1369/1103) et réécrire le signal sur le T2-2026.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DSO.signal / DPS.signal / dates 2026-09-02",
+  "probleme": "Signaux citant un trimestre antérieur au dernier point, et dates « dernier » fantaisistes (2026-09-02) sur DSO, ADJ_EBITDA, DPS, Distribution Channel Inventory",
+  "preuve": "DSO val=33 (Q2-2026) mais signal « 34 jours de créances clients au Q1-2026 » ; DPS Q3-2026=1.014 daté 2026-09-02 avec signal « au T2-2026 »",
+  "correction_validee": "Aligner les signaux DSO et DPS sur le dernier point et remplacer les dates 2026-09-02 par la vraie date de fin de période.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Distribution Channel Inventory",
+  "probleme": "Unité et variation en anglais",
+  "preuve": "unité « weeks », yoy « +2 weeks »",
+  "correction_validee": "Unité « semaines », yoy « +2 semaines ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "MEMS divestiture / VSMC / TTTech / Kinara / Aviva Links / 10-Year Capital Returned / Data Center Revenue Expected 2026 / Kinara funnel / New Industrial Processing Products Growth",
+  "probleme": "Neuf lignes à un point qui sont des transactions, prévisions ou faits de conférence, pas des KPI",
+  "preuve": "n=1 pour chacune ; « Revenu Data Center attendu 2026 » = prévision ; « Acquisition Kinara 284 M$ »",
+  "correction_validee": "Déplacer en faits marquants ou supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography / revenue_by_segment",
+  "probleme": "Pays en anglais majuscules et exercice manquant sur la répartition par segment",
+  "preuve": "« KOREA, REPUBLIC OF 7.2 ; TAIWAN 7.1 ; SINGAPORE 5.8 ; NETHERLANDS 0.7 » ; revenue_by_segment (None)",
+  "correction_validee": "Traduire en Corée du Sud, Taïwan, Singapour, Pays-Bas et indiquer « exercice 2025 » sur la répartition par segment.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

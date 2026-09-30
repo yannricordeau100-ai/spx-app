@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Revenu Allianz",
+  "probleme": "Valeur 2021 fausse, signal contredit par la repartition du CA de la fiche, serie arretee en 2024, texte sans accents",
+  "preuve": "history [140.5, 122.2, 152.7, 161.7, 179.8] : 2021 = 122,2 Mds € alors qu'Allianz a publie 148,5 Mds € ; signal 'Mix 70% P&C + 22% Life/Health + 8% Asset Management' contre revenue_by_segment 'Vie et Sante 49.4 ; Dommages 46.4 ; Gestion d'actifs 4.6'",
+  "correction_validee": "Supprimer le KPI Revenu Allianz, couvert par TBV (187 Mds € en 2025).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / clients_concentration",
+  "champ": "CUSTOMERS, clients_concentration.top.commentaire",
+  "probleme": "Deux nombres de clients incompatibles sur la meme fiche",
+  "preuve": "CUSTOMERS FY2024 = 128 millions ('128 millions de clients particuliers et entreprises servis fin 2024') ; bloc clients : 'Allianz sert environ 97 millions de clients ... au 31 decembre 2025'",
+  "correction_validee": "Vérifier la page At a glance 2025, aligner le commentaire du bloc clients et CUSTOMERS sur le même périmètre, puis prolonger CUSTOMERS à 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / att",
+  "champ": "DPS.signal, att.resume",
+  "probleme": "'Dix hausses consecutives' du dividende contredit par la serie et par la these, qui note une pause en 2020",
+  "preuve": "DPS history [7.6, 8, 9, 9.6, 9.6, 10.8, 11.4, 13.8, 15.4, 17.1] : 2019 = 2020 = 9,60 € ; these.resume : 'avec une seule annee de pause, en 2020' ; DPS.signal et att.resume : 'dix hausses consecutives'",
+  "correction_validee": "Signal : 'plus du double des 7,60 € de 2016, cinq hausses consécutives depuis la pause de 2020, aucune baisse' ; anti-thèse : 'cinq hausses de dividende consécutives'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RESERVE_DEV.signal",
+  "probleme": "Signal qui inverse le sens du signe par rapport a la convention utilisee sur la fiche Allstate et a la realite d'Allianz (bonis de liquidation favorables chaque annee)",
+  "preuve": "history [-4.2, -3.2, -2.1, -1.9] ; signal 'un solde negatif pese sur le resultat' ; sur ALL, meme KPI : 'Un boni de liquidation negatif signifie que les provisions passees etaient trop prudentes, ce qui gonfle mecaniquement le resultat courant'",
+  "correction_validee": "Signal : 'Un solde négatif signifie que les provisions passées étaient trop prudentes : leur libération allège le ratio combiné et soutient le résultat.'",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SEGMENT_EARNINGS, CAHIER_GWP_SEGMENT",
+  "probleme": "Noms qui promettent une ventilation par segment ou par branche alors que chaque serie ne contient que le Dommages, en doublon annuel de OPPC et TBVPC",
+  "preuve": "CAHIER_SEGMENT_EARNINGS FY2025 = 8992 = OPPC 2025 (signal '8 992 M€ sur 2025') ; CAHIER_GWP_SEGMENT FY2025 = 86741 = TBVPC 2025 (86,7 Mds €)",
+  "correction_validee": "Renommer en 'Résultat opérationnel Dommages (annuel)' et 'Primes brutes émises Dommages (annuel)'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TBV.signal",
+  "probleme": "Signal qui decrit la croissance interne alors que la serie est le volume d'affaires total en Mds €",
+  "preuve": "'La croissance interne neutralise change et perimetre pour reveler la dynamique reelle des activites' pour une serie [.. 54, 44.5, 42.8, 45.7, 53, 45.6] Mds €",
+  "correction_validee": "Signal : '45,6 Mds € au 2e trimestre 2026, +2,5 % sur un an ; 187 Mds € sur 2025.'",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks",
+  "champ": "risks[5].description",
+  "probleme": "Phrase tronquee au milieu",
+  "preuve": "'Il provient de trois Le capital de risque de credit s'etablit a 4 249 M€'",
+  "correction_validee": "Remplacer par 'Il provient de trois sources : les placements, l'assurance-crédit et la réassurance. Le capital de risque de crédit ...'",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.niveau, moat.texte",
+  "probleme": "Moat 'Aucun' sans texte pour le premier assureur europeen, avec une tendance en hausse et un 'depuis' vide",
+  "preuve": "niveau 'Aucun', texte null, depuis null, tendance_mettrik 'hausse', justification 'un profil qui se solidifie'",
+  "correction_validee": "Fixer un niveau (marque, echelle, PIMCO, ratio combine sous 93 % depuis 2021) et rediger le texte",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_COMBINED_RATIO.yoy, CAHIER_RESERVE_DEV.yoy, CAHIER_INVEST_YIELD.yoy",
+  "probleme": "Variations de ratios en pourcentage relatif au lieu de points",
+  "preuve": "'-1.3%' pour 93,4 vers 92,2 ; '-9.5%' pour -2,1 vers -1,9 ; '-1.6%' pour 3,77 vers 3,71",
+  "correction_validee": "yoy '-1,2 pt', '+0,2 pt' et '-0,06 pt'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

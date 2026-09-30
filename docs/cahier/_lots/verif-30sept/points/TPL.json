@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REV, NI, OPINC, EPS_DIL (yoy)",
+  "probleme": "La variation sur un an affichée est celle du T1 alors que la valeur est celle du T2 2026, ce qui sous-estime la croissance d'environ 12 points",
+  "preuve": "REV : 187,5 → 246,059, soit +31,2 %, mais yoy=+20.8 % ; NI : 116,1 → 153,93, soit +32,6 %, mais yoy=+18.4 % ; EPS : 1,68 → 2,23, soit +32,7 %, mais +18,3 % ; l'anti-thèse cite +31,2 % et +32,5 %",
+  "correction_validee": "Recalculer la variation sur un an de REV, NI, OPINC et EPS_DIL à partir du T2 2026 comparé au T2 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux NI, OPINC, OPEX, EPS_DIL, EQUITY, ASSETS, DDA, GA, SALARIES, WATER_COSTS",
+  "probleme": "Les signaux citent le T1 2026 alors que la valeur affichée est celle du T2 2026",
+  "preuve": "NI val=153.93 mais signal « 142,9 M$ au T1 2026 » ; OPINC val=191.8 mais « 182,3 M$ au T1 2026 » ; EQUITY val=1,67 mais « 1,56 Md $ au 31 mars 2026 »",
+  "correction_validee": "Réécrire ces signaux sur le T2 2026 avec les valeurs affichées.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SEG_LRM_REV, SEG_WSO_REV, SEG_*_OPINC, SEG_*_NI",
+  "probleme": "Le point du T4 est un cumul (environ trois trimestres) et non un trimestre, ce qui fait tripler la série",
+  "preuve": "SEG_LRM_REV Q3-2025=122.3, Q4-2025=368.5, Q1-2026=153.6 ; SEG_LRM_NI Q4-2025=241.7 contre environ 85 les autres trimestres",
+  "correction_validee": "Remplacer le T4 de chaque série de segment par l'annuel moins les neuf mois.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Royalty Acres / NRA",
+  "probleme": "Deux mesures de la surface nette de redevance diffèrent d'un facteur 9 (base 1/8 contre base 1/128)",
+  "preuve": "Net Royalty Acres val=25300 NRA ; NRA FY2025=224000 acres ; thèse « environ 224 000 acres nettes »",
+  "correction_validee": "Supprimer « Net Royalty Acres » et garder NRA.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Royalty Production, Royalty Production Oil/Gas, Water Sales, Water Sales Volume, Active Wells, Easements & Other…",
+  "probleme": "Ces séries annuelles non datées et arrondies contredisent les séries publiées",
+  "preuve": "Royalty Production 30 000 boe/j contre CAHIER_PRODUCTION 34,6 kboe/j ; Oil 23,7 kBbl/j contre VOL_OIL 1 345 MBbls par trimestre, soit environ 15 kBbl/j ; Water Sales Volume 41 M bbl/an contre WS_VOL 763 MBbls/j, soit environ 278 M bbl/an ; Active Wells 12 500 contre WELLS_PROD 11 346",
+  "correction_validee": "Supprimer Royalty Production, Royalty Production Oil, Royalty Production Gas, Water Sales, Water Sales Volume, Active Wells et Easements & Other Surface-Related Income.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PROD_BOE, VOL_*, PRICE_*, CAPEX, FCF, WATER_SALES, PW_ROY, REV_EASE, REV_LAND, ROY_GAS, ROY_NGL",
+  "probleme": "Le dernier point est celui du T1 2026 mais la date affichée est le 30 juin 2026. Les données du T2, publiées, manquent alors que la thèse les cite",
+  "preuve": "PRICE_BOE dernier 2026-06-30, Q1-2026=37.06, signal « au T1 2026 » ; la thèse cite « au deuxième trimestre 2026, redevances pétrolières et gazières +53 % », absent de REV_OG_ROY (dernier Q1-2026=118.2)",
+  "correction_validee": "Dater ces séries au 31 mars 2026 puis ajouter le T2 2026 depuis le rapport trimestriel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "VOL_OIL / VOL_GAS / VOL_NGL (noms)",
+  "probleme": "L'unité indiquée dans le nom contredit l'unité du KPI, avec un facteur 1 000",
+  "preuve": "« Volume de production de pétrole (MMBbls) » en unité MBbls ; « gaz (Bcf) » en unité MMcf ; « LGN (MMBbls) » en unité MBbls",
+  "correction_validee": "Renommer en (MBbls), (MMcf) et (MBbls) pour aligner les noms sur l'unité.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PROD_BOE / Oil and gas royalty production / CAHIER_PRODUCTION",
+  "probleme": "La même production apparaît trois fois, dont une série sans dates",
+  "preuve": "PROD_BOE Q1-2026=37.1 ; « Oil and gas royalty production » val=37.5, série non datée ; CAHIER_PRODUCTION FY2025=34.6",
+  "correction_validee": "Supprimer « Oil and gas royalty production ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PRICE_BOE / DUC (signal)",
+  "probleme": "Les signaux contiennent des citations en anglais extraites des documents",
+  "preuve": "« (rapport trimestriel, \"Equivalents ($/Boe) 37.06\") » ; « \"793 DUC wells (an estimated 13.2 net wells)\" »",
+  "correction_validee": "Retirer les parenthèses citées dans les signaux de PRICE_BOE et de DUC.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / kpis",
+  "champ": "SURFACE",
+  "probleme": "La surface détenue diffère entre la thèse et le KPI",
+  "preuve": "Thèse « environ 894 000 acres de surface » ; SURFACE FY2025=882000 et « Total land acreage » 882000",
+  "correction_validee": "Aligner la thèse sur 882 000 acres, ou dater le chiffre de 894 000",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Le positionnement « prudent, aucun programme » ignore les éléments liés aux centres de données présents sur la fiche. Il contient aussi du franglais",
+  "preuve": "« water/oil royalties » ; KPI « Vente de terrain data center » 43 M$ et « Prise de participation minoritaire Bolt » 50 M$ (infrastructures de données)",
+  "correction_validee": "Mentionner l'exposition foncière et énergétique aux centres de données et écrire le texte en français",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline / revenue_by_segment",
+  "champ": "tagline, libellés",
+  "probleme": "L'accroche et les libellés de segments sont en anglais",
+  "preuve": "« Leading mineral rights and surface interests operator in the Permian Basin » ; « Oil And Gas Royalties ; Easement and Sundry »",
+  "correction_validee": "Rédiger l'accroche en français et traduire les libellés de segments",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

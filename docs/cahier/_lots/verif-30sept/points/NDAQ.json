@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "GEO_INTL_REV, GEO_INTL_PCT",
+  "probleme": "Point Q4-2025 = 1 124 M$ (52,9 % du CA) entre des trimestres a 390-627 M$ (19-29 %) : valeur de bouclage annuel glissee dans un trimestre, la somme des quatre trimestres 2025 (2 312) retombant exactement sur les 28 % de la repartition geographique. Serie inutilisable en l'etat.",
+  "preuve": "KPI GEO_INTL_REV serie: Q3-2025=396, Q4-2025=1124, Q1-2026=614 ; KPI GEO_INTL_PCT Q4-2025=52.9, Q1-2026=28.7",
+  "correction_validee": "Reprendre les trimestres depuis les 10-Q ou, à défaut, retirer GEO_INTL_REV et GEO_INTL_PCT.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "IPO win rate, Market Technology ARR (legacy segment metric), Client assets monitored by Verafin, Clients using the Agentic-AI workforce, Listing switches to Nasdaq, Cumulative 10-year listing switches, Closing cross notional record, AUM of AI-ready data clients, CME exclusive futures contract extension, Capital raised by Nasdaq IPOs, Share of index inflows from products launched in last 5 years, Net gain on divestitures",
+  "probleme": "Douze entrees de communique a un point, noms en anglais, unites '$T' ; 'CME exclusive futures contract extension' a pour valeur 2039 avec l'unite 'annee' ; 'Market Technology ARR' est une mesure que son propre signal declare 'remplacee par l'ARR groupe fin 2020' mais datee 2026-03-28 avec cinq points sans periode ; un gain de cession de 89 M$ n'est pas un KPI.",
+  "preuve": "KPI CME exclusive futures contract extension | annee | val=2039 ; KPI Market Technology ARR (legacy segment metric) | dernier 2026-03-28 | serie: 247, 255, 260, 257, 268 :: 'remplacee par l'ARR groupe fin 2020' ; KPI Net gain on divestitures val=89",
+  "correction_validee": "Supprimer les douze entrées et reporter l'accord CME jusqu'en 2039 et les transferts de cotation dans la thèse.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risques 1 a 6 ; en-tete",
+  "probleme": "Six risques sans texte, titres en franglais ('Regulation SEC et fees market structure', 'Migration cloud AWS et technology', 'Concurrence intense autres exchanges et markets') ; tagline en anglais ; segment 'Market Technology' est l'ancien nom (Financial Technology depuis 2023) ; 'Non-US'.",
+  "preuve": "risque 2: Regulation SEC et fees market structure :: (vide) ; revenue_by_segment: Market Technology 22.6 ; revenue_by_geography: Non-US 28",
+  "correction_validee": "Rédiger les risques depuis le 10-K 2025, franciser les titres, renommer en « Financial Technology », « Services de marché », « Plateformes d'accès au capital » et « Hors États-Unis », et traduire la tagline.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Trois series arretees en 2020 (2016-2020) alors que revenue_annuel, fcf_annuel, dette_annuelle et EFFECTIFS vont jusqu'en 2025 ; les ratios 2021-2025 sont calculables depuis la fiche.",
+  "preuve": "KPI ca_par_salarie | dernier 2025-12-31 | n=5 | serie: 2016=856.4, ..., 2020=1164.6 ; KPI revenue_annuel 2025=8.262 ; KPI EFFECTIFS FY2025=9525",
+  "correction_validee": "Recalculer 2021 à 2025 (2025 : 8 262 / 9 525 = 867 k$ par salarié, FCF 209 k$, dette 945 k$) et réécrire les signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux (17 KPI)",
+  "probleme": "Cuisine interne visible dans les signaux : 'Ratio calcule, T2 2026.', 'Cumuls convertis en trimestres.', 'Derive : flux operationnel moins investissements,.', 'Ratio resultat net / revenus nets,.' et dix-sept signaux termines par '..'.",
+  "preuve": "KPI FCF_Q :: '... soit 42% des revenus nets. Derive : flux operationnel moins investissements,.' ; KPI VERAFIN_REV :: '... la croissance la plus rapide du groupe..'",
+  "correction_validee": "Retirer les mentions de méthode et corriger la ponctuation finale des signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "IPO_COUNT, INDEX_INFLOWS, CAHIER_ASSETS_INDEXED",
+  "probleme": "IPO_COUNT compte des introductions mais son signal decrit un taux de captation ; INDEX_INFLOWS est etiquete trimestriel alors que le signal precise 12 mois glissants (109 dont 51 sur le trimestre) ; CAHIER_ASSETS_INDEXED doublonne ETP_AUM en annuel (647 et 882 identiques aux Q4).",
+  "preuve": "KPI IPO_COUNT val=68 :: 'Ce taux de captation mesure...' ; KPI INDEX_INFLOWS | quarter | Q2-2026=109 :: '109 Mds$ de collecte nette sur 12 mois glissants' ; KPI CAHIER_ASSETS_INDEXED FY2024=647, FY2025=882 = KPI ETP_AUM Q4-2024=647, Q4-2025=882",
+  "correction_validee": "Réécrire le signal d'IPO_COUNT (68 introductions, -13,9 %), renommer INDEX_INFLOWS en « Collecte nette sur 12 mois glissants » et supprimer CAHIER_ASSETS_INDEXED.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "positionnement IA",
+  "probleme": "Texte de modele generique sans aucun fait : 'mentions etendues', 'signaux d'investissement ou de leadership explicites', alors que la fiche contient des chiffres concrets (500 clients Agentic-AI, donnees AI-ready pour 9 000 Mds $ d'encours, Verafin).",
+  "preuve": "positionnement IA (leader): L'IA/ML est presentee comme un pilier strategique de Nasdaq (NDAQ) dans son rapport annuel, avec des mentions etendues et des signaux d'investissement ou de leadership explicites.",
+  "correction_validee": "Reecrire avec les faits deja presents sur la fiche.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "position_marche",
+  "champ": "position de marche 1 ; indicateur sectoriel manquant",
+  "probleme": "Bloc de position de marche vide (nombre 38 sans nom) ; le volume d'options apparie par Nasdaq lui-meme (contrats) manque alors que la fiche donne le volume de l'industrie et la part de marche.",
+  "preuve": "position de marche 1: None | taille 38 | part None ; KPI OPT_ADV_IND (industrie) et OPT_SHARE (part) presents, pas de volume Nasdaq",
+  "correction_validee": "Retirer le bloc vide ; ajouter 'Volume quotidien d'options apparie Nasdaq (M contrats)' trimestriel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

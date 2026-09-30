@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "signal d'une trentaine de KPI trimestriels (segments, marges, resultat, BPA, cash, dette, rachats, SG&A, R&D...)",
+  "probleme": "Les valeurs sont au T4 FY2026 (30 juin 2026) mais les signaux citent le T3 : la degradation du T4 (marge operationnelle 21,2 % contre 25,3 %, BPA -10,2 %, SG&A +19,2 %) est invisible dans les textes.",
+  "preuve": "eps_diluted val=1.57 (-10,2 %) signal « 1,71 $ au T3 ... contre 1,52 $ » ; op_income val=136.8 signal « 155,0 M$ au T3 » ; cash val=12.1 signal « 20,6 M$ au 31 mars 2026 » ; lt_debt val=40 signal « 90,0 M$ tires » ; buybacks val=164 signal « 159,2 M$ rachetes au T3 » ; core_rev val=191.6 signal « 195.4 M$ au T3 ».",
+  "correction_validee": "Regenerer tous les signaux sur le T4 FY2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "yoy de deconversion_rev, core_rev, complementary_rev ; serie core_rev",
+  "probleme": "Variations annuelles incompatibles avec les series, et valeur probablement dupliquee dans core_rev.",
+  "preuve": "deconversion_rev yoy « +104.8% » = 33.9/16.6 (FY2025) alors que val FY2026 42.8 vs 33.9 = +26 % ; core_rev yoy « +1.9% » alors que 191.6 vs Q4-FY2025 194.3 = -1,4 % ; complementary_rev yoy « +4.7% » alors que 188.8 vs 160.8 = +17,4 % ; core_rev Q1-FY2025 = Q4-FY2025 = 194.3 exactement.",
+  "correction_validee": "Verifier les revenus de segment du T4 FY2025 dans le 10-K FY2026, corriger la serie core_rev puis recalculer les trois yoy.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI / description / moat",
+  "champ": "fi_total, Clients (installed base of banks and credit unions), symitar_cus, description customers",
+  "probleme": "Trois chiffres differents de base installee sur la meme fiche, et signaux qui citent l'exercice precedent.",
+  "preuve": "description « environ 7 500 institutions » ; Clients (installed base) val=7400 (22 points sans periodes, dernier 2026-09-02) ; fi_total FY2026=7200 avec signal « Environ 7 400 clients servis au rapport annuel de l'exercice 2025 » ; symitar_cus val=700 signal « Environ 715 ... exercice 2025 ».",
+  "correction_validee": "Garder fi_total, supprimer Clients (installed base), mettre description, moat et signaux a 7 200 et 700 au 30 juin 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification",
+  "probleme": "Chiffres de la justification absents des series etiquetees et perimes.",
+  "preuve": "« La base installee recule de 8 700 a 7 400 clients et les gains concurrentiels passent de 20 a 17 » ; fi_total FY2026=7200 ; serie des gains 17, 14, 13, 6, 15, 14, 17, 22, 17 (jamais 20, dernier mouvement 22 vers 17).",
+  "correction_validee": "Reecrire avec fi_total (7 500 vers 7 200 en deux exercices) et la serie reelle des gains (22 vers 17).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "rpo, dps, sbc, cap_sw_net : series ; Remaining performance obligations backlog (n=1)",
+  "probleme": "Quatre series s'arretent au T3 FY2026 alors que le 10-K FY2026 est la source de la fiche ; la these cite un carnet plus recent que le KPI ; un fait marquant repete un point de rpo.",
+  "preuve": "rpo dernier 2026-03-31=8.03 alors que these « carnet ... atteint 8,44 Mds $ » ; dps dernier 2026-03-31 ; Remaining performance obligations backlog 7984.885 M$ « au 30 sept 2025 » = rpo Q1-FY2026 7.98.",
+  "correction_validee": "Prolonger rpo, dps, sbc, cap_sw_net au T4 FY2026 ; supprimer le fait marquant en doublon.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "associates vs effectifs_annuels",
+  "probleme": "Doublon d'effectif annuel, l'un en milliers arrete a FY2025, l'autre en unites jusqu'a FY2026.",
+  "preuve": "associates « k salaries | FY2025=7.24 » ; effectifs_annuels 2025=7240, 2026=7300.",
+  "correction_validee": "Supprimer associates.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "nom et unite de Faster payments transaction volume, Record core win",
+  "probleme": "Nom qui annonce un volume pour une valeur qui est un taux de croissance ; unite « M comptes » sans que le signal parle de comptes ; « ~$10B » en notation anglaise dans un nom.",
+  "preuve": "« Volume de transactions paiements rapides (Zelle, RTP, FedNow) | % croissance annuelle | val=47 » ; « Plus gros gain core historique (institution ~10 Md$ d'actifs) | M comptes | val=1.2 ».",
+  "correction_validee": "Renommer Croissance du volume de transactions paiements rapides ; preciser dans le signal que 1,2 M correspond aux comptes de l'institution gagnee, ou changer l'unite.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "products",
+  "probleme": "Plateforme retiree citee comme offre actuelle, alors que Symitar (coeur des cooperatives, KPI symitar_cus) n'est pas nomme.",
+  "preuve": "« les plateformes core banking SilverLake, CIF 20/20 et CruiseNet » ; KPI symitar_cus 700 cooperatives.",
+  "correction_validee": "« SilverLake, CIF 20/20, Core Director et Symitar ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

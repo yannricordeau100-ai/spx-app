@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "737 MAX Production Rate",
+  "probleme": "Serie en milliards de dollars sous un nom de cadence, valeur sans rapport avec l historique.",
+  "preuve": "unit 'Mds $', history = [12.486 ... 20.445, 18.998] par trimestre (ni cadence, ni BCA_REV qui vaut 9,203 au Q1-2026), val = 42 ; doublon de '737 monthly production rate' = 42.",
+  "correction_validee": "Supprimer 737 MAX Production Rate.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "737 MAX Deliveries / Commercial Backlog / Defense Backlog / Defense Op Margin / Defense, Space & Security backlog / Global Services backlog",
+  "probleme": "Six series annuelles ou courtes qui doublonnent les trimestrielles avec des valeurs fausses ou perimees.",
+  "preuve": "737 MAX Deliveries = [27, 245, 387, 224, 280] contre DELIV_737 2024 = 265, 2025 = 447, description 'Cap FAA 38/mois' alors que la cadence est 42 ; Commercial Backlog 460 contre BCA_BACKLOG Q4-2025 = 567,3 et Q2-2026 = 596,7 ; Defense Backlog 64 contre BDS_BACKLOG 84,8 ; Defense Op Margin 3,1 % contre BDS_MARGIN 2025 = 2,5/1,7/1,7/-6,8 ; les deux carnets [85, 86] et [30, 33] recopient BDS_BACKLOG et BGS_BACKLOG.",
+  "correction_validee": "Supprimer 737 MAX Deliveries, Commercial Backlog, Defense Backlog, Defense Op Margin, Defense, Space & Security backlog et Global Services backlog.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BGS_OPINC / BGS_MARGIN",
+  "probleme": "Plus-value de cession logee dans le segment sans mention, graphique de marge illisible.",
+  "preuve": "BGS_OPINC Q4-2025 = 10,544 Mds $ (autres trimestres 0,83 a 1,05) et BGS_MARGIN Q4-2025 = 202,4 % ; signal 'BGS reste de loin le segment le plus rentable et le plus regulier' ; la cession Digital Aviation Solutions (10,55 Mds $) explique le saut.",
+  "correction_validee": "Annoter le point T4 2025 (plus-value de cession Digital Aviation Solutions de 10,55 Mds $) ou afficher la valeur hors plus-value avec une note.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "LT_DEBT",
+  "probleme": "Nom 'Dette long terme' pour une serie de dette totale, et trois chiffres differents pour le meme remboursement.",
+  "preuve": "Signal 'Dette totale de 45,9 Mds $ ... 4,6 Mds $ a court terme' ; Q4-2025 = 53,848 proche de dette_annuelle 54,098 (totale) ; these 'la dette recule de 8,2 Mds $ en six mois', signal '8,4 Mds $ de remboursements', serie 53,848 vers 45,9 = -7,9.",
+  "correction_validee": "Renommer LT_DEBT en Dette totale ; ne pas toucher a la these ni au signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "resume",
+  "probleme": "Croissance attribuee au mauvais segment et qualificatif contredit par la fiche.",
+  "preuve": "'Les avions commerciaux restent lourdement deficitaires malgre 13 % de croissance' : +13,1 % est BDS_REV, BCA_REV fait +8,1 % ; BCA_MARGIN -2,7 % avec signal 'le segment se rapproche de l equilibre'.",
+  "correction_validee": "Reecrire : BCA +8 %, marge -2,7 % en amelioration ; BDS +13 % mais marge -0,2 %.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "F-47 sixth-generation fighter win / PAC-3 seeker output increase / US defense spending increase (reconciliation bill) / Singapore Airlines landing gear exchange contract / Poland Apache helicopters order / 777X cumulative flight hours / 737 traveled work reduction / Largest ever wide-body order / Spirit AeroSystems acquisition / Digital Aviation Solutions divestiture / 777X reach-forward loss / 20-year new airplane demand forecast",
+  "probleme": "Douze KPI evenementiels a un point avec unites bricolees, dont une donnee macro qui n est pas un indicateur Boeing.",
+  "preuve": "Unites 'Mrd USD (budget exercice 2026)', 'percent (production 2025)', 'Mrd USD (jusqu a exercice 2029)' ; le budget federal de 150 Mds $ n est pas une donnee de la societe.",
+  "correction_validee": "Bloc faits marquants ; supprimer le budget federal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune serie de commandes nettes trimestrielles ni de ratio commandes sur livraisons, indicateur standard de l aeronautique.",
+  "preuve": "La fiche n a que les carnets (BCA_BACKLOG, TOTAL_BACKLOG) et un point 'Largest ever wide-body order' ; Boeing publie les commandes nettes chaque trimestre.",
+  "correction_validee": "Ajouter 'Commandes nettes avions commerciaux (trimestriel)' et book-to-bill.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DELIVERIES",
+  "probleme": "Nom 'Livraisons par programme' pour une serie de livraisons totales, doublon annuel de BCA_TOT_DEL.",
+  "preuve": "FY2025 = 600 = 130+150+160+160 (BCA_TOT_DEL) ; aucune ventilation par programme.",
+  "correction_validee": "Renommer Livraisons d avions commerciaux (annuel).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_AFTERMARKET_MIX",
+  "probleme": "Signal qui presente comme une degradation un effet de base mecanique.",
+  "preuve": "'leur recul dilue la qualite du mix' : la part BGS passe de 30 % a 23,4 % parce que le CA groupe fait +34,5 % (rebond BCA) ; BGS_REV est en hausse et son carnet +49,7 %.",
+  "correction_validee": "Reecrire : part en baisse par effet de base, services en croissance.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "slices / fiscal_year",
+  "probleme": "Exercice absent et total superieur a 100 %.",
+  "preuve": "revenue_by_segment (None) et revenue_by_geography (None) avec les valeurs 2025 ; geographie : 63.6+13.7+7.1+9.1+3.1+2.2+1.4+0.2+0.4 = 100,8.",
+  "correction_validee": "Recalculer les parts a partir des valeurs (Etats-Unis 63,0 %, etc.), fiscal_year 2025, et verifier pourquoi le total geographique ne fait que 58,7 Mds $.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "summary",
+  "probleme": "Phrase generique sans contenu propre a Boeing.",
+  "preuve": "'Mentionne l IA principalement sous l angle des risques concurrentiels ou reglementaires.'",
+  "correction_validee": "Completer avec les usages industriels reels ou assumer 'peu de communication' en une phrase factuelle.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

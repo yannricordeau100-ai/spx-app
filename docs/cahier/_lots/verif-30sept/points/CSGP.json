@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Net new bookings, Net New Bookings : history",
+  "probleme": "Deux doublons de net_new_bookings : l'un mele totaux annuels et trimestres, l'autre donne un annuel contredit par la somme des trimestres.",
+  "preuve": "Net new bookings serie 65, 286, 86, 67, 93, 84, 308, 67 (286 et 308 sont des totaux annuels) ; Net New Bookings annuel 110, 95, 75, 60, 80 alors que 2025 = 56+93+84+75 = 308 M$.",
+  "correction_validee": "Supprimer Net new bookings et Net New Bookings, garder net_new_bookings.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CoStar Suite Revenue, Homes.com Revenue, CoStar Suite, Residential, LoopNet, Subscription %, Homes.com agent subscribers",
+  "probleme": "Doublons annuels non etiquetes, arretes en 2024 ou avec valeurs fausses pour l'exercice affiche.",
+  "preuve": "CoStar Suite Revenue val=1.01 Mds (dernier 2026-06-30) alors que costar_rev 2025 = 304.9+310.2+318.3+325.6 = 1259 M$ ; Homes.com Revenue FY2024=44 vs Residential 2024=100.6 et homes_rev 2024 = 18.6+26.2+27.7+28.1 = 100.6 ; Homes.com agent subscribers 35175 vs homes_members 31000.",
+  "correction_validee": "Supprimer CoStar Suite Revenue, Homes.com Revenue, CoStar Suite, Residential, LoopNet et Subscription %. Ajouter 35 175 comme dernier point de homes_members puis supprimer Homes.com agent subscribers.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "residential_rev, homes_rev, info_services_rev, total_uv, unaided_awareness, homes_bookings : history",
+  "probleme": "Six series arretees entre mi-2024 et T3 2025 alors que la fiche va au T2 2026 ; total_uv montre une baisse continue avec un yoy positif.",
+  "preuve": "residential_rev dernier 2025-09-30 ; homes_rev dernier 2025-09-30 ; total_uv Q2-2024=183, Q3-2024=163, Q4-2024=134 avec yoy=+17% ; homes_bookings n=2 dernier 2024-06-30.",
+  "correction_validee": "Completer residential_rev, homes_rev et info_services_rev jusqu'au T2 2026 (ou suivre la nouvelle segmentation). Retirer total_uv, unaided_awareness et homes_bookings si la societe ne les publie plus.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "residential_rev : name_fr / signal",
+  "probleme": "Nom et signal incoherents : le KPI est Multifamily (Apartments.com) mais l'identifiant dit residential et le signal attribue la hausse aux agents et a Domain, qui relevent d'Homes.com.",
+  "preuve": "« Revenus Multifamily (Apartments.com) » ; signal « Accélération portée par hausse des agents/propriétés annoncées + acquisition Domain ($95M) ».",
+  "correction_validee": "Signal a reecrire sur les proprietes annoncees et le tarif moyen Apartments.com ; renommer l'identifiant multifamily_rev.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "gross_margin, rd_pct, sm_pct, adj_ebitda_margin : yoy",
+  "probleme": "Variations de ratios affichees en % relatif au lieu de points.",
+  "preuve": "sm_pct 50.5 -> 42.7 : yoy=-15.4% ; adj_ebitda_margin 10.9 -> 19.9 : yoy=+82.6% alors que le signal dit « neuf points de redressement » ; gross_margin yoy=+0.3%.",
+  "correction_validee": "Yoy en points : sm_pct -7,8 pts, adj_ebitda_margin +9,0 pts, gross_margin +0,2 pt, rd_pct -0,8 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "LoopNet high-end Silver listings growth, Super Bowl co-branded ad viewership, eXp Realty agents enabled, Homes.com member ROI, Average first-year commission gain, Loans uploaded to CoStar lender platform, Matterport Max subscriptions sold",
+  "probleme": "Chiffres de communication a un point presentes comme KPI, avec formules promotionnelles et unite en anglais.",
+  "preuve": "« hausse de 650% de février à mars » ; « pic d'audience le plus élevé de l'histoire des médias US » ; « jalon cumulatif inaccessible aux scrapers IA » ; unit « trillion $ ».",
+  "correction_validee": "Passer en story ou supprimer ; a defaut unite « mille milliards $ ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.level / summary",
+  "probleme": "Niveau « absent » contredit par le texte qui decrit une integration profonde de l'IA, avec un ton promotionnel.",
+  "preuve": "positionnement IA (absent): « CoStar Group intègre profondément l'intelligence artificielle... Elle prévoit d'étendre cette capacité révolutionnaire ».",
+  "correction_validee": "Niveau « integrator » et retirer « révolutionnaire ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "description simple fr : products",
+  "probleme": "Nom de site errone.",
+  "preuve": "« les sites de publicité immobilière LoopNet.com et Apartamentos.com » (le site est Apartments.com) ; Homes.com et Domain absents.",
+  "correction_validee": "Remplacer Apartamentos.com par Apartments.com et ajouter Homes.com et Domain a la liste des sites.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition sur l'ancienne taxonomie (sans annee) alors que la fiche suit deux secteurs 2026 : immobilier commercial 52 % et residentiel 48 %.",
+  "preuve": "revenue_by_segment (None): CoStar Suite 40.1 ; Information services 7.8 ; Multifamily 36.1 ; Commercial property and land 16 vs cre_segment_rev 481 et resid_segment_rev 444 au T2 2026.",
+  "correction_validee": "Refaire la repartition sur l'exercice 2025 (CoStar, Info services, Multifamily, LoopNet, Residential, Other CRE) avec l'annee.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0..6].description ; market_positions[0] ; tagline",
+  "probleme": "Sept risques sans description alors que le moat cite « quatre risques en aggravation », position de marche vide (taille 100), tagline en anglais.",
+  "preuve": "risque 3: Pression concurrentielle sur les prix :: (vide) ; position de marche 1: None | taille 100 | part None ; « Leading provider of online real estate marketplaces... ».",
+  "correction_validee": "Completer ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

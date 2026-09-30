@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_MLR / CAHIER_SGA_RATIO / CAHIER_MEMBERSHIP",
+  "probleme": "Series arretees en 2020 en doublon d'indicateurs a jour, dont le texte est contredit par les chiffres recents",
+  "preuve": "CAHIER_MLR 83.1 en 2020, \"signe d'une maitrise durable du cout medical\" alors que Consolidated benefit ratio = 90.2 en 2025 et MLR_consolidated = 93 au T4 2025",
+  "correction_validee": "Supprimer CAHIER_MLR, CAHIER_SGA_RATIO et CAHIER_MEMBERSHIP.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "segments",
+  "probleme": "Structure de segments obsolete (abandonnee en 2023), sans annee, en anglais",
+  "preuve": "\"Retail 66 ; Group and Specialty 6.15 ; Healthcare Services 27.85\" alors que la fiche suit Assurance (39.03 Mds au T2 2026) et CenterWell (6.79 Mds)",
+  "correction_validee": "Recalculer sur les segments Assurance et CenterWell de l'exercice 2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "resume",
+  "probleme": "Exageration contredite par les ratios de couts",
+  "preuve": "\"en divisant ses frais de structure\" alors que cons_opcost_ratio passe de 11.0 % a 9.8 % sur un an et que le ratio annuel est de 11.8 % en 2024 contre 12.0 % en 2025",
+  "correction_validee": "Remplacer \"en divisant ses frais de structure\" par \"en reduisant ses frais de structure\".",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy des ratios (MLR_consolidated, ins_opcost_ratio_q, cons_opcost_ratio_q, op_margin_q, net_margin_q, cw_opcost_ratio_q)",
+  "probleme": "Variations de ratios affichees en % au lieu de points",
+  "preuve": "MLR_consolidated 89.7 vers 91.1 affiche \"+1.4%\" ; cons_opcost_ratio \"-1.2%\" pour -120 pb",
+  "correction_validee": "Afficher les yoy de ces ratios en points (par exemple +1,4 pt pour MLR_consolidated, -1,2 pt pour cons_opcost_ratio_q).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_STAR_RATINGS",
+  "probleme": "Nom trompeur : la serie mesure la part des membres dans des contrats notes 4 etoiles ou plus, pas une note ; yoy relatif",
+  "preuve": "\"Notation qualite des plans publics\" en %, 94 puis 25 puis 20 ; l'anti-these parle de \"20 % de ses membres ... sur un contrat note 4 etoiles ou plus\" ; yoy -20.0% pour -5 pts",
+  "correction_validee": "Renommer en \"Part des membres Medicare Advantage en contrat note 4 etoiles ou plus\", afficher la yoy en points (-5 pts) et preciser l'annee de notation.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "adj_eps_q",
+  "probleme": "Serie en retard d'un trimestre sur le reste de la fiche",
+  "preuve": "dernier 2026-03-31 (10.31) alors que eps_diluted_q et les autres series sont au T2 2026",
+  "correction_validee": "Ajouter le BPA ajuste du T2 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Premium growth.signal / Consolidated benefit ratio.signal",
+  "probleme": "Textes contredits par leur propre serie",
+  "preuve": "\"rythme a deux chiffres preserve\" avec 9.6 % ; \"en hausse continue depuis 2021\" alors que la serie passe de 86.7 a 86.3",
+  "correction_validee": "Retirer \"mais rythme a deux chiffres preserve\" et remplacer \"en hausse continue depuis 2021\" par \"en hausse depuis 2022\".",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total medical benefit plan members / Primary care clinics operated / Clinics under WCAS partnership",
+  "probleme": "Doublons a un seul point de series existantes",
+  "preuve": "15 M = total_medical_members T4 2025 (14 999 700) ; 350 = cw_primary_care_clinics ; 146 = cw_wcas_clinics",
+  "correction_validee": "Supprimer les 3 KPI en doublon.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Medicaid states footprint.signal",
+  "probleme": "Rattachement faux : Medicaid releve de l'Assurance, pas de CenterWell",
+  "preuve": "\"Empreinte Medicaid passee de 10 a 13 Etats, expansion strategique de CenterWell\"",
+  "correction_validee": "Remplacer \"de CenterWell\" par \"de l'activite Medicaid\".",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "military_members.signal",
+  "probleme": "Chute de 23 % non expliquee, signal \"base stable\"",
+  "preuve": "6 009 100 au T4 2024 puis 4 588 900 au T1 2025 ; signal \"base stable sous le contrat East\"",
+  "correction_validee": "Expliquer la rupture (changement de contrat TRICARE en 2025)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Indicateurs cles des assureurs sante absents",
+  "preuve": "Seul le ratio de sinistres consolide est suivi ; aucun ratio de sinistres du segment Assurance ou Medicare Advantage individuel, aucun jours de sinistres a payer",
+  "correction_validee": "Ajouter le ratio de sinistres du segment Assurance et les jours de sinistres a payer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel / GROUP_REVENUE",
+  "probleme": "Deux series de chiffre d'affaires en doublon, qui se contredisent",
+  "preuve": "2019 : 12,913 contre 14 440 ; 2021 : 12,75 contre 14 150 ; 2016 : 11,594 contre 11 400 ; revenue_annuel n'a ni 2020 ni 2025 mais un '2026'",
+  "correction_validee": "Garder une seule serie annuelle, chaque point verifie contre les rapports publies (2019 = 14,44 Mds $, 2021 a reverifier), et supprimer l'autre.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels / total_employees",
+  "probleme": "Doublon contradictoire sur les effectifs",
+  "preuve": "effectifs_annuels 2021 = 53 100 (chiffre de 2020) contre total_employees FY2021 = 71,3 milliers",
+  "correction_validee": "Garder total_employees et supprimer effectifs_annuels.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel, fcf_annuel, dette_annuelle, effectifs_annuels",
+  "probleme": "L'exercice 2025 (clos le 3 janvier 2026) est libelle 2026",
+  "preuve": "'2026=15.13', signal 'Ventes de 15,1 Mds $ en 2026' ; 'Effectif de 43 500 salaries en 2026'",
+  "correction_validee": "Renommer la periode 2026 en 2025 et regenerer les signaux (si ces series sont conservees).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_sur_ca (valeur) et ratios par salarie",
+  "probleme": "La valeur affichee date de 2019 ; les ratios par salarie s'arretent en 2024",
+  "preuve": "dette_sur_ca val 27,2 (2019) alors que 5,864 / 15,13 = 38,8 % en 2025 ; ca_par_salarie 2025 = 15 130 / 43,5 = 347,8 k$, absent",
+  "correction_validee": "Recalculer dette_sur_ca et les ratios par salarie jusqu'en 2025 (38,8 % ; 347,8 k$ par salarie).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "tools_outdoor_rev (hero).signal",
+  "probleme": "Le signal contredit les volumes et la serie",
+  "preuve": "'La transition des gammes outdoor pese sur la croissance, malgre des volumes solides' alors que yoy = +3,0 %, Consolidated volume growth = -5 et moat 'volumes en recul de 5 %'",
+  "correction_validee": "Reecrire : hausse de 3 % portee par le prix et le change, volumes en baisse",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "restructuring_savings_2026",
+  "probleme": "Le nom vise le plan 2025 mais la serie melange plusieurs programmes ; yoy et unite non normalises",
+  "preuve": "FY2022=300, FY2023=45, FY2024=129, FY2025=188 ; yoy '+$59M vs 2024 actions' ; unite 'M USD'",
+  "correction_validee": "Garder seulement le plan 2025 ou renommer en 'economies attendues par vague' ; unite M$",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "libelles",
+  "probleme": "Mauvais libelle et texte en anglais",
+  "preuve": "'Amerique du Nord 5.5' cote a cote avec Etats-Unis et Canada : il s'agit du reste des Ameriques (other_americas_rev 241,8 M$, environ 6 %) ; 'Asia'",
+  "correction_validee": "Renommer en 'Autres Ameriques' et 'Asie'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BACKLOG, Aerospace Fasteners annualized revenue run rate",
+  "probleme": "KPI sans interet actuel : le carnet s'arrete en 2019, l'activite aerospace a ete cedee",
+  "preuve": "CAHIER_BACKLOG dernier 2019-12-31 ; signal Aerospace : 'ulterieurement cede a Howmet'",
+  "correction_validee": "Retirer CAHIER_BACKLOG et 'Aerospace Fasteners annualized revenue run rate'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "global_cost_savings, engineered_fastening_organic, tools_outdoor_adj_margin",
+  "probleme": "Anglicismes et objectif hors sujet",
+  "preuve": "unite 'B USD pre-tax run-rate', yoy 'Complete', '$2.1B' ; 'partiellement offset par...' ; le signal de la marge sectorielle cite 'objectif retour a 35%+ gross margin'",
+  "correction_validee": "Unite 'Mds $', montant '2,1 Mds $', 'compense' au lieu de 'offset', retirer l'objectif de marge brute du signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "us_net_sales, canada_rev, europe_rev, asia_rev, eps_diluted_q",
+  "probleme": "Trous dans les series trimestrielles",
+  "preuve": "Q3-2024 puis Q1-2025 (T4-2024 absent) ; eps sans T4-2024 ni T4-2025",
+  "correction_validee": "Calculer les T4 (exercice moins 9 mois)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Mention de la note interne ('Perte de la note de moat') et aucun moat decrit",
+  "preuve": "'Perte de la note de moat, volumes en recul de 5 %...'",
+  "correction_validee": "Decrire le moat (marques DEWALT, distribution Home Depot/Lowe's) sans cuisine interne",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,132 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Coach Gross Margin / Kate Spade GM",
+  "probleme": "Des marges brutes à 0 % aux T4 : il s'agit de valeurs manquantes affichées comme des zéros",
+  "preuve": "Coach Gross Margin Q4-2024=0, Q4-2025=0 ; Kate Spade GM Q4-2024=0, Q4-2025=0",
+  "correction_validee": "Supprimer les points à 0 des T4 2024 et T4 2025 pour Coach Gross Margin et Kate Spade GM.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "toutes les séries trimestrielles (hero Coach Rev compris)",
+  "probleme": "Le rapport annuel de l'exercice 2026 (clos le 27 juin 2026) est intégré sur la fiche, mais aucune série trimestrielle n'a le T4 de l'exercice 2026",
+  "preuve": "Coach Rev dernier 2026-03-28 ; revenue_annuel 2026=8.004 et fcf_annuel 2026 déjà présents",
+  "correction_validee": "Ajouter le T4 de l'exercice 2026 (avril-juin 2026) à toutes les séries trimestrielles, en le déduisant de l'annuel moins les neuf mois.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GROUP_REVENUE",
+  "probleme": "Cette série fait doublon avec revenue_annuel, elle est fausse sur 2020-2021 et s'arrête un an plus tôt. Son signal est hors sujet",
+  "preuve": "GROUP_REVENUE FY2020=5985, FY2021=4961 contre revenue_annuel 2020=4.961, 2021=5.746 ; pas de FY2026 ; signal « Produit phare : Sac Coach Tabby »",
+  "correction_validee": "Supprimer GROUP_REVENUE.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "répartition",
+  "probleme": "La catégorie « Non-US » chevauche les autres zones et le libellé est en anglais",
+  "preuve": "« Amérique du Nord 60 ; Non-US 17.5 ; Grande Chine 15.1 ; Other Asia 7.3 » : le hors États-Unis devrait valoir environ 40 %",
+  "correction_validee": "Remplacer « Non-US » par « Autres régions (Europe, Moyen-Orient) » et traduire « Other Asia »",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment / moat",
+  "champ": "exercice 2025",
+  "probleme": "La répartition et le fossé sont restés sur l'exercice 2025 alors que l'exercice 2026 est publié",
+  "preuve": "Coach 79,9 % dans revenue_by_segment contre 86,4 % pour l'exercice 2026 (KPI Coach % du CA) ; le fossé dit « le résultat opérationnel chute », mais la marge opérationnelle Coach passe de 32,5 à 35 %",
+  "correction_validee": "Mettre à jour la répartition sur l'exercice 2026 (sans Stuart Weitzman) et réécrire le fossé",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Coach % du CA / DTC % (signal)",
+  "probleme": "Les signaux citent l'exercice 2025 alors que la valeur est celle de 2026",
+  "preuve": "Val 86,4 mais signal « Coach représente 79.9% vs 76.4% » ; DTC val 87 mais signal « DTC ~86% du CA total FY2025 »",
+  "correction_validee": "Réécrire les signaux sur l'exercice 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DTC % / CAHIER_DTC_MIX",
+  "probleme": "Doublon exact",
+  "preuve": "Les deux séries valent FY2024=87, FY2025=86, FY2026=87",
+  "correction_validee": "Supprimer DTC % et garder CAHIER_DTC_MIX.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Rachats actions (signal)",
+  "probleme": "Le signal parle d'une opération accélérée de rachat (ASR) de 2 Mds $ « en cours », alors qu'elle a été conclue en novembre 2024 et versée sur l'exercice 2025",
+  "preuve": "« dont ASR de 2 Mds $ en cours » ; KPI « Accelerated Share Repurchase » : « ASR de 2 milliards conclu le 21 novembre 2024 » ; Q2-2025=1613",
+  "correction_validee": "Retirer « dont ASR de 2 Mds $ en cours » du signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Stuart Weitzman Rev / SW Op Income",
+  "probleme": "Une marque cédée le 4 août 2025 figure encore parmi les KPI actifs",
+  "preuve": "dernier 2025-09-27, yoy -72,8 % sur un trimestre partiel",
+  "correction_validee": "Archiver ces deux KPI",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Coach Stores, Kate Spade Stores, Effectifs, Japan/US/China Rev, Handbags/Accessories/Footwear Rev",
+  "probleme": "Ces séries annuelles s'arrêtent à l'exercice 2025 alors que les données de l'exercice 2026 existent",
+  "preuve": "CAHIER_STORES FY2026=1299 ; ca_par_salarie 2026 (8 004 / 388,5, soit environ 20 600 salariés) contre Effectifs FY2025=19000",
+  "correction_validee": "Ajouter le point de l'exercice 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI à un point (objectif 10 Md$, TAM, réduction de références, programme de rachat, ASR, cession, émission obligataire, coûts Capri)",
+  "probleme": "Des objectifs et des événements sont présentés comme des KPI. Plusieurs noms n'ont pas leurs accents",
+  "preuve": "« Reduction des references sacs », « Unites Coach sous niveaux pre-pandemie », « Marche adressable Coach », « Rachat accelere », « Charges acquisition Capri annulee »",
+  "correction_validee": "Retirer ces KPI ou, à défaut, rétablir les accents",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "manquant",
+  "probleme": "Il manque le prix moyen de vente unitaire (AUR), indicateur central de la stratégie de montée en prix de Coach",
+  "preuve": "Les signaux et KPI évoquent le volume unitaire (+20 %) et le pricing, mais aucune série de prix moyen",
+  "correction_validee": "Ajouter la croissance de l'AUR de Coach",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline",
+  "champ": "tagline",
+  "probleme": "L'accroche est en anglais",
+  "preuve": "« A house of iconic accessories and lifestyle brands »",
+  "correction_validee": "Rédiger l'accroche en français",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

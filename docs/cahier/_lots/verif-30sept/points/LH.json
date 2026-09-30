@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "tests_performed vs Dx Test Volume",
+  "probleme": "Deux series annuelles pour le meme concept avec un rapport de 1 a 4 : 750 millions d analyses en 2025 contre 173 millions de tests Diagnostics. L une compte les analyses, l autre probablement les requisitions, mais les noms disent la meme chose.",
+  "preuve": "tests_performed FY2025=750 M unités 'Analyses réalisées dans l'année' ; 'Dx Test Volume' 2025=173 M 'Volume tests Diagnostics'.",
+  "correction_validee": "Renommer Dx Test Volume en « Réquisitions Diagnostics (millions) » et tests_performed en « Analyses réalisées, tous segments », après vérification des définitions dans le 10-K.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dx_price_mix / Diagnostics requisition price/mix growth / Dx Price/Mix (trois series) et dx_volume_growth / Diagnostics requisition volume growth",
+  "probleme": "Trois series prix/mix et deux series volume pour le meme indicateur, avec des valeurs contradictoires au meme trimestre, et une serie annuelle remplie de zeros de substitution.",
+  "preuve": "dx_price_mix Q2-2026=2.5, Q1-2026=2.5 ; 'Diagnostics requisition price/mix growth' serie 4, 3.7, 3.3, 2.6, 3 (T2 2026 = 3). 'Dx Price/Mix' annuel : 0, 0, 3.5. dx_volume_growth saute Q4-2025 alors que le doublon donne 2.2.",
+  "correction_validee": "Garder dx_price_mix et dx_volume_growth, y ajouter le T4 2025 (prix/mix 3,3, volume 2,2) et revérifier les T1 et T2 2026 dans les communiqués, puis supprimer les trois doublons.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Repartition perimee d avant la scission de Fortrea (2023) : segment 'Drug Development' a 34,9 % alors que BLS pese 22 % du CA ; total 101,1 %. La geographie (17,5 % hors Amerique du Nord) contredit le KPI non_na_revenue_share a 13 %.",
+  "preuve": "revenue_by_segment : Labcorp Diagnostics (Dx) 66.2 ; Labcorp Drug Development (DD) 34.9. revenue signal : 'Dx 78% et BLS 22% du CA'. revenue_by_geography : North America 82.5 ; Europe 10.8 ; Other 6.7 ; non_na_revenue_share FY2025=13.",
+  "correction_validee": "Remplacer par Diagnostics 78 % / BLS 22 % (exercice 2025) et Amérique du Nord 87 % / reste du monde 13 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Capex % Revenues (serie)",
+  "probleme": "Point zero de substitution en debut de serie alors que le capex 2023 est calculable.",
+  "preuve": "serie : 0, 3.8, 3.1.",
+  "correction_validee": "Retirer le 0 ou le remplacer par le ratio capex/CA 2023 calculé depuis le 10-K.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Biopharma Laboratory Services backlog / Biopharma TTM net orders / Next twelve months forecast backlog conversion (unite)",
+  "probleme": "Unite en code technique 'USD_billion' au lieu de 'Mds $'.",
+  "preuve": "KPI Biopharma Laboratory Services backlog | ... | USD_billion.",
+  "correction_validee": "Mettre l'unité « Mds $ » sur les trois KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_SERVICE_VOLUME / CAHIER_REVENUE_PER_SERVICE (nom)",
+  "probleme": "Les noms designent un volume et un revenu moyen alors que les series sont des taux de croissance en %.",
+  "preuve": "'Volume d'actes réalisés' unite % serie FY2022=-7.5, FY2025=3.7 ; 'Revenu moyen par acte' unite % FY2020=24.4.",
+  "correction_validee": "Renommer en « Croissance du volume d'actes » et « Croissance du revenu moyen par acte ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted (serie)",
+  "probleme": "Les T4 2024 et T4 2025 manquent alors que le resultat net les contient.",
+  "preuve": "eps_diluted n=43 : Q3-2024=2, Q1-2025=2.52 ... Q3-2025=3.12, Q1-2026=3.35. net_income Q4-2025=165.2.",
+  "correction_validee": "Completer les deux T4 depuis les 10-K.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 1 / risque 6 / risque 7",
+  "probleme": "Fragments de phrases qui renvoient a un contexte absent ('ces événements', 'ces baisses', 'l'un de ces facteurs'), illisibles seuls.",
+  "preuve": "risque 1 : 'Des perturbations prolongées dues à ces événements...' ; risque 7 : '...pourraient être sensiblement affectés par l'un de ces facteurs'.",
+  "correction_validee": "Reformuler chaque risque en phrase autonome ou le supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

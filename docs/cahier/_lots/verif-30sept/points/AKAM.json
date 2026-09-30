@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "répartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Valeurs fausses, pas seulement périmées : la part sécurité affichée est inférieure de 16 points à celle des séries de la fiche ; le champ pct est absent (share_pct seul), l'extrait affiche None.",
+  "preuve": "Bloc : Delivery 46,4 % / Security 36,1 % / Compute 17,5 % (exercice 2024). security_pct_rev Q4-2024 = 52,4 % ; série delivery FY2024 = 1 318 M$ = 33 % de 3 991.",
+  "correction_validee": "Exercice 2025 depuis les séries : Sécurité 2 243 M$ (53 %), Delivery 1 257 M$ (30 %), Compute 708 M$ (17 %), avec champ pct.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "delivery_rev_3y_decline",
+  "probleme": "Nom et unité faux pour la série : ce n'est pas un taux de déclin sur 3 ans mais le revenu Delivery trimestriel en M$ ; signal périmé.",
+  "preuve": "Nom « Déclin Delivery sur 3 ans », unité « % cumulé 2023-2025 », série Q1-2024 = 351,8 ... Q4-2025 = 311,1 ; signal « Déclin CDN accéléré en 2024 (-15%) ».",
+  "correction_validee": "Renommer « Revenus Delivery », unité M$, signal « 311,1 M$ au T4 2025, -4,7 % sur l'exercice 2025 ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Cloud Infrastructure Services (CIS) revenue",
+  "probleme": "Doublon périmé de cloud_infra_rev.",
+  "preuve": "Série 68 ; 94 ; 95 datée 2026-04-10 vs cloud_infra_rev 67,6 ; 94,6 ; 99,3 (T2 2026).",
+  "correction_validee": "Supprimer « Cloud Infrastructure Services (CIS) revenue ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total annual revenue $4.2B / $2.0B share repurchase program",
+  "probleme": "Points uniques qui redondent des séries existantes.",
+  "preuve": "4 208 = revenue_annuel 2025 (4,208 Mds $) ; 2 000 et « 1,2 Md USD encore disponible fin 2025 » = autorisation_rachat_restante Q4-2025 = 1,2.",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Annual free cash flow / Cloud Security Solutions revenue / Peak platform traffic",
+  "probleme": "Points anciens (2020-2021) datés 2026-04-10 ; l'un contredit une autre série de la page.",
+  "preuve": "« Annual free cash flow » 859 M$ exercice 2021 vs fcf_annuel 2021 = 1,076 Mds $ ; « Cloud Security Solutions » 259 ; 266 « vue produit avant réorg 2022 » ; « Peak platform traffic » 200 Tbps T4 2021.",
+  "correction_validee": "Supprimer les trois KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "marge_nette (signal)",
+  "probleme": "Le signal nie une dégradation opérationnelle que les autres KPI et l'anti-thèse constatent.",
+  "preuve": "« Le repli tient surtout à la fin d'un taux d'impôt exceptionnellement bas, plus qu'à une dégradation opérationnelle durable » vs resultat_op -47 %, marge_op -7,2 pt au T2 2026.",
+  "correction_validee": "Réécrire : marge nette 7,2 %, -2,7 pt, repli moindre que l'opérationnel grâce à l'impôt.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.justification_mettrik / moat.texte",
+  "probleme": "Source citée dans un bloc ; texte moat null, seule la justification s'affiche.",
+  "preuve": "« l'avantage concurrentiel vient d'être retiré par Morningstar » ; texte = null, niveau « Aucun ».",
+  "correction_validee": "Réécrire sans citer de source, rédiger un texte moat.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks",
+  "probleme": "Cinq titres sans texte, deux avec fragments anglais.",
+  "preuve": "« Volatilité du cours et politique de retour (Failure control expenses) », « Risques opérationnels (risks associated global) » ; descriptions vides.",
+  "correction_validee": "Retirer les fragments ; rédiger les descriptions.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "cloud_pct_rev / dette_sur_ca (yoy)",
+  "probleme": "Variation en % relatif pour des séries en points.",
+  "preuve": "cloud_pct_rev yoy « +6.7% » (16,4 à 17,5 = +1,1 pp) ; dette_sur_ca yoy « +9.9% » vs signal « +8,8 points ».",
+  "correction_validee": "Afficher +1,1 pt et +8,8 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "delivery_other_cloud_rev / cloud_infra_rev / guardicore_seg_growth",
+  "probleme": "Séries à trous et nom incohérent avec la série.",
+  "preuve": "delivery_other_cloud_rev et cloud_infra_rev : 3 points (Q1-2025, Q1-2026, Q2-2026), T2 à T4 2025 absents ; guardicore_seg_growth nommé « growth » mais série en M$ (90), n=1.",
+  "correction_validee": "Compléter 2025 avec le retraitement publié au T1 2026 ; renommer guardicore_seg_growth.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

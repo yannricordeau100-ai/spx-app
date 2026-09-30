@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Affirmation fausse sur la fiche elle-même",
+  "preuve": "« Les ventes en ligne gagnent 7,3 % mais c'est le seul indicateur disponible » alors que la fiche compte plus de 30 KPI (comparables hors carburant, marges sous-jacentes par zone, FCF, magasins)",
+  "correction_validee": "Réécrire la justification avec les comparables hors carburant +1,2 %, la marge opérationnelle sous-jacente 3,9 % et les ventes en ligne +7,3 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "WEB_TRIMESTR_CONSECUT_DE_2",
+  "probleme": "Nom et unité sans rapport avec la série, qui est une copie des ventes numériques",
+  "preuve": "Nom « Trimestres consécutifs de croissance à deux chiffres... », unité « trimestres consécutifs », valeur 13 399 ; série FY2017..FY2025 = 2 831 ... 13 399 = CAHIER_DIGITAL_SALES en M€ (seul FY2023 diffère : 11 865 vs 11 793)",
+  "correction_validee": "Supprimer WEB_TRIMESTR_CONSECUT_DE_2.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_SSS_EXFUEL.yoy",
+  "probleme": "Variation d'un taux exprimée en pourcentage au lieu de points",
+  "preuve": "yoy « +275,0 % » pour un comparable passant de 0,8 % (FY2024) à 3 % (FY2025)",
+  "correction_validee": "Afficher « +2,2 pt ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Comp Sales ex-fuel / CAHIER_SSS_EXFUEL",
+  "probleme": "Deux séries annuelles du même comparable avec des chiffres différents",
+  "preuve": "« Comp Sales ex-fuel » (années non étiquetées) : 9,5 ; 6,5 ; 6,8 ; 3,2 ; 0,8 contre CAHIER_SSS_EXFUEL FY2020 = 14,4 ; FY2021 = 1,9 ; FY2022 = 6,8 ; FY2023 = 2,3 ; FY2024 = 0,8",
+  "correction_validee": "Vérifier 2020, 2021 et 2023 dans les rapports annuels, garder CAHIER_SSS_EXFUEL et supprimer « Comp Sales ex-fuel ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Net Consumer Sales / US Net Sales / Europe Net Sales",
+  "probleme": "Trois KPI annuels arrêtés en 2024, années non étiquetées, signaux télégraphiques de cuisine interne, doublons des séries trimestrielles",
+  "preuve": "Signaux : « CA stabilisé, focus mix online + private label + Save for Our Customers (efficiency) », « ~60% CA groupe, mix bandes Food Lion + Hannaford + Stop & Shop », « Albert Heijn = joyau marge »",
+  "correction_validee": "Supprimer les trois KPI (REVENUE_Q, REVENUE_US_Q, REVENUE_EU_Q couvrent le besoin)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Female Rep SVP+ / Specialty Stores",
+  "probleme": "KPI sans signal ni périodes, date qui n'est pas une clôture, unité en anglais",
+  "preuve": "« Specialty Stores » 1 140 ; 1 150 ; 1 160 ; 1 130, unité « units », dernier 2026-08-09, aucun signal ; « Female Rep SVP+ » 26 ; 29 ; 32 ; 36 sans années",
+  "correction_validee": "Supprimer ou dater les points (FY2022..FY2025), traduire l'unité, ajouter un signal",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune marge brute sur la fiche d'un distributeur alimentaire",
+  "preuve": "La fiche donne marge opérationnelle sous-jacente, EBITDA, FCF, mais pas la marge brute publiée chaque trimestre par le groupe",
+  "correction_validee": "Ajouter la marge brute trimestrielle (groupe, États-Unis, Europe)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

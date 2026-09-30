@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Repartition 50 / 50 avec 10,1 Md$ de chaque cote et un total de 20,2 Md$ qui est le CA de 2022, pas de 2025 (16,45 Md$) ; le segment Amerique du Nord 2025 vaut 10 753 M$, soit 65 % du CA, pas 50 %.",
+  "preuve": "slices North America 10.1 (50 %), Outside North America 10.1 (50 %), total 20.2 Mds $ ; CA North America 2025 = 2666+2730+2714+2643 ; revenue_annuel 2025=16.447",
+  "correction_validee": "Reconstruire la repartition sur 2025 : Amerique du Nord 65 %, hors Amerique du Nord 35 %, exercice indique.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Organic sales growth, Volume growth, Net price",
+  "probleme": "« Organic sales growth » affiche +2,5 % pour le T2 2026 alors que le signal de CA trimestriel dit « croissance organique quasi nulle (-0,1%) » et que les segments donnent -0,7 % (NA) et +1,0 % (IPC) : la serie s arrete au T1 2026 mais est datee 30/06. Volume growth (2,6) et Net price (-0,5) ont probablement le meme decalage.",
+  "preuve": "Organic sales growth val=2.5 dernier 2026-06-30 ; CA trimestriel signal « croissance organique quasi nulle (-0,1%) » ; Croissance organique NA Q2-2026=-0.7 ; IPC Q2-2026=1",
+  "correction_validee": "Ajouter le point T2 2026 (-0,1 %) et les composantes volume et prix du T2 depuis le communique.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Kenvue Acquisition total merger consideration",
+  "probleme": "Nomme « contrepartie totale » a 6,7 Md$ alors que ce montant est la seule part en numeraire (3,50 $ par action Kenvue) ; la contrepartie totale se chiffre en dizaines de milliards (280 M d actions nouvelles emises selon l anti-these).",
+  "preuve": "val=6.7 Mds $ ; att « prévoit d'émettre environ 280 millions de nouvelles actions » et « ligne de crédit relais de 7,7 Mds $ »",
+  "correction_validee": "Renommer Part en numeraire de l acquisition Kenvue.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Dépenses de publicité",
+  "probleme": "Doublon exact des trois derniers points de CAHIER_AP_SPEND (1 026, 1 122, 1 020).",
+  "preuve": "Dépenses de publicité serie 2023=1026, 2024=1122, 2025=1020 ; CAHIER_AP_SPEND FY2023=1026, FY2024=1122, FY2025=1020",
+  "correction_validee": "Supprimer Depenses de publicite.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KMB_PCARE",
+  "probleme": "Serie du segment « Soins personnels » arretee en FY2023 : ce decoupage n existe plus (segments Amerique du Nord / IPC / IFP depuis 2025) ; signal avec majuscule fautive « Produit phare : Les couches ».",
+  "preuve": "dernier 2023-12-31 ; serie FY2016..FY2023 ; CA North America et CA International Personal Care vont au T2 2026",
+  "correction_validee": "Retirer ou archiver ce KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 4, 6, 7 (title)",
+  "probleme": "Titres franglais ou mal traduits : « Exposition aux changements émergents et aux devises défavorables », « Attraction personnel avec compétences emerging », « Coûts et exécution mergers Kenvue (transaction K-C) ».",
+  "preuve": "titres cites",
+  "correction_validee": "Exposition aux marches emergents et aux devises ; Attraction et retention des competences cles ; Couts et execution de la fusion avec Kenvue.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun KPI de dividende (par action ou verse) alors que la these repose sur le statut de Dividend Aristocrat depuis 1935 et que l anti-these compare le dividende 1,28 $ au BPA 1,04 $.",
+  "preuve": "recherche « divid » dans les KPI : aucun ; these « dividende déclaré par action qui monte d'année en année, de 4,72 $ en 2023 à 4,88 $ en 2024 puis 5,04 $ en 2025 »",
+  "correction_validee": "Ajouter « Dividende déclaré par action » trimestriel et « Dividendes versés ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CA North America",
+  "probleme": "Quatriemes trimestres 2020 a 2023 absents (Q1-Q3 seulement), ce qui empeche toute lecture annuelle avant 2024.",
+  "preuve": "history_periods : Q1-2020, Q2-2020, Q3-2020, Q1-2021, ... Q3-2023, Q1-2024, Q2-2024, Q3-2024, Q4-2024",
+  "correction_validee": "Completer les Q4 (annuel moins 9 mois) depuis les 10-K.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Gross margin target by 2030, Operating profit margin target by 2030, Kenvue integration teams, Kenvue merger termination fee, IFP Joint Venture with Suzano, 2024 Transformation Initiative total pre-tax cost",
+  "probleme": "Objectifs et evenements presentes comme des KPI a un point : cible de marge 40 %, cible operationnelle avec unite « % (18-20%) », « 40 équipes » d integration, indemnite de rupture 1,1 Md$ ; tous dates 2026-03-28 alors que le trimestre se clot le 31 mars.",
+  "preuve": "Operating profit margin target by 2030 unit=« % (18-20%) » ; Kenvue integration teams val=40 unit=équipes ; dernier 2026-03-28",
+  "correction_validee": "Deplacer dans la these ou l anti-these, retirer des KPI, corriger l unite.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ORGANIC_GROWTH ; signaux CA trimestriel, Free cash flow, Résultat op segment IPC",
+  "probleme": "Nom « décomposée volume et prix-mix » pour une serie unique, yoy « -46,9 % » sur un taux passe de 3,2 a 1,7 (soit -1,5 point) ; doublon annuel de la serie trimestrielle ; trois signaux se terminent par « .. ».",
+  "preuve": "CAHIER_ORGANIC_GROWTH yoy=-46.9% serie FY2024=3.2, FY2025=1.7 ; signaux « (-0,1%).. », « au T2 2025.. », « favorable.. »",
+  "correction_validee": "Renommer Croissance organique annuelle, yoy -1,5 pt, remplacer .. par un point.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

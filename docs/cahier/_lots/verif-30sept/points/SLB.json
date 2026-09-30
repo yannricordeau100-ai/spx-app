@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "digital_rev (hero), digital_margin",
+  "probleme": "La série mélange l'ancien segment Digital & Integration et le nouveau segment Digital. Le hero affiche donc une hausse alors que le graphique montre une chute.",
+  "preuve": "Q2-2025=995 et Q1-2025=1006, puis Q3-2025=658. Valeur affichée 697 avec yoy +18 %, alors que 697/995 = -30 %. Pour la marge : 32.9 puis 27.8, affiché +194 bps.",
+  "correction_validee": "Remplacer l'historique de digital_rev et de digital_margin par la série retraitée du nouveau périmètre Digital, à défaut couper les séries au Q3-2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Income",
+  "probleme": "Le résultat opérationnel annuel est invraisemblable.",
+  "preuve": "11.513 Mds $ (+47,7 %) pour un CA 2025 de 35.708 Mds $ et un FCF de 4.795 Mds $. La série 4.989, 5.663, 7.793, 11.513 n'a pas de dates.",
+  "correction_validee": "Supprimer le KPI « Op Income ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Digital & Integration, Digital revenue",
+  "probleme": "Deux doublons du revenu Digital ont des valeurs impossibles ou des périodes mélangées.",
+  "preuve": "« Digital & Integration » annuel : 0.74 à 1.16 Mds $ avec un creux à 0.44 et yoy +163,6 %, pour un segment d'environ 4 Mds $ par an. « Digital revenue » : série 640, 825, 2700 en « M$/trimestre », qui mélange trimestre et année.",
+  "correction_validee": "Supprimer « Digital & Integration » et « Digital revenue ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Digital annual recurring revenue, 2026 quarterly dividend increase, Data center solutions revenue run rate, data_center_solutions",
+  "probleme": "Des doublons exacts coexistent, et le KPI data centers est mal nommé et troué.",
+  "preuve": "ARR à 1.02 en double avec digital_arr. Dividende à 0.295 en double avec dps_q. Data centers : 45 % dans deux KPI. data_center_solutions s'appelle « Revenus » mais son unité est « % YoY », avec une série Q3-2024=0, Q3-2025=140, Q1-2026=45 et un dernier point en Q1 alors que Q2 est publié.",
+  "correction_validee": "Supprimer les trois doublons, renommer data_center_solutions en « Croissance des revenus data centers », retirer le point Q3-2024 = 0 et ajouter Q2-2026 seulement s'il est publié.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "adj_ebitda, adj_ebitda_margin",
+  "probleme": "L'EBITDA ajusté s'arrête au T1 2026 alors que toutes les autres séries ont le T2. Le signal est au format anglais.",
+  "preuve": "Dernier point 2026-03-31. Signal : « EBITDA ajusté $1,773M ».",
+  "correction_validee": "Ajouter le T2 2026 et reformater en « 1 773 M$ ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "pretax_seg_margin.signal",
+  "probleme": "Le point haut cité est faux d'après la série elle-même.",
+  "preuve": "« Le point haut reste le quatrième trimestre 2023, à 20,7% ». Or Q3-2024=20.8.",
+  "correction_validee": "Remplacer par « le point haut de la série est le T3 2024, à 20,8 % ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "prodsys_margin.signal",
+  "probleme": "Le signal parle d'amélioration alors que la marge recule.",
+  "preuve": "« tirent la profitabilité vers le haut ». Or 15.5 contre 16.4 un an plus tôt (yoy -121 bps).",
+  "correction_validee": "Réécrire : la marge recule malgré l'apport de ChampionX (coûts d'intégration).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment, revenue_by_geography",
+  "probleme": "Les répartitions utilisent des noms anciens ou anglais qui ne correspondent pas aux KPI.",
+  "preuve": "« Reservoir Characterization », « Digital Integration », « Middle East », « Europe C I S Africa », alors que les KPI disent Reservoir Performance, Digital, Moyen-Orient et Asie, Europe et Afrique.",
+  "correction_validee": "Renommer en Reservoir Performance, Digital, Moyen-Orient et Asie, Europe et Afrique, en cohérence avec les KPI de segment et de région.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Le moat contient de la cuisine interne et ne décrit aucun avantage pour le numéro un mondial du secteur.",
+  "preuve": "« ...dans un cycle de dépenses amont dégradé et une note déjà abaissée. »",
+  "correction_validee": "Rédiger un moat (technologie, empreinte mondiale, données d'exploration, OneSubsea) sans référence à une note interne.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[*].score_rationale",
+  "probleme": "Les justifications de risque sont décalées d'un risque à l'autre.",
+  "preuve": "« Qualité du portefeuille de crédit » est justifié par « Stratégie de croissance dépend du déploiement... d'IA ». « Risques financiers » est justifié par « Marché pétrolier en surcapacité ».",
+  "correction_validee": "Régénérer les risques avec la bonne correspondance entre titre, résumé et justification.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ocf_q.signal, fcf_q.signal, Delphi platform users",
+  "probleme": "Les signaux contiennent de la cuisine interne et un nom de produit est mal orthographié.",
+  "preuve": "ocf_q : « dérivé du cumul 6 mois de 1 846 M$ moins 487 M$ au T1.. ». fcf_q : « une version simplifiée de la définition propre de SLB ». KPI « Delphi » au lieu de Delfi.",
+  "correction_validee": "Retirer les mentions de méthode des signaux ocf_q et fcf_q et renommer le KPI en « Utilisateurs de la plateforme Delfi ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun KPI de croissance hors ChampionX (organique ou pro forma), alors que l'anti-thèse repose dessus.",
+  "preuve": "L'anti-thèse cite « sans le rachat de ChampionX il aurait baissé de 6 % ». Aucune série ne permet de le suivre.",
+  "correction_validee": "Ajouter une série trimestrielle de croissance pro forma ou hors acquisitions.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

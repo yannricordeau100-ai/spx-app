@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "La repartition par segment est perimee et sans exercice : elle sous-estime fortement les centres de donnees et l'ALM",
+  "preuve": "Affiche : Global RIM 89.4, Data Center 6, Corporate 4.5, exercice None. Au T2 2026 : RIM 1433.6 / 2029 = 71%, Data Center 262.9 / 2029 = 13%, ALM 332.6 / 2029 = 16%",
+  "correction_validee": "Recalculer sur l'exercice 2025 : Global RIM 76,7%, Data Center 11,6%, ALM et autres 11,7%, avec exercice 2025 affiche.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_LEV.signal",
+  "probleme": "Le signal contredit le chiffre : 4,8x est a l'interieur de la fourchette cible, pas en dessous",
+  "preuve": "'4,8x ... sous la cible de 4,5x a 5,5x du management'",
+  "correction_validee": "Remplacer par 'dans la fourchette cible de 4,5x a 5,5x du management'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PHYS_VOL / CAHIER_VOLUME_RETENTION / Records storage volume",
+  "probleme": "Le volume stocke apparait trois fois, dont une serie arrondie qui contredit les deux autres",
+  "preuve": "PHYS_VOL Q1-2026 = 745.276 ; CAHIER FY2025 = 744.001 (= PHYS_VOL Q4-2025) ; Records storage volume dernier 2026-03-28 = 735, serie 730, 730, 725, 730, 735, 735",
+  "correction_validee": "Supprimer 'Records storage volume' ; garder l'annuel CAHIER en le renommant 'Volume stocke (annuel)' plutot que le supprimer.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "STOR_UTIL / CAHIER_CAPACITY_UTILISATION / RM_RACKING",
+  "probleme": "Trois taux d'utilisation du stockage incompatibles, sans definition qui permette de les distinguer",
+  "preuve": "FY2025 : STOR_UTIL Q4-2025 = 81.3%, RM_RACKING = 88%, CAHIER_CAPACITY_UTILISATION = 96.9%",
+  "correction_validee": "Preciser ce que mesure chaque taux, ou retirer le CAHIER si sa source n'est pas identifiable",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DC_MW_SIGNED / Data center new leasing signed",
+  "probleme": "Deux series de MW signes qui ne concordent pas",
+  "preuve": "DC_MW_SIGNED : Q3-2025 = 13.5, Q4-2025 = 43.4, Q1-2026 = 21.8. L'autre serie finit par 66, 13, 22 : le point qui precede 22 vaut 13 au lieu de 43.4",
+  "correction_validee": "Garder DC_MW_SIGNED et supprimer 'Data center new leasing signed'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Asset Lifecycle Management revenue growth",
+  "probleme": "La croissance ALM citee ne correspond pas a la serie de CA ALM",
+  "preuve": "Dernier point = 92% (2026-03-28). ALM_REV : Q1-2026 / Q1-2025 = 277.3 / 163.4 = +70%",
+  "correction_validee": "Verifier la definition (organique ou totale) ou supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels et ratios par salarie",
+  "probleme": "L'effectif s'arrete en 2020 alors que les ratios par salarie sont dates 2025 : ils affichent des chiffres de 2020 sous l'etiquette 2025",
+  "preuve": "effectifs_annuels dernier 2021-02-24, serie jusqu'a 2020 = 24000. ca_par_salarie : dernier 2025-12-31, val = 172.8 (valeur 2020)",
+  "correction_validee": "Completer l'effectif 2021-2025 ou masquer les ratios",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CUSTOMERS / Total customers served ; FACILITIES / Total facilities worldwide ; COUNTRIES / Countries of operation ; DC_TOTAL_POT / Total developable data center capacity",
+  "probleme": "Quatre doublons, dont une unite en anglais",
+  "preuve": "240 (milliers) et 240000 'customers' ; 1340 et 1340 ; 61 et 61 ; 1372.9 MW et 1.4 GW",
+  "correction_validee": "Supprimer Total customers served, Total facilities worldwide, Countries of operation et Total developable data center capacity.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_FFO_AFFO_PS",
+  "probleme": "Le nom melange deux indicateurs differents (FFO et AFFO), alors que la valeur correspond a l'AFFO",
+  "preuve": "FY2025 = 5.17 $, alors que FFO_NORM_PS 2025 fait 0.77 + 0.87 + 0.93 + 1.01 = 3.58",
+  "correction_validee": "Renommer en 'AFFO par action' apres controle de la valeur FY2025 a la source.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Euro debt issuance 2034, Miami site leased, Chicago hyperscale site lease, Northern Virginia..., Total addressable market",
+  "probleme": "Des evenements ponctuels (emission obligataire, baux) sont presentes comme des KPI, avec de l'anglais dans les noms",
+  "preuve": "Un seul point date 2026-03-28 pour chacun ; 'hyperscale', 'Northern Virginia'",
+  "correction_validee": "Deplacer ces faits dans les textes",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "revenue_annuel / dette_sur_ca (history 2016)",
+  "probleme": "Le point 2016 du chiffre d affaires (18,338 Mds $) est le chiffre de 2015 (exercice partiel post-fusion) ; 2016 reel est d environ 26,5 Mds $. Le signal « +3,5 % par an depuis 2016 » est donc faux (le vrai TCAM 2016-2025 est negatif, environ -0,7 %), et dette_sur_ca 2016 = 176,7 % ainsi que « -91,6 points depuis 2016 » en decoulent.",
+  "preuve": "history revenue_annuel : 2016=18.338, 2017=26.232, 2018=26.268 ; signal : « +3,5 % par an depuis 2016 » ; dette_sur_ca history 2016=176.7, 2017=124.6",
+  "correction_validee": "Remplacer le point 2016 par 26,487 Mds $, recalculer dette_sur_ca 2016 et les TCAM depuis 2016 (CA environ -0,7 % par an).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted",
+  "probleme": "Les quatriemes trimestres 2021 a 2025 manquent dans la serie trimestrielle alors que net_income_q les a (Q4-2024 = 2 131 M$).",
+  "preuve": "history_periods : ..., Q3-2021, Q1-2022, ..., Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 (aucun Q4 depuis 2020)",
+  "correction_validee": "Completer les BPA Q4-2021 a Q4-2025 depuis les 10-K (Q4 = annuel moins 9 mois).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "taste_elevation_share",
+  "probleme": "En complement du pourcentage aberrant deja detecte : la serie est en fait le CA de la plateforme en M$ (9 058 M$ en FY2023 = 34 % de 26 640), le nom « Part des ventes » et l unite « % » sont faux, la serie s arrete en FY2023 alors que les deux plateformes soeurs vont jusqu a FY2025, et le signal cite « 45 % des ventes FY2025 » qui n existe pas dans la serie.",
+  "preuve": "unit=% ; history FY2018=6830 ... FY2023=9058 ; easy_ready_meals_share va jusqu a FY2025 ; signal « Plateforme ACCELERATE dominante : 45% des ventes FY2025 »",
+  "correction_validee": "Convertir la serie en part des ventes (FY2023 = 34 %) et ajouter FY2025 = 45,2 % issu de la repartition 2025, ou la renommer Chiffre d affaires Taste Elevation en M $.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Emerging Markets Organic Net Sales growth",
+  "probleme": "Le KPI donne +3,8 % de croissance organique marches emergents au T2 2026 alors que le signal de em_revenue annonce +8,5 % pour le meme trimestre.",
+  "preuve": "Emerging Markets Organic Net Sales growth : val=3.8, dernier 2026-06-30 ; em_revenue signal : « organique +8.5% (prix +4.5 pp, volume/mix +4.0 pp) »",
+  "correction_validee": "Verifier le communique T2 2026 et aligner les deux chiffres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "sga_q",
+  "probleme": "La serie « Frais commerciaux et administratifs » inclut les depreciations de goodwill (10 157 M$ au T2 2025, 8 459 M$ au T2 2026 contre 900 a 1 100 M$ les autres trimestres) et change de perimetre fin 2024 (2 287 / 2 285 M$). Un investisseur ne peut pas lire la tendance des frais reels.",
+  "preuve": "serie : Q3-2024=2287, Q4-2024=2285, Q1-2025=868, Q2-2025=10157, Q3-2025=965, Q4-2025=988, Q1-2026=1074, Q2-2026=8459",
+  "correction_validee": "Retirer les depreciations (serie SG&A hors depreciations) ou renommer « SG&A y compris depreciations d actifs incorporels » et harmoniser le perimetre 2024.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ORGANIC_GROWTH",
+  "probleme": "Nom « Croissance organique decomposee volume-mix et prix » pour une serie unique non decomposee ; yoy « +61,9 % » sur un taux qui passe de -2,1 a -3,4 (deterioration affichee comme progression) ; doublon annuel de « Organic Net Sales growth » trimestriel.",
+  "preuve": "val=-3.4, yoy=+61.9%, serie FY2024=-2.1, FY2025=-3.4 ; KPI « Organic Net Sales growth » trimestriel val=-0.4",
+  "correction_validee": "Renommer Croissance organique annuelle et exprimer la variation en points (-1,3 pt).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Separation into two independent public companies, 2025 goodwill impairment loss, Total 2025 non-cash impairment losses, Power Mac & Cheese new accounts, Incremental brand and commercial investment",
+  "probleme": "Faits ponctuels presentes comme des indicateurs a un seul point : « 2 societes » comme valeur de KPI, depreciations 2025 datees 2026-03-28, 35 000 comptes de sell-in. Incremental brand investment affiche val=700 alors que le signal et le premier point disent 600 M$.",
+  "preuve": "Separation... val=2 unit=sociétés ; 2025 goodwill impairment loss val=6.7 dernier 2026-03-28 ; Incremental brand... value=700, history=[600, 700], signal « Enveloppe de 600 M$ »",
+  "correction_validee": "Deplacer ces faits dans la these ou l anti-these et retirer les KPI a un point ; trancher 600 ou 700 M$.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "tendance / tendance_mettrik / justification_mettrik",
+  "probleme": "Deux tendances contradictoires (« hausse » depuis 2024-06-13 et « baisse » cote Mettrik) ; le texte de 2024 vante une « rentabilite superieure » alors que la justification decrit un recul organique ; la justification parle de « relevement de la note », jargon de notation interne incomprehensible pour le lecteur.",
+  "preuve": "moat : tendance='hausse', depuis='2024-06-13', tendance_mettrik='baisse', justification_mettrik « Malgré le relèvement de la note, les ventes organiques deviennent négatives... »",
+  "correction_validee": "Ne garder qu une tendance (baisse), reecrire la justification sans reference a la note, rafraichir le texte du moat avec les chiffres 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "texte",
+  "probleme": "Feuille de route produit visible par le client : « sera ajoutée en V2.0 ».",
+  "preuve": "« Une analyse fine de l'usage interne de l'IA (...) sera ajoutée en V2.0. »",
+  "correction_validee": "Supprimer la phrase finale mentionnant la V2.0.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "La these et l anti-these tournent autour de la dette et des depreciations, mais aucun KPI de levier (dette nette / EBITDA ajuste, cible d environ 3x communiquee par le groupe) ni d EBITDA ajuste n est propose.",
+  "preuve": "KPI presents : lt_debt, dette_annuelle, dette_sur_ca ; aucun EBITDA ajuste ni ratio de levier",
+  "correction_validee": "Ajouter « Dette nette / EBITDA ajuste » trimestriel et l EBITDA ajuste.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

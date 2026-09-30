@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "yoy et signal de 15 KPI trimestriels (revenue, op_income, op_margin, net_income, net_revenues, eps_diluted, ocf, buyback, debt_lt, cash, equity, sbc, interest_exp, tax_rate)",
+  "probleme": "La valeur affichee est celle du T2-2026 mais la variation annuelle et le signal ont ete calcules sur le T1-2026 : chiffres et sens de variation faux.",
+  "preuve": "revenue val=1825.6 (Q2-2026) yoy=+14.1 % = 1744.5/1529.2 (T1) alors que 1825.6/1515.5 = +20.5 % ; debt_lt yoy=+103.8 % = 1966.7/964.8 alors que 1624/1883.9 = -13.8 % ; op_income yoy=+20.2 % = 333.2/277.3 alors que 364.2/214.2 = +70 % ; signal ocf « Flux net de tresorerie d'exploitation de 212,6 M$ au Q1-2026 » pour val=734.2.",
+  "correction_validee": "Recalculer le yoy de chaque KPI sur son dernier point (T2-2026 vs T2-2025) et regenerer les signaux sur le T2-2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "series des KPI operationnels (fee_mgmt, fee_perf, fee_service, exp_*, adj_op_income, adj_op_margin, adj_net_income, adj_eps, revenue_yield_net, aum_avg_lt, aum_avg_qqq, flow_lt_in, flow_lt_out, net_flows_*, AUM_* par canal, region et expertise)",
+  "probleme": "Une vingtaine de series s'arretent au T1-2026 (31 mars) alors que les resultats du T2-2026 sont sur la fiche (these arretee au 4 aout 2026, eps et revenue au T2-2026). La collecte record du T2 citee partout n'existe dans aucune serie.",
+  "preuve": "net_flows_lt dernier Q1-2026=21.8 ; AUM_END Q2-2026=2470.3 ; signal AUM_END « collecte nette long terme record de 45,1 Mds dollars » absent de net_flows_lt ; these « commissions de gestion bondissent de 360,9 M$ sur un an » alors que fee_mgmt s'arrete a Q1-2026=1382.2.",
+  "correction_validee": "Prolonger toutes les series operationnelles au T2-2026 a partir du communique et du 10-Q du T2, puis recalculer yoy et signaux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "net_income et net_margin : periodes de la serie",
+  "probleme": "Les series sautent des trimestres, dont tous les trimestres de perte : le graphique du resultat net ne montre jamais les pertes de 2023 et 2025 que le BPA affiche.",
+  "preuve": "net_income periodes : Q3-2023, Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q3-2025, Q1-2026, Q2-2026 (manquent Q4-2023, Q4-2024, Q2-2025, Q4-2025) alors que eps_diluted Q4-2025=-2.61, Q4-2023=-1.64, Q2-2025=-0.03 ; net_margin idem (Q3-2025=18.4 puis Q1-2026=13.2).",
+  "correction_validee": "Completer les trimestres manquants (Q4 par difference annuel moins neuf mois, et trimestres de perte) depuis les 10-K et 10-Q.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "AUM_equity, AUM_fixed_income, AUM_balanced, AUM_money_market, AUM_alternatives, AUM_active, AUM_passive",
+  "probleme": "Cinq series d'encours par classe d'actifs s'arretent fin 2023 et deux (actif/passif) au T3-2025, alors que la nouvelle nomenclature (ETF et indiciel, actions fondamentales, marches prives...) court jusqu'au T1-2026. Un investisseur lit des encours vieux de deux ans et demi.",
+  "preuve": "AUM_equity dernier 2023-12-31, signal « 823,7 Mds$ d'encours au Q4-2023 » ; AUM_active dernier 2025-09-30 ; AUM_ETF_index Q1-2026=638.3.",
+  "correction_validee": "Retirer ou marquer comme nomenclature abandonnee les cinq series fin 2023 ; prolonger actif/passif au T1-2026 ou les retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "ETF AUM, Net Long-Term Flows, Mgmt Fee Rate (series annuelles sans annees, signal vide)",
+  "probleme": "Trois series annuelles sans periode ni signal contredisent les series etiquetees du meme indicateur.",
+  "preuve": "ETF AUM 318, 392, 358, 446, 555 alors que AUM_ETF_index Q4-2025=630.2 ; Net Long-Term Flows 12, 20, 16, 50, 65 alors que CAHIER_NET_FLOWS FY2025=81.2 et FY2024=65.1 ; Mgmt Fee Rate 29, 28, 26, 24, 23 alors que CAHIER_FEE_RATE FY2024=30.2 et revenue_yield_net Q4-2025=23.3.",
+  "correction_validee": "Supprimer ETF AUM, Net Long-Term Flows et Mgmt Fee Rate ; garder AUM_ETF_index, net_flows_lt/CAHIER_NET_FLOWS et revenue_yield_net.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "China joint venture AUM, Global liquidity AUM (n=1), CAHIER_AUM",
+  "probleme": "Doublons : deux faits marquants a un seul point repetent des series existantes ; CAHIER_AUM annuel double AUM_END trimestriel.",
+  "preuve": "China joint venture AUM val=142 vs AUM_china_jv Q1-2026=141.9 ; Global liquidity AUM val=200 vs AUM_global_liquidity Q1-2026=201.2 ; CAHIER_AUM FY2025=2169.9 = AUM_END Q4-2025=2169.9.",
+  "correction_validee": "Supprimer China joint venture AUM et Global liquidity AUM a un point ; conserver CAHIER_AUM comme historique annuel long.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Service & Distribution Fees (annuel) : signal et description",
+  "probleme": "Doublon annuel de fee_service et textes en franglais telegraphique avec jargon interne.",
+  "preuve": "signal « Recovery FY24 +7.6%, segment lie aux flows et frais 12b-1 » ; description « Service & Distribution fees = trailing fees, 12b-1, distribution. Recurrent mais sensible aux niveaux d'AUM et churn distributeurs. » ; fee_service trimestriel n=37.",
+  "correction_validee": "Supprimer le KPI annuel Service & Distribution Fees.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "capex : serie",
+  "probleme": "Investissement negatif au Q4-2024, impossible pour un decaissement (les autres points vont de 14 a 28 M$) : point reconstitue par difference annuelle.",
+  "preuve": "serie capex : Q3-2024=28.4, Q4-2024=-7, Q1-2025=23.4.",
+  "correction_validee": "Reprendre le Q4-2024 dans le 10-K (annuel moins neuf mois) et corriger le point ; verifier fcf Q4-2024=323.9 qui en depend.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these / anti-these",
+  "champ": "chiffres du QQQ vs KPI AUM_QQQ et aum_avg_lt",
+  "probleme": "Les textes donnent 490 Mds$ d'encours QQQ alors que les KPI en donnent 372 a 407 ; et le saut de 25 % en un trimestre des encours moyens long terme (reclassement du QQQ) n'est explique nulle part.",
+  "preuve": "these « a transforme 490,1 Mds$ d'encours en base de commissions » (20 dec 2025) ; att « un cinquieme de ces 2 470,3 Mds$ tient dans un seul fonds, le QQQ » ; AUM_QQQ Q4-2025=407.2, Q1-2026=372.5 ; aum_avg_qqq Q1-2026=398.5 ; aum_avg_lt Q4-2025=1581.7 puis Q1-2026=1984.5 avec signal muet sur le changement de perimetre.",
+  "correction_validee": "Verifier la source des 490,1 Mds$ (QQQ seul ou ecosysteme) et aligner these, att et AUM_QQQ ; ajouter dans le signal aum_avg_lt la mention du reclassement du QQQ en encours long terme.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification",
+  "probleme": "Phrase incomprehensible et argument non pertinent : les commissions de performance pesent moins de 1 % des revenus nets et ne peuvent eroder un avantage ; le texte contredit la these (conversion du QQQ qui renforce la base de commissions).",
+  "preuve": "moat « la perte du statut d'avantage, l'effondrement des commissions de performance et la concurrence accrue erodent la position » ; fee_perf Q1-2026=11.3 M$ pour net_revenues=1264.3 M$.",
+  "correction_validee": "Reecrire la justification sur les vrais leviers : taux de commission net en baisse (28,3 vers 22,9 bps), bascule vers le passif, concentration QQQ.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment et revenue_by_geography : libelles",
+  "probleme": "Libelles de taxonomie en anglais dans la repartition, et zone « EMEA hors Royaume-Uni » sans ligne Royaume-Uni alors que le total boucle a 100 %.",
+  "preuve": "« Investment Advice 72.4 ; Distribution and Shareholder Service 23.8 ; Financial Service, Other 3.2 ; Investment Performance 0.7 » ; « EMEA, Excluding United Kingdom 20.6 ; Asia 4.6 » avec Ameriques 74.7 (somme 99.9).",
+  "correction_validee": "Traduire les libelles (Conseil en investissement, Distribution et services aux porteurs, Autres services financiers, Commissions de performance) ; verifier si le Royaume-Uni est inclus dans la ligne EMEA et renommer « EMEA ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "unite de « Sale of 60% of Invesco Asset Management India » ; yoy de net_flows_apac",
+  "probleme": "Unite technique affichee telle quelle et pourcentage absurde sur base negative.",
+  "preuve": "unite « B$_AUM » val=15.9 ; net_flows_apac yoy « +3400.0% » (Q1-2025=-0.4 vers Q1-2026=13.2).",
+  "correction_validee": "Unite Mds $ d'encours ; pour net_flows_apac afficher la variation en Mds $ (+13,6 Mds $) quand la base est negative ou proche de zero.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

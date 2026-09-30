@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Total Orders",
+  "probleme": "La serie est decalee d'un trimestre : la valeur affichee au 2026-06-30 est en realite celle du T1 2026",
+  "preuve": "Total Orders dernier 2026-06-30 = 1978. Or ITS_orders + PST_orders donnent Q1-2026 = 1557.9 + 420.1 = 1978.0 et Q2-2026 = 1620.7 + 422.2 = 2042.9. L'avant-dernier point (1952) correspond a Q4-2025 (1549.5 + 402.2)",
+  "correction_validee": "Reconstruire Total Orders comme somme ITS_orders + PST_orders par trimestre (T2 2026 = 2042,9).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "total_aftermarket Q4-2024 / Q4-2025",
+  "probleme": "Aux T4, la part d'apres-vente affichee est la part annuelle et non celle du trimestre",
+  "preuve": "Q4-2025 : 36.5 alors que aftermarket_rev / revenue = 735 / 2091.2 = 35.1%. 36.5 correspond a la part annuelle FY2025 (CAHIER_AFTERMARKET_MIX). Meme cas au Q4-2024 : 36.4 affiche contre 686.1 / 1898.6 = 36.1%",
+  "correction_validee": "Remplacer Q4-2025 par 35,1 et Q4-2024 par 36,1.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Industrial Technologies & Services Orders / Precision & Science Technologies Orders",
+  "probleme": "Doublons des commandes par segment, avec une variation annuelle differente de l'original",
+  "preuve": "PST_orders Q2-2026 = 422.2, yoy +11.5% ; le doublon affiche la meme valeur 422.2 avec yoy +6%. Pour ITS : 1620.7 dans les deux cas, +3.8% d'un cote, +5% de l'autre",
+  "correction_validee": "Supprimer les deux doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ITS_REVENUE",
+  "probleme": "Doublon annuel du CA ITS ; le 'signal' est une ligne de catalogue et la variation est au format anglais",
+  "preuve": "Signal : 'Produit phare : Compresseurs d'air rotatifs a vis' ; yoy='+4,1%'. ITS_rev couvre deja ce CA en trimestriel",
+  "correction_validee": "Supprimer, ou reecrire le signal a partir de la serie",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Le texte parle d'un resultat net en baisse alors que les chiffres les plus recents montrent l'inverse",
+  "preuve": "'le resultat net recule fortement'. net_income : Q2-2026 = 256.8 contre -115.3 au Q2-2025, et l'anti-these indique un benefice multiplie par plus de 6 au S1 2026",
+  "correction_validee": "Mettre a jour le moat avec les chiffres du S1 2026, ou preciser l'exercice de reference",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "anti-these",
+  "champ": "att.texte",
+  "probleme": "Le montant des charges exceptionnelles de 2025 ne correspond pas a celui des KPI",
+  "preuve": "Anti-these : '393 M$ de charges exceptionnelles liees au rachat ILC Dover'. Signaux op_margin et operating_income : 'base 2025 grevee par 265,8 M$ de depreciations'",
+  "correction_validee": "Verifier le montant a la source et aligner les deux textes",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel 2019",
+  "probleme": "Le CA 2019 est probablement faux (chute invraisemblable), et l'erreur se propage au CA par salarie",
+  "preuve": "2018 = 2.69, 2019 = 2.018, 2020 = 3.973 Mds. Gardner Denver a publie environ 2,45 Mds $ en 2019. ca_par_salarie 2019 = 305.8 calcule sur 2.018",
+  "correction_validee": "Verifier le CA 2019 a la source et recalculer le ratio",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORDERS_ORGANIC.yoy",
+  "probleme": "Variation en pourcentage calculee sur un taux de croissance : chiffre absurde",
+  "preuve": "yoy = -175.0% pour un passage de -2 a 1.5",
+  "correction_validee": "Exprimer la variation en points : +3,5 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TMIC/Adicomp acquisition, Transvac acquisition, Share repurchases 2025, Buyback authorization increase, Restructuring charges 2025",
+  "probleme": "Des evenements ponctuels ou des doublons sont presentes comme des KPI trimestriels",
+  "preuve": "Un seul point date 2026-03-28 pour des faits de 2025. Share repurchases 2025 = 1018 = somme des points 2025 de buybacks (10 + 500.2 + 193.1 + 314.7)",
+  "correction_validee": "Deplacer dans les textes ou supprimer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "kpis[4] NCI_Q.signal",
+  "probleme": "Affirmation fausse au regard de la serie",
+  "preuve": "Signal 'sixieme trimestre consecutif au-dessus du milliard' alors que Q3-2025 = 0,985 Md € ; seuls Q4-2025, Q1-2026 et Q2-2026 sont au-dessus",
+  "correction_validee": "Reecrire : 'troisieme trimestre consecutif au-dessus du milliard' ou retirer la phrase",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[44] Net Interest Income / kpis[45] Mittelstand Loans / kpis[46] mBank Customers",
+  "probleme": "Trois KPI annuels dates 2026-08-09, sans signal ni periodes, dont les series contredisent la fiche",
+  "preuve": "Net Interest Income 5, 5.2, 7.3, 8.2, 8.4 (+2 %) alors que la somme de NII_Q donne 8,37 (2023), 8,33 (2024), 8,23 (2025), en baisse ; mBank Customers 5.4, 5.5, 5.6, 5.7, 5.9 (+3 %) doublon de MBANK_CLIENTS (5.5, 5.7, 5.8, 5.8, 5.9, +1,7 %) avec historique divergent ; Mittelstand Loans 110 sans source ni signal",
+  "correction_validee": "Supprimer kpis[44], kpis[45] et kpis[46].",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[41] Operating Profit / kpis[42] Op RoE CET1 / kpis[43] Cost Income Ratio",
+  "probleme": "Trois KPI arretes en 2023 alors que la fiche va au T2-2026, avec une valeur contradictoire",
+  "preuve": "Cost Income Ratio 57,4 % pour 2023 (serie 73.7, 61.8, 57.4) alors que CAHIER_COST_INCOME donne 79,3 / 68,6 / 61,4 pour 2021-2023 ; signaux 'cible plan strategique atteinte', 'Bond du resultat operationnel grace a la remontee des taux BCE' perimes",
+  "correction_validee": "Supprimer Cost Income Ratio et Op RoE CET1 (couverts par CAHIER_COST_INCOME, CIR_Q, ROTE_Q) ; prolonger Operating Profit a 2024-2025 a partir d'OPRES_Q ou le supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[38] CAHIER_COST_INCOME.yoy / kpis[39] CAHIER_CET1.yoy / kpis[40] CAHIER_ROTE.yoy",
+  "probleme": "Variation relative en % sur des ratios exprimes en %, contraire a la convention des autres KPI de la fiche",
+  "preuve": "CAHIER_CET1 yoy -2.6 % pour 15,1 -> 14,7 (soit -0,4 pt), CAHIER_ROTE -5.4 % pour 9,2 -> 8,7, CAHIER_COST_INCOME -3.1 % pour 58,8 -> 57 ; CET1_Q et CIR_Q utilisent 'pt'",
+  "correction_validee": "Afficher les yoy en points : -1,8 pt (coefficient d'exploitation), -0,4 pt (CET1) et -0,5 pt (RoTE).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.niveau / moat.justification_mettrik",
+  "probleme": "Moat 'Aucun' et 'sans avantage concurrentiel identifie' en contradiction avec la these",
+  "preuve": "Justification 'sans avantage concurrentiel identifie dans la banque' alors que la these affirme 'une position de premier rang dans le financement des entreprises allemandes' et retient le critere Ackman 'Fortes barrieres a l'entree, un fosse autour de l'activite'",
+  "correction_validee": "Trancher : soit rediger un moat (franchise Mittelstand, mBank) soit nuancer la these",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis (indicateur manquant)",
+  "probleme": "Indicateurs bancaires usuels absents",
+  "preuve": "La fiche donne NII en montant, CET1, CIR, RoTE, NPE, cout du risque, depots et credits, mais ni marge nette d'interet en % des actifs ni ratio de liquidite (LCR) ni taux de couverture des encours douteux",
+  "correction_validee": "Ajouter la marge nette d'interet en % et le LCR, publies chaque trimestre",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

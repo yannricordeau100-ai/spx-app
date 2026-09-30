@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REV_TOT, CSG_REV, EISG_REV, NET_INCOME, OCF_Q, FCF_Q, LT_DEBT_Q, CASH_Q vs RD_EXP, PROD_REV, SVC_REV, EPS_DIL, BUYBACK_Q",
+  "probleme": "Fiche a deux etats : les series principales s arretent au T2 FY2026 (30 avril) tout en etant datees 2026-07-31, alors que la these cite le T3 (CA 1 846 M$) ; les series qui ont le T3 gardent un signal ecrit sur le T2.",
+  "preuve": "REV_TOT | dernier 2026-07-31 | Q2-2026=1717 ; these :: troisieme trimestre ... chiffre d affaires de 1 846 M$ ; PROD_REV | val=1464 (Q3-2026) :: Ventes de produits a 1 339 M$ au T2 FY2026 ; EPS_DIL | val=2.3 :: BPA dilue GAAP de 2,02 $ au T2",
+  "correction_validee": "Ajouter le T3 FY2026 a toutes les series principales et reecrire tous les signaux sur le T3 ; a defaut, dater les series au 30 avril 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GROSS_MARGIN (signal)",
+  "probleme": "Le signal cite 64,6 % un an plus tot alors que la serie donne 62,3 % au T2 2025.",
+  "preuve": "serie: Q2-2025=62.3, Q2-2026=68.6 :: Marge brute de 68,6% au T2 FY2026 contre 64,6% un an plus tot",
+  "correction_validee": "Verifier la serie (GAAP vs non GAAP) et aligner le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OP_MARGIN, GROSS_MARGIN, NET_MARGIN, CSG_MARGIN, EISG_MARGIN, RD_PCT (yoy)",
+  "probleme": "Variations de marges exprimees en pourcentage relatif au lieu de points.",
+  "preuve": "OP_MARGIN | yoy=+50% (15,8 vers 23,7) ; CSG_MARGIN | yoy=+29% ; EISG_MARGIN | yoy=+41% ; GROSS_MARGIN | yoy=+10%",
+  "correction_validee": "yoy en points : OP +7,9 pts, CSG +7,6 pts, EISG +9,7 pts, brute +6,3 pts, nette +0,6 pt, R&D -0,5 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Orders (bookings)",
+  "probleme": "Valeur differente de celle citee dans la these (2 051 contre 2 091 M$), serie sans etiquette, date 2026-09-22 hors cloture.",
+  "preuve": "KPI Orders (bookings) | dernier 2026-09-22 | val=2.051 ; these :: Les commandes atteignent 2 091 M$",
+  "correction_validee": "Verifier le communique du T3 FY2026 et aligner les deux ; etiqueter les trimestres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Carnet cite a 2,4 milliards alors que BACKLOG affiche 2 697 M$ fin FY2025 et que les commandes depassent le CA depuis.",
+  "preuve": "moat :: le carnet atteint 2,4 milliards ; KPI BACKLOG | FY2025=2697",
+  "correction_validee": "Reprendre le carnet du dernier 10-Q ; ajouter une serie trimestrielle de carnet.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "summary",
+  "probleme": "Position cautious et phrase generique contredites par la fiche elle-meme (600 M$ d activite liee a l IA au semestre, centres de donnees IA comme moteur de COMM_REV).",
+  "preuve": "positionnement IA (cautious): mentionne peu l IA dans ses communications officielles ; KPI AI-related business | val=600 ; COMM_REV :: L essor des centres de donnees IA",
+  "correction_validee": "Reclasser en enabler avec un texte sur les equipements de test des reseaux et centres de donnees IA (400G/800G).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Industry-first 448 gig per lane optical, 220 GHz Lightwave component analyzer, Non-terrestrial networks and LEO revenue mix, Record free cash flow, New share repurchase authorization, acquisitions et emission 2030",
+  "probleme": "Caracteristiques produit et faits ponctuels presentes comme KPI ; unite corrompue sur le KPI LEO ; Record free cash flow duplique FCF_Q.",
+  "preuve": "KPI Industry-first 448 gig per lane optical | Gbit/s par voie | val=448 ; KPI Non-terrestrial networks | % du CA (annualise, sous) | val=1 ; KPI Record free cash flow | val=472 ; FCF_Q Q2-2026=472",
+  "correction_validee": "Deplacer vers evenements ou key_facts ; supprimer Record free cash flow.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RECUR_REV, Annual recurring revenue mix, Software and services revenue mix",
+  "probleme": "Trois mesures de recurrence aux valeurs divergentes (16,8 %, 27 %, 36 %) sans definition qui les distingue.",
+  "preuve": "RECUR_REV :: soit 16,8% du chiffre d affaires ; Annual recurring revenue mix | val=27 ; Software and services revenue mix | val=36",
+  "correction_validee": "Definir chaque perimetre dans la description ou ne garder que la part logiciels et services.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AI-related business (signal)",
+  "probleme": "Signal contradictoire et unite bricolee : quasi egal a l exercice precedent et forte croissance dans la meme phrase.",
+  "preuve": "KPI AI-related business | M$ USD (semestre) | val=600 :: 500-600 M$ ... quasi egal a l exercice precedent, forte croissance",
+  "correction_validee": "Signal : 500 a 600 M$ d activite liee a l IA au premier semestre FY2026, soit deja le niveau de tout l exercice 2025 ; unite M$.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dates last_data_date",
+  "probleme": "Dates hors cloture d exercice : 2026-09-04, 2026-09-22, et 2025-12-31 pour un ratio annuel d un exercice clos le 31 octobre.",
+  "preuve": "RD_EXP | dernier 2026-09-04 ; SVC_REV | dernier 2026-09-22 ; CAHIER_BOOK_TO_BILL | dernier 2025-12-31 | FY2025",
+  "correction_validee": "Dater RD_EXP, PROD_REV, SVC_REV, EPS_DIL et BUYBACK_Q au 31 juillet 2026 et CAHIER_BOOK_TO_BILL au 31 octobre 2025.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

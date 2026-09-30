@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "NGS_ARR, NGS ARR, Next-Generation Security ARR, Next-Gen Security ARR, CAHIER_ARR_GROWTH",
+  "probleme": "Cinq versions du même indicateur (ARR sécurité nouvelle génération) avec des valeurs finales contradictoires : 8,1 ; 6,3 ; 8,1 ; 4,48 ; 9,1 Mds $. Un investisseur ne peut pas savoir lequel est juste.",
+  "preuve": "NGS_ARR val=8.1 (2026-04-30) ; NGS ARR val=6.3 (2026-12-31) ; Next-Gen Security ARR val=4.48 yoy +39% ; CAHIER_ARR_GROWTH FY2026=9.1",
+  "correction_validee": "Garder NGS_ARR (trimestriel) et CAHIER_ARR_GROWTH (annuel daté) ; supprimer NGS ARR, Next-Generation Security ARR et Next-Gen Security ARR.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "REVENUE, RPO, NET_INCOME, OCF, FCF, GROSS_MARGIN et toutes les séries trimestrielles",
+  "probleme": "Les séries trimestrielles s'arrêtent au T3 FY2026 (30 avril 2026) alors que la thèse cite l'exercice complet clos le 31 juillet 2026 (FCF 4,1 Mds $, RPO 21,2 Mds $) et que RD_PCT_REV possède déjà un point Q4-FY2026. Le signal RPO parle d'un record à 18,4 Mds $ déjà dépassé.",
+  "preuve": "these: a encaissé 4,1 Mds $ de trésorerie libre ... Le carnet de commandes ... atteint 21,2 Mds $ ; RPO | dernier 2026-04-30 | val=18.4 :: backlog contractuel record ; RD_PCT_REV Q4-FY2026=22.8",
+  "correction_validee": "Ajouter le T4 FY2026 à toutes les séries trimestrielles depuis le 10-K FY2026 et actualiser les signaux RPO et FCF.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Cortex XSIAM ARR, Prisma AIRS Customers, Adjusted FCF Margin Guide, Subscription & Support Revenue, Non-GAAP Operating Margin, Customers > $1M ARR",
+  "probleme": "Bloc de six séries annuelles sans périodes, datées 2026-12-31, aux valeurs arrondies ou lissées (0,05/0,15/0,25/0,35/0,5 ; 0/10/30/100/100 ; 37/38/38/37/37) et qui contredisent les KPI trimestriels (XSIAM 0,5 Mds contre 600 M$ ; Prisma AIRS « 100+ » contre 300 clients). Subscription & Support à 6,533 Mds $ est inférieur au FY2025 réel (environ 7,4 Mds $ = 80,5 % de 9,222).",
+  "preuve": "Cortex XSIAM ARR serie: 0.05, 0.15, 0.25, 0.35, 0.5 ; XSIAM ARR val=600 M $ ; Prisma AIRS Customers val=100+ ; Prisma AIRS customers val=300 ; Subscription & Support Revenue val=6.533",
+  "correction_validee": "Supprimer les six séries.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "BUYBACK",
+  "probleme": "Valeur affichée 1 000 M$ avec yoy +0,0 % alors que le dernier point de la série est 566,7 (FY2025) et que FY2024 et FY2025 portent exactement la même valeur 566,7 : point recopié.",
+  "preuve": "BUYBACK | val=1000 | yoy=+0.0% | serie: ... FY2024=566.7, FY2025=566.7",
+  "correction_validee": "Vérifier les rachats FY2024 et FY2025 dans les tableaux de flux et aligner la valeur affichée sur la série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_annuelle, dette_par_salarie, dette_sur_ca",
+  "probleme": "Dette totale arrêtée en 2023 et dette par salarié arrêtée en 2019 alors que les exercices 2024, 2025 et 2026 sont publiés (remboursement des convertibles en 2025, nouvelle dette pour CyberArk). L'anti-thèse traite du bilan post-acquisition sans que la série de dette le montre.",
+  "preuve": "dette_annuelle | dernier 2023-07-31 | val=1.992 ; dette_par_salarie | n=4 | serie: 2016=131.8 ... 2019=203.9",
+  "correction_validee": "Compléter 2024 à 2026 depuis les 10-K et recalculer dette_par_salarie et dette_sur_ca.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CyberArk termination fee",
+  "probleme": "Indemnité de rupture « due si échec de la transaction » alors que la fiche indique la clôture de CyberArk le 11 février 2026 : fait caduc présenté comme un KPI.",
+  "preuve": "CyberArk termination fee :: Pénalité de $1B due à CyberArk si échec de la transaction ; CyberArk closing cash portion :: Clôture le 11 fév 2026",
+  "correction_validee": "Supprimer ce KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le moat mentionne « la note a été relevée » : référence à une notation interne Mettrik visible par le client (cuisine interne).",
+  "preuve": "moat :: la plateforme unifiée s'étend et la note a été relevée, ce qui renforce les coûts de transfert",
+  "correction_validee": "Retirer « et la note a été relevée ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline / description products",
+  "probleme": "Tagline en anglais non relevée mécaniquement ; la description écrit « VM-Séries » avec un accent parasite sur un nom de produit.",
+  "preuve": "tagline: The cybersecurity partner of choice for enterprises ; products: le pare-feu virtuel VM-Séries",
+  "correction_validee": "Traduire la tagline en français et remplacer « VM-Séries » par « VM-Series ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total customers",
+  "probleme": "Série 30 000, 34 000, 35 500, 70 000, 70 000 sans périodes : un doublement d'un point à l'autre, alors que Palo Alto revendique plus de 70 000 clients depuis plusieurs années. Signal admet une publication sporadique.",
+  "preuve": "Total customers | serie: 30000, 34000, 35500, 70000, 70000 :: publiée de façon sporadique",
+  "correction_validee": "Dater les points ou retirer la série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

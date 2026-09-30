@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Segment Commercial Renewables (cede en 2023) encore present a 10 %, libelles en anglais, exercice non renseigne",
+  "preuve": "revenue_by_segment (None): Electric Utilities and Infrastructure 74 ; Gas Utilities and Infrastructure 16 ; Commercial Renewables 10 ; NET_INCOME_Q.signal mentionne 'cessions Commercial Renewables'",
+  "correction_validee": "Remplacer par la repartition 2025 a deux segments (Electricite ~90 %, Gaz ~10 %) en francais avec l'exercice, chiffres a relever dans le 10-K.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Electricity Sold + Renewables Capacity + Coal Retirements",
+  "probleme": "Series annuelles sans dates, lissees, contredites par les series sourcees",
+  "preuve": "Electricity Sold 275..285 TWh vs ventes_d_electricite_gwh 2025=264008 GWh et somme GWH_SALES 2025=264008 ; Renewables 8, 8.5, 9.5, 10, 11 ; Coal 3.3, 4.2, 5.5, 6.5, 7.5",
+  "correction_validee": "Supprimer Electricity Sold, Renewables Capacity et Coal Retirements.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Five-year capital plan",
+  "probleme": "Doublon exact de CAPEX_PLAN_5Y",
+  "preuve": "Five-year capital plan val=103 n=1 ; CAPEX_PLAN_5Y FY2025=103",
+  "correction_validee": "Supprimer Five-year capital plan.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RATE_BASE_GROWTH.nom + DUK_GEN_MIX_GAS.nom",
+  "probleme": "Noms faux pour ce que mesurent les series",
+  "preuve": "'Croissance de la base d'actifs regulee' en Mds $ avec 93, 99, 106, 114 (niveau, pas croissance) ; 'Mix de production' ne contient que la part du gaz 31.3..33.5",
+  "correction_validee": "Renommer en 'Base d'actifs regulee' et 'Part du gaz dans la production'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ADJ_EPS_ANNUAL (hero)",
+  "probleme": "Le hero s'arrete au T1 2026 alors que le T2 2026 est publie sur la fiche ; identifiant 'ANNUAL' pour une serie trimestrielle",
+  "preuve": "ADJ_EPS_ANNUAL dernier 2026-03-31 ; EPS_DILUTED, REVENUE_Q dernier 2026-06-30",
+  "correction_validee": "Ajouter le BPA ajuste T2 2026 lu dans le communique et renommer l'identifiant en ADJ_EPS_Q.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "label",
+  "probleme": "Etiquette 'absent' alors que le texte decrit des usages IA deployes",
+  "preuve": "positionnement IA (absent): 'Duke Energy integre l'IA... a deploye un outil de productivite generatif'",
+  "correction_validee": "Passer l'etiquette a 'cautious' ou 'integrator'",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these vs att",
+  "probleme": "Incoherence sur l'anciennete du dividende entre these et anti-these",
+  "preuve": "these '2026 marque la centieme annee consecutive' ; att 'dividende verse sans interruption depuis 99 ans'",
+  "correction_validee": "Aligner l'anti-these sur 'verse sans interruption depuis 100 ans'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

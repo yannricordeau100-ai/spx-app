@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "NRY_APCD.history (hero)",
+  "probleme": "Les points Q4 du KPI vedette sont les valeurs annuelles et non trimestrielles : Q4-2024=263,59 et Q4-2025=273,51 sont exactement les valeurs FY2024 et FY2025 de CAHIER_YIELD_APCD, tandis que la série doublon donne 242,66 et 250,09 pour ces trimestres.",
+  "preuve": "NRY_APCD Q4-2024=263.59, Q4-2025=273.51 ; CAHIER_YIELD_APCD FY2024=263.59, FY2025=273.51 ; rendement_net_par_jour_passager_disponib T4 2024=242.66, T4 2025=250.09",
+  "correction_validee": "Remplacer les points Q4 de NRY_APCD par 242,66 (T4-2024) et 250,09 (T4-2025), puis contrôler les Q4 antérieurs.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "LOAD_FACTOR.history",
+  "probleme": "Même défaut probable : Q4-2024=108,5 et Q4-2025=109,7 coïncident exactement avec les valeurs annuelles FY2024 et FY2025 de CAHIER_OCC_NAVIRES.",
+  "preuve": "LOAD_FACTOR Q4-2024=108.5, Q4-2025=109.7 ; CAHIER_OCC_NAVIRES FY2024=108.5, FY2025=109.7",
+  "correction_validee": "Vérifier les taux de remplissage du seul 4e trimestre dans les communiqués T4-2024 et T4-2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rendement_net_par_jour_passager_disponib / Occupancy Rate / CAHIER_OCC_NAVIRES / Vacations delivered",
+  "probleme": "Doublons : le rendement net apparaît trois fois (NRY_APCD, rendement_net_par_jour_passager_disponib, CAHIER_YIELD_APCD), le taux d'occupation trois fois (LOAD_FACTOR, Occupancy Rate sans dates, CAHIER_OCC_NAVIRES), et « Vacations delivered 9,4 M » répète PASSENGERS_CARRIED 9 446 010.",
+  "preuve": "KPI Occupancy Rate serie: 105.6, 108.5, 109.7 ; KPI rendement_net_par_jour_passager_disponib val=288.95 ; KPI Vacations delivered val=9.4",
+  "correction_validee": "Après correction des Q4 de NRY_APCD, supprimer rendement_net_par_jour_passager_disponib, Occupancy Rate et Vacations delivered.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Berths Capacity.history",
+  "probleme": "Série manifestement inventée (90 000, 95 000, 100 000, 105 000, 110 000 par pas de 5 000) contredite par « Total fleet berths 189 420 » sur la même fiche.",
+  "preuve": "KPI Berths Capacity serie: 90000, 95000, 100000, 105000, 110000 ; KPI Total fleet berths val=189420",
+  "correction_validee": "Supprimer Berths Capacity.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Net Cruise Costs ex-fuel per APCD (annuel)",
+  "probleme": "Série annuelle aux valeurs rondes (125, 135, 130, 115, 121) incompatible avec la série trimestrielle : la moyenne 2025 des quatre trimestres est d'environ 127 $, pas 121.",
+  "preuve": "serie annuelle: 125, 135, 130, 115, 121 ; NCC_EX_FUEL_APCD 2025 : 129.54, 126.76, 123.75, 127.57",
+  "correction_validee": "Supprimer la série annuelle Net Cruise Costs ex-fuel per APCD.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Onboard (annuel, Mds $)",
+  "probleme": "Au-delà du saut d'échelle déjà détecté, les derniers points sont faux : 0,98 Mds $ pour 2025 alors que les quatre trimestres ONBOARD_REV totalisent 5 419 M$ (5,4 Mds $).",
+  "preuve": "KPI Onboard serie: ... 0.81, 0.91, 0.98, 0.98 ; ONBOARD_REV 2025 : 1255+1339+1502+1323 = 5419",
+  "correction_validee": "Supprimer la série Onboard annuelle.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "GROSS_YIELD_APCD.name_fr",
+  "probleme": "Nommé « Rendement brut par APCD » mais la valeur (134 $) est inférieure au rendement net (289 $) : il s'agit de la marge brute par APCD (Gross Margin Yield), pas du revenu brut par APCD (environ 356 $).",
+  "preuve": "GROSS_YIELD_APCD val=134.11 ; NRY_APCD val=288.95 ; (3344+1488)/13.57 M APCD = 356 $",
+  "correction_validee": "Renommer « Marge brute par APCD ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Net Yields Growth",
+  "probleme": "Croissance des rendements nets à 3,6 % au dernier point contredite par le yoy du KPI vedette (+1,9 %) ; série sans étiquettes de période.",
+  "preuve": "KPI Net Yields Growth val=3.6 ; NRY_APCD yoy=+1.9%",
+  "correction_validee": "Préciser la base (devise constante) dans le nom ou supprimer la série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Phrase inachevée avec un mot anglais : « avec ambition d'amélioration continue margins ».",
+  "preuve": "positionnement IA : « ...dans les décisions opérationnelles temps réel avec ambition d'amélioration continue margins. »",
+  "correction_validee": "« ...dans les décisions opérationnelles en temps réel, avec pour objectif l'amélioration continue des marges. »",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PASSENGERS_CARRIED.signal",
+  "probleme": "Signal générique et sans accents, étiquette interne plutôt que phrase pour le lecteur.",
+  "preuve": "signal : « Produit phare : Croisieres, passagers transportes »",
+  "correction_validee": "« 9,45 millions de passagers transportés en 2025, +10,3 % sur un an et 44 % au-dessus de 2019. »",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

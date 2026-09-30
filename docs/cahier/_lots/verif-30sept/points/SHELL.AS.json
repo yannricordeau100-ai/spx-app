@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Effectifs Shell",
+  "probleme": "Doublon de EFFECTIFS avec des valeurs contradictoires et un signal faux.",
+  "preuve": "Effectifs Shell : 87 000, 82 000, 87 000, 87 000, 98 000 (fin 2024) ; EFFECTIFS : FY2022 93 000, FY2023 103 000, FY2024 96 000. Signal « Hausse 2024 sur acquisitions » alors que EFFECTIFS baisse de 7 % en 2024.",
+  "correction_validee": "Supprimer Effectifs Shell.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Revenu Shell / Resultat net Shell",
+  "probleme": "Doublons annuels non datés de REV_Q et NI_Q, arrêtés en 2024, textes sans accents.",
+  "preuve": "serie: 180, 261.504, 381.314, 316.62, 284.312 (dernier 2024-12-31) ; « Cyclique petrole/gaz, pic 2022 sur invasion Russie » ; REV_Q et NI_Q vont à 2026-06.",
+  "correction_validee": "Supprimer Revenu Shell et Resultat net Shell.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PRODUCTION",
+  "probleme": "Même indicateur que PROD_Q en annuel, avec une unité anglaise différente.",
+  "preuve": "FY2025 = 2 800 = moyenne de PROD_Q 2025 (2 838, 2 682, 2 821, 2 859) ; unité « kboe / jour » contre « kbep/j ».",
+  "correction_validee": "Passer l'unité en kbep/j, ou supprimer CAHIER_PRODUCTION si l'on ne garde qu'un indicateur de production.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SEG_IG.signal",
+  "probleme": "Signal contredit par les chiffres : le gaz intégré n'est plus le premier contributeur.",
+  "preuve": "« Premier contributeur au résultat de Shell » ; Q2-2026 : Upstream 3 485, Chemicals and Products 2 877, Integrated Gas 2 691 ; Q1-2026 : IG 1 819 < Upstream 2 377 et C&P 1 925.",
+  "correction_validee": "Retirer « Premier contributeur au résultat de Shell » du signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SEG_RES.signal",
+  "probleme": "Signal périmé : le segment est bénéficiaire depuis quatre trimestres.",
+  "preuve": "« souvent déficitaire » ; série Q3-2025 = 92, Q4-2025 = 131, Q1-2026 = 348, Q2-2026 = 79.",
+  "correction_validee": "Réécrire le signal sur la base des quatre derniers trimestres.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "niveau / texte / justification_mettrik",
+  "probleme": "Avantage concurrentiel jugé « Aucun » sans texte, justifié par une phrase de cuisine interne, et en contradiction avec la thèse et l'anti-thèse.",
+  "preuve": "niveau « Aucun », texte null ; « avec trop peu d'indicateurs pour trancher une tendance » alors que la fiche compte plus de 40 KPI ; l'anti-thèse cite « la première franchise mondiale de GNL ».",
+  "correction_validee": "Rédiger un avantage concurrentiel (GNL intégré, négoce) avec un niveau cohérent et une justification sans référence au nombre d'indicateurs.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CCS_Q",
+  "probleme": "KPI arrêté fin 2022 affiché à côté de séries 2026 ; 2023-2024 manquent alors que le signal dit la mesure abandonnée début 2025.",
+  "preuve": "dernier 2022-12-31, val 11 313 ; signal « Shell l'a abandonnée début 2025 ».",
+  "correction_validee": "Compléter 2023-2024 ou retirer le KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RRR / CAHIER_REF_UTIL",
+  "probleme": "Valeurs suspectes (trois années identiques), noms anglais abrégés.",
+  "preuve": "RRR FY2021 = FY2022 = FY2023 = 120 ; noms « Rrr », « Ref Util ».",
+  "correction_validee": "Vérifier chaque année de RRR à la source ; renommer en français complet.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy des ratios (CAHIER_RRR, CAHIER_REF_UTIL, GEARING_Q)",
+  "probleme": "Variations des ratios en pourcentage calculées en relatif au lieu d'être en points.",
+  "preuve": "RRR 85 → -40 affiché « -147.1% » (-125 pts) ; REF_UTIL 85 → 92 « +8.2% » (+7 pts) ; GEARING 19,1 → 18,7 « -2% » (-0,4 pt).",
+  "correction_validee": "Afficher -125 pts, +7 pts et -0,4 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "unités (PROVED_DEV_RES, PROVED_UNDEV_RES, GAS_PROD_TOT, CAHIER_PRODUCTION) + EFFECTIFS",
+  "probleme": "Unités en anglais et incohérentes entre réserves ; EFFECTIFS daté au 30/06/2026 alors que le dernier point est l'exercice 2025.",
+  "preuve": "« MMboe » pour les réserves développées/non développées contre « Mds bep » pour le total ; « MMcf/j » ; EFFECTIFS dernier 2026-06-30, dernier point FY2025 = 85 000.",
+  "correction_validee": "Unités M bep et Mpc/j ; date du dernier point EFFECTIFS au 31/12/2025.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Le rendement du capital employé et les distributions aux actionnaires, au cœur de la thèse, n'ont pas de KPI.",
+  "preuve": "Thèse : « rendement du capital employé ... 12,4 % au deuxième trimestre 2026 ... cible interne de 10 % ... 9,4 % un an plus tôt » ; aucun KPI ROACE ni rachats d'actions.",
+  "correction_validee": "Ajouter ROACE trimestriel et distributions (rachats + dividendes, % du CFFO).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

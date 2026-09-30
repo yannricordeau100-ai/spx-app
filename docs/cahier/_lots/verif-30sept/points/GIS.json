@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "North America Pet Net Sales / North America Pet Operating Profit / Adjusted Operating Profit",
+  "probleme": "Trois series annuelles a l echelle fausse et lissees (valeurs rondes, sans etiquette d annee), contredites par les series trimestrielles de la fiche",
+  "preuve": "Pet Net Sales = 620,625,630,635,640 M$ alors que Pet_net_sales trimestriel FY2026 totalise 2 613 M$ ; Pet Operating Profit = 103 M$ alors que segment_op_profit_Pet FY2026 totalise 499 M$ ; Adjusted Operating Profit = 547 M$ alors que le resultat operationnel des segments FY2026 depasse 3 200 M$",
+  "correction_validee": "Supprimer les trois KPI North America Pet Net Sales, North America Pet Operating Profit et Adjusted Operating Profit.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "North America Retail / International Revenue / Foodservice Revenue / Foodservice Sales / Pet Segment / Pet Segment Sales",
+  "probleme": "Six series annuelles sans etiquette d annee, en doublon des segments trimestriels et avec des montants contredits par la somme des trimestres",
+  "preuve": "North America Retail FY2026 = 11,7 Mds $ alors que NAR_net_sales trimestriel totalise 10,57 Mds $ ; International Revenue = 2,7 Mds $ contre 3,04 Mds $ ; Foodservice Sales = 2,02 contre 2,17 ; Pet Segment = 2,5 et Pet Segment Sales = 2,36 contre 2,61 (deux doublons entre eux)",
+  "correction_validee": "Supprimer les six series annuelles sans etiquette et garder les series trimestrielles par segment.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "organic_growth / Organic net sales growth / Organic Net Sales Growth (Total) / CAHIER_ORGANIC_GROWTH / organic_volume / Organic volume contribution / organic_price_mix / Organic price/mix contribution / NAR_organic_growth / North America Retail organic net sales growth",
+  "probleme": "Croissance organique presente sous 10 noms, avec des valeurs contradictoires pour la meme periode",
+  "preuve": "Q4-FY2026 : Organic net sales growth = 0 (flat), Organic Net Sales Growth (Total) FY2026 = -3, CAHIER_ORGANIC_GROWTH FY2026 = -2 ; la serie Organic net sales growth contient 16 et 11 sans etiquette, valeurs de FY2023 placees au milieu de FY2025-2026",
+  "correction_validee": "Garder organic_growth, organic_volume, organic_price_mix et NAR_organic_growth. Supprimer Organic net sales growth, Organic Net Sales Growth (Total), CAHIER_ORGANIC_GROWTH, Organic volume contribution, Organic price/mix contribution et North America Retail organic net sales growth. Ajouter le T4 FY2026 seulement apres lecture du communique.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NAR_net_sales / NAR_meals_baking / NAR_snacks / International_net_sales / Foodservice_net_sales (signal)",
+  "probleme": "Signaux perimes d un trimestre anterieur, sens de variation contraire a la serie",
+  "preuve": "NAR_snacks yoy +4,9 % mais signal « Snacks en recul de 5 % » ; NAR_meals_baking yoy +5,5 % mais « recul modere de 2 % » ; International yoy +16,2 % mais « Croissance de 2 % » ; Foodservice yoy -0,8 % mais « Croissance de 2 % » ; NAR_net_sales yoy -3,6 % mais « Recul de 5 % »",
+  "correction_validee": "Reecrire les cinq signaux sur le T4 FY2026 avec les variations de la serie : NAR -3,6 %, Meals & Baking +5,5 %, Snacks +4,9 %, International +16,2 %, Foodservice -0,8 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "organic_volume / organic_price_mix / dividends_paid (signal et derniere date)",
+  "probleme": "Signal contredit par la serie ou date de derniere valeur incoherente",
+  "preuve": "organic_volume : « huitieme trimestre consecutif de contribution negative ou nulle » alors que Q2-FY2026 = +1 et Q2-FY2025 = +2 ; organic_price_mix : serie Q4-FY2026 = +2 mais signal « retire 1 point au T3 FY2026 » ; dividends_paid : dernier 2026-05-31 mais la serie s arrete a Q1-FY2026 = 330,9",
+  "correction_validee": "Corriger les deux signaux ; completer dividends_paid Q2 a Q4 FY2026 ou ramener la date au dernier point",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SNACKS_NET_SALES_B / dette_annuelle / fcf_annuel",
+  "probleme": "Doublons annuels de series deja presentes, l un avec un nom faux",
+  "preuve": "SNACKS_NET_SALES_B « Snacks (Nature Valley) » FY2025 = 4187,4 = cat_snacks FY2025 4,19 Mds (la categorie Snacks n est pas Nature Valley seul) et s arrete en FY2025 ; dette_annuelle 2026 = 13,538 = total_debt Q4-FY2026 ; fcf_annuel = somme des fcf trimestriels",
+  "correction_validee": "Supprimer SNACKS_NET_SALES_B. Garder dette_annuelle et fcf_annuel.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_INPUT_INFLATION",
+  "probleme": "Serie lissee invraisemblable (meme valeur 6 annees sur 8), sans source reperable",
+  "preuve": "FY2019=4, FY2020=4, FY2021=4, FY2022=8, FY2023=13, FY2024=4, FY2025=4, FY2026=4",
+  "correction_validee": "Retirer la serie ou la reconstruire depuis les communiques (General Mills publie l inflation des intrants chaque exercice)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cheerios Protein sales / Cumulative cost savings target / Love Made Fresh growth / Love Made Fresh cooler distribution / Whitebridge acquisition / Whitebridge goodwill / US yogurt divestiture / Brazil business sale / Accelerated share repurchase",
+  "probleme": "Neuf « KPI » a un seul point qui sont des evenements ou des objectifs, pas des indicateurs suivis",
+  "preuve": "n=1 pour chacun, ex. « Whitebridge Pet Brands acquisition = 1,4 Mds $ », « Brazil business sale = 800 M BRL », « Cumulative cost savings target through fiscal 2030 = 3000 »",
+  "correction_validee": "Deplacer en stories ou en faits marquants, retirer du bloc KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "segment_op_profit_Intl (signal)",
+  "probleme": "Cuisine interne visible : valeur presentee comme estimee alors que le trimestre est publie",
+  "preuve": "« T4 FY2026 estime a 61 M$, en forte hausse sur un T4 FY2025 deprime (34 M$) »",
+  "correction_validee": "Retirer « estime » et verifier la valeur contre le communique du T4 FY2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Nom du moat = None, tendance « stable » contredite par le texte qui decrit un recul general, et justification par l IA hors sujet pour un groupe alimentaire",
+  "preuve": "« None / tendance stable :: Les ventes, les marges et le resultat reculent, les volumes organiques restent negatifs et l absence de position en intelligence artificielle prive le groupe de relais »",
+  "correction_validee": "Nommer le moat (marques et distribution, comme le dit la description Mettrik), tendance en baisse, retirer la phrase sur l IA",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions_de_marche",
+  "champ": "position de marche 1",
+  "probleme": "Position de marche sans nom ni unite ni part",
+  "preuve": "« position de marche 1: None | taille 68.3 | part None »",
+  "correction_validee": "Renseigner le marche (ex. cereales petit-dejeuner US) et la part, ou retirer le bloc",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Phosphate sales volume, Potash sales volume, Mosaic Fertilizantes sales volume, DAP selling price FOB plant, MOP selling price FOB mine",
+  "probleme": "Cinq doublons arrondis et en retard d un trimestre sur les series sourcees, avec une valeur affichee fausse pour T2-2026.",
+  "preuve": "Phosphate sales volume val=1,9 (T2-2026) alors que phos_vol T2-2026=1,406 (1,936 etait le T1) ; DAP selling price val=668 alors que dap_price T2-2026=773 (668 = T1) ; MOP 265 contre potash_price 275 ; Potash sales volume 2,2 contre 2,019.",
+  "correction_validee": "Retirer les cinq séries.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "phos_gm_pct, potash_gm_pct, gross_margin_pct_q, op_margin_pct_q, net_margin_pct_q, fert_gm_pct (yoy)",
+  "probleme": "Variation annuelle exprimee en pourcentage relatif sur des series en pourcentage, ce qui donne des chiffres absurdes.",
+  "preuve": "phos_gm_pct yoy=-104,5 % (8,8 -> -0,4) ; net_margin_pct_q yoy=-170,8 % ; potash_gm_pct yoy=+8,1 % alors que 29,5 -> 31,9 = +2,4 points.",
+  "correction_validee": "Exprimer le yoy en points pour phos_gm_pct, potash_gm_pct, gross_margin_pct_q, op_margin_pct_q, net_margin_pct_q et fert_gm_pct.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "resume",
+  "probleme": "Le moat cite des chiffres du T1-2026 alors que la these et l anti-these sont au T2-2026 et disent autre chose.",
+  "preuve": "moat : « prix de vente du phosphate et de la potasse remontent de 7 % et 19 % » ; these : « vend son phosphate 13 % plus cher qu'il y a un an » ; KPI phos_price yoy +13,4 %, potash_price yoy +5,4 %.",
+  "correction_validee": "Reecrire le moat sur les chiffres du trimestre clos le 30 juin 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_NUTRIENT_VOLUMES ; CAHIER_REALIZED_PRICE_T",
+  "probleme": "Noms trompeurs : la serie « Volumes vendus par nutriment » est en fait le seul volume phosphate produits finis, et le prix « moyen realise par tonne » est le prix phosphate.",
+  "preuve": "CAHIER_NUTRIENT_VOLUMES FY2025=5,945 = somme phos_vol 2025 (1,498+1,546+1,571+1,33) alors que la potasse seule fait 8,97 Mt ; CAHIER_REALIZED_PRICE_T FY2025=670 = moyenne dap_price 2025 (672).",
+  "correction_validee": "Renommer en « Volume annuel phosphate (produits finis) » et « Prix réalisé DAP phosphate ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "phos_rev_na, phos_rev_intl, potash_rev_na, potash_rev_intl (signal)",
+  "probleme": "Le signal decrit la source au lieu de la donnee.",
+  "preuve": "« Ventilation géographique du CA Phosphate publiée chaque trimestre dans le tableau segment » (quatre fois).",
+  "correction_validee": "Remplacer chaque signal par la valeur T2-2026 et sa variation sur un an (ex. phos_rev_na -25,1 %).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Potash annual production ; Annual capital expenditures",
+  "probleme": "Series annuelles a deux points dont le second est une prevision 2026 presentee comme une donnee au 30 juin 2026.",
+  "preuve": "Potash annual production serie 8,8, 9 (val=9, dernier 2026-06-30) alors que 2026 n est pas clos ; Annual capital expenditures 1,36, 1,2 idem.",
+  "correction_validee": "Retirer Potash annual production et Annual capital expenditures.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA / description Mettrik",
+  "champ": "texte",
+  "probleme": "Mot double et accord fautif.",
+  "preuve": "« Le rapport annuel rapport annuel déposé le 17 mars 2026 » ; description : « du potasse » (la potasse).",
+  "correction_validee": "Écrire « Le rapport annuel déposé le 17 mars 2026 » et « de la potasse ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI n=1 (Ma'aden stake, Marginal sulfur cost, Chinese LFP, Brazil NPK, Cost savings, impairments, Taquari)",
+  "probleme": "Dix entrees a un seul point, dont des donnees macro externes presentees comme KPI de la societe.",
+  "preuve": "« Chinese LFP battery production growth » val=40 n=1 ; « Brazil NPK import dependency » val=85 n=1 ; « Carlsbad mine held-for-sale impairment » 185 n=1.",
+  "correction_validee": "Deplacer en evenements ou stories.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

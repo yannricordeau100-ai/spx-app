@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Deux segments sur quatre, total incompatible avec le chiffre d affaires",
+  "preuve": "slices Real Estate 1687 M$, Private Equity 4665 M$, total 6352 M$ alors que revenue_annuel 2025 = 14,45 Mds $ ; Credit & Insurance (premier segment par encours) et BXMA absents",
+  "correction_validee": "Reconstruire le bloc sur les 4 segments 2025 du 10-K, sinon le masquer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Inflows Total / Net Realizations (frequence None)",
+  "probleme": "Series sans dates contredisant total_inflows et realizations, sauts d echelle",
+  "preuve": "Inflows Total 130, 270, 226, 130, 169 vs total_inflows FY2024=171.5, FY2025=239.4 ; Net Realizations 4030, 3900, 460, 310, 380 M $ (x10 d ecart) avec signal « Recovery transactions »",
+  "correction_validee": "Supprimer Inflows Total et Net Realizations.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "BXCI AUM / BREP-BREIT AUM / BXMA AUM (annuels FY2024)",
+  "probleme": "Doublons perimes des AUM par segment avec descriptions en franglais",
+  "preuve": "dernier 2024-12-31 alors que credit_aum, real_estate_aum vont au T2-2026 ; description « contraction FY24 due a BREIT redemptions et marked-down valuations real estate », « private credit boom »",
+  "correction_validee": "Supprimer BXCI AUM, BREP/BREIT AUM et BXMA AUM.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Gross Inflows (quarter)",
+  "probleme": "Serie sans dates decalee d un trimestre : le dernier point date 30/06/2026 est le T1-2026",
+  "preuve": "les 4 points avant le dernier (61.6, 52.1, 54.2, 71.5) somment 239.4 = total_inflows FY2025 ; les 4 precedents + 34 = 171.5 = FY2024 ; donc 68.5 = T1-2026 et le T2-2026 manque",
+  "correction_validee": "Dater les points et ajouter le T2-2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "fre (nom) et textes these/att",
+  "probleme": "Fee-Related Earnings traduit « Revenus lies aux frais » : c est un resultat, pas un revenu ; le CAHIER_FRE le nomme correctement",
+  "preuve": "« fre | Revenus Lies aux Frais | Fee-Related Earnings » vs « CAHIER_FRE | Resultat lie aux commissions de gestion » ; these « les revenus lies aux frais* atteignent 1,78 Md $ »",
+  "correction_validee": "Renommer fre en « Resultat lie aux commissions (FRE) » et aligner les textes these/anti-these et le glossaire.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_FRE / CAHIER_NET_FLOWS (unite)",
+  "probleme": "Valeurs en dollars bruts a 12 chiffres",
+  "preuve": "« CAHIER_NET_FLOWS | $ | val=192259103000 », « CAHIER_FRE | $ | val=5737537000 »",
+  "correction_validee": "Convertir en Mds $ : collecte nette 192,3 en 2025, FRE 5,74 en 2025, sur toute la serie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Insurance Channel AUM / Infrastructure Platform AUM (yoy)",
+  "probleme": "yoy non deductibles des series sans dates",
+  "preuve": "Insurance Channel 280 vs 4 points avant 230 = +21,7 %, affiche +18% ; BIP 84 vs 64 = +31 % ou vs 77 = +9 %, affiche +41%",
+  "correction_validee": "Dater les points et recalculer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "summary",
+  "probleme": "Phrase generique identique a celle de Citigroup, alors que la fiche revendique le premier investisseur mondial en infrastructure IA",
+  "preuve": "« Integre l IA dans ses produits et operations existants pour ameliorer performance et experience client. » ; KPI Global Data Center Portfolio « Plus gros investisseur mondial en infrastructure IA, 160 G$ de pipeline »",
+  "correction_validee": "Reecrire (data centers, QTS, AirTrunk, credit aux infrastructures IA)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Cuisine interne visible",
+  "preuve": "« la note a ete relevee et un seul risque de gouvernance s aggrave »",
+  "correction_validee": "Retirer « la note a ete relevee » de la justification.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

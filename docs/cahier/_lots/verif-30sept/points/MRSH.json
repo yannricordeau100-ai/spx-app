@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CONSO_REV, RIS_REV, CONS_REV, MARSH_REV, MERCER_REV, RIS_OI, RIS_OI_MARGIN, CONS_OI_MARGIN, OP_INCOME",
+  "probleme": "Neuf KPI a un seul point Q2-2025 alors que le signal cite le T2 2026 ; date 2026-09-02 fausse ; signaux avec cuisine interne et variations fausses",
+  "preuve": "CONSO_REV serie Q2-2025=6974 ; signal 'T2 2026 a 7,4 Mds$ (+19% sur un an)' or 7,4/6,974 = +6 % ; OP_INCOME '1 899 M$ (+16%)' or 1899/1829 = +3,8 % ; 'Serie trimestrielle reconstruite depuis 2019, T4 derive', 'Calcul verbatim'",
+  "correction_validee": "Compléter les séries jusqu'au T2 2026 et réécrire les signaux sans cuisine interne ni variations fausses ; supprimer MARSH_REV, doublon de marsh_risk_revenue_q.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Consulting / Risk & Insurance Services (annuels)",
+  "probleme": "Valeur Conseil fausse au-dela du saut deja detecte : 3,6 Mds alors que le Conseil vaut 26,98 - 17,27 = 9,7 Mds",
+  "preuve": "Consulting val=3.6 Mds $ ; revenue_annuel 2025=26.981 ; Risk & Insurance Services 2025=17.27",
+  "correction_validee": "Supprimer les KPI annuels Consulting et Risk & Insurance Services.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "MERCER_COLLEAGUES / Total colleagues",
+  "probleme": "Effectif Mercer = 95 000, c est l effectif du groupe ; signal 'Donnees statiques' = cuisine ; quatre KPI d effectif au total",
+  "preuve": "MERCER_COLLEAGUES val=95000 signal 'Donnees statiques' ; HEADCOUNT FY2025=95000 ; Total colleagues 95000 ; effectifs_annuels 95000",
+  "correction_validee": "Supprimer MERCER_COLLEAGUES et Total colleagues.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Assets advised globally / Digital infrastructure investment (5y) / Dedicated reinsurance capital / US data center construction insured",
+  "probleme": "Chiffres de marche presentes comme KPI de la societe, avec attribution fausse",
+  "preuve": "'Marsh conseille pres de 17000Md$ ... 1er OCIO' (c est Mercer) ; 'Marsh vise 3000Md$ d investissement mondial en infrastructure numerique' (prevision de marche) ; 'capital dedie a la reassurance ... 660Md$' (estimation sectorielle)",
+  "correction_validee": "Retirer ou reclasser en contexte de marche, corriger Marsh en Mercer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition vide alors que les chiffres existent sur la fiche",
+  "preuve": "Services de risque et d assurance None ; Conseil None ; RIS 2025 = 17.27 sur 26.981",
+  "correction_validee": "Remplir revenue_by_segment exercice 2025 : Services de risque et d'assurance 64 ; Conseil 36.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "header",
+  "champ": "nom de societe",
+  "probleme": "Nom incoherent sur la fiche : en-tete 'Marsh McLennan Companies', description 'Marsh & McLennan', these et anti-these 'Marsh (ex Marsh McLennan)'",
+  "preuve": "# MRSH | Marsh McLennan Companies ; att : 'Marsh (ex Marsh McLennan)' ; description : 'Marsh & McLennan fournit'",
+  "correction_validee": "Aligner sur le nom legal actuel partout",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

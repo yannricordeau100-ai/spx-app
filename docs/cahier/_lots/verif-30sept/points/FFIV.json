@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Software Revenue, Subscriptions Revenue, Systems Revenue, Software Revenue % Total, Recurring Revenue Mix, Security ARR, Customer Count >$1M ARR, Operating Margin (Non-GAAP)",
+  "probleme": "Huit séries sans période, sans signal ou avec des signaux de modèle (« Pivot SaaS réussi. »), dont quatre contredites par les séries sourcées de la fiche.",
+  "preuve": "« Subscriptions Revenue » 2024=1.78 Mds $ alors que sw_rev FY2024 somme 735.6 M$ ; « Software Revenue % Total » 2024=61 % contre 735.6/2816 = 26 % ; « Systems Revenue » 2024=738 contre sys_rev FY2024 somme 537.3 ; « Software Revenue » 2025=712 contre sw_rev FY2025 somme 803 ; « Recurring Revenue Mix » 78 % contre « Recurring revenue as % of total » 70 %",
+  "correction_validee": "Retirer les huit series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "prod_rev, rd_exp, eps_dil, rpo vs sys_rev, sw_rev, svc_rev, ocf, fcf, marges",
+  "probleme": "Quatre séries incluent le T3 FY2026 mais leur signal cite encore le T2 ; les autres séries trimestrielles s arrêtent au T2 alors que le T3 est publié (la thèse cite 841 M$ de trésorerie d exploitation sur neuf mois).",
+  "preuve": "eps_dil serie ...Q3-2026=3.62 :: « 2,58 $ au T2 FY2026 » ; rd_exp Q3-2026=164.661 :: « 151,0 M$ au T2 FY2026 » ; ocf s arrête à Q2-2026=365.9 alors que thèse « 841 M$ ... neuf premiers mois »",
+  "correction_validee": "Ajouter le T3 FY2026 (clos le 30 juin 2026) a toutes les series trimestrielles et reecrire les signaux restes au T2.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dates « dernier » des séries trimestrielles",
+  "probleme": "Les libellés sont des trimestres fiscaux (Q2-2026 = clos le 31 mars 2026, confirmé par les signaux) mais la date affichée est 2026-06-30 ; le T3 est daté 2026-09-02.",
+  "preuve": "cash Q2-2026 dernier 2026-06-30 :: « au 31 mars 2026 » ; prod_rev Q3-2026 dernier 2026-09-02",
+  "correction_validee": "Aligner les dates sur les clôtures fiscales (31 mars, 30 juin).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "sw_sub",
+  "probleme": "Rupture de définition : 2022 inclut visiblement le SaaS (521,8 = total logiciel moins perpétuel), 2023 et après ne comptent que le term-based, d où une chute de 32 % artificielle.",
+  "preuve": "sw_sub FY2022=521.8, FY2023=352.6 ; sw_rev FY2022 somme 665.2 = 521.8 + perp_lic 143.4 ; FY2023 : 352.6 + saas 203.3 + perp 108 = 663.9",
+  "correction_validee": "Recalculer 2021-2022 en term-based seul ou fusionner avec saas_rev.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Full-year operating profit, Term-based subscription revenue, Extra tokens per GPU, EMEA share of total revenue",
+  "probleme": "Point non-GAAP présenté sans le dire avec une marge qui ne colle pas ; doublon de sw_sub ; argument marketing pris pour un KPI ; part EMEA historique contredite par rev_emea.",
+  "preuve": "« Full-year operating profit » 1000 :: « marge de 35,2% » alors que 1000/3088 = 32,4 % et op_margin GAAP ~25 % ; « Term-based subscription revenue » 508 = sw_sub FY2025 507.6 ; « Extra tokens per GPU » 40 % ; EMEA share Q2-2025=23 alors que rev_emea 214/731.1 = 29 %",
+  "correction_validee": "Retirer le doublon et le point marketing ; renommer « Résultat opérationnel non-GAAP » ; recalculer la part EMEA depuis rev_emea.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_BACKLOG, dette_annuelle, dette_par_salarie, dette_sur_ca",
+  "probleme": "Carnet en dollars bruts et arrêté à 2024 ; les trois séries de dette s arrêtent à 2023 avec « -100 % sur un an » alors que 2024 et 2025 valent 0.",
+  "preuve": "CAHIER_BACKLOG unité $ val=85300000 dernier 2024-12-31 ; dette_annuelle serie 2019=0 ... 2023=0 :: « Dette de 0,0 Mds $ en 2023, −100,0 % »",
+  "correction_validee": "Passer CAHIER_BACKLOG en M$ et ajouter FY2025 s il est publie ; prolonger les series de dette a 0 en 2024 et 2025 et retirer le -100 % des signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "positionnement IA, description Mettrik",
+  "probleme": "Texte en franglais et fautif, description Mettrik en jargon anglais.",
+  "preuve": "« F5 identifié l inflection AI inference et l adoption enterprise IA comme drivers structurels » ; « solutions d application delivery, sécurité et multi-cloud networking »",
+  "correction_validee": "Réécrire en français (répartition des applications, inférence IA, sécurité des API).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

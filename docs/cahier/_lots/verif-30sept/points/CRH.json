@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "hero / KPI",
+  "champ": "rev_road_sol_y, rev_road_sol (nom), hero_kpi_rationale",
+  "probleme": "Le KPI heros nomme Road Solutions correspond au segment entier Americas Materials Solutions ; sa justification parle de revenu total ; Essential Materials plus Road Solutions depasse le segment.",
+  "preuve": "rev_road_sol_y FY2024=16,31 = somme rev_road_sol 2024 ; AMS_rev 2024 = 2,2+4,41+5,3+4,27 = 16,18 ; FY2025 17,09 vs AMS 17,03 ; rev_essential_mat 2025 = 10,38 Mds, soit 27,5 Mds cumules pour un segment de 17 Mds. Rationale : Le revenu total represente le principal indicateur de la taille.",
+  "correction_validee": "Vérifier dans le 10-K. En l'état, renommer la série en CA Americas Materials Solutions ou choisir revenue_annuel comme héros, et réécrire la justification.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition Product/Service au lieu des trois segments operationnels attendus par un investisseur.",
+  "preuve": "Slices : Product 28,754 (76,8 %), Service 8,693 (23,2 %) ; fiche : AMS 2025 17,03, ABS 7,12, International 13,29 Mds.",
+  "correction_validee": "Remplacer par Americas Materials Solutions 45 %, International Solutions 36 %, Americas Building Solutions 19 % (exercice 2025, USD).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "asp_agg_ams",
+  "probleme": "Doublon a un point de CAHIER_ASP_TON.",
+  "preuve": "asp_agg_ams FY2025=19 (n=1) ; CAHIER_ASP_TON FY2025=19.",
+  "correction_validee": "Supprimer asp_agg_ams.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total revenues 2025, Total acquisitions completed in 2025, Eco Material Technologies acquisition",
+  "probleme": "Doublons a un point de series existantes.",
+  "preuve": "Total revenues 2025 = 37,4 vs revenue_annuel 2025=37,447 ; Total acquisitions 2025 = 4,1 vs acq_consideration FY2025=4,1 ; Eco Material 2,1 deja dans acq_spend.signal.",
+  "correction_validee": "Supprimer Total revenues 2025, Total acquisitions completed in 2025 et Eco Material Technologies acquisition.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "KPI transcript a un seul point (14 series restantes)",
+  "probleme": "Faits ponctuels ou objectifs presentes comme KPI.",
+  "preuve": "Financial capacity 40 Mds, Axios Water 700, Non-core divestitures 1,9, Acquisition spend YTD 900, Net incremental EBITDA 200, Michigan data center 1,2 Mt, Ten-year EBITDA CAGR 15, TSR CAGR 19, US water ecosystem 100, Energy share 5, Cash returned 9,6, Lawn and garden 1,1, Construction accessories 0,7, Cumulative deals 1250.",
+  "correction_validee": "Basculer en faits marquants ou en these.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "intl_readymix_price.signal",
+  "probleme": "Citation en anglais dans le signal.",
+  "preuve": "Signal : ... dans International Solutions: 'while pricing was 3% ahead'.",
+  "correction_validee": "Retirer la citation « while pricing was 3% ahead » du signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Americas Materials EBITDA Margin, International EBITDA Margin",
+  "probleme": "Series annuelles sans etiquettes, datees du 30 juin 2026, signaux telegraphiques en franglais.",
+  "preuve": "16,4 ... 23,5 (history_periods=None) ; signal : Expansion +700pb sur 5 ans : pricing power materiaux essentiels + integration optimization.",
+  "correction_validee": "Etiqueter FY2021 a FY2025, dater au 31 decembre, reecrire les signaux.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_SHIPMENTS, CAHIER_RESERVE_LIFE (nom, signal)",
+  "probleme": "Noms plus larges que le contenu (une seule ligne de produit, pas de duree de vie) et faute de frappe.",
+  "preuve": "Volumes expedies par ligne de produit : granulats seulement ; Reserves de granulats et duree de vie : reserves en Mt seulement ; signal : secutisant la production future.",
+  "correction_validee": "Renommer en « Granulats expédiés (Amériques) » et « Réserves de granulats », et corriger en « sécurisant ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

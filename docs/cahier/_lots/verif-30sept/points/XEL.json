@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Rate Base, Capital Plan (5Y), Renewable Capacity Owned, Customer Growth (Electric), Wildfire Mitigation Capex, Natural Gas Customers, Electric Sales, Renewable Generation %, Wildfire Mitigation Spend",
+  "probleme": "Séries non datées aux valeurs arrondies, contredites par les séries sourcées, textes en anglais",
+  "preuve": "Rate Base 60 Mds au 2024-12-31 contre rate_base_total 2024=47 ; Electric Sales 92 TWh +2 % contre ELEC_SALES_MWH 109 401 GWh -2,6 % ; Capital Plan 45 contre plan 60 ; Renewable Capacity Owned 10 GW contre éolien détenu 4,5 GW ; deux séries incendies 750 M$ et 0,4 Md$ ; « Critical regulatory KPI »",
+  "correction_validee": "Supprimer les neuf entrees.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "capex_plan_2026_2030, capex_q.signal",
+  "probleme": "Plan d'investissement contradictoire sur la fiche",
+  "preuve": "capex_plan_2026_2030 val=29 Mds et capex_q « plan 2026-2030 de 29 Mds$ » ; Five-year capital investment plan 60 Mds ; these « plan d'investissement de 60 Mds $ sur 2026-2030 »",
+  "correction_validee": "Aligner capex_plan_2026_2030 et le signal de capex_q sur 60 Mds$, et reconstruire la serie a partir des plans quinquennaux publies.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel, dette_sur_ca",
+  "probleme": "Chiffre d'affaires annuel arrêté en 2018 alors que la fiche a des trimestres jusqu'en 2026",
+  "preuve": "revenue_annuel dernier 2018-12-31, n=3, « Ventes de 11,5 Mds $ en 2018 » ; revenue_total_q 2025 = 3906+3287+3915+3561 = 14 669 M$",
+  "correction_validee": "Completer revenue_annuel de 2019 a 2025 et recalculer dette_sur_ca.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ROE_GAP",
+  "probleme": "Écart de rendement quasi nul contredit par l'anti-thèse ; variation absurde",
+  "preuve": "FY2025=-0.23 pt ; att : PSCo « 5,66% contre un rendement autorisé de 9,3% » (écart -3,6 pts) ; yoy=-1250.0%",
+  "correction_validee": "Préciser le périmètre (groupe ou filiale), ajouter l'écart PSCo, exprimer la variation en points",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "nsp_mn_rate_base, psco_rate_base, sps_rate_base (signaux et noms)",
+  "probleme": "Signal périmé et incohérent, mentions « (est.) », anglicisme",
+  "preuve": "« dossier tarifaire électrique 2024 demandant +365M$ fondé sur 13,2 Md$ base 2025 » alors que la valeur est 19,4 ; « ROE GAAP 5,66% vs ongoing 7,55% »",
+  "correction_validee": "Réécrire sur la décision 2026 (ROE 9,60 %) et traduire « ongoing »",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ELEC_SALES_MWH",
+  "probleme": "Nom en MWh pour une unité en GWh ; signal de recul contredit par la demande corrigée du climat",
+  "preuve": "unité GWh ; « en recul pour la troisième année : le volume distribué s'érode » alors que Weather-normalized retail sales +3.5, +2.2, +1.4, +2.8 % et kwh_per_retail_customer +1,1 %",
+  "correction_validee": "Renommer « Ventes d'électricité (GWh) » et préciser si le total inclut les ventes de gros",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CUSTOMER_RELIABILITY",
+  "probleme": "Nom promettant la fiabilité du service alors que la série ne compte que les clients ; indicateur de fiabilité (SAIDI) absent",
+  "preuve": "« Clients desservis et fiabilité du service » unité M clients val=3.895",
+  "correction_validee": "Renommer « Nombre de clients » et ajouter la durée moyenne de coupure par client (SAIDI)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Texte de fabrication interne, sans analyse",
+  "preuve": "« mais les séries de revenus sont trop hétérogènes pour lire une inflexion nette »",
+  "correction_validee": "Réécrire sur la base régulée (55,8 Mds$) et le ROE autorisé",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dep_amort_q",
+  "probleme": "Baisse des amortissements au T2 2026 incompatible avec la hausse des actifs et le signal",
+  "preuve": "662 contre 768 au T1 et 722 un an avant, alors que ppe_net_q +14,4 % ; signal « reflet direct des mises en service d'actifs »",
+  "correction_validee": "Vérifier la dérivation du T2 (cumul semestriel moins T1)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Marshall Wildfire settlement charge, operating_margin_q, net_margin_q, electric_margin_pct_q",
+  "probleme": "Valeur différente du signal ; variations de marges en % relatif",
+  "preuve": "val=300 mais signal « charge non récurrente de 287 M$ » ; operating_margin_q yoy=+28.4% pour +5 pts",
+  "correction_validee": "Mettre 287 M$ et afficher en points : operationnelle +5,0, nette +5,3, electrique +7,2.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment, tagline",
+  "probleme": "Exercice absent, libellés anglais ; slogan faux (Xcel n'opère qu'aux États-Unis)",
+  "preuve": "(None) « Regulated Electric ; Regulated Natural Gas ; All Other » ; « serving millions across North America »",
+  "correction_validee": "Dater la repartition, traduire (Electricite reglementee, Gaz naturel reglemente, Autres) et ecrire « aux Etats-Unis » dans le slogan.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "us_rev / canada_rev",
+  "probleme": "Valeurs trimestrielles negatives impossibles pour un chiffre d'affaires, erreur de derivation du T4",
+  "preuve": "us_rev Q4-2024=-2398.1, Q4-2023=-2565.6, Q4-2022=-2974 ; canada_rev Q4-2024=-261.8, Q4-2023=-185.4, Q4-2022=-354",
+  "correction_validee": "Recalculer chaque T4 comme annuel moins 9 mois et contrôler Q4-2025 (2169,9 et 477,5) de la même manière.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "ecom_rev / americas_rev / china_rev / womens_rev / mens_rev / accessories_rev / store_channel_rev / other_channel_rev / inventory / eps_diluted / buybacks / shares_repurchased",
+  "probleme": "Points Q2-2026 ajoutes le 5 sept. mais yoy et signaux restes sur le T1 : le yoy affiche est faux pour le dernier point",
+  "preuve": "china_rev Q2-2026=407.095 contre Q2-2025=392.9 (+3,6 %) avec yoy=+30.0% et signal 478 M$ au T1 2026 (+30%) ; womens_rev Q2-2026=1488.241 contre 1547.3 (-3,8 %) avec yoy=+4.4% ; eps_diluted val 2.92 signal 1,69 $ au T1 2026",
+  "correction_validee": "Recalculer le yoy sur Q2-2026 contre Q2-2025 et réécrire les signaux des KPI concernés, puis ajouter Q2-2026 à comp_sales, gross_margin, op_margin, ocf, fcf, us_rev et canada_rev.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Repartition geographique incompatible avec les KPI de la fiche et libelles en anglais",
+  "preuve": "CHINA 28.4 ; UNITED STATES 48.5 alors que china_rev FY2025 ~1 755 M$ = 16,6 % de 10 588 et us_rev ~6 328 M$ = 59,8 %",
+  "correction_validee": "Recalculer la répartition sur le CA 2025 publié par pays, en libellés français (États-Unis, Canada, Chine continentale, Hong Kong, Taïwan et Macao, Mexique, Reste du monde).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / gouvernance",
+  "champ": "att / dirigeant",
+  "probleme": "L'anti-these dit le poste de DG vacant alors que la fiche affiche un dirigeant",
+  "preuve": "att : un poste de Directeur Général vacant depuis fin 2025 ; gouvernance : dirigeant Calvin McDonald",
+  "correction_validee": "Mettre à jour la gouvernance (départ de Calvin McDonald, direction par intérim) en cohérence avec l'anti-thèse.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_STORES / CAHIER_COMP_SALES / CAHIER_ORGANIC_CC",
+  "probleme": "Etiquettes d'exercice decalees d'un an par rapport au reste de la fiche et series trouees",
+  "preuve": "CAHIER_STORES FY2026=811 contre store_count Q4-2025=811 et NET_NEW_STORES FY2025 ; CAHIER_COMP_SALES sans FY2021 ni FY2022 ; CAHIER_ORGANIC_CC yoy=-54.5% sur une serie en %",
+  "correction_validee": "Realigner les annees, combler les trous, yoy en points",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "sales_per_sqft.unit",
+  "probleme": "Unite sans devise",
+  "preuve": "unite : par pi² ; val=1426",
+  "correction_validee": "Unité « $ par pi² ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks.title",
+  "probleme": "Titres de risques fragments de phrases et faute d'accord",
+  "preuve": "Une telle perturbation pourrait affecter de façon significative... ; Toute perturbation qui en résulterait... ; Un mauvais prévision de la demande",
+  "correction_validee": "Reecrire en intitules courts (Chaine d'approvisionnement, Prevision de la demande, etc.)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Great Wall of China yoga activation / 100th EMEA store milestone / Amended revolving credit facility / New share repurchase authorization",
+  "probleme": "Evenements marketing ou financiers ponctuels presentes comme KPI",
+  "preuve": "Great Wall of China yoga activation unite invités (+70 ambassadeurs) val=2000 ; 100th EMEA store milestone unite magasins (Varsovie)",
+  "correction_validee": "Deplacer en stories ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "fcf.signal",
+  "probleme": "Faute qui change le sens",
+  "preuve": "dérive du flux opérationnel moins les investissements corporels",
+  "correction_validee": "Écrire « dérivé du flux opérationnel moins les investissements corporels ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

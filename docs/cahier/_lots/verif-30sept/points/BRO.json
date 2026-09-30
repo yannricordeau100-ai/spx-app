@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Organic Revenue Growth, Total Organic Growth",
+  "probleme": "Serie de croissance organique sans dates, lisse et contredite par les KPI sources, en tete du bloc industrie",
+  "preuve": "'Organic Revenue Growth' [9, 9.5, 10, 10, 10.5] val 10,5 date 2026-09-29, description '2 chiffres consecutifs sur 5 ans, hard market P&C' ; CAHIER_ORGANIC_GROWTH FY2025=2,8 ; organic_rev_growth_total T2-2026=-0,7 ; att 'croissance organique consolidee negative' ; 'Total Organic Growth' [10.6, 10.4, 11.2, 13, 10] 'Deceleration moderee'",
+  "correction_validee": "Supprimer 'Organic Revenue Growth' et 'Total Organic Growth' et mettre CAHIER_ORGANIC_GROWTH dans le bloc industrie.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Retail Segment Revenue, CoreCommRetail, TotCommRetail, EBITDAC Margin, Acquisitions Count, Acquisitions Annoncees, National Programs Revenue, Wholesale Brokerage Revenue",
+  "probleme": "Bloc de KPI annuels sans dates, contradictoires entre eux et avec les series sourcees, segments disparus",
+  "preuve": "'Retail Segment Revenue' val 3,386 mais serie [1.7, 2, 2.1, 2.3, 2.4] ; 'EBITDAC Margin' 36,5 vs CAHIER_ADJ_MARGIN 35,9 ; acquisitions 2025 : 36 ('Acquisitions Count'), 33 ('Annoncees'), 43 (trimestriel et 'Record M&A year') ; National Programs / Wholesale n'existent plus (segments 2025 = Retail, Specialty Distribution) ; signaux 'Specialites niches fortes', 'Hard market E&S', 'Selectivite M&A'",
+  "correction_validee": "Supprimer les huit KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux de ~25 KPI trimestriels",
+  "probleme": "Signaux en anglais ou franglais, avec mentions de notes des comptes",
+  "preuve": "'Cash and cash equivalents totaled $918 million at June 30, 2026.' ; 'As of December 31, 2025, our Retail segment employed 14,531 employees.' ; 'Employee compensation and benefits de 838 M$' ; 'Purchase of treasury stock de 250 M$' ; 'Payments for businesses acquired, net of cash acquired de 13 M$' ; '(note Revenues)', '(note Segment Information)', '(note Business Combinations)', '(bilan)'",
+  "correction_validee": "Réécrire ces signaux en français sans mention de note ni de document.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux Accession Acquisition, Common Stock Issued, Follow-on Offering, Senior Notes, Net Proceeds LT Debt",
+  "probleme": "Erreur x1000 dans cinq signaux (M$ au lieu de Mds $)",
+  "preuve": "'cloturee le 1er aout 2025 pour 7,46 M$ en cash' (val 7 463 M$) ; '1,04 M$ d'actions ordinaires emises' ; 'generant 4,32 M$ nets' ; '4,20 M$ d'obligations senior' ; '3,78 M$ de produits nets de dette long terme'",
+  "correction_validee": "Remplacer 'M$' par 'Mds $' dans ces cinq signaux.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "intangibles_net",
+  "probleme": "Point Q1-2025 aberrant (copie de Q4-2025), yoy fausse",
+  "preuve": "Q4-2024=1 814, Q1-2025=4 906, Q2-2025=1 866, Q4-2025=4 906 ; yoy '+144.9%' calcule sur ce point",
+  "correction_validee": "Retirer ou réextraire le point Q1-2025 ; le yoy peut rester tel quel.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "employees_total, effectifs_annuels, Total teammate headcount",
+  "probleme": "Trois effectifs 2025 differents",
+  "preuve": "employees_total 22 436 (Retail 14 531 + Specialty 7 905) ; effectifs_annuels 22 888 ; 'Total teammate headcount' val 22 888 / serie [23000] date 2026-09-29",
+  "correction_validee": "Supprimer 'Total teammate headcount' et renommer employees_total 'Effectifs des segments (hors siège)'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Goodwill on Balance Sheet, Total Revenue Milestone, Net Income Milestone, 32nd consecutive annual dividend increase, Record M&A year: 43 acquisitions",
+  "probleme": "Jalons de presentation et doublons presentes comme KPI, noms contenant la valeur",
+  "preuve": "'Goodwill on Balance Sheet' 15 Mds = goodwill 15 146 M$ ; 'Total Revenue Milestone' 5,9 = revenue_annuel 5,902 ; 'Net Income Milestone' 1 ; '32e hausse annuelle consecutive du dividende' val 32 unite 'annees consecutives' ; nom 'Annee record M&A: 43 acquisitions'",
+  "correction_validee": "Supprimer 'Goodwill on Balance Sheet', 'Total Revenue Milestone' et 'Record M&A year' ; supprimer aussi 'Net Income Milestone' et la '32e hausse du dividende', ou les verser dans les signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted, specialty_ibt, specialty_ibt_margin, specialty_ebitdac_margin_adj, buybacks",
+  "probleme": "Series sans aucun point Q4 depuis 2021, et BPA T1-2026 incompatible avec le resultat net",
+  "preuve": "eps_diluted periodes Q1/Q2/Q3 seulement depuis Q1-2022 ; Q1-2026=1,06 $ pour un resultat net de 427 M$ et ~340 M d'actions (attendu ~1,25 $) alors que Q2-2026 289 M$ -> 0,84 $ est coherent ; specialty_ibt sans Q4 ; buybacks : 2024 et T3/T4-2025 absents",
+  "correction_validee": "Completer les Q4 depuis les 10-K et verifier le BPA T1-2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat contredit par l'anti-these et jargon interne",
+  "preuve": "'tendance baisse :: Commissions ... en forte progression, integration d'acquisitions reussie, malgre une note abaissee' ; att : 'croissance organique negative', 'cout de l'integration de l'acquisition Accession'",
+  "correction_validee": "Reecrire le moat sans 'note', coherent avec l'organique negatif",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "att.accroche",
+  "probleme": "Comparaison trompeuse : la tresorerie nette du T2-2025 etait le produit de l'augmentation de capital en attente de l'acquisition",
+  "preuve": "'bascule ... d'une tresorerie nette de 1 348 M$ a une dette nette de 6 841 M$ en un an' ; net_debt Q1-2025=3 137, cash Q2-2025=8 893 (offre de juin 2025), acquisition le 1er aout 2025",
+  "correction_validee": "Comparer a la dette nette d'avant l'operation (3,1 Mds $ au T1-2025)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_income.signal, governance.ceo_name, CAHIER_ORGANIC_GROWTH.yoy, CAHIER_ADJ_MARGIN.yoy",
+  "probleme": "Petites incoherences visibles",
+  "preuve": "signal 'Resultat net de 288 M$' vs val 289 ; dirigeant 'Mr. J. Powell Brown' ; 10,4 -> 2,8 affiche '-73.1%' ; 35,2 -> 35,9 affiche '+2.0%'",
+  "correction_validee": "Signal '289 M$', dirigeant 'J. Powell Brown', yoy '-7,6 pt' et '+0,7 pt'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "hero",
+  "champ": "hero_kpi, ai_positioning.level",
+  "probleme": "Hero = revenus totaux (donnee de base) ; niveau IA 'absent' contredit par le texte et un KPI",
+  "preuve": "hero: revenue_total ; positionnement IA (absent) : 'utilise l'intelligence artificielle et l'automatisation robotisee' ; KPI 'Labor hours saved annually via AI' 50 000",
+  "correction_validee": "Promouvoir CAHIER_ORGANIC_GROWTH ou ebitdac_margin_adj en hero ; passer le niveau IA a 'peu documente'",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

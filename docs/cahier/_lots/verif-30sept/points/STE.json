@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "FCF.signal",
+  "probleme": "Explication fausse : le capex a baissé, c'est la trésorerie d'exploitation qui recule",
+  "preuve": "« sa baisse sur un an vient d'un capex plus élevé » ; Capex 87,5 contre 93,6 (-6,5 %) ; OCF 367,1 contre 420,0 (-12,6 %), à cause de la hausse des stocks",
+  "correction_validee": "Attribuer la baisse du FCF au recul de la trésorerie d'exploitation, pénalisée par la hausse des stocks, le capex ayant baissé.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Backlog (7 séries)",
+  "probleme": "Sept KPI de carnet de commandes redondants et contradictoires",
+  "preuve": "HC Backlog 444, LS Backlog 109,9, Backlog 553,9 ; CAHIER_ORDER_BACKLOG 392,1 (= HC Backlog Q4-2026 mais nommé carnet total) ; Healthcare capital equipment backlog 400 arrondi et périmé ; LS capital equipment backlog 100 ; Capital Equipment Backlog 452,9 avec le signal « au 31 mars 2025 »",
+  "correction_validee": "Garder HC, LS et Backlog total trimestriels, et supprimer Healthcare capital equipment backlog, Life Sciences capital equipment backlog, Capital Equipment Backlog et CAHIER_ORDER_BACKLOG (ou le renommer carnet Healthcare annuel).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total Revenue / Constant currency organic revenue growth / Quarterly dividend per share",
+  "probleme": "Doublons avec périodes mal étiquetées et valeurs périmées",
+  "preuve": "Total Revenue : étiquettes « 2024-Q1=1419.39 ... 2026-Q2=1492.7 » incohérentes avec CA, signal « 5,46 Mds $ (exercice 2025) » alors que FY2026 = 5,936, description sans accents (« Revenu consolide ... boost par integration Cantel ») ; organique : dernier 5 contre Organic 6,2 ; dividende trimestriel 0,57 contre DPS 0,63",
+  "correction_validee": "Supprimer Total Revenue, Constant currency organic revenue growth et Quarterly dividend per share.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.titre / these.texte",
+  "probleme": "Chiffres de la thèse différents de ceux de la fiche",
+  "preuve": "these : « 983 M$ de trésorerie libre » contre fcf_annuel FY2026 = 972 M$ ; « Plus de huit dollars sur dix sont récurrents » contre CAHIER_RECURRING_MIX FY2026 = 78,9 % ; « la marge brute dépasse 45 % » contre FY2026 trimestriel 45,1 / 44,2 / 43,8 / 43,9",
+  "correction_validee": "Aligner les chiffres (972 M$, près de 79 %, environ 44 %)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Moat générique avec des chiffres non retrouvés sur la fiche",
+  "preuve": "« Services en hausse de 11 %, produits de 7 % et croissance organique de 5 % » contre Serv Rev +7,8 %, Cons Rev +9,0 %, Organic 6,2 % ; aucun avantage concurrentiel nommé",
+  "correction_validee": "Réécrire (base installée, consommables captifs, réseau AST de plus de 60 sites) avec les bons chiffres",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AST Revenue / Capex AST (annuels)",
+  "probleme": "Séries annuelles sans période qui s'arrêtent à l'exercice 2025 et contiennent des zéros factices",
+  "preuve": "AST Revenue = 1 038,6 alors que la somme FY2026 d'AST Rev = 1 138,5 ; Capex AST série 0, 0, 253,9, 237, 227,2 alors que FY2026 = 238,4",
+  "correction_validee": "Supprimer AST Revenue et Capex AST annuels, couverts par AST Rev et AST Capex trimestriels.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Healthcare segment exceeds $4B ... / Over 80 M&A transactions / New sterility assurance plant / Adjusted EPS 11% CAGR / 20th consecutive year",
+  "probleme": "Jalons et anecdotes à un point présentés comme des KPI, avec des noms anglais",
+  "preuve": "« Plus de 80 opérations ... sur la carrière du DAF sortant » ; « Healthcare segment exceeds $4B revenue and $1B operating income » (n = 1)",
+  "correction_validee": "Sortir ces éléments des KPI",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORG_GROWTH_FRANCHISE",
+  "probleme": "Nom trompeur (aucune ventilation par franchise) et doublon annuel d'Organic, en désaccord avec lui",
+  "preuve": "FY2026 = 7,3 contre la moyenne trimestrielle FY2026 d'Organic (7,8 ; 8,9 ; 7,8 ; 7) ≈ 7,9 ; yoy = +17,7 % au lieu de points",
+  "correction_validee": "Supprimer ou renommer « Croissance organique annuelle » et aligner",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography.labels",
+  "probleme": "Libellés en anglais et en majuscules",
+  "preuve": "« Other foreign locations 25.2 ; IRELAND 1.8 »",
+  "correction_validee": "Remplacer par « Autres pays » et « Irlande ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

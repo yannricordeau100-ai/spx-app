@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition par segment tirée de l'exercice 2020 : le total vaut exactement le CA 2020 et la part hypothécaire est sous-estimée de moitié.",
+  "preuve": "slices Exchanges 5,839 / FIDS 1,81 / Mortgage 0,595, total 8,24 Mds $ = revenue_annuel 2020 (8,244). En 2025, somme des trimestres : Exchanges 8 120, FIDS 2 419, Mortgage 2 101 sur 12 640 M$, soit 64 / 19 / 17 % et non 70,8 / 22 / 7,2.",
+  "correction_validee": "Remplacer par la répartition 2025 : Exchanges 64,2 %, FIDS 19,1 %, Mortgage Technology 16,6 % (12 640 M$), avec la mention exercice 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Avg Daily Volume",
+  "probleme": "Doublon du volume quotidien moyen annuel, avec des valeurs contredisant CAHIER_ADV.",
+  "preuve": "Avg Daily Volume 10,5 M contrats (+25 %), série 6,1 / 6,8 / 7,5 / 8,4 / 10,5 sans années ; CAHIER_ADV FY2025 = 9 261 000 (+13,9 %), FY2024 8 132 000. 2,3 Mds de contrats en 2025 / environ 252 séances = 9,1 M.",
+  "correction_validee": "Supprimer Avg Daily Volume et garder CAHIER_ADV.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Data Services ASV / Annual Subscription Value",
+  "probleme": "Deux valeurs incompatibles pour la valeur annuelle des abonnements de données.",
+  "preuve": "Data Services ASV : 2 480 M$ (+5 %) ; Annual Subscription Value : 1,6 Md$ (+5 %), même libellé « abonnements data ».",
+  "correction_validee": "Vérifier à la source si l'ASV publié couvre FIDS seul ou le total, n'en garder qu'une et la dater.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Employees",
+  "probleme": "Troisième série d'effectifs, avec des chiffres différents des deux autres.",
+  "preuve": "Employees 12 725 (8 900, 9 300, 12 700, 12 800, 13 000) contre Effectifs et effectifs_annuels 12 844 en 2025 (13 222 en 2023).",
+  "correction_validee": "Supprimer Employees.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Fixed Income & Data",
+  "probleme": "Doublon annuel du CA FIDS, sans années et avec une valeur 2025 qui ne correspond pas à la somme des trimestres.",
+  "preuve": "2,36 Mds $ contre 596 + 597 + 618 + 608 = 2 419 M$ en 2025 (FIDS Revenue). Le signal est vide.",
+  "correction_validee": "Supprimer Fixed Income & Data ; la série trimestrielle FIDS Revenue suffit.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Exchanges Net Revenue, Mortgage Technology Revenue, Data Services ASV, Mortgage Technology Recurring Mix",
+  "probleme": "Bloc annuel sans années, signaux télégraphiques en franglais, valeurs douteuses.",
+  "preuve": "« Pivot recurring quasi-achevé : 67% recurring », « retention client > 95% ». Mortgage Technology Revenue : 1 418 puis 1 067 puis 2 022, soit une baisse l'année du rachat de Black Knight. Une part récurrente de 67 % paraît basse pour un segment dominé par la gestion de prêts.",
+  "correction_validee": "Dater les séries, revérifier 2023 et la part récurrente à la source, réécrire les signaux en français.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total futures and options open interest / Total average daily volume / CASH_MKT_SHARE",
+  "probleme": "Noms faux ou vagues : deux KPI appelés position ouverte et volume sont en réalité des taux de croissance, et « Part de marché » ne dit pas de quel marché il s'agit.",
+  "preuve": "« Position ouverte totale futures et options », unité %, valeur 23 ; « Volume quotidien moyen total », unité %, valeur 45 ; CASH_MKT_SHARE nommé « Part de marché ».",
+  "correction_validee": "Renommer en « Croissance de la position ouverte totale », « Croissance du volume quotidien moyen total » et « Part de marché NYSE des actions américaines ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI datés du 2026-03-11 (CDS record, API servicing, HOU, Encompass, IPO NYSE, F&O annuels)",
+  "probleme": "Mauvaise période : des chiffres annuels 2025 et des records de mars sont datés du 11 mars 2026 et classés en trimestriel.",
+  "preuve": "« record ... le 20 mars » daté du 2026-03-11 ; « 90 deals Encompass signés en 2025 » et « 25 Md$ ... en 2025 » en fréquence quarter.",
+  "correction_validee": "Rattacher chaque point à son vrai exercice ou mois, ou retirer les records ponctuels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Long-Term Debt.signal",
+  "probleme": "Le signal parle de désendettement alors que la série monte.",
+  "preuve": "« cette dette traduit l'effort de désendettement » ; série 17 358 (T2 2025) puis 18 628 (T2 2026), soit +7,3 %.",
+  "correction_validee": "Réécrire : la dette à long terme remonte avec les refinancements, la dette totale baisse (20,7 Mds $, -11,6 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / these / att",
+  "champ": "signaux Operating Income, OCF, FCF, EPS, Net Income, Exchanges Revenue, FIDS Op Income ; these.resume, att.resume",
+  "probleme": "Cuisine interne et méta-texte visibles, plus une erreur de traduction.",
+  "preuve": "« somme des segments vérifiée: 1 078 + 268 + 45 = 1 391 », « trimestre dérivé du cumul 6 mois publié », « valeur publiée du trimestre », « tableaux segments des rapport trimestriel », « La thèse ne conteste aucun fait de l'anti-thèse », « Cette thèse applique la grille de Charlie Munger ». « données fixes » est employé pour Fixed Income.",
+  "correction_validee": "Retirer les incises de méthode des signaux Operating Income, OCF, FCF, EPS, Net Income, Exchanges Revenue et FIDS Op Income, remplacer « données fixes » par « données obligataires » et garder le préambule Munger.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description.products",
+  "probleme": "Description antérieure à 2023 : elle cite Ellie Mae et MERS mais pas Black Knight, pourtant au cœur de l'anti-thèse.",
+  "preuve": "« plateformes de prêts hypothécaires Ellie Mae et MERS » ; l'anti-thèse mentionne 11,4 Mds $ payés pour Black Knight et 17,6 Mds $ de survaleur.",
+  "correction_validee": "Ajouter Black Knight (gestion de prêts MSP, données immobilières) et Encompass.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Le revenu par contrat trimestriel (énergie et taux) manque, alors que la thèse s'appuie dessus.",
+  "preuve": "La thèse cite « Le revenu encaissé sur chaque contrat ... a monté de 10 % » ; seul CAHIER_RPC existe, en annuel (1,29 $ en 2025).",
+  "correction_validee": "Ajouter le revenu par contrat trimestriel par classe d'actifs.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

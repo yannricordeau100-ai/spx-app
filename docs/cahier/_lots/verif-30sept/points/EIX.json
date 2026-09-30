@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "SCE Rate Base / CAHIER_RATE_BASE_GROWTH / rate_base_sce / Rate Base / Rate Base 2028 cible",
+  "probleme": "Cinq series pour la meme base tarifaire, avec des valeurs contradictoires : la serie sans etiquettes « Rate Base » donne 50 pour la derniere annee alors que les deux series sourcees donnent 48,2 pour 2025 ; « Rate Base 2028 cible » presente une trajectoire de plan (42,8 en 2024) comme un historique alors que le reel 2024 est 45,7.",
+  "preuve": "Rate Base serie: 37, 40, 43, 47, 50 (dernier 2026-06-30) ; rate_base_sce 2025=48.2 ; CAHIER_RATE_BASE_GROWTH FY2025=48.206 ; Rate Base 2028 cible serie: 42.8, 49.4, 53, 56.8, 60.6 ; SCE Rate Base Q3-2025=47.4",
+  "correction_validee": "Garder rate_base_sce (ou CAHIER_RATE_BASE_GROWTH) comme seule serie annuelle, supprimer « Rate Base » et retirer « Rate Base 2028 cible » ou la presenter comme projection 2024-2028 avec annees explicites.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Clients SCE / Customer Accounts SCE / SCE Customers",
+  "probleme": "Trois series pour le nombre de clients, avec des valeurs incompatibles entre elles (5,39 M sourcé contre 5,0 M et 5,1 M lisses).",
+  "preuve": "Clients SCE FY2025=5389 milliers ; Customer Accounts SCE serie 5,5,5,5,5 (M) ; SCE Customers serie 5, 5.05, 5.05, 5.1, 5.1 (M unites)",
+  "correction_validee": "Supprimer « Customer Accounts SCE » et « SCE Customers », garder « Clients SCE ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Electricity_Sold_Residential, Electricity_Sold_Commercial, CRR_Volume_Trading, Fin_Toll_Arrangements, Power_Purchase_Volume, Wildfire_Insurance_Fund, Electricity Sold, Renewables Procurement, Wildfire Mitigation Capex",
+  "probleme": "Neuf series annuelles sans etiquette d'annee, a progression lissee, signal reduit a une etiquette interne (volume_opérationnel, gestion_réseau, risque_opérationnel) ou vide : elles ont toutes les traits de chiffres inventes. « Wildfire_Insurance_Fund » (2,15 Mds, unite USD en chiffres bruts) contredit les deux autres KPI sur le meme fonds (21 et 22 Mds).",
+  "preuve": "Electricity_Sold_Residential serie: 44200, 44500, 44800, 44700, 45247 :: volume_opérationnel ; Wildfire_Insurance_Fund serie: 1800000000 ... 2150000000 :: risque_opérationnel ; Insurance Fund Capacity 21 ; Wildfire Fund claims-paying capacity 22",
+  "correction_validee": "Retirer les neuf series faute de source verifiable.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "texte",
+  "probleme": "Mention de cuisine interne (« sera ajoutée en V2.0 ») et contradiction avec la fiche elle-meme, qui affiche deux KPI IA (economies via IA, classes d'objets detectees).",
+  "preuve": "« Une analyse fine de l'usage interne de l'IA ... sera ajoutée en V2.0 » ; KPI « AI-driven unbilled revenue savings » 25 M$ ; KPI « AI/ML object classes detected » 100",
+  "correction_validee": "Retirer la phrase V2.0 ; reecrire le positionnement en citant l'usage IA d'inspection reseau et de detection de revenus non factures.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Zero-emission vehicles share of new cars / AI/ML object classes detected / Eaton fire WRCP offers extended",
+  "probleme": "Statistiques de marche ou anecdotes presentees comme KPI de la societe (part des VE neufs en Californie, nombre de classes d'objets d'un modele) ; « Offres versées » est un contresens (les offres sont proposees, pas versees).",
+  "preuve": "« Record de 29% des voitures neuves achetées en Californie » ; « Modèles IA/ML capables de détecter près de 100 classes d'objets » ; nom « Offres versées programme Eaton » vs signal « 1 500 offres totalisant plus de 500 M$ étendues »",
+  "correction_validee": "Retirer les deux premiers KPI et renommer le troisieme « Offres proposees (programme Eaton) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SAIDI_SAIFI / CAHIER_ALLOWED_EARNED_ROE",
+  "probleme": "Noms qui promettent deux mesures (duree et frequence ; autorise et realise) alors qu'une seule serie est fournie ; SAIDI s'arrete en 2024 alors que le 10-K 2025 est disponible.",
+  "preuve": "« Durée et fréquence moyennes des coupures » unite minutes, FY2024=100.25 dernier ; « Rendement autorisé et rendement réalisé » une serie FY2025=10.33",
+  "correction_validee": "Renommer « Durée moyenne des coupures (SAIDI) » et « ROE autorisé CPUC » ; ajouter 2025 au SAIDI.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ca_par_salarie / fcf_par_salarie / dette_par_salarie",
+  "probleme": "Series arretees en 2023 alors que CA, FCF, dette et effectifs sont disponibles jusqu'en 2025 (le detecteur ne signale que la date du signal).",
+  "preuve": "ca_par_salarie n=8, dernier point 2023=1136.6 ; effectifs_annuels 2025=13725 ; revenue_annuel 2025=19.317",
+  "correction_validee": "Recalculer les trois ratios pour 2025 (effectif 13 725) et ajouter 2024 seulement si l effectif 2024 est source.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel.signal",
+  "probleme": "Formulation absurde : « en baisse de 0,0 Mds $ » pour un FCF passe de -0,693 a -0,715.",
+  "preuve": "« Trésorerie libre négative de 0,7 Mds $ en 2025, en baisse de 0,0 Mds $ sur un an »",
+  "correction_validee": "Ecrire « Trésorerie libre négative de 0,7 Mds $ en 2025, quasi stable sur un an ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

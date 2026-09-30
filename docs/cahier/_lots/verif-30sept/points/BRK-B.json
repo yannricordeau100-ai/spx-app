@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "governance",
+  "champ": "ceo_name",
+  "probleme": "Dirigeant perime, contredit par l'anti-these",
+  "preuve": "gouvernance : 'dirigeant Warren E. Buffett' ; att : 'Premiere annee de l'apres-Buffett : Greg Abel herite de 359 Mds $ de liquidites' (Abel CEO depuis le 1er janvier 2026)",
+  "correction_validee": "ceo_name = Greg Abel.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat contredit par les KPI et la these, jargon interne",
+  "preuve": "'Benefice operationnel en repli et note abaissee d'un cran, compenses par une tresorerie doublee' ; operating_earnings T2-2026 = +16,3 % (these : '+16 % au deuxieme trimestre') ; cash_and_treasuries +5,7 % sur un an (le doublement est 2023->2024 dans CAHIER_DRY_POWDER)",
+  "correction_validee": "Réécrire le moat sur les chiffres du T2-2026 et ne retirer la mention de la note que si aucune source ne la confirme.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "bhe_revenues",
+  "probleme": "Deux points Q4 quatre fois trop bas, signal 'stable et reguliere'",
+  "preuve": "Q4-2024=1 414, Q4-2025=1 778 M$ contre Q4-2023=5 914, Q4-2022=6 361 et 6 300 a 7 300 les autres trimestres",
+  "correction_validee": "Retirer les deux points Q4 puis les réextraire.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BVPS_GROWTH",
+  "probleme": "KPI du bloc industrie arrete en 2017, neuf ans de retard",
+  "preuve": "dernier 2017-12-31, serie FY2010..FY2017, signal '23 % en 2017, meilleur exercice de la decennie', yoy '+115.0%'",
+  "correction_validee": "Supprimer, ou remplacer par la valeur comptable par action à jour.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DRY_POWDER.unit",
+  "probleme": "Unite '$' avec valeurs en dollars bruts (KPI du bloc industrie)",
+  "preuve": "unit '$', val 212651000000, serie [64548000000, ..., 212591000000, 212651000000]",
+  "correction_validee": "Convertir la série en Mds $ (212,7).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DRY_POWDER.value, CAHIER_FLOAT",
+  "probleme": "Valeur 2025 douteuse (copie de 2024) et doublon du hero",
+  "preuve": "FY2024=212,591 vs FY2025=212,651 Mds (+0,0 %) alors que cash_and_treasuries passe de 318 a 369 Mds $ sur la meme periode ; CAHIER_FLOAT FY2025=176 doublonne insurance_float (hero) 177,5",
+  "correction_validee": "Verifier la valeur 2025 (10-K 2025) ; garder une seule serie de float",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Format different des autres fiches (label/share_pct sans name/pct), source avec cuisine interne ; l'extrait affiche 'None' pour les trois parts",
+  "preuve": "slices [('Assurance', 25.63), ('Chemins de fer, services publics et energie', 14.25), ('Ventes, services et locations', 60.11)] sans cle 'pct' ni 'name' ; source 'filing us (pipeline CA autonome, LLM gratuit verbatim)'",
+  "correction_validee": "Ajouter name et pct (depuis label et share_pct) et remplacer la source par 'Rapport annuel Berkshire Hathaway'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "tokio_marine_quota_share, hero_kpi_rationale",
+  "probleme": "Contrat presente comme KPI ('10 ans') ; justification du hero perimee et cuisine interne",
+  "preuve": "'Accord de reassurance Tokio Marine' unit 'ans' val 10 n=1 ; hero_kpi_rationale 'Hero promu vers Operating Earnings (mission Yann 30 mai 2026...)' alors que hero = insurance_float",
+  "correction_validee": "Supprimer le KPI Tokio Marine et vider la justification du hero.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "products",
+  "probleme": "Part de CA attribuee au mauvais perimetre",
+  "preuve": "'la production et la distribution d'energie (14,25% du chiffre d'affaires)' alors que 14,25 % = 'Chemins de fer, services publics et energie'",
+  "correction_validee": "'rail, services publics et energie (14,25 %)'",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Pas de ratio combine du pole assurance ni de valeur comptable par action actuelle",
+  "preuve": "KPI assurance presents : float, GEICO loss ratio, primes GEICO ; aucun ratio combine groupe ; BVPS uniquement via la croissance 2017",
+  "correction_validee": "Ajouter le ratio combine (assurance) et la BVPS classe B trimestrielle",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "signaux de ~35 KPI",
+  "probleme": "Les signaux sont des extraits bruts des documents, en anglais, avec les montants en milliers et des mentions de supplément.",
+  "preuve": "ss_occupancy « \"Total/Average Same-Store Communities 156 52,426... 96.6% $2,642\" » ; revenue « \"Total revenues 425,399\" » ; total_debt « \"Subtotal 936,154 4,890,968 5,827,122\" »",
+  "correction_validee": "Réécrire tous ces signaux en français (valeur, période, variation) sans citation ni mention de document.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ffo (hero), ffo_ps, ffoa, ffoa_ps, affo, affo_ps, leasing, resident_turnover",
+  "probleme": "Le KPI vedette et tous les indicateurs de FFO et de location s'arrêtent au T1 2026, alors que le T2 2026 est intégré partout ailleurs.",
+  "preuve": "ffo dernier 2026-03-31 val=222.2 ; revenue, NOI, EPS dernier 2026-06-30",
+  "correction_validee": "Intégrer le supplément du T2 2026 pour le FFO, l'AFFO, les loyers, la rotation des résidents et l'endettement publié.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AFFO per share and unit (diluted) / Dividend declared per share and unit / Dividend / FFO as Adjusted Payout Ratio / Homes Under Development / FFO as Adjusted per share and unit (diluted)",
+  "probleme": "KPI de 2022 encore affichés, qui contredisent les séries récentes.",
+  "preuve": "dernier 2022-02-08 ; dividende 0.38 vs 0.43 actuel ; logements en développement 1564 vs 300 ; FFOA/action 0.55 vs ffoa_ps 0.62",
+  "correction_validee": "Supprimer ces 5 KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ffo_ps_annuel",
+  "probleme": "Troisième doublon du FFO par action annuel.",
+  "preuve": "ffo_ps_annuel 2025=2.43 = CAHIER_FFO_AFFO_PS = FFO per Share (full year)",
+  "correction_validee": "Supprimer ffo_ps_annuel et « FFO per Share (full year) », garder CAHIER_FFO_AFFO_PS renommé « FFO par action (annuel) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Same-Store Revenue Growth (YoY)",
+  "probleme": "Série sans dates et invraisemblable. Le nom « magasins comparables » est inadapté à une foncière résidentielle.",
+  "preuve": "serie 3.3, 3, -3.3, -3.3, -4.5, 6.3, 2.6, 0.9 alors que l'occupation reste entre 96 et 97 %",
+  "correction_validee": "Refaire la série datée depuis les suppléments et renommer « à périmètre constant ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_debt_ebitda / net_debt_ebitdare / ebitda",
+  "probleme": "Deux ratios de levier différents pour la même mesure. L'« EBITDAre » est recalculé maison et la formule est affichée.",
+  "preuve": "net_debt_ebitda 5.94 vs net_debt_ebitdare publié 5.6 ; ebitda signal « (115,857 - 35,704 + 163,571 au T2 2026) »",
+  "correction_validee": "Garder le ratio publié, renommer l'EBITDA calculé ou le supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "op_margin / net_margin",
+  "probleme": "Marges gonflées par les plus-values de cession d'immeubles, trompeuses pour une foncière.",
+  "preuve": "op_margin Q4-2025=64.1, Q1-2026=54 avec gain_on_sale 195 et 157.4",
+  "correction_validee": "Retirer ces marges ou les calculer hors plus-values ; la marge de NOI suffit.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "avg_debt_rate.signal / dev_pipeline",
+  "probleme": "Le taux cité dans le signal diffère de la valeur. Le pipeline annoncé comme un seul projet contredit les 2 projets en cours.",
+  "preuve": "signal « 3.30% » vs val=3.37 (anti-thèse 3,38 %) ; dev_pipeline « Seul projet ... Riverside » vs dev_in_process « 2 projets » au T2 2026",
+  "correction_validee": "Aligner le signal et mettre à jour le pipeline.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Apartment Homes in Portfolio",
+  "probleme": "Taille du parc incohérente avec les autres blocs.",
+  "preuve": "60000 logements vs clients « environ 55 000 logements » et 52 426 logements à périmètre constant",
+  "correction_validee": "Vérifier et aligner sur le chiffre publié.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Six régions listées sans aucune valeur.",
+  "preuve": "« Région Ouest None ; Région Nord-Est None ; ... »",
+  "correction_validee": "Renseigner le NOI ou le CA par région depuis le supplément.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Pas de loyer moyen mensuel par logement ni de croissance trimestrielle du NOI à périmètre constant, pourtant standards chez les foncières résidentielles.",
+  "preuve": "Le loyer « $2,642 » n'apparaît que dans le signal brut de ss_occupancy ; CAHIER_SS_NOI est annuel seulement (yoy +53.3 % au lieu de +0,8 pt)",
+  "correction_validee": "Ajouter le loyer moyen par logement occupé et le NOI à périmètre constant trimestriel, variation en points.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Tendance « hausse » alors que le texte décrit une dynamique bridée.",
+  "preuve": "« None / tendance hausse :: ... la croissance à périmètre comparable de 0,9 % et l'inflation des charges brident la dynamique »",
+  "correction_validee": "Mettre la tendance à « stable » ou « baisse ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

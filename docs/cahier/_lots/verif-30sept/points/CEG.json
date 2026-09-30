@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition calculée sur le CA 2022, avec une tranche négative impossible dans un camembert.",
+  "preuve": "total 24,44 Mds = revenue_annuel 2022 = 24,44 ; CA 2025 = 25,533 ; tranche Competitive Businesses Other Revenues -0,211 Mds soit -0,9 % ; année None.",
+  "correction_validee": "Refaire la répartition sur l'exercice 2025 (électricité, gaz naturel, autres) avec des libellés français et sans tranche négative.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "nuclear_twh.name_fr",
+  "probleme": "Le hero est nommé Production nucléaire annuelle alors que la série est trimestrielle.",
+  "preuve": "period_type quarter, val 44,16 TWh au T2-2026 ; hero_kpi_rationale dit Production nucléaire trimestrielle.",
+  "correction_validee": "Renommer en Production nucléaire trimestrielle.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Nuclear Output / Nuclear Capacity / Carbon-Free Mix / Customer Channels / PPA Backlog Data Centers",
+  "probleme": "Cinq KPI annuels hérités sans signal ni dates, contredits par les séries sourcées de la fiche.",
+  "preuve": "Nuclear Output 167 / 170 / 172 / 176 / 178 TWh alors que la somme des trimestres donne FY2024 = 181,7 et FY2025 = 182,7 ; Nuclear Capacity 21,8 GW vs nuclear_capacity_gw 22 ; Customer Channels 2 M clients C&I vs retail_customer_accounts 2,5 M ; PPA Backlog 0, 0, 1, 3, 8 invérifiable ; tous datés 2026-06-30 pour de l'annuel.",
+  "correction_validee": "Supprimer les cinq KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PwrFuelExp / TotalRNF / DepRateElec",
+  "probleme": "Séries stockées du plus récent au plus ancien, sans périodes : le graphique montre une baisse alors que le yoy est positif ; signal creux.",
+  "preuve": "PwrFuelExp history [11299, 9383, 9762] yoy +20,4 % ; TotalRNF [10669, 10050, 9252] yoy +6,2 % ; DepRateElec [2.91, 3.43, 3.26] ; history_periods null pour les trois ; signal DepRateElec : a baissé en 2025, reflétant une base d'actifs plus importante.",
+  "correction_validee": "Inverser les trois séries avec les périodes 2023, 2024, 2025, et réécrire le signal de DepRateElec sur la baisse du taux sans en donner la cause.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "long_term_debt_annual.signal / dette_annuelle",
+  "probleme": "Signal rassurant sur la dette contredit par la fiche elle-même, et aucune série de dette postérieure au rachat de Calpine.",
+  "preuve": "Signal : Un endettement stable traduit une gestion prudente du bilan, un atout pour financer de futurs projets sans dégrader la qualité de crédit ; anti-thèse : dette multipliée par 2,7 pour atteindre 24,7 Mds $ ; dette_annuelle s'arrête FY2025 = 8,992 ; aucun KPI dette trimestriel 2026.",
+  "correction_validee": "Ajouter une série trimestrielle de dette totale (T1 et T2-2026) et réécrire le signal sur le saut lié au rachat de Calpine.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total generating capacity / Retail customer accounts served / Renewable energy capture / ElectricPowerSupplyServed",
+  "probleme": "Quatre doublons de KPI existants, dont un avec un signal de deux mots.",
+  "preuve": "Total generating capacity 55 GW (n=2) = combined_capacity_gw ; Retail customer accounts served 2,5 M (n=2) = retail_customer_accounts ; Renewable energy capture trimestriel vs renewable_energy_capture annuel ; ElectricPowerSupplyServed 204 TWh = retail_load_twh 147 + wholesale_load_twh 57, signal : Croissance positive.",
+  "correction_validee": "Supprimer les quatre doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "revenue_geo_midatlantic / midwest / newyork / ercot / other",
+  "probleme": "Les cinq séries de CA régional s'arrêtent au T4-2025 alors que les marges RNF régionales vont au T2-2026.",
+  "preuve": "dernier 2026-02-24 (Q4-2025) pour les cinq ; rnf_* dernier 2026-06-30.",
+  "correction_validee": "Ajouter T1-2026 et T2-2026 depuis la note de segments des rapports trimestriels 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Retail customer accounts served.signal / Electricity served to customers annually.signal",
+  "probleme": "Chiffre Fortune 100 faux et contradictoire avec le bloc clients de la fiche.",
+  "preuve": "Signaux : (80 % du Fortune 100) et plus de 80 % des ventes vers des sociétés du Fortune 100 ; bloc clients top10 : les trois quarts des sociétés du classement Fortune 100 servies ; 147 TWh de détail sur 2,5 M de comptes rend impossible 80 % des ventes vers cent sociétés.",
+  "correction_validee": "Remplacer par : sert environ les trois quarts des sociétés du Fortune 100.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "crane_restart_mw.signal / adj_op_eps_annual",
+  "probleme": "Signal en retard sur la thèse et série de BPA ajusté en retard d'un trimestre avec un nom faux.",
+  "preuve": "crane_restart_mw : redémarrage soumis à licences NRC ; thèse : en juin 2026 le régulateur fédéral a levé l'obstacle technique. adj_op_eps_annual : dernier point Q1-2026 daté 2026-05-11, T2-2026 absent alors que la publication du 6 août 2026 est intégrée ailleurs ; identifiant annual pour une série trimestrielle.",
+  "correction_validee": "Mettre à jour le signal Crane (dérogation NRC juin 2026) et ajouter le BPA ajusté T2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Barron's most sustainable US company rank / Job-hours from 80-year license extension / Hyperscaler 2026 spending growth",
+  "probleme": "KPI de communication ou macro sans lien mesurable avec l'exploitation.",
+  "preuve": "Rang 1 sur 1000 ; 453 millions d'heures-personnes ; dépenses projetées des hyperscalers +75 %.",
+  "correction_validee": "Supprimer les trois KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Jargon interne et aveu de difficulté d'interprétation dans le bloc moat.",
+  "preuve": "Texte : Note relevée et exposition croissante à la demande électrique des centres de données, même si les séries de revenus par région restent difficiles à interpréter.",
+  "correction_validee": "Garder seulement : Exposition croissante à la demande électrique des centres de données.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "headcount_annual",
+  "probleme": "Effectif arrêté à FY2024 alors que le rapport annuel 2025 est intégré à la fiche.",
+  "preuve": "dernier 2025-02-18, FY2024 = 14 264 ; signal : dernier chiffre clairement divulgué ; revenue_annuel et dette_annuelle vont à 2025 (rapport déposé le 2026-02-24).",
+  "correction_validee": "Ajouter FY2025 depuis le rapport annuel 2025 (rubrique Human Capital).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

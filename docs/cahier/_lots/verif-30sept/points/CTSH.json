@@ -1,0 +1,42 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "HS_Revenue, FS_Revenue, PR_Revenue, CMT_Revenue, Products & Resources Revenue (annuels)",
+  "probleme": "Cinq series annuelles de CA par segment fausses et contredites par les series trimestrielles ; le signal FS dit 'croissance tres faible' alors que FS_REV est le segment le plus dynamique (+12 %).",
+  "preuve": "Somme trimestrielle 2025 : HS 6347 M (serie annuelle 6.77 Mds), FS 6173 M (5.61), P&R 5285 M (4.01 et 4.7), CMT 3303 M (2.42) ; HS_Revenue signal '~36% des revenus' vs revenue_by_segment Healthcare 30.1",
+  "correction_validee": "Supprimer les cinq series annuelles par segment.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Digital revenue as % of total revenue, Digital revenue growth",
+  "probleme": "Metrique abandonnee par la societe en 2021-2022 selon le signal lui-meme, mais la serie a ete prolongee jusqu en juin 2026 avec des valeurs repetees : points inventes.",
+  "preuve": "Digital revenue as % : n=13, dernier 2026-06-30, serie ... 45, 50, 50 ; signal 'de 30% en 2018 a 50% en 2022, avant abandon de la metrique'",
+  "correction_validee": "Supprimer les deux KPI digitaux.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Tech_Attrition, Bookings (annuel)",
+  "probleme": "Doublons : Tech_Attrition (1 point, 13) recopie VOL_ATTR ; Bookings annuel (29) recopie Trailing 12-month bookings (29,6).",
+  "preuve": "VOL_ATTR Q2-2026=13 ; Tech_Attrition serie 13 ; Bookings serie 22, 23, 26, 27, 29 vs Trailing 12-month bookings 29.6",
+  "correction_validee": "Supprimer Tech_Attrition et Bookings annuel.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Trailing 12-month bookings",
+  "probleme": "Signal date du T1 2026 alors que le dernier point est le T2 2026.",
+  "preuve": "dernier 2026-06-30, val=29.6 ; signal '29,6 Md$ au T1-2026'",
+  "correction_validee": "Verifier le point T2 2026 et corriger la periode citee",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

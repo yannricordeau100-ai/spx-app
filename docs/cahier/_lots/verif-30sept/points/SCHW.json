@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CORE_NNA (vedette), NEW_ACCT",
+  "probleme": "Les points du T4 sont les totaux annuels. Le KPI vedette présente donc deux faux pics trimestriels.",
+  "preuve": "CORE_NNA Q4-2024 = 366.9 = CAHIER_NNA FY2024 ; Q4-2025 = 519.4 = FY2025, contre environ 80 à 140 pour les autres trimestres. NEW_ACCT Q4-2024 = 4170 et Q4-2025 = 4692, contre environ 1 000 à 1 400.",
+  "correction_validee": "Remplacer les T4 2024 et 2025 de CORE_NNA et NEW_ACCT par l'exercice moins la somme des trois premiers trimestres.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net New Assets ; Core net new assets ; CAHIER_NNA ; CORE_NNA",
+  "probleme": "Quatre séries de collecte nette, avec des chiffres qui ne concordent pas entre eux.",
+  "preuve": "Net New Assets 2024 = 315 et 2025 = 425 (name_en « Core Net New Assets »), contre CAHIER_NNA 366.9 et 519.4. La série « Core net new assets » (… 73.6, 134.4, 158.2, 139.9) ne recoupe pas CORE_NNA (Q1-2025 = 137.7, Q2 = 80.3, Q3 = 137.5).",
+  "correction_validee": "Garder CORE_NNA (T4 corrigés) et CAHIER_NNA, supprimer « Net New Assets » et « Core net new assets ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "summary",
+  "probleme": "Le texte affirme l'absence de toute initiative IA, ce que d'autres blocs de la fiche contredisent. Il cite aussi des documents.",
+  "preuve": "« Les communiqués de résultats de Schwab ne mentionnent aucune initiative ou positionnement lié à l'intelligence artificielle », alors que la fiche contient « AI use cases adopted = 220 », « Coût par compte réduit de 20% ... grâce à l'IA » et le risque 6 « Intelligence artificielle ».",
+  "correction_validee": "Réécrire le positionnement IA : plus de 220 cas d'usage déployés et une baisse de 20 % du coût par compte en cinq ans, sans citer de document.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DAT ; CAHIER_DARTS ; Avg Daily Trades",
+  "probleme": "Trois séries de transactions quotidiennes qui ne concordent pas, et un signal contredit par sa propre série.",
+  "preuve": "CAHIER_DARTS FY2025 = 7.667 (moyenne des trimestres de DAT = 7.66) contre Avg Daily Trades = 7.4 ; FY2024 : 5.862 contre 5.55. Signal de CAHIER_DARTS : « 0,4 million par jour avant 2020 », alors que la série donne 0.765 en 2018.",
+  "correction_validee": "Supprimer Avg Daily Trades et corriger le signal de CAHIER_DARTS.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_INCOME.signal",
+  "probleme": "Le signal expose de la cuisine interne.",
+  "preuve": "« Résultat net de 2,80 Mds$ au T2-26, +32% sur un an. Trimestres T4 dérivés. »",
+  "correction_validee": "Retirer la phrase « Trimestres T4 dérivés. » du signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Asset Management Fees ; Expense on client assets (EOCA)",
+  "probleme": "Doublons : l'un porte un nom et une description en franglais et contient des valeurs répétées, l'autre répète EOCA.",
+  "preuve": "Asset Management Fees : nom français « Asset Management & Admin Fees », description « Fees AM&A : récurrent fund management + advisory programs », valeurs 3392, 3392 puis 4756, 4756 ; 6506 = somme de AMA_FEES en 2025, mais daté 2026-06-30. EOCA 0.11 % = « Expense on client assets » 11 pb.",
+  "correction_validee": "Supprimer « Asset Management Fees » et « Expense on client assets (EOCA) », garder AMA_FEES et EOCA.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "titre",
+  "probleme": "Le titre de la thèse parle de la fiche elle-même (cuisine interne) sur un ton de modèle de langage, sans argument d'investissement.",
+  "preuve": "« Sept des séries suivies sur la fiche de Schwab montent sans une seule interruption depuis huit trimestres. Ce n'est pas une prévision, c'est un décompte. »",
+  "correction_validee": "Réécrire le titre autour des moteurs économiques (collecte, marge d'intérêt, activité de trading).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat / position de marche",
+  "champ": "justification_mettrik ; market_positions",
+  "probleme": "Le moat s'appuie sur une « collecte organique de 42 % » qui n'a pas de sens (c'est la variation annuelle de la collecte) et son niveau n'est pas renseigné. Les positions de marché sont vides.",
+  "preuve": "« collecte nette organique de 42 % » = 519.4 / 366.9 - 1 ; moat None ; positions : None, taille 102000 / 27600, part None.",
+  "correction_validee": "Utiliser le taux de croissance organique des actifs (environ 5 %) et compléter ou retirer les positions.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, fcf_par_salarie, dette_sur_ca",
+  "probleme": "Ces indicateurs génériques n'ont pas de sens pour un courtier doté d'une banque. Ils affichent des variations absurdes.",
+  "preuve": "fcf_annuel : 18.887 en 2023, 2.05 en 2024, 8.763 en 2025 (+327,5 %) ; fcf_par_salarie +315,5 % ; dette_sur_ca 121,7 %.",
+  "correction_validee": "Masquer ces indicateurs pour les courtiers et les banques.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "L'anti-thèse repose sur le cash client peu rémunéré, mais aucun KPI ne suit la part de cash ni le taux de croissance organique.",
+  "preuve": "Anti-thèse : « rémunère 246 Mds $ de dépôts clients à 0,19 % » ; aucune série sur la part du cash dans les actifs clients, ni sur la collecte rapportée aux actifs.",
+  "correction_validee": "Ajouter « Part du cash dans les actifs clients (%) » et « Croissance organique annualisée des actifs (%) ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / repartition / kpis",
+  "champ": "tagline, sous-secteur, segments, name_en",
+  "probleme": "Anglais visible et libellés techniques vides de sens.",
+  "preuve": "Tagline « Championing Every Client's Goals » ; sous-secteur « Brokerage & Wealth Management » ; segments « Investor Services / Advisor Services » avec exercice None ; name_en « Nna », « Darts » ; unités « $B ».",
+  "correction_validee": "Traduire tagline, sous-secteur et segments (Services aux investisseurs, Services aux conseillers), renseigner l'exercice, écrire « Mds $ » ; name_en en option.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Same-Store Occupancy, Properties Owned, Net Rentable Sqft, Rentable Square Feet, Number of Facilities, Same-Store NOI, Realized Rent/sqft",
+  "probleme": "Bloc annuel sans periodes date 2026-06-30 qui contredit les series trimestrielles officielles et se contredit lui-meme",
+  "preuve": "Properties Owned 3068 et Number of Facilities 3060 vs num_facilities Q2-2026=3196 ; Net Rentable Sqft 218 vs Rentable Square Feet 215 (deux noms, deux valeurs) vs US portfolio 259 M sq ft ; Realized Rent/sqft 22.85 vs ss_realized_rent_sqft Q2-2026=21.89 et CAHIER FY2025=22.54 ; Same-Store Occupancy 92.6 yoy=-50bps vs ss_occupancy 92.5 yoy=+0.2",
+  "correction_validee": "Retirer les 7 series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "acquired_rev.signal",
+  "probleme": "Signal contredit par la serie",
+  "preuve": "Signal : Rampe acquisitions acceleree: +32.7% YoY ; serie FY2023=450.7, FY2024=241.3, FY2025=246.7, yoy=+2.2%",
+  "correction_validee": "Remplacer le signal par : 246,7 M$ en 2025, +2,2 % sur un an.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ss_rev_growth.yoy, ss_noi_growth.yoy, net_margin.yoy, ss_gross_margin.yoy",
+  "probleme": "Variation relative calculee sur un taux deja en pourcentage, resultat absurde",
+  "preuve": "ss_rev_growth yoy=-400.0% (0.2 vers -0.6) ; ss_noi_growth yoy=-266.7% ; net_margin yoy=+35.9% (29.84 vers 40.55) ; ss_gross_margin yoy=-1.3% alors que le signal dit -1.0 pt",
+  "correction_validee": "Exprimer en points : -0,8 pt, -1,6 pt, +10,7 pt, -1,0 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted, revenue_q, net_income, operating_income, ocf, interest_expense, long_term_debt, equity, total_assets, cash, re_property_net (signal)",
+  "probleme": "Signaux en anglais ou cuisine interne au lieu d'une lecture",
+  "preuve": "BPA dilue T ; Total revenues T ; Net income T ; Interest expense T. ; Total assets. ; Cash and cash equivalents (us-gaap:CashAndCashEquivalentsAtCarryingValue) ; Notes payable / long-term debt balance sheet",
+  "correction_validee": "Remplacer chaque signal par une phrase en francais avec le chiffre du T2-2026 et la variation sur un an.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Same Store gross margin (before indirect costs)",
+  "probleme": "Doublon de ss_gross_margin avec 2 points",
+  "preuve": "serie 78.4, 77.1 = ss_gross_margin Q2-2025=78.4, Q1-2026=77.1",
+  "correction_validee": "Supprimer la serie.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "US self-storage facilities owned/operated, mettrik_description, tagline",
+  "probleme": "Trois tailles de parc incompatibles selon les blocs",
+  "preuve": "US self-storage facilities owned/operated 3546 (detenues/exploitees) vs num_facilities Q2-2026=3196 vs description plus de 3 500 etablissements vs tagline over 3,100 facilities",
+  "correction_validee": "Preciser que 3546 inclut les 441 sites geres pour des tiers (renommer : sites detenus ou geres) et aligner description et tagline sur 3 196 detenus",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_FFO_AFFO_PS, ffo_ps_annuel",
+  "probleme": "Deux FFO annuels par action avec des valeurs differentes pour 2025 et un nom ambigu",
+  "preuve": "CAHIER_FFO_AFFO_PS FY2025=15.81 (Nareit, = somme des trimestres 3.71+3.44+4.33+4.33) ; ffo_ps_annuel FY2025=16.97 (Core) ; nom anglais Ffo Affo Ps",
+  "correction_validee": "Renommer CAHIER_FFO_AFFO_PS en FFO Nareit par action et ffo_ps_annuel en Core FFO par action.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Out-of-the-money options purchased by Chairman and Trustee",
+  "probleme": "Signal cite Shankh Mitra comme dirigeant acheteur alors que la gouvernance affiche Joseph D. Russell, Jr. ; jargon PS4.0 non explique",
+  "preuve": "Shankh Mitra et Ron Havner ont achete 25 M$ et 5 M$ d'options ... signal de confiance sur PS4.0 | gouvernance : dirigeant Joseph D. Russell, Jr.",
+  "correction_validee": "Verifier le dirigeant en poste et mettre a jour le bloc gouvernance ou retirer ce point",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

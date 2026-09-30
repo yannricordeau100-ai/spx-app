@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "capex_q / fcf_q / fcf_annuel",
+  "probleme": "Capex invraisemblablement bas, ce qui gonfle le flux de trésorerie libre.",
+  "preuve": "capex_q T4-2025 = 6,3 M$ par trimestre, contre recurring_capex_q 41,8 M$ et un Capex annuel de 242,8 M$. fcf_annuel 2025 = 1,178 Md$ = somme des OCF moins ces petits montants.",
+  "correction_validee": "Utiliser le capex total (récurrent et amélioration) et recalculer fcf_q et fcf_annuel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "renewal_rate_growth / new_lease_rate_growth",
+  "probleme": "Séries arrêtées fin 2025 alors que 2026 existe ailleurs sur la fiche, et chiffres cités incohérents.",
+  "preuve": "Signal renouvellements : « nouveaux baux -0.6% » contre new_lease T4-2025 = -0,8. Signal nouveaux baux : « -0.6% vs +0.9% en 2024 ». Variation affichée -180 % sur un taux. Mixte T2-2026 = 1,6 et renouvellements T1-2026 = 3,7 disponibles.",
+  "correction_validee": "Prolonger au T2-2026, citer les chiffres de la série et afficher l'écart en points.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "turnover_rate",
+  "probleme": "Série arrêtée au T3-2025, mesure ambiguë et signal incohérent.",
+  "preuve": "Nommée « annuel » avec des valeurs trimestrielles de 20 à 25, contre « Same Store Turnover Rate » trimestriel 5,3. Signal « Stable à 22.8%; days vacant 47j » contre « Délai de relocation ... 23 jours, record ».",
+  "correction_validee": "Choisir une définition (rotation annualisée ou trimestrielle), prolonger et réécrire.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "doublons importés (Average Monthly Rent, Core FFO / Share, AFFO per share diluted, Dividend declared, Payout ratio, Share repurchases, Homes Owned, SS Rent Growth, Renewal Rate Growth, Turnover Rate, Same Store *)",
+  "probleme": "Une douzaine de doublons non datés, avec des valeurs divergentes.",
+  "preuve": "Core FFO par action 2022 : 1,67 contre 1,66 ; 2023 : 1,77 contre 1,79. Loyer annuel 2 380 $ contre 2 450 à 2 480. « Homes Owned » 85 138 daté 2026-06-30 = valeur du T4-2024. Taux de distribution T1-2026 : 62,6 contre 62,5.",
+  "correction_validee": "Supprimer les KPI importés sans code et garder les séries datées.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BLENDED_RENT_SPREAD / SS Rent Growth / Same Store blended rent growth",
+  "probleme": "Trois valeurs contradictoires pour la croissance mixte des loyers.",
+  "preuve": "3,1 % pour 2025 (CAHIER), 4,5 % daté 2026-06-30 (SS Rent Growth), 1,6 % au T2-2026 (trimestriel).",
+  "correction_validee": "Garder une série annuelle et une trimestrielle, cohérentes entre elles.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Third-party managed homes / Managed Homes 3P",
+  "probleme": "Deux valeurs contradictoires pour le parc géré pour compte de tiers.",
+  "preuve": "15 866 maisons fin 2025, contre 24 000 dans « Managed Homes 3P » (série non datée 0, 1500, 11500, 21800, 24000).",
+  "correction_validee": "Vérifier à la source et garder une seule série datée.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Forward purchase backlog / Expected development pipeline",
+  "probleme": "Même nombre (556) dans deux unités différentes : l'un des deux est très probablement faux.",
+  "preuve": "Carnet d'achats à terme 556 M$ ; pipeline de développement 887 puis 556 maisons.",
+  "correction_validee": "Vérifier à la source.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_TURNOVER_COST",
+  "probleme": "Le nom annonce un coût de remise en état, mais la série est le seul taux de rotation.",
+  "preuve": "FY2025 = 22,8 %, identique au taux de rotation cité par turnover_rate.",
+  "correction_validee": "Renommer en « Taux de rotation annuel des locataires ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification",
+  "probleme": "Le moat affirme une baisse de l'occupation que la série et la thèse contredisent.",
+  "preuve": "« l'occupation à périmètre constant baisse » ; ss_occupancy T2-2026 = 97,1, contre 96,3 au T1 ; thèse : « tient entre 96% et 97% trimestre après trimestre ».",
+  "correction_validee": "Réécrire sur la base des nouveaux baux négatifs et du ralentissement du NOI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Monthly savings of leasing vs owning / ResiBuilt Homes acquisition / ResiBuild",
+  "probleme": "Mention de source dans un bloc, montant estimé présenté comme un fait, et orthographe incohérente.",
+  "preuve": "« (données John Burns) » ; « prix estimé de 100 M$ » ; « ResiBuild » contre « ResiBuilt ».",
+  "correction_validee": "Retirer la source, supprimer le prix s'il n'est pas publié, et unifier en ResiBuilt.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography / kpis geo_*",
+  "champ": "régions",
+  "probleme": "Couverture géographique incomplète, et répartition réduite à « États-Unis 100 ».",
+  "preuve": "Parts du CA pour l'Ouest, la Floride, le Texas et le Midwest (total 80,7 %) : Sud-Est absent. Nombre de logements par région : Ouest absent.",
+  "correction_validee": "Compléter les régions manquantes et alimenter la répartition géographique par région.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline / risques",
+  "champ": "textes",
+  "probleme": "Tagline en anglais, risques sans texte et titres en franglais avec une coquille.",
+  "preuve": "« Leading owner and operator of single-family homes... » ; « Réglementation fédérale/état sur institutional ownership » ; « Augmentation taxes fonicieres ».",
+  "correction_validee": "Rédiger en français et corriger les titres.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis + hero",
+  "champ": "Occupancy, Occupancy Operating Portfolio, Occupancy of operating properties in North America",
+  "probleme": "Trois KPI d'occupation contradictoires, dont deux sans source ; le hero pointe dans le vide.",
+  "preuve": "KPI sourcé 87,7 % (2026-06-30) ; « Occupancy » val 90,9 avec série [94.6, 95.2, 94.8, 95.2, 94.6] (val différent du dernier point, signal « Stable. ») ; « Occupancy Operating Portfolio » 94,6 % au 2025-12-31 alors que la série sourcée donne 90,6 fin 2025.",
+  "correction_validee": "Supprimer « Occupancy » et « Occupancy Operating Portfolio » ; pointer le hero vers « Occupancy of operating properties in North America ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Occupancy of operating properties in North America (valeur et période)",
+  "probleme": "Le dernier point est daté T2 2026 mais correspond au T1 2026 ; la thèse donne un autre chiffre pour le T2.",
+  "preuve": "KPI 87,7 % daté 2026-06-30, signal « 87.7% au 1T26 » ; thèse : « l'occupation ... est tombée à 86,9 % » et « portent l'occupation théorique de 86,9 % à 90,9 % » (T2 2026).",
+  "correction_validee": "Dater 87,7 au 31/03/2026, ajouter 86,9 au 30/06/2026, réécrire le signal sur le T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SS_NOI, Same-Property NOI Growth Cash, Same property NOI growth (cash basis)",
+  "probleme": "Croissance du NOI à périmètre constant en trois exemplaires qui se contredisent et s'arrêtent avant la thèse.",
+  "preuve": "CAHIER_SS_NOI FY2025 = 0,9 % ; « Same-Property NOI Growth Cash » 2025 = 4,3 % (série sans libellés, signal « Re-leasing spreads positifs ») ; « Same property NOI growth (cash basis) » -11,7 % « au 1T26 » daté 2026-06-10 alors que la thèse cite -10,6 % au T2 2026.",
+  "correction_validee": "Supprimer « Same-Property NOI Growth Cash », dater -11,7 au 31/03/2026, ajouter le T2 2026 seulement si le -10,6 % est bien en base cash.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Leasing volume (rentable square feet), Leases Executed RSF",
+  "probleme": "Doublons du volume locatif sourcé, l'un décalé d'un trimestre, l'autre faux.",
+  "preuve": "leasing_activity_rsf 1 038 917 RSF au T2 2026 ; « Leasing volume » 647 356 daté 2026-06-10 (valeur T1 2026) ; « Leases Executed RSF » 4,5 MM sqft en 2025 alors que la somme des trimestres 2025 = 4,19 M.",
+  "correction_validee": "Supprimer les deux doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Investment-grade Tenants, Tenant Mix Investment-Grade",
+  "probleme": "Part des locataires investment grade en trois exemplaires, deux périmés.",
+  "preuve": "tenant_ig_pct 57 % (T2 2026) ; « Investment-grade Tenants » 52 % (2024) ; « Tenant Mix Investment-Grade » 53 % (2025, signal « Qualité locataire haute »).",
+  "correction_validee": "Supprimer « Investment-grade Tenants » et « Tenant Mix Investment-Grade ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Weighted-average remaining lease term - all tenants, FFO per share - diluted as adjusted, Real estate impairment charges",
+  "probleme": "Doublons de walt_all, ffo_ps_adj et impairments avec des séries différentes.",
+  "preuve": "walt_all 7,7 ans (T2 2026) vs doublon 7,5 ans daté 2026-06-10 ; ffo_ps_adj 2,37 ; 2,39 ; 2,30 ; 2,33 ; 2,22 ; 2,16 ; 1,73 ; 1,73 vs doublon 1,91 ; 2,05 ; 2,19 ; 2,35 ; 2,30 ; 1,73 ; « Real estate impairment charges » 2,2 Mds $ = somme des quatre trimestres 2025 d'impairments (2 202,8).",
+  "correction_validee": "Supprimer les trois doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Operating RSF, GAV Properties",
+  "probleme": "Surfaces périmées ou incohérentes avec le KPI sourcé.",
+  "preuve": "« Operating RSF » 39,8 M ft² (2024) ; « GAV Properties » val 39,4 avec série [35.7, 39.5, 41.1, 41.8, 42.2] et signal « Leader niche. » ; total_RSF_operated donne 36,0 M RSF au T2 2026.",
+  "correction_validee": "Supprimer « Operating RSF » et « GAV Properties ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Record lab asset sale pricing in San Francisco",
+  "probleme": "Ordre de grandeur impossible pour un prix de vente de laboratoires à Mission Bay.",
+  "preuve": "val 16,45 « $/sf » ; les transactions de laboratoires à San Francisco se traitent au-dessus de 1 000 $/sf.",
+  "correction_validee": "Vérifier la valeur dans le transcript (probablement 1 645 $/sf) ou supprimer le KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NOI (segment reportable)",
+  "probleme": "Unité en milliers de dollars sur une fiche en M USD, série en ordre inverse sans libellés, nom identique au NOI trimestriel dérivé.",
+  "preuve": "unité « $ (milliers) », val 1 966 451, série [1966451, 2096294, 1942735] (2025, 2024, 2023) ; noi_quarterly « NOI » 455,45 M$.",
+  "correction_validee": "Convertir en M USD dans l'ordre chronologique (1 942,7 ; 2 096,3 ; 1 966,5) et renommer « NOI du segment (publié) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "buybacks.signal, ocf.signal, capex_dev.signal, sbc.signal, eps_diluted.signal, ffo_ps_adj.signal, leasing_activity_rsf.signal",
+  "probleme": "Cuisine interne visible : balise XBRL et méthodes de calcul dans les signaux.",
+  "preuve": "buybacks « (PaymentsForRepurchaseOfCommonStock = 0) » ; ocf « (dérivé: cumul six mois 533,6 M$ moins T1 2026) » ; eps_diluted « les T4 sont dérivés du résultat net attribuable rapporté aux actions diluées » ; leasing_activity_rsf « les T4 sont dérivés de l'exercice moins le cumul neuf mois ».",
+  "correction_validee": "Retirer la balise XBRL et toutes les mentions de méthode de calcul de ces signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Texte type avec un exercice inexistant et le mot « produits » pour un REIT.",
+  "preuve": "« ARE intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2026 » ; dernier exercice publié : 2025.",
+  "correction_validee": "Rédiger un positionnement propre (usage de l'IA dans la gestion des campus, demande locative des biotechs IA) ou passer en « peu concerné ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Consensus NAV per share, op_margin_cons.yoy, net_margin.yoy, TI_LC_PER_RSF.yoy",
+  "probleme": "KPI qui n'est pas un chiffre de la société, yoy en % sur des marges, champ yoy contenant une phrase.",
+  "preuve": "« Consensus NAV per share » 117 $ « très au-dessus du cours de bourse » ; op_margin_cons yoy « -779,7 % » ; net_margin yoy « +21,8 % » (de -14,04 à -10,98) ; TI_LC_PER_RSF yoy = « 50,92 $ au S1 2026 contre 55,34 $ en 2025 » avec val 50,92 hors série FY.",
+  "correction_validee": "Supprimer « Consensus NAV per share », exprimer les yoy de marges en points, mettre -8,0 % en yoy de TI_LC_PER_RSF.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

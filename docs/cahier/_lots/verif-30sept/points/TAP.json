@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel / GROUP_REVENUE",
+  "probleme": "Deux chiffres d'affaires annuels différents sous le même nom, et taux depuis 2016 absurdes",
+  "preuve": "revenue_annuel 2025=13,04 Mds (ventes brutes, accises comprises) contre GROUP_REVENUE 11 141 M$ (net); '+7,9 % par an depuis 2016'; dette_sur_ca '−134,7 points depuis 2016' (changement de périmètre MillerCoors); GROUP_REVENUE signal 'Produit phare : Bière Coors Light'",
+  "correction_validee": "Basculer revenue_annuel sur le CA net, limiter les taux annuels moyens a partir de 2017 et supprimer GROUP_REVENUE.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EMEA & APAC Sales, Coors Light Share, Net Pricing, Beyond Beer Mix, Financial Volume, Brand Volume, Above Premium Mix, Coors Light US Share",
+  "probleme": "KPI hérités sans périodes, en franglais, contradictoires entre eux et avec les séries",
+  "preuve": "Financial Volume 80,5 M hl contre 72,81 (CAHIER_VOLUMES_HL et somme trimestrielle 2025); Brand Volume 75; Coors Light 7,5% et 8%; Beyond Beer 8% contre 'environ 10%'; 'Soft on-trade, FX headwinds'",
+  "correction_validee": "Supprimer ces 8 KPI herites.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Financial volume / Brand volume",
+  "probleme": "Doublons trimestriels décalés d'un trimestre",
+  "preuve": "Financial volume val=14,964 daté 2026-06-30 alors que 14,964 = Q1-2026 et que Q2-2026 = 19,734 (Financial Volume Cons); même décalage pour Brand volume (15,068)",
+  "correction_validee": "Supprimer Financial volume; recaler Brand volume sur le Q2-2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy des KPI en %",
+  "probleme": "Écarts des pourcentages exprimés en % relatif au lieu de points",
+  "preuve": "Gross Margin 34,3 contre 40 affiché '-14.3%' (-5,7 pts); Operating Margin '-41.2%'; Net Margin '-44.0%'; MGA '+6.9%'; PBT margins; US Share '-1.4%'",
+  "correction_validee": "Afficher les ecarts des KPI en % en points (ex. -5,7 pts pour la marge brute).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORGANIC_GROWTH / CAHIER_NET_REV_HL",
+  "probleme": "Noms faux: les deux séries mesurent l'effet prix et mix, pas la croissance organique ni un CA par hectolitre",
+  "preuve": "Organic Growth 2025=3,8% alors que le CA net baisse de 4,2% et les volumes de 8,6%; NET_REV_HL en % (5,2 ; 9,3 ; 7,3 ; 4,8) quasi identique (5,2 ; 9,1 ; 7,5), FY2024 manquant",
+  "correction_validee": "Renommer en 'Effet prix et mix', fusionner les deux séries",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Debt EBITDA",
+  "probleme": "Levier arrêté un an avant les autres séries",
+  "preuve": "'dernier 2025-06-30', signal '2,37x au 30 juin 2025', alors que la dette nette est à jour au 30 juin 2026 et que l'EBITDA a été affecté par la dépréciation de 3 645 M$",
+  "correction_validee": "Prolonger la série au T2-2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition / clients",
+  "champ": "revenue_by_segment / Top Customer Americas",
+  "probleme": "Répartition sans exercice et contraire aux séries; concentration client contradictoire",
+  "preuve": "Amériques 81,4% (exercice None) contre 8 712,8/11 141 = 78,2% en 2025; Top Customer Americas 13% des Amériques (≈10% du groupe) alors que le bloc clients indique qu'aucun client ne dépasse 10%",
+  "correction_validee": "Recalculer la répartition 2025 depuis les séries; vérifier la concentration client",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateurs manquants / CAHIER_MARKET_SHARE",
+  "probleme": "Pas de volume de marque ni de part de marché américaine trimestriels fiables; la part de marché est vague et s'arrête en 2023",
+  "preuve": "CAHIER_MARKET_SHARE 'marchés clés' 18%, dernier 2023-12-31, signal sur l'Europe; seules sources de part Coors Light = KPI hérités sans dates",
+  "correction_validee": "Ajouter les ventes au détail américaines (volume de marque) et la part de marché industrie aux États-Unis par trimestre",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Footwear Sales / Apparel Sales (séries annuelles sans années)",
+  "probleme": "Doublon de FOOTWEAR_SALES avec des valeurs contradictoires et une série Apparel qui recopie des chiffres de la série Chaussures",
+  "preuve": "Footwear Sales serie 2068.7, 1974.1, 2517.3, 2763, 4516 contre FOOTWEAR_SALES FY2025=4113.8 (FY2022=4317.9). Apparel Sales serie 2552.5, 2367.6, 2896.3, 2763, 2896.3 : 2552.5 et 2367.6 sont exactement FOOTWEAR FY2019 et FY2020, 2896.3 apparaît deux fois, 2763 apparaît dans les deux séries. Description contient de la cuisine interne : Note: 2023 = catégorie footwear globale, source chart G.06",
+  "correction_validee": "Supprimer Footwear Sales et Apparel Sales, garder FOOTWEAR_SALES.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "EMEA Sales, Americas Sales, Asia/Pacific Sales, DTC Sales",
+  "probleme": "Quatre séries annuelles arrêtées en 2023, sans années affichées, datées dernier 2026-06-30, avec des descriptions figées sur 2023 alors que la fiche a FY2025",
+  "preuve": "EMEA Sales val=3418.4 description 39.7% du CA Groupe en 2023 ; Americas 39.4% du CA 2023 ; DTC Sales 24.8% du CA 2023 ; APAC 20.8% du CA 2023 ; somme 3418.4+3389.9+1793.4 = 8601.7 = CA 2023, alors que ORGANIC_GROWTH et DTC_SHARE vont à FY2025",
+  "correction_validee": "Retirer les quatre séries (DTC Sales doublonne DTC_SHARE), ou les prolonger à FY2025 avec périodes étiquetées depuis les rapports annuels.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / att",
+  "champ": "accroche",
+  "probleme": "La thèse et l'anti-thèse citent deux chiffres différents pour le recul des ventes du même trimestre",
+  "preuve": "these : Les stocks reculent de 15,3 % quand les ventes reculent de 9,7 % ; att : les ventes reculent de 9,4 % à taux de change constants",
+  "correction_validee": "Aligner sur le chiffre publié (préciser publié ou à change constant dans les deux textes)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Moat générique et contredit par les chiffres de la fiche",
+  "preuve": "moat : Le chiffre d'affaires progresse sur cinq ans mais les autres indicateurs sont absents ; or ORGANIC_GROWTH FY2025=-8.1, FOOTWEAR_SALES -13,1 %, et une dizaine d'indicateurs sont présents",
+  "correction_validee": "Réécrire le moat à partir des KPI réels (marque, part DTC 32,4 %, recul organique 2025)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "La répartition étiquetée par segment est en réalité une répartition géographique, sans exercice, et le bloc géographie est vide",
+  "preuve": "revenue_by_segment (None): Europe 30.2 ; MEA&I 12 ; Amérique du Nord 18 ; Amérique latine 16.1 ; Grande Chine 6.7 ; Reste de l'Asie-Pacifique 10.3 ; stichd 6.4",
+  "correction_validee": "Déplacer dans revenue_by_geography avec l'exercice 2025, mettre en segment la répartition Chaussures / Vêtements / Accessoires",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "ventes_wholesale / FOOTWEAR_SALES.signal / positions de marché",
+  "probleme": "KPI à un seul point sans description ni signal, signal de FOOTWEAR_SALES qui n'en est pas un, et deux positions de marché sans nom ni unité",
+  "preuve": "ventes_wholesale n=1 Q2-2026=1094.8 signal vide ; FOOTWEAR_SALES signal : Produit phare : Chaussures de sport et sneakers Puma ; position de marche 1: None | taille 112.46 ; position de marche 2: None | taille 189.6",
+  "correction_validee": "Retirer ventes_wholesale (ou le compléter en série), écrire un vrai signal (-13,1 % en 2025), nommer ou retirer les positions de marché",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateurs manquants",
+  "probleme": "La thèse et l'anti-thèse s'appuient sur la marge brute et les stocks, mais aucun KPI ne les suit",
+  "preuve": "att : marge brute en hausse de 180 points de base à 48,0 %, stocks de 15,3 % ; aucun KPI marge brute, résultat opérationnel ou stocks sur la fiche",
+  "correction_validee": "Ajouter marge brute trimestrielle, EBIT et stocks (chiffres des rapports trimestriels Puma)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

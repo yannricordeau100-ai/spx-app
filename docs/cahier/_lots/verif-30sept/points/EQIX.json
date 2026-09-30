@@ -1,0 +1,42 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "fcf_annuel",
+  "probleme": "Le FCF annuel contredit la somme des FCF trimestriels de la meme fiche, chaque annee.",
+  "preuve": "fcf_annuel 2025=-0.4 Mds$ ; fcf trimestriel 2025 = 42-127-414-895 = -1 394 M$ (ocf 3 911 moins capex_total 5 305) ; 2024 : 0.183 contre -154 M$ ; 2023 : 0.436 contre +51 M$.",
+  "correction_validee": "Verifier la definition du capex puis aligner fcf_annuel et fcf_par_salarie sur OCF moins capex total, coherent avec la serie fcf trimestrielle.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Quarterly AFFO surpassing $1 billion for the first time / MRR per cabinet yield / Total interconnections deployed / interconnections_total",
+  "probleme": "Jalon presente comme KPI avec une valeur ronde fausse, et doublons du MRR par baie et des interconnexions.",
+  "preuve": "AFFO surpassing 1 billion val=1000 alors que affo_total Q1-2026=1065 ; MRR per cabinet yield 2000/2326/2524 contre mrr_per_cabinet 2227/2327/2518 ; interconnections_total n=2 (FY2017, FY2025) doublon de Total interconnections deployed (n=11).",
+  "correction_validee": "Supprimer le jalon AFFO, MRR per cabinet yield et interconnections_total, et garder mrr_per_cabinet et Total interconnections deployed.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Annualized gross bookings (signal)",
+  "probleme": "Signal annonce des prises de commandes records alors que la serie baisse.",
+  "preuve": "serie 394, 474, 378 (dernier = plus bas des trois) ; signal : Prises de commandes brutes records.",
+  "correction_validee": "Reecrire : 378 M$ au T1-2026, en repli apres le record de 474 M$ du trimestre precedent.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik (products)",
+  "probleme": "Mention d Equinix Metal, service dont l arret a ete annonce pour juin 2026.",
+  "preuve": "products : services digitaux (Network Edge, Metal).",
+  "correction_validee": "Retirer Metal : services digitaux (Fabric, Network Edge).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

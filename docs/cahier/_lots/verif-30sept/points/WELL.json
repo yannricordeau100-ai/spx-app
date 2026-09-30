@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "SHO_SSNOI_YTD (hero), TN_SSNOI_YTD, OM_SSNOI_YTD",
+  "probleme": "Le hero enchaîne des périmètres comparables différents d'un trimestre à l'autre : la courbe double en 2 ans alors que la croissance annoncée est de 21 %. Le nom dit 'YTD' mais les valeurs sont trimestrielles, et OM s'effondre à cause des cessions.",
+  "preuve": "SHO SSNOI : 277 912 puis 582 615 ; yoy affichée +21,0 %, alors que 582615/379900 = +53 % ; TN yoy +7,6 %, alors que 196309/154305 = +27 % ; OM : 134 381 puis 27 089",
+  "correction_validee": "Mettre en hero la croissance du NOI à périmètre constant des résidences seniors (22,1 %, datée), retirer 'YTD' des noms et supprimer OM_SSNOI_YTD, qui mélange des périmètres.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle 2020",
+  "probleme": "Valeur aberrante : la dette de 2020 est 6 fois plus faible que les années voisines (le détecteur de saut ne l'a pas signalée).",
+  "preuve": "2019=13.421, 2020=2.378, 2021=13.91",
+  "correction_validee": "Remplacer 2020 par la dette totale publiée dans le 10-K 2020 (environ 14 Mds $) et recalculer les ratios dérivés.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SHOP Occupancy / Senior Housing Occupancy / SHO_OCC_Q4 ; SHOP Same-Store NOI / Senior Housing Operating Same-Store NOI Growth / CAHIER_SS_NOI / Seniors Housing Operating same store NOI growth ; Total Properties / Properties Owned ; RevPOR Growth SHO / SHO same store RevPOR growth",
+  "probleme": "Doublons en série avec des valeurs contradictoires. Les séries annuelles sont arrondies et sans dates.",
+  "preuve": "occupation 87,5 contre 86 contre 87,6 ; croissance NOI FY2021 -16,7 contre -30 contre -25 ; propriétés 2 400 contre 2 070 ; RevPOR 6,5 contre 5 ; 'SHO average occupancy growth' 370 bps, alors que 87,3 - 85,1 = 220 bps",
+  "correction_validee": "Garder SHO_OCC_Q4, CAHIER_SS_NOI et la croissance trimestrielle sourcée, et supprimer 'SHOP Occupancy', 'Senior Housing Occupancy', 'SHOP Same-Store NOI', 'Senior Housing Operating Same-Store NOI Growth', 'Total Properties', 'Properties Owned', 'RevPOR Growth SHO' et 'SHO average occupancy growth'.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Capex (annuel)",
+  "probleme": "Ordre de grandeur invraisemblable pour une foncière de ce bilan.",
+  "preuve": "Capex : 30.5, 50.7, 58.1, 33.8 M $ (dernier 2026-06-30), alors que les investissements bruts se comptent en Mds $ par trimestre",
+  "correction_validee": "Supprimer la série Capex.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "att.titre vs FFO",
+  "probleme": "L'anti-thèse dit que le FFO par action recule de 30 %, alors que la fiche affiche +22,5 %. Sans préciser qu'il s'agit du FFO non normalisé grevé par la charge en actions, le lecteur voit une contradiction.",
+  "preuve": "att : 'le FFO par action a reculé de 30 % sur l'année' ; Normalized FFO per diluted share : 1.47, yoy +22,5 %",
+  "correction_validee": "Préciser 'FFO publié (non normalisé)' et donner les deux chiffres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NI_COMMON_Q.signal",
+  "probleme": "Citation source en anglais dans le bloc.",
+  "preuve": "'Source T2 2026 : 'Net income (loss) attributable to common stockholders $ 445,002''",
+  "correction_validee": "Retirer la phrase 'Source T2 2026 : ...' du signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SHOP Same-Store NOI, SHOP Occupancy, External Growth $, NOI Mix, Total Properties, SHO_SSNOI_YTD, OM_SSNOI_YTD",
+  "probleme": "Descriptions et signaux en franglais.",
+  "preuve": "'Boomer demand + supply contrainte = pricing power' ; 'Recovery rapide ... Runway 5+ pts' ; 'profite cost-of-capital advantage. Multiples accretifs' ; 'MOB residual SSNOI'",
+  "correction_validee": "Réécrire en français (ou supprimer avec les doublons).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat / these",
+  "champ": "moat.niveau vs these",
+  "probleme": "Le moat vaut 'Aucun' alors que la thèse démontre un avantage concurrentiel selon une grille nommée en anglais.",
+  "preuve": "moat niveau 'Aucun', tendance_mettrik 'hausse' ; these : 'La grille Measuring the Moat retient quatre éléments vérifiables'",
+  "correction_validee": "Revoir le niveau de moat et retirer le nom de la grille.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "fr.products / fr.customers",
+  "probleme": "Description inexacte : Welltower est une foncière. Elle n'exploite pas elle-même, ne fait pas de soins à domicile, et ses clients directs sont des exploitants (Cogir, Care UK), pas des assureurs.",
+  "preuve": "'des services de soins à domicile' ; 'ainsi que des assureurs et des programmes de santé publique' ; clients : ['Cogir Management Corporation', 'Care UK']",
+  "correction_validee": "Réécrire : propriétaire de résidences seniors gérées par des exploitants ou louées en bail net, et de centres médicaux.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[1], risks[5], risks[6]",
+  "probleme": "Le titre du risque ne correspond pas à la citation.",
+  "preuve": "'Protection des données personnelles' cite l'IA ; 'Risques climatiques' cite 'we may abandon opportunities' ; 'Tensions géopolitiques' cite des violations de mesures",
+  "correction_validee": "Réaffecter les citations ou régénérer les risques.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "UK_REV, CA_REV, OM_SSNOI_YTD",
+  "probleme": "Trimestres du T4 absents des séries.",
+  "preuve": "UK_REV : Q3-FY2025=388021 puis Q1-FY2026=961814, sans Q4 ; même trou pour Q4-FY2024",
+  "correction_validee": "Ajouter les T4 à partir des rapports annuels.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

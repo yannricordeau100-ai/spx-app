@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "OPTUM_INSIGHT_REV / SEG_OP_OI / OPTUM_HEALTH_REV / SEG_OP_OH",
+  "probleme": "Les séries ne sont pas retraitées, mais les yoy et les signaux utilisent la base retraitée (Optum Financial). Les chiffres visibles se contredisent.",
+  "preuve": "OPTUM_INSIGHT_REV Q2-2025=4828 alors que le signal dit '5,2 Mds $ un an plus tôt', yoy +3,2 % contre 5402/4828 = +11,9 % ; SEG_OP_OI 0.998 contre '1,21 Md $' ; OPTUM_HEALTH_REV yoy -5,1 % alors que 23472/25205 = -6,9 % ; SEG_OP_OH yoy +177 % alors que 1.19/0.636 = +87 %",
+  "correction_validee": "Remplacer l historique par la base retraitee publiee, ou calculer yoy et signaux sur la serie affichee.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI ponctuels datés 2024-09-10",
+  "probleme": "Une quinzaine de KPI datés du 10 septembre 2024 décrivent des faits de 2025-2026.",
+  "preuve": "'Surcoût médical imprévu 2025' 6500, 'Investissement IA ... en 2026' 1500, 'IBNR 27,8 milliards vs 23,7 fin 2024', 'sorties de plans 2026', 'Acquisitions 4,8 milliards en 2025', tous 'dernier 2024-09-10'",
+  "correction_validee": "Corriger la date à celle du document source (2026).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_MEMBERSHIP",
+  "probleme": "Le nom est vague ('par segment') et la série n'est que Medicare Advantage : c'est un doublon annuel de MA_ENROLL. Le signal 'croissance ininterrompue' est contredit par la chute à 7,565 M en 2026.",
+  "preuve": "FY2025=8.445 = MA_ENROLL Q4-2025 8.445 ; signal 'Croissance ininterrompue depuis 2007' ; MA_ENROLL yoy -9,4 %",
+  "correction_validee": "Supprimer ou renommer en 'Inscrits Medicare Advantage (annuel)' avec un signal à jour.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OptumRx adjusted scripts / Operating cost ratio / Days claims payable",
+  "probleme": "Le premier est un doublon d'OPTUM_RX_SCRIPTS avec une valeur en retard d'un trimestre. Le ratio de coûts doublonne CAHIER_SGA_RATIO. Le signal des jours de sinistres est périmé.",
+  "preuve": "'Ordonnances ajustées OptumRx' val 383 (T1) contre OPTUM_RX_SCRIPTS 387 (T2) ; 'Operating cost ratio' 13,8 contre CAHIER_SGA_RATIO 13,3 ; 'Days claims payable' val 47, signal 'Hausse à 48.6 jours au T1-2026'",
+  "correction_validee": "Supprimer OptumRx adjusted scripts et reecrire le signal Days claims payable sur le T2 2026 (47 jours) ; garder les deux ratios de couts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat / positionnement IA",
+  "champ": "moat.text, ai_positioning",
+  "probleme": "Le moat n'est pas noté et n'en est pas un : il liste des reculs. Le positionnement IA est une phrase générique alors que la fiche chiffre 1,5 Md$ d'investissement IA et PreCheck.",
+  "preuve": "moat 'Les primes reculent de 1 % sur le trimestre, les produits reculent...' ; IA 'Intègre l'IA dans ses produits et opérations existants pour améliorer performance et expérience client.'",
+  "correction_validee": "Réécrire le moat (intégration verticale assureur, soins et PBM, échelle) et le positionnement IA avec les chiffres de la fiche.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque le nombre total d'assurés médicaux et la part des adhérents Medicare Advantage dans des plans notés 4 étoiles ou plus, indicateur clé du secteur pour les bonus CMS.",
+  "preuve": "Seuls MA_ENROLL, COMM_ENROLL, MEDICAID_ENROLL et un 'Assurés UHC' non daté point à point ; aucune notation Star",
+  "correction_validee": "Ajouter le nombre total d'assurés médicaux trimestriel et la part des adhérents en plans 4 étoiles ou plus.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition fausse : SoCalGas pèse plus que SDG&E, et Sempra Infrastructure est absente",
+  "preuve": "Repartition : SDG&E 86,7 %, SoCalGas 13,3 %. Sommes 2025 des KPI : SDG&E 5 697 M$, SoCalGas 6 291 M$, Sempra Infrastructure 1 965 M$",
+  "correction_validee": "Recalculer sur les trois segments : environ SoCalGas 45 %, SDG&E 41 %, Sempra Infrastructure 14 %, avant éliminations.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography.labels",
+  "probleme": "Libellés XBRL bruts en anglais affichés",
+  "preuve": "« Entity-Wide Disclosure On Geographic Areas, United States 88.6 ; Entity-Wide Disclosure On Geographic Areas Mexico 11.4 »",
+  "correction_validee": "Remplacer par « États-Unis » et « Mexique ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CUSTOMER_RELIABILITY",
+  "probleme": "Cuisine interne et mention de source dans le signal, nom trompeur et doublon",
+  "preuve": "Signal : « Reprise 17 sept 2026 : nombre de clients électricité (compteurs) déclaré à l'EIA (formulaire 861) ... La fiabilité (SAIDI/SAIFI) n'est » ; le nom promet la fiabilité, absente ; la série s'arrête en 2024 (1 525 968) et doublonne Sempra California total electric customer meters (1,552 M au T2-2026)",
+  "correction_validee": "Supprimer CAHIER_CUSTOMER_RELIABILITY, couvert par la série trimestrielle des compteurs électriques Sempra California.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Sempra US revenues.signal",
+  "probleme": "Le signal décrit un repli alors que la série progresse",
+  "preuve": "« leur repli reflète surtout la baisse du prix du gaz » alors que yoy = +4,4 % (12 136 contre 11 623)",
+  "correction_validee": "Corriger : hausse de 4,4 % en 2025 après le repli de 2024",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SRE long-term debt.signal",
+  "probleme": "Le signal parle de hausse alors que la dette recule sur un an",
+  "preuve": "« La hausse finance le plan d'investissement » ; yoy = -11,2 % (31 023 contre 34 936)",
+  "correction_validee": "Réécrire en expliquant la baisse du T3-2025 (reclassement ou cession) puis la remontée",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SRE operating margin.yoy / SRE net margin.yoy / SDG&E operating margin.yoy / SoCalGas operating margin.yoy",
+  "probleme": "Variation de marge en % au lieu de points ; pour la marge nette, c'est la variation du résultat net qui a été recopiée",
+  "preuve": "Marge nette yoy = +72,7 % (identique à SRE net income) alors que 26,6 contre 15,4 = +11,2 pts ; marge opérationnelle yoy = +42,6 % alors que 27,8 contre 19,5 = +8,3 pts",
+  "correction_validee": "Recalculer en points : marge opérationnelle SRE +8,3 pts, marge nette +11,2 pts, SDG&E +3,1 pts, SoCalGas -0,1 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SRE adjusted EPS / SRE adjusted earnings",
+  "probleme": "Indicateur de référence de la guidance arrêté au T1-2026 alors que les autres séries vont au T2-2026",
+  "preuve": "SRE adjusted EPS dernier 2026-03-31 = 1,51 ; SRE diluted EPS dernier 2026-06-30 = 1,21",
+  "correction_validee": "Ajouter le T2-2026 ajusté",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Moat générique qui ne nomme pas l'avantage évident (monopoles régulés)",
+  "preuve": "« Croissance de 6 % de l'activité électrique et parc de compteurs en légère hausse, contrebalancés par des risques de dépréciation et de taux en aggravation »",
+  "correction_validee": "Réécrire autour des concessions régulées exclusives et de la croissance de la base tarifaire (Oncor +18,4 %, SoCalGas +12,4 %)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.summary",
+  "probleme": "Anglicismes, et positionnement « cautious » contredit par les KPI Oncor",
+  "preuve": "« demande IA datacenter (Texas, California) » ; Oncor large-load queue = 289 GW, dont 271 GW liés aux centres de données",
+  "correction_validee": "Franciser et chiffrer l'exposition (file d'attente Oncor)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Le rendement autorisé des fonds propres (ROE autorisé CPUC et PUCT), KPI central d'un réseau régulé, est absent alors que la thèse s'appuie dessus",
+  "preuve": "these : « les régulateurs viennent de relever ... le rendement autorisé » ; aucun KPI de ROE autorisé",
+  "correction_validee": "Ajouter le ROE autorisé de SDG&E, SoCalGas et Oncor",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Positive final investment decision on PA LNG Phase 2 / Blackstone subscription / Cameron 1000th cargo / Ecogas / SI 45% stake sale",
+  "probleme": "Événements présentés comme KPI, avec une valeur trompeuse",
+  "preuve": "« Décision finale d'investissement PA LNG Phase 2 » val = 1,9 Mds $, qui est en réalité le prix payé pour 50 % des installations communes ; n = 1 partout",
+  "correction_validee": "Sortir ces événements des KPI",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Advantage2 system sale, Q1 bookings, Remaining Performance Obligations, Full-year revenue, Cash and marketable securities, Revenue-generating customers, Sales pipeline growth, Dual-rail gate fidelity, Fortune 100 QCaaS agreement, Q-Alliance contract, Annual QCaaS revenue capacity",
+  "probleme": "Onze KPI d une autre societe (D-Wave Quantum, informatique quantique : Advantage2, QCaaS, Leap, fidelite des portes) sont sur la fiche de Dominion Energy. Un 'chiffre d affaires annuel record de 24,6 M$' sur une fiche a 16,5 Mds $ de ventes detruit la credibilite.",
+  "preuve": "KPI Full-year revenue | Chiffre d'affaires annuel record | ... val=24.6 :: 'Chiffre d'affaires annuel de 24,6 M$, en hausse de 179%' ; KPI Dual-rail gate fidelity ... 'approche dual-rail issue de Quantum Circuits' ; revenue_annuel 2025=16.523 Mds $",
+  "correction_validee": "Supprimer les onze KPI de D-Wave de la fiche D.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dev_customers, desc_customers, Regulated electric customers, Customers, Electric Customers, CAHIER_CUSTOMER_RELIABILITY",
+  "probleme": "Six comptes de clients qui se contredisent : 4,1 M 'clients electriques DEV' (Virginia Power) alors que l EIA en compte 2,78 M pour Virginia Power ; 3,6 M clients electriques regules (x2) ; 4,5 M clients regules ; desc_customers vaut 800 K mais son signal dit 0,5 M (qui est le chiffre du gaz). Le 4,1 M correspond au total electricite + gaz du groupe, pas a DEV.",
+  "preuve": "dev_customers ... val=4.1 :: '4.1M clients electriques VA, NC, SC' ; CAHIER_CUSTOMER_RELIABILITY FY2024=2783257 (Virginia Electric & Power) ; Regulated electric customers 3.6 x7 ; Customers 4.3..4.5 ; desc_customers val=800 :: '0.5M clients residentiels...'",
+  "correction_validee": "Garder Clients electricite (3,6 M, dont environ 2,8 M DEV et 0,8 M DESC) et Clients gaz (0,5 M), corriger le signal de desc_customers et l accroche de la these, supprimer Customers et Electric Customers.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Electric MWh Sold, Total Electric Sales, electricite_livree_par_dominion_energy_v, dev_mwh_delivered",
+  "probleme": "Trois volumes annuels d electricite incompatibles : 99,9 TWh 'vendus' en 2024 et 90 TWh 'ventes totales' en 2025 sans dates, alors que la seule serie datee donne 94,5 M MWh pour DEV seul en 2024 et 100,2 en 2025 (DESC ajoute environ 22).",
+  "preuve": "Electric MWh Sold ... 2024 val=99.9 serie: 98.3, 100.7, 97.3, 97, 99.9 ; Total Electric Sales val=90 serie: 85, 87, 88, 89, 90 ; electricite_livree... 2024=94.5, 2025=100.2 ; desc_mwh_delivered 2025 = 5.3+5.5+6.4+5 = 22.2",
+  "correction_validee": "Supprimer Electric MWh Sold et Total Electric Sales, et garder les series datees DEV et DESC.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Operating Revenue, Operating EPS, Gas Distribution Customers, Offshore Wind Capacity, Solar Capacity Installed, Regulated Capex",
+  "probleme": "Bloc de six series a nom anglais, sans dates, dont Operating Revenue contredit revenue_annuel (13,97 vs 11,66 en 2021 ; 17,18 vs 14,55 en 2022) et Operating EPS donne 3,3 $ pour 2022 (publie 4,11 $) et 2,67 $ pour 2023 (publie 1,99 $). Signaux telegraphiques en franglais ('Driver rate base', 'relocation tech', 'steady').",
+  "preuve": "Operating Revenue serie: 14.17, 13.97, 17.18, 14.31, 14.46 ; revenue_annuel 2021=11.661, 2022=14.552 ; Operating EPS serie: 3.54, 3.86, 3.3, 2.67, 2.77 ; Customers :: 'Croissance clientele steady'",
+  "correction_validee": "Supprimer les six KPI, sans ecrire que le BPA operationnel 2023 publie vaut 1,99 $.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dev_cap_plan (hero), consol_cap_plan, CAHIER_CAPEX_PLAN, Consolidated capital expenditure plan 2026-2030",
+  "probleme": "Le plan d investissement 2026-2030 de 65 Mds $ apparait quatre fois (65, 65,7 et 65, plus le plan DEV de 55 en hero) ; les series annuelles empilent des plans a fenetres differentes comme s il s agissait d une serie temporelle (FY2023=9 puis FY2024=41 pour DEV). Le nom du hero dit '2026-2030' pour un point FY2019.",
+  "preuve": "dev_cap_plan | Plan capital DEV 2026-2030 ... FY2019=16 ... FY2023=9, FY2024=41, FY2025=55 ; consol_cap_plan FY2025=65 ; CAHIER_CAPEX_PLAN FY2025=65.7 ; Consolidated capital expenditure plan 2026-2030 n=1 val=65",
+  "correction_validee": "Supprimer le KPI n=1 et CAHIER_CAPEX_PLAN ; renommer dev_cap_plan 'Plan d investissement Virginia Power sur cinq ans (millesime du plan)' et verifier le point 2023 (9).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CVOW Commercial Project total cost (excl. financing)",
+  "probleme": "Doublon perime du cout CVOW : 11,5 Mds $ a un point, alors que la serie datee cvow_total_cost va a 11,7 Mds $ au T2-2026.",
+  "preuve": "CVOW Commercial Project total cost ... n=1 val=11.5 ; cvow_total_cost Q4-2025=11.5, Q1-2026=11.4, Q2-2026=11.7",
+  "correction_validee": "Supprimer le KPI a un point.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / anti-these",
+  "champ": "bpa_dilue.signal, marge_op.signal vs att",
+  "probleme": "Montant de depreciation incoherent entre l anti-these (820 M$) et deux signaux de KPI (894 M$) pour le meme T2-2026.",
+  "preuve": "att : 'depreciation non recurrente de 820 M$' ; bpa_dilue :: '894 M$ de depreciations d'actifs' ; marge_op :: 'Marge ecrasee par 894 M$ de depreciations'",
+  "correction_validee": "Verifier dans le communique du T2-2026 (avant ou apres impot) et aligner les trois textes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CUSTOMER_RELIABILITY.signal / nom",
+  "probleme": "Cuisine interne et source dans le bloc ('Reprise 17 sept 2026', 'declare a l EIA (formulaire 861)') ; le nom promet 'et fiabilite du service' mais la serie ne contient qu un nombre de compteurs.",
+  "preuve": "signal : 'Reprise 17 sept 2026 : nombre de clients electricite (compteurs) declare a l'EIA (formulaire 861) par Virginia Electric & Power ... meme perimetre chaque annee.'",
+  "correction_validee": "Renommer 'Clients electricite Virginia Power (compteurs)' et reecrire le signal sans la reprise ni l EIA, la source allant dans le mini bloc du bas.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.summary",
+  "probleme": "Le texte dit que Dominion 'mentionne peu l IA' alors que la fiche montre que les centres de donnees de l IA sont le moteur de la demande (28 % des ventes de Virginia Power, 51 GW sous contrat). Pour un electricien, le positionnement IA pertinent est celui de fournisseur d energie des data centers, pas d utilisateur d IA.",
+  "preuve": "positionnement IA (cautious): 'Dominion Energy mentionne peu l'IA dans ses communications officielles (Electricite).' ; Data centers share of Virginia Power electricity sales val=28 ; dc_contracted_capacity Q1-2026=51 GW",
+  "correction_validee": "Reecrire le positionnement : beneficiaire de la demande d electricite des centres de donnees (chiffres 28 % et 51 GW).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0], risks[3]",
+  "probleme": "Titres de risques generiques qui n apprennent rien sur Dominion : 'Risque specifique au business model', 'Risque de non-atteinte des objectifs'.",
+  "preuve": "risque 1: Risque specifique au business model ; risque 4: Risque de non-atteinte des objectifs",
+  "correction_validee": "Reformuler avec le contenu reel (cout et calendrier de CVOW, examen biennal de Virginie, fermeture de la fusion NextEra).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "marge_op, marge_nette, marge_op_dev, marge_op_desc, marge_op_ce, marge_livraison_pct, CAHIER_ROE_GAP (yoy)",
+  "probleme": "Variations de marges exprimees en pourcentage relatif au lieu de points ('-74.5%' pour une marge passee de 28,8 a 7,3 %) ; CAHIER_ROE_GAP affiche +543 % entre deux points separes de deux ans (2023 puis 2025) sur un ecart negatif.",
+  "preuve": "marge_op ... yoy=-74.5% vs Q2-2025 serie Q2-2025=28.77, Q2-2026=7.34 ; CAHIER_ROE_GAP FY2023=-0.3, FY2025=-1.93 yoy=+543.3%",
+  "correction_validee": "Afficher la variation en points pour toute serie en %, et ne pas afficher de yoy sur CAHIER_ROE_GAP faute de point 2024.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Automotive Revenue / Industrial Revenue / SiC Revenue / Operating Margin (Non-GAAP)",
+  "probleme": "Quatre series annuelles sans etiquette d annee, chiffres ronds, contredites par les series trimestrielles de la fiche et doublons de auto_rev et industrial_rev",
+  "preuve": "Automotive Revenue serie 4350, 3050, 3050 (deux valeurs identiques) alors que la somme trimestrielle 2025 de auto_rev donne 3 080,8 M$ ; Industrial Revenue 1900 vs somme 2025 de industrial_rev 1 674,8 M$ ; dernier 2026-08-05 sans periode",
+  "correction_validee": "Retirer les quatre KPI, SiC compris, car ses années ne sont établies nulle part.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Manufacturing utilization rate.signal",
+  "probleme": "Signal contredit la serie : il parle de reprise alors que le taux baisse de 83 a 74, et il date le point de Q3-2025 alors que la date de fin est 2026-03-28 ; serie sans dates",
+  "preuve": "serie: 83, 80, 81, 81, 77, 74 ; signal '74% en Q3-2025 signale une reprise apres le creux du cycle'",
+  "correction_validee": "Réécrire le signal (utilisation des usines en baisse de 83 % à 74 %, soit 9 points) ; dater les points depuis la source, sinon retirer la série.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification perimee et contredite par les chiffres : toutes les zones progressent au T2-2026",
+  "preuve": "moat: 'Les revenus reculent dans toutes les zones' ; rev_uk +8,1 %, rev_hk +7,5 %, rev_sg +18,2 %, rev_us +8,2 %, revenue +9,2 % au T2-2026",
+  "correction_validee": "Réécrire avec la reprise de 2026 (CA +9,2 % au T2-2026, toutes les zones en hausse) et un taux d'utilisation des usines encore bas à 74 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rd_expense.signal",
+  "probleme": "Explication absurde pour une depense de R&D",
+  "preuve": "signal: 'Le recul reflete surtout une baisse des couts de materiaux de production et de charges variables'",
+  "correction_validee": "Remplacer par 140,8 M$ au T2-2026, en baisse de 2,1 % sur un an, sans cause inventée.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "gross_profit.signal",
+  "probleme": "Citation en anglais dans un signal",
+  "preuve": "signal: le rapport trimestriel parle d'une hausse 'by $64.4 million, or approximately 12%'",
+  "correction_validee": "Supprimer la citation anglaise et garder 616,3 M$ au T2-2026, +11,7 % sur un an.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AI data center revenue expected 2025 / Vertical GaN energy loss reduction / Treo platform design funnel",
+  "probleme": "Points uniques a valeur promotionnelle ou previsionnelle presentes comme KPI ; le premier est une prevision 2025 deja depassee",
+  "preuve": "'Revenus IA (data center) attendus 2025' n=1 val=250 ; 'Reduction de perte d energie du GaN vertical' val=50 % (argument produit)",
+  "correction_validee": "Retirer les deux premiers, ou remplacer le revenu IA attendu par le revenu IA realise 2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "buyback / 2025 share repurchases / Cumulative share repurchases",
+  "probleme": "Trois KPI pour la meme mesure (rachats trimestriels, annuel 2025, cumul)",
+  "preuve": "buyback n=38 trimestriel ; '2025 share repurchases' 1375 M$ n=1 ; 'Cumulative share repurchases since Feb 2023' 2,1 Mds $ n=1",
+  "correction_validee": "Garder buyback et retirer « 2025 share repurchases » et « Cumulative share repurchases since Feb 2023 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

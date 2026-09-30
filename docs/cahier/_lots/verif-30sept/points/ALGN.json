@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Invisalign Cases, Teen Cases Mix",
+  "probleme": "Deux series annuelles sans annees dont les valeurs ne correspondent pas aux chiffres publies presents ailleurs sur la fiche ; la seconde est une progression lineaire de 1 point par an",
+  "preuve": "Invisalign Cases [2.05, 2.42, 2.34, 2.45, 2.49] M cas vs Total Case Volume [1645.3, 2547.7, 2398.4, 2408.5, 2493.7] k cas ; Teen Cases Mix [28, 29, 30, 31, 32] ; les deux datees 2026-06-30 sans periodes",
+  "correction_validee": "Supprimer Invisalign Cases et Teen Cases Mix.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Clear Aligner Revenue, Systems & Services Revenue, Total Case Volume, Clear Aligner Op Income, Systems & Services Op Income",
+  "probleme": "Cinq doublons annuels arretes en 2024, sans accents, avec un resultat operationnel 2024 incoherent avec la serie trimestrielle et avec l'anti-these",
+  "preuve": "Clear Aligner Op Income 2024 = 1199.9 soit 37,1 % de marge, alors que l'anti-these cite 35,4 % (10-K 2025) et que Q3-2024 + Q4-2024 = 556,3 M$ ; textes 'Resultat Op.', 'Coeur d'Align', 'Plus de 19M patients traites' (KPI a 23 M)",
+  "correction_validee": "Supprimer les cinq KPI annuels, couverts par les séries trimestrielles clear_aligner_revenue, systems_services_revenue, invisalign_cases_total, clear_aligner_op_income et systems_op_income.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_UNIT_VOLUME",
+  "probleme": "Serie arretee en FY2020 avec un signal perime alors que les volumes 2021-2026 existent sur la fiche",
+  "preuve": "dernier 2020-12-31, val=1645.3 ; signal 'Dix annees consecutives de hausse des volumes' alors que 2022 et 2023 sont en baisse (2398.4, 2408.5 apres 2547.7)",
+  "correction_validee": "Prolonger jusqu'a 2025 (2021=2547.7, 2022=2398.4, 2023=2408.5, 2024=2493.7, 2025=2611.3 somme des trimestres) et reecrire le signal, ou supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "14 KPI a un point dates 2026-06-10",
+  "probleme": "Jalons de presentation transformes en KPI a un seul point, plusieurs en doublon avec des series existantes et des valeurs divergentes",
+  "preuve": "Cumulative Invisalign patients treated = 22 000 000 vs patients_treated_cumulative = 23 M (Q1 et Q2 2026) ; teens 256 000 + adults 449 000 = 705 000 cas vs invisalign_cases_total Q2-2026 = 691,8 k ; 2025 restructuring charges incurred = 41 M$ vs Restruct 2025 = 35,4 M$ ; 'DSP touch-up cases shipped (full year)' en frequence trimestre ; 'April 2025 share repurchase authorization' date 2026-06-10",
+  "correction_validee": "Supprimer les doublons (patients cumulés, rachat avril 2025, restructuration 2025, retouches DSP annuelles) et retirer ou convertir en séries trimestrielles datées les jalons ados, adultes et praticiens actifs.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Restruct",
+  "probleme": "Nom de KPI tronque en code et description qui renvoie a un tableau du document source",
+  "preuve": "short 'Restruct' ; description '... comme indique dans le tableau des charges de restructuration et autres (en millions)'",
+  "correction_validee": "Renommer en 'Charges de restructuration (annuel)', remettre la série dans l'ordre FY2023=13,3, FY2024=33,2, FY2025=35,4 et couper la description avant 'comme indiqué'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.tendance, moat.justification_mettrik",
+  "probleme": "Tendance affichee 'stable' contre tendance Mettrik 'baisse', et justification perimee qui decrit le recul 2025 alors que les derniers trimestres montrent un redressement que la these met en avant",
+  "preuve": "justification : 'La marge brute des gouttieres transparentes perd plus de quatre points, le resultat operationnel recule de 9,4 %' ; clear_aligner_gross_margin Q2-2026 71,4 % (+1,3 pt), clear_aligner_op_income +21,9 % ; these : 'repasse au deuxieme trimestre 2026 au-dessus de son niveau de 2023'",
+  "correction_validee": "Reecrire la justification sur les donnees T2 2026 et aligner les deux champs de tendance",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "slices[2].label",
+  "probleme": "Tranche 'SWITZERLAND' en anglais majuscules, et presentee comme un marche alors qu'il s'agit de l'entite de facturation internationale (22,8 % du CA en Suisse n'est pas credible pour un investisseur)",
+  "preuve": "revenue_by_geography : 'Etats-Unis 41.2 ; Autres international 36 ; SWITZERLAND 22.8'",
+  "correction_validee": "Renommer 'Suisse (entite de facturation)' ou fusionner avec 'Autres international' en 'International 58,8'",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORG_GROWTH_CC.yoy",
+  "probleme": "Variation d'un taux exprimee en pourcentage relatif au lieu de points",
+  "preuve": "yoy '-82.2%' pour 4,5 % vers 0,8 %",
+  "correction_validee": "Remplacer le yoy par '-3,7 pt'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

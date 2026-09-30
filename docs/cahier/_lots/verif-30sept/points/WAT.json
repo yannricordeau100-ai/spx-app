@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "description / kpis",
+  "champ": "mettrik_description, TA_REV, WAT_WINSTR_Q, WAT_TAINSTR_Q, WAT_WSERV_Q, WAT_TASERV_Q, WAT_PHARMA_*, WAT_IND_*, WAT_ACAD_*, WAT_SERVICE_PCT",
+  "probleme": "La fiche ignore largement le rachat de BD Biosciences et Diagnostic (février 2026), qui a doublé les ventes : la description n'en dit rien et toutes les séries par segment ou par marché s'arrêtent au T4 2025.",
+  "preuve": "description sans « BD »/« Becton » ; WAT_REV_Q 771,3 -> 1645 ; séries segments dernier 2025-12-31",
+  "correction_validee": "Mettre à jour la description avec l'activité BD Biosciences et Diagnostic et prolonger les séries sur la segmentation 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux WAT_INSTR, WAT_CHEM, WAT_CHINA, WAT_US_Q, WAT_EU_Q, WAT_PROD_Q...",
+  "probleme": "Signaux robotiques qui répètent le nom en minuscules entre parenthèses et présentent des hausses de 48 % à 364 % sans dire qu'elles viennent de l'acquisition, pas de la croissance organique.",
+  "preuve": "« 455 M USD (revenus instruments (lc/ms + ta)) au 2e trimestre 2026 (+48% sur un an) » ; WAT_CHEM yoy=+364 % avec un signal générique",
+  "correction_validee": "Retirer la parenthèse et préciser « périmètre BD inclus », en ajoutant la croissance organique publiée.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORG_GROWTH_END_MARKET",
+  "probleme": "Nom faux : la série est le CA pharmaceutique en Mds $, pas une croissance organique. Elle fait aussi doublon avec WAT_PHARMA_Q.",
+  "preuve": "FY2025=1,873 = somme WAT_PHARMA_Q 2025 (391,1+462+479,8+540,6)",
+  "correction_validee": "Renommer en « Ventes au secteur pharmaceutique (annuel) », ou supprimer si l'historique 2018-2023 n'est pas voulu.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "END_MARKET_MIX_PHARMA / WAT_PHARMA_PCT / WAT_SERVICE_PCT",
+  "probleme": "Le nom annonce une répartition complète alors que la série ne donne que la part pharma, qui fait doublon avec le trimestriel. La part service est nommée « récurrents » et son signal contredit la valeur.",
+  "preuve": "« Répartition du chiffre d'affaires par débouché final (pharma/biotech, académique, industriel...) » série 59,2 ; WAT_PHARMA_PCT signal « 59% » val=58 ; WAT_SERVICE_PCT val=36,3 signal « Service Waters >37% »",
+  "correction_validee": "Renommer en « Part pharma des ventes (annuel) », corriger le signal service à 36,3 % en précisant la base (segment Waters), et aligner le signal pharma sur 58 %.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Termination fee payable to BD / SpinCo cash distribution / BD shareholders ownership",
+  "probleme": "Mécanique de l'opération périmée depuis la clôture de février 2026 : l'indemnité de rupture n'a plus d'objet.",
+  "preuve": "« Engagement de payer 733 M$ à BD si l'accord de fusion est résilié » ; BD KPI « finalisée le 9 février 2026 »",
+  "correction_validee": "Supprimer l'indemnité de rupture et déplacer la distribution SpinCo et la part BD (39,2 %) vers les événements.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat / kpis",
+  "champ": "moat, TA_REV, WAT_CHEM",
+  "probleme": "Moat nul alors que la thèse repose sur le modèle rasoir et lames (72 % de récurrent) ; son texte date d'avant l'opération BD. Coquilles et franglais dans les noms et signaux.",
+  "preuve": "moat None « Les ventes de produits gagnent 7,2 % » (FY2025) ; « colonnes/réagents » ; TA_REV « faiblesse US offset par Asie »",
+  "correction_validee": "Rédiger un vrai moat (base installée, Empower, consommables captifs) ; corriger en « réactifs » et « compensée par ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

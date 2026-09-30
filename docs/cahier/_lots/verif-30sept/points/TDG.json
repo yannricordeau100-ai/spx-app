@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis (trimestriels)",
+  "champ": "yoy",
+  "probleme": "Le yoy affiché est celui du T2 alors que la valeur est celle du T3",
+  "preuve": "net_sales 2741 contre 2237 = +22,5% mais yoy '+18.3%' (= 2544/2150); power_control '+23.3%' contre +32,5%; ebitda '+15.1%' contre +18,9%; operating_margin 44,8 contre 46,4 affiché '+0.2 pts' au lieu de -1,6 pt; cash '+60.1%' contre -0,7%",
+  "correction_validee": "Recalculer tous les yoy trimestriels sur le T3 de l exercice 2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis (trimestriels)",
+  "champ": "signal",
+  "probleme": "Signaux restés au T2 2026 alors que la valeur affichée est le T3",
+  "preuve": "net_sales signal '2 544 M $ au T2 2026' contre val 2741; eps '9.20 $' contre 9,39; net_income '535 M $' contre 540; operating_margin '46.3%' contre 44,8; inventory '2 400' contre 2586",
+  "correction_validee": "Reecrire les signaux sur le T3 de l exercice 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "last_data_date / périodes",
+  "probleme": "Dates au 30 septembre ou 4 septembre 2026 pour le T3 de l'exercice, clos fin juin; le T4 n'est publié que le 5 novembre",
+  "preuve": "ebitda_as_defined 'dernier 2026-09-30' pour Q3-2026; net_sales 'dernier 2026-09-04'; aftermarket_pct et GROUP_REVENUE datés 2025-12-31 alors que l'exercice clôt au 30 septembre",
+  "correction_validee": "Dater le T3 au 27 juin 2026, l exercice 2025 au 30 septembre 2025, et etiqueter en exercice.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ocf_q, fcf_q, net_debt_q, net_leverage_q, acquisitions_q, gross_margin_q, parts par marché",
+  "probleme": "Flux de trésorerie, levier et mix arrêtés au T2 alors que le compte de résultat est au T3",
+  "preuve": "'dernier 2026-03-28' pour ces séries contre T3 pour les ventes",
+  "correction_validee": "Ajouter le T3 de l'exercice 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / these",
+  "champ": "proprietary_products_pct / Sole Source Mix",
+  "probleme": "Chiffres propriétaires et source unique contradictoires ou inversés",
+  "preuve": "proprietary_products_pct=80 alors que son signal et la thèse disent 90%; Sole Source Mix=90 (la société publie environ 90% propriétaire et une part source unique plus faible)",
+  "correction_validee": "Mettre 90% en propriétaire, vérifier la part source unique",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Aftermarket Sales, OEM Sales, EBITDA Margin, Sole Source Mix, M&A Capex, Aftermarket Revenue, Commercial OEM Rev, Defense Revenue",
+  "probleme": "KPI hérités sans périodes, en franglais, très éloignés des séries publiées",
+  "preuve": "Defense Revenue 2,55 Mds contre 830+874+963+1094 = 3 761 M$ en FY2025; Aftermarket Revenue 4,5 contre 2 804; Commercial OEM 2,8 contre 2 106; M&A cite 'CPI Aerostructures'",
+  "correction_validee": "Supprimer ces 8 KPI herites.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / kpis",
+  "champ": "these / CAHIER_BACKLOG",
+  "probleme": "Formulation fausse dans la thèse; carnet de commandes périmé de 5 ans",
+  "preuve": "'environ 55 % du marché des pièces de rechange' alors qu'il s'agit de 55% des ventes (aftermarket_pct); CAHIER_BACKLOG arrêté en FY2020 (3 145)",
+  "correction_validee": "Écrire '55 % de ses ventes sur les pièces de rechange'; prolonger le carnet de commandes jusqu'en FY2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GROUP_REVENUE / Gross debt balance / Special cash dividend per share",
+  "probleme": "Doublons ou chiffres périmés",
+  "preuve": "GROUP_REVENUE doublon du CA, signal 'Produit phare : Actionneurs...'; dette brute 30 Mds contre total_debt_q 33 485; dividende spécial 90 $ déjà dans special_dividend_per_share (FY2025 165)",
+  "correction_validee": "Supprimer GROUP_REVENUE, Gross debt balance et Special cash dividend per share.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "QBO_ACCOUNTING_REV, ONLINE_SERVICES_REV et KPI trimestriels",
+  "probleme": "Séries en retard et dates fausses : l'exercice 2026 (clos le 31/07/2026) est publié, mais la plupart des KPI s'arrêtent au T3, et QBO ainsi qu'Online Services au T2, avec une date du 2026-06-30.",
+  "preuve": "QBO T2-FY2026 1 248 + Online Services 1 219 = 2 467 = TOTAL_ONLINE_ECOSYSTEM T2-FY2026 ; ce trimestre se termine le 31/01/2026. CONSUMER_REV et EPS vont déjà au T4-FY2026.",
+  "correction_validee": "Ajouter T3 et T4 FY2026 et dater chaque trimestre à sa vraie fin d'exercice décalé.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy CONSUMER_REV, EPS_DILUTED_Q, HEADCOUNT_ANNUAL, CAPEX_ANNUAL",
+  "probleme": "La variation affichée et le signal portent sur la période précédente, pas sur le dernier point.",
+  "preuve": "CONSUMER_REV : 930 contre 818 = +13,7 %, affiché +8 %. EPS : 1,34 contre 1,35 = -0,7 %, affiché +11 %. Effectifs : 18,6 contre 18,2 = +2,2 %, affiché -3 %. Capex : 175 contre 84 = +108 %, affiché -56 %.",
+  "correction_validee": "Recalculer les variations sur le dernier point et réécrire les signaux sur ce point.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / positionnement IA",
+  "champ": "signaux",
+  "probleme": "Signaux en franglais et chiffres cités incohérents. Positionnement IA générique alors que la fiche contient des chiffres concrets.",
+  "preuve": "QBO : « +22% YoY -- accél croissance; moteur core » contre +23,8 % dans la série ; Online Services : « Payments +$242M + QuickBooks Capital +$137M ». IA : « Positionne l'IA comme axe stratégique central » alors que la fiche indique 3 M de clients des agents IA et 50 M de transactions par semaine.",
+  "correction_validee": "Réécrire en français clair avec les chiffres de la série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / moat",
+  "champ": "signaux et justification",
+  "probleme": "Cuisine interne et mentions de sources dans les blocs.",
+  "preuve": "« (ER du 20 mai 2026) » dans plusieurs signaux ; « série reconstituée depuis » ; moat « contredit en partie la dégradation de la note » ; « (étude Forrester) ».",
+  "correction_validee": "Retirer ces mentions de source et de calcul des signaux, du moat et du nom (étude Forrester).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Consumer Revenue / Consumer Group Revenue",
+  "probleme": "Deux doublons annuels du même libellé « Consumer (TurboTax) », avec des valeurs contradictoires entre eux et avec le nouveau périmètre.",
+  "preuve": "Consumer Revenue 2025 = 4 870 ; Consumer Group Revenue = 4,717 ; somme TurboTax 2025 = 187+520+4 078+148 = 4 933 ; CONSUMER_REV inclut désormais Credit Karma et ProTax.",
+  "correction_validee": "Supprimer Consumer Revenue et Consumer Group Revenue.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Online Ecosystem Revenue / Small Business Online Ecosystem",
+  "probleme": "Données manquantes affichées comme des zéros, et série mal nommée.",
+  "preuve": "Online Ecosystem : série 0, 0, 5759, 6892, 8302. « Écosystème PME en ligne » à 10,402 Mds$, supérieur à l'écosystème en ligne 2025 (8 302) et 2026 (9 918 selon la thèse).",
+  "correction_validee": "Retirer les zéros, supprimer ou renommer la seconde série (ancien segment PME et indépendants ?).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ONLINE_ARPU / ONLINE_PAYING_CUSTOMERS / TURBOTAX_LIVE_CUSTOMERS_FY26",
+  "probleme": "Les noms annoncent des niveaux alors que les séries sont des taux de croissance. Les signaux datent de l'exercice 2025.",
+  "preuve": "ARPU : unité « % croissance YoY », variation calculée sur un taux. Signal « ARPU +14% avec clients +5% » alors que 2026 = 15 et 3. « Clients TurboTax Live » : val 38 %.",
+  "correction_validee": "Renommer en « Croissance de l'ARPU / des clients payants / des clients TurboTax Live » et actualiser les signaux sur FY2026.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TURBOTAX_LIVE_REV_FY26 / TurboTax Live revenue growth",
+  "probleme": "Une prévision reste affichée après la clôture de l'exercice, et elle contredit un autre KPI.",
+  "preuve": "« CA TurboTax Live FY26 (projeté) 2,8 Mds$, +36% » contre « Croissance revenu TurboTax Live » 47 %.",
+  "correction_validee": "Remplacer par le réalisé de l'exercice 2026 et fusionner les deux KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TurboTax Online Units / QuickBooks Online Subscribers",
+  "probleme": "Séries non datées, dont une contredit l'anti-thèse.",
+  "preuve": "Unités TurboTax Online 38,5 M, +6,9 %, alors que l'anti-thèse dit « le nombre de déclarations fédérales TurboTax a baissé ». Abonnés QBO 8 200 K non datés.",
+  "correction_validee": "Vérifier à la source et dater, sinon supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WORKFORCE_REDUCTION_FY26, HEADCOUNT_ANNUAL, Fiscal 2025 total net revenue, Fiscal 2025 dividend per share, Additional share repurchase authorization",
+  "probleme": "Doublons et chiffres dépassés, dont des autorisations de rachat contradictoires.",
+  "preuve": "Réduction de 17 % en double. HEADCOUNT_ANNUAL double effectifs_annuels (18 200). Dividende 2025 = 4 × 1,04 déjà en série. Autorisation « capacité totale à 4,4 Md » contre BUYBACK : « nouvelle autorisation 8 Mds $ ».",
+  "correction_validee": "Supprimer les doublons (Full-time workforce reduction, HEADCOUNT_ANNUAL ou effectifs_annuels, Fiscal 2025 revenue et dividend) et l'autorisation de 2025.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BILLINGS / CAHIER_SUBSCRIPTION_GROSS_MARGIN",
+  "probleme": "Date de clôture fausse : l'exercice d'Intuit se termine le 31 juillet.",
+  "preuve": "Datés 2025-12-31 pour l'exercice 2025, alors que les autres KPI annuels sont au 2025-07-31.",
+  "correction_validee": "Dater CAHIER_BILLINGS et CAHIER_SUBSCRIPTION_GROSS_MARGIN au 2025-07-31.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Increase in people planning to start a business, taxable income reduction, Forrester ROI, credit facilities",
+  "probleme": "Chiffres commerciaux ou de financement présentés comme des KPI opérationnels.",
+  "preuve": "« Hausse des personnes envisageant de créer une entreprise 94 % » ; « Réduction ... 12000 USD » ; « ROI ... 300 % » ; lignes de crédit de 5,8 et 2,2 Mds$.",
+  "correction_validee": "Supprimer ou déplacer vers les événements.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

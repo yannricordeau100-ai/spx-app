@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "rev_total, gross_margin, op_margin, net_income, op_income, ocf, fcf, segments, geo (toutes les séries trimestrielles sauf 3)",
+  "probleme": "Séries arrêtées au T2 FY2026 (26 avril) alors que le T3 FY2026 (clos fin juillet, publié mi-août) est cité dans la thèse.",
+  "preuve": "Thèse : \"chiffre d'affaires de 9 115 M$ en progression de 25 %\" au T3 FY2026 ; rev_total dernier point Q2-2026=7910 ; seuls eps_diluted, rd_expense et buyback ont un point Q3-2026.",
+  "correction_validee": "Ajouter le point T3 FY2026 (trimestre clos le 26 juillet 2026) à toutes les séries trimestrielles depuis le 10-Q du 20 août 2026, puis recalculer yoy et signaux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted, rd_expense, buyback (signal, yoy, dernier point)",
+  "probleme": "Dernier point Q3-2026 mais signal et yoy décrivent le T2 ; valeurs Q3 rondes suspectes.",
+  "preuve": "eps val=3,17 (Q3) avec yoy +33 % = 3,51/2,63 (Q2) et signal \"BPA dilué T2 FY2026 à 3,51 $\" ; rd val=1 100 avec yoy +15 % = 1027/893 (Q2) ; buyback Q3=400 identique au Q2, signal \"400 M$ au T2 FY2026 (1 670 M$ un an plus tôt)\".",
+  "correction_validee": "Vérifier la R&D et les rachats du T3 dans le 10-Q, puis recalculer les yoy au T3 (BPA 3,17/2,22 = +43 %, R&D 1 100/901 = +22 % si confirmé, rachats 400/1 056 = -62 % si confirmé) et réécrire les trois signaux au T3.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Backlog, AGS Revenue, Foundry/Logic Mix, ICAPS Revenue (séries annuelles)",
+  "probleme": "Quatre séries annuelles à chiffres ronds, sans périodes, contredites par les séries SEC de la même fiche.",
+  "preuve": "\"Backlog\" 16, 17, 17,8, 18,2, 18,5 Mds vs total_backlog FY2022=19 011, FY2025=15 002 M$ ; \"AGS Revenue\" 6,2 Mds vs somme des trimestres FY2025 = 6 385 M$, description \"base installée 47K outils\" vs KPI base installée 55 000 ; \"Foundry/Logic Mix\" 55→65 vs série trimestrielle 62 à 73 ; \"ICAPS Revenue\" 4,5→7,5 Mds non publié par Applied.",
+  "correction_validee": "Supprimer les quatre KPI Backlog, AGS Revenue, Foundry/Logic Mix et ICAPS Revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Applied Global Services revenue, DRAM as % of Semiconductor Systems revenue, Foundry logic and other as % of Semiconductor Systems revenue, Semi Systems Revenue",
+  "probleme": "Doublons de ags_rev, semi_sys_dram_mix, semi_sys_foundry_logic_mix et semi_sys_rev, avec valeurs non alignées.",
+  "preuve": "\"Applied Global Services revenue\" 1353, 1420, 1559, 1665 : 1353 et 1420 absents de ags_rev ; \"DRAM as %\" 10 points sans périodes vs semi_sys_dram_mix n=30 ; \"Semi Systems Revenue\" annuel FY2025=20 798 = somme des 4 trimestres de semi_sys_rev.",
+  "correction_validee": "Supprimer les quatre doublons et conserver ags_rev, semi_sys_dram_mix, semi_sys_foundry_logic_mix et semi_sys_rev.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "texte",
+  "probleme": "Anti-thèse un trimestre en retard sur la thèse.",
+  "preuve": "Thèse : T3 FY2026 \"9 115 M$ ... +25 %\" ; anti-thèse : \"CA record de 7,91 Mds $ au T2 fiscal 2026 (+11%)\".",
+  "correction_validee": "Actualiser l'anti-thèse au T3 FY2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "13 KPI à un point issus de transcripts (Cold field emission eBeam revenue, Advanced packaging revenue growth, Gate-all-around node revenue, Legal settlement charge, Unrealized gain, Fiscal 2025 restructuring charges, Goodwill impairment, New share repurchase authorization, Investment tax credits, etc.)",
+  "probleme": "Prévisions et éléments exceptionnels présentés comme KPI trimestriels à un point.",
+  "preuve": "eBeam 1 000 avec signal \"attendus à doubler pour dépasser 1 milliard sur l'année\" ; advanced packaging 50 \"attendus en hausse de plus de 50 % en 2026\" ; GAA 2 500 \"en exercice 2024\" ; 253, 484, 181, 41, 10 000, 975 sont des faits ponctuels.",
+  "correction_validee": "Retirer les 3 prévisions, déplacer les 6 éléments exceptionnels vers les événements, garder base installée, outils sous contrat, chambres AIx, projets d'usines.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Installed base of tools.yoy",
+  "probleme": "yoy incohérent avec la série.",
+  "preuve": "Série 48 000 → 55 000 = +14,6 % ; yoy affiché +5 %.",
+  "correction_validee": "Recalculer le yoy ou dater les deux points (history_periods vide).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "geo_china.signal",
+  "probleme": "\"1re région\" faux au trimestre décrit.",
+  "preuve": "Q2-2026 : geo_taiwan 2 155 > geo_china 2 087.",
+  "correction_validee": "Remplacer « 1re région » par « 2e région derrière Taïwan ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography / revenue_by_segment",
+  "champ": "labels",
+  "probleme": "Libellés bruts anglais/ISO dans une fiche française.",
+  "preuve": "\"TAIWAN, PROVINCE OF CHINA 24.2\", \"KOREA, REPUBLIC OF 19.8\", \"Southeast Asia\", \"Europe\", \"Corporate And Reconciling Items 4.2\".",
+  "correction_validee": "Renommer en Taïwan, Corée du Sud, Asie du Sud-Est, Europe, Semiconductor Systems en « Systèmes pour semi-conducteurs », Applied Global Services en « Services (AGS) », Corporate en « Autres activités (Display et ajustements) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.fr.products",
+  "probleme": "Traduction technique fausse.",
+  "preuve": "\"les machines d'etch, ... les outils de gravure thermique rapide\" : etch = gravure, RTP = traitement thermique rapide.",
+  "correction_validee": "Écrire « les systèmes de gravure, de dépôt, de traitement thermique rapide, de polissage chimique-mécanique et de métrologie ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Semi Systems Revenue.description, Display Revenue.description, ICAPS Revenue.description",
+  "probleme": "Textes sans accents et jargon interne.",
+  "preuve": "\"Leader du marche WFE\", \"equipements depot+etching+CMP\", \"En decrue\", \"Segment residuel\", \"exposition trailing-edge non-NVIDIA\", \"Mix Foundry/Logic vs DRAM = exposition avancée\".",
+  "correction_validee": "Supprimer Semi Systems Revenue et ICAPS Revenue avec les points 2 et 3, et réécrire le signal et la description de Display Revenue avec les accents et sans jargon (ex. « Activité écrans en repli depuis le pic de 2021, environ 3 % du CA »).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Positionnement IA contredit par la fiche.",
+  "preuve": "\"L'IA apparaît surtout dans les outils internes (simulations, formation)\" alors que le KPI \"Chambers connected to AIx software\" affiche 35 000 chambres sur une plateforme commerciale et que la thèse repose sur la demande IA.",
+  "correction_validee": "Réécrire : demande IA comme moteur (DRAM/HBM, GAA, packaging) et plateforme AIx comme offre.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

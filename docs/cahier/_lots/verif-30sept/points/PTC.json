@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Constant currency ARR growth",
+  "probleme": "Doublon qui contredit la serie officielle",
+  "preuve": "val=8.5 % au 2026-06-30 vs Croissance ARR devise constante Q3-2026=2 % (9 % hors cessions)",
+  "correction_validee": "Supprimer la serie.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RD_PCT_REV.last_data_date",
+  "probleme": "Date de dernier point posterieure au trimestre publie",
+  "preuve": "dernier 2026-09-30 alors que Q3-2026 = 30 juin 2026 et que toutes les autres series s'arretent au 2026-06-30",
+  "correction_validee": "Mettre last_data_date a 2026-06-30.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "mettrik_description.products / activity",
+  "probleme": "Description perimee : cite ThingWorx et l'IIoT alors que la fiche indique la cession de ThingWorx et Kepware",
+  "preuve": "ThingWorx pour l'IIoT ; ARR total.signal : cession de ThingWorx et Kepware",
+  "correction_validee": "Retirer ThingWorx et l'IIoT, citer Windchill, Creo, Onshape, Codebeamer et ServiceMax.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Series arretees a 2024 alors que l'effectif FY2025 existe sur la fiche ; doublon d'Effectif temps plein",
+  "preuve": "effectifs_annuels dernier 2024=7501 ; Effectif temps plein FY2025=7642 ; ca_par_salarie signal : en 2024",
+  "correction_validee": "Ajouter 2025 = 7642 et recalculer : 358,4 k$, 112,1 k$ et 153,4 k$ par salarie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Taux d'attrition (churn)",
+  "probleme": "Serie arretee en 2020, le signal admet que la donnee n'est plus publiee",
+  "preuve": "dernier 2020-09-30, n=2 ; PTC ne publie plus ce taux depuis FY22",
+  "correction_validee": "Supprimer la serie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RPO_CRPO",
+  "probleme": "Nom faux pour une serie en pourcentage, nom anglais robotique",
+  "preuve": "Obligations de prestation restantes, totales et a moins de douze mois | Rpo Crpo | % | FY2025=55",
+  "correction_validee": "Renommer : Part du carnet de commandes exigible sous douze mois / Share of RPO due within 12 months.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Seven-figure ServiceMax AI SKU, Largest Onshape deal ever, Largest CodeBeamer deal ever, Quarterly share repurchase",
+  "probleme": "Faux KPI a valeur 1 (jalons) et doublon",
+  "preuve": "val=1 unite M$ (7 chiffres) ; val=1 unite jalon (x2) ; Quarterly share repurchase 200 = Rachats d'actions Q1-2026=200.034",
+  "correction_validee": "Supprimer les 4 series.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SUBSCRIPTION_GROSS_MARGIN",
+  "probleme": "Serie lissee suspecte et contredite par la marge brute logiciel publiee",
+  "preuve": "83,82,82,81,80,80,80 ; Marge brute logiciel Q4-2025=89.6, Q3-2026=85.12",
+  "correction_validee": "Verifier la source, sinon retirer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle",
+  "probleme": "Valeur 2025 differente de la dette totale trimestrielle a la meme date",
+  "preuve": "dette_annuelle 2025=1.172 Mds $ ; Dette totale Q4-2025=1.197 Mds $",
+  "correction_validee": "Verifier si 1.172 exclut la part courante et aligner sur 1.197",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.summary",
+  "probleme": "Chiffre de croissance contredit par les series",
+  "preuve": "les revenus recurrents et la gestion du cycle de vie produit croissent de pres de 20 pour cent ; Revenus recurrents Q3-2026 yoy=-6.1%, CA groupe PLM yoy=-11.6%, ARR +7 % hors cessions",
+  "correction_validee": "Reecrire sur l'ARR hors cessions (+7 %) et le taux de recurrence 96 %",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

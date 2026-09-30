@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Contenu par véhicule (Asia Pacific)",
+  "probleme": "Nom et description faux : la série est le chiffre d'affaires Asie-Pacifique (en M USD), pas un contenu par véhicule ; la description attribue la hausse au contenu embarqué par véhicule sans preuve.",
+  "preuve": "name_en 'Asia-Pacific net sales', Q3-2026=1951 ; 1951+1651 (EMEA)+1558 (Amériques)=5160 = CA total",
+  "correction_validee": "Renommer en 'Chiffre d'affaires Asie-Pacifique' et réécrire la description sans parler de contenu par véhicule.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "repartition",
+  "probleme": "La répartition géographique (sans exercice) contredit les séries trimestrielles de la fiche : l'Asie-Pacifique est la première région, pas l'EMEA.",
+  "preuve": "Bloc : EMEA 35,9 ; APAC 32,7 ; Amériques 31,4. Somme T1 à T4 de l'exercice 2025 : APAC 6552 (38,0 %), EMEA 5742 (33,3 %), Amériques 4968 (28,8 %) sur 17262",
+  "correction_validee": "Recalculer la répartition sur l'exercice 2025 (APAC 38,0 %, EMEA 33,3 %, Amériques 28,8 %) et indiquer l'exercice.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "shares_diluted_q",
+  "probleme": "Valeurs sentinelles -1 au T4 dans le nombre d'actions diluées",
+  "preuve": "Q4-2024=-1, Q4-2025=-1 alors que les autres trimestres sont autour de 293 à 301",
+  "correction_validee": "Supprimer les deux points -1 (ou les recalculer depuis le rapport annuel).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ddn_rev_q",
+  "probleme": "Le chiffre cité pour 'deux ans plus tôt' est faux",
+  "preuve": "Signal 'contre 279 M$ deux ans plus tôt' ; or le 3e trimestre de l'exercice 2024 vaut 329 (data_devices_rev_q Q3-2024=329), 279 correspond au T1-2024",
+  "correction_validee": "Remplacer 279 par 329 dans le signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Richards Manufacturing acquisition",
+  "probleme": "Description contradictoire : Richards est rattachée au marché énergie par la fiche elle-même, pas à la connectivité médicale.",
+  "preuve": "Description 'renforce l'offre de connectivité médicale' vs energy_rev_q 'avec l'apport de l'acquisition Richards Manufacturing' ; medical_rev_q en recul de 7,2 %",
+  "correction_validee": "Réécrire : acquisition dans les réseaux électriques (marché énergie)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Industrial Solutions Rev / Ind Op Income / Ind Op Margin",
+  "probleme": "Rupture de périmètre au T4-2024 : l'ancien segment Industrial est mélangé au nouveau (fusion avec Communications), ce qui crée un faux bond de croissance. Le hero est lui-même concerné.",
+  "preuve": "Industrial Q4-2024=1180 alors que CA total 4068 moins Transportation 2311 = 1757 = 1180 + Communications 577 ; marge 11,6 % au T4-2024 puis 15,3 %",
+  "correction_validee": "Recaler l'historique sur le périmètre actuel (Industrial + Communications) ou couper la série avant le T1-2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total company orders / Book-to-bill ratio",
+  "probleme": "Commandes arrêtées au T2 alors que le ratio de commandes sur facturation et la thèse donnent le T3 ; le signal du ratio cite le mauvais trimestre ; les séries n'ont pas de dates",
+  "preuve": "Commandes : dernière valeur 5,3 (2026-05-11) ; thèse 'commandes record de 5,7 Mds $' ; ratio book-to-bill dernier 2026-06-26 mais signal 'au T2-2026' ; yoy '+1B$'",
+  "correction_validee": "Ajouter le T3 (environ 5,7 Mds $), dater les points, corriger le signal en T3",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Artificial intelligence (AI) revenue / Non-AI cloud revenue / Record full-year net sales / Capital deployed for bolt-on",
+  "probleme": "Série IA mêlant réalisé et prévision, périodicité trimestrielle affichée pour des chiffres annuels, doublon du CA annuel",
+  "preuve": "IA : serie 300, 900, 1000 avec val=900 (1000 = objectif) ; 'Record full-year net sales' 17,3 en 'quarter' = revenue_annuel 17,262",
+  "correction_validee": "Séparer réalisé et objectif, passer en annuel, supprimer 'Record full-year net sales'",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Le fossé concurrentiel n'est ni qualifié (type None) ni décrit : le texte est un commentaire de croissance et cite un 'contenu par véhicule +11 %' absent des séries",
+  "preuve": "'Le segment industriel progresse de 24 % et le contenu par véhicule de 11 %'",
+  "correction_validee": "Rédiger un vrai fossé concurrentiel (coûts de changement, homologation automobile, échelle) et choisir un type",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "comm_rev_q, comm_op_income_q, comm_op_margin_q, adj_*_comm_q, indus_equip_rev_q, data_devices_rev_q, appliances_rev_q",
+  "probleme": "Neuf séries arrêtées en septembre 2024 (segment et marchés supprimés) encombrent la fiche",
+  "preuve": "Toutes 'dernier 2024-09-30'",
+  "correction_validee": "Les masquer ou les regrouper en historique",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

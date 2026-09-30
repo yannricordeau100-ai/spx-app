@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CNA P&C combined ratio, CNA net written premium growth, CNA net earned premium growth, CNA P&C loss ratio, moat.justification_mettrik",
+  "probleme": "Bloc CNA non etiquete en retard d'un trimestre mais date 2026-06-30 ; le moat repose sur ces valeurs perimees et contredit l'anti-these.",
+  "preuve": "combined ratio dernier=102.2 = T1-2026 (CNA_UW Q1-2026=-59, perte) alors que l'anti-these dit « passe de 102,2 % a 96,5 % en un seul trimestre en 2026 » ; NWP growth dernier=1 vs CNA_NWP yoy +4,2 % au T2-2026 ; NEP growth dernier=3 vs CNA_NEP +2,6 % ; moat « Le ratio combine se degrade a 102,2 % et la croissance des primes tombe de 10 % a 1 % »",
+  "correction_validee": "Ajouter le T2-2026 (ratio combine 96,5 %, primes nettes souscrites +4,2 %, primes acquises +2,6 %) avec des etiquettes de periode, puis reecrire le moat sur le T2-2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CNA net investment income vs CNA_NII",
+  "probleme": "Deux series differentes pour le meme indicateur, avec des valeurs incompatibles au dernier point.",
+  "preuve": "CNA_NII Q2-2026=701 (609, 618, 626, 644, 604, 662, 638, 653, 610, 701) ; « CNA net investment income » 669, 639, 776, 696, 608, 714, 743, 714, 613 (val=613, meme date 2026-06-30)",
+  "correction_validee": "Supprimer « CNA net investment income » (non etiquete) et garder CNA_NII, sauf si une difference de perimetre est documentee.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Boardwalk revenue backlog, Boardwalk growth-project precedent revenue backlog, RPO",
+  "probleme": "Trois carnets de revenus Boardwalk non reconcilies pour la meme date.",
+  "preuve": "« Boardwalk revenue backlog » 15,6 Mds $ (T1-2026) ; RPO Q1-2026=23,7 Mds $ ; « growth-project precedent revenue backlog » 9,9 Mds $",
+  "correction_validee": "Garder RPO en serie et expliquer dans sa description la part projets de croissance ; supprimer les deux KPI a un point.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_GWP_SEGMENT",
+  "probleme": "Nom faux (serie totale, pas par branche) et serie perimee a 2024 alors que 2025 est disponible sur la fiche.",
+  "preuve": "nom « Primes brutes emises par branche » ; serie FY2018=11404 ... FY2024=15379 ; CNA_GWP trimestriel 2025 : 3,90 + 4,19 + 3,59 + T4",
+  "correction_validee": "Renommer « Primes brutes emises CNA » et ajouter FY2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.fr",
+  "probleme": "La description decrit CNA seul et presente Loews comme un assureur, en ignorant Boardwalk (12,7 % du CA) et Loews Hotels (5,2 %).",
+  "preuve": "« Loews assure des biens commerciaux et des risques de responsabilite » ; « Ses clients sont des cabinets d'avocats, des architectes, des agents immobiliers » ; revenue_by_segment : CNA 82,1, Boardwalk 12,7, Hotels 5,2",
+  "correction_validee": "Reecrire : holding detenant CNA (92 %), Boardwalk Pipelines (100 %) et Loews Hotels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "tendance, tendance_mettrik",
+  "probleme": "Deux tendances contradictoires dans le bloc moat.",
+  "preuve": "tendance=« stable » ; tendance_mettrik=« baisse »",
+  "correction_validee": "Aligner sur une seule tendance apres mise a jour au T2-2026.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CNA_GWP",
+  "probleme": "Serie arretee au T3-2025 alors que tout le reste de la fiche est au T2-2026.",
+  "preuve": "dernier 2025-09-30 ; serie se termine Q3-2025=3.59",
+  "correction_validee": "Ajouter T4-2025, T1-2026 et T2-2026.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CNA 5.2% senior notes due 2035",
+  "probleme": "Une emission obligataire n'est pas un indicateur de performance.",
+  "preuve": "« CNA 5.2% senior notes due 2035 | 500 M$ | n=1 »",
+  "correction_validee": "Supprimer le KPI et, si utile, mentionner l'emission dans le bloc evenements.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAPEX.signal, OCF.signal, FCF.signal, NET_MARGIN.signal",
+  "probleme": "Notes de calcul internes visibles dans les signaux.",
+  "preuve": "« 258 M$ au T2-2026 (derive du cumul semestriel de 462 M$) » ; « 708 M$ au T2-2026: OCF 966 M$ moins capex 258 M$ (derive OCF - capex) » ; « derive des comptes consolides »",
+  "correction_validee": "Retirer les mentions « derive ... » des signaux de CAPEX, OCF, FCF et NET_MARGIN, et garder les chiffres.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CNA_NWP_COMM.unit, CAHIER_RESERVE_DEV.yoy, BWP_THROUGHPUT.yoy",
+  "probleme": "Unite heterogene entre les trois branches de primes et yoy mal calcules sur deux KPI.",
+  "preuve": "CNA_NWP_COMM « Mds USD » 1.64 vs CNA_NWP_SPEC « M USD » 937 et CNA_NWP_INTL 385 ; CAHIER_RESERVE_DEV -0,2→0,6 pt affiche « -400.0% » ; BWP_THROUGHPUT 10,2→10,7 affiche « n/a »",
+  "correction_validee": "Afficher +0,8 pt pour CAHIER_RESERVE_DEV et +4,9 % pour BWP_THROUGHPUT ; passer CNA_NWP_COMM en M USD (1 643) reste facultatif.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune serie de taux d'occupation ni de RevPAR pour Loews Hotels ; un seul point compare a 2021.",
+  "preuve": "« Owned and JV hotels occupancy rate | 72 % | n=1 | signal : contre 35% au T1 2021 » ; HOTELS_REV et HOTELS_COUNT presents",
+  "correction_validee": "Ajouter occupation et RevPAR trimestriels (10-Q, segment Loews Hotels).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

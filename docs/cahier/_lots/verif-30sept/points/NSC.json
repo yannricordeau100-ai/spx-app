@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Total carload volume YoY.signal",
+  "probleme": "Signal contredit par la serie : le dernier point est +4 % et le signal parle de volumes en repli.",
+  "preuve": "serie: 3, 0, -4, -1, 4 :: « Volumes en repli, penalises par l'intermodal et les pertes liees a la fusion »",
+  "correction_validee": "Supprimer ce KPI, doublon non date de UNITS_TOTAL (+3,8 % au T2 2026).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Gross ton-miles YoY, Revenue per unit YoY, Fuel efficiency YoY, Productivity (GTMs vs headcount), Fuel efficiency record (composite)",
+  "probleme": "Series sans dates (1 a 5 points), sans nom anglais, toutes datees 2026-03-11 ou 2026-09-29, doublons de RTM, REV_UNIT, FUEL_GAL, RTM_PER_EMP ; un investisseur ne peut pas les situer dans le temps.",
+  "preuve": "KPI Revenue per unit YoY | serie: 2, 2 ; KPI Fuel efficiency YoY | serie: 3, 4, 3, 5, 4 ; KPI Productivity | serie: 7, 19300",
+  "correction_validee": "Supprimer les cinq series (RTM, REV_UNIT, FUEL_GAL, RTM_PER_EMP couvrent le sujet).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Annual free cash flow, 2026 capital expenditure budget",
+  "probleme": "Doublon de fcf_annuel (2,157 Mds $ en 2025) et periodicite fausse (quarter pour une valeur annuelle).",
+  "preuve": "KPI Annual free cash flow | Mds $ | quarter | n=1 | val=2.2 ; KPI fcf_annuel | 2025=2.157",
+  "correction_validee": "Supprimer Annual free cash flow et passer le budget capex 2026 en periodicite annuelle.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf.signal, NET_MARGIN.signal, TAX_RATE.signal, DEBT.signal, DEPREC.signal, DIV_PAID.signal, EQUITY.signal, FUEL_EXP.signal",
+  "probleme": "Phrases tronquees et balises XBRL visibles dans le signal (cuisine interne).",
+  "preuve": "« Derive du. » ; « Source. » ; « Source (PaymentsOfDividendsCommonStock). » ; « Source (StockholdersEquity). » ; « Source (FuelCosts). »",
+  "correction_validee": "Retirer ces fragments et les parentheses XBRL en fin de signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "INTERMODAL_UNITS, CAHIER_CARLOADS, CAHIER_REVENUE_PER_CARLOAD",
+  "probleme": "Doublons annuels des series trimestrielles UNITS_INTER, UNITS_TOTAL et REV_UNIT, avec un nom trompeur (« Wagons charges » = volumes totaux, intermodal compris) et une unite differente ($ contre k$).",
+  "preuve": "CAHIER_CARLOADS FY2025=7063.2 milliers ; UNITS_TOTAL 2025 = 1739.8+1793.2+1803.9+1726.3 = 7063.2 ; INTERMODAL_UNITS yoy=-1,3% (virgule)",
+  "correction_validee": "Garder une seule serie par indicateur (trimestrielle) ou renommer clairement l'annuelle ; corriger le format « -1,3% ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EAST_PALESTINE",
+  "probleme": "Convention de signe illisible : le KPI s'appelle « Charges » mais les charges sont negatives et les recuperations positives, et le yoy est affiche « +62.00 » sans unite.",
+  "preuve": "serie: Q3-2024=-318 ... Q1-2026=10, Q2-2026=15 | yoy=+62.00",
+  "correction_validee": "Renommer « Impact net deraillement Ohio (charges negatives, recuperations positives) » et exprimer le yoy en M$.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline",
+  "probleme": "Accroche en anglais sur une fiche francaise.",
+  "preuve": "« Major freight railroad operator connecting the Southeast, East, and Midwest... »",
+  "correction_validee": "Traduire l'accroche.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

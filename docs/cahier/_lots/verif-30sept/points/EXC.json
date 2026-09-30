@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Répartition géographique héritée de l'activité de production cédée (Constellation) : Exelon n'opère ni à New York ni en ERCOT depuis 2022, elle ne distribue que dans six juridictions du Mid-Atlantic et de l'Illinois.",
+  "preuve": "revenue_by_geography : Mid-Atlantic 30.8 ; Midwest 26.7 ; New York 9.5 ; ERCOT 6.3 ; Other Power Regions 26.6 (exercice None) alors que la thèse dit « ne produit plus aucune électricité depuis 2022 »",
+  "correction_validee": "Remplacer le bloc par la répartition par filiale 2025 (ComEd, PECO, BGE, PHI) calculée depuis rev_comed, rev_peco, rev_bge, rev_phi, ou le supprimer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_income",
+  "probleme": "Série décalée d'un trimestre : les libellés sont en retard d'une période par rapport aux valeurs (format des libellés différent des autres KPI : « Q1 2025 » au lieu de « Q1-2025 »).",
+  "preuve": "net_income Q1 2025=391 ; or net_margin Q2-2025=7.2 % x revenue Q2-2025 5427 = 391 ; net_margin Q1-2025=13.5 % x 6714 = 906 ; dernier point libellé Q1 2026=396 alors que dernier=2026-06-30 et 6,6 % x 5967 = 394",
+  "correction_validee": "Décaler chaque libellé d'un trimestre vers l'avant (391 = Q2-2025, 396 = Q2-2026) au format Qn-AAAA.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "revenue_annuel / dette_annuelle / dette_sur_ca",
+  "probleme": "Séries annuelles mélangent deux périmètres : 2018-2019 incluent la production (Constellation), 2020 et après sont retraités. Le signal « −2,8 % par an depuis 2016 » décrit une chute qui n'existe pas.",
+  "preuve": "revenue_annuel 2019=34.438 puis 2020=16.663 ; dette_sur_ca 2019=81.3 puis 2020=233.7 ; dette_annuelle 2019=27.989 vs 2018=36.138 et 2020=38.943",
+  "correction_validee": "Tronquer revenue_annuel, dette_annuelle et dette_sur_ca à partir de 2020 et recalculer les signaux sur ce périmètre.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "capex_plan_2026_2029 / Four-year capital plan / rate_base_growth_2029 / Rate base growth",
+  "probleme": "Doublons : le plan d'investissement quadriennal existe deux fois avec des valeurs différentes, et la croissance de la base tarifaire aussi (montant incrémental et pourcentage). Le nom « Plan 2026-2029 » est faux pour les points FY2021-FY2025 qui sont des plans antérieurs.",
+  "preuve": "capex_plan_2026_2029 : FY2022=31, FY2023=35, FY2024=38, FY2025=41, FY2026=41.7 ; Four-year capital plan : 31.3, 35, 38, 41.3, 41.7 ; capex (trimestriel) signal « plan de 41,3 milliards » vs hero 41,7",
+  "correction_validee": "Garder un seul KPI « Plan d'investissement sur 4 ans (glissant) », supprimer Four-year capital plan, aligner le signal du capex sur 41,7 Mds $ ; laisser les deux KPI de base tarifaire.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Customers served / Economic activity fostered / Customers with outages FERN / Dividend per share expected 2026 / PJM capacity payments",
+  "probleme": "KPI de communication issus d'un appel : événement ponctuel (tempête), chiffre promotionnel (activité économique générée), prévision (dividende attendu) et donnée de marché PJM qui ne concerne pas Exelon. Séries sans libellé de période. Unités « % (>) » et « % (<) » illisibles.",
+  "preuve": "Anticipated load growth unité « % (>) » val=3 ; Customers with outages during Winter Storm FERN « % (<) » val=1 ; Economic activity fostered since 2021 = 60 Mds $ ; serie: 10.5, 10.5, 10.5, 10.7 sans dates",
+  "correction_validee": "Supprimer les cinq KPI ponctuels ou promotionnels ; dater les séries de Customers served et Four-year capital plan.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_SAIDI_SAIFI / CAHIER_ALLOWED_EARNED_ROE",
+  "probleme": "Noms annonçant deux indicateurs pour une seule série : SAIDI (minutes) et SAIFI (fréquence) ne peuvent pas partager une valeur en minutes ; « rendement autorisé et réalisé » n'est qu'une série.",
+  "preuve": "CAHIER_SAIDI_SAIFI | Durée et fréquence moyennes des coupures | minutes | FY2023=42, FY2024=44, FY2025=45 ; CAHIER_ALLOWED_EARNED_ROE | Rendement autorisé et rendement réalisé | FY2025=9.7",
+  "correction_validee": "Renommer en « Durée moyenne de coupure par client (SAIDI) » et « Rendement réalisé sur fonds propres ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik simple",
+  "probleme": "Nombre de clients périmé et jargon anglais : 10,5 millions alors que la fiche affiche 11 millions ; « utilities régulées T&D », « spin-off ».",
+  "preuve": "customers: 'environ 10,5 millions' ; KPI Customers served val=11 ; thèse « environ 11 millions de clients »",
+  "correction_validee": "Écrire « environ 11 millions de clients », « distributeur régulé d'électricité et de gaz » et « scission de Constellation Energy ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rate_base / adj_operating_eps",
+  "probleme": "Incohérences de dates : rate_base a un point FY2026 alors que dernier=2025-12-31 et n=3 avec un trou 2023-2024 ; adj_operating_eps n'a qu'un point libellé Q1-2026 mais dernier=2026-06-30 et un yoy.",
+  "preuve": "rate_base serie: FY2022=52, FY2025=64.1, FY2026=68.1 | dernier 2025-12-31 ; adj_operating_eps serie: Q1-2026=0.91 | dernier 2026-06-30 | yoy=-1.1%",
+  "correction_validee": "Compléter la base tarifaire 2023-2024 et la série de BPA ajusté (publié chaque trimestre), corriger les dates.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "livraisons ComEd",
+  "probleme": "Indicateur sectoriel manquant : les livraisons d'électricité (GWh) et le nombre de clients de ComEd, première filiale (40 % du résultat), sont absents alors que DPL et PECO les ont.",
+  "preuve": "KPI présents : dpl_de_electric_deliveries, peco_electric_deliveries, peco_electric_customers, bge_electric_customers ; rien pour ComEd",
+  "correction_validee": "Ajouter ComEd electric retail deliveries (GWh) et ComEd electric customers depuis le 10-Q.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

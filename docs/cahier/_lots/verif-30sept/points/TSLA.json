@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Stockage energie : energy_storage_gwh, Energy storage deployed, Energy Storage GWh, Energy Storage Deployed",
+  "probleme": "Quatre KPI pour le meme indicateur, dont un annuel perime et contradictoire.",
+  "preuve": "Energy Storage Deployed (annuel) val=31.4 (+125 %), alors que 2025 = 10,4+9,6+12,5+14,2 = 46,7 GWh ; Energy Storage GWh est etiquete annuel mais contient des trimestres (14.2, 8.8).",
+  "correction_validee": "Garder energy_storage_gwh, supprimer les trois autres et ajouter une serie annuelle (2025 = 46,7 GWh).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Regulatory Credits, FSD Subscribers, Automotive ASP, Vehicles Delivered (series sans dates)",
+  "probleme": "Doublons contredits par les series officielles de la fiche, avec noms et signaux en anglais.",
+  "preuve": "Regulatory Credits 890 et 830, alors que regulatory_credits T3 et T4 2025 = 417 et 542 ; FSD Subscribers 0.55..1.28, alors que fsd_active_subscriptions 0.8..1.28 ; Automotive ASP 43 000 $ -4 %, alors que asp_vehicle +12,6 % ; Vehicles Delivered 1 790 000 (2024) 'Premier declin annuel', alors que 2025 = 1 636 129.",
+  "correction_validee": "Supprimer Regulatory Credits, FSD Subscribers, Automotive ASP et Vehicles Delivered.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Auto GM ex-credits, Energy GM",
+  "probleme": "Valeurs du T1 2026 etiquetees annuelles, noms non traduits, signaux jargonneux, sans le T2 2026.",
+  "preuve": "'Metrique reine TSLA ... +670 bps YoY' ; Energy GM 39.5 'devance largement auto (21%)' alors que energy_gross_margin T2 2026 = 20,4 %.",
+  "correction_validee": "Reclasser en trimestriel, ajouter le T2 2026 (marge auto hors credits environ 16,3 %), traduire, ou supprimer Energy GM (doublon de energy_gross_margin).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "deliveries_total, vehicle_production (T2 2026)",
+  "probleme": "Valeurs rondes pour des chiffres que Tesla publie a l unite pres : elles ressemblent a des estimations.",
+  "preuve": "Q2-2026 = 480000 et 452000, alors que tous les autres trimestres sont exacts (358023, 408386).",
+  "correction_validee": "Remplacer par les livraisons et la production exactes du T2 2026 publiees par Tesla.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "asp_vehicle, model3y_deliveries, other_models_deliveries, days_supply, adjusted_ebitda, supercharger_*, operating_lease_count, fsd_active_subscriptions",
+  "probleme": "Series arretees au T1 2026 alors que le 'dernier' indique 2026-06-30 et que le T2 2026 est publie.",
+  "preuve": "model3y_deliveries : dernier 2026-06-30, serie finissant a Q1-2026=341893 ; signal 'au T1 2026'.",
+  "correction_validee": "Integrer le T2 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "operating_margin (signal)",
+  "probleme": "'Point bas depuis le T1 2025' est faux : 1,4 % est plus bas que le T1 2025 (2,1 %), c est le plus bas de toute la serie affichee.",
+  "preuve": "serie Q1-2025=2.1, Q2-2026=1.4.",
+  "correction_validee": "Remplacer par 'plus bas niveau de la serie affichee, depuis au moins le T2 2024'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_DAYS_SUPPLY (nom)",
+  "probleme": "Nom faux : Tesla vend en direct et n a pas de concessionnaires.",
+  "preuve": "'Jours de stock chez les concessionnaires'.",
+  "correction_validee": "Renommer en 'Stock mondial de vehicules en jours de ventes'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Repartition et IA",
+  "champ": "revenue_by_segment, ai_positioning",
+  "probleme": "Libelles et expressions restes en anglais.",
+  "preuve": "'Energy Generation And Storage Segment', 'Services And Other', 'Automotive' ; 'physical AI company'.",
+  "correction_validee": "Traduire en Automobile, Production et stockage d energie, Services et autres, et 'entreprise d IA physique'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Moat",
+  "champ": "moat",
+  "probleme": "Texte fonde sur l exercice 2025, contredit par le T2 2026.",
+  "preuve": "'Les ventes automobiles reculent de 9,2 %' ; automotive_revenue T2 2026 +23 %.",
+  "correction_validee": "Actualiser.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI ponctuels",
+  "champ": "2025 CEO Performance Award, SBC expense recognized, Bitcoin holdings, AI5 chip, Optimus production cost target",
+  "probleme": "Ce ne sont pas des KPI operationnels. 'SBC' n est pas traduit.",
+  "preuve": "'Charge SBC reconnue jalon CEO probable' 10,23 Mds$ ; 423 743 904 actions.",
+  "correction_validee": "Deplacer le plan CEO et la charge de remuneration en actions en gouvernance, bitcoin, AI5 et Optimus en evenements.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

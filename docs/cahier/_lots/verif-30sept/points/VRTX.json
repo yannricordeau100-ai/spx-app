@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CASGEVY net product revenue / JOURNAVX net product revenue / ALYFTREK net product revenue",
+  "probleme": "Doublons sans dates avec des valeurs fausses",
+  "preuve": "CASGEVY serie 30, 17, 54, 42.9, 116 val 42.9 (116 inexistant, Q2-2026 = 76,4) ; JOURNAVX serie 12, 20, 60, 29, 60 contre journavx_rev 12 / 19,6 / 26,7 / 29 / 49,6 ; ALYFTREK arrete a 424,4",
+  "correction_validee": "Supprimer les trois doublons, casgevy_rev, journavx_rev et alyftrek_rev couvrent les mesures.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "bpa_dilue.signal / net_income_q.signal",
+  "probleme": "Explication fausse : la charge Alpine date du T2 2024, pas du T2 2025",
+  "preuve": "\"Le trimestre de comparaison integrait une charge exceptionnelle liee a Alpine\" alors que Q2-2025 BPA 3,99 et resultat net 1 032,9 M$ sont normaux ; la hausse est +8 % et +6,5 %",
+  "correction_validee": "Reecrire les deux signaux sans Alpine : hausse de 8 % du BPA et 6,5 % du resultat net portee par ALYFTREK et CASGEVY.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Pipeline AOP Suzetrigine",
+  "probleme": "CA JOURNAVX 2025 faux et nom jargonneux",
+  "preuve": "0,15 Mds $ alors que journavx_rev 2025 = 1,3+12+19,6+26,7 = 59,6 M$ ; description anglaise \"First-in-class non-opioid...\"",
+  "correction_validee": "Supprimer Pipeline AOP Suzetrigine.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Margin (Adj).description / CF Franchise Sales / Trikafta/Kaftrio Sales / Casgevy Patients",
+  "probleme": "Erreur factuelle et descriptions en franglais",
+  "preuve": "\"Alpine pour MASH\" alors qu Alpine apporte povetacicept en nephrologie (IgAN), comme le dit le KPI Acquisition of Alpine ; \"Launches: Vanzacaftor triple FY25\", \"LOE 2037\", \"sickle cell\", \"Ramp lent\"",
+  "correction_validee": "Corriger IgAN, reecrire les descriptions en francais ou supprimer ces anciens KPI sans dates",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Income.yoy / CAHIER_TOP_PRODUCT_CONCENTRATION.yoy",
+  "probleme": "Variations absurdes",
+  "preuve": "Op Income yoy +2927 % depuis -0,23 Mds $ ; concentration yoy -7.2 % au lieu de -6,7 pts (92,9 -> 86,2)",
+  "correction_validee": "Afficher n.s. pour Op Income et -6,7 pts pour la concentration.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Zamylosel patients insulin-free at 1 year (T1D)",
+  "probleme": "Nom de molecule faux",
+  "preuve": "\"Zamylosel\" alors que rd_q.signal cite correctement \"zimislecel\"",
+  "correction_validee": "Renommer en zimislecel.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "hero",
+  "champ": "trikafta_us / trikafta_exus / trikafta_total",
+  "probleme": "Nom du hero trompeur : la serie est le CA total US toutes molecules, pas TRIKAFTA",
+  "preuve": "\"Chiffre d affaires total US (mucoviscidose porteuse)\" ; signal parle de TRIKAFTA vers ALYFTREK ; trikafta_kaftrio_rev separe recule de -2,1 %",
+  "correction_validee": "Renommer \"Chiffre d affaires Etats-Unis\" et choisir un hero operationnel (ALYFTREK ou patients traites)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography / revenue_by_segment",
+  "probleme": "Repartition geographique vide alors que les series permettent de la calculer ; libelle en anglais",
+  "preuve": "\"Etats-Unis None ; International None\" ; 2025 : US 7 548,6 M$ et hors US 4 452,7 M$ soit 62,9 % / 37,1 % ; \"Manufactured Product, Other\"",
+  "correction_validee": "Ajouter pct 62,9 / 37,1 et name aux tranches geographiques 2025 et renommer 'Manufactured Product, Other' en 'Autres produits'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Pas de nombre de patients mucoviscidose traites par Vertex, alors que l anti-these s appuie dessus",
+  "preuve": "att \"les trois quarts des patients concernes sont deja traites\" ; CF_POPULATION_SERVED mesure la population eligible, pas les patients traites",
+  "correction_validee": "Ajouter patients traites par un modulateur Vertex (publie chaque annee)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.summary",
+  "probleme": "Moat decrivant une stagnation, pas un avantage, avec chiffre annuel perime",
+  "preuve": "\"Le traitement phare stagne a 0,7 %\" (FY2025) alors que la serie trimestrielle donne -2,1 % sur un an",
+  "correction_validee": "Rediger un moat (brevets 2037-2039, monopole des modulateurs CFTR) et citer ALYFTREK",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

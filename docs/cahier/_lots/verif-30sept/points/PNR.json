@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "flow_rev, water_rev, flow_income, water_income, flow_margin, water_margin",
+  "probleme": "Changement de perimetre Flow/Water au T1-2026 sans retraitement de l historique : les series affichent une rupture de -35 %/+68 % et les yoy sont calcules sur une base revisee absente",
+  "preuve": "flow_rev Q4-2025=394.4 -> Q1-2026=258.1 ; water_rev 232.3 -> 391 ; yoy flow +5.1 % « vs 250.9 M$ en base revisee »",
+  "correction_validee": "Retraiter 2024-2025 sur le nouveau perimetre a partir des donnees revisees publiees ; a defaut, couper les series CA et resultat Flow et Water au T1-2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "warranty_expense",
+  "probleme": "Charge de garantie negative puis doublee, erreur de derivation",
+  "preuve": "Q3-2025=-22, Q4-2025=51.4, autour de 20-30 ailleurs",
+  "correction_validee": "Recalculer T3 et T4-2025 a partir des chiffres cumules des filings.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Core sales growth",
+  "probleme": "Dernier point contredit le CA consolide",
+  "preuve": "dernier 2026-06-30 val=+1 % ; revenue_total T2-2026 : volume -20.6 %, prix +3.3 %, soit -17 % organique",
+  "correction_validee": "Dater le point +1 % au T1-2026 et ajouter le T2-2026 a environ -17 % (volume plus prix), en le verifiant a la source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Texte perime contredit par le T2-2026",
+  "preuve": "« Les marges s etendent depuis seize trimestres » ; op_margin_total T2-2026 = 17.9 (-1.5 pt), pool_margin -12.3 pts",
+  "correction_validee": "Reecrire : serie d expansion interrompue au T2-2026 par le destockage piscine",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Share repurchases in quarter, Record annual free cash flow, Consecutive quarters of margin expansion",
+  "probleme": "Doublons ou faits perimes a un point",
+  "preuve": "200 = buybacks Q1-2026 ; 748 = fcf_annuel 2025 (0.746) ; 16 trimestres date de mars 2026",
+  "correction_validee": "Supprimer Share repurchases in quarter, Record annual free cash flow et Consecutive quarters of margin expansion.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment, revenue_by_geography",
+  "probleme": "Noms de segments faux et libelles anglais",
+  "preuve": "« Industrial & Flow Technologies », « Water Unit » (segments reels : Flow, Water Solutions, Pool) ; « Developing Countries », « Other Developed Countries »",
+  "correction_validee": "Flow 37,2 % ; Water Solutions 25,4 % ; Piscine 37,3 % ; Pays en developpement ; Europe de l Ouest ; Autres pays developpes.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted",
+  "probleme": "Serie sans aucun T4",
+  "preuve": "Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026",
+  "correction_validee": "Completer les T4",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "revenue_annuel, effectifs_annuels, fcf_annuel (taux depuis 2016)",
+  "probleme": "Taux annuels depuis 2016 traversent la scission nVent de 2018",
+  "preuve": "« −1,7 % par an depuis 2016 », « −11,1 % par an depuis 2016 » (effectifs)",
+  "correction_validee": "Calculer depuis 2018 ou preciser le perimetre",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ROIC, 50th dividend increase, Consecutive dividends, Hydra-Stop",
+  "probleme": "Faits a un point ; le ROIC meriterait une serie",
+  "preuve": "ROIC n=1 val=16.6 « contre 15.8 % un an plus tot » (point manquant)",
+  "correction_validee": "Construire la serie ROIC, basculer le reste en stories",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "subsector",
+  "probleme": "Sous-secteur en anglais",
+  "preuve": "« Industrie > Water Industrial Manufacturing »",
+  "correction_validee": "Remplacer par « Equipements pour l eau ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

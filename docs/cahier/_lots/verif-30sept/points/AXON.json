@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices (labels)",
+  "probleme": "Libelles faux : segmentation abandonnee et nom de produit de 2013 ; les montants sont justes.",
+  "preuve": "\"Software And Sensors Segment\" 1 202,7 = Software and Services 2025 (segment supprime fin 2024) ; \"TASER X2\" 913,9 = gamme TASER (TASER_REV FY2025 = 913,9) ; \"Axon Body\" 397,0 = Capteurs personnels (PersonalSensors 2025 = 397,0).",
+  "correction_validee": "Renommer en Logiciels et services, TASER, Capteurs personnels et Solutions de plateforme.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "header",
+  "champ": "subsector / gics_code",
+  "probleme": "Sous-secteur incompatible avec le code GICS.",
+  "preuve": "subsector \"Technology Hardware, Storage & Peripherals\" avec gics_code 20101010 (Aerospace & Defense, classification effective d'Axon) ; le libelle correspond a 45202030.",
+  "correction_validee": "Sous-secteur Aerospatiale et defense.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Exercice inexistant et resume sans contenu pour un statut \"leader\".",
+  "preuve": "\"AXON développe des capacités IA propres, avec plusieurs références détaillées dans le rapport annuel exercice 2026.\" (exercice civil non clos, le rapport est celui de 2025) ; la fiche a AIrev +700 %, Draft One, Axon Assistant, AI Era Plan 750 M$.",
+  "correction_validee": "Exercice 2025 et reecrire avec les produits et chiffres IA de la fiche.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "SW_SERVICES_REV (hero)",
+  "probleme": "Variation annuelle vide sur le KPI hero alors qu'elle est calculable.",
+  "preuve": "yoy \"\" ; Q2-2026 397,8 vs Q2-2025 292,2 = +36,1 % ; SSgrowth = 36.",
+  "correction_validee": "Renseigner +36,1 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ARR, NRR, ARRgrowth, AIrev, CounterDrone",
+  "probleme": "KPI d'abonnement arretes au T1 2026 alors que le reste de la fiche est au T2 2026 ; l'anti-these s'appuie dessus.",
+  "preuve": "ARR dernier Q1-2026=1493 (2026-03-31), NRR Q1-2026=125, ARRgrowth Q1-2026=35 ; Revenue, SW_SERVICES_REV et 30 autres au Q2-2026 ; att : \"ARR* +35%\".",
+  "correction_validee": "Ajouter le T2 2026 a ARR, NRR, croissance ARR et croissance des revenus IA et anti-drones.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AI products revenue growth, Full-time employees, Total net sales 2025, Revenue recognition material weakness",
+  "probleme": "Doublons exacts a un point et pseudo-KPI.",
+  "preuve": "\"AI products revenue growth\" 700 = AIrev Q1-2026 700 ; \"Full-time employees\" 5100 (dernier 2026-09-29) = Employees FY2025 (deja doublon d'effectifs_annuels) ; \"Total net sales 2025\" 2779,5 = revenue_annuel 2025 ; \"Revenue recognition material weakness\" val 1, unite \"faiblesse\".",
+  "correction_validee": "Supprimer les quatre KPI et reporter la faiblesse de controle interne dans les risques.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_BACKLOG, Future Contracted Bookings, RPO",
+  "probleme": "Trois carnets differents, dont un doublon sans periodes avec une date du jour, sans explication de l'ecart.",
+  "preuve": "CAHIER_BACKLOG FY2025 = 14,4 Mds ; \"Future Contracted Bookings\" serie \"7.5, 8.2, 10.1, 9.9, 10.7, 11.4, 14.4, 14.3\" sans trimestres, last_data_date 2026-09-29, yoy +44 % ; RPO Q2-2026 = 9,8 Mds (\"Obligations de prestation restantes\").",
+  "correction_validee": "Dater la serie trimestrielle, fusionner avec CAHIER_BACKLOG, expliquer carnet contractuel vs RPO.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CLOUD_SERVICES_REV_B, TASER_REV",
+  "probleme": "Doublons annuels des series trimestrielles (dont le hero), signal identique et generique, point decimal.",
+  "preuve": "CLOUD_SERVICES_REV_B FY2025 = 1202,7 = 262,7+292,2+305,2+342,5 (SW_SERVICES_REV) ; TASER_REV FY2025 = 913,9 = somme TASERRev ; signaux : \"... : 1202.7 M $ en 2025, produit phare de la société\" et \"... : 913.9 M $ en 2025, produit phare de la société\".",
+  "correction_validee": "Supprimer les deux annuels ou reecrire des signaux specifiques avec virgule decimale.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Software & Sensors Revenue, Axon Evidence Cloud, TASER Segment Revenue, gmTASERleg, gmSSleg, gmPctTASERleg, gmPctSSleg, nsTASERleg, nsSSleg, TASERrecurring",
+  "probleme": "Dix KPI morts (segmentation abandonnee fin 2024, indicateur arrete en 2023), trois avec series sans periodes et textes de modele.",
+  "preuve": "\"Software & Sensors Revenue\" \"314.45 ... 1263.85\" dernier 2024-12-31, signal \"Hypergrowth segment cloud+cameras: 4x sur 4 ans. Coeur re-rating Axon vers SaaS public-safety\" ; \"Axon Evidence Cloud\" : \"Joyau Axon ... Sticky, monetisation par utilisateur\" ; 6 KPI legacy \"dernier trimestre de cette segmentation\" (Q4-2024) ; TASERrecurring arrete Q1-2023.",
+  "correction_validee": "Archiver ou supprimer ces dix KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "OpIncome, OCF, FCF (yoy)",
+  "probleme": "Variations en pourcentage sur changement de signe.",
+  "preuve": "OpIncome 46,8 vs -1 : \"+4615,3 %\" ; OCF 20,1 vs -91,7 : \"+121,9 %\" ; FCF -1 vs -114,7 : \"+99,2 %\".",
+  "correction_validee": "Afficher la variation en M$ : OpIncome +47,8, OCF +111,8, FCF +113,7.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "gmPctTASERleg (signal)",
+  "probleme": "Affirmation impossible pour un taux de marge.",
+  "preuve": "\"Taux de marge brute TASER de 61,3% au T4 2024, supérieur de plus de 60 points au niveau de 2016\" (impliquerait ~1 % en 2016).",
+  "correction_validee": "Retirer la comparaison avec 2016 du signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "NetIncome (signal), LTDebt",
+  "probleme": "Montant du gain financier different entre signal et anti-these ; dette long terme a zero fin 2024 sans explication.",
+  "preuve": "NetIncome : \"le T1 avait été dopé par 191 M$ de plus-values sur participations\" ; att : \"197,9 M$ sur 198,7 M$\". LTDebt Q4-2024 = 0 alors que dette_annuelle 2024 = 0,68 Md (convertibles) ; serie avec trous (Q4-2023 puis Q4-2024).",
+  "correction_validee": "Harmoniser le montant du gain ; preciser le reclassement des convertibles en dette courante ou completer la serie.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

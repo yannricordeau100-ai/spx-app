@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "AP_FY et STRUCT_FY",
+  "probleme": "Changement de signe dans la serie : le point FY2026 est negatif alors que tous les points precedents sont positifs.",
+  "preuve": "AP_FY : FY2025=1679, FY2026=-1409 ; STRUCT_FY : FY2025=1886, FY2026=-1663.",
+  "correction_validee": "Passer FY2026 en positif : 1409 pour AP_FY et 1663 pour STRUCT_FY.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Tous les KPI _FY (CA_FY, ROC_FY, RNPG_FY, FCF_FY, DN_FY, BPA_FY, MB_FY, CROIS_ORG_FY, etc.)",
+  "probleme": "Le point FY2026 a ete ajoute mais les variations et les signaux restent calcules sur FY2025 : la variation affichee est fausse pour chaque KPI annuel.",
+  "preuve": "CA_FY yoy=-5.5 % alors que 9404 vs 10959 = -14,2 % ; RNPG_FY yoy=+10.2 % alors que 1203 vs 1626 = -26 % ; FCF_FY yoy=+17.7 % alors que 1197 vs 1133 = +5,6 % ; CROIS_ORG_FY yoy=-2.0 pt alors que -3,9 vs -3 = -0,9 pt ; signal CA_FY « 10,96 Mds € sur l'exercice clos le 30 juin 2025 ».",
+  "correction_validee": "Recalculer toutes les variations FY2026 contre FY2025 et reecrire les signaux sur l'exercice clos le 30 juin 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "VOLUMES_SIB",
+  "probleme": "Nom faux : la serie (12,3 M de caisses) est le volume d'Absolut, pas celui des marques internationales strategiques (56,7 M de caisses), et le signal parle des treize marques.",
+  "preuve": "VOLUMES_SIB FY2025=12.3, serie identique a PHARE_RI_PA « Volumes Absolut » ; « Strategic Intl Brands Volume » val=56.7 ; CA_MIS_FY signal « 56,7 millions de caisses ».",
+  "correction_validee": "Supprimer VOLUMES_SIB et garder PHARE_RI_PA pour Absolut.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Group Net Sales / Americas Net Sales / Asia/RoW Net Sales / Strategic Intl Brands Volume / Jameson Volume / Martell Volume",
+  "probleme": "Six KPI sans identifiant ni dates, dates 2026-09-04 mais figes sur FY2025, en doublon de CA_FY, CA_AMER_FY, CA_ASIE_FY avec des valeurs anciennes differentes, et des signaux en franglais.",
+  "preuve": "« Americas Net Sales » serie 2660, 3245, 3460 contre CA_AMER_FY FY2022=3133, FY2023=3481 ; « Group Net Sales » val=10959 date 2026-09-04 alors que CA_FY FY2026=9404 ; signaux « Chine cognac headwind structurel », « Brand champion », « Stabilisation USA attendue H2 FY26 ».",
+  "correction_validee": "Supprimer Group Net Sales, Americas Net Sales et Asia/RoW Net Sales ; pour Jameson, Martell et SIB Volume, dater la serie, ajouter FY2026 depuis la source et reecrire le signal en francais.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DIV_PS (hero)",
+  "probleme": "Le KPI hero s'arrete a FY2025 alors que les resultats FY2026 sont sur la fiche (publies le 4 septembre 2026) : le dividende propose au titre de FY2026 manque.",
+  "preuve": "DIV_PS dernier 2025-06-30, val=4.7 ; CA_FY FY2026=9404 dernier 2026-09-04.",
+  "correction_validee": "Ajouter le dividende propose au titre de l'exercice 2025/26 et mettre a jour le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "att.accroche et resume",
+  "probleme": "Anti-these perimee : elle parle d'un troisieme exercice « en cours » et cite le ratio au 31 decembre 2025, alors que la these et les KPI portent sur l'exercice clos le 30 juin 2026.",
+  "preuve": "att : « au 31 décembre 2025, ce ratio est à 3,8x, sur fond de deux exercices consécutifs de recul ... et d'un troisième en cours » ; these : « Sur l'exercice clos le 30 juin 2026, le chiffre d'affaires ... recule de 3,9 % ».",
+  "correction_validee": "Reecrire l'anti-these avec les chiffres FY2026 (dette nette 10 662 M€, CA 9 404 M€, trois exercices de recul acheves).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik simple.activity",
+  "probleme": "Contradiction sur le rang mondial : la description dit numero deux, l'anti-these dit numero un des spiritueux internationaux premium.",
+  "preuve": "description : « Numéro deux mondial des spiritueux premium » ; att : « reste le numéro un mondial des spiritueux internationaux premium ».",
+  "correction_validee": "Harmoniser sur la formulation de l'entreprise : numero deux mondial des vins et spiritueux, co-leader des spiritueux internationaux premium.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Cuisine interne : le moat explique qu'il n'y a pas assez d'elements pour trancher au lieu de decrire les marques et le stock d'eaux-de-vie.",
+  "preuve": "« Éléments trop minces pour trancher, avec un seul indicateur suivi et un dividende inchangé »",
+  "correction_validee": "Reecrire le moat sur les barrieres reelles : portefeuille de marques (Absolut, Jameson, Martell), 7 Mds € d'eaux-de-vie en vieillissement, reseau de distribution mondial.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

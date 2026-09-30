@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Total Sales / revenue_annuel",
+  "probleme": "Doublon exact du chiffre d affaires annuel sous deux noms et deux unites, en plus du total_rev trimestriel.",
+  "preuve": "Total Sales serie 30793, 33364, 32854, 33005, 33986 M $ ; revenue_annuel serie 2021=30.793 ... 2025=33.986 Mds $.",
+  "correction_validee": "Supprimer le KPI Total Sales et garder revenue_annuel et total_rev.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Consolidated Operating Profit / Op Income",
+  "probleme": "Deux series annuelles du resultat operationnel qui se contredisent, dont une avec des zeros affiches pour 2021 et 2022 ; Op Income date au 2026-06-30 pour une valeur FY2025, signal et description vides.",
+  "preuve": "Consolidated Operating Profit serie 0, 0, 7762, 8635, 8923 ; Op Income serie 4.98, 5.37, 8.02, 8.63, 8.92 (2023 : 7762 vs 8020) ; Op Income dernier 2026-06-30, year.",
+  "correction_validee": "Supprimer Consolidated Operating Profit, dater Op Income au 2025-12-31 et lui rédiger un signal.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Americas/EMEA/APAC/Engineering Segment Operating Profit (annuels)",
+  "probleme": "Doublons annuels des KPI trimestriels americas_op, emea_op, apac_op, avec des descriptions en franglais sans accents et de la cuisine interne.",
+  "preuve": "Descriptions : Cash machine principal LIN ; levier pricing + productivite ; decelerataion vs 2021-23 ; hors charges PPA Linde AG ; apres reconciliation cost reduction + PPA Linde AG -$941M.",
+  "correction_validee": "Réécrire les signaux des quatre KPI annuels de résultat par segment en français correct, sans formule ni jargon (suppression seulement à défaut).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total Sales.signal / CAHIER_VOLUME_GROWTH",
+  "probleme": "Effet volume 2025 contradictoire entre deux KPI et l anti-these.",
+  "preuve": "Total Sales signal : prix +2%, volumes -2% ; CAHIER_VOLUME_GROWTH FY2025=0 ; att : les volumes n ont pas progresse d un seul point.",
+  "correction_validee": "Verifier le pont de croissance 2025 dans le rapport annuel et aligner les trois textes sur le meme chiffre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Return on capital",
+  "probleme": "Serie sans periodes qui saute de 16,7 a 25,1 en un trimestre, incompatible avec la these qui cite un ROC moyen de 25,2 % sur 2023-2025 ; deux definitions melangees.",
+  "preuve": "serie: 11.6, 13.4, 14.5, 15.7, 16.7, 25.1, 24.2, 23.8 ; these : rendement du capital moyen de 25,2 % sur 2023 a 2025.",
+  "correction_validee": "Reconstituer la série du ROC publié par Linde avec ses périodes et retirer les points issus d'une autre définition.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total project backlog (combined)",
+  "probleme": "Serie sans periodes, incoherente avec la somme des deux carnets de la fiche, et signal contredit par la serie.",
+  "preuve": "serie: 7.5, 13.4, 10, 11 ; signal : record de 10 milliards fin 2025 ; backlog_sog + Sale of plant : Q3-2025 12.0, Q4-2025 12.0, Q1-2026 10.3, Q2-2026 11.1.",
+  "correction_validee": "Recalculer le carnet combine trimestre par trimestre a partir des deux carnets ou supprimer ce KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "KPI a un point dates 2026-03-28 (Global launches, Ultra-high-purity, CO2, Helium, Oxyfuel, Annual capex, Net share purchases, Consecutive years...)",
+  "probleme": "Unites avec fourchettes incrustees, frequence trimestrielle sur des faits annuels, et doublons de KPI existants.",
+  "preuve": "Unites : % (65-75%), G$ (>1), Mt (~2), contrats (>90), % (85-90%) ; Annual capital expenditures 5261 = capex_q 2025 ; Net share purchases 4578 = buyback_q 2025 ; Consecutive years 33 = signal div_ps ; CAHIER_PROJECT_BACKLOG FY2024=7.1, FY2025=7.3 = backlog_sog Q4-2024, Q4-2025.",
+  "correction_validee": "Nettoyer les unités (%, G$, Mt, contrats), passer ces faits en annuel, supprimer Annual capital expenditures, Net share purchases et Consecutive years, et garder CAHIER_PROJECT_BACKLOG.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "ONSITE_PROJECTS_SIGNED / CAHIER_SUPPLY_MODE_MIX",
+  "probleme": "Serie de projets signes arretee a FY2024 alors que le rapport 2025 est integre ; nom de KPI qui annonce une repartition alors que la serie est la seule part du mode sur site.",
+  "preuve": "ONSITE_PROJECTS_SIGNED dernier 2024-12-31, FY2024=59 ; CAHIER_SUPPLY_MODE_MIX val=24 avec description Le mode sur site lie les clients ; onsite_rev signal : 24% du CA total.",
+  "correction_validee": "Ajouter FY2025 aux projets signes ; renommer CAHIER_SUPPLY_MODE_MIX en Part des ventes sur site.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "americas_op",
+  "probleme": "Deux trimestres consecutifs strictement identiques, signe probable de recopie.",
+  "preuve": "serie: Q1-2026=1272, Q2-2026=1272 ; americas_rev passe de 4025 a 4083 sur les memes trimestres.",
+  "correction_validee": "Verifier le resultat operationnel Americas du T1-2026 dans le rapport trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Poids des segments incoherents avec les series trimestrielles de la fiche, et libelles en anglais.",
+  "preuve": "Engineering 2.702 Mds (8.2 %) vs engineering_rev 2025 = 565+551+519+615 = 2250 M$ (6,6 %) et description marge 18% sur 2250 M$ ; Ameriques 15.208 / 33.986 = 44,7 % affiche 45,9 ; libelles EMEA Segment, Engineering Segment, BRAZIL, AUSTRALIA.",
+  "correction_validee": "Recalculer les parts sur le CA consolide ou preciser la base (ventes intersegments), traduire les libelles.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 2 a 5",
+  "probleme": "Titres de risques qui sont des fragments de phrase hors contexte, incomprehensibles seuls.",
+  "preuve": "Ces tentatives pourraient ne pas reduire efficacement la variabilite des couts ; Toute charge liee a ces depreciations ; Malgre ces mesures, ces evenements ; En consequence, les fluctuations des taux de change.",
+  "correction_validee": "Reformuler chaque titre en risque autonome (inflation des couts, depreciations d actifs, evenements exterieurs, change).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

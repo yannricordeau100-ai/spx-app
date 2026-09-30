@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "First Aid & Safety Revenue (annuel)",
+  "probleme": "Serie annuelle fausse et lissee : FY2026 = 1,39 Mds selon la somme des trimestres, pas 1,1 ; FY2025 = 1,22 et non 1,0.",
+  "preuve": "FIRSTAID_REV FY2026 : 334.7+342.2+346.8+368.1 = 1391.8 M ; serie annuelle 0.8, 0.86, 0.95, 1, 1.1",
+  "correction_validee": "Supprimer la serie annuelle, garder FIRSTAID_REV trimestriel.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Uniform Rental and Facility Services organic growth / First Aid and Safety Services organic growth",
+  "probleme": "Series avec valeurs negatives invraisemblables et contredites par les series propres : la croissance organique URFS est entre 6,9 et 7,9 % sur toute la periode, jamais negative ; First Aid a -6,8 % alors que FIRSTAID_REV progresse de +13,5 %.",
+  "preuve": "URFS organic growth serie -5.4, -3.6, 7.2 vs URFS_ORGANIC serie 7.9 ... 7.3 ; First Aid organic serie 17.1, 14.5, 17.7, -6.8, 18.5 vs FIRSTAID_REV yoy +13.5%",
+  "correction_validee": "Supprimer les deux series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Uniform Rental Revenue (annuel) / URFS_REV_FY",
+  "probleme": "Doublon du CA URFS avec chiffres lisses et description fausse ('90 % du CA' alors que le segment fait 77 %) ; URFS_REV_FY s arrete a FY2025 alors que le trimestriel donne FY2026 = 8 621,7 M.",
+  "preuve": "Uniform Rental Revenue serie 6.5, 6.95, 7.5, 8, 8.6, description '90% du CA' ; revenue_by_segment URFS 77.1 ; URFS_REV_FY dernier 2025-12-31",
+  "correction_validee": "Supprimer 'Uniform Rental Revenue' et ajouter FY2026 = 8 621,7 M a URFS_REV_FY.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Dépenses en capital (annuel)",
+  "probleme": "Valeur FY2026 fausse : 0,43 Mds contre 395,1 M reels ; doublon de CAPEX trimestriel.",
+  "preuve": "CAPEX signal 'Sur l exercice FY2026 : 395,1 M$ contre 408,9 M$ en FY2025' ; serie annuelle 0.31, 0.36, 0.39, 0.41, 0.43",
+  "correction_validee": "Supprimer 'Depenses en capital' annuel.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Effectif total",
+  "probleme": "Troisieme doublon de l effectif (avec EMPLOYEES et effectifs_annuels), valeur stockee en texte avec virgule et yoy vide.",
+  "preuve": "Effectif total : val=48,1 | yoy= | serie 42, 43.5, 44.2, 45, 46, 48.1",
+  "correction_validee": "Supprimer 'Effectif total'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EPS_DILUTED, URFS_ORGANIC",
+  "probleme": "Series arretees au T3 FY2026 alors que tout le reste va au T4 FY2026 (31 mai 2026) ; URFS_ORGANIC saute aussi les T4 FY2024 et FY2025.",
+  "preuve": "EPS_DILUTED dernier 2026-02-28 ; URFS_ORGANIC dernier 2026-02-28, serie Q3-FY2024=7.1, Q1-FY2025=7 (pas de Q4)",
+  "correction_validee": "Ajouter le T4 FY2026 (BPA 511/actions diluees, croissance organique URFS du T4)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "TOTAL_ORGANIC, URFS_ORGANIC",
+  "probleme": "yoy exprime en variation relative d un pourcentage, trompeur : -6,7 % pour un passage de 9,0 a 8,4 % (soit -0,6 pt).",
+  "preuve": "TOTAL_ORGANIC yoy=-6.7% (8.4 vs 9) ; URFS_ORGANIC yoy=+4.3% (7.3 vs 7.0)",
+  "correction_validee": "Exprimer en points : TOTAL_ORGANIC -0,6 pt, URFS_ORGANIC +0,3 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

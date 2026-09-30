@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "NET_INCOME / OP_INCOME / EPS_DILUTED (yoy et signaux)",
+  "probleme": "Le dernier point T2 2026 est present mais le yoy et le signal restent ceux du T1 ; le sens de variation affiche est faux",
+  "preuve": "NET_INCOME Q2-2026=36.9, yoy=+6.8% (36.9/102.2 = -64 %) ; OP_INCOME Q2-2026=228.1, yoy=+7.9% (228.1/262.9 = -13 %) ; EPS_DILUTED Q2-2026=0.09, yoy=+6.0%, signal BPA dilué de 1,06 $ au T1 2026",
+  "correction_validee": "Recalculer les yoy sur le T2 2026 et reecrire les signaux sur le T2 2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "REVENUE (hero)",
+  "probleme": "Le KPI hero s arrete au T1 2026 alors que le resultat, la these et l anti-these portent sur le T2 2026",
+  "preuve": "REVENUE dernier 2026-06-30 mais dernier point Q1-2026=2.36 ; OP_INCOME Q2-2026=228.1 present ; att : Au deuxième trimestre 2026",
+  "correction_validee": "Ajouter le point Q2-2026 de REVENUE depuis le rapport trimestriel du T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "anti-these",
+  "champ": "att vs NET_INCOME",
+  "probleme": "Baisse du resultat net T2 2026 citee a 55 % alors que la serie donne 64 %",
+  "preuve": "att : effondré de 55% sur un an ; NET_INCOME Q2-2026=36.9 contre Q2-2025=102.2",
+  "correction_validee": "Verifier la base (resultat attribuable aux actions ordinaires) et aligner texte et serie",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "LT_DEBT / COAL_INVENTORY / MATERIALS_SUPPLIES / D_AND_A / UTILITY_PPE_NET / GAS_VOLUMES / SEG_REV_* / SEG_OPINC_* / SEG_ASSETS_*",
+  "probleme": "Date du dernier point au 30 juin 2026 alors que la serie s arrete au T1 2026 ; LT_DEBT repete la valeur du trimestre precedent deux fois",
+  "preuve": "LT_DEBT dernier 2026-06-30 | Q4-2025=15.46, Q1-2026=15.46 ; Q2-2025=14.47, Q3-2025=14.47 ; COAL_INVENTORY dernier 2026-06-30 | dernier point Q1-2026",
+  "correction_validee": "Ajouter les points T2 2026 ou ramener la date au 31 mars 2026, et verifier LT_DEBT Q3-2025 et Q1-2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS_DILUTED",
+  "probleme": "Trous dans la serie trimestrielle (aucun T4)",
+  "preuve": "serie Q1-2024, Q2-2024, Q3-2024, Q1-2025 ... : Q4-2024 et Q4-2025 absents alors que NET_INCOME les a (223.9, 257.8)",
+  "correction_validee": "Completer les T4 (annuel moins 9 mois)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition sur l ancienne segmentation (gaz/electricite) alors que la fiche suit Columbia/NIPSCO depuis 2024 ; proportions perimees",
+  "preuve": "Gas Distribution Operations 67.1 ; Electric Operations 32.9 ; SEG_REV 2025 : Columbia 3343 M$, NIPSCO 3308 M$ (50/50)",
+  "correction_validee": "Remplacer par Columbia Operations environ 50 % et NIPSCO Operations environ 50 %, exercice 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "clients_de_la_distribution_de_gaz_nombre / CAHIER_CUSTOMER_RELIABILITY / Consolidated capital plan / Data center capital investment",
+  "probleme": "Doublons de GAS_CUSTOMERS, CUSTOMERS_TOTAL, CAHIER_CAPEX_PLAN et capex_datacenter_ads, dont un arrete en 2023 sans signal et un nom evoquant une fiabilite absente",
+  "preuve": "clients_de_la_distribution_de_gaz_nombre 2023=3270613, signal vide ; Consolidated capital plan 28, 28 = CAHIER_CAPEX_PLAN FY2025=28 ; Data center capital investment 7, 7 = capex_datacenter_ads",
+  "correction_validee": "Supprimer les quatre KPI clients_de_la_distribution_de_gaz_nombre, CAHIER_CUSTOMER_RELIABILITY, Consolidated capital plan et Data center capital investment.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "capex_datacenter_ads.signal / New generation capacity under Genco",
+  "probleme": "Anglais et telegraphie dans le signal, et capacites contradictoires entre deux KPI",
+  "preuve": "2 CCGTs 1300 MW + 400 MW stockage ... IURC approval pending ; New generation capacity : deux centrales CCGT de 1300 MW chacune plus 400 MW = 3000 MW",
+  "correction_validee": "Reecrire en francais avec la bonne capacite (2 x 1300 + 400)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning / these",
+  "probleme": "Classe absent avec un texte generique d integrateur, contredit par un KPI de gain IA ; la these cite la grille interne Graham",
+  "preuve": "positionnement IA (absent): NiSource (NI) intègre l'IA/ML ... ; AI-driven productivity gain val=20 ; these : coche trois des cinq critères ... de Benjamin Graham",
+  "correction_validee": "Reecrire le positionnement IA, retirer la phrase sur la grille",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_MARGIN, SEG_REV_GAS_HIST, SEG_OPINC_ELEC_HIST (signaux) et faits ponctuels",
+  "probleme": "Fautes de frappe visibles ; treize faits a un point dates 2025-09-10 presentes comme KPI (dont un chiffre Eli Lilly qui n est pas un indicateur NiSource)",
+  "preuve": "trimestrès négatifs ; cliénts ; très reguliér ; Eli Lilly manufacturing facility served | Mds $ | val=5 ; Rate base growth guidance 10, 9, 9, 9, 10",
+  "correction_validee": "Corriger les fautes ; deplacer les faits en story ou supprimer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

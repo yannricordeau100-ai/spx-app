@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "La repartition par segment est fausse : l'Asie-Pacifique manque et l'EMEA est a 42 %, en contradiction avec la repartition geographique et les series de segment.",
+  "preuve": "revenue_by_segment : \"Americas 57.87 ; EMEA 42.13\" ; revenue_by_geography : Amériques 62,5, EMEA 22,2, Asie-Pacifique 15,3.",
+  "correction_validee": "Remplacer par les lignes de produits 2025 : Genoux 3 322 M$ (40,4 %), S.E.T. 2 150 M$ (26,1 %), Hanches 2 094 M$ (25,4 %), Technologie et autres 666 M$ (8,1 %).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dental_spine_rev",
+  "probleme": "Une activite scindee en 2022 (ZimVie) est encore affichee comme KPI, avec un dernier point au T4-2021.",
+  "preuve": "dernier 2021-12-31 ; signal : \"scission de ZimVie effective le 1er mars 2022\".",
+  "correction_validee": "Retirer dental_spine_rev de la fiche.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "americas_cogs, americas_sga, americas_rnd, emea_*, apac_*",
+  "probleme": "Neuf lignes de couts par segment de faible valeur, avec des micro-montants et une rupture de perimetre en 2026. Le signal affirme une publication depuis le T1-2025 alors que la serie a des points en 2024.",
+  "preuve": "emea_rnd 1,9 M$, apac_rnd 3,9 M$ ; americas_rnd 0,8 -> 71,9 ; serie Q2-2024=248,7 alors que le signal dit \"publiée par segment depuis le T1-2025\".",
+  "correction_validee": "Retirer ces neuf KPI ou n'en garder qu'un agrege, avec une mention de rupture de perimetre en 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORG_GROWTH_FRANCHISE",
+  "probleme": "Le nom ne dit pas de quelle franchise il s'agit, et les taux proches de 10 % en 2021-2023 ne correspondent pas a la croissance organique du groupe.",
+  "preuve": "nom : \"Croissance organique par franchise\" ; FY2022=9,9, FY2023=10,2 ; signal : \"la franchise phare du groupe\" sans la nommer.",
+  "correction_validee": "Identifier la franchise mesuree (genoux, hanches ou S.E.T.) et renommer, ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque la croissance trimestrielle a change constant ou organique par franchise, qui est l'indicateur central en orthopedie, ainsi que le parc installe du robot ROSA.",
+  "preuve": "Seules des variations publiees sont affichees (knees_rev +0,4 %, set_rev +6,4 % dont 2,8 pts Paragon 28).",
+  "correction_validee": "Ajouter la croissance organique trimestrielle par franchise et, si publie, le parc installe ROSA.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy des taux (americas_margin, emea_margin, apac_margin, op_margin, net_margin, gross_margin)",
+  "probleme": "La variation annuelle des taux est donnee en relatif.",
+  "preuve": "americas_margin 51,2 -> 40,2 yoy=-21,5 % (au lieu de -11 pts) ; net_margin 7,4 -> 9,1 yoy=+23,0 %.",
+  "correction_validee": "Calculer les variations annuelles des marges en points.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA / moat / en-tete",
+  "champ": "ai_positioning, moat, tagline",
+  "probleme": "Le positionnement IA ignore le rachat de Monogram (robotique autonome) qui figure sur la fiche. Le moat n'est pas qualifie et repose sur des chiffres 2025. La tagline est en anglais.",
+  "preuve": "IA : \"la communication IA générative reste limitée\" ; KPI 'Monogram Technologies Acquisition' 377,5 M$ ; moat : \"None / tendance stable\" ; tagline : \"Global medical technology leader...\".",
+  "correction_validee": "Mettre a jour le positionnement IA, rediger un moat et traduire la tagline.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

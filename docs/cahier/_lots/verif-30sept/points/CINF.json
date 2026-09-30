@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Combined Ratio P&C (annuel, fin 2024)",
+  "probleme": "Serie contredite par CAHIER_COMBINED_RATIO et perimee : 2022=100.3 contre 98.1, 2023=94.4 contre 94.9 ; triple doublon avec combined_ratio_pc trimestriel",
+  "preuve": "Combined Ratio P&C : 98.2, 88.3, 100.3, 94.4, 93.4 ; CAHIER_COMBINED_RATIO : FY2022=98.1, FY2023=94.9, FY2024=93.4, FY2025=94.9",
+  "correction_validee": "Supprimer le KPI Combined Ratio P&C, CAHIER_COMBINED_RATIO et combined_ratio_pc couvrent le besoin.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Investment Income (annuel, fin 2024)",
+  "probleme": "Valeur 2024 fausse et contredite par net_inv_income trimestriel : les seuls Q3+Q4 2024 font 538 M$, l'annee depasse 1 000 M$, pas 894 ; doublon perime",
+  "preuve": "Investment Income 2024=894 ; net_inv_income Q3-2024=258, Q4-2024=280, Q1-2025=280, Q2-2025=285",
+  "correction_validee": "Supprimer le KPI Investment Income, net_inv_income couvre le besoin.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Commercial Lines Premiums / Investment Portfolio / Cincinnati Re (annuels en Mds $, dernier 2026-06-30)",
+  "probleme": "Trois series annuelles lissees et fausses, datees d'un point qui n'est pas une cloture annuelle : Investment Portfolio 27.5 contre 33 153 M$ reel, Cincinnati Re 0.4 contre 591 M$ en 2025 (somme trimestrielle), Commercial Lines 5.4 non rattachable a un exercice",
+  "preuve": "Investment Portfolio : 22.5, 28, 23.4, 25.5, 27.5 ; total_investments Q2-2026=33153 ; cinre_nwp 2025 : 255+164+87+85=591 contre serie 0.2, 0.25, 0.3, 0.35, 0.4",
+  "correction_validee": "Supprimer les trois KPI annuels, les series trimestrielles total_investments, cinre_nwp et comm_lines_nwp existent.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total investments, Property casualty loss ratio, underwriting expense ratio, net earned premiums (n=6, dernier 2026-05-11)",
+  "probleme": "Quatre doublons de total_investments, loss_expense_ratio, underwriting_expense_ratio, premiums_earned_net, avec un seul point par an etiquete trimestriel et arretes au T1-2026",
+  "preuve": "Total investments : 22018, 23399, 23123, 26249, 28481, 32001 (= Q1 de chaque annee) contre total_investments Q2-2026=33153",
+  "correction_validee": "Supprimer les quatre KPI doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Current accident year combined ratio before catastrophe losses",
+  "probleme": "Doublon exact de combined_ratio_ex_cat, arrete un trimestre plus tot, avec un yoy de signe oppose",
+  "preuve": "serie 91.1, 88.2, 86.8, 90.5, 85.1, 84.7, 84.8, 87.5 identique a combined_ratio_ex_cat ; yoy -3.0pt contre +3.0pt",
+  "correction_validee": "Supprimer le doublon et reporter le T4-2025 (84.8) dans combined_ratio_ex_cat.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Net written premiums growth",
+  "probleme": "Dernier point contredit par la serie de primes : 2825 contre 2733 au T2-2026 donne +3.4 %, pas 7 % ; serie sans etiquettes de periode",
+  "preuve": "val=7 au 2026-06-30 ; pc_nwp_total Q2-2026=2825, Q2-2025=2733, yoy=+3.4%",
+  "correction_validee": "Supprimer le KPI, le yoy de pc_nwp_total donne deja la croissance.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "64th consecutive year of dividend increases",
+  "probleme": "Chiffre perime et contredit par la these (65 ans, 66e enclenchee en janvier 2026)",
+  "preuve": "KPI val=64 ; these : soixante cinq annees consecutives ... soixante sixieme enclenchee en janvier 2026",
+  "correction_validee": "Supprimer ce KPI a point unique, la these porte deja l information exacte.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Cincinnati Global net written premiums (n=1)",
+  "probleme": "Doublon de cinglobal_nwp qui contient deja la valeur 334 en FY2025",
+  "preuve": "Cincinnati Global net written premiums val=334 ; cinglobal_nwp FY2025=334",
+  "correction_validee": "Supprimer le point unique.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dac nom francais",
+  "probleme": "Apostrophe manquante dans le nom affiche",
+  "preuve": "Couts dacquisition differes",
+  "correction_validee": "Remplacer par Couts d'acquisition differes dans le nom et le signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Policyholder Retention (fin 2024) et Nombre total d'agences",
+  "probleme": "Retention plate arretee en 2024 alors que 2025 est publie ; l'indicateur de reseau qu'un investisseur attend (nombre d'agences independantes partenaires) manque, seules les nominations cumulees existent",
+  "preuve": "Policyholder Retention : 85, 85, 86, 86, 86 dernier 2024-12-31 ; New agency appointments (YTD) present, total absent",
+  "correction_validee": "Prolonger la retention a 2025 et ajouter le nombre d'agences partenaires",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

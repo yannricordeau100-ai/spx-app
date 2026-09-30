@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis / hero",
+  "champ": "toutes les séries semestrielles (CA-S, RE, EBITDA, RN, CFL, segments...), hero CA-ESMOA",
+  "probleme": "Tous les KPI semestriels s'arrêtent au S1 2025, alors que le S1 2026 est publié (30/07/2026) et que la thèse et l'anti-thèse le commentent. Le S2 2025 manque aussi. Les signaux décrivent une situation dépassée.",
+  "preuve": "dernier = 2025-06-30 pour CA-S, RE, RN, RE-AME et les autres. Thèse : « résultat net part du Groupe en baisse de 13,0%, ROCE à 12,8% » ; anti-thèse : « Région Amériques ... chute de 21,2% ». Signal de RE-AME : « 987 M€ au S1 2025, +4,4% ».",
+  "correction_validee": "Ajouter H2-2025 et H1-2026 à toutes les séries semestrielles (CA, RE, EBITDA, RN, CFL, segments, marges) et régénérer les signaux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "High Performance Sol., Renovation %, Light & Sust. Constr., M&A Acquisitions, CO2 reduction",
+  "probleme": "Cinq KPI sans période, avec des séries parfaitement linéaires, des noms anglais et des descriptions en franglais tronquées. Leurs chiffres contredisent la fiche : série probablement inventée.",
+  "preuve": "Séries 38, 39, 40, 41, 42 ; 62, 65, 68, 72, 75 ; 1100, 1900, 2800, 3600, 4400. HPS = 7250 M€, alors que CA-SHP 2024 = 4969 + 4871 = 9840. Rénovation 42 %, contre 50 % dans CAHIER_END_MARKET_MIX et le risque 1. Descriptions : « re-rating de Pie », « bolt-on », « stratégie de portfolio Bazin ».",
+  "correction_validee": "Supprimer les cinq KPI High Performance Sol., Renovation %, Light & Sust. Constr., M&A Acquisitions et CO2 reduction.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik / tendance",
+  "probleme": "La justification confond ROCE et marge, et annonce une hausse démentie par le semestre en repli. Le niveau vaut « Aucun » mais la tendance est « hausse ».",
+  "preuve": "« La marge opérationnelle gagne 1,5 point à 12,8 % » : 12,8 % est le ROCE du S1 2026 d'après la thèse ; MARGE-EXPL ne dépasse jamais 11,8 %. tendance_mettrik = « hausse ».",
+  "correction_validee": "Réécrire la justification à partir du S1 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Les deux blocs sont identiques. Ils comptent quatre régions sans Solutions de Haute Performance, et leurs montants ne recoupent pas les KPI de segment.",
+  "preuve": "Europe du Sud, MO et Afrique = 16,068 Mds € (34,56 %) dans les deux blocs, alors que CA-ESMOA est d'environ 7,0 Mds € par semestre (6614 + 6987). CA-SHP (environ 5 Mds € par semestre) est absent.",
+  "correction_validee": "Reconstruire le bloc segments avec les cinq segments du reporting et garder un vrai bloc géographique (France, Amérique du Nord, etc.).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "products",
+  "probleme": "La description annonce cinq segments mais n'en cite que quatre, en anglais, et place l'Amérique latine dans la mauvaise région.",
+  "preuve": "« Cinq segments : High Performance Solutions, Northern Europe, Southern Europe-MEA-Latam, Asia-Pacific », alors que le signal de CA-AME rattache « l'Amérique latine (+10,4% en interne) » aux Amériques.",
+  "correction_validee": "Lister les cinq segments en français avec le bon découpage.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CROISS-PUB.signal",
+  "probleme": "Le décompte des semestres de repli est faux.",
+  "preuve": "« redevient positive après six semestres de repli » ; série : H1-2023 = -2.1, H2-2023 = -10.6, H1-2024 = -6, puis H2-2024 = +0.5, soit trois semestres de repli, et le retour au positif date déjà du S2 2024.",
+  "correction_validee": "Écrire « deuxième semestre positif d'affilée après trois semestres de repli liés aux cessions et au change ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RN.signal, BNPA.signal, EBITDA-EDN/ESMOA/AME/APAC/SHP.signal",
+  "probleme": "Cuisine interne et mentions de documents dans les signaux.",
+  "preuve": "« Les semestres pairs sont dérivés de l'exercice publié moins le premier semestre publié. » ; « Non dérivable par semestre : ratio par action. » ; cinq fois « publié dans l'annexe « Résultats par Segment » du communiqué S1 2025 ».",
+  "correction_validee": "Retirer ces phrases des signaux de RN, BNPA et des cinq EBITDA régionaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VOLUME_PRICE_SPLIT",
+  "probleme": "Le nom annonce un partage volume/prix, mais la série ne contient que l'effet prix. La variation est absurde et le KPI fait doublon avec EFFET-PRIX.",
+  "preuve": "Nom « Croissance organique volume / prix », unité « % (effet prix) », FY2022 = 14.6 ; yoy « -233.3% » pour un passage de -0,6 à +0,8.",
+  "correction_validee": "Renommer en « Effet prix annuel » et afficher la variation en points (+1,4 pt).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PHARE_SGO_PA ; WEB_REDUCTIO_EMPREINT_CARBONE",
+  "probleme": "Deux KPI hors sujet : une série de 2011 à 2018 sur une organisation disparue, et une série qui reprend en fait le chiffre d'affaires du groupe (ce qui explique le pourcentage aberrant déjà détecté).",
+  "preuve": "PHARE_SGO_PA : dernier 2018-12-31, « Pôle Matériaux Innovants », signal « Produit phare : ». WEB_REDUCTIO : FY2021 = 44160 et FY2022 = 51197, soit exactement le CA du groupe en 2021 et 2022.",
+  "correction_validee": "Supprimer PHARE_SGO_PA et WEB_REDUCTIO_EMPREINT_CARBONE.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques / en-tete / position de marche",
+  "champ": "risques 1, 3, 7, 8 ; tagline ; sous-secteur ; market_positions",
+  "probleme": "Les risques reposent sur les chiffres de 2024 alors que le document de 2025 est déjà cité ailleurs. Tagline et sous-secteur en anglais. Les deux positions de marché sont vides et identiques.",
+  "preuve": "« (50% du chiffre d'affaires 2024) », « Au 31 décembre 2024 ... 8,4 Mds € », « 420 M€ » ; « Creating the habitats of tomorrow », « Building Materials & Fixtures » ; positions 1 et 2 : None, taille 250, part None.",
+  "correction_validee": "Actualiser les risques avec les chiffres de 2025, traduire, et dédoublonner et compléter les positions.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Trading & Clearing, Securities Services, Fund Services, Investment Mgmt Solutions (annuels) vs SEGTC, SEGSS, SEGFS, SEGIMS (trimestriels)",
+  "probleme": "Les revenus de segment annuels sont hors resultat de tresorerie sans le dire, alors que les series trimestrielles l incluent : pour 2025, Trading & Clearing 2 331 M€ contre 2 553 en sommant SEGTC ; Securities Services 1 046 contre 1 605 ; Fund Services 482 contre 538. Un lecteur voit deux chiffres differents pour le meme segment et la meme annee.",
+  "preuve": "Trading & Clearing serie: 2146, 2331 ; SEGTC 2025 = 659.8+666.1+603+624 = 2552.9 ; Securities Services 931, 1046 ; SEGSS 2025 = 417+394.8+392+401 = 1604.8 ; somme des quatre annuels = 5189 = NETREVXTR 2025",
+  "correction_validee": "Supprimer les quatre KPI annuels sans dates, ou les renommer 'hors resultat de tresorerie' avec des dates.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Treasury Income vs TREAS",
+  "probleme": "Le resultat de tresorerie 2024 vaut 410 M€ dans une serie anglaise sans dates et 1 050 M€ dans le signal de TREAS (somme des trimestres). L ecart est de x2,5.",
+  "preuve": "Treasury Income serie: 30, 65, 240, 336, 410 :: 'Beneficie hausse taux ECB.' ; TREAS :: '837 M€ sur 2025 contre 1 050 M€ en 2024'",
+  "correction_validee": "Supprimer Treasury Income.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Revenues, Trading & Clearing Rev, Data & Analytics Rev, EBITDA Margin",
+  "probleme": "Bloc de series anglaises sans dates : Net Revenues doublonne NETREV ; Trading & Clearing Rev (2,0 Mds € en 2024) contredit Trading & Clearing (2 146) ; Data & Analytics est un segment qui n existe plus depuis la reorganisation de 2024 ; EBITDA Margin est lissee (56, 56, 57, 57, 58) ; signaux telegraphiques ('Best-in-class exchange.', 'cible 2028 = 6.5 Mds€ CAGR 8%').",
+  "preuve": "Trading & Clearing Rev serie: 1.7, 1.7, 1.9, 1.85, 2 ; Data & Analytics Rev serie: 410 ... 660 :: 'Revenu recurrent, marges elevees.' ; EBITDA Margin :: 'Best-in-class exchange.'",
+  "correction_validee": "Supprimer les quatre KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat vs these",
+  "probleme": "Le moat est 'None' avec un texte neutre alors que la these (confiance elevee) affirme que le groupe reunit les trois sources de fosse les plus solides (effet de reseau, couts de changement, incorporels) : les deux blocs se contredisent.",
+  "preuve": "moat: None / tendance stable :: 'Revenus nets en croissance reguliere ... mais la charge reglementaire et les menaces cyber s alourdissent' ; these : 'reunit les trois sources de fosse les plus solides de la grille Morningstar'",
+  "correction_validee": "Qualifier le moat (large) et reecrire le texte en coherence avec la these.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these.accroche vs CAHIER_ADV",
+  "probleme": "L accroche dit que les contrats echanges par jour n ont pas progresse de plus de 5 % ; la serie donne 7,745 (2018) a 8,166 (2025), soit +5,4 %.",
+  "preuve": "these : 'sans que le nombre de contrats echanges chaque jour progresse de plus de 5 %' ; CAHIER_ADV FY2018=7.745, FY2025=8.166",
+  "correction_validee": "Ecrire 'd a peine 5 %' ou 'de moins de 6 %'.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions de marche / en-tete / kpis manquants",
+  "champ": "market_positions[0], [1], tagline, indicateurs sectoriels",
+  "probleme": "Deux positions de marche sans libelle (28.27 et 27), tagline vide, et il manque les encours en conservation de Clearstream (cites dans le signal SEGSS mais absents en KPI) ainsi que les volumes de negociation au comptant Xetra.",
+  "preuve": "position de marche 1: None | taille 28.27 ; position de marche 2: None | taille 27 ; tagline: (vide) ; SEGSS :: 'sur des niveaux record d actifs en conservation'",
+  "correction_validee": "Nommer les positions, renseigner la tagline, ajouter 'Actifs en conservation Clearstream (Mds €)' et 'Volume Xetra (Mds €)'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

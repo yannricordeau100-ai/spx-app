@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Essentials Gross Profit, Specialties Gross Profit, Essentials EBITA, Specialties EBITA, Operating EBITA Group",
+  "probleme": "Cinq KPI annuels arretes fin 2024, sans dates, doublonnant les series trimestrielles a T2-2026, avec signaux perimes et ordre de serie douteux",
+  "preuve": "'Specialties Gross Profit' serie [1198, 1480, 1173.2] history_periods=null, signal 'marge unitaire en amelioration sequentielle depuis T2' ; 'Operating EBITA Group' [1480, 1270, 1101.7] dernier 2024-12-31 alors que EBITA_OP va a Q2-2026=368 ; RBO_ESS/RBO_SPEC/EBITA_ESS/EBITA_SPEC couvrent deja ces segments",
+  "correction_validee": "Supprimer les cinq KPI annuels importés sans dates.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EFF",
+  "probleme": "Effectifs arretes a 2024 alors que le signal decrit 2025 et que la fiche est sourcee sur le rapport 2025",
+  "preuve": "EFF dernier 2024-12-31 val 18 122 ; signal 'le programme de reduction des couts lance en 2025 inverse la logique et l'allege' sans point 2025",
+  "correction_validee": "Ajouter l'effectif fin 2025 du rapport annuel 2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BPA.signal",
+  "probleme": "Le signal attribue aux rachats un effet que la serie ACTIONS dement",
+  "preuve": "BPA signal 'les rachats reduisent le nombre de titres et amortissent un peu la baisse des benefices' ; ACTIONS FY2024=144,4 = FY2025=144,4, signal ACTIONS 'aucun nouveau rachat depuis'",
+  "correction_validee": "Retirer du signal BPA la phrase sur les rachats.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "activity, customers, tagline",
+  "probleme": "Description inexacte et tagline vide",
+  "preuve": "'distribution de produits chimiques et d'intrants speciaux' ; clients 'les distributeurs de produits chimiques' (Brenntag est le distributeur) ; tagline: ''",
+  "correction_validee": "Corriger la description (clients industriels, pas distributeurs) et renseigner la tagline",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_GROSS_MARGIN_RATE.yoy",
+  "probleme": "Variation d'un taux affichee en % relatif",
+  "preuve": "24,8 -> 25,3 affiche 'yoy=+2.0%' au lieu de +0,5 pt",
+  "correction_validee": "Afficher '+0,5 pt'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "La these repose sur le rendement du capital mais aucun ROCE n'est affiche",
+  "preuve": "these : 'peu d'actifs immobilises ... et un rendement du' ; Brenntag publie le ROCE chaque annee ; absent des 33 KPI",
+  "correction_validee": "Ajouter le ROCE annuel (rapport annuel 2025)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

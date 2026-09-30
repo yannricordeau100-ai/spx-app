@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Segments perimes : structure d avant 2021 (Nutrition Biosciences cede a IFF en 2021, Electronics scinde en nov 2025) alors que la fiche est a deux segments",
+  "preuve": "Electronics Imaging 18.7 ; Nutrition Biosciences 29.7 ; Transportation Industrial 20.5 ; Safety Construction 24.5 ; Non-Core 6.6",
+  "correction_validee": "Remplacer par Healthcare & Water Technologies 47,2 % et Diversified Industrials 52,8 % (exercice 2025).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 4",
+  "probleme": "Risque perime : la separation en trois entites a ete abandonnee, Qnity est scinde et Aramids vendu, le groupe est a deux segments",
+  "preuve": "Execution de la separation en trois entites annoncee",
+  "correction_validee": "Reformuler en risque d execution post-scission (societe recentree, goodwill 77 % des capitaux propres)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ORGANIC_GROWTH_SEGMENT",
+  "probleme": "Serie annuelle contredite par la serie trimestrielle de croissance organique",
+  "preuve": "FY2024=-6, FY2025=7 alors que Organic sales growth donne Q1-25=6, Q2-25=2, Q3-25=6, Q4-25=-1 (moyenne ~3 %) et Q3-24=3, Q4-24=7",
+  "correction_validee": "Retirer CAHIER_ORGANIC_GROWTH_SEGMENT, Organic sales growth couvre le sujet.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Healthcare & Water Technologies organic sales growth / Diversified Industrials organic sales growth",
+  "probleme": "Valeur affichee differente du seul point de la serie",
+  "preuve": "HWT val=4 mais serie Q2-2026=3 ; DI val=3 mais serie Q2-2026=-4",
+  "correction_validee": "Verifier le communique T2 2026 et aligner valeur et serie pour les deux segments.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_SEGMENT_MARGIN / CAHIER_SEGMENT_CAPEX",
+  "probleme": "Nommes par segment mais une seule serie (Sante & Eau) ; SEGMENT_MARGIN est le doublon annuel de hwt_ebitda_margin",
+  "preuve": "CAHIER_SEGMENT_MARGIN FY2025=30.1 = hwt_ebitda_margin ; signal CAPEX : Capex du segment Sante et Eau a 133 M$",
+  "correction_validee": "Retirer CAHIER_SEGMENT_MARGIN et renommer CAHIER_SEGMENT_CAPEX en Capex Sante & Eau.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "TYVEK_SEG_REV",
+  "probleme": "Segment Water & Protection disparu, serie arretee en 2024, presente comme produit phare",
+  "preuve": "dernier 2024-12-31, FY2024=5423 ; Chiffre d affaires du segment porteur de Tyvek",
+  "correction_validee": "Retirer TYVEK_SEG_REV, bt_rev couvre Tyvek jusqu en 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Vitality index",
+  "probleme": "Unite incoherente : un indice de vitalite est une part des ventes, pas un ecart au benchmark",
+  "preuve": "unite % au-dessus du benchmark, val=35 ; signal : Indice de vitalite 2025 a 35% au-dessus du benchmark",
+  "correction_validee": "Verifier le transcript : 35 % des ventes issues de produits recents ou 35 % au-dessus d un benchmark, puis corriger unite et signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dps_q",
+  "probleme": "Signal dit dividende stable alors que la serie chute de moitie (rebasage post-scission Qnity)",
+  "preuve": "Q3-2025=1.23, Q4-2025=0.6, yoy=-51.2% ; signal : Un dividende stable, ajuste du regroupement d actions",
+  "correction_validee": "Signal : dividende trimestriel ramene a 0,60 $ apres la scission Qnity, contre 1,23 $ avant (montants retraites du regroupement d actions).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "hwt_ebitda / di_ebitda / op_ebitda_q / marges EBITDA",
+  "probleme": "Series a trous (Q2-2025 et Q3-2025 absents) alors que les signaux comparent au T2 2025",
+  "preuve": "op_ebitda_q serie Q4-2024, Q1-2025, Q4-2025, Q1-2026, Q2-2026 ; signal : contre 423 M$ au T2 2025",
+  "correction_validee": "Completer Q2-2025 et Q3-2025 depuis les communiques",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Organic sales growth / Volume growth / Accelerated share repurchase",
+  "probleme": "Signal perime d un trimestre, serie volume arretee au T1 2026, et doublon du rachat 275 M$",
+  "preuve": "signal : revenue de 6% (T3-25) a 2% (T1-26) alors que serie va a Q2-2026 ; Volume growth dernier 2026-03-28 ; Accelerated share repurchase 275 = buyback_q Q2-2026=275",
+  "correction_validee": "Mettre le signal organique au T2 2026, completer le volume T2 et retirer le KPI rachat accelere.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

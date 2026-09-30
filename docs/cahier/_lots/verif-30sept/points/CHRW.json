@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "risques",
+  "champ": "risque 1 a 7",
+  "probleme": "Sept risques sans description.",
+  "preuve": "« risque 1: Volumes de fret et capacite :: » (vide) ... « risque 7: Dependance fournisseurs et chaine d'approvisionnement :: » (vide).",
+  "correction_validee": "Rediger chaque risque depuis l'Item 1A du 10-K 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification de tendance perimee, contredite par les derniers chiffres de la fiche.",
+  "preuve": "Moat : « Chiffre d'affaires en net recul et volumes de camionnage negatifs malgre des marges redressees ». total_rev T2 2026 = 4,934 Mds $ (+19,3 %), nast_tl_vol T2 2026 = +0,5 %, nast_rev +23,1 %.",
+  "correction_validee": "Reecrire a partir du T2 2026 (hausse des prix du fret, volumes stabilises, marge AGP en recul a 15,0 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "carrier_network, total_shipments",
+  "probleme": "Saut d'echelle entre FY2023 et FY2024 traduisant un changement de definition, presente comme une evolution ; signaux en franglais.",
+  "preuve": "carrier_network : FY2023 = 96 000, FY2024 = 450 000 (x4,7), FY2025 = 450 000. total_shipments : FY2023 = 19 M, FY2024 = 37 M (x2). Signaux : « 450k transporteurs + 75k clients connectes via Navisphere, avantage reseau structurel », « scale operationnel majeur ».",
+  "correction_validee": "Demarrer les series en 2024 (ou garder une seule definition) et reecrire les signaux en francais.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "nast_tl_agp_unit, nast_ltl_agp_unit, gf_ocean_vol, gf_ocean_agp_unit, gf_air_vol, gf_air_agp_unit",
+  "probleme": "Noms qui designent un niveau alors que les series sont des variations annuelles en %.",
+  "preuve": "« Profit brut ajuste par expedition camionnage NAST » = 1,5 (%) ; « Volume maritime Global Forwarding » = 1 (%) avec serie -10,5, -8, -7 ; « Tonnage aerien Global Forwarding » = -7,5 (%).",
+  "correction_validee": "Ajouter « (variation annuelle) » a chaque nom FR et EN.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "adj_eps, nast_tl_agp_unit, nast_ltl_agp_unit, gf_ocean_agp_unit, gf_air_agp_unit, eps_diluted",
+  "probleme": "Retard d'un trimestre sur cinq KPI, date de dernier point fausse, trou, et phrases de cuisine interne dans les signaux.",
+  "preuve": "adj_eps : dernier point Q1-2026 = 1,35 mais last_data_date 2026-06-30 et signal « au T1-2026 », alors que eps_diluted a le T2 2026 (1,56). Les quatre KPI unitaires s'arretent au T1 2026 ; nast_tl_agp_unit sans Q3-2025 ; signal « (ER T1-2026) ». eps_diluted signal : « les T4 proviennent du communique de resultats, non tagues en » (tronque).",
+  "correction_validee": "Ajouter le T2 2026, corriger les dates, retirer « (ER T1-2026) » et la phrase tronquee.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NAST truckload volume YoY, NAST consecutive quarters of market share gains",
+  "probleme": "Doublon sans dates, perime et decale, plus un signal qui ne suit pas la valeur.",
+  "preuve": "NAST truckload volume YoY : serie sans dates [..., 3, 3, -3.5], valeur -3,5 datee 2026-06-30 alors que nast_tl_vol T2 2026 = +0,5 (-3,5 = T1 2026) ; Q2-2025 = 1,5 contre 0 dans nast_tl_vol. Market share gains : valeur 13, signal « 12e trimestre consecutif ».",
+  "correction_validee": "Supprimer le doublon NAST truckload volume YoY et ecrire « 13e trimestre consecutif ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Global Forwarding Net Rev, Truckload Volume Index, Adjusted Gross Profit / Order",
+  "probleme": "Trois series annuelles sans dates, arretees en 2024, dont une contredite par la serie trimestrielle de la fiche.",
+  "preuve": "Global Forwarding Net Rev 2024 = 559 M$ alors que gf_agp T3+T4 2024 seuls = 438,4 M$ et T1+T2 2025 = 372 M$ (l'annee 2024 depasse 780 M$). Truckload Volume Index [105, 102, 95, 98, 100] et AGP/Order [285, 320, 260, 224, 235] sans source ; signaux d'une ligne : « Recuperation de marges en 2024 », « Stabilisation apres cycle baissier 2022-2023 ».",
+  "correction_validee": "Supprimer les trois KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NAST Revenue, Global Forwarding Revenue, Truckload Revenue, LTL Revenue, Ocean Freight Revenue",
+  "probleme": "Doublons annuels sans dates, dates 2026-06-30 alors que la derniere valeur est 2025, signaux en franglais.",
+  "preuve": "NAST Revenue 11 562 = somme 2025 de nast_rev ; Global Forwarding Revenue 3 090 = somme 2025 de gf_rev. Signaux : « marche restera bas tant que capacity surplus », « Rebond 2024 sur Red Sea + retombee 2025 », « signaux de rebond pricing 2026 », « prise de part de marche vs concurrents broker LTL ».",
+  "correction_validee": "Dater les series (FY2021-FY2025) et reecrire les signaux en francais, ou supprimer les deux doublons NAST et GF.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PHARE_CHRW",
+  "probleme": "Qualificatif « produit phare » attribue a l'activite la plus petite du groupe.",
+  "preuve": "« Produit phare : Robinson Fresh (approvisionnement en fruits et legumes frais) » : Sourcing = 1 409 M$ soit 8,7 % du CA 2025, alors que NAST = 71 % du CA et 74 % du resultat (nast_opinc).",
+  "correction_validee": "Renommer « Chiffre d'affaires Sourcing (Robinson Fresh) » sans « phare », ou faire de nast_rev le produit phare.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "summary",
+  "probleme": "Phrase generique identique a celle de CHTR et CI, alors que la fiche contient des faits IA precis.",
+  "preuve": "« CHRW decrit dans son rapport annuel un usage operationnel de l'IA et du machine learning pour renforcer productivite ou services, tout en identifiant les risques associes. » Sur la fiche : 30 agents IA maison, programme de restructuration 2025 « axe IA » (30,4 M$), cotation fret en 32 secondes, 95 % des verifications LTL automatisees, +50 % d'expeditions par personne, effectifs -10,8 %.",
+  "correction_validee": "Reecrire le positionnement en stance productivite a partir de ces faits chiffres, sans citer de document.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "8 KPI a un point dates 2026-05-11",
+  "probleme": "Faits de conference presentes comme des KPI, noms en forme de phrase.",
+  "preuve": "« Increase in shipments per person per day since 2022 » (50), « Custom-built AI agents deployed » (30), « Request-for-freight-quote cycle time » (32 s), « Europe Surface Transportation divestiture proceeds » (27,7), « Share repurchases resumed 2025 » (356,3, doublon de buyback 2025 = 354,7).",
+  "correction_validee": "Deplacer en faits marquants ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline, revenue_by_segment",
+  "probleme": "Slogan anglais et libelle de segment mal traduit.",
+  "preuve": "Tagline « Accelerating Your Advantage ». Segment « Transportation Customer's Freight 91.3 ».",
+  "correction_validee": "Accroche en francais ; segments « Transport 91,3 % / Sourcing 8,7 % ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

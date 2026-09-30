@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue_total, ous_rev, japan_rev, row_rev, us_pct_total, tavr_pct_total, japan_gross_margin, row_gross_margin (Q4-2024)",
+  "probleme": "Le point Q4-2024 est faux : la somme des segments depasse le total et les zones hors US s effondrent",
+  "preuve": "revenue_total Q4-2024=1255.6 alors que TAVR 1036.3 + TMTT 105.1 + SSH 244.4 = 1385.8 ; japan_rev Q4-2024=47.9 (85 a 96 ailleurs) ; row_rev 86.1 (150 a 200) ; tavr_pct 82.5 ; row_gross_margin 55.4",
+  "correction_validee": "Re-sourcer le T4-2024 sur le 10-K (environ 1,39 Md$) et recalculer les derives.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Adj Operating Margin, TAVR US Revenue, TAVR OUS Revenue, Adj EPS",
+  "probleme": "Quatre series annuelles lissees, sans annees, yoy vide, signal identique a la description : chiffres non publies sous cette forme",
+  "preuve": "27, 27.4, 27.8, 28.2, 28.5 ; 2350, 2440, 2510, 2580, 2650 ; 2.4, 2.48, 2.55, 2.6, 2.65 (progression lineaire) ; TAVR 2024 = 2580+1820 = 4400 contre environ 4100 d apres les trimestres",
+  "correction_validee": "Supprimer les quatre KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "capex, ocf, fcf, buybacks, cash_investments, lt_debt, net_cash, diluted_shares, inventory, us/europe/japan/row_op_income, marges sectorielles",
+  "probleme": "Quinze series arretees a Q1-2026 alors que le T2-2026 est publie (revenue_total Q2-2026 existe) ; certaines affichent 'dernier 2026-06-30' avec un signal T1",
+  "preuve": "us_op_income dernier 2026-06-30 mais serie finit Q1-2026=610.7, signal 'au T1-2026' ; inventory signal 'au 31 mars 2026'",
+  "correction_validee": "Completer Q2-2026 depuis le 10-Q et aligner dates et signaux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_profit.signal",
+  "probleme": "Signal perime : cite le T1 alors que la valeur est le T2",
+  "preuve": "val=1348.6 (Q2-2026) ; signal 'Marge brute de 1 286,0 M$ au T1-2026'",
+  "correction_validee": "Signal : marge brute de 1 348,6 M$ au T2-2026, +13,5 % sur un an.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Surgical Structural Heart sales",
+  "probleme": "Doublon de ssh_rev, decale d un trimestre",
+  "preuve": "dernier point 276.2 = ssh_rev Q1-2026 ; ssh_rev Q2-2026=284.1",
+  "correction_validee": "Supprimer 'Surgical Structural Heart sales'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "activity, products",
+  "probleme": "Mentionne la surveillance hemodynamique et critique, activite Critical Care cedee en 2024",
+  "preuve": "'valves cardiaques transcatheter et surveillance hemodynamique' ; 'surveillance critique' ; net_income Q3-2024=3070.8 (plus-value de cession)",
+  "correction_validee": "Retirer surveillance hemodynamique, surveillance critique et soins intensifs de la description.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_margin Q3-2024",
+  "probleme": "Marge nette de 226,7 % sans explication visible (plus-value Critical Care)",
+  "preuve": "Q3-2024=226.7, net_income Q3-2024=3070.8",
+  "correction_validee": "Ajouter la mention de la plus-value dans le signal ou la description",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "market_positions",
+  "champ": "position de marche 1 et 2",
+  "probleme": "Blocs vides",
+  "preuve": "'None | taille 6.6 | part None' ; 'None | taille 2.5 | part None'",
+  "correction_validee": "Supprimer les deux blocs.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORG_GROWTH_FRANCHISE",
+  "probleme": "Nom 'par franchise' sur une serie unique consolidee",
+  "preuve": "une seule valeur par an (FY2025=8.6)",
+  "correction_validee": "Renommer 'Croissance organique des ventes'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Jewellery Operating Profit, Watch Maisons Operating Profit",
+  "probleme": "Deux KPI de 2 points sans dates, valeurs FY2023-FY2024 presentees comme actuelles, contredites par les KPI a jour de la fiche ; descriptions avec calcul a la main et jargon.",
+  "preuve": "Series [4684, 4713] et [738, 572] sans history_periods, datees 2026-12-31. 4713 = 14 242 x 33,1 % (JM_REV et JM_OPM FY2024) alors que l'anti-these donne 5 037 M€ en FY2026 et JM_OPM 30,5 %. Description : « marge ~33% (4713/14242). Pricing power exceptionnel » ; horlogerie « marge ~15% (572/3767) » alors que SW_REV indique une marge de 3,4 % en FY2026.",
+  "correction_validee": "Supprimer les deux KPI, doublons perimes de JM_OPM et SW_REV.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "signal",
+  "champ": "REV_Q",
+  "probleme": "Le signal annonce un trimestre record alors qu'un trimestre plus eleve figure dans la serie.",
+  "preuve": "Signal : « Ventes record de 6,3 Mds € au trimestre avril-juin 2026 ». Serie : Q3-2026 = 6,399 Mds € > Q1-2027 = 6,329.",
+  "correction_validee": "Ecrire « record pour un premier trimestre » ou retirer « record ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "signal",
+  "champ": "OP_H",
+  "probleme": "Croissance a change constant du resultat operationnel invraisemblable au regard de la serie publiee.",
+  "preuve": "Signal : « 4,5 Mds € de resultat operationnel en FY2026 (+23% a change constant) ». Serie : FY2026 = 2,358 + 2,134 = 4,492 contre FY2025 = 2,206 + 2,261 = 4,467, soit +0,6 % publie. Ecart de 22 points alors que l'ecart sur les ventes n'est que de 6 points (ORG_GROWTH 11 % vs PUB_GROWTH 5 %).",
+  "correction_validee": "Verifier le chiffre a change constant dans la publication FY2026 et corriger le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WHOLESALE_REV, CAHIER_DTC_MIX",
+  "probleme": "Noms anglais faux ou illisibles pour ce que mesure la serie.",
+  "preuve": "WHOLESALE_REV : name_en « Wholesale Sales Growth » pour une serie de niveaux en M€ (5 191). CAHIER_DTC_MIX : name_en « Dtc Mix » ; yoy « +0.3% » pour une part en % (76,8 vs 76,6 = +0,2 pt).",
+  "correction_validee": "Renommer « Wholesale sales » et « Direct-to-client sales mix », yoy en points (+0,2 pt).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "JM_REV",
+  "probleme": "Unite incoherente avec les autres CA de la fiche et description generique de modele.",
+  "preuve": "Unite « millions d'euros » (16539) alors que SW_REV, OTHER_REV, GEO_* sont en Mds € (3.149, 2.732). Description : « Chiffre d'affaires des Maisons de Joaillerie : 16539 millions d'euros en 2026, produit phare de la societe. » (exercice clos le 31 mars 2026, pas « 2026 »).",
+  "correction_validee": "Passer en Mds € (16,539) et rediger une description sur le poids de Cartier et Van Cleef & Arpels (73,8 % du CA, marge 30,5 %).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun indicateur de stocks alors que les signaux invoquent le prix de l'or, le repli des horlogers et le canal de gros.",
+  "preuve": "Fiche sans KPI stocks ni rotation ; SW_REV « troisieme annee de repli », GM_FY « hausse du cout des matieres premieres, notamment l'or », WHOLESALE_REV 23 % des ventes.",
+  "correction_validee": "Ajouter « Stocks nets » et « Rotation des stocks (jours) » depuis le rapport annuel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

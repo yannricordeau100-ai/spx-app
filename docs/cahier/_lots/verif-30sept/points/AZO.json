@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "13 KPI dates 2026-09-29",
+  "probleme": "Treize KPI portent la date du jour de l extraction comme derniere donnee, sans periodes dans l historique.",
+  "preuve": "last_data_date 2026-09-29 sur Total company same store sales growth, Domestic same store sales growth, Net new stores opened in quarter, Total AutoZoners headcount, Domestic Comp Sales, Commercial Sales Mix, Mega Hub Count, International Comp Sales, Share Buybacks, Commercial DIFM Sales, Mega Hub Stores, Domestic Same-Store Sales, International Stores Mix ; les series annuelles concernees s arretent au mieux a FY2025 (30 aout 2025).",
+  "correction_validee": "Apres les suppressions des points 13 a 18, dater Total company same store sales growth et Net new stores opened in quarter au 2026-05-09 avec libelles de periode trimestriels.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Domestic Comp Sales / Domestic Same-Store Sales / Domestic same store sales growth",
+  "probleme": "Trois doublons des ventes comparables domestiques, dont deux annuels aux valeurs incompatibles avec la fiche.",
+  "preuve": "Domestic Comp Sales = [5.4, 1.9, -0.3, 0.5, 1.3] ; Domestic Same-Store Sales = [13.6, 8.7, 1.9, -0.4, 1.5] ; CAHIER_VENTES_COMPARABLES donne FY2023 = 3.4, FY2024 = 0.4, FY2025 = 3.2 et domestic_sss trimestriel FY2025 = 0.3/1.9/5/3.2 (environ +2,6 %). Domestic same store sales growth recopie domestic_sss.",
+  "correction_validee": "Supprimer Domestic Comp Sales, Domestic Same-Store Sales et Domestic same store sales growth (domestic_sss suffit).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Mega Hub Count / Mega Hub Stores / mega_hub_count",
+  "probleme": "Trois series de mega hubs contradictoires et signal incoherent avec la valeur.",
+  "preuve": "mega_hub_count Q2-FY2026 = 151, signal '133 mega hub domestic (+24), plus 8 au Mexique' = 141 ; Mega Hub Count annuel = [85, 95, 105, 113, 119] ; Mega Hub Stores = [50, 65, 80, 93, 110] alors que Q3-FY2025 = 127.",
+  "correction_validee": "Supprimer Mega Hub Count et Mega Hub Stores ; reecrire le signal de mega_hub_count avec 151 au T2 FY2026, sans ventilation non sourcee.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Share Buybacks",
+  "probleme": "Serie annuelle de rachats contredite par les deux autres series de la fiche.",
+  "preuve": "Share Buybacks = [4.4, 3.7, 3.4] Mds $ (val 3,4 presente comme dernier) ; Share Repurchases FY2025 = 1 531,66 M$ ; buybacks_q FY2025 = 540+326+269+443 = 1 578 M$.",
+  "correction_validee": "Supprimer Share Buybacks.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "International Comp Sales / International Stores Mix",
+  "probleme": "Series internationales a valeurs rondes decroissantes contredites par les series trimestrielles et l anti-these.",
+  "preuve": "International Comp Sales = [12, 10.5, 8.2, 7.5, 6.8] alors que International same store sales growth = [11.2, 17.1, 16.6] et l anti-these cite 16,6 % ; International Stores Mix = [9, 10, 11, 12, 13] alors que FY2025 reel = 1030/7657 = 13,5 %.",
+  "correction_validee": "Supprimer International Comp Sales et International Stores Mix.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total AutoZoners headcount",
+  "probleme": "Valeur affichee contredite par son propre signal et par effectifs_annuels.",
+  "preuve": "history = [130000, 78000], val = 78 000 ; signal 'Environ 130 000 collaborateurs a la cloture de l exercice 2025' ; effectifs_annuels 2025 = 130 000.",
+  "correction_validee": "Supprimer Total AutoZoners headcount.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "commercial_pct / Commercial DIFM Sales / Commercial Sales Mix",
+  "probleme": "yoy de la part commerciale exprime comme croissance des ventes, serie a trou, et deux doublons annuels aux croissances contradictoires.",
+  "preuve": "commercial_pct yoy '+6.7%' alors que Q2-FY2026 = 31,6 contre Q2-FY2025 = 31,1 (+0,5 pt) ; serie saute de Q3-FY2023 a Q2-FY2025 ; Commercial DIFM Sales yoy +15 % (4,55 vers 5,2) contre signal Commercial Programs 'croissance commercial sales +6.7% FY25'.",
+  "correction_validee": "yoy commercial_pct = +0,5 pt ; supprimer Commercial DIFM Sales et Commercial Sales Mix.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PARC_ROTATION",
+  "probleme": "Nom sans rapport avec la serie et signal qui contredit la fiche.",
+  "preuve": "Nom 'Reseau et rotation des stocks', unite magasins, serie = nombre de magasins ; signal 'ralentit le rythme d ouvertures passe, signe d un marche plus mature' alors que domestic_store_count dit 'Net new 304 en FY2025 vs 213 en FY2024, acceleration' et que FY2025 = +304 est le record de la serie.",
+  "correction_validee": "Supprimer CAHIER_PARC_ROTATION (doublon de Total Stores et total_store_count_q).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "resume",
+  "probleme": "Chiffres introuvables et affirmation non documentee.",
+  "preuve": "'La marge brute des magasins gagne 8,2 % contre 5,9 % pour le chiffre d affaires, mais les ventes par categorie ralentissent nettement' : la fiche donne CA +8,4 % et marge brute -0,5 pt au Q3-FY2026 ; aucune serie par categorie hors FAILURE_SALES (+3,5 %).",
+  "correction_validee": "Reecrire a partir des KPI (SSS +4,1 %, 12e trimestre positif, marge operationnelle 19,1 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VENTES_COMPARABLES",
+  "probleme": "yoy en pourcentage relatif d un pourcentage et nom qui promet un mix absent.",
+  "preuve": "yoy '+700.0%' pour 0,4 vers 3,2 (+2,8 pt) ; nom 'Ventes comparables et mix particuliers et professionnels' pour une serie de comparables totaux.",
+  "correction_validee": "yoy = +2,8 pt ; nom Ventes comparables annuelles, sans preciser total tant que le perimetre n est pas verifie.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Full-year net sales 2025 / Non-cash LIFO charge / Senior Notes 5.125% due June 2030 issued / Commercial addressable market size / DIY market share gains since pandemic / Annual store openings target by 2028 / Mega hub full build-out target",
+  "probleme": "KPI ponctuels sans serie, dont un doublon et une emission de dette qui ne correspond pas au chiffre de l anti-these.",
+  "preuve": "Full-year net sales 2025 = 18,9 = revenue_annuel 2025 ; Senior Notes 500 M$ alors que l anti-these parle de '850 M$ de dette nouvelle le 14 juillet 2026'.",
+  "correction_validee": "Supprimer Full-year net sales 2025 ; deplacer les objectifs et evenements en faits marquants ; harmoniser le montant de l emission.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "avg_sales_per_store / CAHIER_VENTES_COMPARABLES / CAHIER_PARC_ROTATION / FAILURE_SALES",
+  "probleme": "Dates de cloture fausses pour un exercice clos le 30 aout, et precision excessive.",
+  "preuve": "last_data_date 2025-12-31 alors que les autres annuels sont dates 2025-08-30 ; FAILURE_SALES val 9.291584 et signal '9.29158 Mds $'.",
+  "correction_validee": "last_data_date 2025-08-30 pour les quatre series ; FAILURE_SALES arrondi a 9,29 Mds $ en valeur et dans le signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

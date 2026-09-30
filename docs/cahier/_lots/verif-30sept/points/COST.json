@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "U.S. Operations Revenue, Canadian Operations Revenue, Other International Revenue, U.S./Canadian/Other International Operating Income, Net Sales, Foods/Sundries/Hardlines/Fresh Foods % of Sales, SG&A as % of Sales, Net New Warehouses",
+  "probleme": "Bloc de treize KPI issus des exercices 2014 à 2016, daté 2026-09-29, avec accents cassés et signaux d'un mot : les valeurs sont deux à trois fois inférieures aux chiffres actuels de la fiche.",
+  "preuve": "« Net Sales | dernier 2026-09-29 | 112640, 116199, 116073 :: Croissance faible » vs revenue_annuel 2025 = 275,2 Mds $ ; « U.S. Operations Revenue | 86579 » vs net_sales_us T3 2026 seul = 51,43 Mds $ ; « Net New Warehouses | 23, 29 » = FY2023 et FY2024 (861-838, 890-861) alors que FY2025 = 24 ; noms « Revenu des oprations aux tats-Unis », signaux « Croissance mod\\u0000r\\u0000e », « Pression sur les co\\u0000ts » ; catégories Foods/Sundries/Hardlines abandonnées par Costco depuis 2018.",
+  "correction_validee": "Supprimer les treize KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Membership Fee Income, Membership Renewal Rate US/CA, Members Worldwide, Executive Mix, Paid executive memberships",
+  "probleme": "Doublons annuels sans années, datés 2026-09-29 mais arrêtés à FY2024 ou au T3 2025, dont un dit « record » sur un taux de renouvellement que la fiche montre en baisse.",
+  "preuve": "« Membership Fee Income » dernier point 4,83 = FY2024 (CAHIER_MEMBERSHIP FY2025 = 5 323) ; « Membership Renewal Rate US/CA » 92,9 = FY2024 avec description « Niveau record 92.9%, stickiness exceptionnelle » alors que renewal_rate_us_ca T3 2026 = 92,2 et anti-thèse « s'effrite lentement » ; « Members Worldwide » 79,6 = T3 2025 (FY2025 = 81,0) ; « Paid executive memberships » série 30 → 39,7 sans les trimestres intermédiaires.",
+  "correction_validee": "Supprimer les quatre KPI perimes ; conserver Paid executive memberships en datant ses points ou fusionner avec executive_members.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "comp_sales_ca, comp_sales_oi, comp_sales_adj_total, comp_sales_adj_us (history et yoy)",
+  "probleme": "Séries de ventes comparables trouées (rien entre fin 2023 et 2026) et yoy calculé par position, donc comparé à un trimestre de 2022 ou 2023.",
+  "preuve": "comp_sales_ca history_periods ... Q4-2022, Q4-2023, Q1-2026, Q2-2026, Q3-2026 ; yoy « -4.0pp » = 11 moins 15 (Q4-2022) ; comp_sales_oi yoy « +4.0pp » = 11 moins 7 (Q4-2022) ; comp_sales_adj_total yoy « +2.0pp » = 7 moins 5 (Q4-2023).",
+  "correction_validee": "Completer les trimestres 2024-2025 et recalculer les yoy sur le meme trimestre de l'an passe.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Worldwide Traffic / Shopping Frequency.signal",
+  "probleme": "Le signal parle d'une fréquentation qui progresse chaque trimestre alors que la série montre un net ralentissement.",
+  "preuve": "Signal : « La fréquentation mondiale progresse chaque trimestre, preuve de la fidélité structurelle des membres » ; série 6.4, 5.1, 5.7, 3.1, 3.1, 2.4.",
+  "correction_validee": "Réécrire : croissance du trafic ramenée à 2,4 % au dernier trimestre contre 6,4 % un an et demi plus tôt.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "employees, effectifs_annuels, Worldwide employees",
+  "probleme": "Effectif présent trois fois, dont un KPI à un point daté du jour avec une valeur différente de sa série.",
+  "preuve": "« employees | K employés | 341 », « effectifs_annuels | salariés | 341000 », « Worldwide employees | employés | dernier 2026-09-29 | val 341000 | serie: 340000 ».",
+  "correction_validee": "Supprimer Worldwide employees et l'un des deux KPI annuels.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "warehouse_count, WAREHOUSE_COUNT, Warehouses worldwide",
+  "probleme": "Nombre d'entrepôts présent trois fois, avec un point périmé.",
+  "preuve": "warehouse_count T3 2026 = 928 ; WAREHOUSE_COUNT FY2025 = 914 (même valeur que Q4-2025) ; « Warehouses worldwide | n=1 | 924 [...] à fin février 2026 ».",
+  "correction_validee": "Supprimer WAREHOUSE_COUNT et Warehouses worldwide, warehouse_count couvrant l'historique.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_sales_us, op_income_us, net_sales_ca, op_income_ca, net_sales_oi, op_income_oi (signal)",
+  "probleme": "Six signaux citent la source documentaire.",
+  "preuve": "« Chiffre d'affaires du segment United States de 51.43 Mds USD au T3 2026, source note segments rapport trimestriel » (même formule sur les six).",
+  "correction_validee": "Retirer source note segments rapport trimestriel et passer en virgule decimale.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "capex, operating_cash_flow, free_cash_flow, buybacks, avg_fee_per_member (signal)",
+  "probleme": "Traces de calcul interne dans les signaux et yoy mal formaté.",
+  "preuve": "« (dérivé des flux cumulés) » sur quatre KPI, « (dérivé: cotisations 12 mois / membres payants) », operating_cash_flow yoy « -0% ».",
+  "correction_validee": "Retirer les parentheses derive et afficher stable ou 0 %.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_COMP_SALES, CAHIER_MEMBERSHIP, CAHIER_CATEGORY_MIX, CAHIER_ECOM_PEN",
+  "probleme": "Noms qui promettent deux indicateurs ou un mix alors que la série n'en contient qu'un, unité incohérente avec le nom, et dates au 31 décembre pour un exercice clos le 31 août.",
+  "preuve": "« Ventes comparables décomposées en trafic et panier » = comp total seul ; « Revenus d'adhésion et taux de renouvellement | M $ » = cotisations seules ; « Mix alimentaire et produits discrétionnaires | M $ | FY2025 = 109564 » = ventes Food and Sundries en M$ (39,8 % de 275,2 Mds) ; tous datés 2025-12-31.",
+  "correction_validee": "Renommer chaque KPI d'après son contenu réel et dater au 31-08.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Costco Travel US gross bookings (5 days), Black Friday US ecommerce nonfood orders, Average same-day delivery time, Pharmacy in-stock rate, LIFO charge 2025, Personalized recommendation ecommerce sales",
+  "probleme": "Anecdotes de conférence à un point, datées 2026-06-10, présentées comme des KPI.",
+  "preuve": "« Costco Travel US gross bookings (5 days) | M $ | n=1 | 100 », « Black Friday US ecommerce nonfood orders | 250 », « Average same-day delivery time (US) | minutes | 45 », « LIFO charge 2025 | 142 ».",
+  "correction_validee": "Déplacer dans les faits marquants.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "manque : taux de renouvellement mondial",
+  "probleme": "L'anti-thèse s'appuie sur le taux de renouvellement mondial, qui n'existe pas en KPI (seul US+Canada est suivi).",
+  "preuve": "Anti-thèse : « 89,7% de renouvellement mondial, en baisse depuis deux ans », « passé de 90,5% (T3 2024) à 90,2% (T3 2025) puis 89,7% (T3 2026) » ; KPI disponible : renewal_rate_us_ca uniquement.",
+  "correction_validee": "Ajouter une série trimestrielle « Taux de renouvellement mondial ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "att.hook",
+  "probleme": "L'accroche de l'anti-thèse repose sur des multiples de valorisation non datés, périssables, alors que la thèse affirme ignorer toute valorisation.",
+  "preuve": "Anti-thèse : « L'action se paie environ 52 fois les profits, contre 42 pour Walmart et 17 pour Target » ; thèse : « La valorisation est volontairement ignorée : aucun multiple, aucun cours, aucun prix cible n'apparaît ici ».",
+  "correction_validee": "Dater les multiples ou reformuler l'accroche sur la marge nette et le renouvellement.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

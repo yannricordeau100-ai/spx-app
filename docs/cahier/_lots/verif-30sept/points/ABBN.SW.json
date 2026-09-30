@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "REV_Q, ORDERS_Q, BACKLOG_Q, OPEBITA_Q, IFO_Q",
+  "probleme": "Rupture de perimetre non traitee : les points jusqu au T3 2025 incluent Robotics, les suivants sont en activites poursuivies ; les yoy affiches (retraites) contredisent la serie.",
+  "preuve": "REV_Q 9 475/8 900 = +6,5 % affiche +14 % ; ORDERS_Q 12 042/9 785 = +23 % affiche +30 % ; BACKLOG 30 007/24 975 = +20 % affiche +27 % ; OPEBITA 1 925/1 708 = +12,7 % affiche +20 % ; somme des 4 trimestres 2025 = 34 970 vs REV_FY 2025 = 33 220.",
+  "correction_validee": "Retraiter 2021 à T3 2025 en activités poursuivies à partir des chiffres retraités d'ABB, ou recalculer les yoy sur la série affichée et signaler la rupture.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "REV_FY, OPEBITA_FY, OPEBITA_MARGIN_FY",
+  "probleme": "FY2024 non retraite (avec Robotics) alors que FY2025 et les yoy sont en activites poursuivies.",
+  "preuve": "REV_FY FY2024 = 32 850 mais GEO FY2024 = 10 138+11 370+9 075 = 30 583 ; yoy +9 % implique 30 477 ; OPEBITA_FY 6 314/5 968 = +5,8 % affiche +13 % (base 5 588).",
+  "correction_validee": "Remplacer FY2021-FY2024 de REV_FY, OPEBITA_FY et OPEBITA_MARGIN_FY par les valeurs retraitées en activités poursuivies.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Electrification Revenue, Motion Revenue, Process Automation, Robotics & Discrete Auto, Orders Intake",
+  "probleme": "Bloc herite : series non datees FY2020-2024, 'dernier 2026-08-05' faux, descriptions telegraphiques, valeurs contradictoires avec les series datees, activite Robotics cedee.",
+  "preuve": "Electrification 2024 = 16,2 vs ELEC_REV_FY FY2024 = 15 448 ; Motion 2023 = 7,6 vs MOTION_REV_FY 7 814, 2024 = 8,0 vs 7 787 ; Orders Intake 2024 = 34,2 alors que ORDERS_Q 2025 = 38 457 ; 'ABB Robotics #2 mondial, automation auto, exposition cycle automobile'.",
+  "correction_validee": "Supprimer les cinq séries héritées ; les séries ELEC/MOTION/AUTO/ORDERS datées couvrent le sujet.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_ORDERS_ORGANIC, CAHIER_ORGANIC_GROWTH",
+  "probleme": "yoy en % d un %.",
+  "preuve": "'+1400,0 %' pour 1 -> 15 (= +14 pts) ; '+133,3 %' pour 3 -> 7 (= +4 pts).",
+  "correction_validee": "yoy '+14 pts' et '+4 pts'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "MOTION_REV_FY",
+  "probleme": "Signal de gabarit inadapte a une division, unite non normalisee, profondeur incoherente avec ELEC/AUTO/GEO (n=2).",
+  "preuve": "'8247 M USD en 2025, produit phare de la societe' ; unit 'M USD' vs 'M$' ; ELEC_REV_FY n=2, MOTION_REV_FY n=9.",
+  "correction_validee": "Retirer 'produit phare de la société' du signal de MOTION_REV_FY et passer l'unité en 'M$'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateur manquant",
+  "probleme": "ROCE et dette nette/EBITDA, piliers de la these, n ont pas de serie ; FCF_FY n=2 pour une these de conversion du benefice en tresorerie.",
+  "preuve": "these : 'rendement des capitaux employes passe de 16,1 % a 28,4 %', 'dette nette trois dixiemes d une annee d EBITDA' ; FCF_FY serie FY2024, FY2025.",
+  "correction_validee": "Ajouter ROCE (annuel et trimestriel, publie par ABB), dette nette/EBITDA, etendre FCF a 2021.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0..3], ai_positioning",
+  "probleme": "Accents manquants.",
+  "preuve": "'lies a la hausse', 'talents qualifies sur des marches', 'Mutations de marche', 'effectifs R&D mondiaux sont focalises'.",
+  "correction_validee": "Restaurer les accents dans risks et ai_positioning (liés, qualifiés, marchés, marché, focalisés, pilotés, générative, temps réel, intégré, publié).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline, subsector, revenue_by_segment.fiscal_year",
+  "probleme": "Tagline et sous-secteur en anglais ; exercice de la repartition absent.",
+  "preuve": "'A technology leader in the digital transformation of industries' ; 'Industrial Automation & Electrification' ; 'revenue_by_segment (None)'.",
+  "correction_validee": "Traduire tagline et sous-secteur ; pas de changement sur l'exercice de la répartition.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

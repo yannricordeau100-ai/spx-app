@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Libtayo (PD-1 oncology) / Libtayo Sales",
+  "probleme": "Deux séries annuelles contradictoires pour le même produit (1,2 et 1,1 Mds $ en 2025) et toutes deux fausses : les quatre trimestres 2025 de Libtayo_rev totalisent 1 452 M$.",
+  "preuve": "Libtayo (PD-1 oncology) serie: 0.4, 0.5, 0.6, 0.8, 1.2 ; Libtayo Sales serie: 0.42, 0.5, 0.83, 0.95, 1.1 ; Libtayo_rev 2025 : 285.1+376.5+365.2+425.4 = 1452",
+  "correction_validee": "Supprimer Libtayo (PD-1 oncology) et Libtayo Sales.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Dupixent (collab Sanofi) / Dupixent global net sales (recorded by Sanofi)",
+  "probleme": "Ventes mondiales Dupixent sous-estimées et périmées : 14,2 Mds $ en 2025 et 4,9 Mds $ au dernier trimestre, alors que DUPKEV_GLOBAL (Dupixent + Kevzara, Kevzara environ 150 M$) donne 6 204 M$ au T2-2026 et environ 18,4 Mds $ sur 2025. Description en anglais (« Mega-blockbuster », « 7e indication 2024 »).",
+  "preuve": "Dupixent (collab Sanofi) serie: 6.2, 8.3, 11.6, 13, 14.2 ; Dupixent global net sales serie ...4.9, 4.9 ; DUPKEV_GLOBAL Q2-2026=6204.1, 2025 : 3782+4496.8+5011+5091.5",
+  "correction_validee": "Supprimer Dupixent (collab Sanofi) et Dupixent global net sales. DUPKEV_GLOBAL, DUPIXENT_US et DUPIXENT_ROW suffisent.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Eylea HD Penetration / Pipeline Clinical Programs / Eylea US Sales / Dupixent Collab Profit",
+  "probleme": "Séries annuelles sans dates aux valeurs lissées ou contredites : pénétration HD 45 % en 2025 contre 37 % calculés (1 637 / 4 385 M$ aux États-Unis) ; 40 programmes cliniques contre 45 candidats dans CLINICAL_CANDIDATES FY2025 ; Eylea US 4,85 Mds $ sans définition (EYLEA seul = 2,75 Mds $, avec HD = 4,39) ; profit collab 4,55 Mds $ contre 5,88 Mds $ de revenu Sanofi 2025.",
+  "preuve": "Eylea HD Penetration serie: 0, 0, 6, 30, 45 ; Pipeline Clinical Programs val=40 vs CLINICAL_CANDIDATES FY2025=45 ; Eylea US Sales 2025=4.85 ; Dupixent Collab Profit 2025=4.55 vs Sanofi_collab_rev 2025 = 5884",
+  "correction_validee": "Supprimer Eylea HD Penetration, Pipeline Clinical Programs, Eylea US Sales et Dupixent Collab Profit.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EYLEA HD U.S. net sales / Bayer collaboration revenue / Evkeeza U.S. net sales / Initiation of first quarterly cash dividend",
+  "probleme": "Doublons décalés d'un trimestre : « EYLEA HD U.S. net sales » 468 et « Bayer collaboration revenue » 287 sont les valeurs T1-2026 de EYLEAHD_US et BAYER_COLLAB mais datées 2026-06-30 (vraies valeurs T2 : 596,3 et 276,2) ; Evkeeza 46 doublonne EVKEEZA (53,3) ; le dividende 0,94 doublonne DPS.",
+  "preuve": "EYLEA HD U.S. net sales serie ...506, 468 vs EYLEAHD_US Q1-2026=468.4, Q2-2026=596.3 ; Bayer collaboration revenue ...319, 287 vs BAYER_COLLAB Q2-2026=276.2",
+  "correction_validee": "Supprimer EYLEA HD U.S. net sales, Bayer collaboration revenue, Evkeeza U.S. net sales et Initiation of first quarterly cash dividend program.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Dupixent approved indications",
+  "probleme": "« 80 indications approuvées » contredit le signal de Dupixent_derm_rank (« neuf indications approuvées ») ; 80 correspond probablement à un nombre d'autorisations pays par indication, pas à des indications.",
+  "preuve": "KPI Dupixent approved indications val=80 ; Dupixent_derm_rank signal : « neuf indications approuvées et plus de 1,4 million de patients »",
+  "correction_validee": "Retirer ce point ou le renommer selon la définition exacte de la société.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "GROSS_MARGIN / NET_MARGIN / OP_MARGIN / PROFIT_SHARE_PCT / TAX_RATE / RD_INTENSITY (yoy)",
+  "probleme": "Pour les KPI en pourcentage, la variation annuelle est donnée en pourcentage relatif (marge brute −6,1 %, marge nette −20,3 %, taux d'impôt +79,8 %) alors que les autres fiches et REG utilisent des points ; un investisseur lit « −20,3 % » comme une chute de marge de 20 points.",
+  "preuve": "GROSS_MARGIN yoy=-6,1% (83,1 vers 78 = −5,1 pts) ; NET_MARGIN yoy=-20,3% (37,9 vers 30,2 = −7,7 pts) ; TAX_RATE yoy=+79,8% (8,4 vers 15,1)",
+  "correction_validee": "Exprimer en points : marge brute -5,1 pts, marge nette -7,7 pts, marge opérationnelle +0,7 pt, quote-part +4,3 pts, taux d'impôt +6,7 pts, intensité R&D -0,7 pt. Corriger aussi le signal NET_MARGIN.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_TOP_PRODUCT_CONCENTRATION.name_fr",
+  "probleme": "Nommé « Concentration du chiffre d'affaires sur le produit phare » mais calculé sur les seules ventes nettes de produits (EYLEA + EYLEA HD US = 4 385 / 6 309 M$ = 69,5 %), soit 31 % du CA total ; le 99,3 % de 2018 est impossible sur le CA total.",
+  "preuve": "FY2018=99.3, FY2025=69.5 ; NET_PRODUCT_SALES 2025 = 6309 ; REV_TOTAL 2025 = 14343",
+  "correction_validee": "Renommer « Part d'EYLEA dans les ventes nettes de produits de Regeneron ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux DUPIXENT_US, DUPIXENT_ROW, NET_MARGIN, TAX_RATE, EYLEA_ROW, LIBTAYO_US, LIBTAYO_ROW, PRALUENT_US, KEVZARA_US, KEVZARA_ROW",
+  "probleme": "Dix signaux se terminent par un double point final « .. ».",
+  "preuve": "DUPIXENT_US signal : « ...soit 73% des ventes mondiales de Dupixent.. » ; NET_MARGIN : « ...pour 4 290,7 M$ de revenus.. »",
+  "correction_validee": "Remplacer « .. » par « . » dans tous les signaux concernés.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

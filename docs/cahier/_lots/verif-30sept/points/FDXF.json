@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "net_inc_q, eps_dil_q, tonnage_j_q",
+  "probleme": "Trois séries trimestrielles arrêtées au trimestre clos fin 2025 alors que rev_q, op_inc_q et les ratios vont jusqu au trimestre clos le 31 mai 2026 ; leur date « dernier 2025-12-31 » ne correspond à aucune clôture FedEx Freight (trimestres clos fin août, novembre, février, mai).",
+  "preuve": "net_inc_q dernier 2025-12-31 serie ...Q4-2025=0.059 ; op_inc_q dernier 2026-05-31 serie ...Q1-2026=0.008, Q2-2026=0.158",
+  "correction_validee": "Ajouter aux trois series les deux trimestres manquants jusqu au 31 mai 2026 et caler leurs dates sur les clotures fiscales de FedEx Freight.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_inc_fy / op_inc_fy, net_inc_q / op_inc_q",
+  "probleme": "Le résultat net dépasse le résultat opérationnel sur l exercice 2026 et sur plusieurs trimestres, ce qui est invraisemblable sans produit financier important (aucune dette avant juin 2026 mais pas de trésorerie rémunérée significative non plus).",
+  "preuve": "FY2026 : op_inc_fy=0.54 Mds $, net_inc_fy=0.655 Mds $ ; Q1-2025 op 0.31 vs net 0.315 ; Q4-2025 op -0.014 vs net 0.059",
+  "correction_validee": "Reverifier net_inc et op_inc (annuels et trimestriels) a la source ; si les chiffres sont confirmes, expliquer l ecart dans le signal, sinon les corriger.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "avg_daily_shipments_q / ADV_FY, weight_per_shipment_q / WEIGHT_PER_SHIPMENT_FY, rev_per_shipment_q / REV_PER_SHIPMENT_FY, rev_per_hundredweight_q / REV_PER_CWT_FY",
+  "probleme": "Quatre indicateurs présents deux fois, en trimestriel et en annuel, avec des noms différents.",
+  "preuve": "avg_daily_shipments_q val=86.7 (Q2-2026) et ADV_FY val=86.1 (FY2026) ; rev_per_hundredweight_q 43.79 et REV_PER_CWT_FY 41.54",
+  "correction_validee": "Garder une seule version par indicateur (ou afficher l annuel comme historique long du trimestriel).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ADV_FY.signal, WEIGHT_PER_SHIPMENT_FY.signal",
+  "probleme": "Comptes de baisses faux dans les signaux.",
+  "preuve": "ADV_FY « cinquième baisse de suite » alors que la série monte en 2022 (108.4 puis 111.7) puis baisse quatre fois ; WEIGHT_PER_SHIPMENT_FY « première remontée après quatre baisses » alors que la série baisse sept fois de 2019 à 2025",
+  "correction_validee": "Ecrire « quatrieme baisse de suite » dans ADV_FY et « premiere remontee apres sept baisses » dans WEIGHT_PER_SHIPMENT_FY.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positions_marche",
+  "champ": "position de marche 1",
+  "probleme": "Position de marché sans nom ni unité, un chiffre brut inexploitable.",
+  "preuve": "position de marche 1: None | taille 52.349 | part None",
+  "correction_validee": "Nommer le marché (LTL nord-américain) et l unité (Mds $), ou retirer le bloc.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

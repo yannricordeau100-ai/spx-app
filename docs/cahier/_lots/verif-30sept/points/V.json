@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Op Income",
+  "probleme": "Série nommée résultat opérationnel mais qui reprend le résultat net, datée 2026-06-30.",
+  "preuve": "val=20.07 Mds $ = résultat net FY2025 cité dans la thèse (\"résultat net de 20,1 Mds $\") ; op_margin 57-66 % sur 40 Mds $ donne environ 23-24 Mds $.",
+  "correction_validee": "Supprimer le KPI « Op Income » ou le remplacer par le résultat opérationnel FY2025 réel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Visa Tokens Issued, Payment tokens provisioned, Visa Direct Endpoints, Transit contactless transactions, Total Visa-branded transactions",
+  "probleme": "Unité Mds $ pour des comptages ; doublon tokens.",
+  "preuve": "\"Tokens Visa émis\" 16 Mds $ et \"Jetons de paiement provisionnés\" 16 Mds $ ; \"329 milliards de transactions\" en Mds $.",
+  "correction_validee": "Unité « milliards » pour ces comptages et suppression de « Payment tokens provisioned » (doublon de Visa Tokens Issued).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "pmt_vol_us, pmt_vol_intl",
+  "probleme": "Étiquettes de trimestre décalées : le point Q3-FY2026 est le volume du trimestre clos en mars 2026.",
+  "preuve": "serie ...Q3-FY2026=1788, dernier 2026-03-31, signal \"1788 Mds $ au trimestre clos mars 2026\" (T2 FY2026 chez Visa).",
+  "correction_validee": "Réétiqueter la série sur le trimestre du volume.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "xborder_vol, Cross-Border Volume, Cross-Border Volume Total growth, Cross-Border Volume excluding Intra-Europe growth, Payments Volume growth, Payments Volume",
+  "probleme": "Six KPI pour deux notions, en nominal et en change constant mélangés, un figé à septembre 2025.",
+  "preuve": "xborder_vol 14 (nominal) et excluding Intra-Europe 11 (constant) au même trimestre ; Cross-Border Volume val=\"+12%\" ; Payments Volume 3732 daté 2025-09-30 contre pmt_vol_us+intl=3618.",
+  "correction_validee": "Garder une série croissance transfrontalière (change constant) et une série volume de paiements.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "credentials / Cards in Circulation",
+  "probleme": "Doublon avec valeurs différentes.",
+  "preuve": "credentials FY2025=5 Mds ; Cards in Circulation 4.8 Bn.",
+  "correction_validee": "Supprimer Cards in Circulation et garder credentials.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Value Added Services / CAHIER_VAS_SHARE",
+  "probleme": "Montant et part des services à valeur ajoutée incompatibles ; yoy en %.",
+  "preuve": "VAS 9.5 Mds $ soit 23.8 % de 40 Mds $, contre CAHIER_VAS_SHARE 27.3 % (10.9 Mds $) ; VAS_SHARE yoy=+11.4% au lieu de +2.8 pts.",
+  "correction_validee": "Réconcilier à la source, exprimer la part en points.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "merchant_locations",
+  "probleme": "Rupture de définition non signalée.",
+  "preuve": "FY2022=80 puis FY2023=130 M (+62 %).",
+  "correction_validee": "Signaler le changement de définition dans la description ou couper la série.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Litigation provision, U.S. litigation escrow deposit, Share repurchase authorization, Maximum daily settlement exposure",
+  "probleme": "Événements ponctuels sans trimestre identifiable, présentés comme KPI.",
+  "preuve": "\"Provision pour litige de 708 millions au trimestre\" datée 2026-03-11 ; programme \"autorise... en avril 2025\".",
+  "correction_validee": "Supprimer ou déplacer vers le texte.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat / tagline / position de marche",
+  "champ": "moat, tagline, market_positions",
+  "probleme": "Moat sans type, chiffres de l exercice 2025 dépassés ; tagline slogan anglais ; position sans unité.",
+  "preuve": "moat: \"Le chiffre d'affaires croît de 11,3 %\" alors que le T3 FY2026 fait +14 % ; tagline \"Uplift everyone, everywhere...\" ; taille 41000.",
+  "correction_validee": "Moat typé effet de réseau, chiffres récents, accroche française, unité.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_LEASED_VS_OCCUPIED, Occupancy Rate, Occupancy, Pro-rata portfolio leased occupancy",
+  "probleme": "Quatre KPI de taux d occupation avec des valeurs contradictoires : 96,4 % (FY2025), 96,5 % (FY2025), 96,3 % (serie annuelle datee 30/06/2026) et 96,3 % (trimestriel T2 2026). Les deux series annuelles n ont pas de periodes.",
+  "preuve": "CAHIER_LEASED_VS_OCCUPIED FY2025=96.4 ; Occupancy Rate val=96.5 dernier 2025-12-31 ; Occupancy val=96.3 period_type=year dernier 2026-06-30 history_periods=null",
+  "correction_validee": "Garder Pro-rata portfolio leased occupancy (trimestriel) et CAHIER_LEASED_VS_OCCUPIED, supprimer Occupancy Rate et Occupancy.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "properties_count, US shopping centers and mixed-use assets owned, Shopping Centers (Properties), Properties, Shopping Centers",
+  "probleme": "Cinq KPI pour le nombre de centres, avec quatre valeurs differentes a la meme date du 30/06/2026 : 564, 565, 568 et 569. Les deux series annuelles sans periodes se contredisent (400/524/545/560/569 contre 398/524/528/569/568) ; la serie « US shopping centers » melange des points annuels 2015-2020 et des trimestres.",
+  "preuve": "properties_count Q2-2026=564 ; US shopping centers... val=565 ; Properties val=568 ; Shopping Centers (Properties) val=569 ; Shopping Centers n=1 val=565 (FY2025) ; history US shopping centers : 564, 550, 537 ... 409, 569, 567...",
+  "correction_validee": "Garder properties_count (564 au T2 2026), supprimer les quatre autres.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "GLA (Gross Leasable Area), GLA",
+  "probleme": "Deux series annuelles sans periodes, incoherentes entre elles et avec gla_total (99,5 M sqft) : 70/93/95/98/100 contre 69/91/90/101/100.",
+  "preuve": "GLA (Gross Leasable Area) history=[70, 93, 95, 98, 100] ; GLA history=[69, 91, 90, 101, 100] ; gla_total Q2-2026=99.5",
+  "correction_validee": "Supprimer GLA (Gross Leasable Area) et GLA, conserver gla_total.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Same property NOI growth, CAHIER_SS_NOI, Same Property NOI",
+  "probleme": "« Same property NOI growth » (sans periodes) affiche 1,7 % pour le T2 2026 alors que same_site_noi_growth donne 3,5 % au T2 2026 et 1,7 % au T1 2026 : serie en retard d un trimestre datee au 30/06. S y ajoutent un doublon annuel (CAHIER_SS_NOI) et un doublon en montant (Same Property NOI, 2 points sans periodes) de same_property_noi.",
+  "preuve": "Same property NOI growth val=1.7 dernier 2026-06-30 ; same_site_noi_growth Q1-2026=1.7, Q2-2026=3.5 ; Same Property NOI history=[1521.608, 1566.88] history_periods=null",
+  "correction_validee": "Supprimer Same property NOI growth et Same Property NOI, conserver same_site_noi_growth et same_property_noi.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "FFO per diluted share, FFO / Share, CAHIER_FFO_AFFO_PS",
+  "probleme": "« FFO per diluted share » melange dans une serie trimestrielle des valeurs annuelles (1,17 ; 1,38 ; 1,58 ; 1,57 ; 1,65 ; 1,76) et trimestrielles (0,39 a 0,46), et son signal parle du T1 2026 alors qu il est date T2. « FFO / Share » (1,3 a 1,7 sans periodes) contredit CAHIER_FFO_AFFO_PS (1,45 a 1,76). Tous doublonnent ffo_per_share.",
+  "preuve": "FFO per diluted share history=[1.17, 1.38, 1.58, 1.57, 0.39, 0.41, 0.42, 1.65, 0.44, 0.44, 0.44, 1.76, 0.46] ; signal « FFO/action Q1-2026 à 0,46 $ » ; FFO / Share history=[1.3, 1.55, 1.57, 1.62, 1.7]",
+  "correction_validee": "Supprimer FFO per diluted share et FFO / Share, garder ffo_per_share et CAHIER_FFO_AFFO_PS.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Grocery-Anchored %, ABR / sq ft, Quarterly cash dividend per common share",
+  "probleme": "Doublons sans periodes de KPI existants, avec valeurs divergentes : ancre alimentaire 84 % (annuel) contre 86 % (Grocery-anchored share of portfolio, T1 2026) ; ABR 21 $ contre abr_per_sqft 21,05 $ ; dividende trimestriel doublon de dividend_per_share.",
+  "preuve": "Grocery-Anchored % val=84 history=[80,81,82,83,84] ; Grocery-anchored share of portfolio val=86 ; ABR / sq ft val=21 ; abr_per_sqft FY2025=21.05",
+  "correction_validee": "Supprimer Grocery-Anchored %, ABR / sq ft et Quarterly cash dividend per common share.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Occupancy Rate, Grocery-Anchored %, GLA (Gross Leasable Area), Shopping Centers (Properties) (description)",
+  "probleme": "Descriptions en style de notes franglaises, avec une erreur de traduction et un fait faux : « Occupancy 96,5 % = near-record. Demande retail forte (recover post-COVID) + grocery-anchored résilient. » ; « 84 % du portfolio grocery-anchored = défensive vs e-commerce. Traffic régulier essentials. » ; « Diversifié 30 États mais concentration cible côte Est + Soleil belt. » (Sun Belt, et 29 Etats fin 2025) ; « Post-merger RPT Realty 2023 » (cloturee en janvier 2024) ; unite « centers ».",
+  "preuve": "descriptions citees ; states_footprint FY2025=29 ; Shopping Centers (Properties) unit=centers",
+  "correction_validee": "Disparait avec la suppression des doublons ; sinon reecrire en francais correct (Sun Belt, 29 Etats, fusion RPT janvier 2024, unite centres).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "revenue_total, ocf, capex, dividends_paid, buybacks, sbc, ffo_total, ffo_per_share, gla_total, employees (signal)",
+  "probleme": "Cuisine interne et citations anglaises brutes dans les signaux visibles : « T4 dérivés = exercice moins 9 mois », « dérivé du cumul 6 mois (588,3 M$) moins le T1 », « 'Improvements to operating real estate (173,625)' sur 6 mois », « 'FFO available to the Company's common shareholders $309,168 $297,555' », « 'aggregating 99.5 million square feet of gross leasable area' », « 'a total of 710 persons were employed by the Company' ».",
+  "preuve": "signaux cites, dix KPI concernes",
+  "correction_validee": "Ne garder dans ces signaux que la valeur et la comparaison sur un an, sans mention de calcul ni citation.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_LEASED_VS_OCCUPIED, CAHIER_SS_NOI, CAHIER_FFO_AFFO_PS (name_en, name_fr)",
+  "probleme": "Noms anglais generes automatiquement (« Leased Vs Occupied », « Ss Noi », « Ffo Affo Ps ») ; les noms francais promettent deux mesures (« Taux de location signé et taux d'occupation », « Fonds provenant de l'exploitation et fonds ajustés par action ») pour une seule serie ; aucun AFFO sur la fiche alors qu il est annonce.",
+  "preuve": "name_en : Leased Vs Occupied / Ss Noi / Ffo Affo Ps ; une seule serie chacun",
+  "correction_validee": "Renommer Taux de location, Croissance du NOI a perimetre constant et FFO par action (name_en Leased occupancy, Same-property NOI growth, FFO per share).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "La justification dit que la croissance a perimetre constant « ralentit de 2,5 % à 1,7 % » : 1,7 % est le T1 2026, le T2 2026 est remonte a 3,5 %, et 2,5 % n apparait nulle part dans la serie (T4 2025 = 3,0 %).",
+  "preuve": "same_site_noi_growth : Q4-2025=3, Q1-2026=1.7, Q2-2026=3.5 ; moat « ralentit de 2,5 % à 1,7 % »",
+  "correction_validee": "Reecrire avec le T2 2026 (+3,5 % apres +1,7 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "new_lease_rent_psf, renewal_rent_psf",
+  "probleme": "Series trimestrielles arretees au T4 2025 (yoy vide) alors que la fiche va au T2 2026 ; le signal presente l ecart nouveaux baux / renouvellements comme un « spread implicite », ce qui n est pas un spread de relocation (le vrai KPI « Blended pro-rata cash rent spreads » existe).",
+  "preuve": "new_lease_rent_psf dernier 2025-12-31 yoy= ; signal « spread implicite favorable aux nouveaux baux »",
+  "correction_validee": "Prolonger a T1 et T2 2026 et retirer la phrase sur le spread.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI ponctuels dates 2026-03-28 (Tenant retention rate, Center traffic, SNO pipeline, Albertsons, Rite Aid, Weingarten, New repurchase program, Senior notes, 2026 budget, etc.)",
+  "probleme": "Dix-sept KPI a un point sont dates du 28 mars 2026 alors que le trimestre de Kimco se clot le 31 mars ; parmi eux des evenements de 2021 (fusion Weingarten 5,9 Md$, TRI Rite Aid 72 %, Albertsons 1,2 Md$) et des faits d emission ou de budget qui ne sont pas des indicateurs.",
+  "preuve": "dernier 2026-03-28 sur 17 KPI ; Weingarten merger value val=5.9 ; Rite Aid distribution centers sale IRR val=72",
+  "correction_validee": "Dater au 31/03/2026, retirer les evenements de 2021 et deplacer emissions, programmes et budgets dans l anti-these ou la these.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

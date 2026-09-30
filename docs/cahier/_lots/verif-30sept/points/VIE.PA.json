@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REV_FY, EBITDA_FY, EBIT_COURANT, NI_COURANT, NI_FY, FCF_NET, NET_DEBT, EFFICIENCY, EBITDA_ORG, MET_EAU (hero)",
+  "probleme": "La valeur affichée est celle du 1er semestre 2026, posée sur des séries annuelles : le CA et le hero sont divisés par deux",
+  "preuve": "REV_FY value=22.193 Mds € (série FY2025=44.396), MET_EAU value=8.489 contre FY2025=17.693, FCF_NET value=-0.288 contre 1.178, EFFICIENCY 195 contre 399, last_data_date 2026-06-30 ; la variation sur un an reste l'annuelle (-0.7 %)",
+  "correction_validee": "Pour ces 10 KPI annuels, remettre en valeur le point FY2025 avec last_data_date au 2025-12-31 ; les chiffres du semestre restent dans les KPI _S1.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Current Net Income / Water Revenue / Current EBITDA / Booster Synergies Suez",
+  "probleme": "Doublons avec des séries arrondies qui contredisent les KPI publiés",
+  "preuve": "Current Net Income 2025=1.6, 2021=1.13, contre NI_COURANT 1.643 et 0.896 ; Water Revenue 2021=16.2 contre MET_EAU FY2021=10.788 ; Current EBITDA 7300 contre EBITDA_FY 7.05 Mds ; synergies 100, 250, 400, 500, 530 contre SYNERGIES 315, 435, 534",
+  "correction_validee": "Supprimer Current Net Income, Water Revenue, Current EBITDA et Booster Synergies Suez.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Waste Treatment Volumes / Water Volumes / Booster Capex Croissance",
+  "probleme": "Nom français faux et séries arrondies d'origine douteuse",
+  "preuve": "« Volumes déchets traités » vaut 7 Mt alors que DECHETS_TRAITES « Déchets traités » vaut 64 Mt ; le nom anglais dit Hazardous Waste Treated ; Water Volumes 9000, 9100, 9200, 9200, 9300 ; capex de croissance 1000, 1300, 1600, 1800, 2000",
+  "correction_validee": "Renommer en « Déchets dangereux traités » après vérification à la source, sinon supprimer ; vérifier les deux autres séries",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "libellés",
+  "probleme": "La répartition géographique mélange des zones et un métier (Technologies de l'eau) ; ligne Autres vide",
+  "preuve": "Europe (hors France) 43.3 ; Amériques… 25.5 ; France et déchets dangereux Europe 20.1 ; Technologies de l'eau 11.2 ; Autres None ; exercice None",
+  "correction_validee": "Titrer « par segment publié » et renseigner l'exercice 2025, ou retirer Technologies de l'eau ; supprimer la ligne Autres",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "summary",
+  "probleme": "Classement « leader » appuyé sur une autodéclaration, sans aucun chiffre",
+  "preuve": "« Le groupe se positionne comme leader de l'IA au service de la transformation écologique »",
+  "correction_validee": "Ajouter des faits mesurables (usages, gains) ou abaisser à « integrator »",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline / risques",
+  "champ": "tagline, risks",
+  "probleme": "Accroche en anglais ; accents manquants dans les risques",
+  "preuve": "« The world leader in ecological transformation » ; « Dechets », « 215 965 salaries »",
+  "correction_validee": "Rétablir « Déchets » et « salariés » dans les risques, et mettre dans tagline la version française déjà présente (« Leader mondial de la transformation écologique »).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "manquant",
+  "probleme": "Il manque un indicateur d'activité commerciale",
+  "preuve": "Aucun carnet de commandes pour Water Technologies ni taux de renouvellement des contrats municipaux, alors que l'eau municipale pèse 12,7 Mds €",
+  "correction_validee": "Ajouter les prises de commandes de Water Technologies ou le taux de renouvellement des contrats",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

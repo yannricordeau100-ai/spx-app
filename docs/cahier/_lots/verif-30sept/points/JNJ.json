@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "16 KPI evenementiels (Cumulative patients infused with Carvykti, Platforms generating at least $1B, Spravato surpassing $1B, Erleada reaching $3B, Impella mortality reduction, Innovative Medicine $57B target, Regulatory approvals 2024, Intra-Cellular acquisition, Talc reserve reversal, Shockwave, Halda, R&D investment, 63rd consecutive year, Genmab royalty, Auris charge, Royalty Pharma)",
+  "probleme": "Ce ne sont pas des indicateurs mais des faits ponctuels (n=1), tous dates du 2022-03-11 alors que leur texte decrit 2024 et 2025 ; noms en anglais, unite vide dans plusieurs cas.",
+  "preuve": "KPI Halda Therapeutics acquisition | dernier 2022-03-11 | n=1 | val=3.05 :: Acquisition oncologie cloturee le 26 decembre 2025 ; KPI Talc litigation reserve reversal | dernier 2022-03-11 :: Reprise ... au Q1-2025",
+  "correction_validee": "Sortir ces 16 faits ponctuels du bloc KPI vers les evenements ou faits cles avec leur vraie date, et ne garder en KPI que des series.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TREMFYA quarterly sales",
+  "probleme": "Valeur fausse d un facteur 2 : 4 Md$ par trimestre alors que la serie Tremfya_Rev donne 2,05 Md$ au T2 2026 ; le jalon des 4 Md$ est annuel.",
+  "preuve": "KPI TREMFYA quarterly sales | Md$/trimestre | val=4 :: jalon >4 Md$ de ventes trimestrielles atteint ; KPI Tremfya_Rev | Q2-2026=2046 M$",
+  "correction_validee": "Supprimer TREMFYA quarterly sales, doublon errone de Tremfya_Rev.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DARZALEX quarterly sales, CARVYKTI sales, CARTO systems installed base",
+  "probleme": "Doublons perimes et sans etiquette de periode : Darzalex a 3 Md$ alors que Darzalex_Rev est a 4,2 Md$ ; Carvykti a 334 M alors que la fiche cite 657 M au T2 2026.",
+  "preuve": "KPI DARZALEX quarterly sales | serie: 3, 3 | val=3 ; KPI CARVYKTI sales | serie: 157, 186, 286, 334 ; IM_Oncology_Rev :: portee par DARZALEX (4,21 Mds) et CARVYKTI (657 M)",
+  "correction_validee": "Supprimer DARZALEX quarterly sales ; prolonger CARVYKTI sales jusqu au T2 2026 (657 M) avec etiquettes de trimestre ou le supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Stelara Sales",
+  "probleme": "Contredit Stelara_Rev : 10,4 Mds en hausse de 5 % contre 6,08 Mds en baisse de 41 % pour 2025 ; la serie s arrete en fait a 2024 et le yoy est faux (10,9 vers 10,4 = -4,6 %).",
+  "preuve": "KPI Stelara Sales | year | dernier 2026-06-30 | val=10.4 | yoy=+5% | serie: 7.7, 9.1, 9.7, 10.9, 10.4 ; KPI Stelara_Rev | FY2024=10361, FY2025=6078 | yoy=-41.3%",
+  "correction_validee": "Supprimer Stelara Sales, doublon errone de Stelara_Rev.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Bloc annuel : Innovative Medicine Rev, MedTech Revenue, Darzalex Sales, Pipeline Late Stage, Innovative Medicine Revenue, R&D / Sales, US Revenue Share, Adj Operating Margin, Op Income",
+  "probleme": "Neuf series annuelles sans etiquette d annee, datees 2026-06-30 mais arretees a 2024 (MedTech 31,9 alors que la somme trimestrielle 2025 fait 33,8 ; Darzalex 11,7 contre 14,35 en 2025), doublons entre elles (deux Innovative Medicine avec premiers points 52,1 et 45,572) et descriptions en franglais.",
+  "preuve": "KPI MedTech Revenue | serie: 22.9, 27.4, 29, 30.4, 31.9 ; MedTech_Rev_Total FY2025 = 8020+8541+8430+8801 = 33792 ; Innovative Medicine Rev :: Pivot post-spin Kenvue. Catalyst pipeline oncologie/immunologie ; Op Income | yoy=+31,6 %",
+  "correction_validee": "Supprimer ces neuf series annuelles non etiquetees, couvertes par les series trimestrielles et revenue_annuel.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "R&D / Sales vs RD_INTENSITY",
+  "probleme": "Deux ratios R&D contradictoires : 17,8 % contre 15,6 % pour le dernier exercice ; RD_Expense trimestriel 2025 (14 665 M / 94 193 M) confirme 15,6 %.",
+  "preuve": "KPI R&D / Sales | serie: 14.7, 15.7, 17.7, 17.4, 17.8 ; KPI RD_INTENSITY | FY2024=19.4, FY2025=15.6",
+  "correction_validee": "Supprimer R&D / Sales et garder RD_INTENSITY.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Pipeline Late Stage, US Revenue Share",
+  "probleme": "Series parfaitement lineaires sans source ni etiquette (22, 24, 26, 28, 30 et 51, 53, 54, 55, 56), part US 56 % contredite par la repartition geographique 2025 a 57,1 %.",
+  "preuve": "KPI Pipeline Late Stage | serie: 22, 24, 26, 28, 30 | yoy=+10% ; KPI US Revenue Share | val=56 ; revenue_by_geography : Etats-Unis 57.1",
+  "correction_validee": "Verifier contre le rapport annuel (nombre de programmes de phase 3) ou supprimer ; aligner la part US sur 57,1.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "63rd consecutive year of dividend increase",
+  "probleme": "Texte perime et faux : dividende porte a 1,30 $ en janvier 2026, alors que la serie DPS est a 1,30 depuis le T2 2025 et que la these annonce la 64e hausse a 1,34 $ en avril 2026.",
+  "preuve": "KPI 63rd consecutive year :: dividende trimestriel porte a 1,30 USD/action en janvier 2026 ; KPI DPS | Q2-2025=1.3 ... Q2-2026=1.34 :: 64e annee consecutive",
+  "correction_validee": "Supprimer ce KPI, doublon perime de DPS.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "summary",
+  "probleme": "Mention de Janssen R&D, marque abandonnee en 2023 au profit de Johnson & Johnson Innovative Medicine.",
+  "preuve": "positionnement IA : la decouverte medicamenteuse (Janssen R&D)",
+  "correction_validee": "Remplacer Janssen R&D par la R&D d'Innovative Medicine.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune serie pour CAPLYTA ni pour le pole Neuroscience alors que la fiche met en avant l acquisition d Intra-Cellular a 14,5 Mds$ ; aucune serie Cardiovasculaire MedTech alors que Shockwave est citee comme moteur a +15,8 %.",
+  "preuve": "KPI Intra-Cellular Therapies acquisition :: ancre le pole Neuroscience avec CAPLYTA ; KPI Shockwave :: moteur de la croissance Cardiovasculaire +15,8%",
+  "correction_validee": "Ajouter CA Neuroscience (ou CAPLYTA) et CA MedTech Cardiovasculaire en trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

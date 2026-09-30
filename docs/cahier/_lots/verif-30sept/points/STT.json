@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CET1 / Common equity tier 1 (CET1) ratio",
+  "probleme": "Deux KPI portent le même nom et la même approche, avec des valeurs différentes à la même date.",
+  "preuve": "CET1 'approche standard' Q2-2026=10.8 ; 'Common equity tier 1 (CET1) ratio' '(standardisé)' dernier 2026-06-30 val=12.5",
+  "correction_validee": "Garder la série CET1 datée et vérifier à la source ce que mesure la seconde avant de la supprimer ou de la renommer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ROTCE, provisions, marge nette d'intérêt (doublons)",
+  "probleme": "Trois indicateurs existent en double avec des valeurs divergentes à la même date.",
+  "preuve": "ROTCE Q2-2026=25.5 contre 'Return on average tangible common equity (ROTCE)' 17.6 ; 'Provision pour pertes de crédit' Q2-2026=0 contre 'Provision for credit losses' 16 (même date) ; 'Net interest margin (FTE)' 1.16 contre marge_nette_d_interet Q2-2026=1.13",
+  "correction_validee": "Supprimer 'Return on average tangible common equity (ROTCE)', 'Provision for credit losses' et 'Net interest margin (FTE)'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Return on average common equity (ROE)",
+  "probleme": "Le ROE daté du T2-2026 est en réalité celui du T1-2026, et il contredit l'anti-thèse de la fiche.",
+  "preuve": "dernier 2026-06-30 val=11.6, signal 'ROE à 11,6% au 1T26' ; anti-thèse 'ROE à 16,7%' pour le T2",
+  "correction_validee": "Dater la série correctement et ajouter le T2-2026 (16,7 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FX Trading Services Revenue / Management Fee Revenue / CAHIER_AUM / CAHIER_AUC",
+  "probleme": "Des doublons annuels sont mal datés ou contredisent les séries trimestrielles.",
+  "preuve": "FX Trading Services Revenue 1.614 daté 2026-06-30 = somme FX 2025 (362+431+416+405=1614) ; Management Fee Revenue 2.1 Mds $ contre somme trimestrielle 2025 = 2 398 M$, description 'Fees SSGA + Alpha platform' ; CAHIER_AUM et CAHIER_AUC reprennent AUM SSGA et AUC/A",
+  "correction_validee": "Supprimer 'FX Trading Services Revenue' et 'Management Fee Revenue', garder CAHIER_AUM et CAHIER_AUC.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AUM SSGA / Servicing Fees / NII / Pre-tax Margin .signal",
+  "probleme": "Les signaux commentent le T1-2026 alors que la valeur affichée est celle du T2-2026.",
+  "preuve": "AUM SSGA 'à 5,62 T$ au 31 mars 2026' contre val 6.278 ; Servicing Fees '1 409 M$ au T1-2026' contre 1468 ; NII '835 M$ au T1-2026' contre 860 ; Pre-tax Margin '25,5% au T1-2026' contre 34.3",
+  "correction_validee": "Réécrire les quatre signaux sur le T2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "mise à jour partielle",
+  "probleme": "Environ vingt KPI s'arrêtent au 31 mars 2026 alors que le T2-2026 est publié et présent sur d'autres KPI.",
+  "preuve": "Deposits, Frais de personnel, Capex, Flux de trésorerie opérationnel, FCF, Dividende, Rachats, Actions diluées, Total bilan, Capitaux propres, Taux d'impôt et les 10 KPI de pôles : dernier 2026-03-31",
+  "correction_validee": "Compléter ces séries avec le T2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Actifs moyens Investment Servicing / Investment Management",
+  "probleme": "La description est fausse : ce sont des actifs de bilan, pas les actifs conservés qui servent de base aux commissions. Il manque aussi le T4-2025.",
+  "preuve": "description 'actifs moyens conservés pour compte de clients... base sur laquelle sont calculées les commissions' ; val 347.8 Mds $ contre AUC/A 57 858 Mds $ ; IM 3.9 Mds $ contre AUM 6,3 T$ ; série Q1, Q2, Q3-2025 puis Q1-2026",
+  "correction_validee": "Corriger la description (actifs moyens de bilan du pôle) ou supprimer ces deux KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Software Fees / Management Fees / FX Trading",
+  "probleme": "Le périmètre change au T1-2026 : reclassements et changement de nom. Les variations sur un an ne sont plus comparables et rien ne le signale.",
+  "preuve": "Software Fees 225 -> 169 au T1-2026, yoy=-28%, 'rebaptisée Software services depuis le T1-2026' ; Management Fees yoy=+37% 'plus un reclassement comptable interne au T1' ; FX 'périmètre qui exclut désormais la distribution'",
+  "correction_validee": "Utiliser les séries retraitées publiées par la société, ou marquer la rupture et neutraliser la variation.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel / fcf_par_salarie / FCF",
+  "probleme": "Le cash-flow libre n'a pas de sens pour une banque dépositaire, et la fiche le reconnaît elle-même. Le taux de croissance annuel affiché est trompeur.",
+  "preuve": "fcf_annuel 2024=-14.136, 2025=10.843, signal '+23,0 % par an depuis 2016' ; fcf_par_salarie '+475,2 k$ / salarié' ; signal FCF 'peu parlant ici'",
+  "correction_validee": "Retirer les trois KPI de cash-flow libre pour cette société.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI à point unique",
+  "probleme": "Des faits ponctuels sont présentés comme des KPI, dont un signal périmé.",
+  "preuve": "SPY notional value traded 4 ; Gold ETF AUM 100 ; New products and solutions launched 57 ; Repositioning charges 2025 326 ; AI use cases 200 ; Cumulative expense savings 1.5 'attendues fin 2025' (daté 2026-03-11)",
+  "correction_validee": "Retirer ces entrées ou les déplacer dans un bloc de faits.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "entete / revenue_by_segment / kpis",
+  "champ": "tagline, repartition, New AUC/A Wins",
+  "probleme": "La tagline est en anglais, la répartition par segment est vide et le nom d'un KPI contient une faute d'accord.",
+  "preuve": "tagline 'Global leader in financial services for institutional investors' ; 'Services aux investisseurs None ; Gestion d'actifs None' ; 'Nouvelles mandats AUC/A annoncés'",
+  "correction_validee": "Traduire la tagline, renseigner la répartition (IS 3 055 / IM 741 au T1-2026, par exemple) et corriger en 'Nouveaux mandats'.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "dist_rate_base_total, transmission_rate_base_fet, Total rate base",
+  "probleme": "Les bases tarifaires se contredisent entre valeur, signal et doublon : 20,3 dans la série, 31,5 dans le signal, 29 dans « Total rate base » ; la base FET tombe de 8,5 à 4,9 alors que le signal additionne 5,4.",
+  "preuve": "dist_rate_base_total val=20.3 :: « Rate base $21.3B (OH+PA) + $10.2B » ; transmission_rate_base_fet FY2024=8.5, FY2025=4.9 :: « ATSI $2.3B / MAIT $1.9B / TrAIL $0.7B / KATCo $0.5B : ... $5.4B »",
+  "correction_validee": "Reconstituer a la source les bases tarifaires 2024 et 2025 par segment, aligner valeurs et signaux, et ne garder qu un seul total.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Energize365 5-year capital plan, Cash from operations 2025, Term (13 KPI de conférence)",
+  "probleme": "Treize KPI issus de conférences sans période ni libellé anglais, dont deux doublons exacts de séries existantes et neuf à un seul point (pipeline data centers, pic 2035, Maysville, Valley Link...), qui ne sont pas des séries.",
+  "preuve": "« Energize365 5-year capital plan » serie 26, 28, 36 = CAHIER_CAPEX_PLAN FY2023..FY2025 ; « Cash from operations 2025 » 3.7 = somme ocf_q 2025 (637+1082+845+1136) ; « Data center demand pipeline » n=1",
+  "correction_validee": "Supprimer les deux doublons, et retirer des series les KPI de conference a un seul point (les garder au besoin en texte).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Annual capital investments deployed",
+  "probleme": "5,6 Mds $ investis en 2025 contredit la série trimestrielle capex_total_2025 qui somme 4,7 Mds $.",
+  "preuve": "capex_total_2025 : Q1-2025=1005, Q2=1218, Q3=1316, Q4=1166 (total 4 705 M$) ; « Annual capital investments deployed » val=5.6",
+  "correction_validee": "Vérifier la définition (capex comptable vs investissements annoncés) et retirer le point isolé ou l expliquer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CUSTOMER_LOAD_GROWTH",
+  "probleme": "Nom faux : la série est le volume annuel livré (milliers de MWh), pas une croissance de clients ; doublon annualisé de dist_deliveries_total.",
+  "preuve": "val=148452 milliers de MWh = somme dist_deliveries_total 2025 (38.17+34.51+39.71+36.06 = 148.45 TWh)",
+  "correction_validee": "Renommer le KPI « Livraisons annuelles de distribution », ou le supprimer comme doublon annualise de dist_deliveries_total.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs_annuels, revenue_annuel.signal",
+  "probleme": "Point 2024 absent des effectifs, le « -7,1 % sur un an » couvre deux ans ; le signal CA annonce +0,4 % par an depuis 2016 alors que la série affichée part de 2018 et progresse de 4 % par an.",
+  "preuve": "effectifs_annuels serie ...2023=12042, 2025=11186 ; revenue_annuel 2018=11.261 → 2025=15.09 :: « +0,4 % par an depuis 2016 »",
+  "correction_validee": "Ajouter 2024 ; recalculer la croissance annualisée sur la période affichée.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "roe_ohio_authorized, committed_capex_2026_2028, positionnement IA",
+  "probleme": "Nom de KPI contenant une date d ordonnance alors que la série remonte à 2018 ; signal et positionnement IA en franglais.",
+  "preuve": "« ROE autorisé Ohio (PUCO nov 2025) » serie FY2018=10.38... ; « Committed investments: $1.44B 2026 + $2.84B 2027-2028 » ; « l interconnection des AI data centers »",
+  "correction_validee": "Renommer « ROE autorise Ohio » et reecrire en francais le signal de committed_capex_2026_2028 et le positionnement IA.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

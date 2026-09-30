@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Agent Count / Investment Yield",
+  "probleme": "Deux series annuelles lissees et contredites par les series sourcees de la fiche",
+  "preuve": "Agent Count = 11500, 12000, 13000, 13800, 14500 alors que agents_AIL + agents_LN + agents_FH = 16 926 au Q2-2026 ; Investment Yield = 4.8, 4.7, 4.9, 5.1, 5.3 alors que fixed_maturity_book_yield = 5.34, 5.21, 5.16, 5.2, 5.26, 5.27",
+  "correction_validee": "Supprimer Agent Count et Investment Yield.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Life insurance net sales / Health insurance net sales / Health insurance premium revenue / Average producing agent count",
+  "probleme": "Doublons sans etiquette de periode, decales d un trimestre et dates au 30 juin 2026 alors que la derniere valeur est celle du T1",
+  "preuve": "Life insurance net sales val=157.371 « au T1-2026 » = life_net_sales_total Q1-2026 = 157 ; Health insurance net sales val=106.15 = health_net_sales_total Q1-2026 = 106 ; Health insurance premium revenue 416908 K$ = health_premium_total Q1-2026 = 416,9 ; agent count 16656 ne correspond pas a la somme des trois divisions (16 926)",
+  "correction_validee": "Supprimer les quatre doublons au profit de life_net_sales_total, health_net_sales_total, health_premium_total et agents_AIL, agents_LN et agents_FH.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels / ca_par_salarie / fcf_par_salarie / dette_par_salarie",
+  "probleme": "Series arretees en 2019 ou 2024 alors que headcount_annual et revenue_annuel vont jusqu a 2025 ; doublon d effectifs",
+  "preuve": "ca_par_salarie serie 2016-2019 (derniere 1416,8) avec dernier 2025-12-31 ; effectifs_annuels s arrete a 2024 = 3732 alors que headcount_annual 2025 = 3695",
+  "correction_validee": "Recalculer ca_par_salarie, fcf_par_salarie et dette_par_salarie jusqu'a 2025 avec headcount_annual, et supprimer effectifs_annuels.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_margin_q / loss_ratio_total_q / CAHIER_BENEFIT_RATIO / dette_sur_ca (yoy)",
+  "probleme": "Variation annuelle de ratios exprimee en % relatif au lieu de points, contredisant parfois le signal",
+  "preuve": "net_margin_q yoy +5.3 % (18,0 contre 17,1 = +0,9 pt) ; loss_ratio yoy -1.0 % ; CAHIER_BENEFIT_RATIO yoy -4.8 % (62 vers 59 = -3 pts) ; dette_sur_ca yoy -7.6 % alors que le signal dit « -3,6 points »",
+  "correction_validee": "Afficher en points : marge nette +0,9 pt, ratio de sinistralite -0,6 pt, ratio de prestations -3,0 pts, dette sur CA -3,6 pts.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Initial statutory reserves transferred to Bermuda / Annual dividend rate increase / 30-year contingent capital / Exclusive agent force target 2030 / Share repurchases full-year 2025 / Share repurchase authorization / DOJ investigation closed",
+  "probleme": "Sept « KPI » a un seul point qui sont des evenements ou objectifs, dont un avec valeur 0 et unite « evenement »",
+  "preuve": "« DOJ investigation closed, no enforcement | evenement | val=0 » ; « Exclusive agent force target by 2030 = 28000 »",
+  "correction_validee": "Deplacer en stories, retirer du bloc KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Health Premium (signal) / Return on equity / Net operating income ROE",
+  "probleme": "Signal perime et doublons annuels sans etiquette de series trimestrielles",
+  "preuve": "Health Premium signal « Acceleration 2024 +6.5 % » alors que +6,5 % est la variation 2025 ; Return on equity (net income) serie 9.5 ... 20.9 sans annees, doublon de roe_q ; Net operating income ROE doublon de roe_adj_q",
+  "correction_validee": "Corriger le signal en 2025 ; etiqueter les annees ou supprimer les doublons",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "capex_q",
+  "probleme": "Saut isole x8 sur un trimestre pour un assureur sans base industrielle",
+  "preuve": "Q2-2025=12.9, Q3-2025=97.3, Q4-2025=20.5 ; signal « capex non structurant »",
+  "correction_validee": "Verifier Q3-2025 contre le 10-Q (probable inclusion d un autre poste d investissement)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions_de_marche",
+  "champ": "position de marche 1 et 2",
+  "probleme": "Deux positions de marche sans nom ni part",
+  "preuve": "« None | taille 174.691 | part None » et « None | taille 40.58 | part None »",
+  "correction_validee": "Nommer les marches ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

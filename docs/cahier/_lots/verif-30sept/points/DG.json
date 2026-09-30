@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "revenue_q / gross_profit_q / operating_income_q / net_income_q / eps_diluted_q",
+  "probleme": "Variations et signaux calcules sur le T1 alors que la serie a le T2 2026",
+  "preuve": "revenue_q yoy=+3.4% et signal 10,79 Mds au T1 alors que Q2-2026=11290.4 vs 10727.7 = +5,2 % ; operating_income +10.8% (reel 769.2/595.4 = +29 %) ; net_income +13.3% (reel +33,8 %) ; eps +12.4% (2.48/1.86 = +33 %)",
+  "correction_validee": "Recalculer les variations sur T2 2026 contre T2 2025 et reecrire les cinq signaux sur le T2.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "sss (hero) et KPI operationnels",
+  "probleme": "Hero et la plupart des series arretes au T1 2026 alors que le T2 (publie le 27 aout) est integre pour le CA et le resultat",
+  "preuve": "sss dernier 2026-05-01 ; new_stores, total_store_count, gross_margin_q, cash_q, lt_debt_q idem ; revenue_q Q2-2026=11290.4",
+  "correction_validee": "Completer le T2 2026 pour sss, magasins, marge brute, tresorerie et dette.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "sss_traffic / avg_transaction / Customer traffic growth / Average transaction amount growth",
+  "probleme": "Date de derniere donnee fausse et doublons contradictoires",
+  "preuve": "sss_traffic dernier 2026-08-01 mais dernier point Q1-2026 ; avg_transaction Q3-2025=1.3 alors que Average transaction amount growth donne 2.7, 1.2, 0, 0.5",
+  "correction_validee": "Corriger Q3-2025 (trafic 2,5, panier 0) et la date (2026-05-01), puis retirer les deux doublons sans periodes.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_COMP_SALES / CAHIER_CATEGORY_MIX / CAHIER_STORE_EXPANSION / Gross Margin (% of sales)",
+  "probleme": "Exercices decales d un an et valeurs qui ne collent pas aux series trimestrielles",
+  "preuve": "CAHIER_COMP_SALES FY2026=3 = comps FY2025 (2.4, 2.8, 2.5, 4.3) ; FY2025=1.4 ne correspond a rien ; STORE_EXPANSION FY2026=20893 alors que total_store_count Q4-2025=20959",
+  "correction_validee": "Reculer d un an tous les libelles, verifier le signe de 2023 (0,2) et le parc de magasins, sinon retirer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "popshelf_count",
+  "probleme": "Serie incoherente avec le signal et avec les fermetures 2025",
+  "preuve": "serie FY2020=50, FY2021=25, FY2022=40, FY2024=45, FY2025=45 ; signal : 180 magasins standalone fin 2025, 45 fermetures ; yoy=-~90 vs pic ; store_closures : 96 pOpshelf fermes en 2025",
+  "correction_validee": "Retirer popshelf_count.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "revenue_annuel et series annuelles Mettrik",
+  "probleme": "Exercice clos le 30 janvier 2026 libelle 2026 alors que DG l appelle 2025 et que les trimestriels sont libelles 2025",
+  "preuve": "Ventes de 42,7 Mds $ en 2026 ; somme Q1-2025 a Q4-2025 = 42 724 M$",
+  "correction_validee": "Libeller 2025 (convention de la societe) ou expliciter exercice clos janvier 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune serie de demarque inconnue alors que le shrink est le risque 2 et le moteur de la marge dans la these",
+  "preuve": "risque 2 : Shrink (demarque inconnue) ; Gross Margin signal : portee par la reduction du shrink",
+  "correction_validee": "Ajouter l impact du shrink sur la marge brute (points de base par trimestre, communiques)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CONSUMABLES_FY / CAHIER_CATEGORY_MIX / Gross Margin (% of sales)",
+  "probleme": "Doublons annuels ou sans periode de KPI trimestriels existants",
+  "preuve": "CONSUMABLES_FY = cat_consumables_q annualise ; CAHIER_CATEGORY_MIX = consumables_mix ; Gross Margin (% of sales) = gross_margin_q, yoy +65bps",
+  "correction_validee": "Retirer Gross Margin (% of sales), CAHIER_CATEGORY_MIX et CONSUMABLES_FY.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "store_closures_q / Value Valley",
+  "probleme": "Abreviation interne et faute dans les signaux",
+  "preuve": "est derriere la ste ; a bondi de 18,4% ecrit a bondi avec accent",
+  "correction_validee": "Remplacer sté par societe et à bondi par a bondi.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

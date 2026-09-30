@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "apple_concentration / Largest Customer Mix / Largest customer as % of total revenue",
+  "probleme": "Trois KPI pour le meme chiffre, avec des valeurs contradictoires",
+  "preuve": "apple_concentration FY2025 = 67 (clients = 67) ; Largest Customer Mix = 72 (yoy +3 pt, non date) ; Largest customer quarterly = 60",
+  "correction_validee": "Garder apple_concentration et supprimer 'Largest Customer Mix' et 'Largest customer as % of total revenue', tous deux non dates.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dps.signal",
+  "probleme": "Le signal annonce l'arret du dividende alors que la serie montre des versements",
+  "preuve": "'Le conseil a annonce l'arret du dividende trimestriel' ; dps 0,71 $ jusqu'au T3 FY2026, dividends_paid 106,9 M$",
+  "correction_validee": "Retirer l'affirmation d'arret du signal tant qu'elle n'est pas sourcee, ou la reformuler au futur conditionnel liee a la fusion Qorvo si une source le confirme.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_INVENTORY_CHANNEL",
+  "probleme": "Le nom et le signal parlent de stocks du canal, mais la serie mesure les jours de stock internes ; le signal est contredit par les derniers chiffres",
+  "preuve": "FY2025 114,5 j = stocks 754,7 / cout des ventes d'environ 2 410 x 365 ; 'La baisse des stocks reflete un destockage' alors que inventory = 1 015,5 M$ (+43,7 %) et rotation 2,21 (-30,7 %) ; periodes en annee civile pour un exercice clos en octobre",
+  "correction_validee": "Renommer 'Jours de stock', reecrire le signal selon la remontee recente des stocks, ajouter les points FY2026 si disponibles.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "us_revenue/United States Revenue, china_revenue/China Revenue, distributors_revenue/Distributor Revenue",
+  "probleme": "Doublons annuel et trimestriel",
+  "preuve": "China Revenue FY2025 0,2542 = somme des trimestres 70,8+64,6+64,6+54,2 ; yoy annuel affiche '-1.4' sans unite",
+  "correction_validee": "Garder les series trimestrielles et supprimer les versions annuelles (ou a defaut ajouter l'unite % au yoy).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Mobile Segment Rev, Broad Markets Rev, RF Content per Phone, China Mobile Mix",
+  "probleme": "Series non datees, sans source, incoherentes avec le CA publie",
+  "preuve": "Mobile 2,45 + Broad Markets 1,45 = 3,90 Mds $ contre 4,087 Mds $ publies en FY2025 ; Broad Markets 1,45/3,90 = 37 % contre 42 % (KPI %) et 39 % (repartition)",
+  "correction_validee": "Supprimer ou remplacer par des series trimestrielles publiees",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Non-GAAP operating margin, gross_margin_nongaap",
+  "probleme": "Periode fausse et serie arretee",
+  "preuve": "Le signal dit '20% au T2-2026' mais le point est date 2026-08-05 (publication du T3 FY2026) ; gross_margin_nongaap s'arrete au 2026-04-03 alors que le T3 est publie",
+  "correction_validee": "Dater la serie et ajouter le T3 FY2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "libelles",
+  "probleme": "Libelles ISO en anglais, dont un politiquement sensible",
+  "preuve": "'TAIWAN, PROVINCE OF CHINA', 'KOREA, REPUBLIC OF', 'Asia, Other'",
+  "correction_validee": "Remplacer par Taiwan, Coree du Sud, Autre Asie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted, ocf, depreciation, unites Automotive / Data center / Qorvo synergies",
+  "probleme": "Cuisine interne dans les signaux et commentaires dans les unites",
+  "preuve": "'grandeur non additive, T4 non retraite' ; 'derives du cumul 9 mois de 516,2 M$ moins le cumul 6 mois' ; unites 'M$ (environ)', 'M$ (ou plus)', '% (attendu sur l'annee)'",
+  "correction_validee": "Retirer ces phrases des signaux et ramener les unites a 'M$' et '%'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Cuisine interne ('retrait de la note de moat') et affirmation partiellement contredite",
+  "preuve": "'Ventes en recul aux Etats Unis, a Taiwan et en Chine' alors que china_revenue T3 FY2026 = +3,1 %",
+  "correction_validee": "Reecrire sans reference a la note et avec les chiffres les plus recents",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

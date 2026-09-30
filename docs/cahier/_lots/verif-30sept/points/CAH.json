@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "series trimestrielles (pharma_rev, gmpd_rev, revenue, op_income, net_income, eps_diluted, ocf, fcf, capex, sga, lt_debt...)",
+  "probleme": "Les series trimestrielles s arretent au T3 FY2026 (mars 2026) alors que le 10-K FY2026 est integre (revenue_annuel 2026, these citant le rapport annuel 2026) ; last_data_date 2026-06-30 pose sur un point labellise Q3-2026, incoherent entre KPI.",
+  "preuve": "revenue : Q1-2026 64 + Q2 65,6 + Q3 60,9 = 190,5 vs revenue_annuel 2026 = 254,248 → T4 FY2026 = 63,7 manquant. pharma_rev dernier 2026-06-30 / other_rev dernier 2026-03-31 avec le meme dernier label Q3-2026. Seuls cash_position et dps ont un point Q4-2026.",
+  "correction_validee": "Ajouter le T4 FY2026 à toutes les séries trimestrielles depuis le 10-K 2026 et aligner les last_data_date sur le dernier trimestre réellement présent.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "cash_position.signal / dps.signal",
+  "probleme": "Signaux perimes d un trimestre par rapport au dernier point de la serie.",
+  "preuve": "cash_position val = 4,9 (Q4-2026), signal « Trésorerie 3,9 Mds $ au 31 mars 2026 » ; dps val = 0,5158 (Q4-2026), signal « Dividende déclaré 0,5107 $ par action au T3 FY2026 ».",
+  "correction_validee": "Réécrire les deux signaux sur le point du 30 juin 2026 : trésorerie de 4,9 Mds $ et dividende de 0,5158 $ par action au T4 FY2026.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gmpd_rev / gmpd_margin_pct (FY2024)",
+  "probleme": "Decoupage trimestriel FY2024 du segment GMPD invraisemblable : la somme colle a l annuel mais deux trimestres sont faux, ce qui cree une marge aberrante.",
+  "preuve": "gmpd_rev Q1-2024 3 760, Q2-2024 3 928, Q3-2024 3 113, Q4-2024 1 580 (les autres trimestres sont tous entre 3 100 et 3 260) ; gmpd_margin_pct Q4-2024 = 4,68 % contre 0,3-2,2 % ailleurs.",
+  "correction_validee": "Reprendre les quatre trimestres FY2024 de gmpd_rev et gmpd_profit depuis les 10-Q et le 10-K, puis recalculer gmpd_margin_pct.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Pharmaceutical & Specialty Solutions Revenue / At-Home Solutions Revenue / Pharma Distribution Customers / Specialty Networks Revenue",
+  "probleme": "Quatre KPI sans periode, non sources, contredisant les series officielles, avec yoy faux et signaux telegraphiques en franglais.",
+  "preuve": "Pharma 2025 = 199,7 vs Pharma Segment Revenue FY2025 = 204,644 et yoy affiche +19 % pour 192,6 → 199,7 (+3,7 %) ; signal « GLP-1 + spe vol drive » ; At-Home signal « Acquisition Specialty Networks » (Specialty Networks est un MSO pharma, pas at-Home) ; Customers 59 000 → 60 000 affiche +0 %.",
+  "correction_validee": "Supprimer ces quatre KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GMPD Segment Revenue / Pharma Segment Revenue / Other Segment Revenue (annual)",
+  "probleme": "Doublons annuels des series trimestrielles pharma_rev, gmpd_rev, other_rev, arretes a FY2025 alors que FY2026 est publie ; yoy sans unite et « pour cent » en toutes lettres.",
+  "preuve": "Other Segment Revenue FY2025 = 5,382 = somme other_rev FY2025 (1186+1283+1304+1609) ; yoy = « +2.1 », « -2.6 », « +19.3 » sans % ; signal « (+2,1 pour cent) ».",
+  "correction_validee": "Supprimer les trois KPI annuels de segment, déjà couverts par pharma_rev, gmpd_rev et other_rev.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "New patients won by SYNNEX/Synexis hub / BioPharma Services revenue target",
+  "probleme": "Nom d entite faux : la plateforme de Cardinal est Sonexus (bien orthographiee dans « BioPharma Solutions growth (Sonexus) »), pas SYNNEX ni Synexis.",
+  "preuve": "Nom KPI « Patients gagnés par le hub SYNNEX/Synexis » ; signal « Synexis représentant la moitié de la croissance ».",
+  "correction_validee": "Remplacer « SYNNEX/Synexis » et « Synexis » par « Sonexus » dans le nom du KPI et dans les deux signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "cvs_concentration",
+  "probleme": "Serie arretee a FY2025 alors que la fiche dispose de la valeur FY2026.",
+  "preuve": "cvs_concentration dernier FY2025 = 30 % ; bloc clients : n = 1, pct = 28, exercice 2026, source 10-K clos le 30 juin 2026.",
+  "correction_validee": "Ajouter FY2026 = 28 % à cvs_concentration (-2 pts) et top5_customers_conc FY2026 = 43 % d'après le 10-K 2026. Vérifier top5_suppliers_conc dans le même document.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik / tendance",
+  "probleme": "Justification perimee (« la distribution pharmaceutique stagne ») et tendance incoherente entre les deux champs.",
+  "preuve": "pharma_rev yoy +11,3 %, revenue_annuel 2026 +14,2 % ; moat.tendance = stable, tendance_mettrik = hausse.",
+  "correction_validee": "Reecrire la justification sur FY2026 et aligner les deux tendances.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Theranostics revenue growth / GLP-1 revenue growth / BioPharma Solutions growth / Specialty revenue expected to exceed $50 billion / BioPharma Services revenue target",
+  "probleme": "KPI transcript ou la valeur est un taux approximatif auto-reference (yoy = valeur) ou une prevision presentee comme un chiffre realise.",
+  "preuve": "Trois KPI val = 30, unite %_yoy, yoy = +30 % (« plus de 30% ») ; « Specialty revenue expected to exceed $50 billion » val = 50 Mds $, type quarter ; « BioPharma Services revenue target » val = 1 (cible 2028).",
+  "correction_validee": "Retirer le yoy auto-reference et basculer les previsions dans un bloc perspectives plutot qu en KPI.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "ca_launch_dev",
+  "probleme": "Dernier point de la serie different de la valeur affichee (cumul semestriel probable)",
+  "preuve": "val 314 mais serie Q2-2026 = 603 (= 289 + 314) ; 648 + 314 = 962 = ca_space",
+  "correction_validee": "Remplacer 603 par 314 dans la serie ca_launch_dev.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Texte faux et de cuisine interne",
+  "preuve": "'avec un unique indicateur de chiffre d affaires ... et aucun risque documente dans le dossier' alors que la fiche contient 8 risques et ~50 KPI",
+  "correction_validee": "Reecrire la justification du moat a partir des risques et KPI presents.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ebitda_ai.signal, ebitda_aj.signal",
+  "probleme": "Signaux contredits par les investissements du meme trimestre",
+  "preuve": "'signe que l IA commence a s autofinancer' avec EBITDA IA 1 146 M$ et capex_ai 15 828 M$ ; ebitda_aj 'traduit la generation de cash sous-jacente' avec capex 18 369 M$",
+  "correction_validee": "Reecrire en mettant l EBITDA en regard des investissements",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "series trimestrielles, CA annuel",
+  "probleme": "Series a 4 points avec un trou T3-T4 2025 et aucune serie annuelle alors que la these et l anti-these citent 2023-2025",
+  "preuve": "ca_total Q1-2025, Q2-2025, Q1-2026, Q2-2026 ; pas de revenue_annuel ; att 'resultat d exploitation -2 589 M$, investissements 20 737 M$ pour 6 785 M$ de tresorerie' (2025)",
+  "correction_validee": "Ajouter CA, resultat, flux et capex annuels 2023-2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy ebitda_ai, res_net, res_expl, op_ai, ebitda_space",
+  "probleme": "Variations en % sur des bases negatives",
+  "preuve": "ebitda_ai +515 % (1 146 vs -276) ; op_ai +18 % pour une perte de -1 257 vs -1 524 ; ebitda_space -120 %",
+  "correction_validee": "Afficher l ecart absolu ou 'n.s.' quand la base est negative.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "satellites_bv.signal",
+  "probleme": "Affirmation comptable fausse : immobiliser un cout ne supprime pas la sortie de tresorerie",
+  "preuve": "'immobilises au bilan plutot que factures en interne, ce qui gonfle l actif sans mouvement de tresorerie'",
+  "correction_validee": "Reecrire : le cout est decaisse et classe en investissement",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "risks[*].summary",
+  "probleme": "Mention de source repetee dans chaque risque et coquille",
+  "preuve": "'Le rapport de la societe indique / rappelle ...' dans les 8 risques ; 'le fondateur cumule les fonctions' ecrit 'cumule' avec accent (participe)",
+  "correction_validee": "Retirer la formule d attribution et corriger 'cumule'",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "total_assets, total_liabilities, deferred_revenue_current, total_costs_q",
+  "probleme": "KPI sans signal, nom anglais egal au code, doublons partiels",
+  "preuve": "name_en 'total_assets' ; total_costs_q 7 957 = cout_ca + rd + sga (7 955) ; deferred_revenue_current 7 977 partie de pca 14 286 ; 'constates' sans accent",
+  "correction_validee": "Supprimer total_costs_q et deferred_revenue_current, traduire les noms anglais de total_assets et total_liabilities.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "falcon_lch, CAHIER_DELIVERIES ; indicateur manquant",
+  "probleme": "Date de derniere donnee fausse, 2026 absent, et indicateur cle du secteur manquant",
+  "preuve": "falcon_lch dernier 2026-06-30 mais dernier point FY2025=165 alors que lch_clients + lch_internes donnent 7+33 et 10+27 au S1 2026 ; aucun KPI de satellites Starlink en orbite",
+  "correction_validee": "Ajouter 2026 en cours et le nombre de satellites Starlink en service",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.activity / products",
+  "probleme": "Description generique qui omet X (publicite) et la location de capacite de calcul, 28 % du CA au T2-2026, ainsi que Starship",
+  "preuve": "'La societe est un acteur majeur de l industrie aerospatiale et de la defense, etendant ses activites a des domaines technologiques de pointe' ; ca_ai_infra 2 194 / 7 814",
+  "correction_validee": "Reecrire avec les trois metiers et leur poids",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

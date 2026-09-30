@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Scores Revenue / Software Revenue / SaaS Revenue / Software NRR (bloc annuel)",
+  "probleme": "Series annuelles lissees et fausses, contredites par les series trimestrielles de la meme fiche",
+  "preuve": "Scores Revenue annuel = 528.8 M$ alors que scores_segment_rev FY2025 = 235.68+297.04+324.31+311.55 = 1 168 M$ ; Software Revenue 791.2 vs software_segment_rev FY2025 = 822.3 ; SaaS Revenue 378.5 puis 412.6 vs saas_software_rev FY2025 = 419.7 ; Software NRR 108 vs dbnrr_total Q4-2025 = 102. Series sans periodes (history_periods null), progressions regulieres typiques d une invention",
+  "correction_validee": "Retirer Scores Revenue, Software Revenue, SaaS Revenue et Software NRR annuels ; conserver B2B Scores Rev en lui ajoutant ses exercices FY2021 a FY2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "dernier (last_data_date) de plusieurs KPI",
+  "probleme": "Date de derniere donnee 2026-09-30 sur un trimestre non encore publie",
+  "preuve": "RD_PCT_REV, Software ARR growth, Platform ARR growth, Non-platform ARR growth, Total debt balance, B2B Scores Rev et le bloc annuel portent dernier 2026-09-30 alors que le dernier trimestre publie est clos le 30 juin 2026 (prochaine publication 2026-11-04)",
+  "correction_validee": "Mettre 2026-06-30 sur les KPI trimestriels et 2025-09-30 sur les annuels FY2025 (dont B2B Scores Rev).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total Dollar-Based Net Retention Rate / Platform DBNRR / Non-platform DBNRR / Total debt balance",
+  "probleme": "Doublons sans cle des series dbnrr_total, dbnrr_platform, dbnrr_nonplatform et dette_lt_q, avec un trimestre de retard et un signal contredit par la valeur",
+  "preuve": "Total DBNRR serie 108..109 identique a dbnrr_total ; Platform DBNRR val 136 = Q2-2026 alors que dbnrr_platform donne 148 au Q3-2026 ; Total debt balance val=5.6 mais signal : « La dette totale atteint 3,2 Md$ au 31 decembre 2025 »",
+  "correction_validee": "Supprimer Total DBNRR, Platform DBNRR, Non-platform DBNRR et Total debt balance, deja couverts par dbnrr_total, dbnrr_platform, dbnrr_nonplatform et dette_lt_q.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Largest quarterly share repurchase",
+  "probleme": "KPI a un point devenu faux",
+  "preuve": "Signal : « Plus gros rachat trimestriel de l histoire de FICO » a 605 M$, alors que rachats_actions_q Q3-2026 = 2 269 M$",
+  "correction_validee": "Retirer Largest quarterly share repurchase, l information etant portee par rachats_actions_q.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Nonconforming volume underwritten with FICO Score 10T ; FICO Score 10T early adopters",
+  "probleme": "Unite et signal incoherents entre milliards et « Bn »",
+  "preuve": "val=1200 Mds $ mais signal « Environ 1,2 Bn$ de credit non-conforme » ; autre KPI : « 1,6 Bn$ de servicing eligible » (Bn n est pas une unite francaise, 1200 Mds $ = 1 200 milliards)",
+  "correction_validee": "Verifier l ordre de grandeur a la source et ecrire en Mds $ dans les deux signaux",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

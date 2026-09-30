@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Total_AUM / Total company managed AUM / AUM_10K",
+  "probleme": "Deux valeurs d'AUM pour la meme date : 770,4 Mds $ (Total_AUM, nomme « groupe » mais signal dit « segment PAM ») contre 808 Mds $ (Total company managed AUM) au 30 juin 2026 ; l'anti-these reprend 770,4 comme « plus haut niveau ».",
+  "preuve": "Total_AUM Q2-2026=770.4 ; Total company managed AUM serie 753, 781, 770, 808 ; AUM_10K FY2025=781 ; att: « AUM... atteint 770,4 Mds $, son plus haut niveau »",
+  "correction_validee": "Renommer Total_AUM en « AUM Principal Asset Management », garder une serie AUM groupe (781 fin 2025, 808 au T2 2026) et corriger l anti-these.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total net cash flow.signal",
+  "probleme": "Signal contredit par la serie : « en amelioration sequentielle » alors que le flux passe de -1,5 a -11,1 Mds $. Doublon partiel de PAM_NetCF avec un autre chiffre (-12,2).",
+  "preuve": "serie: -2.6, -2, -1.5, -11.1 ; signal « en amélioration séquentielle » ; PAM_NetCF Q2-2026=-12.2",
+  "correction_validee": "Reecrire le signal : forte decollecte de 11,1 Mds $ au T2 2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Investment Management gross sales / Retirement transfer deposits / Specialty Benefits record sales",
+  "probleme": "Valeur affichee differente du dernier point de la serie, signaux qui citent l'autre point ; « Ventes record Specialty Benefits » est en fait un taux de croissance en %.",
+  "preuve": "IM gross sales val=30, serie 30, 37 ; Retirement transfer deposits val=9, serie 12, 9, signal « record à 12 milliards » ; SB record sales val=11, serie 24, 11, signal « hausse de 24% »",
+  "correction_validee": "Dater chaque point, aligner val sur le dernier, renommer en « Croissance des ventes Specialty Benefits (%) ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "IntlPension_Rev",
+  "probleme": "Serie arretee au T3 2025 alors que le reste de la fiche va au T2 2026 ; yoy -21,2 % faux (277,4 -> 248 = -10,6 %).",
+  "preuve": "dernier 2025-09-30 ; Q3-2024=277.4, Q3-2025=248 | yoy=-21.2%",
+  "correction_validee": "Prolonger au T2 2026 et recalculer le yoy.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "SEG_PGI_* / SEG_PI_* / SEG_SB_Rev",
+  "probleme": "Sept KPI de segments disparus (arretes en 2022 ou T3 2024) restent affiches a cote des segments actuels ; SEG_SB_Rev s'arrete au T3 2024 alors que BP_Premiums continue.",
+  "preuve": "SEG_PGI_PTOE dernier 2022-12-31 ; SEG_PI_Margin dernier 2022-12-31 ; SEG_SB_Rev dernier 2024-09-30",
+  "correction_validee": "Retirer ces sept KPI ou les regrouper sous un onglet « anciens segments ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification",
+  "probleme": "Justification contredite par les chiffres : « les primes stagnent » (primes +4,6 % au T2 2026, Specialty Benefits +3,2 %), « les plus-values realisees se degradent » (+109,7 M$ au T2 2026 contre +5,4) ; « la note est descendue sous le seuil » est de la cuisine interne.",
+  "preuve": "Premiums Q2-2026=1460.8 yoy +4.6% ; Realized_GL Q2-2026=109.7 ; moat: « Les primes stagnent, les plus-values réalisées se dégradent »",
+  "correction_validee": "Reecrire sur la decollecte PAM et la pression sur les frais, sans mention de note.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EPS_Dil",
+  "probleme": "Serie trimestrielle sans aucun T4 (2024 et 2025 absents) alors que Net_Income les a ; le graphique saute un trimestre sur quatre.",
+  "preuve": "serie: Q3-2024=-0.95, Q1-2025=0.21, ..., Q3-2025=0.95, Q1-2026=1.93",
+  "correction_validee": "Ajouter Q4-2024 et Q4-2025 depuis le 10-K (BPA T4 publie, non derive).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

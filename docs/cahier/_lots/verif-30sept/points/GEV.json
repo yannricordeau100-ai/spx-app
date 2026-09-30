@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Total orders vs CAHIER_ORDERS",
+  "probleme": "Series contradictoires : la somme des quatre premiers trimestres de 'Total orders' (9,7+11,8+9,4+13,2 = 44,1) est exactement le FY2024 annuel, ce qui indique un decalage de deux trimestres des dates ; les quatre suivants (10,2+12,4+14,6+18,3 = 55,5) ne font pas les 59,3 Mds annonces pour FY2025. Le yoy +71 % ne correspond a aucun couple de valeurs (18,3/10,2 = +79 %).",
+  "preuve": "Total orders: quarter, dernier 2026-06-30, serie 9.7, 11.8, 9.4, 13.2, 10.2, 12.4, 14.6, 18.3 sans libelles ; CAHIER_ORDERS FY2024=44.1 Mds, FY2025=59.3 Mds",
+  "correction_validee": "Recaler les periodes de Total orders sur les communiques (T4 2025 manquant, T1/T2 2026), recalculer le yoy et verifier la somme FY2025 = 59,3 Mds $, ou retirer la serie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ORDERS.unit, CAHIER_BACKLOG.unit",
+  "probleme": "Unite '$' avec des valeurs a onze chiffres (59300000000) illisibles, alors que la fiche utilise Mds $ ailleurs ; CAHIER_BACKLOG est de plus le doublon annuel de RPO_TOT (FY2024 = 119 023 M = RPO_TOT Q4-2024).",
+  "preuve": "CAHIER_ORDERS val=59300000000 unit '$' ; CAHIER_BACKLOG FY2025=150238000000 = RPO_TOT Q4-2025 150238 M",
+  "correction_validee": "Convertir CAHIER_ORDERS en Mds $ (44,1 ; 59,3) et retirer CAHIER_BACKLOG, doublon annuel de RPO_TOT.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Gas Power equipment backlog and slot reservation agreements",
+  "probleme": "Serie arretee au T1 2026 a 100 GW alors que la these cite 116 GW au T2 2026 : le KPI le plus suivi du dossier est perime sur la fiche.",
+  "preuve": "KPI: dernier 2026-03-28, val=100 ; these: 'volume de turbines à gaz sous contrat ou réservé est passé de 100 à 116 GW en un seul trimestre'",
+  "correction_validee": "Ajouter le point T2 2026 = 116 GW (communique de juillet 2026) et libeller les periodes.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Quarterly dividend per share vs DIV_PS",
+  "probleme": "Doublon exact d un seul point (0,50 $) du dividende trimestriel deja suivi par DIV_PS.",
+  "preuve": "Quarterly dividend per share: n=1, val=0.5 ; DIV_PS Q1-2026=0.5, Q2-2026=0.5",
+  "correction_validee": "Retirer Quarterly dividend per share.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "NET_INCOME / EPS_DILUTED / NET_MARGIN (Q4-2025)",
+  "probleme": "Deux pics consecutifs (T4 2025 : 3 664 M$, BPA 13,28, marge 33,4 % ; T1 2026 : 4 745 M$) mais les signaux n expliquent que le T1 2026 (gain Prolec GE) ; le T4 2025 reste inexplique pour le lecteur.",
+  "preuve": "NET_INCOME Q4-2025=3664, Q1-2026=4745 ; signal EPS: 'le pic précédent tenait à un gain de réévaluation ponctuel lié à Prolec GE'",
+  "correction_validee": "Verifier l origine du resultat T4 2025 (element fiscal ou comptable non recurrent) et le mentionner dans les signaux NET_INCOME et NET_MARGIN.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment, revenue_by_geography",
+  "probleme": "Libelles en anglais dans les deux repartitions, exercice manquant pour la geographie.",
+  "preuve": "revenue_by_segment: Product 55 ; Service 45 ; revenue_by_geography (None): U.S. 45.55 ; Europe 19.95 ; Asia 12.16 ; Americas 8.18 ; Middle East and Africa 14.16",
+  "correction_validee": "Traduire : Equipements / Services ; Etats-Unis / Europe / Asie / Autres Ameriques / Moyen-Orient et Afrique ; indiquer exercice 2025 pour la geographie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Texte generique ('mentionne peu l IA', libelle sectoriel en anglais entre parentheses) contredit par la fiche elle-meme, qui fait des centres de donnees IA le moteur des commandes.",
+  "preuve": "positionnement IA (cautious): 'mentionne peu l'IA dans ses communications officielles (Electrical Equipment & Parts)' vs Electrification data center orders: 'preuve de l'accélération IA sur le réseau'",
+  "correction_validee": "Reecrire : GE Vernova est un beneficiaire de la demande electrique des centres de donnees IA (commandes Electrification data centers 2,4 Md$ au T1 2026, reservations gaz), sans offre IA propre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "gouvernance",
+  "champ": "governance.ceo",
+  "probleme": "Civilite anglaise dans le nom du dirigeant.",
+  "preuve": "dirigeant Mr. Scott L. Strazik",
+  "correction_validee": "Scott L. Strazik.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

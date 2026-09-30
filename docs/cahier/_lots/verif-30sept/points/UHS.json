@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "AC_sf_rev / BH_sf_rev (unit)",
+  "probleme": "Unité fausse : les séries sont en millions mais l'unité affichée est Mds USD.",
+  "preuve": "AC_sf_rev unit 'Mds USD', val=2507.9, signal '2 508 M$ au T2 2026' ; BH_sf_rev unit 'Mds USD', val=1929.2",
+  "correction_validee": "Passer l unite de AC_sf_rev et BH_sf_rev a M USD.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Same-facility net revenue growth - Acute Care / - Behavioral Health",
+  "probleme": "La croissance à périmètre constant affichée contredit la série de revenus à périmètre constant de la même fiche. Ces séries n'ont par ailleurs aucune date par point.",
+  "preuve": "Acute Care : croissance 8,2 au dernier point, alors que AC_sf_rev donne 2507.9/2272.3 = +10,4 %. Behavioral : 7,3, alors que BH_sf_rev donne 1929.2/1827.5 = +5,6 %. history_periods absent",
+  "correction_validee": "Dater chaque point et preciser la base (avec ou hors taxes provider) de chaque serie, sinon supprimer les series non datees.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Adjusted admissions growth - Acute Care",
+  "probleme": "Les deux derniers points valent exactement 0, ce qui ressemble à des valeurs de remplissage. Cela contredit la hausse des admissions à périmètre constant.",
+  "preuve": "serie ... 2, 2, 0, 0 ; AC_admissions_sf Q2-2026 88562 contre 84529 au T2 2025 (+4,8 %), Q1-2026 86780 contre 85244 (+1,8 %)",
+  "correction_validee": "Relire les deux derniers trimestres a la source ou retirer ces deux points.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "doublons annuel/trimestriel",
+  "probleme": "Plusieurs indicateurs apparaissent en double, une fois en annuel et une fois en trimestriel, sous des noms différents.",
+  "preuve": "AC_avail_beds (6,9 k) et AC_avail_beds_q (7262) ; AC_admissions (347,7 k, soit la somme exacte des trimestres) et AC_admissions_q ; AC_length_stay et AC_los_q ; AC_occupancy et AC_occupancy_q ; AC_sf_rev_growth et 'Same-facility net revenue growth - Acute Care' ; AC_rev_per_adj_adm et 'Revenue per adjusted admission - Acute Care' ; debt_total et dette_annuelle ; fcf et fcf_annuel (849 = somme des 4 trimestres 2025)",
+  "correction_validee": "Garder une seule version par indicateur (trimestrielle de préférence) et retirer les autres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AC_rev_per_adj_adm / BH_rev_per_patient_day (nom)",
+  "probleme": "Le nom annonce un montant (revenu par admission ou par journée), mais la série est une variation annuelle en %.",
+  "preuve": "'Revenu par admission ajustée Acute Care' unit '% YoY', val 5.4 ; 'Revenu par journée patient Behavioral Health' unit '% YoY', val 6.8",
+  "correction_validee": "Renommer en Croissance du revenu par admission ajustee Acute Care et Croissance du revenu par journee patient Behavioral Health.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PAYER_MIX",
+  "probleme": "Le nom est vague et la description fausse : chez un hôpital, presque tous les patients sont financés par des tiers. La valeur de 28 % correspond sans doute à la part managed care.",
+  "preuve": "'Mix payeurs' val 28, description 'la part des patients financés par des tiers plutôt qu'en direct' ; AC_payer_mix_managed_care entre 30 et 34 %",
+  "correction_validee": "Identifier le payeur mesuré et renommer, ou supprimer (doublon probable de AC_payer_mix_managed_care).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted",
+  "probleme": "Tous les T4 manquent depuis 2021, alors que le signal affirme qu'ils sont dérivés.",
+  "preuve": "history_periods ... Q3-2021, Q1-2022 ... Q3-2024, Q1-2025 ... Q3-2025, Q1-2026 ; signal 'T4 dérivé exercice moins 9 mois quand non publié'",
+  "correction_validee": "Calculer les T4 (exercice moins 9 mois) ou retirer la phrase du signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net benefit from Medicaid supplemental payments / Cedar Hill opening / West Henderson opening",
+  "probleme": "Le montant de 1,36 Md$ est la somme 2025 de medicaid_net_benefit_q, mais il est présenté comme un point trimestriel et comme un objectif 2026. Les 'ouvertures' d'hôpitaux ont pour valeur une année, ce qui n'en fait pas des KPI.",
+  "preuve": "236+330+403+393 = 1 362 M$ ; 'Ouverture Cedar Hill' val=2025 unité 'année' ; 'West Henderson' val=2024",
+  "correction_validee": "Supprimer les trois entrees ; les ouvertures restent citees dans le signal de AC_avail_beds.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat / positionnement IA",
+  "champ": "moat.text, ai_positioning",
+  "probleme": "Le moat n'est pas noté et son texte relève de la cuisine interne. Le positionnement IA ignore les 8 usages IA affichés sur la fiche.",
+  "preuve": "moat 'None' : '...des séries de revenus trop hétérogènes pour trancher' ; IA 'imagerie diagnostique et gestion administrative mais reste discrète' contre le KPI '8 cas d'usage IA déployés en cycle de revenus'",
+  "correction_validee": "Réécrire le moat (échelle locale, part de marché psychiatrie) et aligner le positionnement IA sur le cycle de revenus.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / repartition / positions",
+  "champ": "tagline, revenue_by_geography, revenue_by_segment, market_positions",
+  "probleme": "La devise est en anglais, les libellés de segments et de géographies aussi, l'exercice de la géographie n'est pas renseigné et les positions de marché n'ont ni nom ni unité.",
+  "preuve": "tagline 'To provide superior quality healthcare services...' ; 'U.S. 94.9 ; United Kingdom 5.1' (None) ; 'Acute Care Hospital Services' ; positions 'None | taille 94.82', 'None | taille 1800'",
+  "correction_validee": "Libellés en français, exercice 2025, nommer les marchés ou retirer les positions.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_SHIPMENTS",
+  "probleme": "Libellé faux : ce n'est pas 'par ligne de produit' mais la somme annuelle des volumes de granulats, doublon d'AGG_VOL_Q.",
+  "preuve": "FY2025 = 118.9 = AGG_VOL_Q 2025 : 15.6+32.2+40.2+30.9 = 118.9 Mt ; le ciment (23 Mt/an) n'y est pas.",
+  "correction_validee": "Renommer 'Volumes de granulats (annuel)' et adapter le signal, ou supprimer comme doublon d'AGG_VOL_Q.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CEMENT_VOL_Q.signal",
+  "probleme": "Le signal décrit le prix, pas les volumes de la série.",
+  "preuve": "Série volumes 6,3 Mt (+5,0%) ; signal 'Le prix moyen par tonne reste quasi stable sur un an mais progresse par rapport au trimestre précédent'.",
+  "correction_validee": "Réécrire sur les volumes (6,3 Mt au T2 2026, +5 % sur un an, pic saisonnier du T3).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "GROSS_PROFIT_Q, SGA_Q, OP_INCOME_Q, CEMENT_REV_Q, AGG_REV_Q, INTEREST_Q",
+  "probleme": "Six KPI à un seul point, nom anglais égal au code, signal et description vides.",
+  "preuve": "n=1 (Q2-2026) pour les six ; name_en 'GROSS_PROFIT_Q', 'SGA_Q'... ; signal ''.",
+  "correction_validee": "Masquer ces six KPI tant qu'ils ont moins de 4 points, ou les completer depuis les 10-Q 2025 avec noms anglais et signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte, moat.justification_mettrik",
+  "probleme": "Texte du moat vide ; seule reste une justification automatique méta qui parle de la fiche et non de l'entreprise.",
+  "preuve": "moat.texte = '', depuis = null ; justification 'Seul un indicateur de chiffre d'affaires en hausse de 8,2 % est disponible sur une histoire courte, et tous les risques recensés sont sans évolution.'",
+  "correction_validee": "Rédiger le moat (réserves 70 ans, 18 cimenteries, 143 terminaux, coût du transport qui protège les marchés locaux) et remplacer la justification.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "NI_FY, REV_FY, ADJ_EBITDA_FY",
+  "probleme": "Les annuels 2025 ne sont pas alignés sur les trimestres 2025 révisés en août 2026.",
+  "preuve": "NI_FY 2025 = 1182 vs trimestres -94+416+543+298 = 1163 ; REV_FY 11815 vs 11821 ; NI_Q signal 'après révision des comptes'.",
+  "correction_validee": "Recharger les annuels 2025 révisés ou noter la révision.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "NET_DEBT_Q",
+  "probleme": "Signal 'Cette hausse' alors que le yoy affiché est une baisse ; oscillation de 1,6 Md $ en un trimestre à vérifier.",
+  "preuve": "yoy=-5.8% (5597 -> 5275) ; série Q3-2025=4985, Q4-2025=3347, Q1-2026=4947.",
+  "correction_validee": "Préciser 'hausse sur le trimestre, baisse sur un an' et vérifier le point Q4-2025 contre le bilan.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateur manquant",
+  "probleme": "Volumes de béton prêt à l'emploi (Mm3) et prix du ciment trimestriel absents alors que ciment et granulats sont suivis.",
+  "preuve": "KPI présents : CEMENT_VOL_Q, AGG_VOL_Q, CEMENT_PRICE_FY (annuel), AGG_PRICE_FY (annuel) ; aucun KPI béton.",
+  "correction_validee": "Ajouter les volumes béton et les prix trimestriels publiés dans les communiqués.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

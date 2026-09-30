@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "NIM (signal)",
+  "probleme": "Le signal commente une autre mesure que la serie : 3,65 % hors Markets, alors que la serie est le rendement net total a 2,40 %.",
+  "preuve": "KPI NIM | val=2.4 | Q2-2026=2.4 :: Marge nette d interet hors Markets 3,65% au T2 2026 (3,71% un an avant)",
+  "correction_validee": "Reecrire le signal sur la serie : rendement net de 2,40 % au T2 2026 contre 2,43 % un an avant.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Active mobile customers growth, Client investment assets growth, Debit and credit card sales volume growth",
+  "probleme": "Trois KPI de croissance derives de series de niveau deja presentes, et qui les contredisent : 7 % contre +6 % (MobileCust), 18 % contre +21 % (ClientInvAssets), 9 % contre +10 % (card_vol).",
+  "preuve": "KPI Active mobile customers growth | val=7 ; KPI MobileCust | yoy=+6% ; KPI Client investment assets growth | val=18 ; KPI ClientInvAssets | yoy=+21%",
+  "correction_validee": "Supprimer les trois KPI de croissance, les series MobileCust, ClientInvAssets et card_vol portent deja le yoy.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Interest Income (annuel), Investment Banking Fees (annuel)",
+  "probleme": "Series annuelles sans etiquette, datees 2026-09-29 mais arretees a 2024 ; contredites par les sommes trimestrielles 2025 (NII 95,4 Mds, frais IB 9,6 Mds) ; description en franglais.",
+  "preuve": "KPI Net Interest Income | year | dernier 2026-09-29 | val=92.6 | serie: 52.3, 67, 89.3, 92, 92.6 ; NII trimestriel 2025 = 23.273+23.209+23.966+24.995 = 95.4 ; Investment Banking Fees :: Rebond IPO/M&A 2024. Leader mondial parts marche",
+  "correction_validee": "Supprimer ces deux doublons annuels de NII et IB_fees.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total employees",
+  "probleme": "Valeur affichee differente de la serie et du signal (320 560 contre 318 512), doublon de Headcount et de effectifs_annuels.",
+  "preuve": "KPI Total employees | val=320560 | serie: 318512 :: Effectif record de 318 512 employes fin 2025",
+  "correction_validee": "Supprimer Total employees.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Dates des KPI ponctuels",
+  "probleme": "Six KPI portent la date du jour (2026-09-29) au lieu d une cloture ; les evenements dates 2025-09-10 decrivent des faits posterieurs (dividende declare le 9 decembre 2025, originations du T1 2026, records de l annee 2025 entiere) ; payments_txn_vol est date 2026-06-30 mais s arrete au T1 2026.",
+  "preuve": "KPI Quarterly common stock dividend per share | dernier 2025-09-10 :: declare le 9 decembre 2025 ; KPI Home lending originations | dernier 2025-09-10 :: au T1-2026 ; KPI Card Services net charge-off rate | dernier 2026-09-29",
+  "correction_validee": "Remettre la date de cloture reelle sur chaque point ; ajouter le T2 2026 a payments_txn_vol.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Global Investment Banking fees wallet share (signal)",
+  "probleme": "Le signal cite 9,8 % au T1 2026 alors que la valeur affichee est 9,3 % (dernier point).",
+  "preuve": "val=9.3 | serie: 8.9, 8.7, 8.4, 9.8, 9.3 :: Numero 1 mondial ... avec 9,8% de part de marche au T1-2026",
+  "correction_validee": "Signal : numero 1 mondial avec 9,3 % de part de marche en cumul au premier semestre 2026 (9,8 % au T1).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CET1, CAHIER_ROTE",
+  "probleme": "Texte degrade (accents manquants, phrase bancale) et variation d un ratio exprimee en pourcentage au lieu de points.",
+  "preuve": "CAHIER_CET1 | yoy=-7.0% :: Le recul degage du capital pour les rachats et dividendes, tout en restant tres au dessus des minimums reglementaires exiges ; CAHIER_ROTE | yoy=-9.1% :: chocs de marche passes",
+  "correction_validee": "yoy en points (-1,1 pt et -2 pts) et phrases corrigees : tres au-dessus des minimums reglementaires exiges ; chocs de marche passes, avec accents.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Le moat parle d une rentabilite en repli alors que le ROTCE du T2 2026 est a 29 %, plus haut de la serie, +8 points sur un an.",
+  "preuve": "moat :: renforce l echelle malgre une rentabilite en repli ; KPI ROTCE | Q2-2026=29 | yoy=+8pt",
+  "correction_validee": "Reecrire le moat sur les chiffres du T2 2026 et nommer le type de moat.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "accroche",
+  "probleme": "Cuisine interne : l accroche parle du nombre de series de la fiche au plus haut, pas de la banque.",
+  "preuve": "these :: trente-deux des quarante series trimestrielles suivies sur la fiche sont au plus haut de leurs huit derniers trimestres",
+  "correction_validee": "Remplacer par un fait d entreprise (profit record, ROTCE 29 %, CET1 14,2 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, fcf_par_salarie",
+  "probleme": "Tresorerie libre negative de 147,8 Mds$ et -464 k$ par salarie presentees comme argent disponible pour le dividende : sans signification pour une banque, ce que dit deja le signal du KPI OCF.",
+  "preuve": "KPI fcf_annuel | val=-147.782 :: C est l argent reellement disponible pour rembourser la dette, verser un dividende ; KPI OCF :: il ne se lit pas comme un flux d une entreprise industrielle",
+  "correction_validee": "Retirer fcf_annuel et fcf_par_salarie des fiches bancaires ou adapter la description.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun taux de creances douteuses (NPL ou NPA) ni taux de pertes nettes a l echelle du groupe alors que l anti-these repose sur la qualite du credit ; seul le taux cartes existe.",
+  "preuve": "KPI Card Services net charge-off rate | val=3.47 ; KPI Total net charge-offs en M$ sans ratio",
+  "correction_validee": "Ajouter NPA / prets totaux et taux de pertes nettes firmwide en trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

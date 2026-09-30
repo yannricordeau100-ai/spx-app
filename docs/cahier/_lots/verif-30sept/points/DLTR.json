@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition Dollar Tree 55 % / Family Dollar 45 % (total 18 Mds $, soit l exercice 2015-2016) alors que Family Dollar est cedee depuis juillet 2025 et que la fiche decrit une entreprise mono-enseigne.",
+  "preuve": "'revenue_by_segment (None): Dollar Tree 55 ; Family Dollar 45', total 18 Mds $ dans le JSON ; att: 'redevenu une entreprise mono-enseigne apres la cession de Family Dollar en juillet 2025'.",
+  "correction_validee": "Remplacer par la repartition par categorie de produits FY2025 ou retirer le bloc.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_COMP_SALES, CAHIER_STORE_EXPANSION",
+  "probleme": "Exercices decales d un an et valeurs contredites par les series trimestrielles : FY2025 = 1,8 % alors que les comparables trimestriels FY2025 sont 5,4 / 6,5 / 4,2 / 5,0 ; FY2026 = 9 282 magasins, qui est le parc de fin FY2025 (Q4-FY2025=9282) ; yoy +194 % sur un pourcentage.",
+  "preuve": "'CAHIER_COMP_SALES serie: FY2024=5.8, FY2025=1.8, FY2026=5.3 | yoy=+194.4%' vs 'comp_store_sales Q1-FY2025=5.4, Q2-FY2025=6.5, Q3-FY2025=4.2, Q4-FY2025=5' ; 'CAHIER_STORE_EXPANSION FY2026=9282' vs 'store_count_end Q4-FY2025=9282'.",
+  "correction_validee": "Recaler les etiquettes d un an (FY2026 devient FY2025, etc.) et exprimer la variation des comparables en points.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Comparable (same-store) net sales growth",
+  "probleme": "Doublon du hero comp_store_sales avec des valeurs differentes pour les memes trimestres et une date future.",
+  "preuve": "'Comparable (same-store) net sales growth | dernier 2026-12-31 | serie: 0.7, 1.8, 2, 5.4, 5.9, 5.4, 5, 3.5' vs 'comp_store_sales ... Q1-FY2025=5.4, Q2-FY2025=6.5, Q3-FY2025=4.2, Q4-FY2025=5, Q1-FY2026=3.5, Q2-2026=3.7'.",
+  "correction_validee": "Supprimer le doublon et garder comp_store_sales.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "revenue_annuel, ca_par_salarie",
+  "probleme": "Rupture de perimetre non signalee : 2019-2022 en consolide (Family Dollar incluse, 26,3 Mds $) puis 2023-2026 en Dollar Tree seule (15,4 Mds $). Le signal en tire un '-0,7 % par an depuis 2017' sans sens, et le CA par salarie chute de 125 a 74 k$ alors que l effectif reste consolide jusqu en 2025.",
+  "preuve": "'revenue_annuel serie: 2022=26.321, 2023=15.412' ; 'ca_par_salarie 2022=125, 2023=74.3, 2026=126.8' ; 'effectifs_annuels 2025=214710, 2026=153032'.",
+  "correction_validee": "Couper la serie en 2023 (ou restater en activites poursuivies) avec mention du changement de perimetre et recalculer les ratios par salarie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "net_sales_sqft",
+  "probleme": "Signal contredit par la serie : il annonce une baisse legere vs 234 $ alors que le dernier point est 241 $ (hausse de 232 a 241).",
+  "preuve": "'net_sales_sqft ... FY2023=234, FY2024=232, FY2025=241 :: Baisse legere vs 234$ FY23 (53 semaines)'.",
+  "correction_validee": "Reecrire le signal et le yoy : 241 $/pied carre en FY2025, +9 $ sur un an.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "gross_profit, instacart_stores",
+  "probleme": "gross_profit : signal tronque et cuisine interne ('dernier trimestre tague en pour cette ligne'). instacart_stores : signal perime (7 400 magasins au 01/02/2025) alors que la serie affiche 8 400 en FY2025.",
+  "preuve": "'gross_profit ... :: 2 130,6 M$ au T4 FY2025, dernier trimestre tague en pour cette ligne.' ; 'instacart_stores FY2025=8400 :: Plus de 7 400 magasins Dollar Tree accessibles via Instacart ... au 01/02/2025'.",
+  "correction_validee": "Reecrire les deux signaux sur le dernier point de la serie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "net_income, operating_income, eps_diluted, ocf, fcf, buybacks, inventory",
+  "probleme": "Series arretees au T1 FY2026 alors que les marges, net_sales et comp_store_sales ont le T2 FY2026 et que la these cite le resultat operationnel du T2 2026 (690 M$).",
+  "preuve": "'operating_income ... dernier 2026-05-02 ... Q1-FY2026=473.3' ; these: 'publie au deuxieme trimestre 2026 un resultat operationnel de 690 M$' ; 'operating_margin ... Q2-2026=14.1'.",
+  "correction_validee": "Completer les series comptables avec le T2 FY2026 (10-Q d aout 2026).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Anglicisme de cuisine interne dans un texte public ('flaggant').",
+  "preuve": "'Dollar Tree evoque un usage croissant de l IA/ML en interne tout en flaggant l IA des concurrents comme risque competitif.'",
+  "correction_validee": "Remplacer flaggant par signalant.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

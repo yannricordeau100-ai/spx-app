@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "wildfire_capex",
+  "probleme": "Serie invraisemblable et contredite par la valeur affichee : 8 Mds $ par an de capex incendies en 2017 et 2018 alors que le capex total du groupe etait de 6,5 Mds $ en 2018 ; valeur courante 1 alors que la serie dit 8.",
+  "preuve": "serie: FY2017=8, FY2018=8 (B$) ; val=1 ; capex_plan FY2018=6.514 B$/an",
+  "correction_validee": "Retirer les points FY2017 et FY2018 et reconstruire la serie depuis les rapports WMP, sinon retirer le KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "capex_plan / CAHIER_CAPEX_PLAN / capex_q",
+  "probleme": "Trois chiffres differents pour le capex 2025 : 11,787 (capex_plan, qui est en fait le capex realise, somme des trimestres), 12,4 (CAHIER_CAPEX_PLAN) et 13,4 dans le signal de capex_plan. Le nom « Plan d'investissement total » est faux pour une serie de capex realise.",
+  "preuve": "capex_plan FY2025=11.787 ; signal « Capex 2025 actuel $13.4B » ; CAHIER_CAPEX_PLAN FY2025=12.4 ; capex_q 2025 = 2635+3065+2931+3156 = 11 787",
+  "correction_validee": "Renommer capex_plan en « Investissements realises (annuel) », corriger son signal (11,8 Mds $ realises en 2025) et garder CAHIER_CAPEX_PLAN comme seul KPI de plan 2026-2030.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ROE_GAP",
+  "probleme": "Nom faux et doublon : le KPI s'appelle « Ecart entre rendement autorise et realise » mais la serie est le ROE autorise seul, identique a authorized_roe.",
+  "preuve": "CAHIER_ROE_GAP FY2023=10, FY2024=10.7, FY2025=10.28 ; authorized_roe FY2023=10, FY2024=10.7, FY2025=10.28 ; unite « % (rendement autorise) »",
+  "correction_validee": "Supprimer CAHIER_ROE_GAP (doublon d authorized_roe).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "renewable_pct",
+  "probleme": "Valeur affichee 40 % contredite par la serie (34 % en 2025) et par le signal (34 %) ; yoy +0 % alors que 2024=23 et 2025=34.",
+  "preuve": "val=40 | yoy=+0% | serie FY2024=23, FY2025=34 ; signal « 34% renouvelable qualifiant »",
+  "correction_validee": "Mettre val=34 et yoy=+11 pts.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_annuelle / dette_sur_ca",
+  "probleme": "Point 2019 = 0 au milieu de la serie : la dette n'etait pas nulle en 2019 (elle etait reclassee en passifs soumis a la faillite). Un investisseur voit une dette qui passe de 44 a 0 puis 41 Mds $.",
+  "preuve": "dette_annuelle 2018=44.069, 2019=0, 2020=40.863 ; dette_sur_ca 2019=0",
+  "correction_validee": "Retirer le point 2019 de dette_annuelle et de dette_sur_ca.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Underground powerlines completed / EV charging ports connected to grid",
+  "probleme": "Series sans periodes qui melangent des cumuls annuels et des trimestres : 334 miles en un trimestre alors que l'annuel 2024 est de 259 ; 18 750 bornes puis 1 500 le trimestre suivant.",
+  "preuve": "Underground: 24, 32, 97, 334, 31, 37 (undergrounding FY2024=259) ; EV ports: 400, 2000, 3800, 18750, 1500, 2460",
+  "correction_validee": "Retirer les points 334 et 18 750 ou dater chaque point ; sinon supprimer les deux KPI au profit de undergrounding annuel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "private_solar_customers / Interconnected private solar customers",
+  "probleme": "Doublon exact : meme indicateur, meme valeur, une fois en annuel et une fois en point unique.",
+  "preuve": "private_solar_customers FY2025=950000 ; Interconnected private solar customers serie: 950000",
+  "correction_validee": "Supprimer « Interconnected private solar customers ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification",
+  "probleme": "Le moat affirme que « les revenus de toutes les categories reculent », contredit par les chiffres de la fiche (CA 2025 +2,1 %, T1 2026 +15 %) ; « la note a perdu son avantage durable » est de la cuisine interne.",
+  "preuve": "moat: « Les revenus de toutes les categories reculent » ; revenue_annuel 2025=24.935 (+2,1 %) ; revenue_q Q1-2026=6881 vs Q1-2025=5983",
+  "correction_validee": "Reecrire la justification sur la base des chiffres 2025-2026 et retirer la mention de note.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "manquant",
+  "probleme": "Aucun indicateur de fiabilite du reseau (SAIDI/SAIFI) ni de coupures preventives PSPS, pourtant suivis par la CPUC et cites pour PEG sur la meme categorie.",
+  "preuve": "Seul « Electric system reliability improvement » = 19 % en point unique, sans serie.",
+  "correction_validee": "Ajouter SAIDI/SAIFI annuels et le nombre d'evenements PSPS.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

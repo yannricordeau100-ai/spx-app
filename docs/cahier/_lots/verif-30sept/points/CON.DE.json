@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "CA_CONSOLIDE, EBIT_AJ_GROUPE, FREE_CASH_FLOW, EFFECTIFS (série vs yoy)",
+  "probleme": "Rupture de périmètre non retraitée : 2018-2024 en ancien périmètre, 2025 en activités poursuivies, avec un yoy calculé sur une base retraitée invisible dans la série.",
+  "preuve": "CA_CONSOLIDE FY2024 = 39,719 → FY2025 = 19,676 avec yoy « -2,0% » ; EBIT_AJ_GROUPE 2694 → 2035 yoy « -8,0% » (signal : « face aux 2 212 M€ de 2024 retraités ») ; FREE_CASH_FLOW 1114 → 967 yoy « +60,6% » (« 603 M€ de 2024 retraités ») ; EFFECTIFS 190159 → 92653 yoy « -4,9% » (« 97 418 fin 2024 à périmètre comparable »).",
+  "correction_validee": "Retraiter 2024 au perimetre poursuivi ou couper les series a la rupture, en signalant la scission dans le graphique.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "MARGE_AJ_GROUPE.signal",
+  "probleme": "Le signal compare deux périmètres différents et conclut à une amélioration alors qu'à périmètre comparable la marge du groupe a reculé.",
+  "preuve": "Signal : « 10,3% en 2025 contre 6,8% en 2024 : le recentrage sur les pneumatiques ramène la rentabilité du groupe à son niveau de 2016 ». Avec les valeurs retraitées citées sur la fiche (EBIT ajusté 2 212 M€, CA en baisse de 2 % soit environ 20,1 Mds €), la marge 2024 comparable est d'environ 11,0 %, donc en repli de 0,7 pt en 2025.",
+  "correction_validee": "Réécrire : marge 2025 à 10,3 % contre environ 11,0 % en 2024 à périmètre comparable ; le saut de 6,8 % à 10,3 % est un effet de périmètre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DIVIDENDE.signal",
+  "probleme": "Comptage faux des augmentations consécutives.",
+  "preuve": "Signal : « quatrième augmentation consécutive depuis l'exercice blanc de 2020 » ; série 2020 = 0, 2021 = 2,2, 2022 = 1,5 (baisse), 2023 = 2,2, 2024 = 2,5, 2025 = 2,7 : trois hausses consécutives.",
+  "correction_validee": "Remplacer quatrieme par troisieme.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Automotive Sales, Tires Adj EBIT Margin",
+  "probleme": "Deux séries annuelles sans années, datées 2026-08-09 (aucune publication), dont l'une porte sur une activité scindée et l'autre contredit la série officielle de la même fiche.",
+  "preuve": "« Automotive Sales | Mds € | year | dernier 2026-08-09 | serie: 16.4, 18.4, 20.5, 19.6, 19.4 | yoy -1% » alors qu'Aumovio est scindée depuis le 18 septembre 2025 ; « Tires Adj EBIT Margin » 13.4, 11.4, 12.2, 13.2, 13.7 ne correspond à aucune année de MARGE_AJ_TIRES (FY2020 = 13,2, FY2021 = 14,6, FY2022 = 13,1, FY2023 = 13,5, FY2024 = 13,7, FY2025 = 13,6).",
+  "correction_validee": "Supprimer Automotive Sales et Tires Adj EBIT Margin.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Tire Units Sold",
+  "probleme": "Volume de pneus vendus sans années, sans source ni signal, daté 2026-08-09 : indicateur pourtant central pour un pneumaticien, mais inexploitable en l'état.",
+  "preuve": "« Tire Units Sold | M unités | year | dernier 2026-08-09 | serie: 144, 155, 158, 154, 155 | signal vide ».",
+  "correction_validee": "Sourcer et dater la série (rapport annuel Tires : volumes tourisme et poids lourds) ou la retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ContiTech Sales, Tires Adj EBIT, Adj Free Cash Flow, CA_PNEUS",
+  "probleme": "Doublons annuels à deux points de séries déjà présentes, avec un free cash flow 2025 différent de celui du KPI principal et un signal CA_PNEUS de gabarit.",
+  "preuve": "« Adj Free Cash Flow » 598, 959 vs FREE_CASH_FLOW FY2025 = 967 et « 603 M€ de 2024 retraités » : deux FCF 2025 sur la même fiche ; « Tires Adj EBIT » 1903, 1870 = somme de EBIT_AJ_TIRES_Q ; CA_PNEUS signal « 13.798 Mds EUR en 2025, produit phare de la société » (point décimal, unité « Mds EUR » vs « Mds € » ailleurs).",
+  "correction_validee": "Supprimer ContiTech Sales, Tires Adj EBIT et CA_PNEUS ; trancher entre FCF publié (967) et FCF ajusté (959) et n'en garder qu'un, nommé explicitement.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_PREMIUM_MIX.yoy",
+  "probleme": "Variation annuelle calculée entre deux points séparés de cinq ans et exprimée en pourcentage relatif pour une part en %.",
+  "preuve": "Série FY2020 = 49, FY2025 = 62, yoy « +26.5% » ; signal : « contre 49% cinq ans plus tôt ».",
+  "correction_validee": "Remplacer le yoy par +13 pts sur 5 ans ou le vider.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.simple.fr",
+  "probleme": "Anglicisme calqué et atout générique qui ne dit rien de Continental.",
+  "preuve": "activity : « devenir un fabricant de pneus mondial pur-joueur » ; edge : « ses capacités technologiques avancées, son modèle économique résilient, sa force opérationnelle et sa marque reconnue ».",
+  "correction_validee": "Remplacer « pur-joueur » par « spécialiste » et réécrire l'atout sur des faits (76 % de remplacement, 62 % de pneus grande dimension, ROCE Pneumatiques 23,3 %).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline",
+  "probleme": "Tagline vide dans l'en-tête, seule fiche des six sans slogan.",
+  "preuve": "« tagline: » (vide).",
+  "correction_validee": "Renseigner la tagline officielle ou masquer le champ.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

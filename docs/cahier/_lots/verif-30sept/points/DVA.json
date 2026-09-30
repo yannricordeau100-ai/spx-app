@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Treatments + U.S. Dialysis Treatments",
+  "probleme": "Deux series annuelles de traitements US sans dates, contredites par la somme des trimestres",
+  "preuve": "Treatments 2025=30.3 M ; somme us_dialysis_treatments 2025 = 28 733 980 = CAHIER_SERVICE_VOLUME FY2025",
+  "correction_validee": "Supprimer Treatments et U.S. Dialysis Treatments, garder CAHIER_SERVICE_VOLUME.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Revenue/Treatment + Average Revenue per Treatment",
+  "probleme": "Deux series de revenu par traitement sans dates, en contradiction avec la serie sourcee",
+  "preuve": "Revenue/Treatment 388, Average Revenue per Treatment 2024=386 vs CAHIER_REVENUE_PER_SERVICE FY2024=391.32 et avg_revenue_per_treatment Q4-2024=391.32 ; description 'Mix payeurs (Medicare 32% / commercial 11%...) + pricing'",
+  "correction_validee": "Supprimer Revenue/Treatment et Average Revenue per Treatment.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "US Centers + Centers (US) + International Centers + Patients Treated",
+  "probleme": "Series sans periode ni dates, valeurs contradictoires avec les series datees, val differente du dernier point",
+  "preuve": "US Centers 2643 vs us_dialysis_centers FY2025=2657 ; International Centers val=585 mais serie finit a 519 ; Centers (US) doublon a 2024",
+  "correction_validee": "Supprimer US Centers, Centers (US), International Centers et Patients Treated, garder us_dialysis_centers et international_dialysis_centers.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "operating_margin.yoy + net_margin.yoy",
+  "probleme": "Variation annuelle en % d'un pourcentage, contredite par le signal",
+  "preuve": "operating_margin yoy=+2.5% mais signal '+0,4 point' (15.9 -> 16.3) ; net_margin yoy=+27.1% pour 5.9 -> 7.5",
+  "correction_validee": "Exprimer en points : +0,4 pt et +1,6 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_PAYER_MIX",
+  "probleme": "Nom et definition ambigus : on ne sait pas quelle part de quel payeur est mesuree",
+  "preuve": "'Mix payeurs' % val=32 ; commercial_revenue_mix dit 26 % des revenus commerciaux ; signal 'sa position basse dans la fourchette' alors que 32 est au milieu de 31-33",
+  "correction_validee": "Renommer avec le payeur mesure (ex. part des patients Medicare) ou retirer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Potential mortality reduction + Mortality risk reduction for vaccinated patients",
+  "probleme": "Affirmations cliniques presentees comme KPI d'entreprise, sans lien avec la performance",
+  "preuve": "'Reduction potentielle de mortalite' 20 % ; 'Baisse du risque de mortalite chez les patients vaccines' 27 %",
+  "correction_validee": "Retirer ces deux KPI ou les deplacer en story",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted + effective_tax_rate (series)",
+  "probleme": "Trous dans les series trimestrielles",
+  "preuve": "eps_diluted : Q4-2024 et Q4-2025 absents ; effective_tax_rate : Q4-2025 absent",
+  "correction_validee": "Completer les trimestres manquants",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline",
+  "champ": "tagline",
+  "probleme": "Texte en anglais",
+  "preuve": "'Leading kidney care provider transforming care delivery...'",
+  "correction_validee": "Traduire : 'Leader des soins renaux qui transforme la prise en charge des patients'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

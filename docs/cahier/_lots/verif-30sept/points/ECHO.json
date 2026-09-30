@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel, dette_annuelle, fcf_annuel, dette_sur_ca (2018-2022)",
+  "probleme": "Series annuelles qui melangent deux perimetres : 2018-2020 = ancien EchoStar seul (CA 1,8 Mds $), 2021-2025 = groupe fusionne avec DISH (CA 19,8 Mds $). La dette 2021-2022 (1,5 et 3,0 Mds $) reste celle de l ancien EchoStar alors que le CA est deja celui du groupe fusionne, d ou un ratio dette/CA de 7,5 % en 2021 et 16,4 % en 2022 totalement faux (133,8 % en 2023).",
+  "preuve": "revenue_annuel : 2020=1.888, 2021=19.819 ; dette_annuelle : 2021=1.496, 2022=3.049, 2023=22.764 ; dette_sur_ca : 2021=7.5, 2022=16.4, 2023=133.8 ; signal : +26,5 % par an depuis 2016",
+  "correction_validee": "Tronquer revenue_annuel, dette_annuelle, fcf_annuel et dette_sur_ca au perimetre fusionne (a partir de 2023, ou de 2021 si la dette retraitee de DISH est disponible) et retirer la croissance annuelle calculee depuis 2016.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy de PAYTV_ARPU, WIRELESS_ARPU, SEG_REV_PAYTV, SEG_REV_BSS, SEG_OP_PAYTV, SEG_MARGIN_PAYTV, DISHTV_GROSS_ADDS, WIRELESS_GROSS_ADDS, DISHTV_SAC, SEG_OP_WIRELESS",
+  "probleme": "La variation annuelle affichee ne correspond pas a la serie, et contredit souvent le signal qui, lui, est juste. Dix KPI sont concernes.",
+  "preuve": "PAYTV_ARPU : serie 111.74 -> 112.39 (+0,6 %, signal dit +0,6 %) mais yoy=-0.4% ; WIRELESS_ARPU : 37.4 -> 38.6 (+3,2 %) mais yoy=+1.8% ; SEG_OP_PAYTV : 595.6 -> 542.3 (-8,9 %) mais yoy=-27.8% ; DISHTV_SAC : 1.15 -> 1.529 (+33 %) mais yoy=+7.9% ; WIRELESS_GROSS_ADDS : 634 -> 504 (-20,5 %) mais yoy=-6.2% ; SEG_OP_WIRELESS signal : perte de 118 M$ un an plus tot, serie Q2-2025=-772.9",
+  "correction_validee": "Recalculer chaque yoy contre le meme trimestre un an plus tot (en points pour SEG_MARGIN_PAYTV, dont le signal en hausse devient stable) et corriger le signal de SEG_OP_WIRELESS : perte de 773 M$ un an plus tot.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_AJOUTS_NETS_POSTPAYES, CAHIER_CHURN_POSTPAYE, CAHIER_ARPA",
+  "probleme": "Trois KPI annuels etiquetes postpaye ou par compte sont en realite les totaux mobile Boost deja presents en trimestriel : doublon avec un nom faux (EchoStar ne publie pas de decoupe postpaye). Le yoy des ajouts nets (-289,5 %) est un pourcentage sans sens sur un changement de signe, et celui du churn est en % au lieu de points.",
+  "preuve": "CAHIER_AJOUTS_NETS_POSTPAYES FY2025=576 = somme WIRELESS_NET_ADDS 2025 (150+212+223-9=576) ; CAHIER_CHURN_POSTPAYE FY2025=2.84 vs WIRELESS_CHURN ; CAHIER_ARPA FY2025=37.41 vs WIRELESS_ARPU Q4-2025=37.13 ; yoy=-289.5%",
+  "correction_validee": "Supprimer les trois KPI CAHIER, doublons annuels mal nommes de WIRELESS_NET_ADDS, WIRELESS_CHURN et WIRELESS_ARPU.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Wireless subscribers, Wireless net subscriber additions, Sling (Pay-TV) subscribers",
+  "probleme": "Trois KPI a un ou deux points, dates du T1 2025, en anglais, qui doublonnent des series trimestrielles completes allant jusqu au T2 2026. Ils affichent des chiffres perimes de 18 mois a cote des series a jour.",
+  "preuve": "Wireless subscribers val=7.15 (2025-02-08) vs WIRELESS_SUBS Q1-2025=7.145 ; Wireless net subscriber additions serie -81000, 150000 vs WIRELESS_NET_ADDS Q1-2025=150 ; Sling subscribers 1.9 vs SLING_SUBS Q1-2025=1.894",
+  "correction_validee": "Supprimer ces trois KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "On-air 5G sites, 5G network US population coverage, On-net Boost Mobile customers",
+  "probleme": "Trois KPI a un point presentent le reseau 5G Open RAN comme actif (24 000 sites, 80 % de couverture, 1,25 M de clients sur reseau propre) alors que la fiche indique partout que le reseau a ete arrete apres la vente du spectre (depreciation de 17,6 Mds $, capex et marge brute commentes apres l arret du reseau). Contradiction frontale pour un investisseur.",
+  "preuve": "On-air 5G sites val=24000 : Plus de 24 000 sites 5G actifs ; 5G network non-cash impairment 17.632 : abandon du deploiement du reseau 5G Open RAN ; GROSS_MARGIN signal : apres l arret du reseau",
+  "correction_validee": "Supprimer les trois KPI On-air 5G sites, 5G network US population coverage et On-net Boost Mobile customers.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AT&T spectrum license sale, SpaceX spectrum license sale, SpaceX equity stake, 5G network non-cash impairment, Cumulative wireless spectrum investment, SpaceX interim debt service commitment",
+  "probleme": "Six evenements ponctuels (cessions, depreciation, participation a recevoir) sont presentes comme des KPI a un point, sans serie, avec des noms en anglais. Le montant AT&T (22,65 Mds $) ne coincide pas avec la these (20,2 Mds $ encaisses).",
+  "preuve": "AT&T spectrum license sale val=22.65 ; these : a recu 20,2 Mds $ en numeraire ; SpaceX interim debt service commitment val=2 serie 2",
+  "correction_validee": "Retirer ces entrees des KPI et les integrer a la these ou a une story ; harmoniser le montant AT&T (brut 22,65 vs net encaisse 20,2).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PAYTV_REV (hero) et SEG_REV_PAYTV",
+  "probleme": "Le meme indicateur (CA du segment TV payante) existe en annuel (hero, 5 points) et en trimestriel (14 points a jour). Le hero s arrete a FY2025 alors que le trimestriel va au T2 2026.",
+  "preuve": "PAYTV_REV | year | FY2025=9.7 ; SEG_REV_PAYTV | quarter | Q2-2026=2.249, meme nom anglais Pay-TV segment revenue",
+  "correction_validee": "Garder un seul des deux, de preference le trimestriel comme hero, ou fusionner en une serie.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.tendance",
+  "probleme": "Tendance stable alors que le texte du bloc dit que tous les risques sont en aggravation et que les abonnes reculent a deux chiffres.",
+  "preuve": "moat: None / tendance stable :: La television payante et le haut debit satellite perdent des abonnes a deux chiffres, et tous les risques de concurrence et de programmation sont en aggravation.",
+  "correction_validee": "Passer moat.tendance a baisse.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks",
+  "champ": "risque 1 a 6",
+  "probleme": "Six risques sur huit n ont qu un titre, sans aucun texte, alors que les risques 7 et 8 sont detailles.",
+  "preuve": "risque 1: Declin des abonnes au Pay-TV :: (vide) ... risque 6: Risques technologiques et d obsolescence :: (vide)",
+  "correction_validee": "Rediger le texte des six risques a partir du rapport annuel 2025 ou retirer les titres vides.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

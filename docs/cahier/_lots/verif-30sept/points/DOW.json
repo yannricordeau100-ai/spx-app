@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Global workforce reduction announced",
+  "probleme": "Valeur invraisemblable : 32 800 postes supprimes, soit 91 % de l effectif (35 900). Le signal parle de 4 500 postes ; un autre KPI cite 1 500 postes pour le programme 2025.",
+  "preuve": "'Global workforce reduction announced | serie: 4500, 32800 | val=32800 :: Suppression de 4 500 postes' ; 'effectifs_annuels 2023=35900'.",
+  "correction_validee": "Retirer le point 32 800 (ou le KPI entier).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Volume growth year-over-year, Local price year-over-year, Currency impact",
+  "probleme": "Series datees 2026-09-29 mais arretees au T1 2026 (signaux 'au T1-2026') et contredites par le T2 2026 : prix local consolide -7 % alors que PSP +30 %, III +15 %, PMC +4 % et CA +19,7 % tire par le prix. Un investisseur voit deux verites opposees sur la meme fiche.",
+  "preuve": "'Local price year-over-year | dernier 2026-09-29 | val=-7 :: Prix local en recul de 7% a/a au T1-2026' vs 'PriceMix_PSP Q2-2026=30', 'Rev_Q :: La hausse vient quasi exclusivement du prix (+20%)'.",
+  "correction_validee": "Ajouter le T2 2026 (prix, volume, change) et dater au 2026-06-30, sinon retirer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Packaging & Specialty Sales, Industrial Intermediates Sales, Performance Materials Sales, Op EBIT",
+  "probleme": "Series annuelles sans periodes ni signal, datees 2026-09-29 mais arretees a 2024 (PSP 21,5 Mds $ = 2024 ; 2025 = 20,0 d apres les trimestres). Doublons perimes des series segmentaires trimestrielles.",
+  "preuve": "'Packaging & Specialty Sales | dernier 2026-09-29 | serie: 22.4, 30.1, 28.6, 22.8, 21.5' vs 'PSP_Rev 2025 = 5310+5025+4891+4744 = 19 970 M USD'.",
+  "correction_validee": "Retirer les quatre KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Effectifs arretes a 2023 (2022 manquant) et ratios par salarie arretes a 2021 tout en etant dates 2025-12-31, alors que le CA et la dette 2025 existent.",
+  "preuve": "'effectifs_annuels | dernier 2024-01-31 | serie: 2019=36500, 2020=35700, 2021=35700, 2023=35900' ; 'ca_par_salarie | dernier 2025-12-31 | serie: 2019=1176.7, 2020=1079.6, 2021=1539.7'.",
+  "correction_validee": "Completer les effectifs 2022, 2024 et 2025 puis recalculer les ratios par salarie et leur date.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.justification",
+  "probleme": "Moat perime et contredit par les chiffres du T2 2026 : il decrit un resultat net 'nettement negatif' et une marge brute qui 's effondre' alors que le T2 2026 affiche 721 M USD de benefice et 17,9 % de marge brute ; 'la note a ete retiree' est faux (l anti-these parle de deux degradations, la notation reste investment grade).",
+  "preuve": "'moat :: La marge brute s effondre, le resultat net devient nettement negatif, la note a ete retiree' vs 'NI_Q Q2-2026=721', 'GM_Q Q2-2026=17.9', att 'toujours note investment grade'.",
+  "correction_validee": "Reecrire la justification du moat sur le T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Quarterly dividend per share reduced",
+  "probleme": "Doublon a un point de DPS_Q (0,35 $).",
+  "preuve": "'Quarterly dividend per share reduced | 0.35' et 'DPS_Q ... Q2-2026=0.35'.",
+  "correction_validee": "Supprimer le doublon.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description, tagline",
+  "probleme": "Mots anglais dans la description publique ('performance materials', 'personal care') et tagline en anglais.",
+  "preuve": "'Dow est un acteur majeur de la chimie des plastiques, performance materials et chimie industrielle' ; 'clients ... automobiles, construction et personal care' ; tagline 'Leading materials science company serving high-growth markets'.",
+  "correction_validee": "Traduire en materiaux de performance, soins personnels et tagline en francais.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

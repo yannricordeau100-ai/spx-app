@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Cardiovascular Revenue (Q4)",
+  "probleme": "Série incohérente avec sa valeur : les points (1,4 à 1,9 Mds) sont ceux de la division CRHF, pas du portefeuille Cardiovascular (3,0 à 3,5 Mds) ; signal en anglais ; doublon de cardiovascular_revenue",
+  "preuve": "val=3.336 mais serie Q1 2026=1.856 = cardiac_rhythm Q3-2026=1856 ; signal : Q4 FY25 Cardiovascular segment $3.336B, +6.6% YoY",
+  "correction_validee": "Supprimer le KPI Cardiovascular Revenue (Q4).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Diabetes Revenue (Q4) / Neuroscience Revenue (Q4) / Medical Surgical Revenue (Q4)",
+  "probleme": "Trois séries étiquetées annuelles mais construites sur des valeurs de T4, signal en anglais, doublons de diabetes_revenue, neuroscience_revenue et medical_surgical_revenue",
+  "preuve": "Diabetes Revenue (Q4) year, serie 0.61, 0.66, 0.728 = diabetes_revenue Q4-2025=728 ; signal : Q4 FY25 Diabetes $728M, +10.4% YoY",
+  "correction_validee": "Supprimer Diabetes Revenue (Q4), Neuroscience Revenue (Q4) et Medical Surgical Revenue (Q4).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "cardiovascular_revenue (hero) / neuroscience_revenue / diabetes_revenue / medical_surgical_revenue",
+  "probleme": "Les quatre portefeuilles s arrêtent au T3 FY2026 (janvier 2026) alors que le CA total va au T1 FY2027 (juillet 2026) et que la thèse cite 3,9 Mds pour le cardiaque à ce trimestre ; signaux figés sur FY2025 alors que FY2026 est clos",
+  "preuve": "cardiovascular_revenue serie ...Q3-2026=3457 ; net_sales_total Q4-2026=9808, Q1-2027=9756 ; signal : 12,5 Md$ FY2025 ; these : division cardiaque 3,9 Mds $ en hausse de 20 %",
+  "correction_validee": "Ajouter Q4-2026 et Q1-2027 aux quatre portefeuilles depuis les publications (sauf Diabetes s'il n'est plus consolide), realigner value et date sur le dernier point et reecrire les signaux sur FY2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted.yoy / net_income.yoy / net_sales_total.yoy",
+  "probleme": "Variations affichées incohérentes avec les séries : le BPA passe de 0,81 à 1,14 (+41 %) mais affiche +19 % ; le résultat net de 1040 à 1470 (+41 %) affiche +18 % ; le CA de 8578 à 9756 (+13,7 %) affiche +10 %",
+  "preuve": "eps_diluted Q1-2026=0.81, Q1-2027=1.14, yoy=+19% ; net_income Q1-2026=1040, Q1-2027=1470, yoy=+18% ; net_sales_total Q1-2026=8578, Q1-2027=9756, yoy=+10%",
+  "correction_validee": "Verifier les valeurs Q1-2027 contre la publication d'aout 2026 puis recalculer les trois yoy a partir de la serie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Répartition périmée (total 30,5 Mds, soit un exercice vers 2022) et contredite par les KPI FY2026 : États-Unis 49,8 % et non 53 %",
+  "preuve": "revenue_by_geography : États-Unis 53 (16.2 Mds), Reste du monde 47 (14.3), total 30.5 ; us_net_sales FY2026=18103, international_net_sales FY2026=18261 ; US Sales % 2026=51",
+  "correction_validee": "Mettre a jour sur l'exercice 2026 : Etats-Unis 18,1 Mds (49,8 %), international 18,3 Mds (50,2 %), et aligner US Sales % 2026 (51) sur 49,8.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux (rd_expense, net_sales_total, operating_profit, net_income, eps_diluted, capex, operating_cash_flow, free_cash_flow, gross_margin, operating_margin, net_margin)",
+  "probleme": "Cuisine interne visible dans les signaux : méthode de dérivation, écarts d arrondi, mentions de documents",
+  "preuve": "eps_diluted : Q4-2026 dérivé (FY moins 9 mois), léger écart d'arrondi possible ; capex : trimestriel dérivé des cumuls YTD des rapport trimestriel ; gross_margin : trimestriel dérivé (CA moins coût des produits) depuis FY2023",
+  "correction_validee": "Retirer uniquement les segments decrivant la methode de calcul, en gardant le contenu utile qui suit (ex. rd_expense : garder effort soutenu PFA, TAVR, Hugo RAS, Symplicity).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ca_par_salarie / fcf_par_salarie / dette_par_salarie",
+  "probleme": "Séries dérivées arrêtées en 2020 alors que ventes, trésorerie, dette et effectifs existent jusqu en 2026",
+  "preuve": "ca_par_salarie serie 2017..2020, val=321.3 en 2020 ; effectifs_annuels 2024=95000, 2025=95000, 2026=95000 ; revenue_annuel 2026=36.364",
+  "correction_validee": "Ajouter 2024, 2025 et 2026 (ex. CA par salarie 2026 = 36 364 / 95 000 = 382,8 k$) et reecrire les signaux sur 2026.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI à un seul point (Separation of Diabetes, MiniMed restructuring charges, Blackstone milestone, MiniMed credit facility)",
+  "probleme": "Événements présentés comme KPI avec des unités bricolées",
+  "preuve": "Separation of Diabetes... | mois (horizon) | 18 ; MiniMed separation restructuring charges | M USD (haut de fourchette 300-500) | 500 ; Blackstone... | M USD (milestones max) | 1200",
+  "correction_validee": "Déplacer vers les faits marquants ou stories, retirer des KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

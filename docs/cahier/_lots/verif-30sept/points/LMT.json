@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "hero",
+  "champ": "hero_kpi / hero_kpi_rationale",
+  "probleme": "La justification decrit Aeronautics alors que le hero est le carnet MFC.",
+  "preuve": "hero: MFC Backlog ; rationale : Aeronautics est le premier segment de Lockheed Martin, porte par le programme F-35. C est le KPI qui revele le mieux.",
+  "correction_validee": "Aligner la justification sur MFC Backlog ou changer le hero.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "F-35 deliveries / F35_DELIVERIES / CAHIER_DELIVERIES / F35_DELIVERIES_Q / Record annual F-35 deliveries 2025",
+  "probleme": "Cinq KPI pour les livraisons de F-35 ; la serie trimestrielle est sans periodes, datee 2026-06-30 alors qu elle s arrete au T4-2025, et ignore le T2-2026 present ailleurs.",
+  "preuve": "F-35 deliveries serie 0, 0, 48, 62, 47, 50, 46, 48 (2024 = 110, 2025 = 191), signal : 48 F-35 livres au T4-2025, dernier 2026-06-30 ; F35_DELIVERIES_Q Q2-2026=19 ; CAHIER_DELIVERIES 46...98 = F35_DELIVERIES jusqu a FY2023 ; Record 191 = FY2025 ; F35_DELIVERIES signal : Produit phare : Avion de combat F-35.",
+  "correction_validee": "Supprimer CAHIER_DELIVERIES, Record annual et F35_DELIVERIES_Q, dater la série trimestrielle en y ajoutant le T2-2026 (19) et rédiger un signal pour F35_DELIVERIES.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Aero Backlog, MFC Backlog, RMS Backlog, Space Backlog",
+  "probleme": "Carnets par segment en retard d un trimestre sur le carnet total, alors que le hero est l un d eux.",
+  "preuve": "quatre carnets dernier 2026-03-29 (somme 186.4) ; Backlog Total Q2-2026=230.4.",
+  "correction_validee": "Ajouter le T2-2026 des quatre carnets depuis le rapport trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Aero Res op, RMS Res op, FCF (yoy)",
+  "probleme": "Variations en pourcentage calculees sur une base negative.",
+  "preuve": "Aero Res op yoy +875.5% (-98 vers 760) ; RMS Res op +354.1% (-172 vers 437) ; FCF +2044.7% (-150 vers 2917).",
+  "correction_validee": "Afficher n/a ou la variation en M$ quand la base est négative.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Capex, Flux operationnel, FCF, Marge op, % Intl CA (signaux)",
+  "probleme": "Cuisine interne et notation anglaise dans les signaux.",
+  "preuve": "trimestriel = variation des cumuls YTD ; (cumul 6 mois 3 455 M$ moins 220 M$ au T1) ; (flux op 3 235 M$ moins capex 318 M$) ; (resultat op 2 479 M$ / CA 20 063 M$) ; Ventes intl $21.3B / $75.0B total; Aeronautics 36% intl.",
+  "correction_validee": "Retirer les formules et réécrire ces signaux en français (21,3 Mds $).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "F35_BACKLOG_UNITS, F35_DELIVERIES_Q, INTL_SALES_Q",
+  "probleme": "Nom anglais egal au code, signal et description vides, un seul point.",
+  "preuve": "name_en F35_BACKLOG_UNITS ; INTL_SALES_Q Q2-2026=5875 sans texte.",
+  "correction_validee": "Donner un nom anglais, un signal et une description, ou fusionner avec les series existantes.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Record PAC-3 MSC interceptor deliveries 2025 / Targeted annual PAC-3 production rate / PAC-3 undefinitized acceleration contract",
+  "probleme": "Record de livraisons contradictoire avec la cadence citee, sigle errone et franglais dans un nom.",
+  "preuve": "Record annuel de 120 intercepteurs PAC-3 MSC livres en 2025 vs tripler la production PAC-3 de 650 a 2 000 missiles par an ; MSC au lieu de MSE ; nom : Contrat PAC-3 non definitize d acceleration.",
+  "correction_validee": "Verifier le nombre de PAC-3 MSE livres en 2025, corriger le sigle et traduire non definitise.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Peru F-16, CH-53K contract, US Army PAC-3 contract, F-35 Lot 18-19, F-35 sustainment, Venture Fund, 750th HIMARS, Cumulative F-35 delivered",
+  "probleme": "Annonces de contrats a un point presentees comme KPI ; cumul F-35 avec deux valeurs contradictoires pour la meme periode.",
+  "preuve": "F-35 Lot 18-19 contract 11 Mds $, CH-53K 10.9, sustainment 15 ; Cumulative F-35 delivered hist [1200, 1344], signal : Plus de 1 200, val=1344.",
+  "correction_validee": "Deplacer les annonces dans les evenements ; garder une seule valeur de cumul avec sa date.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification perimee : carnet et livraisons d anciens trimestres.",
+  "preuve": "Le carnet record de 186 milliards progresse de 8 % ... les livraisons chutent de 23 % ; Backlog Total Q2-2026=230.4 yoy=+38.4%.",
+  "correction_validee": "Reecrire avec le carnet de 230,4 Mds $ et les livraisons 2025 (191, record).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography / revenue_by_segment",
+  "probleme": "Libelle en anglais et casse incoherente.",
+  "preuve": "Middle East 3.8 ; Missiles And Fire Control.",
+  "correction_validee": "Écrire Moyen-Orient et Missiles and Fire Control.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline / tagline_i18n",
+  "probleme": "Slogan affiche en anglais, aucune version francaise.",
+  "preuve": "tagline: We engineer progress. ; tagline_i18n: null.",
+  "correction_validee": "Ajouter une version francaise.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 2, 3, 5",
+  "probleme": "Titres qui sont des fragments renvoyant a un contexte absent.",
+  "preuve": "si nous ou nos partenaires ne respectons pas ces lois, reglementations ou conditions ; Ces risques pourraient nous empecher de soumissionner.",
+  "correction_validee": "Reformuler en risques autonomes (conformite export et anticorruption, exclusion des appels d offres).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

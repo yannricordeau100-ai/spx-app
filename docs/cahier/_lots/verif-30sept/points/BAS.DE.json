@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Group Sales / Materials / Surface Technologies / Chemicals / Agricultural Solutions / Industrial Solutions / Nutrition & Care / EBITDA ex Special",
+  "probleme": "Huit KPI anglais perimes (2023-2024) dates 2026-08-09, doublons des series a 2025, descriptions en franglais.",
+  "preuve": "Group Sales = [68902, 65260] n=2, last_data_date 2026-08-09 ; Surface Technologies 'Catalysts + Coatings + battery materials' alors que Coatings est cede ; 'Leader mondial plastiques haute performance', 'glufosinate-ammonium business difficile', 'EBITDA en forte hausse (+44%) malgre sales en recul'.",
+  "correction_validee": "Supprimer Group Sales, Materials, Surface Technologies, Chemicals, Agricultural Solutions, Industrial Solutions, Nutrition & Care et EBITDA ex Special.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel (absent)",
+  "probleme": "Aucune serie annuelle de chiffre d affaires groupe ni de resultat net annuel sur la fiche.",
+  "preuve": "revenue_history vide ; seul CA groupe = 'Group Sales' 2024 perime ; CA_Q trimestriel existe mais pas l annuel 2018-2025.",
+  "correction_validee": "Ajouter un CA annuel 2018-2025 (2025 = 59,66 Mds €) et un resultat net annuel, avec 2024 sur base retraitee.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ZONE_CA_* / SEG_CA_SURFACE_TECH / CROISSANCE_CA_PUBLIEE",
+  "probleme": "2025 retraite (Coatings en activites abandonnees) compare a 2024 non retraite : les yoy melangent perimetre et activite.",
+  "preuve": "Somme des zones 2025 = 59,657 contre 2024 = 65,259 (-8,6 %) alors que CROISSANCE_CA_PUBLIEE 2025 = -2,9 % ; ZONE_CA_AM_NORD -11,8 %, SEG_CA_SURFACE_TECH -30,5 % sans note de perimetre.",
+  "correction_validee": "Retraiter 2024 hors Coatings ou annoter chaque serie zone et segment de la rupture de perimetre 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_INNOVATION_SALES",
+  "probleme": "Nom en 'part' avec une unite en milliards.",
+  "preuve": "'Part des ventes issues de produits recents', unit 'Mds EUR', val 11.",
+  "correction_validee": "Renommer Ventes issues de produits recents (moins de 5 ans).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PRICE_MIX / EFFET_PRIX / CAHIER_VOLUME_GROWTH / EFFET_VOLUMES",
+  "probleme": "Doublon non detecte et yoy relatifs sur des pourcentages.",
+  "preuve": "EFFET_PRIX FY2023..2025 = -10 / -5,2 / -1,7 = trois derniers points de CAHIER_PRICE_MIX ; yoy CAHIER_PRICE_MIX '-67.3%', CAHIER_VOLUME_GROWTH '-16.7%'.",
+  "correction_validee": "Supprimer EFFET_PRIX et EFFET_VOLUMES ; yoy CAHIER_PRICE_MIX +3,5 pt et CAHIER_VOLUME_GROWTH -0,3 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "summary",
+  "probleme": "Mention de document dans le bloc.",
+  "preuve": "'Le rapport 2025 fait de l augmentation du recours a l IA l un des axes...'",
+  "correction_validee": "BASF fait de l augmentation du recours a l IA l un des axes du levier strategique Accelerate.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.fr.activity",
+  "probleme": "Slogan publicitaire dans la description.",
+  "preuve": "'Elle vise a creer une chimie pour un avenir durable' (traduction du slogan 'We create chemistry for a sustainable future').",
+  "correction_validee": "Supprimer la phrase Elle vise a creer une chimie pour un avenir durable.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Effets volumes et prix trimestriels absents alors que le signal les cite et que c est l indicateur standard de la chimie.",
+  "preuve": "CA_Q signal 'volumes +7,3 %, prix +11,5 %' ; seules series annuelles EFFET_VOLUMES / EFFET_PRIX.",
+  "correction_validee": "Ajouter 'Effet volumes (trimestriel)' et 'Effet prix (trimestriel)'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline",
+  "champ": "tagline",
+  "probleme": "Tagline vide.",
+  "preuve": "tagline = ''",
+  "correction_validee": "Renseigner (ex. 'Premier chimiste mondial, integre par le Verbund').",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

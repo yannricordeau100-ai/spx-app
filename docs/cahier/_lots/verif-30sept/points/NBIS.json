@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "adj_ebitda_q, net_income_q, adj_net_loss_q, capex_q, ocf_q, cash_q, cost_rev_q, prod_dev_q, sga_q, da_q, opex_q, sbc_q, core_share_q, shares_out_q",
+  "probleme": "Quatorze signaux se limitent a repeter la valeur ('T2-2026 : 236,2 M $') sans lecture : aucun commentaire sur le retour a la perte au T2 apres le gain ClickHouse du T1, sur le capex de 5,7 Mds $ en un trimestre ou sur la remuneration en actions triplee.",
+  "preuve": "KPI net_income_q :: 'T2-2026 : -190,4 M $' ; KPI capex_q :: 'T2-2026 : 5657,4 M $' ; KPI sbc_q Q1-2026=35.3, Q2-2026=102.5 :: 'T2-2026 : 102,5 M $'",
+  "correction_validee": "Rediger un signal d'une phrase par KPI a partir de la serie.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rpo_q, deferred_rev_q, debt_nc_q, ppe_q, total_assets_q",
+  "probleme": "Cinq series de bilan arretees au 31 mars 2026 alors que le T2 2026 (30 juin) est publie sur la fiche ; le carnet contractuel (RPO), indicateur cle du secteur, est donc en retard d'un trimestre.",
+  "preuve": "KPI rpo_q | dernier 2026-03-31 | Q1-2026=33585.3 ; KPI rev_q | dernier 2026-06-30 | Q2-2026=582.3",
+  "correction_validee": "Ajouter les points du 30 juin 2026 depuis le rapport trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ARR",
+  "probleme": "Doublon annuel de la serie trimestrielle arr (memes valeurs 90 et 1 250 aux Q4), nom francais 'Revenu annuel recurrent' faux pour un run rate, nom anglais 'Arr', yoy +1288,9 % ; signal generique.",
+  "preuve": "KPI CAHIER_ARR serie: FY2024=90, FY2025=1250 ; KPI arr serie: Q4-2024=90, ..., Q4-2025=1250, Q2-2026=3000",
+  "correction_validee": "Supprimer CAHIER_ARR.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Chiffre perime : le moat cite un revenu annualise passe 'de 90 a 1 920 millions' alors que la serie arr affiche 3 000 M$ au T2 2026 ; type de moat None.",
+  "preuve": "moat: ... Le revenu annualise passe de 90 a 1 920 millions de dollars ; KPI arr Q2-2026=3000",
+  "correction_validee": "Remplacer « de 90 à 1 920 millions » par « de 90 à 3 000 millions de dollars (T2 2026) » et renseigner le type de moat.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "anti-these",
+  "probleme": "L'anti-these est ancree sur le T1 2026 ('chiffre d'affaires multiplie par 7,8 en un an' = 399/50,9) alors que la these et les KPI sont au T2 2026 (582,3/105,1 = x5,5) : les deux textes ne parlent pas du meme trimestre.",
+  "preuve": "att: 'chiffre d'affaires multiplie par 7,8 en un an' ; KPI rev_q Q2-2026=582.3 yoy=+454 %",
+  "correction_validee": "Mettre l'anti-these au T2 2026 (x5,5, perte nette de 190,4 M$).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "power_active_y, power_connected_y (indicateur sectoriel)",
+  "probleme": "Les deux series de puissance electrique ont un seul point chacune (170 MW fin 2025, 25 MW fin 2024) alors que la these cite un objectif de 5 GW sous contrat au T2 2026 : la puissance sous contrat et raccordee, premier indicateur d'un cloud IA, n'est pas suivie.",
+  "preuve": "KPI power_connected_y | dernier 2024-12-31 | n=1 | FY2024=25 ; these: 'objectif de puissance electrique sous contrat a 5 gigawatts'",
+  "correction_validee": "Creer une serie trimestrielle 'Puissance sous contrat (MW)' et 'Puissance raccordee (MW)' depuis les communiques trimestriels 2025-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "yoy (formats), arr (signal), cust_a_share",
+  "probleme": "Formats de variation heterogenes sur une meme fiche ('n. d.', 'n/d', 'n/m', 'n. s.') ; coquille 'Ce chiffre annualise le rythme' ; cust_a_share affiche '-2%' pour un recul de 2 points.",
+  "preuve": "KPI arr yoy=n. d. ; KPI rpo_q yoy=n/d ; KPI seg_ebitda_nebius yoy=n/m ; KPI cust_a_share yoy=-2%",
+  "correction_validee": "Corriger en « Ce chiffre annualise le rythme », afficher « -2 pts » pour cust_a_share et harmoniser les variations non disponibles en « n. d. ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "position_marche",
+  "champ": "position de marche 1",
+  "probleme": "Bloc vide affiche avec un nombre sans nom ni part.",
+  "preuve": "position de marche 1: None | taille 42 | part None",
+  "correction_validee": "Retirer le bloc de position de marché.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

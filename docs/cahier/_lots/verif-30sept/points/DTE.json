@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, fcf_par_salarie",
+  "probleme": "La 'trésorerie libre' annuelle est en réalité le flux opérationnel : 3.409 Mds$ en 2025 = somme exacte des OCF trimestriels, alors que le FCF trimestriel est négatif chaque trimestre (2025 : environ -1.0 Md$). Même défaut d'extraction que la dette de Realty Income.",
+  "preuve": "fcf_annuel 2025=3.409 ; ocf 2025 = 1020+709+632+1048 = 3409 ; fcf serie Q1-2025=147, Q2=-262, Q3=-590, Q4=-315",
+  "correction_validee": "Recalculer fcf_annuel comme OCF moins capex par exercice (2025 environ -1.02 Md$), recalculer fcf_par_salarie et controler les autres fiches issues de la meme extraction.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "répartition du CA",
+  "probleme": "Répartition d'avant 2021 (total 12.77 Mds$, segments 'Gas Storage and Pipelines' et 'Power and Industrial Projects' qui n'existent plus depuis la scission de DT Midstream et le renommage en DTE Vantage) ; le CA 2025 est de 15.8 Mds$ avec Energy Trading à 41 %.",
+  "preuve": "revenue_by_segment total 12.77 : Gas Storage and Pipelines 5.92 ; Power and Industrial Projects 9.55 ; revenue 2025 = 4.44+3.42+3.53+4.43",
+  "correction_validee": "Recalculer sur 2025 avec les segments actuels : Electric environ 44 %, Energy Trading environ 41 %, Gas environ 13 %, Vantage environ 4 %, avant eliminations.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "'Renewables Capacity', 'Coal Capacity', 'Electric Sales', 'Electric Customers', 'Gas Customers'",
+  "probleme": "Cinq séries annuelles sans années, lissées, contredites par les séries sourcées : renouvelable 1.7 GW contre 1 992 MW, ventes 43-44 TWh plates contre 48.5 à 44.6 TWh, clients 2.2 à 2.3 arrondis.",
+  "preuve": "Renewables Capacity serie 0.9, 1, 1.2, 1.35, 1.7 vs electric_renewable_capacity FY2025=1992 ; Electric Sales 43, 43.5, 43.8, 43.5, 44 vs ventes_et_livraisons 2021=45839, 2023=43504",
+  "correction_validee": "Retirer 'Renewables Capacity', 'Coal Capacity', 'Electric Sales', 'Electric Customers' et 'Gas Customers'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "electric_authorized_roe",
+  "probleme": "Le KPI porte le ROE demandé (10.75 %) sous le nom 'ROE autorisé', alors que le régulateur a maintenu 9.9 % (anti-thèse) ; yoy incompréhensible ; série arrêtée à Q3-2025 avec dernier 2026-06-30.",
+  "preuve": "ROE autorisé DTE Electric (demande 2025) | val=10.75 | yoy=-0.50pp vs 10.75% | serie ... Q3-2025=10.75 ; att: a maintenu le rendement à 9,9%",
+  "correction_validee": "Tracer le ROE autorise (9.9 %) avec la decision de 2026, ou renommer en 'ROE demande' et supprimer le yoy.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Doublons clients, capacité, plan capex, centres de données",
+  "probleme": "Quatre versions des clients électricité (electric_customers n=1, série trimestrielle plate 2.3 x8, CAHIER_CUSTOMER_RELIABILITY, Electric Customers), trois des clients gaz, deux du plan capex (30 Md$), deux des contrats data centers dont une série 1.4, 1.4, 1 décroissante alors qu'il s'agit d'un cumul (2.4 GW selon la thèse).",
+  "preuve": "'Electric utility customers served' serie 2.3 x8 ; electric_capex_plan val=30 et CAHIER_CAPEX_PLAN val=30 ; 'Contracted data center load' serie 1.4, 1.4, 1",
+  "correction_validee": "Garder une série par indicateur ; corriger la charge data centers en cumul 2.4 GW.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "electric_renewable_capacity.signal (hero)",
+  "probleme": "Arithmétique fausse dans le signal du hero : 1 597 + 108 = 1 705 MW, pas 1 992.",
+  "preuve": "1 992 MW éolien+solaire (1 597 MW utilité + 108 MW non-utilité) + 609 MW sous contrats",
+  "correction_validee": "Vérifier la décomposition et réécrire.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CUSTOMER_RELIABILITY",
+  "probleme": "Signal de cuisine interne ('Reprise 17 sept 2026', formulaire EIA 861, 'n'est pas couvert'), nom qui promet la fiabilité sans la fournir, série arrêtée en 2024.",
+  "preuve": ":: Reprise 17 sept 2026 : nombre de clients électricité (compteurs) déclaré à l'EIA (formulaire 861) ... La fiabilité (SAIDI/SAIFI) n'est pas couvert",
+  "correction_validee": "Renommer 'Clients electricite (compteurs)', remplacer le signal par une phrase lisible et ajouter 2025, ou retirer la serie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI à un seul point et KPI absurde",
+  "probleme": "Douze faits de conférence en KPI n=1, dont 'Trenton Channel repurposed to battery storage' avec val=2026 en unité 'année', et 'Outage duration improvement' à 90 % non vérifiable ; buybacks arrêtés en 2023 avec des zéros.",
+  "preuve": "'Trenton Channel repurposed to battery storage' | année | val=2026 ; buybacks dernier 2023-12-31 serie 55, 0, 0, 0, 0, 0, 0, 0",
+  "correction_validee": "Retirer le KPI Trenton Channel, 'Outage duration improvement' et buybacks (ou prolonger buybacks jusqu'a 2026), et deplacer les autres faits n=1 dans le recit.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RATE_CASE_OUTCOME, eps_diluted",
+  "probleme": "L'issue tarifaire 2026 (242 M$ accordés, citée dans l'anti-thèse) manque à la série qui s'arrête en 2025 avec des années absentes ; aucun Q4 dans eps_diluted.",
+  "preuve": "CAHIER_RATE_CASE_OUTCOME serie FY2022=31, FY2023=368, FY2025=217 ; att: Le régulateur a accordé 242 M$ ; eps_diluted serie Q3-2025=2.01, Q1-2026=1.19",
+  "correction_validee": "Ajouter 2026=242 et les Q4 manquants.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Pour une utility régulée, la base d'actifs régulée (rate base) et les indices de fiabilité SAIDI/SAIFI manquent alors que le moat et un KPI n=1 s'appuient dessus.",
+  "preuve": "moat: la nette amélioration de la fiabilité du réseau ; aucun KPI SAIDI ni rate base",
+  "correction_validee": "Ajouter rate base annuelle et SAIDI.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

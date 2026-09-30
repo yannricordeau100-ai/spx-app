@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "signaux de 18 KPI trimestriels",
+  "probleme": "Signaux arretes au T1-2026 alors que les series vont au T2-2026, parfois avec le sens inverse",
+  "preuve": "AUC/A signal '59,4T$ au 31/03/2026' vs val 62,6 ; AUM '2 126Md$' vs 2,226 ; Fee Rev '3 768 M$ au T1-2026' vs 4 036 ; NII 1 370 vs 1 446 ; PTOM 37,3 vs 39,8 ; EPS-D 2,24 vs 2,45 ; Dette LT '32,6 Mds$' vs 30,4 ; IWM PTI '90 M$' vs 182 ; Average deposits '318 G$' vs 314 ; Average loans 81 vs 85,6 ; NIM 'Marge 2025 a 1,33%' vs 1,45",
+  "correction_validee": "Régénérer les signaux sur le T2-2026 ou retirer les chiffres datés.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signal de 11 KPI (PTOM, BVPS, DPS, EPS-D, Dette LT, Rachats, IWM Rev, SS PTI, MWS PTI, IWM PTI, Net Mgn) + CET1",
+  "probleme": "Mentions de sources et cuisine interne dans les signaux visibles",
+  "preuve": "'; source rapport trimestriel BNY', '; source bilan consolide rapport trimestriel BNY', '; source note segments rapport trimestriel BNY', '; source tableau de capital rapport trimestriel BNY' ; CET1 : 'Non tague en rapport trimestriel (annuel uniquement)'",
+  "correction_validee": "Retirer les suffixes '; source ...' et la phrase 'Non tagué ...'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AUM/CAHIER_AUM, AUC/A/CAHIER_AUC, CET1/CET1 ratio, FTE/effectifs_annuels",
+  "probleme": "Meme indicateur en annuel et en trimestriel, avec unite bizarre",
+  "preuve": "AUM 2,226 T$ vs CAHIER_AUM 2,2 'milliers de Mds $' ; AUC/A 62,6 vs CAHIER_AUC 59,3 ; CET1 annuel 11,9 vs 'CET1 ratio' trimestriel 11,0 ; FTE 48,1 milliers vs effectifs_annuels 48 100",
+  "correction_validee": "Garder une version par indicateur (attention : CAHIER_AUM et AUC/A sont dans le bloc industrie) et remplacer 'milliers de Mds $' par 'T$'",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SS Rev.name_en, MWS Rev.name_en",
+  "probleme": "Nom de KPI contenant une date",
+  "preuve": "'Securities Services Revenue (Q1 2026)', 'Market and Wealth Services Revenue (Q1 2026)' pour des series a T2-2026",
+  "correction_validee": "Retirer '(Q1 2026)' des deux libellés.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_NET_FLOWS.yoy",
+  "probleme": "Decollecte aggravee affichee comme une hausse de +428 % (KPI du bloc industrie)",
+  "preuve": "FY2024=-7 -> FY2025=-37 Mds $, yoy='+428.6%'",
+  "correction_validee": "Afficher l'écart absolu '-30 Mds $' quand la base est négative.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NIM.yoy, Fee %.yoy",
+  "probleme": "Yoy affiche incompatible avec la serie",
+  "preuve": "NIM Q2-2025=1,27 -> Q2-2026=1,45 = +0,18 pp, affiche '+0.11pp' ; Fee % 72 -> 70,8 = -1,2 pp, affiche '-1.6pp'",
+  "correction_validee": "Recalculer : NIM +0,18 pt, Fee % -1,2 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Sale of BNY Trust Company of Canada ; signaux Average deposits, Average loans, Provision, AI solutions",
+  "probleme": "Evenement 2025 presente comme KPI ; signaux sans accents et faute",
+  "preuve": "'Cession de BNY Trust Company of Canada finalisee en mars 2025, gain avant impot de 40M$' (n=1) ; 'Depots moyens a 318 G$', 'Provision negative de 7 M$ ... risque de credit contenu' ; 'employes numeriques integres aux equipes' ecrit 'intègres'",
+  "correction_validee": "Supprimer le KPI cession, rétablir les accents, écrire 'intégrés' et aligner les signaux sur le T2-2026.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, fcf_par_salarie, dette_sur_ca, dette_par_salarie",
+  "probleme": "KPI generiques sans sens pour une banque de conservation, decredibilisants",
+  "preuve": "fcf_annuel 2022=13,7, 2024=-0,78, 2025=5,2 Mds $ ; dette_sur_ca '168,7 %' avec description 'Au-dessus de 100 %, l'entreprise doit plus que ce qu'elle vend en un an'",
+  "correction_validee": "Masquer fcf_annuel, fcf_par_salarie, dette_sur_ca et dette_par_salarie pour les financières (banques, assureurs).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "att.accroche",
+  "probleme": "Anti-these fondee sur la remuneration du CEO alors que le bloc gouvernance ne l'affiche pas",
+  "preuve": "att : 'la remuneration declaree de son CEO pour 2025 a bondi de 258%, jusqu'a 1018 fois le salaire median' ; gouvernance : 'remuneration None'",
+  "correction_validee": "Renseigner la remuneration 2025 dans la gouvernance ou verifier le chiffre avant de le garder en accroche",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

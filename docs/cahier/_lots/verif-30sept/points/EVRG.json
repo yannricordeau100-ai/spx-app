@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "capex_plan_5yr / CAHIER_CAPEX_PLAN / Five-year capital investment plan",
+  "probleme": "Triple du plan d investissement avec valeurs contradictoires",
+  "preuve": "capex_plan_5yr FY2023=12.495 ; Five-year plan (sans annees) 7.6, 9.2, 10.7, 12.5, 16.2, 17.5, 21.6 (16.2 n existe nulle part ailleurs)",
+  "correction_validee": "Garder capex_plan_5yr (hero), supprimer CAHIER_CAPEX_PLAN et 'Five-year capital investment plan'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Residential/Commercial/Industrial/Transmission/Wholesale Revenue (annuels), ventes_d_electricite_au_detail_gwh, Customers",
+  "probleme": "Sept doublons annuels des series trimestrielles, sans annees ni signal",
+  "preuve": "Residential Revenue 2198.6 = somme 2025 de rev_residential_q ; 42919 GWh = somme 2025 de mwh_retail_total_q ; Customers = customers_fy",
+  "correction_validee": "Supprimer les sept doublons annuels.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "op_margin_q, net_margin_q, gross_margin_pct_q, seg_ekc_opmargin_q, seg_emo_opmargin_q",
+  "probleme": "Variation d une marge affichee en % relatif au lieu de points",
+  "preuve": "op_margin_q yoy=+6.3% pour 25,4 vs 23,9 (soit +1,5 pt) ; net_margin_q yoy=+20.2%",
+  "correction_validee": "Afficher la variation en points (+1,5 pt etc.).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Affirme que les ventes industrielles reculent, contredit par les derniers trimestres",
+  "preuve": "mwh_industrial_q Q2-2026 +3,6 %, rev_industrial_q +6,0 % ; seul l annuel 2025 est en repli (-4,7 %)",
+  "correction_validee": "Reecrire sur les chiffres 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "stance",
+  "probleme": "Etiquette 'integrator' alors que le texte dit qu aucune activite IA n est mentionnee",
+  "preuve": "'ne mentionnent aucune activite ou positionnement lie a l intelligence artificielle'",
+  "correction_validee": "Passer la stance en 'cautious'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "buyback_q, Targeted annual O&M savings by 2025",
+  "probleme": "Series perimees : rachats arretes en 2020 (tous a zero), cible 2025 depassee",
+  "preuve": "buyback_q dernier 2020-12-31, Q4-2019 a Q4-2020 = 0 ; cible 'd ici 2025' affichee en 2026",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "peak_summer_demand_mw",
+  "probleme": "Nom 'projetee' sur une serie historique 2018-2025 : on ne sait pas si ce sont des pointes constatees ou des previsions",
+  "preuve": "'Pointe de demande estivale projetee' FY2018=10350 ... FY2025=11200",
+  "correction_validee": "Preciser (pointe constatee) ou re-sourcer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

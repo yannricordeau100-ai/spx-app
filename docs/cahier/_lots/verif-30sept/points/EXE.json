@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "proved_reserves",
+  "probleme": "Rupture d'unité : les points FY2018-FY2021 sont en millions de barils équivalent (MMBoe), les suivants en Bcfe. Un investisseur voit des réserves multipliées par 8 en 2022.",
+  "preuve": "proved_reserves FY2021=1596, FY2022=13002 ; or proved_developed FY2021=5610 + proved_undeveloped FY2021=3966 = 9576 = 1596 x 6 ; FY2020 : 4452 + 360 = 4812 = 802 x 6",
+  "correction_validee": "Remplacer FY2018-FY2021 par 8688, 9432, 4812, 9576 Bcfe.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_PRODUCTION / CAHIER_LOE_BOE",
+  "probleme": "Noms faux pour ce que mesure la série : « Production nette par jour » en Bcfe par an ; « Coût d'exploitation par baril » en $/Mcfe. Signal trompeur : le doublement 2025 vient de la fusion Southwestern, pas d'un « virage vers le gaz ». Doublons de production_total et production_cost_mcfe.",
+  "preuve": "CAHIER_PRODUCTION | Production nette par jour | Bcfe / an | FY2025=2622 (= 7,2 Bcfe/j x 365) ; CAHIER_LOE_BOE | Coût d'exploitation par baril | $ / Mcfe",
+  "correction_validee": "Renommer « Production annuelle nette (Bcfe) » et « Coût de production par Mcfe (annuel) » et réécrire le signal sur la fusion Southwestern, ou supprimer les deux doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rig_count",
+  "probleme": "Le yoy affiché contredit la série : 15 vers 12 appareils est une baisse de 20 %, pas une hausse de 22 %.",
+  "preuve": "rig_count FY2024=15, FY2025=12 | yoy=+22%",
+  "correction_validee": "Mettre yoy = −20 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Addition to S&P 500 Index / Investment grade credit rating / Southwestern Merger equity value / Credit Facility extended / Delfin LNG offtake SPA",
+  "probleme": "Événements ponctuels présentés en KPI avec des valeurs artificielles (500 pour « indice », 3 pour « agences »). Aucune série possible.",
+  "preuve": "Addition to S&P 500 Index | indice | val=500 ; Investment grade credit rating | agences | val=3",
+  "correction_validee": "Supprimer les cinq lignes et garder l'information utile dans la thèse.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "price_total_hedged",
+  "probleme": "Libellés de période incohérents : la série saute de Q4-2023 à Q1-2025, les quatre trimestres 2024 sont absents alors que tous les autres prix les ont.",
+  "preuve": "price_total_hedged serie: Q3-2023=2.79, Q4-2023=3, Q1-2025=3.69 ... | n=14",
+  "correction_validee": "Compléter 2024 (Q3-2024 et Q4-2024 sont dans les 10-Q) ou corriger les libellés.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "couverture",
+  "probleme": "Indicateur sectoriel manquant : la part de la production couverte (hedgée) pour l'année suivante, donnée clé d'un producteur de gaz que l'anti-thèse elle-même invoque via la sensibilité aux dérivés.",
+  "preuve": "Aucun KPI de taux de couverture ; operating_income signal « forte sensibilité aux dérivés de couverture »",
+  "correction_validee": "Ajouter « Production 2026 couverte (%) » depuis la présentation trimestrielle.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "kpis[38,40,42,44,46] *_opinc.signal et .description / kpis[24] capex.signal / kpis[27] buybacks.signal",
+  "probleme": "Cuisine interne et mention de document dans sept signaux visibles",
+  "preuve": "options_opinc, na_eq_opinc, futures_opinc, fx_opinc : 'Note segments du rapport trimestriel T2-2026 (colonne 3 mois), somme des segments plus corporate egale au consolide verifiee' (aussi en description) ; eu_apac_opinc : 'Note segments du rapport trimestriel T2-2026 (colonne 3 mois), base T2-2025 penalisee...' ; capex : 'derives du cumul 6 mois (52,3 M$) moins le T1' ; buybacks : 'derives du cumul 6 mois (75,3 M$) moins le T1'",
+  "correction_validee": "Remplacer chaque signal et chaque description concernés par une phrase chiffrée, par exemple « 341 M$ au T2-2026, +31 % sur un an », sans aucune mention de calcul ni de note.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[43] eu_apac_opmargin.yoy et autres marges/parts ; kpis[12] ml_options_mkt_share.signal ; kpis[56] fut_rpc.signal",
+  "probleme": "Variations de marges et de parts de marche exprimees en % relatif, avec des artefacts d'arrondi",
+  "preuve": "eu_apac_opmargin yoy +635,4 % (4,8 -> 35,3 %), net_margin +20,8 %, op_margin +12,8 %, use_mkt_share -10,5 %, geo_us_share +0,5 % alors que ml_options_mkt_share utilise 'pts' ; signal ml_options_mkt_share 'en recul de 0 point sur un an' (yoy -0,5 pt) ; signal fut_rpc 'en repli de 0% sur un an' (yoy -0,5 %)",
+  "correction_validee": "Exprimer en points toutes les variations de marges et de parts (+30,5, +8,3, +7,4, -1,1, +0,4 pt, idem pour les marges de segments), et écrire « 0,5 point » et « 0,5 % » dans les deux signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[96] Data & Access Revenue",
+  "probleme": "Doublon perime de data_vantage_rev avec valeurs contradictoires",
+  "preuve": "Serie 355, 405, 450, 490, 530 (signal vide, date 2026-06-30) alors que data_vantage_rev donne 576,6 M$ en 2024 et 635,5 M$ en 2025 (622,9 en net)",
+  "correction_validee": "Supprimer kpis[96].",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[94] SPX Options Volume / kpis[95] 0DTE Options Mix / kpis[97] Exchanges Operated",
+  "probleme": "KPI annuels sans signal, sans periodes, dates 2026-06-30, chiffres ronds non sources",
+  "preuve": "SPX Options Volume 575, 720, 790, 815, 940 M contrats ; 0DTE 12, 22, 35, 43, 48 % ; Exchanges Operated 25, 26, 27, 27, 27 ; signal et description vides pour les trois",
+  "correction_validee": "Dater les points, sourcer et rediger un signal, ou supprimer (le volume SPX se deduit de index_options_adv)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[86] EuroCCP first-half revenue growth / kpis[81] U.S. equities record quarterly ADV / kpis[82] U.S. off-exchange trading share record",
+  "probleme": "Faits anciens (2020-2021) presentes comme KPI courants dates 2026-05-11",
+  "preuve": "EuroCCP a ete renommee Cboe Clear Europe en 2022, le '+60 % au premier semestre' est un jalon 2021 ; 'record trimestriel ... tire par le trading retail (+82 % sur un an)' correspond au T1-2021 alors que use_adv est a 1,9 Md au T2-2026 (-5 %) ; '43 % contre 36 % un an plus tot' sans trimestre identifiable",
+  "correction_validee": "Supprimer ces trois points ou les dater dans le bloc evenements",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[91] NA Equities Revenue.signal / kpis[92] Europe & AP Revenue / kpis[93] Global FX Revenue",
+  "probleme": "Signaux telegraphiques sans accents avec jargon anglais",
+  "preuve": "'Segment stable ~17% du CA, expose au volume des marches actions US et flux tape plan' ; 'Revenus segment Equities Amerique du Nord' ; description 'Inclut transaction fees, market data US tape plans, listings'",
+  "correction_validee": "Rétablir les accents et réécrire en français courant, par exemple « plans de données consolidées », « volume quotidien notionnel » et « règlements ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.summary / evidence",
+  "probleme": "Gabarit avec sous-secteur en anglais et cuisine interne",
+  "preuve": "'Cboe Global Markets, Inc. mentionne peu l'IA dans ses communications officielles (Financial Exchanges).' ; evidence 'earnings calls disponibles localement', 'Mettrik AI reevaluera...'",
+  "correction_validee": "Retirer la parenthese et les phrases internes, rediger une phrase sur l'usage reel",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment.slices[].name / revenue_by_geography.slices[].name",
+  "probleme": "Libelles en anglais",
+  "preuve": "'Transaction And Clearing Fees', 'Access And Capacity Fees', 'Market Data Fees', 'Regulatory Fees', 'Other Revenue' ; geographie 'U.S.', 'Non-U.S.'",
+  "correction_validee": "Frais de transaction et de compensation, Frais d'accès et de capacité, Données de marché, Frais réglementaires, Autres ; États-Unis, Hors États-Unis.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description.simple.fr",
+  "probleme": "Anglicismes et erreur de fait",
+  "preuve": "'les ETF listings', 'market makers, hedge funds ... brokers retail' ; edge 'franchise exclusive sur les options VIX et SPX, indices de volatilite de reference mondiaux' alors que le SPX n'est pas un indice de volatilite",
+  "correction_validee": "Reecrire : cotations d'ETF, teneurs de marche, fonds speculatifs, courtiers particuliers ; 'options sur le S&P 500 et sur l'indice de volatilite VIX'",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

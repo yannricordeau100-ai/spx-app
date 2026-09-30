@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CR / CAHIER_COMBINED_RATIO / ratio_combine_reassurance_dommages_ifrs_ / Combined Ratio",
+  "probleme": "Le même ratio combiné dommages apparaît sous quatre KPI, avec une valeur 2022 contradictoire",
+  "preuve": "CR FY2022=99.8 contre CAHIER_COMBINED_RATIO FY2022=94.5 ; les deux donnent 84 en 2025 ; la série semestrielle IFRS 17 et l'ancien 'Combined Ratio' (94 ; 86.6) répètent les mêmes points",
+  "correction_validee": "Garder CR et la série semestrielle, supprimer CAHIER_COMBINED_RATIO et 'Combined Ratio', et trancher la valeur 2022 à la source avant de corriger CR.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Gross Premium, EBIT, Net Income, Combined Ratio, EBIT Margin, Total Dividend",
+  "probleme": "Six anciens KPI de deux points sans période, datés du 2026-08-09 alors qu'ils portent sur 2024, en doublon de RN_Q, EBIT_Q, DIV et BPA, avec des textes en allemand et en anglais",
+  "preuve": "'Schaden + Personen Rückversicherung', 'EPS €19.31', '+68.3% YoY', 'Cible Groupe: >5%' ; Net Income 2328.7 = exercice 2024, déjà couvert par RN_Q",
+  "correction_validee": "Supprimer les six KPI Gross Premium, EBIT, Net Income, Combined Ratio, EBIT Margin et Total Dividend.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RN_Q.signal",
+  "probleme": "Le signal qualifie de record un trimestre qui ne l'est pas",
+  "preuve": "'après un premier trimestre 2026 record à 710,6 M€' alors que Q2-2025=833,5 M€ dans la même série",
+  "correction_validee": "Remplacer 'premier trimestre 2026 record' par 'meilleur premier trimestre publié'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CSM.signal",
+  "probleme": "Le signal annonce un plus haut historique contredit par la série",
+  "preuve": "'8 813,0 M€ fin juin 2026 ... plus haut niveau publié' alors que Q2-2024=9 273,9 et Q1-2024=8 868,2",
+  "correction_validee": "Retirer 'plus haut niveau publié' du signal de CSM.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "niveau / justification_mettrik",
+  "probleme": "Moat noté 'Aucun' avec une justification qui ne parle pas d'avantage concurrentiel, en contradiction avec la thèse et les chiffres",
+  "preuve": "Justification : 'Le résultat net trimestriel recule de plus de 16 pour cent...' ; la thèse cite un coût du flottant négatif cinq ans de suite, ROE 21,4 %, ratio combiné 84 % ; troisième réassureur mondial (part 6,9 % selon position de marché)",
+  "correction_validee": "Réécrire la justification du moat sur la taille, la notation, la diversification et le coût du capital, et revoir le niveau en conséquence.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_GWP_MIX",
+  "probleme": "Le nom promet une ventilation par branche et par type de traité mais la série est un montant unique, en euros bruts, arrêté en 2022, qui ne correspond pas aux primes totales",
+  "preuve": "FY2022=24 242 300 000 EUR alors que GWP_Q donne 33 275,5 M€ de primes brutes 2022 ; unité 'EUR' non mise à l'échelle",
+  "correction_validee": "Renommer en 'Primes brutes émises dommages (IFRS 4)' en M€ ou supprimer (doublon partiel de GWP_Q, série close)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RENEWAL_PRICE",
+  "probleme": "Variation calculée en pourcentage d'un pourcentage, et série lacunaire",
+  "preuve": "yoy=-151.2% pour un passage de 4,1 à -2,1 ; points 2020, 2022, 2025 seulement",
+  "correction_validee": "Afficher la variation en points (-6,2 pts) et compléter 2021, 2023 et 2024 uniquement si la source les donne.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PML_RETURN",
+  "probleme": "Perte maximale probable sans période de retour ni péril précisés, en euros bruts, trou en 2023",
+  "preuve": "Nom 'Perte maximale probable par période de retour', description 'à horizon de retour donné', série FY2019..FY2025 sans 2023, valeurs 2 607 000 000",
+  "correction_validee": "Préciser le scénario (par exemple 1 an sur 200, ouragan Atlantique Nord), passer en M€, compléter 2023",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EBIT_Q.signal",
+  "probleme": "La marge EBIT citée n'est pas recalculable avec les revenus affichés sur la fiche",
+  "preuve": "'marge EBIT de 17,3% sur le semestre contre 14,9%' ; EBIT S1 2026 1 932,4 / revenus bruts REV_Q 12 918,5 = 15,0 % (S1 2025 : 13,2 %)",
+  "correction_validee": "Préciser la base (revenus nets de réassurance) ou citer une marge recalculable",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque les indicateurs clés d'un réassureur : charge des sinistres majeurs rapportée au budget, et marge CSM de la nouvelle affaire, pourtant citée dans l'anti-thèse",
+  "preuve": "L'anti-thèse s'appuie sur 'nouvelle affaire CSM ... reculé de 13,3% à 1 728,9 M€', mais aucun KPI ne porte cette série",
+  "correction_validee": "Ajouter 'Sinistres majeurs / budget' et 'CSM nouvelle affaire dommages' en série semestrielle",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "clients / tagline",
+  "champ": "clients_concentration.top, tagline",
+  "probleme": "Bloc clients vide et accroche vide",
+  "preuve": "clients: n=1, pct None, clients [] ; tagline vide",
+  "correction_validee": "Masquer le bloc clients (non pertinent pour un réassureur) et rédiger une accroche",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel (et ca_par_salarie, dette_sur_ca)",
+  "probleme": "Le chiffre d'affaires annuel est faux d'un facteur 5 ; les ratios dérivés sont absurdes.",
+  "preuve": "2025 = 1,562 Mds $ alors que la somme de TotalRevenue 2025 = 1,92+1,938+2,134+2,174 = 8,166 Mds $ ; ca_par_salarie 76,5 k$ au lieu d'environ 400 k$.",
+  "correction_validee": "Remplacer par le produit net bancaire annuel (somme de TotalRevenue) et recalculer ca_par_salarie et dette_sur_ca.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Margin / Op Income",
+  "probleme": "Une marge opérationnelle supérieure à 100 % est impossible, et cette notion ne s'applique pas à une banque.",
+  "preuve": "Op Margin : 208,98, 170,75, 163,5, 172,46, 135,81 % ; aucune période ; descriptions vides.",
+  "correction_validee": "Supprimer Op Margin et Op Income.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SegCRB* / SegCB* / SegTO* (séries segmentaires)",
+  "probleme": "Séries corrompues : T2 et T3 en cumul semestriel ou sur 9 mois, T4 négatifs ; les variations sur un an sont donc fausses. Les descriptions exposent la méthode interne.",
+  "preuve": "SegCRBNII : T1 2024 0,956, T2 1,963, T3 3,013, T4 -1,862 Mds $ ; T2 2026 1,458 contre T2 2025 1,957 (cumul) = « -25.5% » ; SegCBNII T4 2025 = -953 M$ ; « estimé par différence, car Huntington ne publie ce segment qu'en cumul six mois ».",
+  "correction_validee": "Isoler chaque trimestre pour les seules séries de flux (T2 = S1 - T1, T3 = 9M - S1, T4 = année - 9M) et réécrire les descriptions sans méthode.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "revenue_by_segment",
+  "probleme": "Segmentation obsolète, antérieure à la réorganisation en Consumer & Regional Banking et Commercial Banking, sans exercice, et basée sur un trimestre ancien.",
+  "preuve": "« Consumer Business Banking 55.3 ; Vehicle Finance 0.7 ; RBHPCG 12 », total 1 889 M$ (un trimestre récent vaut 2 837 M$) ; prêts auto 15,5 Mds $ pour 0,7 % des revenus.",
+  "correction_validee": "Refaire la répartition sur l'exercice 2025 avec Consumer & Regional Banking, Commercial Banking et Treasury/Other.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Provision for credit losses / Return on average tangible common shareholders' equity",
+  "probleme": "Un doublon contradictoire, et deux séries datées du T2 2026 dont le texte dit T1 2026.",
+  "preuve": "« Provision pour pertes sur crédits » val=158 « au T1-2026 » alors que ProvisionCredit T1 2026 = 250 et T2 2026 = 125 ; ROTCE 11,6 % « au T1-2026 » mais dernier 2026-06-30, sans périodes.",
+  "correction_validee": "Supprimer le doublon de provision, dater la série ROTCE trimestre par trimestre et ajouter le T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Average total deposits",
+  "probleme": "La variation sur un an est impossible à partir de la série, la valeur est antérieure à Cadence, et « partenariats » désigne à tort des acquisitions.",
+  "preuve": "série 161,6, 163,429, 164,812 avec yoy « +27% » ; dépôts de fin de période T1 2026 = 223,5 Mds $ ; « gonflée par les partenariats Cadence et Veritex ».",
+  "correction_validee": "Recharger les dépôts moyens trimestriels datés et remplacer « partenariats » par « acquisitions ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total Loans / Branches (annuels)",
+  "probleme": "Doublons arrêtés en 2024 qui contredisent la fiche.",
+  "preuve": "Total Loans 126 Mds $ (2024) contre TotalLoans 189,4 Mds $ ; Branches 970 (2024) contre « près de 1 400 agences » ; description « Croissance modeste, mix. ».",
+  "correction_validee": "Supprimer Total Loans ; mettre Branches à jour (environ 1 400 après Cadence).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NIM",
+  "probleme": "Tous les quatrièmes trimestres manquent depuis 2021 dans la série de marge d'intérêt, indicateur central d'une banque.",
+  "preuve": "périodes : ... Q3-2021, Q1-2022, ... Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 (aucun T4).",
+  "correction_validee": "Ajouter les T4 depuis les communiqués annuels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ncos_percent_consumer / nim_consumer_regional / aum_consumer / nim_commercial",
+  "probleme": "Une description contredit la série, et les séries « annual » n'ont pas de périodes tout en doublant des KPI existants.",
+  "preuve": "ncos_percent_consumer : 0,35, 0,31, 0,24 (yoy +12,9 %) et « Amélioration du ratio de pertes de crédit » ; aum_consumer 37,5 = WealthAUM T4 2025, daté 2026-06-30.",
+  "correction_validee": "Supprimer les quatre séries annuelles sans période au profit des KPI trimestriels existants.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NPARatio.signal",
+  "probleme": "Le message de stabilité est périmé : le ratio trimestriel dépasse déjà le pic de 2020 cité.",
+  "preuve": "« stables sur un an et nettement sous le pic post-COVID de 0,69 % en 2020 » ; NALsRatio T2 2026 = 0,84 %, NALs +88,7 % sur un an.",
+  "correction_validee": "Ajouter 2026 ou préciser que la dégradation date de 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PaymentsRev / InsuranceRev / LeasingRev / OtherNonIntInc / TBVPS / Capex / unités",
+  "probleme": "Cuisine interne et mentions de documents dans les descriptions ; unités et libellés en anglais.",
+  "preuve": "« Ligne de la Table 5 - Noninterest Income du rapport trimestriel » (4 KPI) ; « dérivée du bilan consolidé du rapport trimestriel » ; « ('Purchases of premises and equipment') » ; unités « $B eop », « $M », « USD_bn », « USD_m » ; « Revenus mortgage banking ».",
+  "correction_validee": "Réécrire les descriptions sans référence documentaire, unités en « Mds $ » et « M$ », « Revenus de crédit hypothécaire ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA / risques / kpis",
+  "champ": "ai_positioning, risque 6, AvgCommLoans",
+  "probleme": "Texte IA contradictoire contenant de la cuisine interne, risque périmé, nom de KPI faux.",
+  "preuve": "stance « integrator » mais « mentionne peu l'IA ... (Banks) » ; « intégration TCF » (fusion de 2021) alors que Veritex et Cadence sont les intégrations en cours ; « Croissance prêts commerciaux moyens » pour un encours en Mds $ (90,4).",
+  "correction_validee": "Réécrire le positionnement IA, remplacer TCF par Cadence/Veritex, renommer « Encours moyen des prêts commerciaux et industriels ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

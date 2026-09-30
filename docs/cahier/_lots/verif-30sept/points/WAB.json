@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "freight_assets / transit_assets",
+  "probleme": "Actifs de segment négatifs aux T4 : un poste de bilan a été traité comme un flux (annuel moins neuf mois).",
+  "preuve": "freight_assets Q4-2024=-26754, Q4-2025=-26036 ; transit_assets Q4-2024=-8096, Q4-2025=-8660",
+  "correction_validee": "Remplacer chaque T4 par le solde publié en fin d'exercice (Q4-2025 Freight = 16 049, Transit = 3 853 selon la même logique).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / kpis",
+  "champ": "these, CAHIER_SERVICES_PARTS_MIX, freight_aftermarket_pct, freight_services_rev",
+  "probleme": "La thèse repose sur les pièces et révisions de la base installée, mais la fiche montre les services Freight en baisse continue et deux mesures de récurrence contradictoires (60 % stable contre 33 % en chute).",
+  "preuve": "freight_services_rev 917 (Q3-2024) -> 748 ; freight_aftermarket_pct 47,5 -> 33,3 ; CAHIER_SERVICES_PARTS_MIX 60 % « stable depuis 2020 »",
+  "correction_validee": "Préciser le périmètre de chaque mesure (groupe ou Freight), expliquer la baisse ou le reclassement des services Freight et nuancer la thèse.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat noté nul alors que son propre texte invoque la lenteur des changements de fournisseur et que la thèse repose sur une base installée captive.",
+  "preuve": "moat None ; « conforte ... la lenteur des changements de fournisseur » ; these « base installée* de près de 24 600 locomotives »",
+  "correction_validee": "Qualifier le moat (base installée, coûts de changement, homologations) ou revoir la thèse.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "North American railcar build",
+  "probleme": "La valeur affichée ne correspond pas au dernier point de la série, et la série n'a pas de périodes.",
+  "preuve": "val=31000, serie : 58000, 40000, 30000, 45000, 41000, 31000, 24000 ; yoy=-24 %",
+  "correction_validee": "Dater chaque point et afficher la dernière valeur réelle (ou la prévision, identifiée comme telle).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "tax_expense / Capital deployed on acquisitions since 2020",
+  "probleme": "Le signal fiscal mentionne un document source et un chiffre différent de la série. Une description contient de l'anglais.",
+  "preuve": "« Charge d'impôt de 121 M$ ... selon le commentaire de gestion du rapport trimestriel » vs val=122 ; « Plus de 4,5 Md$ investis en acquisitions bolt-on depuis 2020, ahead of pro forma »",
+  "correction_validee": "Aligner le signal fiscal sur 122 M$ sans mention de source et supprimer « ahead of pro forma ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "manquant",
+  "probleme": "Pas de prise de commandes trimestrielle ni de ratio commandes sur facturation, ni de livraisons de locomotives (en unités) : ce sont les KPI de base du ferroviaire.",
+  "preuve": "new_orders uniquement annuel (n=4) ; aucun KPI d'unités livrées",
+  "correction_validee": "Ajouter les commandes trimestrielles (dérivables de l'évolution du carnet et des ventes) et les livraisons de locomotives.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition / entete / att",
+  "champ": "revenue_by_geography, subsector, att",
+  "probleme": "Libellés en anglais ou en majuscules dans la répartition et le sous-secteur. L'anti-thèse ne cite que deux acquisitions et oublie la plus grosse (Inspection Technologies, 1,8 Md $).",
+  "preuve": "« INDIA », « ITALY », « Other Europe », « Kazakhstan, Russia and CIS » ; « Rail Transportation Equipment » ; att « deux acquisitions coup sur coup (Frauscher puis Dellner Couplers) »",
+  "correction_validee": "Libellés en français ; citer les trois acquisitions dans l'anti-thèse.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

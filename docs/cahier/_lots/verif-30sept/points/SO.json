@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "La repartition ne couvre que la filiale gaz : l electricite (l essentiel du groupe) est absente",
+  "preuve": "'Gas Distribution Operations 76.8 ; Gas Marketing Services 20.3 ; Wholesale Gas Services 1.4 ; Gas Midstream Operations 1.8', valeur 1,342 Mds ; Georgia Power Rev 12 631 et Alabama Power Rev 8 235 M$",
+  "correction_validee": "Refaire la repartition par segment du groupe (electricite regulee, Southern Power, gaz).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux AP_retail_rev, SCG_gas_rev, SO_op_income, SO_ocf, SO_lt_debt",
+  "probleme": "Erreurs d echelle x1000 dans les signaux (M$ au lieu de Mds $)",
+  "preuve": "'1,71 M$' (serie 1710), 'T1-2026 a 2,19 M$' (2191), '1,776 M$' (1776), '3,05 M$ ... 4,28 M$' (3054), 'Dette long terme 71,87 M$' (71869)",
+  "correction_validee": "Ecrire 1,71 Md$, 2,19 Mds $, 1,78 Md$, 3,05 et 4,28 Mds $, 71,87 Mds $.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux SO_op_income, SO_eps_diluted, SO_ocf, SO_op_margin, SO_net_margin, SO_fcf, SO_kwh_*, SO_cust_reg_total",
+  "probleme": "Cuisine interne et sources dans les signaux",
+  "preuve": "'Q4 derive FY-9M', 'T2/T3/T4 derives par difference de cumuls YTD', 'derive resultat op / CA', 'derive OCF moins capex', '(Q1 2026 ER)', '(ER Q1 2026)'",
+  "correction_validee": "Retirer ces mentions de methode et de source des signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SO_kwh_retail, SO_kwh_res, SO_kwh_com, SO_kwh_ind, SO_kwh_whs, SO_cust_reg_total",
+  "probleme": "Valeur du T2-2026 mais variation et signal du T1-2026",
+  "preuve": "SO_kwh_res 11,388 yoy -4,1 % alors que 11,388/11,6 = -1,8 % ; SO_kwh_whs +12,9 % vs +8,9 % ; SO_kwh_ind +1,5 % vs -0,1 % ; signaux 'Q1 2026' ; SO_cust_reg_total T2 = 9000 (arrondi) et signal '9,037 milliers a fin mars 2026'",
+  "correction_validee": "Recalculer les yoy et reecrire les signaux sur le T2",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GP_retail_rev.signal (hero), SO_seg_ni_sp.signal",
+  "probleme": "Signaux contredits par la serie",
+  "preuve": "Hero : 'Croissance portee par la mise en tarifs de Vogtle' avec yoy -0,4 % (2753 vs 2765) ; SO_seg_ni_sp 'charge comptable ponctuelle' alors que la serie baisse sur 4 trimestres : 87, 51, 3, -16, 4, -25",
+  "correction_validee": "Reecrire les deux signaux",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Retail Electric, Wholesale Revenues, Rate Base, Renewables Capacity, Electric Customers, Natural Gas Customers, Generation Capacity",
+  "probleme": "Bloc d indicateurs sans periodes ni signal, aux series anormalement regulieres, et chiffres incompatibles avec le reste de la fiche",
+  "preuve": "Renewables 4.8, 5.5, 6.5, 7.5, 8.5 ; gaz 4.32, 4.34, 4.36, 4.38, 4.40 ; 'Retail Electric' 7136 M$ decrit comme GP+AP+MP alors que 2753+1710+283 = 4746 au T2-2026 ; Wholesale Revenues 'sales to municipalities + cooperatives'",
+  "correction_validee": "Verifier la source du bloc, supprimer ce qui n est pas sourcable (Retail Electric, Wholesale Revenues, Renewables) et dater le reste.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SP_wholesale_rev / Southern Power Rev ; CAHIER_CAPEX_PLAN / Capital expenditure plan 2026-2030 ; SO_kwh_whs / Total wholesale kilowatt-hour sales ; SO_large_load_gw / Data center load contracted since 2023",
+  "probleme": "Doublons, parfois avec des chiffres ou unites differents",
+  "preuve": "2198 et 2198 ; 78,1 et 78,1 ('contre 45,2 Md USD estimes precedemment' alors que le plan precedent FY2024 = 59,6) ; 13,6 TWh et 13 592 M kWh ; 11 GW et 9 GW",
+  "correction_validee": "Garder SP_wholesale_rev, CAHIER_CAPEX_PLAN, SO_kwh_whs et SO_large_load_gw, supprimer les doublons, et comparer 78,1 au plan precedent de 59,6 Mds.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Plant Vogtle Unit 3 construction completion, PowerSecure microgrid energy (winter storm Uri)",
+  "probleme": "Indicateurs perimes : Vogtle 3 est en service depuis juillet 2023, la tempete Uri date de fevrier 2021",
+  "preuve": "Vogtle 3 val 94 % avec signal 'desormais acheve et en service' ; GP_nuclear_pct 'Vogtle Units 3&4 pleinement en service (jul 2023 / avr 2024)'",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SO_TOTAL_GEN, CAHIER_ALLOWED_EARNED_ROE, CAHIER_SAIDI_SAIFI, CAHIER_CUSTOMER_LOAD_GROWTH",
+  "probleme": "Noms qui ne correspondent pas a la serie et variation en % sur un pourcentage",
+  "preuve": "'Production d electricite en MWh' unite milliards de kWh ; 'Rendement autorise et rendement realise' une seule serie 10,5 ; 'Duree et frequence' unite minutes (SAIDI seul), arretee 2024 ; load growth yoy +112,5 % (1,7 vs 0,8)",
+  "correction_validee": "Renommer 'Production d electricite', 'ROE autorise', 'Duree moyenne des coupures' et afficher +0,9 pt pour la croissance de la demande.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks",
+  "champ": "risks[0]",
+  "probleme": "Risque de modele bancaire hors sujet pour une compagnie d electricite, avec une citation sans rapport",
+  "preuve": "'Qualite du portefeuille de credit : La qualite du credit du portefeuille est surveillee.' cite 'These transactions also involve risks, including that they may not result in an increase in income...'",
+  "correction_validee": "Remplacer par un risque reel (regulation tarifaire, gel des tarifs jusqu en 2028, financement du plan 78,1 Mds)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat / kpis",
+  "champ": "moat.justification ; indicateur manquant",
+  "probleme": "Moat 'None / stable' generique pour un monopole regule, et il manque l indicateur de credit central pour un investisseur (FFO / dette) alors que l anti-these porte sur le financement",
+  "preuve": "'Chiffre d affaires en hausse de 11 % ... recuperation des couts reste incertaine' ; 9 M de clients, ROE autorise 10,5 %, base tarifaire 98 Mds ; att 'dividendes, investissements et echeances de dette depasseront ses flux d exploitation'",
+  "correction_validee": "Rediger le moat (monopole territorial regule) et ajouter FFO / dette et le BPA ajuste",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

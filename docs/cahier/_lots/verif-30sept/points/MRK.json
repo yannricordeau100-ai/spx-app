@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Sales ; Cost of sales ; Selling, general and administrative ; Research and development",
+  "probleme": "Quatre series brutes en anglais avec descriptions de modele, valeurs cumulees melangees aux trimestrielles, ordre inverse et unite fausse.",
+  "preuve": "Sales serie « Q2 2024=45.453, Q3 2024=14.487, Q4 2024=29.522 » en M $ (cumuls semestriels/9 mois en Mds meles aux trimestres), description « Sales = 60115.0 M $, nature conjoncturel » ; Research and development serie 30531, 17938, 15789 avec val=30 531 alors que la R&D 2025 = 15,8 Mds (ordre 2023->2025 inverse), description « nature cyclique ».",
+  "correction_validee": "Retirer Sales, Cost of sales, Selling, general and administrative et Research and development.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Keytruda Sales ; Winrevair Sales ; Pipeline Phase 3 ; Vaccines Revenue ; FY26 Guidance Revenue Mid",
+  "probleme": "Cinq series annuelles sans periode, perimees ou contredites par les series sourcees.",
+  "preuve": "Keytruda Sales val=29,5 (2024) alors que CAHIER_BRAND_SALES_BRIDGE FY2025=31 641 ; Winrevair Sales 0, 0, 0, 0, 0,42 alors que 2025 = 1,44 Md (somme trimestrielle) ; Pipeline Phase 3 15, 17, 19, 20, 23 contre PIPELINE_PHASE3 8, 9, 14, 16, 19 ; Vaccines Revenue dernier point 11 en hausse mais yoy=-9 % ; FY26 Guidance serie 60.1, 64.2, 65, 66.4 sans periode, signal en franglais recopie en description.",
+  "correction_validee": "Retirer les cinq séries.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Gardasil Revenue ; Gardasil / Gardasil 9 sales (vs Gardasil rev)",
+  "probleme": "Gardasil present trois fois, deux versions contredisent la serie sourcee.",
+  "preuve": "Gardasil / Gardasil 9 sales serie 1.5, 2, 2.2, 1.1, 1, 1.1 alors que Gardasil rev T3-2024=2,306, T4-2024=1,55, T1-2025=1,327, T2-2025=1,126 ; Gardasil Revenue unite « Mds $ (Q1) » type year, signal « Désaide majeur » recopie en description.",
+  "correction_validee": "Retirer Gardasil Revenue et Gardasil / Gardasil 9 sales, garder Gardasil rev.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BRAND_SALES_BRIDGE",
+  "probleme": "Nom faux : la serie est le CA annuel de Keytruda, pas un pont de ventes par marque.",
+  "preuve": "FY2025=31 641 M$ = 7,205+7,956+8,142+8,338 Mds (Keytruda rev 2025) ; nom « Ventes par marque et décomposition de la croissance ».",
+  "correction_validee": "Renommer en « Chiffre d'affaires annuel Keytruda ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / att",
+  "champ": "Verona Pharma acquisition vs EPS dilue.signal / att",
+  "probleme": "Date de cloture de l acquisition Verona incoherente entre les blocs.",
+  "preuve": "KPI Verona Pharma acquisition : « Rachat majeur en octobre 2025 » ; EPS dilue T1-2026 : « plombé par les charges de R&D acquise, dont Verona Pharma » ; att : « 16 Mds $ en acquisitions au S1 2026 » ; R&D T4-2025 = 3,886 Mds (pas de charge), T1-2026 = 12,592 Mds.",
+  "correction_validee": "Verifier la date de cloture et aligner les trois textes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_GROSS_TO_NET",
+  "probleme": "Chute de 25 % en un an sur un ecart prix catalogue / prix net, invraisemblable pour un groupe sous pression tarifaire croissante, avec un signal qui rationalise le chiffre.",
+  "preuve": "serie FY2023=12,5, FY2024=13,3, FY2025=10 ; signal « moindre pression des rabais et remises ».",
+  "correction_validee": "Verifier le point 2025 a la source ; retirer si non confirme.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "resume",
+  "probleme": "Chiffres du moat en decalage avec le T2-2026.",
+  "preuve": "« Le traitement phare gagne encore 8 % » alors que Keytruda rev yoy T2-2026 = +5,2 % ; « le vaccin historique recule » alors que Gardasil rev yoy T2-2026 = +3,8 %.",
+  "correction_validee": "Reecrire sur le T2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these / kpis",
+  "champ": "typos et accents",
+  "probleme": "Fautes visibles.",
+  "preuve": "these : « ce dossier-là ne se dupliqué pas » ; signaux sans accents : « Reponse strategique a la falaise », « dispensees », « inhale first-in-class », « pole respiratoire » ; Lagevrio signal « -95% » contre yoy -94,0 % ; PIPELINE_PHASE3 yoy « +18,8% » avec virgule ; CAHIER_LOE_EXPOSURE yoy +6,5 % pour 46 -> 49 (points).",
+  "correction_validee": "Écrire « ne se duplique pas », rétablir les accents (Réponse stratégique à la falaise, dispensées, inhalé, pôle) et exprimer le yoy de CAHIER_LOE_EXPOSURE en points (+3 points).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI n=1 (20+ growth drivers 70 Mds, MK1406 peak 5 Mds, cost program 3 Mds, Phase III 80, acquisitions, upfront payments, Koselugo)",
+  "probleme": "Onze entrees a un seul point, dont des potentiels commerciaux prospectifs presentes comme des KPI.",
+  "preuve": "« Commercial opportunity from 20+ new growth drivers by mid-2030s » val=70 Mds n=1 ; « MK1406 peak revenue potential » val=5 Mds n=1.",
+  "correction_validee": "Deplacer en evenements ou stories ; retirer les potentiels prospectifs.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cardiometabolic rev",
+  "probleme": "Trou dans la serie.",
+  "preuve": "« Q3-2024=0.805, Q1-2025=1.25 » (T4-2024 absent), n=7.",
+  "correction_validee": "Ajouter le T4-2024.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

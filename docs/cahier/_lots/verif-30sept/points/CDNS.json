@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi_industrie",
+  "champ": "kpi_industrie_shorts",
+  "probleme": "Le bloc industrie liste deux fois le même KPI et un KPI arrêté en 2022.",
+  "preuve": "kpi_industrie_shorts = [recurring_rev_pct, CAHIER_RPO_CRPO, recurring_rev_pct] ; CAHIER_RPO_CRPO dernier point FY2022 = 5,8 alors que rpo_backlog va à 8,1 au T2-2026.",
+  "correction_validee": "kpi_industrie_shorts = [recurring_rev_pct, rpo_backlog, crpo_12m].",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RPO_CRPO",
+  "probleme": "Série arrêtée fin 2022 et nom qui promet deux mesures (totales et à moins de douze mois) pour une seule série.",
+  "preuve": "history FY2018 à FY2022 (2,9 à 5,8) ; rpo_backlog contient Q4-2023 = 6,0, Q4-2024 = 6,8, Q4-2025 = 7,8.",
+  "correction_validee": "Ajouter FY2023 = 6,0 ; FY2024 = 6,8 ; FY2025 = 7,8 Mds $ et renommer en Obligations de prestation restantes, total.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Remaining performance obligations (next 12 months)",
+  "probleme": "Doublon de crpo_12m avec une valeur différente et une date fausse.",
+  "preuve": "val 4,0 daté 2026-09-03, dernier point = T1-2026 ; crpo_12m T2-2026 = 4,2 ; signal : monte a 4,0 Md$ au Q1-2026.",
+  "correction_validee": "Supprimer ce KPI et garder crpo_12m.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "non_gaap_op_margin.signal / non_gaap_eps.signal / recurring_rev_pct",
+  "probleme": "Signaux d'un trimestre de retard sur la valeur affichée, dates de période fausses, trou dans la série.",
+  "preuve": "non_gaap_op_margin val 45,5 (T2-2026) mais signal : Marge non-GAAP Q1-2026 à 44.7 % ; non_gaap_eps val 2,11 mais signal : BPA non-GAAP Q1-2026 à 1.96$ ; les trois KPI sont datés 2026-09-03 au lieu de 2026-06-30 ; recurring_rev_pct passe de Q4-2025 à Q2-2026 sans Q1-2026.",
+  "correction_validee": "Signaux : marge non-GAAP de 45,5 % au T2-2026 contre 42,8 % un an plus tôt ; BPA non-GAAP de 2,11 $ au T2-2026, +24,8 % sur un an. Dater les trois KPI 2026-06-30, et ne combler le trou Q1-2026 que depuis la source.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Prod & Maint Rev / Services Rev / Prod % of Rev / Services % of Rev / Net Margin",
+  "probleme": "Cinq KPI hérités sans signal ni description, doublons de données déjà présentes, avec un yoy faux.",
+  "preuve": "Prod & Maint Rev (3,34 à 4,822 Mds) = Product & Maintenance Revenue ; Prod % / Services % (91 / 9) = revenue_by_segment ; Net Margin annuel doublon de net_margin trimestriel avec yoy -7,9 pts alors que 22,73 → 20,94 = -1,8 pt ; tous datés 2026-09-03.",
+  "correction_validee": "Supprimer les cinq KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Hexagon reverse termination fee",
+  "probleme": "KPI périmé : l'indemnité de rupture est présentée comme un risque futur alors que la fiche indique partout l'acquisition réalisée.",
+  "preuve": "Signal : Montant à verser si l'opération échoue faute d'autorisations réglementaires d'ici mars 2027 ; anti-thèse : 2,1 Mds $ payés cash ; lt_debt : trésorerie ramenée à 1 440 M$ qui a absorbé le rachat d'Hexagon D&E ; gaap_op_margin : l'amortissement des incorporels Hexagon pèse désormais.",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "custom_ic_mix / digital_ic_mix / func_verif_mix",
+  "probleme": "Mix produits arrêté à FY2023 alors que deux rapports annuels plus récents sont intégrés à la fiche.",
+  "preuve": "dernier 2023-12-31 pour les trois ; revenue_annuel et effectifs vont à 2025, données trimestrielles au T2-2026.",
+  "correction_validee": "Compléter FY2024 et FY2025 depuis les rapports annuels 2024 et 2025 (répartition du CA par catégorie de produits).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "china_rev_pct.yoy / net_margin.yoy / buyback_q",
+  "probleme": "Conventions numériques incohérentes : variations de ratios en % relatif au lieu de points, et centimes fantômes.",
+  "preuve": "china_rev_pct yoy +66.7 % pour 9 → 15 % (+6 pts) ; net_margin yoy +84.6 % pour 12,5 → 23,2 (+10,7 pts) alors que gaap_op_margin affiche +9.4 pts ; buyback_q = 150.01, 350.01, 200.01 M$.",
+  "correction_validee": "china_rev_pct yoy +6 pts ; net_margin yoy +10,7 pts ; buyback_q arrondi à l'entier.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ChipStack AI Super Agent productivity gain / Millennium M2000 performance gain",
+  "probleme": "Promesses marketing présentées comme des KPI mesurés.",
+  "preuve": "Signaux : promet jusqu'à 10x de productivité ; offre jusqu'a 80x de performance et 20x de sobriété face aux systèmes CPU classiques.",
+  "correction_validee": "Supprimer, ou déplacer dans les faits marquants hors KPI.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Jargon interne : note relevée au niveau haut désigne la notation Mettrik.",
+  "preuve": "Texte : position de leader sur la conception assistée par IA et note relevée au niveau haut.",
+  "correction_validee": "Retirer et note relevée au niveau haut.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

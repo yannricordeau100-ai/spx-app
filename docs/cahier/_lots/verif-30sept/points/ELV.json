@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "mlr",
+  "probleme": "Les points Q4 de la serie trimestrielle sont des valeurs annuelles, pas trimestrielles : Q4-2024=88.5 et Q4-2025=90 sont exactement les ratios FY2024 et FY2025, alors que la serie concurrente donne 92.4 et 93.5 pour ces trimestres.",
+  "preuve": "mlr : Q4-2024=88.5, Q4-2025=90 ; CAHIER_MLR FY2024=88.5, FY2025=90 ; Benefit Expense Ratio (MLR) trimestriel : ... 92.4 ... 93.5",
+  "correction_validee": "Remplacer Q4-2024 par 92,4 et Q4-2025 par 93,5 apres verification des communiques T4.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy de medicare_revenue, carelon_services_revenue, carelon_rx_scripts, carelon_consumers_served, medicaid_members, commercial_members, individual_aca_members, mlr",
+  "probleme": "Les variations affichees n'ont pas ete recalculees apres l'ajout du Q2-2026 : elles correspondent au Q1-2026.",
+  "preuve": "individual_aca_members yoy=+9,0 % alors que 1317/1348 = -2,3 % ; carelon_services_revenue yoy=+12,7 % alors que 7975/7441 = +7,2 % ; medicare_revenue -3,6 % vs 10962/11446 = -4,2 % ; mlr +40bp vs 89,7-88,9 = +80bp",
+  "correction_validee": "Recalculer tous les yoy et signaux sur le dernier point Q2-2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux de medicare_members, carelon_rx_revenue, carelon_services_revenue, mlr, medicare_revenue, carelon_rx_scripts, carelon_consumers_served, employer_risk_members, individual_aca_members",
+  "probleme": "Neuf signaux citent Q1-2026 alors que les series vont jusqu'a Q2-2026 ; certains chiffres cites sont contredits par le dernier point.",
+  "preuve": "individual_aca_members signal « Rebond Q1-2026 à 1.42M (+9.0% YoY) » vs Q2-2026=1317 ; carelon_rx_revenue signal « ralentie à +4.8% YoY » vs +5,7 %",
+  "correction_validee": "Reecrire ces signaux sur Q2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Medical Members / Carelon Revenue (annuels sans etiquettes)",
+  "probleme": "Series inventees : « Medical Members » contredit CAHIER_MEMBERSHIP et « Carelon Revenue » (54,5 Mds) ne correspond ni a Carelon Services (28,3 Mds en 2025 par somme trimestrielle) ni a CarelonRx (43,4 Mds) ; dates dans le futur.",
+  "preuve": "Medical Members serie 43.5, 46.8, 47.5, 46.4, 45.7 vs CAHIER_MEMBERSHIP FY2021=45374, FY2022=47531, FY2023=46829 ; Carelon Revenue 54.5 vs carelon_services_revenue 2025 = 6536+7441+7324+7015 = 28 316",
+  "correction_validee": "Supprimer les deux series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "doublons : Medicare Advantage Membership, Medicaid Membership, Total Medical Membership, Commercial Fee-Based Membership, Commercial Risk-Based Membership, Benefit Expense Ratio (MLR), Benefit Expense Ratio (quarterly), Benefit Expense Ratio (medical loss ratio), Benefit Expense Ratio, Quarterly Premium Revenue, Net Premium Revenue, Operating Expense Ratio, Adjusted Operating Expense Ratio",
+  "probleme": "Six series pour le ratio de sinistralite et deux a trois series pour chaque ligne de membres, primes et frais generaux, toutes sans etiquettes et arretees a Q1-2026 alors que les series sourcees vont a Q2-2026 (le detecteur n'a signale que deux paires).",
+  "preuve": "mlr, CAHIER_MLR, Benefit Expense Ratio (MLR), Benefit Expense Ratio (quarterly), Benefit Expense Ratio (medical loss ratio), Benefit Expense Ratio : six KPI, val 86.8 ou 90 ; premiums vs Quarterly Premium Revenue (41024) vs Net Premium Revenue",
+  "correction_validee": "Supprimer les series sans etiquettes et garder une serie trimestrielle et une annuelle par indicateur.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "commercial_members (nom)",
+  "probleme": "Le nom annonce « risque + fee-based » mais la serie (4,7 M) ne couvre que le risque assure ; le fee-based est a 27,5 M sur une autre serie.",
+  "preuve": "« Membres Commercial & Specialty (risque + fee-based) » val=4734 milliers ; commercial_feebased_members val=27513",
+  "correction_validee": "Renommer « Membres Commercial risque assuré ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels + ratios par salarie",
+  "probleme": "Effectifs arretes en 2021 alors que les 10-K 2022 a 2025 sont sources sur la fiche ; les trois ratios par salarie s'arretent donc en 2021 et le signal parle de 2021 comme du present.",
+  "preuve": "effectifs_annuels dernier 2022-02-16, 2021=98200 ; source clients : elv-20251231.htm",
+  "correction_validee": "Ajouter les effectifs 2022-2025 depuis les 10-K et recalculer les trois ratios.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att / revenue_by_segment",
+  "champ": "coherence",
+  "probleme": "L'anti-these donne Health Benefits a 85 % du CA, la repartition affiche 73,6 (base brute avant eliminations, 2024) : deux lectures contradictoires sur la meme page.",
+  "preuve": "att : « Le segment Health Benefits, qui fait 85 % du chiffre d'affaires » ; revenue_by_segment (2024) : Health Benefits 73.6",
+  "correction_validee": "Mettre la repartition en base 2025 nette d'eliminations ou preciser le mode de calcul.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

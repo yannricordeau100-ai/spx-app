@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "KPI trimestriels",
+  "champ": "AUM_*, net_flows_*, advfee_multi_asset, net_revenues, marges, BPA, bilan",
+  "probleme": "Fiche en retard d un trimestre : la plupart des series s arretent au T1 2026 alors que le T2 2026 est publie et cite dans l anti-these. Le champ 'dernier' indique 2026-06-30 a tort.",
+  "preuve": "AUM_equity : dernier 2026-06-30, mais la serie finit a Q1-2026=810.5 et le signal dit 'au 31/03/2026' ; l anti-these cite 1 893,4 Mds $ d encours et +10,7 % de revenus au T2 2026.",
+  "correction_validee": "Integrer le T2 2026 sur toutes les series trimestrielles et aligner last_data_date sur la derniere periode reelle.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "avg_aum, avg_aum_*, advfee_equity, advfee_fixed_income (signaux)",
+  "probleme": "Le signal cite le T1 2026 alors que la serie contient deja le T2 2026.",
+  "preuve": "avg_aum val=1837.7 (Q2-2026), signal 'AUM moyens : 1 775,8 B$ au 31/03/2026' ; advfee_equity val=1011.9, signal '974,7 M$ au 31/03/2026'.",
+  "correction_validee": "Regenerer les signaux de avg_aum, avg_aum_* et advfee_* sur la valeur du T2 2026.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Net Client Cash Flow (annuel) contre CAHIER_NET_FLOWS",
+  "probleme": "Deux series annuelles de collecte nette se contredisent. La premiere n a pas de dates et son signal est en franglais.",
+  "preuve": "Net Client Cash Flow : -3, -19, -77, -50, -40 ; CAHIER_NET_FLOWS : 2021=-28.5, 2022=-61.7, 2023=-81.8, 2024=-43.2, 2025=-56.9 ; signal 'Sortie active equity ralentit'.",
+  "correction_validee": "Supprimer Net Client Cash Flow et garder CAHIER_NET_FLOWS.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Capital Return",
+  "probleme": "La valeur est fausse au vu des flux publies sur la fiche. Le nom et le signal sont en anglais ('Cap Return', 'Discipline capital return premium').",
+  "preuve": "Capital Return 2025 = 1,3 Md$, alors que dividends_paid 2025 (289,5+285,6+283,4+284,5) et buybacks 2025 (215,2+113,1+153,5+139,1) totalisent environ 1,76 Md$.",
+  "correction_validee": "Supprimer Capital Return (dividends_paid et buybacks couvrent deja le sujet), ou le recalculer a 1,76 Md$ pour 2025 et le traduire.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Doublons d encours",
+  "probleme": "Mêmes indicateurs sous plusieurs noms.",
+  "preuve": "'Average assets under management' reprend avg_aum (1588.8, 1723, 1774.8, 1775.8 identiques) ; 'Ending assets under management' fait doublon de CAHIER_AUM et de la somme des AUM par classe ; 'Restructuring charge 2025' 177,3 = restructuring T3+T4 2025 (28,5+148,8).",
+  "correction_validee": "Supprimer Average assets under management, Ending assets under management et Restructuring charge 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "perf_morningstar",
+  "probleme": "La serie saute de 2020 a 2026, ce qui rend la tendance trompeuse sur le KPI le plus important pour un gerant actif.",
+  "preuve": "Q2-2020=63 puis Q1-2026=56, sans aucun point sur 6 ans.",
+  "correction_validee": "Completer 2020 a 2026 depuis les communiques trimestriels, ou n afficher que le dernier point.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI annuels",
+  "champ": "fcf_annuel, fcf_par_salarie (signal)",
+  "probleme": "Le taux annuel moyen depuis 2016 est absurde : erreur de calcul.",
+  "preuve": "'+59,6 % par an depuis 2016' alors que la serie passe de 1,45 (2018) a 1,48 (2025) ; fcf_par_salarie '+55,9 % par an depuis 2016'.",
+  "correction_validee": "Retirer ou corriger les points 2016 et 2017 de fcf_annuel et fcf_par_salarie, puis recalculer le taux annuel moyen.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Target-Date Retirement AUM, Target date AUM milestone",
+  "probleme": "Deux valeurs incompatibles, une serie sans dates et un signal jargonneux.",
+  "preuve": "480 Mds$ ('Moat 401(k) intact') contre 'depasse 500 Md$'.",
+  "correction_validee": "Garder une seule serie datee et reecrire le signal.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Unites",
+  "probleme": "Unite anglaise 'B$' melangee avec 'Mds $' et 'Md $' sur la meme fiche.",
+  "preuve": "AUM_equity 'B$', CAHIER_AUM 'Mds $', net_revenues 'Md $'.",
+  "correction_validee": "Remplacer 'B$' par 'Mds $' sur toutes les series d encours et de collecte.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Clients",
+  "champ": "clients_concentration",
+  "probleme": "La concentration clients date de l exercice 2021.",
+  "preuve": "'exercice': '2021', source trow-20211231.",
+  "correction_validee": "Mettre a jour depuis le rapport de l exercice 2025.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "op_income.yoy, eps_diluted.yoy, last_data_date",
+  "probleme": "Valeur du T1 FY2027 affichée avec la variation du T4 FY2026",
+  "preuve": "op_income val 252 (Q1-2027), yoy « -53,2 % » = 96 / 205 (Q4-2026 vs Q4-2025) ; vrai yoy 252 / 260 = -3,1 % ; eps_diluted val 0,38, yoy « -61,3 % » = 0,12 / 0,31 ; vrai yoy 0,38 / 0,36 = +5,6 % ; date « 2026-09-03 » = publication, fin de période = 2026-07-31",
+  "correction_validee": "Mettre les yoy à -3,1 % (252 / 260) et +5,6 % (0,38 / 0,36), et dater au 2026-07-31.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "8 séries sans période, sans années, sans signal",
+  "probleme": "Séries non sourcées contredisant les séries sourcées ; trois séries divergentes pour le volume Jack Daniel's",
+  "preuve": "« Tequilas » 0,55 Mds $ vs ns_tequila FY2026 = 251 M$ ; « International Sales % » 51 vs intl_share 58 ; « Emerging Markets » 26 % (2025-04-30) vs ns_emerging FY2025 852 / 3 975 = 21,4 % ; « 9L Equivalent Cases » 30,5 M vs « Total portfolio depletions » 47,5 M ; « Jack Daniels TFP » 14,6 / 14,1 / 14,7 / 14,3 / 13,6 vs JDTW_VOL 14,6 / 14,3 / 14,1 / 13,4 vs « JD TW depletions » 13,9 / 13,4 ; « Premium+ Mix », « Premium Bourbons », « Jack Daniel's Net Sales » sans source ; JDTW_VOL daté 2025-12-31 pour un exercice clos le 30 avril",
+  "correction_validee": "Supprimer les 8 séries non sourcées, garder JDTW_VOL et le dater à la clôture de l'exercice (30 avril).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment / revenue_by_geography",
+  "champ": "valeurs et exercice",
+  "probleme": "Répartition de l exercice 2025 alors que FY2026 est chargé ; étiquette None",
+  "preuve": "Whiskey 71,1 = 2 828 / 3 975 (FY2025) ; FY2026 depuis les séries : Whiskey 2 901 / 3 928 = 73,9 (le signal ns_whiskey dit déjà « 74 % »), RTD 13,8, Tequila 6,4, non marqué 0,8, reste 5,1 ; géographie FY2026 : États-Unis 42,0, international développé 27,9, émergents 24,8, travel retail 4,5, non marqué 0,8",
+  "correction_validee": "Recalculer les deux répartitions sur FY2026 avec ces parts et les étiqueter « exercice 2026 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "25 séries trimestrielles arrêtées au T4 FY2026",
+  "probleme": "T1 FY2027 (publié le 3 septembre 2026) chargé sur 2 séries seulement",
+  "preuve": "op_income et eps_diluted ont Q1-2027 ; net_sales, gross_profit, net_income, gross_margin, operating_margin, net_margin, ocf, capex, fcf, dividends_paid, buybacks, inventories, lt_debt, cash, net_debt, equity, ad_expense, sga, excise_taxes, d_and_a, interest_expense, ebitda, tax_rate, ns_* s arrêtent au 2026-04-30",
+  "correction_validee": "Charger le T1 FY2027 sur l ensemble ou retirer les deux points isolés",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signal (cuisine interne fausse)",
+  "probleme": "Notes de méthode à la place des signaux, et inexactes",
+  "preuve": "gross_margin, operating_margin, ad_intensity : « Conversion de la série annuelle en trimestriel » alors que les valeurs sont des ratios trimestriels (571 / 912 = 62,6) ; eps_diluted : « T4 dérivé du résultat net du trimestre divisé par le nombre moyen d'actions diluées de l'exercice » ; net_margin, fcf, net_debt, ebitda, tax_rate : « dérivé » comme seul signal",
+  "correction_validee": "Retirer ces phrases et écrire pour chaque KPI un signal sur le T4 FY2026 (par exemple marge opérationnelle tombée à 10,5 % contre 22,9 % un an plus tôt).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "woodford_vol.signal et yoy (hero)",
+  "probleme": "KPI hero avec signal franglais et non vérifiable, yoy absent",
+  "preuve": "Signal « Leader super-premium américain, croissance double-digit CAGR depuis 25 ans » ; série 1,4 → 1,9 M caisses en 4 ans (+8 % par an) ; yoy « n/a » alors que 1,8 → 1,9 = +5,6 %",
+  "correction_validee": "Signal en français sur 1,9 M caisses (+5,6 %) ; renseigner le yoy",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy des séries de croissance",
+  "probleme": "Variation d une variation, sans sens",
+  "preuve": "jdtw_organic val -4, yoy « -4 % » ; herradura_organic -10 / « -10 % » ; woodford_netsales_yoy 4 / « +4 % » ; travel_retail_yoy 6,6 / « +190,4 % » (de -7,3 à +6,6)",
+  "correction_validee": "Vider le yoy de ces séries de croissance, ou l'exprimer en points (travel_retail_yoy +13,9 pts).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DEPLETIONS, CAHIER_SHIP_VS_DEPL, CAHIER_ORGANIC_GROWTH",
+  "probleme": "Séries mortes, mal nommées, doublons",
+  "preuve": "CAHIER_DEPLETIONS « Épuisements » arrêtée FY2018 à 13 M caisses = volume JDTW seul, pas le portefeuille (47,5 M) ; deux termes concurrents « Épuisements » et « Dépletions » ; CAHIER_SHIP_VS_DEPL arrêtée 2021, yoy « -300 % » (de -2 à 4 points) ; CAHIER_ORGANIC_GROWTH arrêtée 2021, nom « décomposée volume et prix-mix » pour une série unique, doublon de ORGANIC_VOLUME_GROWTH et ORGANIC_PRICE_MIX",
+  "correction_validee": "Supprimer CAHIER_DEPLETIONS, CAHIER_SHIP_VS_DEPL et CAHIER_ORGANIC_GROWTH.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPIs à un point datés 2026-05-11",
+  "probleme": "Événements ou faits anciens présentés comme indicateurs",
+  "preuve": "« US net sales growth 2021 » (exercice 2021) ; « Special cash dividend » 480 M$ (versé en 2022) ; « Brown-Forman Cooperage divestiture » 51 ; « Gain on sale of Duckhorn » 78 ; « Gin Mare contingent earn-out » 90 M EUR ; « Diplomatico and Gin Mare brand impairments » 132 ; « Estimated tariff removal benefit » 70 ; « Share of US tariff bill » 15 % ; « Total restructuring » 67 ; « Worldwide headcount reduction » 12 %",
+  "correction_validee": "Supprimer les deux faits de 2021-2022 ; basculer les autres dans le texte",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dps (FY2022) et signal",
+  "probleme": "Dividende exceptionnel mêlé au dividende ordinaire",
+  "preuve": "dps FY2022 = 1,736 $ (0,7076 avant, 0,788 après) inclut le dividende exceptionnel de 1 $ ; signal « Relevé chaque automne ... peu liée au cycle des ventes » contredit par la bosse",
+  "correction_validee": "Série ordinaire (0,736 en FY2022) ou mention de l exceptionnel dans le signal",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "summary",
+  "probleme": "Résumés de risques gabarit, décalés par rapport aux titres",
+  "preuve": "« Réputation et image de marque » résumé par « Risques opérationnels touchant chaîne d'approvisionnement, capital humain, qualité produit » ; « Évolution des préférences clients » résumé par « Pression concurrentielle accrue, érosion potentielle des parts de marché » ; 7 risques = 5 phrases de catégorie",
+  "correction_validee": "Rédiger des résumés propres (droits de douane, marque phare en repli, succession du PDG)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

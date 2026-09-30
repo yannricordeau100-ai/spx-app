@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Global Systemwide sales (trimestriel)",
+  "probleme": "Serie melangeant chiffres annuels et trimestriels.",
+  "preuve": "serie 130, 36, 139, 34, 37 Mds $ : 130 et 139 = annees 2024/2025 (systemwide_sales_fy), 34-37 = trimestres ; yoy +11 % sans sens",
+  "correction_validee": "Retirer la serie, doublon de systemwide_sales_fy.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Systemwide sales to loyalty members (TTM) / Restaurant locations",
+  "probleme": "Doublons sans etiquette contredisant les series sourcees.",
+  "preuve": "loyalty TTM 30, 34, 37, 38, 40 vs loyalty_systemwide_sales_ttm Q1-2025=31, Q2=33, Q3=34, Q4=37, Q1-2026=38 ; Restaurant locations 40, 40, 43, 43, 44, 44, 45, 45 (valeurs repetees) vs restaurants_worldwide 42,8 a 46,0",
+  "correction_validee": "Retirer les deux series.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_VENTES_COMPARABLES yoy",
+  "probleme": "Variation affichee absurde pour un pourcentage.",
+  "preuve": "yoy=-3200.0% (de -0,1 % a +3,1 %)",
+  "correction_validee": "Afficher +3,2 pts.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_MARGE_RESTAURANT",
+  "probleme": "Serie arretee en 2018 alors que des chiffres recents existent sur la fiche.",
+  "preuve": "dernier 2018-12-31 (17,4 %) ; KPI « Quarterly restaurant margin dollars » cite plus de 4 Mds $ au trimestre en 2026",
+  "correction_validee": "Completer 2019-2025 depuis les 10-K ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "dividend_per_share signal vs att et KPI « 50 consecutive years »",
+  "probleme": "Nombre d annees de hausse du dividende incoherent sur la fiche.",
+  "preuve": "signal : « 49 annees consecutives de hausse » ; att : « 50 annees consecutives de dividende en hausse » ; KPI « 50 consecutive years of dividends »",
+  "correction_validee": "Harmoniser sur « 49 annees consecutives de hausse » dans l accroche et le KPI, en gardant « 50 ans de versement » si besoin.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Textes",
+  "champ": "positionnement IA, these, description Mettrik",
+  "probleme": "Apostrophe fautive apres McDonald's.",
+  "preuve": "« McDonald's'a signe », « McDonald's'est un reseau », « McDonald's'exploite »",
+  "correction_validee": "Remplacer par « McDonald's a », « McDonald's est », « McDonald's exploite ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "eps_diluted, net_income, fcf signaux",
+  "probleme": "Cuisine interne et double point dans les signaux.",
+  "preuve": "« T4 de chaque annee derive.. », « (+4,8 % sur un an).. », « (derive : flux operationnel moins capex) »",
+  "correction_validee": "Retirer les mentions « derive » et les doubles points des signaux eps_diluted, net_income et fcf.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libelles en anglais alors que la repartition par segment est traduite.",
+  "preuve": "« International Operated Markets 50.7 », « International Developmental Licensed Markets and Corporate 9 »",
+  "correction_validee": "Reprendre les libelles de revenue_by_segment.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "11 KPI a un seul point (Grinch socks, MONOPOLY, Minecraft, EVM share, app users, visit frequency, margin milestone, China openings, 50 years, Impairment, borrowing capacity)",
+  "probleme": "Anecdotes marketing et faits ponctuels presentes comme KPI trimestriels.",
+  "preuve": "« Paires de chaussettes Grinch vendues 50 M », « Parties de MONOPOLY jouees 500 M », n=1, dernier 2026-03-28",
+  "correction_validee": "Convertir en stories, retirer des KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "loyalty_users_90d",
+  "probleme": "yoy affiche different du signal et du moat.",
+  "preuve": "yoy=+20,0% ; signal « +19 % sur un an » ; moat « progressent de 19 % »",
+  "correction_validee": "Aligner le yoy affiche sur +19 %.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

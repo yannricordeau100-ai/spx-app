@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description",
+  "probleme": "La description présente Host comme exploitant et bailleur, ce qui contredit la thèse et le modèle réel",
+  "preuve": "« possède et gère des hôtels » ; « assurant la gestion opérationnelle » ; « flux… provenant de baux à long terme » ; « une marque reconnue » ; la thèse dit « propriétaire… et non un exploitant » ; 162 salariés",
+  "correction_validee": "Réécrire : propriétaire d'hôtels haut de gamme gérés par Marriott, Hyatt et d'autres sous contrats de gestion, exposé directement au RevPAR, sans marque propre ni baux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Average Room Rate",
+  "probleme": "Doublon du tarif moyen, dont le dernier point porte la valeur du T1 datée du 30 juin",
+  "preuve": "dernier 347,24 daté 2026-06-30 = ADR Q1-2026 347,24 ; ADR Q2-2026 = 335,83",
+  "correction_validee": "Supprimer Average Room Rate.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RENOVATION_CAPEX, CAHIER_ADR_OCCUPANCY, ADR vs Occupancy, CAHIER_FFO_AFFO_PS",
+  "probleme": "Noms faux par rapport à la série",
+  "preuve": "« Dépenses de rénovation rapportées au chiffre d'affaires » en M $ (287) ; « Prix moyen de la chambre et taux d'occupation » ne contient que le tarif ; name_en « Average Daily Rate vs Occupancy » ; FFO/AFFO 2,03 = FFO NAREIT alors que l'AFFO 2025 vaut 2,07",
+  "correction_validee": "Renommer en Dépenses de rénovation, Tarif moyen journalier, FFO NAREIT par action, et corriger name_en de ADR vs Occupancy en Average daily rate.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Mix marques, Demand mix",
+  "probleme": "Valeurs uniques dont le nom ne dit pas ce qu'elles mesurent, et explication inadaptée",
+  "preuve": "« Portefeuille par enseigne (% revenus) » = 64 sans nommer Marriott ; « Répartition de la demande individuel, groupe et contrat » = 61 sans préciser la part ; l'explication de Mix marques dit « Total des ventes de la période »",
+  "correction_validee": "Renommer (Part Marriott des revenus hôteliers, Part de la clientèle individuelle) et corriger l'explication",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Sale of two Four Seasons, Ritz-Carlton acquisition, Maui, San Francisco, Cumulative…, Second Marriott program, condominiums, Expected capex",
+  "probleme": "Événements et prévisions présentés comme des KPI, avec des commentaires dans l'unité ; une acquisition de 2024 est datée 2026",
+  "preuve": "unités « Md$ à 14.9x EBITDA », « M actions ($1.2Md) », « points (21 hôtels) », « % (EBITDA +70%) », « M$ (2026E) » ; Ritz-Carlton O'ahu 725 M$ daté 2026-03-28 alors que acquisitions Q3-2024 = 937",
+  "correction_validee": "Retirer ces entrées",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Comparable hotel average occupancy, Comparable hotel EBITDA, Dividends declared per common share",
+  "probleme": "Doublons annuels de KPI trimestriels, datés 2026-03-28 pour l'exercice 2025",
+  "preuve": "dividende annuel 0,95 = 0,2 + 0,2 + 0,2 + 0,35 (dividend_per_share 2025) ; occupation annuelle 70,0 à côté de comparable_occupancy",
+  "correction_validee": "Supprimer ou dater au 2025-12-31",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "répartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Libellés en anglais, « Occupancy » au lieu de Chambres, valeurs arrondies",
+  "preuve": "« Occupancy 60 ; Food And Beverage 30 ; Hotel Other 10 » ; en 2025 : chambres 3 608 / 6 114 = 59,0 %, restauration 29,5 %, autres 9,9 %",
+  "correction_validee": "Traduire les libellés en Chambres, Restauration et banquets, Autres revenus hôteliers, et garder les parts calculées sur le total des tranches (60,0 ; 30,0 ; 10,0).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "operating_margin, net_margin, net_debt_ebitda (yoy), comparable_occupancy.signal",
+  "probleme": "Variations de ratios en %, et une base N-1 citée différente de la série",
+  "preuve": "operating_margin « +2.3% » alors que le signal dit « 40 points de base » ; comparable_occupancy : signal « contre 74,1% » mais Q2-2025 = 73,8",
+  "correction_validee": "Exprimer les variations en points ou en valeur (+0,4 pt ; +0,6 pt ; -0,98 x) et, pour l'occupation, afficher +0,8 pt en précisant que la base comparable retraitée est de 74,1 %.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "textes",
+  "champ": "signaux, gouvernance, risques",
+  "probleme": "Coquilles, notation anglaise et citations internes",
+  "preuve": "signaux finissant par « .. » ; « $2.1Md », « 73.2M », « $16.76 » ; « Cash generé » ; « couvenants » ; « Mr. James F. Risoleo » ; score_rationale en anglais avec « Item 1A »",
+  "correction_validee": "Corriger les doubles points et les fautes, passer à la notation française (2,1 Mds $, 73,2 M, 16,76 $), afficher James F. Risoleo et retirer les citations et renvois à Item 1A.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Formule interne et moat vide",
+  "preuve": "« …sans avantage concurrentiel reconnu au départ »",
+  "correction_validee": "Rédiger (emplacements rares haut de gamme, bilan le moins endetté du secteur) ou masquer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / répartition",
+  "champ": "Intl revenue mix vs revenue_by_geography",
+  "probleme": "Deux parts hors États-Unis différentes pour 2025",
+  "preuve": "Intl revenue mix FY2025 = 1,7 % ; répartition géographique Canada 1,1 + Brésil 0,3 = 1,4 %",
+  "correction_validee": "Aligner sur une seule source",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ORGANIC_SALES_GROWTH.yoy (hero)",
+  "probleme": "Variation du hero calculee en pourcentage d'un pourcentage",
+  "preuve": "yoy=+204,2 % pour un passage de -2,4 % a 2,5 %.",
+  "correction_validee": "Afficher « +4,9 pts ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Digital Sales % / Same-Day Sales Growth / Europe Sales Share",
+  "probleme": "Trois series heritees sans dates qui doublonnent et contredisent les series principales",
+  "preuve": "« Digital Sales % » 24,27,29,31,33 vs CAHIER_DIGITAL_SALES_MIX 23,7 ; 26,7 ; 30 ; 32 ; 34 ; « Same-Day Sales Growth » -6,4 ; 16,8 ; 18,6 ; 5,5 ; -3,1 vs croissance organique 15,6 ; 14,1 ; 4,3 ; -2,4 ; 2,5 ; « Europe Sales Share 56 % » vs repartition geographique Europe 48,44 %.",
+  "correction_validee": "Supprimer les trois séries héritées.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Adj EBITA Margin, Recurring Free Cash Flow, North America Sales, Free Cash Flow Conversion",
+  "probleme": "Series heritees arrondies ou lissees, sans dates, avec variations incoherentes",
+  "preuve": "Adj EBITA Margin 6,5 puis 6,5 avec yoy « -0,5 pts » ; Recurring FCF 400, 500, 700, 640, 700 ; North America Sales 8 500 M€ alors que 45,87 % d'environ 19 410 M€ (Europe 9 403,2 / 48,44 %) = 8 900 ; FCF Conversion 110, 50, 35, 64, 72.",
+  "correction_validee": "Retirer ces quatre séries, ou les remplacer par les valeurs datées du DEU 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Capex.unit",
+  "probleme": "Unite en dollars pour un groupe qui publie en euros",
+  "preuve": "« Investissements (Capex) | M $ | 131,4 ; 158,2 ; 132,1 ; 145,5 » sans dates.",
+  "correction_validee": "Verifier la source et passer en M € ; dater la serie.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques / positions de marche / en-tete",
+  "champ": "risks[].description, market_positions, tagline",
+  "probleme": "Six risques sans texte, position de marche vide, tagline en anglais",
+  "preuve": "« risque 1: Cyclicite construction ... :: » (vide) ; « position de marche 1: None | taille 127.66 | part None » ; tagline « Worldwide expert in the professional distribution... ».",
+  "correction_validee": "Masquer les blocs vides ; remplacer la tagline.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Reference a une « note de moat » interne",
+  "preuve": "« Le retrait de la note de moat, un chiffre d'affaires quasi stable... ».",
+  "correction_validee": "Écrire « Un chiffre d'affaires quasi stable et des ventes européennes en recul traduisent une différenciation limitée de la distribution ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition périmée et mal libellée : « Auto » n est pas un segment (Consumer Banking), total 25,5 Mds $ alors que le CA net 2025 est de 53,4 Mds $.",
+  "preuve": "revenue_by_segment : Credit Card 62 ; Auto 24 ; Commercial Banking 14 (total 25,5 Mds $). T2-2026 : Credit Card 11 765, Consumer Banking 3 209, Commercial 850 M$ soit 74 / 20 / 5 %. Anti-thèse : « 70 % de ses revenus viennent de la carte ».",
+  "correction_validee": "Recalculer sur 2025 avec les trois segments publiés : Credit Card environ 74 %, Consumer Banking 19 %, Commercial Banking 7 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total loans held for investment / Net interest margin / ROTCE / Auto period-end loans / Consumer Banking loans / Net charge-off rate / marketing expense",
+  "probleme": "Bloc de séries à clé anglaise daté 2026-06-30 alors que le dernier point est le T1-2026 : valeurs en retard d un trimestre qui contredisent les KPI nommés.",
+  "preuve": "« Total loans held for investment » 447 754 M$ (= total_loans_hfi Q1-2026) vs 457 168 au T2-2026, yoy +38 % = 447 754/323 598 (T1 vs T1). « Net interest margin » 7,87 = nim Q1-2026 vs 8,01 au T2. ROTCE série ... -32,99 ; 18,82 ; 9,74 ; 12,2 : le -32,99 correspond au T2-2025 (perte 4 277 M$). Auto loans 85,7 Mds vs signal auto_originations « encours auto fin de période 89,3 Md$ ». Marketing yoy +25 % alors que 1 500 vs 1 400 = +7 %.",
+  "correction_validee": "Supprimer les doublons (Net interest margin, Total loans held for investment, Net charge-off rate) et redater les autres au 2026-03-31 en ajoutant le T2-2026 et en recalculant les yoy.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "nim vs Net interest margin",
+  "probleme": "Les deux séries de marge nette d intérêt donnent des valeurs différentes pour les mêmes trimestres.",
+  "preuve": "Q4-2024 : nim 6,88 vs 7,03 ; Q4-2025 : nim 7,84 vs 8,26. Les autres points coïncident (7,11 ; 6,93 ; 7,62 ; 8,36).",
+  "correction_validee": "Remplacer les T4 de nim par les NIM trimestrielles (7,03 et 8,26 après vérification) et supprimer la série « Net interest margin ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Net Interest Income / Credit Card Loans / Auto Loans / Commercial Banking Loans / Net Charge-Off Rate / Tier 1 Common Ratio",
+  "probleme": "Bloc annuel arrêté en 2024 avec des signaux télégraphiques périmés, alors que l exercice 2025 et le T2-2026 sont sur la fiche.",
+  "preuve": "« Credit Card Loans » signal : « Croissance soutenue, Discover acq pending » (clôturée le 18 mai 2025). « Net Interest Income » 31,21 Mds $ (2024) « Coeur du business model Capital One, banque dominée par cartes crédit ». « Tier 1 Common Ratio » 13,5 (2024) vs cet1_ratio 13,7 au T2-2026.",
+  "correction_validee": "Supprimer le bloc, couvert par les séries trimestrielles à jour.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_NCO_RATE vs Net Charge-Off Rate / Net charge-off rate",
+  "probleme": "Deux « taux de pertes nettes » avec des valeurs incompatibles pour 2024 : le CAHIER est en réalité le taux de la carte, pas celui du groupe.",
+  "preuve": "CAHIER_NCO_RATE 2024 = 5,91 %, 2025 = 5,12 % (nom « Taux de pertes nettes sur créances »). « Net Charge-Off Rate » 2024 = 3,4 % ; « Net charge-off rate » trimestriel 3,2 à 3,45 %. domestic_card_ncr 2024 : 5,6 à 6,2 %.",
+  "correction_validee": "Renommer le CAHIER « Taux de pertes nettes cartes » ou le recalculer au niveau groupe ; fusionner les deux séries groupe.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI à un point datés 2026-05-11 (prix Discover, goodwill, incorporels, prêts et dépôts repris, Brex, cession Home Loans, autorisation rachats, dividende relevé, volume réseau)",
+  "probleme": "Onze faits d opération présentés comme KPI à un seul point, dont des doublons et un point déjà dépassé.",
+  "preuve": "« Quarterly dividend per share raised » 0,80 $ = dividend_per_share. « Global payment network transaction volume » 174 Mds $ vs signal purchase_volume « 189,6 Md$ sur le trimestre » (T2-2026). « Discover total purchase consideration » 51 793 M$, « Goodwill from Discover » 13 424, « Community Benefits Plan » 265 000 M$.",
+  "correction_validee": "Supprimer ces éléments ou les déplacer dans la thèse et les événements.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "antithese",
+  "champ": "att.hook",
+  "probleme": "Chiffre de baisse des impayés différent de celui du KPI.",
+  "preuve": "Anti-thèse : « impayés cartes en baisse de 57 points de base depuis fin 2025 ». domestic_card_dlq : 3,99 % (T4-2025) vers 3,39 % (T2-2026) = -60 bps, signal « -60 bps depuis fin 2025 ».",
+  "correction_validee": "Harmoniser sur la valeur publiée (vérifier 3,96 ou 3,99 au T4-2025).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_PURCHASE_VOLUME.signal",
+  "probleme": "Accents manquants dans le signal.",
+  "preuve": "« En dix sept ans, le volume traite est passe de 114 a 828 Mds$ ».",
+  "correction_validee": "« En dix-sept ans, le volume traité est passé de 114 à 828 Mds $ ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.simple.activity vs revenue_by_geography",
+  "probleme": "La description cite le Canada et le Royaume-Uni alors que la répartition géographique affiche 100 % États-Unis.",
+  "preuve": "Description : « aux États-Unis, au Canada et au Royaume-Uni ». revenue_by_geography : États-Unis 100.",
+  "correction_validee": "Soit ajouter la part internationale (carte internationale, quelques pour cent), soit retirer la mention des pays.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur sectoriel manquant",
+  "probleme": "Aucune valeur comptable tangible par action (TBVPS), indicateur de base pour une banque, alors que rachats, CET1 et ROTCE sont suivis.",
+  "preuve": "KPI présents : cet1_ratio, share_buybacks, ROTCE ; aucun KPI « tangible book value per share ».",
+  "correction_validee": "Ajouter TBVPS trimestriel depuis les communiqués.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

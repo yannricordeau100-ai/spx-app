@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue_q / gross_profit_q / net_income_q / gross_margin_q / total_stores / fuel_cpg / pf_margin (yoy)",
+  "probleme": "Le point T1 FY2027 a ete ajoute mais les yoy sont restes ceux du T4 FY2026 : tous faux, un avec le mauvais signe.",
+  "preuve": "revenue_q 5,678 vs Q1-FY2026 4,567 = +24,3 % (affiche +14,5 % = 4,572/3,993) ; net_income_q 273,7/215,4 = +27,1 % (affiche +65,5 % = 162,7/98,3) ; gross_margin_q 21,8 vs 24,4 = -2,6 pt (affiche +1,7 %) ; total_stores 2959-2895 = +64 (affiche +40) ; fuel_cpg 47,8/40,97 = +16,7 % (affiche +24,9 %).",
+  "correction_validee": "Recalculer tous les yoy sur le T1 FY2027 comparé au T1 FY2026, en points pour les marges (-2,6 pt et +1,3 pt) et en unités pour les magasins (+64).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted_q / op_income_q / capex_q / ocf_q / fcf_q / dividend_ps_q / debt_total_q / cash_q / net_debt_q",
+  "probleme": "Mise a jour partielle : le T1 FY2027 est present sur le CA, la marge brute et le resultat net mais absent des autres series trimestrielles ; dates de fin incoherentes.",
+  "preuve": "revenue_q dernier Q1-FY2027 (2026-09-14) ; eps_diluted_q dernier Q4-FY2026 avec last_data_date 2026-07-31 (trimestre clos le 30 avril) ; op_income_q dernier 2026-04-30.",
+  "correction_validee": "Ajouter le T1 FY2027 (clos le 31 juillet 2026) à toutes les séries trimestrielles depuis le 10-Q et aligner les last_data_date.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_q / fuel_cpg / pf_margin / total_stores / fuel_gal_total (signal)",
+  "probleme": "Signaux perimes contredits par le dernier point de leur serie.",
+  "preuve": "fuel_cpg 47,8 (record) : « Érosion progressive sur 3 ans » ; pf_margin 59,3 : « Légère contraction due aux magasins Fikes » ; total_stores +64 sur un an : « +246 magasins YoY dont 198 via acquisition Fikes » ; revenue_q val 5,68 : « CA T4 FY2026 de 4,57 Mds $ » ; fuel_gal_total : « same-store +0.1% seulement » alors que fuel_sss_gal = 0,4 puis 1,5.",
+  "correction_validee": "Réécrire les cinq signaux sur les chiffres du T1 FY2027.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dividend_ps_q / employees / fuel_price_avg / gross_profit_q (signal)",
+  "probleme": "Citations en anglais dans les signaux.",
+  "preuve": "« \"The dividends declared in fiscal 2026 totaled $2.28 per share\" » ; « \"As of April 30, 2026, we had 23,490 full-time, and 26,358 part-time, Team Members\" » ; « \"Average retail price per gallon $3.02\" » ; « \"Revenue less cost of goods sold (excluding depreciation and amortization)\" ».",
+  "correction_validee": "Reformuler les quatre signaux en français sans citation, par exemple « Dividendes déclarés de 2,28 $ par action sur l'exercice 2026 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Bloc de repartition vide alors que la fiche contient le CA par categorie.",
+  "preuve": "revenue_by_segment = {'period': 'exercice 2026 (fiscal year ended April 30, 2026)'} sans slices ; KPI rev_fuel 10 615 M$, rev_grocery 4 564, rev_prepared 1 777, rev_other 605 sur FY2026.",
+  "correction_validee": "Remplir le bloc : carburant 10 615 M$ (60,4 %), épicerie et marchandise générale 4 564 M$ (26,0 %), aliments préparés et boissons 1 777 M$ (10,1 %), autres 605 M$ (3,4 %).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Fuel Margin / Fuel Gallons",
+  "probleme": "Deux KPI sans periode contredisent les series sourcees ; l un affiche une valeur absente de sa propre serie.",
+  "preuve": "Fuel Margin val 38,68 ¢/gal (2026-12-31) vs CAHIER_FUEL_MARGIN FY2026 = 42,6 et fuel_cpg Q1-FY2027 = 47,8, signal « Pricing power. » ; Fuel Gallons val = 13, unite %, serie [2.5, 1, -2, 2, 1], signal « Plateau. ».",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Average retail fuel price per gallon (trimestriel)",
+  "probleme": "Serie trimestrielle qui s arrete a l ete 2022 tout en etant datee 2026-12-31, doublon de fuel_price_avg annuel.",
+  "preuve": "history se termine par 3,77, 4,49, 3,4 (pic de 4,49 $ = T1 FY2023) ; fuel_price_avg FY2026 = 3,02 ; yoy affiche +14,1 %.",
+  "correction_validee": "Supprimer la série trimestrielle et garder fuel_price_avg.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att / mettrik_description",
+  "champ": "hook, resume, activity",
+  "probleme": "Coquille recurrente sur le nom de la societe.",
+  "preuve": "« Casey's'a bondi », « Casey's'affiche », « Casey's'exploite » : 17 occurrences de « Casey's' » dans la fiche.",
+  "correction_validee": "Remplacer « Casey's' » par « Casey's » (avec une espace) dans toute la fiche.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "resume",
+  "probleme": "Le ratio dette/fonds propres cite n est pas verifie par les chiffres de la fiche selon la definition retenue.",
+  "preuve": "« dette revenue sous le seuil de 0,6 fois les fonds propres » ; debt_total_q 2,432 / equity_q 3,952 = 0,62 ; net_debt_q 1,909 / 3,952 = 0,48.",
+  "correction_validee": "Preciser « dette nette » ou corriger le seuil.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "op_income_q / tax_rate_q / net_debt_q / eps_diluted_q / gross_margin_q (signal)",
+  "probleme": "Cuisine interne visible dans les signaux (mode de calcul, type de rapport).",
+  "preuve": "« dérivé = marge brute - charges d'exploitation - D&A » ; « Taux effectif dérivé = impôt / résultat avant impôt » ; « Dette nette dérivée = dette totale moins trésorerie » ; « T1-T3 publiés en rapport trimestriel » ; « ratio dérivé marge brute / CA ».",
+  "correction_validee": "Retirer les mentions de calcul et de type de rapport des cinq signaux, en gardant uniquement les chiffres et leur lecture.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "buyback_q.yoy",
+  "probleme": "Variation annuelle absurde sur une base quasi nulle.",
+  "preuve": "buyback_q yoy = +28542,9 % (Q4-FY2025 = 0 → Q4-FY2026 = 63,2).",
+  "correction_validee": "Afficher n/a quand la base de comparaison est nulle.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "EPS_Diluted, Antitrust_Gains, Tax_Rate et ensemble des KPI trimestriels",
+  "probleme": "Mise à jour partielle du T3 FY2026 : trois KPI portent la valeur du T3 avec un yoy et un signal du T2, les autres s'arrêtent au T2 alors que thèse et anti-thèse citent le T3.",
+  "preuve": "EPS_Diluted val = 3,94 (Q3-FY2026) avec yoy « +128.3% » (3,68 → 8,40, T2) et signal « T2 FY2026 : $8,40 » ; Antitrust_Gains val = 5,5 avec yoy « -91.7% » (198,6 → 16,5) ; Rev_Total, OCF, Net_Debt... dernier 2026-03-31 ; thèse : « neuf premiers mois de l'exercice 2026, le chiffre d'affaires atteint 249,0 Mds $ » (Q3 = 84,75 Mds $ selon l'anti-thèse).",
+  "correction_validee": "Integrer le T3 FY2026 sur toutes les series et recalculer yoy et signaux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Intl_Other_Rev, US_Gross_Profit, US_OpInc (yoy vs série)",
+  "probleme": "Réorganisation des segments au T1 FY2026 non retraitée dans les séries : le yoy est calculé sur une base retraitée que la série ne montre pas, d'où des signes opposés.",
+  "preuve": "Intl_Other_Rev yoy « +13,5% » alors que la série va de 1 401,6 (Q2-FY2025) à 1 049,3 (Q2-FY2026), soit -25 % ; US_Gross_Profit yoy « +19.7% » vs 2 120,5 → 2 252,3 = +6,2 % ; US_OpInc yoy « +5.6% » vs 1 033,2 → 998,3 = -3,4 %. US_Animal_Rev signal : « reclassée dans la rubrique Other [...] ce qui limite la comparabilité ».",
+  "correction_validee": "Retraiter les trimestres FY2025 au nouveau perimetre ou couper les series au T1 FY2026 avec mention de la reorganisation.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Tax_Rate.signal",
+  "probleme": "Le signal cite un taux de l'an dernier différent de la série.",
+  "preuve": "Signal : « 22,0% au T2 FY2026 contre 18,9% un an plus tôt » ; série Q2-FY2025 = 22,7.",
+  "correction_validee": "Aligner le signal sur la série (ou corriger la série) et le passer au T3.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Intl_Alliance_Rev, Intl_Other_Rev, Intl_OpInc, Rev_Total, Gross_Profit, Opex_DSA, Op_Income, Net_Income, FCF, DA (signal)",
+  "probleme": "Formats bruts du dépôt SEC recopiés dans les signaux : milliers avec virgules anglaises, montants illisibles, trace de calcul.",
+  "preuve": "« Alliance Healthcare $6,516,466 milliers », « revenue $78,355,916 milliers », « $1,142,6 M », « $1,173,0 M de free cash flow », DA : « somme des lignes Depreciation 132,136 et Amortization 117,156 du compte de résultat ».",
+  "correction_validee": "Reecrire en millions au format francais (6 516,5 M$) et retirer les traces de calcul.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "WBA_Rev_Conc.signal, Evernorth_Rev_Conc.signal",
+  "probleme": "Signaux en anglais.",
+  "preuve": "« FY2025 : Walgreens and Boots together accounted for approximately 25% of revenue (34% en FY2019) » ; « Evernorth Health Services accounted for approximately 13% of revenue ».",
+  "correction_validee": "Traduire les deux signaux en francais.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_SPECIALTY_MIX",
+  "probleme": "KPI arrêté à l'exercice 2017 alors que la fiche va jusqu'en 2026 : neuf ans de retard sur l'indicateur le plus attendu d'un distributeur pharmaceutique.",
+  "preuve": "« Part des produits de spécialité | % | dernier 2017-12-31 | serie FY2009...FY2017 | val 20.6 » ; signal évoquant « le creux de 2014 ».",
+  "correction_validee": "Mettre a jour depuis les publications recentes ou retirer le KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Consecutive annual dividend increases, Quarterly dividend increase, DPS.signal",
+  "probleme": "Trois affirmations différentes sur la durée des hausses de dividende, dont deux doublonnent DPS.",
+  "preuve": "« Consecutive annual dividend increases | 21 » ; « Quarterly dividend increase » signal : « 4e hausse annuelle consécutive » ; DPS signal : « Hausse du dividende chaque année depuis plus de dix ans ».",
+  "correction_validee": "Vérifier le compte réel (Cencora communique sur plus de vingt hausses consécutives), garder une seule mention dans DPS et supprimer les deux KPI à un point.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "International Healthcare Solutions revenue growth (YoY %), U.S. Healthcare Solutions revenue growth (YoY %)",
+  "probleme": "Signal qui annonce une accélération en citant l'avant-dernier point alors que le dernier marque un net ralentissement ; dates de dernier point fausses.",
+  "preuve": "Intl growth série ..., 9.6, 13, 5.9 avec signal « Segment international en forte accélération (+13% au T2-2026) » ; les deux KPI sont datés 2026-06-30 alors que 2,9 % et 5,9 % sont les valeurs du trimestre clos le 31 mars 2026 (US_HHS_Rev yoy +2,9 %, Intl_Seg_Rev +5,5 %).",
+  "correction_validee": "Réécrire le signal sur le dernier point (5,9 %) et dater les séries au 31-03-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "GLP-1 product revenue growth (YoY).unit",
+  "probleme": "Unité en anglais et nom trompeur : la série est un montant de hausse en milliards de dollars, pas un taux de croissance.",
+  "preuve": "« Croissance des ventes de GLP-1 (glissement annuel) | $B YoY growth | serie 0.876, 1, 1.9 ».",
+  "correction_validee": "Unite Mds $ de hausse sur un an, nom Hausse des ventes de GLP-1 sur un an.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ia",
+  "champ": "ai_positioning.summary",
+  "probleme": "Phrase de gabarit identique à celle de COIN, avec le ticker comme sujet.",
+  "preuve": "« COR décrit dans son rapport annuel un usage opérationnel de l'IA et du machine learning pour renforcer productivité ou services, tout en identifiant les risques associés. » ; COIN : même phrase avec « COIN ».",
+  "correction_validee": "Rédiger un résumé propre à Cencora (usages logistiques, prévision de la demande) avec le nom de la société.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Distribution network capital commitment through 2030, Share repurchases planned by calendar year-end, OneOncology ownership acquired, RCA acquisition cash consideration, Opioid litigation accrued liability, PharmaLex goodwill impairment",
+  "probleme": "Engagements, événements et provisions à un seul point présentés comme des KPI trimestriels datés 2026-05-11, dont un doublon d'Opioid_Reserve.",
+  "preuve": "« Opioid litigation accrued liability | 4.3 Mds $ | n=1 » vs Opioid_Reserve signal « atteint environ 4,3 milliards » ; « OneOncology ownership acquired | 92 % | n=1 » ; « Share repurchases planned by calendar year-end | 1000 ».",
+  "correction_validee": "Déplacer dans les faits marquants ; supprimer le doublon opioïdes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

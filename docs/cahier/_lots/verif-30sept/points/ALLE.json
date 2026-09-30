@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Americas Segment Revenue, International Segment Revenue, Electronics Penetration, Acquisitions Tuck-In, Volume Index Americas",
+  "probleme": "Cinq series sans frequence ni periodes dont les valeurs sont des suites arrondies ou lineaires qui ne correspondent a aucun chiffre publie present sur la fiche, avec des signaux telegraphiques en anglais",
+  "preuve": "International Segment Revenue [780, 800, 820, 820, 820] vs International Revenue 2024 = 759,8 et 2025 = 848,5 (somme trimestrielle) ; Electronics Penetration [18, 20, 22, 24, 26] vs electronic_pct_total [27.5, 24.8, 26.4, 25.1, 26.4] ; Acquisitions Tuck-In [3, 4, 5, 6, 7] alors que 2025 compte dix acquisitions ; signaux 'Smart locks momentum', 'Soft non-resi US', 'Pricing institutionnel'",
+  "correction_validee": "Supprimer les cinq KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Americas Revenue, International Revenue, Americas Op Income, International Op Income, Total Segment Op Income",
+  "probleme": "Doublons annuels arretes en 2024, sans accents, dont la valeur affichee n'est pas dans la serie",
+  "preuve": "Americas Revenue value 3012.4, history [1782.5, 2016.7, 2072.2, 2551.6, 2913.6] ; International Revenue value 759.8, history se termine a 737.2 ; textes 'Resultat Op.', 'machine a cash', 'levier residentiel'",
+  "correction_validee": "Supprimer les cinq KPI, couverts par americas_rev, intl_rev, americas_op_income et intl_op_income.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Repartition en anglais et trompeuse : 'Product' contre 'Non Mechanical Product Revenues' au lieu du decoupage mecanique / electronique / logiciels et services que la fiche permet de calculer exactement",
+  "preuve": "slices 'Product 93.2 ; Non Mechanical Product Revenues 6.8' ; REV_MECHANICAL 2025 = 2713,9 + electronic_rev 1075,1 + services 278,3 = 4067,3 M$ = CA 2025",
+  "correction_validee": "Remplacer par 'Produits mécaniques 66,7 ; Produits électroniques 26,4 ; Logiciels et services 6,8'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "electronic_pct_total.yoy, CAHIER_VOLUME_PRICE_SPLIT.yoy, CAHIER_SERVICE_RECURRING_MIX.yoy",
+  "probleme": "Champ yoy contenant un calcul de travail, faux de surcroit, et variations de ratios en pourcentage relatif absurde",
+  "preuve": "yoy '+1.9pp vs 2024 (25.1%) et vs 2023 (26.4% --> 2023: 965/3650.8=26.4%)' alors que 26,4 - 25,1 = 1,3 ; CAHIER_VOLUME_PRICE_SPLIT yoy '-433.3%' pour -0,3 vers 1 ; CAHIER_SERVICE_RECURRING_MIX '+1.8%' pour 6,72 vers 6,84",
+  "correction_validee": "yoy '+1,3 pt' pour electronic_pct_total, '+1,3 pt' pour CAHIER_VOLUME_PRICE_SPLIT et '+0,1 pt' pour CAHIER_SERVICE_RECURRING_MIX.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "electronic_rev.signal",
+  "probleme": "Signal en franglais avec double tiret sur le KPI hero",
+  "preuve": "'Croissance low-double digits vs 2024; 26.4% du CA total -- moteur de croissance long terme'",
+  "correction_validee": "Signal : 'Hausse de 13,6 % sur un an ; 26,4 % du chiffre d'affaires total, moteur de croissance à long terme.'",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "warranty_liability_balance, warranty_accruals_current_period, allowance_doubtful_accounts, intangible_asset_impairment, acquisitions_amount",
+  "probleme": "Cinq KPI extraits des notes annexes avec frequence non standard, date de derniere donnee fausse, series a l'envers sans annees, texte brut anglais en explication, et un montant d'acquisitions contredit par la fiche",
+  "preuve": "period_type 'annual', last_data_date 2026-06-30 ; warranty explanation 'Balance at end of period $ 26.2 $ 22.8 $ 20.7' ; acquisitions_amount [1.7, 0, 0] M$ contre 'Aggregate consideration for 2025 acquisitions' 631,6 M$ et acq_spend_q Q3-2025 = 546,6 ; explanation 'Acquisitions 1.7 : :'",
+  "correction_validee": "Supprimer acquisitions_amount ; pour les quatre autres, dater les points (2023, 2024, 2025), remettre la serie dans l'ordre, frequence 'year', explication en francais",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels",
+  "probleme": "Doublon d'effectifs arrete en 2021 a cote de employees_ww qui va jusqu'a 2025",
+  "preuve": "effectifs_annuels dernier 2022-02-15, serie 2016=9400, 2017=10000, 2020=11500, 2021=11000 ; employees_ww FY2025 = 13300",
+  "correction_validee": "Compléter effectifs_annuels avec 2022=12 300, 2023=12 400, 2024=14 400 et 2025=13 300, puis supprimer employees_ww.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Texte generique avec le ticker deforme en 'ALLE' accentue et un exercice 2026 inexistant ; la preuve citee date de decembre 2021",
+  "preuve": "'ALLÉ integre l'IA/ML dans ses produits et operations d'apres le rapport annuel exercice 2026.' ; evidence : 'Allegion Ventures a annonce en decembre 2021 un second fonds'",
+  "correction_validee": "Reecrire avec le nom Allegion et les usages actuels (controle d'acces, logiciels, fonds Allegion Ventures)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Gallup Exceptional Workplace Award with distinction, First quarter with revenue over 1 billion, Expected tariff surcharge revenue",
+  "probleme": "Elements de communication presentes comme KPI : un prix RH avec unite '1 sur 5', un jalon avec valeur 1, une prevision 2025 datee 2026",
+  "preuve": "Gallup val 5 unite 'entreprises (1 sur 5)' ; 'Premier trimestre a plus d'un milliard' val 1 unite 'Md USD (jalon)' ; 'Environ 40 M USD ... integres a l'outlook 2025' date 2026-03-11",
+  "correction_validee": "Supprimer les trois KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ }
+]

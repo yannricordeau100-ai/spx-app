@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REVENUE.signal",
+  "probleme": "Le record trimestriel annoncé est faux.",
+  "preuve": "'record trimestriel' pour Q2-2026 = 3.418, alors que Q4-2025 = 3.476.",
+  "correction_validee": "Remplacer 'record trimestriel' par 'deuxième plus haut trimestre après le T4 2025'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NN_MARGIN, FCF, BOOK_TO_BILL, ADO_REV, CAPEX_NNS, CAPEX_ING (signaux)",
+  "probleme": "Cuisine interne et mentions de documents dans les signaux, non détectées mécaniquement.",
+  "preuve": "'série désormais trimestrielle et non plus annuelle' ; 'série désormais trimestrielle' ; '6,7 Md$ de commandes dérivées' ; 'ventilation introduite au rapport trimestriel du T1 2025' ; 'ventilation publiée depuis le rapport trimestriel du T1 2024'.",
+  "correction_validee": "Supprimer ces fragments des signaux NN_MARGIN, FCF, BOOK_TO_BILL, ADO_REV, CAPEX_NNS et CAPEX_ING.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BUYBACK",
+  "probleme": "La série s'arrête au T4 2024 alors que la fiche va au T2 2026. Le signal recopie un tableau brut en anglais et s'arrête au T1 2026.",
+  "preuve": "dernier 2024-12-31, val=0 ; signal \"le rapport annuel 2025 affiche 'Repurchases of common stock | - | (162) | (75)'\" ; 'Aucun rachat ... ni au T1 2026'.",
+  "correction_validee": "Ajouter les six trimestres à 0 jusqu'au T2 2026 et réécrire le signal : 'Aucun rachat depuis le T3 2024 (162 M$ en 2024)'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ADO_REV, GSU_REV",
+  "probleme": "Les séries ont des trous : le T2 au T4 2025 manquent, alors que les variations sur un an sont calculées sur un T2 2025 absent.",
+  "preuve": "ADO_REV : Q1-2025=485, Q1-2026=492, Q2-2026=518, yoy -2.1% ; GSU_REV : Q1-2025=250, Q1-2026=256, Q2-2026=242, yoy -7.6%.",
+  "correction_validee": "Compléter les trimestres du T2 au T4 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_FUNDED_BACKLOG, CAHIER_BOOK_TO_BILL",
+  "probleme": "Doublons annuels de KPI trimestriels déjà présents. L'un d'eux porte un nom anglais faux pour une série en %.",
+  "preuve": "CAHIER_FUNDED_BACKLOG FY2025 = 60.2 = FUNDED_SHARE Q4-2025 = 60.2, libellé anglais 'Funded Backlog', unité %, yoy '+6.9%'. CAHIER_BOOK_TO_BILL recoupe BOOK_TO_BILL.",
+  "correction_validee": "Supprimer CAHIER_FUNDED_BACKLOG, ou garder son historique 2016-2018 en exprimant la variation en points. Renommer CAHIER_BOOK_TO_BILL en 'Ratio commandes sur chiffre d'affaires annuel'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "16 KPI hérités à un seul point (MDA Shield, ATSP, Senior notes, Revolving credit facility, Stock repurchase program, Outsourcing YoY...)",
+  "probleme": "Des plafonds de contrats-cadres multi-attributaires sont présentés comme des KPI. Ils sont trompeurs pour une société qui réalise 12,5 Mds $ de CA. Tous ont un nom anglais et sont datés du 2026-03-28.",
+  "preuve": "'MDA Shield multi-award contract ceiling' = 151000 M$ ; 'Advanced Technology Support Program' = 25000 M$ ; 'Outsourcing YoY (earned hours)' = 100 avec yoy '+100%' ; n=1 pour tous.",
+  "correction_validee": "Supprimer ces 16 KPI à un point ou les basculer en texte, en ne gardant en série que la croissance des heures produites et les embauches.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateurs d'industrie manquants",
+  "probleme": "Les indicateurs clés du redressement d'un chantier naval, la cadence de production et la main-d'œuvre, n'existent qu'en points isolés.",
+  "preuve": "'Shipbuilding throughput YoY' = 14 (n=1) ; 'Shipbuilders hired in the quarter' = 1600 (n=1) ; aucune série de débit, d'heures sous-traitées ou d'attrition.",
+  "correction_validee": "Créer des séries trimestrielles : croissance du débit de production (heures), embauches d'ouvriers navals, taux d'attrition.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel.signal, fcf_par_salarie.signal",
+  "probleme": "Des variations absurdes s'affichent à cause d'un effet de base (2024 à 26 M$).",
+  "preuve": "'Trésorerie libre de 0,8 Mds $ en 2025, +2953,8 % sur un an' ; '+2900,0 % sur un an'.",
+  "correction_validee": "Remplacer par 'retour à 794 M$ après un point bas de 26 M$ en 2024' et masquer les variations de plus de 500 %.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NNS_REV, CT_FFP/CT_FPI/CT_COST/CT_TM, CVN_REV, SUB_REV (unités et noms)",
+  "probleme": "Unités incohérentes entre KPI d'une même famille. Les noms contiennent de l'anglais et sont réducteurs.",
+  "preuve": "NNS_REV en Mds $ contre ING_REV et MT_REV en M USD ; CT_TM = 0.032 Mds $. 'Revenu porte-avions Ford class' alors que la série inclut aussi la refonte des Nimitz. 'Virginia/Columbia class'.",
+  "correction_validee": "Passer NNS_REV et CT_* en M $, puis renommer en 'Chiffre d'affaires porte-avions' et 'Chiffre d'affaires sous-marins'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques / en-tete",
+  "champ": "risks, tagline",
+  "probleme": "Seulement quatre risques, réduits à des titres génériques dont un relève de la cuisine interne. Slogan en anglais.",
+  "preuve": "'Risque opérationnel identifié dans le filing' ; 'Risques contractuels' ; aucun texte. Tagline 'America's largest shipbuilder...'.",
+  "correction_validee": "Rédiger des risques précis (budget de la Marine, contrats à prix incitatif, main-d'œuvre, retards Columbia et Virginia) ; traduire ou retirer le slogan.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

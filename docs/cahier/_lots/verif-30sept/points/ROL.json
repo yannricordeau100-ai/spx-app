@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Le moat cite une croissance de 10 a 14 % sur les trois lignes, contredite par les derniers trimestres et par l anti-these qui parle de ralentissement.",
+  "preuve": "moat : « Croissance de 10 à 14 % sur le résidentiel, le commercial et le termite » ; residential_rev yoy=+6.6%, commercial_rev +8.6%, termite +10.5% ; att : « plus gros segment (résidentiel) en net ralentissement »",
+  "correction_validee": "Reecrire le moat avec les taux du T2 2026 (residentiel +6,6 %, commercial +8,6 %, termites +10,5 %) et mentionner le ralentissement du residentiel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "customer_count",
+  "probleme": "Serie construite sur un seuil declare (« plus de 2 millions ») : le point 2019 a 2,4 fait apparaitre une baisse de clientele qui n existe pas.",
+  "preuve": "customer_count serie FY2019=2.4, FY2021=2, FY2022=2 ... FY2025=2 ; signal : « (seuil déclaré) »",
+  "correction_validee": "Supprimer la serie customer_count ou ne garder que les annees avec un chiffre precis publie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted",
+  "probleme": "Trous dans la serie : les quatriemes trimestres 2024 et 2025 manquent alors que le resultat net trimestriel est complet.",
+  "preuve": "eps_diluted serie : Q3-2024=0.28, Q1-2025=0.22 ... Q3-2025=0.34, Q1-2026=0.22 ; net_income_q Q4-2024=105.675, Q4-2025=116.441",
+  "correction_validee": "Ajouter Q4-2024 et Q4-2025 a partir des rapports annuels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "gross_margin_q",
+  "probleme": "Le signal annonce une amelioration reguliere alors que la marge brute recule sur un an et reste en dessous de 2024.",
+  "preuve": "gross_margin_q val=52.8 yoy=-0.9 pt, Q3-2024=54, Q3-2025=54.4 ; signal : « en amélioration régulière »",
+  "correction_validee": "Signal : marge brute 52,8 % au T2 2026, en repli de 0,9 point sur un an.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "organic_revenue_growth / Organic revenue growth",
+  "probleme": "Meme indicateur en annuel et en trimestriel, avec une variation annuelle fausse (+6,9 % au lieu de -1,0 point).",
+  "preuve": "organic_revenue_growth FY2024=7.9, FY2025=6.9, yoy=+6.9% ; Organic revenue growth trimestriel n=17",
+  "correction_validee": "Corriger le yoy a -1,0 point ou supprimer la serie annuelle.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total employees",
+  "probleme": "Doublon des effectifs annuels avec une valeur affichee arrondie differente de la serie.",
+  "preuve": "Total employees val=22000 serie 21946 ; effectifs_annuels 2025=21946",
+  "correction_validee": "Supprimer Total employees, effectifs_annuels couvre la donnee.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "RESIDENTIAL_REVENUE / acquisitions_count",
+  "probleme": "Deux series arretees ou trouees : le CA residentiel annuel saute de 2018 a 2022 et double la serie trimestrielle ; le nombre d acquisitions s arrete au T2 2025 alors que la fiche va au T2 2026.",
+  "preuve": "RESIDENTIAL_REVENUE serie FY2018=773.932, FY2022=1207.089 ; acquisitions_count dernier 2025-06-30",
+  "correction_validee": "Completer 2019-2021 et les trimestres T3 2025 a T2 2026, ou supprimer le doublon annuel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_annuelle",
+  "probleme": "Serie a trois points isoles (2019, 2024, 2025) alors que la dette trimestrielle est complete depuis 2024.",
+  "preuve": "dette_annuelle n=3 serie 2019=0.203, 2024=0.395, 2025=0.61",
+  "correction_validee": "Completer 2020-2023 a partir des bilans annuels.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

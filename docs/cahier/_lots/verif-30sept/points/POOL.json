@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Open market share repurchases (Q1)",
+  "probleme": "Chiffre contredit par la série de rachats : 349 M$ au T1 2026 contre 64,4 M$ dans buybacks_q, et 156 M$ au T1 2025 contre 56,3.",
+  "preuve": "buybacks_q Q1-2025=56.3, Q1-2026=64.4 ; signal « 349 M$ au T1-2026, vs 156 M$ au T1-2025 »",
+  "correction_validee": "Vérifier le 10-Q T1 2026 et corriger la série fausse ou supprimer le KPI de conférence.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_VENTES_COMPARABLES / base_biz_growth",
+  "probleme": "Même indicateur en deux séries qui se contredisent, l'une arrêtée en 2022, l'autre trouée (2016, 2023, 2024 absents).",
+  "preuve": "FY2015 : 5 vs 10 ; FY2017 : 7 vs 13 ; FY2018 : 7 vs 8 ; CAHIER s'arrête FY2022",
+  "correction_validee": "Fusionner en une seule série base business vérifiée de 2015 à 2025 et supprimer CAHIER_VENTES_COMPARABLES.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these",
+  "probleme": "Chiffres contredits : le ROE n'est pas au-dessus de 30 % depuis huit trimestres (29,9 au T3 2025) et le nombre de centres varie entre 454, 455 et 456 selon le bloc.",
+  "preuve": "roe_ttm Q3-2025=29.9 ; these « 455 centres » ; CAHIER_RESEAU_SITES FY2025=456 ; scp+horizon+superior+npt+intl = 224+88+75+19+48 = 454",
+  "correction_validee": "Corriger la phrase ROE et aligner le total de centres sur une seule source.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Consecutive annual dividend increases",
+  "probleme": "Périmé : la 21e hausse (1,25 à 1,30 $) est visible au T2 2026 mais le KPI annonce 20 hausses, dernière au T2 2025.",
+  "preuve": "dps_q Q1-2026=1.25, Q2-2026=1.3 ; signal « 20e hausse consécutive, la plus récente au T2-2025 »",
+  "correction_validee": "Passer à 21, dernière au T2 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "volume_vs_price ; new_pool_construction_units (yoy)",
+  "probleme": "Texte libre dans le champ yoy.",
+  "preuve": "yoy=« prix +2à3%, déflation -1%, volume négatif net » ; yoy=« -3 à -5% »",
+  "correction_validee": "yoy vide pour volume_vs_price (n=1) et -3,2 % pour new_pool_construction_units.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted_q",
+  "probleme": "Trous dans la série : les T4 manquent alors que net_income_q les a.",
+  "preuve": "serie Q3-2024=3.27, Q1-2025=1.42 (pas de Q4-2024) ; Q3-2025=3.4, Q1-2026=1.45 (pas de Q4-2025)",
+  "correction_validee": "Ajouter Q4-2024 et Q4-2025 depuis le 10-K.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux (dso_days, supplier_concentration_top3, sgna_q, sgna_ratio, capex_q, gross_profit_q, intl_locations, acquired_locations)",
+  "probleme": "Accents manquants et doubles points en fin de phrase.",
+  "preuve": "« facilites », « a quelques fournisseurs », « lies », « forcement », « rapporte au CA », « nécessité peu », « +1% sur un an.. »",
+  "correction_validee": "Corriger en facilités, à quelques, à vendre, liés, forcément, rapporté, nécessite, avec un seul point final.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

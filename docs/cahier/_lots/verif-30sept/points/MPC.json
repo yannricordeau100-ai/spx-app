@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "throughput_total ; utilization_rate",
+  "probleme": "Le hero et le taux d utilisation sautent le T4-2025 alors que le trimestre est publie et present sur les autres KPI.",
+  "preuve": "serie : « Q3-2025=3005, Q1-2026=2850, Q2-2026=2944 » (pas de Q4-2025) ; utilization_rate idem « Q3-2025=95, Q1-2026=89 ».",
+  "correction_validee": "Ajouter le point T4-2025 pour les deux series.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "refined_product_sales_vol ; crude_refining_capacity",
+  "probleme": "Deux series arretees au T1-2026 alors que le reste de la fiche est au T2-2026.",
+  "preuve": "refined_product_sales_vol « dernier 2026-03-31 », signal « T1-2026 à 3 551 mbpd » ; crude_refining_capacity « dernier 2026-03-31 ».",
+  "correction_validee": "Ajouter le T2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total debt obligations vs dette_annuelle",
+  "probleme": "Deux dettes totales 2025 differentes sur la meme fiche.",
+  "preuve": "« Total debt obligations » serie 33,31 (fin 2025) ; dette_annuelle 2025 = 32,876 Mds $.",
+  "correction_validee": "Verifier le perimetre (dette totale vs obligations incluant baux) et ne garder qu une serie.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "resume",
+  "probleme": "Le moat cite des chiffres perimes qui contredisent le T2-2026.",
+  "preuve": "moat : « Le taux d'utilisation des raffineries reste à 89 % » alors que utilization_rate T2-2026 = 94 % ; « revenus des produits raffinés reculent de 4,8 % » alors que le T2-2026 est un trimestre record (EBITDA R&M x3,5).",
+  "correction_validee": "Reecrire le moat sur le T2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels, ca_par_salarie, dette_par_salarie",
+  "probleme": "Rupture de perimetre non signalee : 2020 inclut Speedway (cede en 2021), ce qui fausse les ratios par salarie et le taux annuel.",
+  "preuve": "effectifs 2020=57 900 puis 2021=17 700 ; signal « −20,4 % par an depuis 2020 » ; ca_par_salarie 2020=1 205 puis 2021=6 779 k$.",
+  "correction_validee": "Demarrer les series en 2021 ou noter le changement de perimetre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI n=1 (E1 contract, Garyville jet, Global refining capacity offline, New authorization, MPLX capex, Gulf Coast complex, Harmon Creek, acquisitions, Record quarterly dividend)",
+  "probleme": "Seize entrees a un seul point : projets, acquisitions, une donnee macro mondiale et un dividende deja present dans dividend_per_share.",
+  "preuve": "« Global refining capacity offline during conflict » val=6 M bpj n=1 (donnee macro, pas MPC) ; « Record quarterly dividend » val=1 = dividend_per_share T2-2026 ; « New share repurchase authorization » 5 Mds n=1.",
+  "correction_validee": "Retirer le dividende doublon et la donnee macro ; deplacer le reste en evenements.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / clients",
+  "champ": "tagline ; titre source",
+  "probleme": "Tagline en anglais de type marketing ; mot double dans le titre de source clients.",
+  "preuve": "« Leading integrated energy company optimizing refining and midstream operations » ; « rapport annuel rapport annuel exercice 2025 ».",
+  "correction_validee": "Tagline courte en français (ex. « Raffinage et logistique pétrolière intégrés aux États-Unis ») et titre « Marathon Petroleum, rapport annuel exercice 2025 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

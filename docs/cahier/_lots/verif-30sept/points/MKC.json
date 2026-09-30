@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "last_data_date (toutes séries)",
+  "probleme": "Dates de clôture fausses : exercice clos le 30 novembre, T2 clos fin mai",
+  "preuve": "KPI trimestriels 'dernier 2026-06-30' pour Q2-2026 ; annuels 'dernier 2025-12-31' (condiments_sauces, rd_expense, advertising, CA_GRAND_PUBLIC, PRICING_ACTIONS) ; revenue_annuel correctement 2025-11-30",
+  "correction_validee": "Trimestriels Q2 FY2026 datés 2026-05-31, annuels FY2025 datés 2025-11-30.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "flavor_op_income, consumer_op_income, geo_apac, geo_emea",
+  "probleme": "Date du dernier point en retard de deux trimestres sur la série",
+  "preuve": "'dernier 2025-11-30' alors que la série contient Q1-2026 et Q2-2026",
+  "correction_validee": "Mettre last_data_date à 2026-05-31 pour flavor_op_income, consumer_op_income, geo_apac et geo_emea.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "op_income vs Special charges",
+  "probleme": "Deux montants de charges spéciales pour le même trimestre",
+  "preuve": "op_income signal '276,4 M USD au T2 FY2026 après 60,0 M USD de charges spéciales' ; KPI 'Special charges' T2 = 40.1",
+  "correction_validee": "Vérifier le communiqué T2 FY2026 et aligner les deux",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue",
+  "probleme": "Unité en Mds à deux décimales pour une société de 1,9 Md par trimestre : yoy faux",
+  "preuve": "yoy=+16.9% calculé sur 1.94/1.66 ; signal '+16,7 % publié' (1 936,6 / 1 659,9)",
+  "correction_validee": "Passer la série en M USD (1 936,6 ; 1 659,9...) pour que la variation affichée soit +16,7 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted, dps, capex, fcf",
+  "probleme": "Trimestre Q4 absent de quatre séries",
+  "preuve": "serie: Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026",
+  "correction_validee": "Ajouter Q4 FY2024 et Q4 FY2025 depuis le rapport annuel moins 9 mois",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Consumer Operating Income, Flavor Solutions Operating Income, Organic sales growth",
+  "probleme": "Même indicateur en annuel et en trimestriel",
+  "preuve": "Consumer Operating Income annuel FY2025=734.9 = somme de consumer_op_income (146.7+163.6+193.8+230.8) ; Organic sales growth trimestriel vs CAHIER_ORGANIC_GROWTH annuel",
+  "correction_validee": "Supprimer les KPI annuels 'Consumer Operating Income' et 'Flavor Solutions Operating Income' ; garder les deux croissances organiques.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "unités en prose",
+  "probleme": "Unités contenant des phrases",
+  "preuve": "'x (ramené en dessous de)', 'ingrédients sourcés depuis 80 pays', '% (fourchette 11-13%) du chiffre d'affaires 2026', 'x (doublé vs l'an dernier)', '% (40e année consécutive de hausse)'",
+  "correction_validee": "Unités x, ingrédients, %, x, % ; déplacer 'ramené en dessous de', '80 pays', 'fourchette 11-13 %', 'doublé vs l'an dernier' et '40e année' dans le signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORGANIC_GROWTH",
+  "probleme": "Variation annuelle d'un taux exprimée en pourcentage",
+  "preuve": "yoy=+137.5% pour 0.8 -> 1.9 % de croissance organique",
+  "correction_validee": "Afficher +1,1 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

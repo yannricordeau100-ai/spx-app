@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Adjusted EBITDA Margin ; TTM Free Cash Flow",
+  "probleme": "Deux KPI annuels sans etiquettes de periode, dates du jour (2026-09-29), qui contredisent ou doublonnent les series trimestrielles.",
+  "preuve": "Adjusted EBITDA Margin serie 20, 18, 19, val 19 % alors que ADJ_EBITDA affiche une marge de 35 % au T2 2026 ; son signal est de la cuisine interne : 'EBITDA $519M (+24% Y/Y), guidance FY 35%+'. TTM Free Cash Flow serie 4.165, 4.356, 4.536 val 4.5 = instantanes T1 de TTM_FCF (4 536 au T1 2026).",
+  "correction_validee": "Supprimer Adjusted EBITDA Margin et TTM Free Cash Flow, deja couverts par ADJ_EBITDA et TTM_FCF.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Take Rate ; Implied take rate (revenue/GBV) ; TAKE_RATE",
+  "probleme": "Le meme ratio CA/GBV existe trois fois, dont un doublon annuel non date en plus du 8200 deja signale.",
+  "preuve": "Take Rate serie 12.7, 13.3, 13.6, 13.5, 13.6 ; TAKE_RATE serie FY2021=12.8, FY2022=13.3, FY2023=13.5, FY2024=13.6, FY2025=13.4 : memes annees, valeurs legerement differentes.",
+  "correction_validee": "Supprimer Take Rate ; garder TAKE_RATE (annuel) et Implied take rate (trimestriel).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TAKE_RATE.signal",
+  "probleme": "Le signal affirme une hausse structurelle alors que la serie recule en 2025.",
+  "preuve": "'Taux de prise implicite de 13.4% en 2025 ... en hausse structurelle avec la monetisation accrue' ; serie FY2024=13.6 puis FY2025=13.4, yoy -0.2 pt.",
+  "correction_validee": "Reformuler : stable autour de 13,5 %, leger repli en 2025 (effet Reserve Now Pay Later).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ADR ; Average Daily Rate ; App Bookings Share",
+  "probleme": "Trois series annuelles non datees qui doublonnent des KPI existants et se contredisent entre elles ou avec le trimestriel.",
+  "preuve": "ADR serie 161.4, 153.4, 166.7, 166.4, 169.7 (val 166.4 alors que dernier point 169.7) contre Average Daily Rate serie 142, 153, 164, 166 (periode None) ; GBV_PER_NIGHT trimestriel couvre deja le prix moyen. App Bookings Share val 58 '2025' alors que 'Nights booked on app' donne 62 a 64 % fin 2025.",
+  "correction_validee": "Supprimer ADR, Average Daily Rate et App Bookings Share.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Nights & Experiences Booked ; Active Listings",
+  "probleme": "Valeur affichee differente du dernier point de la serie, series sans etiquettes, dates incoherentes.",
+  "preuve": "Nights & Experiences Booked val 491.8, serie 251.1, 393.7, 448.2, 491.8, 535, dernier 2026-09-29 ; doublon annuel du hero NIGHTS (somme 2025 des trimestres = 533) et nom perime (Airbnb dit 'Nights and Seats Booked'). Active Listings val 8, serie 5.6, 6.6, 7.7, 8, 8.6, dernier 2024-12-31.",
+  "correction_validee": "Supprimer Nights & Experiences Booked ; pour Active Listings, dater la serie et afficher le dernier point apres controle de son annee, sinon supprimer le KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Launch of Services and redesigned Experiences ; AirCover property damage protection per stay",
+  "probleme": "Deux entrees qui ne sont pas des indicateurs.",
+  "preuve": "'Launch of Services...' unite '2025', valeur 5 (= mai), serie [5]. 'AirCover...' unite 'M $', valeur 3 = plafond contractuel de garantie, pas une mesure.",
+  "correction_validee": "Supprimer les deux entrees.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "10 KPI a un seul point dates 2026-04-10",
+  "probleme": "Faits anecdotiques du call T1 2026 presentes comme KPI, non historisables, noms anglais sans nom francais, dates incoherentes.",
+  "preuve": "New homes listed for the World Cup 100000 ; Guests hosted during the Italy Winter Olympics 200000 ; Service host applications received 110000 (signal 'au Q3-2025' mais date 2026-04-10) ; Cumulative FCF since IPO 19 ; Verified identities 200 ; Low-quality listings removed 500000 ; Cumulative guest arrivals 2.5 ; Hosts on the platform 5 ; New share repurchase authorization 6 ('aout 2025') ; Share repurchases executed 2025 3.8 (= somme BUYBACK 2025 = 3 789).",
+  "correction_validee": "Decider : les basculer dans un bloc 'faits marquants' ou les supprimer ; supprimer au minimum le doublon des rachats 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "INSURANCE_REV_GROWTH ; COST_PER_BOOKING_YOY",
+  "probleme": "KPI a un point dont la valeur est un taux de croissance et le yoy recopie la valeur ; signe ambigu ; date = jour de publication.",
+  "preuve": "INSURANCE_REV_GROWTH val 45, yoy +45 %, n=1, dernier 2026-05-07. COST_PER_BOOKING_YOY nomme 'Baisse du cout par reservation' avec val +10 et yoy -10 %, n=1.",
+  "correction_validee": "Supprimer ou convertir en fait marquant ; si conserve, valeur -10 et date de fin de periode 2026-03-31.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "LT_DEBT",
+  "probleme": "Valeur affichee absente de la serie, dernier point a zero non explique, signal vague, incoherence apparente avec la dette totale.",
+  "preuve": "val 2476 'dernier 2026-06-30' mais serie FY2022=1987, FY2023=1991, FY2024=1995, FY2025=0 ; dette_annuelle 2025 = 1 999 M$ ; signal 'gestion opportuniste du bilan' sans mention du reclassement des convertibles 2026 ni de l'emission de 2,5 Md$ citee dans CASH_LIQUID.",
+  "correction_validee": "Ajouter le point 2026 (ou passer en trimestriel) et expliquer le zero de FY2025 (reclassement en dette courante).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "summary",
+  "probleme": "Le positionnement IA contredit la these et les KPI de la fiche.",
+  "preuve": "'sans en faire un pilier strategique central ... reste secondaire' alors que la these repose sur la baisse de 10 % du cout par reservation grace a l'IA, et que la fiche affiche 60 % du code ecrit par l'IA et 40 % des tickets resolus sans humain.",
+  "correction_validee": "Reecrire le positionnement en coherence (IA = levier de cout et de produit revendique par la direction).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0], risks[1], risks[2]",
+  "probleme": "Resumes generiques sans rapport avec Airbnb, dupliques, et justification decalee du titre.",
+  "preuve": "Risque 1 'Dependance aux tiers' et risque 3 'Risques operationnels' ont le meme resume 'chaine d'approvisionnement, capital humain, qualite produit'. 'Risques financiers' est justifie par un passage sur la marque et la securite ('criminal, violent, inappropriate, dangerous, or fraudulent').",
+  "correction_validee": "Reecrire les cinq resumes a partir du 10-K (reglementation locations courte duree, securite/confiance, fiscalite, concurrence OTA, dependance hotes).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions_marche",
+  "champ": "market_positions[0]",
+  "probleme": "Position de marche affichee sans nom ni part alors que le JSON permet de la calculer.",
+  "preuve": "Affiche 'None | taille 219.9 | part None' ; le JSON contient segment_revenue 91.3 Md$ (GBV 2025) et tam 219.9 Md$ (Phocuswright), soit 41,5 %.",
+  "correction_validee": "Afficher le nom 'Location de courte duree (reservations brutes mondiales)' et une part de 41,5 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ }
+]

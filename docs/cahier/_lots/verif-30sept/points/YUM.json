@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Total Units, KFC Units, Taco Bell Units, Pizza Hut Units, Digital Mix, Digital Sales Mix, System Sales Growth, KFC SSSG, Taco Bell US SSSG",
+  "probleme": "Series annuelles sans dates, aux valeurs rondes qui ont l'air inventees. Elles sont datees 2026-06-30 et contredisent les series trimestrielles publiees. Les descriptions sont en anglais.",
+  "preuve": "Total Units val=61500 contre total_units 64166 ; KFC Units 31000 contre KFC_units 34747 ; Taco Bell Units 8550 contre 9046 ; Digital Mix 50 % et Digital Sales Mix 55 % contre digital_pct 63 % ; description Taco Bell US SSSG : \"Outperforme QSR US peers, value strategy + viral marketing\".",
+  "correction_validee": "Supprimer ces neuf KPI, couverts par total_units, KFC_units, TB_units, PH_units, digital_pct, comp_sales_KFC, comp_sales_TB et la croissance des ventes systeme trimestrielle.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / anti-these",
+  "champ": "these, att",
+  "probleme": "La these et l'anti-these donnent deux produits de cession differents pour Pizza Hut.",
+  "preuve": "these : \"contre près de 1,5 Md $ en numéraire\" ; att : \"pour environ 2,3 Mds $ de produit net\".",
+  "correction_validee": "Verifier le montant de la cession de Pizza Hut a la source et harmoniser these et anti-these en precisant numeraire ou produit total.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Worldwide system sales growth, Gross new units opened, Digital system sales, Digital sales mix, Worldwide same-store sales growth, Worldwide unit count growth",
+  "probleme": "Les signaux decrivent le T1-2026 alors que le dernier point est date du 30 juin 2026 (ou du 8 fevrier, avant la fin du T1). Le nombre d'ouvertures brutes differe aussi du signal net_new_units.",
+  "preuve": "'Gross new units opened' dernier 2026-06-30 val=1030, signal \"au T1-2026\" ; net_new_units : \"481 unités nettes au T2 2026 pour 1 053 ouvertures brutes\" ; 'Worldwide same-store sales growth' dernier 2026-02-08, signal \"+3% au T1-2026\".",
+  "correction_validee": "Realigner dates et signaux sur le T2 2026 (1 053 ouvertures brutes) ou supprimer les doublons des series CAHIER et trimestrielles.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net New Units (annuel)",
+  "probleme": "KPI perime (dernier point 2024) et en double avec net_new_units, sans dates ; description en anglais.",
+  "preuve": "dernier 2024-12-31, serie 1500, 2400, 2550, 2100, 2200 ; description : \"Net new units opened. KFC International ... moteur principal\".",
+  "correction_validee": "Supprimer 'Net New Units' annuel, net_new_units trimestriel couvre l'indicateur.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Annual share repurchases",
+  "probleme": "Le montant annuel 2025 ne correspond pas a la somme de la serie trimestrielle.",
+  "preuve": "'Annual share repurchases' : 519 M$ en 2025 ; buyback 2025 : 229+109+36+178 = 552 M$.",
+  "correction_validee": "Verifier le montant et supprimer le KPI ponctuel, deja couvert par buyback.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PARC_UNITES / CAHIER_MARGE_RESTAURANT",
+  "probleme": "Ces series annuelles doublonnent total_units et rest_margin_pct. Le nom de CAHIER_PARC_UNITES promet une part franchisee que la serie ne contient pas.",
+  "preuve": "CAHIER_PARC_UNITES FY2025=63285 = total_units Q4-2025 ; nom \"Parc de restaurants et part franchisée\" alors que la serie ne donne que des unites.",
+  "correction_validee": "Renommer CAHIER_PARC_UNITES en 'Parc de restaurants (fin d'exercice)' ou supprimer les deux series annuelles au profit de total_units, franchise_pct et rest_margin_pct.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GROUP_REVENUE.signal",
+  "probleme": "Le signal ne parle pas du chiffre d'affaires.",
+  "preuve": "\"Produit phare : KFC Original Recipe\".",
+  "correction_validee": "Signal : 8 214 M$ de chiffre d'affaires en 2025, +8,8 % sur un an.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VENTES_COMPARABLES.yoy",
+  "probleme": "La variation d'un taux est affichee a -400 %.",
+  "preuve": "FY2024=-1, FY2025=3, yoy=-400.0%.",
+  "correction_validee": "Afficher +4 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete / moat",
+  "champ": "tagline, moat",
+  "probleme": "Tagline en anglais. Le moat n'est pas qualifie et se reduit a une phrase de chiffres.",
+  "preuve": "tagline : \"The world's largest restaurant company by unit count...\" ; moat : \"None / tendance stable :: Les ventes système progressent de 5,8 %\".",
+  "correction_validee": "Traduire la tagline et rediger un moat (marques mondiales, modele franchise a 97 %, echelle d'approvisionnement).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "yoy (KPI datés 2026-09-21)",
+  "probleme": "Le point H1-2026 a été ajouté mais le yoy stocké est resté celui de H2-2025",
+  "preuve": "NET_REVENUE val 1302,9, yoy stocké +17,4 % alors que 1302,9/1093,5 = +19,1 % (chiffre donné par la thèse) ; EBITDA +23,3 % vs +18,0 % réel ; FCF +21,6 % vs +16,6 % ; TAKE_RATE « +0,9 bp » vs −0,6 bp ; EBITDA_MGN « +2 pts » vs −1 pt ; NII_EFP +13,8 % vs +43,6 % ; NET_INCOME +12,8 % vs +13,1 %",
+  "correction_validee": "Recalculer le yoy H1-2026 contre H1-2025 sur NET_REVENUE, EBITDA, EBITDA_MGN, NET_INCOME, TAKE_RATE, FCF, HEADCOUNT, NII_EFP et SEG_*_REV.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux NET_REVENUE, EBITDA, NET_INCOME, FCF, NII_EFP",
+  "probleme": "Signaux périmés d'un semestre : ils citent H2-2025 alors que la série contient H1-2026",
+  "preuve": "NET_REVENUE : « 1 270,7 M€ de revenu net au second semestre 2025 » pour val 1302,9 ; EBITDA « 702,1 M€ » pour 641,5 ; NET_INCOME « 581,6 M€ » pour 544,1 ; FCF « 606,8 M€ » pour 553,4 ; NII_EFP « 6,6 M€ » pour 8,618",
+  "correction_validee": "Réécrire les cinq signaux sur H1-2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PROCESSED_VOL, PROCESSED_VOL_Q, NET_REVENUE_Q",
+  "probleme": "Mise à jour incohérente : le volume traité s'arrête à H2-2025 et les trimestriels à Q1-2026 alors que revenu net, EBITDA et FCF ont H1-2026",
+  "preuve": "PROCESSED_VOL dernier 2025-12-31 (745,3) ; PROCESSED_VOL_Q et NET_REVENUE_Q derniers Q1-2026 ; NET_REVENUE H1-2026 = 1302,9 implique Q2-2026 = 682,1 ; volume H1-2026 déductible du take rate (1302,9 / 16,2 bp ≈ 804 Mds €) ; le moat cite « +11,8 % » (H2-2025)",
+  "correction_validee": "Ajouter H1-2026 au volume traité et Q2-2026 aux deux séries trimestrielles, actualiser le moat",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Take Rate (bps), Unified Commerce Revenue, Unified Commerce Volume, Net Take Rate Unified Commerce",
+  "probleme": "Quatre KPI sans dates, signaux télégraphiques de modèle de langage, valeurs contredisant les séries sourcées",
+  "preuve": "« Take Rate (bps) » 13,3 → 17 vs TAKE_RATE 17,1 dès H2-2022 ; « Unified Commerce Revenue » 350 M€ vs SEG_UC_REV FY2025 = 334,1 + 431,3 = 765,4 M€ ; « Unified Commerce Volume » 305 Mds € vs SEG_UC_VOL FY2024 = 334,7 et signal « Adyen a cessé de chiffrer ce volume par pilier » ; signaux « Boom omnichannel », « Volume capture », « Compression structurelle, attendue »",
+  "correction_validee": "Retirer Take Rate (bps), Unified Commerce Revenue, Unified Commerce Volume et Net Take Rate Unified Commerce.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "HEADCOUNT.signal",
+  "probleme": "Signal contredit par la série",
+  "preuve": "Signal : « la pause après la phase de recrutement massif traduit une discipline de coûts » ; série H1-2025 4568 → H2-2025 4771 → H1-2026 5020, soit +9,9 % sur un an",
+  "correction_validee": "Réécrire : reprise des embauches (+450 ETP en un an) après la pause de 2024",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "hero",
+  "champ": "hero_kpi",
+  "probleme": "Hero = revenu net alors que la justification décrit le volume traité",
+  "preuve": "hero_kpi = NET_REVENUE ; hero_kpi_rationale : « Le volume traite est l'indicateur signature d'Adyen et la grandeur que le groupe met en tête de chaque lettre aux actionnaires »",
+  "correction_validee": "Poser PROCESSED_VOL en hero une fois H1-2026 ajouté, ou réécrire la justification",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.customers",
+  "probleme": "Description des clients inexacte : Adyen cible les grands marchands, pas « toutes tailles »",
+  "preuve": "« Ses clients sont principalement des entreprises de toutes tailles, des détaillants aux services numériques » ; la fiche montre 1 client ≥ 10 % du revenu net, 31 plateformes à plus d'un milliard d'euros, risque 7 « Concentration du chiffre d'affaires sur les grands marchands »",
+  "correction_validee": "Écrire « grandes entreprises et plateformes internationales (commerce en ligne, enseignes physiques, marketplaces) »",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "revenue_annuel 2022",
+  "probleme": "Valeur 2022 fausse (10,78 Mds) et contredite par rev_fy sur la même fiche (10 537 M$) ; les dérivés 2022 (CA par salarié 265,9, dette sur CA 44,1) sont donc faux aussi",
+  "preuve": "revenue_annuel 2022=10.78 ; rev_fy FY2022=10537 ; ca_par_salarie 2022=265.9 = 10780/40548",
+  "correction_validee": "Corriger revenue_annuel 2022 en 10,537, ca_par_salarie 2022 en 259,9 et dette_sur_ca 2022 en 45,2.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rev_fy vs revenue_annuel ; CAHIER_GMV vs gmv_q",
+  "probleme": "Chiffre d affaires annuel présent deux fois ; GMV présent en annuel et en trimestriel",
+  "preuve": "rev_fy FY2025=28893 M$ et revenue_annuel 2025=28.893 Mds $ ; CAHIER_GMV FY2025=65037 = gmv_q 13330+15258+16543+19906",
+  "correction_validee": "Supprimer rev_fy seulement et garder CAHIER_GMV.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "nimal_q.yoy",
+  "probleme": "Variation d une marge en % exprimée en relatif (-10 %) au lieu de points",
+  "preuve": "nimal_q Q2-2025=23, Q2-2026=20.7, yoy=-10.0%",
+  "correction_validee": "Remplacer la variation de nimal_q par -2,3 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risques 1, 4, 5, 6, 8 (texte)",
+  "probleme": "Accents manquants et fautes d accord dans les textes de risques",
+  "preuve": "sont juges très innovants ; Le groupe déclaré étendre... a toute l'entreprise ; modèle de risque développe en interne, historique produit limite ; Le Bresil... ont représente ; ou les usages évoluent",
+  "correction_validee": "Corriger : juges en jugés, déclaré en déclare, a toute en à toute, développe en développé, limite en limité, Bresil en Brésil, ont représente en ont représenté, ou les usages en où les usages.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ACHETEURS_ACTIFS (nom)",
+  "probleme": "Nom annonce acheteurs actifs et fréquence d achat mais la série ne contient que les acheteurs ; risque de confusion avec buyers_q (acheteurs uniques trimestriels, 83 M au T4-2025 contre 121 M annuels)",
+  "preuve": "CAHIER_ACHETEURS_ACTIFS FY2025=121 millions d acheteurs ; buyers_q Q4-2025=83",
+  "correction_validee": "Renommer CAHIER_ACHETEURS_ACTIFS en Acheteurs uniques sur l'année.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune série sur le portefeuille de crédit ni sur le taux de créances en souffrance, alors que l anti-thèse repose sur la provision pour créances douteuses à 13,3 % du CA et que le crédit pèse 20 % des revenus",
+  "preuve": "revenue_by_segment : Revenus du crédit 20.3 ; att : la provision pour créances douteuses a presque doublé, à 13,3 % du chiffre d'affaires ; seul nimal_q couvre le crédit",
+  "correction_validee": "Ajouter le portefeuille de crédit (M$) et le taux de créances à plus de 90 jours publiés chaque trimestre",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

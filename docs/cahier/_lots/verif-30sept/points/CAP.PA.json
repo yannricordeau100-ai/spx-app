@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "La repartition par segment reprend les regions geographiques avec des valeurs FY2024, en doublon du bloc geographique FY2025, alors que la fiche possede les poids par metier.",
+  "preuve": "revenue_by_segment : Amérique du Nord 6,188 (= GEO_NA FY2024), France 4,38 (= GEO_FR FY2024) ; revenue_by_geography : Amérique du Nord 28,4 (= 6371/22465 FY2025) ; KPI BUS_AT_WEIGHT 63 / BUS_OE_WEIGHT 29 / BUS_ST_WEIGHT 8.",
+  "correction_validee": "Remplacer les tranches par les métiers FY2025 : Applications & Technology 63 %, Operations & Engineering 29 %, Strategy & Transformation 8 %.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks",
+  "champ": "description (risques 1, 3, 4, 5, 6, 8)",
+  "probleme": "Accents manquants et mentions du document source dans les blocs de risque.",
+  "preuve": "« la capacité du groupe a atteindre ses objectifs », « budgets alloues », « niveaux eleves », « portefeuille mal adapte », « coûts associes », « marque par », « salaries », « alimente », « déjà teste » ; « Le document cite explicitement... » (risque 1), « Le document décrit un environnement cyber » (risque 5).",
+  "correction_validee": "Rétablir les accents dans les descriptions des risques 1, 3, 4, 5, 6 et 8, et remplacer « Le document cite/décrit » par « Capgemini cite/décrit ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik / tendance",
+  "probleme": "Moat en tendance baisse avec « prises de commandes quasi stables » contredit par les series recentes et par le positionnement IA « leader ».",
+  "preuve": "BOOKINGS_H1 H1-2026 = 12 602 (+5,1 %), book-to-bill 1,08 ; REV_GROWTH_CC_H1 = +11,3 % ; these : « six trimestres d'amélioration consécutive ».",
+  "correction_validee": "Reecrire la justification sur S1 2026 et revoir la tendance.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Free Cash Flow / Generative AI Bookings / Cloud Bookings Share",
+  "probleme": "Trois KPI sans periodes ni source, dont un doublon d OFCF avec des valeurs legerement differentes, et signaux telegraphiques.",
+  "preuve": "Free Cash Flow [1.71, 2.01, 1.97, 1.96] vs OFCF FY2022-FY2025 [1852, 1963, 1961, 1949] ; signaux « Cash flow stable », « Adoption rapide chez clients grands comptes », « Cloud reste moteur principal » ; history_periods = None.",
+  "correction_validee": "Supprimer Free Cash Flow ; sourcer ou supprimer les deux autres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "REV_Q.signal",
+  "probleme": "Affirmation douteuse sur la publication du groupe : Capgemini publie aussi le chiffre d affaires du T3 en valeur absolue.",
+  "preuve": "Signal : « Capgemini ne publie en valeur absolue que le CA du T1 et, depuis 2026, celui du T2 » ; serie n = 2 (Q1-2026, Q2-2026) alors que les T1 et T3 des annees precedentes existent dans les communiques.",
+  "correction_validee": "Verifier et completer la serie trimestrielle (T1 et T3 historiques), corriger le signal.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OM_H1 / NP_H1 / EPS_H1 / EPS_NORM_H1 / EPS_NORM (signal vs yoy)",
+  "probleme": "Le pourcentage cite dans le signal differe de 0,1 pt du yoy calcule affiche a cote.",
+  "preuve": "OM_H1 yoy +9,4 % vs signal « +9,3% » ; NP_H1 -31,2 % vs « -31,3% » ; EPS_H1 -30,5 % vs « -30,6% » ; EPS_NORM_H1 -11,8 % vs « -11,9% » ; EPS_NORM +5,9 % vs « +5,8% ».",
+  "correction_validee": "Aligner le signal sur le yoy affiche ou inversement (chiffre publie par le groupe).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun KPI sur la part offshore de l effectif (Inde) ni sur le taux d utilisation, deux indicateurs de base des services informatiques, alors que le risque 2 chiffre l Inde a environ 50 % de l effectif.",
+  "preuve": "Risque 2 : « l'Inde, qui représente a elle seule environ 50% de l'effectif total » ; aucun KPI d effectif Inde/offshore ni de CA par salarie sur la fiche.",
+  "correction_validee": "Ajouter la part de l effectif en Inde (ou offshore) et le CA par salarie.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

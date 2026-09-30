@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "CA_SFT.serie",
+  "probleme": "La serie annoncee comme CA externe est en fait le CA total du segment : la somme des cinq divisions depasse le CA groupe et ne correspond pas a la repartition.",
+  "preuve": "somme 2025 : 1598.5+1651+1027+759.9+598.4 = 5634.8 vs CA 2025 = 5495.3 ; revenue_by_segment SFT 26.6 % implique ~1462 M€, la serie donne 1598.5",
+  "correction_validee": "Remplacer la serie CA_SFT par le CA externe (~1 459 M€ en 2025, a confirmer a la source) ou la renommer « CA total du segment, ventes internes incluses ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.accroche",
+  "probleme": "« Marge en hausse sans interruption depuis huit exercices » contredit par la serie (repli en 2019).",
+  "preuve": "MARGE_EBITDA : FY2018=11.2, FY2019=9.8, FY2020=11.5",
+  "correction_validee": "Ecrire « une marge en hausse sans interruption depuis six exercices (2020 a 2025) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CA_AMLAT.signal",
+  "probleme": "L'Amerique latine n'est pas la zone qui croit le plus vite sur cinq ans.",
+  "preuve": "CA_AMLAT : « celle qui croit le plus vite sur cinq ans : plus 27 pour cent » ; CA_EUOC : 604.3 a 856.7 = +42 % (signal EUOC le dit lui-meme)",
+  "correction_validee": "Retirer « celle qui croit le plus vite sur cinq ans » du signal CA_AMLAT.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CA_DACH.signal / CA_EUOC.signal",
+  "probleme": "Deux zones qualifiees chacune de « la zone la plus reguliere du groupe ».",
+  "preuve": "CA_DACH : « C'est la zone la plus reguliere » ; CA_EUOC : « C'est la zone la plus reguliere du groupe : cinq hausses consecutives »",
+  "correction_validee": "Garder la formule pour EUOC et reformuler DACH en « en progression continue depuis 2022 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CA_HRT.signal / CA_FHT.signal",
+  "probleme": "Marges citees differentes de celles calculables avec les KPI de la fiche.",
+  "preuve": "HRT : 89.2/598.4 = 14,9 % vs signal « 14,3 pour cent » ; FHT : 140.7/1027 = 13,7 % vs signal « 13,3 pour cent »",
+  "correction_validee": "Aligner sur un seul denominateur (CA externe ou total) et corriger les chiffres.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat « None » avec un texte sans logique, en contradiction avec la these (grille Fisher, un quart du lait mondial).",
+  "preuve": "moat : « Les prises de commandes gagnent plus de 14 pour cent, mais l'apparition de risques de conformite... limite le renforcement du savoir-faire » ; these (elevee) : « Ses machines traitent un quart du lait produit dans le monde »",
+  "correction_validee": "Qualifier le moat (base installee, service 40 % du CA, savoir-faire procedes) et reecrire le texte.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions de marche",
+  "champ": "market_positions / tagline",
+  "probleme": "Positions de marche sans nom et tagline vide.",
+  "preuve": "position de marche 1: None | taille 70.4 ; position 2: None | taille 3.83 ; tagline: (vide)",
+  "correction_validee": "Nommer les marches ou retirer ; renseigner la tagline.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI manquant",
+  "probleme": "L'anti-these repose sur le FCF et la tresorerie nette du S1 2026, mais ces indicateurs n'existent qu'en annuel sur la fiche.",
+  "preuve": "att : « flux de tresorerie disponible reste negatif, a -39,2 M€, et la tresorerie nette... 71 M€ fin juin 2026 » ; FCF et TRESO_NETTE : year, dernier 2025-12-31",
+  "correction_validee": "Ajouter FCF et tresorerie nette trimestriels (ou semestriels) 2024-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

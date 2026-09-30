@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "ADV Total Federal Express / Yield composite US (series)",
+  "probleme": "Rupture de perimetre : les deux premiers points sont l'ancien segment Express seul, les suivants le segment fusionne Express + Ground.",
+  "preuve": "ADV Total : Q2-FY2024=5.638, Q3-FY2024=5.473 puis Q1-FY2025=16.231 ; Yield composite US : 22.55, 22.68 puis 13.87",
+  "correction_validee": "Retirer les points Q2-FY2024 et Q3-FY2024 de 'ADV Total Federal Express' et de 'Yield composite US'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ADV Ground economie US (unite)",
+  "probleme": "Unite fausse d'un facteur 1000.",
+  "preuve": "'M colis/jour' avec Q3-FY2026=8315 ; ADV Total = 18,455 M",
+  "correction_validee": "Passer l'unite en 'milliers de colis/jour'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Express Revenue / Ground Revenue / Ground Op Margin / Freight Revenue / Daily Volume Ground",
+  "probleme": "Series annuelles lissees, sans annees, datees dans le futur, contredites par les segments publies et portant sur un segment (Ground) qui n'existe plus depuis juin 2024.",
+  "preuve": "Ground Op Margin 8.5, 9.8, 10.8, 11.7, 12.4 ; Freight Revenue 9.9, 9.7, 9.5, 9.4, 9.4 alors que FY2025 = 8 892 M$ (somme trimestrielle) ; Ground Revenue 34.8 vs GROUND_REVENUE_B FY2024=34.256",
+  "correction_validee": "Supprimer Express Revenue, Ground Revenue, Ground Op Margin, Freight Revenue et Daily Volume Ground.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "FedEx Freight composite yield",
+  "probleme": "KPI mal etiquete : les valeurs sont le rendement du fret aerien Federal Express, pas celui du LTL FedEx Freight.",
+  "preuve": "'FedEx Freight composite yield | USD/livre' 1.21...1.26 identique a 'Composite freight yield Express' 1.2...1.26 ; le LTL est a 41,08 $/cwt soit 0,41 $/livre",
+  "correction_validee": "Supprimer 'FedEx Freight composite yield'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition perimee (structure FY2024) alors que la fiche est a l'exercice 2026 avec un segment Federal Express fusionne.",
+  "preuve": "'FedEx Express 49 ; FedEx Ground 35.6 ; FedEx Freight 10.2' ; these : 'segment Federal Express... 82 273 M$' sur 94 720 = 87 %",
+  "correction_validee": "Remplacer par la repartition de l'exercice 2026 : Federal Express environ 87 %, FedEx Freight environ 9 %, autres, a verifier a la source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le moat affirme un chiffre d'affaires stagnant et un resultat en recul, contredit par les series.",
+  "preuve": "'le chiffre d'affaires stagne et le resultat operationnel recule' ; CA consolide Q4-FY2026 +13 % (record), FedEx Express Op. Income FY2026 5 912 vs 4 885 (+21 %)",
+  "correction_validee": "Reecrire le moat a partir de l'echelle du reseau (18,5 M colis/jour, revenu par colis US +5 %, Network 2.0) sans affirmer de stagnation.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ADV Total, Yield composite US, Freight revenue per shipment, Composite freight yield, ADV fret aerien, ADV export, Yield export, Envois LTL, Revenu par cwt, Poids moyen, ADV Ground (dates)",
+  "probleme": "Date de dernier point au 30 septembre 2026 (futur) alors que les series s'arretent au T3 FY2026 (fevrier 2026) ; le T4 FY2026 est disponible puisque le CA Q4-FY2026 est sur la fiche.",
+  "preuve": "'dernier 2026-09-30' avec serie finissant Q3-FY2026 ; CA consolide Q4-FY2026=25007 present",
+  "correction_validee": "Ajouter le T4 FY2026 depuis le rapport annuel FY2026 et corriger la date.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "BPA dilue (signal) / Marge operationnelle / Marge nette",
+  "probleme": "Le signal pretend que le BPA du T4 n'est pas publie alors que la serie contient des T4 ; marges arretees au T3 alors que CA et resultat net du T4 sont presents.",
+  "preuve": "signal : 'Le BPA du seul quatrieme trimestre n'est pas publie' ; serie Q4-FY2024=5.9, Q4-FY2025=6.82 ; Marge nette dernier Q3-FY2026 alors que 1597/25007 = 6,4 %",
+  "correction_validee": "Ajouter Q4-FY2026 (BPA, marges) et reecrire le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total average daily package volume / U.S. domestic composite revenue per package / FedEx Freight average daily shipments",
+  "probleme": "Doublons sans dates de series existantes, l'un date dans le futur.",
+  "preuve": "U.S. domestic composite revenue per package 14.7 = Yield composite US 14.7 ; FedEx Freight average daily shipments 80.2 (dernier 2026-12-31) = Envois quotidiens LTL 80.2 ; Total ADV 18455 = ADV Total 18.455",
+  "correction_validee": "Supprimer 'Total average daily package volume', 'U.S. domestic composite revenue per package' et 'FedEx Freight average daily shipments'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs_annuels / ca_par_salarie / fcf_par_salarie / dette_par_salarie",
+  "probleme": "Series arretees en 2021 avec date de dernier point 2026.",
+  "preuve": "effectifs_annuels dernier 2021=570000 ; ca_par_salarie 'dernier 2026-05-31' serie finit 2021=147.3",
+  "correction_validee": "Completer 2022-2026 depuis les rapports annuels (effectif groupe).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "positionnement IA",
+  "probleme": "Texte generique de modele de langage, sans fait ni chiffre, classe 'integrator'.",
+  "preuve": "'FDX utilise des technologies avancees pour optimiser ses operations... L'entreprise investit dans des solutions pour ameliorer l'efficacite'",
+  "correction_validee": "Reecrire avec des elements concrets (Network 2.0, 2,5 M colis/jour via stations optimisees, DRIVE) ou passer en 'cautious'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "products",
+  "probleme": "Segment FedEx Ground cite comme service distinct alors qu'il est fusionne dans Federal Express depuis juin 2024.",
+  "preuve": "'express (FedEx Express), ground (FedEx Ground), freight (FedEx Freight)'",
+  "correction_validee": "Ses services couvrent Federal Express (express et ground), FedEx Freight (LTL, scinde le 1er juin 2026) et des services logistiques.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

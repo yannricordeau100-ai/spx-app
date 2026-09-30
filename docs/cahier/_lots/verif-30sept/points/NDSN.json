@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Industrial Precision / Advanced Technology / Medical (unite)",
+  "probleme": "Trois series annuelles de segments affichent l unite M $ avec des valeurs en k$ (facteur x1000), et doublonnent IPS/MFS/ATS Revenue deja presents en M $",
+  "preuve": "Industrial Precision | M $ | val=1331792 ; Medical | M $ | val=835385 ; IPS Revenue | M $ | val=1331.792 (memes chiffres divises par 1000)",
+  "correction_validee": "Supprimer les KPI Industrial Precision, Advanced Technology et Medical.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Medical & Fluid / Asia Pacific % / Recurring Parts / Consolidated Gross Margin",
+  "probleme": "Quatre series annuelles sans annees, chiffres ronds lisses, contredites par les series sourcees de la fiche",
+  "preuve": "Medical & Fluid serie 300, 330, 360, 540, 660 contre MFS Revenue 835.385 en FY2025 ; Asia Pacific % 25 contre repartition 29.2 ; Recurring Parts 55 contre RECURRING_MIX 60 ; Consolidated Gross Margin 54, 54, 54, 53, 55, 55",
+  "correction_validee": "Supprimer Medical & Fluid, Asia Pacific %, Recurring Parts et Consolidated Gross Margin.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RECURRING_MIX / CAHIER_AFTERMARKET_MIX / Recurring Parts",
+  "probleme": "Trois KPI sur la part des ventes recurrentes avec trois valeurs incompatibles pour FY2025",
+  "preuve": "RECURRING_MIX FY2025=60 ; CAHIER_AFTERMARKET_MIX FY2025=40 (FY2024=43) ; Recurring Parts 55 ; la these dit six ventes sur dix",
+  "correction_validee": "Garder RECURRING_MIX a 60 %, verifier CAHIER_AFTERMARKET_MIX contre la source et le retirer s il ne mesure pas autre chose ; Recurring Parts part avec le point 1.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CA_ADHESIFS",
+  "probleme": "Nom fautif et peu clair, unite k$, et valeur FY2023 contredite par IPS Revenue (la somme des segments ne boucle qu avec 1297)",
+  "preuve": "Ventes du segment qui porte la déposé d'adhésifs | k$ | FY2023=1391046 contre IPS Revenue FY2023=1297.07 (1297.07+660.316+671.246=2628.6 = CA 2023)",
+  "correction_validee": "Supprimer CA_ADHESIFS, doublon d IPS Revenue avec un point 2023 faux.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Q3-2026 (etiquette et yoy)",
+  "probleme": "Le dernier point est etiquete Q3-2026 au lieu de Q3-FY2026 ; le yoy et les signaux restent calcules sur le T2 pour une dizaine de KPI",
+  "preuve": "REVENUE Q3-2026=818, yoy=+8.5% (818/741.5 = +10.3 %) ; ATS_SALES yoy=+10.1% (219.88/171.3 = +28 %) ; NET_INCOME yoy=+4.4% (152.8/125.8 = +21 %) ; signaux MFS, ATS, IPS, APAC, EBITDA_MARGIN, OP_INCOME, EPS_DIL, SHARES_DIL citent le T2 FY2026",
+  "correction_validee": "Renommer le point en Q3-FY2026, recalculer les yoy sur Q3-FY2025 et reecrire les signaux sur le T3 FY2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EBITDA_MARGIN",
+  "probleme": "Marge EBITDA inferieure a la marge operationnelle sur les T4, impossible (EBITDA >= EBIT)",
+  "preuve": "EBITDA_MARGIN Q4-FY2025=24.1 et Q4-FY2024=21 contre OP_MARGIN Q4-FY2025=28.5 et Q4-FY2024=24",
+  "correction_validee": "Recalculer les points T4 de EBITDA_MARGIN apres correction des DA T4, sinon les retirer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DA",
+  "probleme": "Dotations aux amortissements negatives sur deux trimestres",
+  "preuve": "DA Q4-FY2024=-22.7, Q4-FY2025=-33.2 entre des points a 33-38",
+  "correction_validee": "Recalculer les DA T4 (annuel moins neuf mois) ou retirer ces deux points.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_DEBT.signal / ATS_LEGACY.signal / OP_INCOME.signal",
+  "probleme": "Chiffres cites dans les signaux differents de la serie",
+  "preuve": "NET_DEBT signal 1,83 Md$ contre Q2-FY2026=1.78 ; ATS_LEGACY signal 314,3 M$ au T4 FY2021 contre Q4-FY2021=284.9 ; OP_INCOME signal 172,0 M$ un an plus tot contre Q2-FY2025=168.8",
+  "correction_validee": "Aligner les trois signaux sur les valeurs de la serie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BACKLOG",
+  "probleme": "Serie arretee en 2019 avec un signal affirmant que la societe ne publie plus son carnet, alors que la these et l anti-these citent des variations recentes du carnet",
+  "preuve": "BACKLOG dernier FY2019=385 ; these : carnet de commandes en hausse de 35 % ; att : carnet en hausse de 18% sur un an",
+  "correction_validee": "Remplacer par une serie de variation du carnet (en %) depuis les publications trimestrielles, ou retirer le KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Record Annual EBITDA, Record Annual Free Cash Flow, Consecutive Years of Dividend Increases, CapstanAG Acquisition, Pension Annuitization, New Share Repurchase Authorization, Annualized Restructuring Savings, ATS R&D Intensity, New multicurrency revolving credit facility, Atrion acquisition",
+  "probleme": "Dix faits ponctuels a un seul point presentes comme KPI trimestriels ; plusieurs doublonnent des series (FCF 661 = fcf_annuel, 62 ans = signal DPS) ; unite K $ pour 1 200 000",
+  "preuve": "Record Annual Free Cash Flow | quarter | n=1 | val=661 ; New multicurrency revolving credit facility | K $ | val=1200000",
+  "correction_validee": "Deplacer ces faits en story ou les supprimer, garder au plus ATS R&D Intensity",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libelle Americas Excluding Us pour 43.8 % alors que la serie AMER_SALES donne les Ameriques entieres a 41.6 %",
+  "preuve": "revenue_by_geography : Americas Excluding Us 43.8 ; AMER_SALES signal : premiere region du groupe avec 41,6% des ventes",
+  "correction_validee": "Renommer en Ameriques (verifier le detail Etats-Unis / Japon dans le 10-K)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat / position de marche",
+  "probleme": "Niveau de moat None, texte de cuisine interne (relèvement de la note) et contradiction avec la these sur le carnet ; position de marche vide",
+  "preuve": "moat: None / Le relèvement de la note ... malgré un carnet en léger repli ; these : carnet en hausse de 35 % ; position de marche 1: None | taille 11.6 | part None",
+  "correction_validee": "Reecrire la justification du moat sans mention de note et sans carnet en repli ; ne pas toucher au niveau ni a la position de marche.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ }
+]

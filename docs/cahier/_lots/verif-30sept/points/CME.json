@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Average Daily Volume (n=24)",
+  "probleme": "Doublon de ADV_total dont le dernier point est le T1-2026 (36.231) date au 30 juin 2026 alors que le T2-2026 vaut 29.843",
+  "preuve": "val=36.2 dernier 2026-06-30 ; ADV_total Q1-2026=36.231, Q2-2026=29.843",
+  "correction_validee": "Supprimer le doublon.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Average Daily Volume (ADV), Aggregate ADV, Clearing & Transaction Fees, Market Data Revenue (annuels fin 2024)",
+  "probleme": "Quatre doublons perimes de CAHIER_ADV, ClearingFees et MarketDataFees, l'un arrondi faussement (2023=24.1 contre 24.394), signaux sans accents et en jargon",
+  "preuve": "ADV : 19.1, 19.4, 23.3, 24.1, 26.5 ; CAHIER_ADV FY2023=24.394 ; signal : Driver structurel des fees, record historique en 2024 portee par taux et energie",
+  "correction_validee": "Supprimer les quatre KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_OPEN_INTEREST",
+  "probleme": "Serie arretee en 2020 avec un signal sur la crise sanitaire, alors que les positions ouvertes sont un indicateur central d'une bourse de derives",
+  "preuve": "dernier 2020-12-31 val=81.922 ; signal : Le repli recent reflete un desengagement lie a la crise sanitaire",
+  "correction_validee": "Prolonger a 2025 et reecrire le signal, sinon retirer le KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.accroche vs Average Daily Margin Savings",
+  "probleme": "Economies de marge citees a plus de 95 Mds $ par jour contre 85 dans le KPI",
+  "preuve": "these : plus de 95 Mds $ de depots de garantie ; KPI : 80, 85 Md USD/jour",
+  "correction_validee": "Aligner sur la derniere valeur publiee",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RPC.signal",
+  "probleme": "Le signal parle de baisse du tarif unitaire alors que la serie remonte depuis 2022",
+  "preuve": "FY2022=0.643, FY2023=0.692, FY2024=0.692, FY2025=0.696 yoy +0.6% ; signal : La baisse du tarif unitaire reflete des remises volume",
+  "correction_validee": "Reecrire : tarif unitaire stabilise apres le creux de 2022",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "products",
+  "probleme": "Produit perime : les futures Eurodollar ont ete retires en 2023",
+  "preuve": "futures et options sur taux (Eurodollar, SOFR, Treasuries)",
+  "correction_validee": "Ecrire futures et options sur taux (SOFR, Fed Funds, Treasuries).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 1",
+  "probleme": "Pandemie placee en premier risque en 2025, ordre perime",
+  "preuve": "risque 1 : Pandemies et risques sanitaires",
+  "correction_validee": "Reordonner, mettre la pression concurrentielle en tete",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Interest Rate Volume Mix",
+  "probleme": "Serie arretee en 2024 alors que ADV_rates et ADV_total permettent 2025 et 2026",
+  "preuve": "dernier 2024-12-31 val=50 ; ADV_rates Q2-2026=14.532 sur ADV_total 29.843",
+  "correction_validee": "Prolonger ou supprimer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs_annuels",
+  "probleme": "Trois points seulement avec un trou de 2020 a 2023",
+  "preuve": "serie : 2019=4360, 2024=3760, 2025=3875",
+  "correction_validee": "Completer 2020 a 2023",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

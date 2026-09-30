@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "mfg_rev, mfg_op_income, mfg_op_margin, mfg_rev_mix (points 2024)",
+  "probleme": "Les quatre points 2024 du segment Manufacturing sont les totaux du groupe (T1 a T3) puis un solde negatif absurde au T4.",
+  "preuve": "mfg_rev Q1-2024=1011,6, Q3-2024=1009,8 (= revenue), Q4-2024=-2278,1 ; mfg_op_income Q3-2024=117,4 (= op_income), Q4-2024=-653,2 ; mfg_rev_mix Q3-2024=100, Q4-2024=-227,2 ; mfg_op_margin Q4-2024=28,7.",
+  "correction_validee": "Retirer les points 2024 des quatre séries Manufacturing ou les reprendre de la note segment (environ 190 à 200 M par trimestre).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "DSA Segment, RMS Segment, Manufacturing Solutions, DSA Segment Revenue, RMS Segment Revenue, Manufacturing Solutions Rev",
+  "probleme": "Six series annuelles doublonnant les segments trimestriels, sans etiquettes, contradictoires entre elles et avec les sommes, avec des notes telegraphiques en franglais.",
+  "preuve": "Manufacturing Solutions dernier=0,85 Mds vs somme mfg_rev 2025 = 766 M ; DSA Segment 1,4 ... 2,4 vs DSA Segment Revenue 1,88 ... 2,42 ; descriptions : Soft 2023-24 biotech funding freeze ; Mature, cycle pharma.",
+  "correction_validee": "Supprimer les six séries annuelles de segments.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Backlog",
+  "probleme": "Serie contredisant dsa_backlog sur toutes les annees.",
+  "preuve": "Backlog 2,5, 2,6, 3, 2,65, 2,4 (sans periodes) ; dsa_backlog FY2020=1,4, FY2021=2,4, FY2022=3,1, FY2023=2,5, FY2024=2,0 Mds.",
+  "correction_validee": "Supprimer Backlog.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "cdmo_cell_gene, mfg_backlog.signal",
+  "probleme": "Nom faux (la serie est le poids du segment Manufacturing, doublon annuel de mfg_rev_mix) et textes perimes apres la cession du CDMO en mai 2026.",
+  "preuve": "cdmo_cell_gene FY2025=19,1 % = mfg_rev_mix ; signal : marche a forte croissance structurelle malgre pertes court terme ; mfg_backlog signal : signe de reprise potentielle CDMO cell/gene therapy.",
+  "correction_validee": "Supprimer cdmo_cell_gene et réécrire le signal de mfg_backlog sans référence au CDMO cédé.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "interest_exp",
+  "probleme": "Serie arretee au T1 2024 avec un signal de cuisine interne, alors que la charge existe chaque trimestre.",
+  "preuve": "last_data_date 2024-03-30 ; signal : au dernier trimestre renseigne sous ce libelle.",
+  "correction_validee": "Prolonger jusqu au T2 2026 depuis les 10-Q et reecrire le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "rms_capex, dsa_capex, mfg_capex",
+  "probleme": "Trois series arretees fin 2023 dont le signal mentionne la note de source.",
+  "preuve": "last_data_date 2023-12-31 ; signal : publies trimestriellement dans la note Segment jusqu a l exercice 2023.",
+  "correction_validee": "Passer en annuel si le 10-K le publie encore, sinon supprimer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_CONSUMABLES_MIX, CAHIER_ORG_GROWTH_END_MARKET (nom, yoy)",
+  "probleme": "Noms ne decrivant pas la serie et variation d un taux en pourcentage.",
+  "preuve": "Part des consommables et services recurrents : unite Mds $, 3,2501 = CA de services ; Croissance organique par marche final : un seul total ; yoy -42,9 % pour -2,8 vers -1,6.",
+  "correction_validee": "Renommer en « Chiffre d'affaires de services » et « Croissance organique du groupe », et afficher la variation en points : +1,2 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "DSA Net Book-to-Bill, DSA Net Bookings",
+  "probleme": "Indicateur cle du secteur reduit a deux points et non mis a jour au T2 2026 alors que le trimestre est sur la fiche.",
+  "preuve": "n=2 (0,82 ; 1,04), last_data_date 2026-04-10 ; dsa_rev va jusqu au 27 juin 2026.",
+  "correction_validee": "Reconstituer l historique trimestriel du book-to-bill DSA et ajouter le T2 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "KPI transcript a un seul point (9 series)",
+  "probleme": "Faits ponctuels presentes comme KPI, dont un doublon de la somme trimestrielle.",
+  "preuve": "Restructuring Charges 2025 99,8 = somme restructuring 2025 ; Incremental cost savings 100 ; NAMs 200 ; Revenue targeted for divestiture 7 ; New authorization 1 ; Shares Repurchased 2025 350 ; Goodwill Impairment 215 ; Cumulative target 300 ; PathoQuest 60.",
+  "correction_validee": "Basculer en faits marquants.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att / KPI",
+  "champ": "att.hook, equity.signal",
+  "probleme": "Faute de grammaire dans le hook et montant de rachats semestriel incoherent entre deux signaux.",
+  "preuve": "le groupe se redessine sous pression (ecrit se redessine sans accord : se redessiné) ; equity.signal 323,2 M$ vs buyback.signal 323,9 M$ (208,3+115,6).",
+  "correction_validee": "Corriger en « se redessine » et aligner equity.signal sur 323,9 M$.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "effectifs_annuels",
+  "probleme": "Doublon de employees arrete un an plus tot.",
+  "preuve": "effectifs_annuels dernier 2024=20 100 ; employees FY2025=19 700.",
+  "correction_validee": "Ajouter 2025 = 19 700 à effectifs_annuels et recalculer les ratios par salarié.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

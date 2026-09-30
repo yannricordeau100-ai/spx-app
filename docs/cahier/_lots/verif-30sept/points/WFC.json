@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CB Rev, CIB Rev, Markets Rev, CSBB NI, CB NI, CIB NI, WIM NI, Branches, Mobile Cust, Debit Vol, CC Vol, Auto Orig .signal",
+  "probleme": "Mentions de source (cuisine interne) et abréviations dans les signaux.",
+  "preuve": "'(EP 2T26)' à la fin de 12 signaux ; '+6% YoY'",
+  "correction_validee": "Retirer '(EP 2T26)' des 12 signaux et remplacer 'YoY' par 'sur un an'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CSBB NI, WIM NI, WIM Rev, CC Vol, WIM Assets",
+  "probleme": "Les séries par segment ne sont pas retraitées après le transfert des clients d'agences de WIM vers la banque de détail. Les variations sur un an affichées contredisent les signaux.",
+  "preuve": "WIM NI : yoy +11,9 %, signal '+28%' ; CSBB NI : yoy +22,9 %, signal '+19%' ; CC Vol : 46.4 puis 44.5 (-4 %), yoy '+12%' ; WIM Assets : 2346 puis 2409 (+2,7 %), yoy '+15%'",
+  "correction_validee": "Aligner les variations sur un an sur les bases retraitées publiées et signaler sur chaque série la rupture de périmètre du T1-2026 entre la gestion de fortune (WIM) et la banque de détail (CSBB).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CET1 / CET1 ratio",
+  "probleme": "Doublon trimestriel avec des valeurs historiques différentes.",
+  "preuve": "CET1 : 11.3, 11.1, 11.1, 11.1, 11, 10.6, 10.3, 10.3 ; CET1 ratio : 11.2, 11, 11.3, 11.1, 11.1, 11, 10.6, 10.3",
+  "correction_validee": "Supprimer 'CET1 ratio'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_NIM.signal",
+  "probleme": "Le signal parle de 'vingt ans de recul quasi continu', alors que la série montre une forte remontée de 2021 à 2023.",
+  "preuve": "FY2021=2.05, FY2023=3.06, FY2025=2.64",
+  "correction_validee": "Réécrire le signal : remontée avec les taux en 2022-2023, puis repli depuis.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_NIM.yoy, CAHIER_CET1.yoy",
+  "probleme": "Variations sur un an en % au lieu de points pour des ratios.",
+  "preuve": "CAHIER_NIM : '-3.3%' (-0,09 pt) ; CAHIER_CET1 : '-4.2%' (-0,46 pt)",
+  "correction_validee": "Afficher les variations en points : NIM -0,09 pt, CET1 -0,46 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, dette_annuelle, dette_sur_ca",
+  "probleme": "Le flux de trésorerie libre et la 'dette totale' n'ont pas de sens pour une banque. La définition de la dette change aussi d'une année à l'autre.",
+  "preuve": "fcf 2023=40.358, 2025=-19.001 ; dette 2023=297.1 puis 2024=175.8, alors que LT Debt Q4-2024=173.1 (emprunts à court terme exclus en 2024 seulement)",
+  "correction_validee": "Retirer ces séries pour les banques, ou les remplacer par des indicateurs bancaires (fonds propres tangibles par action, ratio prêts sur dépôts).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "revenue_by_segment.exercice, revenue_by_geography",
+  "probleme": "Répartition par segment sans exercice indiqué, et répartition géographique sans valeurs.",
+  "preuve": "'revenue_by_segment (None)' ; 'United States None ; International None'",
+  "correction_validee": "Dater la répartition par segment, supprimer le bloc géographique vide.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning / moat",
+  "champ": "ai_positioning.text, moat.texte",
+  "probleme": "Le positionnement IA est générique et contredit par la fiche. Le moat est classé 'Important' sans aucun texte.",
+  "preuve": "IA : 'Mentionne l'IA principalement sous l'angle des risques', alors que le KPI Fargo affiche 1 milliard d'interactions ; moat : niveau 'Important', texte ''",
+  "correction_validee": "Réécrire le positionnement IA et rédiger le moat (base de dépôts, réseau).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[1..3]",
+  "probleme": "Citations absurdes pour les titres de risque, en anglais.",
+  "preuve": "'Risques opérationnels' : 'Non-Qualified Deferred Compensation Plan for Independent Contractors' ; 'Risques financiers' : '\"Living Will\" Requirements' ; 'Risques réglementaires' : 'Enhanced supervision and regulation of systemically important firms'",
+  "correction_validee": "Régénérer les risques à partir de l'Item 1A.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Mortgage Orig.unit, CBL Rev.signal, Credit card new accounts",
+  "probleme": "Unité non française, signal confus et chiffre contradictoire.",
+  "preuve": "unité 'G$' ; CBL : 'l'argument auto compense' ; nouveaux comptes carte yoy +59 %, alors que le signal CC Vol dit '662 000 nouveaux comptes (+46%)'",
+  "correction_validee": "Remplacer 'G$' par 'Mds $', écrire 'le crédit automobile' et aligner les variations.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

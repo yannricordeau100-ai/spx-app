@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REV_H, NI_H, PERF_FEES_H (yoy, signal, last_data_date)",
+  "probleme": "Variations annuelles fausses et signaux qui commentent le semestre precedent, avec une date de dernier point impossible pour un semestre clos le 30 juin",
+  "preuve": "REV_H yoy=+20% mais H1-2026=1121 vs H1-2025=1168 (-4 %) ; NI_H yoy=+10% mais 502 vs 578 (-13 %) ; PERF_FEES_H yoy=+44% mais 233 vs 314 (-26 %) ; signaux « 1 395 M CHF ... au second semestre 2025 », « 683 M CHF ... second semestre 2025 » ; last_data_date 2026-09-20 / 2026-09-22",
+  "correction_validee": "Recalculer les yoy sur S1-2026 vs S1-2025 (-4 %, -13 %, -26 %), réécrire les signaux REV_H et NI_H sur S1-2026, dater le dernier point au 2026-06-30.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "MGMT_FEES_H (history)",
+  "probleme": "Serie des commissions de gestion arretee a H2-2025 alors que REV_H, PERF_FEES_H et NI_H ont le point H1-2026",
+  "preuve": "MGMT_FEES_H dernier 2025-12-31, n=12 ; REV_H n=13 avec H1-2026=1121",
+  "correction_validee": "Ajouter H1-2026 (revenus moins commissions de performance et autres, ou valeur du rapport semestriel)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Direct Investments, Portfolio Companies",
+  "probleme": "Deux series sans source, en chiffres ronds, unite en euros pour un groupe qui publie en USD et CHF, datees 2026-09-22 sans periode identifiable, signal vide",
+  "preuve": "Direct Investments Mds € 37,49,58,73,76 ; Portfolio Companies 170,180,195,200,210 ; description vide",
+  "correction_validee": "Supprimer Direct Investments et Portfolio Companies.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "La repartition presentee comme chiffre d affaires est en realite la repartition des encours sous gestion",
+  "preuve": "Private equity 46.4 = AUM_PE 85.8 / AUM_H 186 ; Royalties 0.5 = AUM_ROYALTIES 1 / 186 ; aucun exercice indique",
+  "correction_validee": "Renommer en repartition des encours ou remplacer par la ventilation des revenus (commissions de gestion 68 %, performance 32 %)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "att.accroche",
+  "probleme": "Le chiffre cite ne correspond pas aux series de la fiche",
+  "preuve": "att : commissions de performance « tombées sous 20% du total » ; PERF_FEES_H H1-2026=233 / REV_H H1-2026=1121 = 20.8 %",
+  "correction_validee": "Ecrire « autour de 21 % » ou verifier le denominateur",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

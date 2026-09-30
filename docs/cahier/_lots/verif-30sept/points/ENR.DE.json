@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Wind (SGRE) Revenue",
+  "probleme": "Serie sans periodes, chiffres ronds, valeur 2025 fausse et doublon de deux autres series eoliennes",
+  "preuve": "serie 10.5, 9.5, 9, 9.75, 11.5 sans annees ; val=11.5 Mds € alors que REV_EOLIEN_FY_B FY2025=10375 M€ et que la somme des 4 trimestres REV_SIEMENS_GAMESA FY2025 = 2418+2706+2506+2744 = 10374 M€ ; signal et description vides ; dernier 2026-08-09.",
+  "correction_validee": "Retirer le KPI Wind (SGRE) Revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "REV_EOLIEN_FY_B, CAHIER_BACKLOG",
+  "probleme": "Doublons annuels des series trimestrielles, dates de cloture fausses (exercice clos le 30 septembre) et description cuisine interne",
+  "preuve": "REV_EOLIEN_FY_B dernier 2025-12-31, description « produit phare de la société », doublon de REV_SIEMENS_GAMESA ; CAHIER_BACKLOG FY2025=138 dernier 2025-12-31 alors que 138 = carnet au 30/09/2025 (BACKLOG_Q Q4-2025=138), doublon du hero.",
+  "correction_validee": "Dater REV_EOLIEN_FY_B et CAHIER_BACKLOG au 30 septembre de chaque exercice et remplacer la description « produit phare » par un texte factuel, ou retirer CAHIER_BACKLOG qui double le hero.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_SERVICES_MIX.yoy",
+  "probleme": "Variation d un pourcentage exprimee en pourcentage relatif au lieu de points",
+  "preuve": "FY2024=35, FY2025=34, yoy=-2.9%.",
+  "correction_validee": "Afficher -1 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "ORD_TOI (absent)",
+  "probleme": "Prises de commandes publiees pour trois segments sur quatre, Transformation of Industry manque",
+  "preuve": "ORD_GAS_SERVICES, ORD_GRID_TECH, ORD_SIEMENS_GAMESA presents ; aucun ORD_TOI alors que REV_TOI et PROFIT_TOI existent.",
+  "correction_validee": "Ajouter la serie de commandes Transformation of Industry depuis les publications trimestrielles.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.niveau",
+  "probleme": "Moat « Aucun » incoherent avec un carnet de 162 Mds € couvrant 95 % du CA de l exercice et un marche des turbines a trois acteurs",
+  "preuve": "moat: None / tendance hausse, justification « la contrainte étant désormais la capacité de production plus que la demande » ; these : carnet 162 Mds €, 95 % du CA attendu couvert.",
+  "correction_validee": "Reevaluer le niveau du moat (position oligopolistique turbines a gaz et reseaux).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "description Mettrik",
+  "champ": "simple.fr.products",
+  "probleme": "La description cite une activité cédée",
+  "preuve": "'...et les systèmes de transport ferroviaire' alors que NET_INCOME_CONT mentionne 'la cession du Transport' (cédé à Hitachi en 2024)",
+  "correction_validee": "Retirer 'et les systèmes de transport ferroviaire' de simple.fr.products (et 'les autorités de transport' des clients).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CA Cyber & Digi, CA Aéronautique, Carnet Cmdes",
+  "probleme": "Trois anciens KPI arrêtés en 2024, en doublon de SALES_CYBERDIGITAL, SALES_AEROSPACE et ORDER_BOOK, avec des chiffres qui divergent",
+  "preuve": "Carnet Cmdes 2024 = 51 181 contre ORDER_BOOK FY2024 = 50 602 ; 2021 = 34 900 contre 34 744 ; anglicisme 'Croissance double digit' ; 'Aéronautique' au lieu d'Aérospatial",
+  "correction_validee": "Supprimer CA Cyber & Digi, CA Aéronautique et Carnet Cmdes.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BOOK_TO_BILL / CAHIER_BOOK_TO_BILL",
+  "probleme": "Doublon exact du ratio commandes sur facturations",
+  "preuve": "Les deux valent 1,14 en 2025 et 1,23 en 2024 ; l'un affiche yoy '-0.09x', l'autre '-7.3%'",
+  "correction_validee": "Garder CAHIER_BOOK_TO_BILL, y reporter le signal de BOOK_TO_BILL, afficher la variation en valeur absolue, supprimer BOOK_TO_BILL.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / kpis",
+  "champ": "these.detail vs ORDER_BOOK.signal",
+  "probleme": "Deux durées de couverture différentes pour le carnet Défense",
+  "preuve": "Thèse : 'environ 3,2 années' ; ORDER_BOOK : '3,4 années de CA pour la Défense' (41,6 Mds / 12 234 M€ = 3,4)",
+  "correction_validee": "Harmoniser sur un seul chiffre sourcé",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RAFALE_DELIVERIES",
+  "probleme": "Le signal est une fiche produit et non une lecture de la série ; il s'agit en fait des livraisons de Dassault, sans que ce soit dit",
+  "preuve": "Signal : 'Produit phare : Électronique de mission du Rafale : radar RBE2 AESA et système SPECTRA' ; unité 'avions équipés'",
+  "correction_validee": "Renommer 'Rafale livrés par Dassault (équipés par Thales)' et écrire un signal sur la série (26 en 2025, +23,8 %)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_CASH",
+  "probleme": "Nom ambigu : toutes les valeurs sont négatives, donc c'est une dette nette, mais la variation est affichée en '+'",
+  "preuve": "Nom 'Trésorerie nette (dette nette)', série -795 ... -1618, yoy '+1 425 M€'",
+  "correction_validee": "Renommer en 'Dette nette' avec des valeurs positives, ou expliciter le signe",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline",
+  "champ": "tagline",
+  "probleme": "Accroche en anglais",
+  "preuve": "'Global leader in defense, aerospace, digital identity and cybersecurity solutions'",
+  "correction_validee": "Rédiger directement une accroche en français",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

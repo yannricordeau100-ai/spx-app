@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Op Income",
+  "probleme": "Série annuelle de résultat opérationnel invraisemblable : 1,5 Md$ pour un CA de 3,1 Md$, incompatible avec la série trimestrielle ; période annuelle datée au 30 juin 2026",
+  "preuve": "Op Income serie 1.51, 1.69, 1.34, 0.99, 1.01 Mds $ ; op_profit_q 2025 = 107+153.7+167.6+156.6 = 585 M$ ; revenue_annuel 2025 = 3.074 Mds $",
+  "correction_validee": "Supprimer Op Income, op_profit_q couvre deja le resultat operationnel.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Texte du moat contredit par les séries : produits propriétaires et résultat net sont en forte hausse",
+  "preuve": "moat : « les produits propriétaires reculent de 1,9 % et que le résultat net stagne » ; PP_rev yoy +16.6 % (722.6 vs 619.8), net_income_q yoy +16.8 %",
+  "correction_validee": "Reecrire la justification du moat sur les chiffres T2 2026 (produits proprietaires +16,6 %, resultat net +16,8 %) sans toucher au niveau.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "cash_q.signal",
+  "probleme": "Chiffre de fin 2025 cité différent de la série",
+  "preuve": "signal : « contre 705,7 M$ fin 2025 » ; serie Q4-2025=791.3 (cohérent avec net_debt_q Q4-2025 = -588.5 = 202.8 - 791.3)",
+  "correction_validee": "Remplacer 705,7 M$ par 791,3 M$ dans le signal de cash_q.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "intl_mix / International Sales %",
+  "probleme": "Doublon : même indicateur (part hors États-Unis) sous deux noms, le second sans dates et avec texte en style télégraphique",
+  "preuve": "intl_mix FY2025=56.7 ; International Sales % val=56.7 serie 56, 57, 56.5, 56.7, description « Mix geographique ~57% hors USA »",
+  "correction_validee": "Supprimer International Sales %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "capex_fy, fcf_fy, rd_exp, workforce",
+  "probleme": "Cuisine interne dans les noms et signaux (en plus de _derived déjà relevé)",
+  "preuve": "nom « Investissements industriels (existant, converti trimestriel) », « Flux de trésorerie disponible (existant, converti trimestriel) » ; signaux « série annuelle convertie en trimestriel », « série étendue de 21 à 46 trimestres », « série étendue à 10 exercices »",
+  "correction_validee": "Retirer « (existant, converti trimestriel) » des noms et les mentions « serie annuelle convertie », « serie etendue » des signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "High-Value Product Delivery Devices net sales, Pharma market group net sales, Asia Pacific revenue growth",
+  "probleme": "Signaux incohérents avec la série ou la période ; séries sans dates",
+  "preuve": "Dispositifs HVP : « rebond fort après un creux fin 2025 » alors que la série monte sans creux 99.1, 110.4, 123.6, 131.2 ; Pharma dernier point T2 2026 mais signal « accélération au T1-2026 » ; Asia Pacific daté 2026-02-08 avec signal « au T1-2026 »",
+  "correction_validee": "Réécrire les signaux sur le dernier trimestre et dater les points",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted_q",
+  "probleme": "Le BPA trimestriel n'a aucun T4 alors que toutes les autres séries dérivent le T4",
+  "preuve": "serie : Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 (n=37 contre 46 ailleurs)",
+  "correction_validee": "Dériver les T4 (BPA annuel moins 9 mois) ou signaler la lacune",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORG_GROWTH_CC, CAHIER_HVP_MIX",
+  "probleme": "Variation d'un pourcentage exprimée en % relatif absurde ; libellés anglais tronqués",
+  "preuve": "CAHIER_ORG_GROWTH_CC yoy=-386.7% (de -1.5 à 4.3, soit +5,8 pts) ; libellés anglais « Org Growth Cc », « Hvp Mix »",
+  "correction_validee": "Afficher +5,8 pts et +1 pt, et remplacer les noms anglais par « Organic growth at constant currency » et « High-value products mix ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Sale of SmartDose, January 2025 restructuring plan, AbbVie transfer restructuring plan, New share repurchase authorization",
+  "probleme": "Événements ponctuels à un seul point présentés comme des KPI trimestriels",
+  "preuve": "n=1, période quarter, valeurs 112.5, 40, 20, 1 ; signaux « Cession des droits... », « Plan lancé en janvier 2025 »",
+  "correction_validee": "Retirer des KPI ou déplacer vers un bloc événements",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "att.texte",
+  "probleme": "Faute et anglicisme : « à subi », « material » laissé en anglais, et « cyberattaque matérielle » est un contresens (material = significative)",
+  "preuve": "« West Pharmaceutical à subi en mai 2026 une cyberattaque qualifiée de \"material\" » ; « une cyberattaque matérielle dont l'impact »",
+  "correction_validee": "Ecrire « a subi », « qualifiee de significative » et « une cyberattaque significative ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "gouvernance",
+  "champ": "dirigeant",
+  "probleme": "Dirigeant affiché possiblement périmé : l'anti-thèse annonce le départ du PDG et l'arrivée d'un successeur externe",
+  "preuve": "gouvernance : dirigeant Eric M. Green ; att : « le PDG qui a traversé la crise part en retraite au moment où son successeur, recruté à l'extérieur, prend ses fonctions »",
+  "correction_validee": "Vérifier le nom du PDG en fonction et mettre à jour",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography, tagline",
+  "probleme": "Libellés en anglais ou en majuscules brutes",
+  "preuve": "« Other Europe Countries 14.7 ; ... IRELAND 10.8 » ; tagline « Leading global manufacturer of integrated containment... »",
+  "correction_validee": "Remplacer « Other Europe Countries » par « Autres pays d'Europe » et « IRELAND » par « Irlande » ; ne pas toucher au slogan.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

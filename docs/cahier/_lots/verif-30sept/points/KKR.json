@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Total AUM",
+  "probleme": "Serie annuelle sans periodes (504 a 638, datee 30/06/2026) qui reprend en fait les encours generateurs de frais (FPAUM 638,4 au T2 2026), pas l AUM total (796,5 Md$ a la meme date). Un lecteur voit deux « AUM total » divergeant de 158 Md$.",
+  "preuve": "Total AUM val=638 history=[504, 553, 578, 604, 638] ; AUM Total Q2-2026=796.5 ; FPAUM Q2-2026=638.4",
+  "correction_validee": "Supprimer Total AUM.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Fee-Paying AUM",
+  "probleme": "Serie sans periodes melangeant des points annuels anciens et des trimestres, avec « 424 » repete trois fois, et dont le dernier point 615 est celui du T1 2026 alors qu elle est datee 30/06/2026 (FPAUM = 638,4). Doublon degrade de FPAUM.",
+  "preuve": "history=[85.9, 91.7, 160.3, 177.3, 186.2, 424, 424, 424, 512, 526, 556, 585, 604, 615] ; FPAUM Q1-2026=614.8, Q2-2026=638.4",
+  "correction_validee": "Supprimer Fee-Paying AUM.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Uncalled Commitments, Organic New Capital Raised, Capital Raised",
+  "probleme": "Doublons perimes : « Uncalled Commitments » 115,6 Md$ date 30/06/2026 est la valeur du T1 2025 (Uncalled T2 2026 = 142,7) ; « Organic New Capital Raised » 28 est le T1 2026 (Capital leve T2 2026 = 34,3) ; « Capital Raised » annuel (44/121/81/62/116, sans periodes) ne correspond pas a la somme trimestrielle 2025 (129,4 Md$).",
+  "preuve": "Uncalled Commitments val=115.6 ; Uncalled Q1-2025=115.6, Q2-2026=142.7 ; Organic New Capital Raised val=28 ; Capital levé Q1-2026=27.8, Q2-2026=34.3",
+  "correction_validee": "Supprimer ces trois doublons, garder Uncalled, Capital leve et CAHIER_DRY_POWDER.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Management Fees",
+  "probleme": "Serie annuelle sans periodes donnant 3,6 Md$ de frais de gestion en 2025 alors que les quatre trimestres 2025 de « Frais de gestion » totalisent 4 100,8 M$ ; description en notes franglaises « Fees récurrentes (1.0-1.5% AUM). Pilier rentabilité Asset Management. »",
+  "preuve": "Management Fees val=3.6 dernier 2025-12-31 ; Frais de gestion 2025 : 917.3+995.8+1063.6+1124.1 = 4100.8",
+  "correction_validee": "Supprimer Management Fees.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Performance Fees",
+  "probleme": "Valeur affichee 1,42 Md$ absente de la serie (dernier point 0,0123 au Q3 2025) ; trous Q4 2020 et Q4 2024 a Q2 2025 ; incoherent avec RPI (930,7 M$ au T3 2025).",
+  "preuve": "value=1.42 ; history_periods : ... Q3 2024, Q3 2025 ; dernier point 0.0123 ; RPI Q3-2025=930.7",
+  "correction_validee": "Supprimer ou reconstruire a partir des revenus de performance realises (RPI) qui existent deja.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Distributable Earnings, Insurance AUM (Global Atlantic), Capex",
+  "probleme": "Trois series annuelles sans periodes, sans description ou avec un texte absurde, datees 30/06/2026 : « Distributable Earnings » 4,85 Md$ (KKR ne publie plus de DE depuis 2021, l ANI 2025 vaut 4 377 M$) ; « Insurance AUM » avec la note « rachat KKR 2024 100%. Annuités fixées, levier multi-séculaire » ; « Capex » d un gestionnaire d actifs sans description.",
+  "preuve": "Distributable Earnings history=[3.42, 3.75, 4.1, 4.55, 4.85] description=null ; ANI 2025 = 1034+1063.4+1273.6+1006.5 ; Capex history=[169.4, 62.7, 97.1, 102.7, 194.6] description=null",
+  "correction_validee": "Supprimer Distributable Earnings et Capex ; remplacer Insurance AUM par une serie sourcee des rapports trimestriels avec periodes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "La « repartition du chiffre d affaires » n est pas du chiffre d affaires : 4,101 Md$ = frais de gestion 2025, 1,109 et 0,162 Md$ = resultats operationnels assurance et Strategic Holdings ; total 5,37 Md$ contre 19,46 Md$ de CA publie ; part Strategic Holdings affichee 0,3 % au lieu de 3,0 % (0,162 / 5,37) ; aucun exercice indique.",
+  "preuve": "slices : Asset Management 4.101 (78.5 %), Insurance 1.109 (21.2 %), Strategic Holdings 0.162 (0.3 %), total 5.37 Mds $ ; revenue_annuel 2025=19.464",
+  "correction_validee": "Refaire la repartition sur les revenus par segment de l exercice 2025, ou la retitrer resultat par segment avec les parts recalculees (76,4 / 20,6 / 3,0 %).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_annuelle, dette_sur_ca, dette_par_salarie",
+  "probleme": "Series de dette arretees en 2021 (36,9 Md$) et dette par salarie arretee en 2019 sur une fiche a jour au T2 2026 ; les signaux parlent de « en 2021 » et « en 2019 ».",
+  "preuve": "dette_annuelle dernier 2021-12-31 serie 2016..2021 ; dette_par_salarie serie 2016..2019 ; dette_sur_ca dernier 2021-12-31",
+  "correction_validee": "Prolonger a 2025 depuis les 10-K (dette KKR et Global Atlantic) ou retirer ces trois KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PE_INVESTMENTS_COUNT",
+  "probleme": "Serie FY2021 a FY2025 qui augmente d exactement 40 par an (650, 690, 730, 770, 810), datee 2025-09-30 pour une serie annuelle : ressemble a une extrapolation, pas a un compteur publie.",
+  "preuve": "history=[650, 690, 730, 770, 810] ; last_data_date 2025-09-30 ; period_type=year",
+  "correction_validee": "Verifier chaque point dans les 10-K ; a defaut retirer le KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik ; Share Repurchase Program Increase (signal)",
+  "probleme": "Jargon d analyse interne dans le moat (« les séries financières sont bruitées ») ; faute « à été atteint » et fait de T2 2025 date 2026-03-28 dans un KPI ponctuel ; les 14 KPI ponctuels sont dates 28 mars alors que le trimestre se clot le 31.",
+  "preuve": "moat « mais les séries financières sont bruitées » ; signal « Le seuil du programme de rachat à été atteint au 2e trimestre 2025 » dernier 2026-03-28",
+  "correction_validee": "Retirer la mention des series bruitees, corriger en a ete atteint, dater au 31/03/2026.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Le resultat net ajuste par action (ANI par action ajustee), mesure phare par action de KKR, n existe pas ; seul le dividende par action est suivi.",
+  "preuve": "KPI par action presents : Dividende/action uniquement",
+  "correction_validee": "Ajouter « Résultat net ajusté par action » trimestriel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

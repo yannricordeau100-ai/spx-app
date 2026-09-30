@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Printing_revenue, rev_Americas, rev_EMEA, rev_APJ, ocf, buybacks, dividends_paid, total_debt (signaux)",
+  "probleme": "Cuisine interne visible : sources et extraits de tableaux en anglais dans les signaux",
+  "preuve": "« rapport trimestriel du 28/05/2026, table Segment Information: \"Total Printing | 4,195 | 4,197\" » ; « \"February 2026 | 5,250 | 19.05\" milliers de titres »",
+  "correction_validee": "Retirer des 8 signaux les phrases de source et les citations entre guillemets, et garder la phrase chiffrée en français.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis + thèse",
+  "champ": "PS_commercial_rev, PS_consumer_rev, commercial_printing_rev, dso_days",
+  "probleme": "Mise à jour au T3 2026 partielle : variations et signaux restés au T2, et le reste de la fiche arrêté au 30 avril",
+  "preuve": "PS_commercial_rev val 8579, yoy +14,1 % = 7743/6786 alors que 8579/7036 = +21,9 % ; dso val 41, signal « 38 jours » ; la thèse au 31/07/2026 combine le DPO 151 (avril) et le DSO 41 (juillet)",
+  "correction_validee": "Recalculer variations et signaux des KPI T3 sur T3 2025, compléter les autres KPI au T3 (sinon retirer les points T3) et aligner la thèse sur une même date de bilan.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Fiscal 2026 Plan global headcount reduction",
+  "probleme": "Le dernier point (55 000) est l'effectif total, pas une réduction de postes",
+  "preuve": "série [6000, 55000] ; signal « supprime 4 000 à 6 000 postes » ; effectifs_annuels 2025 = 55000 ; l'explication parle du « Nombre de salariés »",
+  "correction_validee": "Retirer le point 55000, fixer la valeur à 6000 postes (fourchette 4000 à 6000) et remplacer l'explication « Nombre de salariés ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Capital returned to shareholders",
+  "probleme": "La série ne correspond pas aux dividendes et rachats de la fiche",
+  "preuve": "T1 2026 : 277 + 325 = 602 ; T2 : 274 + 100 = 374 ; la série finit par 800, 400 et contient 1700, sans période",
+  "correction_validee": "Recalculer par trimestre à partir de dividends_paid et buybacks ou supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_margin.signal",
+  "probleme": "Le taux d'impôt cité ne correspond pas au KPI",
+  "preuve": "signal « taux d'impôt effectif de 8,7% sur le trimestre » ; effective_tax_rate Q2-2026 = 7",
+  "correction_validee": "Aligner les deux valeurs après vérification",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Printing_revenue, rev_Americas, rev_APJ",
+  "probleme": "Stockées en Mds $ à 2 décimales, ces séries donnent des variations fausses",
+  "preuve": "Printing yoy +0,5 % alors que le signal dit 4 195 contre 4 197 M$ (-0,05 %) ; Americas +1,2 % contre +1,1 % ; APJ +18,2 % contre +18,0 %",
+  "correction_validee": "Stocker ces séries en M$",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AI PC price uplift, Memory cost share, Internal productivity gain, Fiscal 2026 Plan pre-tax charges, AI PC share",
+  "probleme": "Chiffres d'appel de résultats sans période, avec des commentaires dans l'unité et une explication inadaptée",
+  "preuve": "unités « % (fourchette 5 à 10%) », « % (fourchette 15 à 18%) » ; AI PC share [25, 30, 35, 44] sans trimestres, daté 2026-03-28 ; son explication dit « Unités livrées aux clients »",
+  "correction_validee": "Retirer les chiffres d'argumentaire et dater par trimestre la part des PC IA",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune série de livraisons de PC ni de part de marché, alors que c'est l'indicateur de base du secteur",
+  "preuve": "seulement « Personal Systems total units year-over-year » [12, 7, -7] ; la part de 19,9 à 21,3 % n'apparaît que dans la note des positions de marché",
+  "correction_validee": "Ajouter les unités livrées et la part de marché mondiale des PC par trimestre",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le moat est contredit par les chiffres et ne décrit aucun avantage",
+  "preuve": "« L'impression… recule encore sur les consommables » ; supplies_rev +1,1 % et Printing_revenue +0,5 % sur un an",
+  "correction_validee": "Réécrire (base installée et consommables récurrents, abonnements)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tête / IA / risques",
+  "champ": "tagline, subsector, revenue_by_segment, ai_positioning, risks.score_rationale",
+  "probleme": "Textes en anglais et citations du rapport annuel",
+  "preuve": "tagline « Creator of solutions… » ; « Technology Hardware » ; « Personal Systems Group » ; « AI PCs (silicon Copilot+…) » ; score_rationale « « we are heavily dependent… » (Section…, Item 1A) »",
+  "correction_validee": "Franciser et retirer les citations",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_INVENTORY_DAYS",
+  "probleme": "Doublon annuel de dio_days, daté du 31 décembre alors que l'exercice se clôt le 31 octobre",
+  "preuve": "FY2025 = 66, dio_days Q4-2025 = 66 ; dernier 2025-12-31",
+  "correction_validee": "Supprimer ou dater au 2025-10-31",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

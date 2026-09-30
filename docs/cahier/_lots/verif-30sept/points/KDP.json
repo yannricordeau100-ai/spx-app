@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis, these, att",
+  "champ": "apostrophes JDE Peet's",
+  "probleme": "Texte corrompu dans une dizaine de blocs : Peet s'et, Peet's'et, Peet s vers JDE Peet s.",
+  "preuve": "these :: la societe de cafe JDE Peet's'et se prepare ; COFFEE_op_margin :: Les couts d integration JDE Peet s'et Separation ; USCOFFEE_rev :: Le transfert temporaire des dosettes Peet s vers JDE Peet s",
+  "correction_validee": "Remplacer partout par JDE Peet's et, JDE Peet's explique, Peet's.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Le moat affirme des ventes organiques negatives, contredit par le signal de rev_total (+7,3 % hors acquisition) et par CAHIER_ORGANIC_GROWTH 2025 a +4,8 %.",
+  "preuve": "moat :: Les ventes organiques deviennent negatives ; rev_total :: hors acquisition, la croissance KDP historique reste de 7,3% ; CAHIER_ORGANIC_GROWTH FY2025=4.8",
+  "correction_validee": "Reecrire le moat : croissance organique positive (+7,3 % hors acquisition au T2 2026) mais volume du cafe en recul de 8,2 % et risque d integration de JDE Peet's.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "accroche",
+  "probleme": "Chiffres de dette incoherents avec les series : 13,9 Mds est la dette long terme du T2 2025 (un an avant, pas six mois) et 24,8 Mds est la dette nette du T1 2026, pas la dette obligataire.",
+  "preuve": "att :: la dette obligataire passait de 13,9 Mds $ a 24,8 Mds $ en six mois ; debt_lt Q2-2025=13920, Q4-2025=13036, Q2-2026=21586 ; debt_net Q1-2026=24809, Q2-2026=28463",
+  "correction_validee": "Ecrire : dette long terme de 13,0 a 21,6 Mds$ en six mois, dette nette a 28,5 Mds$ au 30 juin 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "shares_diluted, tax_rate_q",
+  "probleme": "Points invalides dans les 8 derniers trimestres : nombre d actions negatif ou nul, taux d impot a 0 alors que le resultat net est positif.",
+  "preuve": "shares_diluted | Q4-2024=-0.002, Q4-2025=0 ; tax_rate_q | Q4-2024=1.3, Q4-2025=0 avec net_income_q Q4-2025=353",
+  "correction_validee": "Mettre a null ou remplacer par le 10-K les actions diluees Q4-2024 et Q4-2025 et le taux d impot Q4-2025, verifier le taux Q4-2024.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "US Refresh Bev Rev, International Rev, US Refresh Bev OI, LRB Portfolio Rev, K-Cup Pods Rev",
+  "probleme": "Bloc annuel arrete a l exercice 2024, en franglais, doublon des series USRB_NET_SALES_B, INTL_rev, lrb_rev, kcup_rev.",
+  "preuve": "KPI US Refresh Bev Rev | dernier 2024-12-31 :: Hero segment KDP (~61% CA FY24) ; KPI US Refresh Bev OI :: -800 bps lies aux acquisitions et investissements ; KPI USRB_NET_SALES_B | FY2025=10439",
+  "correction_validee": "Supprimer ces cinq KPI annuels.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "U.S. Refreshment Beverages volume/mix growth, U.S. Coffee volume/mix growth, Total assets post JDE Peet's acquisition",
+  "probleme": "Doublons perimes au T1 2026 de USRB_volmix, COFFEE_volmix et assets_q qui vont jusqu au T2 2026.",
+  "preuve": "KPI U.S. Refreshment Beverages volume/mix growth | dernier 2026-03-28 | val=7.2 ; KPI USRB_volmix | Q2-2026=6.5 ; KPI Total assets post JDE | val=73.14 ; assets_q Q2-2026=87619",
+  "correction_validee": "Supprimer les trois doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "COFFEE_NETSALES_FY",
+  "probleme": "Rupture de perimetre non expliquee (4 982 en 2022 puis 4 071 en 2023 apres le transfert du cafe international) et description generique identique a celle de USRB_NET_SALES_B (deux produits phares).",
+  "preuve": "serie: FY2022=4982, FY2023=4071 :: produit phare de la societe ; USRB_NET_SALES_B :: produit phare de la societe",
+  "correction_validee": "Limiter la serie a 2023-2025 ou expliquer la rupture ; reecrire les deux descriptions.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "name_en de INTL_lrbvol, INTL_kcupvol, INTL_appvol, USRB_volmix, USRB_npr, USRB_fx, COFFEE_volmix, COFFEE_npr, COFFEE_fx",
+  "probleme": "Codes internes et franglais dans les noms anglais.",
+  "preuve": "International lrbvol Volume ; International kcupvol Volume ; US Boissons Rafraichissantes Volume/Mix Growth ; US Cafe Net Price Realization",
+  "correction_validee": "Renommer en International LRB Volume Growth, International Coffee Volume Growth, International Appliance Volume Growth, US Refreshment Beverages Volume/Mix Growth, US Coffee Net Price Realization, etc.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "intl_rev_share",
+  "probleme": "KPI conserve alors que son signal reconnait qu il ne mesure plus rien depuis l acquisition.",
+  "preuve": "val=9.1 :: il ne mesure plus la part geographique reelle",
+  "correction_validee": "Retirer le KPI ou le recalculer sur la nouvelle repartition geographique.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "JDE Peet's bridge credit facility, EUR FX forward hedges, JDE Peet's cash offer price, JDE Peet's acquisition consideration, Convertible preferred stock issuance, Pod Manufacturing JV, Planned separation",
+  "probleme": "Sept faits de transaction presentes comme KPI (n=1, unites EUR/action, societes), sans serie.",
+  "preuve": "KPI JDE Peet's cash offer price per share | EUR/action | val=31.85 ; KPI Planned separation into two public companies | societes | val=2",
+  "correction_validee": "Deplacer vers le bloc evenements.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Ventes Walmart (signal)",
+  "probleme": "Signal vague (plus de 10 %) alors que la part est de 16 % (2 654 / 16 603) et que le bloc clients affiche 16.",
+  "preuve": "val=2654 :: Les ventes a Walmart representent plus de 10 % du chiffre d affaires total ; clients : pct 16",
+  "correction_validee": "Signal : Walmart pese 16 % du chiffre d affaires 2025, ventes en hausse de 5,6 % sur un an.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "K-Cup Pods Shipments, Brewer Households",
+  "probleme": "Series annuelles sans etiquette d annee, sans signal ni description, datees 2026-06-30.",
+  "preuve": "KPI K-Cup Pods Shipments | year | dernier 2026-06-30 | serie: 12.5, 12.7, 12.3, 12, 11.6 :: :: ; KPI Brewer Households | serie: 33, 36, 38, 39, 40 :: ::",
+  "correction_validee": "Etiqueter les annees, dater a la cloture 2025 et rediger un signal ; sinon supprimer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

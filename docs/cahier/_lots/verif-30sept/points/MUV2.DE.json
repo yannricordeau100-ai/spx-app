@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Combined Ratio (P&C Reinsurance), P&C Reinsurance Combined Ratio, Insurance Revenue (Total), Investment Result, Book Value per Share, Life & Health Re Result, Investment Return, ERGO Combined Ratio, Capex",
+  "probleme": "Neuf KPI en anglais, sans etiquette de periode, dates '2026-08-09', qui doublonnent et contredisent les series sourcees : deux ratios combines P&C differents (82,5 et 84) contre CRPC FY2025 = 73,5 ; revenus d'assurance 16,5 Mds € contre REV ~60 Mds € (facteur 4) ; valeur comptable 215 € contre BVPS 259,76 € ; resultat vie-sante 1 200 contre TTRLH 1 715 / RNLH 1 334 ; resultat des placements 1,85 Mds € incompatible avec 222,7 Mds € a 3,2 % ; Capex en dollars pour un reassureur allemand. Signaux de cuisine interne ('<85% = profitabilite technique excellente vs peers', 'hard market reinsurance', 'TSR cumule fort').",
+  "preuve": "KPI Combined Ratio (P&C Reinsurance) serie: 83.2, 84.5, 79.1, 81.4, 82.5 vs KPI CRPC FY2025=73.5 ; KPI Insurance Revenue (Total) val=16.5 Mds € vs KPI REVRI+REVERGO 2025 = 60 412 M€ ; KPI Capex | M $ | serie: 349, 346, 316, 300",
+  "correction_validee": "Supprimer les neuf KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "REV (signal)",
+  "probleme": "Le signal cite un objectif 2026 d'environ 64 Mds € alors que l'anti-these et la these disent que la prevision a ete abaissee a 62 Mds € debut aout.",
+  "preuve": "KPI REV :: 'Objectif annonce pour 2026 : environ 64 Mds €' ; att: 'Munich Re a reduit sa prevision de revenus d'assurance 2026 de 64 a 62 Mds €'",
+  "correction_validee": "Remplacer par « Objectif 2026 abaissé à environ 62 Mds € en août (64 Mds € auparavant) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DPS (signal)",
+  "probleme": "'Progression annuelle d'au moins 5 %, un engagement tenu sans exception' est contredit par la serie : dividende stable a 9,80 € en 2019 et 2020, ce que la these reconnait elle-meme.",
+  "preuve": "serie: FY2019=9.8, FY2020=9.8 ; these: 'il a ete maintenu stable une annee au lieu d'etre releve'",
+  "correction_validee": "Retirer « un engagement tenu sans exception » ou préciser « tenu chaque année depuis 2021 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "NATCAT",
+  "probleme": "Serie arretee a FY2024 alors que toutes les autres series annuelles vont a FY2025 et que le risque 1 cite des chiffres fin 2025 ; pour un reassureur c'est l'indicateur sectoriel le plus regarde.",
+  "preuve": "KPI NATCAT | dernier 2024-12-31 | serie ... FY2024=2644 ; risque 1: 'exposition annuelle estimee a 8,5 Mds € (9,2 Mds € un an plus tot)'",
+  "correction_validee": "Ajouter la charge nette de catastrophes naturelles 2025 depuis le rapport annuel 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RENEWAL_PRICE, CAHIER_RESERVE_DEV",
+  "probleme": "Variation affichee '-700,0 %' sur un taux passant de 0,2 a -1,2 (variation en pourcentage d'un pourcentage) ; CAHIER_RESERVE_DEV en chiffres ronds identiques trois ans (5, 5, 5) avec 'yoy=+0.0%', ce qui ressemble a une valeur cible recopiee plutot qu'a une mesure.",
+  "preuve": "KPI CAHIER_RENEWAL_PRICE val=-1.2 | yoy=-700.0% ; KPI CAHIER_RESERVE_DEV serie: FY2023=5, FY2024=5, FY2025=5 | yoy=+0.0%",
+  "correction_validee": "Exprimer la variation en points (-1,4 pt) ; verifier les bonis de liquidation reels 2023-2025 (en % des primes acquises) et remplacer les 5 ronds.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "position_marche",
+  "champ": "positions de marche 1 et 2",
+  "probleme": "Deux blocs vides affiches avec un nombre sans nom ni part.",
+  "preuve": "position de marche 1: None | taille 379.9 | part None ; position de marche 2: None | taille 254 | part None",
+  "correction_validee": "Retirer les deux blocs de position de marché.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat sans nom (type None) qui conclut que 'les elements restent trop minces' pour le premier reassureur mondial, alors que la fiche montre un ratio Solvabilite II de 298 %, une part de marche nordique... et un ROE de 18 % : l'avantage (echelle, capital, notation, diversification) n'est pas nomme.",
+  "preuve": "moat: None / tendance stable :: Le dividende par action a presque triple en dix ans et plusieurs risques financiers refluent, mais les elements restent trop minces pour conclure a un renforcement.",
+  "correction_validee": "Rediger un moat nomme (echelle de capital et notation) coherent avec SII 298 % et ROE 18,3 %.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

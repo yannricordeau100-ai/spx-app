@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Cases Sold, Monster Energy CA, US Energy share, International %",
+  "probleme": "Quatre series annuelles sans etiquette de periode, chiffres ronds et lisses, datees 2026-06-30, contredites par les series sourcees de la fiche.",
+  "preuve": "Cases Sold serie 660, 750, 800, 825, 850 alors que vol_me_seg FY2025=755,7 et CAHIER_UNIT_CASE_VOL FY2025=958,955 ; Monster Energy CA 6,85 alors que ME_rev 2025 = 1,72+1,94+2,03+1,98 = 7,67 Mds ; International % 40 alors que intl_pct T2-2026 = 45,7 ; US Energy share 35, 38, 38, 37, 36 sans source ni periode.",
+  "correction_validee": "Retirer Cases Sold, Monster Energy CA, US Energy share et International %.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORGANIC_GROWTH",
+  "probleme": "Nom annonce une decomposition volume/prix-mix mais la serie est une seule croissance en pourcentage, non decomposee, et ne colle ni a la croissance publiee ni au yoy affiche.",
+  "preuve": "FY2025=10,7 = croissance du CA total (revenue_annuel +10,7 %) ; FY2022=18,2 alors que revenue_annuel 2022/2021 = +13,9 % ; FY2023=15,5 contre +13,1 % ; yoy affiche +27,4 % sur une serie en % (devrait etre en points).",
+  "correction_validee": "Verifier la source de chaque point, renommer en Croissance organique du CA ou retirer ; exprimer le yoy en points.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Consolidated net sales 2025 ; Alcohol Brands goodwill impairment ; Call of Duty branded cans ; Affordable energy portfolio ; China/India growth ; Aluminum headwind",
+  "probleme": "Sept entrees a un seul point (n=1) declarees trimestrielles : un CA annuel deja present sous revenue_annuel, une depreciation ponctuelle, une operation marketing et des chiffres de conference sans serie.",
+  "preuve": "Consolidated net sales 2025 val=8,29 n=1 quarter = doublon de revenue_annuel 2025=8,294 ; Call of Duty branded cans val=650 n=1 ; Aluminum cost headwind signal « a coûté » (faute : a coûté).",
+  "correction_validee": "Retirer Consolidated net sales 2025, déplacer les six faits ponctuels vers les événements ou stories et corriger « à coûté » en « a coûté ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "tresorerie",
+  "probleme": "Anti-these et KPI net_cash se contredisent sur le niveau de tresorerie alors que la societe est annoncee sans emprunt tire.",
+  "preuve": "att : « zéro emprunt tiré, 4,20 Mds $ de trésorerie et placements » ; KPI net_cash T2-2026 = 2,19 Mds $ « bilan sans dette structurelle ». Sans dette, la tresorerie nette devrait egaler tresorerie + placements.",
+  "correction_validee": "Verifier le perimetre de net_cash (placements long terme exclus ?) et le dire dans le nom ou aligner le chiffre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "libelles",
+  "probleme": "Libelles bruts non traduits ni normalises.",
+  "preuve": "« U.s. And Canada 61.2 ; E M E A 22.9 ; Latin America And Caribbean 8.4 »",
+  "correction_validee": "Renommer en États-Unis et Canada, EMEA, Amérique latine et Caraïbes.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques / positions de marche / gouvernance",
+  "champ": "champs vides",
+  "probleme": "Les cinq risques n ont aucun texte, la position de marche n a ni nom ni part, la remuneration est None.",
+  "preuve": "« risque 1: Dépendance au partenariat de distribution Coca-Cola :: » (vide apres ::) ; « position de marche 1: None | taille 77.16 | part None »",
+  "correction_validee": "Completer ou masquer ces blocs a l affichage.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

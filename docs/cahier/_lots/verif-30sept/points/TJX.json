@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "marmaxx_rev, homegoods_rev, canada_rev, intl_rev, *_segprofit, gross_margin, pretax_margin, net_income, inventory, cash, dividend_ps, total_stores",
+  "probleme": "Séries arrêtées au T4 de l'exercice 2026 (janvier 2026) : les T1 et T2 de l'exercice 2027 manquent, alors que revenue_total les contient. Le hero est concerné.",
+  "preuve": "revenue_total Q4-2026=17743 = somme des segments Q4-2026 ; revenue_total a Q1-2027=14323 et Q2-2027=15180, les segments non ; dividende 0,425 vs 'Annual dividend raised' 1,92 soit 0,48 par trimestre ; 5214 magasins vs 5262 dans l'anti-thèse",
+  "correction_validee": "Ajouter les T1 et T2 de l'exercice 2027 à ces séries et harmoniser les libellés d'exercice.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted, revenue_total, ocf",
+  "probleme": "Signaux et variations restés au T4 alors que la valeur est celle du T2 ou du T1 de l'exercice 2027",
+  "preuve": "eps val 1,36, signal 'BPA record de 1,57 $ au T4', yoy +28 % = 1,57/1,23 ; revenue val 15180, signal 'CA T4 record de 17,7'",
+  "correction_validee": "Régénérer signaux et variations",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ocf",
+  "probleme": "Signal contredit par la série",
+  "preuve": "'T1 négatif (constitution des stocks)' alors que Q1-2026=394 et Q1-2027=1119",
+  "correction_validee": "Retirer 'T1 négatif (constitution des stocks)' du signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "total_stores / Long-term store potential of 7,000",
+  "probleme": "Objectif de parc périmé, contredit par la thèse",
+  "preuve": "Signal 'potentiel de 7 000 magasins' vs thèse 'relever son objectif de parc de 7 000 à 7 500'",
+  "correction_validee": "Mettre 7 500",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_margin",
+  "probleme": "Nom trompeur : chez TJX, le coût des ventes inclut les coûts d'achat et d'occupation, donc la marge n'est pas 'hors coûts d'occupation'",
+  "preuve": "Signal 'Marge brute (hors coûts d'occupation)' et 'cost of sales ratio FY2026 à 69,0%' (30,9 % = 100 moins 69,1)",
+  "correction_validee": "'Marge brute (après coûts d'achat et d'occupation)', signal en français",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "total_stores / CAHIER_PARC_SURFACE ; CAHIER_PARC_SURFACE_SURFACE",
+  "probleme": "Doublon du parc de magasins, et surface de vente arrêtée en 2019",
+  "preuve": "CAHIER_PARC_SURFACE FY2026=5214 = total_stores ; surface dernier 2019-12-31",
+  "correction_validee": "Supprimer CAHIER_PARC_SURFACE, mettre à jour ou retirer la surface",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux marmaxx/homegoods/intl/canada comp et unités",
+  "probleme": "Franglais et unités en anglais",
+  "preuve": "'comp sales', 'Comp International', '(West, South, Midwest)', 'Mrd$', unités 'vendors', 'buyers', 'store'",
+  "correction_validee": "Réécrire en français (ventes comparables, Mds $, fournisseurs, acheteurs, magasin)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

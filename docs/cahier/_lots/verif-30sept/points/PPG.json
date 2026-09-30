@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "us_canada_rev / asia_rev / latam_rev",
+  "probleme": "Ventes régionales négatives, impossibles ; le point T4 est un résidu de calcul faux.",
+  "preuve": "Q4-2025 : us_canada=-4151, asia=-2139, latam=-1581 ; us_canada Q4-2022=-199, Q4-2023=-424",
+  "correction_validee": "Recalculer le T4 de chaque région (exercice moins neuf mois) ou retirer ces points.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat périmé et contredit : il décrit un recul des ventes dans toutes les régions alors que le T2 2026 est en hausse partout.",
+  "preuve": "moat « Les ventes reculent dans toutes les régions » ; T2 2026 : us_canada +1.6 %, emea +7.9 %, asia +12.8 %, latam +13.0 %, revenue +7.2 %",
+  "correction_validee": "Réécrire le moat à partir des chiffres 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these / Adjusted EPS (signal)",
+  "probleme": "Trois comptages différents des trimestres de croissance organique.",
+  "preuve": "these « sixième trimestre consécutif » ; signal Adjusted EPS « Cinquième trimestre » ; Organic sales growth serie 0,0,-1,1,2,2,3,1 = cinq trimestres positifs",
+  "correction_validee": "Aligner sur cinq (ou vérifier le T1 2025).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "perf_coat_assets / perf_coat_capex / indus_coat_capex",
+  "probleme": "Séries mêlant deux périmètres de segment (avant et après 2022) et capex de segment invraisemblables.",
+  "preuve": "perf_coat_assets FY2021=13395 puis FY2022=5612 ; perf_coat_capex FY2021=1698 M$ alors que le capex groupe annuel est d'environ 500-700 M$ ; indus_coat_capex FY2021=784",
+  "correction_validee": "Tronquer les trois séries avant 2022, sauf si le 10-K confirme un périmètre homogène.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "aerospace_backlog / Aerospace order backlog",
+  "probleme": "Doublon, la version structurée s'arrête au T4 2025.",
+  "preuve": "aerospace_backlog n=3 dernier 2025-12-31 val=315 ; Aerospace order backlog dernier 2026-06-30 val=315",
+  "correction_validee": "Supprimer aerospace_backlog.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "gross_margin / operating_margin / net_margin / marges de segment",
+  "probleme": "Marges arrondies à l'entier et variations en pourcentage relatif au lieu de points ; le signal donne 16,5 % quand la série dit 17.",
+  "preuve": "operating_margin Q2-2026=17, signal « 16,5% » ; gross_margin yoy=-4.8% pour 42 -> 40",
+  "correction_validee": "Garder une décimale et afficher les yoy en points.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Contredit par un KPI de la fiche.",
+  "preuve": "IA « ne communique pas de programme IA structurant » ; KPI « 50 formulations optimisées via IA propriétaire plus un premier clearcoat refinish entièrement conçu par IA »",
+  "correction_validee": "Mettre à jour le positionnement IA.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

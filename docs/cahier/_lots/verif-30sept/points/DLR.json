@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "dette_annuelle, dette_sur_ca, dette_par_salarie",
+  "probleme": "Point 2018 invraisemblable : 0,775 Mds $ de dette puis 8,973 en 2019 (x11,6). Digital Realty portait deja plus de 10 Mds $ de dette en 2018. Le signal en deduit une croissance fausse de +55,6 %/an.",
+  "preuve": "'dette_annuelle serie: 2018=0.775, 2019=8.973, 2020=11.997' ; 'dette_sur_ca 2018=25.4, 2019=279.6' ; signal '+55,6 % par an depuis 2018'.",
+  "correction_validee": "Corriger ou retirer le point 2018 d apres le 10-K 2018 puis recalculer dette_sur_ca et le signal.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.tendance",
+  "probleme": "Tendance affichee 'baisse' contredite par la justification qui decrit un renforcement, et par le champ tendance_mettrik = hausse dans le JSON.",
+  "preuve": "'moat: None / tendance baisse :: Les signatures de baux et le carnet non demarre progressent tres fortement, l occupation gagne six points et le resultat par action accelere, signe d un pouvoir de prix retrouve.' ; JSON: 'tendance': 'baisse', 'tendance_mettrik': 'hausse'.",
+  "correction_validee": "Afficher la tendance hausse, alignee sur la justification Mettrik.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_LEASED_CAPACITY_MW",
+  "probleme": "Nom et unite faux : intitule 'Capacite louee (MW)' mais la serie est un taux d occupation en %, doublon annuel de Portfolio occupancy.",
+  "preuve": "'CAHIER_LEASED_CAPACITY_MW | Capacite louee et taux d utilisation | Leased Capacity Mw | % | FY2025=84.7' vs 'Portfolio occupancy Q4-2025=84.7'.",
+  "correction_validee": "Renommer en Taux d occupation en fin d exercice (%) ou retirer le doublon.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Debt to adjusted EBITDA multiyear low, Total data centers in portfolio, Core FFO per share",
+  "probleme": "Doublons a un point ou a dix points d indicateurs deja presents : levier 4,7x (net_debt_ebitda), 310 data centers (Data Center Count), Core FFO/action (Core FFO per share - diluted). Le doublon Core FFO est en plus date 2026-06-30 alors que son dernier point est le 1T26.",
+  "preuve": "'net_debt_ebitda ... Q1-2026=4.7' et 'Debt to adjusted EBITDA, multiyear low ... 4.7' ; 'Data Center Count FY2025=310' et 'Total data centers in portfolio 310' ; 'Core FFO per share | dernier 2026-06-30 | ... 2.04 :: Core FFO record de 2,04 $/action au 1T26'.",
+  "correction_validee": "Supprimer les trois doublons (levier, Total data centers, Core FFO per share).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total bookings signed, Core FFO per share - diluted, Portfolio occupancy, Backlog, Same-capital cash NOI growth, spreads",
+  "probleme": "Les KPI operationnels (hero compris) s arretent au 1T26 alors que les KPI comptables (CA, OCF, dette nette) ont le 2T26 et que la these et l anti-these citent le T2 2026.",
+  "preuve": "'hero: Total bookings signed ... dernier 2026-03-31' ; 'Total Operating Revenue ... Q2-2026=1.924' ; att: 'Le chiffre d affaires de Digital Realty a bondi de 28,9 % au T2 2026'.",
+  "correction_validee": "Completer les series operationnelles avec le 2T26 (supplement de juillet 2026).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "FFO payout ratio",
+  "probleme": "Date de derniere donnee 2026-06-30 alors que l unique point est Q1-2026 ; yoy '-12,6 pt' calcule sans point N-1 dans la serie.",
+  "preuve": "'FFO payout ratio | dernier 2026-06-30 | n=1 | yoy=-12.6 pt | serie: Q1-2026=61.2'.",
+  "correction_validee": "Dater au 2026-03-31 et ajouter le point N-1 (environ 74 %) ou masquer le yoy.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

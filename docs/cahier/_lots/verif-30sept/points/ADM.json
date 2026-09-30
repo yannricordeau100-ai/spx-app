@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification périmée, contredite par les KPI et par la thèse",
+  "preuve": "« Les profits opérationnels s'effondrent dans presque tous les segments, jusqu'à 93 % de baisse pour la trituration » alors que T2 2026 : ASO_OP 867 M$ (+129 %), CRUSH_OP 363 vs 33, TOTAL_SEG_OP 1 450 (+75 %) ; thèse : « le point bas est derrière »",
+  "correction_validee": "Réécrire la justification avec les chiffres du T2 2026 : profit des segments 1 450 M$ (+75 %), trituration 363 M$ après -79 M$ au T1.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "9 séries « annual » (equity_earnings_affiliates, creances_vendues_total, encaissements_sur_creances, charges_impairment_total, Soybeans/Soybean_Meal/Corn_Revenue_Pct, RD_Expense_Net, Intangibles_Net_Book_Value)",
+  "probleme": "Séries stockées du plus récent au plus ancien, sans étiquettes, avec une date fausse : le graphique montre la tendance inversée",
+  "preuve": "equity_earnings_affiliates history = [648, 621, 551] avec yoy +4,4 % = 648/621 (le premier point est 2025) ; charges_impairment_total [473, 545, 342] ; Soybean_Meal [11, 12, 13] avec signal « 13 % → 12 % → 11 % » ; tous datés 2026-06-30 pour FY2025, cadence « annual » au lieu de « year »",
+  "correction_validee": "Inverser les 9 séries, les étiqueter FY2023 à FY2025, dater au 2025-12-31 et passer la cadence en year.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Ag Services Revenue / Carbohydrate Solutions / Nutrition Revenue / Crush Margin Soy",
+  "probleme": "Quatre KPI annuels sans signal, années non étiquetées, date fausse, doublons ou donnée non publiée",
+  "preuve": "« Ag Services Revenue » 54,5 ; 64,7 ; 76,8 ; 79,6 ; 70,3 (dernier 2026-06-30, aucun signal) alors que ASO_REV trimestriel existe ; « Crush Margin Soy » 50 ; 65 ; 75 ; 59 ; 42 $/t : ADM ne publie pas de marge de trituration en $/t, source inconnue",
+  "correction_validee": "Supprimer les quatre KPI, sauf à sourcer la marge de trituration soja.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs_annuels / RD_Expense_Net",
+  "probleme": "Doublons dont l'un est en retard d'un an",
+  "preuve": "effectifs_annuels s'arrête 2024 = 44 000 (dernier 2025-02-20) alors que EMPLOYEES donne FY2025 = 41 496 ; les trois ratios par salarié s'arrêtent 2024 ; RD_Expense_Net 246 (n=1) = RD_ANNUAL FY2025",
+  "correction_validee": "Ajouter 2025 = 41 496 à effectifs_annuels, recalculer les trois ratios par salarié et supprimer RD_Expense_Net.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete / risques / repartition",
+  "champ": "subsector, risque 1, revenue_by_geography.slices",
+  "probleme": "Fragments anglais dans l'en-tête, un titre de risque et la répartition géographique",
+  "preuve": "Sous-secteur « Agricultural Supply Chain & Nutrition » (GICS 30202010 = Produits agricoles) ; « Risques opérationnels (Company exposed potential) » ; « SWITZERLAND », « CAYMAN ISLANDS », « BRAZIL », « Other Foreign » à côté de « Mexique », « Royaume-Uni »",
+  "correction_validee": "Sous-secteur « Produits agricoles », retirer la parenthèse du risque, « Suisse », « Îles Caïmans », « Brésil », « Autres pays ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Adjusted ROIC (trailing four-quarter).history",
+  "probleme": "Trou dans une série glissante",
+  "preuve": "11,6 puis 6,9 entre deux points consécutifs d'un ratio glissant 4 trimestres, impossible sans points manquants (les trimestres 2024 autour de 8 % sont absents)",
+  "correction_validee": "Compléter 2024 ou étiqueter les points",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "GM_PCT, OPM_PCT, NM_PCT, NETDEBT_Q, ASO_MARG, CARB_MARG, NUTR_MARG (signal)",
+  "probleme": "Signaux réduits à une note de méthode",
+  "preuve": "« Résultat opérationnel du segment rapporté à son chiffre d'affaires (calcul Mettrik sur les tableaux publiés) » répété trois fois, « Résultat brut moins frais généraux rapporté au chiffre d'affaires (calcul Mettrik) »",
+  "correction_validee": "Remplacer par un signal chiffré (ex. marge ASO 4,8 % au T2 2026, +2,5 pt) et garder la méthode en description",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Wilmar investment carrying value vs fair value",
+  "probleme": "Valeur sans définition",
+  "preuve": "val = 4 Mds $ ; le nom oppose deux montants et le signal ne dit pas si 4 est la valeur comptable, la juste valeur ou l'écart",
+  "correction_validee": "Nommer précisément (ex. « Écart valeur comptable / juste valeur Wilmar ») ou supprimer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Le BPA ajusté, chiffre phare guidé par ADM, est absent",
+  "preuve": "Seul BPA_DIL GAAP figure (0,04 $ au T3 2024, 1,87 $ au T2 2026) ; la direction guide et commente le BPA ajusté à chaque publication",
+  "correction_validee": "Ajouter le BPA ajusté trimestriel",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CRUSH_OP.yoy",
+  "probleme": "Variation affichée illisible sur une base proche de zéro",
+  "preuve": "« +1000% » (363 vs 33 M$), avec un point négatif (-79) au trimestre précédent",
+  "correction_validee": "Afficher la variation en montant (+330 M$) quand la base est inférieure à 50 M$",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "gouvernance",
+  "champ": "ceo_name",
+  "probleme": "Civilité anglaise",
+  "preuve": "« Mr. Juan Ricardo Luciano »",
+  "correction_validee": "« Juan Ricardo Luciano ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

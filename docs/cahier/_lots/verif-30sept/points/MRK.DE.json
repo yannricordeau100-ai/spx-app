@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Life Science Revenue / Healthcare Revenue / Electronics Revenue (annuels)",
+  "probleme": "Trois series annuelles par segment en chiffres ronds qui contredisent les series trimestrielles de la meme fiche et font doublon avec LS_REV, HC_REV, EL_REV",
+  "preuve": "Healthcare Revenue FY2025=8800 alors que HC_REV 2025 = 2114+2102+2203+2189 = 8608 ; Electronics 3700 contre 948+886+875+805 = 3514 ; Life Science 9500 contre 8980 ; Life Science 2021=10681 et 2022=10984 invraisemblables face a 2025=9500 ; periodes absentes, date 2026-08-09",
+  "correction_validee": "Supprimer Life Science Revenue, Healthcare Revenue et Electronics Revenue (annuels) ; les séries trimestrielles LS_REV, HC_REV et EL_REV suffisent.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Pipeline NMEs vs CAHIER_LATE_STAGE_PIPELINE",
+  "probleme": "Deux indicateurs de pipeline contradictoires : l un monte lineairement (8,9,10,11,12), l autre baisse (5,5,4,3,2) ; la serie lineaire sans periodes ressemble a une invention",
+  "preuve": "Pipeline NMEs serie 8, 9, 10, 11, 12 signal 'Pipeline regenere' ; CAHIER_LATE_STAGE_PIPELINE FY2020=5 ... FY2025=2 signal 'Peu de relais de croissance'",
+  "correction_validee": "Retirer Pipeline NMEs, sauf si on peut le resourcer avec le nombre réel de molécules en clinique par exercice.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Capex",
+  "probleme": "Unite en dollars pour un groupe qui publie en euros, sans periodes ni signal",
+  "preuve": "KPI Capex | Mds $ | serie: 1.81, 2.02, 2.18, 1.96 | signal vide",
+  "correction_validee": "Verifier et passer en Mds EUR avec les exercices ; sinon supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EBITDA_PRE.signal",
+  "probleme": "Cuisine interne : le nombre de points de la serie (n=42) est passe dans le texte",
+  "preuve": "'plus haut niveau jamais publie pour un deuxieme trimestre, 42 trimestres de suite'",
+  "correction_validee": "Retirer « , 42 trimestres de suite » du signal EBITDA_PRE.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.text",
+  "probleme": "Le moat cite 'le seul indicateur disponible' alors que la fiche compte plus de 20 KPI, et attribue +9,4 % au resultat operationnel alors que l EBIT recule de 15,5 % (le +9,4 % est l EBITDA pre)",
+  "preuve": "moat : 'Le seul indicateur disponible montre un resultat operationnel trimestriel en hausse de 9,4 %' ; EBIT_Q yoy=-15.5% ; EBITDA_PRE yoy=+9.4%",
+  "correction_validee": "Reecrire : EBITDA pre-exceptionnels +9,4 %, EBIT -15,5 %, sans mention de disponibilite",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BRAND_SALES_BRIDGE",
+  "probleme": "Nom vague : 'Ventes par marque' sans dire quelle marque, alors que la serie est une seule marque (1 176 M EUR)",
+  "preuve": "KPI CAHIER_BRAND_SALES_BRIDGE | Ventes par marque et decomposition de la croissance | val=1176 ; signal 'croissance aussi modeste sur la marque phare'",
+  "correction_validee": "Nommer le produit (ex. Ventes Erbitux ou Mavenclad selon la source)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "market_positions",
+  "champ": "position de marche 1 et 2",
+  "probleme": "Deux positions de marche sans nom ni part, seulement une taille (159.35 et 3.574) sans unite",
+  "preuve": "position de marche 1: None | taille 159.35 | part None",
+  "correction_validee": "Renseigner le marche, l unite et la part, ou retirer le bloc",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "governance",
+  "champ": "dirigeant",
+  "probleme": "Dirigeant indique Kai Beckmann ; la presidente du directoire de Merck KGaA est Belen Garijo, Beckmann dirige le secteur Electronics",
+  "preuve": "gouvernance: annee 2025 | dirigeant Kai Beckmann",
+  "correction_validee": "Verifier dans le rapport 2025 et corriger le nom",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

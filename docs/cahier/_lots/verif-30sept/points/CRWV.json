@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Data Centers Operated, Data Centers Operational, Active GPUs, GPU Actifs (Hopper + Blackwell), Active Power Capacity, Capacité Contractée Future, Marge Opérationnelle Ajustée",
+  "probleme": "Sept KPI annuels sans etiquette de periode, en doublon de dc_y, mw_y, power_contracted_y, avec valeurs contradictoires et descriptions de modele.",
+  "preuve": "Data Centers Operational 0, 8, 14, 20, 32 vs dc_y FY2023=10, FY2024=32, FY2025=43 ; Capacité Contractée Future 900, 1200, 1600 MW vs power_contracted_y 3.1 GW ; Marge Opérationnelle Ajustée 12, 18, 24 sans source ; descriptions « = 360 k unités, nature cyclique », « = 24.0 %, nature structurel ».",
+  "correction_validee": "Supprimer les sept KPI et garder dc_y, mw_y et power_contracted_y. Une serie de GPU actifs ne serait ajoutee que sourcee et etiquetee.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total Revenue : history / yoy / description",
+  "probleme": "Serie trimestrielle a trous (T4 2024 et T4 2025 absents), yoy sans signe %, description en franglais.",
+  "preuve": "serie 2024-Q3=583.94, 2025-Q1=981.63 ... 2025-Q3=1364.68, 2026-Q1=2078 ; yoy=112.3 ; « AI hyperscaler GPU cloud », « x22 en 2 ans porté par adoption GenAI ».",
+  "correction_validee": "Ajouter T4 2024 (747) et T4 2025 (5131-981.63-1212.79-1364.68 = 1572) apres verification, mettre yoy=+112 %, reecrire la description.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "intexp_y : value / yoy",
+  "probleme": "Charge d'interets affichee en negatif avec un yoy negatif, ce qui se lit comme une baisse alors que la charge a triple.",
+  "preuve": "Charges d'intérêts nettes val=-1229, yoy=-240%, serie FY2023=-28, FY2024=-361, FY2025=-1229.",
+  "correction_validee": "Passer la serie en positif (28, 361, 1229) avec un yoy de +240 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "WEB_TAILLE_DES_PLUS_GR, WEB_GOODPUT_DES_CLUSTE, WEB_TEMPS_D_ENTRAINEME, WEB_DUREE_MOYENNE_ENTR, WEB_REDEMARRAGE_D_UN_T, WEB_DEBIT_DU_STOCKAGE_, WEB_BANDE_PASSANTE_RES, WEB_PRINCIPAUX_EDITEUR, WEB_EQUIPES_UTILISATRI, WEB_CONSTRUCTEURS_DE_M, WEB_ENTRAINEMENT_DE_DE : name_en / value",
+  "probleme": "Onze KPI techniques avec un code interne comme nom anglais, une valeur non numerique et des unites en phrase.",
+  "preuve": "name_en « WEB_TAILLE_DES_PLUS_GR » ; value « 97 a 98 » ; unit « x la moyenne sectorielle », « sur les 10 premiers mondiaux » ; nom « Entraînement de DeepSeek-V3 671B sur 8 192 GPU GB300 (MLPerf Training v6.0) ».",
+  "correction_validee": "Donner un name_en propre, une valeur numerique (97.5) et une unite courte ; retirer le benchmark MLPerf ou le passer en story.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "debt_q, ppe_q, assets_q, ar_q, techinfra_y, opinc_y : signal",
+  "probleme": "Signaux generiques sans aucun chiffre alors que la serie en fournit.",
+  "preuve": "debt_q val=35551 : « Ces nouvelles facilités et obligations financent l'extension du parc de serveurs, engagement clé pour tenir les contrats signés. » ; ar_q : « Le niveau des créances reflète le rythme d'encaissement des clients ».",
+  "correction_validee": "Reecrire avec le dernier point et sa variation (ex. dette 35,6 Mds $ au 30 juin 2026, x4,4 en un an).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0..5].description ; market_positions[0] ; tagline",
+  "probleme": "Six risques sans description, position de marche sans nom ni part (taille 42), tagline en anglais.",
+  "preuve": "risque 1: Risque spécifique au business model :: (vide) ; position de marche 1: None | taille 42 | part None ; « The Essential Cloud for AI ».",
+  "correction_validee": "Completer ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

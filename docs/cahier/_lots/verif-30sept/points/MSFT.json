@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Intelligent Cloud Revenue / Productivity & Business Revenue / More Personal Computing Rev",
+  "probleme": "Trois KPI annuels de segment portent des valeurs fausses et contredisent les séries trimestrielles de la même fiche.",
+  "preuve": "Intelligent Cloud Revenue FY2026 = 105 Mds $ alors que la somme des trimestres intelligent_cloud_rev donne 30,9+32,9+34,7+39,3 = 137,8 ; Productivity 78 vs 33+34,1+35+37,8 = 139,9 ; MPC 62 vs 13,8+14,2+13,2+12,9 = 54,1. Séries sans période, datées 2026-12-31.",
+  "correction_validee": "Supprimer les trois KPI annuels Intelligent Cloud Revenue, Productivity & Business Revenue et More Personal Computing Rev, que les séries trimestrielles couvrent déjà.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Intelligent Cloud Rev",
+  "probleme": "Série étiquetée annuelle mais composée de valeurs trimestrielles, doublon de intelligent_cloud_rev.",
+  "preuve": "period=year, serie 25.9, 26.7, 28.5, 30.3, 31.8, 32.9 ; le 32,9 correspond au T2 FY2026 de intelligent_cloud_rev (32 900 M $) ; signal « croissance +29% YoY Q2 FY26 ».",
+  "correction_validee": "Supprimer le KPI Intelligent Cloud Rev.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Azure Growth / Azure Revenue Growth / Azure and other cloud services revenue growth",
+  "probleme": "Trois séries pour la croissance Azure, deux sans période et contradictoires entre elles.",
+  "preuve": "Azure Growth (year) : 29, 31, 33, 35, 37, 39 (progression artificielle de 2 points) ; Azure Revenue Growth (year) : 50, 45, 27, 30, 33 avec description « AI Services contribution ~12pt en 2024 » ; la série trimestrielle donne 29, 33, 31, 33, 39, 40, 39, 39.",
+  "correction_validee": "Garder la seule série « Croissance revenu Azure », la rattacher au hero azure_growth et supprimer Azure Growth et Azure Revenue Growth.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AI Run Rate / AI business annual revenue run rate",
+  "probleme": "Deux séries pour le run rate IA avec des historiques incompatibles.",
+  "preuve": "AI Run Rate : 13, 17, 23, 30, 37 (year, 2026-12-31) ; AI business annual revenue run rate : 10, 13, 37 (quarter, 2026-03-11). Signal du premier : « suivi par sell-side chaque quarter ».",
+  "correction_validee": "Supprimer « AI Run Rate » et garder « AI business annual revenue run rate ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "commercial_rpo / Commercial remaining performance obligation / Commercial RPO / CAHIER_CRPO",
+  "probleme": "Quatre KPI pour le carnet commercial, dont un périmé (298 Mds) et un mal nommé.",
+  "preuve": "commercial_rpo = 678 000 M $ ; « Carnet de commandes commercial (RPO) » = 627 Mds (un trimestre de retard) ; « Commercial RPO » FY = 298 Mds (valeur de FY2024, série 127…298) ; CAHIER_CRPO nommé « à moins de douze mois » mais sa valeur 678 est le carnet total.",
+  "correction_validee": "Supprimer « Commercial RPO » et « Commercial remaining performance obligation », puis renommer CAHIER_CRPO en « Carnet commercial total » et réécrire son signal (ou le supprimer comme doublon de commercial_rpo).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "M365 Copilot Seats / Microsoft 365 Copilot paid seats",
+  "probleme": "Deux valeurs différentes pour les sièges Copilot payants à la même période.",
+  "preuve": "M365 Copilot Seats = 15 M (year, 2026-12-31, unité « M paid seats », signal « ARR ~5.4 Mds $ list price ») ; Microsoft 365 Copilot paid seats = 20 M (2026-03-28, « dépassent 20 millions »).",
+  "correction_validee": "Supprimer « M365 Copilot Seats ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "LinkedIn members",
+  "probleme": "Série invraisemblable : la base de membres bondit de 30 % en trois trimestres.",
+  "preuve": "serie 985, 1000, 1200, 1300 sur trimestres consécutifs (dernier daté 2026-12-31, dans le futur). LinkedIn communique « plus d'un milliard » depuis fin 2023 ; +300 M en trois trimestres ne correspond à aucune annonce.",
+  "correction_validee": "Vérifier les trois derniers points contre les communiqués ; à défaut tronquer la série à 1 000.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "xbox_content_growth.signal",
+  "probleme": "Signal périmé : l'effet de base Activision ne s'applique plus au T3 FY2026.",
+  "preuve": "Signal : « La comparaison annuelle reste faussée par l'intégration d'Activision Blizzard, qui avait gonflé les revenus Xbox l'an dernier » alors que la série montre Q4-FY2024=61, Q1-FY2025=61 puis Q2-FY2025=2 : l'effet de base est purgé depuis fin 2024 ; les -5 % de FY2026 sont organiques.",
+  "correction_validee": "Signal : « Revenu Xbox contenus et services en baisse de 5 % au T3 FY2026, deuxième trimestre consécutif de repli ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "server_products_cloud_growth.signal",
+  "probleme": "Le signal affirme que la métrique n'est plus détaillée alors que la fiche publie le revenu correspondant jusqu'au T4 FY2026 avec sa croissance.",
+  "preuve": "Signal : « la métrique n'est plus détaillée depuis » (série arrêtée à Q4-FY2025=27) ; server_cloud_rev Q4-FY2026 = 37,1 Mds, yoy +33 %.",
+  "correction_validee": "Supprimer server_products_cloud_growth, redondant avec server_cloud_rev, ou le prolonger avec +30, +31, +31 et +33 % et retirer la phrase « n'est plus détaillée ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "m365_commercial_growth, dynamics365_growth, linkedin_revenue_growth, search_ads_ex_tac_growth, windows_oem_growth, eps_diluted, microsoft_cloud_gm",
+  "probleme": "Sept KPI s'arrêtent au T3 FY2026 alors que les lignes de revenu et de résultat sont publiées au T4 FY2026 (rapport annuel déjà exploité pour la thèse).",
+  "preuve": "dernier 2026-03-31 pour ces KPI ; total_revenue, net_income_q, linkedin_rev, etc. vont jusqu'au 2026-06-30.",
+  "correction_validee": "Ajouter le point T4 FY2026 à chaque série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "libellés",
+  "probleme": "Libellés bruts de la taxonomie XBRL affichés tels quels, dont un segment sans valeur.",
+  "preuve": "« Microsoft Three Six Five Commercial Products And Cloud Services 31.2 », « Linked In Corporation 6.3 », « Other Products And Services None ».",
+  "correction_validee": "Renommer en « Microsoft 365 Commercial », « Microsoft 365 Consumer » et « LinkedIn », et retirer la ligne « Other Products And Services » à 0 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Le moat cite un carnet de 627 Mds alors que la thèse et le KPI donnent 678 Mds.",
+  "preuve": "Moat : « Le carnet de commandes commercial double à 627 milliards » ; thèse : « 678 Mds $ … en hausse de 84 % » ; commercial_rpo Q4-FY2026 = 678 000.",
+  "correction_validee": "Dans la justification du moat, remplacer 627 milliards par 678 Mds $ (+84 %) et actualiser la croissance du cloud.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

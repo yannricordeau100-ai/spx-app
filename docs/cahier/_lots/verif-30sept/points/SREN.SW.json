@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "DIV.unite",
+  "probleme": "Unité fausse : Swiss Re verse son dividende en francs suisses",
+  "preuve": "DIV = 8 « $ », série 6,40 / 6,80 / 7,35 / 8,00, qui correspond aux dividendes en CHF",
+  "correction_validee": "Passer l'unité du DIV en CHF/action et corriger le signal (« 8,00 CHF »).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Combined Ratio P&C / P&C Re Net Premiums / L&H Re Net Premiums / CSM L&H / Investment Portfolio",
+  "probleme": "Bloc de séries arrondies et non datées qui contredisent les séries sourcées",
+  "preuve": "Combined Ratio P&C 94,8 / 89 / 88,5 contre PC_CR 85 / 89,9 / 79,4 ; P&C Re Net Premiums = 25 Mds $ contre 43,4 % de 43,1 Mds $ = 18,7 Mds $ ; séries rondes (21,6 ; 22 ; 23,5 ; 24,5 ; 25) ; Investment Portfolio = 135 contre un flottant placé de 111,5 Mds $ dans la thèse",
+  "correction_validee": "Supprimer Combined Ratio P&C, puis retirer aussi les quatre autres séries, faute de pouvoir les rattacher à une source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RN_GROUP_Q (hero)",
+  "probleme": "Le KPI hero s'arrête au T1-2026 alors que le semestre 2026 est publié",
+  "preuve": "RN_GROUP_Q dernier 2026-03-31 = 1 513 ; prochaine publication le 2026-11-05, donc le S1 2026 était disponible fin juillet",
+  "correction_validee": "Ajouter le T2-2026 (résultat net du S1 moins celui du T1) à RN_GROUP_Q, à partir du rapport semestriel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PC_NI / LH_NI / CS_NI / PC_CR / CS_CR / ROE / EQUITY / BVPS / SST .date",
+  "probleme": "KPI annuels datés du 2026-06-30 alors que la dernière valeur est l'exercice 2025",
+  "preuve": "PC_NI dernier 2026-06-30, signal « 2 767 M$ en 2025 » ; BVPS « 85,15 $ fin 2025 »",
+  "correction_validee": "Dater PC_NI, LH_NI, CS_NI, PC_CR, CS_CR, ROE, EQUITY et BVPS au 2025-12-31, et SST au 2026-01-01.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Le moat contredit le signal du KPI dommages",
+  "preuve": "moat : « malgré des sinistres et catastrophes en hausse » ; PC_NI signal : « année de sinistralité catastrophes clémente »",
+  "correction_validee": "Harmoniser les deux textes",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RENEWAL_PRICE",
+  "probleme": "Hausse tarifaire 2026 contredite par l'anti-thèse ; variation en % au lieu de points",
+  "preuve": "FY2026 = +0,3 % contre att : « renouvellements dommages d'avril 2026 ... baisse nette des prix de 6,1% » ; yoy = -89,3 %",
+  "correction_validee": "Préciser le renouvellement mesuré (janvier ou avril) et exprimer la variation en points",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ImpLoss",
+  "probleme": "Nom franglais et faux : la série n'est pas cumulée ; signal vide de sens",
+  "preuve": "« Perte d'impairment cumulée », série -108, -452, -2, 0, -562 (non monotone), sans période ; signal « L'impairment cumulé a fortement augmenté en 2025 »",
+  "correction_validee": "Renommer « Dépréciations de placements annuelles », dater la série et réécrire le signal, ou supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_GWP_MIX / CAHIER_PML_RETURN",
+  "probleme": "Les noms promettent une ventilation que la série unique ne contient pas",
+  "preuve": "« Primes brutes émises par branche et par type de traité » : une seule série, 23 848 M$ en 2022, environ la moitié des primes du groupe ; « Perte maximale probable par période de retour » : une seule série",
+  "correction_validee": "Renommer selon le périmètre réel (par ex. « Primes brutes P&C Re », « Perte probable ouragan États-Unis, 1 sur 200 ans »)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0,3,4,5].summary",
+  "probleme": "Accents manquants, anglicismes et mention de document dans les risques",
+  "preuve": "« a couvrir », « a augmente », « a renforce », « fragmente », « exposent le groupe a de grandes pertes », « (liability excess inflation) », « Le rapport 2025 ajoute »",
+  "correction_validee": "Rétablir les accents, supprimer « (liability excess inflation) » et reformuler sans mentionner le rapport.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Pas de KPI sur la charge catastrophes naturelles face au budget, ni sur le développement des réserves, deux mesures clés d'un réassureur",
+  "preuve": "Aucun KPI nat cat ou réserves ; l'anti-thèse et le moat parlent de sinistres catastrophes sans chiffre",
+  "correction_validee": "Ajouter la charge nat cat (réelle contre budget) et le renforcement ou la reprise de réserves",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

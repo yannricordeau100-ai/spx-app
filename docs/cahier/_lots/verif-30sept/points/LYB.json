@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "NetDebt_Q",
+  "probleme": "Valeur, signal et calcul donnent trois dettes nettes différentes, et le yoy a le mauvais signe.",
+  "preuve": "val = 10 280 ; signal « 8 846 M$ au 30 juin 2026 : dette totale moins trésorerie (2 630 M$) et titres de placement (1 434 M$) » ; 12 676 - 2 630 - 1 434 = 8 612 ; yoy affiché -4,9 % alors que 9 305 vers 10 280 = +10,5 %.",
+  "correction_validee": "Retenir dette totale moins trésorerie (10 046 M$ au T2-2026), recalculer série et yoy, réécrire le signal avec ce chiffre.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Headcount reduction since end of 2024",
+  "probleme": "Série qui mélange une suppression de postes et l effectif total injecté par la mise à jour des effectifs ; contradiction avec la série effectifs.",
+  "preuve": "history [3000, 18970], val 18 970 = effectifs_annuels 2025, unité « postes (-15%) », explanation « Nombre de salariés... », dernier 2026-09-29 (date d extraction). Signal « 3 000 postes supprimés soit 15 % » alors que effectifs 2023 = 20 000 et 2025 = 18 970 (-5,1 %).",
+  "correction_validee": "Supprimer le KPI et garder le fait des 3 000 postes supprimés dans l anti-thèse.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Capex_Q.signal, Ethane_Mix.signal et history",
+  "probleme": "Citations en anglais dans deux signaux ; valeurs d Ethane_Mix incompatibles avec la fourchette citée.",
+  "preuve": "Capex_Q : « We invested $539 million in capital projects » ; Ethane_Mix : « approximately 70% to 80% of the raw materials used in our North American crackers was ethane » « au T2-2026 comme au T1-2026 », série 77,5 ; 77,5 ; 77,5 ; 75 (le milieu de 70-80 est 75 pour les deux trimestres).",
+  "correction_validee": "Traduire les deux citations en français et mettre 75 sur tous les trimestres citant la fourchette 70 à 80 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 1",
+  "probleme": "Titre de risque affiché en anglais (non listé par le contrôle mécanique, qui ne cite que risks[4], [5] et [7]).",
+  "preuve": "« Any default under any of our credit arrangements could cause a default under many of our other credit agreements and debt instruments ».",
+  "correction_validee": "« Un défaut sur l un de nos financements pourrait entraîner un défaut croisé sur la plupart de nos autres dettes ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libellés en anglais et en capitales au milieu de libellés français, plus une catégorie technique XBRL.",
+  "preuve": "« ITALY 4.4 ; POLAND 2.6 ; NETHERLANDS 2.4 ; Non Reportable Geographical Components 27.5 » à côté de « États-Unis, Allemagne, Chine, Mexique, Japon, France ».",
+  "correction_validee": "Italie, Pologne, Pays-Bas et « Autres pays ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Intermediates & Derivatives, Advanced Polymer Solutions (annuels)",
+  "probleme": "Deux KPI hérités sans libellé de période, datés du jour de l extraction, avec descriptions en franglais, en doublon des segments trimestriels et en désaccord avec eux.",
+  "preuve": "I&D : série 7.2, 9.7, 9.5, 9, 8.6, dernier 2026-09-29, description « Segment cyclique avec exposure auto/construction » ; ID_Rev trimestriel 2025 cumulé = 9 069 M$, pas 8,6 Mds. APS : « Pression EV slowdown + destocking ».",
+  "correction_validee": "Supprimer ces deux KPI, couverts par ID_Rev et les KPI APS trimestriels.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "North American / European O&P operating rate, I&D operating rate",
+  "probleme": "Taux d utilisation guidés sans libellé de trimestre et datés du jour de l extraction.",
+  "preuve": "NA : série 85 x7 puis 80, dernier 2026-09-29 ; Europe : 60, 75, 75, 80, 60, 75, 75, 60, dernier 2026-09-29 ; I&D : dernier 2025-07-11 (arrêté depuis).",
+  "correction_validee": "Attribuer les trimestres (guidance donnée à chaque appel de résultats), dater au dernier appel, compléter I&D.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification arrêtée à l exercice 2025 alors que le T2-2026 renverse chaque point cité ; tendance affichée « stable » contre tendance Mettrik « baisse ».",
+  "preuve": "Moat : « le résultat opérationnel devient négatif ». OpIncome_Q T2-2026 = 1 543 M$ (+441 %), marge op 16,8 %, OP Americas EBITDA 1 183 ; thèse : « multiplié par plus de six en un seul trimestre ».",
+  "correction_validee": "Réécrire en datant (creux 2025, rebond T2-2026, Europe toujours en perte) et harmoniser la tendance.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition sans exercice, dont le total ne correspond pas au chiffre d affaires 2025 ni aux séries trimestrielles par segment.",
+  "preuve": "OP Americas 5,032 Mds (21,5 %), OP EAI 7,809, total implicite 23,4 Mds contre revenue_annuel 2025 = 30,153 ; OP_Americas_Rev 2025 cumulé = 9 801 M$, OP_EAI_Rev = 10 227 M$ (parts proches de 29 % / 31 %).",
+  "correction_validee": "Indiquer l exercice et recalculer sur les ventes par segment publiées (hors intersegment) de l exercice 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Prod_AdvPoly, Refining_Rev, Prod_Refined, Crude_Rate",
+  "probleme": "Séries mortes affichées sans explication ou avec des dates de fin incohérentes entre elles.",
+  "preuve": "Prod_AdvPoly s arrête à Q4-2022, signal « 203 M$ au Q4-2022 » ; Refining_Rev s arrête à Q3-2024 alors que Prod_Refined et Crude_Rate vont jusqu à Q4-2024 pour la même raffinerie.",
+  "correction_validee": "Supprimer Prod_AdvPoly (ligne de produits reclassée) ; compléter Refining_Rev au Q4-2024 ou l enlever.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ca_par_salarie, fcf_par_salarie, dette_par_salarie (history)",
+  "probleme": "Les séries dérivées s arrêtent à 2023 alors que ventes, FCF, dette et effectifs 2025 sont disponibles.",
+  "preuve": "ca_par_salarie : dernier point 2023 = 1 666,8 ; revenue_annuel 2025 = 30,153 Mds et effectifs 2025 = 18 970 donnent 1 589 k$.",
+  "correction_validee": "Ajouter le point 2025 (CA 1 589 k$, FCF 20,2 k$, dette 682 k$ par salarié), recalculer le yoy contre 2023 et réécrire les signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun volume vendu en tonnes ni marge par produit, les deux indicateurs de base de la pétrochimie, alors que la fiche compte 30 lignes de chiffre d affaires par produit et pays.",
+  "preuve": "Prod_PE, Prod_PP, Prod_Olefins... en M USD seulement ; Revenue_Q signal cite « un repli des volumes de 5 % » sans série.",
+  "correction_validee": "Ajouter volumes vendus O&P (kt) et spread polyéthylène-éthane Amérique du Nord.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

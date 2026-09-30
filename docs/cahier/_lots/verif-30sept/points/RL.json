@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "fcf_annuel / fcf_par_salarie (2026)",
+  "probleme": "La tresorerie libre 2026 est en realite le flux operationnel : les investissements n ont pas ete deduits.",
+  "preuve": "fcf_annuel 2026=1,154 Mds $ ; somme des 4 trimestres OCF FY2026 = 176,1+53,2+779,6+145,3 = 1 154,2 M$ ; somme FCF trimestriel FY2026 = -11,2-40,6+704+93,9 = 746 M$ ; le KPI ponctuel Full-year free cash flow dit 750 M$. Pour 2025 la coherence est bonne (1,019 = somme FCF). fcf_par_salarie 2026 = 48,9 = 1154/23600, donc faux aussi.",
+  "correction_validee": "fcf_annuel 2026 = 0,746 Mds $ (yoy -26,8 %), fcf_par_salarie 2026 = 31,6 k$ (yoy -27,4 %), signaux recalcules.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "NA_rev, EUR_rev, ASIA_rev, DTC_rev, REV_total, OPINC, NET_INC (Q1-2027)",
+  "probleme": "Les variations annuelles affichees ne correspondent pas aux series pour le dernier trimestre.",
+  "preuve": "NA_rev Q1-2027=740,3 vs Q1-2026=656,2 soit +12,8 %, affiche +8,2 % ; EUR_rev 594,4 vs 554,5 soit +7,2 %, affiche +17,9 % ; ASIA_rev 589,3 vs 474 soit +24,3 %, affiche +30,6 % ; REV_total 1,9598 vs 1,72 soit +13,9 %, affiche +16,5 % ; OPINC +25,1 % affiche +21,7 % ; DTC_rev +14,1 % affiche +21,7 %. Les yoy sont coherents entre eux (total ~2,0 Mds $) mais pas avec les points saisis.",
+  "correction_validee": "Recalculer les yoy sur Q1-2027 vs Q1-2026 : NA +12,8 %, EUR +7,2 %, ASIA +24,3 %, DTC +14,1 %, REV_total +13,9 %, OPINC +25,1 %, NET_INC +19,0 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total employees",
+  "probleme": "Serie a deux points dont le dernier (15 600) n est pas l effectif total mais un decompte partiel ; contredit EMPLOYEES et effectifs_annuels (23 600 en 2026). Triple doublon.",
+  "preuve": "Total employees : serie 23400, 15600, val=15600, description : effectif d environ 23 400 employes ... dont 15 000 a temps plein. EMPLOYEES FY2026=23600.",
+  "correction_validee": "Supprimer le KPI Total employees.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Directly-operated retail stores / Quarterly dividend increase / Full-year free cash flow / Full-year revenue surpassed $8 billion",
+  "probleme": "KPI a un seul point qui doublonnent des series completes, avec des valeurs perimees.",
+  "preuve": "Directly-operated retail stores = 564 (FY2025) alors que Owned_stores FY2026 = 594 ; Quarterly dividend increase = 0,9125 = DPS ; Full-year revenue 8 = revenue_annuel 2026 = 8,114.",
+  "correction_validee": "Supprimer les quatre KPI ponctuels, apres correction de fcf_annuel (point #0) qui reprend le 750 M$.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Global direct-to-consumer comparable store sales / CAHIER_COMP_SALES / CAHIER_DTC_MIX",
+  "probleme": "Doublons de COMP_global (trimestriel) et DTC_pct, avec un point divergent.",
+  "preuve": "COMP_global : 5,10,12,13,13,13,9,17 ; Global DTC comparable : 5,10,12,13,13,13,8,17 (Q3-2026 = 9 contre 8). CAHIER_DTC_MIX FY2026 = 68,2 = valeur citee dans la description de DTC_pct.",
+  "correction_validee": "Supprimer uniquement Global direct-to-consumer comparable store sales ; garder les deux series CAHIER annuelles.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "RL_NET_REVENUE",
+  "probleme": "Nom de KPI qui expose une justification interne, valeur perimee et doublon du chiffre d affaires.",
+  "preuve": "Nom : Chiffre d affaires Ralph Lauren, faute de ventilation du polo ; val=7079 (FY2025) alors que revenue_annuel 2026 = 8,114 Mds $.",
+  "correction_validee": "Supprimer RL_NET_REVENUE.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Social media followers (yoy)",
+  "probleme": "Champ yoy textuel en anglais au lieu d un chiffre.",
+  "preuve": "yoy=+high-single-digit %",
+  "correction_validee": "yoy = +6,1 % (70 vs 66) ou vide.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "En-tete",
+  "champ": "tagline / revenue_by_segment",
+  "probleme": "Tagline en anglais et libelles de segments en anglais.",
+  "preuve": "tagline : A global leader in luxury lifestyle design, marketing, and distribution... ; segments : Asia Segment 25.9 ; Other Segments 1.8",
+  "correction_validee": "Traduire les libelles : Asie, Autres segments (segments) et Asie (geographie) ; tagline inchangee.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

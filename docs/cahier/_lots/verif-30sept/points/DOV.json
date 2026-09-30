@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "US_REV_PCT",
+  "probleme": "Points invraisemblables dans une serie stable autour de 55 % : 30,2 % au Q4-2024 et 80,7 % au Q4-2022.",
+  "preuve": "JSON history : Q4-2022=80.7, Q4-2024=30.2, entoures de 58.0 / 56.3 et 55.4 / 54.8.",
+  "correction_validee": "Recalculer ou retirer les deux points aberrants d apres les 10-K.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "EP_BOOK",
+  "probleme": "Rupture de perimetre non traitee : bookings Engineered Products a 581 M$ au Q2-2024 puis 285 au Q3-2024 (cession ESG), sans restatement ni note ; Q4-2024 manquant.",
+  "preuve": "'EP_BOOK serie: Q2-2024=581.37, Q3-2024=284.823, Q1-2025=264.538' ; periodes JSON sautent Q4-2024.",
+  "correction_validee": "Couper la serie avant Q3-2024 (ou restater) et ajouter Q4-2024.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total consolidated bookings",
+  "probleme": "Le total consolide 2 463,7 M$ au T2 2026 ne correspond pas a la somme des cinq segments (277,1 + 602,6 + 302,8 + 590,0 + 560,3 = 2 332,8 M$), ecart de 131 M$.",
+  "preuve": "'Total consolidated bookings Q2-2026=2463.7' vs EP_BOOK 277.148, CEF_BOOK 602.624, II_BOOK 302.771, PPS_BOOK 590.02, CST_BOOK 560.272.",
+  "correction_validee": "Verifier le communique T2 2026 et corriger la serie fautive.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_BACKLOG, CAHIER_BOOK_TO_BILL, CAHIER_ORDERS_ORGANIC",
+  "probleme": "Trois indicateurs cles du cahier arretes en 2022, 2023 et 2024 alors que les bookings trimestriels vont au T2 2026 ; le carnet est en dollars bruts (3 020 224 000 $) au lieu de Mds $.",
+  "preuve": "'CAHIER_BACKLOG | $ | dernier 2022-12-31 | val=3020224000' ; 'CAHIER_BOOK_TO_BILL dernier 2023-12-31' ; 'CAHIER_ORDERS_ORGANIC dernier 2024-12-31'.",
+  "correction_validee": "Convertir le carnet en Mds $ et prolonger les trois series jusqu a 2025 d apres le 10-K.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.justification",
+  "probleme": "Le moat affirme que les commandes et plusieurs segments reculent, alors que les commandes battent un record (+24 %, +45,8 % en CST) et que les cinq segments progressent selon la these.",
+  "preuve": "'moat :: Les prises de commandes et plusieurs segments industriels reculent quand d autres progressent' vs 'Total consolidated bookings yoy=+24%' et these 'ses cinq activites progressent toutes en interne et ses commandes battent un record'.",
+  "correction_validee": "Reecrire la justification du moat sur les chiffres du T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "II_MARGIN, PPS_MARGIN, DPS",
+  "probleme": "Contradictions internes : II_MARGIN et PPS_MARGIN sont tous deux 'Segment le plus rentable' (27,9 % vs 32,4 %) ; DPS cite 69 annees de hausse du dividende, la these en cite soixante-dix.",
+  "preuve": "'II_MARGIN :: Segment le plus rentable en progression reguliere' ; 'PPS_MARGIN :: Segment le plus rentable du groupe' ; 'DPS :: 69 annees consecutives' vs these 'soixante-dix annees consecutives'.",
+  "correction_validee": "Qualifier II_MARGIN de deuxieme segment le plus rentable et harmoniser a 70 annees consecutives.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Organic revenue change",
+  "probleme": "Serie lissee sans periodes (1, 1, 1, 5, 5, 4.8) dont les valeurs ne correspondent pas aux organiques cites par segment (CEF +8,6 %, CST +8,3 %, EP +2,1 %) ni au signal REV (+6,9 %).",
+  "preuve": "'Organic revenue change | serie: 1, 1, 1, 5, 5, 4.8' ; 'REV :: +6.9% en organique et acquisitions'.",
+  "correction_validee": "Retirer ou reconstruire la serie a partir des communiques trimestriels avec periodes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Anglicisme de cuisine interne ('flaggant').",
+  "preuve": "'tout en flaggant les risques cyber lies au mauvais usage'.",
+  "correction_validee": "Remplacer flaggant par signalant.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

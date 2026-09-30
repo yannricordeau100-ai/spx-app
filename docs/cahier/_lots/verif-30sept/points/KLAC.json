@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Les trois pourcentages sont contredits par les series de la fiche pour l exercice clos en juin 2026 : inspection de wafers +7 % (6 631 vs 6 199 M$), pas +15 % ; services +16,5 % (3 126 vs 2 683), pas +22 % ; Chine +0,1 % (4 048 vs 4 043), pas « recul de 17 % ».",
+  "preuve": "moat « L'inspection de wafers gagne 15 % et les services 22 % (...) le recul de 17 % des revenus chinois » ; WAFER_INSP FY2026 = 1537.2+1572.8+1739.7+1781.1 ; CHINA FY2026 = 1267.2+994.9+829.6+956.7 vs FY2025 = 4042.6",
+  "correction_validee": "Reecrire le moat avec inspection +7 %, services +16,5 % et Chine stable sur l exercice 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "BACKLOG_CONTRAT",
+  "probleme": "Nomme « Carnet de commandes (passifs contractuels) » a 1 775 M$ alors que le carnet de commandes cite par l anti-these et CAHIER_SYSTEM_ORDERS_BACKLOG vaut 12,57 Md$ : les passifs contractuels (acomptes, produits constates d avance) ne sont pas le carnet. Deux « carnets » qui different de 7x.",
+  "preuve": "BACKLOG_CONTRAT val=1775.1 ; CAHIER_SYSTEM_ORDERS_BACKLOG FY2026=12.57 ; att « carnet de commandes porté à 12,57 Mds $ »",
+  "correction_validee": "Renommer Passifs contractuels (acomptes clients) et retirer l idee de carnet dans la description.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Quarterly free cash flow",
+  "probleme": "Doublon sans periodes de FCF avec des valeurs differentes (880 vs 757,2 au T2 FY2025 ; 832 vs 990,1 au T3 FY2025) et sans le dernier trimestre (817,1 au T4 FY2026).",
+  "preuve": "Quarterly free cash flow history=[410, 746, 880, 832, 1065, 1070, 1260, 622] ; FCF Q2-FY2025=757.2, Q3-FY2025=990.1, Q4-FY2026=817.1",
+  "correction_validee": "Supprimer Quarterly free cash flow.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Quarterly dividend raised, Record annual revenue 2025",
+  "probleme": "Valeurs pre-division d actions melangees aux series retraitees : dividende « 1,9 $/action » alors que DIV_PS retraite affiche 0,19 puis 0,23 $ ; « Record annual revenue 2025 » 12 156,2 M$ doublonne revenue_annuel 2025.",
+  "preuve": "Quarterly dividend raised val=1.9 ; DIV_PS Q1-FY2026=0.19, Q4-FY2026=0.23 ; Record annual revenue 2025 val=12156.2 ; revenue_annuel 2025=12.156",
+  "correction_validee": "Retirer les deux KPI ponctuels (ou retraiter 1,90 en 0,19).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KOREA",
+  "probleme": "Trous dans la serie trimestrielle : Q4-FY2024 et Q4-FY2025 absents alors que le yoy -22 % est calcule contre Q4-FY2025 ; unite « M $ » alors que les autres regions et produits utilisent « $M ».",
+  "preuve": "history_periods=[Q3-FY2024, Q1-FY2025, Q2-FY2025, Q3-FY2025, Q1-FY2026, ...] ; yoy=-22% ; WAFER_INSP unit=$M",
+  "correction_validee": "Ajouter les Q4 (annuel moins 9 mois) et harmoniser l unite.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libelles bruts en anglais majuscule issus de la norme ISO : « TAIWAN, PROVINCE OF CHINA », « KOREA, REPUBLIC OF », plus « Europe and Israel », « Rest of Asia ».",
+  "preuve": "slices : TAIWAN, PROVINCE OF CHINA 26.4 ; KOREA, REPUBLIC OF 12 ; Europe and Israel 4.7 ; Rest of Asia 3.2",
+  "correction_validee": "Renommer Taiwan, Coree du Sud, Europe et Israel, Reste de l Asie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment, revenue_by_geography (exercice)",
+  "probleme": "Les deux repartitions sont celles de l exercice 2025 alors que la these, l anti-these et les KPI reposent sur le 10-K de l exercice clos le 30 juin 2026 (depose le 6 aout 2026) ; la part de la Chine affichee (33,3 %) n est plus celle du dernier exercice (29,8 %).",
+  "preuve": "label « (exercice 2025) » ; CHINA FY2026 = 4048.4 / TOTAL_REV FY2026 = 13.58 Mds",
+  "correction_validee": "Mettre a jour sur le 10-K FY2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "descriptions (KOREA, DIV_PS, EPS_DIL, CAPEX, CAHIER_SYSTEM_ORDERS_BACKLOG, CAHIER_INSTALLED_BASE_SERVICE, TAIWAN, Advanced wafer-level packaging share gain)",
+  "probleme": "Accents manquants et coquilles dans une dizaine de descriptions : « Coree du Sud », « Montant reverse aux actionnaires », « retraite du split », « ramené a chaque action », « Leur faible poids rapporte au chiffre d'affaires signale », « engagements non livres », « tire de l'entretien », « thermomètre avance », « noeuds avances », « ce marche », « associe » ; dernier libelle EPS_DIL « Q4-2026 » au lieu de « Q4-FY2026 » avec date 2026-09-02 pour un trimestre clos le 30 juin.",
+  "preuve": "textes cites ; EPS_DIL history_periods dernier = Q4-2026, last_data_date 2026-09-02",
+  "correction_validee": "Corriger les accents et le libelle de periode en Q4-FY2026 date au 30/06/2026.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Advanced packaging process control revenue, Export controls revenue impact, KPI ponctuels dates 2026-03-11",
+  "probleme": "Un objectif (« Objectif de revenu » 1 000 M$) est presente comme un revenu realise ; l impact export 350 M$ est une fourchette 300-350 ; les onze KPI ponctuels sont dates du 11 mars 2026, date d une conference et non d une cloture.",
+  "preuve": "Advanced packaging... val=1000 signal « Objectif de revenu pour cette activité » ; Export controls... signal « 300-350 M$ » ; dernier 2026-03-11",
+  "correction_validee": "Renommer en « Objectif de revenu advanced packaging », dater au 31/03/2026, deplacer les faits ponctuels dans la these.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CHINA (yoy), China % of total revenue",
+  "probleme": "yoy affiche « -0% » (956,7 vs 958,9 = -0,2 %) ; « China % of total revenue » (39, 26, sans periodes) doublonne CHINA en pourcentage avec deux points seulement.",
+  "preuve": "CHINA yoy=-0% ; China % of total revenue history=[39, 26]",
+  "correction_validee": "Afficher -0,2 % et supprimer China % of total revenue.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

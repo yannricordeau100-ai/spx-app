@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Immunology portfolio net revenues",
+  "probleme": "Serie non datee avec trous ; derniere valeur datee 2026-06-30 est en fait le T1 2026 ; le T2 2026 manque.",
+  "preuve": "val=7 290 = Q1-2026 (4 483+2 119+688) ; T2 2026 = 5 505+2 525+756 = 8 786 absent ; Q4-2024 (3 778+1 834+1 682 = 7 294) absent ; yoy +16,4 % = 7 290/6 264 (T1/T1).",
+  "correction_validee": "Dater la série de Q2-2023 à Q2-2026, insérer Q4-2023 = 6 953, Q4-2024 = 7 294 et Q2-2026 = 8 786, yoy +15,1 %.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Vraylar net revenues, Venclexta net revenues",
+  "probleme": "Series non datees et irregulieres ; derniere valeur Vraylar datee 2026-06-30 est le T1 2026 ; yoy Venclexta non derivable de la serie.",
+  "preuve": "Vraylar 905 yoy +18,4 % = 905/765 (T1 2026 vs T1 2025), serie 358, 658, 751... ; Venclexta 405, 516, 589, 677 puis 655, 691, 710, 770, yoy +9,7 % implique une base 702 absente alors qu Oncology cite 771 M$ au T2 2026.",
+  "correction_validee": "Reconstruire les deux series datees depuis les communiques trimestriels 2022-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Humira Net Revenue, Skyrizi Net Revenue, Rinvoq Net Revenue, Immunology Sales",
+  "probleme": "Annuels non dates, 'dernier 2026-06-30' pour des series annuelles, trois s arretent a FY2024, doublons des series trimestrielles (somme des trimestres).",
+  "preuve": "Skyrizi Net Revenue 1.59, 2.94, 5.16, 7.76, 11.72 (FY2020-2024) alors que 2025 = 17,56 sur la fiche ; Humira 8.99 = 2024 ; Immunology Sales 30.406 = Immunology portfolio 2025.",
+  "correction_validee": "Supprimer Humira, Skyrizi et Rinvoq Net Revenue annuels et Immunology Sales (doublons des trimestriels).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Libelle casse ('H U M I R A'), casse incoherente, et pourcentages calcules sur 58,1 Mds $ au lieu du CA total 61,16 : ils contredisent les KPI de concentration.",
+  "preuve": "'H U M I R A 7.8' ; 'SKYRIZI 30.2' vs 'Vraylar 6.2' ; Skyrizi 17,562/0,302 = 58,1 ; Humira 7,8 % vs KPI 7,4 % ; Skyrizi 30,2 % vs CAHIER_TOP_PRODUCT 28,7 % ; Skyrizi+Rinvoq 44,5 % vs KPI 42 %.",
+  "correction_validee": "Recalculer les parts sur 61,16 Mds $, écrire 'Humira' et harmoniser la casse des noms de produits.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Repartition geographique sur les chiffres FY2024 sans exercice affiche, alors que FY2025 est sur la fiche.",
+  "preuve": "Etats-Unis value 43 029 = US Revenue FY2024 ; US Revenue FY2025 = 46 603 ; label exercice = None.",
+  "correction_validee": "Recalculer sur le 10-K 2025 et afficher 'exercice 2025'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Texte generique de repli avec fragment anglais, evidence contenant de la cuisine interne.",
+  "preuve": "'AbbVie Inc. mentionne peu l IA dans ses communications officielles (Biopharmaceutical).' ; evidence : 'Mettrik AI reevaluera le positionnement...', 'earnings calls disponibles localement'.",
+  "correction_validee": "Rediger un positionnement a partir des annonces (Capstan CAR-T, plateformes de decouverte) ou masquer le bloc.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0..5]",
+  "probleme": "Six titres sans description.",
+  "preuve": "'Perte d exclusivite Humira et pression biosimilaires :: ' vide, idem pour les 5 autres.",
+  "correction_validee": "Rediger chaque risque avec chiffres (brevets Skyrizi/Rinvoq 2033, dette 70,8 Mds $, 4 produits sous negociation Medicare).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_TOP_PRODUCT_CONCENTRATION, CAHIER_RD_INTENSITY",
+  "probleme": "yoy en % d un % ; la serie 2018-2023 de concentration est une copie de 'Humira % of Revenue'.",
+  "preuve": "'+38,0 %' pour 20,8 -> 28,7 (= +7,9 pts) ; '-34,4 %' pour 22,7 -> 14,9 (= -7,8 pts) ; FY2018-2023 = 61, 58, 43, 37, 37, 27 identiques.",
+  "correction_validee": "yoy '+7,9 pts' et '-7,8 pts'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Skyrizi+Rinvoq % of Revenue",
+  "probleme": "Un seul point avec un yoy calcule hors fiche.",
+  "preuve": "n=1, FY2025=42, yoy=+10,6 pts.",
+  "correction_validee": "Ajouter FY2020-FY2024 = 5,1 ; 8,2 ; 13,2 ; 21,6 ; 31,4.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Quarterly dividend increase",
+  "probleme": "Doublon perime de DPS.",
+  "preuve": "val=1,73 'releve de 1.64$ a 1.73$, payable fevrier 2026' ; DPS Q2-2026 = 1,73.",
+  "correction_validee": "Supprimer 'Quarterly dividend increase'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "signaux et description",
+  "probleme": "Fautes et jargon anglais.",
+  "preuve": "'Pres de 16 Mds$', 'Pres de 90%', 'a cloturer 2026', 'non rembourse', 'Verse chaque trimestre', 'Erosion post-LOE' (hero), description : 'ainsi les injectables Botox'.",
+  "correction_validee": "Écrire 'Près de', 'à clôturer', 'non remboursé', 'Versé chaque', 'après la perte d'exclusivité', 'ainsi que les injectables'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "hero_kpi",
+  "probleme": "Le KPI vedette est Humira (7,4 % des ventes, en erosion) sur une fiche dont la these est la sortie de Humira.",
+  "preuve": "hero: Humira Revenue val=0,756 yoy -35,9 % ; Skyrizi Revenue 5,505 +24,5 %.",
+  "correction_validee": "Passer le hero sur Skyrizi Revenue ou Immunology portfolio.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

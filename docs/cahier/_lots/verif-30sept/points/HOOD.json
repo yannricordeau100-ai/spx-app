@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Trump Accounts..., Prediction market contracts traded, Gold Card..., Robinhood Banking net deposits, Business lines..., Customer service cases resolved by AI, Stock tokens..., Robinhood Strategies assets, Bitstamp Acquisition, TradePMR Acquisition, WonderFi Acquisition (pending), MIAXdx Acquisition, Share Repurchase Program",
+  "probleme": "Treize faits ponctuels présentés comme des KPI (un point, nom anglais), certains périmés",
+  "preuve": "'WonderFi Acquisition (pending)' alors que FUNDED_CUST indique 'intègre les clients WonderFi depuis juin 2026' ; jargon 'DeFi', 'ARR', 'robo-advisors'",
+  "correction_validee": "Supprimer ces treize KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_INCOME.signal",
+  "probleme": "Mauvais décompte des trimestres bénéficiaires consécutifs",
+  "preuve": "'septième trimestre consécutif de bénéfice' ; série : Q3-2023 = -85, puis bénéfice de Q4-2023 à Q2-2026, soit 11 trimestres",
+  "correction_validee": "Remplacer 'septième' par 'onzième' dans le signal de NET_INCOME.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_NNA",
+  "probleme": "Doublon annuel de NET_DEPOSITS, en dollars bruts et avec un nom anglais abrégé",
+  "preuve": "FY2025 = 68 100 000 000 $ = 18 + 13,8 + 20,4 + 15,9 Mds (NET_DEPOSITS 2025) ; nom anglais 'Nna'",
+  "correction_validee": "Renommer en 'Dépôts nets annuels' et afficher en Mds $, ou supprimer CAHIER_NNA s'il fait doublon.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment, revenue_by_geography",
+  "probleme": "Libellés en anglais, période absente, montants qui ne correspondent à aucun trimestre de la fiche ; géographie à 100 % États-Unis malgré l'activité européenne et canadienne",
+  "preuve": "'Transaction-based revenues' 0,814 Mds $, 'Net interest revenues' 0,424 (Q2-2026 : 776 et 389 M$) ; Bitstamp, WonderFi, tokens d'actions en Europe",
+  "correction_validee": "Libellés français, période explicite, et géographie sourcée",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "simple.fr.products / customers",
+  "probleme": "Mauvaise traduction des ADR et description qui ignore les principales sources de revenus",
+  "preuve": "'certificats de dépôt américains' (en français, un certificat de dépôt est un titre de créance) ; ni options, ni crypto, ni contrats événementiels, ni Gold, qui font l'essentiel du CA ; 'adolescents'",
+  "correction_validee": "Réécrire la description sur l'offre réelle",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel",
+  "probleme": "Le flux de trésorerie libre d'un courtier est faussé par les soldes clients ; le taux de croissance annuel moyen calculé sur une série qui change de signe n'a pas de sens",
+  "preuve": "2019 : FCF 1,253 Mds $ pour 0,278 Mds $ de CA ; série 1,853 / -0,948 / -0,88 / 1,181 / -0,157 / 1,638 ; '+4,6 % par an depuis 2019'",
+  "correction_validee": "Supprimer ou remplacer par un flux ajusté des soldes clients, sans taux annuel moyen",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EVENT_CONTRACTS_REV",
+  "probleme": "Série trouée pour le moteur de croissance que met en avant l'anti-thèse, et variation affichée NM alors qu'elle est calculable",
+  "preuve": "Q1-2025=3, Q2-2025=10, puis Q1-2026=104, sans Q3 ni Q4 2025 ; yoy 'NM' pour 156 contre 10",
+  "correction_validee": "Compléter Q3 et Q4 2025 et afficher la variation",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque les volumes d'activité, indicateur de base d'un courtier",
+  "preuve": "Ni volumes notionnels actions ou crypto, ni contrats d'options traités, ni ordres moyens quotidiens ; seuls les revenus par ligne sont suivis",
+  "correction_validee": "Ajouter les volumes notionnels actions et crypto et les contrats d'options par trimestre",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / tagline",
+  "champ": "Robinhood Retirement AUC, Average Revenue Per User, tagline",
+  "probleme": "KPI sans périodes ni nom anglais, un KPI arrêté au T1 alors que les autres vont au T2, accroche en anglais",
+  "preuve": "Robinhood Retirement AUC dernier point 2026-03-28 ; séries sans période ; tagline 'Democratize finance for all'",
+  "correction_validee": "Ajouter les périodes, mettre à jour au Q2-2026, rédiger l'accroche en français",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

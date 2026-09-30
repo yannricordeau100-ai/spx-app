@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "history (MPT_REV, ITT_REV, MPT_REV_US, MPT_REV_INTL, ITT_REV_US, ITT_REV_INTL)",
+  "probleme": "Rupture de perimetre non retraitee : le segment Pharmaceuticals a ete fondu dans MPT au T2 2026, les points anterieurs restent a l ancien perimetre.",
+  "preuve": "MPT_REV Q1-2026=1285 puis Q2-2026=2076 ; ITT_REV 981 puis 1745 ; MPT_REV_INTL 594 puis 1125. Le signal dit '+7% vs $1,945M retraite' alors que la serie affiche Q2-2025=1320 (soit +57 % apparent).",
+  "correction_validee": "Couper les six séries au T2 2026 en signalant le changement de périmètre, ou retraiter l'historique à partir du 10-Q, sinon retirer les six points du T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks",
+  "champ": "title / summary",
+  "probleme": "Cinq risques a titre generique sans contenu propre a Baxter ; deux titres differents portent le meme resume.",
+  "preuve": "'Execution strategique' et 'Acquisitions et integrations' ont le resume identique 'Risques d execution sur les initiatives strategiques, integrations d acquisitions...'. Aucune mention du rappel classe I Novum, de l ouragan Helene (133 M$), des depreciations Front Line Care (485 M$) pourtant presents en KPI.",
+  "correction_validee": "Réécrire les cinq risques à partir de l'Item 1A 2025 avec des faits propres à Baxter, sinon masquer le bloc.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI anonymes annuels (MPT Revenue, HST Revenue, Pharmaceuticals, Kidney Care, Medical Products & Therapies Sales, Healthcare Systems & Technologies Sales, Pharmaceuticals Sales, Vantive Kidney Care Sales, Hillrom Cost Synergies Realized)",
+  "probleme": "Neuf series annuelles sans periodes, doublant les series segmentees trimestrielles, avec valeurs plates ou rondes et signaux perimes.",
+  "preuve": "'Kidney Care' serie 0, 4.5, 4.5, 4.5, 4.5 ; 'Vantive Kidney Care Sales' 4.5 jusqu en 2025 avec signal 'Spin-off prevu' alors que la cession a Carlyle est finalisee en janvier 2025 ; 'Medical Products & Therapies Sales' signal 'Cession Vantive en cours' ; 'Hillrom Cost Synergies Realized' 50, 150, 220, 280, 320 sans periode.",
+  "correction_validee": "Supprimer les neuf KPI anonymes annuels.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total Revenue",
+  "probleme": "Doublon de REVENUE, etiquete 'Continuing Operations' alors que les points 2021-2024 incluent Kidney Care ; trous dans la serie.",
+  "preuve": "Historique 2021-Q1=2946 ... 2024-Q2=3812 puis 2024-Q3=2699 ; periodes 2021-Q4 et 2025-Q4 absentes ; yoy '5.3' sans signe %.",
+  "correction_validee": "Supprimer « Total Revenue ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Advanced Surgery division net sales ; Quarterly dividend reduced to $0.01 per share",
+  "probleme": "Deux doublons anonymes contredisant les series nommees.",
+  "preuve": "'Advanced Surgery division net sales' val 304 date 2026-06-30 alors qu ADVSURG_REV donne 331 au Q2-2026 (304 est le Q1-2026) ; serie sans periodes 168, 236, 260, 217... differente d ADVSURG_REV. 'Quarterly dividend reduced to $0.01' n=1 = DIV_PS.",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "HILLROM_INTEG_COST",
+  "probleme": "Serie a un seul point de 2023 avec yoy impossible et signal parlant de 2025.",
+  "preuve": "n=1, FY2023=17, yoy=+39 %, signal 'Integration toujours en cours en 2025, couts consulting tiers-parties en hausse vs 2024'.",
+  "correction_validee": "Supprimer HILLROM_INTEG_COST.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signal (une trentaine de KPI)",
+  "probleme": "Prefixe de periode trompeur, methode de calcul exposee et libelles anglais dans les signaux.",
+  "preuve": "REVENUE : 'T3 2026 : Total net sales $2,960M au T2 2026' ; PHARMA_REV : 'T2 2026 : ... au T1 2026' ; CAPEX : '$(253)M sur 6 mois 2026, soit $(116)M au T2 2026 apres deduction du T1 ($137M)' (idem OCF, DIV_PAID, DA, SBC) ; 'cost of sales', 'SG&A', 'PP&E net', 'stock compensation'. Repartition geographique : 'Western Europe, Canada, Japan, Australia and New Zealand', 'EMEA'.",
+  "correction_validee": "Retirer les préfixes « T3 2026 : » et « T2 2026 : », supprimer la mention du calcul par déduction et traduire les libellés anglais des signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "LEVERAGE",
+  "probleme": "Levier 10,76x calcule sur un EBITDA GAAP glissant ecrase par les depreciations, non representatif.",
+  "preuve": "EBITDA TTM = OP_INCOME (172 - 729 + 66 + 217 = -274) + DA (953) = 679 M$ ; 7 309 / 679 = 10,76. Le Q4-2025 inclut 485 + 290 M$ de depreciations. Sur EBITDA ajuste (~1,9 Md$) le levier est proche de 4x.",
+  "correction_validee": "Calculer sur EBITDA ajuste ou ajouter un avertissement dans le signal ; sinon masquer le KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "INTEREST_EXP, ADJ_GROSS_MARGIN, ADJ_OP_MARGIN, ADJ_RD_PCT, ADJ_SGA_PCT, ADJ_EPS_CONT, Total organic sales growth",
+  "probleme": "Series arretees alors que le reste de la fiche va au T2 2026.",
+  "preuve": "INTEREST_EXP dernier point Q2-2024=104 (n=42) ; les ADJ_* s arretent au Q4-2025 ; 'Total organic (operational) sales growth' s arrete au T1-2026 a -1 alors que REVENUE indique +5 % operationnel au T2 2026.",
+  "correction_validee": "Completer jusqu au T2 2026 ou retirer INTEREST_EXP.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.fr.products / customers",
+  "probleme": "Description encore centree sur la dialyse, activite cedee en janvier 2025 (la version avancee le dit).",
+  "preuve": "'equipements de dialyse' et clients 'dialyses' dans la version simple ; version avancee : 'L activite de therapies renales (Vantive) a ete cedee au groupe Carlyle en janvier 2025'.",
+  "correction_validee": "Retirer « équipements de dialyse » et « dialyses » de la version simple.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Texte generique et reference a un rapport inexistant.",
+  "preuve": "'BAX integre l IA/ML dans ses produits et operations d apres le rapport annuel exercice 2026' (le dernier rapport annuel couvre l exercice 2025).",
+  "correction_validee": "Reecrire en une phrase concrete (IA dans les pompes Novum, outils internes) et corriger l exercice.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORDER_BACKLOG",
+  "probleme": "Carnet de commandes d equipements de 8,5 Mds $ invraisemblable pour Baxter.",
+  "preuve": "Serie 8.6, 7.6, 7.8, 10.7, 6.51, 5.47, 8.5 (yoy +55 %) ; le segment HST, seul vendeur d equipements, fait 3,07 Mds $ de ventes en 2025 ; decimales heterogenes (6.51, 5.47 puis 8.5).",
+  "correction_validee": "Verifier la source dans le cahier ; a defaut supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

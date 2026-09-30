@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel / fcf_par_salarie",
+  "probleme": "Le flux de trésorerie libre annuel reprend en réalité le flux de trésorerie opérationnel, sans déduire les investissements.",
+  "preuve": "fcf_annuel 2025 = 1,413 = somme ocf 2025 (266,1+44,7+559,4+543,3 = 1 413,5) ; somme fcf trimestriel 2025 = 1 354,6. 2024 : fcf_annuel 0,335 = ocf 2024 (218,8-575,6+310,9+381,2 = 335,3), fcf trimestriel 2024 = 249,1.",
+  "correction_validee": "Recalculer fcf_annuel = OCF moins capex (2025 : 1,355 Md$, 2024 : 0,249 Md$) puis fcf_par_salarie et leurs signaux.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ocf.signal",
+  "probleme": "Chiffre annuel cité faux.",
+  "preuve": "Signal : « 1,52 Md$ sur l'exercice » ; somme des 4 trimestres 2025 = 1 413,5 M$.",
+  "correction_validee": "Remplacer « 1,52 Md$ » par « 1,41 Md$ » dans le signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Répartition fausse : la part « Jakafi » inclut les redevances Jakavi de Novartis, Niktimvo est absent, Pemazyre est présenté comme une redevance, et les libellés sont en lettres espacées ou en anglais.",
+  "preuve": "Tranche J A K A F I = 3 550,2 M$ = Jakafi 3 092,5 + royalties Jakavi 457,7. Niktimvo 2025 = 151,6 M$ absent. « PEMAZYRE Royalty Revenues » 86,7 = ventes nettes Pemazyre. Libellés « J A K A F I », « U [S] », « Milestone And Contract Revenue ».",
+  "correction_validee": "Reconstruire la répartition 2025 sur le CA de 5 141 M$ (Jakafi 60 %, Opzelura 13 %, royalties Jakavi 9 %, Niktimvo 3 %, etc.) avec libellés français sans espaces.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Opzelura (cream) net product revenue / Niktimvo net product revenue",
+  "probleme": "Doublons de opzelura_rev et niktimvo_rev, en retard d'un trimestre et avec une date fausse.",
+  "preuve": "« Opzelura (cream) » val 143 datée 2026-06-30, alors que opzelura_rev T2-2026 = 449,7 et T1-2026 = 143. Niktimvo : série 14/36/46/56/55 = niktimvo_rev arrondi.",
+  "correction_validee": "Supprimer les deux KPI importés, les séries opzelura_rev et niktimvo_rev suffisent.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "tabrecta_royalties.signal",
+  "probleme": "Le signal annonce une accélération alors que la série est plate.",
+  "preuve": "« Accélération des royalties sur Tabrecta » ; série de 5,9 à 7,2 M$, variation sur un an de +1,5 %.",
+  "correction_validee": "Réécrire : redevances Tabrecta stables autour de 6 à 7 M$ par trimestre.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_TOP_PRODUCT_CONCENTRATION",
+  "probleme": "Le nom parle du chiffre d'affaires, mais la série mesure la part de Jakafi dans les seules ventes de produits.",
+  "preuve": "2025 : 71 % = 3 092,5 / 4 354,4 (ventes de produits). Rapporté au CA total de 5 141 M$, on obtient 60,2 %.",
+  "correction_validee": "Renommer en « Part de Jakafi dans les ventes de produits ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "variations des ratios (rd_pct_ca, marge_op_pct, CAHIER_RD_INTENSITY, marge_brute_pct)",
+  "probleme": "La variation sur un an des ratios est donnée en pourcentage relatif au lieu de points.",
+  "preuve": "rd_pct_ca : -24,1 % affiché, écart réel -9,8 pts (30,9 contre 40,7). marge_op_pct : -4,4 % affiché, réel -1,9 pt. CAHIER_RD_INTENSITY : -35,1 % affiché, réel -21,6 pts.",
+  "correction_validee": "Afficher les écarts en points : -9,8 pts, -1,9 pt, -21,6 pts (marge brute +0,2 pt inchangée).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OPZELURA CMS line-extension rebate accrual, Wilmington impairment, Lilly upfront, résultats cliniques",
+  "probleme": "Des événements ponctuels (n=1) sont présentés comme des KPI trimestriels. Un texte est dépassé et une période est fausse.",
+  "preuve": "Provision CMS : « reflète un litige en cours », alors que l'anti-thèse indique qu'au T2 2026, 246 M$ viennent d'un règlement avec Medicaid. Dépréciation Wilmington « en 2025 », datée 2026-03-28. Taux de réponse 37 % et survie sans progression +25 % datés comme des trimestres.",
+  "correction_validee": "Retirer ces entrées des KPI ou les déplacer vers les événements, et mettre à jour le texte sur le règlement CMS.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "marge_brute_pct",
+  "probleme": "La marge brute rapporte le coût des produits au CA total, qui inclut les redevances et le produit non récurrent de 246 M$. Le T2 2026 est ainsi flatté.",
+  "preuve": "T2-2026 : 1 - 105/1 674 = 93,7 %. Sur les ventes de produits : 1 - 105/1 488,1 = 92,9 %.",
+  "correction_validee": "Calculer la marge sur les ventes de produits, ou signaler l'effet non récurrent dans le signal.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline / positionnement IA / moat",
+  "champ": "textes",
+  "probleme": "Tagline en anglais, positionnement IA générique en jargon anglais, et moat contradictoire (tendance « baisse » alors que la justification est positive).",
+  "preuve": "Tagline : « Global biopharmaceutical company focused on... ». IA : « IA/ML dans la R&D pharma (drug discovery, biomarkers) sans communication publique dominante ». Moat : niveau Aucun, tendance baisse, mais « Le produit phare progresse de 7 pour cent et deux traitements récents accélèrent » et « concurrence générique demeurent » alors que les brevets courent jusqu'en 2028.",
+  "correction_validee": "Rédiger en français avec des faits de la fiche, et aligner la tendance du moat sur sa justification.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques / positions de marché",
+  "champ": "texte",
+  "probleme": "Les 8 risques n'ont que des titres, sans texte. La position de marché n'a ni nom ni part.",
+  "preuve": "« risque 1: Concentration produit sur JAKAFI :: » vide, idem pour les 8. Titre « Sanctions marketing violations reglementations ». « position de marche 1: None | taille 6.7 | part None ».",
+  "correction_validee": "Rédiger les descriptions des risques et renseigner ou masquer la position de marché.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

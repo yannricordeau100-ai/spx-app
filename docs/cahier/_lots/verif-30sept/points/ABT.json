@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "12 KPI annuels dates 2026-06-30 (Cardiovascular and Neuromodulation Sales, MitraClip Sales Growth, St. Jude Medical Integration, Alinity Rollout, i-STAT Adoption, Emerging Markets Sales, Established Pharmaceutical Sales, Diagnostic Products Sales, Nutritional Products Sales, Diagnostics Operating Margin, Nutritional Operating Margin, Established Pharma Operating Margin)",
+  "probleme": "Bloc herite decrivant 2016-2018, sans etiquettes de periode, date 2026-06-30, qui contredit les series segment actuelles.",
+  "preuve": "Signaux : 'Croissance massive en 2017' (St. Jude), 'Croissance a deux chiffres en 2016' (MitraClip), 'acquisition d'Alere'. Diagnostics Operating Margin 26,1 % alors que OPINC_DIAG/SEG_DIAG 2025 = 1,74/8,94 = 19,5 % ; Nutritional OM 22,9 % contre 18,4 % ; EPD OM 19,8 % contre 23,3 %. Established Pharmaceutical Sales 5 000 contre EST_PHARMA 2025 = 5 536.",
+  "correction_validee": "Supprimer les 12 KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Income",
+  "probleme": "Resultat operationnel annuel irreconciliable avec les marges trimestrielles.",
+  "preuve": "serie 12.04, 11.88, 14.43 Md$ sans etiquettes, dernier 2026-06-30, yoy '+21,4 %' ; 14,43 Md$ = 32,5 % du CA 2025 alors que MARGE_OP oscille entre 16 et 20 % (environ 8 Md$) ; somme des resultats segment 2025 = 11,8 Md$.",
+  "correction_validee": "Supprimer Op Income.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Medical Devices Sales ; FreeStyle Libre Sales ; Diagnostics Sales ; Established Pharma Sales",
+  "probleme": "Series annuelles periode None datees 2025-12-31 dont la derniere valeur n'est pas celle de 2025 ; doublons decales des series trimestrielles.",
+  "preuve": "Medical Devices Sales 19 contre somme SEG_MEDDEV 2025 = 21,39 Md$ (19,0 = 2024) ; FreeStyle Libre Sales 6,5 contre DIAB_CARE 2025 = 8,0 et un autre KPI 'CGM > 7,5 Md$ en 2025' ; Diagnostics Sales 9,75 contre SEG_DIAG 2025 = 8,94 ; Established Pharma Sales 5,35 contre 5,54.",
+  "correction_validee": "Supprimer Medical Devices Sales, FreeStyle Libre Sales, Diagnostics Sales et Established Pharma Sales ; garder Nutritional Sales.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FreeStyle Libre / continuous glucose monitor worldwide sales",
+  "probleme": "Doublon trimestriel arrondi de DIAB_CARE, visible cote a cote avec un ecart de 9 %.",
+  "preuve": "serie 1500, 1600, 1600, 1800, 1700, 1900, 2000, 2000 (val 2000 au T2 2026) contre DIAB_CARE 1725, 1863, 1827, 1981, 2057, 2133, 2080, 2188.",
+  "correction_validee": "Supprimer le KPI FreeStyle Libre / continuous glucose monitor worldwide sales.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libelles de pays tronques et illisibles, coexistant avec une ligne 'Non-US'.",
+  "preuve": "'Etats-Unis 39.8 ; Non-US 37.2 ; D [E] 6.4 ; C [N] 4.4 ; I [N] 4.4 ; C [H] 4.4 ; J [P] 3.4' ; trois pays a exactement 4,4 % sont suspects.",
+  "correction_validee": "Verifier la note geographique du 10-K 2025, puis renommer les pays en clair et corriger les parts.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ORGANIC",
+  "probleme": "Une croissance dite organique expliquee par une acquisition.",
+  "preuve": "val 12,2 % au T2 2026, signal 'L'essentiel du bond au T2-2026 vient de l'integration d'Exact Sciences' ; la croissance publiee calculee (5216+7377)/(4276+6866) = +13,0 %. Soit la valeur n'est pas organique, soit le signal est faux.",
+  "correction_validee": "Verifier le communique du T2 2026 et afficher la croissance organique hors Exact Sciences, ou renommer le KPI en croissance hors change.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OPINC_DIAG.signal",
+  "probleme": "Explication fausse d'une serie.",
+  "preuve": "'recule d'annee en annee, signe de pressions concurrentielles sur les tests diagnostiques classiques' alors que la chute 6,64 -> 2,43 Md$ (2022 -> 2023) est la fin des tests COVID, ce que dit RAPID_DIAG ('Ex-star de la pandemie').",
+  "correction_validee": "Reecrire : normalisation post-COVID puis erosion lente.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Exact Sciences acquisition",
+  "probleme": "Deux montants differents pour la meme operation sur la fiche.",
+  "preuve": "KPI 'Exact Sciences acquisition' val 23 Md$ ; anti-these 'Abbott a paye Exact Sciences 20,6 Mds $ en mars 2026' et 'pret relais de 20 Mds$'.",
+  "correction_validee": "Preciser valeur d'entreprise vs prix des actions, ou aligner sur un seul chiffre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "5 KPI a un point dates 2026-03-11",
+  "probleme": "Noms qui sont des phrases, faits de marche ou previsions presentes comme KPI.",
+  "preuve": "'Full-year 2025 CGM sales exceeding $7.5B, third year in a row growing over $1B' ; 'Americans not up to date with colorectal cancer screening' 50 M ; 'Estimated global CGM-eligible patient population' 75 M ; 'Exact Sciences incremental sales expected in 2026' 3 000 (prevision) ; 'EPD Key 15 markets surpass $1 billion' 1 000 alors que EPD_KEM depasse 1 000 depuis le T2 2025 (1 059).",
+  "correction_validee": "Supprimer ou renommer en faits marquants courts.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[3], risks[0]",
+  "probleme": "Resumes generiques decales du titre.",
+  "preuve": "'Risques sanitaires' porte le resume 'Pression concurrentielle accrue, erosion potentielle des parts de marche' ; 'Chaine d'approvisionnement' porte le resume multi-themes 'chaine d'approvisionnement, capital humain, qualite produit ou continuite d'activite'.",
+  "correction_validee": "Reecrire les resumes a partir du 10-K (litiges laits infantiles, integration Exact Sciences, remboursement CGM, change).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions_marche",
+  "champ": "market_positions[0..1]",
+  "probleme": "Deux positions de marche sans nom ni part.",
+  "preuve": "'None | taille 13.76 | part None' et 'None | taille 109.06 | part None'.",
+  "correction_validee": "Nommer les marches (CGM, dispositifs medicaux) et calculer la part, ou retirer le bloc.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Continuous glucose monitor sales YoY growth.unit ; CAHIER_ORG_GROWTH_FRANCHISE",
+  "probleme": "Unite en anglais et nom de KPI trompeur.",
+  "preuve": "unite '% YoY reported' ; CAHIER_ORG_GROWTH_FRANCHISE nomme 'Croissance organique par franchise' alors que la serie est une seule valeur groupe par an (FY2025=7.4) avec yoy '-19,6 %' au lieu de -1,8 pt.",
+  "correction_validee": "Unite '%' ; renommer 'Croissance organique du groupe' ; variation en points (-1,8 pt).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

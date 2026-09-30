@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "FPAUM, Fee-paying AUM (FPAUM)",
+  "probleme": "Deux doublons du FPAUM sourcé avec des séries incohérentes.",
+  "preuve": "« FPAUM » val 320 Mds $ (2026-03-31) avec série Q2 2024=0,8749 ... Q1 2026=1,2989 (valeurs proches de 1) ; « Fee-paying AUM (FPAUM) » série [127.6, 153.7, 172.7, 400] (saut x2,3) ; FPAUM_total sourcé = 409,9 Mds $ au T2 2026.",
+  "correction_validee": "Supprimer les deux doublons.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Credit AUM, Net Inflows, Performance Fees Eligible AUM, PE AUM, Real Estate AUM, Dry Powder",
+  "probleme": "Bloc annuel non sourcé daté 2026-06-30, séries sans libellés, valeurs rondes contredites par les KPI sourcés.",
+  "preuve": "« Credit AUM » 350 vs AUM_credit 440,5 (T2 2026) et 406,9 (fin 2025) ; « Dry Powder » 132 vs CAHIER_DRY_POWDER 156 (FY2025) ; « Net Inflows » [40, 72, 75, 76, 95] sans signal ni source.",
+  "correction_validee": "Supprimer les 6 KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Available capital / dry powder, Available credit dry powder",
+  "probleme": "Série de dry powder avec un saut non expliqué, contredite par la série cahier ; faute dans un signal.",
+  "preuve": "série [56.8, 76, 85.8, 92, 90, 85, 150, 158] (85 vers 150) vs CAHIER_DRY_POWDER 111,4 ; 133,1 ; 156 ; signal « le plus élevé de tout acteur côté du marché ».",
+  "correction_validee": "Supprimer « Available capital / dry powder » et écrire « coté » dans le signal du dry powder crédit.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_AUM",
+  "probleme": "Série annuelle d'encours arrêtée à 2020 avec un signal périmé, alors que la série trimestrielle va au T2 2026.",
+  "preuve": "dernier 2020-12-31, val 196,98, signal « Croissance ininterrompue depuis onze exercices » ; AUM_total T2 2026 = 671,3.",
+  "correction_validee": "Prolonger CAHIER_AUM de FY2021 à FY2025 avec 305,8 ; 352,0 ; 418,8 ; 484,4 ; 622,5 et mettre le signal à jour.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik, tendance_mettrik",
+  "probleme": "Justification bâtie sur les variations du T2 2025, contredite par les KPI actuels ; tendance source « stable » contre tendance Mettrik « hausse ».",
+  "preuve": "« Les encours totaux progressent de 28,5 % et les actifs réels de 84,7 %, ... commissions en hausse de 19,4 % » ; au T2 2026 : AUM_total +17,3 %, AUM_real_assets +16,5 %, FPAUM_total +17,3 % (le +84,7 % correspond à 129,8 vs 70,4 au T2 2025).",
+  "correction_validee": "Réécrire la justification avec les variations du T2 2026 et aligner la tendance Mettrik sur ces chiffres.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "capital_deployment, Quarterly capital deployment, Capital deployed / invested",
+  "probleme": "Trois chiffres inconciliables sous le même nom de déploiement de capital.",
+  "preuve": "capital_deployment T2 2026 = 14,3 Mds $ (somme 2025 = 42,2) ; « Quarterly capital deployment » « Plus de 32 G$ déployés au trimestre » ; « Capital deployed / invested » 145,8 Mds $ en 2025.",
+  "correction_validee": "Préciser les définitions (déploiement des fonds à appel de capitaux vs déploiement brut de la plateforme) dans les noms, ou ne garder qu'une série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "unit de AUM_total, FPAUM_total, AUM_credit, AUM_real_assets, aum_available_deployment, igaum_frpr_eligible, total_assets, AUM_private_equity, AUM_secondaries, AUM_other + signaux",
+  "probleme": "Unité « G$ » sur dix KPI et dans les signaux alors que le reste de la fiche et du site utilise « Mds $ ».",
+  "preuve": "AUM_total « 671.3 G$ » ; signaux « 68 G$ », « 113,2 G$ », « 145,8 G$ » ; fcf_annuel en « Mds $ ».",
+  "correction_validee": "Remplacer G$ par Mds $ dans les unités et les signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Texte type avec un exercice inexistant.",
+  "preuve": "« ARES intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2026 » ; dernier exercice publié : 2025.",
+  "correction_validee": "Rédiger un positionnement (IA dans l'origination crédit, exposition data centers via Real Assets, marché tiers de 900 Mds $ cité en conférence).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "customers",
+  "probleme": "Confusion entre clients et contreparties pour un gérant d'actifs.",
+  "preuve": "« Ses clients sont principalement des entreprises de taille moyenne, des promoteurs immobiliers et des investisseurs institutionnels » ; les clients d'Ares sont les investisseurs (institutionnels, assureurs, canal Wealth 68 Mds $), les entreprises financées sont des emprunteurs.",
+  "correction_validee": "Réécrire la phrase clients.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Third-party data center market size, Wealth AUM, New products AUM (2 years), Gross new capital raised, Gross Capital Raised",
+  "probleme": "TAM présenté comme KPI, deux KPI différents à la même valeur, un indicateur coupé en deux KPI.",
+  "preuve": "« Third-party data center market size » 900 Mds $ ; « Wealth AUM » 68 et « New products AUM (2 years) » 68 ; « Gross new capital raised » 113,2 (2025) et « Gross Capital Raised » 92,7 (2024).",
+  "correction_validee": "Supprimer le TAM ; vérifier 68/68 dans le transcript ; fusionner les deux levées en une série annuelle.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux (AUM_total, mgmt_fees, accrued_carried_interest, aum_available_deployment, debt_obligations, buybacks, fpaum_commitments, CAHIER_DRY_POWDER, countries_count)",
+  "probleme": "Accents manquants dans une vingtaine de signaux et citation anglaise.",
+  "preuve": "« capitaux confies a Ares », « factures sur l'AUM », « indépendant des marches », « accumule », « reserve prête a être déployée », « a suivre », « autorise en février 2026 », « commencent a générer des commissions des leur signature », « Capital déjà engage », countries_count « \"in more than 25 countries\" ».",
+  "correction_validee": "Corriger les accents et retirer la citation anglaise.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "comp_ratio, fre_margin_*, op_margin, net_margin, tax_rate (yoy)",
+  "probleme": "yoy en % sur des ratios déjà exprimés en % ; valeur arrondie différente du dernier point.",
+  "preuve": "comp_ratio yoy « -4,1 % » (40,7 vs 42,4 = -1,7 pt), val 41 vs dernier point 40,7 ; fre_margin_private_equity « +46,0 % » ; fre_margin_secondaries « -10,4 % » ; op_margin « +10,6 % » ; tax_rate « -11,0 % ».",
+  "correction_validee": "Exprimer ces yoy en points et aligner la valeur de comp_ratio sur 40,7.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

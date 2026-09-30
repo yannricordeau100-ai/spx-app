@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "TOTAL_REV et toutes les series trimestrielles",
+  "probleme": "Series trimestrielles arretees au T3 FY2026 (3 avril 2026) alors que l exercice clos le 3 juillet 2026 est deja sur la fiche : le hero affiche un trimestre perime et le T4 (le plus gros de l histoire) manque",
+  "preuve": "revenue_annuel 2026=20,248 Mds ; T1+T2+T3 FY2026 = 2308+3025+5950 = 11 283 M$ donc T4 ~ 8 965 M$ absent ; hero TOTAL_REV val=5950 dernier 2026-04-03",
+  "correction_validee": "Ajouter le T4 FY2026 (CA, segments, marges, flux) depuis le rapport annuel FY2026 et recaler le hero sur ce trimestre.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att / these",
+  "champ": "att.resume",
+  "probleme": "Anti-these calee sur le T3 FY2026 alors que la these utilise l exercice complet clos le 3 juillet 2026 : les deux textes ne parlent pas de la meme periode",
+  "preuve": "att : 'pic historique : 5,95 Mds $ de chiffre d affaires au trimestre clos le 3 avril 2026' ; these : 'Sur l exercice clos le 3 juillet 2026 ... 20,2 Mds $ de ventes' (T4 implicite ~8,97 Mds)",
+  "correction_validee": "Mettre l anti-these a jour sur le T4 / exercice FY2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "risks[0..6].summary",
+  "probleme": "7 risques generiques interchangeables, sans aucun element propre a Sandisk (prix NAND, coentreprise Kioxia, concentration clients, engagements d achat) ; risque 1 et risque 6 sont le meme (chaine d approvisionnement)",
+  "preuve": "Tous commencent par 'La societe est vulnerable aux ...' ; risque 1 'perturbations de la chaine d approvisionnement' et risque 6 'Perturbations de la chaine d approvisionnement'",
+  "correction_validee": "Reecrire les risques depuis le rapport annuel FY2026 (cycle des prix NAND, Flash Ventures avec Kioxia, engagements d achat, concentration top 10 clients 46 %) et fusionner les deux risques d approvisionnement.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment / revenue_by_geography",
+  "champ": "slices",
+  "probleme": "Repartition sur l exercice 2025 alors que FY2026 est clos, avec l ancienne nomenclature en anglais (Client Devices, Cloud) differente des KPI (Edge, Datacenter) ; geographie avec libelles bruts anglais",
+  "preuve": "'Client Devices 56.1 ; Consumer 30.8 ; Cloud 13.1' (= EDGE FY2025 4127/7355) ; geographie 'HONG KONG', 'Rest of Asia', 'Other Geographical'",
+  "correction_validee": "Passer a FY2026 et aux noms Datacenter / Edge / Grand public ; traduire les zones",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification",
+  "probleme": "Texte de cuisine interne et faux : pretend que les donnees sont insuffisantes alors que la fiche contient 11 trimestres et les leviers du moat (coentreprise Kioxia, carnet pluriannuel)",
+  "preuve": "'Les series sont trop courtes et faussees par la scission recente pour conclure'",
+  "correction_validee": "Rediger un moat reel (echelle NAND, Flash Ventures 49,9 %, accords pluriannuels 42 Mds) ou masquer le bloc",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Positionnement IA generique, franglais et sans chiffres alors que la fiche montre un datacenter x7,4 et 25 % de SSD entreprise",
+  "preuve": "'SanDisk (spin-off Western Digital) positionne sa gamme NAND ... avec de nouveaux SSD dedies AI.' vs DC_REV +645 %, Enterprise SSD 25 %, KV cache 75 exaoctets",
+  "correction_validee": "Reecrire en francais avec les chiffres de la fiche",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cloud Revenue, Client Revenue",
+  "probleme": "Doublons annuels des series DC_REV / EDGE_REV sous les anciens noms, arretes a FY2025, descriptions sans accents et en franglais",
+  "preuve": "Cloud Revenue 0.96 = 300+250+197+213 (DC FY2025) ; Client Revenue 4.127 = EDGE FY2025 ; 'tendance accelerante avec adoption AI inference', 'stabilisation post-cycle PC 2023'",
+  "correction_validee": "Supprimer Cloud Revenue et Client Revenue.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ASP_GB (et ASP_DC/EDGE/CONS name_en)",
+  "probleme": "Nom trompeur : la serie est une variation annuelle en %, pas un prix ; les noms anglais disent Gigabit au lieu de gigabyte",
+  "preuve": "ASP_GB 'Prix de vente moyen par gigaoctet' unite %, Q3-FY2026=248 (coherent avec CA +251 % et EXA_TOT 0 %) ; ASP_DC name_en 'Datacenter ASP per Gigabit YoY'",
+  "correction_validee": "Renommer ASP_GB 'Prix moyen par gigaoctet, total (variation annuelle)' et remplacer Gigabit par Gigabyte dans les noms anglais.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_DEBT.signal",
+  "probleme": "Chiffre du signal different de la serie",
+  "preuve": "Signal 'depuis une dette nette de 0,44 Md $' ; serie Q3-FY2025=0.49 (2,0 - 1,507)",
+  "correction_validee": "Remplacer 0,44 par 0,49 Md $ dans le signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy NET_INCOME, OP_INCOME, NET_DEBT, OCF, FCF",
+  "probleme": "Variations en % calculees sur une base negative ou quasi nulle, sans signification",
+  "preuve": "NET_INCOME +287 % (3,615 vs -1,933) ; OP_INCOME +319 % ; NET_DEBT -861 % ; OCF +11585 % ; FCF +16728 %",
+  "correction_validee": "Afficher 'n.s.' ou l ecart absolu quand la base est negative ou quasi nulle.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / these",
+  "champ": "Minimum contractual revenue backlog (RPO), these.hook",
+  "probleme": "Incoherences sur le carnet : 'trois accords' contre 'cinq accords' ailleurs, et la these annonce plus de 2,5 ans de CA alors que 42 Mds = 2,1 ans de FY2026",
+  "preuve": "RPO : '42 Md$ ... sur les trois accords pluriannuels' ; NBM = 5 ; garanties 'securisant les cinq accords' ; these 'depasse desormais deux annees et demie de chiffre d affaires' ; 42/20,248 = 2,07",
+  "correction_validee": "Verifier le montant du carnet au 3 juillet 2026 et harmoniser le nombre d accords",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "advanced.positioning",
+  "probleme": "Description fausse : Sandisk produit sa propre NAND (via Flash Ventures), elle n est pas en aval des producteurs de puces",
+  "preuve": "'Elle se situe en amont des integrateurs systemes et en aval des producteurs de puces NAND' vs FV_STAKE 49,9 %, PURCH_OBLIG 'Engagements d achat de wafers'",
+  "correction_validee": "Decrire Sandisk comme fabricant de NAND (coentreprise Kioxia) et fournisseur de SSD",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

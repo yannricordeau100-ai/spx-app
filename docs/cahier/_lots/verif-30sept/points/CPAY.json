@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "dette_annuelle (serie)",
+  "probleme": "Serie de dette annuelle incompatible avec la serie trimestrielle total_debt de la meme fiche : ordre de grandeur faux de 2016 a 2020 et en 2025.",
+  "preuve": "dette_annuelle 2018=2.071, 2019=1.747, 2020=1.206, 2025=10.002 Mds ; total_debt Q4-2018=3.93, Q4-2019=4.07, Q4-2020=3.6, Q4-2025=8.18 Mds. Les derives dette_par_salarie et dette_sur_ca (220,9 %) heritent de l erreur.",
+  "correction_validee": "Remplacer chaque point annuel par la valeur de total_debt au T4 de la même année (de 2016 à 2025), puis recalculer dette_par_salarie et dette_sur_ca.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_PAYMENT_VOLUME et CAHIER_TAKE_RATE",
+  "probleme": "Noms faux : le volume est celui du seul segment Corporate Payments, pas du groupe, et le taux de commission est la version annuelle de corp_rev_per_spend (doublon).",
+  "preuve": "FY2025=258,452 Mds = somme corp_spend_vol 2025 (50 688+58 114+68 225+81 425 = 258 452 M) ; take rate 63 pb = corp_pay_rev 2025 (1 635 M) / 258 452 M = 0,63 % ; corp_rev_per_spend Q2-2026 = 0,58 %.",
+  "correction_validee": "Renommer en Volume de depenses Corporate Payments et Revenu net par dollar depense Corporate Payments (annuel), ou supprimer le take rate comme doublon.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_TRANSACTIONS",
+  "probleme": "Nom Nombre de transactions traitees faux : la serie ne couvre que Vehicle Payments (doublon annuel de veh_transactions), hors Corporate, Lodging et Other (450 M/trimestre).",
+  "preuve": "FY2025=880,9 M = somme veh_transactions 2025 (213+222,6+223,5+221,8) ; other_seg_tx Q2-2026 = 450,4 M non inclus.",
+  "correction_validee": "Renommer en Transactions Vehicle Payments (annuel) ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Corporate Payments spend volume (transcript)",
+  "probleme": "Doublon sans etiquettes de periode de corp_spend_vol, avec des valeurs arrondies.",
+  "preuve": "serie 58, 81, 82 Mds (history_periods=None) contre corp_spend_vol Q2-2025=58 114, Q4-2025=81 425, Q1-2026=81 850 M.",
+  "correction_validee": "Supprimer le KPI transcript Corporate Payments spend volume.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "signal (op_income, net_income, capex, total_debt, cash, d_and_a, sbc, interest_exp, diluted_shares, equity, total_assets, goodwill, receivables, customer_deposits, restricted_cash, ga_expense, selling_expense, rev_total, geo_*, *_op, employees_us, eps_diluted)",
+  "probleme": "Une trentaine de signaux sont en anglais ou en franglais de type libelle XBRL, dont deux entierement en anglais.",
+  "preuve": "employees_us : approximately 4,300 of those associates based in the U.S. ; diluted_shares : Denominator for diluted earnings per share 66 325 milliers ; op_income : Operating income $472 274 milliers au T2 2026.",
+  "correction_validee": "Reecrire chaque signal en francais avec le chiffre et la variation sur un an.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "ocf et fcf (series trimestrielles)",
+  "probleme": "Series arrondies a la dizaine sur 10 ans et alternant des trimestres negatifs, invraisemblables pour un groupe a 57 % de marge d EBITDA ; le dernier point seul a une decimale.",
+  "preuve": "ocf : Q1-2025=-70, Q2-2025=1140, Q3-2025=-380, Q4-2025=810, Q1-2026=-60, Q2-2026=1470,1 ; fcf : -120, 1090, -430, 760, -110, 1415,7.",
+  "correction_validee": "Reprendre les flux trimestriels depuis les tableaux de flux publies (differences de cumuls) et verifier le signe des T1 et T3.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "buybacks.signal",
+  "probleme": "Le signal affirme une priorite aux rachats plutot qu aux acquisitions, contredit par les acquisitions listees sur la fiche.",
+  "preuve": "Signal : priorite de Corpay pour le retour de capital aux actionnaires plutot que de nouvelles acquisitions ; fiche : Alpha Group 2,4 Mds, AvidXchange 578 M, Gringo 153,7 M, Term Loan B-6 de 900 M pour financer Alpha.",
+  "correction_validee": "Retirer « plutôt que de nouvelles acquisitions » du signal de buybacks.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "KPI transcript a un seul point (14 series)",
+  "probleme": "Faits ponctuels presentes comme des KPI : marche adressable, valorisation, objectifs, montants d acquisitions, sans serie ni comparaison.",
+  "preuve": "Cross-Border total addressable market 160 T USD (n=1), Cross-Border unit valuation 13 Mds (n=1), Midterm cash EPS doubling target 50 USD/action (n=1), Alpha Group acquisition 2.4, AvidXchange 578, Mastercard 300, Gringo 153.7, New Term Loan B-6 900, Cumulative share repurchases 8.6, Multicurrency account deposits 1, First enterprise payables client spend 1, Alpha and Avid EPS accretion 1, Alpha client volume migrated 15, Expense rationalization target 75.",
+  "correction_validee": "Basculer ces elements en faits marquants ou en texte de these, garder en KPI uniquement ceux qui auront une serie (retention, bookings).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Organic revenue growth (signal, periodes)",
+  "probleme": "Signal perime et serie sans etiquettes de periode alors que la date du dernier point est le 30 juin 2026.",
+  "preuve": "Signal : 11 % pour le 4e trimestre consecutif au T1-2026 ; last_data_date 2026-06-30 ; history_periods=None ; phrase Metrique de durabilite phare inadaptee.",
+  "correction_validee": "Ajouter les periodes, mettre a jour avec le T2 2026 et reecrire le signal.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "corp_spend_vol.signal",
+  "probleme": "Le signal cite une base recast et une hausse de 70 % alors que la serie et le yoy affiches donnent 62,8 %.",
+  "preuve": "Signal : +70 % vs comparatif recast T2-2025 ($55 673 M) ; serie Q2-2025=58 114, yoy=+62.8 %.",
+  "correction_validee": "Réécrire le signal sur la série : 94 635 M au T2 2026, +63 % sur un an (58 114 M au T2 2025).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie (series)",
+  "probleme": "Series d effectifs et derives arretees en 2022 alors que la fiche va jusqu au T2 2026 et que employees_us couvre 2025.",
+  "preuve": "effectifs_annuels dernier point 2022=9 900 (last_data_date 2023-02-28) ; ca_par_salarie dernier point 2022=346,2 avec last_data_date 2025-12-31.",
+  "correction_validee": "Ajouter les effectifs 2023 a 2025 depuis les rapports annuels et recalculer les trois ratios.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "La justification parle de compression des revenus par transaction et d une note abaissee d un cran (jargon de notation interne) alors que les KPI montrent la hausse du revenu unitaire.",
+  "preuve": "rev_per_txn Q2-2026=3,56 $ (+50,8 %), lodging_rev_per_room 16,34 $ (+18,7 %), corp_rev_per_spend seul en baisse (0,58 %).",
+  "correction_validee": "Reecrire la justification sans reference a une note et en precisant que la compression ne concerne que Corporate Payments.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

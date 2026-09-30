@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "répartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "La tranche « Brokerage Segment 30,4 % » n'est pas un segment : c'est la somme des honoraires de courtage et des honoraires Risk Management. Le bloc mélange types de revenus et segments, avec des libellés anglais (Investment Performance, Contingent Revenue) ; la géographie affiche « Other Foreign », « AUSTRALIA », « NEW ZEALAND ».",
+  "preuve": "Slice Brokerage Segment = 4,195 Mds $ ; honoraires courtage FY2025 = 2 646 M$ + honoraires RM 1 549 M$ = 4 195. brokerage_rev FY2025 = 12 192 M$ soit 87,4 % du CA 13 942.",
+  "correction_validee": "Remplacer par Courtage 12 192 M$ (87 %) / Gestion des risques et autres 1 750 M$ (13 %), exercice 2025, et traduire les zones (Autres pays, Australie, Nouvelle-Zélande).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_FEE_MIX",
+  "probleme": "Série de 2009 à 2013, unité Mds $ pour un KPI nommé « Répartition entre commissions et honoraires ». Point périmé de 13 ans.",
+  "preuve": "history_periods FY2009..FY2013, last_data_date 2013-12-31, value 1,5531 Mds $, yoy +19,2 %.",
+  "correction_validee": "Supprimer le KPI CAHIER_FEE_MIX.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Adjusted EBITDAC Margin",
+  "probleme": "Série lissée invraisemblable : 10 points qui montent de 0,25 pt chacun, sans la saisonnalité du T1, incompatible avec la marge EBITDAC publiée du courtage et avec son propre ttm.",
+  "preuve": "history 24,5 ; 24,8 ; 25,1 ; 25,3 ; 25,6 ; 25,9 ; 26,1 ; 26,4 ; 26,7 ; 26,9 ; ttm = 36,86 ; brk_ebitdac_margin_rep Q1-2026 = 36,4 %, Q2-2026 = 27,1 % ; yoy « +145 bpts ».",
+  "correction_validee": "Supprimer le KPI, la marge publiée du courtage existe déjà en série datée.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Brokerage organic revenue growth / croissance_organique_des_commissions_et_ / Brokerage Organic / CAHIER_ORGANIC_GROWTH",
+  "probleme": "Quatre KPI de croissance organique aux valeurs contradictoires pour les mêmes périodes.",
+  "preuve": "T2 2026 : 5 vs 4 ; T3 2025 : 5,3 vs 3,9 ; T1 2025 : 9,5 vs 9,1. Annuel « Brokerage Organic » [6 ; 8,5 ; 9,7 ; 9,2 ; 8,5] sans périodes, daté 2026-06-30, vs CAHIER_ORGANIC_GROWTH FY2022-2025 = 9,4 ; 8,8 ; 7,4 ; 6.",
+  "correction_validee": "Garder croissance_organique_des_commissions_et_ (trimestrielle datée) et CAHIER_ORGANIC_GROWTH (annuelle), supprimer « Brokerage organic revenue growth » et « Brokerage Organic ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "acq_count / Tuck-in mergers completed / Tuck-In Acquisitions",
+  "probleme": "Trois comptages d'acquisitions contradictoires.",
+  "preuve": "acq_count Q2-2026 = 6, Q3-2025 = 6 ; « Tuck-in mergers completed » mêmes trimestres = 9 et 11 ; « Tuck-In Acquisitions » annuel = 48 alors que le signal de « 2025 Acquisitions Net Consideration » dit 33 acquisitions en 2025 et la somme acq_count 2025 = 31.",
+  "correction_validee": "Garder acq_count, supprimer les deux autres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Brokerage Organic / Risk Mgmt Organic / Tuck-In Acquisitions (descriptions)",
+  "probleme": "Descriptions en franglais interne visibles, signal vide, yoy « stable ».",
+  "preuve": "« KPI maître secteur courtage assurance », « TPA claims », « ~3-4 Mds $ revenue annualized acquis. Compounding key driver ».",
+  "correction_validee": "Supprimer les KPI Brokerage Organic, Risk Mgmt Organic et Tuck-In Acquisitions (non datés), à défaut vider leurs descriptions.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "2025 Acquisitions Net Consideration + 4 points uniques AssuredPartners",
+  "probleme": "Doublon exact d'un KPI existant, et cinq points uniques AssuredPartners éparpillés en KPI séparés.",
+  "preuve": "« 2025 Acquisitions Net Consideration » = 16 348 = acq_net_consideration FY2025 ; « AssuredPartners Acquisition » 13 800, « Financing Raised » 13 500, « Integration Cost » 575, « run-rate synergies » 160, tous n=1.",
+  "correction_validee": "Supprimer « 2025 Acquisitions Net Consideration » et « AssuredPartners Deal », regrouper les autres points AssuredPartners dans un seul encart événement.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.summary",
+  "probleme": "Texte générique sans contenu, et référence à un exercice non clos.",
+  "preuve": "« AJG intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2026 » (le dernier rapport couvre l'exercice 2025).",
+  "correction_validee": "Réécrire avec les usages concrets cités par le groupe (souscription, sinistres Gallagher Bassett) ou indiquer « peu communiqué ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks",
+  "probleme": "Cinq titres sans aucun texte, dont un avec fragment anglais.",
+  "preuve": "« Environnement macroéconomique (Economic conditions result) :: » ; les 5 descriptions sont vides.",
+  "correction_validee": "Retirer le fragment anglais ; rédiger les cinq descriptions depuis le rapport annuel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "capex / fcf / dividends_paid / buyback / sbc (signaux)",
+  "probleme": "Mention de méthode interne dans le signal visible.",
+  "preuve": "« (dérivé du cumul 6 mois) » dans 5 signaux.",
+  "correction_validee": "Retirer la parenthèse des cinq signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "international_rev",
+  "probleme": "Nom « Revenus courtage international » faux : la série est le total hors États-Unis tous segments.",
+  "preuve": "UK 2 477 + Australie 586 + Canada 395 + NZ 207 + autres 886 = 4 551 = valeur FY2025.",
+  "correction_validee": "Renommer « Revenus hors États-Unis ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_ORGANIC_GROWTH / dette_sur_ca (yoy)",
+  "probleme": "Variation annuelle en % relatif pour des séries en points.",
+  "preuve": "CAHIER_ORGANIC_GROWTH yoy « -18.9% » (7,4 à 6 = -1,4 pt) ; dette_sur_ca yoy « -18.3% » alors que le signal dit « -20,5 points ».",
+  "correction_validee": "Afficher -1,4 pt pour CAHIER_ORGANIC_GROWTH et -20,5 pts pour dette_sur_ca.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

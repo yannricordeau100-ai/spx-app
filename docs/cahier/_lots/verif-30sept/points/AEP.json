@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "fcf_annuel, fcf_par_salarie",
+  "probleme": "FCF annuel positif alors que le FCF trimestriel et l'anti-thèse sont négatifs",
+  "preuve": "fcf_annuel 2025 = +3,491 Mds $ (2024 = +6,405) ; FCF_Q 2025 = −0,65 −0,699 +0,479 −0,639 = −1,51 Mds $ ; OCF 2025 = 6,94 et capex = 8,45 ; anti-thèse : « un flux de trésorerie disponible structure[llement négatif] » ; fcf_par_salarie 198,6 k$ en découle",
+  "correction_validee": "Recalculer fcf_annuel = OCF - capex sur tout l'historique, puis fcf_par_salarie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Transmission & Distribution Revenues, Generation & Marketing Revenues, Electricity Sales Volume",
+  "probleme": "Trois KPI inutilisables : unités fausses, séries à l'envers avec premier point dupliqué, signaux = étiquettes internes",
+  "preuve": "« USD millions » pour 8,13 → 4,88 (série 8.13, 8.13, 6.89, 5.3, 4.88, yoy +0,0 %, signal « revenue_stability ») ; « Electricity Sales Volume » 2,75 « MWh billions » (= 2 750 TWh, AEP vend ~215 TWh) avec saut 6,6 → 2,75, signal « operational_volume » ; « revenue_volatility »",
+  "correction_validee": "Retirer les trois KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Capex Réglementé, Capex Plan, Capex Plan 5Y, Op Income",
+  "probleme": "Valeurs contradictoires avec les séries sourcées pour la même grandeur",
+  "preuve": "Plan capex : CAHIER_CAPEX_PLAN 72, « Five-year capital plan » 78 (transcript, = anti-thèse « 78 Mds$ »), contre 54 pour « Capex Réglementé », « Capex Plan », « Capex Plan 5Y » sans dates ; « Op Income » 11,03 Mds $ vs OPINC_Q 2025 = 1,284+1,399+1,521+1,114 = 5,32 Mds $",
+  "correction_validee": "Retirer Capex Réglementé, Capex Plan, Capex Plan 5Y et Op Income ; garder la série transcript 43 → 78.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Demande Data Center Engagée, Data Center Load Pipeline, Data Center Committed Load",
+  "probleme": "Trois séries sans dates à 24 GW contredisant les contrats signés cités ailleurs",
+  "preuve": "Toutes trois finissent à 24 GW ; « Incremental load by 2030 (signed agreements) » = 63 GW, « Contracted load in ERCOT » 41 GW, « AEP Texas Letters of Agreement » 36 GW",
+  "correction_validee": "Retirer Demande Data Center Engagée, Data Center Load Pipeline et Data Center Committed Load.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Operating Earnings par Action, Allowed ROE Moyen, Croissance Clients Retail, Rate Base",
+  "probleme": "KPI générés par modèle (séries linéaires, descriptions « = X, nature cyclique »), dont le BPA opérationnel, métrique phare d'AEP, sous une forme fausse",
+  "preuve": "« Operating Earnings par Action » 5,25 5,45 5,65 5,85 5,95 (+0,20 chaque année ; AEP a publié 5,09 en 2022, 5,25 en 2023) ; description « Operating Earnings par Action = 5.95 $, nature cyclique. » ; « Rate Base » 56 Mds $ vs CAHIER_RATE_BASE_GROWTH 77,6 Mds $",
+  "correction_validee": "Retirer les quatre KPI (et le doublon Allowed ROE Avg) ; recréer « BPA opérationnel (non GAAP) » depuis les communiqués annuels.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "ai_positioning.summary",
+  "probleme": "Texte de feuille de route interne et nom de secteur en anglais",
+  "preuve": "« Le secteur Electric Utilities n'est pas significativement transformé par l'IA aujourd'hui… Une analyse fine de l'usage interne de l'IA … sera ajoutée en V2.0. »",
+  "correction_validee": "Réécrire à partir de l'investissement Gigawatt AI et des usages documentés, ou passer en « non documenté ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RATE_BASE_GROWTH, CAHIER_ALLOWED_EARNED_ROE",
+  "probleme": "Noms ne correspondant pas aux séries",
+  "preuve": "« Croissance de la base d'actifs régulée » = niveau 68 404 → 77 611 M $ ; « Rendement autorisé et rendement réalisé sur fonds propres » = une seule série (8,8, 9,05, 9,1) et signal parlant d'un « écart »",
+  "correction_validee": "Renommer « Base d'actifs régulée » (en Mds $) et « ROE réalisé », réécrire le signal sans parler d'écart.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DIST_MILES, TRANS_MILES",
+  "probleme": "Sauts physiquement invraisemblables en un an, interprétés comme réels par les signaux",
+  "preuve": "DIST_MILES 225 000 → 252 000 (+12 %) ; TRANS_MILES 40 000 → 38 000 (−5 %) ; « Transmission Lines » sans dates reste à 40 000 ; signal DIST_MILES « L'élargissement du réseau de distribution suit la connexion de nouveaux clients »",
+  "correction_validee": "Vérifier le 10-K 2025 (changement de périmètre ou arrondi), corriger ou neutraliser le signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0] et score_rationale",
+  "probleme": "Titre, résumé et justification portent sur trois sujets différents ; citations anglaises",
+  "preuve": "Titre « Performance des placements », résumé « Risques climatiques physiques et transitionnels, exigences ESG… », rationale « Plans de capex massifs … dont la recuperation depend des regulateurs » ; citations « affected AEP subsidiaries would not be able to recover the cost »",
+  "correction_validee": "Réécrire le risque 1 sur la récupération réglementaire des coûts du plan capex et retirer citations et repères de position.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Libellés en anglais",
+  "preuve": "« Vertically Integrated Utilities », « Transmission and Distribution Utilities », « Generation & Marketing », « AEP Transmission Holdco »",
+  "correction_validee": "Libeller Services intégrés / Transport et distribution / Production et négoce / Transport (Holdco)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline",
+  "champ": "tagline",
+  "probleme": "Tagline en anglais, non officielle",
+  "preuve": "« Putting customers first to deliver reliable, affordable power »",
+  "correction_validee": "Retirer la tagline.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI à un point (transcript)",
+  "probleme": "Douze anecdotes de conférence présentées comme KPI",
+  "preuve": "« Piketon data center campus with SB Energy » 10 GW, « DOE loan guarantee » 1,6 Mds $, « Equity investment in Gigawatt AI » 100 M$, « Cost offsets for existing customers » 16 Mds $, « Data center load brought online in quarter » 2 GW…",
+  "correction_validee": "Basculer en faits clés, garder en KPI seulement les séries suivies (plan capex, charge contractée)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

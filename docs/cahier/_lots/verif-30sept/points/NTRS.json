@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_AUM, CAHIER_AUC",
+  "probleme": "Series arretees en 2014 mais datees 2026-06-30 ; valeurs contredites par la fiche (AUM 934 Mds contre 1 970 Mds, AUC 5 969 contre 20 000 Mds).",
+  "preuve": "CAHIER_AUM | dernier 2026-06-30 | serie: FY2007=757.2 ... FY2014=934.1 ; AUM Total Q2-2026=1969.9",
+  "correction_validee": "Supprimer CAHIER_AUM et CAHIER_AUC, doublons perimes de AUM Total et AUC/A Total.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Trust Investment & Other Fees, Trust Investment & Other Servicing Fees, Wealth Management AUM, Net Interest Margin, Tier 1 Common Equity Ratio, Wealth Management Fees",
+  "probleme": "Bloc de six series annuelles sans dates, datees 2026-06-30, dont deux doublons entre eux avec des valeurs differentes, et des valeurs perimees contredites par les series trimestrielles.",
+  "preuve": "Trust fees 4.7 vs 4.584 ; somme des commissions trimestrielles 2025 = 5 018 M$ ; Wealth Management AUM 442 vs AUM WM Q4-2025=507.2 ; NIM 1.61 vs 1.78 au Q4-2025",
+  "correction_validee": "Supprimer les six series, couvertes par les series trimestrielles datees.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Assets Under Custody.unit",
+  "probleme": "Unite fausse : M$ pour des valeurs en milliers de milliards (14 775 Mds $), serie sans dates.",
+  "preuve": "Assets Under Custody | M $ | serie: 13041.4 ... 14775.3 ; AUC Asset Servicing Q2-2026=14587.7 B$",
+  "correction_validee": "Supprimer la serie, doublon de AUC Asset Servicing.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AUM WM Mix.name",
+  "probleme": "Le nom annonce une part (%) alors que la serie est un montant en Mds $.",
+  "preuve": "« Part de la gestion privee dans l'AUM total » | B$ | val=533.9",
+  "correction_validee": "Renommer « Actifs sous gestion Wealth Management ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Efficiency Ratio.signal, OCF.signal, Rachats d'actions.signal, Dividendes verses.signal",
+  "probleme": "Cuisine interne visible : mentions de calcul et de derivation du cumul semestriel.",
+  "preuve": "« (base GAAP, calcule) » ; « (derive du cumul semestriel -$384,9M) » ; « (derive du cumul semestriel $709,5M) »",
+  "correction_validee": "Retirer les parentheses de methode des quatre signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux (format monetaire)",
+  "probleme": "Format americain « $757,4M », « $20,00T », « $1,97T » sur toute la fiche, incoherent avec le reste du site (M$, Mds $).",
+  "preuve": "« AUC/A $20,00T au T2 2026 » ; « Commissions Asset Servicing $757,4M »",
+  "correction_validee": "Reformater en M$ et Mds $ (757,4 M$, 20 000 Mds $).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, fcf_par_salarie",
+  "probleme": "Tresorerie libre pour une banque de conservation : chiffre sans sens economique (-0,588 puis +5,46 Mds), signal « en hausse de 6,0 Mds $ » trompeur.",
+  "preuve": "fcf_annuel serie: 2024=-0.588, 2025=5.46 | yoy=None",
+  "correction_validee": "Masquer ces deux KPI generiques pour les banques.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions de marche",
+  "champ": "market_positions",
+  "probleme": "Deux positions sans nom ni part, avec une taille sans unite.",
+  "preuve": "position de marche 1: None | taille 318500 | part None ; position 2: None | taille 98300",
+  "correction_validee": "Completer le nom du marche et l'unite, ou retirer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

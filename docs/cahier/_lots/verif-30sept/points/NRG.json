@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Texas / East / Power Sold / Residential customers / Generation Capacity / Vivint ARPU",
+  "probleme": "Six series annuelles sans annees, datees 2026-06-30, avec des valeurs invraisemblables ou lissees, contredites par les series trimestrielles.",
+  "preuve": "« Texas » 38,82 Mds $ alors que seg_ca_texas 2025 = 2435+2847+3379+2478 = 11 139 M$ ; « Residential customers » 6,2 M vs retail_home_customers 5,675 M ; « Vivint ARPU » 0, 0, 68, 72, 74 ; « Generation Capacity » 12 en 2026 alors que power_gen_capacity = 25,3 GW.",
+  "correction_validee": "Supprimer « Texas », « East », « Power Sold », « Residential customers », « Generation Capacity » et « Vivint ARPU ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_generation Q4-2024",
+  "probleme": "Valeur invraisemblable, dix fois trop faible.",
+  "preuve": "net_generation Q4-2024=1.4 TWh entre Q3-2024=13.6 et Q1-2025=8.4 ; gwh_sold Q4-2024=8.9 TWh.",
+  "correction_validee": "Verifier le 10-K 2024 et corriger Q4-2024 (valeur attendue entre 7 et 9 TWh).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "seg_marge_egm_vivint Q4-2024 / vivint_rev / vivint_egm",
+  "probleme": "Marge economique superieure a 100 %, donc revenu ou marge du trimestre faux.",
+  "preuve": "seg_marge_egm_vivint Q4-2024=102.4 % = vivint_egm 510 / vivint_rev 498.",
+  "correction_validee": "Verifier vivint_rev et vivint_egm du Q4-2024 dans les resultats NRG puis recalculer la marge.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "resultat_op / marge_op Q2-2025",
+  "probleme": "Resultat operationnel exactement nul, valeur suspecte.",
+  "preuve": "resultat_op Q2-2025=0, marge_op Q2-2025=0 ; resultat_net -104 ; signal « contre un résultat opérationnel nul au T2 2025 ».",
+  "correction_validee": "Verifier le 10-Q T2 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "bpa_dilue / dividende_action / actions_diluees",
+  "probleme": "Trous systematiques : tous les Q4 manquent.",
+  "preuve": "bpa_dilue serie Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 ; idem dividende_action et actions_diluees.",
+  "correction_validee": "Ajouter Q4-2024 et Q4-2025 depuis les 10-K.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Vivint Smart Home customer count / Power generation capacity / CAHIER_INSTALLED_CAPACITY",
+  "probleme": "Doublons de vivint_subscribers et power_gen_capacity ; le signal annuel contredit le doublement de 2026.",
+  "preuve": "« Vivint customer count » 2.37 vs vivint_subscribers Q1-2026=2.427 ; « Power generation capacity » 13, 25 ; CAHIER_INSTALLED_CAPACITY signal « La baisse traduit un choix stratégique : céder des actifs de production » alors que le parc double a 25,3 GW au T1 2026.",
+  "correction_validee": "Supprimer les deux premiers ; reecrire le signal de CAHIER_INSTALLED_CAPACITY ou le retirer au profit de power_gen_capacity.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "vivint_monthly_arpu_delta",
+  "probleme": "Serie a trous, arretee en 2025, nom obscur, signal en franglais incoherent avec la serie.",
+  "preuve": "serie Q3-2024=2.04, Q2-2025=1.73, Q3-2025=0.58 ; signal « Hausse de +$0.72/client/mois en 2025 vs 2024, contribuant +$20M au gross margin ».",
+  "correction_validee": "Supprimer vivint_monthly_arpu_delta.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CAPACITY_FACTOR.yoy",
+  "probleme": "Variation d'un ratio en % exprimee en pourcentage au lieu de points.",
+  "preuve": "FY2024=30.1, FY2025=34.8, yoy=+15.6% (devrait etre +4,7 pts).",
+  "correction_validee": "Afficher un yoy de +4,7 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA / moat",
+  "champ": "ai_positioning / moat",
+  "probleme": "Texte meta sur un document et cuisine interne dans des blocs visibles ; contradiction avec les KPI qui parlent de « boom IA ».",
+  "preuve": "IA : « Le communiqué de résultats de NRG ne mentionne jamais explicitement l'intelligence artificielle » ; moat : « les séries sont hétérogènes ... sans avantage concurrentiel identifié » ; KPI « Contrats retail data centers ... levier direct du boom IA ».",
+  "correction_validee": "Reecrire l'IA sur la demande des centres de donnees (445 MW contractes, 5,4 GW en developpement) ; retirer « les séries sont hétérogènes ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline / revenue_by_geography",
+  "probleme": "Anglais et geographie qui recopie les segments avec des parts differentes.",
+  "preuve": "tagline en anglais ; revenue_by_geography « East Segment 49.9 ; Texas Segment 38.9 ; West 11.2 » vs segments « East 46.4 ; Texas 36.2 ».",
+  "correction_validee": "Traduire la tagline et supprimer le bloc geographie (ou le libeller « Est, Texas, Ouest, hors Vivint »).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Le taux d'attrition Vivint et le taux de perte de clients retail, publies par NRG, manquent alors que la fidelisation est le coeur du modele.",
+  "preuve": "KPI vivint_customer_lifetime signal « Cette durée mesure la fidélité client » mais aucune serie d'attrition ; 2,5 M abonnes Vivint, 5,7 M clients energie.",
+  "correction_validee": "Ajouter « Taux d'attrition Vivint (%) » annuel depuis le 10-K.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

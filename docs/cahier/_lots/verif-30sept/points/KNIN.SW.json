@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "SEA_EBIT.history",
+  "probleme": "La serie de l'EBIT Sea Logistics contient les volumes TEU, pas l'EBIT : elle est identique a KNIN_TEU et contredit son propre signal.",
+  "preuve": "serie FY2019=4861 ... FY2025=4325 (= KNIN_TEU) ; signal : « 538 M CHF en 2025 (-37%), record de 2 021 M CHF de 2022 » ; yoy=-37% alors que 4310→4325 = +0,3 %",
+  "correction_validee": "Remplacer la serie SEA_EBIT par les EBIT Sea Logistics publies (2022 environ 2 021, 2025 = 538 M CHF), ou retirer le KPI tant qu'elle n'est pas sourcee ; ne pas supprimer KNIN_TEU sur la base de K4d.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Group EBIT",
+  "probleme": "Serie invraisemblable et perimee : un EBIT de 4,876 Mds CHF n'a jamais existe, et la description s'arrete a 2024 alors que les semestres 2025 sont sur la fiche.",
+  "preuve": "serie 1.178, 3.64, 4.876, 1.514, 1.487 sans etiquettes ; description « EBIT Groupe 2024 1,49 Mds CHF, -2% » ; EBIT_H donne S1-2025 744 + S2-2025 498 = 1 242 M CHF ; pic S1-2022 2 195 selon l'anti-these",
+  "correction_validee": "Supprimer « Group EBIT », EBIT_H couvre deja l'EBIT du groupe avec des periodes etiquetees jusqu'au S1-2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "sea_logistics_turnover, sea_logistics_gross_profit, sea_logistics_ebit_conversion_rate, sea_logistics_teus, air_logistics_tons, sea_logistics_conversion_rate, air_logistics_conversion_rate, road_logistics_conversion_rate, contract_logistics_conversion_rate",
+  "probleme": "Bloc de 9 KPI a 3 points sans etiquettes, en ordre antichronologique (2023, 2022, 2021), arretes en 2023 mais dates 2026-08-05, signaux generiques, valeurs contredites par les series etiquetees.",
+  "preuve": "sea_logistics_teus 4338, 4386, 4613 = KNIN_TEU FY2023, FY2022, FY2021 inverses ; sea_logistics_turnover 9934/20608/15662 vs SEA_REV FY2023=8601, FY2022=18753, FY2021=13706 ; signaux « Baisse importante du chiffre d'affaires », « Diminution de la marge brute » ; sea_logistics_ebit_conversion_rate et sea_logistics_conversion_rate serie identique 43.8/58.1/55.5 avec yoy -24.6% et -14.3%",
+  "correction_validee": "Supprimer les 9 KPI ; SEA_REV, AIR_REV, les EBIT par segment, TEU, AIRTON et CONV_RATE couvrent ces mesures jusqu'a 2025 (les taux de conversion par segment ne sont pas repris ailleurs, mais ils sont perimes et non etiquetes).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Sea Logistics TEUs, Air Logistics Tonnage, Conversion Rate, Contract Logistics GP, KNIN_TEU",
+  "probleme": "Le meme indicateur existe en 3 ou 4 versions dont les valeurs se contredisent ; les versions non etiquetees n'ont ni periode ni signal.",
+  "preuve": "TEU 2025 = 4,3 M ; KNIN_TEU = 4 325 k ; « Sea Logistics TEUs » = 4.5, 4.9, 4.3, 4.4, 4.5 (4,9 jamais atteint, pic reel 4,6 en 2021) ; AIRTON 2025 = 2,2 Mt vs « Air Logistics Tonnage » 1.6 ; CONV_RATE 2025 = 16 vs « Conversion Rate » 17 ; KNIN_TEU signal = « Produit phare : L'organisation du transport maritime... » (description, pas un signal)",
+  "correction_validee": "Supprimer Sea Logistics TEUs, Air Logistics Tonnage, Conversion Rate, Contract Logistics GP et KNIN_TEU, et garder TEU, AIRTON et CONV_RATE.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification generique et fausse : elle pretend qu'un seul indicateur est disponible et situe le pic en 2021.",
+  "preuve": "« Le seul indicateur disponible montre un resultat operationnel semestriel en repli de 2,7 % et loin du pic de 2021 » ; la fiche compte une quarantaine de KPI ; anti-these : pic au S1-2022 (2 195 M CHF)",
+  "correction_validee": "Reecrire a partir de CONV_RATE (33,9 % → 16 %), GP_H stable et TEU stable, avec le pic S1-2022.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "accroche",
+  "probleme": "Chiffre faux dans l'accroche : l'ecart de marge brute est superieur a 6 %.",
+  "preuve": "« passee de 4 649 a 4 359 M CHF, soit moins de 6 % d'ecart » ; 4359/4649 = -6,2 %",
+  "correction_validee": "Ecrire « soit un ecart d'environ 6 % » ou « soit 6,2 % d'ecart ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CL_EBIT.signal",
+  "probleme": "Le signal affirme une progression continue alors que la serie recule sur le dernier exercice.",
+  "preuve": "signal « seul segment en progression continue depuis 2021 » ; serie FY2024=227, FY2025=217 (-4 %)",
+  "correction_validee": "Preciser « en base recurrente (255 M CHF) » ou retirer « progression continue ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TEU.signal, AIRTON.signal, these, att",
+  "probleme": "Le statut de numero 1 mondial en volumes maritime et aerien est affirme quatre fois sans reserve alors que DSV a absorbe Schenker en avril 2025 et depasse ces volumes.",
+  "preuve": "TEU signal « confirme la place de numero 1 mondial du fret maritime » ; AIRTON « numero 1 mondial du fret aerien » ; these « reste le numero un mondial du fret maritime et aerien en volumes »",
+  "correction_validee": "Verifier le classement 2025 (DSV+Schenker) et reformuler en « parmi les deux premiers » si necessaire.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Le KPI central d'un commissionnaire de transport, la marge brute par TEU et par tonne (yield), est absent alors que toutes les briques sont sur la fiche.",
+  "preuve": "GP_H, SEA_REV, AIR_REV, TEU et AIRTON presents ; aucun KPI « marge brute par TEU » ni « EBIT par TEU »",
+  "correction_validee": "Ajouter GP par TEU (Sea) et GP par tonne (Air) en serie annuelle.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FCF.history, AIRTON.history",
+  "probleme": "Trous dans les series annuelles : l'exercice 2023 manque sur deux KPI.",
+  "preuve": "FCF : FY2021=1793, FY2022=3751, FY2024=618 ; AIRTON : FY2022=2.2, FY2024=2.1",
+  "correction_validee": "Completer FY2023 (FCF et tonnage aerien publies dans le rapport 2023).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

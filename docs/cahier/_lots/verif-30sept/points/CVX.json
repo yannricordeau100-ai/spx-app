@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "series trimestrielles (EPS_DILUTED, NET_INCOME, OCF, FCF, CAPEX, segments, productions, prix) + REVENUE",
+  "probleme": "Le T2-2026 (publie fin juillet 2026) manque sur presque toutes les series trimestrielles alors que la these et l anti-these le citent (record de production au printemps 2026, trimestre record de 12,1 Mds $, baril a 92 $). Seule REVENUE a un point Q2-2026=67.199 mais son yoy (+2 %) et son signal (T1-2026 : 48,6 Mds $, Brent 81 $) ne correspondent pas a ce point : 67.2 vs 44.8 au Q2-2025 fait +50 %, pas +2 %.",
+  "preuve": "NET_INCOME dernier 2026-03-31 ... Q1-2026=2.21 ; REVENUE dernier 2026-09-04 ... Q1-2026=48.6, Q2-2026=67.199, yoy=+2%, signal 'T1-2026 : 48,6 Mds $' ; these : 'record trimestriel de production au printemps 2026' ; att : 'Le trimestre record de 12,1 Mds $ ... baril a 92 $'",
+  "correction_validee": "Ajouter le T2-2026 sur toutes les series trimestrielles depuis le communique du T2, verifier 67,2 Mds $ a la source, puis recalculer le yoy de REVENUE et reecrire son signal sur le T2.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle (+ dette_sur_ca, dette_par_salarie)",
+  "probleme": "La serie annuelle de dette totale contredit la serie trimestrielle TOTAL_DEBT aux trois dates communes, avec des ecarts de 5 a 10 Mds $ ; les ratios derives (dette_sur_ca, dette_par_salarie) heritent de l erreur.",
+  "preuve": "dette_annuelle : 2023=25.379, 2024=32.791, 2025=50.699 ; TOTAL_DEBT : Q4-2023=20.8, Q4-2024=24.5, Q4-2025=40.8 ; signal TOTAL_DEBT 'ratio dette nette/CFFO maitrise a 1,3x'",
+  "correction_validee": "Retirer dette_annuelle, dette_sur_ca et dette_par_salarie jusqu a une nouvelle extraction depuis le bilan (dette court terme + long terme), et garder TOTAL_DEBT.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Hess Synergies Run-Rate, Tengiz FGP Production, Permian Production, Total Production, Shareholder Returns, Permian Basin production",
+  "probleme": "Six KPI a nom anglais, sans dates sur les points, doublonnent des KPI dates et se contredisent : Total Production 3,3 M boe/j en 2025 contre 3 723 kboe/j (CAHIER_PRODUCTION) et 4 086 MBOED au T3-2025 ; Tengiz FGP Production = TCO_GROSS_OUTPUT ; Hess Synergies Run-Rate = HESS_SYNERGIES ; Permian Production (M boe/d) = Permian Basin production (MBOED).",
+  "preuve": "Total Production ... serie: 3.08, 3.1, 3.12, 3.16, 3.3 ; CAHIER_PRODUCTION FY2025=3723 ; Net oil-equivalent production ... 4086, 4045, 3858 ; Hess Synergies Run-Rate serie: 0, 0, 0, 0.3, 1 ; HESS_SYNERGIES FY2025=1",
+  "correction_validee": "Supprimer les six KPI sans dates, puis dater Permian Basin production pour qu il serve de reference.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Shareholder Returns.signal vs DIV_PER_SHARE.signal",
+  "probleme": "Deux compteurs de hausses de dividende contradictoires sur la meme fiche : 16e annee consecutive contre 38e annee consecutive. Le bon chiffre est 38 (Chevron releve son dividende chaque annee depuis 1988).",
+  "preuve": "Shareholder Returns :: 'Dividendes + buybacks, 16e annee consecutive hausse div' ; DIV_PER_SHARE :: 'Le dividende est releve pour la 38e annee consecutive'",
+  "correction_validee": "Supprimer Shareholder Returns (point 2) et verifier le rang de la hausse 2026 dans le signal de DIV_PER_SHARE (38e ou 39e).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RRR vs RESERVE_REPLACEMENT",
+  "probleme": "Meme indicateur sous deux noms (taux de remplacement / renouvellement des reserves, 158 % en 2025) ; CAHIER_RRR affiche en plus un yoy absurde de -4050 % parce que 2024 vaut -4.",
+  "preuve": "RESERVE_REPLACEMENT ... FY2025=158 ; CAHIER_RRR ... FY2024=-4, FY2025=158, yoy=-4050.0%",
+  "correction_validee": "Garder CAHIER_RRR sous le nom Taux de remplacement des reserves, supprimer RESERVE_REPLACEMENT et afficher la variation en points quand la base est negative ou nulle.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Les quatre series s arretent en 2019 (48 200 salaries) alors que la fiche va jusqu en 2025 et que Hess a ete integree ; les trois ratios par salarie sont etiquetes 'dernier 2025-12-31' alors que leur dernier point est 2019. La detection mecanique ne signale que la date du signal, pas l arret des series.",
+  "preuve": "effectifs_annuels dernier 2020-02-21 n=4 serie: 2016=55200 ... 2019=48200 ; ca_par_salarie dernier 2025-12-31 n=4 serie: 2016=2073.8 ... 2019=3039.8",
+  "correction_validee": "Completer les effectifs 2020-2025 depuis les rapports annuels (environ 45 000 fin 2024, plus Hess en 2025) et recalculer les trois ratios ; sinon retirer les trois ratios perimes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PROVED_RESERVES.unit",
+  "probleme": "Unite mal orthographiee et en anglais : 'Billon BOE'.",
+  "preuve": "KPI PROVED_RESERVES | Reserves prouvees | Total Proved Reserves | Billon BOE",
+  "correction_validee": "Unite 'Mds bep' et signal '10,6 Mds bep fin 2025'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "La repartition par segment est vide : quatre segments listes sans aucun pourcentage ni exercice.",
+  "preuve": "revenue_by_segment (None): Downstream Int'l. None ; Downstream U.S. None ; Upstream Int'l. None ; Upstream U.S. None",
+  "correction_validee": "Renseigner les parts 2025 (ventes par segment du rapport annuel) ou masquer le bloc tant qu il est vide.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions de marche",
+  "champ": "market_positions[0], [1]",
+  "probleme": "Deux positions de marche sans libelle ni part, seulement une taille (4000 et 3128.22) sans unite : illisible pour un investisseur.",
+  "preuve": "position de marche 1: None | taille 4000 | part None ; position de marche 2: None | taille 3128.22 | part None",
+  "correction_validee": "Nommer le marche et l unite ou retirer le bloc.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "INTL_UPSTREAM_PROD.signal, Gulf of America production target.signal",
+  "probleme": "Apostrophes parasites dans deux signaux.",
+  "preuve": "'+117 kbep/j'YoY grace a Hess' ; 'plus de 300k b/j'au Golfe d Amerique'",
+  "correction_validee": "Ecrire '+117 kbep/j sur un an grace a Hess' et 'plus de 300 kb/j au Golfe d Amerique'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "description_simple.products / edge",
+  "probleme": "Franglais et incoherence de toponyme : 'low carbon', 'RNG', 'position prime', 'Gulf of Mexico' alors que les KPI disent 'Golfe d Amerique'.",
+  "preuve": "'chimie et low carbon (hydrogene, RNG)' ; 'position prime aux Etats-Unis (Permian, Gulf of Mexico)'",
+  "correction_validee": "Reecrire : 'bas carbone (hydrogene, gaz renouvelable)', 'position de premier plan (Permien, Golfe d Amerique)'.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "2023 share repurchase authorization.signal, Hess acquisition purchase price, Chevron shares issued for Hess, Bakken net acreage, Smackover lithium acreage",
+  "probleme": "Faits ponctuels (prix d acquisition, actions emises, superficies, autorisation de rachat) presentes comme des KPI trimestriels a un seul point ; l un est perime (execution du programme arretee a fin T1-2025 alors que la fiche va au T1-2026).",
+  "preuve": "2023 share repurchase authorization ... n=1 val=75 :: '30,3 milliards deja executes fin Q1-2025' ; BUYBACKS Q2-2025..Q1-2026 = 2.7+2.6+3+2.6",
+  "correction_validee": "Basculer ces faits en 'stories' ou dans la these, ou au minimum mettre a jour le montant execute (environ 41 Mds $ fin T1-2026 d apres BUYBACKS).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

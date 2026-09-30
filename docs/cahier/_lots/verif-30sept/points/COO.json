@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "COO_OperatingIncome, COO_DilutedShares et ensemble des KPI trimestriels",
+  "probleme": "Mise à jour partielle du T3 FY2026 : deux KPI ont la valeur du T3 mais un yoy et un signal du T2, tous les autres s'arrêtent au T2 alors que la thèse s'appuie sur le T3 publié le 9 septembre 2026.",
+  "preuve": "COO_OperatingIncome val = 222 (Q3-FY2026) avec yoy « -117% » et signal « T2 FY2026 : perte opérationnelle de 31,0 M$ » (le vrai yoy T3 : 175,7 → 222 = +26 %) ; COO_DilutedShares val = 193,4 avec signal « T2 FY2026 : 195,0 millions » ; COO_Revenue, COO_NetIncome, COO_OCF... dernier 2026-04-30 ; thèse : « Le trimestre clos le 31 juillet 2026 a vu le résultat d'exploitation progresser de 26 pour cent », « Données arrêtées au 9 septembre 2026 ».",
+  "correction_validee": "Integrer le T3 FY2026 sur toutes les series trimestrielles et recalculer yoy et signaux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "COO_NetIncome.signal, CS_OpMargin.signal, MiSight myopia management revenue.yoy",
+  "probleme": "Chiffres cités dans les textes différents de la série.",
+  "preuve": "COO_NetIncome signal « contre un bénéfice de 116,2 M$ un an plus tôt » vs série Q2-FY2025 = 87,7 (yoy -189 % cohérent avec 87,7) ; CS_OpMargin signal « (marge de 7,1% au T1 FY2026) » vs série Q1-FY2026 = 8,1 (7,1 = Q2-FY2025) ; MiSight yoy « +24% » vs série 28 → 32 = +14 %.",
+  "correction_validee": "Corriger 116,2 en 87,7, 7,1 % en 8,1 % et le yoy MiSight en +14 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "COO_DilutedShares.history",
+  "probleme": "Série mélangeant nombre d'actions avant et après la division par quatre de février 2024 : saut x4 non retraité.",
+  "preuve": "history_periods Q3-FY2023 = 798,4 puis Q1-FY2024 = 199,9.",
+  "correction_validee": "Diviser par 4 uniquement les trois points Q1 a Q3 FY2023.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CV_AsiaPac.signal, COO_Employees.signal",
+  "probleme": "Citations en anglais dans des signaux français.",
+  "preuve": "CV_AsiaPac : « \"net sales declined due to softness in Japan\" » ; COO_Employees : « \"we had a workforce of more than 15,000\" ».",
+  "correction_validee": "Remplacer par une formulation francaise sans guillemets (ventes en recul du fait de la faiblesse au Japon ; effectif de plus de 15 000 personnes).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CV_Capex, CV_RD, CV_Depr, CV_Amort, CS_Capex, CS_RD, CS_Depr, CS_Amort (signal)",
+  "probleme": "Huit signaux mentionnent la source documentaire et utilisent le point décimal.",
+  "preuve": "« T2 FY2026 : 76.6 M$ (CooperVision), donnée de la note segments du rapport trimestriel du 05-06-2026. » répété sur les huit KPI.",
+  "correction_validee": "Retirer la mention de la note segments et passer en virgule decimale sur les huit signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Share of global contact lens wearers using CooperVision.signal",
+  "probleme": "Le signal proclame CooperVision numéro un mondial, en contradiction avec la description et la position de marché de la même fiche.",
+  "preuve": "Signal : « Numéro un mondial de la lentille avec environ un tiers des porteurs » ; description edge : « la position 3 mondiale en lentilles de contact » ; position de marché : « cohérente avec la position de troisième acteur mondial derrière Alcon et Johnson and Johnson ».",
+  "correction_validee": "Supprimer numero un mondial et verifier que le 33 % est une part en porteurs et non en valeur.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography vs KPI International Mix",
+  "probleme": "Répartition géographique incohérente avec le chiffre d'affaires et avec un KPI de la fiche.",
+  "preuve": "revenue_by_geography : Amérique du Nord 63,7 %, International 36,3 %, total 3,02 Mds $ alors que revenue_annuel 2025 = 4,092 Mds $ ; KPI « International Mix » = 56 % avec description « 56 % du CA hors USA ».",
+  "correction_validee": "Reconstruire la repartition geographique a partir de la note du 10-K FY2025 (Etats-Unis, Europe, reste du monde) ; International Mix releve de la detection serie plate.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CooperVision Revenue, CooperSurgical, MiSight Adoption, International Mix, Silicone Hydrogel Mix, MyDay Family Sales, Biofinity Family Sales",
+  "probleme": "Bloc annuel sans années, daté 2026-09-14, aux valeurs d'une régularité suspecte pour des données que Cooper ne publie pas (ventes par marque, patients MiSight), sans signal et avec des descriptions télégraphiques.",
+  "preuve": "« Silicone Hydrogel Mix » 55, 60, 65, 70, 75 ; « MyDay Family Sales » 205, 250, 295, 348, 410 ; « MiSight Adoption » 50000, 150000, 250000, 330000, 500000 ; descriptions « Premium ASP + récurrent », « Seul produit FDA-approved aux USA » ; « CooperVision Revenue » et « CooperSurgical » doublonnent CV_Total et CS_Total.",
+  "correction_validee": "Supprimer le bloc, sauf series sourcables point par point.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_HVP_MIX",
+  "probleme": "Nom en « part » mais unité en millions de dollars : la série est en fait le chiffre d'affaires annuel des lentilles toriques et multifocales, déjà suivi en trimestriel.",
+  "preuve": "« Part des produits à haute valeur ajoutée | Hvp Mix | M $ | FY2025 = 1351.3 » ; somme des quatre trimestres FY2025 de « Toric and multifocal lens revenue » : 319,4+328,4+358,8+344,6 = 1 351,2.",
+  "correction_validee": "Renommer « Ventes lentilles toriques et multifocales (annuel) » ou supprimer ; corriger la date 2025-12-31 en 2025-10-31.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "COO_FCF.description",
+  "probleme": "Explication contraire aux chiffres : le FCF est en forte hausse sur un an et les investissements ont baissé d'un trimestre à l'autre.",
+  "preuve": "Description : « Le recul provient d'une hausse des investissements industriels » ; COO_FCF yoy « +433% » (18,1 → 96,4) ; COO_Capex Q1-FY2026 = 102,2 → Q2-FY2026 = 86,4.",
+  "correction_validee": "Réécrire sur la base des chiffres (repli séquentiel lié au flux d'exploitation, hausse sur un an).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ia",
+  "champ": "ai_positioning.summary et evidence",
+  "probleme": "Texte de gabarit avec sous-secteur en anglais entre parenthèses et cuisine interne dans les preuves.",
+  "preuve": "summary : « ... mentionne peu l'IA dans ses communications officielles (Medical Devices & Healthcare). » ; evidence : « disponibles localement », « Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication », source_note « Sources locales sans mentions IA significatives ».",
+  "correction_validee": "Retirer la parenthese (Medical Devices & Healthcare) et les mentions internes des preuves et de source_note.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Consecutive quarters beating consensus earnings, Japanese elementary schoolchildren who are myopic, Biofinity prescription options, Remaining share repurchase authorization",
+  "probleme": "Pseudo-KPI à un point : statistique de consensus, donnée de marché, argument marketing et doublon périmé.",
+  "preuve": "« Consecutive quarters beating consensus earnings | 10 », « Japanese elementary schoolchildren who are myopic | 77 % », « Biofinity prescription options vs all monthly brands | x | 6 », « Remaining share repurchase authorization | 966.4 » alors que COO_BuybackAuthLeft = 860,8 au 30-04-2026.",
+  "correction_validee": "Supprimer ces quatre entrées.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "net_revenue, operating_income, net_income, eps_diluted, rd_expense, sga_expense",
+  "probleme": "Le point T3 2026 a été ajouté, mais les variations et les signaux sont restés ceux du T2",
+  "preuve": "net_revenue val 12213, yoy +40,0 % = 10678/7627 (T2) alors que 12213/9136 = +33,7 % ; operating_income +167,4 % = (747+1109)/1109 ; eps val 1,06, signal « 0,44 dollar » ; marges, trésorerie et segments s'arrêtent au 30/04/2026",
+  "correction_validee": "Recalculer les variations sur le T3 (T3 2026 contre T3 2025), réécrire les signaux et compléter les KPI arrêtés au 30/04/2026, sinon retirer les points T3.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "diluted_shares.signal, equity.signal",
+  "probleme": "Les signaux affirment que Juniper a été payé en actions, alors que l'achat s'est fait en numéraire",
+  "preuve": "diluted_shares : « Dilution liée aux actions émises en paiement de l'acquisition Juniper » ; anti-thèse : « racheté Juniper… pour environ 13,4 Mds $ en trésorerie » ; KPI Juniper : « 40,00 USD par action »",
+  "correction_validee": "Réécrire les deux signaux (financement par dette et actions préférentielles, pas de paiement en titres)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "networking_op.signal",
+  "probleme": "Le signal est faux : Networking n'est pas le premier contributeur au résultat",
+  "preuve": "« Networking, premier contributeur au résultat opérationnel du groupe » ; T2 2026 : networking_op 581 contre cloud_ai_op 954",
+  "correction_validee": "Écrire « deuxième contributeur, meilleure marge du groupe (21,6 %) »",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "hybrid_cloud_rev, hybrid_cloud_op, hybrid_cloud_op_margin, server_rev, buybacks (signaux)",
+  "probleme": "Les signaux vont dans le sens inverse des séries",
+  "preuve": "hybrid_cloud_rev « croissance régulière » à -11,0 % ; hybrid_cloud_op « redressée » à -41,8 % ; marge « en amélioration » à -2,8 pts ; server_rev « portée par la montée en puissance » à -4,7 % ; buybacks « ralentis » à +208 % (154 contre 50)",
+  "correction_validee": "Réécrire ces signaux à partir des chiffres",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Combined company employee base",
+  "probleme": "Troisième doublon des effectifs, avec un signal qui contredit la série",
+  "preuve": "série 65000 → 67000 ; signal « La baisse traduit les synergies de coûts » ; employees et effectifs_annuels valent déjà 67000 en 2025",
+  "correction_validee": "Supprimer Combined company employee base.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Juniper acquisition, synergies, H3C, Catalyst, UK Ministry of Justice, Alletra, Wi-Fi 7, VM Essentials, AI systems backlog",
+  "probleme": "Des événements ponctuels et des chiffres d'appel de résultats sont présentés comme des KPI : pas de période, une date qui n'est pas une fin de trimestre, un identifiant en anglais",
+  "preuve": "UK MoJ « Réduction des incidents réseau » 75 % ; unités « x (multiple annuel) », « % (S1) » ; AI systems backlog [3.2, 3.7, 5, 5.9] sans trimestres, daté 2026-03-28 alors que les trimestres HPE finissent le 31/01 et le 30/04",
+  "correction_validee": "Retirer les événements ponctuels et dater par trimestre le carnet IA et les commandes IA",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GreenLake customers / Systems managed on GreenLake",
+  "probleme": "Trois nombres de clients GreenLake incompatibles entre eux",
+  "preuve": "série [1100, 50000] ; le signal de Systems managed dit « Environ 15 000 clients gèrent… 6,7 millions de systèmes » ; unité « customers »",
+  "correction_validee": "Garder une seule définition datée ou supprimer le KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Le statut « leader » repose sur un simple regroupement comptable : Cloud et IA fusionne Serveurs, Hybrid Cloud et Services financiers",
+  "preuve": "« un segment Cloud AI qui représente désormais la majorité du chiffre d'affaires » ; cloud_ai_rev Q1-2025 6511 = 4271 + 1367 + 872",
+  "correction_validee": "Appuyer le texte sur le carnet de systèmes IA et les commandes IA, pas sur le nom du segment",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis + thèse",
+  "champ": "greenlake_arr, ocf, fcf, these",
+  "probleme": "L'ARR est arrêté fin 2025, et la thèse cite des flux sur 9 mois absents des séries ou différents d'elles",
+  "preuve": "greenlake_arr dernier Q4-2025 = 3151 ; thèse « 4 229 M$ sur neuf mois » alors que ocf s'arrête au T2 (1178 + 1410) ; thèse « -934 M$ » de FCF sur 9 mois 2025 contre -918 - 1008 + 729 = -1 197 dans fcf",
+  "correction_validee": "Prolonger ARR, OCF et FCF au T3 2026 et aligner la définition du FCF de la thèse sur celle du KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tête / répartition / risques",
+  "champ": "tagline, revenue_by_segment, revenue_by_geography, risks.score_rationale",
+  "probleme": "Textes en anglais et anciens noms de segments",
+  "preuve": "tagline « Accelerating business outcomes… » ; « Server Segment », « Corporate Investments », « Asia Pacific and Japan » ; score_rationale « « our success depends… » (Premier item de Risks Related…) Item 1A »",
+  "correction_validee": "Franciser, aligner les segments sur l'organisation 2026 et retirer les citations et mentions « Item 1A »",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Formule interne et texte sans avantage concurrentiel",
+  "preuve": "« …et aucun avantage concurrentiel n'est reconnu »",
+  "correction_validee": "Retirer la formule et rédiger le moat (réseau Juniper et Aruba, base installée, financement client) ou masquer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description",
+  "probleme": "Description datée et vague : Juniper absent, nom de gamme mal écrit, avantage générique",
+  "preuve": "« commutateurs Aruba » sans Juniper ; « solutions de stockage Alltra » ; « notoriété de sa marque »",
+  "correction_validee": "Mettre à jour (Juniper, systèmes IA, Alletra) et préciser l'avantage",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

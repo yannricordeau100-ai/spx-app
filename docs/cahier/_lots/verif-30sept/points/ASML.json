@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis + hero",
+  "champ": "systems_sold, units, Systems Shipped Units",
+  "probleme": "Le hero annuel est incohérent avec la série trimestrielle d'unités et présente un saut inexpliqué.",
+  "preuve": "systems_sold FY2022 = 345, FY2023 = 600 (+74 % quand le CA fait +30 %), FY2024 = 583, FY2025 = 535 ; somme des unités neuves trimestrielles : 2023 = 421, 2024 = 380, 2025 = 300, plus 27 machines d'occasion en 2025 selon la thèse (environ 327) ; « Systems Shipped Units » « 583 systemes net livres FY24 ».",
+  "correction_validee": "Vérifier la définition dans le rapport annuel, puis soit ramener 2023 à 2025 à la lithographie seule, soit renommer le KPI et signaler la rupture ; supprimer « Systems Shipped Units ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SYSTEM_ORDERS_BACKLOG, Net Bookings, Q4 Bookings",
+  "probleme": "Commandes en euros bruts, nom inexact, et deux doublons de la série trimestrielle bookings.",
+  "preuve": "unité « € », val 28 035 000 000, série 8 181 000 000 ... ; nom « Commandes de systèmes et carnet de commandes » pour des prises de commandes nettes ; « Net Bookings » [30.7, 20.04, 18.899, 28.035] sans libellés ; « Q4 Bookings » [9.2, 7.088, 13.158] = extrait de bookings.",
+  "correction_validee": "Convertir en Mds €, renommer « Prises de commandes nettes annuelles », supprimer « Net Bookings » et « Q4 Bookings ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_INSTALLED_BASE_SERVICE, Installed Base Management",
+  "probleme": "Revenus de base installée en euros bruts et doublon dont l'explication est celle du chiffre d'affaires.",
+  "preuve": "« € » 8 193 000 000 ; « Installed Base Management » 8,193 Mds € avec explication « Total des ventes de la période. Point de départ de toute analyse : sans croissance des ventes... » ; ibm trimestriel existe aussi.",
+  "correction_validee": "Convertir CAHIER_INSTALLED_BASE_SERVICE en Mds € et supprimer « Installed Base Management ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_china.signal, revenue_taiwan.signal, revenue_korea.signal",
+  "probleme": "Virgules décimales perdues dans les signaux affichés.",
+  "preuve": "« (-6 6% sur un an) », « (+91 5% sur un an) », « (+27 3% sur un an) ».",
+  "correction_validee": "Écrire -6,6 %, +91,5 % et +27,3 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "China Share, Systems Shipped Units, High-NA EUV First Install, Total Suppliers",
+  "probleme": "KPI à un point redondants, périmés ou qui ne sont pas des indicateurs ; textes sans accents.",
+  "preuve": "« China Share » 29,15 % = revenue_by_geography 29,14 ; « Systems Shipped Units » 583 = systems_sold FY2024 ; « High-NA EUV First Install » val 1 « systeme » (événement 2024) ; « Premier High-NA EUV (EXE:5000) installe en 2024 », « 10 ans de developpement ».",
+  "correction_validee": "Supprimer China Share, Systems Shipped Units et High-NA EUV First Install ; corriger les accents de Total Suppliers.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rd_costs, euv_units, operating_income",
+  "probleme": "Séries trop courtes pour des postes clés publiés depuis des années.",
+  "preuve": "rd_costs n=2 (FY2024, FY2025) ; euv_units n=2 ; operating_income n=4 ; revenue et net_income remontent à 2016.",
+  "correction_validee": "Étendre à 10 ans depuis les rapports annuels.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "units, bookings, ventes, ibm",
+  "probleme": "Quatre séries trimestrielles sans nom anglais, sans signal ni description, libellés de période différents du reste de la fiche.",
+  "preuve": "name_en vide, signal « », périodes « T3 2024 » alors que les autres KPI utilisent « Q3-2024 ».",
+  "correction_validee": "Renseigner signal, description et name_en ; harmoniser les libellés.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur sectoriel manquant",
+  "probleme": "Pas de série de ventes EUV en M€ ni de part EUV dans les ventes de systèmes, alors qu'ASML les publie chaque trimestre ; seul euv_units (2 points) existe.",
+  "preuve": "description de « Q4 Bookings » : « 13,2 Mds € dont 7,4 Mds € EUV » sans KPI correspondant.",
+  "correction_validee": "Créer la série EUV (ventes et unités) depuis les communiqués trimestriels.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

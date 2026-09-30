@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "avg_closing_price",
+  "probleme": "Prix moyen négatif à chaque T4 depuis 2020 : le T4 a été dérivé par soustraction sur une moyenne.",
+  "preuve": "historique : -594.3, -620.1, -746.1, -762.7, -755.9, -746.6 aux T4 ; Q4-2025=-746.6 K$.",
+  "correction_validee": "Remplacer chaque point T4 par le prix moyen trimestriel publié dans le communiqué T4, ou retirer ces points.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Rental Closings",
+  "probleme": "KPI cassé : sans période, sans dates, valeur affichée absente de la série, signal d'un mot, noms en anglais.",
+  "preuve": "« Rental Closings | units | None | val=6407 | serie: 200, 1500, 5300, 7700, 7800 :: Plateau. »",
+  "correction_validee": "Supprimer Rental Closings.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Sales Orders",
+  "probleme": "Troisième version des commandes nettes (déjà CAHIER_NET_ORDERS et net_sales_orders), sans dates, en milliers, description avec jargon anglais.",
+  "preuve": "« Net Sales Orders | K | serie: 81.378, 76.137, 78.342, 86.561, 83.423 :: Demande FY25 -4% YoY... Cancellation rate FY25 = 18% (stable vs FY24) »",
+  "correction_validee": "Supprimer Net Sales Orders.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_LOTS_OPTIONED, CAHIER_NET_ORDERS.name",
+  "probleme": "Noms qui annoncent deux mesures alors que la série n'en contient qu'une.",
+  "preuve": "« Lots contrôlés et part sous option » = 591900 = total détenus + contrôlés (lots_owned_controlled Q4-2025) ; « Commandes nettes et taux d'absorption » = commandes seules.",
+  "correction_validee": "Renommer en « Lots détenus et contrôlés (total) » et « Commandes nettes annuelles ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Quarterly dividend per share et autres KPI transcript (n=1)",
+  "probleme": "Doublon de dividend_per_share avec unité différente ; événements (émission obligataire fév. 2025, acquisition SK Builders) présentés comme KPI.",
+  "preuve": "« Quarterly dividend per share | USD | 0.45 » vs dividend_per_share Q3-2026=0.45 $/action ; « Senior notes issued due 2035 | 700 » ; « SK Builders acquisition | 80 ».",
+  "correction_validee": "Supprimer Quarterly dividend per share et basculer Senior notes 2035 et SK Builders en stories.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.resume",
+  "probleme": "Affirmation fausse : le groupe possède encore 126 600 lots.",
+  "preuve": "« Il a aussi cessé de posséder ses terrains pour se contenter de les réserver » ; lots_owned Q3-2026=126600 (22 % du total).",
+  "correction_validee": "Il ne possède plus que 22 % des lots qu'il contrôle, le reste étant réservé par contrat.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Texte de gabarit avec artefact de segment entre parenthèses.",
+  "preuve": "« D.R. Horton, Inc. mentionne peu l'IA dans ses communications officielles (Homebuilding). »",
+  "correction_validee": "D.R. Horton ne mentionne aucun usage concret de l'IA dans son rapport 2025.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risques 1 à 6",
+  "probleme": "Six risques sans description.",
+  "preuve": "« risque 1: Pénuries de terrains, matériaux et main-d'œuvre :: » (vide), idem 2 à 6.",
+  "correction_validee": "Rédiger les descriptions depuis le rapport annuel 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

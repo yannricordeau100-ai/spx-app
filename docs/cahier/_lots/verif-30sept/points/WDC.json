@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "HDD Revenue (hero)",
+  "probleme": "Le hero est périmé : il s'arrête au T3 FY2026, alors que l'exercice FY2026 (clos le 3 juillet 2026) est publié. Sa date est aussi fausse.",
+  "preuve": "dernier 2026-09-30 pour Q3-FY2026=3337 (trimestre clos en avril) ; T1+T2+T3 = 9 172, contre revenue_annuel FY2026 = 12 919, soit un T4 d'environ 3 747 manquant ; Capex et Inventory ont déjà un point Q4-FY2026",
+  "correction_validee": "Ajouter le point du T4 FY2026 lu dans le communiqué (environ 3,7 Mds $), dater chaque point à la vraie clôture (T3 au 2026-04-03, T4 au 2026-07-03) et prolonger de même les autres séries trimestrielles.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Datacenter Devices and Solutions, Client Devices, Client Solutions, License and Royalty, Client SSD Exabytes, Enterprise SSD Exabytes, Flash Bit Growth, Credit Loss Reserves, Net Accounts Receivable, Top 10 Customers Revenue Share",
+  "probleme": "Anciens indicateurs de l'époque flash/SSD (avant la scission de Sandisk), datés 2026-12-31. Ils sont hors sujet pour un fabricant de disques durs pur, leurs accents sont cassés et ils contredisent les séries actuelles.",
+  "preuve": "Client Devices 7 294 M$ ; 'systmes', 'Rserves pour pertes sur crances', 'Lgre diminution' ; Top 10 = 43 %, contre la série Top10 Clients = 71 %",
+  "correction_validee": "Supprimer ces 10 séries.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "HDD Exabytes / CAHIER_EXABYTES_SHIPPED / Exabytes Shipped",
+  "probleme": "Trois séries d'exaoctets aux valeurs incompatibles. Le signal de HDD Exabytes annonce un pic alors que la série montre une chute.",
+  "preuve": "HDD Exabytes : FY2024=793, FY2025=255, signal 'Pic historique ... +57%' ; CAHIER : FY2024=550 ; Exabytes Shipped : '420 EB shipped 2024'",
+  "correction_validee": "Garder une seule série d'exaoctets livrés, reconstruite depuis les communiqués (périmètre HDD après la scission), et supprimer les deux autres.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cloud Mix",
+  "probleme": "Les deux derniers points reprennent la série de concentration des 10 premiers clients. La série mélange aussi le périmètre d'avant et d'après la scission, et la variation est affichée en % au lieu de points.",
+  "preuve": "Cloud Mix Q1-2026=77, Q2-2026=76 = Top10 Clients Q1-FY2026=77, Q2-FY2026=76 ; revenue_by_segment Cloud 87,6 % ; yoy '+96.9%'",
+  "correction_validee": "Recalculer Cloud / CA total par trimestre sur le périmètre d'après la scission et afficher la variation en points.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cloud HDD Mix, Average HDD Capacity (TB) / Average HDD Capacity per Unit",
+  "probleme": "Valeurs estimées et contradictoires, avec des signaux en franglais.",
+  "preuve": "Cloud HDD Mix 55 %, alors que le cloud pèse 87,6 % du CA ; capacité moyenne 13 TB contre 9,3 TB dans la seconde série ; 'Tailwind IA data archives', 'ASP rising = pricing power'",
+  "correction_validee": "Supprimer 'Cloud HDD Mix', 'Average HDD Capacity (TB)' et 'Average HDD Capacity per Unit'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Client Revenue, Consumer Revenue, Cloud Revenue",
+  "probleme": "Rupture de périmètre dans les séries (flash inclus avant la scission), séries arrêtées fin 2025, et un signal contredit par la série.",
+  "preuve": "Client : Q2-2024=1204 puis Q3-2024=139 ; signal 'Déclin continu' avec yoy +25,7 % ; Cloud Revenue : n=3, dernier 2025-12-31",
+  "correction_validee": "Recommencer les séries après la scission et les prolonger jusqu'au T4 FY2026. Corriger le signal Client.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Top10 Clients.signal",
+  "probleme": "Le signal dit que la part des 10 premiers clients recule après la scission, alors que la série montre une hausse.",
+  "preuve": "série : 65, 67, 73, 68, 77, 76, 71 ; signal : 'La part des dix plus gros clients recule après la scission SanDisk'",
+  "correction_validee": "Réécrire le signal : la concentration a augmenté après la scission.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Capex.yoy, Inventory.signal",
+  "probleme": "Variation sur un an et signal calculés sur le T3 alors que la série affiche le T4.",
+  "preuve": "Capex Q4-FY2026=108 contre Q4-FY2025=71 (+52 %), yoy affichée +12 % (c'est 145/129) ; Inventory val=1511, signal 'Stocks 1357 M$ au T3-FY2026'",
+  "correction_validee": "Afficher Capex +52 % sur un an et Inventory +17 %, puis réécrire le signal d'Inventory sur le T4 FY2026 (1 511 M$).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / kpis",
+  "champ": "these.titre vs Op Income",
+  "probleme": "Résultat opérationnel FY2026 incohérent entre la thèse et le KPI annuel.",
+  "preuve": "these : 'de moins 403 millions ... à 4 453 millions' en un exercice ; KPI Op Income : -0.32 puis 5.65 Mds $",
+  "correction_validee": "Aligner les deux sur le rapport de l'exercice FY2026. Supprimer le KPI annuel s'il est faux.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel, ca_par_salarie, dette_sur_ca",
+  "probleme": "Rupture de périmètre : les années 2019-2022 incluent la flash, 2023+ sont retraitées sur le seul disque dur. La croissance annuelle et le CA par salarié sont donc faux.",
+  "preuve": "2022=18.793 puis 2023=6.255 ; '−4,2 % par an depuis 2017' ; ca_par_salarie 2023=118 (6,3 Mds $ pour 53 000 salariés, flash compris)",
+  "correction_validee": "Recommencer les séries en 2023, ou le signaler en clair.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat / ai_positioning / repartition",
+  "champ": "moat.niveau, ai_positioning, revenue_by_segment",
+  "probleme": "Le niveau de moat 'Aucun' contredit sa justification et la position dans un oligopole à 3 acteurs. Le positionnement IA mentionne des SSD que WDC ne vend plus. La répartition date de FY2025 alors que FY2026 est publié.",
+  "preuve": "moat : niveau 'Aucun', tendance_mettrik 'hausse', 'position d'équipementier rare' ; IA : 'portefeuille HDD/SSD' ; revenue_by_segment (exercice 2025)",
+  "correction_validee": "Revoir le niveau de moat, retirer 'SSD' et mettre à jour la répartition FY2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Dividend/Share vs Cash dividend program initiated",
+  "probleme": "Dividende incohérent entre les deux KPI.",
+  "preuve": "série 0.1, 0.1, 0.15 ; autre KPI : '0,125 USD/action déclaré'",
+  "correction_validee": "Vérifier les dividendes déclarés par trimestre et supprimer le KPI ponctuel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

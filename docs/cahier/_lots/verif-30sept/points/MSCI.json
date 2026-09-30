@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Index / Analytics / ESG & Climate (annuels)",
+  "probleme": "Trois series de revenus par segment fausses et doublons de Index Segment Revenue, Analytics Segment Revenue, Sustainability & Climate Revenue ; Index en 'Mds $' vaut 0,1 alors que le segment fait 1,79 Md",
+  "preuve": "Index serie 0.16 ... 0.1 val=0.1 Mds $ ; Index Segment Revenue 2025=1786.81 M$ ; ESG & Climate val=343741 M$ vs Sustainability & Climate 353.92",
+  "correction_validee": "Supprimer les KPI annuels Index, Analytics et ESG & Climate.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Period-End AUM in ETFs / Quarterly Dividend per Share / Total Operating Revenue / Index, Analytics, Sustainability Segment Revenue (annuels)",
+  "probleme": "Doublons perimes ou annuels de series trimestrielles a jour",
+  "preuve": "Period-End AUM val=2403 (T1) vs etf_aum_linked Q2-2026=2818 ; Quarterly Dividend 2.05 = dividende_par_action ; Total Operating Revenue 3134.46 = revenue_annuel 3.134",
+  "correction_validee": "Supprimer Period-End AUM in ETFs, Quarterly Dividend per Share et Total Operating Revenue ; garder les segments annuels, qui sont justes et complètent les trimestriels.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total AUM benchmarked / Indexed equity benchmarked (unite) / Private credit database (unite) / CAHIER_ASSETS_INDEXED (unite)",
+  "probleme": "Unites contradictoires ou en phrase, valeur brute a 13 chiffres",
+  "preuve": "unit 'Bn USD (trillions)' val=21 ; unit 'prets (14 000 emprunteurs, 2 800 fonds)' ; CAHIER_ASSETS_INDEXED | $ | val=2340700000000",
+  "correction_validee": "Passer Total AUM benchmarked et Indexed equity en Mds $ (21 000 et 7 400), mettre l'unité « prêts » pour Private credit, convertir CAHIER_ASSETS_INDEXED en Mds $ (2 340,7).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment / revenue_by_geography",
+  "champ": "repartitions",
+  "probleme": "Repartitions vides alors que les chiffres 2025 sont sur la fiche",
+  "preuve": "Indices None ; Analytique None ; Ameriques None ; ca_geo_americas 2025=1408.1, ca_geo_emea 1242, ca_geo_asia 484.4 ; segments 1786.8 / 714.4 / 353.9 / total 3134.5",
+  "correction_validee": "Exercice 2025 : Indices 57 ; Analytique 23 ; Durabilité et climat 11 ; Actifs non cotés 9 ; Amériques 45 ; EMEA 40 ; Asie et Australie 15.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.text",
+  "probleme": "Chiffres du T1-2026 alors que le T2 est sur la fiche",
+  "preuve": "moat : 'revenus recurrents annualises gagnent 12,7 %, la retention ... 95,4 %' ; total_run_rate Q2-2026 yoy=+12.0 %, retention_rate Q2-2026=95.3 (Q1 : 3357.3/2979.2 = +12,7 %, 95.4)",
+  "correction_validee": "Remplacer par « gagnent 12,0 % » et « atteint 95,3 % » dans moat.text.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

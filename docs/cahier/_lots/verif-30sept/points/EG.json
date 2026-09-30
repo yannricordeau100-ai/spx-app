@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Reinsurance Premiums, Insurance Premiums, Reinsurance Loss Ratio",
+  "probleme": "Trois series annuelles sans annees dont les dernieres valeurs contredisent les series trimestrielles de la fiche : primes reassurance 11,8 Mds $ contre 12,8 en sommant reinsu_gwp 2025 ; primes assurance 5,1 contre 4,8 ; ratio de sinistralite reassurance 68 % contre environ 64 % (moyenne des trimestres 2025).",
+  "preuve": "Reinsurance Premiums | year | serie: 9.4, 11.4, 11.5, 12, 11.8 ; reinsu_gwp 2025 : 3219+3243+3206+3157 = 12825 ; Insurance Premiums 5.1 ; insur_gwp 2025 : 1145+1414+1147+1084 = 4790 ; Reinsurance Loss Ratio 68 ; reinsu_loss_ratio 2025 : 76.5, 58.3, 58, 63.7",
+  "correction_validee": "Supprimer Reinsurance Premiums, Insurance Premiums et Reinsurance Loss Ratio.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net written premium - Reinsurance segment, Net written premium - Insurance segment, Net premiums earned - Reinsurance/Insurance segment, Expense ratio - Reinsurance/Insurance segment, Total investments and cash, Share repurchases in the quarter, Share repurchases (full year)",
+  "probleme": "Neuf KPI a un ou deux points sans periodes, issus d une conference, qui doublonnent des series completes : rachats 331 (group_buybacks T1 2026 = 330), rachats 2025 797 (= 200+200+0+397), placements 45 020 (= group_total_investments T1 2026). Pour l assurance, la valeur affichee (692) n est pas le dernier point de la serie (872) et le yoy +5,6 % est incoherent.",
+  "preuve": "Net written premium - Insurance segment | val=692 | yoy=+5.6% | serie: 692, 872 ; Share repurchases (full year) val=797 ; group_buybacks 2025 : 200, 200, 0, 397 ; Total investments and cash serie: 45429, 45020",
+  "correction_validee": "Supprimer ces neuf KPI, en reportant si besoin les valeurs du T1 2026 dans les series trimestrielles des segments.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "reinsu_* et insur_* (14 series) vs rt_*, gws_*, legacy_* (5 series)",
+  "probleme": "Les 14 series des anciens segments Reassurance et Assurance s arretent au T4 2025 sans mention qu elles sont remplacees ; les nouveaux segments 2026 (Reinsurance Treaty, Global Wholesale & Specialty, Legacy) n ont que 4 points avec un trou aux T3 et T4 2025. Un investisseur ne comprend pas pourquoi la moitie de la fiche s arrete fin 2025.",
+  "preuve": "reinsu_gwp | dernier 2025-12-31 ; rt_gwp | n=4 | serie: Q1-2025=2935, Q2-2025=2951, Q1-2026=2674, Q2-2026=2720",
+  "correction_validee": "Completer T3 et T4 2025 des nouveaux segments (donnees retraitees publiees) et signaler dans les anciennes series qu elles sont closes a fin 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "insur_premiums_earned.signal",
+  "probleme": "Le signal dit en repli alors que la serie et le yoy montrent une hausse de 5,1 %.",
+  "preuve": "insur_premiums_earned | yoy=+5.1% | Q4-2024=900, Q4-2025=946 :: Primes acquises en repli, effet retard de la contraction des emissions",
+  "correction_validee": "T4 2025 : 946 M$ contre 900 un an plus tot (+5,1 %), les primes acquises progressent encore par effet retard malgre le recul des emissions.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_GWP_MIX, CAHIER_PML_RETURN",
+  "probleme": "Nom faux (Primes brutes emises par branche et par type de traite) pour une serie qui est la part du segment Reassurance dans les primes du groupe ; le champ unite contient une phrase entiere dans les deux KPI.",
+  "preuve": "CAHIER_GWP_MIX | % (part du segment Reassurance dans les primes brutes emises du groupe) ; CAHIER_PML_RETURN | M $ (perte economique nette, periode de retour de cent ans, zone et peril les plus exposes)",
+  "correction_validee": "Renommer CAHIER_GWP_MIX en Part de la reassurance dans les primes brutes, mettre l unite a % et M $, et deplacer les precisions dans la description.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_COMBINED_RATIO, CAHIER_RESERVE_DEV",
+  "probleme": "Doublons annuels de series trimestrielles a jour (ratio combine groupe = hero ; developpement des reserves).",
+  "preuve": "CAHIER_RESERVE_DEV FY2025=657 = group_prior_year_development 2025 (0+59+478+120) ; CAHIER_COMBINED_RATIO FY2025=98.6 vs group_combined_ratio 2025",
+  "correction_validee": "Decider de garder l annuel pour l historique long (20 ans) ou de le supprimer ; ne pas afficher les deux cote a cote sans le dire.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Iran conflict catastrophe provision, Adverse Development Cover gross limit, Losses ceded under ADC, Sale of commercial retail renewal rights to AIG, U.S. casualty prior-year reserve strengthening, Casualty premium reduction since January 2024, April 1 property catastrophe rate change, Alternative asset returns, Mt. Logan AUM",
+  "probleme": "Neuf evenements ponctuels a un point presentes comme des KPI, noms en anglais ; ils relevent de la these ou d une story.",
+  "preuve": "Iran conflict catastrophe provision | n=1 | val=58 ; Sale of commercial retail renewal rights to AIG | val=301 ; April 1 property catastrophe rate change | val=-13",
+  "correction_validee": "Retirer des KPI et integrer a la these ; garder Mt. Logan AUM seulement en serie annuelle.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "group_eps_diluted",
+  "probleme": "Serie a trous : T4 2024 et T4 2025 absents alors que le resultat net trimestriel est complet.",
+  "preuve": "group_eps_diluted serie : Q3-2024=11.8, Q1-2025=4.9 ... Q3-2025=6.09, Q1-2026=16.21 ; group_net_income Q4-2024=-593, Q4-2025=446",
+  "correction_validee": "Ajouter les BPA des T4 2024 (negatif) et T4 2025.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline",
+  "champ": "tagline, market_positions, risks",
+  "probleme": "Tagline en anglais ; deux positions de marche sans nom ni part (tailles 394,694 et 129,8 sans unite) ; cinq risques sans texte.",
+  "preuve": "tagline: A leading global reinsurance and insurance organization ... ; position de marche 1: None | taille 394.694 | part None ; risque 1: Pertes catastrophiques ... :: (vide)",
+  "correction_validee": "Traduire la tagline, supprimer ou completer les positions, rediger les risques.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

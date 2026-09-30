@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Revenue, Total Deposits, Total Loans, CET1 Ratio, Wealth AUM, Capex, Loans HFI",
+  "probleme": "Bloc d'anciens indicateurs non datés, contredits par les séries officielles de la fiche, avec des notes en anglais",
+  "preuve": "Revenue 30,44 Mds $ (+25,5 %) alors que le revenu trimestriel est d'environ 5,2 Mds $ ; Total Deposits 390 vs eop_dep_q 409,4 ; Total Loans 305 vs eop_loans_q 332,3 ; CET1 11,2 vs cet1 10,9 ; notes 'Boost post-TIH divestiture... Excellent vs Cat IV peers'",
+  "correction_validee": "Supprimer Revenue, Total Deposits, Total Loans, CET1 Ratio, Wealth AUM, Capex et Loans HFI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Loans HFI",
+  "probleme": "Signal en contradiction avec la série",
+  "preuve": "Signal 'Forte reprise du portefeuille de crédit' alors que la série va de 328 à 305 (-2 %)",
+  "correction_validee": "Supprimer Loans HFI (inclus dans le #22).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_NIM, CAHIER_CET1, CAHIER_ROTE, CAHIER_COST_INCOME, Return on tangible common equity",
+  "probleme": "Doublons annuels ou ponctuels des ratios trimestriels, avec des variations en % au lieu de points",
+  "preuve": "CAHIER_COST_INCOME yoy '-34.3%' (59,4 vs 90,4) ; CAHIER_CET1 '-6.1%' ; CET1 présent 3 fois (cet1, CAHIER_CET1, CET1 Ratio) ; rendement des fonds propres tangibles présent 3 fois",
+  "correction_validee": "Garder nim_te, cet1, rotce_q et supprimer CAHIER_NIM, CAHIER_CET1, CAHIER_ROTE, CAHIER_COST_INCOME et 'Return on tangible common equity' (ou, à défaut, variations en points).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "brokered_dep, ftes, atms, cet1_amt, mtg_orig",
+  "probleme": "Date de dernière donnée au 30 juin 2026 alors que la série et le signal s'arrêtent au T1 2026",
+  "preuve": "brokered_dep 'dernier 2026-06-30', dernier point Q1-2026=28488, signal 'au T1 2026'",
+  "correction_validee": "Ajouter le T2 2026 ou corriger la date",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fee_card / fee_deposit",
+  "probleme": "Rupture de classement au T3-2024 entre les deux lignes de commissions, qui fausse les variations",
+  "preuve": "fee_card Q3-2024=222 puis 334 ; fee_deposit Q3-2024=221 puis 134",
+  "correction_validee": "Recaler le T3-2024 et les trimestres antérieurs sur la présentation actuelle",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Return on tangible common equity",
+  "probleme": "Objectif déjà dépassé : le signal est périmé et le chiffre cité est faux",
+  "preuve": "'En hausse de 150 points de base, progression vers la cible de 15% en 2027' ; série 13,8 puis 15,4 (+160 points de base), déjà au-dessus de 15 %",
+  "correction_validee": "Supprimer ce KPI, doublon de rotce_q.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

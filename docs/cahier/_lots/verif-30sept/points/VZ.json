@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "hero / kpis",
+  "champ": "wireless_service_rev_consumer, total_wireless_service_rev, fwa_net_adds_consumer, fios_*",
+  "probleme": "Le hero et les principaux KPI mobiles s'arrêtent au T4 2025 (changement de présentation au T1 2026) : le revenu des services sans fil, KPI central d'un opérateur, manque pour 2026.",
+  "preuve": "hero wireless_service_rev_consumer dernier 2025-12-31 ; signal « série arrêtée au T4-2025 après le recast de reporting du T1-2026 »",
+  "correction_validee": "Reprendre les séries sur la nouvelle base 2026 (avec 2025 retraité) et basculer provisoirement le hero sur un KPI à jour (total_postpaid_phone_connections ou fwa_subscribers_total).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Wireless Postpaid Subs, Broadband Subs, Fios Internet Subs, Fixed Wireless Access, FWA Broadband, Postpaid Net Adds, Postpaid Connect.",
+  "probleme": "Séries annuelles arrondies, sans périodes, contradictoires entre elles et avec les séries trimestrielles (données non sourcées).",
+  "preuve": "FWA annuel 4,85 et 5,7 pour la même dernière année ; Fios Internet 7,45 vs 7,328 au T4-2025 ; Broadband 12,3 vs CONSUMER_TOTAL_BROADBAND 10,858 et 16,8 M ; Postpaid Net Adds 1,1 M vs 137 k (somme trimestrielle Consumer 2025)",
+  "correction_validee": "Supprimer ces sept séries annuelles et garder les trimestrielles sourcées.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Wireless Service Rev / Fios Revenue",
+  "probleme": "Nom et description faux : ces séries correspondent exactement au périmètre Consumer, pas au total.",
+  "preuve": "Wireless Service Rev 69,382 = somme Consumer 2025 (17199+17369+17441+17373) alors que le total vaut 83,7 Mds ; description « postpaid + prepaid + FWA + autres ... 65% du CA total » ; Fios Revenue 11,678 = somme fios_revenue_consumer, description « Consumer + Business »",
+  "correction_validee": "Supprimer ces deux doublons annuels des séries trimestrielles Consumer.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "business_segment_revenue / business_segment_op_income",
+  "probleme": "La série mélange base retraitée et non retraitée : la variation affichée ne se retrouve pas dans les points, et le signal parle d'une baisse alors que le yoy est positif.",
+  "preuve": "7275 -> 7155 = -1,6 % mais yoy=+2,6 % ; signal « La baisse reflète un reclassement » ; op_income signal « recastée (724 M$ au T2-2025) » vs série Q2-2025=638",
+  "correction_validee": "Retraiter l'historique 2025 sur la nouvelle base publiée.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "postpaid_phone_churn_consumer / postpaid_arpa / business_wireless_service_rev",
+  "probleme": "Signaux et variations faux : le churn est commenté au T1 alors que la valeur est celle du T2, la variation d'ARPA est calculée sur l'annuel, et le revenu Business est dit en « croissance » alors qu'il recule.",
+  "preuve": "churn val=0,85 (Q2-2026) signal « 0.90% au T1-2026 », yoy « 0bp » au lieu de -5 bp ; postpaid_arpa 139,77 -> 147,36 = +5,4 % mais yoy=+2,3 % ; business_wireless yoy -6,7 %, signal « Croissance modeste »",
+  "correction_validee": "Régénérer le signal du churn (0,85 % au T2 2026, -5 bp) et la variation ARPA (+5,4 %), et corriger le point Q4-2024 du Business wireless qui fausse sa variation.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fwa_subscribers_total / Fixed wireless access net additions / total_postpaid_phone_connections",
+  "probleme": "Trois chiffres différents pour les ajouts nets FWA du même trimestre, et un écart aussi sur le postpayé.",
+  "preuve": "signal « 193k ajouts nets » ; série 6,208-6,006 = 202 k ; transcript 214000 ; postpaid signal « 184k » vs 94,098-93,92 = 178 k",
+  "correction_validee": "Retenir le chiffre publié et aligner les textes.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PENETRATION_FIBRE / CAHIER_ARPU / CAHIER_CHURN_POSTPAYE / Consumer wireless postpaid ARPA",
+  "probleme": "La pénétration fibre s'arrête en 2015. CAHIER_ARPU est un ARPA (par compte) nommé ARPU et fait doublon avec postpaid_arpa. Le churn annuel a sa variation en % au lieu de points, et l'ARPA issu des transcripts est un troisième doublon.",
+  "preuve": "CAHIER_PENETRATION_FIBRE dernier FY2015=41,8 ; CAHIER_ARPU FY2025=147,31 = postpaid_arpa ; churn 0,83 -> 0,92 yoy=+10,8 % ; Consumer wireless postpaid ARPA 147,91",
+  "correction_validee": "Supprimer la pénétration fibre 2015, CAHIER_ARPU et l'ARPA des transcripts, et exprimer la variation du churn annuel en points (+0,09 pt).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ia / moat",
+  "champ": "ai_positioning, moat",
+  "probleme": "Positionnement IA générique alors que la fiche contient des chiffres IA précis. Moat nul et justifié par une variation du résultat, sans parler du spectre ni du réseau.",
+  "preuve": "« Intègre l'IA dans ses produits et opérations existants pour améliorer performance et expérience client » vs KPI « 85% des incidents réseau », « pipeline AI Connect 2 Md » ; moat « Le chiffre d'affaires progresse de 2,5 % mais le résultat net recule »",
+  "correction_validee": "Réécrire l'IA avec AI Connect et l'automatisation réseau ; rédiger un moat (spectre, réseau national, convergence fibre et mobile).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Customer satisfaction score improvement (AI-assisted care)",
+  "probleme": "Unité et valeur incompréhensibles (1 280 points de base de satisfaction).",
+  "preuve": "unité « points de base », val 1280",
+  "correction_validee": "Supprimer cette ligne.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "ai_optimized_servers_revenue / traditional_servers_networking_revenue / storage_revenue / commercial_revenue / consumer_revenue / us_net_revenue",
+  "probleme": "Series en ordre decroissant (graphique inverse), datees 2027-06-30, doublons de KPI existants",
+  "preuve": "ai_optimized_servers_revenue serie 24683, 9286, 1873 = AI_SRV_REV inverse ; storage_revenue 16631, 16457, 16261 ; dernier 2027-06-30",
+  "correction_validee": "Retirer les six KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "RPO",
+  "probleme": "Valeur negative impossible, signal absent de la serie, saut x2,6",
+  "preuve": "Q4-2025=-76 Mds $ ; signal : RPO $82B as of Jan 30 2026 (point absent) ; Q3-2026=51 puis Q2-2027=132",
+  "correction_validee": "Reprendre la serie RPO depuis les rapports trimestriels et aligner le signal.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ISG_REV / CSG_REV / STORAGE_REV / TRAD_SRV_NET / SVC_REV",
+  "probleme": "Q4-2026 et Q1-2027 absents puis Q2-2027, variations annuelles fausses",
+  "preuve": "ISG_REV Q3-2026=14107, Q2-2027=31782, yoy=+24.1% (reel vs Q2-2026 16800 = +89 %) ; CSG_REV yoy=+2.9% (15034 vs 12503 = +20 %)",
+  "correction_validee": "Completer les deux trimestres manquants et recalculer les variations sur T2 FY2027 contre T2 FY2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux REV_TOT, NET_INC, OP_INC, EPS_DIL, RD, GROSS_MARGIN, OP_MARGIN, NET_MARGIN, ISG_OPINC, CSG_OPINC, CAPEX, OCF, FCF, DEF_REV_BAL, CSG_COMM, CSG_CONS",
+  "probleme": "Signaux perimes : citent le T1 FY2027 alors que la serie a le T2",
+  "preuve": "GROSS_MARGIN signal : 17.8% au T1-FY2027 alors que Q2-2027=20.9 ; REV_TOT signal $43.8B alors que Q2-2027=46971",
+  "correction_validee": "Reecrire les seize signaux sur le T2 FY2027.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux ISG_REV, CSG_REV, STORAGE_REV, TRAD_SRV_NET, SVC_REV, RPO",
+  "probleme": "Signaux en anglais",
+  "preuve": "ISG net revenue FY2026 $60.8B vs $43.6B FY2025, driven by AI-optimized servers ; Services revenue $23.1B FY2026, -4% due to VMware Resale wind-down",
+  "correction_validee": "Traduire et actualiser",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "GROSS_MARGIN / OP_MARGIN / NET_MARGIN",
+  "probleme": "yoy de marges en % relatif et calcule sur le T1",
+  "preuve": "GROSS_MARGIN yoy=-16% alors que Q2-2027 20.9 vs Q2-2026 18.3 = +2,6 pts ; OP_MARGIN +66%, NET_MARGIN +90%",
+  "correction_validee": "Exprimer la variation en points, sur le T2 FY2027 contre le T2 FY2026.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AI-optimized server orders/bookings / AI Server Orders",
+  "probleme": "Point invraisemblable et doublon contradictoire",
+  "preuve": "orders serie 2.6, 3.2, 3.6, 12.1, 12.3, 64, 24.4 Mds $ (64 en un trimestre alors que le backlog est 43) ; AI Server Orders 0, 0, 0, 3.5, 9 date 2027-06-30",
+  "correction_validee": "Verifier le point 64 (probable cumul annuel) et retirer AI Server Orders.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ISG_OP_MARGIN / CASH_EQ",
+  "probleme": "Nom anglais = identifiant, un seul point, aucun signal",
+  "preuve": "name_en ISG_OP_MARGIN, n=1 ; CASH_EQ n=1, signal vide",
+  "correction_validee": "Nommer, completer l historique, ecrire le signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ca_par_salarie / fcf_par_salarie / dette_par_salarie / HEADCOUNT",
+  "probleme": "Ratios arretes en 2020 alors que les effectifs 2024-2026 existent ; HEADCOUNT doublon de effectifs_annuels",
+  "preuve": "ca_par_salarie dernier 2020=514 ; effectifs_annuels 2024=120000, 2025=108000, 2026=97000 (trou 2021-2023)",
+  "correction_validee": "Reprendre 2021 a 2023 de HEADCOUNT dans effectifs_annuels, recalculer les ratios jusqu en 2026, puis retirer HEADCOUNT.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Parts vides",
+  "preuve": "Groupe Solutions d Infrastructure None ; Groupe Solutions Clients None",
+  "correction_validee": "ISG 53,6 % et CSG 44,9 % (60,8 et 51,0 Mds $ sur 113,5 en FY2026).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DPS_Q / Annual dividend per share / Quarterly dividend rate increase / Servers & Networking",
+  "probleme": "Dividende en trois exemplaires ; serie serveurs perimee ; fautes",
+  "preuve": "0.63 dans DPS_Q et Quarterly dividend rate increase, 2.52 annuel ; Servers & Networking 27.3 date 2027-06-30 alors que FY2026 = 44,2 Mds ; TRAD_SRV_ONLY signal : refresh dattes machines ; att : serveurs IA*",
+  "correction_validee": "Garder DPS_Q, retirer Annual dividend, Quarterly dividend rate increase et Servers & Networking, corriger dattes et l asterisque.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

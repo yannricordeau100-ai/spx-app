@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "PRIM, PRIMNL, PRIMLIFE, SEGNL, SEGAM, SEGHOLD, OPEX (yoy)",
+  "probleme": "Le point H1-2026 a ete ajoute sans recalculer la variation : le yoy affiche est celui de H2-2025.",
+  "preuve": "PRIM val=6394 (H1-2026), yoy=-5,5 % ; or 6394 vs H1-2025 8717 = -26,7 % ; -5,5 % = 4658/4931 (H2-2025 vs H2-2024). SEGNL yoy=-21,1 % = 213/270 alors que 268 vs 261 = +2,7 %. PRIMLIFE -13,7 % = 2320/2689 alors que 2712 vs 5323 = -49 %. OPEX +9,0 % = 772/708 alors que 815 vs 699 = +16,6 %.",
+  "correction_validee": "Recalculer le yoy H1-2026 vs H1-2025 : PRIM -26,6 %, PRIMNL +7,1 %, PRIMLIFE -49,1 %, SEGNL +2,7 %, SEGAM +34,5 %, SEGHOLD -22 % (en degradation), OPEX +16,6 %.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CSM, SEGNL, SEGAM, SEGHOLD, PRIMNL, PRIMLIFE, OPEX, PRIM (signal)",
+  "probleme": "Signaux arretes a l'exercice 2025 alors que la serie contient H1-2026.",
+  "preuve": "CSM : \"5 975 M€ au 31 décembre 2025\" alors que H1-2026=6105. SEGNL : \"474 M€ en 2025\" alors que H1-2026=268. OPEX : \"1 471 M€ sur 2025\" alors que H1-2026=815. PRIM : \"13 375 M€ sur 2025\" alors que H1-2026=6394.",
+  "correction_validee": "Reecrire les 8 signaux sur le S1 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "SII, OR, OCC, NI, SEGLIFE, SEGDS, PPC, AUMDC",
+  "probleme": "Mise a jour partielle du S1 2026 : le hero et les KPI centraux s'arretent a H2-2025 alors que 8 autres KPI ont H1-2026 et que la publication du 19 aout 2026 est passee ; last_data_date faux.",
+  "preuve": "SII dernier point H2-2025=218 mais last_data_date=2026-06-30 ; idem OR (811), OCC (594), NI (418), PPC (1530). Serie SII 20 points, aucun H1-2026. Signal SII : \"218% au 31 décembre 2025\".",
+  "correction_validee": "Ajouter le point H1-2026 aux 8 KPI a partir de la publication semestrielle, puis aligner last_data_date sur le dernier point reel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "IFRS Net Result",
+  "probleme": "Doublon annuel du KPI NI, serie sans periodes, nom anglais, unite differente, valeur 2025 contradictoire avec le reste de la fiche et explication opposee a celle du signal NI.",
+  "preuve": "Serie \"956, 565\" sans annees, name_en=name_fr=\"IFRS Net Result\", unite \"M €\" vs \"M€\", last_data_date 2026-09-21. NI H1+H2 2025 = 130+418 = 548 et anti-these dit -42,8 % (958 vers 548) ; ici 565 et yoy -41 %. Description : \"Baisse due dépenses non-récurrentes (intégration Aegon, implémentation PIM)\" alors que le signal NI dit \"effets de marché, pas la performance opérationnelle\".",
+  "correction_validee": "Supprimer le KPI IFRS Net Result, NI couvre deja le resultat net.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_GWP_SEGMENT",
+  "probleme": "KPI perime de dix ans, nom faux pour ce que mesure la serie, nom anglais brut.",
+  "preuve": "Serie FY2010 a FY2015 (4092 M€), last_data_date 2015-12-31, nom \"Primes brutes émises par branche\" pour une serie totale, name_en \"Gwp Segment\". Les primes 2025 existent ailleurs (PRIM 13 375 M€, PPC 4 085 M€).",
+  "correction_validee": "Supprimer ou prolonger jusqu'a 2025 avec un nom exact (primes brutes emises, total).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Mention d'un document dans le bloc, et document inexistant chez a.s.r. (rapport annuel, pas document de reference).",
+  "preuve": "\"Le document de référence 2025 y consacre un entretien complet avec Ingrid de Swart\"",
+  "correction_validee": "Remplacer la phrase par : Ingrid de Swart, directrice des operations et de la technologie et future directrice generale, qualifie 2025 d'annee charniere.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "niveau / justification_mettrik",
+  "probleme": "Moat \"Aucun\" pour le deuxieme assureur neerlandais, justifie par une phrase qui ne parle pas d'avantage concurrentiel et contredit le bloc risques sur l'integration.",
+  "preuve": "Justification : \"l'intégration en cours se déroule sans heurt, mais ce seul indicateur ne dit rien du pouvoir de fixation des prix\" ; risque 7 : \"toutes les grandes étapes d'intégration ont été franchies\". Part de marche Dommages et revenu 17,8 % (4,085/23 Mds €), CR sous 100 % depuis 2014.",
+  "correction_validee": "Reevaluer le niveau (echelle, distribution, marque, ratio combine) et reecrire la justification.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "governance",
+  "champ": "ceo_name",
+  "probleme": "Dirigeant probablement perime : la fiche elle-meme annonce le changement de directrice generale et l'AG du 20 mai 2026 est passee.",
+  "preuve": "governance : \"Jos Baeten\", agm_date 2026-05-20 ; bloc IA : \"Ingrid de Swart ... future directrice générale\" ; anti-these : \"au moment où la direction générale change de main\".",
+  "correction_validee": "Verifier qui dirige a.s.r. depuis l'AG 2026 et mettre a jour.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "hook / DIV signal",
+  "probleme": "Deux decomptes differents de la serie de hausses du dividende sur la meme fiche.",
+  "preuve": "These : \"Depuis huit exercices, a.s.r. n'a jamais baissé son dividende ... passé de 1,74 € à 3,41 € en huit exercices\" ; signal DIV : \"dixième hausse consécutive depuis l'introduction en Bourse, soit +169% en dix ans\".",
+  "correction_validee": "Harmoniser sur dix hausses depuis 2016 (ou preciser la fenetre).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

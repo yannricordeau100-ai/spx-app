@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Management Fee Rate (annuel)",
+  "probleme": "Serie de taux 24,2 a 24,4 % contredite par le taux au plafond de 25 % depuis des annees.",
+  "preuve": "Management Fee Rate 24.2, 24.3, 24.3, 24.3, 24.4 signal : legere hausse vers 24.4% ; mgmt_fee_rate 25 sur 41 trimestres ; att : plafonnee par contrat a 25 %, deja au maximum.",
+  "correction_validee": "Supprimer cette serie.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Policies in Force Growth / Policies in Force / Direct Premiums Written / Auto Combined Ratio / Independent Agencies",
+  "probleme": "Bloc annuel arrondi et perime qui contredit les series trimestrielles et l anti-these.",
+  "preuve": "Policies in Force Growth 4.8 (2024) avec date 2026-06-30 alors que Policies in force growth trimestriel = -1.7 ; Direct Premiums Written 2025=11.5 Mds$ alors que exchange_dwp 2025 = 12 957 M$ (= Statutory 13) ; Independent Agencies 13.7 K (Erie compte environ 2 200 agences, 13 000 agents) ; Auto Combined Ratio sans source.",
+  "correction_validee": "Supprimer les cinq series ; les series trimestrielles et statutaires couvrent deja ces indicateurs.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "personal_lines_premiums / commercial_lines_premiums (yoy)",
+  "probleme": "Yoy affiches incompatibles avec la serie ; lignes personnelles arrondies a la centaine de millions.",
+  "preuve": "personal 2400 -> 2500 = +4,2 %, affiche +1.2% ; commercial 978 -> 1000 = +2,2 %, affiche +8.3% ; serie personnelle 2300, 2100, 2100, 2400 (arrondis) contre commerciale au million pres.",
+  "correction_validee": "Reprendre les deux series de primes au million pres depuis les rapports trimestriels, puis recalculer les yoy ; ne pas recalculer les yoy sur les valeurs arrondies.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "NII_Q vs investment_income_pretax",
+  "probleme": "Deux series du meme revenu de placements avec des valeurs divergentes.",
+  "preuve": "Q1-2026 : NII_Q 23.56 contre investment_income_pretax 22.1 ; Q4-2025 : 24.826 contre 24.2 ; Q2-2026 : 22.587 contre 22.6.",
+  "correction_validee": "Garder une seule serie apres verification de la definition.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_annuelle / dette_sur_ca / effectifs_annuels",
+  "probleme": "Series arretees en 2022 ou trouees alors que la fiche connait les valeurs.",
+  "preuve": "dette_annuelle dernier 2022-12-31 alors que lt_debt = 0 jusqu au T2-2026 ; effectifs_annuels 2018, 2019, 2025 avec yoy +17 % presente sur un an (en realite vs 2019).",
+  "correction_validee": "Prolonger la dette a 0 jusqu en 2025 (mecanique) ; completer 2020-2024 des effectifs.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_NEW_BUSINESS (nom) / gouvernance",
+  "probleme": "Nom trompeur pour un taux de croissance ; nom du dirigeant avec titres.",
+  "preuve": "CAHIER_NEW_BUSINESS nomme Production nouvelle, unite %, val=-17.8 ; dirigeant Mr. Timothy Gerard NeCastro C.I.C., CPA.",
+  "correction_validee": "Renommer en Croissance des primes d affaires nouvelles et ecrire Timothy G. NeCastro.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Largest single weather event / Charitable foundation contribution",
+  "probleme": "Evenements ponctuels presentes comme KPI a point unique.",
+  "preuve": "Largest single weather event - hailstorm 370 M$ ; Charitable foundation contribution 100 M$.",
+  "correction_validee": "Deplacer en story ou supprimer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

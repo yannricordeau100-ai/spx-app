@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "comp_sales_us (vedette), comp_sales_consolidated, comp_txn, avg_ticket",
+  "probleme": "Les points du T4 sont en réalité les valeurs de l'exercice entier, pas celles du quatrième trimestre. Le KPI vedette est faux sur deux trimestres.",
+  "preuve": "comp_sales_consolidated Q4-2024 = -2, alors que la série Global comparable de la même fiche donne -7 pour ce trimestre ; Q4-2025 = -1 (identique à CAHIER_VENTES_COMPARABLES FY2025 = -1) alors que Global donne +1 ; comp_sales_us Q4-2024 = -2, alors que la série U.S. donne -6.",
+  "correction_validee": "Remplacer les T4 2024 et 2025 de comp_sales_us, comp_sales_consolidated, comp_txn et avg_ticket par les valeurs publiées du quatrième trimestre.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Global / U.S. / China comparable store sales growth, Global comparable transactions growth, U.S. 90-day active Starbucks Rewards members",
+  "probleme": "Cinq séries sont datées au 30/09/2026, soit après le dernier trimestre publié. Elles sont décalées d'un trimestre et font doublon avec les séries principales.",
+  "preuve": "Dernier trimestre publié : T3 de l'exercice 2026, clos le 2026-06-28, prochaine publication le 2026-10-28. Global comp : dernier point 6.2, qui est la valeur du Q2-2026, alors que comp_sales_consolidated Q3-2026 = 7.9.",
+  "correction_validee": "Supprimer les séries mondiale et États-Unis des ventes comparables (doublons) ; redater au dernier trimestre réel les séries Chine, transactions mondiales et membres Rewards.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Intl_Revenue_Growth ; Store_Count_Net_Growth",
+  "probleme": "Deux KPI de remplissage : séries à zéro, signal vide de sens, chiffres contredits par la fiche.",
+  "preuve": "Intl_Revenue_Growth : série 0, 0, 0, 0, 7, signal « Croissance positive ». Store_Count_Net_Growth : 0, 0, 0, 0, 1010, yoy +5 %, daté 2026-09-30, alors que NET_NEW_STORES FY2025 = 791.",
+  "correction_validee": "Supprimer Intl_Revenue_Growth et Store_Count_Net_Growth.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / att",
+  "champ": "titres",
+  "probleme": "La thèse et l'anti-thèse se contredisent sur la durée du recul, et les deux reposent sur des T4 faux.",
+  "preuve": "Thèse : « Après cinq trimestres de recul » ; anti-thèse : « après huit trimestres de recul ».",
+  "correction_validee": "Recompter après correction des T4 et harmoniser les deux textes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PARC_UNITES ; CAHIER_MIX_NUMERIQUE",
+  "probleme": "Doublons aux noms faux.",
+  "preuve": "CAHIER_PARC_UNITES FY2025 = 40990 = total_stores_ww Q4-2025 = 40990 ; son nom annonce « Parc de restaurants et part franchisée » alors que la série ne contient aucune part franchisée (name_en « Parc Unites »). CAHIER_MIX_NUMERIQUE s'appelle « Part des ventes numériques » mais son unité est « millions de membres » ; la série s'arrête en FY2024 à 33.8 alors que la série Rewards atteint 35.6.",
+  "correction_validee": "Renommer CAHIER_PARC_UNITES en « Parc mondial de magasins » (historique annuel) et renommer CAHIER_MIX_NUMERIQUE en « Membres actifs Starbucks Rewards » en le fusionnant avec la série Rewards.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "China joint venture transaction value / enterprise value (Boyu Capital) / divestiture total consideration",
+  "probleme": "Trois KPI ponctuels sur la même opération chinoise, avec des montants qui semblent contradictoires sans explication.",
+  "preuve": "Valeur de la transaction 13 Mds $ ; valeur d'entreprise « environ 4 Md$ » ; contrepartie totale 3,1 Md$ ; le premier ajoute « dont environ 3,1 Mds $ encaissés ».",
+  "correction_validee": "Garder un seul KPI (montant encaissé) et expliquer dans le signal la différence avec la valeur de 13 Mds $ (redevances futures incluses).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik / texte",
+  "probleme": "Le moat est périmé et démenti par les derniers trimestres, et il sous-estime le réseau.",
+  "preuve": "« Ventes comparables atones... recul des revenus des magasins en propre », alors que comp_sales_us Q3-2026 = +8,1 % ; texte : « réseau de plus de trente mille points de vente » contre 41 304 magasins.",
+  "correction_validee": "Réécrire le moat à partir des chiffres du T3 de l'exercice 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / repartition / kpis",
+  "champ": "tagline, sous-secteur, revenue_by_segment, noms et signaux",
+  "probleme": "Anglais et franglais nombreux, et nombres au format anglais.",
+  "preuve": "Tagline « To inspire and nurture... » ; sous-secteur « Specialty Eateries » ; segments « Beverage / Other Products / Food » (qui décrivent d'ailleurs un mix de produits, pas des segments) ; noms « Magasins licensed », « company-operated », « partners », « North America » ; signaux « OCF », « FCF », « T3 FY2026 », « attache food », « 7 395.1 M$ ».",
+  "correction_validee": "Traduire tagline, sous-secteur et libellés, renommer le bloc en « Répartition par produit » (Boissons, Alimentation, Autres produits) et écrire les nombres au format français (7 395,1 M$).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VENTES_COMPARABLES ; NET_REVENUE ; Support-organization restructuring charges",
+  "probleme": "Variation mal calculée, signal hors sujet et KPI périmé.",
+  "preuve": "CAHIER_VENTES_COMPARABLES : yoy « -50.0% » pour un passage de -2 à -1 (soit +1 pt), daté 2025-12-31 alors que l'exercice est clos le 28/09. NET_REVENUE : signal « Produit phare : Boissons préparées ». Charges de restructuration : « au T2 exercice 2025 », daté 2026-05-11.",
+  "correction_validee": "Afficher la variation de CAHIER_VENTES_COMPARABLES en points (+1 pt), remplacer le signal de NET_REVENUE par un commentaire sur le chiffre d'affaires et supprimer le KPI de restructuration 2025.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA / position de marche",
+  "champ": "summary ; market_positions",
+  "probleme": "Le positionnement IA tient en une phrase générique et la position de marché est vide.",
+  "preuve": "« Intègre l'IA dans ses produits et opérations existants pour améliorer performance et expérience client. » ; position de marché : None, taille 58.5, part None.",
+  "correction_validee": "Détailler les usages concrets de l'IA (outil Deep Brew, assistants en magasin) et compléter ou retirer la position de marché.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

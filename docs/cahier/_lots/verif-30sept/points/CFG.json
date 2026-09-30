@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "loan_deposit_ratio / nonaccrual_ratio / nii_total / deposits_total / loans_leases_total / long_term_debt / nim_fte_q / rotce_q / tbvps_q / provision_credit_losses (signaux)",
+  "probleme": "Dix signaux contiennent une citation en anglais collée après un point-virgule.",
+  "preuve": "T2 2026: consolidated period-end loan-to-deposit ratio, excluding LHFS, of 79.5% ; T2 2026: net interest margin of 3.16% increased 22 basis points ; T2 2026: Total deposits 185,620 ; T2 2026: proceeds from issuance of long-term borrowed funds 10 647 M$ ; (T2 2026: Provision (benefit) for credit losses 134 vs 164).",
+  "correction_validee": "Supprimer tout ce qui suit ; T2 2026: ou (T2 2026: dans les dix signaux.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition par segment bâtie sur des valeurs rondes de substitution, contredite par les séries de la fiche.",
+  "preuve": "Consumer 4,5 Mds (56,25 %) / Commercial 3,5 Mds (43,75 %), total 8 ; les séries donnent FY2025 consumer_banking_rev = 6 224 M$ et commercial_banking_rev = 2 773 M$, soit 69 % / 31 %.",
+  "correction_validee": "Consumer Banking 69,2 % (6,224 Mds $) / Commercial Banking 30,8 % (2,773 Mds $), exercice 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "commercial_banking_rev.signal / consumer_banking_nii.signal",
+  "probleme": "Signaux d'un millésime 2023 qui annoncent une pression alors que les séries sont en forte hausse.",
+  "preuve": "commercial_banking_rev signal : Pression commerciale: NII CB -$342M (-15 %) reflète baisse volumes prêts ; série T2-2026 = 759 vs 671, yoy +13,1 %, commercial_banking_net_income +35,9 %. consumer_banking_nii signal : NII Consumer +$378M sans période.",
+  "correction_validee": "commercial_banking_rev : 759 M$ au T2 2026, +13,1 % sur un an. consumer_banking_nii : 1 348 M$ au T2 2026, +10,7 % sur un an.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Net charge-offs",
+  "probleme": "Série corrompue et doublon de nco_rate_annualized et CAHIER_NCO.",
+  "preuve": "history (bps, sans dates) : ... 52, 25, 14, 14, 19, 13, 48, 39 ; nco_rate_annualized 2025 = 0,58 / 0,48 / 0,46 / 0,43 % soit 43 à 58 bps ; dernier 39 vs 0,37 % ; signal : de 200M$ à 138M$ en un an non vérifiable.",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Tangible book value per share / Return on tangible common equity",
+  "probleme": "Deux doublons dont les signaux contredisent les séries sourcées et un autre signal de la fiche.",
+  "preuve": "Tangible book value per share signal : en hausse de 18 % sur un an, tirée par la remontée de l'AOCI ; tbvps_q +8,7 % (38,29 vs 35,23) ; stockholders_equity_q signal : dégradation de l'AOCI. Return on tangible common equity 11,2 % contre 9,8 % ; rotce_q T1-2026 = 12,2 et T1-2025 = 9,6, aucun point à 11,2.",
+  "correction_validee": "Supprimer les deux KPI (tbvps_q et rotce_q restent).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Period-end loans and leases / Period-end deposits / Total Loans and Leases / Total Deposits / Net Interest Margin",
+  "probleme": "Cinq doublons de bilan et de marge, dont deux datés du T2-2026 avec des valeurs du T1-2026, et un KPI arrêté en 2024 placé dans le bloc industrie.",
+  "preuve": "Period-end loans 143,7 daté 2026-06-30 = loans_leases_total Q1-2026 (Q2 = 147,5) ; Period-end deposits 184 = deposits_total Q1-2026 (Q2 = 185,6) ; Total Loans and Leases, Total Deposits, Net Interest Margin s'arrêtent 2024 ; Net Interest Margin FY2024 = 2,84 = CAHIER_NIM FY2024 ; kpi_industrie_shorts contient Net Interest Margin.",
+  "correction_validee": "Supprimer les cinq KPI et mettre nim_fte_q dans kpi_industrie_shorts.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_NIB_DEPOSITS.name_fr",
+  "probleme": "Nom en part (pourcentage) pour une série en montant.",
+  "preuve": "name_fr : Part des dépôts non rémunérés ; unit Mds $ ; FY2025 = 40,417 ; la part réelle est 22 % (deposits_noninterest_bearing signal).",
+  "correction_validee": "Renommer en Dépôts non rémunérés.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_sur_ca / fcf_annuel / fcf_par_salarie / dette_par_salarie",
+  "probleme": "KPI génériques industriels appliqués à une banque, avec des descriptions qui n'ont pas de sens pour elle.",
+  "preuve": "dette_sur_ca 136,8 % avec description : Au-dessus de 100 %, l'entreprise doit plus que ce qu'elle vend en un an ; fcf_annuel 2,2 Mds et fcf_par_salarie 127 k$ alors que le flux de trésorerie libre n'a pas de signification pour une banque ; dette_par_salarie 648 k$.",
+  "correction_validee": "Masquer ces quatre KPI pour les banques ou remplacer par des équivalents bancaires (fonds propres tangibles, coût des dépôts déjà présent).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "niveau / justification_mettrik",
+  "probleme": "Moat déclaré inexistant alors que la thèse affirme que la banque coche la grille Ackman, qui exige une position dominante.",
+  "preuve": "moat niveau Aucun, texte null, justification : sans avantage concurrentiel établi ; thèse : coche la plupart des cases de la grille de Bill Ackman ... Le seul critère franchement pris en défaut est la gouvernance.",
+  "correction_validee": "Soit relever le moat (Faible) avec un texte, soit nuancer la thèse sur le critère position dominante.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total Assets",
+  "probleme": "Périodes annuelles pour un point trimestriel et yoy sans unité.",
+  "preuve": "history_periods FY2021 à FY2026 alors que 233 836 est le bilan au 2026-06-30 ; yoy 3.3 (sans %) ; period_type instant ; unité $M.",
+  "correction_validee": "Dernière période Q2-2026 (30 juin 2026), variation affichée +3,3 % depuis fin 2025, unité M$.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "#1 US home equity originator / Middle market sponsors bookrunner rank / Reimagine the Bank P&L benefit target",
+  "probleme": "Rangs de classement et objectif 2028 présentés comme des KPI mesurés.",
+  "preuve": "Rang 1 ; rang 4 ; objectif 450 M$ de bénéfice P&L d'ici 2028 affiché comme valeur courante.",
+  "correction_validee": "Supprimer ou déplacer dans les faits marquants.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

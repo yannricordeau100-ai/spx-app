@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "fcf_annuel",
+  "probleme": "La serie est egale au flux operationnel, aucun investissement n est deduit malgre la description.",
+  "preuve": "fcf_annuel 2025=0,827 ; ocf 2025 = 148,2+230,7+250,9+196,8 = 826,6 M ; fcf trimestriel 2025 = 386 M.",
+  "correction_validee": "Deduire les capex (developpement ou recurrent, a choisir) ou renommer en flux operationnel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Core AFFO per diluted share (transcript)",
+  "probleme": "Doublon sans periodes de core_affo_per_share, avec un dernier point contradictoire.",
+  "preuve": "Transcript : 1,55 date 2026-06-30 ; core_affo_per_share Q2-2026=1,39, Q1-2026=1,55.",
+  "correction_validee": "Supprimer la série transcript Core AFFO per diluted share.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Distribution declared per share",
+  "probleme": "Doublon de dps sans etiquettes.",
+  "preuve": "0,83 ... 1,06 contre dps Q2-2026=1,06.",
+  "correction_validee": "Supprimer Distribution declared per share.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Apartment Homes Owned/Operated",
+  "probleme": "Contredit total_homes et son signal dit l inverse.",
+  "preuve": "58 811 (legere baisse via les cessions) contre total_homes Q2-2026=60 838 (cinq acquisitions relancent la croissance).",
+  "correction_validee": "Supprimer la série transcript Apartment Homes Owned/Operated.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Same Property NOI Growth, Same Property Revenue Growth, Effective Blended/New/Renewal Lease Rate (signal)",
+  "probleme": "Signaux dates 1T26 alors que le dernier point est date du 30 juin 2026.",
+  "preuve": "Signal : en territoire negatif au 1T26 ; ralentie a 0,2 % au 1T26 ; negatif a -1,4 % au 1T26 ; last_data_date 2026-06-30.",
+  "correction_validee": "Verifier si le dernier point est le T1 ou le T2 2026 et aligner date et signal.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "hook",
+  "probleme": "Montant de rachats du T2 2026 contredit par le KPI.",
+  "preuve": "Att : rachetant 144,1 M$ de ses propres actions le meme trimestre ; buybacks Q2-2026=170,2.",
+  "correction_validee": "Aligner sur 170,2 M$ ou preciser la base.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "niveau, texte, justification_mettrik",
+  "probleme": "Moat vide (niveau Aucun, texte null) et justification contredisant la these sur la notation.",
+  "preuve": "Justification : endettement en aggravation et note abaissee ; these : une notation de credit parmi les meilleures du secteur, 90,9 % du parc non greve.",
+  "correction_validee": "Rediger un texte de moat (echelle, marches Sunbelt, bilan) et retirer note abaissee.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_OCCUPANCY_EFFECTIVE_RENT, CAHIER_FFO_AFFO_PS (nom)",
+  "probleme": "Noms annoncant deux grandeurs pour des series qui n en portent qu une ; le premier est un doublon de econ_occupancy.",
+  "preuve": "Taux d occupation et loyer effectif moyen : serie 95,4 % seulement ; FFO et fonds ajustes par action : 6,77 = somme ffo_per_share 2025 (1,70+1,67+1,67+1,72).",
+  "correction_validee": "Supprimer CAHIER_OCCUPANCY_EFFECTIVE_RENT (doublon de econ_occupancy) et renommer CAHIER_FFO_AFFO_PS en « FFO par action (annuel) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_SS_NOI.yoy, CAHIER_TURNOVER.yoy",
+  "probleme": "Variation en pourcentage d un taux, au lieu de points.",
+  "preuve": "CAHIER_SS_NOI 1,1 vers 0,3 affiche -72,7 % ; CAHIER_TURNOVER 38 vers 36 affiche -5,3 %.",
+  "correction_validee": "Afficher les variations en points : -0,8 pt pour CAHIER_SS_NOI et -2 pt pour CAHIER_TURNOVER.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Stabilized Properties, Capex, Sunbelt Mix Same-Store, Development pipeline (under construction)",
+  "probleme": "Series annuelles sans etiquettes, sans signal, datees du 30 juin 2026 ; Capex est un doublon annuel de capex_dev.",
+  "preuve": "Capex : 449,4, 410,9, 393,7, 440,4 (440,4 = capex_dev 2025 : 78,4+116,8+115,2+130) ; Stabilized Properties 165 ... 168 :: (vide).",
+  "correction_validee": "Etiqueter, dater au 31 decembre, rediger un signal ou supprimer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "KPI transcript a un seul point (12 series)",
+  "probleme": "Faits ponctuels presentes comme KPI, certains doublonnant des series existantes.",
+  "preuve": "Gain on Property Dispositions 260,9 = somme gain_disposition 2025 ; Property Acquisitions Amount 422,9 ; HQ Relocations 100 ; Commercial Paper 600 ; Land Impairment 12,9 ; Apartment Homes Stabilized 797 ; Annualized Dividend 4,24 ; Customer Sentiment 91,6 ; Houston population 127 000.",
+  "correction_validee": "Basculer en faits marquants, garder Customer Sentiment si une serie annuelle est disponible.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

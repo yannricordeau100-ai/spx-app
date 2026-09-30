@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "total_intl_market_share",
+  "probleme": "Valeur affichee et yoy contredits par la serie",
+  "preuve": "val=29.2, yoy=+0.2pts ; serie Q4-2024=29.2 -> Q4-2025=29.1",
+  "correction_validee": "Afficher 29,1 % et un yoy de -0,1 pt sur la serie trimestrielle, en mentionnant 29,2 % sur l annee 2025 dans le signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Heated tobacco units (HTU) shipment volume",
+  "probleme": "Doublon de htu_shipments avec valeurs differentes",
+  "preuve": "serie 32, 27.4, 31.4, 32.5, 34, 40.8, 38.4, 41.3 vs htu_shipments Q1-2025=37.1, Q2-2025=38.8",
+  "correction_validee": "Supprimer Heated tobacco units (HTU) shipment volume.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_SMOKE_FREE_MIX, Estimated adult consumers (trimestriel), Smoke-free business as % of total",
+  "probleme": "Doublons de sfp_revenue_pct et sfp_adult_consumers, dont un contradictoire",
+  "preuve": "Smoke-free business % dernier 2026-09-22 = 43 vs sfp_revenue_pct Q2-2026 = 41.5 ; CAHIER_SMOKE_FREE_MIX n=1 = 41.5",
+  "correction_validee": "Supprimer les trois doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "evapor_shipments",
+  "probleme": "Signal exagere et yoy sans point de comparaison",
+  "preuve": "1,3 Md unites contre 41,8 Md HTU ; signal « moteur principal de la croissance sans fumee » ; yoy=+55.1 % avec n=2",
+  "correction_validee": "Reecrire le signal (relais de croissance naissant) et retirer le yoy",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dividend_per_share.signal, sfp_revenue.signal, sfp_revenue_pct.signal",
+  "probleme": "Signaux perimes",
+  "preuve": "dividend signal « releve a 1,47$ au T3-2025 » alors que Q3-2026=1.60 ; sfp_revenue « depasse 40 % pour la premiere fois » (vrai depuis T1-2025) ; « objectif 2025 atteint »",
+  "correction_validee": "Reecrire sur le T2/T3-2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "segment_europe_rev et trois autres segments",
+  "probleme": "Nom annonce CA + resultat op. mais la serie ne contient que le CA ; signal en cuisine interne",
+  "preuve": "signal « Resultat op. par exercice: FY2024:6547 M$, FY2025:7165 M$ »",
+  "correction_validee": "Renommer « CA segment Europe » (et de meme pour les trois autres segments), reecrire le signal en phrase avec la marge 2025 et calculer le yoy.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_MARKET_SHARE, CAHIER_SHIPMENT_VOL",
+  "probleme": "Series arretees en 2021 et 2024 alors que les donnees 2025 existent",
+  "preuve": "CAHIER_MARKET_SHARE dernier 2021 (27.3) alors que total_intl_market_share va a 2025 ; SHIPMENT_VOL dernier 2024 alors que cigarettes+HTU 2025 = 762 Md",
+  "correction_validee": "Prolonger a 2025 ou supprimer CAHIER_MARKET_SHARE (doublon)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ZYN-Ferrari partnership, Altria rights, RBH dividend, German tax, Markets exceeding 50 %",
+  "probleme": "Evenements ponctuels presentes comme KPI",
+  "preuve": "ZYN-Ferrari unite « partenariat » val=1",
+  "correction_validee": "Supprimer ZYN-Ferrari, basculer Altria, RBH et le redressement fiscal allemand en stories, garder Markets exceeding 50 % comme KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "titres et signaux des KPI de transcript",
+  "probleme": "Accents manquants, fautes d accord, unites en anglais",
+  "preuve": "« Consommateurs adultes estimes », « unites de tabac a chauffer », « VIVE a double ses volumes », « Le tabac chauffe a franchi », unites « bn units », « bn USD », « markets »",
+  "correction_validee": "Corriger accents et accords (estimes, a double, a franchi, realise) et remplacer les unites par Md unites, Md$, marches, canettes.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "positionnement IA.niveau",
+  "probleme": "Niveau « absent » contredit par le texte",
+  "preuve": "« integre de plus en plus des solutions basees sur l intelligence artificielle »",
+  "correction_validee": "Passer en « peu_documente »",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "revenue_annuel, ca_par_salarie, dette_sur_ca (taux depuis 2016)",
+  "probleme": "Taux annuels depuis 2016 calcules sur une base 2016 incluant les droits d accise",
+  "preuve": "« −6,6 % par an depuis 2016 » pour un CA qui passe de 29,6 (2018) a 40,6 Mds ; « +81,3 points depuis 2016 »",
+  "correction_validee": "Recalculer sur le CA net d accise ou retirer la mention 2016",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libelles en sigles anglais illisibles",
+  "preuve": "« SSEA, CIS & MEA Segment », « EA, AU & PMI GTR Segment », « European Union »",
+  "correction_validee": "Europe ; Asie du Sud et du Sud-Est, CEI, Moyen-Orient et Afrique ; Asie de l Est, Australie et duty free PMI ; Ameriques.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

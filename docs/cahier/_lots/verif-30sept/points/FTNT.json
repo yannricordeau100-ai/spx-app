@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "deferred_rev",
+  "probleme": "Serie melangee : les points de fin d annee sont le total (courant + non courant) et les points trimestriels avant Q4-2024 sont le courant seul, d ou un doublement artificiel a chaque Q4",
+  "preuve": "Q3-2023=2647.3, Q4-2023=5735, Q1-2024=2912, Q2-2024=2975.3, Q3-2024=3081.2, Q4-2024=6360.9",
+  "correction_validee": "Remplacer les points trimestriels 2016-2024 hors Q4 par le total courant + non courant des 10-Q, sinon tronquer la serie avant Q4-2024.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Service Revenue / Product Revenue / Billings / Operating Margin / Free Cash Flow Margin (annuels)",
+  "probleme": "Cinq series annuelles non datees qui doublonnent service_rev, product_rev, total_billings, op_margin_gaap, fcf ; trois s arretent en 2024 avec des textes perimes (catalyseur reprise 2025, plateau FY24) et du franglais",
+  "preuve": "Product Revenue dernier 2024-12-31 :: Catalyseur reprise refresh corporate 2025 ; Operating Margin dernier 2024-12-31 ; Billings dernier 2024-12-31 ; Service Revenue :: Base recurring forte, pilier monetisation",
+  "correction_validee": "Supprimer ces cinq series annuelles.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Unified SASE ARR / SecOps ARR / Global patents held / Record free cash flow",
+  "probleme": "Doublons exacts a un point de sase_arr, secops_arr, patents_global, fcf_gaap",
+  "preuve": "Unified SASE ARR 1.28 Mds $ = sase_arr 1280 ; SecOps ARR 491 = secops_arr 491 ; Global patents held 1405 = patents_global FY2025=1405 ; Record free cash flow 1.01 = fcf_gaap Q1-2026=1006.5",
+  "correction_validee": "Supprimer les quatre series.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SASE ARR growth (YoY) / Unified SASE billings growth (YoY)",
+  "probleme": "Series non datees avec des sauts invraisemblables (90 % et 100 %) contredits par sase_arr yoy=+26 %",
+  "preuve": "SASE ARR growth serie 28, 26, 22, 90 ; Unified SASE billings growth serie 19, 100, 40, 31 ; sase_arr yoy=+26%",
+  "correction_validee": "Supprimer les deux series, ou les reconstruire avec des trimestres dates.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "lt_debt",
+  "probleme": "Le signal attribue la baisse de la serie au remboursement des notes 1,00 %, mais la chute a lieu au Q1-2025 (reclassement en dette courante, echeance mars 2026) ; le risque 8 parle encore de 996 M$ de dette, perimee depuis mars 2026",
+  "preuve": "lt_debt Q4-2024=994.3, Q1-2025=496.2 ; signal : apres remboursement des notes a 1,00% arrivees a echeance ; risque 8 : Endettement 996 M$ Senior Notes ; dette_annuelle 2025=0.996",
+  "correction_validee": "Reecrire le signal (reclassement puis remboursement en mars 2026) et mettre a jour le risque 8 a 497 M$",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CLOUD_MIX",
+  "probleme": "Nom trompeur : la serie est la part des services dans le CA (4,58/6,8 = 67 %), pas une part cloud ; variation en % relatif",
+  "preuve": "Part du revenu cloud et par abonnement | 67 % | yoy=-1.5% ; Service Revenue 4.58, revenue 6.8",
+  "correction_validee": "Renommer Part des services dans le chiffre d affaires, yoy -1 pt",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "9 indicateurs a un seul point dates 2026-03-28",
+  "probleme": "Faits de communique presentes comme KPI (6 600 nouvelles organisations, +60 % de gros contrats, gain Linksys, capacite de rachat restante)",
+  "preuve": "New organizations adopting the FortiOS platform n=1 ; Gain on bargain purchase (Linksys) n=1 ; Remaining buyback capacity n=1",
+  "correction_validee": "Deplacer en faits marquants",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

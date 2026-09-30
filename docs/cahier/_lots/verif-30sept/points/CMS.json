@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition périmée d environ cinq ans : EnerBank (cédée en 2021) figure encore, total 6,68 Mds $ = CA 2020, alors que le CA 2025 est de 8,54 Mds $.",
+  "preuve": "revenue_by_segment : Electric 4,372 ; Gas 1,817 ; Enterprises 0,229 ; EnerBank 0,262 ; total 6,68 Mds $. Séries 2025 : électricité 5 638 M$, gaz 2 493 M$, NorthStar 408 M$.",
+  "correction_validee": "Recalculer sur 2025 : Electric utility 66 %, Gas utility 29 %, NorthStar Clean Energy 5 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "fcf_annuel (et fcf_par_salarie)",
+  "probleme": "Le FCF annuel 2023-2025 est en réalité le flux d exploitation (capex non déduit), contredisant la série trimestrielle structurellement négative.",
+  "preuve": "fcf_annuel 2025 = 2,235 Mds $ = somme ocf_q 2025 (1 000 + 414 + 343 + 478 = 2 235). Somme fcf_q 2025 = 112 - 470 - 635 - 596 = -1 589 M$. Signal fcf_q : « Structurellement négatif ». 2018-2022 sont négatifs (vrai FCF), 2023-2025 positifs.",
+  "correction_validee": "Recalculer fcf_annuel 2023-2025 = OCF - capex (2025 environ -1,6 Mds $) et mettre à jour fcf_par_salarie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "capital_plan_5y / capital_plan_5y_group / Five-year customer investment (capital) plan / Capex Plan / capex_2026",
+  "probleme": "Quatre KPI pour le même plan quinquennal avec des valeurs contradictoires, plus un capex annuel qui ne colle pas au cash-flow.",
+  "preuve": "capital_plan_5y 24,1 $B (Q4-2025) ; capital_plan_5y_group 25,8 Mds $ (FY2025) ; « Five-year customer investment plan » 24 Mds $ ; « Capex Plan » 17 Mds $ (série 13, 14, 15, 16, 17). capex_2026 FY2025 = 4,3 Mds $ alors que capex_q 2025 = 888 + 884 + 978 + 1 074 = 3 824 M$.",
+  "correction_validee": "Garder capital_plan_5y (Consumers, unité Mds $) ou le plan groupe en le précisant, supprimer « Five-year customer investment plan » et « Capex Plan », et expliquer ou corriger l écart capex 4,3 vs 3,8 Mds $.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Rate Base / Capex Plan / Renewables MW / Coal Capacity / Adjusted EPS / Dividend Per Share",
+  "probleme": "Bloc de séries de remplissage : franglais, valeurs périmées ou fausses, contradictions avec le reste de la fiche.",
+  "preuve": "Coal Capacity : « 100% closed 2025 (Karn 1-2 closed Q2 2025). Leader US coal retirement among IOUs », série finissant à 0, alors que coal_retirement dit J.H. Campbell 1 407 MW encore soumis à des ordres fédéraux. Dividend Per Share 2,06 $ daté 2026 (série 1,74 ; 1,84 ; 1,95 ; 1,95 ; 2,06) alors que div_per_share = 0,57 x 4 = 2,28 $ et la thèse cite 2,28 $. Adjusted EPS 3,34 $ daté 2026 = valeur 2024 ; eps_diluted_q 2025 = 3,53 $. Rate Base : « Croissance soutenue par decarbonization plan ».",
+  "correction_validee": "Supprimer les six séries (div_per_share, eps_diluted_q et coal_retirement couvrent déjà le besoin) ou les reconstruire depuis les rapports annuels avec dates réelles et textes en français.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "div_per_share.signal vs these",
+  "probleme": "Nombre de hausses consécutives du dividende contradictoire entre le signal et la thèse.",
+  "preuve": "Signal div_per_share : « une 19e hausse annuelle consécutive ». Thèse : « relevé pour la vingtième année consécutive ».",
+  "correction_validee": "Vérifier dans le communiqué de janvier 2026 et harmoniser (vingt d après la société).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.simple.customers",
+  "probleme": "Nombre de clients incohérent avec la thèse et les KPI.",
+  "preuve": "Description : « environ 6,8 millions de particuliers et entreprises ». Thèse et KPI : 1,9 million de clients électricité et 1,8 million de clients gaz (3,7 millions de comptes).",
+  "correction_validee": "Écrire « environ 1,9 million de clients électricité et 1,8 million de clients gaz au Michigan » (6,8 millions = habitants desservis, à préciser si conservé).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "ai_positioning",
+  "probleme": "Texte de cuisine interne et promesse produit visibles par le client, avec un terme anglais.",
+  "preuve": "« Une analyse fine de l usage interne de l IA (optimisation de processus, gestion d actifs, automation) sera ajoutée en V2.0. » ; « Le secteur Electric Utilities ».",
+  "correction_validee": "Retirer la dernière phrase et remplacer « Electric Utilities » par « services d électricité ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "La justification affirme un résultat opérationnel en progression, contredit par les derniers chiffres.",
+  "preuve": "Moat : « Revenus et résultat opérationnel en progression ». op_income_q T2-2026 264 M$ vs 317 (-16,7 %) ; S1-2026 754 M$ vs 811 (-7 %) ; résultat net T2 -40,9 %.",
+  "correction_validee": "Réécrire sur la base tarifaire et le plan d investissement, sans affirmer une progression du résultat.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "seg_ni_gas_q / seg_margin_gas_q",
+  "probleme": "Valeur exactement nulle au T3-2025, probable valeur manquante remplacée par 0.",
+  "preuve": "seg_ni_gas_q : Q3-2024 = 11, Q3-2025 = 0 ; seg_margin_gas_q Q3-2025 = 0 (5,2 % un an plus tôt).",
+  "correction_validee": "Vérifier le 10-Q T3-2025 (résultat net segment gaz) et remplacer le 0.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "gas_deliveries vs gas_deliveries_q",
+  "probleme": "Deux KPI de livraisons de gaz avec des totaux 2025 incompatibles et des périmètres non explicités.",
+  "preuve": "gas_deliveries FY2025 = 396 Bcf (« dont 31 Bcf GCC »). gas_deliveries_q 2025 = 135 + 49 + 30 + 97 = 311 Bcf.",
+  "correction_validee": "Préciser le périmètre de chaque série (clients finaux vs total réseau incluant transport) ou n en garder qu une.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI à un point datés 2026-05-11 (Michigan Potash, économies clients, CE Way, tarif gaz vs moyenne, Muskegon)",
+  "probleme": "Arguments de journée investisseurs présentés comme KPI, un seul point, datés du jour de la présentation, vocabulaire marketing.",
+  "preuve": "« Residential gas rate vs national average » -28 % « illustrant le positionnement affordability » ; « Cumulative customer bill reduction » 1,2 Mds $ ; « CE Way operational savings » 100 M$ ; n=1 partout, période « quarter ».",
+  "correction_validee": "Supprimer ou basculer ces éléments dans la thèse ; ne conserver comme KPI que les séries suivies (pipeline data centers, charge signée).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CUSTOMER_RELIABILITY (indicateur sectoriel manquant)",
+  "probleme": "Le KPI intitulé « fiabilité du service » ne mesure que le nombre de clients ; aucun indicateur de fiabilité réseau (SAIDI, SAIFI) sur la fiche d un distributeur d électricité.",
+  "preuve": "CAHIER_CUSTOMER_RELIABILITY : unité « millions de clients electricite », série plate 1,9 ; doublon de electric_customers.",
+  "correction_validee": "Renommer en « Clients électricité » ou remplacer par SAIDI/SAIFI publiés dans les rapports MPSC.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

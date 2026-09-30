@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition incohérente avec les KPI de segment, libellés anglais et fautifs",
+  "preuve": "« Professional Employee Organization Services Segment » 22,1 % (4,289 Mds) alors que PEO_REV FY2025 = 1 574,5+1 663,3+1 788,5+1 664,1 = 6 690 M$ soit 32,5 % ; « Employee » pour « Employer » ; « Mondial » pour Global ; HCM et HRO non expliqués ; les intérêts sur fonds clients (1,19 Md$) manquent",
+  "correction_validee": "Refaire la répartition sur la ventilation du 10-K FY2025 avec des libellés français, en précisant si le PEO est hors refacturations et en ajoutant les intérêts sur fonds clients.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PPC_US / CAHIER_PAYS_PER_CONTROL / U.S. pays per control growth",
+  "probleme": "Triplon du même indicateur, nom trompeur",
+  "preuve": "PPC_US FY2021-25 inclus dans CAHIER_PAYS_PER_CONTROL FY2018-26 (FY2023 : 5 vs 4,7) plus une série trimestrielle ; CAHIER nommé « Salariés par dossier de paie » en % alors que c'est un taux de croissance",
+  "correction_validee": "Supprimer PPC_US et renommer CAHIER_PAYS_PER_CONTROL « Croissance des salariés par dossier de paie ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AVG_CLIENT_FUNDS / CAHIER_CLIENT_FUNDS / Funds Held for Clients / YIELD_CF",
+  "probleme": "Triplon des fonds clients, un KPI sans cadence ni années avec signal télégraphique",
+  "preuve": "AVG_CLIENT_FUNDS FY2017-25 inclus dans CAHIER_CLIENT_FUNDS FY2018-26 ; « Funds Held for Clients » 27,5 → 39,5 sans cadence, signal « Hausse taux soutient float »",
+  "correction_validee": "Supprimer AVG_CLIENT_FUNDS et « Funds Held for Clients », garder YIELD_CF.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "WSE_AVG / Average worksite employees paid by PEO Services / PEO Worksite Clients Salariés",
+  "probleme": "Triplon des salariés PEO en trois unités",
+  "preuve": "748 milliers (annuel), 762 000 employees (trimestriel), 770 000 « vies » (sans cadence, signal « Pénétration TotalSource »)",
+  "correction_validee": "Supprimer « PEO Worksite Clients Salariés » et exprimer les deux autres en « salariés ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Worldwide Clients / Clients served / Pays on ADP Payroll / WORKERS_PAID",
+  "probleme": "Doublons dont un mal nommé",
+  "preuve": "« Clients Mondiaux » 1 100 000 (signal « Pénétration PME stable ») = « Clients servis » 1,1 M ; « Bulletins de Paie Mensuels » 41 M (signal « Cœur volume paie ») = travailleurs payés (WORKERS_PAID 42 M), ADP ne publie pas de bulletins mensuels",
+  "correction_validee": "Supprimer « Worldwide Clients » et « Pays on ADP Payroll ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CLIENT_RETENTION.signal",
+  "probleme": "Affirmation contredite par la série",
+  "preuve": "« au plus haut de la série remontée à 2010 » alors que FY2021 et FY2023 = 92,2 > 92,1",
+  "correction_validee": "Rétention client à 92,1 % en 2026, stable entre 92,0 et 92,2 % depuis 2021.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux de CAHIER_PAYS_PER_CONTROL, CAHIER_CLIENT_FUNDS, NET_MARGIN, RD, Average worksite employees",
+  "probleme": "Accents manquants et faute de conjugaison",
+  "preuve": "« marche du travail », « cote embauches », « généré des produits financiers ... restent eleves » (pour « génère »), « a faible charge », « passe en charges », « salaries », « complete »",
+  "correction_validee": "Corriger les accents (marché, côté, élevés, à faible, passé, salariés, complète) et remplacer « généré » par « génère ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Chiffre introuvable dans la fiche",
+  "preuve": "« la marge de l'activité externalisée recule de 4,1 % » alors que PEO_MARGIN = 13,0 % vs 14,2 % soit -1,2 pt ; aucun KPI ne donne 4,1",
+  "correction_validee": "Réécrire avec -1,2 pt de marge PEO",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "European bank client win / Leaner payroll operations via Lyric / Time saved per payroll run / Lyric bookings from new logos",
+  "probleme": "Anecdotes commerciales à un point présentées comme indicateurs",
+  "preuve": "« Contrat banque européenne » 75 000 employees ; « Temps économisé par cycle de paie » 30 min ; « Opérations de paie allégées via Lyric » 71 % (un seul client)",
+  "correction_validee": "Supprimer ou déplacer hors des KPI",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "NET_MARGIN.signal / WORKERS_PAID.signal",
+  "probleme": "Explication fausse et phrase sans sens",
+  "preuve": "NET_MARGIN : « La hausse marque un trimestre a faible charge exceptionnelle » alors que le T3 est saisonnier (22,5 % au T3-FY2025, 22,9 % au T3-FY2026) ; WORKERS_PAID : « 42 millions de travailleurs en 2025, produit phare de la société »",
+  "correction_validee": "Signal marge : saisonnalité du T3 (saison fiscale) ; signal travailleurs : « 42 M de travailleurs payés en 2025, stable sur un an »",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / gouvernance",
+  "champ": "sector, ceo_name",
+  "probleme": "Secteur inexact et civilité anglaise",
+  "preuve": "« Industrie > Logiciels » pour GICS 20202010 (Services de traitement de données et externalisation) ; « Ms. Maria Black »",
+  "correction_validee": "Secteur « Industrie > Services de ressources humaines et d'emploi » et dirigeant « Maria Black ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

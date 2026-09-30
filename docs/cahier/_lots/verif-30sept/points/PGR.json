@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_COMBINED_RATIO, CAHIER_LOSS_RATIO, CAHIER_EXPENSE_RATIO",
+  "probleme": "Trois series arretees en 2019 alors que les memes ratios existent jusqu en 2025 sous d autres noms",
+  "preuve": "CAHIER_COMBINED_RATIO dernier 2019-12-31 (FY2019=90.9) ; KPI « Combined ratio (companywide) » va a 87.4 en 2025 ; idem Loss/LAE ratio et Expense ratio",
+  "correction_validee": "Prolonger les trois séries CAHIER avec 2020-2025 issues des séries annuelles existantes puis supprimer ces doublons sans période.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total personal lines policies in force vs PIF_TOTAL",
+  "probleme": "Doublon dont la valeur est en retard d un trimestre, avec date de dernier point fausse et serie qui saute des trimestres",
+  "preuve": "Total personal lines policies in force val=38369 dernier 2026-09-29 ; PIF_TOTAL Q1-2026=38369, Q2-2026=38860 ; serie 27853, 29279, 33811 (saut de 4.5 M entre deux points)",
+  "correction_validee": "Supprimer « Total personal lines policies in force ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total net premiums written vs Net premiums written",
+  "probleme": "Doublon exact d un point unique",
+  "preuve": "Total net premiums written val=83.2 Mds (n=1) ; Net premiums written 2025=83174 M$",
+  "correction_validee": "Supprimer « Total net premiums written ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PL_COMBINED_RATIO, PIF_TOTAL, PROP_NPW (history)",
+  "probleme": "Trimestres manquants dans les series trimestrielles, dont le T4-2025 qui precede directement les derniers points",
+  "preuve": "PL_COMBINED_RATIO : Q3-2025=89.5 puis Q1-2026=86 ; PIF_TOTAL : Q3-2025 puis Q1-2026 ; PROP_NPW : Q3-2024 puis Q1-2025, Q3-2025 puis Q1-2026",
+  "correction_validee": "Completer les T4 (annuel moins 9 mois pour les primes, valeur du 10-K pour le ratio et les polices)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PL_COMBINED_RATIO.name_fr",
+  "probleme": "Nom contradictoire : Personal Lines auto et companywide en meme temps",
+  "preuve": "« Combined ratio Personal Lines auto (companywide) », name_en « Personal Lines Combined Ratio »",
+  "correction_validee": "Renommer PL_COMBINED_RATIO en « Ratio combiné Personal Lines ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BUYBACK, effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Series arretees en 2024 alors que le rapport annuel 2025 est integre ailleurs sur la fiche",
+  "preuve": "BUYBACK dernier 2024-12-31 ; effectifs_annuels 2024=66308 ; revenue_annuel et dette_annuelle vont a 2025",
+  "correction_validee": "Ajouter 2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these/kpis",
+  "champ": "these.accroche vs Florida policyholder credit expense",
+  "probleme": "Montant du remboursement Floride different entre la these et le KPI",
+  "preuve": "these : « une loi de Floride l'a obligée à rendre 1,2 Mds $ » ; KPI : « Charge exceptionnelle de 950 M$ au T3 2025 »",
+  "correction_validee": "Preciser (950 M$ charge T3 2025 vs 1,2 Mds total) ou aligner",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Progressive Advantage Agency premium growth, Policies in force added in a single quarter (record)",
+  "probleme": "Pseudo-KPI a point unique sans periode identifiable",
+  "preuve": "« 200% de croissance ... en moins d'une décennie » (unite %, trimestre) ; « 1,6 million de polices ajoutées au T3 » sans annee",
+  "correction_validee": "Supprimer les deux pseudo-KPI (le second n'est pas datable avec certitude dans les données).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "La duree de vie des polices (policy life expectancy) et le revenu net d investissement, cites dans l anti-these et le signal NET_INCOME, n ont pas de serie",
+  "preuve": "att : « la durée de vie d'un contrat auto recule de 8% » ; NET_INCOME : « La progression vient surtout du revenu net d'investissement »",
+  "correction_validee": "Ajouter PLE trimestrielle et net investment income trimestriel (publies chaque trimestre)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

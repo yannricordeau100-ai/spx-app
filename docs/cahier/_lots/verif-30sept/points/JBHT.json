@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Intermodal loads, Integrated Capacity Solutions loads, Truckload loads, Intermodal revenue per load, Dedicated revenue per truck per week : series et unite",
+  "probleme": "Series trimestrielles sans periodes dont les valeurs sont des cumuls depuis le debut d'annee (et des moyennes cumulees), pas des trimestres : un graphique montre des dents de scie et l'unite « loads/quarter » est fausse. Le dernier point est le T1-2026 malgre « dernier 2026-06-30 ».",
+  "preuve": "Intermodal loads 982612, 1530600, 2090732, 521821, 1046982, 1586889, 2138191, 536852 : 2090732 = JBI_loads FY2024, 2138191 = FY2025 ; ICS loads 609854 = FY2024, 553126 = FY2025 ; Truckload 389832 et 432794 = JBT_loads annuels ; Intermodal revenue per load 2.849 = FY2024, 2.795 = FY2025 ; signal « record au T1-2026 ».",
+  "correction_validee": "Convertir en trimestres par difference des cumuls (moyennes ponderees pour les revenus unitaires), etiqueter les periodes et la vraie date, sinon supprimer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Dedicated average trucks, Intermodal revenue per load, Dedicated revenue per truck per week, Intermodal loads, ICS loads, Truckload loads (doublons)",
+  "probleme": "Le meme indicateur existe en annuel etiquete et en trimestriel non etiquete.",
+  "preuve": "Dedicated average trucks 12988, 12659 = DCS_avg_trucks FY2024, FY2025 ; Intermodal revenue per load vs JBI_rev_per_load ; Dedicated revenue per truck per week vs DCS_rev_per_truck ; loads vs JBI_loads, ICS_loads, JBT_loads.",
+  "correction_validee": "Ne garder qu'une version par indicateur, de preference la trimestrielle corrigee.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_LOADS_AND_REVENUE_PER_LOAD",
+  "probleme": "Serie arretee en 2013, nom qui melange deux mesures, unite en milliers alors que les autres volumes sont en unites.",
+  "preuve": "« dernier 2013-12-31 | serie FY2006=629.533 ... FY2013=1593.511 » ; signal sur « la reprise ... apres la crise financiere ».",
+  "correction_validee": "Supprimer CAHIER_LOADS_AND_REVENUE_PER_LOAD.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "La repartition par segment n'en est pas une : deux lignes en anglais sur la nature du revenu, alors que les cinq segments sont sur la fiche.",
+  "preuve": "« Service Excluding Fuel Surcharge 87.7 ; Fuel Surcharge 12.3 » ; KPI JBI_rev, DCS_rev, ICS_rev, FMS_rev, JBT_rev disponibles (FY2025 : JBI environ 5,98 Mds $, DCS 3,38, ICS 1,11, FMS 0,82, JBT 0,74).",
+  "correction_validee": "Reconstruire la repartition FY2025 a partir des revenus des cinq segments (avant eliminations intersegments) avec libelles francais.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification",
+  "probleme": "Texte arrete a l'exercice 2025 et contredit par les chiffres recents.",
+  "preuve": "« mais le chiffre d'affaires recule » alors que revenue Q2-2026=3.5 Mds $ (+19,5 %) et Q1-2026 +4,8 % ; « volumes intermodaux gagnent 3 % » alors que JBI_rev signal cite +14 % de volumes au T2 2026.",
+  "correction_validee": "Reecrire la justification sur les donnees du T2 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "signal de JBI_op_inc, JBT_op_inc, FMS_op_inc, OR_consolidated, JBT_rev",
+  "probleme": "Cinq signaux contredisent leur propre serie.",
+  "preuve": "JBI_op_inc signal « 131 M$ au T2 2026 » pour val=151 (yoy +57,8 % = 151/95.7) ; JBT_op_inc « redressement ... apres deux annees de pertes » pour val=-1.3 apres huit trimestres positifs ; FMS_op_inc « contribution la plus faible des cinq segments » alors que JBT=-1.3 et ICS=1.7 < 5.6 ; OR_consolidated « meilleur niveau trimestriel depuis 2022 » alors que Q4-2025=92.0 et Q3-2025=92.1 < 92.6 ; JBT_rev « plus haut historique du segment » alors que Q4-2022=243 > 240.",
+  "correction_validee": "Regenerer les cinq signaux a partir des series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "signal de revenue, JBI_rev, div_per_share, ICS_carriers, ICS_loads",
+  "probleme": "Citations en anglais et mots anglais ou fautifs dans les signaux.",
+  "preuve": "« 'Total consolidated operating revenue increased 19%' » ; « 'Intermodal volumes increased 14%' » ; « 'we announced an increase in our quarterly cash dividend from $0.44 to $0.45 per share' » ; « transporteurs tiers referenced » ; « 553 126 chargements courtes ».",
+  "correction_validee": "Retirer les citations anglaises, remplacer referenced par references et chargements courtes par chargements.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "signal de net_debt, fcf, capex_net, inventory, OR_* (5), *_da et *_assets (10)",
+  "probleme": "Cuisine interne visible : formules de derivation, mention de balise XBRL, notes de methode a la place d'une lecture du chiffre.",
+  "preuve": "« (derive: 1 145 + 0 - 4 M$ de tresorerie) » ; « (derive OCF 370 M$ - capex 117 M$) » ; « seulement tague en cloture annuelle » ; « Operating ratio calcule a partir du resultat operationnel et du chiffre d'affaires publies par segment » ; « Amortissements segmentaires publies dans la note segments ».",
+  "correction_validee": "Retirer les parentheses de derivation, supprimer inventory, remplacer les notes de methode des OR_*, *_da et *_assets par un signal sur la valeur.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "yoy de op_margin, net_margin, OR_ICS, OR_JBT, OR_FMS, ICS_gross_margin",
+  "probleme": "Variation annuelle de ratios exprimee en pourcentage relatif au lieu de points, contrairement aux autres fiches.",
+  "preuve": "op_margin yoy « +10.1% » pour 7.42 vs 6.74 (+0,7 pt) ; net_margin « +18.0% » ; ICS_gross_margin « -9.9% » pour 14.5 vs 16.1 (-1,6 pt).",
+  "correction_validee": "Exprimer ces yoy en points (op_margin +0,7 pt, net_margin +0,8 pt, ICS_gross_margin -1,6 pt, etc.).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateur manquant : operating ratio Intermodal (OR_JBI) et volumes trimestriels etiquetes",
+  "probleme": "L'operating ratio existe pour DCS, ICS, FMS et JBT mais pas pour le segment principal (JBI, 50 % du CA) ; les volumes et revenus par chargement trimestriels n'existent qu'en cumul non etiquete.",
+  "preuve": "KPI presents : OR_DCS, OR_ICS, OR_FMS, OR_JBT ; JBI_rev Q2-2026=1.75 Mds $, JBI_op_inc=151 (OR 91,4 %) non affiche.",
+  "correction_validee": "Ajouter OR_JBI (1 - JBI_op_inc/JBI_rev) et des series trimestrielles etiquetees de chargements et de revenu par chargement.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

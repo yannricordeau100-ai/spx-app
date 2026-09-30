@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "US Domestic Volume, US Domestic Avg Daily Volume, US Revenue per Piece, International Avg Daily Volume, US Domestic Adj Operating Margin",
+  "probleme": "Cinq KPI annuels importés, sans période, doublonnent les séries trimestrielles et annuelles propres avec des valeurs fausses ou contradictoires.",
+  "preuve": "US Domestic Avg Daily Volume val=21.5 (série 21.1, 21.5, 21, 22, 21.5) alors que us_dom_adv 2025 tourne autour de 16-20 M ; US Domestic Volume val=15 mais dernier point de série 17.5 ; US Revenue per Piece 12.95 contre 13.03-13.47 $ en 2025 (us_dom_rpp) ; US Domestic Adj Operating Margin 7.7, 12, 11.7, 11.3, 7.7 yoy -3.6 pts contre usdom_adj_om FY2024=7.5, FY2025=7.7.",
+  "correction_validee": "Supprimer les cinq KPI importés, couverts par us_dom_adv, us_dom_rpp, intl_adv et usdom_adj_om.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Operational workforce reduction 2025",
+  "probleme": "La valeur affichée est l'effectif total, pas la réduction.",
+  "preuve": "serie: 48000, 460000 ; val=460000 alors que le signal parle de 48 000 postes supprimés ; 460 000 = effectifs_annuels 2025.",
+  "correction_validee": "Ramener la série au seul point 48 000 postes (2025) ou supprimer le KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "op_margin, net_margin, usdom_om, intl_om, scs_om",
+  "probleme": "Variation annuelle des marges exprimée en % relatif au lieu de points.",
+  "preuve": "op_margin 4.1 vs 8.6 affiché yoy=-52.3% (devrait être -4.5 pts) ; usdom_om yoy=-98.5% (-6.4 pts) ; scs_om yoy=+15.9% (+1.4 pt).",
+  "correction_validee": "Exprimer la variation en points pour tous les KPI en % (op_margin -4,5 pts, net_margin -3,4 pts, usdom_om -6,4 pts, intl_om -2,6 pts, scs_om +1,4 pt).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf.yoy",
+  "probleme": "Variation en % calculée depuis une base négative, sans signification.",
+  "preuve": "fcf Q2-2026=166 contre Q2-2025=-775, yoy=+121.4%.",
+  "correction_validee": "Afficher n.s. ou la variation en valeur (+941 M$).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "buyback.signal",
+  "probleme": "Phrase en anglais recopiée du document dans le signal.",
+  "preuve": "\"no shares were repurchased during the six months ended June 30, 2026\"",
+  "correction_validee": "Signal : « Aucun rachat d actions au premier semestre 2026 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SMB Penetration / smb_pct ; Global healthcare portfolio revenue / hc_portfolio",
+  "probleme": "Doublons avec valeurs divergentes.",
+  "preuve": "smb_pct FY2025=30 % contre SMB Penetration 34.5 % (daté 2026-09-29, sans période) ; hc_portfolio FY2025=11 Mds $ contre Global healthcare portfolio revenue 11.2.",
+  "correction_validee": "Garder une seule série par indicateur, avec période explicite ; décision sur la valeur retenue.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "U.S. Domestic average daily volume YoY growth",
+  "probleme": "Valeur affichée différente du dernier point de série, date intermédiaire incohérente.",
+  "preuve": "val=-8 alors que la série finit à -7.3 ; dernier 2026-05-11 alors que us_dom_adv donne -3.3 % au T2 2026.",
+  "correction_validee": "Aligner sur us_dom_adv ou supprimer ce KPI redondant.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "repartition",
+  "probleme": "Répartition par segment périmée (proche de 2022), exercice non renseigné.",
+  "preuve": "Supply Chain 17.9 % alors que scs_rev 2025 = 10 566 M$ sur 88 661 M$ soit 11.9 % ; US Domestic 63.2 % contre 67.1 % calculé sur 2025.",
+  "correction_validee": "Recalculer sur l exercice 2025 (US Domestic 67,1 %, International 21,0 %, Supply Chain Solutions 11,9 %) et renseigner l exercice.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat / position de marche",
+  "champ": "moat, market_positions",
+  "probleme": "Moat sans type et texte décrivant des reculs, pas un avantage ; position de marché sans unité ni part.",
+  "preuve": "moat: None :: \"Le transit recule de 38,3 % et la logistique de 9 %...\" ; position de marche: taille 196, part None.",
+  "correction_validee": "Rédiger un moat réel (densité du réseau, échelle) et compléter unité et part de marché.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline",
+  "probleme": "Tagline en anglais.",
+  "preuve": "\"Global package delivery and logistics provider serving over 200 countries\"",
+  "correction_validee": "Rédiger une accroche française.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "répartition du CA",
+  "probleme": "La répartition correspond à un exercice ancien (total 7.8 Mds$, Olive Garden 4.01 Mds$, soit environ l'exercice 2018) alors que le CA 2026 est de 13.2 Mds$ et Olive Garden en pèse 42 %, pas 51 %.",
+  "preuve": "revenue_by_segment total 7.8 Mds$, Olive Garden 51.4 ; OG_REV FY2026 = 5.595 Mds$ sur revenue_annuel 13.211",
+  "correction_validee": "Recalculer sur FY2026 : Olive Garden 42 %, LongHorn 26 %, Fine Dining 10 %, Other Business 21 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_DEBT_Q / LT_DEBT_Q Q4-FY2026",
+  "probleme": "La dette nette chute de 1.901 à 1.418 Mds$ en un trimestre alors que le FCF du trimestre (379) couvre à peine dividende (171.5) et rachats (137.3). La baisse de 500 M$ correspond au reclassement d'une échéance en dette courante, pas à un désendettement.",
+  "preuve": "LT_DEBT_Q Q3-FY2026=2.141, Q4-FY2026=1.638 ; NET_DEBT_Q 1.901 -> 1.418 ; FCF_Q=379, DIV_PAID_Q=171.5, BUYBACK_Q=137.3",
+  "correction_validee": "Recalculer NET_DEBT_Q Q4-FY2026 en incluant la part courante de la dette et corriger le yoy -24.9 % et le signal.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Séries sans années : 'Fine Dining Sales', 'Total Restaurants', 'Blended same-restaurant sales', 'Net new restaurants'",
+  "probleme": "Valeurs arrondies, sans période, contredites par les séries sourcées : Fine Dining FY2025 = 1.1 contre 1.30 (somme des trimestres) ; Total Restaurants 1900/2060 contre 1914/2031 ; Net new restaurants FY2026 somme 108 contre +43 réels ; Blended Q4 = 4.2 contre +4.6 % cité dans le hero.",
+  "preuve": "Fine Dining Sales serie: 0.9, 1.05, 1.1, 1.1, 1.4 ; FINE_REV FY2025 = 278.9+306+385.3+334.6 = 1304.8 ; Net new restaurants 25, 22, 30, 31 ; REVENUE_Q signal '43 restaurants nets'",
+  "correction_validee": "Retirer 'Fine Dining Sales', 'Total Restaurants', 'Blended same-restaurant sales' et 'Net new restaurants'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie",
+  "probleme": "Séries arrêtées en 2021 alors que la fiche est à FY2026 ; les ratios par salarié affichent 'dernier 2026-05-31' avec des valeurs 2021, et un yoy +300 % lié au creux Covid.",
+  "preuve": "effectifs_annuels dernier 2021-07-23 val=156883 ; fcf_par_salarie dernier 2026-05-31 serie 2021=6, yoy=+300.0%",
+  "correction_validee": "Compléter 2022-2026 ou retirer les trois KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SEG_PROFIT_Q vs GROSS_MARGIN_Q",
+  "probleme": "Doublon : la marge brute est définie comme le résultat au niveau restaurant, donc identique au résultat des segments (822.9 / 3719 = 22.1 %). Le signal est en outre de la cuisine interne en anglais.",
+  "preuve": "GROSS_MARGIN_Q val=22.13 :: chez Darden le GrossProfit correspond au résultat au niveau restaurant ; SEG_PROFIT_Q :: marge de 22,1%",
+  "correction_validee": "Retirer GROSS_MARGIN_Q, la marge etant deja donnee dans le signal de SEG_PROFIT_Q.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TAX_RATE, EPS/DPS_Q, SHARES_OUT, OG_TRAFFIC",
+  "probleme": "Trous systématiques : aucun Q4 dans TAX_RATE (signal au T3 alors que dernier = 2026-05-31), Q4-FY2025 et Q4-FY2024 absents de DPS_Q avec un libellé 'Q4-2026' hors format, Q1 absents de SHARES_OUT, OG_TRAFFIC saute de Q3-FY2025 à Q3-FY2026 avec une date future et un yoy +89.7 % sur une série en %.",
+  "preuve": "TAX_RATE serie ... Q3-FY2026=12.9 :: Taux effectif de 12,9% au T3 FY2026 ; DPS_Q serie Q3-FY2026=1.5, Q4-2026=1.62 ; OG_TRAFFIC dernier 2026-09-30 yoy=+89.7%",
+  "correction_validee": "Compléter les trimestres manquants, harmoniser les libellés, yoy en points.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI à un seul point (14 lignes)",
+  "probleme": "Jalons de conférence présentés comme KPI, dont plusieurs périmés ou incohérents : CA 'dépassant 12 Mds$' alors que 2026 = 13.2 ; autorisation de rachat 1 Md$ (juin 2025) contredite par le signal BUYBACK_Q (1.5 Md$) ; accords Inde/Espagne val=40 alors que le signal dit 40 + 40.",
+  "preuve": "'Annual total sales surpassing $12 billion' val=12 ; 'New share repurchase authorization' val=1000 vs BUYBACK_Q :: nouveau programme de 1,5 Md$ ; 'International Olive Garden development agreements' val=40 :: 40 en Inde et 40 en Espagne",
+  "correction_validee": "Retirer les jalons périmés, corriger 40 en 80, basculer le reste dans le récit.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NEW_REST_OPENINGS",
+  "probleme": "Nom figé 'FY2025', date 2025-12-31 hors calendrier fiscal (clôture fin mai), yoy '+128 net' inexplicable, signal avec une guidance FY2026 périmée alors que l'exercice est clos (70 ouvertures selon PREOPEN).",
+  "preuve": "Nouvelles ouvertures de restaurants FY2025 | dernier 2025-12-31 | yoy=+128 net :: guidance FY2026 : 60-65 ouvertures ; PREOPEN :: en ligne avec 70 ouvertures",
+  "correction_validee": "Renommer, ajouter FY2026, corriger le yoy et le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Tickets moyens par personne (OG, LH, Cheddar's, Yard House)",
+  "probleme": "Séries lissées au demi-dollar sur six ans, sans source évidente ; ressemblent à des milieux de fourchette reconstitués plutôt qu'à des chiffres publiés.",
+  "preuve": "OG_AVG_CHECK serie 20, 21, 22.5, 23, 24, 25 ; LH 23, 24, 25.5, 27.5, 28, 28.5",
+  "correction_validee": "Vérifier contre le rapport annuel (fourchettes publiées) ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "intitulés des risques",
+  "probleme": "Intitulés génériques de gabarit, sans contenu : 'Risque spécifique au business model', 'Changements de marché', 'Spécificités sectorielles voyage/loisirs'.",
+  "preuve": "risque 1: Risque spécifique au business model :: (vide) ; risque 5: Spécificités sectorielles voyage/loisirs :: (vide)",
+  "correction_validee": "Réécrire avec les risques du rapport annuel (coût du boeuf, main d'oeuvre, ouragans).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "these",
+  "champ": "these.titre",
+  "probleme": "La these affirme que trois des quatre metiers ont ameliore leur marge, contredit par les signaux des segments",
+  "preuve": "EA_op_profit : marge 27,5 % vs 29,5 % ; EG_op_profit : 19,8 % vs 20,1 % ; seul Aerospace en hausse (+60 pb)",
+  "correction_validee": "Reecrire : seul Aerospace ameliore sa marge, Electrical Americas et Global reculent.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EMO_rev",
+  "probleme": "Signal dit serie figee a Q4-2025 mais la serie contient Q1-2026, et le yoy affiche ne correspond pas au dernier point",
+  "preuve": "serie Q1-2026=153 ; yoy=-16.2% (= Q4-2025 124 vs Q4-2024 148) alors que 153 vs 162 = -5,6 %",
+  "correction_validee": "Retirer le point Q1-2026 pour figer la serie a Q4-2025 comme VEH_rev.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "segment Mobility",
+  "probleme": "Depuis Q1-2026 Vehicle et eMobility sont fusionnes en Mobility mais aucun KPI Mobility n existe : un segment entier (11 % du CA) disparait de la fiche",
+  "preuve": "VEH_rev et EMO_rev 'figees fin Q4-2025' ; aucun MOB_rev",
+  "correction_validee": "Ajouter CA et resultat du segment Mobility Q1 et Q2-2026 depuis les 10-Q.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Electrical Americas orders, 12-month rolling avg, organic",
+  "probleme": "Un indicateur en moyenne mobile 12 mois qui passe de 16 a 42 en un trimestre est mathematiquement douteux ; pas de libelles de periodes",
+  "preuve": "serie 11, 16, 16, 4, 2, 7, 16, 42 ; EA_backlog +33 % seulement",
+  "correction_validee": "Verifier la source (croissance trimestrielle vs moyenne glissante) et dater les points",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Quarterly dividend per share",
+  "probleme": "Doublon a un point de dps",
+  "preuve": "val=1.1 ; dps Q2-2026=1.1",
+  "correction_validee": "Supprimer 'Quarterly dividend per share'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "US data center construction backlog, Mega project starts, Tracked mega project backlog, US data center capacity under construction, 4 prix d acquisition, Boyd revenue 2026",
+  "probleme": "Dix indicateurs a un point : donnees macro ou faits ponctuels (prix d acquisitions, prevision) presentes comme KPI",
+  "preuve": "n=1 sur chacun ; 'Boyd liquid cooling revenue 2026' est une prevision",
+  "correction_validee": "Passer en stories, garder eventuellement 'Eaton content per MW' si serie possible",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "market_positions",
+  "champ": "position de marche 1",
+  "probleme": "Bloc vide avec taille sans sens",
+  "preuve": "'None | taille 306.2 | part None'",
+  "correction_validee": "Supprimer le bloc.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "diluted_shares, book_value_per_share",
+  "probleme": "Valeurs aberrantes aux Q4 : nombre d'actions négatif, valeur comptable par action négative et hors échelle (x100).",
+  "preuve": "diluted_shares Q4-2024=-0.5, Q4-2025=-0.7 (millions) entre 102.2 et 94.5 ; book_value_per_share Q4-2024=-10456, Q4-2025=-9355.7 entre 55.9 et 68.5 $.",
+  "correction_validee": "Recharger les actions diluées Q4-2024 et Q4-2025 (environ 99 et 96 M) puis recalculer la valeur comptable par action, a defaut supprimer ces deux points des deux series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "pretax_income, pretax_margin, life_insurance_in_force, rps_net_policyholder_reserves",
+  "probleme": "Point Q2-2026 ajouté avec une date 2026-09-02 mais signal et yoy restés sur le T1 2026 ; le yoy affiché est faux.",
+  "preuve": "pretax_income val=1442 (Q2-2026) yoy=+66,5% (= 1144/687 du T1) alors que 1442/1351 = +6,7% ; signal '1 144 M$ au T1 2026'. pretax_margin yoy +8,0pp = T1, réel Q2 : 29,2-30,9 = -1,7 pp. rps yoy +8% = T1, réel 19,488/17,7 = +10,1% ; signal '18,2 Mds $ au 31/03/2026'. life_insurance signal '196,8 Mds $ au 31/03/2026' ; last_data_date 2026-09-02 pour un point Q2.",
+  "correction_validee": "Dater les points Q2-2026 au 2026-06-30, recalculer les yoy contre Q2-2025 et reecrire les signaux sur le T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "advisor_count",
+  "probleme": "Série plate à 10 000 pendant sept ans puis 10 100 : valeur ronde non sourcée ; le signal ne décrit pas les conseillers mais les effectifs.",
+  "preuve": "FY2018 à FY2024 = 10000 exactement, FY2025 = 10100 ; signal '~13,600 employés totaux ... + ~8,500 conseillers franchise'.",
+  "correction_validee": "Recharger le nombre réel de conseillers par exercice depuis les rapports annuels (environ 9 900 à 10 400 selon les années) et écrire un signal sur la série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "employees, effectifs_annuels, ca_par_salarie, fcf_par_salarie",
+  "probleme": "Doublon effectif, et le bloc standard effectifs_annuels manque 2023 et 2025, ce qui tronque les ratios par salarié à 2022 alors que le CA va à 2025.",
+  "preuve": "employees FY2018..FY2025 complet (13600 en 2025) ; effectifs_annuels : 2018,2019,2020,2021,2022,2024 seulement ; ca_par_salarie et fcf_par_salarie n=5, dernier point 2022, signaux 'en 2022'.",
+  "correction_validee": "Completer effectifs_annuels avec 2023=13 800 et 2025=13 600, recalculer ca_par_salarie et fcf_par_salarie jusqu'a 2025, supprimer employees.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Wrap (fee-based) assets, Cash sweep balances, Quarterly dividend per share raised",
+  "probleme": "Trois KPI transcript qui dupliquent des séries existantes avec un trimestre de retard.",
+  "preuve": "'Wrap (fee-based) assets' 650, 670, 664 = wrap_assets Q3-2025..Q1-2026 alors que Q2-2026 = 732 ; 'Cash sweep balances' 27.1, 29.9, 29.4 = cash_sweep_balances ; 'Quarterly dividend per share raised' 1,60 $ (29/01/2026) alors que dividend_per_share Q2-2026 = 1,70 $.",
+  "correction_validee": "Supprimer les trois KPI transcript.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_AUM",
+  "probleme": "Libellé 'Encours sous gestion' ambigu : c'est l'AUM Columbia Threadneedle annuel, à côté de total_AUM (1 396) et total_auma (1 812,6).",
+  "preuve": "CAHIER_AUM FY2025 = 678.1 = columbia_threadneedle_AUM Q4-2025 = 678.1 ; FY2024 = 644.9 = Q4-2024.",
+  "correction_validee": "Supprimer CAHIER_AUM au profit de columbia_threadneedle_AUM (historique trimestriel depuis 2016), ou le renommer 'Encours Columbia Threadneedle (annuel)'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Regular dividends paid to shareholders (annual), dividends_paid",
+  "probleme": "Le total annuel 2025 ne correspond pas à la somme des trimestres de la fiche.",
+  "preuve": "'614 M$ de dividendes ... versés en 2025' vs dividends_paid 2025 : 144+152+151+149 = 596 M$.",
+  "correction_validee": "Vérifier la source des deux séries (déclaré vs versé) et supprimer le KPI transcript à un point.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.summary, evidence",
+  "probleme": "Texte générique, année d'exercice inexistante et preuve hors sujet (AI Act européen).",
+  "preuve": "'AMP intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2026' ; evidence : 'Par exemple, le règlement européen sur l'intelligence artificielle (AI Act)'. Le KPI general_admin_expenses parle pourtant d'outils IA pour les conseillers.",
+  "correction_validee": "Réécrire sur les usages réels (outils IA pour les conseillers, Columbia Threadneedle) avec l'exercice 2025 ; retirer la preuve AI Act.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "operating_cash_flow, capex, free_cash_flow, share_buybacks, effective_tax_rate, customer_deposits, separate_account_assets, management_advice_fees, general_admin_expenses, policyholder_benefits, interest_credited_policyholders, awm_advisory_fees, am_retail_advisory_fees, am_institutional_fees, am_model_delivery_fees, awm_brokerage_cash_fees, total_costs_expenses, interest_expense_borrowings, share_based_compensation, awm_segment_assets, am_segment_assets, rps_segment_assets, corp_net_revenues",
+  "probleme": "Une vingtaine de KPI s'arrêtent au T1 2026 alors que le T2 2026 (communiqué du 23 juillet 2026) est intégré pour les autres.",
+  "preuve": "dernier 2026-03-31 pour ces séries ; total_revenues, net_income, awm_net_revenues à 2026-06-30.",
+  "correction_validee": "Compléter le T2 2026 depuis le 10-Q du T2 (tableau de flux, notes sectorielles).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "anti-these",
+  "champ": "att.hook",
+  "probleme": "Affirmation absolue contredite par un point de la série.",
+  "preuve": "'sorties nettes de capitaux depuis au moins deux ans' vs am_net_flows Q4-2025 = +2,0 Mds $.",
+  "correction_validee": "Nuancer : 'décollecte sur sept des huit derniers trimestres'.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Forbes Best-in-State wealth teams",
+  "probleme": "Classement marketing présenté comme un KPI.",
+  "preuve": "'Record de 478 equipes distinguees au classement Forbes Best-in-State Wealth Management Teams 2025', un point, sans accents.",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

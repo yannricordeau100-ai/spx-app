@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "CASH_TRADING_REV (hero)",
+  "probleme": "Hero arrete fin 2024 et incoherent avec la serie CASH_TRADING qui va a 2025",
+  "preuve": "CASH_TRADING_REV : FY2024=284, dernier 2024-12-31 ; CASH_TRADING : FY2024=308.4, FY2025=359.3 (perimetre avec compensation). Deux valeurs differentes pour 2024 sous des noms voisins.",
+  "correction_validee": "Basculer le hero sur CASH_TRADING (FY2025 = 359,3 M€) et retirer CASH_TRADING_REV, ou compléter CASH_TRADING_REV avec FY2025 sur le même périmètre depuis le document d'enregistrement universel 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "ISSUERS / LISTED_ISSUERS",
+  "probleme": "Doublon exact du nombre d emetteurs ; LISTED_ISSUERS saute 2023",
+  "preuve": "ISSUERS FY2024=1812, FY2025=1725 ; LISTED_ISSUERS FY2021=2000, FY2022=1930, FY2024=1812, FY2025=1725 (FY2023 absent).",
+  "correction_validee": "Retirer ISSUERS ; compléter FY2023 de LISTED_ISSUERS depuis le document d'enregistrement universel 2023 (valeur non disponible dans les données, donc pas automatique).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "DPS",
+  "probleme": "Dividende par action arrete a 2024 alors que le dividende total 2025 est publie",
+  "preuve": "DPS dernier 2024-12-31 val=2.9 ; DIV_TOTAL FY2025=321.5 M€ « proposé au titre de 2025 ».",
+  "correction_validee": "Ajouter le DPS propose au titre de 2025 depuis le communique annuel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "AUC, UND_REV_Q",
+  "probleme": "Series declarees trimestrielles mais ne contenant que des points de T2 et T4",
+  "preuve": "AUC : Q4-2024, Q2-2025, Q4-2025, Q2-2026 ; UND_REV_Q : Q4-2024=415.8, Q2-2025=465.8, Q4-2025=460.8, Q2-2026=544.4.",
+  "correction_validee": "Completer T1 et T3 depuis les publications trimestrielles ou passer les series en semestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "SEG_SECSERV, SEG_CMDS, ADS, OTHER_PT, GEO_ITALY..GEO_US",
+  "probleme": "Noms francais laisses en anglais ou reduits au nom d un pays sans dire ce qui est mesure",
+  "preuve": "name_fr « Securities Services », « Capital Markets and Data Solutions », « Advanced Data Solutions », « Other Post Trade » ; GEO_ITALY name_fr « Italie », GEO_FRANCE « France ».",
+  "correction_validee": "Renommer en « Services titres », « Marchés de capitaux et solutions de données », « Solutions de données avancées », « Autres services post-marché » et « Chiffre d'affaires Italie », etc.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Deux pays affiches avec une valeur nulle",
+  "preuve": "« Allemagne None ; Finlande None ».",
+  "correction_validee": "Retirer les entrées Allemagne et Finlande de revenue_by_geography.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_RPC, CAHIER_OPEN_INTEREST",
+  "probleme": "Series derives arretees fin 2024 alors que toute la fiche est a 2025 ; unites bricolees",
+  "preuve": "CAHIER_RPC dernier 2024-12-31 unit « EUR par lot » ; CAHIER_OPEN_INTEREST dernier 2024-12-31 unit « lots au 31 decembre » val=19702664.",
+  "correction_validee": "Ajouter 2025 et normaliser les unites (€ par lot ; lots).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these.texte vs DA.signal",
+  "probleme": "Montant d amortissements d acquisition cite dans la these different de celui du KPI",
+  "preuve": "these : « 86,9 M€ d'amortissements qui n'ont coûté aucune trésorerie » ; DA signal : « dont 110,9 M€ d'amortissements d'incorporels liés aux acquisitions ».",
+  "correction_validee": "Verifier la base (avant ou apres impot) et harmoniser les deux chiffres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.niveau",
+  "probleme": "Moat « Aucun » pour un operateur de bourses, chambre de compensation et depositaires, alors que la justification decrit une concentration de liquidite",
+  "preuve": "moat: None / tendance stable :: « ce qui concentre encore la liquidité sur l'infrastructure » ; marge EBITDA ajuste 62,7 %.",
+  "correction_validee": "Reevaluer le niveau (effets de reseau, licences reglementaires).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

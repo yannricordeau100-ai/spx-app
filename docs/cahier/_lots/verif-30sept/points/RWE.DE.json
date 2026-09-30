@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "EBITDA_AJ / RN_AJUSTE (yoy + signal)",
+  "probleme": "Variation et signal calcules sur le semestre precedent alors que H1-2026 est le dernier point",
+  "preuve": "EBITDA_AJ : val=3,011 (H1-2026), yoy=+6,0 % = 2,948/2,781 (H2-2025) ; vrai yoy H1 = 3,011/2,139 = +40,8 %. Signal : « 2,9 Mds € au second semestre 2025 ». Idem RN_AJUSTE : yoy +7,1 % alors que 1,257/0,775 = +62 %.",
+  "correction_validee": "Afficher +40,8 % (3,011/2,139) et +62,2 % (1,257/0,775) et réécrire les deux signaux sur le S1-2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CA_EXT.yoy",
+  "probleme": "Variation affichee fausse",
+  "preuve": "yoy=-41,8 % ; serie H1-2025=10,058 et H1-2026=7,665, soit -23,8 %.",
+  "correction_validee": "Afficher -23,8 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.developpement",
+  "probleme": "Chiffre de comparaison contredit par la serie",
+  "preuve": "These : « 3 011 M€ contre 2 092 M€ un an plus tot » ; KPI EBITDA_AJ H1-2025 = 2,139 Mds €.",
+  "correction_validee": "Aligner sur 2 139 M€ (ou expliquer le retraitement).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PROD_TOTALE.name_fr / CAPA_NETTE_PRORATA.name_fr",
+  "probleme": "Noms contredisant l'unite",
+  "preuve": "« Production en MWh » avec unite GWh (122 342) ; « Capacite nette en MW » avec unite GW (48,9).",
+  "correction_validee": "Renommer « Production totale d'électricité » et « Capacité nette (quote-part) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Renewables Capacity, Offshore Wind EBITDA, Group Adj EBITDA, Energy Trading Result, Renewable Investments, Lignite Production, Gas-Fired Generation, Green Capex",
+  "probleme": "Huit series heritees sans dates, arretees en 2024, en doublon et contredisant les series principales",
+  "preuve": "« Renewables Capacity 16,4 GW fin 2024 » vs CAPA_RENOUV FY2024 = 19,16 ; « Energy Trading Result 800 / 950 » vs EBITDA_TRADING 2024 = 679 M€, 2023 = 1 578 ; « Group Adj EBITDA 5,681 » = somme des semestres 2024 ; toutes datees « dernier 2026-09-22 » sans aucun libelle de periode.",
+  "correction_validee": "Supprimer les quatre doublons (capacité renouvelable, EBITDA offshore, EBITDA groupe, trading) et dater ou retirer lignite, gaz, investissements et capex vert.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "anti-these",
+  "champ": "att.accroche",
+  "probleme": "Anti-these arretee au T1-2026 alors que le S1-2026 est publie sur la fiche",
+  "preuve": "« Au premier trimestre 2026, l'EBITDA ajuste a progresse de 300 M€... sans cet effet, l'EBITDA aurait ete stable » ; la serie montre H1-2026 = 3,011 vs 2,139, soit +872 M€, bien au-dela de l'indemnite de 332 M€.",
+  "correction_validee": "Reecrire sur le semestre complet.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions de marche",
+  "champ": "market_positions",
+  "probleme": "Position de marche vide",
+  "preuve": "« position de marche 1: None | taille 691.5 | part None ».",
+  "correction_validee": "Masquer le bloc tant qu'il n'a ni nom ni part.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

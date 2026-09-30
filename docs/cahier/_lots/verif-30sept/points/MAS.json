@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "plumbing_rev / decorative_rev (T2-2025) et yoy affiche",
+  "probleme": "Le yoy affiche contredit la serie : les points T2-2025 des deux segments semblent faux.",
+  "preuve": "plumbing_rev T2-2026 1 337 vs T2-2025 1 312 = +1,9 % mais yoy=-2,6 % et plumbing_growth_lc=-3 ; decorative_rev 655 vs 738 = -11,2 % mais yoy=-3,5 % ; total 2 051 juste ; 1 373 + 679 = 2 052 rendrait les yoy coherents",
+  "correction_validee": "Verifier le 10-Q T2-2025 puis aligner les points T2-2025 (plumbing_rev, plumbing_na_rev, decorative_rev et marges derivees) ou les yoy affiches.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Plumbing Sales / Decorative Sales / Delta Faucet share / Behr Paint share / International % / R&R Mix (6 series annuelles sans annee, dernier 2026-06-30)",
+  "probleme": "Series lissees, contredites par les series sourcees, noms faux.",
+  "preuve": "Decorative Sales 3,21 Mds vs DECORATIVE_SALES FY2025 = 2 570 M$ ; Plumbing Sales 4,64 vs somme trimestrielle 2025 = 4 992 M$ ; International % 24 vs geographie 21,3 ; parts de marche Delta 27,28,28,28,29 et Behr 20,21,21,21,21 sans source ; « R&R Mix » nomme « Part marche R&R » alors qu il s agit de la part des ventes renovation",
+  "correction_validee": "Retirer les 6 series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "MAS Plumbing Segment Net Sales",
+  "probleme": "Valeur affichee differente du dernier point, serie perimee d un an, signal en anglais, date fausse.",
+  "preuve": "val=4853 mais serie 3998, 3984, 4136, 5135, 5252, 4842 ; 4 853 = Plomberie 2024 (7 828 − 2 975) alors que 2025 = 4 992 ; signal « Net sales flat 2024 vs 2023 » ; dernier 2026-06-30",
+  "correction_validee": "Retirer ce KPI, doublon de plumbing_rev.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "charges_impairment_actifs_incorporels, ajouts_immobilisations, amortissement_depreciation, amort_depr_plumbing, ajouts_immobilisations_plumbing",
+  "probleme": "Series annuelles ecrites du plus recent au plus ancien, sans annee, datees 2026-06-30, doublons des KPI capex et dep_amort.",
+  "preuve": "ajouts_immobilisations 156, 168, 243 (156 = capex 2025 = 32+36+41+47) ; amortissement 148, 150, 149 (148 = dep_amort 2025) ; un graphique afficherait la tendance inversee",
+  "correction_validee": "Retirer ces 5 series ou les reordonner etiquetees FY2023, FY2024, FY2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "na_op / intl_op",
+  "probleme": "Series arretees au T3-2024 alors que les autres vont au T2-2026.",
+  "preuve": "na_op dernier 2024-09-30 (322 M$), intl_op dernier 2024-09-30 (56 M$) ; signal « au T3 2024 »",
+  "correction_validee": "Completer jusqu au T2-2026 ou retirer si Masco ne publie plus ce decoupage.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "eps_diluted",
+  "probleme": "Tous les quatriemes trimestres manquent dans la serie.",
+  "preuve": "serie Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 (pas de Q4-2024 ni Q4-2025)",
+  "correction_validee": "Ajouter les Q4 (10-K : BPA annuel moins 9 mois).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "13 KPI a un seul point (ROIC, Homeowner Equity, Homes over 40 years, Vitality Index, Pro Paint, Full-Year FCF, China exposure, marches adressables, Term Loan, Revolver, Rationalization, Trademark impairment)",
+  "probleme": "Faits ponctuels ou donnees macro presentes comme KPI trimestriels dates 2026-03-28.",
+  "preuve": "n=1 partout ; « Luxury Faucet Addressable Market 1 800 M$ », « Revolving Credit Agreement 1 Mds $ » ne sont pas des indicateurs de la societe ; Full-Year FCF 850 doublonne fcf_annuel 0,866",
+  "correction_validee": "Convertir en stories, retirer des KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "Repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libelle en anglais.",
+  "preuve": "« Foreign Locations 21.3 »",
+  "correction_validee": "Remplacer « Foreign Locations » par « International ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Description Mettrik",
+  "champ": "products",
+  "probleme": "La peinture Behr (34 % du CA) est absente de la liste des produits.",
+  "preuve": "products : « robinets, douches, systemes de filtration d eau, baignoires et spas » ; revenue_by_segment : Decorative Architectural Products 34",
+  "correction_validee": "Ajouter « les peintures et revetements Behr » a la liste des produits.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "En-tete",
+  "champ": "moat, positions de marche, remuneration",
+  "probleme": "Champs vides visibles.",
+  "preuve": "moat: None ; position de marche 1 et 2 : None | part None ; remuneration None",
+  "correction_validee": "Renseigner ou masquer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

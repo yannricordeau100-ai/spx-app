@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "yoy (9 KPI datés 2026-09-03)",
+  "probleme": "Le point Q2-FY2027 a été ajouté mais le yoy stocké est resté celui de Q1-FY2027",
+  "preuve": "REV_TOT val 2046, yoy stocké +18,4 % alors que 2046/1763 = +16,1 % ; EPS_DIL 2,33 affiché +231,4 % alors que 2,33/1,46 = +59,6 % ; RPO_TOTAL 7433 affiché +9,1 % alors que 7433/7297 = +1,9 % ; idem SUB_REV, AECO_REV, ACAD_REV, ME_REV, NG_EPS",
+  "correction_validee": "Recalculer le yoy Q2-FY2027 contre Q2-FY2026 sur les 9 KPI datés 2026-09-03.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux Q2-FY2027 et mise à jour partielle",
+  "probleme": "Signaux restés sur Q1-FY2027 et seule une partie des KPI a reçu le trimestre Q2-FY2027",
+  "preuve": "SUB_REV signal « Abonnements $1.84B/trim (+19% vs T1 FY26) » pour val 1952 ; RPO_TOTAL « $7.81B (+9%) » pour val 7433 (en baisse depuis deux trimestres) ; REV_TOT « CA de $1 934M au T1 FY2027 » pour val 2046 ; résultat net, FCF, marges, R&D s'arrêtent à Q1-FY2027 (2026-04-30)",
+  "correction_validee": "Réécrire les signaux sur Q2-FY2027 et compléter les KPI trimestriels restants depuis le 10-Q du T2 FY2027.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total remaining performance obligations",
+  "probleme": "Doublon exact de RPO_TOTAL",
+  "preuve": "Série 7157, 7297, 7361, 8300, 7808 = RPO_TOTAL Q1-FY2026 à Q1-FY2027, sans dates, name_en vide",
+  "correction_validee": "Retirer le KPI « Total remaining performance obligations ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total ARR, AEC ARR, Mfg ARR",
+  "probleme": "Séries ARR sans dates ni source jusqu'en 2026 alors que la fiche affirme qu'Autodesk ne publie plus l'ARR",
+  "preuve": "Total ARR 3,41 → 6,45 Mds $ (dernier 2026-12-31, futur) ; KPI ARR signal : « Autodesk a abandonné ce suivi dès le T1 FY2021, remplaçant l'ARR par les facturations et le RPO » ; descriptions en franglais (« Cloud-first product strategy »)",
+  "correction_validee": "Retirer Total ARR, AEC ARR et Mfg ARR.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Subscribers, Net Revenue Retention, AEC Revenue",
+  "probleme": "Séries sans dates contredisant des séries datées de la même fiche",
+  "preuve": "« Subscribers » 5,6 → 6,9 M vs « Total subscriptions » 5,27 → 7,53 M ; « Net Revenue Retention » annuel 110 vs NR3 trimestriel 112 ; « AEC Revenue » 3 Mds $ vs AECO_REV FY2026 = 809+878+921+975 = 3583 M$",
+  "correction_validee": "Retirer Subscribers, Net Revenue Retention et AEC Revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RPO_CRPO",
+  "probleme": "Unité fausse d'un facteur 1000, signal = cuisine interne, série morte depuis FY2022",
+  "preuve": "Unité « M $ » pour 2,7 → 5,62 (ce sont des Mds $) ; signal : « Non pose en story le 07/09/2026, regle du proprietaire : derniere donnee 2019, une story doit dater d un an au plus. Total deja en ligne… » ; RPO_TOTAL couvre déjà jusqu'à Q2-FY2027",
+  "correction_validee": "Retirer CAHIER_RPO_CRPO.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[1], risks[3], risks[4], score_rationale",
+  "probleme": "Résumés décalés par rapport aux titres, risque hors sujet pour un éditeur logiciel, justifications avec citations anglaises et notes internes",
+  "preuve": "« Risques géopolitiques et tarifaires » et « Acquisitions et intégrations » ont le même résumé « exposition aux cyberattaques, intrusions ou pannes IT » ; « Chaîne d'approvisionnement » résumé générique ; score_rationale : « Position: haut Item 1A », « Tout de l'3/5 », citations en anglais",
+  "correction_validee": "Réécrire les résumés depuis le 10-K, renommer le risque 5 « Dépendance à des prestataires tiers », retirer citations et repères de position.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "MaintenX annualized recurring revenue",
+  "probleme": "Nom de la société acquise mal orthographié",
+  "preuve": "KPI « MaintenX » ; l'anti-thèse écrit « 3,6 Mds $ pour MaintainX »",
+  "correction_validee": "Remplacer MaintenX par MaintainX dans short et name_fr.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Balise XBRL visible et libellés en anglais",
+  "preuve": "« Media And Entertainment [member] 4.6 », « Architecture Engineering And Construction 49.7 »",
+  "correction_validee": "Libeller Architecture, ingénierie et construction ; Famille AutoCAD et AutoCAD LT ; Fabrication ; Média et divertissement ; Autres.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI à un point (transcript)",
+  "probleme": "Anecdotes de conférence présentées comme KPI, dont un doublon",
+  "preuve": "« Operations TAM expansion » 40 Mds $, « Hyperscaler data center partner ecosystem » 2000 entreprises, « AI Sketch Auto Constraint constraints delivered » 3,8 M, « New component designs created in Fusion per month » 33, « January 2026 restructuring plan » 160 M$, « Share repurchases fiscal 2026 » 1361 M$ (BUYBACK FY2026 = 1402 M$)",
+  "correction_validee": "Retirer ou déplacer en faits clés ; supprimer le doublon rachats",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux (accents)",
+  "probleme": "Accents manquants dans plusieurs signaux",
+  "preuve": "« tête de pont a Autodesk », « un marche additionnel », « taux d'acceptation eleve », « vise a réduire », « référence au marche » (NG_OM), « pas encore factures » (UNBILLED)",
+  "correction_validee": "Corriger a → à, marche → marché, eleve → élevé, factures → facturés dans les signaux concernés.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "RECUR_PCT",
+  "probleme": "Série arrêtée au T4 FY2025 alors qu'Autodesk publie ce taux chaque trimestre",
+  "preuve": "dernier 2025-01-31, val 97 ; la fiche va jusqu'à Q2-FY2027 sur le CA",
+  "correction_validee": "Compléter FY2026 et FY2027 ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

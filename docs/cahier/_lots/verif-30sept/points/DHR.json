@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "total_core_growth (hero) vs Total company core sales growth",
+  "probleme": "Le KPI hero et son doublon donnent des séries contradictoires ; le hero contient un point copié de la biotech et une date de fin invalide.",
+  "preuve": "total_core_growth Q1-2025=7 (= biotech_core_growth Q1-2025=7) et Q2-2026=3.5 ; doublon : 0 pour la même période et 0.5 au dernier point ; « dernier 2026-09-24 » alors que la prochaine publication est le 2026-10-20 ; yoy « -6.5pp vs Q1-2025 » pour un T2.",
+  "correction_validee": "Vérifier chaque trimestre dans les communiqués, garder une seule série datée au 2026-06-26 et supprimer le doublon.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Life Sciences core sales growth, Cepheid respiratory revenue, New product revenue growth",
+  "probleme": "Doublons sans dates de lifesci_core_growth, cepheid_molec_diag et new_product_rev_growth.",
+  "preuve": "« Life Sciences core sales growth | serie: -5.5, -2, 1, -4, -2.5, -1, 0.5, 0.5 » vs lifesci_core_growth ; « Cepheid respiratory revenue | 500 » vs cepheid_molec_diag Q4-2025=500 ; « New product revenue growth | 25 » vs new_product_rev_growth Q1-2026=25.",
+  "correction_validee": "Supprimer Life Sciences core sales growth, Cepheid respiratory revenue et New product revenue growth.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy et unit (texte libre)",
+  "probleme": "Champs numériques remplis de texte et unités contenant des commentaires.",
+  "preuve": "yoy « flat / saison plus faible », « première croissance positive en ~2 ans », « retour à la profitabilité vs -239 M$ Q2-2025 », « stable vs 2024 » ; unit « années consécutives (145% en 2025) », « instruments (>60 000) », « M$ (10 M actions; +35 M autorisées) ».",
+  "correction_validee": "Mettre yoy en nombre ou vide, ramener les unités à « années », « instruments » ou « M$ » et déplacer les commentaires dans le signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Masimo Corporation acquisition, Masimo 2025 revenue, Life Sciences trade name impairment, Share repurchase and authorization, Masimo cost synergies",
+  "probleme": "Événements ponctuels présentés comme KPI ; montant Masimo différent de l'anti-thèse.",
+  "preuve": "KPI « 9.9 Mds $ » vs att « le groupe a payé 9,8 Mds $ pour Masimo » ; « Life Sciences trade name impairment | 432 » déjà cité dans net_income.signal.",
+  "correction_validee": "Basculer ces cinq lignes en story ; harmoniser le prix Masimo (9,8 ou 9,9) sur le rapport trimestriel T2 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat contredit par les KPI : le diagnostic ne recule pas et les commandes bioprocess sont négatives au dernier point.",
+  "preuve": "« le diagnostic recule » vs diag_core_growth Q2-2026=+4.5 et diag_rev +6.8 % ; « Les commandes de bioprocédés repartent fortement » vs bioproc_equip_orders Q2-2026=-5.",
+  "correction_validee": "Réécrire sur les chiffres à jour : résultat opérationnel Diagnostics -24,9 %, commandes équipements +30 % au T1 puis -5 % au T2.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment et revenue_by_geography",
+  "probleme": "Segments remplacés par récurrent/non récurrent alors que les trois segments sont disponibles ; géographie en anglais.",
+  "preuve": "« Revenus récurrents 81.9 ; Revenus non récurrents 18.1 » ; « U.S. 38.7 ; China 12.1 ; Germany 5.6 ; All other 43.7 » ; CA 2025 : Biotech 7 293, Sciences de la vie 7 334, Diagnostics 9 941 M$.",
+  "correction_validee": "Segments : Diagnostics 40,5 ; Sciences de la vie 29,9 ; Biotechnologie 29,7 (exercice 2025). Géographie : États-Unis, Chine, Allemagne, Reste du monde.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORG_GROWTH_END_MARKET",
+  "probleme": "Nom « par marché final » pour une série unique ; yoy en % relatif sur un taux.",
+  "preuve": "« Croissance organique par marché final | % | yoy=-233.3% | FY2024=-1.5, FY2025=2 »",
+  "correction_validee": "Renommer en « Croissance organique annuelle » et afficher le yoy en « +3,5 pts ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "activity",
+  "probleme": "Mention « industriels » périmée depuis la scission de Veralto (2023).",
+  "preuve": "« produits et services industriels, médicaux et de recherche » ; revenue_total.signal : « périmètre hors Veralto (scission sept. 2023) ».",
+  "correction_validee": "Danaher conçoit, fabrique et commercialise des produits et services pour les sciences de la vie, la biotechnologie et le diagnostic.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risques 1 à 6",
+  "probleme": "Six risques sans description.",
+  "preuve": "« risque 1: Risque de crédit client :: » (vide), idem 2 à 6.",
+  "correction_validee": "Rédiger depuis le rapport annuel 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

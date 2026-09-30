@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue_q, gross_margin_q, op_margin_q, eps_diluted_q, net_income_q, ocf_q, fcf_q, lt_debt_q .signal",
+  "probleme": "La valeur affichée est celle du T4-FY2026, mais le signal commente le T3-FY2026 avec d'autres chiffres.",
+  "preuve": "revenue_q val=3.629, signal '3,11 Mds $ au T3-FY2026' ; gross_margin_q 52.3 contre '46,5 %' ; op_margin_q 43 contre '32,1 %' ; eps 5.58 contre '3,27 $' ; net_income 1294 contre '748 M$' ; ocf 1.305 contre '1,11' ; fcf 1118 contre '953' ; lt_debt 3.38 contre '3,47'",
+  "correction_validee": "Réécrire les huit signaux sur le T4-FY2026 avec les valeurs affichées.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_q / gross_margin_q / rd_q (libellés de période)",
+  "probleme": "Les trimestres portent des libellés calendaires faux. 'Q4 2025' désigne en réalité le T4 de l'exercice 2026.",
+  "preuve": "revenue_q Q1 2025..Q4 2025 = 2,63+2,83+3,11+3,629 = 12,199 = revenue_annuel FY2026 (12,195) ; rd_q 'Q4 2025=194' commenté comme T3-FY2026",
+  "correction_validee": "Réétiqueter revenue_q, gross_margin_q et rd_q en trimestres d'exercice (Qx-FYyyyy) après recalage série par série, rd_q étant décalée d'un trimestre de plus que revenue_q.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "hero / kpis",
+  "champ": "mass_cap_rev_pct et KPI opérationnels",
+  "probleme": "Le hero et les KPI opérationnels s'arrêtent au T3-FY2026, alors que l'exercice clos le 3 juillet 2026 est publié. capex_q et inventory_q sont datés du 2026-07-03 alors que leur dernier point est le T3.",
+  "preuve": "mass_cap_rev_pct, mass_cap_eb_shipped, total_eb_shipped, oem_channel_pct, legacy_rev_pct, mass_cap_rev_abs, sales_incentive_pct, dps_q, buyback_q : dernier 2026-04-03 ; capex_q dernier 2026-07-03 mais dernier point Q3-FY2026=161",
+  "correction_validee": "Ajouter le T4-FY2026 aux KPI opérationnels et au hero, et dater capex_q et inventory_q au 2026-04-03 tant que le T4 manque.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Nearline Exabytes / Exabytes Shipped / CAHIER_EXABYTES_SHIPPED",
+  "probleme": "Les doublons d'exaoctets se contredisent : le sous-ensemble dépasse le total.",
+  "preuve": "Nearline Exabytes 800 contre total CAHIER_EXABYTES_SHIPPED FY2026=789 ; Exabytes Shipped annuel 590 (+39 %) contre CAHIER 789 (FY2026) ou 595 (FY2025) ; 425 contre 398 pour FY2024",
+  "correction_validee": "Garder CAHIER_EXABYTES_SHIPPED et les séries trimestrielles datées, supprimer 'Exabytes Shipped', 'Nearline Exabytes', 'Total exabytes shipped' et 'Data center exabytes shipped'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Mass Capacity ASP / ASP/TB / hdd_price_per_tb",
+  "probleme": "La fiche donne trois prix par téraoctet incompatibles, dont un invraisemblable.",
+  "preuve": "Mass Capacity ASP = 50 $/To alors que mass_cap_rev_abs / mass_cap_eb_shipped = 2 490 M$ / 175,4 EB = 14,2 $/To ; ASP/TB 17.5 ; hdd_price_per_tb 14",
+  "correction_validee": "Supprimer 'Mass Capacity ASP' et 'ASP/TB', garder hdd_price_per_tb prolongée par le calcul CA Mass Capacity / EB expédiés.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Income (annuel)",
+  "probleme": "La valeur attribuée à l'exercice 2026 est incompatible avec les marges trimestrielles de la fiche, et la variation est calculée sur une base négative.",
+  "preuve": "val=2.412 Mds $ yoy='+805,3 %' ; somme des marges op x CA FY2026 = 0,694+0,843+0,998+1,560 ≈ 4,1 Mds $",
+  "correction_validee": "Supprimer 'Op Income' ou le reconstruire depuis les comptes annuels datés, sans variation en % sur base négative.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Mass Capacity Rev.",
+  "probleme": "Ce doublon annuel contredit la série trimestrielle.",
+  "preuve": "Mass Capacity Rev. 7200 M$ (+45 %) ; mass_cap_rev_abs FY2025 = 1,73+1,88+1,75+1,98 = 7,34 Mds $ ; 3 premiers trimestres FY2026 déjà à 6,82 Mds $",
+  "correction_validee": "Supprimer 'Mass Capacity Rev.'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "legacy_rev_pct",
+  "probleme": "Le signal et la variation contredisent la série, à cause d'une rupture de périmètre non neutralisée (Legacy devenu Edge IoT).",
+  "preuve": "signal '20 % des revenus au T3-FY2026 vs 25 % un an plus tôt', yoy=-5pp ; série Q3-FY2025=12, Q3-FY2026=20 (+8 pts)",
+  "correction_validee": "Utiliser la série retraitée Edge IoT ou couper la série au T1-FY2026. Corriger le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "HAMR transition / HAMR Drive Shipments",
+  "probleme": "Les deux indicateurs ne sont pas cohérents entre eux.",
+  "preuve": "HAMR transition 30 % des expéditions ; HAMR Drive Shipments 1,5 M unités, soit environ 45 EB à ~30 To par disque, environ 6 % des 789 EB",
+  "correction_validee": "Vérifier la définition (part des unités, des EB ou du CA) et les dater.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "La justification reprend les chiffres de l'exercice 2025 alors que l'exercice 2026 est affiché.",
+  "preuve": "'Chiffre d'affaires en hausse de 39 %... exaoctets livrés en croissance de 39 %' ; FY2025/FY2024 = 9,097/6,551 = +38,9 % ; revenue_annuel FY2026 +34,1 %",
+  "correction_validee": "Réécrire la justification sur l'exercice 2026.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI hors sujet ou doublons ponctuels",
+  "probleme": "La fiche contient des chiffres de marketing ou de tiers, un événement et des doublons de KPI existants, ainsi qu'une série arrêtée il y a dix ans.",
+  "preuve": "Data generated per autonomous vehicle 4 To/h ; Top 3 CSP RPO 1.1 T$ ; 2030 Senior Notes issued 400 (événement de mai 2025) ; Full-time employees contre headcount_a ; Quarterly cash dividend per share contre dps_q ; CAHIER_UNITS_ASP dernier 2016-12-31",
+  "correction_validee": "Retirer ces six entrées.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "entete / repartition / kpis",
+  "champ": "tagline, revenue_by_geography, revenue_by_segment, descriptions",
+  "probleme": "Il reste des textes en anglais ou en jargon, et des répartitions vides ou en majuscules.",
+  "preuve": "tagline anglaise ; 'SINGAPORE 41.3 ; NETHERLANDS 10.2 ; Autres pays None' ; 'OEMs None ; Distributors None ; Retailers None' ; descriptions 'Moore's law storage', 'AI training storage', 'post-PMR, début ramp commercial'",
+  "correction_validee": "Traduire, remplir ou supprimer les répartitions vides et réécrire les descriptions.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

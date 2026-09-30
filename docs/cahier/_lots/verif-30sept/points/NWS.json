@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REV_CIRC.serie",
+  "probleme": "Rupture de périmètre : le premier point inclut les abonnements Foxtel (cédé), les suivants non",
+  "preuve": "Q1-2025=1157 puis Q2-2025=745, Q3-2025=755 ; écart de 412 M$ = ordre de grandeur des abonnements Foxtel trimestriels",
+  "correction_validee": "Retirer les points REV_CIRC antérieurs à Q2-2025 (périmètre Foxtel) ou les remplacer par des valeurs retraitées hors Foxtel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel / GEO_APAC / dette_sur_ca",
+  "probleme": "Séries annuelles non retraitées de Foxtel avant FY2023 : chute artificielle et taux de croissance longue durée faussés",
+  "preuve": "revenue_annuel 2022=10.385 puis 2023=8.012 ; GEO_APAC FY2022=4480 puis FY2023=2381 ; signal « +1,2 % par an depuis 2017 »",
+  "correction_validee": "Limiter revenue_annuel, GEO_APAC et dette_sur_ca à FY2023 et après (ou retraiter hors Foxtel) puis recalculer les taux longue durée.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Wall Street Journal total subscriptions / Dow Jones consumer products total average subscriptions / Barron's Group digital-only subscriptions",
+  "probleme": "Trois doublons des séries WSJ_TOTAL_SUBS, DJ_TOTAL_SUBS et BARRONS_DIG_SUBS, avec des valeurs contradictoires et des points anciens invraisemblables",
+  "preuve": "Dow Jones dup : 6103, 6252, 6508, 6546 contre DJ_TOTAL_SUBS Q4-2025=6261, Q1-2026=6392 ; WSJ dup : 3718 contre Q2-2025=4225 ; Barron's dup : 810 puis 1221 puis 1368",
+  "correction_validee": "Supprimer les trois séries sans identifiant et garder WSJ_TOTAL_SUBS, DJ_TOTAL_SUBS, BARRONS_DIG_SUBS.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ABONNES_NUMERIQUES / CAHIER_DIFFUSION_PAYEE / CAHIER_PART_CA_NUMERIQUE",
+  "probleme": "Doublons annuels des séries trimestrielles WSJ, sous des noms vagues qui laissent croire à un périmètre groupe ; série de part numérique parfaitement linéaire (lissée)",
+  "preuve": "CAHIER_ABONNES FY2026=4.465 = WSJ_DIG_SUBS Q4-2026=4465 ; CAHIER_DIFFUSION FY2026=4827 = WSJ_TOTAL_SUBS ; « Part du numérique dans le chiffre d'affaires » 63,67,72,75,78,80,82,84 alors qu'il s'agit du seul segment Dow Jones",
+  "correction_validee": "Supprimer les deux doublons d'abonnés ; renommer la part numérique « Part du numérique dans le CA Dow Jones » et vérifier les points 2019-2024 à la source",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel / dette_annuelle / fcf_annuel",
+  "probleme": "Doublons annuel/trimestriel avec REV, LT_DEBT et FCF",
+  "preuve": "revenue_annuel 2026=9.028 = somme REV FY2026 ; dette_annuelle 2026=1.989 = LT_DEBT Q4-2026 ; fcf_annuel 2026=0.811 = somme FCF",
+  "correction_validee": "Garder une seule fréquence par indicateur ou marquer explicitement les séries annuelles comme cumul",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Anthropic settlement award / September Bible sales growth / Dow Jones 5-year EBITDA target / Risk & Compliance addressable market / Eco-Movement / Share buyback daily rate / Pre-tax gain Foxtel / 2025 stock repurchase program",
+  "probleme": "Huit « KPI » à un seul point qui sont des événements, objectifs ou anecdotes, pas des indicateurs ; le règlement Anthropic de 1,5 Md$ est le montant total du règlement collectif, pas la part de News Corp",
+  "preuve": "n=1 pour chacun ; « Règlement de 1,5 Md$ contre Anthropic ... News Corp attend sa part » ; « Ventes de Bibles en hausse de plus de 65% en septembre »",
+  "correction_validee": "Déplacer en faits marquants (stories) ou supprimer ; ne pas afficher 1,5 Md$ comme une valeur attribuable à News Corp",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Répartition géographique incohérente avec les séries GEO_* de la fiche et libellé en anglais",
+  "preuve": "Bloc : États-Unis & Canada 51.3, AUSTRALIA 27.4, Europe 21.3 ; séries FY2026 : 4368/9028=48,4 %, 2830/9028=31,3 %, 1830/9028=20,3 % (signal GEO_US_CA dit lui-même 48 %)",
+  "correction_validee": "Recalculer sur FY2026 depuis GEO_US_CA, GEO_APAC, GEO_EUROPE (48,4 / 31,3 / 20,3) avec le libellé « Australasie et autres ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.text",
+  "probleme": "Le moat dit que l'immobilier numérique progresse « modestement » alors que la fiche montre +19 % à +21 %, et contredit la thèse (« quatre activités grandissent plus vite que leurs marchés »)",
+  "preuve": "moat : « Les abonnements et l'immobilier numérique progressent modestement » ; DRE_REV yoy=+18.7%, REA_REV yoy=+21.4%",
+  "correction_validee": "Réécrire le moat sur les chiffres FY2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DJ_MARGIN / DRE_MARGIN / BOOK_MARGIN / NEWS_MEDIA_MARGIN signal",
+  "probleme": "Signaux vides de contenu, sans chiffre ni variation",
+  "preuve": "« Marge EBITDA du segment au T4 FY2026 » répété quatre fois",
+  "correction_validee": "Compléter chaque signal avec la marge T4 FY2026 et celle du T4 FY2025 (ex. Dow Jones 28,1 % contre 25,0 %).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS_DIL",
+  "probleme": "Série arrêtée un trimestre avant le reste de la fiche",
+  "preuve": "dernier 2026-03-31, val=0.16 alors que NET_INC et REV vont jusqu'au Q4-2026",
+  "correction_validee": "Ajouter le BPA du T4 FY2026",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

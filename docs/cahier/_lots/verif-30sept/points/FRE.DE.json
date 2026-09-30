@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Net Debt / EBITDA (annuel) vs NDEBT",
+  "probleme": "Doublon contradictoire : la serie annuelle non datee donne 3,0x en dernier point (datee 2026-08-09) alors que NDEBT trimestriel est a 2,6x au T2 2026 et 2,7x fin 2025",
+  "preuve": "Net Debt / EBITDA serie 3.8, 3.7, 3.8, 3.3, 3 dernier 2026-08-09 ; NDEBT Q4-2025=2.7, Q2-2026=2.6",
+  "correction_validee": "Supprimer la serie annuelle Net Debt / EBITDA, NDEBT la couvre.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Kabi EBIT Margin / Helios Patients / Biosimilars Sales / Kabi Volume Growth / Helios Patients DE / Hospitals Owned",
+  "probleme": "Six series annuelles sans dates ni signal, toutes datees 2026-08-09, qui doublonnent MKABI, CAHIER_ADJ_ADMISSIONS, BIOPH avec des valeurs differentes (marge Kabi 15,6 contre 17,0 ; patients 26 M contre 27,1 M) ; Kabi Volume Growth est en fait la croissance organique",
+  "preuve": "Kabi EBIT Margin serie 13 ... 15.6 ; MKABI Q2-2026=17 ; Helios Patients 26 ; CAHIER_ADJ_ADMISSIONS FY2025=27.1 ; Kabi Volume Growth | Fresenius Kabi Organic Growth",
+  "correction_validee": "Supprimer ces six series, ou les dater et les aligner sur MKABI, BIOPH et CAHIER_ADJ_ADMISSIONS.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SAME_FACILITY_GROWTH",
+  "probleme": "Variation d un pourcentage exprimee en % relatif",
+  "preuve": "val=7 | yoy=-12.5% | FY2024=8, FY2025=7",
+  "correction_validee": "Afficher la variation en -1 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "clients_concentration",
+  "champ": "top",
+  "probleme": "Bloc clients vide : un client, part inconnue, aucun nom",
+  "preuve": "clients: n=1, pct None, clients []",
+  "correction_validee": "Completer (part des grossistes americains chez Kabi) ou masquer le bloc",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.fr.activity",
+  "probleme": "Description trop vague pour un investisseur",
+  "preuve": "Fresenius SE est un groupe allemand diversifie en sante.",
+  "correction_validee": "Preciser : deux metiers, medicaments et dispositifs hospitaliers (Kabi) et hopitaux prives (Helios, Allemagne et Espagne), CA 2025 d environ 22,6 Mds€",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "hero pub_rev et anciens segments (corp_rev, smb_rev, *_gp_margin, *_oi, *_op_margin)",
+  "probleme": "Le hero et onze KPI de l'ancienne structure de segments s'arrêtent au T4-2025 alors que la fiche est arrêtée au T2-2026 ; leurs signaux sont inconciliables avec les séries.",
+  "preuve": "pub_rev dernier 2025-12-31 ; nouveaux segments commercial_rev_new, gov_oi_new, edu_oi_new créés en 2026. Signal pub_rev : Government +4.1 %, Healthcare +13.3 %, Education -1.8 % alors que chan_gov / chan_health / chan_edu T4-2025 donnent +6,0 %, +6,3 %, +14,7 %. corp_gp_margin signal Compression alors que 23,83 → 24,19 ; smb_gp_margin Compression légère alors que 22,95 → 24,40.",
+  "correction_validee": "Hero sur une série vivante (commercial_rev_new ou croissance du CA) et ancienne structure archivée avec la mention fin de série au T4-2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "commercial_rev_new / commercial_oi_new / gov_oi_new / edu_oi_new",
+  "probleme": "Séries à trois points dont le point de comparaison cité dans le signal est absent.",
+  "preuve": "history : Q1-2025, Q1-2026, Q2-2026 ; signaux : contre 3 631,3 M$ un an plus tôt en base retraitée ; contre 371,7 M$ ; contre 51,0 M$ ; contre 56,1 M$.",
+  "correction_validee": "Ajouter Q2-2025 : 3,631 Mds $ ; 371,7 M$ ; 51,0 M$ ; 56,1 M$ (base retraitée).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "International (UK + Canada)",
+  "probleme": "Valeur affichée sans rapport avec sa propre série, doublon d'un autre KPI.",
+  "preuve": "val 2,7 Mds alors que history = 1,5 / 1,7 / 1,7 / 1,7 / 1,8 sans dates, daté 2026-09-29 ; Other (UK + Canada) FY2025 = 2 719,8 M$ ; geo_row trimestriel existe.",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "bpa_dilue / div_per_share",
+  "probleme": "Séries trimestrielles sans aucun quatrième trimestre depuis 2021 (2019 pour le dividende), ce qui fausse le graphique et la lecture annuelle.",
+  "preuve": "history_periods bpa_dilue : Q3-2021, Q1-2022, Q2-2022, Q3-2022, Q1-2023 ... Q3-2025, Q1-2026, Q2-2026 ; aucun Q4-2021 à Q4-2025 ; même trou pour div_per_share.",
+  "correction_validee": "Compléter les T4 (BPA T4 = BPA annuel moins les trois premiers trimestres ; dividende T4 = même montant que T3).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Average Daily Sales / Global coworkers / Customer Accounts / Vendor Partners / Net Margin / International",
+  "probleme": "Six KPI datés du jour d'extraction au lieu de la période, dont un en retard d'un trimestre et trois doublons de constantes marketing.",
+  "preuve": "last_data_date 2026-09-29 pour les six ; Average Daily Sales dernier point 90,2 = T1-2026 (5 680 / 63), le T2-2026 = 6 572,2 / 64 = 102,7 manque ; Customer Accounts 250 000 ×5 = Customer base ; Vendor Partners 1 000 ×5 = Technology brand partners ; Global coworkers 14 800 = coworkers FY2025.",
+  "correction_validee": "Supprimer Customer Accounts, Vendor Partners et Global coworkers ; dater Net Margin 2025-12-31 ; ajouter T2-2026 = 102,7 à Average Daily Sales, daté 2026-06-30.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs_annuels / ca_par_salarie / fcf_par_salarie / dette_par_salarie",
+  "probleme": "Effectif générique arrêté en 2019 alors que le KPI coworkers va à FY2025 : la fiche affiche 9 900 salariés et 1 821 k$ de ventes par salarié.",
+  "preuve": "effectifs_annuels dernier 2019 = 9 900 ; coworkers FY2025 = 14 800 ; net_sales_per_coworker FY2025 = 1,515 M$.",
+  "correction_validee": "Prolonger effectifs_annuels avec coworkers jusqu'en 2025 (14 800) et recalculer 2025 : 1 515 k$ de ventes, 73,5 k$ de trésorerie libre, 380 k$ de dette par salarié.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Répartition géographique calculée sur le CA 2018.",
+  "preuve": "total 16,24 Mds (US 14,38 / RoW 1,86) = revenue_annuel 2018 = 16,241 ; CA 2025 = 22,424 ; geo_us 2025 = 19,62 Mds et geo_row = 2,80 Mds.",
+  "correction_validee": "États-Unis 87,5 % / Reste du monde 12,5 %, exercice 2025, total 22,4 Mds $.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Net Margin.yoy / CAHIER_END_MARKET_GROWTH.yoy / CAHIER_GROSS_MARGIN_RATE.yoy / *_gp_margin.yoy",
+  "probleme": "Variations de ratios exprimées tantôt en % relatif, tantôt en points, avec des valeurs absurdes.",
+  "preuve": "Net Margin yoy -6,2 pts pour 5,06 → 4,74 (-0,3 pt) ; CAHIER_END_MARKET_GROWTH yoy -585.7 % pour -1,4 → 6,8 ; CAHIER_GROSS_MARGIN_RATE -0.9 % (= -0,2 pt) ; corp_gp_margin +1.5 %, smb_gp_margin +6.3 % mais intl_gp_margin +60bps.",
+  "correction_validee": "En points : Net Margin -0,3 pt ; END_MARKET +8,2 pts ; GROSS_MARGIN -0,2 pt ; corp +0,4 pt ; smb +1,5 pt ; intl 0,0 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_END_MARKET_GROWTH",
+  "probleme": "Nom trompeur : la série n'est pas une croissance par marché final mais la croissance totale des ventes, doublon de croissance_ca, et elle figure dans le bloc industrie.",
+  "preuve": "FY2025 = 6,8 % = yoy de revenue_annuel ; FY2023 = -13,4 %, FY2024 = -1,4 % = variations du CA total ; un seul chiffre par an, aucune ventilation par marché.",
+  "correction_validee": "Supprimer du bloc industrie et de la fiche, ou remplacer par une vraie ventilation (Corporate / Public / Small Business / International) issue des rapports annuels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Private AI factory deal (financial services client)",
+  "probleme": "Unité bricolée et valeur inventée pour un montant non publié.",
+  "preuve": "unit : M USD (presque, 8 chiffres) ; val 10 ; signal : contrat de près de 8 chiffres.",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "cat_notebooks ... cat_hardware_total (9 signaux)",
+  "probleme": "Mention du document source répétée dans neuf signaux.",
+  "preuve": "Chaque signal se termine par : tableau de ventilation des ventes nettes par catégorie.",
+  "correction_validee": "Retirer la mention tableau de ventilation des ventes nettes par catégorie des neuf signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "tendance / justification_mettrik",
+  "probleme": "Deux tendances contradictoires dans le même bloc et jargon interne.",
+  "preuve": "tendance = baisse ; tendance_mettrik = stable ; justification : mais la note a été abaissée et le modèle reste peu différencié.",
+  "correction_validee": "Unifier la tendance et retirer la note a été abaissée.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

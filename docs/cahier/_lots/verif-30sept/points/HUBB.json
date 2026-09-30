@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Utility Solutions Net Sales / Electrical Solutions Net Sales / Total Net Sales / Firm Order Backlog",
+  "probleme": "Quatre series annuelles perimees (arret 2024) qui doublonnent des series a jour, avec textes sans accents, en franglais et une cause fausse",
+  "preuve": "Firm Order Backlog 1898 = CAHIER_BACKLOG FY2024 ; Total Net Sales 5.6285 = revenue_annuel 2024 ; \"declin 2024 lie a cession residential lighting\" alors que cette cession date de 2022 ; \"smart meters\", \"wiring devices\"",
+  "correction_validee": "Supprimer les 4 KPI Utility Solutions Net Sales, Electrical Solutions Net Sales, Total Net Sales et Firm Order Backlog.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Backlog T&D",
+  "probleme": "Valeur affichee sans rapport avec la serie, variation fausse, franglais",
+  "preuve": "val=2.159 Mds (= carnet total 2025 de CAHIER_BACKLOG) mais serie 0.7, 0.8, 0.95, 1.1, 1.2 ; yoy +9% contre +13.8% ; datee 2026-06-30 ; \"Multi-annee visibility\"",
+  "correction_validee": "Supprimer le KPI Backlog T&D, CAHIER_BACKLOG couvrant deja le carnet.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification contredite par les chiffres du T2 2026",
+  "preuve": "\"Les marges operationnelles des deux segments progressent, les activites electriques croissent de 7 pour cent\" alors que util-op-margin -0.5 pt, elec-op-margin -4.8 pts, elec-rev +25 % et croissance organique Electrical +18.3 %",
+  "correction_validee": "Reecrire la justification sur le T2 2026 : forte croissance des deux segments (Electrical +25 %, Utility +9,7 %), marges operationnelles sous pression apres l'acquisition de NSI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Grid Infrastructure/Grid Automation/Utility T&D Components/Utility Communications and Controls net sales growth",
+  "probleme": "Doublons des series de CA des lignes, dernier point decale et contredit, anciennes lignes datees 2026",
+  "preuve": "Grid Automation -7 date du T2 2026 alors que grid-auto-rev donne +1.5 % au T2 2026 (le -7 correspond au T1 : 221.8/239.4) ; les lignes remplacees en 2024 sont datees 2026-03-28 avec yoy +48%",
+  "correction_validee": "Supprimer les 4 series de croissance et garder grid-infra-rev et grid-auto-rev.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "workforce-total / effectifs_annuels",
+  "probleme": "Meme indicateur en double, avec une valeur 2021 divergente",
+  "preuve": "workforce-total FY2021=18.3 milliers contre effectifs_annuels 2021=19300",
+  "correction_validee": "Garder une seule serie apres verification de 2021",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "valeurs",
+  "probleme": "Repartition geographique sans annee, en anglais, incoherente avec la serie trimestrielle",
+  "preuve": "\"United States 90.8 ; International 9.2\" alors que intl-sales-share 2025 = 7.6, 7.7, 7.5, 6.8 %",
+  "correction_validee": "Mettre a jour sur l'exercice 2025 et libeller en francais",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Share repurchase authorization.signal",
+  "probleme": "Signal contredit par les rachats effectues",
+  "preuve": "\"approuve le 12 fevrier 2025 ... integralement disponible fin 2025\" alors que buyback-q montre 125 M$ au T1 2025 et 100 M$ au T2 2025 puis 167.5 M$ au T1 2026",
+  "correction_validee": "Corriger le montant restant ou supprimer ce KPI evenementiel",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DMC Power acquisition / Total 2025 acquisitions invested / 4.800% Senior Notes due 2035 issuance",
+  "probleme": "Evenements ponctuels presentes comme KPI",
+  "preuve": "n=1, datee 2026-03-28, emission obligataire de 400 M$",
+  "correction_validee": "Deplacer vers les faits marquants",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BACKLOG.unite",
+  "probleme": "Unite brute en dollars",
+  "preuve": "unite \"$\", val=2159000000",
+  "correction_validee": "Convertir la serie en Mds $ (2,159 en 2025).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "op-margin-q.signal / revenue-q.signal",
+  "probleme": "Fragments parasites dans les textes",
+  "preuve": "\"T4 2019-2020 grevees par charges\" ; \"(organique +10.2%, acquisitions +4.8%); T2 2026\"",
+  "correction_validee": "Retirer \"; T4 2019-2020 grevees par charges\" et le \"; T2 2026\" final.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "texte",
+  "probleme": "Positionnement IA qui ignore le premier moteur de croissance lie a l'IA (centres de donnees)",
+  "preuve": "\"sans strategie IA forte\" alors que la croissance des ventes datacenter est de 40 % et elec-organic de +18.3 % tire par les centres de donnees",
+  "correction_validee": "Mentionner l'exposition a la demande electrique des centres de donnees",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

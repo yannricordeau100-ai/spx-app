@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "NI / EPS_DIL / PPA_OP / CF_OP / SAT_OP / FS_OP / INVENTORY",
+  "probleme": "Variations annuelles calculees sur le T2 alors que la serie a ete prolongee au T3 2026 ; signaux NI et REV_TOT citent encore le T2",
+  "preuve": "NI yoy=-2% mais Q3-2026=1379 vs Q3-2025=1289 = +7 % (ce que dit la these) ; EPS yoy=-1% mais 5.10 vs 4.75 = +7 % ; PPA_OP yoy=-39% mais 527 vs 580 = -9 % ; CF_OP +48% mais 436 vs 237 = +84 %",
+  "correction_validee": "Recalculer les variations sur T3 2026 contre T3 2025 et reecrire les signaux NI et REV_TOT sur le T3.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PPA_REV / SAT_REV / CF_REV (hero)",
+  "probleme": "CA par segment arrete au T3 2025 alors que les profits par segment vont au T3 2026 ; le hero est perime de quatre trimestres",
+  "preuve": "PPA_REV dernier 2025-09-30, Q3-2025=4273 ; PPA_OP dernier 2026-08-02",
+  "correction_validee": "Completer le CA des trois segments de Q4-2025 a Q3-2026 depuis les communiques trimestriels.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "NET_MARGIN / RD / DIV_PS / BUYBACK / OCF / CAPEX / FCF / FS_REV",
+  "probleme": "Series arretees au T2 2026 alors que NI et REV_TOT ont le T3 2026",
+  "preuve": "NET_MARGIN dernier 2026-05-03 ; marge T3 calculable = 1379/12608 = 10,9 % ; FS_REV dernier 2026-03-31",
+  "correction_validee": "Ajouter le T3 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Sous-categories et ligne de reconciliation presentees comme segments",
+  "preuve": "Material Reconciling Items 2.9 ; Compact Construction Equipment 14.2 ; Roadbuilding 7.8 ; Turf 6 ; Forestry 2.5",
+  "correction_validee": "Quatre segments : PPA, SAT, C&F, Financial Services",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CAPTIVE_CREDIT_QUALITY",
+  "probleme": "Nom trompeur : la serie est un taux d impayes, pas une qualite",
+  "preuve": "nom Qualite du portefeuille de financement captif ; signal : ce taux d impayes reste au-dessus de son creux de 2023",
+  "correction_validee": "Renommer en Taux d impayes du financement captif.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_PRICE_REALIZATION",
+  "probleme": "Serie arretee en 2021 alors que Deere publie la realisation de prix chaque trimestre",
+  "preuve": "dernier 2021-12-31, FY2021=6 ; signal : la societe parvient enfin a repercuter ses couts",
+  "correction_validee": "Prolonger 2022-2026 ou retirer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Contractors at CONEXPO 2026 / Customers at Casa John Deere Brazil",
+  "probleme": "Frequentation d evenements presentee comme KPI",
+  "preuve": "140000 contractants ; 3000 clients (25+ pays)",
+  "correction_validee": "Retirer les deux KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Highly engaged acres share / NI signal",
+  "probleme": "yoy en % relatif sur une part ; ponctuation et marque interne dans le signal",
+  "preuve": "25 -> 33 affiche +25% (reel +8 pts) ; signal NI : ...a 656 M$.. T4 derive",
+  "correction_validee": "Variation +8 pts ; enlever .. et T4 derive du signal NI (et du signal REV_TOT).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

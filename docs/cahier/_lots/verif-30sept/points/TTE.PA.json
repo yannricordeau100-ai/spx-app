@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description.products",
+  "probleme": "Nombre et noms de segments faux",
+  "preuve": "'Quatre segments : Exploration & Production, Integrated LNG, Integrated Power, Downstream' alors que la fiche a 5 segments (SEG_EP, SEG_LNG, SEG_POWER, SEG_RC, SEG_MS)",
+  "correction_validee": "Cinq segments : Exploration-Production, Integrated LNG, Integrated Power, Raffinage-Chimie, Marketing et Services.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition trompeuse : ventes externes seulement, sans avertissement, et ligne Holding vide",
+  "preuve": "Exploration-Production 2,78 % du CA alors que c'est le premier contributeur au résultat (SEG_EP 8,4 Mds $ sur environ 18,5) ; 'Holding None'",
+  "correction_validee": "Préciser 'ventes externes' ou afficher la répartition du résultat opérationnel net ajusté ; retirer Holding",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_BREAKEVEN.description",
+  "probleme": "Définition probablement inexacte",
+  "preuve": "'Coût du pétrole nécessaire pour couvrir dépenses et dividende' ; le point mort publié par TotalEnergies (26,4 $/b) est avant dividende",
+  "correction_validee": "Vérifier la définition du groupe et corriger",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these / KPI",
+  "champ": "these vs GEARING",
+  "probleme": "Deux définitions du taux d'endettement sans explication",
+  "preuve": "Thèse : 13,1 % fin juin 2026 contre 17,9 % un an plus tôt ; GEARING : 8,3 % fin 2024 et 14,7 % fin 2025 'hors contrats de location', donc 17,9 % mi-2025 paraît hors série",
+  "correction_validee": "Préciser la base (avec ou hors locations) et aligner",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "DIV.signal",
+  "probleme": "Signal contredit par la série",
+  "preuve": "'4e hausse consécutive' mais série 3,81 (2022) -> 3,01 (2023) ; le point 2022 inclut 1 EUR exceptionnel",
+  "correction_validee": "Retirer l'exceptionnel de la série ou préciser 'dividende ordinaire'",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_RRR.yoy / CAHIER_REF_UTIL.yoy / PROVED_RESERVES.unit",
+  "probleme": "Variations de taux en % relatifs, unités incohérentes entre réserves",
+  "preuve": "CAHIER_RRR 157 -> 116 affiché -26,1 % (vrai -41 pts) ; CAHIER_REF_UTIL 83 -> 86 affiché +3,6 % (vrai +3 pts) ; PROVED_RESERVES en Mds bep (11,218) mais PROVED_DEV_RES et UNDEV en MMboe (7 054 et 4 164)",
+  "correction_validee": "Afficher -41 pts et +3 pts ; exprimer les trois réserves en Mds bep (11,22 ; 7,05 ; 4,16).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat 'Aucun' contredit par les chiffres de la fiche",
+  "preuve": "Texte 'aucune barrière durable ne se dégage' alors que la fiche affiche un point mort de 26,4 $/b, 12 ans de réserves, un portefeuille GNL de 43,9 Mt",
+  "correction_validee": "Réévaluer le moat (coûts bas, GNL intégré)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateur manquant",
+  "probleme": "Indicateurs sectoriels manquants",
+  "preuve": "Marge de raffinage européenne (REFINING_MARGIN_BBL vide) et capacité renouvelable brute installée en GW absente alors que l'électricité est le hero",
+  "correction_validee": "Ajouter la capacité renouvelable installée (GW) et la marge ERM trimestrielle",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

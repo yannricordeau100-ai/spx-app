@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "ca_total, op_income, net_income, eps_dil, gross_margin, rd_exp, subs_products (yoy)",
+  "probleme": "Le point Q3-FY2026 a ete ajoute sans recalculer le yoy : les variations affichees sont celles du T2.",
+  "preuve": "ca_total val=29591, yoy=+48 % (= 22187/15004) alors que 29591/15952 = +85 %. op_income +85 % affiche vs 15955/5887 = +171 %. net_income +88 % vs 13088/4140 = +216 %. eps_dil +85 % vs 2,68/0,85 = +215 %. gross_margin +51 % vs 20456/10703 = +91 %. rd_exp +11 % vs 2895/3050 = -5 %.",
+  "correction_validee": "Recalculer les yoy du T3 FY2026 vs T3 FY2025 : ca_total +85 %, op_income +171 %, net_income +216 %, eps_dil +215 %, gross_margin +91 %, rd_exp -5 %, subs_products -21 %.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "semi_rev (hero), sw_rev, semi_opinc, sw_opinc, ai_networking, ocf, fcf, dps, buyback, sbc, stocks, cash_pos, lt_debt, op_margin, net_margin + signaux",
+  "probleme": "Mise a jour partielle du T3 FY2026 : le hero et 18 KPI trimestriels s'arretent au T2 alors que la these et ca_total sont au T3 ; les signaux des KPI mis a jour citent encore le T2.",
+  "preuve": "semi_rev dernier Q2-FY2026=15009 ; these : \"Au troisième trimestre de l'exercice 2026, Broadcom a encaissé 29,6 Mds $\". Signal ca_total : \"22 187 M$ au T2 FY2026, +48% sur un an\" alors que val=29591 ; op_income : \"10 788 M$ au T2 FY2026\" alors que val=15955 ; eps_dil : \"1,91 $ au T2 FY2026\" alors que val=2,68.",
+  "correction_validee": "Ajouter le T3 FY2026 a tous les KPI trimestriels (dont le hero semi_rev) et reecrire les signaux sur le T3.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "subs_products",
+  "probleme": "Rupture de definition non retraitee : anciens points sur une autre base que les nouveaux, un trimestre manquant, yoy contredit par le signal.",
+  "preuve": "Q1 a Q3 FY2025 = 6745, 6498, 6695 (proches de sw_rev 6704, 6596, 6786) puis Q1-FY2026 = 5181 ; Q4-FY2025 absent ; yoy affiche -18,5 % alors que le signal dit \"+13% vs T2 FY2025 retraité (4695 M$)\" ; l'annuel \"Subscriptions & Services Revenue\" FY2025 = 19 040 (soit ~4 760 par trimestre) confirme la nouvelle base.",
+  "correction_validee": "Retraiter la serie FY2025 sur la definition actuelle (ou la faire commencer a Q1-FY2026) et ajouter Q4-FY2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AI Revenue",
+  "probleme": "Serie annuelle sans periodes, valeur affichee differente du dernier point, dernier point contredit par la serie trimestrielle.",
+  "preuve": "Serie \"0, 0, 4.2, 12.2, 25\", val=12,2, yoy +220 %. D'apres ai_networking, FY2025 = 4,1+4,4+5,2+6,5 = 20,2 Mds, pas 25.",
+  "correction_validee": "Supprimer AI Revenue, doublon d'ai_networking.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Infra Software Revenue, Semiconductor Rev, Adj EBITDA, Semi Solutions Revenue",
+  "probleme": "KPI annuels contenant des valeurs fausses ou trimestrielles, yoy incoherent, valeur affichee differente du dernier point.",
+  "preuve": "Infra Software Revenue \"7.1, 7.4, 7.6, 21, 22\" yoy +196 % (22/21 = +4,8 %) et FY2025 reel = 27,0 (sw_rev). Semiconductor Rev \"7.4 ... 12.5\" en annuel alors que 12,5 = Q1-FY2026 et FY2025 = 36,9. Adj EBITDA \"7.2 ... 13.1\" annuel (l'annuel FY2025 depasse 40 Mds). Semi Solutions Revenue val=28, serie finit a 30,5.",
+  "correction_validee": "Supprimer les quatre KPI, semi_rev et sw_rev couvrent le besoin.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AI Rev Growth",
+  "probleme": "Serie de croissance invraisemblable et texte de modele de langage.",
+  "preuve": "\"220, 150, 130, 115, 110, 106\" % par an sur six exercices alors qu'ai_networking donne FY2024 +190 % (12,2/4,2) et FY2025 +66 % (20,2/12,2). Signal : \"Métrique narrative principale, sustain >100% sur base élargie.\"",
+  "correction_validee": "Supprimer AI Rev Growth.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Operating Cash Flow, Software Op Margin, Adj EBITDA, Subscriptions & Services Revenue, Custom AI Chip Customers (textes)",
+  "probleme": "Noms francais en anglais et textes de modele de langage en franglais.",
+  "preuve": "name_fr \"Software Op Margin\", \"Adj EBITDA\" ; \"Machine cash: doublement sur 5 ans ($13.8 -> $27.5 Mds)\" ; \"KPI signature Broadcom: marges Semi >55% + Software subscription = cash machine\" ; \"Record 68% de revenue, démontre conversion qualité revenue AI\" ; \"Vise CA recurrent SaaS-like, plus value re-rating multiple\" ; \"Trajectoire hyperscale\".",
+  "correction_validee": "Renommer en francais et reecrire les signaux en phrases sobres, ou supprimer les doublons (Operating Cash Flow annuel = ocf).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Committed Remaining Performance Obligations, Total AI order backlog, these",
+  "probleme": "Trois montants de carnet incompatibles sur la meme fiche sans explication.",
+  "preuve": "KPI \"Carnet ferme (obligations de performance)\" = 45 Mds $ ; signal \"Total AI order backlog\" : \"73 Md$ ... près de la moitié du carnet consolidé de 162 Md$\" ; these : \"179,2 Mds $ d'obligations de performance fermes au 2 août 2026\".",
+  "correction_validee": "Garder le RPO total date (179,2 Mds $ au 2 aout 2026) et, si on les conserve, dater et definir la part IA (73 Mds) ; supprimer le KPI a 45 Mds.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "hook / resume",
+  "probleme": "Anti-these un trimestre en retard sur la these et concentration client differente du bloc clients.",
+  "preuve": "att (donnees au 2026-06-09) : \"22,2 Mds $ de revenu trimestriel (+48%)\", \"128 Mds $ d'achats fermes\" ; these (2026-09-10) : 29,6 Mds, 126,8 Mds. att : \"Un seul distributeur pèse 42% du chiffre d'affaires\" ; clients_concentration : 32 % en 2025.",
+  "correction_validee": "Actualiser l'anti-these au T3 FY2026 et preciser la periode du 42 %.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "lt_debt (signal)",
+  "probleme": "Signal affirme un desendettement que la serie ne montre pas.",
+  "preuve": "\"en désendettement progressif depuis le pic T1 FY2024\" ; yoy +1 %, Q1-FY2026 63805 > Q4-FY2025 61984 ; dette_annuelle 65,1 Mds.",
+  "correction_validee": "Reformuler : dette stable autour de 62 a 64 Mds depuis FY2025.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "2027 AI revenue outlook, AI XPU Platform capacity, Anthropic follow-on order, New customer AI purchase orders, AI semiconductor bookings",
+  "probleme": "Objectifs et evenements ponctuels presentes comme KPI (n=1), name_en vides.",
+  "preuve": "\"2027 AI revenue outlook\" = 100 Mds (objectif) ; \"AI XPU Platform capacity\" = 20 GW ; \"Anthropic follow-on order\" = 11 ; tous n=1, dernier 2026-06-10, name_en vide.",
+  "correction_validee": "Deplacer en texte (these) et retirer des KPI.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

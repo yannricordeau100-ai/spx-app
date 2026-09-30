@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted",
+  "probleme": "Le T4 manque a partir de 2022 (Q4-2022 a Q4-2025 absents) alors que net_income les a ; le yoy -50 % est calcule contre un point manquant",
+  "preuve": "periodes ... Q3-2022, Q1-2023 ... Q3-2025, Q1-2026 ; net_income Q4-2025=332",
+  "correction_validee": "Completer les T4 manquants (BPA annuel moins les neuf mois).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Health & Wellness / Household / Lifestyle / International Sales (annuels)",
+  "probleme": "Series lissees contredites par la somme des trimestres FY2026 : Household 1 787 M$ contre 1.93, Lifestyle 1 123 contre 1.2, H&W 2 697 contre 2.62",
+  "preuve": "seg_household_9m FY2026 : 362+419+482+524=1787 ; Household Sales dernier=1.93",
+  "correction_validee": "Supprimer les quatre series annuelles.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "cleaning_products_share, bags_wraps_share, food_products_share, walmart_sales_share",
+  "probleme": "Series a 3 points en ordre inverse (recent en premier), doublon de CLEANING_SALES_SHARE, et part Walmart 27 % contredite par le bloc clients (26 %)",
+  "preuve": "cleaning_products_share : 44, 43, 42 val=44 ; walmart_sales_share 27 ; clients top pct 26 exercice 2026",
+  "correction_validee": "Supprimer ces quatre KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "anti-these",
+  "champ": "att.accroche vs KPI equity",
+  "probleme": "Capitaux propres cites a 252 M$ alors que le KPI equity affiche 90 M$ a la meme date",
+  "preuve": "att : ne pesent plus que 252 M$ au 30 juin 2026 ; equity Q4-2026=90",
+  "correction_validee": "Aligner l anti-these sur 90 M$ part du groupe, ou preciser que 252 M$ inclut les interets minoritaires.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "revenue_annuel, fcf_annuel, dette_annuelle, effectifs_annuels",
+  "probleme": "Bloc annuel arrete a l'exercice clos juin 2025 alors que l'exercice 2026 est clos et cite dans le bloc clients (formulaire exercice clos le 30 juin 2026) ; la dette 2.5 Mds est perimee face aux 5.1 Mds de l'anti-these",
+  "preuve": "dette_annuelle dernier 2025-06-30 val=2.488 ; att : de 2,5 a 5,1 Mds $",
+  "correction_validee": "Extraire l exercice 2026 pour les quatre series annuelles.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ }
+]

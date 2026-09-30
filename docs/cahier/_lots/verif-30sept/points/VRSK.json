@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "yoy (revenue, underwriting_rev, claims_rev, op_income, net_income, uk_revenue)",
+  "probleme": "Variation sur un an calculee sur le T1 2026 alors que la valeur affichee est celle du T2 2026",
+  "preuve": "net_income 228,6 (Q2-2026) vs 253,3 (Q2-2025) = -9,8 % mais yoy affiche +0.8 % (T1) ; revenue 806,3/772,6 = +4,4 % affiche +3,9 % ; claims_rev 237,2/223 = +6,4 % affiche +4,3 % ; uk_revenue 66,3/63,1 = +5,1 % affiche +8,8 %",
+  "correction_validee": "Recalculer les yoy sur le T2 2026 : revenue +4,4 %, net_income -9,8 %, claims_rev +6,4 %, uk_revenue +5,1 %, underwriting_rev +3,5 %, op_income +2,7 %.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "organic_growth / CAHIER_ORGANIC_CC_GROWTH / Organic constant currency (OCC) revenue growth / Organic Constant FX Growth / Organic Revenue Growth",
+  "probleme": "Cinq versions de la croissance organique avec des valeurs 2025 differentes",
+  "preuve": "organic_growth FY2025=6.9 ; CAHIER FY2025=6.6 ; Organic Constant FX Growth 7 ; Organic Revenue Growth 8 ; trimestrielle 4.7 ; les deux dernieres sans dates",
+  "correction_validee": "Garder une serie annuelle (arbitrer 6,9 contre 6,6 a la source) et la serie trimestrielle, supprimer Organic Constant FX Growth et Organic Revenue Growth.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SUBSCRIPTION_SHARE / Subscription revenue as % of total revenue / Subscription Revenue %",
+  "probleme": "Trois series de part d abonnement contradictoires, alors que le hero subscription_pct n existe pas",
+  "preuve": "83 (FY2025), 84 (sans date), 82 (serie 78..82 sans date)",
+  "correction_validee": "Garder CAHIER_SUBSCRIPTION_SHARE, supprimer les deux autres et pointer le hero dessus.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition perimee et en anglais : Verisk a cede Energy et Financial Services en 2022-2023 et n a plus qu un segment",
+  "preuve": "\"Insurance 71 ; Energy and Specialized Markets 22 ; Financial Services 7\" ; Insurance Revenue 2,85 Mds sur 3,073 Mds de CA 2025",
+  "correction_validee": "Remplacer par Souscription 70,9 % (2 179,9 M$) et Sinistres 29,1 % (892,8 M$) pour 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ebitda_margin / Adj EBITDA Margin",
+  "probleme": "Marge EBITDA annuelle erratique melangeant gains de cession, et doublon ajuste sans dates avec une autre valeur",
+  "preuve": "ebitda_margin FY2019=39.1, FY2022=65.7, FY2025=54.3 ; Adj EBITDA Margin 56 (serie 49..56 sans dates) ; signal \"gains exceptionnels 2024\"",
+  "correction_validee": "Passer sur la marge EBITDA ajustee publiee avec periodes, supprimer le doublon",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "series trimestrielles (fcf, ocf, capex, ebitda, margins, equity, cash, dso, deferred_revenue...)",
+  "probleme": "La moitie des series s arretent au T1 2026 alors que le CA et les resultats vont au T2 2026, et la date de dernier point est fausse",
+  "preuve": "fcf dernier point Q1-2026=326.4 mais dernier 2026-06-30 ; signal \"au T1 2026\" ; revenue va jusqu a Q2-2026=806.3",
+  "correction_validee": "Completer le T2 2026 pour ces series et corriger last_data_date",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel",
+  "probleme": "Serie non homogene : 2018-2019 au perimetre historique, 2020-2022 retraites des activites cedees",
+  "preuve": "2019=2.607 puis 2020=2.269 (-13 %) alors que la croissance organique 2020 est +5,3 % ; \"+4,9 % par an depuis 2016\" fausse de ce fait",
+  "correction_validee": "Retraiter toute la serie au perimetre des activites poursuivies ou marquer la rupture",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AccuLynx acquisition (terminated), Share repurchase authorization, Share repurchases 2025, Shares repurchased since IPO, Acquisitions since 2022, AI-powered projects",
+  "probleme": "Evenements ponctuels presentes comme KPI, un point unique, fautes et chiffre incoherent",
+  "preuve": "Share repurchases 2025 = 624 M$ alors que buybacks 2025 = 170,1+100+100,1+223,8 = 594 M$ ; \"Le conseil a releve\" ecrit \"a releve\" ; \"reduction\", \"rachetees\" sans accents",
+  "correction_validee": "Supprimer ces pseudo KPI ou les deplacer dans la these",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / moat",
+  "champ": "tagline / moat.summary",
+  "probleme": "Tagline en anglais ; moat cite des chiffres absents de la fiche",
+  "preuve": "tagline \"Verisk is a leading data, analytics...\" ; moat \"La souscription progresse de 7,7 % et le Royaume-Uni de 16,8 %\" alors que underwriting_rev +3,5 % et uk_revenue +5,1 % sur un an",
+  "correction_validee": "Rediger tagline en francais ; refaire le moat sur le statut d agent statistique et les bases de donnees contributives",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "equity.yoy / dso.signal",
+  "probleme": "Variation en pourcentage absurde sur un passage en negatif ; signal DSO contredit par la serie",
+  "preuve": "equity yoy -1049.3 % (309 -> -1167,7) ; dso \"stable autour de 55 jours\" alors que serie 49,5 a 72,3 et dernier 64,6",
+  "correction_validee": "Afficher la variation des capitaux propres en M$ ; reecrire le signal DSO : saisonnier, 64,6 jours au T1 2026.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

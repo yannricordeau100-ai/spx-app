@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Répartition de 2022 : elle inclut Consumer Solutions (cédé en 2023) et Issuer Solutions (cédé en janvier 2026), et la géographie contredit le KPI part des États-Unis.",
+  "preuve": "Merchant 6,205 + Issuer 2,246 + Consumer ≈ 8,98 Mds $ = CA 2022 (8,976). « U.S. 80 ; International 20 » contre us_revenue_pct FY2025 = 73.",
+  "correction_validee": "Recalculer segments et geographie sur 2025 ou le S1 2026, sans Consumer ni Issuer, avec libelles francais (Etats-Unis).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "merchant_rev (hero)",
+  "probleme": "Le KPI principal est un segment que le signal lui-même dit disparu. Il s'arrête au T1 2026 et reproduit exactement le CA total.",
+  "preuve": "merchant_rev Q1-2026 = 2 969,682 = revenue Q1-2026, et les séries sont identiques depuis 2024. Signal : « Ce segment disparaît en tant que tel ». revenue va jusqu'au T2 2026 (3 320,8).",
+  "correction_validee": "Choisir un nouveau hero (revenu net ajuste ou un nouveau segment a jour) et supprimer merchant_rev, doublon de revenue.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "diluted_shares Q4-2025 / buybacks Q4-2025",
+  "probleme": "Valeurs négatives impossibles, probablement dues à une soustraction du cumul annuel.",
+  "preuve": "diluted_shares : Q3-2025 = 240,2, Q4-2025 = -1,6, Q1-2026 = 273,2. buybacks Q4-2025 = -0,069.",
+  "correction_validee": "Remplacer tous les T4 aberrants de diluted_shares et buybacks par les valeurs trimestrielles publiees (environ 240 M d actions au T4 2025).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description / moat",
+  "champ": "mettrik_description / moat.text",
+  "probleme": "Description périmée : elle cite TSYS Issuer (cédé) comme logiciel verticalisé, compte les banques parmi les clients et reste truffée d'anglicismes. Le moat dit que le CA stagne alors qu'il bondit de 70 %.",
+  "preuve": "« software intégré verticalisé (TSYS Issuer), POS » ; « commerçants, banques et fintechs » ; moat : « Le chiffre d'affaires stagne et les résultats reculent à deux chiffres » contre revenue yoy +69,7 %.",
+  "correction_validee": "Reecrire la description autour de Worldpay et Genius (commercants uniquement), en francais, et preciser a perimetre constant dans la justification du moat.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy des ratios (gross_margin, op_margin, net_margin, tax_rate, adj_op_margin, merchant_op_margin, intl_rev_pct, us_revenue_pct)",
+  "probleme": "Variations de ratios exprimées en % relatif au lieu de points.",
+  "preuve": "gross_margin 74,51 puis 61,04, yoy « -18.1% » (en réalité -13,5 pts) ; tax_rate yoy « -112.3% » ; intl_rev_pct yoy « +50.8% » (+9,2 pts) ; us_revenue_pct « -1pp ».",
+  "correction_validee": "Exprimer toutes ces variations en points (ex. -13,5 pts, +9,2 pts, -1 pt).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "adj_eps / adj_net_revenue / adj_op_income / signaux merchant_* et issuer_*",
+  "probleme": "Séries arrêtées au T1 2026 mais datées du 30/06/2026. Les signaux contiennent des références internes.",
+  "preuve": "adj_eps dernier 2026-06-30, dernier point Q1-2026 = 2,96. Signal « (ER 2026-05-06) ». merchant_op_income « (ER 2026-02-18) ».",
+  "correction_validee": "Ajouter le T2 2026 ou corriger la date. Retirer les mentions « (ER ...) ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "core_payments_rev.signal",
+  "probleme": "Le signal parle de déclin alors que la série progresse.",
+  "preuve": "yoy +3,6 % (754,9 puis 781,8) ; signal : « Déclin lié à réduction volontaire du wholesale ».",
+  "correction_validee": "Réécrire le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rpo / goodwill",
+  "probleme": "Ruptures de périmètre au T2 2025 (Issuer reclassé) non signalées : le graphique montre une chute de 78 % puis un doublement.",
+  "preuve": "rpo : Q1-2025 = 3 567,6 puis Q2-2025 = 774,3. goodwill : 26 417 puis 16 742, puis 27 083 au Q1-2026.",
+  "correction_validee": "Couper l'historique avant le T2 2025 ou l'annoter comme rupture de périmètre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque le volume de paiements traités (TPV) ou le nombre de transactions, indicateur de base d'un acquéreur marchand, surtout après Worldpay.",
+  "preuve": "Aucun KPI de volume : seul settlement_liabilities est présenté comme « indicateur direct des volumes traités ».",
+  "correction_validee": "Ajouter le volume traité et le nombre de transactions trimestriels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Subway / CKE deployments, Genius brand campaign impressions, ASR février et août 2025, Worldpay acquisition, Issuer divestiture, Heartland Payroll disposition",
+  "probleme": "Annonces ponctuelles présentées comme des KPI, avec des unités fantaisistes.",
+  "preuve": "unités « % YoY (quasi double) », « sur 500 prévus », « M$ (run rate 3 ans) » ; 330 M d'impressions publicitaires.",
+  "correction_validee": "Sortir ces éléments des KPI (vers faits marquants).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dps.signal",
+  "probleme": "Citation en anglais dans le signal.",
+  "preuve": "« Cash dividends declared ($0.25 per common share) »",
+  "correction_validee": "Retirer la citation et garder 0,25 $ par trimestre depuis le T3 2021.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

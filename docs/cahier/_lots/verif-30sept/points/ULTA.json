@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "STORES_US",
+  "probleme": "La série est le chiffre d'affaires en M$, pas un nombre de magasins.",
+  "preuve": "serie FY2018=5885 ... FY2024=11207, FY2025=11296 (= revenue_annuel 11,296 Mds) ; signal '1 505 magasins Ulta Beauty aux États-Unis'",
+  "correction_validee": "Remplacer par la serie reelle des magasins US (1 445 a fin 2024, 1 505 a fin 2025) ou supprimer le KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "libellés de période (COMP_SALES, REVENUE, STORE_COUNT, ...)",
+  "probleme": "Les libellés sont décalés d'un an par rapport aux signaux, et deux conventions coexistent sur la même fiche.",
+  "preuve": "COMP_SALES Q1-FY2027=5.3 mais signal 'T1 fiscal 2026 (vs +2.9%)' ; REVENUE et STORE_COUNT dernier point 'Q2-2027' ; CAT_COSMETICS FY2026=38 contre ULTA_COSM FY2025=38",
+  "correction_validee": "Adopter la convention Ulta (exercice clos fin janvier N+1 = FY N) et reetiqueter toutes les series.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GROSS_PROFIT / OP_INCOME / NET_INCOME / STORE_COUNT (signal)",
+  "probleme": "Les séries vont jusqu'au T2, mais les signaux décrivent encore le T1.",
+  "preuve": "GROSS_PROFIT val 1186.95, signal '1 268 M$ au T1' ; OP_INCOME val 379.64, signal '448 M$' ; NET_INCOME val 282.01, signal '340 M$' ; STORE_COUNT val 1622, signal '1 608 magasins'",
+  "correction_validee": "Reecrire ces signaux sur le T2 fiscal 2026 et prolonger au T2 les marges, BPA, flux et stocks arretes au 2026-05-02.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux chiffrés faux",
+  "probleme": "Plusieurs signaux contredisent leur propre série.",
+  "preuve": "SGA_RATIO 'en baisse sur un an' alors que 24.9 -> 25.8 ; OP_MARGIN 'contre 13,3 %' alors que la série donne 14.1 ; NET_MARGIN '10,0 % un an plus tôt' alors que la série donne 10.7 ; INVENTORY '+18 %' alors que 2386.4/2121.5 = +12,5 % ; DILUTED_SHARES '-6 %' alors que 44/45.5 = -3,3 % ; INV_PER_STORE signal '+2,7 %' mais yoy -9,8 %, alors que 1.48/1.46 = +1,4 %",
+  "correction_validee": "Recalculer chaque signal et chaque yoy a partir de la serie affichee.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SALES_PER_STORE",
+  "probleme": "La variation annuelle et le signal sont incohérents avec la série.",
+  "preuve": "Q1-FY2027=1.97 contre Q1-FY2026=1.96, soit +0,5 %, alors que yoy affiche +11,8 % ; signal 'ouverture de 213 magasins supplémentaires' alors que 1608-1451 = 157",
+  "correction_validee": "Recalculer le yoy et réécrire le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BRAND_COUNT",
+  "probleme": "La valeur et le signal se contredisent.",
+  "preuve": "val=200 marques ; signal 'Environ 600 marques prestige, mass et salon'",
+  "correction_validee": "Vérifier le nombre de marques (600 selon le 10-K) et corriger la valeur, ou retirer le KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VENTES_COMPARABLES / CAHIER_FIDELITE / CAHIER_PARC_SURFACE",
+  "probleme": "Ce sont des doublons périmés, arrêtés en 2021, de COMP_SALES, LOYALTY_MEMBERS et STORE_COUNT. La série du parc progresse d'exactement +100 par an, ce qui paraît fabriqué, et son nom parle de surface alors qu'elle compte des magasins.",
+  "preuve": "CAHIER_VENTES_COMPARABLES dernier FY2021=-17.9 ; CAHIER_FIDELITE FY2021=30.7 (= LOYALTY_MEMBERS FY2021) ; CAHIER_PARC_SURFACE 675, 774, 874, 974, 1074, 1174",
+  "correction_validee": "Supprimer CAHIER_VENTES_COMPARABLES, CAHIER_FIDELITE et CAHIER_PARC_SURFACE.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Comparable average ticket growth / Space NK stores / Ultamate Rewards active loyalty members",
+  "probleme": "Doublons de AVG_TICKET, STORES_INTERNATIONAL et LOYALTY_MEMBERS, avec des valeurs divergentes.",
+  "preuve": "'Panier moyen' val 0.3 contre AVG_TICKET 3.7 ; 'Magasins Space NK' 86 = STORES_INTERNATIONAL 86 ; membres fidélité trimestriels 47 contre LOYALTY_MEMBERS 46.7",
+  "correction_validee": "Supprimer Comparable average ticket growth, Space NK stores et Ultamate Rewards active loyalty members.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "La répartition affiche 100 % aux États-Unis alors que la fiche compte 86 magasins Space NK au Royaume-Uni et en Irlande.",
+  "preuve": "'États-Unis 100' ; STORES_INTERNATIONAL 86 ; goodwill Space NK 226 M$",
+  "correction_validee": "Ventiler États-Unis et Royaume-Uni/Irlande selon le 10-K.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque la part du e-commerce dans les ventes, indicateur clé d'un distributeur omnicanal. La fiche ne cite que la part des ventes en ligne passant par l'application.",
+  "preuve": "Aucun KPI e-commerce ; 'Mobile app active users' : '60 % des ventes en ligne réalisées via l'application'",
+  "correction_validee": "Ajouter la part du e-commerce (en %) et sa croissance.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

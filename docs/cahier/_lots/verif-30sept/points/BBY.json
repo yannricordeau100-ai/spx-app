@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "dom_comp_sales_growth history (hero)",
+  "probleme": "Valeurs de quatriemes trimestres fausses dans la serie hero, contredites par la serie anonyme et par l anti-these.",
+  "preuve": "Hero : Q4-FY2024=-7,1, Q4-FY2025=-2,5, Q4-FY2026=+0,4. Serie 'Domestic comparable sales % change' : -5,1, +0,2, -0,8 (chiffres publies par Best Buy : T4 FY25 domestique +0,2 %). Anti-these : 'apres un quatrieme trimestre d exercice 2026 en repli'.",
+  "correction_validee": "Remplacer les T4 du hero par -5,1, +0,2 et -0,8 après vérification des communiqués T4.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signal (dom_comp_sales_growth, online_revenue, computing_mobile_revenue, appliances_revenue, cons_gross_profit_rate, cons_op_income_rate, merchandise_inventories, total_revenue, cons_sga_rate, eps_diluted)",
+  "probleme": "Point T2 FY2027 ajoute le 4 septembre sans reecriture du signal, qui decrit encore le T1.",
+  "preuve": "dom_comp val 4,5 mais signal '+1,8% au T1 FY2027' ; appliances val 1041 mais '841 M$ au T1 FY2027, comparables -13,6%' ; total_revenue val 9,779 mais 'T1 FY2027 a 8 936 M$' ; eps val 1,48 mais '1,31 $ au T1'.",
+  "correction_validee": "Réécrire les dix signaux sur le T2 FY2027 à partir du communiqué.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy (memes dix KPI)",
+  "probleme": "yoy perime : calcule sur le T1 alors que la valeur est celle du T2.",
+  "preuve": "appliances -16,0 % alors que 1041/1074 = -3,1 % ; total_revenue +1,9 % alors que 9,779/9,438 = +3,6 % ; computing +2,5 % vs +5,0 % ; online +1,4 % vs +5,0 % ; dom_comp +2,5pp vs +3,4pp ; inventories +7,8 % vs +8,3 % ; gross rate +0,1pp vs +0,7pp ; sga -0,1pp vs +0,3pp.",
+  "correction_validee": "Recalculer les yoy sur le T2 FY2027 contre le T2 FY2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "history_periods (memes dix KPI)",
+  "probleme": "Etiquette de periode incoherente sur le dernier point.",
+  "preuve": "'Q2-2027' alors que tous les autres points sont 'Qx-FYyyyy'.",
+  "correction_validee": "Renommer le dernier point en « Q2-FY2027 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks",
+  "champ": "title / summary",
+  "probleme": "Resumes boilerplate decales par rapport aux titres.",
+  "preuve": "'Chaine d approvisionnement' -> 'Conjoncture macroeconomique defavorable...' ; 'Evolution des preferences clients' -> 'exposition aux cyberattaques...' ; 'Reputation et image de marque' -> 'changements normatifs, enquetes ou contentieux' ; 'Catastrophes naturelles' -> 'exigences ESG croissantes'.",
+  "correction_validee": "Réécrire les sept résumés à partir de l'Item 1A FY2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Stores Count, Total Stores US, Online Sales, BBY Membership, Computing & Mobile, Consumer Electronics, Domestic Revenue",
+  "probleme": "Series annuelles anonymes fausses ou perimees contredisant les series nommees.",
+  "preuve": "'Stores Count' serie 1000, 980, 950, 920, 910 mais val 1 068 ; 'Total Stores US' 904 contre stores_domestic 924 ; 'Online Sales' FY2026 14,7 Mds alors que la somme trimestrielle online_revenue FY2026 = 13,17 ; 'BBY Membership' 0, 0, 5, 6, 7 ; 'Computing & Mobile' = COMPUTING_MOBILE_REV arretes FY2025 alors que FY2026 = 18,04 Mds par les trimestres.",
+  "correction_validee": "Supprimer les sept KPI anonymes.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Enterprise comparable sales % change, Domestic comparable sales % change, Domestic comparable online sales % change ; enterprise_comp_sales, online_comp_sales",
+  "probleme": "Doublons anonymes sans periodes, mais les series nommees ont des trous aux T4.",
+  "preuve": "enterprise_comp_sales periodes Q3-FY2025 puis Q1-FY2026 (aucun T4 sur 22 points) ; online_comp_sales idem ; les series anonymes contiennent les T4 (0,5 ; -0,8 ; 2,6 ; -2,3).",
+  "correction_validee": "Reporter les T4 dans les series nommees puis supprimer les trois anonymes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "hook / resume ; governance.ceo_name",
+  "probleme": "Anti-these perimee d un trimestre et contradictoire avec le bloc gouvernance.",
+  "preuve": "'+2,0% au T1 FY2027' alors que le T2 est a +4,5 % ; 'l enseigne change de directrice generale ET de directrice financiere' alors que gouvernance affiche Corie Barry, exercice 2026.",
+  "correction_validee": "Actualiser l anti-these au T2 et aligner gouvernance (nouveau CEO ou retirer la phrase).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik / tendance",
+  "probleme": "Justification perimee (FY2025) et contraire a la tendance affichee.",
+  "preuve": "'Le marche domestique stagne a 0,1 % ... electronique en repli de 5,6 % et electromenager de 9,2 %' avec tendance 'hausse' ; T2 FY2027 comparables +4,5 %, divertissement +38 %.",
+  "correction_validee": "Reecrire sur FY2026 / T2 FY2027.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "other_revenue_dom history",
+  "probleme": "Chiffre d affaires negatif sur une categorie residuelle.",
+  "preuve": "Q4-FY2026 = -205 M$ alors que la serie va de 25 a 88 sur 28 autres points.",
+  "correction_validee": "Verifier la table par categorie du 10-K FY2026 ; probable reclassement a retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signal (capex, d_and_a, eps_diluted, intl_comp_sales, US Marketplace GMV)",
+  "probleme": "Cuisine interne et fautes dans les signaux.",
+  "preuve": "capex : '... 15 M$ International), T2 2026' ; eps_diluted : 'publie tel quel (grandeur non additive, jamais derivee)' ; intl_comp_sales : 'le Canada surperforme le Domestic' (verbe) ; Marketplace : 'incluse la croissance des ventes domestiques aurait depasse 4%'.",
+  "correction_validee": "Retirer les suffixes et parenthèses techniques, écrire « le Canada a surperformé » et reformuler la phrase Marketplace.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VENTES_COMPARABLES, CAHIER_VENTES_PAR_MAGASIN, CAHIER_MIX_CATEGORIES",
+  "probleme": "Noms ne decrivant pas la serie et yoy en % sur un %.",
+  "preuve": "CAHIER_VENTES_COMPARABLES yoy -121,7 % (0,5 vs -2,3) ; 'Parc de magasins et ventes par magasin' ne contient que le parc (1 068) ; 'Mix par categorie de produits' = une seule part (informatique 47 %).",
+  "correction_validee": "Renommer 'Nombre de magasins' et 'Part de l informatique et telephonie', yoy en points.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

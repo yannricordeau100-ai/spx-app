@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "summary",
+  "probleme": "Moat bâti sur des doublons périmés (T4 2024), contredit par les KPI à jour",
+  "preuve": "« prix +11 %, marge par tonne +18 %, volumes -3 % » : ce sont les yoy des KPI datés 2026-04-10 (21.41, 9.02, 53.9 = valeurs du T4 2024) ; au T2 2026 : prix +4 %, marge +0,3 %, volumes +1 %",
+  "correction_validee": "Réécrire la justification avec le T2 2026 : prix ajusté du fret +4 % (22,97 $/t), marge brute par tonne +0,3 % (9,47 $/t), volumes +1 % (59,9 Mt).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Aggregates gross profit per ton / freight-adjusted sales price per ton / shipments (tons) / cash gross profit per ton / price growth / Proven and probable aggregates reserves",
+  "probleme": "Doublons périmés des KPI trimestriels, séries de périodes mêlées et variations fausses",
+  "preuve": "Prix : 13.77, 14.07, 14.1, 13.96, 14.39, 21.41 avec yoy +11 % ; marge : 4.07 … 9.02 avec +18 % ; réserves 16.6 en double de agg_reserves",
+  "correction_validee": "Supprimer les 6 KPI : Aggregates gross profit per ton, freight-adjusted sales price per ton, shipments (tons), cash gross profit per ton, price growth (mix-adjusted) et Proven and probable aggregates reserves.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "concrete_cy / concrete_price / concrete_cash_gp_per_yd (noms)",
+  "probleme": "Unité du nom fausse : des yards cubes (0,76 m³) présentés comme des m³",
+  "preuve": "« Volumes béton (millions m³) » avec l'unité M yd³ ; « Prix moyen béton ($/m³) » avec l'unité $/yd³ ; « ($/m3 US) »",
+  "correction_validee": "Remplacer m³ et « m3 US » par yd³ (yard cube) dans les noms de concrete_cy, concrete_price et concrete_cash_gp_per_yd.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "maint_capex / capex",
+  "probleme": "Le capex de maintien annuel dépasse le capex total des quatre trimestres",
+  "preuve": "maint_capex FY2025=702.9 ; capex 2025 : 168+102.9+222+184.8=677.7",
+  "correction_validee": "Vérifier les deux définitions (capex hors ou avec arrêts, périmètre)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Calica reserves subject to NAFTA arbitration.signal",
+  "probleme": "Signal périmé : l'arbitrage est tranché selon l'anti-thèse",
+  "preuve": "Signal : « litige d'arbitrage NAFTA en cours » ; att : « En juillet 2026, un tribunal d'arbitrage a jugé… »",
+  "correction_validee": "Mettre à jour : sentence rendue en juillet 2026, dommages négligeables, réserves toujours gelées",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SHIPMENTS.name_fr",
+  "probleme": "Nom faux : c'est le volume total de granulats, pas un volume par ligne de produit",
+  "preuve": "FY2025=226.8, égal à la somme agg_shipments 2025 (47.8+59.3+64.7+55)",
+  "correction_validee": "Renommer CAHIER_SHIPMENTS en « Volumes de granulats expédiés (annuel) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment / revenue_by_geography / tagline",
+  "champ": "libellés",
+  "probleme": "Libellés et accroche en anglais",
+  "preuve": "Aggregates, Asphalt, Concrete ; Gulf Coast, East, West ; tagline « The nation's largest supplier… »",
+  "correction_validee": "Traduire en Granulats, Asphalte, Béton, Côte du Golfe, Est, Ouest, et reprendre la version française de tagline_i18n.fr dans tagline.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI ponctuels datés 2026-04-10",
+  "probleme": "Chiffres de présentation et d'acquisitions 2024 affichés comme des KPI",
+  "preuve": "Data centers 650 M sq ft, Eli Lilly project 6 Mds, IIJA 45 %, Total consideration for 2024 acquisitions, Goodwill recognized on 2024 acquisitions : n=1 ; décimales à l'anglaise (« 2.31 milliards », « 16.6 »)",
+  "correction_validee": "Les retirer des KPI ou les regrouper en faits marquants",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques / positionnement IA",
+  "champ": "risks, ai_positioning",
+  "probleme": "Risques génériques sans le cycle de la construction, les financements publics ou le coût du gazole ; phrase IA identique à celle de Valero",
+  "preuve": "« Risques opérationnels », « Qualité et sécurité des produits », résumés vides ; IA : « cite des investissements en digital opérations dans ses carrières mais aucun programme IA structurant »",
+  "correction_validee": "Refaire les risques et le positionnement IA à partir des sources propres à Vulcan",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

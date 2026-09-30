@@ -1,0 +1,132 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Le domestique (le plus gros bloc) est libellé « International ». Libellés en anglais.",
+  "preuve": "« International 59.3 ; Atlantic 19.7 ; Pacific 11.6 ; Latin 9.4 » ; Rev Domestic Q2-2026 10.48 / 17.67 = 59 %",
+  "correction_validee": "Renommer « Domestique (États-Unis et Canada) 59,3 », « Atlantique », « Pacifique », « Amérique latine ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Margin.signal",
+  "probleme": "Le point de comparaison cité est faux.",
+  "preuve": "signal « après 10,4 % au T2-2025 » vs serie Q2-2025=8.7 (yoy -2.5 pt cohérent avec 8.7)",
+  "correction_validee": "Remplacer 10,4 % par 8,7 % dans le signal.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Labor Cost.signal / MileagePlus Liab.signal",
+  "probleme": "Les variations citées diffèrent des séries.",
+  "preuve": "Labor Cost « +8,6 % » vs 4.69/4.41 = +6,3 % ; MileagePlus « +2,5 % » vs 7.97/7.67 = +3,9 %",
+  "correction_validee": "Corriger les signaux en +6,3 % (masse salariale) et +3,9 % (MileagePlus).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ASM Growth",
+  "probleme": "Nommé « Croissance », il mesure le niveau de capacité en millions de sièges-miles. Le « record » est faux.",
+  "preuve": "val=87279 M ; signal « Capacité record ... au T2-2026 » alors que Q3-2025=87417",
+  "correction_validee": "Renommer « Sièges-miles offerts (capacité) » et retirer « record » du signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Income.signal / Net Margin.signal / CASM-ex.signal",
+  "probleme": "Cuisine interne et mention de document dans les signaux.",
+  "preuve": "« Pertes COVID réelles conservées », « pertes réelles non lissées », « (ER T2-2026) »",
+  "correction_validee": "Retirer « Pertes COVID réelles conservées », « pertes réelles non lissées » et « (ER T2-2026) » des signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Passenger revenue per available seat mile / Cargo revenue ton miles / Average yield per RPM",
+  "probleme": "Doublons sans dates de PRASM, Cargo RTM et CAHIER_YIELD, décalés d'un trimestre et contradictoires.",
+  "preuve": "PRASM doublon val=16.95 (= Q1-2026) daté 2026-06-30 ; Cargo doublon yoy=-1.2 % vs Cargo RTM +5,3 %, signal « léger repli au T1 2026 »",
+  "correction_validee": "Supprimer les trois doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RASM / CAHIER_YIELD / CAHIER_LOAD_FACTOR",
+  "probleme": "Noms en kilomètres alors que les unités sont en miles. CAHIER_RASM correspond au PRASM (recette passager). Variation d'un taux en % au lieu de points.",
+  "preuve": "« Recette unitaire par siège kilomètre offert », unité « cents par siege-mile offert », FY2025=16.18 (niveau PRASM, TRASM ≈ 17,9) ; LOAD_FACTOR yoy=-1.1 % pour 83.1 -> 82.2",
+  "correction_validee": "Renommer en « siège-mile » et « passager-mile », CAHIER_RASM en « Recette passager par siège-mile offert (PRASM annuel) », variation du coefficient d'occupation en -0,9 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS / LT Debt",
+  "probleme": "T4 absents dans le BPA. Dette long terme arrêtée à fin 2025, sans les trimestres 2025.",
+  "preuve": "EPS : Q3-2024=2.9 puis Q1-2025=1.16 ; LT Debt : Q4-2024=21.7 puis Q4-2025=17.2, dernier 2025-12-31",
+  "correction_validee": "Compléter les T4 et les trimestres 2025 à 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Premium / Loyalty / Business revenue growth",
+  "probleme": "Les signaux citent l'ancien point, pas la valeur affichée.",
+  "preuve": "Premium val=16, signal « hausse de 13.6 % » ; Loyalty val=11, signal « 13 % » ; Business val=27, signal « 14 % »",
+  "correction_validee": "Réécrire les signaux sur la dernière valeur.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Full-year passengers flown",
+  "probleme": "Chiffre annuel incompatible avec la somme des trimestres de la fiche.",
+  "preuve": "189 M vs Passengers 2025 : 40.8+46.2+48.4+45.7 = 181.1 M",
+  "correction_validee": "Vérifier à la source et aligner, ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.justification_mettrik",
+  "probleme": "Le gain de remplissage cité est faux. Le niveau vide ignore les hubs et MileagePlus.",
+  "preuve": "« le coefficient de remplissage gagne 2,4 points » vs Load Factor +0,3 pt (Q2) et -0,9 pt (2025)",
+  "correction_validee": "Corriger le chiffre et réévaluer le moat (hubs, fidélité monétisée 8 Mds $).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik / tagline",
+  "probleme": "Description inexacte : United ne gère pas d'aéroports et n'a pas pour clients des services postaux. La tagline est un slogan anglais.",
+  "preuve": "« la gestion d'aéroports et la formation de pilotes » ; « services postaux nationaux » ; tagline « Connecting People. Uniting the World. »",
+  "correction_validee": "Réécrire la description et la tagline en français factuel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Passager plus fret font 100 %, alors que les autres revenus (fidélité hors billet, etc.) pèsent environ 5 %.",
+  "preuve": "Passenger 96.8 ; Cargo 3.2 vs Passenger Rev Q2-2026 16.1 / Revenue 17.67 = 91 %",
+  "correction_validee": "Ajouter « Autres revenus » et franciser les libellés.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

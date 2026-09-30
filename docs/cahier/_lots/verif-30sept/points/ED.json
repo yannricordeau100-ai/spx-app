@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, fcf_par_salarie",
+  "probleme": "La tresorerie libre annuelle 2023-2025 est en realite le flux d exploitation (OCF) : 4,8 Mds $ en 2025 = somme des ocf trimestriels 2025 (837+1979+504+1480), 3,614 en 2024 = somme ocf 2024. Le vrai FCF 2025 (somme des fcf trimestriels) est de +36 M$ et 2024 de -1,6 Mds $. Les annees 2018-2022 de la meme serie sont bien des FCF negatifs : la serie melange deux definitions et contredit l anti-these (FCF -502 M$ au S1 2026).",
+  "preuve": "fcf_annuel : 2023=2.156, 2024=3.614, 2025=4.8 ; ocf trimestriel 2024 : 573, 1339, 392, 1310 (=3614) ; fcf trimestriel 2025 : -318, 714, -536, 176 (=36) ; att : cash-flow libre ... -502 M$ sur le premier semestre 2026",
+  "correction_validee": "Recalculer fcf_annuel 2023-2025 comme OCF moins capex (environ 0,04 Mds $ en 2025) puis fcf_par_salarie, et corriger l extraction source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Capex, Rate Base, Allowed ROE, Electric Customers, Gas Customers, Renewable MW Owned",
+  "probleme": "Six KPI sans periodes etiquetees, dates au 2026-12-31, avec signaux de modele de langage (Whaou cycle., Compounding regule., Stable haut.) et descriptions en franglais. Les valeurs contredisent les KPI sources : Rate Base 38 Mds $ contre 44 Mds $ en additionnant les bases tarifaires 2025 de la fiche ; Allowed ROE 9,25 contre 9,40 (cecony_authorized_roe 2026) ; Electric Customers 3,6 M pour CECONY + O&R alors que CECONY seul en a 3,7 M ; Renewable MW Owned 1,5 GW alors que les Clean Energy Businesses ont ete cedes en 2023 ; Capex val=4.996 alors que le dernier point de la serie est 5.5.",
+  "preuve": "Capex | None | val=4.996 | serie: 3.6, 4.4, 4.7, 5, 5.5 :: Whaou cycle. ; Rate Base serie: 27, 29.5, 32, 35.2, 38 :: Compounding regule. :: Driver direct EPS ; Renewable MW Owned | GW | 0.8, 1, 1.2, 1.3, 1.5 ; buybacks signal : Depuis la cession des Clean Energy Businesses en 2023",
+  "correction_validee": "Supprimer les six KPI Capex, Rate Base, Allowed ROE, Electric Customers, Gas Customers et Renewable MW Owned.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "libelles",
+  "probleme": "Libelles de segments en anglais dont un est une ligne de couts (Oil and Gas, Purchased) et non un segment de revenus ; une entree None.",
+  "preuve": "revenue_by_segment : Electricity 74.5 ; Oil and Gas, Purchased 21.3 ; Steam 4.2 ; Non-Utility Products And Services None",
+  "correction_validee": "Libeller Electricite 74,5, Gaz 21,3 et Vapeur 4,2, et supprimer l entree a None.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy de cecony_authorized_roe, op_margin, cecony_op_margin, net_margin, effective_tax_rate, delivery_margin_pct, debt_to_cap, CAHIER_ROE_GAP",
+  "probleme": "Variation annuelle de series en pourcentage exprimee en pourcentage relatif au lieu de points, ce qui donne des chiffres trompeurs (+37,4 % pour une marge passee de 9,9 % a 13,6 %, +45 % pour un taux d impot, -375 % pour un ecart de ROE).",
+  "preuve": "op_margin yoy=+37.4% serie Q2-2025=9.9, Q2-2026=13.6 ; effective_tax_rate yoy=+45.0% (16.9 -> 24.5) ; cecony_authorized_roe yoy=+1.6% (9.25 -> 9.4) ; CAHIER_ROE_GAP yoy=-375.0%",
+  "correction_validee": "Exprimer ces yoy en points, par exemple +3,7 pt, +7,6 pt, +0,15 pt, -2 pt pour debt_to_cap et -2,2 pt pour delivery_margin_pct.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RATE_BASE_GROWTH",
+  "probleme": "Nom Croissance de la base d actifs regulee par activite alors que la serie est un niveau en Mds $ identique a la base tarifaire electricite CECONY (hero) : doublon avec nom faux.",
+  "preuve": "CAHIER_RATE_BASE_GROWTH FY2025=29.362 Mds $ ; cecony_elec_rate_base FY2025=29.36 ; FY2024 27.925 vs 27.93",
+  "correction_validee": "Supprimer CAHIER_RATE_BASE_GROWTH.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "electricite_livree_par_cecony_dans_sa_zo, CECONY steam delivered (largest US steam system)",
+  "probleme": "Deux doublons annuels de series trimestrielles a jour : l electricite livree annuelle (cle tronquee, nom contenant l unite, sans signal) egale la somme des trimestres de cecony_elec_delivered ; la vapeur livree a un point (16 975 MMlb) egale la somme 2025 de cecony_steam_delivered.",
+  "preuve": "electricite_livree_par_cecony_dans_sa_zo 2025=53798 M kWh ; cecony_elec_delivered 2025 : 13.575+11.931+15.692+12.6 = 53.8 TWh ; CECONY steam delivered val=16975 ; cecony_steam_delivered 2025 : 7.67+2.69+2.27+4.34 = 16.97 Mds lb",
+  "correction_validee": "Supprimer electricite_livree_par_cecony_dans_sa_zo et CECONY steam delivered (largest US steam system).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CUSTOMER_RELIABILITY",
+  "probleme": "Nom Clients desservis et fiabilite du service pour une serie qui mesure des interruptions par client (frequence des coupures) ; serie arretee en 2024.",
+  "preuve": "CAHIER_CUSTOMER_RELIABILITY | interruptions par client | dernier 2024-12-31 | FY2024=0.11",
+  "correction_validee": "Renommer Frequence des interruptions par client et ajouter 2025.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "cecony_gas_delivered, cecony_gas_total_delivered",
+  "probleme": "Deux KPI aux noms presque identiques (Gaz livre aux clients CECONY (total) et Gaz total transporte CECONY) pour deux mesures differentes (33,9 contre 68,7 M Dt) : un lecteur ne peut pas comprendre l ecart du simple au double.",
+  "preuve": "cecony_gas_delivered val=33.929 (total) ; cecony_gas_total_delivered val=68.69",
+  "correction_validee": "Renommer le premier Ventes de gaz aux clients CECONY (fermes et interruptibles) et le second Gaz total achemine, ventes et transport pour tiers.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "equity_issuance, buybacks",
+  "probleme": "Serie d emissions d actions a trous (T2, T3, T4 2025 absents) avec une valeur negative en T4 2023 ; serie de rachats arretee fin 2024 alors que toutes les autres vont au T2 2026.",
+  "preuve": "equity_issuance serie : Q1-2025=631, Q1-2026=776 (rien entre) ; Q4-2023=-41 ; buybacks dernier 2024-12-31",
+  "correction_validee": "Completer les trimestres manquants ou supprimer ; prolonger buybacks a zero jusqu au T2 2026.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Sale of Mountain Valley Pipeline interest, Utility capital investment plan 2026-2030, CECONY underground distribution lines, CECONY distribution-level DG capacity, CECONY battery energy storage",
+  "probleme": "Cinq entrees a un point (cession, plan, longueur de reseau) en anglais qui ne sont pas des indicateurs suivis.",
+  "preuve": "Sale of Mountain Valley Pipeline interest | n=1 | val=357.5 ; CECONY underground distribution lines | val=100371 miles",
+  "correction_validee": "Retirer des KPI ; garder eventuellement stockage batterie et generation distribuee en series annuelles.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "risque 1 a 6",
+  "probleme": "Six risques sans texte, avec des titres generiques inadaptes a un monopole regule (Risque specifique au business model, Intensification de la concurrence).",
+  "preuve": "risque 1: Risque specifique au business model :: (vide) ; risque 5: Intensification de la concurrence :: (vide)",
+  "correction_validee": "Rediger a partir du 10-K 2025 (climat, regulation NY, financement, cyber) et supprimer les titres non pertinents.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

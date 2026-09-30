@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis (trimestriels)",
+  "champ": "toutes séries / hero",
+  "probleme": "Toutes les séries trimestrielles s'arrêtent au 31 mars 2026 alors que l'exercice clos au 30 juin 2026 est publié",
+  "preuve": "REVENUE 'dernier 2026-03-31' (311,4) alors que revenue_annuel 2026=1,215 Mds; T4 déduit: 1 215,0 - 286,6 - 295,9 - 311,4 = 321,1 M$",
+  "correction_validee": "Ajouter le T4 de l exercice 2026 (avril-juin 2026) a toutes les series trimestrielles depuis le rapport annuel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS_DILUTED, DPS, TAX_RATE, DILUTED_SHARES, EQUITY",
+  "probleme": "Le 4e trimestre de chaque exercice manque systématiquement",
+  "preuve": "EPS_DILUTED: Q4-2023, Q1-2024, Q3-2024, Q4-2024, Q1-2025, Q3-2025 (pas de Q2-2024 ni Q2-2025); même trou dans DPS, TAX_RATE, DILUTED_SHARES; EQUITY sans Q3-2025",
+  "correction_validee": "Déduire les T4 des données annuelles",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "libellés de période",
+  "probleme": "Séries en trimestres calendaires, signaux en trimestres d'exercice",
+  "preuve": "série 'Q1-2026' contre signal 'Résultat net 51,0 M$ au T3 FY2026'",
+  "correction_validee": "Uniformiser les libelles en trimestres d exercice (Q1-2026 calendaire = T3 de l exercice 2026).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BUYBACK, LT_DEBT, REVENUE, Share repurchase authorization",
+  "probleme": "Les signaux ignorent le rachat par Merck KGaA signé le 25 juin 2026; les chiffres du programme de rachat ne concordent pas",
+  "preuve": "BUYBACK: 'activé ponctuellement, selon les opportunités de marché'; LT_DEBT: 'marge de manœuvre pour futures acquisitions ou rachats'; REVENUE: 'la reprise de croissance est le signal clé'; autorisation 400 M$ mais '405 M$ restant'",
+  "correction_validee": "Reecrire ces signaux autour du rachat par Merck KGaA a 73 $ et verifier a la source le montant autorise et restant du programme.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Diagnostics & Genomics (x2), GMP Proteins, Adj Op Margin, Organic Growth, Recurring Revenue Mix, ProteinSimple Sales, China Mix",
+  "probleme": "KPI hérités sans périodes, ancien nom de segment, en franglais, contradictoires",
+  "preuve": "Diagnostics & Genomics 0,34 Mds et 400 M$ (deux valeurs) alors que le segment DSB fait ≈330 M$; Recurring Revenue Mix 78% contre CONSUMABLE_MIX 82,6% et CAHIER_CONSUMABLES_MIX 88,8%; China Mix 7 contre 8,4; Organic Growth 4 contre 0 (CAHIER FY2026)",
+  "correction_validee": "Supprimer ces KPI herites et preciser la definition des deux parts de consommables restantes.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORG_GROWTH_END_MARKET / Organic revenue growth / segment organic growth",
+  "probleme": "Nom faux et séries de croissance organique sans périodes",
+  "preuve": "'Croissance organique par marché final' contient une seule série consolidée (yoy '-100%'); 'Organic revenue growth' 2, 4, -8, 10, 19, 17, 1, 2 et Protein Sciences 46, 26, 19, 1, -4 sans aucun trimestre",
+  "correction_validee": "Renommer en 'Croissance organique annuelle'; dater chaque point des séries trimestrielles",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / moat",
+  "champ": "GOODWILL.signal / moat",
+  "probleme": "Signal et moat contredits par la fiche",
+  "preuve": "GOODWILL: 'acquisitions passées, dont ACD, Exosome et Lunaphore' alors qu'Exosome a été dépréciée (83,1 M$) puis cédée; moat: 'Consommables en hausse de 5 % ... organique 2 %' alors que CONSUMABLE_REV est à -0,2% et que la croissance organique FY2026 est de 0",
+  "correction_validee": "Retirer Exosome du signal; réécrire la justification du moat",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition / these",
+  "champ": "revenue_by_geography / revenue_by_segment / these",
+  "probleme": "Libellés cassés ou en anglais, exercice absent, formule inexacte",
+  "preuve": "'U S 56', 'C N 8.2', 'Rest Of World', 'APAC, excluding Greater China'; segments sans exercice; thèse 'ventes n'ont pas bougé d'un dollar' alors que 1 220 à 1 215 M$",
+  "correction_validee": "Traduire (Etats-Unis, Grande Chine, Reste du monde...), indiquer l exercice des segments et ecrire ventes quasi stables.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "La marge opérationnelle ajustée trimestrielle, principal indicateur de pilotage publié par la société, n'existe qu'en KPI hérité annuel",
+  "preuve": "seul 'Adj Op Margin' 38, 39, 36, 33, 32 sans périodes; GROSS_MARGIN_ADJ arrêtée au 2025-12-31",
+  "correction_validee": "Ajouter la marge opérationnelle ajustée trimestrielle et prolonger la marge brute ajustée",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

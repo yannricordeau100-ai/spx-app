@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification du moat contredite par les series de la fiche",
+  "preuve": "\"La marge de la confiserie nord-americaine perd pres de huit points depuis le debut de serie et l'activite internationale s'effondre\" alors que NAC_margin_q passe de 32.4 (Q1-2021) a 32.5 (Q2-2026) et INTL_rev est a +5.7% sur un an",
+  "correction_validee": "Reecrire la justification : marge de la confiserie nord-americaine revenue a 32,5 % au T2 2026 apres un creux a 21,8 % au T3 2025, International repasse en perte malgre un CA en hausse.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "resume",
+  "probleme": "Affirmation fausse sur la tendance des depenses publicitaires",
+  "preuve": "\"612 M$ en 2025, en hausse pour la quatrieme annee\" alors que advertising_marketing FY2023=604.9, FY2024=600.1 (baisse), FY2025=612",
+  "correction_validee": "Retirer \"en hausse pour la quatrieme annee\".",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Organic constant-currency net sales growth / Organic net price realization / Organic volume/mix contribution",
+  "probleme": "Series sans periodes, datees 2026-06-28 mais qui semblent s'arreter au T1 2026 (decalage d'un trimestre)",
+  "preuve": "Croissance organique 7.9 au dernier point alors que rev_total Q2-2026 n'est qu'a +6.6 % publie, acquisition LesserEvil incluse (environ 3 points) ; les points precedents -16.8, -13.2, 26.3, 6.2 collent aux variations publiees Q2-2024, Q1-2025, Q2-2025, Q3-2025, donc 7.9 = T1 2026 ; rev_total cite environ 12 points de prix au T2 contre 10 dans la serie",
+  "correction_validee": "Ajouter les periodes et verifier ou manque le point du T2 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORGANIC_GROWTH.yoy",
+  "probleme": "Variation d'un taux exprimee en pourcentage relatif absurde, et doublon annuel de la serie trimestrielle de croissance organique",
+  "preuve": "yoy=+950.0% pour un passage de 0.4 % a 4.2 %",
+  "correction_validee": "Afficher la variation en points : +3,8 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NAC_cos_q.signal / cocoa_futures",
+  "probleme": "Texte perime sur le cacao, contredit par l'anti-these",
+  "preuve": "NAC_cos_q : \"compensent le renchérissement du cacao\" alors que le cout baisse de 7.1 % et que l'anti-these parle de \"la chute du cout du cacao\" ; cocoa_futures s'arrete a FY2025 (3.65 USD/lb)",
+  "correction_validee": "Reecrire le signal sur la baisse du cacao en 2026 ; completer le prix du cacao 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography / revenue_by_segment",
+  "champ": "libelles",
+  "probleme": "Repartition mal libellee : 87.7 correspond aux Etats-Unis, pas a l'Amerique du Nord ; libelles anglais ; segments regroupes en 2 lignes sans annee",
+  "preuve": "\"Amerique du Nord 87.7 ; International and Other Segment 12.3\" alors que us_sales_q donne 87.5 % pour les Etats-Unis ; revenue_by_segment (None) : \"North America 91 ; International and Other 9\" alors que la societe publie 3 segments",
+  "correction_validee": "Libeller la repartition geographique Etats-Unis 87,7 % et Reste du monde 12,3 %. Refaire les segments 2025 : confiserie Amerique du Nord 9 479,7 M$ (81,1 %), snacks sales 1 271,3 M$ (10,9 %), International 941,6 M$ (8,1 %).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "market_positions",
+  "champ": "segment_name[0]",
+  "probleme": "Perimetre du segment faux : le Mexique est dans le segment International chez Hershey",
+  "preuve": "\"North America Confectionery (... vendus aux Etats Unis, au Canada et au Mexique)\"",
+  "correction_validee": "Retirer \"et au Mexique\" du perimetre du segment.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Tentpole events / Innovation share / Q4 salty snacks / Cultural and seasonal activation events / LesserEvil acquisition consideration",
+  "probleme": "Anecdotes de conference a un seul point presentees comme KPI, avec jargon anglais, unite fantaisiste et periode fausse",
+  "preuve": "unite \"% (single digit eleve)\" ; \"Croissance organique Salty Snacks au Q4\" datee 2026-03-28 ; \"10 moments culturels\" ; prix d'acquisition LesserEvil 815.2 M$ traite comme KPI",
+  "correction_validee": "Supprimer ou deplacer vers les faits marquants",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "HSY_NACONF.signal",
+  "probleme": "Apostrophes cassees, et doublon annuel de NAC_rev (somme des trimestres 2025 = 9479.7)",
+  "preuve": "\"sous les marques Reese s, Hershey s'et Kisses\"",
+  "correction_validee": "Ecrire \"sous les marques Reese's, Hershey's et Kisses\".",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "cmg_market_share.yoy",
+  "probleme": "Unite de variation incoherente avec l'unite du KPI",
+  "preuve": "unite \"points de base\", yoy=\"+49 pts vs 2024\"",
+  "correction_validee": "Afficher +49 pb sur un an.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "texte",
+  "probleme": "Positionnement IA generique, sans aucun fait",
+  "preuve": "\"utilise l'IA en marketing, prevision de demande et supply chain, avec approche prudente\"",
+  "correction_validee": "Remplacer par des faits concrets ou reduire a une mention neutre",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

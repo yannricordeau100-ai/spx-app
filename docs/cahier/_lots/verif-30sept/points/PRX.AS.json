@@ -1,0 +1,32 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Tencent Stake, Ecommerce Revenue, Food Delivery GMV, Classifieds Revenue, Ecommerce Trading Profit, Tencent Stake Value, Group Trading Profit, Classifieds (OLX), PayU Revenue",
+  "probleme": "Bloc de 9 series sans periodes (dates 2026-08-09 ou 2025-03-31) qui contredisent les series officielles de la fiche",
+  "preuve": "Tencent Stake val=24 % vs TENCENT_PCT FY2026=22.66 ; PayU Revenue 0.45 Mds $ vs SEG_PAYU FY2026=781 M$ ; Classifieds Revenue 0.92 vs SEG_OLX FY2026=992 M$ ; Ecommerce Revenue 6.2 Mds $ vs REVENUE_FY FY2026=9705 M$ ; Ecommerce Trading Profit serie -1.2,-1.1,-0.27,0.04,0.4 vs Group Trading Profit -0.74,-0.91,-0.62,0.17,0.44 pour le meme indicateur ; textes franglais (post-buyback program, distribution stake, Stitch credit)",
+  "correction_validee": "Retirer les 9 series, deja couvertes par TENCENT_PCT, SEG_*, REVENUE_FY et AEBITDA_H.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Classifieds (OLX) / Classifieds Revenue",
+  "probleme": "Doublon quasi exact du meme indicateur avec un point divergent",
+  "preuve": "Classifieds (OLX) serie 0.78,0.85,0.79,0.84,0.92 ; Classifieds Revenue serie 0.78,0.85,0.82,0.84,0.92",
+  "correction_validee": "Supprimer les deux series (traitees avec le point 0), SEG_OLX suffit.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Food Delivery GMV",
+  "probleme": "Nom et unite incoherents : GMV iFood libelle en euros avec mention Delivery Hero share, sans periodes",
+  "preuve": "Food Delivery GMV (iFood, Delivery Hero share) | Mds € | serie 4.5,6.8,7.9,8.6,10.5 sans dates",
+  "correction_validee": "Retirer la serie avec le bloc du point 0.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ }
+]

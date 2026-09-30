@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "ARR",
+  "probleme": "Datadog ne publie pas d ARR ; la serie est inferieure au chiffre d affaires 2025 et datee 2026-06-30 sans periode",
+  "preuve": "serie 1.03, 1.55, 2.05, 2.44, 3.05 Mds $ ; revenue_annuel 2025=3.427",
+  "correction_validee": "Retirer le KPI ARR.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Customers >$100K ARR",
+  "probleme": "Triplon avec valeur perimee presentee comme actuelle",
+  "preuve": "val=3850 dernier 2026-06-30 alors que customers_100k Q2-2026=4720 (3850 = Q2-2025)",
+  "correction_validee": "Retirer Customers >$100K ARR et garder customers_100k.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Net Revenue Retention",
+  "probleme": "Doublon arrete en 2024 qui contredit net_retention et la these",
+  "preuve": "serie 130, 130, 125, 118, 115 (dernier 2024-12-31) ; net_retention 2024=110, 2026=120 ; these : dans le bas des 120 %",
+  "correction_validee": "Retirer Net Revenue Retention.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RPO_CRPO",
+  "probleme": "Signal = cuisine interne visible par le client",
+  "preuve": "Deja en ligne pour la partie totale : engagements contractuels restants, 28 points trimestriels couvrant environ sept exercices. La part a moins de douze mois n est pas en ligne",
+  "correction_validee": "Retirer CAHIER_RPO_CRPO, rpo couvre la serie.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "R&D % Revenue",
+  "probleme": "Doublon de RD_PCT_REV avec valeur differente a la meme date",
+  "preuve": "R&D % Revenue val=45 dernier 2026-06-30 ; RD_PCT_REV Q2-2026=42.6",
+  "correction_validee": "Retirer R&D % Revenue.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Remaining performance obligations / Customers with ARR of $1 million or more",
+  "probleme": "Doublons : RPO en trois exemplaires, clients >1 M$ en deux",
+  "preuve": "rpo (n=28), CAHIER_RPO_CRPO (n=6), Remaining performance obligations (n=1, 3461.2) ; customers_1m (n=4) et Customers with ARR of $1 million or more (n=7)",
+  "correction_validee": "Garder rpo seul ; mettre sous customers_1m la serie 50, 97, 216, 317, 396, 462, 603 datee FY2019 a FY2025 et retirer le doublon.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "unites de New logo annualized bookings record, Security ARR growth, Products exceeding $100M ARR",
+  "probleme": "Champ unite contenant un commentaire",
+  "preuve": "x YoY (record absolu) ; % YoY (milieu des 50) ; produits (sur 26)",
+  "correction_validee": "Unites x, % et produits ; deplacer les commentaires dans le signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_retention",
+  "probleme": "Arrondi a la dizaine qui cree un saut fictif de 10 points",
+  "preuve": "Q3-2024=110, Q4-2024=110, Q1-2025=110 puis Q2-2025=120 ; la societe disait high 110s puis environ 120",
+  "correction_validee": "Publier les valeurs telles que communiquees (ex. 118 / 120) ou signaler l arrondi",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "nongaap_op_margin / bpa_dilue",
+  "probleme": "Marge non-GAAP arretee au T1 2026 alors que le reste va au T2 ; yoy en format x12",
+  "preuve": "nongaap_op_margin dernier 2026-03-31 ; bpa_dilue yoy=x12",
+  "correction_validee": "Ajouter T2 2026, yoy en points ou en %",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

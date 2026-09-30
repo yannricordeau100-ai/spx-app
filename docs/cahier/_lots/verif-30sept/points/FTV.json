@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "CORE_GROWTH.signal / Core (organic) revenue growth",
+  "probleme": "Le signal annuel affirme que la croissance organique n'est pas declinee par trimestre alors qu'un KPI trimestriel existe ; ce KPI donne 5,3 % au T2 2026 quand la these et l'anti-these citent 6,7 %.",
+  "preuve": "CORE_GROWTH signal : « non declinee par trimestre » ; KPI « Core (organic) revenue growth » quarter, val=5.3 au 2026-07-03 ; att : « +6,7% au T2 2026 »",
+  "correction_validee": "Supprimer « non declinee par trimestre » du signal CORE_GROWTH et verifier dans le communique T2 2026 laquelle des valeurs 5,3 % ou 6,7 % est la croissance organique, puis aligner les textes.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Recurring revenue as % of revenue.serie",
+  "probleme": "Serie de trois points ronds (30, 40, 50) presentee en trimestriel : interpolation lissee, pas une donnee publiee.",
+  "preuve": "serie: 30, 40, 50 ; n=3 ; quarter ; signal « de >30% en 2018 a ~50% »",
+  "correction_validee": "Retirer la serie et ne garder qu'un point date (~50 % au T1 2026).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI ponctuels de rachats / FTV_IOS / TTM FCF",
+  "probleme": "Doublons et contradictions entre KPI a un point et series existantes.",
+  "preuve": "« Q1-2026 share repurchases »=500 = BUYBACK Q1-2026=500.2 ; « 2025 share repurchases »=1,6 Mds = somme BUYBACK 2025 (1610) ; FTV_IOS FY2025=2856.3 = somme IOS_REV 2025 ; « Trailing twelve-month free cash flow »=930 « sur l'exercice 2025 » vs fcf_annuel 2025=0.978 ; FTV_IOS yoy ecrit « +2,3% » (virgule)",
+  "correction_validee": "Supprimer les KPI ponctuels « Q1-2026 share repurchases » et « 2025 share repurchases », corriger ou retirer le TTM FCF, garder FTV_IOS en corrigeant le format du yoy (+2.3 %).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Cumulative share repurchases since spin-off.signal",
+  "probleme": "Date de scission incoherente sur la fiche.",
+  "preuve": "signal : « Depuis le spin-off de juillet 2025 » ; PT_REV signal : « scindee sous le nom Ralliant le 28 juin 2025 »",
+  "correction_validee": "Remplacer « juillet 2025 » par « juin 2025 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Repartition sur l'ancien perimetre : Precision Technologies (cedee juin 2025) pese encore 35,6 %, et la part hors US (47,4 %) contredit INTL_PCT (44 %).",
+  "preuve": "revenue_by_segment : « Precision Technologies 35.6 » ; revenue_by_geography : « United States 52.6 » ; INTL_PCT FY2025=44 ; risque 8 « 44% des ventes hors US »",
+  "correction_validee": "Recalculer sur l'exercice 2025 activites poursuivies : IOS ~69 %, AHS ~31 %, et une geographie coherente avec 44 % hors Etats-Unis.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "RD / RD_PCT / SGA.serie",
+  "probleme": "Series qui melangent deux perimetres : deux trimestres sur huit restent a l'ancien perimetre, ce qui cree des dents de scie artificielles.",
+  "preuve": "RD : Q3-2024=62, Q4-2024=107.1, Q1-2025=64, Q2-2025=109.2, Q3-2025=62 ; RD_PCT : 6.2, 10, 6.4, 10.7, 6 ; SGA : 407.5, 563, 408.2, 564.3, 427.6",
+  "correction_validee": "Remplacer Q4-2024 et Q2-2025 de RD, RD_PCT et SGA par les valeurs activites poursuivies (ex. T2 2025 : 67,2 M$ R&D, 408,5 M$ SG&A) ou retirer ces points.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat « None » avec un texte qui affirme une contraction de la marge brute, contredite par la serie et par la these (bonne entreprise selon Greenblatt, marques Fluke).",
+  "preuve": "moat : « la marge brute et l'effort de recherche se contractent sur cinq ans » ; GROSS_MARGIN : 63.9 a 63.4 sur deux ans ; these : « definition meme de la bonne entreprise »",
+  "correction_validee": "Requalifier le moat (marques, base installee Fluke, logiciels) et retirer l'affirmation sur la marge brute.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.simple.fr",
+  "probleme": "Description perimee : Tektronix est parti avec Ralliant, et Fortive n'est plus un conglomerat diversifie.",
+  "preuve": "« conglomerat industriel diversifie » ; « instrumentation (Tektronix, Fluke) » ; PT_REV signal : scission Ralliant juin 2025",
+  "correction_validee": "Retirer Tektronix, decrire deux segments IOS et AHS.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions de marche",
+  "champ": "market_positions",
+  "probleme": "Deux positions de marche sans nom de marche ni part, seules des tailles brutes.",
+  "preuve": "position de marche 1: None | taille 37.62 | part None ; position 2: None | taille 17.7 | part None",
+  "correction_validee": "Nommer les marches (instrumentation, logiciels de gestion d'actifs, sterilisation) avec unite ou retirer le bloc.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

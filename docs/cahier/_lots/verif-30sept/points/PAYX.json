@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition segment avec un total de 3,62 Mds $ (niveau de l'exercice 2018) et des noms de segments qui n'existent plus (Payroll and HR Administration 70 %, PEO Services 30 %). Les segments actuels sont Management Solutions (74,8 %) et PEO and Insurance (22,0 %) pour 6,51 Mds $ en FY2026, comme le montrent les KPI de la fiche.",
+  "preuve": "revenue_by_segment total 3.62 Mds $, slices Payroll and HR Administration 2.54 / PEO Services 1.08 ; mgmt_solutions_rev FY2026 4 867,9 M$ ; total_revenue FY2026 6 512,0 M$",
+  "correction_validee": "Reconstruire la répartition FY2026 : Management Solutions 4 867,9 M$, PEO and Insurance 1 433,2 M$, intérêts sur fonds clients 210,9 M$.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Unique employees purchasing on Paychex Perks marketplace",
+  "probleme": "Le dernier point (17 600) est l'effectif de Paychex, pas un nombre d'acheteurs : contamination identique à celle déjà détectée sur Total worksite employees paid on platform, mais celle-ci n'est pas relevée. Date 2026-09-29 sans publication ce jour.",
+  "preuve": "serie: 350000, 17600 | val=17600 | dernier 2026-09-29 :: près de 350k acheteurs en 18 mois ; effectifs_annuels 2026=17600",
+  "correction_validee": "Retirer le point 17 600 et remettre la valeur à 350 000.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total payroll clients served, Clients Served, HR Solutions Worksite Employees, PEO and Insurance Revenue",
+  "probleme": "Quatre doublons de séries déjà présentes : client_base (annuel) est repris par Total payroll clients served (faux trimestriel, non daté, avec un creux à 600 000) et Clients Served (en k) ; worksite_employees est recopié en HR Solutions Worksite Employees ; peo_insurance_rev est recopié en annuel avec une description en franglais.",
+  "preuve": "Total payroll clients served serie: 650000, 670000, 600000, 710000 ... ; Clients Served serie: 710, 730, 745, 800, 800 ; HR Solutions Worksite Employees serie: 1680000 ... 2460000 = worksite_employees FY2021-FY2025 ; PEO and Insurance Revenue :: levier wages PEO + primes assurance",
+  "correction_validee": "Supprimer Total payroll clients served, Clients Served, HR Solutions Worksite Employees et PEO and Insurance Revenue.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "sga, cost_of_revenue, sbc, dep_amort, equity, cash (signaux)",
+  "probleme": "Six signaux réduits à une virgule suivie d'une mention de source (« , compte de résultat consolidé », « , bilan consolidé ») : aucune lecture pour l'investisseur et source visible dans le bloc.",
+  "preuve": "sga :: , compte de résultat consolidé ; equity :: , bilan consolidé ; sbc :: , tableau de flux opérationnels",
+  "correction_validee": "Retirer ces mentions et écrire un signal chiffré (valeur T4 FY2026 contre T4 FY2025).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PEO Worksite Employees",
+  "probleme": "Série sans périodes datée 2026-12-31, unité « M employees » en anglais et description en franglais.",
+  "preuve": "PEO Worksite Employees | M employees | dernier 2026-12-31 :: ~400k worksite employees managed via PEO. Croissance ~10 %. Métrique scale PEO.",
+  "correction_validee": "Supprimer ou dater la série et rédiger la description en français.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "att.resume",
+  "probleme": "L'anti-thèse dit que le résultat net n'a progressé que de 4 % alors que la série net_income donne FY2026 1 760,1 M$ contre 1 657,3 M$ en FY2025, soit +6 %, chiffre repris par le signal du KPI.",
+  "preuve": "att: le résultat net n'a progressé que de 4 % ; net_income :: Résultat net FY2026 1 760,1 M$, +6%",
+  "correction_validee": "Aligner l'anti-thèse sur +6 % (ou préciser s'il s'agit du BPA dilué).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Phrase mal formée et en franglais : « 500 plus fonctionnalités », « l'agentic AI en scaling ».",
+  "preuve": "Paychex a industrialisé l'IA avec 500 plus fonctionnalités déployées et l'agentic AI en scaling sur ses opérations client.",
+  "correction_validee": "« Paychex a déployé plus de 500 fonctionnalités d'IA et étend ses agents autonomes à ses opérations clients. »",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Référence à une notation interne (« l'abaissement de la note ») visible dans le moat.",
+  "preuve": "moat :: la rentabilité des capitaux propres recule et l'abaissement de la note reflète une intégration en cours",
+  "correction_validee": "Retirer « et l'abaissement de la note reflète une intégration en cours ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "hr_peo_clients, wse_per_hr_client, health_benefits_applicants",
+  "probleme": "Trois séries arrêtées en 2024 et 2023 alors que les exercices 2025 et 2026 sont publiés ; le ratio employés par client HR reste calculé sur 2024.",
+  "preuve": "hr_peo_clients | dernier 2024-05-31 ; health_benefits_applicants | dernier 2023-05-31 ; wse_per_hr_client | dernier 2024-05-31",
+  "correction_validee": "Compléter depuis les 10-K FY2025 et FY2026 ou clore explicitement la série si Paychex ne publie plus le chiffre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "subsector",
+  "probleme": "Sous-secteur « Logiciels » alors que le code GICS 20202010 affiché correspond aux services RH et emploi (Human Resource & Employment Services).",
+  "preuve": "Industrie > Logiciels | GICS 20202010",
+  "correction_validee": "Remplacer le sous-secteur par « Services RH et emploi ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

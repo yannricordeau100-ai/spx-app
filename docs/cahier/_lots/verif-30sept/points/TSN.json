@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Op Income",
+  "probleme": "Résultat opérationnel annuel invraisemblable, environ 4 fois trop élevé",
+  "preuve": "Op Income val=4.11 Mds $ (série 4.4, 4.11) alors que op_margin trimestrielle est de 1 à 4 % sur 13-14 Mds $ de CA, soit environ 1,2 Md$ par an ; la somme des résultats segments sur 9 mois FY2026 fait environ 2,2 Mds $",
+  "correction_validee": "Supprimer le KPI Op Income, les séries trimestrielles couvrant déjà le résultat opérationnel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Beef/Chicken/Pork/Prepared Foods/International Volume Sold",
+  "probleme": "Volumes en M lbs impossibles et incohérents avec les prix et le CA",
+  "preuve": "Beef Volume Sold 17.1 M lbs pour un CA Beef d'environ 21,6 Mds $ ; au prix affiché de 3,59 $/lb cela ferait environ 6 000 M lbs. Le boeuf (17,1) dépasse le poulet (11,7) alors que le CA poulet est de 16,8 Mds $. Séries sans période, datées 2026-09-30",
+  "correction_validee": "Supprimer les 5 séries de volumes et Beef Avg Sales Price.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Adj Op Income Beef",
+  "probleme": "Série annuelle non datée contredite par les résultats trimestriels",
+  "preuve": "Adj Op Income Beef dernier = -300 M$ alors que beef_op_inc sur 9 mois FY2026 = -319-240-142 = -701 M$ ; description en anglais 'Margin headwind majeur 2025-2026'",
+  "correction_validee": "Supprimer Adj Op Income Beef.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Variation volume (Chicken, Pork, Prepared Foods, Beef) segment volume change YoY",
+  "probleme": "Dernier point daté 2026-09-30 (trimestre non publié, prochaine publication 2026-11-09) et ne correspond pas au T3 cité ailleurs",
+  "preuve": "Chicken volume dernier 1,7 % mais chicken_rev signal 'volumes +1,0 %' au T3 FY2026 ; Pork 4,4 % vs '+5,2 %' ; Prepared Foods 0,4 % vs '+0,1 %'. Séries sans libellés de période",
+  "correction_validee": "Recaler les périodes (probable décalage d'un trimestre) et ajouter les libellés",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Legal Contingency Accruals / chicken_op_margin.signal",
+  "probleme": "Montant et période de la provision litiges contradictoires",
+  "preuve": "Legal Contingency val=98 mais série Q3-2026=155 et signal 'Provisions pour litiges de 155 M USD passées au T1 2026' ; chicken_op_margin signal cite 'provision pour litige de 98 M$' au trimestre",
+  "correction_validee": "Vérifier le montant par trimestre et aligner valeur, période et signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "pork_op_margin.signal / prepfoods_op_margin.signal",
+  "probleme": "Signaux périmés contredits par la série",
+  "preuve": "pork_op_margin 3,8 % (+1,4 pt, résultat +66,7 %) mais signal 'dégradée par le cycle porcin'. prepfoods_op_margin 12,2 % (+0,2 pt, 13,9 % au T2) mais signal 'La hausse des coûts ... rogne la marge'",
+  "correction_validee": "Réécrire les deux signaux sur les derniers trimestres",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "beef_cap.signal",
+  "probleme": "Signal incohérent avec la série",
+  "preuve": "Série plate à 155 depuis FY2019 mais signal 'la baisse vient de la durée d'abattage, pas du nombre d'usines' : aucune baisse dans la série",
+  "correction_validee": "Réécrire : capacité déclarée inchangée malgré fermetures, à surveiller avec les fermetures 2026",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these.argument porc",
+  "probleme": "Chiffre de la thèse différent de la série de la fiche",
+  "preuve": "Thèse : porc 'passé d'une perte de 58 M$' sur 9 mois FY2025 ; pork_op_inc Q1..Q3 FY2025 = 59-195+36 = -100 M$",
+  "correction_validee": "Aligner le chiffre ou la série (GAAP vs ajusté) et préciser la base",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Prepared Foods Revenue / Dividend per Share / GROUP_REVENUE",
+  "probleme": "Doublons annuels non datés de séries trimestrielles, descriptions anglaises ou hors sujet",
+  "preuve": "Prepared Foods Revenue 9,8 Mds $ doublon de prepfoods_rev ; Dividend per Share 2,0 doublon de div_ps ; descriptions 'Stratégie value-added prioritaire', 'Discipline capital return maintenue' ; GROUP_REVENUE description 'Produit phare : Nuggets Tyson' et date 2025-12-31 alors que l'exercice clôt le 27 septembre",
+  "correction_validee": "Supprimer Prepared Foods Revenue et Dividend per Share ; réécrire la description de GROUP_REVENUE et le dater au 27 septembre 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "beef_op_inc.yoy / CAHIER_ORGANIC_GROWTH.yoy / CAHIER_INPUT_INFLATION",
+  "probleme": "Variations et unités trompeuses",
+  "preuve": "beef_op_inc yoy=-71,3 % alors que la perte se réduit de -494 à -142 M$ ; CAHIER_ORGANIC_GROWTH yoy=-218,8 % sur une série en % (devrait être -3,5 pts) ; CAHIER_INPUT_INFLATION en $ bruts (1207000000), yoy -306 %, nom 'couverture par les prix' alors que la série n'est qu'un montant",
+  "correction_validee": "Afficher beef_op_inc en amélioration de 352 M$, ORGANIC_GROWTH en -3,5 pts, INPUT_INFLATION en Mds $ (1,2) renommé 'Inflation des intrants'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat contradictoire et périmé",
+  "preuve": "niveau Aucun, tendance 'stable' mais tendance_mettrik 'baisse' ; texte 'résultat opérationnel chute de 22,1 %, résultat net de 40,8 %' alors que marge nette et BPA remontent en 2026 (BPA +205,9 %) ; la description Mettrik parle de marque reconnue et d'échelle (20 % des protéines US)",
+  "correction_validee": "Réécrire le moat sur l'échelle et les marques, avec chiffres 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

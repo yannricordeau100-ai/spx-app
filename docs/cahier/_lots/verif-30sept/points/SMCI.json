@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "cash, equity, inventories, opex, capex, interest_expense, backlog_rpo, purchase_commitments, contract_liability, convertible_notes, ppe_net, diluted_shares, tax_rate, eps_diluted .yoy et .signal",
+  "probleme": "Le point Q4-FY2026 a été ajouté comme valeur, mais la variation sur un an et le signal portent encore sur le T3. Les chiffres affichés sont donc faux.",
+  "preuve": "cash : valeur 7521.5 et yoy -49.1 % (= 1290.3/2536.1, soit le T3), alors que 7521.5/5169.9 = +45,5 %. equity : 14479.6 et +18.7 % (T3), alors que la vraie variation est +130 %. eps : 1.62 et +323.5 % (= 0.72/0.17). Le signal de cash dit « Trésorerie de 1 290 M$ au T3 ».",
+  "correction_validee": "Recalculer la variation sur un an de chaque KPI concerné sur le Q4-FY2026 (cash +45,5 %) et réécrire les signaux sur le T4, après avoir vérifié la valeur de 14479,6 des capitaux propres.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "server_storage_rev (hero), subsystems_rev",
+  "probleme": "Le hero a un an de retard.",
+  "preuve": "Dernier point 2025-06-30 (Q4-FY2025, 5617.8). Signal : « croissance +50% YoY FY2025 ». Le CA FY2026 publié est de 39.063 Mds $.",
+  "correction_validee": "Mettre à jour server_storage_rev et subsystems_rev jusqu'au Q4-FY2026, à défaut prendre net_sales comme hero une fois celui-ci à jour.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_sales, gross_margin, gross_profit, operating_income, operating_margin, net_income, net_margin",
+  "probleme": "Le compte de résultat trimestriel s'arrête au T3 FY2026, alors que l'année et le BPA du T4 sont publiés.",
+  "preuve": "FY2026 = 39063, T1 à T3 = 27943.3, donc T4 = environ 11120 M$ absent. eps_diluted a pourtant Q4-FY2026 = 1.62.",
+  "correction_validee": "Ajouter le Q4-FY2026 à net_sales, gross_profit, gross_margin, operating_income, operating_margin, net_income et net_margin, à partir des publications du T4.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle, dette_par_salarie, dette_sur_ca",
+  "probleme": "Le bloc annuel affiche une dette de 0,3 Md$ arrêtée en 2023, alors que la dette dépasse 8,7 Mds$.",
+  "preuve": "dette_annuelle 2023 = 0.29, avec le signal « Dette de 0,3 Mds $ en 2023 ». total_debt Q3-FY2026 = 8773.1.",
+  "correction_validee": "Compléter FY2024 à FY2026 pour dette_annuelle, dette_par_salarie et dette_sur_ca, ou masquer ces trois KPI tant qu'ils ne sont pas à jour.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_debt.signal",
+  "probleme": "Le signal affirme un fait contredit par les chiffres.",
+  "preuve": "« endettement net qui dépasse désormais les capitaux propres ». Or la dette nette est de 7482.8 contre des capitaux propres de 7575.4 au T3, puis 14479.6 au T4.",
+  "correction_validee": "Reformuler en « endettement net désormais proche du niveau des capitaux propres au T3 FY2026 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dpo.signal, Cash Conversion Cycle",
+  "probleme": "Les signaux sur le fonds de roulement vont dans le mauvais sens.",
+  "preuve": "dpo : « Le crédit fournisseur s'allonge », alors que le délai fournisseurs passe de 105.6 à 36.5 jours (T2 vers T3), ce qui explique l'OCF de -6615 M$. Cycle de trésorerie : yoy « +2j », alors que 75 + 109.8 - 36.5 = 148 contre 52.4 + 84.9 - 14.1 = 123 un an plus tôt, soit +26 jours. Ce KPI est daté 2026-06-30 et n'a pas de périodes.",
+  "correction_validee": "Réécrire le signal du délai fournisseurs, recalculer la variation du cycle et dater la série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "asia_revenue.signal",
+  "probleme": "Le signal est périmé et faux aujourd'hui.",
+  "preuve": "« L'Asie devient la première région devant les États-Unis ». Or la part des États-Unis est de 86.2 % au T2 et 68.7 % au T3 FY2026, et la série Asie s'arrête à Q1-FY2026.",
+  "correction_validee": "Arrêter la série Asie avec une mention de fin de publication et réécrire le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "intl_revenue_pct, AI GPU product billings increase, CAHIER_SERVER_ORDERS_BACKLOG",
+  "probleme": "Des doublons coexistent, l'un avec un signal faux, l'autre avec une description contradictoire.",
+  "preuve": "intl_revenue_pct est le complément de us_revenue_pct. « AI GPU product billings increase » = 7398.2 = ai_gpu_revenue du T2, avec le signal « en hausse de 7,4 Md USD (+169,7%) sur le semestre » (c'est un niveau trimestriel, pas une hausse). CAHIER_SERVER_ORDERS_BACKLOG = backlog_rpo (2612 et 731.4) en unité $ brute, présenté comme « commandes de serveurs », alors que backlog_rpo dit « surtout des contrats de services ».",
+  "correction_validee": "Supprimer intl_revenue_pct, « AI GPU product billings increase » et CAHIER_SERVER_ORDERS_BACKLOG.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AI GPU-related platforms as % of revenue",
+  "probleme": "La valeur, le signal et les séries sources se contredisent.",
+  "preuve": "Valeur 60 et série 70, 80, 60, mais le signal dit « plus de 80% du CA ». ai_gpu_revenue/net_sales donne 58,3 % au T2 et 50,4 % au T3 FY2026.",
+  "correction_validee": "Recalculer à partir des séries et corriger le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Worldwide DLC market share, New data centers expected to adopt DLC, US Campus Power Capacity, Vernon 21 MW lease, New Malaysia manufacturing facility, DCBPS Profit Contribution Target, Enterprise Channel Revenue, AI order book, 2030 Convertible Notes issuance",
+  "probleme": "Neuf déclarations de la direction ou événements ponctuels sont présentés comme des KPI à un seul point, dont un chiffre périmé.",
+  "preuve": "Usine en « sq ft » (unité anglaise). Obligations convertibles 2030 : « endettement consolidé à environ 4,8 Md USD », alors que la dette atteint 8.8 Mds au T3.",
+  "correction_validee": "Les sortir des KPI ou les basculer en faits marquants.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat / kpis / risques",
+  "champ": "moat.texte, net_sales.signal, risks[*].score_rationale",
+  "probleme": "De la cuisine interne apparaît à l'écran et les justifications de risque sont décalées.",
+  "preuve": "Moat : « Le retrait de la note de moat... ». net_sales : « le T4 de chaque exercice est estimé par déduction ». Le risque « Pression concurrentielle » est justifié par une phrase sur les clients, et « Chaîne d'approvisionnement » par les retards de dépôt SEC.",
+  "correction_validee": "Réécrire le moat et le signal, et régénérer les risques.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

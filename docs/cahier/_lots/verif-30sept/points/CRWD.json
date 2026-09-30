@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Ending Annual Recurring Revenue : history",
+  "probleme": "Doublon de ARR avec une serie non monotone impossible pour un ARR et sans etiquettes de periode.",
+  "preuve": "serie: 4660, 4920, 4660, 4440, 4660, 4920, 5250, 5510 alors que ARR donne Q1-2026=4435.6 ... Q2-2027=5840.",
+  "correction_validee": "Supprimer Ending Annual Recurring Revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Subscription_Revenue, Annual Free Cash Flow, Customer_Count, Modules_Count, Full-time employees, Ending ARR from Falcon Flex accounts, Module adoption rate 5+, Customers w/ 5+ Modules, Dollar-Based Net Retention, Subscription Gross Margin",
+  "probleme": "Dix doublons de KPI existants, plusieurs avec des valeurs contredites par la fiche.",
+  "preuve": "Subscription_Revenue FY2026=2.89 Mds $ alors que Sub Rev trimestriel FY2026 = 1050.8+1102.9+1168.7+1242.3 = 4565 M$ ; Annual Free Cash Flow 1240 vs fcf_annuel 1.31 Mds ; Modules_Count 33 vs Falcon platform cloud modules 32 a la meme date ; Customer_Count 29000 = Orgs.",
+  "correction_validee": "Supprimer Subscription_Revenue, Annual Free Cash Flow et Customer_Count. Fusionner Modules_Count, Full-time employees, Falcon Flex, 5+ modules, Customers w/ 5+ Modules et Dollar-Based Net Retention dans les KPI a serie longue (Falcon platform cloud modules, Headcount, Falcon Flex ARR, CAHIER_MODULE_ADOPTION, DBNRR). Etiqueter Subscription Gross Margin ou le retirer.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Orgs : history / signal",
+  "probleme": "Serie arretee fin 2024 et signal qui cite un chiffre trois fois superieur au dernier point.",
+  "preuve": "serie ... Q4-2024=29000 ; signal « Plus de 88 000 organisations protégées dont MSSPs, au 31 jan. 2026 ».",
+  "correction_validee": "Reecrire le signal sur 29 000 en precisant que la societe ne publie plus ce decompte, ou ajouter 88 000 comme nouveau point avec la mention du changement de perimetre (MSSP inclus).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DBNRR : history / signal",
+  "probleme": "Signal contredit la serie sur le sens et la date.",
+  "preuve": "serie Q3-2025=115, Q4-2025=112 ; signal « DBNRR 115% au 31 jan. 2026 vs 112% en 2025, expansion client solide » (la serie dit l'inverse : baisse de 115 a 112).",
+  "correction_validee": "Verifier le DBNRR publie a fin FY2026, recaler la serie et reecrire le signal dans le sens des chiffres.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ARR, Net New ARR, Sub Rev, Rev, Prof Serv, Modules 8+, Falcon Flex ARR, Op Income, Gross Margin, Op Margin, R&D, Capex : signal",
+  "probleme": "Douze signaux citent le T1 (30 avril 2026) alors que les series vont au T2 (31 juillet 2026).",
+  "preuve": "ARR val=5840 mais « ARR atteint 5,5 Mds $ au 30 avr. 2026 » ; Net New ARR val=332.8 vs « 256 M $ » ; Rev val=1470.9 vs « 1,39 Md$ » ; Falcon Flex val=2290 vs « 1,69 Md $ ».",
+  "correction_validee": "Reecrire les signaux sur le T2 FY2027.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AIDR Ending ARR Sequential Growth, Multiple-Reflex ARR Uplift, Unique AI Application Instances Detected, Strategic Plan workforce reduction, Total Strategic Plan charges",
+  "probleme": "KPI a un seul point de nature evenementielle ou promotionnelle, avec un jargon non francais.",
+  "preuve": "« Plus de 130 clients ont réflexé plusieurs fois » (« réflexer » n'existe pas) ; AIDR growth val=250 % n=1.",
+  "correction_validee": "Passer en story ou supprimer ; a defaut reformuler (« ont renouvelé leur contrat Flex »).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "description simple fr",
+  "probleme": "Franglais et nom de produit perime.",
+  "preuve": "« leader cloud-native de la cybersécurité endpoint », « identity protection, cloud security, observabilité (Humio) », « land-and-expand » (Humio est devenu Falcon LogScale).",
+  "correction_validee": "Reecrire en francais : protection des postes et serveurs, des identites, du cloud, journaux (Falcon LogScale), modele d'extension chez le client.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.summary",
+  "probleme": "Texte generique sans contenu (une phrase), pour une societe classee « leader » IA et qui publie un ARR AIDR et 1 800 applications IA detectees.",
+  "preuve": "« CRWD présente l'IA comme un pilier stratégique de sa plateforme et de son offre dans son rapport annuel. »",
+  "correction_validee": "Rediger sur Charlotte AI, AIDR, Next Gen SIEM avec les chiffres de la fiche.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0..6].description ; market_positions[0] ; tagline",
+  "probleme": "Sept risques sans description, position de marche sans nom ni part (taille 116), tagline en anglais.",
+  "preuve": "risque 1: Risque réputationnel :: (vide) ; position de marche 1: None | taille 116 | part None ; « AI-Native Cloud Security Platform Reinventing Cybersecurity for the Cloud Era ».",
+  "correction_validee": "Completer ou retirer ces blocs.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

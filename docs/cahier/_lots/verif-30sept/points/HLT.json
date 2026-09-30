@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "RevPAR US, RevPAR MEA, RevPAR Europe, RevPAR Asie-Pacifique, RevPAR Ameriques hors US",
+  "probleme": "Les variations et les signaux contredisent les séries affichées. Les variations sont à périmètre comparable et change constant, les séries sont des valeurs publiées chaque année sur des bases différentes.",
+  "preuve": "APAC : signal '+1,1%' alors que 76.49 → 71.86 = -6,1 %. Amériques hors US : '+5,1%' alors que 107.5 → 105.06 = -2,3 %. US : yoy -0.8% et 'Baisse due...' alors que 121.34 → 121.91 = +0,5 %. MEA : +11,5 % contre +6,1 %.",
+  "correction_validee": "Préciser 'variation à périmètre comparable et change constant' dans le signal et la variation, ou afficher une série comparable. Ne jamais mêler les deux bases.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Rooms in System, Pipeline Rooms, Hilton Honors Members",
+  "probleme": "Doublons hérités datés du 30/06/2026 mais portant les valeurs de fin 2025, avec des séries non datées incompatibles avec les séries principales.",
+  "preuve": "Rooms in System 1351351 (valeur de Q4-2025) ; série 1019000...1240000 alors que CAHIER_PARC_NET 2024 = 1268206. Pipeline Rooms 520500 = Q4-2025. Hilton Honors Members 243 = Q4-2025, description '65% des occupations' alors qu'un autre KPI donne 70 %.",
+  "correction_validee": "Supprimer Rooms in System, Pipeline Rooms et Hilton Honors Members.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net room additions, Management and franchise fee revenue growth, System-wide comparable RevPAR growth",
+  "probleme": "Les séries héritées non datées sont décalées d'un trimestre : la valeur affichée au 30/06/2026 est celle du T1.",
+  "preuve": "Ajouts nets : 10900 alors que T1 = 1362278-1351351 = 10927 et T2 = 1384842-1362278 = 22564. Croissance des frais : 10.4 alors que T1 = (696+171)/(625+160) = +10,4 % et T2 = (808+168)/(745+172) = +6,4 %. Unités 'rooms', 'brands'.",
+  "correction_validee": "Redater les séries par trimestre, ajouter le T2 2026 (22564 chambres, +6,4 % de frais) et traduire les unités.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Hôtels système",
+  "probleme": "Le signal donne un nombre d'ouvertures nettes faux, et la série présente des ruptures inexpliquées.",
+  "preuve": "'288 hôtels ajoutés nets sur le premier semestre' alors que 9044 → 9453 = +409. Q3-2016 = 5120 puis Q4-2016 = 4565 ; Q3-2017 = 5509 puis Q4-2017 = 5236 ; Q2-2024 = 7682 puis Q3-2024 = 8200.",
+  "correction_validee": "Écrire '409 hôtels ajoutés nets sur le premier semestre' et vérifier séparément les points 2016-2017 et 2024.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ADR_OCC",
+  "probleme": "Le nom annonce le prix moyen et le taux d'occupation, mais la série ne contient que le prix moyen en dollars. Libellé anglais 'Adr Occ'.",
+  "preuve": "FY2025 = 159.89 $ ; le taux d'occupation (71,5 %) est un autre KPI.",
+  "correction_validee": "Renommer 'Prix moyen par chambre louée (ADR)', avec 'Average daily rate' comme libellé anglais.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "La répartition ignore les revenus de refacturation des coûts, qui représentent environ 60 % du chiffre d'affaires. Le segment Propriété paraît donc peser 25,6 %.",
+  "preuve": "Segments 2025 : 3575 + 1233 = 4808 M$, alors que le CA 2025 = 12039 M$ ; 'Management and Franchise 74.4 ; Ownership 25.6' (noms en anglais).",
+  "correction_validee": "Ajouter la ligne 'Refacturation des coûts aux hôtels' ou préciser 'hors refacturations' ; traduire les noms.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Le texte parle d'une posture mesurée, alors que deux KPI de la fiche montrent un usage étendu et revendiqué.",
+  "preuve": "'posture mesurée ... sans communication offensive sur l'innovation IA', contre 'Plus de 41 cas d'usage IA en production' et 'socle pour déployer l'IA plus vite que les concurrents'.",
+  "correction_validee": "Réécrire le positionnement IA avec ces faits.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Les effectifs s'arrêtent en 2021. Les ratios par salarié sont datés du 2025-12-31 mais portent sur 2021.",
+  "preuve": "effectifs_annuels : dernier 2022-02-16, 2021 = 142000 ; ca_par_salarie : dernier 2025-12-31, val = 40.8 (valeur de 2021).",
+  "correction_validee": "Prolonger les effectifs à 2025 ou retirer les quatre KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "8 KPI hérités à un point (1000th luxury and lifestyle hotel, India Hampton, Waldorf Astoria, 5.750% Senior Notes, Share of global hotel supply, Hilton Honors occupancy penetration...)",
+  "probleme": "Des faits ponctuels présentés comme des KPI, avec des noms anglais. Le taux de pénétration Honors, qui est un vrai KPI, n'a pas de série.",
+  "preuve": "'1000th luxury and lifestyle hotel' val = 1000 ; 'Hilton Honors occupancy penetration' = 70 (n=1), contredit par les 65 % d'un autre KPI.",
+  "correction_validee": "Supprimer ces KPI ou les basculer en texte ; créer une série de pénétration Hilton Honors.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques / en-tete / description / kpis",
+  "champ": "risks, tagline, mettrik_description.products, HAMPTON_ROOMS.signal, Marge opérationnelle.yoy",
+  "probleme": "Risques réduits à des titres en franglais, slogan en anglais, description périmée, signal qui n'en est pas un, variation de marge en % au lieu de points.",
+  "preuve": "'Concurrence Airbnb et OTA', 'COVID-like', '(safety, ESG)' sans texte ; 'To fill the earth...' ; 'plus de 200 millions de membres' alors que 260 M ; signal 'Produit phare : Hôtels Hampton by Hilton' ; marge 24.8 → 25.7 affichée '+3,6 %' au lieu de +0,9 pt.",
+  "correction_validee": "Rédiger les risques en français, mettre 260 millions dans la description, rédiger un signal Hampton, exprimer les variations de marge en points.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

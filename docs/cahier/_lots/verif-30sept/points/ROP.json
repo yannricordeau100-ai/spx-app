@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Recurring Revenue Mix / RecurPct / CAHIER_SOFTWARE_AFTERMARKET_MIX / Recurring software revenue share",
+  "probleme": "Quatre mesures de part recurrente aux valeurs contradictoires ; la serie annuelle 60-75 % est sans dates, sans signal et contredit le 57,5 % trimestriel.",
+  "preuve": "Recurring Revenue Mix serie 60, 65, 70, 73, 75 (signal vide) ; RecurPct Q1-2026=57.5 ; CAHIER_SOFTWARE_AFTERMARKET_MIX FY2025=56.7",
+  "correction_validee": "Supprimer Recurring Revenue Mix ; garder RecurPct, le cahier et la part recurrente des logiciels (definition differente).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Organic Growth",
+  "probleme": "Doublon annuel sans dates ni signal de la croissance organique trimestrielle.",
+  "preuve": "Organic Growth serie 13, 7, 8, 7, 6 (signal vide, dernier 2026-09-04) ; Organic revenue growth trimestriel n=21",
+  "correction_validee": "Supprimer Organic Growth.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "NetSoftMargin, AppSoftGrossMargin, NetSoftGrossMargin, TEPGrossMargin, AppSoftOpMargin, TEPOpMargin",
+  "probleme": "Trous dans six series de marge par segment : le Q4-2024 manque partout, le Q4-2025 manque aussi pour NetSoftMargin.",
+  "preuve": "NetSoftMargin serie Q3-2024=45.2, Q1-2025=44.3 ... Q3-2025=43.1, Q1-2026=40.6 ; AppSoftGrossMargin Q3-2024=68.3, Q1-2025=67.5",
+  "correction_validee": "Completer les quatriemes trimestres a partir des rapports annuels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AppSoftGrossMargin, AppSoftOpMargin, TEPOpMargin",
+  "probleme": "Signaux perimes d un trimestre : ils citent le T1 2026 alors que la valeur affichee est celle du T2 2026.",
+  "preuve": "AppSoftGrossMargin val=69.8 (Q2-2026), signal : « 69.0% au T1 2026 » ; AppSoftOpMargin val=27.4, signal : « 26.8% au T1 2026 » ; TEPOpMargin val=33.3, signal : « 32.4% au T1 2026 »",
+  "correction_validee": "Signaux sur le T2 2026 : marge brute 69,8 %, marge operationnelle 27,4 % et 33,3 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "tendance",
+  "probleme": "Tendance affichee en baisse alors que la justification conclut a une tendance stable ; la phrase mentionne aussi un « retrait de la note », cuisine interne.",
+  "preuve": "moat: None / tendance baisse :: « Le retrait de la note de moat contraste avec ... d'où une tendance jugée stable. »",
+  "correction_validee": "Aligner la tendance affichee sur la justification (stable) et retirer la mention du retrait de note.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "OCF, AdjDEPS, AdjEBITDAMargin",
+  "probleme": "Mentions de source et jargon interne dans les signaux.",
+  "preuve": "OCF : « (ER 23/07/2026) » ; AdjDEPS : « (ER 23/07/2026) » ; AdjEBITDAMargin : « 38.6% au T2 2026 (ER) »",
+  "correction_validee": "Retirer les parentheses (ER ...) des signaux OCF, AdjDEPS et AdjEBITDAMargin.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "RecurPct",
+  "probleme": "Signal confus, en franglais, et logiquement faux : « hors reoccurring » alors que le total cite les inclut.",
+  "preuve": "signal : « Hors reoccurring (+833.1M transactionnel), le total récurrent+reoccurring atteint $5,316M soit 67.3% du CA »",
+  "correction_validee": "Reecrire : « En ajoutant les revenus reconductibles (833 M$), la part previsible atteint 67 % du chiffre d'affaires. »",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "resume",
+  "probleme": "Montant des rachats du premier semestre cite dans l anti-these different de la somme des deux trimestres du KPI.",
+  "preuve": "att : « rachetait 2 750,8 M$ d'actions au premier semestre » ; Buybacks Q1-2026=1500.1 + Q2-2026=1200 = 2700.1",
+  "correction_validee": "Verifier le tableau de flux du T2 2026 et aligner l un des deux chiffres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "NetSoftMargin",
+  "probleme": "Variation d une marge exprimee en pourcentage relatif au lieu de points, et signal qui parle de marge brute pour un KPI de marge operationnelle.",
+  "preuve": "NetSoftMargin val=41 yoy=-8.4% (45.2 -> 41 = -4,2 pts) ; signal : « Marge brute 84.1% : meilleure du groupe »",
+  "correction_validee": "yoy -2,9 pts et signal : marge operationnelle 41 % au T2 2026, en baisse de 2,9 points sur un an.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libelle en anglais dans la repartition geographique.",
+  "preuve": "revenue_by_geography : « Asia 0.9 »",
+  "correction_validee": "Remplacer « Asia » par « Asie ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description",
+  "champ": "products",
+  "probleme": "La description cite des « technologies de restauration », activite que Roper n exerce pas.",
+  "preuve": "description Mettrik : « des plateformes cloud pour l'assurance et des technologies de restauration »",
+  "correction_validee": "Remplacer par les activites reelles : logiciels pour le fret (DAT), la sante comportementale (CentralReach), compteurs d eau (Neptune).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

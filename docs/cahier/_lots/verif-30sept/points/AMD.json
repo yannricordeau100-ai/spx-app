@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Le Gaming est compté deux fois (dans Client and Gaming et seul), toutes les parts sont fausses.",
+  "preuve": "Slices : Data Center 16,635 = 43,2 %, Client and Gaming 14,55 = 37,7 %, Gaming 3,91 = 10,1 %, Embedded 3,454 = 9 %, total 38,549 alors que revenue_annuel 2025 = 34,639. Parts réelles : DC 48 %, Client & Gaming 42 %, Embedded 10 %.",
+  "correction_validee": "Retirer la tranche Gaming et renormaliser : Data Center 48,0 %, Client et Gaming 42,0 %, Embedded 10,0 %.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Data Center Revenue (trimestriel, n=16)",
+  "probleme": "La série est le chiffre d'affaires total, pas le Data Center ; la valeur affichée ne correspond à rien.",
+  "preuve": "Q1 2026=10,253 = dc_rev 5,775 + cg_rev 3,605 + emb_rev 0,873 ; Q2 2025=7,685 = CA total ; val=12,579 alors que le CA T2-2026 = 11,54 et dc_rev = 6,718.",
+  "correction_validee": "Renommer en « Chiffre d'affaires total (trimestriel) » avec les périodes au format Q, ajouter Q2-2026 = 11,536 et val 11,536, car aucune autre série trimestrielle de CA total n'existe. Sinon, supprimer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Client Revenue, Gaming Revenue, Embedded Revenue, Data Center Rev, MI300 Shipments (annuels)",
+  "probleme": "Bloc annuel périmé d'un an, sans signal, en doublon des séries trimestrielles.",
+  "preuve": "Datés 2026-08-05 mais derniers points = FY2024 : Client 7,054, Gaming 2,595, Embedded 3,557, Data Center 12,6, MI300 5 ; les séries trimestrielles donnent FY2025 : DC 16,6, Client 10,6, Gaming 3,9, Embedded 3,45.",
+  "correction_validee": "Supprimer Client Revenue, Gaming Revenue, Embedded Revenue, Data Center Rev et MI300 Shipments.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Margin.yoy, EPYC-powered public cloud instances.yoy, adj_ebitda_q",
+  "probleme": "yoy faux et série en retard.",
+  "preuve": "Net Margin 6,36 → 12,51 affiché \"+96,7 pts\" (= +6,2 pts) ; instances EPYC 1 600 → 1 600 affiché \"+50 %\" ; adj_ebitda_q arrêté Q1-2026 alors que les autres sont au Q2-2026.",
+  "correction_validee": "Net Margin yoy « +6,2 pts » ; EPYC instances : retirer le point doublé et recalculer (1 200 → 1 600 = +33 %) ; ajouter Q2-2026 à adj_ebitda_q depuis le communiqué du T2.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "total_debt_q vs dette_annuelle",
+  "probleme": "Deux KPI \"Dette totale\" avec des valeurs différentes à la même date.",
+  "preuve": "total_debt_q Q4-2025 = 3,222 Mds ; dette_annuelle 2025 = 4,096 Mds ; la thèse \"trésorerie représente quatre fois sa dette\" repose sur 3,2.",
+  "correction_validee": "Vérifier le périmètre (papier commercial, part courante) et aligner ou renommer (dette long terme vs dette totale).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Data Center GPU / AI accelerator revenue, Embedded design wins, OpenAI warrant",
+  "probleme": "Unités en anglais et série GPU non publiée par AMD à ce niveau de détail.",
+  "preuve": "Unités \"USD billion (annual)\", \"M shares\" ; série GPU IA 2, 4, 4.5, 5, 5 sans périodes, deux derniers points identiques alors que le Data Center a doublé.",
+  "correction_validee": "Unités \"Mds $\" et \"M actions\" ; supprimer la série GPU ou la sourcer point par point.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary / stance",
+  "probleme": "Positionnement IA générique et faux pour un fournisseur d'accélérateurs.",
+  "preuve": "\"Intègre l'IA dans ses produits et opérations existants pour améliorer performance et expérience client\" (stance integrator) alors que le Data Center pèse 48 % du CA et que la tagline est \"Leader in data center AI\".",
+  "correction_validee": "Stance fournisseur/enabler, résumé sur Instinct, EPYC, contrats OpenAI et Meta.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification périmée (FY2025) et contredite par les trimestres 2026.",
+  "preuve": "\"le centre de données croît de 32,2 % mais son résultat opérationnel ne gagne que 3,5 %, signe de parts prises sans pouvoir de fixation des prix\" alors que dc_rev T2-2026 +107 %, dc_op_inc 2,103 Mds (marge 31 %) et marge brute 54 % record.",
+  "correction_validee": "Réécrire sur les données du S1 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "accroche",
+  "probleme": "Chiffre arrondi de façon trompeuse.",
+  "preuve": "\"son bénéfice par action a triplé en quatre trimestres\" : eps_dil_q 0,54 (T2-2025) → 1,38 (T2-2026) = ×2,6.",
+  "correction_validee": "\"a plus que doublé (+156 %)\".",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "14 KPI à un point (Server CPU TAM by 2030, Long-term EPS target, New share repurchase program, ZT Systems acquisition, MI308 export control inventory charges, Discrete tax benefit, Oracle AI cluster, etc.)",
+  "probleme": "Cibles, TAM et faits ponctuels présentés comme indicateurs trimestriels.",
+  "preuve": "TAM 2030 120 Mds, BPA cible 20 $, programme 6 Mds, ZT 4,4 Mds, charge MI308 800 M$, bénéfice fiscal 853 M$ : aucune série.",
+  "correction_validee": "Déplacer vers les événements ; garder les engagements OpenAI/Meta comme faits.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography / kpis",
+  "champ": "labels, net_margin_q.signal",
+  "probleme": "Libellés bruts et mention de source dans un signal.",
+  "preuve": "\"TAIWAN, PROVINCE OF CHINA 15\", \"SINGAPORE 12.4\" ; net_margin_q signal \"plus haut niveau depuis 2021 (états des résultats trimestriels)\".",
+  "correction_validee": "Renommer en Taïwan et Singapour, et retirer « (états des résultats trimestriels) » du signal net_margin_q.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

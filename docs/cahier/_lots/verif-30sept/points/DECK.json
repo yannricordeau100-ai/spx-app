@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "DTC Revenue / Wholesale Revenue",
+  "probleme": "Valeurs annuelles fausses et description erronee",
+  "preuve": "DTC Revenue FY2025=2.43 Mds alors que dtc_rev trimestriel FY2025 = 2 130 M (CAHIER_CHANNEL_MIX 2129.7) ; Wholesale 2.55 alors que 4 986 - 2 130 = 2 856 ; description : DTC ~50% du CA alors que dtc_total_pct FY2026 = 41,5 %",
+  "correction_validee": "Retirer DTC Revenue et Wholesale Revenue, dtc_rev et wholesale_rev couvrent.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "retail_stores",
+  "probleme": "Valeur affichee absente de la serie et trou de huit ans",
+  "preuve": "val=212, yoy +11,0% ; serie FY2016=153, FY2017=160, FY2018=165, FY2026=203",
+  "correction_validee": "Verifier le nombre de magasins au 31 mars 2026 et completer 2019-2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_PAIRS_ASP",
+  "probleme": "Doublon arrete en 2023, unite brute, contredit units_sold",
+  "preuve": "FY2023=59100000 paires ; units_sold FY2023=63.5 M unites",
+  "correction_validee": "Retirer CAHIER_PAIRS_ASP.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CHANNEL_MIX / CAHIER_BRAND_GROWTH",
+  "probleme": "Unite en dollars bruts a dix chiffres, noms generiques, doublons",
+  "preuve": "CAHIER_CHANNEL_MIX 2264189000 $ = dtc_rev annuel ; CAHIER_BRAND_GROWTH 2738758000 $ = UGG_NET_SALES (2531.4 M$ FY2025 = 2531351000)",
+  "correction_validee": "Retirer CAHIER_CHANNEL_MIX ; ajouter le point FY2026 (2 738,8 M$) a UGG_NET_SALES puis retirer CAHIER_BRAND_GROWTH.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "International net sales",
+  "probleme": "Doublon de intl_rev, en retard d un trimestre",
+  "preuve": "val=469.5 dernier 2026-12-31 ; intl_rev Q1-2027=502.1",
+  "correction_validee": "Retirer International net sales.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_annuelle / dette_par_salarie / dette_sur_ca",
+  "probleme": "Series mortes en 2021 avec une variation de -100 % pour une societe sans dette",
+  "preuve": "dernier 2021-03-31, 2021=0, yoy=-100.0%",
+  "correction_validee": "Retirer les trois KPI, des ratios de dette a zero n apportent rien.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux des KPI financiers",
+  "probleme": "Franglais et libelles comptables anglais dans les signaux",
+  "preuve": "UGG net sales $278,049 K ; Income from operations $155,301 K ; Purchases of property and equipment ; Trade accounts receivable, net ; \"Segment gross margin\"",
+  "correction_validee": "Reecrire en francais avec montants en M$",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_FUTURES_ORDERS",
+  "probleme": "Serie arretee en 2020, indicateur que Deckers ne publie plus",
+  "preuve": "dernier 2020-12-31, FY2020=1022900000",
+  "correction_validee": "Retirer CAHIER_FUTURES_ORDERS.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "accroche",
+  "probleme": "Comparaison sans sens entre une depense en dollars et une croissance en pourcentage",
+  "preuve": "depense chaque annee davantage en recherche que ce que son chiffre d affaires progresse en pourcentage",
+  "correction_validee": "Reformuler (R&D +21,5 % contre CA +9,8 %)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

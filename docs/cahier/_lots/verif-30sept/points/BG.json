@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "libellés",
+  "probleme": "Libellé XBRL brut et pays en majuscules anglaises",
+  "preuve": "« Segment Geographical Groups Of Countries Group Three 43.3 ; États-Unis 22.2 ; SWITZERLAND 22.2 ; NETHERLANDS 12.2 »",
+  "correction_validee": "Renommer « Reste du monde », « Suisse » et « Pays-Bas ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Moat antérieur à Viterra, contredit par toutes les séries",
+  "preuve": "Moat : « Chiffre d'affaires et volumes sous pression, résultat net divisé par plus de deux depuis 2021, recherche en repli » ; CA T2-2026 +88 %, FY2025 +32,4 % ; volumes grains +185 %, trituration soja +24 % ; résultat net T2-2026 678 M$ (+92 %) ; « recherche en repli » = 28 M$ sur 70 Mds $ de CA, sans pertinence pour un triturateur",
+  "correction_validee": "Réécrire le moat sur la base post-Viterra : échelle doublée, résultat 2025 encore loin de 2021 mais en rebond au T2-2026, levier à 92 % et trésorerie d'exploitation négative au semestre.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Soybeans merchandised et 8 séries kt / legacy",
+  "probleme": "Série stockée à l envers, doublons en kt d une série en Mt à jour, séries « ancien » périmées",
+  "preuve": "« Soybeans merchandised » history [5133, 6912, 7246] avec value 5133 = T1-2026 (soy_merch_vol : T3-2025 7,246 ; T4-2025 6,912 ; T1-2026 5,133) : le graphique monte alors que le volume baisse ; les 5 autres (Softseeds processed, Softseeds merchandised, Refined soy oil production, Tropical oils volume, Grain merchandising volume) sont chronologiques mais doublonnent les séries Mt, arrêtées au T1-2026 (date 2026-03-11 = publication) ; 3 séries « (legacy) » sans dates",
+  "correction_validee": "Supprimer les 9 séries.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Milling Sales, Crush Capacity, Refined & Specialty Oils Volume, Viterra Merger Synergies Target",
+  "probleme": "Séries sans période ni années, non sourcées, contredites ou non mesurables",
+  "preuve": "« Milling Sales » 1,9 Mds $ vs milling_products_rev FY2025 = 1 545 M$ ; « Crush Capacity » 67 Mt/an et « Refined & Specialty Oils Volume » 9,5 Mt sans source ; « Viterra Merger Synergies Target » 50 / 150 / 250 = objectif, pas mesure ; signaux « Demande renewable diesel », « Prix farine compressé », « Programme 3 ans »",
+  "correction_validee": "Supprimer les 4 séries.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Softseeds Processed, Grain Merchandising Volume, Total EBIT, Soybeans Processed, CAHIER_PROCESS_VOL",
+  "probleme": "Zéros à la place des données manquantes ; doublon cassé ; série mal nommée ; descriptions franglaises",
+  "preuve": "« Softseeds Processed » [0, 0, 8777, 9308, 10751] ; « Grain Merchandising Volume » [0, 0, 34072, 36660, 67166] ; « Total EBIT » [0, 0, 3333, 1792, 1533] ; « Soybeans Processed » value 41 013 mais série [0, 0, 35950, 36824, 41013] ; CAHIER_PROCESS_VOL « Volumes triturés et transformés » 41 013 = trituration soja seule (8,11 + 9,304 + 12,139 + 11,46 Mt), softseeds 10 751 exclus ; « Pillar industriel BG, +11% post-Viterra integration FY25 », « Doublement volumes via Viterra (Canada, Australie, S Amérique) »",
+  "correction_validee": "Retirer les zéros, supprimer « Soybeans Processed », renommer CAHIER_PROCESS_VOL « Volumes de soja triturés » et réécrire les descriptions en français.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "libellés et exercice",
+  "probleme": "Segment mal nommé, anglais, exercice None",
+  "preuve": "« Other Oilseeds Processing and Refining 6.6 » = Huiles tropicales et ingrédients spéciaux (tropical_rev 2025 = 4 633 / 70 329 = 6,6 %) ; « Soybean Processing and Refining », « Softseed Processing and Refining », « Grain Merchandising and Milling »",
+  "correction_validee": "Trituration et raffinage du soja 51,6 ; Trituration et raffinage des graines tendres 16,0 ; Négoce de grains et meunerie 25,8 ; Huiles tropicales et ingrédients spéciaux 6,6 ; exercice 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning et risks",
+  "champ": "summary",
+  "probleme": "Texte gabarit avec exercice impossible ; résumés de risques décalés",
+  "preuve": "« BG intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2026. » (exercice civil non clos) ; risque « Dépendance opérationnelle » résumé par « Conjoncture macroéconomique défavorable : récession, inflation » ; « Capacités de production » résumé par « chaîne d'approvisionnement, capital humain, qualité produit »",
+  "correction_validee": "Rédiger un positionnement IA réel (ou « peu documenté ») et des résumés propres",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signal (cuisine interne, anglais)",
+  "probleme": "Formules de dérivation et citations anglaises dans les signaux",
+  "preuve": "ocf « (dérivé : 6 mois -1 126 M$ moins T1 -541 M$) » ; capex « (dérivé : 6 mois 779 M$ moins T1 336 M$) » ; fcf « grandeurs dérivées du cumul semestriel » ; dda « (dérivé : 6 mois 494 M$ moins T1 238 M$) » ; dividends_paid « (dérivé : 6 mois 275 M$ moins T1 136 M$) » ; employees « As of December 31, 2025, we employed approximately 34,000 people » ; viterra_sales « $15.3B », « $89.5B »",
+  "correction_validee": "Retirer les parenthèses de méthode, traduire la citation des effectifs et écrire « 15,3 Mds $ » et « 89,5 Mds $ ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy des ratios ; daily_capacity.yoy",
+  "probleme": "Variation en % sur des marges ; yoy vide alors que calculable",
+  "preuve": "gross_margin « +21 % » (5,8 → 7,0) ; op_margin « +80 % » ; gearing « +124 % » (41 → 92) ; soy_ebit_margin « +14 % » ; softseed_ebit_margin « +458 % » (1,2 → 6,7) ; tropical_ebit_margin « -111 % » ; grain_ebit_margin « -68 % » ; daily_capacity yoy vide pour 228,7 → 312,6 (+36,7 %)",
+  "correction_validee": "Exprimer les yoy des marges et du levier en points (levier +51 pts, marge brute +1,2 pt) et renseigner +36,7 % pour daily_capacity.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPIs à un point datés 2026-03-11",
+  "probleme": "Événements présentés comme indicateurs ; un chiffre incohérent avec la série annuelle",
+  "preuve": "Viterra consideration 10 617 ; Goodwill 2 659 ; actions émises 65,6 ; programme de rachat 3 000 ; Senior Notes 1 200 ; ViOil 364 ; facilités de crédit 9,7 ; « Mid-cycle baseline adjusted EPS raised » 7 (objectif de la direction) ; « Share repurchases post-Viterra » 545 « sur le trimestre » alors que buyback FY2025 = 551 pour l année entière",
+  "correction_validee": "Basculer dans le texte ; vérifier 545 vs 551",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "activity, products",
+  "probleme": "Description inexacte du métier",
+  "preuve": "« Bunge Global SA cultive, transforme et commercialise » ; « Elle produit du soja, des huiles végétales, du biodiesel, des engrais » : Bunge ne cultive rien et ne produit pas de soja (elle l achète et le triture) ; l activité engrais a été cédée hors mélange en Argentine",
+  "correction_validee": "Réécrire : achète, stocke, transporte, triture et raffine les oléagineux et grains ; produits = tourteaux, huiles, farines",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "resume",
+  "probleme": "Fourchette de chiffre d affaires inexacte pour la période citée",
+  "preuve": "« Volumes Agribusiness ... sur cinq exercices, alors que le chiffre d'affaires variait de 53 à 70 Mds $ sur la même période » : AGRI_VOL couvre 2020-2024 ; revenue 2021-2024 = 59,2 / 67,2 / 59,5 / 53,1, 70,3 est 2025 (avec Viterra) et 2020 était hors série",
+  "correction_validee": "« de 53 à 67 Mds $ » ou aligner les périodes",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

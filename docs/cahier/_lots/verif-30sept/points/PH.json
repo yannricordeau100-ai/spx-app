@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "toutes les series trimestrielles (aero_rev hero, ind_na_rev, ocf, fcf_q, net_income_q...)",
+  "probleme": "Series trimestrielles arretees au T3 FY2026 (mars 2026) alors que l exercice clos le 30 juin 2026 est publie et utilise dans la these",
+  "preuve": "aero_rev dernier 2026-03-31 ; these : « Sur l'exercice clos le 30 juin 2026 ... 4 364 M$ générés par l'exploitation ... 459 M$ d'investissements » ; revenue_annuel 2026=21.499",
+  "correction_validee": "Ajouter le T4 FY2026 (annuel moins 9 mois) sur les séries trimestrielles concernées.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "aero_aftermarket, aero_backlog, ind_backlog, manuf_plants, rd_expense, safety_rate, intl_sales_share",
+  "probleme": "Series annuelles arretees a FY2025 et datees 2025-12-31 alors que l exercice se clot le 30 juin et que FY2026 est publie",
+  "preuve": "aero_backlog FY2025=7389 dernier 2025-12-31 ; headcount et effectifs_annuels ont FY2026",
+  "correction_validee": "Corriger les dates au 30 juin et ajouter FY2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Aerospace Systems Revenue, Diversified Industrial Revenue, Diversified Industrial, Aerospace Systems, Total Backlog, International Revenue Share",
+  "probleme": "Six series annuelles sans source, contredites par les series sourcees de la fiche",
+  "preuve": "Aerospace Systems Revenue FY2026=5.235 vs CA_AERO FY2025=6185 M$ ; Diversified Industrial Revenue FY2025=14.601 vs Diversified Industrial Sales FY2025=13.665 (= 19.85-6.185) ; Total Backlog FY2025=10.05 vs aero_backlog+ind_backlog = 11.04 et CAHIER_BACKLOG 11 ; International Revenue Share 45 % vs intl_sales_share 36 % et revenue_by_geography Amérique du Nord 67.5",
+  "correction_validee": "Supprimer les six séries Aerospace Systems Revenue, Diversified Industrial Revenue, Diversified Industrial, Aerospace Systems, Total Backlog, International Revenue Share.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "headcount.signal, headcount.yoy",
+  "probleme": "Signal et yoy commentent FY2025 alors que la serie a un point FY2026",
+  "preuve": "serie FY2025=57950, FY2026=59850 ; yoy=-5.2% (le vrai est +3.3 %, comme effectifs_annuels) ; signal « Effectif ramené à 57950 personnes »",
+  "correction_validee": "yoy +3,3 % et signal sur 59 850 ; ou supprimer headcount, doublon de effectifs_annuels",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ind_na_rev.signal, ind_int_rev.signal",
+  "probleme": "Signaux contredits par les series et par la croissance organique de la fiche",
+  "preuve": "ind_na_rev yoy=+5.4% mais signal « Recul organique -3.7% » ; ind_int_rev yoy=+12.7% mais « Recul organique -1.9% » ; Organic sales growth dernier = 6.5 %",
+  "correction_validee": "Reecrire les deux signaux sur le T3 FY2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dividend_ps_q vs 70 years of annual dividend increases",
+  "probleme": "La serie du dividende ignore la hausse a 2,00 $ annoncee ailleurs sur la fiche",
+  "preuve": "dividend_ps_q derniers points 1.8, 1.8, 1.8 ; KPI 70 years : « Dividende trimestriel relevé de 11% à 2 $ »",
+  "correction_validee": "Ajouter le point a 2,00 $ ou retirer le pseudo-KPI a point unique",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "gouvernance",
+  "champ": "governance.ceo",
+  "probleme": "Civilite anglaise dans le nom du dirigeant",
+  "preuve": "« Ms. Jennifer A. Parmentier »",
+  "correction_validee": "Remplacer par « Jennifer A. Parmentier ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

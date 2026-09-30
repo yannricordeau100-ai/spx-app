@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Net charge-off ratio (bps), Net loan charge-offs to average total loans (%), CAHIER_NCO",
+  "probleme": "Trois versions du meme taux, et les deux trimestrielles se contredisent : 11, 8, 13, 16 pb contre 0,43, 0,43, 0,39, 0,42 % sur les memes trimestres.",
+  "preuve": "Net charge-off ratio | serie: 53, 46, 11, 8, 13, 16, 43, 38 ; Net loan charge-offs to average total loans | serie: 0.34, 0.58, 0.43, 0.43, 0.39, 0.42, 0.39, 0.38",
+  "correction_validee": "Garder la serie en % verifiee contre les communiques et supprimer la version en pb.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Nonperforming loans ratio (signal)",
+  "probleme": "Signal date du T1 2025 et parlant d amelioration, alors que la serie va au T2 2026 (38 vers 65 pb) et que l anti-these decrit un bond de 31,5 % en six mois.",
+  "preuve": "val=65 | serie: ..., 56, 38, 65 :: Prets non performants a 65 pb ... au T1-2025, sous les niveaux historiques. Migration de credit en amelioration ; att :: prets non performants bondissaient de 31,5% en six mois",
+  "correction_validee": "Reecrire le signal sur le T2 2026 : prets non performants a 65 pb, en hausse nette, hausse qualifiee d isolee par la banque.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cash efficiency ratio, Net charge-off ratio, Net loan charge-offs, Active special servicing (signaux)",
+  "probleme": "Signaux perimes d un ou plusieurs trimestres : ils citent le T1 2026 ou le T1 2025 alors que la date du KPI est le 30 juin 2026 ou le 28 mars 2026.",
+  "preuve": "Cash efficiency ratio | dernier 2026-06-30 :: revenu a 60,4% au T1-2026 ; Active special servicing | dernier 2026-03-28 :: plus haut historique de 12 Md$ au T1-2025",
+  "correction_validee": "Aligner chaque signal sur la periode du dernier point.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Fee-based +12%",
+  "probleme": "Nom de KPI contenant la valeur, un seul point (T1 2026) date au 30 juin 2026.",
+  "preuve": "KPI Fee-based +12% | n=1 | dernier 2026-06-30 | serie: Q1-2026=12",
+  "correction_validee": "Renommer en Croissance des metiers de commissions prioritaires et dater au 31 mars 2026.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Interest Income (annuel), Total Deposits (annuel), Capex",
+  "probleme": "Doublons annuels sans etiquette, en franglais sans accents, redondants avec NII, Deposits et sans interet pour une banque (Capex).",
+  "preuve": "Net Interest Income :: Core banking revenue rebondit fortement en FY25 apres creux FY24 lie au repositioning securities ... Joyau d une banque regionale ; Total Deposits :: Stable autour $149B en periode de competition deposits",
+  "correction_validee": "Supprimer les trois KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_EFFICIENCY",
+  "probleme": "Serie arretee a 2023 alors que Efficiency Ratio et Cash efficiency ratio vont au T2 2026 ; triple doublon.",
+  "preuve": "KPI CAHIER_EFFICIENCY | dernier 2023-12-31 | FY2023=73.2 ; KPI Efficiency Ratio | Q2-2026=62.2",
+  "correction_validee": "Supprimer CAHIER_EFFICIENCY.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_NIB_DEPOSITS (signal)",
+  "probleme": "Texte corrompu.",
+  "preuve": ":: leur recul renc herit le cout de financement global",
+  "correction_validee": "Ces dépôts sans intérêt financent la banque à coût nul ; leur recul renchérit le coût de financement global.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel, ca_par_salarie, dette_sur_ca (signaux)",
+  "probleme": "Variations 2025 aberrantes presentees sans explication (+62,7 %, +58,3 %, -161,9 points) : elles viennent des pertes sur cession de titres de 2024 qui avaient ecrase les revenus a 4,6 Mds.",
+  "preuve": "revenue_annuel | 2024=4.619, 2025=7.513 :: +62,7 % sur un an ; Noninterest Income Q3-2024=-269, Q4-2024=-196",
+  "correction_validee": "Ajouter dans les signaux la mention de la base 2024 deprimee par le repositionnement du portefeuille.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Chiffres d un autre trimestre : encours geres +14,3 % (T1) alors que Wealth AUM fait +15,5 % au T2, et depots dits stagnants alors que Deposits fait +4,2 %.",
+  "preuve": "moat :: Les encours geres gagnent 14,3 % mais les depots stagnent ; Wealth AUM | yoy=+15.5% ; Deposits | yoy=+4.2%",
+  "correction_validee": "Reecrire sur le T2 2026 et nommer le type de moat.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "La these repose sur les signaux avances du credit (prets critiques, impayes), absents de la fiche.",
+  "preuve": "these :: a une condition : que les signaux avances du credit aillent, eux, dans l autre sens",
+  "correction_validee": "Ajouter les prets critiques (criticized loans) et les impayes a 30-89 jours en trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

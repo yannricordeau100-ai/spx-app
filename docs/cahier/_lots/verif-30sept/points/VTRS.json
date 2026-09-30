@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "toutes les séries trimestrielles",
+  "probleme": "Les KPI trimestriels s'arrêtent au T1 2026 alors que le T2 2026 est publié : l'anti-thèse cite le premier semestre et rd_expense contient déjà le T2.",
+  "preuve": "DM_rev, revenue_total, adj_ebitda... dernier 2026-03-31 ; att « au premier semestre 2026 » ; rd_expense Q2-2026=248,3",
+  "correction_validee": "Relancer l'extraction du rapport du T2 2026 sur toutes les séries trimestrielles.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Developed Markets Sales, Brands Revenue, Generics Revenue, Complex Gx & Biosim Rev, Lipitor Sales, Norvasc Sales",
+  "probleme": "Séries annuelles arrondies, sans périodes, qui contredisent les séries trimestrielles de la même fiche (valeurs probablement inventées). La description de Developed Markets est de plus fausse et en anglais.",
+  "preuve": "Brands 8,75 vs somme trimestrielle 2025 = 9,18 Mds $ ; Generics 4,35 vs 5,07 ; Lipitor 1,15 vs 1,55 ; Norvasc 0,55 vs 0,71 ; DM 8,0 vs 8,51 ; « Europe + Australia + Japan + Canada »",
+  "correction_validee": "Supprimer ces six séries annuelles, les trimestrielles couvrent le besoin.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gtn_total, chargebacks, rebates, returns, gov_rebates",
+  "probleme": "Les T4 valent le double des autres trimestres : ce sont des cumuls semestriels mal dérivés. Un taux de déduction de 85 % serait impossible.",
+  "preuve": "gtn_total Q4-2024=5093,3 pour des ventes brutes Q4-2024=6010,7 (gross_to_net 41,5 %) ; chargebacks Q4-2025=2397,4 vs 1265,9 au T3",
+  "correction_validee": "Recalculer chaque T4 comme l'annuel moins le cumul de neuf mois, et contrôler le T3 2024 dupliqué.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BRAND_SALES_BRIDGE / CAHIER_NEW_PRODUCT_SHARE",
+  "probleme": "Noms faux : la série « Ventes par marque et décomposition » correspond exactement aux ventes de Lipitor. « Part des produits récemment lancés » est exprimée en M$, pas en %.",
+  "preuve": "FY2025=1549,3 = Lipitor 2025 (388+387,9+396,1+377,3) ; CAHIER_NEW_PRODUCT_SHARE unité M $",
+  "correction_validee": "Supprimer CAHIER_BRAND_SALES_BRIDGE (doublon Lipitor) et renommer CAHIER_NEW_PRODUCT_SHARE en « Revenus des nouveaux produits (M$) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rebates, gov_rebates, norvasc_lyrica_rev, net_margin, cc_growth",
+  "probleme": "Plusieurs signaux contredisent leur série : sens de variation inversé, chiffre différent, trimestre mal nommé.",
+  "preuve": "rebates 970,6 -> 1048,6 (+8 %) signal « -9 % » ; gov_rebates 144,1 -> 144,6 signal « -8 % » ; norvasc_lyrica yoy +16 % signal « +18 % » ; net_margin signal « point bas de -88,6 % » alors que la série donne -93,5 (-88,6 est la marge opérationnelle) ; cc_growth « premier trimestre positif depuis le T1 2024 » alors que Q4-2025=+1",
+  "correction_validee": "Régénérer ces cinq signaux à partir des séries.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rd_expense",
+  "probleme": "La valeur est celle du T2 2026 mais le signal commente le T1.",
+  "preuve": "val=248,3 (Q2-2026) ; signal « 248,6 M$ au T1 2026 »",
+  "correction_validee": "Réécrire le signal sur le T2 2026 (248,3 M$, +13,5 % sur un an).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "norvasc_lyrica_rev / Total Revenues 2025 / Greater China revenue growth",
+  "probleme": "Doublons exacts : somme de deux KPI existants, CA annuel déjà présent, croissance Chine répétant le signal de GC_rev.",
+  "preuve": "330,6 = 210,0 + 120,6 ; Total Revenues 2025 14300 = revenue_annuel 14,3 ; « +18% au T1-2026 » = GC_rev « +18 % à taux de change constant »",
+  "correction_validee": "Supprimer norvasc_lyrica_rev, Total Revenues 2025 et Greater China revenue growth.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "New Product Revenue / effectifs_annuels",
+  "probleme": "La description est en anglais, et les effectifs (avec les trois ratios par salarié) s'arrêtent à 2024 alors que l'exercice 2025 est publié.",
+  "preuve": "« Pipeline includes Tyrvaya, Iverzay, biosimilaires. Drive offsets generics erosion. » ; effectifs dernier 2024=32000",
+  "correction_validee": "Réécrire la description en français et ajouter l'effectif 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition / entete / these",
+  "champ": "revenue_by_geography, tagline, these",
+  "probleme": "Répartition géographique avec des libellés de segments anglais, slogan anglais sans version française, faute dans l'accroche de la thèse.",
+  "preuve": "« Developed Markets Segment », « Japan, Australia and New Zealand Segment » ; tagline « Empowering healthcare, enhancing lives globally », i18n None ; « Viatris à un plafond d'endettement »",
+  "correction_validee": "Libellés en français, slogan descriptif en français, « Viatris a un plafond ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "yoy de ca_total, resultat_op, resultat_net, bpa_dilue, capex, ocf, cloud_services_rev, infra_cloud_oci, rd, hardware_rev, services_rev, license_support, cloud_lic_onpremise",
+  "probleme": "Le yoy affiche est celui de l exercice FY2026 alors que la valeur est le T1-FY2027 : tous les taux sont faux",
+  "preuve": "ca_total val=19.345 yoy=+21 % alors que 19.345/14.926 = +29,6 % (chiffre de la these) ; capex val=28.499 yoy=+82 % alors que 28.499/8.502 = +235 % ; resultat_op yoy=+20 % vs +57 % ; infra_cloud_oci yoy=+77 % vs +121 %",
+  "correction_validee": "Recalculer chaque yoy sur le T1-FY2027 face au T1-FY2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signal de ca_total, resultat_op, resultat_net, bpa_dilue, capex, ocf, hardware_rev, services_rev, rpo",
+  "probleme": "Signaux ecrits au T4-FY2026 alors que la serie contient le T1-FY2027",
+  "preuve": "capex signal 'Capex 16,5 Mds $ au T4-FY2026' val=28.499 ; rpo signal '638 Mds $ au 31 mai 2026' val=664 ; bpa signal '1,45 $ au T4-FY2026' val=1.56",
+  "correction_validee": "Réécrire ces signaux sur le T1-FY2027.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rpo / CAHIER_RPO_CRPO / Remaining Performance Obligations / RPO Total",
+  "probleme": "Quatre KPI pour le carnet de commandes, avec trois valeurs differentes",
+  "preuve": "rpo val=664 ; CAHIER_RPO_CRPO val=638 ; 'Remaining Performance Obligations' val=638 ; 'RPO Total' val=138 yoy=+57 % (valeur FY2025)",
+  "correction_validee": "Garder rpo et CAHIER_RPO_CRPO, retirer Remaining Performance Obligations et RPO Total.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Cloud Services & Support, Cloud Services CA, OCI Revenue, Cerner / Health Revenue, Cerner Health CA, Hardware Revenue, Fusion Apps Cloud, NetSuite Cloud, Cloud Database, Total Cloud Revenue (IaaS+SaaS)",
+  "probleme": "Dix series d agent sans annee, decalees ou contradictoires entre elles et avec les KPI officiels",
+  "preuve": "'Cloud Services & Support' 28.7...44 vs 'Cloud Services CA' 27.44...39.4 (meme nom anglais, decalage d un an) ; 'OCI Revenue' val=8 Mds $ alors que infra_cloud_oci FY2026 = 18,1 Mds $ ; Cerner 0, 4, 5.8, 5.8, 6 vs 0, 0, 1.5, 6.2, 5.9 ; 'Cloud Database' 100, 200, 350, 550, 700 M$ chiffres ronds",
+  "correction_validee": "Retirer les dix KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "cloud_lic_support_rev",
+  "probleme": "Serie arretee au T3-FY2025 alors que les autres vont au T1-FY2027 ; signal +12 % vs yoy +10,5 %",
+  "preuve": "dernier 2025-02-28, val=11007 ; signal 'Croissance solide +12%'",
+  "correction_validee": "Completer jusqu au T1-FY2027 ou retirer (cloud_services_rev + license_support couvrent le perimetre)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Ratios arretes a 2025 alors que revenue_annuel, fcf_annuel, dette_annuelle et effectifs FY2026 sont sur la fiche",
+  "preuve": "ca_par_salarie dernier 2026-05-31 mais serie 2021..2025 ; 67.357 Mds $ / 141 000 = 477,7 k$ manquant",
+  "correction_validee": "Ajouter 2026 : 477,7 k$ de CA, -168,0 k$ de FCF et 918,7 k$ de dette par salarié.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "marge_op, marge_nette, fcf",
+  "probleme": "Series arretees au T4-FY2026 alors que resultat_op, resultat_net, ocf et capex ont le T1-FY2027",
+  "preuve": "marge_op dernier 2026-08-31, dernier point Q4-FY2026=32 ; 6.728/19.345 = 34,8 % manquant ; fcf Q1-FY2027 = 23.103 - 28.499 = -5,4 Mds $ manquant",
+  "correction_validee": "Ajouter le T1-FY2027 : marge_op 34,8 %, marge_nette 24,6 %, fcf -5,4 Mds $.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification perimee (chiffre FY2025) et incoherente avec la tendance affichee",
+  "preuve": "moat tendance baisse / tendance_mettrik stable ; 'croissent de pres de 12 pour cent' alors que cloud_services_rev FY2026 +39 %",
+  "correction_validee": "Reecrire avec les chiffres FY2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "unite de cloud_services_rev, infra_cloud_oci, apps_cloud_fusion_netsuite, cloud_lic_onpremise, license_support, rpo, datacenter_backlog",
+  "probleme": "Unite en anglais B$ alors que les autres KPI utilisent Mds $",
+  "preuve": "cloud_services_rev | B$ ; ca_total | Mds $",
+  "correction_validee": "Remplacer B$ par Mds $ sur les sept KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "TikTok US Equity Stake, Uber Cores on OCI, GB200 GPUs Delivered at Abilene Cluster, Additional Lease Commitments",
+  "probleme": "Anecdotes ou faits uniques presentes comme KPI, et doublon du backlog de baux",
+  "preuve": "'Participation dans TikTok US' 15 % ; 'Coeurs utilises par Uber' 3 M ; 'Additional Lease Commitments' 261 vs datacenter_backlog FY2026=260",
+  "correction_validee": "Retirer les quatre KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

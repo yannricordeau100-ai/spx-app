@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Mounjaro and Zepbound Revenue",
+  "probleme": "La serie est le chiffre d affaires total du groupe, pas celui de Mounjaro et Zepbound.",
+  "preuve": "serie 34124, 45043, 65179 = revenue_annuel 2023=34.124, 2024=45.043, 2025=65.179 ; Mounjaro 2025 (22 965) + Zepbound 2025 (13 542) = 36 507 M$.",
+  "correction_validee": "Supprimer le KPI Mounjaro and Zepbound Revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Mounjaro Sales",
+  "probleme": "La valeur 2025 recopie 2024 alors que les trimestres de la fiche donnent 23,0 Mds $ ; le yoy +125 % contredit une serie plate.",
+  "preuve": "serie 0, 0.5, 5.2, 11.5, 11.5 ; yoy +125% ; Mounjaro Rev 2025 = 3841.8+5198.9+6515.1+7409 = 22 965 M$.",
+  "correction_validee": "Remplacer le dernier point par 23,0 Mds $, ajouter les périodes et recalculer le yoy.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Zepbound Sales, Zepbound Revenue, Trulicity Sales, Trulicity Revenue, Verzenio Sales, Verzenio Revenue, Jardiance Revenue, Taltz Revenue",
+  "probleme": "Series annuelles par produit arretees a 2024 mais datees 2026-06-30, en triple avec les trimestriels, et sans periodes.",
+  "preuve": "Zepbound Sales 2024=4.9 alors que 2025 = 13 542 M$ (trimestriels) ; Trulicity Sales 5.3 alors que 2025 = 4 276 ; Verzenio Sales 5.3 alors que 2025 = 5 723 ; Zepbound Revenue yoy +2701%.",
+  "correction_validee": "Supprimer les doublons Sales et compléter 2025 sur les Revenue depuis les trimestriels, sinon les supprimer.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Manufacturing Capex / Capex / Expenditures for Long-Lived Assets / Capex Manuf",
+  "probleme": "Quatre series d investissements incompatibles pour 2025, et le KPI trimestriel est nomme capex manufacturing alors qu il porte le capex total.",
+  "preuve": "Manufacturing Capex 2025=8.5 ; Capex 10.85 ; Expenditures for Long-Lived Assets 8672 ; Capex Manuf trimestriel 2025 = 1509.5+1697.1+2087.7+2546.7 = 7841 M$ ; explanation de Capex Manuf : Depenses d equipement et d infrastructure (usines, machines, data centers).",
+  "correction_validee": "Garder une seule série annuelle de capex total tirée du tableau de flux et renommer Capex Manuf en Investissements (capex).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total revenue growth year over year",
+  "probleme": "Serie de croissance sans periodes dont les premiers points ne correspondent pas au CA annuel de la fiche.",
+  "preuve": "serie 10, 5, 20, 32, 45 ; revenue_annuel : 2021 28.318/24.54 = +15,4 %, 2022 28.541/28.318 = +0,8 %.",
+  "correction_validee": "Supprimer ce KPI redondant avec revenue_annuel, ou le recalculer (15, 1, 20, 32, 45) avec les périodes.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Gross margin as a percentage of revenue (non-GAAP)",
+  "probleme": "Serie sans periodes dont le dernier point est inferieur a la marge brute GAAP du meme trimestre, ce qui est impossible pour une marge non-GAAP ; le moat cite 82,6 % et la these 85,8 %.",
+  "preuve": "serie 76.1, ..., 82.6 dernier 2026-06-30 ; Marge brute Q2-2026=85.8 ; moat : la marge brute atteint 82,6 % ; these : 85,8 %.",
+  "correction_validee": "Dater chaque point et verifier le dernier trimestre dans le communique non-GAAP.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "DPA declare.signal",
+  "probleme": "Dividende trimestriel 2026 faux dans le signal.",
+  "preuve": "signal : Dividende trimestriel releve a $1.70 pour 2026 ; Indicated annual dividend 2026 = 6.92 = 4 x 1,73 ; DPA declare FY2025 6.23 = 3 x 1,50 + 1,73.",
+  "correction_validee": "Écrire 1,73 $ dans le signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Kisunla Rev, Jaypirca Rev, Ebglyss Rev, Omvoh Rev, Inluriyo Rev",
+  "probleme": "Series de nouveaux produits a deux points (T1-2025 et T1-2026) datees 2026-06-30 alors que les trimestres intermediaires et le T2-2026 sont publies dans les memes communiques que Mounjaro.",
+  "preuve": "Kisunla Rev n=2 serie Q1-2025=22, Q1-2026=124 dernier 2026-06-30 ; Inluriyo n=1 Q1-2026=35.",
+  "correction_validee": "Completer les trimestres 2025 et le T2-2026 pour ces cinq produits.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Late-Stage R&D, Early-Stage R&D, Acquired In-Process R&D, Cost of Sales, MS&A, Sales Rebates, Long-Lived Assets, Effectifs",
+  "probleme": "Groupe annuel sans periodes, date 2026-06-30 pour des valeurs 2023-2025, signaux de deux mots, doublons de KPI existants.",
+  "preuve": "signaux : Croissance forte, Investissement croissant, Pression sur les prix, Innovation externe ; Marketing, Selling and Administrative Expense doublon de Frais comm & admin ; Effectifs 35, 39, 43, 47, 50 k = effectifs_annuels 35000...50000 ; Acquired In-Process R&D 2910 vs Acquired in-process R&D paid 3000.",
+  "correction_validee": "Dater au 2025-12-31 avec periodes, rediger de vrais signaux, supprimer Effectifs (k) et MS&A annuel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "hero",
+  "champ": "hero_kpi / hero_kpi_rationale",
+  "probleme": "Le KPI hero est Verzenio (-1 % sur un an, 6 % du CA) alors que le tirzepatide fait 65 % du CA ; la justification cite 20 trimestres pour une serie de 25 et ecarte Mounjaro qui en a 16.",
+  "preuve": "hero: Verzenio Rev yoy=-1% val=1474 ; Mounjaro Rev n=16 val=9943 yoy=+91% ; rationale : Verzenio offre 20 trimestres publies.",
+  "correction_validee": "Passer le hero sur Mounjaro Rev ou CA Cardiometab.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification fondee sur les croissances 2024 alors que la fiche est au T2-2026.",
+  "preuve": "Les deux traitements phares progressent de 125 % et 80 % ; Mounjaro Rev yoy=+91%, Zepbound Rev yoy=+46%, Marge brute Q2-2026=85.8.",
+  "correction_validee": "Reecrire avec les chiffres du T2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Libelles en anglais et une zone ambigue.",
+  "preuve": "Product 93.5 ; Collaboration and Other Revenue 6.5 ; geographie : Non-US 9.3 a cote de Europe, Japon, Chine.",
+  "correction_validee": "Traduire en Produits et Collaborations et autres, et renommer Non-US en Autres pays.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

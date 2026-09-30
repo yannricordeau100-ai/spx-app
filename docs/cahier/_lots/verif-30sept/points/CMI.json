@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition par segment périmée et fausse : total 28,07 Mds $ = CA 2022, Engine à 53,4 % alors que Distribution est le premier segment en 2025, Accelera absent.",
+  "preuve": "revenue_by_segment : Engine 14,995 Mds (53,4 %), Distribution 4,215 Mds (15 %). Séries KPI 2025 : Distribution 12 405 M$, Engine 10 875 M$, Composants 10 149 M$, Power Systems 7 463 M$, Accelera 460 M$. T2-2026 : Distribution 3 326 M$ > Moteurs 3 084 M$.",
+  "correction_validee": "Recalculer la répartition sur l exercice 2025 à partir des cinq séries segment (Distribution, Moteurs, Composants, Power Systems, Accelera) en précisant la base (avant éliminations).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.resume",
+  "probleme": "Affirmation fausse : 3 084 M$ n est pas le plus haut niveau de la série Revenus segment Moteurs.",
+  "preuve": "these : « les Revenus segment Moteurs remontent à 3 084 M$, leur plus haut niveau de la série ». Série engine_rev : Q2-2024 = 3 151 M$.",
+  "correction_validee": "Remplacer par « leur plus haut niveau depuis le T2-2024 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "La justification affichée du moat est un constat de repli 2024-2025, contredit par le T2-2026 et par la thèse.",
+  "preuve": "moat : « Camions lourds, transmissions et solutions de dépollution en net recul ». KPI T2-2026 : on-highway +6,2 %, moteurs medium-duty +17,3 %, poids-lourd +1,7 %, Composants +6,9 %. Thèse : « les cinq métiers voient leurs ventes progresser en même temps ».",
+  "correction_validee": "Réécrire la justification sur les données T2-2026 (reprise du cycle, data centers) et cohérente avec la tendance affichée.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total on-highway engine unit shipments / hd_engine_units / md_engine_units / Light-duty",
+  "probleme": "Le total on-highway ne correspond pas à la somme des trois sous-séries, et la thèse cite +10 % là où le KPI total dit +2 %.",
+  "preuve": "T2-2026 : 30 100 + 86 100 + 40 500 = 156 700 vs total 144 300 ; T3-2025 : 22 400 + 63 100 + 44 000 = 129 500 vs total 147 000. Thèse : « les livraisons totales de moteurs progressent de 10 % » ; KPI total yoy = +2 %.",
+  "correction_validee": "Réaligner les périodes des quatre séries sur les 10-Q (décalage probable d un trimestre sur le total et le light-duty) puis aligner la thèse sur le KPI total retenu.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Power generation unit shipments",
+  "probleme": "Le signal affirme que la table de reporting a été abandonnée après le T1-2025, mais la série continue jusqu au T2-2026 avec des valeurs.",
+  "preuve": "Signal : « table de reporting abandonnée après Q1-2025 ». Série : n=29, dernier 2026-06-30, derniers points 3 700, 2 900, 3 200, 2 600.",
+  "correction_validee": "Couper la série au T1-2025 avec la bonne date de dernier point, sauf si les points postérieurs sont sourcés, auquel cas corriger le signal.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "China Revenue (incl. joint ventures) / India Revenue (incl. joint ventures)",
+  "probleme": "Variations annuelles incohérentes avec les séries et sauts d échelle inexpliqués (x1,9 Chine, x1,8 Inde en un trimestre), mélange probable de périmètres.",
+  "preuve": "Chine : série 1,4 ; 1,3 ; 1,1 ; 2,1 ; 2,1 Mds $, yoy affiché +19 % alors que 2,1/1,4 = +50 %. Inde : 575 ; 454 ; 318 ; 577 ; 814 M$, yoy affiché +12 % alors que 814/575 = +42 %.",
+  "correction_validee": "Reconstituer les deux séries à périmètre constant (co-entreprises incluses) depuis les présentations trimestrielles, avec périodes, puis recalculer le yoy.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Data center-related revenue",
+  "probleme": "3,5 Mds $ présenté comme trimestriel est impossible : cela dépasse la totalité des revenus power generation du trimestre. C est un chiffre annuel.",
+  "preuve": "KPI : 3,5 Mds $, period quarter, dernier 2026-04-10, n=1. T1-2026 : power generation Power Systems 1 283 M$ + Distribution 1 275 M$ = 2 558 M$ au total.",
+  "correction_validee": "Requalifier en donnée annuelle de l exercice 2025 (date 2025-12-31) après vérification, ou retirer le KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI à un point datés 2026-04-10 (goodwill électrolyseurs, dépréciation stocks, LT backlog, marge record Power Systems, excavatrices Chine)",
+  "probleme": "Charges exceptionnelles et éléments de conférence présentés comme KPI avec un seul point, datés du jour de l appel et non de la fin de période ; doublons et libellés fautifs.",
+  "preuve": "« Long-term contracted revenue backlog » 6 Mds $ double CAHIER_BACKLOG 6,3 Mds $ FY2025. « Power Systems record EBITDA margin » 29,5 % = 577/1 956 du T1-2026, déjà retombée à 24,5 % au T2-2026 (552/2 255). Libellé « Accéléra » au lieu d Accelera. « Unités d excavatrices vendues en Chine » alors que Cummins vend des moteurs, pas des excavatrices.",
+  "correction_validee": "Supprimer les doublons et les charges non récurrentes, dater les points restants à la fin de période, corriger « Accelera » et le libellé excavatrices.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_BACKLOG.unit",
+  "probleme": "Unité en dollars bruts alors que toute la fiche est en M$ ou Mds $.",
+  "preuve": "CAHIER_BACKLOG : unité « $ », valeurs 6300000000, 5400000000, 2100000000.",
+  "correction_validee": "Convertir la série en Mds $ (0,71 ... 5,4 ; 6,3) avec l unité « Mds $ ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "COMPONENTS_SALES_B / components_rev / ca_total / revenue_annuel / fcf / fcf_annuel",
+  "probleme": "Doublons annuel et trimestriel du même indicateur, et description fausse sur COMPONENTS_SALES_B.",
+  "preuve": "COMPONENTS_SALES_B : « 10149 M $ en 2025, produit phare de la société » alors que Composants est le troisième segment (Distribution 12 405, Moteurs 10 875). Somme trimestrielle components_rev 2025 = 10 149 M$, identique. ca_total (trim.) et revenue_annuel (annuel), fcf et fcf_annuel.",
+  "correction_validee": "Retirer « produit phare de la société » ; décider d un seul format par indicateur (trimestriel avec cumul annuel calculé).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted.signal",
+  "probleme": "Cuisine interne visible : mention que les points de T4 sont dérivés approximativement.",
+  "preuve": "Signal : « BPA dilué T2-2026 6.73 $ (+4.7% vs 6.43 $ T2-2025); points de T4 dérivés approx ».",
+  "correction_validee": "Retirer « ; points de T4 dérivés approx » et contrôler les T4 (3,22 et 4,25 $) contre les communiqués.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.simple.customers",
+  "probleme": "Clientèle mal décrite : Cummins vend aux constructeurs de camions et de véhicules industriels, pas aux constructeurs automobiles.",
+  "preuve": "Description : « Ses clients sont principalement des constructeurs automobiles ». Client n°1 : PACCAR (13 %).",
+  "correction_validee": "Remplacer par « constructeurs de camions, d autobus et d engins ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

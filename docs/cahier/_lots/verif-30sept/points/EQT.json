@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "net_debt vs dette_annuelle / these",
+  "probleme": "La dette nette depasse la dette totale de la meme fiche, ce qui est impossible ; un point de la serie semble aberrant.",
+  "preuve": "net_debt Q4-2025=8.05 Mds$ contre dette_annuelle 2025=7.8 et these : dette totale 7,86 Mds$ ; net_debt Q2-2026=5.87 contre these : dette totale 5,70 ; net_debt Q3-2024=16 puis 9.27 au Q4-2024 (EQT publiait environ 13,7 Mds$ post-fusion).",
+  "correction_validee": "Verifier la definition de net_debt et le point Q3-2024 contre le rapport trimestriel, puis aligner la these, l anti-these (-27 %) et les series.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Natural Gas Production / Proved Reserves / Drilling Wells per Quarter",
+  "probleme": "Bloc de trois series arrondies sans source qui contredisent les series verifiees.",
+  "preuve": "Natural Gas Production 2024=5.4 Bcfe/d alors que CAHIER_PRODUCTION 2024 = 2228 Bcfe soit 6,1 Bcfe/d ; Proved Reserves 2024=25 contre proved_res 26.3 (verifie : 18805+7460) ; Drilling Wells per Quarter 30..25 sans periode ni source.",
+  "correction_validee": "Supprimer les trois series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_PRODUCTION / CAHIER_LOE_BOE / transmission_cap (noms et unites)",
+  "probleme": "Noms faux pour ce que mesurent les series.",
+  "preuve": "CAHIER_PRODUCTION nomme Production nette par jour avec unite Bcfe / an et val=2382 ; CAHIER_LOE_BOE nomme Cout d exploitation par baril avec unite $/Mcfe ; transmission_cap nomme Capacite de transmission alors que le nom anglais dit throughput (debit).",
+  "correction_validee": "Renommer en Production nette annuelle, Cout d exploitation par Mcfe et Debit de transmission MVP/ETRN.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "buybacks",
+  "probleme": "Serie arretee au T4-2024 alors que la date de derniere donnee affiche 2026-06-30.",
+  "preuve": "history_periods finit a Q4-2024 (n=38), dernier 2026-06-30 ; signal : rachats suspendus depuis 2024.",
+  "correction_validee": "Prolonger la serie a 0 jusqu au T2-2026 si aucun rachat, ou corriger la date.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "gathering_vol / transmission_cap / seg_gath_rev / seg_trans_rev / seg_prod_rev / seg_*_oi / sales_price_unhedged (trous T4)",
+  "probleme": "Series segmentaires sans T4-2024 et/ou T4-2025 alors que le FY est connu.",
+  "preuve": "gathering_vol periods : Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 ; seg_prod_rev idem ; seg_prod_rev signal cite FY2025 = 8 024 M$ qui permet de deriver le T4.",
+  "correction_validee": "Deriver les T4 = FY moins 9 mois pour chaque serie.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat vs positionnement IA / description",
+  "probleme": "Le moat nie tout avantage propre alors que le reste de la fiche repose sur le cout le plus bas du secteur et l integration midstream.",
+  "preuve": "moat : actifs sans avantage propre ; positionnement IA : producteur integre et a faible cout ; Per unit operating costs signal : structure de couts la plus basse du secteur ; description edge : inventaire Marcellus de classe mondiale.",
+  "correction_validee": "Reecrire le moat (avantage de cout 1,09 $/Mcfe et integration MVP) ou justifier la contradiction.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition par segment entierement vide alors que les CA segmentaires sont sur la fiche.",
+  "preuve": "revenue_by_segment (None): Upstream None ; Gathering None ; Transmission None ; seg_prod_rev FY2025 8 024 M$, seg_trans_rev FY2025 572 M$, seg_gath_rev disponible.",
+  "correction_validee": "Renseigner les parts 2025 depuis les series segmentaires.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Transco Station 165 peak cash price / Data center capacity under construction",
+  "probleme": "Points uniques qui ne sont pas des indicateurs de la societe (prix de marche ponctuel, capacite de tiers).",
+  "preuve": "Transco Station 165 peak cash price 130 $/MMBtu (tempete Fern) ; Data center capacity under construction in core footprint 12 GW.",
+  "correction_validee": "Supprimer ou deplacer en story.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these (hook) / positionnement IA",
+  "probleme": "Chiffre du hook non reproductible depuis la fiche ; format anglais dans le positionnement IA.",
+  "preuve": "these : sur le premier semestre le resultat net progresse de 57 % ; net_income (1487+211)/(242+784) = +65 % ; positionnement IA : 2,945 miles d infrastructure (2,945 lu comme 2,9 en francais).",
+  "correction_validee": "Verifier le +57 % et ecrire 2 945 miles.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

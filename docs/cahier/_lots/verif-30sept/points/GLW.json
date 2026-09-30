@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CA USA / CA Chine",
+  "probleme": "Valeur FY2023 identique sur deux zones geographiques, erreur de recopie",
+  "preuve": "CA USA FY2023 = 4439 et CA Chine FY2023 = 4439",
+  "correction_validee": "Relire la ventilation geographique du 10-K 2023 et corriger la valeur FY2023 fausse (US ou Chine).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels / ca_par_salarie / fcf_par_salarie / dette_par_salarie",
+  "probleme": "Series arretees en 2019 alors que Effectif Total va a 2025 ; doublon d effectifs avec unites differentes",
+  "preuve": "effectifs_annuels 2019 = 49500 (dernier 2020-02-18) ; Effectif Total FY2025 = 55,9 milliers ; fcf_par_salarie 2019 = 1,1 k$",
+  "correction_validee": "Recalculer les trois ratios 2023-2025 avec Effectif Total converti en salaries, et supprimer effectifs_annuels.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Display Rev / Specialty Mat Rev / Polysilicon Rev",
+  "probleme": "Trois series de segments arretees au T4 2025 alors que OptComm Rev et Life Sciences vont au T2 2026",
+  "preuve": "Display Rev dernier 2025-12-31, serie jusqu a Q4-2025 = 955 ; OptComm Rev Q2-2026 = 2072",
+  "correction_validee": "Ajouter T1 et T2 2026 depuis les 10-Q",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Marge brute / Marge op / Marge nette (yoy)",
+  "probleme": "Variations de marges en % relatif au lieu de points, chiffres faux",
+  "preuve": "Marge op yoy +4.7 % alors que 15,5 contre 14,8 = +0,7 pt ; Marge nette +2.5 % pour 12,4 contre 12,1 = +0,3 pt ; Marge brute +0.3 %",
+  "correction_validee": "Afficher en points : marge op +0,7 pt, marge nette +0,3 pt, marge brute +0,1 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_END_MARKET_MIX",
+  "probleme": "Nom annonce une repartition mais une seule serie en M$ sans indication du marche final mesure ; ne correspond a aucun segment de la fiche",
+  "preuve": "« Repartition du chiffre d affaires par marche final | M $ | val=2965 » ; Display FY2025 = 3 697 M$, aucun segment a 2 965",
+  "correction_validee": "Identifier le marche mesure et renommer, sinon retirer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Multiyear Meta agreement / Springboard cumulative growth / Incremental sales target 2028 / Apple commitment / Solar wafer ramp / Lumen 10 % / DCI opportunity / Acquisition solar facility / Enterprise CAGR target",
+  "probleme": "Neuf « KPI » a un ou trois points qui sont des annonces, objectifs ou contrats",
+  "preuve": "n=1 : « Multiyear Meta optical agreement = 6 Mds $ », « Solar wafer facility ramp = 1000000 wafers/jour » ; CAGR target serie 25, 30, 30",
+  "correction_validee": "Deplacer en stories, retirer du bloc KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Life Sciences Rev (signal) / CA total / Resultat op / Resultat net / Marge brute (signal)",
+  "probleme": "Mention de source dans un signal et fautes de ponctuation visibles",
+  "preuve": "« base 'revenues by product category' du rapport trimestriel » ; « data centers.. » ; « expansion de marge.. » ; « (~33%).). »",
+  "correction_validee": "Retirer « base 'revenues by product category' du rapport trimestriel » et corriger la ponctuation en un seul point final.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Optical Communications Enterprise sales YoY growth / Core Operating Margin",
+  "probleme": "Series sans etiquette de periode, yoy incoherent (croissance dont le yoy est la valeur elle-meme, « +220bps »)",
+  "preuve": "« val=58 | yoy=+58% | serie: 42, 55, 93, 106, 81, 58, 61 » (derniere valeur 61, val 58) ; Core Operating Margin « yoy=+220bps »",
+  "correction_validee": "Etiqueter les trimestres, mettre val = derniere valeur, yoy en pts",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Gorilla Glass Rev",
+  "probleme": "Trou de quatre annees dans la serie",
+  "preuve": "FY2018=1069 puis FY2023=1136, rien entre 2019 et 2022",
+  "correction_validee": "Completer 2019-2022 ou tronquer a 2023-2025",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions_de_marche",
+  "champ": "position de marche 1",
+  "probleme": "Position sans nom ni part",
+  "preuve": "« None | taille 7.05 | part None »",
+  "correction_validee": "Nommer ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

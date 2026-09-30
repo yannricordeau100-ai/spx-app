@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "risques",
+  "champ": "risks[0].title / risks[7].title",
+  "probleme": "Titres de risques en anglais.",
+  "preuve": "risque 1: « Government Spending Dependency » ; risque 8: « Commercial Aircraft Market Cyclicality »",
+  "correction_validee": "Traduire en « Dependance aux depenses publiques » et « Cyclicite du marche des avions d'affaires ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Gulfstream aircraft deliveries",
+  "probleme": "Doublon de gulfstream_deliveries avec des valeurs differentes (les T4 manquent) et un signal date au T1 alors que le dernier point est au T2.",
+  "preuve": "gulfstream_deliveries : 28, 47, 36, 38, 39, 45, 38, 41 ; « Gulfstream aircraft deliveries » : 27, 24, 37, 28, 36, 38, 39, 38, unite « units », signal « 38 jets... au Q1-2026 », dernier 2026-07-05",
+  "correction_validee": "Supprimer le KPI « Gulfstream aircraft deliveries ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Consolidated book-to-bill ratio / Aerospace book-to-bill ratio",
+  "probleme": "Series decalees d'un trimestre : la derniere valeur est datee T2 2026 mais les signaux parlent du T1, et la valeur ne correspond pas au signal.",
+  "preuve": "consolide : val=2, dernier 2026-07-05, signal « 2,0x au Q1-2026 » ; total_backlog signal : « book-to-bill defense 1,4x sur le trimestre » (T2) ; Aerospace : val=1.5, signal « 1,2x au Q1-2026 »",
+  "correction_validee": "Redater les deux series pour que le dernier point soit au T1 2026, ou ajouter le T2 2026 avec les valeurs publiees.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "op_margin_consol, aero_op_margin, marine_op_margin, combat_op_margin, tech_op_margin, net_margin, CAHIER_FUNDED_BACKLOG, CAHIER_AFTERMARKET_MIX.yoy",
+  "probleme": "Variations de taux affichees en pourcentage relatif au lieu de points.",
+  "preuve": "op_margin_consol : 10.0 a 10.4, yoy=+4.0% ; aero_op_margin : 13.2 a 14.5, yoy=+9.8% ; net_margin yoy=+5.1% ; CAHIER_AFTERMARKET_MIX yoy=-7.1%",
+  "correction_validee": "Afficher en points : +0,4 pt consolide, +1,3 pt Aerospace, +0,4 pt Marine, -0,3 pt Combat, -0,2 pt Technologies, +0,4 pt marge nette, -3,7 pts part financee, -2,8 pts apres-vente.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Free cash flow conversion rate.dernier",
+  "probleme": "KPI annuel date a mi-2026 alors que la derniere valeur est celle de 2025.",
+  "preuve": "year | dernier 2026-07-05 | signal « Conversion du cash a 94% en 2025 »",
+  "correction_validee": "Dater au 2025-12-31 et etiqueter chaque point par exercice.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "9 KPI a un point (Electric Boat, munitions, Eagle, capacite Gulfstream, pipeline, Jet Aviation, Columbia, Virginia)",
+  "probleme": "Faits ponctuels du T1 2026 presentes comme des KPI trimestriels sans serie ; certains sont des montants de contrats, pas des indicateurs.",
+  "preuve": "« Eagle tactical vehicle awards Germany » n=1 val=4 ; « Columbia-class program of record value » n=1 val=125 ; « Electric Boat Columbia program earned hours increase » n=1 val=29 (% en glissement annuel)",
+  "correction_validee": "Deplacer en stories ou supprimer ; ne garder en KPI que ce qui aura une serie.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_DELIVERIES",
+  "probleme": "Nom « Livraisons par programme » alors que la serie est le total annuel Gulfstream (doublon annuel de gulfstream_deliveries) ; faute dans le signal.",
+  "preuve": "FY2025=158 = 36+38+39+45 (gulfstream_deliveries 2025) ; signal « l'executon des programmes »",
+  "correction_validee": "Renommer « Livraisons Gulfstream (annuel) » et corriger « executon » en « execution ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_AFTERMARKET_MIX.nom",
+  "probleme": "« Part des services apres-vente » designe en realite la part des revenus de services (surtout GDIT), pas l'apres-vente.",
+  "preuve": "val=37.16 % ; le segment Technologies (services IT) pese 25,6 % du CA a lui seul",
+  "correction_validee": "Renommer « Part des services dans le CA » et ajuster la description.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat / ai_positioning.type",
+  "probleme": "Moat « None » pour un constructeur de sous-marins nucleaires en position unique, texte du moat qui le dit lui-meme ; positionnement IA type « absent » avec un texte qui decrit une integration.",
+  "preuve": "moat : « None... les actifs navals restent uniques » ; positionnement IA (absent) : « integre l'intelligence artificielle et l'apprentissage automatique dans son portefeuille »",
+  "correction_validee": "Qualifier le moat (actifs reglementaires, chantiers uniques) ; passer le type IA a « integrator ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions de marche",
+  "champ": "market_positions",
+  "probleme": "Positions de marche sans nom ni part.",
+  "preuve": "position de marche 1: None | taille 47.4 ; position 2: None | taille 28.3",
+  "correction_validee": "Nommer (jets d'affaires, construction navale militaire US) ou retirer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

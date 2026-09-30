@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "yoy de ~20 series trimestrielles",
+  "probleme": "Le point T2-FY2026 a ete ajoute mais les yoy n'ont pas ete recalcules : ils correspondent au T1-FY2026, parfois avec un signe faux.",
+  "preuve": "lifo_charge_q val=39 yoy « +30.0% » alors que 62→39 = -37 % ; sales_ex_fuel_q val=30189 yoy « +0.2% » alors que 30352→30189 = -0,5 % ; buybacks_q val=1039 yoy « +17.7% » alors que 22→1039 ; net_income_q val=641 yoy « +4.3% » (=866→903 T1) alors que 609→641 = +5,3 % ; identical_sales_ex_fuel val=0.2 yoy « -2.2 pt » alors que 3,4→0,2 = -3,2 pt ; equity_q -27,4 % alors que 9282→5846 = -37 %",
+  "correction_validee": "Recalculer tous les yoy des series trimestrielles sur Q2-FY2026 contre Q2-FY2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux de ~20 series trimestrielles, hero, att, moat",
+  "probleme": "Les signaux, l'anti-these et le moat commentent le T1-FY2026 alors que la valeur affichee est celle du T2-FY2026 (publie le 18 septembre 2026), y compris sur le hero.",
+  "preuve": "hero identical_sales_ex_fuel val=0.2, signal « en hausse de 1,0% au 1er trimestre 2026 » ; net_income_q val=641, signal « 903 M$ ... au 1er trimestre 2026 » ; equity_q val=5846, signal « 6,47 Mds$ fin mai 2026 » ; revenue_q val=34621 (12 semaines), signal « Le trimestre integre 16 semaines » ; att « retombees a 1,0% » ; moat « ventes comparables tombees a 1 % » ; la these, elle, cite bien 0,2 %",
+  "correction_validee": "Reecrire les signaux des series mises a jour sur le T2-FY2026 (ventes comparables +0,2 %, resultat net 641 M$, capitaux propres 5,85 Mds$, trimestre de 12 semaines) et actualiser l'anti-these et le moat.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "capex_q, ocf_q, fcf_q, dividends_paid_q, net_debt_q, sbc_q, fuel_gallons_yoy",
+  "probleme": "Sept series trimestrielles ne sont pas mises a jour alors que le reste de la fiche est au T2-FY2026.",
+  "preuve": "capex_q, ocf_q, fcf_q, dividends_paid_q, net_debt_q, sbc_q : dernier 2026-05-23 (Q1-FY2026) ; fuel_gallons_yoy : dernier 2025-10-31 (Q3-FY2025) ; revenue_q et net_income_q : dernier 2026-08-15",
+  "correction_validee": "Ajouter le T2-FY2026 (tableau de flux du 10-Q) et les gallons du T4-FY2025 au T2-FY2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "buybacks_q.history_periods, total_debt_q.history_periods",
+  "probleme": "Etiquette de periode incoherente avec le reste de la fiche.",
+  "preuve": "buybacks_q et total_debt_q : dernier point etiquete « Q2-2026 » alors que toutes les autres series utilisent « Q2-FY2026 »",
+  "correction_validee": "Renommer le dernier point en Q2-FY2026 dans les deux series.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "interest_expense_q",
+  "probleme": "Le signal dit que l'indicateur n'est plus publie par trimestre, mais un point isole a ete ajoute apres deux ans de trou, avec un yoy calcule sur rien.",
+  "preuve": "serie ... Q1-FY2024=123, Q2-FY2024=84, Q2-FY2026=156 ; yoy=-9.7% ; signal « Cet indicateur n'est plus publie par trimestre depuis mi 2024 »",
+  "correction_validee": "Soit completer Q3-FY2024 a Q1-FY2026 depuis les 10-Q, soit retirer le point Q2-FY2026 et le yoy.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Identical Sales (ex-fuel), Kroger Health Rev, Loyalty Households, Alternative Profit Streams, Capex",
+  "probleme": "Bloc de 5 KPI dates du jour (2026-09-29), sans etiquettes ni signal, dont les valeurs contredisent les series etiquetees et dont les descriptions sont en franglais ; un nom est faux.",
+  "preuve": "« Identical Sales (ex-fuel) » 14.1, 8.1, 5, 4.4, 1.5 vs CAHIER_SSS_EXFUEL FY2020=14.1, FY2021=0.2, FY2022=5.6, FY2023=0.9, FY2024=1.5, FY2025=2.9 ; « Loyalty Households » 62 vs loyalty_households 63 ; « Alternative Profit Streams » nomme « CA streams alternatifs » alors que 1,5 Md$ est un profit operationnel (= alternative_profit_op) ; descriptions « GLP-1 dispensing. Catalyst weight-loss. », « Data first-party = monetisable retail media »",
+  "correction_validee": "Supprimer les 5 KPI ; identical_sales_ex_fuel, loyalty_households, alternative_profit_op et capex_q (plus CAHIER_SSS_EXFUEL) couvrent ces mesures.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Digital / eCommerce sales growth, Kroger Precision Marketing profit growth",
+  "probleme": "Trois chiffres differents pour la meme croissance digitale au T2-FY2026, et une valeur affichee differente du dernier point de serie.",
+  "preuve": "ecommerce_growth Q2-FY2026=14 ; « Digital / eCommerce sales growth » val=20 avec serie affichee Q2-FY2026=12 (28 points, 1 etiquette) ; « Kroger Precision Marketing profit growth » val=24, serie affichee Q2-FY2026=50",
+  "correction_validee": "Supprimer uniquement « Digital / eCommerce sales growth » (doublon contradictoire de ecommerce_growth) ; laisser KPM a la correction K2 des periodes.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total employees",
+  "probleme": "Troisieme version de l'effectif, avec une valeur differente de sa propre serie.",
+  "preuve": "val=« 400000 » (chaine), serie [403000] ; headcount FY2025=403000 ; effectifs_annuels 2026=403000",
+  "correction_validee": "Supprimer « Total employees ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel, fcf_annuel, dette_annuelle, effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie, dette_sur_ca",
+  "probleme": "Les series annuelles generiques etiquettent « 2026 » l'exercice clos le 31 janvier 2026 que tout le reste de la fiche appelle FY2025 ; les signaux parlent de « ventes en 2026 » alors que l'exercice 2026 est en cours.",
+  "preuve": "revenue_annuel 2026=147.642 = somme des trimestres FY2025 (45118+33940+33859+34725) ; signal « Ventes de 147,6 Mds $ en 2026 » ; headcount FY2025=403000 = effectifs_annuels 2026",
+  "correction_validee": "Etiqueter par exercice fiscal (FY2025) ou preciser « exercice clos en janvier 2026 » dans les signaux.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Average associate hourly wage",
+  "probleme": "KPI a un point perime et contredit par la these.",
+  "preuve": "val=19.5, signal « porte au-dela de 19,50 $ » ; these « portant son salaire horaire moyen au dessus de 20 dollars »",
+  "correction_validee": "Mettre a jour a plus de 20 $ (T2-FY2026) ou supprimer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DIGITAL_SALES",
+  "probleme": "Nom faux : la serie est une croissance en %, pas un niveau de ventes ; yoy exprime en % relatif.",
+  "preuve": "nom « Ventes numeriques et retrait ou livraison | % » ; serie FY2020=116, FY2021=-3, FY2025=16 ; yoy « +45.5% » pour 11→16 (attendu +5 pts)",
+  "correction_validee": "Renommer en « Croissance des ventes numeriques » et afficher le yoy en points (+5 pts).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Le resultat operationnel FIFO ajuste, metrique de guidance et de pilotage de Kroger, est absent ; seul le BPA ajuste apparait dans un signal.",
+  "preuve": "eps_diluted_q signal « 1,54 $ sur l'exercice 2025 complet et 4,85 $ hors elements ajustes » ; aucun KPI « adjusted FIFO operating profit »",
+  "correction_validee": "Ajouter le resultat operationnel FIFO ajuste trimestriel et annuel (communiques de resultats).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

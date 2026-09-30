@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Repartition perimee (exercice 2021), somme differente de 100, segment disparu, contredite par le KPI reg_rev.",
+  "preuve": "Regulated 86,1 % + Market-Based 14,3 % = 100,4 % ; total 3,95 Mds = CA 2021 (3,914) ; \"Market-Based Businesses\" n'existe plus depuis la cession de Homeowner Services ; signal reg_rev : \"il concentre 94 % du chiffre d'affaires consolidé\" ; 2025 = 4,723/5,121 = 92,2 %.",
+  "correction_validee": "Remplacer par 2025 : Activites regulees 4,723 Mds $ (92,2 %), Autres 0,398 Md$ (7,8 %), exercice 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Operating Cash Flow",
+  "probleme": "Etiquettes decalees d'un an, 2025 absent, signal faux avec la serie affichee.",
+  "preuve": "Serie FY2021=1426, FY2022=1441, FY2023=1108, FY2024=1874, FY2025=2045, last_data_date 2024-12-31 ; les trimestres ocf donnent 2024 = 382+345+679+639 = 2045 et 2025 = 2059 ; 1426 = OCF 2020. Signal : \"Repli 2022 (impacts non-recurrents HOS), reprise nette +85% 2022->2024\" alors que la serie montre 1441 en 2022 > 1426. Doublon d'ocf.",
+  "correction_validee": "Supprimer Operating Cash Flow, le KPI ocf trimestriel couvre le besoin.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "TotCust, Customer Connections, Regulated Customers, ResCust, customer_connections",
+  "probleme": "Cinq KPI pour les clients et connexions, dont deux doublons exacts et deux series sans periodes.",
+  "preuve": "TotCust 3242 milliers = water_customers 3,242 M ; \"Customer Connections\" (K) arrete FY2024 = 3546 = customer_connections FY2024, signal \"Base de calcul ARPU regule\", description \"14M+ personnes desservies ... (Granite City Illinois, etc.\" ; \"Regulated Customers\" serie \"3.4, 3.4, 3.45, 3.45, 3.5\" sans annees ni signal ; ResCust \"2893, 2920, 2942\" sans annees.",
+  "correction_validee": "Supprimer TotCust, Customer Connections et Regulated Customers, et dater ResCust 2023, 2024, 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Customer connections/customers added via acquisitions, Acquisitions completed",
+  "probleme": "Valeurs contredites par les KPI annuels et yoy faux.",
+  "preuve": "\"Connexions clients ajoutées (acquisitions)\" = 70000, 70000 alors que acq_customers FY2024 = 69,5 k et FY2025 = 20,9 k ; \"Acquisitions completed\" \"23, 18\" yoy -82 % (18/23 = -22 %) alors que acq_systems FY2024 = 13, FY2025 = 18.",
+  "correction_validee": "Supprimer les deux KPI, acq_customers et acq_systems existent.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Rate Base",
+  "probleme": "Serie sans periodes ni signal, en contradiction avec un autre KPI qui dit que la base tarifaire consolidee n'est pas publiee ; ordre de grandeur douteux.",
+  "preuve": "\"13.4, 14.5, 15.7, 17.2, 18.7\" Mds, dernier 2026-06-30, signal vide ; utility_ppe : \"Meilleur indicateur public de la base tarifaire du segment régulé, qu'AWK ne chiffre pas en consolidé\" ; immobilisations regulees nettes FY2025 = 37,96 Mds ; NJ 5,1 + PA 5,8 = 10,9 pour deux Etats.",
+  "correction_validee": "Supprimer ou sourcer et dater chaque valeur.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "op_income, net_income, div_paid, da_exp, debt_to_cap, lt_debt (signal)",
+  "probleme": "Tags XBRL et notes de derivation visibles dans les signaux.",
+  "preuve": "op_income : \"Résultat opérationnel trimestriel (OperatingIncomeLoss), T4 dérivé FY-3T.\" ; net_income : \"(NetIncomeLoss), T4 dérivé FY-3T\" ; div_paid : \"(PaymentsOfDividendsCommonStock), T4 dérivé FY-9M\" ; debt_to_cap : \"(RatioOfIndebtednessToNetCapital1)\" ; da_exp : \"T4 dérivé FY-9M\".",
+  "correction_validee": "Retirer les noms de balises et les mentions de derivation des 6 signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "op_margin, net_margin, reg_margin, om_ratio, debt_to_cap, debt_rate, acq_paid (yoy)",
+  "probleme": "Variations de ratios en pourcentage relatif au lieu de points ; yoy absurde sur les acquisitions.",
+  "preuve": "op_margin 40 vs 38,3 affiche +4,4 % (= +1,7 pt) ; net_margin +2,7 % ; reg_margin +7,0 % ; om_ratio -6,4 % ; debt_rate 2,61 vs 2,51 affiche +4,0 % ; acq_paid \"+3160,0 %\" (326 vs 10).",
+  "correction_validee": "Afficher en points : op_margin +1,7, net_margin +0,6, reg_margin +1,7, om_ratio -2,2, debt_to_cap +1, debt_rate +0,1 ; afficher acq_paid en +316 M$.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "customer_connections",
+  "probleme": "yoy non calcule, unite mal ecrite dans le signal, information perimee.",
+  "preuve": "yoy \"+N/A\" alors que 3,572/3,546 = +0,7 % ; signal \"3,572k connexions fin 2025\" pour 3,572 millions ; \"+47k en attente (acquisition Nexus Water Group...)\" alors que acq_paid dit \"la clôture de Nexus Regulated Utilities en juin 2026 a ajouté environ 47 000 clients\".",
+  "correction_validee": "yoy +0,7 % ; \"3,572 millions\" ; Nexus clos en juin 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "reg_rev_mo (signal)",
+  "probleme": "Signal telegraphique en franglais qui contredit le KPI lui-meme.",
+  "preuve": "\"MO rate case: hausse $63M approuvée mai 2025, investissements $1.5B depuis 2023. Revenus par état non publiés\" sous un KPI intitule \"Revenus Regulated MO\" avec 8 valeurs.",
+  "correction_validee": "Reecrire en phrase francaise sans la mention \"non publiés\".",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Quarterly cash dividend per share, Authorized additional annualized revenues, States with regulated operations, Essential Utilities merger, Equity forward sale agreements, Net PFAS settlement, Acquisitions under agreement",
+  "probleme": "Bloc de conference : doublon exact du dividende, serie cumulative sans periodes, valeur historique fausse, unites textuelles, name_en vides.",
+  "preuve": "\"Quarterly cash dividend per share\" 0,895 n=1 = dps ; \"Authorized additional annualized revenues\" \"308, 273, 389, 161, 270, 264, 89, 216\" unite \"M$ YTD\" sans trimestres (cumul remis a zero) ; \"States with regulated operations\" \"46, 24, 14, 14, 14, 14\" (AWK n'a jamais ete regule dans 46 Etats) ; unites \"ratio d'échange (actions AWK/action Essential)\", \"M USD (produit net estimé)\".",
+  "correction_validee": "Supprimer le doublon dps, dater ou supprimer la serie YTD, corriger 46/24, passer les evenements en texte.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "volumes_d_eau_factures_millions_de_gallo",
+  "probleme": "Doublon annuel de vol_water_total, brut (sans signal, sans nom anglais, short tronque).",
+  "preuve": "2025 = 333 242 M gal = 72,9+77,8+101,1+81,4 Mds gal de vol_water_total ; name_en vide, signal vide.",
+  "correction_validee": "Supprimer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary / authorized_roe_nj.name_fr / mettrik_description.edge",
+  "probleme": "Mot double, date de dossier tarifaire incoherente, oxymore.",
+  "preuve": "\"Le rapport annuel rapport annuel déposé le 18 février 2026\" ; KPI \"ROE autorisé NJ (rate case 2025)\" avec signal \"approuvé sept. 2024\" ; description : \"le pricing power régulé\".",
+  "correction_validee": "Supprimer le doublon, renommer en ROE autorise NJ (dossier tarifaire 2024) et remplacer pricing power regule par des tarifs fixes par les regulateurs.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

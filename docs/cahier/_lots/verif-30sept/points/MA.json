@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "revenue_annuel.history",
+  "probleme": "La série mélange chiffre d affaires brut (avant remises) pour 2018-2021 et chiffre d affaires net pour les autres années, ce qui crée une chute fictive en 2022 et fausse les dérivés.",
+  "preuve": "history : 2016 = 10,776 ; 2017 = 12,497 ; 2018 = 21,831 ; 2019 = 24,98 ; 2020 = 23,616 ; 2021 = 29,845 ; 2022 = 22,237 ; 2023 = 25,098. Le net publié 2018-2021 est 14,95 / 16,88 / 15,30 / 18,88 ; 29,845 = 18,88 net + 10,96 de remises. ca_par_salarie passe de 1 243,5 (2021) à 743,7 (2022), dette_sur_ca 2021 = 46,6 %.",
+  "correction_validee": "Remplacer 2018-2021 par 14,950 ; 16,883 ; 15,301 ; 18,884 et recalculer ca_par_salarie et dette_sur_ca.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Cross-Border, Cross-border volume growth, CAHIER_CROSS_BORDER",
+  "probleme": "Trois séries pour la même croissance transfrontalière avec des valeurs différentes au même trimestre, des T4 manquants et un nom qui parle de volume pour un taux.",
+  "preuve": "Cross-Border T2-2026 = 12 (série Q1, Q2, Q3 de chaque année, Q4-2024 et Q4-2025 absents) ; transcript « Cross-border volume growth » T2-2026 = 13 (moat : 13 %) ; CAHIER_CROSS_BORDER « Volume transfrontalier » en % = 15 (FY2025).",
+  "correction_validee": "Garder une seule série trimestrielle complète (préciser « à taux de change constant, hors intra-Europe » si c est le cas), renommer la version CAHIER « Croissance du volume transfrontalier (annuel) ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "FCF.signal",
+  "probleme": "Le signal affirme une conversion quasi intégrale du résultat en cash, contredite par les chiffres et par l anti-thèse.",
+  "preuve": "Signal : « Conversion du résultat en cash quasi intégrale ». FCF T2-2026 = 3,48 Mds pour un résultat net de 4,39 Mds (79 %) ; yoy -24 % ; anti-thèse : « 10,4 Mds $ rendus aux actionnaires pour 6,8 Mds $ de flux opérationnel ».",
+  "correction_validee": "« FCF 3,5 Mds USD au T2-2026, 6,3 Mds sur le semestre, en retrait de 24 % sur un an ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 1, 3, 5, 6",
+  "probleme": "Titres qui sont des fragments sortis de leur contexte ou une description de règle, pas des risques.",
+  "preuve": "« Cela pourrait affecter nos produits, services et d autres aspects de notre activité, comme la fraude » ; « Ces réponses pourraient réduire nos volumes de transactions » ; « Cette expansion a accentué... » ; risque 3 : « Nos règles sans frais supplémentaires autorisent désormais les commerçants US et canadiens à appliquer des frais ».",
+  "correction_validee": "Reformuler en titres autonomes (surcharge par les commerçants, régulation des interchanges, litiges, concurrence des réseaux domestiques).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "VAS Revenue.yoy vs transcript et moat",
+  "probleme": "Deux taux de croissance pour les services à valeur ajoutée sans qualification.",
+  "preuve": "VAS Revenue T2-2026 : 3 188 vers 3 826 = +20,0 % ; transcript « Value-added services... growth » = 22 ; moat : « progressent de 22 % ».",
+  "correction_validee": "Préciser « +22 % à taux de change constant » dans le transcript et le moat, ou aligner sur +20 %.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Cards Total, Mastercard & Maestro cards issued",
+  "probleme": "Deux parcs de cartes sans précision de périmètre.",
+  "preuve": "« Cartes émises (total) » = 3 391 M (FY2025, marque Mastercard seule) ; « Cartes Mastercard et Maestro émises » = 3,7 Mrd (T2-2026) ; moat : « 3,7 milliards de cartes ».",
+  "correction_validee": "Renommer le premier « Cartes marque Mastercard (hors Maestro) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Le rendement net (CA net rapporté au GDV) est absent alors que c est l indicateur de référence des réseaux de paiement.",
+  "preuve": "GDV et revenue_annuel existent séparément ; aucun KPI de yield (2025 : 32,8 / 10 632 = 0,31 %).",
+  "correction_validee": "Ajouter « Rendement net (CA net / GDV, points de base) » en annuel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "signaux de eps_diluted_q, rd_q, ocf_q, fcf_q, gross_margin_q, op_margin_q, net_margin_q, div_per_share_q, buybacks_q, inventory_q, cash_q, lt_debt_q, semi_test_rev, prod_test_seg_annual",
+  "probleme": "Signaux remplacés par des notes internes d'extraction ou des formules en anglais, visibles par le client",
+  "preuve": "'SEC (3M records, end-date mapped)', 'GrossProfit / Revenues', 'OCF moins Capex', 'SEC /CashPaid fusionnés', \"exercice 2025 Note 'Segment Information': Semiconductor Test 2025=$2,523.7M\"",
+  "correction_validee": "Réécrire les 14 signaux en français lisible, sans source, formule ni note d'extraction.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "capex_q, ocf_q, fcf_q, buybacks_q, eps_diluted_q",
+  "probleme": "Trimestres manquants : les flux n'ont que le T1 et le T4 de chaque année, le BPA n'a jamais de T4 ; la variation sur un an du T2-2026 compare à un point absent",
+  "preuve": "capex_q : Q1-2024=44, Q4-2024=57.4, Q1-2025=64, Q4-2025=62.9, Q1-2026=64.7, Q2-2026=90.7 ; eps : Q1..Q3-2025 puis Q1-2026",
+  "correction_validee": "Compléter T2 et T3 depuis les cumuls 6 et 9 mois et le T4 du BPA, puis recalculer les variations.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SoC_rev",
+  "probleme": "Valeur du T4-2024 invraisemblable (probablement dérivée de l'annuel sur un autre périmètre) et doublon de valeur au T3/T4-2023",
+  "preuve": "Q3-2024=323.5, Q4-2024=640.5, Q1-2025=337.7 ; au T4-2024 : SoC 640,5 + mémoire 134,1 + robotique 104,7 dépassent déjà le CA trimestriel du groupe (environ 750) ; Q3-2023=Q4-2023=330.8",
+  "correction_validee": "Revérifier les T4 dérivés à la source et corriger",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Le texte est périmé et contredit par les séries",
+  "preuve": "'la robotique recule de 16 %' vs robotics_rev +33,6 % ; 'test de puces progresse de 23 %' vs SoC_rev +136,9 %",
+  "correction_validee": "Réécrire sur les derniers trimestres",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "accroche",
+  "probleme": "Le poids de Taïwan cité ne correspond pas aux chiffres de la fiche",
+  "preuve": "'Taiwan concentre désormais 40 à 41% des ventes contre 21% il y a deux ans' ; fiche : 1155/3190 = 36,2 % en 2025 et 385/2676 = 14,4 % en 2023",
+  "correction_validee": "Aligner sur 36 % (2025) contre 14 % (2023), ou préciser la période trimestrielle et sa source",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "top_cust_conc",
+  "probleme": "Signal exagéré et périodicité fausse",
+  "preuve": "Val 19 % mais signal 'Un client direct concentre l'essentiel des ventes' ; donnée annuelle affichée en trimestriel (Q4-2023, Q3-2025)",
+  "correction_validee": "Signal : 'le premier client pèse 19 % des ventes' ; passer en annuel",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "lt_debt_q",
+  "probleme": "Série arrêtée en 2012, contredite par la dette 2025 présente sur la fiche",
+  "preuve": "dernier 2012-12-31 ; signal 'plus de dette LT publiée depuis' vs dette_annuelle 2025=0.2",
+  "correction_validee": "Supprimer la série lt_debt_q.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_margin_q, op_margin_q, net_margin_q",
+  "probleme": "Variation des marges exprimée en % relatif au lieu de points",
+  "preuve": "op_margin 32,9 vs 13,9 : yoy '+136.6%' (au lieu de +19,0 points) ; gross_margin '+4.5%'",
+  "correction_validee": "Afficher les variations en points (+19,0 pts, +2,6 pts, +16,2 pts).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "semi_test_pretax / robotics_pretax / semi_test_rev",
+  "probleme": "Doublons annuel et trimestriel d'un même indicateur ; 'Perte avant impôts' sur des valeurs négatives crée une double négation (yoy -28 % pour une perte qui s'aggrave)",
+  "preuve": "robotics_pretax 2025=-99.4 = somme des trimestres de robotics_pretax_q ; semi_test_pretax 700,7 = somme des trimestres",
+  "correction_validee": "Garder une seule version et nommer 'Résultat avant impôts Robotique'",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SYSTEM_ORDERS_BACKLOG",
+  "probleme": "Carnet de commandes arrêté à 2024 et aucune série de commandes trimestrielles, alors que c'est l'indicateur avancé clé d'un fabricant d'équipements de test",
+  "preuve": "dernier 2024-12-31, val 1162,2 ; aucune série de commandes par trimestre",
+  "correction_validee": "Ajouter les commandes trimestrielles et le carnet 2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "libellés",
+  "probleme": "Pays en anglais et en majuscules, au format de nomenclature brute",
+  "preuve": "'TAIWAN, PROVINCE OF CHINA', 'KOREA, REPUBLIC OF', 'MALAYSIA', 'SINGAPORE'",
+  "correction_validee": "Remplacer par Taïwan, Corée du Sud, Malaisie, Singapour, Philippines, Thaïlande.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Infineon AET acquisition",
+  "probleme": "Description fausse : Infineon est un fabricant de puces, pas un concurrent de Teradyne",
+  "preuve": "'une équipe spécialisée rachetée à un concurrent du secteur des semi-conducteurs'",
+  "correction_validee": "Écrire 'équipe de test rachetée au fabricant de puces Infineon'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

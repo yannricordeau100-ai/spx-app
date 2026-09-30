@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Inventory Days / Book-to-Bill / Free Cash Flow Margin (3 series annuelles sans annee)",
+  "probleme": "Series inventees et lissees, contredites par les chiffres de la fiche, signaux en jargon anglais.",
+  "preuve": "FCF Margin 38,5 ; 32 ; 24,5 ; 20 ; 18,5 alors que fcf_annuel/revenue_annuel donne 2023 = 37,1 %, 2024 = 34,2 %, 2025 = 17,5 %, 2026 = 18,5 % ; Inventory Days 251 alors que bs_inv_days = 175 au 30/06/2026 ; Book-to-Bill 0,55 a 0,95 sans source ; signal « indicateur leading recovery semi-cycle », « differenciant vs peers (ADI, TXN) »",
+  "correction_validee": "Retirer les 3 series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Distributor inventory days (5 points) / Adjusted EBITDA (7 points) / CAHIER_INVENTORY_CHANNEL",
+  "probleme": "Doublons sans etiquette de dist_inv_days, ebitda_ttm et bs_inv_days, avec valeurs contradictoires et un mot anglais.",
+  "preuve": "Distributor inventory days 29,6 ; 17 ; 19 ; 28 ; 26 vs dist_inv_days 43, 40, 37, 29, 27, 28, 26, 25 ; Adjusted EBITDA 986,7 puis 285,8 sans periodes ; CAHIER_INVENTORY_CHANNEL nomme « stocks internes et stocks du canal » mais ne contient que les jours bilan (185 = bs_inv_days Q4-FY2026), signal « after le pic »",
+  "correction_validee": "Retirer les deux series sans etiquette, renommer CAHIER_INVENTORY_CHANNEL « Jours de stock au bilan » et remplacer « after » par « apres ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Moat",
+  "champ": "moat texte",
+  "probleme": "Chiffres contredits par les series du dernier trimestre.",
+  "preuve": "« L analogique gagne 14,9 % et l Europe 10,4 % » ; analog_rev yoy = +29,9 %, europe_rev yoy = +26,2 % au T1 FY2027",
+  "correction_validee": "Mettre a jour avec les variations du T1 FY2027.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "Repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Pourcentages vides alors que la fiche contient les series par zone.",
+  "preuve": "« Asie None ; Ameriques None ; Europe None » ; asia_rev_mix 51,8 %, americas 29,0 %, Europe 19,2 % au T1 FY2027",
+  "correction_validee": "Renseigner FY2026 : Asie 49,9 %, Ameriques 29,5 %, Europe 20,6 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "nongaap_gross_margin / nongaap_op_margin / ebitda_ttm",
+  "probleme": "Series en retard d un trimestre par rapport aux series GAAP.",
+  "preuve": "dernier 2026-03-31 (Q4-FY2026) alors que gaap_gross_margin et op_margin_gaap vont au Q1-FY2027 (2026-06-30)",
+  "correction_validee": "Ajouter le T1 FY2027 depuis le communique de resultats d aout 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "Anti-these",
+  "champ": "att (accroche)",
+  "probleme": "Datation du pic inexacte.",
+  "preuve": "« 35% en dessous du pic atteint deux ans plus tot » ; le pic trimestriel (2 289 M$) est le trimestre clos en juin 2023, soit trois ans avant juin 2026",
+  "correction_validee": "Remplacer « deux ans plus tot » par « trois ans plus tot ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "7 KPI a un seul point (PCIe Gen6 wins, Gen6 revenue, Inventory reduction, Fab 2 savings, compensation savings, Series A preferred, Convertible repayment)",
+  "probleme": "Faits ponctuels presentes comme KPI trimestriels dates 2026-03-28.",
+  "preuve": "n=1 partout ; « Remboursement notes convertibles 1 200 M$ », « Levee actions preferentielles 1 450 M$ »",
+  "correction_validee": "Convertir en stories, retirer des KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "En-tete",
+  "champ": "moat, positions de marche, remuneration",
+  "probleme": "Champs vides visibles.",
+  "preuve": "moat: None ; position de marche 1: None | taille 34.75 | part None ; position 2 : None | taille 85.552",
+  "correction_validee": "Renseigner ou masquer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

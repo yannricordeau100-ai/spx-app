@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "moat.justification_mettrik",
+  "probleme": "Justification = texte de repli de modele qui avoue ne pas pouvoir trancher, contredit par la fiche (30 KPI) ; niveau 'Moyen / hausse' mais tendance_mettrik 'stable' et confiance 'faible'.",
+  "preuve": "'Les elements sont trop minces pour trancher : un seul indicateur, un chiffre d affaires semestriel quasi stable a 0,2 %, et des risques sans evolution notable.'",
+  "correction_validee": "Réécrire la justification sur MARGE_VA (63 %, jamais sous 61,6 % en dix ans), TAUX_INNOV 20 % et ROCE 12,7 % en baisse, et aligner la tendance.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CA_BATIMENT",
+  "probleme": "Doublon annuel exact de CA_BUILDING (semestriel), unite 'M EUR', signal genere par gabarit.",
+  "preuve": "FY2025 = 1 565,1 = H1-2025 800,7 + H2-2025 764,4 ; signal : 'Chiffre d affaires des activites batiment (...) : 1565.1 M EUR en 2025, produit phare de la societe.'",
+  "correction_validee": "Conserver CA_BATIMENT, retirer 'produit phare de la société' du signal et passer l'unité en 'M€'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CA_INDUSTRY.signal",
+  "probleme": "Le signal attribue a Industry 'la plus forte' croissance organique (6,4 %) alors que Semicon affiche +52,7 % avec 'fin du destockage' ; un repli publie de -10,4 % avec +6,4 % organique suppose -17 pts de perimetre/change non expliques (les cessions Metalis/KAN sont attribuees au batiment).",
+  "preuve": "CA_INDUSTRY H1-2026=489,1 vs 546,1 (-10,4 %) ; signal : 'Sa croissance organique de 6,4%, la plus forte des trois segments' ; CA_SEMICON yoy +52,7 %.",
+  "correction_validee": "Verifier les croissances organiques par segment du S1 2026 et expliquer l ecart publie/organique d Industry.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CROIS_ORG (hero)",
+  "probleme": "Le KPI vedette est annuel (-2,5 % FY2025) alors que la these met en avant +5,0 % au S1 2026 : le hero est en retard sur le recit.",
+  "preuve": "hero CROIS_ORG val=-2,5 dernier 2025-12-31 ; these : 'croissance organique de 5,0 %' au premier semestre 2026.",
+  "correction_validee": "Ajouter une serie semestrielle de croissance organique (H1-2026 = 5,0) ou choisir EBITA_TRIM comme hero.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these/att",
+  "champ": "att.resume",
+  "probleme": "Formulation fautive.",
+  "preuve": "'le cout net de sa dette a ete multiplie par 1,6 fois en un an'.",
+  "correction_validee": "Dans att.hook, écrire 'a été multiplié par 1,6 en un an'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description.simple.fr.activity",
+  "probleme": "Phrase marketing sans contenu.",
+  "preuve": "'fournissant des innovations essentielles pour une croissance durable et rentable'.",
+  "correction_validee": "Remplacer par les trois marches et le poids de chacun (batiment 51 %, industrie 35 %, semi-conducteurs 15 %).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune serie de dette nette ni de levier alors que l anti-these repose sur le cout de la dette et que SOLVABILITE cite la dette nette.",
+  "preuve": "SOLVABILITE.signal : 'dette nette de 597 a 981 M€ en un an' ; att : 'cout net de sa dette multiplie par 1,6'.",
+  "correction_validee": "Ajouter 'Dette nette' (M€, annuel) et 'Levier dette nette/EBITDA'.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,132 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "op_income, net_income, eps_diluted (Q2-2026)",
+  "probleme": "La valeur du T2-2026 est un cumul sur 6 mois, pas un trimestre, d'où un doublement factice. De plus, la variation affichée est celle du T1.",
+  "preuve": "op_income Q2-2026=2560 (1135+1425), net_income 1877, BPA 4,11 contre 1,71 au T1 ; op_margin 9,6 % ; yoy -22,9 % = 1135/1472 (T1)",
+  "correction_validee": "Retrancher le T1 (résultat op. environ 1425, net environ 1096, BPA environ 2,40) et recalculer marges et variations.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "shares_diluted",
+  "probleme": "Nombre d'actions négatif au T4",
+  "preuve": "Q4-2024=-927.1, Q4-2025=-911.6",
+  "correction_validee": "Supprimer ou recalculer les deux points T4.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Merchandise_Sales_By_Category_* (6 KPI)",
+  "probleme": "Ventes annuelles par catégorie incompatibles avec les séries trimestrielles de la fiche ; noms techniques, unité en anglais, signal de cuisine interne",
+  "preuve": "Habillement annuel 22,1 Mds vs somme des trimestres de l'exercice 2025 : 15,7 ; Beauté 8,9 vs 13,2 ; Alimentaire 25,7 vs 24,1 ; unité 'billions USD', signal 'revenue_performance_by_category'",
+  "correction_validee": "Supprimer les 6 séries Merchandise_Sales_By_Category_*.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "supply_chain_cost",
+  "probleme": "Saut d'échelle d'environ 7,6 fois entre 2023 et 2024 : deux périmètres différents sont mélangés",
+  "preuve": "FY2023=980, FY2024=7450, FY2025=7531 ; signal franglais 'stores fulfillent 97.6%'",
+  "correction_validee": "Couper la série avant 2024 (ou recaler l'historique) et réécrire le signal en français.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux de 18 KPI trimestriels (gross_margin, *_sales, revenue, eps, dps, op_income, sga, inventory...)",
+  "probleme": "Signaux restés au T1-2026 alors que la valeur affichée est celle du T2-2026 ; variations annuelles calculées sur le T1",
+  "preuve": "revenue val 26,5 mais signal 'CA 25.4 Mds $ en Q1-2026' ; yoy +6,7 % = 25,4/23,8 (T1) ; advertising 279, yoy +50,9 % = 246/163 (T1) ; eps signal '1.71$ en Q1-2026, source'",
+  "correction_validee": "Régénérer signaux et variations sur le T2-2026 (après correction du cumul du #28).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Nombre de magasins (store_count, Store Count, Stores, 2,000th store)",
+  "probleme": "Quatre indicateurs du parc avec quatre valeurs différentes",
+  "preuve": "1995 (FY2025), 1978, 1990, 2000",
+  "correction_validee": "Garder store_count, supprimer 'Store Count' et 'Stores', conserver le jalon du 2000e magasin.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Ventes digitales (digital_comp, Digital Comparable Growth, Digitally originated comparable sales growth, Digital Sales Growth, digital_mix, CAHIER_ECOM_PEN, Digital Sales)",
+  "probleme": "Sept séries redondantes, dont plusieurs invraisemblables",
+  "preuve": "digital_mix FY2021=8, FY2022=3, FY2023=5 alors que CAHIER_ECOM_PEN donne 18,9, 18,6, 18,3 ; Digital Comparable Growth 145 % ; digital_comp val 8,7 alors que le dernier point vaut 3,1",
+  "correction_validee": "Garder les ventes comparables digitales trimestrielles et la part digitale (CAHIER_ECOM_PEN), supprimer le reste",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "owned_brands_pct / Owned Brand Penetration / Owned brands portfolio",
+  "probleme": "Doublons, dont une valeur absurde",
+  "preuve": "owned_brands_pct FY2024=1 puis FY2025=30 ; Owned Brand Penetration 32",
+  "correction_validee": "Garder une seule série et corriger FY2024",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "employees / effectifs_annuels ; GROUP_REVENUE / revenue_annuel",
+  "probleme": "Doublons avec des années décalées et des valeurs contradictoires",
+  "preuve": "employees FY2025=440000 vs effectifs 2026=415000 et 2024=415000 ; GROUP_REVENUE FY2025=106566 = revenue_annuel 2025 (exercice clos en janvier 2025), alors que l'exercice 2025 des trimestres vaut 104,8 ; signal 'Produit phare : Good & Gather'",
+  "correction_validee": "Supprimer employees et GROUP_REVENUE.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Comparable sales growth / Comparable traffic",
+  "probleme": "Ventes comparables trimestrielles non mises à jour au T2 alors que la thèse cite le T2 ; séries sans dates",
+  "preuve": "val 5,6 (T1) ; thèse 'ventes comparables en hausse de 3,8 %' au trimestre clos le 1er août 2026",
+  "correction_validee": "Ajouter le T2 (3,8 %) et dater les points",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "repartition",
+  "probleme": "Répartition vide alors que les ventes par catégorie existent sur la fiche",
+  "preuve": "Toutes les catégories à None",
+  "correction_validee": "Calculer la répartition sur l'exercice 2025 à partir des séries trimestrielles par catégorie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux et notes en franglais",
+  "probleme": "Textes en anglais ou en franglais",
+  "preuve": "'fulfillées en same-day (Order Pickup/Drive Up/Delivery)', 'Recovery progressif post-2023 decline. Discretionary toujours sous pression', 'Marges premium', 'paid loyalty'",
+  "correction_validee": "Réécrire en français",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Eras Tour book, Houston receive center, Beauty Studio rollout, charges ponctuelles",
+  "probleme": "Anecdotes et charges exceptionnelles présentées comme des KPI, sans intérêt pour le suivi",
+  "preuve": "'Ventes livre Eras Tour 1 M exemplaires', 'Capacité centre de réception Houston'",
+  "correction_validee": "Supprimer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

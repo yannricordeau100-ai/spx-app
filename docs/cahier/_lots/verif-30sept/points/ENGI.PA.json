@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Renewables, Networks EBITDA, GEMS EBIT, Flex Gen EBIT, Energy Solutions Rev, Retail EBIT, EBITDA ex Nuclear",
+  "probleme": "Sept series sans periodes, chiffres ronds, arretees en 2024, en franglais telegraphique, contredites par les series sourcees",
+  "preuve": "Renewables serie 33, 38, 42, 46 (fin 2024) alors que RENCAP_FY FY2025=50 ; Networks EBITDA 3800, 3950 ; GEMS EBIT 1800, 2900 ; descriptions « Timing effect favorable », « Backlog French concessions €21.5Md », « CCGT + thermique + hydro » ; dernier 2026-08-05 sans periode ; segmentation GEMS/Flex Gen/Energy Solutions abandonnee (SEG_* utilise Renewables & Flex Power, Infrastructures, Supply & Energy Management).",
+  "correction_validee": "Retirer les sept KPI Renewables, Networks EBITDA, GEMS EBIT, Flex Gen EBIT, Energy Solutions Rev, Retail EBIT et EBITDA ex Nuclear.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition du CA sur l ancienne segmentation, incoherente avec les KPI de segments",
+  "preuve": "« Autres, dont GEMS 43.6 ; Retail 19.1 ; Energy Solutions 13.3 ; Infrastructures 9.8 ; Renouvelables 7.4 ; FlexGen 6.7 ; Nucléaire 0.1 » alors que SEG_SEM_REV = 58 % du CA, SEG_RFP_REV = 13 %, SEG_NUC_REV = 0,614 Md € au S1 2026 (1,7 %). Un poste « Autres » a 43,6 % n est pas lisible.",
+  "correction_validee": "Refaire la répartition FY2025 sur les segments actuels (Supply & Energy Management, Infrastructures, Renewables & Flex Power, Nucléaire, Autres) depuis le document d'enregistrement universel 2025, sinon utiliser le S1 2026 des SEG_*_REV en précisant la période.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "rab_gaz_france_total, rab_distribution_grdf, rab_transport_grtgaz, rab_stockage",
+  "probleme": "Quatre KPI sans nom anglais, sans signal, sans description, yoy vide, nom contenant la formule de calcul",
+  "preuve": "name_en vide ; signal vide ; yoy=None ; nom « Base d'actifs régulée gaz France, total (somme distribution, transport, stockage, autres) » ; total 2025=32.1 identique a 2024=32.1.",
+  "correction_validee": "Completer nom anglais, signal, description et yoy ; retirer la parenthese de calcul du nom ; verifier la valeur 2025 du total.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "GEO_FR_EBIT, GEO_EUR_EBIT, GEO_LATAM_EBIT, GEO_USCA_EBIT, GEO_MEA_EBIT, GEO_OTHER_EBIT, BACKLOG_FY",
+  "probleme": "Series arretees au S1 2025 (geographie) et fin 2024 (carnet) alors que les segments vont au S1 2026",
+  "preuve": "GEO_*_EBIT : n=2, dernier 2025-06-30 ; BACKLOG_FY : FY2023=21.3, FY2024=21.5, dernier 2024-12-31 ; SEG_*_EBIT vont jusqu a H1-2026.",
+  "correction_validee": "Ajouter le S1 2026 pour les six zones et l exercice 2025 pour le carnet, ou retirer les series.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.simple.fr",
+  "probleme": "Description inexacte : ENGIE ne gere pas l eau, et coquille de ponctuation",
+  "preuve": "products : « les services de gestion de l'eau » ; customers : « les gouvernements.,' »",
+  "correction_validee": "Remplacer par reseaux gaz et electricite, renouvelables, vente d energie, gestion d energie ; corriger « .,' ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.niveau / justification",
+  "probleme": "Moat « Aucun » contredit la these (67 % du resultat regule ou contracte, reseaux gaz France avec 32 Mds € de base regulee, UK Power Networks)",
+  "preuve": "moat : « sur une position sans avantage établi » ; these : « la part de son résultat opérationnel régulée ou contractée à long terme est passée de 42 % à un objectif de 67 % » ; rab_gaz_france_total 2025=32.1 Mds €.",
+  "correction_validee": "Reevaluer le niveau du moat a la lumiere des actifs regules ou aligner la these.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

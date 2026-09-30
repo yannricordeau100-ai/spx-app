@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "QTL Revenue",
+  "probleme": "La série n'est pas le chiffre d'affaires QTL mais le chiffre d'affaires total du groupe en dollars, avec des trimestres manquants",
+  "preuve": "Q4 2023=9935000000, Q4 2024=11669000000, Q1 2026=10599000000 = Total Revenue Q1-2025=11.669 et Q2-2026=10.599 Mds $ ; pas de Q3 ; val=5.6 sans rapport ; QTL Licensing Rev existe déjà (1278 M$ au T3 FY2026)",
+  "correction_validee": "Supprimer QTL Revenue, QTL Licensing Rev couvre le sujet.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "QCT Revenue, Handsets Revenue, Automotive Revenue, IoT Revenue, R&D / Revenue",
+  "probleme": "Cinq séries annuelles sans années, arrêtées à l'exercice 2024, datées 2026-08-05, alors que l'exercice 2025 est calculable depuis les séries trimestrielles ; valeur QCT différente du dernier point",
+  "preuve": "Handsets Revenue dernier 24.863 = FY2024, or Q1+Q2+Q3+Q4 FY2025 de QCT Handsets Rev = 7574+6929+6328+6962 = 27793 ; IoT 5.423 alors que FY2025 = 6617 ; Automotive 2.91 alors que FY2025 = 3957 ; QCT Revenue val=37 mais dernier point 32.1 ; description : Mobile handsets (75%), Auto (8%), IoT (17%)",
+  "correction_validee": "Supprimer les cinq séries (les trimestrielles QCT couvrent tout), ou les prolonger à FY2025 avec périodes et valeur corrigée.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "L'effectif s'arrête en 2022 et les trois ratios par salarié aussi, alors que CA, FCF et dette vont jusqu'à FY2025",
+  "preuve": "effectifs_annuels dernier 2022-11-02 val=51000 ; ca_par_salarie serie 2016..2022 mais dernier 2025-09-28",
+  "correction_validee": "Ajouter les effectifs FY2023 à FY2025 (10-K) et recalculer les ratios",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_ASP_VOLUMES",
+  "probleme": "Nom qui annonce prix moyen et volumes alors que la série ne contient que des unités, arrêtée en 2020",
+  "preuve": "Prix moyen de vente et volumes expédiés | millions d'unites | dernier 2020-12-31 | FY2011=483 ... FY2020=575",
+  "correction_validee": "Renommer Volumes de puces MSM expédiés et indiquer que la publication s'arrête en 2020, ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "QCT Handsets Rev.signal",
+  "probleme": "Signal du KPI hero contredit par la série : il parle de prix moyens en hausse alors que les revenus reculent de 20 %",
+  "preuve": "signal : Snapdragon premium Android + ASP en hausse, mais risque Apple modem interne croissant ; serie Q3-2026=5086, yoy=-19.6%",
+  "correction_validee": "Réécrire : revenus terminaux 5 086 M$ au T3 FY2026, -20 % sur un an, ajustement des stocks OEM et retrait progressif d'Apple",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Humane data center engagement with target deployment of 200 megawatts",
+  "probleme": "Nom du client faux",
+  "preuve": "KPI Humane data center engagement ... 200 MW ; le partenaire de Qualcomm pour 200 MW de centres de données IA est Humain (Arabie saoudite), pas Humane",
+  "correction_validee": "Remplacer Humane par Humain dans le nom et le signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Répartition géographique affichée avec quatre zones sans aucune valeur",
+  "preuve": "revenue_by_geography (None): Chine (incluant Hong Kong) None ; États-Unis None ; Corée du Sud None ; Autres pays étrangers None ; pourtant China Revenue Share FY2025=46",
+  "correction_validee": "Renseigner les parts FY2025 depuis le 10-K (Chine 46 %) ou masquer le bloc",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "China Revenue Share, QCT RF front-end revenue",
+  "probleme": "Dates de dernier point incompatibles avec l'exercice Qualcomm (clos fin septembre) ou avec la série",
+  "preuve": "China Revenue Share year dernier 2025-12-31 (exercice clos 2025-09-28) ; QCT RF front-end revenue dernier 2026-08-05 alors que le signal dit publié séparément jusqu'au T3-exercice 2022 et que les points ne sont pas datés",
+  "correction_validee": "Corriger les dates (2025-09-28 ; 2022-06) et dater les points RF, ou retirer la série RF",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

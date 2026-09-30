@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Ticketmaster fee-bearing GTV",
+  "probleme": "KPI de transcript contradictoire avec la série principale et signal faux.",
+  "preuve": "Série 28, 36, 26, val 26 Mds $, yoy « +9 % » (26 < 36) ; fee_bearing_gtv FY2025 = 37,1 Mds $. Signal : « taille du marché adressé » (le GTV est la valeur des billets vendus par Ticketmaster, pas un marché).",
+  "correction_validee": "Supprimer ce KPI et garder fee_bearing_gtv.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Concerts fan attendance (transcript)",
+  "probleme": "Série qui mélange des totaux annuels et des trimestres, en doublon de fan_attendance.",
+  "preuve": "Série 24, 151, 51, 159, 24, 49 : 151 et 159 = fréquentation annuelle 2024 et 2025 (fan_attendance cumulé = 151,0 et 159,2), les autres = trimestres.",
+  "correction_validee": "Supprimer ce KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Ticketmaster fee-bearing tickets (transcript)",
+  "probleme": "Même défaut : annuel et trimestriel mélangés, et valeur du T2-2026 différente de la série principale à la même date.",
+  "preuve": "Série 77, 78, 329, 78, 83, 89, 346, 81 ; val 81 M au 2026-06-30 contre fee_bearing_tickets Q2-2026 = 90,05 M ; 329 et 346 = totaux 2024 et 2025.",
+  "correction_validee": "Supprimer ce KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "event_deferred_revenue, Event-related deferred revenue",
+  "probleme": "Deux « produits différés » à la même date avec deux valeurs, sans que la différence de périmètre soit expliquée.",
+  "preuve": "event_deferred_revenue (bilan) T2-2026 = 7 334,5 M$ ; « Event-related deferred revenue » = 6,4 Mds $, série sans libellés 4.4, 3.3, 5.4, 3.5, 4, 6.6, 6.4 ; la thèse cite 6,4 Mds $.",
+  "correction_validee": "Renommer le premier « Produits différés totaux (bilan) » et le second « Produits différés liés aux événements (billetterie à venir) », libeller les trimestres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_BILLETS_VENDUS",
+  "probleme": "Nom trompeur : la série est celle des billets facturables, pas des billets vendus, et il n y a aucun taux de remplissage.",
+  "preuve": "name_fr « Billets vendus et taux de remplissage », FY2025 = 345,987 M = fee_bearing_tickets 2025 cumulé (346,0) ; total des billets 2025 = 646 M (« 646 millions de billets distribués »).",
+  "correction_validee": "Renommer « Billets facturables Ticketmaster (annuel) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Les pourcentages du moat viennent des KPI de transcript corrompus et ne correspondent à aucune période des séries principales.",
+  "preuve": "Moat : « La fréquentation gagne 7 %, les billets facturés 4 % ». fan_attendance T2-2026 +10 %, FY2025 +5,4 % ; fee_bearing_tickets T2-2026 +8 %, FY2025 +4,7 %. Les « +7 % » et « +4 % » sont les yoy des KPI transcript à supprimer.",
+  "correction_validee": "Réécrire avec les séries principales en datant la période.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Répartition sans exercice, incompatible avec la part internationale 2025 de la fiche.",
+  "preuve": "« Amérique du Nord 66,1 ; Autres régions 33,9 » (exercice None) ; foreign_revenue_share FY2025 = 43,1 % hors États-Unis, donc États-Unis seuls = 56,9 %.",
+  "correction_validee": "Indiquer l exercice et recalculer sur 2025.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "amphitheater_onsite_spend.signal, fee_bearing_gtv.signal",
+  "probleme": "Signaux télégraphiques en franglais.",
+  "preuve": "« Revenus ancillaires amphithéâtres US >$45/fan; croissance monétisation venue » ; « Record; Q4 2025 = plus haut trimestre historique pour ventes et GTV ».",
+  "correction_validee": "Réécrire en phrases : « 45 $ dépensés sur place par spectateur dans les amphithéâtres américains en 2025, contre 41 $ en 2023 ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "High-risk accounts canceled, Venue investment return, 2026 global stadium shows pre-booked",
+  "probleme": "Unités bricolées pour faire entrer des faits de transcript dans un format KPI.",
+  "preuve": "Unités « M+ comptes » (val 1), « %+ » (val 20), « % (40-50%) » (val 45).",
+  "correction_validee": "Déplacer ces faits dans la thèse ou l anti-thèse, retirer les KPI.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

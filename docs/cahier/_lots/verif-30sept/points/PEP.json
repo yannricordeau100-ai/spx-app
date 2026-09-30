@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "International Revenue / International business revenue scale / these",
+  "probleme": "Trois montants pour le CA international : 29,3 Mds $ (KPI annuel sans periodes), 38 Mds $ (these) et 40 Mds $ (KPI point unique).",
+  "preuve": "International Revenue val=29.3 ; these « 38 Mds $ de chiffre d'affaires » ; International business revenue scale val=40",
+  "correction_validee": "Garder une seule definition (segments hors Amerique du Nord, environ 38 Mds $ en 2025) et supprimer les deux KPI discordants.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Convenient Foods Volume / Beverages Volume / Productivity Savings",
+  "probleme": "KPI annuels sans periodes ni signal, dates au 2026-06-13, dont les valeurs contredisent ORGANIC_VOLUME_GROWTH et les series trimestrielles (volume snacks +2 puis -1,5 alors que le volume total est a -3, -2, -2).",
+  "preuve": "Convenient Foods Volume serie: 3, 3, 1, 2, -1.5 ; ORGANIC_VOLUME_GROWTH FY2023=-3, FY2024=-2, FY2025=-2 ; Productivity Savings 1 x5",
+  "correction_validee": "Supprimer « Convenient Foods Volume » et « Beverages Volume » (series sans dates), Productivity Savings etant deja traite.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "IB_org / LatAm_org / APAC_org / eps_dil (yoy)",
+  "probleme": "Variations annuelles fausses : un taux de croissance compare en % au lieu de points, un BPA compare en points.",
+  "preuve": "IB_org 5 -> 9 affiche +80% ; LatAm_org 6 -> 4 affiche -33.3% ; APAC_org 0 -> 9 affiche -1.5pp ; eps_dil 0.92 -> 2.18 affiche +1.3pp",
+  "correction_validee": "IB_org +4 pts, LatAm_org -2 pts, APAC_org +9 pts, eps_dil +137 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux (eps_dil, rev_total, net_income, marges, capex, ocf, fcf, buybacks, debt_total, inventory, *_op, div_ps)",
+  "probleme": "Marque interne de periode collee en fin de signal (« T3 2026. », « Note segments T3 2026. », « exercice 2026-02-03. ») alors que les donnees sont du T2 2026.",
+  "preuve": "rev_total signal: « ...porté par pricing et acquisitions (poppi). T3 2026. » ; PFNA_op: « (12 semaines). Note segments T3 2026. »",
+  "correction_validee": "Retirer ces suffixes de tous les signaux concernes.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PFNA_rev / PFNA_org / Convenient Foods organic volume",
+  "probleme": "Serie PFNA_org lissee (-2 repete cinq fois) et signal « volumes stables » contredit par le volume snacks +4 % le meme trimestre ; le signal du volume snacks parle du T1 2026 alors que le rebond est au dernier point (T2).",
+  "preuve": "PFNA_org: -2,-2,-2,-2,-3,-1,1,-2 ; Convenient Foods organic volume: ...,-1,-2,4 ; signal « redevenu positif au Q1-2026 »",
+  "correction_validee": "Reverifier PFNA_org dans les communiques trimestriels et aligner les deux signaux sur le T2 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_dil.signal / Rockstar brand impairment",
+  "probleme": "Deux montants pour la depreciation Rockstar : 1,86 Md$ dans le signal du BPA, 1,78 Md$ dans le KPI dedie.",
+  "preuve": "eps_dil: « dépréciation Rockstar de 1,86 Md$ » ; Rockstar brand impairment val=1.78",
+  "correction_validee": "Retenir le montant du 10-K et corriger l'autre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Libelles bruts non traduits ou de cuisine interne : « Latin America (Segment) », « All Other Countries », « Russia », « BRAZIL », « SOUTH AFRICA » ; les noms de segments ne correspondent pas aux noms des KPI (EMEA, LatAm Foods, APAC Foods).",
+  "preuve": "revenue_by_segment: « Latin America (Segment) 11.2 » ; revenue_by_geography: « BRAZIL 1.9 ; SOUTH AFRICA 1.9 ; Russia 5.1 »",
+  "correction_validee": "Traduire : Amerique latine, Autres pays, Russie, Bresil, Afrique du Sud, et retirer « (Segment) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CA_FLNA",
+  "probleme": "Serie arretee en 2024 (segment renomme PFNA en 2025) alors que PFNA_rev couvre 2025-2026 ; nom de division perime affiche a cote du nouveau.",
+  "preuve": "CA_FLNA dernier 2024-12-31, FY2024=24755 ; PFNA_rev jusqu'a Q2-2026",
+  "correction_validee": "Supprimer CA_FLNA ou le prolonger avec le perimetre PFNA en le signalant.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

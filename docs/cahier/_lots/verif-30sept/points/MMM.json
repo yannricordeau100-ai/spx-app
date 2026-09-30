@@ -1,0 +1,132 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Safety & Industrial, Transport & Electronics",
+  "probleme": "Séries entières aberrantes, à retirer (pas seulement un saut)",
+  "preuve": "S&I 0.01, 0.04, 11.98, 0.09, 0.01, 0.07, 0.01 Mds $ ; SI_rev 2025 = 11 384 M ; T&E 2.01..0.01 vs TE 2025 = 8 272 M",
+  "correction_validee": "Supprimer les KPI 'Safety & Industrial' et 'Transport & Electronics'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Transportation Electr.",
+  "probleme": "Série sans périodes contredite par TE_rev",
+  "preuve": "8.35, 9.27, 9.1, 8.16, 7.9 ; somme TE_rev 2025 = 8.272",
+  "correction_validee": "Supprimer 'Transportation Electr.'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Health Care",
+  "probleme": "Segment scindé (Solventum, avril 2024) présenté comme actif en 2026",
+  "preuve": "'CA Health Care' 7.72..8.4 Mds $, dernier 2026-06-30",
+  "correction_validee": "Supprimer 'Health Care'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PFAS legal reserve",
+  "probleme": "Série contredite par l'anti-thèse et sans périodes",
+  "preuve": "0, 0, 1, 12.5, 12.5 Mds $ ; att : 9,8 Mds $ de provisions au 30 juin 2026 ; 12,5 = plafond du règlement PWS",
+  "correction_validee": "Supprimer 'PFAS legal reserve'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Consumer",
+  "probleme": "Doublon périmé de CA_GRAND_PUBLIC",
+  "preuve": "5.29, 5.03, 4.93 daté 2026-06-30 ; CA_GRAND_PUBLIC FY2025=4920",
+  "correction_validee": "Supprimer 'Consumer'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel",
+  "probleme": "Série mêle périmètre avec et sans Health Care",
+  "preuve": "2021=35.355, 2022=26.161 ; effectifs 2023=85000 -> 2024=61500 ; signal '−2,1 % par an depuis 2016'",
+  "correction_validee": "Couper la série à 2022 (ou retraiter 2018-2021 hors Health Care) et recalculer la croissance annuelle moyenne.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_NEW_PRODUCT_VITALITY",
+  "probleme": "Série arrêtée en 2016",
+  "preuve": "n=7, FY2010..FY2016, dernier 2016-12-31",
+  "correction_validee": "Retirer ou remplacer par 'Sales from products launched in last five years'",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SEGMENT_CAPEX, CAHIER_ORGANIC_GROWTH_SEGMENT, CAHIER_SEGMENT_MARGIN",
+  "probleme": "Noms 'par segment' pour des séries uniques",
+  "preuve": "Capex 'par segment' = S&I seul (signal) ; croissance et marge 'par segment' = totaux groupe",
+  "correction_validee": "Renommer : Capex Sécurité et Industrie ; Croissance organique du groupe ; Marge opérationnelle ajustée du groupe.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "lt_debt",
+  "probleme": "Signal contredit par la thèse et par le yoy",
+  "preuve": "signal 'absence de nouvelle émission' ; yoy=-12.7% ; these : 'en août puis en septembre 2026, ses prêteurs obligataires lui ont renouvelé leur confiance pour cinq et huit ans'",
+  "correction_validee": "Réécrire le signal avec le désendettement et l'émission de septembre 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "New product launches",
+  "probleme": "Série mêle annuel et trimestriel",
+  "preuve": "169, 64, 284, 84 'produits/trimestre' ; 169 et 284 = totaux annuels 2024 et 2025, yoy +35% faux (84/64 = +31 %)",
+  "correction_validee": "Garder les valeurs annuelles avec périodes",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "total_revenue, unités en prose",
+  "probleme": "Signal vide et unités contenant des phrases ou anglicismes",
+  "preuve": "total_revenue signal 'Historique disponible' ; 'B USD max (fourchette 10.5-12.5)', 'usines (sous la barre)', 'M USD sur objectif 100 M USD (3 ans)', 'B USD cumulé fin 2025'",
+  "correction_validee": "Signal réel (6,5 Mds $ au T2 2026, +2,5 % sur un an) ; unités Mds $, usines, M $, Mds $ avec le contexte déplacé dans le signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks",
+  "champ": "risque 3",
+  "probleme": "Risque périmé",
+  "preuve": "'Spin-off Solventum (Health Care) et exécution' ; scission réalisée en avril 2024",
+  "correction_validee": "Retirer ou remplacer par la cession de la participation résiduelle",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Dépenses de R&D absentes pour un industriel dont c'est l'identité",
+  "preuve": "Aucun KPI R&D (3M publie ~1 Md $ par an)",
+  "correction_validee": "Ajouter R&D trimestrielle ou annuelle et son poids en % du CA",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

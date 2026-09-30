@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "EDP Sales, Specialized Nutrition Sales, Waters Sales, EDP Revenue, Specialized Nutrition Revenue, Waters Revenue",
+  "probleme": "Six series annuelles anglaises non datees aux valeurs inventees, contredites par les series sourcees et entre elles.",
+  "preuve": "EDP Sales 14.2 Mds € et EDP Revenue 13 800 M€ vs EDP_REV_FY 2025 = 13 158 ; Specialized Nutrition Sales 8.6 et Specialized Nutrition Revenue 8 500 vs 9 277 M€ (repartition 34 %, SN_REV_Q 2025 = 9 284) ; Waters Sales 4.6 et Waters Revenue 5 000 vs 4 848 ; signaux 'Pivot premium réussi, Chine stabilisée', '~52% ventes'",
+  "correction_validee": "Supprimer les six series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Like-for-like Volume Growth / Volume Growth",
+  "probleme": "Deux series de volume non datees, fausses et divergentes, doublons de VOL_MIX_LFL.",
+  "preuve": "Like-for-like Volume Growth -1.5, 0.5, 1.8, 2.5, 3 ; Volume Growth -1.5, -2, -1, 1.5, 2.5 ; VOL_MIX_LFL FY2023 = -0.4, FY2024 = 3, FY2025 = 2.7",
+  "correction_validee": "Supprimer Like-for-like Volume Growth et Volume Growth.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WEB_* (13 KPI)",
+  "probleme": "Chiffres de communication institutionnelle sans serie presentes comme KPI.",
+  "preuve": "'Ménages français avec un produit Danone au réfrigérateur 93 %', 'Personnes impactées chaque jour via Danone Communities 16 millions', 'Part des effectifs Danone dans le mouvement B Corp mondial 9 %', history [] pour les 13, dates 2026-08-05",
+  "correction_validee": "Retirer du bloc KPI (ou les cantonner a un encart 'chiffres cles institutionnels') si affiches.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "croissance organique trimestrielle et marge brute (absentes)",
+  "probleme": "Le premier indicateur suivi sur Danone (croissance en comparable par trimestre) n'existe qu'en annuel, et aucune marge brute n'est affichee.",
+  "preuve": "LFL_GROWTH year seulement ; l'organique trimestriel n'apparait que dans les signaux ('7 215 M€ au T2 2026, +4,2% en organique')",
+  "correction_validee": "Ajouter la croissance en comparable trimestrielle (groupe et par categorie) et la marge brute annuelle.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_FIN_DEBT.signal",
+  "probleme": "Ratio cite non publie par Danone et incoherent avec les chiffres de la fiche.",
+  "preuve": "'ratio dette nette / EBITDA à 2,0x' ; ROC 3 665 M€ plus environ 1,3 Md€ d'amortissements donne un EBITDA proche de 5 Mds € ; 8 059 / 5 000 = 1,6x",
+  "correction_validee": "Verifier la source du 2,0x ou retirer le ratio.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "VOL_MIX_LFL (name_fr)",
+  "probleme": "Nom inexact pour ce que mesure la serie.",
+  "preuve": "name_fr 'Croissance du volume' alors que le signal dit 'Volume-mix en hausse de 2,7 %' (Danone publie volume/mix)",
+  "correction_validee": "Renommer 'Effet volume-mix'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORGANIC_GROWTH.yoy / EDP_REV_FY.signal",
+  "probleme": "Yoy relatif sur un taux et signal generique sans separateur.",
+  "preuve": "yoy '+4.7%' pour 4.3 -> 4.5 ; signal '13158 M€ en 2025, produit phare de la société'",
+  "correction_validee": "yoy '+0,2 pt' ; signal '13 158 M€ en 2025, première catégorie du groupe (48 % des ventes)'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "label",
+  "probleme": "Exercice absent du libelle et accent manquant.",
+  "preuve": "label 'Repartition du chiffre d'affaires par catégorie' sans annee alors que les chiffres sont ceux de 2025 (total 27,283)",
+  "correction_validee": "'Répartition du chiffre d'affaires par catégorie (exercice 2025)'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks",
+  "champ": "risque 1",
+  "probleme": "Accents manquants.",
+  "preuve": "'les 5 premiers marches de Danone (États-Unis, Chine, France, Indonesie, Mexique) représentaient 51% du chiffre d'affaires consolide'",
+  "correction_validee": "Corriger en 'marchés', 'Indonésie', 'consolidé'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "PPA backlog (signed contracts not yet operational), Backlog Signed PPAs, Renewables Backlog",
+  "probleme": "Cinq séries de backlog dont une mal datée (copie décalée d'un trimestre) et deux sans dates",
+  "preuve": "« PPA backlog » daté 2026-06-30 : 11.9, 12.3, 12.7, 12.6, 12.7, 11.9, 11.7, 12, 11.1 = renewables_backlog_gw Q4-2023 → Q3-2025 (dont le vrai dernier point Q4-2025 = 12) ; « Backlog Signed PPAs » 11,7 et « Renewables Backlog » 5 → 12 sans dates ; CAHIER_CONSTRUCTION_PIPELINE 12",
+  "correction_validee": "Retirer PPA backlog, Backlog Signed PPAs et Renewables Backlog ; garder renewables_backlog_gw.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Data Center PPA Capacity, Data Center Demand Signed, Signed data center load agreements at AES Ohio",
+  "probleme": "Quatre chiffres contradictoires pour la capacité contractée avec les data centers, plus un doublon exact",
+  "preuve": "backlog_hyperscaler_gw 4 GW (Q3-2025) ; « Agreements signed with data center/technology customers » 8,1 GW ; « Data Center PPA Capacity » 7,5 GW et « Data Center Demand Signed » 4,4 GW sans dates ; « Signed data center load agreements at AES Ohio » 2,1 GW = datacenter_load_signed_gw 2,1 GW",
+  "correction_validee": "Retirer Data Center PPA Capacity, Data Center Demand Signed et Signed data center load agreements at AES Ohio.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Renewable Capacity Online, Renewables Share, Operating Capacity, Adjusted EBITDA, US Utilities Rate Base, Fluence Sales, Coal MW Retired",
+  "probleme": "Bloc de séries sans dates, contradictoires ou hors périmètre",
+  "preuve": "Renouvelable 2025 : 18,6 GW (« Renewable Capacity Online ») vs 57 % × 34,74 = 19,8 GW (« Renewables Share ») vs 17 836 MW (renewables_sbu_capacity_mw) ; « Operating Capacity » = CAHIER_INSTALLED_CAPACITY ; « Adjusted EBITDA » 2,84 vs ebitda_aj_total FY2025 = 2,89 ; « Fluence Sales » = société cotée déconsolidée ; « Coal MW Retired » nom en MW, unité GW ; signaux « Leader storage US », « Build-out solar+storage »",
+  "correction_validee": "Retirer les sept KPI listés.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "renewables_sbu_capacity_mw",
+  "probleme": "Variation inexpliquée de −18 % puis +35 % sur une capacité installée",
+  "preuve": "FY2023 16 211 → FY2024 13 229 → FY2025 17 836 MW ; signal muet sur la cause (cession du Brésil ? reclassement ?)",
+  "correction_validee": "Vérifier le périmètre dans les 10-K 2024 et 2025, expliquer dans le signal ou corriger",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "coal_fleet_pct, capacite_charbon_mw",
+  "probleme": "Part du charbon incohérente avec les capacités affichées",
+  "preuve": "coal_fleet_pct FY2025 = 15 % et signal capacite_charbon_mw « 3 564 MW de charbon fin 2025, soit environ 15% du parc » ; 3 564 / 34 740 (CAHIER_INSTALLED_CAPACITY) = 10,3 %",
+  "correction_validee": "Vérifier la base (capacité brute ou proportionnelle) et aligner les deux KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "yoy (n/a, % relatifs, bases négatives)",
+  "probleme": "yoy absents alors que N-1 existe, et yoy relatifs absurdes sur des marges ou des bases négatives",
+  "preuve": "renewables_sbu_capacity_mw yoy « n/a » (13 229 → 17 836 = +34,8 %), aes_clean_energy_us_mw n/a (+22,8 %), utility_gwh_sold n/a (+7,3 %), coal_fleet_pct, renewables_backlog_gw n/a ; marge_nette_pct « +474,1 % », marge_brute_pct « +27,4 % » (= +4,3 pts), bpa_dilue « +500 % » (0,60 vs −0,15), resultat_net_part_groupe « +548,4 % », obligations_contractuelles « +3585,7 % »",
+  "correction_validee": "Calculer les yoy manquants, exprimer les marges en points et afficher « n.s. » sur base négative ou quasi nulle.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs",
+  "probleme": "Doublon exact d'effectifs_annuels, avec unité et trous",
+  "preuve": "effectifs unité « k », 8,336, périodes FY2020, FY2021, FY2024, FY2025 ; effectifs_annuels 8 336 salariés, 2020-2025 complet",
+  "correction_validee": "Retirer « effectifs ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "base_actifs_regules",
+  "probleme": "Nom trompeur : « Regulatory Assets » (coûts différés comptables) présenté comme actifs régulés, confondu avec la base tarifaire",
+  "preuve": "name_fr « Actifs régulés (utilities américaines) », 1,00 Md$ ; « US Utilities Rate Base » sur la même fiche = 12,5 Mds $ ; signal « 1,00 Md$ d'actifs régulés … (AES Indiana et AES Ohio) »",
+  "correction_validee": "Renommer « Actifs réglementaires (coûts à récupérer) » ou retirer et sourcer la base tarifaire des utilities",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "new_capacity_built_2025, new_ppas_signed_2025",
+  "probleme": "Noms figés sur 2025 pour des séries annuelles 2018-2025, et doublons avec les séries transcript",
+  "preuve": "« Nouvelle capacité construite en 2025 (YTD cumulé) » série FY2018 = 1,3 … FY2025 = 3,2 ; « Nouveaux PPAs signés en 2025 (YTD cumulé) » FY2018-FY2025 ; « New capacity completed/added to operating portfolio » et « Renewables PPAs signed (year-to-date/full year) » couvrent la même chose sans dates",
+  "correction_validee": "Renommer « Capacité mise en service dans l'année » et « PPA signés dans l'année », retirer les deux doublons sans dates.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Chiffres introuvables sur la fiche et contredits par le dernier trimestre",
+  "preuve": "« Les renouvelables progressent de 11,3 % … l'infrastructure énergétique recule de 13 % » ; la fiche montre ca_renouvelables +45,8 %, ca_energy_infra +14,5 % et ebitda_aj_energy_infra +24,8 % au T2 2026",
+  "correction_validee": "Réécrire le moat sur H1 2026 (renouvelables +46 %, infrastructure +15 %, levier 9,1x)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "ai_positioning.summary",
+  "probleme": "Texte type avec exercice inexistant",
+  "preuve": "« AES intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2026 » (dernier rapport = exercice 2025) alors que la fiche cite le robot d'installation IA Maximo (Bellefield 1)",
+  "correction_validee": "Réécrire à partir du robot Maximo et du partenariat AI Fund documentés dans le 10-K 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Noms de pays en anglais et en majuscules mélangés au français",
+  "preuve": "« CHILE 12.1 ; DOMINICAN REPUBLIC 11.4 ; EL SALVADOR 8.2 ; COLOMBIA ; PANAMA ; BRAZIL ; BULGARIA ; Mexique ; PUERTO RICO ; ARGENTINA ; VIÊT NAM ; JORDAN »",
+  "correction_validee": "Libeller en français : Chili, République dominicaine, Salvador, Colombie, Panama, Brésil, Bulgarie, Porto Rico, Argentine, Vietnam, Jordanie.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REV.signal",
+  "probleme": "Le signal compte trois années de repli alors que la série n'en montre que deux. La justification du hero dit elle-même 'en deux ans'.",
+  "preuve": "'troisième année de repli depuis le pic de 17,3 Mds $ de 2023' ; série FY2023=17286, FY2024=13269, FY2025=11800 ; justification du hero 'chute de 32% en deux ans'",
+  "correction_validee": "Remplacer par '11,8 Mds $ en 2025, deuxième année de repli depuis le pic de 17,3 Mds $ de 2023'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "QREV.signal",
+  "probleme": "Le signal annonce une reprise ininterrompue que la série contredit.",
+  "preuve": "'quatrième trimestre consécutif de reprise' ; Q4-2025=3329 puis Q1-2026=3095 (baisse)",
+  "correction_validee": "Remplacer par '3,49 Mds $ au T2 2026, +26 % sur un an, plus haut trimestriel depuis 2023'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "QOPINC / QNI / QEPS / QFCF .yoy",
+  "probleme": "Des variations en % sont calculées sur une base négative, ce qui ne veut rien dire.",
+  "preuve": "QOPINC -133 -> 187 yoy=+240.6% ; QNI -97 -> 222 yoy=+328.9% ; QEPS -0.11 -> 0.24 yoy=+318.2% ; QFCF -152 -> 75 yoy=+149.3%",
+  "correction_validee": "Afficher 'n.s.' pour les variations de QOPINC, QNI, QEPS et QFCF.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "QFCF",
+  "probleme": "La définition n'est pas stable : le T1-2026 inclut l'acquisition des MEMS de NXP, et les autres trimestres ne se déduisent pas des flux opérationnels moins les investissements.",
+  "preuve": "Q1-2026=-723 alors que QOCF-QCAPEX = 534-362 = 172 ; Q2-2026=75 alors que 502-409 = 93",
+  "correction_validee": "Afficher le cash-flow libre hors acquisitions selon une définition unique et l'indiquer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_FAB_UTILIZATION",
+  "probleme": "Le nom annonce un taux d'utilisation, mais la série contient des charges de sous-activité en dollars bruts.",
+  "preuve": "nom 'Taux d'utilisation des unités de fabrication', unité '$ (charges de capacité inutilisée)', val=416000000",
+  "correction_validee": "Renommer en 'Charges de sous-utilisation des usines' et afficher la série en M$ (416 M$ en 2025).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ASP_VOLUMES",
+  "probleme": "Le nom promet des prix et des volumes, mais la série ne donne que la variation annuelle du prix moyen. La variation calculée sur ce taux n'a pas de sens.",
+  "preuve": "nom 'Prix moyen de vente et volumes expédiés', unité '% (variation annuelle du prix moyen de vente)', yoy=-60.0% (de -15 à -6)",
+  "correction_validee": "Renommer en 'Variation annuelle du prix moyen de vente' et afficher l'écart en points (+9 pts).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_INVENTORY_CHANNEL",
+  "probleme": "Le signal est périmé et la thèse de la même fiche le contredit. Le nom mentionne aussi les stocks des distributeurs, absents de la série.",
+  "preuve": "signal 'Niveau de stocks au plus haut depuis 2009' (FY2025=146,7 jours) ; thèse 'stocks... 126 jours de ventes [T2 2026], contre 166 jours un an plus tôt'",
+  "correction_validee": "Passer la série en trimestriel jusqu'au T2-2026, réécrire le signal et retirer 'stocks du canal' du nom.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "hero / moat",
+  "champ": "REV / justification_mettrik",
+  "probleme": "Le hero et le moat reposent sur l'exercice 2025, alors que la fiche montre la reprise de 2026.",
+  "preuve": "hero REV annuel, dernier 2025-12-31 ; moat 'Chiffre d'affaires en repli de 11 %' ; QREV T2-2026 +26,0 %, QOPINC repassé positif",
+  "correction_validee": "Mettre QREV en hero et réécrire la justification du moat avec les trimestres 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NI.signal",
+  "probleme": "Le signal affirme un point bas 'depuis 2019', ce qui est faux : le résultat net 2019 dépassait largement 166 M$.",
+  "preuve": "'166 M$ en 2025, plus bas niveau depuis 2019' ; résultat net 2019 d'environ 1 032 M$",
+  "correction_validee": "Remplacer par 'plus bas niveau depuis plus de dix ans' après vérification, ou retirer la comparaison.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "doublons annuel et trimestriel",
+  "probleme": "Chaque agrégat existe en double, en annuel et en trimestriel, ce qui encombre la fiche sans ajouter d'information.",
+  "preuve": "REV/QREV, GM/QGM, OPINC/QOPINC, NI/QNI, EPS/QEPS, OCF/QOCF, CAPEX/QCAPEX, SEG_*_A/Q* (4 segments)",
+  "correction_validee": "Garder les séries trimestrielles et proposer l'annuel comme vue alternative du même graphique.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "entete / description / kpis",
+  "champ": "tagline, sous-secteur, description, indicateurs manquants",
+  "probleme": "Plusieurs textes sont en anglais, le sous-secteur est vide et la description garde un ancien nom de segment. Il manque aussi des indicateurs clés du secteur : ratio commandes sur facturation, taux de chargement des usines, CA par marché final et CA carbure de silicium.",
+  "preuve": "tagline 'European leader in automotive and industrial semiconductors.' ; 'Technologie > None' ; products 'Analog products, MEMS and Sensors Group..., RF Products (D&RF)' alors que le segment s'appelle RFOC",
+  "correction_validee": "Traduire, renseigner le sous-secteur (Semi-conducteurs), aligner les noms de segments et ajouter les indicateurs manquants.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

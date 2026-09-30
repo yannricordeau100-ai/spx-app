@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "total_gpu / CAHIER_MARGE_PAR_VEHICULE",
+  "probleme": "Les points T4 de total_gpu sont identiques aux valeurs annuelles trois ans de suite : l une des deux series est fausse (les T4 trimestriels sont vraisemblablement des valeurs d exercice entier).",
+  "preuve": "total_gpu Q4-2023=5.511, Q4-2024=6.908, Q4-2025=7.026 ; CAHIER_MARGE_PAR_VEHICULE FY2023=5511, FY2024=6908, FY2025=7026",
+  "correction_validee": "Verifier dans les communiques les GPU T4 2023/2024/2025 et les GPU annuels, puis corriger la serie fautive (manuel).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_margin, net_income",
+  "probleme": "Le pic T4 2025 (marge nette 15,3 %, resultat 857 M) n est pas explique, tandis que le signal commente un T3 2023 absent de la fenetre affichee.",
+  "preuve": "net_margin Q4-2025=15.3 ; signal 'T3-2023 gonfle par un gain de restructuration de dette'",
+  "correction_validee": "Reecrire le signal sur le T4 2025 (element fiscal ou exceptionnel a verifier)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "sga_per_unit",
+  "probleme": "Serie a trous : aucun point en 2024, ni T3/T4 2025, alors que la donnee est publiee chaque trimestre.",
+  "preuve": "serie Q1-2023, Q2-2023, Q3-2023, Q4-2023, Q1-2025, Q2-2025, Q1-2026, Q2-2026",
+  "correction_validee": "Completer les trimestres manquants",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "capex",
+  "probleme": "Trois trimestres consecutifs a exactement 51 M : valeur vraisemblablement recopiee.",
+  "preuve": "serie Q4-2025=51, Q1-2026=51, Q2-2026=51",
+  "correction_validee": "Verifier les capex T4 2025 et T1 2026 dans les etats de flux",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "reconditioning_capacity, ADESA production integrations",
+  "probleme": "Chiffres de sites ADESA integres contradictoires (16 vs 15) et serie de capacite sans point 2024.",
+  "preuve": "reconditioning_capacity signal '16 sites ADESA convertis en IRC' ; ADESA production integrations val=15",
+  "correction_validee": "Aligner sur le dernier chiffre publie",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "free_cash_flow, metropolitan_markets_served, CAHIER_MARGE_PAR_VEHICULE (signaux)",
+  "probleme": "Accents manquants dans les signaux.",
+  "preuve": "'a s autofinancer', 'Le palier a 316 marches', 'a quel point le modele economique s est ameliore'",
+  "correction_validee": "Corriger en 'à s autofinancer', 'à 316 marchés', 'à quel point', 's est amélioré'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

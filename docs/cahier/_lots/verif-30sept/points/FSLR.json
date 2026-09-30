@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "slices",
+  "probleme": "Repartition etiquetee exercice 2025 mais la tranche autres pays (22,8 M$) manque, ce qui gonfle la part Etats-Unis a 96,1 % alors que le KPI us_sales_share 2025 donne 95,7 % (et 96,1 % est la valeur 2023) ; INDIA en anglais",
+  "preuve": "geo : Etats-Unis 96.1 ; INDIA 3.8 ; France 0.1 ; us_sales_share FY2025=95.7, FY2023=96.1 ; intl_net_sales signal : Inde 195,6 M$, France 6,3 M$, autres 22,8 M$",
+  "correction_validee": "Ajouter Autres 0,4 %, recalculer Etats-Unis 95,7 %, Inde 3,7 %, France 0,1 %, et renommer INDIA en Inde.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Contracted backlog value ($B)",
+  "probleme": "Doublon perime de contracted_backlog_bn : 16,4 Mds$ est la valeur du T3 2025, la fiche affiche 13,6 au T2 2026",
+  "preuve": "Contracted backlog value val=16.4 dernier 2026-03-28 n=1 ; contracted_backlog_bn Q3-2025=16.4, Q2-2026=13.6",
+  "correction_validee": "Supprimer Contracted backlog value ($B).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Annual Module Production",
+  "probleme": "Doublon non date de modules_produced, dernier point 15,5 GW (2024) alors que 2025 = 16,1 GW existe, et date 2026-06-30 fausse",
+  "preuve": "Annual Module Production serie 3.7, 7.9, 9.1, 9.7, 15.5 dernier 2026-06-30 ; modules_produced FY2025=16.1",
+  "correction_validee": "Supprimer Annual Module Production.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net bookings year-to-date (GW DC)",
+  "probleme": "Serie incoherente : les premiers points sont des cumuls annuels (12,1, 21,1, 27,8, 28,3 GW) puis des trimestres isoles (2,7, 3,6 ...), sans dates",
+  "preuve": "serie: 12.1, 21.1, 27.8, 28.3, 2.7, 3.6, 4, 4.4, 0.7, 2.7",
+  "correction_validee": "Reconstruire en prises de commandes nettes trimestrielles datees, sinon supprimer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_margin_q / op_margin_q / net_margin_q",
+  "probleme": "Variation de marges en % relatif au lieu de points",
+  "preuve": "gross_margin_q 57.3 vs 45.6 yoy=+26% ; op_margin_q 42.6 vs 33 yoy=+29% ; net_margin_q 40 vs 31.2 yoy=+28%",
+  "correction_validee": "Afficher +11,7 pts, +9,6 pts et +8,8 pts.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_FAB_UTILIZATION",
+  "probleme": "Taux d utilisation des usines arrete en 2017 avec un signal elogieux, alors que les donnees existent (16,1 GW produits pour 23,5 GW de capacite nominale en 2025)",
+  "preuve": "dernier 2017-12-31 serie FY2013=77 ... FY2017=99 ; modules_produced FY2025=16.1 ; Total installed nameplate production capacity 23.5",
+  "correction_validee": "Prolonger jusqu a 2025 ou retirer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "contracted_backlog_bn / amtc_45x_benefit",
+  "probleme": "Unite en anglais",
+  "preuve": "| $B | ... 13.6 ; | $B | ... 1.6",
+  "correction_validee": "Remplacer $B par Mds $.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "mettrik_description / ai_positioning / tagline",
+  "champ": "textes",
+  "probleme": "Franglais dans les textes publics",
+  "preuve": "panneaux solaires thin-film cadmium-telluride ; modules utility-scale ; demande data center IA-driven ... capacite manufacturing US ; tagline anglaise",
+  "correction_validee": "Ecrire couche mince au tellurure de cadmium, centrales au sol, tiree par les centres de donnees, capacite industrielle, et traduire la tagline.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "9 indicateurs a un seul point dates 2026-03-28",
+  "probleme": "Faits ou messages promotionnels presentes comme KPI : 30 000 emplois soutenus, ligne de credit, plainte ITC, gain CURE 8 %, provisions de resiliation",
+  "preuve": "US Jobs Supported by Manufacturing Growth n=1 val=30000 ; New Senior Unsecured Revolving Credit Facility n=1 ; CURE Lifetime Specific Energy Yield Advantage n=1",
+  "correction_validee": "Deplacer en faits marquants",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Le cout de production par watt, indicateur cle du solaire et communique par First Solar, est absent",
+  "preuve": "aucun KPI cout/W ; seuls les prix (module_asp, backlog_asp) existent",
+  "correction_validee": "Ajouter le cout de fabrication par watt (annuel)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

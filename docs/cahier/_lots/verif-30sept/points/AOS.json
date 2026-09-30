@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Water Treatment Sales / Heat Pump Water Heater Sales / Boiler Sales Growth",
+  "probleme": "Trois series sans dates, sans periode, sans source, chiffres ronds, contredites par les series sourcees de la fiche",
+  "preuve": "Water Treatment Sales 2025 = 200 M$ alors que water_treat_NA totalise 243,1 M$ sur 2025 (59,7+63,4+59,9+60,1) et que le KPI taille activite traitement eau dit 250 M$ ; Heat Pump 25,40,65,90,130 ; signaux de deux mots (Commercial soutenu, Acquisitions M&A)",
+  "correction_validee": "Supprimer Water Treatment Sales, Heat Pump Water Heater Sales et Boiler Sales Growth.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Pureit acquisition sales contribution",
+  "probleme": "Le dernier point est la somme annuelle inseree dans une serie trimestrielle",
+  "preuve": "serie 12, 16, 17, 9, 54 : 12+16+17+9 = 54",
+  "correction_validee": "Retirer le point 54 de la serie trimestrielle (ou passer en annuel avec un seul point 2025 = 54 M$).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Consecutive years of dividend increases",
+  "probleme": "Trois nombres differents pour le meme fait sur la fiche",
+  "preuve": "val = 32 ; signal du meme KPI : « augmente chacune des 34 dernieres annees » ; signal dps : « 33e annee consecutive de hausse » ; these : « trente-quatre annees consecutives »",
+  "correction_validee": "Fixer le bon nombre et aligner KPI, dps et these",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Repartition par segment datant de l exercice 2020, sans annee affichee",
+  "preuve": "North America 2,118 Mds$ + Rest of World 0,800 = 2,92 Mds$ = exercice 2020 (KPI annuels 2020 : 2,1183 et 0,8003) ; 2025 = 2,984 et 0,880 soit 77 % / 23 %",
+  "correction_validee": "Remplacer par les valeurs 2025 (Amerique du Nord 2,984 Mds$, 77 % ; Reste du monde 0,880 Mds$, 23 %) et afficher exercice 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rd_exp",
+  "probleme": "Ratio cite dans le signal faux",
+  "preuve": "signal : « effort stable autour de 1,7% des ventes » ; 95 / 3 830 = 2,5 %",
+  "correction_validee": "Remplacer 1,7 % par 2,5 % des ventes dans le signal de rd_exp.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eff_total, wh_NA, NA_rev, RoW_rev, rev_total, China sales growth",
+  "probleme": "Six doublons annuel/trimestriel ou sous deux noms",
+  "preuve": "eff_total 11,5 milliers = effectifs_annuels 11 500 ; wh_NA (trim) = WH_NA_REV (annuel) ; NA_rev = North America Sales ; RoW_rev = Rest of World Sales ; rev_total = revenue_annuel ; China sales growth (trim) et China Sales Trend (annuel -12)",
+  "correction_validee": "Supprimer eff_total, WH_NA_REV, North America Sales, Rest of World Sales et China Sales Trend.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux (china_rev, rev_total, gross_margin, capex, dna, div_paid, wh_NA, china_share, net_income, op_margin, buyback)",
+  "probleme": "Citations en anglais dans huit signaux et references perimees 2020-2022 dans quatre",
+  "preuve": "« lower sales in China due to continued weak consumer demand », « Water heaters and related parts $656.4 $644.4 », net_income : « Net earnings $235.7 » en 2022, op_margin : distorsion T4 2022, buyback : rachats suspendus 2020, div_paid : « Dividends on stock (177.3) » 2022",
+  "correction_validee": "Reecrire ces signaux en francais sur les chiffres 2025-2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NA_margin, RoW_margin, op_margin, net_margin, gross_margin, sga_ratio, china_share",
+  "probleme": "Variation annuelle des KPI en pourcentage affichee en variation relative au lieu de points",
+  "preuve": "NA_margin yoy « -15,0 % » alors que 21,6 vs 25,4 = -3,8 pt ; RoW_margin « -50,5 % » ; china_share « -20,0 % » ; cust_conc5 affiche bien « -1 pt »",
+  "correction_validee": "Afficher la variation en points pour tous les KPI en % (NA_margin -3,8 pt, RoW_margin -5,3 pt, op_margin -3,9 pt, net_margin -2,6 pt, gross_margin -0,7 pt, sga_ratio +0,8 pt, china_share -3,8 pt).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "Amérique du Nord 68.4",
+  "probleme": "Libelle probablement faux : le segment Amerique du Nord pese 77,9 % des ventes 2025, 68,4 % correspond vraisemblablement aux seuls Etats-Unis",
+  "preuve": "2 984 / 3 830 = 77,9 % ; bloc geographie : Amerique du Nord 68,4 / Reste du monde 31,6",
+  "correction_validee": "Verifier la note geographique et renommer Etats-Unis si c est le cas",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun indicateur de volumes ou de part de marche de l industrie chauffe-eau residentiels US, commente par AOS a chaque trimestre",
+  "preuve": "aucun KPI industrie sur la fiche, seulement les ventes par segment",
+  "correction_validee": "Ajouter les volumes industrie chauffe-eau residentiels et commerciaux US (guidance et realise)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

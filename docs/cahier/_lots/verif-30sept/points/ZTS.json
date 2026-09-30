@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices[].label",
+  "probleme": "Étiquettes interverties entre Horses et Dogs and Cats, et libellés en anglais : les équins passent pour 67,8 % du CA et les chiens et chats pour 3,3 %.",
+  "preuve": "Horses 6,283 Mds $ (67,8 %) ; Dogs and Cats 0,304 Mds $ (3,3 %), alors que les séries trimestrielles donnent DOGS_CATS_REV environ 1 500 à 1 700 M$ et HORSES_REV 58 à 101 M$",
+  "correction_validee": "Intervertir les libellés (Chiens et chats 67,8 %, Équins 3,3 %) et traduire en Bovins, Porcins, Volaille, Aquaculture.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Companion Animal revenue / Livestock revenue",
+  "probleme": "Séries décalées d'un trimestre : le point daté 2026-06-30 correspond en réalité au T1-2026. Ces séries font aussi doublon avec US_CA_REV + INTL_CA_REV et US_LIVESTOCK_REV + INTL_LIVESTOCK_REV.",
+  "preuve": "Companion 1519 au 2026-06-30 = 865 + 654 (T1-2026), alors qu'au T2-2026 1044 + 664 = 1708 ; Livestock 720 = 225 + 495 (T1-2026), alors qu'au T2-2026 222 + 509 = 731 ; le signal cite lui-même le T1-2026 ; série sans dates",
+  "correction_validee": "Supprimer les KPI Companion Animal revenue et Livestock revenue, qui doublonnent US_CA_REV + INTL_CA_REV et US_LIVESTOCK_REV + INTL_LIVESTOCK_REV.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik / texte",
+  "probleme": "Justification périmée et contredite par les chiffres récents. Le texte (« peu exposés aux génériques ») contredit aussi la justification et les signaux KPI (génériques de Convenia et Cerenia).",
+  "preuve": "« Les animaux de compagnie progressent de 4,9 % alors que l'élevage recule de 4,6 % » alors qu'au T2-2026 DOGS_CATS_REV fait -4,8 %, US_CA_REV -11,2 %, US_LIVESTOCK_REV +23,3 % et CATTLE_REV +21,9 %",
+  "correction_validee": "Réécrire la justification sur le T2-2026 et harmoniser le texte avec l'érosion en dermatologie et la concurrence des génériques",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "REV_TOT_Q.signal",
+  "probleme": "Le signal est incohérent : un effet devises défavorable ferait ressortir la base opérationnelle au-dessus du publié, pas en dessous. Il parle aussi de « croissance » alors que le CA recule.",
+  "preuve": "« en base opérationnelle, la légère baisse de 2% traduit un effet devises défavorable » ; série 2,46 au T2-2025 contre 2,47 au T2-2026 (-0,2 %)",
+  "correction_validee": "Réécrire avec les chiffres publiés et opérationnels exacts du T2-2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_INCOME_Q.signal / att",
+  "probleme": "La base de comparaison N-1 citée diffère de la série, et le recul affiché par l'anti-thèse diffère de celui de la série.",
+  "preuve": "Signal : « vs 726 M$ au T2-2025 » alors que la série donne T2-2025=718 (yoy -3,8 %) ; l'anti-thèse dit « reculé de 4,8% »",
+  "correction_validee": "Aligner le signal et l'anti-thèse sur la série (718 M$, -3,8 %) ou corriger la série",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "INTL_LIVESTOCK_REV.signal / INTL_SEG_REV.signal / INTL_SEG_EARN.signal",
+  "probleme": "Les variations « en publié » et les bases N-1 citées ne correspondent pas aux séries.",
+  "preuve": "INTL_LIVESTOCK : « +8% en publié » alors que 509/458 = +11,1 % ; INTL_SEG_REV : « +8% en publié » alors que 1173/1070 = +9,6 % ; INTL_SEG_EARN : « vs 592 M$ » alors que la série donne T2-2025=583",
+  "correction_validee": "Recalculer les variations à partir des séries, ou préciser qu'il s'agit de croissance opérationnelle",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PAIN_MAB_REV",
+  "probleme": "Le nom est trompeur, car la série inclut la sédation. Le signal (-3 %) contredit aussi une série stable.",
+  "preuve": "Nom anglais « Pain & Sedation Revenue incl. Librela/Solensia » ; T2-2025=217 et T2-2026=217 (yoy 0,0 %), alors que le signal dit « -3% »",
+  "correction_validee": "Renommer en « Revenus douleur et sédation (dont Librela, Solensia) » et corriger la variation du signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BRAND_SALES_BRIDGE.nom",
+  "probleme": "Le nom ne décrit pas la série : il s'agit des ventes annuelles de la franchise dermatologie (doublon annuel de DERM_REV).",
+  "preuve": "FY2025 = 1754 = 390 + 463 + 472 + 429 (somme des DERM_REV 2025) ; nom « Ventes par marque et décomposition de la croissance »",
+  "correction_validee": "Renommer en « Revenus dermatologie annuels (Apoquel + Cytopoint) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI ponctuels (Simparica Trio 1 Md$, Programme de rachat, Obligations convertibles, Cession MFA, Top-5 produits...)",
+  "probleme": "Ces valeurs uniques (annuelles ou événementielles) sont typées trimestrielles et datées du 2026-04-10. Le montant du convertible contredit aussi l'anti-thèse.",
+  "preuve": "« Simparica Trio... | M $ | quarter | val=1000 » (ventes annuelles) ; convertible « 2 Mds $ » alors que l'anti-thèse dit « 1,78 Mds $ de dette convertible neuve »",
+  "correction_validee": "Passer ces éléments en faits marquants ou en fréquence annuelle, et préciser brut/net pour le convertible",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_sur_ca.yoy",
+  "probleme": "Variation exprimée en % pour un ratio déjà en %, et différente de celle du signal.",
+  "preuve": "yoy=+34.5% alors que le signal dit « +24,5 points sur un an » (71 vers 95,5)",
+  "correction_validee": "Afficher la variation en points : +24,5 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline / description Mettrik",
+  "probleme": "Accroche en anglais, et mots anglais dans la description française.",
+  "preuve": "tagline « Global leader in animal health, discovering and delivering... » ; description « éleveurs et producteurs (poultry, swine, bovine »",
+  "correction_validee": "Écrire l'accroche en français et remplacer par « volaille, porcins, bovins ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS_DIL_Q.serie",
+  "probleme": "Série trimestrielle sans aucun T4, qui paraît incomplète ou mal extraite.",
+  "preuve": "serie : Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 (pas de Q4)",
+  "correction_validee": "Ajouter les BPA dilués des T4-2024 et T4-2025 (dérivés de l'annuel)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

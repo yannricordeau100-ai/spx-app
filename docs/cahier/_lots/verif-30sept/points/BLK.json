@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "AUM Multi-Asset / AUM Alternatives (Q4-2024)",
+  "probleme": "Points aberrants : la somme des classes d'actifs depasse l'encours total au T4 2024.",
+  "preuve": "6 310,2 + 2 905,7 + 1 223,6 + 421,8 + 920,7 = 11 782 > AUM Total 11 551,3 ; Multi-Asset 1 001,5 (T3 2024) puis 1 223,6 puis 1 002,7 (T1 2025) ; Alternatives 319,8 puis 421,8 puis 291,7",
+  "correction_validee": "Reprendre Multi-Asset et Alternatives du T4 2024 dans le communique du 15 janvier 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Dette long terme vs dette_annuelle",
+  "probleme": "Deux series de dette qui se contredisent sur 2023 et 2024 ; l'une semble decalee d'un an.",
+  "preuve": "Dette long terme FY2023=12.3, FY2024=12.8, FY2025=12.9 ; dette_annuelle 2023=7.918, 2024=12.314, 2025=12.768",
+  "correction_validee": "Verifier les emprunts long terme 2021 a 2025 au bilan et ne garder qu'une serie de dette.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Operating Margin Adj.",
+  "probleme": "Nom anglais, frequence annuelle avec 9 points trimestriels non dates, valeur affichee differente du dernier point, texte perime ; doublon de Op Margin Adj.",
+  "preuve": "val=45.5 mais serie ...43.2, 43.3 ; 'Compression 2.2pts YoY due intégration HPS/Preqin coûts ; KPI de rentabilité historiquement >44%' ; Op Margin Adj Q2-2026 = 45.9",
+  "correction_validee": "Supprimer Operating Margin Adj.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Long-term Net Inflows (trim)",
+  "probleme": "Nom anglais, frequence 'year' pour du trimestriel, points non dates arretes mi-2025 mais dates 30 juin 2026, texte en franglais ; doublon de Long-Term Net Flows.",
+  "preuve": "serie 82, 160, 201, 81, 84 ; Long-Term Net Flows Q2-2026 = 199.1 ; description 'Indicateur clé d'organic asset growth, base future des base fees; 10% LTM growth'",
+  "correction_validee": "Supprimer Long-term Net Inflows (trim).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Technology Revenue",
+  "probleme": "Frequence absente, valeur perimee d'un an datee 30 juin 2026, signal en un mot avec faute.",
+  "preuve": "period_type None, val=1.6 Mds $, serie 1.28, 1.28, 1.36, 1.48, 1.6 ; Aladdin Revenue 2025 = 436+499+515+531 = 1 981 M$ ; signal 'Pillier SaaS.'",
+  "correction_validee": "Supprimer Technology Revenue.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "unit (AUM Total, AUM Equity, AUM Fixed Income, AUM Alternatives, iShares ETF AUM, AVG_AUM)",
+  "probleme": "Unite anglaise 'B$' melangee avec 'Mds $' sur les autres encours de la meme page.",
+  "preuve": "AUM Total 'B$' ; AUM Multi-Asset et AUM Cash Management 'Mds $'",
+  "correction_validee": "Harmoniser l'unite en 'Mds $' sur tous les encours.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_AUM / CAHIER_NET_FLOWS",
+  "probleme": "Series longues arretees a 2020 alors que l'encours affiche est de 2026.",
+  "preuve": "CAHIER_AUM dernier 2020-12-31 = 8 676,68 ; AUM Total Q2-2026 = 15 344,6 ; CAHIER_NET_FLOWS dernier FY2020",
+  "correction_validee": "Prolonger a 2025 avec les rapports annuels ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary / evidence",
+  "probleme": "Affirmation fausse pour BlackRock (Aladdin, partenariat d'infrastructures IA avec Microsoft et MGX annonce en 2024, lettres annuelles de L. Fink) et preuves en cuisine interne.",
+  "preuve": "'mentionne peu l'IA dans ses communications officielles' ; evidence 'earnings calls les plus récents disponibles localement', 'Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication'",
+  "correction_validee": "Reecrire le positionnement IA a partir du rapport annuel 2025 et supprimer les trois phrases de preuve actuelles.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_FEE_RATE",
+  "probleme": "Signal a contresens de la serie et yoy relatif sur des points de base.",
+  "preuve": "'elle recule à mesure que la gestion passive... gagne du terrain' alors que FY2024=14.9 -> FY2025=15.2 ; yoy '+2.0%'",
+  "correction_validee": "Signal : 'remonte à 15,2 pb en 2025 après quatre ans de baisse, avec l'apport des actifs privés (GIP, HPS)' ; yoy '+0,3 pb'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Effectifs.signal",
+  "probleme": "Chiffre exagere.",
+  "preuve": "'Effectifs quasi doublés en 7 ans' ; 14 900 (2018) -> 24 900 (2025) = +67 %",
+  "correction_validee": "'Effectifs en hausse de 67 % en sept ans.'",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "As-adjusted operating margin (full year) / Total net flows",
+  "probleme": "Dates fausses et points non dates.",
+  "preuve": "marge annuelle 2025 = 44.1 datee 2026-06-30 ; Total net flows trimestriel date 2026-05-11, serie sans periodes",
+  "correction_validee": "Dater la marge annuelle au 2025-12-31 avec FY2020 a FY2025, et dater Total net flows de T3 2024 a T1 2026.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "style.justification",
+  "probleme": "Cuisine interne visible : choix de methode justifie par le fonctionnement de l'outil.",
+  "preuve": "'Le cadre de la banque Exane a été écarté parce que le référentiel des méthodes ne lui attribue aucun critère publié... ce qui rendait impossible l'exercice demandé'",
+  "correction_validee": "Retirer la phrase sur Exane et garder seulement la raison du choix de la méthode Morningstar.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ }
+]

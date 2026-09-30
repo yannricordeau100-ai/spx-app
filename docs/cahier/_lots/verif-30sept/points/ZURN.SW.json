@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Variation citée fausse : on passe de 11 032 à 14 303, soit environ +30 %, et non 3,4 %. De plus, 11 032 ne figure pas dans la série affichée.",
+  "preuve": "« Les primes brutes en dommages passent de 11032 à 14303 millions et gagnent 3,4 % » ; PC_GWP T2-2025=13829, T2-2026=14303 (+3,4 %)",
+  "correction_validee": "Remplacer par « passent de 13 829 à 14 303 M$ au T2 sur un an (+3,4 %) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Business Operating Profit / BOPAT ROE / P&C Gross Written Premiums / BOP P&C Underwriting Result / Net Cash Remittances",
+  "probleme": "KPI en doublon, périmés et présentés comme récents (datés 2026-08-06). Ils contredisent les KPI principaux.",
+  "preuve": "BOP 7,4 Mds = FY2023 (3720 + 3661) alors que FY2025 = 4227 + 4629 = 8,86 Mds ; BOPAT ROE 23,1 = valeur FY2023 de ROE_BOP (26,9 en 2025) ; primes P&C 45,8 Mds alors que la somme PC_GWP 2025 = 50,4 Mds ; « Net Cash Remittances » 4,8 contre CASH_REM 7,4 ; résultat technique 3,1 contre PC_BOP 2025 5,1 Mds",
+  "correction_validee": "Supprimer ces cinq KPI, qui doublonnent BOP, ROE_BOP, PC_GWP, CASH_REM et PC_BOP.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ratio_combine_dommages_p_c_ifrs_17_semes",
+  "probleme": "Série semestrielle qui mélange des points semestriels et annuels. Elle fait doublon avec PC_COR, et son signal et sa description sont vides.",
+  "preuve": "serie : S1 2023=92.9, 2023=94.5, S1 2024=93.6, 2024=94.2... ; PC_COR FY2023=94.5, FY2024=94.2",
+  "correction_validee": "Ne garder que les points S1/S2 (ou supprimer au profit de PC_COR) et rédiger le signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / these",
+  "champ": "ROE_BOP, PC_COR",
+  "probleme": "Rupture comptable non signalée : 2021-2022 est en IFRS 4 (BOPAT ROE) et 2023-2025 en IFRS 17 (Core ROE). Le « quasi doublé » du signal et de la thèse est un artefact de méthode.",
+  "preuve": "ROE_BOP FY2021=14, FY2022=15,7, puis FY2023=23,1 ; signal « quasi doublé depuis 2021 » ; thèse « passe de 14 à 26,9 »",
+  "correction_validee": "Couper la série en 2023 ou signaler la rupture, puis réécrire le signal et la thèse",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RESERVE_DEV / CAHIER_INVEST_YIELD",
+  "probleme": "Noms anglais « Reserve Dev » et « Invest Yield ». La variation d'un ratio est exprimée en %, et les signaux sont génériques, sans aucun chiffre.",
+  "preuve": "CAHIER_RESERVE_DEV 1,6 vers 1,8 pts, yoy=+12.5% ; signaux « Traduit le sur ou sous provisionnement... », « Reflète l'allocation du portefeuille... »",
+  "correction_validee": "Libellés FR, variation en points (+0,2 pt), signaux chiffrés sur 2025",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA / risques",
+  "champ": "texte",
+  "probleme": "Citation en anglais dans le bloc, et accents manquants en série.",
+  "preuve": "(\"Artificial intelligence is our catalyst for reimagining insurance\") ; « cree », « Universite », « chiffres attribues », « marche », « a augmente », « ont persiste »",
+  "correction_validee": "Traduire la citation (« L'intelligence artificielle est notre catalyseur pour réinventer l'assurance ») et rétablir les accents : créé, Université, chiffrés attribués à, a augmenté, ont persisté, marché.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete / repartition / positions de marche",
+  "champ": "tagline, sous-secteur, revenue_by_segment.exercice, market_positions",
+  "probleme": "L'accroche est en anglais, le sous-secteur est absent, et la répartition n'a ni exercice ni valeur pour les éliminations. Les positions de marché sont sans nom, sans unité et sans part.",
+  "preuve": "« Swiss global insurer across P&C, Life and Farmers. » ; « Finance > None » ; « revenue_by_segment (None) ... Eliminations None » ; « position de marche 1: None | taille 2400 | part None »",
+  "correction_validee": "Traduire l'accroche, fixer le sous-secteur Assurance multibranche, dater la répartition et retirer la ligne Eliminations, compléter ou masquer les positions",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateurs manquants",
+  "probleme": "Il manque des indicateurs clés pour un assureur : hausses tarifaires P&C au renouvellement, stock de CSM total (Vie) et revenus nets des placements.",
+  "preuve": "Seul le CSM des affaires nouvelles (LIFE_NBCSM) est présent ; aucune série d'évolution des tarifs ni de revenus de placements",
+  "correction_validee": "Ajouter les séries hausses tarifaires, stock de CSM et revenus des placements",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

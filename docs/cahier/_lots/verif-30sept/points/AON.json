@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "signal (66 KPI)",
+  "probleme": "Gabarit de signal cassé : parenthèse et point orphelins en fin de phrase.",
+  "preuve": "66 signaux sur 98 finissent par ').' : '2,3 Mds $ au T2 2026 contre 2,2 Mds $ au T2 2025, soit +5%.).'",
+  "correction_validee": "Retirer le ')' orphelin en fin de signal et de description.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Organic Growth",
+  "probleme": "Doublon arrêté à 2024, valeur 2020 contradictoire avec le bloc cahier, signal franglais faux.",
+  "preuve": "série -1, 9, 6, 7, 6 sans périodes vs CAHIER_ORGANIC_GROWTH FY2020 = 1 ; signal 'Mid-single digit 2020 covid' pour 1 % ; croissance_organique_du_chiffre_d_affair trimestriel existe aussi.",
+  "correction_validee": "Supprimer 'Organic Growth'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Full-year free cash flow, Full-year adjusted operating margin",
+  "probleme": "Séries annuelles non datées portées au 2026-06-30, doublon de fcf_annuel, yoy en anglais.",
+  "preuve": "FCF 2.6, 2, 3, 2.97, 2.8, 3.2 sans périodes, dernier 2026-06-30 (fcf_annuel 2025 = 3,218) ; marge 28.5..32.4 sans périodes, yoy '+90 bps'.",
+  "correction_validee": "Supprimer le FCF transcript ; dater la marge FY2019 a FY2025 et ecrire le yoy '+0,9 pt'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.summary, evidence",
+  "probleme": "Texte générique avec cuisine interne, contredit par les KPI transcript de la fiche.",
+  "preuve": "'Aon plc mentionne peu l'IA' ; evidence 'Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication', 'Sources locales sans mention' vs KPI DCLP 3,5 Mds 'teneur de marché sur le risque data center lié à l'IA', 'opportunité générationnelle liée à l'IA', it_expense +19 %.",
+  "correction_validee": "Réécrire : Aon monétise l'IA côté assurance des data centers (DCLP, traité de réassurance 5 Mds) et investit dans sa plateforme ABS ; retirer les phrases internes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.justification_mettrik",
+  "probleme": "La justification contredit les séries trimestrielles affichées.",
+  "preuve": "'Le capital humain progresse de 13,4 %' vs hc_rev Q2-2026 -4 % ; 'la marge du pôle risques perd près de trois points' vs rc_op_margin +0,4 pt (30,5 % vs 30,1 %).",
+  "correction_validee": "Recalculer sur le T2 2026 ou préciser que les chiffres sont annuels 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "reinsurance_rev, health_rev, total_revenue, commercial_risk_rev, geo_emea_rev (signaux)",
+  "probleme": "Arrondi en Mds à une décimale qui masque la variation annoncée.",
+  "preuve": "'0,7 Mds $ au T2 2026 contre 0,7 Mds $ au T2 2025, soit +3%' ; '0,8 contre 0,8, soit +6%' ; '4,2 contre 4,2, soit +2%'.",
+  "correction_validee": "Ecrire les montants en M$ (711 contre 688 M$) ou en Mds $ a deux decimales.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "wealth_rev",
+  "probleme": "Chute de 18 % sans aucune explication, signal purement mécanique.",
+  "preuve": "série 519, 519, 540, 490, 420, 426 ; signal '426,0 M $ au T2 2026 contre 519,0 M $ au T2 2025, soit -18%'.",
+  "correction_validee": "Expliquer la cause (cession ou reclassement) dans le signal après vérification du 10-Q.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Expected new data center insurance premium for 2026, Financial value recovered on denied claims, Insurance-linked securities outstanding volume",
+  "probleme": "Statistiques de marché ou d'image présentées comme KPI de la société.",
+  "preuve": "'Plus de dix milliards de nouvelles primes attendues pour l'industrie en 2026' ; 'Près de dix milliards de sinistres refusés renversés ... en une décennie' ; ILS 61 Mds = encours du marché.",
+  "correction_validee": "Supprimer ou déplacer en contexte de marché.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

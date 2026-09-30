@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Network Rooms",
+  "probleme": "Doublon non date de ROOMS avec valeurs arrondies puis divergentes et signal contredit par NUG.",
+  "preuve": "serie 753344, 777714, 802269, 821000, 837000, 859830 (dernier 2025-09-30) contre ROOMS FY2024=850285, FY2025=881427 ; signal '+2.5% net unit growth' alors que NUG 2025 = 3,7 %.",
+  "correction_validee": "Supprimer Network Rooms.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PM&E RevPAR YoY ; L&L RevPAR YoY",
+  "probleme": "Series 'annuelles' sans etiquettes dont le dernier point est un trimestre, noms en abreviations anglaises.",
+  "preuve": "PM&E RevPAR YoY serie -55, 60.5, 23.4, 5.6, 3.4, -1.1 avec signal 'Leger recul T3 2025 vs base T3 2024 forte (JO Paris)' ; L&L RevPAR YoY -60, 70, 30, 8.3, 8.3, 5 ; REVPAR_GROWTH 2025 = +4,2 % existe deja.",
+  "correction_validee": "Supprimer, ou reconstruire par division avec des points annuels dates issus du DEU.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "subsector ; tagline ; revenue_by_segment.exercice ; revenue_by_geography.exercice",
+  "probleme": "Sous-secteur vide, tagline anglaise non officielle, exercice manquant sur les repartitions.",
+  "preuve": "'Consommation discretionnaire > None' ; tagline 'Europe's leading hotel group, asset-light model.' ; 'revenue_by_segment (None)' alors que les chiffres sont ceux de 2025 (REV_PME 2 853 = 50,6 %).",
+  "correction_validee": "Sous-secteur 'Hotels, restaurants et loisirs', exercice 2025 sur les deux repartitions, et tagline remplacee par la signature officielle du groupe ou une phrase descriptive en francais.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "hero_kpi",
+  "probleme": "Le hero est le chiffre d'affaires, donnee de base deja connue, alors que des KPI hoteliers existent.",
+  "preuve": "hero: REVENUE ; ROOMS (881 427), REVPAR, NUG (+3,7 %), FCF_REC, MF_MARGIN (71,9 %) sont disponibles.",
+  "correction_validee": "Passer le hero sur ROOMS ou REVPAR.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "REVENUE / REVENUE_H ; EBITDA_REC / EBITDA_REC_H ; NET_INCOME / NET_INCOME_H",
+  "probleme": "Trois indicateurs presentes deux fois (annuel et semestriel).",
+  "preuve": "REVENUE FY2025=5639 et REVENUE_H H1-2025=2745 + H2-2025=2894 ; idem EBITDA (552+649=1201) et resultat net (233+216=449).",
+  "correction_validee": "Decider de ne garder que la version semestrielle (plus recente) ou de fusionner les graphiques.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Repartition geographique reduite a deux lignes pour un groupe present dans 110 pays.",
+  "preuve": "'France 22.7 ; Reste du monde 77.3' alors que le DEU 2025 detaille Europe, Moyen-Orient et Afrique, Asie-Pacifique, Ameriques.",
+  "correction_validee": "Reprendre la ventilation par region du DEU.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "REVENUE.signal ; REV_GROWTH_LFL",
+  "probleme": "Deux chiffres de croissance hors change pour 2025.",
+  "preuve": "REVENUE : '+4,5% a change constant' ; REV_GROWTH_LFL FY2025 = 4.4 '+4,4% en organique'.",
+  "correction_validee": "Aligner sur le chiffre publie par Accor et preciser la definition.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Indicateurs hoteliers evidents absents.",
+  "preuve": "Aucun KPI sur les membres du programme ALL (plus de 100 M) ni sur la part des reservations directes, alors que le risque 4 porte precisement sur l'intermediation.",
+  "correction_validee": "Ajouter membres ALL (annuel, DEU) et part des reservations directes si publiee.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

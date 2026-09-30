@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Timberland Acres, Wood Products Sales, Lumber Price Avg, Timberlands Adj EBITDA, Natural Climate Solutions, Timberlands Acres, Lumber Shipments, OSB Shipments, Realized Lumber Price, Harvest Volume, Real Estate / ENR",
+  "probleme": "Bloc de séries non datées aux valeurs arrondies, contredites par les séries sourcées, avec textes en anglais",
+  "preuve": "Wood Products Sales 4.5 Mds contre 1.29+1.36+1.23+1.08 = 4.96 ; Timberlands Adj EBITDA 360 contre 167+152+148+114 = 581 ; Lumber Shipments 4.3 contre vol_lumber 2025 = 4 740 ; Harvest Volume 39 M t contre 34.8 ; NCS revenue 110 inférieur à NCS EBITDA 119 ; « Soft 2023-25 », « China demand soft »",
+  "correction_validee": "Supprimer les onze entrees.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "acres_owned, CAHIER_TIMBERLAND_ACRES, Timberlands acres owned or controlled (US)",
+  "probleme": "Surfaces forestières contradictoires, et signal contredit par les cessions",
+  "preuve": "acres_owned FY2025=10 (-3,8 %) ; CAHIER FY2025=10.4 et signal « L'arrêt des cessions ... ne se réduit plus » ; att : « vente de 137 000 acres »",
+  "correction_validee": "Garder une seule serie de surfaces verifiee a la source et reecrire le signal en mentionnant les cessions.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "real_estate_rev, avg_price_per_acre, acres_sold, enr_rev (signaux)",
+  "probleme": "Signaux contraires aux séries sur le sens et les montants",
+  "preuve": "real_estate_rev « (+19 M$), hausse des acres vendus et du prix moyen » alors que 91 contre 123 (-26 %), acres -12 %, prix -9 % ; prix/acre « +158 $ » alors que 4 319 contre 4 757 ; acres « contre 17 233 » alors que Q2-2025=24 103 ; enr « +8 M$ » alors que 34 contre 31",
+  "correction_validee": "Reecrire : 91 M$ contre 123 M$ (-26 %) ; 4 319 $/acre (-438 $) ; 21 168 acres contre 24 103 ; 34 M$ (+3 M$).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.titre",
+  "probleme": "Confusion entre résultat opérationnel et EBITDA ajusté",
+  "preuve": "« Le résultat opérationnel de l'activité bois transformé ... à 129 millions de dollars d'excédent brut » ; wood_products_op_income T2 2026 = 71, 129 = adj_ebitda_wood_products",
+  "correction_validee": "Ecrire que l'EBITDA ajuste de l'activite produits du bois est passe de -20 M$ au T4 2025 a 129 M$ au T2 2026.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "timberland_acquisitions",
+  "probleme": "Montant annuel cité différent de la série, série arrêtée fin 2025",
+  "preuve": "signal « 375 M$ investis en 2025 » ; serie 2025 = 4+1+461+3 = 469",
+  "correction_validee": "Corriger le total ou expliquer l'écart ; prolonger à 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "timberlands_op_margin, wood_products_op_margin, operating_margin, net_margin, gross_margin, adj_ebitda_margin, sls_op_margin",
+  "probleme": "Variation annuelle de marges exprimée en % relatif au lieu de points",
+  "preuve": "net_margin yoy=+89.1% (4.6 -> 8.7) ; timberlands_op_margin +51.2% (16.6 -> 25.1)",
+  "correction_validee": "Afficher en points : forets +8,5, bois +1,8, operationnelle +2,5, nette +4,1, brute -0,6, EBITDA ajuste -1,2, SLS -1,7.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "wood_products_op_income, sls_op_income, CAHIER_WOOD_PRODUCTS_VOLUME",
+  "probleme": "Séries trouées (T3 2025 et T4 absents) et nom faux",
+  "preuve": "wood_products_op_income : Q3-2023, Q1-2024 ... Q2-2025, Q1-2026 (pas de Q3-2025 ni de T4) ; CAHIER_WOOD_PRODUCTS_VOLUME « Volumes et prix des produits bois transformés » = production lumber seule (4547)",
+  "correction_validee": "Compléter les trimestres ; renommer « Production de bois de charpente »",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment, revenue_by_geography",
+  "probleme": "Répartition par segment vide ; libellé brut en anglais",
+  "preuve": "revenue_by_segment (None) : trois segments à None ; « KOREA, REPUBLIC OF 0.3 »",
+  "correction_validee": "Remplir à partir des CA de segments 2025 ; « Corée du Sud »",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik.products/customers",
+  "probleme": "Produits inexacts : Weyerhaeuser vend de l'OSB (panneaux à lamelles orientées), pas des panneaux de particules ; clients meubliers marginaux",
+  "preuve": "« Elle vend du bois d'œuvre, des panneaux de particules » ; KPI osb_rev 180 M$ au T2 2026",
+  "correction_validee": "Remplacer par « panneaux OSB, bois d'ingénierie, contreplaqué » et citer les constructeurs et distributeurs",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Prix réalisé des grumes par tonne (Ouest, Sud), indicateur central d'un REIT forestier, absent alors que CA et volumes existent",
+  "preuve": "timberlands_west_rev et log_sales_vol_west présents, aucun $/tonne",
+  "correction_validee": "Ajouter le prix réalisé des grumes livrées par région ($/t)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning, tagline",
+  "probleme": "Termes anglais",
+  "preuve": "« digital forestry and automation » ; tagline « One of the world's largest private owners of timberlands »",
+  "correction_validee": "Traduire en « foresterie numerique et automatisation » dans le positionnement IA ; ne pas toucher au slogan.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

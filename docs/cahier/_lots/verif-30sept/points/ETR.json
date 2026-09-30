@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "capex_plan_26_29 / capex.signal / att",
+  "probleme": "Trois montants differents pour le meme plan 2026-2029 sur la fiche",
+  "preuve": "capex_plan_26_29 val=41 B$ (Q3-2025) ; capex.signal '43,5 Mds$ sur 2026 2029' ; anti-these '57,2 Mds$ sur 2026-2029'",
+  "correction_validee": "Ajouter le point 57,2 Mds$ date au KPI et aligner le signal capex sur 57,2.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total retail electricity sales (GWh)",
+  "probleme": "Serie decalee d un trimestre et doublon de la somme des categories",
+  "preuve": "dernier point 30737 = Q1-2026 (15895+8057+6230+555) alors que dernier=2026-06-30 ; Q2-2026 reel = 33725 (total_gwh_q 37063 moins resale 3338)",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CUSTOMER_LOAD_GROWTH",
+  "probleme": "Nom faux : c est le volume annuel de ventes au detail, pas une croissance de clients",
+  "preuve": "FY2025=128960 GWh = total 2025 (141958) moins ventes en gros (12996)",
+  "correction_validee": "Renommer 'Ventes d electricite au detail annuelles (GWh)'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "entergy_la_resilience_plan",
+  "probleme": "Premier point aberrant (5 au lieu de 1,9), probablement '5 ans' pris pour un montant",
+  "preuve": "serie Q3-2024=5, Q4-2024=1.9, Q3-2025=1.9 ; nom '1,9 G$ (5 ans)'",
+  "correction_validee": "Retirer le point Q3-2024.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "nuclear_ptc_2032, Sale of natural gas distribution businesses",
+  "probleme": "Valeurs qui ne sont pas des mesures : une annee (2032) et un compteur 'transaction = 1'",
+  "preuve": "val=2032 unite 'annee' ; val=1 unite 'transaction'",
+  "correction_validee": "Supprimer les deux KPI et passer les faits en evenements.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CAPEX_PLAN",
+  "probleme": "Serie arretee en 2024 et en M$ alors que les autres plans sont en B$ et vont a 2025",
+  "preuve": "dernier 2024-12-31, FY2024=26845 M$",
+  "correction_validee": "Prolonger a 2025 en Mds $ ou supprimer au profit de capex_plan_26_29",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "generating_capacity_mw",
+  "probleme": "Valeurs arrondies au millier de MW, serie approximative",
+  "preuve": "30000, 30000, 30000, 26000, 24000, 24000, 25000, 25000",
+  "correction_validee": "Re-sourcer les capacites exactes du 10-K",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "500 kV transmission system expansion",
+  "probleme": "Valeur 220 % sans base explicite, signal parle de doubler",
+  "preuve": "val=220 %, signal 'double la capacite'",
+  "correction_validee": "Exprimer en km ou MW ou supprimer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Annual industrial electricity sales 2025",
+  "probleme": "Doublon a un point de la somme annuelle de industrial_load_growth",
+  "preuve": "60882 = 13833+15620+16255+15175",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Aggregates ASP",
+  "probleme": "Série sans périodes contredite par CAHIER_ASP_TON et agg_asp",
+  "preuve": "14.74, 15.62, 17.4, 21.2, 23.48 ; CAHIER_ASP_TON FY2021..FY2025 = 15.08, 16.68, 19.84, 21.8, 23.3",
+  "correction_validee": "Supprimer 'Aggregates ASP'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Magnesia Specialties Revenue",
+  "probleme": "Doublon périmé de spec_rev daté 2026-06-30",
+  "preuve": "dernier point 320 = FY2024 ; 'Specialties Revenue' FY2025=441 = somme spec_rev 2025 (87+90+131+133)",
+  "correction_validee": "Supprimer 'Magnesia Specialties Revenue'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Aggregates shipments (tons)",
+  "probleme": "Doublon de agg_vol en retard d'un trimestre",
+  "preuve": "val=43.9 daté 2026-06-30 ; agg_vol Q1-2026=43.9, Q2-2026=61.6 ; le moat reprend ce '+12 %' au lieu de +17 %",
+  "correction_validee": "Supprimer le doublon et corriger le moat : volumes d'agrégats +17 % au T2 2026 (+2,3 % en organique).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cement Shipments",
+  "probleme": "Série sans périodes mêlant ciment et béton, activité cédée",
+  "preuve": "'Cement & Ready Mixed Concrete Shipments' 4.8..4.8 M tonnes ; cession South Texas à CRH et échange Midlothian avec Quikrete",
+  "correction_validee": "Supprimer ou sourcer avec périodes et périmètre",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "bldg_mat_rev",
+  "probleme": "Série mêle valeurs restatées et non restatées",
+  "preuve": "Q2-2025=1721 alors que le signal dit '1 519 M restaté un an avant' ; somme 2025 = 6 103 vs annuel Building Materials 5 709",
+  "correction_validee": "Retraiter Q1 à Q3 2025 avec les valeurs restatées du rapport trimestriel 2026 et recalculer la variation.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Aggregates Revenue (East+West)",
+  "probleme": "Signal contredit l'anti-thèse et cite 2023",
+  "preuve": "signal '#1 producteur granulats US, +18.9% prix FY23' ; att 'numéro deux américain des granulats'",
+  "correction_validee": "Réécrire : numéro deux américain, prix 2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gm_q, om_q, nm_q",
+  "probleme": "Variation de marges en pourcentage au lieu de points",
+  "preuve": "gm_q yoy=-17.5% (30.8 -> 25.4), om_q -33.0%, nm_q -36.8%",
+  "correction_validee": "Afficher -5,4 pt, -9,4 pt et -7,5 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "parts",
+  "probleme": "Exercice absent et part Specialties fausse",
+  "preuve": "(None) East 40 ; West 55 ; Magnesia 5 ; 441/6150 = 7,2 %",
+  "correction_validee": "Recalculer sur 2025 avec East/West du rapport annuel, Specialties 7,2",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Reserves Aggregates, Quarries Network",
+  "probleme": "Séries sans périodes ni source, datées 2026-06-30",
+  "preuve": "11.2..12.7 Mds tons ; 340..400 sites ; aucune history_periods",
+  "correction_validee": "Sourcer avec exercices ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "hero",
+  "champ": "hero_kpi",
+  "probleme": "Le KPI principal est le CA Aerospace, activité scindée le 29 juin 2026, et sa justification parle d'automatisation",
+  "preuve": "hero aero_rev ; signal 'Dernier trimestre où Aerospace reste consolidé avant sa scission' ; justification 'reflétant la demande croissante pour l'automatisation'",
+  "correction_validee": "Passer le hero sur un indicateur du nouveau périmètre (CA Building Automation ou carnet total) avec une justification cohérente.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Anciens noms de segments en anglais appliqués aux chiffres des nouveaux segments, Aerospace scindée incluse",
+  "preuve": "'Safety And Productivity Solutions' 9,401 Mds = CA Industrial Automation ; 'Home And Building Technologies' 7,367 = Building Automation ; Aerospace 46,8 %",
+  "correction_validee": "Renommer en Industrial Automation, Building Automation et Energy & Sustainability Solutions, et ajouter une répartition du périmètre sans Aerospace.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Aerospace spin financing raised, U.S. DoD supplier framework agreement, LNG and refining project wins, Aerospace supply chain investment, Quantinuum capital raise, Engineers added to workforce, Flexjet litigation settlement, Bombardier partnership lifetime value, UOP record orders, Johnson Matthey..., Sundyne acquisition, PPE divestiture, Advanced Materials spin-off (Solstice), New product introduction organic growth",
+  "probleme": "Quatorze événements ponctuels présentés comme des KPI (un seul point, nom anglais), dont un chiffre contredit par la fiche HONA",
+  "preuve": "'Advanced Materials spin-off' val=1 unité 'spin-off' ; financement de la scission : '20 Md$ levés' contre 16,0 Mds $ émis sur HONA (lt_debt_s 15 849 M$)",
+  "correction_validee": "Supprimer ces quatorze KPI et reporter si utile les faits dans la thèse ou l'anti-thèse.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Aerospace/HBT/PMT/SPS Product et Service Revenue, Aerospace/PMT/HBT Segment Profit, Aerospace Revenue, Aerospace Sales, Energy & Sustainability Revenue, PMT Sales, Industrial Automation, Building Automation, Honeywell Accelerator OE",
+  "probleme": "Anciens KPI sur des segments supprimés, faussement datés du 2026-09-05, accents cassés, et valeur affichée différente de la série",
+  "preuve": "'Croissance mod r e', 'a ronautique' ; Aerospace Revenue val=17 510 mais série finissant à 14 900 ; Energy & Sustainability val=3 134 mais série finissant à 5 750",
+  "correction_validee": "Supprimer ces anciens KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "aero_rev / HON_AERO ; total_backlog / Backlog / CAHIER_ORDERS_BACKLOG_LONG_CYCLE",
+  "probleme": "Doublons du CA Aerospace et du carnet total ; le carnet 'cycle long' est en fait le carnet total",
+  "preuve": "CAHIER_ORDERS_BACKLOG_LONG_CYCLE FY2025 = 37 475 000 000 $ = total_backlog Q4-2025 37 475 ; Backlog 38,3 Mds $ sans période",
+  "correction_validee": "Garder aero_rev et total_backlog, supprimer HON_AERO, Backlog et CAHIER_ORDERS_BACKLOG_LONG_CYCLE.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "total_rev, fcf, ocf, capex, rd_expense, gross_margin",
+  "probleme": "Variations et signaux calculés sur une base retraitée alors que les séries affichées ne le sont pas : le lecteur voit une baisse annoncée comme une hausse",
+  "preuve": "total_rev yoy '+4%' mais Q2-2025 10 352 et Q2-2026 9 719 (-6,1 %) ; fcf '+15%' pour 1 016 puis 961 ; capex '+39%' pour 303 puis 315 ; gross_margin 'vs 39,3% au T2-2025 retraité' alors que la série donne 35,4",
+  "correction_validee": "Retraiter les historiques sur le périmètre sans Aerospace ni Solstice, sinon recalculer variations et signaux sur les séries affichées.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ia_rev, pat_rev",
+  "probleme": "Le CA Industrial Automation, l'un des trois segments restants, s'arrête fin 2025 ; la série Process Automation est trouée",
+  "preuve": "ia_rev dernier point 2025-12-31 ; ia_profit cite '258 M$ au T2-2026' sur le nouveau périmètre ; pat_rev : Q1-2025, Q2-2025 puis Q1-2026, sans Q3 ni Q4 2025",
+  "correction_validee": "Créer la série Industrial Automation du nouveau périmètre et compléter pat_rev sur Q3 et Q4 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dps",
+  "probleme": "Série de dividende arrêtée trop tôt : le regroupement d'actions invoqué date de fin juin 2026, alors que le dividende du T1 2026 a été versé",
+  "preuve": "dps dernier point Q4-2025 ; dividends_paid Q1-2026 = 781 M$ ; signal 'reverse split ... effectif fin juin 2026'",
+  "correction_validee": "Ajouter les dividendes par action de Q1 et Q2 2026 avant regroupement",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "aero_oe",
+  "probleme": "Point aberrant dans la série de première monte",
+  "preuve": "Q3-2024=617, Q4-2024=264, Q1-2025=627",
+  "correction_validee": "Vérifier Q4-2024 à la source",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORGANIC_GROWTH_SEGMENT, CAHIER_SEGMENT_MARGIN, CAHIER_SEGMENT_CAPEX",
+  "probleme": "Nommés 'par segment' mais une seule série sans nom de segment (l'Aerospace, désormais sortie), avec des variations en pourcentage d'un pourcentage",
+  "preuve": "CAHIER_SEGMENT_CAPEX : 'Capex du segment aéronautique' ; yoy '+9.1%' et '-5.0%' sur des séries en %",
+  "correction_validee": "Renommer avec le segment et exprimer en points, ou supprimer puisque le segment est parti chez HONA",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description / clients / positionnement IA",
+  "champ": "mettrik_description, clients_concentration, ai_positioning",
+  "probleme": "Textes périmés depuis la scission et positionnement IA générique",
+  "preuve": "Description : 'aérospatiale', 'unités de puissance auxiliaires' ; client principal : État fédéral américain 12,7 % (surtout Défense et Spatial, parti chez HONA) ; IA : 'Intègre l'IA dans ses produits et opérations existants pour améliorer performance et expérience client.'",
+  "correction_validee": "Réécrire sur le périmètre automatisation et recalculer la part client sur le nouveau périmètre",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

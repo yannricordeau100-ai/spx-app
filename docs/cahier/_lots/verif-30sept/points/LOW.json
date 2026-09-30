@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_VENTES_COMPARABLES / CAHIER_TRANSACTIONS_PANIER / CAHIER_VENTES_SURFACE / Return on Invested Capital",
+  "probleme": "Etiquettes d'exercice decalees d'un an par rapport aux autres KPI de la fiche : la meme valeur porte deux annees differentes",
+  "preuve": "CAHIER_VENTES_SURFACE FY2026=1759 contre store_count FY2025=1759 ; CAHIER_TRANSACTIONS_PANIER FY2026=780000000 contre comp_transactions.signal 780M transactions FY2025 ; CAHIER_VENTES_COMPARABLES FY2026=0.2 alors que les trimestres Q1 a Q4-2025 donnent ~0,2",
+  "correction_validee": "Décaler d'un an vers l'arrière les étiquettes des séries CAHIER (exercice clos fin janvier 2026 = FY2025) ; ROIC sans périodes : le dater sur la même convention.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_VENTES_COMPARABLES.yoy / gross_margin_bps.yoy",
+  "probleme": "Variation en pourcentage d'une serie deja en pourcentage ou en points de base, chiffres absurdes",
+  "preuve": "CAHIER_VENTES_COMPARABLES yoy=-107.4% ; gross_margin_bps yoy=+1566.7%",
+  "correction_validee": "Exprimer en points : CAHIER_VENTES_COMPARABLES +2,9 pts, gross_margin_bps +16 pb sur la dernière valeur ; sinon retirer le yoy.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_TRANSACTIONS_PANIER.name / CAHIER_VENTES_SURFACE.name",
+  "probleme": "Noms qui promettent deux mesures (panier moyen, ventes par surface) alors que la serie n'en contient qu'une",
+  "preuve": "Transactions et panier moyen | unite transactions clients sur l'exercice ; Parc de magasins et ventes par unité de surface | unite magasins",
+  "correction_validee": "Renommer CAHIER_TRANSACTIONS_PANIER en « Transactions clients annuelles » et retirer CAHIER_VENTES_SURFACE, doublon de store_count.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "home_decor_mix / building_products_mix / hardlines_mix (signal)",
+  "probleme": "Unite fausse x1000 dans les signaux",
+  "preuve": "Home Décor 31,53 M$ ; Building Products 26,53 M$ ; Hardlines 24,18 M$ pour des divisions de plusieurs dizaines de milliards",
+  "correction_validee": "Remplacer « M$ » par « Mds $ » dans les trois signaux (31,53, 26,53 et 24,18 Mds $).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition 2025 reprend la part 2024 de Home Decor et contredit le KPI de la fiche",
+  "preuve": "revenue_by_segment (exercice 2025): Home Decor 37.5 ; home_decor_mix FY2025=36.5 (FY2024=37.5)",
+  "correction_validee": "Recalculer la repartition 2025 sur le total groupe (36,5 / 30,7 / 28,0 du segment retail + Other 2,2 ne somment pas 100)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "gross_margin / op_margin / net_margin / eps_diluted (signal)",
+  "probleme": "Signaux perimes d'un trimestre : ils citent le T1 alors que le dernier point est le T2-2026",
+  "preuve": "gross_margin dernier 2026-09-02 val 33.04 (Q2-2026) mais signal Marge brute 32,7% au T1 FY2026 ; eps_diluted val 4.27 mais signal BPA dilué 2,90$ au T1 FY2026",
+  "correction_validee": "Reecrire les quatre signaux sur le T2-2026 (33,0 %, 13,7 %, 9,2 %, 4,27 $)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Customer transactions per week",
+  "probleme": "Serie plate lissee (16 x 8) qui contredit le moat de la meme fiche",
+  "preuve": "serie: 16, 16, 16, 16, 16, 16, 16, 16 ; moat : les transactions hebdomadaires passent de vingt à seize millions",
+  "correction_validee": "Retirer la serie ou la remplacer par les valeurs reelles par exercice",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Return on Invested Capital / these / att",
+  "probleme": "Trois valeurs de ROIC differentes sur la meme fiche pour la meme periode",
+  "preuve": "KPI val=26.1 ; these : 25,5 % sur douze mois glissants au 31 juillet 2026 ; att : ROIC de 26,8%",
+  "correction_validee": "Harmoniser sur la valeur publiee et dater chacune",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these / att / description",
+  "champ": "texte",
+  "probleme": "Apostrophe doublee systematique dans le nom de la societe",
+  "preuve": "Lowe's'a progressé ; Lowe's'à s'appuyer ; Lowe's'investit ; Lowe's'exploite",
+  "correction_validee": "Remplacer « Lowe's' » par « Lowe's » (suivi d'une espace) partout.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "distribution_centers.signal",
+  "probleme": "Signal en anglais",
+  "preuve": "Over 120 supply chain facilities: regional/flatbed/import/bulk distribution centers, cross-dock terminals, Fulfillment Centers",
+  "correction_validee": "Traduire : plus de 120 sites logistiques (centres de distribution régionaux, plateformes import et vrac, terminaux de transbordement, centres d'expédition).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Foundation Building Materials acquisition / Goodwill from FBM / September 2025 senior notes issuance / Frontline associate discretionary bonus / Skilled trades training investment",
+  "probleme": "Evenements ponctuels a un seul point presentes comme des KPI, sans serie possible",
+  "preuve": "Goodwill from FBM n=1 val=3289 ; September 2025 senior notes issuance n=1 val=5 ; Frontline associate discretionary bonus n=1 val=125",
+  "correction_validee": "Deplacer en stories ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

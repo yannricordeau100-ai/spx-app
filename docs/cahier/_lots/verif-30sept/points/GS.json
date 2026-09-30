@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CET1 / Common Equity Tier 1 ratio (standardized approach) / Standardized CET1 capital ratio",
+  "probleme": "Même ratio en trois exemplaires, avec trois valeurs différentes pour la même date. L'un affiche un coussin confortable qui contredit l'anti-thèse.",
+  "preuve": "CET1 Q2-2026 = 12,9 ; les deux autres sont datés 2026-06-30 et valent 12,5 et 14,4. « coussin confortable » contre att : « coussin de capital a fondu de 3,4 à 1,5 point ».",
+  "correction_validee": "Garder CET1 et supprimer les deux autres.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total deposits / Total loans / Provision for credit losses / Efficiency ratio / ROTE",
+  "probleme": "Doublons périmés (données du T3 2025 datées de 2026) qui contredisent les séries à jour. Le ROTE affiché est même inférieur au ROE, ce qui est impossible.",
+  "preuve": "Total deposits 490 « record » contre DEPOSITS 558. Total loans 222 contre LOANS 261. Provision 339 « au T3-2025 » contre 102. ROTE 15,2 « au T3-2025 » contre ROE Q2-2026 = 23,5. Efficiency 62,3 contre « coefficient d'exploitation ramené à 57,4 % ».",
+  "correction_validee": "Supprimer Total deposits, Total loans, Provision for credit losses et Efficiency ratio, et mettre le ROTE a jour au T2 2026 ou le supprimer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition fausse : Platform Solutions à 24,5 % du CA, alors que ce segment pèse moins de 5 % (et il est négatif au T4 2025). Le total correspond au CA 2022.",
+  "preuve": "GBM 20,35 + AWM 15,42 + PS ≈ 47,4 Mds $ = revenue_annuel 2022 (47,365). PLAT_REV trimestriel autour de 0,4 à 0,7 Md$.",
+  "correction_validee": "Recalculer sur 2025 : GBM 41,4 Mds $ (71 %), AWM 16,6 Mds $ (28 %), Platform Solutions 0,4 Md$ (1 %).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel / fcf_par_salarie / dette_sur_ca / dette_annuelle / effectifs_annuels / ca_par_salarie",
+  "probleme": "Ratios d'industriel sans signification pour une banque (FCF, dette sur CA). Séries arrêtées en 2019 ou 2024 alors que HEADCOUNT va jusqu'en 2026.",
+  "preuve": "fcf_annuel 2025 = -47,2 Mds $ ; dette_sur_ca = 583,7 % ; fcf_par_salarie 2017 = -646,8 k$ ; effectifs_annuels dernier 2020-02-21.",
+  "correction_validee": "Supprimer fcf_annuel, fcf_par_salarie, dette_sur_ca, dette_annuelle, effectifs_annuels et ca_par_salarie pour GS.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AUS.signal / Total AUS net inflows",
+  "probleme": "Deux chiffres de collecte nette incompatibles pour le T2 2026.",
+  "preuve": "AUS : « collecte nette de 230 Mds $ au T2 2026 » ; Total AUS net inflows, dernier point daté 2026-06-30 = 87.",
+  "correction_validee": "Vérifier à la source et corriger l'un des deux (ou dater les points de la série).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PLAT_REV, GBM_PRETAX, AWM_PRETAX, PLAT_PRETAX, ALT_AUS",
+  "probleme": "La variation annuelle est calculée sur une base retraitée qui n'apparaît pas dans la série affichée : le graphique et le chiffre de variation ne concordent pas.",
+  "preuve": "PLAT_REV Q2-2025 = 685 dans la série mais « contre 619 M$ (base retraitée) » ; GBM_PRETAX 4 170 contre « 4,08 Mds $ » ; AWM_PRETAX 845 contre « 912 M$ » ; ALT_AUS 355 contre « 371 ».",
+  "correction_validee": "Remplacer l'historique par la base retraitée publiée.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_MARGIN.signal",
+  "probleme": "Affirmation fausse dans le signal.",
+  "preuve": "« plus haut niveau de la série » pour 32,6 alors que Q4-2025 = 34,3 et Q1-2026 = 32,7.",
+  "correction_validee": "Retirer plus haut niveau de la serie du signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_IB_FEES / CAHIER_NNA",
+  "probleme": "Unité « $ » avec des valeurs brutes à 10 chiffres, et noms anglais fabriqués.",
+  "preuve": "val = 9 348 000 000, unité « $ » ; name_en « Ib Fees », « Nna ».",
+  "correction_validee": "Convertir en Mds $ (9,35 et 224) et renommer en Investment banking fees et Net new assets.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "IA / moat / description",
+  "champ": "ai_positioning / moat.text / mettrik_description / tagline",
+  "probleme": "Le texte IA cite « le rapport » et ressemble à une sortie de modèle de langage. Le moat mentionne la note. La description est pleine d'anglicismes et l'accroche est en anglais.",
+  "preuve": "« Le rapport ne fournit pas de montants d'investiss... » ; « la note a été relevée » ; « corporates, institutions, gouvernements, hedge funds et UHNW » ; « Advancing Sustainable Economic Growth... ».",
+  "correction_validee": "Réécrire ces textes en français, sans mention de document ni de note.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Innovator / Industry Ventures acquisitions, Experienced hire applications, Provision for credit losses net benefit 2025, Quarterly dividend increase",
+  "probleme": "Événements ponctuels et doublons (dividende déjà dans DIV_PS) présentés comme des KPI trimestriels. Les unités sont incohérentes (Mrd$, G$, T$).",
+  "preuve": "n=1 ; « Quarterly dividend increase » 4,5 = DIV_PS ; « 1,1 million de candidatures » ; unités « T$ » avec signal en « Mrd$ ».",
+  "correction_validee": "Sortir ces éléments des KPI et harmoniser les unités en Mds $.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

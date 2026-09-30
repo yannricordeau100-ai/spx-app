@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "texte",
+  "champ": "ai_positioning / these / att / mettrik_description",
+  "probleme": "Nom de la société écrit avec un accent inexistant.",
+  "preuve": "« Cohérent Corp. est un acteur clé », « Cohérent fabrique les composants optiques », « Cohérent vit un redressement », « Cohérent Corp. conçoit et fabrique ».",
+  "correction_validee": "Remplacer « Cohérent » par « Coherent » dans tous les champs texte.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_networking_comms (hero) / Communications Revenue / net_seg_networking / net_seg_materials / net_seg_lasers / net_networking_profit",
+  "probleme": "Le hero et les anciens segments s arrêtent à l exercice 2025 avec des dates fausses (l exercice clôt le 30 juin), doublonnent, et ont des signaux en franglais, alors que la nouvelle segmentation FY2026 est sur la fiche.",
+  "preuve": "net_networking_comms FY2025 = 3 436 M$, dernier 2025-12-31 ; « Communications Revenue » 3 436,04 M$ daté 2025-06-30 (même donnée). net_seg_networking dernier 2025-12-31 mais dernier point Q4-FY2025 (juin 2025). Signaux : « Hausse display capital equipment, offset faiblesse precision manufacturing », « Forte demande AI datacenter transceivers 800G/1.6T + ZR/ZR+ télécom ». seg_datacenter_comms va jusqu au T3-FY2026.",
+  "correction_validee": "Passer le hero sur seg_datacenter_comms, supprimer « Communications Revenue », redater les anciens segments au 2025-06-30 avec signaux en français ou les retirer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition par segment issue de la structure II-VI d avant fusion (exercice 2021), sans rapport avec les segments actuels.",
+  "preuve": "revenue_by_segment : Compound Semiconductors 48,7 ; Industrial and Scientific 27,2 ; Communications 24,1 ; total 3,11 Mds $ (CA 2021 = 3,106). FY2026 : Datacenter & Communications environ 75 %, Industrial environ 25 % (signal seg_datacenter_comms « trois quarts du chiffre d affaires »).",
+  "correction_validee": "Recalculer sur l exercice 2026 avec les deux segments publiés (environ 72 % / 28 % sur neuf mois, à finaliser avec le T4).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "toutes les séries trimestrielles (revenue_total, gross_profit, net_income, fcf, seg_*)",
+  "probleme": "Les séries trimestrielles s arrêtent au T3-FY2026 (mars 2026) alors que l exercice 2026 clos en juin est déjà exploité ailleurs sur la fiche ; le T4-FY2026, trimestre record, manque ; trou au T4-FY2025 dans les séries segment.",
+  "preuve": "revenue_annuel 2026 = 7 118 M$ ; T1 à T3-FY2026 = 1 581,4 + 1 685,6 + 1 805,6 = 5 072,6 donc T4-FY2026 = 2 045 M$, mais le signal revenue_total dit « CA trimestriel record de 1 806 M$ au T3-FY2026 ». seg_datacenter_comms : n=6, périodes Q1-Q3 FY2025 puis Q1-Q3 FY2026.",
+  "correction_validee": "Intégrer le T4-FY2026 du 10-K d août 2026 dans toutes les séries trimestrielles, mettre à jour les signaux et combler le T4-FY2025 des segments.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_sic_electronics",
+  "probleme": "Un total annuel inséré comme point trimestriel, série arrêtée en mars 2024 avec une date fausse.",
+  "preuve": "Q4-FY2023 = 614,2 M$ alors que les trimestres voisins font 136 à 197 M$ ; 176,6 + 197 + 136,2 + 104,4 = 614,2 (total FY2023). Dernier point Q3-FY2024 (mars 2024) mais dernier 2024-09-30. Signal : « demande EV/automobile faible FY2025 ».",
+  "correction_validee": "Retirer la série, arrêtée depuis mars 2024 et remplacée par le segment Industrial, ou remplacer 614,2 par 104,4, vérifier 298,2 et redater au 2024-03-31.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AI Datacom Transceivers Rev / Order Backlog",
+  "probleme": "Séries annuelles sans signal ni source, datées 2026-12-31, avec des zéros de remplissage et un ordre de grandeur invraisemblable.",
+  "preuve": "AI Datacom Transceivers Rev : 0 ; 0 ; 0,35 ; 0,65 ; 1,2 Mds $ alors que le seul segment Datacenter & Communications fait 1 361,7 M$ au T3-FY2026 (environ 5,3 Mds $ sur l exercice). Order Backlog : 1,7 ; 2 ; 2,3 ; 2,4 ; 2,6 Mds $, lissé, non publié par la société.",
+  "correction_validee": "Supprimer « AI Datacom Transceivers Rev » et « Order Backlog ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "top_customer_conc vs att / clients",
+  "probleme": "KPI de concentration arrêté à l exercice 2025 et en contradiction avec l anti-thèse sur la valeur de l année précédente.",
+  "preuve": "top_customer_conc FY2025 = 12 % (« Deux clients majeurs à 12% et 10% »). Anti-thèse : « un seul client pèse désormais 20% du chiffre d affaires, contre 10% un an plus tôt ». Bloc clients : top 2 = 32 % exercice 2026.",
+  "correction_validee": "Ajouter FY2026 = 20 % et trancher 10 ou 12 % pour FY2025 depuis le 10-K.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "headcount vs effectifs_annuels",
+  "probleme": "Doublon d effectif dont l un est périmé d un exercice, alors que la thèse insiste sur le recrutement de 21 000 personnes.",
+  "preuve": "headcount FY2025 = 30 000 (dernier 2025-06-30). effectifs_annuels 2026 = 51 000 (+70 %). Thèse : « recruté environ 21 000 personnes en un an ».",
+  "correction_validee": "Prolonger headcount à FY2026 avec la ventilation production, ou le supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted.yoy / fcf.yoy",
+  "probleme": "Variations en pourcentage depuis une base négative ou avec changement de signe, sans signification.",
+  "preuve": "eps_diluted yoy +981 % (0,97 vs -0,11 $) ; fcf yoy -851 % (-383,5 vs 51,1 M$).",
+  "correction_validee": "Afficher « n.s. » sur eps_diluted et fcf.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik / Communications Revenue.signal",
+  "probleme": "Notes internes d analyste visibles par le client.",
+  "preuve": "Moat : « mais les séries par segment restent difficiles à interpréter ». Signal « Communications Revenue » : « hero AI infrastructure » ; description : « Hero AI transceivers optiques 800G/1.6T ».",
+  "correction_validee": "Retirer ces mentions de justification_mettrik et du signal et de la description de « Communications Revenue ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI à un point datés 2026-04-10 (Thermadite, plaquette 6 pouces, marchés CPO et OCS, CA record 2025, capex trimestriel, cession A&D, dépréciation)",
+  "probleme": "Arguments produits, estimations de marché et opérations ponctuelles présentés comme KPI, avec unités fantaisistes, doublons et un point déjà périmé.",
+  "preuve": "« Thermadite heat transfer vs copper » unité « x meilleur » ; « 6-inch indium phosphide wafer cost advantage » unité « x puces » ; « Record annual revenue 2025 » 5 810 M$ alors que revenue_annuel 2026 = 7 118 ; « Quarterly capital expenditures » 290 = capex 289,7.",
+  "correction_validee": "Supprimer ces éléments ou les basculer dans la thèse ; garder le book-to-bill et les clients OCS s ils sont suivis.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography / rev_north_america / rev_china / CAHIER_END_MARKET_MIX",
+  "probleme": "Géographies arrêtées à l exercice 2025 alors que l exercice 2026 est publié ; nom du CAHIER trompeur.",
+  "preuve": "revenue_by_geography « exercice 2025 » ; rev_north_america et rev_china dernier 2025-06-30. CAHIER_END_MARKET_MIX nommé « Répartition du chiffre d affaires par marché final » alors que la série est une seule part (74,1 %).",
+  "correction_validee": "Mettre à jour sur FY2026 ; renommer le CAHIER « Part du datacenter et des communications dans le CA ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

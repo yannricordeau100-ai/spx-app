@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "revenue_annuel / fcf_annuel / dette_annuelle / effectifs_annuels (libelles d annee et signal)",
+  "probleme": "Les series annuelles sont datees par la date de cloture (2 janvier 2026) et non par l exercice : le signal annonce des ventes de 17,2 Mds $ en 2026 alors qu il s agit de l exercice 2025. Meme decalage pour le FCF, la dette et l effectif. Les annees 2019 et 2024 manquent.",
+  "preuve": "revenue_annuel : 2025=16.662, 2026=17.174 ; signal 'Ventes de 17,2 Mds $ en 2026' ; revenue_q signal 'FY2025 à 17 174 M$'. effectifs_annuels : 'Effectif de 47 000 salariés en 2026'.",
+  "correction_validee": "Relibeller par exercice les seuls points clos début janvier (2020 devient 2019, 2025 devient 2024, 2026 devient 2025) sur le CA, le FCF, la dette et l'effectif, ajouter l'exercice 2020 (clos le 1er janvier 2021) puis régénérer les signaux.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "headcount vs effectifs_annuels",
+  "probleme": "Deux series d effectif qui se contredisent : headcount a un point FY2026=50 000 (exercice non clos, date 2026-09-04) et un signal qui parle de 47 000 fin 2025, tandis qu effectifs_annuels donne 48 000 pour 2025 et 47 000 pour 2026.",
+  "preuve": "headcount : FY2024=48000, FY2025=47000, FY2026=50000 :: 'Environ 47 000 salariés fin 2025, en léger repli après le pic de 48 000 en 2024'. effectifs_annuels : 2025=48000, 2026=47000.",
+  "correction_validee": "Garder une seule serie (FY2024=48 000, FY2025=47 000), retirer le point FY2026 tant que l exercice n est pas clos ou le documenter comme effet Entrust.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Funded backlog / Book-to-bill ratio / TOTAL_BACKLOG_B / 2025 net bookings (doublons)",
+  "probleme": "Quatre doublons de KPI deja presents en version trimestrielle. 'Funded backlog' (9,6) et 'Book-to-bill ratio' (0,8) sont dates du 4 septembre 2026 mais s arretent au T1 2026 alors que funded_backlog (10 223) et book_to_bill (1,08) vont au T2 2026. Le moat reprend le +31 % du doublon perime.",
+  "preuve": "funded_backlog Q2-2026=10223 yoy +44% ; 'Funded backlog' serie ...9.7, 9.6 yoy +31%. book_to_bill Q2-2026=1.08 ; 'Book-to-bill ratio' 0.8. moat : 'carnet financé en hausse de 31 %'.",
+  "correction_validee": "Supprimer Funded backlog, Book-to-bill ratio, TOTAL_BACKLOG_B et 2025 net bookings, puis écrire dans le moat « carnet financé en hausse de 44 % ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Phrase incomprehensible : 'rétrogradation de la note' sans dire quelle note, et 'un résultat opérationnel de 15 %' n a pas de sens (le resultat operationnel recule de 10 %, la marge est de 11,3 %).",
+  "preuve": "moat : 'La rétrogradation de la note tranche avec un carnet financé en hausse de 31 % et un résultat opérationnel de 15 %'. op_income yoy=-10%, op_margin=11.3.",
+  "correction_validee": "Reecrire le moat a partir des chiffres T2 2026 (carnet 48,7 Mds $, +5 % ; carnet finance +44 % ; resultat operationnel -10 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "La repartition par segment utilise des noms qui n existent pas ('National Security Solutions', 'Civil Segment', 'Defense Solution Segment') et regroupe les anciens segments 2025 ; la nouvelle organisation 2026 (Intelligence & Digital 33 %, Health 24 %, Homeland 22 %, Defense 21 %) est sur la fiche. La geographie est vide alors que us_rev et intl_rev donnent 91 % / 9 %.",
+  "preuve": "revenue_by_segment : National Security Solutions 57.7 ; Civil Segment 29.5 ; Defense Solution Segment 12.7. revenue_by_geography : États-Unis None ; International None. intl_rev_pct Q2-2026=8.9.",
+  "correction_validee": "Remplacer par les quatre segments 2026 avec leurs parts et renseigner la geographie 91 / 9.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ca_par_salarie / fcf_par_salarie / dette_par_salarie / dette_sur_ca (series)",
+  "probleme": "Les quatre ratios par salarie s arretent en 2018 alors que ventes, FCF, dette et effectifs existent jusqu a l exercice 2025. Serie arretee, pas seulement signal perime.",
+  "preuve": "ca_par_salarie serie : 2016=220.1, 2017=328.1, 2018=318.6 (n=3). revenue_annuel et effectifs_annuels vont jusqu a 2026 (exercice 2025).",
+  "correction_validee": "Après le relibellé du point 0, recalculer les quatre ratios de 2019 à 2025 à partir des séries annuelles et régénérer leurs signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 4 / risque 7",
+  "probleme": "Le risque 4 est un intitule de tableau, pas un risque ; le risque 7 contient une faute de grammaire.",
+  "preuve": "risque 4 : 'Résumé des facteurs de risque : ce tableau présente un aperçu des principaux risques'. risque 7 : 'le affaiblissement des marchés du crédit'.",
+  "correction_validee": "Supprimer le risque 4 et écrire « l'affaiblissement » dans le risque 7.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Military OneSource directed award / TOTAL_BACKLOG_B (signaux)",
+  "probleme": "Coquille et phrase de modele de langage dans les signaux.",
+  "preuve": "'ancrant le pilier de croissance santé géréc.' ; 'Carnet de commandes total en fin d'exercice : 49.032 Mds $ en 2025, produit phare de la société.'",
+  "correction_validee": "Écrire « santé gérée » et retirer « produit phare de la société » (ce point tombe si TOTAL_BACKLOG_B est supprimé au point 2).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "cost_plus_mix (signal)",
+  "probleme": "Le denominateur cite (4 548 M$) ne correspond pas au chiffre d affaires du T2 2026 sur la fiche (4 558 M$).",
+  "preuve": "cost_plus_mix : '2 026 M$ de contrats cost-plus sur 4 548 M$ au T2 2026' ; revenue_q Q2-2026=4558.",
+  "correction_validee": "Verifier le denominateur et aligner sur 4 558 M$ (44,5 %).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

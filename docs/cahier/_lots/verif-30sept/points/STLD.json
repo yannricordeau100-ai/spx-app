@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Steel shipments",
+  "probleme": "La série mélange deux périmètres. Le signal date la valeur du T1-2026 alors que le point est daté du 2026-06-30. Le KPI fait doublon avec steel_ops_shipments, qui donne une autre valeur.",
+  "preuve": "serie: 2.279, 2.184, 2.328, 2.48, 2.489, 2.306, 2.495, 3.6 (saut de 2,5 à 3,6) ; signal 'record trimestriel de 3,6 M tonnes au T1-2026' ; steel_ops_shipments Q2-2026=3.191 ; steel_ops_revenue signal '3,7 M tonnes totales' au T2-2026",
+  "correction_validee": "Supprimer 'Steel shipments' et garder steel_ops_shipments, dont le signal mentionne déjà le total de 3,7 M tonnes transferts compris.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Annual steel shipments / CAHIER_SHIPMENTS / Share repurchases 2025",
+  "probleme": "Doublons : les expéditions annuelles apparaissent deux fois, et les rachats 2025 font doublon avec la série trimestrielle des rachats.",
+  "preuve": "CAHIER_SHIPMENTS FY2025=13.748801 ; Annual steel shipments serie 12.7, 13.7 ; Share repurchases 2025 = 900 contre rachats_actions 2025 = 250,1+200+210,4+240,3 = 900,8",
+  "correction_validee": "Supprimer 'Annual steel shipments' et 'Share repurchases 2025'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Five-year average free cash flow",
+  "probleme": "La moyenne de 2,4 Md$ par an contredit la série fcf_annuel de la même fiche.",
+  "preuve": "val=2.4 Md$/an ; fcf_annuel 2021-2025 = 1,198+3,552+1,862-0,024+0,502 = 7,09 soit 1,42 Md$ par an",
+  "correction_validee": "Supprimer ce KPI, ou préciser la définition de la société et la rapprocher de fcf_annuel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "tendance / justification_mettrik",
+  "probleme": "La tendance affichée est 'hausse', mais la justification dit l'inverse. Les chiffres récents la contredisent aussi.",
+  "preuve": "'moat: None / tendance hausse :: La marge brute et le résultat opérationnel reculent nettement' ; marge_brute_pct T2-2026 15,7 % (+2,2 pp) ; steel_op_income +89 % ; resultat_net +79 %",
+  "correction_validee": "Réécrire la justification à partir des données T2-2026 et aligner la tendance Mettrik.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI à point unique (objectifs et événements)",
+  "probleme": "Des cibles, des événements ponctuels et des chiffres de marché sont présentés comme des KPI suivis.",
+  "preuve": "Aluminum mill utilization ramp 90 '(cible fin 2026)' ; Through-cycle EBITDA 1.4 ; Aluminum platform EBITDA 675 ; Columbia City monthly casting record 200000 ; United Steel Supply acquisition 220.4 ; 10-year TSR 813 ; Domestic aluminum sheet supply deficit 1.4 ; Aluminum import tariff level 50",
+  "correction_validee": "Retirer ces entrées des KPI ou les déplacer dans un bloc de faits ou d'objectifs.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Aluminum shipments ramp / Domestic steel industry utilization",
+  "probleme": "La date de ces KPI ne correspond pas au contenu du signal, et la valeur des expéditions d'aluminium est périmée.",
+  "preuve": "Aluminum shipments ramp dernier 2025-11-10 mais signal 'de 14 000 t au T4-2025 à 22 000 au T1-2026; guidance 60 000-70 000 t au T2-2026' ; aluminum_revenue T2-2026 = 518,9 M$ contre 242,1 au T1 ; Domestic steel industry utilization dernier 2026-02-08 mais '77% au T1-2026'",
+  "correction_validee": "Remplacer par une série trimestrielle datée des expéditions d'aluminium, au moins jusqu'au T2-2026. Corriger les dates.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_UTILISATION.yoy / dette_sur_ca.yoy",
+  "probleme": "La variation d'un ratio en pourcentage est exprimée en % au lieu de points.",
+  "preuve": "CAHIER_UTILISATION 81 -> 86, yoy=+6.2% (soit +5 pts) ; dette_sur_ca yoy=+26.1% alors que le signal dit '+4,8 points'",
+  "correction_validee": "Afficher les variations en points : +5 pts pour CAHIER_UTILISATION et +4,8 pts pour dette_sur_ca.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "flat_roll_share.signal / fab_operating_income.signal",
+  "probleme": "Deux signaux posent problème. Le premier est en franglais et n'explique pas la chute de 8 points. Le second attribue la marge de la fabrication au coût de la ferraille, alors que cette activité achète de l'acier.",
+  "preuve": "flat_roll_share 72 -> 64, signal 'Mix shift: Columbus/Sinton/Butler = 8.1M tonnes envoyées en 2025' ; fab_operating_income 'Le spread entre prix de vente et coût de la ferraille s'est resserré'",
+  "correction_validee": "Réécrire les deux signaux : le recul de la part des produits plats, et l'écart entre le prix des poutrelles et le coût de l'acier.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment / revenue_by_geography",
+  "champ": "repartition",
+  "probleme": "La répartition 2025 omet le segment aluminium, qui est pourtant suivi en KPI. La répartition géographique n'a pas d'exercice.",
+  "preuve": "Steel 69.9 ; Recycling 22.7 ; Fabrication 7.4 (=100) ; aluminum_revenue 2025 = 100,6+93,6+104,4+175,2 = 473,8 M$ ; 'revenue_by_geography (None)'",
+  "correction_validee": "Ajouter le segment Aluminium (et Autres) et renseigner l'exercice de la répartition géographique.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "resume",
+  "probleme": "La thèse compare un BPA annuel à un BPA trimestriel comme s'ils étaient comparables.",
+  "preuve": "'tombé de 9,84 $ en 2024 à 7,99 $ en 2025 avant de remonter à 3,69 $ pour le seul deuxième trimestre 2026'",
+  "correction_validee": "Comparer le T2-2026 au T2-2025 (3,69 contre 2,01 $) ou utiliser un cumul sur 12 mois.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "entete",
+  "champ": "tagline",
+  "probleme": "La tagline est en anglais.",
+  "preuve": "'Steel Dynamics is a leading U.S. manufacturer of steel products...'",
+  "correction_validee": "Remplacer par une tagline en français.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque les indicateurs clés d'un sidérurgiste à four électrique : prix de vente moyen par tonne, coût moyen de la ferraille par tonne (écart de métal) et taux d'utilisation trimestriel des aciéries. Les signaux les citent sans que ces séries existent.",
+  "preuve": "steel_ops_revenue signal 'prix de vente en hausse de 162 $/tonne' ; steel_op_income 'écart croissant entre prix de vente et coût de la ferraille' ; CAHIER_UTILISATION uniquement annuel",
+  "correction_validee": "Ajouter ces trois séries trimestrielles à partir des communiqués.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "REVENUE_Q.signal",
+  "probleme": "Signal faux : le CA publié en M€ inclut l'effet de change, c'est CN_GROWTH qui le neutralise",
+  "preuve": "Signal : « Cette ligne mesure la demande réelle hors effet de change et sert de référence à tous les objectifs annuels » alors que la série est le Net sales en M€ (Q2-2026 = 6743, +13,3 % publié) et que CN_GROWTH affiche +14 % à change constant",
+  "correction_validee": "Retirer « hors effet de change » du signal REVENUE_Q et préciser qu'il s'agit du CA publié en euros, sensible au change.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "REV_FOOTWEAR_FY",
+  "probleme": "Doublon annuel de REV_FOOTWEAR (semestriel) avec unité libellée différemment",
+  "preuve": "REV_FOOTWEAR_FY FY2025 = 14232 « M EUR » ; REV_FOOTWEAR H1-2025 7236 + H2-2025 6996 = 14232 « M€ ». Aucun équivalent annuel pour vêtements et accessoires",
+  "correction_validee": "Décider : garder l'annuel pour l'historique 2018-2025 et l'harmoniser (unité M€) ou le retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_PAIRS_ASP",
+  "probleme": "Nom et unité ne décrivent pas la série : pas de prix moyen, vendues vs produites, nom anglais absurde",
+  "preuve": "name_fr « Paires vendues et prix moyen par paire », name_en « Pairs Asp », unité « millions de paires produites », série unique FY2016-FY2023 (311 en 2023), arrêtée depuis deux exercices",
+  "correction_validee": "Renommer « Paires de chaussures produites », unité « millions de paires », ou retirer si adidas ne le publie plus",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_BRAND_GROWTH",
+  "probleme": "Nom obscur (une seule marque depuis la vente de Reebok) et valeur 2025 incohérente avec la croissance à change constant de la fiche",
+  "preuve": "« Croissance par marque » FY2025 = 13 ; CN_GROWTH trimestriel 2025 = 13, 8, 8, 10 (environ 10 % sur l'année). Probablement croissance de la marque adidas hors Yeezy, non précisé",
+  "correction_validee": "Renommer « Croissance de la marque adidas hors Yeezy, change constant » après vérification, ou retirer (redondant avec CN_GROWTH)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CHANNEL_MIX",
+  "probleme": "Nom ne dit pas ce que mesure la série ; unité sans accents ni apostrophe",
+  "preuve": "name_fr « Ventes en gros et ventes directes », unité « % du chiffre d affaires realise en vente directe », série = part DTC (FY2025 = 40, cohérent avec REV_DTC 9931 / 24764)",
+  "correction_validee": "Renommer CAHIER_CHANNEL_MIX « Part de la vente directe dans le CA » avec unité « % ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "hero",
+  "champ": "hero_kpi",
+  "probleme": "Hero = CA d'une seule zone alors que la justification décrit la croissance à change constant",
+  "preuve": "hero_kpi = REV_NORTH_AMERICA ; hero_kpi_rationale : « La croissance du chiffre d'affaires à change constant est le chiffre que la société place en première ligne de chacun de ses communiqués »",
+  "correction_validee": "Poser CN_GROWTH (ou GROSS_MARGIN_Q) en hero via l'override",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "manque",
+  "probleme": "Indicateur sectoriel évident absent : dépenses marketing et point de vente en % du CA, publiées chaque trimestre par adidas",
+  "preuve": "Les signaux OP_MARGIN_Q et OP_PROFIT_Q invoquent « l'effort marketing accru, lié notamment à la Coupe du monde » sans qu'aucune série ne le mesure",
+  "correction_validee": "Ajouter la série « Marketing et point de vente, % du CA » trimestrielle",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "yoy (format)",
+  "probleme": "Séparateur décimal incohérent d'un KPI à l'autre sur la même fiche",
+  "preuve": "OWN_RETAIL_STORES yoy « +4,6% », CAHIER_PAIRS_ASP yoy « -25.8% », REV_FOOTWEAR_FY « +1.8% »",
+  "correction_validee": "Normaliser les yoy au format virgule (ex. « -25,8 % ») sur CAHIER_* et *_FY.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

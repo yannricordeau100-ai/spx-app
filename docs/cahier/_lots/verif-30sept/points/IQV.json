@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Book-to-bill / Book-to-bill ratio / btb",
+  "probleme": "Trois KPI ratio commandes/facturation RDS qui se contredisent point par point",
+  "preuve": "Book-to-bill : Q3-2024=1.06, Q1-2026=1.04 (dernier 2026-03-31). btb : T3 2024=1.22, T1 2026=1.04, T2 2026=1.22. Book-to-bill ratio : dernier 2026-06-30 = 1.04. Pour le T2 2026 la fiche affiche donc a la fois 1.04 et 1.22",
+  "correction_validee": "Verifier T3 2024, T1 et T2 2026 a la source, garder une seule serie datee et supprimer les deux autres.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RDS Backlog / R&D Solutions contracted backlog / CAHIER_BACKLOG_CONVERSION",
+  "probleme": "Le carnet RDS apparait trois fois, et la valeur du T2 2026 semble copiee de celle du T1",
+  "preuve": "RDS Backlog : Q1-2026=34200, Q2-2026=34200. R&D Solutions contracted backlog : serie ...32.7, 34.2 (dernier 2026-06-30, donc 34,2 au T1 comme au T2). CAHIER_BACKLOG_CONVERSION FY2025=32.7 reprend le meme chiffre en annuel",
+  "correction_validee": "Verifier le carnet du T2 2026 (probablement 36,4 Mds), garder RDS Backlog, supprimer 'R&D Solutions contracted backlog' ; l'annuel CAHIER peut rester pour l'historique depuis 2018.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Backlog N+12 / Backlog expected to convert to revenue in next twelve months",
+  "probleme": "Doublon exact : le carnet convertible sur 12 mois apparait deux fois",
+  "preuve": "Backlog N+12 : Q3-2025=8100, Q4-2025=8300, Q1-2026=8900 ; l'autre KPI a pour serie 8.1, 8.3, 8.9 en Mds $",
+  "correction_validee": "Supprimer 'Backlog expected to convert to revenue in next twelve months'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Dette / Total debt / dette_annuelle",
+  "probleme": "La dette apparait trois fois avec des valeurs incompatibles pour une meme date",
+  "preuve": "Dette Q1-2026=15.91 Mds, Total debt Q1-2026=15935 M ; Dette Q4-2025=15.80, dette_annuelle 2025=15.724. Le signal de Total debt parle de '13,97 Md$ un an plus tot' alors que Dette Q1-2025=14.39",
+  "correction_validee": "Harmoniser le perimetre de la dette (avec ou sans contrats de location) et supprimer 'Total debt'",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "segments 2026",
+  "probleme": "Aucun indicateur ne couvre le nouveau segment Commercial Solutions : depuis janvier 2026, un pan entier de l'activite n'a plus de suivi",
+  "preuve": "TAS Rev, TAS Seg Profit, CSMS Rev et CSMS Seg Profit s'arretent tous au 2025-12-31 ('Segment supprime'), et aucun KPI Commercial Solutions n'existe alors que la these parle de 'ses deux metiers' au T2 2026",
+  "correction_validee": "Ajouter CA et profit du segment Commercial Solutions depuis le T1 2026, lus a la source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RDS Rev / RDS Seg Profit (signal)",
+  "probleme": "La serie melange l'ancien et le nouveau perimetre sans retraitement : la hausse sur un an est gonflee. Le signal parle en plus de 'marge' pour une serie en dollars",
+  "preuve": "RDS Rev +8.8% et RDS Seg Profit +11.2% alors que le perimetre a change en janvier 2026 (Late Phase integre). Signal : 'La marge du segment R&D progresse plus vite que prevu', mais la serie est un profit en M USD",
+  "correction_validee": "Utiliser les chiffres 2025 retraites s'ils sont publies, sinon masquer la variation sur un an. Remplacer 'marge' par 'profit' dans le signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these.texte",
+  "probleme": "Cuisine interne (nom anglais d'un cadre d'analyse) et raisonnement qui donne raison a l'anti-these a l'interieur meme de la these",
+  "preuve": "'Le cadre Measuring the Moat separe deux choses... Sur le premier point, l'anti-these a raison'",
+  "correction_validee": "Retirer la mention du cadre et du debat avec l'anti-these, garder les chiffres",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "texte",
+  "probleme": "Phrase promotionnelle sans aucun chiffre alors que la fiche en contient",
+  "preuve": "'IQVIA est un leader de l'IA dans le secteur healthcare en 2026' ; la fiche cite pourtant 192 agents IA et 19 des 20 plus grands laboratoires utilisateurs",
+  "correction_validee": "Reecrire avec les chiffres factuels (agents deployes, clients) et remplacer 'healthcare' par 'sante'",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cedar Gate acquisition 2025 revenue, Total authorized share repurchase amount, Healthcare records connected annually",
+  "probleme": "Des faits ponctuels sont presentes comme des KPI trimestriels, et un indicateur annuel est range en trimestriel",
+  "preuve": "CA d'une societe rachetee (140), enveloppe de rachat (13725), 'Dossiers traites annuellement' classe en periodicite quarter, un seul point date 2026-03-28",
+  "correction_validee": "Deplacer ces faits dans les textes ou les supprimer des KPI",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

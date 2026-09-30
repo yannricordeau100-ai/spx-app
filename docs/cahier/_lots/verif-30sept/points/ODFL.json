@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "capex.signal vs 2026 Capital Expenditure Guidance",
+  "probleme": "Deux chiffres contradictoires pour la guidance capex 2026",
+  "preuve": "capex signal : « plan annuel relevé à environ 380 M$ pour 2026 » ; KPI guidance val=265 « Capex 2026 attendu à ~265 M$, en repli »",
+  "correction_validee": "Vérifier la guidance capex 2026 dans le communiqué T2-2026 et ne garder qu'un seul chiffre sur la fiche.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "service_center_count.yoy / on_time_rate.yoy / cargo_claims_ratio.yoy",
+  "probleme": "Champs de variation contenant du texte au lieu d'un nombre ; séries avec un trou de huit ans",
+  "preuve": "yoy « +net 16 (5 ans) » alors que 260 vs 261 = -0,4 % ; yoy « = » ; serie FY2016=99, FY2024=99, FY2025=99",
+  "correction_validee": "yoy service_center_count à -0,4 %, yoy on_time_rate et cargo_claims_ratio à « 0 pt », retirer les points FY2016.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.text",
+  "probleme": "Moat périmé : cite -8 % de volumes alors que les derniers trimestres sont à -4,1 % et -5,7 %",
+  "preuve": "« Les volumes et les expéditions reculent de près de 8 pour cent » ; ltl_tons_per_day yoy=-4.1%, ltl_shipments_per_day yoy=-5.7%",
+  "correction_validee": "Réécrire sur le T2-2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DAILY_TONNAGE_SHIPMENTS / TONNES_LTL / CAHIER_LTL_YIELD",
+  "probleme": "Doublons annuels des séries trimestrielles avec nom trompeur (« Tonnage et expéditions » ne contient que le tonnage), signal générique et format de variation différent",
+  "preuve": "FY2025=32319 = moyenne des trimestres 2025 ; TONNES_LTL signal « Produit phare : Transport routier de marchandises en lots partiels » ; yoy « -9,1% » avec virgule",
+  "correction_validee": "Renommer « Tonnage LTL quotidien (annuel) », écrire un vrai signal, ou supprimer les doublons",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Quarterly dividend per share",
+  "probleme": "Doublon à un point de dividend_per_share",
+  "preuve": "val=0.29 ; dividend_per_share Q2-2026=0.29",
+  "correction_validee": "Supprimer « Quarterly dividend per share ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Mastio x2 / Revenue Market Share / Network capacity / Tractor age / 10-Year CAGR / ROIC / Cumulative CapEx / 2023 program / Credit facility",
+  "probleme": "Dix lignes à un point issues de présentation investisseurs ; l'unité ROIC est bricolée",
+  "preuve": "ROIC unité « % (fourchette 25-30) » val=27.5 ; « Revenue Market Share 11.8 » n=1 alors qu'une série serait utile",
+  "correction_validee": "Déplacer en faits marquants ; construire une vraie série pour la part de marché si la source existe",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Libellé mal formé et bloc géographique vide",
+  "preuve": "« L T L Service Revenue 99.1 » ; « United States None ; International None »",
+  "correction_validee": "Libellés segment « Transport LTL 99,1 ; Autres services 0,9 », le bloc géographique relève du traitement B4.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle.signal",
+  "probleme": "Affichage « 0,0 Mds $ » pour une dette de 40 M$",
+  "preuve": "« Dette de 0,0 Mds $ en 2025, −33,3 % sur un an »",
+  "correction_validee": "Afficher la dette en M$ (40 M$ en 2025).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ltl_rev_per_shipment_exfuel / avg_fulltime_employees / ltl_intercity_miles",
+  "probleme": "Trois séries arrêtées au T1-2026 alors que le reste de la fiche est au T2-2026",
+  "preuve": "dernier 2026-03-31 pour les trois ; ltl_rev_cwt et revenue au 2026-06-30",
+  "correction_validee": "Ajouter le T2-2026",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "shares_diluted / tax_rate (points Q4)",
+  "probleme": "Points Q4 derives par soustraction (exercice moins 9 mois) sur des grandeurs non additives : nombre d'actions negatif et taux d'impot negatif (le detecteur ne signale que le saut).",
+  "preuve": "shares_diluted Q4-2024=-0.21, Q4-2025=-0.09 ; tax_rate Q4-2024=-0.1, Q4-2025=-0.6",
+  "correction_validee": "Remplacer les Q4 par les valeurs publiees du trimestre et desactiver la derivation par soustraction sur ces deux KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ind_rev.signal / bldg_rev.signal",
+  "probleme": "Signaux contredits par les series.",
+  "preuve": "ind_rev signal « Légère contraction, raffineries/pétrochimie » vs yoy +25,9 % ; bldg_rev « Stable, croissance quasi nulle » vs +5,6 %",
+  "correction_validee": "Reecrire les deux signaux sur le T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Remaining Performance Obligations (backlog).signal ; Remaining Performance Obligations (annuel) ; US Mechanical RPO ; US Electrical RPO",
+  "probleme": "Signal perime (cite 15,62 Md$ alors que la serie est a 17,14) ; trois series annuelles du carnet redondantes avec rpo_mech/rpo_elec et CAHIER_BACKLOG, avec descriptions en anglais.",
+  "preuve": "signal « Carnet de commandes record à 15,62 Md$ » vs val=17.14 ; US Electrical RPO description « Hypercroissance driven by data center electrical fit-out » ; RPO description « Transaction price allocated to remaining unsatisfied performance obligations »",
+  "correction_validee": "Mettre le signal a 17,14 Md$ et supprimer les trois series annuelles en doublon.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Miller Electric acquisition",
+  "probleme": "Valeur et signal divergent, et un troisieme montant figure dans acquisitions Q1-2025.",
+  "preuve": "val=865 ; signal « environ 876,8 M$ » ; acquisitions Q1-2025=850.6",
+  "correction_validee": "Aligner sur le prix publie dans le 10-K 2025 (une seule valeur).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Record annual revenue / Record diluted EPS / Share repurchases 2025 / Quarterly dividend increase",
+  "probleme": "Quatre KPI a un point qui dupliquent revenue_annuel, eps_diluted, buyback et dps.",
+  "preuve": "Record annual revenue 16.99 = revenue_annuel 2025 16.986 ; Quarterly dividend increase 0.4 = dps Q1-2026",
+  "correction_validee": "Supprimer les quatre KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle / dette_par_salarie / dette_sur_ca",
+  "probleme": "Series arretees en 2023 alors que debt_total trimestriel va jusqu'a Q2-2026.",
+  "preuve": "dette_annuelle dernier 2023-12-31=0.005 ; debt_total Q4-2025=6.3 M$",
+  "correction_validee": "Ajouter 2024 (6,1 M$) et 2025 (6,3 M$) depuis debt_total et recalculer les deux ratios.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat / these",
+  "champ": "coherence",
+  "probleme": "Le moat annonce « tendance baisse » avec un texte qui dit le contraire (carnet en hausse d'un tiers, « ce qui contredit l'abaissement récent de la note ») ; la these affirme « sans jamais s'endetter » alors que debt_total montre 257 M$ tires au S1 2025.",
+  "preuve": "moat : « None / tendance baisse :: Le carnet de commandes bondit d'un tiers ... contredit l'abaissement récent de la note » ; debt_total Q1-2025=257, Q2-2025=256.4",
+  "correction_validee": "Mettre la tendance en hausse ou stable et retirer la phrase auto-referentielle ; nuancer la these (tirage temporaire rembourse au T3 2025).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "MECH_REV_FY.signal",
+  "probleme": "Texte de gabarit avec nombre non formate.",
+  "preuve": "« Chiffre d'affaires annuel de la construction mécanique aux États-Unis : 7050.5 M $ en 2025, produit phare de la société. »",
+  "correction_validee": "Ecrire « 7,05 Mds $ en 2025, +10,1 % sur un an, premier segment du groupe ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

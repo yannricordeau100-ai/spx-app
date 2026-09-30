@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "en-tete",
+  "champ": "sous-secteur",
+  "probleme": "Sous-secteur faux : Jacobs est classe « Services informatiques » alors que son code GICS 20103010 est Construction et ingenierie.",
+  "preuve": "« Industrie > Services informatiques | GICS 20103010 ».",
+  "correction_validee": "Sous-secteur : Construction et ingenierie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "REVENUE_TOT, GROSS_PROFIT, OP_INCOME, NET_INCOME : yoy et signal",
+  "probleme": "Valeurs mises a jour au T3 FY2026 mais variation annuelle et signal restes sur le T2 : un resultat net positif affiche avec -919,6 %.",
+  "preuve": "NET_INCOME val=136.6 yoy=-919,6 % (= -45.9/5.6 du T2), signal « Net loss attributable to Jacobs de -45,9 M$ au T2 FY2026 » ; OP_INCOME val=286.7 yoy=-138,9 % alors que 286.7/235 = +22 % ; REVENUE_TOT yoy=+27,0 % alors que 4076.4/3031.8 = +34,5 % (chiffre que cite l'anti-these) ; GROSS_PROFIT signal « 794,9 M$ au T2 » pour val=810.7.",
+  "correction_validee": "Recalculer les yoy sur T3 FY2026 vs T3 FY2025 (CA +34,5 %, resultat op. +22 %, resultat net -23,9 %) et regenerer les quatre signaux.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "toutes les autres series trimestrielles (carnet, BPA, OCF, FCF, SG&A, marges, dette, segments, geographie)",
+  "probleme": "Les series s'arretent au T2 FY2026 (27 mars) alors que le T3 (26 juin) est publie et cite dans la these et l'anti-these : le carnet record et le BPA en recul ne sont visibles dans aucun KPI.",
+  "preuve": "these « carnet de commandes total atteint 28 888 M$ au 26 juin 2026 » vs IAF_BACKLOG dernier Q2-2026=26538 et Backlog val=26965 ; att « benefice par action a recule de 25,6 % » vs EPS_DIL dernier Q2-2026=-0.34.",
+  "correction_validee": "Prolonger toutes les series trimestrielles au T3 FY2026 a partir du 10-Q de juin 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "signal de 17 KPI",
+  "probleme": "Les signaux commencent par le libelle anglais du poste comptable, texte en anglais dans un bloc francais.",
+  "preuve": "« Gross profit de 794,9 M$ », « Repurchases of common stock de 219,8 M$ », « Cash and cash equivalents de », « Total assets de », « Goodwill de », « Receivables, net de », « Contract liabilities de », « Share-based compensation de », « Restructuring and other charges de », « Interest expense de », « Weighted average diluted shares de », « Total Jacobs stockholders equity de », « Net earnings (loss) per share - diluted de », « Revenues from External Customers de » (Europe, Canada, Inde, Asie), « Quarterly dividend of $0.36 per share declare ».",
+  "correction_validee": "Remplacer le libelle anglais par le nom francais du KPI en tete de chaque signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "REVENUE_TOT : signal",
+  "probleme": "Le signal est une note de methode interne, pas une lecture du chiffre.",
+  "preuve": "« Le quatrieme trimestre n'est pas communique tel quel par la societe : il est reconstitue en soustrayant les neuf premiers mois de l'exercice. »",
+  "correction_validee": "Signal : 4 076 M$ au T3 FY2026, +34,5 % sur un an ; retirer la note de methode du bloc.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "PA_REV (hero) : signal et choix du hero",
+  "probleme": "Le signal presente PA Consulting comme une acquisition recemment integree au perimetre, alors que la serie compte 20 trimestres (consolidee depuis 2021) ; mars 2026 est le rachat des minoritaires. Et le hero pese 10,5 % du CA quand le carnet I&AF (89,5 %) est ce que suit l'investisseur.",
+  "preuve": "signal « Ce chiffre traduit l'integration recente de PA Consulting, acquisition financee par emission de dette, au perimetre consolide du groupe » ; serie Q3-2024=288.3 ... Q2-2026=358.6, n=20 ; revenue_by_segment PA Consulting 10.5.",
+  "correction_validee": "Reecrire le signal (rachat des 35 % restants en mars 2026, PA consolidee depuis 2021) ; envisager IAF_BACKLOG comme hero.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Backlog, Book-to-bill ratio (quarterly), Quarterly dividend raised to $0.36, $1.5B share repurchase authorization, 2025 share repurchases",
+  "probleme": "Cinq KPI sans periodes ou a un seul point repetent des series etiquetees existantes.",
+  "preuve": "Backlog 26965 = IAF_BACKLOG 26538 + PA_BACKLOG 427 ; Book-to-bill (quarterly) 1.67, 1, 1.1, 1.2, 1.1, 2, 1.2 = BTB_Q arrondi ; Quarterly dividend 0.36 = DIV_PS Q2-2026 ; 2025 share repurchases 754.1 = BUYBACKS FY2025 (201.6+350.8+100.8+100.9) ; autorisation 1,5 Md$ deja dans le signal BUYBACKS.",
+  "correction_validee": "Supprimer ces cinq KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "HEADCOUNT et Total headcount",
+  "probleme": "Deux KPI d'effectif se contredisent sur la meme fiche.",
+  "preuve": "HEADCOUNT FY2025=43000 (n=2, FY2023=60000) ; Total headcount val=47000 (n=1, dernier 2026-09-29).",
+  "correction_validee": "Garder une seule serie d'effectif avec la source (rapport annuel FY2025) et corriger la valeur.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "US_REV_PCT et IAF_OP_MARGIN : signal",
+  "probleme": "Chiffres du signal differents de la serie.",
+  "preuve": "US_REV_PCT signal « contre 59,2% un an plus tot » alors que Q2-2025=61.7 et yoy=+4,4 pt ; IAF_OP_MARGIN signal « 6,8% » pour val=6.7.",
+  "correction_validee": "Corriger seulement le signal US_REV_PCT en contre 61,7 % un an plus tot ; laisser IAF_OP_MARGIN.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "revenue_annuel et dette_annuelle : serie et signal",
+  "probleme": "La serie melange deux perimetres (avec puis sans les activites cedees a Amentum) et le signal calcule une croissance « depuis 2016 » a travers la rupture.",
+  "preuve": "revenue_annuel 2021=14.093, 2022=9.783 ; signal « +1,0 % par an depuis 2016 » ; dette_annuelle « +21,6 % par an depuis 2016 ».",
+  "correction_validee": "Retraiter 2018-2021 au perimetre actuel ou couper la serie a 2022 et supprimer la croissance longue.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "summary",
+  "probleme": "Texte perime : Divergent Solutions a disparu avec la separation de septembre 2024 (cyber et renseignement passes chez Amentum) ; la these decrit un groupe a deux segments.",
+  "preuve": "« integre l'IA ... via Divergent Solutions » ; preuve datee 2024-05-01 ; these « Jacobs n'a plus que deux segments ».",
+  "correction_validee": "Reecrire sur le perimetre actuel (jumeaux numeriques, data centers, PA Consulting comme pole numerique de 2 000 experts).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography : libelles ; signal Cleveland Hopkins",
+  "probleme": "Libelles anglais et casse incoherente dans une liste francaise ; faute dans un signal.",
+  "preuve": "« Australia and New Zealand 4.8 ; Canada 2.1 ; INDIA 1.5 ; Asia 1.2 » ; signal « l'aeroport le plus frequente de l'Ohio ».",
+  "correction_validee": "Australie et Nouvelle-Zelande, Inde, Asie ; ecrire l'aeroport le plus frequente avec accent aigu final (frequenté).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

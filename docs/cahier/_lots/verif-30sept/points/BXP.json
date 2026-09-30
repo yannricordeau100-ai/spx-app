@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment (2024)",
+  "probleme": "Valeurs incompatibles avec la repartition geographique 2025 de la meme fiche",
+  "preuve": "segment 2024 : Boston 562.5 M$ (16,5 %), Los Angeles 427.8 (12,6 %) ; geographie 2025 : Boston 1285.9 M$ (37,5 %), Los Angeles 70.5 (2,1 %)",
+  "correction_validee": "Masquer le bloc segment et garder la repartition geographique 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_SS_NOI vs same_prop_noi_growth",
+  "probleme": "Deux series de croissance du NOI a perimetre constant avec des valeurs opposees",
+  "preuve": "FY2024 : -3.47 (CAHIER) vs +6.3 (same_prop_noi_growth) ; FY2025 : 0.78 vs 2.01 ; same_prop_noi_growth est derive des montants (1918.5/1804.7) et non de la publication",
+  "correction_validee": "Garder la serie publiee par BXP apres controle au 10-K et supprimer la serie derivee.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Leases Signed SF / Same-Property Occupancy / In-Service Portfolio SF / Class A Mix (frequence None)",
+  "probleme": "Series sans dates contredisant les KPI sources",
+  "preuve": "Leases Signed SF 3.4, 4.7, 4, 4.2, 5.6 vs annual_leases_signed 3.73, 5.06, 5.70, 4.18, 5.65, 5.58 ; Same-Property Occupancy 86.4 fin 2025 vs portfolio_occupancy Q4-2025 86.7 ; signaux « Soft office market », « Premium pure-play »",
+  "correction_validee": "Supprimer Leases Signed SF, Same-Property Occupancy, In-Service Portfolio SF et Class A Mix.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CBD portfolio percentage leased / Leases executed square footage / Number of properties / Total portfolio square footage",
+  "probleme": "Dernier point date 30/06/2026 mais les signaux parlent du T1-2026 et le T2 existe ailleurs sur la fiche",
+  "preuve": "« 68 baux pour ~1.1M sf au Q1-2026 » val 1.1 alors que leases_signed_q Q2-2026 = 1.8 et la these dit 1,8 M sq ft au T2 ; « CBD loue a 93.4% au Q1-2026 » ; « 164 immeubles au Q1-2026 »",
+  "correction_validee": "Ajouter le point T2-2026 et dater les series ; supprimer Leases executed square footage et Leasing Activity Q4 (doublons de leases_signed_q)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "walt_signed_leases vs Weighted-average lease term of leases signed",
+  "probleme": "Deux durees de bail 2025 incompatibles",
+  "preuve": "walt_signed_leases FY2025 = 89 mois (7,4 ans) ; KPI trimestriel « 10.1 ans en moyenne sur l ensemble de 2025 »",
+  "correction_validee": "Verifier la definition (10-K vs supplement) et n en garder qu une",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "dispositions",
+  "probleme": "Serie trouee et a zero en 2025 alors que la fiche annonce 702,6 M$ de cessions cette annee-la",
+  "preuve": "periodes ... Q4-2022, Q1-2025, Q1-2026, Q2-2026 avec Q1-2025=0 ; KPI « 8 ventes bouclees en 2025 pour 702.6M$ bruts »",
+  "correction_validee": "Completer 2023-2025 ou supprimer la serie",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "eps_diluted",
+  "probleme": "Tous les T4 manquent depuis 2021",
+  "preuve": "periodes Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026 ; pas de Q4-2024 (perte) ni Q4-2025",
+  "correction_validee": "Ajouter les T4 depuis le 10-K",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "fcf vs fcf_annuel",
+  "probleme": "Meme nom, definitions et montants incompatibles",
+  "preuve": "somme fcf trimestriel 2025 = -46.5+62.2-93.7+83.9 = 5,9 M$ ; fcf_annuel 2025 = 1 028 M$",
+  "correction_validee": "Renommer fcf_annuel (OCF moins capex de maintenance) ou le masquer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "net_debt_ebitda",
+  "probleme": "Saut de 10,8x a 7,7x en un trimestre attribue aux cessions alors que la dette nette baisse peu",
+  "preuve": "Q3-2025=10.81, Q4-2025=7.68 ; net_debt 14.8 puis 14.2 (-4 %) ; signal « en net repli sur un an (9.9x) grace au plan de cessions »",
+  "correction_validee": "Calculer sur un EBITDA hors depreciations et corriger le signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "noi_by_market / CAHIER_LEASED_VS_OCCUPIED (noms)",
+  "probleme": "Noms qui annoncent un detail absent de la serie",
+  "preuve": "« NOI par marche 2025 » = une seule serie totale 1649..2058.6 ; « Taux de location signe et taux d occupation physique » = une seule serie d occupation",
+  "correction_validee": "Renommer en « NOI total (annuel) » et « Taux d occupation du portefeuille (annuel) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Carbon-neutral operations achieved / Multi-year asset sales program / CAHIER_SS_NOI yoy",
+  "probleme": "Pseudo-KPI a valeur annee, unite en anglais, yoy absurde",
+  "preuve": "« Carbon-neutral operations achieved | year | val=2025 » ; unite « $B net » ; CAHIER_SS_NOI yoy=-122.5%",
+  "correction_validee": "Supprimer Carbon-neutral operations achieved, unite « Mds $ nets », yoy de CAHIER_SS_NOI en points (+4,3 pts).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Tailles de portefeuille",
+  "probleme": "Quatre tailles differentes sans perimetre indique",
+  "preuve": "In-Service Portfolio SF 53.3 ; Total portfolio square footage 50.4 ; Net Rentable Square Feet 40 ; Number of properties 164 vs Office Properties 157",
+  "correction_validee": "Garder une serie datee avec son perimetre",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

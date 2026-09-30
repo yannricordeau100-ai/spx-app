@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "Description Mettrik",
+  "champ": "products, customers",
+  "probleme": "Faux : TSMC est un fondeur qui fabrique des puces pour ses clients. Il ne vend ni memoires ni cartes graphiques.",
+  "preuve": "'Les produits principaux de la societe incluent les processeurs, les memoires et les cartes graphiques'.",
+  "correction_validee": "Decrire la fabrication de plaquettes sous contrat pour des concepteurs sans usine (processeurs, accelerateurs IA, puces mobiles) et l encapsulation avancee.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "REVENUE_FY (signal)",
+  "probleme": "Le signal cite une croissance fausse : 48 % est la croissance du HPC, pas celle du chiffre d affaires.",
+  "preuve": "yoy=+31,6 %, signal 'en hausse de 48% sur un an'.",
+  "correction_validee": "Ecrire 'en hausse de 31,6 % sur un an, portee par le HPC et l IA (+48 %)'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Indicateurs manquants",
+  "probleme": "Aucun KPI trimestriel operationnel pour un fondeur, alors que la these et l anti-these citent le T2 2026 : pas de mix par noeud ni par plateforme au trimestre, pas de livraisons de plaquettes, pas de capex trimestriel, pas de marge operationnelle ni de flux de tresorerie disponible. Le 2 nm est absent.",
+  "preuve": "Seuls REVENUE_Q, NET_INCOME_Q et GROSS_MARGIN_Q sont trimestriels ; NODE_*_SHARE et HPC_REV s arretent a l exercice 2025.",
+  "correction_validee": "Ajouter les parts 3/5/7/2 nm, la part HPC, la marge operationnelle, le capex et le flux de tresorerie disponible au trimestre.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "HPC_REV, SMARTPHONE_REV, IOT_REV, AUTO_REV, DCE_REV, OTHERS_REV, NA_REV et autres zones (signaux)",
+  "probleme": "Signaux gabarit en anglais, avec point decimal, qui ne disent rien.",
+  "preuve": "'FY2025 : 2192.931 Mds TWD, plateforme High Performance Computing Platform Revenue' ; '(North America Revenue), base clients (siege facturation)'.",
+  "correction_validee": "Reecrire chaque signal en francais avec la part du CA et la variation sur un an, en virgule decimale.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Moat",
+  "champ": "moat",
+  "probleme": "Chiffre de croissance introuvable sur la fiche.",
+  "preuve": "'Le chiffre d affaires trimestriel bondit de 42,8 %' ; REVENUE_Q yoy +36,0 % (T2 2026) et +35,1 % (T1 2026).",
+  "correction_validee": "Aligner sur +36,0 %, ou preciser qu il s agit d une croissance en dollars.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_FAB_UTILIZATION",
+  "probleme": "La serie s arrete en 2020 et la variation est exprimee en % au lieu de points.",
+  "preuve": "dernier 2020-12-31, val=94, yoy '+16.0%' (81 -> 94 = +13 points).",
+  "correction_validee": "Prolonger jusqu en 2025 ou supprimer ; exprimer la variation en points.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "DIVIDEND_PER_SHARE_Q",
+  "probleme": "Artefacts de virgule flottante, et la serie s arrete au dividende declare en fevrier 2026.",
+  "preuve": "Q1-2025=5.00001754, Q3-2025=6.00003573 ; dernier 2026-02-10.",
+  "correction_validee": "Arrondir a 2 decimales et ajouter les dividendes trimestriels declares en 2026.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Risques et KPI",
+  "champ": "risks[5].summary, GROSS_MARGIN_Q.signal",
+  "probleme": "Accents manquants.",
+  "preuve": "'a change avec la montee de clients tres concentres' ; 'noeuds avances'.",
+  "correction_validee": "Corriger en 'a changé', 'concentrés', 'nœuds avancés'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

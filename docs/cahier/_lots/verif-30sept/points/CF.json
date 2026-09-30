@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Catégories géographiques qui se recouvrent, libellé XBRL brut, et total incompatible avec la part Amérique du Nord affichée ailleurs.",
+  "preuve": "UNITED STATES 60,5 ; Non-US 19,8 ; All Regions Outside of US and Canada 8,1 ; CANADA 6,8 ; United Kingdom [Domain] 4,3 ; North America 0,7 (somme 100,2) ; part_amerique_nord T2-2026 = 86,6 % et ca_amerique_nord signal : 87 % du CA, alors que US + Canada + North America = 68 %.",
+  "correction_validee": "Deux tranches pour l'exercice 2025 : Amérique du Nord environ 85 % / Europe et autres environ 15 %, sans libellés XBRL.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Sales volume by product tons",
+  "probleme": "Doublon de total_product_tons avec date fausse et dernier point en retard d'un trimestre ; c'est ce KPI qui figure dans le bloc industrie.",
+  "preuve": "val 4 683 daté 2026-06-30 = T1-2026 de total_product_tons (T2-2026 = 4,252 Mt) ; history sans dates ; kpi_industrie_shorts contient Sales volume by product tons.",
+  "correction_validee": "Supprimer le KPI et mettre total_product_tons dans kpi_industrie_shorts.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "US corn yield 2025 (bushels per acre).name_fr",
+  "probleme": "Faute dans le nom affiché : maquis au lieu de maïs.",
+  "preuve": "name_fr : Rendement maquis US 2025 (bushels par acre) ; signal : Rendement maïs exceptionnel 2025.",
+  "correction_validee": "Renommer en Rendement du maïs américain 2025 (boisseaux par acre).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "charges_interets",
+  "probleme": "Points invraisemblables au milieu d'une série régulière : charge d'intérêts nulle puis négative.",
+  "preuve": "Q3-2024 = 0 et Q4-2022 = -25 M$ alors que les trimestres voisins sont entre 35 et 50 M$ ; Q1-2022 = 241 (probable perte d'extinction de dette incluse).",
+  "correction_validee": "Reprendre Q3-2024, Q4-2022 et Q1-2022 dans les comptes de résultat trimestriels (ligne interest expense, net).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ca_ammonia / ca_urea / ca_uan / ca_an / ca_other / dette_nette / resultat_op / mtm_derives_gaz / other_avg_price (signaux)",
+  "probleme": "Neuf signaux citent le document source ou une ligne de tableau.",
+  "preuve": "source table operating data du rapport trimestriel (5 fois) ; dérivé du bilan rapport trimestriel ; compte de résultat du T2 2026 ; ligne \"(2)\" du rapport trimestriel ; - rapport trimestriel.",
+  "correction_validee": "Retirer les mentions de source des neuf signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AMMONIA_CAPACITY / UREA_CAPACITY (noms et signal)",
+  "probleme": "Noms de capacité imprécis ou faux, signal contredit par un autre KPI.",
+  "preuve": "AMMONIA_CAPACITY nommé Capacité de production (sans produit) ; UREA_CAPACITY nommé Capacité de production d'engrais alors que le signal parle d'urée granulée seule ; signal AMMONIA_CAPACITY : la croissance passe par les rachats, alors que Blue Point ajoute 1,5 Mt de capacité neuve (KPI dédié) et que rachats est ambigu (actions ou usines).",
+  "correction_validee": "Renommer en Capacité de production d'ammoniac et Capacité de production d'urée granulée ; signal : capacité quasi stable depuis 2019, la prochaine hausse viendra de Blue Point (fin 2029).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Q1 Henry Hub gas cost",
+  "probleme": "KPI à un point mal nommé : la valeur n'est pas le Henry Hub mais le coût du gaz consommé, déjà suivi.",
+  "preuve": "val 4,5 $/MMBtu ; prix_henry_hub Q1-2026 = 4,90 ; cout_gaz_naturel Q1-2026 = 4,57.",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "clients",
+  "champ": "clients_concentration.top10",
+  "probleme": "Part cumulée des dix premiers clients datée de 2010 sur une fiche 2026.",
+  "preuve": "top10 : pct 50, exercice 2010, source rapport annuel exercice 2010.",
+  "correction_validee": "Passer en estimation datée 2025 (à partir de CHS 13 % et de la structure coopérative de la clientèle) ou afficher non publié.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "India urea import requirement estimate 2026 / Ammonia plants impacted by geopolitical conflict / US corn yield 2025",
+  "probleme": "Données macro de marché présentées comme des KPI de la société.",
+  "preuve": "Import urée Inde 10 à 12 Mt ; 100 usines arrêtées ou perturbées dans le monde ; rendement maïs 187 boisseaux par acre.",
+  "correction_validee": "Supprimer ou déplacer dans un bloc contexte de marché.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Ammonia capacity utilization / Recordable incident rate",
+  "probleme": "Taux d'utilisation incompatible avec la production et la capacité affichées sur la fiche ; date et signal de période discordants.",
+  "preuve": "Utilisation 99 % au T1-2026 alors que ammonia_prod_vol T1-2026 = 2,457 Mt pour 10 845 kt / 4 = 2,71 Mt de capacité, soit 91 % ; Recordable incident rate daté 2026-06-30 avec signal : 0.16 au T1-2026.",
+  "correction_validee": "Préciser la base de calcul du taux d'utilisation ou le supprimer ; aligner date et signal de l'incident rate.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

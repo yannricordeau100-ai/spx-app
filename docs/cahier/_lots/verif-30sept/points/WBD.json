@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "financing_debt_repay.signal, net_debt.signal, eps_diluted.signal, net_income.signal",
+  "probleme": "Les signaux parlent encore de la scission Warner Bros / Discovery Global, alors que l'anti-thèse dit que ce projet a été abandonné au profit du rachat par PSKY.",
+  "preuve": "net_debt : 'avant la scission Warner Bros / Discovery Global prévue en 2026' ; financing_debt_repay : 'refinancement massif avant la scission' ; att : 'WBD a abandonné son projet de scission au profit d'un rachat total par Paramount Skydance'",
+  "correction_validee": "Réécrire les 4 signaux sans parler de la scission (rachat PSKY, offres de rachat de dette, prêt relais) et attribuer la perte du T1-2026 (-2 916 M$) à la cause lue dans le 10-Q, sans supposer que c'est la rupture Netflix.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "streaming_subs / Global streaming subscribers ; global_arpu / Global streaming ARPU / DTC Streaming ARPU (Global)",
+  "probleme": "Doublons : les abonnés et l'ARPU mondiaux apparaissent 2 à 3 fois. Les versions complètes s'arrêtent en 2025, alors que la version sans nom anglais ni dates va jusqu'à 2026-06.",
+  "preuve": "streaming_subs se termine à Q4-FY2025=131.6 ; Global streaming subscribers : 131.6, 140 (2026-06-30) ; global_arpu se termine à Q3-FY2025=6.64, sans Q4-2024 ; Global streaming ARPU : 6.8 (2026-06-30) ; DTC ARPU annuel : 6.92",
+  "correction_validee": "Garder streaming_subs et global_arpu, les prolonger jusqu'au T2-2026 avec des dates, puis supprimer 'Global streaming subscribers', 'Global streaming ARPU' et 'DTC Streaming ARPU (Global)'.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "domestic_subs, intl_subs, domestic_arpu, intl_arpu",
+  "probleme": "Séries périmées : elles s'arrêtent fin 2025 ou au T3-2025, alors que la fiche contient des données du T2-2026 (140 M d'abonnés).",
+  "preuve": "domestic_subs et intl_subs se terminent le 2025-12-31 ; domestic_arpu et intl_arpu se terminent le 2025-09-30",
+  "correction_validee": "Compléter jusqu'au T2-2026 avec les communiqués trimestriels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Adjusted EBITDA (annuel), Networks Revenue (annuel)",
+  "probleme": "Doublons en annuel des séries trimestrielles total_adj_ebitda et linear_networks_revenue, sans libellé de période et datés 2026-06-30 pour une valeur d'exercice. Le signal parle de 'marge' alors que la valeur est un montant, et il contient du franglais.",
+  "preuve": "Adjusted EBITDA : 'Marge EBITDA reconstituée après deleveraging accéléré', val=9.3 Mds $ ; Networks Revenue : signal vide, val=17.656",
+  "correction_validee": "Supprimer les deux séries, ou les dater par exercice et réécrire leur signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "streaming_subs, domestic_subs, intl_subs, global_arpu signaux",
+  "probleme": "Signaux en franglais télégraphique.",
+  "preuve": "'Max/HBO expansion accélérée (14.7M nets), intl surpasse domestic' ; 'Mix dilutif: wholesale Basic Ads + marchés intl bas ARPU' ; 'Croissance US ralentie vs international'",
+  "correction_validee": "Réécrire en français complet, avec les chiffres les plus récents.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Netflix merger termination fee, PSKY reverse termination fee, Bridge Loan Facility drawdown, Senior notes repurchased, Gain on extinguishment of debt, PSKY merger cash consideration",
+  "probleme": "Faits d'opérations ponctuelles présentés comme des KPI trimestriels à un seul point, datés 2026-05-11 alors qu'ils portent sur 2025. Ce ne sont pas des indicateurs opérationnels.",
+  "preuve": "Senior notes repurchased : '17,7 milliards $ de notes rachetées en juin 2025', dernier 2026-05-11",
+  "correction_validee": "Sortir ces éléments des KPI, par exemple vers des faits clés ou des événements.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ABONNES_DISTRIBUES",
+  "probleme": "Série arrêtée en 2021, soit 4 ans de retard sur un indicateur central du déclin du linéaire. L'unité n'a pas d'accent.",
+  "preuve": "dernier 2021-12-31, FY2021=81, unité 'millions d'abonnes'",
+  "correction_validee": "Prolonger jusqu'en 2025 ou supprimer la série. Corriger l'unité en 'millions d'abonnés'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0], risks[7]",
+  "probleme": "Le titre du risque ne correspond pas à la citation retenue.",
+  "preuve": "'Risques financiers' cite un passage sur les abonnés et les revenus publicitaires ; 'Cybersécurité' cite 'les lois et réglementations ... relatives aux questions env[ironnementales]' ; la justification du risque 0 parle de cyber",
+  "correction_validee": "Réaffecter les citations ou régénérer les risques.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel, effectifs_annuels signaux",
+  "probleme": "Les taux de croissance annuels moyens mélangent Discovery seul (avant 2022) et le groupe fusionné, ce qui donne des chiffres trompeurs.",
+  "preuve": "'+21,4 % par an depuis 2016' ; effectifs '+25,2 % par an depuis 2019' (9 200 puis 37 500 en 2022)",
+  "correction_validee": "Signaler la rupture de périmètre de 2022, ou calculer la croissance à partir de 2023.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Filmed Entertainment Revenue",
+  "probleme": "Serie invraisemblable qui alterne 800 et 4 000 M$ par trimestre et contredit FILM_REV",
+  "preuve": "serie 799, 4013, 768, 3832 ; FILM_REV Q2-2026=1314",
+  "correction_validee": "Supprimer la serie.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Paramount+ revenue, DTC adjusted EBITDA, Paramount+ revenue growth YoY, Direct-to-Consumer revenue growth YoY",
+  "probleme": "Doublons des series officielles",
+  "preuve": "Paramount+ revenue 1686,1771,1837,1974 = PPLUS_REV ; DTC adjusted EBITDA 251 = DTC_OIBDA Q1-2026 ; les deux croissances se deduisent de PPLUS_REV et DTC_REV",
+  "correction_validee": "Supprimer les 4 series.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "REVENUE, OP_INCOME, NET_INCOME, EPS_DIL, OCF, CAPEX, FCF, OP_MARGIN, NET_MARGIN (serie)",
+  "probleme": "Trous dans les series de groupe : Q3-2025 et Q4-2025 absents alors que les segments les ont",
+  "preuve": "REVENUE serie ... Q2-2025=6.85, Q1-2026=7.35 ; TVMEDIA_REV a Q3-2025=3.796 et Q4-2025=4.714",
+  "correction_validee": "Completer Q3-2025 et Q4-2025 depuis les publications 2025 (10-Q T3 et rapport annuel), sans automatisme.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ABONNES_STREAMING.signal",
+  "probleme": "Signal decrit des gains nets annuels alors que la serie est un total ; point 2024 contredit la serie trimestrielle",
+  "preuve": "Ce chiffre mesure les gains nets annuels, plus sensible qu'un total ; serie FY2024=77.5 vs PPLUS_SUB Q4-2024=76.1",
+  "correction_validee": "Retirer la phrase ; verifier laquelle des deux valeurs fin 2024 est publiee",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ADJ_EBITDA.signal",
+  "probleme": "Chiffre de comparaison et variation cites differents de la serie",
+  "preuve": "Signal : contre $863 au T2 2025, +27% ; serie Q2-2025=824, yoy=33.4",
+  "correction_validee": "Aligner signal et serie sur une seule base (824 ou 863)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DEBT_TOTAL.signal",
+  "probleme": "Unite fausse",
+  "preuve": "dont 13,22 M$ de dette long terme pour une dette totale de 13,658 Mds $",
+  "correction_validee": "Remplacer 13,22 M$ par 13,22 Mds $.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy de toutes les series",
+  "probleme": "Variations affichees sans signe % ni format, contrairement aux autres fiches",
+  "preuve": "PPLUS_SUB yoy=5 ; PPLUS_REV yoy=16.4 ; TVMEDIA_REV yoy=-22 ; DIV_PS yoy=0",
+  "correction_validee": "Formater en +16,4 %, -22 % etc., et en points pour les marges (+1,1 pt, -0,2 pt).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.preambule",
+  "probleme": "Affirmation contredite par la serie",
+  "preuve": "son streaming gagne de l'argent chaque trimestre ; DTC_OIBDA Q1-2025=-109",
+  "correction_validee": "Ecrire : rentable depuis le T2 2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "ai_positioning.summary",
+  "probleme": "Franglais et faute",
+  "preuve": "80 pour cent code-assisted et le monetisation publicitaire",
+  "correction_validee": "Ecrire : 80 % du code assiste par l'IA et la monetisation publicitaire (Precision Plus).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

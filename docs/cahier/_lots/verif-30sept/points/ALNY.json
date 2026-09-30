@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle, dette_par_salarie, dette_sur_ca",
+  "probleme": "Zeros isoles entre des annees non nulles, incompatibles avec le pret Blackstone tire en 2020 et rembourse en 2022, et signal qui renvoie a une valeur 2016 aberrante",
+  "preuve": "dette_annuelle [0.15, 0.03, 0.03, 0, 0.191, 0, 1.017 ...] (2016-2022) ; dette_par_salarie 2021 = 0 ; dette_sur_ca 2016 = 319,1 % et signal '-292,0 points depuis 2016'",
+  "correction_validee": "Verifier 2019 et 2021 dans les 10-K (dette 2021 attendue autour de 0,2 Mds $) et 2016",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "hook",
+  "probleme": "AMVUTTRA est presente comme approuve depuis un peu plus d'un an alors que le produit date de 2022 ; c'est l'indication cardiaque qui est recente",
+  "preuve": "'86% de ses ventes nettes de medicaments tiennent a un seul produit, approuve il y a un peu plus d'un an' ; risque 1 : 'approbation par la FDA en mars 2025 pour l'amylose ATTR avec cardiomyopathie'",
+  "correction_validee": "Remplacer par '... un seul produit, dont l'indication cardiaque a été approuvée il y a un peu plus d'un an.'",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TOTREV.signal, CAHIER_TOP_PRODUCT_CONCENTRATION.yoy, CAHIER_RD_INTENSITY.yoy",
+  "probleme": "Accent manquant dans le signal du CA et variations de taux en pourcentage relatif",
+  "preuve": "'cardiomyopathie a transthyretine' ; yoy '+31.6%' pour 58,9 % vers 77,5 % ; '-29.1%' pour 50,1 % vers 35,5 %",
+  "correction_validee": "Écrire 'cardiomyopathie à transthyrétine' ; yoy '+18,6 pt' et '-14,6 pt'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur d'industrie manquant",
+  "probleme": "Aucun KPI de patients sous traitement ou de nouveaux patients ATTR-CM, alors que la these et l'anti-these reposent sur la penetration d'AMVUTTRA et que la societe publie ces chiffres a chaque trimestre",
+  "preuve": "KPI presents : ventes par produit, franchises, zones ; aucun KPI patients ou demande",
+  "correction_validee": "Ajouter 'Patients sous AMVUTTRA (ATTR-CM)' ou 'Nouveaux patients traites' en serie trimestrielle",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Bloc moat sans texte",
+  "preuve": "moat.texte = '' ; niveau 'Moyen'",
+  "correction_validee": "Rediger le texte (plateforme ARNi, brevets GalNAc, six medicaments issus de la meme chimie)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

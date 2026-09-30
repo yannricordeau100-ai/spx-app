@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "WAM_Rev, MortgBankRev, CommPayRev, ConsBankRev, CapMktFees",
+  "probleme": "Chaque valeur de 4e trimestre est le total annuel, pas le trimestre",
+  "preuve": "WAM_Rev Q4-2025 = 693 avec Q1..Q3 2025 = 172, 166, 181 (somme 519, reste 174) ; meme motif chaque Q4 depuis 2016 (406, 418, 432...) ; CommPayRev Q4-2025 = 628 vs 152..157 les autres trimestres ; MortgBankRev Q4 = 223 et 211 vs ~55",
+  "correction_validee": "Sur les cinq series, remplacer chaque Q4 par le total annuel moins Q1+Q2+Q3 (ex. WAM Q4-2025 = 174).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Common Equity Tier 1 ratio (reported) vs CET1",
+  "probleme": "Deux series CET1 avec des valeurs differentes au meme trimestre",
+  "preuve": "CET1 Q1-2026 = 9.89 ; « Ratio CET1 (publie) » Q1-2026 = 10.0 et Q4-2025 10.8 vs 10.77",
+  "correction_validee": "Garder une seule serie (CET1) apres verification du chiffre publie",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Net charge-off ratio ; Provision for credit losses (quarterly) ; Total assets surpass $300 billion",
+  "probleme": "Doublons de NCOratio, Prov et Assets",
+  "preuve": "« Net charge-off ratio » n=1 0.37 = NCOratio Q1-2026 ; « Provision (quarterly) » 94..197 incluse dans Prov ; « Total assets surpass $300 billion » 300 = Assets 300 180",
+  "correction_validee": "Supprimer Net charge-off ratio, Provision for credit losses (quarterly) et Total assets surpass $300 billion.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "effectifs_annuels vs FTE_Emp",
+  "probleme": "Serie effectifs arretee en 2023 alors que FTE_Emp va a 2025, et aucun effectif post-Comerica",
+  "preuve": "effectifs_annuels dernier 2024-02-27, serie 2020..2023 ; FTE_Emp FY2025 = 18 676",
+  "correction_validee": "Prolonger effectifs_annuels avec 2024 = 18 616 et 2025 = 18 676, dater a 2025-12-31 et recalculer les KPI par salarie jusqu a 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "edge / customers",
+  "probleme": "Description perimee, sans Comerica",
+  "preuve": "« croissance Sud-Est via Big Data Healthcare et MB Financial » (MB Financial : 2019) ; clients « dans le Midwest » alors que la fiche cite 352 agences Comerica au Michigan, Texas et Californie et 150 agences prevues au Texas",
+  "correction_validee": "Reecrire l atout autour du rachat de Comerica (300 Mds $ d actifs, Texas, Californie) et des depots non remuneres",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "resume",
+  "probleme": "Exageration contredite par les chiffres",
+  "preuve": "« La banque a double de taille en un an » alors que Assets +42.9 %, Deposits +42.6 %, Loans +45.9 %",
+  "correction_validee": "« La banque a grossi de plus de 40 % en un an »",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_NIB_DEPOSITS vs NIB_Dep",
+  "probleme": "Part des depots non remuneres 2025 contradictoire entre annuel et trimestriel",
+  "preuve": "CAHIER_NIB_DEPOSITS FY2025 = 24.8 % ; NIB_Dep Q4-2025 = 27.15 %",
+  "correction_validee": "Preciser moyenne annuelle vs fin de periode dans le nom, ou aligner",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "texte",
+  "probleme": "Artefact interne",
+  "preuve": "« mentionne peu l IA dans ses communications officielles (Banks). »",
+  "correction_validee": "Fifth Third Bancorp mentionne peu l IA dans ses communications officielles.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

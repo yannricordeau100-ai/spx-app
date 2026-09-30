@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "revenue_annuel / fcf_annuel",
+  "probleme": "Series trouees et decalees : 2020 et 2025 absents, la valeur FY2020 est etiquetee 2021, FY2021 (515 M$) manque",
+  "preuve": "serie: 2019=0.404, 2021=0.408, 2022=0.66, 2023=0.737, 2024=0.509, 2026=0.523 ; signal +4,0 % par an depuis 2015",
+  "correction_validee": "Reconstruire revenue_annuel et fcf_annuel de FY2017 à FY2025 selon la convention de la fiche (FY2025 = clos le 3 janvier 2026), puis recalculer le taux annuel et le signal.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "dette_annuelle / dette_sur_ca",
+  "probleme": "Dette a zero arretee en 2023 alors que l'anti-these annonce 925 M$ empruntes ; dette_sur_ca s'arrete en 2019 avec un dernier date 2023",
+  "preuve": "dette_annuelle 2023=0, dernier 2023-12-30 ; dette_sur_ca serie 2015-2019 val=36.4 ; att : la société vient d'emprunter 925 M$",
+  "correction_validee": "Compléter dette_annuelle de 2024 à 2025 et au dernier arrêté avec la dette publiée, puis recalculer dette_sur_ca sur la même période ou la retirer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "products",
+  "probleme": "La description ne mentionne pas les FPGA, unique metier de Lattice, et invente des categories",
+  "preuve": "puces de contrôle de puissance, les puces de traitement de signal et les solutions de sécurité",
+  "correction_validee": "Produits : FPGA à faible consommation (familles Nexus, Avant, MachXO) avec leurs logiciels et piles applicatives (sensAI, Sentry).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "revenue_end_market_* / revenue_geo_* / gross_margin_q (yoy)",
+  "probleme": "yoy vide sur des series annuelles completes alors que le signal le cite",
+  "preuve": "revenue_end_market_comm_computing yoy= vide, signal +28,3% sur un an ; revenue_geo_americas yoy= vide",
+  "correction_validee": "Calculer le yoy sur les deux derniers points, en % pour les montants et en points pour gross_margin_q (+1,9 pt).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.explication",
+  "probleme": "Cuisine interne visible (note de moat retrogradee)",
+  "preuve": "La rétrogradation de la note tranche avec un chiffre d'affaires trimestriel en hausse de 62 %",
+  "correction_validee": "Retirer la phrase, rediger le moat (coûts de changement des FPGA integres, 84 % via distributeurs)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_INVENTORY_CHANNEL.name",
+  "probleme": "Nom annonce deux mesures, la serie n'en a qu'une",
+  "preuve": "Stocks internes en jours et stocks du canal de distribution | unite jours",
+  "correction_validee": "Renommer « Stocks en jours de ventes ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "gross_margin_q.signal / these",
+  "probleme": "Signal et these se contredisent sur le niveau record",
+  "preuve": "signal : plus haut niveau depuis 2023 ; these : 70,3 %, son meilleur niveau publié (max annuel FY2023=69.8)",
+  "correction_validee": "Aligner sur : plus haut niveau jamais publie",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun indicateur de carnet ou de book-to-bill ni de part des nouveaux produits, indicateurs standards d'un fabless FPGA",
+  "preuve": "Liste des KPI sans commandes, backlog, ni part des plateformes Nexus/Avant",
+  "correction_validee": "Ajouter part du CA des nouveaux produits ou commandes si publiees",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

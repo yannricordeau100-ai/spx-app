@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "oral_care_rev (hero)",
+  "probleme": "Le KPI hero s'arrete au T4-2025 alors que la fiche va au T2-2026 ; signal avec format anglais et pourcentage non explique",
+  "preuve": "dernier 2025-12-31 ; signal : Oral Care = 44% du CA total ($20,382M); croissance organique +1.5%",
+  "correction_validee": "Ajouter T1 et T2 2026 et reecrire le signal en francais (20 382 M$, part de 44 % expliquee).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Employees_Total et six Employees_* (Asie, LatAm, NA, Europe, Afrique, International)",
+  "probleme": "Sept KPI a un point identique 33600, signaux en anglais (Neutral, Positive), doublon de effectifs_annuels",
+  "preuve": "Employees_AsiaPacific val=33600 % :: Positive ; Employees_Total 33600 :: Neutral",
+  "correction_validee": "Supprimer les sept KPI Employees_*, effectifs_annuels couvre le besoin.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Oral Care Sales, Hill's, Personal Care, Home Care Sales (annuels fin 2024)",
+  "probleme": "Series lissees arretees en 2024 et contredites par le trimestriel : Oral Care 2024 = 8 643 M$ (somme des trimestres) contre 8.3 Mds",
+  "preuve": "Oral Care Sales 2024=8.3 ; oral_care_rev 2024 : 2178+2124+2215+2126=8643",
+  "correction_validee": "Supprimer les quatre series annuelles.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ADV (Depenses publicitaires totales)",
+  "probleme": "Doublon exact des trois derniers points de CAHIER_AP_SPEND",
+  "preuve": "ADV : 2371, 2720, 2703 ; CAHIER_AP_SPEND FY2023=2371, FY2024=2720, FY2025=2703",
+  "correction_validee": "Supprimer ADV.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Organic sales growth (n=11, dernier 2026-09-29)",
+  "probleme": "Doublon de organic_sales_growth, date fictive, dernier point = T1-2026 (2.9) alors que le T2-2026 (2.4) existe",
+  "preuve": "val=2.9 dernier 2026-09-29 ; organic_sales_growth Q2-2026=2.4",
+  "correction_validee": "Supprimer le doublon.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ocf.signal et long_term_debt.signal",
+  "probleme": "Unites fausses d'un facteur mille dans deux signaux",
+  "preuve": "soit 1,74M$ sur le premier semestre (747+995=1 742 M$) ; Dette long terme de 7,82M$ (7 823 M$)",
+  "correction_validee": "Ecrire 1,74 Md$ sur le premier semestre et 7,82 Mds $ de dette long terme.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "toothpaste_mkt_share (trimestriel) vs TOOTHPASTE_SHARE (annuel)",
+  "probleme": "Meme indicateur en trimestriel et en annuel ; la part de marche est publiee une fois par an, la version trimestrielle a 39 points est invraisemblable",
+  "preuve": "toothpaste_mkt_share n=39 quarter 41.3 ; TOOTHPASTE_SHARE year FY2025=41.3",
+  "correction_validee": "Garder l'annuel, retirer le trimestriel",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Toutes les valeurs sont vides et une ligne n'est pas une zone geographique",
+  "preuve": "Amerique latine None ; Nutrition animale (monde) None ; Amerique du Nord None ...",
+  "correction_validee": "Renseigner les parts depuis le rapport 2025 ou retirer le bloc",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAPEX_PN nom",
+  "probleme": "Nom faux : ce sont des investissements (capex), pas des capitaux investis",
+  "preuve": "Capitaux investis en Pet Nutrition | Pet Nutrition Capital Expenditures",
+  "correction_validee": "Renommer en Investissements Pet Nutrition.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "couverture geographique",
+  "probleme": "CA et marge publies pour Amerique du Nord, Amerique latine et Asie-Pacifique mais pas pour Europe ni Afrique-Eurasie, alors que OP_AE existe en annuel",
+  "preuve": "geo_na_rev, geo_latam_rev, geo_apac_rev presents ; aucun geo_europe_rev",
+  "correction_validee": "Ajouter CA Europe et CA Afrique-Eurasie trimestriels",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

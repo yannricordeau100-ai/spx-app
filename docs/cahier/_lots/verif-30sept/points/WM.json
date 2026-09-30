@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "repartition",
+  "probleme": "Repartition perimee (exercice 2024, Stericycle sur deux mois) : Healthcare Solutions a 1,5% alors qu'il pese 10% en 2025. Noms en anglais.",
+  "preuve": "'WM Healthcare Solutions 1.5' ; hc_rev FY2025=2508 sur revenue_annuel 25,204 Mds = 10% ; recyclage 2025 = 1492/25204 = 5,9% et non 7.",
+  "correction_validee": "Recalculer sur 2025 (20 704 / 1 492 / 478 / 2 508 M$ sur 25 204 M$) et traduire les noms des segments.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy (rng_projects, CAHIER_VOLUME_GROWTH, CAHIER_CORE_PRICE, dette_sur_ca)",
+  "probleme": "Variations fausses : ecart relatif sur des pourcentages, ou chiffre sans rapport avec la serie.",
+  "preuve": "rng_projects 84 -> 86 affiche '+7 en 2025' ; volumes 0.4 -> 0.9 '+125.0%' ; core price 6.7 -> 6.3 '-6.0%' ; dette_sur_ca '-16.1%' alors que le signal dit -17,4 points.",
+  "correction_validee": "Afficher +2 projets, +0,5 pt, -0,4 pt et -17,4 pts.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "coll_rev.signal",
+  "probleme": "Le signal annonce une hausse continue, la serie recule plusieurs trimestres.",
+  "preuve": "'en hausse continue depuis 2022' ; Q3-2024=3796 -> Q4-2024=3778 -> Q1-2025=3746 ; Q3-2025=3930 -> Q4-2025=3889 -> Q1-2026=3869.",
+  "correction_validee": "Parler de hausse sur un an (+5,4%) avec saisonnalite.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "landfill_tons / WM_LANDFILL_TONS",
+  "probleme": "Deux tonnages enfouis 2025 differents sans explication ; le second a pour signal une description ('Produit phare').",
+  "preuve": "landfill_tons FY2025=129 M t ; WM_LANDFILL_TONS FY2025=127 698 milliers de t ; signal 'Produit phare : Mise en decharge...'.",
+  "correction_validee": "Garder une seule mesure clairement nommee (tonnes deplietables vs recues) et ecrire un vrai signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "doublons annuel/trimestriel",
+  "probleme": "Memes indicateurs en double : prix de base (CAHIER_CORE_PRICE et 'Collection & disposal core price'), fcf et fcf_annuel, total_rev et revenue_annuel, lt_debt et dette_annuelle.",
+  "preuve": "Somme trimestrielle fcf 2025 = 377+813+816+810 = 2816 = fcf_annuel 2,816 Mds.",
+  "correction_validee": "Garder une version par indicateur ou les regrouper dans un meme graphique.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "buyback",
+  "probleme": "Serie annuelle dont la derniere valeur est un semestre 2026.",
+  "preuve": "freq year, dernier 2026-06-30, val=659, serie FY2023=1302, FY2024=262, FY2025=0 ; yoy 'vs 0 au T2 2025'.",
+  "correction_validee": "Separer le cumul 2026 ou attendre l'exercice complet.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI ponctuels n=1",
+  "probleme": "Faits divers presentes comme KPI, codes anglais, datés 2026-04-10 alors qu'ils portent sur 2024-2025.",
+  "preuve": "'Stericycle per-share purchase price' 62, 'Stericycle acquisition enterprise value' 7.2, 'Total 2025 acquisitions consideration' 440, 'Stericycle integration restructuring charges' 39 'sur neuf mois'.",
+  "correction_validee": "Supprimer ces quatre lignes, eventuellement reprises en texte dans la these.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "vocabulaire",
+  "probleme": "Jargon anglais massif dans noms et signaux.",
+  "preuve": "'Yield pricing collecte & decharge', 'yield decharge', 'YoY', 'FCF', 'OCF', 'RINs', 'West Tier', 'MSW', 'hazardous', 'CA collectee'.",
+  "correction_validee": "Traduire (rendement tarifaire, sur un an, flux de tresorerie libre, credits RIN, region Ouest, ordures menageres, dangereux).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Chiffres de la justification non retrouves dans la fiche.",
+  "preuve": "'le rendement tarifaire [perd] 2 points' ; CAHIER_CORE_PRICE 6.7 -> 6.3 (-0,4 pt), cd_yield T2 4.1 -> 3.6 (-0,5 pt).",
+  "correction_validee": "Reecrire avec les ecarts reels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description / ai_positioning",
+  "champ": "texte",
+  "probleme": "Description sans Healthcare Solutions (10% du CA) et parlant d'electricite alors que le groupe produit surtout du gaz naturel renouvelable ; positionnement IA d'une ligne, preuves 2024-2025, sans le chiffre de la fiche (300 M images, 95% sans intervention humaine).",
+  "preuve": "'la production d'electricite a partir du biogaz' ; IA : 'deploie l'IA pour l'optimisation de tournees (SmartTruck)...'.",
+  "correction_validee": "Ajouter dechets medicaux et destruction de documents, gaz naturel renouvelable ; etoffer l'IA avec les chiffres recents.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "titres",
+  "probleme": "Risques generiques (propriete intellectuelle, reputation) ; absents : regulation des decharges, prix des matieres recyclees et des credits RIN, gazole, integration Stericycle.",
+  "preuve": "'risque 5: Propriete intellectuelle', resume 'La reputation et l'image de marque sont citees'.",
+  "correction_validee": "Refaire la liste a partir de l'Item 1A 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI manquant",
+  "probleme": "Pas d'EBITDA d'exploitation ajuste ni de sa marge, indicateur central des previsions de WM.",
+  "preuve": "Aucun KPI EBITDA dans la liste.",
+  "correction_validee": "Ajouter l'EBITDA d'exploitation ajuste trimestriel et sa marge.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

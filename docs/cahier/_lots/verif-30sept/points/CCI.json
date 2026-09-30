@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "kpis[56] Cell towers owned/leased / kpis[72] Tower Sites / kpis[78] Towers Owned (doublons de tower_portfolio_size)",
+  "probleme": "Quatre KPI pour le nombre de tours, valeurs contradictoires, signaux telegraphiques ou vides",
+  "preuve": "tower_portfolio_size 40 000 ; Cell towers 40 000 ; Tower Sites 40 (K) 'Stable mature.' ; Towers Owned 40 000, 40 100, 40 300, 40 400, 40 500 (+0,5 %) sans signal ni source",
+  "correction_validee": "Supprimer kpis[56], kpis[72], kpis[78] et aussi kpis[77].",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[36] small_cells / kpis[57] Small cell nodes on-air / kpis[73] Small Cells / kpis[79] Small Cells Nodes",
+  "probleme": "Quatre KPI pour une activite cedee, avec trois valeurs incompatibles",
+  "preuve": "small_cells 105 000 (FY2025) ; Small cell nodes on-air 55 000 ; Small Cells value 105 alors que sa serie finit a 115 (signal 'Pari incertain.') ; Small Cells Nodes 115 000 (+5 %, signal vide) ; activite cedee a EQT en mai 2026",
+  "correction_validee": "Garder small_cells (105 000 en FY2025, activité cédée) et supprimer kpis[57], kpis[73] et kpis[79].",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[58] Route miles of fiber / kpis[74] Fiber Route Miles (doublons de fiber_route_miles)",
+  "probleme": "Triplon d'un indicateur cede, textes contradictoires sur la date de cession",
+  "preuve": "Fiber Route Miles signal 'Cession en cours.' et description 'Vendue a EQT/Zayo en 2025' alors que fiber_route_miles indique une cession close en mai 2026 ; Route miles of fiber 80 000..90 000 sans periodes",
+  "correction_validee": "Supprimer kpis[58] et kpis[74].",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[21] fcf_q.history",
+  "probleme": "Flux de tresorerie disponible superieur au flux d'exploitation, impossible",
+  "preuve": "Q2-2026 fcf_q = 577 alors que ocf_q = 531 et capex_q = 59 (531 - 59 = 472) ; Q1-2026 fcf_q = 239 vs 509 - 57 = 452 ; sur 2024-2025 l'ecart ocf - fcf (310 a 358) correspond au capex total fibre incluse, donc perimetre mixte puis erreur",
+  "correction_validee": "Recalculer fcf_q sur un périmètre unique (ocf_q moins capex_q, soit 472 au T2-2026 et 452 au T1-2026) et recalculer le yoy.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[2] non_renewal_rate.name_fr / kpis[53] CAHIER_CHURN.name_fr",
+  "probleme": "Nom 'Taux' pour des montants en M$",
+  "preuve": "non_renewal_rate 'Taux de non-renouvellement (churn tours)' unite M $, valeurs 59 -> 12 ; CAHIER_CHURN 'Taux de resiliation des baux d'hebergement' unite M$, valeurs -89 a -150",
+  "correction_validee": "Renommer en « Loyers perdus par non-renouvellement » et « Loyers perdus par résiliation ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[6] dish_termination_impact",
+  "probleme": "Convention de signe changeante et non expliquee",
+  "preuve": "Serie 13, 11, 13, 13 en 2025 puis -49, -49 en 2026 : les valeurs positives semblent etre les loyers DISH encaisses, les negatives les loyers perdus ; le nom 'Impact resiliation DISH (2026)' et le signal ne le disent pas",
+  "correction_validee": "Choisir une convention (loyers DISH par trimestre, ou impact en negatif) et reecrire nom et signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[81] Capex / kpis[55] Core leasing activity",
+  "probleme": "Series melangeant perimetres ou periodes, doublons",
+  "preuve": "Capex 1 229, 1 310, 1 424, 1 222, 182 (-85,1 %) : 182 = capex 2025 tours seules (somme capex_q = 181) alors que les annees precedentes incluent la fibre ; Core leasing activity 28, 28, 33, 118, 15 mele un total annuel (118) a des trimestres, doublon de core_leasing ; signal vide pour Capex",
+  "correction_validee": "Supprimer Core leasing activity ; pour Capex, soit reconstituer un perimetre unique, soit supprimer (capex_q suffit)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[63] Land ownership target under towers.signal",
+  "probleme": "Objectif contredit par la serie realisee",
+  "preuve": "'Objectif de porter la propriete du foncier sous les tours de 30% a 40% sur plusieurs annees' alors que land_owned_pct est a 43 % au T2-2026 et n'est jamais descendu sous 40 % depuis Q1-2020",
+  "correction_validee": "Supprimer ce point ou le reformuler avec le bon point de depart et la bonne cible",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[52] CAHIER_ORGANIC_TENANT_BILLINGS vs kpis[25] organic_growth",
+  "probleme": "Deux croissances organiques incompatibles pour 2025",
+  "preuve": "CAHIER FY2025 = +4,9 % (yoy +8,9 %) alors que organic_growth trimestriel 2025 vaut -0,2, -0,6, +0,1, -0,4 % et que le signal parle de +3,9 % hors DISH et Sprint ; aucun des deux ne precise le perimetre",
+  "correction_validee": "Preciser dans le nom du CAHIER 'hors resiliations Sprint et DISH' et verifier 4,9 contre 3,9",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[61] Target full-time headcount post-restructuring / kpis[24] net_debt_ebitda.yoy",
+  "probleme": "Valeur et signal, yoy et serie incoherents",
+  "preuve": "Target headcount value 1 500 (serie 1 250, 1 500) mais signal 'environ 1 250 employes a temps plein' ; net_debt_ebitda yoy '-2,1 x' alors que 8,6 -> 6,3 = -2,3 x",
+  "correction_validee": "Aligner value sur 1 250 (ou le signal sur 1 500) ; ecrire -2,3 x",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description.simple.fr",
+  "probleme": "Description perimee depuis la cession et truffee d'anglicismes",
+  "preuve": "'tours telecoms et infrastructure fiber', 'des small cells et un reseau fiber metropolitain', 'entreprises pour le fiber' alors que fibre et petites cellules sont cedees depuis mai 2026",
+  "correction_validee": "Reecrire : pur exploitant de tours americaines, environ 40 000 sites, trois clients a 93 % des loyers",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "gouvernance",
+  "champ": "governance.ceo_name",
+  "probleme": "Civilite anglaise dans le nom du dirigeant",
+  "preuve": "'Mr. Christian H. Hillabrant'",
+  "correction_validee": "Remplacer par « Christian H. Hillabrant ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

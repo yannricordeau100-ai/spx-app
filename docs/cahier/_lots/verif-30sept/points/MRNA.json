@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Total Revenue",
+  "probleme": "Unite $M mais serie en milliards, valeur affichee incoherente avec le dernier point, periodes a trous",
+  "preuve": "unit $M | val=145 | serie Q1 2026=0.389 ; periodes sautent de Q4 2019 a Q3 2022",
+  "correction_validee": "Supprimer Total Revenue ; NET_PROD_SALES et OTHER_REV couvrent le CA trimestriel jusqu'au T2-2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cash Position / Cash & Investments / Cash, cash equivalents and investments",
+  "probleme": "Trois doublons de CASH dont une serie annuelle fausse",
+  "preuve": "Cash Position serie 5.25, 17.63, 18.42, 12.7, 9.45 (val 9.45) alors que CASH Q4-2025=8135 M$ et Q4-2024=9519 ; les deux KPI a un point valent 8.1",
+  "correction_validee": "Supprimer Cash Position, Cash & Investments et Cash, cash equivalents and investments ; garder CASH.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "COVID Vaccine CA / COVID/Spikevax vaccine net product sales",
+  "probleme": "Doublons faux des ventes COVID : l annuel donne 3 Mds pour 2025 alors que la fiche indique 1,81 Md, et val=6.7 ne correspond pas au dernier point ; le trimestriel reprend NET_PROD_SALES jusqu au T1-2026 avec une date 2026-09-29",
+  "preuve": "COVID Vaccine CA serie 0.2, 17.675, 18.435, 6.7, 3 | val=6.7 ; Total Revenue description 'COVID $1,810M' ; COVID/Spikevax serie ... 645, 352 = NET_PROD_SALES Q4-2025, Q1-2026",
+  "correction_validee": "Supprimer COVID Vaccine CA et COVID/Spikevax vaccine net product sales.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Signed Advance Purchase Agreements (APAs)",
+  "probleme": "Serie invraisemblable et contredite par son propre signal : un carnet d APA de 21 Mds $ en 2026 est impossible pour 1,9 Md de ventes",
+  "preuve": "serie 19.2, 20, 18.5, 21 | dernier 2026-01-11 ; signal 'abandonne apres normalisation COVID'",
+  "correction_validee": "Retirer le KPI Signed Advance Purchase Agreements (APAs).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Doses Delivered / Manufacturing capa / R&D Programs",
+  "probleme": "Series sans source ni periodes : doses 2021 et 2022 identiques (807), capacite en 'M doses' alors que 3 signifie 3 milliards, programmes cliniques 42 en 2025 contre 25 dans CAHIER_PIPELINE_BY_PHASE",
+  "preuve": "Doses Delivered 5, 807, 807, 320, 80 ; Manufacturing capa 0.6, 3, 3, 2, 1 M doses ; R&D Programs 42 vs CAHIER_PIPELINE_BY_PHASE FY2025=25",
+  "correction_validee": "Retirer Doses Delivered, Manufacturing capa et R&D Programs, sauf si on peut les resourcer avec exercices et unités exactes.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "R&D Expenses / SG&A Expenses / Inventory write-downs / Target year-end headcount",
+  "probleme": "Doublons annuels ou a un point de series trimestrielles existantes (RD_EXP, SGA_EXP, INV_WRITEDOWN, EMPLOYEES)",
+  "preuve": "R&D Expenses FY 3.13 Mds = RD_EXP ; Inventory write-downs 291 = somme 42+38+67+144 ; Target headcount 4700 = EMPLOYEES FY2025",
+  "correction_validee": "Supprimer R&D Expenses, SG&A Expenses, Inventory write-downs (point unique) et Target year-end headcount.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks",
+  "champ": "risques 1 a 5",
+  "probleme": "Cinq risques avec titre seul, aucun texte, alors que le moat affirme que 'tous les risques recenses se degradent'",
+  "preuve": "risque 1: Effondrement de la demande vaccin COVID-19 (Spikevax) :: (vide)",
+  "correction_validee": "Rediger les cinq descriptions a partir du 10-K 2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.text",
+  "probleme": "Chiffre non retrouvable : 'ventes de produits -84 %' ne correspond a aucune serie (NET_PROD_SALES -17,5 % au T2, -41 % en annuel)",
+  "preuve": "moat : 'Le chiffre d affaires chute de 39,9 % et les ventes de produits de 84 %'",
+  "correction_validee": "Recalculer sur NET_PROD_SALES annuel 2025 vs 2024",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

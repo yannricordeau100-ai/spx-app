@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Capex",
+  "probleme": "Unite Mds $ mais dernier point en M$, serie melangee (acquisitions incluses), doublon de Capex Oil and Gas",
+  "preuve": "serie Q3 2024=3.645, Q4 2025=0.839, Q1 2026=1318 ; val=1318 en 'Mds $' ; Capex Oil and Gas Q2-2026=1274",
+  "correction_validee": "Supprimer le KPI Capex.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Oil % of total volume + Proved reserves (Boe) + 2025 reserve replacement rate",
+  "probleme": "Doublons sans dates de series existantes, l'un perime par la fusion",
+  "preuve": "Oil % 46 vs Oil vs NGL vs Gas Mix Q2-2026=37 ; Proved reserves 2.4 = Proved Reserves 2428 ; 193 = CAHIER_RRR FY2025",
+  "correction_validee": "Supprimer Oil % of total volume, Proved reserves (Boe) et 2025 reserve replacement rate.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Post-merger per-share dividend increase vs Dividend per Share ; New share repurchase authorization vs Share Buybacks.signal",
+  "probleme": "Chiffres contradictoires sur le dividende et le programme de rachat",
+  "preuve": "'31% a 0,315 $' vs Dividend per Share Q2-2026=0.32, +33% ; 'Autorisation superieure a 5 Md$' vs signal 'Nouveau programme de rachat de 8,0 Mds$'",
+  "correction_validee": "Verifier les chiffres post-fusion et supprimer les singletons perimes",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_PRODUCTION.signal",
+  "probleme": "Le signal attribue la production 2025 a la fusion Coterra, close le 7 mai 2026",
+  "preuve": "FY2025=840000 ; signal 'dont la fusion Coterra, qui elargit l'empreinte'",
+  "correction_validee": "Remplacer par 'La croissance vient des acquisitions successives, dont Grayson Mill en 2024'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "unites de Base production decline rate, Grayson Mill acquisition scale, Business optimization savings, Cotera merger synergies",
+  "probleme": "Commentaires dans le champ unite, faute sur Coterra",
+  "preuve": "'% (fourchette mi-30)', 'sites non fores (+300k acres nets)', 'milliard $ (run-rate annuel)', 'Cotera merger'",
+  "correction_validee": "Unites ramenees a %, sites, Mds $ et 'Cotera' corrige en 'Coterra'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux Rockies, Eagle Ford, Anadarko, Total production, Oil, Gas, NGL",
+  "probleme": "Coquille repetee 'MBoe/j'au'",
+  "preuve": "'192 MBoe/j'au T2-2026', '1 359 MBoe/j'au T2-2026'",
+  "correction_validee": "Remplacer \"/j'au\" par \"/j au\" dans les sept signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik + moat",
+  "probleme": "Description perimee (dividende variable abandonne, Marcellus absent, jargon anglais) et moat contredit par le doublement post-fusion",
+  "preuve": "edge 'cash return framework (variable dividend)' vs Dividend per Share 'dividende fixe' ; products sans Marcellus ; moat 'ventes d'hydrocarbures quasi stables' vs Revenue +73 %",
+  "correction_validee": "Reecrire description et moat au perimetre post-Coterra",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Free Cash Flow Yield",
+  "probleme": "Serie annuelle sans dates ni signal, finissant a 2026-06-30",
+  "preuve": "serie 16, 15, 9, 8, 8 ; signal vide",
+  "correction_validee": "Dater et sourcer, sinon retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline",
+  "champ": "tagline",
+  "probleme": "Texte en anglais",
+  "preuve": "'A leading independent onshore oil and natural gas...'",
+  "correction_validee": "Traduire : 'Producteur independant de petrole et de gaz naturel terrestre aux Etats-Unis'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

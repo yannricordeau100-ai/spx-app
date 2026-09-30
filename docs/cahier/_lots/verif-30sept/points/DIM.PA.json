@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue, EMEA Sales Revenue, operating_income, net_income",
+  "probleme": "Séries annuelles sans étiquette de période dont le dernier point est un semestre : chute apparente de moitié, yoy incohérent.",
+  "preuve": "revenue « year | serie: 3.493, 2.776, 2.78, 2.967, 1.5272 | yoy=+6,7% » ; EMEA « 1241.5, 672 » avec signal « 1 241,5 M EUR en 2025 » mais val=672.",
+  "correction_validee": "Dater chaque point de FY2022 à FY2025 et sortir le point S1 2026 des séries annuelles, ou créer des séries semestrielles distinctes.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Sub-Saharan Africa Penetration, mAb Africa Output, mAb Africa Capacity, Cell Therapy Clients, Cell Therapy Partners, Bioreactor Capacity Add, New Product Sales, Single-Use Penetration, Single-Use Share",
+  "probleme": "Neuf séries lisses, sans période ni date, à signal publicitaire, que la société ne publie pas ; deux d'entre elles se contredisent.",
+  "preuve": "« Sub-Saharan Africa Penetration | clients | None | 7, 11, 15, 18 :: Expansion stratégique... » ; « Single-Use Penetration 62, 65, 68 » vs « Single-Use Share 60, 63, 65, 68 » ; « Bioreactor Capacity Add | kL | 80, 95, 105, 120 ».",
+  "correction_validee": "Retirer ces neuf KPI et ne les réintroduire qu'avec une page du DEU citée.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Underlying EBITDA Margin",
+  "probleme": "Dernier point 27,6 % daté 30 juin 2026 alors que l'anti-thèse annonce 31,4 % au S1 2026.",
+  "preuve": "série « 32.5, 35, 35.7, 30, 27.6 | dernier 2026-06-30 » ; att : « marge d'EBITDA sous-jacent de 31,4 % au premier semestre 2026 ».",
+  "correction_validee": "Dater chaque point annuel d'après les publications (ordre à vérifier), puis ajouter S1 2026 = 31,4 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Order Intake",
+  "probleme": "Série 2020-2024 datée 30 juin 2026, alors que l'anti-thèse dit que la société ne publie plus les prises de commandes.",
+  "preuve": "« Order Intake | dernier 2026-06-30 | 2.351, 3.586, 3.762, 2.645, 2.857 » ; att : « la société ne publie plus ni prises de commandes ni carnet de commandes ».",
+  "correction_validee": "Dater le dernier point au 31 décembre 2024 et préciser dans le signal que la publication a cessé.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS, Payout Ratio, Cap Return",
+  "probleme": "Zéro utilisé comme valeur manquante en début de série et alignement DPS/EPS douteux.",
+  "preuve": "EPS « 0, 9.51, 3.37, 1.81, 2.73 » ; Payout « 0, 13.25, 42.77, 38.32, 25.26 » ; Cap Return « 0, 0.1161... » ; DPS « 0.68, 1.26, 1.44, 0.69, 0.69 » (1,26 = exercice 2021 apparié à un BPA de 9,51).",
+  "correction_validee": "Remplacer les 0 par null, dater chaque point, vérifier le BPA 2022 dans le DEU.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "hero",
+  "champ": "hero",
+  "probleme": "Hero = chiffre d'affaires d'une seule région, sans les deux autres régions en KPI.",
+  "preuve": "« hero: EMEA Sales Revenue » ; aucun KPI Amériques ni Asie-Pacifique.",
+  "correction_validee": "Hero sur la part de consommables (86,3 %) ou la marge EBITDA sous-jacente ; ajouter Amériques et Asie-Pacifique si EMEA reste.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux vides et descriptions en jargon",
+  "probleme": "Huit KPI financiers sans signal ; descriptions avec anglais et jargon.",
+  "preuve": "revenue, gross_profit, operating_income, net_income, Underlying EBITDA Margin, Order Intake, R&D Spend, Recurring Revenue Share : signal « » ; « Modèle razor/blade structurel », « pure-play biopharma », « focus single-use systems ».",
+  "correction_validee": "Rédiger un signal chiffré par KPI et remplacer par « modèle rasoir et lames », « acteur spécialisé », « systèmes à usage unique ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Recurring Revenue Share",
+  "probleme": "80 % contredit la thèse (86,3 % de consommables au S1 2026) sans définition qui explique l'écart.",
+  "preuve": "« Recurring Revenue Share | 75, 78, 78, 80, 80 | dernier 2026-06-30 » ; these : « 86,3 % du chiffre d'affaires ... provient de produits que le client rachète ».",
+  "correction_validee": "Aligner sur la définition publiée (part des consommables) ou expliquer l'écart dans le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cap Return.unit, DPS.period",
+  "probleme": "Unité en anglais et type de période « annual » différent du « year » des autres KPI.",
+  "preuve": "« Cap Return | €B | annual » ; « DPS | annual » vs « revenue | year ».",
+  "correction_validee": "Unité « Mds € » et période « year ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risques 1 à 6",
+  "probleme": "Six risques sans description.",
+  "preuve": "« risque 1: Déstockage bioprocess et normalisation post-COVID :: » (vide), idem 2 à 6.",
+  "correction_validee": "Rédiger depuis le DEU 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "gouvernance",
+  "champ": "dirigeant",
+  "probleme": "Double espace dans le nom.",
+  "preuve": "« Dr. Rene  Faber »",
+  "correction_validee": "René Faber.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

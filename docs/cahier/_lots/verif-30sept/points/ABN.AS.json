@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "moat.justification_mettrik",
+  "probleme": "Source tierce nommee dans un bloc et note d un concurrent utilisee comme justification.",
+  "preuve": "'La note Morningstar est retombee a aucun avantage et les menaces cyber liees a l intelligence artificielle montent'.",
+  "correction_validee": "Réécrire la justification sans source tierce, sur actifs de clientèle +16,7 %, CET1 15,9 % et ROE 12,1 % au T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "RoE",
+  "probleme": "Doublon perime de ROE_Q, serie non datee, description telegraphique.",
+  "preuve": "serie 9.2, 12.2, 10.1 (FY2022-2024) dernier 2026-08-09 ; att : '8,7% affiches sur l ensemble de 2025' ; 'Baisse 2024 due a hausse capital + cout du risque normalise'.",
+  "correction_validee": "Supprimer 'RoE'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CET1 Ratio",
+  "probleme": "Troisieme serie CET1 (avec CET1_Q et CAHIER_CET1), perimee et contradictoire sur la cible.",
+  "preuve": "serie 15, 15, 14 dernier 2026-08-09 ; CAHIER_CET1 FY2024 = 14,5, FY2025 = 15,4 ; 'cible 13.5%' vs CET1_Q 'objectif 2028 (>13,75%)'.",
+  "correction_validee": "Supprimer 'CET1 Ratio'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_CET1, CAHIER_COST_INCOME",
+  "probleme": "yoy en % d un % ; CAHIER_CET1 doublon annuel de CET1_Q.",
+  "preuve": "'+6,2 %' pour 14,5 -> 15,4 (= +0,9 pt) ; '+4,4 %' pour 61,7 -> 64,4 (= +2,7 pts) ; CAHIER_CET1 FY2025 = CET1_Q Q4-2025 = 15,4.",
+  "correction_validee": "yoy '+0,9 pt' pour CAHIER_CET1 et '+2,7 pts' pour CAHIER_COST_INCOME ; conserver CAHIER_CET1.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "FTE_Q.signal",
+  "probleme": "Le signal parle d une reduction d effectifs alors que la serie monte.",
+  "preuve": "'reduction totale depuis fin 2024 proche de 45% de l objectif 2028' ; serie Q4-2024 = 21 976 -> Q2-2026 = 22 905 (+929), yoy +2,8 %.",
+  "correction_validee": "Preciser que la reduction est hors acquisitions (HAL, NIBC) ou retirer la phrase.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these/att",
+  "champ": "CIR_Q.signal, these",
+  "probleme": "Horizons de cible contradictoires pour le coefficient d exploitation.",
+  "preuve": "CIR_Q : 'en dessous de l objectif 2026' ; these : 'deja sous la cible fixee pour 2028' ; CET1_Q : 'objectif 2028'.",
+  "correction_validee": "Aligner sur le plan strategique en vigueur (2028).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "PBB_REV_Q, WM_REV_Q, CB_REV_Q, revenue_by_segment.fiscal_year",
+  "probleme": "Noms de poles en anglais alors que la repartition les traduit ; exercice de la repartition absent.",
+  "preuve": "'Revenus Personal & Business Banking', 'Revenus Wealth Management', 'Revenus Corporate Banking' vs 'Banque des particuliers et des entreprises', 'Gestion de fortune', 'Banque de grande clientele' ; 'revenue_by_segment (None)' (valeurs = 2025).",
+  "correction_validee": "Renommer en 'Revenus Banque des particuliers et des entreprises', 'Revenus Gestion de fortune', 'Revenus Banque de grande clientèle' (noms et signaux).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateur manquant",
+  "probleme": "Pas de ratio de prets non performants (stage 3) ni de ratio credits/depots ni de part de marche hypothecaire, alors que le risque 4 est la concentration immobiliere.",
+  "preuve": "risque 4 : '163,2 Mds € de credits immobiliers residentiels' sur 264,1 ; position de marche sans part.",
+  "correction_validee": "Ajouter 'Ratio stage 3' et 'Credits/depots' (publies chaque trimestre) et la part de marche hypothecaire NL.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description.simple.fr.activity",
+  "probleme": "Phrase creuse.",
+  "preuve": "'La banque gere les risques de credit.'",
+  "correction_validee": "Remplacer par les trois poles et le poids des Pays-Bas (85 % des revenus).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

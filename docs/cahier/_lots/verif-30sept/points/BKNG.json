@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "valeurs",
+  "probleme": "Répartition vide affichée",
+  "preuve": "« États-Unis None ; Hors des États-Unis None » ; us_revenue_share FY2025 = 9,6 %",
+  "correction_validee": "États-Unis 9,6 ; Hors des États-Unis 90,4 ; exercice 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "6 séries sans période ni années",
+  "probleme": "Séries non sourcées contredisant les séries sourcées ; une progression manifestement fabriquée",
+  "preuve": "« Direct Bookings Share » 56 vs direct_bookings_share 55 (FY2025) ; « Mobile App Bookings Share » 33 / 39 / 45 / 48 / 53 vs mobile_app_share 44 / 49 / 52 / 55 ; « Alternative Accommodations Mix » 35 vs 36 et 38 ; « Connected Trip Adoption » 5 / 10 / 15 / 20 / 25 (+5 pts par an, val 25 %) vs « Connected Trip Mix » 1 / 2 / 3 / 3 / 5 (val 5 %) pour la même notion ; « Marketing Efficiency » 35 % du gross profit alors que marketing 2025 = 8 186 / 26 917 = 30,4 % du CA ; descriptions « Yoy hausse, North Star Glenn Fogel », « Push direct vs Airbnb »",
+  "correction_validee": "Supprimer Direct Bookings Share, Mobile App Bookings Share, Alternative Accommodations Mix, Connected Trip Adoption, Connected Trip Mix et Marketing Efficiency.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "part des hébergements alternatifs (3 emplacements)",
+  "probleme": "Trois chiffres différents pour la même part de nuitées",
+  "preuve": "alt_accommodation_listings signal « pèsent 37 % des nuits réservées, une part stable sur un an » ; « Alternative accommodation room-night mix » val 38 (série annuelle 29, 29, 33, 33, 36, 38 avec un point T2-2026) mais signal « 36 % des nuitées en 2025, contre 35 % en 2024 » ; « Alternative Accommodations Mix » 35",
+  "correction_validee": "Garder une seule série datée (36 % FY2025, 38 % T2-2026) et aligner les signaux",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "merchant_mix.name_fr / name_en",
+  "probleme": "Nom faux pour ce que mesure la série",
+  "preuve": "Nommé « Part revenus merchant / Merchant Revenue Mix » mais signal « 73 % des réservations brutes en merchant » ; part merchant du CA = 5 127 / 7 352 = 69,7 % (T2-2025 : 65,6 % vs série 69)",
+  "correction_validee": "Renommer « Part merchant des réservations brutes / Merchant share of gross bookings ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "direct_bookings_share.yoy, mobile_app_share.yoy, alt_accommodation_listings.yoy",
+  "probleme": "yoy faux ou mal formaté",
+  "preuve": "direct_bookings_share yoy « +~3pp » pour une série plate 55 → 55 ; mobile_app_share « +~3pp » (tilde dans un champ chiffré) ; alt_accommodation_listings « +0.3M »",
+  "correction_validee": "Afficher « 0 pt », « +3 pts » et « +0,3 M ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPIs à un point datés 2026-04-10",
+  "probleme": "Faits périmés ou contredits par les séries à jour",
+  "preuve": "« Record quarterly share repurchases » 3,6 Mds « plus gros rachat trimestriel de l'histoire » dépassé par buybacks T1-2026 3 770 et T2-2026 3 988 ; « Remaining share repurchase authorization » 21,8 vs « 14,5 Mds $ au 30 juin 2026 » (signal buybacks) ; « Attraction tickets growth » 90 % vs attractions_growth 80 % (FY2025) ; « Full-year free cash flow » 9,1 = fcf_annuel 9,087 ; « Genius Level 2 & 3 » unité « % (haut 50) »",
+  "correction_validee": "Supprimer les 4 KPI et ramener l'unité de Genius à « % ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateurs manquants",
+  "probleme": "L anti-thèse cite des chiffres de bilan absents de la fiche",
+  "preuve": "att : « 10,8 Mds $ de capitaux propres négatifs » ; aucune série capitaux propres, trésorerie ou dette nette (seule lt_debt existe)",
+  "correction_validee": "Ajouter equity, cash, net_debt trimestriels",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted, dividend_per_share",
+  "probleme": "Séries en base avant division d actions 25 pour 1 (avril 2026)",
+  "preuve": "eps_diluted T2-2026 = 63,25 $ ; dividend_per_share 10,50 $ ; signaux « Affiché en base d'avant le split 25 pour 1 d'avril 2026 »",
+  "correction_validee": "Retraiter toute la série (2,53 $ ; 0,42 $) pour comparaison au cours actuel",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rental_car_days, airline_tickets",
+  "probleme": "Séries arrondies au million, yoy incohérent avec les points affichés",
+  "preuve": "rental_car_days 24 → 23 avec yoy « -6,5 % » ; airline_tickets 16 → 17 avec yoy « +3,7 % » (16 → 17 = +6,3 %)",
+  "correction_validee": "Une décimale sur les séries",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RESERVATIONS_BRUTES.name_fr ; ROOM_NIGHTS.signal",
+  "probleme": "Nom mêlant deux indicateurs ; signal gabarit",
+  "preuve": "« Réservations brutes et nuitées réservées » pour une seule série en Mds $ (186,107 = somme trimestrielle de gross_bookings) ; ROOM_NIGHTS « 1235 millions de nuitées en 2025, produit phare de la société »",
+  "correction_validee": "Renommer « Réservations brutes » et réécrire le signal ROOM_NIGHTS : 1 235 millions de nuitées en 2025, +8 % sur un an.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these et kpis",
+  "champ": "these.hook vs properties_total",
+  "probleme": "Deux trajectoires pour le même inventaire",
+  "preuve": "Thèse : « Son offre est passée de 4,3 à 4,7 millions de logements en un an » ; properties_total « 4,4 M au 31 déc. 2025 (vs 4,0 M en 2024) »",
+  "correction_validee": "Dater la référence de la thèse (juin 2026 ?) et prolonger la série",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

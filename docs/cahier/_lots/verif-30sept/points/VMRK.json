@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "physical_occupancy / lease_renewal_rate",
+  "probleme": "Point du T3 2026 présent avant la publication du trimestre (prévue le 27 octobre) ; signal en désaccord ; KPI sans description",
+  "preuve": "physical_occupancy Q3-2026=95.7, alors que le signal dit « À 96,2 % » ; lease_renewal_rate Q3-2026=60, n=1, nom anglais = code, signal vide",
+  "correction_validee": "Retirer les points du T3 2026 sauf si une source publiée existe, aligner le signal sur la dernière valeur affichée et supprimer lease_renewal_rate.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "summary",
+  "probleme": "Citation en anglais et nom de document dans le bloc",
+  "preuve": "« Le S-4/A de la fusion prévient lui-même que le groupe « may be unable to successfully integrate the businesses… » »",
+  "correction_validee": "Remplacer par : le groupe reconnaît lui-même qu'il pourrait ne pas réussir à intégrer les activités d'Equity Residential et d'AvalonBay.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques / moat / kpis",
+  "champ": "risks[0], risks[2], moat, div_per_share.signal",
+  "probleme": "Mentions de documents et de sources dans les blocs, non détectées",
+  "preuve": "« La circulaire de fusion prévient », « La circulaire indique », « Morningstar ne reconnaît aucun avantage », « la circulaire annonce 2,81 $ »",
+  "correction_validee": "Retirer les mentions de la circulaire et de Morningstar des risques 1 et 3, du fossé concurrentiel et du signal de div_per_share, en gardant les faits.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ss_rev_growth.yoy / ss_noi_growth.yoy / physical_occupancy.yoy / total_noi.yoy",
+  "probleme": "Variations de taux affichées en % au lieu de points ; « -0,0 % »",
+  "preuve": "ss_noi 2.5 à 1.7 affiché « -0,8 % » ; total_noi « -0,0 % »",
+  "correction_validee": "Afficher les variations de ss_rev_growth, ss_noi_growth et physical_occupancy en points (-0,8 pt) et celle de total_noi en « stable ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "gouvernance / these",
+  "champ": "annee, nom",
+  "probleme": "Année de gouvernance future ; nom de la société incohérent",
+  "preuve": "gouvernance annee 2027 ; thèse : « Vivmark Résidentiel » contre « Vivmark Residential » ailleurs",
+  "correction_validee": "Uniformiser en « Vivmark Residential » dans la thèse ; garder 2027, en l'affichant comme rémunération cible et non versée.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "manquant",
+  "probleme": "Il manque l'indicateur clé d'une foncière résidentielle : la variation des loyers à la relocation",
+  "preuve": "Aucun KPI pour la hausse des loyers sur les nouveaux baux et les renouvellements, ni pour la rotation des locataires ; lease_renewal_rate est vide",
+  "correction_validee": "Ajouter la croissance des loyers à la relocation (nouveaux baux, renouvellements, moyenne pondérée) et le taux de rotation",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_debt_ebitdare.signal",
+  "probleme": "Mauvais dénominateur dans le texte",
+  "preuve": "« À 4,28 fois le résultat d'exploitation », alors que le ratio porte sur l'EBITDAre normalisé",
+  "correction_validee": "Écrire « À 4,28 fois l'EBITDAre normalisé ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

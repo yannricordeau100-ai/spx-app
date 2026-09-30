@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "DPS_FY.signal",
+  "probleme": "Le signal affirme aucune baisse du dividende alors que la serie montre un repli en 2020.",
+  "preuve": "signal : « Aucune baisse depuis 2016, y compris en 2020 » ; serie : FY2019=0.9, FY2020=0.82",
+  "correction_validee": "Verifier les dividendes 2019 et 2020 a la source et corriger soit la valeur, soit la phrase du signal.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat « None / baisse » contredit par la these qui attribue quatre des cinq sources de fosse economique.",
+  "preuve": "moat : « None / tendance baisse » ; these : « reunit quatre des cinq sources d'avantage durable... effet de reseau, actifs incorporels, couts de changement et avantage de cout »",
+  "correction_validee": "Qualifier le moat (effet de reseau) et cohererer la tendance avec la these.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PRIVATE_SUBSCRIBERS_Q, PRO_CUSTOMERS_DE_Q, ARPU_PRO_DE_Q, ARPU_PRIVATE_Q, IS24_LISTINGS_Q, IS24_SESSIONS_Q",
+  "probleme": "Six KPI operationnels n'ont que deux points (T1 et T2 2026) : le yoy affiche n'est pas derivable de la serie et l'investisseur n'a aucun historique.",
+  "preuve": "PRIVATE_SUBSCRIBERS_Q : n=2, serie Q1-2026=507602, Q2-2026=517739, yoy=+3,1% ; IS24_SESSIONS_Q : n=2, yoy=-10,0%",
+  "correction_validee": "Completer les series 2024-2025 depuis les publications trimestrielles Scout24.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ORGANIC_GROWTH_Q.dernier",
+  "probleme": "Date du dernier point hors calendrier trimestriel.",
+  "preuve": "dernier 2026-09-05 pour un point Q2-2026",
+  "correction_validee": "Dater le dernier point au 2026-06-30.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_REVENU_PAR_UTILISATEUR",
+  "probleme": "Nom faux : 1 096 €/mois est le revenu par client professionnel, pas par utilisateur (19 M d'utilisateurs gratuits) ; doublon annuel d'ARPU_PRO_DE_Q.",
+  "preuve": "val=1096 EUR/mois ; ARPU_PRO_DE_Q Q1-2026=1224 €/mois ; CAHIER_UTILISATEURS_ACTIFS = 19,1 M",
+  "correction_validee": "Renommer « Revenu moyen par client professionnel (moyenne annuelle) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_UTILISATEURS_ACTIFS.nom",
+  "probleme": "Nom « quotidiens et mensuels » pour une serie mensuelle, avec double comptage site + application assume.",
+  "preuve": "nom : « Utilisateurs actifs quotidiens et mensuels » ; unite : millions d'utilisateurs par mois ; signal : « un utilisateur present sur les deux est compte deux fois »",
+  "correction_validee": "Renommer « Utilisateurs actifs mensuels (site + application) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_VOLUME_ANNONCES.yoy",
+  "probleme": "Variation d'un taux exprimee en pourcentage relatif au lieu de points.",
+  "preuve": "serie FY2024=7.8, FY2025=13.5 ; yoy=+73.1%",
+  "correction_validee": "Afficher +5,7 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI manquant",
+  "probleme": "L'anti-these s'appuie sur l'explosion de la dette nette et du goodwill, absents de la fiche.",
+  "preuve": "att : « l'acquisition espagnole... a fait exploser l'endettement net et le goodwill en six mois » ; aucun KPI dette nette ni goodwill",
+  "correction_validee": "Ajouter dette nette et goodwill trimestriels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions de marche",
+  "champ": "market_positions / tagline",
+  "probleme": "Position de marche sans nom, tagline vide.",
+  "preuve": "position de marche 1: None | taille 8 | part None ; tagline: (vide)",
+  "correction_validee": "Nommer le marche (portails immobiliers Allemagne) ou retirer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

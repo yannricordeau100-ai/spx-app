@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "revenue / revenue_q ; net_income / net_income_q ; gross_margin / gross_margin_q ; rd_expense / rd_expense_q",
+  "probleme": "Quatre indicateurs presents a la fois en annuel et en trimestriel.",
+  "preuve": "revenue FY2025=6.791 et revenue_q Q1..Q4-2025 = 1.585+1.688+1.688+1.83 = 6.791",
+  "correction_validee": "Decision du proprietaire : conserver les trimestriels (a jour T2 2026) et retirer les annuels, ou les fusionner en un seul KPI par indicateur.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "employees.unit",
+  "probleme": "Unite 'unités' pour un effectif ; FY2022 manquant.",
+  "preuve": "employees | unités | serie FY2021=14600, FY2023=12000, FY2024=13000, FY2025=14000",
+  "correction_validee": "Unite salaries ; ajouter FY2022 seulement apres lecture du rapport annuel 2022, sans valeur de memoire.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Moat generique et en contradiction avec la these (position 'difficilement remplaçable', 63 % de plaquettes non transferables, accords long terme de 11 Mds $).",
+  "preuve": "moat: 'les éléments fournis sont trop minces pour conclure' vs these: 'fournisseur difficilement remplaçable' et lta_backlog = 11 Mds $",
+  "correction_validee": "Reecrire le moat autour des couts de re-conception client, des LTA (11 Mds $) et de l empreinte geographique ; tendance stable.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0].texte, rd_expense_q.signal",
+  "probleme": "Francais defectueux dans le risque 1 ('Taïwan implique') et ticker utilise comme nom de societe dans un signal.",
+  "preuve": "risque 1: 'entre États-Unis et Chine (Taïwan implique)' ; rd_expense_q: 'élargir l'offre de GFS'",
+  "correction_validee": "Remplacer par (Taiwan impliquee) et l offre de GlobalFoundries.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_income_q.signal",
+  "probleme": "Signal vague et non chiffre pour un recul de 26,8 % du resultat net trimestriel.",
+  "preuve": "signal: 'L'écart avec le chiffre d'affaires montre le poids des coûts d'acquisition et de la fiscalité sur la rentabilité réelle du trimestre.' ; serie Q2-2025=0.228, Q2-2026=0.167",
+  "correction_validee": "Chiffrer : 'Resultat net T2 2026 de 167 M$ (-27 %), pese par les couts des acquisitions recentes (R&D +30 %) et une charge d impot plus elevee'.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

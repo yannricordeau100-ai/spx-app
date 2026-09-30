@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "moat.justification_mettrik",
+  "probleme": "Justification périmée et contraire à la thèse et aux séries récentes.",
+  "preuve": "« Le stockage d'énergie recule de 10,1 % et son excédent brut de 8 % » vs energy_storage_revenue T2 2026 +78 %, energy_storage_ebitda +229 % ; thèse : « le cycle s'est retourné ».",
+  "correction_validee": "Réécrire sur le T2 2026 : CA Energy Storage +78 % et EBITDA ajusté +229 % sur un an, portés par le rebond des prix.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "lithium_production_lce (hero)",
+  "probleme": "Signal du KPI vedette = cuisine interne de conversion ; deux exercices identiques suspects.",
+  "preuve": "« 42 kt métal lithium en 2025 vs 39 kt en 2024 (conversion: 1 kt métal = 5.325 kt LCE via facteur 0.1878) » ; FY2023 = FY2024 = 207,7.",
+  "correction_validee": "Signal « 223,6 kt LCE en 2025, +8 % sur un an » et revérifier la valeur 2023 à la source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Lithium Volume / Lithium Avg Price / Specialties Net Sales",
+  "probleme": "Trois séries annuelles sans périodes, datées du jour, signal vide, contredisant les séries datées ; nom faux.",
+  "preuve": "last_data_date 2026-09-29 ; Lithium Volume 264 et 211 vs somme energy_storage_volume 2025 = 235, 2024 = 205 ; Specialties 1,308 vs 1,366 Mds $ FY2025 ; nom « Bromine + Catalysts » alors que Catalysts = Ketjen, segment distinct.",
+  "correction_validee": "Supprimer les trois KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Energy Storage (Lithium) sales volume growth YoY + 3 séries growth YoY",
+  "probleme": "Signal contredit par la série ; valeurs incompatibles avec les volumes publiés ; séries non datées.",
+  "preuve": "« Volumes lithium en hausse continue » vs history contenant -10 et 0 ; Q4-2025 : 63 vs 49 = +29 % dans energy_storage_volume, série dit 8 ; Q1-2025 : +5 % vs -10.",
+  "correction_validee": "Supprimer les quatre séries « growth YoY ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "energy_storage_volume / lithium_market_price / eps_diluted / net_debt_ebitda",
+  "probleme": "Séries en retard ou à trous.",
+  "preuve": "energy_storage_volume et lithium_market_price s'arrêtent au T4 2025 alors que « Energy Storage average realized price » cite 53 kt au T1 2026 ; eps_diluted saute Q4-2024 et Q4-2025 ; net_debt_ebitda n=1.",
+  "correction_validee": "Compléter T1 et T2 2026 et les trimestres manquants.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "répartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Cinq zones affichées None dans l'extrait (champ pct absent) ; source = cuisine interne.",
+  "preuve": "slices avec share_pct seul (Chine 39,4 ; Autres 20,94 ; États-Unis 17,32 ; Corée 15,35 ; Japon 6,99) ; source « filing us (pipeline CA autonome, LLM gratuit verbatim) ».",
+  "correction_validee": "Ajouter pct, libeller « exercice 2025 », source « rapport annuel 2025 », puis vérifier la page servie.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Mentions internes visibles et contenu contredit par un KPI de la fiche.",
+  "preuve": "« mentionne peu l'IA dans ses communications officielles (Chemicals) », evidence « disponibles localement », « Sources locales sans mentions IA » ; KPI « Global energy storage lithium demand growth » +117 % « portée par ... l'IA ».",
+  "correction_validee": "Retirer les mentions internes ; réécrire : l'IA comme moteur de demande de stockage stationnaire.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.simple",
+  "probleme": "Activité réduite au lithium, produit phare erroné.",
+  "preuve": "« composés de lithium destinés aux solutions de stockage d'énergie » (Spécialités brome = 27 % du CA) ; « bromure d'hydrogène » cité parmi les produits principaux.",
+  "correction_validee": "Réécrire : lithium (52 %) et brome / retardateurs de flamme (27 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "free_cash_flow",
+  "probleme": "Nom annuel pour une série trimestrielle.",
+  "preuve": "« Flux de trésorerie disponible (annuel) », period quarter, Q2-2026 = 638,3.",
+  "correction_validee": "Retirer « (annuel) » et remplacer le signal par « 638,3 M$ au T2 2026 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "US Sales / CN Sales / US Assets / AU Assets + signaux ALB",
+  "probleme": "Unité $k avec nombres à 6-7 chiffres, tiret insécable, décimales à point dans les signaux.",
+  "preuve": "CN Sales 2 026 293 $k ; « États‑Unis » (U+2011) ; « 3.7 M$ », « 1 384.6 M$ », « 126.4 M$ ».",
+  "correction_validee": "Convertir en M$ (890,5 / 2 026,3 / 1 811,0 / 3 895,6), tiret normal et virgules décimales.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "thèse / KPI",
+  "champ": "these, total_segment_ebitda, net_debt",
+  "probleme": "Terme faux et chiffres non harmonisés entre blocs.",
+  "preuve": "Thèse : « 723 M$ de résultat opérationnel courant » pour un EBITDA ajusté segment ; total_segment_ebitda compare 841 à 292,7 alors que la série affiche 321 pour T2 2025 ; cession Ketjen 525,2 M$ (net_debt) vs 536 M$ (divestiture proceeds).",
+  "correction_validee": "« EBITDA ajusté » dans la thèse ; aligner base et chiffres de cession.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks",
+  "probleme": "Cinq titres génériques sans texte pour une société exposée au prix du lithium, au Chili et à Kemerton.",
+  "preuve": "« Risques opérationnels », « Risques financiers », « Risques technologiques », « Évolutions réglementaires et conformité », « Pression concurrentielle », descriptions vides.",
+  "correction_validee": "Rédiger depuis le rapport annuel (prix lithium, quota CORFO, Chine, Kemerton).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

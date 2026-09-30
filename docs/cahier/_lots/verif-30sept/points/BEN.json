@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "signal (environ 30 séries)",
+  "probleme": "Signaux figés au T2 FY2026 alors que les séries vont au T3 FY2026 (30 juin 2026) ; plusieurs sont inversés ou faux sur le dernier point",
+  "preuve": "cash_mgmt_flows signal « Entrées nettes monétaires de 11 Mds$ » vs val = -7 ; market_change « -30,2 Mds$ » vs val = +98 ; buyback « 57,1 M$, rythme très réduit » vs val = 348,1 ; cash_mgmt_aum « au plus haut à 88 Mds$ » vs 80,5 ; net_income « 268,2 M$ » vs 171,5 ; eps_diluted « 0,49 $ » vs 0,31 ; ga_exp « 187,6 M$ (+3%) » vs 312,8 (+67 % en un trimestre, non commenté) ; revenue « records à 2 295 M$ » alors que Q4-2025 = 2 343,7 était déjà supérieur ; Institutional pipeline « 20,2 G$ » vs val 28,6",
+  "correction_validee": "Régénérer tous les signaux listés sur le point du T3 FY2026 (30 juin 2026) : ne plus dire « record » pour les revenus, qui restent sous le T4-2025, et commenter le saut des charges générales à 312,8 M$.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "aum_total.signal (hero) et lt_net_flows.signal",
+  "probleme": "Le KPI hero et le KPI de collecte racontent des sorties massives alors que les séries montrent un record et trois trimestres de collecte positive",
+  "preuve": "aum_total signal « AUM quasi-stable malgré sorties nettes massives » vs val 1 791,6 record, yoy +9 % ; lt_net_flows signal « Sorties massives concentrées à WAM (141.9B outflows); signal très négatif pour la franchise » vs série Q1-2026 = 28, Q2-2026 = 16,9, Q3-2026 = 18,4, yoy +165 %",
+  "correction_validee": "Réécrire les deux signaux : encours record de 1 791,6 Mds $ porté par le marché, collecte nette long terme positive depuis le T1 FY2026 (18,4 Mds $ au T3).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "adj_operating_margin.signal et aum_fixed_income.signal",
+  "probleme": "Sens de variation faux",
+  "preuve": "adj_operating_margin signal « Compression structurelle de la marge; érosion de 5.4pts sur 2 ans » vs série 23,4 (Q2-2025) → 28,0 (Q3-2026), yoy +16 % ; aum_fixed_income signal « Forte baisse due aux outflows massifs WAM ; 122.7B de sorties » vs série 438,7 / 437,7 / 434,3 / 441,4 (stable, +1,6 % sur le trimestre) et netflow_fixed_income repassé positif (+2,6)",
+  "correction_validee": "Réécrire : marge ajustée en redressement de 4,3 pts sur un an, à 28,0 % ; encours obligataire stabilisé à 441,4 Mds $, avec des flux nets redevenus positifs (+2,6 Mds $).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effective_fee_rate (dernier point)",
+  "probleme": "Valeur invraisemblable et date qui n est pas une fin de trimestre",
+  "preuve": "Q3-2026 = 30,5 bps daté 2026-09-23 après 41,0 ; 41 trimestres entre 40 et 60 bps, une chute de 10,5 bps en un trimestre est impossible ; yoy affiché -1 % alors que 30,5 vs 40,5 = -25 %",
+  "correction_validee": "Remplacer le point du T3 FY2026 par la valeur publiée dans le communiqué du T3 FY2026, en la datant du 2026-06-30, puis recalculer le yoy.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Effective Fee Rate, Alternative Assets AUM, Retail SMA AUM, CAHIER_AUM",
+  "probleme": "Doublons non sourcés en franglais et date d exercice fausse",
+  "preuve": "« Effective Fee Rate » val 10 100 bps, série 0, 0, 0, 41.1, 40.5, 10100, description « mix equity & catch-up fees PE », « mix shift equity products low-f » : triple avec effective_fee_rate et CAHIER_FEE_RATE ; « Alternative Assets AUM » période None, série 145..260, signal « Privates en hausse » : doublon de aum_alternatives (294,2) ; « Retail SMA AUM » 168,3 doublon de aum_retail_sma 164,5 ; CAHIER_AUM daté 2025-12-31 alors que l exercice clôt le 30 septembre (FY2025 = 1 661,2 = Q4-2025 de aum_total)",
+  "correction_validee": "Supprimer « Effective Fee Rate » et « Alternative Assets AUM », dater CAHIER_AUM (ainsi que CAHIER_NET_FLOWS et CAHIER_FEE_RATE) au 30 septembre, et ne supprimer « Retail SMA AUM » que si son chiffre récent est repris ailleurs.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "12 séries arrêtées au 2026-03-31 ; capex",
+  "probleme": "Trimestre de juin 2026 chargé sur 60 séries mais absent de 12 autres ; capex négatif",
+  "preuve": "aum_equity, wam_lt_outflows, net_margin, dps, div_paid, ocf, capex, fcf, net_debt, sbc, comp_ratio, outflow_multi_asset s arrêtent au 31 mars 2026 ; capex Q1-2026 = -9,3 M$ ; aum_equity juin 2026 se déduit : 1 791,6 - 441,4 - 294,2 - 218,6 - 80,5 = 756,9",
+  "correction_validee": "Compléter le T3 FY2026 sur les 12 séries ; corriger le capex du T1",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPIs à un point datés 2026-05-11",
+  "probleme": "Événements présentés comme des indicateurs, sans série ni date de fin de période",
+  "preuve": "Apera Asset Management acquisition 65,2 M EUR ; Putnam contingent consideration 375 ; WAM intangible impairment 200 ; Lexington final deferred payment 100 ; Lexington flagship fund final close 22,7 ; plus Putnam AUM 180, Fiduciary Trust 39, Private credit 96, Tax-managed 110, Canvas 22,9, ETF AUM 61,6 avec n = 1",
+  "correction_validee": "Basculer les événements dans le texte (thèse ou faits marquants) et ne garder en KPI que ce qui aura une série",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux (anglais, notation)",
+  "probleme": "Anglais et notation « G$ » ou « 12.9B » dans les signaux",
+  "preuve": "« outflows » (aum_total, aum_fixed_income, lt_net_flows), « scandal Leech » (wam_lt_outflows), « 12.9B », « 141.9B », « 122.7B » ; « G$ » dans ETF AUM, Retail SMA AUM, Alternatives fundraising, Private credit AUM, Tax-managed, Lexington, Putnam, Fiduciary Trust, pipeline",
+  "correction_validee": "Remplacer par « sorties nettes », « scandale » et la notation « Mds $ » avec virgule décimale (12,9 Mds $), sachant que les signaux de aum_total, lt_net_flows et aum_fixed_income sont de toute façon réécrits (points 1 et 2).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Moat contredit par les chiffres et par la thèse",
+  "preuve": "Moat : « résultat opérationnel effondré » ; op_income Q3-2026 = 215,8 M$ (+122 % sur un an), 9 mois FY2026 = 820 M$ vs 518,7 (+58 %) ; op_margin 9,2 % vs 7,5 % un an plus tôt",
+  "correction_validee": "Réécrire en marge publiée faible mais en redressement",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning et risks",
+  "champ": "summary",
+  "probleme": "Textes gabarit sans contenu propre à la société, résumés de risques décalés par rapport aux titres",
+  "preuve": "IA : « BEN intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2025. » ; risque « Risques géopolitiques et tarifaires » résumé par « Exposition à la volatilité financière : taux, change, crédit ou liquidité » ; « Performance des placements » résumé par « Risques opérationnels touchant chaîne d'approvisionnement, capital humain, qualité produit » ; 7 risques = 5 phrases de catégorie",
+  "correction_validee": "Rédiger un positionnement IA réel et des résumés de risques propres (comme BESI et BKNG)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment / revenue_by_geography",
+  "champ": "libellés",
+  "probleme": "Libellés XBRL bruts en anglais",
+  "preuve": "« Investment Advisory, Management and Administrative Service », « Sales And Distribution Fees », « Shareholder Service », « Service, Other » ; « LUXEMBOURG », « Europe, Middle East and Africa, Excluding Luxembourg », « Americas Excluding United States »",
+  "correction_validee": "Traduire : Commissions de gestion et de conseil, Commissions de distribution, Services aux porteurs, Autres ; Luxembourg, EMEA hors Luxembourg, Amériques hors États-Unis.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signal (cuisine interne) et yoy des ratios",
+  "probleme": "Notes de méthode dans les signaux ; variation en % sur des marges",
+  "preuve": "net_income et comp_ben « T4 fiscal dérivé exercice moins 9 mois » ; net_margin « (dérivé résultat net / revenus) » ; op_margin yoy « +104% », net_margin « +62% », adj_operating_margin « +16% », comp_ratio « -4% »",
+  "correction_validee": "Retirer les mentions de méthode et exprimer les yoy des marges et ratios en points (marge opérationnelle +2,3 pts, marge nette +4,5 pts, marge ajustée +4,3 pts, ratio de personnel -1,6 pt).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

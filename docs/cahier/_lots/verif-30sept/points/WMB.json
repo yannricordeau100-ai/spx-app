@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "risks",
+  "champ": "titres",
+  "probleme": "Risques d'un autre secteur (banque, commerce) pour un exploitant de gazoducs.",
+  "preuve": "'risque 1: Qualite du portefeuille de credit', 'risque 3: Reseau immobilier et points de vente'.",
+  "correction_validee": "Refaire les risques propres au metier : regulation FERC, autorisations de gazoducs, concentration clients, financement des investissements, prix du gaz.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "bloc annuel non date (Transco Throughput, Gathering Volumes, Adj EBITDA, Backlog Projects, % Fee-Based Revenue, LNG..., Storage Capacity, Op Income)",
+  "probleme": "Series sans annees, arrondies, contredites par les autres donnees de la fiche, descriptions en anglais : aspect fabrique.",
+  "preuve": "Op Income 8,37 Mds $ alors que CA T2 2026 = 3 053 M$ et marge op 38,7% (environ 4,6 Mds/an) ; Adj EBITDA 7,5 vs somme 2025 = 7,75 ; Backlog 9,5 Mds vs these 'carnet ... 30,7 Mds $' ; 'Croissance LNG exports + power gen'.",
+  "correction_validee": "Supprimer tout ce bloc annuel non date.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "debit Transco",
+  "probleme": "Quatre mesures du debit Transco incompatibles ; 21 est la capacite reservee et depasse la capacite de conception citee.",
+  "preuve": "transco_throughput 21 MMdth/d 'capacite de conception 20.6' ; 'Transcontinental ... avg. daily transportation volumes' 16 ; 'Transco Throughput' 19.5 Bcfd ; 'Transco Pipeline Throughput' 19.5 ; capacite ferme reservee 21.",
+  "correction_validee": "Garder volumes transportes (16) et capacite ferme reservee (21), supprimer transco_throughput et les deux lignes a 19,5 (deja couvertes par le point #19).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "2026 growth capital and investment guidance",
+  "probleme": "Prevision perimee et contredite par l'anti-these.",
+  "preuve": "KPI 6.4 'Programme record de 6.1 a 6.7 Md$' ; anti-these 'releve son budget d'investissement 2026 de 6,1-6,7 Mds $ a 7,3-7,9 Mds $'.",
+  "correction_validee": "Mettre la prevision a jour (7,3-7,9 Mds $, point median 7,6) ou supprimer le KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "repartition",
+  "probleme": "Noms de segments anciens et en anglais (Sequent, Gulf of Mexico), parts incoherentes avec les revenus trimestriels 2025.",
+  "preuve": "Transmission 48.6 / Northeast 24.1 / West 18.9 / Sequent 8.4 ; sommes 2025 : Transco 4 826, Northeast 1 995, West 1 851 M$ soit environ 56 / 23 / 21%.",
+  "correction_validee": "Recalculer sur 2025 avec les segments actuels (Transmission, Power & Gulf ; Northeast G&P ; West ; Gas & NGL Marketing) en francais.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DCF / CAHIER_COVERAGE",
+  "probleme": "Unite brute en dollars et doublons des KPI trimestriels AFFO et couverture.",
+  "preuve": "CAHIER_DCF 5858000000 '$' ; somme AFFO 2025 = 1445+1317+1449+1647 = 5858 M$ ; CAHIER_COVERAGE 2.4 vs div_coverage.",
+  "correction_validee": "Passer CAHIER_DCF en Mds $ (5,86) et le rattacher a l'AFFO, garder CAHIER_COVERAGE seulement comme version annuelle de div_coverage ou le supprimer.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dividend_per_share",
+  "probleme": "Nom 'annualise' alors que la serie est trimestrielle.",
+  "preuve": "'Dividende annualise par action' val=0.525 ; signal 'Dividende trimestriel regulier par action : 0,525$'.",
+  "correction_validee": "Renommer en dividende trimestriel par action.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "op_margin.yoy / net_margin.yoy",
+  "probleme": "Variations relatives sur des marges.",
+  "preuve": "op_margin 34 -> 38.7 affiche '+14%' ; net_margin 19.6 -> 27.1 affiche '+38%'.",
+  "correction_validee": "Afficher +4,7 pts et +7,5 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "adj_ebitda / div_coverage / KPI n=1 de T3 2025",
+  "probleme": "Series arretees avant le dernier trimestre publie ; KPI a un seul point de T3 2025 dont un doublon exact.",
+  "preuve": "adj_ebitda et div_coverage dernier 2026-03-31 alors que l'AFFO a T2 2026=1450 ; northeast_gathering_vol Q3-2025=4.16 figure deja dans 'Northeast G&P gathering volumes' ; ngl_production, fee_based_pct n=1.",
+  "correction_validee": "Ajouter T2 2026 ; supprimer northeast_gathering_vol et les points isoles perimes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI projets n=1",
+  "probleme": "Annonces de projets en KPI (noms de code anglais, un seul point).",
+  "preuve": "'Neo behind-the-meter...', 'Socrates...', 'Cogentrix minority equity investment', 'Gulf Coast Storage acquisition', 'Louisiana LNG equity investment'.",
+  "correction_validee": "Deplacer en texte (these, description) et retirer des KPI.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description / tagline",
+  "champ": "texte",
+  "probleme": "Description sans l'activite Power Innovation (electricite pour centres de donnees, 5,1 Mds $ engages), sigle anglais NGL ; tagline en anglais.",
+  "preuve": "'fournit des services de commercialisation de NGL' ; tagline 'Delivering reliable natural gas infrastructure for the clean energy economy'.",
+  "correction_validee": "Ajouter Power Innovation, traduire LGN et la tagline.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "unites et noms",
+  "probleme": "Unites heterogenes et anglaises pour une meme grandeur, noms en jargon.",
+  "preuve": "'MMdth/d', 'MMdth / jour', 'Bcf/d', 'Bcf/j', 'Bcfd', 'Mbbls/d', 'Modified EBITDA', 'G&P', 'fee-based'.",
+  "correction_validee": "Harmoniser (Mds pi3/j, milliers de barils/j) et traduire.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

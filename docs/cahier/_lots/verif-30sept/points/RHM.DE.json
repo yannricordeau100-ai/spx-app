@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Order Backlog / Vehicle Systems Backlog / Weapon & Ammo Op Result",
+  "probleme": "Trois KPI sans identifiant, sans dates dans la serie, dates du 9 aout 2026 mais figes sur des valeurs de 2023, qui contredisent les KPI officiels et la these.",
+  "preuve": "« Order Backlog » val=38300 M€ « Record 38.3 Mds€ » contre BACKLOG FY2025=63.8 Mds € et these « 80,5 Mds € fin juin 2026 » ; « Weapon & Ammo Op Result » val=403 contre RES_OP_WA FY2025=1037 (403 = FY2023) ; « Vehicle Systems Backlog » 16368 sans date.",
+  "correction_validee": "Supprimer « Order Backlog », « Vehicle Systems Backlog » et « Weapon & Ammo Op Result ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CA_WA / CA_MUNITIONS et CA_VS / PHARE_RHM_DE",
+  "probleme": "Doublons de chiffre d'affaires de division avec valeurs contradictoires sur les annees anciennes.",
+  "preuve": "CA_WA FY2022=1470 contre CA_MUNITIONS FY2022=1359 (memes valeurs a partir de 2023) ; PHARE_RHM_DE reprend CA_VS avec l'unite « millions EUR » au lieu de M€.",
+  "correction_validee": "Garder une seule serie par division (celle qui remonte a 2018, avec la valeur 2022 verifiee au rapport annuel) et harmoniser l'unite en M€.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "BACKLOG, TRESO_NETTE, RES_OP, CA et autres KPI annuels « dernier 2026-06-30 »",
+  "probleme": "Date de derniere valeur fausse : une vingtaine de KPI annuels sont dates du 30 juin 2026 alors que leur serie s'arrete a FY2025, ce qui contredit directement la these et l'anti-these a la meme date.",
+  "preuve": "BACKLOG dernier 2026-06-30 val=63.8 contre these « 80,5 Mds € au 30 juin 2026 » ; TRESO_NETTE dernier 2026-06-30 val=+369 contre att « dette nette de 2,7 milliards d'euros » a fin juin 2026.",
+  "correction_validee": "Ramener la date de derniere valeur au 31 decembre 2025 pour toutes les series annuelles arretees a FY2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EFFECTIFS.signal",
+  "probleme": "Signal contredit par la these : il dit que l'effectif inclut encore l'activite civile en cours de cession, alors que la these affirme que l'activite civile est sortie du perimetre.",
+  "preuve": "EFFECTIFS : « le total inclut encore les salariés de l'activité civile en cours de cession » ; these : « l'activité civile automobile est sortie du périmètre ».",
+  "correction_validee": "Reecrire le signal en precisant si le chiffre 32 251 est a perimetre defense seul ou groupe, selon le rapport annuel 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik simple.activity",
+  "probleme": "Description perimee : elle presente Rheinmetall comme fournisseur des secteurs defense et automobile avec clients civils, alors que l'activite civile est cedee.",
+  "preuve": "« systèmes et composants pour les secteurs de la défense et de l'automobile. Il fournit des solutions technologiques avancées aux forces armées et aux clients civils. »",
+  "correction_validee": "Reecrire l'activite sur le seul perimetre defense (vehicules, armes et munitions, electronique, naval NVL).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DPA.signal",
+  "probleme": "Signal perime : le dividende 2025 est presente comme encore soumis a l'assemblee generale, tenue au printemps 2026.",
+  "preuve": "« Le montant 2025 reste soumis à l'assemblée générale »",
+  "correction_validee": "Retirer « Le montant 2025 reste soumis à l'assemblée générale ; » et garder la suite.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Moat generique : il resume la croissance du resultat et un risque, sans decrire aucun avantage concurrentiel (capacites munitions, accords-cadres, position Bundeswehr).",
+  "preuve": "« Le résultat opérationnel bondit de 33 % porté par la demande de défense, malgré le risque croissant lié au passage de la fabrication sur mesure à la série. »",
+  "correction_validee": "Reecrire le moat autour des barrieres reelles : capacites de production de 155 mm, accords-cadres pluriannuels, carnet couvrant plusieurs annees, position de fournisseur principal de la Bundeswehr.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

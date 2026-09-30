@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CA_Q, EBITDA_AJ_Q, CA_PB_Q, CA_TTH_Q, CA_HNC_Q, EBITDA par unité, hero CA_FY",
+  "probleme": "Toutes les séries trimestrielles groupe et par unité s'arrêtent à Q4-2025 alors que Q1 et Q2 2026 existent pour les activités poursuivies ; le hero est annuel et périmé de deux trimestres.",
+  "preuve": "CA_Q dernier 2026-02-12 serie ... Q4-2025=2941 ; CA_CONT_Q ... Q1-2026=2276, Q2-2026=2388 ; hero CA_FY FY2025=12521",
+  "correction_validee": "Basculer le hero sur CA_CONT_Q (Q2-2026 = 2 388 M€) et completer Q1 et Q2 2026 pour les trois unites poursuivies depuis les publications.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "tendance et texte",
+  "probleme": "Tendance 'hausse' avec un texte qui dit que le CA recule et que les éléments sont trop minces pour conclure ; contredit aussi l'anti-thèse (croissance organique 6 % au T2 2026).",
+  "preuve": "moat: None / tendance hausse :: Le chiffre d'affaires recule sur l'année comme sur le trimestre ... trop minces pour conclure",
+  "correction_validee": "Réécrire le moat sur le périmètre poursuivi (organique +6 %, marge 19.5 %) et fixer la tendance.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SEGMENT_EBITDA_MARGIN",
+  "probleme": "Doublon exact de MARGE_PB_FY avec une unité bricolée et un yoy en % relatif.",
+  "preuve": "CAHIER_SEGMENT_EBITDA_MARGIN | % (unite Perfumery and Beauty) | serie FY2023=21.1, FY2024=22.3, FY2025=21.7 | yoy=-2.7% ; MARGE_PB_FY même série",
+  "correction_validee": "Retirer CAHIER_SEGMENT_EBITDA_MARGIN.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PRICE_MIX, CAHIER_INNOVATION_SALES, CAHIER_ORGANIC_GROWTH, EBITDA_AJ_DSM_FY",
+  "probleme": "Séries arrêtées en 2021 ou 2023 sur une fiche à 2026 ; CAHIER_ORGANIC_GROWTH mélange DSM seul (2018-2021) et le groupe fusionné, avec un yoy -50 % sur une série en % ; EBITDA_AJ_DSM_FY est une série d'avant fusion arrêtée en 2022.",
+  "preuve": "CAHIER_INNOVATION_SALES dernier 2021-12-31 ; CAHIER_PRICE_MIX dernier 2023-12-31 ; CAHIER_ORGANIC_GROWTH yoy=-50.0% ; EBITDA_AJ_DSM_FY dernier 2023-03-01",
+  "correction_validee": "Retirer les séries arrêtées ou les prolonger ; yoy en points.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CA_FY, DIV_FY, EFFECTIFS_FY, DETTE_NETTE_FY (2018-2022)",
+  "probleme": "Les années 2018-2022 sont celles de DSM seul, la fusion Firmenich (2023) crée une rupture de périmètre non signalée ; le dividende 2022 à 0.93 est un acompte isolé, pas le dividende de l'exercice.",
+  "preuve": "CA_FY FY2022=10480, FY2024=12799 ; DIV_FY FY2021=2.5, FY2022=0.93, FY2023=2.5 :: La stabilité reflète ...",
+  "correction_validee": "Signaler la rupture de périmètre dans les signaux, corriger ou retirer le point 2022 du dividende.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAPEX_FY.signal",
+  "probleme": "764 M€ représentent 6.1 % du CA total (12 521) et non des activités poursuivies (9 034, soit 8.5 %).",
+  "preuve": "CAPEX_FY :: soit 6,1% du chiffre d'affaires des activités poursuivies ; CA_CONT_Q 2025 = 2340+2303+2238+2153",
+  "correction_validee": "Ecrire '6,1 % du chiffre d'affaires du groupe'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CREATION_CENTERS.signal",
+  "probleme": "La baisse des centres de création parfumerie et arômes est attribuée à la cession d'Animal Nutrition & Health, qui n'a aucun centre de création.",
+  "preuve": "CREATION_CENTERS FY2025=36 :: La baisse traduit le recentrage du portefeuille après la cession d'Animal Nutrition & Health",
+  "correction_validee": "Réécrire le signal (rationalisation du réseau de centres) ou vérifier la cause.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CROISSANCE_PUB_Q.signal",
+  "probleme": "Signal sur le T1 2026 alors que la série est au T2 2026 (+4 %).",
+  "preuve": "val=4 | serie ... Q1-2026=-3, Q2-2026=4 :: Moins 3% au premier trimestre 2026",
+  "correction_validee": "Réécrire sur le T2 2026.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

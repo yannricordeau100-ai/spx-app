@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Organic volume growth, Value realization (price and mix), Self Care organic sales growth",
+  "probleme": "Series datees du jour (2026-09-29) sans etiquettes, un trimestre manquant au milieu et un trimestre de retard sur ORGANIC_GROWTH.",
+  "preuve": "volume + prix = 3,6 ; -2,4 ; 1,9 ; 1,5 ; 0,9 ; 1,7 ; -4,2 ; -4,4 ; 1,2 ; 0,7 = ORGANIC_GROWTH de T3-2023 a T1-2026 en sautant T1-2025 (-1,2) ; T2-2026 (1,6, « portee a la fois par les prix et par les volumes ») absent",
+  "correction_validee": "Reconstruire avec etiquettes trimestrielles, inserer T1-2025 et ajouter T2-2026, ou supprimer ces trois KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_AP_SPEND",
+  "probleme": "Doublon exact de ADV_EXPENSE sur les trois derniers points.",
+  "preuve": "ADV_EXPENSE FY2023=1577, FY2024=1869, FY2025=1836 ; CAHIER_AP_SPEND FY2023=1577, FY2024=1869, FY2025=1836",
+  "correction_validee": "Supprimer ADV_EXPENSE et garder CAHIER_AP_SPEND, dont la serie est plus longue.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "2025 total net sales",
+  "probleme": "KPI a un point qui duplique revenue_annuel.",
+  "preuve": "« 2025 total net sales | 15.1 Mds $ | n=1 » ; revenue_annuel 2025=15.124",
+  "correction_validee": "Supprimer « 2025 total net sales ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "tendance, tendance_mettrik, justification_mettrik",
+  "probleme": "Deux tendances contradictoires dans le meme bloc, et une justification contredite par le dernier trimestre.",
+  "preuve": "tendance=« stable », tendance_mettrik=« baisse » ; justification « Les trois segments voient leurs ventes annuelles reculer » alors que T2-2026 : Self Care +2,2 %, Skin +5,1 %, Essential +2,3 % et EMEA +4,6 %, LatAm +1,9 % en 2025",
+  "correction_validee": "Choisir une tendance et reecrire la justification sur les derniers trimestres (deux trimestres de croissance).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ESSENTIAL_AOI.signal",
+  "probleme": "Le signal celebre une expansion structurelle alors que le dernier trimestre recule de 10 %.",
+  "preuve": "yoy=-10.3% (351→315) ; signal « Rentabilite en expansion structurelle: AOI annuel passe de 1011M (FY2023) a 1176M (FY2025) »",
+  "correction_validee": "Mentionner le repli du T2-2026 avant la tendance annuelle.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Neutrogena Tate McRae campaign impressions, Band-Aid Pro Heal wound healing improvement, Transition service agreements exited",
+  "probleme": "KPI anecdotiques a un point, non suivables, avec une unite incoherente.",
+  "preuve": "« 1000 M impressions en 24h » ; « 60 % cicatrisation » ; « Transition service agreements exited | accords (50+ pays) | val=2000 »",
+  "correction_validee": "Supprimer ces trois KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORGANIC_GROWTH.yoy",
+  "probleme": "Variation d'une serie en % exprimee en % relatif, ce qui donne un chiffre absurde.",
+  "preuve": "FY2024=1.5, FY2025=-2.2 ; yoy=« -246.7% » ; attendu « -3,7 pts »",
+  "correction_validee": "Afficher la variation en points : -3,7 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Positionnement IA generique et perime, adosse au rapport 2024 et ignorant l'absorption par Kimberly-Clark.",
+  "preuve": "« aborde l'IA dans marketing, R&D et supply chain avec approche prudente en tant que jeune cote » ; evidence « exercice 2024 » ; anti-these : fusion signee novembre 2025, cloture T4-2026",
+  "correction_validee": "Reecrire depuis le 10-K 2025 ou retirer le bloc.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

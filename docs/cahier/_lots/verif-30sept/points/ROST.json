@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "traffic_growth",
+  "probleme": "Serie invraisemblable (trafic +23 a +24 % par an) arretee en 2019, valeur affichee 7 absente de la serie, signal parlant d un autre trimestre.",
+  "preuve": "traffic_growth serie FY2017=24, FY2018=23, FY2019=23 ; val=7 ; signal : « contribuant à 2pp des 5% comp »",
+  "correction_validee": "Supprimer le KPI traffic_growth.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "new_stores",
+  "probleme": "Valeur affichee (47) absente de la serie qui s arrete en 2024, et signal qui parle de 90 ouvertures en 2025.",
+  "preuve": "new_stores val=47, serie ... FY2024=77 ; signal : « 90 ouvertures FY2025 (80 Ross + 10 dd's) »",
+  "correction_validee": "Ajouter FY2025=90 et retirer la valeur 47 ou la libeller comme ouvertures a date de l exercice 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Dds_Store_Count, Total_Store_Count, Store Count, dd's DISCOUNTS, Nombre de Magasins, Magasins dd's DISCOUNTS, Store Count Ross",
+  "probleme": "Sept series de parc de magasins sans dates, aux valeurs contradictoires, dont deux visiblement lissees (progression lineaire d une unite par an) ; l investisseur trouve 2196, 2267, 2186 et 2328 magasins selon le KPI.",
+  "preuve": "Total_Store_Count serie 2225, 2234, 2245, 2256, 2267 ; Dds_Store_Count 358, 359, 360, 361, 363 ; Store Count val=2196 ; dd's DISCOUNTS val=336 ; Magasins dd's DISCOUNTS val=367 ; ross_store_count Q2-2026=1952",
+  "correction_validee": "Supprimer les sept series ; garder ross_store_count et CAHIER_PARC_SURFACE, et verifier dd's DISCOUNTS store count (valeur 376 hors serie 356).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Sales/sqft",
+  "probleme": "Troisieme serie de ventes par pied carre, sans dates, contredisant la serie datee de la meme annee.",
+  "preuve": "Sales/sqft serie 402, 405, 422, 433, 446 ; sales_per_sqft FY2025=504, FY2024=481",
+  "correction_validee": "Supprimer Sales/sqft.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Comparable Sales, Average Transaction Value, Inventory Turnover, Marchandise Inventaire, Ventes par Magasin Moyennes, Dividends Paid",
+  "probleme": "Bloc de series annuelles sans dates ni signal, lissees ou contredites par les series datees : le comparable de l exercice 2022 est donne a +1 % alors que le cahier indique -4 %, les stocks 2025 a 2520 M$ contre 2630 M$ au bilan, le panier moyen n est pas publie par la societe.",
+  "preuve": "Comparable Sales serie -1, 14, 1, 3, 5 vs CAHIER_VENTES_COMPARABLES FY2023=-4 ; Marchandise Inventaire 2189, 2380, 2520 vs inventory Q4-2025=2.63 ; Average Transaction Value 12.5, 12.8, 13, 13.3, 13.5 ; descriptions en anglais : « Dividend aristocrat aspirant », « Best-in-class avec TJX »",
+  "correction_validee": "Supprimer ces six series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_VENTES_COMPARABLES, CAHIER_PARC_SURFACE, CAHIER_PARC_SURFACE_SURFACE",
+  "probleme": "Etiquettes d exercice decalees d un an (date de cloture janvier) : FY2026 designe l exercice 2025, ce qui fait lire au client des chiffres 2026 qui n existent pas encore et contredit les trimestres 2026 (+17 %, +10 %).",
+  "preuve": "CAHIER_VENTES_COMPARABLES FY2026=5, signal : « en hausse de 5 % en 2026 » ; comp_sales_growth Q1-2026=17, Q2-2026=10 ; CAHIER_PARC_SURFACE FY2026=2267 = parc au 31 janvier 2026",
+  "correction_validee": "Decaler les etiquettes sur l annee de debut d exercice (FY2025) et corriger le signal : ventes comparables +5 % sur l exercice 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Effectifs arretes en 2022 alors que total_associates va jusqu a 2025, ce qui fige les quatre ratios par salarie sur une valeur de 2022 tout en les datant de 2026.",
+  "preuve": "effectifs_annuels n=3 serie 2020=92500, 2021=93700, 2022=100000 ; total_associates FY2025=111000 ; ca_par_salarie dernier 2026-01-31 signal « en 2022 »",
+  "correction_validee": "Recopier total_associates dans effectifs_annuels et recalculer les trois ratios par salarie jusqu a 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "operating_margin, cogs_pct, net_margin, ross_store_count",
+  "probleme": "Signaux perimes d un trimestre : ils citent le T1 2026 alors que la valeur affichee est celle du T2 2026.",
+  "preuve": "operating_margin val=17.6 signal « T1-2026 13,4% » ; cogs_pct val=66.2 signal « 70,4% du CA au T1-2026 » ; net_margin val=13.6 signal « T1-2026 10,8% » ; ross_store_count val=1952 signal « 1 904 Ross + 363 dd's »",
+  "correction_validee": "Signaux sur le T2 2026 : marge operationnelle 17,6 %, cout des marchandises 66,2 %, marge nette 13,6 %, 1 952 magasins Ross.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total store count, dd's DISCOUNTS store count",
+  "probleme": "Valeur affichee differente de l unique point de la serie.",
+  "preuve": "Total store count val=2328, serie Q2-2026=2192 ; dd's DISCOUNTS store count val=376, serie Q2-2026=356",
+  "correction_validee": "Aligner la serie sur la valeur affichee (2328 et 376 au T2 2026) ou l inverse selon le rapport trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "comp_sales_growth",
+  "probleme": "Signal perime : il decrit un trimestre a +5 % alors que les deux derniers points sont +17 % et +10 %.",
+  "preuve": "comp_sales_growth Q1-2026=17, Q2-2026=10 ; signal : « Accélération vs FY2024 (+3%), portée par +3% panier moyen et +2% trafic »",
+  "correction_validee": "Signal : ventes comparables +10 % au T2 2026 apres +17 % au T1.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Eighth Distribution Center Opened, Next Distribution Center Under Construction",
+  "probleme": "Numero d ordre utilise comme valeur de KPI (8 et 9), unite « e centre ».",
+  "preuve": "Eighth Distribution Center Opened val=8 unite centres ; Next Distribution Center val=9 unite « e centre »",
+  "correction_validee": "Fusionner en un KPI « Centres de distribution » = 8 en exploitation, 1 en construction.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

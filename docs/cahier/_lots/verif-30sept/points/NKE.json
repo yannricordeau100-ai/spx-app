@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "converse_rev.signal",
+  "probleme": "Unite fausse dans le signal : les ventes annuelles Converse sont en milliards, pas en millions.",
+  "preuve": "Signal : « -31% FY2026 (1,17 M$ vs 1,69 M$) » ; somme des trimestres FY2026 = 0,366+0,3+0,264+0,244 = 1,174 Mds $.",
+  "correction_validee": "Remplacer « 1,17 M$ vs 1,69 M$ » par « 1,17 Md $ vs 1,69 Md $ ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "jordan_rev",
+  "probleme": "Unite incompatible avec les valeurs et serie arretee a FY2024 avec une date de fin fausse pour un exercice clos en mai.",
+  "preuve": "Unite « $B », val=6988, serie FY2017=3098 ... FY2024=6988 ; dernier 2024-12-31 alors que l'exercice Nike clot le 31 mai ; FY2025 et FY2026 absents alors que toutes les autres series vont au 31 mai 2026.",
+  "correction_validee": "Passer l'unite en M$, dater FY2024 au 2024-05-31 et ajouter FY2025 et FY2026 depuis les rapports annuels si publies, sinon signaler la serie comme arretee.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "na_rev / emea_rev / apla_rev / wholesale_rev / footwear_rev / digital_rev / nike_direct_rev / nike_direct_pct (signal)",
+  "probleme": "Signaux perimes (chiffres FY2025) qui contredisent le dernier point de la serie et melangent l'anglais.",
+  "preuve": "na_rev yoy=+3% mais signal « Plus grand segment (-8% currency-neutral) » ; apla_rev yoy=+1% mais « -3% currency-neutral » ; wholesale_rev yoy=+4% mais « -6% currency-neutral » ; nike_direct_rev signal « 42% des revenus NIKE Brand FY2025 vs $21.5B en FY2024 » alors que la serie va au Q4-FY2026 (-7%) ; digital_rev « Déclin digital accéléré FY2025 ».",
+  "correction_validee": "Reecrire les signaux de na_rev, emea_rev, apla_rev, wholesale_rev, footwear_rev, digital_rev, nike_direct_rev et nike_direct_pct sur le Q4-FY2026 et l'exercice 2026, en francais (« a taux de change constants »).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "owned_retail_stores vs CAHIER_STORES",
+  "probleme": "Deux series pour le meme indicateur (magasins en propre) avec des valeurs contradictoires.",
+  "preuve": "owned_retail_stores FY2026=988, FY2025=1034 ; CAHIER_STORES FY2026=874, FY2025=902 ; meme unite « magasins », meme periodicite annuelle.",
+  "correction_validee": "Supprimer CAHIER_STORES et garder owned_retail_stores.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_DTC_MIX",
+  "probleme": "Doublon annuel de nike_direct_pct (trimestriel), arrete un exercice plus tot, avec un yoy en pourcentage au lieu de points.",
+  "preuve": "CAHIER_DTC_MIX FY2025=42 %, yoy=-4.5% ; nike_direct_pct va jusqu'au Q4-FY2026 (37,8 %). Meme cas : CAHIER_COMP_SALES yoy=+300.0% (-1 vers -4), CAHIER_ORGANIC_CC yoy=-77.8%.",
+  "correction_validee": "Supprimer CAHIER_DTC_MIX et exprimer le yoy de CAHIER_COMP_SALES (-3 pts) et CAHIER_ORGANIC_CC (+7 pts) en points.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "d_and_a",
+  "probleme": "Serie arretee au Q3-FY2025 alors que toutes les autres series trimestrielles vont au Q4-FY2026.",
+  "preuve": "d_and_a dernier 2025-02-28, n=27 ; gross_margin, ocf, capex vont a 2026-05-31.",
+  "correction_validee": "Completer les 5 trimestres manquants depuis les tableaux de flux, ou retirer le KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AeroFit apparel airflow gain / Shanghai Marathon participants / NIKE MIND Notify Me signups / Football doors",
+  "probleme": "KPI a un seul point, anecdotiques ou marketing, sans valeur pour un investisseur.",
+  "preuve": "« Gain de flux d'air textile AeroFit 200 % », « 250 000 coureurs au Marathon de Shanghai », « 2 M inscriptions Notify Me », « 5000 points de vente Football ».",
+  "correction_validee": "Retirer ces quatre KPI (les garder eventuellement en story).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Tendance affichee « stable » contredite par le texte qui decrit un affaiblissement net.",
+  "preuve": "« tendance stable :: Le recul des chaussures, du numérique et du bénéfice par action ... traduit un affaiblissement net du pouvoir de marque. »",
+  "correction_validee": "Passer la tendance en « baisse » ou reformuler le texte.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline / revenue_by_geography",
+  "probleme": "Textes en anglais visibles.",
+  "preuve": "tagline « Leading the world in athletic footwear... » ; geographie « Europe, Middle East And Africa Segment », « Asia Pacific And Latin America Segment ».",
+  "correction_validee": "Tagline en francais ; « Europe, Moyen-Orient et Afrique » et « Asie-Pacifique et Amérique latine ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

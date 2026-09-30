@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "pkg_bsf / pkg_integration",
+  "probleme": "Production de containerboard exprimee en BSF (unite de surface de caisses) par conversion artificielle, et taux d integration de 23,4 % faux : PCA consomme en interne plus de 90 % de son containerboard",
+  "preuve": "pkg_bsf Q4-2025=85.8 BSF pour 1,407 M tonnes ; pkg_integration = 20.1/85.8 = 23,4 % avec description « part de containerboard consommee en interne »",
+  "correction_validee": "Supprimer pkg_integration et pkg_bsf (doublon en BSF de pkg_cb_tons) ; garder pkg_corr_bsf, qui est le hero.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "pkg_price_ton.signal",
+  "probleme": "Signal contredit la serie : le prix moyen recule sur un an, le signal dit qu il progresse",
+  "preuve": "yoy=-2.8 % (1.679 -> 1.632) ; signal « Le prix moyen progresse ... +3,2 % sur un an »",
+  "correction_validee": "Reecrire le signal : le revenu moyen par tonne recule de 2,8 % sur un an (mix Greif), malgre la hausse des prix domestiques",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Packaging Revenue, Paper Revenue, Containerboard Volume, Corrugated Box Shipments, Mill Operating Rate, Domestic/Export Price Change",
+  "probleme": "Sept series annuelles sans dates (dernier 2026-06-30, n=5) contredites par les series trimestrielles sourcees",
+  "preuve": "Packaging Revenue 2025=8.05 vs somme trimestrielle 8.29 ; Paper Revenue 0.34 Md vs 615 M$ ; Corrugated Box Shipments 64 vs 71.1 BSF (somme 2025) ; Containerboard Volume 4.85 vs 5.15 M t ; Price Change serie 0,0,5.3",
+  "correction_validee": "Supprimer les sept series (Packaging Revenue, Paper Revenue, Containerboard Volume, Corrugated Box Shipments, Mill Operating Rate, Domestic et Export Price Change).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Containerboard production (doublon de pkg_cb_tons)",
+  "probleme": "Doublon avec valeur contradictoire au T3-2025",
+  "preuve": "Containerboard production : 1 255 000 t ; pkg_cb_tons Q3-2025 = 1.302 M t",
+  "correction_validee": "Supprimer Containerboard production et garder pkg_cb_tons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Packaging / Paper (annuels)",
+  "probleme": "Signal et description en franglais et chiffre du signal contradictoire avec la valeur",
+  "preuve": "Packaging val=8.29 Mds, signal « Segment Packaging 2,13 Md$ » ; description « containerboard + corrugated ... e-commerce demand driver » ; Paper « uncoated free sheet (declin structurel print) »",
+  "correction_validee": "Supprimer les KPI Packaging et Paper.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.accroche",
+  "probleme": "Affirmation « plus gros semestre de tresorerie d exploitation de son histoire » contredite par la serie",
+  "preuve": "S1-2026 = 329.3+376.0 = 705 M$ ; S2-2025 = 472.2+446.6 = 919 M$",
+  "correction_validee": "Remplacer par « meilleur premier semestre » ou citer le S2-2025 record",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "pkg_eps_diluted",
+  "probleme": "Serie trimestrielle sans aucun T4 (Q4-2024, Q4-2025 absents)",
+  "preuve": "serie: Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026",
+  "correction_validee": "Completer les T4 par difference annuel moins 9 mois",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "2025 EPS, Record quarterly cash, Gas turbine, Greif synergies, Announced price increase, Greif acquisition, Wallula charge",
+  "probleme": "Sept faits ponctuels a un seul point presentes comme KPI ; l un contredit la serie OCF",
+  "preuve": "Record quarterly cash from operations = 469 vs pkg_ocf Q3-2025 = 472.2 ; 2025 EPS en frequence « quarter » n=1",
+  "correction_validee": "Basculer en stories ou en texte, retirer de la liste des KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Moat « sans avantage concurrentiel identifie » contredit l anti-these (« pricing power reel ») et la position de marche (21 % du marche US)",
+  "preuve": "moat: « sans avantage concurrentiel identifie a ce stade » ; att: « pricing power reel sur ses hausses de prix 2026 »",
+  "correction_validee": "Reecrire le moat : integration verticale, 21 % du marche US, pouvoir de prix, contrebalances par la dette Greif",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_annuelle 2023",
+  "probleme": "Point 2023 en rupture avec une dette LT constante a 2,47 Md$ jusqu au T2-2025",
+  "preuve": "dette_annuelle 2023=2.872 entre 2022=2.474 et 2024=2.474 ; pkg_debt_lt Q4-2024=2.47",
+  "correction_validee": "Verifier la valeur 2023 a la source (dette totale y compris part courante) ou la corriger",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

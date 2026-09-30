@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Grocery & Snacks Sales / Refrigerated & Frozen Sales / International Sales / Foodservice Sales / Frozen Volume Share US",
+  "probleme": "Cinq KPI sans periode (period_type None, history_periods None) contredisent les series segment sourcees de la fiche et portent des signaux telegraphiques de modele de langage.",
+  "preuve": "Refrigerated & Frozen Sales 2025 = 4,83 Mds vs somme R&F Rev FY2025 = 4 662,3 M$ (signal R&F Rev) ; International Sales 1,09 vs Intl Rev FY2025 = 956,5 M$ ; Foodservice Sales 1,17 vs FS FY2025 = 1 094,7 M$. Signaux : « Pricing absorbé », « Healthy Choice + Marie », « Canada + Mexique stables », « Trafic restauration soft », « Leader pure frozen ».",
+  "correction_validee": "Supprimer les cinq KPI, déjà couverts par les séries trimestrielles R&F Rev, Intl Rev, FS Rev et G&S Rev.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OPSegTot / DepTot / VentesEtr / PartWalmart",
+  "probleme": "Historique stocke du plus recent au plus ancien sans periodes : le graphique montre une hausse alors que la serie baisse ; en outre arretes a FY2025 alors que FY2026 est publie, et PartWalmart double Walmart %.",
+  "preuve": "OPSegTot history = [1943.6, 2222.6, 2248.7], val = 1943.6, yoy = -12,6 % (1943,6/2222,6). Idem VentesEtr [987.9, 1110, 1040] yoy -10,9 %. PartWalmart signal « hausse de 3,6 % » pour 28 → 29 (soit +1 pt). Walmart % couvre deja FY2019-FY2026.",
+  "correction_validee": "Remettre les valeurs dans l'ordre chronologique avec les périodes FY2023-FY2025 et ajouter FY2026 (OPSegTot = 1 619,3). Compléter DepTot et VentesEtr depuis le 10-K 2026 ou les supprimer. Supprimer PartWalmart.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net leverage ratio vs Levier",
+  "probleme": "Deux leviers dette nette/EBITDA contradictoires sur la meme fiche ; le point transcript est perime (cible FY2026 citee au futur alors que FY2026 est clos).",
+  "preuve": "Net leverage ratio = 3,55x « cible de 3x visée pour l'exercice 2026 » ; Levier Q4-2026 = 4,1x, Q3-2026 = 4,1x. Signal Levier : « la société priorisé le désendettement » (faute).",
+  "correction_validee": "Supprimer Net leverage ratio ou le dater correctement ; corriger « a priorisé ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Foodservice operating margin expansion",
+  "probleme": "KPI transcript annonce +400 pb de marge Foodservice alors que la serie FS Op% recule.",
+  "preuve": "FS Op% Q4-2025 = 11,3 → Q4-2026 = 9,7 (yoy -1,6 pp) ; FS Op signal « Profit op. segment FY2026 $114.3M vs $131.0M (-12.8%) ».",
+  "correction_validee": "Supprimer ce KPI ou preciser la periode pluriannuelle a laquelle se rapporte le gain de 400 pb.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Goodwill impairment charges 2025 vs Dépréciations",
+  "probleme": "Le montant de depreciation de goodwill FY2025 ne correspond a aucun point de la serie trimestrielle Dépréciations.",
+  "preuve": "KPI = 668,2 M$ « (526,5 M$ + 141,7 M$) sur l'exercice 2025 » ; serie Dépréciations FY2025 : Q1 0,1 + Q2 87,5 + Q3 6,5 + Q4 55,7 = 149,8 M$ ; FY2024 Q4 = 948,2.",
+  "correction_validee": "Verifier l exercice vise et aligner l une des deux sources.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "« Toutes les catégories de produits reculent » est contredit par les series.",
+  "preuve": "FS Rev signal : « CA FY2026 $1,115.8M vs $1,094.7M (+1.9%) » ; au Q4-2026 les quatre segments sont en hausse (G&S +0,4 %, R&F +5,3 %, Intl +6,2 %, FS +8,0 %).",
+  "correction_validee": "Reformuler : trois segments sur quatre reculent sur FY2026, rebond au T4.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Organic net sales growth / Volume change / Price/mix change",
+  "probleme": "Trio de series organiques arretees au T3 FY2026 alors que le T4 FY2026 est publie sur la fiche ; signaux perimes.",
+  "preuve": "Signal : « Retour à la croissance organique au T3-2026 (+2,4%) » ; CA, RN, marges vont jusqu a Q4-2026 (2026-05-31). CAHIER_ORGANIC_GROWTH donne FY2026 = -0,4.",
+  "correction_validee": "Ajouter le point T4 FY2026 et reecrire les trois signaux.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RF_SALES_FY / SNACKS_B",
+  "probleme": "Doublon annuel de R&F Rev (trimestriel) et signaux generiques identiques « produit phare de la société » ; RF_SALES_FY s arrete a FY2025 alors que FY2026 existe.",
+  "preuve": "RF_SALES_FY FY2025 = 4,6623 vs R&F Rev FY2025 = 4 662,3 ; signal « Ventes annuelles du segment Refrigere et Surgele : 4.6623 Mds $ en 2025, produit phare de la société » ; SNACKS_B « 2225.5 M $ en 2026, produit phare de la société » (deux produits phares).",
+  "correction_validee": "Supprimer RF_SALES_FY et réécrire le signal de SNACKS_B sans « produit phare de la société ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Dette LT.signal",
+  "probleme": "Le signal parle de dette totale pour une serie de dette long terme ; la dette totale est donnee ailleurs a un autre montant.",
+  "preuve": "Dette LT val = 7 230, signal « $7,230.0M de dette totale au 31 mai 2026 » ; Dette nette signal « dette $7,264.2M » ; dette_annuelle 2026 = 7,268.",
+  "correction_validee": "Dans le signal et la description de Dette LT, remplacer « dette totale » par « dette long terme ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BPA dilué.history",
+  "probleme": "Trous dans la serie BPA (Q4-2024 et Q4-2025 absents) alors que RN et CA sont complets.",
+  "preuve": "history_periods : ..., Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026 ... (n = 43 contre 48 pour RN).",
+  "correction_validee": "Completer Q4-2025 (RN 256,0 M$) et Q4-2024.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FS Vol / FS Org PM / CAHIER_ORGANIC_GROWTH (yoy)",
+  "probleme": "Variation annuelle exprimee en % sur des series deja en % (variation de points attendue).",
+  "preuve": "FS Vol : -8,1 → -2,2 affiche yoy = +72,8 % ; CAHIER_ORGANIC_GROWTH -2,9 → -0,4 affiche -86,2 % ; FS Org PM 3,3 → 3,6 affiche +9,1 %.",
+  "correction_validee": "Afficher la variation en points : FS Vol +5,9 pt, CAHIER_ORGANIC_GROWTH +2,5 pt, FS Org PM +0,3 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.fr.activity",
+  "probleme": "Erreur de fait grave : FOXA (classe A) est presentee comme la classe avec droit de vote, alors que c est la classe B (FOX) qui vote ; l anti-these de la meme fiche dit le contraire",
+  "preuve": "description : FOXA est la classe d actions avec droit de vote ; att : l action FOXA analysee ici ne donne pratiquement aucun droit de vote",
+  "correction_validee": "FOXA est la classe A, sans droit de vote ; la classe B (FOX) porte les droits de vote.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "toutes les series trimestrielles",
+  "probleme": "Toutes les series trimestrielles s arretent au T3 FY2026 (31 mars 2026) alors que l exercice clos le 30 juin 2026 est publie : revenue_annuel a 2026=17,126, la these et les clients citent le rapport annuel 2026",
+  "preuve": "cable_rev, revenue_total, net_income, eps_diluted ... dernier 2026-03-31 ; revenue_annuel dernier 2026-06-30 ; clients exercice 2026, fox-20260630.htm",
+  "correction_validee": "Ajouter le T4 FY2026 (avril-juin 2026) a toutes les series trimestrielles a partir du rapport annuel 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Tubi total view time (TVT) growth / Tubi revenue growth / Tubi monthly active users",
+  "probleme": "Series sans dates, ordre incoherent (la valeur affichee 19 est le premier point, la serie finit a 150), taux de 100 % et 150 % invraisemblables pour une plateforme deja a 11 Mrd d heures ; doublon avec tubi_view",
+  "preuve": "TVT growth val=19 serie: 19, 27, 40, 70, 150 ; Tubi revenue growth serie: 100, 150, 19, 23 ; MAU serie: 40, 100",
+  "correction_validee": "Retirer les trois series Tubi, ou les reconstruire avec des trimestres dates tires des communiques.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PART_AUDIENCE",
+  "probleme": "Nom faux : 2,2 % est la part d audience Nielsen de Tubi seule (le signal de tubi_view le dit), pas celle de Fox ; le signal parle d une audience stable a bon niveau soutenant Fox",
+  "preuve": "Part d audience | 2.2 % ; tubi_view signal : 2.2% part Nielsen TV totale",
+  "correction_validee": "Renommer Part d audience TV de Tubi (Nielsen) et reecrire le signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "buybacks vs Stock repurchase authorization",
+  "probleme": "Contradiction sur l enveloppe de rachat : 7 Mds$ dans un signal, 12 Mds$ dans un autre KPI",
+  "preuve": "buybacks signal : programme autorise de 7 Mds$ ; Stock repurchase authorization : portant l enveloppe totale de rachat a 12 Mrd USD",
+  "correction_validee": "Aligner sur l autorisation en vigueur (12 Mds$ selon aout 2025) et corriger le signal buybacks",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "19 indicateurs a un seul point dates 2026-03-28",
+  "probleme": "Faits d actualite presentes comme KPI (Super Bowl LIX, 104 matchs FIFA, Smartmatic, Fubo, FOX Bet Super 6 a l epoque, 500 annonceurs...) : un seul point, pas de serie, plusieurs perimes ou promotionnels",
+  "preuve": "Super Bowl LIX gross advertising revenue n=1 ; FIFA World Cup matches to air n=1 ; FOX Bet Super 6 players ... a l epoque ; Smartmatic damages sought n=1",
+  "correction_validee": "Deplacer en faits marquants ou stories, ne garder en KPI que ce qui a une serie",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dps",
+  "probleme": "Dividende annuel arrete a FY2025 alors que FY2026 est clos et que le signal annonce deja le relevement",
+  "preuve": "dps dernier 2025-06-30 ; signal : releve a 0,28 $ semestriel post-cloture",
+  "correction_validee": "Ajouter FY2026=0.56",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning / moat / tagline",
+  "champ": "textes",
+  "probleme": "Anglais et faute : large language models dans le positionnement IA, la audience dans le moat, tagline en anglais",
+  "preuve": "technologie emergente a double tranchant: risques ... large language models ; moat : la audience de la plateforme ; tagline : News, sports and entertainment company...",
+  "correction_validee": "Ecrire grands modeles de langage, l audience, et traduire la tagline en francais.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

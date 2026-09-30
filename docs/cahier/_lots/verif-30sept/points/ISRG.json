@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Systems Placed, Operating Margin, International Revenue Share, da Vinci Procedures Growth (annuels)",
+  "probleme": "Des valeurs de l'exercice 2024 sont datees du 2026-06-30, et les signaux sont vides",
+  "preuve": "Systems Placed = 1526 (FY2024) alors que les placements 2025 font 367 + 395 + 427 + 471 = 1660. Operating Margin (annuel) = 28.1 (FY2024). Serie de croissance des procedures : 1, 33, 18, 22, 17 (2020-2024)",
+  "correction_validee": "Supprimer ces quatre annuels (couverts par les trimestriels) ou les redater en FY2024 et completer 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "da Vinci surgical systems placed / da Vinci 5 systems placed / Average Selling Price / Leasing Share",
+  "probleme": "Series doublons decalees d'un trimestre qui contredisent les KPI principaux",
+  "preuve": "Placements : 431 dates 2026-06-30 alors que da_vinci_placements Q2-2026 = 468 (431 = Q1), et 532 au lieu de 471 pour Q4-2025. dV5 : 232 contre 246, et 303 contre 333. ASP : 1.5 contre system_asp 1.59. Location : 56 contre 54",
+  "correction_validee": "Supprimer les quatre doublons.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "davinci_procedures Q3-2024 / Q4-2024",
+  "probleme": "Volumes trimestriels 2024 invraisemblables : ils sont incompatibles avec le total annuel et avec la croissance",
+  "preuve": "Q3-2024 = 567000 et Q4-2024 = 612000, puis Q1-2025 = 732000. FY2024 = 2 683 000 obligerait le S1 2024 a peser environ 1 504 000, soit plus que le S2. Q3-2025 / Q3-2024 donnerait +41%",
+  "correction_validee": "Reprendre Q3 et Q4 2024 a la source (ordre de grandeur 660 000 et 700 000 attendu).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these / croissance procedures",
+  "probleme": "La croissance citee ne correspond pas a la serie du hero",
+  "preuve": "These : 'environ 16 % de plus'. davinci_procedures : 889000 / 775000 = +14.7% (yoy affiche +14.7%)",
+  "correction_validee": "Aligner le texte ou la serie (la croissance publiee par la societe peut differer du calcul brut)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risques 1, 2, 4",
+  "probleme": "Les titres sont des definitions ou des phrases de mise en garde, pas des risques, et deux d'entre eux se repetent",
+  "preuve": "Risque 1 : 'L'autorisation FDA ... est communement appelee agrement 510(k)' ; risque 4 repete le 510(k) ; risque 2 porte sur les estimations comptables. Le risque cle, le recours collectif sur les instruments cite dans l'anti-these, est absent",
+  "correction_validee": "Reecrire les risques (concurrence robotique, proces antitrust, droits de douane, Chine)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "clients",
+  "champ": "clients.exercice",
+  "probleme": "Bloc clients perime",
+  "preuve": "'exercice': '2019', source isrg-20191231.htm",
+  "correction_validee": "Mettre a jour avec le rapport annuel 2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Services Revenue / Operating Lease Revenue (annuels)",
+  "probleme": "Series arretees en 2024, en doublon du trimestriel, avec des signaux en anglais et sans accents",
+  "preuve": "Services Revenue dernier 2024 = 1307.1, alors que service_revenue 2025 fait 363 + 391.2 + 395.9 + 421.8 = 1571.9. Signaux : 'service contracts', 'shift modele financement leasing (309 fixed + 467 usage-based FY24)'",
+  "correction_validee": "Supprimer Services Revenue, mettre Operating Lease Revenue a jour a 2025 et le reecrire en francais",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CompShares",
+  "probleme": "Indicateur sans interet pour un investisseur, a la serie erratique et a la variation absurde",
+  "preuve": "Serie 1.9, 0.2, 1 ; yoy +400% ; unite 'M shares'",
+  "correction_validee": "Supprimer CompShares.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Ion Diagnostic Yield (Mayo Clinic Study)",
+  "probleme": "La valeur et le signal ne mesurent pas la meme chose",
+  "preuve": "val = 79 '% yield', signal : 'sensibilite de 85 %'",
+  "correction_validee": "Aligner le signal sur le rendement diagnostique de 79 %",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "texte",
+  "probleme": "Texte vide de sens, sans sujet ni produit cite",
+  "preuve": "'Positionne l'IA comme axe strategique central de son offre avec produits et plateformes IA identifies.'",
+  "correction_validee": "Reecrire avec les elements concrets (analyse video des interventions, retour de force du da Vinci 5, outils numeriques)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque l'utilisation du parc (procedures par systeme installe), un indicateur cle du secteur, citee seulement dans un signal",
+  "preuve": "Signal de installed_base_davinci : 'l'utilisation du parc progresse de 3 %', mais aucune serie ne la suit",
+  "correction_validee": "Ajouter procedures / base installee par trimestre (889000 / 11710, environ 76)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

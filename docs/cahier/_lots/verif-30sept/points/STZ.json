@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "hero",
+  "champ": "Modelo #1 US Beer Brand",
+  "probleme": "Le hero est incohérent : l'unité est 'rang' mais les valeurs vont de 8 080 à 9 380, la variation affiche 'maintenu', et la justification du hero parle de la dette.",
+  "preuve": "unité 'rang', FY2025=9380, yoy=maintenu ; hero_kpi_rationale 'La dette à long terme de $10,361.2 millions...'",
+  "correction_validee": "Remplacer le hero par le CA du segment Bière ou la croissance des écoulements Bière, et supprimer ou redéfinir 'Modelo #1 US Beer Brand'.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "écoulements Bière (CAHIER_DEPLETIONS, Beer Depletions, Beer Depletion Growth, 58th Consecutive Quarter)",
+  "probleme": "Trois séries annuelles du même indicateur donnent trois valeurs différentes, et un KPI parle de croissance ininterrompue alors que la série est négative depuis quatre trimestres.",
+  "preuve": "CAHIER_DEPLETIONS FY2026=-2.1 ; Beer Depletions dernier=1 ; Beer Depletion Growth dernier=3.5 ; Beer depletions growth trimestriel -2.6, -2.7, -3, -2.1, -0.3 ; '58e trimestre consécutif de croissance des écoulements bière'",
+  "correction_validee": "Garder CAHIER_DEPLETIONS et la série trimestrielle, supprimer 'Beer Depletions', 'Beer Depletion Growth' et '58th Consecutive Quarter of Beer Depletion Growth'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "marge opérationnelle Bière (4 versions)",
+  "probleme": "La marge opérationnelle Bière apparaît quatre fois avec des valeurs divergentes.",
+  "preuve": "STZ_BEER_OPM_Q T1-FY2027=39.0 ; 'Beer Segment Operating Margin' 37.9 ; 'Beer Op Margin' 38.5 ; 'Beer Operating Margin' 39 ; calcul FY2026 = 3 161 / 8 315 = 38,0 %",
+  "correction_validee": "Garder STZ_BEER_OPM_Q et supprimer 'Beer Segment Operating Margin', 'Beer Op Margin' et 'Beer Operating Margin'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "W&S Net Sales / Wine & Spirits Sales",
+  "probleme": "Deux doublons annuels donnent un CA Vins et Spiritueux presque double du réel, avec une variation fausse.",
+  "preuve": "val=1.5 Mds $ yoy=-7 % (x2) ; W&S Rev FY2026 = 280,5+136+213,1+194,2 = 823,8 M$ ; FY2025 environ 1,6 Md$ selon la série trimestrielle",
+  "correction_validee": "Supprimer 'W&S Net Sales' et 'Wine & Spirits Sales'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "W&S Organic Depletions / Wine & Spirits depletions growth",
+  "probleme": "Le doublon donne une valeur différente au même trimestre. Le signal parle de deux trimestres positifs consécutifs alors que le trimestre précédent est à 0 et que le T4 manque. La variation d'un taux est exprimée en %.",
+  "preuve": "6.6 contre 7.7 ; série Q2-FY2026=2, Q3-FY2026=0, Q1-FY2027=6.6 ; 'Deuxième trimestre positif consécutif' ; yoy=+6.6%",
+  "correction_validee": "Garder une seule série, compléter le T4-FY2026, corriger le signal et afficher la variation en points.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "STZ_INV_Q / STZ_DEBT_Q / STZ_BEER_OPM_Q .signal",
+  "probleme": "Trois signaux contredisent leur propre série.",
+  "preuve": "STZ_INV_Q 'en baisse de 9% sur un an' mais 1.41 -> 1.45 (yoy=+3%) ; STZ_DEBT_Q 'stable sur un an' mais 11.19 -> 10.2 (yoy=-9%) ; STZ_BEER_OPM_Q 'stable au-dessus de 38% depuis FY2024' mais Q4-FY2026=33.2 et Q4-FY2025=36.6",
+  "correction_validee": "Réécrire : stocks en hausse de 3 % sur un an, dette en baisse de 9 % sur un an, marge Bière à 39 % mais tombée à 33,2 % au T4-FY2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SHIP_VS_DEPL / CAHIER_DEPLETIONS",
+  "probleme": "CAHIER_SHIP_VS_DEPL ne mesure pas un écart mais la croissance des expéditions. Le terme 'Épuisements' ne correspond pas au vocabulaire du reste de la fiche. La variation d'un taux est exprimée en %.",
+  "preuve": "FY2026=-3.8 = expéditions 415,4 contre 431,8 M caisses ; nom 'Écart entre expéditions et épuisements' ; yoy=-215.2% et -172.4%",
+  "correction_validee": "Renommer en 'Croissance des expéditions de bière' et 'Croissance des écoulements de bière', et afficher les variations en points (-7,1 pts et -5,0 pts).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORGANIC_GROWTH",
+  "probleme": "Le nom promet une décomposition entre volume et prix-mix, mais la série est un montant unique en M$ sans définition.",
+  "preuve": "nom 'Croissance organique décomposée volume et prix-mix', unité M $, val=128.2",
+  "correction_validee": "Définir la série (hausse organique du CA Bière en M$ ?) et la renommer, ou la supprimer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI à point unique",
+  "probleme": "Des objectifs, autorisations et charges ponctuelles sont présentés comme des KPI.",
+  "preuve": "Beer Volume Growth Over CEO Tenure 400 ; Incremental Distribution Points Target 500000 ; 2025 Share Repurchase Authorization 4 ; Net Loss on 2025 Wine Divestitures 52.1 ; Obregon loss 57.7 ; Tariff Cost Impact 58.3 ; Capital Returned 900",
+  "correction_validee": "Retirer ces entrées ou les déplacer dans un bloc de faits.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "gouvernance",
+  "champ": "ceo_name",
+  "probleme": "La gouvernance nomme William A. Newlands, alors qu'un signal de la fiche évoque une transition de direction avec Nick Fink.",
+  "preuve": "'dirigeant William A. Newlands' ; Capital Returned signal 'maintenu malgré la transition de direction avec Nick Fink'",
+  "correction_validee": "Vérifier le dirigeant en poste et mettre à jour la gouvernance ou le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description / kpis",
+  "champ": "marques citées",
+  "probleme": "Des marques cédées en 2025 à The Wine Group sont présentées comme faisant encore partie du portefeuille.",
+  "preuve": "STZ_WS_MKT_Q 'portefeuille premium réduit (Prisoner, Kim Crawford, Meiomi, Ruffino)' ; W&S Net Sales 'Focus premium (Kim Crawford, Meiomi, Casa Noble)' ; description 'Robert Mondavi'",
+  "correction_validee": "Vérifier la liste des marques conservées après les cessions de 2025 et corriger.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "entete / repartition / description",
+  "champ": "tagline, revenue_by_segment, description, gouvernance.top_capital",
+  "probleme": "Il reste des textes en anglais et des libellés techniques bruts.",
+  "preuve": "tagline 'A leader in high-end beer, wine and spirits...' ; 'Beer 91 ; ConstellationWinesAndSpirits 9' ; 'Distributeurs (wholesalers)', 'alcohol beverage control agencies' ; descriptions 'tariffs Mexique, soft Hispanic consumer' ; top_capital 'BENEFICIAL OWNERSHIP'",
+  "correction_validee": "Traduire en 'Bière' et 'Vins et spiritueux', réécrire la description et retirer le libellé brut de l'actionnariat.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

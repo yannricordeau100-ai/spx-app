@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Residential Units / Like-for-like Rent Growth / LTV Ratio / Avg Rent / Fair Value Properties",
+  "probleme": "Cinq anciens KPI sans periodes font doublon avec les series officielles et affichent des valeurs perimees ou fausses",
+  "preuve": "Avg Rent 7,86 €/m2 contre RENT_M2 8,51 ; Fair Value Properties 83,2 Mds € (serie 58, 90, 98, 85.9, 83.2) contre PORTFOLIO_FV 85 675,7 M€ ; LTV Ratio 45 contre LTV 46 ; Residential Units 540 000 contre UNITS_OWN 530 979 ; date 2026-08-09 sur une frequence annuelle",
+  "correction_validee": "Supprimer Residential Units, Like-for-like Rent Growth, LTV Ratio, Avg Rent et Fair Value Properties, couverts par UNITS_OWN, ORGANIC_RENT, LTV, RENT_M2 et PORTFOLIO_FV.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "adjusted_ebitda_total / adjusted_ebt",
+  "probleme": "Doublons d EBITDA_ADJ et ADJ_EBT qui melangent semestres et exercices dans une meme serie",
+  "preuve": "adjusted_ebitda_total : S1 2023=1299.8, 2023=2583.8, S1 2024=1266.5, 2024=2641.8 ; EBITDA_ADJ H1-2026=1456.5 identique",
+  "correction_validee": "Supprimer adjusted_ebitda_total et adjusted_ebt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_NAV_PS / CAHIER_LFL_RENTAL_GROWTH / CAHIER_OCCUPANCY",
+  "probleme": "Doublons annuels de series trimestrielles deja presentes (ANR par action, croissance organique des loyers, vacance inversee)",
+  "preuve": "CAHIER_NAV_PS FY2025=46.28 = EPRA_NTA_PS Q4-2025=46.28 ; CAHIER_LFL FY2025=4.1 = ORGANIC_RENT Q4-2025=4.1 ; occupation 97,9 = 100 - vacance 2,1",
+  "correction_validee": "Supprimer CAHIER_NAV_PS, CAHIER_LFL_RENTAL_GROWTH et CAHIER_OCCUPANCY, les series trimestrielles couvrant deja ces mesures.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_LFL_RENTAL_GROWTH.signal",
+  "probleme": "Signal contredit par sa propre serie et par la serie trimestrielle",
+  "preuve": "\"les loyers accelerent nettement\" alors que FY2024=4.1 et FY2025=4.1 (stable) et ORGANIC_RENT recule de 4,4 (Q2-2025) a 3,6 (Q2-2026)",
+  "correction_validee": "Reecrire : croissance stable a 4,1 % en 2025, en ralentissement a 3,6 % au T2 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "LTV.signal",
+  "probleme": "Explication fausse de la hausse recente",
+  "preuve": "\"La hausse recente vient de la baisse de la valeur du patrimoine\" alors que PORTFOLIO_FV monte de 84 698,1 a 85 675,7 M€ entre Q1 et Q2-2026 quand la LTV passe de 45,1 a 46 ; \"seuil de solvabilite\" a 45 % est une interpretation abusive",
+  "correction_validee": "Reecrire : la hausse au T2 2026 vient de la dette nette, la valeur du patrimoine ayant progresse ; la societe vise un retour sous 45 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EBITDA_ADJ.signal",
+  "probleme": "Affirmation de progression sans interruption fausse",
+  "preuve": "\"progresse sans interruption\" alors que H2-2022=1357.3 > H1-2023=1299.8 > H1-2024=1266.5, et H2-2025=1378.4 < H1-2025=1422.4",
+  "correction_validee": "Reecrire : creux en 2023-2024 puis reprise, 1 456,5 M€ au S1 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition incoherente : une ligne fourre-tout pese un tiers, sans exercice indique",
+  "preuve": "\"Autres activites, hors pilotage par segment 33.9\" contre Location 50.7 ; exercice None",
+  "correction_validee": "Identifier le contenu de cette ligne (charges refacturees aux locataires, etc.), la renommer ou l exclure, et dater la repartition",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.summary",
+  "probleme": "Moat non qualifie et chiffre sans periode",
+  "preuve": "\"Le loyer moyen en place passe de 5,84 a 8,51 euros\" sans annee de depart, type None ; decrit une evolution de loyer, pas un avantage concurrentiel",
+  "correction_validee": "Rediger un moat reel (taille du parc, couts de gestion, penurie de logements) avec periodes explicites",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

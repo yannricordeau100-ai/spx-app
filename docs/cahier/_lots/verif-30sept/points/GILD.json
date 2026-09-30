@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Biktarvy sales, Total HIV product sales, Veklury (remdesivir) sales, Cell Therapy product sales, Trodelvy sales, Yeztugo (Yes2Go) sales, Libdelzi sales (PBC)",
+  "probleme": "Sept doublons de series deja presentes (Biktarvy Rev, Total HIV Rev, Veklury Rev, Yescarta+Tecartus, Trodelvy Rev, Yeztugo Rev, Livdelzi Rev), sans libelles de periode, et dates au 30 juin 2026 alors que la derniere valeur est celle du T1 2026 : un lecteur voit deux chiffres Biktarvy differents pour le meme trimestre.",
+  "preuve": "Biktarvy sales: dernier 2026-06-30, val=3361 ; Biktarvy Rev: Q1-2026=3361, Q2-2026=3772. Total HIV product sales val=5030 = Total HIV Rev Q1-2026. Cell Therapy 407 = Yescarta 332 + Tecartus 75 (Q1-2026). 'Libdelzi' faute pour Livdelzi.",
+  "correction_validee": "Retirer les sept doublons (Biktarvy sales, Total HIV product sales, Veklury, Cell Therapy, Trodelvy sales, Yeztugo (Yes2Go) sales, Libdelzi sales).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "HIV Franchise Total, HIV Sales, Oncology Sales, Oncology Revenue, Liver Disease Sales, Liver Disease Revenue, R&D Expenses",
+  "probleme": "Sept series annuelles sans libelles d annee, datees du 30 juin 2026 pour des annuels, contradictoires entre elles et avec les sommes trimestrielles : deux series VIH differentes (20 vs 19,6 pour la meme annee, alors que 2025 = 4,587+5,088+5,277+5,8 = 20,75), deux oncologie (3,5 vs 3,3 ; trimestriel 2025 = 3,24), deux foie (2,7 vs 3,05 ; trimestriel 2025 = 3,22), R&D 5,95 vs 5,8. Chiffres lisses invraisemblables (Liver Disease Sales 2,85 / 2,65 / 2,85 / 2,95 / 3,05).",
+  "preuve": "HIV Franchise Total: year, dernier 2026-06-30, serie 16.7, 16.3, 17.7, 18.2, 20 ; HIV Sales: 16.4, 17.4, 18.2, 18.1, 19.6 ; Oncology Revenue signal 'léger repli en 2025' avec serie 3.4 -> 3.5",
+  "correction_validee": "Retirer les sept series annuelles ; un annuel eventuel se recalcule par somme des trimestres libelles.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "description.products",
+  "probleme": "Jyseleca cite comme produit inflammation de Gilead alors que Gilead a cede ses droits a Galapagos (2020-2022), qui les a ensuite transferes a Alfasigma ; Gilead ne vend plus ce produit.",
+  "preuve": "products: '... et inflammation (Jyseleca)'",
+  "correction_validee": "Retirer inflammation (Jyseleca) et citer Livdelzi (foie) et Yeztugo (prevention VIH).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Biktarvy Rev.signal, Total HIV Rev.signal",
+  "probleme": "Signal du KPI vedette en franglais et perime : ne cite ni le chiffre T2 2026 ni Yeztugo, qui porte desormais la franchise.",
+  "preuve": "Biktarvy Rev: 'Flagship HIV produit, croissance soutenue malgré Part D redesign' ; Total HIV Rev: 'Croissance portée par Biktarvy et Descovy PrEP'",
+  "correction_validee": "'Biktarvy a 3 772 M$ au T2 2026 (+6,9 %), 48 % du CA, malgre la refonte de Medicare Part D' ; 'VIH a 5,69 Mds $ (+11,9 %), porte par Biktarvy et le lancement de Yeztugo'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Texte generique de modele avec libelle sectoriel anglais entre parentheses.",
+  "preuve": "'Gilead Sciences, Inc. mentionne peu l'IA dans ses communications officielles (Biopharmaceutical).'",
+  "correction_validee": "Ecrire : Gilead Sciences mentionne peu l IA dans ses communications officielles, sans parenthese ni ajout non source.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[3].titre",
+  "probleme": "Titre generique et jargon 'filing', alors que le risque majeur documente dans l anti-these (negociation du prix Medicare de Biktarvy en 2028) n apparait pas dans la liste.",
+  "preuve": "risque 4: Risque opérationnel identifié dans le filing ; att: 'Washington fixera son prix Medicare à partir de 2028'",
+  "correction_validee": "Remplacer par 'Negociation des prix Medicare (IRA) : Biktarvy des 2028'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Value-Added Mix",
+  "probleme": "Serie non datee qui contredit le hero value_added_pct.",
+  "preuve": "serie 42, 45, 48, 50, 51 (val=51 %, dernier 2026-06-30) ; value_added_pct Q2-2026 = 46.2, 2025 entre 46.8 et 48.4",
+  "correction_validee": "Supprimer Value-Added Mix.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Locations USA",
+  "probleme": "Valeur affichee differente du dernier point, serie non datee, doublon perime de total_locations.",
+  "preuve": "val=585 mais serie 550, 565, 570, 570, 580 ; total_locations Q2-2026 = 565 ; description '~580 agences réparties dans 43 États'",
+  "correction_validee": "Supprimer Locations USA.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Single-Family Mix",
+  "probleme": "Serie non datee qui contredit CAHIER_END_MARKET_MIX.",
+  "preuve": "Single-Family Mix serie 70, 67, 66, 65, 65 (val 65 %) ; CAHIER_END_MARKET_MIX FY2023=69, FY2024=71, FY2025=68",
+  "correction_validee": "Supprimer Single-Family Mix.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Core organic net sales growth vs core_organic_growth",
+  "probleme": "Meme indicateur en deux series a valeurs divergentes ; un des deux T4 2025 est faux.",
+  "preuve": "serie non datee 22.3, 13.5, -1.3, -1.3, -3.8, -7.2, 5.1, -8.1, -8.5, -10.6, -10.3, -8.3 (val -8.3) ; core_organic_growth Q4-2024=-8.8 (vs 5.1), Q4-2025=-14 (vs -10.3), Q2-2026=-7 (vs -8.3)",
+  "correction_validee": "Supprimer la serie non datee et verifier le -14 % du T4 2025 de core_organic_growth dans le communique du 4e trimestre 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total Net Sales, Manufactured Products, Windows Doors Millwork, Specialty Building Products",
+  "probleme": "Quatre series annuelles arretees a 2024 avec commentaires perimes sans accents, alors que revenue_annuel, LUMBER_SALES et les trimestriels par categorie sont a jour.",
+  "preuve": "'24.0% des net sales FY24', 'seule categorie en croissance en 2024 (+1.5%)', 'Repli CA 2024 (-4.1%) apres normalisation post-pic lumber 2022' ; revenue_annuel 2025 = 15.191 ; sales_manufactured Q2-2026 = 831.6",
+  "correction_validee": "Supprimer Total Net Sales, Manufactured Products, Windows Doors Millwork et Specialty Building Products.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Digital Revenue / Digital platform activity",
+  "probleme": "Deux mesures du numerique incoherentes entre elles, unite floue et saut x10 en un trimestre.",
+  "preuve": "Digital Revenue serie non datee 0.8, 1.2, 1.6, 2, 2.7 Mds $ ; Digital platform activity 'M$ devis traités' serie 83, 800",
+  "correction_validee": "Garder une seule mesure sourcee (ventes incrementales via la plateforme, communique trimestriel) et supprimer l'autre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "employees",
+  "probleme": "Doublon de effectifs_annuels avec une unite differente.",
+  "preuve": "employees 'milliers' FY2025=28 ; effectifs_annuels 'salariés' 2025=28000",
+  "correction_validee": "Supprimer employees.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Exercice faux et contenu vide : la seule preuve est une mention de risque juridique.",
+  "preuve": "'BLDR intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2026' ; rapport depose le 17 fevrier 2026 = exercice 2025 ; evidence 'des questions émergentes liées... pourraient engendrer des risques d'ordre juridique'",
+  "correction_validee": "Corriger en 'exercice 2025' et resumer : 'usage de l'IA encore à ses débuts dans les opérations, cité surtout comme facteur de risque'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Acquisitions completed since 2021 merger (name_fr)",
+  "probleme": "Nom de fusion faux.",
+  "preuve": "name_fr 'Acquisitions réalisées depuis la fusion P&C de 2021' ; la fusion de janvier 2021 est BMC Stock Holdings",
+  "correction_validee": "'Acquisitions réalisées depuis la fusion avec BMC de 2021'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VOLUME_PRICE_SPLIT",
+  "probleme": "Nom promettant une decomposition volume/prix pour une seule valeur, annee manquante, yoy en pourcentage sur un taux.",
+  "preuve": "serie FY2020=5.6, FY2022=6.6, FY2023=-17.3, FY2024=-5.1, FY2025=-10.3 ; yoy '+102.0%'",
+  "correction_validee": "Renommer 'Croissance organique annuelle', combler 2021, exprimer le yoy en points.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_END_MARKET_MIX.yoy",
+  "probleme": "Variation d'une part exprimee en pourcentage relatif.",
+  "preuve": "71 -> 68 affiche 'yoy=-4.2%'",
+  "correction_validee": "yoy '-3 pts'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

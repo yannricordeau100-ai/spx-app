@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Enterprise Data, Automotive, Industrial (annuels)",
+  "probleme": "Trois series entieres en milliers de dollars etiquetees M $, melangees a des pourcentages, avec des yoy de plusieurs millions de pourcent : a retirer, pas seulement le saut.",
+  "preuve": "Enterprise Data val=701 846 M $ (soit 702 Mds $ pour un CA 2025 de 2,79 Mds $), yoy=+2 785 003,2 % ; Automotive val=592 518, yoy=+2 794 796,2 % ; Industrial val=199 354.",
+  "correction_validee": "Retirer Enterprise Data, Automotive et Industrial (annuels).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Storage & Computing Revenue, Automotive Revenue, Industrial Revenue, Communications Revenue, Consumer Revenue (annuels) ; Communications End Market Revenue ; Industrial End Market Revenue",
+  "probleme": "Sept series annuelles sans periode dont les chiffres contredisent la somme des trimestres, avec des valeurs affichees qui ne sont pas le dernier point.",
+  "preuve": "Storage & Computing Revenue 2025 = 460 alors que la somme trimestrielle 2025 = 732,5 M$ ; Automotive 388 contre 592,4 ; Consumer serie 191, 154, 312, 565, 192 (565 invraisemblable, 2025 reel = 255,1) ; Communications End Market Revenue serie 19.2, 84.8, 142.3, 164.1, 55.6 avec val=164,1 ; Industrial End Market Revenue val=184,8 mais dernier point 48,5.",
+  "correction_validee": "Retirer les sept séries annuelles.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "resume",
+  "probleme": "Le moat s appuie sur les series fausses ci-dessus et sur un chiffre de juin 2025, alors que le T2-2026 est publie.",
+  "preuve": "« Le chiffre d'affaires progresse de 26,4 % et le segment industriel de 54,5 %, avec une capacité portée à six milliards » ; 54,5 % = yoy de la serie Industrial End Market Revenue fausse ; « six milliards » = KPI n=1 date 2025-06-10 ; CA T2-2026 +47,6 %.",
+  "correction_validee": "Réécrire le moat à partir des séries trimestrielles vérifiées (CA T2-2026 +47,6 %, Enterprise Data +164 %), sans le chiffre industriel faux (non automatique).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "R&D Expense / SG&A Expense (T2-2026)",
+  "probleme": "R&D et SG&A ont exactement la meme valeur et le meme poids au T2-2026, coincidence a verifier car le resultat operationnel en decoule.",
+  "preuve": "R&D Expense T2-2026=118,6 (12,1 %), SG&A Expense T2-2026=118,6 (12,1 %) ; 541,1 - 2 x 118,6 = 303,9 = Operating Income.",
+  "correction_validee": "Verifier les deux lignes dans le communique du T2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Effective Tax Rate.signal ; Stock Comp.signal ; Operating Cash Flow.signal ; Dividends Paid.signal",
+  "probleme": "Citation en anglais, mention de document et calcul interne visibles dans les signaux.",
+  "preuve": "« an effective tax rate of 20.0% » ; « selon le tableau des charges de rémunération en actions » ; « (478,2 M$ sur six mois moins 250,3 M$ au T1) » ; « (179,5 M$ sur six mois moins 78,4 M$ au T1) ».",
+  "correction_validee": "Réécrire en français : taux effectif 20,0 % au T2-2026 contre 23,7 % ; 53,2 M$ contre 60,1 M$ ; 227,9 M$ contre 237,6 M$ ; 101,1 M$ contre 75,1 M$.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Non-GAAP Net Income, Non-GAAP Operating Margin, Non-GAAP Diluted EPS",
+  "probleme": "Series non-GAAP arretees au T1-2026 (et a trous) alors que le GAAP est au T2-2026.",
+  "preuve": "« dernier 2026-03-31 » pour les trois ; Non-GAAP Operating Margin serie Q1-2025, Q4-2025, Q1-2026 (n=3).",
+  "correction_validee": "Ajouter le T2-2026 et combler les trous.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_INVENTORY_CHANNEL",
+  "probleme": "Nom annonce stocks internes et stocks du canal mais la serie est un seul nombre de jours, doublon annuel de Days Inventory.",
+  "preuve": "FY2025=153 jours contre Days Inventory Q4-2025=154,2 ; nom « Stocks internes en jours et stocks du canal de distribution » ; signal sans accents (« eleve, a surveiller »).",
+  "correction_validee": "Retirer CAHIER_INVENTORY_CHANNEL.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "libelles",
+  "probleme": "Codes pays ISO bruts en majuscules et categorie vide.",
+  "preuve": "« TAIWAN, PROVINCE OF CHINA 19.7 ; KOREA, REPUBLIC OF 9.1 ; … Autres None »",
+  "correction_validee": "Renommer en Taïwan et Corée du Sud, Asie du Sud-Est pour South East Asia, et retirer la tranche Autres à 0 %.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "hero",
+  "champ": "choix",
+  "probleme": "Le hero est l automobile (16 % du CA, +8 %) alors que la these, l anti-these et le positionnement IA reposent sur Enterprise Data (38,8 % du CA, +164 %).",
+  "preuve": "hero: Automotive Revenue $ ; Enterprise Data Revenue % T2-2026 = 38,8 %, Enterprise Data Revenue $ yoy +164,3 %.",
+  "correction_validee": "Passer le hero sur Enterprise Data Revenue $ (decision proprietaire).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, fcf_par_salarie",
+  "probleme": "La valeur 2025 est le flux opérationnel, pas le flux libre : saut x12 absurde.",
+  "preuve": "fcf_annuel 2025=5.19 Mds $ (+1147.6 %) = somme ocf 2025 (1425+1328+1181+1256=5190) ; somme fcf trimestriel 2025 = 680-230-365+577 = 662 M$.",
+  "correction_validee": "Recalculer fcf_annuel 2025 (OCF moins capex, environ 0,66 Md $) puis fcf_par_salarie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Income",
+  "probleme": "KPI daté 2026-06-30 mais série de 2020 à 2022, variation fausse.",
+  "preuve": "serie 1.601, 2.676, 3.613 Mds $ ; résultat opérationnel 2025 estimé à environ 3,9-4,0 Mds $ (op_margin 2025 21.6-26.3 % sur 16.1 Mds $).",
+  "correction_validee": "Supprimer le KPI (couvert par op_margin) ou le remplacer par la série à jour jusqu à 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "employees / effectifs_annuels",
+  "probleme": "Deux séries d effectif contradictoires pour la même année.",
+  "preuve": "employees FY2025=26700, FY2020=16920 ; effectifs_annuels 2025=28500, 2020=18250.",
+  "correction_validee": "Garder une seule série sourcée et recalculer les ratios par salarié.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Power/Utility Vertical, Matting, Cold Starts, Incremental Delivery Cost Drag, 5-Year Utility Master Agreement, New share repurchase program, North American market share, H&E break-up fee",
+  "probleme": "Faits de 2025-2026 datés 2022-12-11, unités fantaisistes, événements ponctuels présentés comme KPI.",
+  "preuve": "\"Croissance du métier Matting (Yak) en 2025\" dernier 2022-12-11 ; unité \"% (bas double digit, ~11-12%)\" ; \"Contrat cadre 5 ans\" val=5 ans ; indemnité H&E (2025) datée 2022.",
+  "correction_validee": "Supprimer les événements ponctuels, corriger dates et unités des vrais indicateurs.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Power/Utility Vertical % of Total Revenue / SP_power_pct",
+  "probleme": "Doublon avec point de départ 2016 contradictoire.",
+  "preuve": "SP_power_pct: \"7 % en 2016\" ; Power/Utility: \"parti de 4 % du chiffre d'affaires en 2016\" ; les deux valent 11.",
+  "correction_validee": "Supprimer le KPI importé Power/Utility et garder SP_power_pct.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "General Rentals Revenue, Specialty Revenue, Fleet Productivity (annuels)",
+  "probleme": "Doublons annuels des séries trimestrielles, datés 2026-06-30 alors qu ils portent sur l exercice 2025.",
+  "preuve": "General Rentals Revenue 11001 = somme GR_totrev 2025 ; Specialty 5098 = somme SP_totrev 2025 ; Fleet Productivity annuel val=2 contre fleet_prod.",
+  "correction_validee": "Supprimer ces trois KPI annuels importés (à défaut, les redater au 2025-12-31).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ancillary_rev",
+  "probleme": "Série trouée (pas de T4), en retard d un trimestre, variation et signal en jargon.",
+  "preuve": "Q3-FY2023, Q1-FY2024, Q2-FY2024, Q3-FY2024, Q1-FY2025... dernier 2026-03-31 ; yoy=\"+1.4% contribution\" ; \"Re-rent=275M$\".",
+  "correction_validee": "Compléter T4 et T2 2026, recalculer yoy, réécrire le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Used Equipment Recovery Rate.signal",
+  "probleme": "Le signal cite un autre trimestre que la valeur affichée.",
+  "preuve": "val=52.9 au 2026-06-30 ; signal: \"record de troisième trimestre à 54% sur 619M$ d'OEC vendu\".",
+  "correction_validee": "Réécrire le signal sur le T2 2026 (52,9 %).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_GROSS_MARGIN_RATE, CAHIER_RENTAL_RATE_CHANGE",
+  "probleme": "Variation de taux exprimée en % relatif au lieu de points.",
+  "preuve": "38.2 vs 40.1 yoy=-4.7% (devrait être -1.9 pt) ; 2.2 vs 4.1 yoy=-46.3%.",
+  "correction_validee": "Variation en points : -1,9 pt et -1,9 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment / moat / tagline",
+  "champ": "libellés, moat, position de marche",
+  "probleme": "Libellés de répartition en anglais et ambigus, moat sans type décrivant des chiffres, tagline anglaise, position de marché sans unité.",
+  "preuve": "\"Owned Equipment Rentals\", \"Rental Equipment 8.8\" (en réalité ventes de matériel d occasion) ; moat: None :: \"Le relèvement de la note...\" ; tagline \"The World's Largest Equipment Rental Company\" ; taille 89.8.",
+  "correction_validee": "Traduire les libellés (Ventes de matériel d occasion...), rédiger un moat réel (densité du réseau, achats d échelle), compléter unité.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

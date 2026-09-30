@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Comparable property POI growth / CAHIER_SS_NOI / Comparable property operating income growth",
+  "probleme": "Trois series pour le meme indicateur (croissance du POI a perimetre constant), dont deux annuelles qui se contredisent",
+  "preuve": "Comparable property POI growth serie 5.4, 4.3, 3.4, 3.6 ; CAHIER_SS_NOI FY2022=7.7, FY2023=3.2, FY2024=2.8, FY2025=3.6",
+  "correction_validee": "Supprimer la serie annuelle non datee Comparable property POI growth, garder CAHIER_SS_NOI et la serie trimestrielle.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Nareit FFO per diluted share / Dividend/FFO payout ratio / Quarterly dividend per share / Development pipeline / Comparable cash-basis rent spread",
+  "probleme": "Doublons non dates (2026-03-28) de ffo_per_share, ffo_payout, dividend_per_share, cip et CAHIER_LEASING_SPREAD ; le nom anglais Ffo Affo Ps est un residu de code",
+  "preuve": "Nareit FFO per diluted share | Ffo Affo Ps | serie 4.38 ... 7.22 ; Quarterly dividend per share | year | serie 1.06 ... 1.13 ; Development pipeline serie 539.8, 374.7 = cip Q4-2024/Q4-2025",
+  "correction_validee": "Supprimer Nareit FFO per diluted share, Dividend/FFO payout ratio, Quarterly dividend per share et Development pipeline ; garder la serie trimestrielle de rent spread.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted",
+  "probleme": "Les quatriemes trimestres manquent dans la serie du BPA",
+  "preuve": "serie: Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 (pas de Q4-2024 ni Q4-2025)",
+  "correction_validee": "Deriver Q4 = annuel moins 9 mois",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "11 indicateurs a un seul point dates 2026-03-28",
+  "probleme": "Faits presentes comme KPI sans serie : ventes des restaurants par sqft, pouvoir d achat par centre, acquisition Town Center, cessions 2025, 58 annees de hausse, pret a terme...",
+  "preuve": "Full-service restaurant sales per sq ft n=1 ; Town Center Crossing & Plaza acquisition n=1 ; Consecutive years of dividend increases n=1",
+  "correction_validee": "Deplacer en faits marquants, ne garder que les series",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning / att / mettrik_description",
+  "champ": "nom de la societe et franglais",
+  "probleme": "Nom deforme en Federal avec accent (Fédéral Realty) dans trois blocs, et texte IA en franglais",
+  "preuve": "Fédéral Realty a mis en place une governance IA au niveau du Board: ... oversight par le board et l audit committee ; att : Fédéral Realty affiche ; description : Fédéral Realty est un REIT",
+  "correction_validee": "Ecrire Federal Realty, et gouvernance de l IA au niveau du conseil, supervision par le conseil et le comite d audit.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_LEASING_SPREAD / CAHIER_SS_NOI",
+  "probleme": "Variation de pourcentages exprimee en % relatif",
+  "preuve": "CAHIER_LEASING_SPREAD val=15 yoy=+36.4% (FY2024=11) ; CAHIER_SS_NOI val=3.6 yoy=+28.6% (FY2024=2.8)",
+  "correction_validee": "Afficher +4 pts et +0,8 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Trade area household income",
+  "probleme": "Nom dit median, signal dit moyen",
+  "preuve": "Revenu median des menages zone de chalandise :: Revenu moyen des menages de 167 000$",
+  "correction_validee": "Harmoniser sur le terme publie par FRT (revenu moyen)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Le taux de location (leased rate, 96,1 %) cite dans l anti-these et le moat n existe pas en KPI ; seul le taux d occupation (93,8 %) est suivi",
+  "preuve": "att : un taux de location de 96,1% ; KPI occupancy_rate 93.8",
+  "correction_validee": "Ajouter le KPI taux de location trimestriel",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

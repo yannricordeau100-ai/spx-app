@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Net Interest Income",
+  "probleme": "Note de travail interne affichee comme signal et description, serie trimestrielle etiquetee annuelle et inversee",
+  "preuve": "signal « CORRECTION MAJEURE : Q1 2026 NII Citi total ~$15.0B (+12% YoY). Les valeurs 5.7 Mds$ de l input semblent etre trimestrielles... » ; serie 15, 14, 13.4, 13.5, 13.6 avec val=15 = premier point ; le NII annuel de Citi est d environ 54 Mds $",
+  "correction_validee": "Supprimer le KPI Net Interest Income, a recreer proprement en trimestriel.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Trading VaR / Total Employees / Average Deposits / Wealth Revenue (dates 2026-09-29)",
+  "probleme": "Quatre KPI dates du jour, sans periodes, avec notes internes et valeurs contredisant la fiche",
+  "preuve": "Trading VaR signal « plausible, valeur stable. A confirmer. » ; Total Employees val « 219,0 » K, description « Les valeurs input (250K) sont datees » vs effectifs_annuels 2025 = 226 000 ; Average Deposits signal « en hausse » avec yoy=-8.2% et val 1446 differente du dernier point 1403.573 ; Wealth Revenue val 7.5 = FY2024 (wealth_rev 2025 = 8 559 M$)",
+  "correction_validee": "Supprimer Trading VaR, Total Employees, Average Deposits et Wealth Revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CET1 Capital Ratio / CET1 Ratio / CET1 capital ratio (year-end) / cet1",
+  "probleme": "Quatre series CET1, dont une avec valeur differente du dernier point et description en franglais",
+  "preuve": "CET1 Capital Ratio val=12.7 avec serie 12, 12.4, 13.3, 13.5, 13.6 ; description « Legere baisse due a buybacks $7.4B retournes » ; CET1 Ratio dernier 2026-09-29",
+  "correction_validee": "Supprimer CET1 Capital Ratio et CET1 Ratio (et dater ou supprimer la version fin d annee), garder cet1 trimestriel.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Markets Revenue / Return on Tangible Common Equity (RoTCE) / Total EOP loans",
+  "probleme": "Doublons de markets_rev, rotce et loans avec valeurs incoherentes",
+  "preuve": "Markets Revenue val=19.8 Mds $ = somme 2024, serie identique a markets_rev, signal « est en progression » ; RoTCE trimestriel 10.5, 10.9, 13.1 vs rotce Q3-2025=8, Q4-2025=7.7 ; Total EOP loans 762 = loans Q1-2026",
+  "correction_validee": "Supprimer Markets Revenue, Return on Tangible Common Equity (RoTCE) et Total EOP loans.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "fcf_annuel / fcf_par_salarie / dette_sur_ca / revenue_annuel (famille generique)",
+  "probleme": "KPI generiques d industrie appliques a une banque : FCF et dette sur ventes n ont pas de sens et les textes sont faux",
+  "preuve": "« Tresorerie libre negative de 74,2 Mds $ en 2025 » ; « Dette rapportee aux ventes de 431,5 %... Au-dessus de 100 %, l entreprise doit plus que ce qu elle vend en un an » ; « Ventes de 85,2 Mds $ »",
+  "correction_validee": "Masquer fcf_annuel, fcf_par_salarie, dette_par_salarie et dette_sur_ca pour les banques, et dire « Revenus nets » au lieu de « Ventes ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Perimetre limite a Services + Markets (la moitie des revenus) sans le dire, libelles en jargon",
+  "preuve": "total 43.23 Mds $ vs revenus 85,2 ; labels « JANA », « Asia South », « MEA », « LATAM »",
+  "correction_validee": "Libelles francais (Japon, Asie du Nord et Australie ; Asie du Sud ; Moyen-Orient et Afrique ; Amerique latine) et mention du perimetre, ou bloc masque",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "nnia_wealth / cross_border_value / gpcc_active_accounts / uscc_rev / cost_of_credit (yoy)",
+  "probleme": "yoy affiches sur des series de deux points, dont un invraisemblable",
+  "preuve": "nnia_wealth serie Q1-2026=14.7, Q2-2026=15.7 avec yoy=+685% ; cross_border +13%, gpcc +6%, uscc +1%, cost_of_credit -12% non deductibles",
+  "correction_validee": "Retirer le +685 % ; verifier les autres contre le communique T2-2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Equities revenue surpassing $2 billion / AUC-AUA / US dollar clearing volume (textes et unites)",
+  "probleme": "Contresens de traduction et unites cryptiques",
+  "preuve": "« portes par les derives et le prime » (derivatives = derives) ; unite « $T » ; unite « #MM »",
+  "correction_validee": "Ecrire « derives » avec accent (produits derives), unite « milliers de Mds $ » et « M operations ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Sale of AO Citibank in Russia / Sale of 25% equity stake in Banamex / Potential CTA loss",
+  "probleme": "Evenements presentes en KPI a un point",
+  "preuve": "« Sale of AO Citibank in Russia | operation | n=1 | val=1 » ; « Sale of 25% equity stake in Banamex | % | val=25 » ; « Potential CTA loss | val=-9 »",
+  "correction_validee": "Supprimer le premier ; deplacer les autres en evenements",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "summary",
+  "probleme": "Phrase generique identique a Blackstone alors que la fiche a des chiffres IA",
+  "preuve": "« Integre l IA dans ses produits et operations existants pour ameliorer performance et experience client. » ; KPI « Outils IA maison utilises plus de 21 millions de fois par le personnel dans 84 pays »",
+  "correction_validee": "Reecrire a partir des KPI IA de la fiche",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_ROTE",
+  "probleme": "Valeur annuelle 2025 egale au seul T4, yoy en pourcentage relatif",
+  "preuve": "CAHIER_ROTE FY2025=7.7 = rotce Q4-2025 ; moyenne des 4 trimestres 2025 (9.1, 8.7, 8.0, 7.7) = 8,4 ; yoy=+10.0% (7.7 vs 7.0)",
+  "correction_validee": "Mettre le RoTCE annuel publie et un yoy en points",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Indicateur manquant / Net credit losses",
+  "probleme": "Aucun taux de pertes (NCL rate ou creances douteuses en %) pour une banque, et la serie de pertes nettes change d echelle",
+  "preuve": "Net credit losses 872, 1302, 2459, 2190, 2208 M $ (les deux premiers points ne sont pas au meme perimetre)",
+  "correction_validee": "Ajouter le taux de pertes nettes cartes (%) et dater/purger la serie",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

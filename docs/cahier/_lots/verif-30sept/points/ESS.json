@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Total Apartment Homes / Apartment Units / apartment_homes",
+  "probleme": "Trois KPI pour le nombre de logements, contradictoires et deux arretes",
+  "preuve": "Total Apartment Homes serie 60000, 60000, 51000, 51572, 54463 (2024) ; Apartment Units val=63077 mais serie finit a 62000, sans annees ; apartment_homes Q2-2026=62881 ; these '62 881 logements'",
+  "correction_validee": "Supprimer Total Apartment Homes et Apartment Units, garder apartment_homes.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Same-property revenue growth (YoY)",
+  "probleme": "Doublon de ss_rev_growth avec valeurs divergentes et signal perime",
+  "preuve": "serie 3.4, 3.5, 2.6, 3.4, 3.2, 2.7, 3.8, 2.9 vs ss_rev_growth Q4-2024=2.4, Q4-2025=3.9, Q2-2026=2.7 ; signal 'en acceleration a 2.9% au T1-2026' alors que dernier=2026-06-30",
+  "correction_validee": "Supprimer 'Same-property revenue growth (YoY)'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Core FFO per diluted share (annual) / CAHIER_FFO_AFFO_PS",
+  "probleme": "Doublon exact ; le nom du CAHIER promet FFO et AFFO mais ne contient que le Core FFO",
+  "preuve": "les deux : 15.03, 15.6, 15.94 ; nom 'Fonds provenant de l exploitation et fonds ajustes par action', anglais 'Ffo Affo Ps'",
+  "correction_validee": "Supprimer 'Core FFO per diluted share (annual)' et renommer le CAHIER 'Core FFO par action (annuel)'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Share repurchases Q1-2026 vs buybacks",
+  "probleme": "Deux montants differents pour les rachats du T1-2026",
+  "preuve": "Share repurchases Q1-2026 = 62 M$ ; buybacks Q1-2026 = 50.2 M$ (signal : cumul 6 mois 61.9 moins T1 50.2)",
+  "correction_validee": "Supprimer le KPI 'Share repurchases Q1-2026', buybacks fait foi.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Same-Property NOI, Southern/Northern California Mix, Seattle Metro Mix",
+  "probleme": "Quatre series annuelles arretees en 2024 alors que les donnees trimestrielles 2026 existent ; les parts par region contredisent la repartition geographique servie",
+  "preuve": "dernier 2024-12-31 ; NorCal Mix 36 % vs revenue_by_geography NorCal 40.5 et norcal_revenue 205.1 > socal_revenue 195.5",
+  "correction_validee": "Supprimer ou prolonger a 2025 avec l unite precisee (part des logements)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Capex (annuel)",
+  "probleme": "KPI sans annees, sans description, 'dernier 2026-06-30' pour une serie annuelle, definition differente de capex_dev",
+  "preuve": "serie 163.2, 140.4, 136.4, 140.3 ; capex_dev 2025 = 62 M$ (7.9+8.6+27.7+17.8)",
+  "correction_validee": "Supprimer ou documenter (capex de maintenance ?) avec annees",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted, communities, buybacks",
+  "probleme": "Trous dans les series trimestrielles",
+  "preuve": "eps_diluted sans Q4-2024 ni Q4-2025 ; communities sans Q3-2025 ; buybacks saute de Q1-2025 a Q1-2026",
+  "correction_validee": "Completer depuis les 10-K/10-Q",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Venture capital funding Bay Area, OpenAI space expansion Seattle, Infrastructure investment Los Angeles, West Coast transaction volume, Rent-to-median income",
+  "probleme": "Cinq indicateurs macro ou anecdotiques a un point presentes comme KPI societe, unites bricolees",
+  "preuve": "'x surface' val=4 ; '% QoQ' val=91 ; 80 Mds $ d infrastructure LA",
+  "correction_validee": "Supprimer ou passer en story",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "div_per_share.signal, seattle_noi.signal",
+  "probleme": "Citations anglaises de source dans le signal",
+  "preuve": "\"('Common stock dividends ($ 2.59 per share)')\" ; \"(note segments: 'NOI represents total property revenues less...')\"",
+  "correction_validee": "Retirer les parentheses citees en anglais.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux sans accents",
+  "probleme": "Accents absents dans une dizaine de signaux et noms",
+  "preuve": "'Reduction du portefeuille de financement structure', 'earmarke', 'cedes', 'quadruple', 'consolide reduit a un projet', 'porte a', 'Croissance reguliere'",
+  "correction_validee": "Reaccentuer (reduction, cedes, quadruple, porte, reguliere) et remplacer 'earmarke' par 'affecte'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "market_positions",
+  "champ": "position de marche 1",
+  "probleme": "Bloc vide (nom None, part None) avec une taille sans sens",
+  "preuve": "'position de marche 1: None | taille 305.2 | part None'",
+  "correction_validee": "Supprimer le bloc.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "occupation",
+  "probleme": "Indicateur sectoriel manquant : taux d occupation total et par region (seul SoCal existe) alors que l anti-these cite 96,3 %",
+  "preuve": "socal_occupancy present ; aucun norcal_occupancy, seattle_occupancy ni occupation portefeuille",
+  "correction_validee": "Ajouter l occupation financiere consolidee et NorCal/Seattle",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

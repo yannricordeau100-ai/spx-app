@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CET1 Ratio, Return on Tangible Equity, Revenues",
+  "probleme": "Trois KPI importes sans dates doublonnent CET1, ROTE et REV_FY avec des valeurs differentes et perimees",
+  "preuve": "CET1 FY2025=12,6 vs 'CET1 Ratio' serie [12.9, 13.2, 12.9] val 12,9 ; ROTE FY2025=11,6 vs 'Return on Tangible Equity' [10.2, 10.7, 11, 10.9] val 10,9 ; REV_FY FY2025=51 223 vs 'Revenues' [45430, 45874, 46927, 48831] val 48 831 (= 2024, melange base publiee/distribuable). Descriptions perimees : 'Cible Basel 4 (post-FRTB) : ~12.3%, SREP (10.33%)'",
+  "correction_validee": "Supprimer les KPI 'CET1 Ratio', 'Return on Tangible Equity' et 'Revenues'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Leverage Ratio, Liquidity Coverage Ratio",
+  "probleme": "Series sans periodes ni signal, description avec jugement",
+  "preuve": "Leverage Ratio serie [4.58, 4.42, 4.45, 4.42, 4.62] history_periods=null ; LCR [124, 137] history_periods=null ; description 'BNP tres confortable a 137%'",
+  "correction_validee": "Dater les points (exercices) et rediger un signal, ou retirer les deux KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "incl_net_interest_revenue_commercial_per, produits_nets_d_interets_commercial_pers",
+  "probleme": "Deux KPI de produits nets d'interets avec codes tronques, perimetre flou, sans name_en, sans signal, sans yoy",
+  "preuve": "'Produits nets d'interets, banque commerciale et de proximite' name_en=None, signal vide, yoy=None, val 3 182,7 M EUR ; 'Produits nets d'interets (banque commerciale France)' signal vide, yoy=None, val 1 000,2 M€ (saut +8 % sur le trimestre)",
+  "correction_validee": "Preciser le perimetre du premier (CPBS zone euro ?), renommer les codes, calculer le yoy, ecrire un signal ; sinon retirer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CPBS_REV (et CIB_REV, IPS_REV)",
+  "probleme": "Le yoy et le signal contredisent la serie affichee",
+  "preuve": "CPBS_REV FY2024=26,751 -> FY2025=26,717 (-0,1 %) mais yoy=+2.6% et signal '+2,6% publie' ; CIB_REV 17,897 -> 18,997 = +6,1 % vs '+5,6% publie' ; IPS_REV 5,824 -> 6,929 = +19,0 % vs '+19,6% publie'",
+  "correction_validee": "Aligner la serie sur la base retraitee 2024 ou remplacer les taux 'publies' par ceux de la serie",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "hero",
+  "champ": "hero_kpi",
+  "probleme": "Le hero est le resultat net, donnee de base que l'utilisateur connait deja",
+  "preuve": "hero: NI_FY | 'Resultat net part du groupe' ; bloc industrie = CAHIER_COST_INCOME, CET1, COR_BPS, ROTE",
+  "correction_validee": "Promouvoir ROTE ou COR_BPS en hero",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_COST_INCOME.yoy, DPS.signal",
+  "probleme": "Variation d'un ratio affichee en % relatif au lieu de points ; date de paiement deja passee au futur",
+  "preuve": "CAHIER_COST_INCOME 61,8 -> 61,2 affiche 'yoy=-1.0%' (les autres ratios sont en pt) ; DPS signal 'acompte 2026 de 3,23 € payable le 28.09.2026' (aujourd'hui 29.09.2026)",
+  "correction_validee": "Afficher '-0,6 pt' et écrire 'versé le 28.09.2026'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun indicateur de qualite d'actifs ni d'encours pour une banque",
+  "preuve": "KPI presents : COR_BPS, CET1, ROTE, LCR, levier ; aucun taux de creances douteuses (stage 3) ni encours de credits/depots",
+  "correction_validee": "Ajouter le taux de creances douteuses et les encours de credits et depots (rapport annuel 2025)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

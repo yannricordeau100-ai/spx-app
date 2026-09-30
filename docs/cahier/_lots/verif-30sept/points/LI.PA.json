@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "cash_flow_net_courant_par_action / Net Current Cash Flow per Share / NCCF_per_share",
+  "probleme": "Trois series du cash-flow net courant par action qui se contredisent pour les memes annees. Seule la premiere correspond aux chiffres publies repris par l anti-these (2,82 en 2019, 2,72 en 2025) ; les deux autres sont lissees.",
+  "preuve": "cash_flow_net_courant_par_action : 2021=2.18, 2022=2.62, 2023=2.48. 'Net Current Cash Flow per Share' : 2.05, 2.4, 2.5, 2.57, 2.7. NCCF_per_share : 2.6, 2.65, 2.7, 2.72 avec signal 'positive'.",
+  "correction_validee": "Supprimer Net Current Cash Flow per Share et NCCF_per_share.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Visitor Growth / Footfall LFL / footfall_growth ; EPRA Occupancy / occupancy_rate",
+  "probleme": "Trois series de frequentation avec trois valeurs differentes pour 2025 (4,2 %, 3 %, 1,8 %) et deux series de taux d occupation qui se contredisent (96,0 % vs 97,1 %, ce dernier confirme par l anti-these). Les series a progression reguliere (3.1, 3.5, 3.8, 4, 4.2 ; 94.6, 95.2, 95.8, 95.7, 96) ont l allure de chiffres lisses.",
+  "preuve": "Visitor Growth 2025=4.2 ; Footfall LFL 2025=3 ; footfall_growth 2025=1.8. EPRA Occupancy 2025=96 ; occupancy_rate 2025=97.1 ; att : 'taux d'occupation à 97,1 % fin 2025'.",
+  "correction_validee": "Garder occupancy_rate (97,1 %) et une seule série de fréquentation vérifiée dans le document d'enregistrement universel, puis supprimer les autres.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Green Asset Ratio / Mixed-Use Conversion / New Country Entry / Digital Engagement Rate / Anchor Retention Rate",
+  "probleme": "Cinq KPI sans periode, aux series parfaitement regulieres et aux signaux de slogan ('Leadership environnemental concret et mesurable', 'Élargissement stratégique du périmètre opérationnel'). Aucun de ces indicateurs n est publie sous ce nom par Klépierre ; 'Digital Engagement Rate' est en 'interactions' avec un yoy en %.",
+  "preuve": "Green Asset Ratio 68, 72, 75, 78 ; Mixed-Use Conversion 8, 10, 12, 14 ; Anchor Retention Rate 90, 91, 92, 93, 94 ; Digital Engagement Rate 15500...22000 interactions yoy +18%.",
+  "correction_validee": "Retirer les cinq KPI, sauf preuve documentaire Klépierre.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EPS (serie)",
+  "probleme": "Le point 2024 vaut 0 (substitution) alors que le resultat net 2024 est de 1,097 Md € ; le yoy +577,6 % est donc absurde.",
+  "preuve": "EPS serie : 1.91, 1.45, 0.67, 0, 4.54 yoy=+577.6% ; net_income 2024=1.097.",
+  "correction_validee": "Remplacer le 0 par le BPA 2024 publié (environ 3,8 €) et recalculer le yoy (environ +19 %).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "NRI France (signal)",
+  "probleme": "Le signal affirme que la France est au-dessus de 2019 alors que la serie montre 416,0 M€ en 2025 contre 432,8 M€ en 2019, ce que l anti-these dit correctement.",
+  "preuve": "serie : 432.8, ..., 416 :: 'au-dessus du niveau d'avant crise sanitaire de 2019'. att : 'n'a toujours pas retrouvé son niveau de départ'.",
+  "correction_validee": "Écrire « encore sous le niveau de 2019 (432,8 M€) ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Italy Net Rental Income",
+  "probleme": "Serie arretee en 2024 alors que la France a 2025 ; le moat reprend le +10,1 % de 2024 comme si c etait recent.",
+  "preuve": "Italy Net Rental Income dernier 2024-12-31, n=5 ; moat : 'Les loyers italiens progressent de 10,1 %'.",
+  "correction_validee": "Ajouter 2025 et mettre le moat a jour.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risques 1 a 8",
+  "probleme": "Les huit risques sont des phrases en anglais extraites du chapitre fiscal (regimes SIIC, SOCIMI, droit de timbre) : ce ne sont pas des facteurs de risque et rien n est en francais. Le mecanisme n a signale que deux titres.",
+  "preuve": "risque 5 : 'French subsidiaries subject to corporate income tax and at least 95%-owned by the Group may also claim SIIC status' ; risque 6 : 'They are subject to a quarterly stamp duty of 0.0125% of their net asset value'.",
+  "correction_validee": "Remplacer par les facteurs de risque du document d'enregistrement universel 2025, rédigés en français.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux de Tenant Sales LFL, Footfall LFL, EPRA Occupancy, NCCF_per_share, NAV_per_share, like_for_like_rental_growth, occupancy_rate, rental_uplift_on_renewals, net_debt_to_ebitda, footfall_growth",
+  "probleme": "Signaux en franglais telegraphique ou reduits au mot 'positive'.",
+  "preuve": "'Tenant sales mid-single durables' ; 'Top EU secteur shopping centers' ; 'Croissance régulière, payout >85%' ; sept signaux = 'positive'.",
+  "correction_validee": "Reecrire chaque signal en une phrase francaise avec le chiffre et sa variation.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "NAV_per_share (yoy) / Capex (unite) / operating_income (nom)",
+  "probleme": "yoy +9,5 % faux (34,8 vers 35,9 = +3,2 %) ; capex en 'M $' pour une fonciere en euros ; 'Résultat opérationnel' 1,727 Md € superieur au chiffre d affaires 1,567 Md € sans preciser qu il inclut la variation de juste valeur du patrimoine.",
+  "preuve": "NAV_per_share serie 32.8, 33.5, 34.8, 35.9 yoy=+9.5%. Capex | M $ | 205.7. operating_income 2025=1.727 ; revenue 2025=1.567.",
+  "correction_validee": "Mettre yoy = +3,2 %, l'unité M € pour le Capex, et renommer « Résultat opérationnel (variation de juste valeur incluse) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography / indicateurs manquants",
+  "probleme": "Geographie vide alors que les loyers France et Italie sont sur la fiche ; les indicateurs de base d une fonciere de commerce manquent : valeur du patrimoine, taux d effort des enseignes (cite dans l anti-these), cout moyen de la dette, reversion sur renouvellements deja presente mais pas la reversion globale.",
+  "preuve": "revenue_by_geography (FY2025): France None ; Southern Europe None ; Northwest and Central Europe None ; Scandinavia None. att : 'taux d'effort des enseignes en baisse continue'.",
+  "correction_validee": "Renseigner la geographie et ajouter valeur du patrimoine, taux d effort et cout de la dette.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

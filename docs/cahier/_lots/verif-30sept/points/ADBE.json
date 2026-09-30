@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "12 signaux (TOTAL_ARR, RPO, BPC_REV, CMP_REV, CREATIVE_FREEMIUM_MAU, AI_FIRST_ARR, REV, NET_INCOME, OP_INCOME, EPS_DIL, OCF, CAPEX)",
+  "probleme": "Valeurs mises à jour au T3 FY2026 mais signaux restés au T2",
+  "preuve": "TOTAL_ARR « 27,10 Md$ Q2 FY26 » vs val 27,5 ; REV « 6,62 Md$ au T2 » vs 6,76 ; NET_INCOME « 1,71 » vs 1,83 ; EPS « 4,25 $ » vs 4,62 ; OCF « 2,17 » vs 2,52 ; CAPEX « 58 M$ » vs 85",
+  "correction_validee": "Régénérer les 12 signaux sur le T3 FY2026 publié le 10 septembre 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "yoy de NET_INCOME, OCF, EPS_DIL, OP_INCOME, CAPEX, REV",
+  "probleme": "Variations annuelles figées au T2 alors que la valeur est celle du T3",
+  "preuve": "NET_INCOME yoy +1,2 % = 1,71/1,69 (T2) alors que 1,83 vs 1,77 = +3,4 % ; OCF -1,2 % alors que 2,52 vs 2,20 = +14,5 % ; EPS +7,9 % alors que 4,62 vs 4,18 = +10,5 % ; CAPEX +23,4 % alors que 85 vs 72 = +18 %",
+  "correction_validee": "Recalculer les yoy depuis la série au T3 FY2026 contre T3 FY2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "REV.history_periods",
+  "probleme": "Étiquettes de périodes fausses et dans un format différent des autres KPI",
+  "preuve": "« Q4 2023, Q1 2024, ..., Q3 2025, Q1 2026 » pour 5,41 ... 6,76 ; or 5,41 = T3 FY2024, 6,19 étiqueté « Q1 2025 » est le T4 FY2025 (5,71+5,87+5,99+6,19 = 23,76 = CA 2025) et 6,76 « Q1 2026 » est le T3 FY2026",
+  "correction_validee": "Réétiqueter la série REV de Q3-FY2024 à Q3-FY2026, au format des autres KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RPO_CRPO.signal",
+  "probleme": "Cuisine interne visible dans le signal, KPI doublon du RPO trimestriel",
+  "preuve": "« Non pose en story le 07/09/2026, règle du propriétaire : dernière donnée 2019, une story doit dater d'un an au plus... »",
+  "correction_validee": "Supprimer CAHIER_RPO_CRPO, le RPO trimestriel couvrant déjà l'indicateur.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total Adobe Annualized Recurring Revenue / Firefly ending ARR / Total monthly active users",
+  "probleme": "Doublons exacts de KPI codés",
+  "preuve": "« Total Adobe ARR » 25,2 ; 26,06 ; 27,1 ; 27,5 = TOTAL_ARR ; « Firefly ending ARR » 300 = FIREFLY_ARR ; « Total monthly active users » 850 = ACROBAT_EXPRESS_MAU",
+  "correction_validee": "Supprimer les trois KPI en texte libre qui font doublon.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "10 KPI annuels de segments (Digital Media Revenue, Digital Media Rev, Digital Experience Revenue, Digital Experience Rev, Creative Cloud Revenue, Document Cloud Revenue, Pub & Adv Rev, 3 Sub Rev)",
+  "probleme": "Triplons sans signal, années non étiquetées, date de dernier point fausse",
+  "preuve": "« Digital Media Revenue » 15,864 (FY2024), « Digital Media Rev » 17,649, DM_REV 17 649 M$ ; tous datés « 2026-09-10 » pour des exercices clos en novembre ; aucun signal",
+  "correction_validee": "Supprimer les quatre doublons Digital Media et Digital Experience. Pour les autres KPI de segments, étiqueter les exercices, dater à la clôture et ajouter un signal, ou les retirer.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Digital Media Annualized Recurring Revenue.last_data_date",
+  "probleme": "Date de dernier point postérieure à l'arrêt de l'indicateur",
+  "preuve": "dernier « 2026-09-10 » alors que le dernier point 19,2 est le T4 FY2025 et que le signal dit « remplacé par Total Adobe ARR fin exercice 2025 »",
+  "correction_validee": "Dater le dernier point au 2025-11-28.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "OP_MARGIN, NET_MARGIN, FCF, BUYBACK, RND, DEBT, DEFERRED_REV, GEO_AMER, GEO_EMEA, GEO_APAC, RD_PCT_REV",
+  "probleme": "Onze KPI arrêtés au T2 FY2026 alors que CA, résultat, OCF et capex ont le T3",
+  "preuve": "dernier 2026-06-11 contre 2026-09-10 ; FCF T3 dérivable = 2,52 - 0,085 = 2,43 Md$ ; marge op. T3 = 2,35/6,76 = 34,8 %",
+  "correction_validee": "Compléter le T3 (marges et FCF par dérivation, le reste depuis le rapport trimestriel)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att / moat",
+  "champ": "att.resume, moat.justification_mettrik",
+  "probleme": "Anti-thèse et moat en retard sur la thèse et sur les KPI",
+  "preuve": "Thèse datée du 10 septembre 2026 (1 Md d'utilisateurs actifs) ; anti-thèse cite « 27,10 Mds $ de revenus récurrents » (T2) ; moat cite « +11,5 % » (DM ARR, indicateur abandonné) ; TOTAL_ARR = 27,5 (+12,5 %) ; KPI MAU toujours à 850 M",
+  "correction_validee": "Actualiser anti-thèse et moat sur le T3, mettre ACROBAT_EXPRESS_MAU à 1 000 M",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Super Bowl analytics server hits peak / AEP segment evaluations per day / Cumulative Firefly generations / adobe.com traffic growth",
+  "probleme": "Chiffres de communication à un point présentés comme indicateurs",
+  "preuve": "« Pic de requêtes analytics au Super Bowl » 8 Mds ; « Évaluations de segments AEP par jour » 35 trillions/jour ; « Générations cumulées Firefly » 12 Mds",
+  "correction_validee": "Supprimer ou déplacer hors des KPI",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.summary",
+  "probleme": "Texte générique sans aucun chiffre alors que la fiche en a",
+  "preuve": "« Positionne l'IA comme axe stratégique central de son offre avec produits et plateformes IA identifiés. » ; AI-first ARR = 650 M$, Firefly ARR = 300 M$ disponibles",
+  "correction_validee": "Réécrire avec AI-first ARR 650 M$ (x3), Firefly ARR 300 M$, 12 Mds de générations",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "gouvernance",
+  "champ": "ceo_name",
+  "probleme": "Civilité anglaise",
+  "preuve": "« Mr. Shantanu Narayen »",
+  "correction_validee": "« Shantanu Narayen ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

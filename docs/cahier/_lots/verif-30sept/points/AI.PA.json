@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Operating Margin / ROCE",
+  "probleme": "Deux series sans etiquettes qui contredisent les KPI sources de la meme fiche",
+  "preuve": "Operating Margin [16.4, 16.4, 16.4, 17.6] contre OP_MARGIN 20,7 % en 2025 ; ROCE 10,7 contre ROCE_REC 11,2 ; last_data_date 2026-08-05 ; signal « mix énergie »",
+  "correction_validee": "Supprimer Operating Margin et ROCE.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.fr / advanced.fr",
+  "probleme": "Aucune version francaise de la description Mettrik ; seule une notice anglaise de type annuaire boursier existe",
+  "preuve": "cles presentes : simple.en, advanced.en ; fr = null ; texte « L'Air Liquide S.A. provides gases, technologies, and services... »",
+  "correction_validee": "Rediger une description francaise originale a partir des sources (activite, produits, clients, avantage), pas une traduction.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DIV",
+  "probleme": "Point 2022 non ajuste de l attribution gratuite, creant un faux recul du dividende",
+  "preuve": "history [2.63, 2.95, 2.9, 3.3, 3.7] ; 2021 = 2,90/1,1 = 2,63 ajuste, 2023 = 3,20/1,1 = 2,90 ajuste, mais 2022 = 2,95 brut (2,68 ajuste) ; signal « +38 % en 3 ans » implique 2,68",
+  "correction_validee": "Remplacer 2,95 par 2,68",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "sous-secteur",
+  "probleme": "Sous-secteur en anglais",
+  "preuve": "« Matériaux > Industrial Gases »",
+  "correction_validee": "Remplacer par Gaz industriels.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PRICE_EFFECT.yoy",
+  "probleme": "Variation d un pourcentage exprimee en pourcentage relatif",
+  "preuve": "4,0 % -> 2,9 % affiche « -27,5 % » au lieu de -1,1 pt",
+  "correction_validee": "Afficher -1,1 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "La croissance comparable Gaz et Services, indicateur suivi chaque trimestre par le marche, n existe qu en annuel",
+  "preuve": "GS_COMP_GROWTH annuel n=4 ; REV_Q cite « +3,5 % comparable » seulement dans le signal",
+  "correction_validee": "Ajouter la serie trimestrielle de croissance comparable",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

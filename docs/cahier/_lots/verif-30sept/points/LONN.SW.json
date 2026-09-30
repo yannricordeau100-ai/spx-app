@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Biologics Revenue / Small Molecules Revenue / Cell & Gene Revenue / Capsules & Health Ingredients Revenue",
+  "probleme": "Quatre series segment sans periodes, en chiffres ronds, qui doublonnent les KPI officiels IB_REV_FY, AS_REV_FY, SM_REV_FY, CHI_REV_FY avec des valeurs contradictoires",
+  "preuve": "Small Molecules Revenue serie 600, 700, 850, 1200, 1500 contre AS_REV_FY FY2025=1611 ; Cell & Gene 600 contre SM_REV_FY 1034 ; Capsules 1200 contre CHI_REV_FY 1092 ; Biologics 3676 contre IB_REV_FY 3649 ; dernier date 2026-08-05 pour des KPI annuels",
+  "correction_validee": "Retirer Biologics Revenue, Small Molecules Revenue, Cell & Gene Revenue et Capsules & Health Ingredients Revenue, et conserver IB_REV_FY, AS_REV_FY, SM_REV_FY et CHI_REV_FY.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Small Molecules Revenue.signal",
+  "probleme": "Signal faux : Vacaville est un site de biologics (mammalien), pas de petites molecules",
+  "preuve": "Croissance forte + acquisition Vacaville",
+  "correction_validee": "Aucune action propre : il est retiré avec la série Small Molecules Revenue (point 0).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "REV_FY / CORE_EBITDA_FY / CORE_EBITDA_MARGIN_FY (yoy et signal)",
+  "probleme": "Le yoy et le signal sont calcules sur une base retraitee CDMO seul alors que la serie affichee reste sur le perimetre groupe : un investisseur calcule -0,7 % et lit +19,2 %",
+  "preuve": "REV_FY FY2024=6574, FY2025=6531, yoy affiche +19,2% ; CORE_EBITDA_FY FY2024=1908, FY2025=2064, yoy +24,9% ; GROWTH_AER_FY FY2025=19.2 alors que 6531/6574 = -0,7 %",
+  "correction_validee": "Retraiter FY2021 à FY2024 sur le périmètre CDMO seul, ou calculer le yoy sur la série affichée et préciser dans le signal que +19,2 % est sur base retraitée.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "NET_DEBT.signal",
+  "probleme": "Levier cite incoherent avec les deux series de la fiche",
+  "preuve": "Signal : 1,4x le CORE EBITDA (1,5x fin 2024) ; 3258/2064 = 1,58x et 2859/1908 = 1,50x",
+  "correction_validee": "Ecrire 1,6x fin 2025 (1,5x fin 2024) ou preciser la base pro forma",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.explication",
+  "probleme": "Cuisine interne visible et affirmation fausse, la fiche liste cinq risques",
+  "preuve": "seul élément disponible en l'absence d'inventaire de risques, ce qui ne suffit pas à conclure à une inflexion",
+  "correction_validee": "Retirer la phrase, rediger un moat sur le parc de molecules captives (715 en developpement, plus de 70 commercialisees)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "EMPLOYEES.signal",
+  "probleme": "Contradiction : CHI est presente comme futur moteur alors que la fiche la classe en cession",
+  "preuve": "l'entrée du périmètre CHI, futur moteur de production ; CHI_REV_FY.signal : Cette activité est classée en cession",
+  "correction_validee": "Reecrire le signal sur la montee en charge des sites biologics",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions de marche",
+  "champ": "market_positions",
+  "probleme": "Deux positions de marche sans nom de marche ni part, seules deux tailles orphelines s'affichent",
+  "preuve": "position de marche 1: None | taille 25.32 | part None ; position de marche 2: None | taille 26.7 | part None",
+  "correction_validee": "Nommer les marches (CDMO biologics, CDMO petites molecules) et l'unite, ou retirer le bloc",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

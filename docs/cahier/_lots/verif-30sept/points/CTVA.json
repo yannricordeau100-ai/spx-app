@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment, revenue_by_geography",
+  "probleme": "Repartitions non datees et fausses par rapport aux series 2025 de la fiche.",
+  "preuve": "Segments affiches 52/48 ; somme 2025 : Semences 9898 M et Protection 7503 M = 57/43. Geographie affichee 47/29/18/6 ; somme 2025 : Amerique du Nord 9024 (52 %), Amerique latine 3928 (23 %), EMEA 3110 (18 %), Asie-Pacifique 1339 (8 %)",
+  "correction_validee": "Remplacer par 57/43 et 52/23/18/8, dates exercice 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Affirme un resultat operationnel negatif alors que la fiche montre un EBITDA operationnel de 2 261 M au T2 2026, un BPA de 1,73 $ et une marge nette de 18,2 %, et un resultat net 2025 positif.",
+  "preuve": "moat : 'mais resultat operationnel negatif et cinq risques en aggravation' ; op_ebitda_total Q2-2026=2261 ; net_marg Q2-2026=18.2",
+  "correction_validee": "Reecrire le moat sans l affirmation de resultat operationnel negatif (manuel).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "other_cp_rev",
+  "probleme": "Chiffre d affaires negatif au T4 2024, invraisemblable pour une ligne de ventes.",
+  "preuve": "serie Q4-2024=-111 M USD",
+  "correction_validee": "Verifier la source du T4 2024 (probablement un ecart de reconciliation) et retirer le point",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_REALIZED_PRICE_T",
+  "probleme": "Nom et unite faux : la serie est un effet prix en % (0, 3, 4, 10, 7, -1, 1), pas un 'prix de vente moyen par tonne' ; yoy -200 % absurde.",
+  "preuve": "nom 'Prix de vente moyen realise par tonne', unite %, yoy=-200.0%, serie FY2024=-1, FY2025=1",
+  "correction_validee": "Renommer 'Effet prix annuel (groupe)' et yoy en points (+2 pts).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Crop Protection Sales (annuel)",
+  "probleme": "Serie lissee et contredite par cp_rev : 2025 = 7,5 Mds (somme trimestrielle), pas 7.",
+  "preuve": "cp_rev 2025 : 1710+1919+1701+2173 = 7503 ; serie annuelle 6, 7.5, 8.5, 7.2, 7",
+  "correction_validee": "Supprimer 'Crop Protection Sales' annuel.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Spinosyns Sales / Spinosyns franchise revenue",
+  "probleme": "Deux valeurs contradictoires pour la meme franchise : 700 M$ (serie annuelle lissee 500 a 700) contre 900 M$ (transcript).",
+  "preuve": "Spinosyns Sales val=700 serie 500, 555, 605, 650, 700 ; Spinosyns franchise revenue val=900 'approche 900 M USD sur l annee'",
+  "correction_validee": "Supprimer 'Spinosyns Sales'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "enlist_e3",
+  "probleme": "KPI a un seul point (100 %) avec yoy '~100%' et sens different du KPI 'Enlist E3 soybean acre penetration' (65 % des surfaces US) : confusion pour le lecteur.",
+  "preuve": "enlist_e3 val=100, yoy=~100%, n=1 ; Enlist E3 soybean acre penetration serie 20, 35, 65",
+  "correction_validee": "Supprimer enlist_e3 (garder la penetration des surfaces US).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

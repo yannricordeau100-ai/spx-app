@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "GWIM AUM / Total Deposits / NCO Ratio / Allowance / Loans / Return on Tangible Common Equity",
+  "probleme": "Series 'annuelles' faites de points trimestriels, perimees d un trimestre, descriptions de modele.",
+  "preuve": "GWIM AUM year = [1855.7, 1986.5, 2109.9, 2177.7, 2115.8] = GWIM_AUM Q1-2025 a Q1-2026 alors que Q2-2026 = 2 327,8 ; Total Deposits = [1989.6, 2018.7, 2037.7] = Q1-2025, Q4-2025, Q1-2026 ; Return on Tangible Common Equity val 16 (Q1-2026) contre ROTCE Q2-2026 = 17,03, serie contient 8,3 ; descriptions 'nature cyclique'.",
+  "correction_validee": "Supprimer GWIM AUM, Total Deposits et Return on Tangible Common Equity ; pour NCO Ratio et Allowance / Loans, ajouter les periodes trimestrielles ou les supprimer.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Wealth Management AUM / CET1 Ratio / Consumer Deposits / Net Charge-Off Rate",
+  "probleme": "Quatre doublons annuels avec valeurs fausses ou mal nommees.",
+  "preuve": "Wealth Management AUM 4 400 'AUM Merrill + Private Bank' = soldes clients GWIM_CB Q2-2025 (4 395), pas les AUM (2 328), serie ronde [3100, 3300, 3650, 3735, 4400] ; CET1 Ratio val 11,9 (= FY2024) contre CAHIER_CET1 2025 = 11,4 et CET1 Q2-2026 = 11,2, description 'minimum requis (10.7%)' contre anti-these coussin de 1,2 pt ; Net Charge-Off Rate [0.17 ... 0.55] contre NCO Ratio 0,48 et signal NCO '0,47 %'.",
+  "correction_validee": "Supprimer Wealth Management AUM, CET1 Ratio et Consumer Deposits ; Net Charge-Off Rate a garder avec periodes FY2021-FY2025 si c est le seul taux de pertes restant, sinon supprimer.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NII Total / Investment Banking Fees",
+  "probleme": "Series annuelles arretees a 2024 avec signaux perimes alors que 2025 est calculable.",
+  "preuve": "last_data_date 2024-12-31, signal 'NII en plateau 2024', 'rebond FY24' ; NII trimestriel 2025 = 14588+14815+15387+15915 = 60 705 M$ (+8 %).",
+  "correction_validee": "Supprimer NII Total et Investment Banking Fees (NII et GB_IB_FEES trimestriels existent).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "resume",
+  "probleme": "Affirmation contredite par les series de la fiche.",
+  "preuve": "'marge d interet qui remonte huit trimestres de suite' : NIM = 1,92 ; 1,95 ; 1,99 ; 1,94 (baisse) ; 2,01 ; 2,01 (stable) ; 2,07 ; 2,08 ; NII 15 915 puis 15 907 au Q1-2026 (baisse).",
+  "correction_validee": "Remplacer par : marge d interet en hausse sur un an, 2,08 % au T2 2026 contre 1,94 % au T2 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "resume",
+  "probleme": "Chiffres qui ne correspondent a aucun trimestre de la fiche.",
+  "preuve": "'La banque de detail gagne 5,4 % avec un resultat en hausse de 13,8 %, la gestion de patrimoine 8,5 %' ; Q2-2026 : CB_REV +4,8 %, CB_NI +10 %, GWIM_REV +15,7 % ; Q1-2026 : +5,3 %, +20,9 %, +11,6 %.",
+  "correction_validee": "Recalculer sur le T2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CET1 / CAHIER_COST_INCOME / CAHIER_ROTE / CAHIER_COST_RISK / CAHIER_NIM / NIM",
+  "probleme": "yoy en pourcentage relatif sur des ratios.",
+  "preuve": "CAHIER_CET1 '-4.2%' pour 11,9 vers 11,4 (-0,5 pt) ; CAHIER_COST_INCOME '-2.3%' (-1,5 pt) ; CAHIER_ROTE '+9.9%' (+1,3 pt) ; CAHIER_COST_RISK '-12.3%' ; NIM '+7%' pour 1,94 vers 2,08 (+0,14 pt).",
+  "correction_validee": "yoy en points : CET1 -0,5 pt, coefficient -1,5 pt, RoTE +1,3 pt, cout du risque -0,07 pt, NIM +0,14 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux GWIM_REV, GB_IB_FEES, BL_REV, TOT_DEP, GM_REV, CAHIER_NIM, CAHIER_CET1, Active mobile banking users, Return on Tangible Common Equity, Coder positions saved by AI",
+  "probleme": "Accents manquants et faute de grammaire dans une douzaine de signaux.",
+  "preuve": "'Merrill Wealth Management genere l essentiel de ces revenus, complete par' ; 'marches', 'prets', 'stabilises ... lie', 'a absorber', 'reguliere', 'revenue a 16%', 'economise ... developpeurs'.",
+  "correction_validee": "Corriger les accents et ecrire : Merrill Wealth Management a genere l essentiel de ces revenus, complete par Bank of America Private Bank.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_sur_ca / fcf_annuel / fcf_par_salarie / dette_par_salarie",
+  "probleme": "Bloc generique dette/FCF sans sens pour une banque, avec descriptions trompeuses.",
+  "preuve": "dette_sur_ca 323,5 % et description 'Au-dessus de 100 %, l entreprise doit plus que ce qu elle vend en un an' ; fcf_annuel de -8,8 (2024) a +45 (2023) presente comme 'l argent reellement disponible pour rembourser la dette, verser un dividende' ; dette_par_salarie 1 717,9 k$.",
+  "correction_validee": "Masquer le bloc dette/tresorerie libre (dette_sur_ca, fcf_annuel, fcf_par_salarie, dette_par_salarie) pour les banques GICS 4010.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Part negative dans la repartition et exercice absent.",
+  "preuve": "'All Other -8' avec Consumer 42, GWIM 23, GB 22, GM 21 ; fiscal_year None.",
+  "correction_validee": "Parts des quatre segments : 39,0 / 21,3 / 20,3 / 19,4, avec note sur All Other negatif, fiscal_year 2025.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

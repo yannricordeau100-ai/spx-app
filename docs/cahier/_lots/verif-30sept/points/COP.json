@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "fcf_annuel (et fcf_par_salarie)",
+  "probleme": "Le flux de trésorerie libre annuel 2023-2025 est en réalité le flux d'exploitation : les investissements n'ont pas été déduits.",
+  "preuve": "fcf_annuel 2025 = 19,796 = somme des ocf trimestriels 2025 (6115+3485+5878+4318 = 19 796) ; capex 2025 = 3378+3286+2866+3023 = 12 553 ; somme des fcf trimestriels 2025 = 7 243. Idem 2024 : 20,124 = OCF. 2022 (18,155) est en revanche un vrai FCF. Le signal « Free cash flow inflection... doublant le free cash flow actuel » (+7 Mds) n'a de sens qu'avec un FCF d'environ 7 Mds.",
+  "correction_validee": "Recalculer fcf_annuel 2023-2025 en OCF moins capex (2025 environ 7,2 Mds $) ; fcf_par_salarie non concerne.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Production, Proved Reserves",
+  "probleme": "Deux KPI aberrants : signaux d'un mot, période fausse ou absente, valeur hors série, yoy faux.",
+  "preuve": "« Production | MBOED | quarter | val 2375 | yoy +8% | serie: 1127, 1567, 1738, 1840, 1990 :: Whaou Marathon. » (2375 absent de la série, série annuelle) ; « Proved Reserves | Mds BOE | period None | serie 6.758, 7.812, 7.637 | yoy +15% :: Excellent. » alors que 7,812 → 7,637 = -2,2 % et que reserves_total couvre déjà la série.",
+  "correction_validee": "Supprimer les deux KPI, couverts par CAHIER_PRODUCTION et reserves_total.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total Production, Sales Revenue",
+  "probleme": "Doublons annuels arrêtés à 2024 alors que 2025 est publié, avec fragments en anglais.",
+  "preuve": "« Total Production | dernier 2024-12-31 | 1127, 1567, 1738, 1826, 1987 » vs CAHIER_PRODUCTION FY2025 = 2375 ; « Sales Revenue | dernier 2024-12-31 | 54.75 » vs revenue_annuel 2025 = 58,944 ; descriptions « KPI #1 upstream pure-play », « less so than peers diversified ».",
+  "correction_validee": "Supprimer Total Production et Sales Revenue.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total realized price",
+  "probleme": "Doublon de total_realized_price avec une valeur en retard d'un trimestre mais datée du T2-2026.",
+  "preuve": "« Total realized price | dernier 2026-06-30 | val 50.36 | yoy -6% » alors que 50,36 est le Q1-2026 ; total_realized_price Q2-2026 = 62,33, yoy +36 %.",
+  "correction_validee": "Supprimer le doublon Total realized price.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "total_realized_price.name_fr",
+  "probleme": "Le nom annonce une comparaison au WTI mais la série est un prix réalisé en $/BOE, pas un ratio.",
+  "preuve": "« Prix réalisé total vs WTI | $/BOE | Q2-2026 = 62.33 » ; le ratio n'apparaît que dans le signal (« ratio ~67% »).",
+  "correction_validee": "Renommer en Prix realise moyen ($/BOE).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "reserves_total.signal, ni_emena.signal, ni_asiapac.signal",
+  "probleme": "Signaux télégraphiques en franglais.",
+  "preuve": "reserves_total : « 84% dans pays OCDE. Consolidés 6,506 MMBOE + affiliés 1,131 MMBOE (dont APLNG). Réduction due prix plus bas. » ; ni_emena : « Résultat net segment EMENA Q2-2026 $346M (+46% YoY) » ; ni_asiapac : « prix LNG-linked JCC ».",
+  "correction_validee": "Réécrire en phrases françaises complètes avec les mêmes chiffres.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Marathon Oil acquisition, Capital returned to shareholders 2025, Cumulative share repurchases since 2016, Asset disposition target, Run-rate cost reductions, Free cash flow inflection by 2029",
+  "probleme": "Événements, objectifs et cumuls présentés comme des KPI trimestriels à un point, datés 2026-05-11.",
+  "preuve": "« Marathon Oil acquisition | Mds $ | quarter | n=1 | 16.5 », « Capital returned to shareholders 2025 | 9 » (redondant avec dividend_per_share et buybacks), « Asset disposition target | 5 », « Free cash flow inflection by 2029 | 7 ».",
+  "correction_validee": "Déplacer dans les faits marquants ou les objectifs de la direction.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "manque : production par bassin Lower 48",
+  "probleme": "Indicateur évident absent : ConocoPhillips publie chaque trimestre la production du Permien, de l'Eagle Ford et du Bakken, cités dans le signal du KPI héros mais sans série.",
+  "preuve": "prod_lower48 signal : « Bassins non conventionnels à cycle court (Delaware, Eagle Ford, Bakken, Midland) » ; aucun KPI par bassin sur la fiche.",
+  "correction_validee": "Ajouter trois séries trimestrielles (Permian, Eagle Ford, Bakken) en MBOED depuis le supplément trimestriel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs_annuels.history",
+  "probleme": "Trou de quatre ans dans la série des effectifs.",
+  "preuve": "history_periods : 2016, 2017, 2018, 2019, 2024, 2025 (aucun point 2020-2023).",
+  "correction_validee": "Compléter 2020-2023 depuis les rapports annuels (Item 1).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

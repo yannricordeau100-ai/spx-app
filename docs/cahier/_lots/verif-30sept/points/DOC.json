@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "La repartition geographique est une copie de la repartition par segment (Outpatient / Lab / Senior Housing) : aucune geographie.",
+  "preuve": "'revenue_by_geography (exercice 2025): Outpatient Medical Buildings 46.5 ; Lab 31.4 ; Senior Housing 22.1' identique a revenue_by_segment.",
+  "correction_validee": "Remplacer par Etats-Unis 100 ou retirer le bloc geographique.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Outpatient Medical Revenue, Lab Revenue, Outpatient Same-Store Growth, Total Square Footage, Outpatient Lease-up Rate",
+  "probleme": "Cinq series annuelles lissees sans periodes ni signal, datees 2026-06-30, contredites par les series segmentaires : CA Outpatient 980 M$ contre 1 273 M$ en 2025 (rev_seg_om x4 = 1 250), Lab 750 M$ contre 860 M$, occupation 92 % contre 91,9/90,7 %, croissance same-store 3,5 % contre 2,4/2,5 %.",
+  "preuve": "'Outpatient Medical Revenue serie: 560, 600, 640, 680, 980 ::' ; 'Lab Revenue 580, 650, 720, 750, 750' ; 'Outpatient Same-Store Growth 2.5, 3, 3.2, 3.5, 3.5' ; revenue_by_segment: Outpatient 1273.5 M$, Lab 860.0 M$.",
+  "correction_validee": "Retirer ces cinq KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Lab end-of-period occupancy",
+  "probleme": "Valeur 78,5 % incompatible avec lab_occupancy 90,5 % au T2 2026 et avec le 'total portfolio a 87,7 %' cite dans son signal ; chute de 93,2 a 78,5 en un point sans explication, et le signal parle de 'resistance relative'.",
+  "preuve": "'Lab end-of-period occupancy | serie: 93.2, 78.5 | val=78.5 :: Sa resistance relative face au medical ambulatoire' vs 'lab_occupancy Q2-2026=90.5 ... total portfolio a 87,7%'.",
+  "correction_validee": "Retirer le KPI ou le corriger apres verification du supplement T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Outpatient Medical same-store cash NOI growth, Lab same-store cash NOI growth, Senior Housing (CCRC/Life Plan) same-store cash NOI growth",
+  "probleme": "Trois doublons exacts (series identiques decalees d un trimestre) de mob_ss_noi_growth, lab_ss_noi_growth et senior_housing_ss_noi_growth, non a jour (dernier point T1 2026) et dates de facon fausse (2026-06-30 pour le senior housing alors que la valeur 13,8 est le T1 2026).",
+  "preuve": "'Senior Housing (CCRC/Life Plan) same-store ... dernier 2026-06-30 | val=13.8 | serie: 26.6, 14.2, 22.3, 15.9, 8.6, 9.4, 16.7, 13.8' vs 'senior_housing_ss_noi_growth Q1-2026=13.8, Q2-2026=19.2'.",
+  "correction_validee": "Supprimer les trois doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "lab_rent_psf",
+  "probleme": "Signal contredit par la serie : il cite 91 $/sqft alors que la serie est a 66 $ ; il parle de hausse de 3,4 % alors que le yoy affiche est +8,2 %.",
+  "preuve": "'lab_rent_psf ... Q4-2025=66 | yoy=+8.2% :: Hausse des loyers +3.4% a 91$/sqft same-store malgre la baisse d occupation.'",
+  "correction_validee": "Reecrire le signal sur 66 $/sqft (+8 % sur un an) ou verifier la base (same-store vs total).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "noi_seg_sh, noi_margin_sh",
+  "probleme": "Saut invraisemblable au T4 2025 : NOI de 36,5 a 65 M$ (+78 %) et marge de 24,3 a 41,7 % en un trimestre, alors que les revenus residents du T4 2025 restent a 155,7 M$ et que la consolidation SWF n intervient qu en mars 2026 d apres la fiche.",
+  "preuve": "'noi_seg_sh Q3-2025=36.5, Q4-2025=65' ; 'noi_margin_sh Q3-2025=24.3, Q4-2025=41.7' ; 'resident_fees Q4-2025=155.7, Q1-2026=200.3 :: Poste directement lie au rachat de la coentreprise SWF en mars 2026'.",
+  "correction_validee": "Verifier le point T4 2025 contre le supplement et completer T1 et T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Diluted AFFO per common share, Operating Lease Income",
+  "probleme": "AFFO/action melange un trimestre (0,40) et un annuel (1,69) dans la meme serie. Operating Lease Income : periode None, signal 'Donnee EDGAR' (mention de source), doublon approximatif de rental_revenue.",
+  "preuve": "'Diluted AFFO per common share | quarter | serie: 0.4, 1.69' ; 'Operating Lease Income | M $ | None | serie: 1182, 1378, 1542, 1632, 2087 :: Donnee EDGAR'.",
+  "correction_validee": "Retirer les deux KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Outpatient Medical NOI, Lab NOI, CCRC NOI, Total Properties",
+  "probleme": "Series annuelles arretees a FY2024, sans periodes, avec descriptions en franglais et sans accents ('post-merger', 'triple-net lease', 'cabinets medicaux'), alors que les NOI trimestriels vont jusqu au T2 2026. Nombre de proprietes 651 (581 outpatient) contredit par '501 proprietes' et '~514 immeubles' ailleurs sur la fiche.",
+  "preuve": "'Outpatient Medical NOI | dernier 2024-12-31 | serie: 413.2, 433, 452.7, 748.7 :: Segment #1 post-merger Physicians Realty Trust (Mars 2024), surface dominante 78% triple-net lease' ; 'Total Properties 651 ... outpatient medical 581' vs 'rev_seg_om: 501 proprietes contre 527'.",
+  "correction_validee": "Retirer ces quatre KPI ou les mettre a jour FY2025 avec descriptions en francais.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "lab_ss_noi_growth, senior_housing_ss_noi_growth, disposals, gains_disposals",
+  "probleme": "Variations annuelles exprimees en % sur des pourcentages ou sur des postes volatils : -313,3 %, +123,3 %, +1 009,8 %, +525 %. Illisible pour un investisseur.",
+  "preuve": "'lab_ss_noi_growth ... yoy=-313.3%' ; 'senior_housing_ss_noi_growth yoy=+123.3%' ; 'disposals yoy=+1009.8%'.",
+  "correction_validee": "Exprimer le yoy des taux same-store en points (-4,7 pt, +10,6 pt) et masquer le yoy des cessions et plus-values.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

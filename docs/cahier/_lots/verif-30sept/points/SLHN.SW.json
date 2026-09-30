@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "AUM, Fee Income, Premiums Collected, Solvency II Ratio, Fee_Ergebnis, Cash_Transfer_Holding, Managed_Assets_Third_Party, Net_New_Money_Asset_Managers, Capex",
+  "probleme": "Un bloc d'anciens KPI fait doublon avec des valeurs contradictoires, des noms anglais ou allemands, des historiques remplis de zéros et un signal réduit à « positive ».",
+  "preuve": "Solvency II Ratio : 199 et série 197, 223, 215, 206, 199, contre SST_FY 213. Fee Income : 2.5 contre FEE_INC_FY 2588. Premiums 19.5 contre GWP 20871. Fee_Ergebnis : 601, 699, 664, 776, 875, contre FEE_RESULT_FY 699, 776, 664, 875, 858. Managed_Assets : 0, 0, 0, 0, 125. Capex en M $ pour un assureur suisse.",
+  "correction_validee": "Supprimer les neuf KPI : AUM, Fee Income, Premiums Collected, Solvency II Ratio, Fee_Ergebnis, Cash_Transfer_Holding, Managed_Assets_Third_Party, Net_New_Money_Asset_Managers et Capex.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / kpis",
+  "champ": "NI_H, AUM_TPAM_Q, résultat des commissions semestriel",
+  "probleme": "Le S1 2026 n'est que partiellement intégré, alors que la thèse s'appuie dessus.",
+  "preuve": "NI_H s'arrête à H2-2025. Le hero AUM_TPAM_Q s'arrête à Q1-2026 et n'a aucun point de T2 dans tout l'historique (Q1, Q3 et Q4 seulement). Aucun résultat des commissions semestriel, alors que la thèse dit « Le premier semestre 2026 remet le moteur des commissions dans le bon sens ».",
+  "correction_validee": "Ajouter H1-2026 à NI_H (649 M CHF), l'encours TPAM de fin juin 2026 à AUM_TPAM_Q et le résultat des commissions semestriel (430 M CHF).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "anti-these",
+  "champ": "att.texte",
+  "probleme": "L'anti-thèse contient un chiffre 2024 différent de la série et une exagération.",
+  "preuve": "« 858 M CHF en 2025 contre 870 M CHF en 2024 », alors que FEE_RESULT_FY 2024 = 875. « le résultat des commissions recule alors qu'il doit doubler d'ici 2027 », alors que l'objectif est « plus d'1 Md », soit +17 % depuis 858.",
+  "correction_validee": "Aligner sur 875 M CHF, ou préciser « 870 M CHF retraités » si c'est la base publiée en 2026, et remplacer « doubler » par « dépasser 1 Md CHF ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ROE_FY.signal",
+  "probleme": "Le signal se contredit lui-même.",
+  "preuve": "« nettement au-dessus de l'ambition 2027 (17-19% atteinte par le bas) », pour un ROE de 17.2, c'est-à-dire dans le bas de la fourchette.",
+  "correction_validee": "Remplacer par « dans le bas de la fourchette d'ambition 2027 (17-19 %) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FEE_INC_H",
+  "probleme": "Le signal est périmé et la variation sur un an ne correspond pas à la série.",
+  "preuve": "Signal : « 1 317 M CHF au S2-2025, meilleur semestre jamais publié ». Or H1-2026 = 1335, plus élevé. Variation affichée +7 %, alors que 1335/1271 = +5,0 %.",
+  "correction_validee": "Réécrire le signal sur le S1 2026 et préciser si la variation est en monnaie locale.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_APE, CAHIER_EMBEDDED_VALUE, CAHIER_VNB_MARGIN",
+  "probleme": "Des séries arrêtées depuis 2016 ou 2023 figurent parmi les KPI courants. Une variation de pourcentage est donnée en %.",
+  "preuve": "APE et Embedded Value s'arrêtent en 2016. VNB_MARGIN s'arrête en 2023 avec yoy +14.3 % au lieu de +0,5 pt.",
+  "correction_validee": "Les sortir des KPI courants (archive ou historique) et exprimer la variation en points.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Le moat contient de la cuisine interne et une affirmation fausse.",
+  "preuve": "« l'absence de moat reconnu et le seul indicateur suivi rendent la lecture trop mince pour trancher ». La fiche contient pourtant plus de 30 KPI.",
+  "correction_validee": "Rédiger un moat (leader de la prévoyance professionnelle en Suisse, réseau de 17 600 conseillers, gestion d'actifs immobiliers).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.texte",
+  "probleme": "Le texte mentionne un document source.",
+  "preuve": "« Cependant, le rapport ne précise aucun montant, objectif chiffré... »",
+  "correction_validee": "Remplacer par « aucun montant ni objectif chiffré n'est communiqué sur ces initiatives ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CSM / indicateur manquant",
+  "probleme": "Le KPI central d'un assureur vie sous IFRS 17 n'a qu'un point, avec un faux historique à zéro. Le rendement des placements est absent.",
+  "preuve": "CSM : série 0, 0, 0, 0, 14.4. Aucune série de rendement direct des placements ni de résultat des placements.",
+  "correction_validee": "Construire la série de CSM sur 2022 à S1 2026 et ajouter le rendement direct des placements.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

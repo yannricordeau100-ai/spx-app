@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "PSEG Power",
+  "probleme": "Serie invraisemblable : point 82 M$ entre 1 243 et 1 325 (yoy +1 515 %), periode « year » alors que les valeurs sont trimestrielles, unite M$ alors que le revenu annuel du segment est de 3 722 M$. Description en franglais (« Bénéficiaire nuclear PTC »).",
+  "preuve": "serie: 1932, 1855, 1409, 1337, 1243, 1243, 82, 1325 | year | yoy=+1515.9% ; PSEG Power & Other Revenues FY2025=3.722 Mds $",
+  "correction_validee": "Supprimer le KPI « PSEG Power ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PSE&G",
+  "probleme": "Triple doublon contradictoire du CA PSE&G : 1 745 M$ « annuel » au 30 juin 2026 contre 2 137 M$ pour le meme trimestre dans peg_rev_pseg_q et 9 558 M$ annuel dans PSE&G Operating Revenues. Description en franglais (« rate base growing »).",
+  "preuve": "PSE&G val=1745 | year | dernier 2026-06-30 ; peg_rev_pseg_q Q2-2026=2.14 Mds $ ; PSE&G Operating Revenues FY2025=9.558",
+  "correction_validee": "Supprimer le KPI « PSE&G ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Nuclear fleet output",
+  "probleme": "Points 18,5 et 23 TWh impossibles pour une flotte qui produit 30 a 31 TWh chaque annee (cumul des trimestres 2024 et 2025) ; periode « quarter » pour une serie annuelle ; doublon de peg_nuclear_output_q. Meme doublon pour Nuclear capacity factor vs pseg_nuclear_cf.",
+  "preuve": "serie: 18.5, 23, 30.9 ; peg_nuclear_output_q 2025 = 8.36+7.51+7.9+7.15 = 30.9",
+  "correction_validee": "Supprimer « Nuclear fleet output » et « Nuclear capacity factor ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Regulated rate base",
+  "probleme": "Saut 22 -> 36 Mds $ (+64 %) affiche avec yoy +7 % : la serie melange la base distribution et la base totale ; contredit pseg_dist_rate_base plat a 17,8.",
+  "preuve": "serie: 19, 20, 22, 36 | yoy=+7% ; pseg_dist_rate_base 17.8 x6",
+  "correction_validee": "Reconstruire « Regulated rate base » en une seule serie datee de base tarifaire totale PSE&G (10-K) avec yoy recalcule.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "peg_diluted_shares_q",
+  "probleme": "Deux zeros dans la serie d'actions diluees (T4 2024 et T4 2025), faux et visibles sur le graphique.",
+  "preuve": "serie: Q3-2024=500, Q4-2024=0, ..., Q4-2025=0, Q1-2026=500",
+  "correction_validee": "Retirer les deux points a zero (ou les remplacer par les valeurs du 10-K).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Regulated capital investment program",
+  "probleme": "Unite en anglais et doublon de pseg_cap_inv_plan avec une autre base (haut de fourchette vs milieu).",
+  "preuve": "unite « $B (5yr, high end) » ; serie 15.5, 16, 16, 26, 28 vs pseg_cap_inv_plan FY2025=24 (midpoint)",
+  "correction_validee": "Supprimer « Regulated capital investment program ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PSE&G Operating Revenues / PSEG Power & Other Revenues",
+  "probleme": "Signal et description sans accents, en jargon anglais (« Joyau regule », « rate case », « decoupling », « MTM », « BGSS contract »).",
+  "preuve": "« Joyau regule NJ : croissance soutenue par rate case 2024 + investissements T&D, mecanisme decoupling protege des volumes »",
+  "correction_validee": "Reecrire en francais accentue et sans jargon.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PJM cleared nuclear capacity price / PJM capacity auction clearing price",
+  "probleme": "Deux KPI quasi identiques avec deux prix differents pour l'enchere de capacite PJM (329 et 333,44 $/MW-jour) sans indication de l'annee de livraison.",
+  "preuve": "329 (« annee juin 2026 a mai 2027 ») vs 333.44 sans periode",
+  "correction_validee": "Fusionner en une serie par annee de livraison.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

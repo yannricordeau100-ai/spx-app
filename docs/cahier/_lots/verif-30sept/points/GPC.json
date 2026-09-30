@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Revenue_Total (hero) / Operating_Income / Net_Income",
+  "probleme": "Le KPI principal (hero) n'a qu'un seul point, sans historique, et la date est incohérente. Operating_Income affiche une valeur différente de celle de son signal, avec « (dérivé) » dans le nom.",
+  "preuve": "Revenue_Total n=1, Q2-2026 = 6,5, dernier 2026-09-14. Operating_Income val = 293,83 mais signal : « Résultat opérationnel dérivé 336 336 k$ ». Net_Income n=1.",
+  "correction_validee": "Reconstruire l historique trimestriel du CA, du resultat operationnel et du resultat net, trancher la valeur du resultat operationnel a la source et retirer (derive) du nom et du signal.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Comparable sales growth / Total net sales growth / Network locations",
+  "probleme": "Doublons, avec des valeurs périmées d'un trimestre et des points non datés.",
+  "preuve": "Comparable 2,4 « au T1-2026 » et Total net sales growth 6,8 « au T1-2026 », datés 2026-09-23, alors que le T2 2026 publié donne +3,4 % en comparable et +6,0 % en total (signal Revenue_Total). Network locations 10 800 = NAPA_Stores_Global = CAHIER_RESEAU_SITES.",
+  "correction_validee": "Supprimer Network locations. Mettre à jour les deux croissances au T2 2026 et dater les points.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux NA_Auto_Rev, Intl_Auto_Rev, Industrial_Rev, US_Net_Sales, Adj_EBITDA_Total, Revenue_Total, Net_Income, capex et D&A par segment",
+  "probleme": "Signaux bruts en k$, avec des bouts d'anglais : ils répètent le chiffre sans l'analyser.",
+  "preuve": "« 2 537 236 k$ au T2-2026 » ; « Net sales 6 536 951 k$ au T2-2026 » ; « Net income 227 558 k$ ».",
+  "correction_validee": "Arrondir en M$ ou Mds $, traduire « Net sales » et « Net income », puis ajouter l'explication.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VENTES_COMPARABLES.yoy / CAHIER_VOLUME_PRIX",
+  "probleme": "Variation en % relatif sur un pourcentage. Le nom annonce une décomposition volume et prix alors que la série ne contient que l'effet prix. La variation annuelle compare 2025 à 2021.",
+  "preuve": "yoy « -212.5% » pour 0,9 contre -0,8 (+1,7 pt). CAHIER_VOLUME_PRIX : « Effet prix de 2,0 % », yoy -33,3 % entre FY2021 = 3 et FY2025 = 2. name_en « Volume Prix ».",
+  "correction_validee": "Afficher +1,7 pt, renommer en Effet prix (Price effect) et supprimer la variation annuelle de cette serie discontinue.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat / IA",
+  "champ": "moat.text / ai_positioning",
+  "probleme": "Le texte du moat expose la cuisine interne (note abaissée) et est confus. Le positionnement IA « integrator » ne parle que de menaces et d'anglicismes, et contredit le KPI e-commerce Motion porté par l'IA.",
+  "preuve": "« la note vient d'être abaissée à aucun avantage » ; « Genuine Parts identifié les concurrents utilisant data analytics/IA/ML comme menace ».",
+  "correction_validee": "Réécrire le moat (réseau NAPA, densité logistique) sans parler de note. Réécrire le positionnement IA avec les usages réels (Motion e-commerce).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Intl_Auto_EBITDA.signal / Middle East sourcing exposure",
+  "probleme": "Deux textes qui se contredisent sur l'exposition au Moyen-Orient.",
+  "preuve": "« Résultat pénalisé d'environ 20 millions de dollars par le conflit au Moyen Orient, ce segment étant le plus exposé » contre « Exposition marginale (0,5 %) qui limite le risque ».",
+  "correction_validee": "Préciser la nature de l'impact (énergie, fret) ou corriger l'un des deux textes.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Separation into two public companies / Separation costs / Restructuring ... / Strategic acquisitions completed 2025 / Consecutive annual dividend increases",
+  "probleme": "Événements ou comptes ponctuels présentés comme des KPI trimestriels. « Scission = 2 sociétés » n'est pas une mesure.",
+  "preuve": "n=1, val = 2 « sociétés » ; 17,5 M$ ; 254 M$ ; 50 acquisitions.",
+  "correction_validee": "Sortir ces éléments des KPI (vers faits marquants).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline / subsector / revenue_by_geography",
+  "probleme": "Textes en anglais visibles.",
+  "preuve": "tagline « Leading global service provider of automotive and industrial replacement parts » ; sous-secteur « Automotive and Industrial Parts Distribution » ; zone « Australasia ».",
+  "correction_validee": "Rédiger en français.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Commercial Services Backlog",
+  "probleme": "KPI incoherent de bout en bout : nom francais R&D, unite Mds $, serie qui recopie le CA total en dollars, description en franglais.",
+  "preuve": "nom FR « Investissements R&D (% revenu) », EN « R&D as % Revenue », unite Mds $, serie Q3 2024=9842000000 = REV_TOT Q3-2024=9842 ; Q4 2024=3713000000 ; description « Modele razor/blade... rente long term »",
+  "correction_validee": "Supprimer le KPI, le carnet services etant couvert par RPO_CES.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Orders Growth, LEAP ISV Volume Growth, CES Op Margin, Engine Deliveries Growth, Services Mix, Defense Engines, Commercial Engines, Aerospace Backlog, GE Aerospace Orders, LEAP Engines, Engines Delivered",
+  "probleme": "Onze series annuelles aux valeurs rondes et lissees, datees 2026-06-30 sans annees, avec signaux en franglais : series inventees.",
+  "preuve": "Orders Growth : 10, 15, 25, 40, 87 ; LEAP ISV : 20, 25, 35, 40, 50 ; Engine Deliveries Growth : 10, 15, 20, 30, 43 ; Services Mix : 65, 67, 68, 69, 70 ; Defense Engines : 570, 560, 580, 570, 600 ; signal « -230 bps YoY due install engines GE9X. Le segment qui pese 80% de la profit pool »",
+  "correction_validee": "Retirer les onze KPI et ne conserver que les series trimestrielles et CAHIER sourcees.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_DELIVERIES / LEAP Engines / Engines Delivered / Commercial Engines",
+  "probleme": "Quatre chiffres annuels de livraisons contradictoires ; CAHIER_DELIVERIES est en fait la serie LEAP.",
+  "preuve": "CAHIER_DELIVERIES FY2025=1802 = LEAP_deliv 2025 (319+410+511+562) ; COM_deliv 2025 = 2386 ; « Engines Delivered »=1779 ; « Commercial Engines »=1700 ; « LEAP Engines »=1407 (valeur 2024) datee 2026-06-30",
+  "correction_validee": "Renommer CAHIER_DELIVERIES en « Livraisons LEAP (annuel) » et retirer « LEAP Engines », « Engines Delivered » et « Commercial Engines ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "RPO_CES / CAHIER_BACKLOG / Aerospace Backlog",
+  "probleme": "Trois carnets de commandes aux valeurs differentes pour les memes exercices ; RPO_CES date a mi-2026 avec une valeur 2025 et un signal a 179,9.",
+  "preuve": "FY2024 : RPO_CES 153.6, CAHIER_BACKLOG 171.6, Aerospace Backlog 144 ; RPO_CES val=169.822 dernier 2026-06-30, signal « 179,9 Mds $ au 30 juin 2026 »",
+  "correction_validee": "Garder RPO_CES (segment) et CAHIER_BACKLOG (groupe) avec definitions explicites, ajouter le point 179,9 Mds$ au 30 juin 2026 a RPO_CES, supprimer « Aerospace Backlog ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "SVC_mix_CES / CAHIER_AFTERMARKET_MIX / SVC_rev_total / Services Mix",
+  "probleme": "Quatre KPI de part des services avec quatre valeurs.",
+  "preuve": "SVC_mix_CES=76.4 ; CAHIER_AFTERMARKET_MIX=75.07 ; SVC_rev_total=67.7 (n=1) ; Services Mix=70",
+  "correction_validee": "Garder SVC_mix_CES, renommer CAHIER_AFTERMARKET_MIX « Part des services CES (annuel) », retirer « Services Mix » et completer ou retirer SVC_rev_total (un seul point).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "FLEET_comm / Commercial installed base / Military installed base / Total installed engine fleet",
+  "probleme": "Parc installe en quatre KPI redondants, dont deux a un point.",
+  "preuve": "FLEET_comm n=1 val=50000 yoy=+2% ; « Commercial installed base » serie 44000...50000 yoy=+11% (contradiction 2 % vs 11 %) ; « Total installed engine fleet »=80000 = 50000+30000",
+  "correction_validee": "Garder une serie parc commercial et une serie parc militaire, supprimer FLEET_comm et « Total installed engine fleet ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Share repurchases 2025",
+  "probleme": "Montant des rachats 2025 different de la serie BUYBACK.",
+  "preuve": "KPI ponctuel : 7,4 Mds ; BUYBACK FY2025=7551 M$",
+  "correction_validee": "Supprimer le KPI ponctuel.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "LEAP deliveries growth / Total orders",
+  "probleme": "Croissance LEAP a 28 % contredite par la serie LEAP_deliv ; commandes totales datees T2 alors que la valeur est celle du T1.",
+  "preuve": "LEAP_deliv Q1-2026=520 vs Q1-2025=319 = +63 % (Engine Deliveries Growth le dit : « LEAP units +63% ») ; « LEAP deliveries growth » serie 40, 28 ; « Total orders » val=23 dernier 2026-06-30, Orders Growth signal « Q1 2026 orders $23.0B »",
+  "correction_validee": "Retirer ou dater en annuel 2025 « LEAP deliveries growth », et redater Total orders au T1 2026 ou ajouter la valeur T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DEF_deliv.yoy / DPT_profit.yoy / CES_rev.signal",
+  "probleme": "Variations calculees sur des bases recast absentes de la serie, donc incoherentes avec les points affiches.",
+  "preuve": "DEF_deliv : Q2-2025=160, Q2-2026=199 (+24 %), yoy affiche +7% « vs 186 recast » ; DPT_profit : 362 a 475 (+31 %), yoy +18% « vs 403 M recast » ; CES_rev yoy=+21.8% mais signal « +27% vs T2 2025 recast »",
+  "correction_validee": "Restater les points 2025 sur la nouvelle structure sectorielle, ou recalculer yoy et signaux sur la serie affichee.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EPS_dil.signal",
+  "probleme": "« Hausse continue » contredite par la serie.",
+  "preuve": "Q4-2025=2.4, Q1-2026=1.81",
+  "correction_validee": "Retirer « en hausse continue depuis la scission de GE Vernova ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "fcf_annuel / dette_annuelle / effectifs_annuels",
+  "probleme": "FCF annuel 2025 different de la somme des trimestres ; series annuelles qui remontent a l'ancien conglomerat (GE Capital) sans avertissement.",
+  "preuve": "fcf_annuel 2025=7.264 vs FCF trimestriel 2025 : 1441+2106+2386+1761 = 7 694 ; dette_annuelle 2018=101.725 Mds ; effectifs 2018=283000 vs 2025=57000 ; dette_par_salarie 2018=359.5 identique a 2025=359.5",
+  "correction_validee": "Aligner le FCF 2025 sur une seule definition ; tronquer les series annuelles a 2024 (GE Aerospace) ou signaler le changement de perimetre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography / risks[1].title / moat",
+  "probleme": "Repartitions sans aucun pourcentage, titre de risque en anglais, moat « None » contredit par la these elevee sur la rente du parc installe.",
+  "preuve": "revenue_by_segment : « Moteurs et services commerciaux None ; ... None » ; risque 2: « Commercial aviation sector cyclicality » ; moat : « None / tendance hausse :: ... confirmant la rente de maintenance issue de la base installee »",
+  "correction_validee": "Renseigner la repartition 2025 (CES ~73 %, DPT ~24 %, a confirmer a la source), traduire en « Cyclicite du transport aerien commercial » et qualifier le moat (parc installe, couts de changement).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ }
+]

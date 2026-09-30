@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle",
+  "probleme": "La dette totale 2025 contredit la série trimestrielle de la même fiche.",
+  "preuve": "dette_annuelle 2025 = 9,162 Mds $ (+52,8 %) ; total_debt Q4-2025 = 8,413 Mds $ et le signal dit « 8 417 M$ au 4 juillet 2026 ». Écart de 0,75 Md ; dette_par_salarie et dette_sur_ca (78,4 %) héritent de l'erreur.",
+  "correction_validee": "Vérifier dans le 10-K 2025, aligner dette_annuelle 2025 sur la dette financière publiée (8,413 si les locations sont exclues), puis recalculer dette_par_salarie et dette_sur_ca.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "backlog_total / CAHIER_BACKLOG / Ending backlog",
+  "probleme": "Trois KPI pour le carnet de commandes total, dont un en dollars bruts et un avec signal contradictoire.",
+  "preuve": "CAHIER_BACKLOG unité « $ » valeur 15742000000, nommé « Carnet de commandes produits » alors que c'est le total ; Ending backlog signal « Carnet record de 15,7 Md$ au T1-2026 » pour un dernier point 2026-07-04, yoy +11 % contre +7 % dans backlog_total sur la même valeur.",
+  "correction_validee": "Supprimer CAHIER_BACKLOG et dater le signal d'Ending backlog au T2 2026, sans toucher aux yoy.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_margin_pct, operating_margin_pct, net_margin_pct, effective_tax_rate, psi_op_margin, ss_op_margin, psi_gross_margin_pct, ss_gross_margin_pct, intl_rev_pct, ss_rev_pct, leverage",
+  "probleme": "Variation annuelle exprimée en pourcentage relatif pour des taux, au lieu de points.",
+  "preuve": "gross_margin_pct 51,1 → 53,56 affiché « yoy=+5% » ; net_margin_pct 18,55 → 17,78 « -4% » ; leverage 1,44x → 2,14x « +49% ».",
+  "correction_validee": "Afficher la variation en points pour les taux et marges (ex. +2,5 pts ou -0,8 pt) et en x pour le levier (+0,7x).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Quarterly dividend increase / Diluted EPS (full year) / Cumulative share repurchase authorization",
+  "probleme": "KPI ponctuels (n=1, période « quarter ») qui dupliquent des séries existantes.",
+  "preuve": "Quarterly dividend increase = 1,21 (dps déjà à 1,21 sur trois trimestres) ; Diluted EPS (full year) = 12,85 alors que eps_diluted trimestriel existe et que la somme 2025 donne 12,76.",
+  "correction_validee": "Supprimer « Quarterly dividend increase » ; supprimer ou passer en annuel « Diluted EPS (full year) » après vérification du 12,85.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Body-worn camera shipment growth.signal, Silvus order from German unmanned systems provider.signal",
+  "probleme": "Accents manquants dans des textes publics.",
+  "preuve": "« un marche jusque la tenu par un fournisseur quasi unique » ; « livre sur plusieurs trimestres ».",
+  "correction_validee": "Écrire « un marché jusque-là tenu par un fournisseur quasi unique » et « livré sur plusieurs trimestres ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Silvus Technologies acquisition.signal",
+  "probleme": "Montant du complément de prix douteux.",
+  "preuve": "« earnout éventuel de 38 M USD » ; l'annonce de l'acquisition Silvus mentionnait un complément pouvant atteindre 600 M $.",
+  "correction_validee": "Vérifier le communiqué d'acquisition et corriger le montant.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

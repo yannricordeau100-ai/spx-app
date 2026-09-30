@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Wynn Palace mass table win %, Wynn Palace VIP win % of turnover, Wynn Macau mass table win %, Wynn Macau VIP win %, Las Vegas table games win %",
+  "probleme": "Séries non datées décalées d'un trimestre : la valeur affichée au 30 juin 2026 est celle du T1",
+  "preuve": "Palace T2 : 563.35/1900 = 29,6 % mais val=26.6 (= T1 523.8/1971) ; Macau T2 : 300.2/1752 = 17,1 % mais val=15.1 ; LV : signal de la fiche « hold de 23.9% » mais val=25.2 ; Palace VIP val=3.11 contre 2.97 dans Wynn Palace VIP Win %",
+  "correction_validee": "Supprimer ces series non datees, ou les recalculer (gain / drop) sur des trimestres dates.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Moat bâti sur un chiffre décalé et contredit par le résultat",
+  "preuve": "« Le résultat net chute de 34,7 % et le taux de gain des tables de masse à Macao perd 3,6 points » ; Net Income yoy +111,5 % ; hold Macau recalculé 17,1 % au T2 contre 17,3 % un an avant",
+  "correction_validee": "Reecrire la justification du moat sur les donnees T2 2026, sans toucher au niveau.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux Las Vegas Casino Rev, ADR, RevPAR, VIP Win, Slot Handle, Total Revenue, Operating Income, Net Income, segments et key operating measures",
+  "probleme": "Signaux faits de citations brutes en anglais et en milliers, mentions de sections de documents, coquille « MD&À »",
+  "preuve": "« MD&A T2 2026 : « Total casino revenues $ 158,104 » milliers » ; « Note Segment Information du T2 2026 » ; « Tableau « key operating measures » du MD&À »",
+  "correction_validee": "Réécrire chaque signal en français avec le chiffre et la comparaison, sans citation ni document",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Operating Cash Flow, D&A, SG&A, Income Tax, Long-Term Debt, Cash, Inventory, Shares Outstanding, Shareholders Equity, PP&E Net, Net Leverage (signaux)",
+  "probleme": "Signaux tronqués commençant par une ponctuation ou vides",
+  "preuve": "« , cumuls YTD décumulés en trimestriel. » ; SG&A « . » ; Income Tax « . » ; « : 10 725 M$ au 30/06/2026 » ; Net Leverage « ... données. »",
+  "correction_validee": "Retirer la ponctuation initiale et les fragments techniques (cumuls YTD decumules, « donnees ») et rediger les signaux reduits a un point.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "att.titre",
+  "probleme": "Capitaux propres cités différents de la série de la fiche",
+  "preuve": "« capitaux propres restent négatifs de 906,7 M$ » ; Shareholders Equity Q2-2026 = -169.45 M$",
+  "correction_validee": "Préciser le périmètre (total avec minoritaires) ou aligner sur -169,5 M$",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_GGR",
+  "probleme": "Mal nommé : la série est le revenu casino net publié, pas le produit brut des jeux ; signal faux",
+  "preuve": "FY2025=4410.3 = somme de Casino Revenue 2025 (1.04+1.052+1.175+1.143) ; signal « Ce total de mises encaissées »",
+  "correction_validee": "Renommer « Revenus casino annuels » et corriger le signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_WIN_UNIT_JOUR, CAHIER_TAUX_RETENUE, CAHIER_OCC_ADR_RESORT",
+  "probleme": "Périmètre (quel complexe) non précisé ; nom promettant un prix moyen absent ; variations en % relatif",
+  "preuve": "« Occupation et prix moyen des chambres du resort » unité % val=86.9 ; CAHIER_TAUX_RETENUE yoy=-7.4% pour -1,9 pt",
+  "correction_validee": "Indiquer le complexe, renommer « Taux d'occupation », exprimer en points",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Wynn Las Vegas adjusted property EBITDA (Q4), Encore Boston Harbor adjusted property EBITDA (Q4), Global cash and revolver availability",
+  "probleme": "Doublons des points T4 des séries EBITDAR, libellés EBITDA, période annuelle datée au 30 juin 2026",
+  "preuve": "240.8 = Las Vegas Operations EBITDAR Q4-2025 240.82 ; 57 = Encore Boston Harbor EBITDAR Q4-2025 57.01",
+  "correction_validee": "Supprimer les deux entrees (T4) et dater la liquidite au 31 decembre de chaque exercice.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Room Revenue.signal, Diluted EPS",
+  "probleme": "Signal hors sujet ; BPA sans T4",
+  "preuve": "Room Revenue : « L'occupation hôtelière indique le niveau de fréquentation » alors que la série est un CA ; Diluted EPS : Q1-2024, Q2-2024, Q3-2024, Q1-2025... aucun T4",
+  "correction_validee": "Réécrire le signal sur le CA chambres ; dériver les T4 du BPA",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Estimated UAE gaming market size, Share of revenue in non-USD markets after Al Marjan opens, Expanded Chairman's Club floor area",
+  "probleme": "Projections et chiffres de marché présentés comme KPI de la société",
+  "preuve": "n=1, valeurs 5 Mds $, 55 %, 100000 pieds carrés",
+  "correction_validee": "Retirer des KPI",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Part de marché de Wynn dans le produit brut des jeux de Macao, indicateur de référence du secteur, absente",
+  "preuve": "aucun KPI de part de marché ; position de marche sans part (None)",
+  "correction_validee": "Ajouter la part de marché GGR Macao trimestrielle",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

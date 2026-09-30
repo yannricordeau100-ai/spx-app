@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Effectif arrete a 2019 (200 000) et ratios par salarie calcules sur 2019, alors que le KPI EMPLOYEES donne 135 000 en FY2025 sur la meme fiche : contradiction et ratios perimes de six ans.",
+  "preuve": "effectifs_annuels « dernier 2019-10-22 | 2019=200000 » ; EMPLOYEES FY2025=135000 ; ca_par_salarie « 126,4 k$ / salarie en 2019 » affiche avec dernier 2025-08-31.",
+  "correction_validee": "Alimenter effectifs_annuels avec EMPLOYEES FY2021-FY2025 et recalculer les trois ratios sur 2025 (CA/salarie environ 221 k$).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "fcf_annuel : serie 2017 et 2018",
+  "probleme": "Tresorerie libre de -2,1 Mds $ deux annees de suite, invraisemblable : le flux d'exploitation FY2018 etait proche de 0,9 Mds $ pour environ 1,0 Mds $ d'investissements.",
+  "preuve": "serie fcf_annuel 2017=-2.181, 2018=-2.142, puis 2019=0.188 ; fcf_par_salarie 2017=-12.8, 2018=-10.8.",
+  "correction_validee": "Verifier la definition utilisee (probable inclusion des acquisitions ou double comptage des investissements) et corriger 2017-2018.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "DMS Segment Revenue, Cloud & DC Infra, Core Operating Margin, Capex / Revenue",
+  "probleme": "Quatre series annuelles sans annees ni signal, dont un segment supprime (DMS) et deux series qui contredisent les KPI etiquetes.",
+  "preuve": "DMS Segment Revenue 13.238 ... 12.992 (segment disparu a la reorganisation en trois segments) ; Cloud & DC Infra 1.8 ... 3.1 Mds $ vs INFRA_REV FY2025 = 12,3 Mds $ ; Capex / Revenue 3, 3, 3.5, 4, 2.7 vs CAPEX_SALES FY2025 entre 1,1 et 2,05 % ; signaux vides.",
+  "correction_validee": "Supprimer ces quatre KPI ; recreer la marge operationnelle core par exercice avec source si elle est voulue.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Intelligent Infrastructure segment revenue, Regulated Industries segment revenue, Connected Living & Digital Commerce segment revenue ; unites de AI-related revenue, Second hyperscaler revenue target, New US Southeast facility investment, Memphis facility expansion",
+  "probleme": "Trois doublons arrondis des revenus de segment avec un yoy perime, et unites en anglais.",
+  "preuve": "« Intelligent Infrastructure segment revenue | $B (quarterly) | 3.4, 3.9, 4 | yoy +52% » vs INFRA_REV 4169 M$ yoy +21,4 % ; unites « $B (annual outlook) », « $B (exercice 2026) », « M USD (pluriannuel) », « M sq ft ajoutes ».",
+  "correction_validee": "Supprimer les trois doublons ; unites Mds $ (objectif annuel), Mds $, M $, M pi2.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "signal d'une douzaine de KPI (INVENT, INFRA_MRG, SQFT_ASIA, SQFT_AMER, EMPLOYEES, EMP_ASIA, RD_EXP, DPS, EQUITY, Hanley, Mikros, CAPEX)",
+  "probleme": "Accents systematiquement absents et coquilles dans les signaux.",
+  "preuve": "« tres surveille », « porte par la demande », « a forte main d'oeuvre », « les sites lies a Infrastructure Intelligente sont preserves », « a retire un bloc massif », « d'ou l'interet », « sous traitant », « destinee a renforcer », « Le dividende est foge depuis 2018 », « est finance ... choix assume ».",
+  "correction_validee": "Corriger les accents (tres surveille, porte, lies, preserves, retire, d'ou, sous-traitant, destinee, finance, assume) et foge en fige.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "EQUITY : signal",
+  "probleme": "Signal contradictoire : parle de desendettement alors que la dette nette bondit de 48 % et que le signal NETDEBT dit que la dette finance les rachats.",
+  "preuve": "EQUITY signal « Le desendettement est finance par retour massif aux actionnaires plutot que par croissance du bilan » ; NETDEBT val=2018 yoy +48,3 %.",
+  "correction_validee": "Reecrire : les rachats (291 M$ au trimestre) reduisent les fonds propres a 1 323 M$ pendant que la dette nette monte.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "signal de EPS_DIL, OM_PCT, DIO",
+  "probleme": "Les signaux commentent un pic hors de la fenetre affichee (T2 FY2024) et ignorent la derniere valeur.",
+  "preuve": "EPS_DIL signal « Le pic passe s'explique par la plus value exceptionnelle de la cession de Mobility » (pic 7.31 au Q2-2024 absent des 8 points, val=2.59 +27,6 % non commente) ; OM_PCT « Le pic passe correspond a la plus value comptable » (16.7 au Q2-2024) ; DIO « Le pic historique correspondait a la crise mondiale des composants » pour val=68.3 +7,4 pts.",
+  "correction_validee": "Regenerer les trois signaux sur le T3 FY2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "TOP5_CONC (hero) et CUSTA_SHARE : date, yoy, signal",
+  "probleme": "Champs telegraphiques en franglais avec fleche et speculation ; date de fin d'exercice fausse ; un ratio de concentration comme hero est discutable face au segment IA.",
+  "preuve": "TOP5_CONC « year | dernier 2025-12-31 » (exercice clos le 31 aout), yoy « n/d », signal « Top 5 = 36% CA FY25; Customer A (IA segment) = 16% seul. 87 clients font 90% du CA. » ; CUSTA_SHARE yoy « ↑ (was <10% FY24) », signal « passe sous 10%→16% en 1 an ... probablement hyperscaler ».",
+  "correction_validee": "Reecrire les deux signaux en francais complet, yoy « stable » et « +6 pts et plus », date 2025-08-31 ; envisager INFRA_REV comme hero.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "stance",
+  "probleme": "Le libelle « cautious » contredit le texte et les chiffres : l'infrastructure IA est un segment dedie qui pese 47,6 % du CA.",
+  "preuve": "« positionnement IA (cautious): Jabil a fait de l'infrastructure IA un segment strategique dedie » ; INFRA_MIX Q3-2026=47.6.",
+  "correction_validee": "Passer la posture a « integrator » ou equivalent.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "customers",
+  "probleme": "Client cite perime : Apple a quitte le perimetre avec la cession de Mobility, ce que la fiche dit elle-meme ; le client principal est un hyperscaler non nomme.",
+  "preuve": "description « Ses clients sont les leaders technologiques comme Apple » ; CLDC_REV signal « marque par la perte du contrat Apple » ; CUSTA_SHARE 16 % client A.",
+  "correction_validee": "Remplacer par les hyperscalers du cloud et de l'IA, l'automobile, la sante et l'energie.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment et revenue_by_geography : libelles",
+  "probleme": "Libelles de segments en anglais et pays en majuscules anglaises.",
+  "preuve": "« Intelligent Infrastructure 41.3 ; Regulated Industries 39.9 ; Connected Living and Digital Commerce 18.8 » ; « MALAYSIA 12.2 ».",
+  "correction_validee": "Infrastructure intelligente, Industries reglementees, Vie connectee et commerce numerique ; Malaisie.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateur manquant : BPA core et resultat operationnel core trimestriels",
+  "probleme": "Les mesures non-GAAP sur lesquelles Jabil guide et que le marche suit (core operating income, core EPS) sont absentes ; seule une marge core annuelle non etiquetee existe.",
+  "preuve": "KPI presents : EPS_DIL (GAAP), OM_PCT (GAAP), « Core Operating Margin » annuel sans annees ni signal.",
+  "correction_validee": "Ajouter core operating income, core operating margin et core diluted EPS trimestriels a partir des communiques.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

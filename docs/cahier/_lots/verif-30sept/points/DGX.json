@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition du CA périmée (mix de l'ère COVID) et en anglais, contredite par les KPI de mix 2025 de la fiche.",
+  "preuve": "« COVID-19 testing services 28.8 » alors que MIX_COVID FY2025=0 ; MIX_ROUTINE FY2025=54, MIX_ESOTERIC=38, MIX_ANATOMIC=6, MIX_OTHER=2.",
+  "correction_validee": "Tests cliniques de routine 54 ; Tests génétiques et ésotériques 38 ; Anatomo-pathologie 6 ; Autres 2 (exercice 2025).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "États-Unis 100 % alors que la fiche documente LifeLabs au Canada (23 M de réquisitions, 5 % de CA sur programmes publics canadiens).",
+  "preuve": "revenue_by_geography : « États-Unis 100 » ; CAN_GOV_REV FY2025=5 ; LifeLabs Canada test requisitions=23.",
+  "correction_validee": "Passer à États-Unis / Canada avec la part réelle 2025 (rapport annuel, note géographique).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PAY_INS_VOL, PAY_CLIENT_VOL, PAY_PAT_VOL.signal",
+  "probleme": "Signals copiés des KPI de part de CA : ils ne décrivent pas la série de volumes qu'ils accompagnent.",
+  "preuve": "PAY_INS_VOL (val=43) signal : « 39% du CA DIS en 2025 contre 40% en 2024... » identique à PAY_INS ; idem PAY_CLIENT_VOL et PAY_PAT_VOL.",
+  "correction_validee": "Réécrire sur les volumes : PAY_INS_VOL 43 % en 2025 contre 46 % en 2024 ; PAY_CLIENT_VOL 37 % contre 39 % ; PAY_PAT_VOL 1 %, stable.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ORG_VOL",
+  "probleme": "Série « organique » quasi identique à la série totale REQ_VOL, et signal qui contredit sa propre valeur.",
+  "preuve": "ORG_VOL Q2-2026=13, Q1-2026=10.8 ; REQ_VOL Q2-2026=13.1, Q1-2026=10.9 ; signal ORG_VOL : « la demande sous-jacente progresse plus modestement, autour de 4% ».",
+  "correction_validee": "Vérifier le volume organique hors acquisitions dans le communiqué T2 2026, sinon retirer ORG_VOL.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Tests per requisition.signal",
+  "probleme": "Signal contredit par la série REV_PER_REQ de la fiche.",
+  "preuve": "signal : « moteur clé de la hausse du revenu par réquisition » alors que REV_PER_REQ recule trois trimestres de suite (-0.1, -1.3, -2.8).",
+  "correction_validee": "4,2 tests par réquisition au T1 2026, sans effet visible sur le revenu par réquisition qui recule (-2,8 % au T2 2026).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI issus de transcript (13 KPI n=1)",
+  "probleme": "Chiffres annuels 2025 ou jalons datés « quarter 2026-03-28 » sans étiquette de période, unités fausses, plusieurs ne sont pas des indicateurs.",
+  "preuve": "« Hospital reference testing revenue | quarter | 2026-03-28 | 1.2 :: 1,2 Md$ générés en 2025 » ; « AD-Detect ... | %+ » ; « FDA clearance Haystack | jalon | val=1 » ; « Project Nova | année fin | val=2032 ».",
+  "correction_validee": "Dater en FY2025, corriger l'unité « %+ » en « % », retirer les jalons (FDA, Nova, Spectra) ou les basculer en story.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SERVICE_VOLUME, CAHIER_REVENUE_PER_SERVICE.name",
+  "probleme": "Noms qui désignent un niveau alors que les séries sont des taux de croissance en %.",
+  "preuve": "« Volume d'actes réalisés | % | FY2025=12.3 » ; « Revenu moyen par acte | % | FY2025=0.1 ».",
+  "correction_validee": "Renommer en « Croissance du volume d'actes » et « Variation du revenu moyen par acte ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risques 1 à 6",
+  "probleme": "Six risques sans aucune description.",
+  "preuve": "« risque 1: Évolution du système de santé US et de la demande de tests :: » (vide), idem 2 à 6.",
+  "correction_validee": "Rédiger une description par risque à partir du rapport annuel 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Étiquette « absent » contredite par le texte qui décrit un partenariat Google et une gouvernance IA.",
+  "preuve": "« positionnement IA (absent): Quest Diagnostics intègre l'IA dans l'ensemble de sa chaîne de valeur... partenariat avec Google »",
+  "correction_validee": "Passer l'étiquette en « integrator » et terminer le texte sans la phrase tronquée « mais le rapport ne précise ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "REV / revenue_annuel, FCF / fcf_annuel",
+  "probleme": "Mêmes indicateurs en trimestriel et en annuel sous deux noms.",
+  "preuve": "REV (Mds $, quarter) et revenue_annuel (Mds $, year) ; FCF (M$, quarter) et fcf_annuel.",
+  "correction_validee": "Décision propriétaire : garder les deux périodicités ou masquer le bloc annuel quand le trimestriel existe.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

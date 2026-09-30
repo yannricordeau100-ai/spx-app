@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "anti-these",
+  "champ": "att",
+  "probleme": "L'anti-these affirme un bond de 42 % des commandes au T2 2026, contredit par le KPI Commandes de la fiche.",
+  "preuve": "att : \"Les commandes de Xylem ont bondi de 42% au 2e trimestre 2026\" ; KPI Orders (bookings) : val=2228, yoy=+3%, point precedent 2391.",
+  "correction_validee": "Rapprocher la source du +42 % (commandes totales ou un seul segment) de la serie Commandes, puis reecrire l'accroche de l'anti-these ou corriger la serie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RPO / CAHIER_BACKLOG / att",
+  "probleme": "Trois carnets de commandes incompatibles : RPO +62 %, carnet annuel 4 615 M$ en recul, anti-these qui parle d'un carnet total a +5,9 %. Les RPO de 2025 sont en outre des valeurs arrondies qui ont l'air estimees.",
+  "preuve": "RPO Q4-2025=1929, Q2-2026=2924 (yoy +62,4 %) ; CAHIER_BACKLOG FY2025=4615 ; att : \"carnet de commandes total de seulement 5,9% sur un an\" ; RPO Q3-2024=1200, Q1-2025=1800, Q2-2025=1800.",
+  "correction_validee": "Garder RPO (trimestriel) et carnet annuel sous des noms qui les distinguent clairement, reverifier les points RPO ronds a la source et aligner le +5,9 % de l'anti-these sur une serie presente dans la fiche.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BUYBACK / Share repurchases in quarter",
+  "probleme": "Doublon avec un chiffre different pour le meme trimestre.",
+  "preuve": "BUYBACK Q1-2026=563 M$ ; 'Share repurchases in quarter' : 595 M$ au T1-2026.",
+  "correction_validee": "Supprimer le KPI ponctuel 'Share repurchases in quarter' et garder la serie BUYBACK apres verification du montant T1 2026 (563 ou 595 M$).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Adjusted EPS",
+  "probleme": "La serie n'a pas de dates et saute des annees : elle passe de 0,66 a 1,11. La variation +9 % n'est pas calculable. La valeur 1,12 est a peine au-dessus du BPA publie 1,11, ce qui est peu plausible avec 75 M$ d'amortissement d'incorporels par trimestre.",
+  "preuve": "history : ..., 0.63, 0.63, 0.66, 1.11, 1.42, 1.12 ; EPS_DIL Q2-2026=1.11 ; DA : \"dont 75 M$ d'amortissement d'incorporels\".",
+  "correction_validee": "Reconstituer la serie trimestrielle datee du BPA ajuste a partir des communiques.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI ponctuels (AI ecosystem water demand, US water infrastructure need, acquisitions, Xylem View, Q1 data center orders, New share repurchase authorization, Dividend per share growth 2025)",
+  "probleme": "Des chiffres de marche, des annonces et des operations ponctuelles sont presentes comme KPI. Certains ont une unite absurde, et le rapport de 2050 est commande par la societe.",
+  "preuve": "'Q1 data center orders exceeded full-year 2025' unite 'x (>total 2025)' val=1 ; 'Xylem View digital revenue doubled' unite '% (x2)' val=100 ; 'AI ecosystem water demand +130% by 2050'.",
+  "correction_validee": "Retirer ces entrees des KPI. Si besoin, les reporter dans la these ou les evenements.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GROUP_REVENUE.signal",
+  "probleme": "Le signal ne parle pas du chiffre d'affaires.",
+  "preuve": "GROUP_REVENUE signal : \"Produit phare : Pompes submersibles Flygt\".",
+  "correction_validee": "Signal : 9 035 M$ de chiffre d'affaires en 2025, +5,5 % sur un an.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy des taux (ADJ_EBITDA_MGN, GROSS_MGN, OP_MGN, TAX_RATE, WI_OPMGN, CAHIER_ORDERS_ORGANIC)",
+  "probleme": "La variation annuelle des taux est donnee en variation relative au lieu de points.",
+  "preuve": "OP_MGN 13,3 -> 16,7 affiche yoy=+25,6 % (au lieu de +3,4 pts) ; WI_OPMGN yoy=+45,6 % ; CAHIER_ORDERS_ORGANIC 5 -> 2 yoy=-60,0 %.",
+  "correction_validee": "Calculer la variation annuelle de tous les KPI en % (marges, taux d'impot, croissance organique) en points.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le moat n'est pas qualifie (None) et le texte est une phrase de chiffres, pas un avantage concurrentiel. Le +21,2 % n'est retrouve dans aucune serie.",
+  "preuve": "moat : \"Le résultat opérationnel bondit de 21,2 % et le ratio commandes sur facturation atteint 105 %\" ; ADJ_OPINC yoy +11,2 %, WI_OPINC +52,4 %.",
+  "correction_validee": "Rediger un vrai moat (parc installe, couts de changement chez les services d'eau, marques Flygt et Sensus) et le qualifier.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "La repartition par segment est vide alors que les quatre series trimestrielles de segment existent.",
+  "preuve": "revenue_by_segment : \"Infrastructure de l'eau None ; Eau appliquée None ; ...\" ; WI_REV, AW_REV, MCS_REV, WSS_REV presents.",
+  "correction_validee": "Completer les tranches existantes avec pct et name et l'exercice 2025 : Infrastructure de l'eau 29,2 %, Solutions et services d'eau 27,3 %, Mesure et controle 23,1 %, Eau appliquee 20,5 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline",
+  "probleme": "Tagline en anglais.",
+  "preuve": "tagline : \"Leading global water technology company\".",
+  "correction_validee": "Rediger une tagline en francais.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

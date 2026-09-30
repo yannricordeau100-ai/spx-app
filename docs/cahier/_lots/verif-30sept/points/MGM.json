@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "parts",
+  "probleme": "Répartition fausse : ignore les Opérations régionales et donne 34,6 % à MGM China contre 25 % réels",
+  "preuve": "revenue_by_geography: Las Vegas Strip 65.4 ; M G M China 34.6 ; KPI Macao_Share Q4-2025=26.8, Q2-2026=24.7 ; 2025 : MGM China 4 461 / 17 538 = 25,4 %",
+  "correction_validee": "Remplacer par 2025 : Las Vegas Strip 48,1 ; Opérations régionales 21,5 ; MGM China (Macao) 25,4 ; Digital 3,7 ; Corporate 1,2.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Corp_Rev",
+  "probleme": "Revenu négatif impossible",
+  "preuve": "Q4-2024=-379.136 M$ pour un segment de revenus (autres trimestres 45 à 169)",
+  "correction_validee": "Retirer le point Q4-2024 (ou le recalculer sur la même base que les autres trimestres).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Employees",
+  "probleme": "Rupture de périmètre non comparable présentée comme une baisse de 20 %",
+  "preuve": "FY2024=78, FY2025=62, yoy=-20.5 ; signal : '2025 = U.S. seulement, exercices antérieurs incluaient MGM China et LeoVegas'",
+  "correction_validee": "Couper la série à FY2025 (ou retraiter les années antérieures sur le périmètre US) et retirer la variation annuelle.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "MGM Digital net revenues",
+  "probleme": "Doublon de MGMDigital_Rev avec yoy faux",
+  "preuve": "yoy=+43% alors que 196.308 vs 164 = +19,7 % (MGMDigital_Rev yoy=19.8)",
+  "correction_validee": "Supprimer le doublon 'MGM Digital net revenues'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "MGM China Macau market share + moat",
+  "probleme": "Variation annuelle et moat contredits par la série",
+  "preuve": "yoy=-1.6pp, moat 'perd 1,6 point' ; série 16,15,16,17,16,15,16,15.5,16.5,15.4 : 15.4 vs 15 quatre trimestres plus tôt = +0,4 pt",
+  "correction_validee": "Recalculer le yoy avec les périodes réelles et corriger la phrase du moat",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS_Dil",
+  "probleme": "Trimestres Q4 absents de la série",
+  "preuve": "serie: Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 ; aucun Q4",
+  "correction_validee": "Ajouter Q4-2024 et Q4-2025 (BPA annuel moins 9 mois publiés)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux vides ou cuisine interne",
+  "probleme": "Signaux réduits à un point ou contenant des balises XBRL et fragments tronqués",
+  "preuve": "OpIncome, NetIncome, DA, SGA, Capex, OCF, Cash, Inventory, SBC, Equity, Assets, Goodwill, SharesOut : signal '.' ; Rev_Total 'Revenus nets consolidés,.' ; IntExp 'puis InterestExpenseNonoperating (changement de tag en 2023)' ; OpLeasePay ': loyers versés...' ; Debt_LT ' (principal hors loyers)'",
+  "correction_validee": "Vider les signaux '.' et réécrire Rev_Total, IntExp, OpLeasePay, OpLeaseLiab, EquityMethod, Inventory, Debt_LT et Buyback en phrases complètes sans mention de tag.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_OCC_ADR_RESORT",
+  "probleme": "Nom et explication ne correspondent pas à la série (occupation seule)",
+  "preuve": "Nom 'Occupation et prix moyen des chambres', unité %, série 91..94 ; explanation 'Prix moyen effectivement obtenu par unité vendue'",
+  "correction_validee": "Renommer 'Taux d'occupation des hôtels' et remplacer l'explication par celle du taux d'occupation.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "libellés",
+  "probleme": "Libellés en anglais et 'Occupancy' pour le revenu chambres",
+  "preuve": "Casino 53.9 ; Occupancy 19.3 ; Food And Beverage 17.4 ; Entertainment Retail And Other 9.5",
+  "correction_validee": "Jeu 53,9 ; Chambres 19,3 ; Restauration 17,4 ; Divertissement, commerce et autres 9,5.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "texte",
+  "probleme": "Texte générique citant le rapport annuel dans le bloc",
+  "preuve": "'intègre l'IA/ML de manière opérationnelle ... selon son rapport annuel, sans en faire son coeur d'identité'",
+  "correction_validee": "Réécrire avec des usages concrets (check-in numérique 1,5 min, personnalisation BetMGM) sans mention de document",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

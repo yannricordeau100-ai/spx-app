@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Clinical Test Volume Growth, Revenue per Requisition, Diagnostic Information Services Revenue, Adj Operating Margin, Advanced Diagnostics Revenue, Capex / Revenue",
+  "probleme": "Six KPI appartiennent à une autre société (laboratoire d'analyses médicales, Quest Diagnostics) et non à Qnity",
+  "preuve": "Diagnostic Information Services Revenue 9.667 Mds $ alors que revenue_annuel 2025 = 4.754 Mds $ ; Advanced Diagnostics (oncologie, cardio, neuro) ; Croissance des volumes de tests cliniques ; aucun rapport avec les matériaux semi-conducteurs",
+  "correction_validee": "Supprimer les six KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "US_REV, APAC_REV, EMEA_REV, KOREA_REV, TAIWAN_REV, AMERICAS_REV, SEMI_RD, ICS_RD",
+  "probleme": "La valeur affichée est un chiffre trimestriel alors que la série est annuelle : le dernier point et la valeur ne coïncident pas",
+  "preuve": "US_REV val=172 mais FY2025=591 ; APAC_REV val=1139 mais FY2025=3747 ; SEMI_RD val=62 mais FY2025=222 ; 172+1139+105 = 1416 proche de NET_SALES Q2-2026=1429 ; toutes datées dernier 2026-06-30 sur des séries FY",
+  "correction_validee": "Aligner la valeur sur FY2025 et la date sur 2025-12-31, ou créer une série trimestrielle séparée pour T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "south_korea_sales, china_sales",
+  "probleme": "Séries annuelles en ordre inversé qui contredisent les autres KPI géographiques de la fiche",
+  "preuve": "south_korea_sales 617, 596, 562 contre KOREA_REV FY2025=725, FY2024=699, FY2023=677 ; china_sales 713, 656, 496 alors que CHINA_REV Q1+Q2 2025 = 784 M$ sur un semestre",
+  "correction_validee": "Supprimer south_korea_sales et china_sales, KOREA_REV et CHINA_REV font foi.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "samsung_sales_pct, part_ventes_samsung, tsmc_sales_pct, part_ventes_tsmc, Net sales concentration Samsung, Net sales concentration TSMC, ventes_semiconductor_technologies, ventes_interconnect_solutions",
+  "probleme": "Doublons multiples : la part Samsung existe quatre fois, la part TSMC quatre fois, les ventes par segment en annuel et en trimestriel",
+  "preuve": "samsung_sales_pct 11, 12, 12 et part_ventes_samsung 11, 12, 12 et Net sales concentration Samsung 11 et CONCENTRATION_TOP10 signal Samsung 11% ; ventes_semiconductor_technologies 2642 = somme des 4 trimestres de SEMI_REV 2025 ; séries en ordre inversé, yoy d'un % exprimé en % (-8.3%)",
+  "correction_validee": "Garder CONCENTRATION_TOP10 plus une série Samsung et une TSMC datées FY2023 à FY2025 (yoy en points), supprimer les six autres.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "DIV_PS",
+  "probleme": "Le signal cite un dividende différent de la série",
+  "preuve": "serie Q4-2025=0.1, Q1-2026=0.1, Q2-2026=0.1 ; signal : un versement régulier de 0,08 $ par action ; DIV_PAID 17 M$ pour environ 210 M d'actions = 0,08 $",
+  "correction_validee": "Vérifier le dividende déclaré (probablement 0,08 $) et corriger la série",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Organic sales growth et les deux croissances organiques par segment",
+  "probleme": "Variation d'un taux de croissance exprimée en % au lieu de points, séries sans périodes",
+  "preuve": "Organic sales growth serie 10, 10, 8, 17, 22 | yoy=+17% ; Interconnect yoy=+22% ; Semiconductor yoy=+12%",
+  "correction_validee": "Dater les cinq trimestres et exprimer la variation en points contre le même trimestre de l'an passé.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

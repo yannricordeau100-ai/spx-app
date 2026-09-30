@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "US Retail Coffee, US Retail Pet Foods, US Retail Pet, US Frozen Handheld, US Retail Frozen Handheld, Sweet Baked Snacks (Hostess), Hostess Brands Sales, Smucker Uncrustables",
+  "probleme": "Huit anciens KPI annuels font doublon avec les séries trimestrielles et donnent des valeurs contradictoires ou impossibles.",
+  "preuve": "Café FY2026 : 2806.6 contre une somme trimestrielle de 3304.9. Pet food : 1663.6, 3.05 Mds et 1600.0 selon la série. Surgelés : 1.8 Mds et 1877 contre 1853.9. Snacks sucrés : 1.2 Mds et 1178.8 (+85 %) contre 971.3. Uncrustables : 500, 600, 650, 750, 850, valeurs arrondies et sans dates.",
+  "correction_validee": "Supprimer les huit KPI annuels hérités, y compris Uncrustables dont la série n'est ni datée ni sourcée, et garder les séries trimestrielles par segment.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "hostess_impairment, op_margin.signal",
+  "probleme": "La dépréciation Hostess de l'exercice 2025 est sous-évaluée de moitié et contredit deux autres KPI.",
+  "preuve": "hostess_impairment FY2025=1002.5 (daté 2025-12-31 pour un exercice clos fin avril). Or « Sweet Baked Snacks goodwill impairment 2025 »=1661.6 et « Hostess brand intangible impairment 2025 »=320.9, soit 1982.5. Le goodwill passe de 7.4 à 5.71 Mds entre T2 et T4 FY2025. op_margin reprend « 1 002,5 M$ en FY2025 ».",
+  "correction_validee": "Porter hostess_impairment à 1982,5 M$ sur FY2025 (T3 et T4), supprimer les deux KPI qui font doublon et corriger le signal d'op_margin à 1 982,5 M$.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "marges et flux par segment, gross_margin, op_margin, net_margin, ocf_q, fcf_q, capex_q",
+  "probleme": "Toutes les marges et tous les flux s'arrêtent au T4 FY2026, alors que le T1 FY2027 est publié et cité dans la thèse.",
+  "preuve": "Le CA des segments va jusqu'à Q1-FY2027 (2026-09-02). coffee_margin, fcf_q, etc. s'arrêtent à Q4-FY2026. La thèse cite pourtant une marge café de 37,1 % et un FCF de 337,3 M$ au T1 FY2027, absents des séries.",
+  "correction_validee": "Ajouter le point Q1-FY2027 aux séries de marge, de résultat par segment et de trésorerie, avec les chiffres du communiqué du T1 FY2027.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_q, pet_foods_rev, frozen_spreads_rev, sweet_baked_rev, operating_income_q, eps_diluted .yoy",
+  "probleme": "Les variations sur un an du T1 FY2027 ne correspondent pas aux séries affichées.",
+  "preuve": "revenue_q : 2.2193 contre 2.11, soit +5,2 % (affiché +6 %). Surgelés : 499.3 contre 484.7, soit +3,0 % (affiché +1 %). Snacks sucrés : 236.5 contre 253.2, soit -6,6 % (affiché -5 %). Pet : +1,0 % (affiché +2 %). operating_income : 511.6 contre 45.6 (affiché +174 %). EPS : 3.03 contre -0.41 (affiché +153 %, non calculable).",
+  "correction_validee": "Recalculer toutes les variations sur un an du Q1-FY2027 depuis les séries et afficher « n.s. » pour le BPA et le résultat net, dont la base est négative.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_q, gross_profit_q, operating_income_q, net_income_q, eps_diluted .signal",
+  "probleme": "Les signaux du hero et du compte de résultat commentent le T4 FY2026 alors que le dernier point est le T1 FY2027. De la cuisine interne apparaît aussi.",
+  "preuve": "revenue_q : « T4 FY2026 2 268,1 M$ », valeur affichée 2.2193 (T1 FY2027). gross_profit_q : « T4 FY2026 862,1 M$ », valeur affichée 979.6. eps : « T4 FY2026 3,64 $ (dérivé) ».",
+  "correction_validee": "Réécrire les signaux sur le T1 FY2027 et retirer « (dérivé) ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment, revenue_by_geography",
+  "probleme": "Les deux répartitions sont fausses.",
+  "preuve": "Segments : Café à 46 % alors que 3304.9/9050.9 = 36,5 %. International & AFH (1320.8, soit 14,6 %) est omis et l'ancien nom « U.S. Retail Consumer Foods » est utilisé. Géographie : États-Unis 96.2 alors que us_sales dit 94,7 % (8568.2/9050.9). Il manque 141.9 M$ hors États-Unis et Canada.",
+  "correction_validee": "Segments FY2026 : Café 36,5, Surgelés et tartinables 20,5, Pet food 17,7, International et hors domicile 14,6, Snacks sucrés 10,7. Géographie : États-Unis 94,7, Canada 3,8, autres 1,6.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_price_realization, revenue_q.signal, CAHIER_ORGANIC_GROWTH",
+  "probleme": "La décomposition prix/volume diffère d'un KPI à l'autre.",
+  "preuve": "net_price_realization FY2026 = 9 pts, mais le signal de revenue_q dit « +8pts sur l'année ». CAHIER_ORGANIC_GROWTH FY2023 = 9, alors que prix 16 + volume -9 = 7. Ce KPI fait doublon avec les deux séries prix et volume.",
+  "correction_validee": "Aligner sur la valeur publiée et supprimer CAHIER_ORGANIC_GROWTH ou le rendre cohérent.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "restructuring_q.signal",
+  "probleme": "Le montant cumulé cité ne correspond pas à la série.",
+  "preuve": "« 83,5 M$ de coûts cumulés sur FY2026 ». Or la série FY2026 donne 6 + 5.6 + 5 + 4.5 = 21.1 M$.",
+  "correction_validee": "Vérifier le périmètre (coûts inclus dans le coût des ventes ?) et corriger le signal ou la série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "leverage_q",
+  "probleme": "Le levier est calculé sur un EBITDA publié qui intègre les dépréciations. Il manque aussi quatre trimestres et la variation sur un an est vide.",
+  "preuve": "Série : Q3-FY2025=9.34 puis directement Q4-FY2026=7.53. Q3-FY2024=12.8. Le résultat opérationnel FY2026 (360 M$) plus les dotations (557 M$) donnent 917 M$, et 6.91/0.917 = 7.5x, soit presque le double du levier ajusté dont un investisseur a l'habitude.",
+  "correction_validee": "Recalculer sur l'EBITDA ajusté publié, combler les trimestres manquants et le signaler dans le nom.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Uncrustables brand net sales ambition, Hostess SKU rationalization, Indianapolis bakery closure run-rate savings, Voortman business divestiture",
+  "probleme": "Des objectifs et événements ponctuels sont présentés comme des KPI trimestriels à un seul point.",
+  "preuve": "Ambition Uncrustables : série « 1, 1 » en USD_billion. Voortman : 86.3 avec le signal « activité d'environ 86M de CA cédée » (grandeur ambiguë).",
+  "correction_validee": "Les retirer des KPI ou les basculer en faits marquants.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Le moat n'en est pas un et contredit les chiffres.",
+  "preuve": "« Recul marqué des aliments pour animaux, des snacks sucrés et du surgelé ». Or pet_foods_margin Q4-FY2026 = 31.3 (+4.5 pts), le résultat pet FY2026 progresse (473,3 M$, +3 %) et le résultat surgelés aussi (444,7 M$, +5 %).",
+  "correction_validee": "Rédiger un moat (marques n°1, poids chez Walmart, Uncrustables) cohérent avec les séries.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[*].summary / score_rationale",
+  "probleme": "Les résumés de risques sont des gabarits et les justifications citent des passages sans rapport.",
+  "preuve": "Pour « Risque de taux d'intérêt », la justification cite « A widespread product recall could result... ». Pour « Réputation » et « Qualité produits », elle cite la même phrase sur les « major customers ».",
+  "correction_validee": "Régénérer les risques avec un résumé propre à chacun et la bonne citation.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

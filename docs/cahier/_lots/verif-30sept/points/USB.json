@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "WCCIB_rev, CBB_rev, PS_rev, WCCIB_op, CBB_op, PS_op, card_rev, capmkts_rev",
+  "probleme": "Séries de segments qui mélangent l ancien et le nouveau périmètre : la variation affichée ne correspond pas aux chiffres.",
+  "preuve": "PS_rev 1812 vs 1846 affiché +5.7 % (calcul -1.8 %) ; CBB_rev 2373 vs 2249 affiché -0.1 % (calcul +5.5 %) ; WCCIB_rev 3771 vs 3000 affiché +17.1 % (calcul +25.7 %) ; CBB_op 863 vs 651 affiché +0.5 % ; PS_op 685 vs 818 affiché -1.9 %.",
+  "correction_validee": "Remplacer les trimestres antérieurs par les chiffres retraités publiés avec le T1 2026 pour que la série et la variation affichée concordent.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WCCIB_rev, CBB_rev, PS_rev, NIM (noms)",
+  "probleme": "Noms faux : « (9M) » pour des séries trimestrielles, « (Q3 2025) » dans le nom de la marge d intérêt ; variation de marge en %.",
+  "preuve": "\"Revenus Consumer & Business Banking (9M)\" avec valeurs trimestrielles ; \"Net Interest Margin taxable-equivalent basis (Q3 2025)\" ; NIM 2.79 vs 2.66 yoy=+4.9% (devrait +0.13 pt).",
+  "correction_validee": "Retirer (9M) et (Q3 2025) des noms, NIM yoy +0,13 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WCCIB_rev.signal (hero)",
+  "probleme": "Signal du hero incompréhensible et sans chiffre.",
+  "preuve": "\"deux moteurs distincts de la croissance nette d'intérêt\" pour des revenus mêlant commissions et intérêts.",
+  "correction_validee": "Réécrire avec 3 771 M$ au T2 2026 et l apport de BTIG.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Common equity tier 1 capital ratio, Provision for credit losses, Consumer credit card balance / Average credit card loans",
+  "probleme": "Doublons de CET1, provision_cl et encours cartes, dont un figé à une date antérieure.",
+  "preuve": "CET1 10.8 et \"Common equity tier 1 capital ratio\" 10.8 ; \"Provision for credit losses\" val=576 daté 2026-05-11 contre provision_cl 538 au T2 ; encours cartes 31.1 Mds $ et 37 341 M$ pour la même notion.",
+  "correction_validee": "Supprimer les KPI importés « Common equity tier 1 capital ratio » et « Provision for credit losses », ainsi que les deux encours cartes importés.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_NIM, CAHIER_CET1, CAHIER_COST_RISK, CAHIER_ROTE",
+  "probleme": "Variations de ratios en % relatif.",
+  "preuve": "CAHIER_CET1 10.8 vs 10.6 yoy=+1.9% (+0.2 pt) ; CAHIER_ROTE yoy=+5.2% (+0.9 pt) ; COST_RISK yoy=-1.7% (-1 pb).",
+  "correction_validee": "CET1 +0,2 pt, ROTE +0,9 pt, NIM +0,02 pt, coût du risque -1 pb.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, fcf_par_salarie",
+  "probleme": "Flux de trésorerie libre non pertinent pour une banque, série erratique.",
+  "preuve": "2021=9.87, 2022=21.119, 2023=8.393 Mds $.",
+  "correction_validee": "Retirer pour les banques.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AUM, branches, cc_volume, merch_volume, Net charge-off ratio",
+  "probleme": "Indicateurs opérationnels arrêtés au T1 2026 alors que la fiche est au T2 2026.",
+  "preuve": "dernier 2026-03-31 ou 2026-03-11 ; NCO ratio 0.56 alors que le signal NCO cite 0.53 % au T2.",
+  "correction_validee": "Compléter le T2 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel",
+  "probleme": "Trou de trois ans dans la série.",
+  "preuve": "2016, 2017, 2018 puis 2022.",
+  "correction_validee": "Compléter 2019-2021.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat / positionnement IA / tagline",
+  "champ": "moat, ai_positioning, tagline",
+  "probleme": "Moat sans type fondé sur des chiffres 2025 dépassés, positionnement IA générique, tagline anglaise.",
+  "preuve": "moat: \"Les dépôts progressent de 1 %, les encours de prêts de 3,8 %\" contre deposits +2.6 % et loans +7.9 % au T2 2026 ; IA: \"Mentionne l'IA principalement sous l'angle des risques\" ; tagline \"U.S. Bancorp is a diversified...\".",
+  "correction_validee": "Réécrire moat (franchise de dépôts, paiements intégrés) et IA avec faits concrets, accroche française.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "manquant",
+  "probleme": "Indicateurs bancaires attendus absents alors que les risques les citent.",
+  "preuve": "risque 3 \"Taux d'intérêt, NIM et dépôts non-rémunérés\", risque 1 CRE, aucun KPI coût des dépôts ni exposition immobilier commercial.",
+  "correction_validee": "Ajouter coût des dépôts ou part des dépôts non rémunérés, et encours immobilier commercial de bureaux.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

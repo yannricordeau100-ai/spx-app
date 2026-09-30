@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "operating_ratio (hero)",
+  "probleme": "Le KPI hero s arrete au T4 2025 alors que le CA, le resultat d exploitation et 10 autres series vont jusqu au T2 2026 ; le ratio T2 2026 est derivable (1 - 1506/3935 = 61,7 %) et l anti-these cite deja 38,3 % de marge d exploitation au T2 2026.",
+  "preuve": "operating_ratio : dernier 2025-12-31, serie ... Q3-2025=69.7, Q4-2025=67.9 ; total_revenue Q2-2026=3935, operating_income_q Q2-2026=1506",
+  "correction_validee": "Ajouter Q1-2026=64,0 et Q2-2026=61,7, yoy -2,4 pts vs Q2-2025 (64,1), signal reecrit sur le T2 2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "train_velocity, terminal_dwell, on_time_originations, on_time_arrivals, carload_trip_plan, fuel_efficiency, gross_ton_miles, fra_personal_injury, fra_train_accident, chemicals_rev_per_unit, coal_rev_per_unit",
+  "probleme": "Un point Q2-2026 a ete ajoute a ces 11 series mais le yoy et le signal sont restes sur le T1 2026 : sens de variation faux et chiffres cites differents de la derniere valeur.",
+  "preuve": "on_time_arrivals : val=54 (Q2-2026) vs Q2-2025=55 soit -1 pt, yoy affiche +6 pts et signal 'Ponctualite arrivees 61% au T1 2026' ; carload_trip_plan val=71 vs 75 = -4 pts, yoy affiche +5 pts ; terminal_dwell 11 vs 10.4 = +5,8 %, yoy affiche -7 % ; coal_rev_per_unit 2.751 vs 2.635 = +4,4 %, yoy affiche -0.1 %",
+  "correction_validee": "Recalculer chaque yoy sur Q2-2026 vs Q2-2025 et reecrire les signaux sur le T2 2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "merchandise_rev",
+  "probleme": "yoy a 0,0 % alors que la serie donne +8,4 %, et signal contradictoire (recul des volumes) avec un trimestre record.",
+  "preuve": "Q2-2026=2446 vs Q2-2025=2257 ; yoy=+0.0% ; signal 'Recul -1% des volumes (-2%) partiellement compense par gains tarifaires'",
+  "correction_validee": "yoy +8,4 % et signal reecrit sur le T2 2026 (2 446 M$ vs 2 257 M$).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "intermodal_rev, coal_rev, intermodal_trip_plan",
+  "probleme": "Ces trois series s arretent au T1 2026 alors que merchandise_rev et le CA total ont le T2 2026 : lecture segmentaire incomplete.",
+  "preuve": "intermodal_rev dernier 2026-03-31, coal_rev dernier 2026-03-31, intermodal_trip_plan dernier 2026-03-31 ; total_revenue dernier 2026-06-30",
+  "correction_validee": "Ajouter le point T2 2026 depuis le communique du T2",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Carloads / Total Volume (carloads) / CAHIER_CARLOADS",
+  "probleme": "Trois series annuelles du meme indicateur avec des valeurs contradictoires ; 'Carloads' est une serie lissee sans etiquette de periode.",
+  "preuve": "CAHIER_CARLOADS FY2024=6277 k, FY2025=6307 k ; Total Volume (carloads) 2024=6.42 M ; Carloads serie 6, 6.1, 6.2, 6.3, 6.4 sans annees",
+  "correction_validee": "Supprimer 'Carloads' et 'Total Volume (carloads)', garder CAHIER_CARLOADS.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Intermodal Units / Intermodal Volume / INTERMODAL_UNITS",
+  "probleme": "Triple doublon annuel des unites intermodales avec des valeurs 2024 differentes (2,893 / 2,90 / 2,86 M).",
+  "preuve": "INTERMODAL_UNITS FY2024=2.893 ; Intermodal Units 2024=2900 k ; Intermodal Volume 2024=2.86 M containers",
+  "correction_validee": "Supprimer 'Intermodal Units' et 'Intermodal Volume', garder INTERMODAL_UNITS.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Merchandise (annuel), Coal Revenue %, Record Q1 fuel efficiency",
+  "probleme": "Doublons perimes : Merchandise annuel s arrete en 2024 alors que merchandise_rev trimestriel existe ; Coal Revenue % s arrete en 2024 (16 %) alors que la repartition 2025 donne 14 % ; 'Record Q1 fuel efficiency' recopie fuel_efficiency avec un nom faux (la derniere valeur 0,94 est le T2).",
+  "preuve": "Merchandise dernier 2024-12-31 ; Coal Revenue % dernier 2024-12-31 val=16 vs revenue_by_segment Coal Services 14 ; Record Q1 fuel efficiency serie 0.97, 0.94 = fuel_efficiency Q1/Q2-2026",
+  "correction_validee": "Supprimer les trois KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Texte perime : il decrit un recul general alors que le premier semestre 2026 montre CA +10 %, resultat net +21 %, marge nette 25,5 % au T2 2026.",
+  "preuve": "moat : 'Chiffre d affaires, marges et resultat net reculent tous nettement' ; total_revenue Q2-2026 yoy +10.1%, net_income_q yoy +20.9%",
+  "correction_validee": "Reecrire sur la base des donnees T2 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "FRA injury rate improvement",
+  "probleme": "Valeur affichee 19 mais signal cite 13 % ; unite '% amelioration' ambigue et doublon de fra_personal_injury.",
+  "preuve": "val=19, serie 13, 19 ; signal 'Taux de blessures FRA ameliore de 13%'",
+  "correction_validee": "Supprimer 'FRA injury rate improvement'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

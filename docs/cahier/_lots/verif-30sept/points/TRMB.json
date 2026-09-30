@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "KPI annuels",
+  "champ": "revenue_annuel, fcf_annuel, dette_annuelle, effectifs_annuels (periodes)",
+  "probleme": "Exercices decales d un an : l exercice 2024 (clos le 3 janvier 2025) est etiquete 2025 et l exercice 2025 (clos le 2 janvier 2026) est etiquete 2026 ; 2024 disparait de la serie et le signal parle de ventes 'en 2026'.",
+  "preuve": "serie revenue_annuel : 2023=3.799, 2025=3.683, 2026=3.587 ; signal 'Ventes de 3,6 Mds $ en 2026'. La somme des trimestres 2025 (840,6+875,7+901,2+969,8) donne 3 587 M$, soit l exercice 2025.",
+  "correction_validee": "Reetiqueter 2026 en 2025 et 2025 en 2024 sur revenue_annuel, fcf_annuel, dette_annuelle et effectifs_annuels, puis regenerer les signaux.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Mix recurrent : RECURRING_MIX, SUBSVC_MIX, Subscription Mix, Recurring Revenue %, Recurring revenue share since 2020",
+  "probleme": "Cinq KPI mesurent la part recurrente avec des valeurs incompatibles pour la meme periode.",
+  "preuve": "RECURRING_MIX 78 % (T3 2025) ; SUBSVC_MIX 65,9 % (T2 2026) ; Subscription Mix 55 % ; Recurring Revenue % 58 % ; Recurring revenue share 65 %.",
+  "correction_validee": "Garder SUBSVC_MIX (serie trimestrielle publiee) et supprimer RECURRING_MIX, Subscription Mix, Recurring Revenue % et Recurring revenue share since 2020.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI annuels sans date",
+  "champ": "Field Systems, Transportation, AECO Segment, Subscription & SaaS Revenue",
+  "probleme": "Series estimees sans periode, contredites par les series trimestrielles publiees. Descriptions perimees (ELD fleet management cede a Platform Science) et en franglais.",
+  "preuve": "Field Systems 1,0 Md$ alors que FIELD_REV 2025 = 1 539 M$ ; Transportation 0,85 Md$ alors que TL_REV 2025 = 549 M$ ; Subscription & SaaS 2,65 Md$ alors que SUB_REV 2025 = 2 452 M$ ; 'Plus gros segment vertical' pour AECO alors que Field Systems est plus gros en 2025.",
+  "correction_validee": "Supprimer AECO Segment, Field Systems, Transportation et Subscription & SaaS Revenue, deja couverts par AECO_REV, FIELD_REV, TL_REV et SUB_REV.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "ARR_ORGANIC et Organic ARR growth",
+  "probleme": "Doublon, et les signaux contredisent les valeurs.",
+  "preuve": "ARR_ORGANIC val=12, signal 'Croissance organique ARR 14%' ; Organic ARR growth val=13, signal 'Croissance organique de l ARR a 12%'. La serie ARR_ORGANIC saute de Q3-FY2025 a Q2-2026.",
+  "correction_validee": "Garder une seule serie datee, completer T4 2025 et T1 2026, aligner le signal sur la derniere valeur.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI annuels",
+  "champ": "CAHIER_ARR_GROWTH (signal) et moat",
+  "probleme": "Le signal et le moat lisent un ralentissement ou un recul qui vient des cessions (agriculture, Mobility), pas de l activite.",
+  "preuve": "CAHIER_ARR_GROWTH +5,9 %, 'La croissance de la base recurrente ralentit' alors que la croissance organique est de 13 a 15 % ; moat 'Le chiffre d affaires recule de 2,6 %' alors que total_revenue T2 2026 progresse de 11 %.",
+  "correction_validee": "Reecrire le signal et le moat en citant la croissance organique et l effet des cessions.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "GEO_US (serie)",
+  "probleme": "Le comparatif N-1 est mal date : le point cite comme T2 2025 est range en Q2-2024, et Q2-2025 et Q4-2025 manquent.",
+  "preuve": "Serie Q2-2024=466.9, sans Q2-2025 ; yoy=14.5 = 534,4/466,9 ; citation : 534,4 et 466,9 pour le 'second quarter'.",
+  "correction_validee": "Verifier dans le 10-Q si 466,9 correspond a T2 2025, reclasser le point et completer les trimestres manquants.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "RECURRING_MIX (signal)",
+  "probleme": "Le signal cite une valeur differente de la derniere valeur, et la serie s arrete au T3 2025.",
+  "preuve": "val=78 (Q3-2025), signal '79% du CA en recurring/software (vs 76% en 2024)'.",
+  "correction_validee": "Supprimer RECURRING_MIX (doublon de SUBSVC_MIX).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI ponctuels",
+  "champ": "Mobility business divestiture, Retained stake in AGCO JV, Share repurchase authorization, Total debt (senior notes), Portfolio reshaping since 2020",
+  "probleme": "Ce sont des evenements ou des doublons (Total debt = debt_total), pas des KPI operationnels. Leurs unites sont illisibles.",
+  "preuve": "unites 'cessions (+13 acquisitions)', 'M USD+', '%+', 'transporteurs+' ; Total debt (senior notes) 1,4 Md$ en doublon de debt_total 1 459,3 M$.",
+  "correction_validee": "Deplacer ces cinq faits dans les evenements, supprimer les KPI et nettoyer les unites avec '+'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Noms en franglais",
+  "probleme": "Anglicismes dans les noms francais : 'AI' au lieu de 'IA', bookings ACV, cross-sell/upsell, new logo. La phrase du signal Transporeon est fautive.",
+  "preuve": "'Revenu associe a l AI', 'Gain de productivite AI estimation MEP', 'Part des bookings ACV issus du cross-sell/upsell', 'Transporeon transacte bien plus de 100 M$'.",
+  "correction_validee": "Remplacer AI par IA, traduire bookings, cross-sell, upsell et new logo, et reecrire 'Transporeon traite plus de 100 M$ de revenu transactionnel'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Description Mettrik",
+  "champ": "products",
+  "probleme": "Le texte cite encore l agriculture de precision comme activite, alors qu elle a ete apportee a la coentreprise AGCO (15 % conserves).",
+  "preuve": "'agriculture de precision (Trimble Agriculture)' ; KPI 'Trimble ne detient plus que 15% de son ex-activite agricole'.",
+  "correction_validee": "Retirer l agriculture des produits, ou la mentionner comme participation minoritaire.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_SUBSCRIPTION_GROSS_MARGIN",
+  "probleme": "La serie s arrete en 2022 sans signal de fin, alors que la fiche va jusqu en 2026.",
+  "preuve": "dernier 2022-12-31, val=76.9.",
+  "correction_validee": "Prolonger jusqu en 2025 ou supprimer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

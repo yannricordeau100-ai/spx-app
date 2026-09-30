@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "Repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Double comptage : 'Non-US' est le sous-total de Canada et Other. La part des Etats-Unis est donc fausse, et des libelles restent en anglais.",
+  "preuve": "Etats-Unis 90,4 ; Non-US 4,8 ; Canada 2,6 ; Other Non-U.S. 2,2. Or GEO_US = 46 360 / 48 828, soit 95 %.",
+  "correction_validee": "Retirer le sous-total Non-US, recalculer Etats-Unis 94,9 %, Canada 2,8 %, autres pays 2,3 %, et traduire les libelles.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "PI_NWP, PIF_AUTO (signaux)",
+  "probleme": "Les signaux affirment qu il n y a pas de perte de clients, ce que contredisent les polices en portefeuille et l anti-these. Le signal PIF_AUTO contient une faute ('deliberer').",
+  "preuve": "PI_NWP 'pas une perte de clients' ; PIF_AUTO 3,083 -> 2,801 M et PIF_HOME 5,882 -> 5,411 M sur un an ; anti-these 'a perdu 400 000 clients particuliers'.",
+  "correction_validee": "Reecrire les signaux de facon factuelle (reduction volontaire d exposition, avec perte de polices chiffree).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAT_LOSSES (signal)",
+  "probleme": "Contresens : moins de catastrophes ameliore la rentabilite technique, le signal dit l inverse.",
+  "preuve": "'Moins de sinistres climatiques ce trimestre allege directement la rentabilite technique' (518 M$, -44 %).",
+  "correction_validee": "Remplacer par 'ameliore directement la rentabilite technique'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Risques",
+  "champ": "risks",
+  "probleme": "Risques generiques ou hors sujet pour un assureur dommages, alors que les deux risques majeurs du metier sont absents : catastrophes naturelles et suffisance des provisions.",
+  "preuve": "'Pandemies', 'Chaine d approvisionnement et fournisseurs', 'Tensions geopolitiques et tarifs douaniers' ; aucune mention de catastrophes, alors que CAT_LOSSES T1 2025 = 2 266 M$.",
+  "correction_validee": "Refaire la selection depuis l item 1A en incluant catastrophes naturelles et suffisance des provisions, et retirer pandemies et chaine d approvisionnement.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Le texte minimise l IA alors que la fiche documente un programme massif.",
+  "preuve": "'sans en faire un axe central' ; KPI : partenariat Anthropic avec 10 000 ingenieurs, 50 % des sinistres eligibles au traitement automatise, 65 milliards de points de donnees, 13 Mds$ investis en technologie.",
+  "correction_validee": "Reecrire en integrant ces faits.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Employees regularly using AI tools",
+  "probleme": "La valeur contredit le signal et egale l effectif total du groupe.",
+  "preuve": "val=34000, signal 'Plus de 20 000 collaborateurs' ; effectifs_annuels 2025 = 34 000.",
+  "correction_validee": "Verifier la source et corriger la valeur ou le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI annuels sans date",
+  "champ": "Net Written Premiums, Business Insurance NWP, Personal Insurance NWP, Book Value per Share, Total annual revenues",
+  "probleme": "Doublons approximatifs des series publiees, sans dates. Le nom 'Book Value per Share' n est pas traduit et les descriptions sont en franglais.",
+  "preuve": "Net Written Premiums 2025 = 43 Mds$ alors que NWP_TOTAL 2025 = 44 359 M$ ; 'Pricing actions soutiennent croissance', 'loss ratio frequent storms'.",
+  "correction_validee": "Supprimer Net Written Premiums, Business Insurance NWP, Personal Insurance NWP, Book Value per Share et Total annual revenues.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Description Mettrik",
+  "champ": "customers, activity",
+  "probleme": "Le Canada est presente comme un marche actuel alors que les activites canadiennes ont ete cedees. L article 'The' traine dans le texte francais.",
+  "preuve": "'aux Etats-Unis et au Canada' ; KPI 'Cession de la majorite des activites canadiennes a Definity' ; 'The Travelers assure'.",
+  "correction_validee": "Mettre a jour la description.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Signaux sans accents",
+  "probleme": "Accents manquants dans plusieurs signaux.",
+  "preuve": "BI_CR 'sinistres passes mieux provisionnes qu anticipe' ; BUYBACKS 'plus mesure', 'a resituer' ; INV_YIELD 'reinvestion' ; BI_WC 'signal avance', 'du marche' ; DEBT 'a echeance'.",
+  "correction_validee": "Corriger en 'passés mieux provisionnés qu anticipé', 'plus mesuré', 'à resituer', 'réinvestissement', 'signal avancé', 'du marché', 'arrivée à échéance'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Quarterly dividend increase",
+  "probleme": "Le nom annonce une hausse, mais la valeur est le niveau du dividende. Doublon de DPS.",
+  "preuve": "val=1.25 USD/action, identique a DPS Q2-2026.",
+  "correction_validee": "Supprimer Quarterly dividend increase (DPS couvre deja la hausse de 14 %).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

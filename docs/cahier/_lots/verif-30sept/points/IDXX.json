@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Une tranche anglaise compte l'EMEA deux fois, ce qui fausse les parts (États-Unis 60,7 % au lieu de 64 %).",
+  "preuve": "Tranche « Europe, the Middle East, and Africa, Other » de 230 M$ ; les tranches totalisent 4 533 M$ pour un CA 2025 de 4 304 M$. États-Unis 2 752,8 / 4 304 = 64,0 % ; EMEA 937,3 = somme des trimestres emea_revenue_q.",
+  "correction_validee": "Supprimer la tranche « Other » et recalculer : États-Unis 64,0 %, EMEA 21,8 %, Asie-Pacifique 8,3 %, Canada 3,9 %, Amérique latine 2,1 %.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net CAG Revenue",
+  "probleme": "KPI périmé (dernier point 2024), avec un poids faux et un texte en franglais.",
+  "preuve": "« Segment ultra-dominant ~98% du CA total », alors que 3,574 / 3,898 = 91,7 % et que cag_segment_rev dit 92 % ; « vet care growth seculier », « humanizatio ».",
+  "correction_validee": "Supprimer Net CAG Revenue, cag_segment_rev couvre le sujet.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Reference Lab Services Revenue",
+  "probleme": "Faux zéros en début de série, dernier point 2024, doublon de ref_lab_revenue.",
+  "preuve": "série 0, 0, 1,2229, 1,2786, 1,3361 ; signal télégraphique « Services labs : croissance par prix global + volumes ».",
+  "correction_validee": "Supprimer Reference Lab Services Revenue.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / moat / these",
+  "champ": "premium_installed_base_growth / Global premium instrument installed base growth",
+  "probleme": "Même indicateur en double, avec deux valeurs différentes à la même date.",
+  "preuve": "11 % au 2026-06-30 contre 12 % au 2026-06-30 ; le moat dit « progresse de 12 pour cent », la thèse dit « a encore grossi de 11 % ».",
+  "correction_validee": "Garder la valeur publiée pour le T2 2026 et aligner le moat et la thèse sur elle.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PROCEDURE_VOLUME",
+  "probleme": "Nom faux : la série est une évolution en % des visites cliniques, pas un volume. C'est aussi un doublon du KPI visites US.",
+  "preuve": "« Volume de procédures », unité %, valeurs -2,3 / -0,5 / -2 / -2 ; « U.S. same-store clinical visits growth » en %.",
+  "correction_validee": "Renommer en « Évolution annuelle des visites cliniques US » et traduire « à magasin comparable » par « à cliniques comparables ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "invue_dx_placements",
+  "probleme": "Le KPI est daté du 30 juin 2026, mais son dernier point est le T1 2026. Sa variation compare avec le trimestre de lancement.",
+  "preuve": "dernier 2026-06-30, série jusqu'à Q1-2026 = 1 100 ; variation +266,7 % contre 300 au T1 2025 (lancement).",
+  "correction_validee": "Ajouter le T2 2026 ou corriger la date ; ne pas afficher de variation sur un an contre le trimestre de lancement.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / description",
+  "champ": "subsector / mettrik_description.advanced",
+  "probleme": "Sous-secteur en anglais et faux pour le code GICS.",
+  "preuve": "« Health Care Technology | GICS 35101010 » ; 35101010 correspond aux équipements de santé. La description reprend « sous-secteur Health Care Technology » et « point-of-care ».",
+  "correction_validee": "Mettre le sous-secteur « Équipements de santé » et traduire « Health Care Technology » et « point-of-care » (« au chevet du patient » ou « en clinique ») dans les descriptions.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORG_GROWTH_FRANCHISE",
+  "probleme": "Le nom annonce un détail par franchise mais il n'y a qu'une série. Sa variation porte sur un taux de croissance. La valeur 2025 ne cadre pas avec la croissance organique trimestrielle.",
+  "preuve": "« Croissance organique par franchise », valeur 8,1 et yoy « +19,1% » ; organic_revenue_growth_q 2025 : 5 / 9 / 12 / 12.",
+  "correction_validee": "Préciser le périmètre (CA récurrent CAG ou groupe), remplacer la variation par un écart en points.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Texte générique, qui ignore les chiffres IA présents sur la fiche.",
+  "preuve": "« développe des algorithmes ML sur ses larges bases de données », alors que la fiche contient inVue Dx (60 M d'images d'entraînement, environ 6 400 analyseurs placés en 2025, 75 M$ de revenus).",
+  "correction_validee": "Réécrire à partir d'inVue Dx et de Cancer DX.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

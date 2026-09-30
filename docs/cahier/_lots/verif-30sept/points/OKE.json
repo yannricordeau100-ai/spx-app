@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition périmée : ignore le segment Produits raffinés et brut (13 Mds$, environ un tiers du CA 2025)",
+  "preuve": "Bloc : NGL 75 ; G&P 20.8 ; Pipelines 4.1 (exercice None) ; séries FY2025 : NGL 16.01, G&P 7.68, Pipelines 1.85, RC 13.04 Mds$",
+  "correction_validee": "Recalculer sur FY2025 avec les quatre segments : NGL 41,5 ; RC 33,8 ; G&P 19,9 ; Pipelines 4,8.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fee_based_pct",
+  "probleme": "Valeur 100 % contredite par son propre signal (90 %) et par la thèse, un seul point de 2024",
+  "preuve": "serie Q2-2024=100 ; signal « 90% des revenus fee-based » ; thèse « environ 90 % du résultat consolidé 2025 est d'origine tarifaire »",
+  "correction_validee": "Supprimer fee_based_pct ou le remplacer par 90 % sur 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "div_per_share",
+  "probleme": "Série annuelle contenant le dividende trimestriel : unité et fréquence fausses, dernier point absent",
+  "preuve": "FY2025=1.03 (taux trimestriel), signal « 1,07 $ au T1-2026 (4,28 $ annualisé) » ; dernier 2026-03-31 sans point 2026",
+  "correction_validee": "Annualiser la série (FY2025 = 4,12 $) ou la passer en trimestriel avec 1,07 $ au T1-2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DCF / CAHIER_COVERAGE",
+  "probleme": "Flux distribuable et couverture des distributions arrêtés en 2020, alors que ce sont les indicateurs clés d'un midstream",
+  "preuve": "dernier 2020-12-31, FY2020=1881.6 et 1.17",
+  "correction_validee": "Prolonger 2021-2025 si ONEOK publie encore ces agrégats, sinon retirer les deux séries.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Natural gas processed / Natural gas transportation capacity contracted / Crude oil volume shipped / ng_pipelines_capacity",
+  "probleme": "Doublons sans identifiant contredisant les séries structurées ; trois valeurs différentes pour la capacité contractée",
+  "preuve": "Natural gas processed Q4-2025=5706 vs gas_processed Q4-2025=5588 ; capacité : 7837 (dup), 7735 (signal transport_pct), 7315 (ng_pipelines_capacity FY2025) ; dup capacité 8395 puis 4663",
+  "correction_validee": "Supprimer les doublons sans identifiant et vérifier à la source la capacité contractée FY2025 pour harmoniser ng_pipelines_capacity et transport_pct.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "cash / total_assets",
+  "probleme": "Valeur affichée absente de la série (point T2-2026 dans une série annuelle)",
+  "preuve": "cash val=161 « au 30 juin 2026 » mais serie s'arrête FY2025=78 ; total_assets val=68.5 vs FY2025=66.6",
+  "correction_validee": "Ajouter le point ou passer la série en trimestriel",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VOLUMES",
+  "probleme": "Nom vague et méthode douteuse : reprend le débit NGL du seul T4 plutôt qu'une moyenne annuelle",
+  "preuve": "FY2025=1496 = ngl_raw_feed Q4-2025=1496 ; FY2024=1309 = Q4-2024 ; moyenne 2025 = 1472",
+  "correction_validee": "Renommer « Débit brut NGL (annuel) » et calculer la moyenne annuelle",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gas_processed / ngl_raw_feed / refined_products_shipped / Elk Creek signaux",
+  "probleme": "Coquille d'apostrophe répétée après l'unité ; signaux télégraphiques avec dollar avant le montant",
+  "preuve": "« 5 707 MMcf/d'au T2-2026 », « MBbl/d'en 2025 », « MBbl/d'et » ; gnp_ebitda « $740M d'EBITDA incrémental EnLink + $99M »",
+  "correction_validee": "Remplacer « /d'au » par « /d au » (et variantes) et écrire « 740 M$ », « 99 M$ ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Bakken / synergies / Eagle Ford / West Texas / Bighorn / Data center / blending / Medford / EnLink shares / repurchase program / Elk Creek / Texas City / Eiger Express",
+  "probleme": "Treize lignes à un point décrivant des projets ou opérations, pas des KPI",
+  "preuve": "n=1 pour chacune ; « Projets de data centers en discussion 30 » ; « Actions émises acquisition EnLink » en Mds $",
+  "correction_validee": "Déplacer en faits marquants ou supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ocf_q.signal / refined_products_shipped.signal",
+  "probleme": "Cuisine interne visible",
+  "preuve": "« dérivé du cumul semestriel publié de 2 987 M$ » ; « hausse Q4-2024 masquée par exclusion EnLink périmètre 2024 »",
+  "correction_validee": "Retirer « dérivé du cumul semestriel publié de 2 987 M$ » et « masquée par exclusion EnLink périmètre 2024 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

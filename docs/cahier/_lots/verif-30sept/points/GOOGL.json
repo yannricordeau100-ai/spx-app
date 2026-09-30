@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "gservices_opinc Q3-2025",
+  "probleme": "La valeur du T3 2025 est une copie exacte de celle du T3 2024.",
+  "preuve": "Q3-2024 = 30 856 et Q3-2025 = 30 856, alors que gservices_rev passe de 76,5 à 87,1 Mds $ (la marge tomberait de 40 % à 35 % sur un seul trimestre).",
+  "correction_validee": "Remplacer Q3-2025 par la valeur publiee (environ 33,5 Mds $) apres verification a la source et recalculer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gemini_ent_seats / Gemini Enterprise paid seats sold ; Alphabet annual revenue milestone ; Capital expenditures 2025 ; YouTube Ads Revenue ; TAC",
+  "probleme": "Doublons : même indicateur sous deux noms, ou en annuel et en trimestriel. Le capex 2025 est en M$ alors que le capex trimestriel est en Mds $.",
+  "preuve": "gemini_ent_seats 8 = Gemini Enterprise paid seats sold 8. Revenue milestone 403 = revenue_annuel 402,836. Capex 2025 = 91 447 M$, soit la somme des trimestres capex 2025 (91,5 Mds $).",
+  "correction_validee": "Supprimer Gemini Enterprise paid seats sold, Alphabet annual revenue milestone, Capital expenditures 2025, YouTube Ads Revenue et TAC (garder youtube_ads et total_tac).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "waymo_rides_week.yoy",
+  "probleme": "La variation annuelle est fausse.",
+  "preuve": "Q1-2026 = 500 000 contre Q1-2025 = 200 000, soit +150 %, mais yoy affiché +100 %.",
+  "correction_validee": "Afficher +150 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "op_margin.signal",
+  "probleme": "Le signal dit que la marge recule, alors que la variation annuelle affichée est en hausse.",
+  "preuve": "Q2-2025 = 32, Q2-2026 = 34, yoy +1,6 pt ; signal : « elle recule sous l'effet des amortissements liés aux investissements IA ».",
+  "correction_validee": "Préciser : recul séquentiel (36 puis 34) mais hausse de 1,6 pt sur un an.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Wiz acquisition price / Intersect acquisition price / EC ad-tech antitrust charge / Privacy legal settlement accrual / YouTube annual revenue milestone",
+  "probleme": "Événements ponctuels présentés comme des KPI trimestriels. Certains sont datés 2026-03-28 mais décrivent des faits de 2025.",
+  "preuve": "n=1 ; « Charge de 3,5Md$ passée au T3-2025 » ; « Provision exceptionnelle de 1,4Md$ constituée au T2-2025 ».",
+  "correction_validee": "Sortir ces éléments des KPI (vers faits marquants).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque les indicateurs clés de Search : variation des clics payants et du coût par clic, publiés chaque trimestre. Le signal de search_rev affirme une cause (volume plutôt que prix) sans aucune donnée pour l'appuyer.",
+  "preuve": "Seuls les impressions et le coût par impression du réseau partenaire (CAHIER_*) existent, en annuel et jusqu'en 2025. search_rev : « La croissance vient du volume de recherches, pas des prix ».",
+  "correction_validee": "Ajouter clics payants et CPC (Search & other) en trimestriel, puis réécrire le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VOLUME_ANNONCES / CAHIER_PRIX_PAR_ANNONCE / gcp_cloud_share",
+  "probleme": "Noms anglais fabriqués et source dans le nom.",
+  "preuve": "name_en « Volume Annonces », « Prix Par Annonce » ; « Google Cloud infrastructure market share (Synergy) ».",
+  "correction_validee": "Renommer en Google Network impressions growth, Google Network cost-per-impression growth et Google Cloud infrastructure market share.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete / moat / positions",
+  "champ": "tagline, moat, market_positions",
+  "probleme": "Accroche en anglais. Type de moat vide (None). Positions de marché sans nom ni part.",
+  "preuve": "« Organizing the world's information... » ; « moat: None » ; « position de marche 1: None | taille 1260 | part None ».",
+  "correction_validee": "Accroche en français, type de moat renseigné, positions complétées (Search, Chrome, Android, Cloud) à partir des KPI de parts déjà présents.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

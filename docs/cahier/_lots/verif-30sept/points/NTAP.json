@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "hybrid_cloud_product_rev",
+  "probleme": "Dernier point invraisemblable : 1 309 M$ de produits + 720 M$ de support = 2 029 M$, superieur au chiffre d'affaires total du trimestre (2 025 M$), ne laissant rien au cloud ni aux services ; le yoy +14,3 % ne correspond pas non plus (1309/786 = +67 %).",
+  "preuve": "hybrid_cloud_product_rev Q1-FY2027=1309 ; support_rev Q1-FY2027=720 ; revenue_total Q1-FY2027=2.025 Mds",
+  "correction_validee": "Reprendre a la source la valeur produits du T1 FY2027 (coherente avec 1 819 M$ de segment moins 720 M$ de support), sinon vider ce point.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "hybrid_cloud_product_rev.signal, support_rev.signal, hybrid_cloud_total_rev.signal, revenue_total.signal",
+  "probleme": "Signaux perimes d'un trimestre : ils citent le trimestre precedent alors que la serie a un point plus recent ; les libelles de periode melangent calendrier et fiscal (Q2-2026 puis Q1-FY2027).",
+  "preuve": "revenue_total val=2.025 :: « CA de 1 948 M$ au dernier trimestre » ; support_rev val=720 :: « 688 M$ au dernier trimestre »",
+  "correction_validee": "Reecrire les signaux sur le T1 FY2027 et harmoniser les libelles en Qx-FYyyyy.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Public Cloud ARR, Hybrid Cloud CA, All-Flash ARR, Product CA, Services CA",
+  "probleme": "Cinq series annuelles sans dates, datees 2026-12-31, sans signal, dont les valeurs sont perimees et contredites par la fiche.",
+  "preuve": "All-Flash ARR val=3.6 vs all_flash_run_rate 4.2 et all_flash_rev FY2026=4.18 ; Product CA val=2.86 vs 46,1 % x 6,925 = 3.19 ; Public Cloud ARR 640 vs run rate 630",
+  "correction_validee": "Supprimer les cinq series, doublons perimes des series trimestrielles et annuelles datees.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RECURRING_INSTALLED_BASE",
+  "probleme": "Nom faux : la serie est le taux annualise des baies tout flash (all_flash_run_rate), pas des « revenus recurrents et base installee » ; doublon.",
+  "preuve": "nom « Revenus recurrents et base installee » :: signal « Revenus annualises des baies tout flash de 4,1 Mds $ » ; all_flash_run_rate Q4-FY2025=4.1",
+  "correction_validee": "Supprimer la serie, doublon de all_flash_run_rate.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_margin_pct.yoy, op_margin_pct.yoy, net_margin_pct.yoy, rnd_pct.yoy, tax_rate.yoy, hybrid_cloud_gross_margin.yoy",
+  "probleme": "Variation annuelle des ratios exprimee en pourcentage relatif au lieu de points ; taux d'impot affiche « +450 % ».",
+  "preuve": "op_margin_pct 20.1 -> 27.3 | yoy=+35.8% ; tax_rate 4 -> 22 | yoy=+450.0%",
+  "correction_validee": "Exprimer la variation en points (+7,2 pts, +18 pts).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dps",
+  "probleme": "Serie trimestrielle a trous (trimestres manquants), inutilisable en graphique.",
+  "preuve": "n=9 | serie: Q4-FY2022, Q4-FY2024, Q1-FY2025, Q3-FY2025, Q4-FY2025, Q2-FY2026...",
+  "correction_validee": "Completer les trimestres manquants (0,50 puis 0,52 $) ou retirer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline",
+  "probleme": "Accroche en anglais.",
+  "preuve": "« Empowering customers to harness their data... »",
+  "correction_validee": "Traduire.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

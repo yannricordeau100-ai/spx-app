@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Chocolate Net Revenues / Biscuits Net Revenues",
+  "probleme": "Deux séries annuelles fausses et en doublon : chocolat 12,3 Mds pour 2025 alors que la somme trimestrielle donne 12,696 ; biscuits 14,4 Mds alors que le réel est 18,391",
+  "preuve": "chocolate_rev 2025 : 3.182+2.661+3.076+3.777=12.696 ; CA_BISCUITS FY2025=18391 ; Biscuits Net Revenues serie 11.6, 12.8, 14, 14.1, 14.4",
+  "correction_validee": "Supprimer Chocolate Net Revenues et Biscuits Net Revenues.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "MDLZ Chocolate Revenue / MDLZ Biscuits & Baked Snacks Rev / MDLZ Europe Segment Revenue / MDLZ North America Seg Op Inc / MDLZ Gum & Candy Revenue",
+  "probleme": "Cinq séries annuelles sans signal qui recopient les sommes des séries trimestrielles déjà présentes, et datées 2026-06-30 pour un exercice clos le 31 décembre 2025",
+  "preuve": "MDLZ Europe Segment Revenue 15027 = 3.55+3.412+3.674+4.391 ; NA Seg Op Inc 1904 = 485+454+547+418 ; MDLZ Biscuits 18391 = CA_BISCUITS FY2025",
+  "correction_validee": "Supprimer les cinq series annuelles MDLZ Chocolate Revenue, MDLZ Biscuits & Baked Snacks Rev, MDLZ Europe Segment Revenue, MDLZ North America Seg Op Inc et MDLZ Gum & Candy Revenue.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Organic Net Revenue growth vs organic_rev_growth",
+  "probleme": "Même indicateur sous deux noms avec une valeur différente pour le même dernier point : 3 contre 2,2 au 30 juin 2026",
+  "preuve": "Organic Net Revenue growth val=3 dernier 2026-06-30 ; organic_rev_growth Q2-2026=2.2 et signal : +2,2% au T2-2026",
+  "correction_validee": "Supprimer Organic Net Revenue growth et garder organic_rev_growth (2,2 % au T2-2026).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "organic_rev_growth.yoy / emerging_markets_organic.yoy",
+  "probleme": "Variation d un taux de croissance exprimée en pourcentage relatif, ce qui donne -60,7 % pour un passage de 5,6 à 2,2",
+  "preuve": "organic_rev_growth yoy=-60.7% ; emerging_markets_organic yoy=-56.9% (10.2 vers 4.4)",
+  "correction_validee": "Afficher -3,4 pt pour organic_rev_growth et -5,8 pt pour emerging_markets_organic.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "employees_hc vs effectifs_annuels",
+  "probleme": "Doublon de l effectif avec une année manquante et une valeur 2024 absente d un côté (FY2024 sauté) et 90 000 de l autre",
+  "preuve": "employees_hc : FY2023=91000, FY2025=91000 (pas de FY2024) ; effectifs_annuels : 2024=90000, 2025=91000",
+  "correction_validee": "Supprimer employees_hc.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Developed Markets organic net revenue growth",
+  "probleme": "Valeur 0,8 contredite par le signal des émergents qui cite +0,7 % pour les marchés développés au même trimestre",
+  "preuve": "Developed Markets val=0.8 dernier 2026-06-30 ; emerging_markets_organic signal : contre +0,7% pour les marchés développés",
+  "correction_validee": "Vérifier le chiffre publié au T2-2026 et aligner les deux",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

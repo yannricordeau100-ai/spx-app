@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Actions diluees",
+  "probleme": "Valeurs négatives dans une série de nombre d'actions : les variations annuelles ont été insérées comme points chaque T4",
+  "preuve": "history ... 1187, -1, 1172, 1158, 1157, -5, 1134, 1114, 1098, -8, 1072, 1047, 1024, -9, 999, 977, 960, -10, 920, 882 ; Q4-2024=-9, Q4-2025=-10",
+  "correction_validee": "Remplacer chaque T4 négatif par le nombre d'actions diluées du T4 tiré du 10-K, ou retirer ces points.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Taux IS",
+  "probleme": "Série de taux d'imposition avec des valeurs impossibles ou aberrantes",
+  "preuve": "history contient 796 (Q2-2022), 68 (Q1-2020), -26 (Q1-2021), -0.8 (Q4-2024), -2.2 (Q4-2025) ; les T4 semblent être des variations en points insérées comme valeurs",
+  "correction_validee": "Recalculer les taux T4 (exercice moins 9 mois) depuis les 10-K, vérifier 796, 68 et -26 contre les 10-Q, sinon retirer le KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Payment transactions / Payment transactions per active account (TTM)",
+  "probleme": "Doublons de Transactions et de TPA, décalés d'un trimestre et datés faussement 2026-06-30",
+  "preuve": "Payment transactions serie 6.6, 6.6, 6.6, 6, 6.2, 6.3, 6.8, 6.5 = Transactions Q2-2024 à Q1-2026 arrondis (Q2-2026 réel = 6.75) ; TTM serie 60.9, 61.4, 60.6, 59.4, 58.3, 57.6, 57.7, 58.7 = TPA Q2-2024 à Q1-2026 (Q2-2026 réel = 60)",
+  "correction_validee": "Supprimer Payment transactions et Payment transactions per active account (TTM).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Branded TPV Mix",
+  "probleme": "Série annuelle sans années, à pas réguliers de 2 points, invérifiable, avec description en franglais",
+  "preuve": "serie 40, 36, 34, 32, 30 | year | dernier 2026-06-30 | history_periods None ; description : Part TPV venant du checkout PayPal-branded (vs unbranded Braintree). Branded = marges supérieures",
+  "correction_validee": "Retirer, ou dater et sourcer chaque point depuis les présentations investisseurs",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Venmo TPV, MAA, TPA ex-PSP, Branded Checkout TPV, PSP TPV",
+  "probleme": "Cinq séries opérationnelles clés s'arrêtent au T1 2026 alors que le T2 2026 est publié sur le reste de la fiche",
+  "preuve": "Venmo TPV dernier 2026-03-31 ; MAA dernier 2026-03-31 ; TPA ex-PSP dernier 2026-03-31 ; TPV et FCF vont jusqu'à Q2-2026",
+  "correction_validee": "Ajouter le point T2 2026 depuis le communiqué du 2e trimestre",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "2Q 2025 transformation plan",
+  "probleme": "Nom incompréhensible et valeur non définie",
+  "preuve": "KPI 2Q 2025 transformation plan | Plan transformationnel technologique | M $ | val=102 ; le signal ne dit pas ce que sont les 102 M$",
+  "correction_validee": "Renommer (par exemple Charges de restructuration du plan de transformation, T2 2025) ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

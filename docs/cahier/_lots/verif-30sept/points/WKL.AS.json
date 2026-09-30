@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "WEB_ETABLISS_ET_PRATIQUE",
+  "probleme": "La serie est en fait le chiffre d'affaires annuel de la division Health en M€, presentee comme un nombre d'etablissements clients, avec un signal faux (couverture geographique).",
+  "preuve": "FY2024=1584 = REV_HEALTH H1-2024 771 + H2-2024 813 ; FY2025=1596 = 788 + 808. Unite 'etablissements', signal 'Mesure la couverture geographique de la division Health'.",
+  "correction_validee": "Supprimer WEB_ETABLISS_ET_PRATIQUE, doublon annuel de REV_HEALTH mal etiquete.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WEB_HOPITAUX_ET_SYSTEMES",
+  "probleme": "Valeur invraisemblable (3 hopitaux) et serie depuis 2018 pour un produit, UpToDate Expert AI, lance recemment. Nom anglais = code technique, fautes d'accent dans le signal.",
+  "preuve": "val=3, unite 'hopitaux et systemes de sante', serie FY2018=1.5, FY2019=2, FY2020=2.5 ; nom anglais 'WEB_HOPITAUX_ET_SYSTEMES' ; 'a grande echelle', 'marche reglemente'.",
+  "correction_validee": "Retirer le KPI, sauf a le remplacer par un chiffre source et date avec la bonne unite.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "tendance / justification_mettrik",
+  "probleme": "Moat contradictoire : tendance 'baisse' et tendance_mettrik 'stable' en meme temps, justification en langage interne ('revision de la note'), en contradiction avec these elevee et IA 'leader'.",
+  "preuve": "'tendance': 'baisse', 'tendance_mettrik': 'stable', 'la rupture liee a l'IA generative justifie la revision de la note'.",
+  "correction_validee": "Choisir une seule tendance et reecrire la justification sans cuisine interne.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_DEBT_H",
+  "probleme": "Valeur identique au centime sur deux dates de cloture, probable report du point precedent.",
+  "preuve": "H2-2025=4.024, H1-2026=4.024 Mds €.",
+  "correction_validee": "Verifier la dette nette au 30 juin 2026 dans le communique semestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI manquant",
+  "probleme": "Aucun KPI sur la croissance des logiciels cloud ni sur la part numerique du chiffre d'affaires, indicateurs suivis par tout investisseur du secteur et publies par la societe.",
+  "preuve": "Liste des 27 KPI : aucun cloud software ni digital share.",
+  "correction_validee": "Ajouter la croissance organique des logiciels cloud (et la part numerique).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline",
+  "probleme": "Tagline vide.",
+  "preuve": "tagline: (vide)",
+  "correction_validee": "Rediger une accroche en francais.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

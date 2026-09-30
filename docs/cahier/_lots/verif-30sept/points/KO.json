@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "unit_case_vol",
+  "probleme": "La serie ne mesure pas le volume mondial : elle vaut la moitie du chiffre publie et contredit le signal et le KPI CAHIER_UNIT_CASE_VOL. Il s'agit probablement du volume Trademark Coca-Cola (~47 % du total).",
+  "preuve": "unit_case_vol FY2025=15.9 « B unit cases » ; signal « 33.8 Mds de caisses-unite vendues en 2025 vs 33.7 en 2024 » ; CAHIER_UNIT_CASE_VOL FY2025=33.8",
+  "correction_validee": "Supprimer unit_case_vol, CAHIER_UNIT_CASE_VOL couvrant le volume mondial ; sinon le renommer « Volume Trademark Coca-Cola » apres verification a la source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "refranchising_progress",
+  "probleme": "Nom faux : la serie est la croissance du volume du segment Bottling Investments, pas un avancement de refranchisage.",
+  "preuve": "nom « Avancement refranchisage | % » ; serie Q3-2024=-31 ... Q2-2026=5 ; signal « Volume Bottling Investments +5% au T2 2026 (+8% hors changements structurels) »",
+  "correction_validee": "Renommer en « Croissance du volume Bottling Investments » (Bottling Investments unit case volume growth).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fairlife contingent consideration payment.signal",
+  "probleme": "Unite fausse dans le signal : millions au lieu de milliards.",
+  "preuve": "val=6173 M $ ; signal « Solde final de 6,17 M$ du complement de prix fairlife »",
+  "correction_validee": "Ecrire « Solde final de 6,17 Md$ du complement de prix fairlife ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "zero_sugar_vol",
+  "probleme": "Serie arretee au T1-2026 alors que la date de dernier point est 2026-07-03 et que toutes les autres series trimestrielles ont le T2-2026.",
+  "preuve": "dernier 2026-07-03 ; serie se termine Q1-2026=13 ; signal « +13% au T1 2026 »",
+  "correction_validee": "Ajouter le T2-2026 (publie le 22 juillet 2026) ou corriger la date de dernier point.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Market value created for shareowners since 2017, Trademark Coca-Cola retail sales growth since 2017, Share a Coke campaign reach, Value of one point of global beverage incidence, Fuze Tea market presence, Outlets added over the past year, Customers on India digital ordering platforms, Daily servings, Billion-dollar brands",
+  "probleme": "Neuf KPI a un seul point tires d'une presentation du 11 mars 2026 : arguments marketing non suivables, dont une performance boursiere presentee comme KPI.",
+  "preuve": "« Market value created for shareowners since 2017 | 150 Mds $ | n=1 » ; « Value of one point of global beverage incidence | 40 Mds $ » ; « Share a Coke campaign reach | 10 B bouteilles » ; « Trademark Coca-Cola retail sales growth since 2017 » nomme croissance mais unite Mds $",
+  "correction_validee": "Supprimer les KPI non suivables (valeur boursiere, campagne, incidence) ; garder au plus marques milliardaires et portions/jour s'ils sont reconduits chaque annee.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORGANIC_GROWTH.yoy",
+  "probleme": "Variation d'une serie en pourcentage exprimee en pourcentage relatif au lieu de points.",
+  "preuve": "serie FY2024=12, FY2025=5 ; yoy=« -58.3% » ; attendu « -7 pts »",
+  "correction_validee": "Afficher la variation en points : -7 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "La justification affirme qu'aucun inventaire de risques n'est disponible alors que six risques notes figurent sur la fiche.",
+  "preuve": "« ... confirment le pouvoir de fixation des prix, sans inventaire de risques disponible » ; risques 1 a 6 presents avec score et tendance",
+  "correction_validee": "Retirer « sans inventaire de risques disponible » de la justification du moat.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.fr.customers",
+  "probleme": "Description des clients inexacte : Coca-Cola vend d'abord du concentre a des embouteilleurs, pas a des consommateurs individuels ni a des distributeurs automatiques.",
+  "preuve": "« Elle vend a un large eventail de clients : consommateurs individuels, restaurants, commerces de detail et distributeurs automatiques » ; hero conc_rev_share : concentres = 59 % des revenus ; these : « vend d'abord du concentre a des embouteilleurs independants »",
+  "correction_validee": "Reecrire : clients directs = embouteilleurs partenaires (concentre) puis distributeurs, restauration et detaillants pour les produits finis.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "capex_q.signal, ocf_q.signal, fcf_q.signal, buybacks_q.signal",
+  "probleme": "Notes de calcul internes visibles dans les signaux.",
+  "preuve": "« Capex de 418.0 M $ au T2 2026 (derive: 6 mois 684 M $ moins T1 266 M $) » ; « FCF (derive) de 5.10 Mds $ (FTO derive moins capex derive) » ; « (derive: 6 mois 663 M $ moins T1 477 M $) »",
+  "correction_validee": "Retirer les parentheses de methode et ne garder que le chiffre du T2 2026 et sa variation sur un an.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

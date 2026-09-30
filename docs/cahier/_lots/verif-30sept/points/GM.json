@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "GMI_EBIT_adj / GMI_wholesale_units / GMNA_EBIT_adj_margin / GMI_EBIT_adj_margin (signal)",
+  "probleme": "Signaux perimes ou de sens contraire a la serie",
+  "preuve": "GMI_EBIT_adj yoy -7 % mais « Rebond marque hors Chine » ; GMI_wholesale_units yoy +14 % mais « Contraction internationale » ; GMNA marge Q1-2026 10,1 et Q2 8,6 mais « Sous la cible de 8 a 10 % en 2025 » ; GMI marge signal en annuel 2025 sur une serie trimestrielle",
+  "correction_validee": "Reecrire les quatre signaux sur le T2 2026 : EBIT GMI 190 M$ (-7 %), unites 142 k (+14 %), marge GMNA 8,6 % (+2,5 pts), marge GMI 5,1 % (-1,0 pt).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Tariff Impact on EBIT-adjusted",
+  "probleme": "Serie fabriquee (quatre zeros), unite fausse, ordre inverse",
+  "preuve": "« M $ | val=3.1 | serie: 3.1, 0, 0, 0, 0 » alors que le signal parle de 3,0 a 4,0 Md USD",
+  "correction_validee": "Supprimer la serie et laisser l'information sur les tarifs dans le signal de GMNA_EBIT_adj_margin.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "China equity income",
+  "probleme": "Valeurs rondes suspectes et signal contredit par la serie",
+  "preuve": "serie « 0, -100, -100, 17, 50, 80, 100, 100 » ; signal « sixieme trimestre consecutif dans le vert » alors que seuls cinq points sont positifs",
+  "correction_validee": "Remplacer par les montants exacts des 10-Q (resultat des coentreprises chinoises) et recompter les trimestres positifs dans le signal.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Worldwide Vehicle Sales / China Market Share / GM Financial Revenue / Total worldwide vehicle sales",
+  "probleme": "Doublons de series existantes, dont un contredit par la somme des trimestres",
+  "preuve": "Worldwide Vehicle Sales 6,184 M = CAHIER_DELIVERIES 6184 k ; China Market Share annuel 7,1 vs China market share trimestriel ; GM Financial Revenue 17,06 = somme de GMFin_rev 2025 ; Total worldwide vehicle sales trimestriel 2025 totalise 6 298 k contre 6 184 k en annuel",
+  "correction_validee": "Supprimer Worldwide Vehicle Sales et GM Financial Revenue ; verifier la serie trimestrielle mondiale",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EBIT-Adjusted / US Market Share / China Market Share / Worldwide Vehicle Sales (signal et description)",
+  "probleme": "Textes sans accents, avec anglicismes et vocabulaire de modele de langage",
+  "preuve": "« Recul 2025 lie ajustements EV strategique et tariffs, guidance 2026 13-15 Mds$ » ; « #1 US automaker en 2025 » ; « Cruise wind-down » ; « Marche en chute libre »",
+  "correction_validee": "Reecrire en francais accentue sans anglicismes",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Super Cruise miles / US full-size pickup share / China NEV sales / OnStar Fleet / Capital returned since 2023 / TSR 2025 / US EV share / EV realignment charges / Impairment charges / Buyback capacity / Ultium loan",
+  "probleme": "Onze « KPI » a un seul point qui sont des jalons, annonces ou charges ponctuelles",
+  "preuve": "n=1 pour chacun, ex. « Total shareholder return 2025 = 54 % », « Term loan to Ultium Cells = 1800 M$ »",
+  "correction_validee": "Deplacer en stories, retirer du bloc KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Texte contredit par les chiffres de la fiche",
+  "preuve": "« Les ventes reculent legerement en Amerique du Nord et a l international ... aucun avantage concurrentiel n est reconnu » alors que GMNA_rev +1 %, GMI_rev +11 %, part de marche camions US 33 % et pickups pleine taille 42 %",
+  "correction_validee": "Reecrire le moat autour du leadership pickups/SUV (33 % et 42 %) et de GM Financial, avec une tendance fondee sur les derniers trimestres.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "positionnement IA",
+  "probleme": "Franglais illisible pour le public",
+  "preuve": "« software-enabled connected services et features futures, avec focus sur talent IA/ML et acces data haute qualite »",
+  "correction_validee": "Reecrire en francais",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_MARKET_SHARE (yoy)",
+  "probleme": "Variation d une part de marche en % relatif au lieu de points",
+  "preuve": "yoy +4.2 % pour 16,5 vers 17,2 (= +0,7 pt, comme l indique le doublon US Market Share)",
+  "correction_validee": "Afficher le yoy de CAHIER_MARKET_SHARE en « +0,7 pt ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positions_de_marche",
+  "champ": "position de marche 1",
+  "probleme": "Position sans nom ni part",
+  "preuve": "« None | taille 2600 | part None »",
+  "correction_validee": "Nommer ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

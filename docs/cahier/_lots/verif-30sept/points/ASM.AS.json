@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Revenue, Operating Result, R&D Spending, Employees, Free Cash Flow ex Acquisitions",
+  "probleme": "Bloc annuel arrêté à 2022, daté 2026-08-09, valeurs fausses et doublons de REV, OP, RD.",
+  "preuve": "« Revenue » [818, 1125, 1328, 1730, 2411] vs REV FY2019 = 1283,9 ; « Operating Result » [155, 218, 271, 490, 632] vs OP FY2018 = 124,3, FY2019 = 378,7 ; « R&D Spending » 302 (2022) vs RD FY2022 = 233,9 ; descriptions « R&D engagements clients record en 2022 ».",
+  "correction_validee": "Supprimer les 5 KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SYSTEM_ORDERS_BACKLOG",
+  "probleme": "Série arrêtée au 31/12/2015 alors que les commandes trimestrielles couvrent 2016-2025.",
+  "preuve": "dernier 2015-12-31, val 608,4 M€, série FY2008-FY2015 ; ORD n=40 jusqu'au T4 2025.",
+  "correction_validee": "Prolonger avec les sommes annuelles d'ORD de FY2016 à FY2025 et renommer « Commandes de systèmes », ou supprimer.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "REV.signal",
+  "probleme": "Signal faux : la croissance 2025 n'est pas à deux chiffres, ni celle de 2020.",
+  "preuve": "« neuvième année consécutive de croissance à deux chiffres » ; FY2025 +8,2 % ; FY2020 +3,4 % (1 328,1 vs 1 283,9).",
+  "correction_validee": "Écrire : « 3,17 milliards d'euros en 2025, +8,2 %, neuvième année consécutive de croissance ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Mention d'un document et titre de section en anglais dans le bloc.",
+  "preuve": "« Le document de référence 2025 consacre une section entière intitulée \"Enabling the AI revolution through ALD and Epi\" ».",
+  "correction_validee": "Retirer la référence au document et le titre, garder le fond (GAA 2 nm, +400 M$ de marché par 100 000 plaquettes).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs",
+  "probleme": "Aucun KPI d'effectifs à jour : le seul (4 258 FTE) date de 2022 et fait partie du bloc à supprimer.",
+  "preuve": "« Employees » val 4258, série [2400, 2700, 2900, 3300, 4258], signal « 965 R&D dont +49% vs 2021 ».",
+  "correction_validee": "Créer un KPI effectifs FY2018-FY2025 depuis les rapports annuels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tête + market_positions",
+  "champ": "tagline, revenue_by_segment.year, revenue_by_geography.year, clients, position de marché",
+  "probleme": "En-tête incomplet et position de marché à périmètres non alignés.",
+  "preuve": "tagline vide ; répartitions « (None) » ; clients top n=2 sans nom ni pourcentage ; CA équipement 2,771 Mds $ (ALD + épitaxie + PECVD + fours, 2025) rapporté à un TAM ALD + épitaxie de 4,5 Mds $ (2024).",
+  "correction_validee": "Renseigner tagline et exercice 2025 ; afficher la note de périmètre du TAM ou restreindre au CA ALD + épitaxie.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur sectoriel manquant",
+  "probleme": "Aucun KPI de ventilation du CA équipements par segment client (fonderie/logique, mémoire, analogique/puissance), pourtant introduite en 2026 pour remplacer le carnet, ni de part de marché ALD (plus de 55 % citée dans la thèse).",
+  "preuve": "att : « la même annonce introduit en contrepartie une nouvelle ventilation des ventes par segment client » ; these : « plus de 55 % d'un marché mondial, celui du dépôt de couches atomiques ».",
+  "correction_validee": "Créer ces deux KPI depuis les communiqués trimestriels 2026 et la journée investisseurs.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

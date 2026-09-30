@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "yoy de EDA_REV, IP_REV, REVENUE, NET_INCOME, OPERATING_INCOME, EPS_DILUTED, REV_US, REV_KOREA, REV_EUROPE, CHINA_EXPOSURE",
+  "probleme": "Les variations affichees sont celles du T2-2026 alors que la valeur est celle du T3-2026 : sens de variation faux sur plusieurs KPI",
+  "preuve": "EDA_REV 2000 yoy +62,3 % (= 1821,8/1122,3) alors que 2000/1312,1 = +52,4 % ; NET_INCOME 545,8 yoy -95,1 % alors que vs 242,3 = +125 % ; OPERATING_INCOME -68 % au lieu de +116 % ; EPS 2,84 yoy -82 % au lieu de +89 % ; REV_KOREA +3 % au lieu de -1 %",
+  "correction_validee": "Recalculer tous les yoy sur le dernier point T3-2026 une fois les valeurs exactes reprises (point 13).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EDA_REV, IP_REV, REV_US, REV_KOREA, REV_EUROPE, CHINA_EXPOSURE (T3-2026)",
+  "probleme": "Valeurs T3-2026 arrondies (placeholders) et IP_REV obtenu par soustraction du chiffre arrondi",
+  "preuve": "EDA 2000, US 1000, Coree 200, Europe 400, Chine 300 ; IP_REV 476.822 = 2476.822 - 2000 ; la these donne IP +10,8 % soit ~473,8 (427,6 x 1,108)",
+  "correction_validee": "Reprendre les valeurs exactes du rapport trimestriel T3 FY2026 pour EDA, IP et les zones geographiques.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signal REVENUE, EPS_DILUTED, NET_INCOME, OPERATING_INCOME ; series GROSS_MARGIN, OP_MARGIN, NET_MARGIN, FCF, OCF",
+  "probleme": "Signaux figes sur le T1 FY2026 et series de marges et de flux arretees au T1 ou T2 alors que le T3 est publie",
+  "preuve": "NET_INCOME signal 'Q1-FY2026 : $65M net' avec val 545,8 ; OP_MARGIN dernier 5,3 (T2) alors que T3 = 357,5/2476,8 = 14,4 % ; NET_MARGIN 0,7 vs ~22 % au T3 ; GROSS_MARGIN dernier T1 (73,5)",
+  "correction_validee": "Completer le T3 FY2026 sur marges et flux et reecrire les signaux sur ce trimestre.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS_DILUTED.signal, REVENUE.signal, DA_ADJ_OP_INCOME.signal",
+  "probleme": "Erreur comptable et format anglais : le goodwill ne s amortit pas, ce sont les incorporels (comme le dit GROSS_MARGIN) ; montants au format '$0.34', '$2.41Md'",
+  "preuve": "'impact amortissement goodwill Ansys ($248M)' vs GROSS_MARGIN 'amortissement des intangibles Ansys ($248M)'",
+  "correction_validee": "Remplacer par 'amortissement des actifs incorporels d Ansys (248 M$)' et normaliser les montants au format francais.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BACKLOG_RPO, CAHIER_RPO_CRPO, Non-cancellable backlog, Backlog",
+  "probleme": "Quatre versions du meme carnet, dont une serie incoherente et une variation fausse",
+  "preuve": "Non-cancellable backlog 4.7, 4.6, 4.9, 4.6, 4.7, 6.9, 11.4, 11 (incompatible avec BACKLOG_RPO 8,1 a fin 2024) ; Backlog yoy +7,5 % alors que 11,4/8,1 = +40,7 % ; CAHIER_RPO_CRPO nomme 'totales et a moins de douze mois' mais une seule serie",
+  "correction_validee": "Supprimer Non-cancellable backlog et Backlog, garder BACKLOG_RPO et CRPO, et renommer CAHIER_RPO_CRPO 'Obligations de prestation restantes (annuel)'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Income (annuel)",
+  "probleme": "Resultat operationnel annuel incompatible avec les trimestres, sans periodes",
+  "preuve": "Op Income 2,432 Mds (yoy -13,8 %) alors que FY2025 = 251,8+376,4+165,3+121,4 = 915 M$ ; serie 1.336, 2.843, 2.007, 2.823, 2.432 sans dates",
+  "correction_validee": "Supprimer Op Income ou le reconstruire avec periodes depuis les rapports annuels.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "HEADCOUNT_TOTAL, Total headcount, effectifs_annuels",
+  "probleme": "Meme effectif affiche trois fois",
+  "preuve": "28000 dans les trois KPI",
+  "correction_validee": "Garder effectifs_annuels, supprimer HEADCOUNT_TOTAL et Total headcount.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Repartition en anglais sur des categories qui se chevauchent, sans rapport avec les deux segments suivis dans les KPI",
+  "preuve": "'License and Maintenance 49.5 ; License 28.5 ; Technology Service 22' alors que Design Automation 5,30 et Design IP 1,75 Mds en FY2025 (75/25) ; geographie 'KOREA, REPUBLIC OF'",
+  "correction_validee": "Utiliser les segments Design Automation / Design IP et traduire 'Coree du Sud'",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Design IP (annuel) description et signal",
+  "probleme": "Description contredite par la serie et signal contredit par IP_REV",
+  "preuve": "Description 'Croissance forte.' avec yoy -8,4 % ; signal 'reaffectation des ressources vers des opportunites a plus forte croissance' vs IP_REV 'restrictions d export vers la Chine et un client fondeur'",
+  "correction_validee": "Retirer 'Croissance forte.' et completer le signal avec les restrictions Chine et le client fondeur, comme IP_REV.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BUYBACKS.signal, ADJ_OP_MARGIN_DA.signal, Senior Notes issuance.signal",
+  "probleme": "Signaux contredits par la fiche ou incomprehensibles",
+  "preuve": "BUYBACKS 'suspendus ... avant de reprendre' alors que la these dit 'repris ses rachats d actions' ; ADJ_OP_MARGIN_DA 'temporairement affectee par les couts d integration' alors que la marge passe de 41 a 47 puis 43 ; Senior Notes 'a finance l acquisition Ansys, remboursee pour l essentiel net de frais'",
+  "correction_validee": "Reecrire ces trois signaux et ajouter les rachats 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Positionnement 'leader' en une phrase generique sans aucun chiffre alors que la fiche en contient",
+  "preuve": "'Positionne l IA comme axe strategique central ... avec produits et plateformes IA identifies' vs synopsys.ai 5000 utilisateurs, 20 clients EDA agentique, 150 wins UCIe",
+  "correction_validee": "Reecrire avec les chiffres de la fiche",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

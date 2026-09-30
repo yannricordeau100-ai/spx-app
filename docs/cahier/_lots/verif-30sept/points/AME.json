@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "slices",
+  "probleme": "Répartition fausse : les ventes domestiques US (52 %) et le Royaume-Uni manquent, les exportations US sont étiquetées \"Non-US\".",
+  "preuve": "Slices Non-US 2,041 = 38,2 %, Asia 27,8 %, European Union 20,4 %, Other Foreign Countries 13,6 %, total 5,35 Mds sur un CA de 7,401 ; 2 041 = somme FY2025 de us_export_shipments ; us_revenue_pct affiche 52,9 % au T2 2026. Parts réelles FY2025 : États-Unis 51,8 %, Asie 20,1 %, UE 14,7 %, Royaume-Uni 3,5 %, autres 9,9 %.",
+  "correction_validee": "Reconstruire : États-Unis 51,8 %, Asie 20,1 %, Union européenne 14,7 %, Royaume-Uni 3,5 %, Autres pays 9,9 %, avec les libellés en français.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rev_over_time_EMG, rev_point_in_time_EMG (Q4-2024)",
+  "probleme": "Point invraisemblable, incohérent avec le ratio consolidé.",
+  "preuve": "rev_over_time_EMG Q4-2024 = 6,5 (autres trimestres 37 à 95) ; rev_over_time_pct Q4-2024 = 17,2 % × 1 761,6 = 303 attendu, moins EIG 252,2 = 50,8 ; rev_point_in_time_EMG Q4-2024 = 540,3 devrait être ≈ 496.",
+  "correction_validee": "Recalculer les deux points Q4-2024 (50,8 et 496,2) ou vérifier le 10-K 2024.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BOOK_TO_BILL, CAHIER_ORGANIC_GROWTH, PROC_ANALYT_REV",
+  "probleme": "Doublons annuels des séries trimestrielles avec descriptions et yoy faux.",
+  "preuve": "CAHIER_BOOK_TO_BILL annuel avec description \"facturations du trimestre\" (book_to_bill trimestriel existe) ; CAHIER_ORGANIC_GROWTH yoy \"-200.0%\" pour -2 → 2 ; PROC_ANALYT_REV FY2025 3,464 = somme de rev_process_analytical.",
+  "correction_validee": "Supprimer CAHIER_BOOK_TO_BILL et PROC_ANALYT_REV (doublons). Garder CAHIER_ORGANIC_GROWTH, seule croissance organique de la fiche, en affichant yoy « +4 pts ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total orders growth (YoY %), Total orders (value)",
+  "probleme": "Doublons transcript de orders, périmés d'un trimestre mais datés 30 juin 2026.",
+  "preuve": "\"Total orders growth\" val 23 avec signal \"au T1-2026\" alors que orders T2-2026 = +28,2 % ; \"Total orders (value)\" 2, 2,2 Mds = orders Q1-2026 2 217,6.",
+  "correction_validee": "Supprimer Total orders growth (YoY %) et Total orders (value).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Free Cash Flow Conversion, organic_sales_growth, fx_impact_sales",
+  "probleme": "Séries à trous ou en retard.",
+  "preuve": "FCF Conversion 107 % \"au T1-2026\" daté 30 juin (T2 : 451,7/406,9 = 111 %) ; organic_sales_growth sans Q2-2025 ni Q4-2025 ; fx_impact_sales arrêté Q1-2026 avec trous.",
+  "correction_validee": "Compléter au T2 2026 et boucher les trimestres manquants.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Quarterly dividend increase",
+  "probleme": "Valeur, série et réalité divergent.",
+  "preuve": "value=10, history=[11], signal \"Hausse de 11%\" ; dividend_per_share 0,31 → 0,34 = +9,7 %.",
+  "correction_validee": "Supprimer Quarterly dividend increase, dividend_per_share porte déjà l'information.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Annual sales acquired via Ferro (FARO) and Kern Micro Technique (nom), Combined FARO + Kern purchase price (signal)",
+  "probleme": "Nom d'une autre société et franglais.",
+  "preuve": "\"via Ferro (FARO)\" : Ferro Corp n'a rien à voir ; signal \"Prix d'acquisition total des net assets\".",
+  "correction_validee": "Corriger name_en en « Annual sales acquired via FARO and Kern Micro Technique » et le signal en « Prix d'acquisition total des actifs nets FARO + Kern : 1 023 M$ ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ocf.signal, buybacks.signal, us_revenue_pct.signal",
+  "probleme": "Méthode de calcul et source exposées au lecteur.",
+  "preuve": "ocf : \"déduit des 935,2 M$ du premier semestre 2026 moins les 451,5 M$ du T1\" ; buybacks : \"déduits des 28,1 M$ du premier semestre moins les 27,9 M$ du T1\" ; us_revenue_pct : \"(note revenus par zone)\".",
+  "correction_validee": "Réduire les signaux au chiffre et à la comparaison N-1 (ex. « Flux opérationnel de 483,7 M$ au T2 2026 contre 359,1 M$ un an plus tôt »).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "subsector",
+  "probleme": "Sous-secteur en anglais.",
+  "preuve": "\"Industrie > Electronic Instruments and Electromechanical Devices\" (les autres fiches sont en français).",
+  "correction_validee": "Remplacer par « Instruments électroniques et composants électromécaniques ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dsi.name_fr ; Record net sales, Record net income, Record diluted EPS",
+  "probleme": "Nom imprécis et doublons annuels à un point.",
+  "preuve": "dsi nommé \"Rotation des stocks\" alors que l'unité est \"jours\" (Days Inventory Outstanding) ; \"Record net sales\" 7 401 = revenue_annuel 2025, \"Record net income\" 1 480, \"Record diluted EPS\" 6,35 sans série.",
+  "correction_validee": "Renommer dsi en « Jours de stocks » et supprimer Record net sales, Record net income et Record diluted EPS.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

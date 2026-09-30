@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "La repartition geographique recopie la repartition par segment (Residentiel / Commercial) alors que la geographie reelle est sur la fiche : États-Unis 93 %, Canada 7 %.",
+  "preuve": "revenue_by_geography (exercice 2025): Residential Heating and Cooling 64.4 ; Commercial Heating and Cooling 35.6. GEO_US_SHARE Q2-2026=93.2.",
+  "correction_validee": "Remplacer par États-Unis 93 % / Canada 7 % (exercice 2025).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux REVENUE, OP_INCOME, EPS_DIL, DPS, LTD, GEO_US, GEO_CANADA",
+  "probleme": "Les signaux citent le texte brut du 10-Q entre apostrophes, avec les colonnes du tableau, au lieu d une phrase.",
+  "preuve": "REVENUE :: ''Net sales $ 1,545.3 $ 1,500.9' pour les trimestres clos...' ; GEO_US :: ''United States $ 875.4 $ 565.5 $ 1,440.9' au T2 2026' ; OP_INCOME :: ''Operating income $ 355.0 $ 349.0 1.7 %''.",
+  "correction_validee": "Réécrire les sept signaux en français, avec le chiffre et la variation (ex. « CA de 1,55 Md $ au T2 2026, +3 % sur un an »).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAPEX / BUYBACK / SGA_RATIO (signaux)",
+  "probleme": "Trois signaux contredisent le sens de leur serie : 'double sur un an' pour +25 %, 'reprend fortement' pour -37 %, 'baisse relative des frais généraux' pour +0,3 point.",
+  "preuve": "CAPEX yoy=+25% (35.7 vs 28.5) :: 'L'investissement industriel double sur un an'. BUYBACK yoy=-37% :: 'Le rythme de rachat reprend fortement'. SGA_RATIO yoy=+0.3 pt :: 'La baisse relative des frais généraux'.",
+  "correction_validee": "Réécrire CAPEX (+25 % sur un an) et SGA_RATIO (hausse de 0,3 point). Pour BUYBACK, seulement préciser « en hausse sur le T1 mais -37 % sur un an ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "HCS_MARGIN / BCS_MARGIN / SEG_PROFIT_TOT / HCS_REV (signaux)",
+  "probleme": "Chiffres de comparaison faux ou exageres : 25,0 % au lieu de 25,3 %, 24,5 % au lieu de 24,9 %, 'compense largement' pour un total a 0 %, 'cinquième trimestre de baisse' alors que la serie de croissance en montre quatre (et l anti-these dit quatre).",
+  "preuve": "HCS_MARGIN Q2-2025=25.3 :: 'contre 25,0% un an plus tôt'. BCS_MARGIN Q2-2025=24.9 :: 'contre 24,5%'. SEG_PROFIT_TOT yoy=+0% :: 'compense largement'. HCS_GROWTH_Q negatif depuis Q3-2025 (4 trimestres) ; HCS_REV :: 'cinquième trimestre de baisse' ; att : 'quatrième trimestre de baisse'.",
+  "correction_validee": "Écrire 25,3 % et 24,9 %, « compense tout juste » et « quatrième trimestre de baisse ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Record full-year segment margin (20.4) vs SEG_MARGIN_TOT",
+  "probleme": "La marge de segment annuelle 2025 recalculee depuis les trimestres est 22,4 % (1 162,7 / 5 196), pas 20,4 %. L un des deux est faux.",
+  "preuve": "SEG_PROFIT_TOT 2025 : 170.3+377.7+336.9+277.8=1162.7 ; REVENUE 2025 : 1.073+1.501+1.427+1.195=5.196 ; KPI 'Record full-year segment margin' val=20.4.",
+  "correction_validee": "Verifier dans le communique annuel et corriger la valeur fausse.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "STORES",
+  "probleme": "Serie arretee en 2022 (245 magasins) mais datee du 31 decembre 2025 ; le signal presente ce reseau comme un avantage sans chiffre recent.",
+  "preuve": "STORES dernier 2025-12-31, serie FY2019=221 ... FY2022=245, n=4.",
+  "correction_validee": "Completer 2023-2025 depuis les 10-K ou retirer le KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Annual revenue of the Durodyne and Subco acquisitions / INTEREST (signal)",
+  "probleme": "Noms d entreprises mal orthographies (Durodyne, Subco) alors que l autre KPI ecrit Duro Dyne et Supco ; coquilles 'rélutive des 2026' et 'reete'.",
+  "preuve": "'Annual revenue of the Durodyne and Subco acquisitions' :: 'rélutive des 2026' ; INTEREST :: 'La hausse des charges financières reete le coût'.",
+  "correction_validee": "Corriger en Duro Dyne et Supco, « relutive dès 2026 » et « reflète ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 5",
+  "probleme": "Fragment de conclusion generique, pas un risque.",
+  "preuve": "risque 5 : 'Chacun de ces résultats pourrait affecter de façon significative et négative notre activité...'.",
+  "correction_validee": "Supprimer le risque 5.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Quarterly common dividend increase / DPS (serie)",
+  "probleme": "KPI a point unique (1,30 $) perime par le DPS trimestriel a 1,36 $ ; la serie DPS saute les T4 2024 et T4 2025.",
+  "preuve": "'Quarterly common dividend increase' val=1.3 ; DPS Q2-2026=1.36 ; DPS serie sans Q4-2024 ni Q4-2025 (n=45).",
+  "correction_validee": "Supprimer Quarterly common dividend increase et compléter DPS aux T4 2024 (1,15) et T4 2025 (1,30) après vérification.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

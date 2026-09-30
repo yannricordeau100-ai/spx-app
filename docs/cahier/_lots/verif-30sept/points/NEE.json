@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel",
+  "probleme": "Le flux de tresorerie libre annuel est positif alors que la serie trimestrielle FCF_Q est tres negative ; la valeur 2025 est exactement le flux operationnel",
+  "preuve": "fcf_annuel 2025=12.485 ; OCF_Q 2025 : 2769+3189+4028+2499=12485 ; FCF_Q 2025 : -5166-2496-1675-2782=-12.1 Mds",
+  "correction_validee": "Recalculer fcf_annuel = flux operationnel moins capex sur toute la serie (2025 environ -12,1 Mds $).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FPL Operating Revenue, NEER Operating Revenue, FPL Net Income, NEER Net Income, Total Assets FPL",
+  "probleme": "Cinq series annuelles perimees (chiffres de 2017-2019) datees 2026-09-29, accents casses, contredites par les series segment 2025",
+  "preuve": "FPL Operating Revenue val=11972 contre FPL_REV_Q 2025 = 18262 ; NEER Net Income 2963 avec signal effets de la r forme fiscale ; FPL Net Income 1880 contre FPL_NI_Q 2025 = 5012 ; B n fice net FPL",
+  "correction_validee": "Supprimer les cinq KPI FPL/NEER Operating Revenue, FPL/NEER Net Income et Total Assets FPL.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel",
+  "probleme": "Serie annuelle incompatible avec la somme des trimestres et avec les valeurs publiees",
+  "preuve": "revenue_annuel 2025=25.8, 2024=23.5, 2023=24.8 ; REVENUE_Q 2025 : 6247+6700+7966+6499=27412",
+  "correction_validee": "Reconstruire revenue_annuel depuis les rapports annuels (2025 = 27,4 Mds $ somme des trimestres).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NEER Renewables Backlog / Generation Capacity / Renewables in Generation Mix / FPL Retail Customers",
+  "probleme": "Quatre series annuelles sans annees, chiffres ronds, contredites par les series sourcees",
+  "preuve": "NEER Renewables Backlog 14, 18, 20, 21, 25 contre NextEra Energy Resources backlog 33 et moat 33 GW ; Generation Capacity 71 pour 2024 contre FPL_CAP+NEER_CAP = 68.5 ; Renewables in Generation Mix 33, 37, 41, 44, 47",
+  "correction_validee": "Supprimer NEER Renewables Backlog, Generation Capacity, Renewables in Generation Mix et FPL Retail Customers.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NextEra Energy Resources new origination added to backlog",
+  "probleme": "Serie trimestrielle melangeant des totaux annuels et des trimestres",
+  "preuve": "serie 3, 3, 12, 3.2, 3.2, 3, 13.5, 4 GW",
+  "correction_validee": "Retirer les points 12 et 13.5 ou reconstruire la serie trimestrielle",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ROE_GAP",
+  "probleme": "Le nom annonce un ecart entre rendement autorise et realise, la serie est le rendement autorise seul",
+  "preuve": "Écart entre rendement autorisé et rendement réalisé | serie FY2018=10.55 ... FY2025=10.8 ; FPL reported ROE 11.7 en 2025",
+  "correction_validee": "Renommer en Rendement autorise FPL ou calculer l ecart (realise moins autorise)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CUSTOMER_RELIABILITY.signal",
+  "probleme": "Cuisine interne et mention de source dans le signal ; nom incluant la fiabilite alors que la serie ne compte que les clients ; serie arretee en 2024",
+  "preuve": "Reprise 17 sept 2026 : nombre de clients électricité (compteurs) déclaré à l'EIA (formulaire 861)",
+  "correction_validee": "Reecrire le signal sans reprise ni source et renommer le KPI en Clients FPL.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS_DIL, REVENUE_Q, OP_INCOME_Q, NET_INCOME_Q, OCF_Q, DIV_PAID_Q, FPL_REV_Q, NEER_REV_Q (signaux)",
+  "probleme": "Notes de fabrication dans les signaux visibles",
+  "preuve": "Série trimestrielle reconstruite T4 = exercice moins 9 mois ; Série trimestrielle dé-cumulée des flux YTD ; Répartition par segment publiée depuis 2025",
+  "correction_validee": "Retirer ces phrases de fabrication des huit signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OP_MARGIN_Q / NET_MARGIN_Q (yoy)",
+  "probleme": "Variation de marge exprimee en % relatif au lieu de points",
+  "preuve": "NET_MARGIN_Q yoy=+37.6% (41.7 contre 30.3 = +11.4 pt) ; OP_MARGIN_Q yoy=+4.2%",
+  "correction_validee": "Exprimer les yoy de marge en points (+11,4 pt et +1,2 pt).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Classe absent avec une phrase de modele (sera ajoutée en V2.0) alors que la fiche montre la demande IA comme moteur (hubs data center, PPA Google)",
+  "preuve": "Une analyse fine ... sera ajoutée en V2.0 ; KPI NextEra Energy Resources data center hubs val=30 ; Duane Arnold PPA de 25 ans avec Google",
+  "correction_validee": "Reecrire le positionnement IA autour de la demande des centres de donnees et retirer la mention V2.0",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these / tagline",
+  "probleme": "La these cite la grille interne Benjamin Graham (cuisine Mettrik) ; tagline en anglais",
+  "preuve": "La grille du plus prudent des investisseurs, Benjamin Graham, valide quatre de ses cinq critères ; tagline: The largest generator of renewable energy in North America",
+  "correction_validee": "Retirer la phrase sur la grille, traduire la tagline",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "US-Japan gas-fired generation selected, Duane Arnold, Renewable recontracting price uplift, Natural gas transported, Standalone battery pipeline, Point Beach, FPL base revenue increase, FPL storm reserve surcharge, Equity method impairment, data center hubs",
+  "probleme": "Dix faits ponctuels a un point presentes comme KPI trimestriels, unites exotiques",
+  "preuve": "Point Beach nuclear PPA extension | $ BPA/an | val=0.03 ; Equity method investment impairment charge | n=1",
+  "correction_validee": "Deplacer en story ou supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

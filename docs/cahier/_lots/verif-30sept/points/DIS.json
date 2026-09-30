@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Disney+ Subscribers, ESPN+ Subscribers, Direct-to-Consumer Subscribers, Parks Attendance, Parks Capacity Utilization, Hulu Ownership Stake, Content Investment - DTC, Advertising Revenue - Media Networks (kpis 48 a 62)",
+  "probleme": "Bloc de KPI annuels a deux points datant de l exercice 2020 (COVID) mais dates 2026-09-30, sans periodes, avec accents corrompus dans les noms et signaux. Un investisseur lit en 2026 que Disney+ a 73,7 M d abonnes (+737 %) alors que la fiche affiche 131,6 M plus haut.",
+  "preuve": "'Disney+ Subscribers | Abonn s Disney+ | serie: 8.7, 73.7 | yoy=+737% | dernier 2026-09-30' ; 'Parks Attendance serie 75.1, 18.6 :: Forte baisse due aux fermetures li es   COVID-19' ; 'Hulu Ownership Stake 60, 67' alors que Disney detient 100 % de Hulu depuis 2023.",
+  "correction_validee": "Retirer l ensemble du bloc herite (lignes Disney+/ESPN+/DTC Subscribers, Parks Attendance, Capacity, Hulu Ownership, Content Investment, Advertising Revenue).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Workforce Reduction",
+  "probleme": "Valeur invraisemblable : 175 560 emplois supprimes, soit 86 % de l effectif 2020 (203 000). L annonce reelle de novembre 2020 portait sur 32 000 postes.",
+  "preuve": "'KPI Workforce Reduction | val=175560 | serie: 175560 :: Nombre d'emplois supprim s annonc s en fin d'ann e fiscale 2020' contre 'effectifs_annuels 2020=203000'.",
+  "correction_validee": "Retirer le KPI Workforce Reduction.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Affiliate Fees Revenue, DTC Subscribers, Hulu Subscribers",
+  "probleme": "Ordres de grandeur incompatibles avec la fiche : 32,1 Mds $ de frais d affiliation alors que tout Linear Networks fait environ 10 Mds $/an ; 280 M d abonnes DTC alors que Disney+ 131,6 + Hulu 64,1 + ESPN+ 25,2 = 221 M ; Hulu Subscribers affiche val=64 mais sa serie s arrete a 52,4.",
+  "preuve": "'Affiliate Fees Revenue | Mds $ | serie: 31.2, 32.1' vs 'Linear rev Q4-2025=2058 M USD/trim' ; 'DTC Subscribers | serie: 180, 235, 250, 260, 280' ; 'Hulu Subscribers | val=64 | serie: 37.8, 43.3, 47.2, 50, 52.4'.",
+  "correction_validee": "Retirer ces trois KPI, les series a jour (Linear rev, abonnes Disney+/Hulu/ESPN+) couvrent le sujet.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition par segment de l exercice 2019 (total 65,4 Mds $, segments Media Networks / Studio / DTC & International supprimes en 2020) alors que les KPI utilisent Entertainment / Sports / Experiences et un CA 2025 de 94,4 Mds $.",
+  "preuve": "'revenue_by_segment (None): Media Networks 38.1 ; Parks, Experiences and Products 40.1 ; Studio Entertainment 13.6 ; Direct-to-Consumer & International 8.2', total 65.4 Mds $ dans le JSON ; 'revenue_annuel 2025=94.425'.",
+  "correction_validee": "Remplacer par la repartition FY2025 Entertainment / Sports / Experiences issue des KPI de segment.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Parcs rev, Ent seg rev, Marge op., OCF, FCF, Dette nette et toutes les series trimestrielles",
+  "probleme": "Les series s arretent au T2 FY26 (mars 2026) alors que le T3 FY26 (clos juin 2026) est publie : la these le cite et le BPA dilue a bien un point Q3-2026. Mise a jour incomplete d un trimestre.",
+  "preuve": "'these: Sur le trimestre clos en juin 2026, ... le resultat du pole Divertissement a progresse de 64 %' ; 'BPA dilue ... Q3-2026=1.51' ; 'Ent seg op ... dernier 2026-03-28'.",
+  "correction_validee": "Completer toutes les series trimestrielles avec le T3 FY26 (clos fin juin 2026).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "DIS+ ARPU, Disney+ average monthly revenue per paid subscriber, CAHIER_ARM_STREAMING",
+  "probleme": "Meme indicateur sous trois noms avec des valeurs differentes pour la meme periode : 8,04 $ (Q4-2025) contre 7,81 $ (FY2025) presentes tous deux comme le revenu mensuel par abonne Disney+.",
+  "preuve": "'DIS+ ARPU ... Q4-2025=8.04' ; 'Disney+ average monthly revenue per paid subscriber | serie: 7.5, 8.04' ; 'CAHIER_ARM_STREAMING | Revenu mensuel moyen par abonne | FY2025=7.81 :: Revenu mensuel par abonne Disney+ a 7,81 $ en 2025'.",
+  "correction_validee": "Supprimer le KPI a 2 points et intituler CAHIER_ARM_STREAMING revenu mensuel moyen annuel par abonne Disney+.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Parks Operating Income, equity_income_investees_entertainment, programming_production_costs_entertainment, operating_labor_experiences",
+  "probleme": "Series annuelles sans periodes, datees 2026-09-30 mais arretees a FY2024 (Parks Operating Income 9,3 = FY2024 alors que FY2025 = 10,0 Mds $ d apres Exp seg op). Series annual en ordre inverse (dernier point en premier).",
+  "preuve": "'Parks Operating Income | serie: 2.1, 7.9, 9, 8.9, 9.3 | dernier 2026-09-30' vs 'Exp seg op Q1-2025..Q4-2025 = 3110+2491+2516+1878 = 9995' ; 'equity_income... serie: 439, 529, 685'.",
+  "correction_validee": "Retirer Parks Operating Income (doublon de Exp seg op) ; dater et ordonner les trois series EDGAR ou les retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "SVOD marge op, Parcs per capita, ESPN abo rev",
+  "probleme": "KPI a un seul point dates 2026-09-30 (date fausse, donnees du T2 FY26) avec signal de modele de langage sans chiffre.",
+  "preuve": "'SVOD marge op | dernier 2026-09-30 | serie: Q2-2026=10.6 :: Ce seuil de rentabilite durable sur le streaming valide le modele SVOD et rapproche Disney d une contribution nette du numerique'.",
+  "correction_validee": "Dater SVOD marge op et Parcs per capita au 2026-03-28 et reecrire les signaux SVOD marge op et ESPN abo rev avec le chiffre et la periode T2 FY26.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

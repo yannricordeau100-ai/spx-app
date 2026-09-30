@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "toute la fiche",
+  "probleme": "La fiche n'intègre pas le premier semestre 2026, publié le 30 juillet : le CA trimestriel s'arrête au T4-2025 et tous les annuels à 2025.",
+  "preuve": "REV_Q dernier 2025-12-31 (n=4) ; seul 'Organic Growth' est daté du 2026-06-30",
+  "correction_validee": "Ajouter les CA du T1 et du T2-2026 et les données du premier semestre 2026 (EBITA ajusté, marge, carnet, divisions).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GROUP_REVENUE",
+  "probleme": "GROUP_REVENUE fait doublon avec REV, avec une unité différente, et son signal est hors sujet.",
+  "preuve": "GROUP_REVENUE FY2025=40152 M€ contre REV 40.152 Mds € ; signal 'Produit phare : Distribution électrique basse et moyenne tension'",
+  "correction_validee": "Reporter l'historique 2020-2021 de GROUP_REVENUE dans REV puis supprimer GROUP_REVENUE.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Organic Growth",
+  "probleme": "Ce doublon non daté d'ORG_G donne des valeurs incompatibles, avec un signal en franglais.",
+  "preuve": "série 3, 15, 18, 13 contre ORG_G FY2024=8.4, FY2025=8.9 ; signal 'Solide double-digit malgré base élevée'",
+  "correction_validee": "Identifier la mesure (probablement une croissance trimestrielle ou celle d'une division), la dater et la renommer, ou la supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ENERGY_TRANSITION_REVENUE",
+  "probleme": "Le nom annonce un chiffre d'affaires alors que la série est une part en %, et la variation est en % au lieu de points.",
+  "preuve": "nom 'Chiffre d'affaires efficacité énergétique et renouvelables', unité %, 74 -> 75 yoy=+1.4%",
+  "correction_validee": "Renommer en 'Part du CA issue d'offres à impact énergétique positif' et afficher +1 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "IA_REV",
+  "probleme": "Le CA des Automatismes industriels est identique au million près deux années de suite, ce qui laisse soupçonner une valeur recopiée. Le signal parle pourtant de croissance organique et l'anti-thèse de recul.",
+  "preuve": "FY2024=7.022, FY2025=7.022, yoy=0.0% ; signal '+3,0% en organique' ; anti-thèse 'la division Automatismes industriels recule depuis trois ans'",
+  "correction_validee": "Vérifier les deux valeurs dans les comptes 2024 et 2025. EM_REV peut avoir été déduit par soustraction.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "entete",
+  "champ": "sous-secteur",
+  "probleme": "Le sous-secteur est en anglais et ne correspond ni au code GICS ni au profil du groupe.",
+  "preuve": "'Industrie > Industrial Automation & Controls' ; GICS 20104010 (Composants et équipements électriques) ; Gestion de l'énergie = 82,5 % du CA",
+  "correction_validee": "Remplacer par 'Équipements électriques'.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque l'exposition aux centres de données, pourtant moteur cité partout sur la fiche, ainsi que la croissance organique trimestrielle par division.",
+  "preuve": "REV_Q 'porté par les data centers' ; BACKLOG 'tiré par les data centers' ; GEO_NAM 'tiré par les data centers' ; aucune série sur les centres de données",
+  "correction_validee": "Ajouter la part du CA centres de données (ou sa croissance) et la croissance organique trimestrielle de la Gestion de l'énergie et des Automatismes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PATENTS",
+  "probleme": "La série s'arrête en 2024, avec des valeurs arrondies et figées, et apporte peu à un investisseur.",
+  "preuve": "FY2021=1000, FY2022=1000, FY2023=1000, FY2024=1400",
+  "correction_validee": "Mettre à jour 2025 ou retirer ce KPI.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "entete / description / kpis",
+  "champ": "tagline, description, DPS.signal",
+  "probleme": "Le slogan et la description sont en anglais, et le signal du dividende est périmé.",
+  "preuve": "tagline 'Empowering all to make the most of our energy and resources' ; products 'Energy Management (...)', 'Industrial Automation (PLC, drives, software AVEVA, capteurs)' ; DPS '15 années consécutives de hausse à fin 2024' alors que l'anti-thèse dit '16e année'",
+  "correction_validee": "Traduire la tagline et la description. Remplacer par '16e année consécutive de hausse'.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

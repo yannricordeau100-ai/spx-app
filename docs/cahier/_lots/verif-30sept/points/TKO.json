@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "repartition",
+  "probleme": "Répartition par segment fausse (sans exercice), en contradiction avec les séries de la fiche",
+  "preuve": "Bloc : UFC 40,3, WWE 30,3, IMG 22. Somme des trimestres 2025 : UFC 1502 (31,7 %), WWE 1709 (36,1 %), IMG 1367 (28,9 %) sur 4735",
+  "correction_validee": "Recalculer sur l'exercice 2025 (UFC 31,7 %, WWE 36,1 %, IMG 28,9 %, reste Corporate) et indiquer l'exercice.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "UFC_REV, WWE_REV, IMG_REV",
+  "probleme": "Unité en milliers de dollars, incohérente avec le reste de la fiche (M $ et Mds $)",
+  "preuve": "UFC_REV val=535662 'K $' alors que UFC_MEDIA=325.2 'M $'",
+  "correction_validee": "Convertir UFC_REV, WWE_REV, IMG_REV en M $ (535,7 ; 621,0 ; 354,6).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EBITDA_UFC / WWE_REV",
+  "probleme": "Signaux contredits par les chiffres",
+  "preuve": "UFC 'la machine la plus rentable du groupe' alors que WWE fait 368,3 M$ d'EBITDA à 59,3 % de marge contre 280,5 M$ à 52,4 % pour l'UFC ; WWE 'moteur de croissance le plus dynamique' à +11,7 % contre +28,8 % pour l'UFC",
+  "correction_validee": "Corriger les deux signaux",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EBITDA_MARGIN",
+  "probleme": "Explication contredite par la série de l'hospitalité IMG",
+  "preuve": "'le recul de l'hospitalité IMG allège le mix' alors que IMG_LIVE est à +50,3 % sur un an (198,5 vs 132,1)",
+  "correction_validee": "Attribuer la hausse aux droits média et au sponsoring UFC",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EBITDA_MARGIN, OP_MARGIN, NET_MARGIN, GROSS_MARGIN, UFC_MARGIN, WWE_MARGIN, IMG_MARGIN",
+  "probleme": "Variation des marges exprimée en % relatif au lieu de points",
+  "preuve": "UFC_MARGIN 52,4 vs 58,9 : yoy '-11.0%' (au lieu de -6,5 points) ; IMG_MARGIN '+132.6%'",
+  "correction_validee": "Afficher les variations de marges en points (UFC -6,5 pts, IMG +12,6 pts, EBITDA +1,8 pt).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WWE_PLE",
+  "probleme": "Nombre d'événements négatif",
+  "preuve": "Q4-2024=-2",
+  "correction_validee": "Supprimer ou recalculer le point Q4-2024.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DEF_REV",
+  "probleme": "Point de départ invraisemblable (environ 6 fois plus bas que la suite), probablement un périmètre différent",
+  "preuve": "Q3-2024=67.7 puis Q4-2024=416.7",
+  "correction_validee": "Vérifier à la source et corriger ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Quarterly dividend per share et 14 indicateurs ponctuels",
+  "probleme": "Doublon du dividende par action et nombreux faits ponctuels présentés comme des KPI",
+  "preuve": "'Quarterly dividend per share' 0,78 = DPS ; 'Canelo vs Crawford Netflix viewers', 'UFC 326 CBS audience uplift', 'WrestleMania 41 attendance'",
+  "correction_validee": "Supprimer le doublon ; regrouper les faits ponctuels hors KPI",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun indicateur d'audience ou de billetterie par événement, alors que le groupe publie déjà le nombre d'événements",
+  "preuve": "Seul le nombre d'événements est suivi (UFC_EVENTS, WWE_EVENTS) ; pas de recette par événement ni d'audience",
+  "correction_validee": "Ajouter la recette live par événement (LIVE_REV divisé par le nombre d'événements) ou l'audience moyenne",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

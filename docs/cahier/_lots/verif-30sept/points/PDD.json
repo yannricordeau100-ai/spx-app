@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.products",
+  "probleme": "Erreur factuelle : 58.com n'appartient pas a PDD. Les plateformes du groupe sont Pinduoduo et Temu.",
+  "preuve": "« Les produits principaux de PDD sont les plateformes de commerce electronique Pinduoduo et 58.com. »",
+  "correction_validee": "Remplacer 58.com par Temu.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "gmv / CAHIER_GMV ; active_buyers / CAHIER_ACHETEURS_ACTIFS",
+  "probleme": "Doublons annuel/trimestriel des memes series arretees en 2021-2022, quatre KPI pour deux indicateurs morts. Le nom « Acheteurs actifs et frequence d'achat » ne correspond pas a la serie (nombre seul).",
+  "preuve": "gmv Q4-2021=2441 = CAHIER_GMV FY2021=2441 ; active_buyers Q4-2021=868.7 = CAHIER_ACHETEURS_ACTIFS FY2021=868.7",
+  "correction_validee": "Garder une seule version par indicateur (l annuelle CAHIER_, plus longue et sans trou) en supprimant gmv et active_buyers trimestriels, et renommer en « Acheteurs actifs ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ACHETEURS_ACTIFS.signal",
+  "probleme": "Fautes de francais visibles.",
+  "preuve": "« Chaque acheteur actif genere du GMV recurrent : la croissance de leur nombre a porte l'expansion »",
+  "correction_validee": "Ecrire « génère » et « a porté ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification",
+  "probleme": "Chiffre contredit par le KPI : le moat dit que les services de transaction croissent « encore de 20 pour cent », le KPI affiche +13,3 % au dernier trimestre.",
+  "preuve": "moat: « croissent encore de 20 pour cent » ; transaction_services Q2-2026 yoy=+13,3 %",
+  "correction_validee": "Aligner sur +13 % ou preciser la periode.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "gmv / spend_per_buyer",
+  "probleme": "Date « dernier 2022-03-22 » incoherente avec le dernier point Q4-2021, et trou d'un an dans la serie (Q4-2020 puis Q4-2021) ; yoy vide sur spend_per_buyer.",
+  "preuve": "gmv dernier 2022-03-22, serie ...Q4-2020=1667.6, Q4-2021=2441 ; spend_per_buyer yoy= (vide)",
+  "correction_validee": "Dater au 2021-12-31 et completer les trimestres 2021 ou passer en annuel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "texte",
+  "probleme": "Texte generique de modele de langage sans chiffre ni fait propre a PDD (« investit significativement en R&D ») alors que la R&D ne pese que 4 % du CA.",
+  "preuve": "rd_expenses Q2-2026=4.567 / revenue 112.358 = 4,1 %",
+  "correction_validee": "Reecrire avec un fait sourcé (ex. poids R&D, usage IA dans Temu) ou passer en « non communique ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

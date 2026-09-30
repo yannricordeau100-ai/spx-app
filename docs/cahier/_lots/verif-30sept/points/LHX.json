@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Orders (serie)",
+  "probleme": "Serie trimestrielle qui melange des totaux annuels : 24,2 et 27,5 Mds $ de commandes en un trimestre sont impossibles avec un CA trimestriel de 5,5 Mds $ et un book-to-bill maximal de 1,5.",
+  "preuve": "Orders serie : 4.5, 7.2, 24.2, 8.3, 6.7, 27.5, 7.8 ; Revenue Q4-2025=5648 ; btb T4 2025=1.3.",
+  "correction_validee": "Retirer 24,2 et 27,5 de la série trimestrielle Orders.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "revenue_annuel / effectifs_annuels (libelles et derniers points)",
+  "probleme": "L exercice 2025 manque : le point '2025=21.325' est l exercice 2024 (date 2025-01-03) et le signal annonce 21,3 Mds $ 'en 2025' alors que la somme des trimestres 2025 fait 21,9 Mds $. Meme chose pour l effectif (47 000 = exercice 2024 ; 45 000 au 2 janvier 2026 selon le KPI Workforce). fcf_annuel et dette_annuelle ont pourtant le point 2026.",
+  "preuve": "revenue_annuel dernier 2025-01-03, 2025=21.325 :: 'Ventes de 21,3 Mds $ en 2025'. Revenue trimestriel 2025 : 5132+5426+5659+5648=21865. effectifs_annuels dernier 2025-02-14 : 2025=47000 ; Workforce : 45 000 au 2 janvier 2026.",
+  "correction_validee": "Relibeller par exercice (2025 devient 2024, 2026 devient 2025 pour le FCF et la dette), ajouter CA 2025 = 21,865 Mds $ et effectif 2025 = 45 000, puis régénérer les signaux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Chiffres perimes d un trimestre : carnet a 40,7 Mds $ et book-to-bill 1,4 (T1 2026) alors que la these, l anti-these et le KPI de conversion citent 42,0 Mds $ au 3 juillet 2026 et le btb T2 2026 est 1,2.",
+  "preuve": "moat : 'ratio de 1,4 fois les facturations et le carnet monte à 40,7 milliards'. these : 'record de 42,0 Mds $ au 3 juillet 2026'. btb T2 2026=1.2.",
+  "correction_validee": "Mettre a jour le moat sur le T2 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CS Revenue / IMS Revenue / SAS Revenue / CS Backlog / IMS Backlog / SAS Backlog",
+  "probleme": "Six series des anciens segments s arretent au T3 2025 sans mention de la reorganisation en SMS, CSD et MSL, contrairement a LDOS ou chaque signal l indique. Le signal IMS est de plus incomprehensible.",
+  "preuve": "CS Revenue dernier 2025-09-30 ; IMS Revenue signal : 'Stable en apparent; hors cession CAS (+459M impact), croissance organique de +471M'.",
+  "correction_validee": "Ajouter 'segment supprimé par la réorganisation de 2026' a chaque signal et reecrire le signal IMS.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Backlog Total Funded (hero) / carnet CSD absent",
+  "probleme": "Le hero est un carnet finance annuel arrete a l exercice 2025 alors que le carnet total trimestriel (42,0 Mds $) est le chiffre que suit le marche ; la fiche a SMS Backlog et MSL Backlog mais pas CSD Backlog, et aucune serie trimestrielle du carnet total.",
+  "preuve": "hero: Backlog Total Funded | year | FY2025=26900. SMS Backlog Q2-2026=22431, MSL Backlog Q2-2026=10531 ; pas de KPI CSD Backlog. Backlog 12M Conv signal : 'carnet total de 42,0 Mds$'.",
+  "correction_validee": "Ajouter une serie trimestrielle 'Carnet de commandes total' et 'CSD Backlog', et en faire le hero.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "US Gov Revenue % (signal)",
+  "probleme": "Le signal assimile les 25 % hors gouvernement americain a de l international, alors que la geographie donne 17,6 % d international.",
+  "preuve": "US Gov Revenue % signal : 'international représente 25%' ; revenue_by_geography : International 17.6.",
+  "correction_validee": "Écrire « 25 % hors gouvernement américain, dont 17,6 % à l'international ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "MSL Op Margin (signal) / OCF et FCF (yoy)",
+  "probleme": "Signal illogique ('malgré la hausse du chiffre d'affaires' pour expliquer une stabilite de marge) ; yoy exprimes en montant ('+239M') au lieu d un pourcentage.",
+  "preuve": "MSL Op Margin :: 'reflète un résultat opérationnel de 130 M$ porté par le volume, malgré la hausse du chiffre d'affaires du segment'. OCF yoy=+239M ; FCF yoy=+219M.",
+  "correction_validee": "Réécrire le signal MSL (marge stable à 12,3 %, résultat opérationnel de 130 M$) et mettre yoy = +37 % pour l'OCF et +40 % pour le FCF.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ca_par_salarie / fcf_par_salarie / dette_par_salarie / dette_sur_ca (series)",
+  "probleme": "Les ratios s arretent en 2023 alors que les series d entree vont jusqu a l exercice 2025 pour le FCF et la dette.",
+  "preuve": "ca_par_salarie n=3 : 2021=379, 2022=370.9, 2023=388.4 ; dette_annuelle 2026=11.116.",
+  "correction_validee": "Après la correction du point 28, recalculer les quatre ratios pour 2024 et 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ }
+]

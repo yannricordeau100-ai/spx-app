@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Dupixent / CAHIER_BRAND_SALES_BRIDGE / DUP_REV",
+  "probleme": "Dupixent present trois fois : trimestriel, annuel sous un nom obscur, et annuel herite arrete en 2023 mais date 2026",
+  "preuve": "« Dupixent | 10 715 M€ | dernier 2026-08-05 » (valeur 2023, description « 24,9 % du CA 2023 ») ; « Ventes par marque et decomposition de la croissance | 15,714 Mds » = somme des trimestres 2025 de DUP_REV.",
+  "correction_validee": "Supprimer la série héritée « Dupixent » et renommer CAHIER_BRAND_SALES_BRIDGE « CA Dupixent (annuel) » ou la retirer.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Vaccines / Biopharma / Consumer Healthcare",
+  "probleme": "Series heritees sans dates, perimees et contredites",
+  "preuve": "« Vaccines 7 124 M€ » vs somme VAC_REV 2025 = 7,936 Mds ; « Consumer Healthcare 5 298 » avec description « spin-off annonce pour Q4 2024 » alors qu'Opella est cedee (plus-value au T2-2025 citee dans IFRS_NI) ; « Biopharma 37 431 » arrete en 2023, tous dates « 2026-08-05 ».",
+  "correction_validee": "Supprimer les trois séries héritées.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "R&D Phase 3.description",
+  "probleme": "Affirmation fausse contredite par le KPI dividende",
+  "preuve": "« suppression du dividende prevu 2024 » ; DPS : 2023 = 3,76, 2024 = 3,92, 2025 = 4,12, signal « plus de 30 ans de hausses consecutives ».",
+  "correction_validee": "Retirer la mention de suppression du dividende et écrire « abandon de l'objectif de marge 2025 au profit de la R&D ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_NEW_PRODUCT_SHARE",
+  "probleme": "Nom « Part » avec unite en milliards, doublon annuel du KPI trimestriel des lancements",
+  "preuve": "« Part des produits recemment lances | Mds EUR | FY2025 = 3,911 » = somme LAUNCH_REV 2025 (0,847+0,897+1,046+1,121).",
+  "correction_validee": "Renommer « CA des lancements (annuel) » en Mds €, ou supprimer le doublon.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "POLIO_DOSES_UNICEF",
+  "probleme": "Serie arretee en 2024",
+  "preuve": "« dernier 2024-12-31 | FY2021=50,5 ... FY2024=33 » alors que la fiche est a jour au T2-2026.",
+  "correction_validee": "Ajouter 2025 ou retirer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / positions de marche / moat",
+  "champ": "tagline, market_positions, moat",
+  "probleme": "Tagline en anglais, positions de marche vides, reference a une « note de moat »",
+  "preuve": "« Global pharmaceutical leader in vaccines... » ; « position de marche 1: None | taille 96.59 | part None » ; « La degradation de la note de moat... ».",
+  "correction_validee": "Remplacer la tagline, masquer les positions vides, reformuler le moat.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

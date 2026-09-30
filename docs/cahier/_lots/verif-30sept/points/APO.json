@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "hero",
+  "champ": "Total AUM history_periods",
+  "probleme": "Libelles de la serie hero decales de deux trimestres, 18 valeurs pour 17 libelles",
+  "preuve": "« Q2 2024 = 751 » alors que 751 = AUM fin 2024 (CAHIER_AUM FY2024) ; « Q2 2025 = 938,4 » alors que PerpCap dit « 938.4 milliards d AUM total fin 2025 » ; dernier point 1 047,3 etiquete Q4 2025 mais signal « au 30 juin 2026 »",
+  "correction_validee": "Relibeller de Q1 2022 a Q2 2026 (18 libelles, dernier 1 047,3 = Q2 2026).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NetInvAssets",
+  "probleme": "Valeur affichee absente de la serie",
+  "preuve": "val 314,1 au 30/06/2026 ; serie annuelle FY2022 a FY2025 = 292,4 ; yoy +14,2 % vs un T2 2025 (275,0) absent",
+  "correction_validee": "Passer en trimestriel ou afficher FY2025 = 292,4",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Inflows",
+  "probleme": "Nom contradictoire",
+  "preuve": "« Entrees nettes d actifs (flux bruts) » ; nom anglais « Gross AUM Inflows »",
+  "correction_validee": "Renommer « Collecte brute ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "resume",
+  "probleme": "Chiffre arrondi au-dessus de la valeur reelle",
+  "preuve": "att : « Apollo a franchi 1 050 Mds $ d actifs sous gestion » ; Total AUM = 1 047,3",
+  "correction_validee": "Ecrire « pres de 1 050 Mds $ » (ou 1 047 Mds $) dans hook et resume.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "summary",
+  "probleme": "Exercice inexistant",
+  "preuve": "« d apres le rapport annuel exercice 2026 » ; dernier rapport = exercice 2025",
+  "correction_validee": "Remplacer exercice 2026 par exercice 2025 dans summary et evidence.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AtheneInv, PerpCap, DryPow, AtheneAUM, PerfGenAUM signaux",
+  "probleme": "Format americain des montants dans du texte francais",
+  "preuve": "« $409.0 billion au 30 juin 2026 vs $355.8 billion », « $535.6 milliards », « $73 milliards », « $210.0 milliards »",
+  "correction_validee": "Ecrire au format francais : 409,0 Mds$, 535,6 Mds$, 73 Mds$, 210,0 Mds$.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Debt, Fee-Related Earnings, Spread-Related Earnings",
+  "probleme": "Doublons annuels",
+  "preuve": "Debt 13 364 M$ = dette_annuelle 13,364 Mds ; Fee-Related Earnings 2025 2,528 = somme FRE (559+627+652+690) ; Spread-Related Earnings 3,361 = somme SRE",
+  "correction_validee": "Supprimer Debt, Fee-Related Earnings et Spread-Related Earnings annuels.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Pas de marge FRE en serie ni de collecte nette trimestrielle",
+  "preuve": "signal FRE cite « marge FRE 58.5% » sans KPI ; seule la collecte brute est trimestrielle, CAHIER_NET_FLOWS est annuel",
+  "correction_validee": "Ajouter FRE margin trimestrielle et net flows trimestriels",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Capex",
+  "probleme": "Serie de deux points sans dates, peu pertinente pour un gestionnaire d actifs",
+  "preuve": "serie 64,7 ; 202,5 ; period year ; date 30/06/2026 ; yoy +213 % ; signal vide",
+  "correction_validee": "Supprimer ou dater",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

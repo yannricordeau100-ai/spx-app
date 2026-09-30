@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "US Commercial Customers, Remaining Deal Value, AIP Bootcamps, US commercial revenue",
+  "probleme": "Series sans dates contredites par les series sourcees",
+  "preuve": "Remaining Deal Value 4.6 Md vs TOTAL_DEAL_VALUE FY2025=11 200 M$ ; US Commercial Customers 382 vs US commercial customer count 295 ; US commercial revenue 507 vs US_COMM_REV Q3-2025=396.7 ou Q4-2025=541.3",
+  "correction_validee": "Supprimer US Commercial Customers, Remaining Deal Value, AIP Bootcamps et US commercial revenue, ainsi que la serie perimee US commercial customer count.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Texte perime et melange de deux series",
+  "preuve": "« nombre de clients passe de 132 a 954 » : 132 = clients commerciaux US, 954 = clients totaux Q4-2025 ; la fiche affiche 1 049 au T2-2026 ; « carnet +141 % » = RPO Q4-2025, +104 % au T2-2026",
+  "correction_validee": "Reecrire avec les chiffres T2-2026 (1 049 clients, RPO 4,9 Mds +104 %)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total customer count growth year-over-year",
+  "probleme": "Serie contredite par CUSTOMERS",
+  "preuve": "dernier=34 % ; CUSTOMERS Q1-2026 1007/769 = +31 %, Q2-2026 +24 %",
+  "correction_validee": "Supprimer la serie ; la croissance se lit sur CUSTOMERS.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Top-20 customers average revenue (TTM) n=1",
+  "probleme": "Doublon exact d une serie existante",
+  "preuve": "93.9 fin 2025 = point Q4-2025 (94) de « Top 20 customers trailing-twelve-month revenue »",
+  "correction_validee": "Supprimer Top-20 customers average revenue (TTM).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "GROSS_MARGIN, OP_MARGIN, NET_MARGIN, *_CONTRIB_MARGIN yoy",
+  "probleme": "Variation de marges en % relatif, incoherent avec RD_PCT_REV en points",
+  "preuve": "OP_MARGIN 26.8 -> 47.1 affiche +76 % ; NET_MARGIN +69 % ; RD_PCT_REV « -3,6 pts »",
+  "correction_validee": "Exprimer les yoy de GROSS_MARGIN, OP_MARGIN, NET_MARGIN et des trois marges de contribution en points (par exemple +20,3 pts pour OP_MARGIN).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_annuelle, dette_sur_ca",
+  "probleme": "Series arretees en 2021",
+  "preuve": "dernier 2021-12-31, n=3, val=0",
+  "correction_validee": "Prolonger a 0 jusqu en 2025 ou retirer (societe sans dette)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "U.S. Army agreement, Navy contract, USDA, Ship OS 15 secondes, Maven x4, API requests",
+  "probleme": "Six faits ponctuels presentes comme KPI, unites bricolees",
+  "preuve": "Ship OS unite « secondes » val=15 ; Maven unite « x sur 12 mois » val=4",
+  "correction_validee": "Basculer en stories",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RPO_CRPO.name",
+  "probleme": "Nom ne dit pas ce que mesure la serie (part du RPO a moins de 12 mois)",
+  "preuve": "nom « Obligations de prestation restantes, totales et a moins de douze mois », unite %, serie 57..38",
+  "correction_validee": "Renommer « Part du carnet RPO reconnue sous 12 mois ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography, revenue_by_segment",
+  "probleme": "Libelles en anglais",
+  "preuve": "United States 61 ; United Kingdom 12 ; Rest of world 27 ; Government Operating Segment",
+  "correction_validee": "Etats-Unis, Royaume-Uni, Reste du monde, Gouvernement, Commercial.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik.products",
+  "probleme": "AIP absent alors que la these et les KPI reposent dessus",
+  "preuve": "products cite Gotham et Foundry seulement ; these « moteur numero un de la these AIP »",
+  "correction_validee": "Ajouter AIP (plateforme IA) aux produits phares",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

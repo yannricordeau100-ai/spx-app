@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REV_Q / NI_Q / ROTE_Q / CI_Q (signal)",
+  "probleme": "Quatre signaux cites au T1 2026 alors que la serie va au T2 2026",
+  "preuve": "REV_Q val=7.096 (Q2-2026) mais signal « PNB de 7,11 Mds € au T1 2026 » ; NI_Q val=1.79 mais « 1,70 Md € au T1 2026 » ; ROTE_Q val=12.2 mais « 11,7 % au T1 2026 » ; CI_Q val=58.6 mais « 60,9 % au T1 2026 »",
+  "correction_validee": "Reecrire au T2 2026 : PNB 7,10 Mds €, RN 1,79 Md €, ROTE 12,2 %, coefficient 58,6 %. Mettre des variations recalculees sur la serie (PNB +4,5 %, RN +23 %) ou n'en mettre aucune tant que la source n'est pas relue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ROTE / ROTE / REV_GROWTH_PUB / REV_FY",
+  "probleme": "Meme indicateur avec deux valeurs pour 2022, et croissance publiee 2023 incoherente avec la serie de PNB",
+  "preuve": "ROTE FY2022 = 2,5 mais CAHIER_ROTE FY2022 = 2,9 ; REV_GROWTH_PUB FY2023 = -7,6 % alors que REV_FY passe de 28,059 a 25,104 (-10,5 %), le -7,6 % etant calcule sur un 2022 retraite IFRS 17",
+  "correction_validee": "Aligner FY2022 sur une seule valeur et retraiter REV_FY FY2021-2022 en base IFRS 17 (ou preciser la rupture)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_COST_INCOME / CAHIER_CET1 / CAHIER_ROTE / ROTE_Q / CI_Q (yoy)",
+  "probleme": "Variations de ratios exprimees en % relatif au lieu de points, ou notation « pp » incoherente avec le reste du site",
+  "preuve": "CAHIER_ROTE yoy +47.8 % (6,9 vers 10,2 = +3,3 pts) ; CAHIER_CET1 +1.5 % ; CAHIER_COST_INCOME -7.8 % ; ROTE « +3.3pp »",
+  "correction_validee": "Afficher en points : ROTE annuel +3,3 pts, CET1 +0,2 pt, coefficient -5,4 pts, et « pts » au lieu de « pp » pour ROTE_Q et CI_Q.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "COR_Q_BPS",
+  "probleme": "Serie trimestrielle arretee au T4 2025 alors que les autres series trimestrielles vont au T2 2026",
+  "preuve": "dernier 2025-12-31, serie Q4-2024 a Q4-2025 ; REV_Q va jusqu a Q2-2026",
+  "correction_validee": "Ajouter T1 et T2 2026 depuis les communiques",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "marge_nette_d_interet_hors_provision_rep",
+  "probleme": "KPI sans nom anglais, sans signal ni description ; nom technique non traduit pour le public",
+  "preuve": "« Marge nette d interet (reseaux France, hors PEL/CEL) | | M EUR | ... :: :: » champs vides",
+  "correction_validee": "Completer nom anglais, signal (1 186 M€ au T2 2026, +15 % sur un an) et description",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateurs bancaires manquants",
+  "probleme": "Aucune serie sur la qualite des actifs ni la liquidite, attendues pour une banque",
+  "preuve": "pas de taux de creances douteuses, pas de ratio LCR, pas d encours de credits ni de depots groupe",
+  "correction_validee": "Ajouter taux de creances douteuses, LCR et encours credits/depots (publies chaque trimestre)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions_de_marche",
+  "champ": "position de marche 1 et 2",
+  "probleme": "Deux positions sans nom ni part",
+  "preuve": "« None | taille 154.5 » et « None | taille 158.7 »",
+  "correction_validee": "Nommer ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

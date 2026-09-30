@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification du moat périmée et contredite par les chiffres de la fiche : elle parle de revenus stablecoin en forte croissance et de revenus nets en hausse alors que tout recule en 2026.",
+  "preuve": "Moat : « Revenus liés aux stablecoins en forte croissance et revenus nets en hausse ». KPI usdc_rev Q2-2026 = 292,1 (yoy -5 %), ca_total Q2-2026 = 1 220,1 (yoy -19 %), thèse : « chiffre d'affaires, utilisateurs et résultat reculent tous en 2026 ».",
+  "correction_validee": "Reecrire la justification sur les donnees du T2-2026 (revenus en repli, part abonnements et services a 45,5 %, encours stablecoin en hausse).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "trading_volume, consumer_volume, institutional_volume, take_rate_avg",
+  "probleme": "Les séries de volume et de taux de commission s'arrêtent au T1-2026 alors que le T2-2026 est publié et cité ailleurs sur la fiche.",
+  "preuve": "trading_volume dernier 2026-03-31 (202), consumer_volume dernier 2026-03-31 (36), take_rate_avg dernier 2026-03-31 ; mais signal tx_rev_consumer : « 452 M USD au T2-2026 [...] volume spot particuliers en baisse de 38 pourcent » et anti-thèse : « chuté de 38% sur un an au deuxième trimestre 2026 ».",
+  "correction_validee": "Ajouter le point Q2-2026 aux quatre séries à partir de la lettre aux actionnaires du T2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Consumer Spot Trading Volume, Institutional Spot Trading Volume, Monthly Transacting Users (MTUs), Trading Volume, Transaction Revenue, Subscription & Services Revenue, Average USDC Held",
+  "probleme": "Sept doublons non datés de séries déjà maintenues, avec valeurs désordonnées ou périmées et textes en franglais.",
+  "preuve": "« Consumer Spot Trading Volume » série 56, 37, 34, 78.1, 43, 59, 56 (dernier 2026-06-10, dernier point = Q4-2025) alors que consumer_volume va jusqu'à Q1-2026 = 36 ; « Monthly Transacting Users » 11.4, 9, 8.5 avec description « KPI phare de 2021-2022 puis abandonné » alors que mtu est publié jusqu'à Q2-2026 = 7,6 ; « Trading Volume » annuel arrêté à 2024 ; « Transaction Revenue » signal « Cyclique extreme : peak FY21 bull, trou FY22-FY23 bear ».",
+  "correction_validee": "Supprimer Consumer Spot Trading Volume, Institutional Spot Trading Volume, Monthly Transacting Users, Trading Volume, Transaction Revenue et Subscription & Services Revenue ; dater ou supprimer Average USDC Held.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ADV",
+  "probleme": "Nom et unité contradictoires (quotidien moyen vs par exercice) et valeurs annuelles incompatibles avec la série trimestrielle de la même fiche.",
+  "preuve": "Nom « Volume quotidien moyen négocié », unité « Mds $ par exercice », FY2024 = 1189 et FY2025 = 1221. Somme des trimestres de trading_volume : 2024 = 312+226+185+439 = 1162 (valeur reprise par « Trading Volume ») et 2025 = 393+237+295+271 = 1196.",
+  "correction_validee": "Renommer en Volume total negocie (Mds $), aligner FY2024 sur 1162 et verifier FY2025 (1196 ou 1221 selon inclusion des derives).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RPC",
+  "probleme": "Nom faux : « Revenu net par contrat » désigne en réalité le taux de commission (revenus de transaction / volume), déjà présent en trimestriel sous take_rate_avg.",
+  "preuve": "CAHIER_RPC unité « % du volume négocié », FY2025 = 0,332 ; take_rate_avg Q4-2025 = 0,339 %, signal « Ce taux mesure la commission prélevée sur le volume négocié ». Coinbase ne vend pas de « contrats ».",
+  "correction_validee": "Renommer « Taux de commission annuel moyen » ou supprimer au profit de take_rate_avg.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_margin, recurring_rev_share, intl_rev_share, eff_tax_rate, margin_after_tx (yoy)",
+  "probleme": "Variation annuelle des KPI en pourcentage exprimée en variation relative au lieu de points, alors que op_margin utilise des points : lecture incohérente et absurde pour une marge.",
+  "preuve": "net_margin yoy « -131% » (95,4 → -29,5), recurring_rev_share yoy « +4% » (43,8 → 45,5, soit +1,7 pt), intl_rev_share « +9% » (13,7 → 15), eff_tax_rate « -58% » ; op_margin yoy « -7,7 pts ».",
+  "correction_validee": "Recalculer le yoy en points pour net_margin, recurring_rev_share, intl_rev_share, eff_tax_rate et margin_after_tx.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "btc_volume_share.signal",
+  "probleme": "Le signal cite 33 % pour 2024 alors que la série indique 32.",
+  "preuve": "Signal : « 29 pourcent du volume échangé en 2025, contre 33 pourcent en 2024 » ; série FY2024 = 32, yoy « -4 pts » (cohérent avec 33, pas avec 32).",
+  "correction_validee": "Aligner serie, signal et yoy sur la valeur publiee pour 2024 (32 ou 33).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Capex",
+  "probleme": "KPI vide de sens : deux points identiques sans périodes ni signal, daté 2026-06-30 pour un annuel, et qui ignore les développements logiciels capitalisés qui constituent l'essentiel des investissements de Coinbase.",
+  "preuve": "« Capex | M $ | year | dernier 2026-06-30 | n=2 | serie: 2.9, 2.9 » sans signal ni description ; ppe_net signal : « essentiellement des développements logiciels capitalisés » (254 M USD).",
+  "correction_validee": "Supprimer, ou remplacer par « Investissements incorporels capitalisés » sourcés dans le tableau de flux.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Deribit Acquisition, Goodwill from Deribit, 2029/2032 Convertible Notes Issuance, Total stablecoin market cap, Average USDC Market Capitalization",
+  "probleme": "Événements ponctuels et données de marché présentés comme des KPI à un seul point, tous datés 2026-06-10, date qui ne correspond à aucune publication.",
+  "preuve": "« Deribit Acquisition | M $ | quarter | n=1 | 4294.6 », « 2029 Convertible Notes Issuance | n=1 | 1500 », « Total stablecoin market cap | n=1 | 300 » ; 20 KPI à n=1 datés 2026-06-10.",
+  "correction_validee": "Basculer ces éléments dans les faits marquants ou les événements, garder en KPI seulement ce qui se suit dans le temps.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs.signal",
+  "probleme": "Mention d'un document source dans le signal.",
+  "preuve": "« plan de réduction de 14 pourcent annoncé le 5 mai 2026 vers 4 300 (lettre actionnaires T1-2026) ».",
+  "correction_validee": "Retirer la parenthese (lettre actionnaires T1-2026).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "adj_ebitda.name_fr",
+  "probleme": "Nom français inexact : l'EBITDA ajusté n'est pas un résultat d'exploitation.",
+  "preuve": "« Résultat d'exploitation ajusté (Adjusted EBITDA) » alors que op_margin est calculé sur une perte d'exploitation de -113 M USD au T2-2026 quand adj_ebitda vaut +208.",
+  "correction_validee": "Renommer en EBITDA ajuste.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "tech_dev.description",
+  "probleme": "La description parle d'une hausse « ce trimestre » alors que la ligne baisse d'un trimestre à l'autre.",
+  "preuve": "« la baisse des coûts de développement capitalisés, d'où sa hausse ce trimestre » ; série Q1-2026 = 525,6 → Q2-2026 = 472,8 (seule la variation sur un an est +22 %).",
+  "correction_validee": "Préciser « sur un an » ou réécrire la phrase.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

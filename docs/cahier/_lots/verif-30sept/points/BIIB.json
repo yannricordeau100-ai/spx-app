@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "valeurs",
+  "probleme": "Répartition avec double compte et lignes majeures absentes",
+  "preuve": "« MS Product Revenues 42 » contient déjà « TYSABRI 17.3 », « Fumarate 14.8 », « Interferon 9.8 » (17,3 + 14,8 + 9,8 = 41,9) ; le total 100 vient d une normalisation sur 9 619 M$ au lieu de 9 891 ; maladies rares 21,8 %, anti-CD20 18,8 %, façonnage 7,4 %, biosimilaires 7,4 %, Zurzuvae 2,0 %, Leqembi 1,8 % absents (sommes des séries de la fiche = 9 888,5)",
+  "correction_validee": "SEP 40,8 ; Maladies rares 21,8 ; Anti-CD20 18,8 ; Façonnage et redevances 7,4 ; Biosimilaires 7,4 ; Zurzuvae 2,0 ; Leqembi 1,8.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "7 séries annuelles non sourcées",
+  "probleme": "Doublons contredisant les séries trimestrielles ; valeur absente de sa propre série",
+  "preuve": "« MS Franchise Sales » 5,8 Mds $ vs MS_FRANCHISE FY2025 = 4 038,9 M$ ; « Multiple Sclerosis Franchise » value 4 038,9 mais série [6800.5, 6713.8, 5900.1, 3805.7, 3469.3, 3141.4] ; Leqembi FY2025 : « Leqembi Revenue » 290, « LEQEMBI Launch » 197,2, LEQEMBI_COLLAB somme 177,7 ; « Spinraza Revenue » 1,62 Mds vs SPINRAZA_REV somme 2025 = 1 546,8 ; « ZURZUVAE revenue » val 55 vs ZURZUVAE_REV 70,8 (série décalée d un trimestre) ; « QALSODY global revenue » 33 vs 31,9 ; « Pipeline Programs » 18..25 sans source ; toutes datées 2026-06-30 ; « ramp commercial vraiment depuis 2024 », « marché potentiel >$10Mds »",
+  "correction_validee": "Supprimer MS Franchise Sales, Multiple Sclerosis Franchise, Leqembi Revenue, LEQEMBI Launch, Spinraza Revenue, ZURZUVAE revenue et Pipeline Programs ; QALSODY global revenue peut suivre, car il double QALSODY_REV.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "valeurs et libellés",
+  "probleme": "Double compte, anglais, exercice None, part États-Unis invérifiable",
+  "preuve": "« Germany 11.6 » inclus dans « Europe 30.1 » ; « U.S. », « Other » ; « U.S. 43.4 » ne correspond ni à REV_US / produits 2025 (3 547,9 / 7 069 = 50,2 %) ni à REV_US / total (35,9 %)",
+  "correction_validee": "Reconstruire : États-Unis, Europe (Allemagne incluse), Asie, Autres sur l exercice 2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BIOSIMILARS_REV, VUMERITY_REV, NET_MARGIN (signal)",
+  "probleme": "Signaux contredits par la série",
+  "preuve": "BIOSIMILARS_REV « Franchise biosimilaires résiliente » avec yoy -16 % et plus bas de la série (152,8) ; VUMERITY_REV « croissance US continue » avec yoy -7 % ; NET_MARGIN « Marge nette encore à deux chiffres » avec val 3,6 %",
+  "correction_validee": "Réécrire les trois signaux sur le dernier point",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Moat contredit par la fiche",
+  "preuve": "« dépendance forte à un seul candidat en développement » vs « Pipeline Programs » 25, lancements Skyclarys, Qalsody, Zurzuvae, Leqembi, felzartamab, Syfovre et Empaveli",
+  "correction_validee": "Réécrire sur les vrais points faibles (érosion SEP, dépendance aux redevances Ocrevus, dette Apellis)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "risks[0].title et summary",
+  "probleme": "Fragment anglais dans le titre ; résumés gabarit dupliqués",
+  "preuve": "« Dépendance opérationnelle (success depends successful) » ; résumé « Risques d'exécution sur les initiatives stratégiques » identique au risque 3 « Exécution stratégique »",
+  "correction_validee": "Retirer la parenthèse anglaise et réécrire le résumé du risque 1 sur la dépendance au développement de nouveaux produits (ou fusionner les deux risques).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Texte gabarit avec exercice impossible",
+  "preuve": "« BIIB intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2026. »",
+  "correction_validee": "Rédiger un positionnement réel ou classer « peu documenté »",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPIs à un point datés 2026-06-10",
+  "probleme": "Événements financiers présentés comme indicateurs ; date qui n est pas une fin de trimestre",
+  "preuve": "2025 Senior Notes 1,75 ; SKYCLARYS inventory step-up 1,3 ; HI-Bio milestone 150 ; Stoke upfront 165 ; Vanqua upfront 70 ; Reata lease impairment 52,9 ; Fit for Growth savings 1 ; les indicateurs opérationnels du même lot (persistance Leqembi 78 % et 70 %, part de marché 60 %, 35 pays Skyclarys, 15 000 patients Spinraza, conversion haute dose 20 %) n ont qu un point",
+  "correction_validee": "Basculer les événements dans le texte ; suivre les opérationnels en série",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy des ratios",
+  "probleme": "Variation en % sur des marges et intensités",
+  "preuve": "GROSS_MARGIN « -7 % » (77,1 → 71,6) ; PRETAX_MARGIN « -83 % » ; NET_MARGIN « -85 % » (24 → 3,6) ; TAX_RATE « +80 % » (14,7 → 26,4) ; CAHIER_RD_INTENSITY « -12,2 % » (20,5 → 18) ; CAHIER_TOP_PRODUCT_CONCENTRATION « -1,7 % » (23,8 → 23,4)",
+  "correction_validee": "Exprimer en points : marge brute -5,5 pts, marge avant impôts -23,3 pts, marge nette -20,4 pts, taux d'impôt +11,7 pts, intensité R&D -2,5 pts, concentration -0,4 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis et these",
+  "champ": "NET_INCOME.signal ; these.hook",
+  "probleme": "Cuisine interne ; astérisque orphelin",
+  "preuve": "NET_INCOME « T4 dérivé de l'exercice moins les neuf premiers mois » ; hook : « sa trésorerie d'exploitation* du semestre » sans renvoi",
+  "correction_validee": "Retirer la phrase de méthode du signal NET_INCOME et écrire un signal sur le T2-2026 ; garder l'astérisque, qui renvoie au glossaire.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant ; DILUTED_SHARES",
+  "probleme": "Le moteur du T2-2026 n a pas de série ; trous dans la série d actions",
+  "preuve": "PRODUCT_REV_TOT et REV_US citent « SYFOVRE et EMPAVELI (acquisition Apellis, mai 2026) » sans KPI dédié ; DILUTED_SHARES n a ni Q4-2024 ni Q4-2025 (Q1-2024, Q2-2024, Q3-2024, Q1-2025...)",
+  "correction_validee": "Créer SYFOVRE_REV et EMPAVELI_REV ; compléter les T4",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "products, customers",
+  "probleme": "Description incomplète et imprécise",
+  "preuve": "Produits limités à « Tecfidera, Tysabri, Leqembi, Spinraza, Zurzuvae » ; Skyclarys (167,9 M$ par trimestre), Qalsody, biosimilaires, Syfovre et Empaveli absents ; « dépression (Zurzuvae) » = dépression du post-partum ; « clients : neurologues » alors que 43,8 % du CA passe par deux grossistes",
+  "correction_validee": "Compléter et préciser",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Licensing Revenue, License Revenue, Service / ARR, License Revenue Growth, External Customer Revenue Growth",
+  "probleme": "Revenus de licences en quatre doublons non sourcés aux séries fausses, plus deux « KPI » de croissance à un point.",
+  "preuve": "license_revenue_annual sourcé : FY2022=1141, FY2023=1004, FY2024=1431, FY2025=1839, FY2026=2307 ; « Licensing Revenue » [1.5, 1.6, 1.7, 1.9, 2.31] ; « License Revenue » val 1,48 au 2025-12-31 [0.89, 1, 1.2, 1.285, 1.48] ; « Service / ARR » (nom sans sens pour Arm) [1.4, 1.5, 1.6, 1.7, 2.31] unité « Mds $ (FY26 license) » ; « License Revenue Growth FY25 » 35 % alors que 1839/1431 = +28,5 %.",
+  "correction_validee": "Supprimer les cinq KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Data Center Royalty Growth",
+  "probleme": "Série sans libellés ni source, signal et description en anglais.",
+  "preuve": "série [40, 50, 70, 85, 100] « % YoY » ; signal « Data center royalties more than doubled YoY (>100%) en FY26. Hyperscalers (AWS Graviton, Google Axion, Microsoft Cobalt, Meta Artemis) ramp Arm-based servers. »",
+  "correction_validee": "Supprimer « Data Center Royalty Growth ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AI Cloud Mix, Arm v9 Penetration, Backlog (Remaining Performance Obligations)",
+  "probleme": "Séries rondes non sourcées, valeur différente du dernier point, indicateur clé Armv9 sous-estimé.",
+  "preuve": "« AI Cloud Mix » val 25 avec série [25, 28, 30, 32, 35] et aucune définition ; « Arm v9 Penetration » [0, 10, 15, 20, 25] alors qu'Arm annonçait déjà environ 25 % de redevances Armv9 en 2024 et plus de 30 % en 2025 ; « Backlog (RPO) » [1.5, 1.8, 1.7, 1.93, 2.8] sans libellés.",
+  "correction_validee": "Supprimer « AI Cloud Mix » ; ressourcer la part Armv9 des redevances (publiée chaque trimestre) et le RPO depuis les 10-Q.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total Arm-Based Chips Shipped",
+  "probleme": "Doublon du cumul de puces expédiées avec des valeurs différentes.",
+  "preuve": "chips_shipped_cumulative FY2025=310, FY2026=350 ; doublon 312 au 2025-12-31, série [200, 230, 250, 287, 312], signal « Domination edge compute ».",
+  "correction_validee": "Supprimer « Total Arm-Based Chips Shipped ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "us_revenue",
+  "probleme": "Doublon de us_revenue_annual, série à l'envers et périmée.",
+  "preuve": "série [1716, 1413, 1088] avec val 1716 (FY2025) daté 2026-08-05 alors que us_revenue_annual FY2026 = 1761.",
+  "correction_validee": "Supprimer us_revenue.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "avg_discount_rate_operating_lease, operating_lease_expense",
+  "probleme": "KPI de baux de bureaux sans intérêt pour Arm, signal faux, séries à l'envers.",
+  "preuve": "« Taux d'escompte moyen des locations opérationnelles » 4,23 % ; « Charges de location opérationnelle » 39,5 M$ avec signal « Hausse reflète l'expansion du parc d'équipements loués » (il s'agit de bureaux) ; séries [4.23, 2.85, 2.58] et [39.5, 33.7, 34.3].",
+  "correction_validee": "Supprimer les deux KPI de location.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "acv_q, sga_expense_q, operating_income_q, cash_q, us_revenue_q, prc_revenue_q, japan_revenue_q, equity_investments_income_q, Mobile Apps Processor Royalty",
+  "probleme": "Huit KPI trimestriels à un seul point avec identifiant technique en guise de nom anglais et signal vide ; un KPI FY25 périmé.",
+  "preuve": "name_en « acv_q », « sga_expense_q », ... ; signal « » ; « Mobile Apps Processor Royalty » 46 % n=1 arrêté à FY25 alors que FY26 est publié.",
+  "correction_validee": "Remplir au moins 8 trimestres depuis les 10-Q et renseigner name_en, ou retirer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rd_expense_q.unit, employees.unit",
+  "probleme": "Unités incohérentes sur la fiche.",
+  "preuve": "rd_expense_q en « Mds $ » (0,838) alors que rd_expense_annual et les autres postes sont en M $ ; employees unité « unités » pour des salariés.",
+  "correction_validee": "Convertir rd_expense_q en M $ et mettre l'unité « salariés » sur employees.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

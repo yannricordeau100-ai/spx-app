@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "FMI_sales_pct (serie, signal) / FMI technology sales as % of total sales",
+  "probleme": "Deux series du meme indicateur avec des valeurs differentes sur les memes trimestres, et signal 'record' faux.",
+  "preuve": "FMI_sales_pct Q3-2025=45.3, Q4-2025=46.1, Q1-2026=44.9 ; doublon 'FMI technology sales' serie 44.3, 44.7, 44.9 ; signal : '44.6% du CA au T2 2026... penetration record' alors que Q4-2025=46.1",
+  "correction_validee": "Verifier FMI Q3 et Q4 2025 a la source, corriger FMI_sales_pct, supprimer le doublon 'FMI technology sales' et retirer 'record' du signal.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total people employed",
+  "probleme": "La serie melange un effectif total fin 2025 et l'ETP du T2 2026.",
+  "preuve": "serie 24489, 22230 ; employee_count (FTE) Q2-2026=22230 ; signal : '24 489 personnes employees fin 2025, incluant le personnel a temps partiel'",
+  "correction_validee": "Supprimer le KPI 'Total people employed' (effectifs_annuels et employee_count couvrent deja les deux notions).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eBusiness sales as % of total sales / Digital Footprint sales as % of total sales",
+  "probleme": "Doublons exacts sans dates de series existantes.",
+  "preuve": "eBusiness 29.1, 29.6, 29.1 = ebusiness_pct Q3-2025..Q1-2026 ; Digital Footprint 61.3, 62.1, 61.5 = digital_footprint_pct Q3-2025..Q1-2026",
+  "correction_validee": "Supprimer 'eBusiness sales as % of total sales' et 'Digital Footprint sales as % of total sales'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dsr_growth.signal",
+  "probleme": "Le signal affirme six trimestres d'acceleration consecutifs, la serie montre un repli au T4 2025.",
+  "preuve": "'Sixieme trimestre d'acceleration d'affilee' ; serie Q3-2025=11.7, Q4-2025=11, Q1-2026=12.2",
+  "correction_validee": "Remplacer par 'Nouvelle acceleration apres la pause du T4 2025, alors que l'indice ISM manufacturier reste sous 50.'",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "onsite_locations_q / inmarket_locations_q / onsite_signings_annual",
+  "probleme": "Series du principal moteur de croissance (Onsite) arretees fin 2024 alors que la fiche va au T2 2026.",
+  "preuve": "onsite_locations_q dernier Q4-2024=2031 ; onsite_signings_annual dernier FY2024=358 ; signal : 'Principal moteur de croissance structurelle du groupe'",
+  "correction_validee": "Completer 2025 et 2026 depuis les communiques trimestriels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "FMI_Sales (periode, dates)",
+  "probleme": "Periode 'annual' au lieu de 'year', serie sans etiquettes d'annee, date de dernier point egale a la date d'extraction.",
+  "preuve": "'annual | dernier 2026-09-29 | serie: 2295.5, 2675, 3252.1, 3712.7'",
+  "correction_validee": "Passer en periode year avec FY2022 a FY2025 et dernier point au 2025-12-31.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Valeurs vides.",
+  "preuve": "'Etats-Unis None ; Canada and Mexico None'",
+  "correction_validee": "Supprimer le bloc revenue_by_segment, ancienne repartition geographique en doublon de revenue_by_geography 2025.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "positionnement IA",
+  "probleme": "Faute de grammaire et anglicismes.",
+  "preuve": "'Fastenal identifie l'adoption d'IA et advanced analytics... sa supply chain'",
+  "correction_validee": "Fastenal a identifie l'IA et l'analyse avancee comme condition du maintien de sa position concurrentielle et de sa chaine d'approvisionnement, avec des risques reglementaires et concurrentiels.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "edge",
+  "probleme": "Confusion entre distributeurs automatiques (FMI/FASTVend) et sites Onsite (agences implantees chez le client).",
+  "preuve": "'les distributeurs automatiques Onsite chez les clients'",
+  "correction_validee": "Son atout est le reseau d'agences locales, les distributeurs automatiques FMI et les sites Onsite implantes chez les clients.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "secteur / tagline",
+  "probleme": "Textes en anglais dans l'en-tete.",
+  "preuve": "'Industrie > Wholesale Distribution of Industrial and Construction Supplies' ; tagline 'Global Leader in Industrial and Construction Supply Distribution'",
+  "correction_validee": "Secteur : Industrie > Distribution de fournitures industrielles et de construction ; tagline : Leader mondial de la distribution de fournitures industrielles et de construction.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

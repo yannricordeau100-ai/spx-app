@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Automotive Revenue, Automotive EBIT Margin, Financial Services Revenue",
+  "probleme": "Trois KPI anglais non dates arretes a 2023 dont les signaux contredisent les series a jour.",
+  "preuve": "Automotive Revenue 132.3 Mds € '+9%', 'Croissance volume + mix favorable' vs CA-AUTO-T 2025 = 117 557 M€ en baisse ; Automotive EBIT Margin 9.8 % 'Au-dessus cible 8-10%' vs MARGE-EBIT-AUTO 2025 = 5.3 ; Financial Services Revenue val 36.2 mais serie 29.6, 30, 32.9, 35.1, 'RoE > 17%' vs ROE-FS 2025 = 14.3",
+  "correction_validee": "Supprimer Automotive Revenue, Automotive EBIT Margin et Financial Services Revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Vehicle Deliveries, BEV Share, R&D Spend",
+  "probleme": "Trois doublons anglais non dates arretes a 2023.",
+  "preuve": "BEV Share 15 % 'Accélération adoption BEV' vs BEV-PART 2025 = 17.9 ; R&D Spend 7.5 vs RD 2025 = 6 848 M€ ; Vehicle Deliveries 2.55 M vs CAHIER_DELIVERIES 2025 = 2 463 681",
+  "correction_validee": "Supprimer Vehicle Deliveries, BEV Share et R&D Spend.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "marge EBIT Automobile trimestrielle (absente)",
+  "probleme": "Le KPI le plus suivi de BMW n'existe qu'en annuel alors que these et anti-these citent des valeurs trimestrielles.",
+  "preuve": "these '3,6 % au premier semestre 2026', att '2,3% au deuxième trimestre 2026, contre 5,4%' ; seul MARGE-EBIT-AUTO year existe",
+  "correction_validee": "Ajouter une serie trimestrielle de marge EBIT Automobile tiree des rapports trimestriels.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "liquidite nette du segment Automobile (absente)",
+  "probleme": "Pivot de la these sans KPI.",
+  "preuve": "these 'l'activité automobile du groupe détient bien plus d'argent qu'elle n'en doit à l'extérieur' ; aucune serie d'actifs financiers nets Automobile",
+  "correction_validee": "Ajouter les actifs financiers nets du segment Automobile (annuel et semestriel).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "livraisons par region (absentes)",
+  "probleme": "La Chine est le sujet central des risques et de la these mais aucune serie regionale de livraisons n'existe.",
+  "preuve": "these 'la Chine recule de 20,4 %' ; seules CA-ASIE et consorts (parts annuelles) existent",
+  "correction_validee": "Ajouter les livraisons trimestrielles Chine, Europe, Amériques.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Graphique de parts avec une ligne d'eliminations negative et un segment a 0 %.",
+  "preuve": "Automobile 88.1 ; Services financiers 29.8 ; Motos 2.4 ; Autres 0 ; Éliminations -20.3",
+  "correction_validee": "Presenter les parts hors eliminations (Automobile 73 %, Services financiers 25 %, Motos 2 %) ou noter que les segments sont avant eliminations.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RN-T.signal",
+  "probleme": "Signal vide de sens pour un recul de 35 %.",
+  "preuve": "'Résultat net consolidé du trimestre, dernier point publié au 2e trimestre 2026.' ; 1 842 -> 1 200, yoy -34,9%",
+  "correction_validee": "'1 200 M€ au 2e trimestre 2026, en baisse de 34,9 % sur un an.'",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RN-A.signal",
+  "probleme": "Reference annuelle fausse.",
+  "preuve": "'le résultat revient au niveau de 2017' ; FY2017 = 8 675, FY2018 = 7 064, FY2025 = 7 451",
+  "correction_validee": "'le résultat revient au niveau de 2018'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "LIVR_SERIE3_4 / CAHIER_DELIVERIES / CAHIER_EV_MIX",
+  "probleme": "Unite sans accent, chiffre sans separateur, formule generique, nom inexact, yoy relatif sur une part.",
+  "preuve": "unit 'vehicules' ; signal '477180 véhicules en 2025, produit phare de la société' ; CAHIER_DELIVERIES 'Ventes en gros et livraisons' alors que 2 463 681 = livraisons BMW+MINI+RR ; CAHIER_EV_MIX yoy '+7.9%' pour 24.2 -> 26.1",
+  "correction_validee": "Unite 'véhicules', '477 180 véhicules en 2025', renommer CAHIER_DELIVERIES 'Livraisons de véhicules', yoy CAHIER_EV_MIX '+1,9 pt'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "header",
+  "champ": "tagline",
+  "probleme": "Tagline vide.",
+  "preuve": "tagline ''",
+  "correction_validee": "Renseigner une phrase de presentation.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

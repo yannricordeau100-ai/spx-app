@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Steel Mills Production, Steel Products Production, Raw Materials Production, Average Steel Price, Dividend Aristocrat Streak, Steel Tons Shipped, Steel Avg Price, Steel Products CA, Raw Materials Tons, Mill Utilization, Scrap Cost",
+  "probleme": "Bloc de onze series annuelles sans dates, datees 2026-07-04, aux valeurs de 2024 contredites par les series CAHIER 2025 et par le trimestriel, et contradictoires entre elles.",
+  "preuve": "Steel Tons Shipped 24.8 vs CAHIER_SHIPMENTS FY2025=26.6 M ; Mill Utilization 76 vs CAHIER_UTILISATION FY2025=83 ; Raw Materials Production 4.5 vs Raw Materials Tons 2.3 ; Dividend Aristocrat Streak 52 vs Consecutive years 53 ; signal « Prix moyen ~1000 $/ton 2024 »",
+  "correction_validee": "Supprimer le bloc entier.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Steel Mills Production.description, Steel Products Production.description, Raw Materials Production.description, Average Steel Price.description, Dividend Aristocrat Streak.description",
+  "probleme": "Descriptions en franglais telegraphique, style note interne.",
+  "preuve": "« Steel Products = downstream (joist, deck, fasteners, rebar fab). Higher-margin specialty. » ; « 2024 = soft cycle, recovery attendue. »",
+  "correction_validee": "Disparait avec la suppression du bloc du #22, aucune action propre.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Scrap and scrap substitute cost per gross ton",
+  "probleme": "Doublon sans dates de scrap_cost_per_gross_ton avec un dernier point contradictoire (508 contre 422 $/t au T2 2026) et un saut de 275 a 508.",
+  "preuve": "serie: 337, 373, 374, 359, 352, 299, 275, 508 ; scrap_cost_per_gross_ton Q2-2026=422",
+  "correction_validee": "Supprimer la serie non datee.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Steel mill shipments to outside customers, Steel sheet shipments",
+  "probleme": "Doublons sans dates contredits par les series datees : « record de 7 M tonnes au T1-2026 » alors que les acieries ont expedie 5,619 Mt aux tiers (7,427 Mt est le total groupe) ; 3,1 Mt de toles au T2-2025 date 2026-03-11.",
+  "preuve": "serie: 7.197, 6.687, 6.486, 7 ; steel_mills_outside_shipments Q1-2026=5.619 ; total_tons_shipped Q1-2026=7.427",
+  "correction_validee": "Supprimer les deux series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "diluted_shares",
+  "probleme": "Valeurs negatives dans une serie de nombre d'actions.",
+  "preuve": "Q4-2024=-1.3, Q4-2025=-0.4 (M titres)",
+  "correction_validee": "Vider les points Q4-2024 et Q4-2025 ou les remplacer par les valeurs publiees.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "steel_mills_utilization_rate.yoy, gross_margin.yoy, pretax_margin.yoy, net_margin.yoy, steel_mills_margin.yoy, steel_products_margin.yoy, raw_materials_margin.yoy, steel_mills_internal_sales_pct.yoy",
+  "probleme": "Variations de ratios en % relatif au lieu de points.",
+  "preuve": "steel_mills_utilization_rate 82 -> 91 | yoy=+11% ; raw_materials_margin 1.7 -> 3.5 | yoy=+106%",
+  "correction_validee": "Exprimer la variation en points.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Effectifs absents de 2020 a 2024 (saut 2019 -> 2025), et les trois ratios par salarie s'arretent en 2019 tout en etant dates 2025-12-31.",
+  "preuve": "effectifs_annuels serie: 2016=23900 ... 2019=26800, 2025=33000 ; ca_par_salarie serie: 2016..2019 | dernier 2025-12-31",
+  "correction_validee": "Completer 2020-2024 (rapports annuels) et recalculer les ratios jusqu'en 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline",
+  "probleme": "Accroche en anglais.",
+  "preuve": "« North America's largest steel recycler and most diversified steel producer »",
+  "correction_validee": "Traduire.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

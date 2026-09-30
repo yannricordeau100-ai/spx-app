@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ROE_GAP",
+  "probleme": "Nom faux : le KPI s'appelle « Écart entre rendement autorisé et rendement réalisé » mais la série est le ROE autorisé lui-même, et il fait doublon avec auth_roe.",
+  "preuve": "serie FY2018=10, FY2021=8.7, FY2024=9.55, FY2025=9.55 ; auth_roe FY2025=9.55 ; roe_realise T2 2026=9.3",
+  "correction_validee": "Renommer CAHIER_ROE_GAP en « ROE autorisé » et supprimer auth_roe.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Retail Customers / GWh Sold / Generation Capacity / Renewables Share / Peak Demand",
+  "probleme": "Cinq séries annuelles sans période, datées 2026-06-30, aux valeurs lissées qui contredisent les KPI publiés voisins.",
+  "preuve": "Generation Capacity 6.6 GW vs generation_capacity FY2025=6257 MW ; Peak Demand 8.34 GW vs All-time peak demand 8631 MW ; GWh Sold 34.2 TWh vs ventes 2024=33701 GWh ; Renewables Share 12,13,14,16,18 ; Retail Customers 1.3,1.32,1.35,1.37,1.39",
+  "correction_validee": "Retirer les cinq séries et garder les KPI publiés.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Retail electricity customers served (signal)",
+  "probleme": "Signal contredit par la série : il annonce un passage de 1,3 à 1,5 million alors que la série plafonne à 1,4 et fait doublon avec customers.",
+  "preuve": "signal « passée de 1,3 à 1,5 million » ; serie 1.4 x8 ; customers FY2025=1.4",
+  "correction_validee": "Supprimer Retail electricity customers served.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Retail customer growth / customer_growth ; Consolidated assets / total_assets",
+  "probleme": "Doublons exacts entre KPI structurés et KPI de conférence.",
+  "preuve": "Retail customer growth serie 2,2,2.1,2.3,2.1,2.4,2.4,2.2 = customer_growth ; Consolidated assets 30 Mds $ vs total_assets T2 2026=32.58",
+  "correction_validee": "Supprimer « Retail customer growth » et « Consolidated assets ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these",
+  "probleme": "Affirmation fausse : le CA n'a pas progressé « sans année de recul », il a reculé en 2019, et 2018 à 2025 fait sept ans, pas dix.",
+  "preuve": "revenue_annuel 2018=3.691, 2019=3.471 ; these « passé de 3,691 à 5,34 Mds $ en dix ans sans année de recul »",
+  "correction_validee": "Reformuler en « de 3,47 Mds $ en 2019 à 5,34 Mds $ en 2025, six années de hausse consécutives ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat « None, tendance baisse » contredit la thèse et l'anti-thèse qui décrivent un monopole régulé avec 1,4 M de clients et un dividende relevé 14 ans de suite.",
+  "preuve": "moat « ont fait perdre l'avantage durable » ; these « monopole régulé sur la majeure partie de l'Arizona »",
+  "correction_validee": "Décision propriétaire : requalifier le moat (monopole régulé, avantage réglementaire) ou justifier la perte.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "customer_growth (yoy)",
+  "probleme": "Variation d'un taux exprimée en pourcentage relatif au lieu de points.",
+  "preuve": "serie Q2-2025=2.4, Q2-2026=2.1 ; yoy=-12.5%",
+  "correction_validee": "Afficher -0,3 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Transmission CapEx growth over five years ; CAHIER_CUSTOMER_RELIABILITY",
+  "probleme": "Noms qui ne décrivent pas la série : « Investissement transport multiplié » pour un montant de projets, « Clients desservis et fiabilité du service » pour une durée de coupure en minutes.",
+  "preuve": "val=6 Mds $ « Plus de 6 milliards de projets transport identifiés » ; val=80.86 minutes",
+  "correction_validee": "Renommer en « Projets de transport identifiés jusqu'en 2034 » et « Durée moyenne des coupures par client (SAIDI) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rate_base",
+  "probleme": "Série de deux points séparés de neuf ans, inutilisable en graphique.",
+  "preuve": "n=2 : FY2016=6.8, FY2025=12.5",
+  "correction_validee": "Compléter les exercices intermédiaires depuis les dossiers tarifaires ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "OP_INCOME, NET_INCOME, OCF, FCF, CASH",
+  "probleme": "Series arrondies a la dizaine de millions et contredites par leurs propres signaux : resultat operationnel 360 vs 363 M$ cite, resultat net 220 vs 223, OCF 600 vs 603, FCF 140 vs 145 ; tresorerie figee a 200 M$ pendant huit trimestres alors que le signal et NET_DEBT disent 218 M$. Un investisseur qui connait les comptes repere immediatement des chiffres lisses.",
+  "preuve": "KPI CASH serie: Q3-2024=300 puis 200 x7 :: '218 M$ de tresorerie au 30 juin 2026' ; KPI OP_INCOME Q2-2026=360 :: 'Resultat operationnel de 363 M$' ; KPI NET_INCOME Q2-2025=30, Q4-2025=10",
+  "correction_validee": "Remplacer les cinq séries par les valeurs exactes des 10-Q et 10-K sur au moins huit trimestres.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Occupancy / Load Factor, Adjusted Net Cruise Cost excl. Fuel per Capacity Day, Advance ticket sales balance, Net Yield growth (YoY), Capacity Days, Fleet berths, Total team members",
+  "probleme": "Doublons sans etiquette de periode qui contredisent les series sourcees : occupation 100,8 / 101,5 contre OCCUPANCY 103,8 / 102,4 ; cout hors carburant 169 contre 163,82 ; carnet 'record proche de 4 Md$' contre ADV_TICKET 3 651 M$ en baisse de 4,8 % ; 'Capacity Days' melange un trimestre (6,39) et une prevision annuelle (26,25) dans une meme serie ; dates '2026-09-29' (date du jour, pas une periode).",
+  "preuve": "KPI Occupancy / Load Factor | dernier 2026-09-29 | serie: ..., 100.8, 101.5 vs KPI OCCUPANCY Q1-2026=103.8, Q2-2026=102.4 ; KPI Advance ticket sales balance val=3.9 'record proche de 4 Md$' vs KPI ADV_TICKET Q2-2026=3651.201 yoy=-4,8% ; KPI Capacity Days | M (annual guidance) | serie: 6.39, 26.25",
+  "correction_validee": "Supprimer les sept doublons et, si besoin, créer une série annuelle étiquetée « Couchettes de la flotte ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Record quarterly adjusted EBITDA, Bookings up over 20%, Fully diluted share count reduction, Share of NCL guests visiting Great Stirrup Cay, Great Stirrup Cay annual guest capacity, Repsol renewable marine fuel agreement, Charting the Course cost savings program, NCL app guest logins, Ships on order through 2037, Five Norwegian mega-ships, Great Tides Waterpark, Record Adjusted EBITDA 2025, Two ships delivered in 2025",
+  "probleme": "Treize 'KPI' a un point tires d'un communique de fevrier 2026 : '19 toboggans', '8 ans' d'accord Repsol, '5 000 couchettes par navire', '2 navires livres' ne sont pas des indicateurs suivis ; noms en anglais.",
+  "preuve": "KPI Great Tides Waterpark | toboggans | n=1 | val=19 ; KPI Repsol renewable marine fuel agreement | ans | n=1 | val=8 ; KPI Five Norwegian mega-ships (5,000 berths) | couchettes/navire | val=5000",
+  "correction_validee": "Supprimer les treize entrées et garder l'EBITDA ajusté seulement comme série trimestrielle sourcée.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "FUEL_PRICE_MT, FUEL_CONS_MT, NET_LEVERAGE, FUEL_COST (signal)",
+  "probleme": "Prix et consommation de carburant dates 'dernier 2026-06-30' mais arretes au T1 2026 (le signal dit T1) ; levier arrete au T1 2026. Or la these repose sur la facture de carburant du T2 (+39,4 %) et le signal FUEL_COST attribue cette hausse a 'la croissance de la flotte' alors que la capacite ne progresse que de 8,9 % : l'explication est fausse, il manque le prix du T2.",
+  "preuve": "KPI FUEL_PRICE_MT | dernier 2026-06-30 | serie ... Q1-2026=651 :: 'au T1-2026' ; KPI FUEL_COST Q2-2025=157.4, Q2-2026=219.4 :: 'en hausse de 39,4% sur un an avec la croissance de la flotte' ; KPI CAP_DAYS yoy=+8,9%",
+  "correction_validee": "Ajouter le T2 2026 aux trois series et reecrire le signal FUEL_COST (effet prix).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_YIELD_APCD, CAHIER_OCC_NAVIRES, BUYBACK",
+  "probleme": "CAHIER_YIELD_APCD s'arrete en 2019 alors que NRY_CD trimestriel va jusqu'a 2026 ; CAHIER_OCC_NAVIRES affiche 103,8 % d'occupation en 2020, annee ou la flotte a ete a l'arret des la mi-mars, et son nom promet un 'carnet de reservations' absent de la serie ; BUYBACK est une serie morte depuis 2019.",
+  "preuve": "KPI CAHIER_YIELD_APCD | dernier 2019-12-31 | FY2019=257.2 ; KPI CAHIER_OCC_NAVIRES serie: FY2019=107.3, FY2020=103.8, FY2021=52.7 ; KPI BUYBACK | dernier 2019-12-31",
+  "correction_validee": "Retirer CAHIER_YIELD_APCD et BUYBACK ; verifier l'occupation 2020 dans le 10-K 2020 et renommer 'Taux d'occupation annuel'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these / moat",
+  "probleme": "La these dit que la charge d'interets nette 'a ete divisee par pres de deux en un an' : 170,9 vs 236,8 M$ au T2 2025, soit -28 % (le -48 % ne vaut que face au T3 2025). Le moat dit 'le carnet de reservations progresse' alors que ADV_TICKET recule de 4,8 % sur un an, et affiche 'tendance hausse' tout en decrivant un rendement en recul.",
+  "preuve": "KPI INT_EXP Q2-2025=236.8, Q2-2026=170.9 yoy=-27,8% ; moat: 'Le carnet de reservations progresse' vs KPI ADV_TICKET yoy=-4,8%",
+  "correction_validee": "Corriger la these ('reduite de 28 %') et le moat (carnet en repli, tendance stable).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risques 1 a 4 ; en-tete",
+  "probleme": "Quatre risques sans texte (titres seuls) ; tagline, sous-secteur et libelles de repartition en anglais ('Premium Global Cruise Operator', 'Lodging & Resorts', 'Passenger ticket', 'Onboard and other', 'Other Country').",
+  "preuve": "risque 1: Sensibilite geopolitique et regionale :: (vide) ; revenue_by_segment: Passenger ticket 68 ; Onboard and other 32",
+  "correction_validee": "Rediger les risques depuis le 10-K 2025 ; traduire tagline, sous-secteur ('Hotellerie et loisirs') et libelles ('Billets passagers', 'A bord et autres', 'Autres pays').",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EPS_DIL, OP_MARGIN, NET_MARGIN, dette_annuelle",
+  "probleme": "EPS_DIL saute les Q4 2024 et Q4 2025 alors que NET_INCOME les a ; variations de marges exprimees en pourcentage relatif ('+600,0 %', '-17,9 %') au lieu de points ; dette annuelle 2025 = 14,606 Mds $ contre TOTAL_DEBT Q4-2025 = 14,99 sans explication.",
+  "preuve": "KPI EPS_DIL serie: Q3-2024=0.95, Q1-2025=-0.09 (pas de Q4-2024) ; KPI NET_MARGIN yoy=+600,0% ; KPI dette_annuelle 2025=14.606 vs KPI TOTAL_DEBT Q4-2025=14.99",
+  "correction_validee": "Completer les Q4 du BPA, afficher les variations de marge en points, aligner la definition de dette annuelle sur TOTAL_DEBT.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "position_marche",
+  "champ": "position de marche 1",
+  "probleme": "Bloc vide affiche avec un nombre sans nom ni part.",
+  "preuve": "position de marche 1: None | taille 72.5 | part None",
+  "correction_validee": "Retirer le bloc de position de marché.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

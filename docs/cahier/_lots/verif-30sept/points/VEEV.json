@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "signaux TOT_SUB, RND_EXP, SUB_GM, REV_Q, NI_Q, OPM_Q, EPS_Q, OCF_Q, DEFREV_Q, SBC_Q, SM_Q, GA_Q, GEO_NA_Q, GEO_AP_Q",
+  "probleme": "Les signaux décrivent le T1 FY2027 alors que la valeur affichée est le T2 FY2027.",
+  "preuve": "REV_Q val=928 mais signal \"882,9 M$ au T1 FY2027\" ; OCF_Q val=0.239 mais signal \"OCF 1 127 M$\" ; DEFREV_Q val=1.31 mais signal \"1 476,5 M$\".",
+  "correction_validee": "Régénérer ces 14 signaux sur les valeurs du T2 FY2027.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NI_Q, OPM_Q, GEO_EU_Q, DEFREV_Q, GM_Q (signaux et yoy)",
+  "probleme": "Chiffres de variation faux.",
+  "preuve": "NI_Q signal \"+31,3%\" alors que 260.9/228.2=+14.3 % ; OPM_Q \"vs 25,2% un an avant\" alors que Q1-FY2026=30.8, et yoy=+0.1pts alors que 29.6 vs 24.8 = +4.8 pts (la thèse dit bien près de cinq points) ; GEO_EU signal +18.3 % contre yoy +22.4 % ; DEFREV +13.3 % contre 1.476/1.246=+18.5 % ; GM_Q \"en hausse constante\" avec yoy -2.1 pts.",
+  "correction_validee": "Recalculer les variations depuis les séries et réécrire les signaux en cohérence.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total Subscription, Subscription Revenue, R&D Solutions Revenue, Commercial Solutions Revenue, R&D Services, Commercial Services, Free Cash Flow Margin",
+  "probleme": "Séries annuelles importées décalées d un an (valeurs FY2025 présentées comme dernières) et doublons.",
+  "preuve": "Total Subscription 2284.7 = FY2025 alors que TOT_SUB FY2026 = 634.8+659.2+682.5+707.7 = 2684.2 ; signal \"88% du CA total\" contre 84 % ; FCF Margin 39 % contre 1.415/3.195 = 44 % en FY2026 ; Commercial Solutions 1.075 répété deux ans.",
+  "correction_validee": "Supprimer les sept séries annuelles importées, couvertes par les séries trimestrielles et annuelles propres.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "repartition",
+  "probleme": "Libellés faux (Vault n est pas un segment, Vault CRM est dans Commercial) et exercice non renseigné.",
+  "preuve": "\"Veeva Commercial Cloud 49 ; Veeva Vault 51\" ; calcul FY2026 : R&D Solutions 1 703 M$ (53 %), Commercial Solutions 1 443 M$ (45 %).",
+  "correction_validee": "Libellés « Solutions R&D » et « Solutions commerciales », valeurs FY2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Subscription revenue retention / RETENTION ; Cash, equivalents... / CASH_Q ; Total employees / effectifs_annuels",
+  "probleme": "Doublons, dont un obsolète.",
+  "preuve": "RETENTION FY2022=119 et \"Rétention du revenu d'abonnement\" 124, 119 ; Cash 6.6 Mds $ contre CASH_Q 7.31 ; Total employees 7928 = effectifs_annuels.",
+  "correction_validee": "Supprimer les trois KPI importés et garder RETENTION, CASH_Q et effectifs_annuels.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PS_REV_Q.signal",
+  "probleme": "Signal contredit par la série.",
+  "preuve": "\"+22,9%... part déclinante du mix\" alors que SUB_MIX recule de 84.7 à 82.7 % : la part des services monte.",
+  "correction_validee": "Signal : services 152,8 M$ au T1 FY2027 (+22,9 %), en croissance plus rapide que les abonnements, part en hausse dans le mix.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CRM share of revenue by 2030, 2030 revenue goal, Study-by-study business opportunity, Share repurchase program authorized, Vault CRM win rate",
+  "probleme": "Objectifs et annonces ponctuels présentés comme KPI.",
+  "preuve": "n=1 chacun, \"Objectif de chiffre d'affaires 2030\" val=6.",
+  "correction_validee": "Supprimer ou déplacer vers la thèse.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / positionnement IA / moat",
+  "champ": "tagline, ai_positioning, moat",
+  "probleme": "Tagline vide ; positionnement IA daté qui ignore les agents Veeva AI présents dans les KPI ; moat sans type.",
+  "preuve": "tagline vide ; IA: \"Direct Data API, MedInquiry AI... Veeva AI Partner Program\" alors que le KPI \"Clients live sur les agents Quick Check\" existe ; moat: None.",
+  "correction_validee": "Rédiger accroche, mettre à jour l IA, typer le moat (coûts de sortie, spécialisation sectorielle).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SUBSCRIPTION_MIX",
+  "probleme": "Variation d une part exprimée en % relatif, signal contradictoire.",
+  "preuve": "84 vs 83.2 yoy=+1.0% (+0.8 pt) ; \"La part récurrente repart... un modèle qui se stabilise\".",
+  "correction_validee": "Variation +0,8 pt ; signal : la part des abonnements monte à 84 % en FY2026 après un palier autour de 80 %.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

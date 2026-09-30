@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Repatha Sales, Prolia Sales, Tepezza Sales, Total R&D, ENBREL Sales, Otezla Sales, XGEVA Sales, Total Product Sales, FY26 Revenue Guidance Mid (annuels)",
+  "probleme": "Bloc annuel périmé ou inventé, en doublon des séries trimestrielles, avec descriptions dépassées.",
+  "preuve": "\"Repatha Sales\" 2,5 Mds alors que revenue_by_segment FY2025 = 3,016 ; \"Total R&D\" 6,05 vs GAAP FY2025 7,27, description \"22 % du revenu\" vs CAHIER_RD_INTENSITY 19,8 ; ENBREL/Otezla/XGEVA/Total Product Sales arrêtés 2024-12-31 ; \"perte exclusivite USA Feb 2025\", \"LOE 2025 (biosimilars en attente)\" alors que Prolia est à -32 % ; unité \"B $\".",
+  "correction_validee": "Supprimer les neuf KPI. Si la guidance FY26 est vérifiée à la source, la conserver dans un KPI propre et daté.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TEZSPIRE product sales / tezspire_rev, UPLIZNA product sales / uplizna_rev, IMDELLTRA product sales / imdelltra_rev",
+  "probleme": "Trois paires de doublons complémentaires, chacune incomplète.",
+  "preuve": "TEZSPIRE transcript val 343 (= T1-2026) daté 30 juin, avec 474 au T4-2025 absent de tezspire_rev qui a 486 au T2-2026 ; uplizna_rev sans T3/T4-2025 (155, 233) ; imdelltra_rev sans 178 ni 234 ; séries transcript sans périodes.",
+  "correction_validee": "Fusionner en une série datée par produit et supprimer l'autre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Ticker à la place du nom, exercice inexistant, phrase générique.",
+  "preuve": "\"AMGN intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2026\" : le dernier rapport annuel est FY2025.",
+  "correction_validee": "Réécrire avec les preuves déjà présentes (directeur technologique, usage IA en R&D).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Enbrel_rev, Lumakras_rev, phase3_programs, share_buybacks, CAHIER_RD_INTENSITY, MACE reduction (signaux)",
+  "probleme": "Accents et participes manquants.",
+  "preuve": "\"La reforme Medicare ... partiellement absorbe\", \"Le feu vert accélère de la FDA reste conditionne\", \"a longtemps pèse\", \"sert d'abord a réduire ... plutôt qu'a\", \"vise a reconstituer\", \"a risque cardiovasculaire eleve\".",
+  "correction_validee": "Corriger en réforme, absorbé, accéléré, conditionné, pesé, à réduire, qu'à soutenir, à reconstituer, à risque cardiovasculaire élevé.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment / revenue_by_geography",
+  "champ": "labels",
+  "probleme": "Libellés XBRL en anglais, deux lignes \"autres\".",
+  "preuve": "\"Other Products 20.6\", \"Product and Service, Other 4.5\", \"Non-US 28.1\".",
+  "correction_validee": "Renommer en « Autres produits », « Autres revenus (collaborations, redevances) » et « Hors États-Unis ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SALES_VOLUME_PRICE",
+  "probleme": "Nom annonce deux composantes, la série n'en donne qu'une, sans dire laquelle.",
+  "preuve": "\"Décomposition volume et prix net des ventes produits\", unité \"points de %\", série FY2024=23, FY2025=13 ; doublon de \"Product sales volume growth\" trimestriel.",
+  "correction_validee": "Renommer \"Contribution du volume à la croissance des ventes\" ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_margin.yoy, operating_margin.yoy, net_margin.yoy",
+  "probleme": "yoy \"N/A\" alors que le point N-1 existe.",
+  "preuve": "gross_margin 72 vs 67,2 (+4,8 pt) ; operating_margin 35 vs 28,9 (+6,1 pt) ; net_margin 23,6 vs 15,6 (+8,0 pt).",
+  "correction_validee": "Mettre yoy à +4,8 pts (marge brute), +6,1 pts (marge opérationnelle) et +8,0 pts (marge nette).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Quarterly dividend per share, Full-year free cash flow, + 12 KPI transcript à un point (patients traités, sites, MACE, dette remboursée)",
+  "probleme": "Doublons périmés et faits ponctuels présentés comme KPI.",
+  "preuve": "\"Quarterly dividend per share\" 2,38 alors que dividend_per_share = 2,52 ; \"Full-year free cash flow\" 8,1 = fcf_annuel 2025 ; 320 000 patients Evenity US, 900 000 au Japon, 1 800 sites Imdelltra : aucune série.",
+  "correction_validee": "Supprimer les deux doublons, déplacer les faits vers les événements.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / att",
+  "champ": "IRS tax deficiency contested vs att",
+  "probleme": "Deux enjeux fiscaux différents sans lien explicite.",
+  "preuve": "KPI \"Redressement fiscal de 3,6 milliards contesté\" ; anti-thèse \"contentieux fiscal dont l'enjeu affiché, environ 10,7 Mds $\".",
+  "correction_validee": "Préciser dans le KPI que 3,6 Mds concerne 2010-2012 et que l'enjeu total avec 2013-2015 et intérêts est 10,7 Mds.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Ventes de biosimilaires absentes alors qu'Amgen les publie chaque trimestre.",
+  "preuve": "Seul un cumul à un point (\"14 Mds depuis 2018\") ; Pavblu, Wezlana, Amjevita absents des séries produits.",
+  "correction_validee": "Ajouter une série trimestrielle \"Ventes de biosimilaires\".",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

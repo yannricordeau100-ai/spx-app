@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REC_REV (hero), SW_REV, LIC_REV, SVC_REV, SEG_II, SEG_LS, SEG_MI, GEO_AM, GEO_EU, GEO_AS, NI_NIFRS, EPS_NIFRS, OPM_NIFRS, REC_PCT, CLOUD_PCT",
+  "probleme": "La valeur affichée est le semestre S1 2026 sur des séries annuelles : le hero affiche 2 304 M€ alors que le graphique se termine à 4 624 M€ ; BNPA 0.61 contre 1.31 ; les yoy comparent un semestre à un exercice.",
+  "preuve": "REC_REV val=2304.2 dernier 2026-06-30 serie FY2025=4624.1 ; EPS_NIFRS val=0.61 serie FY2025=1.31 ; NI_NIFRS val=806.3 serie FY2025=1737.2",
+  "correction_validee": "Remettre FY2025 comme dernier point et valeur affichee sur ces quinze KPI, ou deplacer le S1 2026 dans des series semestrielles distinctes.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "répartition géographique",
+  "probleme": "Répartition contredite par les KPI : Amériques 39 %, Europe 38 %, Asie 22 % du CA logiciel selon GEO_AM/GEO_EU/GEO_AS, contre 48.4 / 32.8 / 18.8 affichés.",
+  "preuve": "revenue_by_geography: Amériques 48.4 ; GEO_AM FY2025=2224.7 sur SW_REV 5644.9 = 39.4 % ; signal GEO_AM '39% du CA logiciel'",
+  "correction_validee": "Recalculer la repartition sur 2025 : Ameriques 39 %, Europe 38 %, Asie 22 % du CA logiciel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "'Subscription & Support Revenue', 'Software Revenue', 'Recurring Revenue Share', 'Total Revenue'",
+  "probleme": "Quatre doublons de REC_REV, SW_REV, REC_PCT et REV, arrêtés en 2023, sans périodes, avec une date 'dernier 2026-08-05' fausse et des descriptions en franglais.",
+  "preuve": "Software Revenue val=5360 serie 3539.4 ... 5360 dernier 2026-08-05 :: (vide) :: transition LICENSE -> SUBSCRIPTION ; Total Revenue :: CAGR 5 ans environ 10%. CAC 40.",
+  "correction_validee": "Retirer 'Subscription & Support Revenue', 'Software Revenue', 'Recurring Revenue Share' et 'Total Revenue'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RPO_CRPO",
+  "probleme": "Unité en euros bruts (3 305 100 000) au lieu de M€ ; nom ambigu 'totales et à moins de douze mois' sans dire laquelle des deux grandeurs est tracée ; saut x4.7 entre 2018 et 2019 suspect (changement de grandeur).",
+  "preuve": "| € | val=3305100000 | serie FY2018=296800000, FY2019=1398300000",
+  "correction_validee": "Convertir en M€, preciser RPO ou cRPO, verifier ou retirer FY2018 et corriger le 'multiplie par plus de dix'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "chiffre cloud",
+  "probleme": "La thèse cite une croissance cloud de 46 % alors que le KPI cloud indique +8 % à tcc en 2025 (3DEXPERIENCE cloud +32 %) ; la période du 46 % n'est pas précisée.",
+  "preuve": "these: son offre dans le cloud informatique progresse de 46 % sur un an ; CLOUD_PCT :: cloud +8% à tcc, 3DEXPERIENCE cloud +32%",
+  "correction_validee": "Préciser la période et le périmètre du 46 % ou aligner.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

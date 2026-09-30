@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Organic net sales growth / Cardiovascular organic / MedSurg organic (series sans dates)",
+  "probleme": "Series decalees d un trimestre : le dernier point date du 30/06/2026 est en realite le T1-2026, le T2-2026 manque, et les valeurs contredisent les textes de la fiche",
+  "preuve": "Organic net sales growth dernier=9.4 (2026-06-30) alors que l anti-these dit « +8,1% au S1 2026, +7,0% sur le seul T2 » ; Cardiovascular organic 11.2 vs signal cardio_rev « +7,8% en organique » ; MedSurg 5.7 vs « +5,4% en organique » ; organique 9,4 % > publie +7,5 % pour un groupe acquereur net, impossible",
+  "correction_validee": "Dater chaque point (Q3-2024 a Q1-2026) et ajouter le T2-2026 : 7,0 % groupe, 7,8 % Cardiovascular, 5,4 % MedSurg.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Cardiovascular Revenue (Mds $)",
+  "probleme": "Doublon de cardio_rev avec une serie fausse et une valeur qui ne correspond pas au dernier point",
+  "preuve": "serie Q4 2025=2.147 Mds $ alors que cardio_rev Q4-2025=3465 M$ ; val=3.343 (= T2-2025) ; signal « atteint 3,34 Mds$ au T3 2025 » alors que cardio_rev Q3-2025=3327",
+  "correction_validee": "Supprimer le KPI Cardiovascular Revenue, cardio_rev couvre la serie.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "International Sales Mix",
+  "probleme": "Contredit la repartition geographique de la fiche",
+  "preuve": "International Sales Mix 41 % (serie 42, 41, 41, 41, 41, sans dates, signal vide) alors que revenue_by_geography 2025 = Non-US 35,9 % et us_rev 12864/20074 = 64,1 % US",
+  "correction_validee": "Supprimer le KPI International Sales Mix.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Watchman Implants / FARAPULSE Adoption / Pipeline Approvals",
+  "probleme": "Series sans dates, sans signal ni description, incompatibles avec les autres chiffres de la fiche",
+  "preuve": "FARAPULSE Adoption 0, 0, 5000, 25000, 80000 cas (somme 110 000) alors que farapulse_patients = 500 000 patients cumules fin 2025 ; Pipeline Approvals 55..90 « approbations » sans source ; tous dates 2026-06-30 pour des annuels",
+  "correction_validee": "Supprimer ou sourcer (nombre reel de procedures publie par BSX), decision proprietaire",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "op_margin / gross_margin / net_margin (yoy)",
+  "probleme": "Variation d une marge affichee en pourcentage relatif au lieu de points, incoherent avec les autres marges de la fiche",
+  "preuve": "op_margin yoy=+33.3% (21,6 vs 16,2 = +5,4 pts) ; gross_margin yoy=+4.4% (70,7 vs 67,7) ; net_margin +5.7% ; alors que cardio_seg_margin affiche « +2.6 pts vs 29.8% »",
+  "correction_validee": "Afficher +5,4 pts (marge operationnelle), +3,0 pts (marge brute), +0,9 pt (marge nette).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_ORG_GROWTH_FRANCHISE (nom)",
+  "probleme": "Nom « Croissance organique par franchise » pour une serie unique de croissance organique du groupe",
+  "preuve": "serie FY2021=19.2 .. FY2024=16.4, FY2025=15.8 : une seule valeur par an, 16,4 % = croissance organique groupe 2024",
+  "correction_validee": "Renommer en « Croissance organique du chiffre d affaires (annuelle) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "anti-these",
+  "champ": "hook vs KPI Penumbra",
+  "probleme": "Deux montants de dette pour financer Penumbra sur la meme fiche",
+  "preuve": "att : « elle emprunte 6 Mds $ pour financer son plus gros rachat » ; KPI Penumbra acquisition : « financee par cash et 11 Md USD de dette nouvelle »",
+  "correction_validee": "Harmoniser (6 Mds emis en juin 2026 sur un plan de 11 Mds ?) apres verification",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "KPI evenements a un seul point (Nalu 517, Eurobonds 1500, Bolt 205, litige IP 194, ACURATE 87, restructuration 800, autorisation rachat 5000)",
+  "probleme": "Sept « KPI » a un point dates 2026-04-10 qui sont des evenements, pas des indicateurs ; ils diluent la lecture des vrais KPI",
+  "preuve": "« 2025 Eurobonds issuance | M EUR | n=1 | val=1500 », « Legacy IP litigation net charge | n=1 | val=194 », « ACURATE platform discontinuation charge | n=1 | val=87 »",
+  "correction_validee": "Deplacer dans un bloc evenements ou supprimer, decision proprietaire (systemique sur les 6 fiches)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "products",
+  "probleme": "Produits phares cites secondaires, les moteurs de la fiche (FARAPULSE, WATCHMAN, stents coronaires) absents",
+  "preuve": "« clips de resolution gastro-intestinaux, systemes de stents biliaires, scopes jetables pour la cholangiopancreatographie » alors que Cardiovascular = 66 % du CA et que la these est batie sur l electrophysiologie",
+  "correction_validee": "Reecrire products autour de FARAPULSE, WATCHMAN, stents, endoscopie, neuromodulation",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Same Store average effective rent per unit, blended / new / renewal lease rate growth, market_atlanta, market_dallas, market_tampa",
+  "probleme": "Cause des valeurs aberrantes déjà détectées : l effectif 2025 (2 507) a été ajouté comme dernier point à quatre KPI Same Store, et l explication du KPI effectifs s est greffée sur sept KPI.",
+  "preuve": "effectifs_annuels 2025 = 2 507 ; history de « ...effective rent per unit » finit par 2507 (K $/mois), idem pour les trois taux de croissance des loyers ; explanation = « Nombre de salariés. Rapporté au chiffre d affaires... » sur ces quatre KPI et sur market_atlanta / dallas / tampa ; last_data_date 2026-09-29 (date d extraction).",
+  "correction_validee": "Retirer le point 2 507 des quatre séries Same Store, restaurer les explications des sept KPI, dater au 30 juin 2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "market_dallas, market_tampa, market_atlanta",
+  "probleme": "Valeurs identiques deux années de suite pour deux marchés sur trois, et signaux télégraphiques avec abréviations et format anglais des nombres.",
+  "preuve": "Dallas FY2024 = FY2025 = 1 662 ; Tampa FY2024 = FY2025 = 2 093 ; signaux « Atlanta #1 marché MAA: 29 ctes, 11,434 unités, occ 95.3% », « Dallas #2: 26 ctes, 9,755 unités ».",
+  "correction_validee": "Vérifier les loyers 2024 dans le 10-K 2024 et réécrire les signaux en phrases françaises.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "units_total.signal vs communities_total",
+  "probleme": "Deux nombres de communautés à la même date.",
+  "preuve": "units_total : « Consolidated 301 communities / 102,814 units » (fin 2025) ; communities_total Q4-2025 = 293 ; « Development pipeline » cite 8 projets.",
+  "correction_validee": "Préciser le périmètre (293 en exploitation, 301 avec projets en développement) dans les deux signaux.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "div_per_share, Annual dividend per share, Distributions per common share",
+  "probleme": "Trois KPI de dividende annuel avec deux valeurs différentes pour 2025.",
+  "preuve": "div_per_share FY2025 = 6,075 (déclaré) ; « Annual dividend per share » = 6,06 « en 2025 » ; « Distributions per common share » 2025 = 6,06, 2026 = 6,12 (taux annualisé).",
+  "correction_validee": "Garder div_per_share (déclaré, source 10-K) et supprimer les deux KPI de transcript, en mettant le taux annualisé 2026 de 6,12 $ dans le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "summary, evidence",
+  "probleme": "Phrase générique identique à celle de LVS, preuves en anglais tirées des facteurs de risque, et aucune mention du programme Smart Home qui est le vrai cas d usage de la fiche.",
+  "preuve": "summary : « intègre l IA/ML de manière opérationnelle dans ses produits, opérations ou processus selon son rapport annuel, sans en faire son coeur d identité » ; evidence : « The rapid evolution and increased adoption of artificial intelligence technologies... may also heighten our cybersecurity risks ».",
+  "correction_validee": "Réécrire un résumé propre à MAA (Smart Home 96 K logements, tarification), traduire les preuves ou passer la stance à « cautious ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Core FFO attributable to common shareholders and unitholders (annuel)",
+  "probleme": "Doublon annuel de core_ffo en milliers de dollars alors que le reste de la fiche est en millions.",
+  "preuve": "Série 1 098 120 ; 1 064 985 ; 1 048 383 (K $) ; core_ffo trimestriel 2025 cumulé = 1 048,4 M$.",
+  "correction_validee": "Supprimer ce KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_FFO_AFFO_PS",
+  "probleme": "Le nom promet FFO et AFFO, la série est le FFO NAREIT par action, différent du Core FFO utilisé ailleurs sur la fiche.",
+  "preuve": "FY2025 = 8,32 = ffo_total 2025 cumulé (998,2 M$) / parts ; core_ffo_ps 2025 cumulé = 8,74 ; guidance « Core FFO per diluted Share » = 8,53.",
+  "correction_validee": "Renommer « FFO par action (NAREIT, annuel) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Interior unit upgrades completed.signal",
+  "probleme": "Comparaison incohérente avec la série annuelle des rénovations et prime de loyer exprimée dans une autre unité.",
+  "preuve": "Signal : « 1 386 logements rénovés en Q1-2026, en hausse vs 1 100 en 2025, prime de loyer de 104 $/mois » ; reno_units_year FY2025 = 5 995 ; reno_rent_premium FY2025 = 7 %.",
+  "correction_validee": "« ... contre environ 1 100 au T1-2025 » et rapprocher la prime (104 $/mois, soit environ 6 % du loyer moyen).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Public float market value",
+  "probleme": "Donnée de page de garde du 10-K, périmée, présentée comme KPI.",
+  "preuve": "« Flottant estime à 11,9 Md$ au 30 juin 2025 au cours de 148,01 $ », dernier 2026-03-28.",
+  "correction_validee": "Supprimer ce KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "div_per_share.serie",
+  "probleme": "Point aberrant dans le dividende trimestriel",
+  "preuve": "Q3-2024=1.052 entre des points à 0.7905 et 0.796 (soit 4 mois au lieu de 3)",
+  "correction_validee": "Corriger Q3-2024 à 0,789 (3 x 0,263).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Properties owned / Number of clients/tenants / Investment volume (total investments) / Weighted average remaining lease term / AFFO per diluted share vs ffo_ps_annuel",
+  "probleme": "Doublons de property_count, client_count, investment_volume, lease_term, et AFFO trimestriel + annuel",
+  "preuve": "Number of clients/tenants serie 1551...1786 = client_count ; WALT 8.9, 8.8, 8.7 = lease_term ; Investment volume 2390.3, 2767.3 vs investment_volume 2400, 2800",
+  "correction_validee": "Supprimer les quatre séries sans identifiant (propriétés, clients, volume d'investissement, WALT) et garder AFFO trimestriel et annuel.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AFFO per diluted share.signal / AFFO payout ratio",
+  "probleme": "Signal AFFO périmé d'un trimestre ; payout 71,7 % contredit l'anti-thèse à 73 %",
+  "preuve": "AFFO signal « +6.6% sur un an au T1-2026 » alors que dernier = 2026-06-30 val 1.13 (1.13/1.05 = +7,6 %) ; att : « taux de distribution modéré à 73% de l'AFFO »",
+  "correction_validee": "Remplacer « au T1-2026 » par « au T2-2026 » dans le signal AFFO en gardant +6,6 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ocf.signal / re_acq_cash.signal",
+  "probleme": "Cuisine interne visible dans les signaux",
+  "preuve": "« dérivé du cumul semestriel de 2 020 M$ » ; « dérivés du cumul semestriel de 3 550 M$ »",
+  "correction_validee": "Retirer « dérivé(s) du cumul semestriel de ... » des signaux ocf et re_acq_cash.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "spirit_absorbed",
+  "probleme": "Indicateur à un point, négatif, au sens obscur",
+  "preuve": "val=-47, signal « $47M loyers Spirit exclus en 2024, pleinement intégrés en 2025 »",
+  "correction_validee": "Supprimer spirit_absorbed.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "U.S. Core Plus fund / Apollo / Investment opportunities sourced / 7-Eleven / repurchase authorization / Asda / 2025 total investments / Bellagio / Digital Realty / credit facility",
+  "probleme": "Dix lignes à un point qui sont des opérations ou capacités, pas des KPI",
+  "preuve": "n=1 pour chacune ; « Sale-leaseback 7-Eleven 770 M$ » ; « Facilité de crédit 4 Mds$ »",
+  "correction_validee": "Déplacer en faits marquants ou supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Bloc vide : toutes les valeurs sont None",
+  "preuve": "U.S. None ; U.K. None ; Other None ; Other revenue None",
+  "correction_validee": "Remplir avec intl_pct (États-Unis 79,5 %, Royaume-Uni 15,0 %, Europe continentale 5,5 % au T2-2026) ou retirer le bloc",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "description_simple.products / customers",
+  "probleme": "Description inexacte : les bureaux ont été scindés (Orion, 2021) et les « services publics » ne sont pas des locataires significatifs",
+  "preuve": "« locations de commerces de détail, de bureaux, d'entrepôts et d'infrastructures industrielles » ; « des services publics » ; fiche : épicerie 11,1 %, dépanneurs 9,4 %",
+  "correction_validee": "Reformuler autour du commerce de détail en bail net, industriel, jeux et data centers",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.evidence",
+  "probleme": "Preuves datées de 2024 (Spirit Realty) alors que la fiche va au T2-2026",
+  "preuve": "evidence date « 2024-11-04 », « acquisitions (Spirit Realty) »",
+  "correction_validee": "Actualiser sur les publications 2026",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

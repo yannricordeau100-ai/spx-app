@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "ASV_TOTAL / ASV_AMERICAS / ASV_EMEA / ASV_APAC / CLIENTS / USERS / ASV_PER_CLIENT / ORGANIC_ASV_GROWTH (signaux)",
+  "probleme": "Signaux du hero et des KPI cles arretes au 31 aout 2025 et en franglais, alors que les series vont au 31 mai 2026.",
+  "preuve": "ASV_TOTAL : 'ASV total $2,405.6M au 31/08/2025... Organic ASV $2,370.9M +5.7% yoy' avec val=2.48 ; ORGANIC_ASV_GROWTH signal '+5.7%' avec val=7.1 ; CLIENTS '8,996 clients au 31/08/2025' avec val=9130",
+  "correction_validee": "Reecrire en francais les huit signaux sur les chiffres du T3 FY2026 (au 31 mai 2026).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "OP_INCOME, NET_INCOME, EPS_DILUTED, OCF, CAPEX, DPS, DIVIDENDS_PAID, LT_DEBT, SGA, SBC, DA, DILUTED_SHARES, DEFERRED_REV, RECEIVABLES, EQUITY, INTEREST_EXP, CAPEX_AMERICAS/EMEA/APAC (signaux)",
+  "probleme": "Noms de balises XBRL et mentions 'tag' visibles dans les signaux.",
+  "preuve": "'Resultat operationnel trimestriel, tag ; 166,3 M$' ; '(tag NetCashProvidedByUsedInOperatingActivities)' ; '(tag SegmentExpenditureAdditionToLongLivedAssets, note segments)'",
+  "correction_validee": "Retirer de ces signaux toute mention de balise, de 'tag' et de 'note segments'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AMERICAS_WORKFORCE_PCT",
+  "probleme": "Serie arretee en fevrier 2022.",
+  "preuve": "dernier 2022-02-28, Q2-FY2022=21 ; HEADCOUNT_APAC va au T3 FY2026",
+  "correction_validee": "Retirer ou recalculer depuis les effectifs par zone du rapport trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le moat dit que l'activite stagne, contredit par le chiffre d'affaires, et cite une 'note retiree' non explicitee.",
+  "preuve": "'l'activite stagne sur le trimestre... et que la note a ete retiree' ; REVENUE T3 FY2026 +6,4 %, ORGANIC_ASV_GROWTH 7,1 %",
+  "correction_validee": "Reecrire a partir de la retention (>95 %), de l'ASV organique et de l'integration dans les flux de travail.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ASV_PCT_EMEA.signal / REVENUE.signal",
+  "probleme": "Citation anglaise recopiee du mauvais segment et citation brute dans un signal.",
+  "preuve": "ASV_PCT_EMEA : 'ASV from the Americas represented 65% of total ASV' ; REVENUE : '(\"Revenues... 622,918\")'",
+  "correction_validee": "ASV_PCT_EMEA : 'EMEA pese 24,5 % de l'ASV au T3 FY2026' ; REVENUE : retirer '(\"Revenues... 622,918\")'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Organic Annual Subscription Value / ASV_ORGANIC",
+  "probleme": "Doublon sans dates d'une serie existante.",
+  "preuve": "Organic ASV (M $) ...2389.6, 2449.1 ; ASV_ORGANIC (Mds) Q2-FY2026=2.45, Q3-FY2026=2.49 (2 485,6 M$)",
+  "correction_validee": "Supprimer 'Organic Annual Subscription Value'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Deux decoupages geographiques du meme chiffre d'affaires avec des valeurs differentes.",
+  "preuve": "segment : Ameriques 64.9, EMEA 25 ; geographie : Amerique du Nord 63.7, EMEA 26.3",
+  "correction_validee": "Garder un seul decoupage (segments FY2025) et supprimer l'autre.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EPS_DILUTED / TAX_RATE / DILUTED_SHARES",
+  "probleme": "Trous au T4 de chaque exercice alors que FactSet publie ces chiffres au T4.",
+  "preuve": "EPS_DILUTED serie Q3-FY2025=3.87 puis Q1-FY2026=4.06, aucun Q4 ; signal 'aucun T4 derive'",
+  "correction_validee": "Completer les T4 depuis les communiques du quatrieme trimestre.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "CNBU Revenue, SBU Revenue, MBU Revenue, EBU Revenue, CNBU/SBU/MBU/EBU Operating Income, Trade NVM Revenue, Non-Trade NVM Revenue, Inotera DRAM Purchases, DRAM_Sales, NAND_Sales, Other_Product_Sales",
+  "probleme": "Quinze KPI annuels dates '2026-08-05' portent des donnees vieilles de dix ans : segments CNBU/SBU/MBU/EBU (remplaces par CMBU/CDBU/MCBU/AEBU en 2025), achats Inotera (societe absorbee fin 2016), ventes DRAM de 13,1 Mds $ (le trimestriel Q3-FY2026 seul fait 31,3 Mds $), signaux 'Perte operationnelle' et 'Fort recul' contredits par les marges records de la fiche. Series sans etiquette de periode.",
+  "preuve": "KPI DRAM_Sales val=13074000000 dernier 2026-08-05 vs KPI DRAM Rev Q3-FY2026=31.328 Mds $ ; KPI Inotera DRAM Purchases serie 2680, 2370, 1430 ; KPI CNBU Operating Income val=-134 'Perte operationnelle' vs Op Margin 80,4 %",
+  "correction_validee": "Supprimer les 14 KPI hérités (CNBU, SBU, MBU et EBU en revenu et en résultat, Trade et Non-Trade NVM, Inotera, DRAM_Sales, NAND_Sales, Other_Product_Sales).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "HBM Revenue, NAND Revenue, Compute & Networking Bit Growth, Mobile bits sold, Data Center mix, DRAM Price ASP YoY, Bit Growth DRAM, HBM revenue run rate",
+  "probleme": "Series annuelles en chiffres ronds sans etiquette de periode, incompatibles entre elles et avec les series trimestrielles : NAND Revenue 6,5 Mds $ vs NAND Rev FY2025 = 8,5 Mds $ (somme des trimestres) vs NAND_Sales 7,4 Mds $ ; trois series HBM differentes (HBM4 Rev 1, run rate 6, HBM Revenue 4,5) ; Data Center mix 48 % vs 'Data center revenue mix' 50 % vs DC Rev 25 / CA 41,3 = 61 %.",
+  "preuve": "KPI NAND Revenue serie: 7, 7.5, 5, 4.5, 6.5 ; KPI NAND Rev Q1-Q4 FY2025 = 2.241+1.855+2.155+2.252 = 8.503 ; KPI Data Center mix serie: 28, 32, 36, 38, 48 ; KPI DC Rev val=25 vs DRAM+NAND Q3-FY2026 = 41.27",
+  "correction_validee": "Retirer les huit séries et garder DRAM Rev, NAND Rev, ASP et Bits trimestriels comme référence.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "U.S. investment plan, HBM total addressable market 2028, Record quarterly free cash flow, Record net cash position, Quarterly dividend increase, Flagship smartphones 12GB+, 122TB SSD, Capex guidance 2026, CHIPS Act grants, New York State funding, CHIPS tax credit rate, DRAM/NAND bit shipment growth (sequential), Data center revenue mix",
+  "probleme": "Treize 'KPI' a un ou deux points issus de communiques : une capacite de disque (122 To) ou un taux de credit d'impot (35 %) ne sont pas des indicateurs de la societe ; doublons contradictoires avec les series trimestrielles : FCF record 6,9 Mds $ vs FCF Q Q2-FY2026 = 5,516 ; NAND bits sequentiel 3 vs Bits NAND Q3-FY2026 = 5 ; hausse du dividende 30 % deja visible dans DPS (0,115 -> 0,15). Unite 'B USD (>)'.",
+  "preuve": "KPI Record quarterly free cash flow val=6.9 dernier 2026-03-28 vs KPI FCF Q Q2-FY2026=5.516 ; KPI NAND bit shipment growth serie: 25, 3 vs KPI Bits NAND Q3-FY2026=5 ; KPI 122TB high-capacity data center SSD val=122 unite 'To (capacite par SSD)'",
+  "correction_validee": "Supprimer ces entrées (y compris les deux croissances de bits séquentielles et la part du data center) et reporter le plan de 200 Mds $ et les aides CHIPS dans la thèse ou les événements.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DRAM Rev, NAND Rev, CMBU Rev, CDBU Rev, AEBU Rev",
+  "probleme": "Signaux perimes : ils commentent l'exercice 2025 alors que la serie va jusqu'au T3 FY2026 avec des hausses de +254 % a +653 % ; date 'dernier 2026-09-30' incoherente avec un dernier point Q3-FY2026 (clos le 28 mai 2026) et une prochaine publication le 30 septembre.",
+  "preuve": "KPI DRAM Rev dernier 2026-09-30 | Q3-FY2026=31.328 | yoy=+343% :: signal 'DRAM revenue $28.58B en 2025 vs $17.60B en 2024 (+62%)' ; KPI AEBU Rev yoy=+311% :: 'AEBU $4.75B vs $4.63B (+3%): croissance modeste'",
+  "correction_validee": "Réécrire les cinq signaux sur le T3 FY2026 et fixer la date du dernier point au 2026-05-28.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risques 1 a 6",
+  "probleme": "Les six risques n'ont qu'un titre, aucun texte ; titres en franglais ('export controls', 'Cyclicalite' n'est pas un mot francais).",
+  "preuve": "risque 1: Cyclicalite prix memoire DRAM et NAND :: (vide) ; risque 2: Tensions US-Chine et export controls :: (vide)",
+  "correction_validee": "Rédiger les six risques à partir du 10-K FY2025 et franciser les titres (par exemple « contrôles à l'exportation »).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline, revenue_by_segment, revenue_by_geography",
+  "probleme": "Tagline en anglais ; libelles de repartition en anglais ou bruts ISO : 'DRAM Products', 'TAIWAN, PROVINCE OF CHINA', 'HONG KONG', 'Other Asia Pacific', 'Other Foreign Countries'.",
+  "preuve": "tagline: Global leader in semiconductors delivering data solutions... ; revenue_by_geography: TAIWAN, PROVINCE OF CHINA 15.2 ; HONG KONG 3",
+  "correction_validee": "Traduire la tagline et renommer en « Produits DRAM », « Produits NAND », « Taïwan », « Hong Kong », « Autres pays d'Asie-Pacifique » et « Autres pays ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat / positionnement IA",
+  "probleme": "Le moat conclut a une 'position jusqu'ici sans avantage etabli' (type None) alors que le positionnement IA classe Micron 'leader' et que la tagline dit 'Global leader' ; contradiction entre blocs. Le positionnement IA est en franglais ('workloads data-centric', 'croissance revenue IA').",
+  "preuve": "moat: None / tendance stable :: ... renforcent une position jusqu'ici sans avantage etabli ; positionnement IA (leader): ... workloads data-centric et une croissance revenue IA explosive",
+  "correction_validee": "Trancher : soit un moat nomme (echelle, technologie HBM, contrats SCA take-or-pay) soit un positionnement IA moins affirmatif ; reecrire en francais.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_INVENTORY_CHANNEL, DIO",
+  "probleme": "Doublon jours de stock : CAHIER_INVENTORY_CHANNEL FY2025 = 135,5 jours (date 2025-12-31 alors que l'exercice Micron clot fin aout) contre DIO = 120 jours a un seul point ; le nom 'Stocks internes en jours et stocks du canal de distribution' ne correspond pas a une serie unique en jours.",
+  "preuve": "KPI CAHIER_INVENTORY_CHANNEL | jours | dernier 2025-12-31 | FY2025=135.5 ; KPI DIO | jours | n=1 | Q3-FY2026=120",
+  "correction_validee": "Garder une seule serie de jours de stock trimestrielle (DIO) alimentee sur 8 trimestres ; retirer l'autre ou corriger sa date de cloture.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "position_marche",
+  "champ": "positions de marche 1 et 2",
+  "probleme": "Deux blocs vides affiches avec un nombre sans nom ni part.",
+  "preuve": "position de marche 1: None | taille 165.7 | part None ; position de marche 2: None | taille 69.7 | part None",
+  "correction_validee": "Retirer les deux blocs de position de marché.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

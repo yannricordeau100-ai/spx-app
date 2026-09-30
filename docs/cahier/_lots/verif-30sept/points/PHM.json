@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Home Closings, New Orders, Backlog Value, Avg Closing Price, Lots Controlled, Active Adult Mix",
+  "probleme": "Six series annuelles sans source, datees 2026-06-30, contredites par les series sourcees CAHIER et trimestrielles",
+  "preuve": "New Orders 29198,27094,25024,28603,30000 vs CAHIER_NET_ORDERS FY2021..2025 = 31739,23277,28580,29226,27914 ; Home Closings dernier 31219 (= FY2024) date 2026 vs FY2025=29572 ; Backlog Value 7.5 vs backlog_value Q4-2025 5.27 ; Active Adult Mix 27 vs buyer_mix 22",
+  "correction_validee": "Supprimer Home Closings, New Orders, Backlog Value, Avg Closing Price, Lots Controlled, Active Adult Mix.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net new orders (homes), Home closings, Average community count, Controlled lots",
+  "probleme": "Doublons des series sourcees, en retard d un trimestre mais dates 2026-06-30",
+  "preuve": "Net new orders val=8034 (= Q1-2026) vs new_orders_units Q2-2026=7536 ; Home closings 6102 vs closings_units 6997 ; Average community count 1043 vs community_count 1074 ; Controlled lots = lots_controlled",
+  "correction_validee": "Supprimer les quatre doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "sga_pct_home_sales, financial_services_pretax, sga_expense (points Q4)",
+  "probleme": "Tous les points T4 de ces series sont aberrants : derivation annuel moins 9 mois faite sur une mauvaise unite",
+  "preuve": "sga_pct_home_sales Q4-2024=4155.9 et Q4-2025=8697.3 % ; financial_services_pretax Q4-2024=3846.6 et Q4-2025=2788.3 M$ vs 35-55 les autres trimestres ; sga_expense Q4-2024=195.6 vs ~400",
+  "correction_validee": "Recalculer tous les points T4 des trois séries (annuel moins 9 mois, même unité), et non seulement 2024-2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "backlog_value.signal",
+  "probleme": "Signal qui commente le T4-2025 alors que la serie va au T2-2026 avec un sens de variation oppose",
+  "preuve": "signal « 5,27 Md$ vs 6,49 Md$ (-19%). Backlog le plus faible depuis plusieurs années » ; Q2-2026=6804881000, yoy=-0.6%",
+  "correction_validee": "Reecrire sur 6,80 Md$ au 30/06/2026, stable sur un an",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "homebuilding_revenue.signal, homebuilding_pretax.signal, sga_expense.signal",
+  "probleme": "Extraits bruts du tableau en anglais colles dans le signal",
+  "preuve": "« (T2 2026, \"Total Homebuilding revenues 3,886,018 (10)% 4,302,597\") » ; « \"Selling, general, and administrative expenses (\\\"SG&A\\\") (382,965) (2)% (390,453)\" »",
+  "correction_validee": "Retirer les parenthèses citées des signaux homebuilding_revenue, homebuilding_pretax et sga_expense.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_*/pretax_*/closings_* des 6 regions (18 signaux)",
+  "probleme": "Signal identique repete 18 fois qui ne fait que citer la source, sans information",
+  "preuve": "« Segment Nord-Est : chiffre d'affaires du T2 2026 issu du tableau Operating Data by Segment du T2 2026. »",
+  "correction_validee": "Remplacer par un signal chiffré (valeur T2 2026 et variation sur un an) ou laisser vide.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "buyer_mix.name_fr, CAHIER_LOTS_OPTIONED.name_fr, CAHIER_NET_ORDERS.name_fr",
+  "probleme": "Noms qui ne disent pas ce que mesure la serie",
+  "preuve": "buyer_mix « Mix acheteurs (closings 2025) » serie 22 = part Active Adult (first_time 38 + move_up 40 + 22) ; « Lots contrôlés et part sous option » = lots controles seuls (234632) ; « Commandes nettes et taux d'absorption » = commandes seules",
+  "correction_validee": "Renommer en « Part des acheteurs Active Adult (Del Webb) », « Lots contrôlés », « Commandes nettes ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "mortgage_capture_rate.signal",
+  "probleme": "Definition fausse du taux de captation",
+  "preuve": "« Ce taux mesure la part de marge captée en interne via Pulte Mortgage » ; le taux est la part des acheteurs finances par Pulte Mortgage",
+  "correction_validee": "Reecrire : part des acheteurs Pulte ayant financé leur achat via Pulte Mortgage",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Share repurchase authorization increase vs Share repurchase capacity authorized, Return on equity",
+  "probleme": "Meme evenement date 2025 et 2026 dans deux pseudo-KPI ; ROE date de juin 2025",
+  "preuve": "« annoncé 30 janvier 2025 » vs « Nouvelle autorisation de 1,5 Md$ ... au T1 2026 » ; « ROE de 23% ... au 30 juin 2025 »",
+  "correction_validee": "Supprimer le doublon, verifier la date, actualiser le ROE",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.summary",
+  "probleme": "Reference a une note interne dans un texte public (idem PGR « l'abaissement de la note », PHIA « La note a été relevée »)",
+  "preuve": "« la note a perdu son avantage durable »",
+  "correction_validee": "Reformuler sans mentionner la note",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Le rythme d absorption (commandes par communaute et par mois) et le taux d annulation trimestriel, publies chaque trimestre par PulteGroup, sont absents",
+  "preuve": "CAHIER_CANCEL_RATE seulement annuel ; aucune serie d absorption",
+  "correction_validee": "Ajouter les deux series trimestrielles",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

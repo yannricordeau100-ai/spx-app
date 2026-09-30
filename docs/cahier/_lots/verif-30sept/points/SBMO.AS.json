@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RPO / BACKLOG_PF",
+  "probleme": "Le carnet de commandes apparaît deux fois, en annuel et en semestriel, et le nom anglais du doublon est vide de sens.",
+  "preuve": "CAHIER_RPO FY2025 = 31.1 = BACKLOG_PF H2-2025 = 31.1 ; FY2024 = 35.1 = H2-2024 = 35.1 ; name_en = « Rpo ».",
+  "correction_validee": "Reporter l'historique FY2018 à FY2021 de CAHIER_RPO dans BACKLOG_PF comme points de fin d'exercice, puis supprimer CAHIER_RPO.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "REV_IFRS.signal",
+  "probleme": "Le signal inverse le statut des deux bases comptables : l'IFRS est la comptabilité officielle, la base Directional est la mesure alternative (l'anti-thèse le dit elle-même).",
+  "preuve": "« Seconde comptabilité publiée par le groupe », alors que l'anti-thèse écrit « le chiffre d'affaires publié en normes IFRS, la mesure comptable officielle ».",
+  "correction_validee": "Écrire « Comptes officiels en normes IFRS : l'écart avec la base Directional vient des locations financières et des sociétés de projet. »",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "clients",
+  "champ": "top.clients",
+  "probleme": "Les deux premiers clients pèsent 76,1 % du chiffre d'affaires, mais aucun nom n'est donné.",
+  "preuve": "{'n': 2, 'pct': 76.1, 'clients': []}",
+  "correction_validee": "Renseigner les deux clients à partir de la note sur les clients majeurs (probablement ExxonMobil Guyana et Petrobras, à vérifier).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik / niveau",
+  "probleme": "Le texte du moat expose de la cuisine interne, et le niveau n'est pas renseigné.",
+  "preuve": "« le retrait de la note de moat et la concentration du portefeuille sur un seul pays limitent la lecture, éléments minces » ; niveau None.",
+  "correction_validee": "Réécrire la justification sans référence à la notation interne et renseigner le niveau.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "La thèse repose sur la taille et la production de la flotte, mais aucun KPI ne la mesure.",
+  "preuve": "Thèse : « Seize unités en mer produisent chaque jour plus de deux millions de barils ». Aucun KPI sur le nombre de FPSO, la capacité de production ou les prises de commandes.",
+  "correction_validee": "Ajouter « Nombre de FPSO en flotte » et « Production de la flotte (barils par jour) », éventuellement « Prises de commandes ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / risques",
+  "champ": "REV_TK, EBITDA_TK, REV_LO, EBITDA_LO, risque 6",
+  "probleme": "Les noms mélangent anglais et français, et ne concordent pas avec ceux du bloc de répartition.",
+  "preuve": "« Chiffre d'affaires Turnkey Directional », « Lease and Operate Directional », risque 6 « projets Lease and Operate et Sale and Operate », alors que la répartition écrit « Construction clés en main » et « Location et exploitation ».",
+  "correction_validee": "Renommer en « Chiffre d'affaires / EBITDA Construction clés en main (base Directional) » et « Location et exploitation (base Directional) », et écrire « location et exploitation, vente et exploitation » dans le risque 6.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete / repartition / position de marche",
+  "champ": "tagline, exercice, market_positions",
+  "probleme": "Blocs vides ou incomplets.",
+  "preuve": "Tagline vide ; revenue_by_segment et revenue_by_geography avec exercice None (les chiffres correspondent pourtant à 2025 : Guyana 2901 / 5067 = 57,3 %) ; position de marché : nom None, part None, taille 27.91.",
+  "correction_validee": "Renseigner l'exercice 2025 (mécanique), ajouter une tagline en français et compléter ou retirer la position de marché.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "titre",
+  "probleme": "L'anti-thèse cite un document (« Le communiqué ») dans son bloc.",
+  "preuve": "« Le communiqué met en avant un chiffre d'affaires Directional en hausse de 112% »",
+  "correction_validee": "Écrire « La société met en avant un chiffre d'affaires Directional en hausse de 112 % au premier semestre 2026 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

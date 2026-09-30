@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "risks",
+  "champ": "risks[0..4]",
+  "probleme": "Les risques sont ceux de Sandoz, pas de Sonova",
+  "preuve": "'erodent continuellement les marges Sandoz', 'biosimilars Amgen, Celltrion', 'spin-off Novartis d octobre 2023', 'Inflation Reduction Act'",
+  "correction_validee": "Remplacer par les risques de Sonova (prix et remboursement, concurrence, aides auditives en vente libre, franc suisse).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue, gross_profit",
+  "probleme": "La serie melange deux perimetres (avec puis sans Consumer Hearing cede) et duplique le dernier point",
+  "preuve": "3.738 et 3.627 incluent Consumer Hearing ; 3.613 = 3 865,4 - 252,5 (retraite sans Consumer Hearing) ; derniers points 3.606 et 3.6059 ; gross_profit 2.658 et 2.6583 ; aucune periode",
+  "correction_validee": "Reconstruire revenue et gross_profit sur le perimetre retraite, avec periodes par exercice, sans doublon.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att / moat",
+  "champ": "att.hook, moat.justification",
+  "probleme": "L anti-these et le moat comparent des perimetres differents et concluent a tort a une stagnation",
+  "preuve": "att : '3 738,4 M CHF pour l exercice clos en mars 2023, 3 605,9 M CHF pour celui clos en mars 2026' alors que Consumer Hearing (252,5 M CHF en FY24/25) a ete cede ; moat 'Chiffre d affaires, marge et resultat net tous en repli' vs croissance organique 5,4 %",
+  "correction_validee": "Refaire l anti-these et la justification du moat a perimetre constant, en separant effet change et cession.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Hearing Instruments business (hero), Audiological Care, Hearing Instruments segment, Cochlear Implants segment, Cochlear implant systems",
+  "probleme": "Le hero et toutes les series par segment s arretent a l exercice FY24/25 alors que FY25/26 est publie ailleurs dans la fiche",
+  "preuve": "hero dernier 2025-03-31, 1821,4 ; seg_hearing_instruments_sales FY2025-26 = 3353,8 et seg_cochlear_sales 252,1 en KPI separes a un seul point",
+  "correction_validee": "Prolonger les series avec FY25/26 et supprimer les KPI a un point correspondants.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment / revenue_by_geography",
+  "champ": "slices",
+  "probleme": "Repartition FY24/25 incluant l activite cedee, parts non affichees ; geographie declaree mono-region alors que Sonova est mondiale",
+  "preuve": "Total 3 865,4 dont 'Consumer Hearing 252.5' ; affichage 'Instruments auditifs None' ; geographie {'single_region_legitimate': true} alors que EMEA 1 904,2, Etats-Unis 1 093,7, Asie-Pacifique 344,1 M CHF",
+  "correction_validee": "Passer la repartition a FY25/26 sans Consumer Hearing et remplir la geographie depuis sales_emea, sales_usa et sales_apac.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_income, net_income_annual",
+  "probleme": "Deux 'Resultat net' de valeurs differentes pour le meme exercice sans distinction",
+  "preuve": "net_income 0,537 Mds CHF (activites poursuivies, cf. eps_basic 9,02) vs net_income_annual 439,4 M CHF",
+  "correction_validee": "Renommer 'Resultat net des activites poursuivies' et 'Resultat net publie'",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ebit_annual, gross_profit_annual, seg_cochlear_sales",
+  "probleme": "Doublons non detectes",
+  "preuve": "ebit_annual 675,8 = operating_income 0,676 ; gross_profit_annual 2 658,3 = gross_profit 2,6583 ; seg_cochlear_sales doublon de Cochlear Implants segment",
+  "correction_validee": "Supprimer ebit_annual et gross_profit_annual, et fusionner seg_cochlear_sales dans la serie Cochlear Implants segment.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "tous",
+  "probleme": "Aucun signal ni description sur l ensemble des KPI ; 20 KPI a un seul point sans frequence",
+  "preuve": "Signal vide sur revenue, ebita, roce, organic_growth, etc. ; frequence None sur ebita, eps_basic, roce...",
+  "correction_validee": "Rediger signaux et descriptions, historiser les KPI cles (croissance organique, marge EBITA normalisee)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DPS, Cap Return, Payout Ratio",
+  "probleme": "Unite invalide, dates d exercice fausses et zeros de remplissage",
+  "preuve": "Cap Return unite 'CHFB', serie 0, 0.9595 ... ; Payout 0, 31.06 ... ; dates 2025-12-31 alors que l exercice se clot fin mars ; DPS 4,4 vs dividend_per_share 4,7",
+  "correction_validee": "Unite 'Mds CHF', retirer les zeros, dater par exercice clos en mars et prolonger DPS a 4,7 CHF (FY25/26).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / gouvernance / en-tete",
+  "champ": "noms KPI, dirigeant, sous-secteur",
+  "probleme": "Accents manquants, civilite anglaise, libelle anglais",
+  "preuve": "'Benefice', 'tresorerie', 'employes', 'normalise', 'detail' ; 'Mr. Eric  Bernard' (double espace) ; 'Medical Devices & Hearing Care'",
+  "correction_validee": "Retablir les accents, ecrire 'Eric Bernard' et traduire le sous-secteur en 'Dispositifs medicaux et audition'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateurs manquants",
+  "probleme": "Indicateurs d industrie absents",
+  "preuve": "Pas d historique de croissance organique par segment, ni de marge EBITA normalisee, ni de nombre de points de vente audiologiques, ni de part de marche aides auditives",
+  "correction_validee": "Ajouter ces series depuis les rapports annuels et semestriels",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

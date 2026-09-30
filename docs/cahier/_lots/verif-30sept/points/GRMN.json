@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Fitness Sales / Outdoor Sales / Aviation Sales / Marine Sales / Auto OEM Sales / Wearable Units",
+  "probleme": "Séries annuelles non datées, sans signal, qui contredisent les séries trimestrielles officielles (sans doute estimées ou inventées).",
+  "preuve": "Fitness 2025 = 1,85 Md$ alors que les 4 trimestres de FIT_REV totalisent 2 357 M$. Outdoor 1,95 contre 2 054 (GRMN_OUTDOOR). Auto OEM 0,55 avec « +50 % » alors que AUTO_REV totalise 665 M$ et reste stable. Wearable Units : nom anglais « Estimated ».",
+  "correction_validee": "Supprimer les 6 KPI annuels, les series trimestrielles officielles suffisent.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PRODUCTS_DELIVERED_2025 / TOTAL_EMPLOYEES / EMPLOYEES_AMERICAS / EMPLOYEES_APAC / EMPLOYEES_EMEA",
+  "probleme": "Données absurdes : l'effectif mondial est recopié dans chaque région, la valeur diffère de la série, les signaux se réduisent à « Positif » ou « Neutre » et les unités sont en anglais.",
+  "preuve": "Amériques = APAC = EMEA = 23 000 = total. PRODUCTS_DELIVERED val 20 000 000 mais série 300 000 000. Signal « Neutre ».",
+  "correction_validee": "Supprimer les 5 KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Units shipped (full year) / Cumulative units shipped since inception",
+  "probleme": "Doublon de UNITS avec des valeurs différentes. Le cumul fait un saut impossible.",
+  "preuve": "Units shipped : 16,2 ; 16,8 ; 15 ; 15 ; 20, contre UNITS FY2024 = 18,6 et FY2025 = 20,7. Cumul : 205 puis 300 M, alors qu'environ 20 M sont livrées par an.",
+  "correction_validee": "Supprimer Units shipped. Revérifier ou supprimer le cumul.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OUT_REV.signal / OUT_OI.signal",
+  "probleme": "Signaux périmés : Outdoor n'est plus le segment le plus rentable, Fitness l'a dépassé en marge comme en profit.",
+  "preuve": "« Segment le plus rentable ... coeur de la marge Garmin » ; « Segment le plus rentable en marge (34 %) ». Or FIT_OPM Q2-2026 = 36,6 contre OUT_OPM = 33,9, et FIT_OI = 277 contre OUT_OI = 163,6.",
+  "correction_validee": "Réécrire les deux signaux (recul des ventes d'Outdoor, Fitness désormais premier contributeur).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DPS / Quarterly dividend per share",
+  "probleme": "Dividende périmé : la hausse votée à l'assemblée 2026 n'y figure pas, alors que les dividendes versés ont augmenté.",
+  "preuve": "DPS dernier 2025-06-12 = 3,60 ; trimestriel 0,90. DIV_PAID : Q1-2026 = 173,6 puis Q2-2026 = 202,4 (+16,6 %).",
+  "correction_validee": "Ajouter le dividende approuvé en juin 2026 et supprimer le doublon trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ADV",
+  "probleme": "Série arrêtée fin 2023, et affirmation fausse dans le signal.",
+  "preuve": "dernier 2023-12-31 ; « malgré le doublement des ventes depuis 2019 » alors que le CA passe de 3,758 Mds $ (2019) à 5,228 Mds $ (2023), soit +39 %.",
+  "correction_validee": "Compléter 2024-2025 ou supprimer. Corriger le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "MAR_OI.signal / EPS_DIL.signal / FCF.signal",
+  "probleme": "Cuisine interne dans les signaux (non détectée mécaniquement pour ces trois-là).",
+  "preuve": "« reconstruit en trimestriel depuis les notes segments des rapport trimestriel » ; « la série 2021-2025 vient des communiqués officiels » ; « calculé OCF moins capex ».",
+  "correction_validee": "Retirer ces membres de phrase dans MAR_OI, EPS_DIL et FCF.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cash and marketable securities / Americas quarterly revenue / Cumulative BMW domain controllers",
+  "probleme": "Jalons à un seul point en doublon avec les séries, et chiffres contradictoires de trésorerie entre blocs.",
+  "preuve": "4 100 M$ (Q1) contre « dépasse 4,3 Mds $ » (CASH) et « environ 4,4 Mds $ » (thèse). Americas 1 Md$ daté 2026-03-28 alors que AMER_REV Q2-2026 = 979,4.",
+  "correction_validee": "Supprimer ces jalons et harmoniser le chiffre de trésorerie plus titres.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / risques / repartition",
+  "champ": "tagline, risques, revenue_by_segment",
+  "probleme": "Accroche en anglais. Risques génériques (talents, climat, exécution) qui oublient la concentration de la production à Taïwan et les droits de douane. Libellés de segments en anglais ou périmés.",
+  "preuve": "tagline « Pioneering GPS-enabled products... » ; « Marine Segment », « Automotive Mobile » alors que le segment s'appelle Auto OEM depuis 2025.",
+  "correction_validee": "Traduire, remplacer les risques par ceux propres à Garmin, renommer les segments.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

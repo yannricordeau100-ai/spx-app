@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "HONA_AERO / net_sales_fy",
+  "probleme": "Deux CA annuels différents pour la même société ; le signal de HONA_AERO est une fiche produit",
+  "preuve": "HONA_AERO FY2025 17 510, FY2024 15 458, FY2023 13 624 contre net_sales_fy 17 404, 15 445, 13 790 ; signal 'Produit phare : ...'",
+  "correction_validee": "Garder net_sales_fy (comptes combinés de la scission) en prolongeant l'historique si la source le permet, et supprimer HONA_AERO.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "clients",
+  "champ": "clients_concentration.top",
+  "probleme": "La part du client principal reprend le chiffre du groupe Honeywell et non celui de HONA",
+  "preuve": "'Gouvernement federal des États Unis' 12,7 %, source hon-20251231 ; chez HONA, Défense et Spatial = 3 541 / 8 874 = 40 % du CA",
+  "correction_validee": "Recalculer la part du gouvernement américain sur le CA de HONA à partir de ses propres comptes et retirer la phrase 'même société que HON'.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte / justification_mettrik",
+  "probleme": "Texte du moat vide et justification qui expose la cuisine interne, en contradiction avec la thèse",
+  "preuve": "texte vide ; 'Seul un chiffre d'affaires semestriel en hausse de 6 pour cent est disponible ... ce qui rend le jugement peu assuré' ; la thèse cite environ 90 % de la flotte mondiale et plus de 250 plateformes",
+  "correction_validee": "Rédiger le moat (base installée, certification, après-vente)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_sales_s / net_sales_q (hero)",
+  "probleme": "CA en semestriel et en trimestriel en doublon ; le hero est une série semestrielle de deux points pour une société qui publie par trimestre, avec un signal vide de sens",
+  "preuve": "net_sales_s H1-2026=8 874 = 4 352 + 4 522 (net_sales_q) ; signal : 'un repère pour juger sa trajectoire à venir'",
+  "correction_validee": "Passer le hero sur net_sales_q ou rev_com_am_s et retirer net_sales_s",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_sales_q.signal",
+  "probleme": "Mention de source dans le signal",
+  "preuve": "'(rapport trimestriel de la société pour le trimestre clos le 27 juin 2026)'",
+  "correction_validee": "Retirer la parenthèse du signal de net_sales_q.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Pas de série de carnet de commandes ni de ratio commandes sur facturations, alors que l'historique existe sur la fiche HON",
+  "preuve": "rpo_s : un seul point (18,2 Mds $) ; HON aero_backlog : 11 trimestres jusqu'à 18 435 M$ au Q2-2026 ; 'Aerospace book-to-bill 1,1'",
+  "correction_validee": "Reprendre le carnet Aerospace trimestriel et ajouter le ratio commandes sur facturations",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

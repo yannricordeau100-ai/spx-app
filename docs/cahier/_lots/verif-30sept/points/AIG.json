@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "NA Comm Rev / Int Comm Rev / Glob Pers Rev / Net Realized Losses",
+  "probleme": "Quatre series stockees du plus recent au plus ancien, contrairement a toutes les autres : graphique et tendance inverses",
+  "preuve": "NA Comm Rev history [8626, 8172, 10233], value 8626 = history[0], signal « +5,6 % en 2025 » = 8626/8172 ; Net Realized Losses [-1202, -548, -1078] sans history_periods",
+  "correction_validee": "Inverser les quatre series et ajouter les etiquettes FY2023, FY2024, FY2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Premiums Written (General Insurance)",
+  "probleme": "Serie trimestrielle decalee d un trimestre par rapport aux segments, signal date d un autre trimestre",
+  "preuve": "T2 2025 = 4,5 alors que NA+Intl+Personal = 2863+2325+1692 = 6 880 ; T2 2026 = 5,6 contre 7 516 ; signal « +24 % au T1-2026 » sur un KPI date 2026-06-30",
+  "correction_validee": "Supprimer le KPI, les trois series NPW par segment font foi.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "L&R Premiums / AUM Life",
+  "probleme": "Indicateurs d une activite qui n appartient plus au groupe, presentes comme courants",
+  "preuve": "Life & Retirement = Corebridge, deconsolide en 2024 et cede en totalite le 7 mai 2026 (anti-these) ; series lisses [4.2..4.5], [355..358] datees 2026-06-30",
+  "correction_validee": "Supprimer L&R Premiums et AUM Life.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GI NPW / GI Combined Ratio",
+  "probleme": "Doublons perimes et contradictoires des series annuelles sourcees",
+  "preuve": "GI Combined Ratio [104.3, 95.8, 91.9, 92.3, 91.8] s arrete a 2024 (2023 = 92,3 contre 90,6 dans Combined ratio – GI, 2025 = 90,1 absent) ; GI NPW s arrete a 23,9 (2024) ; les deux dates 2026-06-30",
+  "correction_validee": "Supprimer GI NPW et GI Combined Ratio.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "stance / summary",
+  "probleme": "Positionnement « prudent, mentionne peu l IA » contredit par les KPI de la fiche",
+  "preuve": "summary « mentionne peu l'IA dans ses communications officielles » ; KPI « 370 000 soumissions ... jalon de la stratégie GenAI », « AIG Assist réduit de 55 % le délai de cotation », « Concordance de Claude 88 % »",
+  "correction_validee": "Reclasser en integrator et reecrire le resume a partir des programmes GenAI de souscription et sinistres.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI evenementiels n=1",
+  "probleme": "Neuf lignes a un point : anecdotes IA et operations ponctuelles, pas des indicateurs",
+  "preuve": "Claude fraud-detection 88 % ; Time-to-quote 55 % ; Convex 2,1 ; Onex 646 ; Everest 301 / 1,8 / 1,6 ; Corebridge cumul 20 ; rachats 2025 5,8",
+  "correction_validee": "Sortir de la liste KPI ; les deux anecdotes IA a supprimer d office",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net investment income (General Insurance)",
+  "probleme": "Mal nomme : c est le NII consolide GAAP, pas celui de General Insurance",
+  "preuve": "2025 = 4 215 = NII_GAAP 1105+1466+772+872",
+  "correction_validee": "Supprimer le KPI, doublon annuel de NII_GAAP.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net premiums written growth (YoY)",
+  "probleme": "Serie derivee redondante, signal attribuant le recul a Corebridge qui n a jamais ete dans les primes GI",
+  "preuve": "[12.8, -1.5, 4.7, -10.5, -1] = variations de Net premiums written – GI (total) ; signal « cessions (Corebridge, Crop) »",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices.name",
+  "probleme": "Libelles en anglais",
+  "preuve": "« General Insurance Segment », « Corporate Nonsegment and Reconciling Items »",
+  "correction_validee": "Renommer en Assurance dommages et Corporate et elements de reconciliation.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Capex",
+  "probleme": "Investissements corporels sans etiquettes ni pertinence pour un assureur",
+  "preuve": "[304, 353, 343, 210, 240] M$, signal vide, date 2026-06-30",
+  "correction_validee": "Supprimer le KPI Capex.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune serie de variation tarifaire (rate change) ni de retention des renouvellements, publiees chaque trimestre et centrales pour un assureur dommages",
+  "preuve": "Aucun KPI prix/retention ; seul « taux de rétention de 75 % » cite dans un signal Everest",
+  "correction_validee": "Ajouter rate change et retention Global Commercial",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

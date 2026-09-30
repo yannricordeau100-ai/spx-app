@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "HEAD_FY.signal",
+  "probleme": "Le signal contredit HEAD_FR : 87 000 moins 46 934 en France fait 40 000 hors de France, pas 31 000.",
+  "preuve": "HEAD_FY :: « 87 000 collaborateurs fin 2025, dont 31 000 hors de France » ; HEAD_FR val=46934 :: « 54 % de l effectif total »",
+  "correction_validee": "Remplacer par « dont environ 40 000 hors de France » apres verification a la source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "REV_H, EBIT_H, NI_H, REV_Q, BACKLOG_FY",
+  "probleme": "Séries semestrielles arrêtées au S2 2025 et trimestrielle au T1 2026 alors que la thèse cite le S1 2026 (carnet 31,5 Mds €, résultat net +12,1 %).",
+  "preuve": "NI_H dernier 2025-12-31 ...H2-2025=714 ; REV_Q ...Q1-2026=5649 ; these « Au premier semestre 2026, le carnet ... 31,5 Mds € et le résultat net part du Groupe progresse de 12,1 % »",
+  "correction_validee": "Ajouter le S1 2026 a REV_H, EBIT_H et NI_H, le carnet au 30 juin 2026, et le T2 2026 a REV_Q.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment, revenue_by_geography",
+  "probleme": "Les répartitions ne correspondent pas aux KPI de la fiche.",
+  "preuve": "revenue_by_segment Infrastructures 37.1 / Énergie 30.6 / Concessions 16.4 / Construction 15.8 contre REV_INFRA 9187/25313 = 36,3 %, REV_ENERGY 31,8 %, REV_CONC 15,7 %, REV_CONSTR 16,2 % ; France 68.4 contre REV_FRANCE 16233/25313 = 64,1 % ; REV_INTL signal « 8,3 Mds € en Europe hors de France » contre (19,2+10,4) % x 25,3 = 7,5 Mds €",
+  "correction_validee": "Recalculer les repartitions 2025 par branche et par zone sur la base de 25,3 Mds € des KPI, et laisser le signal REV_INTL tel quel.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat auto-référentiel et faux : dit que « le seul indicateur disponible reste trop mince » alors que la fiche compte plus de 30 KPI dont concessions, marges et trafic APRR.",
+  "preuve": "moat « le seul indicateur disponible reste trop mince pour conclure »",
+  "correction_validee": "Réécrire le moat sur les concessions (APRR jusqu en 2035, marge 43 %, deux tiers du ROC).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "APRR_VKT.signal, CONCESSIONS_NETWORK_KM, CAHIER_BACKLOG_COVERAGE",
+  "probleme": "Signal de gabarit « Produit phare : ... » ; réseau concédé à trois points espacés de deux ans ; couverture du carnet sans 2024 (yoy sur deux ans).",
+  "preuve": "APRR_VKT :: « Produit phare : Trajets autoroutiers APRR et AREA » ; CONCESSIONS_NETWORK_KM serie FY2021=2642, FY2023=2560, FY2025=2560 ; CAHIER_BACKLOG_COVERAGE FY2023=17.1, FY2025=16.8 yoy=-1.8%",
+  "correction_validee": "Réécrire le signal avec +1,3 % ; compléter 2022 et 2024.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun KPI sur les aéroports concédés (passagers Toulouse-Blagnac, Lille) alors que la description et la thèse citent les concessions aéroportuaires.",
+  "preuve": "description Mettrik « Concessions, cette dernière regroupant autoroutes et aéroports » ; seul APRR_VKT couvre les concessions",
+  "correction_validee": "Ajouter le trafic passagers des aéroports concédés.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions_marche",
+  "champ": "positions de marche 1 et 2",
+  "probleme": "Deux positions de marché sans nom ni unité.",
+  "preuve": "position de marche 1: None | taille 279 ; position de marche 2: None | taille 12.8",
+  "correction_validee": "Nommer les marchés et unités ou retirer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Organic Sales Growth, Organic net sales growth, Organic Revenue Growth, CAHIER_ORG_GROWTH_FRANCHISE, Organic growth total",
+  "probleme": "Cinq KPI de croissance organique qui se contredisent, dont un contient des montants de CA",
+  "preuve": "Organic Sales Growth : serie 17.108, 18.449 (CA 2021-2022 en Mds $) puis 'Q1 2026 organic 9.4%' alors que Organic growth total T1-2026 = 2,4 ; Organic net sales growth : val 2,4 datee 2026-06-30 alors que le T2 = 9 ; FY2023 11,9 contre 11,5",
+  "correction_validee": "Garder 'Organic growth total' et la serie CAHIER annuelle, supprimer Organic Sales Growth, Organic net sales growth et Organic Revenue Growth.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Income",
+  "probleme": "Valeurs invraisemblables et contredites par le moat",
+  "preuve": "8,517 Mds $ puis 6,855 (-19,5 %) : 8,517 / 22,6 = 37,7 % de marge en 2024 alors que la marge GAAP trimestrielle est d'environ 9 a 20 % ; le moat dit 'resultat operationnel +33 %'",
+  "correction_validee": "Supprimer 'Op Income' (ou le remplacer par le resultat operationnel publie date) et corriger la justification du moat.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "MedSurg & Neuro Op Income",
+  "probleme": "Serie annuelle melangee avec des trimestres ; nom en anglais",
+  "preuve": "2.584, 2.841 (annuel) puis 1.175, 1.175, 1.291 (T1) ; periode 'year' ; nom francais = 'MedSurg & Neuro Op Income'",
+  "correction_validee": "Supprimer 'MedSurg & Neuro Op Income'.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "MedSurg & Neurotech Rev",
+  "probleme": "La valeur affichee n'est pas le dernier point de la serie",
+  "preuve": "val 13,95 alors que la serie finit a 15,6 (FY2025 : 62,3 % x 25,116 = 15,65)",
+  "correction_validee": "Afficher 15,6 Mds $ et recalculer le yoy (+11,7 % contre 13,97).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Mako Robots Installed, Mako Procedures, Mako >2M procedures",
+  "probleme": "Chiffres Mako incoherents entre eux et avec le moat",
+  "preuve": "parc de 2 350 robots contre moat 'base installee de trois mille robots' ; cumul +500 000 par an (1M, 1,5M, 2M) contre des procedures annuelles de 305k et 380k",
+  "correction_validee": "Harmoniser avec les chiffres publies et dater les series",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "MedSurg+Neuro Rev, Ortho & Spine Rev",
+  "probleme": "Series arretees au T3-2025 depuis la nouvelle segmentation, signal en cuisine interne",
+  "preuve": "dernier 2025-09-30 ; 'Le recast Ortho Tech en T1-2026 fige cette serie'",
+  "correction_validee": "Remplacer par les nouveaux segments 2026 ou retirer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Adjusted operating margin / Adj Op Margin",
+  "probleme": "Doublon mal date",
+  "preuve": "'Adjusted operating margin' val 21,1 datee 2026-06-30 alors que 21,1 est le T1 ; Adj Op Margin T2-2026 = 27,4",
+  "correction_validee": "Supprimer 'Adjusted operating margin' et ne reporter son historique dans Adj Op Margin qu'apres datation verifiee des points.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Marge op consolidee",
+  "probleme": "Point du T4-2025 douteux",
+  "preuve": "T4-2025 = 25,2 % de marge operationnelle GAAP pour une marge nette de 11,8 % ; signal 'Q4 de chaque annee derive'",
+  "correction_validee": "Verifier le calcul du T4 derive et retirer la mention",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FCF (nom), Mako >2M procedures (nom), Capex.signal",
+  "probleme": "Cuisine interne dans les noms et le signal",
+  "preuve": "'Flux de tresorerie disponible (derive OCF - Capex)' ; 'Mako >2M procedures' ; 'trimestriel derive des flux YTD des rapport trimestriel'",
+  "correction_validee": "Nommer 'Flux de tresorerie disponible' et retirer les mentions de derivation des signaux FCF et Capex ; ne pas toucher Mako.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography / revenue_by_segment",
+  "champ": "libelles",
+  "probleme": "Libelles en anglais",
+  "preuve": "'United States', 'Europe, Middle East, Africa', 'Asia Pacific', 'Other countries', 'Orthopaedics'",
+  "correction_validee": "Traduire en Etats-Unis, Europe-Moyen-Orient-Afrique, Asie-Pacifique, Autres pays, Orthopedie.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Gross debt-to-EBITDA ratio",
+  "probleme": "La date contredit le signal",
+  "preuve": "dernier 2026-02-08 alors que le signal dit 'en sortie de T1-2026'",
+  "correction_validee": "Dater a la bonne publication ou corriger la periode",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

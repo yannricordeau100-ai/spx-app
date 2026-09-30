@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Revenus DT + EBIT ajuste (series)",
+  "probleme": "Deux KPI en Mds EUR doublonnent CA-A et EBITA-A avec des valeurs contradictoires et une serie arretee en 2024",
+  "preuve": "Revenus DT FY2024=50.173 Mds vs CA-A FY2024=54077 M€ ; EBIT ajuste FY2024=3.363 Mds vs EBITA-A FY2024=4667 M€ ; series sans annees, textes 'NAFTA pre-buy 2027', 'Spin-off Mercedes-Benz Group Dec 2021'",
+  "correction_validee": "Supprimer Revenus DT et EBIT ajuste, CA-A et EBITA-A font foi.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DT_TNA_UNITS",
+  "probleme": "Doublon de TNA-VENTES-A avec un point 2024 different et un signal hors sujet",
+  "preuve": "DT_TNA_UNITS FY2024=190727 vs TNA-VENTES-A FY2024=190428 ; signal 'Produit phare : Camions lourds Freightliner'",
+  "correction_validee": "Supprimer DT_TNA_UNITS.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "LIQNET-T.signal + these",
+  "probleme": "'Au plus haut depuis la cotation' et 'plus haut niveau des huit derniers trimestres' sont faux",
+  "preuve": "LIQNET-T Q2-2026=8342 mais Q4-2024=8558 (dans les 8 derniers points) et LIQNET-A FY2024=8558",
+  "correction_validee": "Reformuler partout en 'en hausse de 41 % sur un an, au plus haut depuis fin 2024'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CMD-T.signal",
+  "probleme": "Le signal parle de hausse alors que la serie affiche une baisse de 15,6 %",
+  "preuve": "CMD-T val=74448, yoy=-15,6% (Q2-2025=88241) ; signal 'La hausse est portee par le redressement nord-americain'",
+  "correction_validee": "Reecrire le signal sur le recul du trimestre (effet perimetre Fuso) ou preciser 'a perimetre comparable'",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "yoy des KPI en % (MARGE-IB-T, TNA-MARGE-T, MBT-MARGE-T, BUS-MARGE-T, MARGE-IB-A, FS-ROE-A, CROISS-PUB-A, CROISS-ORG-A)",
+  "probleme": "Variation annuelle calculee en % d'un pourcentage, resultats absurdes",
+  "preuve": "CROISS-PUB-A yoy=-200,0% ; CROISS-ORG-A yoy=-600,0% ; MARGE-IB-T yoy=-26,9% pour 9,3 -> 6,8",
+  "correction_validee": "Exprimer la variation en points pour tous les KPI en % (ex. MARGE-IB-T -2,5 pt, CROISS-ORG-A -6 pt).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "tendance/texte",
+  "probleme": "Le moat contredit la these et les chiffres du 2e trimestre 2026",
+  "preuve": "moat 'Les ventes de camions chutent fortement... s'aggravent' vs these 'le creux est-il deja passe', TNA-VENTES-T +8,1%, VENTES-T +8 % hors Fuso",
+  "correction_validee": "Reecrire le moat en integrant l'effet perimetre Fuso et la reprise nord-americaine",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CAPTIVE_CREDIT_QUALITY",
+  "probleme": "Serie arretee en 2023, annee 2019 manquante, nom vague pour un cout du risque",
+  "preuve": "serie FY2018=0.21, FY2020=0.82, FY2021=0.49, FY2022=0.27, FY2023=0.48 alors que FS-ROE-A va jusqu'a 2025",
+  "correction_validee": "Completer 2024-2025 et renommer 'Cout du risque des services financiers (% de l'encours)' ou retirer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions_marche",
+  "champ": "position 1",
+  "probleme": "Position de marche sans nom ni part, seul un chiffre de taille apparait",
+  "preuve": "position de marche 1: None | taille 70.33 | part None",
+  "correction_validee": "Nommer le marche (ex. camions moyens et lourds EU30) et renseigner la part, sinon retirer le bloc",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

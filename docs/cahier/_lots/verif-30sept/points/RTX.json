@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Repartition geographique invraisemblable et en anglais : la somme des tranches (environ 116 Mds) depasse le chiffre d affaires 2025 (88,6 Mds), et la part hors Etats-Unis (35,6 %) contredit le KPI de ventes internationales (15,6 %).",
+  "preuve": "Domestic 74.778 Mds (64.4 %) + Europe 18.799 + Asia Pacific 13.782 + ... ; revenue_annuel 2025=88.603 ; rtx_geo_intl 2025=13.825 signal « d'origine américaine (86 %) » ; libelles « Geographic Distribution, Domestic », « Asia Pacific », « Other »",
+  "correction_validee": "Reprendre la repartition geographique du rapport annuel 2025 en francais sur un total egal au CA, et verifier la definition de rtx_geo_intl.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Nom de segment perime : Raytheon Intelligence & Space n existe plus depuis la reorganisation de 2023, le segment s appelle Raytheon.",
+  "preuve": "revenue_by_segment : « Raytheon Intelligence & Space 30.8 » ; KPI raytheon_rev « Raytheon : chiffre d'affaires »",
+  "correction_validee": "Renommer le segment en « Raytheon ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total company backlog, Commercial aerospace backlog",
+  "probleme": "Signaux perimes d un trimestre : ils citent 271 et 162 Mds alors que les derniers points sont 289 et 170.",
+  "preuve": "Total company backlog val=289, signal « Carnet record à 271 Md$ » ; Commercial aerospace backlog val=170, signal « Carnet commercial à 162 Md$ »",
+  "correction_validee": "Signaux a 289 Mds $ (total) et 170 Mds $ (commercial) au T2 2026.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Free Cash Flow (full year)",
+  "probleme": "Doublon arrondi de fcf_annuel, sans dates.",
+  "preuve": "Free Cash Flow (full year) serie 5, 4.9, 5.5, 4.5, 7.9 ; fcf_annuel 2021=5.008, 2022=4.88, 2023=5.468, 2024=4.534, 2025=7.94",
+  "correction_validee": "Supprimer Free Cash Flow (full year).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rtx_op_margin, rtx_net_margin",
+  "probleme": "Variation d une marge exprimee en pourcentage relatif au lieu de points.",
+  "preuve": "rtx_op_margin 9.9 -> 11.4 yoy=+15.2% ; rtx_net_margin 7.7 -> 8.7 yoy=+13.0%",
+  "correction_validee": "yoy +1,5 pt pour rtx_op_margin et +1,0 pt pour rtx_net_margin.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "texte",
+  "probleme": "Positionnement IA generique, applicable a n importe quelle societe, sans exemple RTX.",
+  "preuve": "« Intègre l'IA dans ses produits et opérations existants pour améliorer performance et expérience client. »",
+  "correction_validee": "Reecrire avec des cas concrets (maintenance predictive GTF, radars GaN, traitement de donnees capteurs) issus du rapport annuel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ca_par_salarie, dette_sur_ca",
+  "probleme": "Historique 2018-2019 base sur l ancien perimetre United Technologies (Otis et Carrier inclus, 240 000 salaries) : les ratios 2018-2019 ne sont pas comparables et faussent les taux annuels moyens affiches.",
+  "preuve": "effectifs_annuels 2018=240000, 2019=243200, 2020=181000 ; ca_par_salarie 2018=144.6 -> 2020=312.6 ; dette_sur_ca 2018=131.2",
+  "correction_validee": "Demarrer les series au perimetre RTX (2020) ou signaler la rupture.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

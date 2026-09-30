@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "rev_africa_apac",
+  "probleme": "Revenu trimestriel négatif, impossible.",
+  "preuve": "Q4-2024 = -368 M$ entre Q3-2024 = 302.6 et Q1-2025 = 333.6.",
+  "correction_validee": "Recharger la valeur Q4-2024 depuis le communique, a defaut supprimer ce point.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Towers Count",
+  "probleme": "Série incohérente avec sa valeur et avec total_sites ; signal placeholder.",
+  "preuve": "unité K, série Q1-2025..Q1-2026 = 2.5628, 2.6269, 2.7174, 2.7375, 2.7375 mais val=149 ; total_sites = 148 456 ; signal 'Désinvestissement Inde.' ; description 'Cession 60K tours Inde'.",
+  "correction_validee": "Supprimer le KPI Towers Count.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "total_sites, PORTFOLIO_SITES, Tower Sites",
+  "probleme": "Trois KPI pour le nombre de sites, dont deux non datés et datés artificiellement au 2026-06-30.",
+  "preuve": "PORTFOLIO_SITES n=1 = 149686 (valeur Q4-2025) daté 2026-06-30 ; Tower Sites série 186000, 219000, 226000, 152000, 148000 sans périodes, daté 2026-06-30 ; total_sites trimestriel complet.",
+  "correction_validee": "Supprimer PORTFOLIO_SITES et Tower Sites.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "churn_rate, CAHIER_CHURN, Churn, TENANT_CHURN",
+  "probleme": "Quatre KPI de churn, valeurs divergentes, un signal 'OK.' et une série sans périodes.",
+  "preuve": "Churn : val 2.4, série 1.5, 2, 2.2, 2, 2.4 sans dates, période None, signal 'OK.' ; TENANT_CHURN n=1 = 2 daté 2026-06-30 ; churn_rate s'arrête Q4-2025 ; CAHIER_CHURN annuel 2 %.",
+  "correction_validee": "Garder churn_rate et CAHIER_CHURN, supprimer Churn et TENANT_CHURN.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Organic Tenant Billings Growth, Total Tenant Billings Growth, Tenant Billings, CAHIER_ORGANIC_TENANT_BILLINGS",
+  "probleme": "Croissance organique en triple exemplaire ; séries trimestrielles sans périodes datées 2026-06-30 alors que le signal parle du T1 2026.",
+  "preuve": "'Organic Tenant Billings Growth' série 5.3 ... 5.9, 1.7 sans dates, dernier 2026-06-30, signal '1,7 % au T1-2026' ; 'Tenant Billings' annuel 4.3, 4, 6.1, 5.5, 5 sans dates, daté 2026-06-30, sans signal ; CAHIER annuel complet.",
+  "correction_validee": "Supprimer 'Tenant Billings' ; dater les deux séries trimestrielles et ajouter le T2 2026 ou corriger last_data_date au 2026-03-31.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "DATACENTER_REV, COMM_SITES_REV",
+  "probleme": "Nommés 'Revenu' mais exprimés en % de part, parts qui ne bouclent pas, signaux placeholder, séries non datées.",
+  "preuve": "DATACENTER_REV unité % série 8, 9, 10 signal 'Croissance positive' ; COMM_SITES_REV 88, 87, 82 signal 'Décroissance relative' ; 82+10 = 92 (+3 % services = 95) ; datés 2026-06-30 sans périodes ; rev_data_centers trimestriel existe.",
+  "correction_validee": "Supprimer DATACENTER_REV et COMM_SITES_REV.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total Revenues, revenue_annuel",
+  "probleme": "Deux chiffres d'affaires annuels différents pour les mêmes exercices sur la même fiche.",
+  "preuve": "'Total Revenues' 2022 = 10 711,1 et 2023 = 11 144,2 M$ vs revenue_annuel 2022 = 9,645 et 2023 = 10,012 Mds $ ; écart d'environ 1,1 Md $ (périmètre Inde) mais 2024 identique (10 127) dans les deux.",
+  "correction_validee": "Supprimer 'Total Revenues' et harmoniser revenue_annuel sur un seul perimetre signale dans la description.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Africa Revenue, Data Centers Revenue, Total Revenues, Intl Towers",
+  "probleme": "Blocs annuels arrêtés à 2024 ou non datés, franglais sans accents, doublons des séries trimestrielles à jour.",
+  "preuve": "Africa Revenue signal 'FY24 inclut Africa & APAC consolides post vente ATC India, croissance Afrique sub-sah forte mais FX defavorable' ; Total Revenues 'headwinds FX/MNO neutres net positif' ; Intl Towers 3.3, 3.7, 4, 4.1, 4 sans dates ni signal, daté 2026-06-30 ; rev_africa_apac et rev_data_centers vont au T2 2026.",
+  "correction_validee": "Supprimer Africa Revenue, Data Centers Revenue, Total Revenues et Intl Towers.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.summary",
+  "probleme": "Gabarit avec cuisine interne et anglais, contredit par l'exposition data centers de la fiche.",
+  "preuve": "'Le secteur Real Estate Investment Trusts n'est pas significativement transformé par l'IA ... Une analyse fine ... sera ajoutée en V2.0.' vs rev_data_centers +13,4 % 'demande des clients cloud', 'Data center power held for development' 487 MW, description 'Croissance +10% via demande IA/hyperscalers/cloud'.",
+  "correction_validee": "Reecrire : beneficiaire indirect de l'IA via les data centers CoreSite (11 % du CA, 487 MW en developpement), tours peu exposees, sans mention de version.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.justification_mettrik",
+  "probleme": "La justification de tendance contredit les séries affichées.",
+  "preuve": "'l'Asie recule de 10,2 % et l'Amérique latine de 4,4 %' vs rev_latam Q2-2026 +13,4 % et rev_africa_apac +23,5 % ; 'coeur nord-américain stagne à croissance nulle' vs rev_us_canada -2,5 %.",
+  "correction_validee": "Recalculer la justification sur les mêmes séries que la fiche (T2 2026) ou préciser la période utilisée.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "La répartition géographique mélange zones et segments.",
+  "preuve": "Tranches 'Property, Data Centers 9.6' et 'Services Segment 3.1' présentées comme zones à côté de 'États-Unis 50.9', 'Property, Africa 13'.",
+  "correction_validee": "Ne garder que les zones (US & Canada, Amérique latine, Afrique & APAC, Europe) en réaffectant data centers aux États-Unis.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "AFFO attributable to common stockholders per share, Property Gross Margin %, Available liquidity, Net leverage within target range",
+  "probleme": "Signaux restés sur le point précédent ou doublons d'une série existante.",
+  "preuve": "AFFO/action val 2.84 daté 2026-06-30, signal 'à 2,84 $ au T1-2026' (T2 = 1 264 M$/468 M actions = 2,70 absent) ; Property Gross Margin val 73.7, signal '75,1 % au T1-2026' ; Available liquidity val 9.9, signal '11,1 Md$ au 31/12/2025' ; Net leverage 4.9 = net_leverage_ratio.",
+  "correction_validee": "Réécrire les trois signaux sur la dernière valeur, dater les séries, supprimer le doublon de levier.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

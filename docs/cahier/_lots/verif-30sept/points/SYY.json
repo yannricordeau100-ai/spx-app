@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis (tous trimestriels)",
+  "champ": "signal / last_data_date",
+  "probleme": "Les signaux citent le T3-FY2026 alors que les séries contiennent déjà le T4-FY2026, et la date affichée reste au 28 mars 2026",
+  "preuve": "intl_fs_revenue val=4191 (Q4-FY2026) mais signal '3 885 M$ au T3-FY2026, +12,4%'; net_income_q val=551 (+3,8%) mais signal '340 M$ au T3-FY2026, -15,2%'; idem ocf, fcf, lt_debt, cash, goodwill, sbc, tax_rate, us_fs_op_income, sygma_op_margin; 'dernier 2026-03-28' sur toutes ces séries",
+  "correction_validee": "Reecrire les signaux trimestriels sur le T4-FY2026 et dater les series au 27 juin 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf Q4-FY2026",
+  "probleme": "Le FCF du T4-FY2026 ne correspond pas à OCF moins capex",
+  "preuve": "ocf Q4-FY2026=1175, capex=239 donc 936, mais fcf=1112 (yoy +35,8%). Avec 936, la somme -74+385+691+936=1938 égale fcf_annuel 2026 (1,938 Mds)",
+  "correction_validee": "Remplacer 1112 par 936 pour le T4-FY2026 et afficher +14,3% sur un an.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "US Foodservice Sales, Local Case Growth, Sysco Brand Penetration, International Sales, SYGMA Sales",
+  "probleme": "Bloc de KPI hérités sans périodes, en franglais, doublons des séries trimestrielles et chiffres faux",
+  "preuve": "US Foodservice Sales 56 Mds et '75% du groupe' alors que la somme FY2026 de us_fs_revenue fait 58,8 Mds (69,5%); International Sales 14 contre 16,0 Mds; SYGMA 7,5 contre 8,6 Mds; textes 'Soft 2025 (restaurant traffic faible)', 'Drive margin (private label). Cible 50%+ MT'",
+  "correction_validee": "Supprimer les 5 KPI herites et reconstruire plus tard une vraie serie de penetration de la marque Sysco (sysco_brand_penetration contient du CA).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "International consecutive quarters of double-digit operating income growth / intl_fs_op_income",
+  "probleme": "Le KPI texte contredit la série de résultat opérationnel International",
+  "preuve": "'10e trimestre consécutif de croissance à deux chiffres (+12.5% au Q3-26)' alors que intl_fs_op_income Q3-FY2026=83 contre 96 au Q3-FY2025 (-13,5%); le signal de intl_fs_op_income parle de 'recul' alors que le dernier point est +2,1%",
+  "correction_validee": "Préciser que le chiffre de la société est ajusté ou retirer le KPI texte; réécrire le signal de intl_fs_op_income",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_profit_q.signal / operating_income_q.signal",
+  "probleme": "Signaux contredits par les chiffres",
+  "preuve": "gross_profit_q: 'progresse plus vite que les ventes' alors que +3,7% contre +4,7% pour le CA et marge brute 18,69% contre 18,86%; operating_income_q: 'traduit la pression sur la rentabilité' alors que yoy +10,6%",
+  "correction_validee": "Réécrire les deux signaux",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "customer_locations / distribution_facilities",
+  "probleme": "Rupture non expliquée, yoy faux, signal périmé, chiffres différents de la thèse",
+  "preuve": "FY2025=730, FY2026=670 (-8,2%) mais yoy=0% et signal 'Environ 730 000 sites ... stable'; distribution_facilities 337 (FY2025) contre '333 entrepôts' dans la thèse",
+  "correction_validee": "Vérifier le changement de définition FY2026, corriger yoy et signal, aligner la thèse",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "goodwill.signal",
+  "probleme": "Cite Restaurant Depot comme acquisition passée alors que l'opération n'est pas close",
+  "preuve": "'reflet d'une croissance externe continue (Restaurant Depot, Fairfax Meadow, Ginsberg's Foods)' contre KPI Jetro 'clôture attendue Q3-exercice 2027'",
+  "correction_validee": "Retirer Restaurant Depot de la liste des acquisitions du signal goodwill.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Other (1) / tax_rate",
+  "probleme": "Points aberrants non détectés",
+  "preuve": "Other (1): Q2-FY2024=949,4, Q4-FY2024=70,6 puis 639 à 730; tax_rate Q4-FY2025=0,7% et Q4-FY2024=0,06 incompatibles avec un résultat net de 531 M$ pour 888 M$ de résultat opérationnel",
+  "correction_validee": "Recalculer ces trimestres depuis les cumuls annuels",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "position de marche / these",
+  "champ": "taille du marché",
+  "probleme": "Deux tailles de marché différentes sur la même fiche",
+  "preuve": "position de marché 315 Mds $ (part ~19%) contre thèse 'marché américain ... estimé à 377 Mds $' et '18 %'",
+  "correction_validee": "Retenir un seul périmètre et l'aligner partout",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Libellés anglais avec renvois de note, et la répartition géographique est en fait une répartition par segment",
+  "preuve": "'Fresh And Frozen Meats1', 'Canned And Dry Products1'; géographie = 'U.S. Foodservice Operations 71 ; International Foodservice Operations 18.6 ; Sygma Segment 10.5' (sans le segment Other)",
+  "correction_validee": "Traduire les categories sans les 1 et remplacer la geographie par la ventilation Etats-Unis / international du rapport annuel.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "doublons",
+  "probleme": "Mêmes indicateurs sous plusieurs noms",
+  "preuve": "'U.S. local case volume growth' = local_case_volume_growth (+ 'Local Case Growth'); employees_total (75 milliers) = effectifs_annuels (75000); food_inflation et CAHIER_PRODUCT_INFLATION; us_total_case_volume et CAHIER_CASE_VOLUME (yoy '+180%' sur un taux)",
+  "correction_validee": "Supprimer U.S. local case volume growth et employees_total, et exprimer les ecarts des taux (volumes, inflation) en points.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

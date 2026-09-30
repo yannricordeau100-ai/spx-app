@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel (et fcf_par_salarie)",
+  "probleme": "Le flux de trésorerie libre annuel 2023-2025 est égal au flux de trésorerie opérationnel : le capex n'est pas déduit.",
+  "preuve": "fcf_annuel 2025=3.379 = somme ocf 2025 (1162.6+853.3+938.9+424.6 = 3379.4) ; somme fcf trimestriels 2025 = -1 018,7 M$ ; 2018-2022 négatifs",
+  "correction_validee": "Recalculer fcf_annuel 2023-2025 comme flux opérationnel moins capex (2025 ≈ -1,02 Md $) et réécrire le signal.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "revenue_by_geography",
+  "probleme": "Copie exacte de la répartition par segment, avec un segment d'activité présenté comme une zone géographique.",
+  "preuve": "geography : 'Wisconsin 71 ; Illinois 16.4 ; Non-Utility Energy Infrastructure 7.5 ; Other States 5.1', identique à segment",
+  "correction_validee": "Supprimer le bloc revenue_by_geography, car l'activité est à 100 % aux États-Unis.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_margin_pct, op_margin, net_margin .yoy",
+  "probleme": "Variations sur un an en % relatifs au lieu de points pour des ratios.",
+  "preuve": "net_margin 14,5 contre 12,2 : yoy '+18.9%' (+2,3 pts) ; op_margin '+4.5%' (+0,9 pt) ; gross_margin_pct '+2.1%' (+1,5 pt)",
+  "correction_validee": "Afficher les variations en points : marge nette +2,3 pts, marge opérationnelle +0,9 pt, taux de marge énergie +1,5 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "interest_exp, effectifs_annuels",
+  "probleme": "Séries périmées : charges d'intérêts arrêtées au T3-2024 et effectifs à 2019, alors que la fiche va jusqu'au T2-2026.",
+  "preuve": "interest_exp dernier 2024-09-30 ; effectifs_annuels dernier 2020-02-27, 2019=7509",
+  "correction_validee": "Compléter jusqu'au T2-2026 et jusqu'à l'exercice 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ppe_net.signal ; indicateur manquant",
+  "probleme": "Les immobilisations nettes sont présentées comme la base tarifaire, ce qui est faux. La base tarifaire (rate base) et sa croissance, KPI de référence d'un distributeur régulé, manquent.",
+  "preuve": "ppe_net : 'c'est la base d'actifs rémunérée par les tarifs'",
+  "correction_validee": "Corriger le signal et ajouter la base tarifaire par exercice, publiée dans les présentations aux investisseurs.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CAPEX_PLAN vs Total capital plan 2026-2030",
+  "probleme": "Le 'plan d'investissement pluriannuel' affiche 33,4 Mds $, soit la seule part régulée, alors que le plan total est de 37,5 Mds $.",
+  "preuve": "CAHIER_CAPEX_PLAN FY2025=33.4 ; 'Regulated utilities capex 2026-2030' = 33.4 ; 'Total capital plan' = 37.5 ; att : 'plan d'investissement de 37,5 Mds $'",
+  "correction_validee": "Renommer en 'Plan d'investissement régulé', ou remplacer par le total 37,5.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SAIDI_SAIFI, CAHIER_ALLOWED_EARNED_ROE",
+  "probleme": "Chaque nom annonce deux mesures alors que la série n'en contient qu'une.",
+  "preuve": "'Durée et fréquence moyennes des coupures' en minutes (une seule valeur, 143) ; 'Rendement autorisé et rendement réalisé' : une seule série (9,8)",
+  "correction_validee": "Renommer en 'Durée moyenne des coupures par client' et 'Rendement autorisé des fonds propres'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gas_vol_total, gas_vol_il, gas_vol_os",
+  "probleme": "Les points historiques sont arrondis à la dizaine (probablement lus sur un graphique), contrairement au dernier point.",
+  "preuve": "gas_vol_total : 380, 880, 1310, 570, 390, 970, 1260, puis 546.5 ; gas_vol_il : 150, 550, 890, 300 ...",
+  "correction_validee": "Resaisir les volumes exacts depuis les rapports trimestriels.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "elec_customers, Weather-normal ..., Illinois proposed settlement, AREP KPIs",
+  "probleme": "Jargon anglais et décimales avec un point.",
+  "preuve": "'pression demand side data centers via tarif VLC' ; 'meilleur indicateur de load growth' ; 'riders QIP', 'dockets' ; '3.5 GW', '12.6 Md$'",
+  "correction_validee": "Réécrire en français avec des virgules décimales.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[1], risks[4], risks[5]",
+  "probleme": "Le titre du risque ne correspond pas à la citation retenue.",
+  "preuve": "'Pandémies et événements sanitaires' cite des livraisons de charbon ; 'Tensions géopolitiques et tarifs douaniers' cite une demande au PSCW ; 'Dépendance aux tiers' cite l'usage de l'IA",
+  "correction_validee": "Réaffecter les citations ou régénérer les risques.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these.titre",
+  "probleme": "La thèse dit le contentieux Illinois soldé, alors que le KPI associé parle d'un règlement seulement proposé.",
+  "preuve": "these : 'un contentieux réglementaire vieux de dix ans vient d'être soldé' ; KPI : 'Règlement proposé avec l'AG Illinois'",
+  "correction_validee": "Vérifier si le règlement a été approuvé et harmoniser.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

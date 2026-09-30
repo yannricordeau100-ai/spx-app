@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Third-Party Seller Services Revenue",
+  "probleme": "Dernier point daté 2025 mais valeur 2024, série non datée, signal placeholder, triple doublon.",
+  "preuve": "val 156.1 Mds $ daté 2025-12-31 alors que '3P' FY2025 = 172 162 M$ et FY2024 = 156 146 ; périodes null ; signal 'Marketplace + FBA' ; nom 'Revenu Sellers Tiers'.",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "AWS segment revenue Y/Y growth",
+  "probleme": "Croissance AWS affichée à 28 % et datée T2 2026 alors que la série AWS Rev de la fiche donne +36,8 %.",
+  "preuve": "série 17, 20, 24, 28 sans périodes, dernier 2026-06-30, signal 'Réaccélération nette du cloud AWS à 28%' ; AWS Rev Q2-2026 = 42 232 vs 30 873 = +36,8 % (28 % = T1 2026).",
+  "correction_validee": "Supprimer ce KPI, doublon du yoy d'AWS Rev.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "AWS annualized revenue run rate, Advertising trailing-twelve-month revenue, Third-party seller services Y/Y growth ex-FX, Cash provided by operating activities",
+  "probleme": "KPI transcript en retard d'un trimestre ou mélangeant exercice et 12 mois glissants.",
+  "preuve": "run rate val 169 mais signal 'dépasse 150 Md$ tout en accélérant à 28%' ; pub TTM 70 vs 76,1 Mds $ dans Adv Rev ; 3P ex-FX série finit à 16 mais signal 'en accélération à 12%' ; OCF série 139.5 (exercice 2025) puis 161.4 (TTM T2 2026), signal sur 2025.",
+  "correction_validee": "Réécrire les signaux sur la dernière valeur, supprimer la série OCF transcript (OCF trimestriel existe).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_PART_TIERS",
+  "probleme": "Série arrêtée en 2018 alors que Mix 3P trimestriel va au T1 2026.",
+  "preuve": "FY2011..FY2018, dernier 2018-12-31 val 58 ; Mix 3P Q1-2026 = 60 %.",
+  "correction_validee": "Masquer CAHIER_PART_TIERS (donnee plus publiee), Mix 3P suffit.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Fulfillment Centers Robotized",
+  "probleme": "Série non datée, non sourcée, signal placeholder, chiffre peu crédible.",
+  "preuve": "série 200, 350, 450, 500, 750 sans périodes, yoy +50 %, signal 'Sequoia + Robotics scale', période None.",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "fcf_annuel, FCF TTM",
+  "probleme": "Deux flux de trésorerie libre 2025 très différents sur la même fiche.",
+  "preuve": "fcf_annuel 2025 = 7,695 Mds $ ; FCF TTM Q4-2025 = 11 194 M$ (= OCF 139,5 moins capex 128,3) ; fcf_par_salarie en découle.",
+  "correction_validee": "Aligner fcf_annuel sur la définition Amazon (OCF moins achats d'immobilisations nets) ou préciser la définition dans le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.summary, evidence",
+  "probleme": "Périmé : chiffres et preuves de fin 2024 alors que la fiche contient des données 2026 bien plus fortes.",
+  "preuve": "'investissement stratégique dans Anthropic (8 Mds$)' vs KPI 'Anthropic ... carrying value' 14,8 Mds $, 'Trainium revenue commitments' 225 Mds $, 'Bedrock customers' 125 000, backlog AWS 496 Mds $ ; evidence datée 2024-12-03.",
+  "correction_validee": "Réécrire avec les chiffres 2026 de la fiche.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Paid Units, Mix 3P, Headcount, AI Chips, Same-Day 1B",
+  "probleme": "Cinq KPI arrêtés au T1 2026 alors que le T2 2026 est intégré partout ailleurs.",
+  "preuve": "dernier 2026-04-29 pour les cinq ; Total Rev, AWS Rev à 2026-06-30.",
+  "correction_validee": "Compléter depuis le communiqué du T2 2026.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Net Income.signal, Net Margin.signal",
+  "probleme": "Origine du gain exceptionnel incohérente entre les signaux et l'anti-thèse.",
+  "preuve": "signaux : 'réévaluation comptable des participations dans Anthropic et OpenAI' ; att : 'gain papier sur la participation Anthropic' seule ; environ 35 Mds $ d'écart entre résultat net (62 647) et résultat opérationnel (27 461).",
+  "correction_validee": "Vérifier dans le 10-Q T2 2026 si une participation OpenAI existe et harmoniser les textes.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "AWS Margin.yoy",
+  "probleme": "Variation de marge exprimée en % relatif alors que les autres marges sont en points.",
+  "preuve": "AWS Margin yoy '+19.8%' pour 32,9 -> 39,4 ; NA Margin '+0.4pp', Op Margin '+2.3pp'.",
+  "correction_validee": "Remplacer le yoy par '+6,5 pp'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "AWS, Ads, 3P (annuels), Most-streamed NFL game, PRIME_SUB",
+  "probleme": "Unités hétérogènes, doublons annuels non datés et KPI hors sujet.",
+  "preuve": "unités '$M', 'M USD', '$B TTM', '$B run rate', 'Mds $' sur la même fiche ; AWS/Ads/3P annuels série '90757, 107556, 128725' sans années ; 'Most-streamed NFL game' 31,6 M spectateurs ; PRIME_SUB 'produit phare de la société' pour 6,9 % du CA.",
+  "correction_validee": "Dater AWS, Ads et 3P annuels (FY2023 a FY2025) en M$, supprimer le KPI NFL, reecrire le signal PRIME_SUB sans 'produit phare'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

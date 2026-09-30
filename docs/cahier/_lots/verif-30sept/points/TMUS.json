@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Postpaid phone net customer additions / Postpaid phone churn / Postpaid Average Revenue Per Account",
+  "probleme": "Ces séries s'arrêtent au T4 2025 mais portent la date du 11 août 2026, et font doublon avec les KPI trimestriels et annuels propres",
+  "preuve": "Les ajouts nets 495+830+1007+962 = 3294 = CAHIER_AJOUTS FY2025 ; la moyenne du churn (0.91, 0.9, 0.89, 1.02) = 0,93 = CAHIER FY2025 ; ARPA val 151.93 = postpaid_arpa Q1-2026 alors que Q2-2026=152.91 ; l'anti-thèse dit que les ajouts nets ne sont plus publiés depuis janvier 2026",
+  "correction_validee": "Supprimer les trois KPI non datés et garder postpaid_arpa, CAHIER_AJOUTS_NETS_POSTPAYES et CAHIER_CHURN_POSTPAYE.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Postpaid Net Adds / Postpaid Churn / Fixed Wireless Subs / High-Speed Internet Subscribers / Service Revenue / Total Wireless Customers",
+  "probleme": "Ces séries annuelles non datées et arrondies contredisent les chiffres publiés ailleurs sur la même fiche",
+  "preuve": "Postpaid Net Adds 3,1 M contre CAHIER 3 294 k ; Postpaid Churn 0,87 contre 0,93 ; Fixed Wireless 6,5 M et HSI 6,4 M contre home_internet_subscribers 8,45 M ; Service Revenue 70 contre TOTAL_SERVICE_REVENUES 71 306 M$ ; Total Wireless 129,5 contre 142,4 M",
+  "correction_validee": "Supprimer Postpaid Net Adds, Postpaid Churn, Fixed Wireless Subs, High-Speed Internet Subscribers, Service Revenue et Total Wireless Customers.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Postpaid Phone ARPU",
+  "probleme": "Un saut invraisemblable de 20 % sur la dernière année d'une série sans dates",
+  "preuve": "série 47.78, 47.69, 48.86, 49.06, 58.96 ; yoy +20,2 %",
+  "correction_validee": "Retirer le KPI Postpaid Phone ARPU.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "5G Pop Coverage / 5G Population Covered",
+  "probleme": "Deux mesures de couverture 5G, sans dates, qui se contredisent",
+  "preuve": "340 M pop contre 332 M pers.",
+  "correction_validee": "N'en garder qu'une, datée et sourcée",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "postpaid_account_churn (signal)",
+  "probleme": "Le signal annonce une hausse alors que la série baisse",
+  "preuve": "Série Q1-2026=1.04, Q2-2026=0.99 ; signal « La hausse traduit le poids croissant des comptes uniquement internet »",
+  "correction_validee": "Réécrire le signal : recul à 0,99 % au T2 2026 après 1,04 % au T1",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "hero",
+  "champ": "hero",
+  "probleme": "Le KPI mis en avant est les revenus prépayés : une ligne secondaire (12 % du CA) et en recul, peu représentative d'un opérateur dont le moteur est le postpayé",
+  "preuve": "hero: prepaid_revenue, yoy -6 % ; Branded Postpaid 65,6 % du CA",
+  "correction_validee": "Mettre en avant postpaid_service_revenue ou postpaid_accounts",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TOTAL_CUSTOMERS",
+  "probleme": "Le nom annonce des abonnés mobiles alors que le total inclut l'internet fixe",
+  "preuve": "« Nombre total d'abonnés mobiles » = 142 388 k, soit le total clients qui inclut 8,45 M d'abonnés internet 5G",
+  "correction_validee": "Renommer TOTAL_CUSTOMERS en « Nombre total de clients ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "inventory (signal)",
+  "probleme": "Le signal déclare lui-même le KPI peu utile, ce qui décrédibilise la fiche",
+  "preuve": "« un indicateur peu révélateur de la santé du groupe pour un opérateur télécom »",
+  "correction_validee": "Retirer le KPI inventory.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "acquisitions à un point (Vistar, Blis, Ka'ena, Lumos, Metronet, 800 MHz, UScellular, programme 2026)",
+  "probleme": "Une dizaine d'événements ponctuels sont présentés comme des KPI, avec des dates de 2026 pour des opérations de 2024-2025",
+  "preuve": "« Metronet … clôture le 24 juillet 2025 » daté du 10 juin 2026 ; Mint Mobile racheté en 2024 mais daté du 11 août 2026",
+  "correction_validee": "Les retirer des KPI et les résumer dans la thèse ou l'anti-thèse",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "libellés",
+  "probleme": "Les libellés sont en anglais",
+  "preuve": "« Branded Postpaid Revenue ; Product, Equipment ; Product and Service, Other »",
+  "correction_validee": "Remplacer les libellés par « Postpayé de marque, Équipements, Prépayé de marque, Services de gros, Autres ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le type est vide et le texte ne décrit aucun avantage concurrentiel (spectre, réseau 5G, échelle)",
+  "preuve": "« None / tendance stable :: Les revenus des forfaits progressent de 11 %, mais de nouveaux risques apparaissent sur … la direction »",
+  "correction_validee": "Rédiger le fossé : avance en spectre de bande moyenne, échelle nationale, coûts de changement",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "manquant",
+  "probleme": "Il manque l'EBITDA ajusté du coeur de métier (Core Adjusted EBITDA) et le levier d'endettement, indicateurs de référence du secteur et objets de la guidance",
+  "preuve": "Aucun KPI d'EBITDA ni de ratio dette nette sur EBITDA, alors que la dette dépasse 86 Mds $",
+  "correction_validee": "Ajouter le Core Adjusted EBITDA trimestriel et le levier",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

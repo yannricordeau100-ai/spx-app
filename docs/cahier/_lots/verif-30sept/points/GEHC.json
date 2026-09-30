@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "risques",
+  "champ": "risks[1].titre, risks[3].titre",
+  "probleme": "Deux titres de risques en anglais.",
+  "preuve": "risque 2: 'Highly competitive healthcare imaging markets' ; risque 4: 'Healthcare payer reimbursement pressure'",
+  "correction_validee": "Traduire : Marches de l imagerie medicale tres concurrentiels ; Pression des payeurs sur les remboursements.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Organic orders growth.signal ; Book-to-bill ratio.signal",
+  "probleme": "Signal date au T1 2026 alors que la date du dernier point est le 30 juin 2026 (T2 2026) ; l un des deux est faux. Series sans libelles de periode.",
+  "preuve": "Organic orders growth: dernier 2026-06-30, signal 'ralentit à +1.1% au T1-2026' ; Book-to-bill: dernier 2026-06-30, signal 'stable à 1.07x au T1-2026'",
+  "correction_validee": "Verifier dans la publication du T2 2026 (28 juillet) et aligner date et signal ; ajouter les libelles de periode.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ORG_GROWTH_FRANCHISE",
+  "probleme": "Nom obscur (quelle franchise ?), variation affichee absurde (-480 % pour une serie en points), et valeur FY2024 = -1 contredite par la serie trimestrielle organic_growth 2024 (+1, +2, +4, +2 sur l annee : environ +1 %).",
+  "preuve": "serie: FY2023=8, FY2024=-1, FY2025=3.8 ; yoy=-480.0% ; organic_growth: Q3-2024=1, Q4-2024=2 (et 2024 publie environ +1 % organique)",
+  "correction_validee": "Retirer CAHIER_ORG_GROWTH_FRANCHISE, doublon annuel faux de organic_growth ; a defaut renommer Croissance organique annuelle, FY2024 = 1 et variation en points.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RECURRING_MIX vs service_pct",
+  "probleme": "Meme indicateur en annuel et en trimestriel (part des services dans le CA) sous deux noms differents.",
+  "preuve": "CAHIER_RECURRING_MIX FY2025=33.8 ; service_pct 2025 : 34.7, 34.8, 34.4, 31.4 (moyenne ponderee 33,8)",
+  "correction_validee": "Garder service_pct (trimestriel, a jour T2 2026) et retirer CAHIER_RECURRING_MIX, ou le renommer 'Part des services (annuel)'.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "gross_margin.yoy, op_margin.yoy, net_margin.yoy, imaging_margin.yoy, avs_margin.yoy, pcs_margin.yoy, pdx_margin.yoy, service_pct.yoy",
+  "probleme": "Variation annuelle de marges affichee en % alors qu il s agit d ecarts en points (39,6 -> 41,2 = +1,6 pt, pas +1,6 %). GEBN.SW affiche correctement 'pt'.",
+  "preuve": "gross_margin: Q2-2025=39.6, Q2-2026=41.2, yoy=+1.6% ; pcs_margin: 7.7 -> -3.9, yoy=-11.6%",
+  "correction_validee": "Afficher les variations des KPI en % en points : +1,6 pt, -11,6 pt, etc.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_annuelle vs debt_total",
+  "probleme": "Deux dettes totales fin 2025 differentes de 0,5 Md$ sans explication (emprunts vs dette incluant probablement les loyers).",
+  "preuve": "dette_annuelle 2025=10.505 Mds $ ; debt_total Q4-2025=10.02 Mds $",
+  "correction_validee": "Aligner sur une seule definition (emprunts totaux 10,02) ou preciser 'y compris dettes de loyers' dans la description de dette_annuelle.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "imaging_ebit, avs_ebit, imaging_margin, avs_margin",
+  "probleme": "Quatre series arretees au T1 2026 alors que le reste de la fiche est au T2 2026 ; aucun signal n indique qu elles sont closes par la refonte des segments, un lecteur croit a un oubli.",
+  "preuve": "imaging_ebit dernier 2026-03-31 ; avs_ebit dernier 2026-03-31 ; total_rev dernier 2026-06-30",
+  "correction_validee": "Ajouter dans le signal 'serie close au T1 2026, segment fusionne dans AIS' ou remplacer par l EBIT du nouveau segment AIS.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

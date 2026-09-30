@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "core_ffo_per_share",
+  "probleme": "Dernier point invraisemblable et signal perime",
+  "preuve": "Q2-2026=1.25 apres Q1-2026=1.50 alors que NOI, CA et FFO annuel progressent ; last_data_date 2026-09-25 ; signal « $1,50/action au T1 2026 » ; yoy « vs Q1-2025 »",
+  "correction_validee": "Verifier le Core FFO T2-2026 a la source, puis reecrire le signal et le yoy par rapport au T2-2025 (1,46 $) avec la date 2026-06-30.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Occupancy Rate, Cash Rent Spread, Development Starts, Power Pipeline (MW), Owned/Managed Sqft",
+  "probleme": "Cinq series annuelles sans dates, en franglais, contredites par les series trimestrielles",
+  "preuve": "Cash Rent Spread 2025=68 vs rent_change_cash 2025 de 27 a 35 % ; Development Starts 2.2 Md vs somme dev_starts_tei 2025 = 2.94 Md ; Power Pipeline 1.4 GW vs 5.6 GW ; descriptions « Leger softening post-2022 peak », « lease-up »",
+  "correction_validee": "Supprimer Occupancy Rate, Cash Rent Spread, Development Starts, Power Pipeline (MW) et Owned/Managed Sqft.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Rent change (cash), Rent change (net effective), Annual NOI, Core FFO annuel, Dividends annuel",
+  "probleme": "Doublons des series trimestrielles, dont un contradictoire",
+  "preuve": "Rent change (cash) dernier=13.5 vs rent_change_cash Q1-2026=16.8 ; Rent change (net effective) doublon de rent_change_ner",
+  "correction_validee": "Supprimer Rent change (cash) et Rent change (net effective) ; corriger ou supprimer le dernier point du WALT (2802 ans) ; garder les series annuelles de NOI, Core FFO et dividende.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "yoy (same_store_noi_nef, data_center_pipeline, intl_revenue_share, value_creation, third_party_aum, fee_related_earnings, space_utilization, employees)",
+  "probleme": "Champ yoy rempli avec du texte libre au lieu d une variation",
+  "preuve": "yoy=« Nouveau segment; inclus dans pipeline $5.1B total » ; yoy=« $788M sur revenus consolides totaux 2025 » ; yoy=« Sous la moyenne historique 85,3% »",
+  "correction_validee": "Remplacer ces yoy par une variation numerique (ou les laisser vides si le calcul est impossible) et deplacer le texte dans le signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "value_creation_stabilizations, third_party_aum, fee_related_earnings_ann",
+  "probleme": "Valeur affichee d un trimestre 2026 dans une serie annuelle",
+  "preuve": "value_creation val=387 (T1 2026, YTD) contre serie FY2022..FY2025 ; third_party_aum val=68 dernier 2026-03-31",
+  "correction_validee": "Afficher la valeur FY2025 ou passer la serie en trimestriel",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Moat dit que l occupation recule alors que la serie monte sur un an",
+  "preuve": "moat: « l occupation recule » ; occupancy_rate Q2-2025=95.0 -> Q2-2026=95.4 (+0.4pp)",
+  "correction_validee": "Reecrire : occupation stable a 95,4 %, reversion locative divisee par deux",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "att.corps",
+  "probleme": "Coquille et asterisque orphelin",
+  "preuve": "« A2 chez Moody's'au 30 juin 2026, dette a 4,8 fois l'EBITDA ajuste* »",
+  "correction_validee": "Corriger en « Moody's au » et garder l asterisque, qui renvoie au glossaire.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libelle anglais et total a 98 %",
+  "preuve": "Amerique du Nord 89.6 ; Europe 3.8 ; Asie 1.8 ; Other Americas 2.8",
+  "correction_validee": "Renommer en « Autres Ameriques » et recalculer les parts sur le total de 8,04 Md$ (91,4 ; 3,9 ; 1,9 ; 2,9).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Gross Book Value of Ten Unconsolidated Ventures vs third_party_aum.signal",
+  "probleme": "Nombre de co-entreprises contradictoire",
+  "preuve": "« 10 ventures » vs signal third_party_aum « 17 co-entreprises »",
+  "correction_validee": "Aligner sur le chiffre du dernier supplement",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "noi_europe Q2-2026, total_debt",
+  "probleme": "Chute inexpliquee du NOI Europe et trous dans la serie de dette",
+  "preuve": "noi_europe Q1-2026=21.8 -> Q2-2026=12.3 (-44 % en un trimestre) ; total_debt sans Q4-2024 ni Q4-2025",
+  "correction_validee": "Verifier le NOI Europe T2-2026 a la source, completer les T4",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

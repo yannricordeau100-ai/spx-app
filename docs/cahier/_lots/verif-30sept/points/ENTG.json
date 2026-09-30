@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "risques",
+  "champ": "risks[0..6].description",
+  "probleme": "Les sept risques n ont qu un titre, aucune description",
+  "preuve": "risque 1: Exposition aux taux d'intérêt et refinancement :: (vide) ; idem pour les 7 risques.",
+  "correction_validee": "Passer summary en description et réécrire depuis l'item 1A du 10-K 2025 les résumés des risques 3, 5 et 7, qui ne correspondent pas à leur titre.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Advanced Materials, Microcontamination Ctrl, Advanced Planarization",
+  "probleme": "Trois series sur l ancienne organisation en divisions (abandonnee en 2023), sans periodes, chiffres ronds, descriptions en franglais avec erreur factuelle",
+  "preuve": "serie 0.79, 0.88, 1.04, 1.09, 1.07 sans annees ; descriptions « Foundry capex cycle, dépendant TSMC/Samsung capex », « KPI le plus stable ENTG », « CMR Group acquisition 2022 boost » (l acquisition est CMC Materials) ; « APS » y designe Advanced Planarization alors que le segment actuel APS = Advanced Purity Solutions ; dernier 2026-08-05.",
+  "correction_validee": "Retirer les trois KPI Advanced Materials, Microcontamination Ctrl et Advanced Planarization.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "SEG_MS_REV (hero)",
+  "probleme": "Hero sans variation annuelle et doublon trimestriel/annuel avec SEG_MS_REVENUE",
+  "preuve": "SEG_MS_REV yoy vide alors que Q2-2026=371.3 contre Q2-2025=354.9 (+4,6 %) ; SEG_MS_REVENUE annuel FY2025=1406.7 couvre le meme indicateur.",
+  "correction_validee": "Renseigner yoy=+4,6 % ; conserver une seule granularite ou choisir un hero plus distinctif (marge brute, part des revenus consommables).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_INSTALLED_BASE_SERVICE",
+  "probleme": "Nom faux pour ce que mesure la serie et serie arretee en 2023",
+  "preuve": "« Revenus de services et pièces sur base installée » en % ; Entegris ne vend pas de services sur base installee, l indicateur publie est la part des revenus lies aux volumes de plaquettes (consommables) ; serie FY2016..FY2023, saut 69 (2021) a 80 (2022).",
+  "correction_validee": "Renommer « Part des revenus liés aux volumes de production (consommables) », verifier la definition et completer 2024-2025 ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "GROSS_MARGIN (absent)",
+  "probleme": "La these s appuie sur la marge brute mais aucun KPI de marge brute n existe sur la fiche",
+  "preuve": "these : « sa marge brute* a atteint 47,6 % contre 44,4 % un an plus tôt » ; aucun KPI marge brute dans la liste.",
+  "correction_validee": "Ajouter la serie trimestrielle de marge brute (indicateur cle du secteur).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.niveau",
+  "probleme": "Moat « Aucun » contredit le positionnement IA et la these qui affirment un avantage concurrentiel",
+  "preuve": "moat: None / tendance hausse ; positionnement IA : « Son avantage compétitif réside dans les matériaux de pureté extrême » ; moat justification : « matériaux qualifiés dans les recettes de fabrication des clients ».",
+  "correction_validee": "Aligner le niveau du moat (couts de changement lies a la qualification) ou reformuler les autres blocs.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

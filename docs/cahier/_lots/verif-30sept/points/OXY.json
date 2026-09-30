@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Permian production / Rockies & Other Domestic production / Year-end proved reserves / All-in reserves replacement ratio / Principal debt",
+  "probleme": "Cinq doublons de KPI déjà présents sous forme de série longue : permian_prod (annuel) et Permian production (trimestriel), rockies_prod et Rockies & Other Domestic production, proved_reserves (MMboe) et Year-end proved reserves (billion BOE), CAHIER_RRR et All-in reserves replacement ratio, lt_debt et Principal debt / Principal debt after OxyChem proceeds. Les doublons ont des unités anglaises (billion BOE, Mboed) et des dates fausses (réserves de fin d'année datées 2026-03-28).",
+  "preuve": "proved_reserves FY2025=4603 MMboe ; Year-end proved reserves serie 3.5, 4, 4.6, 4.6 dernier 2026-03-28 ; CAHIER_RRR FY2025=98 ; All-in reserves replacement ratio val=98",
+  "correction_validee": "Supprimer Year-end proved reserves, All-in reserves replacement ratio, Principal debt et Principal debt after OxyChem proceeds ; garder les séries trimestrielles Permian et Rockies en datant leurs points et en passant l'unité en Mboe/j.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Principal debt",
+  "probleme": "Le signal cite 13,3 Mds $ alors que la valeur affichée est 11,8 (dernier point de la série). Les chiffres de dette remboursée diffèrent aussi entre thèse (8,6 Mds $), anti-thèse (8,7 Mds $) et KPI Principal debt after OxyChem proceeds (5,4 Md$ remboursés).",
+  "preuve": "Principal debt | val=11.8 | serie: 13.3, 11.8 :: Dette principale ramenée à 13,3 Mds$ ; these: remboursé 8,6 Mds $ ; att: rembourser 8,7 Mds $ ; KPI: remboursement de 5,4 Md$",
+  "correction_validee": "Aligner le signal sur 11,8 Mds $ et harmoniser le montant remboursé dans thèse et anti-thèse sur la source du T2 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Série des effectifs arrêtée en 2022 (11 973) alors que les rapports annuels 2023, 2024 et 2025 sont sur la fiche (dette_annuelle et revenue_annuel vont jusqu'à 2025). Les trois ratios par salarié sont donc figés sur 2022 tout en étant datés 2025-12-31.",
+  "preuve": "effectifs_annuels | dernier 2023-02-27 | serie ... 2022=11973 ; ca_par_salarie | dernier 2025-12-31 | val=3059.7 (valeur 2022)",
+  "correction_validee": "Compléter les effectifs 2023 à 2025 depuis les 10-K puis recalculer ca_par_salarie, fcf_par_salarie et dette_par_salarie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "revenue_q, net_margin_q, pretax_margin_q, rev_us_q, rev_intl_q, midstream_rev",
+  "probleme": "Le trimestre Q4-2025 manque dans six séries trimestrielles (saut de Q3-2025 à Q1-2026) alors que les autres séries du même trimestre sont présentes (net_income_q, ocf_q, seg_og_rev).",
+  "preuve": "revenue_q serie: ... Q3-2025=6.62, Q1-2026=5.23 ; rev_us_q: Q3-2025=5.8, Q1-2026=4.63",
+  "correction_validee": "Réintégrer le point Q4-2025 de chaque série depuis le 10-K 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rev_us_q / rev_intl_q / rev_oil_q (signaux)",
+  "probleme": "Les parts citées ne se recoupent pas : 83 % États-Unis plus 19 % international font 102 %, et 5,89 + 1,31 = 7,20 Mds $ contre 8,07 Mds $ de CA consolidé le même trimestre. Le 89 % de revenus pétroliers n'est cohérent avec aucun des deux totaux.",
+  "preuve": "rev_us_q :: soit 83% du total ; rev_intl_q :: soit 19% du total ; revenue_q Q2-2026=8.07 ; rev_oil_q 6.29 :: 89% des revenus clients",
+  "correction_validee": "Recalculer les pourcentages sur une base unique (revenus clients 7,20 Mds $ : 82 % / 18 % / 87 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le moat affirme l'absence d'avantage concurrentiel propre alors que la thèse revendique un fossé économique ancien dans la récupération assistée au CO2 : les deux blocs se contredisent.",
+  "preuve": "moat :: sans avantage concurrentiel propre ; these :: un fossé économique ancien dans la récupération assistée au CO2",
+  "correction_validee": "Trancher : soit reconnaître l'EOR au CO2 comme avantage dans le moat, soit retirer l'argument de la thèse.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_FD_COST",
+  "probleme": "Le coût de découverte et développement 2021 à 2,73 $/boe est invraisemblable face au reste de la série (6,6 à 15,4 $/boe) ; la série saute aussi 2019 et 2020, tout comme CAHIER_RRR.",
+  "preuve": "CAHIER_FD_COST serie: FY2018=12.29, FY2021=2.73, FY2022=6.6 ; CAHIER_RRR serie: FY2018=164, FY2021=241",
+  "correction_validee": "Vérifier le point 2021 (probable division par des ajouts de réserves gonflés par les révisions de prix) et compléter 2019 et 2020.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Six-well Wolfcamp Tanks project output, Gulf of America record topside uptime, OxyChem divestiture, CrownRock Acquisition, Debt repaid since CrownRock closing, Annual interest payment reduction, Cumulative annual cost savings, Share of resources located in the US, Total oil and gas resources, dac_stratos",
+  "probleme": "Dix indicateurs à un seul point qui sont des faits d'actualité ou des événements (cession, acquisition, projet de six puits, site DAC = 1) et non des séries suivies. dac_stratos annonce un démarrage commercial prévu 2026 alors que la fiche est au T2 2026.",
+  "preuve": "KPI dac_stratos | site opérationnel | n=1 | val=1 :: démarrage commercial prévu 2026 ; Six-well Wolfcamp Tanks project output | n=1 | val=1.2",
+  "correction_validee": "Basculer ces faits dans les stories ou le bloc événements et retirer les KPI à un point.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "vol_oil_intl, vol_ngl_intl, oman_prod, algeria_prod (signaux)",
+  "probleme": "Coquille typographique répétée : l'unité est collée à une apostrophe (« Mboe/j'en », « Mbbl/j'au »).",
+  "preuve": "72 Mboe/j'en Oman en 2025 ; contre 110 Mbbl/j'au T2-2025 ; 31 Mboe/j'en Algérie",
+  "correction_validee": "Remplacer « /j'en » par « /j en » et « /j'au » par « /j au » dans les quatre signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Répartition géographique vide (États-Unis None, International None) alors que les séries rev_us_q et rev_intl_q permettent de la calculer.",
+  "preuve": "revenue_by_geography (None): États-Unis None ; International None ; rev_us_q Q2-2026=5.89, rev_intl_q=1.31",
+  "correction_validee": "Remplir avec les revenus clients de l'exercice 2025 (10-K, note information géographique).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

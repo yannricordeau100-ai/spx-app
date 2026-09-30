@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "tx_rate_base / rate_base_transport",
+  "probleme": "Doublon de la base tarifaire transmission (trimestriel et annuel) avec valeurs contradictoires et serie trimestrielle visiblement lissee, arretee en Q3-2025",
+  "preuve": "tx_rate_base Q4-2024=11,0 G$ vs rate_base_transport 2024=10,8 ; trimestriel 10.2, 10.5, 10.7, 11, 11.1, 11.2, 11.3 (progression quasi lineaire, signal dit 'estimee') ; rate_base_transport sans description",
+  "correction_validee": "Supprimer tx_rate_base et garder rate_base_transport (annuel, publie).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CUSTOMER_LOAD_GROWTH",
+  "probleme": "Nom faux : la serie est un volume annuel de ventes d electricite au detail (GWh), pas une croissance de clients ; doublon annuel de elec_sales_vol",
+  "preuve": "FY2025=51316 GWh = somme des 4 trimestres elec_sales_vol 2025 (13+11.9+13.7+12.7 TWh = 51,3 TWh)",
+  "correction_validee": "Renommer 'Ventes d electricite au detail annuelles (GWh)'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CAPEX_PLAN / Five-year capital investment plan",
+  "probleme": "Doublon du plan d investissement 5 ans, le second sans libelle d annee",
+  "preuve": "CAHIER_CAPEX_PLAN FY2025=26.51 ; Five-year capital investment plan serie 14.2, 17, 24.2, 26.5 (n=4, sans annees)",
+  "correction_validee": "Supprimer 'Five-year capital investment plan'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "psnh_roe.signal",
+  "probleme": "Signal contredit la serie : cite 9,5 % alors que le dernier point est 9,38",
+  "preuve": "serie Q1-2026=9.38 ; signal 'ROE autorise PSNH : 9.5%'",
+  "correction_validee": "Reecrire le signal sur 9,38 % (Q1-2026) ou corriger le point",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "water_sales_vol.signal",
+  "probleme": "Signal perime (cite T1-2026) alors que la serie va a Q2-2026 ; segment eau cede le 30 juin 2026, serie a figer",
+  "preuve": "signal 'Volume d eau Q1-2026: 5 155 MG' ; serie Q2-2026=5 ; aquarion_rev : 'vente finalisee le 30 juin 2026'",
+  "correction_validee": "Signal sur Q2-2026 (5,0 Md gal), mentionne comme dernier trimestre consolide avant cession.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "offshore_wind",
+  "probleme": "Serie nulle depuis Q3-2024 et arretee en Q3-2025 : KPI sans information",
+  "preuve": "Q3-2024 a Q3-2025 = 0, val=0, yoy=n/a",
+  "correction_validee": "Supprimer offshore_wind.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Revolution Wind offshore capacity",
+  "probleme": "Presente 704 MW comme une capacite d Eversource alors que le groupe a cede tout l eolien offshore en 2024 (risque 3, offshore_wind)",
+  "preuve": "signal 'Ce projet quasi acheve doit entrer en service commercial' ; risque 3 'Sortie de l offshore wind' ; offshore_wind=0",
+  "correction_validee": "Supprimer ou reformuler comme contexte regional, pas comme KPI societe",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "tx_rev.signal, seg_oi_elec_distrib.signal, seg_oi_gas.signal, seg_oi_transmission.signal",
+  "probleme": "Mention de source dans le signal visible",
+  "preuve": "'Source rapport trimestriel du 2026-08-03', 'Source note segments rapport trimestriel du 2026-08-03' (4 signaux)",
+  "correction_validee": "Retirer la phrase 'Source ...' des 4 signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "9 KPI a un seul point (Revolution Wind, New generation, Projected demand 2035, Storm cost, FERC ROE, Cambridge substation, Smart meters, Offshore charge, Environmental reserve)",
+  "probleme": "Neuf 'KPI' a une seule valeur datee 2026-03-28, sans serie : faits de transcript presentes comme indicateurs",
+  "preuve": "n=1 sur 9 lignes, yoy=None",
+  "correction_validee": "Deplacer en stories ou supprimer, garder au plus FERC ROE et Environmental reserve en serie",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline",
+  "probleme": "Tagline en anglais",
+  "preuve": "'Delivering reliable energy, natural gas and water infrastructure...' ; mentionne encore l eau cedee",
+  "correction_validee": "Retirer la mention de l eau dans tagline_i18n.fr (et tagline).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

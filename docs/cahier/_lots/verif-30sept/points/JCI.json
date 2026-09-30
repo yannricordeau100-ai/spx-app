@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "signal de Americas Rev, EMEA Rev, Services Rev, Backlog Total, Backlog Americas, Orders BSol, RPO, Products Rev, BPA dilue",
+  "probleme": "Neuf KPI ont leur valeur au T3-2026 mais un signal qui commence par « T2-2026 : » avec les chiffres du T2.",
+  "preuve": "Backlog Total val=21 signal « T2-2026 : 20.0 Mds$ (+26%) » ; BPA dilue val=1.23 signal « T2-2026 : 1.00 $ (+39%) » ; Services Rev val=2018 signal « T2-2026 : 31.6% du CA total » ; Orders BSol val=6.8 signal « T2-2026 : 7.4 Mds$ (+30%) ».",
+  "correction_validee": "Regenerer les neuf signaux et recalculer leurs yoy sur le T3-2026 (ex. BPA 1,23 $ +15 %, Americas 4 504 M$ +11,4 %).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "APAC Rev, EBITA Americas, EBITA EMEA, EBITA APAC, Services %, Resultat net, Capex, OCF, FCF, Rachats actions, Dividende/action, Dette totale, Stocks ; chiffre d'affaires consolide",
+  "probleme": "Treize series s'arretent au T2-2026 alors que le T3 (30 juin 2026) est publie et cite dans la these ; et aucun KPI ne donne le chiffre d'affaires consolide trimestriel.",
+  "preuve": "these « chiffre d'affaires trimestriel de 6 614 M$ en hausse de 9 % » : aucun KPI ne porte 6 614 ; Resultat net dernier 2026-05-06 (Q2-2026=613) ; EBITA APAC dernier Q2-2026=146.",
+  "correction_validee": "Prolonger les treize series au T3-2026 et ajouter un KPI trimestriel Chiffre d'affaires total.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Backlog Total, Backlog Americas, Orders BSol : yoy, signal, moat, anti-these",
+  "probleme": "Les pourcentages de croissance du carnet et des commandes different d'un bloc a l'autre et aucun ne correspond a la serie affichee.",
+  "preuve": "Backlog Total : yoy « +26% », moat « +26 % », att « 21,0 Mds $ (+32%) », serie 21 vs Q3-2025 14.6 = +44 % ; Backlog Americas signal « +32% » vs 14.9/9.8 = +52 % ; Orders BSol signal « +30% » vs 7.4/5.2 = +42 %.",
+  "correction_validee": "Verifier la base FY2025 retraitee, aligner yoy, signal, moat et att sur une seule mesure et preciser organique le cas echeant.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Service Mix, Services %, CAHIER_SERVICE_RECURRING_MIX",
+  "probleme": "Trois definitions contradictoires de la part des services, sans que l'investisseur puisse savoir laquelle est vraie.",
+  "preuve": "Service Mix annuel 41 (sans annees, signal vide) ; Services % Q2-2026=31.6 ; CAHIER_SERVICE_RECURRING_MIX FY2022=23.8 (serie arretee en 2022) ; Services Rev/CA T3-2026 = 2018/6614 = 30,5 %.",
+  "correction_validee": "Garder Services % calcule sur Services Rev, supprimer Service Mix et CAHIER_SERVICE_RECURRING_MIX.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Backlog, Orders growth (organic YoY), Orders Growth, Adj. Segment Margin, OpenBlue Connected Sites, Op Margin",
+  "probleme": "Lot de series sans periodes ni signal, doublons perimes et yoy faux.",
+  "preuve": "Backlog 21 points sans periodes, dernier 20 vs Backlog Total 21, description « ramp data centers (cooling) + applied HVAC + service. Record absolu. » ; Orders growth (organic YoY) 19 points sans periodes, val 30 = T2 alors que att donne +27 % au T3 ; Op Margin yoy « -3,6 pts » pour 10 vers 9.64 (-0,36 pt) ; Orders Growth, Adj. Segment Margin, OpenBlue Connected Sites : annees et signal absents.",
+  "correction_validee": "Supprimer Backlog (doublon) ; etiqueter les periodes des cinq autres ou les supprimer ; corriger le yoy de Op Margin.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Repartition geographique d'un exercice ancien (total 22,32 Mds $ = CA FY2023), perimetre d'avant la cession du residentiel et de la JV Hitachi, libelles anglais, et contradiction avec le KPI CA US.",
+  "preuve": "« revenue_by_geography (None): United States 49.3 ; ... Japan 8 ; Other foreign 18.4 », total JSON 22.32 ; CA US FY2025=13.3 Mds $ « ~56% du CA total » ; revenue_annuel 2023=22.331.",
+  "correction_validee": "Reconstruire la repartition sur l'exercice 2025 du 10-K avec libelles francais et exercice indique.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete / repartition",
+  "champ": "sous-secteur et libelles de segments",
+  "probleme": "Sous-secteur et segments en anglais.",
+  "preuve": "« Industrie > Building Technologies and Solutions » ; « Building Solutions North America 67.1 ; Building Solutions EMEA/LA 21.1 ; Building Solutions Asia Pacific 11.9 ».",
+  "correction_validee": "Sous-secteur Produits pour le batiment ; segments Ameriques, EMEA, Asie-Pacifique (ou traduction des libelles d'origine si l'exercice les emploie).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "JCI_PROD et CAHIER_SERVICE_RECURRING_MIX : series",
+  "probleme": "Deux series annuelles arretees en 2023 et 2022 sur l'ancien perimetre, alors que Products Rev trimestriel court jusqu'au T3-2026.",
+  "preuve": "JCI_PROD « dernier 2023-12-31 | FY2017=16762 ... FY2023=20251 » ; Products Rev Q3-2026=4596.",
+  "correction_validee": "Supprimer JCI_PROD ou le prolonger et le retraiter ; supprimer CAHIER_SERVICE_RECURRING_MIX.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "EBITA Americas (signal), Segment EBITA Total (description), Dette totale et Stocks (yoy)",
+  "probleme": "Formule de calcul et jargon comptable dans les textes ; variation annuelle affichee sur des series de deux points.",
+  "preuve": "« marge EBITA 19.0% (782/4121) » ; « utilisee par le CODM pour evaluer la performance » ; Dette totale n=2 (9.7, 9.5) yoy « +4.1% » ; Stocks n=2 yoy « +2.6% ».",
+  "correction_validee": "Retirer la parenthese, remplacer CODM par la direction, supprimer les yoy de Dette totale et Stocks tant que les series n'ont pas le point N-1.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateur manquant : BPA ajuste et marge EBITA ajustee trimestrielle",
+  "probleme": "Les mesures que JCI guide (BPA ajuste, marge de segment ajustee) n'existent qu'en annuel non etiquete ; le resultat net et l'EBITA de segment s'arretent au T2.",
+  "preuve": "KPI presents : BPA dilue (GAAP), Adj. Segment Margin annuel sans annees ; EBITA Americas dernier Q2-2026.",
+  "correction_validee": "Ajouter BPA ajuste et marge EBITA ajustee des segments en trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

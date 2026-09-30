@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Amex/SkyMiles, Loyalty Revenue (Amex), Amex Co-brand Revenue, American Express remuneration, Amex Sales",
+  "probleme": "Cinq KPI pour la remuneration American Express, avec des valeurs 2025 contradictoires (8,2 vs 7,9 vs 7,5 Mds $) ; Amex Co-brand Revenue affiche val=8.2 alors que sa serie finit a 7.5 ; trois des cinq n ont pas de dates.",
+  "preuve": "Amex/SkyMiles FY2025=8200 ; Loyalty Revenue (Amex) serie: 6.8, 7.1, 7.4, 7.6, 7.9 ; Amex Co-brand Revenue val=8.2 serie: 3.4, 4.3, 5.7, 6.7, 7.5 ; American Express remuneration serie: 1.7, 1.7, 1.9, 1.8, 2, 2, 2, 2",
+  "correction_validee": "Garder Amex/SkyMiles et Amex Sales, et supprimer les trois autres.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Premium Revenue",
+  "probleme": "Serie annuelle anglaise sans dates (24,5 Mds $ en dernier point) contredite par la somme des trimestres 2025 de Premium Rev (22,1 Mds $) ; progression lissee de +0,9 par an, signature d une serie inventee.",
+  "preuve": "Premium Revenue serie: 20.8, 21.9, 22.8, 23.6, 24.5 ; Premium Rev 2025 = 4707+5899+5796+5695 = 22 097 M$",
+  "correction_validee": "Supprimer Premium Revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Adj Operating Margin, Adjusted Net Debt, Premium product revenue YoY growth, Loyalty revenue YoY growth, Cargo revenue YoY growth, Return on Invested Capital",
+  "probleme": "Series sans dates a progression parfaitement lineaire (marge ajustee 10,5 / 10,9 / 11,2 / 11,5 / 11,8) ou taux de croissance derives qui doublonnent des series existantes ; noms et signaux en jargon ('KPI rentabilite phare suivi par buy-side aerien').",
+  "preuve": "Adj Operating Margin serie: 10.5, 10.9, 11.2, 11.5, 11.8 :: 'Marge operationnelle ajustee, KPI rentabilite phare suivi par buy-side aerien' ; Op Margin Q2-2025=12.6, Q2-2026=9.4",
+  "correction_validee": "Supprimer les cinq premiers KPI, et dater le ROIC plutot que le supprimer.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Misc Rev (serie + signal), MRO Rev",
+  "probleme": "Rupture de serie x5 non expliquee (362 M$ au T4-2025 puis 71 M$ au T1-2026) probablement due a la sortie de la maintenance tierce vers MRO Rev ; le signal annonce '+71 % sur un an' alors que 106 vs 309 fait -66 %. MRO Rev n a que 4 points avec un trou au S2-2025.",
+  "preuve": "Misc Rev ... Q4-2025=362, Q1-2026=71, Q2-2026=106, yoy=+71% :: '106 M$ ... en hausse de 71% sur un an' ; MRO Rev serie: Q1-2025=151, Q2-2025=239, Q1-2026=380, Q2-2026=315",
+  "correction_validee": "Couper Misc Rev au T1-2026 ou la retraiter, corriger le yoy et le signal (base non comparable), et completer MRO Rev pour le T3 et le T4-2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / anti-these",
+  "champ": "these.accroche, att.accroche vs Fuel Price",
+  "probleme": "La these et l anti-these parlent d une hausse du carburant de 80 % au T2-2026 ; le KPI Fuel Price donne +66 % (3,66 vs 2,21 $) et Fuel Cost +67 %.",
+  "preuve": "these : 'le prix du carburant achete par Delta a bondi de 80 %' ; Fuel Price Q2-2025=2.21, Q2-2026=3.66, yoy=+66%",
+  "correction_validee": "Verifier le communique du T2-2026 et aligner these et anti-these sur +66 % (prix par gallon), sauf base differente explicite.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Load Factor.signal, Tax.signal",
+  "probleme": "Chiffres N-1 cites dans les signaux differents de la serie : 85,5 % contre 86,0 % (Load Factor Q2-2025) ; 447 M$ contre 444 M$ (Tax Q2-2025).",
+  "preuve": "Load Factor Q2-2025=86 yoy=-1.2 pts :: 'contre 85,5% un an plus tot' ; Tax Q2-2025=444 :: 'contre 447 M$ un an plus tot'",
+  "correction_validee": "Remplacer par 86,0 % et 444 M$.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total mainline aircraft on order, Firm aircraft orders placed",
+  "probleme": "Doublon a un point du carnet de commandes (343) deja porte par Order Book au T1-2026, et la commande de 95 avions se lit deja dans le saut 256 -> 343 de la serie.",
+  "preuve": "Total mainline aircraft on order n=1 val=343 ; Order Book Q4-2025=256, Q1-2026=343, Q2-2026=332",
+  "correction_validee": "Supprimer Total mainline aircraft on order, et passer Firm aircraft orders placed en story.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels vs FTE",
+  "probleme": "Serie a trous (2021, 2023, 2024 absents) dont le yoy +8,4 % compare 2025 a 2022 ; la serie FTE de la meme fiche montre 103 k stable de 2023 a 2025, donc 0 %. Les trois ratios par salarie s arretent en 2020.",
+  "preuve": "effectifs_annuels serie: 2016=84000 ... 2020=74000, 2022=95000, 2025=103000 yoy=+8.4% ; FTE FY2023=103, FY2024=103, FY2025=103 yoy=0% ; ca_par_salarie serie 2016..2020",
+  "correction_validee": "Completer 2021, 2023 et 2024, mettre le yoy a 0 % et prolonger les trois ratios par salarie jusqu en 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RASM.name, CAHIER_YIELD.name",
+  "probleme": "Noms en 'kilometre' alors que l unite et les valeurs sont en milles (identiques a TRASM et Yield en cents par mille).",
+  "preuve": "CAHIER_RASM | Recette unitaire par siege kilometre offert | ... | cents / siege mille ; CAHIER_YIELD | Recette au passager kilometre | ... | cents / passager mille",
+  "correction_validee": "Renommer 'Recette totale par siege-mille offert (annuel)' et 'Recette par mille-passager (annuel)'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RPM_ANNUEL.signal",
+  "probleme": "Texte de modele generique et faux : les milles-passagers ne sont pas un 'produit phare'.",
+  "preuve": "'Milles-passagers payants : 249.578 milliards de milles-passagers en 2025, produit phare de la societe.'",
+  "correction_validee": "'249,6 Mds de milles-passagers en 2025, +1,4 % sur un an, nouveau record.'",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat / positions / risques",
+  "champ": "moat.text, market_positions[0], risks[0]",
+  "probleme": "Le moat conclut a 'une position sans avantage etabli' juste apres avoir decrit premium, fidelite et cartes a 62 % des revenus, ce qui est contradictoire ; la position de marche n a pas de libelle ; le risque 1 est un titre generique.",
+  "preuve": "moat : 'porte la part des revenus hors billet a 62 pour cent, ce qui solidifie une position sans avantage etabli' ; position de marche 1: None | taille 1008 | part None ; risque 1: Risque specifique au business model",
+  "correction_validee": "Trancher le moat (avantage etroit via fidelite/premium ou aucun) ; nommer la position (flotte de 1 008 appareils ?) ; reformuler le risque 1.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

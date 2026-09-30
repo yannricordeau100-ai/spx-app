@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "rate_base_pa / rate_base_ky / rate_base_ri / capex_plan_3y / capex_ppe_electric",
+  "probleme": "Séries trimestrielles lissées par interpolation, non publiées à ce rythme, puis saut au T4.",
+  "preuve": "rate_base_pa 10.15, 10.17, 10.19, 10.2, 10.28, 10.3, 10.35, 11.1 ; rate_base_ri 3.79 x3, 3.8 x4, 4.3 ; capex_plan_3y 13, 13.5, 14, 14.5, 15",
+  "correction_validee": "Passer ces séries en annuel en ne gardant que les points publiés.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Pennsylvania Op Revenues / Rhode Island Op Revenues / Total Op Revenues",
+  "probleme": "Doublons annuels arrêtés en 2024 avec signaux télégraphiques en franglais.",
+  "preuve": "« Corridor AI datacenters PA cle: Talen/Amazon » ; « 1.5M customers, 8,000 sq mi » ; « 800k customers, electric + gas » ; revenue_annuel va à 2025, seg_rev_*_q à T2 2026",
+  "correction_validee": "Supprimer les trois KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ISO New England transmission ROE customer refund",
+  "probleme": "Montant invraisemblable pour PPL : 2,5 Mds $ de remboursement alors que la base tarifaire de Rhode Island est de 4,3 Mds $ (chiffre de l'ensemble des transporteurs ISO-NE).",
+  "preuve": "val=2.526 Mds $ ; rate_base_ri Q4-2025=4.3",
+  "correction_validee": "Vérifier la quote-part de PPL, sinon retirer le KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Customers served",
+  "probleme": "Doublon de customers_total avec une valeur fausse après la cession de WPD.",
+  "preuve": "serie 10, 10, 2.5, 2.5, 3.5... ; customers_total FY2022=3.59 ; PA 1,5 M + KY 1,36 M = 2,9 M avant Rhode Island",
+  "correction_validee": "Supprimer Customers served.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rate_base_pa / rate_base_ri (nom)",
+  "probleme": "Traduction fausse de rate base.",
+  "preuve": "« Taux base réglementaire Pennsylvania », « Taux base réglementaire Rhode Island »",
+  "correction_validee": "« Base tarifaire Pennsylvanie » et « Base tarifaire Rhode Island ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CAPEX_PLAN / capex_plan_3y / Annual infrastructure investment ; CAHIER_ALLOWED_EARNED_ROE",
+  "probleme": "Plans d'investissement incohérents entre eux et KPI ROE au nom double pour une seule série plate dont le périmètre n'est pas dit.",
+  "preuve": "CAHIER_CAPEX_PLAN FY2025=17.35 vs capex_plan_3y=15 (2025-2027) ; CAHIER_ALLOWED_EARNED_ROE = 9.35 x5 sans rendement réalisé ; roe_ku_virginia=10.5, roe_rie_transmission=10.41",
+  "correction_validee": "Préciser l'horizon de chaque plan, renommer le ROE (quelle filiale) et ajouter le ROE réalisé.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux capex_plan_3y, capex_ppe_electric, roe_ku_virginia, capex_rie_elec_2026, net_income_q",
+  "probleme": "Signaux télégraphiques avec notation anglaise et mention périmée de 2021.",
+  "preuve": "« $15.0B ... generation $3.875B, distrib électrique » ; « Stipulation résolue nov 2024 » ; « Le creux 2021 reflète la perte comptable sur la cession de WPD »",
+  "correction_validee": "Réécrire en phrases françaises sur les données récentes.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

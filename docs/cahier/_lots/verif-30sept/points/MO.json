@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Oral Tobacco Shipments, Smokeable Volume, Smokeable Revenue, Capital Return, NJOY Consumables Share",
+  "probleme": "Cinq series annuelles sans periode, lissees ou estimees, contredites par les series trimestrielles de la fiche.",
+  "preuve": "Oral Tobacco Shipments serie 820, 830, 835, 840, 850 (croissante) alors que val=732,4 et yoy=-5,5 % et que la somme trimestrielle 2025 = 732,4 ; Smokeable Volume val=63,6 mais dernier point 70,5, CAHIER_SHIPMENT_VOL FY2025=61,752 ; Smokeable Revenue 20.485 repete trois fois puis 23,5 « FY estimee » superieur au CA total 2025 (23,279) ; Capital Return signal « indique une rentabilité financière stable » (texte de modele).",
+  "correction_validee": "Retirer les cinq séries.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "smokeable_volume / Total domestic cigarette shipment volume / Marlboro cigarette shipment volume / MARLBORO_US_SHIPMENTS",
+  "probleme": "Les volumes trimestriels ne sont pas coherents entre eux ni avec l annuel ni avec l anti-these.",
+  "preuve": "T1-2025 : smokeable_volume 14,61 puis T2 16,55, alors que Total domestic cigarette T1 16,593 puis T2 14,204 (profil inverse) ; somme Marlboro 2025 = 56,84 Mds contre MARLBORO_US_SHIPMENTS FY2025 = 54,933 ; att : « volumes de cigarettes reculaient de 4,5 % au deuxième trimestre 2026 » contre yoy -2,4 % (total cigarettes) et -2,9 % (fumables).",
+  "correction_validee": "Re-extraire les volumes trimestriels depuis les communiqués, garder une série par périmètre et aligner le chiffre de l'anti-thèse (non automatique).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "smokeable_net_rev.signal ; E-vapor reporting unit impairment.signal",
+  "probleme": "Unites fausses dans les signaux (M$ pour des milliards).",
+  "preuve": "« revenus fumable 5,39 M$ (+0.7% YoY) … OCI reporté 2,94 M$ » pour 5 392 M$ et 2 942 M$ ; « Charge exceptionnelle non cash de 2,13M$ » pour 2 128 M$.",
+  "correction_validee": "Écrire 5,39 Mds $, 2,94 Mds $ et 2,13 Mds $.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "operating_margin_q, share_repurchases_q, long_term_debt_q, inventories_q (signal)",
+  "probleme": "Mentions de source dans les signaux, avec une periode fausse (T3 2026 alors que la donnee est T2-2026).",
+  "preuve": "« … résultat opérationnel 3 136 M$ contre 3 230 M$; source T3 2026 » ; « rythme de rachats nettement ralenti; source T3 2026 » ; « bilan T3 2026 » (deux fois).",
+  "correction_validee": "Supprimer les mentions « source T3 2026 » et « bilan T3 2026 » des quatre signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SMOKE_FREE_MIX ; premium_seg_share_marlboro / Marlboro share of premium cigarette segment",
+  "probleme": "Doublons : CAHIER_SMOKE_FREE_MIX porte un nom de part (%) mais contient le volume on! en bidons, avec un signal faux ; la part premium de Marlboro existe deux fois.",
+  "preuve": "CAHIER_SMOKE_FREE_MIX « Part des produits sans combustion » unite M bidons, serie identique a on_shipment_annual (48,4 … 177,8), signal « approche déjà le volume des cigarettes traditionnelles » (177,8 M bidons contre 61,8 Mds batonnets) ; premium_seg_share_marlboro T2-2026=59,6 et « Marlboro share of premium cigarette segment » val=59,5.",
+  "correction_validee": "Retirer CAHIER_SMOKE_FREE_MIX et la série « Marlboro share of premium cigarette segment » (garder premium_seg_share_marlboro).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "pouch_category_share_oral ; njoy_evapor_rev",
+  "probleme": "Valeur affichee differente du dernier point de la serie ; revenu negatif impossible.",
+  "preuve": "pouch_category_share_oral val=59,9 et yoy +8,1pp alors que la serie s arrete a FY2025=56,9 (et le KPI n=1 dit 58 au T1-2026) ; njoy_evapor_rev FY2025 = -13 M$ : un chiffre d affaires ne peut pas etre negatif, le signal parle d une depreciation.",
+  "correction_validee": "Aligner val sur la serie ou ajouter le point 2026 ; verifier njoy_evapor_rev (probablement OCI et non revenus) et renommer ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "summary",
+  "probleme": "Cuisine interne visible : mention d une version future du produit.",
+  "preuve": "« Une analyse fine de l'usage interne de l'IA (…) sera ajoutée en V2.0. »",
+  "correction_validee": "Supprimer la dernière phrase du résumé du positionnement IA.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "valeurs",
+  "probleme": "Repartition du CA vide alors que l anti-these cite 88 % pour le fumable.",
+  "preuve": "« revenue_by_segment (None): Produits fumables None ; Tabac oral None » ; att : « près de 88 % des revenus viennent d'une catégorie en déclin ».",
+  "correction_validee": "Renseigner depuis les revenus segment 2025 (fumable 20 485 M$, oral 2 802 M$).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI n=1 (Smoke-free share, Adult consumers, on! PLUS distribution, Illicit share, FDA fees, buyback program, 2028 CAGR goal, Cigars, Debt repaid)",
+  "probleme": "Treize entrees a un seul point sans serie, dont un objectif exprime avec une unite absurde et des faits ponctuels deja couverts.",
+  "preuve": "« 2028 adjusted diluted EPS CAGR goal » unite « $ base BPA 2022 » val=4,87 ; « Cigars shipment volume » 1,8 Mrd n=1 alors que cigars_shipment_annual existe (1 783 M) ; « Long-term debt repaid at maturity » 2 Mds n=1.",
+  "correction_validee": "Retirer les doublons (cigares, programme de rachat) et deplacer le reste en evenements.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

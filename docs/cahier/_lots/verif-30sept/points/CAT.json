@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Repartition par segment sans rapport avec les series segment de la fiche, avec un nom de segment obsolete et un poids All Other invraisemblable.",
+  "preuve": "Bloc : Construction Industries 11,77 Mds (28,2 %), Resource Industries 7,98 (19,1 %), Energy & Transportation 10,55 (25,3 %), Financial Products 12,1 %, All Other 15,3 % ; series 2025 : CI 25 060 M, RI 12 474 M, P&E 32 201 M, FP 4 220 M sur 67 589 M (CI 37 %, P&E 48 %, RI 18 %, FP 6 %) ; le segment s appelle Power & Energy.",
+  "correction_validee": "Reconstruire le bloc FY2025 à partir de CI_REV, RI_REV, PE_REV et FP_REV, avec des parts calculées sur leur somme : CI 33,9 %, RI 16,9 %, P&E 43,5 %, FP 5,7 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RI_REV / PE_REV / RI_PROFIT / RI_MARGIN / PE_PROFIT / PE_MARGIN",
+  "probleme": "Le perimetre des segments a change debut 2026 (Rail passe de P&E a RI) mais les series 2023-2025 ne sont pas retraitees : les yoy et signaux utilisent des bases retraitees absentes de la serie.",
+  "preuve": "RI_REV yoy +20 % alors que 4 648/3 087 = +50,6 % ; PE_REV yoy +17 % alors que 8 238/7 836 = +5,1 % ; RI_PROFIT signal « contre 563 M$ un an plus tôt » vs serie Q2-2025 = 537 ; RI_MARGIN signal « contre 14,5% » vs serie 17,4 ; PE_MARGIN signal « contre 22,1% » vs serie 20,2 ; PE_REV Q4-2025 9 400 → Q1-2026 7 031.",
+  "correction_validee": "Retraiter 2025 sur le nouveau périmètre (Rail dans RI) depuis les 10-Q 2026, ou signaler la rupture de périmètre sur les six séries et aligner les yoy sur la série affichée.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cat Financial Receivables",
+  "probleme": "KPI mal libelle : les valeurs sont le chiffre d affaires du segment Financial Products, pas des encours de financement (qui se chiffrent en dizaines de milliards).",
+  "preuve": "history [3886, 4053, 4220] ; FP_REV 2025 = 1007+1042+1076+1095 = 4 220 ; description « Encours moyens Cat Financial : segment captif finançant ~25% des ventes équipement » ; unite M $.",
+  "correction_validee": "Supprimer Cat Financial Receivables, FP_REV couvrant déjà ce chiffre.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SERVICES_PARTS_MIX / Services revenue / Services Revenue",
+  "probleme": "Trois KPI pour le meme chiffre de services (24 Mds $), dont un nomme « Part » mais exprime en Mds $.",
+  "preuve": "CAHIER_SERVICES_PARTS_MIX « Part des services et pièces », unite Mds $, FY2025 = 24 ; Services revenue (2026-05-11) val 24 ; Services Revenue (None) [17, 19, 21.5, 23.3, 24] signal vide.",
+  "correction_validee": "Garder une seule série nommée « Revenus de services » (Mds $) et supprimer les deux autres.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CI_SALES_FY.name_fr",
+  "probleme": "Nom de KPI faux et trop long : Construction Industries ne se limite pas aux petits et moyens tracteurs a chaines ; doublon annuel de CI_REV.",
+  "preuve": "« Chiffre d'affaires annuel Construction Industries (segment des bulldozers et tracteurs à chaînes petits et moyens) » ; CI_REV trimestriel couvre 2023-2026 ; Construction Industries Sales (None) donne 25,3 pour 2025 contre 25,060.",
+  "correction_validee": "Renommer CI_SALES_FY en « CA annuel Construction Industries » et supprimer Construction Industries Sales.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Highest Resource Industries order intake quarter since 2012",
+  "probleme": "Faux KPI dont la valeur est une annee.",
+  "preuve": "val = 2012, unite « année record égalée », serie [2012].",
+  "correction_validee": "Supprimer ce KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks / kpis",
+  "champ": "risque 1 titre / Expected tariff impact 2026 / Tariff Cost Impact",
+  "probleme": "Deux montants de facture douaniere 2026 coexistent : 2,6 Mds $ (rapport annuel, T1) dans le titre du risque et deux KPI, 2,2 Mds $ (perspectives T2 2026) dans l anti-these.",
+  "preuve": "Risque 1 « impact estime a 2,6 Mds$ en 2026 » (sans accents) ; Expected tariff impact 2026 = 2,6 ; Tariff Cost Impact = 2,6 ; att : « impact 2026 estimé alors à 2,6 Mds $ », « environ 2,2 Mds $ attendus en 2026 (dont environ 600 M$ au T3 2026) ».",
+  "correction_validee": "Mettre a jour KPI et titre du risque a 2,2 Mds $ (ou dater le 2,6) ; un seul KPI tarifs ; accents « estimé à ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DEALER_INVENTORY / Dealer Inventory / MACH_DINV",
+  "probleme": "Trois valeurs differentes pour la variation des stocks concessionnaires 2025, et un KPI nomme « Stocks » alors qu il mesure une variation.",
+  "preuve": "CAHIER_DEALER_INVENTORY FY2025 = +0,9 Mds (« Stocks chez les concessionnaires ») ; Dealer Inventory (None) 2025 = -1,4 ; somme MACH_DINV 2025 = 100-400+300-500 = -0,5 Mds.",
+  "correction_validee": "Garder une seule serie annuelle derivee de MACH_DINV, renommee « Variation des stocks concessionnaires ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel vs FCF_Q",
+  "probleme": "Deux flux de tresorerie libre 2025 differents de 1,5 Mds $ sans explication de perimetre.",
+  "preuve": "fcf_annuel 2025 = 8,918 Mds ; FCF_Q 2025 = 371+2167+2666+2249 = 7 453 M (OCF 11 739 moins capex 4 286 « y compris le matériel loué »).",
+  "correction_validee": "Preciser la definition (capex hors materiel loue) dans la description de fcf_annuel ou aligner.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik / tendance",
+  "probleme": "Justification perimee sur la marge et tendances incoherentes.",
+  "preuve": "« pression sur la marge opérationnelle en recul » alors que OP_MARGIN Q2-2026 = 20,9 % (+3,6 pp) et these « la marge opérationnelle remonte à 20,9 % » ; moat.tendance = stable, tendance_mettrik = hausse.",
+  "correction_validee": "Reecrire sur le T2 2026 et aligner les deux tendances.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Resource Industries Sales / Autonomous Trucks / Dealer Inventory / Services Revenue (KPI sans periode)",
+  "probleme": "Series annuelles sans periodes, sans signal, non sourcees, avec des valeurs qui ne collent pas aux series officielles.",
+  "preuve": "Resource Industries Sales [9.3, 12.3, 14, 14.2, 12.9] vs somme RI_REV 2025 = 12 474 M ; history_periods = None ; signal vide sur les cinq KPI ; last_data_date 2026-06-30 pour des annuels.",
+  "correction_validee": "Supprimer ces KPI ou les sourcer avec periodes.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

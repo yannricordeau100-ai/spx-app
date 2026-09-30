@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "segment_cpi_rev.signal",
+  "probleme": "Date de l annonce de la scission contradictoire",
+  "preuve": "signal : « dont la scission a ete annoncee en juillet 2026 » ; risque 2 : « annoncee le 5 mai 2026 » ; att : « annonce en mai 2026 »",
+  "correction_validee": "Remplacer par : dont la scission a ete annoncee le 5 mai 2026.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "buybacks_a",
+  "probleme": "Serie arretee a FY2024 et signal non etaye",
+  "preuve": "dernier 2024-05-17, serie ... FY2024 = 1300 ; signal : « puis pause : aucun rachat au trimestre clos le 26 juin 2026 » sans FY2025 ni FY2026",
+  "correction_validee": "Ajouter FY2025 et FY2026 depuis les tableaux de flux de tresorerie, dater a la cloture (31 mars) et reecrire le signal selon les montants reels.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "net_income_a ; eps_diluted_a",
+  "probleme": "Bases melangees dans la serie (avec puis sans Nextracker)",
+  "preuve": "net_income_a FY2022 = 868 puis FY2023 = 443 alors que le signal decrit « serie des activites poursuivies : 443, 633, 838 puis 880 » ; eps_diluted_a FY2024 = 2.28 > FY2025 = 2.11 avec signal de progression reguliere",
+  "correction_validee": "Homogeneiser sur les activites poursuivies ou couper la serie a FY2023",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "couverture",
+  "probleme": "Indicateurs sectoriels EMS absents : aucune serie trimestrielle par segment, ni stocks, ni dette nette, ni FCF, ni flux de tresorerie trimestriel",
+  "preuve": "19 KPI seulement ; segment_cpi_rev annuel (3 points) alors que la fiche presente CPI comme « le moteur du groupe » ; aucun KPI stocks ou rotation des stocks pour un sous-traitant a 9 % de marge brute",
+  "correction_validee": "Ajouter le CA trimestriel par segment (ITS, RMS, CPI), les stocks, la dette nette et le FCF (annuel et trimestriel).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "last_data_date des KPI",
+  "probleme": "Dates de derniere donnee = dates de publication au lieu de fin de periode",
+  "preuve": "revenue_q dernier 2026-07-29 pour « trimestre clos le 26 juin 2026 » ; revenue_a 2026-05-20 pour l exercice clos le 31 mars 2026 ; employees_count 2026-03-31",
+  "correction_validee": "Dater les trimestriels au 2026-06-26 et les annuels au 2026-03-31 (buybacks_a au 2024-03-31) ; employees_count reste inchange.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "activity",
+  "probleme": "Texte marketing generique, hors format en quatre champs",
+  "preuve": "« partenaire de fabrication avance et complet ... s appuyant sur une main-d oeuvre mondiale et des operations durables. Elle se positionne comme un acteur cle »",
+  "correction_validee": "Reecrire en 4 champs : activite (sous-traitant electronique), produits (ITS, RMS, CPI), clients (dix clients = 45 %), atout (alimentation et refroidissement des centres de donnees)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Repartition geographique en chiffres ronds sans exercice",
+  "preuve": "« (None): Ameriques 50 ; Asie 30 ; Europe 20 »",
+  "correction_validee": "Reprendre la ventilation par pays publiee (Mexique, Chine, Etats-Unis...) avec l exercice",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

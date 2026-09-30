@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Global Industrial, Global Institutional, Healthcare, Global Industrial Sales, Global Institutional Sales, Healthcare & Life Sci Sales, Pest Elimination Sales",
+  "probleme": "Sept KPI de CA par segment avec des series sans annees, des noms de segments abandonnes (Global Industrial, Healthcare & Life Sciences n existent plus dans la repartition 2025 : Global Water, Institutional & Specialty, Pest, Life Sciences), des doublons entre eux (Global Industrial 7.8 et Global Industrial Sales 7.81 ; Healthcare 1.4 contre Healthcare & Life Sci 2.18, contradictoires), et des signaux ou descriptions en franglais de modele de langage.",
+  "preuve": "Global Industrial | None | serie: 6.3, 6.9, 7.4, 7.6, 7.8 :: Pilier. :: Driver pricing + value-based selling. Margin expansion ; Global Institutional :: Croissance. :: Post-COVID recovery + cross-sell. Best-in-class organic growth segment ; Healthcare :: Niche premium. :: Segment niche haut margin",
+  "correction_validee": "Supprimer les sept KPI de CA par segment herites.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Margin (annuel)",
+  "probleme": "Serie annuelle sans annees avec des valeurs invraisemblables (0,45 % et 0,81 % de marge nette pour Ecolab, qui a une marge nette a deux chiffres hors 2020) et un yoy (-3,8 pts) contredit par la serie (13,42 -> 12,91 = -0,5 pt). Doublon de net_margin trimestriel.",
+  "preuve": "Net Margin | year | yoy=-3,8 pts | serie: 0.45, 0.81, 8.88, 7.7, 8.96, 13.42, 12.91",
+  "correction_validee": "Supprimer le KPI Net Margin annuel.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Margin (annuel)",
+  "probleme": "Marge operationnelle ajustee annuelle 16,7 % en 2025 contredite par la serie trimestrielle ajustee (16,0 / 18,3 / 18,9 / 18,8 en 2025, soit environ 18 %). Signal en anglais (Expansion margin.) et description en franglais.",
+  "preuve": "Op Margin FY2025=16.7 ; adj_oi_margin Q1-2025=16, Q2-2025=18.3, Q3-2025=18.9, Q4-2025=18.8 ; signal : Expansion margin. :: Marge op ajustee. Expansion structurelle post-inflation 2022 via pricing power + cost productivity",
+  "correction_validee": "Supprimer ce KPI (adj_oi_margin couvre la marge ajustee) ou, apres verification, le renommer en marge operationnelle publiee avec un signal et une description en francais.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Organic sales growth, Value pricing, Volume growth, Ecolab Digital sales",
+  "probleme": "Quatre series trimestrielles sans periodes etiquetees (impossible de savoir a quel trimestre correspond chaque point) ; Organic sales growth doublonne organic_water/organic_institutional/CAHIER_ORGANIC_GROWTH ; Ecolab Digital sales affiche +24 % alors que la serie va de 95 a 99 (+4 %).",
+  "preuve": "Organic sales growth | quarter | serie: 4, 4, 4, 3, 3, 3, 3, 4 ; Ecolab Digital sales | yoy=+24% | serie: 95, 96, 99, 99 ; Value pricing serie: 2, 3, 3, 3 ; Volume growth serie: 1, 1",
+  "correction_validee": "Etiqueter les periodes ou supprimer ; corriger le yoy d Ecolab Digital sales depuis la serie.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Ovivo Electronics acquisition, Global surgical solutions divestiture, Barclay Water Management acquisition, One Ecolab total restructuring cost, One Ecolab savings target 2027, Top 35 customers cross-sell opportunity, Global High Tech unit size, Bioprocessing sales growth, Pest Intelligence smart devices deployed",
+  "probleme": "Neuf evenements ou objectifs a un point (prix d acquisition, cession, cible d economies, potentiel commercial) presentes comme des KPI, avec des noms en anglais. Ce ne sont pas des indicateurs suivables.",
+  "preuve": "Ovivo Electronics acquisition | n=1 | val=1596 ; Top 35 customers cross-sell opportunity | val=3.5 ; One Ecolab savings target 2027 | val=325",
+  "correction_validee": "Retirer des KPI et deplacer dans la these ou une story ; ne garder Pest Intelligence devices que s il est suivi dans le temps.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these vs moat",
+  "probleme": "La these affirme un fosse economique large alimente par trois sources, mais le bloc moat n a aucune qualification (None) et une tendance stable : contradiction entre deux blocs de la meme fiche.",
+  "preuve": "these : Ecolab possede un fosse economique* large au sens de la methode retenue ; moat: None / tendance stable",
+  "correction_validee": "Renseigner le moat (large, tendance stable ou hausse) en coherence avec la these.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "C [N]",
+  "probleme": "Une zone geographique porte un libelle corrompu et deux autres sont en anglais.",
+  "preuve": "revenue_by_geography : C [N] 4.5 ; Middle East And Africa 4",
+  "correction_validee": "Identifier la zone (probablement Chine) et traduire Moyen-Orient et Afrique.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORGANIC_GROWTH.yoy, CAHIER_PRICE_MIX.yoy",
+  "probleme": "Variation d une serie en pourcentage exprimee en pourcentage relatif (-25,0 %) au lieu de points (-1 pt).",
+  "preuve": "CAHIER_ORGANIC_GROWTH yoy=-25.0% serie FY2024=4, FY2025=3 ; CAHIER_PRICE_MIX yoy=+0.0%",
+  "correction_validee": "Exprimer les yoy en points : -1 pt pour CAHIER_ORGANIC_GROWTH et 0 pt pour CAHIER_PRICE_MIX.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "att.resume",
+  "probleme": "Coquille dans le texte de l anti-these.",
+  "preuve": "A3 chez Moody's'au 31 decembre 2025",
+  "correction_validee": "Remplacer Moody's'au par Moody's au.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

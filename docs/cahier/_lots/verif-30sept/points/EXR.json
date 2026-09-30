@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "dette_annuelle / dette_sur_ca / dette_par_salarie",
+  "probleme": "Série de dette annuelle invraisemblable et contredite par le KPI trimestriel : dette divisée par deux en 2020 puis 2025 inférieure de 2,6 Mds $ au bilan du T4 2025.",
+  "preuve": "dette_annuelle 2019=4.477, 2020=2.268, 2025=10.656 ; Total Debt Q4-2025=13.23 Mds $, Q4-2024=12.32 vs dette_annuelle 2024=8.257",
+  "correction_validee": "Recharger la dette totale depuis les 10-K et recalculer dette_sur_ca et dette_par_salarie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "fcf_annuel / fcf_par_salarie",
+  "probleme": "Point 2022 invraisemblable : trésorerie libre de 45 M$ entre 952 M$ et 1 267 M$, sans doute un capex incluant les acquisitions cette année-là.",
+  "preuve": "fcf_annuel 2021=0.952, 2022=0.045, 2023=1.267 ; fcf_par_salarie 2022=9.4",
+  "correction_validee": "Recalculer 2022 avec la même définition que les autres années (hors acquisitions).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total Properties Owned / Rentable Square Feet / Total Stores Footprint / Same-Store Occupancy / Same-Store NOI / Stores Owned / Stores Managed",
+  "probleme": "Sept KPI annuels sans libellé d'année, arrondis ou contradictoires avec les séries trimestrielles et CAHIER : 4 000 magasins contre 4 410, occupation 2024 de 92 % contre 93,7 %, 290 M sq ft arrondis à la dizaine, dernier=2026-06-30 sur des séries annuelles. Signaux en franglais sans accents.",
+  "preuve": "Total Properties Owned serie: 2100, 2300, 3700, 3900, 4000 | dernier 2026-06-30 ; Same-Store Occupancy 95, 92, 92, 93 vs CAHIER_SS_OCCUPANCY FY2024=93.7, FY2025=92.6 ; Stores Managed « Activite asset-light ... pure ownership »",
+  "correction_validee": "Supprimer Total Properties Owned, Rentable Square Feet, Total Stores Footprint et Same-Store Occupancy ; dater et réécrire en français Stores Owned et Stores Managed.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Stores Managed",
+  "probleme": "Valeur 2023 invraisemblable : 1 811 magasins gérés puis 1 575 en 2024, alors que la série trimestrielle monte sans interruption (1 461 au T3 2024).",
+  "preuve": "Stores Managed serie: 828, 1115, 1206, 1811, 1575, 1856 ; 3rd-Party Managed Q3-2024=1461, Q4-2024=1575",
+  "correction_validee": "Vérifier le point 2023 (attendu vers 1 300 à 1 400) dans le 10-K 2023.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RENT_PER_SQFT / SS Avg Rent/sqft",
+  "probleme": "Série annuelle de loyer arrêtée en 2023 alors que le trimestriel va à 2026 ; le signal trimestriel cite un T2 2025 à 19,50 $ contredit par la série (19,68) et la rupture de pool au T1 2025 n'est pas expliquée.",
+  "preuve": "CAHIER_RENT_PER_SQFT dernier 2023-12-31 FY2023=21.25 ; SS Avg Rent/sqft Q4-2024=21.68, Q1-2025=19.75, Q2-2025=19.68 | signal « +2.3% vs 19.50$ au T2-2025, pool 2026 »",
+  "correction_validee": "Prolonger l'annuel 2024-2025, retirer le point Q4-2024 d'un autre pool ou l'annoter, aligner le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these / moat",
+  "probleme": "La thèse affirme qu'EXR gère plus de magasins pour des tiers qu'elle n'en détient, ce que les chiffres de la fiche contredisent ; et elle revendique 4 tests sur 5 d'avantage concurrentiel alors que le bloc moat conclut « sans avantage établi ».",
+  "preuve": "thèse « gère aujourd hui plus de magasins pour le compte d'autres propriétaires qu'il n'en détient » ; Total Stores signal « 2 446 détenus/JV + 1 964 gérés » ; moat « sans avantage établi » ; apostrophe manquante « aujourd hui »",
+  "correction_validee": "Reformuler (près de la moitié du parc est géré pour des tiers) et rendre moat et thèse cohérents.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik simple / tagline",
+  "probleme": "Nombre de magasins périmé (3 700 contre 4 410) et anglais dans la description et la tagline.",
+  "preuve": "products: 'environ 3 700 magasins' ; edge: « third-party management ... ancillary tenant insurance » ; tagline « Self-Storage Operations and Tenant Reinsurance »",
+  "correction_validee": "Écrire « environ 4 400 magasins », « gestion pour compte de tiers », « assurance des locataires » et une tagline en français.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "SS NOI Margin / Diluted EPS",
+  "probleme": "« SS » signifie same-store partout ailleurs mais ce KPI est la marge NOI du segment self-storage entier ; le signal du BPA affirme que le T4 n'est pas publié séparément, ce qui est faux (communiqué du T4 chaque février).",
+  "preuve": "SS NOI Margin | Marge NOI self-storage | Self-storage NOI margin (calculée sur Self-Storage NOI / Self-Storage Rev) ; Diluted EPS « T4 non publié séparément depuis 2020 », série sans aucun Q4",
+  "correction_validee": "Renommer « Marge NOI segment self-storage » ; compléter les T4 du BPA et retirer la phrase.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

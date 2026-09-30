@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "ICS_rev, GTO_rev, recurring_rev, equity_pos_growth, internal_trade_growth (last_data_date)",
+  "probleme": "Date du dernier point fausse sur le hero et quatre KPI de tete",
+  "preuve": "ICS_rev dernier point 'Q3-FY2026' (trimestre clos le 31 mars 2026) affiche 'dernier 2026-09-30' ; revenue_q du meme trimestre affiche 2026-03-31",
+  "correction_validee": "last_data_date = 2026-03-31 sur ICS_rev, GTO_rev, recurring_rev, equity_pos_growth et internal_trade_growth.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "toutes les series trimestrielles + adj_op_margin, ebt_us, ebt_intl, inventory, Recurring Revenues, CAHIER_REVENUE_RETENTION",
+  "probleme": "Series arretees a Q3-FY2026 ou FY2025 alors que l'exercice FY2026 (clos juin 2026) est deja exploite ailleurs sur la fiche",
+  "preuve": "att : 'exercice clos fin juin 2026' ; revenue_annuel 2026=7,477 ; clients source br-20260630.htm ; mais revenue_q, net_income_q, fcf_q... s'arretent a Q3-FY2026 ; adj_op_margin FY2025=20,5 ; CAHIER_REVENUE_RETENTION FY2024=97 (these : '97 a 98 % depuis plusieurs annees')",
+  "correction_validee": "Extraire le Q4-FY2026 et les valeurs FY2026 depuis le 10-K de l'exercice clos le 30 juin 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "equity_proxy_positions",
+  "probleme": "Valeur affichee et date ignorent le dernier point de la serie (KPI du bloc industrie)",
+  "preuve": "val=900, dernier 2025-06-30, serie FY2022=700 ... FY2025=900, FY2026=1000",
+  "correction_validee": "val = 1 000, last_data_date = 2026-06-30, yoy +11,1 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "equity_pos_growth vs 'Equity position growth' vs equity_revenue_pos_growth",
+  "probleme": "Deux series contradictoires pour le meme indicateur, et signal citant un troisieme chiffre",
+  "preuve": "equity_pos_growth Q3-FY25=15, Q4-FY25=18, Q3-FY26=15 ; 'Equity position growth' (sans dates) 13, 16, 11 aux memes rangs ; signal equity_pos_growth '+12% equity revenue positions' alors que equity_revenue_pos_growth affiche 11",
+  "correction_validee": "Vérifier dans les communiqués trimestriels, garder une seule série et aligner le signal.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Recurring revenue growth constant currency, Recurring Revenues",
+  "probleme": "Doublons exacts de recurring_growth_cc et de recurring_rev, l'un perime, avec mention de document",
+  "preuve": "'Recurring revenue growth constant currency' [8, 8, 6] = 3 derniers points de recurring_growth_cc ; 'Recurring Revenues' FY2025=4 507,9 = somme des 4 trimestres de recurring_rev, signal vide, description 'suivi en tete de MD&A'",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Acolin acquisition, SIS Business acquisition, iJoin acquisition, Increased annual dividend, Sales pipeline",
+  "probleme": "Evenements et doublon presentes comme KPI a un point, unite invalide",
+  "preuve": "trois acquisitions n=1 (70,1 ; 185,5 ; 31,9 M$) ; 'Increased annual dividend' 3,9 = 4 x div_ps_q 0,975 ; 'Sales pipeline' val=1 unite 'Md$+'",
+  "correction_validee": "Supprimer les trois acquisitions et 'Increased annual dividend' ; garder 'Sales pipeline' en affichant 'plus de 1 Md$'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux ICS_rev, GTO_rev, recurring_rev, equity_pos_growth, internal_trade_growth, Daily tokenization",
+  "probleme": "Signaux en franglais, perimes ou incoherents avec la valeur",
+  "preuve": "'Croissance stable portee par +16% equity positions et +7% MF/ETF positions' ; '+3pts Net New Business, +2pts organique' ; 'capital markets +6.3% et wealth management +10.2%' ; internal_trade_growth 'Maintien d'une croissance a 13%' alors que val=16 ; 'Broadridge tokenise plus de 350 milliards par jour' ecrit 'tokenisé'",
+  "correction_validee": "Reecrire ces signaux en francais sur Q3-FY2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Positionnement IA reduit a une phrase generique alors que la fiche contient des KPI IA chiffres",
+  "preuve": "'BR integre l'IA/ML dans ses produits et operations' ; KPI presents : 'AI productivity gain 25 %', 'AUM served by AI-native voting engine 800 Mds $', 'Assets tracked by AI model 120 T$'",
+  "correction_validee": "Reecrire le positionnement a partir de ces chiffres",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these.preambule",
+  "probleme": "Virgule parasite dans un chiffre",
+  "preuve": "'la societe immobilise 819,3 M$, de couts de raccordement de clients'",
+  "correction_validee": "Écrire 'immobilise 819,3 M$ de coûts'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "buyback_q.yoy, revenue_by_segment.label",
+  "probleme": "Yoy absurde sur base quasi nulle ; repartition 'par segment' qui decoupe en fait par nature de revenu",
+  "preuve": "buyback_q 0,3 -> 200,4 affiche '+66700.0%' ; revenue_by_segment : Recurring Fee 65,4 / Distribution 29,9 / Event-Driven 4,6 alors que les segments sont ICS et GTO",
+  "correction_validee": "Afficher l'écart absolu quand la base est quasi nulle et renommer le bloc 'par nature de revenu'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

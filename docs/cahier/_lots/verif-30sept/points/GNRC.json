@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Répartition fausse et périmée : total de 1,47 Md$ qui ne correspond à aucune période de Generac, 70,5/29,5 contredit les chiffres de la fiche, et la segmentation 2026 (Residential / C&I) est absente.",
+  "preuve": "slices North America 1,035 + International 0,432 = 1,47 Mds $ (70,5 % / 29,5 %) alors que Total Net Sales indique « Domestique 2025 : 3 471 M$ / International 2025 : 738 M$ », soit 82,5 % / 17,5 %.",
+  "correction_validee": "Geographie sur l exercice 2025 (Domestique 3,471 / International 0,738 Md$, 82,5/17,5) et segments sur Residential / C&I, sans dupliquer le meme contenu.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "res_rev / ci_rev",
+  "probleme": "La série mélange deux périmètres : ventes par classe de produits jusqu'au T4 2025, puis ventes du nouveau segment au T1 2026. La variation annuelle et le signal sont faux, et la série fait doublon avec seg_res_sales et seg_ci_sales.",
+  "preuve": "res_rev Q1-2026 = 549,316 = seg_res_sales Q1-2026 (549,3), mais Q1-2025 = 494,2 contre 543,1 dans seg_res_sales. yoy affiché -23,1 % alors que 549,3/494,2 donne +11 %. Signal : « La chute reflète surtout un hiver 2025 calme ». ci_rev : yoy +9,9 % alors que 510,0/337,4 donne +51 %.",
+  "correction_validee": "Arreter res_rev et ci_rev au T4 2025, garder seg_res_sales et seg_ci_sales pour 2026, recalculer les variations et reecrire le signal de res_rev.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle / dette_par_salarie / dette_sur_ca",
+  "probleme": "La valeur 2016 de la dette est fausse (0,047 Md$), ce qui produit des taux de croissance annuels absurdes dans trois signaux.",
+  "preuve": "dette_annuelle 2016 = 0,047 puis 0,957 en 2017. Signal : « +44,1 % par an depuis 2016 ». dette_par_salarie 2016 = 11,2 k$ contre 210,1 en 2017, signal « +141,0 % par an ». dette_sur_ca 2016 = 3,2 %, signal « +26,7 points depuis 2016 ».",
+  "correction_validee": "Remplacer la dette 2016 par environ 1,02 Md$ (ou retirer 2016), puis regenerer dette_annuelle, dette_par_salarie et dette_sur_ca et leurs signaux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Home Standby Activation Rate / hsb_penetration",
+  "probleme": "Même indicateur sous deux noms, avec des valeurs contradictoires. Le nom « Taux d'activation » est faux, la série s'arrête en 2024 et le signal est vide de sens.",
+  "preuve": "hsb_penetration FY2023 = 6,25 et FY2024 = 6,5 ; Home Standby Activation Rate 2023 = 5,7 et 2024 = 6. Signal : « Pénétration croissante. »",
+  "correction_validee": "Supprimer Home Standby Activation Rate et Home Standby Penetration, garder hsb_penetration.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total Net Sales / revenue_annuel ; C&I Sales ; International segment record adjusted EBITDA margin",
+  "probleme": "Doublons en annuel et en trimestriel, dont un en contradiction avec la série trimestrielle.",
+  "preuve": "Total Net Sales 4 209,147 M$ = revenue_annuel 4,209 Mds $. « Record historique de marge EBITDA ajustée International à 16,1 % au T4 2025 » alors que intl_seg_ebitda_margin Q4-2025 = 16,3 (16,1 est la valeur du T1 2025).",
+  "correction_validee": "Supprimer Total Net Sales et International segment record adjusted EBITDA margin.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Power Outage Days (US)",
+  "probleme": "Le nom (jours) contredit l'unité (heures/an) et le nom anglais (Major Power Outage Hours). La série est non datée et s'arrête en 2024, et le signal est un jargon anglicisé.",
+  "preuve": "unité « heures/an », valeurs 3,5 à 8,2, dernier 2024-12-31 ; signal : « Climat extrême driver structurel. »",
+  "correction_validee": "Renommer selon la vraie mesure (heures de coupure par client), dater les points et mettre à jour 2025, ou bien supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rpo",
+  "probleme": "Le carnet de commandes s'effondre de 62 % en deux trimestres sans aucune explication, et le signal parle de visibilité. Cela contredit aussi le KPI carnet data center à 400 M$ et la thèse sur les data centers.",
+  "preuve": "rpo : Q4-2025 = 378,8, Q1-2026 = 272, Q2-2026 = 143. Signal : « Environ 80 pourcent de ce solde doit se transformer en chiffre d'affaires ... visibilité à court terme ». Carnet data center = 400.",
+  "correction_validee": "Vérifier le périmètre de l'indicateur à la source et expliquer la baisse (ou corriger), puis réconcilier avec le carnet data center.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "adj_ebitda.signal / fcf.signal",
+  "probleme": "Signaux qui décrivent la cuisine interne du calcul et citent un document.",
+  "preuve": "adj_ebitda : « porté par l'addition des segments Residential et Commercial and Industrial publiée au rapport trimestriel ». fcf : « dérivé du flux d'exploitation semestriel moins investissements ».",
+  "correction_validee": "Retirer ces membres de phrase dans les signaux adj_ebitda et fcf.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Large generator product line power range extension / New share repurchase program / Home standby penetration opportunity / Domestic large-megawatt ... capacity",
+  "probleme": "Des annonces ponctuelles à un seul point, présentées comme des KPI trimestriels. La capacité de production est exprimée en M$.",
+  "preuve": "n=1 pour chacun ; 3,25 MW ; 500 M$ de programme de rachat ; 50 Mds $ d'« opportunité » ; capacité = 1 000 M$.",
+  "correction_validee": "Sortir ces éléments des KPI (vers faits marquants ou positions de marché).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SERVICES_MIX.yoy",
+  "probleme": "La variation annuelle d'un pourcentage est exprimée en % relatif au lieu de points.",
+  "preuve": "11,0 puis 11,5, yoy affiché « +4.5% ».",
+  "correction_validee": "Afficher +0,5 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete / risques / IA",
+  "champ": "tagline, risques, positionnement IA",
+  "probleme": "Accroche en anglais. Risques génériques sans description, qui oublient les vrais facteurs (fréquence des pannes, droits de douane, concentration data centers). Phrase IA agrammaticale et en contradiction avec le stance « cautious ».",
+  "preuve": "« Powering a Smarter World » ; « Relations syndicales et disputes de travail :: » (vide) ; « Generac identifié l'accélération de l'IA comme driver de croissance séculaire majeur » avec stance cautious.",
+  "correction_validee": "Accroche en français, risques propres à Generac rédigés, phrase IA corrigée et stance aligné.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

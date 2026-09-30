@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Field service engineers headcount",
+  "probleme": "Valeur affichee = effectif total du groupe, contredite par son propre signal",
+  "preuve": "serie 5000, 34000, val 34000 ; signal \"environ 5000 ingenieurs fin 2025\" ; effectifs_annuels 2025 = 34 000",
+  "correction_validee": "Retirer le point 34 000 et afficher 5 000.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "hero",
+  "champ": "BACKLOG / BOOK_TO_BILL",
+  "probleme": "Hero et ratio commandes arretes au 31 decembre 2025 alors que la fiche va au T2 2026 ; doublon non date du ratio",
+  "preuve": "BACKLOG dernier FY2025=15000 ; BOOK_TO_BILL dernier Q4-2025 ; \"Book-to-bill ratio\" serie identique sans dates ; yoy +107,1 % sur un ratio",
+  "correction_validee": "Passer carnet et ratio en trimestriel jusqu au T2 2026 si source disponible, supprimer le doublon, afficher la variation du ratio en valeur (+1,5 x).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OP_MARGIN.signal / NET_MARGIN.signal / OP_APAC etc.",
+  "probleme": "Cuisine interne restante non detectee",
+  "preuve": "\"Q4 derive FY-3T\", \"Ratio resultat op / CA\", \"Ratio resultat net / CA\" dans les signaux de OP_MARGIN et NET_MARGIN",
+  "correction_validee": "Retirer 'Ratio resultat op / CA', 'Ratio resultat net / CA', 'Q4 derive FY-3T' et les mentions internes de FCF et INVENTORY.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux NS_*, BACKLOG, ERD_EXPENSE, FCF, INVENTORY",
+  "probleme": "Signaux en franglais et au format numerique americain",
+  "preuve": "\"$2,070.8M au Q2-2026 (+29.2% YoY)\", \"Backlog x2.1 a $15.0B\", \"power/thermal\", \"liquid cooling\"",
+  "correction_validee": "Reecrire en francais : 2 070,8 M$ au T2 2026, +29,2 % sur un an, carnet de commandes, refroidissement liquide.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Libelles en anglais",
+  "preuve": "\"Product 82 ; Service 18\" ; \"Americas Segment 58 ; EMEA Segment 21.5 ; Asia Pacific Segment 20.5\"",
+  "correction_validee": "Libelles Produits / Services et Ameriques / EMEA / Asie-Pacifique.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BUYBACK.signal / CAHIER_ORGANIC_GROWTH.yoy",
+  "probleme": "Signal contredit par la serie ; variation en % sur un pourcentage",
+  "preuve": "\"en pause depuis 2024\" alors que FY2024=599.9 M$ ; CAHIER_ORGANIC_GROWTH yoy +50.3 % au lieu de +8,8 pts (17,5 -> 26,3)",
+  "correction_validee": "Signal 'aucun rachat en 2025 apres 599,9 M$ en 2024' ; yoy +8,8 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PurgeRite acquisition, Great Lakes acquisition, 2026 capex guidance, Remaining buyback authorization, OneCore building block",
+  "probleme": "Evenements et prevision presentes comme KPI, valeur de fourchette arbitraire",
+  "preuve": "2026 capex guidance val 525 alors que le texte dit 425 a 525 M$ ; \"Vertiv rachete PurgeRite\" (faute) ; OneCore 12,5 MW est une caracteristique produit",
+  "correction_validee": "Supprimer ces pseudo KPI ou les deplacer en these",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these / moat",
+  "champ": "these.accroche / moat.summary",
+  "probleme": "Devise fausse dans la these ; moat reduit a une croissance chiffree",
+  "preuve": "these \"sur chaque euro de capital investi\" pour une societe en dollars ; moat \"Le carnet de commandes double... CA croit de 27,7 %\" type None",
+  "correction_validee": "Remplacer euro par dollar ; rediger un moat (base installee, services, qualification hyperscalers)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

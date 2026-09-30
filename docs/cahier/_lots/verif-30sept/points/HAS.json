@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel",
+  "probleme": "Le chiffre d'affaires annuel est faux de 2022 à 2025 ; les ratios qui en dérivent (dette_sur_ca) le sont aussi.",
+  "preuve": "2025 = 5,366 Mds $ alors que la somme de rev_total = 887,1+980,8+1 387,5+1 445,9 = 4 701,3 M$ ; 2024 = 4,746 alors que Hasbro a publié 4,136 (T3+T4 2024 = 2 382,9 dans la fiche) ; yoy « +13,1 % » au lieu de +13,7 %.",
+  "correction_validee": "Recharger revenue_annuel depuis les comptes publiés (2025 = 4,70 Mds $, +13,7 %) et recalculer dette_sur_ca.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik.products",
+  "probleme": "Erreur factuelle : Pokémon n'appartient pas à Hasbro.",
+  "preuve": "« Le portefeuille couvre les cartes à collectionner Magic et Pokémon ».",
+  "correction_validee": "Retirer « et Pokémon ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "revenue_by_segment",
+  "probleme": "Le bloc segments affiche une répartition géographique (sans exercice, en anglais) qui ne concorde pas avec le bloc géographie ; les vrais segments ne sont pas montrés.",
+  "preuve": "segments (None) : « U.S. and Canada 58.6 ; International 41.4 » ; géographie 2025 : 59,7 / 40,3. Segments réels T2 2026 : Consumer Products 463, Wizards 663,8, Entertainment 12,8 M$.",
+  "correction_validee": "Remplacer par Consumer Products / Wizards of the Coast et jeux numériques / Entertainment sur l'exercice 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Hasbro Total Gaming revenue",
+  "probleme": "Série invraisemblable : le dernier point est quasiment égal au CA de Wizards seul, et le T1 2026 dépasse de loin ce que Consumer Products peut apporter.",
+  "preuve": "T2 2026 = 663,9 contre WotC_rev 663,8 ; T1 2026 = 867,8 alors que WotC = 582 et le CA total 1 000,2 (il faudrait 286 M$ de jeux dans 397,9 M$ de Consumer Products) ; pas de périodes.",
+  "correction_validee": "Revérifier la série et la dater, ou la supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_LICENSING_REV",
+  "probleme": "Mal nommé : c'est la somme annuelle de Digital & Licensed Gaming, pas « licences et divertissement ».",
+  "preuve": "FY2025 = 500,3 = 118,3+116,1+130,2+135,7 (digital_licensed).",
+  "correction_validee": "Renommer « Chiffre d'affaires jeux numériques et sous licence (annuel) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BRAND_MIX",
+  "probleme": "Nom trop vague (quelle marque ?) et série arrêtée en 2024.",
+  "preuve": "« Ventes par marque ou franchise » val=583,4 M$ FY2024 ; la description parle de licences de tiers (Partner Brands probablement).",
+  "correction_validee": "Identifier la catégorie mesurée, la nommer et prolonger jusqu'en 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "leverage.signal",
+  "probleme": "L'explication est contredite par la série.",
+  "preuve": "Le signal attribue la baisse à « la sortie de la fenêtre glissante du T2 2025 et de sa dépréciation », or le ratio était déjà à 2,13x au T4 2025 et 2,17x au T1 2026, quand le T2 2025 était encore dans la fenêtre (EBITDA donc déjà retraité).",
+  "correction_validee": "Expliquer la baisse par la hausse de l'EBITDA de Wizards et la baisse de la dette nette.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "La posture « prudente » est contredite par des KPI d'automatisation par l'IA sur la même fiche.",
+  "preuve": "« adopte une posture prudente » contre « Low-value work hours automated via AI 1 000 000 heures » et « réduction du temps concept-à-prototype 80 % (IA + impression 3D) ».",
+  "correction_validee": "Requalifier le positionnement (IA interne assumée, prudence limitée aux contenus créatifs).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "MagicCon badges / Exodus and Warlock trailer views / People reached / New D&D Player's Handbook plan beat / MAGIC Record-Year Revenue Growth",
+  "probleme": "Indicateurs anecdotiques ou périmés, nom et unité incohérents, faute de frappe.",
+  "preuve": "Manuel des joueurs sorti en 2024 mais daté du 2026-03-28, nom « Player's'Handbook » ; « Croissance record de MAGIC » exprimée en M$ (641,5) ; 1 000 M de personnes touchées selon une enquête.",
+  "correction_validee": "Supprimer badges MagicCon, vues des bandes-annonces, personnes touchées et Manuel des joueurs ; renommer le dernier « Hausse du CA Magic sur l'exercice 2025 (M$) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "HAS_WOTC",
+  "probleme": "Doublon annuel de WotC_rev, sans accents, signal générique.",
+  "preuve": "« Chiffre d affaires du pole Wizards of the Coast et jeu numerique », « Jeu de cartes a collectionner » ; FY2025 2 186,9 = somme des 4 trimestres WotC_rev.",
+  "correction_validee": "Corriger « Chiffre d'affaires du pôle Wizards of the Coast et jeu numérique » et remplacer le signal par « +44,7 % en 2025 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "att.accroche",
+  "probleme": "Formulation trompeuse : « effondré » pour un segment résiduel depuis la cession de 2023.",
+  "preuve": "« le segment Entertainment s'est effondré à 12,8 M$ » ; il était à 16,0 M$ un an plus tôt, activité résiduelle après la cession d'eOne (signal entertainment_rev).",
+  "correction_validee": "« Entertainment n'est plus qu'une activité résiduelle (12,8 M$) ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

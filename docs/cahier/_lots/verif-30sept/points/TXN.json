@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "300mm Wafer Capacity (LFAB+RFAB+SM1)",
+  "probleme": "Pourcentage impossible",
+  "preuve": "unité '% mix', val=110, série 55,60,75,90,110",
+  "correction_validee": "Supprimer ce KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Analog Revenue / Industrial Revenue Share / Industrial End-Market % / Automotive Revenue Share / Automotive End-Market % / Analog Op Margin",
+  "probleme": "Doublons non datés, périmés et contradictoires avec les séries sourcées",
+  "preuve": "Analog Revenue 12 Mds $ (-13 %, 'cycle baissier 2024') vs analog_rev FY2025 = 14 006 M$ ; industriel 35 et 34 vs industrial_pct 33 ; automobile 35 et 35 vs automotive_pct 33 ; Analog Op Margin annuel 41,7 = T1 2026 de analog_op_margin",
+  "correction_validee": "Supprimer ces 6 KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "FCF Margin",
+  "probleme": "Valeur périmée, texte en anglais et cuisine interne",
+  "preuve": "'FCF / sales TTM ~$2.9B / $17B = 17%... Hero KPI affiché' ; FCF 12 mois à fin T2 2026 = 993+1329+844+2189 = 5 355 M$ sur 19 453 M$ de CA, soit 27,5 %",
+  "correction_validee": "Supprimer FCF Margin (ou le recalculer à 27,5 % depuis fcf_q et rev_total).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Free cash flow trailing 12-month",
+  "probleme": "Dernière valeur fausse et signal contraire à la série",
+  "preuve": "val 4,4 Mds $ ; calcul depuis fcf_q : 5,4 Mds $ à fin T2 2026 (3,7 à fin T1) ; série 7,1 -> 4,4 alors que signal dit 'sa remontée'",
+  "correction_validee": "Recalculer depuis fcf_q (5,4 Mds $ à fin T2 2026) ou supprimer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Gross profit margin / Operating profit margin / Inventory days",
+  "probleme": "Doublons périmés datés 2026-08-05 affichant le T1 comme dernier point",
+  "preuve": "Gross profit margin 58 ('chute à 58 % en Q1-2026') alors que gross_margin_q T2 2026 = 61,4 ; Operating profit margin 37 vs op_margin_q 42,3 ; Inventory days 209 alors que inventory_q cite 196 jours au T2, yoy '209 vs 222 trimestre precedent' (222 est l'annuel 2025)",
+  "correction_validee": "Supprimer Gross profit margin et Operating profit margin ; mettre Inventory days à 196 jours au T2 2026 comparé à 222 fin 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Distribution Revenue Share",
+  "probleme": "Contradiction avec la part des ventes directes",
+  "preuve": "Distribution 26 % alors que direct_pct = 80 % (plus de 80 % en direct) ; série non datée",
+  "correction_validee": "Supprimer Distribution Revenue Share.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "buyback_q.signal",
+  "probleme": "Affirmation majeure non reprise ailleurs sur la fiche",
+  "preuve": "'Les rachats sont quasi suspendus pour préserver le cash en vue de l'acquisition de Silicon Labs' : ni thèse, ni anti-thèse, ni faits clés ne mentionnent cette acquisition",
+  "correction_validee": "Vérifier l'annonce à la source ; si confirmée, l'intégrer aux faits clés, thèse et anti-thèse, sinon retirer la mention.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Répartition qui ignore le segment Other, libellés anglais",
+  "preuve": "Analog 83,9 % alors que analog_pct_total = 79 % (14 006 / 17 682) ; 'Rest of Asia', 'Rest Of World'",
+  "correction_validee": "Ajouter Autres (environ 5 %) ; traduire les libellés",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat / positionnement IA",
+  "champ": "moat, ai_positioning",
+  "probleme": "Moat et IA contredits par la fiche",
+  "preuve": "Moat 'Aucun' justifié par 'l'absence de positionnement IA' alors que la fiche décrit un avantage de coût 300 mm (-40 %, 2,3 fois plus de puces), 100 000 clients, 80 % en direct ; IA 'peu documenté' alors que le data center (alimentation des GPU) croît d'environ 90 %",
+  "correction_validee": "Réévaluer le moat (coût de production, catalogue) ; réécrire l'IA autour de la demande data center",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "analog_rev.signal",
+  "probleme": "Signal qui parle de marge et non de chiffre d'affaires",
+  "preuve": "analog_rev +26 % mais signal 'La marge opérationnelle grimpe à 45,6 %...'",
+  "correction_validee": "CA Analog de 4 365 M$ au T2 2026, +26 % sur un an.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

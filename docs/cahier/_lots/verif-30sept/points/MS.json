@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Net new assets (WM) / Return on average tangible common equity / Efficiency ratio / Provision for credit losses / Quarterly dividend increase / Full-year net revenues / Total client assets.signal",
+  "probleme": "Doublons perimes au T1-2026 de KPI a jour au T2-2026, dates 2026-09-29 fausses",
+  "preuve": "Net new assets val=118.4 'T1-2026' alors que WM_NNA Q2-2026=148.1 ; ROTCE doublon 27.1 vs ROTCE Q2=26.6 ; Quarterly dividend increase 1 vs dps 1.15 ; Total client assets val=10 mais signal '~9,3 T$, sur la route de l objectif 10+ T$'",
+  "correction_validee": "Supprimer Net new assets (WM), Return on average tangible common equity, Quarterly dividend increase et Full-year net revenues ; dater Efficiency ratio et Provision for credit losses au T1-2026, ou les compléter au T2 ; signal des actifs clients : « 10 000 Mds $ franchis au T2 2026 ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NII.signal / LT_debt",
+  "probleme": "Signal perime d un trimestre et serie d emprunts arretee au T1",
+  "preuve": "NII serie Q2-2026=2780, signal 'Revenus nets d interets de 2,7 Mds $ au T1 2026' ; LT_debt dernier 2026-03-31",
+  "correction_validee": "Signal NII : « 2,8 Mds $ au T2 2026, +18 % sur un an » ; compléter LT_debt au T2-2026 depuis le rapport trimestriel.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_IB_FEES / CAHIER_NNA (unite)",
+  "probleme": "Valeurs en dollars bruts a 9 et 12 chiffres, illisibles",
+  "preuve": "CAHIER_IB_FEES | $ | val=8199000000 ; CAHIER_NNA | $ | val=356300000000",
+  "correction_validee": "Convertir CAHIER_IB_FEES et CAHIER_NNA en Mds $ (8,2 et 356,3, séries comprises).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.text",
+  "probleme": "Chiffres du T1-2026 alors que le T2 est publie",
+  "preuve": "moat : 'actifs a honoraires en hausse de 19 % et collecte ... en progression de 26 %' ; fee_based_assets yoy=+22 %, WM_NNA yoy=+150 % ; 2792/2349 = +18,9 % et 118.4/93.8 = +26 % (T1)",
+  "correction_validee": "Mettre a jour : +22 % et 148 Mds $ de collecte record",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel / fcf_par_salarie / dette_sur_ca / dette_par_salarie",
+  "probleme": "Series generiques inadaptees a une banque : un FCF de -17,9 Mds et une 'dette rapportee aux ventes de 483,7 %' avec la phrase 'l entreprise doit plus que ce qu elle vend' n ont pas de sens pour un bilan bancaire",
+  "preuve": "fcf_annuel 2025=-17.889 ; dette_sur_ca 2025=483.7 'Au-dessus de 100 %, l entreprise doit plus que ce qu elle vend en un an'",
+  "correction_validee": "Masquer ces quatre KPI generiques pour le secteur Banque",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Asia share of firm revenues / Advisor-led assets sourced from Workplace / Household lending penetration",
+  "probleme": "KPI a un point dates 2026-03-11 sans periode, dont une part Asie perimee",
+  "preuve": "Asia share 16 % ; geo_asia Q2-2026 3930/21348 = 18,4 %",
+  "correction_validee": "Dater les points (exercice 2025) ou supprimer Asia share, calculable depuis geo_asia",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

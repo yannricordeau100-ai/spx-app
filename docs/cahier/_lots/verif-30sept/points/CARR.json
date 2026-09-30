@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "adj_eps",
+  "probleme": "Point T2 2026 ajoute sans recalcul du yoy ni du signal, restes sur le T1.",
+  "preuve": "val = 0,86 (Q2-2026) ; yoy = -12,3 % correspond a Q1 (0,57/0,65) ; Q2 : 0,86/0,92 = -6,5 % ; signal « 0,57 USD au T1 2026, -12% sur un an » ; last_data_date 2026-09-02.",
+  "correction_validee": "Passer le yoy à -6,5 %, réécrire le signal sur 0,86 USD au T2 2026 contre 0,92 un an plus tôt, et fixer last_data_date à 2026-06-30.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "Europe / Asie-Pacifique vs geo_europe / geo_apac",
+  "probleme": "Le bloc geographique et les KPI geographiques donnent des montants incompatibles pour 2025.",
+  "preuve": "Bloc : Europe 6,092 Mds (28 %), Asie-Pacifique 17,7 % (≈3,85 Mds) ; KPI geo_europe FY2025 = 4 572 M (signal « 21% du total »), geo_apac FY2025 = 2 606 M (12 %).",
+  "correction_validee": "Relire la note géographique du 10-K 2025 et aligner le bloc et les KPI geo_europe et geo_apac sur un même découpage.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rpo_backlog",
+  "probleme": "Serie carnet de commandes morte depuis fin 2020 alors que la these repose sur un carnet record en 2026 ; aucun carnet recent sur la fiche.",
+  "preuve": "rpo_backlog n = 5, dernier 2020-12-31, val 5 400 ; these : « le carnet de commandes atteint un niveau record » (T2 2026) ; seuls des taux de croissance de commandes transcript existent.",
+  "correction_validee": "Compléter les remaining performance obligations depuis les 10-K et 10-Q 2021 à T2 2026, ou retirer la série.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "HVAC Segment Sales / Refrigeration Segment Sales / Aftermarket Revenue / Heat Pump Sales Growth / Viessmann Synergies Run-Rate",
+  "probleme": "Cinq KPI sans periode ni source, contredisant les series officielles et decrivant des segments qui n existent plus en 2025.",
+  "preuve": "HVAC Segment Sales 2025 = 13,7 vs HVAC_REV FY2025 = 18,853 ; Refrigeration Segment Sales 2025 = 3 600 alors que le segment est remplace par CST (FY2025 = 2 894) ; Aftermarket Revenue 5,4 vs Service Revenue 2024 = 2,506 ; signaux « Heat pumps + Viessmann », « Europe slowdown », « Cible récurrence ».",
+  "correction_validee": "Supprimer les cinq KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "HVAC Net Sales / Refrigeration Net Sales / HVAC Operating Margin / Refrigeration Op Margin / Service Revenue",
+  "probleme": "KPI annuels arretes a FY2024, doublons de HVAC_REV et des series legacy trimestrielles, rediges sans accents et en franglais.",
+  "preuve": "HVAC Net Sales 2024 = 19,078 = HVAC_REV FY2024 ; Refrigeration Net Sales FY2024 = 3,475 = somme refrig_rev_legacy 2024 ; signaux « croissance +26% FY24 portee par integration », « recovery attendue avec normalisation truck/trailer cycle », « pricing discipline », « levier strategique pour recurring revenue ».",
+  "correction_validee": "Supprimer les cinq KPI annuels, dont les données sont déjà couvertes par HVAC_REV, les séries legacy et service_share.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Refrigeration Op Margin.signal",
+  "probleme": "Le signal attribue la marge 2024 a des causes operationnelles alors qu un autre KPI de la fiche explique qu elle est gonflee par une plus-value de cession.",
+  "preuve": "« Expansion spectaculaire +940 bps grace mix favorable, restructuring, pricing discipline » ; refrig_op_profit_legacy Q4-2024 = 396 : « Le pic n'est pas représentatif : il intègre la plus-value de cession de la réfrigération commerciale ».",
+  "correction_validee": "Supprimer Refrigeration Op Margin avec les autres KPI du point #32.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle / dette_sur_ca / dette_par_salarie",
+  "probleme": "Point 2019 anterieur a la scission (dette quasi nulle) qui produit des variations annualisees absurdes.",
+  "preuve": "dette_annuelle 2019 = 0,319 puis 2020 = 10,227 ; description « +82,6 % par an depuis 2019 » ; dette_sur_ca 2019 = 1,7 → « +52,7 points depuis 2019 ».",
+  "correction_validee": "Retirer le point 2019 de dette_annuelle et de dette_sur_ca, puis recalculer leurs descriptions à partir de 2020.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Mots doubles dans le texte affiche.",
+  "preuve": "« Le rapport annuel rapport annuel déposé le 5 février 2026 ne mentionne pas... »",
+  "correction_validee": "Supprimer le doublon et écrire « Le rapport annuel déposé le 5 février 2026 ne mentionne pas... ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

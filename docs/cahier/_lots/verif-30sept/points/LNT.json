@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "hero",
+  "champ": "hero_kpi / IPL_rate_base_elec, WPL_rate_base_elec, IPL_authorized_ROE, coal_retirement_timeline",
+  "probleme": "Le hero n a qu un seul point, la justification decrit un autre KPI, et l indicateur cle d une utility (historique de base tarifaire, rendement realise vs autorise) manque.",
+  "preuve": "IPL_rate_base_elec n=1 FY2025=7279 ; rationale : Base de clients electriques stable de 1,01 million ; WPL_rate_base_elec n=1 ; coal_retirement_timeline nomme calendrier mais mesure 1712 MW.",
+  "correction_validee": "Reconstituer l'historique des bases tarifaires IPL et WPL et du ROE réalisé, choisir un hero avec historique et renommer coal_retirement_timeline en Capacité charbon restante.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "fcf_annuel / fcf",
+  "probleme": "La tresorerie libre annuelle 2023-2025 est en realite le flux d exploitation : elle est positive alors que le FCF trimestriel est toujours negatif et decrit comme structurellement negatif.",
+  "preuve": "fcf_annuel 2025=1.169 = ocf 2025 249+243+408+269 = 1169 M$ ; fcf trimestriel 2025 -333, -240, -175 ; capex 2025 > 2 Mds $ ; fcf_annuel 2018-2022 negatifs (-1.106 ... -0.998).",
+  "correction_validee": "Recalculer fcf_annuel 2023-2025 comme flux d'exploitation moins capex.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Electric Customers, Electric Sales Volume, Wind Capacity, Solar Capacity, Jobs from Amazon facility, QTS Iowa data center",
+  "probleme": "Series sans periodes ni texte, contredites par les KPI sources de la fiche, plus deux faits de tiers.",
+  "preuve": "Electric Customers unit Mds $, valeurs trimestrielles 0.25 a 0.41, val 995000 vs customers_electric FY2025=1009387 ; Electric Sales Volume 28.5 TWh vs retail 25.12 / total 33.13 ; Wind Capacity 1.85 GW vs wind_capacity_owned 1782 MW stable depuis 2020 ; Solar Capacity 0.95 GW vs solar_capacity_owned 1528 MW ; Jobs from Amazon facility 1500 emplois.",
+  "correction_validee": "Supprimer les six KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total Revenues, Electric Utility Revenue, Gas Utility Revenue, Net Income Attributable to Common, Multi-year capital expenditure plan, revenue_electric_utility",
+  "probleme": "Doublons annuels de series existantes, textes en franglais sans accents, et une part du CA fausse dans la description trimestrielle.",
+  "preuve": "Total Revenues 2025=4362 = revenue_annuel 4.362 ; Net Income 810 = somme trimestres 2025 ; signaux : drive par hausse base reglementee, Cur metier LNT, leverage tarifaire ; Multi-year plan 11, 11.5, 13.4 = capex_plan_2026_2029 ; revenue_electric_utility description ~75% du CA groupe alors que 3697/4362 = 85 %.",
+  "correction_validee": "Supprimer les cinq doublons annuels et écrire environ 85 % dans revenue_electric_utility.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "fcf, capex (trimestriels)",
+  "probleme": "Aucun quatrieme trimestre dans les series trimestrielles.",
+  "preuve": "periodes : Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026.",
+  "correction_validee": "Deriver les T4 (annuel moins neuf mois) comme fait pour net_income et ocf.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "net_income, eps_diluted, op_margin, ocf, net_margin, equity, net_debt, revenue_electric_utility (descriptions)",
+  "probleme": "Cuisine interne, balises XBRL et ponctuation cassee dans les descriptions.",
+  "preuve": "actionnaires ordinaires,. T4 derive = exercice moins 9 mois ; (OperatingIncomeLoss / Revenues) ; Trimestres derives = cumul YTD moins cumul precedent ; Resultat net / chiffre d affaires,. ; Capitaux propres part du groupe,.",
+  "correction_validee": "Retirer les méthodes de calcul et les balises, et corriger la ponctuation.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "op_margin, net_margin, utility_margin_pct, seg_op_margin_gas (yoy)",
+  "probleme": "Variations de marges exprimees en pourcentage relatif au lieu de points.",
+  "preuve": "op_margin yoy -17.7% pour 23.2 vers 19.1 (-4,1 pts) ; seg_op_margin_gas +3.5% pour -8.5 vers -8.2.",
+  "correction_validee": "Afficher les variations de marges en points.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "seg_op_income_electric, seg_op_income_gas, seg_op_income_other, seg_op_margin_electric, seg_op_margin_gas",
+  "probleme": "Cinq series mortes d une segmentation abandonnee fin 2024.",
+  "preuve": "dernier Q3-2024 sur les cinq ; descriptions : n est plus publiee depuis fin 2024.",
+  "correction_validee": "Archiver ces cinq KPI.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "generation_coal.signal / generation_gas.signal",
+  "probleme": "Signaux contredits par le dernier point de leur serie et par une causalite impossible.",
+  "preuve": "generation_coal : La baisse reflete la strategie de sortir du charbon alors que FY2025 = 7.72 vs 6.2 (+24,5 %) ; generation_gas : portee par les nouvelles centrales prevues dans le plan 2026-2029 alors que FY2025 = -10,4 % et centrales non construites.",
+  "correction_validee": "Reecrire les deux signaux sur l evolution 2025 (rebond charbon, repli gaz).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "summary",
+  "probleme": "Le positionnement dit que l IA n est pas un moteur alors que moat, these et anti-these reposent sur 3,4 GW de demande de centres de donnees ; mots dupliques.",
+  "preuve": "La societe ne presente pas l IA comme un moteur de sa strategie ; moat : La demande contractee des centres de donnees bondit de 62 % a 3,4 gigawatts ; Le rapport annuel rapport annuel.",
+  "correction_validee": "Reecrire le positionnement comme beneficiaire indirect (demande electrique des centres de donnees) et supprimer la repetition.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "titres des risques 1, 2, 5, 7",
+  "probleme": "Titres telegraphiques en franglais ou grammaticalement incomplets.",
+  "preuve": "Data centers et concentration sur large load growth ; Regulation tarifaire et rate cases IUC PSCW FERC ; Physiques du changement climatique et meteo extreme ; Credits d impot renouvelables et OBBB Act.",
+  "correction_validee": "Reecrire en phrases francaises completes.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

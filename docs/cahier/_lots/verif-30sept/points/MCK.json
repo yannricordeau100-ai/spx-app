@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "USPharma_Rev (hero) / USPharma_OI / Intl_Rev",
+  "probleme": "Le hero est un segment supprimé dont la série s arrête au trimestre clos le 30 juin 2025 (Q1-2026 = 89 954) alors que la fiche court jusqu au 30 juin 2026 ; la date de dernier point 2026-03-31 est fausse pour les trois séries",
+  "preuve": "USPharma_Rev dernier 2026-03-31, serie ...Q1-2026=89954 ; NAPharma_OI et RxTS_Rev vont jusqu a Q1-2027 (2026-06-30) ; description USPharma_OI : Segment remplacé depuis le trimestre suivant",
+  "correction_validee": "Corriger last_data_date en 2025-06-30 sur USPharma_Rev, USPharma_OI et Intl_Rev, et remplacer le hero par la serie de revenus North American Pharmaceutical une fois ajoutee (point 1).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune série de revenus du segment North American Pharmaceutical (83,4 % du CA) : seul son résultat opérationnel (NAPharma_OI) est présent",
+  "preuve": "revenue_by_segment : North American Pharmaceutical Segment 83.4 ; KPI présents : NAPharma_OI uniquement, pas de NAPharma_Rev",
+  "correction_validee": "Ajouter la serie trimestrielle de revenus North American Pharmaceutical (Q2-2025 a Q1-2027) lue dans les publications trimestrielles, puis en faire le hero.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Opioid_Liab / Claims_Net",
+  "probleme": "Séries annuelles datées 2025-12-31 alors que l exercice McKesson clôt le 31 mars ; elles s arrêtent à FY2025 alors que FY2026 est publié (rapport annuel du 31 mars 2026)",
+  "preuve": "Opioid_Liab year dernier 2025-12-31 serie FY2021..FY2025 ; revenue_annuel va jusqu a 2026-03-31",
+  "correction_validee": "Ajouter le point FY2026 et aligner la date de clôture sur 2026-03-31",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "GrossMargin.yoy",
+  "probleme": "Variation d une marge en % exprimée en pourcentage relatif, contrairement aux autres marges de la fiche exprimées en points",
+  "preuve": "GrossMargin yoy=+4.5% (3.5 vs 3.35) ; OpMargin yoy=+0.19 pt ; NetMargin yoy=-0.22 pt",
+  "correction_validee": "Remplacer la variation de GrossMargin par +0,15 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI à un seul point (événements)",
+  "probleme": "Plusieurs indicateurs sont des événements ou des faits sans série, pas des KPI : nombre de segments, montants d acquisitions, émission obligataire, participants à une conférence, touches manuelles",
+  "preuve": "New Oncology & Multispecialty reportable segment | segments | val=4 ; McKesson Accelerate attendees | leaders | 1500 ; May 2025 senior notes offering | 2 ; Manual touches per order reduced | touches (vs 8) | 2 ; Annual GLP-1 distribution revenue en period quarter",
+  "correction_validee": "Basculer ces éléments dans les faits marquants ou les stories et ne garder en KPI que les mesures récurrentes",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "titres des risques",
+  "probleme": "Les titres sont des phrases prises au milieu d un paragraphe, sans antécédent, et ne nomment pas le risque",
+  "preuve": "risque 4 : Par exemple, nous sommes soumis à des ordonnances de consentement... ; risque 1 : Ces sanctions pourraient avoir un impact... ; risque 5 : Ces procédures judiciaires...",
+  "correction_validee": "Reformuler chaque titre en nom de risque (ex. : Réglementation des substances contrôlées et ordonnances de consentement)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

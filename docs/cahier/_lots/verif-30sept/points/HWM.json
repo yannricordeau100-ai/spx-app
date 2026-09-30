@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "dps / Quarterly common dividend per share",
+  "probleme": "Dividende par action incoherent : serie non ronde (paye divise par actions ?) et contredite par un autre KPI",
+  "preuve": "dps 0.083, 0.08, 0.103, 0.101, 0.118, 0.124, 0.119, 0.122 alors que le signal parle de \"0,12 $ declare\" ; \"Quarterly common dividend per share\" = 0.24 \"contre 0,16 $ un an plus tot\"",
+  "correction_validee": "Remplacer dps par les dividendes declares par action, puis supprimer le KPI Quarterly common dividend per share apres verification a la source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Adjusted EBITDA Margin",
+  "probleme": "KPI casse : nom francais en anglais, echelles melangees dans la serie, type annuel date a mi-2026, signal en anglais",
+  "preuve": "serie 1.018, 1.184, 25, 28.8, 32 ; signal \"Q1 2026 Adj EBITDA margin 32.0%, +320bps YoY\"",
+  "correction_validee": "Supprimer le KPI Adjusted EBITDA Margin.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ES_rev.yoy / ES_ebitda.yoy+signal / EP_rev.yoy / EP_ebitda.yoy / ES_ebitda_margin.yoy",
+  "probleme": "Variations sur un an incompatibles avec les series affichees",
+  "preuve": "ES_rev 269 contre 290 = -7.2 % (affiche -13 %) ; ES_ebitda 64 contre 62 = +3.2 % (affiche -6 %, signal \"-6% apres la cession de Savannah\") ; EP_rev +30.0 % (affiche +32 %) ; EP_ebitda +48 % (affiche +51 %) ; ES_ebitda_margin +2.4 pts (affiche +1.7)",
+  "correction_validee": "Recalculer, ou expliquer si la base T2 2025 a ete retraitee",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "valeurs",
+  "probleme": "Repartition perimee (vers 2021), sans annee, en anglais",
+  "preuve": "\"Engine Products 45.7 ; Fastening 23.7 ; Engineered Structures 17.6 ; Forged Wheels 12.9\" alors qu'en 2025, d'apres les series trimestrielles : Engine 4320/8252 = 52.3 %, Fastening 21.1 %, Structures 13.9 %, Wheels 12.6 %",
+  "correction_validee": "Recalculer sur l'exercice 2025 avec des libelles francais : pieces de moteurs 52,3 %, systemes de fixation 21,1 %, structures 13,9 %, roues forgees 12,6 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels / revenue_annuel / ca_par_salarie / dette_sur_ca",
+  "probleme": "Rupture de perimetre Arconic (scission d'avril 2020) non traitee",
+  "preuve": "effectifs 43 000 (2018) et 41 700 (2019) puis 19 700 (2020) ; ca_par_salarie 157.6 k$ en 2018 ; revenue_annuel \"-4,4 % par an depuis 2016\" alors que le CA passe de 6.78 a 8.25 Mds entre 2018 et 2025",
+  "correction_validee": "Couper les series avant 2020 ou les retraiter",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_margin / fcf / ocf / EP_ebitda / FS_ebitda / ES_ebitda / FW_ebitda (signal)",
+  "probleme": "Formules et termes anglais dans les textes affiches",
+  "preuve": "\"Marge brute = (Sales - Cost of goods sold) / Sales\" ; \"FCF = Cash from operations - Capital expenditures\" ; \"Cash provided from operations 583\" ; \"Segment Adjusted EBITDA Engine Products 517\"",
+  "correction_validee": "Reecrire ces signaux en francais, sans formule ni terme comptable anglais.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux FW_rev, total_seg_ebitda, net_income, buyback, capex, inventory",
+  "probleme": "Montants sans unite dans les textes",
+  "preuve": "\"CA roues forgees 316 au T2-2026\" ; \"Resultat net 534\" ; \"Rachats d'actions 300\" ; \"Stocks 2 183\"",
+  "correction_validee": "Ajouter \"M$\" apres chaque montant de ces signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "hook",
+  "probleme": "Devise fausse pour une societe americaine",
+  "preuve": "\"chaque euro de vente supplementaire\"",
+  "correction_validee": "Remplacer \"chaque euro\" par \"chaque dollar\".",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Full year free cash flow record / Capital expenditures for capacity expansion",
+  "probleme": "Doublons a un seul point, dont un mal nomme",
+  "preuve": "1430 = fcf_annuel 2025 (1.431) ; 453 = somme des capex 2025 (119+102+108+124) du groupe, nomme \"Investissements capacite Engine Products\"",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net debt to trailing EBITDA",
+  "probleme": "Levier pro forma date d'un trimestre ou il ne s'applique pas",
+  "preuve": "1.6x date du 2026-03-28 \"apres l'acquisition CAM\" alors que CAM est clotureee le 6 avril et que net_debt au T1 2026 = 2 251 M$ (environ 0.85x l'EBITDA des segments sur 12 mois)",
+  "correction_validee": "Dater au T2 2026 ou preciser \"pro forma\"",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Segmentation abandonnée depuis 2023 et coquille : « Core ÔTA », Egencia cédée en 2021 encore comptée à 5 %. Contredit les KPI B2C, B2B et trivago de la fiche.",
+  "preuve": "revenue_by_segment (None): Core ÔTA 76.49 ; Vrbo 10.87 ; trivago 7.64 ; Egencia 5 ; KPI 2025 : b2c_revenue 9,474 Mds, b2b_revenue 4,842 Mds, trivago 0,417 Md (total 14,733 = revenue_annuel)",
+  "correction_validee": "Remplacer par B2C 64,3 %, B2B 32,9 %, trivago 2,8 % (exercice 2025).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Parts géographiques sans exercice et contredites par les KPI revenue_us et revenue_intl.",
+  "preuve": "revenue_by_geography (None): U.S. 56.9 ; International 43.1 ; revenue_us FY2025=8.71 / 14.733 = 59,1 % ; revenue_intl 6.023 = 40,9 %",
+  "correction_validee": "Mettre États-Unis 59,1 %, International 40,9 % (exercice 2025).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "buybacks / Share repurchases 2025",
+  "probleme": "Trois montants différents pour les rachats 2025 sur la même fiche.",
+  "preuve": "Share repurchases 2025 val=1.662 Mds ; somme buybacks 2025 = 384+688+531+327 = 1 930 M$ ; buybacks signal « 3,2 Mds $ en 2025 »",
+  "correction_validee": "Vérifier le 10-K 2025, aligner le signal buybacks sur le total réel et supprimer le KPI à un point.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "nom de société",
+  "probleme": "Nom de l'entreprise accentué à tort dans tous les blocs : la société s'appelle Expedia Group.",
+  "preuve": "# EXPE | Expédia Group ; thèse « Expédia » ; description « Expédia Group exploite »",
+  "correction_validee": "Remplacer « Expédia » par « Expedia » partout.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Lodging gross bookings / room_nights / air_tickets",
+  "probleme": "Séries arrêtées au T1 2026 avec dernier=2026-06-30 alors que le T2 2026 est chargé partout ailleurs ; série d'hébergement sans libellés.",
+  "preuve": "Lodging gross bookings serie: 20749, ..., 25977 | dernier 2026-06-30 | signal « +13% au T1-26 » ; room_nights dernier 2026-03-31 Q1-2026=113.9",
+  "correction_validee": "Ajouter le T2 2026 (communiqué d'août) et dater les points.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "5.40% Senior Notes issuance / Restructuring charges 2025 / Occupancy tax reserve release / Vacation rentals run rate / B2B gross bookings growth",
+  "probleme": "Événements ponctuels ou doublons présentés en KPI : la croissance B2B se déduit de b2b_gross_bookings ; les autres n'ont pas de série possible.",
+  "preuve": "B2B gross bookings growth serie: 26, 24, 17, 24, 24, 22 vs b2b_gross_bookings ; Occupancy tax reserve release val=43",
+  "correction_validee": "Supprimer les cinq lignes.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik simple",
+  "probleme": "Egencia listée parmi les marques alors qu'elle est cédée depuis 2021 ; « vacation rental » en anglais.",
+  "preuve": "products: '... Trivago et Egencia (cédé à Amex GBT)' ; edge: « Vrbo dans le vacation rental »",
+  "correction_validee": "Retirer Egencia et écrire « location de vacances ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Texte en jargon (« stacks technologiques B2C/B2B ») et en contradiction avec les KPI qui montrent l'IA au cœur du service (30 % des interactions, intégration des propriétés 70 % plus rapide).",
+  "preuve": "positionnement IA (cautious): « intégrée dans ses stacks technologiques B2C/B2B ... sans en faire un pilier stratégique central » ; KPI Service interactions powered by AI = 30 % ; Property onboarding time improvement = 70 %",
+  "correction_validee": "Réécrire en français avec ces deux chiffres.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "revenue_margin_b2c / revenue_margin_b2b / b2b_gross_bookings / b2c_gross_bookings",
+  "probleme": "Trous de série : tous les T4 manquent sur les marges de revenu par canal, et le T4 2024 manque sur les réservations B2B et B2C.",
+  "preuve": "revenue_margin_b2c serie: Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 (n=7) ; b2b_gross_bookings : Q3-2024 puis Q1-2025",
+  "correction_validee": "Compléter les T4 depuis les communiqués annuels.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

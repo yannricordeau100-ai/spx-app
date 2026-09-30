@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "BANK_LOANS",
+  "probleme": "Deux points aberrants divises par quatre au milieu d'une serie reguliere.",
+  "preuve": "Q4-2024=13272, Q1-2025=47424 ... Q3-2025=50050, Q4-2025=22139, Q1-2026=53715 ; « Bank loans, net » donne 49840 et 51567 sur les memes trimestres.",
+  "correction_validee": "Corriger Q4-2024 et Q4-2025 de BANK_LOANS a la source (ordre de grandeur 46 000 et 51 500 M$ d'apres « Bank loans, net »).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PCG_AUA / Client assets under administration ; AM_AUM / Financial assets under management ; BANK_NIM / Net interest margin",
+  "probleme": "Doublons qui se contredisent au dernier trimestre : les actifs PCG depassent le total des actifs clients, deux valeurs d'AUM et deux marges d'interet differentes a la meme date.",
+  "preuve": "PCG_AUA Q3-2026=1856.5 contre « Client assets under administration » 1762.9 (PCG ne peut pas depasser le total) ; AM_AUM Q3-2026=362.1 contre « Financial assets under management » 345 ; BANK_NIM Q3-2026=2.71 contre « Net interest margin » 2.81.",
+  "correction_validee": "Verifier le trimestre clos le 30 juin 2026 a la source, corriger les series avec identifiant et supprimer les trois doublons sans identifiant.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Private Client Group / Capital Markets / Asset Management / Client Assets / AUM Fee-Based / Net Loans",
+  "probleme": "Six KPI annuels sans identifiant, sans dates, sans signal, dates du 30 juin 2026 mais figes sur FY2024, avec des descriptions en franglais.",
+  "preuve": "« Private Client Group » val=9459 alors que PCG_REV FY2025 = 2548+2486+2488+2660 = 10 182 ; « Capital Markets » 1472 contre 1770 en FY2025 ; « Client Assets » 1.59 T$ contre PCG_AUA Q4-2025 1670 ; descriptions « Cœur RJ », « Fees récurrents », « IB + trading equity/fixed income. Volatil cycles ».",
+  "correction_validee": "Supprimer les six KPI annuels sans identifiant.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Signaux de PCG_AUA, PCG_REV, FEE_AUA_PCT, AM_AUM, CM_REV, BANK_NIM, BANK_LOANS, BANK_DEPOSITS, FA_LOANS, RJBDP_SWEEP, ESP_BALANCES, TIER1_LEVERAGE, NET_REV, NET_INCOME, BPA_DILUE, PRETAX_MARGIN, NII, PCG_FEE_ASSETS, AM_REV, BANK_REV, PCG_PRETAX, CM_PRETAX, BANK_PRETAX, GEO_*, CET1, provision, ROTCE",
+  "probleme": "Une trentaine de signaux decrivent le trimestre clos le 31 mars 2026 alors que la serie contient le trimestre clos le 30 juin 2026 : chiffre cite different de la valeur affichee.",
+  "preuve": "PCG_AUA val=1856.5 avec signal « AUA PCG de 1,70 T$ au 31/03/2026 » ; NET_REV val=3.93 avec signal « 3,86 Mds $ au T2 FY2026 » ; ROTCE val=20.1 alors que le dernier point de la serie est 20.9 ; provision Q3-2026=-26 avec signal « 5 M$ au T2-2026 ».",
+  "correction_validee": "Regenerer les signaux sur le trimestre clos le 30 juin 2026 et aligner val sur le dernier point de chaque serie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "FA_COUNT / Financial Advisors",
+  "probleme": "Serie du nombre de conseillers arretee au trimestre clos en septembre 2024 mais datee du 30 septembre 2025, avec un signal qui cite 8 943 alors que la serie finit a 8 787 ; doublon avec « Financial Advisors » (8 943).",
+  "preuve": "FA_COUNT serie ... Q4-2024=8787, dernier 2025-09-30, signal « 8 943 conseillers financiers au 30/09/2025 » ; « Financial Advisors » val=8943.",
+  "correction_validee": "Completer FA_COUNT jusqu'au trimestre clos en juin 2026 et supprimer « Financial Advisors ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

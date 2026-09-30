@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Global new truck deliveries",
+  "probleme": "La série mélange des totaux annuels (185 300, 144 200) et des trimestres, et la valeur affichée 33 100 (T1 2026) est datée du T2 2026 alors que truck_deliveries_total donne 38 700 pour ce trimestre. Doublon faux de truck_deliveries_total.",
+  "preuve": "Global new truck deliveries | dernier 2026-06-30 | val=33100 | serie: 43900, 185300, 40100, 39300, 31900, 32900, 144200, 33100 ; truck_deliveries_total Q2-2026=38700",
+  "correction_validee": "Supprimer ce KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Kenworth+Peterbilt medium-duty market share, PACCAR Financial Services retail market share, Kenworth+Peterbilt US/Canada Class 8 retail market share, US/Canada Class 8 Market Share",
+  "probleme": "Doublons de parts de marché à un ou cinq points qui contredisent les séries trimestrielles : moyen tonnage 17,2 % contre 12,8 % au T1 2026 dans md_market_share_us (17,2 est le T3 2024) ; financement 27 % contre 24,2 % ; Class 8 en trois versions (29,6 / 30 / 29,9).",
+  "preuve": "Kenworth+Peterbilt medium-duty market share val=17.2 (2026-03-28) ; md_market_share_us Q1-2026=12.8 ; PACCAR Financial Services retail market share val=27 ; pfs_finance_market_share Q1-2026=24.2",
+  "correction_validee": "Supprimer les quatre doublons et garder class8_market_share_us, md_market_share_us et pfs_finance_market_share.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "att vs CAHIER_BACKLOG",
+  "probleme": "L'anti-thèse chiffre le carnet fermes à 2,6 Mds $ fin 2025 contre 3,8 fin 2024 (-32 %), le KPI CAHIER_BACKLOG donne 4,9 contre 7,6 Mds $ (-35,5 %). Deux définitions non explicitées pour le même mot « carnet de commandes ».",
+  "preuve": "att: carnet de commandes fermes à 90 jours est tombé à 2,6 Mds$ fin 2025 contre 3,8 Mds$ ; CAHIER_BACKLOG FY2024=7.6, FY2025=4.9",
+  "correction_validee": "Vérifier la définition de CAHIER_BACKLOG dans le 10-K et nommer distinctement les deux notions, ou aligner l'anti-thèse sur le KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le moat décrit des livraisons en chute de 17 % et une rentabilité qui s'effondre, alors que les séries du T2 2026 montrent -2 % de livraisons et un rebond de 17 % du résultat du segment Camions. Texte figé sur 2025.",
+  "preuve": "moat :: Les livraisons chutent de 17 pour cent et la rentabilité s'effondre ; truck_deliveries_total Q2-2026 yoy=-2% ; truck_pretax_income yoy=+17%",
+  "correction_validee": "Réécrire le moat sur le T2 2026 : stabilisation des volumes, redressement de marge, part de marché tenue.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PFS portfolio total assets (loans and leases)",
+  "probleme": "Le signal cite 22,8 Mds alors que la valeur affichée est 22,3 (dernier point). Doublon approximatif de pfs_avg_earning_assets (21,1 Mds $).",
+  "preuve": "val=22.3 | serie: 22.8, 22.3 :: Portefeuille de financement de 22,8 milliards",
+  "correction_validee": "Supprimer ce KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CAPTIVE_CREDIT_QUALITY",
+  "probleme": "Nom « Qualité du portefeuille de financement captif » pour une série qui mesure un taux d'impayés (plus c'est haut, plus c'est mauvais) : le nom inverse la lecture.",
+  "preuve": "CAHIER_CAPTIVE_CREDIT_QUALITY | Qualité du portefeuille de financement captif | % | val=2.4 | yoy=+84.6% :: Ce taux d'impayés mesure le risque",
+  "correction_validee": "Renommer en « Taux d'impayés du financement captif ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Truck Net Sales, Aftermarket Parts Sales, US/Canada Class 8 Market Share, Parts Gross Margin (descriptions)",
+  "probleme": "Descriptions non accentuées et en franglais (« replongee », « tariffs », « share stable », « Annuite stable contracyclique ») ; séries sans périodes.",
+  "preuve": "Truck Net Sales :: Coeur cyclique PACCAR, 68% du CA total FY25, replongee sur cycle Class 8 baissier + tariffs US ; Aftermarket Parts Sales :: Annuite stable contracyclique",
+  "correction_validee": "Supprimer Truck Net Sales, Aftermarket Parts Sales, US/Canada Class 8 Market Share et Parts Gross Margin.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ }
+]

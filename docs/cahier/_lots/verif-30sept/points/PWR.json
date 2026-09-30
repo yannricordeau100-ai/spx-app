@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Electric Power Infrastructure, Renewable Energy Infrastructure, Backlog, Underground & Infrastructure, Total Backlog, Electric Power Rev, Renewables Rev, Underground Rev",
+  "probleme": "Huit séries annuelles sans années, à chiffres ronds et lissés, qui se contredisent entre elles et contredisent les séries trimestrielles sourcées",
+  "preuve": "Backlog serie 18, 21, 25, 28, 32 et Total Backlog 21.1, 24.4, 30.1, 34.5, 36.5 contre total_backlog Q4-2025=43976.4 et CAHIER_BACKLOG FY2025=43976 ; Underground & Infrastructure 3.5 et Underground Rev 3.6 contre underground_rev 2025 = 1288.9+1314.9+1459.4+1415 = 5478 M$ ; Renewable 4.8 contre Renewables Rev 5.8 pour la même année ; descriptions en anglais : Tailwind IRA + datacenter, demand visibility long-term",
+  "correction_validee": "Supprimer les huit séries, couvertes par electric_rev, underground_rev, total_backlog et CAHIER_BACKLOG.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total backlog (Mds $, trimestriel, 26 points)",
+  "probleme": "Série sans périodes qui colle 22 points anciens à 4 points récents, avec un saut x2 et une date de dernier point fausse",
+  "preuve": "history 9.39 ... 15.1, 15.8, 17, 17, 35.8, 39.2, 44, 48.5, history_periods None ; les 4 derniers sont Q2-2025 à Q1-2026 de total_backlog, les précédents s'arrêtent vers 2021 (CAHIER_BACKLOG FY2021=19274) ; dernier 2025-12-31 alors que 48.5 = T1-2026",
+  "correction_validee": "Supprimer Total backlog, doublon de total_backlog.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total workforce headcount",
+  "probleme": "Troisième copie de l'effectif, à un point, typée trimestrielle et datée 2026-09-29",
+  "preuve": "Total workforce headcount n=1 val=69500 quarter dernier 2026-09-29 ; identique à workforce_history FY2025=69500 et effectifs_annuels 2025=69500",
+  "correction_validee": "Supprimer Total workforce headcount ; le doublon workforce_history relève de la détection mécanique déjà faite.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_CONTRACT_MIX",
+  "probleme": "Nom vague qui ne dit pas ce que mesure le pourcentage, et variation d'un pourcentage exprimée en %",
+  "preuve": "Mix contractuel du carnet | % | val=54.04 | yoy=+11.4% ; signal : Une part ferme plus élevée signifie moins d'incertitude ; le lecteur ne sait pas s'il s'agit de la part MSA (41 % selon msa_share_total_backlog) ou de la part à prix fixe (63,7 % selon l'anti-thèse)",
+  "correction_validee": "Renommer avec la définition exacte (par exemple Part des contrats fermes dans le carnet) et exprimer le yoy en points",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CA_RESEAUX_ELEC",
+  "probleme": "Série en milliers de dollars arrêtée en 2024 alors que le segment a été redéfini et suivi jusqu'en 2026 par electric_rev ; signal qui n'en est pas un",
+  "preuve": "milliers de dollars | dernier 2024-12-31 | val=11166495 ; signal : Produit phare : Construction et maintenance de réseaux électriques",
+  "correction_validee": "Retirer ou convertir en M$ avec une note sur le changement de périmètre 2025 (EP + Renewable fusionnés)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI / repartition",
+  "champ": "debt_lt_q.signal, revenue_by_geography, positionnement IA",
+  "probleme": "Petites erreurs de vocabulaire : dette long terme qualifiée de nette, pays en anglais majuscules, anglicisme",
+  "preuve": "debt_lt_q signal : Dette long terme nette $5,421.9M ; revenue_by_geography : AUSTRALIA 2.7 ; positionnement IA : liée à l'AI build",
+  "correction_validee": "Retirer nette dans le signal de debt_lt_q, écrire Australie, remplacer AI build par construction liée à l'IA.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

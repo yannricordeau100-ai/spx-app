@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "slices",
+  "probleme": "Repartition geographique de 2020, contredite par les series 2025, libelles en anglais.",
+  "preuve": "total 42.52 Mds $ = CA 2020 (revenue_annuel 2020 = 42.518) ; 'United States 62.5' alors que geo_us_rev 2025 = 33 279 / 48 194 = 69 % et que le signal geo_us_rev dit '69% du CA total'",
+  "correction_validee": "Remplacer par la repartition 2025 du 10-K (États-Unis 69 %, international 31 % detaille Europe / reste du monde) avec libelles francais.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Eliquis Sales, Opdivo Sales, Reblozyl Sales, Camzyos Sales, Revlimid Sales, Growth Portfolio",
+  "probleme": "Six series annuelles arretees a 2024 avec commentaires perimes en franglais sans accents, alors que les trimestrielles vont au T2 2026.",
+  "preuve": "'Top medicament BMY FY24, 27.6% du CA total', 'LoE US prevue 2028, EU 2026', 'Volume-limited generic agreements jusqu'en 2026', 'Pillier oncologie', '1st-line MDS approval = inflexion. Top growth driver' ; Eliquis_rev va a Q2-2026",
+  "correction_validee": "Supprimer Eliquis Sales, Opdivo Sales, Reblozyl Sales, Camzyos Sales, Revlimid Sales et Growth Portfolio.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "US_REV_PCT, INTL_REV_PCT, TOTAL_REV",
+  "probleme": "Frequence 'annual' non standard, points non dates, date fausse, signaux telegraphiques, doublon de revenue_annuel.",
+  "preuve": "TOTAL_REV serie 45006, 48300, 48194 dernier 2026-06-30 ; signaux 'Stabilité avec légère baisse', 'Croissance progressive'",
+  "correction_validee": "Supprimer US_REV_PCT, INTL_REV_PCT et TOTAL_REV.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cobenfy sales / Acquired IPRD expense 2025",
+  "probleme": "Deux doublons de series existantes, l'un en retard d'un trimestre avec un point divergent.",
+  "preuve": "Cobenfy sales serie 10, 27, 35, 43, 51, 56 (dernier 2026-03-11) vs Cobenfy_rev Q4-2025 = 50, Q2-2026 = 63 ; Acquired IPRD expense 2025 = 3 721 vs iprd_expenses_annuel FY2025 = 3.7",
+  "correction_validee": "Supprimer Cobenfy sales et Acquired IPRD expense 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BRAND_SALES_BRIDGE (name_fr)",
+  "probleme": "Nom sans rapport avec la serie, qui est simplement les ventes annuelles d'Eliquis.",
+  "preuve": "name_fr 'Ventes par marque et décomposition de la croissance' ; FY2025 = 14 443 = 3 565+3 680+3 746+3 452 (Eliquis_rev)",
+  "correction_validee": "Renommer 'Ventes annuelles Eliquis'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Abecma_rev",
+  "probleme": "Serie en retard de deux trimestres et signal telegraphique en contradiction avec le yoy.",
+  "preuve": "dernier 2025-12-31 alors que les autres produits sont au T2 2026 ; signal 'Croissance modeste; US -14% compensé par international +34% - concurrence intense' avec yoy -4.8%",
+  "correction_validee": "Ajouter T1 et T2 2026, reecrire le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Eliquis_rev (T1 et T2 2026)",
+  "probleme": "Croissance a deux chiffres au premier semestre 2026 alors que l'anti-these annonce un prix impose par Medicare depuis janvier 2026 : a verifier.",
+  "preuve": "Q1-2026 = 4 137 (+16 %), Q2-2026 = 4 481 (+22 %) ; att 'l'État américain fixe le prix d'Eliquis depuis janvier 2026'",
+  "correction_validee": "Confronter les deux points au 10-Q du T2 2026 et, si confirmes, expliquer dans le signal ce qui porte la hausse.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BPA non-GAAP (absent)",
+  "probleme": "La mesure de reference suivie par le marche et par la societe est absente ; seul le BPA GAAP tres volatil est affiche.",
+  "preuve": "eps_dilue_trim serie 0.6, 0.05, 1.2, 0.64, 1.08, 0.54, 1.31, 1.62",
+  "correction_validee": "Ajouter le BPA dilue non-GAAP trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Nom de produit mal orthographie.",
+  "preuve": "'Opdivo Ovantig 0.5'",
+  "correction_validee": "'Opdivo Qvantig'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_debt_trim.signal",
+  "probleme": "Le signal contredit la serie.",
+  "preuve": "'réduction continue depuis le pic de fin 2024' ; pic Q3-2024 = 41.862 > Q4-2024 = 39.303, et Q4-2025 = 34.902 > Q3-2025 = 33.252",
+  "correction_validee": "'en baisse de 7,5 Mds $ depuis le pic du T3 2024'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "evidence",
+  "probleme": "Cuisine interne visible dans les preuves.",
+  "preuve": "'earnings calls disponibles localement', 'Mettrik AI réévaluera le positionnement IA à chaque nouvelle publication'",
+  "correction_validee": "Retirer les trois phrases de preuve et garder un resume factuel sourcé.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "preambule / style.justification",
+  "probleme": "Cuisine interne visible dans la these.",
+  "preuve": "'Conformément à la règle de la fiche, la valorisation est volontairement ignorée' ; 'Le cadre défensif de Benjamin Graham a été essayé en premier puis écarté'",
+  "correction_validee": "Retirer 'Conformément à la règle de la fiche' du preambule ; la phrase sur Graham peut rester.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ }
+]

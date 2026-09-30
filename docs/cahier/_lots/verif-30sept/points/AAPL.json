@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "moat.justification_mettrik",
+  "probleme": "Texte perime qui contredit les series et la these : la Chine et l iPhone sont en forte hausse.",
+  "preuve": "moat : 'un iPhone en hausse de 4,2 %, mais la Chine recule de 3,8 %' ; iPhone Revenue T3 FY2026 +21,7 %, Greater China Revenue +22,4 % ; these : 'marge brute trimestrielle la plus elevee jamais atteinte'.",
+  "correction_validee": "Réécrire la justification sur les chiffres T3 FY2026 (iPhone +21,7 %, Grande Chine +22,4 %, base installée 2,5 Mds, marge brute Services 75,6 %).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Wearables/Home/Acc",
+  "probleme": "Doublon de 'Wearables Revenue' : periode 'year' avec 6 valeurs trimestrielles non datees, une valeur fausse, signal identique a la description, telegraphique et perime.",
+  "preuve": "serie 11.747, 7.522, 8.1, 9, 11.493, 7.901 (T3 FY2025 reel = 7,404) ; 'Q2 FY26 Wearables = $7.901 Mds (+5% YoY). Vision Pro + AirPods + Watch. Trajectoire H1 FY26 $19.394 Mds.' ; Wearables Revenue T3 FY2026 = 7,883.",
+  "correction_validee": "Supprimer 'Wearables/Home/Acc'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Active Devices",
+  "probleme": "Doublon de 'Installed base of active devices' avec une valeur perimee et un yoy faux.",
+  "preuve": "Active Devices val=2,35 yoy=+4 % (2,35/2,2 = +6,8 %) ; Installed base val=2,5 ; description : 'KPI structurel pour monetiser Services.'",
+  "correction_validee": "Supprimer 'Active Devices'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "iPhone Units, iPhone Cumul",
+  "probleme": "Apple ne publie plus d unites depuis 2018 : ces series sont des estimations tierces sans source, incoherentes entre elles et avec le jalon '3 milliardieme iPhone'.",
+  "preuve": "iPhone Units FY25 = 238,1 M ; iPhone Cumul 2024->2025 = 2 656,7 -> 2 850 = +193,3 M ; '3 billionth iPhone shipped' a 2026-03-11 alors que le cumul 2025 = 2 850.",
+  "correction_validee": "Supprimer 'iPhone Units' et 'iPhone Cumul' (Apple ne publie plus d'unités), sauf à les étiqueter estimation sourcée et cohérente.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "New $100B share repurchase program.signal",
+  "probleme": "Montant utilise incompatible avec la serie de rachats.",
+  "preuve": "signal : '25,2 Mds $ deja utilises fin decembre 2025' ; Share Buybacks Q4-FY2025 20,132 + Q1-FY2026 24,701 = 44,8 Mds $ depuis septembre 2025 seulement, programme annonce en mai 2025.",
+  "correction_validee": "Verifier le montant utilise dans le 10-Q du T1 FY2026 et corriger.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Record Services gross margin",
+  "probleme": "Record annonce depasse par la serie elle-meme.",
+  "preuve": "val=76,5 'au T1-exercice 2026' ; Services Gross Margin % Q2-FY2026 = 76,68.",
+  "correction_validee": "Supprimer 'Record Services gross margin'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Record quarterly net sales, Greater China rebound, Record annual net sales 2025, Record annual net income 2025",
+  "probleme": "Points isoles qui repetent des valeurs deja dans les series ; en parallele revenue_annuel et fcf_annuel sont absents de la fiche alors que ca_par_salarie et fcf_par_salarie (derives) sont presents.",
+  "preuve": "'Record quarterly net sales' 143,756 = Total Revenue Q1-FY2026 ; 'Greater China rebound' 25,526 = Greater China Revenue Q1-FY2026 ; pas de KPI revenue_annuel contrairement a A et ABBV.",
+  "correction_validee": "Supprimer les doublons isoles, ajouter revenue_annuel et fcf_annuel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0..5]",
+  "probleme": "Six titres sans aucune description ni chiffre.",
+  "preuve": "risks description length = 0 pour les 6 entrees ('Concentration manufacturiere Chine et tensions tarifaires', ...).",
+  "correction_validee": "Rediger chaque risque a partir du 10-K FY2025 (montant DMA 500 M€, part Chine 15,5 %, etc.).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Stance 'leader' en contradiction avec le risque 4 et formulation promotionnelle.",
+  "preuve": "'Apple positionne l IA comme fondation integree (...) qui attire developpeurs et entreprises' ; risque 4 : 'Concurrence sur les services et IA generative'.",
+  "correction_validee": "Passer en 'integrator' ou justifier le 'leader' par un fait chiffre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description.simple.fr",
+  "probleme": "'fabrique' inexact (production sous-traitee) ; les Services (26 % du CA, marge 76 %) absents de la liste des produits ; texte avance avec sous-secteur en anglais.",
+  "preuve": "'Apple concoit, fabrique et commercialise des appareils electroniques grand public' ; 'Les produits phares comprennent l iPhone, le Mac, l iPad et l Apple Watch' ; 'Dans le sous-secteur Technology Hardware & Equipment'.",
+  "correction_validee": "'concoit et commercialise', ajouter les Services, traduire le sous-secteur.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

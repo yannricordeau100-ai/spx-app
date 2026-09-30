@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Security Product Revenue Growth, Collaboration Product Revenue Growth, Service Provider Video Revenue Growth, Data Center Product Revenue Growth, Wireless Product Revenue Growth, NGN Routing Revenue Change, APJC Revenue Growth, Emerging Countries Product Growth, BRICM Aggregate Product Growth, Extra Week Revenue Impact, SaaS and Subscriptions Weekly Revenue",
+  "probleme": "Onze KPI issus du rapport annuel 2016 dates 2026-09-29, avec noms aux accents casses et caracteres nuls.",
+  "preuve": "« Croissance Revenu Produits S curit  », « Acc l ration », « Croissance Revenu Vid o SP », description « 53e semaine dans l'exercice fiscal 2016 », « Insieme et ACI », « baisses au Br sil et en Russie » ; Extra Week et SaaS weekly ont la meme valeur 265 M$.",
+  "correction_validee": "Supprimer les onze KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_BACKLOG : unit / history / signal",
+  "probleme": "Serie arretee en 2018, unite en dollars unitaires et signal qui decrit une chute absente de la serie.",
+  "preuve": "unit « $ », val=6600000000, serie FY2011..FY2018 ; signal « La chute post 2018 traduit le passage aux abonnements... » alors que le dernier point est le plus haut.",
+  "correction_validee": "Supprimer CAHIER_BACKLOG, rpo couvrant le sujet.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Networking Revenue, ARR, Subscription Revenue, Subscription Revenue %, AI Infrastructure Orders, Employees, Remaining performance obligations, Total annualized recurring revenue",
+  "probleme": "Series annuelles sans etiquettes en doublon des series trimestrielles, avec valeurs contradictoires.",
+  "preuve": "Networking Revenue FY=28.8 (+3 %) vs net_rev Q1-Q3 FY2026 = 7768+8294+8815 = 24877 sur trois trimestres ; ARR 30.6 +22% vs Total annualized recurring revenue 31.4 +5% ; Employees 77500, 79500, 84900, 83500, 90400, 82400 vs effectifs_annuels 2022=83300, 2023=84900, 2024=90400, 2025=86200 ; Remaining performance obligations 42.9 vs rpo 46734.",
+  "correction_validee": "Supprimer Networking Revenue, ARR, Subscription Revenue, Subscription Revenue %, AI Infrastructure Orders, Employees et Remaining performance obligations. Garder net_rev, rpo, effectifs_annuels, Total annualized recurring revenue et Total subscription revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.summary",
+  "probleme": "Moat contredit par les chiffres de la fiche : la securite est a plat, l'observabilite marginale, et c'est le reseau qui tire la croissance.",
+  "preuve": "« Sécurité et observabilité en très forte croissance compensant le recul du réseau historique » vs sec_rev yoy=0%, obs_rev yoy=+3% (269 M$), net_rev yoy=+25%.",
+  "correction_validee": "Reecrire le moat sur la base installee reseau, Silicon One, les commandes IA des hyperscalers (4 Mds $ au dernier trimestre) et un RPO de 46,7 Mds $.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_dil, gross_margin, op_margin, net_margin, rd_exp, inventory, rev_total, net_income, rpo : signal",
+  "probleme": "Signaux qui citent le T3 FY2026 alors que les series vont au T4 FY2026.",
+  "preuve": "rev_total val=17252 mais « CA total de 15 841 M$ au T3 FY2026 » ; net_income val=3859 vs « 3 373 M$ » ; inventory val=5694 vs « 4 708 M$ » ; rpo val=46734 vs « 43,5 Mds $ de RPO ».",
+  "correction_validee": "Reecrire sur le T4 FY2026 (25 juillet 2026).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_rev, sec_rev, col_rev, svc_rev, sw_rev, obs_rev, capex, ocf, fcf, buyback, dps, lt_debt, rev_amer, rev_emea, rev_apjc : history",
+  "probleme": "Quinze series s'arretent au T3 FY2026 alors que le T4 FY2026 est publie et present sur rev_total, net_income, rpo.",
+  "preuve": "sec_rev (hero) dernier 2026-04-25 ; rev_total dernier 2026-07-25 avec Q4-2026=17252.",
+  "correction_validee": "Ajouter le T4 FY2026 aux quinze series depuis le communique et le rapport annuel FY2026, et recaler les signaux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "gross_margin, op_margin, net_margin : yoy",
+  "probleme": "Variations de marges affichees en % au lieu de points.",
+  "preuve": "gross_margin 65.6 -> 63.6 : yoy=-2% ; op_margin yoy=+2% ; net_margin yoy=+4%.",
+  "correction_validee": "Recalculer sur le T4 et afficher en points : marge brute +0,9 pt, marge operationnelle +3,7 pts, marge nette +5,0 pts.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AMD/HUMAIN JV AI infrastructure capacity, Circuit AI assistant quarterly interactions, Silicon One chips shipped milestone, Acacia optics orders",
+  "probleme": "Projection 2030, statistique interne et jalons a un point presentes comme KPI.",
+  "preuve": "unit « GW d'ici 2030 » val=1 ; « Plus de 8 millions d'interactions trimestrielles avec l'assistant IA interne Circuit » ; « Franchissement du cap du millionième chip Silicon One (jalon) ».",
+  "correction_validee": "Passer en story ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.summary",
+  "probleme": "Texte generique « integrator » contredit par la fiche : Cisco vend de l'infrastructure IA aux hyperscalers pour plusieurs milliards.",
+  "preuve": "« Intègre l'IA dans ses produits et opérations existants pour améliorer performance et expérience client. » vs AI infrastructure orders from hyperscalers val=4 Mds $ au T4 FY2026, these « accélération vient bien de l'infrastructure pour l'intelligence artificielle ».",
+  "correction_validee": "Reclasser (fournisseur d'infrastructure IA) et rediger avec les commandes IA, Silicon One, optiques 800G.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0..6].description ; market_positions ; tagline",
+  "probleme": "Sept risques sans description, deux positions de marche sans nom ni part (221, 118), tagline en anglais.",
+  "preuve": "risque 1: Exécution du plan de restructuration :: (vide) ; position de marche 1: None | taille 221 | part None ; « Securely connecting everything to accelerate digital transformation ».",
+  "correction_validee": "Completer ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REV_GROWTH_CC_Q / REV_GROWTH_PUB_Q / ADJ_EBITDA_MARGIN_Q (yoy)",
+  "probleme": "Pour des séries déjà en %, la variation est calculée en pourcentage relatif au lieu de points, d'où des chiffres absurdes.",
+  "preuve": "REV_GROWTH_CC_Q yoy=+195,6 % (4,5 -> 13,3) ; REV_GROWTH_PUB_Q yoy=+556,2 % ; ADJ_EBITDA_MARGIN_Q yoy=-9,7 % alors que 22,7 -> 20,5 = -2,2 pts",
+  "correction_validee": "Exprimer les yoy en points : +8,8 pts, +8,9 pts et -2,2 pts.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DIVIDEND_TOTAL_Y (signal)",
+  "probleme": "Le signal contredit la série : le dividende est stable alors que le résultat net publié oscille fortement.",
+  "preuve": "'suit la politique de distribution de la moitié du résultat net, donc les mêmes à coups comptables' ; dividende 926, 929, 951, 954 alors que NET_PROFIT_S passe de 1432 à 101",
+  "correction_validee": "Préciser que la base est le résultat net ajusté et retirer 'mêmes à coups'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DOWNLOADS_REV_Q",
+  "probleme": "Le signal parle de 'recul continu', mais la série montre des pics.",
+  "preuve": "Q1-2025=40, Q2-2025=69, Q3-2025=39, Q4-2025=85, Q1-2026=34",
+  "correction_validee": "Expliquer les pics (autres revenus numériques) ou reformuler le signal.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EMPLOYEES_Y (signal)",
+  "probleme": "Le signal attribue les effectifs à la réorganisation de 2024, alors qu'ils augmentent.",
+  "preuve": "'traduisent l'ampleur de la réorganisation stratégique engagée en 2024' ; 10 346 -> 10 595 (+2,4 %)",
+  "correction_validee": "Reformuler en effectifs en hausse malgré la réorganisation.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat / en-tete / clients",
+  "champ": "moat, tagline, clients, market_positions",
+  "probleme": "Le moat n'est pas noté et contient de la cuisine interne ('relèvement de la note'). La devise est vide, les 3 clients qui pèsent 42 % ne sont pas nommés et les positions de marché n'ont pas de nom.",
+  "preuve": "moat 'None' : 'le relèvement de la note conforte le catalogue' ; tagline '' ; clients top n=3 pct 42 'clients': [] ; positions 'None | taille 28.05', 'None | taille 10.27'",
+  "correction_validee": "Réécrire le moat (catalogue, part de marché mondiale), renseigner la devise, les plateformes clientes et les libellés des marchés.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateurs manquants",
+  "probleme": "Il manque la part de marché mondiale de la musique enregistrée et la part du catalogue dans les revenus : la thèse cite ce chiffre, mais aucun KPI ne le suit. Le free cash flow n'a que 3 points annuels.",
+  "preuve": "these 'ventes de catalogue représentent 66 pour cent des revenus' sans KPI ; FCF_Y n=3",
+  "correction_validee": "Ajouter la part de marché, la part catalogue et un FCF semestriel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

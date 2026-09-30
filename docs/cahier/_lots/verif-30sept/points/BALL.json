@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Libelles d anciens segments, un segment boisson presente comme conserve alimentaire, segment Autres absent.",
+  "preuve": "'Metal Beverage Packaging Americas and Asia' = 6,286 (= somme NCA_rev 2025), 'Metal Beverage Packaging Europe' = 3,983 (EMEA), 'Metal Food and Household Products Packaging Americas' = 2,162 (= Amerique du Sud, boissons) ; Autres (OTHER_rev 2025 = 0,73) absent ; parts calculees sur 12,43 au lieu de 13,16.",
+  "correction_validee": "Amerique du Nord et centrale 47,8 % ; EMEA 30,3 % ; Amerique du Sud 16,4 % ; Autres 5,5 % (total 13,16 Mds $).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "slices",
+  "probleme": "Libelle corrompu et libelle anglais.",
+  "preuve": "'B [R]' 11,4 % (= geo_br Bresil 1 494) ; 'Other Geographic Group' 41,8 %.",
+  "correction_validee": "Renommer en Bresil et Autres pays.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NCA_coe / EMEA_coe / SA_coe / seg_coe_tot / OTHER_coe",
+  "probleme": "Signaux sur base 2025 retraitee alors que les series et les yoy restent sur l ancienne base : deux croissances differentes affichees pour le meme trimestre.",
+  "preuve": "EMEA_coe signal '162 contre 152 (base 2025 retraitee)' mais serie Q2-2025 = 129 et yoy +25,6 % ; SA_coe '82 contre 50' contre serie 51 ; seg_coe_tot '451 contre 414' contre serie 388 et yoy +16,2 % (texte +8,9 %) ; OTHER_coe '-18 contre -12' contre serie 8 et yoy '-325.0%'.",
+  "correction_validee": "Retraiter les quatre trimestres 2025 des cinq series et recalculer les yoy, ou a defaut aligner les signaux sur la serie affichee.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Comparable Diluted EPS",
+  "probleme": "Un BPA annuel insere dans une serie trimestrielle, yoy incoherent.",
+  "preuve": "history = [... 0.86, 0.94, 3.57, 0.94], le 3,57 est en position Q1-2026 alors que eps_dil Q1-2026 = 0,77 ; yoy '+22%' alors que la serie donne 0,94 contre 0,72 (+31 %).",
+  "correction_validee": "Retirer le point 3,57 ou le remplacer par le BPA comparable du T1 2026, ajouter les periodes et recalculer le yoy.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NCA_coem / EMEA_coem / SA_coem / seg_coem / net_margin / gross_margin / tax_rate",
+  "probleme": "yoy en pourcentage relatif sur des marges, repris tel quel dans l anti-these.",
+  "preuve": "NCA_coem '-20.2%' pour 12,9 vers 10,3 (-2,6 pt) ; net_margin '-12.5%' pour 6,4 vers 5,6 (-0,8 pt) ; anti-these 'la marge nette recule de 12,5 % sur un an'.",
+  "correction_validee": "Exprimer en points (NCA -2,6 pt, marge nette -0,8 pt, marge brute -1,5 pt) et ecrire : la marge nette recule de 0,8 point, a 5,6 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NCA_vol / EMEA_vol / SA_vol / PHC_vol",
+  "probleme": "yoy affiche '+nc' alors que la serie permet le calcul.",
+  "preuve": "NCA_vol 48 vers 50 (+4,2 %), EMEA_vol 36 vers 38 (+5,6 %), SA_vol 19 vers 20 (+5,3 %), PHC_vol 1,5 vers 1,5 (0 %).",
+  "correction_validee": "yoy NCA +4,2 %, EMEA +5,6 %, SA +5,3 %, PHC 0 %.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "tax_rate",
+  "probleme": "Signal tronque et point aberrant non annote.",
+  "preuve": "Signal '23,4% au T2 2026 contre 22,8% au T2 2025, taux' ; Q4-2024 = 214,3 % (EBT 7 M$).",
+  "correction_validee": "Terminer la phrase du signal et annoter le T4 2024 (resultat avant impot quasi nul) ou l exclure du graphique.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "resume",
+  "probleme": "Chiffres europeens introuvables sur la fiche.",
+  "preuve": "'L Europe progresse de 14,9 % avec un resultat en hausse de 19 %' ; EMEA_rev Q2-2026 +18,3 %, EMEA_coe +25,6 % (serie) ou +6,6 % (retraite), H1-2026 +20,5 %.",
+  "correction_validee": "Reecrire sur le T2-2026 avec les chiffres de la fiche.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.fr.products / edge",
+  "probleme": "Produit abandonne encore cite et avantage concurrentiel generique faux pour un fabricant B2B.",
+  "preuve": "'des gobelets en aluminium' alors que la fiche indique 'Charge de depreciation exceptionnelle de 233 M USD liee a la sortie de l activite gobelets' ; edge 'forte notoriete de marque et reseau de distribution mondial' pour une societe dont 2 clients font 29 % du CA.",
+  "correction_validee": "Retirer gobelets des produits ; edge : echelle industrielle (67 usines), contrats longs avec les grands embouteilleurs, premier producteur de canettes dans ses regions.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Aerospace Divestiture Purchase Price / Aerospace Disposal Pre-Tax Gain / Accelerated Share Repurchase / Aluminum Cups Impairment Charge / Share Repurchase Authorization / Buyback Authorization Remaining / Share Repurchases Executed / ORG Technology Equity Stake / Benepack Acquisition Added Capacity / Millersburg Plant Annual Capacity / India Market Annual Growth",
+  "probleme": "Onze KPI evenementiels dates 2026-04-10 dont des faits de 2024, un doublon et une devise douteuse.",
+  "preuve": "Cession aerospatiale finalisee en fevrier 2024 affichee avec date 2026-04-10 ; Share Repurchases Executed 1,32 = somme buyback 2025 (555+467+84+215 = 1 321) ; ORG Technology en 'M EUR' pour une societe americaine investissant en Chine ; India Market Annual Growth = donnee de marche.",
+  "correction_validee": "Bloc faits marquants ; verifier la devise ORG ; supprimer le doublon.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "mbs_tables_wpud, fs_plaza_tables_wpud",
+  "probleme": "Signal et yoy portent sur le T1-2026 alors que la dernière valeur est le T2-2026 ; séries irrégulières et date de mise à jour hors trimestre.",
+  "preuve": "mbs_tables_wpud : série Q1-2025 = 16,8, Q1-2026 = 24,8, Q2-2026 = 20,156 ; signal « 24 834 USD au T1-2026, +47,4 % » ; yoy affiché +47,4 % (Q1 vs Q1) ; dernier 2026-09-02. fs_plaza : Q2-2026 = 14,081, yoy +38,1 % (21,6 vers 29,9 au T1).",
+  "correction_validee": "Réécrire les signaux sur le T2-2026 (20,2 K$ à MBS, 14,1 K$ au Plaza et Four Seasons), afficher yoy « n.d. » tant que le T2-2025 manque, dater au 30 juin 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rd_dep",
+  "probleme": "Un poste « Dépenses de R&D » chez un exploitant de casinos, avec un signal inventé ; la ligne correspond aux frais de développement (étude de nouveaux complexes).",
+  "preuve": "name_fr « Dépenses de R&D », name_en « Research and development », signal « principalement efforts de jeu digital et smart tables », 43 à 72 M USD par trimestre ; LVS ne publie pas de R&D mais une ligne « Development expense ».",
+  "correction_validee": "Renommer « Frais de développement (nouveaux projets) » et remplacer le signal par « 43 M$ au T2-2026 de frais d étude de nouveaux projets, en baisse de 38 % sur un an ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "resultat_net.signal, marge_op.signal",
+  "probleme": "Chiffres cités différents de la série.",
+  "preuve": "resultat_net : signal « -28 % sur un an », série 461 vers 346 = -24,9 % (yoy affiché -24,9 %). marge_op : signal « 24,7 % au T2-2025 », série Q2-2025 = 24,6.",
+  "correction_validee": "Aligner les signaux : « -24,9 % sur un an » et « 24,6 % au T2-2025 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_GGR",
+  "probleme": "Nommé « Produit brut des jeux » alors que la série est le chiffre d affaires casino net, déjà présent deux fois, avec des valeurs anciennes divergentes.",
+  "preuve": "Unité : « M $ (chiffre d affaires casino net consolidé) » ; FY2025 = 9 789 = CA_CASINO FY2025 = 9 789 = ca_casino trimestriel 2025 cumulé ; FY2019 = 9 384 contre CA_CASINO FY2019 = 9 828 ; FY2020 = 2 041 contre 2 268.",
+  "correction_validee": "Supprimer CAHIER_GGR (ou le remplacer par le vrai GGR Macao publié par la DICJ) et garder CA_CASINO comme vue annuelle.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Les hausses citées ne correspondent ni aux EBITDA par zone de la fiche ni au dernier trimestre.",
+  "preuve": "Moat : « Singapour bondit de 30 % et Macao de 18 % ». mbs_ebitda FY2025 = 2 922 vs 2 052 (+42 %) ; macao_ebitda FY2025 = 2 310 vs 2 327 (-0,7 %) ; T2-2026 : MBS -10,3 %, Macao -24,0 %. Tendance affichée « stable », tendance Mettrik « hausse ».",
+  "correction_validee": "Réécrire sur les EBITDA de la fiche, en datant la période, et harmoniser la tendance affichée.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "stance, summary",
+  "probleme": "Stance « integrator » justifiée uniquement par des citations sur l IA utilisée par les cyberattaquants ; phrase générique identique à celle de MAA.",
+  "preuve": "evidence : « l utilisation accrue de l intelligence artificielle par les acteurs de la menace augmente le risque d attaques cybernétiques » ; summary : « intègre l IA/ML de manière opérationnelle dans ses produits, opérations ou processus selon son rapport annuel, sans en faire son coeur d identité » (même phrase sur MAA).",
+  "correction_validee": "Passer la stance à « cautious » et rédiger un résumé propre : LVS n évoque l IA que comme facteur de risque cyber et de fuite d informations.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "fcf.yoy",
+  "probleme": "Pourcentage calculé sur une base négative.",
+  "preuve": "Q2-2025 = -108, Q2-2026 = 350, yoy affiché « +424,1 % ».",
+  "correction_validee": "Afficher yoy « n.s. ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "mbs_rolling_chip.history",
+  "probleme": "Point Q1-2026 hors échelle par rapport à tout l historique, suivi d un retour immédiat au niveau habituel.",
+  "preuve": "Q1-2025 = 8 028, Q4-2025 = 13 403, Q1-2026 = 17 965 (x2,2 sur un an, deux fois le maximum 2016-2025 de 9 632), Q2-2026 = 9 269.",
+  "correction_validee": "Vérifier le T4-2025 et le T1-2026 contre le communiqué (risque de cumul semestriel ou de confusion avec le volume Macao).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_OCC_ADR_RESORT",
+  "probleme": "Le nom promet occupation et prix moyen, la série ne contient que l occupation, déjà présente en trimestriel.",
+  "preuve": "name_fr « Occupation et prix moyen des chambres du resort », unité « % (taux d occupation, Marina Bay Sands) », FY2025 = 95,3 ; KPI « Marina Bay Sands hotel occupancy » = 94,9 et « ... ADR » = 520 existent.",
+  "correction_validee": "Renommer « Taux d occupation Marina Bay Sands (annuel) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "MBS suite inventory, MBS Expansion arena capacity, Londoner Grand rooms",
+  "probleme": "Faits de capacité statiques présentés comme KPI, avec jargon.",
+  "preuve": "« Passage de 132 à 770 suites, capacité premium saturée justifiant IR2 » (IR2 non expliqué) ; « Arène de spectacle... 15 000 places » ; « 2 450 chambres ».",
+  "correction_validee": "Déplacer dans la thèse ou les positions de marché ; expliciter « IR2 » (second complexe intégré de MBS).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Occupation, prix moyen et gain par table ne sont donnés que pour Singapour et le Plaza, pas pour les grands complexes de Macao qui font 56 % du CA.",
+  "preuve": "Occupancy et ADR : uniquement Marina Bay Sands ; win per table : MBS et Plaza seulement ; Venetian, Londoner, Parisian : EBITDA et casino revenue seulement.",
+  "correction_validee": "Ajouter occupation et ADR Venetian et Londoner (publiés chaque trimestre) et la part de marché GGR Macao du groupe.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

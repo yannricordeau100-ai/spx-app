@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition 50/50 fictive, AMG absent",
+  "preuve": "« Corporate & Institutional Banking 50 ; Retail Banking 50 » (exercice None) ; series 2025 : RB 14 855, CIB 11 252, AMG 1 720 M$",
+  "correction_validee": "Retail Banking 53 %, Corporate et Institutional Banking 40 %, Asset Management 6 % (exercice 2025, somme des segments), avec des libelles en francais.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Net loan charge-offs, Common Equity Tier 1 ratio, Total loans, Net charge-offs to average loans",
+  "probleme": "Quatre doublons dates 2026-06-30 avec des valeurs du T1-2026, contredisant les series principales",
+  "preuve": "NCO doublon val=253 vs NCO Q2-2026=226 ; CET1 doublon 10.1 vs CET1 Q2-2026=9.9 ; ratio 0.29 vs signal NCO 0,25 %",
+  "correction_validee": "Supprimer Net loan charge-offs, Common Equity Tier 1 ratio, Total loans (period-end) et Net charge-offs to average loans.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Moat reprend le chiffre du doublon perime",
+  "preuve": "« pertes sur prets en hausse de 23 pour cent » = doublon T1 ; NCO Q2-2026 +14 %, att « creances douteuses en baisse de 9 % »",
+  "correction_validee": "Reecrire avec NCO T2-2026 (+14 %) et NPL (-4 %)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "att.accroche",
+  "probleme": "Hausse de dividende de 18 % non retrouvee dans la fiche",
+  "preuve": "DPS 1.60 -> 1.70 = +6 % ; signal DPS ne chiffre pas la hausse de juillet 2026",
+  "correction_validee": "Verifier le montant du dividende decide le 6 juillet 2026 et aligner accroche et serie DPS",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Announced Pennsylvania AI investments",
+  "probleme": "Chiffre exterieur a PNC presente comme KPI de la banque",
+  "preuve": "92 Mds $ d investissements annonces en Pennsylvanie par des tiers",
+  "correction_validee": "Supprimer Announced Pennsylvania AI investments.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "FirstBank (3 KPI), CLO book, Branch expansion",
+  "probleme": "Faits ponctuels a un point, unites et formats anglais",
+  "preuve": "unite « Mrd$ prets » ; signaux « $15Mrd », « $22Mrd », « $7Mrd »",
+  "correction_validee": "Basculer en stories, ecrire 15 Md$",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "BUYBK.signal",
+  "probleme": "Cuisine interne visible",
+  "preuve": "« derive par difference du cumul 6 mois (1418 M$) et du T1-2026 (796 M$) »",
+  "correction_validee": "Retirer la phrase de derivation et garder « 622 M$ au T2-2026 contre 336 M$ un an plus tot ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CARD_FEE",
+  "probleme": "Serie sans T4 et periodes au format FY incoherent",
+  "preuve": "Q1-FY2024, Q2-FY2024, Q3-FY2024, Q1-FY2025... (n=8)",
+  "correction_validee": "Completer les T4 et normaliser en Qn-AAAA",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux (NIM, RB_REV, EFF, ROACE, etc.)",
+  "probleme": "Notation anglaise « Q2-2026 » dans les signaux",
+  "preuve": "« NIM a 2.96% au Q2-2026 vs 2.80% au Q2-2025 »",
+  "correction_validee": "Remplacer Qn-AAAA par Tn-AAAA et passer a la virgule decimale dans tous les signaux PNC.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "fcf_annuel, dette_sur_ca, revenue_annuel (descriptions)",
+  "probleme": "Descriptions generiques inadaptees a une banque",
+  "preuve": "« argent reellement disponible pour rembourser la dette » ; « Au-dessus de 100 %, l entreprise doit plus que ce qu elle vend » (247 %) ; « Ventes »",
+  "correction_validee": "Descriptions specifiques banque ou masquer FCF et dette/CA",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_COST_INCOME, CAHIER_CET1, CAHIER_ROTE yoy",
+  "probleme": "Variation de ratios en % relatif",
+  "preuve": "COST_INCOME 63 -> 60 affiche -4.8 % ; CET1 +1.0 %",
+  "correction_validee": "Exprimer les yoy de CAHIER_COST_INCOME, CAHIER_CET1, CAHIER_ROTE et CAHIER_COST_RISK en points (-3 pts, +0,1 pt, +1,0 pt, -0,10 pt).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

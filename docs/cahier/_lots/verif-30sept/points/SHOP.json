@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "GMV.signal",
+  "probleme": "Le signal du KPI principal décrit les revenus des solutions marchands, pas le volume de marchandises.",
+  "preuve": "GMV signal : « Revenus facturés à l'usage, paiements, expédition, capital et commissions... » (quasi identique à la description de MERCHANT_SOL_REV).",
+  "correction_validee": "Signal : 378,4 Mds $ de volume en 2025, +29 % sur un an.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "hero / kpis",
+  "champ": "GMV / GMV_Q",
+  "probleme": "Doublon annuel/trimestriel ; le hero affiche le chiffre annuel 2025 alors que le trimestriel va jusqu'à juin 2026.",
+  "preuve": "GMV dernier 2025-12-31 = 378 441 ; GMV_Q Q2-2026 = 115 567 (+31,6 %) ; somme GMV_Q 2025 = 378 441.",
+  "correction_validee": "Hero sur GMV_Q (ou sur les 12 derniers mois), garder une seule série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ARR_GROWTH",
+  "probleme": "Mal nommé : les valeurs sont le revenu récurrent mensuel (MRR), pas annuel ; série arrêtée en 2022 et doublon du KPI MRR.",
+  "preuve": "« Revenu annuel récurrent » = 109,51 M$ fin 2022, valeur du MRR publié ; un ARR serait d'environ 1,3 Md $ ; MRR trimestriel à 221 M$ au T2 2026.",
+  "correction_validee": "Supprimer CAHIER_ARR_GROWTH (ou fusionner son historique dans MRR).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GPV / GPV % of GMV",
+  "probleme": "Doublons non datés et contradictoires de GPV_PAYMENTS et PAYMENTS_PENETRATION, noms anglais, jargon.",
+  "preuve": "GPV 54, 94, 116, 135, 175 contre GPV_PAYMENTS 53,9 … 181, 248,1 ; « GPV % of GMV » = 62 contre 65,6 % ; « Chaque 100bps = ~150M$ revenue Merchant Solutions, leading indicator take-rate ».",
+  "correction_validee": "Supprimer GPV et GPV % of GMV.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Free Cash Flow Margin",
+  "probleme": "Valeurs fausses face aux données de la fiche, nom et signal en franglais.",
+  "preuve": "-7, 5, 13, 16, 18 ; fcf_annuel / revenue_annuel : 2022 -0,186/5,6 = -3,3 %, 2023 12,8 %, 2024 18,0 %, 2025 17,4 % ; « Turnaround story post-divestiture logistics ... drive le re-rating ».",
+  "correction_validee": "Supprimer, ou recalculer depuis fcf_annuel / revenue_annuel (-3,3 ; 12,8 ; 18,0 ; 17,4 %), daté, en français.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Subscription Gross Margin / Merchant Solutions Gross Margin",
+  "probleme": "Le premier fait doublon de CAHIER_SUBSCRIPTION_GROSS_MARGIN ; les deux sont non datés, avec des signaux en franglais.",
+  "preuve": "81,1 dans les deux ; 77,7 contre 77,8 en 2022 ; « Compression 1.4pt : mix Payments international (interchange + FX) », « confirme structure SaaS premium ».",
+  "correction_validee": "Supprimer Subscription Gross Margin ; dater Merchant Solutions Gross Margin et réécrire son signal en français.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "tendance / justification_mettrik",
+  "probleme": "Tendances contradictoires et cuisine interne.",
+  "preuve": "tendance « baisse », tendance_mettrik « stable » ; « compense la dégradation de la note et la concurrence des plateformes ».",
+  "correction_validee": "Aligner la tendance et retirer la référence à la note.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "stance / summary",
+  "probleme": "La catégorie contredit le texte ; formulation générique.",
+  "preuve": "stance « integrator » ; summary « Shopify se positionne en leader de l'IA pour le commerce » ; evidence « trillions de points de données ».",
+  "correction_validee": "Choisir une catégorie cohérente avec le texte et citer des chiffres (Sidekick, usage).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "titre / summary",
+  "probleme": "Risque hors sujet pour une plateforme logicielle ; citations sans rapport avec les titres ; le risque de crédit n'est pas couvert alors que les pertes explosent.",
+  "preuve": "« Réseau immobilier et points de vente » cite une phrase sur les bugs logiciels ; « Réputation » cite des procédures judiciaires ; TRANSACTION_LOAN_LOSSES 417 M$ (+84 %), CAPITAL_ORIGINATIONS 4,2 Mds $ (+40 %).",
+  "correction_validee": "Remplacer le risque immobilier par un risque de crédit et de fraude (Shopify Capital, paiements) ; réaligner les citations.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle / dette_sur_ca",
+  "probleme": "Indicateurs nuls sans intérêt, texte robotique.",
+  "preuve": "val 0 ; « Dette de 0,0 Mds $ en 2025, −100,0 % sur un an » ; « Dette rapportée aux ventes de 0,0 % ».",
+  "correction_validee": "Retirer ou remplacer par la trésorerie nette.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Le taux de monétisation (CA / GMV), indicateur clé d'une plateforme de commerce, n'est pas suivi.",
+  "preuve": "2025 : 11 556 / 378 441 = 3,05 % ; aucun KPI de ce type.",
+  "correction_validee": "Ajouter le taux de monétisation trimestriel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

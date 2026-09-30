@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "kpis[5] EPS_D / kpis[6] REV_UC / kpis[9] DPS / kpis[10] NET_DEBT (value vs history)",
+  "probleme": "Valeur affichee differente du dernier point de la serie annuelle, yoy calcule sur la serie",
+  "preuve": "EPS_D value 2,17 vs FY2025 4,26 (yoy +38,3 % = 3,08 -> 4,26) ; REV_UC 5,34 vs 5,38 ; DPS 0,82 vs 2,04 ; NET_DEBT 10 284 vs 9 823 ; les quatre sont dates 2026-06-30 : la valeur est un chiffre S1-2026 greffe sur une serie annuelle",
+  "correction_validee": "Ramener value au dernier point annuel FY2025 (4,26, 5,38, 2,04, 9 823), ou passer ces KPI en semestriel avec une série complète.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[56] Volume",
+  "probleme": "Doublon contradictoire de CAHIER_UNIT_CASE_VOL, signal vide",
+  "preuve": "3,3 Mds caisses (serie 2.65, 2.74, 2.94, 3.21, 3.3, date 2026-08-09) alors que CAHIER_UNIT_CASE_VOL donne 3 864 M en 2024 et 3 958 M en 2025 ; description 'Volume vendu FY24'",
+  "correction_validee": "Supprimer kpis[56].",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[60] Capex.unit",
+  "probleme": "Unite en dollars pour une societe qui publie en euros",
+  "preuve": "'M $' pour 603, 812, 939, 950 alors que tous les autres KPI sont en M €",
+  "correction_validee": "Passer l'unité de kpis[60] en « M € ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[57] Coke Zero Mix / kpis[58] Energy Volume / kpis[59] Adj Op Margin",
+  "probleme": "KPI sans signal, sans periodes, dates 2026-08-09, descriptions arretees a l'exercice 2024",
+  "preuve": "Descriptions 'Part Coca-Cola Zero Sugar dans volumes CC trademark FY24', 'Volume Energy drinks FY24', 'Marge op ajustee FY24' alors que l'exercice 2025 et le S1-2026 sont publies ; yoy '+150bps', '+50bps'",
+  "correction_validee": "Mettre a jour a 2025, dater les points, rediger un signal, ecrire 'pt'",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.justification_mettrik",
+  "probleme": "Cuisine interne et risque cite absent du bloc risques",
+  "preuve": "'Volumes vendus en croissance reguliere et note relevee, mais trois risques s'aggravent dont la conjoncture, les droits de douane et la reglementation des emballages' ; aucun des 8 risques ne mentionne les droits de douane",
+  "correction_validee": "Retirer 'note relevee' et aligner les risques cites sur le bloc risques",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[18] REV_IB.signal",
+  "probleme": "Ordre de grandeur de la saisonnalite sous-estime",
+  "preuve": "'l'ete depassant d'environ 30 % le premier trimestre' alors que Q3-2025 = 1 065 vs Q1-2025 = 642 (+66 %) et Q3-2024 1 051 vs Q1-2024 668 (+57 %)",
+  "correction_validee": "Ecrire 'd'environ 60 %'",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description.simple.fr.products",
+  "probleme": "Marque citee qui n'est pas dans le portefeuille CCEP",
+  "preuve": "'Coca-Cola, Fanta, Sprite et Dasani' : Dasani n'est pas commercialisee sur les marches CCEP (retiree d'Europe en 2004)",
+  "correction_validee": "Remplacer par Monster, Fuze Tea ou Vilas/Chaudfontaine",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis (indicateur manquant)",
+  "probleme": "Part de marche en valeur absente",
+  "preuve": "CCEP publie chaque semestre sa part de marche valeur sur les boissons rafraichissantes ; la fiche n'a que volumes, prix par caisse et cout par caisse",
+  "correction_validee": "Ajouter la part de marche valeur (NARTD) par semestre",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

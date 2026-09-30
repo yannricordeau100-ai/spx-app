@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Red Dead Redemption 2 (3 KPI) / GTA V Units Lifetime / NBA 2K Units Sold",
+  "probleme": "Doublons aux valeurs contradictoires",
+  "preuve": "RDR2 cumulé : 85 M (+31 %, 'meilleure année'), 80 M et 70 M ; GTA V : gta5_units 225 M vs GTA V Units Lifetime 215 M ; NBA 2K : 11,5 M vs 10 M",
+  "correction_validee": "Garder gta5_units et le seul KPI RDR2 daté (80 M, avril 2026) ; supprimer les autres séries RDR2, GTA V Units Lifetime et les deux séries NBA 2K non sourcées.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Recurrent Consumer Spending / RCS share of Net Bookings / RCS YoY growth",
+  "probleme": "Trois versions de la part récurrente plus une croissance d'apparence reconstituée, contredites par rcs_net_rev",
+  "preuve": "recurrent_spend_pct 84,1 % ; 'Recurrent Consumer Spending' 78 % (série 60,64,70,75,78) ; part des Net Bookings 82 % ; croissance 3,6,9,14,17,20,23,7 alors que rcs_net_rev donne +2,7 % au dernier trimestre",
+  "correction_validee": "Garder recurrent_spend_pct et rcs_net_rev ; supprimer Recurrent Consumer Spending, RCS share of Net Bookings et RCS YoY growth.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "GTA Online Active Users / Zynga Mobile Mix / Zynga Mobile Bookings / Mobile Revenue %",
+  "probleme": "Séries non publiées par la société ou mal définies, textes en anglais",
+  "preuve": "GTA Online MAU 12,14,11,9,8 (non publié par Take-Two), description 'Wait for GTA VI 2026.' ; Zynga Mobile Mix '% du CA Zynga Mobile' = 50 fixe ; Zynga bookings 2.82, 2.82 ; Mobile Revenue % 51 doublon de revenue_by_segment Mobile 50,1",
+  "correction_validee": "Supprimer ces 4 KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "net_debt",
+  "probleme": "Définition fausse qui fait baisser artificiellement la dette nette",
+  "preuve": "'dette à long terme moins la trésorerie' ; lt_debt passe de 2 488 à 1 889,8 M$ par reclassement en court terme (signal lt_debt) et net_debt chute de 942,5 à 524,9 sans remboursement",
+  "correction_validee": "Inclure la part court terme de la dette dans le calcul",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "gta6_launch / GTA VI release date moved to November 19, 2026",
+  "probleme": "Doublon, nom anglais comme libellé",
+  "preuve": "Deux KPI pour la même date ; name_en de gta6_launch = 'GTA VI release date moved to November 19, 2026'",
+  "correction_validee": "Supprimer le KPI 'GTA VI release date moved…' et présenter la sortie du 19 novembre 2026 en fait clé.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "revenue_by_segment",
+  "probleme": "Libellé cassé",
+  "preuve": "'P C And Other Products 10.9'",
+  "correction_validee": "Renommer en 'PC et autres'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Moat 'Aucun' contredit par son propre texte et par la fiche",
+  "preuve": "Texte 'renforce l'attachement aux franchises maison' ; GTA 465 M d'unités, 84 % de dépenses récurrentes",
+  "correction_validee": "Réévaluer le niveau (franchises propriétaires)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline",
+  "probleme": "Accroche vide",
+  "preuve": "tagline: (vide)",
+  "correction_validee": "Rédiger une accroche en français",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

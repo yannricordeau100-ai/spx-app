@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Copper sales volume / Gold sales volume / Molybdenum sales volume",
+  "probleme": "Doublons sans dates des series volumes, avec un trimestre saute et une date de dernier point fausse.",
+  "preuve": "Copper sales volume serie ...977, 657 (le T4 2025=709 manque) dernier 2026-06-30 alors que copper_sales_vol Q2-2026=710 ; Gold 336, 121 (T4 2025=80 manque) vs gold_sales_vol Q2-2026=123",
+  "correction_validee": "Supprimer 'Copper sales volume', 'Gold sales volume' et 'Molybdenum sales volume'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Indonesia Ops Revenue",
+  "probleme": "Valeur affichee differente du dernier point de la serie, serie sans annees, variation incoherente.",
+  "preuve": "val=8622, yoy=-16.4% ; serie 2713, 3534, 7241, 8028, 7816 (dernier 7816) ; somme ca_segment_indonesia 2025 = 8618",
+  "correction_validee": "Reconstruire la serie annuelle datee jusqu'a 2025 (2024 = 9 774, 2025 = 8 618 M$ d'apres ca_segment_indonesia) et recalculer val et yoy.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Copper Realized Price / CAHIER_REALIZED_PRICE",
+  "probleme": "Deux series du prix realise du cuivre avec des valeurs contradictoires, l'une arretee en 2024 avec signal generique.",
+  "preuve": "Copper Realized Price 3.42, 4.39, 3.85, 3.78, 4.2 (dernier 2024) ; CAHIER FY2020=2.95, 2021=4.33, 2022=3.9, 2023=3.85, 2024=4.21 ; signal 'Cycle haut, demande EV.'",
+  "correction_validee": "Supprimer 'Copper Realized Price' et garder CAHIER_REALIZED_PRICE.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ca_segment_na / ca_segment_sa / ro_segment_na / ro_segment_sa / ro_segment_moly",
+  "probleme": "Series arretees au T3 2025 avec une date de dernier point au 30 juin 2026 ; les autres segments vont au T2 2026.",
+  "preuve": "ca_segment_sa 'dernier 2026-06-30', serie finit Q3-2025=1.183 ; ca_segment_indonesia va jusqu'a Q2-2026",
+  "correction_validee": "Completer Q4-2025, Q1-2026, Q2-2026 depuis la note segments.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Gold average realized price",
+  "probleme": "Serie sans dates probablement decalee de deux trimestres.",
+  "preuve": "serie 1.808, 1.789, 2.568, 2.628, 3.072, 3.291, 3.539, 4.889 dernier 2026-06-30 ; 2 568 $/oz correspond au T3 2024 publie, ce qui placerait 4 889 au T1 2026 et non au T2",
+  "correction_validee": "Etiqueter chaque point et verifier les deux derniers trimestres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "buybacks.signal / Share repurchase program authorization",
+  "probleme": "Taille du programme de rachat contradictoire.",
+  "preuve": "buybacks : 'programme de 5 Mds$' ; KPI 'Autorisation de rachat d'actions jusqu'a 3,0Md'",
+  "correction_validee": "Verifier l'autorisation en vigueur et retirer le KPI a un point si perime.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Prix realise du cuivre et cout unitaire net en trimestriel absents alors que l'or et le molybdene ont un prix realise trimestriel.",
+  "preuve": "CAHIER_REALIZED_PRICE et CAHIER_UNIT_NET_CASH_COST annuels seulement ; Gold/Moly realized price trimestriels",
+  "correction_validee": "Ajouter prix realise cuivre $/lb et cout net $/lb par trimestre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Indonesia Operations % Rev",
+  "probleme": "Serie arretee en 2024 alors que 2025 est calculable sur la fiche.",
+  "preuve": "dernier 2024=35 ; 2025 = 8622 / 25915 = 33 %",
+  "correction_validee": "Supprimer le KPI 'Indonesia Operations % Rev' plutot que d'ajouter un point 2025 calcule autrement.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Noms de pays en anglais et en majuscules, valeur vide.",
+  "preuve": "'SWITZERLAND 21.4 ; INDONESIA 8.8 ; KOREA, REPUBLIC OF 0.8 ; PHILIPPINES None'",
+  "correction_validee": "Traduire les pays (Suisse, Indonesie, Singapour, Espagne, Chili, Egypte, Coree du Sud, Inde) et retirer les Philippines.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "positionnement IA",
+  "probleme": "Residu de traitement interne dans le texte.",
+  "preuve": "'mentionne peu l'IA dans ses communications officielles (Mines).'",
+  "correction_validee": "Retirer '(Mines)' du positionnement IA.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Manyar smelter first copper cathode",
+  "probleme": "Une annee presentee comme valeur de KPI.",
+  "preuve": "'unite annee | val=2025'",
+  "correction_validee": "Supprimer le KPI et garder l'information en story.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

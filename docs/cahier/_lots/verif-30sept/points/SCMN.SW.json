@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "GROWTH_ORG_FY / REV_FY.signal",
+  "probleme": "Le nom du KPI (taux de change constants) ne correspond pas à son signal (change et acquisitions neutralisés), et le chiffre à périmètre comparable diffère de celui d'un autre signal.",
+  "preuve": "GROWTH_ORG_FY : nom « Croissance du CA à taux de change constants », signal « neutralise le change et l'effet d'acquisition », valeur -1,3 % ; REV_FY : « à périmètre comparable ... le CA recule de 2,0 % ».",
+  "correction_validee": "Préciser la définition (organique à change constant, ou pro forma en CHF) et harmoniser les deux chiffres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Le moat contient de la cuisine interne et contredit le signal des abonnés mobiles.",
+  "preuve": "« Perte de la note de moat, base d'abonnés mobiles en recul », alors que MOBILE_CH dit « une base remarquablement stable » (-0,9 %).",
+  "correction_validee": "Réécrire sans référence à la notation interne et harmoniser avec le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque des KPI sectoriels évidents pour un opérateur qui investit dans la fibre et réalise 45 % de ses ventes en Italie.",
+  "preuve": "Aucune couverture fibre (FTTH) en Suisse, aucune ligne haut débit fixe en Italie (Fastweb + Vodafone), aucun ARPU italien. Seul IT_MOBILE couvre l'Italie.",
+  "correction_validee": "Ajouter « Couverture FTTH Suisse (% des foyers) », « Lignes haut débit Italie » et « ARPU Italie ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CHURN_POSTPAYE.yoy ; CAHIER_AJOUTS_NETS_HD.yoy",
+  "probleme": "Variations exprimées en % sur des taux ou des soldes négatifs, ce qui donne des lectures trompeuses.",
+  "preuve": "Churn : 9.1 puis 8.4, affiché yoy « -7.7% » au lieu de -0,7 pt. Ajouts nets : -39 puis -29, affiché « -25.6% » alors que les pertes diminuent.",
+  "correction_validee": "Afficher le churn en points (-0,7 pt) et les ajouts nets en écart absolu (+10 milliers).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ARPU, CAHIER_CHURN_POSTPAYE, CAHIER_AJOUTS_NETS_HD, FCF_Q",
+  "probleme": "Le périmètre de l'ARPU n'est pas indiqué, et plusieurs name_en sont vides de sens ou restés en anglais.",
+  "preuve": "« Revenu moyen par abonné » à 42 CHF / mois, sans service ni pays précisé ; name_en « Arpu », « Churn Postpaye », « Ajouts Nets Hd » ; nom français de FCF_Q : « Free cash flow ».",
+  "correction_validee": "Préciser l'ARPU (par exemple mobile Suisse), corriger les name_en et renommer FCF_Q « Flux de trésorerie disponible ».",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / these / repartition / position de marche",
+  "champ": "tagline, these, exercice, market_positions",
+  "probleme": "Tagline en anglais, jargon anglais et astérisque orphelin dans la thèse, exercice non renseigné, position de marché vide.",
+  "preuve": "« The backbone of Swiss connectivity... » ; « grille des Dividend Aristocrats », « à périmètre comparable* » ; revenue_by_segment (None), alors que Swisscom Suisse 52,3 % = 7869 / 15048 en 2025 ; position : None, taille 29.5, part None.",
+  "correction_validee": "Traduire, retirer l'astérisque, renseigner l'exercice 2025 et compléter ou retirer la position.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "hero",
+  "champ": "REV_Q",
+  "probleme": "Le KPI vedette est le chiffre d'affaires total, que l'investisseur connaît déjà et que l'effet de périmètre fausse. Ce n'est pas un indicateur opérationnel.",
+  "preuve": "hero = REV_Q (3615 M CHF, -2,0 %), alors que OPFCF_Q, EBITDAAL_Q et les abonnés sont disponibles.",
+  "correction_validee": "Choisir par exemple OPFCF_Q (qui pilote le dividende) ou EBITDAAL_Q comme KPI vedette.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

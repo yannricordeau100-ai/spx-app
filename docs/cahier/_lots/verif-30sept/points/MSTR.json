@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "BTC Holdings Market Value",
+  "probleme": "Valeur de marché de la réserve incompatible avec les autres chiffres de la fiche.",
+  "preuve": "21,3 Mds $ au 2026-09-07 pour 845 050 BTC implique un bitcoin à 25 000 $, alors que DIGITAL_ASSETS vaut 49,7 Mds au 30 juin 2026 et que le coût moyen est 75 412 $. Série 3.6, 8, 14, 18.5, 21.3 sans période.",
+  "correction_validee": "Supprimer « BTC Holdings Market Value ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BTC_AVG_COST / Average BTC Cost Basis / Avg Cost per BTC",
+  "probleme": "Trois coûts moyens d'acquisition différents à la même date.",
+  "preuve": "BTC_AVG_COST = 75 412 $ (2026-09-07) ; Average BTC Cost Basis = 67 450 $ ; Avg Cost per BTC = 64 511 $ avec description « FY24 … Vs spot ~$95k ».",
+  "correction_validee": "Supprimer « Average BTC Cost Basis » et « Avg Cost per BTC » et garder BTC_AVG_COST.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BTC Yield YTD / BTC Yield",
+  "probleme": "Deux séries BTC Yield contradictoires et une valeur 2026 invraisemblable.",
+  "preuve": "BTC Yield YTD : 7.3, 25, 41.8, 60, 74.3 ; BTC Yield : 5, 8, 12, 25, 74 ; description « BTC Yield FY24 ». Un rendement de 74 % en 2026 est incompatible avec la thèse (« depuis le 9 août, la société a cessé de vendre… » et achats stoppés) et l'anti-thèse (ventes de bitcoins).",
+  "correction_validee": "Supprimer « BTC Yield » et corriger ou supprimer « BTC Yield YTD », dont les valeurs datent de 2024, avec le rendement 2026 publié dans le dernier 8-K.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BTC NAV Premium",
+  "probleme": "Prime sur NAV périmée et contredite par l'anti-thèse.",
+  "preuve": "270 % mNAV daté 2026-09-07, description « fin FY24 … >2.5x = retail/leverage exuberance » ; anti-thèse : « sa capitalisation ne vaut plus que 1,07 fois la valeur de sa réserve ».",
+  "correction_validee": "Supprimer « BTC NAV Premium », ou le remplacer par un mNAV à jour (1,07x) si une série sourcée existe.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Software Revenue (Legacy) / Software Revenue / revenue_annuel",
+  "probleme": "Trois séries annuelles du même chiffre d'affaires, deux périmées avec unités différentes.",
+  "preuve": "Software Revenue (Legacy) 0,463 Mds (2026-09-07) et Software Revenue 463 M $ « FY24 » ; revenue_annuel 2025 = 0,477 Mds.",
+  "correction_validee": "Supprimer « Software Revenue (Legacy) » et « Software Revenue ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these/att/kpis",
+  "champ": "nombre de bitcoins",
+  "probleme": "Trois chiffres différents pour le stock de bitcoins dans la fiche.",
+  "preuve": "Thèse : 845 050 au 13 septembre 2026 ; anti-thèse : « 840 447 unités et une croissance de 41,6 % » ; BTC_HELD Q2-2026 = 846 000 puis val=845 050 avec le même +41,6 %.",
+  "correction_validee": "Aligner l'anti-thèse sur 845 050 (ou dater le 840 447) ; vérifier le point Q2-2026 (846 000 arrondi).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "products / customers",
+  "probleme": "Description inexacte : Strategy ne vend ni stockage ni gestion d'actifs numériques, et ses clients logiciels sont des entreprises.",
+  "preuve": "« Elle propose des titres adossés au Bitcoin, des solutions de stockage sécurisé, et des services de gestion d'actifs numériques » ; « Ses clients sont principalement des investisseurs institutionnels ». La répartition du CA montre 100 % de logiciel (support, abonnement, licences).",
+  "correction_validee": "Produits : plateforme d'analyse Strategy One (abonnements, licences, support) et émission de titres (actions ordinaires, préférentielles, convertibles) qui financent la réserve de bitcoins ; clients : entreprises et administrations utilisatrices de la plateforme.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PREF_DIV",
+  "probleme": "Trou dans la série trimestrielle.",
+  "preuve": "Points Q1-2025, Q2-2025, Q4-2025, Q1-2026, Q2-2026 : Q3-2025 manque alors que STRK et STRF versaient déjà.",
+  "correction_validee": "Ajouter Q3-2025 depuis le 10-Q.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

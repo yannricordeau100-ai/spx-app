@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition fausse et sans exercice : Conferences et Conseil sont inverses",
+  "preuve": "Affiche : Research 79, Conferences 6, Consulting 15. FY2025 d'apres les series : Conferences 72.6 + 211.4 + 74.6 + 286.1 = 644.7, soit 9.9% ; Conseil 552.5, soit 8.5% ; Insights 5074, soit 78.1%",
+  "correction_validee": "Recalculer sur l'exercice 2025 : Insights 78,1%, Conferences 9,9%, Conseil 8,5%, Other (Digital Markets) 3,5%.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CV_total / CV_GTS / CV_GBS (signaux)",
+  "probleme": "Les signaux citent la croissance a change constant, mais la serie est en dollars courants : le lecteur voit un ecart",
+  "preuve": "CV_total 5283 / 5034 = +4.9% alors que le signal dit '+2%'. GTS : 3999 / 3822 = +4.6% contre '+1%'. GBS : 1283 / 1212 = +5.9% contre '+3%'",
+  "correction_validee": "Ajouter 'a change constant' dans les signaux et le champ yoy de CV_total, CV_GTS et CV_GBS.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "anti-these",
+  "champ": "att.texte",
+  "probleme": "Le multiple de la dette nette est faux, et le genre de 'Valeur' est fautif",
+  "preuve": "'la dette nette a ete multipliee par 4,0' alors que net_debt passe de 0.264 a 1.491, soit x5,6 (yoy +464.8%). 'La croissance du Valeur des contrats', 'le Valeur des contrats'",
+  "correction_validee": "Corriger en 'de la valeur des contrats' et 'la valeur des contrats', et preciser 'multipliee par 4,0 depuis debut 2025' (ou 5,6 sur un an).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ebitda / ebitda_margin",
+  "probleme": "Nom faux : la serie est le resultat operationnel plus les amortissements, pas l'EBITDA ajuste publie par Gartner",
+  "preuve": "Nom 'EBITDA ajuste (derive)', signal : 'resultat operationnel + dotations aux amortissements' ; Q3-2025 = 137.3 inclut la depreciation de 150 M$",
+  "correction_validee": "Renommer en 'EBITDA calcule (resultat operationnel + amortissements)' et retirer '_derived' des signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risques 1, 3, 4, 7",
+  "probleme": "Le risque principal (renouvellement des abonnements de recherche) est remplace par le conseil ; il y a aussi un doublon, une coquille et un fragment de phrase",
+  "preuve": "Risque 1 : 'remplacer les missions de conseil' ; risque 4 : meme idee ; risque 3 : 'Nous evolons' ; risque 7 : 'De plus, certains candidats...'",
+  "correction_validee": "Reecrire les risques (renouvellement de la valeur contractuelle, concurrence de l'IA generative)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_REV_PER_EMPLOYEE",
+  "probleme": "Serie arretee en 2021, en doublon de ca_par_salarie et incompatible avec lui",
+  "preuve": "FY2021 = 429 k$ contre ca_par_salarie 2021 = 285.2 k$. Le signal parle de 'par consultant'",
+  "correction_validee": "Supprimer CAHIER_REV_PER_EMPLOYEE.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "client_enterprises / Addressable target enterprises",
+  "probleme": "Nombre de clients contradictoire",
+  "preuve": "client_enterprises FY2025 = 13000 ; signal de Addressable target : 'pour seulement 14 000 clients actuels'",
+  "correction_validee": "Aligner sur le chiffre du rapport 2025",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Global Business Sales Contract Value",
+  "probleme": "Doublon arrondi de CV_GBS",
+  "preuve": "Serie 1.1 ... 1.3 Mds contre CV_GBS 1283 M ; signal 'CV a $1,3 Md'",
+  "correction_validee": "Supprimer 'Global Business Sales Contract Value'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "noms fcf, cv_growth, sga_ratio",
+  "probleme": "Noms francais en anglais ou jargon",
+  "preuve": "'Free cash flow' ; 'Croissance du contract value' ; 'SG&A en % du CA'. cv_growth est affiche avec 3 decimales (1.667)",
+  "correction_validee": "Renommer en 'Flux de tresorerie disponible', 'Croissance de la valeur contractuelle (change constant)', 'Frais commerciaux, generaux et administratifs en % du CA', et arrondir cv_growth a une decimale.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AI-related documents, In-depth AI client conversations, AskGartner, Magic Quadrant..., Senior notes issuance, Incremental share repurchase authorization",
+  "probleme": "Des faits ponctuels de 2025 sont ranges en KPI trimestriels a un seul point",
+  "preuve": "Tous dates 2026-03-28 avec n = 1, alors que les signaux parlent de '2025' ou de 'novembre 2025'",
+  "correction_validee": "Deplacer dans le positionnement IA ou les textes",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "new_lease_base_rent_psf",
+  "probleme": "Série arrêtée au T3-2023 alors que le signal parle des baux 2025 et des expirations 2026 avec des chiffres (36,02 $, 28,45 $) absents de la série (dernier point 37,54 $). Nom anglais « New Leases Signed 2025 » incohérent avec une série 2021-2023.",
+  "preuve": "dernier 2023-09-30 | val=37.54 ; signal : « Nouveaux baux signés en 2025 à $36,02/SF vs loyers expirés 2026 à $28,45/SF »",
+  "correction_validee": "Retirer new_lease_base_rent_psf, déjà couvert par new_renewal_base_rent_psf, ou la prolonger jusqu'au T2-2026 à partir des suppléments.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "leasing_sf_signed / leasing_transactions / acquisitions",
+  "probleme": "Valeurs négatives impossibles pour des surfaces signées, des nombres de baux et des paiements d'acquisition : artefact d'une décumulation de séries cumulées en fin d'année.",
+  "preuve": "leasing_sf_signed Q4-2024=-2.463, Q4-2025=-2.548 ; leasing_transactions Q4-2024=-916, Q4-2025=-913 ; acquisitions Q4-2024=-46.6",
+  "correction_validee": "Recalculer chaque T4 comme cumul annuel moins cumul sur 9 mois, ou retirer les points négatifs.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Blended cash rent spread / Same Property NOI growth / Same Property anchor et shop percent leased / In-process development",
+  "probleme": "Cinq séries sans dates doublonnent des KPI existants avec un décalage d'un trimestre : le dernier point daté 2026-06-30 est en fait la valeur du T1-2026 (12,1 = rent_spread Q1-2026 ; 4,4 = same_prop_noi_growth_q Q1-2026 ; 98,2 = occupancy_anchor Q1-2026 ; 635 = dev_reddev_pipeline Q1-2026). Le lecteur voit deux valeurs différentes pour le même trimestre.",
+  "preuve": "Blended cash rent spread ...12.8, 12.1 vs rent_spread Q1-2026=12.1, Q2-2026=11.2 ; Same Property NOI growth ...4.4 vs same_prop_noi_growth_q Q2-2026=3.8 ; shop percent leased 94.1 vs occupancy_shop Q1-2026=93.1",
+  "correction_validee": "Supprimer Blended cash rent spread, Same Property NOI growth, Same Property anchor percent leased, Same Property shop percent leased et In-process development & redevelopment.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Dividends declared per common share and unit",
+  "probleme": "Série qui mélange des dividendes trimestriels et annuels (0,705 ; 2,715 ; 2,87 ; 0,755) ; doublon de dividend_per_share.",
+  "preuve": "serie: 0.705, 2.715, 2.87, 0.755",
+  "correction_validee": "Supprimer Dividends declared per common share and unit.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Q1 leasing volume exceeding entire prior year GLA",
+  "probleme": "Signal contredit par la fiche : 1,5 M SF au T1-2026 ne dépasse pas les 5,3 M SF cumulés sur 2025 (leasing_sf_signed Q3-2025 = 5,342 en cumul) ; en outre daté 2026-02-08, avant la fin du T1-2026.",
+  "preuve": "signal : « 1,5 M SF de baux exécutés au T1-2026, soit plus de surface louée que sur toute l'année 2025 » ; leasing_sf_signed Q3-2025=5.342",
+  "correction_validee": "Retirer ce point ou réécrire avec la comparaison exacte publiée par la société.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Off-market R&D five-property Orange County portfolio acquisition",
+  "probleme": "« portefeuille R&D » pour une foncière de centres commerciaux ancrés par des supermarchés : le portefeuille de cinq actifs d'Orange County est constitué de centres commerciaux, « R&D » est une erreur de libellé.",
+  "preuve": "nom : « Acquisition off-market du portefeuille R&D en Orange County » | val=357 M$",
+  "correction_validee": "Renommer « Acquisition de gré à gré de cinq centres commerciaux en Orange County (357 M$) ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "total_gla",
+  "probleme": "Point « FY2026 » sur une série annuelle alors que l'exercice 2026 n'est pas clos (valeur au 30/06/2026).",
+  "preuve": "total_gla | year | dernier 2026-06-30 | serie: ... FY2025=58.6, FY2026=58.8",
+  "correction_validee": "Retirer le point FY2026 de total_gla ou l'étiqueter T2-2026.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_LEASED_VS_OCCUPIED / CAHIER_FFO_AFFO_PS",
+  "probleme": "Noms qui annoncent deux mesures (loué et occupé ; FFO et AFFO) alors que chaque série n'en porte qu'une (taux loué ; FFO par action).",
+  "preuve": "« Taux de location signé et taux d'occupation » val=96.5 ; « Fonds provenant de l'exploitation et fonds ajustés par action » val=4.64 (= FFO Nareit 2025)",
+  "correction_validee": "Renommer CAHIER_LEASED_VS_OCCUPIED « Taux de location ». Pour CAHIER_FFO_AFFO_PS, suivre la détection de doublon déjà faite.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Phrase incohérente : « la note a perdu son avantage durable face au commerce en ligne » (« la note » n'a pas de sens ici), alors que les taux de location record (96,9 %) et les écarts de loyer de 11 % contredisent la perte d'avantage.",
+  "preuve": "moat : « ...mais la note a perdu son avantage durable face au commerce en ligne. »",
+  "correction_validee": "Réécrire sur les chiffres de la fiche (occupation 96,9 %, réversion +11 %, ancrage alimentaire).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

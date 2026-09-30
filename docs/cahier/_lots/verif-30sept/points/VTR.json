@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "SHOP SS NOI growth",
+  "probleme": "La série n'est pas à périmètre constant : le périmètre change à chaque trimestre. La variation affichée contredit donc le signal.",
+  "preuve": "yoy=+34,8 % (226,068 -> 304,691) vs signal « contre 262,0 M$ au T2 2025, soit +16,3 % publiés »",
+  "correction_validee": "Afficher la croissance à périmètre constant publiée (en %) ou renommer en « NOI SHOP, périmètre du trimestre » et masquer la variation.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OMR SS NOI growth",
+  "probleme": "Même défaut à moindre échelle : la base de comparaison de la série diffère de celle du signal.",
+  "preuve": "yoy=+3,8 % (Q2-2025=139,257) vs signal « contre 139,9 M$ ... soit +3,4 % »",
+  "correction_validee": "Aligner sur le chiffre publié à périmètre constant.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FCF / fcf_annuel",
+  "probleme": "Deux trésoreries libres de signes opposés pour 2025 sans explication : environ +1,37 Md $ en trimestriel contre -1,28 Md $ en annuel (qui déduit probablement les acquisitions).",
+  "preuve": "FCF 2025 = 262,8+408,2+319,7+375,3 = 1 366 M$ ; fcf_annuel 2025 = -1,281 Mds $",
+  "correction_validee": "Renommer l'annuel en « trésorerie après investissements et acquisitions » ou aligner les deux définitions.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net debt / EBITDA ; Adjusted EBITDA",
+  "probleme": "La série s'arrête au T1 2026 alors que la date affichée est le 30 juin 2026. Le signal de levier compte aussi « huit trimestres consécutifs » là où la série n'en montre que sept, et l'anti-thèse dit « septième ».",
+  "preuve": "dernier 2026-06-30, dernier point Q1-2026=5 ; signal « huit trimestres consécutifs de désendettement » ; att « septième trimestre consécutif »",
+  "correction_validee": "Ajouter le T2 2026, corriger la date et harmoniser le décompte.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these.resume",
+  "probleme": "Le texte annonce « cinq ans d'affilée » de hausse d'occupation, mais la série de la fiche n'en montre que quatre (2021 est un recul).",
+  "preuve": "« l'occupation des résidences monte depuis cinq ans d'affilée » ; FY2020=81,7, FY2021=78,5, FY2022=80,8 ... FY2025=87,3",
+  "correction_validee": "Remplacer « cinq ans d'affilée » par « quatre ans d'affilée ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SHOP_OCCUPANCY_REVPOR / CAHIER_SS_NOI / CAHIER_FFO_AFFO_PS",
+  "probleme": "Noms faux ou bruts : la première série ne contient que l'occupation (pas de RevPOR). Les variations de taux sont données en % au lieu de points. Les noms anglais sont illisibles.",
+  "preuve": "« Occupation et revenu par unité occupée » série 84,5 -> 87,3 yoy=+3,3 % (= +2,8 pts) ; CAHIER_SS_NOI 15,8 -> 15,4 yoy=-2,5 % (= -0,4 pt) ; name_en « Ss Noi », « Ffo Affo Ps », « Shop Occupancy Revpor »",
+  "correction_validee": "Renommer en « Taux d'occupation SHOP » et exprimer en points les variations de l'occupation et de la croissance du NOI à périmètre constant ; le doublon FFO relève de la détection mécanique.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Enterprise value / Total shareholder return 2025 / US senior housing investment pipeline / Record liquidity",
+  "probleme": "Chiffres de communication ou de marché présentés comme KPI opérationnels.",
+  "preuve": "« Valeur d'entreprise dépassant 50 milliards » ; « Rendement total ... 35% en 2025, surperformant » ; « Pipeline ... 35 milliards ... aux États-Unis »",
+  "correction_validee": "Retirer la valeur d'entreprise, le rendement total 2025 et le pipeline US ; garder la liquidité en la renommant « Liquidité disponible ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "entete / description",
+  "champ": "tagline, mettrik_description.simple",
+  "probleme": "Le slogan est en anglais et promotionnel, sans version française. Le nom de la société contient un caractère invisible. Les clients cités sont faux : les assureurs et organismes publics ne sont pas locataires.",
+  "preuve": "tagline « Delivering Strong, Sustainable Shareholder Returns », tagline_i18n None ; « Vent​as bénéficie » ; « résidents âgés, prestataires de services de santé, les assureurs et les organismes publics »",
+  "correction_validee": "Remplacer le slogan par une phrase descriptive en français, retirer le caractère U+200B, et donner comme clients les résidents, les opérateurs (Atria, Sunrise...), les systèmes hospitaliers et les locataires de recherche.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ia / moat",
+  "champ": "ai_positioning, moat",
+  "probleme": "Le positionnement IA s'appuie sur des preuves de 2024 et le rapport annuel 2024. Le moat est nul et justifié par la tendance d'un seul exercice.",
+  "preuve": "evidence date 2024-05-01, « Le rapport annuel 2024 évoque » ; moat « Les redevances de résidents progressent de 26,8 % ... sans barrière »",
+  "correction_validee": "Mettre à jour avec le rapport 2025 et rédiger un vrai moat (taille, plateforme Ventas OI, relations opérateurs).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "manquant",
+  "probleme": "L'occupation SHOP et le RevPOR en dollars n'existent pas en trimestriel, alors que ce sont les deux moteurs du dossier. Le hero porte sur l'occupation OM&R, quasi plate.",
+  "preuve": "Seule l'occupation SHOP annuelle (FY2025=87,3) figure ; RevPOR uniquement en croissance ponctuelle (5 %) ; hero OMR SS Occupancy 90 %",
+  "correction_validee": "Ajouter l'occupation moyenne SHOP à périmètre constant et le RevPOR ($/mois) trimestriels, puis revoir le choix du hero.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

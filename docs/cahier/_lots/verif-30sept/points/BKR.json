@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "RPO Backlog (Remaining Performance Obligations)",
+  "probleme": "Troisieme serie du carnet de commandes, nom anglais, points non dates, valeur perimee (niveau FY2023) mais datee 30 juin 2026 : contredit RPO_TOTAL et CAHIER_RPO.",
+  "preuve": "serie 27.4, 30.1, 31.5, 32, 33.5 (val=33.5, dernier 2026-06-30) alors que RPO_TOTAL Q2-2026 = 40 100 M$ et CAHIER_RPO FY2025 = 35.9 ; 33.5 = CAHIER_RPO FY2023",
+  "correction_validee": "Supprimer le KPI RPO Backlog, RPO_TOTAL et CAHIER_RPO suffisent.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total Orders",
+  "probleme": "Doublon annuel arrete a 2024 de CAHIER_ORDERS (qui va a 2025), commentaire sans accents et en style note interne.",
+  "preuve": "Total Orders dernier 2024-12-31 val=28.2 ; CAHIER_ORDERS FY2025=29.6 ; signal 'Decelaration vs pic 2023 ($30.5 Mds). OFSE $15.2 Mds (-6.7%), IET $13.0 Mds (-8.5%)'",
+  "correction_validee": "Supprimer Total Orders.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "New Energy Orders",
+  "probleme": "Serie annuelle non datee et fausse, description en franglais, alors que CTS_ORDERS trimestriel existe.",
+  "preuve": "serie 0.1, 0.2, 0.4, 0.65, 1 (val=1 Mds $) ; CTS_ORDERS 2025 = 148+923+253+310 = 1 634 M$ ; description 'Commandes new energy (hydrogen, CCUS, geothermal). Croissance forte mais base petite. Optionalité long-terme.'",
+  "correction_validee": "Supprimer New Energy Orders.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Dividend per Share",
+  "probleme": "Nom anglais, points non dates, signal telegraphique.",
+  "preuve": "'Dividend per Share | $ | year | dernier 2026-06-30 | serie: 0.72, 0.76, 0.81, 0.86, 0.92 :: Hausse régulière dividende, signal confiance cash'",
+  "correction_validee": "Supprimer ce KPI (DIV_PAID couvre le sujet) ou, a defaut, le renommer 'Dividende par action' apres reverification annuelle de chaque point avant datation.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle / dette_sur_ca",
+  "probleme": "Le point 2016 (perimetre GE Oil & Gas avant la fusion de 2017) rend les descriptions absurdes.",
+  "preuve": "dette_annuelle 2016 = 0.277 Mds puis 2017 = 8.349 ; description 'Dette de 6,1 Mds $ en 2025, +41,0 % par an depuis 2016' ; dette_sur_ca 2016 = 2,1 % et description '+19,8 points depuis 2016'",
+  "correction_validee": "Retirer le point 2016 des deux series et recalculer les taux et ecarts depuis 2017.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAPEX_Q.signal",
+  "probleme": "Le signal annonce une baisse de 8 % alors que la serie est stable.",
+  "preuve": "'300 M$ d'investissements au T2 2026, en baisse de 8% sur un an' ; Q2-2025 = 301, Q2-2026 = 300, yoy affiche -0.3%",
+  "correction_validee": "'300 M$ d'investissements au T2 2026, stables sur un an.'",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ADJ_EBITDA, ADJ_EBITDA_MARGIN, ADJ_NET_INCOME",
+  "probleme": "Trois KPI ajustes arretes au T1 2026 alors que toute la fiche est au T2 2026 (publication du 22 juillet).",
+  "preuve": "dernier 2026-03-31 pour les trois ; REVENUE_TOT, NET_INCOME_Q, FCF_Q vont a 2026-06-30",
+  "correction_validee": "Ajouter le point T2 2026 des trois series.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel vs FCF_Q",
+  "probleme": "Deux definitions du FCF sur la meme page, 200 M$ d'ecart en 2025.",
+  "preuve": "fcf_annuel 2025 = 2.537 (= OCF 3 810 moins capex 1 273) ; somme FCF_Q 2025 = 454+239+699+1 341 = 2 733 (definition societe avec cessions d'actifs)",
+  "correction_validee": "Choisir une definition et l'indiquer dans la description de l'autre serie.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Critical turbomachinery assets connected to iCenter (name_fr)",
+  "probleme": "Traduction fantaisiste du nom de la plateforme iCenter.",
+  "preuve": "name_fr 'Actifs de turbomachines critiques connectés (eye center)'",
+  "correction_validee": "'Actifs de turbomachines critiques connectés à iCenter'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "New energy orders target by 2030",
+  "probleme": "Valeur mediane inventee pour une fourchette annoncee.",
+  "preuve": "val=6.5 Mds $ ; description 'Cible de 6 à 7 Md USD de commandes nouvelles énergies d'ici 2030'",
+  "correction_validee": "Afficher la fourchette 6 a 7 ou retirer ce point unique.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "niveau",
+  "probleme": "Moat 'Aucun' contredit par les chiffres de la fiche et par la these (contrats pluriannuels, base installee, quasi duopole turbomachines GNL), alors que BLK et BMY sont notes 'Important'.",
+  "preuve": "BTB_IET Q2-2026 = 2.15, RPO_TOTAL 40 100 M$ record, GTS_REV +10.5 %, justification_mettrik 'Prises de commandes et carnet en forte hausse'",
+  "correction_validee": "Reevaluer le niveau (au moins 'Moyen') avec un texte.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary / evidence",
+  "probleme": "Franglais dans le positionnement IA.",
+  "preuve": "'enabler technologique', 'leader IA', 'Booking de $1 milliard de commandes', 'Capabilities en Reservoir analysis... software... placement de wellbore'",
+  "correction_validee": "Reformuler en francais : levier technologique, prises de commandes, capacités d'analyse de réservoir, logiciels, positionnement des puits.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "BI_RPC.history",
+  "probleme": "L'historique 2016-2023 est manifestement fabriqué par interpolation : les hausses sont parfaitement régulières. Le point du T4 2025 manque et la variation est calculée en % relatif sur un pourcentage.",
+  "preuve": "Q1-2016=2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1... (+0,1 par trimestre), puis +0,2 et +0,3, puis 8.1, 7.8, 7.5, 7.2 (-0,3 par trimestre) ; Q3-2025 suivi directement de Q1-2026 ; yoy -33.8%.",
+  "correction_validee": "Retirer l'historique antérieur à 2024 s'il n'est pas sourcé point par point, ajouter le T4 2025 et exprimer la variation en points.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BI_WP.signal, BI_CR.signal, PI_WP.signal, HF_AUM.signal",
+  "probleme": "Les signaux des KPI phares sont périmés et contredisent leur propre dernier point.",
+  "preuve": "BI_WP 'Croissance soutenue +8%' alors que yoy = +5,4 %. BI_CR 'Meilleur combined ratio en 3 ans ; underlying 88.5%' alors que val = 91,4 (+4,4 pts, dégradation) et UCR_BI = 89,3. PI_WP 'Croissance ralentie' alors que yoy = -6,6 %. HF_AUM décrit la fin 2025 alors que val = T1 2026.",
+  "correction_validee": "Réécrire les quatre signaux sur le dernier point : T2 2026 pour BI_WP, BI_CR et PI_WP, T1 2026 pour HF_AUM.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / risques / moat",
+  "champ": "PEN, UCR_PI, EB_PREM, NM (signaux) ; risks[3].title ; moat.justification_mettrik",
+  "probleme": "Cuisine interne visible par le client.",
+  "preuve": "'série enrichie vs pipeline (6 points auparavant)' ; 'enrichit la série 14 points du pipeline' ; 'enrichit la série 10 points du pipeline' ; '(résultat net/CA, dérivé)' ; 'Risque opérationnel identifié dans le filing' ; 'la note vient de retirer tout avantage concurrentiel'.",
+  "correction_validee": "Supprimer ces fragments dans PEN, UCR_PI, EB_PREM et NM, donner au risque 3 un titre explicite et reformuler la justification du moat sans cuisine interne.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / att",
+  "champ": "EPS_DIL.signal, NI.signal, att",
+  "probleme": "Trois versions incompatibles des activités abandonnées du T2 2026. La cession de Hartford Funds est annoncée alors que le KPI d'encours et la répartition présentent encore ces fonds comme une activité poursuivie.",
+  "preuve": "EPS : '1,15 $ d'activités abandonnées (plus-value cession Hartford Funds en cours)'. NI : 'gonflé par 318 M$ d'activités abandonnées'. Anti-thèse : '261 M$ des 303 M$ d'augmentation, dont 251 M$ d'un seul crédit d'impôt'. HF_AUM et 'Hartford Funds 10' restent affichés.",
+  "correction_validee": "Vérifier la nature et le montant des activités abandonnées du T2 2026 dans le rapport trimestriel, harmoniser les signaux EPS_DIL et NI avec l'anti-thèse, et signaler le statut de Hartford Funds sur HF_AUM et dans la répartition.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Business Insurance underlying combined ratio, Personal Insurance underlying combined ratio, Employee Benefits fully insured ongoing premiums, Hartford Funds assets under management",
+  "probleme": "Doublons hérités, datés du 30/06/2026 mais portant la valeur du T1, et en contradiction avec les KPI principaux.",
+  "preuve": "89.2 = UCR_BI Q1-2026 (Q2 = 89,3) ; 85 = UCR_PI Q1-2026 ; 1654 = EB_PREM Q1-2026 ; encours 155958 alors que HF_AUM Q1-2026 = 150821.",
+  "correction_validee": "Supprimer les quatre KPI hérités.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAT_USD.signal ; Total catastrophe losses full year ; California Wildfire catastrophe losses",
+  "probleme": "Les pertes catastrophes 2025 sont chiffrées de façon contradictoire.",
+  "preuve": "CAT_USD : '748 M$ sur 2025 dont 467 M$ au T1 (incendies Californie)'. KPI hérités : total annuel 768 M$, incendies de Californie 305 M$ (donc les 467 M$ du T1 ne sont pas tous des incendies).",
+  "correction_validee": "Harmoniser sur un seul total 2025, écrire 'dont 305 M$ pour les incendies de Californie', supprimer les deux KPI à un point.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EQ.signal, BVPS.signal, LTD.signal, revenue_annuel.signal",
+  "probleme": "Plusieurs chiffres cités dans les signaux sont faux.",
+  "preuve": "EQ '0,9 Md$/an de rachats et dividendes' alors que les seuls rachats 2025 font 400+415+400+400 = 1615 M$. BVPS '+18% sur un an' alors que 70,4/60,49 = +16,4 %. LTD 'stable à 4,37 Mds$ depuis 2020' alors que dette 2021 = 4,944. Chiffre d'affaires '+4,9 % par an depuis 2015' alors que (28,368/18,377)^(1/10) = +4,4 % (2016 manque dans la série).",
+  "correction_validee": "Écrire 'environ 2,2 Mds $ par an de rachats et dividendes', '+16 % sur un an', 'stable depuis 2022' et '+4,4 % par an depuis 2015'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "13 KPI hérités à un seul point (Employee Benefits total sales growth, Global Specialty record, Small Business annual written premium, Per-occurrence reinsurance, Admitted-lines quotes, Net dividends, E&S binding target, Share repurchase program...)",
+  "probleme": "Des faits ponctuels sont présentés comme des KPI trimestriels. Leurs noms sont en anglais, sans libellé anglais, et datés du 2026-03-28, qui n'est pas une fin de trimestre.",
+  "preuve": "'Small Business annual written premium' : valeur annuelle de 6 Mds $ classée en quarter ; 'E&S binding small commercial premium target' = 300 (un objectif) ; n=1 pour tous.",
+  "correction_validee": "Supprimer ces KPI ou les basculer en texte ; garder les séries ROE (core et résultat net) en les renommant.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / textes",
+  "champ": "signaux, tagline",
+  "probleme": "Signaux en anglais ou franglais, et une dizaine de signaux qui ne sont que des définitions sans chiffre.",
+  "preuve": "'Combined ratio', 'renewal price +5-6%', 'Net investment income 800 M$', 'Underwriting gain BI', 'Primes fully insured ongoing', 'sinistralité liability'. SB_NBP, MM_NBP, GS_NBP, SB_PIF, PA_PIF, SB_PCR, CORE, UCR_BI et CAHIER_* sont des définitions. Slogan 'Leading Property & Casualty and Employee Benefits Insurer'.",
+  "correction_validee": "Traduire (ratio combiné, hausse tarifaire au renouvellement, produits nets de placement, résultat technique) et réécrire les signaux avec le dernier chiffre et sa variation.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition / moat / positionnement IA",
+  "champ": "revenue_by_segment, moat, ai_positioning",
+  "probleme": "La répartition utilise des chiffres ronds sans période ni sous-segments, et la part de Hartford Funds semble surévaluée. Le moat est jugé 'Aucun' sans texte, et la tendance change selon le champ. Le classement IA 'prudent' est contredit par un KPI de la fiche.",
+  "preuve": "'Property and Casualty 65 ; Group Benefits 25 ; Hartford Funds 10' alors que Hartford Funds représente environ 1 Md $ sur 28,4 Mds $. Moat : niveau 'Aucun', texte null, tendance 'baisse' mais tendance_mettrik 'stable'. IA 'cautious', alors que '75% des devis liés en quelques minutes grâce à la souscription automatisée par IA'.",
+  "correction_validee": "Recalculer la répartition 2025 (Business Insurance, Personal Insurance, Employee Benefits, Hartford Funds). Rédiger un moat (distribution petites entreprises, données de souscription). Reclasser l'IA en 'intégrateur' et étoffer le texte.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

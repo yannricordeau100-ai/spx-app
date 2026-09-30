@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Resultat net",
+  "probleme": "Doublon de NI_FY melangeant le perimetre Groupe et CASA, sans accents ni etiquettes, signal perime.",
+  "preuve": "serie 9.101, 7.997, 6.348, 7.087 (dernier 2024-12-31) contre NI_FY FY2021=5.844, FY2022=5.306, FY2023=6.348, FY2024=7.087 : les deux premiers points sont ceux du Groupe Credit Agricole ; signal 'Rebond 2024 sur normalisation marges'.",
+  "correction_validee": "Supprimer le KPI Resultat net.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Ratio CET1",
+  "probleme": "Serie de zeros, valeur contredite par CAHIER_CET1, description en cuisine interne.",
+  "preuve": "serie 0, 14.4, 0, 0 (dernier 2022-12-31) ; description 'Source Wikipedia 2022 uniquement, historique 5 ans non sourcee' ; CAHIER_CET1 FY2022 = 11,2 %.",
+  "correction_validee": "Supprimer Ratio CET1.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_interest_income_lcl_banque_de_proxim",
+  "probleme": "Identifiant technique tronque affiche comme nom, nom anglais vide, signal vide.",
+  "preuve": "'KPI net_interest_income_lcl_banque_de_proxim | Produits nets d'interets (LCL, banque de proximite) |  | M€ | ... :: ' ; Q2-2026=579 contre Q2-2025=497 (+16,5 %) non commente.",
+  "correction_validee": "Code NII_LCL, name_en 'LCL net interest income', signal a rediger.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "RoTE",
+  "probleme": "Deux RoTE 2025 differents sur la fiche sans definition.",
+  "preuve": "Anti-these : 'rentabilite elevee (RoTE de 14,3%)' ; CAHIER_ROTE FY2025 = 13.5.",
+  "correction_validee": "Preciser publie vs sous-jacent ou aligner.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CET1.yoy ; CAHIER_ROTE.yoy ; CAHIER_COST_RISK.yoy",
+  "probleme": "Variations en pourcentage sur des ratios alors que les autres ratios de la fiche sont en points.",
+  "preuve": "CAHIER_CET1 '+0.9%' pour 11,7 -> 11,8 ; CAHIER_ROTE '-3.6%' pour 14 -> 13,5 ; CAHIER_COST_RISK '+2.9%' pour 34 -> 35 pb ; CI_RATIO affiche '+0.9 pt'.",
+  "correction_validee": "Afficher +0,1 pt pour CET1, -0,5 pt pour ROTE et +1 pb pour le cout du risque.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS.signal ; DPS.signal",
+  "probleme": "Chiffres cites differents du yoy calcule.",
+  "preuve": "EPS signal '+3,4% publie' contre yoy +3.3% (2,11 -> 2,18) ; DPS signal '+3% annonce' contre yoy +2.7% (1,10 -> 1,13).",
+  "correction_validee": "Aligner les signaux sur les series.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "hero_kpi ; subsector ; tagline",
+  "probleme": "Hero = PNB annuel (donnee de base), sous-secteur et tagline en anglais.",
+  "preuve": "hero: REV_FY ; 'Finance > Banking' ; tagline 'Acting every day in the interest of our customers and society' alors que la signature officielle est francaise.",
+  "correction_validee": "Garder le hero REV_FY ; sous-secteur 'Banques' ; tagline 'Agir chaque jour dans l'interet de nos clients et de la societe'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positions_marche",
+  "champ": "market_positions[0..1]",
+  "probleme": "Deux positions de marche sans nom ni part.",
+  "preuve": "'None | taille 154.6 | part None' et 'None | taille 173 | part None'.",
+  "correction_validee": "Nommer les marches ou retirer le bloc.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.text",
+  "probleme": "Formulation interne incomprehensible pour un lecteur.",
+  "preuve": "'aucun avantage concurrentiel n'est reconnu depuis 2018' (renvoie a un historique de notation interne) pour une banque cooperative a 55 M de clients.",
+  "correction_validee": "Reecrire le moat (reseau cooperatif, Amundi, assurance) ou le retirer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Indicateurs bancaires centraux absents.",
+  "preuve": "Aucun KPI d'encours geres Amundi (environ 2 300 Md€), de taux de creances douteuses ou de taux de couverture, de LCR, alors que la fiche detaille le PNB par pole.",
+  "correction_validee": "Ajouter encours geres, taux de creances douteuses, LCR (URD 2025).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

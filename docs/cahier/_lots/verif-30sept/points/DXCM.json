@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Malaysia manufacturing facility commenced + Ireland facility construction",
+  "probleme": "Valeurs absurdes (2082, 3023) avec unite 'annee bail'",
+  "preuve": "val=2082 'annee bail' ; val=3023 'annee bail'",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Worldwide Revenue + US Revenue",
+  "probleme": "Doublons sans dates, perimes, val differente du dernier point",
+  "preuve": "Worldwide Revenue val=1260 mais serie finit a 1190, total_revenue Q2-2026=1.31 Mds ; US Revenue 2889.8 = 2024 alors que somme us_revenue 2025 = 3334.9, date 2026-06-30",
+  "correction_validee": "Supprimer Worldwide Revenue et US Revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CGM Users + G7 Adoption",
+  "probleme": "Series annuelles sans dates, lissees, contredites par la base clients publiee",
+  "preuve": "CGM Users 2.8 M (2026-06-30) vs Global customer base FY2025=3.5 ; G7 Adoption 0, 0, 25, 50, 65 sans source",
+  "correction_validee": "Supprimer CGM Users et G7 Adoption.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_debt (serie)",
+  "probleme": "Serie incoherente avec sa propre definition (convertible moins tresorerie)",
+  "preuve": "Q1-2025=-1226.9 alors que convertible 1.24 Mds et cash 0.9 Mds donnent +340 ; Q4-2024=-1099.1 pour 1.24 - 0.61 = +630 ; Q2-2025 79.9 et Q4-2025 323.2 respectent la definition",
+  "correction_validee": "Recalculer toute la serie avec une seule definition (dette convertible totale moins tresorerie et placements court terme) et l'indiquer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "New users added vs NET_CUSTOMER_ADD vs these",
+  "probleme": "Trois chiffres pour le meme indicateur",
+  "preuve": "New users added 600000 ; NET_CUSTOMER_ADD 650000 ; these 'plus de six cent mille clients par an'",
+  "correction_validee": "Garder un seul chiffre source et supprimer l'autre",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Shares repurchased in 2025 + Free cash flow surpasses $1B + WORKING_CAPITAL_RATIO",
+  "probleme": "Singletons doublonnant des series existantes",
+  "preuve": "500 = buybacks FY2025 ; 1000 vs fcf_annuel 2025=1.077 ; 1.88 = current_ratio Q4-2025",
+  "correction_validee": "Supprimer les trois singletons.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RECURRING_MIX",
+  "probleme": "Serie trop reguliere (70 a 95 par pas de 3 a 5), arretee en 2024, sans source lisible",
+  "preuve": "FY2017=70, FY2018=75, FY2019=78, FY2020=81, FY2021=84, FY2022=87, FY2023=90, FY2024=95",
+  "correction_validee": "Verifier a la source ou retirer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography + tagline",
+  "probleme": "Libelles en anglais",
+  "preuve": "'United States 74 ; Outside of the United States 26' ; tagline 'Leading provider of continuous glucose monitoring...'",
+  "correction_validee": "Etats-Unis / Hors Etats-Unis et tagline 'Leader des systemes de mesure du glucose en continu pour le diabete'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

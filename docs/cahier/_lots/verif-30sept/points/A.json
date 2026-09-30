@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "SERVICES_REV (hero), REVENUE_TOTAL, EPS_DILUTED, RD_EXPENSE, OP_MARGIN_GROUP, CROSSLAB_MARGIN",
+  "probleme": "Un point T3 FY2026 a ete ajoute a six series sans recalcul du yoy ni du signal ; libelle 'Q3-2026' au lieu de 'Q3-FY2026' ; date 'dernier' = date de publication (2026-09-02/03) et non fin de periode (2026-07-31).",
+  "preuve": "SERVICES_REV val=545 mais yoy=+10,0 % (545/508 = +7,3 %) et signal '530 M$ au T2-FY2026' ; EPS_DILUTED val=1,28 yoy=+60 % (1,28/1,18 = +8,5 %) ; REVENUE_TOTAL 1,88/1,74 = +8 % affiche +10 % ; OP_MARGIN_GROUP +3,7 pts affiche, reel 23,6-20,7 = +2,9 ; CROSSLAB_MARGIN -0,5 pt affiche, reel 34,3-33,3 = +1,0.",
+  "correction_validee": "Recalculer yoy et signaux des six séries sur le T3 FY2026, libellé 'Q3-FY2026', date de dernier point 2026-07-31.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CROSSLAB_REV, LSDM_REV, APPLIED_REV, OCF, FCF, NET_INCOME, GEO_*, EM_* et 30 autres series",
+  "probleme": "Fiche a deux vitesses : 6 series ont le T3 FY2026, toutes les autres s arretent au T2 FY2026 ; these et anti-these citent 'le trimestre clos le 30 avril 2026' comme dernier connu.",
+  "preuve": "REVENUE_TOTAL dernier Q3-2026=1,88 ; CROSSLAB_REV dernier Q2-FY2026=759 ; att : 'Le trimestre clos le 30 avril 2026 est solide'.",
+  "correction_validee": "Compléter le T3 FY2026 sur toutes les séries trimestrielles depuis le 10-Q et rafraîchir thèse et anti-thèse.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Le segment de 2,726 Mds $ est libelle 'Life Sciences and Applied Markets' (ancien LSAG) alors que c est 'Life Sciences and Diagnostics Markets' ; libelles en anglais.",
+  "preuve": "LSDM_REV FY2025 = 647+654+670+755 = 2 726 = valeur de la tranche ; extrait : 'Life Sciences and Applied Markets 39.2 ; Applied Markets 18.9'.",
+  "correction_validee": "Renommer la tranche 'Sciences de la vie et diagnostic' (Life Sciences and Diagnostics Markets), et traduire les deux autres libellés.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "LSAG Revenue, ACG Revenue, DGG Revenue, China Revenue, Recurring Revenue %, Pharma Revenue %",
+  "probleme": "Bloc herite annuel arrete a FY2024 sur l ancienne structure de segments (LSAG/DGG supprimes en 2025), series non datees, descriptions telegraphiques de notes internes.",
+  "preuve": "dernier 2024-10-31 ; 'Segment #1 (~52% CA), cyclique pharma/biotech, capex client en pause FY24' ; 'Pression macro 2 ans consecutifs'.",
+  "correction_validee": "Supprimer le bloc hérité (LSAG, ACG, DGG, China Revenue, Recurring Revenue %, Pharma Revenue %).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "LSAG core revenue growth (historique), DGG core revenue growth (historique)",
+  "probleme": "Series datees 2026-09-03 avec des valeurs T3 FY2026 (-1, -3) pour des segments dont la description dit qu ils ont ete remplaces en 2025.",
+  "preuve": "'Ancien segment instruments, remplace par LDG/AMG lors de la reorganisation 2025' avec dernier 2026-09-03 val=-1.",
+  "correction_validee": "Geler ces series a leur dernier trimestre reel ou les supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "SERVICES_PCT, Recurring Revenue %, NONINSTRUMENT_MIX",
+  "probleme": "Trois definitions contradictoires du 'recurrent' sur la meme fiche : 28,9 %, 60 % et 66 % ; le moat dit '24 a 29 %', la these dit 'deux tiers'.",
+  "preuve": "SERVICES_PCT val=28,9 ; Recurring Revenue % val=60 (FY24) ; NONINSTRUMENT_MIX val=66 ; moat : 'La part des services recurrents passe de 24 a 29 %'.",
+  "correction_validee": "Garder SERVICES_PCT (services seuls) et REV_NONINSTRUMENTS (hors instruments) avec des noms explicites, supprimer 'Recurring Revenue %'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_ORG_GROWTH_END_MARKET",
+  "probleme": "yoy exprime en % d un % ; date de cloture fausse ; nom 'par marche final' pour une moyenne unique.",
+  "preuve": "yoy=-204,3 % pour -4,7 -> 4,9 (= +9,6 pts) ; dernier 2025-12-31 alors que l exercice clot le 31 octobre.",
+  "correction_validee": "yoy '+9,6 pts', date 2025-10-31, nom 'Croissance organique moyenne des marchés finaux'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total net revenue 2025, BIOVECTRA Revenue, China Revenue Share",
+  "probleme": "Doublon et periodes manquantes : 'Total net revenue 2025' (6 948) repete revenue_annuel ; deux KPI avec period_type None.",
+  "preuve": "'Total net revenue 2025 | quarter | n=1 | val=6948' vs 'revenue_annuel 2025=6.948' ; 'China Revenue Share | None' ; 'BIOVECTRA Revenue | None | signal Effet acquisition CDMO'.",
+  "correction_validee": "Supprimer 'Total net revenue 2025' et fixer period_type=year sur China Revenue Share et BIOVECTRA Revenue.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "GEO_AMERICAS, GEO_EUROPE, GEO_APAC",
+  "probleme": "Les series geographiques n ont jamais de T4 (issues des 10-Q seulement), un trimestre sur quatre manque.",
+  "preuve": "Periodes : 'Q3-FY2025, Q1-FY2026, Q2-FY2026' ; n=23 sur 8 exercices.",
+  "correction_validee": "Ajouter chaque T4 = annuel (10-K) moins cumul 9 mois.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0..4]",
+  "probleme": "Cinq titres generiques avec resumes passe-partout, sans chiffre ni fait propre a Agilent ; score_rationale contient des citations anglaises.",
+  "preuve": "'Risques operationnels touchant chaine d approvisionnement, capital humain, qualite produit ou continuite d activite' ; 'Dependance operationnelle' ; rationale : langage modere (\"increased risk and uncertainty\").",
+  "correction_validee": "Reecrire les risques a partir du 10-K FY2025 comme sur AALB.AS (chiffres, tendance).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "gouvernance",
+  "champ": "governance.ceo_name",
+  "probleme": "Civilite anglaise dans le nom du dirigeant.",
+  "preuve": "'Mr. Padraig McDonnell'.",
+  "correction_validee": "ceo_name = 'Padraig McDonnell'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline, subsector, unites",
+  "probleme": "Tagline et sous-secteur en anglais ; unite '$M' sur 5 KPI contre 'M $' ailleurs.",
+  "preuve": "'A global leader in life sciences, diagnostics and applied markets' ; 'Life Sciences, Diagnostics and Applied Markets' ; CROSSLAB_REV unit '$M'.",
+  "correction_validee": "Traduire tagline et sous-secteur, normaliser l'unité des 4 KPI en 'M $'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "pl_combined_ratio, auto_combined_ratio, home_combined_ratio",
+  "probleme": "Le point Q4 de chaque annee est le ratio combine de l'exercice entier, pas celui du trimestre",
+  "preuve": "pl_combined_ratio Q4-2019=92, Q4-2020=87.6, Q4-2021=95.9, Q4-2022=106.6, Q4-2023=104.5, Q4-2024=94.3, Q4-2025=85.2 = exactement CAHIER_COMBINED_RATIO FY2019..FY2025 ; verification : underwriting_income_pl Q4-2025 = 4006 M$ sur 14776 M$ de primes acquises donne 72,9 %, valeur presente dans 'Property-Liability recorded combined ratio'",
+  "correction_validee": "Remplacer les Q4 par les ratios trimestriels publiés (P-L Q4-2025 72,9, Q4-2024 86,9 ; auto Q4-2025 80,8, Q4-2024 93,5) et recalculer de la même façon les Q4 de home_combined_ratio.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "nwp_auto, nwp_home, nwp_other_personal, nwp_commercial",
+  "probleme": "Points Q4-2024 aberrants (gonfles) et Q4-2025 trop bas sur les quatre series de primes emises",
+  "preuve": "nwp_auto Q4-2024 = 12870 entre 9539 (Q3-2024) et 9848 (Q1-2025) ; nwp_commercial Q4-2024 = 257 entre 104 et 94 ; somme des quatre lignes Q4-2024 = 18658 M$ contre 14707 M$ de primes emises Property-Liability ; Q4-2025 somme = 14400 contre 15630",
+  "correction_validee": "Recalculer les Q4-2024 et Q4-2025 des quatre séries nwp à partir des suppléments trimestriels publiés, puis recalculer les yoy concernés.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Property-Liability recorded combined ratio, Recorded auto insurance combined ratio",
+  "probleme": "Doublons des deux ratios combines avec des valeurs divergentes et une date de derniere donnee fausse",
+  "preuve": "'Property-Liability recorded combined ratio' dernier 2026-06-30 mais yoy -15.4 pts = 97,4 vers 82 (Q1-2025 vers Q1-2026), val 82 vs pl_combined_ratio Q2-2026 86,6 ; Q4-2025 72,9 vs 85,2",
+  "correction_validee": "Après correction des Q4 (point #14), supprimer les deux séries Recorded, qui font doublon avec pl_combined_ratio et auto_combined_ratio.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "allstate_health_rev",
+  "probleme": "Valeur affichee absente de la serie, dernier point a zero invraisemblable, serie arretee en Q3-2025",
+  "preuve": "value 676, history se termine par 642, 348, 0 (Q1-2025, Q2-2025, Q3-2025) ; signal 'segment reduit a individual health residuel' contredit par 0 ; yoy -64.1%",
+  "correction_validee": "Arreter la serie a Q1-2025 avec mention des cessions, ou completer avec les revenus residuels reels ; corriger la valeur et le yoy",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / att",
+  "champ": "book_value_per_share, att.resume",
+  "probleme": "Valeur comptable par action calculee sur les capitaux propres totaux (actions de preference incluses), donc superieure de 7,5 % au chiffre publie ; l'anti-these expose ce calcul interne",
+  "preuve": "33698 / 254 = 132,67 $ contre 123,38 $ publie ; att.resume : '46% pour la mesure derivee interne, 49,7% a 123,38$ pour la valeur comptable diluee publiee'",
+  "correction_validee": "Remplacer la série par la valeur comptable diluée par action publiée et, dans l'anti-thèse, ne garder que 'hausse de 49,7 % à 123,38 $'.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "13 KPI a un point dates 2026-05-11",
+  "probleme": "Chiffres de presentation investisseurs presentes comme KPI (un seul point, frequence trimestre), certains ne sont pas des indicateurs",
+  "preuve": "'Bodily injury claims cost increase over 5 years' 52 % ; 'Telematics data collected' 2 Md miles ; 'Protection Plans revenue growth since acquisition' 8 x ; 'Investment portfolio book value increase' 17 Mds $ ; 'Net income applicable to common shareholders 2025' 10,17 Mds $ en frequence trimestre",
+  "correction_validee": "Retirer les elements non suivis dans le temps et convertir les autres (nouvelles affaires particuliers, polices particuliers, marketing) en series annuelles",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Texte generique qui utilise le ticker comme nom et cite un exercice 2026 inexistant (dernier rapport annuel = exercice 2025)",
+  "preuve": "'ALL integre l'IA/ML dans ses produits et operations d'apres le rapport annuel exercice 2026.'",
+  "correction_validee": "Reecrire avec le nom Allstate et les usages reels (tarification telematique Arity, traitement des sinistres, IA generative citee dans le rapport 2025)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "risks[3].title, risks[3].score_rationale",
+  "probleme": "Titre avec un fragment anglais incomprehensible, et justification de score hors sujet contenant une note de travail",
+  "preuve": "title 'Evolutions reglementaires et conformite (There regulator enforcement)' ; score_rationale parle d'inflation de la reparation automobile puis '(score par defaut, a affiner)' et cite une phrase sur les depreciations de goodwill",
+  "correction_validee": "Retirer '(There regulator enforcement)' du titre et réécrire score_rationale sur le risque réglementaire, sans la mention '(score par défaut, à affiner)'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Common share repurchase authorization.signal, SAVE program customer savings.name_fr",
+  "probleme": "Signal qui decrit l'ancien programme alors que la valeur est le nouveau ; nom de KPI qui annonce des economies alors que la valeur est un nombre de clients",
+  "preuve": "val 4 Mds $, signal 'Nouveau programme de rachat d'actions de 1,5 Md$ autorise le 26 fevrier 2025' ; 'Economies programme SAVE' unite 'M clients' val 7,8",
+  "correction_validee": "Signal : 'Nouveau programme de 4 Mds $ autorisé en février 2026, après celui de 1,5 Md $ de février 2025.' ; nom : 'Clients ayant bénéficié du programme SAVE'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dividend_per_share.history, CAHIER_COMBINED_RATIO.yoy, CAHIER_LOSS_RATIO.yoy, CAHIER_RESERVE_DEV.yoy",
+  "probleme": "Artefact flottant dans une serie et variations de ratios exprimees en pourcentage relatif au lieu de points",
+  "preuve": "Q4-2024 = 0.9200000000000004 ; CAHIER_COMBINED_RATIO yoy '-9.7%' pour 94,3 vers 85,2 ; CAHIER_LOSS_RATIO '-12.1%' ; CAHIER_RESERVE_DEV '+520.0%' pour -0,5 vers -3,1",
+  "correction_validee": "Arrondir à 0,92 ; yoy '-9,1 pt' (ratio combiné), '-8,8 pt' (sinistralité), '-2,6 pt' (boni/mali).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur d'industrie manquant",
+  "probleme": "Aucun KPI de retention (renouvellement) ni de prime moyenne, alors que la these s'appuie sur la prime moyenne auto et que ces deux mesures sont publiees chaque trimestre par Allstate",
+  "preuve": "these.hook : 'la prime moyenne d'une police automobile de la marque Allstate a baisse de 3,6 % sur un an' ; aucun KPI ap_avg_premium ni retention sur la fiche",
+  "correction_validee": "Ajouter 'Taux de retention auto marque Allstate' et 'Prime moyenne auto' en series trimestrielles",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.niveau, moat.texte",
+  "probleme": "Moat 'Aucun' sans texte pour le premier assureur particuliers cote aux Etats-Unis, tout en affichant une tendance en hausse",
+  "preuve": "niveau 'Aucun', texte null, tendance_mettrik 'hausse', justification 'signe d'une discipline tarifaire retrouvee'",
+  "correction_validee": "Fixer un niveau (marque, reseau d'agents exclusifs, donnees telematiques Arity) et rediger le texte",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

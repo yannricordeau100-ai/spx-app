@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "gouvernance",
+  "champ": "dirigeant",
+  "probleme": "Dirigeant perime : John Furner a succede a Doug McMillon le 1er fevrier 2026, alors que la fiche est reglee sur l'exercice 2026.",
+  "preuve": "'gouvernance: annee 2026 | dirigeant Doug McMillon'.",
+  "correction_validee": "Remplacer par John Furner apres verification dans la convocation 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "bloc trimestriel",
+  "probleme": "Presque tous les KPI trimestriels s'arretent au T1 de l'exercice 2027 alors que le T2 (clos le 31 juillet 2026) est publie et deja utilise par le BPA et la these.",
+  "preuve": "WMT_US_COMP_SALES dernier 2026-05-29 ; WMT_EPS_DILUTED Q2-FY2027=0.8 ; these 'Au trimestre clos le 31 juillet 2026'.",
+  "correction_validee": "Integrer le T2 de l'exercice 2027 dans tous les KPI trimestriels.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WMT_US_COMP_SALES (hero)",
+  "probleme": "La serie mise en avant contredit la seconde serie de ventes comparables Walmart US et la somme trafic plus panier.",
+  "preuve": "Hero : 3.1, 4.7, 4.8, 4.3 ; 'Walmart U.S. comparable sales (ex-fuel)' : 4.5, 4.6, 4.5, 4.6, 4.1 ; transactions 3.0 + panier 1.1 = 4.1 au T1 contre 4.3 en hero.",
+  "correction_validee": "Reprendre la serie hero a la source (hors carburant) et supprimer le doublon 'Walmart U.S. comparable sales (ex-fuel)'.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SAMS_COMP_SALES",
+  "probleme": "Nom 'hors carburant' mais signal 'avec carburant' ; incoherent avec trafic plus panier.",
+  "preuve": "'Sam's Club US - Ventes comparables (hors carburant)' 5.9 ; signal 'comparable calendaire avec carburant, impact carburant +2.1pt' ; transactions 6.2 + panier -2.2 = 4.0.",
+  "correction_validee": "Choisir une definition (hors carburant, environ 4%) et aligner nom, valeur et signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WMT_EPS_DILUTED.yoy",
+  "probleme": "Variation calculee sur le T1 alors que le dernier point est le T2, qui est en baisse.",
+  "preuve": "yoy '+0.11 pt: 0.67 vs 0.56 au T1 N-1' ; dernier Q2-FY2027=0.8 contre Q2-FY2026=0.88 (-9%).",
+  "correction_validee": "Afficher -9 % sur un an (0,80 contre 0,88 $).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "doublons et KPI ponctuels",
+  "probleme": "Parc de magasins en triple avec un chiffre faux ; effectif, CA annuel et CA Walmart US en double ; faits ponctuels en KPI.",
+  "preuve": "'Global store footprint' 11400 alors que sa propre description donne 4 611 + 5 743 + 601 = 10 955 (= WMT_TOTAL_UNITS = CAHIER_STORE_EXPANSION) ; GROUP_REVENUE = revenue_annuel, signal 'Produit phare : Produits alimentaires Great Value' ; 'Global associates headcount' ; 'Opioid settlement liability fully paid', 'PhonePe share-based comp charge'.",
+  "correction_validee": "Supprimer Global store footprint, GROUP_REVENUE, Global associates headcount, Walmart U.S. annual net sales, Opioid settlement et PhonePe.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux",
+  "probleme": "Signaux contredits par les series.",
+  "preuve": "WMT_OP_MARGIN 'croissance de l'op income (+5,0%) plus rapide que les ventes' alors que la marge passe de 4.3 a 4.2 ; INTL_OP_INCOME yoy +26.7% et signal '+23,9%' ; SAMS_OP_INCOME yoy -1.7% et signal '+1,2%' ; WMT_GROSS_MARGIN 'Amelioration continue' sur 24.4, 24.2, 23.9, 24.2, 24.5, 24.2, 24.0, 24.3.",
+  "correction_validee": "Recaler les signaux sur les series.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_COMP_SALES / CAHIER_MEMBERSHIP / CAHIER_CATEGORY_MIX",
+  "probleme": "Les noms promettent une decomposition absente de la serie ; unites en dollars bruts ; variations relatives sur un pourcentage ; doublon des adhesions.",
+  "preuve": "'Ventes comparables decomposees en trafic et panier' (une seule serie), yoy '-10.4%' pour 4.8 -> 4.3 ; 'Revenus d'adhesion et taux de renouvellement' 6750000000 $ = somme GLOBAL_MEMBERSHIP_INCOME ; 'Mix alimentaire et produits discretionnaires' 285482000000 $.",
+  "correction_validee": "Renommer (ventes comparables Walmart US, revenus d'adhesion, ventes alimentaires), passer en Mds $ et afficher la variation en points (-0,5 pt).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WMT_US_GROCERY_COMPS / GENMERCH / HEALTH",
+  "probleme": "Fausse precision : valeurs chiffrees tirees de formules qualitatives.",
+  "preuve": "yoy \"~5% (T1-FY2027, '+ mid single-digit')\" ; epicerie Q3-FY2026=2 entoure de 5.",
+  "correction_validee": "Signaler en valeurs approximatives ou retirer ces series.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these / att",
+  "champ": "texte",
+  "probleme": "These et anti-these datees differemment et contradictoires sur le meme indicateur.",
+  "preuve": "These : ROI '15,4 % ... au 31 juillet 2026', resultat operationnel 'cinq fois plus vite que les ventes' ; anti-these : ROI '14,9% sur les 12 mois clos le 30 avril 2026', resultat operationnel 'moins vite que les ventes'.",
+  "correction_validee": "Aligner l'anti-these sur le T2 de l'exercice 2027.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WMT_BUYBACKS",
+  "probleme": "Serie annuelle dont la valeur affichee est un seul trimestre.",
+  "preuve": "val=2080 (T1-FY2027) ; FY2026=8088 ; 'Dernier point = T1-FY2027 seul'.",
+  "correction_validee": "Afficher 8 088 M$ (FY2026) et mettre le trimestre a part.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI manquant",
+  "probleme": "Le rendement de l'investissement (ROI), cite par la these et l'anti-these et suivi par Walmart, n'a pas de KPI.",
+  "preuve": "'rendement de l'investissement de 15,4 %' dans la these, aucun KPI ROI.",
+  "correction_validee": "Ajouter le ROI sur douze mois glissants par trimestre.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

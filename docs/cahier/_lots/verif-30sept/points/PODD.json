@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition fausse : « International Omnipod 98.7 % » alors que l'international pèse 28 % et que le segment US Omnipod (71 %) manque.",
+  "preuve": "US_OMNIPOD 2025 = 401.7+453.2+497.1+567.8 = 1919.8 M$ (70.9 % de 2708) ; INTL_OMNIPOD 2025 = 754.3 (27.9 %) ; DRUG_DELIVERY 34.1 (1.3 %)",
+  "correction_validee": "U.S. Omnipod 70,9 % ; International Omnipod 27,9 % ; Drug Delivery 1,3 %.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total Omnipod Products Revenue",
+  "probleme": "Série décalée de trois trimestres : le dernier point daté T2 2026 est en réalité le T3 2025, d'où un yoy faux.",
+  "preuve": "serie ...533.6, 585.7, 554.1, 639, 699.2 = US+INTL Q3-2024..Q3-2025 ; vrai T2 2026 = 544.1+251.8 = 795.9",
+  "correction_validee": "Supprimer Total Omnipod Products Revenue, doublon de US_OMNIPOD + INTL_OMNIPOD.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CUSTOMERS / Estimated active global Omnipod customers",
+  "probleme": "Même indicateur en deux séries qui se contredisent sur 2021-2022 ; la série structurée s'arrête en 2024 alors que le point 2025 existe.",
+  "preuve": "CUSTOMERS FY2021=300 k, FY2022=360 k ; l'autre 250000, 345000 ; dernier 600000",
+  "correction_validee": "Garder CUSTOMERS, ajouter FY2025=600 après vérification, supprimer l'autre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "TAM_TYPE2 / Type 2 insulin-using patients (TAM)",
+  "probleme": "Deux KPI de marché adressable type 2 avec des valeurs incompatibles et sans périmètre.",
+  "preuve": "TAM_TYPE2 = 9 M patients ; Type 2 insulin-using patients (TAM) = 5.5 M",
+  "correction_validee": "Préciser le périmètre (États-Unis vs monde) et fusionner.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Chiffre périmé : la marge brute ne gagne pas six points, elle gagne 1,8 pt en 2025 et 0,5 pt au T2 2026 (les six points datent de 2023 vs 2022).",
+  "preuve": "GROSS_MARGIN FY2024=69.8, FY2025=71.6 ; GM_QUARTERLY Q2-2025=69.7, Q2-2026=70.2 ; moat « la marge brute gagne près de six points »",
+  "correction_validee": "Réécrire avec les chiffres 2025-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Share repurchase program authorized ; Third manufacturing plant in Costa Rica ; Senior Unsecured Notes ; Revolving Credit Facility",
+  "probleme": "Événements de mars 2025 présentés comme KPI trimestriels datés mars 2026, contredits par les données : rachat de 300 M$ au T1 2026 alors que l'autorisation affichée est 125 M$ ; « 3 usines » alors que MFG_SITES=2.",
+  "preuve": "BUYBACKS Q1-2026=300 ; Share repurchase program authorized=125 ; MFG_SITES FY2025=2 vs val=3",
+  "correction_validee": "Retirer ces quatre KPI événementiels ou les basculer en stories.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning",
+  "probleme": "Termes anglais dans un bloc public.",
+  "preuve": "« plateforme d'automated insulin delivery ... jusqu'au closed loop »",
+  "correction_validee": "« plateforme d'administration automatisée d'insuline ... jusqu'à la boucle fermée ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ORG_GROWTH_FRANCHISE",
+  "probleme": "Nom trompeur (une seule franchise) et variation d'un taux en pourcentage relatif.",
+  "preuve": "nom « Croissance organique par franchise / gamme de produits » ; serie FY2024=22.2, FY2025=30.3 ; yoy=+8.1%",
+  "correction_validee": "Renommer en « Croissance Omnipod à devises constantes » et afficher +8,1 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

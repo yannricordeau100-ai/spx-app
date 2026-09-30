@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CHURN_POSTPAYE",
+  "probleme": "Le signal attribue la série au marché mobile allemand alors que les valeurs sont le churn postpayé de T-Mobile US (1.01 en 2018, 0.86 en 2024). Un investisseur télécoms le repère immédiatement.",
+  "preuve": "serie FY2018=1.01, FY2019=0.89, FY2020=0.9, FY2021=0.98, FY2022=0.88, FY2023=0.87, FY2024=0.86, FY2025=0.93 :: ... qualité perçue du réseau mobile en Allemagne",
+  "correction_validee": "Renommer 'Churn postpaye T-Mobile US' et reecrire le signal sur le marche americain.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ARPU",
+  "probleme": "ARPU en dollars par mois sur une fiche en euros, sans préciser qu'il s'agit du postpayé T-Mobile US ; nom 'Revenu moyen par abonné' trompeur pour le groupe.",
+  "preuve": "Revenu moyen par abonné | Arpu | $ / mois | serie FY2025=50.37",
+  "correction_validee": "Renommer 'ARPU postpaye T-Mobile US ($ / mois)'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "US_POSTPAID",
+  "probleme": "Série arrêtée à Q4-2025 alors que toutes les autres séries trimestrielles sont à Q2-2026 ; 'dernier 2026-08-06' est faux.",
+  "preuve": "US_POSTPAID dernier 2026-08-06 | serie ... Q4-2025=116445 ; REVENUE_Q ... Q2-2026=29933",
+  "correction_validee": "Ajouter Q1 et Q2 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "'Revenu DT', 'Resultat net DT'",
+  "probleme": "Doublons annuels sans années, sans accents, arrêtés en 2024, descriptions en franglais ; le résultat 2025 (9.6 Mds€) cité dans la thèse manque.",
+  "preuve": "Revenu DT | Mds EUR | dernier 2024-12-31 | serie 100, 107.61, 114.197, 111.97, 115.769 :: Dominance T-Mobile US (~63% du CA) + croissance organique Germany",
+  "correction_validee": "Retirer 'Revenu DT' et 'Resultat net DT'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DIVIDEND",
+  "probleme": "Années 2019 et 2020 absentes de la série du dividende.",
+  "preuve": "serie FY2018=0.7, FY2021=0.64",
+  "correction_validee": "Ajouter FY2019=0.6 et FY2020=0.6.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DE_CONTRACT_NET_ADDS",
+  "probleme": "Nom trop vague ('Ajouts nets') et point 2021 à -2 846 milliers qui est un reclassement de base, pas une perte de clients, sans explication.",
+  "preuve": "Ajouts nets | Net Adds | serie FY2021=-2846, FY2022=662",
+  "correction_validee": "Renommer 'Ajouts nets de clients mobiles avec contrat, Allemagne' et expliquer ou retirer 2021.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_AJOUTS_NETS_HD.signal",
+  "probleme": "Explication contradictoire : une migration cuivre vers fibre chez le même opérateur ne rend pas les ajouts nets haut débit négatifs ; -49 000 traduit bien une perte nette de lignes.",
+  "preuve": "FY2025=-49 :: bascule technologique plus que perte de clients nets",
+  "correction_validee": "Réécrire le signal (perte nette de lignes haut débit en 2025).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

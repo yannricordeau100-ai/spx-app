@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "yoy de deliveries, new_orders_units, avg_sales_price, backlog_units, cash, hb_debt, net_debt, inventory, multifamily_rev, lennar_other_rev",
+  "probleme": "Les variations annuelles n ont pas ete recalculees apres l ajout du T3 FY2026 : elles correspondent toutes au T2. Pour la tresorerie le signe est meme faux.",
+  "preuve": "deliveries yoy=+1.9% mais Q3-2026=20840 vs Q3-2025=21584 soit -3,4 % (20519/20131 = +1,9 % au T2). cash yoy=+55.6% mais Q3 1.15 vs 1.41 = -18 % (1.82/1.17 = +55,6 % au T2). backlog_units yoy=+8.2% mais 16857 vs 16953 = -0,6 %. new_orders_units yoy=-3.8% mais 20879 vs 23004 = -9,2 %.",
+  "correction_validee": "Recalculer le yoy de chaque série sur le T3 FY2026 face au T3 FY2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "signaux de deliveries, new_orders_units, new_orders_value, backlog_units, backlog_value, gross_margin_pct, community_count, fin_services_rev, multifamily_rev, backlog_asp, homebuilding_rev, hb_op_earnings, fin_services_result, revenue, net_income, eps_diluted, buybacks, dividends_paid, cash, hb_debt, net_debt, inventory",
+  "probleme": "Tous ces signaux citent le T2 FY2026 (fin mai) alors que la serie contient le T3 FY2026 publie le 17 septembre 2026. Un investisseur voit un chiffre de titre qui n est pas celui de la courbe.",
+  "preuve": "deliveries val=20840 (Q3-2026) :: 'Livraisons T2 FY2026 : 20 519 maisons' ; gross_margin_pct val=15.8 :: 'Marge brute ... de 15,6% au T2 FY2026' ; revenue val=8.05 :: 'CA total de 7,94 Mds $ au T2 FY2026'.",
+  "correction_validee": "Régénérer ces signaux sur le T3 FY2026 (clos fin août 2026), avec la comparaison au T3 FY2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "equity, fcf, ocf, net_margin, op_margin, hb_op_margin, fin_services_margin, capex, dps, avg_incentive_per_home",
+  "probleme": "Mise a jour partielle : ces series s arretent au T2 FY2026 alors que les autres ont le T3. Les marges du T3 se calculent pourtant a partir des points presents (net_income 284 / revenue 8.05 = 3,5 % ; hb_op_earnings 502 / homebuilding_rev 7.76 = 6,5 %).",
+  "preuve": "net_margin dernier 2026-05-31, Q2-2026=3.8 ; net_income Q3-2026=284 ; revenue Q3-2026=8.05.",
+  "correction_validee": "Ajouter le T3 FY2026 aux marges derivees ; completer flux de tresorerie, capex, capitaux propres et dividende par action des le 10-Q.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Le chiffre cite ne correspond a aucun point de la fiche : le resultat operationnel Homebuilding recule de 32,8 % au T2 et de 33,9 % au T3, pas de 23,7 % ; et les livraisons ne sont pas 'stables' au T3 (-3,4 %).",
+  "preuve": "moat : 'Le résultat du métier de construction chute de 23,7 % malgré des livraisons stables'. hb_op_earnings Q3-2026=502 vs 760, Q2-2026=489 vs 728.",
+  "correction_validee": "Reecrire le moat avec les chiffres du T3 FY2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Controlled homesites / Homesites controlled / Sales incentive rate on deliveries / CAHIER_CLOSINGS / CAHIER_BACKLOG (doublons)",
+  "probleme": "Doublons d indicateurs deja presents : part des terrains sous option (controlled_homesites_pct), terrains controles (homesites_controlled, en milliers), taux d incitations (sales_incentives_pct), livraisons et carnet annuels vs trimestriels. Les unites different (milliers vs unites) et les valeurs aussi (496 200 fin FY2025 vs 484 000 / 476 000).",
+  "preuve": "controlled_homesites_pct FY2025=98 et 'Controlled homesites' val=98. homesites_controlled FY2025=496.2 milliers ; 'Homesites controlled' serie 484000, 476000. sales_incentives_pct Q1-2026=14.1 vs 'Sales incentive rate on deliveries' 12.9 (T2).",
+  "correction_validee": "Supprimer Controlled homesites, Homesites controlled et Sales incentive rate on deliveries. Garder CAHIER_CLOSINGS et CAHIER_BACKLOG, séries annuelles longues.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography",
+  "probleme": "Le libelle du segment homebuilding inclut 'Houston', ancien nom de segment, alors que la fiche utilise Est, Centre, Sud-Centre (ex-Texas), Ouest. La geographie est vide alors que les revenus par region existent (geo_rev_east etc.).",
+  "preuve": "revenue_by_segment : 'Lennar Homebuilding East, Central, West, Houston, and Other 93.8'. revenue_by_geography : Est None ; Centre None ; Centre Sud None ; Ouest None.",
+  "correction_validee": "Renommer le segment « Construction de maisons » et remplir la géographie avec la somme des quatre trimestres FY2025 de geo_rev_east, geo_rev_central, geo_rev_sc et geo_rev_west.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Construction cost per square foot (signal) / these",
+  "probleme": "Le signal cite 81 $ alors que le dernier point est 80 ; la these dit -6 % sur un an et -14 % depuis fin 2023, le signal -7 % et -13 % sur deux ans.",
+  "preuve": "serie : 81, 80 :: 'Coût de construction ramène à 81 $/pi2, en baisse de 7% sur un an et de 13% sur deux ans'. these : 'a reculé de 6 % sur un an et de 14 % depuis fin 2023'.",
+  "correction_validee": "Aligner signal et these sur le dernier point (80 $) et une seule paire de variations.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_annuelle",
+  "probleme": "Serie a trous : 2019, 2020 puis 2024, 2025. Les exercices 2021 a 2023 manquent alors que la fiche est censee couvrir dix ans.",
+  "preuve": "dette_annuelle n=4 : 2019=9.574, 2020=7.422, 2024=4.189, 2025=5.875.",
+  "correction_validee": "Completer 2018 et 2021-2023 a partir des 10-K.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline / Average response time to customer inquiries",
+  "probleme": "Tagline en anglais ; un KPI 'temps de reponse aux demandes clients' en secondes, a point unique, n a pas sa place parmi les indicateurs pour investisseurs.",
+  "preuve": "tagline : 'One of the largest homebuilders in the United States'. KPI 'Average response time to customer inquiries' val=35 seconds n=1.",
+  "correction_validee": "Traduire la tagline (« L'un des plus grands constructeurs de maisons des États-Unis ») et retirer le KPI Average response time to customer inquiries.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

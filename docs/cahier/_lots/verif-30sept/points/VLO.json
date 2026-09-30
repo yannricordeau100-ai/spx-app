@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "California refineries asset impairment loss.signal",
+  "probleme": "Erreur d'échelle x1000 dans le texte",
+  "preuve": "Valeur 1131 M $ ; le signal dit « Dépréciation exceptionnelle de 1,13 M$ »",
+  "correction_validee": "Remplacer « 1,13 M$ » par « 1,13 Md$ » dans le signal.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Refining cash operating expenses per barrel / refining-opex-bbl-q / CAHIER_OPEX_BBL",
+  "probleme": "Doublon avec des valeurs décalées d'un trimestre",
+  "preuve": "refining-opex-bbl-q Q1-2026=5.13, Q2-2026=4.7 ; le doublon, daté 2026-06-30, finit par 4.71, 5.13",
+  "correction_validee": "Supprimer « Refining cash operating expenses per barrel » et garder refining-opex-bbl-q.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel / fcf-q",
+  "probleme": "Deux définitions du FCF qui ne se recoupent pas",
+  "preuve": "FCF trimestriel 2025 : 389+545+1523+1660=4 117 M$ ; fcf_annuel 2025=5.826 Mds",
+  "correction_validee": "Aligner la définition annuelle (flux d'exploitation moins investissements et arrêts techniques) ou le préciser dans les deux noms",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Ethanol production volumes.history",
+  "probleme": "Les T4 manquent dans la série trimestrielle",
+  "preuve": "Q3-2024=1.6732 puis Q1-2025 ; Q3-2025=1.6918 puis Q1-2026",
+  "correction_validee": "Ajouter les T4 2024 et 2025",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Capacité raffinage totale.signal",
+  "probleme": "Signal périmé au futur, et nom contredit par la fiche",
+  "preuve": "« la fermeture de Benicia fin avril 2026 réduira la capacité » ; nom « 15 raffineries » alors que Number of petroleum refineries=14",
+  "correction_validee": "Mettre à jour la capacité après Benicia et le nombre de raffineries",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "summary",
+  "probleme": "Moat bâti sur l'exercice 2025, contredit par le semestre 2026 déjà sur la fiche ; type None",
+  "preuve": "« résultat opérationnel de -15,3 % » contre resultat-op-q T2-2026 +421 % et marge de raffinage 23,62 $/bbl",
+  "correction_validee": "Réécrire avec les chiffres de 2026 et renseigner le type",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment / revenue_by_geography / tagline",
+  "champ": "libellés",
+  "probleme": "Libellés et accroche en anglais",
+  "preuve": "Refining, Ethanol, Renewable Diesel ; « United Kingdom And Ireland » ; tagline « Leading independent petroleum refiner… »",
+  "correction_validee": "Traduire en Raffinage, Éthanol, Diesel renouvelable et Royaume-Uni et Irlande, et reprendre la version française de tagline_i18n.fr dans tagline.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "titres",
+  "probleme": "Risques génériques sans rapport avec un raffineur ; les vrais risques manquent",
+  "preuve": "« Réseau immobilier et points de vente », « Intelligence artificielle et nouvelles technologies », « Risque de taux d'intérêt » ; rien sur la volatilité des marges, le coût des crédits RFS ou la réglementation californienne ; résumés vides",
+  "correction_validee": "Refaire les risques à partir de la section des risques du rapport annuel",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI ponctuels datés 2026-04-10",
+  "probleme": "Données de marché national présentées comme des KPI de la société",
+  "preuve": "US refined product exports increase, Light product inventories drawdown, Record jet fuel yield : n=1 chacun",
+  "correction_validee": "Les retirer des KPI",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "manquant",
+  "probleme": "Il manque le taux d'utilisation des raffineries, indicateur central du secteur",
+  "preuve": "Le débit (2 950 kbpd) et la capacité (3 200 kbpd, un seul point) figurent sur la fiche, pas le taux d'utilisation trimestriel",
+  "correction_validee": "Ajouter le taux d'utilisation (débit sur capacité), éventuellement par région",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

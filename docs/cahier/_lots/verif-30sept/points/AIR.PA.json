@@ -1,0 +1,42 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "yoy des KPI annuels FY2021-FY2025",
+  "probleme": "Variation annuelle calculee contre N-2 sur treize KPI, en contradiction avec leurs propres signaux",
+  "preuve": "ORD_VAL yoy -33,9 % (123,3/186,5) alors que 103,5 -> 123,3 = +19 % (signal « +19 % ») ; DPS +77,8 % contre +6,7 % ; EPS +37,7 % contre +23 % ; BACKLOG_VAL +11,7 % contre -1,6 % ; idem HELI_DELIV, HELI_ORD, DS_INTAKE, DS_BACKLOG, EMP, FCF_AVANT, DELIV_A220, DELIV_A350, GROSS_ORD",
+  "correction_validee": "Recalculer yoy = history[-1]/history[-2] sur les treize KPI annuels cites.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "summary",
+  "probleme": "Chiffre de depart faux dans la phrase du moat",
+  "preuve": "« passent de 125 à 237 par trimestre, soit 39,4 % sur un an » ; DELIV T2 2025 = 170 (170 -> 237 = +39,4 %) ; 125 -> 237 ferait +90 %",
+  "correction_validee": "Remplacer 125 par 170 (T2 2025 vers T2 2026).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DELIVERIES",
+  "probleme": "Serie perimee depuis 2020, nom trompeur (« par programme » alors que c est le total)",
+  "preuve": "dernier 2020-12-31, FY2013..FY2020 ; DELIV et DELIV_A320/A330/A350 couvrent 2025-2026",
+  "correction_validee": "Supprimer CAHIER_DELIVERIES.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Pas de marge EBIT ajuste en pourcentage (groupe et divisions) ni de book-to-bill en unites, alors que ce sont les reperes usuels du secteur",
+  "preuve": "EBIT_ADJ et EBITADJ_* en valeur absolue seulement ; CAHIER_BOOK_TO_BILL en valeur",
+  "correction_validee": "Ajouter marge EBIT ajuste % et book-to-bill unitaire",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "CA Groupe / CA OEM / CA MRO (annuels, n=5, sans etiquette de periode)",
+  "probleme": "Trois series annuelles doublonnent les series trimestrielles CA, OEM et MRO et les contredisent : CA MRO 2025 = 5 434 M€ alors que la somme des trimestres 2025 donne 5 960 M€ (signal MRO : 5 960 M€, 68 % du CA) ; CA OEM 2025 = 2 921 M€ contre 2 875 M€ (signal OEM) ; le texte dit 'commercial 2307 M€' contre 2 260 M€ (signal CIVIL). Descriptions en style telegraphique et franglais ('dopee par cycle aero civil + MRO + V2500', 'Trajectoire compounding aero', 'Segment haute valeur') et '2020 = 4,2 Mds' alors que 4 190 M€ est le CA 2021.",
+  "preuve": "KPI CA MRO serie: 2740, 3586, 4208, 5055, 5434 ; KPI MRO trimestriel Q1-Q4 2025 = 1521+1278+1502+1659 = 5960 ; CA OEM serie ...2921 vs OEM 620+791+646+818 = 2875",
+  "correction_validee": "Supprimer les trois KPI annuels CA Groupe, CA OEM et CA MRO, déjà couverts par les séries trimestrielles CA, OEM et MRO et par leurs signaux annuels.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_AFTERMARKET_MIX",
+  "probleme": "Point FY2023 = 78,8 % invraisemblable dans une serie a 61-68 % (saut de +11 points puis retour a 68,4) ; probablement calcule sur le CA publie 2023 ampute par la charge GTF et non sur le CA ajuste. Signal generique qui ne cite aucun chiffre.",
+  "preuve": "serie: FY2022=67.8, FY2023=78.8, FY2024=68.4, FY2025=68 ; repartition segment MRO = 68.4",
+  "correction_validee": "Recalculer FY2023 sur le CA ajuste (MRO 2023 / CA ajuste 2023) ou retirer ce point ; reecrire le signal avec le chiffre 68 %.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "SHOPVISITS",
+  "probleme": "Serie a trous (FY2021, FY2023, FY2025) presentee en annuel avec un yoy de +15,4 % qui est en realite une variation sur deux ans (1 300 -> 1 500) ; valeurs arrondies 'environ'.",
+  "preuve": "n=3 | yoy=+15,4% | serie: FY2021=1100, FY2023=1300, FY2025=1500",
+  "correction_validee": "Completer FY2022 et FY2024 depuis les rapports annuels ou afficher la variation sur deux ans ; sinon retirer le yoy.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "positionnement IA",
+  "probleme": "Texte hors sujet pour un motoriste : l'IA 'pour soutenir le travail du conseil de surveillance, les assemblees generales et les comites' ; rien sur la maintenance predictive, l'inspection des pieces ou la conception des moteurs.",
+  "preuve": "En 2025, MTU Aero Engines a mis en place l'usage de l'intelligence artificielle pour soutenir le travail du conseil de surveillance, les assemblees generales et les comites",
+  "correction_validee": "Reecrire a partir des usages industriels cites par MTU (MRO, inspection, conception), sinon classer 'cautious' avec un texte court.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "position_marche",
+  "champ": "position de marche 1",
+  "probleme": "Bloc vide affiche : aucun nom de marche, aucune part, seulement un nombre 55.24 sans unite.",
+  "preuve": "position de marche 1: None | taille 55.24 | part None",
+  "correction_validee": "Retirer le bloc de position de marché tant qu'il n'a ni nom ni part.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le moat n'est pas nomme (type None) et se reduit a une phrase sur le carnet de commandes ; l'avantage reel (parts de programmes RRSP, rente de maintenance sur 30 ans) est explique dans la these mais absent du moat.",
+  "preuve": "moat: None / tendance stable :: Le carnet de commandes a plus que double en dix ans et securise la rente de maintenance",
+  "correction_validee": "Rediger un moat nomme (actifs incorporels et couts de changement : parts de programmes GTF, V2500, EJ200) coherent avec la these.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

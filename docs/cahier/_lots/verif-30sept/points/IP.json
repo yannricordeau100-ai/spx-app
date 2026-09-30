@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "SGA.signal / DA.signal",
+  "probleme": "Les écarts sur un an cités sont contraires à la série.",
+  "preuve": "SGA : « 564 M$, en hausse de 39 M$ » contre T2-2025 = 578 (-14 M$). DA : « 488 M$, +57 M$ » contre T2-2025 = 480 (+8 M$).",
+  "correction_validee": "SGA « en baisse de 14 M$ sur un an », DA « +8 M$ sur un an ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / att / these",
+  "champ": "Goodwill.signal",
+  "probleme": "Montant de la dépréciation d'écarts d'acquisition incohérent entre les blocs.",
+  "preuve": "Goodwill : « dépréciation de 2 349 M$ » (7 675 - 5 326) ; anti-thèse : « environ 2 470 M$ » ; thèse : « 2,47 Mds $ ».",
+  "correction_validee": "Vérifier le montant publié et aligner les trois blocs.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / moat",
+  "champ": "volumes (Corrugated, Containerboard, Industrial Packaging, CAHIER_SHIPMENTS)",
+  "probleme": "Les volumes sont non datés et arrêtés en 2024 ou 2023, mais datés 2026-09-04. Le moat s'appuie dessus.",
+  "preuve": "Industrial Packaging : « arrêté après Q2-2024 ». Corrugated : « avant la fin de publication ». CAHIER_SHIPMENTS finit en FY2023 et le qualifie d'« indicateur direct du pouvoir de fixation des prix ». Moat : « Les volumes d'emballages ondulés reculent de 6 pour cent ».",
+  "correction_validee": "Dater les séries à leur vraie période, archiver les séries arrêtées, corriger le signal volume/prix et retirer le -6 % du moat.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux Capex, Operating Cash Flow, Dividends Paid, Interest Paid, Taxes Paid, Operating Income, Gross Margin, Tax Rate",
+  "probleme": "Cuisine interne dans les signaux.",
+  "preuve": "« dérivé du cumul semestriel de 1 050 M$ moins 517 M$ » ; « valeurs du même dépôt » ; « grandeur non additive, ratio calculé trimestre par trimestre ».",
+  "correction_validee": "Retirer les explications de calcul de ces signaux.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "variations des marges et du taux d'impôt ; Gross Margin",
+  "probleme": "Variation des ratios en pourcentage relatif au lieu de points, et trou dans la marge brute.",
+  "preuve": "Operating Margin -72,2 % (réel -2,6 pts) ; Net Margin -116,7 % ; PS NA Op Margin -23,6 % (réel -1,7 pt) ; Gross Margin -1,1 % (réel -0,3 pt) et T4-2025 absent.",
+  "correction_validee": "Afficher les écarts en points (-2,6, -1,4, -1,7, -0,3 pt) et compléter le T4-2025 de la marge brute.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GCF Divestiture Price / GCF Revenue (disc.).signal",
+  "probleme": "Le prix de cession est présenté comme une série temporelle, avec des montants contradictoires.",
+  "preuve": "Série FY2025 = 1,5, FY2026 = 1,1 ; signal GCF : « vendu pour 1,5 Md USD » ; KPI désendettement : « 1,1 Md USD encaissés ».",
+  "correction_validee": "Un seul fait daté : prix annoncé et montant encaissé, en expliquant l'écart.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "2025 capital spending, 2025 dividends, 2025 restructuring, EMEA run-rate cost savings",
+  "probleme": "Doublons n=1 de séries déjà présentes.",
+  "preuve": "1,9 Md$ ≈ somme Capex 2025 (1 857) ; 977 = somme Dividends Paid 2025 ; 626 = somme Restructuring 2025 ; 200 M$ EMEA déjà dans DS Smith Run-Rate.",
+  "correction_validee": "Supprimer les quatre KPI n=1.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DS Smith Run-Rate Synergies",
+  "probleme": "Le nom attribue à DS Smith des économies qui sont surtout nord-américaines.",
+  "preuve": "« 710 M USD ... synergies DS Smith incluses ; NA = 510 M USD, EMEA = 200 M USD ».",
+  "correction_validee": "Renommer en « Économies de coûts en rythme annuel (groupe) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EMEA packaging separation, Norpak, retained stake, winter storm, plant closures",
+  "probleme": "Événements présentés comme des KPI, avec des unités absurdes.",
+  "preuve": "Scission : « val=2 | sociétés cotées » ; Norpak : « 3 | machines à papier ».",
+  "correction_validee": "Déplacer vers les événements.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateurs manquants",
+  "probleme": "Indicateurs de base du secteur de l'emballage absents pour 2025-2026.",
+  "preuve": "Aucune série datée récente de volumes de boîtes par segment, de prix de vente réalisé, ni de taux d'utilisation des papeteries ou d'arrêts économiques.",
+  "correction_validee": "Ajouter les volumes de boîtes NA et EMEA, l'effet prix et le taux d'utilisation des papeteries.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "hero / tagline / risques / répartition",
+  "champ": "hero_kpi et textes",
+  "probleme": "Le KPI vedette est l'activité EMEA, déficitaire et appelée à être séparée. Plusieurs textes sont en anglais.",
+  "preuve": "Hero « PS EMEA Revenue », alors que PS EMEA Op Profit = -80 M$ et que l'EMEA pèse 36 % du CA. Tagline anglaise ; « GHG emissions » ; « Americas Other Than U S » ; « Separation EMEA en 2 societes cotees ».",
+  "correction_validee": "Choisir un KPI vedette nord-américain et traduire les libellés.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

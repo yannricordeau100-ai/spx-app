@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "us_revenue_share (value, last_data_date)",
+  "probleme": "Valeur affichee absente de la serie.",
+  "preuve": "value 90 date 2026-06-30, historique FY2022-FY2025 = 56, 70, 74, 81 ; signal '81 % en 2025' ; yoy +7 pts = 81 - 74.",
+  "correction_validee": "Ramener la valeur a 81 (FY2025) ou ajouter un point H1-2026 = 90 avec sa source.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BACKLOG (signal, history)",
+  "probleme": "Notes internes en guise de signal et serie heterogene.",
+  "preuve": "Signal : 'Reprise 17 sept 2026 (agent + verification Fable de chaque citation). Sujet : Rupture de perimetre en cours de serie... Valeur 2025 approximative.' ; serie 0.8, 1.1, 1, 8.5, 10, [trou 2023-2024], 20 ; yoy +100 % sur trois ans.",
+  "correction_validee": "Garder uniquement le backlog total 2021, 2022 et 2025 avec un signal rédigé pour le lecteur, sinon supprimer le KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Source et note interne dans le bloc rempart.",
+  "preuve": "'Note Morningstar « None » : article Morningstar de 2026 sur les valeurs ayant plus que double (...) fiche Morningstar non consultee directement.'",
+  "correction_validee": "Supprimer la phrase à partir de « Note Morningstar ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks / ai_positioning",
+  "champ": "description, summary",
+  "probleme": "Accents manquants sur plusieurs textes visibles.",
+  "preuve": "'trois clients ont represente', 'sa capacite a augmenter', 'couts initiaux eleves', 'a financer leurs achats', 'son marche', 'piles a combustible a oxyde solide'.",
+  "correction_validee": "Restaurer les accents et les conjugaisons (représenté, à, marché, là où, déclare).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune serie de tresorerie, dette, nombre d actions diluees, resultat net ni marge brute trimestrielle pour une societe a convertibles et croissance x2.",
+  "preuve": "KPI presents : revenus, marges annuelles, OCF annuel, effectifs, MW ; aucun bilan ni dilution alors que l anti-these traite la fragilite financiere et la concentration client.",
+  "correction_validee": "Ajouter 'Tresorerie', 'Dette (dont convertibles)', 'Actions diluees', 'Marge brute trimestrielle' depuis les 10-Q.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att / moat",
+  "champ": "hook / justification_mettrik",
+  "probleme": "Le meme 73 % est rattache a deux periodes differentes.",
+  "preuve": "Anti-these : 'Sur les six premiers mois de 2026, un seul client a represente environ 73 %' ; rempart : '73 % du chiffre d affaires du deuxieme trimestre 2026'.",
+  "correction_validee": "Aligner sur la periode du 10-Q (semestre).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "employees_count signal",
+  "probleme": "Chiffre de productivite non reproductible.",
+  "preuve": "'le chiffre d affaires par salarie passe de 0,53 a 0,91 M$' ; 2022 : 1 199 M$ / 2 530 = 0,47 M$ ; aucun exercice de la serie ne donne 0,53.",
+  "correction_validee": "Recalculer (0,47 en 2022, 0,91 en 2025) ou retirer la comparaison.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

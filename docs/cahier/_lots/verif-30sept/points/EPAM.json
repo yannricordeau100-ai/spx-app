@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition par segment perimee : le segment Russie n existe plus depuis 2023.",
+  "preuve": "revenue_by_segment (None): North America 60.2 ; Europe 35.6 ; Russia 4.1 ; rev_seg_russia : cession finalisee le 26 juillet 2023, revenus nuls depuis.",
+  "correction_validee": "Remplacer par la repartition 2025 par localisation client issue des series trimestrielles : Ameriques 58,7 %, EMEA 39,3 %, Asie-Pacifique 2,0 %, exercice 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EMEA Revenue / Americas Revenue / Active Customers / Time-and-Material Rev / Americas Client Revenue / EMEA Client Revenue",
+  "probleme": "Series annuelles arrondies ou arretees en 2024 qui doublonnent et contredisent les series trimestrielles.",
+  "preuve": "EMEA Revenue 2025=1.5 Mds$ alors que rev_emea 2025 = 497.1+524.8+555.7+569.6 = 2 147 M$ ; Americas Revenue 3.3 (2026 non clos) ; Active Customers 720 sans source ; Time-and-Material Rev arrete a 2024 avec ~82 % alors que rev_time_materials indique 78,0 % au T2-2026.",
+  "correction_validee": "Supprimer les 6 series annuelles, les series trimestrielles rev_americas, rev_emea et rev_time_materials faisant foi.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le moat affirme que les marges se contractent alors que la fiche montre une expansion ; phrase obscure sur une note retiree.",
+  "preuve": "moat : les marges se contractent et la note a ete retiree ; operating_margin 10,8 % au T2-2026 contre 9,3 % ; att : marges en expansion.",
+  "correction_validee": "Reecrire le moat en coherence avec les chiffres (marge brute 30,4 % vs 28,8 %, marge op. en hausse).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "headcount_mexico (signal)",
+  "probleme": "Signal contredit par la serie : effectif en baisse de 16 % presente comme renforce.",
+  "preuve": "headcount_mexico FY2024=3525, FY2025=2950 (yoy -16,3 %) ; signal : le nearshore latino-americain a ete renforce par l acquisition NEORIS.",
+  "correction_validee": "Reecrire : 2 950 professionnels fin 2025, en repli de 16 % apres le pic de 3 525 atteint en 2024 avec NEORIS.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ca_par_salarie / fcf_par_salarie / dette_par_salarie / effectifs_annuels / rev_seg_europe / eps_diluted (trous)",
+  "probleme": "Series arretees en 2022 ou trouees alors que les donnees existent sur la fiche.",
+  "preuve": "ca_par_salarie serie 2017..2022 (n=6) alors que revenue_annuel et headcount vont a 2025 ; effectifs_annuels sans 2023 alors que headcount_total FY2023=53150 ; rev_seg_europe sans Q4-2025 ; eps_diluted sans aucun Q4 (Q1,Q2,Q3 seulement).",
+  "correction_validee": "Recalculer les ratios par salarie 2023-2025 (mecanique), ajouter 2023 aux effectifs ; les Q4 manquants demandent la donnee.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Fixed price contracts share of revenue",
+  "probleme": "Doublon a point unique d un KPI deja suivi en serie.",
+  "preuve": "Fixed price contracts share 20.2 (n=1) ; rev_fixed_price signal : 21,6 % du CA au T2-2026.",
+  "correction_validee": "Supprimer le point unique.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

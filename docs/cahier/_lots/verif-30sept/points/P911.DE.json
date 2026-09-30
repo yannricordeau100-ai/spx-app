@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "risques",
+  "champ": "risks (6 titres)",
+  "probleme": "Les six risques sont des fragments de texte du rapport annuel sans rapport avec des risques : renvois de page, titre de chapitre gouvernance, clause de non-concurrence d'un dirigeant, rendement des actifs de retraite, renvoi à la section E1. Aucun risque réel (Chine, droits de douane US, électrification, marge) n'est décrit.",
+  "preuve": "risque 1: PLUS D'INFORMATIONS Rapport annuel et de développement durable Porsche AG 106 16 ; risque 2: L'ancien Dirigeant À NOS ACTIONNAIRES GOUVERNEMENT D'ENTREPRISE Corporate ; risque 6: Des informations détaillées sur la décarbonisation sont disponibles sous → E1",
+  "correction_validee": "Refaire le bloc risques depuis la section Risques et opportunités du rapport annuel 2025 et du rapport semestriel 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "911 Deliveries vs PORSCHE_911_DELIVERIES",
+  "probleme": "Deux séries de livraisons de 911 avec des valeurs contradictoires sur les mêmes années : 40 400 contre 50 146, 53 000 contre 50 941, 50 300 contre 51 583.",
+  "preuve": "PORSCHE_911_DELIVERIES serie: FY2023=50146, FY2024=50941, FY2025=51583 ; 911 Deliveries serie: 34600, 38500, 40400, 53000, 50300",
+  "correction_validee": "Supprimer 911 Deliveries et garder PORSCHE_911_DELIVERIES.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "China Deliveries, Europe Deliveries, NA Deliveries, Taycan Deliveries, BEV Share",
+  "probleme": "Cinq séries de cinq points sans périodes, datées 2026-06-30 alors que leur dernier point correspond à l'exercice 2024 (Chine 56 900, Taycan 20 800 en recul de 50 % sont les chiffres 2024). L'exercice 2025 et le S1 2026 (122 306 livraisons, en baisse de 16,5 %) manquent.",
+  "preuve": "China Deliveries | dernier 2026-06-30 | serie: 88900, 95700, 93300, 79300, 56900 ; these: Les livraisons reculent de 16,5 % à 122 306 véhicules",
+  "correction_validee": "Dater chaque point, ajouter l'exercice 2025 depuis le rapport annuel 2025 et corriger last_data_date, ou supprimer les cinq séries si leur reconstruction n'est pas possible.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le moat parle d'un résultat opérationnel en chute de plus de 20 % alors que la thèse et l'anti-thèse décrivent un S1 2026 avec résultat opérationnel en hausse de 33,9 % et marge de 7,8 %. Texte périmé (exercice 2025).",
+  "preuve": "moat :: Le résultat opérationnel chute de plus de 20 pour cent ; these :: son résultat opérationnel a pourtant progressé de 33,9 %",
+  "correction_validee": "Réécrire le moat sur le S1 2026 : hausse du chiffre d'affaires par véhicule et pouvoir de prix intact malgré la baisse des volumes.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PORSCHE_911_DELIVERIES, CAYENNE_DELIVERIES (dates)",
+  "probleme": "Séries annuelles dont le dernier point est FY2025 mais datées 2026-06-30 ; le rapport semestriel S1 2026 donne les livraisons par modèle et n'est pas intégré. Les livraisons Macan, désormais premier modèle en volume, n'ont aucune série.",
+  "preuve": "PORSCHE_911_DELIVERIES | year | dernier 2026-06-30 | serie: ... FY2025=51583 ; K4 Macan Sales historique vide (mécanique) mais aucune série Macan valide",
+  "correction_validee": "Corriger les dates, ajouter les livraisons Macan et Panamera par exercice.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "gouvernance",
+  "champ": "governance",
+  "probleme": "Bloc gouvernance vide : ni dirigeant, ni exercice, ni rémunération, alors que le rapport annuel 2025 les publie. La cellule dirigeant devrait refléter le changement de direction générale de 2026.",
+  "preuve": "gouvernance: annee None | dirigeant None | remuneration None",
+  "correction_validee": "Renseigner le dirigeant en poste, l'exercice 2025 et la rémunération depuis le rapport de rémunération.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.products",
+  "probleme": "« environ 300 000 véhicules par an » est périmé : la fiche elle-même donne 122 306 livraisons au S1 2026 (moins de 250 000 en rythme annuel).",
+  "preuve": "products: Le groupe livre environ 300 000 véhicules par an ; these: 122 306 véhicules au S1 2026, -16,5 %",
+  "correction_validee": "Remplacer par le volume 2025 réel avec la mention du recul 2026.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline / subsector",
+  "probleme": "Tagline réduite au nom de la société et sous-secteur « TBD » (déjà relevé pour TBD) : l'en-tête ne dit rien du métier.",
+  "preuve": "tagline: Porsche AG ; Consommation discrétionnaire > TBD",
+  "correction_validee": "Écrire une tagline d'une phrase (constructeur de voitures de sport de luxe) et fixer le sous-secteur Automobiles.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Memory Revenue / Foundry Revenue / Logic IDM Revenue / Shipments / Backlog / Taiwan Revenue / Korea Revenue / China Revenue / Japan Revenue / Southeast Asia Revenue",
+  "probleme": "Bloc de dix series datees 2026-12-31 qui contiennent en realite des chiffres de 2015-2016, encodage casse, contradiction directe avec les series recentes",
+  "preuve": "Korea Revenue.signal : Recul apr s une forte ann e 2015 ; China Revenue 661, 1040 M$ par an contre China Revenue $ 1996.9 M$ par trimestre ; Backlog 880, 1371 contre Deferred revenue 2220 ; noms Revenu M moire, Exp ditions, D croissance",
+  "correction_validee": "Retirer les dix KPI (Memory, Foundry, Logic IDM, Shipments, Backlog, Taiwan, Korea, China, Japan, Southeast Asia Revenue).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Memory % / Foundry % / Logic/Other % / China Sales % / Korea Sales % / CSBG Service",
+  "probleme": "Series sans periodes datees 2026-12-31, perimees et contradictoires avec la these et les KPI trimestriels",
+  "preuve": "China Sales % val=42 (+16 pts) contre these : la part de la Chine reculait de 42 % à 34 % et China revenue mix val=34 ; Memory % 35 contre Memory Mix 39",
+  "correction_validee": "Retirer Memory %, Foundry %, Logic/Other %, China Sales %, Korea Sales % et CSBG Service, et garder les mix trimestriels et China revenue mix.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Customer Support Business Group / CSBG Service / CAHIER_INSTALLED_BASE_SERVICE / Customer support-related revenue",
+  "probleme": "Quatre series pour le meme indicateur CSBG avec des niveaux incompatibles",
+  "preuve": "Customer Support Business Group 5.8 Mds ; CSBG Service 6.3 Mds ; CAHIER_INSTALLED_BASE_SERVICE FY2026=8347 M$ ; trimestriel 2110.9 M$ (x4 = 8,4 Mds)",
+  "correction_validee": "Garder CAHIER_INSTALLED_BASE_SERVICE et Customer support-related revenue (trimestriel, à dater), retirer Customer Support Business Group et CSBG Service, et pointer le hero sur le trimestriel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Foundry Mix.signal / Memory Mix.signal / Logic/IDM Mix.signal / China Revenue $.signal",
+  "probleme": "Signaux qui citent des chiffres absents de la serie ou un sens de variation faux",
+  "preuve": "Memory Mix : Stable à 42% (serie finit a 39, va de 50 a 34) ; Logic/IDM : Recul de 18% à 13% (serie 21 vers 7) ; China Revenue $ : Quasi-stable en valeur (1506.6 vers 1996.9, +36,1%)",
+  "correction_validee": "Réécrire les quatre signaux sur les derniers points (Memory 39 %, Logic/IDM 7 %, Foundry 54 %, Chine 1 997 M$ soit +36 %).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_SYSTEM_ORDERS_BACKLOG",
+  "probleme": "Serie arretee en 2020 et contradictoire avec le KPI Backlog et le proxy Deferred revenue",
+  "preuve": "dernier 2020-12-31 val=2900 ; serie FY2013 a FY2020",
+  "correction_validee": "Retirer (Lam ne publie plus de carnet) ou remplacer par les produits differes",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Regular full-time employees",
+  "probleme": "Serie annuelle etiquetee trimestrielle, doublon de effectifs_annuels",
+  "preuve": "period quarter, serie 12200, 16300, 19200, 17200, 18300, 19700, 20600, 23300 identique aux effectifs annuels 2021-2026",
+  "correction_validee": "Retirer Regular full-time employees et garder effectifs_annuels.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Full-year revenue 2025 / Ten-for-one stock split / Share repurchase authorization / Accelerated share repurchase April 2025 / Advanced packaging revenue 2024",
+  "probleme": "Evenements a un seul point presentes comme KPI trimestriels, dont un chiffre annuel deja present dans revenue_annuel",
+  "preuve": "Full-year revenue 2025 period quarter n=1 val=18435.6 ; Ten-for-one stock split unite ratio val=10",
+  "correction_validee": "Deplacer en stories ou retirer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks.title",
+  "probleme": "Titres de risques qui sont des fragments de phrases traduits, illisibles pour un lecteur",
+  "preuve": "Cela peut nuire à notre activité avec la Chine... ; Ainsi, l'action d'un seul client peut entraîner une variabilité difficile à prévoir dans ces domaines",
+  "correction_validee": "Reecrire les sept titres en intitules courts (Exposition Chine et controles export, Concentration clients, etc.)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libelles de pays en anglais et en code ISO",
+  "preuve": "KOREA, REPUBLIC OF 22.4 ; TAIWAN, PROVINCE OF CHINA 18.7 ; South East Asia 4.5",
+  "correction_validee": "Renommer en Corée du Sud, Taïwan et Asie du Sud-Est.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "products",
+  "probleme": "La description ne cite que des produits de depot et oublie la gravure, premier metier de Lam",
+  "preuve": "les systèmes ALTUS pour le dépôt de films, les produits SABRE..., les outils SPEED..., et les machines VECTOR",
+  "correction_validee": "Ajouter les systemes de gravure (Kiyo, Flex, Sense.i) et le nettoyage",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "gouvernance",
+  "champ": "dirigeant",
+  "probleme": "Civilite anglaise dans le nom",
+  "preuve": "dirigeant Mr. Timothy M. Archer",
+  "correction_validee": "Afficher « Timothy M. Archer ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

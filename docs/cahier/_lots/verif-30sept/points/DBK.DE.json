@@ -1,0 +1,42 @@
+[
+ {
+  "bloc": "risques",
+  "champ": "risks[1].description",
+  "probleme": "Mention d un document dans le bloc ('Le rapport cite'), non relevee par la detection mecanique qui ne couvre que score_rationale.",
+  "preuve": "risque 2 : 'Le rapport cite l'intervention militaire menee par les Etats-Unis en Iran ...'",
+  "correction_validee": "Remplacer 'Le rapport cite' par 'La banque cite'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DPS_FY.signal",
+  "probleme": "Formule incomprehensible : 'premier retour au dividende a un chiffre depuis la crise'.",
+  "preuve": "'Dividende de 1,00 € par action au titre de 2025, cinq fois le niveau de 2021 et premier retour au dividende a un chiffre depuis la crise.'",
+  "correction_validee": "'Dividende de 1,00 € par action au titre de 2025, cinq fois celui de 2021 et le premier d au moins 1 € depuis l exercice 2007.'",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "marge_nette_d_interet.yoy",
+  "probleme": "yoy 'None' alors que le point N-1 existe (1,5 % au T2-2025) : +0,2 pt est calculable.",
+  "preuve": "marge_nette_d_interet ... yoy=None | serie: ... Q2-2025=1.5 ... Q2-2026=1.7",
+  "correction_validee": "Afficher +0,2 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positions de marche / kpis manquants",
+  "champ": "market_positions[0], indicateurs sectoriels",
+  "probleme": "Position de marche sans libelle (91.24) ; la these repose sur les rachats d actions (25,4 M d actions au S1-2026) et l anti-these sur le contentieux, mais aucun KPI ne suit le nombre d actions, les rachats ni les prets non performants.",
+  "preuve": "position de marche 1: None | taille 91.24 | part None ; these : 'a rachete 25,4 millions de ses propres actions' ; aucun KPI actions en circulation, rachats ou NPL",
+  "correction_validee": "Nommer la position ; ajouter 'Actions en circulation', 'Rachats d actions (Mds €)' et 'Ratio de prets non performants'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

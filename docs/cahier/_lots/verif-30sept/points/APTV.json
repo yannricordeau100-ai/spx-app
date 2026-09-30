@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "total_rev, adj_op_income, gross_margin_pct, sga, ocf, eps_diluted (séries consolidées trimestrielles)",
+  "probleme": "Périmètre mélangé dans les mêmes séries : T1 et T2 2025 retraités hors EDS, T3 et T4 2025 et antérieurs avec EDS, T1 2026 partiellement mixte. Les yoy et plusieurs signaux en sont faussés.",
+  "preuve": "total_rev : Q2-2025=3199, Q3-2025=5212, Q4-2025=5153, Q1-2026=3032, Q2-2026=3274. adj_op_income yoy -24,7 % (628 avec EDS vs 473 sans) avec signal « Marge ajustée en nette hausse ». gross_margin_pct 18,1 puis 23,7 en un trimestre. sga -18,2 % avec signal « restent stables ».",
+  "correction_validee": "Retraiter T3 et T4 2025 et T1 2026 hors EDS avec les comparatifs publiés, sinon couper les séries avant le T1 2025 avec une mention de rupture de périmètre, puis recalculer les yoy et les signaux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Texte contredit par la scission et par les chiffres de la fiche.",
+  "preuve": "« ne laissant que la distribution électrique banalisée » alors qu'EDS est scindée depuis le 1er avril 2026 ; « sa marge brute perd un point et demi et son résultat recule de 7,8 % » alors qu'ASUX_adj_oi fait +3,3 % (156 vs 151) et ASUX_gross_margin -0,7 pt (18,5 vs 19,2).",
+  "correction_validee": "Réécrire la justification sur le périmètre ECG + Intelligent Systems avec les variations du T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "S&PS Revenue, ASUX Revenue, Active Safety Rev, High-Voltage Rev, New Bookings",
+  "probleme": "Bloc de 5 KPI annuels sans source, séries sans libellés, datés 2026-06-30, valeurs contredites par les KPI sourcés.",
+  "preuve": "« ASUX Revenue » 6,4 Mds $ vs somme ASUX_rev 2025 = 5,79 ; « Active Safety Rev » 3,5 vs active_safety_rev FY2025 = 3,049 ; « New Bookings » 31 vs new_biz_awards FY2025 = 27.",
+  "correction_validee": "Supprimer les 5 KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "new_biz_awards, New business bookings, New Bookings",
+  "probleme": "Le même indicateur (hero) existe en trois exemplaires avec des valeurs divergentes.",
+  "preuve": "new_biz_awards FY2022=32, FY2024=31, FY2025=27 ; « New business bookings » 30, 34, 30, 27 ; « New Bookings » 31 pour le dernier point.",
+  "correction_validee": "Supprimer « New business bookings » et « New Bookings », garder new_biz_awards.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Signal and Power Solutions, Advanced Safety & UX, Active Safety Revenue, Engineered Components",
+  "probleme": "Bloc arrêté à FY2024, doublons de REV_ARCHI_ELEC, active_safety_rev, ASUX_rev, ECG_rev, signaux en franglais sans accents.",
+  "preuve": "« Drive Aptiv these high-value content per vehicle », « Pepite croissance APTV », « EV bus-bars via Intercable », « Croissance double-digit ».",
+  "correction_validee": "Supprimer les 4 KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis + market_positions",
+  "champ": "EDS_rev, eds_separation, Versigent EDS tax-free spin-off, position de marché 1",
+  "probleme": "Le CA d'EDS apparaît trois fois, dont un KPI qui mélange annuel et trimestriel, et la position de marché EDS (TAM 70 Mds $) reste affichée après la scission.",
+  "preuve": "eds_separation : série FY2023=8,83, FY2024=8,31, FY2025=8,82 Mds $ mais val=2,21 (T1 2026, dernier 2026-03-31) ; « Versigent EDS tax-free spin-off » 8818 M USD n=1 ; market_positions[0] = Electrical Distribution Systems, segment_revenue 8,818.",
+  "correction_validee": "Supprimer eds_separation et le KPI Versigent ; retirer la position de marché EDS.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Texte type et parenthèse anglaise, contredit par le contenu de la fiche.",
+  "preuve": "« Aptiv PLC mentionne peu l'IA dans ses communications officielles (Automotive Technology). » alors que la fiche cite StradVision (vision IA, 143 M$), Wind River, ADAS, jumeau numérique de la chaîne d'approvisionnement.",
+  "correction_validee": "Rédiger un positionnement sur la perception IA pour l'ADAS, Wind River et StradVision.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "activity, products",
+  "probleme": "Description périmée depuis la scission : les câblages et architectures électriques sont partis chez Versigent.",
+  "preuve": "« Aptiv conçoit des architectures électriques et électroniques pour véhicules. Ses produits incluent câblages, connecteurs, calculateurs et logiciels ».",
+  "correction_validee": "Recentrer sur Engineered Components (connectique, busbars haute tension) et Intelligent Systems (ADAS, calculateurs, logiciel Wind River).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "interest_paid.signal, net_margin_pct.signal, sep_costs.yoy",
+  "probleme": "Signaux qui affirment le contraire de la série ; yoy calculé sans point comparable.",
+  "preuve": "interest_paid « La charge d'intérêts recule nettement » vs 119 vs 117 (+1,7 %) ; net_margin_pct « Le repli reflète la perte des activités abandonnées » vs +0,1 pt (7,6 vs 7,5) ; sep_costs yoy -35,7 % avec série Q1-2025=19, Q1-2026=57, Q2-2026=18 (pas de T2 2025).",
+  "correction_validee": "Réécrire les deux signaux sur la série ; vider le yoy de sep_costs.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "15 KPI à un point datés 2026-04-10",
+  "probleme": "Plusieurs ne sont pas des indicateurs de la société ou sont périmés, et deux KPI différents affichent la même valeur.",
+  "preuve": "« Swiss tax residency reorganization » val 35 « % (retenue Suisse) » (taux légal) ; « Robotics addressable market » 6 Mds $ (TAM) ; « Supply chain digital twin visibility » 95 % ; « New share repurchase program authorization » 5 Mds $ (juillet 2024) ; « Accelerated share repurchase completed » 2,25 (2024) ; « Wind River goodwill impairment charge » 648 (T3 2025) ; « DRAM memory purchase value » 175 M$ et « Smart Vehicle Architecture revenue » 175 M$.",
+  "correction_validee": "Garder au plus Wind River 600 M$, SVA et bookings hors automobile ; supprimer événements, TAM et taux légal ; vérifier la valeur 175 dans le transcript.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Effectifs arrêtés à 2023 alors que FY2025 est publié ; les trois KPI par salarié affichent « dernier 2025-12-31 » mais sont calculés sur 2023.",
+  "preuve": "effectifs_annuels dernier 2024-02-06, série jusqu'à 2023=154 000 ; ca_par_salarie 130,2 k$ = 20,051 Mds / 154 000 (chiffres 2023).",
+  "correction_validee": "Ajouter les effectifs 2024 et 2025 du 10-K puis recalculer les trois ratios.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel",
+  "probleme": "Chute d'échelle x6 en 2024 : le chiffre d'affaires annuel passe de 9,6 à 1,5 Mds $.",
+  "preuve": "serie 2022=8.179, 2023=9.643, 2024=1.541, 2025=1.657 ; NII trimestriel seul fait 1,7 Md par trimestre. Signal « Ventes de 1,7 Mds $ en 2025, +7,5 % » ; dette_sur_ca 788 % et ca_par_salarie en découlent.",
+  "correction_validee": "Remplacer 2024 et 2025 par le revenu total publié dans le 10-K (NII + revenus hors intérêts), puis recalculer yoy, signal, dette_sur_ca et ca_par_salarie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Deposits / Total deposits (period-end) ; Loans / Total loans and leases (period-end)",
+  "probleme": "Deux valeurs différentes pour les dépôts et les prêts de fin de période à la même date.",
+  "preuve": "Deposits Q2-2026 = 168,9 Mds vs Total deposits (period-end) = 163 741 M ; Loans Q2-2026 = 143,2 Mds vs Total loans and leases (period-end) = 139 914 M. Le ratio prêts/dépôts cite 143,2 / 168,9.",
+  "correction_validee": "Supprimer « Total deposits (period-end) » et « Total loans and leases (period-end) ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CET1 Ratio / Total Loans / Efficiency ratio / NPA Ratio / CRE concentration / Capex",
+  "probleme": "Six KPI sans périodes, périmés ou contradictoires avec les séries principales, dont un signal faux.",
+  "preuve": "CET1 Ratio 11,7 (year, 2026-06-30) vs CET1 10,19 au T2 2026 ; Total Loans val 135,3 mais série finit à 131,939, signal « La dette totale de MTB est en progression » pour des prêts ; Efficiency ratio 58,3 au 2025-12-31 vs Efficiency Q4-2025 = 55,7, signal « 55.1% au 4T25 » ; NPA Ratio, CRE concentration, Capex sans signal ni description.",
+  "correction_validee": "Supprimer CET1 Ratio, Total Loans, Efficiency ratio, NPA Ratio, CRE concentration et Capex (sans signal ni description).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "ROTCE",
+  "probleme": "La thèse cite une rentabilité des fonds propres tangibles différente du KPI.",
+  "preuve": "Thèse : « Sa rentabilité des fonds propres tangibles atteint 18,57 % sur le trimestre » ; KPI Return on average tangible common equity = 14,51 % (dernier 2026-03-28, série 12.53, 15.54, 17.13, 16.24, 14.51).",
+  "correction_validee": "Ajouter le point T2 2026 (18,57 %) au KPI ROTCE après vérification dans le communiqué du T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "edge",
+  "probleme": "Zone géographique fausse.",
+  "preuve": "« un réseau de succursales bien implanté dans le Midwest et l'Est » ; la tagline et la thèse disent Mid-Atlantic et Nord-Est, aucune présence dans le Midwest.",
+  "correction_validee": "Écrire « un réseau de succursales bien implanté dans le Nord-Est et le Mid-Atlantic ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "Séries annuelles arrêtées en 2023 alors que l'effectif trimestriel va jusqu'au T2 2026.",
+  "preuve": "effectifs_annuels dernier 2023 = 22 223 ; Headcount Q4-2025 = 22,36 k, Q2-2026 = 21,69 k.",
+  "correction_validee": "Ajouter 2024 (22 030) et 2025 (22 360) et recalculer les trois ratios.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "valeurs",
+  "probleme": "Répartition par segment vide alors que les revenus de segment sont sur la fiche.",
+  "preuve": "« Commercial Bank None ; Retail Bank None ; Institutional Services & Wealth None ; Other None » ; Rev Commercial Bank 752, Retail 1 210, ISWM 384 au T2 2026.",
+  "correction_validee": "Renseigner environ 32 / 52 / 16 % à partir des revenus 2025 des segments.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NIB Deposits Mix",
+  "probleme": "Série à trous.",
+  "preuve": "Q1-2025, Q4-2025, Q1-2026, Q2-2026 : Q2 et Q3 2025 manquent.",
+  "correction_validee": "Compléter depuis les 10-Q.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

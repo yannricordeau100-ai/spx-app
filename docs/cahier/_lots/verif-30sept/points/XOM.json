@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Production (boe/d), Permian Production, Guyana Production, Refining Throughput, Chemicals Capacity, LCS CapEx Cumulative, Upstream Production, Chemical Prime Product Sales, Permian production, Guyana gross production",
+  "probleme": "Séries non datées contredisant les séries sourcées, textes anglais ; trois versions du Permian",
+  "preuve": "Permian 1.4 M contre permian_prod 1 600 et Permian production 1 800 ; Refining Throughput 4.3 M contre refinery_throughput 3 979 ; Upstream Production 4.55 contre CAHIER_PRODUCTION 4 736 ; « Exceptional asset », « Mondial #2 refiner »",
+  "correction_validee": "Supprimer les huit entrees non datees, garder Permian production et Guyana gross production ainsi que permian_prod, guyana_prod, refinery_throughput et CAHIER_PRODUCTION.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RRR, CAHIER_RESERVE_LIFE, CAHIER_REF_UTIL",
+  "probleme": "Indicateurs clés du secteur arrêtés en 2018 et 2023 alors que les réserves sont connues jusqu'en 2025",
+  "preuve": "CAHIER_RRR dernier 2018-12-31 (313 %) ; CAHIER_RESERVE_LIFE dernier 2018-12-31 ; CAHIER_REF_UTIL dernier 2023-12-31 ; proved_reserves jusqu'en FY2025",
+  "correction_validee": "Prolonger jusqu'en 2025 ; la duree de vie 2025 vaut environ 19,3 / (4,736 x 0,365) = 11 ans.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "natgas_production",
+  "probleme": "Unité fausse d'un facteur un million",
+  "preuve": "unité « mcfd » val=6849 ; il s'agit de millions de pieds cubes par jour",
+  "correction_validee": "Afficher l'unite « M pi3/j » (millions de pieds cubes par jour).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.titre",
+  "probleme": "Accroche périmée : fondée sur le T1 2026 alors que le T2 est publié",
+  "preuve": "« Au premier trimestre 2026, ExxonMobil a publié un bénéfice de 4,2 Mds $ » ; net_income Q2-2026 = 14.5",
+  "correction_validee": "Actualiser sur le T2 2026",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "structural_cost_savings",
+  "probleme": "Économies cumulées différentes entre KPI et anti-thèse",
+  "preuve": "KPI 15,1 Md$ fin 2025 ; att « 16,3 Mds $ d'économies structurelles cumulées depuis 2019 »",
+  "correction_validee": "Ajouter le point 2026 à la série ou aligner le texte",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "guyana_prod.signal",
+  "probleme": "Signal contredit par un autre KPI : le 4e FPSO est ONE GUYANA (Yellowtail), pas Prosperity",
+  "preuve": "guyana_prod « Record annuel 2025 avec 4e FPSO (Prosperity) » ; Yellowtail « FPSO ONE GUYANA, 4e navire du bloc Stabroek »",
+  "correction_validee": "Remplacer « Prosperity » par « ONE GUYANA (Yellowtail) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Guyana STEM, Battery anode graphite addressable market, Share of global production from damaged Qatar trains, Profit center reduction from new ERP, Yellowtail FPSO startup, Golden Pass LNG Train 1",
+  "probleme": "Événements ou chiffres anecdotiques présentés comme KPI, unités absurdes",
+  "preuve": "Yellowtail unité « mois-2025 » val=8 ; Golden Pass unité « train » val=1 ; ERP « -97% de centres de profit »",
+  "correction_validee": "Retirer des KPI",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Dividend paid per share, Annual share repurchases",
+  "probleme": "Doublons des séries trimestrielles, période fausse (quarter pour un total annuel)",
+  "preuve": "4.00 = 0.99x3 + 1.03 (dps 2025) ; 20 = 4.8+5+5.1+5.4 (buybacks 2025)",
+  "correction_validee": "Supprimer les deux entrees.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux refinery_throughput, chem_products_sales, fcf, ocf, net_margin, specialty_earnings",
+  "probleme": "Anglicismes, accents manquants, variation de marge en % relatif",
+  "preuve": "« hausse demand », « calcule », « porte par », « eleves », « perturbes », « historique retraite » ; net_margin yoy=+44% pour +3,8 pts",
+  "correction_validee": "Corriger en « demande », « calcule », « porte », « eleves », « perturbes », « historique retraite » avec accents, et afficher +3,8 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment, revenue_by_geography, gouvernance, tagline",
+  "probleme": "Libellés anglais, ligne qui n'est pas un segment, exercice absent, civilité anglaise",
+  "preuve": "« Energy Products ; Upstream ; Income From Equity Affiliates 1.7 » ; géographie (None) « U.S. ; Non-U.S. » ; « Mr. Darren W. Woods » ; tagline « Powering modern life »",
+  "correction_validee": "Traduire les segments, sortir la quote-part des societes associees, dater la geographie, retirer « Mr. » ; ne pas toucher au slogan.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Prix réalisés (liquides en $/baril, gaz en $/millier de pi3) et marge de raffinage absents, alors que la thèse et l'anti-thèse reposent sur l'effet prix",
+  "preuve": "att : « ce sont les prix du baril ... qui ont presque tout fait » ; aucun KPI de prix réalisé",
+  "correction_validee": "Ajouter les prix réalisés trimestriels et un indicateur de marge de raffinage",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

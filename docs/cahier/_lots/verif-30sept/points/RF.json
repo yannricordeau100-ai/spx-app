@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "risques",
+  "champ": "risks[0..4].description",
+  "probleme": "Les cinq risques n'ont qu'un titre, aucun texte descriptif.",
+  "preuve": "« risque 1: Risque de taux d'intérêt et compression NIM :: » (vide), idem pour les risques 2 a 5.",
+  "correction_validee": "Rediger la description de chaque risque a partir du formulaire annuel 2025, sinon masquer le bloc.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition du chiffre d'affaires incoherente avec les KPI de segment : Corporate Bank est donne a 14,8 % alors que ses revenus trimestriels representent environ 38 % du total ; une ligne « Segment Revenue Other 33.4 » en anglais absorbe un tiers du total.",
+  "preuve": "revenue_by_segment : Corporate Bank 14.8 ; Consumer Bank 37.3 ; Wealth Management 14.3 ; Other 0.1 ; Segment Revenue Other 33.4. KPI T2 2026 : CORP_REV 725, CONS_REV 1013, WM_REV 199 sur TOT_REV 1907 (38 %, 53 %, 10 %).",
+  "correction_validee": "Recalculer la repartition sur les revenus 2025 des segments Corporate Bank, Consumer Bank, Wealth Management et Other, et supprimer « Segment Revenue Other ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "NCO_RATIO / Net charge-offs (annualized, bps) / Net charge-offs / average loans (annualized) / CAHIER_NCO",
+  "probleme": "Quatre KPI mesurent le meme taux de pertes nettes, et deux se contredisent a la meme date : la serie « Net charge-offs (annualized, bps) » affiche 54 bp au 30 juin 2026 alors que NCO_RATIO donne 0,42 % au T2 2026 (54 bp est la valeur du T1).",
+  "preuve": "NCO_RATIO Q1-2026=0.54, Q2-2026=0.42 ; « Net charge-offs (annualized, bps) » dernier 2026-06-30 val=54 avec signal « 54 bp au 1T26 » ; « Net charge-offs / average loans » val=54 dernier 2026-04-10 ; CAHIER_NCO annuel.",
+  "correction_validee": "Supprimer « Net charge-offs (annualized, bps) » et « Net charge-offs / average loans (annualized) », garder NCO_RATIO et CAHIER_NCO.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total Assets / NIB_DEP / CAHIER_NIB_DEPOSITS / Quarterly common dividend increase",
+  "probleme": "Doublons : « Total Assets » (instant, FY2026=161299) reprend ASSETS (Q2-2026=161.3 Mds) ; NIB_DEP et CAHIER_NIB_DEPOSITS mesurent la meme part de depots non remuneres ; « Quarterly common dividend increase » reprend DPS.",
+  "preuve": "Total Assets FY2025=158814 = ASSETS Q4-2025 158.8 ; NIB_DEP Q2-2026=31 et CAHIER_NIB_DEPOSITS FY2025=30.1 ; « Quarterly common dividend increase » val=0.265 = DPS Q2-2026 0.265.",
+  "correction_validee": "Supprimer « Total Assets » et « Quarterly common dividend increase » ; CAHIER_NIB_DEPOSITS peut rester comme serie annuelle.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI a un seul point dates 2026-04-10",
+  "probleme": "Neuf lignes issues d'une conference du T1 2026 sont presentees comme des KPI avec un seul point : ce sont des faits ponctuels ou des elements marketing, l'un d'eux est meme perime.",
+  "preuve": "« Share repurchase executed under $2.5B plan » : « autorisation de 2,5 Md$ prolongée jusqu'à fin 2025 » ; « Consecutive quarters #1 Visa Power Score » val=42 ; « Securities repositioning (sale) » 900 ; « New commercial relationships YTD » 300 ; tous n=1.",
+  "correction_validee": "Retirer ces lignes du bloc KPI ou les deplacer dans un bloc « faits marquants du trimestre » ; conserver eventuellement « Consumer checking accounts » et « Private credit fund commitments » si une serie peut etre construite.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs_annuels / fcf_par_salarie / dette_par_salarie",
+  "probleme": "Series arretees en 2021 alors que FTE va jusqu'a 2025 ; effectifs_annuels fait doublon avec FTE ; les deux ratios par salarie sont dates 2025-12-31 avec un dernier point 2021.",
+  "preuve": "effectifs_annuels serie 2016..2021 (dernier 2022-02-24) ; FTE FY2025=19969 ; fcf_par_salarie serie 2016=91.9 ... 2021=154.4 avec « dernier 2025-12-31 ».",
+  "correction_validee": "Supprimer effectifs_annuels (doublon de FTE) et recalculer fcf_par_salarie et dette_par_salarie jusqu'en 2025 avec FTE et fcf_annuel / dette_annuelle, ou les retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Le moat cite des revenus en hausse de 6 % et un resultat net en hausse de 14 %, contredits par l'anti-these et les KPI qui montrent des revenus quasi stables.",
+  "preuve": "moat : « Revenus en progression de 6 %, résultat net en hausse de 14 % » ; att : « ses revenus totaux n'ont grimpé que de 0,1% » ; TOT_REV yoy=+0.1 %, NET_INC yoy=+1.2 %.",
+  "correction_validee": "Reecrire le moat sur la periode la plus recente (T2 2026) ou preciser que les 6 % et 14 % concernent l'exercice 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik et att.resume",
+  "probleme": "Le nom de la societe est ecrit avec un accent errone.",
+  "preuve": "« Régions Financial est une banque régionale » ; att : « Régions Financial affiche des ratios de capital ».",
+  "correction_validee": "Remplacer « Régions Financial » par « Regions Financial » dans les deux blocs.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

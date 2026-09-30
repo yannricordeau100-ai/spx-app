@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "risques",
+  "champ": "risque 1 a 5",
+  "probleme": "Cinq risques sans description.",
+  "preuve": "« risque 1: Risques reglementaires PBM (Express Scripts) :: » (vide) ... « risque 5: Cybersecurite et fuite de donnees sante :: » (vide).",
+  "correction_validee": "Rediger chaque risque depuis l'Item 1A du 10-K 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Les montants de la repartition 2025 ne correspondent pas aux series trimestrielles 2025 de la fiche.",
+  "preuve": "Repartition : Cigna Healthcare 47,412 Mds $ (16,8 %), Evernorth 234,953. cigna_hc_rev 2025 = 13 168 + 9 358 + 9 460 + 9 440 = 41,4 Mds $ ; evernorth_rev 2025 = 232,1 Mds $. Ecart de 6 Mds $ sur Cigna Healthcare.",
+  "correction_validee": "Verifier la note segments du 10-K 2025 et aligner l'une des deux sources.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification de tendance perimee, contredite par les derniers trimestres.",
+  "preuve": "Moat : « primes d'assurance et activite sante en repli ». cigna_hc_rev T2 2026 = 10,3 Mds $ (+9,7 %), op_income_total « +16 %, tire par Cigna Healthcare », cigna_hc_pretax_margin 10,9 % (+70 pb), medical_customers +2 %.",
+  "correction_validee": "Reecrire : effet de base de la cession Medicare Advantage passe, Cigna Healthcare en croissance, PBM sous pression (pbs_income -27 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Medical Customers, Total Medical Customers",
+  "probleme": "Deux series annuelles sans dates pour le meme indicateur, avec des valeurs differentes, doublons de la serie trimestrielle.",
+  "preuve": "Medical Customers [16.65, 17.08, 18, 19.78, 19.15] et Total Medical Customers [17.1, 17.1, 17.8, 18.9, 19] : 19,15 vs 19,0 pour 2024, 19,78 vs 18,9 pour 2023 ; medical_customers T4 2024 = 19,147. Signal sans accents : « Leger recul 2024 lie a la cession Medicare a HCSC en cours ».",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Evernorth Revenue, Pharmacy Revenue, Cigna Healthcare Revenue, Adjusted Income Evernorth, Pharmacy Claims Processed",
+  "probleme": "Bloc de KPI annuels sans dates, arretes en 2024, dont un contredit par la serie trimestrielle et un autre par le volume d'ordonnances ; signaux en franglais sans accents.",
+  "preuve": "Evernorth Revenue 2024 = 175,6 Mds $ alors que evernorth_rev T3+T4 2024 seuls = 105,0 Mds $ (2025 = 232,1) ; sa serie passe de 140,7 (2022) a 132 (2023). Pharmacy Claims Processed 1,7 Mds (2024) contre CAHIER_SERVICE_VOLUME 2 120 M. Signaux : « Scale PBM #2 US. », « Croissance stable, focus Evernorth. », « Acceleration 2024 portee par Centene (nouveau client PBM), GLP-1 utilisation ».",
+  "correction_validee": "Supprimer les cinq KPI annuels non dates.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total Revenue, Medical care ratio, Quarterly dividend per share",
+  "probleme": "Doublons de KPI dates, avec trous, valeur perimee ou signal faux.",
+  "preuve": "Total Revenue ($M) = total_revenue sans les T4 (2024-Q4, 2025-Q4 absents), yoy « 6.7 » sans %, signal « Bond 2024 porte par Pharmacy/Express Scripts ». Medical care ratio : serie sans dates, valeur 79,8 datee 2026-06-30 alors que mcr T2 2026 = 84,5 (79,8 = T1 2026) ; signal « en baisse a 79.8% grace a la cession HCSC ». Quarterly dividend per share 1,56 = dividend_ps.",
+  "correction_validee": "Supprimer les trois doublons.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total customer relationships, Total pharmacy customers, Behavioral care customers, SG&A expense ratio (GAAP)",
+  "probleme": "Series sans dates, dont un saut inexplique et un ratio a deux points.",
+  "preuve": "Total customer relationships [186.2 ... 185.5] et Total pharmacy customers [122.5 ... 121] sans history_periods ; Behavioral care customers passe de 23,5 a 28,3 (+20 %) en un trimestre sans commentaire ; SG&A expense ratio [6.4, 5.4] date 2026-04-10.",
+  "correction_validee": "Dater les series depuis les communiques trimestriels, expliquer le saut, ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "13 KPI a un point dates 2026-04-10",
+  "probleme": "Faits de conference presentes comme des KPI, dont des doublons et des montants pluriannuels sans serie.",
+  "preuve": "« FTC settlement out-of-pocket cost relief » 7 000 M USD sur 10 ans, « Specialty spend subject to biosimilar competition » 100 000 M USD sur 5 ans, « Signature model brand drug price reduction » 30 %, « Share repurchases 2025 » 3,6 Mds (buybacks 2025 = 3,62), « Adjusted prescriptions adjudicated annually » 2 Md (CAHIER_SERVICE_VOLUME = 2 222 M).",
+  "correction_validee": "Deplacer en faits marquants ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ocf, fcf, mcr, cigna_hc_pretax_margin",
+  "probleme": "Variations annuelles sans signification : calculees entre deux valeurs negatives, ou en % relatif pour des ratios.",
+  "preuve": "ocf yoy « +78 % » (-0,421 vs -1,886 Mds $) ; fcf « +67 % » (-0,718 vs -2,171). mcr « +1.6% » (84,5 vs 83,2 = +1,3 pt) ; cigna_hc_pretax_margin « +6.9% » alors que le signal dit « +70 pb ».",
+  "correction_validee": "Ecart en Mds $ pour ocf et fcf, points pour mcr et cigna_hc_pretax_margin.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "debt_to_cap, dental_customers",
+  "probleme": "Trou de quatre trimestres avec un yoy calcule sur un point absent, et serie en retard d'un trimestre.",
+  "preuve": "debt_to_cap history_periods : ... Q1-2024, Q2-2024, Q3-2025, Q4-2025 ... (Q3-2024 a Q2-2025 absents) ; yoy « +50 pb » alors que le T2 2025 n'existe pas (vs Q2-2024 43,6 = -80 pb). dental_customers arrete au T1 2026 (18,558) alors que tout le reste est au T2 2026.",
+  "correction_validee": "Completer les quatre trimestres et le T2 2026 depuis les communiques.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_REVENUE_PER_SERVICE, CAHIER_COST_PER_SERVICE, Rev Reseau, Rev Livraison",
+  "probleme": "Series unitaires arretees en 2023 alors que les donnees 2024-2025 sont sur la fiche ; noms abreges peu clairs.",
+  "preuve": "CAHIER_REVENUE_PER_SERVICE dernier point FY2023 = 89,8 $ et CAHIER_COST_PER_SERVICE FY2023 = 90,6 $ alors que CAHIER_SERVICE_VOLUME va jusqu'a FY2025 (2 222 M) et que les revenus pharmacie 2024-2025 existent ; le signal « comprime la marge unitaire » n'est plus verifiable. Noms « Rev Reseau », « Rev Livraison ».",
+  "correction_validee": "Prolonger a 2025 ; renommer « Revenus reseau de pharmacies » et « Revenus livraison a domicile et specialite ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "summary, mettrik_description",
+  "probleme": "Positionnement IA generique (meme phrase que CHRW et CHTR) et description qui presente Cigna comme un assureur alors que le PBM pese 83 % du CA.",
+  "preuve": "« CI decrit dans son rapport annuel un usage operationnel de l'IA et du machine learning ... » alors que la fiche cite « modele predictif IA des sinistres eleves : 2 000 dollars d'economies par membre ». Description : « fournit des assurances sante et des services associes » ; repartition : Evernorth 83,2 %.",
+  "correction_validee": "Reecrire le positionnement a partir des faits de la fiche ; ouvrir la description par Evernorth (Express Scripts) puis l'assurance.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

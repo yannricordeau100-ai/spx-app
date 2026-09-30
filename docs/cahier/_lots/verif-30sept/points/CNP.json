@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "signaux de op_margin, net_margin, lt_debt, equity, total_assets, gas_in_storage, ocf, capex_actual, dividends_paid, interest_paid, fcf, gross_margin_pct",
+  "probleme": "Cuisine interne exposée : balises XBRL et formules de dérivation dans les signaux.",
+  "preuve": "« (calcul OperatingIncomeLoss / Revenues) », « (us-gaap:LongTermDebtNoncurrent) », « (us-gaap:EnergyRelatedInventoryNaturalGasInStorage) », « dérivé du cumul 6 mois (1 060 M$) moins le T1 (282 M$) », « (ratio dérivé) ».",
+  "correction_validee": "Retirer des signaux toutes les parenthèses techniques et les mentions « dérivé du cumul 6 mois ... moins le T1 ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "he_authorized_roe",
+  "probleme": "Série arrêtée en 2018 à 10 % alors que le signal cite un ROE de 9,65 % fixé en 2024 : la valeur affichée contredit le texte.",
+  "preuve": "Valeur 10 %, dernier 2018-06-30, série Q2-2016 à Q2-2018 = 10. Signal : « Settlement PUCT 2024; initial demande 10.4%, accord final 9.65% sur ratio equity 45% ».",
+  "correction_validee": "Prolonger la série avec les ROE autorisés ultérieurs (ordonnance 2020 puis 9,65 % en 2024) et mettre à jour la date du dernier point.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CUSTOMER_RELIABILITY vs he_electric_customers",
+  "probleme": "Deux comptes de clients Houston Electric fin 2025 qui diffèrent de 5 % ; le KPI dit « fiabilité du service » mais ne mesure aucune fiabilité, et aucun SAIDI/SAIFI n existe sur la fiche.",
+  "preuve": "CAHIER FY2025 = 2 859 313 ; he_electric_customers Q4-2025 = 3 013 715 ; FY2024 2 818 343 vs Q4-2024 2 971 730.",
+  "correction_validee": "Aligner les deux séries sur la définition publiée (clients avec compteur) et renommer, ou remplacer par SAIDI/SAIFI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "capex_10yr_plan / 10-year capital investment plan",
+  "probleme": "Doublon exact du plan capex 10 ans, unité « B$ » non conforme, yoy incohérent avec la série.",
+  "preuve": "capex_10yr_plan 65,5 B$ (série 43 ; 43 ; 44,5 ; 47,5 ; 53 ; 65 ; 65,5 ; 65,5, yoy +3,2 % alors que 65,5/53 = +23,6 %) et « 10-year capital investment plan » 65,5 Mds $ (43 ; 44 ; 47,5 ; 65 ; 65,5).",
+  "correction_validee": "Supprimer « 10-year capital investment plan », passer capex_10yr_plan en « Mds $ » avec yoy recalculé, et corriger l unité « B$ » sur srp_storm_hardening, srp_total_filed et rate_base_total.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RATE_CASE_OUTCOME / Houston Electric 2024 Rate Case Settlement",
+  "probleme": "Doublon du règlement tarifaire -47 M$ et variation annuelle absurde calculée sur un trou de cinq ans.",
+  "preuve": "CAHIER : série FY2020 = 13, FY2025 = -47, yoy -461,5 %. KPI à un point « Houston Electric 2024 Rate Case Settlement » = -47 M$.",
+  "correction_validee": "Supprimer « Houston Electric 2024 Rate Case Settlement » et neutraliser le yoy de CAHIER_RATE_CASE_OUTCOME.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total Consolidated Indebtedness",
+  "probleme": "Doublon à un point de la dette totale annuelle.",
+  "preuve": "« Total Consolidated Indebtedness » 23 Mds $ (n=1, 2026-04-10) vs dette_annuelle 2025 = 22,98 Mds $.",
+  "correction_validee": "Supprimer « Total Consolidated Indebtedness ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted",
+  "probleme": "Trous dans la série : les quatrièmes trimestres manquent alors que les autres séries les ont.",
+  "preuve": "Périodes : Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 ; Q4-2024 et Q4-2025 absents alors que net_income Q4-2025 = 264 M$.",
+  "correction_validee": "Ajouter les T4 (BPA annuel moins neuf mois) depuis les 10-K.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "employees_union.signal",
+  "probleme": "Le signal affirme que c est la seule donnée d effectif publiée, alors que la fiche affiche un effectif total.",
+  "preuve": "Signal : « Seule donnée d effectif publiée par la société ». effectifs_annuels 2025 = 8 794 salariés.",
+  "correction_validee": "Remplacer par « part syndiquée de l effectif, environ 42 % des 8 794 salariés en 2025 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI à un point datés 2026-04-10 (Eli Lilly, économies clients Texas et Indiana, minutes de coupure, génération mobile, cessions, titrisation Beryl, charge de pointe)",
+  "probleme": "Annonces tierces, arguments d appel et opérations ponctuelles présentés comme KPI ; une valeur ne correspond à rien dans son signal.",
+  "preuve": "« Eli Lilly announced investment in Greater Houston area » 15 Mds $ (investissement d un tiers) ; « Houston Electric peak load forecast » valeur 31 GW alors que le signal dit « de 21 GW (2024) à 42 GW (2035E) » ; unité « % (midpoint of 7-9%) » sur l objectif BPA.",
+  "correction_validee": "Supprimer les éléments non suivis, expliquer ou corriger le 31 GW, unité « % ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification de moat générique, quasi identique mot pour mot à celle de CMS, qui décrit la croissance et non un avantage concurrentiel.",
+  "preuve": "CNP : « Revenus et résultat opérationnel en progression, plan d investissement fortement relevé et charge industrielle engagée plus que doublée, malgré des risques de crédit. » CMS : « Revenus et résultat opérationnel en progression, plan d investissement plus que doublé et portefeuille de projets de centres de données en forte hausse. »",
+  "correction_validee": "Réécrire autour du monopole régulé de Houston et de la croissance démographique, sans gabarit partagé.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "ai_positioning",
+  "probleme": "Artefact de gabarit : le secteur est inséré entre parenthèses en fin de phrase.",
+  "preuve": "« CenterPoint Energy mentionne peu l IA dans ses communications officielles (Électricité). »",
+  "correction_validee": "Retirer « (Électricité) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

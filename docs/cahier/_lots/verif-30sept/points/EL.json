@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "fragrance_rev, haircare_rev, regions, eps_diluted, marges, cash, dette, capex, rd_expense, freestanding_stores (une trentaine de series)",
+  "probleme": "Le trimestre Q4-FY2026 (clos le 30 juin 2026, publie en aout 2026) est present sur skincare_rev, makeup_rev et les OI regionaux mais absent de la plupart des autres series, dont le hero eps_diluted ; les KPI annuels (R&D, boutiques) s'arretent a FY2025 alors que revenue_annuel a deja FY2026.",
+  "preuve": "skincare_rev dernier Q4-FY2026=1853 ; eps_diluted dernier Q3-FY2026 (2026-03-31) ; fragrance_rev dernier Q3-FY2026 ; rd_expense dernier 2025-06-30 ; revenue_annuel 2026=15.049 ; effectifs 2026-08-19",
+  "correction_validee": "Completer les series avec le Q4-FY2026 et les KPI annuels avec l exercice FY2026 depuis le 10-K d aout 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "skincare_rev / makeup_rev / fragrance_rev / haircare_rev (signal)",
+  "probleme": "Signaux perimes et contredits par les series : ils decrivent l'exercice 2025 en baisse alors que les derniers points sont en hausse ; franglais (« driven par »).",
+  "preuve": "skincare_rev signal « Forte baisse (-12%) driven par Asia travel retail » vs yoy +2,7 % ; makeup « Déclin modéré, -5% » vs +3,6 % ; fragrance « Quasi-stable (+4M), seul segment résilient en 2025 » vs +12,7 % ; haircare « Déclin continu -10% » vs +1,6 %",
+  "correction_validee": "Reecrire les quatre signaux sur le dernier trimestre publie, en francais.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Le moat decrit un CA en forte baisse et un resultat net negatif alors que la these et revenue_annuel montrent un exercice 2026 en hausse (+5 %) et un resultat net redevenu positif.",
+  "preuve": "moat : « Le chiffre d'affaires recule fortement et le résultat net devient négatif » ; these : « chiffre d'affaires remonté à 15 Mds $ contre 14,3 Mds $ ... résultat net de moins 1,1 Mds $ à plus 182 M$ »",
+  "correction_validee": "Reecrire le moat sur l exercice clos le 30 juin 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "emea_rev",
+  "probleme": "Serie regionale de l'ancien decoupage, arretee a Q4-FY2025, avec un signal qui presente une baisse comme actuelle ; la region est remplacee par EUKEM sur la fiche.",
+  "preuve": "emea_rev dernier Q4-FY2025=1293, signal « Forte baisse -12% ... région la plus touchée » ; eukem_rev existe jusqu'a Q3-FY2026",
+  "correction_validee": "Retirer emea_rev ou l etiqueter « ancien perimetre, serie close en juin 2025 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "apac_oi / eukem_oi / china_oi (signal et yoy)",
+  "probleme": "Signaux qui citent Q3-FY2026 alors que la serie va a Q4-FY2026 ; le point Q4-FY2025 manque sur les six series du nouveau decoupage, donc les yoy Q4 (+109 %, +14 %, +12,5 %) ne reposent sur aucun comparable dans la serie.",
+  "preuve": "apac_oi signal « Q3-FY2026 = 261 M$ contre 232 M$ » alors que dernier Q4-FY2026=212 ; china_oi serie: Q1-FY2025, Q2-FY2025, Q3-FY2025, Q1-FY2026 ... Q4-FY2026=54, yoy +109,2 %",
+  "correction_validee": "Ajouter Q4-FY2025 aux six series (china_net_sales, eukem_rev, americas_oi, eukem_oi, apac_oi, china_oi) et recalculer les yoy ; mettre a jour les signaux.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Asia/Pacific Mix",
+  "probleme": "Serie sans etiquettes contredisant la repartition geographique de la fiche pour le meme exercice.",
+  "preuve": "Asia/Pacific Mix dernier 29 % ; revenue_by_geography (exercice 2025) : Asie-Pacifique 31.7",
+  "correction_validee": "Retirer la serie ou la recalculer depuis asia_pacific_rev / revenue_annuel avec etiquettes d exercice.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "libelle",
+  "probleme": "Libelle casse par des espaces entre lettres.",
+  "preuve": "« E M E A 37.5 »",
+  "correction_validee": "Remplacer par « EMEA ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "clients",
+  "champ": "exercice",
+  "probleme": "Concentration clients tiree du 10-K 2022 alors que les 10-K 2025 et 2026 existent.",
+  "preuve": "clients top: pct 13, exercice '2022', source el-20220630.htm",
+  "correction_validee": "Reprendre la donnee du 10-K exercice 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PRGP net position reductions / PRGP total expected restructuring charges / PRGP annual target gross benefits",
+  "probleme": "Fourchettes presentees comme valeurs ponctuelles (borne haute retenue a chaque fois).",
+  "preuve": "val=7000, signal « 5 800 à 7 000 postes » ; val=1600, signal « 1 200 et 1 600 M USD » ; val=1000, signal « 800 à 1 000 M USD »",
+  "correction_validee": "Renommer en « borne haute » ou retenir le point median avec mention de la fourchette.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ca_par_salarie / fcf_par_salarie / dette_par_salarie ; Hainan travel retail retail sales growth ; positionnement IA",
+  "probleme": "Ratios par salarie arretes en 2020 alors que les entrees existent jusqu'en 2026 ; nom de KPI avec doublon de mot ; parenthese en anglais dans le positionnement IA.",
+  "preuve": "ca_par_salarie n=4, dernier 2020=297.8 ; effectifs 2026=55000 ; « Hainan travel retail retail sales growth » ; « (Household & Personal Products) »",
+  "correction_validee": "Recalculer les ratios pour 2022, 2024, 2025 et 2026, corriger en « Hainan travel retail sales growth » et retirer « (Household & Personal Products) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

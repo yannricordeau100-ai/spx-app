@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "hero",
+  "champ": "TIGUAN_PRODUCTION",
+  "probleme": "Hero arrete en 2020 avec signal vide de sens",
+  "preuve": "dernier 2020-12-31, serie FY2016-FY2020 ; signal \"Produit phare : Volkswagen Tiguan\"",
+  "correction_validee": "Mettre en hero les livraisons de vehicules (livraisons_vehicules) avec un historique date et retirer la serie Tiguan.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Automotive Net Liquidity",
+  "probleme": "Doublon de net_liquidity avec une valeur differente et contradictoire avec these et anti-these",
+  "preuve": "Automotive Net Liquidity 36,1 Mds € (serie 43, 40, 38.5, 37.2, 36.1 sans dates) contre net_liquidity 32 750 M€ et these \"32,7 Mds € de liquidite nette\"",
+  "correction_validee": "Supprimer Automotive Net Liquidity et conserver net_liquidity, a completer d un historique source.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BEV Share of Deliveries / BEV Deliveries",
+  "probleme": "Series incompatibles entre elles et sans periodes",
+  "preuve": "Part VE en baisse 10.5 -> 9 -> 8.1 alors que livraisons VE montent 625 000 -> 720 000 (+15 %) et que les livraisons totales reculent (-6,3 % au S1 2026) : la part devrait monter",
+  "correction_validee": "Reprendre part et livraisons VE a la source avec periodes datees, supprimer la serie non verifiable.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Order Intake BEV (Europe)",
+  "probleme": "Nom en anglais, unite \"K\" obscure, serie parfaitement lineaire sans dates, signal recopie dans la description",
+  "preuve": "serie 180, 210, 240, 280, 320 ; name_fr \"Order Intake BEV (Europe)\" ; unite K",
+  "correction_validee": "Verifier la source ; a defaut supprimer. Sinon nommer \"Commandes de vehicules electriques en Europe\", unite milliers de vehicules",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Capex.unit",
+  "probleme": "Unite en dollars pour un groupe publiant en euros",
+  "preuve": "Capex 24,35 \"Mds $\" (serie 22.67, 25.8, 27.45, 24.35) ; toutes les autres donnees en €",
+  "correction_validee": "Verifier la devise a la source et passer en Mds €, avec periodes datees",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BEV Share, Automotive Net Liquidity, China Deliveries, Porsche Op Margin, Auto Operating Margin",
+  "probleme": "Series sans aucune periode datee, frequence annuelle mais dernier point au 2026-06-30",
+  "preuve": "history sans history_periods ; Auto Operating Margin 4 % alors que l anti-these cite une marge groupe de 2,8 % en 2025 et operating_margin_h1 3,8 %",
+  "correction_validee": "Dater chaque point ou supprimer ces series",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0..7]",
+  "probleme": "Huit risques generiques sans resume, dont certains hors sujet",
+  "preuve": "\"Acquisitions et integrations\", \"Risques operationnels\", \"Execution strategique\" avec resume vide ; rien sur Chine, droits de douane americains, transition electrique, emissions",
+  "correction_validee": "Refaire les risques a partir du rapport annuel 2025 de Volkswagen (Chine, droits de douane americains, transition electrique, emissions, restructuration).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.summary",
+  "probleme": "Le moat decrit une chute de resultat, pas un avantage, et contredit \"tendance stable\"",
+  "preuve": "\"Le resultat operationnel plonge de 53,5 % ... retard technologique\" / tendance stable",
+  "correction_validee": "Rediger un moat reel (echelle, plateformes, reseau de distribution, financement captif) et une tendance en baisse",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateurs manquants",
+  "probleme": "Aucune serie historique de livraisons totales ni de marge operationnelle groupe, indicateurs de base du secteur automobile",
+  "preuve": "livraisons_vehicules et operating_margin_h1 sans historique ; seul le Tiguan a une serie datee",
+  "correction_validee": "Ajouter un historique date des livraisons groupe et de la marge operationnelle groupe, la ventilation par region et division etant un complement.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ }
+]

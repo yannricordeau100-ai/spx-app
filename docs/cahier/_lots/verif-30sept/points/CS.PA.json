@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Asset Management AUM : history / description",
+  "probleme": "KPI perime et description factuellement fausse : AXA IM a ete cedee a BNP Paribas en 2025, ce n'est pas AXA qui acquiert.",
+  "preuve": "« AUM AXA Investment Managers 879 Mds€ fin 2024. Acquisition BNP Paribas Cardif IP en cours créera top 5 EU AM. » alors que NI signal dit « dopé par la plus-value de cession d'AXA IM » et SHARES « 3,8 Mds € liés à la cession d'AXA IM ».",
+  "correction_validee": "Supprimer Asset Management AUM.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Gross Written Premiums, Health Premiums, ratio_combine_dommages_toutes_annees_ifr, CAHIER_GWP_SEGMENT",
+  "probleme": "Doublons de REV, HEALTH_REV, CR et PC_REV, arretes en 2024 ou avec valeurs contredites, dont une serie qui melange semestres et annees.",
+  "preuve": "Health Premiums 2024=18.6 vs HEALTH_REV H1-2024+H2-2024 = 9.086+8.4 = 17.5 ; Gross Written Premiums « 110.3 Mds€ en 2024 » alors que 2025 = 115.5 ; ratio_combine... serie « S1 2023=90.9, 2023=93.2, S1 2024=90.2, 2024=91 » sans name_en ni signal ; description « AXA = #2 assureur mondial » non sourcee.",
+  "correction_validee": "Supprimer Gross Written Premiums, Health Premiums et ratio_combine_dommages_toutes_annees_ifr. Supprimer CAHIER_GWP_SEGMENT, ou le garder renomme CA Dommages annuel avec l'unite Mds €.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.summary",
+  "probleme": "Le moat affirme que seul le ratio de solvabilite est documente, contredit par la fiche qui porte ratio combine, NBV, CSM, ROE, collecte nette.",
+  "preuve": "« Éléments trop minces pour trancher, seul le ratio de solvabilité est documenté et il progresse » vs KPI CR 90.6, NBV 2.233, CSM 33.253, ROE 16, NETFLOWS 5.397.",
+  "correction_validee": "Reecrire le moat a partir de la discipline de souscription (ratio combine de 90,6 %), de l'echelle (115 Mds € de CA, 92 M de clients), de la CSM de 33 Mds € et du ROE de 16 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_GWP_SEGMENT, CAHIER_SEGMENT_EARNINGS, CAHIER_RESERVE_DEV : unit / yoy ; CAHIER_COMBINED_RATIO : yoy",
+  "probleme": "Unites ecrites en phrase et variations en % sur des ratios exprimes en points.",
+  "preuve": "unit « % (part du segment Dommages dans le résultat opérationnel du groupe) », « points de ratio combiné (valeur négative = boni) » ; CAHIER_RESERVE_DEV -1.6 -> -1.1 affiche yoy=-31.2% ; CAHIER_COMBINED_RATIO yoy=-0.4%.",
+  "correction_validee": "Unites courtes (M €, %, pts) avec la precision dans la description. Yoy en points : CAHIER_RESERVE_DEV +0,5 pt, CAHIER_COMBINED_RATIO -0,4 pt, CAHIER_SEGMENT_EARNINGS +2,0 pts.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "La repartition geographique melange zones et lignes non geographiques.",
+  "preuve": "« AXA XL (grands risques, international) 16.69 ; Activités transversales et autres 1.6 ; Gestion d'actifs (AXA IM) 0.76 » dans revenue_by_geography.",
+  "correction_validee": "Renommer le bloc « par entite de reporting » ou ne garder que France, Europe, Asie-Afrique-Amerique latine, international.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EMP : signal",
+  "probleme": "Lien de cause non sourcee dans le signal.",
+  "preuve": "« 111 262 salariés fin 2025, en baisse de 2% en deux ans grâce à l'automatisation et à l'IA » (la cession d'AXA IM explique aussi la baisse).",
+  "correction_validee": "Remplacer par « en baisse de 2 % en deux ans, en partie du fait de la cession d'AXA IM ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "secteur ; tagline ; market_positions",
+  "probleme": "Sous-secteur absent, tagline en anglais, deux positions de marche sans nom ni part.",
+  "preuve": "« Finance > None » ; « France's #1 insurer, global leader in P&C and life insurance. » ; position de marche 1: None | taille 734.2 ; 2: None | taille 964.4.",
+  "correction_validee": "Sous-secteur « Assurance multirisque », tagline en francais, nommer les marches ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Pas de remontee de tresorerie a la holding (cash remittances) ni de charge de catastrophes naturelles en points de ratio combine, deux indicateurs qu'AXA publie chaque annee et que les investisseurs assurance suivent.",
+  "preuve": "Aucun KPI « remontées de trésorerie » ni « charge cat nat » sur la fiche.",
+  "correction_validee": "Ajouter les deux series depuis les communications annuelles AXA.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

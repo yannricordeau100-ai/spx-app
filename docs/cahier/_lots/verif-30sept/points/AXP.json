@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Billed Business / Network Billed Business / Total Network Volumes / Network Volumes / Billed Business (Card Member spending volume) / CAHIER_PURCHASE_VOLUME",
+  "probleme": "Sept series pour le meme volume de depenses, avec des valeurs 2025 contradictoires et un doublon trimestriel perime.",
+  "preuve": "Annuel 2025 = 1620 (Billed Business et Network Billed Business) alors que la somme des trimestres billed_business 2025 = 387.4+416.3+421+445.1 = 1669.8 ; Total Network Volumes 2025 = 1840 contre Network Volumes 1897 = CAHIER_PURCHASE_VOLUME 1897 ; le doublon trimestriel s arrete a 428 (Q1-2026) avec last_data_date 2026-06-30 alors que billed_business donne 455.8 au Q2-2026.",
+  "correction_validee": "Garder billed_business (trimestriel) et CAHIER_PURCHASE_VOLUME (volume reseau annuel), supprimer Billed Business, Network Billed Business, Total Network Volumes, Network Volumes et Billed Business (Card Member spending volume).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total Revenues Net / Net Write-off Rate / Network Volumes / Provision for Credit Losses / Capital Returns to Shareholders",
+  "probleme": "Historiques ranges du plus recent au plus ancien sans libelles de periode : le graphique montre un chiffre d affaires en baisse.",
+  "preuve": "history Total Revenues Net = [72.229, 65.949, 60.515, 52.9], history_periods absent ; Network Volumes = [1897, 1764.8, 1680.1] ; Capital Returns = [7.6, 6, 4.9] ; Provision = [5.256, 5.185, 4.923].",
+  "correction_validee": "Supprimer Total Revenues Net, Net Write-off Rate, Network Volumes, Provision for Credit Losses et Capital Returns to Shareholders.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Interest on Loans / Provisions for Losses / Other Fees and Commissions / Delinquency and Net Write-off Rates",
+  "probleme": "Quatre KPI a encodage casse et valeurs incompatibles avec la fiche.",
+  "preuve": "name_fr Interest on Loans = 'Int\\x00r\\x00ts sur pr\\x00ts', signal 'Acc l ration' ; valeur 8 553 M$ en 2025 alors que les revenus nets d interets trimestriels 2025 totalisent 17 364 M$ (un revenu net ne peut depasser l interet brut) ; Provisions for Losses 2 759 M$ contre 1150+1405+1287+1414 = 5 256 M$ de provisions trimestrielles ; Other Fees and Commissions 27 030 M$ soit 37 % des 72 229 M$ de revenus ; Delinquency name_fr 'Taux de d\\x00lai', historique vide.",
+  "correction_validee": "Supprimer Interest on Loans, Provisions for Losses, Other Fees and Commissions et Delinquency and Net Write-off Rates.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "card_member_loans",
+  "probleme": "Rupture de perimetre non traitee dans la serie, yoy affiche faux.",
+  "preuve": "Q4-2025 = 151 832 puis Q1-2026 = 213 311 (+40 % en un trimestre) ; signal 'Le portefeuille elargi inclut desormais toutes les creances' ; yoy affiche +8 % alors que la serie donne 218 054 contre 142 275 = +53 %.",
+  "correction_validee": "Demarrer la serie au T1 2026 sous le nom Prets et creances Card Member (ou retropoler l ancien perimetre) et calculer le yoy uniquement sur perimetre comparable, sinon afficher nc.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "avg_fee_per_card",
+  "probleme": "Valeur et date en retard d un trimestre sur la serie.",
+  "preuve": "val = 117, dernier 2025-12-31, alors que la serie contient Q1-2026 = 127 ; yoy +13.6 % calcule sur Q4-2025 (117 vs 103).",
+  "correction_validee": "val = 127, date 2026-03-31, yoy +14,4 % (127 contre 111).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Millennial+Gen Z Mix / Millennial+GenZ Spend Share / naa_millennial_genz",
+  "probleme": "Trois series sur le meme theme dont une a valeurs rondes sans periodes qui ressemble a une serie inventee.",
+  "preuve": "Millennial+Gen Z Mix = [40, 50, 55, 60, 65], period_type year, aucune periode, last_data_date 2026-06-30 ; naa_millennial_genz Q1-2026 = 66 % ; Spend Share = [22, 26, 30, 32, 35].",
+  "correction_validee": "Supprimer Millennial+Gen Z Mix ; garder naa_millennial_genz et verifier la source de Spend Share.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "New headquarters construction commitment / New headquarters floor area / AI coding productivity benefit / New mirror card requests post-refresh / Kabbage fraudulent transfer claim / Travel bookings uptick / Partner-offered value / High-yield savings penetration",
+  "probleme": "Huit KPI a un seul point tires de la conference, anecdotiques, sans serie ni recurrence.",
+  "preuve": "Le signal du siege dit lui-meme 'sans lien direct avec la performance operationnelle du groupe' ; surface 1,95 M sq ft ; unite 'percent (moins de)' sur la penetration epargne.",
+  "correction_validee": "Deplacer en faits marquants ou supprimer ; ne garder comme KPI que ce qui a une serie.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "summary",
+  "probleme": "Mention d un document inexistant et texte generique d une phrase.",
+  "preuve": "'AXP integre l IA/ML dans ses produits et operations d apres le rapport annuel exercice 2026' : le dernier rapport annuel couvre l exercice 2025.",
+  "correction_validee": "Reecrire sans mention de document, avec les usages reels (fraude, service client, souscription, productivite developpeurs citee a 30 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "resume",
+  "probleme": "Chiffres introuvables sur la fiche et formulation ambigue.",
+  "preuve": "'La clientele americaine progresse de 10,8 % et l international de 13,4 % avec un resultat en hausse de plus de moitie' : au T2-2026 net_income +8 %, uscs_pretax +23 %, ics_pretax +3 %, uscs_revenue +11 %, ics_revenue +12 %. Aucun resultat n augmente de moitie.",
+  "correction_validee": "Reecrire a partir des KPI du T2-2026 (revenus USCS +11 %, ICS +12 %, resultat net +8 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_par_salarie / dette_par_salarie",
+  "probleme": "Series arretees a 2023 alors que numerateur et denominateur existent pour 2025 ; date affichee 2025-12-31.",
+  "preuve": "Dernier point 2023 = 227,8 et 659 ; signal 'en 2023' ; fcf_annuel 2025 = 16,003, dette_annuelle 2025 = 57,758, effectifs 2025 = 76 800.",
+  "correction_validee": "Ajouter 2025 : 208,4 k$ de tresorerie libre et 752,1 k$ de dette par salarie, signaux et yoy recalcules sur 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ACTIVE_CARDS",
+  "probleme": "Nom inexact et doublon annuel de cards_in_force.",
+  "preuve": "'Comptes et porteurs actifs / Active Cards' 2025 = 152,8 = cards_in_force Q4-2025 (cartes en circulation, pas cartes actives).",
+  "correction_validee": "Supprimer CAHIER_ACTIVE_CARDS (doublon annuel de cards_in_force) ou le renommer Cartes en circulation (annuel).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_sur_ca / fcf_annuel / dette_par_salarie",
+  "probleme": "Bloc generique dette/FCF inadapte a un emetteur de cartes regule comme une banque.",
+  "preuve": "dette_sur_ca 80 % avec description 'Au-dessus de 100 %, l entreprise doit plus que ce qu elle vend en un an' ; fcf_annuel 2020 = 4,1 puis 2022 = 19,2 selon les encours de prets, presente comme 'l argent reellement disponible pour rembourser la dette'.",
+  "correction_validee": "Masquer le bloc dette/FCF pour les societes financieres (GICS 40) ; les indicateurs pertinents (CET1, ROE, write-off) sont deja sur la fiche.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

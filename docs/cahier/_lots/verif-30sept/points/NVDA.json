@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "DC_REV.yoy, CA_TOTAL.yoy, NET_INC.yoy, OP_INC.yoy, EPS_DIL.yoy, GROSS_MARGIN.yoy, RD_EXP.yoy, SBC.yoy, OCF.yoy",
+  "probleme": "Le yoy affiche est celui du trimestre precedent (T1 FY2027) alors que la valeur est celle du T2 FY2027 : chiffres faux sur le KPI hero et les principaux agregats.",
+  "preuve": "CA_TOTAL val=96221 (Q2-FY2027), Q2-FY2026=46743, soit +106 %, yoy affiche +85.2% (= 81615/44062) ; NET_INC 59688/26422 = +126 %, affiche +210.6% ; EPS 2.46/1.08 = +128 %, affiche +214.5%",
+  "correction_validee": "Recalculer tous les yoy sur le dernier point (T2 FY2027 contre T2 FY2026).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OP_INC.signal, RD_EXP.signal, OP_MARGIN, NET_MARGIN, CAPEX, FCF, BUYBACK, INVENTORIES, CASH_INVEST, SEG_*",
+  "probleme": "Fiche a deux vitesses : le CA, le resultat et le hero sont au T2 FY2027 (27 aout 2026) mais les marges, le FCF, les rachats, les stocks et les segments s'arretent au T1 FY2027 ; le signal de OP_INC cite encore le T1 avec une reference interne.",
+  "preuve": "OP_INC val=63734 :: « Resultat operationnel GAAP 53 536 M$ au T1 FY2027 (+147% sur un an)... (ER 2026-05-28) » ; RD_EXP « 7,7% du chiffre d'affaires » = 6321/81615, or 7054/96221 = 7,3 %",
+  "correction_validee": "Completer le T2 FY2027 sur ces series, reecrire les signaux OP_INC et RD_EXP et retirer « (ER 2026-05-28) ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / anti-these",
+  "champ": "these.accroche, att.accroche",
+  "probleme": "These et anti-these se contredisent sur la concentration clients et l'anti-these est perimee d'un trimestre.",
+  "preuve": "these : « un seul client depasse encore 10 % du chiffre d'affaires contre trois un trimestre plus tot » ; att : « Trois clients pesent 54% du chiffre d'affaires » et « 81,6 Mds $ de revenu trimestriel » (T1) alors que le T2 est a 96,2 Mds",
+  "correction_validee": "Mettre l'anti-these a jour sur le T2 FY2027 (96,2 Mds $) et aligner la concentration clients.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libelle brut de la source, en anglais et en majuscules, politiquement sensible.",
+  "preuve": "« TAIWAN, PROVINCE OF CHINA 19.6 » ; « Other Americas 2 »",
+  "correction_validee": "Renommer « Taiwan » et « Autres Ameriques ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Quarterly free cash flow, Fiscal year 2026 annual revenue",
+  "probleme": "Doublons a un point de FCF (48 587 M$ au T1 FY2027) et de revenue_annuel (215,9 Mds).",
+  "preuve": "Quarterly free cash flow val=49 Mds ; FCF Q1-FY2027=48587 ; Fiscal year 2026 annual revenue val=215900 ; revenue_annuel 2026=215.938",
+  "correction_validee": "Supprimer les deux series.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OEM & Other Revenue",
+  "probleme": "Serie annuelle sans dates, datee 2026-08-27, dont le dernier point est celui de FY2025 : la repartition FY2026 donne 0,3 % x 215 938 = 648 M$.",
+  "preuve": "serie: 631, 1162, 455, 306, 389 | val=389 | dernier 2026-08-27",
+  "correction_validee": "Ajouter FY2026 (environ 648 M$) et dater les points, ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.commentaire",
+  "probleme": "Chiffre perime : le Data Center croit de +117 % au T2 FY2027 (89 023 contre 41 096), pas « pres de 70 % ».",
+  "preuve": "moat :: « Le centre de donnees croit de pres de 70 pour cent » ; DC_REV Q2-FY2027=89023, Q2-FY2026=41096",
+  "correction_validee": "Mettre a jour le chiffre.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "tagline",
+  "probleme": "Accroche en anglais.",
+  "preuve": "« Pioneering accelerated computing... »",
+  "correction_validee": "Traduire.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted Q4-2025",
+  "probleme": "BPA negatif alors que le resultat net du trimestre est positif.",
+  "preuve": "eps_diluted Q4-2025=-0.95 ; net_income Q4-2025=401 M$ ; net_margin 11,2 % ; les autres trimestres sont entre 0,25 et 0,48.",
+  "correction_validee": "Verifier le 10-K 2025 ; valeur attendue autour de 0,38 a 0,39 $.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Current RPO / Total RPO / Subscription Growth cc / FCF Margin",
+  "probleme": "Quatre series annuelles sans annees, datees 2026-06-30, lissees ou perimees, contredites par les series sourcees, descriptions en franglais.",
+  "preuve": "« Total RPO » 10,12.2,15.5,17.7,22.3 (22,3 = RPO fin 2024, rien apres) ; « Current RPO » 9.4 vs crpo Q4-2024 10.26 ; « FCF Margin » 31.8 pour 2025 vs fcf_annuel 4576/13278 = 34,5 % ; description « Leading indicator subscription growth », « next 12 mois ».",
+  "correction_validee": "Supprimer « Current RPO », « Total RPO », « Subscription Growth cc » et « FCF Margin ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Remaining performance obligations / Customers with more than $5M in ACV / CAHIER_LARGE_CUSTOMERS",
+  "probleme": "Doublons de rpo, customers_5m et customers_1m.",
+  "preuve": "« Remaining performance obligations » 24.3, 28.2, 27.7 = rpo Q3-2025..Q1-2026 ; « Customers with more than $5M » 500..630 = customers_5m ; CAHIER_LARGE_CUSTOMERS FY2024=2109 = customers_1m Q4-2024.",
+  "correction_validee": "Supprimer « Remaining performance obligations », « Customers with more than $5M in ACV » et CAHIER_LARGE_CUSTOMERS.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "buybacks.signal / Armis Security acquisition.signal",
+  "probleme": "Montant d'Armis incoherent entre les blocs et signal perime sur la cloture.",
+  "preuve": "buybacks : « acquisition d'Armis (7,6 Mds$) » ; KPI Armis : 7,75 Mds $ « clôture attendue 2e semestre 2026 » ; att : « 8,8 Mds $ ... Armis et Veza, financés par 7,6 Mds $ de dette » ; net_income Q2-2026 deja « impacté par l'acquisition d'Armis (amortissement 219 M$) ».",
+  "correction_validee": "Ecrire 7,75 Mds $ dans le signal de buybacks et remplacer « clôture attendue 2e semestre 2026 » par « finalisée au 1er semestre 2026 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "debt",
+  "probleme": "Serie annuelle arretee fin 2025 et signal contredit par l'anti-these : la dette a bondi a 7,6 Mds $ en 2026.",
+  "preuve": "debt FY2025=1491, signal « levier très faible (trésorerie nette positive) » ; att : « passée ... à 7,6 Mds $ de dette » au 30 juin 2026.",
+  "correction_validee": "Ajouter la dette au 30 juin 2026 (environ 7,6 Mds $ selon l'anti-these, a verifier dans le 10-Q) et reecrire le signal sur ce niveau.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "customers_5m.signal / CAHIER_CRPO",
+  "probleme": "Chiffres cites differents de la serie.",
+  "preuve": "customers_5m signal « contre 533 un an plus tôt » mais Q2-2025=528 ; CAHIER_CRPO FY2025=12.85 mais crpo Q4-2025=12.97.",
+  "correction_validee": "Aligner sur les valeurs publiees (verifier 528 vs 533 et 12,85 vs 12,97), puis supprimer CAHIER_CRPO (doublon annuel).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "now_assist_1m",
+  "probleme": "Nom de KPI faux : la serie est un taux de croissance, pas un nombre de clients ; unite %.",
+  "preuve": "Nom « Clients Now Assist supérieur à 1M USD ACV », unite %, val=130, yoy « +130 pts ».",
+  "correction_validee": "Retirer (un seul point) ou renommer « Croissance des clients Now Assist > 1 M$ ACV ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "revenue_by_segment / tagline / positionnement IA / moat",
+  "probleme": "Anglais, franglais et cuisine interne dans des blocs visibles.",
+  "preuve": "revenue_by_segment « License and Service 97 ; Technology Service 3 » (ServiceNow publie Abonnements / Services professionnels) ; tagline « Digital workflows to transform... » ; IA « transformer insights en outcomes opérationnels » ; moat « l'abaissement de la note ».",
+  "correction_validee": "« Abonnements 97 ; Services professionnels 3 », tagline en francais, IA reformulee (« transformer les analyses en résultats opérationnels »), retirer « l'abaissement de la note et » du moat.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "US_SSS (hero) vs 'U.S. same store sales growth' vs CAHIER_VENTES_COMPARABLES",
+  "probleme": "Trois séries pour le même indicateur, et deux versions trimestrielles qui se contredisent : le hero donne Q4-2024=3.2 et Q4-2025=3, le doublon donne 0.4 et 3.7. La valeur 3.2 du hero est le chiffre annuel 2024 glissé dans un trimestre.",
+  "preuve": "US_SSS serie: Q4-2024=3.2, Q4-2025=3 ; 'U.S. same store sales growth' serie: 4.8, 3, 0.4, -0.5, 3.4, 5.2, 3.7, 0.9 ; CAHIER FY2024=3.2",
+  "correction_validee": "Corriger le hero US_SSS avec Q4-2024=0.4 et Q4-2025=3.7, retirer le doublon 'U.S. same store sales growth' et garder CAHIER_VENTES_COMPARABLES comme serie annuelle.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "US_SSS (hero) : dernier point et signal",
+  "probleme": "Le hero s'arrête à Q1-2026 alors que toute la fiche est à Q2-2026 (parc, CA, résultat). Son signal parle d'une hausse portée par le lancement Parmesan Stuffed Crust (T1 2025) alors que la série tombe de 3 à 0.9.",
+  "preuve": "dernier 2026-03-31 | val=0.9 | serie ... Q4-2025=3, Q1-2026=0.9 :: Hausse portée par fréquentation et ticket moyen plus élevés (lancement Parmesan Stuffed Crust) ; TOTAL_STORES dernier 2026-06-14",
+  "correction_validee": "Ajouter Q2-2026 depuis la publication du T2 2026 et reecrire le signal sur le ralentissement des ventes comparables US.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yoy des séries en % (US_SSS, GLOBAL_RETAIL_SALES_GROWTH, CAHIER_VENTES_COMPARABLES, CAHIER_MARGE_RESTAURANT)",
+  "probleme": "Variation calculée en pourcentage relatif sur des séries déjà en pourcentage : chiffres absurdes.",
+  "preuve": "US_SSS yoy=+280% (0.9 vs -0.5) ; GLOBAL_RETAIL_SALES_GROWTH yoy=-27.7% ; CAHIER_VENTES_COMPARABLES yoy=-6.2% ; CAHIER_MARGE_RESTAURANT yoy=-14.4%",
+  "correction_validee": "Exprimer les variations en points : US_SSS +1.4 pt, GLOBAL_RETAIL_SALES_GROWTH -2.6 pts, CAHIER_VENTES_COMPARABLES -0.2 pt, CAHIER_MARGE_RESTAURANT -2.4 pts.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dette_annuelle, LT_DEBT, dette_sur_ca, dette_par_salarie",
+  "probleme": "'Dette totale' 2024 = 3.826 exclut la part courante (1.15 Mds$ de notes échues 2025) alors que 2022-2023 l'incluent ; la hausse affichée de +25.7 % en 2025 est un artefact de reclassement, la dette nette est stable (4.79 en Q4-2024, 4.69 en Q4-2025). LT_DEBT +27.4 % sur un an a la même cause, et les ratios dérivés (dette_sur_ca 81.3 en 2024, dette_par_salarie 357.6) sont faux.",
+  "preuve": "dette_annuelle 2023=4.99, 2024=3.826, 2025=4.811 ; NET_DEBT Q4-2024=4.79, Q4-2025=4.69 ; LT_DEBT yoy=+27.4%",
+  "correction_validee": "Remettre la dette totale 2024 courant inclus (environ 4.98 Mds$), recalculer dette_sur_ca et dette_par_salarie, et corriger les signaux +25.7 % et LT_DEBT +27.4 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Séries annuelles arrêtées en 2024 : International SSS, Total Stores, Net New Stores",
+  "probleme": "Trois KPI annuels s'arrêtent fin 2024 alors que 2025 est disponible sur la fiche (INTL SSS trimestriel, TOTAL_STORES Q4-2025=22142, NET_NEW_STORES 2025). Ce sont aussi des doublons de CAHIER_PARC_UNITES et NET_NEW_STORES.",
+  "preuve": "International SSS dernier 2024-12-31 serie 11.8, 8, 2.7, 1.7, 1.6 ; Total Stores dernier 2024-12-31 val=21366 ; Net New Stores val=775",
+  "correction_validee": "Retirer 'International SSS', 'Total Stores' et 'Net New Stores'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Signaux périmés : US_FRANCHISE_ROYALTIES, INTL_FRANCHISE_ROYALTIES, GLOBAL_RETAIL_SALES_GROWTH",
+  "probleme": "Signaux datant de 2024 sur des séries à Q2-2026 : 'US +4.8 %' correspond au T2 2024, 'retour au taux publicitaire standard 6.0 %' et '+604 stores nets' aussi.",
+  "preuve": "GLOBAL_RETAIL_SALES_GROWTH val=3 :: US +4.8%; international +5.9% hors change ; US_FRANCHISE_ROYALTIES :: retour au taux publicitaire standard 6.0%",
+  "correction_validee": "Réécrire les trois signaux sur les chiffres Q2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI à un seul point (11 lignes de faits de conférence)",
+  "probleme": "Onze 'KPI' n'ont qu'une valeur et sont des faits ponctuels, pas des indicateurs : refinancement 2025 (val=1), nouvelle autorisation de rachat (val=1), gain de profit sur 11 ans, capital rendu depuis 2015, part de marché à emporter, etc. Faute d'orthographe dans un signal.",
+  "preuve": "'2025 asset-backed securitization refinancing' n=1 val=1 :: Cette émission refinancé la dette ; 'Capital returned to shareholders since 2015' n=1 ; FOOD_BASKET_PRICING n=1",
+  "correction_validee": "Basculer ces faits dans le récit (thèse ou description) et retirer les KPI n=1 non suivis.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS_DILUTED, DPS, revenue_annuel, fcf_annuel, dette_annuelle, effectifs_annuels",
+  "probleme": "Trous dans les séries : aucun Q4 dans EPS_DILUTED ni DPS (Q4-2024, Q4-2025 absents), et l'année 2020 manque dans toutes les séries annuelles.",
+  "preuve": "EPS_DILUTED serie: Q1-2024, Q2-2024, Q3-2024, Q1-2025 ... ; revenue_annuel serie: 2019=3.619, 2021=4.117",
+  "correction_validee": "Compléter Q4-2024, Q4-2025 et l'exercice 2020.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these / description",
+  "champ": "apostrophe",
+  "probleme": "Coquille répétée 'Domino's'est' et 'Domino's'exploite'.",
+  "preuve": "these: Domino's'est un péage à taux bas ; description: Domino's'exploite un réseau mondial",
+  "correction_validee": "Remplacer par 'Domino's est' et 'Domino's exploite'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OP_MARGIN_PCT.signal",
+  "probleme": "Citation brute du tableau financier en anglais dans le signal.",
+  "preuve": "('Income from operations 232.0 19.4%')",
+  "correction_validee": "Retirer la parenthese ('Income from operations 232.0 19.4%') du signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning / kpis",
+  "champ": "positionnement IA vs signal pizza tracker",
+  "probleme": "Le positionnement dit que Domino's mentionne peu l'IA, alors qu'un KPI évoque un nouvel outil de suivi doté d'IA.",
+  "preuve": "positionnement IA: mentionne peu l'IA ; KPI pizza tracker :: socle du nouvel outil de suivi doté d'IA",
+  "correction_validee": "Harmoniser le positionnement IA (integrator prudent, outils clients).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Le volume moyen par magasin US (AUV), indicateur de référence de Domino's, est absent alors que le parc et les ventes retail sont disponibles.",
+  "preuve": "Aucun KPI AUV ; GLOBAL_RETAIL_SALES et US_TOTAL_STORES présents",
+  "correction_validee": "Ajouter les ventes moyennes annuelles par magasin US.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

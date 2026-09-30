@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition affichee sans pourcentages alors que le JSON les contient ; source en cuisine interne.",
+  "preuve": "Affiche 'Assurance None ; Reassurance None ; Hypothecaire None' ; JSON : value 7.798 / 7.618 / 1.06 Md$, share_pct 47.33 / 46.24 / 6.43 mais pas de champ pct ; source 'filing us (pipeline CA autonome, LLM gratuit verbatim)'.",
+  "correction_validee": "Copier share_pct dans pct, verifier au 10-K la nature et l'exercice des montants, puis remplacer la source par un libelle neutre (rapport annuel, primes nettes par segment).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Insurance GPW ; Reinsurance GPW ; Mortgage GPW ; Capex ; CAP",
+  "probleme": "Series annuelles sans etiquettes datees 2026-09-02, signal vide, arretees vers 2023 et contredites par les series trimestrielles.",
+  "preuve": "Insurance GPW 4.5, 5.4, 6.5, 7.3, 8.2 contre GPW_INSU 2025 = 10,44 Md$ ; Reinsurance GPW 3.7, 5, 6.5, 7.9, 9.8 contre GPW_REIN 2025 = 11,15 Md$ ; Capex 41.4 ... 44 sans signal ; CAP periode 'annual', yoy '+N/A', signal 'Renforcement du bilan'.",
+  "correction_validee": "Supprimer les trois GPW annuels et Capex ; pour CAP, periode year et variation +11,6 %, en n'ajoutant les etiquettes d'annee qu'apres controle.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total investments ; Total investable assets",
+  "probleme": "Doublon exact de INV_TOT arrete au T4 2025 et fait a un point.",
+  "preuve": "Total investments serie ... 45323, 46504 (= INV_TOT Q3-2025, Q4-2025) date 2026-09-02, signal 'au Q4-25' alors que INV_TOT va au T2 2026 (48 966) ; Total investable assets 47 400, n=1.",
+  "correction_validee": "Supprimer Total investments et Total investable assets.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att",
+  "champ": "ROE",
+  "probleme": "Trois rendements des capitaux propres differents sans definition.",
+  "preuve": "Anti-these '18% au T2 2026' ; OP_ROAE T2 2026 = 15,3 % ; 'Return on average common equity' 21,2 % 'au Q4-25' (serie arretee fin 2025, datee 2026-09-02).",
+  "correction_validee": "Preciser net vs operationnel dans l'anti-these ; etendre ou supprimer le ROE net.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "11 KPI a un point dates 2026-05-11",
+  "probleme": "Faits anecdotiques ou redondants presentes comme KPI trimestriels, noms anglais.",
+  "preuve": "Full-year after-tax operating income 3,7 Md$ ; Reinsurance segment underwriting income full-year 1,6 (= somme UW_REIN 2025 = 1 558) ; 2025 share repurchases 1 900 (= somme BUYBACK 2025 = 1 889) ; Consecutive years mortgage UW > 1 Md$ = 4 ; Non-GSE transaction 2,2 ; autorisation +3 Md$ ; cat share 14 % ; BVPS CAGR 15 % ; MCE acquisition 450 (2024) ; rachats cumules 7 800.",
+  "correction_validee": "Supprimer les redondants (3), basculer les autres en faits marquants ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NPW_US",
+  "probleme": "Serie arretee deux ans avant le reste de la fiche.",
+  "preuve": "dernier 2023-12-31, serie FY2015 ... FY2023=6279 alors que le 10-K 2025 est exploite ailleurs ; signal 'pres de la moitie du total' non verifie sur 2025.",
+  "correction_validee": "Completer FY2024 et FY2025 depuis le 10-K ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[0..4]",
+  "probleme": "Titres generiques et resumes boilerplate sans rapport avec un reassureur.",
+  "preuve": "'Performance des placements' et 'Risques operationnels' portent le meme resume 'chaine d'approvisionnement, capital humain, qualite produit' ; aucun risque sur les reserves, les catastrophes, la notation financiere ou le credit hypothecaire.",
+  "correction_validee": "Reecrire les cinq risques a partir de l'Item 1A du 10-K 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "summary",
+  "probleme": "Phrase generique, ticker au lieu du nom, exercice inexistant.",
+  "preuve": "'ACGL integre l'IA/ML dans ses produits et operations d'apres le rapport annuel exercice 2026.'",
+  "correction_validee": "Reecrire : usage de l'IA en souscription et tarification, sans mention de document, exercice 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.trend",
+  "probleme": "Label de tendance en contradiction avec le texte.",
+  "preuve": "'tendance hausse' avec le texte 'les primes nettes reculent de 3,7 % et la reassurance se tasse, signe d'un cycle tarifaire qui se retourne'.",
+  "correction_validee": "Tendance 'stable' ou 'baisse'.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OCF.signal ; BUYBACK.signal",
+  "probleme": "Methode interne visible dans le texte.",
+  "preuve": "'(derive du cumul semestriel de 2,5 Mds$)' et '(derive du cumul semestriel de 1,9 Md$)'.",
+  "correction_validee": "Retirer les parentheses '(derive du cumul semestriel ...)' des deux signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_COMBINED_RATIO ; CAHIER_RESERVE_DEV ; CAHIER_PIF_RETENTION",
+  "probleme": "Doublons annuel/trimestriel et nom de KPI trompeur.",
+  "preuve": "CAHIER_RESERVE_DEV FY2025 = 600 = somme PYD_FAV 2025 (197+153+121+129) ; CAHIER_COMBINED_RATIO doublonne CR_TOT ; CAHIER_PIF_RETENTION nomme 'Contrats en vigueur et taux de retention' pour une seule serie en % (name_en 'Pif Retention').",
+  "correction_validee": "Garder les annuels pour l'historique long mais renommer 'Taux de persistance des polices hypothecaires' ; decider du doublon reserves.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions_marche",
+  "champ": "market_positions[0..1]",
+  "probleme": "Deux positions de marche sans nom ni part.",
+  "preuve": "'None | taille 293 | part None' et 'None | taille 502.35 | part None'.",
+  "correction_validee": "Nommer (reassurance mondiale, assurance hypothecaire US) et calculer la part, ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

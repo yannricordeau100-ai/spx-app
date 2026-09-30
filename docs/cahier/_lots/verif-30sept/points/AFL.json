@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Cancer Insurance Japan",
+  "probleme": "Serie contredite par la these : 35 M de polices cancer contre 14 M de contrats cancer cites dans la these ; serie lisse sans etiquettes, datee 2026-06-30 pour un annuel",
+  "preuve": "history [37, 36, 35, 35, 35] M policies ; these : « 22 millions de contrats individuels ... dont 14 millions de contrats cancer »",
+  "correction_validee": "Supprimer le KPI Cancer Insurance Japan.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Premium Income Japan / Premium Income US / Aflac Japan Premium / Aflac US Premium",
+  "probleme": "Quatre series annuelles de primes contredites par les series trimestrielles sourcees ; valeurs lisses, sans etiquettes, datees 2026-06-30",
+  "preuve": "Premium Income Japan 9,85 Mds $ et Aflac Japan Premium 9,8 alors que japan_net_premiums 2025 = 1681+1761+1663+1639 = 6 744 M$ ; Premium Income US 6,45 et Aflac US Premium 6,4 alors que us_net_premiums 2025 = 5 999 M$",
+  "correction_validee": "Supprimer Premium Income Japan, Premium Income US, Aflac Japan Premium et Aflac US Premium.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SMR Ratio Japan / RBC Ratio",
+  "probleme": "Deux ratios de solvabilite lisses et contradictoires : RBC Ratio nomme « RBC Japon » mais decrit comme ESR, valeur 250 contre 227 pour l ESR reglementaire publie",
+  "preuve": "SMR [780, 805, 830, 855, 875] ; RBC Ratio [200, 220, 230, 230, 250] description « Economic Solvency Ratio Japan (ESR) » ; KPI Regulatory Economic Solvency Ratio = 227 (T1 2026)",
+  "correction_validee": "Supprimer SMR Ratio Japan et RBC Ratio, garder l ESR reglementaire source (227 %).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Adjusted EPS / Capital Returned / Operating ROE",
+  "probleme": "Series annuelles lisses contredites par les donnees trimestrielles, signaux en jargon interne",
+  "preuve": "Adjusted EPS 2025 = 7,2 alors que afl_adjusted_eps 2025 = 1,66+1,78+2,49+1,57 = 7,50 ; Capital Returned 2,85 Mds alors que rachats 2025 = 3,5 Mds + dividendes 1,2 Mds ; signaux « drive direct sur valorisation », « aristocrat dividend, ratio payout suivi »",
+  "correction_validee": "Supprimer Adjusted EPS, Capital Returned et Operating ROE, doublons faux des series trimestrielles sourcees.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Margin",
+  "probleme": "Variation annuelle fausse",
+  "preuve": "history [20.91, 23.44] soit +2,5 pts ; yoy affiche « +12,1 pts »",
+  "correction_validee": "Supprimer Op Margin (doublon des marges avant impot Japon et US).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_APE / CAHIER_BENEFIT_RATIO",
+  "probleme": "Series perimees de plus de dix ans, unite mixte invalide",
+  "preuve": "CAHIER_APE dernier 2012-12-31, unite « Mds JPY ; M $ » ; CAHIER_BENEFIT_RATIO dernier 2010-12-31 (FY2003..FY2010) alors que afl_benefit_ratio va jusqu au T2 2026",
+  "correction_validee": "Supprimer CAHIER_APE et CAHIER_BENEFIT_RATIO.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "persistance Japon et US",
+  "probleme": "Meme indicateur en quatre exemplaires (Japon) et trois (US), plus primes US en double",
+  "preuve": "japan_persistency (n=15), Aflac Japan premium persistency (n=2), Japan premium persistency (n=2), CAHIER_PERSISTENCY (annuel) ; us_persistency, Aflac U.S. persistency rate, U.S. persistency rate ; Aflac U.S. total net earned premiums (n=2) = us_net_premiums",
+  "correction_validee": "Garder japan_persistency, us_persistency et us_net_premiums, supprimer les autres doublons (dont CAHIER_PERSISTENCY).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI evenementiels n=1",
+  "probleme": "Sept lignes a un seul point qui ne sont pas des indicateurs (evenements, engagements)",
+  "preuve": "June 2025 cyber incident = 1 « evenement » ; Denham Capital 2 Mds ; Connecticut Paid Leave 1,5 M ; Nursing care policies 10 000 ; Yen senior notes 150 ; Capital returned 1,3 ; group sales growth 25 %",
+  "correction_validee": "Sortir ces lignes de la liste KPI (les garder eventuellement en actualites) ; l incident cyber est a supprimer d office",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Texte de gabarit generique avec exercice faux",
+  "preuve": "« AFL intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2026 » (le dernier rapport annuel est l exercice 2025) ; meme phrase mot pour mot sur AIZ",
+  "correction_validee": "Reecrire a partir des preuves listees (investissements numeriques, IA) et corriger l exercice",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "afl_notes_payable.signal",
+  "probleme": "Signal parle de hausse alors que la variation affichee est negative",
+  "preuve": "yoy -2,3 % (8 933 -> 8 729) ; signal « La hausse suit deux émissions de mai 2026 » (hausse trimestrielle 7 908 -> 8 729)",
+  "correction_validee": "Preciser « hausse sur le trimestre, repli sur un an »",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune serie des polices en vigueur (Japon et US) ni de ratio de solvabilite fiable, alors que la these s appuie sur 22 M de contrats",
+  "preuve": "Seul KPI de polices = Cancer Insurance Japan (faux) ; ESR n=1",
+  "correction_validee": "Ajouter polices en vigueur Japon/US et serie ESR/SMR depuis les supplements financiers",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

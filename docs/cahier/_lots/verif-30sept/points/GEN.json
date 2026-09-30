@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "hero",
+  "champ": "hero",
+  "probleme": "Le KPI vedette est direct_count, une metrique que la fiche elle-meme declare abandonnee, dernier point mars 2025, alors que paid_customers (81 M au 3 juillet 2026) est a jour.",
+  "preuve": "hero: direct_count ; direct_count dernier 2025-03-28, signal 'dernier point publié avant l'abandon de la métrique'",
+  "correction_validee": "Passer le hero sur paid_customers (81 M au 3 juillet 2026).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Libelles de segments faux : 'Core Consumer Security' et 'Endpoint Security And Management' ne sont pas les segments de Gen Digital (ce sont des libelles de l ancienne Symantec entreprise). Les pourcentages correspondent en revanche exactement a Cyber Safety Platform / Trust-Based Solutions FY2026.",
+  "preuve": "revenue_by_segment (exercice 2026): Core Consumer Security 66.8 ; Endpoint Security And Management 33.2. Somme FY2026 seg_csp_rev = 3 339, seg_tbs_rev = 1 661 sur 5 000 = 66,8 / 33,2",
+  "correction_validee": "Renommer en Cyber Safety Platform (66,8 %) et Trust-Based Solutions (33,2 %).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "identity_protection_rev.history",
+  "probleme": "Serie invraisemblable : trois points identiques a 500 (Q4-2023, Q4-2024, Q4-2025) valeurs rondes, trous d un an, et deux valeurs annuelles (1 982, 2 017) melees a des trimestres en tete de serie. Gen ne publie plus ce decoupage.",
+  "preuve": "history: [1982, 2017, 233, ..., 330, 328, 500, 344, 347, 500, 500] ; extrait: Q4-2023=500, Q4-2024=500, Q4-2025=500",
+  "correction_validee": "Retirer la serie identity_protection_rev.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "consumer_security_rev.history",
+  "probleme": "Deux valeurs annuelles (2 016) en tete d une serie trimestrielle (saut x5), point Q1-2023 = 413 aberrant entre 590 et 599, serie arretee fin 2024.",
+  "preuve": "history: [2016, 2016, 379, 370, ...] periodes Q4-2016, Q1-2017 ; extrait: Q4-2022=590, Q1-2023=413, Q2-2023=599",
+  "correction_validee": "Retirer la serie consumer_security_rev.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "direct_count / Direct Customers",
+  "probleme": "Doublon contradictoire : 'Direct Customers' (annuel) affiche 39,3 M date du 3 juillet 2026 alors que direct_count donne 40,4 M au 28 mars 2025 et declare la metrique abandonnee ; serie annuelle sans libelles.",
+  "preuve": "Direct Customers: year, dernier 2026-07-03, serie 38, 38.5, 38.7, 38.9, 39.3 ; direct_count: Q4-FY2025=40.4",
+  "correction_validee": "Retirer Direct Customers.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "arpu / Direct ARPU / Direct average revenue per user (ARPU)",
+  "probleme": "Meme indicateur en trois exemplaires (deux trimestriels, un annuel) ; le troisieme est date du 3 juillet 2026 tout en affirmant que la metrique est abandonnee ; textes sans accents.",
+  "preuve": "arpu dernier 2024-12-27 val 7.27 ; Direct ARPU (year) dernier 2025-03-28 'ARPU dilue par Avast' ; Direct average revenue per user (ARPU) dernier 2026-07-03 'abandonné avec la nouvelle définition'",
+  "correction_validee": "Garder arpu (trimestriel, dernier point 27 decembre 2024) et retirer Direct ARPU et Direct average revenue per user (ARPU).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "retention / Retention Rate ; paid_customers / Total paid customers",
+  "probleme": "Deux paires de doublons exacts : retention (trimestriel) et Retention Rate (annuel, memes valeurs 76-78, sans accents) ; paid_customers et Total paid customers (76.2, 77, 78, 79 identiques).",
+  "preuve": "Retention Rate serie 85, 85, 76, 77, 78 ; retention Q4-FY2025=78 ; Total paid customers serie 76.2, 77, 78, 79 = paid_customers Q1-FY2026..Q4-FY2026",
+  "correction_validee": "Retirer Retention Rate et Total paid customers.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ga_expense / op_income / op_margin (Q4-FY2026)",
+  "probleme": "Frais generaux negatifs (-291 M$) et marge operationnelle de 62,6 % au T4 FY2026 sans un mot d explication dans les signaux ; un lecteur y voit une erreur de saisie.",
+  "preuve": "ga_expense Q4-FY2026=-291 ; op_income Q4-FY2026=803 ; op_margin Q4-FY2026=62.6 ; net_income Q4-FY2026=512",
+  "correction_validee": "Verifier dans le 10-K FY2026 la nature du produit exceptionnel (reprise de provision ?) et le mentionner dans les signaux de ga_expense et op_margin.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "ai_positioning.texte",
+  "probleme": "Faute ('articueler') et texte reduit a une lecture des facteurs de risque, alors que les KPI citent des campagnes personnalisees par IA.",
+  "preuve": "'sans articueler de stratégie offensive' ; Norton cross-sell penetration: 'un record porté par les campagnes personnalisées par IA'",
+  "correction_validee": "Corriger en 'articuler' et completer : IA utilisee pour le marketing personnalise et la detection d arnaques (Genie), sans axe produit revendique.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[3].titre",
+  "probleme": "Titre de risque generique et jargon : 'identifié dans le filing'.",
+  "preuve": "risque 4: Risque opérationnel identifié dans le filing",
+  "correction_validee": "Remplacer par le risque reel du 10-K (par exemple 'Integration de MoneyLion et exposition au credit a la consommation').",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

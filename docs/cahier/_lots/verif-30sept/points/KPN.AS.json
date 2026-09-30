@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Consumer Mobile Rev, Consumer Wireline Rev, Business Rev, Adj EBITDA AL, Postpaid Net Adds, Capex",
+  "probleme": "Bloc de 6 KPI arretes en 2024, sans etiquettes de periode, signaux telegraphiques en franglais, valeurs contredites par les series etiquetees, doublons de EBITDAAL_FY et CAPEX_FY ; la serie Postpaid Net Adds a une progression trop reguliere pour etre publiee.",
+  "preuve": "signaux « FTTH build-out peak passe, Capex ~21% CA, ratio descendre en 2027+ », « gain de parts de marche vs T-Mobile NL + Vodafone NL », « Marge AL ~45%, leader marge en EU telcos » ; Capex 2024 = 1.21 vs CAPEX_FY FY2024=1.255 ; Business Rev 2024 = 1.75 Mds vs REV_BUS_Q 2024 ≈ 4 x 480 = 1.92 Mds ; Postpaid Net Adds 85, 95, 110, 130, 145",
+  "correction_validee": "Supprimer les 6 KPI ; EBITDAAL_FY/Q, CAPEX_FY et les series de CA par segment etiquetees couvrent ces mesures jusqu'au T2-2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EBIT_Q.signal, NET_Q.signal",
+  "probleme": "Les pourcentages cites dans les signaux ne correspondent pas aux series.",
+  "preuve": "EBIT_Q : 363→339 = -6,6 % (yoy affiche -6.6%), signal « -6,8% sur un an » ; NET_Q : 210→207 = -1,4 %, signal « quasi stable (-1,0%) »",
+  "correction_validee": "Ecrire -6,6 % dans le signal de EBIT_Q et -1,4 % dans celui de NET_Q.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ARPA_CONSUMER_HH.signal",
+  "probleme": "Le signal cite une hausse differente de celle de la serie.",
+  "preuve": "serie FY2024=62, FY2025=63 ; yoy=+1,6% ; signal « en hausse de 1,2 % sur un an »",
+  "correction_validee": "Verifier la valeur precise publiee (62,xx → 63,xx) et aligner serie et signal.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PRISES_FIBRE",
+  "probleme": "Doublon annuel de FIBER_HP_Q (meme perimetre, meme valeur fin 2025) avec un signal dont le rythme est faux.",
+  "preuve": "CAHIER_PRISES_FIBRE FY2025=4.942 = FIBER_HP_Q Q4-2025=4.942 ; signal « environ un quart de million de prises par an depuis 2022 » alors que (4,942-3,71)/3 = 410 000 par an",
+  "correction_validee": "Supprimer CAHIER_PRISES_FIBRE ou corriger le signal en « environ 400 000 prises par an ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification generique qui pretend qu'aucun autre indicateur n'est fourni alors que la fiche en compte 45.",
+  "preuve": "« Le resultat operationnel trimestriel varie a peine et aucun autre indicateur n'est fourni, les risques restant presque tous stables sur le reseau de fibre optique »",
+  "correction_validee": "Reecrire a partir de SREV_FIBER_FY (+10 %), SREV_COPPER_FY (-13 %), ROCE_FY 14,7 % et FIBER_HH_NET_ADDS.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FIBER_HP_Q.signal",
+  "probleme": "Le signal est une note de methode, pas une lecture du chiffre.",
+  "preuve": "« Perimetre KPN seul, hors Glaspoort et reseaux tiers, pour une serie homogene ; empreinte elargie couvrant environ six foyers neerlandais sur dix »",
+  "correction_validee": "Signal : « 5,0 M de foyers raccordables fin juin 2026 (+3,9 % sur un an) » ; deplacer la note de perimetre dans la description.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.fr.activity",
+  "probleme": "Description redigee comme un slogan d'entreprise, sans contenu factuel.",
+  "preuve": "« KPN connecte les Pays-Bas a un avenir numerique durable ... L'entreprise s'engage a offrir la meilleure experience numerique a ses clients »",
+  "correction_validee": "Reecrire : operateur telecom historique neerlandais, fixe (fibre), mobile et services aux entreprises, 5,8 Mds € de CA.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune base d'abonnes mobiles postpayes ni churn, et pas d'abonnes haut debit total (seulement fibre), alors que ce sont les indicateurs standards d'un operateur.",
+  "preuve": "KPI presents : FIBER_HOUSEHOLDS, FIBER_HH_NET_ADDS, FIXED_ARPU ; le seul KPI mobile est le « Postpaid Net Adds » non source signale plus haut",
+  "correction_validee": "Ajouter abonnes postpayes (millions), churn et abonnes haut debit total depuis les fact sheets trimestriels KPN.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

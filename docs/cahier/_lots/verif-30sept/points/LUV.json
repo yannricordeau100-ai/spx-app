@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "La justification du moat dit que le résultat opérationnel se contracte et que les passagers reculent de 2,7 %, ce que les chiffres de la fiche contredisent.",
+  "preuve": "Moat : « le résultat opérationnel se contracte ». Op Income FY2024 = 321 M$, FY2025 = 428 M$ (+33 %) ; T2-2026 = 285 vs 225 (+26,7 %) ; S1-2026 = 615 vs 2. Pax Carried FY2024 = 140,0 M, FY2025 = 134,1 M (-4,2 %, pas -2,7 %). La thèse dit l inverse (2 M$ à 615 M$).",
+  "correction_validee": "Réécrire la justification sur le T2-2026 (résultat opérationnel 285 M$, +26,7 %, passagers -3,3 % à capacité stable, dépendance à Boeing) et aligner tendance affichée et tendance Mettrik.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Net Debt.signal",
+  "probleme": "Le signal annonce une structure financière qui redevient plus solide alors que la série montre le passage d une trésorerie nette à une dette nette croissante.",
+  "preuve": "Signal : « La structure financière redevient plus solide ». Série : Q4-2024 = -2,03 (trésorerie nette), Q2-2025 = 0,26, Q2-2026 = 2,15 Mds $, yoy +726,9 %. L anti-thèse dit « basculait d une trésorerie nette positive à une dette nette de 2,15 Mds $ ».",
+  "correction_validee": "« 2,15 Mds $ de dette nette au 30 juin 2026 contre une trésorerie nette de 2,0 Mds $ fin 2024 : les rachats d actions ont consommé le matelas de liquidités ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total Debt.signal",
+  "probleme": "Le signal dit « endettement en baisse » alors que la dette totale progresse de 45 % sur un an.",
+  "preuve": "Signal : « endettement en baisse depuis le pic COVID de 2021 ». Série : Q2-2025 = 4,10, Q4-2025 = 4,90, Q1-2026 = 5,39, Q2-2026 = 5,95 Mds $, yoy +45,1 %.",
+  "correction_validee": "« 5,95 Mds $ de dette totale au 30 juin 2026, +45 % sur un an : réendettement après le point bas de 4,1 Mds $ mi-2025 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CASM, CASM-ex, Fleet 737, Jet Fuel Price",
+  "probleme": "Bloc de quatre KPI annuels hérités, sans libellé de période, datés 2026-06-30 pour une fréquence annuelle, sans signal, et contradictoires avec les séries principales.",
+  "preuve": "CASM-ex val 10,8 (série 8.9, 9.4, 10, 10.3, 10.8) contre CASM-X T2-2026 = 12,60 et CAHIER_CASM_EX_FUEL FY2025 = 12,32 ; Fleet 737 = 817 contre Fleet Total T2-2026 = 803 ; Jet Fuel Price 2,78 $ contre Fuel $/gal T2-2026 = 3,92 $. Description CASM : « Inflation salaires/maintenance pression », style télégraphique.",
+  "correction_validee": "Supprimer CASM, CASM-ex, Fleet 737 et Jet Fuel Price, couverts par CASM Total, CASM-X, Fleet Total et Fuel $/gal.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_RASM.name_fr, CAHIER_YIELD.name_fr",
+  "probleme": "Les noms parlent de kilomètre alors que l unité et la donnée sont en mile.",
+  "preuve": "CAHIER_RASM : « Recette unitaire par siège kilomètre offert », unité « cents / siege mile ». CAHIER_YIELD : « Recette au passager kilomètre », unité « cents / passager mile ».",
+  "correction_validee": "Renommer « Recette par siège-mile offert (RASM, annuel) » et « Recette par passager-mile (yield, annuel) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_LOAD_FACTOR, CAHIER_RASM, CAHIER_YIELD, CAHIER_CAPACITY_ASM",
+  "probleme": "Quatre indicateurs présents à la fois en trimestriel et en annuel sous des noms différents.",
+  "preuve": "Load Factor (trimestriel, 79,3 %) et CAHIER_LOAD_FACTOR (annuel, 77,4 %) ; RASM (17,91) et CAHIER_RASM (15,59) ; Pax Yield (20,74) et CAHIER_YIELD (18,31) ; ASM (47,09) et CAHIER_CAPACITY_ASM (180,046).",
+  "correction_validee": "Garder une seule version par indicateur (la trimestrielle, avec vue annuelle dérivée) ou marquer explicitement « annuel » dans le nom des versions CAHIER.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI transcript n=1 (Full-year operating revenue record, First quarter record operating revenues, Fuel hedging program discontinued, Share repurchase authorization, Corporate workforce reduction)",
+  "probleme": "Faits ponctuels présentés comme des KPI, en doublon des séries existantes, avec des dates impossibles.",
+  "preuve": "« Full-year operating revenue record » = 28 Mds $ (revenue_annuel 2025 = 28,063) ; « First quarter record operating revenues » = 7,2 (Total Rev Q1-2026 = 7,25), daté 2026-03-11 alors que le T1 se clôt le 31 mars ; « Fuel hedging program discontinued » val 0 « contrats ». « Managed business revenue growth » daté 2026-03-28 pour un « record trimestriel au T1-2026 ».",
+  "correction_validee": "Supprimer les doublons et le KPI à valeur 0 ; dater les faits de transcript à la date réelle de l appel de résultats (fin avril 2026 pour le T1).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "stance, source",
+  "probleme": "Stance « integrator » alors que le texte dit qu aucune initiative IA n est mentionnée ; le champ source expose un nom de fichier interne.",
+  "preuve": "stance = integrator ; summary : « Le rapport ne mentionne aucune initiative liée à l intelligence artificielle » ; evidence = [] ; source = « Analyse Mettrik du 2026-08-30 (_srctext_60k.txt) ».",
+  "correction_validee": "Passer la stance à « absent » et remplacer la source par « Analyse Mettrik du 2026-08-30 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 1, 2, 4, 5, 6, 7, 8",
+  "probleme": "Les titres de risques sont des fragments de phrases ou des formules d introduction, et deux portent sur le même sujet.",
+  "preuve": "Risque 2 : « ... exposés à divers risques et incertitudes, dont ceux décrits ci-après » ; risque 1 : « Les conditions réelles peuvent diverger des hypothèses » ; risques 4, 6, 8 commencent par « Ainsi », « De plus », « Par ailleurs » ; risques 5 et 7 = volatilité du carburant.",
+  "correction_validee": "Reformuler chaque risque en titre autonome et fusionner 5 et 7 ; remplacer 1 et 2 par de vrais risques (dépendance à Boeing, conflits sociaux, activisme actionnarial).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Div/Share.history",
+  "probleme": "Le quatrième trimestre manque chaque année depuis 2023 pour un dividende versé trimestriellement.",
+  "preuve": "history_periods : ... Q3-2023, Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 (Q4-2023, Q4-2024, Q4-2025 absents).",
+  "correction_validee": "Compléter les points Q4 (0,18 $) à partir des 10-K.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "simple.fr.activity",
+  "probleme": "Formulation contradictoire.",
+  "preuve": "« transporte des passagers sur des vols intérieurs et internationaux aux États-Unis ».",
+  "correction_validee": "« transporte des passagers sur des vols intérieurs aux États-Unis et vers quelques destinations proches (Mexique, Caraïbes, Amérique centrale) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun indicateur de qualité opérationnelle alors que Southwest publie ponctualité et taux d annulation dans son 10-K.",
+  "preuve": "39 KPI de volume, coût et bilan ; aucun sur la ponctualité (on-time performance), le taux d annulation ou l utilisation quotidienne des appareils.",
+  "correction_validee": "Ajouter « Ponctualité (arrivées à l heure, %) » et « Vols annulés (%) », séries annuelles du 10-K.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

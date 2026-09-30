@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "CAPEX_5Y, Five-year capital expenditures plan, Capex Plan",
+  "probleme": "Trois valeurs contradictoires du plan capex 5 ans, dont une impossible au vu du rythme annuel",
+  "preuve": "CAPEX_5Y FY2025 = 20,8 Mds $ « (2026-2030) » ; « Five-year capital expenditures plan » 31,8 (série absurde 11 → 6,3 → 31,8, yoy « +21% ») ; « Capex Plan » 26,4 sans dates ; score_rationale du risque 3 : « jusqu'a 33,1 Mds $ 2026-2030 » ; CAPEX_Q 2025 = 4,1 Mds et « 5.5 Md prévus pour 2026 » rendent 20,8 sur cinq ans impossible ; le moat cite « +28,4 % » (20,8/16,2)",
+  "correction_validee": "Corriger CAPEX_5Y FY2025 d'après le 10-K 2025 (jusqu'à 33,1 Mds $), retirer les deux autres séries et réécrire le moat et le signal CAPEX_Q.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Rate Base, Op Income, Reliability SAIDI, Coal Generation Share, Renewables MW",
+  "probleme": "Séries sans dates ni source contredisant les séries sourcées ou visiblement inventées",
+  "preuve": "« Rate Base » 26,5 Mds $ vs RATE_BASE FY2025 = 29,8 ; « Op Income » 3,848 Mds $ vs OI_Q 2025 = 430+411+825+360 = 2026 M$ ; « Reliability SAIDI » 115, 110, 105, 100, 95 (parfaitement linéaire) ; « Coal Generation Share » 56 → 38, « Renewables MW » 400 → 1900 sans dates",
+  "correction_validee": "Retirer Rate Base, Op Income, Reliability SAIDI, Coal Generation Share et Renewables MW.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "ai_positioning.summary",
+  "probleme": "Texte type avec ticker et exercice inexistant",
+  "preuve": "« AEE intègre l'IA/ML dans ses produits et opérations d'après le rapport annuel exercice 2026 » (dernier rapport = exercice 2025, société nommée par son ticker)",
+  "correction_validee": "Réécrire à partir des usages documentés dans le 10-K 2025 ou passer en « non documenté ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EPS_ADJ.signal",
+  "probleme": "Signal contredit par la série",
+  "preuve": "« Treizième année consécutive de hausse » ; série FY2018 = 3,37 puis FY2019 = 3,35 (baisse)",
+  "correction_validee": "Vérifier FY2018 (3,32 selon la société ?) ou écrire « en hausse chaque année depuis 2019 »",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_CUSTOMER_RELIABILITY",
+  "probleme": "Signal = cuisine interne, nom promettant une fiabilité absente de la série, doublon de CUSTOMERS",
+  "preuve": "Signal : « Reprise 17 sept 2026 : nombre de clients électricité (compteurs) déclaré à l'EIA (formulaire 861) par Union Electric et Ameren Illinois, 2015-2024… La fiabilité (SAIDI/SAIFI) n'est pas couverte » ; name_fr « Clients desservis et fiabilité du service » ; CUSTOMERS = 2,5 M (FY2025)",
+  "correction_validee": "Renommer « Clients électricité (compteurs) », écrire un signal destiné au client et retirer CUSTOMERS.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ALLOWED_ROE.name_fr",
+  "probleme": "Nom trop général : la série est le seul ROE transport (FERC) parmi quatre ROE autorisés",
+  "preuve": "name_fr « ROE autorisé » ; signal « ROE autorisé de 10,48 % sur le transport, le plus élevé des quatre activités d'Ameren »",
+  "correction_validee": "Renommer ALLOWED_ROE « ROE autorisé transport (FERC) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI à un point (transcript)",
+  "probleme": "Quinze « KPI » à une seule valeur, pour partie de la communication d'entreprise sans valeur d'investissement",
+  "preuve": "« Annual economic activity generated » 20 Mds $, « Gas storage customer savings » 63 M$, « Customer satisfaction rating » 4,6/5, « Prevented customer outage minutes » 56 M, « Economic development capital attracted » 3,6 Mds $, « Split Rail Solar acquisition » 600 M$…",
+  "correction_validee": "Garder en faits clés les contrats grande charge (2,2 GW), le pipeline data centers (3,4 GW), Big Hollow ; retirer le reste des KPI",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[].score_rationale",
+  "probleme": "Justifications avec citations en anglais et repères de position internes",
+  "preuve": "« Citation: \"capital expenditures associated with compliance could be significant\". Posit… », « Haut de la section OPERATIONAL RISKS, tres developpe », « Milieu de la section OPERATIONAL RISKS »",
+  "correction_validee": "Retirer les segments « Citation: … », « Position: … » et les mentions de section des score_rationale.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ELEC_GWH.signal",
+  "probleme": "Affirmation fausse au vu de la série",
+  "preuve": "« première hausse notable depuis 2022 » alors que FY2023 67 969 → FY2024 68 744 = +1,1 %, identique à 2025 (+1,0 %)",
+  "correction_validee": "Écrire « deuxième année de hausse modérée, volumes toujours sous 2022 »",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline",
+  "champ": "tagline",
+  "probleme": "Tagline en anglais, non officielle",
+  "preuve": "« Powering the communities we serve through rate-regulated infrastructure investment »",
+  "correction_validee": "Retirer la tagline.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "manque",
+  "probleme": "Indicateurs sectoriels absents : ROE réalisé vs autorisé, fiabilité SAIDI/SAIFI en série",
+  "preuve": "SAIFI_REL n=1 (0,75), aucun SAIDI sourcé, aucun ROE réalisé alors qu'AEP en a un (CAHIER_ALLOWED_EARNED_ROE)",
+  "correction_validee": "Ajouter ROE réalisé par activité et SAIDI/SAIFI 5 ans depuis les rapports annuels",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

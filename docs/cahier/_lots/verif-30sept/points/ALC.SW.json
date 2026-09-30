@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "REV_SURGICAL (hero) + CORE_EPS_Q, OPMARGIN_Q, EPS_Q, SURG_*, VC_*",
+  "probleme": "Le hero et neuf séries s'arrêtent au T1 2026 alors que le T2 2026 est publié et présent sur d'autres séries ; la thèse cite un chiffre absent de la série.",
+  "preuve": "REV_Q Q2-2026 = 2 782 ; REV_SURGICAL last 2026-03-31 ; thèse « BPA comptable de 0,00 dollar au T2 2026 » alors que EPS_Q finit à Q1-2026 = 0,39.",
+  "correction_validee": "Ajouter le T2 2026 sur les dix séries depuis le communiqué, et vérifier le BPA IFRS T2 2026 avant de garder le chiffre de la thèse.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "REV_Q / GROWTH_CC_Q / GROWTH_PUB_Q / CORE_OPMARGIN_Q (yoy)",
+  "probleme": "Yoy calculés sur le T1 et non mis à jour après ajout du T2.",
+  "preuve": "REV_Q « +10% » (2 577 à 2 782 = +8 %) ; GROWTH_CC_Q « +3 pts » (3 à 7 = +4) ; GROWTH_PUB_Q « +10 pts » (4 à 8 = +4) ; CORE_OPMARGIN_Q « +0,4 pt » (19,1 à 20,6 = +1,5).",
+  "correction_validee": "Afficher +8 %, +4 pts, +4 pts, +1,5 pt et mettre les signaux sur le T2 2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "REV_Q / GROWTH_CC_Q / GROWTH_PUB_Q / CORE_OPMARGIN_Q (last_data_date)",
+  "probleme": "Date de dernier point incohérente avec la période.",
+  "preuve": "last_data_date 2026-09-21 pour un point T2 2026.",
+  "correction_validee": "Mettre last_data_date à 2026-06-30.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "GROWTH_CC_Q / GROWTH_PUB_Q (signaux)",
+  "probleme": "Signaux citant le T1 2026 alors que la série affiche le T2 2026.",
+  "preuve": "« +6% de croissance à change constant au T1 2026 » (T2 = 7) ; « +10% de croissance publiée au T1 2026 ... le rythme le plus élevé depuis 2022 » (T2 = 8).",
+  "correction_validee": "Réécrire sur le T2 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tête",
+  "champ": "hero_kpi / hero_kpi_rationale",
+  "probleme": "La justification du hero décrit un autre KPI que celui affiché.",
+  "preuve": "hero = REV_SURGICAL ; rationale « Le BPA core trimestriel est passé de 0,49 $ au T1 2021 à un record de 0,85 $ au T1 2026 ... c'est la série qui résume le mieux la trajectoire d'Alcon ».",
+  "correction_validee": "Mettre CORE_EPS_Q en hero ou réécrire la justification.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tête / thèse",
+  "champ": "tagline, these",
+  "probleme": "Revendication de numéro un en lentilles contestable : Alcon est numéro un en chirurgie, numéro deux en lentilles de contact derrière Johnson & Johnson Vision ; le bloc positions de marché ne revendique le leadership qu'en chirurgie.",
+  "preuve": "tagline « Numéro un mondial des soins ophtalmologiques (chirurgie et lentilles) » ; thèse « numéro un mondial ... à la fois en chirurgie de l'oeil et en soins de la vue » ; market_positions Surgical « premier acteur mondial, 41 % ».",
+  "correction_validee": "« Numéro un mondial de la chirurgie ophtalmique, numéro deux des lentilles de contact ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_ORG_GROWTH_FRANCHISE",
+  "probleme": "Nom « par franchise » pour une seule série groupe ; yoy en % relatif.",
+  "preuve": "FY2025 = 4 = croissance à change constant groupe ; yoy « -33.3% » pour 6 à 4 (-2 pt).",
+  "correction_validee": "Renommer « Croissance à change constant (annuelle) », yoy -2 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Texte moat vide, seul le justificatif T1 2026 s'affiche.",
+  "preuve": "texte = \"\", niveau « Moyen ».",
+  "correction_validee": "Rédiger (base installée d'équipements chirurgicaux, consommables captifs, marques Systane / Precision).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun KPI de dette nette / levier ni de dépenses de R&D alors que le retour aux actionnaires et les lancements produits structurent la thèse.",
+  "preuve": "Aucune série dette, levier ou R&D sur la fiche ; Alcon porte environ 4 Mds $ de dette et investit environ 9 % du CA en R&D.",
+  "correction_validee": "Ajouter dette nette, levier et R&D annuels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

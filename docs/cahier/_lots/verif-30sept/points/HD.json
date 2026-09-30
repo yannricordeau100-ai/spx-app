@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "comp_sales (hero), transactions, online_sales_pct, revenue, operating_margin, gross_margin, net_margin, operating_income, OCF, capex, FCF, inventory, long_term_debt, dividend_per_share",
+  "probleme": "Le cœur de la fiche, héros compris, s'arrête au T1 2026, alors que le T2 2026 est publié et cité par la thèse ; les signaux de new_stores et store_count parlent du T1 alors que leur valeur est celle du T2.",
+  "preuve": "comp_sales dernier 2026-05-03 ; eps_diluted a déjà T2 2026 = 4,79 ; la thèse évoque « Au deuxième trimestre 2026 ... 730 M$ de remboursements » ; store_count 2 364 avec le signal « 2361 magasins au T1 2026 ».",
+  "correction_validee": "Ajouter le T2 2026 à toutes les séries trimestrielles et réécrire les signaux en conséquence.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted",
+  "probleme": "La valeur est celle du T2 2026, mais la variation et le signal sont ceux du T1.",
+  "preuve": "val=4,79 (Q2-2026), yoy « -4.3% » ; 4,79/4,58 = +4,6 % ; signal « 3.3 $ au T1 2026 (-4.3%) ».",
+  "correction_validee": "Afficher +4,6 % et le signal « 4,79 $ au T2 2026, +4,6 % sur un an ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VENTES_COMPARABLES / CAHIER_TRANSACTIONS_PANIER",
+  "probleme": "Séries décalées d'un an sur tout l'historique ; la seconde ne contient que le panier moyen malgré son nom.",
+  "preuve": "FY2021 = 19,7 et FY2022 = 11,4 alors que HD a publié +19,9 % en 2020 et +11,4 % en 2021 ; FY2009 = -8,7 (valeur de 2008) ; FY2026 = 0,3 (valeur de 2025) ; « Transactions et panier moyen » en $ (90,56).",
+  "correction_validee": "Reculer toutes les périodes d'un an et renommer la seconde « Panier moyen annuel ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total addressable market, Cross-sell run rate, Delivery assets fleet, US housing turnover rate, GMS sales contribution, Hurricane-related net sales, GMS acquisition, Return on invested capital, Quarterly cash dividend per share, Share repurchases paused",
+  "probleme": "Dix KPI sont datés du 2022-01-11 alors que leur contenu date de 2024 à 2026.",
+  "preuve": "GMS « finalisé le 4 septembre 2025 » ; dividende « annoncé en février 2026 » ; tous avec dernier 2022-01-11.",
+  "correction_validee": "Redater sur la période réelle, supprimer les ponctuels périmés (ouragans T4 2024).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Same-Store Sales / Store Count / Quarterly cash dividend per share",
+  "probleme": "Doublons, dont un nom en anglais, une description incompréhensible et une valeur périmée.",
+  "preuve": "Same-Store Sales 0,3, -1,8, -3,2 avec « nature conjoncturel » ; Store Count 2 345 (valeur du T3 2024) contre store_count 2 364 ; dividende 2,33 présent deux fois.",
+  "correction_validee": "Supprimer les trois KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel / fcf_annuel / dette_annuelle / effectifs_annuels",
+  "probleme": "L'exercice 2025 (clos le 1er février 2026) est étiqueté 2026, alors que les autres KPI annuels l'appellent FY2025.",
+  "preuve": "« Ventes de 164,7 Mds $ en 2026 » = somme T1 à T4 2025 (39,86+45,28+41,35+38,2) ; HD_BLDG_MAT et PHARE_HD : dernier FY2025.",
+  "correction_validee": "Décaler d'un an les étiquettes de toutes les séries annuelles concernées (exercice 2025 = 164,7 Mds $) et corriger les textes.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Return on invested capital / Share repurchases paused / Total addressable market",
+  "probleme": "Chiffre divergent de l'anti-thèse, nom qui ne correspond pas à la valeur, unité incohérente.",
+  "preuve": "ROIC 25,7 % contre « ROIC* de 25,4% » dans l'anti-thèse ; « Rachats d'actions suspendus » = 11,7 Mds $ (autorisation restante) ; unité « Bn USD (trillion) » et « 1,2 trillion de dollars ».",
+  "correction_validee": "Aligner le ROIC, renommer « Autorisation de rachat restante », unité « Mds $ » avec 1 200.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "revenue_by_segment",
+  "probleme": "Libellés en anglais, rayons qui se recouvrent, et SRS/GMS (distribution) absents alors qu'ils pèsent plusieurs milliards par trimestre.",
+  "preuve": "« Power », « Plumbing », « Millwork », « Electrical/Lighting 5.1 » et « Lighting 2.6 » ; srs_revenue 6,3 Mds $ au T4 2025.",
+  "correction_validee": "Traduire, vérifier le doublon éclairage, isoler la distribution professionnelle.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / positionnement IA",
+  "champ": "sales_per_sqft, HD_BLDG_MAT, PHARE_HD, ai_positioning",
+  "probleme": "Série périmée, accents manquants, anglicismes.",
+  "preuve": "sales_per_sqft dernier FY2024 (2025-03-21) ; « Materiaux », « premiere », « Electromenager » ; « (supply chain, search, customer-facing tools) ».",
+  "correction_validee": "Ajouter l'exercice 2025, corriger les accents et traduire en « chaîne logistique, recherche, outils clients ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

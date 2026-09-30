@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "New Orders (Units), New Orders, Homebuilding Gross Margin, Land Lots Owned",
+  "probleme": "Quatre series annuelles sans dates ou mal formees, contredites par la fiche : un point trimestriel (Q2-2026=5885) colle a une serie annuelle ; « New Orders » 21 500 contre 20 410 commandes nettes 2025 ; marge brute 23,5 % contre environ 21 % en 2025 ; « Lots Owned » 151 200 contre 180 100 lots controles fin 2025, et le nom contredit le modele sans foncier.",
+  "preuve": "New Orders (Units) serie: FY2022=19164 ... FY2025=20410, Q2-2026=5885 | yoy=-10% ; Land Lots Owned val=151200 vs CAHIER_LOTS_OPTIONED FY2025=180100",
+  "correction_validee": "Supprimer les quatre series.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "nvrm_capture_rate",
+  "probleme": "Zeros dans une serie de taux de captation (85 a 87 % ailleurs), qui cassent le graphique.",
+  "preuve": "serie: Q3-2024=86, Q4-2024=0, Q1-2025=86 ... Q4-2025=0, Q1-2026=83",
+  "correction_validee": "Vider les points Q4-2024 et Q4-2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_ma, segment_profit_ma, gross_margin_ma, settlements_ma... (24 KPI regionaux)",
+  "probleme": "Le meme signal est copie sur les six KPI de chaque region, sans lien avec l'indicateur affiche.",
+  "preuve": "gross_margin_ma :: « T2 2026: CA 879,5 M$ (-22%), marge brute 20,9% contre 23,5%, profit segment 105,6 M$ (-45%) » identique a revenue_ma et segment_profit_ma",
+  "correction_validee": "Reduire chaque signal a son indicateur.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "hb_gross_profit.signal, net_margin.signal, settlements_units.signal",
+  "probleme": "Cuisine interne : chiffres bruts en milliers sans unite et libelle de tableau source en anglais.",
+  "preuve": "« revenus 2 279 771 moins cout des ventes 1 841 217 » ; « (resultat net 236 458 / CA consolide 2 326 356) » ; « (T2 2026 Operating Data: Settlements (units) 5,058) »",
+  "correction_validee": "Reecrire en M$ (2 279,8 M$ moins 1 841,2 M$ ; 236,5 M$ / 2 326,4 M$) et retirer la parenthese anglaise.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_margin_homebuilding.yoy, sga_pct_revenue.yoy, operating_margin_hb.yoy, net_margin.yoy, gross_margin_*.yoy, effective_tax_rate.yoy, nvrm_capture_rate.yoy",
+  "probleme": "Variations de ratios en % relatif au lieu de points.",
+  "preuve": "gross_margin_homebuilding 21.5 -> 19.2 | yoy=-10.7% ; sga_pct_revenue 5.9 -> 6.6 | yoy=+11.9%",
+  "correction_validee": "Exprimer la variation en points.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Cinq regions listees sans aucune valeur.",
+  "preuve": "Mid Atlantic None ; Sud-Est None ; Centre-Est None ; Nord-Est None ; Banque hypothecaire None",
+  "correction_validee": "Renseigner les parts 2025 a partir des CA regionaux de la fiche (revenue_ma, ne, me, se, mb) ou masquer le bloc.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

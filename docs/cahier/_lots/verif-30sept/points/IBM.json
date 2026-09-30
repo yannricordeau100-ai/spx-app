@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "yoy de tous les KPI trimestriels au T2 2026",
+  "probleme": "Variations du T2 2026 copiees du T1 2026 ; valeurs du T2 arrondies",
+  "preuve": "rev_total 17.2 contre 16.977 = +1.3 % (affiche +9.5 %, l'anti-these dit +1,1 %) ; sw_rev +5.6 % (affiche +11.3) ; infra_rev -8.3 % (affiche +15.2) ; seg_profit_infra -13.5 % (affiche +111.3) ; eps 2.27 contre 2.31 (affiche +14.3 %) ; ocf +52.9 % (affiche +18.3) ; free_cash_flow -10.7 % (affiche +13.2) ; total_debt -3.4 % (affiche +4.9)",
+  "correction_validee": "Recalculer toutes les variations du T2 2026 sur le T2 2025 et verifier a la source les valeurs arrondies du T2 (17,2, 7,8, 5,3, 3,8, 2,2, 2,5, 2,6, 62).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux rev_total, gross_margin, eps_diluted, net_income_q, rd_q, capex_q, inventories, seg_profit_*, sw_rev, consulting_rev, infra_rev, consulting_signings",
+  "probleme": "Signaux restes au T1 2026 ou au T4 2025, en anglais, avec noms de documents et de sections",
+  "preuve": "\"Revenue of $15.9 billion, up 9 percent ... (T1 2026, ER 2026-04-22)\" ; \"(Segment Data, ER 2026-04-22)\" ; \"(Free Cash Flow reconciliation ...)\" ; \"Software depasse $30B cap ... en Q4\" ; \"Signings returned to growth\" ; consulting_signings s'arrete au T1 2026",
+  "correction_validee": "Reecrire tous ces signaux en francais sur le T2 2026, sans reference de source, et mettre a jour consulting_signings au T2 2026.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ibm_z_q4",
+  "probleme": "Nom faux, variation absurde, signal contredit par la serie",
+  "preuve": "nom \"Revenus IBM Z (Q4 annualise)\" alors que la serie est une croissance trimestrielle en % ; yoy=+432.7% ; signal \"croissance la plus forte depuis des annees\" alors que le dernier point est -42",
+  "correction_validee": "Renommer en \"Croissance du CA IBM Z sur un an\", retirer la yoy et reecrire le signal sur le recul de 42 % au T2 2026 apres le pic du cycle z17.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "free_cash_flow / fcf_annuel",
+  "probleme": "Deux definitions du flux de tresorerie libre sous le meme nom, et le KPI trimestriel est nomme annuel",
+  "preuve": "free_cash_flow \"Free Cash Flow annuel\" en trimestriel, somme 2025 = 14.73 Mds (\"FCF depasse $14.7B\") contre fcf_annuel 2025 = 12.102 ; Q1-2026 2.22 alors que OCF 5.169 - capex 0.384 = 4.79",
+  "correction_validee": "Renommer \"Flux de tresorerie libre (definition IBM)\" et expliquer l'ecart",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification contredite par le dernier trimestre",
+  "preuve": "\"Le logiciel et l'infrastructure accelerent\" alors que infra_rev 3.8 contre 4.142 au T2 2025 (-8 %) et IBM Z -42 % ; la these parle d'un \"trimestre manque\"",
+  "correction_validee": "Reecrire la justification : logiciel en hausse d'environ 6 % au T2 2026, infrastructure en recul de 8 % en fin de cycle z17, carnet IA generative en forte hausse.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "red_hat_q4 / Hybrid Cloud (Red Hat) revenue growth / CAHIER_BOOKINGS / CAHIER_BOOK_TO_BILL",
+  "probleme": "Doublons et noms trompeurs",
+  "preuve": "red_hat_q4 (11) et Hybrid Cloud growth (11.2) mesurent la meme chose ; CAHIER_BOOKINGS 21.8 = somme des signatures Consulting 2025 (4.9+4.8+5.2+6.8) mais nomme \"Prises de commandes\" comme si c'etait le groupe ; book-to-bill idem",
+  "correction_validee": "Supprimer le doublon Hybrid Cloud (Red Hat) revenue growth, et renommer en \"Signatures Consulting annuelles\" et \"Ratio commandes/facturation Consulting\".",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "texte",
+  "probleme": "Texte generique de modele de langage alors que la fiche contient des chiffres IA precis",
+  "preuve": "\"IBM est un leader ... propose des produits et des services IA pour aider les entreprises a ameliorer leur efficacite\" ; la fiche contient un carnet IA generative de 12.5 Mds $ et 1.5 Md $ de revenus logiciels IA",
+  "correction_validee": "Reecrire avec les chiffres de la fiche",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "products",
+  "probleme": "Description perimee et incomplete",
+  "preuve": "\"IBM Cloud, les services d'IA Watson, les serveurs Power Systems, et les solutions de stockage Flash\" : ni Red Hat, ni le conseil (31 % du CA), ni les mainframes Z",
+  "correction_validee": "Citer logiciel (Red Hat, watsonx, automatisation), conseil et mainframes Z",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel / dette_sur_ca",
+  "probleme": "Rupture de perimetre Kyndryl : 2018 non retraite, 2019 retraite",
+  "preuve": "2018=79.591 puis 2019=57.714 ; \"-1,9 % par an depuis 2016\" ; dette_sur_ca 57.6 % en 2018 puis 122 % en 2019",
+  "correction_validee": "Retraiter 2018 ou couper la serie en 2019",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "HEADCOUNT_TOT.signal",
+  "probleme": "Nombre d'annees de baisse faux",
+  "preuve": "\"se contracte pour la deuxieme annee consecutive\" alors que la serie donne 288.3 (2022), 282.2, 270.3, 264.3 : troisieme annee",
+  "correction_validee": "Remplacer \"deuxieme annee consecutive\" par \"troisieme annee consecutive\".",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Confluent acquisition / HashiCorp acquisition / One-time tax charge (OBBBA) / Daily AI inferences on IBM Z mainframe",
+  "probleme": "Evenements presentes comme KPI, chiffre en conflit avec l'anti-these, capacite technique presentee comme usage",
+  "preuve": "Confluent 11.3 Mds contre \"11,6 Mds $\" dans l'anti-these ; charge fiscale du T3 2025 datee 2026-03-28 ; \"450 milliards/jour\" est une capacite annoncee du z17, pas un volume mesure ; \"7,2 G$\"",
+  "correction_validee": "Deplacer vers les faits marquants, harmoniser le montant Confluent, renommer en capacite",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

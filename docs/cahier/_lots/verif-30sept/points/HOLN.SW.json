@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REV_FY, REC_EBIT_FY, REC_EBIT_MARGIN_FY, EPS_BID_FY, NET_DEBT_FY, DIV, EMPLOYEES, FCF_FY, REV_Q, REC_EBIT_Q",
+  "probleme": "Rupture de périmètre (scission d'Amrize) non retraitée dans les séries : le graphique montre un effondrement alors que la variation affichée est calculée sur une base retraitée",
+  "preuve": "REV_FY 26 407 puis 15 724 avec yoy '-2,9%' ; REC_EBIT_FY 5 049 puis 2 876 avec yoy '+1,4%' ; REC_EBIT_MARGIN_FY 19,1 puis 18,3 avec yoy '+0,8 pt' ; REV_Q Q4-2024=6 473 puis Q1-2025=3 696",
+  "correction_validee": "Retraiter l'historique sur le périmètre sans Amrize ou couper les séries à 2025 avec une mention de rupture de périmètre.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS_BID_FY.signal",
+  "probleme": "Le signal affirme une croissance annuelle continue que la série contredit",
+  "preuve": "'en croissance chaque année sur la mesure de référence malgré le spin-off' alors que la série passe de 5,70 (2024) à 3,22 (2025)",
+  "correction_validee": "Préciser '+5,0 % sur base retraitée' et retirer 'chaque année', ou retraiter la série",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Sales Holcim, Cement Volumes, Aggregates Volumes, Ready-Mix Volumes, RMX Volumes, S&P Solutions Sales, Solutions & Products Sales, CO2 / t Cement",
+  "probleme": "Huit anciens KPI sur l'ancien périmètre (Amérique du Nord incluse), sans périodes, en anglais, qui se contredisent entre eux et avec les KPI récents",
+  "preuve": "Ready-Mix Volumes 2024 = 38,5 contre RMX Volumes 39 ; S&P Solutions Sales 4,5 Mds contre Solutions & Products Sales 8 Mds pour le même segment ; 'ECOPlanet green cement représente 25%+ ventes FY24' contre ECOPLANET_SHARE FY2024 = 34 ; cite Firestone et Malarkey, partis chez Amrize ; 'downstream', 'Focus mix'",
+  "correction_validee": "Supprimer les huit KPI listés.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SHIPMENTS",
+  "probleme": "Nom 'par ligne de produit' pour une seule série de ciment, arrêtée en 2021, sur l'ancien périmètre, en doublon de CEMENT_PRODUCED et incohérente avec l'ancien KPI Cement Volumes",
+  "preuve": "FY2021 = 200,8 Mt contre 207 dans Cement Volumes pour la même année ; CEMENT_PRODUCED 2025 = 85 Mt",
+  "correction_validee": "Supprimer CAHIER_SHIPMENTS.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Sur le nouveau périmètre, il manque les volumes de granulats et de béton prêt à l'emploi et l'intensité CO2 nette par tonne, indicateurs de base du secteur",
+  "preuve": "Ces données n'existent que dans les anciens KPI sans période (Aggregates Volumes 250, CO2 / t Cement 530 kg/t)",
+  "correction_validee": "Ajouter ces trois séries annuelles retraitées",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "La justification expose la cuisine interne de l'évaluation",
+  "preuve": "'mais un seul indicateur disponible interdit de conclure à un renforcement'",
+  "correction_validee": "Retirer cette proposition et garder la phrase sur la marge et le ciment bas carbone.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition / positions de marche",
+  "champ": "revenue_by_segment, market_positions[0].segment_name",
+  "probleme": "Noms de segments en anglais, accents manquants, et part de Building Materials incohérente avec le signal",
+  "preuve": "'Building Materials', 'beton pret a l'emploi' ; répartition 62,9 % contre BM_REV_FY 'environ deux tiers du groupe' (11 556 / 17 407 = 66,4 %)",
+  "correction_validee": "Libellés français accentués et recalcul des parts",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik / tagline",
+  "champ": "simple.fr.activity, tagline",
+  "probleme": "Description publicitaire sans substance et sans mention de la scission ; accroche en anglais",
+  "preuve": "'se positionne comme un partenaire de premier plan ... vise à répondre aux besoins du marché en pleine évolution' ; 'A global leader in innovative and sustainable building solutions'",
+  "correction_validee": "Réécrire avec le périmètre actuel (3 régions, 2 lignes, scission d'Amrize en 2025)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition du CA par segment fausse, incompatible avec les revenus de segment de la fiche",
+  "preuve": "Repartition : MI 50,4 %, Ratings 29,3 %, Indices 3,6 %, Mobility 5,4 %. Sommes 2025 des KPI : MI 4 916 M$ (32 %), Ratings 4 724 M$ (31 %), Energy 2 299 M$ (15 %), Mobility 1 747 M$ (11 %), Indices 1 850 M$ (12 %) sur 15 336 M$",
+  "correction_validee": "Recalculer la répartition sur les revenus de segment 2025 : MI ~32 %, Ratings ~30 %, Commodity Insights ~15 %, Indices ~12 %, Mobility ~11 %.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Op Income",
+  "probleme": "Valeur impossible : le résultat opérationnel dépasse 80 % du CA",
+  "preuve": "Op Income = 12,544 Mds $ (série 9,043 ; 14,044 ; 8,64 ; 11,406 ; 12,544) contre un CA 2025 de 15,336 Mds $ et une marge opérationnelle de 41 à 44 %, soit environ 6,5 Mds $",
+  "correction_validee": "Supprimer la série Op Income, déjà couverte par operating_margin et les segop_*.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ETF AUM Linked to Indices (annuel)",
+  "probleme": "Doublon périmé et contradictoire des encours ETF",
+  "preuve": "ETF AUM Linked to Indices = 3 050 Mds $ daté du 2026-06-30, contre etf_aum_ending = 6 350 Mds $ au T2-2026 et CAHIER_ASSETS_INDEXED FY2025 = 5 480",
+  "correction_validee": "Supprimer ETF AUM Linked to Indices, déjà couvert par etf_aum_ending et CAHIER_ASSETS_INDEXED.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Le moat est contredit par les chiffres et par le positionnement IA",
+  "preuve": "« compense le recul de la notation et la quasi stagnation du renseignement de marché, avec une position IA de premier plan » : Ratings transaction +25 %, Ratings op +28 %, MI +6 % ; le positionnement IA dit « sans en faire un moteur de croissance central »",
+  "correction_validee": "Réécrire le moat (agrément d'agence de notation, marques d'indices, données propriétaires) avec la croissance réelle de Ratings et d'Indices et un rôle de l'IA secondaire.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "mobility_revenue.nom",
+  "probleme": "Rattachement erroné : J.D. Power n'appartient pas à S&P Global Mobility",
+  "preuve": "Nom « Mobility (J.D. Power/Carfax) revenus ». Mobility regroupe CARFAX, automotiveMastermind et Polk ; J.D. Power est une société distincte",
+  "correction_validee": "Renommer en « Revenus Mobility (CARFAX, Polk) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Ratings Revenue / Indices Revenue / Mobility Revenue / Commodity Insights Rev / Adj Op Margin",
+  "probleme": "Séries annuelles sans période, datées du 2026-06-30, qui doublonnent les KPI trimestriels et s'en écartent",
+  "preuve": "Mobility Revenue = 1,6 contre 1,747 en sommant 2025 (série 0 ; 0,4 ; 1,3 : un zéro factice) ; Commodity Insights = 2,1 contre 2,299 pour Energy 2025 ; Ratings = 4,6 contre 4,724",
+  "correction_validee": "Supprimer ces séries non datées ou les remplacer par des sommes annuelles des KPI trimestriels",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Remaining performance obligations backlog / Ratings Billed Issuance growth / Share repurchases 2025 / 53rd consecutive year",
+  "probleme": "Doublons ponctuels de KPI existants, dont un contradictoire",
+  "preuve": "RPO backlog = 5,7 Mds $ (2026-03-11) contre rpo_backlog FY2025 = 5,9 ; Billed Issuance growth doublonne billed_issuance_total ; Share repurchases 2025 = 5 reprend la somme de share_buybacks ; la 53e année est déjà dans le signal de dividend_per_share",
+  "correction_validee": "Supprimer les quatre entrées ponctuelles.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.titre / att",
+  "probleme": "La trésorerie libre citée ne correspond pas à celle de la fiche",
+  "preuve": "these et att : « 2 249 M$ de trésorerie libre » sur six mois ; free_cash_flow Q1-2026 + Q2-2026 = 1 010 + 1 401 = 2 411 M$ (OCF 2 476 moins capex 65)",
+  "correction_validee": "Aligner le chiffre ou préciser la définition ajustée (astérisque)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "energy_revenue / segop_energy",
+  "probleme": "Nom trompeur : le segment s'appelle Commodity Insights et ne se limite pas à l'énergie",
+  "preuve": "« Energy (Platts) revenus », « Résultat op. Energy (Commodity Insights) »",
+  "correction_validee": "Renommer en « Revenus Commodity Insights (Platts) » et « Résultat op. Commodity Insights ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Announced hyperscaler CapEx / CERAWeek / OSTTRA / With Intelligence / EDM gain",
+  "probleme": "Événements ou données externes présentés comme des KPI de la société",
+  "preuve": "Announced hyperscaler CapEx = 650 Mds $ (dépenses de tiers) ; CERAWeek = 11 000 participants ; plus-values de cession avec n = 1",
+  "correction_validee": "Sortir ces éléments des KPI",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "mi_subscription.signal / market_intelligence_rev.signal / indices_revenue.signal",
+  "probleme": "Signaux en franglais et jargon",
+  "preuve": "« ARR-proxy: 84% du segment MI : quasi-SaaS » ; « 84% subscription ($4,107M) » ; « Asset-linked fees $348M ... $6.350T »",
+  "correction_validee": "Réécrire en français courant avec le format numérique français",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

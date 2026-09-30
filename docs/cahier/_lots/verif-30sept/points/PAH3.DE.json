@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "gouvernance",
+  "champ": "governance.ceo_name",
+  "probleme": "Le dirigeant affiché est « Mr. Hannes Ruoff, CEO of Porsche Asia Pacific », un cadre régional de Porsche AG, pas le président du directoire de Porsche SE (Hans Dieter Pötsch). Le champ voting_structure_note dit « OK 1-share-1-vote » alors que voting_structure est preferred_shares_class (actions de préférence sans droit de vote).",
+  "preuve": "governance: ceo_name 'Mr. Hannes  Ruoff', ceo_title 'CEO of Porsche Asia Pacific', voting_structure_note 'OK 1-share-1-vote', voting_structure 'preferred_shares_class'",
+  "correction_validee": "Remplacer par le président du directoire de Porsche SE (Hans Dieter Pötsch) et écrire que les actions cotées sont des actions de préférence sans droit de vote.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Adjusted Group Net Income After Tax, Net Asset Value (M €), Holding Discount",
+  "probleme": "Trois séries de cinq points dont les quatre premiers sont strictement identiques (3200 x4, 17019 x4, 35 x4) : valeurs de remplissage, pas des données publiées. Le signal du résultat ajusté est le mot « negative » seul.",
+  "preuve": "Adjusted Group Net Income After Tax serie: 3200, 3200, 3200, 3200, 2894 :: negative ; Net Asset Value serie: 17019 x4, 17846 ; Holding Discount serie: 35 x4, 31",
+  "correction_validee": "Supprimer les trois séries.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "VW Group Stake Value, Porsche AG Stake Value, Net Asset Value (NAV) Mds €",
+  "probleme": "Trois séries en nombres ronds sans périodes (40, 45, 35, 28, 22 ; 25, 27, 30, 22, 13 ; 50, 55, 40, 28, 18) avec signaux en style télégraphique (« Effondrement valorisation VW pèse », « Chute valorisation Porsche AG dramatique »). Deux KPI NAV coexistent avec des valeurs 2024 incompatibles (28 Mds € contre 17,0 Mds €).",
+  "preuve": "Net Asset Value (NAV) serie: 50, 55, 40, 28, 18 ; Net Asset Value serie: 17019, 17019, 17019, 17019, 17846",
+  "correction_validee": "Retirer les trois séries, ou les reconstruire à partir des valeurs de marché publiées dans les rapports annuels.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Dividends Received",
+  "probleme": "Le signal annonce une baisse des dividendes reçus alors que la série monte chaque année (1 800 vers 1 900, +5 %). Série non datée.",
+  "preuve": "Dividends Received | val=1900 | yoy=+5% | serie: 600, 1100, 1700, 1800, 1900 :: Baisse des dividendes reçus reflétant des distributions réduites",
+  "correction_validee": "Vérifier la série contre les rapports annuels (dividendes VW et Porsche AG encaissés) et réécrire le signal dans le sens des chiffres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these vs att (effectifs)",
+  "probleme": "La thèse parle de quarante-huit salariés, l'anti-thèse de 38 personnes : les deux blocs se contredisent sur un chiffre simple.",
+  "preuve": "these: cette société de quarante-huit salariés ; att: Porsche SE emploie 38 personnes",
+  "correction_validee": "Retenir l'effectif du rapport annuel 2025 dans les deux blocs.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "att",
+  "champ": "att.resume",
+  "probleme": "Faute de conjugaison : « qu'elle ne consolidé pas ».",
+  "preuve": "deux participations qu'elle ne consolidé pas, Volkswagen AG et Porsche AG",
+  "correction_validee": "Remplacer « ne consolidé pas » par « ne consolide pas ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Capex",
+  "probleme": "Investissements libellés en M $ pour une holding allemande qui publie en euros ; un capex de 214 puis 293 M pour une structure de moins de 50 salariés n'a pas de sens (au mieux des prises de participation, pas des immobilisations).",
+  "preuve": "KPI Capex | Investissements (Capex) | M $ | serie: 3, 214, 293",
+  "correction_validee": "Supprimer le KPI ou le renommer en investissements financiers en M € après vérification.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

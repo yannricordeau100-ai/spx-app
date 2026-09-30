@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Industrial Net Sales, Other End Market Sales, Wafer Foundry Products",
+  "probleme": "Trois KPI annuels a 2 points datant de FY2020-FY2021 (sortie de la fonderie Sanken), sans annees, descriptions en franglais, et contradictoires avec les KPI actuels",
+  "preuve": "Industrial Net Sales serie [78.4, 94.9] alors que sales_industrial_a FY2026 = 261,5 M$ ; description : 'white goods', 'PC printers', 'Croissance >20% an FY21' ; Wafer Foundry val=0 yoy=-100%",
+  "correction_validee": "Supprimer Industrial Net Sales, Other End Market Sales et Wafer Foundry Products.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "units_shipped",
+  "probleme": "Serie faite de chiffres marketing arrondis (1000, 1500 x4, 2100) et signal qui interprete quatre valeurs identiques comme quatre exercices stables",
+  "preuve": "history [1000, 1500, 1500, 1500, 1500, 2100] M unites ; signal 'Les livraisons rebondissent apres quatre exercices stables'",
+  "correction_validee": "Retirer le KPI ou remplacer par les volumes reels si publies ; au minimum reecrire le signal en precisant qu'il s'agit d'ordres de grandeur annonces par la societe",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these / ai_positioning / kpis",
+  "champ": "these.hook, ai_positioning.summary",
+  "probleme": "La these cite un record de 17 % des ventes pour les centres de calcul IA, le positionnement IA affirme qu'aucun pourcentage n'est publie, et aucun KPI de la fiche ne suit ces ventes",
+  "preuve": "these : 'fait entrer les centres de calcul pour l'intelligence artificielle a 17 % de ses ventes, un record maison' ; ai_positioning : 'sans pourcentage precis publie'",
+  "correction_validee": "Vérifier le 17 % dans la conférence de résultats : s'il est confirmé, aligner le positionnement IA et ajouter un KPI Part des ventes centres de données, sinon retirer le chiffre de la thèse.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_INVENTORY_CHANNEL.name_fr",
+  "probleme": "Nom qui annonce deux mesures (stocks internes et stocks du canal) pour une seule serie en jours",
+  "preuve": "name_fr 'Stocks internes en jours et stocks du canal de distribution', unit 'jours', serie unique [119.4 ... 138.7]",
+  "correction_validee": "Renommer en 'Stocks internes en jours de coût des ventes'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_margin_q, net_income_q, rd_expense_q, eps_diluted_q",
+  "probleme": "Series trimestrielles avec un trou chaque annee (trimestre calendaire Q1 = 4e trimestre fiscal absent depuis 2020) alors que revenue_q est complete",
+  "preuve": "gross_margin_q history_periods : Q4-2019, Q2-2020, Q3-2020, Q4-2020, Q2-2021 ... Q4-2025, Q2-2026 ; revenue_q contient Q1-2025 et Q1-2026",
+  "correction_validee": "Calculer les trimestres manquants (exercice moins neuf mois) a partir des 10-K",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Bloc moat sans texte : seule la justification de tendance est renseignee",
+  "preuve": "moat.texte = '' ; niveau 'Moyen', tendance 'hausse'",
+  "correction_validee": "Rediger le texte du moat (capteurs magnetiques, base installee automobile, qualification longue chez les OEM)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

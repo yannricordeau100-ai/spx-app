@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Copper co-product production / Silver co-product production / Quarterly dividend per share / Quarterly free cash flow",
+  "probleme": "Quatre doublons de series existantes avec des points annuels meles aux trimestres ou des valeurs contredites",
+  "preuve": "Copper co-product 35, 135, 30, 17 kt (135 = total 2025) contre copper_prod ; Silver co-product 28, 9, 7 ; Quarterly dividend 0.14, 0.25, 0.55, 0.55, 0.55, 0.25 contre dividend_per_share 0.25 constant ; Quarterly FCF Q2-2025 0.735 contre free_cash_flow Q2-2025=1.71",
+  "correction_validee": "Supprimer Copper co-product, Silver co-product, Quarterly dividend per share et Quarterly free cash flow.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Gold by-product all-in sustaining cost / Gold by-product costs applicable to sales",
+  "probleme": "AISC sous-produit qui baisse de 29 % quand l AISC co-produit monte de 22 % ; cout applicable aux ventes qui double en un trimestre",
+  "preuve": "by-product AISC Q2-2026=1.029 (yoy -29%) contre aisc_gold Q2-2026=1.938 (yoy +21.7%) ; costs applicable to sales 541 puis 1043",
+  "correction_validee": "Verifier les deux series sous-produit contre les communiques trimestriels, sinon les retirer.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RESERVES_RESOURCES",
+  "probleme": "Nom Reserves et ressources alors que la serie est celle des reserves seules",
+  "preuve": "val=118.2 Moz = Attributable gold reserves 118.2 ; Portfolio production life : 118 Moz de reserves plus 149 Moz de ressources",
+  "correction_validee": "Renommer CAHIER_RESERVES_RESOURCES en Reserves d or attribuables et supprimer Attributable gold reserves.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Noms de pays en anglais et en majuscules ; repartition par pays du client (banques de Londres) trompeuse pour un mineur dont les mines sont ailleurs",
+  "preuve": "Royaume-Uni 61.5 ; KOREA, REPUBLIC OF 15 ; SWITZERLAND 0.4 ; PHILIPPINES 0.4",
+  "correction_validee": "Traduire les libelles ; preciser lieu de livraison ou remplacer par la repartition par site de production",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik customers",
+  "probleme": "Clients decrits comme investisseurs institutionnels et fonds souverains, contredit par le bloc clients",
+  "preuve": "customers : investisseurs institutionnels, des fonds souverains ; clients : Standard Chartered, JPMorgan Chase 38 %",
+  "correction_validee": "Reecrire : banques de metaux precieux, affineurs et fondeurs",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rev_* et ibt_* (signaux)",
+  "probleme": "Noms propres sans majuscule dans une dizaine de signaux",
+  "preuve": "au mexique ; en australie-occidentale ; au pérou ; au suriname (newmont ~75%) ; (ex-newcrest)",
+  "correction_validee": "Mettre la majuscule aux noms de pays, regions et societes dans les signaux rev_* et ibt_*.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "New share repurchase authorization, Brucejack Dozer discovery, Portfolio production life, Lihir unlocked ounces, Ahafo North annual production, Common stock repurchased, Portfolio optimization completed, Total liquidity",
+  "probleme": "Huit faits ponctuels a un point presentes comme KPI trimestriels",
+  "preuve": "Brucejack Dozer high-grade discovery | g/t | n=1 | val=154 ; Portfolio optimization program completed | actifs | val=6",
+  "correction_validee": "Deplacer en story ou supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat / position de marche / positionnement IA / tagline",
+  "probleme": "Niveau de moat None, position de marche vide, positionnement IA generique identique a d autres fiches, tagline en anglais",
+  "preuve": "position de marche 1: None | taille 555 ; positionnement IA : intègre l'IA/ML de manière opérationnelle ... selon son rapport annuel ; tagline: Creating Value and Improving Lives",
+  "correction_validee": "Supprimer la position vide, fixer le niveau, reecrire le positionnement IA, traduire",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

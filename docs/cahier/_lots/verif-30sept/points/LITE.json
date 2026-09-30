@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "REVENUE et toutes les series trimestrielles",
+  "probleme": "Le trimestre de cloture de l exercice 2026 (27 juin 2026) manque sur toutes les series alors que l annuel 2026 et la these s appuient dessus ; COMP_REV et SYST_REV sont dates 2026-06-27 mais s arretent au T3 et n ont aucun T4.",
+  "preuve": "REVENUE dernier 2026-03-28, n=51 ; revenue_annuel 2026=3.014 ; T4-FY2026 implicite = 3014 - (533.8+665.5+808.4) = 1006 M$ ; COMP_REV periodes Q1-FY2025, Q2-FY2025, Q3-FY2025, Q1-FY2026, Q2-FY2026, Q3-FY2026.",
+  "correction_validee": "Extraire le T4-FY2026 du rapport annuel pour toutes les séries trimestrielles et compléter les T4 des segments Composants et Systèmes.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition sur un decoupage abandonne en 2023 et un total de 1,74 Md $ (exercice 2021 ou 2023) alors que la fiche est a 3,0 Mds $ avec les segments Composants et Systemes.",
+  "preuve": "OpComms 93 ; Lasers 7 ; total 1.74 Mds $ ; OPCOMMS description : Cet ancien decoupage regroupait ... avant sa disparition ; COMP_REV Q3-FY2026=533.3, SYST_REV=275.1.",
+  "correction_validee": "Refaire la répartition FY2026 sur Composants et Systèmes.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Datacom Chips / 3D Sensing / Inventory Days",
+  "probleme": "Trois series annuelles rondes, sans periodes ni description, contredites par les autres KPI de la fiche : valeurs inventees.",
+  "preuve": "3D Sensing 640, 700, 640, 470, 380 M$ vs CONS_IND Q4-FY2023=33.6 M$/trim et INDTECH_REV ~57 M$/trim ; Inventory Days 195 vs INV_DAYS 133 et CAHIER_INVENTORY_LEADTIME 150 ; Datacom Chips 550 (FY2025) vs CN_REV FY2025 = 1411.",
+  "correction_validee": "Supprimer Datacom Chips, 3D Sensing et Inventory Days.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Concentration clients (clients, att, CUST10_SHARE, TOP2_CUST, CUST_CONC, CAHIER_CUSTOMER_CONCENTRATION, TOP_CUST)",
+  "probleme": "Six chiffres differents pour la meme concentration, series annuelles sans periodes qui se contredisent, et explication fausse.",
+  "preuve": "clients top 2 = 41,6 % (FY2026) ; att : deux clients pesent 38 % ; TOP2_CUST 31.4 ; CUST_CONC FY2024=11.4 vs CAHIER FY2024=18.9 ; TOP_CUST explanation : Nombre de clients servis.",
+  "correction_validee": "Garder une série annuelle (client A, client B, total 41,6 % en FY2026) et une série trimestrielle, supprimer CUST_CONC et TOP2_CUST et corriger l'explication de TOP_CUST, sans toucher au 38 % de att.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Restruct",
+  "probleme": "Serie stockee en ordre antichronologique sans periodes : le graphique montre une hausse alors que le signal decrit une baisse.",
+  "preuve": "hist [22.8, 72.6, 28.1] ; description : 22,8 M$ en 2025, contre 72,6 M$ en 2024 et 28,1 M$ en 2023.",
+  "correction_validee": "Inverser la série en 28.1, 72.6, 22.8 avec les périodes FY2023, FY2024, FY2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CN_MARGIN / IT_MARGIN / LA_PROFIT",
+  "probleme": "KPI nommes marge brute du segment alors que la serie est le profit de segment rapporte au revenu.",
+  "preuve": "CN_MARGIN Q4-FY2025=23.6 = CN_PROFIT 100 / CN_REV 424.1 ; IT_MARGIN 6 = 3.4 / 56.6 ; LA_PROFIT description : 40,6% de marge brute = 20.4 / 50.3.",
+  "correction_validee": "Renommer CN_MARGIN et IT_MARGIN en Marge de segment et remplacer marge brute par marge de segment dans le texte de LA_PROFIT.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "OCF, NET_INCOME, EPS_DIL, OP_INCOME, IT_PROFIT, NGAAP_GM, SGA_EXP (yoy et signaux)",
+  "probleme": "Variations calculees sur une base negative ou trompeuses, signe perdu.",
+  "preuve": "OCF yoy +12837.5% et signal contre 1,6 M$ un an plus tot alors que Q3-FY2025=-1.6 ; NET_INCOME +427% (-44.1 vers 144.2) ; IT_PROFIT +1800% (-0.2 vers 3.4) ; NGAAP_GM signal plus de 500 points de base pour +12,7 pts ; SGA_EXP signal reculent alors que le -18,9 % vient du pic ponctuel de 112 au Q3-FY2025.",
+  "correction_validee": "Afficher n/a quand la base est négative, écrire -1,6 M$ dans le signal OCF, 12,7 points pour NGAAP_GM, et réécrire le signal SG&A en citant le pic ponctuel.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "EMPLOYEES / MFG_EMP / effectifs_annuels",
+  "probleme": "Effectif en doublon, la version detaillee etant en retard d un exercice.",
+  "preuve": "EMPLOYEES dernier 2025-06-28 FY2025=10562 ; effectifs_annuels 2026=13757.",
+  "correction_validee": "Ajouter FY2026 à EMPLOYEES et MFG_EMP depuis le rapport annuel, sinon supprimer EMPLOYEES.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_BACKLOG",
+  "probleme": "Carnet de commandes, indicateur cle d un equipementier optique, arrete a FY2024 avec une date de cloture fausse (exercice clos fin juin).",
+  "preuve": "dernier 2024-12-31 ; periodes jusqu a FY2024=420.7 ; rapport annuel FY2026 integre ailleurs sur la fiche.",
+  "correction_validee": "Ajouter FY2025 et FY2026 depuis les rapports annuels et dater la cloture au 29 juin 2024.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "KPI a un point issus de la conference (Mizuho term loan, OCS revenue milestone, CPO scale-up opportunity, ELS multiple, Pump laser shipments / revenue growth)",
+  "probleme": "Faits de conference presentes comme KPI : pret immateriel, opportunite declaree par la direction, deux mesures quasi identiques.",
+  "preuve": "Mizuho 4,5 Md JPY (~30 M$ pour 3 Mds $ de CA) ; CPO scale-up incremental revenue opportunity 5 Mds $ ; Pump laser shipments growth 80 % et Pump laser revenue growth 90 % au meme trimestre.",
+  "correction_validee": "Supprimer le pret Mizuho et l opportunite CPO, fusionner les deux KPI pump laser, garder OCS backlog.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CN_REV, CN_PROFIT, CN_MARGIN, INDTECH_REV, IT_PROFIT, IT_MARGIN, OPCOMMS, OC_PROFIT, LASERS, LA_PROFIT, TEL_DAT, CONS_IND",
+  "probleme": "Douze series mortes de deux decoupages abandonnes, l une decrite au present comme porteuse de la these.",
+  "preuve": "CN_REV dernier 2025-06-28, description : Ce segment porte la these de croissance liee a l IA ; OPCOMMS dernier 2023-07-01.",
+  "correction_validee": "Archiver ces series ou les marquer ancien decoupage, et rediger la description de CN_REV au passe.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "summary",
+  "probleme": "Texte arrete a l acquisition Cloud Light de 2023, sans l investissement NVIDIA de 2 Mds $ ni les OCS et EML qui portent la fiche ; faute d accord.",
+  "preuve": "L acquisition de Cloud Light en 2023 etait specifiquement motivee ; dans les infrastructure cloud ; KPI NVIDIA direct investment 2,02 Mds $ dernier 2026-03-28.",
+  "correction_validee": "Reecrire le positionnement avec les faits 2026 (NVIDIA, OCS, CPO) et corriger la grammaire.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

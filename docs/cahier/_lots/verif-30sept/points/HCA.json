@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Occupancy rate, Admissions, Number of hospitals, Freestanding outpatient surgery centers, Cash flow from operations, Number of colleagues, Capex excl. acq., Operating cash flow, Interest expense, Hospitals, Outpatient Mix, Surgeries, Op Income",
+  "probleme": "Treize KPI sont datés du 2026-09-29, avant la publication du T3 (2026-10-23) ; leurs valeurs sont celles de 2025 ou du T1 2026.",
+  "preuve": "Admissions 580 258 = admissions_total T1 2026 ; Operating cash flow 12,636 = somme 2025 (1,651+4,21+4,416+2,359) ; Capex excl. acq. 4,944 = FCF 2025 recalculé (12,636 - 7,692).",
+  "correction_validee": "Redater chaque série sur sa vraie période (T1 2026 ou exercice 2025).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Surgeries",
+  "probleme": "Le total des chirurgies est incompatible avec les séries trimestrielles.",
+  "preuve": "1,95 M pour la dernière année ; 2025 calculé = chirurgies hospitalisées 545 405 + ambulatoires 1 022 812 = 1,57 M.",
+  "correction_validee": "Supprimer Surgeries ou le recalculer depuis inpatient_surgeries et outpatient_surgeries (1,57 M en 2025).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Number of colleagues",
+  "probleme": "Effectif incohérent avec le reste de la fiche.",
+  "preuve": "série 300 000 puis 230 000 ; effectifs_annuels 2025 = 320 000.",
+  "correction_validee": "Supprimer ce KPI, doublon de effectifs_annuels.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Le moat affirme des reculs démentis par la fiche.",
+  "preuve": "« les urgences et les chirurgies reculent et la pénurie de personnel soignant s'aggrave » alors que er_visits T2 2026 fait +3,5 %, admissions +2,4 % et salaires/CA passe de 46,3 % (2020) à 43,5 % (2025).",
+  "correction_validee": "Réécrire le moat : admissions et urgences en hausse, chirurgies en recul, sans parler d'une pénurie qui s'aggrave.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Inpatient Admissions",
+  "probleme": "La série contient un zéro et une valeur répétée ; c'est un doublon de admissions_total, avec du franglais.",
+  "preuve": "série 2 130 728, 0, 2 130 728, 2 236 595, 2 297 065 ; « Volume admissions IP ... revenue mix vs outpatient », « exclu freestanding endoscopy », « hospitalisees ».",
+  "correction_validee": "Supprimer ou reconstruire depuis admissions_total (2025 = 2 297 065, cohérent).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_q.signal",
+  "probleme": "Le signal contredit l'anti-thèse sur l'origine de la croissance.",
+  "preuve": "« Croissance régulière du chiffre d'affaires, portée par volumes et pricing » contre l'anti-thèse : « +8,7 % ... Retirez ... le programme Medicaid de Floride ... il reste +1,4 % ».",
+  "correction_validee": "Mentionner l'effet du programme de Floride dans le signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "hospitals_count / Hospitals / Number of hospitals ; outpatient_share / Outpatient Mix",
+  "probleme": "Trois séries du nombre d'hôpitaux et deux de la part ambulatoire, avec des valeurs divergentes.",
+  "preuve": "hospitals_count FY2024 = 190 contre Hospitals 188 pour l'avant-dernier point ; Number of hospitals 189 ; Outpatient Mix 39 % contre outpatient_share 34 % au T2 2026 (37 à 40 en 2025) ; unité « hospitals ».",
+  "correction_validee": "Garder hospitals_count et outpatient_share, supprimer Hospitals, Number of hospitals et Outpatient Mix.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cash flow from operations (full year)",
+  "probleme": "Doublon de Operating cash flow, avec une description contredite.",
+  "preuve": "12,6 contre 12,636 ; « sans alourdir la dette » alors que dette_annuelle 2025 fait +8,0 % et lt_debt +10,3 % sur un an.",
+  "correction_validee": "Supprimer ce KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment / revenue_by_geography / kpis",
+  "champ": "revenue_by_segment, revenue_by_geography, CAHIER_PAYER_MIX",
+  "probleme": "Le bloc segments montre en réalité la répartition par payeur, et le bloc géographie les groupes opérationnels, avec des libellés anglais ; le mix payeurs est ambigu.",
+  "preuve": "« Managed Care And Other Insurers 50.5 ; Managed Medicare 18.4 ... » ; « American Group 36.5 ; Atlantic Group 34.1 ; National Group 29.4 » ; CAHIER_PAYER_MIX = 19 % sans dire de quoi, alors que Medicare pèse 15,4 % du CA.",
+  "correction_validee": "Titrer « Répartition par payeur », traduire, nommer le KPI « Part de Medicare traditionnel dans les admissions » si c'est la mesure.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Hurricane Helene EPS impact / Repurchase authorization remaining / rev_per_eq_adm / outpatient_surgeries / inpatient_surgeries",
+  "probleme": "Événements périmés présentés comme récents, fautes et franglais dans les signaux.",
+  "preuve": "Ouragan Hélène (2024) daté du 2026-03-28, « Georgie » ; rachat restant « fin septembre 2025 » ; « Pricing power renforcé », « migration vers ASC indépendants », « Volume inpatient stable, mix acuity en hausse ».",
+  "correction_validee": "Supprimer les deux KPI périmés et traduire les signaux (pouvoir de prix, centres de chirurgie ambulatoire indépendants, gravité des cas).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque l'EBITDA ajusté et sa marge, principal indicateur suivi par les investisseurs hospitaliers et publié chaque trimestre par HCA ; il manque aussi la croissance à établissements comparables trimestrielle.",
+  "preuve": "Aucun KPI EBITDA ; CAHIER_SAME_FACILITY_GROWTH est seulement annuel, et son nom ne dit pas s'il mesure le CA ou les admissions.",
+  "correction_validee": "Ajouter l'EBITDA ajusté trimestriel, sa marge et les admissions équivalentes à établissements comparables.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

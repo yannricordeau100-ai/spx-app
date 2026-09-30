@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "fcf_annuel (+ fcf_par_salarie)",
+  "probleme": "La serie appelee Flux de tresorerie libre est en realite le flux de tresorerie d exploitation : elle ne deduit pas le capex.",
+  "preuve": "fcf_annuel 2025=10.044 Mds$ ; ocf_q 2025 = 2.289+2.032+3.111+2.612 = 10.044 ; capex_q 2025 = 6.59 Mds$ ; la these cite elle-meme un flux d exploitation de 11 340 M$ en 2023 et 10 044 M$ en 2025, exactement la serie fcf_annuel. Le vrai FCF 2025 est proche de 3.4 Mds$.",
+  "correction_validee": "Recalculer fcf_annuel = OCF moins capex pour chaque exercice (2025 : 10,044 - 6,594 = 3,45 Mds$), puis recalculer fcf_par_salarie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Production / Oil Mix / Utica Combo Play / Total Production / Crude Production / Natural Gas Production / Proved Reserves / Net Wells Completed / Capex (bloc de 9 KPI)",
+  "probleme": "Bloc de series arrondies, sans nom anglais ni periode, dont la valeur affichee ne correspond pas au dernier point et qui contredisent les series sourcees de la fiche.",
+  "preuve": "Production val=1232 mais serie 770..1080 ; Oil Mix val=42, serie finit a 49 ; Utica Combo Play val=1100, serie finit a 420 ; Proved Reserves 4.85 MMMBOE contre proved_reserves 5514 MMBoe ; Net Wells Completed 545 contre net_wells_completed 641 ; Crude Production 499 contre total_oil_vol 548.8 ; signaux du type Solide. et Whaou nouvelle frontiere.",
+  "correction_validee": "Supprimer les 9 series ; les KPI sources (CAHIER_PRODUCTION, proved_reserves, net_wells_completed, total_oil_vol, gas_vol_mmcfd, capex_q) couvrent deja ces indicateurs.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "delaware_prod / eagle_ford_prod (yoy et signal)",
+  "probleme": "Le yoy affiche ne correspond pas a la serie et le signal Delaware annonce +30 % la ou la serie donne +2,9 %.",
+  "preuve": "delaware_prod FY2024=309.7, FY2025=318.7 soit +2,9 %, affiche yoy=+30.4% et signal Production Delaware Basin +30% YoY (2023-2025) ; eagle_ford_prod 124.3 -> 121.1 = -2,6 % mais yoy=-0.2%.",
+  "correction_validee": "Mettre yoy a +2,9 % (Delaware) et -2,6 % (Eagle Ford), et reecrire le signal Delaware : +2,9 % en 2025, croissance du groupe desormais portee par l Utica.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Annualized regular dividend per share vs dividend_ps_q",
+  "probleme": "Dividende annualise de 4,80 $ incompatible avec le dividende trimestriel de 1,02 $ (4,08 $ annualise).",
+  "preuve": "Annualized regular dividend per share val=4.8 (2026) ; dividend_ps_q Q1-2026=1.02, Q2-2026=1.02 ; Quarterly cash dividend per share = 1.02.",
+  "correction_validee": "Verifier le dividende trimestriel en vigueur au T2 2026 et corriger l une des deux series.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Share repurchase authorization",
+  "probleme": "Autorisation de rachat perimee : 10 Mds$ alors que la fiche indique ailleurs 20 Mds$ depuis mai 2026.",
+  "preuve": "Share repurchase authorization val=10, signal Autorisation portee de 5 a 10 G$ en novembre 2024 ; buybacks_q signal : autorisation portee de 10 a 20 Mds$ le 20 mai 2026.",
+  "correction_validee": "Supprimer ce point unique, l autorisation de 20 Mds$ etant deja citee dans le signal de buybacks_q.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Doublons volumes, reserves, RRR, Utica",
+  "probleme": "Plusieurs indicateurs presents deux fois sous des noms differents en plus des doublons deja detectes.",
+  "preuve": "total_prod_boe = Total crude oil equivalent volumes (1383.8 au T1-2026 dans les deux) ; total_oil_vol = Total crude oil and condensate volumes ; ngl_vol = Total natural gas liquids volumes ; CAHIER_RRR (254) = Reserve replacement ratio (254) ; Utica Acreage = Utica Combo Play ; dividend_ps_q = Quarterly cash dividend per share.",
+  "correction_validee": "Garder total_prod_boe, total_oil_vol, ngl_vol, CAHIER_RRR, dividend_ps_q et Utica Acreage, et supprimer leurs doublons sans periodes.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "total_prod_boe / total_oil_vol / ngl_vol (trous Q4)",
+  "probleme": "Les series trimestrielles de volumes n ont aucun T4 avant 2025.",
+  "preuve": "history_periods : Q3-2022, Q1-2023 ... Q3-2024, Q1-2025 (Q4-2022, Q4-2023, Q4-2024 absents) alors que Q4-2025 est present.",
+  "correction_validee": "Deriver les T4 manquants a partir des volumes annuels du rapport annuel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat / clients / position de marche",
+  "probleme": "Textes generiques ou vides : moat sans nom, clients avec liste vide, position de marche sans nom ni part.",
+  "preuve": "moat: None / tendance stable ; clients top n=2 pct=22.5 clients=[] ; position de marche 1: None | taille 598.7 | part None ; tagline en anglais.",
+  "correction_validee": "Nommer le moat (cout unitaire et inventaire premium), citer les 2 clients a 22,5 %, renseigner ou retirer la position de marche, traduire la tagline.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

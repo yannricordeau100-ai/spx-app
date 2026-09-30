@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Répartition fausse et périmée : PGIM ne pèse pas 25 % (environ 7 %), l'international pèse environ 30 % et non 4 %, Assurance IQ n'existe plus.",
+  "preuve": "PGIM Revenus T2 2026=1.11 Mds sur 15.66 (7 %) ; Intl Biz Rev 4.69 (30 %) ; segment « Assurance IQ 6.4 »",
+  "correction_validee": "Recalculer la répartition sur les revenus 2025 par segment du 10-K, sans Assurance IQ.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition / positions de marche",
+  "champ": "revenue_by_geography ; market_positions",
+  "probleme": "Géographie sans aucune valeur et deux positions de marché sans nom ni part.",
+  "preuve": "États-Unis None ; Japon None ; position 1 taille 147000 ; position 2 taille 243.1",
+  "correction_validee": "Renseigner la géographie (États-Unis, Japon, autres) et supprimer les positions vides.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Total investments ; Dividends Declared per Share ; Premiums (GAAP revenue)",
+  "probleme": "Doublons annuels de séries trimestrielles déjà présentes.",
+  "preuve": "Total investments 2025=470519 M$ = Portefeuille placements Q4-2025 470.5 ; 5.4 $ = 4 x 1.35 ; Premiums 2025=30797 = somme Primes acquises 2025",
+  "correction_validee": "Supprimer les trois KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Group Insurance benefits ratio (total) / CAHIER_BENEFIT_RATIO",
+  "probleme": "Même ratio en deux séries légèrement différentes, la version CAHIER nommée comme un ratio groupe.",
+  "preuve": "2023 : 83.2 vs 82.5 ; 2024 : 83.1 vs 82.7 ; 2025 : 81.9 vs 81.7",
+  "correction_validee": "Garder une seule série et la nommer « Ratio de sinistralité assurance collective ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Taux credite ; Interets credites",
+  "probleme": "Séries erratiques pour des grandeurs normalement lisses ; taux crédité arrêté au T1 2026.",
+  "preuve": "Taux credite 1.96, 2.38, 2.8, 2.97, 2.35 ; Interets credites 0.83, 1.14, 1.58, 1.52, 1.11, 1.97",
+  "correction_validee": "Vérifier la source (cumul vs trimestre) avant de garder.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "RoE annualise / Marge nette / Taux impot / Rendement portefeuille / Ratio charges produits (yoy)",
+  "probleme": "Variations de pourcentages exprimées en relatif.",
+  "preuve": "RoE 7 -> 12.5 affiché +78.6% ; Marge nette +61.5% ; Taux impot +18.0%",
+  "correction_validee": "Afficher en points : RoE +5,5 pt, marge nette +2,4 pt, taux d'impôt +3,1 pt, rendement +0,26 pt, ratio charges -2,1 pt.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Ratio RBC",
+  "probleme": "Arrêté à 2024 alors que la thèse cite le ratio de solvabilité 2025 ; manque aussi le ROE opérationnel ajusté, indicateur de référence des assureurs vie.",
+  "preuve": "Ratio RBC dernier 2024-12-31 val=409 ; these « le ratio de solvabilité de la principale filiale... exercice 2025 »",
+  "correction_validee": "Ajouter FY2025 et un KPI « ROE opérationnel ajusté ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Book value hors AOCI ; Rendement portefeuille (signal)",
+  "probleme": "Mention d'un document dans le signal.",
+  "preuve": "« calculée à partir des capitaux propres du rapport trimestriel » ; « revenus nets d'investissement du rapport trimestriel »",
+  "correction_validee": "Supprimer « du rapport trimestriel » dans les deux signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel, fcf_annuel, dette_annuelle, effectifs_annuels",
+  "probleme": "Les années sont décalées : l'exercice 2025 est libellé 2026, l'exercice 2020 est libellé 2021, et 2021 manque.",
+  "preuve": "« 2026=5.156 » correspond à FY2025 (NET_SALES 4743 plus environ 413 de services financiers, clôture au 2026-01-03). « 2021=3.942 » correspond à FY2020 (3592.5 plus services financiers). Signal : « Ventes de 5,2 Mds $ en 2026 ».",
+  "correction_validee": "Relibeller revenue_annuel, fcf_annuel, dette_annuelle et effectifs_annuels par exercice fiscal (2021 devient FY2020, 2026 devient FY2025), ajouter FY2021 et corriger les signaux sur 2025.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "op_income_bfs, op_margin_bfs, op_income, op_margin",
+  "probleme": "Le T2 2024 est aberrant et les séries sautent le S2 2024.",
+  "preuve": "op_income_bfs Q2-2024 = 118.4 et op_margin_bfs = 10.0, alors que op_income Q2-2024 = 350.5 (environ 282 hors services financiers, soit environ 24 %). op_income et op_margin passent de Q2-2024 à Q1-2025.",
+  "correction_validee": "Corriger Q2-2024 et compléter Q3 et Q4 2024.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "La répartition ne correspond pas aux KPI géographiques FY2025 et contient de l'anglais.",
+  "preuve": "Affiché : 73.2 / 17.1 / 9.6. Or 3529, 748.8 et 465.1 sur 4743 donnent 74,4 / 15,8 / 9,8. Libellé « Other Geographical Areas ».",
+  "correction_validee": "Recalculer la répartition sur les KPI FY2025 : Amérique du Nord 74,4, Europe 15,8, Reste du monde 9,8.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Financial services originations",
+  "probleme": "Ce doublon de fs_originations contient une valeur recopiée et une variation différente.",
+  "preuve": "Série 288, 285.1, 268.7, 293, 274.1, 285.1, 264.6, 281 : le 6e point reprend le T4 2024. Variation -1,5 % contre -4,1 % pour fs_originations (281 contre 293).",
+  "correction_validee": "Supprimer « Financial services originations » et compléter le Q4-2025 manquant dans fs_originations.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "U.S. 60-day-plus delinquency rate.signal",
+  "probleme": "Le signal décrit une amélioration au T1 alors que la série montre une hausse ce trimestre-là, et la valeur affichée est celle du T2.",
+  "preuve": "Signal : « amélioré de 10bps sur un an et 20bps en séquentiel au Q1-2026 ». Série : ..., 1.8, 2.1, 1.9, valeur 1.9 datée du 2026-07-04.",
+  "correction_validee": "Réécrire sur le T2 (1,9 %, -20 pb en séquentiel) et dater la série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Consecutive quarterly cash dividends since 1939, Dividend increase and consecutive annual raise streak",
+  "probleme": "Une année est présentée comme valeur de KPI, et l'autre KPI fait doublon avec dps.",
+  "preuve": "Valeur 1939, unité « année de depart ». La hausse de 14 % fait doublon avec dps (yoy +14,0 %).",
+  "correction_validee": "Supprimer les deux KPI et ajouter au signal de dps la 16e année consécutive de hausse.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "noms et signaux des KPI ajoutés",
+  "probleme": "Les accents manquent et un anglicisme apparaît.",
+  "preuve": "« Nouveaux financements emis », « credit étendu », « Nombre de references », « Parc vieillissant a 12.8 ans, moteur secular de la demande de reparation », « releve », « consecutive ».",
+  "correction_validee": "Rétablir les accents (émis, crédit, références, à 12,8 ans, réparation, relevé, consécutive, versé) et remplacer « secular » par « structurel ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux des KPI trimestriels (net_sales, eps_diluted, CI_rev, tools_rev...)",
+  "probleme": "Presque tous les signaux répètent la valeur sans analyse, et certains contiennent de la cuisine interne.",
+  "preuve": "« Segment C&I : 395,8 M USD au Q2-2026 (+13.8%) ». net_sales : « ; source T2 2026 ». eps : « valeur publiée, jamais dérivée ».",
+  "correction_validee": "Retirer les mentions de source et de méthode, puis réécrire les signaux avec une explication.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_SALES",
+  "probleme": "Le signal n'a aucun rapport avec la série, la date est fausse et le KPI fait doublon avec net_sales.",
+  "preuve": "Signal : « Produit phare : Outils à main et rangement Snap-on ». Daté 2025-12-31, alors que l'exercice est clos le 2026-01-03. Nom proche de net_sales (trimestriel).",
+  "correction_validee": "Réécrire le signal, corriger la date et distinguer clairement l'annuel du trimestriel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Le moat ne décrit aucun avantage concurrentiel et cite une croissance des diagnostics contredite par les séries.",
+  "preuve": "« diagnostics en progression de 8 % », alors que rsi_rev est à +2,5 % et rsi_organic à 0.7 au T2 2026. L'anti-thèse souligne justement ce ralentissement.",
+  "correction_validee": "Rédiger un moat (réseau de camions franchisés, crédit captif, marque) cohérent avec les séries.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[*].score_rationale",
+  "probleme": "Les justifications sont décalées d'un risque à l'autre et contiennent de l'anglais.",
+  "preuve": "« Risque de taux d'intérêt » est justifié par « Risks associated with data security ». « Propriété intellectuelle » par « Significant changes in the current competitive environment ». « Engagements de retraite » par « Risks related to... acquisitions ».",
+  "correction_validee": "Régénérer les risques avec la bonne correspondance.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Il manque le nombre de franchisés ou de camions, cœur du modèle, et une croissance organique consolidée. La série organique RS&I est trouée.",
+  "preuve": "La thèse cite « environ 4 700 tournées de camions franchisés », sans KPI correspondant. rsi_organic saute Q1-2026 (Q4-2025=1 puis Q2-2026=0.7).",
+  "correction_validee": "Ajouter le nombre de franchisés et la croissance organique du groupe, puis compléter rsi_organic.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_REVENUE_PER_SERVICE / CAHIER_COST_PER_SERVICE",
+  "probleme": "Les deux indicateurs metier centraux de la dialyse (revenu et cout par traitement) s arretent en 2019 et sont libelles en $ alors que le reste de la fiche est en euros et va jusqu au T2 2026",
+  "preuve": "dernier 2019-12-31, serie FY2014=342 ... FY2019=352 $ / traitement ; FY2014=280 ... FY2019=296 $ / traitement",
+  "correction_validee": "Prolonger revenu et cout par traitement US jusqu a 2025 a partir des publications FME, sinon retirer les deux series.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_PAYER_MIX",
+  "probleme": "Nom et unite illisibles : Mix payeurs = 25 % sans dire quelle part est mesuree (privee ? Medicare ?), serie arretee en 2023, variation calculee en % relatif au lieu de points",
+  "preuve": "Mix payeurs | % | dernier 2023-12-31 | val=25 | yoy=-3.8% | FY2022=26, FY2023=25",
+  "correction_validee": "Renommer (ex. Part des patients assures prives, Etats-Unis), prolonger a 2025 et exprimer la variation en points",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "repartition",
+  "probleme": "Repartition geographique inutile pour un groupe qui realise plus des trois quarts de son CA aux Etats-Unis : seuls Allemagne 2,5 et Reste du monde 97,5 sont donnes, sans annee",
+  "preuve": "revenue_by_geography (None): Allemagne 2.5 ; Reste du monde 97.5 ; signal REV_GROWTH_CC : dollar, monnaie de plus des trois quarts du chiffre d affaires",
+  "correction_validee": "Remplacer par la repartition publiee (Amerique du Nord, EMEA, Asie-Pacifique, Amerique latine) avec l exercice",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these / att vs KPI EBIT",
+  "probleme": "La these cite un resultat operationnel en hausse de 23 % et une marge de 11,7 % au T2 2026, l anti-these une marge passant de 9,9 % a 11,7 % ; le KPI EBIT publie montre +9,6 % et 466/4861 = 9,6 % de marge. Ce sont des chiffres hors elements speciaux, mais aucun KPI EBIT ajuste n existe sur la fiche pour les retrouver",
+  "preuve": "these : resultat operationnel progresser de 23 % a change constant ... marge hors elements speciaux 11,7 % ; KPI EBIT Q2-2026=466 yoy=+9,6%, Q2-2025=425",
+  "correction_validee": "Ajouter un KPI EBIT hors elements speciaux (et sa marge) ou preciser dans le KPI EBIT qu il s agit du publie",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CE_EBIT",
+  "probleme": "Trou dans la serie (Q1-2025 absent) et variation annuelle sans unite",
+  "preuve": "serie: Q4-2024=71, Q2-2025=89 ... ; yoy=+10",
+  "correction_validee": "Completer Q1-2025 et ecrire yoy=+10 M€ ou +11 %",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NET_LEVERAGE",
+  "probleme": "Unite de variation fausse : un ratio en x est compare en pts",
+  "preuve": "Ratio d endettement net | x | yoy=-0,1 pts",
+  "correction_validee": "Afficher la variation en -0,1x au lieu de -0,1 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

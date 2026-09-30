@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "ifl_divval.signal",
+  "probleme": "Signal copie d'une autre plateforme",
+  "preuve": "Diversifie & Valeur : 'Reflete la vigueur du credit conso sante/bien-etre et loisirs', texte quasi identique a ifl_health",
+  "correction_validee": "Reecrire pour Diversifie & Valeur (grande distribution discount)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Efficiency ratio, Net charge-offs, Total deposits, Purchase volume, effectifs_annuels",
+  "probleme": "Doublons de KPI existants, mal dates et avec des valeurs divergentes",
+  "preuve": "Efficiency ratio 35,6 date 06-30 (= T1) contre efficiency_ratio 35,8 ; Net charge-offs T4-2025 5,37 contre 5,42 ; Total deposits 81,1 contre deposits 82,8 ; Purchase volume '+6% au 1T26' contre +8,1 % ; effectifs_annuels arrete en 2023 contre employees 2025",
+  "correction_validee": "Supprimer les 5 doublons (Efficiency ratio, Net charge-offs, Total deposits, Purchase volume, effectifs_annuels).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, fcf_par_salarie",
+  "probleme": "Le FCF n'a pas de sens pour un preteur : la valeur est en fait le flux operationnel",
+  "preuve": "fcf_annuel 2025 = 9,851 = somme des OCF trimestriels 2,2+2,56+2,637+2,454 ; les octrois de prets sont classes en investissement",
+  "correction_validee": "Retirer ces KPI pour Synchrony (ou les remplacer par le resultat distribuable)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dividend_per_share / Quarterly dividend increase",
+  "probleme": "Dividende incoherent",
+  "preuve": "'hausse du dividende trimestriel a 0,34 $' (2026-05-11) alors que dividend_per_share T2-2026 = 0,30",
+  "correction_validee": "Verifier la date d'effet et mettre a jour la serie",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "yield_comm, loans_avg_comm",
+  "probleme": "Rupture non expliquee (probable reclassement)",
+  "preuve": "rendement 10,6 puis 15,72 au T1-2026 (+6,45 pts) ; encours moyens +33,6 % au T2-2026 ; signal purement definitionnel",
+  "correction_validee": "Expliquer la rupture ou couper la serie",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "pv_lifestyle, ifl_lifestyle",
+  "probleme": "Contenu de la plateforme probablement faux",
+  "preuve": "'Style de vie regroupe ameublement et exterieur' : chez Synchrony, Lifestyle couvre sport, bijoux, musique et loisirs motorises, l'ameublement etant dans Maison & Auto",
+  "correction_validee": "Verifier et corriger la definition",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DELINQ_30, CAHIER_NIM_LOANS, CAHIER_ACTIVE_CARDS",
+  "probleme": "Doublons annuels des series trimestrielles, noms anglais, yoy de taux en %",
+  "preuve": "noms 'Delinq 30', 'Nim Loans', 'Active Cards' ; DELINQ_30 yoy -4,5 % (en realite -0,21 pt) ; NIM +3,3 %",
+  "correction_validee": "Passer le yoy de CAHIER_DELINQ_30 et CAHIER_NIM_LOANS en points et corriger les name_en ; ne pas supprimer.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "other_expense.signal",
+  "probleme": "Chiffre du signal different de la serie",
+  "preuve": "signal '+7,2% sur un an' ; 1,331 / 1,245 = +6,9 % (yoy affiche +6,9 %)",
+  "correction_validee": "Remplacer '+7,2 %' par '+6,9 %' dans le signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "purchase_volume_total, net_interest_margin, net_charge_off_rate, avg_active_accounts, retailer_share_arrangements",
+  "probleme": "Les KPI cles n'ont qu'un signal de definition, sans chiffre ni tendance",
+  "preuve": "'Le volume d'achats reflete le nombre de transactions...' ; 'Le taux de pertes nettes indique la part des prets...'",
+  "correction_validee": "Signal chiffre (volume d'achats +8,1 %, pertes nettes 5,43 % contre 5,70 %)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "libelles",
+  "probleme": "Libelles en anglais alors que les KPI sont en francais",
+  "preuve": "'Home & Auto', 'Diversified & Value', 'Health & Wellness', 'Lifestyle'",
+  "correction_validee": "Traduire les libelles comme les KPI pv_* (Digital inchange).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Asset Intelligence Sales, Enterprise Visibility Sales, Mobile Computing Sales, Printing Sales",
+  "probleme": "Series annuelles sans dates, aux valeurs rondes qui ont l'air inventees, datees 2026-07-04 et sans texte. Elles contredisent les series trimestrielles.",
+  "preuve": "Enterprise Visibility Sales val=3,5 Mds$ alors que EVM 2024 = 783+820+845+886 = 3 334 M$ ; Printing Sales 1,05, 1,2, 1,1, 1, 1,05.",
+  "correction_validee": "Supprimer Asset Intelligence Sales, Enterprise Visibility Sales, Mobile Computing Sales et Printing Sales.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Actions diluees",
+  "probleme": "Valeurs impossibles aux T4, en plus du saut deja detecte.",
+  "preuve": "Q4-2024=0, Q4-2025=-0.2 (autres trimestres entre 48 et 52 M).",
+  "correction_validee": "Recalculer les T4 a partir du nombre annuel d'actions diluees ou retirer ces points.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CA Segment CF / AVA et anciens segments AIT / EVM",
+  "probleme": "Les nouveaux segments n'ont pas de T3 et T4-2025, alors que six KPI des anciens segments s'arretent au T3-2025. Resultat : deux nomenclatures incompletes affichees ensemble.",
+  "preuve": "CA Segment CF : Q1-2025=684, Q2-2025=717, Q1-2026=825, Q2-2026=903 ; CA Segment EVM dernier 2025-09-30 : \"dernier trimestre publié sous cette nomenclature\".",
+  "correction_validee": "Completer CF et AVA pour T3 et T4-2025 (T4 deductible des totaux annuels 2,96 et 2,44 Mds$), puis retirer les six KPI AIT et EVM.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "La repartition geographique est perimee : elle ne correspond pas a l'exercice 2025 calcule avec les series de la fiche.",
+  "preuve": "Bloc : Amérique du Nord 52,1, EMEA 33,6, APAC 9,9, LatAm 4,4 ; series 2025 : NA 2 678 (49,6 %), EMEA 1 729 (32,0 %), APAC 625 (11,6 %), LatAm 364 (6,7 %).",
+  "correction_validee": "Remplacer par l'exercice 2025 : Amerique du Nord 49,6 %, EMEA 32,0 %, Asie-Pacifique 11,6 %, Amerique latine 6,7 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EBITDA (dérivé) / Marge EBITDA / Adjusted EBITDA margin",
+  "probleme": "Deux marges d'EBITDA contradictoires : la marge « dérivée » (24,3 %) depasse la marge ajustee publiee (23,2 %) parce qu'elle inclut le remboursement ponctuel.",
+  "preuve": "Marge EBITDA val=24,3 ; Adjusted EBITDA margin val=23,2.",
+  "correction_validee": "Supprimer EBITDA (derive) et Marge EBITDA (derive) et garder la marge d'EBITDA ajustee publiee.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "anti-these",
+  "champ": "att",
+  "probleme": "Le remboursement est dit « fiscal » dans l'accroche et « tarifaire » dans le corps du texte.",
+  "preuve": "\"l'essentiel du gain vient d'un remboursement fiscal ponctuel\" puis \"d'un remboursement tarifaire ponctuel\".",
+  "correction_validee": "Harmoniser (remboursement de droits de douane, s'il s'agit bien de cela).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Connected Frontline, Asset Visibility & Auto, Services & Software, CF Operating Income, AVA Operating Income (annuels)",
+  "probleme": "Signaux et descriptions en anglais ou en franglais sans accents. Services & Software doublonne la serie trimestrielle.",
+  "preuve": "\"Recurring revenue stream, mix qualite\" ; \"mobile computing entreprise + logiciel/IA workforce\" ; \"fort levier post-recovery 2024\" ; Services & Software 978 = 246+238+239+255.",
+  "correction_validee": "Reecrire en francais et supprimer 'Services & Software' annuel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description / clients",
+  "champ": "mettrik_description, clients_concentration",
+  "probleme": "La description oublie les terminaux mobiles et les lecteurs, qui forment le premier segment (CF, environ 55 % du CA), ainsi que le commerce de detail. Pour les clients, deux clients font 44 % du CA mais ne sont pas nommes.",
+  "preuve": "products : \"imprimantes d'étiquettes, de cartes plastiques, des imprimantes RFID, ainsi que des consommables\" ; clients : n=2, pct=44, clients=[].",
+  "correction_validee": "Completer la description et nommer les deux distributeurs.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CA Total.signal, Produits constates d avance.signal, CAHIER_BACKLOG.signal",
+  "probleme": "Accents manquants ('a' au lieu de 'à', 'avance' au lieu de 'avancé'). Le signal du hero ne donne aucun chiffre.",
+  "preuve": "\"capacité du groupe a dégager\" ; \"un indicateur avance des ventes a venir\" ; signal CA Total sans valeur ni variation.",
+  "correction_validee": "Corriger en 'à dégager', 'indicateur avancé', 'à venir' et chiffrer le hero : 1 557 M$ au T2 2026, +20,4 % dont +4,3 % en organique.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI ponctuels (Served addressable market, Times products are used, Share of Fortune 500, US imports sourced from China, Incremental cash tax benefit, Elo Holdings acquisition, Photoneo acquisition, Elo Touch annual revenue)",
+  "probleme": "Des arguments commerciaux et des operations ponctuelles sont presentes comme KPI. Le nom Photoneo est mal orthographie.",
+  "preuve": "'Times products are used across the supply chain' val=30 unite 'x' ; 'Acquisition de Photonéo'.",
+  "correction_validee": "Retirer ces entrees des KPI. Si besoin, les garder dans la these ou les evenements.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

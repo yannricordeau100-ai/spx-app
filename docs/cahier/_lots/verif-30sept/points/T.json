@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Une tranche de 19,5% du CA porte le nom d'un poste d'immobilisations; tous les libellés sont en anglais",
+  "preuve": "'Other Capitalized Property Plant and Equipment 19.5' (24,49 Mds $) à côté de 'Wireless Service', 'Legacy Voice and Data'; le total fait 125,6 Mds $, donc c'est probablement le chiffre d'affaires équipements",
+  "correction_validee": "Renommer la tranche d apres la source (probablement ventes d equipements, a confirmer) et traduire tous les libelles.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Mobility Postpaid Phone Net Adds, Postpaid Phone ARPU, AT&T Fiber Locations, Fiber Net Adds, Fiber Subscribers, Consumer Broadband Rev, Op Income",
+  "probleme": "KPI hérités sans périodes, en franglais, périmés et contredits par les séries",
+  "preuve": "Fiber Subscribers 9,75 M contre fiber_subs 12 144 milliers; Fiber Locations 28,3 M contre 32 M (CAHIER_PRISES_FIBRE) et 37 M; 'Cible 30M+ 2025'; net adds 1,7 M (-30%) contre 1 551 milliers en 2025; Op Income daté 2026-06-30 mais c'est l'exercice 2025",
+  "correction_validee": "Supprimer ces 7 KPI herites.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Postpaid phone net adds / Postpaid phone churn",
+  "probleme": "Doublons trimestriels avec des signaux périmés et des valeurs différentes",
+  "preuve": "'ralentie à 294k au T1-2026' alors que postpaid_net_adds Q2-2026=432; 'remontée a 0.89% au T1-2026' contre 0,86% au T2; churn Q3-2024 0,75 contre 0,78",
+  "correction_validee": "Supprimer les doublons Postpaid phone net adds et Postpaid phone churn.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "employees",
+  "probleme": "Point mal daté et signal tronqué",
+  "preuve": "Q4-2024=133030 puis Q1-2025=139970, alors que effectifs_annuels donne 2024=140990 et 2025=133030; signal 'Série arrêtée au T1-2026 : l'effectif n'est pas).'",
+  "correction_validee": "Replacer 133 030 en Q4-2025, mettre 140 990 en Q4-2024, réécrire le signal",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_AJOUTS_NETS_HD",
+  "probleme": "Le nom annonce le haut débit fixe total alors que la série est celle de la fibre",
+  "preuve": "FY2025=1075 = 261+243+288+283 (fiber_net_adds); le parc haut débit total n'augmente que de 717 milliers (13 987 à 14 704)",
+  "correction_validee": "Renommer en Ajouts nets fibre (annuel).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "segments",
+  "probleme": "Les 9 KPI des anciens segments s'arrêtent au T3-2025 alors que le T4-2025 est publié, et les nouveaux segments sont absents",
+  "preuve": "mobility_seg_rev, business_wireline_seg_*, consumer_wireline_seg_* 'dernier 2025-09-30'; aucun KPI Advanced Connectivity ni Legacy (seul adv_home_internet_rev, n=2)",
+  "correction_validee": "Ajouter le CA et l'EBITDA des segments Advanced Connectivity et Legacy; compléter le T4-2025 des anciens segments",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf / buyback",
+  "probleme": "Trous et valeur douteuse dans les séries",
+  "preuve": "fcf sans Q4-2025 (déduit: 19 442 - 3 146 - 4 394 - 4 865 = 7 037); buyback Q4-2024=4 298 M$ alors que le programme date de décembre 2024, Q4-2025 absent",
+  "correction_validee": "Compléter le Q4-2025 du fcf, vérifier et corriger buyback Q4-2024 et Q4-2025",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ARPU",
+  "probleme": "Il manque l'indicateur clé du secteur en trimestriel; la série annuelle mélange deux définitions",
+  "preuve": "CAHIER_ARPU seul, annuel: FY2014=62,99 à FY2017=58 puis trou jusqu'à FY2023=55,73; aucune série trimestrielle d'ARPU postpayé téléphone ni de marge EBITDA ajustée",
+  "correction_validee": "Ajouter l'ARPU postpayé téléphone trimestriel et la marge EBITDA ajustée",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel / effectifs_annuels",
+  "probleme": "Taux annuels moyens calculés sur des périmètres non comparables",
+  "preuve": "'−2,9 % par an depuis 2016' et effectifs '−7,5 % par an' incluent WarnerMedia et DIRECTV (CA 2019=181,2 Mds)",
+  "correction_validee": "Ne comparer qu'à partir de 2022 ou le signaler dans le texte",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / moat",
+  "champ": "CAHIER_CHURN_POSTPAYE yoy / moat",
+  "probleme": "Écart d'un taux en % relatif; moat hors sujet",
+  "preuve": "yoy '+18.4%' pour 0,76 à 0,90 (+0,14 pt); moat: 'tous les risques répertoriés sont orientés à la hausse'",
+  "correction_validee": "Exprimer en points; réécrire la justification du moat sur l'avantage concurrentiel",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

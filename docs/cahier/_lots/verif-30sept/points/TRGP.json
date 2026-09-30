@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "LPG Export Volume, NGL Pipeline Volume, Permian G&P Inlet, Frac Capacity, Permian Inlet Gathered Volumes, LPG Export Volumes, Field Plants Capacity Permian",
+  "probleme": "Ces séries annuelles non datées, arrondies et périmées contredisent les séries publiées, dont une avec une erreur d'échelle d'environ 37 fois",
+  "preuve": "LPG Export Volume 13 Mbpd contre galena_park_export 487,1 MBbl/j ; NGL Pipeline 850 contre grand_prix_transport 1 098,9 ; Permian Inlet 6,3 Bcf/j contre gp_inlet_permian 7,19",
+  "correction_validee": "Supprimer les sept KPI non datés.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "répartition",
+  "probleme": "La répartition n'est pas datée et contredit les chiffres d'affaires des segments",
+  "preuve": "« Gathering and Processing 53.6 ; Logistics and Transportation 46.4 » alors que lt_segment_rev = 78 % du CA consolidé au T2 2026 (3 460 M$ contre 877 M$)",
+  "correction_validee": "Recalculer la répartition sur le CA externe 2025, ou la renommer en marge opérationnelle ajustée par segment avec sa période.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "accroche",
+  "probleme": "La thèse appelle « résultat opérationnel courant retraité » un chiffre qui est l'EBITDA ajusté",
+  "preuve": "« son résultat opérationnel courant retraité a battu son record, à 1 603,1 M$ » = adj_ebitda Q2-2026 ; op_income Q2-2026=1234,5",
+  "correction_validee": "Remplacer « son résultat opérationnel courant retraité » par « son EBITDA ajusté ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att / kpis",
+  "champ": "marge de trésorerie du S1 2026",
+  "probleme": "L'anti-thèse donne 68,1 M$ d'excédent sur le capex, alors que le free cash-flow de la fiche en donne 271 M$ au S1 2026 : les deux définitions du capex ne sont pas expliquées",
+  "preuve": "fcf Q1-2026=-160 et Q2-2026=431,2, soit 271,2 ; capex_total (1 010,1) inférieur à growth_capex (1 113,3) au T2 2026",
+  "correction_validee": "Préciser dans l'anti-thèse le capex retenu et documenter pourquoi capex_total est inférieur au capex de croissance",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "lt_debt / dette_annuelle",
+  "probleme": "La dette à long terme dépasse la dette totale à la même date",
+  "preuve": "lt_debt Q4-2025=17 432,5 M$ ; dette_annuelle 2025=16,662 Mds $",
+  "correction_validee": "Vérifier le périmètre des deux séries (dette brute ou nette, part courante)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dcf / CAHIER_DCF",
+  "probleme": "Deux KPI décrivent un indicateur abandonné fin 2023, en doublon trimestriel et annuel",
+  "preuve": "dcf dernier 2023-12-31 ; CAHIER_DCF dernier 2023-12-31 ; signal « abandonné après le T4 2023 »",
+  "correction_validee": "Archiver les deux au profit d'adj_cfo",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "capex_total, gp_segment_rev, fcf (nom)",
+  "probleme": "De la cuisine interne et des mentions de documents apparaissent dans les signaux et les noms",
+  "preuve": "« dérivé du cumul six mois du tableau des flux de trésorerie » ; « note segments du rapport trimestriel du 6 août 2026 » ; nom « Free cash-flow (dérivé) »",
+  "correction_validee": "Retirer « dérivé du cumul six mois du tableau des flux de trésorerie », « note segments du rapport trimestriel du 6 août 2026 » et « (dérivé) » du nom du FCF.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ebitda_margin_pct, op_margin_pct, net_margin_pct, gross_margin_pct, leverage, ng_realized_price (yoy)",
+  "probleme": "Pour les ratios, la variation sur un an est donnée en pourcentage de variation au lieu de points, et elle n'a aucun sens pour un prix devenu négatif",
+  "preuve": "ebitda_margin 27,3 → 36,1, yoy=32.2 au lieu de +8,8 pts ; ng_realized_price yoy=-345.5",
+  "correction_validee": "Exprimer la variation sur un an en points pour les marges et le levier, et la masquer pour ng_realized_price.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_VOLUMES",
+  "probleme": "Le nom est vague (« transportés et traités ») et la série fait doublon avec le volume de gaz entrant du Permien",
+  "preuve": "FY2025=6391,4 MMcf/j ≈ moyenne 2025 de gp_inlet_permian (6005,9 ; 6278 ; 6621,6 ; 6650,7)",
+  "correction_validee": "Renommer en « Gaz entrant Permien (moyenne annuelle) » ou supprimer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Quarterly dividend raised to $1.00",
+  "probleme": "L'événement est périmé : le dividende est déjà passé à 1,25 $",
+  "preuve": "Nom « Dividende trimestriel relevé à 1,00 $ » ; dps Q2-2026=1.25",
+  "correction_validee": "Supprimer le KPI « Quarterly dividend raised to $1.00 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "manquant",
+  "probleme": "Il manque la part des marges à commission (fee-based), indicateur clé du risque de prix d'un opérateur midstream, pourtant invoquée dans un signal",
+  "preuve": "Signal d'ebitda_margin_pct : « La part croissante des activités facturées à la commission … » sans KPI associé",
+  "correction_validee": "Ajouter la part des marges à commission (annuelle)",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline",
+  "champ": "tagline",
+  "probleme": "L'accroche est en anglais",
+  "preuve": "« Leading Provider of Midstream Services and Infrastructure »",
+  "correction_validee": "Rédiger l'accroche en français",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Total communication sites owned/operated ; Communication sites in the US and territories ; Communication sites located internationally",
+  "probleme": "Trois séries de nombre de sites datées au 30/06/2026 contredisent les séries officielles de la même fiche. Elles n'ont aucune période et leurs niveaux correspondent au parc de 2016 à 2020.",
+  "preuve": "Total communication sites = 32515 (2026-06-30) contre tower_count_total_q = 46390 au T2-2026 ; Sites aux États-Unis = 16463 contre tower_count_domestic = 17378 ; Sites internationaux = 16052 contre tower_count_intl = 28980. Historique complet : 25465 ... 32515, 18 points sans période.",
+  "correction_validee": "Supprimer les trois KPI de sites sans période, doublons de tower_count_total_q, tower_count_domestic et tower_count_intl.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "hero / kpis",
+  "champ": "affo_per_share_q, affo_q, tcf_intl_q, cash_interest_q, leverage_q, net_debt_q, tower_count_intl",
+  "probleme": "Le KPI vedette (AFFO par action) et six autres KPI s'arrêtent au T1-2026 alors que la fiche affiche une date au 30/06/2026 et que les autres KPI ont déjà le T2-2026.",
+  "preuve": "affo_per_share_q : dernier 2026-06-30 mais le dernier point de la série est Q1-2026 = 3.03 ; le signal de affo_q commence par « T1 2026: 322 M$ ». Pendant ce temps, total_revenue_q, net_income_q et tower_count_total_q vont jusqu'au Q2-2026.",
+  "correction_validee": "Ajouter le T2-2026 aux sept séries depuis la publication du T2 et aligner la date affichée sur le dernier point réel.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_q / fcf_annuel",
+  "probleme": "Deux « flux de trésorerie libre » reposent sur des définitions incompatibles. La série trimestrielle déduit les acquisitions, la série annuelle ne les déduit pas.",
+  "preuve": "Somme des trimestres 2025 de fcf_q : 190.8 - 278.8 + 243.3 - 154 = 1.3 M$, contre fcf_annuel 2025 = 1.067 Mds $.",
+  "correction_validee": "Renommer fcf_q (par exemple « Trésorerie après investissements et acquisitions ») ou l'aligner sur la définition annuelle.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_debt_q.signal",
+  "probleme": "Le signal parle d'une dette nette quasi stable alors qu'elle a progressé de 7,3 % sur un an.",
+  "preuve": "« 12,57 Mds $ de dette nette, quasi stable sur un an » ; série : Q1-2025 = 11.72, Q1-2026 = 12.57, yoy = +7.3%.",
+  "correction_validee": "Écrire « 12,57 Mds $ de dette nette, en hausse de 7,3 % sur un an ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net debt to adjusted EBITDA leverage ; Towers owned (development pipeline)",
+  "probleme": "Deux doublons. Le premier donne une lecture opposée à celle du KPI principal, le second porte un nom faux.",
+  "preuve": "Levier : 6.6 dans les deux KPI, avec d'un côté « désendettement progressif interrompu par l'opération Millicom » et de l'autre « Levier proche de son plus bas historique ». Towers owned (development pipeline) : 46328 = tower_count_total_q au Q4-2025 (46328), alors que la série ne mesure pas un pipeline de développement.",
+  "correction_validee": "Supprimer les KPI ponctuels « Net debt to adjusted EBITDA leverage » et « Towers owned (development pipeline) », garder leverage_q et tower_count_total_q.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dividend_per_share_q",
+  "probleme": "La série ne reprend pas le dividende déclaré. Ses valeurs sont calculées (dividendes versés rapportés au nombre d'actions) et contredisent le dividende de 1,11 $ affiché ailleurs sur la fiche.",
+  "preuve": "Q1-2025 = 1.118, Q2 = 1.116, Q3 = 1.123, Q4 = 1.126, Q1-2026 = 1.259, puis Q2 = 1.25, contre « Dividende porte à 1,11$/action » dans Quarterly dividend per share.",
+  "correction_validee": "Remplacer la série par les dividendes déclarés par trimestre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Record services segment revenue",
+  "probleme": "Le « record » est démenti par la série trimestrielle des services de la même fiche.",
+  "preuve": "Record services segment revenue = 53.8 M$ « au plus haut historique », alors que rev_site_dev_q donne Q2-2025 = 67.2 et Q3-2025 = 75.9.",
+  "correction_validee": "Supprimer le KPI ponctuel « Record services segment revenue ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Airtel Tanzania tower acquisition.signal",
+  "probleme": "Le ratio est invraisemblable : 80 M$ d'EBITDA la première année pour 175 M$ payés, soit un rendement de 46 %.",
+  "preuve": "« ~1 400 tours pour 175M$, apportant ~80M$ d'EBITDA ajusté en première année ».",
+  "correction_validee": "Revérifier le chiffre d'EBITDA à la source, qui est probablement d'un autre ordre de grandeur.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Millicom sites remaining under contract, Philippines and Colombia towers sale proceeds, Gain on sale of assets, Class A common stock repurchased",
+  "probleme": "KPI ponctuels sur des opérations déjà closes, en partie périmés (datés de février 2025), avec une unité qui ne correspond pas au nom.",
+  "preuve": "« Sites Millicom sous contrat » : unité M $ et valeur 925 alors que le nom annonce un nombre de sites, daté 2025-02-08 ; « Sortie totale des Philippines et de la Colombie au T1-2025 » daté 2025-02-08.",
+  "correction_validee": "Supprimer ces KPI d'événement ou les déplacer dans les événements de la fiche.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "slices / exercice",
+  "probleme": "La répartition géographique contredit la répartition par segment et le KPI de part internationale. Son total ne correspond pas au chiffre d'affaires 2025 et l'exercice n'est pas renseigné.",
+  "preuve": "International 20.4 % (total 2,18 + 0,56 = 2,74 Mds $), contre International Site Leasing 25 % en 2025, intl_leasing_rev_share 27.4 % et revenue_annuel 2025 = 2.815 Mds $.",
+  "correction_validee": "Recalculer la répartition sur l'exercice 2025 et renseigner l'exercice.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "La justification du moat invoque un résultat opérationnel en repli, ce que les KPI de la fiche contredisent.",
+  "preuve": "« contrebalancée par un résultat opérationnel en repli », alors que op_income_q T2-2026 = 351.9 contre 334.8 (+5,1 %) et op_margin_q +1.3 pt.",
+  "correction_validee": "Réécrire la justification à partir des chiffres de 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / risques / kpis",
+  "champ": "tagline, titres des risques, unités",
+  "probleme": "Anglais et franglais visibles, et unités incohérentes.",
+  "preuve": "Tagline « Leading independent owner and operator... » ; risques « Concentration carrier customers », « impact REIT valuation + refinancement », « décommissioning post-merger » ; unités « towers », « tenants/site » ; brazil_leasing_rev en « $K » (96300) alors que les autres revenus sont en M $.",
+  "correction_validee": "Traduire la tagline et les titres des risques, écrire « tours » et « locataires par site », convertir brazil_leasing_rev en M $ (96,3).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Le segment Medicare a été fondu dans Medicaid : la part Medicaid de 75,8 % est fausse.",
+  "preuve": "revenue_by_segment : Medicaid 147,644 Mds $ (75,8 %). Séries 2025 : Medicaid 26,4 + 28 + 28 + 28 = 110,4 Mds $ ; Medicare 8,8 + 9,4 + 9,4 + 9,6 = 37,2 Mds $ ; 110,4 + 37,2 = 147,6. market_positions cite 110,434 Mds $ pour Medicaid.",
+  "correction_validee": "Quatre tranches : Medicaid 110,4 (57 %), Medicare 37,2 (19 %), Commercial 42,0 (22 %), Autres 5,1 (3 %).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Medicaid Members / Medicare Members / Total Members",
+  "probleme": "Trois séries annuelles de membres datées 2026-06-30, sans signal, qui contredisent les KPI trimestriels de la même date.",
+  "preuve": "Medicaid Members 13 M vs medicaid_members 12,1 M (T2-2026) ; Medicare Members 1,3 M vs medicare_adv_members 1,0 M ; Total Members 28 M vs at_risk_membership 25,9 M et CAHIER_MEMBERSHIP 27,6 M (FY2025). Séries 14,7 ; 15,4 ; 16,6 ; 14,8 ; 13 = valeurs 2021-2025 décalées.",
+  "correction_validee": "Supprimer les trois séries, doublons de medicaid_members, medicare_adv_members et at_risk_membership.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "MedicaidRev / Medicaid Premium Revenue / Medicare Premium Revenue",
+  "probleme": "Trois KPI de revenus Medicaid ou Medicare en plus des séries segment, avec zéros de remplissage, signal creux et cuisine interne en franglais.",
+  "preuve": "MedicaidRev : annuel daté 2026-06-30, signal « Croissance positive modérée ». Medicaid Premium Revenue : série 0, 0, 84,08, 86,86, 83,85 arrêtée en 2024, description « Hero historique Centene, contracts d Etat US TANF/CHIP/LTSS. Impact 2023-2024 du desinscription massive PHE ». Medicare Premium Revenue : « Segment expose pressure CMS Stars ratings + PDR ».",
+  "correction_validee": "Supprimer MedicaidRev, Medicaid Premium Revenue et Medicare Premium Revenue, couverts par medicaid_segment_revenue et medicare_segment_revenue.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Premium revenue (net premiums earned) / Premium and service revenue growth / Days in claims payable / Adjusted SG&A expense ratio (Q4) / Full-year adjusted diluted EPS",
+  "probleme": "Séries à clé anglaise datées 2026-06-30 alors que leur dernier point est le T1-2026 ou l exercice 2025 ; doublons de premium_service_revenues, days_claims_payable, sga_ratio, eps_diluted.",
+  "preuve": "Premium revenue : dernier 2026-06-30 mais signal « 43,9 Md$ au T1-2026 » ; premium_service_revenues T2-2026 = 44,4 Mds $ (+4,5 %) vs « growth » 5 % « au T1-2026 ». Days in claims payable annuel 46 daté 2026-06-30 = valeur T4-2025. Full-year adjusted EPS 2,08 $ (2025) daté 2026-06-30.",
+  "correction_validee": "Supprimer les doublons ou corriger les dates de fin de période et le libellé du trimestre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "medicare_adv_members",
+  "probleme": "Nom plus étroit que le périmètre mesuré, et précision insuffisante (une décimale en millions) qui aplatit la série.",
+  "preuve": "Nom : « Membres Medicare Advantage » ; signal : « 980 000 membres Medicare (Advantage, Supplement et plans intégrés AIP) ». Série affichée : 1,1 ; 1,1 ; 1 ; 1 ; 1 ; 1 ; 1 ; 1 avec yoy -4,6 %.",
+  "correction_validee": "Renommer « Membres Medicare (hors PDP) » et stocker en milliers (980, 1 027...).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_income.yoy / eps_diluted.yoy",
+  "probleme": "Variation en pourcentage calculée depuis une base négative, sans signification.",
+  "preuve": "net_income yoy +531 % (1,09 vs -0,25 Mds $) ; eps_diluted yoy +529 % (2,19 vs -0,51 $).",
+  "correction_validee": "Afficher « n.s. » comme sur card_net_income de COF.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ocf.signal",
+  "probleme": "Méthode de calcul interne exposée dans le signal.",
+  "preuve": "« 3.59 Mds$ au T2-2026 (7 956 M$ sur six mois moins 4 366 M$ au T1-2026) ».",
+  "correction_validee": "Retirer la parenthèse « (7 956 M$ sur six mois moins 4 366 M$ au T1-2026) ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Justification figée sur la crise 2025, contredite par le redressement S1-2026, avec une mention « note abaissée » non expliquée.",
+  "preuve": "Moat (depuis 2025-04-07) : « cinq risques s aggravent dont les coûts médicaux et leur estimation, avec une note abaissée et une incertitude très élevée ». KPI : HBR 89,6 % (-3,4 pp), résultat net S1-2026 2 632 M$, dette -1,3 Md$.",
+  "correction_validee": "Réécrire la justification avec les données T2-2026 et préciser de quelle note il s agit.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "KPI à un point datés 2026-05-11 (goodwill 2025, Magellan, senior notes, algorithmes fraude, ABA, hausse tarifaire)",
+  "probleme": "Charges exceptionnelles et anecdotes d appel présentées comme KPI, un point, datées du jour de l appel, unité fantaisiste.",
+  "preuve": "« 2025 goodwill impairment » 6 723 M$ ; « Magellan Health divestiture impairment » 513 ; « Fraud-detection algorithms deployed » 75 algorithmes ; « ABA outlier payment reduction (one state) » 45 % ; « Marketplace 2026 average rate increase » unité « % environ ».",
+  "correction_validee": "Supprimer les charges non récurrentes et les anecdotes ; corriger l unité en « % ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "headcount (trimestriel)",
+  "probleme": "Série trimestrielle d effectifs alors que la société ne publie l effectif qu annuellement ; valeurs probablement estimées ; doublon de effectifs_annuels.",
+  "preuve": "headcount : 59,9 ; 60 ; 60,7 ; 60,5 ; 60,4 ; 60,3 ; 60,9 ; 61,1 ; 61 K (T1-2024 à T1-2026). effectifs_annuels : 60 500 (2024), 61 100 (2025).",
+  "correction_validee": "Vérifier la source des points trimestriels ; sinon supprimer et garder effectifs_annuels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_STAR_RATINGS.name_fr",
+  "probleme": "Le nom suggère une note en étoiles alors que la série est une part de membres en plans 3,5 étoiles et plus.",
+  "preuve": "Nom : « Notation qualité des plans publics », unité %, série 23 ; 55 ; 60. Signal medicare_adv_members : « 60% du membership MA noté 3.5 étoiles ou plus ».",
+  "correction_validee": "Renommer « Part des membres Medicare Advantage en plans 3,5 étoiles et plus ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

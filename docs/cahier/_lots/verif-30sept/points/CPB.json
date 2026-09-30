@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition par segment fausse : Campbell s publie deux segments (Meals & Beverages, Snacks) ; la tranche Beverages a 3,046 Mds est impossible (V8 et Pacific pesent moins de 1 Md).",
+  "preuve": "Slices : Baked Snacks 4,431 ; Beverages 3,046 ; Soups 2,776. Fiche : MB_rev FY2025 = 1 706+1 679+1 463+1 202 = 6 050 M ; snacks_rev FY2025 = 4 203 M.",
+  "correction_validee": "Remplacer par Meals & Beverages 6,05 Mds (59 %) et Snacks 4,20 Mds (41 %) pour l'exercice 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Brands exceeding $4 billion",
+  "probleme": "Quatre marques a plus de 4 Mds chacune est impossible avec un CA total de 10,25 Mds ; il s agit des marques a plus de 1 Md.",
+  "preuve": "Signal : Quatre marques a plus de 4 Md$ : Campbell s, Rao s, Goldfish et Pepperidge Farm ; rao_ttm_sales = 1 Md ; revenue_annuel 2025 = 10,253 Mds.",
+  "correction_validee": "Renommer en « Marques dépassant 1 milliard de dollars » et corriger le signal en « plus de 1 Md$ », après vérification dans la source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Meals & Beverages Sales et Snacks Sales (Mds $)",
+  "probleme": "Doublons contredits par les sommes trimestrielles verifiees ; sans etiquettes de periode ni signal.",
+  "preuve": "Meals & Beverages Sales dernier=6,3 et Snacks Sales=4,07 (history_periods=None) ; sommes trimestrielles FY2025 : 6 050 M et 4 203 M ; meals_beverages_sales_millions=6050.",
+  "correction_validee": "Supprimer les deux séries en Mds et étiqueter les séries en M$ FY2023, FY2024, FY2025, en remettant les valeurs dans l'ordre chronologique (4907, 5258, 6050 et 4450, 4378, 4203).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these / att / IA / signaux",
+  "champ": "texte",
+  "probleme": "Apostrophe parasite apres le nom de la societe et des marques dans plusieurs textes.",
+  "preuve": "Campbell s adopte une approche mesuree (ecrit Campbell's'adopte), Campbell's'a augmente, Rao's'et le Canada, Rao's'est devenue.",
+  "correction_validee": "Remplacer « 's' » par « 's » suivi d'une espace dans these, att, ai_positioning, MB_rev.signal et rao_ttm_sales.signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "snacks_rev, MB_op_earn, snacks_op_earn (signal)",
+  "probleme": "Les signaux citent des comparatifs differents de la serie affichee (base recast), ce qu un lecteur voit comme une contradiction.",
+  "preuve": "snacks_rev signal : en baisse de 4 % ; serie 940 vs 1 012 = -7 %. MB_op_earn signal : contre 253 M ; serie Q3-FY2025=248. snacks_op_earn signal : contre 140 M ; serie Q3-FY2025=145.",
+  "correction_validee": "Aligner les trois signaux sur la série affichée : -7 % pour Snacks, 213 contre 248 M, 95 contre 145 M.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "eps_diluted, capex, buybacks, total_rev (signal)",
+  "probleme": "Signaux de cuisine interne decrivant la methode de construction de la serie au lieu d un signal investisseur.",
+  "preuve": "eps_diluted : Cette grandeur n est pas cumulable en annuel : seuls les trimestres effectivement publies sont retenus, sans reconstitution du quatrieme trimestre ; capex : Serie trimestrielle reconstituee depuis les cumuls YTD du tableau de flux, somme 4 trimestres = exercice validee ; buybacks : Serie avec zeros = valide.",
+  "correction_validee": "Retirer ces phrases de méthode dans eps_diluted, capex, buybacks et total_rev, et garder le chiffre et sa variation.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Manufacturing Plants, Power Brands Share",
+  "probleme": "Series annuelles sans etiquettes d annee, sans signal ni description.",
+  "preuve": "Manufacturing Plants : 17, 17, 17, 20, 22 :: (vide) ; Power Brands Share : 51, 53, 55, 56, 58 :: (vide).",
+  "correction_validee": "Ajouter les exercices et un signal, ou supprimer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_ORGANIC_GROWTH.yoy, SOUP_SALES.last_data_date",
+  "probleme": "Variation d un taux de croissance exprimee en pourcentage au lieu de points, et dates au 31 decembre pour un exercice clos debut aout.",
+  "preuve": "CAHIER_ORGANIC_GROWTH : FY2025=-1, FY2026=-2, yoy=+100.0 % ; SOUP_SALES last_data_date 2025-12-31.",
+  "correction_validee": "Afficher la variation de CAHIER_ORGANIC_GROWTH en points (-1 pt) et dater les exercices à la clôture de début août.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "effectifs_annuels et ratios par salarie",
+  "probleme": "Effectifs arretes a 2023 alors que la fiche couvre l exercice 2026.",
+  "preuve": "effectifs_annuels dernier 2023=14 500 ; ca_par_salarie, fcf_par_salarie, dette_par_salarie derniers points 2023 avec last_data_date 2025-08-03.",
+  "correction_validee": "Ajouter les effectifs FY2024 et FY2025 du rapport annuel et recalculer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "toutes les series trimestrielles",
+  "probleme": "Fiche non mise a jour avec le T4 FY2026 publie le 3 septembre 2026 : tous les trimestriels s arretent au 3 mai 2026.",
+  "preuve": "last_data_date 2026-05-03 sur MB_rev, snacks_rev, total_rev, op_income, net_debt ; next_earnings_date 2026-09-03 depasse.",
+  "correction_validee": "Integrer le T4 FY2026 et l exercice complet.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "KPI transcript a un seul point",
+  "probleme": "Faits ponctuels presentes comme KPI, dont deux redondants sur La Regina.",
+  "preuve": "La Regina acquisition first payment 145 et Acquisition of 49% equity in La Regina 286 (signal : 146 M cash plus 140 M differes) ; Divestiture noosa 188, Pop Secret 70, Total pre-tax cost 245, SG&A reduction 100, Households added 1, Rao s consumption 14.5.",
+  "correction_validee": "Fusionner les deux La Regina, basculer le reste en faits marquants.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

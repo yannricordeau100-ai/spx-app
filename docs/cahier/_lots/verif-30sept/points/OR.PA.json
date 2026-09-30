@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "value de OP_MARGIN, REV_FY, OP_FY, NI_FY, NI_REC_FY, BPA, DIV_LUXE, DIV_PGP, DIV_DERMA, DIV_PRO, GEO_*, RD, ORG_GROWTH, PUB_GROWTH",
+  "probleme": "La valeur affichee est un chiffre du premier semestre 2026 posee sur une serie annuelle qui s arrete a FY2025, avec un yoy et un signal qui parlent de 2025 : un investisseur lit 23 776 M€ de CA annuel",
+  "preuve": "REV_FY val=23776.1, yoy=+1,3 %, serie ...FY2025=44052, signal '44,05 Mds € en 2025' ; OP_MARGIN (hero) val=21.3, serie FY2025=20.2 ; OP_FY val=5063 = OP_S1 H1-2026 ; DIV_LUXE val=7996.7 yoy=+0,0 % serie FY2025=15595.1",
+  "correction_validee": "Sur chaque série annuelle, remettre la valeur au point FY2025 (REV_FY 44 052, OP_MARGIN 20,2, etc.), les semestres restant dans OP_S1 et NI_S1.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Revenu par Division, Marge Brute, Marge Operationnelle, Investissements R&D, Effectif, Revenu par Zone Geographique, Croissance Like-for-like, Cash Flow Operationnel Net, Marge Op Luxe, Croissance LFL Emerging Markets",
+  "probleme": "Dix KPI d agent avec cuisine interne visible dans le signal, series sans annee, melanges S1/annee, et valeurs contredisant les KPI principaux",
+  "preuve": "'Revenu par Division' signal: 'Le KPI est trompeur : c est en realite le revenu total Groupe... La valeur 32.98 dans l input n est pas' ; 'Marge Brute': 'Les valeurs 61% dans l input sont incorrectes' ; 'Effectif': 'Donnee plausible, a verifier', serie 90000...83000 contre EFFECTIFS 97 583 ; 'Revenu par Zone Geographique' serie 7.5, 5.8, 5.4, 3.7, 2.1 = cinq zones, pas une serie temporelle ; 'Croissance Like-for-like': 'KPI hero ABSOLU'",
+  "correction_validee": "Retirer les dix KPI d'agent, déjà couverts par OP_MARGIN, ORG_GROWTH, DIV_*, GEO_*, RD et EFFECTIFS.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Consumer Products, Active Cosmetics (Dermo), Professional Products, Like-for-Like Growth",
+  "probleme": "Doublons des divisions et de la croissance comparable, sans annee, avec des valeurs differentes des series officielles",
+  "preuve": "Professional Products val=4.7 Mds € vs DIV_PRO FY2025=5163 M€ ; Active Cosmetics 7.5 vs DIV_DERMA 7204 ; Like-for-Like Growth serie 17, 11, 8, 6.5, 5.5 vs ORG_GROWTH 16.1, 10.9, 11, 5.1, 4",
+  "correction_validee": "Retirer les quatre KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "OP_S1.signal / NI_S1.signal et yoy",
+  "probleme": "Signaux arretes au S1-2025 et yoy faux alors que la serie contient H1-2026 ; OP_S1 affirme meme que le montant S1-2026 n est pas publie tout en l ayant dans la serie",
+  "preuve": "OP_S1 serie H1-2026=5063, signal 'montant absolu non publie dans les documents disponibles' ; NI_S1 yoy=-7,8 % alors que 3552.8/3372.2 = +5,4 %",
+  "correction_validee": "OP_S1 : 5 063 M€ au S1-2026 (+6,8 %) ; NI_S1 : 3 553 M€ au S1-2026 (+5,4 %), yoy recalculés.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "preambule",
+  "probleme": "Affirmation contredite par la serie : 32,6 % n est pas le plus haut niveau connu",
+  "preuve": "these: 'budget publicitaire et promotionnel a 32,6 % de ses ventes, son plus haut niveau connu' ; CAHIER_AP_SPEND FY2021=32.8",
+  "correction_validee": "Remplacer par « l'un de ses plus hauts niveaux ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ORG_GROWTH.value",
+  "probleme": "Valeur S1-2026 incoherente avec la these",
+  "preuve": "ORG_GROWTH val=6.8 ; these: 'croissance a donnees comparables ajustee de +6,5 %'",
+  "correction_validee": "Verifier le chiffre S1-2026 (6,5 ou 6,8) et aligner",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

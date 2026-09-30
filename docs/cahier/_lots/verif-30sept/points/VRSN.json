@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": ".com Domains / .net Domains / .com & .net Domain Base / Renewal Rate / DNS Query Volume / Root Zone DNS Queries Avg / DNS queries processed per day",
+  "probleme": "Anciens KPI sans dates, perimes, et trois volumes de requetes DNS contradictoires",
+  "preuve": "Base 169 M contre domain_base 179,1 ; Renewal Rate 73 contre renewal_rate 76,3 ; .com 158 + .net 12,7 = 170,7 ; DNS 350, 330 et 600 milliards par jour",
+  "correction_validee": "Supprimer .com Domains, .net Domains, .com & .net Domain Base, Renewal Rate, DNS Query Volume et Root Zone DNS Queries Avg, garder un seul volume DNS date.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SUBSCRIPTION_BASE",
+  "probleme": "Doublon annuel de domain_base avec un signal contredit par la serie trimestrielle",
+  "preuve": "FY2025=173.5 = domain_base Q4-2025=173.5 ; \"sursaut en 2025 qui reste modeste\" alors que Q2-2026=179,1 (+5,1 %) et nouvelles inscriptions +22 %",
+  "correction_validee": "Supprimer CAHIER_SUBSCRIPTION_BASE.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "com_wholesale_price / net_wholesale_price",
+  "probleme": "Series decalees d un an par rapport aux dates de hausse citees dans leurs propres signaux",
+  "preuve": "signal .com \"10,26 $ depuis sept 2024\" mais FY2024=9.59 et yoy 2025 +7 % ; signal .net \"hausse de 10 % effective fev 2024\" mais la hausse a 10,91 apparait en FY2025 ; \"accord ICANN jusqu en 2029\" alors que la these annonce une nouvelle hausse .net a 12,00 $",
+  "correction_validee": "Recaler chaque prix sur le tarif en vigueur au 31 decembre et corriger les signaux",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "deferred_revenue.signal",
+  "probleme": "Variation citee differente de la serie",
+  "preuve": "\"+7,3 % sur un an\" alors que 1,45 / 1,38 = +5,1 % et yoy affiche +5.0 %",
+  "correction_validee": "Remplacer +7,3 % par +5,0 % dans le signal.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "First quarterly cash dividend initiated / Dividends paid first full year / dividend_per_share.yoy",
+  "probleme": "Pseudo KPI contradictoires sur le dividende",
+  "preuve": "\"Premier dividende\" affiche 0,81 alors que le texte dit 0,77 en avril 2025 ; \"premiere annee pleine\" pour 2025 alors que le dividende a debute au T2 2025 ; dividend_per_share yoy N/A alors que 0,81/0,77 = +5,2 %",
+  "correction_validee": "Supprimer les deux pseudo KPI et afficher yoy +5,2 % sur dividend_per_share.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "these.accroche",
+  "probleme": "Flux d exploitation 2025 cite ne correspond pas a la somme des trimestres de la fiche",
+  "preuve": "\"1 121 M$ d argent d exploitation en 2025\" alors que operating_cash_flow 2025 = 291,3+202,5+307,7+289,6 = 1 091,1 M$ (fcf 2025 = 1 068,3 = fcf_annuel)",
+  "correction_validee": "Verifier et aligner sur 1 091 M$ ou corriger la serie",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description / moat",
+  "champ": "mettrik_description.customers / moat.summary",
+  "probleme": "Clients mal decrits et moat chiffre faux",
+  "preuve": "description : clients = \"entreprises qui enregistrent des noms de domaine\" alors que les clients sont les bureaux d enregistrement (un seul pese 31 %) ; moat \"croit de 3,7 %\" alors que domain_base +5,1 %",
+  "correction_validee": "Clients = bureaux d enregistrement agrees (registrars) ; moat sur le monopole contractuel ICANN avec chiffre a jour",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques / repartition",
+  "champ": "risks / revenue_by_geography / tagline",
+  "probleme": "Risque hors sujet, libelle et tagline en anglais",
+  "preuve": "risque \"Reseau immobilier et points de vente\" pour un registre DNS ; \"Other Geographical Areas 6\" ; tagline \"Enabling the security, stability...\"",
+  "correction_validee": "Refaire les risques (renouvellement des contrats ICANN, plafonds de prix, concentration registrars) ; libelle \"Autres zones\" ; tagline en francais",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

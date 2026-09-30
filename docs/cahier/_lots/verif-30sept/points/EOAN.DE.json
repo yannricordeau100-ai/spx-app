@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Adjusted EBITDA, Energy Networks EBITDA, Customer Solutions EBITDA, External Sales, RAB (Network Assets)",
+  "probleme": "Cinq series sans periodes, chiffres ronds ou estimes, contredites par les series sourcees de la fiche",
+  "preuve": "Adjusted EBITDA val=9400 alors que l anti-these et la somme des trimestres 2025 donnent 9 849 M€ ; Energy Networks EBITDA 6600 contre EBITDA_NETWORKS FY2024=6868 et FY2025=7695 ; Customer Solutions EBITDA 2800 (segment renomme Energy Retail, 1 697 M€ en 2025) ; External Sales 93725 contre 78,7 Mds € en 2025 ; RAB serie 30000, 32000, 35000, 37000, 41000 avec description « (estimation) » ; dernier 2026-08-09 sans periode.",
+  "correction_validee": "Retirer les cinq KPI Adjusted EBITDA, Energy Networks EBITDA, Customer Solutions EBITDA, External Sales et RAB (Network Assets).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_CUSTOMER_RELIABILITY",
+  "probleme": "Nom sans rapport avec la mesure (duree de coupure en minutes) et serie arretee en 2024",
+  "preuve": "« Clients desservis et fiabilité du service » unit minutes, serie FY2020=23 ... FY2024=23, yoy=+9.5% presente comme neutre alors qu une hausse est une degradation.",
+  "correction_validee": "Renommer « Durée moyenne de coupure par client (SAIDI) », ajouter 2025, signaler qu une hausse est defavorable.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "ROCE_FY.yoy, RATIO_FP_FY.yoy",
+  "probleme": "Variations de pourcentages exprimees en pourcentage relatif, contredisant les signaux en points",
+  "preuve": "ROCE_FY yoy=+1.1% mais signal « +0,1 pt » (8,8 vers 8,9) ; RATIO_FP_FY yoy=+4.5% mais signal « +1 pt » (22 vers 23).",
+  "correction_validee": "Afficher +0,1 pt pour ROCE_FY et +1 pt pour RATIO_FP_FY.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "DIV_FY.signal",
+  "probleme": "Signal contredit la these sur le nombre de hausses consecutives du dividende",
+  "preuve": "DIV_FY signal : « sixième hausse annuelle consécutive » (compte les seuls points de la serie) ; these : « relève sa distribution chaque année depuis l'exercice 2017 » (neuvieme hausse).",
+  "correction_validee": "Corriger le signal en « neuvième hausse annuelle consécutive » apres verification.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "RAB reelle (absente)",
+  "probleme": "L indicateur cle d un reseau regule, la base d actifs regulee publiee, manque une fois la serie estimee retiree, alors que la these repose dessus",
+  "preuve": "these : « la base d'actifs régulée* grossit, les revenus autorisés suivent » ; seule serie RAB = estimation ronde sans periodes.",
+  "correction_validee": "Ajouter la RAB publiee par E.ON (Energy Networks) par exercice.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.niveau",
+  "probleme": "Moat « Aucun » pour un operateur de reseaux regules en monopole local, contredit la these",
+  "preuve": "moat: None / tendance hausse ; these : « E.ON est devenu une société d'infrastructure régulée » ; EBITDA_NETWORKS = 78 % de l EBITDA ajuste.",
+  "correction_validee": "Reevaluer le niveau du moat (monopole regule de distribution).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

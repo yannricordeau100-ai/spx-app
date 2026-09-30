@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "mettrik_description",
+  "champ": "simple.fr.activity (et en)",
+  "probleme": "Description fausse du métier : Amkor ne fabrique pas de puces.",
+  "preuve": "\"Amkor Technology fabrique les puces électroniques qui permettent aux appareils de fonctionner\" ; tagline \"Outsourced Semiconductor Packaging and Test Services\", thèse \"assembler et tester les puces des autres\".",
+  "correction_validee": "Écrire « Amkor met en boîtier et teste les puces conçues et fabriquées par d'autres sociétés de semi-conducteurs (sous-traitant OSAT). », et faire de même en anglais.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "capex, rd_expense, gross_profit, operating_income, dette (tous annuels) ; marge brute et marge opérationnelle trimestrielles absentes",
+  "probleme": "Seules 2 séries trimestrielles ; les chiffres 2026 cités par la thèse et l'anti-thèse n'existent dans aucune série.",
+  "preuve": "Anti-thèse : dette \"de 1 445,2 M$ à 2 485,7 M$ en six mois\", FCF \"négatif de 269,9 M$ au premier semestre 2026\" ; thèse : \"marge brute qui a gagné près de cinq points\" ; dette_annuelle s'arrête à 1,445 (FY2025), gross_profit annuel en $M, aucune marge en %.",
+  "correction_validee": "Ajouter depuis les 10-Q les séries trimestrielles jusqu'au T2 2026 : marge brute (%), marge opérationnelle (%), capex, dette totale et FCF.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "gross_profit (name_fr, signal)",
+  "probleme": "Nom et signal parlent d'un taux, la série est un montant qui monte.",
+  "preuve": "name_fr \"Marge brute\", unité \"$M\", série 933,2 → 938,6 (+0,6 %) ; signal \"Le repli du taux de marge brute vient du coût temporaire...\".",
+  "correction_validee": "Renommer \"Résultat brut\" et ajouter un KPI taux de marge brute (FY2025 14,0 % vs 14,8 %).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "governance",
+  "champ": "ceo_name",
+  "probleme": "Champ dirigeant contenant une phrase mal formée au lieu du dirigeant actuel.",
+  "preuve": "\"Giel Rutten (CEO durant l'exercice 2025, retraite au 31/12/2025 ; succède par Kevin K. Engel depuis le 01/01/2026)\".",
+  "correction_validee": "Mettre ceo_name à « Kevin K. Engel (depuis le 1er janvier 2026) ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik, tendance",
+  "probleme": "Phrase sans sens pour le lecteur et tendances contradictoires.",
+  "preuve": "\"l'avantage concurrentiel a été retiré\" ; moat.tendance \"baisse\" vs tendance_mettrik \"stable\" ; niveau \"Aucun\" alors que la part des produits avancés monte à 82,8 %.",
+  "correction_validee": "Réécrire : niveau, raison (concurrence asiatique, dépendance Apple/Qualcomm 40,9 %) et une seule tendance.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_segment / revenue_by_geography",
+  "champ": "exercice",
+  "probleme": "Exercice absent des deux répartitions.",
+  "preuve": "\"revenue_by_segment (None)\", \"revenue_by_geography (None)\" alors que les autres fiches affichent \"exercice 2025\".",
+  "correction_validee": "Renseigner fiscal_year « exercice 2025 » sur revenue_by_segment et revenue_by_geography.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "dividend_paid",
+  "probleme": "Série de 2 points espacés de 3 ans, signal non démontré.",
+  "preuve": "FY2022=55,1, FY2025=81,9, yoy \"n/a\" ; signal \"La hausse continue des dividendes depuis le lancement du programme en 2020\".",
+  "correction_validee": "Compléter FY2020 à FY2024 ou remplacer par le dividende par action trimestriel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks / revenue_by_segment",
+  "champ": "score_rationale, labels",
+  "probleme": "Accents manquants dans les textes de risques et libellés.",
+  "preuve": "\"ont représente 72%\", \"s'élevait a 1 445,2 M$\", \"classes en passif courant\", \"collateralisee\", \"a annonce en 2025\", \"cites comme menaces\", \"accordes\", \"la usine d'Arizona\", \"conditionnes a\", \"electrification\", \"maison connectee\".",
+  "correction_validee": "Corriger en représenté, s'élevait à, classés, collatéralisée, a annoncé, cités, accordés, l'usine, conditionnés à, électrification, maison connectée.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "facility_sqft.unit",
+  "probleme": "Unité en anglais.",
+  "preuve": "\"M sqft\".",
+  "correction_validee": "Remplacer par « M pieds carrés » ou convertir en millions de m² (12,633 M sqft ≈ 1,17 M m²).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WEB_INVESTIS_CAMPUS_AMKOR, WEB_SALAIRE_ANNUEL_MOYEN, WEB_EFFECTIF_ATTENDU_FIN, WEB_TECHNOLO_PACKAGIN_SEMICOND",
+  "probleme": "Quatre KPI sans historique (graphique vide), name_en = code technique, source citée dans le signal, contenu anecdotique.",
+  "preuve": "history [] ; name_en \"WEB_SALAIRE_ANNUEL_MOYEN\" ; signal \"Chiffre publié sur le site de la société (2026)\" ; \"Salaire annuel moyen des emplois créés à Peoria\" 90 000 $/an n'est pas un indicateur d'investisseur.",
+  "correction_validee": "Garder seulement l'investissement Arizona (7 Mds) comme événement, supprimer les trois autres.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

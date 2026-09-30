@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "equipment_rev / services_rev",
+  "probleme": "Séries présentées comme groupe alors qu'elles couvrent seulement le segment Americas",
+  "preuve": "equipment 11 212,6 + services 5 956,2 = 17 168,8 M$ = somme americas_rev FY2025 (3800,7+4692,3+4663,3+4012,5), pas le CA groupe 21 321,9 ; services_rev donne 27,9 % du CA contre 34,4 % dans CAHIER_SERVICE_RECURRING_MIX",
+  "correction_validee": "Renommer en 'CA Équipements Americas' et 'CA Services Americas'.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Enterprise bookings / Organic bookings growth / Enterprise backlog / Book-to-bill / Americas Commercial HVAC bookings growth",
+  "probleme": "Séries décalées d'un trimestre : dernier point daté 2026-06-30 mais correspondant au T1 2026",
+  "preuve": "Somme des 4 points avant le dernier (5283+5626+5979+5760) = 22 648 = CAHIER_ORDER_INTAKE FY2025, donc 6 691 = T1 2026 ; signaux 'au T1-2026' (6,7 Md$, 10,7 Md$, book-to-bill 135 % alors que dernier point 123, HVAC ~+40 % alors que dernier point 50)",
+  "correction_validee": "Recaler toutes ces séries d'un trimestre (dernier point = T1 2026) et ajouter le T2 2026 si disponible.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Americas Commercial HVAC bookings growth",
+  "probleme": "Série arrondie d'apparence reconstituée, sans périodes",
+  "preuve": "serie 20, 30, 35, 40, 50 sans dates ; signal '~+40 %'",
+  "correction_validee": "Ré-extraire depuis les communiqués ou supprimer",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "gross_margin.yoy / op_margin.yoy / net_margin.yoy / organic_rev_growth.yoy / CAHIER_VOLUME_PRICE_SPLIT.yoy",
+  "probleme": "Variations de ratios en % relatifs au lieu de points",
+  "preuve": "gross_margin 35,6 vs 37,6 affiché -5,3 % (vrai -2,0 pts) ; op_margin -4,9 % (vrai -1,0 pt) ; organic_rev_growth '+6.2pts vs 0 base' alors que 11,7 -> 6,2 = -5,5 pts ; CAHIER_VOLUME_PRICE_SPLIT +30,4 %",
+  "correction_validee": "Afficher en points : marge brute -2,0 pts, marge op. -1,0 pt, marge nette -0,6 pt, croissance organique -5,5 pts, contribution prix +0,7 pt.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "dividend_per_share.signal",
+  "probleme": "Signal sans rapport avec la série",
+  "preuve": "Signal 'Le versement double du T2 reflète un calendrier de déclaration' alors que Q2-2026 = 1,05, identique à Q1-2026",
+  "correction_validee": "Dividende trimestriel relevé de 0,94 à 1,05 $ (+11,7 % sur un an).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "signaux total_rev, operating_income, net_earnings, eps_diluted, total_seg_ebitda, americas/emea/apac_ebitda, free_cash_flow",
+  "probleme": "Cuisine interne non détectée : 'Q4 dérivé', '(FY - 9M)', signal tronqué",
+  "preuve": "'CA trimestriel rapport trimestriel; Q4 dérivé. HVAC durable', 'BPA dilué trimestriel rapport trimestriel; Q4 dérivé (FY - 9M)', free_cash_flow 'T2-2026 :: ' tronqué",
+  "correction_validee": "Retirer ces mentions et réécrire chaque signal en phrase lisible sur la dynamique du trimestre.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "TT_CLIMATE_REV / workforce / Enterprise backlog",
+  "probleme": "Doublons",
+  "preuve": "TT_CLIMATE_REV FY2025 21 321,9 = revenue_annuel 21,322 (description 'Produit phare : ...') ; workforce 44 K = effectifs_annuels 44 000 ; Enterprise backlog trimestriel doublon de total_backlog annuel (7,7 = 7 769,4)",
+  "correction_validee": "Supprimer TT_CLIMATE_REV et workforce ; garder les deux séries de carnet.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "revenue_by_segment",
+  "probleme": "Libellés en anglais",
+  "preuve": "'Product 65.6 ; Service 34.4'",
+  "correction_validee": "Renommer en Équipements et Services.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat / positionnement IA",
+  "champ": "moat, ai_positioning",
+  "probleme": "Moat 'Aucun' contredit par son propre texte, IA générique malgré des faits sur la fiche",
+  "preuve": "Moat niveau Aucun mais texte 'le parc installé entretenu renforce la fidélisation' ; services 34,4 % et 7 500 techniciens. IA : une phrase générique alors que la fiche cite l'acquisition BrainBox AI (190 M$) et les commandes data centers +160 %",
+  "correction_validee": "Réévaluer le moat (base installée, services) ; réécrire le positionnement IA avec BrainBox AI et le refroidissement des data centers",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

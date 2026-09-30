@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "product_rev_annual (signal)",
+  "probleme": "Le signal affirme que les puces depassent la moitie du CA alors que le chiffre cite est 49 %.",
+  "preuve": "signal : premiere annee ou les puces depassent la moitie du chiffre d affaires (49%) ; 347,8/707,6 = 49,1 %.",
+  "correction_validee": "Signal : les puces approchent la moitie du chiffre d affaires (49 %).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "dette_annuelle / dette_sur_ca",
+  "probleme": "Series arretees en 2023 alors que la fiche va jusqu a 2025 et que la these dit sans un dollar de dette.",
+  "preuve": "dette_annuelle dernier 2023-12-31 val=0 ; revenue_annuel va a 2025.",
+  "correction_validee": "Etendre a 2024 et 2025 (0 si confirme au 10-K) ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "employees",
+  "probleme": "Serie a deux points espaces de trois ans avec un yoy presente comme annuel.",
+  "preuve": "serie FY2022=765, FY2025=791, yoy=+3 %.",
+  "correction_validee": "Completer FY2023 et FY2024 ou supprimer le yoy.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "rev_annual / revenue_annuel",
+  "probleme": "Doublon du chiffre d affaires annuel avec une valeur 2019 divergente.",
+  "preuve": "rev_annual FY2019=224,027 M$ ; revenue_annuel 2019=0,228 Mds $.",
+  "correction_validee": "Garder un seul KPI, aligner 2019 sur le 10-K.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_INVENTORY_CHANNEL",
+  "probleme": "Nom peu clair (deux notions en un) et signal qui compare a une periode absente de la serie.",
+  "preuve": "nom : Stocks internes en jours et stocks du canal de distribution ; signal : au-dessus des 80 a 100 jours observes avant 2018, serie commence FY2018=135,1.",
+  "correction_validee": "Renommer Jours de stocks et reecrire le signal sur 2025 (119,5 jours, en baisse de 50 jours).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune marge (brute, operationnelle) alors que l anti-these repose sur la marge operationnelle qui recule de 37 % a 35 %.",
+  "preuve": "att : marge operationnelle GAAP reculer de 37% a 35% ; aucun KPI de marge dans la liste.",
+  "correction_validee": "Ajouter marge brute et marge operationnelle trimestrielles.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "En-tete",
+  "champ": "tagline / revenue_by_geography",
+  "probleme": "Textes en anglais.",
+  "preuve": "tagline : Leading provider of memory interface chips... ; geographie : KOREA, REPUBLIC OF ; SINGAPORE ; UNITED STATES ; Other Countries",
+  "correction_validee": "Traduire la tagline et les pays : Coree du Sud, Singapour, Etats-Unis, Autres pays.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

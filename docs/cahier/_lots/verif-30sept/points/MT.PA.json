@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Cuisine interne visible : le moat commente la disponibilité des données au lieu de décrire l'avantage concurrentiel.",
+  "preuve": "« Le seul indicateur fourni concerne le nombre d'actions et les risques sont tous stables, éléments trop minces pour valider le relèvement de note de 2024. »",
+  "correction_validee": "Retirer la phrase et rédiger un moat sur l'intégration amont (mines captives), la taille et la présence géographique, en ne gardant que les chiffres présents dans les sources.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "hero_kpi",
+  "champ": "WASO",
+  "probleme": "Le hero est le nombre moyen d'actions, indicateur non opérationnel pour un sidérurgiste.",
+  "preuve": "hero: WASO (763 M actions) alors que la fiche contient EBITDA par tonne, expéditions, production d'acier brut.",
+  "correction_validee": "Passer le hero sur EBITDAT (EBITDA par tonne), ou à défaut sur SHIP.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "NETDEBT",
+  "probleme": "Série de dette nette décalée d'un exercice.",
+  "preuve": "FY2023 = 5,079, FY2024 = 9,123, FY2025 = 7,931 ; ArcelorMittal a publié 2,9 Mds $ de dette nette fin 2023 et 5,1 Mds fin 2024. Le 5,079 correspond à fin 2024 ; le signal dit « 7,9 fin 2025 contre 9,1 un an plus tôt » ce qui contredit le 5,1 publié.",
+  "correction_validee": "Réaligner la série (FY2024 = 5,079, FY2025 = 7,931, FY2023 = 2,9 à vérifier dans le rapport 2023), yoy +56 %, signal « 7,9 Mds $ fin 2025 contre 5,1 Mds $ un an plus tôt ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "SHIP / CAHIER_SHIPMENTS / expeditions_d_acier_millions_de_tonnes",
+  "probleme": "Trois KPI pour les expéditions d'acier, dont un sans nom anglais, sans signal ni description et avec une clé brute.",
+  "preuve": "expeditions_d_acier_millions_de_tonnes (quarter, 13,4 Mt, yoy None, signal vide) ; SHIP (semester) ; CAHIER_SHIPMENTS (year).",
+  "correction_validee": "Renommer la série trimestrielle « Expéditions d'acier », lui donner un signal, et supprimer SHIP (semestriel redondant).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "IOSHIP",
+  "probleme": "Deux années identiques suspectes dans une série de volumes.",
+  "preuve": "FY2023 = 26,4 et FY2024 = 26,4 Mt, alors que la production (IOPROD) passe de 26 à 27,9.",
+  "correction_validee": "Vérifier le point FY2024 dans le rapport annuel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "secteur / tagline",
+  "probleme": "Sous-secteur absent et tagline en anglais.",
+  "preuve": "« Matériaux > None » ; tagline « World's leading steelmaker outside China, integrated iron ore miner. »",
+  "correction_validee": "Sous-secteur « Acier » ; tagline en français.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "products",
+  "probleme": "La description omet les produits plats, coeur de l'activité.",
+  "preuve": "« solutions tubulaires premium, acier électrique NOES, produits longs (rails, fils machine) et minerai de fer » ; les segments Europe, NAFTA et Brésil sont dominés par les produits plats (automobile, emballage).",
+  "correction_validee": "Ajouter « produits plats (tôles pour l'automobile, l'emballage, la construction) » en premier.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucune série d'intensité carbone (tCO2 par tonne d'acier) alors que le risque 5 et la thèse en dépendent ; prix de vente moyen Amérique du Nord absent alors que Brésil et Europe sont fournis.",
+  "preuve": "Risque 5 « Objectifs de réduction d'intensité carbone » ; KPI ASPBR et ASPEU présents, pas d'ASPNA.",
+  "correction_validee": "Ajouter l'intensité CO2 (publiée dans le rapport climat) et le prix moyen Amérique du Nord.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

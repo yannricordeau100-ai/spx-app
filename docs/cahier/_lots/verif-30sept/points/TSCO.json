@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "Buyback Shares, Shares Diluted, Tax Rate (T4 derives)",
+  "probleme": "Les T4 sont calcules comme 'exercice moins 9 mois' sur des grandeurs non additives, ce qui donne des valeurs negatives ou absurdes (hors sauts deja detectes).",
+  "preuve": "Buyback Shares Q3-2024=2804, Q4-2024=-7828.42 ; Shares Diluted Q4-2024=-5.4, Q4-2025=-3.2 ; Tax Rate Q4-2024=-0.1, Q4-2025=-0.7.",
+  "correction_validee": "Remplacer les T4 2024 et 2025 par les valeurs publiees (actions en millions, taux en %) et convertir Q3-2024 en millions.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Categories et pourcentages incompatibles avec les KPI de mix de la meme fiche, sans exercice indique.",
+  "preuve": "Repartition : 'Articles equestres et betail 42,7 ; Bricolage, ferme et jardin 32 ; ...'. KPI 2025 : Elevage 27, Animaux de compagnie 24, Saisonnier 24, Camion-outillage 15, Vetements 10.",
+  "correction_validee": "Refaire la repartition de l exercice 2025 sur les 5 categories publiees et indiquer l exercice.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Cat Companion",
+  "probleme": "La serie s arrete en 2022 a 50 % alors que le signal donne 24 % en 2025 (changement de nomenclature).",
+  "preuve": "dernier 2022-12-31 val=50 ; signal '24 % des ventes en 2025'.",
+  "correction_validee": "Remplacer par la serie 2023 a 2025 dans la nomenclature actuelle.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_VENTES_COMPARABLES",
+  "probleme": "La serie s arrete en 2019, et le signal est faux au vu des chiffres de la fiche.",
+  "preuve": "'Un seul repli de ventes comparables a eu lieu en 2009' ; Comp Sales Q1-2025=-0.9, Q2-2026=-1.5, Q3-2024=-0.2.",
+  "correction_validee": "Prolonger jusqu en 2025 et corriger le signal, ou supprimer (doublon de Comp Sales).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Neighbor's Club",
+  "probleme": "La valeur affichee (41 M) est une estimation qui n est pas dans la serie, arretee en 2023. Le signal est jargonneux.",
+  "preuve": "serie FY2023=33, val=41 ; signal 'Chiffre estime FY2025', 'Moat client: retention, data, pricing power'.",
+  "correction_validee": "Mettre les chiffres publies 2024 et 2025, et reecrire le signal en francais.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Doublons magasins et marques",
+  "probleme": "Memes indicateurs sous deux noms.",
+  "preuve": "Nouveaux stores TSCO et New Tractor Supply stores opened (15, 24, 29, 31, 40 identiques) ; Petsense Count et Petsense by Tractor Supply store count (206, 207, 206) ; Exclusive Brands et CAHIER_MIX_EXCLUSIF (29, 29, 30) ; CAHIER_PARC_SURFACE (arrete en 2019) et Tractor Supply store count.",
+  "correction_validee": "Supprimer New Tractor Supply stores opened, Petsense by Tractor Supply store count, Exclusive Brands et CAHIER_PARC_SURFACE.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Traffic vs Ticket",
+  "probleme": "Le nom annonce trafic et panier, mais la serie ne mesure que le trafic. L unite est en anglais.",
+  "preuve": "unite '% traffic YoY', val=-1.7 = trafic comparable.",
+  "correction_validee": "Renommer en 'Trafic comparable (variation sur un an)' avec l unite %.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "Moat",
+  "champ": "moat",
+  "probleme": "La tendance 'hausse' repose sur les comparables 2025 alors que le dernier trimestre est en recul.",
+  "preuve": "'Les ventes comparables gagnent 1 point' ; Comp Sales Q2-2026=-1.5, trafic -1.7.",
+  "correction_validee": "Actualiser le texte du moat avec le T2 2026.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI ponctuels",
+  "champ": "Five-for-one split, Share repurchase authorization, Allivet acquisition, Total addressable market, Direct sales target, Nampa DC",
+  "probleme": "Evenements et objectifs presentes comme des KPI, avec une orthographe incoherente (Alivet contre Allivet) et du franglais ('Commitment de construction').",
+  "preuve": "'Contribution Alivet' et 'Acquisition Allivet' ; 'Commitment de construction 118,6 M USD'.",
+  "correction_validee": "Deplacer ces six faits dans les evenements, ecrire 'Allivet' partout et remplacer 'Commitment' par 'engagement'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

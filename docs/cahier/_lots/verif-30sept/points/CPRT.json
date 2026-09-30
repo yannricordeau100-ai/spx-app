@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "signal et yoy de 17 series trimestrielles",
+  "probleme": "Le point T4-FY2026 a ete ajoute mais signaux et variations restent calcules sur le T3 : chiffres cites et yoy faux.",
+  "preuve": "net_income_q val=327,4 (T4) yoy=-1.0 % alors que 327,4/396,4 = -17,4 % ; signal : Resultat net de 402,4 M$ au T3-FY2026. cash_q val=1,91 yoy=+41,4 % (3,35/2,37) alors que 1,91/2,78 = -31 %. revenue_total signal : CA de 1237,1 M$ au T3 ; val=1152,4. Idem eps, gross_margin, shares, us/intl_total_rev, us/intl_op_income et marges, vehicle sales, facility_ops, ga_q, inventory, intl_service_rev (+17,9 % cite, 151,7/131,4 = +15,4 %).",
+  "correction_validee": "Recalculer chaque variation annuelle sur T4-FY2026 contre T4-FY2025 et réécrire les signaux des 17 séries sur le T4.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "capex_ppe, operating_margin, capex_intensity, ocf_q, fcf_q, buybacks_q, net_margin_q, tax_rate_q, da_q",
+  "probleme": "Mise a jour partielle : ces series s arretent au T3-FY2026 alors que le reste de la fiche est au T4-FY2026.",
+  "preuve": "last_data_date 2026-04-30 contre 2026-07-31 pour revenue_total, net_income_q, cash_q.",
+  "correction_validee": "Ajouter le T4-FY2026 depuis le rapport annuel FY2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "da_q (serie)",
+  "probleme": "Point Q2-FY2026 invraisemblable, six fois inferieur aux trimestres voisins.",
+  "preuve": "Q1-FY2026=54, Q2-FY2026=8,6, Q3-FY2026=59.",
+  "correction_validee": "Reprendre la valeur du T2 FY2026 dans le 10-Q (attendue autour de 55 M) et corriger le point.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "VEHICLE_SALES_REV.yoy",
+  "probleme": "Variation affichee fausse.",
+  "preuve": "FY2026=696,689 vs FY2025=678,296 = +2,7 % ; yoy affiche +0,4 %.",
+  "correction_validee": "Recalculer la variation de VEHICLE_SALES_REV : +2,7 %.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Locations, Operating Locations, total_facilities",
+  "probleme": "Trois comptages de sites contradictoires pour la meme annee, deux sans etiquettes.",
+  "preuve": "Locations dernier=245, Operating Locations=260 (history_periods=None, dates 2026-07-31), total_facilities FY2025=281.",
+  "correction_validee": "Supprimer Locations et Operating Locations et garder total_facilities.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "intl_buyer_pct.signal",
+  "probleme": "Signal perime et jargon interne.",
+  "preuve": "Signal : 38.8 % des vehicules vendus a des membres internationaux via IP, temoigne de la liquidite globale VB3 ; dernier point FY2026=38,2.",
+  "correction_validee": "Réécrire : 38,2 % des véhicules vendus à des acheteurs internationaux en FY2026 (38,8 % en FY2025).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "lt_debt, dette_annuelle, dette_par_salarie, dette_sur_ca",
+  "probleme": "Series arretees en 2024 alors que la fiche va jusqu a FY2026.",
+  "preuve": "lt_debt last_data_date 2024-07-31 ; dette_annuelle dernier 2024=0.",
+  "correction_validee": "Prolonger a FY2025 et FY2026 (zero) pour eviter l impression d une serie abandonnee.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "KPI transcript a un seul point et series sans periodes",
+  "probleme": "Faits ponctuels presentes comme KPI (dont un doublon de buybacks_q) et series de croissance sans etiquettes, impossibles a dater.",
+  "preuve": "H1 share repurchase 218,2 = buybacks_q Q2-FY2026 ; Major subsequent share repurchase 898 ; Full-time engineers 1000 ; Total land acreage 16000 ; Crossover buyers 30000 ; Hurricanes 56 ; Global unit sales growth n=19 et Global ASP growth (48 % a un point) avec history_periods=None.",
+  "correction_validee": "Basculer les faits en faits marquants, supprimer H1 share repurchase, etiqueter les series de croissance.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "activity",
+  "probleme": "Copart ne propose pas de services de reconditionnement : les vehicules sont vendus en l etat.",
+  "preuve": "activity : organise des ventes aux encheres en ligne de vehicules et propose des services de reconditionnement.",
+  "correction_validee": "Remplacer par : et des services de remarketing (enlevement, stockage, titres).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

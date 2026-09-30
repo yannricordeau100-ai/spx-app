@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "revenue_annuel, fcf_annuel, dette_annuelle, effectifs_annuels, ca_par_salarie, fcf_par_salarie, dette_par_salarie",
+  "probleme": "L'annee 2021 porte les valeurs de 2020 ; 2020 est absent et le vrai 2021 manque.",
+  "preuve": "revenue_annuel : 2019=7,07, 2021=6,971, 2022=9,039 (CA 2020 = 6,97, CA 2021 = 8,41). effectifs_annuels 2021=32000 alors que workforce_total donne FY2020=32000 et FY2021=36000. ca_par_salarie 2021=217,8 = 6,971/32000.",
+  "correction_validee": "Renommer le point 2021 en 2020 et ajouter le vrai 2021 (CA 8,41 Mds, 36 000 salaries, dette et FCF 2021) sur les 7 KPI.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik / tendance",
+  "probleme": "Justification de la tendance \"baisse\" contredite par les chiffres du T2 2026 presents sur la fiche.",
+  "preuve": "\"Les deux segments stagnent sous 1,5 % de croissance avec des résultats opérationnels en léger recul\" ; MG_rev +15,9 %, MG_organic +10 %, MG_adj_op_income +17,1 %, SG_adj_op_income +14,2 % au T2 2026 ; att : \"Materials Group affiche +16%\".",
+  "correction_validee": "Reecrire la justification a partir des donnees 2026 et reevaluer la tendance du moat.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices / exercice",
+  "probleme": "Repartition datant de 2022 sans exercice indique.",
+  "preuve": "MG 6,51 + SG 2,53 = 9,04 Mds = CA 2022 (9,039) ; exercice None. 2025 d'apres MG_rev et SG_rev : 6 093 / 2 762 = 68,8 % / 31,2 %.",
+  "correction_validee": "Remplacer par 2025 : Materials Group 6 093 M$ (68,8 %), Solutions Group 2 762 M$ (31,2 %), exercice 2025.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "IL_growth",
+  "probleme": "Valeurs 2023-2024 identiques et contredites par le signal, yoy incoherent, unite et texte en anglais, trous T4.",
+  "preuve": "Serie Q1-2023=25, Q2-2023=20, Q3-2023=25, Q1-2024=25, Q2-2024=25, Q3-2024=25, Q2-2025=2, Q3-2025=3 ; signal : \"Ralentissement vs high-single digit en 2024\" ; yoy -6 pp alors que 3 vs 25 = -22 pp ; unite \"% (approx)\" ; aucun T4.",
+  "correction_validee": "Reprendre les taux de croissance publies trimestre par trimestre, retirer approx et l'anglais, et recalculer le yoy en points.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Walmart RFID, IL addressable market, Condition monitoring market, AI inlay cycle, Taylor Adhesives, Euro notes, Williard, Kroger, GHG, High-value share, IL/RFID annual sales, RFID sales growth",
+  "probleme": "Bloc de KPI de conference : unites contenant du texte, evenements a un point, series sans periodes, name_en vides, texte contredit par la serie.",
+  "preuve": "Unites : \"% du CA IL 2025 (high single à low double digit sur 2 ans)\", \"milliards d'unités (>8 Md USD)\", \"semaines (vs 8-10 auparavant)\", \"M$ (>500)\". \"RFID / Intelligent Labels sales growth\" serie \"20, 20, 40, 20, 15\" sans periodes, description \"ralentie à stable/négative en 2025-2026\" alors que le dernier point vaut 15. \"Acquisition of Taylor Adhesives\" 390 n=1, \"Euro senior notes\" 500 n=1.",
+  "correction_validee": "Nettoyer les unites, dater les series, passer les evenements en texte, supprimer le doublon RFID (IL_growth existe).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "fcf, fcf_annuel, adj_fcf_q, adj_fcf_annual",
+  "probleme": "Quatre KPI de flux de tresorerie disponible ; repartition trimestrielle 2024 du FCF ajuste douteuse.",
+  "preuve": "adj_fcf_q Q3-2024=420 et Q4-2024=20,8 alors que fcf derive donne 227,1 et 281,7 ; total FY2024 699,5 coherent avec adj_fcf_annual. fcf trimestriel vs fcf_annuel, adj_fcf_q vs adj_fcf_annual = doublons annuel/trimestriel.",
+  "correction_validee": "Garder fcf trimestriel et adj_fcf_annual ; verifier Q3/Q4 2024 du FCF ajuste.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "capex, ocf, buybacks, dividends_paid, sbc, adj_fcf_q, SG_adj_op_margin, op_income_derived (signal)",
+  "probleme": "Calculs internes visibles dans les signaux.",
+  "preuve": "capex : \"39,2 M$ au T2 2026 (67,5 sur 6 mois moins 28,3 au T1)\" ; ocf : \"(544,7 sur 6 mois moins 136,5 au T1)\" ; SG_adj_op_margin : \"(76,5 / 666,8)\" ; op_income_derived : \"(729,4 - 394,8)\".",
+  "correction_validee": "Retirer les parentheses de calcul des 8 signaux et garder la valeur et la comparaison.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Adjusted earnings per share (quarterly)",
+  "probleme": "Serie sans periodes, yoy non coherent, valeur ajustee inferieure au BPA publie sans explication.",
+  "preuve": "14 points \"1.52 ... 2.42, 2.37, 2.45, 2.47\" sans trimestres ; yoy +7 % alors que 2,47 vs 2,42 = +2 % ; eps_diluted Q2-2026 = 2,67 > 2,47 ajuste.",
+  "correction_validee": "Dater la serie, verifier les valeurs et le yoy.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dette_sur_ca",
+  "probleme": "Serie arretee en 2019 alors que dette et CA 2025 sont sur la fiche.",
+  "preuve": "Serie 2015 a 2019, val 27,4 % \"en 2019\", last_data_date 2025-12-31 ; dette_annuelle 2025 = 3,733, revenue_annuel 2025 = 8,855, soit 42,2 %.",
+  "correction_validee": "Calculer 2020 a 2025 (2025 = 42,2 %) a partir des series dette et CA une fois 2020 et 2021 corriges (point 33).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "ai_positioning",
+  "champ": "summary",
+  "probleme": "Texte vague avec anglais entre parentheses, contredit par un KPI de la fiche.",
+  "preuve": "\"mentionne peu l'IA dans ses communications officielles (Materials Science and Digital Identification Solutions)\" ; KPI \"AI-driven inlay design cycle reduction\" : \"Modèle IA propriétaire ramenant le cycle de conception ... à environ 2 semaines\".",
+  "correction_validee": "Reecrire avec le cas d'usage cite (conception d'inlays RFID par IA) et retirer l'anglais.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "customers",
+  "probleme": "Clients decrits sans l'habillement ni la distribution, qui portent Solutions Group et la these RFID.",
+  "preuve": "\"Ses clients sont principalement des entreprises industrielles, des imprimeurs, des constructeurs automobiles et des autorités publiques pour la signalisation routière\" ; SG_apparel 437 M$ par trimestre, KPI Walmart et Kroger, revenue_by_segment Solutions Group 28 %.",
+  "correction_validee": "Ajouter transformateurs d'etiquettes, marques d'habillement et distributeurs.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_diluted, MG_organic, SG_organic",
+  "probleme": "Quatriemes trimestres absents des series.",
+  "preuve": "eps_diluted : Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 (aucun Q4) ; MG_organic sans Q4-2024 ni Q4-2025.",
+  "correction_validee": "Ajouter les T4 (BPA 2024 et 2025 publies).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

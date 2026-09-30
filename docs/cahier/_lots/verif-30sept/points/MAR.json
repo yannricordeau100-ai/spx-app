@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "RevPAR Worldwide / Rooms Total / Loyalty Members / Net Rooms Growth / RevPAR Growth / Adj EBITDA / Adj EBITDA Margin (7 series annuelles sans etiquette d annee, dernier 2026-06-30)",
+  "probleme": "Series lissees et contredites par les series sourcees de la meme fiche.",
+  "preuve": "RevPAR Worldwide 50, 105, 125, 128, 130 alors que CAHIER_REVPAR donne FY2020=46,28, FY2021=74,66, FY2022=110,64, FY2025=128,8 ; Loyalty Members 219 M alors que Bonvoy = 283 M au T2-2026 ; Rooms Total 1 670 000 alors que SYSTEM_ROOMS FY2025 = 1 779 936 ; Net Rooms Growth 6,2 % vs 4,5 % (Net rooms growth) ; Adj EBITDA Margin 65,5 / 66,1 / 66,8 / 67 / 67,2 (progression artificielle)",
+  "correction_validee": "Retirer les 7 series (RevPAR Worldwide, Rooms Total, Loyalty Members, Net Rooms Growth, RevPAR Growth, Adj EBITDA, Adj EBITDA Margin), deja couvertes par les KPI sources.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Total gross fee revenues",
+  "probleme": "Serie trimestrielle invraisemblable et contredite par la somme des trois lignes de fees de la fiche.",
+  "preuve": "serie 0,629 ; 0,234 ; 0,397 ; 0,423 ; 0,445 ; 0,642 ; 0,776 ; 1,43 Mds $ alors que franchise 1 023 + base 343 + incentive 212 = 1 578 M$ au T2-2026 ; un trimestre a 234 M$ n a jamais existe",
+  "correction_validee": "Retirer la serie ou la recalculer trimestre par trimestre comme somme franchise + base + incentive.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Worldwide RevPAR growth (signal et valeur)",
+  "probleme": "Periode fausse dans le signal et valeur en contradiction avec les deux series RevPAR mondial.",
+  "preuve": "signal : « RevPAR mondial en hausse de 4,2% au T1-2026 » alors que dernier = 2026-06-30 ; revpar_worldwide_sw T2-2026 138,74 $ vs 136,00 $ = +2,0 % ; dollars constants 158,08 vs 154,88 = +2,1 % ; le moat reprend aussi « 4,2 % »",
+  "correction_validee": "Mettre la valeur T2-2026 a +2 %, corriger le signal et remplacer 4,2 % par 2 % dans le moat.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "revpar_comparable_mondial_dollars_consta",
+  "probleme": "KPI sans signal ni description, id tronque, et niveau incompatible avec le RevPAR mondial publie.",
+  "preuve": "T2 2026 = 158,08 $ contre revpar_worldwide_sw T2-2026 = 138,74 $ (+14 % pour une simple conversion en dollars constants) ; champs signal et description vides",
+  "correction_validee": "Verifier la source ; si non justifiee, retirer (doublon du RevPAR mondial).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "7 KPI a un seul point (New Bonvoy members, Record luxury deals, Hotels transitioned, Conversions share, Planned capital return, citizenM price, citizenM hotels)",
+  "probleme": "Faits ponctuels de 2025 presentes comme KPI trimestriels dates 2026-03-28 ; aucun graphique possible.",
+  "preuve": "n=1 pour chacun, periode « quarter », dernier 2026-03-28 alors que le signal parle de 2025 (« 43 millions de nouveaux adherents en 2025 »)",
+  "correction_validee": "Convertir en stories ou faits marquants, retirer de la liste des KPI.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "effectifs_annuels et ratios par salarie",
+  "probleme": "Rupture de definition non signalee : la serie passe de 120 000 a 377 000 en un an, ce qui rend faux les ratios par salarie.",
+  "preuve": "2021=120 000, 2022=377 000 ; dette_par_salarie 84,5 k$ en 2021 puis 26,7 k$ en 2022 ; ca_par_salarie « −8,5 % par an depuis 2018 »",
+  "correction_validee": "Signaler le changement de perimetre (salaries des hotels geres inclus depuis 2022) ou limiter la serie a 2022+.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "CAHIER_ADR_OCC",
+  "probleme": "Nom et unite ne correspondent pas a la serie : le KPI annonce prix moyen et occupation mais ne contient que le taux d occupation.",
+  "preuve": "nom « Prix moyen et taux d occupation », unite « % (taux d occupation, perimetre Comparable Systemwide Worldwide) », serie FY2025=69,3",
+  "correction_validee": "Renommer le KPI « Taux d occupation mondial ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "Doublons chambres, membres, croissance nette",
+  "probleme": "Meme indicateur sous plusieurs noms et periodicites.",
+  "preuve": "Total system-wide rooms (trim.) / SYSTEM_ROOMS / CAHIER_PARC_NET / Rooms Total ; Marriott Bonvoy loyalty members / Loyalty Members ; Net rooms growth / Net Rooms Growth ; SYSTEM_ROOMS signal = « Produit phare : Chambre d hotel sous enseigne Marriott » (pas un signal)",
+  "correction_validee": "Garder une serie trimestrielle et une annuelle par indicateur, retirer les doublons et remplacer le signal « Produit phare » de SYSTEM_ROOMS par un vrai signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "En-tete",
+  "champ": "moat, positions de marche, remuneration",
+  "probleme": "Champs vides visibles.",
+  "preuve": "moat: None ; position de marche 1: None | taille 492.36 | part None ; remuneration None",
+  "correction_validee": "Renseigner ou masquer les blocs vides.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

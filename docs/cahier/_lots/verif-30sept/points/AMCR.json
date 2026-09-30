@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "revenue, gross_margin, operating_margin, net_income, ocf, fcf, segments, EBIT ajusté (toutes séries trimestrielles sauf dette)",
+  "probleme": "Séries arrêtées au T3 FY2026 (mars) alors que l'exercice clos le 30 juin 2026 est publié et cité.",
+  "preuve": "Thèse : \"Sur l'exercice clos le 30 juin 2026, Amcor a dégagé 2 151 M$ de trésorerie d'exploitation pour un résultat net de 1 106 M$\" ; revenue_annuel 2026=23,506 ; net_debt et total_debt ont un point Q4-FY2026 ; revenue dernier point Q3-FY2026=5,91.",
+  "correction_validee": "Ajouter le T4 FY2026 (trimestre clos le 30 juin 2026) à toutes les séries trimestrielles depuis les comptes annuels, puis recalculer yoy et signaux.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "diluted_shares, eps_diluted, dividend_per_share, adjusted_eps",
+  "probleme": "Séries par action sur deux bases mélangées (regroupement 1 pour 5), rendant les graphiques faux.",
+  "preuve": "diluted_shares 1 444 (Q1-FY2025), 289,1 (Q2-FY2025), 2 315 (Q1-FY2026), 463,8 (Q2-FY2026) ; eps 0,13 / 0,56 / 0,11 / 0,38 ; dividende 0,125 / 0,637 / 0,128 / 0,65 ; BPA ajusté 0,16 / 0,81 / 0,19 / 0,86 ; signal dividende \"relève ... d'environ 1 cent par an\" faux en base regroupée.",
+  "correction_validee": "Mettre tous les points non convertis (jusqu'à Q1-FY2025 et Q1-FY2026) en base post-regroupement : BPA, BPA ajusté et dividende ×5, nombre d'actions ÷5. Le signal dividende peut rester.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "total_debt.yoy/signal, net_debt.yoy",
+  "probleme": "Dernier point Q4-FY2026 mais yoy et signal calculés sur le T3.",
+  "preuve": "total_debt val=14,0 (Q4) avec yoy +80,1 % = 15,85/8,8 (Q3) et signal \"T3-FY2026 : 15.85 Mds $\" ; net_debt val=12,9 avec yoy +111,4 % = 14,27/6,75 ; vrais yoy Q4 : -0,7 % et -2,8 %.",
+  "correction_validee": "Mettre yoy à -0,7 % pour la dette totale et -2,8 % pour la dette nette, puis réécrire le signal : « T4 FY2026 : 14,0 Mds $ de dette totale, -0,7 % sur un an, premier recul depuis la fusion Berry ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "rigid_revenue.signal",
+  "probleme": "Chiffres du signal différents de la série.",
+  "preuve": "Signal : \"2664 M$ ... contre 927 M$ un an plus tôt (+187%)\" ; série Q3-FY2025=728 et yoy +265,9 %.",
+  "correction_validee": "Trancher entre base historique (728) et base recomposée (927) et aligner série, yoy et signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "Moat contredit la thèse et les séries.",
+  "preuve": "\"Les emballages rigides bondissent de 25,1 %\" : aucune série ne donne 25,1 % (rigid_revenue +265,9 %) ; \"la marge des emballages flexibles s'effrite\" alors que flexibles_adj_ebit_margin 13,9 vs 13,7 (+0,2 pt) et thèse \"les deux segments améliorent leur marge\".",
+  "correction_validee": "Réécrire justification_mettrik avec les chiffres FY2026 réels : taille doublée par Berry, marges ajustées des deux segments en hausse, risque d'intégration.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Integration headcount reduction, Total workforce post-merger, Global manufacturing footprint, effectifs_annuels",
+  "probleme": "Trois chiffres d'effectifs contradictoires et point collé dans une mauvaise série.",
+  "preuve": "\"Total workforce post-merger\" val 75 000 avec signal \"environ 70 000 salariés\" ; \"Global manufacturing footprint\" \"~77 000 salariés\" ; effectifs_annuels 2026=75 000 ; \"Integration headcount reduction\" série 600, 75 000 (l'effectif total collé dans la réduction d'effectifs).",
+  "correction_validee": "Retirer le point 75 000 de Integration headcount reduction, supprimer Total workforce post-merger et remplacer « ~77 000 salariés » par « ~75 000 salariés ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "goodwill.signal vs Berry merger goodwill",
+  "probleme": "Deux montants de goodwill Berry.",
+  "preuve": "goodwill signal \"dont 6,7 Mds$ générés par la fusion Berry\" ; KPI \"Berry merger goodwill\" 5 859 M$.",
+  "correction_validee": "Vérifier le 10-K FY2026 (allocation finale) et garder un seul chiffre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "adj_free_cash_flow, net_leverage_ratio, group_adj_ebitda, adj_ebitda_margin, buybacks",
+  "probleme": "Séries clés trop courtes ou périmées avec signal prospectif dépassé.",
+  "preuve": "adj_free_cash_flow s'arrête FY2025 avec signal \"doit quasi doubler en FY2026, objectif proche de 1,9 Md$\" alors que FY2026 est clos (fcf_annuel 2026=1,229) ; net_leverage_ratio n=1 (Q1-FY2026=3,6) ; group_adj_ebitda n=3 ; buybacks arrêtés juin 2025.",
+  "correction_validee": "Ajouter FY2026 et le levier à juin 2026, prolonger buybacks, réécrire le signal en réalisé.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "13 KPI à un point (Berry Global purchase consideration, Berry debt assumed, Combined market value, Berry acquired customer relationships, Berry 3-year cumulative synergy target, Combined company total debt, Dividends paid 2025, US winter storms EBIT impact, etc.)",
+  "probleme": "Faits de la fusion présentés comme indicateurs, dont deux doublons.",
+  "preuve": "\"Combined company total debt\" 14,1 = total_debt Q4-FY2025 ; \"Dividends paid 2025\" 845 = somme de dividends_paid FY2025 ; cible 650 M$ et impact tempêtes 25 M$ ne sont pas des séries.",
+  "correction_validee": "Déplacer vers les événements, garder synergies (série à 3 points) et cessions.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / ai_positioning",
+  "champ": "eps_diluted.signal, ai_positioning.summary",
+  "probleme": "Cuisine interne et artefact de gabarit visibles.",
+  "preuve": "eps_diluted signal : \"Grandeur non additive : publiée telle quelle par trimestre, jamais dérivée par soustraction.\" ; IA : \"mentionne peu l'IA dans ses communications officielles (Packaging).\"",
+  "correction_validee": "Retirer « Grandeur non additive : ... soustraction. » du signal BPA et « (Packaging) » du résumé IA.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_RECYCLABLE_SHARE.yoy",
+  "probleme": "Variation d'un pourcentage exprimée en % relatif au lieu de points.",
+  "preuve": "94 → 96 affiché \"+2.1%\" ; les autres KPI en % utilisent \"pt\".",
+  "correction_validee": "Afficher yoy « +2 pt ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

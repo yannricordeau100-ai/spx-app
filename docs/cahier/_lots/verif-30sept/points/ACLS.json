@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Repartition geographique contredite par les KPI geographiques de la meme fiche.",
+  "preuve": "Bloc : Etats-Unis 57,5 (482,6 M$), Europe 6, Asie-Pacifique 36,5 ; KPI 2025 : geo_revenue_na 137,1 (16 %), geo_revenue_europe 91,8 (11 %), geo_revenue_apac 610,2 (73 %) ; les deux totalisent 839 M$. L'historique (APAC 811 sur 1 131 en 2023) et la these memoire/Asie soutiennent les KPI.",
+  "correction_validee": "Verifier la note geographique du 10-K 2025 et aligner le bloc sur la localisation client, ou le libeller explicitement.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete",
+  "champ": "hero_kpi ; moat.trend",
+  "probleme": "Hero annuel en retard sur la fiche et label de tendance contradictoire.",
+  "preuve": "hero backlog dernier 2025-12-31 (457) alors que revenue_q va au T2 2026 et que le carnet est publie chaque trimestre ; moat 'tendance hausse' avec 'Le carnet de commandes chute de 29,2 %'.",
+  "correction_validee": "Passer backlog en trimestriel jusqu'au T2 2026 ; tendance moat 'baisse'.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "bookings_q4",
+  "probleme": "Serie 'trimestrielle' ne contenant que les quatriemes trimestres.",
+  "preuve": "periodes Q4-2019, Q4-2020, ... Q4-2025 (77.2, 131.5, 194, 211.5, 235.5, 84.5, 127.6), nom 'Prises de commandes (T4)' / 'Q4 Bookings'.",
+  "correction_validee": "Reconstruire en trimestriel complet (bookings publies chaque trimestre) ou passer en prises de commandes annuelles.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_ORDER_MIX",
+  "probleme": "KPI dont on ne sait pas ce qu'il mesure.",
+  "preuve": "nom 'Repartition des commandes par technologie et par usage', une seule valeur 55 % (FY2023=59, FY2024=56, FY2025=55), signal generique 'Un mix qui se diversifie'.",
+  "correction_validee": "Preciser la part mesuree (ex. part des commandes memoire ou matures) ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_INSTALLED_BASE_SERVICE.unit",
+  "probleme": "Unite en dollars bruts alors que tous les autres KPI sont en M$.",
+  "preuve": "unite '$', val 268000000, serie 129600000 ... 268000000.",
+  "correction_validee": "Convertir en M$ (268,0 en 2025, avec toute la serie).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment.exercice ; revenue_by_geography.exercice",
+  "probleme": "Exercice absent alors que la source dit 2025.",
+  "preuve": "'revenue_by_segment (None)' et 'revenue_by_geography (None)' ; label JSON 'Chiffre d'affaires 2025 par ligne de produits'.",
+  "correction_validee": "Renseigner l'exercice 2025 sur les deux repartitions.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[1], risks[2], risks[5], risks[6]",
+  "probleme": "Accents manquants et citation d'une section de document dans un bloc.",
+  "preuve": "'L'incapacite a developper', 'ont cree', 'retention des employes cles', 'lies au rapprochement' ; risque 7 : 'Une section dediee 'Risks Related to the Merger' couvre ...'.",
+  "correction_validee": "Corriger les accents des risques 2, 3, 5, 6 et 7 et reecrire le risque 7 sans citer la section du 10-K.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Indicateurs sectoriels evidents absents pour un equipementier semi-conducteurs.",
+  "preuve": "Pas de marge brute (seules marge nette et resultat net trimestriels), pas de serie systemes / aftermarket (citee seulement dans le signal de revenue_q : 132,4 / 82,8 M$), pas de book-to-bill.",
+  "correction_validee": "Ajouter marge brute trimestrielle, CA systemes et CA aftermarket, book-to-bill.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positions_marche",
+  "champ": "market_positions[0]",
+  "probleme": "Position de marche sans nom ni part.",
+  "preuve": "'None | taille 5000 | part None'.",
+  "correction_validee": "Nommer (marche mondial de l'implantation ionique) et calculer la part, ou retirer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

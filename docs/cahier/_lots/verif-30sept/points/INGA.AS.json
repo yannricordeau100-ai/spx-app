@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "NI_FY.signal",
+  "probleme": "Classement faux.",
+  "preuve": "« deuxième meilleur exercice de la décennie après 2023 » ; or 2024 = 6,392 > 2025 = 6,327.",
+  "correction_validee": "Remplacer par « troisième meilleur exercice de la décennie, après 2023 et 2024 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CIR_Q.signal",
+  "probleme": "Affirmation contredite par la série.",
+  "preuve": "« sous la barre des 50% pour la première fois depuis le T3-2023 » ; or T2-2024 = 49,8 et T3-2024 = 49,2.",
+  "correction_validee": "Remplacer par « pour la première fois depuis le T3-2024 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FEE_Q.signal",
+  "probleme": "Le décompte des hausses consécutives est faux.",
+  "preuve": "« quinzième trimestre consécutif de hausse en glissement annuel » ; T4-2023 = 0,879 < T4-2022 = 0,888, donc la série de hausses commence au T1-2024 (10 trimestres).",
+  "correction_validee": "Remplacer par « dixième trimestre consécutif de hausse en glissement annuel ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Fee Income",
+  "probleme": "Doublon de FEE_Q : nom anglais, périodicité annuelle fausse, unité différente, arrêté au T1-2026.",
+  "preuve": "Série 1094, 1122, 1165, 1221, 1236 = FEE_Q du T1-2025 au T1-2026 ; étiquetée « year », « Mln € » ; signal identique à la description.",
+  "correction_validee": "Supprimer Net Fee Income.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total Risk Exposure",
+  "probleme": "Doublon de RWA : dernier point répété, signal en anglais, non daté.",
+  "preuve": "328458, 333708, 337219, 335804, 335804 = RWA du T3-2024 au T2-2025, dernier point dupliqué ; signal « stability ».",
+  "correction_validee": "Supprimer Total Risk Exposure.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Wholesale Banking Income",
+  "probleme": "Doublon de SEG_WB avec des valeurs arrondies incohérentes, non daté.",
+  "preuve": "Dernier point 7 400 M€ ; somme SEG_WB 2025 = 1,758+1,694+1,81+1,747 = 7,009 Mds€. Signal « Croissance régulière ».",
+  "correction_validee": "Supprimer Wholesale Banking Income.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Retail Customers / Return on Equity (ROE)",
+  "probleme": "Doublons de MOB_CUST et ROE_FY avec des valeurs différentes. Le second est probablement un ROTE trimestriel mal nommé, avec un texte en franglais.",
+  "preuve": "Retail Customers : 16 contre MOB_CUST 15,4, non daté. ROE : dernière valeur 14,4 contre ROE_FY 2025 = 13,2 ; série 13,9/15,9/17/13,5/14,4 non datée ; « métrique rentabilité phare bank ».",
+  "correction_validee": "Supprimer « Retail Customers ». Requalifier l'autre en ROTE trimestriel daté, ou le supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Capex",
+  "probleme": "Indicateur non pertinent pour une banque, en dollars pour un groupe en euros, non daté et sans signal.",
+  "preuve": "« Capex | M $ | 231, 246, 332, 351 », signal vide.",
+  "correction_validee": "Supprimer Capex.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_CET1",
+  "probleme": "Doublon annuel du CET1 trimestriel, nom anglais « Cet1 », variation en pourcentage relatif.",
+  "preuve": "FY2025 13,1 = CET1 T4-2025 13,1 ; variation affichée -3,7 %, réelle -0,5 pt.",
+  "correction_validee": "Garder la série longue, nom anglais « CET1 ratio », variation affichée -0,5 pt (ou supprimer si doublon jugé inutile).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateurs manquants",
+  "probleme": "Indicateurs bancaires évidents absents, dont le ROTE que la thèse cite.",
+  "preuve": "Thèse : « ROTE* de 17,0 % au deuxième trimestre 2026 », mais aucun KPI ROTE. Pas d'encours total de crédits ni de dépôts, pas de ratio de créances douteuses (Stage 3), pas de LCR.",
+  "correction_validee": "Ajouter ROTE, encours de crédits et de dépôts, ratio Stage 3 et LCR.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline / positions de marché / moat",
+  "champ": "vides",
+  "probleme": "Tagline vide, position de marché sans libellé, moat sans niveau.",
+  "preuve": "« tagline: » vide ; « position de marche 1: None | taille 12314.2 | part None » ; « moat: None ».",
+  "correction_validee": "Renseigner ou masquer ces blocs.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

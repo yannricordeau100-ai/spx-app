@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "operating_income",
+  "probleme": "Resultat operationnel affiche negatif et quasi nul, incompatible avec l activite",
+  "preuve": "history [-0.007, -0.007, -0.006, -0.006] Mds € ; net_income 2025 = 0,977 Mds € ; OCG 2025 = 1 287 M€",
+  "correction_validee": "Supprimer le KPI operating_income (ne le remplacer que par un chiffre publie verifie).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Gross Margin / Op Margin / R&D / Capex / Headcount / Service / ARR (hero)",
+  "probleme": "Six KPI de gabarit logiciel (ARR, R&D, marge brute) appliques a un assureur, sans nom, sans unite, dates du jour ; le hero de la fiche est « Service / ARR »",
+  "preuve": "Service / ARR [11.9, 12, 12.1, 12.3, 12.3] last_data_date 2026-09-29 ; R&D 0,3 ; Headcount value « 15,3 » (chaine avec virgule) ; hero_kpi = Service / ARR",
+  "correction_validee": "Supprimer les six KPI et prendre Solvency II Ratio comme hero.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cap Return / Cash Capital Holding",
+  "probleme": "Unites fausses d un facteur 1000",
+  "preuve": "Cap Return 596 « €B » (596 Mds € impossible, ce sont des M€) ; Cash Capital Holding 1,62 « M EUR » (cash holding Aegon ~1,6 Md €)",
+  "correction_validee": "Passer Cap Return en M€ et Cash Capital Holding en Mds €.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "WFG Independent Agents / WFG Agents Licenciés",
+  "probleme": "Trois comptes d agents WFG incompatibles sur la fiche",
+  "preuve": "WFG Independent Agents 28 500 ; WFG Agents Licenciés 86 000 ; anti-these « plus de 100 000 agents agréés » (S1 2026)",
+  "correction_validee": "Garder une seule serie d agents licencies WFG, sourcee, et supprimer l autre",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Operating Capital Generation",
+  "probleme": "Serie annuelle sans etiquettes incoherente avec la serie semestrielle sourcee",
+  "preuve": "annuel [870, 990, 1080, 1070, 1200] ; ocg_avant_holding : 2023 = 620+660 = 1 280, 2024 = 1 246, 2025 = 1 287 (yoy reel +3 %, affiche +12 %)",
+  "correction_validee": "Supprimer la serie annuelle, doublon de ocg_avant_holding",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS / Payout Ratio",
+  "probleme": "Zeros de remplissage traces comme valeurs, decimale brute, et BPA 2022 incompatible avec le resultat net 2022",
+  "preuve": "EPS [0, -0.800938, -0.12, 0.37, 0.59] ; Payout [0, 0, 0, 85.27, 64.43] ; net_income 2022 = +0,726 Mds € contre BPA -0,80 €",
+  "correction_validee": "Retirer les zeros, arrondir, verifier le signe 2022 de l un des deux",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DPS",
+  "probleme": "Serie de dividende douteuse : chute de 0,30 a 0,06 puis valeurs systematiquement inferieures aux dividendes publies",
+  "preuve": "history [0.3, 0.06, 0.14, 0.2, 0.26, 0.32, 0.38] sans etiquettes ; Aegon a verse ~0,12 (2020), 0,17 (2021), 0,23 (2022), 0,30 (2023)",
+  "correction_validee": "Reconstruire la serie depuis les rapports annuels",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "titres",
+  "probleme": "Fragments anglais dans deux titres et titres en double",
+  "preuve": "« Risques opérationnels (Aegon distinguishes following) », « Risques financiers (ensures following roles) » ; « Risques opérationnels » et « Risques financiers » presents deux fois",
+  "correction_validee": "Retirer les parentheses et fusionner les deux Risques operationnels et les deux Risques financiers.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux",
+  "probleme": "Signaux telegraphiques ou hors sujet sur huit KPI",
+  "preuve": "« Buybacks soutenus » sur Cash Capital Holding ; « Pivot WFG efficace » ; « Cash generation visible » ; « Versement régulier » ; signal_en Cap Return « Cash position eroding, monitor liquidity » contredit la these",
+  "correction_validee": "Reecrire les signaux en une phrase chiffree",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "La these repose sur la marge de service contractuelle (profits futurs) et sur le capital des portefeuilles en extinction, sans aucune serie correspondante",
+  "preuve": "these : « profits futurs ajoutés par les nouveaux contrats », « capital immobilisé ... recule de 27 % » ; aucun KPI CSM ni capital financial assets",
+  "correction_validee": "Ajouter CSM (stock et affaires nouvelles) et capital alloue aux Financial Assets",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "DX_op.signal",
+  "probleme": "Le signal annonce une progression continue alors que la serie recule en 2025",
+  "preuve": "Signal : « 344,2 M$ en 2025 contre 353,9 M$ en 2024, en progression continue depuis 298,0 M$ en 2023 ». Somme 2025 des trimestres = 344,2 < 353,8 en 2024.",
+  "correction_validee": "Remplacer par « 344,2 M$ en 2025, en recul de 2,7 % sur un an après 353,9 M$ en 2024 et 298,0 M$ en 2023 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "buyback.signal / Shares repurchased during fiscal year 2025",
+  "probleme": "Trois montants differents pour les rachats 2025 sur la meme fiche",
+  "preuve": "Signal buyback : « 852,4 M$ decaisses sur l'exercice 2025 » ; somme de la serie 2025 = 153,6+293,9+205+168,3 = 820,8 ; KPI « Rachats d'actions realises sur l'exercice » = 695,4 M$.",
+  "correction_validee": "Vérifier le tableau des flux 2025 puis aligner signal, série et KPI sur un seul chiffre, en précisant si l'écart vient des retenues fiscales sur actions.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "sbc (Q4-2025)",
+  "probleme": "Charge de remuneration en actions negative, invraisemblable",
+  "preuve": "Serie : Q4-2025 = -4,1 M$ alors que les autres trimestres sont entre 5 et 11 M$. Reconstruction par difference de cumuls qui a produit un signe faux.",
+  "correction_validee": "Recalculer Q4-2025 a partir du cumul annuel 10-K ; retirer le point s'il n'est pas confirme.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ORG_GROWTH_FRANCHISE / Organic revenue growth",
+  "probleme": "Doublon annuel/trimestriel de la croissance organique, nom faux, yoy absurde, serie trimestrielle sans periodes",
+  "preuve": "« Croissance organique par franchise » est une seule serie groupe (15, 0, -3, 2) avec yoy=-166,7 % pour un passage de -3 a 2. Le trimestriel « Organic revenue growth » affiche « -1, 2, 6, 4, 3, 1, 4, 3 » sans aucune date.",
+  "correction_validee": "Renommer « Croissance organique du CA », afficher la variation en points (+5 pts) et dater la série trimestrielle ou la retirer.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Babies born untested, R&D behind Lilly TuneLab, New credit facility, New buyback program, Genomics England, Net retention, ARR growth",
+  "probleme": "Sept « KPI » a valeur unique qui sont des faits ponctuels ou des donnees de tiers, pas des indicateurs suivis",
+  "preuve": "« Nouveau-nes non depistes par an = 100 M » (marche), « R&D sous-jacente aux modeles Lilly TuneLab = 1 Mds $ » (R&D de Lilly), « Nouvelle ligne de credit = 1,5 Mds $ », tous en period_type quarter avec n=1 ou serie « 40, 40 ».",
+  "correction_validee": "Deplacer en story ou dans la these ; ne garder en KPI que ce qui a une serie datee.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "op_income, net_income, gross_margin, amort_int, da, LS_op signals",
+  "probleme": "Signaux rediges en anglais ou en franglais",
+  "preuve": "« Consolidated operating margin decreased 10 basis points in fiscal year 2025 » ; « Income from continuing operations before income taxes de 268,3 M$ » ; « Gross margin de 54,8% » ; « Total depreciation expense de 69,8 M$ ».",
+  "correction_validee": "Reecrire ces six signaux en francais a partir des chiffres de la serie.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "these",
+  "champ": "these.accroche / developpement",
+  "probleme": "Comparaison de marge Diagnostics melangeant sequentiel et annuel",
+  "preuve": "« marge operationnelle de segment remonte de 21,8 % a 30,4 % » : 21,8 % est le T1-2026 (sequentiel) alors que la phrase compare le CA au T2-2025 (354,4 vers 371,0). Le vrai T2-2025 est 25,2 %.",
+  "correction_validee": "Écrire « sa marge opérationnelle de segment passe de 25,2 % à 30,4 % sur un an ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DX_margin.signal, LS_margin.signal, LS_rev.signal, SW_rev.signal",
+  "probleme": "Signaux perimes contredits par les derniers points",
+  "preuve": "DX_margin : « autour de 22-24% » alors que Q2-2026 = 30,4 ; LS_margin : « autour de 29-30% » alors que 2025 = 31,1/31,6/29,5/35,6 ; LS_rev : « le logiciel est le moteur » et SW_rev « meilleur vecteur de croissance » alors que Software Q2-2026 = -14,9 %.",
+  "correction_validee": "Reecrire les quatre signaux sur les donnees Q2-2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Repartition geographique incoherente avec le KPI Ameriques",
+  "preuve": "Bloc : « Amerique du Nord 33,5 ; International 66,5 » (exercice None). KPI amer_rev 2025 = 1 256,0 M$ sur 2 856 = 44,0 %.",
+  "correction_validee": "Verifier la note geographique du 10-K 2025 et dater le bloc ; aligner sur 44 % ou expliquer le perimetre.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "china_rev.signal",
+  "probleme": "Nombre d'annees de baisse faux",
+  "preuve": "« Declin 3e annee consecutive » ; serie : 2021=670,1 > 2022=476,4 > 2023=454,4 > 2024=450 > 2025=425,1, soit quatre baisses consecutives.",
+  "correction_validee": "Écrire « Déclin pour la 4e année consécutive ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques / positions de marche / en-tete",
+  "champ": "risks[].description, market_positions, tagline",
+  "probleme": "Six risques sans texte, deux positions de marche sans nom ni part, tagline en anglais",
+  "preuve": "« risque 1: Dependance aux financements publics ... :: » (vide) ; « position de marche 1: None | taille 63.4 | part None » ; tagline « Leading provider of health science solutions... ».",
+  "correction_validee": "Masquer les blocs vides tant qu'ils ne sont pas remplis ; remplacer la tagline anglaise.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.texte",
+  "probleme": "Le texte parle d'une « note de moat » perdue, formulation interne peu comprehensible pour le lecteur",
+  "preuve": "« La perte de la note de moat s'ajoute a une croissance faible... » avec moat = None.",
+  "correction_validee": "Écrire « Aucun avantage concurrentiel durable n'est identifié : croissance faible des sciences de la vie, recul en Chine et risques de financement public en hausse ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

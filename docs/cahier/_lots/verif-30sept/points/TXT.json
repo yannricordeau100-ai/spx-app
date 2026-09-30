@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "SHARES_DIL.serie",
+  "probleme": "Nombre d'actions diluées négatif aux T4 (valeur déduite de l'annuel moins trois trimestres appliquée à tort à une moyenne).",
+  "preuve": "Q4-2024=-1.58, Q4-2025=-1.04 entre 188.9 et 183.7 M actions",
+  "correction_validee": "Remplacer les cinq T4 négatifs (2021 à 2025) par la moyenne diluée publiée du T4, ou supprimer ces cinq points.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel / fcf_annuel / ca_par_salarie",
+  "probleme": "Années décalées à cause de l'exercice clos début janvier : la valeur 2019 est étiquetée 2020, 2020 étiquetée 2021, 2025 étiquetée 2026 ; 2021 et 2025 manquent. Le signal parle de ventes 2026.",
+  "preuve": "revenue_annuel 2020=13.63 (CA 2019), 2021=11.651 (CA 2020), 2026=14.799 (CA 2025, = GEO_US 10283 + GEO_INTL 4516) ; signal « Ventes de 14,8 Mds $ en 2026 »",
+  "correction_validee": "Réétiqueter revenue_annuel, fcf_annuel et ca_par_salarie par exercice fiscal (2020 devient 2019, 2021 devient 2020, 2026 devient 2025, 2015 devient 2014), réintégrer 2021 à 12,38 Mds $ et corriger le signal en « 14,8 Mds $ en 2025 ».",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risques",
+  "champ": "risks[*].summary",
+  "probleme": "Les résumés de risques sont des phrases vides de modèle, suivies d'un extrait tronqué, sans contenu propre à Textron.",
+  "preuve": "risks[0].summary : « Le dépôt identifie un risque. Source : « 9 Table des matières Le financement de l'U. »",
+  "correction_validee": "Réécrire les 8 résumés avec le risque réel propre à Textron (financement MV-75, dépendance au gouvernement américain 27 % du CA, résiliation des contrats publics, chaîne d'approvisionnement, cycle de l'aviation d'affaires) sans citation ni source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Textron Systems backlog",
+  "probleme": "Doublon de SYS_BKL en Mds $ avec une série sans dates.",
+  "preuve": "Textron Systems backlog val=3.3 Mds $ (serie 2.2, 3.2, 3.3) vs SYS_BKL Q2-2026=3348 M USD",
+  "correction_validee": "Supprimer le KPI « Textron Systems backlog ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_BACKLOG / RPO",
+  "probleme": "Deux carnets consolidés quasi identiques sous deux noms (carnet et obligations de performance restantes).",
+  "preuve": "CAHIER_BACKLOG FY2025=18823 (= 7724+7795+3304 des trois carnets de segments) vs RPO Q4-2025=18800",
+  "correction_validee": "Garder RPO trimestriel et supprimer CAHIER_BACKLOG, ou le renommer clairement en somme des carnets de segments.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_DELIVERIES",
+  "probleme": "Nommé « Livraisons par programme », il ne compte que les jets Citation. Unité sans accent.",
+  "preuve": "FY2025=171 = 31+49+42+49 (AVI_JETS 2025) ; unité « appareils livres »",
+  "correction_validee": "Renommer « Livraisons annuelles de jets Citation » avec l'unité « appareils livrés » (garder la série longue depuis 2006).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_AFTERMARKET_MIX",
+  "probleme": "Nom trop général (la part concerne Textron Aviation seulement) et variation d'un pourcentage donnée en % au lieu de points.",
+  "preuve": "34.1 = après-vente 2033 / CA Aviation 5955 en 2025 ; yoy=-5.5% alors que 36.1 -> 34.1 = -2,0 pts",
+  "correction_validee": "Renommer « Textron Aviation, part de l'après-vente » et afficher la variation en points (-2,0 pts).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "Libellé anglais et « International 13.2 » ambigu : c'est le reste du monde hors Europe et Amérique latine, alors que le KPI GEO_INTL (International) vaut 30,5 %.",
+  "preuve": "« International 13.2 ; Europe 8.7 ; Latin America and Mexico 8.6 » vs GEO_INTL 4516/14799=30,5 %",
+  "correction_validee": "Renommer « Autres pays 13,2 » et « Amérique latine et Mexique 8,6 ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Aucun avantage retenu (niveau vide), justifié par des pourcentages sans période, alors que la fiche revendique la plus grande base installée de l'aviation générale.",
+  "preuve": "moat « aucune barrière durable n'est identifiée » vs KPI « Base installée ... près de 4x le suivant » (25 000 aéronefs)",
+  "correction_validee": "Réévaluer le moat (base installée, après-vente 34 % du CA Aviation, programmes militaires pluriannuels) et dater les variations citées.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "OCF.signal",
+  "probleme": "Cuisine interne dans le signal.",
+  "preuve": "« Flux d'exploitation de 304 M$ au T2 2026, dérivé du cumul semestriel de 187 M$ »",
+  "correction_validee": "Retirer « dérivé du cumul semestriel de 187 M$ » du signal OCF.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun ratio commandes / facturation (book-to-bill) ni commandes brutes, pourtant clés en aéronautique.",
+  "preuve": "Seuls les carnets sont suivis (AVI_BKL, BELL_BKL, SYS_BKL)",
+  "correction_validee": "Ajouter les commandes ou le book-to-bill par segment.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

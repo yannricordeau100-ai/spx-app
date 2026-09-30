@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, fcf_par_salarie",
+  "probleme": "La tresorerie libre annuelle est en realite la tresorerie d exploitation",
+  "preuve": "fcf_annuel 2025 = 4,545 Mds = 1 096+1 181+1 460+808 (op_cash_flow) ; fcf_q 2025 totalise 1 805 M$ ; KPI Annual free cash flow dit 1 Md$ ; fcf_par_salarie 2 537,7 k$ faux en cascade",
+  "correction_validee": "Recalculer fcf_annuel = OCF moins capex sur toute la serie (2025 environ 1,8 Md$), puis fcf_par_salarie.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Production, US Production, Egypt Production, Proved Reserves, Total Production, Permian Oil Mix, Callon Petroleum Production Added",
+  "probleme": "Sept KPI sans dates ni source contredits par les series sourcees",
+  "preuve": "Production 480 kboe/d (+15 %) vs CAHIER_PRODUCTION 2025 = 464 383 ; US Production 309 vs moyenne 2025 prod_us = 288 ; Egypt Production en declin 145 vers 130 vs prod_egypt en hausse 139 vers 150 k ; Proved Reserves 925 vs reserves_proved 1 056 ; Total Production 467",
+  "correction_validee": "Supprimer Production, US Production, Egypt Production, Proved Reserves, Total Production, Permian Oil Mix et Callon Petroleum Production Added.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total reported production, Adjusted production",
+  "probleme": "Serie datee 30/06/2026 dont le dernier point est celui du T1 2026, doublon de prod_total",
+  "preuve": "dernier point 442 000 = prod_total Q1-2026 (442 352) ; prod_total Q2-2026 = 409 959",
+  "correction_validee": "Supprimer Total reported production et dater Adjusted production au 31/03/2026 (T1 2026).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux prod_north_sea, permian_oil, gas_oil_mix, oil_vol_total, ngl_vol_total, oil_vol_egypt, oil_vol_northsea, gas_vol_us, gas_vol_egypt, gas_vol_northsea, ngl_vol_us",
+  "probleme": "Apostrophe parasite dans onze signaux",
+  "preuve": "« 22 085 boe/j'au T2 2026 », « 123 455 b/d'au T2 2026 », « 752 125 Mcf/d'au T2 2026 »",
+  "correction_validee": "Remplacer « /j'au » et « /d'au » par « /j au » dans les onze signaux.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "texte",
+  "probleme": "Le moat parle de revenus petroliers en recul alors que les chiffres montrent le contraire",
+  "preuve": "moat : « Les revenus petroliers reculent de 15 a 20 % sur les trois zones » ; price_oil +49,8 %, revenue_total +9,0 %, op_income +73,7 % au T2 2026 ; ce sont les volumes qui reculent",
+  "correction_validee": "Reecrire sur les volumes et le prix",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total debt reduction 2025",
+  "probleme": "Nom et unite contredisent la valeur : 4,5 est le niveau de dette, pas une reduction",
+  "preuve": "nom « Reduction dette nette 2025 », unite « Mds$ dette totale », val 4,5 = dette_annuelle 2025 (4,493)",
+  "correction_validee": "Supprimer Total debt reduction 2025, doublon de dette_annuelle.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Run-rate cost savings by year-end 2026",
+  "probleme": "Valeur et signal divergent",
+  "preuve": "val 500 ; signal : « 450 M$ d economies cumulees en rythme annuel visees fin 2026 »",
+  "correction_validee": "Aligner le signal sur 500 ou la valeur sur 450 selon la derniere conference",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "op_margin, net_margin, price_gas_us",
+  "probleme": "Variations affichees en % relatif sur des marges ou sur un prix devenu negatif",
+  "preuve": "op_margin yoy « +59,5 % » alors que 53,9 vs 33,8 = +20,1 pt ; net_margin « +13,7 % » = +3,8 pt ; price_gas_us « -389,3 % » pour -2,98 vs 1,03",
+  "correction_validee": "Afficher +20,1 pt et +3,8 pt pour les marges, n/a pour price_gas_us.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "slices",
+  "probleme": "Repartition sans annee, incoherente avec le bloc positions de marche et avec le CA 2025",
+  "preuve": "repartition : Oil 7,65 / Gas 1,15 / NGL 1,05 Mds (total 10,6) ; positions de marche : petrole 5 809 M$, gaz 770, LGN 650 pour 2025 ; CA 2025 = 8,9 Mds",
+  "correction_validee": "Reprendre les revenus 2025 par produit du rapport annuel et dater le bloc",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "positionnement_ia",
+  "champ": "summary",
+  "probleme": "Mots doubles",
+  "preuve": "« Le rapport annuel rapport annuel depose le 26 fevrier 2026 »",
+  "correction_validee": "Supprimer la repetition dans summary et source : « Le rapport annuel depose le 26 fevrier 2026 ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "net_income, net_margin, price_gas_us, exploration_expense",
+  "probleme": "Series a trous sur des trimestres publies",
+  "preuve": "net_income et net_margin passent de Q3-2025 a Q1-2026 sans Q4-2025 ; price_gas_us sans Q3-2024, Q4-2024, Q4-2025 ; exploration_expense sans Q4-2024",
+  "correction_validee": "Completer les trimestres manquants",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateur manquant",
+  "probleme": "Pas de duree de vie des reserves ni de taux de remplacement en serie, indicateurs de base d un producteur",
+  "preuve": "reserves 1 056 MMboe et production 464 kboe/d permettent R/P = 6,2 ans ; All-in reserve replacement ratio n a qu un point (160 %)",
+  "correction_validee": "Ajouter R/P annuel et le taux de remplacement en serie",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

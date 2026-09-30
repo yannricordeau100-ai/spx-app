@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "en-tete / description",
+  "champ": "sector, subsector, mettrik_description.activity",
+  "probleme": "Le secteur affiché est faux et le sous-secteur est en anglais. Le code GICS 30301010 correspond aux Produits ménagers, dans les Biens de consommation de base, et la description reprend l'erreur.",
+  "preuve": "'Consommation discrétionnaire > Household & Personal Care | GICS 30301010' ; description : 'secteur des biens de consommation cycliques'.",
+  "correction_validee": "Mettre 'Consommation de base > Produits ménagers' et remplacer 'biens de consommation cycliques' par 'biens de consommation de base' dans la description.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Adhesive Technologies Revenue",
+  "probleme": "Doublon de ADHESIVE_TECH_SALES. Sa valeur est de l'ordre d'un semestre et sa série non datée ne correspond pas à la série principale.",
+  "preuve": "val=5416 au 2025-12-31 (annuel), contre ADHESIVE_TECH_SALES FY2025=10667. Série '8500, 11200, 11700, 10800, 11000' alors que FY2022=11242, FY2023=10790, FY2024=10970.",
+  "correction_validee": "Supprimer le KPI hérité Adhesive Technologies Revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Consumer Brands Revenue",
+  "probleme": "C'est la seule donnée sur la moitié du groupe, et elle est inexploitable : valeur semestrielle présentée comme annuelle, série sans dates, signal en franglais.",
+  "preuve": "val=5266 au 2025-12-31 (year) alors que la série affiche 9800 à 10500 ; yoy -6.8% ; signal 'Recovery post-restructuration'.",
+  "correction_validee": "Reconstruire la série annuelle Consumer Brands datée, avec 9,68 Mds € en 2025, et réécrire le signal en français.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Organic Sales Growth",
+  "probleme": "La série contredit la somme volume + prix de la même fiche, et la valeur affichée ne figure pas dans la série.",
+  "preuve": "Volume + prix = 8,8 en 2022, 4,2 en 2023, 2,6 en 2024 et 0,9 en 2025. Série affichée : 13.4, 8.2, 4.2, 2.5, 2. Valeur affichée : -0.1 alors que le dernier point est 2 et que 0 + 0,9 = +0,9.",
+  "correction_validee": "Reconstruire la série datée de croissance organique à partir des publications, en cohérence avec ORGANIC_VOLUME_GROWTH et ORGANIC_PRICE_EFFECT, et aligner la valeur affichée sur le dernier point.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Adj EBIT Margin ; Capex",
+  "probleme": "La valeur de la marge EBIT ajustée n'est pas dans sa série, qui n'est pas datée, et son signal est vague. Le Capex d'un groupe allemand est libellé en dollars.",
+  "preuve": "Adj EBIT Margin : val=15.5 alors que la série finit à 14, signal 'Retour marges structurelles'. Capex : unité 'M $', valeurs 593 à 693.",
+  "correction_validee": "Dater la série de marge et aligner la valeur (auto=false). Passer l'unité du Capex en M €.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition / risques / en-tete",
+  "champ": "revenue_by_segment, revenue_by_geography, risks, tagline",
+  "probleme": "Les deux répartitions sont vides et en anglais, les risques n'ont que des titres (en franglais), et le slogan est en anglais.",
+  "preuve": "'Adhesive Technologies None ; Consumer Brands None' ; 'Europe None ; North America None ; ... LatAm None ; IMEA None' (FY2024) ; 'Cyclicité du segment Adhesive Technologies (automotive, electronics, packaging)' sans texte ; tagline 'Pioneers at heart for the good of generations'.",
+  "correction_validee": "Remplir les répartitions 2025 (environ 51 % / 49 %) avec des noms en français, rédiger le texte des 6 risques, traduire ou retirer le slogan.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "couverture globale ; ADHESIVE_TECH_SALES.signal",
+  "probleme": "La fiche n'a que 7 KPI, dont 4 inutilisables. Il manque les indicateurs de base du secteur, que la thèse et l'anti-thèse citent pourtant, et le signal du KPI vedette n'en est pas un.",
+  "preuve": "La thèse cite des fonds propres à 63,3 % du total et l'anti-thèse un BPA publié en baisse de 8,3 % et une position financière nette de -1,9 Md€, sans KPI correspondant. Signal du KPI vedette : 'Produit phare : Adhésifs Loctite'.",
+  "correction_validee": "Ajouter la croissance organique et la marge EBIT ajustée par division, le BPA ajusté, le dividende par action, le FCF et la position financière nette, puis écrire un vrai signal pour ADHESIVE_TECH_SALES (10,67 Mds € en 2025, -2,8 %).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ }
+]

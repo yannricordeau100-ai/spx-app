@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "risques",
+  "champ": "risks[2].title, risks[3].title, risks[6].title / revenue_by_geography",
+  "probleme": "Titres de risques et libelle de zone en anglais.",
+  "preuve": "risque 3: « International operations exposure » ; risque 4: « Product innovation execution » ; risque 7: « Indebtedness level » ; geographie : « Non-US 32.9 »",
+  "correction_validee": "Traduire en « Exposition internationale », « Execution de l'innovation produit », « Niveau d'endettement » et « Hors Etats-Unis ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Shares repurchased in fiscal year",
+  "probleme": "Le montant 2025 contredit la somme des rachats trimestriels de la fiche.",
+  "preuve": "KPI ponctuel : 834,8 M$ « rachetees en 2025 » ; BUYBACK 2025 : 767.4+25.1+590.5+218.9 = 1 601,9 M$",
+  "correction_validee": "Corriger BUYBACK Q1-2025 (valeur reelle proche de 0) a la source, puis supprimer le KPI ponctuel devenu redondant.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_ARR / CAHIER_SUBSCRIPTION_BASE",
+  "probleme": "Doublons annuels de series trimestrielles, le second sous un nom faux (ce sont les domaines sous gestion, pas une base d'abonnements).",
+  "preuve": "CAHIER_ARR FY2025=4336.2 = ARR Q4-2025 ; CAHIER_SUBSCRIPTION_BASE FY2025=80793 = DUM Q4-2025=80793",
+  "correction_validee": "Supprimer CAHIER_ARR et renommer CAHIER_SUBSCRIPTION_BASE en « Domaines sous gestion (annuel) », ou le supprimer.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EPS_DIL.serie / BUYBACK_AUTH.serie",
+  "probleme": "Trous dans les series.",
+  "preuve": "EPS_DIL : Q1-2024, Q2-2024, Q3-2024, Q1-2025, Q2-2025, Q3-2025, Q1-2026, Q2-2026 (T4 2024 et T4 2025 absents) ; BUYBACK_AUTH : Q4-2024=0.767 puis Q4-2025=2.165 (T1 a T3 2025 absents)",
+  "correction_validee": "Completer depuis les 10-K 2024 et 2025 et les 10-Q 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "RETENTION.serie",
+  "probleme": "Serie arrondie a l'unite (« environ 85 % ») presentee comme une mesure annuelle precise avec un yoy d'un point.",
+  "preuve": "serie : 85, 85, 85, 84, 85 ; signal « d'environ 85% chaque annee »",
+  "correction_validee": "Garder la valeur en texte ou retirer le yoy ; ne pas presenter comme serie mesuree.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "DA.serie",
+  "probleme": "Chute de moitie des dotations aux amortissements en un trimestre, invraisemblable pour ce poste.",
+  "preuve": "Q1-2026=24.2, Q2-2026=13.3, yoy=-56.5% ; signal « en repli continu »",
+  "correction_validee": "Verifier le 10-Q T2 2026 (possible confusion depreciation seule vs D&A).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "8 KPI a un point (Airo, AiroCare, GMV, code IA, brevets, autorisation rachat...)",
+  "probleme": "Chiffres de communication presentes comme KPI sans serie ; « Share of code written by AI » et « AiroCare support resolution rate improvement » ne sont pas des indicateurs mesurables pour un investisseur.",
+  "preuve": "« Share of code written by AI » n=1 val=50 ; « AiroCare support resolution rate improvement » n=1 val=50 ; « Issued patents » n=1 val=354 deja cite dans TECHDEV_EMP.signal",
+  "correction_validee": "Deplacer en stories ou supprimer.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat / ai_positioning",
+  "probleme": "Moat « None » alors que le texte du moat, le positionnement « leader » et la these decrivent un modele recurrent solide ; franglais dans le positionnement IA.",
+  "preuve": "moat : « None / tendance hausse :: Le revenu recurrent annualise... montent » ; positionnement IA : « leader de l'innovation AI-driven... transformation AI-first »",
+  "correction_validee": "Qualifier le moat (couts de changement, marque) ; reecrire « portee par l'IA », « priorite a l'IA ».",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "mettrik_description.simple.fr",
+  "probleme": "Anglicismes dans la description.",
+  "preuve": "« hosting », « builders web », « marketing tools », « services aftermarket »",
+  "correction_validee": "Remplacer par « hebergement », « createurs de sites », « outils marketing » et « revente de noms de domaine ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ARPU.unite",
+  "probleme": "Unite « $ » sans periode alors que la valeur est un revenu annuel par client.",
+  "preuve": "ARPU=250 $ ; 250 x 20,457 M clients = 5,1 Mds$ = CA annuel",
+  "correction_validee": "Unite « $ / an ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "KPI",
+  "champ": "kpis[48] Total Revenue",
+  "probleme": "Doublon de ca_total avec trous, valeur contradictoire et signal sans accents",
+  "preuve": "Periodes sans aucun T4 (2021-Q1..Q3, 2022-Q1..Q3...) ; 2025-Q1 = 8 910 alors que ca_total donne 8 875 ; yoy '15.1' sans unite contre +15,5 % ; signal 'Croissance solide +13%, depasse $40Md, momentum BOE et Advisory leasing capital markets'",
+  "correction_validee": "Supprimer kpis[48].",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[70] Property Management Revenue",
+  "probleme": "Valeur incompatible avec la fiche, periode None, signal telegraphique",
+  "preuve": "11,6 Mds $ en 2025 (serie 4.9, 7.8, 10.1, 9.85, 11.6) alors que boe_property_mgmt 2025 = 2 559 M$ et que la description de BOE Revenue donne 'Property Management (2,579)' ; signal 'Croissance resiliente'",
+  "correction_validee": "Supprimer kpis[70].",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[64] Real Estate Investments AUM / kpis[69] AUM (doublons de cbre_im_aum et CAHIER_AUM_FLOWS)",
+  "probleme": "Quatre KPI pour les memes encours, dont un a valeur hors serie et signal vide",
+  "preuve": "Real Estate Investments AUM : valeur 155,5 mais serie 122, 142, 147, 144, 145 (= 2020-2024 de CAHIER_AUM_FLOWS), signal vide, description 'Trammell Crow + dev' ; AUM : un seul point 155,5 ; cbre_im_aum Q4-2025 = 155,5 et CAHIER_AUM_FLOWS FY2025 = 155,5",
+  "correction_validee": "Supprimer kpis[64] et kpis[69].",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[9] core_eps / kpis[10] net_leverage_ratio / kpis[11] loan_servicing_portfolio / kpis[12] mortgage_origination_growth",
+  "probleme": "Series arretees au T1-2026 alors que la fiche est au T2-2026, avec anglais et chiffre incoherent dans le signal",
+  "preuve": "core_eps dernier 2026-03-31, signal 'Core EPS a 1,61 $ au T1 2026 (Core EPS up 81%)' alors que yoy = +87,2 % (0,86 -> 1,61) ; net_leverage_ratio, loan_servicing_portfolio dernier 2026-03-31 ; mortgage_origination_growth un seul point 53 %, yoy 'n/d'",
+  "correction_validee": "Ajouter le T2-2026 aux quatre series et reecrire le signal core_eps en francais avec le bon pourcentage",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[53] Loan servicing portfolio / kpis[63] Record 2025 total revenue / kpis[75] effectifs_annuels / kpis[11].yoy",
+  "probleme": "Doublons exacts et yoy incoherent",
+  "preuve": "Loan servicing portfolio (460, 1 point) doublon de loan_servicing_portfolio dont le yoy '+5% (trimestre)' ne correspond pas a la serie 450 -> 460 (+2,2 %) ; Record 2025 total revenue 40 550 doublon de revenue_annuel 40,55 ; effectifs_annuels (trous 2021-2022) doublon de effectifs",
+  "correction_validee": "Supprimer kpis[53], kpis[63] et kpis[75] effectifs_annuels (séries à trous), et mettre le yoy de loan_servicing_portfolio à +2,2 % ou le retirer.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[65..68] BOE Revenue, Advisory Services Revenue, Project Management Revenue, REI Revenue (signal, description)",
+  "probleme": "Signaux telegraphiques sans accents, descriptions en format anglais",
+  "preuve": "'Turner Townsend majoritaire, croissance UK/Amerique du Nord/Moyen-Orient, segment contractuel' ; 'Rebond capital markets, leasing +15%, sales +20%, segment historique haute marge' ; description 'Leasing $4,497M, Valuation $815M, Loan servicing $503M'",
+  "correction_validee": "Reecrire en francais avec accents et montants au format '4 497 M$'",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[71] Net Effective Cost Position",
+  "probleme": "Nom incomprehensible, periode None, signal telegraphique",
+  "preuve": "name_fr 'Position Cout Net Effective', 1,62 Mds $, serie 1.45, 1.49, 1.52, 1.5, 1.62, signal 'Discipline couts', description 'Couts operationnels nets ajustes'",
+  "correction_validee": "Supprimer ou renommer avec une definition verifiable (ex. charges d'exploitation nettes hors refacturations)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[29] sop_boe.signal",
+  "probleme": "Signal hors sujet et contredit par la serie",
+  "preuve": "'Le tertiaire americain se stabilise plutot que de se redresser franchement, ce trimestre restant proche du T4 2025 apres le creux du T1' pour le resultat du segment gestion technique des batiments, a 335 M$, +28,4 % sur un an (261 -> 335)",
+  "correction_validee": "Reecrire sur le segment BOE (data centers, infrastructure critique, Pearce)",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[49] Real estate development in-process portfolio and pipeline.history",
+  "probleme": "Saut d'echelle non explique au milieu de la serie",
+  "preuve": "18,8 -> 31,1 Mds $ en un trimestre (x1,65) puis 31,7, 30,3, 29, 29,6 ; les points precedents (14,9 a 19,8) ne couvrent probablement que l'en-cours sans le pipeline ; pas de periodes",
+  "correction_validee": "Homogeneiser le perimetre (en-cours + pipeline) sur toute la serie et dater les points",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "KPI",
+  "champ": "kpis[41] tresorerie.signal / kpis[43] capitaux_propres.signal",
+  "probleme": "Signaux parlant de baisse alors que le yoy est positif, faute de grammaire",
+  "preuve": "tresorerie 'La tresorerie recule car le groupe priorise le retour aux actionnaires' avec yoy +6,7 % (1 395 -> 1 489) et texte 'le groupe priorisé' ; capitaux_propres 'La baisse des fonds propres vient...' avec yoy +1,8 % (8 253 -> 8 398)",
+  "correction_validee": "Preciser 'recul sur le trimestre' ou reecrire ; corriger 'a priorise'",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography.slices[1].label",
+  "probleme": "Libelle en anglais",
+  "preuve": "'All Other Countries' 29,6 % a cote de 'Etats-Unis' et 'Royaume-Uni'",
+  "correction_validee": "Remplacer « All Other Countries » par « Autres pays ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "mettrik_description.simple.fr",
+  "probleme": "Anglicismes dans la description",
+  "preuve": "'transaction, gestion immobiliere, investment management, valuation et project management' ; 'locataires corporates' ; 'revenus recurrents en property management'",
+  "correction_validee": "Reecrire : gestion d'actifs, expertise, gestion de projets, locataires entreprises, gestion immobiliere",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

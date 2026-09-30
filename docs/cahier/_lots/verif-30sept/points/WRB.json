@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "bloc annuel non date (Combined Ratio, Net Premiums Written, Loss Ratio, Capex)",
+  "probleme": "Series sans annees, descriptions anglaises datees 'FY24', chiffres contredits par la fiche.",
+  "preuve": "Net Premiums Written 12 Mds, +10% alors que la somme trimestrielle 2025 = 3.13+3.35+3.23+3.00 = 12,71 Mds et 'Net premiums written growth' = 6.2 ; 'Best-in-class P&C specialty', 'hard market'.",
+  "correction_validee": "Supprimer Combined Ratio, Net Premiums Written et Loss Ratio, doublons des KPI trimestriels ; supprimer aussi Capex tant qu'il n'est ni date ni source.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "series trimestrielles trouees",
+  "probleme": "T3 2025 absent de plusieurs series ; historique fait de seuls T4 (probablement des valeurs annuelles).",
+  "preuve": "NPW Autres RC : Q4-2022, Q4-2023, Q4-2024, Q1-2025, Q2-2025, Q4-2025 ; meme structure pour Pertes cat, Ratio combine AY hors cat (Q4-2020...Q4-2025), Resultat operationnel ajuste, Resultat avant impots.",
+  "correction_validee": "Completer les trimestres manquants a partir des supplements financiers.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Dette totale",
+  "probleme": "Serie parfaitement plate sur huit trimestres, probable report de valeur.",
+  "preuve": "2.84 Mds $ de Q3-2024 a Q2-2026, yoy '+0.0%'.",
+  "correction_validee": "Verifier les bilans trimestriels.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Developpement reserves",
+  "probleme": "Serie arretee au T1 2026 alors que l'anti-these s'appuie sur le semestre.",
+  "preuve": "dernier 2026-03-31 ; anti-these '3 M$ sur le premier semestre 2026 contre 1 M$'.",
+  "correction_validee": "Ajouter T2 2026 (2 M$ d'apres l'anti-these).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux",
+  "probleme": "Chiffres ou sens du signal differents de la serie.",
+  "preuve": "Resultat technique yoy +23.5% (317.5/257) et signal '+21,8%' ; Ratio combine 'vs 91,6%' alors que la serie donne 91.7 ; GPW +4.0% et '+4,2%' ; Retention 'cession ... stable' pour 85.1 -> 82.8 ; Sinistralite sous-jacente 'stable d'un trimestre a l'autre' sur deux points annuels.",
+  "correction_validee": "Recaler les signaux sur les series.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_* et Net invested assets",
+  "probleme": "Variations relatives sur des pourcentages ; unite en K $ brute ; doublons.",
+  "preuve": "CAHIER_EXPENSE_RATIO 28.5 -> 28.3 '-0.7%' ; CAHIER_RATE_CHANGE '-3.8%' ; Net invested assets 33173381 'K $' = 'Invested assets (record)' 33.2 Mds.",
+  "correction_validee": "Afficher -0,2 pt et -0,3 pt, passer Net invested assets en Mds $ (33,2) et supprimer 'Invested assets (record)'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "KPI ponctuels n=1",
+  "probleme": "Faits de l'exercice 2025 datés mai 2026 en KPI, noms anglais ; dividende par action a trous.",
+  "preuve": "'2025 special dividends per share', 'Total capital returned to shareholders (FY)', '2025 net catastrophe losses', 'Financial leverage ratio (historical low)' ; Dividende/action : Q1-2025, Q3-2025, Q1-2026, Q2-2026.",
+  "correction_validee": "Supprimer les faits ponctuels, completer le dividende trimestriel.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "titres",
+  "probleme": "Risques generiques ; absents : suffisance des reserves et inflation sociale (pourtant au coeur de l'anti-these), catastrophes naturelles, risque de placement.",
+  "preuve": "'Pandemies et evenements sanitaires', 'Couverture assurantielle', 'Acquisitions et integrations'.",
+  "correction_validee": "Refaire la liste a partir de l'Item 1A.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / repartitions",
+  "champ": "texte",
+  "probleme": "Tagline et libelles de repartition en anglais.",
+  "preuve": "'Leading specialty insurance and reinsurance company...' ; 'Insurance', 'Reinsurance Monoline Excess', 'United States'.",
+  "correction_validee": "Traduire.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "fcf_annuel, fcf_par_salarie, ca_par_salarie, Capex",
+  "probleme": "Indicateurs sans sens pour un assureur (le flux d'exploitation inclut les primes encaissees d'avance).",
+  "preuve": "fcf_annuel 3,58 Mds $, 'Capex' 60.5 M$ sans date.",
+  "correction_validee": "Retirer ; ajouter plutot le rendement du portefeuille obligataire.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

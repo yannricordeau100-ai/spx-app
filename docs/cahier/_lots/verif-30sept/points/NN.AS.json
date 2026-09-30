@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Free Cash Flow OCG / Netherlands Life APE / Combined Ratio (NL Non-Life)",
+  "probleme": "Trois series annuelles lissees, sans annees, contredites par les series sourcees, avec signaux vides de sens.",
+  "preuve": "« Free Cash Flow OCG » 1300,1400,1500,1620,1700 alors que FCF vers la holding = 470 (2023), 1519 (2024), 1620 (2025) ; « Combined Ratio » 94,97,95,93,92 alors que CR 2025 = 92,9 % et H1-2026 = 90,5 % ; signaux « Payout généreux confirmé », « Leadership NL retraites », « Profitabilité confirmée » ; dernier 2026-08-09.",
+  "correction_validee": "Supprimer « Free Cash Flow OCG », « Netherlands Life APE » et « Combined Ratio (NL Non-Life) ».",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_APE",
+  "probleme": "Doublon annuel de APE (semestriel).",
+  "preuve": "CAHIER_APE FY2025=1318 = H1-2025 750 + H2-2025 568 ; meme unite M €.",
+  "correction_validee": "Supprimer CAHIER_APE.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "ORG",
+  "probleme": "Serie arretee en 2023 avec deux points seulement.",
+  "preuve": "ORG serie FY2022=16, FY2023=13.1, dernier 2023-12-31 ; PUB va a FY2025.",
+  "correction_validee": "Retirer ORG ou completer 2024 et 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_VNB_MARGIN.yoy",
+  "probleme": "Variation d'un ratio en % exprimee en pourcentage au lieu de points.",
+  "preuve": "FY2024=29.3, FY2025=33.5, yoy=+14.3% (devrait etre +4,2 pts).",
+  "correction_validee": "Afficher un yoy de +4,2 pts.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CR",
+  "probleme": "Serie semestrielle a trous : H2-2024 et H2-2025 manquent.",
+  "preuve": "serie H1-2024=92.2, H1-2025=91.2, H1-2026=90.5 ; le signal cite pourtant 92,9 % sur 2025.",
+  "correction_validee": "Ajouter H2-2024 et H2-2025 depuis les rapports annuels.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik",
+  "probleme": "Description perimee : NN a cede sa gestion d'actifs (NN IP) en 2022.",
+  "preuve": "« groupe néerlandais d'assurance et de gestion d'actifs » ; « la gestion d'actifs via Goldman Sachs Asset Management après cession NN IP ».",
+  "correction_validee": "Retirer la gestion d'actifs de l'activite ; NN Group = assurance vie, dommages, retraite et banque.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

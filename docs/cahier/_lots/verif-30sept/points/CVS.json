@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Medical Membership (hero)",
+  "probleme": "Le hero est nomme 'Membres medicaux totaux (Aetna)' mais sa serie (9,8 a 12,5 M) ne peut pas etre le total : la fiche affiche 18,3 M de membres commerciaux + 4,2 M Medicare Advantage + 2,3 M Medicaid, et un autre KPI donne 27 M de membres Aetna. Il s agit des membres assures (a risque).",
+  "preuve": "Medical Membership Q2-2026=9.829 ; COMMERCIAL MEMBERSHIP 18.32 ; Medicare Advantage 4.202 ; MEDICAID 2.325 ; Aetna Medical Members 27",
+  "correction_validee": "Renommer 'Membres assures Aetna (hors auto-assurance)' apres verification dans le rapport trimestriel (manuel).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Medical Benefit Ratio (MBR) / Health Care Benefits MLR / Medical Benefit Ratio (annuels)",
+  "probleme": "Trois series annuelles du MBR en plus du trimestriel, contradictoires entre elles, l une contenant des valeurs trimestrielles et un texte en anglais.",
+  "preuve": "Medical Benefit Ratio (MBR) year serie 88.3, 87.3, 84.6 signal 'Q1 2026 MBR 84.6% vs 87.3% Q1 2025, strong improvement' ; Health Care Benefits MLR 2024=88, 2025=92 ; Medical Benefit Ratio 2024=92.5",
+  "correction_validee": "Supprimer les trois, garder MCR (MBR) trimestriel.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Medicare Advantage Members (annuel)",
+  "probleme": "Serie lissee contredite par le trimestriel : 4,5 M avec yoy +10 % alors que la serie trimestrielle donne 4,27 M fin 2025 et 4,20 M au T2 2026 en recul.",
+  "preuve": "Medicare Advantage Members serie 3, 3.3, 3.7, 4.1, 4.5 ; Medicare Advantage Q4-2025=4.267, Q2-2026=4.202 yoy -0.9%",
+  "correction_validee": "Supprimer 'Medicare Advantage Members' annuel.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Pharmacy Scripts / Prescriptions Filled (annuels)",
+  "probleme": "Deux doublons annuels des ordonnances avec des valeurs fausses : 2024 = 1 715,5 M et 2025 = 1 808,8 M selon CAHIER_SERVICE_VOLUME (egal a la somme trimestrielle), pas 1,61 / 1,6 Mds.",
+  "preuve": "Scripts Remplis PCW 2025 : 435.5+438.1+461.4+473.8 = 1808.8 ; Prescriptions Filled 2024=1.61 ; Pharmacy Scripts serie 1.45 ... 1.6",
+  "correction_validee": "Supprimer 'Pharmacy Scripts' et 'Prescriptions Filled'.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Adjusted Operating Income (annuel)",
+  "probleme": "Serie annuelle qui se termine par une valeur trimestrielle (4,66), signal 'en progression' contredit par la serie (13,7 puis 8,5 puis 4,66), description en anglais citant un autre chiffre (5,15).",
+  "preuve": "serie 13.911, 13.193, 7.746, 13.743, 8.516, 4.66 ; description 'Q1 2026 adjusted operating income $5.15B vs $4.58B Q1 2025'",
+  "correction_validee": "Supprimer 'Adjusted Operating Income' annuel.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Pharmacy & Consumer Wellness Rev / Health Care Benefits Rev (annuels)",
+  "probleme": "Doublons annuels arretes en 2024 et lisses ; PCW 2024 a 118,6 Mds est incompatible avec le seul second semestre 2024 trimestriel (65,9 Mds) et 2025 = 139,4 Mds.",
+  "preuve": "CA Pharmacy & Consumer Wellness Q3-2024=32.423, Q4-2024=33.514, 2025 total 139.4 ; serie annuelle 91.2, 100, 107.6, 112, 118.6",
+  "correction_validee": "Supprimer les deux series annuelles.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Same-Store Pharmacy",
+  "probleme": "Rupture de 19,3 % a 3,1 % entre le T4 2025 et le T1 2026 sans explication dans le signal ; niveau 17 a 19 % sur 2025 a verifier contre les communiques.",
+  "preuve": "serie Q4-2025=19.3, Q1-2026=3.1, Q2-2026=2.9 ; yoy=-15.2pp",
+  "correction_validee": "Verifier la definition (ventes vs ordonnances) et les valeurs 2025, puis expliquer la rupture",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Magasins détail",
+  "probleme": "Signal de 'stabilisation' tire d une serie arrondie a 9 k, contredit par les 271 fermetures de 2025 affichees sur la meme fiche.",
+  "preuve": "Magasins detail serie 9, 9, 9 signal 'Le reseau physique se stabilise' ; Retail store closures val=271",
+  "correction_validee": "Remplacer par le nombre exact de points de vente ou supprimer",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Caremark PBM Lives, Total annual revenues",
+  "probleme": "Serie plate non sourcee avec cuisine interne dans la description ; 'Total annual revenues' recopie revenue_annuel 2025.",
+  "preuve": "Caremark PBM Lives serie 108, 108, 110, 110, 110, description 'Scale reseau, sensible mouvements grands clients Anthem 2024' ; Total annual revenues val=402.1 = revenue_annuel 2025",
+  "correction_validee": "Supprimer 'Caremark PBM Lives' et 'Total annual revenues'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

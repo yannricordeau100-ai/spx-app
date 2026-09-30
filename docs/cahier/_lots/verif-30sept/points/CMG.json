@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "Digital Sales",
+  "probleme": "KPI casse : periode None, valeur 36.7 absente de la serie, serie sans dates en ordre inverse, signal Stable., doublon de digital_sales_pct et CAHIER_MIX_NUMERIQUE",
+  "preuve": "serie : 46, 42, 38, 37, 35 ; val=36.7 ; yoy +0pt ; signal Stable.",
+  "correction_validee": "Supprimer le KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Company-owned restaurant openings in quarter, Cost of sales as % of sales, International partner-operated restaurants",
+  "probleme": "Trois doublons arretes un trimestre avant leur equivalent (new_openings 100, food_pkg_cost_pct 29.7, partner_operated_restaurants 15) avec des dates fausses",
+  "preuve": "openings val=49 dernier 2026-06-10 vs new_openings Q2-2026=100 ; Cost of sales val=29.6 dernier 2026-06-30 vs food_pkg_cost_pct Q2-2026=29.7",
+  "correction_validee": "Supprimer les trois doublons.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CMG_FOOD_REV.signal et PHARE_CMG.signal",
+  "probleme": "Cuisine interne visible : prefixe Produit phare, choix par defaut explique, accent manquant, format yoy avec virgule",
+  "preuve": "Produit phare : Le bol burrito au poulet, plat le plus commande de la carte ; Produit phare : Produits frais achetes aupres de fermes locales (produce), a defaut du poulet et des avocats ; yoy=+5,5%",
+  "correction_validee": "Reecrire les deux signaux sur la serie elle-meme, sans prefixe ni justification interne, avec yoy au format +5.5 %.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "anti-these",
+  "champ": "att.accroche vs share_buybacks",
+  "probleme": "Deux montants de rachats pour le meme trimestre",
+  "preuve": "att : rachete pour 638,6 M$ ; share_buybacks Q2-2026=653.9 selon le tableau de flux",
+  "correction_validee": "Retenir un seul chiffre et preciser la base",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Loyalty as % of sales.signal",
+  "probleme": "Unite fausse : 300 points de base, pas 300 points",
+  "preuve": "en hausse de 300 points sur un an",
+  "correction_validee": "Ecrire en hausse de 3 points sur un an.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Gen Z consumers who would visit for a new sauce, Internal promotions in the year",
+  "probleme": "Anecdotes marketing et RH presentees comme KPI",
+  "preuve": "val=90 % ; val=23000 promotions",
+  "correction_validee": "Retirer des KPI ou passer en story",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "customers et edge",
+  "probleme": "Bio non revendique par Chipotle, et jargon anglais AUV",
+  "preuve": "valorisant des produits frais et bio ; un AUV par restaurant exceptionnel",
+  "correction_validee": "Remplacer un AUV par restaurant exceptionnel par des ventes moyennes par restaurant exceptionnelles, garder ou alleger bio.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

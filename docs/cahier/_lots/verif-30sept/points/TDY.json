@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_geography",
+  "probleme": "La répartition géographique date de 2019 et contredit la part internationale",
+  "preuve": "total 3,16 Mds $ (= CA 2019), exercice None; États-Unis 69% alors que intl_pct = 48,5 à 49,2% (États-Unis ≈ 51%)",
+  "correction_validee": "Remplacer par la repartition geographique de l exercice 2025 avec son exercice indique.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "revenue_annuel, fcf_annuel, dette_annuelle, effectifs_annuels et ratios dérivés",
+  "probleme": "Les exercices 2020 et 2021 sont étiquetés 2021 et 2022; le vrai 2022 manque",
+  "preuve": "revenue_annuel 2021=3,086 (CA 2020), 2022=4,614 (CA 2021); effectifs 2021=10670 alors que employees FY2020=10670 et FY2021=14500; dette 2022=4,099 alors que lt_debt cite le pic FLIR de 4,1 Mds en 2021; dette_sur_ca 2022=88,8%",
+  "correction_validee": "Decaler 2021 vers 2020 et 2022 vers 2021, ajouter l exercice 2022, puis recalculer les ratios derives.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Aero & Defense Elec, Orders Book-to-Bill, Aerospace & Defense, FLIR Defense Backlog",
+  "probleme": "KPI hérités sans périodes, en franglais, doublons faux",
+  "preuve": "Aero & Defense Elec 0,95 Mds et Aerospace & Defense 900 M$ contre ADE FY2025 = 242,5+264,8+275,5+275,9 = 1 058,7 M$",
+  "correction_validee": "Supprimer ces 4 KPI herites.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ES_rev, INST_marine, eps_diluted",
+  "probleme": "Le 4e trimestre manque chaque année et les libellés 'FY' ne conviennent pas à un exercice calendaire",
+  "preuve": "ES_rev: Q1-FY2024, Q2-FY2024, Q3-FY2024, Q1-FY2025...; eps_diluted: Q3-2024 puis Q1-2025; INST_marine Q1-FY2024 = Q2-FY2024 = 147,8",
+  "correction_validee": "Compléter le T4 (annuel moins 9 mois), étiqueter en trimestres calendaires, vérifier 147,8",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ADE_opm.signal / INST_opm.signal / op_margin.signal",
+  "probleme": "Signaux contredits par les séries",
+  "preuve": "ADE_opm 'Recul lié aux coûts...' alors que +0,8 pt; INST_opm 'Marge en progression continue' alors que 26,1 contre 27,6 et 24,5 au T1; op_margin 'vs 18,1% N-1' alors que Q2-2025=18,4",
+  "correction_validee": "Réécrire les deux premiers, corriger 18,1 en 18,4",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat / kpis",
+  "champ": "moat / buybacks.signal",
+  "probleme": "Moat appuyé sur un chiffre périmé; signal des rachats contredit par la série",
+  "preuve": "moat: 'progresse de 36 %' (effet acquisition FY2025) alors que ADE Q2-2026 +8,2%, tendance 'baisse' contraire au texte; buybacks: 'reprise 2022' alors que FY2022=0 et FY2023=0, FLIR intégré en 2021 et non en 2017",
+  "correction_validee": "Réécrire la justification du moat et le signal des rachats",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Total company book-to-bill ratio / Unmanned systems revenue",
+  "probleme": "Série sans périodes; une prévision affichée comme un chiffre",
+  "preuve": "book-to-bill 1,05 ; 1,1 ; 1,07 ; 1,16 sans trimestres, daté 2026-03-11; drones val=550 = 'attendu vers 550M en 2026' et '10% du CA' (≈8,5%)",
+  "correction_validee": "Dater le book-to-bill par trimestre; afficher 500 M$ (2025) ou marquer la prévision",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / repartition",
+  "champ": "sous-secteur / revenue_by_segment",
+  "probleme": "Sous-secteur en anglais et différent du code GICS; segments en anglais",
+  "preuve": "'Technologie > Aerospace and Defense Electronics' pour GICS 45203010 (instruments électroniques); 'Aerospace and Defense Electronics 17.3', 'Engineered Systems 7.1'",
+  "correction_validee": "Afficher le sous-secteur GICS Equipements et instruments electroniques et traduire les segments.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

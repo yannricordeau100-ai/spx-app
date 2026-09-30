@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "en-tete",
+  "champ": "tagline",
+  "probleme": "Slogan en anglais sur une fiche francaise.",
+  "preuve": "« Leading manufacturer of household and personal care products with strong brand portfolio »",
+  "correction_validee": "Remplacer par une accroche en francais.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risques",
+  "champ": "risque 1 a 7",
+  "probleme": "Sept risques reduits a un titre, sans aucune description.",
+  "preuve": "« risque 1: Evolution de la demande consommateur :: » (vide) ... « risque 7: Dependance fournisseurs et chaine d'approvisionnement :: » (vide).",
+  "correction_validee": "Rediger chaque risque a partir de l'Item 1A du 10-K 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "revenue_by_geography",
+  "champ": "slices",
+  "probleme": "La repartition geographique utilise des noms de segments et contredit le KPI de part des ventes americaines.",
+  "preuve": "Slices : « Consumer Domestic 80,9 / Consumer International 19,1 » (exercice 2025) alors que us_sales_pct = 82 % (« approximately 82% of our sales were generated in U.S. markets ») et intl_share T4 2025 = 18,2 %.",
+  "correction_validee": "Remplacer par Etats-Unis 82 % / International 18 % (exercice 2025).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "justification_mettrik",
+  "probleme": "La justification de tendance contredit la serie de marge brute et l'anti-these.",
+  "preuve": "Moat : « marge brute en leger recul ». gross_margin T2 2026 = 45,4 % vs 43,0 % un an plus tot (+2,4 pts, hero de la fiche) ; anti-these : « marge brute en expansion ».",
+  "correction_validee": "Remplacer « marge brute en leger recul » par « marge brute en hausse ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "household_products_sales, personal_care_products_sales, depreciation_amortization_total, outstanding_accounts_receivable, outstanding_accounts_payable, admin_management_oversight_services",
+  "probleme": "Six KPI « annual » sans dates, dates 2026-06-30, en ordre inverse (dernier en premier), doublons des series trimestrielles ou valeurs d'un ordre de grandeur impossible.",
+  "preuve": "household_products_sales [2556.9, 2584.3, 2484.1] : 2556,9 = somme 2025 de hh_rev, donc chronologie inversee ; depreciation_amortization_total 247,4 = somme 2025 de da. outstanding_accounts_receivable 1,1 M$ contre receivables 596,8 M$ (x500) ; outstanding_accounts_payable 1,2 M$ ; admin_management_oversight_services 2,6 M$ « Augmentation du cout de supervision interne ». Signaux generiques : « Renforcement du fonds de roulement client ».",
+  "correction_validee": "Supprimer les six KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Vitamin Brands Revenue, Power Brands Revenue",
+  "probleme": "Series sans dates ni description, incompatibles avec la cession des vitamines et avec la these.",
+  "preuve": "Vitamin Brands Revenue [620, 660, 690, 715, 750] M$ (+5 %) datee 2026-06-30 alors que l'activite VMS est cedee (« VMS Divestiture proceeds » 160,3 M$, decembre 2025 ; « La sortie des vitamines ») et que la these chiffre a 400 M$ les ventes des quatre activites cedees. Power Brands Revenue [4, 4.3, 4.5, 4.7, 4.9] Mds $ : 4,9/6,2 = 79 % du CA, contre « environ 70 % » dans la these.",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Online Sales Mix, International Sales Mix, ARM & HAMMER #1 in laundry wash loads record 14.5% share, Accelerated share repurchase, Adjusted gross margin",
+  "probleme": "Doublons sans dates d'indicateurs deja presents avec dates, avec valeurs ou variations divergentes.",
+  "preuve": "Online Sales Mix 22 % (annuel) vs « Online sales % of consumer sales » 24 % (trimestriel), meme date 2026-06-30. International Sales Mix 18 % vs intl_share 19,4 % vs us_sales_pct 82 %. « ARM & HAMMER #1... 14.5% » (n=1) vs AH_LLD_SHARE (10 ans, 14,5 % en 2025). Accelerated share repurchase 300 vs buyback. Adjusted gross margin : yoy « +130bps » alors que 46,4 vs 44,2 quatre points plus tot = +220 pb.",
+  "correction_validee": "Supprimer les cinq versions sans dates, garder les series datees.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Organic sales growth, Volume growth",
+  "probleme": "Series trimestrielles sans dates, decalees d'un trimestre par rapport aux croissances organiques par division, et volume groupe incompatible avec le volume domestique.",
+  "preuve": "Organic sales growth [..., 3.4, 0.7, 5] : T4 2025 par division (-0,1 / 3,6 / 2,8) donne environ 0,7 pour le groupe, mais 0,7 est en avant-derniere position, donc le T2 2026 (environ 5,7) manque. Volume growth dernier point 5,3 % alors que dom_osg T2 2026 indique volumes +3,6 % sur 77 % des ventes.",
+  "correction_validee": "Dater les series, ajouter le T2 2026 et verifier l'alignement avec les communiques.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "12 KPI a un point dates 2026-04-10",
+  "probleme": "Faits de conference presentes comme des KPI, noms en forme de phrase, unites inventees.",
+  "preuve": "« Tariff cost exposure cut from $190M to $25M », « 125th consecutive year of dividends, 30th straight increase » (unite « annees »), « #1 across all CPG in total distribution points gained » (unite « % lift TDP »), « HardBall litter 48% repeat rate », « Touchland earnout consideration », « ARM_target » (n=1, 2024).",
+  "correction_validee": "Deplacer en faits marquants ou supprimer ; ne garder que les series datees.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "signal",
+  "champ": "gross_profit, op_income, net_income, eps_diluted, div_share, dividends_paid, lt_debt, cash, inventory, receivables, rd, interest_exp, shares_diluted, equity, total_assets, goodwill, intangibles, CI_op_income, SPD_op_income, ocf, us_sales_pct",
+  "probleme": "Une vingtaine de signaux commencent par le libelle comptable anglais du poste ou sont en anglais.",
+  "preuve": "« Gross Profit 693,9 M$ au T2 2026 », « Income from Operations 276,4 M$ », « Net income per share - Diluted $0.85 », « Payment of cash dividends 145,8 M$ », « Trade Names and Other Intangibles, Net 3 743,1 M$ », « Weighted average shares outstanding - Diluted », « During 2025, approximately 82% of our sales were generated in U.S. markets ».",
+  "correction_validee": "Remplacer le libelle anglais par le name_fr du KPI et traduire le signal us_sales_pct.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "ocf, fcf, buyback",
+  "probleme": "Trous dans les series 2025 et variation annuelle calculee sur un trimestre absent.",
+  "preuve": "ocf et fcf : history_periods passe de Q1-2025 a Q1-2026 (T2, T3, T4 2025 absents) alors que yoy = « +24,3 % » et « +23,3 % » sur le T2 2025. buyback : T1 et T2 2025 absents alors que le rachat accelere de 300 M$ a ete conclu en mai 2025 (T2) ; la serie place 300 en Q3-2025 et Q4-2025.",
+  "correction_validee": "Completer T2-T4 2025 depuis les 10-Q et replacer l'ASR au T2 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "mkt_pct, CAHIER_ORGANIC_GROWTH, dette_sur_ca, CAHIER_AP_SPEND, div_share",
+  "probleme": "Variations de ratios exprimees en % relatif au lieu de points, et dividende arrondi qui fait apparaitre une baisse.",
+  "preuve": "mkt_pct yoy « +3.8% » (10,8 vs 10,4 = +0,4 pt) ; CAHIER_ORGANIC_GROWTH « -84.8% » (0,7 vs 4,6) ; dette_sur_ca « -1.7% » alors que le signal dit « −0,6 point ». div_share : 0,29 (Q1-2025), 0,30 (Q2-Q3), 0,29 (Q4-2025) pour un meme dividende de 0,295 $.",
+  "correction_validee": "Yoy en points pour mkt_pct, CAHIER_ORGANIC_GROWTH et dette_sur_ca ; dividende a trois decimales (0,295).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

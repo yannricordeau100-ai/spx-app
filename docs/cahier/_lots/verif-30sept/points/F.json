@@ -1,0 +1,102 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "us_wholesales (unite, serie, signal)",
+  "probleme": "Unite fausse et signal contredit par la serie : la serie est en unites brutes sous une unite M unites, et le signal cite un autre chiffre.",
+  "preuve": "unite 'M unites', FY2025=828832 ; signal : '2 105 000 vehicules vendus en gros aux Etats-Unis en 2025' ; us_ice_units 1,9 M + hybrides 0,228 M + VE 0,084 M = 2,2 M, incompatible avec 828 832",
+  "correction_validee": "Verifier la serie des ventes en gros US a la source, la remettre dans la bonne unite et aligner le signal sur la valeur retenue.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "EV Strategy Special Items Cumulative / Model e Long-Lived Assets Impairment / net_income Q4-2025",
+  "probleme": "Trois chiffres d'elements exceptionnels VE incompatibles entre eux et avec la perte du T4 2025.",
+  "preuve": "'2,4 Md$ de charges cumulees fin 2025 liees a la revision de la strategie VE, toutes classees en elements exceptionnels' contre 'Depreciation Model e 8,4 Mds' et 'Autres charges annulation VE 1,2 Md$' ; net_income Q4-2025=-11054 avec adj_ebit=1035, soit environ 15 Mds d'ecart non documente",
+  "correction_validee": "Reprendre la note elements exceptionnels du rapport annuel 2025 et ne garder qu'un jeu de chiffres coherent.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "rd_expense.signal",
+  "probleme": "Le signal dit que la ligne inclut la publicite alors que le KPI est 'Depenses d'ingenierie et de recherche' et qu'un KPI publicite separe existe.",
+  "preuve": "'Cette ligne regroupe ingenierie, recherche, developpement et publicite' ; KPI advertising FY2025=2,7 Mds distinct",
+  "correction_validee": "Retirer 'et publicite' du signal de rd_expense.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA",
+  "champ": "positionnement IA",
+  "probleme": "Texte arrete en 2022 alors que la fiche contient des chiffres 2026 sur BlueCruise.",
+  "preuve": "'depreciation de 2,7 Md$ sur Argo AI (Q3 2022)' ; KPI 'BlueCruise enabled vehicles 415 000, +25% sur un trimestre'",
+  "correction_validee": "Reecrire avec BlueCruise (415 000 vehicules, 213 M miles) et le pivot L2+/L3 interne.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat",
+  "probleme": "Le moat affirme que tous les risques s'aggravent et que seuls les abonnements progressent, ce que les chiffres contredisent.",
+  "preuve": "'tous les risques recenses s'aggravent... la seule dynamique favorable etant les abonnements' ; blue_ebit T2 2026 +71,7 %, credit_ebt +17,4 %, adj_roic 13,2 % (+3,1 pt)",
+  "correction_validee": "Reecrire le moat a partir des KPI (Ford Pro marge 9,7 %, part 42 % classe 1-7, Ford Credit) sans affirmation globale fausse.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "description Mettrik",
+  "champ": "products",
+  "probleme": "Produit cite alors que la fiche indique son arret.",
+  "preuve": "description : 'Mustang Mach-E et F-150 Lightning EV' ; signal model_e_wholesale : 'a arrete le F-150 Lightning'",
+  "correction_validee": "Retirer 'et F-150 Lightning EV' de la description des produits.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "employees / effectifs_annuels ; total_wholesale / CAHIER_DELIVERIES ; fcf / fcf_annuel",
+  "probleme": "Meme indicateur en double (annuel k vs annuel unites, trimestriel vs annuel).",
+  "preuve": "employees FY2025=169 k et effectifs_annuels 2025=169000 ; CAHIER_DELIVERIES FY2025=4395 = somme des total_wholesale 2025 ; fcf_annuel 2025=12,467 = somme fcf 2025",
+  "correction_validee": "Supprimer uniquement employees (garder effectifs_annuels) et conserver les vues trimestrielles et annuelles des livraisons et du FCF.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Super Duty US sales growth (nom FR)",
+  "probleme": "Le nom francais annonce des ventes alors que la valeur est un taux de croissance.",
+  "preuve": "'Ventes US Super Duty | % | val=10'",
+  "correction_validee": "Renommer le KPI 'Croissance des ventes US Super Duty'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "net_income.yoy / eps_diluted.yoy / cash_net_debt.yoy",
+  "probleme": "Variations en pourcentage sans sens lors d'un changement de signe.",
+  "preuve": "net_income yoy=-4458,6 %, eps_diluted yoy=-3200,0 %, cash_net_debt yoy=-103,4 %",
+  "correction_validee": "Afficher 'n.s.' pour la variation quand la valeur change de signe ou part d'une base negative.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "indicateur manquant",
+  "probleme": "Aucun indicateur de stock concessionnaires (jours de ventes) alors que c'est la jauge de reference du secteur automobile US.",
+  "preuve": "KPI presents : ventes en gros, ASP, parts de marche ; aucun 'days supply'",
+  "correction_validee": "Ajouter le stock concessionnaires US en jours (publie dans les presentations trimestrielles).",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

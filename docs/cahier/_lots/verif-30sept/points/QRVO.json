@@ -1,0 +1,52 @@
+[
+ {
+  "bloc": "risques",
+  "champ": "risks[0].summary",
+  "probleme": "Traduction mécanique de l'anglais : « La consommation des Mergers avec Skyworks » (consummation of the Mergers) et « les Mergers » restent en anglais, phrase incompréhensible pour un lecteur français.",
+  "preuve": "risque 1 : « La consommation des Mergers avec Skyworks dépend de conditions hors du contrôle de Qorvo (feu vert HSR Act...). Si les Mergers échouent... »",
+  "correction_validee": "Réécrire : « La réalisation de la fusion avec Skyworks dépend de conditions hors du contrôle de Qorvo (autorisation HSR, autorisations antitrust). Si la fusion échoue ou est retardée, le cours et les résultats pourraient en pâtir. »",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "PATENTS.history",
+  "probleme": "Série de brevets aux valeurs rondes et lissées (2200, 2250, 2300, 2500, 2700), typique d'une estimation et non d'un chiffre publié ; Qorvo ne publie pas de décompte annuel de brevets actifs dans son rapport.",
+  "preuve": "serie: FY2022=2200, FY2023=2250, FY2024=2300, FY2025=2500, FY2026=2700",
+  "correction_validee": "Retrouver le chiffre exact dans une source de la société ou retirer la série.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "buybacks_a.history",
+  "probleme": "Deux exercices consécutifs avec exactement le même montant de rachats (515,1 M$), coïncidence improbable qui ressemble à une recopie.",
+  "preuve": "serie: FY2020=515.1, FY2021=515.1",
+  "correction_validee": "Vérifier le montant FY2020 dans le tableau des flux de trésorerie du rapport annuel FY2020.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_INVENTORY_CHANNEL.name_fr",
+  "probleme": "Nom annonçant deux mesures (« Stocks internes en jours et stocks du canal de distribution ») alors que la série n'en contient qu'une (jours de stock interne) ; aucun chiffre sur le canal de distribution.",
+  "preuve": "KPI CAHIER_INVENTORY_CHANNEL | Stocks internes en jours et stocks du canal de distribution | jours | val=101.5",
+  "correction_validee": "Renommer « Jours de stock ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs_annuels.history",
+  "probleme": "Chute de 8 700 à 5 200 salariés en deux ans (−40 %) sans explication dans la fiche alors que le CA ne baisse que de 2 % ; à confirmer (cessions d'usines ou changement de périmètre), sinon le ratio CA par salarié (+18 %) et FCF par salarié (+67 %) sont trompeurs.",
+  "preuve": "serie: 2024=8700, 2025=6200, 2026=5200 ; revenue_a FY2024=3769.5, FY2026=3678.5",
+  "correction_validee": "Vérifier les effectifs FY2025 et FY2026 dans le rapport annuel et ajouter une phrase d'explication au signal.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

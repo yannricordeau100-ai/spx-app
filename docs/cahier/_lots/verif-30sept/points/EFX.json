@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "revenue_by_segment",
+  "champ": "repartition par segment",
+  "probleme": "Parts de segments fausses et perimees : Workforce Solutions a 27,1 % alors que les series de la fiche donnent 42,5 % en 2025 (2 582 / 6 074 M$) et le signal du hero dit 41 % ; Global Consumer Solutions (10,3 %) n existe plus comme segment depuis 2021. Libelles en anglais.",
+  "preuve": "revenue_by_segment : U.S. Information Solutions 36.4 ; Workforce Solutions 27.1 ; International 26.2 ; Global Consumer Solutions 10.3 ; EWS_rev 2025 : 618.6+662.1+649.4+652.2 = 2582 ; revenue_annuel 2025=6.074 ; EWS_rev signal : segment n1 (41% du CA consolide)",
+  "correction_validee": "Recalculer pour 2025 : Workforce Solutions 42,5 %, USIS 34,2 %, International 23,3 %, supprimer Global Consumer Solutions et traduire les libelles.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "USIS_OIS",
+  "probleme": "Point T4 2024 invraisemblable : 245,7 M$ entre 419 et 448, soit une chute de 45 % suivie d un rebond de 82 % pour une activite recurrente ; incoherent avec USIS_rev T4 2024 = 472,5 dont OIS represente habituellement 85 a 90 %.",
+  "preuve": "USIS_OIS serie : Q3-2024=419.1, Q4-2024=245.7, Q1-2025=448.1 ; USIS_rev Q4-2024=472.5",
+  "correction_validee": "Corriger USIS_OIS T4 2024 a environ 395,1 M$ apres verification a la source.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "The Work Number active records, The Work Number unique/current records, Unique SSNs covered, Full-year free cash flow, Free cash flow conversion rate",
+  "probleme": "Doublons sans periodes etiquetees de KPI deja presents : enregistrements actifs (211 vs TWN_active 209), FCF 2025 (1,13 vs fcf_annuel 1,134) ; la serie des actifs saute de 125 a 191 sans date ; SSN uniques (105) et enregistrements uniques (120) se recouvrent sans qu on sache lequel retenir.",
+  "preuve": "The Work Number active records | serie: 114, 125, 191, 199, 200, 211 ; TWN_active FY2025=209 ; Full-year free cash flow val=1.13 ; fcf_annuel 2025=1.134 ; Unique SSNs 105 vs unique/current records 120",
+  "correction_validee": "Supprimer The Work Number active records et Full-year free cash flow, et ne garder qu un indicateur d individus uniques etiquete par annee.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Cloud Native %, % of revenue in EFX Cloud",
+  "probleme": "Deux KPI contradictoires sur la migration cloud (80 % sans periodes contre 85 % fin 2024, ce dernier annonce lui-meme que le KPI est abandonne), signal de modele de langage (Transformation complete.) et description en franglais.",
+  "preuve": "Cloud Native % | None | serie: 40, 55, 65, 70, 80 :: Transformation complete. :: post-data breach 2017 reconstruction complete. Cible 90%+ FY25. Productivity + new product velocity ; % of revenue in EFX Cloud val=85 :: KPI abandonne post-Cloud",
+  "correction_validee": "Supprimer Cloud Native % et % of revenue in EFX Cloud.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "New share repurchase authorization, Quarterly dividend raised to $0.50, Annual savings opportunity using Vantage vs FICO, Mortgages issued with rate above 5%, Customers accessing EFX-only mortgage products, AI patents pending or granted",
+  "probleme": "Six entrees a un point qui sont des evenements, des arguments commerciaux (economies Vantage vs FICO) ou des statistiques de marche, avec des noms en anglais contenant parfois la valeur ($0.50).",
+  "preuve": "Quarterly dividend raised to $0.50 | val=0.5 ; Annual savings opportunity using Vantage vs FICO | val=1 Mds $ ; Mortgages issued with rate above 5% | val=15",
+  "correction_validee": "Retirer des KPI ; remplacer le dividende par une serie trimestrielle de dividende par action.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "mortgage_growth, Vitality Index",
+  "probleme": "Serie de croissance hypothecaire a trois points non contigus (T4 2024, T4 2025, T2 2026) datee 2026-09-02 avec un signal perime au T4 2025 alors que la valeur affichee est celle du T2 2026 ; l indice de vitalite a 10 points sans periodes etiquetees.",
+  "preuve": "mortgage_growth | dernier 2026-09-02 | val=25 | serie: Q4-2024=29, Q4-2025=20, Q2-2026=25 :: Revenus hypothecaires en hausse de 20% au T4 2025 ; Vitality Index serie: 14, 12, 11, 14, 16, 17, 15, 17",
+  "correction_validee": "Completer les trimestres manquants et mettre le signal au T2 2026 ; etiqueter les periodes de l indice de vitalite.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "eps_diluted",
+  "probleme": "Serie trimestrielle a trous : T4 2024 et T4 2025 absents.",
+  "preuve": "eps_diluted serie : Q3-2024=1.13, Q1-2025=1.06 ... Q3-2025=1.29, Q1-2026=1.42",
+  "correction_validee": "Ajouter les BPA du T4 2024 et du T4 2025.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "tagline",
+  "champ": "tagline et positionnement IA",
+  "probleme": "Tagline en anglais ; positionnement IA en franglais (cloud-native, agentic, enterprise).",
+  "preuve": "tagline: Global data, analytics and technology company providing information solutions ... ; positionnement IA : strategie cloud-native, integrant des capacites agentic ... clients enterprise",
+  "correction_validee": "Reecrire le positionnement IA en francais (plateforme infonuagique, agents autonomes, grands comptes, apprentissage automatique) ; la tagline n est a traduire que si la version anglaise est affichee.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "risks",
+  "champ": "risque 1 a 7",
+  "probleme": "Sept risques sans texte, avec des titres generiques (Risque specifique au business model, Risque de non-atteinte des objectifs) qui ne disent rien du cas Equifax (cyberattaque de 2017, dependance au marche hypothecaire, regulation CFPB).",
+  "preuve": "risque 1: Risque specifique au business model :: (vide) ; risque 2: Risque de non-atteinte des objectifs :: (vide)",
+  "correction_validee": "Rediger des risques specifiques a partir du 10-K 2025.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

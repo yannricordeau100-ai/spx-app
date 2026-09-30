@@ -1,0 +1,62 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "Group Revenue / Concrete Asphalt Rev / CO2 Intensity",
+  "probleme": "Trois KPI hérités font doublon avec REV_FY, BL_RMC_ASPHALT et CO2_SPEC_NET. Ils sont datés du 2026-08-09 mais leurs chiffres sont ceux de 2024, sans période, et l'un d'eux contredit la série principale.",
+  "preuve": "Concrete Asphalt Rev 2024 = 2930 M € ('recul -4.1%'), alors que BL_RMC_ASPHALT 2024 = H1 2,725 + H2 3,045 = 5,77 Mds €. CO2 Intensity 527 = CO2_SPEC_NET FY2024. Group Revenue 21156 = REV_FY FY2024.",
+  "correction_validee": "Supprimer Group Revenue, Concrete Asphalt Rev et CO2 Intensity.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "CAHIER_SHIPMENTS",
+  "probleme": "L'indicateur clé du secteur, les volumes, s'arrête en 2022 alors que la fiche va jusqu'au T2 2026. Son nom annonce plusieurs lignes de produit mais la série ne couvre que le ciment et le clinker. Les volumes de granulats et de béton sont absents.",
+  "preuve": "dernier 2022-12-31, FY2022=118.8 Mt ; nom 'Volumes expédiés par ligne de produit' ; unité 'Mt de ciment et clinker'.",
+  "correction_validee": "Prolonger la série jusqu'en 2025 et au S1 2026 à partir des publications, la renommer 'Volumes de ciment et clinker vendus', puis ajouter les volumes de granulats (Mt) et de béton prêt à l'emploi (Mm3).",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "RCOBD.signal",
+  "probleme": "Le signal parle d'un quatrième record consécutif. La série n'en montre que trois.",
+  "preuve": "FY2021=3.875 puis FY2022=3.739 (baisse) ; les records sont 2023=4.258, 2024=4.499 et 2025=4.679.",
+  "correction_validee": "Remplacer 'quatrième record annuel consécutif' par 'troisième record annuel consécutif'.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis / repartition",
+  "champ": "BL_CEMENT.signal vs revenue_by_segment",
+  "probleme": "La part du ciment n'est pas calculée sur la même base selon les blocs : 52 % dans le signal, 45,7 % dans la répartition.",
+  "preuve": "Signal : '52% du chiffre d'affaires'. Répartition : Ciment 45.68. Au S1 2026, les lignes métier totalisent 5,398+2,613+2,823+1,361 = 12,195 Mds €, donc le ciment pèse 44 % (51 % seulement si on rapporte au CA consolidé de 10,58).",
+  "correction_validee": "Choisir une base unique (avant éliminations intersegments) et aligner le signal sur la répartition.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GEO_AP_RCOBD / GEO_AMWA_RCOBD",
+  "probleme": "Les unités changent au sein d'une même famille de KPI : M € pour deux zones, Mds € pour les deux autres.",
+  "preuve": "GEO_AP_RCOBD 623 M € et GEO_AMWA_RCOBD 727 M €, contre GEO_EUROPE_RCOBD 1.953 Mds € et GEO_NA_RCOBD 1.405 Mds €.",
+  "correction_validee": "Passer GEO_AP_RCOBD et GEO_AMWA_RCOBD en Mds € (0,643 / 0,648 / 0,623 et 0,590 / 0,576 / 0,727).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "positionnement IA / kpis",
+  "champ": "ai_positioning.summary ; CAHIER_RESERVE_LIFE",
+  "probleme": "Le bloc IA cite un document. Le nom du KPI de réserves annonce une durée de vie qui n'est pas dans la série, et son unité est une phrase.",
+  "preuve": "'Le document de référence 2025 décrit des usages déjà en production' ; 'Réserves de granulats et durée de vie', unité 'Mds t de reserves prouvees et probables de granulats'.",
+  "correction_validee": "Écrire 'Le groupe décrit des usages déjà en production', renommer le KPI 'Réserves prouvées et probables de granulats' et mettre l'unité 'Mds t'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

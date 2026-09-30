@@ -1,0 +1,82 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "air_rev / customs_rev / revenue",
+  "probleme": "Le point T2 2026 a été ajouté mais le yoy et le signal sont restés ceux du T1 : les hausses réelles sont de +57 %, +27 % et +32 %, la fiche affiche +14 %, +17 % et +4 %.",
+  "preuve": "air_rev Q2-2025=951.8, Q2-2026=1494.842 | yoy=+14.3% | signal « T1 2026 : revenus +14% » ; revenue Q2-2026=3502.335 vs Q2-2025=2651.9 | yoy=+4.4% ; anti-thèse « fret aérien a bondi de 57% au T2 2026 »",
+  "correction_validee": "Recalculer les yoy (+57,1 %, +26,6 %, +32,1 %) et réécrire les trois signaux sur le T2 2026.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "op_income, net_income, eps_diluted, ocf, capex, buybacks, cash, equity, ocean_rev, rev_nasia, opinc_* (une trentaine)",
+  "probleme": "Le T2 2026 (publié en août) n'a été chargé que sur 3 KPI ; tous les autres s'arrêtent au T1 2026 avec un dernier=2026-06-30 faux et des signaux « T1 2026 ».",
+  "preuve": "net_income serie ... Q1-2026=229.6 | dernier 2026-06-30 | signal « T1 2026 : résultat net +13% » ; ocean_rev Q1-2026=598.9 | dernier 2026-06-30 (T2 déductible : 3502.3 − 1494.8 − 1296.6 = 710.9)",
+  "correction_validee": "Charger le 10-Q T2 2026 sur tous les KPI trimestriels, à défaut remettre dernier=2026-03-31.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "air_tonnage_growth / Airfreight tonnage growth YoY ; ocean_containers / Ocean container volume growth YoY",
+  "probleme": "Chaque croissance de volume existe deux fois avec des valeurs contradictoires sur les mêmes trimestres.",
+  "preuve": "air_tonnage_growth : Q2-2024=10, Q3-2024=13, Q1-2025=9, Q2-2025=8 ; Airfreight tonnage growth YoY : 15, 19, 11, 9, 7, 4, 6, 5 ; ocean_containers Q3-2025=4 vs Ocean container volume growth YoY 7 pour la même position",
+  "correction_validee": "Vérifier contre les communiqués et ne garder qu'une série datée par indicateur, en supprimant les deux séries non datées.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Q1 2026 share repurchases / Key services double-digit growth / Airfreight margin improvement / New share repurchase program",
+  "probleme": "Pseudo-KPI à un point : doublon exact de buybacks Q1-2026, valeur textuelle « En hausse », comptage de services, événement.",
+  "preuve": "Q1 2026 share repurchases val=288 vs buybacks Q1-2026=287.6 ; Airfreight margin improvement val=En hausse ; Key services double-digit growth | services | val=4",
+  "correction_validee": "Supprimer les quatre lignes.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "AIRFREIGHT_REV / OCEAN_REV_B",
+  "probleme": "Doublons annuels de air_rev et ocean_rev, avec le même signal copié qui qualifie chacun de « produit phare » et un format anglais des nombres.",
+  "preuve": "AIRFREIGHT_REV signal « 3982.88 M USD en 2025, produit phare de la société » ; OCEAN_REV_B signal « 2814.96 M$ en 2025, produit phare de la société »",
+  "correction_validee": "Réécrire les signaux : « 3 983 M$ en 2025, 36 % du CA » et « 2 815 M$ en 2025, 25 % du CA ».",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment / revenue_by_geography / secteur",
+  "probleme": "Libellés en anglais dans les blocs visibles.",
+  "preuve": "Customs Brokerage And Other Services 38.6 ; Airfreight Services 36 ; North Asia Segment 24.7 ; Other North America Segment 4.2 ; secteur « Logistics and Supply Chain Management »",
+  "correction_validee": "Mettre Dédouanement et autres services, Fret aérien, Fret maritime ; Asie du Nord, Asie du Sud, Autre Amérique du Nord ; secteur Logistique.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "description",
+  "champ": "description Mettrik simple / positionnement IA",
+  "probleme": "Franglais dans les textes visibles.",
+  "preuve": "« commissionnaire de transport et logistique global non-asset-based », « freight forwarding aérien et maritime, customs brokerage », « retailers » ; IA : « opportunité high-return », « temps de dépôt customs »",
+  "correction_validee": "Écrire « commissionnaire de transport sans actifs propres », « fret aérien et maritime, dédouanement », « distributeurs », « à fort rendement », « délais de déclaration en douane ».",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "effectifs_annuels",
+  "probleme": "Effectifs en chiffres ronds avec un saut de 2 000 en 2025 (+11 %) non commenté, qui déforme les ratios par salarié.",
+  "preuve": "serie: 2022=20000, 2023=18000, 2024=18000, 2025=20000 ; ca_par_salarie 2025 −6,0 % alors que le CA progresse de 4,4 %",
+  "correction_validee": "Vérifier l'effectif exact dans le 10-K 2025 (rubrique Human Capital).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ }
+]

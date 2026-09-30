@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "SUB_REV, PS_REV, TOT_BACKLOG, NG_OP_MARGIN, TOT_REV, EPS_DIL, OP_MARGIN, RD_EXP, SM_EXP, GA_EXP, SBC, OCF, CAPEX, FCF, LT_DEBT, CASH_INV, DEF_REV, WORKFORCE",
+  "probleme": "Les signaux et les variations sur un an sont décalés d'un trimestre : ils citent le T1 FY2027, alors que la série affiche le T2 FY2027.",
+  "preuve": "TOT_REV val=2.649 (T2), signal '2,54 Mds $ au T1 FY2027', yoy +13,5 % (c'est celle du T1 ; au T2 : 2.649/2.348 = +12,8 %) ; CASH_INV val=3.403, yoy -45,4 % (c'est celle du T1 ; au T2 : -58 %) ; LT_DEBT val=1.99, signal '2,99 Mds $', yoy +0,3 %",
+  "correction_validee": "Recalculer les variations sur un an sur le point du T2 FY2027 et réécrire les signaux sur ce trimestre, en vérifiant aussi la baisse de LT_DEBT à 1,99.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EPS_DIL Q2-FY2027",
+  "probleme": "BPA invraisemblable par rapport aux autres séries : 2,57 $ supposerait environ 680 M$ de résultat net, alors que la marge opérationnelle GAAP de 11,8 % sur 2,649 Mds $ donne environ 313 M$ de résultat opérationnel.",
+  "preuve": "EPS_DIL : Q1-FY2027=0.87, Q2-FY2027=2.57 (+248 %) ; OP_MARGIN Q2-FY2027=11.8",
+  "correction_validee": "Remplacer le point du T2 FY2027 par le BPA dilué GAAP du communiqué (probablement 2,57 $ est le non-GAAP) et recalculer la variation sur un an.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "att / gouvernance",
+  "champ": "att.titre vs governance.dirigeant",
+  "probleme": "Contradiction : l'anti-thèse dit que le PDG a cédé sa place au cofondateur Aneel Bhusri, mais la gouvernance affiche toujours Carl Eschenbach.",
+  "preuve": "att : 'son PDG a cédé ses fonctions au cofondateur Aneel Bhusri' ; gouvernance : 'dirigeant Carl M. Eschenbach'",
+  "correction_validee": "Remplacer le dirigeant par Aneel Bhusri, avec la date de prise de fonctions, dans la gouvernance.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "TOT_BACKLOG / CAHIER_RPO_CRPO / Subscription Backlog",
+  "probleme": "Trois séries pour le carnet total. 'Subscription Backlog' contredit les deux autres, et le nom de CAHIER_RPO_CRPO annonce aussi la part à 12 mois alors qu'il n'y a qu'une série.",
+  "preuve": "TOT_BACKLOG Q4-FY2026=28.1 et CAHIER_RPO_CRPO FY2026=28.1 ; Subscription Backlog : 10, 13, 17, 20, 23.5 (FY2025 réel = 25.1)",
+  "correction_validee": "Supprimer 'Subscription Backlog' et CAHIER_RPO_CRPO, qui fait doublon avec TOT_BACKLOG.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Net Revenue Retention, AI Products Adoption, Workday HCM Fortune 500 Customers, Op Income",
+  "probleme": "Séries aux valeurs rondes qui semblent estimées : Workday ne publie pas de rétention nette. Elles contredisent les séries sourcées et leurs descriptions sont en franglais.",
+  "preuve": "NRR : 110, 110, 108, 107, 105, 'mid-market churn + soft seat growth' ; HCM F500 : 45, 50, 55, 60, 65, contre FORTUNE500 FY2022-24 = 50, 50, 50 ; Op Income FY2026 1.33 Md $, alors que les marges GAAP trimestrielles (1,7 à 10,6 %) donnent environ 0,7 Md $",
+  "correction_validee": "Supprimer 'Net Revenue Retention', 'AI Products Adoption', 'Workday HCM Fortune 500 Customers' et 'Op Income'.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "BACKLOG_24M",
+  "probleme": "Indicateur abandonné et arrêté en 2024. Le signal cite une valeur absente de la série et une unité fausse.",
+  "preuve": "série en $M, dernier point 10271.6 (Q2-FY2024) ; signal : '11,66 M$ fin FY2024' ; '(métrique historique remplacée par le 12 mois)'",
+  "correction_validee": "Supprimer BACKLOG_24M.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "AI_AGENT_CUSTOMERS / Customers using organically developed AI agents",
+  "probleme": "Doublon. Le second affiche une valeur de 5 500 mais sa série et son signal disent 4 000.",
+  "preuve": "val=5500, serie Q2-FY2027=4000, signal 'plus de 4 000 clients' ; AI_AGENT_CUSTOMERS : 5500 sans signal",
+  "correction_validee": "Garder une seule série avec l'historique complet et un signal cohérent.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Annual transactions on platform",
+  "probleme": "Unité fausse en français : 'trillion' veut dire 10^18. Le signal contient aussi de l'anglais.",
+  "preuve": "unité 'trillions', 'Environ 1,4 trillion de transactions annuelles ... world model of work'",
+  "correction_validee": "Afficher 1 400 avec l'unité 'Mds' (soit 1 400 milliards de transactions) et retirer 'world model of work' du signal.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FORTUNE500 / Workday HCM Fortune 500 Customers ; Subscription revenue growth",
+  "probleme": "Doublons d'indicateurs déjà présents.",
+  "preuve": "FORTUNE500 = 65 et HCM F500 = 65 ; 'Subscription revenue growth' 14.3 = variation sur un an de SUB_REV",
+  "correction_validee": "Supprimer 'Workday HCM Fortune 500 Customers' et 'Subscription revenue growth'.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "Paradox acquisition, Sana acquisition, 2026/2027 workforce reduction, 2026 share repurchases",
+  "probleme": "Faits ponctuels (acquisitions, plans sociaux) rangés dans les KPI avec un seul point.",
+  "preuve": "'Paradox acquisition' val=1.1 Mds $, n=1",
+  "correction_validee": "Les déplacer vers les faits clés.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.tendance vs tendance_mettrik",
+  "probleme": "Deux tendances contradictoires pour le même avantage concurrentiel.",
+  "preuve": "tendance 'baisse' ; tendance_mettrik 'stable' ; justification : 'amortit la révision de note'",
+  "correction_validee": "Harmoniser les deux tendances.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

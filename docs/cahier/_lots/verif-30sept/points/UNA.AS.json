@@ -1,0 +1,72 @@
+[
+ {
+  "bloc": "kpis",
+  "champ": "REV_FY / REV_Q / GEO_*_REV / UOP_FY / OP_FY / NET_INCOME_FY / NET_INCOME_S1 / EPS_DILUTED / UEPS_FY",
+  "probleme": "Les séries mélangent le périmètre avec Glaces (jusqu'en 2024) et le périmètre hors Glaces (2025), alors que les yoy sont calculés sur la base retraitée. Les variations affichées contredisent donc les chiffres visibles.",
+  "preuve": "REV_FY 60.8 -> 50.5 mais yoy -3,8 % (réel -16,9 %) ; REV_Q 15.4 -> 13.0 yoy +3,8 % ; GEO_EUR_REV yoy -22,8 % contre un signal '+1,5 %' ; UOP_FY 11.2 -> 10.1 yoy -1,1 % ; OP_FY 9.4 -> 9.0 yoy +2,4 % ; NET_INCOME_FY 6.4 -> 6.2 yoy +2,9 % ; NET_INCOME_S1 3.8 -> 3.3 yoy -3,5 % ; EPS_DILUTED 2.29 -> 2.59 yoy +6,2 % (réel +13 %) ; UEPS_FY 2.98 -> 3.08 yoy +0,7 %",
+  "correction_validee": "Retraiter l historique hors Glaces, ou marquer la rupture et calculer les yoy sur la serie affichee.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "UOM_FY / UOM_S1 / BMI_RATIO (yoy en bps)",
+  "probleme": "Les variations en points de base sont fausses par rapport aux séries.",
+  "preuve": "UOM_FY 18.4 -> 20.0 affiché '+60 bps' (+160 visibles) ; UOM_S1 19.3 -> 20.3 affiché '+10 bps' (+100) ; BMI_RATIO 15.5 -> 16.1 affiché '+10 bps' (+60)",
+  "correction_validee": "Recalculer les yoy, ou afficher la base retraitée si c'est elle qui est utilisée.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis / these",
+  "champ": "BMI_RATIO (signal), these",
+  "probleme": "L'amplitude de la hausse de l'investissement marketing change d'un texte à l'autre et ne correspond pas à la série. La thèse attribue au T2 2026 un ratio qui est celui de 2025.",
+  "preuve": "signal 'en hausse de 300 pdb en quatre ans' ; these 'relevé de trois points en cinq ans' ; série 14.3 (2023) -> 16.1 (2025) = +180 pdb ; these 'Au deuxième trimestre 2026 ... maintient son investissement à 16,1 %'",
+  "correction_validee": "Aligner sur une seule base sourcée et dater correctement.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "UVG_FY (signal)",
+  "probleme": "Le décompte est faux : 2023 à 2025 font trois années, pas quatre, et 2025 (1,5 %) recule par rapport à 2024 (2,9 %).",
+  "preuve": "'quatrième année de redressement après le -2,1 % de 2022'",
+  "correction_validee": "+1,5 % de volume en 2025, troisieme annee positive apres le -2,1 % de 2022, en repli par rapport aux +2,9 % de 2024.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "moat",
+  "champ": "moat.text",
+  "probleme": "Le moat contredit les chiffres de la fiche : les soins personnels ont la meilleure croissance sous-jacente, et le gain de marge est mal chiffré. Le moat n'est pas noté.",
+  "preuve": "moat 'gagne 60 points de base, mais le pôle soins personnels recule de 1,5 %' ; BG_PC_REV signal '+4,7 % ... la meilleure des quatre divisions' ; UOM 18.4 -> 20.0",
+  "correction_validee": "Réécrire le moat (portefeuille de marques mondiales, distribution dans les pays émergents) avec une note.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "indicateurs manquants",
+  "probleme": "La marge brute et la rentabilité des capitaux investis sont citées dans les textes sans KPI. La croissance des marchés émergents manque.",
+  "preuve": "UOM_S1 signal 'marge brute de 46,8 %' ; att 'rentabilité des capitaux investis de 19,0 %' ; aucun KPI correspondant",
+  "correction_validee": "Ajouter la marge brute, le ROIC et la croissance sous-jacente des pays émergents.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "en-tete / positions",
+  "champ": "tagline, market_positions, BG_PC_REV",
+  "probleme": "La devise est vide et les positions de marché n'ont pas de nom. BG_PC_REV mêle, pour 2020-2021, l'ancien périmètre Beauty & Personal Care, avec 3 décimales.",
+  "preuve": "tagline '' ; 'None | taille 150.18', 'None | taille 190.27' ; BG_PC_REV FY2020=12.042, FY2021=11.763",
+  "correction_validee": "Renseigner la devise et les libellés ; couper BG_PC_REV avant 2022.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

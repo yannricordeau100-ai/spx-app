@@ -1,0 +1,42 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Repartition par segment fausse et incomplete : deux groupes anonymes totalisant 10,1 Mds sur 19,0 Mds de ventes, avec des parts calculees sur ce total partiel ; le troisieme segment (solutions environnementales, 10 % du CA) est absent.",
+  "preuve": "revenue_by_segment : Group 1 48.6 ; Group 2 50 ; total 10.14 Mds $ ; revenue_annuel 2025=19.027 ; env_solutions_rev = 10,3 % du revenu",
+  "correction_validee": "Refaire la repartition 2025 sur les lignes publiees (collecte, transfert et decharge, recyclage, solutions environnementales) avec des noms parlants et un exercice.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Average yield on total revenue, Volume growth on total revenue, Core price on total revenue",
+  "probleme": "Doublons sans dates des KPI dates (average_yield, volume_growth, CAHIER_CORE_PRICE), avec des valeurs contradictoires et une date de dernier point fausse.",
+  "preuve": "Average yield serie 5.5, 4.6, 4.4, 4.5, 4.1, 4, 3.7, 3.4 vs average_yield Q4-2024=5.1, Q1-2026=3.4 ; Volume growth val=-0.8 dernier 2026-09-05 vs volume_growth Q2-2026=-1.6",
+  "correction_validee": "Supprimer Average yield et Volume growth on total revenue ; supprimer ou dater Core price on total revenue.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dps_q",
+  "probleme": "Signal perime et variation fausse : la serie va au T3 2026 (0,67 $) mais le signal cite 0,625 $ ; 0,67 sur 0,625 fait +7,2 %, pas +7,8 %.",
+  "preuve": "dps_q Q3-2026=0.67 yoy=+7.8% ; signal : « Dividende trimestriel de $0,625 par action approuvé en mai 2026 »",
+  "correction_validee": "Signal sur 0,67 $ declare pour le T3 2026, +7,2 % sur un an, et yoy corrige a +7,2 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Targeted RNG portfolio EBITDA contribution by 2030",
+  "probleme": "Le nom parle d EBITDA, le signal de revenu incremental.",
+  "preuve": "nom : « Contribution EBITDA cible du portefeuille RNG » ; signal : « vers 100 M USD de revenu incrémental »",
+  "correction_validee": "Verifier la source et harmoniser nom et signal.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

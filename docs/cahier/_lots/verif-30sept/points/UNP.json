@@ -1,0 +1,92 @@
+[
+ {
+  "bloc": "moat",
+  "champ": "moat.text",
+  "probleme": "Les gains de productivité cités sont faux par rapport aux KPI de la fiche.",
+  "preuve": "moat 'vitesse des wagons gagne 9 %, productivité des locomotives 6 % et celle du travail 7 %' ; FCV yoy +5 %, LOCO_PROD +1 %, WFPRO +5 %",
+  "correction_validee": "Aligner sur les derniers KPI et donner une note au moat.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "PREM_REV / CARLOADS (signal)",
+  "probleme": "Les deux signaux se contredisent sur les volumes Premium.",
+  "preuve": "PREM_REV 'intermodal domestique +19 % en wagons', revenu +21 % ; CARLOADS 'Premium +4 %'",
+  "correction_validee": "Vérifier les volumes Premium et intermodal domestique et harmoniser les deux signaux.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "EMPLOYEES / effectifs_annuels / ca_par_salarie",
+  "probleme": "L'effectif moyen et l'effectif de fin d'année sont mélangés : même valeur 2025, historiques différents. La baisse de 9,7 % et la hausse de 11,9 % du CA par salarié sont donc faussées.",
+  "preuve": "EMPLOYEES 2024=30336, 2025=29287 (-3,5 %) ; effectifs_annuels 2024=32439, 2025=29287 (-9,7 %)",
+  "correction_validee": "Utiliser une seule définition sur toute la série et recalculer les ratios par salarié.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "GROUP_REVENUE (signal)",
+  "probleme": "Le signal du chiffre d'affaires ne décrit pas le chiffre d'affaires.",
+  "preuve": "'Produit phare : Transport ferroviaire de conteneurs et remorques intermodaux'",
+  "correction_validee": "Remplacer par un signal chiffré (24,5 Mds $ en 2025, +1,1 %, toujours sous 2022).",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "doublons",
+  "probleme": "Les mêmes indicateurs sont en double : annuel et trimestriel, ou calcul inverse.",
+  "preuve": "OP_MARGIN = 100 - OR ; 'Average terminal dwell' (yoy -11 %) contre TERM_DWELL (-7 %) ; CAHIER_CARLOADS 8447 = somme des CARLOADS 2025 ; CAHIER_REVENUE_PER_CARLOAD contre ARC ; CAHIER_FUEL_EFFICIENCY contre FUEL_CR ; CAHIER_TRAIN_SPEED_DWELL (nommé 'et temps d'immobilisation' mais ne contient que la vitesse) contre TRAIN_SPD",
+  "correction_validee": "Supprimer Average terminal dwell, renommer CAHIER_TRAIN_SPEED_DWELL en Vitesse moyenne des trains (annuel) et suffixer les autres series CAHIER par (annuel).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "FUEL_CR (signal)",
+  "probleme": "Le signal est périmé : il décrit le T1 alors que la valeur est celle du T2, et le chiffre est écrit au format anglais.",
+  "preuve": "val 1.051 (Q2-2026) ; signal 'T1-2026 : 1.064 gal/1000 GTM -4 % (record 1er trimestre, efficacite carburant)'",
+  "correction_validee": "Reecrire le signal : T2 2026 : 1,051 gal/1000 GTM, -0,7 % sur un an (1,058 au T2 2025).",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpis",
+  "champ": "signaux EPS_DIL, OP_MARGIN, NET_MARGIN, OCF, CAPEX, FCF, DPS, BUYBACK, DEBT",
+  "probleme": "Des mentions de source et de cuisine interne apparaissent dans les signaux.",
+  "preuve": "'Source rapport trimestriel.', 'Dérivé 6 mois moins T1.', 'Source rapport trimestriel bilan.'",
+  "correction_validee": "Retirer ces mentions de source et de calcul des signaux EPS_DIL, OP_MARGIN, NET_MARGIN, OCF, CAPEX, FCF, DPS, BUYBACK et DEBT.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "en-tete / repartition / these",
+  "champ": "sector, tagline, revenue_by_segment, these",
+  "probleme": "Le sous-secteur, la devise et les libellés de segments sont en anglais. Un astérisque orphelin traîne dans la thèse.",
+  "preuve": "'Industrie > Railroads' ; tagline \"America's Premier Railroad Network\" ; 'Other Subsidiary Revenues', 'Accessorial Revenues', 'Other Miscellaneous Product and Service Revenues' ; 'rentabilité des capitaux investis* en 2025'",
+  "correction_validee": "Franciser les libellés (Chemins de fer, Vrac, Industriel, Premium, Autres) et retirer l'astérisque.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpis",
+  "champ": "DEBT",
+  "probleme": "Deux trimestres consécutifs ont exactement la même valeur, ce qui ressemble à une recopie.",
+  "preuve": "Q3-2025=31.81, Q4-2025=31.81",
+  "correction_validee": "Relire le bilan du T3 2025.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]

@@ -1,0 +1,112 @@
+[
+ {
+  "bloc": "repartition",
+  "champ": "revenue_by_segment",
+  "probleme": "Libellés inversés et faux : les deux tranches sont étiquetées Tour And Other (65,4 %) et Cruise (34,6 %) alors que leurs valeurs sont les billets passagers et les dépenses à bord.",
+  "preuve": "Tranches : Tour And Other 17,419 Mds $ / Cruise 9,202 Mds $. Le KPI Onboard Revenue FY2025 = 9 202 M$ et 26,622 - 9,202 = 17,42 ; Tour and Other pèse moins de 1 % du CA chez Carnival.",
+  "correction_validee": "Renommer en Billets passagers 65,4 % (17,42 Mds $) et Dépenses à bord et autres 34,6 % (9,20 Mds $), exercice 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Passenger Ticket Revenue",
+  "probleme": "Série annuelle déclarée trimestrielle, valeurs fausses et dernier point invraisemblable.",
+  "preuve": "period_type quarter, n=4, history 13,157 / 16,389 / 17,51 / 18,881 sans dates ; 18,881 est exactement le CA 2018 (revenue_annuel) ; 18,881 + 9,202 (onboard) = 28,08 > CA 2025 de 26,622 ; description dit 65 % du CA alors que 18,881 / 26,622 = 71 %.",
+  "correction_validee": "Passer en annuel : 2023 = 14,067 ; 2024 = 16,463 ; 2025 = 17,420 Mds $ (CA moins Onboard Revenue), avec le signal 65 % du CA en 2025.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CustDeposits / Customer deposits / CAHIER_RESERVATIONS_BRUTES / Total Customer Deposits",
+  "probleme": "Dépôts clients en quatre exemplaires avec deux valeurs différentes pour la même date, sans distinction de périmètre.",
+  "preuve": "CustDeposits T2-2026 = 8 457 M$ (part courante) ; Customer deposits val 7 923 daté 2026-05-31 mais son dernier point est le T1-2026 total (courant + long terme) ; CAHIER_RESERVATIONS_BRUTES FY2025 = 6 831 = point Q4-2025 de CustDeposits ; Total Customer Deposits 3,5 à 7,1 Mds sans dates ni fréquence, et c'est celui-ci qui figure dans kpi_industrie_shorts.",
+  "correction_validee": "Garder CustDeposits (renommé Dépôts clients, part courante) et le CAHIER, supprimer Customer deposits et Total Customer Deposits, et mettre CustDeposits dans kpi_industrie_shorts.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Net Yield (Constant Currency) / Cost per Available Lower Berth Day / Total Customer Deposits",
+  "probleme": "Trois KPI sans période, sans dates, aux valeurs incompatibles avec les séries trimestrielles sourcées, avec des signaux de deux mots.",
+  "preuve": "Net Yield (CC) 165 à 240 en $/pcd alors que Net yields per ALBD trimestriel va de 185 à 249 avec une moyenne annuelle proche de 205 ; Cost per ALBD 200 à 213 $ alors que AdjCostALBD trimestriel est entre 124 et 142 $ ; signaux : Pricing power retour, Inflation absorbée, Visibilité bookings.",
+  "correction_validee": "Supprimer les trois KPI, en remplaçant Total Customer Deposits dans le bloc industrie par CustDeposits (voir #2).",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "OpMargin.signal / NetMargin.signal",
+  "probleme": "Signaux qui annoncent une hausse alors que les séries reculent, avec un chiffre de comparaison faux.",
+  "preuve": "OpMargin signal : 12.8 % au T2-2026 vs 11.8 % un an avant, levier opérationnel ; série Q2-2025 = 14,8, yoy = -13,5 %. NetMargin signal : en hausse continue ; série 8,9 → 8,1, yoy = -9,0 %. L'anti-thèse dit bien marge opérationnelle en recul de 13,5 %.",
+  "correction_validee": "OpMargin : marge opérationnelle de 12,8 % au T2-2026 contre 14,8 % un an plus tôt, pénalisée par le carburant (+29 % par tonne). NetMargin : marge nette de 8,1 % contre 8,9 % un an plus tôt.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "SEA_Rev.signal",
+  "probleme": "Chiffre de croissance cité différent de la série.",
+  "preuve": "Signal : Europe accélère +9.4 % ; série T2-2026 = 2 122 vs T2-2025 = 2 011, yoy affiché +5,5 %.",
+  "correction_validee": "Europe +5,5 % sur un an au T2-2026 (2 122 M$ contre 2 011 M$).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "TotalDebt.signal / Net debt to EBITDA ratio.signal / Refinancing plan completed.signal",
+  "probleme": "Trois états contradictoires du statut investment grade sur la même fiche.",
+  "preuve": "TotalDebt : cap vers l'investment grade ; Net debt to EBITDA : à un cran de la note investment grade ; Refinancing plan : seuil investment grade franchi ; anti-thèse : seconde notation investment grade obtenue en juin 2026.",
+  "correction_validee": "Aligner les trois signaux sur le fait acquis : notation investment grade obtenue auprès de deux agences en juin 2026.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "CAHIER_YIELD_APCD",
+  "probleme": "Série arrêtée en 2019 et signal qui contredit le reste de la fiche sur le pouvoir de fixation des prix.",
+  "preuve": "Dernier point FY2019 = 178,59 alors que Net yields per ALBD trimestriel va au T2-2026 (197,44) ; signal : sa stagnation sur quinze ans montre un pouvoir de fixation des prix limité ; TicketPerPCD : Pricing power confirmé ; thèse : douze trimestres de rendements nets records.",
+  "correction_validee": "Prolonger la série 2020-2025 à partir des rendements nets annuels publiés, ou supprimer le KPI ; réécrire le signal en cohérence.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "TicketPerPCD / OnboardPerPCD / FuelCostALBD / AdjCostExFuelALBD / AdjCostALBD",
+  "probleme": "Cinq KPI unitaires clés s'arrêtent au T1-2026 alors que le T2-2026 est intégré partout ailleurs.",
+  "preuve": "dernier 2026-02-28 pour les cinq ; PCDs, FuelCostPerTon, OCF, OpMargin vont à 2026-05-31 ; thèse : données arrêtées au 5 août 2026.",
+  "correction_validee": "Ajouter le point T2-2026 (rapport du deuxième trimestre, publié fin juin 2026) pour les cinq séries.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "FuelTons",
+  "probleme": "Unité trop grosse : la série affiche 0,7 Mt sur huit trimestres et un yoy de 0,0 %, ce qui efface toute variation ; le signal repose sur cet artefact d'arrondi.",
+  "preuve": "Série Q3-2024 à Q2-2026 = 0,7 partout ; signal : stable malgré +2 % de capacité : gains d'efficacité ; FuelPerkALBD × ALBDs donne 28,2 × 24,7 = 696 kt au T2-2026 contre 29,9 × 24,2 = 724 kt au T2-2025, soit -3,7 %.",
+  "correction_validee": "Passer la série en kt (FuelPerkALBD × ALBDs) et écrire : 696 kt au T2-2026, environ -4 % sur un an malgré une capacité en hausse de 2 %.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Quarterly dividend reinstated / Total debt reduced since peak",
+  "probleme": "Deux KPI à un point qui doublonnent des séries existantes, dont un avec un chiffre non vérifié par la fiche.",
+  "preuve": "Quarterly dividend reinstated = 0,15 $ ; DPS T1-2026 = T2-2026 = 0,15 $. Total debt reduced since peak = plus de 10 Mds ; dette_annuelle pic 2022 = 34,546 et TotalDebt T2-2026 = 24,89, soit 9,7 Mds.",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ }
+]

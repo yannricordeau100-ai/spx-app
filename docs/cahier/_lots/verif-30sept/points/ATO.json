@@ -1,0 +1,122 @@
+[
+ {
+  "bloc": "kpi",
+  "champ": "dist_rate_base (hero), pipeline_rate_base (yoy)",
+  "probleme": "Variation annuelle affichee incompatible avec la serie, sur le KPI hero.",
+  "preuve": "dist_rate_base FY2024=7100, FY2025=8300 : +16,9 %, affiche +11,3 %. pipeline_rate_base FY2024=4773,7, FY2025=5237,6 : +9,7 %, affiche +11,7 %.",
+  "correction_validee": "Afficher +16,9 % pour dist_rate_base et +9,7 % pour pipeline_rate_base.",
+  "auto": true,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "dist_rate_base, pipeline_rate_base (signal)",
+  "probleme": "Signaux telegraphiques en franglais, chiffre cite different de la valeur, notation dollar anglaise.",
+  "preuve": "\"Rate base Mid-Tex ~$8.0B (system-wide); ROE autorisé 9.80% approuvé oct-2025. Base tarifaire totale distribution ~$18.8B PP&E net.\" alors que val=8300 ; \"APT rate base $5.24B, ROE autorisé 11.45%, retour autorisé 8.49% (GRIP juin-2025). PP&E net segment $6.53B.\"",
+  "correction_validee": "Reecrire en phrases francaises avec 8,3 Mds $ et 5,24 Mds $, sans PP&E ni system-wide.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "eps_streak, net_income, op_income, capex (Q3-FY2026)",
+  "probleme": "Mise a jour partielle du T3 FY2026 (4 KPI sur ~24 trimestriels) avec des yoy incompatibles avec la serie et des dates de periode fausses.",
+  "preuve": "eps 1,43 vs Q3-FY2025 1,16 = +23 %, affiche +14,5 % ; net_income 242,689 vs 186,4 = +30 %, affiche +19,8 % ; op_income 320,414 vs 252,1 = +27 %, affiche +21,6 % ; last_data_date 2026-09-03/05 pour un trimestre clos le 30 juin. total_revenue, dist_op_income, ocf, fcf, dps, meters, dist_revenue etc. s'arretent a Q2-FY2026.",
+  "correction_validee": "Verifier les 4 valeurs du T3 FY2026, recalculer leurs yoy (+23 %, +30 %, +27 %), dater au 2026-06-30 et completer le T3 sur les autres KPI trimestriels.",
+  "auto": false,
+  "gravite": "haute",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "total_revenue / revenue_annuel ; fcf / fcf_annuel ; dist_throughput / volumes_distribues_consolides_mmcf_exerc",
+  "probleme": "Meme indicateur en trimestriel et en annuel ; le KPI annuel des volumes est brut (sans nom anglais, sans signal, short tronque).",
+  "preuve": "volumes_distribues_consolides_mmcf_exerc : name_en vide, signal vide, 2025=445924 MMcf ; dist_throughput trimestriel n=42. revenue_annuel 2025=4,703 Mds vs total_revenue trimestriel n=50.",
+  "correction_validee": "Garder une seule periodicite par indicateur ou nommer et documenter le KPI annuel.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "meters, CAHIER_CUSTOMER_METER_GROWTH, Distribution customers, CAHIER_RATE_BASE_GROWTH",
+  "probleme": "Triple doublon des compteurs ; noms \"Croissance ...\" pour des series de niveaux ; serie sans periodes.",
+  "preuve": "meters Q2-FY2026=3,442 M ; CAHIER_CUSTOMER_METER_GROWTH FY2025=3,392 M nomme \"Croissance du nombre de compteurs\" ; \"Distribution customers\" serie \"3.2, 3.3, 3.4, 3.4\" sans annees, name_en vide, signal \"3,2M en 2021 vers 3,4M en 2026\" (6 ans pour 4 points). CAHIER_RATE_BASE_GROWTH = 21 450 M$ nomme \"Croissance de la base d'actifs régulée\".",
+  "correction_validee": "Supprimer \"Distribution customers\", renommer les deux CAHIER en \"Compteurs desservis\" et \"Base tarifaire totale\".",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Quarterly dividend increase, CAHIER_ALLOWED_EARNED_ROE",
+  "probleme": "Doublons a un point : l'un est le yoy de dps, l'autre repete roe_dist avec un nom qui promet un rendement realise absent.",
+  "preuve": "\"Quarterly dividend increase\" = 14,9 (n=1) ; dps yoy=+14,9 %. CAHIER_ALLOWED_EARNED_ROE \"Rendement autorisé et rendement réalisé\" = 9,8 x5 ; roe_dist = 9,8.",
+  "correction_validee": "Supprimer les deux KPI.",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "Capital expenditures (full year), Annualized regulatory outcomes, Rider REV, Natural gas supply added, Line WA Phase 2, Customer satisfaction, HB 4384, APT spread, New customers added",
+  "probleme": "Bloc de KPI issus de la conference du 11 mai 2026 : evenements ponctuels a un point, series sans periodes, name_en vides, valeur previsionnelle presentee comme historique, unite vague.",
+  "preuve": "\"Capital expenditures (full year)\" serie \"2, 2.4, 2.8, 2.9, 3.6, 4.2\" sans annees, 4,2 = prevision FY2026 (exercice clos le 30 sept) ; \"Annualized regulatory outcomes\" \"376.3, 333.6\" sans annees ; \"Line WA Phase 2 pipeline added (36-inch)\" 44 miles n=1 ; \"APT through-system captured spread\" unite \"$/unité\" ; tous name_en vides.",
+  "correction_validee": "Basculer les evenements en texte (these ou risques), etiqueter les annees, retirer la prevision 2026 ou la marquer, unite $/MMBtu.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "kpi",
+  "champ": "capex, dist_op_income, pipeline_op_income, gas_sales_residential (unite)",
+  "probleme": "Unite K$ avec des valeurs a sept chiffres illisibles ; capex trimestriel nomme \"annuels\".",
+  "preuve": "capex Q3-FY2026 = 1 039 346 K$ (\"Investissements en capital annuels\", period quarter) ; gas_sales_residential Q2-FY2026 = 1 219 792 K$ ; dist_op_income 565 908 K$.",
+  "correction_validee": "Convertir capex, dist_op_income, pipeline_op_income et gas_sales_residential en M$ (1 039,3 ; 565,9 ; 198,9 ; 1 219,8) et renommer capex en Investissements en capital (trimestriel).",
+  "auto": true,
+  "gravite": "moyenne",
+  "confirmations": 1
+ },
+ {
+  "bloc": "kpi",
+  "champ": "op_margin, net_margin, fcf (yoy)",
+  "probleme": "Variation de marge exprimee en pourcentage relatif au lieu de points ; yoy de FCF sur changement de signe.",
+  "preuve": "op_margin 39 vs 32,2 : affiche +21,1 % (= +6,8 pts) ; net_margin 29,7 vs 24,9 : +19,3 % (= +4,8 pts) ; fcf -0,28 vs +0,08 : \"-436,4 %\".",
+  "correction_validee": "Afficher +6,8 pts pour op_margin et +4,8 pts pour net_margin, et -0,36 Md$ pour le FCF.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "these",
+  "champ": "resume / ai_positioning.summary / signaux roe_apt, op_margin, dps",
+  "probleme": "Nom de societe traduit, mot double, accents manquants, decomptes de hausses divergents.",
+  "preuve": "These : \"Atmos Énergie coche le critère\" ; IA : \"Le rapport annuel rapport annuel déposé le 14 novembre 2025\" ; roe_apt : \"rendement réglementaire eleve ... refete un cadre\" ; op_margin : \"repartis sur des volumes d'hiver eleves\" ; dps : \"plus de 41 ans consécutifs\" vs these \"quarante-deux années\".",
+  "correction_validee": "Ecrire Atmos Energy, supprimer le doublon, corriger en eleve, reflete, repartis, eleves, et harmoniser a 42 ans.",
+  "auto": true,
+  "gravite": "basse",
+  "confirmations": 1
+ },
+ {
+  "bloc": "mettrik_description",
+  "champ": "edge",
+  "probleme": "Longueur du reseau contredite par le KPI.",
+  "preuve": "Description : \"vaste réseau de 76 000 miles de canalisations\" ; KPI network_miles FY2025 = 81 000 miles.",
+  "correction_validee": "Aligner sur la valeur FY2025 apres verification.",
+  "auto": false,
+  "gravite": "moyenne",
+  "confirmations": 0
+ },
+ {
+  "bloc": "risks",
+  "champ": "score_rationale",
+  "probleme": "Cuisine interne dans la source : texte tronque, citations anglaises, references de position dans le 10-K.",
+  "preuve": "\"Tout de l'et si les mecanismes tarifaires sont modifies. Coeur du modele d'utility regulee ... Citation: \\\"our returns are continuously monitored and are subject to challenge\\\". Position: haut Item 1A.\"",
+  "correction_validee": "S'assurer que score_rationale n'est jamais rendu, ou le nettoyer.",
+  "auto": false,
+  "gravite": "basse",
+  "confirmations": 0
+ }
+]
