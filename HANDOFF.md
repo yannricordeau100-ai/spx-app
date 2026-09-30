@@ -89,3 +89,7 @@ reste a faire par priorite, journal complet des demandes de Yann et des commits.
 `docs/REPRISE-2026-09-29.md` : état du déploiement (mettrik.ai = f6f9819838, préversion en attente de « go n0 »
 avec la vérification des 662 fiches), travail des 28 et 29 septembre, corrections automatiques, hésitations,
 pièges. Outils de vérification dans `scripts/verif-fiches/`.
+
+## 11. REPRISE AU 30 SEPTEMBRE 2026 (LIRE EN PREMIER)
+
+`docs/REPRISE-2026-09-30.md` : corrections des fiches (427/662 faites, 235 restantes), controles a faire, go n0 a la fin, nouvelle demande gratuit/comparateur.
