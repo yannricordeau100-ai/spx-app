@@ -27252,452 +27252,476 @@
    "motif": "Les 4 JSON sont valides et seuls les fichiers FAST sont modifiés. La série FMI sales annuelle est conforme aux communiqués annuels (colonne douze mois) : 2587,3 / 2997,8 / 3252,1 / 3712,7 M$. Le yoy +14,2 % correspond au calcul direct ; le communiqué affiche 14,6 %, écart mineur. Les séries FMI_sales_pct (44,1 à 46,1 puis 44,6) et dsr_growth (11,7 puis 11,0 puis 12,2 puis 14,8) confirment les nouveaux signaux. Les doublons supprimés restent couverts dans kpis-haut par FMI_sales_pct, ebusiness_pct, digital_footprint_pct et employee_count. Le revenue_by_segment supprimé (2024) reste couvert par revenue_by_geography 2025. Aucun tiret long ni nom de document dans les textes visibles."
   }
  },
- "DRI": [
-  {
-   "point": "revenue_by_segment : répartition d'un exercice ancien (7,8 Mds$)",
-   "action": "corrige",
-   "fichier": "src/data/v2-pipeline/dri.json",
-   "detail": "Répartition recalculée sur l'exercice 2026 à partir du communiqué du T4 FY2026 (ventes annuelles) : Olive Garden 5 594,8 M$ (42,3 %), LongHorn 3 423,0 (25,9 %), Fine Dining 1 375,7 (10,4 %), Other Business 2 817,4 (21,3 %), total 13 210,9 M$. Aligné sur la version déjà corrigée du fichier d'enrichissement."
-  },
-  {
-   "point": "NET_DEBT_Q : chute artificielle au T4 FY2026",
-   "action": "retire",
-   "fichier": ".batches-drafts-safe/kpis-haut/DRI.json",
-   "detail": "Deux constats. Au bilan du 31/05/2026, 693,6 M$ de dette ont été reclassés en dette à court terme : la dette nette réelle est d'environ 2,11 Mds$ (693,6 + 1 637,7 - 219,5), pas 1,418. Toute la série ignore la dette à court terme : par exemple 438 M$ au T2 FY2026 et 290 M$ au T3 FY2026, selon les rapports trimestriels. Le T1 FY2027 ne peut pas être vérifié, faute de document. La série ne pouvait pas être corrigée avec certitude, elle est donc retirée. LT_DEBT_Q (1 637,7) est exact et reste en place."
-  },
-  {
-   "point": "Séries sans années : Fine Dining Sales, Total Restaurants, Blended same-restaurant sales, Net new restaurants",
-   "action": "retire",
-   "fichier": "src/data/v2-pipeline/dri.json",
-   "detail": "Retiré de la base : Blended same-restaurant sales (T4 FY2026 à 4,2 contre 4,6 % publié dans le communiqué du 25 juin 2026) et Net new restaurants (somme FY2026 de 108 contre 43 nets selon le rapport annuel 2026). Fine Dining Sales n'existe plus dans aucun fichier. Total Restaurants ne figure que dans les KPI d'enrichissement, qui ne sont pas servis sur la fiche : aucune modification. Ce qui reste : un renvoi pendant dans la thèse et dans l'annuaire des KPI d'industrie. Je ne les ai pas touchés, car ce sont des fichiers partagés."
-  },
-  {
-   "point": "effectifs_annuels, ca_par_salarie, fcf_par_salarie arrêtés en 2021",
-   "action": "point_infonde",
-   "fichier": "src/data/kpi-annuel-fiche/DRI.json",
-   "detail": "Les séries vont déjà de 2017 à 2026. L'effectif 2026 de 209 931 est vérifié dans le rapport annuel 2026. Le yoy +300 % n'existe plus (-0,7 %)."
-  },
-  {
-   "point": "TAX_RATE, DPS_Q, SHARES_OUT, OG_TRAFFIC : trous et libellés",
-   "action": "corrige",
-   "fichier": ".batches-drafts-safe/kpis-haut/DRI.json",
-   "detail": "DPS_Q : libellés Q4-2026 et Q1-2027 remplacés. Les T4 FY2015 à FY2026 sont ajoutés comme dividende déclaré de l'exercice moins le cumul 9 mois, montants publiés en XBRL (FY2026 : 6,00 - 4,50 = 1,50 ; FY2025 : 5,60 - 4,20 = 1,40). Le T1 FY2027 vaut 1,62 $ (déclaré le 24 juin 2026), yoy +8,0 %. SHARES_OUT : la série était décalée d'un trimestre et le T3 FY2026 manquait. Elle est reconstruite sur 48 trimestres à partir des pages de garde des rapports (T3 FY2026 = 114,54 M ; T4 FY2026 = 114,08 M), yoy -2,5 %. OG_TRAFFIC : la série était décalée d'un exercice et contenait un point futur. Elle est reconstruite depuis les rapports trimestriels : -29,1 au T1 FY2021, +2,8 au T1 FY2026, -0,4 au T3 FY2026. Le yoy passe à +3,5 pts, le signal est régénéré et la date est fixée au 22/02/2026. TAX_RATE : aucun taux trimestriel de T4 n'est publié, trou laissé (non_corrige pour cette partie)."
-  },
-  {
-   "point": "KPI à un seul point (jalons)",
-   "action": "corrige",
-   "fichier": "src/data/v2-pipeline/dri.json",
-   "detail": "Jalons périmés retirés : CA dépassant 12 Mds$, en 2026 il est de 13,21 Mds$ ; LongHorn dépassant 3 Mds$, en 2026 il est de 3,42 Mds$. Rachat d'actions : 1 000 remplacé par 1 500, soit le programme de 1,5 Md$ autorisé le 24 juin 2026 selon le communiqué du T4 FY2026. Accords internationaux : 40 remplacé par 80, selon la conférence où le DG dit « We signed 40 restaurants in part of India, 40 restaurants in Spain ». Les autres jalons restent en place : le passage dans le récit relève du choix du propriétaire."
-  },
-  {
-   "point": "NEW_REST_OPENINGS : nom figé, date, yoy, guidance périmée",
-   "action": "corrige",
-   "fichier": ".batches-drafts-safe/kpis-haut/DRI.json",
-   "detail": "Renommé « Ouvertures de restaurants ». La série est corrigée avec les ouvertures réelles des tableaux de croissance des rapports annuels : FY2023 56, FY2024 53, FY2025 56, FY2026 72. L'ancienne série 50, 50, 65 était fausse. Yoy +28,6 %, date au 31/05/2026, signal : 75 à 80 ouvertures prévues pour l'exercice 2027 (rapport annuel 2026)."
-  },
-  {
-   "point": "GROSS_MARGIN_Q doublon de SEG_PROFIT_Q",
-   "action": "retire",
-   "fichier": ".batches-drafts-safe/kpis-haut/DRI.json",
-   "detail": "Doublon confirmé : 822,9 / 3 718,8 = 22,13 %, identique à la marge brute du T4 FY2026, puisque le résultat brut correspond au résultat au niveau restaurant. GROSS_MARGIN_Q retiré."
-  },
-  {
-   "point": "Tickets moyens par personne (OG, LH, Cheddar's, Yard House)",
-   "action": "point_infonde",
-   "fichier": ".batches-drafts-safe/kpis-haut/DRI.json",
-   "detail": "Ce sont les valeurs publiées, arrondies par la société elle-même dans ses rapports annuels. Rapport 2026 : OG environ 25,00 $, LH 28,50 $, Cheddar's 19,50 $, Yard House 37,00 $. Rapport 2025 : 24,00, 28,00, 19,00 et 36,00. Tout concorde."
-  },
-  {
-   "point": "Intitulés génériques des risques",
-   "action": "point_infonde",
-   "fichier": "src/data/v2-pipeline-enrich/dri.json",
-   "detail": "Les risques servis ont déjà des intitulés précis tirés du rapport annuel (baux, réglementation, inflation, tempêtes, concurrence, talents, pandémies). Aucun intitulé générique ne reste."
-  }
- ],
- "ED": [
-  {
-   "point": "fcf_annuel, fcf_par_salarie",
-   "action": "point_infonde",
-   "fichier": "src/data/kpi-annuel-fiche/ED.json",
-   "detail": "Déjà corrigé : 2024 = -1,157 Md $ et 2025 = 0,036 Md $ (somme des FCF trimestriels), fcf_par_salarie 2025 = 2,3 k$. Rien à changer."
-  },
-  {
-   "point": "Capex, Rate Base, Allowed ROE, Electric Customers, Gas Customers, Renewable MW Owned",
-   "action": "retire",
-   "fichier": "src/data/v2-pipeline-enrich/ed.json",
-   "detail": "Seul Capex était encore servi (kpis_supplementary). Série sans périodes (5,25 / 3,68 / 4,08 / 3,96 / 4,46), 2025 = 4,46 contre 4,76 Mds $ selon capex_total (1,16+1,26+1,04+1,30) : supprimé. Les cinq autres étaient déjà absents."
-  },
-  {
-   "point": "revenue_by_segment libellés",
-   "action": "point_infonde",
-   "fichier": "/tmp/fiches/ED.json",
-   "detail": "Déjà corrigé : Électricité 74,5 %, Gaz 21,3 %, Vapeur 4,2 %, plus d'entrée à None."
-  },
-  {
-   "point": "yoy en points des séries en pourcentage",
-   "action": "corrige",
-   "fichier": ".batches-drafts-safe/kpis-haut/ED.json",
-   "detail": "cecony_authorized_roe +0.15pp, op_margin +3.7pp, cecony_op_margin +3.8pp, net_margin +0.8pp, effective_tax_rate +7.6pp, delivery_margin_pct -2.2pp, debt_to_cap -2.0pp, CAHIER_ROE_GAP +0.15pp, calculés sur la série. Les signaux ne citaient aucune variation en %, donc inchangés."
-  },
-  {
-   "point": "CAHIER_RATE_BASE_GROWTH",
-   "action": "retire",
-   "fichier": ".batches-drafts-safe/kpis-haut/ED.json",
-   "detail": "Doublon confirmé de cecony_elec_rate_base (FY2024 27,925 contre 27,93 ; FY2025 29,362 contre 29,36) et nom faux (niveau, pas croissance) : supprimé."
-  },
-  {
-   "point": "electricite_livree_par_cecony_dans_sa_zo, CECONY steam delivered",
-   "action": "point_infonde",
-   "fichier": "/tmp/fiches/ED.json",
-   "detail": "Les deux KPI ne figurent plus dans les données servies ni dans les fichiers sources."
-  },
-  {
-   "point": "CAHIER_CUSTOMER_RELIABILITY",
-   "action": "corrige",
-   "fichier": ".batches-drafts-safe/kpis-haut/ED.json",
-   "detail": "Nom faux confirmé : renommé « Fréquence des interruptions par client (hors grandes tempêtes) » (name_en adapté), conforme à la source (rapport de fiabilité du régulateur de New York, ligne CONED). 2025 non ajouté : le rapport 2025 n'est pas dans les documents locaux."
-  },
-  {
-   "point": "cecony_gas_delivered, cecony_gas_total_delivered",
-   "action": "corrige",
-   "fichier": ".batches-drafts-safe/kpis-haut/ED.json",
-   "detail": "Vérifié dans le 10-Q du 06/08/2026 : T2 2026, ventes fermes et transport 33 078 + interruptibles 851 = 33 929 k Dt ; total 68 692 avec NYPA 14 180, centrales 16 710 et autres 3 873. Renommés « Gaz livré aux clients de détail CECONY (ventes fermes, transport et interruptibles) » et « Gaz total acheminé par CECONY (y compris NYPA et centrales électriques) »."
-  },
-  {
-   "point": "equity_issuance, buybacks",
-   "action": "corrige",
-   "fichier": ".batches-drafts-safe/kpis-haut/ED.json",
-   "detail": "equity_issuance retiré : trous confirmés et valeurs fausses (T4 2024 = 677 alors que les comptes 2024 ne montrent aucune émission publique et 60 M$ de plans d'actions sur l'année ; T1 2025 = 631 contre 1 308 M$ dans le 10-Q). Définitions mélangées, reconstruction non certaine. buybacks prolongé à 0 de T1 2025 à T2 2026 : aucun rachat en 2025 (10-K du 19/02/2026) ni au S1 2026 (10-Q du 06/08/2026)."
-  },
-  {
-   "point": "Mountain Valley, plan 2026-2030, lignes souterraines, DG, stockage batterie",
-   "action": "point_infonde",
-   "fichier": "/tmp/fiches/ED.json",
-   "detail": "Aucune de ces cinq entrées n'est servie sur la fiche. Elles restent seulement dans la base v2-pipeline, remplacée par les KPI prioritaires."
-  },
-  {
-   "point": "risques 1 à 6",
-   "action": "point_infonde",
-   "fichier": "/tmp/fiches/ED.json",
-   "detail": "Les six risques servis ont déjà des titres propres à ED (approbation des investissements, audit fiscal, financement, cyber, capacité réseau, conduites de gaz) et des textes remplis."
-  }
- ],
- "EDEN.PA": [
-  {
-   "point": "Operating Revenue, EBITDA Record, Operating Revenue Europe / Latin America / Rest of World (valeurs S1 2026 datees 2024)",
-   "action": "corrige",
-   "fichier": "src/data/v2-pipeline/eden.pa.json ; src/data/v2-pipeline-enrich/eden.pa.stories_signal_patch.json",
-   "detail": "La relecture se trompe en partie : 1360, 616, 810, 412 et 138 M EUR sont bien les chiffres du S1 2026 (communique du 23/07/2026). En revanche le yoy, l'unite et les signaux etaient faux. Corrections : unite M EUR, series semestrielles S1 2025 puis S1 2026 (1339>1360, 654>616, 811>810, 393>412, 135>138), yoy publie +1,6 %, -6,0 %, -0,2 %, +4,9 %, +2,9 %, period_type passe a semester, history_5y annuel retire, signaux et descriptions regionales reecrits pour le S1 2026."
-  },
-  {
-   "point": "EBITDA, Op. revenue, EBITDA marge, Op. EBITDA marge, Utilisateurs, Marchands (series remplies de zeros)",
-   "action": "corrige",
-   "fichier": "src/data/v2-pipeline/eden.pa.json",
-   "detail": "Zeros retires, annees etiquetees de 2023 a 2025 (sources : URD 2024 et 2025). EBITDA 1094/1265/1360 (+7,5 %), CA operationnel 2311/2609/2732 (+4,7 %), marge d'EBITDA 43,5/44,3/45,9 (+1,6pp), marge d'EBITDA operationnel 39,1/41,4 (+2,3pp). Utilisateurs et Marchands supprimes : le rapport ne donne que des seuils (plus de 60 M, plus de 2 M) et aucun historique."
-  },
-  {
-   "point": "Hero Benefits & Engagement arrete en 2024",
-   "action": "corrige",
-   "fichier": "src/data/v2-pipeline/eden.pa.json",
-   "detail": "Point 2025 ajoute a 1763 M EUR, contre 1702 en 2024 (URD 2025, tableau par ligne de metier, ancienne definition), soit +3,6 % au format standard. Le KPI s'appelle maintenant Chiffre d'affaires operationnel Avantages aux salaries. Signal reecrit. La justification du hero parlait du nombre d'utilisateurs : elle est remplacee. Le S1 2026 n'est pas ajoute car le perimetre de la ligne de metier a change en 2026."
-  },
-  {
-   "point": "Total Revenue, Net Income, Total Assets, Total Debt, Cash (sans annees, date 2026-06-30)",
-   "action": "corrige",
-   "fichier": "src/data/v2-pipeline/eden.pa.json",
-   "detail": "Annees 2022 a 2025 etiquetees, date au 31/12/2025. Derniers points confirmes par l'URD 2025 : revenu total 2961, total actif 13568, tresorerie 1885. Signaux reecrits avec l'exercice et des virgules. Le yoy du revenu total passe de +3,5 % a +3,7 % (2961 contre 2856)."
-  },
-  {
-   "point": "Op. EBITDA marge sans definition (39,1 %)",
-   "action": "point_infonde",
-   "detail": "C'est un indicateur publie par Edenred : 39,1 % en 2024 (URD 2024) et 41,4 % en 2025 (URD 2025). Ajout quand meme d'une definition : EBITDA operationnel rapporte au CA operationnel, hors revenus financiers du float. La serie est corrigee au point 2.",
-   "fichier": "src/data/v2-pipeline/eden.pa.json"
-  },
-  {
-   "point": "Indicateur manquant : volume d'affaires et entreprises clientes",
-   "action": "non_corrige",
-   "fichier": "aucun",
-   "detail": "Les documents ne donnent que des valeurs arrondies ou des seuils : pres de 45 Mds EUR en 2024, 49 Mds EUR en 2025 et plus d'1 million d'entreprises clientes. Il n'y a pas de serie precise, et la regle refuse les seuils arrondis. Aucun ajout."
-  },
-  {
-   "point": "Positionnement IA cite un document",
-   "action": "corrige",
-   "fichier": "src/data/v2-pipeline/eden.pa.json",
-   "detail": "La reformulation proposee etait fausse : le communique S1 2026 mentionne l'IA (agents d'IA dans le processus de conquete des PME, objectifs +20 pts de conversion et plus de 30 % de baisse du cout d'acquisition, investissements Data et IA). Bloc reecrit sans nom de document et stance passee de absent a integrator. Preuves reformulees a partir du communique."
-  }
- ],
- "EFX": [
-  {
-   "point": "revenue_by_segment (parts perimees, Global Consumer Solutions, libelles anglais)",
-   "action": "corrige",
-   "fichier": "/Users/yann/spx-app/src/data/v2-pipeline/efx.json",
-   "detail": "Le bloc courant etait deja juste (2025 : Workforce 42,5 %, USIS 34,2 %, International 23,3 %, en francais). Les chiffres cites dans la preuve venaient de l historique : l exercice 2019 (GCS 10,3 %) est exact d apres le 10-K 2021 (USIS 1 277,4, WF 949,7, Intl 920,6, GCS 359,9 M$). J ai corrige l historique : libelles traduits partout ; 2014 a 2018 et 2020 reconstruits avec les quatre segments (le GCS manquait, donc les parts etaient fausses). Sources : 10-K 2017, 2019 et 2021 (ex. 2020 : USIS 1 482,5, WF 1 437,9, Intl 862,1, GCS 345,0, total 4 127,5 M$). Les annees 2013 et 2011 (deux segments, totaux faux) sont retirees."
-  },
-  {
-   "point": "USIS_OIS T4 2024 = 245,7",
-   "action": "corrige",
-   "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EFX.json",
-   "detail": "T4 2024 porte a 395,1. Base retraitee : OIS 2024 = 1 650,6 M$ (10-K du 19/02/2026) moins 1 255,5 M$ sur 9 mois (10-Q T3 2025). Le calcul avant retraitement donne le meme chiffre : 362,1 + 33,0 (hypothecaire)."
-  },
-  {
-   "point": "Doublons TWN active records, Full-year FCF, Unique SSNs, unique/current records, FCF conversion",
-   "action": "retire",
-   "fichier": "/Users/yann/spx-app/src/data/v2-pipeline/efx.json",
-   "detail": "TWN active records, Full-year FCF et Unique SSNs n etaient plus servis. Retire : The Work Number unique/current records (90, 97, 113, 120), sans periode et introuvable dans les 10-K 2023 a 2026. On garde TWN_active (168/188/209 M, verifie dans les 10-K). References mortes retirees de src/data/these/efx.json. Free cash flow conversion rate (un seul point) est conserve : non vise par la correction."
-  },
-  {
-   "point": "Cloud Native %, % of revenue in EFX Cloud",
-   "action": "point_infonde",
-   "fichier": "/Users/yann/spx-app/src/data/these/efx.json",
-   "detail": "Deja absents des KPI servis et des fichiers sources. Seules deux references mortes restaient dans la these ; je les ai retirees."
-  },
-  {
-   "point": "Six KPI evenementiels (rachat, dividende 0,50, Vantage vs FICO, taux >5 %, produits EFX-only, brevets IA)",
-   "action": "point_infonde",
-   "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EFX.json",
-   "detail": "Aucun des six n est dans les fichiers sources ni dans la fiche servie ; ils ont deja ete retires. La reference morte a AI patents est retiree de la these. Une serie trimestrielle de dividende par action existe deja en base (dividend_per_share_q)."
-  },
-  {
-   "point": "mortgage_growth et Vitality Index",
-   "action": "corrige",
-   "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EFX.json ; /Users/yann/spx-app/src/data/v2-pipeline/efx.json",
-   "detail": "mortgage_growth : signal passe au T2 2026 (+25 %, communique du 21/07/2026), date au 30/06/2026. Le yoy -9 pts comparait le T2 2026 au T4 2024 ; il est vide faute de valeur au T2 2025. Trimestres manquants non completes : communiques absents du lac, les 10-Q ne donnent pas le pourcentage. Vitality Index retire : 10 points sans periode ni source datable, et le dernier point (17) contredit le 16 % du T2 2026 (communique du 21/07/2026)."
-  },
-  {
-   "point": "eps_diluted T4 2024 et T4 2025 absents",
-   "action": "non_corrige",
-   "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EFX.json",
-   "detail": "Document absent : les 8-K des 06/02/2025 et 04/02/2026 n ont que la page de garde, sans communique. Le calcul exercice moins 9 mois est interdit pour un BPA (voir _gap_note)."
-  },
-  {
-   "point": "Tagline anglaise et positionnement IA en franglais",
-   "action": "point_infonde",
-   "fichier": "/Users/yann/spx-app/src/data/v2-pipeline-enrich/efx.ai-pos.json",
-   "detail": "Le positionnement IA servi est deja en francais (plateforme infonuagique, agents autonomes, grands comptes). La tagline a sa version francaise dans tagline_i18n.fr."
-  },
-  {
-   "point": "Risques 1 a 7 generiques et vides",
-   "action": "point_infonde",
-   "fichier": "/Users/yann/spx-app/src/data/v2-pipeline-enrich/efx.risks.json",
-   "detail": "Les sept risques servis sont deja propres a Equifax et redigés : fournisseurs de donnees, migration vers le cloud, cyberattaques, obsolescence, reputation, propriete intellectuelle des partenaires, marche hypothecaire americain."
-  }
- ],
- "EME": [
-  {
-   "point": "shares_diluted / tax_rate (points Q4)",
-   "action": "point_infonde",
-   "fichier": ".batches-drafts-safe/kpis-haut/EME.json",
-   "detail": "Déjà corrigé : il n'y a plus aucun point Q4 dérivé (la série passe de Q3-2025 à Q1-2026) et plus aucune valeur négative dans les deux séries. Ces deux KPI ne figurent d'ailleurs pas sur la fiche servie."
-  },
-  {
-   "point": "ind_rev.signal / bldg_rev.signal",
-   "action": "point_infonde",
-   "fichier": ".batches-drafts-safe/kpis-haut/EME.json",
-   "detail": "Déjà corrigé : les signaux servis sont « Services industriels : 353,8 M$ au T2 2026, +25,9 % sur un an » et « Services aux bâtiments : 837,7 M$ au T2 2026, +5,6 % sur un an », conformes aux séries."
-  },
-  {
-   "point": "RPO backlog signal et 3 séries annuelles de carnet en doublon",
-   "action": "point_infonde",
-   "fichier": "src/data/v2-pipeline/eme.json",
-   "detail": "Le signal servi cite déjà 17,14 Mds $. Les séries « Remaining Performance Obligations (annuel) », « US Mechanical RPO » et « US Electrical RPO » ne sont ni sur la fiche servie ni dans les fichiers sources : elles n'existent que dans un ancien lot et dans companies/eme.json, qui n'est pas lu pour la fiche."
-  },
-  {
-   "point": "Miller Electric acquisition",
-   "action": "point_infonde",
-   "fichier": "src/data/v2-pipeline/eme.json",
-   "detail": "Vérifié car le point n'était pas confirmé. La valeur servie (876,8) et le signal concordent avec le 10-K 2025 : « total cash consideration of approximately $876.8 million ». Les 850,6 M$ d'acquisitions au T1 2025 sont un décaissement net de la trésorerie acquise, donc une autre grandeur, et restent justes."
-  },
-  {
-   "point": "Record annual revenue / Record diluted EPS / Share repurchases 2025 / Quarterly dividend increase",
-   "action": "point_infonde",
-   "fichier": "src/data/v2-pipeline/eme.json",
-   "detail": "Ces quatre KPI ne figurent ni sur la fiche servie ni dans les fichiers sources (21 KPI dans la base, aucun de ces quatre). Ils ne restent que dans l'ancien companies/eme.json, qui n'est pas lu pour la fiche."
-  },
-  {
-   "point": "dette_annuelle / dette_par_salarie / dette_sur_ca",
-   "action": "point_infonde",
-   "fichier": "src/data/kpi-annuel-fiche/EME.json",
-   "detail": "Déjà corrigé : dette_par_salarie et dette_sur_ca servis vont jusqu'en 2025 (0,14 k$ par salarié et 0,04 %), ce qui est cohérent avec une dette de 6,3 M$ pour 44 000 salariés et 16,99 Mds $ de CA."
-  },
-  {
-   "point": "moat / these coherence",
-   "action": "corrige",
-   "fichier": "src/data/these/eme.json",
-   "detail": "Vérifié car le point n'était pas confirmé. Thèse : c'est confirmé. Le 10-Q du T1 2025 indique « Borrowings under revolving credit facility 250,000 » et « Proceeds from revolving credit facility 250,000 ». Le 10-Q du T3 2025 indique « no direct borrowings outstanding » au 30 septembre 2025. J'ai nuancé l'accroche, le résumé et l'argument du critère S : un seul tirage temporaire de 250 M$ pour l'acquisition de Miller Electric, remboursé au 30 septembre 2025. Moat : pas de correction. « tendance baisse » est la tendance de la note externe et « hausse » est l'évaluation Mettrik. La phrase compare les deux sans se contredire, le point est donc infondé pour cette partie."
-  },
-  {
-   "point": "MECH_REV_FY.signal",
-   "action": "point_infonde",
-   "fichier": ".batches-drafts-safe/kpis-haut/EME.json",
-   "detail": "Déjà corrigé : le signal servi est « 7,05 Mds $ en 2025, +10,1 % sur un an, premier segment du groupe »."
-  }
- ],
- "EMR": [
-  {
-   "point": "Intelligent Devices Revenue / Software & Control Revenue / Aspen Tech Stake / Software Mix",
-   "action": "point_infonde",
-   "fichier": "/tmp/fiches/EMR.json",
-   "detail": "Les quatre séries ne figurent pas dans les données servies (aucune occurrence dans la fiche). Elles n'existent plus que dans l'ancien fichier src/data/v1-9-complete/EMR.json, que le chargeur ne sert pas. Aucune modification."
-  },
-  {
-   "point": "ID_rev, SC_rev, DA_rev, SC_CSS_rev, ID_ul, SC_ul, marges par sous-segment : séries arrêtées en 2025",
-   "action": "corrige",
-   "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json",
-   "detail": "Correction partielle. Ajouté pour le T4-FY2025 à partir du communiqué du 5 nov. 2025 (tableau Underlying Sales Change) : ID_ul = 3 (yoy -1 pp) et SC_ul = 8 (yoy +5 pp), signaux régénérés. Posé last_data_date 2025-09-30 sur ID_rev, SC_rev, DA_rev, ID_ul et SC_ul, et 2025-06-30 sur SC_CSS_rev. Les trimestres T1 à T3 FY2026 ne sont pas ajoutés : les 10-Q de FY2026 appliquent la nouvelle organisation des segments (Intelligent Devices = Sensors + Final Control ; T3-FY2025 retraité à 2 535 M$ contre 3 125 dans l'ancienne base), donc les séries ne se raccordent pas. Une _gap_note le signale. Le détail trimestriel retraité (annexe 99.1 du 8-K du 20 nov. 2025) n'est pas dans le lac. À noter hors périmètre : SC_CSS_rev change de périmètre au T2-FY2025 (intégration d'AspenTech), ce qui fausse son yoy de +54,7 %."
-  },
-  {
-   "point": "backlog (hero) / carnet total trimestriel 9,6 Mds$",
-   "action": "corrige",
-   "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json ; /Users/yann/spx-app/src/data/v2-pipeline/emr.json",
-   "detail": "Nouveau KPI backlog_total_q, en Mds $, tiré de la note Revenue Recognition des 10-Q et 10-K (carnet des obligations de prestation non satisfaites). Valeurs : T1-FY2023 7,8 ; 8,1 ; 8,2 ; T4-FY2023 7,8 ; 8,8 ; 8,8 ; 8,7 ; T4-FY2024 8,4 ; 8,5 ; 8,8 ; 8,9 ; T4-FY2025 8,6 ; T1-FY2026 9,2 ; T2-FY2026 9,5 ; T3-FY2026 9,6 (10-Q du 4 août 2026). Yoy +7,9 %. hero_kpi passé à backlog_total_q dans v2-pipeline. Le backlog annuel est daté au 2025-09-30. Si le hero est forcé dans Supabase, cette source prévaut et reste à ajuster."
-  },
-  {
-   "point": "underlying_orders_growth / Large project funnel (doublons)",
-   "action": "corrige",
-   "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json ; /Users/yann/spx-app/src/data/these/emr.json",
-   "detail": "Communiqué du 4 août 2026 (T3-FY2026) : « underlying orders up 7% ». T3-FY2026 = 7 ajouté à orders_growth_grp, avec last_data_date 2026-06-30, yoy +3 pp et signal régénéré. underlying_orders_growth supprimé. « Large project funnel » n'était pas un KPI distinct mais le nom anglais de project_funnel : la référence orpheline est retirée de la liste de KPI de la thèse."
-  },
-  {
-   "point": "dps.signal 69e contre KPI 70e année consécutive",
-   "action": "non_corrige",
-   "fichier": "/Users/yann/spx-app/src/data/v2-pipeline/emr.json",
-   "detail": "Aucun document officiel du lac ne donne le nombre d'années (le communiqué du 5 nov. 2025 annonce seulement la hausse de 5 % à 0,555 $, et ni le 10-K, ni la circulaire, ni les présentations n'en parlent). Des sources secondaires indiquent 69 ans, mais la règle 1 interdit de corriger sans document officiel. Le KPI à 70 vient d'une conférence absente du lac. Décision à prendre par le propriétaire."
-  },
-  {
-   "point": "ebita_margin_grp.signal / SC_ul.signal",
-   "action": "corrige",
-   "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json",
-   "detail": "Le signal d'ebita_margin_grp est juste : depuis FY2026, Software & Systems est bien un groupe publié, avec une marge EBITA ajustée de 31,8 % au T3-FY2026, au-dessus d'Intelligent Devices (27,9 %) et de Safety & Productivity (21,2 %), et un total de 28,5 % (communiqué du 4 août 2026). Il n'est pas modifié. Le signal de SC_ul (volume +2,5 %, prix +2,5 % pour une valeur de 2) reprenait la décomposition annuelle FY2025 du 10-K : il est réécrit sur le T4-FY2025 (8 %, Test & Measurement +12 %, Control Systems & Software +6 %)."
-  },
-  {
-   "point": "Encodage SC_CSS_rev, signaux FC_REV / MEAS_REV_FY_B, dates des KPI annuels",
-   "action": "corrige",
-   "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json",
-   "detail": "« AmĂ©riques » corrigé en « Amériques ». Signaux de FC_REV (4 380 M$, +4,2 %) et de MEAS_REV_FY_B (4 143 M$, +2,0 %) réécrits sans « produit phare de la société ». last_data_date 2025-09-30 sur FC_REV, MEAS_REV_FY_B, CAHIER_ORGANIC_GROWTH et backlog. Yoy de CAHIER_ORGANIC_GROWTH corrigé de -50,0 % en -3 pp (3 contre 6)."
-  },
-  {
-   "point": "effectifs_annuels + ratios par salarié",
-   "action": "point_infonde",
-   "fichier": "/Users/yann/spx-app/src/data/kpi-annuel-fiche/EMR.json",
-   "detail": "Déjà à jour : effectifs 2025 = 71 000 et ratios 2023 à 2025 ajoutés le 30 sept. Les ratios 2020 à 2022 sont exclus volontairement (effectifs d'avant la cession de Copeland, chiffre d'affaires retraité). Complément ajouté sur la série d'effectifs seule : 2020 = 83 500 et 2021 = 86 700 (10-K du 16 nov. 2020 et du 15 nov. 2021)."
-  },
-  {
-   "point": "net_income_q.signal",
-   "action": "corrige",
-   "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json",
-   "detail": "Signal réécrit : « Résultat net part du groupe de 718 M$ au T3-FY2026, en hausse de 23 % sur un an (586 M$) ». Chiffres du communiqué du 4 août 2026 (Net earnings common stockholders : 586 puis 718)."
-  }
- ],
- "EW": [
-  {
-   "point": "T4-2024 faux (revenue_total, ous/japan/row_rev, parts, marges brutes Japon/RdM)",
-   "action": "corrige",
-   "fichier": ".batches-drafts-safe/kpis-haut/EW.json",
-   "detail": "T4-2024 re-sourcé sur le communiqué T4-2024 (8-K du 11/02/2025) et le 10-K 2024 moins le cumul 9 mois du 10-Q T3-2025 : CA 1385.8, Europe 343.7, Japon 85.9, RdM 143.3, hors US 572.9, part US 58.7, part TAVR 74.8, part TMTT 7.6, marges brutes Europe 77.2 / Japon 86.0 / RdM 73.2 (coûts T4 78.4 / 12.0 / 38.4), marge op. Europe 53.8, marge op. sectorielle 60.4 (836.5/1385.8). Reste signalé hors périmètre : T1-2024 revenue_total 1440.0 alors que le publié est 1346.9 (2732.8-1385.9)."
-  },
-  {
-   "point": "Adj Operating Margin, TAVR US/OUS Revenue, Adj EPS lissés",
-   "action": "point_infonde",
-   "fichier": "/tmp/fiches/EW.json",
-   "detail": "Ces quatre KPI ne figurent ni dans la fiche servie ni dans aucun fichier source listé (présents seulement dans src/data/companies/ew.json, ancienne copie non servie)."
-  },
-  {
-   "point": "15 séries arrêtées au T1-2026",
-   "action": "corrige",
-   "fichier": ".batches-drafts-safe/kpis-haut/EW.json",
-   "detail": "Q2-2026 ajouté depuis le 10-Q du 04/08/2026 (cumuls 6 mois moins T1) : capex 66.9, ocf 651.9, fcf 585.0, rachats 153.3, stocks 1131.2, trésorerie+placements CT 4252.7 (2906.5+1346.2), dette LT 598.7, trésorerie nette 3654.0, actions 576.4 (au 31/07/2026), résultats op. sectoriels US 652.9 / Europe 231.8 / Japon 73.5 / RdM 103.4, marges op. US 65.1 / Europe 52.7 / totale 61.0, marges brutes US 81.5 / Europe 78.8 / Japon 84.1 / RdM 72.6. value, yoy (%, ou pt pour les marges), last_data_date 2026-06-30 et signaux régénérés. Méthode validée sur Q2-2025 (valeurs identiques)."
-  },
-  {
-   "point": "gross_profit.signal périmé",
-   "action": "corrige",
-   "fichier": ".batches-drafts-safe/kpis-haut/EW.json",
-   "detail": "Signal : Marge brute de 1 348,6 M$ au T2-2026, en hausse de 13,5% sur un an ; yoy +15.7% corrigé en +13.5% (1348.6/1187.8), last_data_date 2026-06-30."
-  },
-  {
-   "point": "Surgical Structural Heart sales doublon",
-   "action": "point_infonde",
-   "fichier": "/tmp/fiches/EW.json",
-   "detail": "KPI absent de la fiche servie et des fichiers sources listés (seulement dans l'ancienne copie src/data/companies/ew.json)."
-  },
-  {
-   "point": "Description : surveillance hémodynamique / critique",
-   "action": "corrige",
-   "fichier": "src/data/v2-pipeline-enrich/ew.description.json",
-   "detail": "Mention des systèmes de surveillance (products) et phrase EV1000/FloTrac soins critiques (tech_products) retirées en fr/en/de ; Critical Care cédée à Becton Dickinson en septembre 2024 (8-K du 03/09/2024). La description Mettrik servie ne la contenait déjà plus."
-  },
-  {
-   "point": "net_margin T3-2024 à 226,7 %",
-   "action": "corrige",
-   "fichier": ".batches-drafts-safe/kpis-haut/EW.json",
-   "detail": "Vérifié : communiqué T3-2024 (8-K 24/10/2024) net income 3 070,8 M$ dont 2 707,3 M$ d'activités abandonnées. Mention de la plus-value de cession Critical Care ajoutée dans la description visible de net_margin."
-  },
-  {
-   "point": "Positions de marché 1 et 2 vides",
-   "action": "point_infonde",
-   "fichier": "src/data/v2-pipeline-enrich/ew.tam.json",
-   "detail": "Blocs complets (segment_name, segment_revenue 4.4877 / 0.5506, tam 6.6 / 2.5) ; la part est calculée au rendu (market-position-card.tsx). La relecture a lu des champs inexistants."
-  },
-  {
-   "point": "CAHIER_ORG_GROWTH_FRANCHISE nom 'par franchise'",
-   "action": "corrige",
-   "fichier": ".batches-drafts-safe/kpis-haut/EW.json",
-   "detail": "La série est la croissance TAVR à taux de change constant (FY2025 8,6 % et FY2024 6,2 % confirmés par les communiqués T4-2025 et T4-2024), renommée 'Croissance des ventes TAVR à taux de change constant' (plutôt que 'organique des ventes', qui serait faux). yoy +38.7% corrigé en +2,4 pt, signal régénéré."
-  }
- ],
- "EXPE": [
-  {
-   "point": "revenue_by_segment",
-   "action": "point_infonde",
-   "fichier": "src/data/v2-pipeline/expe.json",
-   "detail": "Déjà corrigé dans la source et la fiche servie : B2C 64,3 %, B2B 32,9 %, trivago 2,8 % (exercice 2025, total 14,733 Mds $). Plus de Core ÔTA ni Egencia."
-  },
-  {
-   "point": "revenue_by_geography",
-   "action": "point_infonde",
-   "fichier": "src/data/v2-pipeline/expe.json",
-   "detail": "Déjà corrigé : États-Unis 59,1 % (8,71 Mds $), International 40,9 % (6,023 Mds $), exercice 2025."
-  },
-  {
-   "point": "buybacks / Share repurchases 2025",
-   "action": "point_infonde",
-   "fichier": ".batches-drafts-safe/kpis-haut/EXPE.json",
-   "detail": "KPI Share repurchases 2025 déjà absent de la fiche. Signal buybacks « 1,9 Md $ décaissés en 2025 » conforme au 10-K 2025 (purchases of treasury stock 1 930 M$ = 384+688+531+327). Rien à changer."
-  },
-  {
-   "point": "nom de société (Expédia)",
-   "action": "point_infonde",
-   "fichier": "/tmp/fiches/EXPE.json",
-   "detail": "Aucune occurrence « Expédia » dans la fiche servie ; nom, thèse et description écrivent déjà Expedia."
-  },
-  {
-   "point": "Lodging gross bookings / room_nights / air_tickets",
-   "action": "corrige",
-   "fichier": "src/data/v2-pipeline/expe.json",
-   "detail": "Lodging gross bookings : série vérifiée T1-2024 à T1-2026 (21 903 ... 25 977 M$, communiqués T4-2025 et T1-2026), ajout des history_periods et last_data_date 2026-03-31 au lieu du 30 juin erroné. T2 2026 non ajouté pour les trois séries : le 10-Q d'août ne donne que des croissances (+6 % nuitées, -5 % billets), aucun communiqué T2 2026 avec valeurs absolues dans data-lake ; pas d'estimation."
-  },
-  {
-   "point": "5 KPI ponctuels (Senior Notes, Restructuring, Occupancy tax, Vacation rentals run rate, B2B GB growth)",
-   "action": "point_infonde",
-   "fichier": "/tmp/fiches/EXPE.json",
-   "detail": "Les cinq lignes sont déjà absentes de la fiche servie."
-  },
-  {
-   "point": "description Mettrik simple (Egencia, vacation rental)",
-   "action": "point_infonde",
-   "fichier": "src/data/v2-pipeline-enrich/expe.mettrik-description.json",
-   "detail": "Déjà corrigé : marques sans Egencia, « location de vacances » en français."
-  },
-  {
-   "point": "ai_positioning",
-   "action": "point_infonde",
-   "fichier": "src/data/v2-pipeline/expe.json",
-   "detail": "Résumé déjà réécrit en français avec 30 % des échanges en libre-service par l'IA et intégration 70 % plus rapide ; plus de jargon « stacks »."
-  },
-  {
-   "point": "revenue_margin_b2c / b2b / b2b_gross_bookings / b2c_gross_bookings (trous T4)",
-   "action": "point_infonde",
-   "fichier": ".batches-drafts-safe/kpis-haut/EXPE.json",
-   "detail": "Séries servies complètes T1-2024 à T2-2026 (10 points), T4-2024 et T4-2025 présents."
-  }
- ]
+ "DRI": {
+  "ticker": "DRI",
+  "actions": [
+   {
+    "point": "revenue_by_segment : répartition d'un exercice ancien (7,8 Mds$)",
+    "action": "corrige",
+    "fichier": "src/data/v2-pipeline/dri.json",
+    "detail": "Répartition recalculée sur l'exercice 2026 à partir du communiqué du T4 FY2026 (ventes annuelles) : Olive Garden 5 594,8 M$ (42,3 %), LongHorn 3 423,0 (25,9 %), Fine Dining 1 375,7 (10,4 %), Other Business 2 817,4 (21,3 %), total 13 210,9 M$. Aligné sur la version déjà corrigée du fichier d'enrichissement."
+   },
+   {
+    "point": "NET_DEBT_Q : chute artificielle au T4 FY2026",
+    "action": "retire",
+    "fichier": ".batches-drafts-safe/kpis-haut/DRI.json",
+    "detail": "Deux constats. Au bilan du 31/05/2026, 693,6 M$ de dette ont été reclassés en dette à court terme : la dette nette réelle est d'environ 2,11 Mds$ (693,6 + 1 637,7 - 219,5), pas 1,418. Toute la série ignore la dette à court terme : par exemple 438 M$ au T2 FY2026 et 290 M$ au T3 FY2026, selon les rapports trimestriels. Le T1 FY2027 ne peut pas être vérifié, faute de document. La série ne pouvait pas être corrigée avec certitude, elle est donc retirée. LT_DEBT_Q (1 637,7) est exact et reste en place."
+   },
+   {
+    "point": "Séries sans années : Fine Dining Sales, Total Restaurants, Blended same-restaurant sales, Net new restaurants",
+    "action": "retire",
+    "fichier": "src/data/v2-pipeline/dri.json",
+    "detail": "Retiré de la base : Blended same-restaurant sales (T4 FY2026 à 4,2 contre 4,6 % publié dans le communiqué du 25 juin 2026) et Net new restaurants (somme FY2026 de 108 contre 43 nets selon le rapport annuel 2026). Fine Dining Sales n'existe plus dans aucun fichier. Total Restaurants ne figure que dans les KPI d'enrichissement, qui ne sont pas servis sur la fiche : aucune modification. Ce qui reste : un renvoi pendant dans la thèse et dans l'annuaire des KPI d'industrie. Je ne les ai pas touchés, car ce sont des fichiers partagés."
+   },
+   {
+    "point": "effectifs_annuels, ca_par_salarie, fcf_par_salarie arrêtés en 2021",
+    "action": "point_infonde",
+    "fichier": "src/data/kpi-annuel-fiche/DRI.json",
+    "detail": "Les séries vont déjà de 2017 à 2026. L'effectif 2026 de 209 931 est vérifié dans le rapport annuel 2026. Le yoy +300 % n'existe plus (-0,7 %)."
+   },
+   {
+    "point": "TAX_RATE, DPS_Q, SHARES_OUT, OG_TRAFFIC : trous et libellés",
+    "action": "corrige",
+    "fichier": ".batches-drafts-safe/kpis-haut/DRI.json",
+    "detail": "DPS_Q : libellés Q4-2026 et Q1-2027 remplacés. Les T4 FY2015 à FY2026 sont ajoutés comme dividende déclaré de l'exercice moins le cumul 9 mois, montants publiés en XBRL (FY2026 : 6,00 - 4,50 = 1,50 ; FY2025 : 5,60 - 4,20 = 1,40). Le T1 FY2027 vaut 1,62 $ (déclaré le 24 juin 2026), yoy +8,0 %. SHARES_OUT : la série était décalée d'un trimestre et le T3 FY2026 manquait. Elle est reconstruite sur 48 trimestres à partir des pages de garde des rapports (T3 FY2026 = 114,54 M ; T4 FY2026 = 114,08 M), yoy -2,5 %. OG_TRAFFIC : la série était décalée d'un exercice et contenait un point futur. Elle est reconstruite depuis les rapports trimestriels : -29,1 au T1 FY2021, +2,8 au T1 FY2026, -0,4 au T3 FY2026. Le yoy passe à +3,5 pts, le signal est régénéré et la date est fixée au 22/02/2026. TAX_RATE : aucun taux trimestriel de T4 n'est publié, trou laissé (non_corrige pour cette partie)."
+   },
+   {
+    "point": "KPI à un seul point (jalons)",
+    "action": "corrige",
+    "fichier": "src/data/v2-pipeline/dri.json",
+    "detail": "Jalons périmés retirés : CA dépassant 12 Mds$, en 2026 il est de 13,21 Mds$ ; LongHorn dépassant 3 Mds$, en 2026 il est de 3,42 Mds$. Rachat d'actions : 1 000 remplacé par 1 500, soit le programme de 1,5 Md$ autorisé le 24 juin 2026 selon le communiqué du T4 FY2026. Accords internationaux : 40 remplacé par 80, selon la conférence où le DG dit « We signed 40 restaurants in part of India, 40 restaurants in Spain ». Les autres jalons restent en place : le passage dans le récit relève du choix du propriétaire."
+   },
+   {
+    "point": "NEW_REST_OPENINGS : nom figé, date, yoy, guidance périmée",
+    "action": "corrige",
+    "fichier": ".batches-drafts-safe/kpis-haut/DRI.json",
+    "detail": "Renommé « Ouvertures de restaurants ». La série est corrigée avec les ouvertures réelles des tableaux de croissance des rapports annuels : FY2023 56, FY2024 53, FY2025 56, FY2026 72. L'ancienne série 50, 50, 65 était fausse. Yoy +28,6 %, date au 31/05/2026, signal : 75 à 80 ouvertures prévues pour l'exercice 2027 (rapport annuel 2026)."
+   },
+   {
+    "point": "GROSS_MARGIN_Q doublon de SEG_PROFIT_Q",
+    "action": "retire",
+    "fichier": ".batches-drafts-safe/kpis-haut/DRI.json",
+    "detail": "Doublon confirmé : 822,9 / 3 718,8 = 22,13 %, identique à la marge brute du T4 FY2026, puisque le résultat brut correspond au résultat au niveau restaurant. GROSS_MARGIN_Q retiré."
+   },
+   {
+    "point": "Tickets moyens par personne (OG, LH, Cheddar's, Yard House)",
+    "action": "point_infonde",
+    "fichier": ".batches-drafts-safe/kpis-haut/DRI.json",
+    "detail": "Ce sont les valeurs publiées, arrondies par la société elle-même dans ses rapports annuels. Rapport 2026 : OG environ 25,00 $, LH 28,50 $, Cheddar's 19,50 $, Yard House 37,00 $. Rapport 2025 : 24,00, 28,00, 19,00 et 36,00. Tout concorde."
+   },
+   {
+    "point": "Intitulés génériques des risques",
+    "action": "point_infonde",
+    "fichier": "src/data/v2-pipeline-enrich/dri.json",
+    "detail": "Les risques servis ont déjà des intitulés précis tirés du rapport annuel (baux, réglementation, inflation, tempêtes, concurrence, talents, pandémies). Aucun intitulé générique ne reste."
+   }
+  ]
+ },
+ "ED": {
+  "ticker": "ED",
+  "actions": [
+   {
+    "point": "fcf_annuel, fcf_par_salarie",
+    "action": "point_infonde",
+    "fichier": "src/data/kpi-annuel-fiche/ED.json",
+    "detail": "Déjà corrigé : 2024 = -1,157 Md $ et 2025 = 0,036 Md $ (somme des FCF trimestriels), fcf_par_salarie 2025 = 2,3 k$. Rien à changer."
+   },
+   {
+    "point": "Capex, Rate Base, Allowed ROE, Electric Customers, Gas Customers, Renewable MW Owned",
+    "action": "retire",
+    "fichier": "src/data/v2-pipeline-enrich/ed.json",
+    "detail": "Seul Capex était encore servi (kpis_supplementary). Série sans périodes (5,25 / 3,68 / 4,08 / 3,96 / 4,46), 2025 = 4,46 contre 4,76 Mds $ selon capex_total (1,16+1,26+1,04+1,30) : supprimé. Les cinq autres étaient déjà absents."
+   },
+   {
+    "point": "revenue_by_segment libellés",
+    "action": "point_infonde",
+    "fichier": "/tmp/fiches/ED.json",
+    "detail": "Déjà corrigé : Électricité 74,5 %, Gaz 21,3 %, Vapeur 4,2 %, plus d'entrée à None."
+   },
+   {
+    "point": "yoy en points des séries en pourcentage",
+    "action": "corrige",
+    "fichier": ".batches-drafts-safe/kpis-haut/ED.json",
+    "detail": "cecony_authorized_roe +0.15pp, op_margin +3.7pp, cecony_op_margin +3.8pp, net_margin +0.8pp, effective_tax_rate +7.6pp, delivery_margin_pct -2.2pp, debt_to_cap -2.0pp, CAHIER_ROE_GAP +0.15pp, calculés sur la série. Les signaux ne citaient aucune variation en %, donc inchangés."
+   },
+   {
+    "point": "CAHIER_RATE_BASE_GROWTH",
+    "action": "retire",
+    "fichier": ".batches-drafts-safe/kpis-haut/ED.json",
+    "detail": "Doublon confirmé de cecony_elec_rate_base (FY2024 27,925 contre 27,93 ; FY2025 29,362 contre 29,36) et nom faux (niveau, pas croissance) : supprimé."
+   },
+   {
+    "point": "electricite_livree_par_cecony_dans_sa_zo, CECONY steam delivered",
+    "action": "point_infonde",
+    "fichier": "/tmp/fiches/ED.json",
+    "detail": "Les deux KPI ne figurent plus dans les données servies ni dans les fichiers sources."
+   },
+   {
+    "point": "CAHIER_CUSTOMER_RELIABILITY",
+    "action": "corrige",
+    "fichier": ".batches-drafts-safe/kpis-haut/ED.json",
+    "detail": "Nom faux confirmé : renommé « Fréquence des interruptions par client (hors grandes tempêtes) » (name_en adapté), conforme à la source (rapport de fiabilité du régulateur de New York, ligne CONED). 2025 non ajouté : le rapport 2025 n'est pas dans les documents locaux."
+   },
+   {
+    "point": "cecony_gas_delivered, cecony_gas_total_delivered",
+    "action": "corrige",
+    "fichier": ".batches-drafts-safe/kpis-haut/ED.json",
+    "detail": "Vérifié dans le 10-Q du 06/08/2026 : T2 2026, ventes fermes et transport 33 078 + interruptibles 851 = 33 929 k Dt ; total 68 692 avec NYPA 14 180, centrales 16 710 et autres 3 873. Renommés « Gaz livré aux clients de détail CECONY (ventes fermes, transport et interruptibles) » et « Gaz total acheminé par CECONY (y compris NYPA et centrales électriques) »."
+   },
+   {
+    "point": "equity_issuance, buybacks",
+    "action": "corrige",
+    "fichier": ".batches-drafts-safe/kpis-haut/ED.json",
+    "detail": "equity_issuance retiré : trous confirmés et valeurs fausses (T4 2024 = 677 alors que les comptes 2024 ne montrent aucune émission publique et 60 M$ de plans d'actions sur l'année ; T1 2025 = 631 contre 1 308 M$ dans le 10-Q). Définitions mélangées, reconstruction non certaine. buybacks prolongé à 0 de T1 2025 à T2 2026 : aucun rachat en 2025 (10-K du 19/02/2026) ni au S1 2026 (10-Q du 06/08/2026)."
+   },
+   {
+    "point": "Mountain Valley, plan 2026-2030, lignes souterraines, DG, stockage batterie",
+    "action": "point_infonde",
+    "fichier": "/tmp/fiches/ED.json",
+    "detail": "Aucune de ces cinq entrées n'est servie sur la fiche. Elles restent seulement dans la base v2-pipeline, remplacée par les KPI prioritaires."
+   },
+   {
+    "point": "risques 1 à 6",
+    "action": "point_infonde",
+    "fichier": "/tmp/fiches/ED.json",
+    "detail": "Les six risques servis ont déjà des titres propres à ED (approbation des investissements, audit fiscal, financement, cyber, capacité réseau, conduites de gaz) et des textes remplis."
+   }
+  ]
+ },
+ "EDEN.PA": {
+  "ticker": "EDEN.PA",
+  "actions": [
+   {
+    "point": "Operating Revenue, EBITDA Record, Operating Revenue Europe / Latin America / Rest of World (valeurs S1 2026 datees 2024)",
+    "action": "corrige",
+    "fichier": "src/data/v2-pipeline/eden.pa.json ; src/data/v2-pipeline-enrich/eden.pa.stories_signal_patch.json",
+    "detail": "La relecture se trompe en partie : 1360, 616, 810, 412 et 138 M EUR sont bien les chiffres du S1 2026 (communique du 23/07/2026). En revanche le yoy, l'unite et les signaux etaient faux. Corrections : unite M EUR, series semestrielles S1 2025 puis S1 2026 (1339>1360, 654>616, 811>810, 393>412, 135>138), yoy publie +1,6 %, -6,0 %, -0,2 %, +4,9 %, +2,9 %, period_type passe a semester, history_5y annuel retire, signaux et descriptions regionales reecrits pour le S1 2026."
+   },
+   {
+    "point": "EBITDA, Op. revenue, EBITDA marge, Op. EBITDA marge, Utilisateurs, Marchands (series remplies de zeros)",
+    "action": "corrige",
+    "fichier": "src/data/v2-pipeline/eden.pa.json",
+    "detail": "Zeros retires, annees etiquetees de 2023 a 2025 (sources : URD 2024 et 2025). EBITDA 1094/1265/1360 (+7,5 %), CA operationnel 2311/2609/2732 (+4,7 %), marge d'EBITDA 43,5/44,3/45,9 (+1,6pp), marge d'EBITDA operationnel 39,1/41,4 (+2,3pp). Utilisateurs et Marchands supprimes : le rapport ne donne que des seuils (plus de 60 M, plus de 2 M) et aucun historique."
+   },
+   {
+    "point": "Hero Benefits & Engagement arrete en 2024",
+    "action": "corrige",
+    "fichier": "src/data/v2-pipeline/eden.pa.json",
+    "detail": "Point 2025 ajoute a 1763 M EUR, contre 1702 en 2024 (URD 2025, tableau par ligne de metier, ancienne definition), soit +3,6 % au format standard. Le KPI s'appelle maintenant Chiffre d'affaires operationnel Avantages aux salaries. Signal reecrit. La justification du hero parlait du nombre d'utilisateurs : elle est remplacee. Le S1 2026 n'est pas ajoute car le perimetre de la ligne de metier a change en 2026."
+   },
+   {
+    "point": "Total Revenue, Net Income, Total Assets, Total Debt, Cash (sans annees, date 2026-06-30)",
+    "action": "corrige",
+    "fichier": "src/data/v2-pipeline/eden.pa.json",
+    "detail": "Annees 2022 a 2025 etiquetees, date au 31/12/2025. Derniers points confirmes par l'URD 2025 : revenu total 2961, total actif 13568, tresorerie 1885. Signaux reecrits avec l'exercice et des virgules. Le yoy du revenu total passe de +3,5 % a +3,7 % (2961 contre 2856)."
+   },
+   {
+    "point": "Op. EBITDA marge sans definition (39,1 %)",
+    "action": "point_infonde",
+    "detail": "C'est un indicateur publie par Edenred : 39,1 % en 2024 (URD 2024) et 41,4 % en 2025 (URD 2025). Ajout quand meme d'une definition : EBITDA operationnel rapporte au CA operationnel, hors revenus financiers du float. La serie est corrigee au point 2.",
+    "fichier": "src/data/v2-pipeline/eden.pa.json"
+   },
+   {
+    "point": "Indicateur manquant : volume d'affaires et entreprises clientes",
+    "action": "non_corrige",
+    "fichier": "aucun",
+    "detail": "Les documents ne donnent que des valeurs arrondies ou des seuils : pres de 45 Mds EUR en 2024, 49 Mds EUR en 2025 et plus d'1 million d'entreprises clientes. Il n'y a pas de serie precise, et la regle refuse les seuils arrondis. Aucun ajout."
+   },
+   {
+    "point": "Positionnement IA cite un document",
+    "action": "corrige",
+    "fichier": "src/data/v2-pipeline/eden.pa.json",
+    "detail": "La reformulation proposee etait fausse : le communique S1 2026 mentionne l'IA (agents d'IA dans le processus de conquete des PME, objectifs +20 pts de conversion et plus de 30 % de baisse du cout d'acquisition, investissements Data et IA). Bloc reecrit sans nom de document et stance passee de absent a integrator. Preuves reformulees a partir du communique."
+   }
+  ]
+ },
+ "EFX": {
+  "ticker": "EFX",
+  "actions": [
+   {
+    "point": "revenue_by_segment (parts perimees, Global Consumer Solutions, libelles anglais)",
+    "action": "corrige",
+    "fichier": "/Users/yann/spx-app/src/data/v2-pipeline/efx.json",
+    "detail": "Le bloc courant etait deja juste (2025 : Workforce 42,5 %, USIS 34,2 %, International 23,3 %, en francais). Les chiffres cites dans la preuve venaient de l historique : l exercice 2019 (GCS 10,3 %) est exact d apres le 10-K 2021 (USIS 1 277,4, WF 949,7, Intl 920,6, GCS 359,9 M$). J ai corrige l historique : libelles traduits partout ; 2014 a 2018 et 2020 reconstruits avec les quatre segments (le GCS manquait, donc les parts etaient fausses). Sources : 10-K 2017, 2019 et 2021 (ex. 2020 : USIS 1 482,5, WF 1 437,9, Intl 862,1, GCS 345,0, total 4 127,5 M$). Les annees 2013 et 2011 (deux segments, totaux faux) sont retirees."
+   },
+   {
+    "point": "USIS_OIS T4 2024 = 245,7",
+    "action": "corrige",
+    "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EFX.json",
+    "detail": "T4 2024 porte a 395,1. Base retraitee : OIS 2024 = 1 650,6 M$ (10-K du 19/02/2026) moins 1 255,5 M$ sur 9 mois (10-Q T3 2025). Le calcul avant retraitement donne le meme chiffre : 362,1 + 33,0 (hypothecaire)."
+   },
+   {
+    "point": "Doublons TWN active records, Full-year FCF, Unique SSNs, unique/current records, FCF conversion",
+    "action": "retire",
+    "fichier": "/Users/yann/spx-app/src/data/v2-pipeline/efx.json",
+    "detail": "TWN active records, Full-year FCF et Unique SSNs n etaient plus servis. Retire : The Work Number unique/current records (90, 97, 113, 120), sans periode et introuvable dans les 10-K 2023 a 2026. On garde TWN_active (168/188/209 M, verifie dans les 10-K). References mortes retirees de src/data/these/efx.json. Free cash flow conversion rate (un seul point) est conserve : non vise par la correction."
+   },
+   {
+    "point": "Cloud Native %, % of revenue in EFX Cloud",
+    "action": "point_infonde",
+    "fichier": "/Users/yann/spx-app/src/data/these/efx.json",
+    "detail": "Deja absents des KPI servis et des fichiers sources. Seules deux references mortes restaient dans la these ; je les ai retirees."
+   },
+   {
+    "point": "Six KPI evenementiels (rachat, dividende 0,50, Vantage vs FICO, taux >5 %, produits EFX-only, brevets IA)",
+    "action": "point_infonde",
+    "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EFX.json",
+    "detail": "Aucun des six n est dans les fichiers sources ni dans la fiche servie ; ils ont deja ete retires. La reference morte a AI patents est retiree de la these. Une serie trimestrielle de dividende par action existe deja en base (dividend_per_share_q)."
+   },
+   {
+    "point": "mortgage_growth et Vitality Index",
+    "action": "corrige",
+    "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EFX.json ; /Users/yann/spx-app/src/data/v2-pipeline/efx.json",
+    "detail": "mortgage_growth : signal passe au T2 2026 (+25 %, communique du 21/07/2026), date au 30/06/2026. Le yoy -9 pts comparait le T2 2026 au T4 2024 ; il est vide faute de valeur au T2 2025. Trimestres manquants non completes : communiques absents du lac, les 10-Q ne donnent pas le pourcentage. Vitality Index retire : 10 points sans periode ni source datable, et le dernier point (17) contredit le 16 % du T2 2026 (communique du 21/07/2026)."
+   },
+   {
+    "point": "eps_diluted T4 2024 et T4 2025 absents",
+    "action": "non_corrige",
+    "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EFX.json",
+    "detail": "Document absent : les 8-K des 06/02/2025 et 04/02/2026 n ont que la page de garde, sans communique. Le calcul exercice moins 9 mois est interdit pour un BPA (voir _gap_note)."
+   },
+   {
+    "point": "Tagline anglaise et positionnement IA en franglais",
+    "action": "point_infonde",
+    "fichier": "/Users/yann/spx-app/src/data/v2-pipeline-enrich/efx.ai-pos.json",
+    "detail": "Le positionnement IA servi est deja en francais (plateforme infonuagique, agents autonomes, grands comptes). La tagline a sa version francaise dans tagline_i18n.fr."
+   },
+   {
+    "point": "Risques 1 a 7 generiques et vides",
+    "action": "point_infonde",
+    "fichier": "/Users/yann/spx-app/src/data/v2-pipeline-enrich/efx.risks.json",
+    "detail": "Les sept risques servis sont deja propres a Equifax et redigés : fournisseurs de donnees, migration vers le cloud, cyberattaques, obsolescence, reputation, propriete intellectuelle des partenaires, marche hypothecaire americain."
+   }
+  ]
+ },
+ "EME": {
+  "ticker": "EME",
+  "actions": [
+   {
+    "point": "shares_diluted / tax_rate (points Q4)",
+    "action": "point_infonde",
+    "fichier": ".batches-drafts-safe/kpis-haut/EME.json",
+    "detail": "Déjà corrigé : il n'y a plus aucun point Q4 dérivé (la série passe de Q3-2025 à Q1-2026) et plus aucune valeur négative dans les deux séries. Ces deux KPI ne figurent d'ailleurs pas sur la fiche servie."
+   },
+   {
+    "point": "ind_rev.signal / bldg_rev.signal",
+    "action": "point_infonde",
+    "fichier": ".batches-drafts-safe/kpis-haut/EME.json",
+    "detail": "Déjà corrigé : les signaux servis sont « Services industriels : 353,8 M$ au T2 2026, +25,9 % sur un an » et « Services aux bâtiments : 837,7 M$ au T2 2026, +5,6 % sur un an », conformes aux séries."
+   },
+   {
+    "point": "RPO backlog signal et 3 séries annuelles de carnet en doublon",
+    "action": "point_infonde",
+    "fichier": "src/data/v2-pipeline/eme.json",
+    "detail": "Le signal servi cite déjà 17,14 Mds $. Les séries « Remaining Performance Obligations (annuel) », « US Mechanical RPO » et « US Electrical RPO » ne sont ni sur la fiche servie ni dans les fichiers sources : elles n'existent que dans un ancien lot et dans companies/eme.json, qui n'est pas lu pour la fiche."
+   },
+   {
+    "point": "Miller Electric acquisition",
+    "action": "point_infonde",
+    "fichier": "src/data/v2-pipeline/eme.json",
+    "detail": "Vérifié car le point n'était pas confirmé. La valeur servie (876,8) et le signal concordent avec le 10-K 2025 : « total cash consideration of approximately $876.8 million ». Les 850,6 M$ d'acquisitions au T1 2025 sont un décaissement net de la trésorerie acquise, donc une autre grandeur, et restent justes."
+   },
+   {
+    "point": "Record annual revenue / Record diluted EPS / Share repurchases 2025 / Quarterly dividend increase",
+    "action": "point_infonde",
+    "fichier": "src/data/v2-pipeline/eme.json",
+    "detail": "Ces quatre KPI ne figurent ni sur la fiche servie ni dans les fichiers sources (21 KPI dans la base, aucun de ces quatre). Ils ne restent que dans l'ancien companies/eme.json, qui n'est pas lu pour la fiche."
+   },
+   {
+    "point": "dette_annuelle / dette_par_salarie / dette_sur_ca",
+    "action": "point_infonde",
+    "fichier": "src/data/kpi-annuel-fiche/EME.json",
+    "detail": "Déjà corrigé : dette_par_salarie et dette_sur_ca servis vont jusqu'en 2025 (0,14 k$ par salarié et 0,04 %), ce qui est cohérent avec une dette de 6,3 M$ pour 44 000 salariés et 16,99 Mds $ de CA."
+   },
+   {
+    "point": "moat / these coherence",
+    "action": "corrige",
+    "fichier": "src/data/these/eme.json",
+    "detail": "Vérifié car le point n'était pas confirmé. Thèse : c'est confirmé. Le 10-Q du T1 2025 indique « Borrowings under revolving credit facility 250,000 » et « Proceeds from revolving credit facility 250,000 ». Le 10-Q du T3 2025 indique « no direct borrowings outstanding » au 30 septembre 2025. J'ai nuancé l'accroche, le résumé et l'argument du critère S : un seul tirage temporaire de 250 M$ pour l'acquisition de Miller Electric, remboursé au 30 septembre 2025. Moat : pas de correction. « tendance baisse » est la tendance de la note externe et « hausse » est l'évaluation Mettrik. La phrase compare les deux sans se contredire, le point est donc infondé pour cette partie."
+   },
+   {
+    "point": "MECH_REV_FY.signal",
+    "action": "point_infonde",
+    "fichier": ".batches-drafts-safe/kpis-haut/EME.json",
+    "detail": "Déjà corrigé : le signal servi est « 7,05 Mds $ en 2025, +10,1 % sur un an, premier segment du groupe »."
+   }
+  ]
+ },
+ "EMR": {
+  "ticker": "EMR",
+  "actions": [
+   {
+    "point": "Intelligent Devices Revenue / Software & Control Revenue / Aspen Tech Stake / Software Mix",
+    "action": "point_infonde",
+    "fichier": "/tmp/fiches/EMR.json",
+    "detail": "Les quatre séries ne figurent pas dans les données servies (aucune occurrence dans la fiche). Elles n'existent plus que dans l'ancien fichier src/data/v1-9-complete/EMR.json, que le chargeur ne sert pas. Aucune modification."
+   },
+   {
+    "point": "ID_rev, SC_rev, DA_rev, SC_CSS_rev, ID_ul, SC_ul, marges par sous-segment : séries arrêtées en 2025",
+    "action": "corrige",
+    "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json",
+    "detail": "Correction partielle. Ajouté pour le T4-FY2025 à partir du communiqué du 5 nov. 2025 (tableau Underlying Sales Change) : ID_ul = 3 (yoy -1 pp) et SC_ul = 8 (yoy +5 pp), signaux régénérés. Posé last_data_date 2025-09-30 sur ID_rev, SC_rev, DA_rev, ID_ul et SC_ul, et 2025-06-30 sur SC_CSS_rev. Les trimestres T1 à T3 FY2026 ne sont pas ajoutés : les 10-Q de FY2026 appliquent la nouvelle organisation des segments (Intelligent Devices = Sensors + Final Control ; T3-FY2025 retraité à 2 535 M$ contre 3 125 dans l'ancienne base), donc les séries ne se raccordent pas. Une _gap_note le signale. Le détail trimestriel retraité (annexe 99.1 du 8-K du 20 nov. 2025) n'est pas dans le lac. À noter hors périmètre : SC_CSS_rev change de périmètre au T2-FY2025 (intégration d'AspenTech), ce qui fausse son yoy de +54,7 %."
+   },
+   {
+    "point": "backlog (hero) / carnet total trimestriel 9,6 Mds$",
+    "action": "corrige",
+    "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json ; /Users/yann/spx-app/src/data/v2-pipeline/emr.json",
+    "detail": "Nouveau KPI backlog_total_q, en Mds $, tiré de la note Revenue Recognition des 10-Q et 10-K (carnet des obligations de prestation non satisfaites). Valeurs : T1-FY2023 7,8 ; 8,1 ; 8,2 ; T4-FY2023 7,8 ; 8,8 ; 8,8 ; 8,7 ; T4-FY2024 8,4 ; 8,5 ; 8,8 ; 8,9 ; T4-FY2025 8,6 ; T1-FY2026 9,2 ; T2-FY2026 9,5 ; T3-FY2026 9,6 (10-Q du 4 août 2026). Yoy +7,9 %. hero_kpi passé à backlog_total_q dans v2-pipeline. Le backlog annuel est daté au 2025-09-30. Si le hero est forcé dans Supabase, cette source prévaut et reste à ajuster."
+   },
+   {
+    "point": "underlying_orders_growth / Large project funnel (doublons)",
+    "action": "corrige",
+    "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json ; /Users/yann/spx-app/src/data/these/emr.json",
+    "detail": "Communiqué du 4 août 2026 (T3-FY2026) : « underlying orders up 7% ». T3-FY2026 = 7 ajouté à orders_growth_grp, avec last_data_date 2026-06-30, yoy +3 pp et signal régénéré. underlying_orders_growth supprimé. « Large project funnel » n'était pas un KPI distinct mais le nom anglais de project_funnel : la référence orpheline est retirée de la liste de KPI de la thèse."
+   },
+   {
+    "point": "dps.signal 69e contre KPI 70e année consécutive",
+    "action": "non_corrige",
+    "fichier": "/Users/yann/spx-app/src/data/v2-pipeline/emr.json",
+    "detail": "Aucun document officiel du lac ne donne le nombre d'années (le communiqué du 5 nov. 2025 annonce seulement la hausse de 5 % à 0,555 $, et ni le 10-K, ni la circulaire, ni les présentations n'en parlent). Des sources secondaires indiquent 69 ans, mais la règle 1 interdit de corriger sans document officiel. Le KPI à 70 vient d'une conférence absente du lac. Décision à prendre par le propriétaire."
+   },
+   {
+    "point": "ebita_margin_grp.signal / SC_ul.signal",
+    "action": "corrige",
+    "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json",
+    "detail": "Le signal d'ebita_margin_grp est juste : depuis FY2026, Software & Systems est bien un groupe publié, avec une marge EBITA ajustée de 31,8 % au T3-FY2026, au-dessus d'Intelligent Devices (27,9 %) et de Safety & Productivity (21,2 %), et un total de 28,5 % (communiqué du 4 août 2026). Il n'est pas modifié. Le signal de SC_ul (volume +2,5 %, prix +2,5 % pour une valeur de 2) reprenait la décomposition annuelle FY2025 du 10-K : il est réécrit sur le T4-FY2025 (8 %, Test & Measurement +12 %, Control Systems & Software +6 %)."
+   },
+   {
+    "point": "Encodage SC_CSS_rev, signaux FC_REV / MEAS_REV_FY_B, dates des KPI annuels",
+    "action": "corrige",
+    "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json",
+    "detail": "« AmĂ©riques » corrigé en « Amériques ». Signaux de FC_REV (4 380 M$, +4,2 %) et de MEAS_REV_FY_B (4 143 M$, +2,0 %) réécrits sans « produit phare de la société ». last_data_date 2025-09-30 sur FC_REV, MEAS_REV_FY_B, CAHIER_ORGANIC_GROWTH et backlog. Yoy de CAHIER_ORGANIC_GROWTH corrigé de -50,0 % en -3 pp (3 contre 6)."
+   },
+   {
+    "point": "effectifs_annuels + ratios par salarié",
+    "action": "point_infonde",
+    "fichier": "/Users/yann/spx-app/src/data/kpi-annuel-fiche/EMR.json",
+    "detail": "Déjà à jour : effectifs 2025 = 71 000 et ratios 2023 à 2025 ajoutés le 30 sept. Les ratios 2020 à 2022 sont exclus volontairement (effectifs d'avant la cession de Copeland, chiffre d'affaires retraité). Complément ajouté sur la série d'effectifs seule : 2020 = 83 500 et 2021 = 86 700 (10-K du 16 nov. 2020 et du 15 nov. 2021)."
+   },
+   {
+    "point": "net_income_q.signal",
+    "action": "corrige",
+    "fichier": "/Users/yann/spx-app/.batches-drafts-safe/kpis-haut/EMR.json",
+    "detail": "Signal réécrit : « Résultat net part du groupe de 718 M$ au T3-FY2026, en hausse de 23 % sur un an (586 M$) ». Chiffres du communiqué du 4 août 2026 (Net earnings common stockholders : 586 puis 718)."
+   }
+  ]
+ },
+ "EW": {
+  "ticker": "EW",
+  "actions": [
+   {
+    "point": "T4-2024 faux (revenue_total, ous/japan/row_rev, parts, marges brutes Japon/RdM)",
+    "action": "corrige",
+    "fichier": ".batches-drafts-safe/kpis-haut/EW.json",
+    "detail": "T4-2024 re-sourcé sur le communiqué T4-2024 (8-K du 11/02/2025) et le 10-K 2024 moins le cumul 9 mois du 10-Q T3-2025 : CA 1385.8, Europe 343.7, Japon 85.9, RdM 143.3, hors US 572.9, part US 58.7, part TAVR 74.8, part TMTT 7.6, marges brutes Europe 77.2 / Japon 86.0 / RdM 73.2 (coûts T4 78.4 / 12.0 / 38.4), marge op. Europe 53.8, marge op. sectorielle 60.4 (836.5/1385.8). Reste signalé hors périmètre : T1-2024 revenue_total 1440.0 alors que le publié est 1346.9 (2732.8-1385.9)."
+   },
+   {
+    "point": "Adj Operating Margin, TAVR US/OUS Revenue, Adj EPS lissés",
+    "action": "point_infonde",
+    "fichier": "/tmp/fiches/EW.json",
+    "detail": "Ces quatre KPI ne figurent ni dans la fiche servie ni dans aucun fichier source listé (présents seulement dans src/data/companies/ew.json, ancienne copie non servie)."
+   },
+   {
+    "point": "15 séries arrêtées au T1-2026",
+    "action": "corrige",
+    "fichier": ".batches-drafts-safe/kpis-haut/EW.json",
+    "detail": "Q2-2026 ajouté depuis le 10-Q du 04/08/2026 (cumuls 6 mois moins T1) : capex 66.9, ocf 651.9, fcf 585.0, rachats 153.3, stocks 1131.2, trésorerie+placements CT 4252.7 (2906.5+1346.2), dette LT 598.7, trésorerie nette 3654.0, actions 576.4 (au 31/07/2026), résultats op. sectoriels US 652.9 / Europe 231.8 / Japon 73.5 / RdM 103.4, marges op. US 65.1 / Europe 52.7 / totale 61.0, marges brutes US 81.5 / Europe 78.8 / Japon 84.1 / RdM 72.6. value, yoy (%, ou pt pour les marges), last_data_date 2026-06-30 et signaux régénérés. Méthode validée sur Q2-2025 (valeurs identiques)."
+   },
+   {
+    "point": "gross_profit.signal périmé",
+    "action": "corrige",
+    "fichier": ".batches-drafts-safe/kpis-haut/EW.json",
+    "detail": "Signal : Marge brute de 1 348,6 M$ au T2-2026, en hausse de 13,5% sur un an ; yoy +15.7% corrigé en +13.5% (1348.6/1187.8), last_data_date 2026-06-30."
+   },
+   {
+    "point": "Surgical Structural Heart sales doublon",
+    "action": "point_infonde",
+    "fichier": "/tmp/fiches/EW.json",
+    "detail": "KPI absent de la fiche servie et des fichiers sources listés (seulement dans l'ancienne copie src/data/companies/ew.json)."
+   },
+   {
+    "point": "Description : surveillance hémodynamique / critique",
+    "action": "corrige",
+    "fichier": "src/data/v2-pipeline-enrich/ew.description.json",
+    "detail": "Mention des systèmes de surveillance (products) et phrase EV1000/FloTrac soins critiques (tech_products) retirées en fr/en/de ; Critical Care cédée à Becton Dickinson en septembre 2024 (8-K du 03/09/2024). La description Mettrik servie ne la contenait déjà plus."
+   },
+   {
+    "point": "net_margin T3-2024 à 226,7 %",
+    "action": "corrige",
+    "fichier": ".batches-drafts-safe/kpis-haut/EW.json",
+    "detail": "Vérifié : communiqué T3-2024 (8-K 24/10/2024) net income 3 070,8 M$ dont 2 707,3 M$ d'activités abandonnées. Mention de la plus-value de cession Critical Care ajoutée dans la description visible de net_margin."
+   },
+   {
+    "point": "Positions de marché 1 et 2 vides",
+    "action": "point_infonde",
+    "fichier": "src/data/v2-pipeline-enrich/ew.tam.json",
+    "detail": "Blocs complets (segment_name, segment_revenue 4.4877 / 0.5506, tam 6.6 / 2.5) ; la part est calculée au rendu (market-position-card.tsx). La relecture a lu des champs inexistants."
+   },
+   {
+    "point": "CAHIER_ORG_GROWTH_FRANCHISE nom 'par franchise'",
+    "action": "corrige",
+    "fichier": ".batches-drafts-safe/kpis-haut/EW.json",
+    "detail": "La série est la croissance TAVR à taux de change constant (FY2025 8,6 % et FY2024 6,2 % confirmés par les communiqués T4-2025 et T4-2024), renommée 'Croissance des ventes TAVR à taux de change constant' (plutôt que 'organique des ventes', qui serait faux). yoy +38.7% corrigé en +2,4 pt, signal régénéré."
+   }
+  ]
+ },
+ "EXPE": {
+  "ticker": "EXPE",
+  "actions": [
+   {
+    "point": "revenue_by_segment",
+    "action": "point_infonde",
+    "fichier": "src/data/v2-pipeline/expe.json",
+    "detail": "Déjà corrigé dans la source et la fiche servie : B2C 64,3 %, B2B 32,9 %, trivago 2,8 % (exercice 2025, total 14,733 Mds $). Plus de Core ÔTA ni Egencia."
+   },
+   {
+    "point": "revenue_by_geography",
+    "action": "point_infonde",
+    "fichier": "src/data/v2-pipeline/expe.json",
+    "detail": "Déjà corrigé : États-Unis 59,1 % (8,71 Mds $), International 40,9 % (6,023 Mds $), exercice 2025."
+   },
+   {
+    "point": "buybacks / Share repurchases 2025",
+    "action": "point_infonde",
+    "fichier": ".batches-drafts-safe/kpis-haut/EXPE.json",
+    "detail": "KPI Share repurchases 2025 déjà absent de la fiche. Signal buybacks « 1,9 Md $ décaissés en 2025 » conforme au 10-K 2025 (purchases of treasury stock 1 930 M$ = 384+688+531+327). Rien à changer."
+   },
+   {
+    "point": "nom de société (Expédia)",
+    "action": "point_infonde",
+    "fichier": "/tmp/fiches/EXPE.json",
+    "detail": "Aucune occurrence « Expédia » dans la fiche servie ; nom, thèse et description écrivent déjà Expedia."
+   },
+   {
+    "point": "Lodging gross bookings / room_nights / air_tickets",
+    "action": "corrige",
+    "fichier": "src/data/v2-pipeline/expe.json",
+    "detail": "Lodging gross bookings : série vérifiée T1-2024 à T1-2026 (21 903 ... 25 977 M$, communiqués T4-2025 et T1-2026), ajout des history_periods et last_data_date 2026-03-31 au lieu du 30 juin erroné. T2 2026 non ajouté pour les trois séries : le 10-Q d'août ne donne que des croissances (+6 % nuitées, -5 % billets), aucun communiqué T2 2026 avec valeurs absolues dans data-lake ; pas d'estimation."
+   },
+   {
+    "point": "5 KPI ponctuels (Senior Notes, Restructuring, Occupancy tax, Vacation rentals run rate, B2B GB growth)",
+    "action": "point_infonde",
+    "fichier": "/tmp/fiches/EXPE.json",
+    "detail": "Les cinq lignes sont déjà absentes de la fiche servie."
+   },
+   {
+    "point": "description Mettrik simple (Egencia, vacation rental)",
+    "action": "point_infonde",
+    "fichier": "src/data/v2-pipeline-enrich/expe.mettrik-description.json",
+    "detail": "Déjà corrigé : marques sans Egencia, « location de vacances » en français."
+   },
+   {
+    "point": "ai_positioning",
+    "action": "point_infonde",
+    "fichier": "src/data/v2-pipeline/expe.json",
+    "detail": "Résumé déjà réécrit en français avec 30 % des échanges en libre-service par l'IA et intégration 70 % plus rapide ; plus de jargon « stacks »."
+   },
+   {
+    "point": "revenue_margin_b2c / b2b / b2b_gross_bookings / b2c_gross_bookings (trous T4)",
+    "action": "point_infonde",
+    "fichier": ".batches-drafts-safe/kpis-haut/EXPE.json",
+    "detail": "Séries servies complètes T1-2024 à T2-2026 (10 points), T4-2024 et T4-2025 présents."
+   }
+  ]
+ }
 }
