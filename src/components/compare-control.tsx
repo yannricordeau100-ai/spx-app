@@ -6,8 +6,11 @@ import { useEffect, useState } from "react";
 import type { KPI } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { useT } from "@/lib/i18n/provider";
+import { MESSAGE_OFFRE_PREMIUM } from "@/lib/freemium/visibles-gratuit-defaut";
 
-type Item = { ticker: string; name: string; short: string };
+// Yann 30 sept 2026 : verrou = palier gratuit ou anonyme et societe hors liste
+// « 100 % visibles en gratuit » : bouton visible, clic = offre Premium.
+type Item = { ticker: string; name: string; short: string; verrou?: boolean };
 
 /** Suffixe ?audit_token=... repris de l adresse de la page (controle interne). */
 export function suffixeJeton(prefixe: "?" | "&"): string {
@@ -34,10 +37,12 @@ export function CompareControl({
   // (cle de comparabilite = libelle normalise + famille d unite).
   const [comparables, setComparables] = useState<Item[] | null>(null);
   const [refus, setRefus] = useState(false);
+  const [verrouClique, setVerrouClique] = useState<string | null>(null);
   useEffect(() => {
     if (!open) return;
     let vivant = true;
     setComparables(null);
+    setVerrouClique(null);
     fetch(`/api/compare?t=${encodeURIComponent(ticker)}&k=${encodeURIComponent(activeKpi.short)}${suffixeJeton("&")}`)
       .then(async (r) => {
         if (!vivant) return;
@@ -88,19 +93,19 @@ export function CompareControl({
               {comparables === null ? (
                 <div className="px-3 py-4 text-[12px] text-zinc-400">Recherche des sociétés comparables…</div>
               ) : refus ? (
-                <div className="px-3 py-4 text-[12px] text-zinc-300">La comparaison entre sociétés est réservée aux abonnés.</div>
+                <div className="px-3 py-4 text-[12px] text-zinc-300">{MESSAGE_OFFRE_PREMIUM}</div>
               ) : comparables.length === 0 ? (
                 <div className="px-3 py-4 text-[12px] text-zinc-400">
                   {t("company.compare.empty")}&nbsp;
                   <em>{kpiName}</em>.
                 </div>
               ) : (
-                comparables.map(({ ticker: tk, name, short }) => {
+                comparables.map(({ ticker: tk, name, short, verrou }) => {
                   const accent = brand(tk).primary;
                   return (
                     <button
                       key={tk}
-                      onClick={() => onPick(tk)}
+                      onClick={() => (verrou ? setVerrouClique(tk) : onPick(tk))}
                       className="flex w-full items-start justify-between gap-3 px-3 py-2.5 text-left transition-colors hover:bg-[#141414]"
                     >
                       <div className="flex min-w-0 items-start gap-2.5">
@@ -108,6 +113,9 @@ export function CompareControl({
                         <div className="min-w-0">
                           <div className="text-[13px] font-medium text-zinc-100">{name}</div>
                           <div className="truncate text-[11px] text-zinc-400">{short}</div>
+                          {verrou && verrouClique === tk && (
+                            <div role="status" className="mt-1 text-[11px] font-semibold text-violet-200">{MESSAGE_OFFRE_PREMIUM}</div>
+                          )}
                         </div>
                       </div>
                       <span className="mt-0.5 shrink-0 rounded-md bg-emerald-500/15 px-1.5 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-emerald-300">

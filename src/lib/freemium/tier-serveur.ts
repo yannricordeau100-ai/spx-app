@@ -63,13 +63,12 @@ export async function tierDepuisAbonnement(user: Pick<User, "id" | "email">): Pr
   }
 }
 
-/** Societes vitrine (Yann 3 sept 2026) : Google, Meta et Booking sont servies
- *  SANS floutage aux inscrits du plan gratuit, pour juger la profondeur avant
- *  de payer. Les anonymes les voient floutees comme le reste. */
-// Yann 12 sept 2026 : Apple et Netflix ajoutees a la vitrine (acces Max en gratuit).
-export const VITRINE_DEFLOUTEE = new Set(["GOOGL", "GOOG", "META", "BKNG", "AAPL", "NFLX"]);
-
-export function tierPourFiche(tier: UserTier, ticker: string): UserTier {
-  if (tier === "free" && VITRINE_DEFLOUTEE.has(ticker.toUpperCase())) return "max";
+/** Societes vitrine (Yann 3 sept 2026) : servies SANS floutage aux paliers
+ *  non payants, pour juger la profondeur avant de payer.
+ *  Yann 30 sept 2026 : la liste n est plus en dur, elle vient de la base
+ *  (chargeVisiblesGratuit, outil /sandbox/admin/floutage-selector) et vaut
+ *  pour les paliers gratuit ET anonyme. */
+export function tierPourFiche(tier: UserTier, ticker: string, visibles: ReadonlySet<string>): UserTier {
+  if ((tier === "free" || tier === "anon") && visibles.has(ticker.toUpperCase())) return "max";
   return tier;
 }

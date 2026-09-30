@@ -9,8 +9,8 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { loadV17Company } from "../src/lib/company-core/load-company";
-import { assainirPourClient } from "../src/lib/company-core/assainir-payload";
+import { loadV17Company } from "../../src/lib/company-core/load-company";
+import { assainirPourClient } from "../../src/lib/company-core/assainir-payload";
 
 (async () => {
   const [dossier, ...tickersArg] = process.argv.slice(2);

@@ -28,7 +28,125 @@ import {
 const STYLE_ID = "mtk-floutage-apercu";
 const cle = (z: Zone) => `${z.bloc}::${z.partie}`;
 
-export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: string | null } = {}) {
+type SocieteUnivers = { ticker: string; nom: string };
+
+/**
+ * Yann 30 sept 2026 : encart « Sociétés 100 % visibles en gratuit ».
+ * Liste stockée en base (floutage, visibles-gratuit), effet immédiat : pour
+ * ces sociétés, gratuit et anonyme voient tout, et elles seules peuvent aller
+ * au comparateur et aux favoris sans abonnement. Chaque ajout ou retrait est
+ * enregistré aussitôt.
+ */
+function EncartVisiblesGratuit({ univers }: { univers: SocieteUnivers[] }) {
+  const [liste, setListe] = useState<string[] | null>(null);
+  const [q, setQ] = useState("");
+  const [statut, setStatut] = useState<string | null>(null);
+  useEffect(() => {
+    fetch("/api/desk/visibles-gratuit")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => setListe(Array.isArray(j?.tickers) ? j.tickers : []))
+      .catch(() => setListe([]));
+  }, []);
+  const noms = new Map(univers.map((u) => [u.ticker, u.nom]));
+  const pli = (v: string) => v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const requete = pli(q.trim());
+  const suggestions =
+    requete.length === 0 || !liste
+      ? []
+      : univers
+          .filter((u) => !liste.includes(u.ticker) && (pli(u.ticker).includes(requete) || pli(u.nom).includes(requete)))
+          .slice(0, 8);
+
+  const enregistre = async (suivante: string[]) => {
+    const avant = liste;
+    setListe(suivante);
+    setStatut("enregistrement…");
+    try {
+      const r = await fetch("/api/desk/visibles-gratuit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tickers: suivante }),
+      });
+      const j = r.ok ? await r.json() : null;
+      if (r.ok && Array.isArray(j?.tickers)) {
+        setListe(j.tickers);
+        setStatut(`enregistré (${j.tickers.length} sociétés)`);
+      } else {
+        setListe(avant);
+        setStatut(`échec ${r.status}`);
+      }
+    } catch (e) {
+      setListe(avant);
+      setStatut(`échec : ${String(e)}`);
+    }
+  };
+  const ajoute = (t: string) => {
+    if (!liste || liste.includes(t)) return;
+    setQ("");
+    void enregistre([...liste, t]);
+  };
+  const retire = (t: string) => liste && void enregistre(liste.filter((x) => x !== t));
+
+  return (
+    <section className="w-full rounded-xl border border-violet-400/30 bg-violet-500/[0.05] p-4">
+      <h2 className="font-display text-[16px] font-bold text-violet-100">Sociétés 100 % visibles en gratuit</h2>
+      <p className="mt-1 text-[12px] leading-relaxed text-zinc-400">
+        Pour ces sociétés, les visiteurs anonymes et les inscrits gratuits voient toute la fiche, sans aucune
+        zone floutée. Ce sont aussi les seules qu ils peuvent ajouter au comparateur et aux favoris. Chaque
+        ajout ou retrait s applique immédiatement.
+      </p>
+      <div className="relative mt-3 max-w-md">
+        <input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && suggestions[0]) ajoute(suggestions[0].ticker);
+          }}
+          placeholder="Rechercher une société (nom ou ticker)"
+          className="w-full rounded-md border border-white/15 bg-black/40 px-3 py-1.5 text-[12.5px] text-zinc-100 placeholder:text-zinc-600"
+        />
+        {suggestions.length > 0 && (
+          <ul className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-md border border-white/15 bg-[#0a0a0e] shadow-xl">
+            {suggestions.map((u) => (
+              <li key={u.ticker}>
+                <button
+                  type="button"
+                  onClick={() => ajoute(u.ticker)}
+                  className="flex w-full items-center justify-between gap-3 px-3 py-1.5 text-left text-[12.5px] text-zinc-200 hover:bg-violet-500/20"
+                >
+                  <span className="truncate">{u.nom}</span>
+                  <span className="shrink-0 font-mono text-[11px] text-zinc-400">{u.ticker}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <div className="mt-3 flex flex-wrap items-center gap-2 text-[12px]">
+        {liste === null && <span className="text-zinc-500">chargement…</span>}
+        {liste !== null && liste.length === 0 && <span className="text-zinc-500">aucune société</span>}
+        {(liste ?? []).map((t) => (
+          <span key={t} className="inline-flex items-center gap-1.5 rounded-full border border-violet-400/50 bg-violet-500/20 py-1 pl-2.5 pr-1 text-violet-100">
+            <span>{noms.get(t) ?? t}</span>
+            <span className="font-mono text-[10.5px] text-violet-300">{t}</span>
+            <button
+              type="button"
+              onClick={() => retire(t)}
+              aria-label={`Retirer ${t}`}
+              title="Retirer"
+              className="rounded-full px-1.5 text-zinc-300 hover:bg-white/10 hover:text-white"
+            >
+              ×
+            </button>
+          </span>
+        ))}
+        {statut && <span className="ml-2 text-[11px] text-zinc-500">{statut}</span>}
+      </div>
+    </section>
+  );
+}
+
+export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: string | null; univers?: SocieteUnivers[] } = {}) {
   const [zones, setZones] = useState<Zone[]>([]);
   const [charge, setCharge] = useState(false);
   const [statut, setStatut] = useState<string | null>(null);
@@ -149,6 +267,7 @@ export function FloutageSelectorClient(_props: { ticker?: string; auditToken?: s
 
   return (
     <div className="flex min-h-screen flex-col gap-4 bg-[#050505] p-4 text-zinc-100">
+      <EncartVisiblesGratuit univers={_props.univers ?? []} />
       <div className="w-full">
         <h1 className="font-display text-[19px] font-bold">Floutage par zones</h1>
         <p className="mt-1 text-[12px] leading-relaxed text-zinc-400">

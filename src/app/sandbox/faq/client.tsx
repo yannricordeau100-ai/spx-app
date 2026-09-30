@@ -38,15 +38,16 @@ export function FaqEditeur() {
     void charge();
   }, [charge]);
 
-  async function enregistre() {
-    if (!contenu) return;
+  async function enregistre(aEnvoyer?: typeof contenu) {
+    const envoi = aEnvoyer ?? contenu;
+    if (!envoi) return;
     setEtat("envoi");
     setMessage("");
     try {
       const r = await fetch("/api/sandbox/faq", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ contenu }),
+        body: JSON.stringify({ contenu: envoi }),
       });
       const j = await r.json();
       if (!r.ok) throw new Error(j?.error ?? "échec");
@@ -121,7 +122,7 @@ export function FaqEditeur() {
             Rétablir le dépôt
           </button>
           <button
-            onClick={enregistre}
+            onClick={() => void enregistre()}
             disabled={etat === "envoi"}
             className="rounded-full bg-violet-400 px-4 py-1.5 text-sm font-semibold text-[#0b0b0e] hover:bg-violet-300 disabled:opacity-50"
           >
@@ -174,16 +175,30 @@ export function FaqEditeur() {
                           <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-violet-300">Propositions de réponse ({it.propositions.length})</div>
                           <div className="grid gap-3 md:grid-cols-2">
                             {it.propositions.map((p, k) => (
-                              <div key={k} className="rounded-lg border border-violet-400/20 bg-black/30 p-3">
+                              <div key={k} className={`rounded-lg border bg-black/30 p-3 ${p.r_fr.trim() === it.r_fr.trim() ? "border-emerald-400/50" : "border-violet-400/20"}`}>
                                 <div className="mb-1 text-xs font-semibold text-violet-200">{p.titre}</div>
                                 {p.q_fr && p.q_fr !== it.q_fr && <div className="mb-1 text-[12.5px] font-medium text-zinc-200">Question : {p.q_fr}</div>}
                                 <div className="whitespace-pre-line text-[12.5px] leading-relaxed text-zinc-300">{p.r_fr}</div>
-                                <button
-                                  onClick={() => majItem(it.id, { r_fr: p.r_fr, ...(p.q_fr ? { q_fr: p.q_fr } : {}) })}
-                                  className="mt-2 rounded-md border border-violet-400/50 bg-violet-500/15 px-2.5 py-1 text-xs text-violet-100 hover:bg-violet-500/25"
-                                >
-                                  Utiliser cette version (modifiable ensuite)
-                                </button>
+                                {p.r_fr.trim() === it.r_fr.trim() ? (
+                                  <div className="mt-2 inline-block rounded-md border border-emerald-400/50 bg-emerald-500/15 px-2.5 py-1 text-xs text-emerald-200">
+                                    Version retenue
+                                  </div>
+                                ) : (
+                                  <button
+                                    onClick={() => {
+                                      // Yann 1er oct 2026 : le choix n etait applique qu en memoire, sans retour
+                                      // visible ni enregistrement. Il est desormais enregistre aussitot.
+                                      const patch = { r_fr: p.r_fr, ...(p.q_fr ? { q_fr: p.q_fr } : {}) };
+                                      const suivant = contenu && { ...contenu, items: contenu.items.map((x) => (x.id === it.id ? { ...x, ...patch } : x)) };
+                                      setContenu(suivant);
+                                      void enregistre(suivant);
+                                    }}
+                                    disabled={etat === "envoi"}
+                                    className="mt-2 rounded-md border border-violet-400/50 bg-violet-500/15 px-2.5 py-1 text-xs text-violet-100 hover:bg-violet-500/25 disabled:opacity-50"
+                                  >
+                                    Choisir cette version (enregistrée aussitôt, modifiable ensuite)
+                                  </button>
+                                )}
                               </div>
                             ))}
                           </div>
@@ -258,7 +273,7 @@ export function FaqEditeur() {
 
       <div className="sticky bottom-4 mt-10 flex justify-end">
         <button
-          onClick={enregistre}
+          onClick={() => void enregistre()}
           disabled={etat === "envoi"}
           className="rounded-full bg-violet-400 px-5 py-2 text-sm font-semibold text-[#0b0b0e] shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:bg-violet-300 disabled:opacity-50"
         >

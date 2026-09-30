@@ -2,6 +2,14 @@
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { palierAppelant, reserveAuxAbonnes } from "@/lib/desk/visibles-gratuit";
+import { MESSAGE_OFFRE_PREMIUM } from "@/lib/freemium/visibles-gratuit-defaut";
+
+/** Yann 30 sept 2026 : en gratuit, seules les societes de la liste
+ *  « 100 % visibles en gratuit » peuvent entrer en favori (retrait toujours permis). */
+async function ajoutRefuse(ticker: string): Promise<boolean> {
+  return reserveAuxAbonnes(ticker, await palierAppelant());
+}
 
 /**
  * Server Actions favoris — toutes auth-protected via RLS Supabase
@@ -51,6 +59,7 @@ export async function toggleCompanyFavorite(ticker: string) {
     revalidatePath("/", "layout");
     return { ok: true, favorited: false };
   } else {
+    if (await ajoutRefuse(ticker)) return { ok: false, error: MESSAGE_OFFRE_PREMIUM, premium: true };
     const { error } = await supabase
       .from("favorite_companies")
       .insert({ user_id: user.id, ticker: ticker.toUpperCase() });
@@ -121,6 +130,7 @@ export async function toggleKpiFavorite(
     revalidatePath("/", "layout");
     return { ok: true, favorited: false };
   } else {
+    if (await ajoutRefuse(ticker)) return { ok: false, error: MESSAGE_OFFRE_PREMIUM, premium: true };
     const { error } = await supabase
       .from("favorite_kpis")
       .insert({

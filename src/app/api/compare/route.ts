@@ -5,6 +5,8 @@ import { parseUnite, periodeCle } from "@/lib/compare-keys";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
+import { chargeVisiblesGratuitSet } from "@/lib/desk/visibles-gratuit";
+import { MESSAGE_OFFRE_PREMIUM } from "@/lib/freemium/visibles-gratuit-defaut";
 
 export const dynamic = "force-dynamic";
 
@@ -31,6 +33,12 @@ async function autorise(req: Request): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+// Yann 30 sept 2026 : en gratuit et en anonyme, le comparateur est ouvert
+// aux seules societes de la liste « 100 % visibles en gratuit » (base).
+function tousVisibles(visibles: Set<string>, ...tickers: (string | undefined)[]): boolean {
+  return tickers.every((t) => !!t && visibles.has(t.toUpperCase()));
 }
 
 type K = { short: string; name_fr?: string; name_en?: string; unit?: string; period_type?: string; history?: unknown[]; history_periods?: unknown[]; last_data_date?: string };
@@ -72,18 +80,30 @@ function trie(a: string, b: string) {
 }
 
 export async function GET(req: Request) {
-  if (!(await autorise(req))) return NextResponse.json({ error: "abonnes" }, { status: 403 });
+  const abonne = await autorise(req);
+  const visibles = abonne ? new Set<string>() : await chargeVisiblesGratuitSet();
   const sp = new URL(req.url).searchParams;
 
   const t = sp.get("t")?.toUpperCase();
   if (t) {
+    if (!abonne && !tousVisibles(visibles, t)) return NextResponse.json({ error: "abonnes" }, { status: 403 });
     const cle = IDX.byT[t]?.[sp.get("k") ?? ""];
-    const items = cle ? (IDX.keys[cle] ?? []).filter(([x]) => x !== t).map(([x, s]) => ({ ticker: x, name: IDX.names[x] ?? x, short: s })) : [];
+    const items = cle
+      ? (IDX.keys[cle] ?? []).filter(([x]) => x !== t).map(([x, s]) => ({
+          ticker: x,
+          name: IDX.names[x] ?? x,
+          short: s,
+          // Hors liste en gratuit : visible dans la liste, mais non ajoutable.
+          ...(abonne || visibles.has(x.toUpperCase()) ? {} : { verrou: true }),
+        }))
+      : [];
     return NextResponse.json({ cle: cle ?? null, items });
   }
 
   const a = sp.get("a")?.toUpperCase(), ka = sp.get("ka") ?? "", b = sp.get("b")?.toUpperCase();
   if (!a || !b) return NextResponse.json({ error: "parametres" }, { status: 400 });
+  if (!abonne && !tousVisibles(visibles, a, b))
+    return NextResponse.json({ error: "abonnes", message: MESSAGE_OFFRE_PREMIUM }, { status: 403 });
   const cle = IDX.byT[a]?.[ka];
   const candidatsB = cle ? Object.entries(IDX.byT[b] ?? {}).filter(([, c]) => c === cle).map(([s]) => s) : [];
   if (!cle || candidatsB.length === 0) return NextResponse.json({ error: "pas de KPI comparable" }, { status: 404 });

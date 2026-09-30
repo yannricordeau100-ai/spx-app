@@ -18,17 +18,16 @@ function pliAccents(v: string): string {
  */
 const LATEST_VERSION_PATH = "/sandbox/v1-9-5";
 
-/** Societes entierement lisibles sans abonnement. Doit rester alignee avec
- *  VITRINE_DEFLOUTEE de src/lib/freemium/tier-serveur.ts (module serveur,
- *  non importable ici). */
-const VITRINE_VISIBLE = new Set(["GOOGL", "GOOG", "META", "BKNG", "AAPL", "NFLX"]);
+// Yann 30 sept 2026 : les societes entierement lisibles sans abonnement ne
+// sont plus en dur ; la liste vient de la base (useVisiblesGratuit).
 // Yann 4 sept 2026 : les liens pointent sur l adresse PUBLIQUE /<ticker>,
 // pas sur le chemin interne /sandbox/v1-9-5/<ticker> qui s affichait dans la
 // barre d adresse des visiteurs.
 const buildLatestHref = (ticker: string) => `/${ticker.toLowerCase()}`;
 // Yann 15 sept 2026 : en anonyme, chaque lien vers une fiche mene a l inscription gratuite.
-const lienInscription = (ticker: string) =>
-  ["GOOGL", "GOOG"].includes(ticker.toUpperCase()) ? buildLatestHref(ticker) : `/?auth=signup&next=${encodeURIComponent(buildLatestHref(ticker))}`;
+// Yann 30 sept 2026 : les societes de la liste « 100 % visibles en gratuit » gardent un lien direct.
+const lienInscription = (ticker: string, visibles: ReadonlySet<string>) =>
+  visibles.has(ticker.toUpperCase()) ? buildLatestHref(ticker) : `/?auth=signup&next=${encodeURIComponent(buildLatestHref(ticker))}`;
 import { motion, AnimatePresence } from "motion/react";
 import { Search, X, ArrowRight, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import {
@@ -69,6 +68,7 @@ import { AcronymHover } from "@/components/acronym-hover";
 import { useT } from "@/lib/i18n/provider";
 import { displayTicker } from "@/lib/ticker-display";
 import { useFreemiumTier } from "@/lib/freemium/context";
+import { useVisiblesGratuit } from "@/lib/freemium/use-visibles-gratuit";
 import {
   V17_SEARCH_INDEX,
   V17_SEARCH_BY_TICKER,
@@ -182,6 +182,7 @@ export function CompanySearch({
   totalLabel?: number;
 }) {
   const anonLiens = useFreemiumTier() === "anon";
+  const visiblesGratuit = useVisiblesGratuit();
   const { t, locale } = useT();
   const ph =
     placeholder ??
@@ -499,9 +500,9 @@ export function CompanySearch({
   const ouvrirResultat = useCallback(
     (ticker: string) => {
       fermer();
-      router.push(anonLiens ? lienInscription(ticker) : buildLatestHref(ticker));
+      router.push(anonLiens ? lienInscription(ticker, visiblesGratuit) : buildLatestHref(ticker));
     },
-    [anonLiens, fermer, router],
+    [anonLiens, fermer, router, visiblesGratuit],
   );
 
   /** Clavier du champ : fleches, Entree, Echap. */
@@ -764,6 +765,7 @@ function ResultCard({
   allTickers: Set<string> | ReadonlySet<string>;
 }) {
   const anonLiens = useFreemiumTier() === "anon";
+  const visiblesGratuit = useVisiblesGratuit();
   const c = COMPANIES[ticker];
   const hero = getHero(c);
   const tone = yoyTone(hero.yoy, hero.type);
@@ -777,11 +779,11 @@ function ResultCard({
   // Yann 4 sept 2026 (2e passe) : la mise en avant vaut pour TOUT le monde,
   // abonne compris : un visiteur doit voir d un coup d oeil que ces trois
   // fiches sont differentes des autres (entierement lisibles sans abonnement).
-  const estVitrine = VITRINE_VISIBLE.has(ticker.toUpperCase());
+  const estVitrine = visiblesGratuit.has(ticker.toUpperCase());
 
   return (
     <Link
-      href={anonLiens ? lienInscription(ticker) : buildLatestHref(ticker)}
+      href={anonLiens ? lienInscription(ticker, visiblesGratuit) : buildLatestHref(ticker)}
       prefetch
       onClick={onSelect}
       // Motif liste de suggestions : la navigation se fait aux fleches, les
@@ -955,12 +957,13 @@ function ResultCardV17({
   allTickers: Set<string> | ReadonlySet<string>;
 }) {
   const anonLiens = useFreemiumTier() === "anon";
+  const visiblesGratuit = useVisiblesGratuit();
   const e = V17_SEARCH_BY_TICKER[ticker.toUpperCase()];
   const accent = brand(ticker).primary;
   if (!e) return null;
   const tickerShown = displayTicker(ticker, allTickers);
   // Yann 26 mai 2026 : toutes les recherches routent vers la dernière version.
-  const href = anonLiens ? lienInscription(ticker) : buildLatestHref(ticker);
+  const href = anonLiens ? lienInscription(ticker, visiblesGratuit) : buildLatestHref(ticker);
   return (
     <Link
       href={href}
@@ -968,7 +971,7 @@ function ResultCardV17({
       onClick={onSelect}
       tabIndex={-1}
       className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
-        VITRINE_VISIBLE.has(ticker.toUpperCase())
+        visiblesGratuit.has(ticker.toUpperCase())
           ? "border-violet-400/60 bg-violet-500/[0.08] ring-1 ring-violet-400/30 hover:border-violet-300/80 hover:bg-violet-500/[0.14]"
           : "border-white/8 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.05]"
       }`}
@@ -1006,7 +1009,7 @@ function ResultCardV17({
           </span>
           {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
               plus se superposer au KPI affiche a droite. */}
-          {VITRINE_VISIBLE.has(ticker.toUpperCase()) && (
+          {visiblesGratuit.has(ticker.toUpperCase()) && (
             <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Complètement gratuit</span>
           )}
         </div>
@@ -1039,10 +1042,11 @@ function ResultCardV19({
   allTickers: Set<string> | ReadonlySet<string>;
 }) {
   const anonLiens = useFreemiumTier() === "anon";
+  const visiblesGratuit = useVisiblesGratuit();
   const e = V19_SEARCH_BY_TICKER[ticker.toUpperCase()];
   const accent = brand(ticker).primary;
   if (!e) return null;
-  const href = anonLiens ? lienInscription(ticker) : buildLatestHref(ticker);
+  const href = anonLiens ? lienInscription(ticker, visiblesGratuit) : buildLatestHref(ticker);
   const tickerShown = displayTicker(ticker, allTickers);
   return (
     <Link
@@ -1051,7 +1055,7 @@ function ResultCardV19({
       onClick={onSelect}
       tabIndex={-1}
       className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
-        VITRINE_VISIBLE.has(ticker.toUpperCase())
+        visiblesGratuit.has(ticker.toUpperCase())
           ? "border-violet-400/60 bg-violet-500/[0.08] ring-1 ring-violet-400/30 hover:border-violet-300/80 hover:bg-violet-500/[0.14]"
           : "border-white/8 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.05]"
       }`}
@@ -1088,7 +1092,7 @@ function ResultCardV19({
           </span>
           {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
               plus se superposer au KPI affiche a droite. */}
-          {VITRINE_VISIBLE.has(ticker.toUpperCase()) && (
+          {visiblesGratuit.has(ticker.toUpperCase()) && (
             <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Complètement gratuit</span>
           )}
           <span className="rounded-md border border-zinc-500/40 bg-zinc-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-zinc-300">

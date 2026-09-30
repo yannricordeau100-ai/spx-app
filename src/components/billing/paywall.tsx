@@ -21,7 +21,7 @@ import { Lock, Sparkles } from "lucide-react";
  *
  * Usage :
  *
- *   <Paywall locked={isPaywalled(ticker, plan)} mode="blur">
+ *   <Paywall locked={isPaywalled(ticker, plan, visibles)} mode="blur">
  *     <span>{kpi.value}</span>
  *   </Paywall>
  */

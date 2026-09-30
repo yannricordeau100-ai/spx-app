@@ -2,7 +2,7 @@
  * Règles d'accès freemium Mettrik.
  *
  *   FREE :
- *     - GOOGL, META : accès COMPLET (chiffres + textes + tout).
+ *     - sociétés de la liste « 100 % visibles en gratuit » : accès COMPLET.
  *     - autres tickers (MSCI, SPGI, CAT, ...) : page accessible MAIS chiffres
  *       et textes "à valeur ajoutée" sont floutés via <Paywall mode="blur">.
  *
@@ -13,15 +13,15 @@
 
 export type Plan = "free" | "premium_monthly" | "premium_yearly" | "enterprise";
 
-/** Tickers accessibles en intégralité au plan FREE. */
-// Yann 3 sept 2026 : vitrine defloutee pour les inscrits gratuits (Booking ajoute).
-export const FREE_TICKERS = new Set(["GOOGL", "META", "BKNG", "AAPL", "NFLX"]); // Yann 12 sept 2026 : + Apple, Netflix
+// Yann 30 sept 2026 : la liste des societes accessibles en integralite au
+// plan FREE n est plus en dur ; elle vient de la base (chargeVisiblesGratuit
+// cote serveur, useVisiblesGratuit cote client) et se passe en parametre.
 
 export function isPremium(plan: Plan | null | undefined): boolean {
   return plan === "premium_monthly" || plan === "premium_yearly" || plan === "enterprise";
 }
 
-export function isPaywalled(ticker: string, plan: Plan | null | undefined): boolean {
+export function isPaywalled(ticker: string, plan: Plan | null | undefined, visibles: ReadonlySet<string>): boolean {
   if (isPremium(plan)) return false;
-  return !FREE_TICKERS.has(ticker.toUpperCase());
+  return !visibles.has(ticker.toUpperCase());
 }

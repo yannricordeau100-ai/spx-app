@@ -1,5 +1,6 @@
 "use client";
 
+import { useVisiblesGratuit } from "@/lib/freemium/use-visibles-gratuit";
 import Link from "next/link";
 import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -695,12 +696,14 @@ export function HomeView({
   contentOverrides?: Record<string, string>;
 } = {}) {
   const { t, locale } = useT();
+  const visiblesGratuit = useVisiblesGratuit();
   const tt = (key: string, overrideKey: string) =>
     (contentOverrides && contentOverrides[overrideKey]?.trim()) || t(key);
   const results = tickersProp ?? (UNIVERSE as { tickers: string[] }).tickers;
   const buildHref = (tk: string): string => {
     const base = routePrefix ? `${routePrefix}/${tk.toLowerCase()}` : `/${tk.toLowerCase()}`;
-    return anonLinks && !["GOOGL", "GOOG"].includes(tk.toUpperCase()) ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
+    // Yann 30 sept 2026 : lien direct pour la liste « 100 % visibles en gratuit » (base).
+    return anonLinks && !visiblesGratuit.has(tk.toUpperCase()) ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
   };
   // Yann 4 juin 2026 : ticker affiché sur les cards = displayTicker (strip
   // suffixe place boursière .PA/.SW/.L/etc sauf si conflit avec un short

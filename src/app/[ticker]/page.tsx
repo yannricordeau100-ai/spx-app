@@ -26,12 +26,13 @@ import {
   caviardeRachatsPourGratuit,
 } from "@/lib/floutage-caviardage";
 import { chargeZonesFloutage } from "@/lib/desk/floutage-zones";
+import { chargeVisiblesGratuitSet } from "@/lib/desk/visibles-gratuit";
 import { zonesPourPalier, type PalierFloutage } from "@/lib/floutage";
 import { gateAttForTier } from "@/lib/att";
 import { gateTheseForTier } from "@/lib/these";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { tierDepuisAbonnement, tierPourFiche } from "@/lib/freemium/tier-serveur";
+import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
 
 /** Visibilité V1.9.5 : la liste clean-all fait foi (mêmes variantes de
  *  séparateur que le loader V1.9.5 : BRK.B / BRK-B). */
@@ -276,7 +277,7 @@ export default async function TickerPage({
   // MEME TEMPS au lieu de s enchainer (fiche, transcript, resume, blocs
   // desactives, palier, zones de floutage). Mesure : 5 allers-retours
   // sequentiels vers Supabase et le disque devenaient 1 seul temps d attente.
-  const [r, transcript, transcriptSummary, disabledBlocks, tierResolu, zonesChargees, transcriptSuivi, rachats] = await Promise.all([
+  const [r, transcript, transcriptSummary, disabledBlocks, tierResolu, zonesChargees, transcriptSuivi, rachats, visiblesGratuit] = await Promise.all([
     loadV17Company(ticker, { mode: "v18", locale }),
     loadTranscript(ticker),
     loadTranscriptSummary(ticker),
@@ -285,6 +286,7 @@ export default async function TickerPage({
     chargeZonesFloutage(ticker.toUpperCase()),
     loadTranscriptSuivi(ticker),
     loadRachats(ticker),
+    chargeVisiblesGratuitSet(),
   ]);
   // Yann 24 sept 2026 : dates des conferences disponibles (la plus recente d abord).
   const transcriptDates: string[] = ((transcript as { calls?: { date?: string }[] } | null)?.calls ?? [])
@@ -299,7 +301,11 @@ export default async function TickerPage({
     sp.audit_token === process.env.VISUAL_AUDIT_TOKEN;
   // Yann 16 sept 2026 : la fiche Google est la vitrine complete des anonymes ;
   // un clic n importe ou (hors connexion / inscription) mene a l inscription.
-  const vitrineAnon = !auditBypass && tierResolu === "anon" && ["GOOGL", "GOOG"].includes(ticker.toUpperCase());
+  // Yann 30 sept 2026 : meme regle pour toute la liste « 100 % visibles en gratuit » (base).
+  const estVisibleGratuit =
+    visiblesGratuit.has(ticker.toUpperCase()) ||
+    (r.kind === "ready" && visiblesGratuit.has(r.company.ticker.toUpperCase()));
+  const vitrineAnon = !auditBypass && tierResolu === "anon" && estVisibleGratuit;
   if (r.kind !== "ready") {
     // Sans dataset legacy ET sans rendu du chargeur, il n y a rien a montrer.
     if (!legacyCompany) notFound();
@@ -327,7 +333,10 @@ export default async function TickerPage({
   // l adresse publique /<ticker> lisaient donc une page anonyme (textes
   // caviardes), et l alerte de securite signalait un jeton « invalide » alors
   // qu il etait simplement ignore ici.
-  const freemiumTier = auditBypass || vitrineAnon ? "max" : tierPourFiche(tierResolu, ticker);
+  // Yann 30 sept 2026 : societe de la liste servie a un palier gratuit ou
+  // anonyme : palier Max et aucune zone floutee, quel que soit le reglage.
+  const vitrineGratuite = (tierResolu === "free" || tierResolu === "anon") && estVisibleGratuit;
+  const freemiumTier = auditBypass || vitrineAnon || vitrineGratuite ? "max" : tierResolu;
 
   // ATT (anti-thèse) : même gating serveur que /sandbox/v1-9-5/<ticker>.
   // Le contenu complet n'est sérialisé que pour le plan Max.
@@ -349,7 +358,7 @@ export default async function TickerPage({
   const zonesDuTicker = (
     r.company.ticker.toUpperCase() === ticker.toUpperCase() ? zonesChargees : await chargeZonesFloutage(r.company.ticker)
   ).zones;
-  const zonesEffectives = zonesPourPalier(zonesDuTicker, freemiumTier as PalierFloutage);
+  const zonesEffectives = vitrineGratuite ? [] : zonesPourPalier(zonesDuTicker, freemiumTier as PalierFloutage);
   const estGratuit = zonesEffectives.length > 0;
   const servedCompany = estGratuit
     ? caviardeCompanyPourGratuit(gatedCompany, zonesEffectives)

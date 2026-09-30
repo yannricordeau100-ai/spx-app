@@ -23,6 +23,7 @@ import { gateTheseForTier } from "@/lib/these";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { tierDepuisAbonnement, tierPourFiche } from "@/lib/freemium/tier-serveur";
+import { chargeVisiblesGratuitSet } from "@/lib/desk/visibles-gratuit";
 
 // V1.9.5 = filtre strict is_clean_all (a-f + g-m post audit qualité).
 // Si la société n'est pas clean_all → redirect vers /sandbox/v1-9-5 (overview).
@@ -360,7 +361,13 @@ export default async function SandboxV195TickerPage({
   // complet (résumé, sections, glossaire) n'est envoyé au client QUE pour
   // le plan Max (l'admin/audit connecté est "max" par défaut). Les autres
   // tiers reçoivent uniquement titre + intensité + dates + hook + locked.
-  freemiumTier = tierPourFiche(freemiumTier, ticker);
+  // Yann 30 sept 2026 : liste « 100 % visibles en gratuit » lue en base,
+  // valable pour les paliers gratuit ET anonyme (clic anonyme = inscription).
+  const visiblesGratuit = await chargeVisiblesGratuitSet();
+  const tierAvantVitrine = freemiumTier;
+  freemiumTier = tierPourFiche(freemiumTier, ticker, visiblesGratuit);
+  const vitrineGratuite = freemiumTier !== tierAvantVitrine;
+  const vitrineAnon = !auditBypass && vitrineGratuite && tierAvantVitrine === "anon";
   const gatedCompany = {
     ...r.company,
     ...(r.company.att ? { att: gateAttForTier(r.company.att, freemiumTier) } : {}),
@@ -377,7 +384,7 @@ export default async function SandboxV195TickerPage({
   // concerne, et une zone sans liste garde l ancien comportement (anonyme +
   // gratuit). On charge donc les zones pour TOUS les paliers, puis on filtre.
   const zonesDuTicker = (await chargeZonesFloutage(r.company.ticker)).zones;
-  const zonesEffectives = zonesPourPalier(zonesDuTicker, freemiumTier as PalierFloutage);
+  const zonesEffectives = vitrineGratuite ? [] : zonesPourPalier(zonesDuTicker, freemiumTier as PalierFloutage);
   const estGratuit = zonesEffectives.length > 0;
   const servedCompany = estGratuit
     ? caviardeCompanyPourGratuit(gatedCompany, zonesEffectives)
@@ -391,6 +398,7 @@ export default async function SandboxV195TickerPage({
       <CompanyView
         company={stripMeta(servedCompany)}
         authSlot={<AuthNav scope="company" />}
+        captureInscription={vitrineAnon}
         transcript={estGratuit ? caviardeTranscriptDocPourGratuit(transcript, zonesEffectives) : transcript}
         transcriptSummary={servedTranscriptSummary}
         v18Mode

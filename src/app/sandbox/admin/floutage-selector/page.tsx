@@ -1,5 +1,7 @@
 import { requireDeskOwner } from "@/lib/desk/auth";
 import { FloutageSelectorClient } from "./client";
+import CLEAN_ALL from "@/data/v1-9-5-clean-all-tickers.json";
+import COMPARE_INDEX from "@/data/compare-index.json";
 
 export const dynamic = "force-dynamic";
 
@@ -37,5 +39,11 @@ export default async function FloutageSelectorPage(props: {
   if (!isAuditBypass) {
     await requireDeskOwner();
   }
-  return <FloutageSelectorClient ticker="GOOGL" auditToken={auditToken} />;
+  // Yann 30 sept 2026 : univers pour la recherche de l encart « 100 % visibles en gratuit ».
+  const noms = (COMPARE_INDEX as unknown as { names?: Record<string, string> }).names ?? {};
+  const univers = ((CLEAN_ALL as { tickers?: string[] }).tickers ?? []).map((t) => ({
+    ticker: t.toUpperCase(),
+    nom: noms[t] ?? noms[t.toUpperCase()] ?? t,
+  }));
+  return <FloutageSelectorClient ticker="GOOGL" auditToken={auditToken} univers={univers} />;
 }

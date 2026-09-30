@@ -62,7 +62,7 @@ export function ComparePanel({
       .then(async (r) => {
         const j = await r.json();
         if (!vivant) return;
-        if (!r.ok) setErreur(r.status === 403 ? "La comparaison entre sociétés est réservée aux abonnés." : j.message ?? "Comparaison impossible pour ce KPI.");
+        if (!r.ok) setErreur(r.status === 403 ? j.message ?? "La comparaison entre sociétés est réservée aux abonnés." : j.message ?? "Comparaison impossible pour ce KPI.");
         else setPaire(j as Paire);
       })
       .catch(() => vivant && setErreur("Comparaison indisponible pour le moment."));

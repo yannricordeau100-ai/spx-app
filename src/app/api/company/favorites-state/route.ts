@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { palierAppelant, reserveAuxAbonnes } from "@/lib/desk/visibles-gratuit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -17,16 +18,19 @@ export const dynamic = "force-dynamic";
 export async function GET(req: Request) {
   const ticker = (new URL(req.url).searchParams.get("ticker") ?? "").toUpperCase();
   if (!ticker) return NextResponse.json({ company: false, kpis: [] });
+  // Yann 30 sept 2026 : reserve = palier gratuit ou anonyme et societe hors
+  // liste « 100 % visibles en gratuit » ; l etoile affiche alors l offre Premium.
+  const reserve = await reserveAuxAbonnes(ticker, await palierAppelant()).catch(() => false);
   try {
     const supabase = await createSupabaseServerClient();
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return NextResponse.json({ company: false, kpis: [] });
+    if (!user) return NextResponse.json({ company: false, kpis: [], reserve });
     const [c, k] = await Promise.all([
       supabase.from("favorite_companies").select("id").eq("user_id", user.id).eq("ticker", ticker).maybeSingle(),
       supabase.from("favorite_kpis").select("kpi_short").eq("user_id", user.id).eq("ticker", ticker),
     ]);
-    return NextResponse.json({ company: !!c.data, kpis: (k.data ?? []).map((r) => r.kpi_short) });
+    return NextResponse.json({ company: !!c.data, kpis: (k.data ?? []).map((r) => r.kpi_short), reserve });
   } catch {
-    return NextResponse.json({ company: false, kpis: [] });
+    return NextResponse.json({ company: false, kpis: [], reserve });
   }
 }

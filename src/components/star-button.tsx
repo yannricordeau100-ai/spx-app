@@ -7,13 +7,16 @@ import {
   toggleCompanyFavorite,
   toggleKpiFavorite,
 } from "@/app/favorites/actions";
+import { MESSAGE_OFFRE_PREMIUM } from "@/lib/freemium/visibles-gratuit-defaut";
 
 /**
  * Yann 17 sept 2026 : l etat initial des etoiles est lu UNE fois par fiche
  * (un JSON de quelques octets) et partage entre tous les boutons, au lieu
  * d une action serveur par bouton qui renvoyait la page entiere en RSC.
  */
-type EtatFavoris = { company: boolean; kpis: string[] };
+// Yann 30 sept 2026 : reserve = palier gratuit ou anonyme sur une societe
+// hors liste « 100 % visibles en gratuit » (ajout refuse, offre Premium).
+type EtatFavoris = { company: boolean; kpis: string[]; reserve?: boolean };
 const etatParTicker = new Map<string, Promise<EtatFavoris>>();
 function chargeEtat(ticker: string): Promise<EtatFavoris> {
   const cle = ticker.toUpperCase();
@@ -56,6 +59,13 @@ export function StarButton(props: Props) {
   const { ticker, mode, size = "sm", stopPropagation } = props;
   const [favorited, setFavorited] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [reserve, setReserve] = useState(false);
+  const [messagePremium, setMessagePremium] = useState(false);
+  useEffect(() => {
+    if (!messagePremium) return;
+    const t = window.setTimeout(() => setMessagePremium(false), 3500);
+    return () => window.clearTimeout(t);
+  }, [messagePremium]);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -66,6 +76,7 @@ export function StarButton(props: Props) {
       const fav = mode === "company" ? etat.company : etat.kpis.includes(props.kpiShort ?? "");
       if (!cancelled) {
         setFavorited(fav);
+        setReserve(!!etat.reserve);
         setLoaded(true);
       }
     })();
@@ -84,6 +95,10 @@ export function StarButton(props: Props) {
       e.stopPropagation();
     }
     const next = !favorited;
+    if (next && reserve) {
+      setMessagePremium(true);
+      return;
+    }
     setFavorited(next);
     startTransition(async () => {
       const res =
@@ -92,7 +107,10 @@ export function StarButton(props: Props) {
           : await toggleKpiFavorite(ticker, props.kpiShort, props.isSuper ?? false);
       if (!res.ok) {
         setFavorited(!next);
-        if (res.error === "Non connecté") {
+        if ("premium" in res && res.premium) {
+          setReserve(true);
+          setMessagePremium(true);
+        } else if (res.error === "Non connecté") {
           const back =
             typeof window !== "undefined" ? window.location.pathname : "/";
           router.push(`/?auth=signin&next=${encodeURIComponent(back)}`);
@@ -105,6 +123,7 @@ export function StarButton(props: Props) {
   };
 
   return (
+    <span className="relative inline-flex">
     <button
       type="button"
       onClick={onClick}
@@ -124,5 +143,14 @@ export function StarButton(props: Props) {
         strokeWidth={favorited ? 1.5 : 2}
       />
     </button>
+    {messagePremium && (
+      <span
+        role="status"
+        className="absolute right-0 top-full z-50 mt-1 whitespace-nowrap rounded-full border border-violet-400/50 bg-[#0a0a0e]/95 px-3 py-1.5 text-[12px] font-semibold text-violet-100 shadow-lg shadow-violet-500/10"
+      >
+        {MESSAGE_OFFRE_PREMIUM}
+      </span>
+    )}
+    </span>
   );
 }

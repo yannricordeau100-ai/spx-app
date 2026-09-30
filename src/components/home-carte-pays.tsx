@@ -21,6 +21,7 @@ import {
 import { CarteSteWow, type SteWow } from "@/components/home-wow-grid";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import ZONES_KPIS from "@/data/carte-pays-kpis.json";
+import { useVisiblesGratuit } from "@/lib/freemium/use-visibles-gratuit";
 
 export function HomeCartePays({
   locale,
@@ -42,6 +43,8 @@ export function HomeCartePays({
   // Yann 16 sept 2026 : la zone Monde est affichee par defaut (Google y figure).
   const [activeTab, setActiveTab] = useState<string>(() => (zones.world?.length ? "world" : zones[locale]?.length ? locale : "world"));
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
+  // Yann 30 sept 2026 : vitrine ouverte aux anonymes = liste « 100 % visibles en gratuit » (base).
+  const VITRINE_ANON = useVisiblesGratuit();
   const hoverTimer = useRef<number | null>(null);
 
   const labels = locale === "fr" ? TAB_LABELS_FR : TAB_LABELS_EN;
@@ -66,8 +69,6 @@ export function HomeCartePays({
 
   if (rows.length === 0) return null;
 
-  // Yann 16 sept 2026 : Google reste la vitrine ouverte aux anonymes (lien direct, KPI lisibles).
-  const VITRINE_ANON = new Set(["GOOGL", "GOOG"]);
   const buildCompanyHref = (ticker: string): string => {
     const base = routePrefix ? `${routePrefix}/${ticker.toLowerCase()}` : `/${ticker.toLowerCase()}`;
     return anonLinks && !VITRINE_ANON.has(ticker.toUpperCase()) ? `/?auth=signup&next=${encodeURIComponent(base)}` : base;
