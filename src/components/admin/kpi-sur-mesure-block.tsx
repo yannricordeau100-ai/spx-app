@@ -102,6 +102,27 @@ export function KpiSurMesureBlock({ donnees }: { donnees: DonneesDividendes }) {
   const barW = Math.min(46, slot * 0.27);
   const ecart = 6;
   const exceptionnel = lignes.some((l) => l.dont_exceptionnel);
+  // Boites des etiquettes de valeur au-dessus des barres.
+  const boites: { x0: number; x1: number; y0: number; y1: number }[] = [];
+  lignes.forEach((l, i) => {
+    const cx = PAD_LEFT + slot * i + slot / 2;
+    const xR = cx - ecart / 2 - barW;
+    const xD = cx + ecart / 2;
+    const ajoute = (xc: number, yb: number) => boites.push({ x0: xc - 26, x1: xc + 26, y0: yb - 15, y1: yb + 5 });
+    ajoute(xR + barW / 2, yR(l.rendement) - 8);
+    if (l.taux_distribution != null) ajoute(xD + barW / 2, yD(l.taux_distribution) - 8);
+  });
+  const segmentsGrille = (y: number): [number, number][] => {
+    const coupes = boites.filter((b) => y >= b.y0 && y <= b.y1).sort((a, b) => a.x0 - b.x0);
+    const out: [number, number][] = [];
+    let debut = PAD_LEFT;
+    for (const b of coupes) {
+      if (b.x0 > debut) out.push([debut, b.x0]);
+      debut = Math.max(debut, b.x1);
+    }
+    if (debut < PAD_LEFT + innerW) out.push([debut, PAD_LEFT + innerW]);
+    return out;
+  };
   const dateCours = liste.date_cours_max;
 
   const exporter = async () => {
@@ -180,7 +201,10 @@ export function KpiSurMesureBlock({ donnees }: { donnees: DonneesDividendes }) {
           {/* Grille et axes */}
           {ticksR.map((v, i) => (
             <g key={i}>
-              <line x1={PAD_LEFT} x2={PAD_LEFT + innerW} y1={yR(v)} y2={yR(v)} stroke="#1f1f1f" strokeDasharray="3 6" data-export-role="gridline" strokeOpacity={0.6} />
+              {/* Ligne de grille interrompue sous les etiquettes de valeur (jamais barrees). */}
+              {segmentsGrille(yR(v)).map(([a, b], k) => (
+                <line key={k} x1={a} x2={b} y1={yR(v)} y2={yR(v)} stroke="#1f1f1f" strokeDasharray="3 6" data-export-role="gridline" strokeOpacity={0.6} />
+              ))}
               <text x={PAD_LEFT - 10} y={yR(v) + 4} textAnchor="end" fontSize={12} fill="#a1a1aa">{pct(v, decR)}</text>
               <text x={PAD_LEFT + innerW + 10} y={yD(ticksD[i]) + 4} textAnchor="start" fontSize={12} fill="#a1a1aa">{pct(ticksD[i], decD)}</text>
             </g>
