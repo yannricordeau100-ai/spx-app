@@ -1,0 +1,2582 @@
+{
+ "ABBV": {
+  "controle": {
+   "ticker": "ABBV",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 0,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "ACA.PA": {
+  "controle": {
+   "ticker": "ACA.PA",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "ACGL": {
+  "controle": {
+   "ticker": "ACGL",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "ADI": {
+  "controle": {
+   "ticker": "ADI",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "ADM": {
+  "controle": {
+   "ticker": "ADM",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "ADSK": {
+  "controle": {
+   "ticker": "ADSK",
+   "verdicts": [
+    {
+     "i": 6,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "AIZ": {
+  "controle": {
+   "ticker": "AIZ",
+   "verdicts": [
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "AMAT": {
+  "controle": {
+   "ticker": "AMAT",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Chiffres T3 FY2026 tous conformes au 10-Q du 20/08/2026 : CA 9 115 M$ (+24,8 %), clients 20 %/14 % sur 9 mois, Chine 2 506 M$ (28 %, -2 %), mix 67/26/7, AGS 1 781 M$ (+21,7 %), impôt 369/2 907, créances 7 691 contre 5 185, stocks 6 564, OCF 9 mois 5 568, FCF T3 2 330, perte latente 270, gains S1 1 157, JSON valide. Reste des noms de documents dans des textes visibles de src/data/att/amat.json, y compris dans des preuves modifiées par la correction : preuve 'Deux clients...' et 'Un règlement de 253 M$' ('Verbatim 10-Q T2 FY2026', 'verbatim 10-K FY2025'), preuve du mix ('10-K FY2025 :', 'verbatim CEO'), preuve fiscalité ('10-K FY2025 :'), preuve CA Chine reste correcte. À corriger : remplacer '10-K FY2025' par 'rapport annuel fiscal 2025', '10-Q T2 FY2026' par 'rapport trimestriel du T2 fiscal 2026' et retirer 'Verbatim'."
+    },
+    {
+     "i": 5,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "AMAT",
+   "reparations": [
+    {
+     "i": 4,
+     "action": "corrige",
+     "fichier": "src/data/att/amat.json",
+     "detail": "Trois preuves corrigées (règlement 253 M$/assignations, mix et restructuration, fiscalité) : 'Verbatim 10-Q T2 FY2026' devient 'Rapport trimestriel du T2 fiscal 2026', '10-K FY2025' et 'verbatim 10-K FY2025' deviennent 'rapport annuel fiscal 2025', 'verbatim CEO' devient 'propos du CEO'. Les chiffres sont inchangés et le JSON reste valide. Le glossaire '10-Q*' et la liste _sources ne sont pas modifiés. Aucun commit."
+    }
+   ]
+  }
+ },
+ "AME": {
+  "controle": {
+   "ticker": "AME",
+   "verdicts": [
+    {
+     "i": 8,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Le name_en a bien été ajouté (JSON valide). En revanche, le signal reformulé de « Combined FARO + Kern purchase price » est faux. Le 10-K du 17/02/2026 et le 10-Q du 30/10/2025 indiquent un prix total de 1 023,7 M$ pour FARO seul, 113,0 M$ pour Kern et 1 136,7 M$ au total. Correction : value 1137 (history [1137]) et signal « Prix d'acquisition total FARO + Kern : 1 137 M$ (dont FARO 1 024 M$, Kern 113 M$) », ou alors renommer le KPI en prix FARO seul avec 1 024. Par ailleurs, le short de la ligne des ventes acquises contient toujours « Ferro (FARO) ». Le chiffre de 400 M$ est cohérent : environ 340 M$ pour FARO plus environ 50 M€ pour Kern."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "AME",
+   "reparations": [
+    {
+     "i": 8,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/ame.json",
+     "detail": "KPI « Combined FARO + Kern purchase price » : value et history passés de 1023 à 1137. Signal : « Prix d'acquisition total FARO + Kern : 1 137 M$ (dont FARO 1 024 M$, Kern 113 M$, 10-K 2025) ». Source : 10-K du 17/02/2026, ligne « Total purchase price » : 1 023,7 M$ + 113,0 M$ = 1 136,7 M$. Short de la ligne des ventes acquises : « Ferro (FARO) » remplacé par « FARO ». Même renommage reporté dans les références AME pour garder le lien : kpi-classification.json (1 entrée) et transcripts-kpi/ame.suivi.json (4 entrées). companies/ame.json aligné sur les mêmes value, signal et short. Valeur de 400 M$ inchangée. JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "AMGN": {
+  "controle": {
+   "ticker": "AMGN",
+   "verdicts": [
+    {
+     "i": 8,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "AMT": {
+  "controle": {
+   "ticker": "AMT",
+   "verdicts": [
+    {
+     "i": 6,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 11,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "AMZN": {
+  "controle": {
+   "ticker": "AMZN",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "ANET": {
+  "controle": {
+   "ticker": "ANET",
+   "verdicts": [
+    {
+     "i": 0,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "AOS": {
+  "controle": {
+   "ticker": "AOS",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Le point annuel 2025 = 54 M$ est juste (10-K 2025 et communique T4), le JSON est valide et le signal est propre. En revanche, les points trimestriels n'auraient pas du etre retires : ils sont sources, contrairement a ce que dit le correcteur. 10-Q T1 2025 : 12 M$. 10-Q T2 : 16 M$ (28 M$ au S1). 10-Q T3 : 17 M$ (45 M$ sur 9 mois). Communique T4 2025 : 9 M$. Total 54 M$. Le seul defaut de depart etait le melange du total annuel 54 avec les trimestres dans une serie trimestrielle. Correction attendue : remettre history [12,16,17,9], value 9, period_type quarter, last_data_date 2025-12-31, et adapter le signal (par exemple 9 M$ au T4 2025, 54 M$ sur l'annee). Autre option : garder le point annuel 54 mais noter que les trimestres existaient. Detail mineur : _ldd_from indique encore une date estimee (_source_month approx) alors que _ldd_estimated vaut false."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "AOS",
+   "reparations": [
+    {
+     "i": 1,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/aos.json",
+     "detail": "Série trimestrielle remise en place : history [12,16,17,9], value 9, period_type quarter, last_data_date 2025-12-31. Sources : 10-Q T1 2025 (12 M$), 10-Q T2 2025 (16 M$, 28 M$ au S1), 10-Q T3 2025 (17 M$, 45 M$ sur 9 mois), communiqué T4 2025 (9 M$), total 54 M$ confirmé par le 10-K 2025. Signal : 9 M$ au T4 2025 et 54 M$ sur l'année. _ldd_from mis à jour vers les documents réels, _ldd_estimated false."
+    }
+   ]
+  }
+ },
+ "APA": {
+  "controle": {
+   "ticker": "APA",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Retrait de 'Total reported production' non justifie : la serie etait juste (T1 2026 = 442 352 BOE/j, -6 %, 10-Q du 7 mai 2026), elle n'etait simplement pas mise a jour. Il fallait ajouter le T2 2026 = 409 959 BOE/j (10-Q du 6 aout 2026, total BOE per day), yoy -12 % (vs 465 078), date 2026-06-30, et non supprimer. Le motif 'doublon de prod_total' est faux : aucun KPI prod_total n'existe dans src/data/v2-pipeline/apa.json (seulement dans these/apa.json et compare-index), la fiche n'a donc plus de production totale trimestrielle. Adjusted production 347 000 au 30/06/2026 est bien confirme (transcript T2), mais son yoy '-9%' est incoherent avec l'historique (394 000 quatre trimestres avant donne environ -12 %) : a recalculer."
+    },
+    {
+     "i": 6,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "APA",
+   "reparations": [
+    {
+     "i": 2,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/apa.json",
+     "detail": "Série 'Total reported production' remise à sa place d'origine (avant 'Adjusted production'), reprise telle qu'elle était dans 2cecbf56e8, puis mise à jour au T2 2026 : valeur 409 959 BOE/j ajoutée en fin d'historique, yoy -12 % (contre 465 078 au T2 2025), last_data_date 2026-06-30. Source : 10-Q du 6 août 2026 (data-lake/APA/10Q/APA_2026-08-06.htm.gz, ligne Total BOE per day '409,959 (12)% 465,078'). Le T1 2026 (442 352, -6 %) est confirmé par le 10-Q du 7 mai 2026. 'Adjusted production' : 347 000 gardé, yoy recalculé de -9 % à -12 % à partir de l'historique (394 000 quatre trimestres avant, -11,9 %) ; aucun document du lac ne donne directement le T2 2025 ajusté. Point à surveiller : l'historique de la production déclarée semble sauter un trimestre (T4 2024 ou T1 2025), laissé tel quel faute de valeur publiée directement."
+    }
+   ]
+  }
+ },
+ "APP": {
+  "controle": {
+   "ticker": "APP",
+   "verdicts": [
+    {
+     "i": 9,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Les valeurs, les périodes 2023-2025, last_data_date, les yoy des frais de transaction (+3016 %) et de la marge (+7.5 pp) et les signaux sont conformes au 10-K 2025 (JSON valide, pas de tiret long). Trois yoy restés dans le bloc sont faux au dixième près : Stock-Based Compensation donne -41.8 % (207 958 / 357 431), pas -42.0 % (le signal peut dire « recule de 42 % »). Restructuring Costs donne -65.8 % (5 908 / 17 259), pas -65.7 %. Long-Lived Assets US donne -31.6 % (49 711 / 72 627), pas -31.5 % : le signal doit aussi passer à 31,6 %."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "APP",
+   "reparations": [
+    {
+     "i": 9,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline-specific-kpis/app.json",
+     "detail": "10-K 2025 (APP_2026-02-19), rapprochement de l'EBITDA ajusté et répartition géographique des actifs : rémunération en actions 207 958 / 357 431, donc yoy -41.8 % ; coûts de restructuration 5 908 / 17 259, donc -65.8 % ; actifs aux États-Unis 49 711 / 72 627, donc -31.6 %, et le signal passe à 31,6 %. Les autres valeurs et périodes ne changent pas. Le JSON reste valide."
+    }
+   ]
+  }
+ },
+ "APTV": {
+  "controle": {
+   "ticker": "APTV",
+   "verdicts": [
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "ARE": {
+  "controle": {
+   "ticker": "ARE",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "ARES": {
+  "controle": {
+   "ticker": "ARES",
+   "verdicts": [
+    {
+     "i": 7,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Le fond est juste et vérifié dans les appels. Le 10-K déposé le 25/02/2026 couvre bien l'exercice 2025, et la mention Kodiak AI y figure. Les données propriétaires viennent de l'appel du T2 2026, les sept grands campus de data centers aussi. Le fonds mondial data centers, les 900 Mds $ et l'analyse du risque IA par un cabinet de conseil viennent de l'appel du T1 2026. Le JSON est valide et ne contient aucun tiret long. Défaut : les textes visibles réécrits par le correcteur citent encore un nom de document. Il s'agit du title « Mention IA (10-K exercice 2025) » et des description_fr, text, evidence_fr et _evidence_fr_de « Extrait du 10-K (exercice 2025) ». « Extrait du 10-K » apparaît aussi dans « Passage IA n°2 ». Correction : remplacer « 10-K » par « rapport annuel » (ex. « Mention IA (rapport annuel, exercice 2025) »)."
+    },
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "ARES",
+   "reparations": [
+    {
+     "i": 7,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/ares.json",
+     "detail": "Textes visibles des mentions IA (lignes 1471 à 1491 : title, description_fr, text et les deux listes d'extraits) : « 10-K » remplacé par « rapport annuel ». Exemples : « Mention IA (rapport annuel, exercice 2025) », « Extrait du rapport annuel (exercice 2025) », « Extrait du rapport annuel, » dans Passage IA n°2. Le fond est inchangé (10-K déposé le 25/02/2026, exercice 2025). Les source_url et les champs internes ne sont pas touchés. 9 lignes modifiées, JSON valide, aucun tiret long, aucun commit."
+    }
+   ]
+  }
+ },
+ "ASRNL.AS": {
+  "controle": {
+   "ticker": "ASRNL.AS",
+   "verdicts": [
+    {
+     "i": 8,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Correction incomplete dans src/data/these/asrnl.as.json : le titre du premier argument de qualite_interne est reste \"Huit exercices de hausse du dividende, sans une seule exception\" alors que l'argument, le hook, le resume, la perspective, le texte et les notes disent desormais dix. Remplacer par \"Dix exercices de hausse du dividende, sans une seule exception\". Le reste est conforme : 1,27 EUR en 2016 (en hausse de 12,4 % contre 1,13 EUR pro forma 2015) dans le communique FY2016, 3,41 EUR en 2025 dans le communique FY2025, soit dix hausses ; signal DIV +169 % depuis 2016 juste (3,41/1,27) ; JSON valide ; aucun tiret long."
+    }
+   ]
+  },
+  "reparation": {
+   "reparations": [
+    {
+     "i": 8,
+     "action": "corrige",
+     "fichier": "src/data/these/asrnl.as.json",
+     "detail": "Titre du premier argument de qualite_interne remplace par \"Dix exercices de hausse du dividende, sans une seule exception\". Cohérent avec les communiqués FY2016 (1,27 EUR) et FY2025 (3,41 EUR), soit dix hausses. JSON valide."
+    }
+   ],
+   "ticker": "ASRNL.AS"
+  }
+ },
+ "ATO": {
+  "controle": {
+   "ticker": "ATO",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "AVGO": {
+  "controle": {
+   "ticker": "AVGO",
+   "verdicts": [
+    {
+     "i": 6,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "AWK": {
+  "controle": {
+   "ticker": "AWK",
+   "verdicts": [
+    {
+     "i": 10,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "AXP": {
+  "controle": {
+   "ticker": "AXP",
+   "verdicts": [
+    {
+     "i": 6,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "BE": {
+  "controle": {
+   "ticker": "BE",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "BEI.DE": {
+  "controle": {
+   "ticker": "BEI.DE",
+   "verdicts": [
+    {
+     "i": 7,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "BEN": {
+  "controle": {
+   "ticker": "BEN",
+   "verdicts": [
+    {
+     "i": 9,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Les 7 résumés de risques (enrich, servis car _risks_reextracted_at est présent) sont conformes : amende civile de 100 M$ de Western Asset (accord SEC du 5 juin 2026), complément de prix Putnam jusqu'à 375 M$, Apera et Lexington. Le JSON est valide et aucun tiret long n'apparaît. Le défaut porte sur le positionnement IA servi, celui de v2-pipeline/ben.json, prioritaire sur l'enrich qui n'est fusionné que si la base est vide. Il a été réécrit d'après la conférence du T2 FY2026 (28 avril 2026). Or la conférence du T3 FY2026 (31 juillet 2026) est disponible dans src/data/transcripts/ben.json. Le texte servi a donc un trimestre de retard, et le chiffre « +10 % de clients vus » est dépassé : au T3, la direction annonce 25 % de clients contactés en plus, des ventes en hausse d'un peu plus de 11 % et plus de 1 000 agents. Une version T3 existe déjà dans v2-pipeline-enrich/ben.json (ai_positioning, maj 17 sept), mais elle n'est pas servie. Autre point : la phrase « la direction reconnaît / juge l'effet encore peu significatif sur les résultats » (summary et 4e preuve) s'appuie sur une phrase ambiguë du T2, où la PDG parle des entreprises en général. Correction : réécrire ai_positioning (summary, evidence, evidence_fr, source) de v2-pipeline/ben.json d'après la conférence T3 FY2026, par exemple en reprenant la version enrich, et retirer l'affirmation « pas encore significative »."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "BEN",
+   "reparations": [
+    {
+     "i": 9,
+     "action": "corrige",
+     "fichier": "/Users/yann/spx-app/src/data/v2-pipeline/ben.json",
+     "detail": "ai_positioning réécrit (summary, evidence, evidence_fr, source) d'après la conférence du T3 FY2026 du 31 juillet 2026 (src/data/transcripts/ben.json). Chiffres vérifiés dans le transcript : 25 % de clients contactés en plus et ventes en hausse d'un peu plus de 11 % (« a 25% increase in the number of clients »), plus de 1 000 agents, trois stratégies financées, informatique à 165 M$ incluant l'IA, coût des agents. L'affirmation « pas encore significative » est retirée. La preuve tirée du rapport annuel FY2025 sur le risque technologique est conservée. La preuve « communiqué T3 » de la version enrich n'a pas été reprise faute de vérification. JSON valide, aucun tiret long, aucun commit."
+    }
+   ]
+  }
+ },
+ "BG": {
+  "controle": {
+   "ticker": "BG",
+   "verdicts": [
+    {
+     "i": 11,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Le chiffre d'affaires est juste (10-K : 59 152 / 67 232 / 59 540 / 53 108 M$ pour 2021 à 2024, donc 53 à 67 Mds $), et le JSON est valide. En revanche, la borne haute des volumes, 84 Mt, ne repose sur aucune source : les 10-K du data-lake ne donnent les Volumes Agribusiness que pour 2022, 2023 et 2024 (77 492, 76 019 et 80 628 kt). Le volume 2021 n'apparaît dans aucun document, et l'indicateur de la fiche (history 2022 à 2024) n'affiche ni 2021 ni 84. Correction proposée pour le resume : « entre 76 et 81 millions de tonnes de 2022 à 2024, alors que le chiffre d'affaires variait de 53 à 67 Mds $ sur la même période ». L'autre solution est de citer un document officiel donnant le volume Agribusiness 2021."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "BG",
+   "reparations": [
+    {
+     "i": 11,
+     "action": "corrige",
+     "fichier": "src/data/these/bg.json",
+     "detail": "Dans le resume, 76 à 84 Mt de 2021 à 2024 devient 76 à 81 Mt de 2022 à 2024. Valeurs lues dans les 10-K (FY2023 et FY2024) : Volumes Agribusiness 77 492 / 76 019 / 80 628 kt en 2022, 2023 et 2024. Le volume 2021 ne figure dans aucun 10-K du data-lake. Le chiffre d'affaires de 53 à 67 Mds $ reste juste sur 2022 à 2024 (67 232 puis 53 108 M$). L'etat de 2cecbf56e8 (84 Mt sur cinq exercices, 70 Mds $) etait faux lui aussi, donc pas de restauration. JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "BKNG": {
+  "controle": {
+   "ticker": "BKNG",
+   "verdicts": [
+    {
+     "i": 10,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "BNP.PA": {
+  "controle": {
+   "ticker": "BNP.PA",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "BNY": {
+  "controle": {
+   "ticker": "BNY",
+   "verdicts": [
+    {
+     "i": 6,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "BSX": {
+  "controle": {
+   "ticker": "BSX",
+   "verdicts": [
+    {
+     "i": 0,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "BX": {
+  "controle": {
+   "ticker": "BX",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 6,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "CAG": {
+  "controle": {
+   "ticker": "CAG",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "CB": {
+  "controle": {
+   "ticker": "CB",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 6,
+     "type": "signal",
+     "ok": false,
+     "defaut": "La valeur 11 104 M$, l'historique [10165, 10535, 11104] et le yoy de +5.4 % sont conformes au tableau des primes directes, acceptées et cédées du 10-K 2025. Le signal est inexact sur deux points. 1) Les primes cédées ne représentent pas « autour d'un cinquième » des primes brutes : 11 104 / (60 799 + 5 147) = 16,8 %, soit environ un sixième. 2) Elles ne progressent pas « au même rythme » que les primes émises : +5,4 % pour les cessions contre +6,4 % pour les primes brutes et +6,6 % pour les primes nettes. Signal à réécrire, par exemple : « Les primes cédées aux réassureurs progressent de 5,4 %, un peu moins vite que les primes émises, et représentent environ 17 % des primes brutes. »"
+    },
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "CB",
+   "reparations": [
+    {
+     "i": 6,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline-specific-kpis/cb.json",
+     "detail": "Seul le signal du KPI CPW a été réécrit. Les chiffres viennent du tableau des primes directes, acceptées et cédées du 10-K 2025 (CB_2026-02-27). En 2025 : 60 799 M$ de primes directes, 5 147 M$ de primes acceptées et 11 104 M$ de primes cédées. En 2024 : 56 867, 5 136 et 10 535 M$. Les primes brutes progressent de 6,4 %, les primes cédées de 5,4 %, et les cessions représentent 16,8 % des primes brutes. Nouveau signal : « Les primes cédées aux réassureurs progressent de 5,4 %, un peu moins vite que les primes brutes émises (+6,4 %), et en représentent environ 17 %. » La valeur, l'historique et le yoy sont inchangés. Le JSON est valide et aucun commit n'a été fait."
+    }
+   ]
+  }
+ },
+ "CBRE": {
+  "controle": {
+   "ticker": "CBRE",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "CCEP": {
+  "controle": {
+   "ticker": "CCEP",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "CCL": {
+  "controle": {
+   "ticker": "CCL",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "CDW": {
+  "controle": {
+   "ticker": "CDW",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Average Daily Sales (102,7 M$ T2 2026, +10,0 % contre 93,4, periodes Q1-2024 a Q2-2026, 2026-06-30) et Net Margin (4,75/4,69/5,17/5,13/4,76 %, -0,4 pt, 2025-12-31) sont conformes aux 10-Q et 10-K, JSON valide, pas de tiret long ajoute. Customer Accounts et Vendor Partners (series plates 250000 et 1000 sur 5 ans) : retrait justifie. Defaut : Global coworkers retire a tort, la valeur 14 800 (dont 11 200 aux Etats-Unis) est exacte selon le 10-K de l exercice 2025 ; seul le datage etait faux (period_type quarter, last_data_date estimee 2026-04-10). A retablir dans src/data/v2-pipeline/cdw.json avec period_type year, last_data_date 2025-12-31, sans _ldd_estimated. Par ailleurs le meme commit retire aussi 'Private AI factory deal (financial services client)' sans que ce retrait soit declare dans le cas."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "CDW",
+   "reparations": [
+    {
+     "i": 4,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/cdw.json",
+     "detail": "KPI Global coworkers rétabli à partir de 2cecbf56e8, à sa place d'origine après Term Loan borrowing capacity increase. La valeur 14 800 est confirmée par le 10-K déposé le 2026-02-20 (exercice 2025) : « approximately 14,800 coworkers across the globe, with 11,200 coworkers in the US ». Datage corrigé : period_type year, last_data_date 2025-12-31. _ldd_estimated et _ldd_from sont retirés, _source_file vaut 10K/CDW_2026-02-20.htm.gz. Le retrait de Private AI factory deal est maintenu : l'état antérieur était déjà faux (valeur 10 tirée de « près de 8 chiffres », montant non publié). Ce retrait est documenté par un autre point dans docs/cahier/_lots/verif-30sept (series-retirees.json, corrections-faites.json), et aucune source du lac ne donne le montant. JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "CEG": {
+  "controle": {
+   "ticker": "CEG",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": false,
+     "defaut": "La correction s'appuie sur une source perimee. Le KPI Electricity served to customers annually (275 M MWh) est un chiffre post-Calpine de juin 2026. Or les 10-Q du 2026-05-11 et du 2026-08-06, posterieurs a Calpine, indiquent « 2.5 million customer accounts nationwide, including 80% of the Fortune 100 ». La formule « trois-quarts » vient du 10-K de fevrier 2026, avant Calpine. Correction : remettre « environ 80 % des societes du Fortune 100 » dans le signal (et non « plus de 80 % »). Le retrait de Retail customer accounts served n'est pas justifie : la valeur de 2,5 M de comptes et les 80 % du Fortune 100 sont confirmes par les deux 10-Q 2026, et aucun autre KPI de la fiche ne compte les comptes clients, donc ce n'etait pas un doublon. Il faut restaurer cette serie."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "CEG",
+   "reparations": [
+    {
+     "i": 7,
+     "action": "restaure",
+     "fichier": "src/data/v2-pipeline/ceg.json",
+     "detail": "Série Retail customer accounts served restaurée depuis 2cecbf56e8 (2,5 M comptes) à sa place d'origine après Equivalent Forced Outage Factor, signal précisé : environ 80 % des sociétés du Fortune 100. Signal de Electricity served to customers annually corrigé en « environ 80 % des sociétés du Fortune 100 ». Source : 10-Q du 2026-05-11 et du 2026-08-06, « approximately 2.5 million customer accounts nationwide, including 80% of the Fortune 100 »."
+    }
+   ]
+  }
+ },
+ "CHTR": {
+  "controle": {
+   "ticker": "CHTR",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "CME": {
+  "controle": {
+   "ticker": "CME",
+   "verdicts": [
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 8,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "CMG": {
+  "controle": {
+   "ticker": "CMG",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "COF": {
+  "controle": {
+   "ticker": "COF",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "COIN": {
+  "controle": {
+   "ticker": "COIN",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Retraits justifiés : les 7 séries retirées ont des doublons datés dans kpis-haut (consumer_volume, institutional_volume, mtu, trading_volume, tx_rev_*, sub_services_rev) ou dans la base (mtu_q1fy26). Les deux JSON sont valides. Average USDC Held : le 17,8 Mds$ du T4-2025 est confirmé (+18 % T/T dans la lettre T4-2025) et le T3 à 15 est cohérent (17,8/1,18 = 15,1). Mais la série s'arrête au T4-2025 alors que le lac contient le point du T1-2026 : 19 Mds$, nouveau plus haut historique (support de présentation T1-2026 du 7 mai 2026). Le signal affirme donc à tort un plus haut historique au T4-2025. Correction : ajouter 19 (history [15, 17.8, 19], history_periods + 'Q1 FY2026'), passer last_data_date à 2026-03-31 et réécrire le signal (plus haut historique au T1-2026)."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "COIN",
+   "reparations": [
+    {
+     "i": 2,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/coin.json",
+     "detail": "Average USDC Held in Coinbase Products : ajout du T1-2026 à 19 Mds$ (support de présentation T1-2026 du 7 mai 2026, data-lake/COIN/ER/COIN_2026-05-07_q126earningsdeck.htm.gz : « $19B Avg USDC Held in Coinbase Products in Q1 »). value 19, history [15, 17.8, 19], history_periods + Q1 FY2026, last_data_date 2026-03-31, signal réécrit (nouveau plus haut historique à 19 Mds$ au T1-2026), _ldd_source mis à jour. Retraits des 7 doublons conservés (justifiés). JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "COP": {
+  "controle": {
+   "ticker": "COP",
+   "verdicts": [
+    {
+     "i": 0,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "COR": {
+  "controle": {
+   "ticker": "COR",
+   "verdicts": [
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "CPAY": {
+  "controle": {
+   "ticker": "CPAY",
+   "verdicts": [
+    {
+     "i": 8,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "CPB": {
+  "controle": {
+   "ticker": "CPB",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": false,
+     "defaut": "La correction dans src/data/v2-pipeline/cpb.json est juste : transcript T2 FY2026, « Rao's is now our fourth billion-dollar brand », valeur 4, JSON valide, pas de tiret long. Mais elle n'est pas servie. Le site lit src/data/v2-pipeline/_merged.json (src/lib/v2-data.ts), qui n'est pas régénéré par next build. L'entrée CPB y contient encore short 'Brands exceeding $4 billion' et l'ancien signal « plus de 4 Md$ ». src/data/companies/cpb.json ligne 235 aussi. Correctif : reporter short, name_fr et signal dans _merged.json (clé CPB) et dans companies/cpb.json."
+    },
+    {
+     "i": 10,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Le retrait est justifié : doublon, et la valeur 145 était fausse (le transcript donne 146 M$ en numéraire). Le signal à 286 M$ est conforme au transcript T4 FY2026 : 286 M$ pour 49 %, 146 M$ payés, 140 M$ dus en mai 2027. La référence dans these/cpb.json est bien retirée et le JSON est valide. Mais la page servie lit src/data/v2-pipeline/_merged.json, qui n'est pas régénéré au build. L'entrée CPB y contient encore 'La Regina acquisition first payment' et l'ancien signal La Regina. src/data/companies/cpb.json lignes 279-280 aussi, et src/data/kpi-classification.json garde la référence. Correctif : propager le retrait et le nouveau signal dans _merged.json (clé CPB) et dans companies/cpb.json, puis nettoyer kpi-classification.json."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "CPB",
+   "reparations": [
+    {
+     "i": 1,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/_merged.json ; src/data/companies/cpb.json ; src/data/kpi-classification.json",
+     "detail": "Correction du pipeline reportee (transcript T2 FY2026 : Rao's is now our fourth billion-dollar brand) : short Brands exceeding $1 billion, name_fr Marques depassant 1 milliard de dollars, signal plus de 1 Md$ dans _merged.json (cle CPB) et companies/cpb.json (version sans accents comme le reste du fichier). Libelle renomme aussi dans kpi-classification.json (by_ticker.CPB.specific). JSON valides, mise en forme d'origine conservee."
+    },
+    {
+     "i": 10,
+     "action": "retire",
+     "fichier": "src/data/v2-pipeline/_merged.json ; src/data/companies/cpb.json ; src/data/kpi-classification.json",
+     "detail": "KPI La Regina acquisition first payment (145 M$, faux : 146 M$ selon le transcript) retire de _merged.json (cle CPB), companies/cpb.json et kpi-classification.json. Signal du KPI Acquisition of 49% equity in La Regina remplace par celui du pipeline (transcript T4 FY2026 : 286 M$ pour 49 %, 146 M$ payes en numeraire, 140 M$ dus en mai 2027). Reste non touche (hors perimetre) : src/data/transcripts-kpi/cpb.suivi.json garde kpi_fiche La Regina acquisition first payment (3 occurrences)."
+    }
+   ]
+  }
+ },
+ "CRH": {
+  "controle": {
+   "ticker": "CRH",
+   "verdicts": [
+    {
+     "i": 6,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Valeurs FY2023-FY2025 justes (AMS 19,8/23,2/23,5 ; International 13,4/14,6/16,6), yoy en pp, signaux FR, JSON valide. Mais le retrait de 2022 n'est pas justifie : le 10-K FY2024 (CRH_2025-02-26) donne FY2022 dans le meme perimetre a trois segments, AMS EBITDA ajuste 2 638 M$ / CA 14 324 M$ = 18,4 % (marge publiee 18,4 %, valeur de l'ancienne serie, donc supprimee a tort) et International 1 531 / 12 211 = 12,5 % (publiee 12,5 %). A corriger : remettre FY2022 en tete des deux series (AMS [18.4,19.8,23.2,23.5], International [12.5,13.4,14.6,16.6]), history_periods FY2022-FY2025, et corriger _src_note qui affirme a tort que 2021-2022 sont hors perimetre (seul 2021 l'est)."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "CRH",
+   "reparations": [
+    {
+     "i": 6,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline-specific-kpis/crh.json",
+     "detail": "FY2022 remis en tete des deux series d'apres le 10-K FY2024 (CRH_2025-02-26), dont le perimetre est a trois segments : AMS, EBITDA ajuste de 2 638 M$ pour 14 324 M$ de CA, marge publiee 18,4 % ; International, 1 531 M$ pour 12 211 M$, marge publiee 12,5 %. Series obtenues : AMS [18.4,19.8,23.2,23.5] et International [12.5,13.4,14.6,16.6], history_periods FY2022 a FY2025. _src_note corrige : seule 2021 reste hors perimetre. Valeur actuelle, yoy et signaux inchanges. JSON valide, diff limite a ces deux series."
+    }
+   ]
+  }
+ },
+ "CRWD": {
+  "controle": {
+   "ticker": "CRWD",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Points justes : les 3 JSON sont valides ; la marge brute des abonnements 77/76/76/78/78/78 (FY2021 à FY2026) est conforme aux tableaux des 10-K ; les retraits du 5+ modules de l'enrich [44..67] (47 % en janv. 2021 et 57 % en janv. 2022 selon les 10-K), du DBNR de l'enrich [125..119] (10-K : 119 % en janv. 2024, 112 % en janv. 2025) et de Customer_Count 29000 sont justifiés. Défauts : (1) Falcon platform cloud modules : la valeur finale 33 est datée du 31/01/2026, alors que le 10-K 2026 indique 32 modules au 31 janvier 2026 (33 étant le chiffre de la date de dépôt). Corriger : value 32, history [22,23,27,29,32], yoy +10 %, et signal '32 modules au 31 janvier 2026'. Autre option : garder 33 avec last_data_date 2026-03-05, mais il faut alors dater toute la série aux dates de dépôt. (2) Base « Module adoption rate, 5 or more modules » [66,67] retiré à tort : 67 % est confirmé au 31/01/2025 (« 67%, 48%, 32%, and 21% for five or more... »). Il ne reste plus aucune série 5+, alors que les séries 6+, 7+ et 8+ sont conservées. Restaurer cette série en la datant du 2025-01-31 au lieu de 2026-05-11. (3) Le doublon DBNR conservé, Dollar_Based_Net_Retention dans specific-kpis [127,127], est faux : le 10-K 2026 donne 115 % au 31/01/2026 et 112 % au 31/01/2025. Corriger en [112,115] avec yoy +3 points, ou le retirer. (4) Mineur : l'Annual FCF retiré [293..1240] correspondait à la définition de la société (flux opérationnel moins immobilisations corporelles moins logiciel capitalisé : 1612,3-302,1-68,8 = 1241,5). Le Free Cash Flow conservé dans l'enrich exclut le logiciel capitalisé (1310) et a value null."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "CRWD",
+   "reparations": [
+    {
+     "i": 1,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/crwd.json",
+     "detail": "(1) Falcon platform cloud modules : value 32, history [22,23,27,29,32], yoy +10%, signal date au 31 janvier 2026. Source 10-K du 5 mars 2026 : 'delivered 32 cloud modules as of January 31, 2026' (33 = date de depot)."
+    },
+    {
+     "i": 1,
+     "action": "restaure",
+     "fichier": "src/data/v2-pipeline/crwd.json",
+     "detail": "(2) Serie 'Module adoption rate, 5 or more modules' [66,67] restauree depuis 2cecbf56e8, placee avant la serie 6+, last_data_date 2025-01-31 (_ldd_estimated false). Confirmee par le communique T4 FY2025 : 67 % au 31 janvier 2025, 66 % au 31 octobre 2024."
+    },
+    {
+     "i": 1,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline-specific-kpis/crwd.json",
+     "detail": "(3) Dollar_Based_Net_Retention : 127/[127,127] remplace par value 115, history [112,115] (FY2025, FY2026), yoy +3 pts, last_data_date 2026-01-31, explication reecrite. Sources : 10-K 2025 (112 % au 31 janvier 2025) et 10-K 2026 (115 % au 31 janvier 2026)."
+    },
+    {
+     "i": 1,
+     "action": "restaure",
+     "fichier": "src/data/v2-pipeline/crwd.json",
+     "detail": "(4) Serie 'Annual Free Cash Flow' [293,442,677,938,1070,1240] restauree depuis 2cecbf56e8 (avant Gross Dollar Retention Rate). Verifiee : communiques 441,8 / 676,8 / 938,2 / 1 070 / 1 240 M$ ; FY2026 = 1612,3 - 302,1 - 68,8 = 1241,4 (10-K 2026)."
+    }
+   ]
+  }
+ },
+ "CRWV": {
+  "controle": {
+   "ticker": "CRWV",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "CTSH": {
+  "controle": {
+   "ticker": "CTSH",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": false,
+     "defaut": "La modification annoncee est absente : le KPI 'Trailing 12-month bookings' de src/data/v2-pipeline/ctsh.json n'a aucun champ last_data_date, ni dans 92c19262a2, ni dans 948a128941, ni dans HEAD (le diff depuis 2cecbf56e8 ne touche pas ce KPI). La valeur 29,6 Mds $ et le yoy +11% sont conformes au communique du T1 2026 (periode close le 31/03/2026), et le lac ne contient aucune valeur pour le T2 2026. Correction a faire : ajouter \"last_data_date\": \"2026-03-31\" a ce KPI."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "CTSH",
+   "reparations": [
+    {
+     "i": 3,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/ctsh.json",
+     "detail": "Ajout de \"last_data_date\": \"2026-03-31\" au KPI 'Trailing 12-month bookings' (apres period_type). Source : communique du T1 2026 dans data-lake/CTSH/_srctext.txt, citation \"Trailing 12-month bookings of $29.6 billion increased 11% year-over-year\". Les 8-K du 29/04 et du 29/07/2026 du lac sont des coquilles sans annexe, aucune valeur T2 2026. JSON valide, une seule ligne ajoutee, aucun commit."
+    }
+   ]
+  }
+ },
+ "DASH": {
+  "controle": {
+   "ticker": "DASH",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "DD": {
+  "controle": {
+   "ticker": "DD",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "DGX": {
+  "controle": {
+   "ticker": "DGX",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Signal bien reecrit, -2,8 % du revenu par requisition au T2 2026 conforme au communique (8-K du 23/07/2026), JSON valide, aucun tiret long. Mais le chiffre 4,2 vient de l'appel du T3 2025 (oct. 2025), ou la direction dit 'north of 4.2' et situe l'avant-2019 entre 3,5 et 4 : la comparaison etait donc verifiable, et 'au-dela de' est devenu 'en moyenne'. La periode est fausse : last_data_date reste 2026-03-28 (estimee T1 2026, period_type quarter) et le signal colle ce chiffre au T2 2026. A corriger : last_data_date 2025-09-30, history_periods ['Q3 2025'], _ldd_estimated retire ; texte du signal : 'Plus de 4,2 tests par requisition au T3 2025 (contre 3,5 a 4 avant 2019) : soutient le revenu par requisition, qui recule pourtant de 2,8 % au T2 2026 sous l'effet du mix Corewell et Fresenius.'"
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "DGX",
+   "reparations": [
+    {
+     "i": 4,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/dgx.json",
+     "detail": "KPI Tests per requisition corrigé. Le chiffre vient de l'appel du T3 2025, où la direction dit « north of, I would say, 4.2 in terms of test per req » et situe l'avant-2019 entre 3,5 et 4. Les -2,8 % du revenu par réquisition au T2 2026 viennent du communiqué (8-K du 23/07/2026). Ce communiqué ne dit pas que le mix Corewell et Fresenius explique ce recul. Le texte rattache donc ce mix au T1 2026 (-1,3 %), où l'appel du T1 2026 le dit, au lieu de l'appliquer au T2. Champs modifiés : last_data_date passe à 2025-09-30, history_periods vaut ['Q3 2025'], _ldd_estimated est retiré et _ldd_from est mis à jour. Pas de tiret long, JSON valide, mise en forme conservée."
+    }
+   ]
+  }
+ },
+ "DHR": {
+  "controle": {
+   "ticker": "DHR",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": false,
+     "defaut": "La ligne masimo_acq est juste : 9,8 Mds $, 180 $ par action, finalisée le 10 juin 2026, conforme au 10-Q T2 2026 (DHR_2026-07-21), JSON valide, aucun tiret long. Mais l'harmonisation Masimo annoncée n'est pas faite, la fiche reste contradictoire : (1) la ligne KPI 'masimo_acquisition_pending' (vers la ligne 561) s'affiche encore 'Acquisition en cours de Masimo Corporation', avec une description 'acquisition en cours' et un signal en anglais 'positive'. C'est un fait ponctuel périmé depuis la finalisation : la retirer, ou la renommer en coûts de transaction Masimo T1 2026 sans 'en cours'. (2) Dans stories_kpis, 'Acquisition Masimo' dit toujours 'Annonce de l'intention d'acquérir Masimo Corporation' : mettre 'Rachat de Masimo finalisé le 10 juin 2026'. (3) Sur masimo_acq, last_data_date passe au 2026-06-26 mais _source_month reste 'avril 2026' et _ldd_from/_ldd_estimated indiquent toujours une estimation : mettre _source_month à 'juillet 2026' et retirer _ldd_estimated."
+    }
+   ]
+  },
+  "reparation": {
+   "reparations": [
+    {
+     "i": 3,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/dhr.json",
+     "detail": "Harmonisation Masimo d'après le 10-Q T2 2026 (DHR_2026-07-21) : rachat le 10 juin 2026 pour environ 9,8 Mds $, soit 180 $ par action, et le 10-Q T1 2026 (DHR_2026-04-21) : 17 M$ de coûts de transaction au trimestre clos le 27 mars 2026. (1) La ligne masimo_acquisition_pending (clé courte conservée pour kpi-classification) devient « Coûts de transaction Masimo (T1 2026) », sans « en cours ». Le signal anglais « positive » est remplacé par une phrase en français, la description indique la finalisation et le type comparable passe à « Coûts de transaction d'une acquisition ». (2) stories_kpis « Acquisition Masimo » : « Rachat de Masimo finalisé le 10 juin 2026. », avec la source 10-Q Q2 FY2026 de juillet 2026. (3) masimo_acq : _source_month passe à « juillet 2026 », _ldd_estimated est retiré, _ldd_from pointe la période close le 26 juin 2026 et _source_file le 10-Q T2. JSON valide, mise en forme identique, aucun tiret long, aucun commit."
+    }
+   ],
+   "ticker": "DHR"
+  }
+ },
+ "DIM.PA": {
+  "controle": {
+   "ticker": "DIM.PA",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 6,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "DLTR": {
+  "controle": {
+   "ticker": "DLTR",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Correction incomplete : « flaggant » remplace seulement dans src/data/v2-pipeline/dltr.json. La fiche lit au runtime src/data/v2-pipeline/_merged.json (src/lib/v2-data.ts l.29), qui contient encore « tout en flaggant l'IA des concurrents » pour DLTR, de meme que src/data/companies/dltr.json. Remplacer « flaggant » par « signalant » dans le resume ai_positioning de DLTR dans _merged.json (et companies/dltr.json)."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "DLTR",
+   "reparations": [
+    {
+     "i": 7,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/_merged.json",
+     "detail": "Résumé ai_positioning de DLTR : « tout en flaggant l'IA des concurrents » remplacé par « tout en signalant l'IA des concurrents » (seule occurrence pour DLTR, les deux autres « flaggant » appartiennent à d'autres sociétés et n'ont pas été touchés), JSON valide"
+    },
+    {
+     "i": 7,
+     "action": "corrige",
+     "fichier": "src/data/companies/dltr.json",
+     "detail": "Même remplacement « flaggant » par « signalant » dans le résumé ai_positioning, plus aucune occurrence de « flaggant », JSON valide"
+    }
+   ]
+  }
+ },
+ "DOC": {
+  "controle": {
+   "ticker": "DOC",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "DOV": {
+  "controle": {
+   "ticker": "DOV",
+   "verdicts": [
+    {
+     "i": 6,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "DPZ": {
+  "controle": {
+   "ticker": "DPZ",
+   "verdicts": [
+    {
+     "i": 10,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "DSY.PA": {
+  "controle": {
+   "ticker": "DSY.PA",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Correction principale juste : hook et resume portent bien 46 % pour le CA cloud 3DEXPERIENCE à tcc au S1 2026 (confirmé par le semestriel du 23/07/2026), et le resume cite 1 664,4 M€ au 31/12/2020 (confirmé par l'URD 2021) face à 3 305,1 M€ fin 2025 (confirmé par l'URD 2025). JSON valide, pas de tiret long. Mais la thèse se contredit désormais dans ses textes visibles : qualite_interne (argument RPO, ligne 38) dit encore « contre 296,8 M€ au premier relevé de la série, soit onze fois plus », et la perspective (ligne 125) dit « Contre 296,8 M€ au premier relevé de la série, soit onze fois plus en sept ans ». Ce 296,8 M€ ne figure dans aucun URD du lac. À corriger : remplacer dans ces deux textes par « contre 1 664,4 M€ au 31 décembre 2020, soit près de deux fois plus en cinq ans »."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "DSY.PA",
+   "reparations": [
+    {
+     "i": 4,
+     "action": "corrige",
+     "fichier": "src/data/these/dsy.pa.json",
+     "detail": "Ligne 38 (qualite_interne, argument RPO) et ligne 125 (perspective) : 296,8 M€ « onze fois plus » remplacé par « 1 664,4 M€ au 31 décembre 2020, soit près de deux fois plus en cinq ans ». Valeur confirmée par l'URD 2021 (ir/URD/DSY.PA_URD_FY2021_2022-04-01.txt.gz, l.10615-10616 : « Au 31 décembre 2020, le montant des obligations de prestation non remplies s'élevait à 1 664,4 millions d'euros »). JSON valide, plus aucun 296,8, aucun tiret long."
+    }
+   ]
+  }
+ },
+ "DTE": {
+  "controle": {
+   "ticker": "DTE",
+   "verdicts": [
+    {
+     "i": 0,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "DXCM": {
+  "controle": {
+   "ticker": "DXCM",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "J": {
+  "controle": {
+   "ticker": "J",
+   "verdicts": [
+    {
+     "i": 11,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "JKHY": {
+  "controle": {
+   "ticker": "JKHY",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "La partie clients est juste : environ 7 500 au rapport annuel 2024, plus de 7 200 au 30 juin 2026, et les deux JSON sont valides. La partie gains est fausse. Selon les appels de résultats de l'exercice 2026, les gains concurrentiels sur le système central sont de 4 au T1, 22 au T2, 17 au T3 et 15 au T4, soit 58 sur l'année (chiffre confirmé par le communiqué du 18 août 2026). Le passage de 22 à 17 correspond donc au T2 puis au T3 de l'exercice 2026, pas à la dernière période publiée. La dernière période publiée est le T4 2026, avec 15. La série Competitive core takeaways/wins (companies/jkhy.json, v2-pipeline/jkhy.json) s'arrête au T3 (17) et omet le T1 2026 (4). Correction proposée : « les gains concurrentiels sur le système central passent de 22 au deuxième trimestre à 15 au quatrième trimestre de l'exercice 2026, pour un record annuel de 58 », ou bien « de 17 à 15 sur le dernier trimestre ». Il faut aussi prolonger la série avec 4 et 15."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "JKHY",
+   "reparations": [
+    {
+     "i": 3,
+     "action": "corrige",
+     "fichier": "src/data/moat-univers.json ; docs/cahier/moat-tendance-mettrik.json",
+     "detail": "Justification JKHY seule modifiée : « les gains concurrentiels sur le système central, 22 au deuxième trimestre puis 17 au troisième, totalisent un record de 58 sur l'exercice 2026 ». Sources : communiqués T2 et T3 de l'exercice 2026 (22 et 17, data-lake/JKHY/_srctext.txt) et communiqué du 18 août 2026 (8K/JKHY_2026-08-18_..._ex99pressrel, record de 58). La partie clients (7 500 à 7 200) est inchangée. Série non prolongée : le 4 du T1 et le 15 du T4 ne figurent dans aucun document officiel du data-lake, donc pas ajoutés. JSON valides, aucun commit."
+    }
+   ]
+  }
+ },
+ "KDP": {
+  "controle": {
+   "ticker": "KDP",
+   "verdicts": [
+    {
+     "i": 10,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "KER.PA": {
+  "controle": {
+   "ticker": "KER.PA",
+   "verdicts": [
+    {
+     "i": 0,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Retrait annoncé non appliqué dans src/data/v2-pipeline-specific-kpis/ker.pa.json : le KPI DPS (value 4 €, history 12/14/14/6/4, signal '14€ → 6€ → 4€') est toujours présent, seule son explanation a été retouchée. Le KPI 'Kering SA Net Income' n'est pas retiré non plus : son signal a été réécrit en 'dividende réduit de 33 % en 2025', chiffre qui mélange encore ordinaire et exceptionnel (6 → 4) et contredit DIV (3,00 €, -50 %, conforme au communiqué du 10/02/2026 : ordinaire 3,00 € = 1,25 + 1,75, exceptionnel 1,00 €). À corriger : retirer le bloc DPS ; dans Kering SA Net Income, remplacer '33 %' par '50 % (dividende ordinaire)' ou retirer ce KPI comme annoncé. DIV dans kpis-haut est correct ; JSON valide."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "KER.PA",
+   "reparations": [
+    {
+     "i": 0,
+     "action": "retire",
+     "fichier": "src/data/v2-pipeline-specific-kpis/ker.pa.json",
+     "detail": "Bloc DPS retiré (série 12/14/14/6/4 mélangeant ordinaire et exceptionnel)."
+    },
+    {
+     "i": 0,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline-specific-kpis/ker.pa.json",
+     "detail": "Signal Kering SA Net Income : '33 %' remplacé par 'dividende ordinaire réduit de 50 % en 2025 (3,00 € contre 6,00 €)', source communiqué FY2025 du 10/02/2026 (ordinaire 3,00 €, exceptionnel 1,00 € à part). JSON valide, mise en forme conservée, aucun commit."
+    }
+   ]
+  }
+ },
+ "KEY": {
+  "controle": {
+   "ticker": "KEY",
+   "verdicts": [
+    {
+     "i": 8,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Cash efficiency (61,9 %, -0.5pp), Net charge-offs (0,42 %, +0.03pp) et retrait de Net charge-off ratio (serie incoherente 11/8/13/16 pb, doublon) sont conformes. En revanche Active special servicing third-party assets reste perime : la valeur T2 2026 existe dans src/data/transcripts/key.json (appel T2 2026 : 'flat sequentially at $10 billion' ; appel T1 2026 : '$10 billion... down from $12 billion a year ago', ce qui confirme les 12 Md$ du T1 2025). Corriger : value 10, history [12, 10, 10] (T1 2025, T1 2026, T2 2026) ou au minimum ajouter 10 en dernier point, yoy -2 Md$ (-16,7 %) si l'on compare au T2 2025 seulement s'il est sourcé, sinon null, last_data_date 2026-06-30, et signal recrit : 10 Md$ au T2 2026, stable sur le trimestre, contre un plus haut de 12 Md$ au T1 2025."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "KEY",
+   "reparations": [
+    {
+     "i": 2,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/key.json",
+     "detail": "Active special servicing third-party assets : value 10, history [12, 10, 10] (T1 2025, T1 2026, T2 2026), yoy null (T2 2025 non sourcé), last_data_date 2026-06-30. Source : appel T2 2026 du 21/07/2026 (« flat sequentially at $10 billion ») et appel T1 2026 du 16/04/2026 (10 Md$, contre 12 Md$ un an plus tôt), src/data/transcripts/key.json. Signal réécrit : 10 Md$ au T2 2026, stables sur le trimestre, contre un plus haut de 12 Md$ au T1 2025. JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "KEYS": {
+  "controle": {
+   "ticker": "KEYS",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "KHC": {
+  "controle": {
+   "ticker": "KHC",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "KIM": {
+  "controle": {
+   "ticker": "KIM",
+   "verdicts": [
+    {
+     "i": 11,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "KKR": {
+  "controle": {
+   "ticker": "KKR",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "KMB": {
+  "controle": {
+   "ticker": "KMB",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "KMI": {
+  "controle": {
+   "ticker": "KMI",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "KO": {
+  "controle": {
+   "ticker": "KO",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "KR": {
+  "controle": {
+   "ticker": "KR",
+   "verdicts": [
+    {
+     "i": 10,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "L": {
+  "controle": {
+   "ticker": "L",
+   "verdicts": [
+    {
+     "i": 0,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Les valeurs du T2-2026 sont conformes au 10-Q du 03/08/2026 : ratio combine 96,5 (yoy +2.4pts juste), sinistralite 66,4 (+2.5pts juste), primes souscrites nettes 2 965 contre 2 846 (+4,2 %), primes acquises 2 656 contre 2 588 (+2,6 %), resultat technique 150 puis 92. Moat juste dans les deux fichiers. JSON valide, aucun tiret long ni nom de document visible. Defaut : les yoy des deux croissances de primes sont calcules contre des valeurs d'historique arrondies a l'entier (6 et 8). Selon le 10-Q du 04/08/2025, le T2-2025 donne 2 846 contre 2 674 = +6,4 % pour les primes souscrites et 2 588 contre 2 389 = +8,3 % pour les primes acquises. Il faut donc 'CNA net written premium growth' yoy -2.2pts (et non -1.8pts) et 'CNA net earned premium growth' yoy -5.7pts (et non -5.4pts). Note hors perimetre : 'CNA P&C underlying combined ratio' (dernier 94,5, T2 = 94,2) et 'CNA P&C expense ratio' (29,9 avec date estimee 2026-03-28, T2 = 29,7) restent en retard d'un trimestre."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "L",
+   "reparations": [
+    {
+     "i": 0,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/l.json",
+     "detail": "yoy recalcules sur le 10-Q du 04/08/2025 (T2-2025 : primes souscrites nettes 2 846 contre 2 674 = +6,4 %, primes acquises 2 588 contre 2 389 = +8,3 %) et le 10-Q du 03/08/2026 (T2-2026 : +4,2 % et +2,6 %). 'CNA net written premium growth' yoy -1.8pts devient -2.2pts ; 'CNA net earned premium growth' yoy -5.4pts devient -5.7pts. Valeurs, historiques et signaux inchanges, JSON valide. Hors perimetre non traite : underlying combined ratio et expense ratio en retard d'un trimestre."
+    }
+   ]
+  }
+ },
+ "LEN": {
+  "controle": {
+   "ticker": "LEN",
+   "verdicts": [
+    {
+     "i": 6,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "LI.PA": {
+  "controle": {
+   "ticker": "LI.PA",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Le signal de NRI France est bien présent dans les deux fichiers v2-pipeline. Le tableau IFRS 8.33 de l'URD 2025 confirme 416,0 et 415,8, et le yoy de +0,0 % est juste. En revanche, la comparaison avec 2019 (432,8 M€) ne repose sur aucun document du data-lake : 432,8 n'apparaît nulle part dans l'URD, les CP, les présentations ni le semestriel. La série historique elle-même est douteuse (432,8 / 320,6 / 314,9 / 431,6 / 393,5 / 415,8 / 416,0, avec un pic en 2022 puis une baisse en 2023), probablement un mélange de périmètres. Correction : retirer la mention « encore sous le niveau de 2019 (432,8 M€) » du signal, ou ramener la série aux seuls points vérifiés 2024-2025."
+    },
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "LI.PA",
+   "reparations": [
+    {
+     "i": 4,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/li.pa.json ; src/data/v2-pipeline-enrich/li.pa.json",
+     "detail": "Mention 2019 (432,8 M€) retiree du signal NRI France, non sourcee. L etat 2cecbf56e8 etait lui aussi faux (il affirmait un niveau superieur a 2019), donc pas de restauration. Nouveau signal : 416,0 M€ en 2025, stables sur un an (415,8 M€ en 2024), valeurs du tableau IFRS 8.33 de l URD 2025. JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "LIN": {
+  "controle": {
+   "ticker": "LIN",
+   "verdicts": [
+    {
+     "i": 0,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Serie Op Income juste (4,98 / 5,37 / 8,02 / 8,63 / 8,92 Mds $, rapports annuels 2023 et 2026, marge 26,3 %, yoy +3,3 %), suppression de Consolidated Operating Profit justifiee. Mais le champ visible 'explanation' de Op Income (kpis_supplementary, src/data/v2-pipeline-enrich/lin.json, affiche par kpi-row.tsx et kpi-story-card.tsx) reste 'Résultat opérationnel annuel reconstitué à partir des données trimestrielles SEC EDGAR XBRL.' : nom de source et cuisine interne dans un texte visible, et inexact (chiffres annuels publies). Remplacer par une definition simple, ex. 'Résultat opérationnel publié du groupe, après charges de restructuration et amortissements liés à la fusion de 2018.' Accessoirement 'description' est une copie mot pour mot de 'signal' : la remplacer par une vraie definition."
+    },
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "LIN",
+   "reparations": [
+    {
+     "i": 1,
+     "action": "corrige",
+     "fichier": "/Users/yann/spx-app/src/data/v2-pipeline-enrich/lin.json",
+     "detail": "kpis_supplementary Op Income : explanation remplacee par 'Résultat opérationnel publié du groupe, avant charges financières et impôts.' (plus de source ni de cuisine interne) ; description (copie du signal) remplacee par une definition : 'Bénéfice tiré de l’activité du groupe : chiffre d’affaires moins coût des ventes, frais commerciaux et administratifs, amortissements et autres charges d’exploitation.' Serie, signal et valeurs inchanges. JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "LITE": {
+  "controle": {
+   "ticker": "LITE",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "LLY": {
+  "controle": {
+   "ticker": "LLY",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 2,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "LMT": {
+  "controle": {
+   "ticker": "LMT",
+   "verdicts": [
+    {
+     "i": 6,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Retrait du record PAC-3 2025 (120) justifie et fait dans src/data/v2-pipeline/lmt.json, mais le KPI est toujours present dans src/data/companies/lmt.json (lignes 348-362 : short 'Record PAC-3 MSC interceptor deliveries 2025', name_fr 'Livraisons record d'intercepteurs PAC-3 MSC en 2025', signal 'Record annuel de 120 intercepteurs PAC-3 MSC livres en 2025'), avec la valeur 120 et le sigle MSC errone. Il faut le retirer aussi de ce fichier. Le renommage 'Contrat d'acceleration PAC-3 non definitive' et le passage du sigle MSC a MSE dans le contrat US Army n'existent pas dans l'etat actuel : les deux KPI ont ete supprimes ensuite par le cas 7 (annonces a un seul point), donc il n'y a plus rien a corriger de ce cote. Sigle MSE confirme par le 10-K 2026 (Missile Segment Enhancement). Le JSON est valide."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "LMT",
+   "reparations": [
+    {
+     "i": 6,
+     "action": "retire",
+     "fichier": "src/data/companies/lmt.json",
+     "detail": "KPI 'Record PAC-3 MSC interceptor deliveries 2025' retiré (valeur 120, sigle MSC erroné), comme dans v2-pipeline/lmt.json. Aucune autre référence trouvée. JSON valide, 20 lignes supprimées, rien n'a été commité."
+    }
+   ]
+  }
+ },
+ "LOGN.SW": {
+  "controle": {
+   "ticker": "LOGN.SW",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "LOW": {
+  "controle": {
+   "ticker": "LOW",
+   "verdicts": [
+    {
+     "i": 7,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "LUV": {
+  "controle": {
+   "ticker": "LUV",
+   "verdicts": [
+    {
+     "i": 6,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Les 5 retraits sont justifiés (doublons du CA 28,063 et 7 249, valeur 0, faits de 2024-2025) et le JSON est valide. En revanche, la nouvelle date 2026-04-22 n'est pas prouvée pour tous les faits re-datés. Ils sont 13 à porter la justification 'communiqué de résultats du T1-2026'. Cinq d'entre eux sont confirmés par la transcription de l'appel du 22/04/2026 : affaires +16 %, montée en gamme 60 %, Rapid Rewards +37 %, statut +62 %, carte +8 %. Deux sont confirmés : Starlink 300, hausses tarifaires. Deux autres le sont aussi, via le 10-Q du 23/04/2026 : 821 M$ et 1,3 Md$. Quatre faits sont faux. 'NPS improvement on reconfigured aircraft' (4 points) et 'Assigned/extra legroom seating full run-rate EBIT' (1,5 Md$ en 2027) viennent de l'appel du 22/10/2025 (T3-2025). Il faut donc les dater du 2025-10-22, ou les retirer comme faits périmés. 'Total 2026 initiative EBIT target' (4,3 Md$) et 'Checked bag fee annualized EBIT run-rate' (1 Md$) sont introuvables dans les documents de 2026 (appel du 22/04, 8-K, 10-Q). Il faut retrouver leur source et leur vraie date, sinon les retirer."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "LUV",
+   "reparations": [
+    {
+     "i": 6,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/luv.json",
+     "detail": "4 faits (kpis 15 à 18) re-datés au 2025-10-22, _source_month octobre 2025, source citée : transcription de l'appel du T3-2025 du 22/10/2025 (src/data/transcripts/luv.json). Les valeurs y figurent toutes : NPS « four-point higher » sur les avions reconfigurés, sièges « full run rate of approximately $1.5 billion in 2027 », « $4.3 billion is very much still intact », bagages « annualized contribution from checked bags at right around $1 billion ». Valeurs inchangées. Les 9 autres faits datés du 22/04/2026 sont confirmés, donc pas modifiés. Le JSON reste valide, avec le même format (indent 1). Aucun commit."
+    }
+   ]
+  }
+ },
+ "MAR": {
+  "controle": {
+   "ticker": "MAR",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": false,
+     "defaut": "La serie revpar_comparable_mondial_dollars_consta est juste et conforme (10-Q T2-2026 : Comparable Company-Operated Worldwide 158,08 $, +2,1 % ; T1 155,02 ; T2-2025 154,88 ; T3-2025 145,14 ; comparaisons a changes constants). Mais le meme chiffre reste affiche en doublon dans kpis sous short worldwide_revpar : name_fr 'RevPAR mondial', value 155,02, unit 'M $' (faux, ce sont des dollars par chambre), perimetre presente comme mondial au lieu d'hotels geres, description 'RevPAR mondial ... 155,02 M $ au premier trimestre 2026', last_data_date 2026-05-06 (date du depot, pas fin de periode 2026-03-31). A retirer (doublon perime de la serie corrigee) ou a corriger : unit '$', nom 'RevPAR des hotels geres comparables, monde', description sans 'M $'. Accessoire : yoy '+2.1%' ecrit avec un point, a harmoniser en '+2,1 %'."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "MAR",
+   "reparations": [
+    {
+     "i": 3,
+     "action": "retire",
+     "fichier": "src/data/companies/mar.json ; src/data/v2-pipeline/mar.json ; src/data/v2-pipeline/_merged.json (entree MAR) ; src/data/kpi-classification.json (MAR.specific)",
+     "detail": "Doublon worldwide_revpar retire. Il etait deja faux dans 2cecbf56e8 : unite 'M $' au lieu de dollars par chambre, perimetre presente comme mondial au lieu d'hotels geres comparables, last_data_date 2026-05-06 = date du depot. Le chiffre reste porte par la serie corrigee revpar_comparable_mondial_dollars_consta (158,08 $ au T2-2026, +2,1 % ; 155,02 $ au T1-2026, Comparable Company-Operated Worldwide des 10-Q). Le hero n'est pas touche (RevPAR US & Canada). JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "MET": {
+  "controle": {
+   "ticker": "MET",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "MKC": {
+  "controle": {
+   "ticker": "MKC",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "MO": {
+  "controle": {
+   "ticker": "MO",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "MS": {
+  "controle": {
+   "ticker": "MS",
+   "verdicts": [
+    {
+     "i": 0,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "MSI": {
+  "controle": {
+   "ticker": "MSI",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "MT.PA": {
+  "controle": {
+   "ticker": "MT.PA",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Le renommage, name_en, yoy -2.9% (13,4 vs 13,8 Mt, en %, correct) et la série T2 2026 = 13,4, T1 2026 = 12,8, T2 2025 = 13,8 sont conformes au communiqué du 30/07/2026, et le JSON est valide. En revanche, le signal annonce « +4,7% par rapport au 1er trimestre », un chiffre calculé sur des valeurs arrondies, alors que le communiqué officiel indique une « 4.1% increase in steel shipments » par rapport au T1 2026. À corriger en « +4,1% par rapport au 1er trimestre »."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "MT.PA",
+   "reparations": [
+    {
+     "i": 3,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/mt.pa.json",
+     "detail": "Signal corrigé de +4,7% en +4,1% par rapport au 1er trimestre, valeur tirée du communiqué T2 2026 du 30/07/2026 (data-lake/MT.PA/ir/COMMUNIQUES/MT.PA_COMMUNIQUE_Q2-2026_2026-07-30.txt.gz) : « 4.1% increase in steel shipments » par rapport au T1 2026. JSON valide, rien d'autre n'a été modifié."
+    }
+   ]
+  }
+ },
+ "NEE": {
+  "controle": {
+   "ticker": "NEE",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Modification presente, JSON valide, valeurs T1 2025 a T1 2026 conformes (3,2 / 3,2 / 3 / 3,6 / 4 GW, 1,3 GW stockage au T1 2026). Mais la serie reste perimee : le communique du 24/07/2026 (8K NEE_2026-07-24) publie le T2 2026 = 3,6 GW ajoutes au carnet, dont 2 GW de stockage. A corriger : ajouter 3,6 en fin d'history, value = 3,6, yoy = +12,5% (3,6 vs 3,2 au T2 2025), signal = 'Trimestre solide avec 3,6 GW signes, dont 2 GW de stockage batterie.' (le T2 n'est pas un record)."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "NEE",
+   "reparations": [
+    {
+     "i": 4,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/nee.json",
+     "detail": "T2 2026 ajouté d'après le communiqué du 24/07/2026 (8K NEE_2026-07-24_complet.txt.gz : 3,6 GW ajoutés au carnet, dont 2 GW de stockage batterie). History [3,2 ; 3,2 ; 3 ; 3,6 ; 4 ; 3,6], value 3,6, yoy +12,5 % (3,6 contre 3,2 au T2 2025), signal remplacé par « Trimestre solide avec 3,6 GW signés, dont 2 GW de stockage batterie. ». JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "NEM": {
+  "controle": {
+   "ticker": "NEM",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "O": {
+  "controle": {
+   "ticker": "O",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "ODFL": {
+  "controle": {
+   "ticker": "ODFL",
+   "verdicts": [
+    {
+     "i": 0,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "ON": {
+  "controle": {
+   "ticker": "ON",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "P911.DE": {
+  "controle": {
+   "ticker": "P911.DE",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Les corrections conservees sont justes : China 41 938 (-26,3 %), Taycan 20 836 puis 16 339 (-21,6 %), BEV 12,8/12,7/22,2 % (+9,5 pp), periodes FY et last_data_date 2025-12-31, JSON valide. Les retraits posent probleme. 1) Europe Deliveries : la justification est fausse. 66 340 en baisse de 12,6 % donne environ 75 900 en 2024, ce qui concorde avec 75 500. Il fallait mettre la serie a jour (Europe sans Allemagne : FY2024 environ 75 900, FY2025 66 340, -12,6 %) au lieu de la retirer. 2) NA Deliveries : le rapport annuel 2025 publie 86 229 en 2025 (-0,4 %, soit environ 86 575 en 2024, Amerique du Nord hors Mexique), coherent avec l'ancien 86 500. La serie pouvait etre corrigee sur FY2024-FY2025, le retrait n'est pas justifie. 3) La serie 911 Deliveries a ete retiree sans etre declaree. Le rapport annuel 2025 publie 50 941 en 2024 et 51 583 en 2025 (+1,3 %) : il faut la retablir corrigee (l'ancien 50 300 en 2024 et 53 000 en 2023 etaient faux). Point mineur : dans China, la valeur 2024 reste arrondie a 56 900 (publie : 56 887) alors que 2025 est exacte."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "P911.DE",
+   "reparations": [
+    {
+     "i": 2,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline-enrich/p911.de.json",
+     "detail": "Europe Deliveries rétablie et corrigée : 66 340 en FY2025, yoy -12,6 % (rapport annuel 2025 de Porsche AG, Europe hors Allemagne). Le chiffre 2024 n'est pas publié en valeur dans les documents, donc l'historique ne garde que le point FY2025 (l'ancien 75 500 ne concordait pas). NA Deliveries rétablie et corrigée : 86 229 en FY2025, yoy -0,4 %, périmètre Amérique du Nord hors Mexique (même rapport). Historique réduit au point FY2025 publié. 911 Deliveries rétablie et corrigée : 50 941 en FY2024 et 51 583 en FY2025, yoy +1,3 % (tableau des livraisons par gamme du rapport annuel 2025). Les anciens points 2020 à 2023 et 50 300 en 2024 sont retirés. last_data_date 2025-12-31 et history_periods ajoutés. China 2024 laissé à 56 900 : la valeur 56 887 n'apparaît dans aucun document du lac. JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "PAH3.DE": {
+  "controle": {
+   "ticker": "PAH3.DE",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "PAYX": {
+  "controle": {
+   "ticker": "PAYX",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "PDD": {
+  "controle": {
+   "ticker": "PDD",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "PEG": {
+  "controle": {
+   "ticker": "PEG",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 6,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Les valeurs 270, 329 et 333 $/MW-jour, la fusion, la suppression du doublon (333,44 = plafond de l'enchère, deja couvert) et le yoy de +1,2 % sont conformes au tableau du 10-K du 26/02/2026. Mais le champ history_labels n'est lu nulle part dans le code (src/components, src/lib). Pour period_type=year, company-view.tsx ne lit que history_periods (au format YYYY ou FYYYYY), sinon chart-cycle defaultLabels reconstruit les annees en remontant depuis l'annee precedente. L'axe affichera donc 2023, 2024, 2025 au lieu des annees de livraison juin 2025 a mai 2026, juin 2026 a mai 2027 et juin 2027 a mai 2028, soit un decalage de deux ans. Correction : ajouter history_periods [\"2025\",\"2026\",\"2027\"] (annee de debut de livraison, que le signal precise deja) ou un autre format de libelle que le graphique lit vraiment, puis verifier l'axe sur la page servie."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "PEG",
+   "reparations": [
+    {
+     "i": 7,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/peg.json",
+     "detail": "Ajout de history_periods [\"2025\",\"2026\",\"2027\"] (année de début de livraison), aligné sur history [270,329,333]. C'est le format lu par company-view.tsx pour les KPI annuels (motif AAAA). Les valeurs sont confirmées par le 10-K du 26/02/2026 (data-lake/PEG/10K/PEG_2026-02-26.htm.gz) : « June 2025 to May 2026 $ 270, June 2026 to May 2027 $ 329, June 2027 to May 2028 $ 333 », 3 500 MW. Le champ history_labels est conservé. Aucune autre modification, mise en forme intacte (+5 lignes), JSON valide, aucun commit. L'axe n'a pas été vérifié sur la page servie (pas de déploiement)."
+    }
+   ]
+  }
+ },
+ "PEP": {
+  "controle": {
+   "ticker": "PEP",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "PFG": {
+  "controle": {
+   "ticker": "PFG",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "PG": {
+  "controle": {
+   "ticker": "PG",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "PGR": {
+  "controle": {
+   "ticker": "PGR",
+   "verdicts": [
+    {
+     "i": 6,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "PNC": {
+  "controle": {
+   "ticker": "PNC",
+   "verdicts": [
+    {
+     "i": 0,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "POOL": {
+  "controle": {
+   "ticker": "POOL",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": false,
+     "defaut": "La hausse 2026 est bien attestée (10-Q T2 2026 : dividende déclaré 1,30 $ contre 1,25 $ ; 8-K du 29/04/2026 : increased quarterly cash dividend), et 21 est juste comme nombre TOTAL de hausses (le 10-K FY2025 dit twenty times, plus celle de 2026). En revanche, le libellé et le signal parlent de hausses consécutives, ce qui est faux : les 10-K 2023 et 2024 montrent des hausses au T4 2004, de 2005 à 2008, puis chaque T2 de 2011 à aujourd'hui, donc rien en 2009 ni en 2010. La série consécutive actuelle compte 16 hausses annuelles (2011 à 2026). Correction : soit value=16, history=[16] et signal « 16e hausse annuelle consécutive du dividende (depuis 2011), la plus récente au T2 2026 (1,30 $ par trimestre contre 1,25 $) », soit garder 21 en renommant le KPI en « Nombre de hausses du dividende depuis 2004 » et en retirant « consécutive » du signal. JSON valide, aucun tiret long ni nom de document dans le texte visible."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "POOL",
+   "reparations": [
+    {
+     "i": 3,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/pool.json",
+     "detail": "value et history passés à 16 au lieu de 21. Signal remplacé par « 16e hausse annuelle consécutive du dividende (depuis 2011), la plus récente au T2 2026 (1,30 $ par trimestre contre 1,25 $). ». Sources : le 10-K FY2025 indique « second quarters of 2011 through 2025 » (aucune hausse en 2009 ni en 2010), soit 15 hausses consécutives ; s'y ajoute la hausse annoncée par le 8-K du 29/04/2026 (increased quarterly cash dividend), confirmée par le 10-Q T2 2026 (1,30 $ contre 1,25 $). _maj_note mise à jour. Même correction (16, [16], même signal) appliquée à src/data/companies/pool.json, qui affichait encore 20, une valeur fausse elle aussi. JSON valide, mise en forme conservée, aucun commit."
+    }
+   ]
+  }
+ },
+ "PPG": {
+  "controle": {
+   "ticker": "PPG",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Le changement est bien appliqué, le JSON est valide et le communiqué du 28/07/2026 dit bien « sixth consecutive quarter of organic sales growth ». Mais le KPI Adjusted EPS (diluted) affiche encore le T1 2026 : valeur 1.83, yoy +6% contre 1.72, dernier point de l'historique 1.83. Au T1 2026, c'était le cinquième trimestre consécutif (le sixième tombe au T2). Le signal parle donc d'une autre période que la valeur affichée. Deux corrections possibles : (A) remettre « Cinquième trimestre » ; (B) mettre le KPI à jour au T2 2026, avec un BPA ajusté de 2.23 $ selon le communiqué du 28/07/2026, yoy +0,5% contre 2.22, et ajouter 2.23 à l'historique, puis garder « Sixième »."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "PPG",
+   "reparations": [
+    {
+     "i": 2,
+     "action": "restaure",
+     "fichier": "src/data/v2-pipeline/ppg.json",
+     "detail": "Signal du KPI Adjusted EPS (diluted) remis tel qu'il était dans 2cecbf56e8 : « Cinquième trimestre de croissance organique, BPA ajusté porté par l'aérospatial malgré la baisse du refinish auto ». Il correspond à la valeur affichée (T1 2026, 1.83). Valeur, yoy et historique inchangés. JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "PPL": {
+  "controle": {
+   "ticker": "PPL",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "PSA": {
+  "controle": {
+   "ticker": "PSA",
+   "verdicts": [
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "PYPL": {
+  "controle": {
+   "ticker": "PYPL",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "QCOM": {
+  "controle": {
+   "ticker": "QCOM",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "QRVO": {
+  "controle": {
+   "ticker": "QRVO",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "RI.PA": {
+  "controle": {
+   "ticker": "RI.PA",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "RMD": {
+  "controle": {
+   "ticker": "RMD",
+   "verdicts": [
+    {
+     "i": 2,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "ROST": {
+  "controle": {
+   "ticker": "ROST",
+   "verdicts": [
+    {
+     "i": 9,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Correction juste sur le fond dans src/data/v2-pipeline/rost.json : le 10K du 31/03/2026 confirme le 8e centre a Buckeye (mai 2025) et la construction de Randleman. Le JSON est valide et le texte ne contient ni tiret long ni nom de document. Elle n'est cependant pas propagee. 1) src/data/v2-pipeline/_merged.json, le fichier reellement servi (lu par src/lib/v2-data.ts), contient toujours les 2 anciens KPI : 'Eighth Distribution Center Opened' avec name_fr 'Ouverture 8e centre de distribution' et l'ancien signal, et 'Next Distribution Center Under Construction' avec la valeur 9. La fusion pour ROST est a regenerer. 2) src/data/these/rost.json reference encore le short supprime 'Next Distribution Center Under Construction' dans sa liste kpis, a retirer. 3) Champs internes incoherents a nettoyer : _ldd_estimated passe a false alors que _ldd_from vaut toujours '_source_month (approx depot -35j)', et _source_month 'mai 2026' / _source_month_reason 'Aucune source identifiable dans data-lake' sont obsoletes depuis l'ajout de _maj_source vers le 10K."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "ROST",
+   "reparations": [
+    {
+     "i": 9,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/_merged.json",
+     "detail": "Fiche ROST du fichier servi : le KPI « Eighth Distribution Center Opened » est aligné sur rost.json (nom « Centres de distribution », 8 centres, nouveau signal, date 2026-01-31) et le KPI « Next Distribution Center Under Construction » est retiré. Seuls ces deux éléments ont été modifiés. Source : 10K ROST_2026-03-31, « opening of our eighth distribution center in Buckeye, Arizona in May 2025 » et « construction of our next distribution center in Randleman, North Carolina »."
+    },
+    {
+     "i": 9,
+     "action": "retire",
+     "fichier": "src/data/these/rost.json",
+     "detail": "La référence « Next Distribution Center Under Construction » est retirée de la liste kpis de la thèse sur l'échelle, car ce KPI n'existe plus. La mise en forme d'origine est conservée (indentation de 1)."
+    },
+    {
+     "i": 9,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/rost.json",
+     "detail": "Champs internes nettoyés sur « Eighth Distribution Center Opened » : _source_month (« mai 2026 ») et _source_month_reason, devenus caducs, sont supprimés. _ldd_from passe à « 10K (exercice clos le 31/01/2026) », ce qui est cohérent avec _ldd_estimated=false, _maj_source (10K/ROST_2026-03-31.htm.gz) et last_data_date 2026-01-31. Les fichiers JSON sont valides et rien n'a été commité."
+    }
+   ]
+  }
+ },
+ "RSG": {
+  "controle": {
+   "ticker": "RSG",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "RTX": {
+  "controle": {
+   "ticker": "RTX",
+   "verdicts": [
+    {
+     "i": 0,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Le bloc revenue_by_geography est juste : 47,291 / 18,799 / 13,782 / 5,110 / 3,621, total 88,603. Les chiffres correspondent à la note du 10-K 2025 (RTX_2026-02-06) qui répartit les ventes selon la localisation du client. Les parts sont justes et les libellés sont en français. Le signal de rtx_geo_intl (84 %, soit 74,778/88,603) est juste aussi, et le JSON est valide. Reste un défaut : dans src/data/v2-pipeline/rtx.json, l'entrée 2025 de revenue_history.geo contient toujours l'ancien mélange. On y trouve 'Geographic Distribution, Domestic' 74.778, Europe 18.799, Asia Pacific 13.782, Other 5.11, MENA 3.621, total 116.09, avec des libellés en anglais. Cette entrée reste visible quand on passe sur « Historique » dans repartition-block.tsx. Correction : remplacer cette entrée par les 5 tranches corrigées (total 88.603, libellés FR). Autre point : les années 2023 et antérieures de cet historique sont par origine (États-Unis 57,539 en 2023), alors que 2024 et 2025 sont par client. L'historique mêle donc deux méthodes. Il faut l'harmoniser ou le limiter."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "RTX",
+   "reparations": [
+    {
+     "i": 0,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/rtx.json",
+     "detail": "revenue_history.geo : l'entrée 2025 est remplacée par la répartition selon la localisation du client donnée par le 10-K RTX_2026-02-06 (États-Unis 47,291, Europe 18,799, Asie-Pacifique 13,782, Autres régions 5,110, Moyen-Orient et Afrique du Nord 3,621, total 88,603), avec des libellés en français et des parts recalculées. L'entrée 2024 garde ses valeurs, qui suivent la même méthode (10-K 2025 et 2026 : 46,087 / 15,975 / 10,893 / 3,458 / 4,325, total 80,738), et ses libellés passent en français. L'historique est limité à 2024 et 2025. Les années 2023 et antérieures étaient classées par origine des ventes, et dans le tableau par client de 2023 la somme des régions ne donne pas le total consolidé à cause d'un ajustement Powder Metal de -5,401. Ces années sont donc retirées pour ne pas mêler deux méthodes. Le JSON est valide et la mise en forme est conservée (indentation 2)."
+    }
+   ]
+  }
+ },
+ "SBAC": {
+  "controle": {
+   "ticker": "SBAC",
+   "verdicts": [
+    {
+     "i": 7,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Le signal est bien corrigé (18 M$ d'EBITDA ajusté, environ 1 400 tours, environ 175 M$). C'est conforme au 8-K du 02/06/2021 (data-lake/SBAC/8K/SBAC_2021-06-02_0001193125-21-179273.htm.gz), et le JSON est valide. Reste à corriger la période du KPI « Airtel Tanzania tower acquisition » : il est toujours daté de 2026, avec _source_month « avril 2026 », last_data_date 2026-03-11, _ldd_estimated true et _source_month_reason « Aucune source identifiable dans data-lake ». Or l'accord date du 2 juin 2021. Il faut mettre _source_month « juin 2021 », last_data_date « 2021-06-02 » et _ldd_estimated false, avec ce 8-K comme _source_month_reason. Sinon, retirer le KPI, car c'est une story vieille de 5 ans présentée comme récente sous « Entrée sur un nouveau marché africain »."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "SBAC",
+   "reparations": [
+    {
+     "i": 7,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/sbac.json",
+     "detail": "Les champs de période du KPI « Airtel Tanzania tower acquisition » sont corrigés d'après le 8-K du 02/06/2021 (data-lake/SBAC/8K/SBAC_2021-06-02_0001193125-21-179273.htm.gz). Ce document confirme l'accord du 2 juin 2021 : environ 1 400 tours pour environ 175 M$. Nouvelles valeurs : _source_month « juin 2021 », last_data_date « 2021-06-02 », _ldd_estimated false, _ldd_from « date du 8-K », _source_month_reason qui cite ce 8-K. Le JSON est valide et il n'y a pas de commit. Point à noter : src/data/companies/sbac.json contient encore l'ancien signal (environ 80 M$) et la date d'avril 2026. Ce fichier n'a pas été touché, car le contrôle portait sur le fichier v2-pipeline."
+    }
+   ]
+  }
+ },
+ "SBUX": {
+  "controle": {
+   "ticker": "SBUX",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Dans src/data/v2-pipeline/sbux.json, la correction est juste et conforme aux sources : 3,1 Md$ figure dans le 10-Q du 29/07/2026 (total consideration, debt proceeds inclus), 40 % pour environ 1,2 Md$ dans le meme 10-Q, valeur d'entreprise d'environ 4 Md$ dans le 10-Q du 28/04/2026, plus de 13 Md$ dans le 8-K du 03/11/2025. Les deux retraits sont justifies, le 13 Md$ etait un faux montant de transaction. Le JSON est valide et aucun tiret long n'apparait. Defaut : le fichier servi par le site n'a pas ete regenere. src/data/v2-pipeline/_merged.json, lu par src/lib/v2-data.ts, garde pour SBUX les KPI 'China joint venture transaction value' (13) et 'China joint venture enterprise value (Boyu Capital)' (4). Il garde aussi l'ancien name_fr 'Coentreprise Chine montant de la cession' et last_data_date 2026-05-11. Meme probleme dans src/data/companies/sbux.json. Correction : relancer scripts/build-v2-pipeline-merged.ts, ou reporter les memes changements dans _merged.json et companies/sbux.json."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "SBUX",
+   "reparations": [
+    {
+     "i": 5,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/_merged.json ; src/data/companies/sbux.json",
+     "detail": "Changements de v2-pipeline/sbux.json reportes dans l entree SBUX seulement (build global non relance pour ne pas toucher les autres societes) : KPI 'China joint venture transaction value' (13) et 'China joint venture enterprise value (Boyu Capital)' (4) retires ; 'China divestiture total consideration' (3,1 Md$, 10-Q du 29/07/2026) recoit le name_fr 'Montant encaissé sur la cession de 60 % de la Chine', le nouveau signal et last_data_date 2026-06-28 ; dans companies/sbux.json, _ldd_from/_ldd_estimated retires et type_comparable/_type_pose_le/_src_verif ajoutes. Une autre ecriture concurrente avait ecrase _merged.json a 13:04 : correction reappliquee de facon atomique, stable sur 80 s. Mise en forme d origine conservee, JSON valide, aucun commit."
+    }
+   ]
+  }
+ },
+ "SCHW": {
+  "controle": {
+   "ticker": "SCHW",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "SCMN.SW": {
+  "controle": {
+   "ticker": "SCMN.SW",
+   "verdicts": [
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "SGSN.SW": {
+  "controle": {
+   "ticker": "SGSN.SW",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 4,
+     "type": "date_periode",
+     "ok": false,
+     "defaut": "Le passage du résultat opérationnel de 898 à 1 014 entre 2022 et 2025 est juste, et la hausse du CA de 4,6 % aussi (6 642 puis 6 945, historique sur cinq ans p. 151). En revanche, l'attrition de 14,7 % en 2021 est absente des documents du data-lake : le rapport 2025, p. 177, ne donne que 12,8 % (2023), 13,7 % (2024) et 11,5 % (2025). « Entre 2021 et 2025 » n'est donc pas vérifiable. De plus, le corps de la thèse n'a pas été aligné : la ligne 48 dit toujours « passée de 14,7 % à 11,5 % en cinq ans » (de 2021 à 2025, c'est quatre ans) et le résumé, ligne 22, dit « au plus bas depuis cinq ans ». Correction à faire : soit sourcer les 14,7 % de 2021, soit reformuler avec la période documentée (de 12,8 % en 2023 à 11,5 % en 2025), puis harmoniser le hook, le résumé et la ligne 48."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "SGSN.SW",
+   "reparations": [
+    {
+     "i": 4,
+     "action": "corrige",
+     "fichier": "src/data/these/sgsn.sw.json",
+     "detail": "Le rapport annuel 2025 (p. 177) ne donne l'attrition volontaire que pour 2023 à 2025 : 12,8 %, 13,7 % puis 11,5 %. Le chiffre de 14,7 % pour 2021 est introuvable. La période retenue est donc 2023-2025, appliquée partout : hook (de 12,8 % à 11,5 %), résumé (« au plus bas des trois derniers exercices publiés »), argument ligne 48, preuve, chiffre clé, perspective (1,3 point de moins, effectif de 99 589 à 102 804 ETP), source et liste des sources. Les valeurs non sourcées de 2021-2022 (14,7 %, 14,8 %, 96 216, 98 152) ont été retirées. Le JSON est valide."
+    }
+   ]
+  }
+ },
+ "SHOP": {
+  "controle": {
+   "ticker": "SHOP",
+   "verdicts": [
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "SNA": {
+  "controle": {
+   "ticker": "SNA",
+   "verdicts": [
+    {
+     "i": 10,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 4,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "SNDK": {
+  "controle": {
+   "ticker": "SNDK",
+   "verdicts": [
+    {
+     "i": 10,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "SNPS": {
+  "controle": {
+   "ticker": "SNPS",
+   "verdicts": [
+    {
+     "i": 10,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 8,
+     "type": "signal",
+     "ok": false,
+     "defaut": "La description et le signal sont bien corrigés et conformes au 10-K FY2025 (export Chine, demande plus faible d'un grand client fondeur, choix de feuille de route et de ressources). Mais le même KPI reste faux dans src/data/v2-pipeline-specific-kpis/snps.json : history_years [2020..2024] doit devenir [2021,2022,2023,2024,2025] (le 10-K donne 1 542,7 M$ en FY2023, 1 906,3 M$ en FY2024 et 1 751,8 M$ en FY2025), et yoy \"-8.4%\" doit devenir \"-8,1 %\" (1751,8/1906,3, valeur déjà juste dans stories_kpis de v2-pipeline/snps.json)."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "SNPS",
+   "reparations": [
+    {
+     "i": 8,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline-specific-kpis/snps.json",
+     "detail": "Design IP : history_years passe de 2020-2024 à 2021-2025 et yoy de « -8.4% » à « -8,1 % ». Sources : 10-K FY2023 (SNPS_2023-12-12) avec 1 055,7 M$ en FY2021, 1 315,5 M$ en FY2022 et 1 542,7 M$ en FY2023 ; 10-K FY2025 (SNPS_2025-12-22) avec 1 906,3 M$ en FY2024 et 1 751,8 M$ en FY2025. Le calcul 1751,8/1906,3 donne -8,1 %. Les valeurs de la série (1,06 1,32 1,54 1,91 1,75) restent inchangées. Le JSON est valide, sans commit."
+    }
+   ]
+  }
+ },
+ "SOLV": {
+  "controle": {
+   "ticker": "SOLV",
+   "verdicts": [
+    {
+     "i": 4,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 1,
+     "type": "signal",
+     "ok": true,
+     "defaut": ""
+    }
+   ]
+  },
+  "reparation": null
+ },
+ "STLD": {
+  "controle": {
+   "ticker": "STLD",
+   "verdicts": [
+    {
+     "i": 3,
+     "type": "date_periode",
+     "ok": true,
+     "defaut": ""
+    },
+    {
+     "i": 5,
+     "type": "signal",
+     "ok": false,
+     "defaut": "Aluminium conforme : 22 500 t au T1 2026 (10-Q avril 2026) et 53 000 t au T2 2026 (10-Q juillet 2026, +135 %), date 2026-06-30. En revanche, le retrait de 'Domestic steel industry utilization' n'était pas justifié. Le 77 % est exact : src/data/transcripts/stld.json (appel T1 2026, B. Schneider) indique 77 % pour l'industrie américaine au T1 2026. Les autres appels donnent 78 % au T3 2025, 77 % sur l'année 2025 et 81 % au T2 2026. Seule la date était fausse (2026-02-08). À rétablir : KPI trimestriel en %, history [78 (T3-2025), 77 (T1-2026), 81 (T2-2026)] avec history_periods, valeur 81, last_data_date 2026-06-30, yoy en points si un T2 2025 est trouvé (sinon null), signal mis à jour sans nom de document."
+    }
+   ]
+  },
+  "reparation": {
+   "ticker": "STLD",
+   "reparations": [
+    {
+     "i": 5,
+     "action": "corrige",
+     "fichier": "src/data/v2-pipeline/stld.json",
+     "detail": "KPI 'Domestic steel industry utilization' rétabli après 'Steel mill utilization rate'. Série trimestrielle en % : history [78, 77, 81], history_periods [Q3-2025, Q1-2026, Q2-2026], valeur 81, last_data_date 2026-06-30. Les valeurs viennent des appels de résultats (src/data/transcripts/stld.json, B. Schneider) : 78 % au T3 2025, 77 % au T1 2026 et 81 % au T2 2026. Le T4 2025 n'est pas publié seul (77 % sur l'année 2025). Aucun T2 2025 n'a été trouvé, donc yoy reste null. Le nouveau signal ne cite aucun document. La série aluminium (22 500 t puis 53 000 t) n'a pas été modifiée. JSON valide, mise en forme conservée, aucun commit."
+    }
+   ]
+  }
+ }
+}
