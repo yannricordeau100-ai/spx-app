@@ -886,3 +886,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.09.29.5 (29 Sep 2026 23:24, apres 1ffab3e3ee)
 - Prochaines dates de publication, KPI errones retires
+
+## v2026.10.01.1 (01 Oct 2026 13:32, apres 180cb22d43)
+- Verification des 662 fiches terminee (corrections controlees, controle mecanique), liste 100 % visibles en gratuit, FAQ, blocs admin en preversion, barre de separation des exports
