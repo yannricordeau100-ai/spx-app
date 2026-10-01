@@ -889,3 +889,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.01.1 (01 Oct 2026 13:32, apres 180cb22d43)
 - Verification des 662 fiches terminee (corrections controlees, controle mecanique), liste 100 % visibles en gratuit, FAQ, blocs admin en preversion, barre de separation des exports
+
+## v2026.10.01.2 (01 Oct 2026 23:32, apres ae06b51ee8)
+- Reprise des 44 societes rejetees (reparation ciblee), dettes annuelles verifiees au bilan (81 societes)
