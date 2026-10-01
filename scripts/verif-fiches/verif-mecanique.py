@@ -2,7 +2,7 @@
 """Controles mecaniques sur les 662 fiches servies (copies JSON du chargeur reel).
 Sortie : detecteurs/mecanique.json (findings par ticker) + resume par code,
 et extraits/<T>.txt : texte visible compact par societe pour la relecture par agents."""
-import json, os, re, glob, unicodedata, datetime
+import json, os, re, glob, unicodedata, datetime, statistics as st
 from collections import Counter, defaultdict
 
 S = '/private/tmp/claude-501/-Users-yann/f9760fc2-7eac-4e41-821a-262ae5427645/scratchpad'
@@ -11,7 +11,9 @@ F = S + '/' + (sys.argv[1] if len(sys.argv) > 1 else 'fiches')
 OUT = S + '/detecteurs/mecanique' + ('-' + sys.argv[1] if len(sys.argv) > 1 else '') + '.json'
 EXT = S + '/extraits' + ('-' + sys.argv[1] if len(sys.argv) > 1 else '')
 os.makedirs(EXT, exist_ok=True)
-TODAY = datetime.date(2026, 9, 29)
+# Date du controle : aujourd hui (1er oct 2026 : la date figee au 29 sept faisait
+# passer pour future une date du jour posee par le chargeur).
+TODAY = datetime.date.today()
 
 findings = defaultdict(list)  # ticker -> [ {code, champ, detail, gravite, auto} ]
 def add(t, code, champ, detail, gravite='moyenne', auto=False):
@@ -27,18 +29,70 @@ RX_SOURCE = re.compile(r"(\bsource\s*:|\(source\b|\btable\s*['\"«]|\bExercice \
 RX_EN = re.compile(r'\b(the|and|with|from|which|revenue|growth|increase|decrease|year-over-year|compared to|as of|billion|million|quarter|fiscal|company|customers|driven by)\b', re.I)
 RX_FR_MARK = re.compile(r'\b(le|la|les|des|du|une|un|et|sur|par|avec|pour|dans|en)\b', re.I)
 RX_DECPOINT = re.compile(r'\b\d+\.\d+\s?(%|Mds|M\b|Md|k\b|milliards|millions|\$|€)')
-RX_INTERNE = re.compile(r'(\[object|\bundefined\b|\bNaN\b|\bnull\b|\bTODO\b|\bTBD\b|lorem ipsum|placeholder|\bkpis-haut\b|\bCahier\b|\bextracted\b|\bFable\b|\bClaude\b|\bLLM\b|\bGPT-|\bCerebras\b|\bGroq\b|_derived|\bbatch\d|\bJSON\b|\bXBRL\b|\bverbatim\b|\bnon trouv[ée] verbatim|\b_src|\bkpis_haut|\bv2-pipeline|\benrich\b|\bhaiku\b|\bsonnet\b|\bopus\b|\bpipeline d.extraction)', re.I)
-RX_MODELE = re.compile(r"(en tant qu.IA|as an AI|je ne peux pas (vous|fournir|acc)|I cannot|I don.t have access|voici (un|le) r[ée]sum[ée]|\bhere is (a|the) summary|\bci-dessous\b|\bNote\s*:\s*(ce r[ée]sum[ée]|this summary)|je n.ai pas (acc[èe]s|trouv[ée])|en tant que mod[èe]le|\bmod[èe]le de langage\b)", re.I)
+# 1er oct 2026 : retires du motif les mots du vocabulaire courant qui produisaient
+# des faux positifs : LLM, Cerebras, Groq, Claude Code (sujets d analyse IA),
+# opus / sonnet / haiku (mots francais), enrich (slogans anglais),
+# « cahier des charges ». Les marqueurs techniques (null, NaN, TBD...) sont
+# cherches en respectant la casse (le lait infantile « NAN » de Nestle n en est pas un).
+RX_INTERNE = re.compile(r'(lorem ipsum|placeholder|\bkpis-haut\b|\bcahier\b(?! des charges| de construction)|\bextracted\b|\bClaude\b(?! Code)|\bGPT-|_derived|\bbatch\d|\bJSON\b|\bXBRL\b|\bverbatim\b|\b_src|\bkpis_haut|\bv2-pipeline|\bdata-lake\b|\bpipeline d.extraction)', re.I)
+RX_INTERNE_CASSE = re.compile(r'(\[object|\bundefined\b|\bNaN\b|\bnull\b|\bTODO\b|\bTBD\b|\bFable\b)')
+def marque_interne(txt):
+    return RX_INTERNE.search(txt) or RX_INTERNE_CASSE.search(txt)
+# 1er oct 2026 : « ci-dessous » et « modele de langage » sont du francais courant
+# (theses, notes de gouvernance, positionnement IA) ; ajout du gabarit
+# « Le depot identifie un risque. Source : » laisse dans des resumes de risques.
+RX_MODELE = re.compile(r"(en tant qu.IA|as an AI|je ne peux pas (vous|fournir|acc)|I cannot|I don.t have access|voici (un|le) r[ée]sum[ée]|\bhere is (a|the) summary|\bNote\s*:\s*(ce r[ée]sum[ée]|this summary)|je n.ai pas (acc[èe]s|trouv[ée])|en tant que mod[èe]le d|Le d[ée]p[ôo]t identifie un risque\. Source)", re.I)
 RX_YEAR = re.compile(r'\b(20[12][0-9])\b')
 RX_APOS = re.compile(r"(?<![A-Za-zÀ-ÿ&'’])[dDlLsScCjJnN] (un|une|autre|autres|abord|ailleurs|entreprise|entreprises|exercice|activit[ée]s?|actions?|ann[ée]es?|environ|origine|accord|achat|achats|acier|affaires|ordre|eau|[ée]nergie|espace|essai|effet|[ée]tat|Europe|Asie|Am[ée]rique|Afrique|Inde|Italie|Espagne|Allemagne|Apple|Amazon|IA|investissements?|utilisateurs?|usines?|unit[ée]s?|obligations?|options?|objectifs?|op[ée]rations?|infrastructures?|innovations?|intelligence|assurances?|analyses?|abonn[ée]s|actifs?|acquisitions?|augmenter|atteindre|il|elle|ils|elles|on|est|[ée]tait|y|a|à|en|au|aux|ici|hier|aujourd|hui|habitude|histoire|horizon|[ée]conomie|[ée]lectricit[ée]|[ée]quipements?|[ée]missions?|[ée]chelle|indice|impact|int[ée]r[êe]ts?|exposition|expansion|exploitation|offre|offres|outil|outils|or|ordre|arr[êe]t|ouverture|ensemble|encours|effectifs?|emplois?|entr[ée]es?|[ée]cart|[ée]volution|utilisation|usage|ann[ée]e|automobile|avion|avions|avantage|avantages|acc[èe]s|adoption|application|applications|approche|approvisionnement|augmentation|abonnement|abonnements|Internet|iPhone|Airbus|Alphabet|Oracle|Intel|Uber|Nvidia|Adobe|Airbnb|Allianz|AXA|ING|UBS|Hermès|Hermes|Air Liquide|Orange|Eni|Enel|Iberdrola|Unilever|EssilorLuxottica|Ahold)(?![A-Za-z])")
 SANS_ACCENT = re.compile(r"(?<![A-Za-zÀ-ÿ'’])(societe|societes|resultat|resultats|annee|annees|apres|tres|premiere|derniere|benefice|benefices|activite|activites|strategie|strategies|capacite|capacites|quantite|periode|periodes|deja|generale|numerique|numeriques|systeme|systemes|electrique|electriques|energie|energies|region|regions|americain|americaine|europeen|europeenne|reseau|reseaux|developpement|different|differente|differents|prevu|prevue|marche|marches|donnees|creation|operationnel|operationnelle|generation|degradation|realite|specialise|specialisee|dependance|independant|reglementaire|reglementation|securite|sante|medicaments|medical|medicale|hopitaux|equipements|telephonie|vehicules|electricite|petrole|pieces|matieres|premieres|numero|meme|memes|etre|etait|etaient|ete|cree|creee|clientele|fidelite|qualite|rentabilite|volatilite|liquidite|visibilite|competitivite|proprietaire|propriete|proprietes|frequence|recurrent|recurrente|recurrents|recurrentes|reguliere|regulier|coherent|coherence|experience|integration|verticale|acces|succes|proces|congres|interet|interets|etranger|etrangere|hotel|hotels|cout|couts|controle|controlee|role|reelle|reel|reels|ecart|ecarts|element|elements|evolution|evenement|evenements|efficacite|epargne|equilibre|etude|etudes|hebergement|heritage|independance|ingenierie|inegal|integralite|materiel|materiels|mecanique|methode|metier|metiers|modele|modeles|negatif|negative|negociation|neutralite|operation|operations|pediatrique|penetration|perimetre|phenomene|precision|preference|preferences|prevision|previsions|procedure|procedures|progres|prevention|reduction|reference|references|regime|regle|regles|remuneration|renouvele|reparti|repartie|repartition|reserve|reserves|residentiel|resilience|retablissement|reussite|schema|semi-conducteur|semi-conducteurs|serie|series|siecle|specifique|specifiques|stabilite|superieur|superieure|telecommunications|television|temperature|theme|theorie|therapie|therapies|tresorerie|utilite|vehicule)(?![A-Za-zÀ-ÿ'’])")
+
+RX_FLUX = re.compile(r"(r[ée]sultat|b[ée]n[ée]fice|\bBPA\b|\bEPS\b|flux|tr[ée]sorerie|\bFCF\b|\bOCF\b|cash|rachat|buyback|acquisition|cession|disposal|dividende|d[ée]pr[ée]ciation|impairment|provision|imp[ôo]t|\btax|marge|margin|croissance|growth|variation|[ée]mission|plus-value|gain|charge|co[ûu]t|perte|loss|income|profit|EBIT|AOI|net adds|ajouts nets|r[ée]duction|restructur|revenu|chiffre d|ventes|sales|capitaux propres|equity)", re.I)
+RX_RATIO = re.compile(r"(imp[ôo]t|\btax|marge|margin|dette rapport|ratio|solvab|\bSMR\b|remplacement|\bRRR\b|contribution|\bROE\b|\bROCE\b|\bROIC\b|rentabilit)", re.I)
+
+def rupture_echelle(vals, nom=''):
+    """Vrai changement d echelle dans une serie, sinon None.
+    A) un point a x1000 / x1e6 / x1e9 (a 40 % pres) entoure de voisins stables des
+       deux cotes ; pour un flux, seul un pic est retenu (un creux de flux est normal).
+    B) hors flux (encours, effectifs, nombres d actions, prix, unites), un ilot d un
+       ou plusieurs points x60 ou plus encadre par deux paliers stables au meme niveau,
+       sans changement de signe au bord de l ilot."""
+    sv = [v for v in vals if isinstance(v, (int, float)) and not isinstance(v, bool) and v]
+    a = [abs(v) for v in sv]; n = len(a)
+    if n < 3: return None
+    flux = bool(RX_FLUX.search(nom or ''))
+    for j in range(n):
+        g = a[max(0, j-3):j]; dr = a[j+1:j+4]
+        if not g or not dr or len(g) + len(dr) < 3: continue
+        nb = g + dr
+        if max(nb) / min(nb) > 3: continue
+        ref = st.median(nb); r = a[j] / ref
+        if flux and r < 1: continue
+        for k in (3, 6, 9):
+            if 0.6 <= r / 10**k <= 1.7 or 0.6 <= r * 10**k <= 1.7:
+                return f'point a l echelle x1e{k} ({sv[j]:g} parmi des voisins vers {ref:g})'
+    if flux: return None
+    def stable(seg): return len(seg) >= 2 and max(seg) / min(seg) <= 3
+    for j in range(2, n):
+        av = a[max(0, j-4):j]
+        if not stable(av): continue
+        ma = st.median(av)
+        if max(a[j] / ma, ma / a[j]) < 60: continue
+        k = j
+        while k < n and max(a[k] / ma, ma / a[k]) >= 60 and k - j < 12: k += 1
+        ap = a[k:k+4]
+        if not stable(ap) or max(st.median(ap) / ma, ma / st.median(ap)) >= 3: continue
+        signes = {v > 0 for v in sv[max(0, j-1):k+1]}
+        if len(signes) > 1: continue
+        return f'ilot de {k-j} point(s) a une autre echelle ({sv[j]:g} au lieu de {ma:g} environ)'
+    return None
 
 def visible_strings(o, path='', acc=None):
     if acc is None: acc = []
     if isinstance(o, dict):
         for k, v in o.items():
             if k.startswith('_'): continue
-            if k in ('history', 'history_periods', 'source_url', 'url', 'image_url', 'logo', 'id', 'ticker', 'cik', 'lei', 'isin', 'source_file', 'sources', 'source', 'preuve', 'source_note', 'evidence', 'evidence_fr', 'quote', 'sources_fr', 'source_titre', 'hero_kpi_replaced_reason', 'hero_kpi_rationale'): continue
+            # « kpis » imbrique (theses, ATT) : liste d identifiants de KPI, pas du texte
+            if k in ('kpis', 'history', 'history_periods', 'source_url', 'url', 'image_url', 'logo', 'id', 'ticker', 'cik', 'lei', 'isin', 'source_file', 'sources', 'source', 'preuve', 'source_note', 'evidence', 'evidence_fr', 'quote', 'sources_fr', 'source_titre', 'hero_kpi_replaced_reason', 'hero_kpi_rationale'): continue
             visible_strings(v, f'{path}.{k}' if path else k, acc)
     elif isinstance(o, list):
         for i, v in enumerate(o): visible_strings(v, f'{path}[{i}]', acc)
@@ -194,7 +248,9 @@ for path in sorted(glob.glob(F + '/*.json')):
         champ = f'kpis[{i}] {sh}'
         if not nf: add(t, 'K5', champ, 'sans nom francais', 'haute')
         ACRO = {'EBITDA','EBITDAX','EBIT','EPS','BPA','ROE','ROIC','ROA','FCF','CAPEX','ARR','AUM','AUC','NOI','FFO','AFFO','DPS','TAM','ARPU','ARPA','ARPPU','NPS','CAC','LTV','GMV','NRR','GRR','MAU','DAU','WAU','MRR','RPO','TCV','ACV','ASP','OPEX','PIB','R&D','SG&A','NAV','ANR','BNPA','CET1','SCR','RWA','LCR','NSFR','CA','TTM','ETP','MW','GW','TWH','GWH','MWH','AOM','RevPAR','ADR','ASK','RPK','CASK','RASK','FTE','ESG','IFRS','GAAP','US GAAP','LNG','GNL','EUV','DUV','HBM','DRAM','NAND','AWS','AI','IA','GPU','CPU','TPU','PC','TV','OTT','SVOD','AVOD','NII','NIM','ROTE','ROTCE','CTI','COR','SIR','NPE','NPL','LCR','TSR','WACC','EV','P/E','PER','PEG','ROCE','ROI','ANC','SIIC','REIT','FFO/action','AFFO/action','GLA','ABR','NOI/m2'}
-        if nf and (('_' in nf) or (nf.isupper() and len(nf) > 3 and nf.strip() not in ACRO and not re.match(r'^[A-Z&/ .-]{2,8}$', nf.strip()))): add(t, 'K5', champ, f'nom = code technique : {nf}', 'haute')
+        # 1er oct 2026 : un nom en capitales fait de plusieurs mots (« CA AXA XL »,
+        # « CA TF1 ») est un libelle lisible ; seul un jeton unique est un code.
+        if nf and (('_' in nf) or (nf.isupper() and len(nf) > 3 and ' ' not in nf.strip() and nf.strip() not in ACRO and not re.match(r'^[A-Z&/ .-]{2,8}$', nf.strip()))): add(t, 'K5', champ, f'nom = code technique : {nf}', 'haute')
         if nf and RX_EN.search(nf) and not RX_FR_MARK.search(nf) and len(RX_EN.findall(nf)) >= 1 and re.search(r'\b(revenue|growth|customers|net income|margin|sales)\b', nf, re.I):
             add(t, 'K5', champ, f'nom francais en anglais : {nf}', 'moyenne')
         if not u.strip() or u.strip().lower() in ('none', 'null', 'nan'): add(t, 'K6', champ, f'unite vide ou invalide : {u!r}', 'moyenne')
@@ -204,11 +260,17 @@ for path in sorted(glob.glob(F + '/*.json')):
             continue
         if any(v is None for v in vals) and len(vals) - len(nums) > 2: add(t, 'K3', champ, f'{len(vals)-len(nums)} trous dans la serie', 'basse')
         if len(nums) >= 3 and len(set(nums)) == 1: add(t, 'K12', champ, f'serie plate : {nums[0]} x{len(nums)}', 'basse')
-        # rupture d echelle
-        for a, b in zip(nums, nums[1:]):
-            if a and b and a > 0 and b > 0 and (b / a > 60 or a / b > 60):
-                add(t, 'K11', champ, f'saut x{max(b/a, a/b):.0f} dans la serie ({a} -> {b})', 'haute'); break
-        if u.strip() == '%' and (max(abs(v) for v in nums) > 1000): add(t, 'K13', champ, f'pourcentage aberrant : {max(nums)}', 'haute')
+        # rupture d echelle (1er oct 2026 : l ancien test « saut x60 entre deux
+        # points voisins » signalait 567 series dont l immense majorite de flux
+        # normaux : rachats nuls un trimestre, resultat proche de zero, BPA d un
+        # trimestre de charge exceptionnelle. Voir rupture_echelle.)
+        r_ech = rupture_echelle(vals, f'{sh} {nf} {ne_}')
+        if r_ech: add(t, 'K11', champ, r_ech, 'haute')
+        if u.strip() == '%' and (max(abs(v) for v in nums) > 1000):
+            # un ratio dont le denominateur frole zero (taux d impot, marge, dette
+            # rapportee au CA d une annee de crise) est arithmetiquement juste
+            if RX_RATIO.search(f'{sh} {nf} {ne_}'): add(t, 'K13r', champ, f'ratio extreme (denominateur proche de zero) : {max(nums, key=abs)}', 'moyenne')
+            else: add(t, 'K13', champ, f'pourcentage aberrant : {max(nums, key=abs)}', 'haute')
         if re.search(r'^(Mds|Md|B)\b', u) and max(abs(v) for v in nums) > 5000: add(t, 'K13', champ, f'valeur en Mds > 5000 : {max(nums)}', 'moyenne')
         if re.search(r'^(M)\s', u) and max(abs(v) for v in nums) > 5_000_000: add(t, 'K13', champ, f'valeur en M > 5 000 000 : {max(nums)}', 'moyenne')
         val = k.get('value')
@@ -220,7 +282,14 @@ for path in sorted(glob.glob(F + '/*.json')):
         m = re.match(r'(\d{4})-(\d{2})', ld)
         if m:
             y = int(m.group(1))
-            if y > 2026 or (y == 2026 and int(m.group(2)) > 9): add(t, 'K14', champ, f'date dans le futur : {ld}', 'haute')
+            try: dld = datetime.date.fromisoformat(ld[:10])
+            except Exception: dld = None
+            if dld and dld > TODAY:
+                # exercice en cours note FY<annee> au 31 decembre : valeur votee,
+                # plan ou prevision de l annee (base tarifaire, ROE autorise, capex prevu)
+                annuel = pt in ('year', 'annual', 'yearly') or (per and re.match(r'^FY\d{4}$', str(per[-1])))
+                if annuel and ld[:10] == f'{TODAY.year}-12-31': add(t, 'K14p', champ, f'exercice en cours (plan ou valeur votee) : {ld}', 'basse')
+                else: add(t, 'K14', champ, f'date dans le futur : {ld}', 'haute')
             if y <= 2024: stats['kpi_arrete_2024'] += 1
         elif pt in ('quarter', 'quarterly'): add(t, 'K1b', champ, 'trimestriel sans last_data_date', 'moyenne')
         if per and len(per) != len(vals): add(t, 'K2', champ, f'{len(per)} periodes pour {len(vals)} points', 'haute')
@@ -235,7 +304,8 @@ for path in sorted(glob.glob(F + '/*.json')):
             if RX_DOC.search(txt): add(t, 'T2', champ + '.' + lab, 'nom de document : ' + RX_DOC.search(txt).group(0), 'moyenne', True)
             if RX_SOURCE.search(txt): add(t, 'T3', champ + '.' + lab, 'mention de source : ' + RX_SOURCE.search(txt).group(0), 'moyenne', True)
             if RX_DECPOINT.search(txt): add(t, 'T5', champ + '.' + lab, 'point decimal : ' + RX_DECPOINT.search(txt).group(0), 'basse', True)
-            if RX_INTERNE.search(txt): add(t, 'T7', champ + '.' + lab, 'marque interne : ' + RX_INTERNE.search(txt).group(0), 'haute')
+            mi = marque_interne(txt)
+            if mi: add(t, 'T7', champ + '.' + lab, 'marque interne : ' + mi.group(0), 'haute')
             en = len(RX_EN.findall(txt)); fr = len(RX_FR_MARK.findall(txt))
             if en >= 3 and en > fr: add(t, 'T4', champ + '.' + lab, 'texte en anglais : ' + txt[:80], 'moyenne')
             if SANS_ACCENT.search(txt): add(t, 'T9', champ + '.' + lab, 'accent manquant : ' + SANS_ACCENT.search(txt).group(0), 'basse', True)
@@ -257,7 +327,8 @@ for path in sorted(glob.glob(F + '/*.json')):
         if RX_TIRET.search(s): add(t, 'T1', pth, 'tiret long', 'basse', True)
         if RX_DOC.search(s): add(t, 'T2', pth, 'nom de document : ' + RX_DOC.search(s).group(0), 'moyenne', True)
         if RX_SOURCE.search(s): add(t, 'T3', pth, 'mention de source : ' + RX_SOURCE.search(s).group(0), 'moyenne', True)
-        if RX_INTERNE.search(s): add(t, 'T7', pth, 'marque interne : ' + RX_INTERNE.search(s).group(0), 'haute')
+        mi = marque_interne(s)
+        if mi: add(t, 'T7', pth, 'marque interne : ' + mi.group(0), 'haute')
         if RX_MODELE.search(s): add(t, 'T7m', pth, 'texte de modele : ' + s[:80], 'haute')
         if SANS_ACCENT.search(s): add(t, 'T9', pth, 'accent manquant : ' + SANS_ACCENT.search(s).group(0), 'basse', True)
         if RX_APOS.search(s): add(t, 'T10', pth, 'apostrophe manquante : ' + RX_APOS.search(s).group(0), 'basse', True)

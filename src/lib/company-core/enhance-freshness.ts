@@ -28,7 +28,12 @@ export function enhanceFreshness<T extends Company & Record<string, unknown>>(da
     data._validation_date,
   ].filter((d): d is string => typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d));
   allDates.push(...topLevelCandidates);
-  const maxDate = allDates.length > 0 ? allDates.sort().slice(-1)[0] : "2025-12-31";
+  // 1er oct 2026 : une date future (plan ou valeur votee de l exercice en
+  // cours, ex. ROE autorise FY2026 au 31/12/2026) ne doit pas servir de date
+  // de repli aux KPI non dates (compteurs SRE affiches « au 31/12/2026 »).
+  const aujourdhui = new Date().toISOString().slice(0, 10);
+  const datesPassees = allDates.filter((d) => d <= aujourdhui);
+  const maxDate = datesPassees.length > 0 ? datesPassees.sort().slice(-1)[0] : "2025-12-31";
   // Yann 16 mai 2026 : NE PAS écraser le last_data_date propre d'un KPI
   // par la date max du dataset. Sinon l'aggrégation annuelle (cf.
   // aggregateQuarterlyToAnnual) calcule les FY à partir d'une mauvaise

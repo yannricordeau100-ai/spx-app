@@ -2289,11 +2289,28 @@ async function loadV17CompanyBrut(
           nameFr.includes("effectif") ||
           nameFr.includes("employé");
         if (!isHeadcount) return k;
+        // 1er oct 2026 : le simple mot « effectif » ou « employé » attrapait des
+        // indicateurs qui ne sont PAS l effectif total (taux d utilisation des
+        // effectifs, reduction d effectifs, croissance du CA par employe,
+        // employes payes sur une plateforme, techniciens, acheteurs...). Le
+        // nombre de salaries etait alors colle en dernier point de la serie et
+        // en valeur affichee (EPAM 77 % puis 62 850 %). On ecarte ces cas, les
+        // series deja datees (le point ajoute n aurait pas de periode) et toute
+        // serie dont l ordre de grandeur n est pas celui de l effectif.
+        const unitBrut = String(k.unit ?? "");
+        if (unitBrut.includes("%")) return k;
+        if (/r[ée]duction|taux|croissance|co[ûu]t|charge|engagement|par employ|pay[ée]s|utilisation|technicien|acheteur|ing[ée]nieur|commerciau|production|delivery|restructur/.test(nameFr)) return k;
+        if (Array.isArray((k as { history_periods?: unknown }).history_periods)) return k;
         // Reformater la valeur courante avec la même unité que le KPI existant.
         const unit = String(k.unit ?? "K");
         const val = unit === "K" ? (empNow / 1000).toFixed(1).replace(".", ",") : String(empNow);
         const hist = Array.isArray(k.history) ? [...(k.history as number[])] : [];
         const lastHistVal = unit === "K" ? empNow / 1000 : empNow;
+        const dernier = hist.length > 0 ? Number(hist[hist.length - 1]) : NaN;
+        if (Number.isFinite(dernier) && dernier > 0) {
+          const ratio = lastHistVal / dernier;
+          if (ratio > 3 || ratio < 1 / 3) return k;
+        }
         // Append à l'history seulement si le dernier point diffère significativement
         if (hist.length === 0 || Math.abs(hist[hist.length - 1] - lastHistVal) / lastHistVal > 0.02) {
           hist.push(Number(lastHistVal.toFixed(2)));
@@ -3191,7 +3208,16 @@ async function loadV17CompanyBrut(
     }
   }
   if (Array.isArray(company.kpis)) {
-    company.kpis = dedupKpisSeriesRecouvrantes(company.kpis as AnyKPI[], ticker) as Company["kpis"];
+    const absorbes = new Map<string, string>();
+    company.kpis = dedupKpisSeriesRecouvrantes(company.kpis as AnyKPI[], ticker, absorbes) as Company["kpis"];
+    // 1er oct 2026 : le dedoublonnage final pouvait retirer le KPI vedette
+    // (COST, DIS, IVZ...) et laisser hero_kpi pointer vers un indicateur
+    // absent de la fiche. On repointe vers la serie qui l a absorbe.
+    const hero = (company as { hero_kpi?: unknown }).hero_kpi;
+    if (typeof hero === "string" && absorbes.has(hero)
+      && !(company.kpis as AnyKPI[]).some((k) => k.short === hero)) {
+      (company as { hero_kpi?: string }).hero_kpi = absorbes.get(hero);
+    }
   }
 
   return { kind: "ready", company };
@@ -3266,7 +3292,7 @@ function lcsContigInfo(a: number[], b: number[]): { len: number; restA: number; 
   return { len: best, restA: a.length - endA, restB: b.length - endB };
 }
 
-function dedupKpisSeriesRecouvrantes(kpis: AnyKPI[], ticker?: string): AnyKPI[] {
+function dedupKpisSeriesRecouvrantes(kpis: AnyKPI[], ticker?: string, absorbes?: Map<string, string>): AnyKPI[] {
   // Paires revues a la main (fusion d office, sous le seuil automatique)
   const forcees = new Set(
     (doublonsForcesJson as unknown as { paires: { ticker: string; shorts: string[] }[] }).paires
@@ -3374,6 +3400,11 @@ function dedupKpisSeriesRecouvrantes(kpis: AnyKPI[], ticker?: string): AnyKPI[] 
         const other = l[f];
         const vide = cur == null || (typeof cur === "string" && !cur.trim());
         if (vide && other != null) w[f] = other;
+      }
+      if (absorbes && typeof l.short === "string" && typeof w.short === "string") {
+        absorbes.set(l.short, w.short);
+        // un KPI deja absorbe par le perdant suit le gagnant
+        for (const [a, b] of absorbes) if (b === l.short) absorbes.set(a, w.short);
       }
       drop.add(loserIdx);
     }
