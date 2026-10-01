@@ -33,6 +33,11 @@ import { gateTheseForTier } from "@/lib/these";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
+import { estAdminOutilsFiche, chargeCoursFmp } from "@/lib/admin/outils-admin-fiche";
+import { CoursKpiBlock } from "@/components/admin/cours-kpi-block";
+import { KpiSurMesureBlock, type DonneesDividendes } from "@/components/admin/kpi-sur-mesure-block";
+import DIVIDENDES_TOP5 from "@/data/admin-dividendes-top5.json";
+import INDICES_COMPOSITION from "@/data/indices-composition.json";
 
 /** Visibilité V1.9.5 : la liste clean-all fait foi (mêmes variantes de
  *  séparateur que le loader V1.9.5 : BRK.B / BRK-B). */
@@ -243,7 +248,7 @@ export default async function TickerPage({
   searchParams,
 }: {
   params: Promise<{ ticker: string }>;
-  searchParams?: Promise<{ audit_token?: string }>;
+  searchParams?: Promise<{ audit_token?: string; admin?: string }>;
 }) {
   const { ticker } = await params;
   const upper = ticker.toUpperCase();
@@ -379,6 +384,44 @@ export default async function TickerPage({
     .sort()
     .at(-1);
 
+  // Mission admin (Yann, 1er oct 2026) : blocs « KPI et cours de bourse » et
+  // « KPI admin sur-mesure ». Controle SERVEUR : admin connecte (ou jeton
+  // d audit + ?admin=1) et jamais sur mettrik.ai. Hors admin, rien n est
+  // rendu ni serialise vers le navigateur.
+  const adminOutils = await estAdminOutilsFiche({ auditBypass, adminParam: sp?.admin });
+  let adminApresHero: React.ReactNode = null;
+  let adminApresMoyenTerme: React.ReactNode = null;
+  let adminNomsExport: Record<string, string> | null = null;
+  if (adminOutils) {
+    const { cours, couverture } = await chargeCoursFmp(servedCompany.ticker);
+    adminApresHero = (
+      <CoursKpiBlock
+        ticker={servedCompany.ticker}
+        nomSociete={servedCompany.name}
+        kpis={servedCompany.kpis ?? []}
+        heroShort={servedCompany.hero_kpi}
+        cours={cours ? { source: cours.source, symbole_fmp: cours.symbole_fmp, premiere_date: cours.premiere_date, derniere_date: cours.derniere_date, dernier_cours: cours.dernier_cours, plus_haut: cours.plus_haut, cloture_annee_precedente: cours.cloture_annee_precedente, points: cours.points } : null}
+        motifNonCouvert={cours ? null : couverture.couvert === null ? "société pas encore testée, quota quotidien de l’API atteint" : couverture.motif ?? null}
+        devisePrix="$"
+      />
+    );
+    adminApresMoyenTerme = <KpiSurMesureBlock donnees={DIVIDENDES_TOP5 as unknown as DonneesDividendes} />;
+    const noms: Record<string, string> = {};
+    for (const idx of Object.values((INDICES_COMPOSITION as { indices: Record<string, { membres: { ticker: string; nom: string }[] }> }).indices)) {
+      for (const m of idx.membres) if (!noms[m.ticker.toUpperCase()]) noms[m.ticker.toUpperCase()] = m.nom;
+    }
+    const v17 = V17_PUBLIC as Record<string, { name?: string }>;
+    const cibles = new Set<string>();
+    for (const f of ((servedCompany as { image_findings?: { target_tickers?: string[] }[] }).image_findings ?? [])) {
+      for (const t of f.target_tickers ?? []) cibles.add(t.toUpperCase());
+    }
+    adminNomsExport = {};
+    for (const t of cibles) {
+      const nom = noms[t] ?? noms[t.replace(/-/g, ".")] ?? v17[t]?.name;
+      if (nom) adminNomsExport[t] = nom;
+    }
+  }
+
   return (
     <>
       <FicheJsonLd
@@ -408,6 +451,9 @@ export default async function TickerPage({
           // production, un bloc absent se masque, il ne s annonce pas.
           freemiumTier={freemiumTier}
           disabledBlocks={disabledBlocks}
+          adminApresHero={adminApresHero}
+          adminApresMoyenTerme={adminApresMoyenTerme}
+          adminNomsExport={adminNomsExport}
         />
       </FreemiumBlurProvider>
       <DisclaimerFooter />

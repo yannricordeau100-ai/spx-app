@@ -226,6 +226,15 @@ export async function downloadSvgAsPng(
      *  en rangee centree (logo + ticker) sous le bloc logo / nom principal et
      *  au-dessus du titre. Le ticker principal est ignore s il y figure. */
     peers?: string[];
+    /** Mission admin (Yann, 1er oct 2026) : drapeau ADMIN. Uniquement passe par
+     *  les blocs rendus apres controle admin cote serveur (preversion). Active
+     *  la regle multi societes admin : logo plus proche du nom, nom de la
+     *  societe au lieu du ticker, et si les noms ne tiennent pas en largeur,
+     *  ticker avec le nom en petit entre parentheses dessous. L export public
+     *  (sans ce drapeau) ne change pas. */
+    admin?: boolean;
+    /** Noms des societes de la rangee multi societes (cle = ticker en majuscules). */
+    peerNames?: Record<string, string>;
   } = {},
   scale = 2
 ): Promise<void> {
@@ -813,11 +822,107 @@ export async function downloadSvgAsPng(
         .filter((t) => t.length > 0 && t !== mainTicker && !memeSociete(t))
         .filter((t, i, a) => a.indexOf(t) === i)
     : [];
+  // ── Rangee multi societes, regle ADMIN (Yann, 1er oct 2026) ──
+  // Calculee AVANT la hauteur d en-tete : en mode « ticker + (nom) » la
+  // rangee est plus haute. Mode « nom » : logo colle au nom (6 au lieu de 9).
+  // Si les noms ne tiennent pas en largeur, mode « ticker » : logo + ticker,
+  // et dessous, centre, le nom entre parentheses en petit, borne a la largeur
+  // logo + ticker. Rien ne change sans le drapeau admin.
+  type PeerAdmin = { ticker: string; logo: string | null; nom: string; fontNom: number; nomAffiche: string };
+  let peersAdmin: {
+    items: PeerAdmin[];
+    mode: "nom" | "ticker";
+    font: number;
+    gapLogo: number;
+    gapEntre: number;
+    logo: number;
+    hauteur: number;
+  } | null = null;
+  if (COMPACT && options.admin === true && peerTickers.length > 0) {
+    const ctxA = typeof document !== "undefined" ? document.createElement("canvas").getContext("2d") : null;
+    const mesure = (txt: string, f: number, poids = 400) => {
+      if (!ctxA) return txt.length * f * 0.58;
+      ctxA.font = `${poids} ${f}px ${PNG_FONT_FAMILY}`;
+      // letter-spacing 0.04em pose sur le texte de la rangee
+      return ctxA.measureText(txt).width + txt.length * f * 0.04;
+    };
+    const bruts = await Promise.all(
+      peerTickers.map(async (t) => ({
+        ticker: t,
+        logo: await chargerLogoTicker(t, 32),
+        nom: (options.peerNames?.[t] ?? "").trim() || t,
+      })),
+    );
+    const vus = new Set<string>();
+    const items0 = bruts.filter((it) => {
+      if (!it.logo) return true;
+      if (vus.has(it.logo)) return false;
+      vus.add(it.logo);
+      return true;
+    });
+    const MAXW = origW - 48;
+    let logo = CH_PEER_LOGO;
+    let gapLogo = 6;
+    let gapEntre = 26;
+    const largeur = (lab: (it: (typeof items0)[number]) => string, f: number, liste = items0) =>
+      liste.reduce((sum, it) => sum + (it.logo ? logo + gapLogo : 0) + mesure(lab(it), f), 0) +
+      gapEntre * Math.max(0, liste.length - 1);
+    let font = 18;
+    while (font > 15 && largeur((it) => it.nom, font) > MAXW) font -= 1;
+    let mode: "nom" | "ticker" = largeur((it) => it.nom, font) <= MAXW ? "nom" : "ticker";
+    if (mode === "ticker") {
+      font = 18;
+      const brute = largeur((it) => it.ticker, font);
+      if (brute > MAXW) {
+        const f = Math.max(0.6, (MAXW / brute) * 0.97);
+        font = Math.round(font * f * 10) / 10;
+        gapLogo = Math.max(4, Math.round(gapLogo * f));
+        gapEntre = Math.round(gapEntre * f);
+        logo = Math.round(logo * f);
+      }
+      while (items0.length > 1 && largeur((it) => it.ticker, font) > MAXW) items0.pop();
+    }
+    // Mode « ticker » : une seule taille pour tous les noms (la plus grande qui
+    // tient pour chaque societe, plancher 9), puis raccourci si besoin. Une
+    // societe sans nom connu (nom = ticker) n a pas de seconde ligne.
+    const limiteDe = (it: (typeof items0)[number]) => (it.logo ? logo + gapLogo : 0) + mesure(it.ticker, font);
+    const avecNom = items0.filter((it) => it.nom && it.nom.toUpperCase() !== it.ticker);
+    let fnCommun = 13;
+    for (const it of avecNom) {
+      const w13 = mesure(`(${it.nom})`, 13, 300);
+      const lim = limiteDe(it);
+      if (w13 > lim) fnCommun = Math.min(fnCommun, (13 * lim) / w13);
+    }
+    fnCommun = Math.max(8, Math.floor(fnCommun * 10) / 10);
+    const items: PeerAdmin[] = items0.map((it) => {
+      if (mode === "nom") return { ...it, fontNom: font, nomAffiche: it.nom };
+      if (!it.nom || it.nom.toUpperCase() === it.ticker) return { ...it, fontNom: 0, nomAffiche: "" };
+      const limite = limiteDe(it);
+      let nomAffiche = `(${it.nom})`;
+      let base = it.nom;
+      while (mesure(nomAffiche, fnCommun, 300) > limite && base.length > 2) {
+        base = base.slice(0, -1).trimEnd();
+        nomAffiche = `(${base}…)`;
+      }
+      return { ...it, fontNom: fnCommun, nomAffiche };
+    });
+    const fnMax = Math.max(0, ...items.map((it) => it.fontNom));
+    peersAdmin = {
+      items,
+      mode,
+      font,
+      gapLogo,
+      gapEntre,
+      logo,
+      hauteur: mode === "nom" ? CH_PEER_ROW : Math.max(logo, font) + 6 + Math.round(fnMax * 0.95),
+    };
+  }
+  const hauteurRangeePeers = peersAdmin ? peersAdmin.hauteur : CH_PEER_ROW;
   const PAD_TOP = COMPACT
     ? CH_TOP +
       CH_LOGO +
       CH_GAP +
-      (peerTickers.length > 0 ? CH_PEER_ROW + CH_GAP : 0) +
+      (peerTickers.length > 0 ? hauteurRangeePeers + CH_GAP : 0) +
       CH_TITLE_ROW +
       CH_GAP
     : 252;
@@ -1040,13 +1145,24 @@ export async function downloadSvgAsPng(
       el.textContent = texte;
       clone.appendChild(el);
     };
-    // Barre a trois espaces a gauche de "KPIs Powered by".
-    const barreX = wmStartX - trois;
-    poserTexte(barreX, "end", "|");
-    // Pseudo a trois espaces a gauche de la barre (la barre est fine :
-    // on retire sa largeur approximative pour garder l ecart visuel).
+    // 1er oct 2026 (verification sur PNG reel) : la barre touchait le « K » de
+    // « KPIs Powered by » (ecart 0 a droite, 12 a gauche). Le debut du texte
+    // etait suppose a 92 unites de sa fin, alors que sa largeur reelle (police
+    // du document + espacement des lettres 0,02 em) est plus grande. On mesure
+    // donc la largeur reelle, on centre la barre a trois espaces du debut reel
+    // du texte, et le pseudo finit a trois espaces de la barre : meme ecart
+    // visuel des deux cotes.
+    const ESPACEMENT = 14 * 0.02; // letter-spacing 0.02em a 14 px
+    const largeurSig = spaceCtx
+      ? spaceCtx.measureText("KPIs Powered by").width + "KPIs Powered by".length * ESPACEMENT
+      : KPIS_DATA_BY_TEXT_W;
+    const debutTexteSig = wmTextRightX - largeurSig;
     const largeurBarre = spaceCtx ? spaceCtx.measureText("|").width : 4;
-    poserTexte(barreX - largeurBarre - trois, "end", pseudoGraph);
+    const centreBarre = debutTexteSig - trois - largeurBarre / 2;
+    poserTexte(centreBarre, "middle", "|");
+    // L espacement des lettres ajoute un blanc apres la derniere lettre du
+    // pseudo : on le compense pour que l ecart visible soit bien trois espaces.
+    poserTexte(centreBarre - largeurBarre / 2 - trois + ESPACEMENT, "end", pseudoGraph);
   }
 
   const wmLogoEl = document.createElementNS(NS, "image");
@@ -1290,7 +1406,78 @@ export async function downloadSvgAsPng(
     // Logo carre-arrondi + ticker, centres, sous le bloc logo / nom
     // principal et au-dessus du titre. Rendue uniquement en mode compact et
     // seulement si au moins une autre societe est rattachee au graphique.
-    if (COMPACT && peerTickers.length > 0) {
+    if (peersAdmin) {
+      // Rendu de la regle multi societes ADMIN (calculee plus haut).
+      const pa = peersAdmin;
+      const ctxR = document.createElement("canvas").getContext("2d");
+      const mesureR = (txt: string, f: number, poids = 400) => {
+        if (!ctxR) return txt.length * f * 0.58;
+        ctxR.font = `${poids} ${f}px ${PNG_FONT_FAMILY}`;
+        return ctxR.measureText(txt).width + txt.length * f * 0.04;
+      };
+      const libelle = (it: PeerAdmin) => (pa.mode === "nom" ? it.nom : it.ticker);
+      const largeurItem = (it: PeerAdmin) => (it.logo ? pa.logo + pa.gapLogo : 0) + mesureR(libelle(it), pa.font);
+      const totale = pa.items.reduce((sum, it) => sum + largeurItem(it), 0) + pa.gapEntre * Math.max(0, pa.items.length - 1);
+      const rangeeTop = origY - PAD_TOP + CH_TOP + CH_LOGO + CH_GAP;
+      const ligneH = Math.max(pa.logo, pa.font);
+      const cy = pa.mode === "nom" ? rangeeTop + pa.hauteur / 2 : rangeeTop + ligneH / 2;
+      let curseur = origX + origW / 2 - totale / 2;
+      for (const it of pa.items) {
+        const debut = curseur;
+        if (it.logo) {
+          const top = cy - pa.logo / 2;
+          const r = pa.logo * 0.22;
+          const clipId = `peerClipA_${Math.random().toString(36).slice(2, 8)}`;
+          const clipEl = document.createElementNS(NS, "clipPath");
+          clipEl.setAttribute("id", clipId);
+          const clipRect = document.createElementNS(NS, "rect");
+          for (const [k, v] of [["x", curseur], ["y", top], ["width", pa.logo], ["height", pa.logo], ["rx", r], ["ry", r]] as const) clipRect.setAttribute(k, String(v));
+          clipEl.appendChild(clipRect);
+          clone.appendChild(clipEl);
+          const fondClair = logoNeedsLightBg(it.ticker);
+          const fond = document.createElementNS(NS, "rect");
+          for (const [k, v] of [["x", curseur], ["y", top], ["width", pa.logo], ["height", pa.logo], ["rx", r], ["ry", r]] as const) fond.setAttribute(k, String(v));
+          fond.setAttribute("fill", fondClair ? "#ffffff" : "#0a0a0a");
+          fond.setAttribute("stroke", fondClair ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.10)");
+          fond.setAttribute("stroke-width", "1");
+          clone.appendChild(fond);
+          const img = document.createElementNS(NS, "image");
+          img.setAttribute("href", it.logo);
+          img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", it.logo);
+          for (const [k, v] of [["x", curseur], ["y", top], ["width", pa.logo], ["height", pa.logo]] as const) img.setAttribute(k, String(v));
+          img.setAttribute("preserveAspectRatio", "xMidYMid meet");
+          img.setAttribute("clip-path", `url(#${clipId})`);
+          clone.appendChild(img);
+          curseur += pa.logo + pa.gapLogo;
+        }
+        const tk = document.createElementNS(NS, "text");
+        tk.setAttribute("x", String(curseur));
+        tk.setAttribute("y", String(cy + pa.font * 0.35));
+        tk.setAttribute("text-anchor", "start");
+        tk.setAttribute("font-family", PNG_FONT_FAMILY);
+        tk.setAttribute("font-weight", "400");
+        tk.setAttribute("font-size", String(pa.font));
+        tk.setAttribute("letter-spacing", "0.04em");
+        tk.setAttribute("fill", pa.mode === "nom" ? titleColor : subtitleColor);
+        tk.textContent = libelle(it);
+        clone.appendChild(tk);
+        curseur += mesureR(libelle(it), pa.font);
+        if (pa.mode === "ticker" && it.nomAffiche) {
+          const nomEl = document.createElementNS(NS, "text");
+          nomEl.setAttribute("x", String((debut + curseur) / 2));
+          nomEl.setAttribute("y", String(rangeeTop + ligneH + 6 + it.fontNom * 0.8));
+          nomEl.setAttribute("text-anchor", "middle");
+          nomEl.setAttribute("font-family", PNG_FONT_FAMILY);
+          nomEl.setAttribute("font-weight", "300");
+          nomEl.setAttribute("font-size", String(it.fontNom));
+          nomEl.setAttribute("letter-spacing", "0.04em");
+          nomEl.setAttribute("fill", subtitleColor);
+          nomEl.textContent = it.nomAffiche;
+          clone.appendChild(nomEl);
+        }
+        curseur += pa.gapEntre;
+      }
+    } else if (COMPACT && peerTickers.length > 0) {
       let PEER_FONT = 18;
       let PEER_GAP_LOGO_TEXTE = 9;
       let PEER_GAP_ENTRE = 30;

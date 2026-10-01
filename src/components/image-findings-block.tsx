@@ -72,6 +72,7 @@ export function ImageFindingsBlock({
   locale = "fr",
   ticker,
   nomSociete,
+  adminNomsExport = null,
 }: {
   findings: ImageFindingPublic[];
   accent?: string;
@@ -82,6 +83,9 @@ export function ImageFindingsBlock({
    *  exporte avec son logo, comme pour les graphiques long terme. L export
    *  attend un titre de la forme « titre du graphique · nom de la societe ». */
   nomSociete?: string;
+  /** Mission admin (1er oct 2026) : present uniquement pour l admin (controle
+   *  serveur). Active la regle d export multi societes admin. */
+  adminNomsExport?: Record<string, string> | null;
 }) {
   const [idx, setIdx] = useState(0);
   // Yann 18 sept 2026 : export PNG comme les graphiques long terme (signature Mettrik,
@@ -116,6 +120,7 @@ export function ImageFindingsBlock({
       // au-dessus du graphique, rangee des autres societes rattachees.
       headerCompact: true,
       peers: findings[safe]?.target_tickers ?? [],
+      ...(adminNomsExport ? { admin: true, peerNames: adminNomsExport } : {}),
     });
   };
   const displayTitle = pickI18n(f.title_i18n, locale, f.title);

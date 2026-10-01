@@ -368,6 +368,9 @@ export function CompanyView({
   captureInscription = false,
   disabledBlocks,
   historyLimitYears,
+  adminApresHero = null,
+  adminApresMoyenTerme = null,
+  adminNomsExport = null,
 }: {
   company: Company;
   authSlot?: React.ReactNode;
@@ -402,6 +405,14 @@ export function CompanyView({
    *  limitée (ex rupture de segment : APH/AIZ/CAH = 4 ans), affiche un "i"
    *  permanent à gauche du titre hero (indépendant du KPI sélectionné). */
   historyLimitYears?: number;
+  /** Mission admin (Yann, 1er oct 2026) : blocs admin rendus par la page
+   *  serveur APRES controle admin (preversion seulement). Null pour tous les
+   *  autres visiteurs : rien n est rendu ni envoye. */
+  adminApresHero?: React.ReactNode;
+  adminApresMoyenTerme?: React.ReactNode;
+  /** Noms des societes rattachees aux graphiques moyen terme, pour la regle
+   *  d export multi societes ADMIN. Null hors admin (export public inchange). */
+  adminNomsExport?: Record<string, string> | null;
 }) {
   // Yann 9 juin 2026 : helper unique pour savoir si un bloc est désactivé.
   // Si `disabledBlocks` est fourni (page V1.9.5, source Supabase résolue
@@ -1104,6 +1115,7 @@ export function CompanyView({
           locale={locale}
           ticker={company.ticker}
           nomSociete={company.name}
+          adminNomsExport={adminNomsExport}
         />
       ) : null
     ) : (
@@ -2198,7 +2210,9 @@ export function CompanyView({
 
         {/* 28 sept 2026 (Yann) : quand le KPI d industrie est un graphique
             moyen terme, le bloc moyen terme passe AVANT le tableau des KPI. */}
+        {adminApresHero}
         {mtEnPremier && blocMoyenTerme}
+        {mtEnPremier && adminApresMoyenTerme}
 
         {/* KPI table */}
         <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="Graphique et indicateurs réservés aux abonnés" detail="Tous les indicateurs de la société, dix ans d’historique, l’export en image et le comparateur : inclus dès le plan Premium.">
@@ -2384,6 +2398,7 @@ export function CompanyView({
             Yann 18 sept 2026 : place AU-DESSUS des Stories (moyen terme avant court terme) ; sans graphique approuve, rien ne change. Images approuvées dans
             /sandbox/image-findings mergées au SSR dans company.image_findings. */}
         {!mtEnPremier && blocMoyenTerme}
+        {!mtEnPremier && adminApresMoyenTerme}
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
         {isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories") ? (

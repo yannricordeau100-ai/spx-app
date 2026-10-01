@@ -67,7 +67,8 @@ const nextConfig: NextConfig = {
   // chemin construit (src/data/these|att/<ticker>.json) que le tracage ne voit
   // pas : aucune fiche ne les affichait en ligne. On les inclut explicitement.
   outputFileTracingIncludes: {
-    "/[ticker]": ["./src/data/these/**/*", "./src/data/att/**/*"],
+    // 1er oct 2026 (mission admin cours x KPI) : un fichier de cours par societe, lu a l execution.
+    "/[ticker]": ["./src/data/these/**/*", "./src/data/att/**/*", "./src/data/cours-fmp/**/*"],
     "/sandbox/**": ["./src/data/these/**/*", "./src/data/att/**/*"],
   },
   outputFileTracingExcludes: {
