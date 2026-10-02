@@ -134,11 +134,14 @@ export function RepartitionBars({
               />
             </div>
 
-            <div data-blur-part="valeur" className="shrink-0 whitespace-nowrap text-right font-mono text-[13.5px] font-semibold tabular-nums text-zinc-50 sm:col-span-2">
-              {fmtPct(s.share, locale)}
-            </div>
-            <div data-blur-part="pourcentage" className="shrink-0 whitespace-nowrap text-right font-mono text-[12px] tabular-nums text-zinc-400 sm:col-span-2">
-              {fmtValue(s.value, unit, locale)}
+            {/* Yann 2 oct 2026 : sur mobile, pourcentage et montant empilés à droite pour laisser la largeur au libellé. */}
+            <div className="flex shrink-0 flex-col items-end gap-0.5 sm:contents">
+              <div data-blur-part="valeur" className="shrink-0 whitespace-nowrap text-right font-mono text-[13.5px] font-semibold tabular-nums text-zinc-50 sm:col-span-2">
+                {fmtPct(s.share, locale)}
+              </div>
+              <div data-blur-part="pourcentage" className="shrink-0 whitespace-nowrap text-right font-mono text-[12px] tabular-nums text-zinc-400 sm:col-span-2">
+                {fmtValue(s.value, unit, locale)}
+              </div>
             </div>
           </li>
         ))}
@@ -161,11 +164,14 @@ export function RepartitionBars({
                 style={{ width: `${Math.max((othersShare / max) * 100, 1.5)}%` }}
               />
             </div>
-            <div data-blur-part="valeur" className="shrink-0 whitespace-nowrap text-right font-mono text-[13.5px] font-semibold tabular-nums text-zinc-50 sm:col-span-2">
-              {fmtPct(othersShare, locale)}
-            </div>
-            <div data-blur-part="pourcentage" className="shrink-0 whitespace-nowrap text-right font-mono text-[12px] tabular-nums text-zinc-400 sm:col-span-2">
-              {fmtValue(othersValue, unit, locale)}
+            {/* Yann 2 oct 2026 : sur mobile, pourcentage et montant empilés à droite pour laisser la largeur au libellé. */}
+            <div className="flex shrink-0 flex-col items-end gap-0.5 sm:contents">
+              <div data-blur-part="valeur" className="shrink-0 whitespace-nowrap text-right font-mono text-[13.5px] font-semibold tabular-nums text-zinc-50 sm:col-span-2">
+                {fmtPct(othersShare, locale)}
+              </div>
+              <div data-blur-part="pourcentage" className="shrink-0 whitespace-nowrap text-right font-mono text-[12px] tabular-nums text-zinc-400 sm:col-span-2">
+                {fmtValue(othersValue, unit, locale)}
+              </div>
             </div>
           </li>
         )}

@@ -898,3 +898,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.02.2 (02 Oct 2026 23:56, apres 0e444555ad)
 - Répartition du CA sur mobile : libellés entiers et total sur une ligne
+
+## v2026.10.03.1 (03 Oct 2026 00:12, apres 496a4f21b1)
+- Répartition du CA sur mobile : pourcentage et montant empilés, libellé pleine largeur ; couverture FMP du 2 oct (40 sociétés)
