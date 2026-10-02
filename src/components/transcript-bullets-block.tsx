@@ -337,7 +337,8 @@ export function TranscriptBulletsBlock({
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {navigation}
-          {sentimentChip(sentiment, t)}
+          {/* Yann 3 oct 2026 : la tonalite (confiant, prudent...) est floutee avec le contenu ; trimestre et annee restent lisibles. */}
+          <span data-blur-part="texte" className="inline-flex">{sentimentChip(sentiment, t)}</span>
           {(quarterLabel || summary.quarter) && (
             <span className="font-mono text-[12px] uppercase tracking-wider text-zinc-400">
               {frQuarterLabel(quarterLabel ?? summary.quarter, ticker)}
@@ -347,7 +348,7 @@ export function TranscriptBulletsBlock({
       </div>
 
       {/* Zone floutable palier gratuit : tout le contenu du bloc, le header
-          (titre, puce sentiment + trimestre, sous-titre) restant lisible. */}
+          (titre, trimestre, sous-titre) restant lisible ; la puce de tonalite est floutee. */}
       <div data-blur-part="texte">
       {/* Tonalité management = 1 ligne hero au-dessus des bullets */}
       {s.tonalite_management && (

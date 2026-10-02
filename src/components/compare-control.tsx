@@ -19,6 +19,10 @@ export function suffixeJeton(prefixe: "?" | "&"): string {
   return j ? `${prefixe}audit_token=${encodeURIComponent(j)}` : "";
 }
 
+function sansAccents(x: string): string {
+  return x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
 export function CompareControl({
   ticker,
   activeKpi,
@@ -38,10 +42,13 @@ export function CompareControl({
   const [comparables, setComparables] = useState<Item[] | null>(null);
   const [refus, setRefus] = useState(false);
   const [verrouClique, setVerrouClique] = useState<string | null>(null);
+  // Yann 3 oct 2026 : recherche par premieres lettres du ticker ou par nom, comme la barre de recherche.
+  const [requete, setRequete] = useState("");
   useEffect(() => {
     if (!open) return;
     let vivant = true;
     setComparables(null);
+    setRequete("");
     setVerrouClique(null);
     fetch(`/api/compare?t=${encodeURIComponent(ticker)}&k=${encodeURIComponent(activeKpi.short)}${suffixeJeton("&")}`)
       .then(async (r) => {
@@ -53,6 +60,12 @@ export function CompareControl({
       .catch(() => vivant && setComparables([]));
     return () => { vivant = false; };
   }, [open, ticker, activeKpi.short]);
+  const q = sansAccents(requete.trim());
+  const filtres = comparables && q
+    ? comparables
+        .filter((c) => sansAccents(c.ticker).startsWith(q) || sansAccents(c.name).includes(q))
+        .sort((a, b) => Number(!sansAccents(a.ticker).startsWith(q)) - Number(!sansAccents(b.ticker).startsWith(q)))
+    : comparables;
   const kpiName = locale === "en" && activeKpi.name_en ? activeKpi.name_en : activeKpi.name_fr;
   const triggerClass =
     "inline-flex items-center gap-1.5 rounded-lg border border-[#262626] bg-[#0a0a0a] px-2.5 py-2 sm:px-3.5 text-sm font-medium text-zinc-200 transition-colors hover:border-[#3a3a3a] hover:text-zinc-50 disabled:opacity-50";
@@ -89,6 +102,18 @@ export function CompareControl({
                 <span className="text-zinc-400"> · {kpiName}</span>
               </div>
             </div>
+            {comparables && comparables.length > 0 && !refus && (
+              <div className="border-b border-[#1a1a1a] px-3 py-2">
+                <input
+                  type="search"
+                  value={requete}
+                  onChange={(e) => setRequete(e.target.value)}
+                  placeholder="Rechercher une société (nom ou ticker)"
+                  aria-label="Rechercher une société à comparer"
+                  className="w-full rounded-lg border border-[#262626] bg-[#050505] px-2.5 py-1.5 text-[13px] text-zinc-100 placeholder:text-zinc-500 focus:border-violet-400/60 focus:outline-none"
+                />
+              </div>
+            )}
             <div className="max-h-72 overflow-y-auto py-1">
               {comparables === null ? (
                 <div className="px-3 py-4 text-[12px] text-zinc-400">Recherche des sociétés comparables…</div>
@@ -99,8 +124,10 @@ export function CompareControl({
                   {t("company.compare.empty")}&nbsp;
                   <em>{kpiName}</em>.
                 </div>
+              ) : filtres && filtres.length === 0 ? (
+                <div className="px-3 py-4 text-[12px] text-zinc-400">Aucune société comparable sur cet indicateur ne correspond à « {requete.trim()} ».</div>
               ) : (
-                comparables.map(({ ticker: tk, name, short, verrou }) => {
+                (filtres ?? []).map(({ ticker: tk, name, short, verrou }) => {
                   const accent = brand(tk).primary;
                   return (
                     <button

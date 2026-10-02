@@ -901,3 +901,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.03.1 (03 Oct 2026 00:12, apres 496a4f21b1)
 - Répartition du CA sur mobile : pourcentage et montant empilés, libellé pleine largeur ; couverture FMP du 2 oct (40 sociétés)
+
+## v2026.10.03.2 (03 Oct 2026 01:28, apres de40370371)
+- Bannière des blocs floutés sur deux lignes (« Donnée exclusive réservée aux abonnés », « Voir les offres »), recherche par nom ou ticker dans le comparateur, AAPL retirée des sociétés gratuites, tonalité de la synthèse des résultats floutée avec son contenu, cours CAC 40 et sociétés témoin (admin)

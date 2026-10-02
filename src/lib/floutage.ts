@@ -318,8 +318,20 @@ export function ajouteAppelsAbonnement(palier: "anon" | "free" | string): () => 
     a.setAttribute("data-appel-abonnement", "1");
     const next = encodeURIComponent(window.location.pathname);
     a.href = palier === "anon" ? `/?auth=signup&gate=1&next=${next}` : "/pricing";
-    a.textContent = palier === "anon" ? "Inscris-toi gratuitement pour lire cette section" : "Data exclusive réservée aux abonnés · Voir les offres";
-    a.className = "absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-violet-400/60 bg-[#0a0a0e]/95 px-5 py-2.5 text-[13.5px] font-semibold text-violet-100 shadow-lg backdrop-blur hover:bg-violet-500/20";
+    if (palier === "anon") {
+      a.textContent = "Inscris-toi gratuitement pour lire cette section";
+      a.className = "absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-violet-400/60 bg-[#0a0a0e]/95 px-5 py-2.5 text-[13.5px] font-semibold text-violet-100 shadow-lg backdrop-blur hover:bg-violet-500/20";
+    } else {
+      // Yann 3 oct 2026 : deux lignes, message puis lien, centrees.
+      const l1 = document.createElement("span");
+      l1.textContent = "Donnée exclusive réservée aux abonnés";
+      l1.className = "block whitespace-nowrap text-[13.5px] font-semibold text-violet-100";
+      const l2 = document.createElement("span");
+      l2.textContent = "Voir les offres →";
+      l2.className = "mt-1 block whitespace-nowrap text-[12px] font-medium text-violet-300 underline decoration-violet-400/50 underline-offset-4";
+      a.append(l1, l2);
+      a.className = "absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-violet-400/60 bg-[#0a0a0e]/95 px-6 py-3 text-center shadow-lg backdrop-blur hover:bg-violet-500/20";
+    }
     bloc.appendChild(a); poses.push(a);
   });
   return () => {
