@@ -904,3 +904,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.03.2 (03 Oct 2026 01:28, apres de40370371)
 - Bannière des blocs floutés sur deux lignes (« Donnée exclusive réservée aux abonnés », « Voir les offres »), recherche par nom ou ticker dans le comparateur, AAPL retirée des sociétés gratuites, tonalité de la synthèse des résultats floutée avec son contenu, cours CAC 40 et sociétés témoin (admin)
+
+## v2026.10.03.3 (03 Oct 2026 01:37, apres 5292c9e94e)
+- Gouvernance : valeurs par défaut inventées retirées (ancienneté du conseil sur 243 fiches, indépendance 36, ratio de rémunération 6), SAP ratio 105 publié ; effectifs alignés sur les rapports annuels (52 sociétés) ; 8 textes européens corrigés (TTE, AIR, DG, ORA, ASML, AD.AS, ROG)

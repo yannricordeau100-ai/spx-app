@@ -1090,8 +1090,17 @@ async function loadV17CompanyBrut(
           ? { ...(data.governance as Record<string, unknown>) }
           : ({} as Record<string, unknown>);
       const ov = govOverrides as Record<string, unknown>;
+      // Yann 3 oct 2026 : jamais de valeur inventee. Les valeurs par defaut du
+      // remplissage heuristique (ratio 100, independance 80 %, anciennete 7 ou
+      // 5,5 ans) ne sont pas publiees par la societe : ignorees.
+      const DEFAUTS_HEURISTIQUES: Record<string, number[]> = {
+        ceo_pay_ratio: [100],
+        board_independence_pct: [80],
+        avg_tenure_years: [7, 5.5],
+      };
       for (const [k, v] of Object.entries(ov)) {
         if (v === undefined || v === null) continue;
+        if (typeof v === "number" && DEFAUTS_HEURISTIQUES[k]?.includes(v)) continue;
         const cur = existingGov[k];
         const curEmpty =
           cur === undefined ||
