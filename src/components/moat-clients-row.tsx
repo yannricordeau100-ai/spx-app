@@ -125,15 +125,20 @@ function BlocMoat({ m, accent }: { m: MoatEntree; accent: string }) {
       <Entete
         Icon={Shield}
         titre="Moat"
-        sous="Avantage compétitif"
+        sous="Avantage compétitif :"
         accent={accent}
         droite={
-          <>
-            <span data-blur-part="niveau" className={`rounded-full border px-2.5 py-0.5 text-[12px] font-semibold ${st.cls}`}>{m.niveau}</span>
+          // Yann 2 oct 2026 : encadré rond jamais flouté autour de la note, pour que
+          // l abonné gratuit voie qu une note est cachée ; seule la note est floutée
+          // (même flou que partout). Note et « i » restent sur la même ligne.
+          <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap">
+            <span className="inline-flex rounded-full border border-white/20 bg-white/[0.03] p-[3px]">
+              <span data-blur-part="niveau" className={`rounded-full border px-2.5 py-0.5 text-[12px] font-semibold ${st.cls}`}>{m.niveau}</span>
+            </span>
             <InfoTooltip color={accent} size="sm" align="left">
               <p className="text-[12px] leading-relaxed text-zinc-200">Note : moyenne des entreprises de rating de premier rang.</p>
             </InfoTooltip>
-          </>
+          </span>
         }
       />
       {m.niveau !== "Aucun" && m.texte && (

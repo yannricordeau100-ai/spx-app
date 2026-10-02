@@ -318,7 +318,7 @@ export function ajouteAppelsAbonnement(palier: "anon" | "free" | string): () => 
     a.setAttribute("data-appel-abonnement", "1");
     const next = encodeURIComponent(window.location.pathname);
     a.href = palier === "anon" ? `/?auth=signup&gate=1&next=${next}` : "/pricing";
-    a.textContent = palier === "anon" ? "Inscris-toi gratuitement pour lire cette section" : "Contenu réservé aux abonnés · Voir les offres";
+    a.textContent = palier === "anon" ? "Inscris-toi gratuitement pour lire cette section" : "Data exclusive réservée aux abonnés · Voir les offres";
     a.className = "absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-violet-400/60 bg-[#0a0a0e]/95 px-5 py-2.5 text-[13.5px] font-semibold text-violet-100 shadow-lg backdrop-blur hover:bg-violet-500/20";
     bloc.appendChild(a); poses.push(a);
   });

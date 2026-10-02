@@ -892,3 +892,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.01.2 (01 Oct 2026 23:32, apres ae06b51ee8)
 - Reprise des 44 societes rejetees (reparation ciblee), dettes annuelles verifiees au bilan (81 societes)
+
+## v2026.10.02.1 (02 Oct 2026 23:38, apres 425f5be3de)
+- Tableau de répartition du CA lisible sur mobile, Moat : encadré visible autour de la note floutée et « i » sur la même ligne, libellé « Data exclusive réservée aux abonnés »
