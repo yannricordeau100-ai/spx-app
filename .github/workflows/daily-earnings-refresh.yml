@@ -51,7 +51,14 @@ jobs:
         run: pip install yfinance pandas
 
       - name: Refresh SEC EDGAR filing dates (univers 666)
-        run: python3 scripts/fetch-filing-dates.py --limit 640
+        # Correctif 22 sept 2026 (Yann, audit des rangs) : `--limit 640` n est
+        # pas un argument de fetch-filing-dates.py, qui n accepte que `--top`.
+        # argparse sortait donc en erreur des la premiere etape, et comme elle
+        # ne porte pas continue-on-error, tout le travail quotidien s arretait
+        # la, avant les rangs. C est ce qui explique les crons sans commit des
+        # 21 et 22 septembre. On passe `--top` avec une borne au dessus de la
+        # liste servie, de sorte qu aucune societe ne soit coupee.
+        run: python3 scripts/fetch-filing-dates.py --top 1000
         env:
           PYTHONUNBUFFERED: "1"
 
@@ -133,7 +140,38 @@ jobs:
           # pour des tickers HORS univers (aeo, bdrx, ciss...). Regle permanente :
           # l univers = indices seulement (666 stes, v1-9-5-clean-all-tickers.json).
           # On ne committe que les fichiers enrich des stes de cette liste.
-          ENRICH=$(python3 -c "import json,glob,os; d=json.load(open('src/data/v1-9-5-clean-all-tickers.json')); ok={t.lower() for t in (d['tickers'] if isinstance(d,dict) else d)}; print(' '.join(f for f in glob.glob('src/data/v2-pipeline-enrich/*.json') if os.path.basename(f).split('.')[0].lower() in ok))")
+          # Correctif 22 sept 2026 (Yann, audit des rangs) : l ancien filtre coupait
+          # le nom de fichier au PREMIER point (basename(f).split('.')[0]). Pour
+          # aalb.as.ranks.json la cle devenait "aalb", absente de l univers qui
+          # contient "AALB.AS" : les 134 societes a ticker pointe, donc l essentiel
+          # des europeennes, n entraient jamais dans le commit du cron, rangs comme
+          # fiches enrich. On retire desormais les suffixes un par un en repartant de
+          # la fin, ce qui preserve le point du ticker lui meme.
+          ENRICH=$(python3 - <<'PYFILTER'
+          import glob, json, os
+          d = json.load(open('src/data/v1-9-5-clean-all-tickers.json'))
+          ok = {t.lower() for t in (d['tickers'] if isinstance(d, dict) else d)}
+          
+          
+          def cle(chemin):
+              # Nom de base sans .json, puis sans ses suffixes un a un, jusqu a tomber
+              # sur un ticker de l univers. aalb.as.ranks -> aalb.as ; aapl.ranks -> aapl.
+              base = os.path.basename(chemin)
+              if base.endswith('.json'):
+                  base = base[:-5]
+              while base:
+                  if base.lower() in ok:
+                      return base.lower()
+                  if '.' not in base:
+                      return None
+                  base = base.rsplit('.', 1)[0]
+              return None
+          
+          
+          fichiers = sorted(glob.glob('src/data/v2-pipeline-enrich/*.json'))
+          print(' '.join(f for f in fichiers if cle(f)))
+          PYFILTER
+          )
           git add $ENRICH src/data/earnings-calendar.json src/data/earnings-calendar-marketbeat.json src/data/earnings-calendar-stockanalysis.json src/data/v2-pipeline/_merged.json src/data/v2-freshness-audit.json src/data/market-cap-order.json src/data/home-wow-kpis.json $FOREIGN 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Aucun changement détecté, skip commit."
