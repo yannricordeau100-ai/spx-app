@@ -105,7 +105,7 @@ export function RepartitionBars({
         <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-zinc-500">
           {locale.startsWith("fr") ? "Chiffre d\u2019affaires total" : "Total revenue"}
         </span>
-        <span className="font-mono text-[17px] font-semibold tabular-nums text-zinc-50">
+        <span className="shrink-0 whitespace-nowrap font-mono text-[17px] font-semibold tabular-nums text-zinc-50">
           {fmtValue(effectiveTotal, unit, locale)}
         </span>
       </div>
@@ -119,7 +119,7 @@ export function RepartitionBars({
                 className="mt-[5px] size-2.5 shrink-0 rounded-[3px]"
                 style={{ background: PALETTE[i % PALETTE.length] }}
               />
-              <span className="line-clamp-3 text-[13.5px] leading-snug text-zinc-100 sm:line-clamp-2">
+              <span className="break-words text-[13.5px] leading-snug text-zinc-100 sm:line-clamp-2">
                 {normalizeLabels ? geoLabel(s.label || s.name, locale) : (s.label || s.name || "—")}
               </span>
             </div>

@@ -895,3 +895,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.02.1 (02 Oct 2026 23:38, apres 425f5be3de)
 - Tableau de répartition du CA lisible sur mobile, Moat : encadré visible autour de la note floutée et « i » sur la même ligne, libellé « Data exclusive réservée aux abonnés »
+
+## v2026.10.02.2 (02 Oct 2026 23:56, apres 0e444555ad)
+- Répartition du CA sur mobile : libellés entiers et total sur une ligne
