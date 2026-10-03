@@ -913,3 +913,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.03.5 (03 Oct 2026 12:26, apres 1983a83ef8)
 - Passe sur toutes les fiches : effectifs relus dans les rapports annuels (66 corrigés), principaux actionnaires relus dans le dernier proxy (398 sociétés américaines), répartition géographique mise à jour (MCK, WTW), date du dernier dépôt de résultats à jour
+
+## v2026.10.03.6 (03 Oct 2026 21:45, apres 153229d256)
+- Actionnaires europeens verifies (23 societes) ; index des derniers depots dans la chaine quotidienne
