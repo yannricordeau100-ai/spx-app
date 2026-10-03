@@ -916,3 +916,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.03.6 (03 Oct 2026 21:45, apres 153229d256)
 - Actionnaires europeens verifies (23 societes) ; index des derniers depots dans la chaine quotidienne
+
+## v2026.10.04.1 (04 Oct 2026 00:06, apres 40fd83b963)
+- Actionnaires europeens : 98 societes verifiees, 6 corrigees
