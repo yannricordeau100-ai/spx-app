@@ -24,6 +24,7 @@ import { VERSION } from "@/lib/version";
 import { promises as fs } from "fs";
 import { definitionGeneriqueKpi } from "@/lib/kpi-definitions-generiques";
 import doublonsForcesJson from "@/data/kpi-doublons-forces.json";
+import derniersDepotsJson from "@/data/derniers-depots.json";
 import path from "path";
 import type { Company, CompanyRisk } from "@/lib/data";
 import { enhanceFreshness } from "@/lib/company-core/enhance-freshness";
@@ -1193,6 +1194,16 @@ async function loadV17CompanyBrut(
         }
         return k;
       });
+    }
+    // Yann 3 oct 2026 : latest_filing (FMP) n est plus rafraichi. Si un depot plus
+    // recent existe dans le data-lake (scripts/derniers-depots.py), on garde sa seule
+    // date : BPA et CA de l ancien trimestre ne sont plus presentes comme les derniers.
+    {
+      const lf = (data as Record<string, unknown>).latest_filing as { date?: string } | undefined;
+      const dernier = (derniersDepotsJson as Record<string, string>)[ticker.toUpperCase()];
+      if (lf && lf.date && dernier && Date.parse(dernier) - Date.parse(lf.date) > 45 * 86400000) {
+        (data as Record<string, unknown>).latest_filing = { date: dernier, _source: "date du dernier dépôt de la société" };
+      }
     }
     // latest_filing_update (CONV-CONCEPTS 27 mai 2026, daily-doc-watcher) :
     // si Cerebras a extrait un trimestre plus récent depuis un 10-Q / 10-K /

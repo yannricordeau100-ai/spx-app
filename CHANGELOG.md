@@ -910,3 +910,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.03.4 (03 Oct 2026 10:05, apres adbece63fb)
 - Calendrier des publications : libellé de la période publiée (« Résultats au 31 décembre 2025 publiés ») au lieu du trimestre d'annonce, publications « à venir » déjà passées retirées ; 43 corrections de textes et de valeurs sur 33 sociétés (tests stratégiques Europe et États-Unis)
+
+## v2026.10.03.5 (03 Oct 2026 12:26, apres 1983a83ef8)
+- Passe sur toutes les fiches : effectifs relus dans les rapports annuels (66 corrigés), principaux actionnaires relus dans le dernier proxy (398 sociétés américaines), répartition géographique mise à jour (MCK, WTW), date du dernier dépôt de résultats à jour
