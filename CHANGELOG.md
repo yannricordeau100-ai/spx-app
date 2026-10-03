@@ -922,3 +922,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.04.2 (04 Oct 2026 01:38, apres f1c7588858)
 - Tour 3 de tests stratégiques (96 fiches, 1 070 points, 174 erreurs, 295 corrections revérifiées) ; prochaine publication passée remplacée par la date du calendrier ; couleur des variations du tableau KPI selon la variation affichée ; répartitions 2025 (ENGI, FISV, ROST, WBD), clients 2025 (FME, RWE, URW, VIE, VNA), gouvernance 2025 ArcelorMittal ; répartitions géographiques sans source retirées (CTAS, ODFL, PAYX, VICI, WFC, WRB) ; RevPAR Accor par division
+
+## v2026.10.04.3 (04 Oct 2026 01:56, apres 2401d5942e)
+- Tarifs : Premium seul bouton plein (violet foncé, contraste 5,7:1) et halo renforcé, Max en contour or sans couronne ni halo marqué

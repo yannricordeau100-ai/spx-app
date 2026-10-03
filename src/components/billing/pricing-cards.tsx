@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Check, Sparkles, ArrowRight, Crown, Lock } from "lucide-react";
+import { Check, Sparkles, ArrowRight, Lock } from "lucide-react";
 import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, monthlyEquivalent, type PlanDisplay, type FeatureRow } from "@/lib/billing/plans";
 import type { LoadedPlan } from "@/lib/billing/load-pricing";
 import { useT } from "@/lib/i18n/provider";
@@ -371,9 +371,9 @@ function PricingCard({
   const isFreeTier = plan.tier === "free";
 
   const cardClass = isHighlight
-    ? "border-2 bg-gradient-to-br from-violet-500/[0.10] to-violet-500/[0.02] shadow-2xl shadow-violet-500/15 scale-[1.02]"
+    ? "border-2 bg-gradient-to-br from-violet-500/[0.10] to-violet-500/[0.02] shadow-2xl shadow-violet-500/30 md:scale-[1.04]"
     : isMax
-      ? "border-2 bg-gradient-to-br from-amber-500/[0.06] via-violet-500/[0.04] to-amber-500/[0.02] shadow-xl shadow-amber-500/10"
+      ? "border-2 bg-gradient-to-br from-amber-500/[0.06] via-violet-500/[0.04] to-amber-500/[0.02] shadow-lg shadow-amber-500/[0.04]"
       : "border border-white/[0.08] bg-white/[0.02]";
 
   const cardStyle: React.CSSProperties | undefined = isHighlight
@@ -384,7 +384,7 @@ function PricingCard({
 
   return (
     <div
-      className={`relative flex flex-col rounded-2xl p-6 transition-transform hover:scale-[1.03] ${cardClass}`}
+      className={`relative flex flex-col rounded-2xl p-6 transition-transform ${isHighlight ? "md:hover:scale-[1.05]" : "hover:scale-[1.03]"} ${cardClass}`}
       style={cardStyle}
     >
       {isHighlight && (
@@ -397,7 +397,6 @@ function PricingCard({
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 px-3 py-1 text-[10.5px] font-bold uppercase tracking-wider text-zinc-900 shadow-lg shadow-amber-500/30">
             ✦ Pro
           </div>
-          <Crown className="absolute right-5 top-5 size-4 text-amber-300" />
         </>
       )}
 
@@ -612,18 +611,14 @@ function CtaButton({
     disabled
       ? "border border-white/10 bg-white/[0.02] text-zinc-500 cursor-not-allowed"
       : isHighlight
-        ? "text-zinc-50 shadow-lg shadow-violet-500/20 hover:shadow-violet-500/30"
+        ? "bg-[#7c3aed] text-white shadow-lg shadow-violet-500/20 hover:bg-[#6d28d9] hover:shadow-violet-500/30"
         : plan === "max"
-          ? "text-zinc-900 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40"
+          ? "border border-[#fbbf24] bg-transparent text-[#fbbf24] hover:bg-[#fbbf24]/10"
           : "border border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.07]"
   }`;
-  const style = disabled
-    ? undefined
-    : isHighlight
-      ? { background: accent }
-      : plan === "max"
-        ? { background: "linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)" }
-        : undefined;
+  // Yann 4 oct 2026 : un seul bouton plein, celui de Premium (violet fonce, contraste 5,7:1) ;
+  // Max en contour or pour ne plus rivaliser avec le forfait recommande.
+  const style: React.CSSProperties | undefined = undefined;
 
   if (disabled) {
     return (
