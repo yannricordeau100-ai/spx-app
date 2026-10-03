@@ -59,5 +59,8 @@ else
     rm -f "${PROJECT_ROOT}/.conv-state/kpi-lag-alert.json"
 fi
 
+# Index des derniers depots (date du dernier depot sur les fiches), apres la collecte (Yann, 3 oct 2026)
+( cd /Users/yann/spx-app && /usr/bin/python3 scripts/derniers-depots.py ) || echo "derniers-depots en echec"
+
 echo "[$(date -Iseconds)] === daily-doc-watcher end (rc=${RC}) ==="
 exit ${RC}
