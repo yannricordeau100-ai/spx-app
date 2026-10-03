@@ -993,6 +993,35 @@ async function loadV17CompanyBrut(
         (data as Record<string, unknown>).events = out.slice(0, 8);
       }
     }
+    // Yann 3 oct 2026 : les evenements « Résultats Qn AAAA publies » et
+    // « Prochaine publication Qn AAAA » portaient le trimestre de la DATE
+    // D ANNONCE (mars 2026 = « Q1 2026 » pour les comptes 2025). On affiche la
+    // periode publiee : dernier arrete trimestriel avant la date d annonce.
+    if (Array.isArray((data as Record<string, unknown>).events)) {
+      const FINS = ["31 décembre", "31 mars", "30 juin", "30 septembre"];
+      const periode = (iso: string): string | null => {
+        const m = /^(\d{4})-(\d{2})/.exec(iso);
+        if (!m) return null;
+        const an = Number(m[1]);
+        const q = Math.floor((Number(m[2]) - 1) / 3); // 0..3, trimestre de l annonce
+        return q === 0 ? `${FINS[0]} ${an - 1}` : `${FINS[q]} ${an}`;
+      };
+      (data as Record<string, unknown>).events = ((data as Record<string, unknown>).events as Array<Record<string, unknown>>).map((e) => {
+        if (!e || typeof e !== "object") return e;
+        const titre = String(e.title ?? "");
+        const per = periode(String(e.date ?? ""));
+        if (!per) return e;
+        if (/^Résultats Q[1-4] \d{4} publi[eé]s$/.test(titre)) return { ...e, title: `Résultats au ${per} publiés` };
+        // « Prochaine publication » dont la date est passee : perimee, retiree.
+        if (/^Prochaine publication/.test(titre) && String(e.date ?? "") < new Date().toISOString().slice(0, 10)) return null;
+        if (/^Prochaine publication Q[1-4] \d{4}$/.test(titre)) {
+          // le corps repetait l ancien libelle « (Q3 2026) » : retire
+          const corps = String(e.body ?? "").replace(/\s*\(Q[1-4] \d{4}\)/g, "");
+          return { ...e, title: `Prochaine publication : résultats au ${per}`, body: corps };
+        }
+        return e;
+      }).filter((e) => e !== null);
+    }
     // Risks / governance / AI positioning : merge SEULEMENT si la fiche
     // CONV-DATA ne les a pas déjà fournis. Évite de doubler des données.
     // Yann 27 mai 2026 : EXCEPTION pour risks → si enrich._risks_reextracted_at

@@ -907,3 +907,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.03.3 (03 Oct 2026 01:37, apres 5292c9e94e)
 - Gouvernance : valeurs par défaut inventées retirées (ancienneté du conseil sur 243 fiches, indépendance 36, ratio de rémunération 6), SAP ratio 105 publié ; effectifs alignés sur les rapports annuels (52 sociétés) ; 8 textes européens corrigés (TTE, AIR, DG, ORA, ASML, AD.AS, ROG)
+
+## v2026.10.03.4 (03 Oct 2026 10:05, apres adbece63fb)
+- Calendrier des publications : libellé de la période publiée (« Résultats au 31 décembre 2025 publiés ») au lieu du trimestre d'annonce, publications « à venir » déjà passées retirées ; 43 corrections de textes et de valeurs sur 33 sociétés (tests stratégiques Europe et États-Unis)
