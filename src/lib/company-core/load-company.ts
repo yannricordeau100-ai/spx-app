@@ -25,6 +25,7 @@ import { promises as fs } from "fs";
 import { definitionGeneriqueKpi } from "@/lib/kpi-definitions-generiques";
 import doublonsForcesJson from "@/data/kpi-doublons-forces.json";
 import derniersDepotsJson from "@/data/derniers-depots.json";
+import calendrierResultatsJson from "@/data/earnings-calendar.json";
 import path from "path";
 import type { Company, CompanyRisk } from "@/lib/data";
 import { enhanceFreshness } from "@/lib/company-core/enhance-freshness";
@@ -1263,6 +1264,20 @@ async function loadV17CompanyBrut(
       const pipelineNext = (data as Record<string, unknown>).next_earnings_date;
       if (typeof pipelineNext !== "string" || enrichNextEarnings >= pipelineNext) {
         (data as Record<string, unknown>).next_earnings_date = enrichNextEarnings;
+      }
+    }
+    // Yann 4 oct 2026 : prochaine publication deja passee (58 fiches) : on prend la
+    // date future du calendrier quotidien (MarketBeat / StockAnalysis), jamais une estimation maison.
+    {
+      const auj = new Date().toISOString().slice(0, 10);
+      const cur = (data as Record<string, unknown>).next_earnings_date;
+      const curJour = typeof cur === "string" ? cur.slice(0, 10) : "";
+      if (!curJour || curJour < auj) {
+        const cal = (calendrierResultatsJson as unknown as { par_ticker?: Record<string, { prochaine?: string }> }).par_ticker ?? {};
+        const prochaine = cal[ticker.toUpperCase()]?.prochaine;
+        if (typeof prochaine === "string" && prochaine >= auj) {
+          (data as Record<string, unknown>).next_earnings_date = prochaine;
+        }
       }
     }
     // Hero signal override (CONV-CONCEPTS 21 mai 2026, sub-agent #48 follow-up) :

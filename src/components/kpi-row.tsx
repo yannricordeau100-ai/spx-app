@@ -371,15 +371,19 @@ export function KpiRow({
             }
           }
           if (!yoyStr) return null;
+          // Yann 4 oct 2026 : couleur calculee sur la variation AFFICHEE (recalculee
+          // depuis la serie), plus sur le yoy stocke qui peut etre d un autre signe.
+          const toneAffiche = yoyTone(yoyStr, kpi.type);
+          const couleurAffichee = toneAffiche === "pos" ? "#10b981" : toneAffiche === "neg" ? "#f43f5e" : "#a1a1aa";
           return (
             <div
               className="inline-flex items-center font-mono text-[12.5px] tabular-nums"
-              style={{ color: yoyColor }}
+              style={{ color: couleurAffichee }}
             >
               <span>(</span>
               {/* 27 sept 2026 : flèche selon le signe, couleur selon bon/mauvais. */}
-              {tone !== "neutral" && !/^[-−]/.test(yoyStr.trim()) && <ArrowUpRight className="mr-0.5 size-3" />}
-              {tone !== "neutral" && /^[-−]/.test(yoyStr.trim()) && <ArrowDownRight className="mr-0.5 size-3" />}
+              {toneAffiche !== "neutral" && !/^[-−]/.test(yoyStr.trim()) && <ArrowUpRight className="mr-0.5 size-3" />}
+              {toneAffiche !== "neutral" && /^[-−]/.test(yoyStr.trim()) && <ArrowDownRight className="mr-0.5 size-3" />}
               {yoyStr}
               <span>)</span>
             </div>
