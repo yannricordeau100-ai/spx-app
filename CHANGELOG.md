@@ -937,3 +937,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.04.7 (04 Oct 2026 14:51, apres 0411335f9a)
 - Tours 7 et 8 des tests stratégiques (243 fiches, 417 erreurs corrigées) : les 662 fiches ont désormais toutes été testées
+
+## v2026.10.04.8 (04 Oct 2026 16:07, apres 0acc0b3071)
+- KPI des conférences de résultats extraits pour toutes les sociétés (2 dernières conférences, citations vérifiées mot pour mot)
