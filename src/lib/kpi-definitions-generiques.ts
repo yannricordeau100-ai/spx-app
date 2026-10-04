@@ -39,6 +39,7 @@ const DEFS: Array<[RegExp, string]> = [
   // Ultra-specifiques testes en premier (sinon un pattern large les capte)
   [/marge nette d.int[ée]r[eê]t|\bnim\b/i, "Écart entre ce que la banque gagne sur ses prêts et ce qu'elle paie sur les dépôts. C'est le cœur de la rentabilité bancaire."],
   // --- Marges et rentabilité -------------------------------------------------
+  [/marge nette sur revenus|net revenue margin|take rate/i, "Part de la valeur brute des commandes conservée par la plateforme en chiffre d'affaires (commissions, abonnements, publicité). Plus elle est haute, plus la plateforme monétise chaque commande."],
   [/marge (nette|net)/i, "Part du chiffre d'affaires qui reste en bénéfice une fois toutes les charges payées (impôts compris). Plus elle est haute, plus l'entreprise transforme ses ventes en profit."],
   [/marge brute/i, "Ce qui reste du chiffre d'affaires après le coût direct des produits ou services vendus. Mesure le pouvoir de fixation des prix et l'efficacité de production."],
   [/marge op[ée]rationnelle|marge d.exploitation/i, "Part du chiffre d'affaires restant après les coûts de production ET les frais de fonctionnement (salaires, marketing, R&D). Reflète la rentabilité du métier lui-même."],

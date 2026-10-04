@@ -74,6 +74,10 @@ for k in ("revenue_by_segment", "revenue_by_geography"):
     carte[f"repartition.{k}"] = {"servi": servi.get(k), "sources": {f"{PL_P} {k}": PL.get(k), f"{EN_P} {k}": EN.get(k)},
                                  "a_corriger": f"{PL_P} {k}" if not vide(PL.get(k)) else f"{EN_P} {k}"}
 
+# Historique du CA (revenue_history.segment / geography) : PL > EN
+carte["historique.revenue_history"] = {"servi": servi.get("revenue_history"), "sources": {f"{PL_P} revenue_history": PL.get("revenue_history"), f"{EN_P} revenue_history": EN.get("revenue_history")},
+                                       "a_corriger": f"{PL_P} revenue_history" if not vide(PL.get("revenue_history")) else f"{EN_P} revenue_history"}
+
 # KPI : si kpis-haut existe, il REMPLACE la liste (sauf _source dans KEPT_SOURCES) ; kpi-annuel-fiche ajoute ensuite
 KA_P = f"src/data/kpi-annuel-fiche/{T}.json"; KA = lire(KA_P) or {}
 shorts_kh = {k.get("short") for k in (KH or {}).get("kpis", [])} if isinstance(KH, dict) else set()

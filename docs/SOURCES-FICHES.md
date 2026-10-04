@@ -14,6 +14,7 @@ EN = `src/data/v2-pipeline-enrich/<t>.json`, KH = `.batches-drafts-safe/kpis-hau
 | Risques | EN.risks si EN._risks_reextracted_at, sinon PL.risks | idem |
 | TAM | EN/<t>.tam.json si `_arbitrage_proprietaire`, sinon PL.market_positions | idem |
 | Repartition du CA | PL ; EN si PL vide | idem |
+| Historique du CA (revenue_history) | PL ; EN si PL vide | idem, bloc "historique" de fiche-sources.py |
 | KPI IC et hero | KH remplace toute la liste (sauf `_source` dans KEPT_SOURCES) ; kpi-annuel-fiche/<T>.json ajoute ; hero : Supabase desk_hero_kpi_overrides en dernier | KH, kpi-annuel-fiche, Supabase |
 | Positionnement IA | EN/<t>.ai-pos.json si PL faible ; override de stance en dernier | idem |
 | These, anti-these | Supabase desk_these / desk_att, sinon src/data/these, src/data/att | Supabase en priorite |
