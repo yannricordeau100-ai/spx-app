@@ -358,6 +358,7 @@ function translateRankPreposition(value: string, locale: string): string {
 /** Yann 18 sept 2026 : ce qui suit le bandeau est la propriete de Mettrik AI ou des societes.
  *  Rendu avec InfoTooltip (portail, positionnement borne a l ecran) : l ancien
  *  panneau en absolute ne s ouvrait pas dans la rangee des rangs. */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ProprieteInfo({ accent }: { accent: string }) {
   return (
     <InfoTooltip color={accent} size="md" align="right" icone={<ChevronDown className="size-4" strokeWidth={2.5} aria-hidden />}>
@@ -682,8 +683,7 @@ export function CompanyHeader({
             controle de coherence (voir scripts d extraction) : les sociétés
             sans 10-K ou au chiffre non fiable n affichent pas la chip. */}
         <StatChip label={t("company.employees")} value={employeeCountLabel(company.ticker, locale)} />
-        {/* Yann 18 sept 2026 : fleche d information tout a droite des rangs (meme role qu un i). */}
-        <ProprieteInfo accent={accent} />
+        {/* Yann 4 oct 2026 : fleche d information des rangs retiree a sa demande. */}
           </>
         );
         return (

@@ -1,5 +1,6 @@
 "use client";
 
+import { SocialLinksRow } from "@/components/social-links-row";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
@@ -2613,6 +2614,12 @@ export function CompanyView({
           {t("company.provenance")}
         </p>
         </ZoneReservee>
+        {/* Yann 4 oct 2026 : le bouton X quitte le rail de gauche pour le pied de fiche,
+            hors de la zone reservee (jamais floute). */}
+        <div className="mt-10 flex items-center justify-between gap-4 border-t border-white/[0.06] pt-6">
+          <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Suivre Mettrik AI</span>
+          <SocialLinksRow align="left" size="compact" />
+        </div>
       </main>
 
       <CompanyNavChrome />

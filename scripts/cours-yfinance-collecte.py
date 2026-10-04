@@ -4,7 +4,10 @@
 FMP gratuit ne sert qu une liste fermee de grandes valeurs americaines (aucune action europeenne).
 Ce script complete, pour les societes prioritaires (CAC 40 + 10 societes temoin), au meme format que
 scripts/fmp-cours-collecte.py (src/data/cours-fmp/<ticker>.json), source affichee : Yahoo Finance.
-Usage : python3 scripts/cours-yfinance-collecte.py [--only T1,T2]
+Usage : python3 scripts/cours-yfinance-collecte.py [--only T1,T2] [--rafraichir]
+--rafraichir (4 oct 2026, cron quotidien) : recharge le cours de TOUTES les societes deja presentes dans
+src/data/cours-fmp (cours ajustes des divisions d actions), pour que « % vs plus haut » et « depuis le 1er janvier »
+partent toujours du dernier cours de cloture.
 """
 import importlib.util, json, os, sys, datetime
 import yfinance as yf
@@ -25,12 +28,19 @@ def prioritaires():
 
 def main():
     only = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--only=")), None)
-    liste = only.split(",") if only else prioritaires()
+    rafraichir = "--rafraichir" in sys.argv
+    if rafraichir:
+        liste = sorted(f[:-5].upper() for f in os.listdir(OUT) if f.endswith(".json") and not f.startswith("_"))
+    else:
+        liste = only.split(",") if only else prioritaires()
     faits, deja, vides = [], [], []
     for t in liste:
-        if os.path.exists(os.path.join(OUT, t.lower() + ".json")):
+        if not rafraichir and os.path.exists(os.path.join(OUT, t.lower() + ".json")):
             deja.append(t); continue
-        h = yf.Ticker(t).history(period="max", auto_adjust=False)
+        try:
+            h = yf.Ticker(t).history(period="max", auto_adjust=False)
+        except Exception:
+            vides.append(t); continue
         rows = [{"date": d.strftime("%Y-%m-%d"), "price": float(r["Close"])} for d, r in h.iterrows() if r["Close"] == r["Close"]]
         c = fmp.compacte(rows)
         if not c:

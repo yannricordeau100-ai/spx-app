@@ -925,3 +925,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.04.3 (04 Oct 2026 01:56, apres 2401d5942e)
 - Tarifs : Premium seul bouton plein (violet foncé, contraste 5,7:1) et halo renforcé, Max en contour or sans couronne ni halo marqué
+
+## v2026.10.04.4 (04 Oct 2026 02:15, apres 0643f823d2)
+- Tour 4 des tests stratégiques (96 fiches, 145 erreurs corrigées) ; 472 textes anglais visibles traduits en français ; 91 séries plates vérifiées à la source ; bouton X déplacé en pied de fiche, rail de gauche allégé ; flèche des rangs retirée ; admin : « Aucun » indicateur et échelle du % vs plus haut plafonnée à 0 %, cours rafraîchis chaque jour

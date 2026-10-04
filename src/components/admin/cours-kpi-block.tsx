@@ -192,8 +192,9 @@ export function CoursKpiBlock({
   const defautA = utilisables.find((k) => k.short === heroShort)?.short ?? utilisables[0]?.short ?? "";
   const [shortA, setShortA] = useState(defautA);
   const [shortB, setShortB] = useState("");
-  const kpiA = utilisables.find((k) => k.short === shortA) ?? utilisables[0];
-  const kpiB = utilisables.find((k) => k.short === shortB && k.short !== shortA);
+  // Yann 4 oct 2026 : « Aucun » (shortA vide) = cours seul, sans indicateur.
+  const kpiA = shortA === "" ? undefined : (utilisables.find((k) => k.short === shortA) ?? utilisables[0]);
+  const kpiB = shortA === "" ? undefined : utilisables.find((k) => k.short === shortB && k.short !== shortA);
   const periodes = periodesDispo(kpiA);
   const [periodeChoisie, setPeriode] = useState<GraphPeriod>(periodes[0]);
   const periode = periodes.includes(periodeChoisie) ? periodeChoisie : periodes[0];
@@ -242,11 +243,11 @@ export function CoursKpiBlock({
 
   // Legende (dans le SVG pour figurer dans l export). Largeurs mesurees a la
   // police du document ; repli sur deux lignes si elle ne tient pas en largeur.
-  const legende: { coul: string; lib: string; forme: "barre" | "ligne" | "pointee" }[] = kpiA
+  const legende: { coul: string; lib: string; forme: "barre" | "ligne" | "pointee" }[] = kpiA || cours
     ? [
-        { coul: COUL_A, lib: nomKpi(kpiA), forme: "barre" },
-        ...(kpiB ? [{ coul: COUL_B, lib: nomKpi(kpiB), forme: "pointee" as const }] : []),
-        ...(afficherCours && cours
+        ...(kpiA ? [{ coul: COUL_A, lib: nomKpi(kpiA), forme: "barre" as const }] : []),
+        ...(kpiA && kpiB ? [{ coul: COUL_B, lib: nomKpi(kpiB), forme: "pointee" as const }] : []),
+        ...((afficherCours || !kpiA) && cours
           ? [{ coul: COUL_COURS, lib: mode === "cours" ? "Cours de l’action" : mode === "ath" ? "Cours en % du plus haut" : "Cours en % depuis le 1er janvier", forme: "ligne" as const }]
           : []),
       ]
@@ -275,7 +276,7 @@ export function CoursKpiBlock({
   const PAD_TOP = PAD_TOP_BASE + lignesLegende.length * 20;
 
   // ── Echelles ──
-  const coursVisible = afficherCours && !!cours && prix.length > 1;
+  const coursVisible = (afficherCours || !kpiA) && !!cours && prix.length > 1;
   const memeUnite = !!serieB && serieB.unite.trim() === serieA.unite.trim();
   const axesDroite = (coursVisible ? 1 : 0) + (serieB && !memeUnite ? 1 : 0);
   const PAD_RIGHT = axesDroite === 0 ? 36 : axesDroite === 1 ? 84 : 158;
@@ -308,8 +309,18 @@ export function CoursKpiBlock({
   };
   // Axes de droite : MEME nombre d intervalles que l axe de gauche, pour que
   // leurs graduations tombent sur les lignes de la grille.
-  const echelleAlignee = (vals: number[], n: number, ancrerZero: boolean) => {
+  const echelleAlignee = (vals: number[], n: number, ancrerZero: boolean, plafondZero = false) => {
     const mn = Math.min(...vals, ancrerZero ? 0 : Infinity);
+    // Yann 4 oct 2026 : « % vs plus haut » ne depasse jamais 0 % (0 % = plus haut a date) :
+    // le haut de l echelle est toujours 0 %, quelle que soit la periode.
+    if (plafondZero) {
+      const brutZ = Math.max(-mn / n, 1e-6);
+      const magZ = Math.pow(10, Math.floor(Math.log10(brutZ)));
+      for (const m of [1, 2, 2.5, 5, 10]) {
+        const pas = m * magZ;
+        if (n * pas >= -mn - 1e-9) return fabrique(Array.from({ length: n + 1 }, (_, i) => Math.round((-n * pas + i * pas) * 1e6) / 1e6));
+      }
+    }
     const mx = Math.max(...vals, ancrerZero ? 0 : -Infinity);
     const brut = Math.max((mx - mn) / n, Math.abs(mx || 1) * 1e-6);
     const mag = Math.pow(10, Math.floor(Math.log10(brut)));
@@ -327,7 +338,7 @@ export function CoursKpiBlock({
   const nIntervalles = echA.ticks.length - 1;
   const prixFenetre = prixMode.filter(([t]) => t >= tMin && t <= tMax);
   const echC = coursVisible && prixFenetre.length
-    ? echelleAlignee(prixFenetre.map(([, v]) => v), nIntervalles, mode !== "cours")
+    ? echelleAlignee(prixFenetre.map(([, v]) => v), nIntervalles, mode !== "cours", mode === "ath")
     : null;
   const echB = serieB && !memeUnite ? echelleAlignee(serieB.points.map((p) => p.valeur), nIntervalles, serieB.points.every((p) => p.valeur >= 0)) : null;
 
@@ -388,8 +399,10 @@ export function CoursKpiBlock({
     if (!svgRef.current) return;
     setSurvol(null);
     await new Promise((r) => setTimeout(r, 60));
-    const titreKpi = kpiB ? `${nomKpi(kpiA!)} face à ${nomKpi(kpiB)}` : nomKpi(kpiA!);
-    const titre = coursVisible
+    const titreKpi = !kpiA ? "" : kpiB ? `${nomKpi(kpiA)} face à ${nomKpi(kpiB)}` : nomKpi(kpiA);
+    const titre = !kpiA
+      ? (mode === "cours" ? "Cours de l’action" : mode === "ath" ? "Cours en % du plus haut" : "Cours en % depuis le 1er janvier")
+      : coursVisible
       ? `${titreKpi} et ${mode === "cours" ? "cours de l’action" : mode === "ath" ? "cours en % du plus haut" : "cours en % depuis le 1er janvier"}`
       : titreKpi;
     await downloadSvgAsPng(svgRef.current, `mettrik-${ticker.toLowerCase()}-kpi-cours.png`, {
@@ -400,7 +413,7 @@ export function CoursKpiBlock({
     });
   };
 
-  if (!kpiA) return null;
+  if (!kpiA && !cours) return null;
 
 
   const btn = (actif: boolean) =>
@@ -434,11 +447,12 @@ export function CoursKpiBlock({
           <label className="flex min-w-0 items-center gap-2 text-[12px] text-zinc-400">
             <span className="shrink-0">Indicateur</span>
             <select
-              value={kpiA.short}
+              value={kpiA?.short ?? ""}
               onChange={(e) => setShortA(e.target.value)}
               className="min-w-0 flex-1 truncate rounded-md border border-white/[0.08] bg-[#111] px-2 py-1 text-[12.5px] text-zinc-100"
               data-admin-select="kpi-a"
             >
+              <option value="">Aucun (cours seul)</option>
               {utilisables.map((k) => (
                 <option key={k.short} value={k.short}>{nomKpi(k)}{k.unit ? ` (${formatUnit(String(k.unit))})` : ""}</option>
               ))}
@@ -453,7 +467,7 @@ export function CoursKpiBlock({
               data-admin-select="kpi-b"
             >
               <option value="">Aucun</option>
-              {utilisables.filter((k) => k.short !== kpiA.short).map((k) => (
+              {utilisables.filter((k) => k.short !== kpiA?.short).map((k) => (
                 <option key={k.short} value={k.short}>{nomKpi(k)}{k.unit ? ` (${formatUnit(String(k.unit))})` : ""}</option>
               ))}
             </select>
@@ -507,7 +521,7 @@ export function CoursKpiBlock({
             onMouseMove={onMove}
             onMouseLeave={() => setSurvol(null)}
             role="img"
-            aria-label={`Graphique ${nomKpi(kpiA)} et cours de ${nomSociete}`}
+            aria-label={kpiA ? `Graphique ${nomKpi(kpiA)} et cours de ${nomSociete}` : `Cours de ${nomSociete}`}
           >
             {/* Legende */}
             {lignesLegende.map((ligne, li) => {
@@ -544,7 +558,7 @@ export function CoursKpiBlock({
             {echA.ticks.map((v) => (
               <g key={`a${v}`}>
                 <line x1={PAD_LEFT} x2={PAD_LEFT + innerW} y1={echA.y(v)} y2={echA.y(v)} stroke="#1f1f1f" strokeDasharray="3 6" data-export-role="gridline" strokeOpacity={0.6} />
-                <text x={PAD_LEFT - 10} y={echA.y(v) + 4} textAnchor="end" fontSize={12} fill="#a1a1aa">{fmtNombre(v)}</text>
+                {kpiA && <text x={PAD_LEFT - 10} y={echA.y(v) + 4} textAnchor="end" fontSize={12} fill="#a1a1aa">{fmtNombre(v)}</text>}
               </g>
             ))}
             {echC && echC.ticks.map((v) => (

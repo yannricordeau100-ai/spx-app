@@ -38,7 +38,8 @@ export function CompanyNavChrome() {
   ];
   return (
     <>
-      <DockRailLeft sections={sections} showSocial />
+      {/* Yann 4 oct 2026 : plus de bouton X ni de points dans le rail, X en pied de fiche. */}
+      <DockRailLeft sections={sections} />
       <BackToTop />
     </>
   );
