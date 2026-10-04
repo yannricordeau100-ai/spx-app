@@ -934,3 +934,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.04.6 (04 Oct 2026 10:12, apres 9ce778da48)
 - Tours 5 et 6 des tests stratégiques (152 fiches, 287 erreurs corrigées) ; preuves des anti-thèses sans cuisine interne (14 fiches) ; acquisitions vérifiées dans les rapports annuels pour les 55 sociétés à zéro
+
+## v2026.10.04.7 (04 Oct 2026 14:51, apres 0411335f9a)
+- Tours 7 et 8 des tests stratégiques (243 fiches, 417 erreurs corrigées) : les 662 fiches ont désormais toutes été testées

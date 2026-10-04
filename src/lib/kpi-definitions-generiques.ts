@@ -93,7 +93,7 @@ const DEFS: Array<[RegExp, string]> = [
   // --- Immobilier et infrastructures ------------------------------------------
   [/taux d.occupation|occupancy/i, "Part des surfaces (ou chambres, logements) effectivement louées. Chaque point d'occupation supplémentaire tombe presque intégralement dans le résultat."],
   [/\bffo\b|funds from operations/i, "Résultat des foncières corrigé des amortissements immobiliers, la vraie mesure de leur capacité à générer du cash et payer les dividendes."],
-  [/loyers?|revenus locatifs|rental/i, "Revenus tirés de la location des actifs. Leur croissance vient des hausses de loyers et du taux d'occupation."],
+  [/\bloyers?\b|revenus locatifs|rental/i, "Revenus tirés de la location des actifs. Leur croissance vient des hausses de loyers et du taux d'occupation."],
   [/same[- ]store|p[ée]rim[eè]tre comparable|comparable/i, "Croissance mesurée sur les seuls sites ouverts depuis plus d'un an. Élimine l'effet des ouvertures pour montrer la santé réelle du réseau existant."],
   [/magasins|restaurants|sites|implantations|points de vente|stores/i, "Taille du réseau physique. La croissance vient soit de nouvelles ouvertures, soit de faire mieux dans chaque site existant."],
 
