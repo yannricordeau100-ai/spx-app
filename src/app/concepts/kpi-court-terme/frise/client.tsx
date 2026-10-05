@@ -1,96 +1,64 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { SocieteCT } from "../data";
-import { Coquille, fmtVal, fmtYoy, yoyAt, finTrimestre, VERT, ROUGE, VIOLET } from "../shared";
-
-const JOUR = 86400000;
+import { Coquille, Courbe, Detail, Filtres, PuceYoy, Valeur, useStories } from "../shared";
 
 function Frise({ s }: { s: SocieteCT }) {
-  const [ik, setIk] = useState(0);
-  const [hq, setHq] = useState<number | null>(null);
-  const [he, setHe] = useState<number | null>(null);
-  const k = s.kpis[Math.min(ik, s.kpis.length - 1)];
-  const W = 1000, H = 300, PL = 60, PR = 20, PT = 24, PB = 34;
-  const ends = k.serie.map((p) => finTrimestre(p.p).getTime());
-  const t0 = ends[0] - 46 * JOUR, t1 = ends[ends.length - 1] + 46 * JOUR;
-  const X = (t: number) => PL + ((t - t0) / (t1 - t0)) * (W - PL - PR);
-  const vs = k.serie.map((p) => p.v);
-  const min = Math.min(0, ...vs), max = Math.max(...vs) * 1.08;
-  const Y = (v: number) => H - PB - ((v - min) / (max - min || 1)) * (H - PT - PB);
-  const bw = ((W - PL - PR) / (ends.length + 1)) * 0.62;
-  const evts = s.evts
-    .map((e) => ({ ...e, t: new Date(e.date + "T00:00:00Z").getTime() }))
-    .filter((e) => e.t >= t0 && e.t <= t1);
-  const q = hq ?? k.serie.length - 1;
-  const ticks = [0, 0.25, 0.5, 0.75, 1].map((f) => min + f * (max - min));
+  const f = useStories(s.stories);
+  const [fixe, setFixe] = useState(0);
+  const [survol, setSurvol] = useState<number | null>(null);
+  const bande = useRef<HTMLDivElement>(null);
+  const n = f.liste.length;
+  const a = survol ?? Math.min(fixe, Math.max(0, n - 1));
+  const cur = f.liste[a];
+  const defile = (dir: number) => bande.current?.scrollBy({ left: dir * 640, behavior: "smooth" });
+  if (!cur) return null;
   return (
     <div>
-      <div className="mb-3 flex flex-wrap gap-1.5">
-        {s.kpis.map((x, i) => (
-          <button key={x.nom} type="button" onClick={() => { setIk(i); setHq(null); }}
-            className={`rounded-full border px-3 py-1 text-[12px] transition-colors ${i === ik ? "border-violet-400/60 bg-violet-500/20 text-violet-100" : "border-white/10 text-zinc-400 hover:border-white/25 hover:text-zinc-200"}`}>
-            {x.nom}
-          </button>
-        ))}
-      </div>
-      <div className="grid grid-cols-[1fr_300px] gap-6">
-        <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-4">
-          <svg viewBox={`0 0 ${W} ${H + 70}`} className="w-full" onMouseLeave={() => { setHq(null); setHe(null); }}>
-            {ticks.map((t, i) => (
-              <g key={i}>
-                <line x1={PL} x2={W - PR} y1={Y(t)} y2={Y(t)} stroke="#fff" strokeOpacity="0.06" />
-                <text x={PL - 8} y={Y(t) + 3} textAnchor="end" fontSize="10" fill="#71717a" fontFamily="monospace">{fmtVal(t, "").replace(/\s/g, " ")}</text>
-              </g>
-            ))}
-            {k.serie.map((p, i) => {
-              const y = yoyAt(k, i);
-              const col = y === null ? "#8b8ba0" : y >= 0 ? VERT : ROUGE;
-              return (
-                <g key={p.p} onMouseEnter={() => setHq(i)}>
-                  <rect x={X(ends[i]) - bw / 2 - 6} y={PT} width={bw + 12} height={H - PT - PB} fill="transparent" />
-                  <rect x={X(ends[i]) - bw / 2} y={Y(p.v)} width={bw} height={Math.max(1, Y(0) - Y(p.v))} rx="3" fill={col} opacity={i === q ? 0.95 : 0.5} />
-                  <text x={X(ends[i])} y={H - PB + 16} textAnchor="middle" fontSize="10" fill={i === q ? "#fff" : "#71717a"} fontFamily="monospace">{p.p}</text>
-                </g>
-              );
-            })}
-            {/* bande des publications */}
-            <line x1={PL} x2={W - PR} y1={H + 22} y2={H + 22} stroke="#fff" strokeOpacity="0.15" />
-            <text x={PL} y={H + 8} fontSize="10" fill="#71717a">Publications et événements (dates réelles)</text>
-            {evts.map((e, i) => {
-              const resultats = /résultats/i.test(e.titre);
-              return (
-                <g key={i} onMouseEnter={() => setHe(i)} style={{ cursor: "pointer" }}>
-                  <line x1={X(e.t)} x2={X(e.t)} y1={PT} y2={H + 22} stroke={resultats ? VIOLET : "#fff"} strokeOpacity={he === i ? 0.7 : 0.18} strokeDasharray="3 4" />
-                  <circle cx={X(e.t)} cy={H + 22} r={he === i ? 7 : 5} fill={resultats ? VIOLET : "#52525b"} stroke="#050507" strokeWidth="2" />
-                </g>
-              );
-            })}
-            {evts.length === 0 && <text x={PL} y={H + 40} fontSize="11" fill="#71717a">Aucun événement daté disponible sur la période pour cette société.</text>}
-          </svg>
-          <div className="mt-2 min-h-[64px] rounded-xl border border-white/[0.06] bg-black/30 p-3 text-[12.5px] leading-relaxed text-zinc-300">
-            {he !== null && evts[he] ? (
-              <>
-                <span className="font-mono text-[11px] text-violet-300">{evts[he].date}</span>
-                <span className="ml-2 font-semibold text-zinc-100">{evts[he].titre}</span>
-                <div className="mt-1 text-zinc-400">{evts[he].texte}</div>
-              </>
+      <div className="mb-4"><Filtres f={f} total={s.stories.length} /></div>
+      <div className="rounded-3xl border border-white/[0.08] bg-gradient-to-br from-[#101015] to-[#07070a] p-8" style={{ boxShadow: `inset 0 0 120px ${s.accent}14` }}>
+        <div className="grid grid-cols-[1fr_1.1fr] gap-10">
+          <div key={cur.id}>
+            <div className="text-[11px] font-medium uppercase tracking-wider" style={{ color: s.accent }}>{cur.familleLabel}</div>
+            <h3 className="mt-1 font-display text-[28px] font-bold leading-tight text-zinc-50">{cur.titre}</h3>
+            {cur.periode && <div className="mt-1 text-[13px] text-zinc-400">{cur.periode}</div>}
+            <div className="mt-5 flex flex-wrap items-center gap-3"><Valeur s={cur} accent={s.accent} taille={72} /><PuceYoy s={cur} /></div>
+            {cur.signal && <p className="mt-5 text-[16px] leading-relaxed text-zinc-200">{cur.signal}</p>}
+            {cur.description && <p className="mt-3 text-[13.5px] leading-relaxed text-zinc-500">{cur.description}</p>}
+          </div>
+          <div className="flex items-center">
+            {cur.serie.length > 1 ? (
+              <div className="w-full rounded-xl border border-white/[0.06] bg-white/[0.02] p-4"><Courbe serie={cur.serie} accent={s.accent} hauteur={260} unite={cur.unite} /></div>
             ) : (
-              <span className="text-zinc-500">Survolez un point de la frise pour lire la publication ou l&apos;événement correspondant.</span>
+              <div className="w-full rounded-xl border border-dashed border-white/10 p-8 text-center text-[13px] text-zinc-500">Valeur publiée une seule fois : pas de courbe à tracer.</div>
             )}
           </div>
         </div>
-        <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-4">
-          <div className="text-[12px] text-zinc-500">{k.nom}</div>
-          <div className="mt-1 font-display text-[24px] font-bold">{k.serie[q].p}</div>
-          <div className="mt-3 space-y-2 font-mono text-[12.5px]">
-            <div className="flex justify-between"><span className="text-zinc-500">Valeur</span><span>{fmtVal(k.serie[q].v, k.unite)}</span></div>
-            <div className="flex justify-between"><span className="text-zinc-500">N-1</span><span>{k.serie[q - 4] ? fmtVal(k.serie[q - 4].v, k.unite) : "n.d."}</span></div>
-            <div className="flex justify-between"><span className="text-zinc-500">Variation</span><span style={{ color: yoyAt(k, q) === null ? "#71717a" : (yoyAt(k, q) as number) >= 0 ? VERT : ROUGE }}>{fmtYoy(k, yoyAt(k, q))}</span></div>
-            <div className="flex justify-between"><span className="text-zinc-500">Fin de période</span><span>{new Date(ends[q]).toISOString().slice(0, 10)}</span></div>
-          </div>
-          {k.signal && <p className="mt-4 border-t border-white/[0.06] pt-3 text-[12px] leading-relaxed text-zinc-400">{k.signal}</p>}
+      </div>
+
+      <div className="relative mt-5">
+        <button type="button" onClick={() => defile(-1)} aria-label="Précédent" className="absolute -left-4 top-1/2 z-10 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/70 text-zinc-200 backdrop-blur hover:border-white/30"><ChevronLeft className="size-5" /></button>
+        <button type="button" onClick={() => defile(1)} aria-label="Suivant" className="absolute -right-4 top-1/2 z-10 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/70 text-zinc-200 backdrop-blur hover:border-white/30"><ChevronRight className="size-5" /></button>
+        <div ref={bande} className="flex gap-3 overflow-x-auto pb-3 [scrollbar-width:thin]" onMouseLeave={() => setSurvol(null)}>
+          {f.liste.map((st, k) => (
+            <button
+              key={st.id}
+              type="button"
+              onMouseEnter={() => setSurvol(k)}
+              onClick={() => setFixe(k)}
+              className={`w-[210px] shrink-0 rounded-2xl border p-3.5 text-left transition-all ${k === a ? "-translate-y-1 border-white/40 bg-white/[0.07]" : "border-white/[0.07] bg-white/[0.02] hover:border-white/20"} ${k === fixe ? "ring-1" : ""}`}
+              style={k === fixe ? { boxShadow: `0 0 0 1px ${s.accent}` } : undefined}
+            >
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">{st.periode ?? st.familleLabel}</div>
+              <div className="mt-1 line-clamp-2 min-h-[34px] text-[12.5px] font-semibold leading-snug text-zinc-200">{st.titre}</div>
+              <div className="mt-2 font-display text-[22px] font-bold tabular-nums text-zinc-50">{st.valeur}<span className="ml-1 text-[11px] font-medium text-zinc-500">{st.unite}</span></div>
+              <div className="mt-1 h-10">{st.serie.length > 1 ? <Courbe serie={st.serie.map((p) => ({ ...p, q: "" }))} accent={s.accent} hauteur={40} /> : <PuceYoy s={st} />}</div>
+            </button>
+          ))}
         </div>
+        <div className="mt-1 text-[11.5px] text-zinc-600">Survoler une vignette affiche l'aperçu, cliquer la fixe. Molette ou flèches pour faire défiler.</div>
       </div>
     </div>
   );
@@ -100,21 +68,13 @@ export function FriseClient({ societes }: { societes: SocieteCT[] }) {
   return (
     <Coquille
       numero={3}
-      titre="Frise des publications"
-      explication="Un seul grand graphique, large, sur un axe du temps réel : les barres sont placées à la fin de chaque trimestre, vertes ou rouges selon la croissance annuelle. Sous l'axe, les publications de résultats et événements réels de la société sont posés à leur date : on voit ce qui a précédé ou suivi chaque trimestre."
-      forts={[
-        "Relie le chiffre à l'actualité : résultats, accords, communications réglementaires.",
-        "Profite pleinement de la largeur d'un écran d'ordinateur, avec un panneau de détail latéral.",
-        "Changement de KPI en un clic sans quitter la frise.",
-      ]}
-      limites={[
-        "Un seul KPI à la fois (pas de vue d'ensemble).",
-        "Dépend des événements disponibles : LVMH n'en a pas encore dans la fiche, la bande reste vide.",
-        "Les événements couvrent surtout les 12 derniers mois, pas tout l'historique de la série.",
-      ]}
+      titre="Frise défilante avec aperçu"
+      explication="Une bande de vignettes à parcourir comme une pellicule, sous un grand panneau d'aperçu. Le survol de la souris change l'aperçu instantanément, le clic fixe la story ; chaque vignette porte déjà son chiffre et sa mini courbe."
+      forts={["Le survol remplace l'attente : tout se lit à la vitesse de la souris", "Chiffre et tendance visibles sur chaque vignette avant même d'ouvrir", "Grand panneau avec texte complet et graphique large", "Se prête bien à 50 stories : la frise défile, la page ne s'allonge pas"]}
+      limites={["Nécessite une souris : le survol n'a pas d'équivalent au toucher (sans importance sur ordinateur)", "Peu de stories visibles en même temps (5 à 6 vignettes)", "Pas de lecture automatique"]}
       societes={societes}
     >
-      {(s) => <Frise s={s} />}
+      {(s) => <Frise key={s.ticker} s={s} />}
     </Coquille>
   );
 }

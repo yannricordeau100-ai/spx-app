@@ -1,14 +1,14 @@
 import { chargeSociete } from "../data";
-import { DoubleNiveauClient } from "./client";
+import { CarrouselClient } from "./client";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "Concept KPI court terme : double-niveau · Mettrik",
+  title: "Concept bloc story ordinateur : carrousel · Mettrik",
   robots: { index: false, follow: false },
 };
 
 export default async function Page() {
   const liste = await Promise.all(["NFLX", "MC.PA"].map((t) => chargeSociete(t)));
   const societes = liste.filter((s): s is NonNullable<typeof s> => s !== null);
-  return <DoubleNiveauClient societes={societes} />;
+  return <CarrouselClient societes={societes} />;
 }

@@ -1,14 +1,14 @@
 import { chargeSociete } from "../data";
-import { MultiplesClient } from "./client";
+import { LecteurClient } from "./client";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "Concept KPI court terme : multiples · Mettrik",
+  title: "Concept bloc story ordinateur : lecteur · Mettrik",
   robots: { index: false, follow: false },
 };
 
 export default async function Page() {
   const liste = await Promise.all(["NFLX", "MC.PA"].map((t) => chargeSociete(t)));
   const societes = liste.filter((s): s is NonNullable<typeof s> => s !== null);
-  return <MultiplesClient societes={societes} />;
+  return <LecteurClient societes={societes} />;
 }

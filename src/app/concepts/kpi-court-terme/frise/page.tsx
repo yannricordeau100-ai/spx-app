@@ -3,7 +3,7 @@ import { FriseClient } from "./client";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "Concept KPI court terme : frise · Mettrik",
+  title: "Concept bloc story ordinateur : frise · Mettrik",
   robots: { index: false, follow: false },
 };
 

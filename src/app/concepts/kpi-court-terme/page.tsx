@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { CONCEPTS } from "./liste";
 
 export const metadata = {
-  title: "Concepts KPI court terme · Mettrik",
+  title: "Remplacer le bloc story sur ordinateur · Mettrik",
   robots: { index: false, follow: false },
 };
 
@@ -15,10 +15,10 @@ export default function KpiCourtTermeIndex() {
           <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-0.5" />
           Retour Concepts
         </Link>
-        <h1 className="font-display text-[30px] font-bold tracking-tight">KPI court terme : 6 façons de les présenter</h1>
+        <h1 className="font-display text-[30px] font-bold tracking-tight">Remplacer le bloc story sur ordinateur</h1>
         <p className="mt-2 max-w-3xl text-[14px] leading-relaxed text-zinc-400">
-          Alternatives au style actuel (valeur, variation vs N-1, note, barres trimestrielles) pour la version ordinateur uniquement. Le mobile garde le style actuel.
-          Chaque page utilise les vraies données de Netflix et de LVMH, avec un sélecteur de société.
+          6 présentations du MÊME contenu que le bloc story de la fiche (KPI court terme : chiffre, variation, graphique, texte explicatif, familles, tri, vedettes, pause et reprise), pensées pour le grand écran et la souris. Le mobile garde les stories actuelles.
+          Chaque page utilise les vraies stories de Netflix et de LVMH, avec un sélecteur de société.
         </p>
         <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-3">
           {CONCEPTS.map((c, i) => (

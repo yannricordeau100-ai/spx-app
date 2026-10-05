@@ -109,10 +109,10 @@ export function ConceptsClient() {
             <Link
               href="/concepts/kpi-court-terme"
               className="inline-flex items-center gap-1.5 rounded-md border border-fuchsia-500/25 bg-fuchsia-500/10 px-2.5 py-1 text-[11.5px] font-medium text-fuchsia-200 transition-colors hover:border-fuchsia-500/45 hover:bg-fuchsia-500/15"
-              title="6 présentations des KPI trimestriels (ordinateur)"
+              title="6 concepts pour remplacer le bloc story sur ordinateur"
             >
               <Tag className="size-3.5" />
-              KPI court terme
+              Remplacer le bloc story
             </Link>
             <Link
               href="/concepts/logos"

@@ -41,6 +41,8 @@ function niceTicks(min: number, max: number, count = 5): number[] {
   const normalized = roughStep / magnitude;
   let step = normalized < 1.5 ? 1 : normalized < 3 ? 2 : normalized < 7 ? 5 : 10;
   step *= magnitude;
+  // Yann 5 oct 2026 : graduations en pourcentages entiers (pas de virgule).
+  step = Math.max(1, Math.round(step));
   const niceMin = Math.floor(min / step) * step;
   const niceMax = Math.ceil(max / step) * step;
   const out: number[] = [];
@@ -113,7 +115,7 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
   const zeroY = yFor(0);
   const DX = 0;
   const fmtTick = (v: number) =>
-    `${v > 0 ? "+" : ""}${(Math.round(v * 10) / 10).toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`;
+    `${v > 0 ? "+" : ""}${Math.round(v).toLocaleString("fr-FR", { maximumFractionDigits: 0 })}\u00a0%`;
   // Mobile : cadre elargi a gauche pour la plus longue graduation.
   const largeurTickMax = Math.max(...ticks.map((v) => fmtTick(v).length), 1) * 15 * AFX * 0.62 + 10 + 4;
   const extraGauche = mobile ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
@@ -310,7 +312,7 @@ export function VariationDiamondPrisms({ data, labels }: Props) {
       {ticks.map((v, i) => (
         <text key={i} x={PAD_LEFT - 9} y={yFor(v) + 5} textAnchor="end" fontSize={16}
           fontWeight={500} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
-          {v > 0 ? "+" : ""}{(Math.round(v * 10) / 10).toLocaleString("fr-FR")} %
+          {v > 0 ? "+" : ""}{Math.round(v).toLocaleString("fr-FR", { maximumFractionDigits: 0 })}{"\u00a0"}%
         </text>
       ))}
       <line x1={PAD_LEFT} x2={PAD_LEFT + INNER_W} y1={zeroY} y2={zeroY} stroke="#3f3f46" strokeWidth={1.5} />
