@@ -28,6 +28,8 @@ export type ListeDividende = {
   societes_avec_dividende: number;
   membres: number;
   date_cours_max: string | null;
+  source?: string;
+  methode?: string;
 };
 
 export type DonneesDividendes = {
@@ -128,7 +130,7 @@ export function KpiSurMesureBlock({ donnees }: { donnees: DonneesDividendes }) {
   const exporter = async () => {
     if (!svgRef.current) return;
     await downloadSvgAsPng(svgRef.current, `mettrik-dividendes-top5-${cle}.png`, {
-      title: `${titre} · ${cle === "pea" ? "PEA" : liste.titre}`,
+      title: titre,
       locale: "fr",
       headerCompact: true,
       peers: lignes.map((l) => l.ticker),
@@ -241,9 +243,9 @@ export function KpiSurMesureBlock({ donnees }: { donnees: DonneesDividendes }) {
         </svg>
       </div>
       <p className="mt-2 text-[11px] leading-relaxed text-zinc-500">
-        Source : {donnees.source}, relevé le {fmtDate(donnees.genere_le)}, cours de clôture du {fmtDate(dateCours)}.
+        Source : {liste.source ?? donnees.source}, relevé le {fmtDate(donnees.genere_le)}, cours de clôture du {fmtDate(dateCours)}.
         {" "}Rendement : {minuscule(donnees.definitions.rendement)}. Taux de distribution : {minuscule(donnees.definitions.taux_distribution)}.
-        {" "}{liste.societes_avec_dividende} sociétés versant un dividende sur {liste.membres}{cle === "pea" ? ` (${minuscule(donnees.definitions.pea)})` : ""}.
+        {" "}{cle === "pea" ? `Éligibilité : ${minuscule(donnees.definitions.pea)}. ${liste.methode ?? ""}` : `${liste.societes_avec_dividende} sociétés versant un dividende sur ${liste.membres}.`}
       </p>
     </section>
   );

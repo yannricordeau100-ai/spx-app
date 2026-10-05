@@ -50,11 +50,8 @@ export async function readSimulateTier(): Promise<EffectiveTier | null> {
   // de test interne ; toute autre session qui le presente declenche une
   // alerte rouge par email.
   try {
-    const { createSupabaseServerClient } = await import("@/lib/supabase/server");
-    const sb = await createSupabaseServerClient();
-    const {
-      data: { user },
-    } = await sb.auth.getUser();
+    const { getUserCourant } = await import("@/lib/supabase/server");
+    const user = await getUserCourant();
     const email = user?.email?.toLowerCase() ?? "";
     const owner = process.env.DESK_OWNER_EMAIL?.toLowerCase() ?? "";
     if (email === owner || email.endsWith("@mettrik-internal.test")) {

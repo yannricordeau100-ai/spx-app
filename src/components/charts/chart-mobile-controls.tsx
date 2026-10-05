@@ -365,9 +365,37 @@ export function ShareDownloadMenu({
 
 /**
  * Plein écran mobile : rend `children` (le graph) dans un overlay.
- * Portrait par défaut ; le bouton pivote le graph en paysage (rotation CSS,
- * le graph occupe alors toute la hauteur de l'écran).
+ * Portrait par défaut ; le bouton pivote tout le cadre (titre compris) de 90 degrés :
+ * le cadre fait alors (hauteur écran x largeur écran), le graph le remplit.
+ * Dimensions lues sur window.innerWidth/innerHeight (Safari iPhone : la
+ * hauteur suit la barre d adresse, contrairement à 100vh) et recalculées au
+ * redimensionnement / changement d orientation. Le contenu est mis à l échelle
+ * (jamais agrandi au-delà de 1 en hauteur) pour que rien ne soit coupé.
  */
+function useTailleEcran(actif: boolean) {
+  const [t, setT] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
+  useEffect(() => {
+    if (!actif) return;
+    const lire = () => {
+      const vv = window.visualViewport;
+      setT({
+        w: Math.round(window.innerWidth || vv?.width || 0),
+        h: Math.round(window.innerHeight || vv?.height || 0),
+      });
+    };
+    lire();
+    window.addEventListener("resize", lire);
+    window.addEventListener("orientationchange", lire);
+    window.visualViewport?.addEventListener("resize", lire);
+    return () => {
+      window.removeEventListener("resize", lire);
+      window.removeEventListener("orientationchange", lire);
+      window.visualViewport?.removeEventListener("resize", lire);
+    };
+  }, [actif]);
+  return t;
+}
+
 export function ChartFullscreen({
   open,
   onClose,
@@ -380,6 +408,10 @@ export function ChartFullscreen({
   children: React.ReactNode;
 }) {
   const [paysage, setPaysage] = useState(false);
+  const { w, h } = useTailleEcran(open);
+  const zoneRef = useRef<HTMLDivElement>(null);
+  const contenuRef = useRef<HTMLDivElement>(null);
+  const [echelle, setEchelle] = useState(1);
   useEffect(() => {
     if (!open) return;
     setPaysage(false);
@@ -389,40 +421,89 @@ export function ChartFullscreen({
       document.body.style.overflow = prev;
     };
   }, [open]);
+
+  // Mise à l échelle : si le contenu (graph + en-têtes) dépasse la hauteur
+  // disponible, on le réduit d un bloc ; sinon échelle 1 (centré).
+  useEffect(() => {
+    if (!open) return;
+    const zone = zoneRef.current;
+    const contenu = contenuRef.current;
+    if (!zone || !contenu) return;
+    const calc = () => {
+      const dispo = zone.clientHeight;
+      const natif = contenu.offsetHeight;
+      if (!dispo || !natif) return;
+      const e = Math.min(1, dispo / natif);
+      setEchelle((prev) => (Math.abs(prev - e) < 0.005 ? prev : e));
+    };
+    calc();
+    const ro = new ResizeObserver(calc);
+    ro.observe(zone);
+    ro.observe(contenu);
+    return () => ro.disconnect();
+  }, [open, paysage, w, h]);
+
   if (!open) return null;
+  const cadreW = paysage ? h : w;
+  const cadreH = paysage ? w : h;
+  // Cadre tourné : son haut = côté droit de l écran, sa droite = bas, etc.
+  const pad = paysage
+    ? {
+        paddingTop: "env(safe-area-inset-right)",
+        paddingRight: "env(safe-area-inset-bottom)",
+        paddingBottom: "env(safe-area-inset-left)",
+        paddingLeft: "env(safe-area-inset-top)",
+      }
+    : {
+        paddingTop: "env(safe-area-inset-top)",
+        paddingRight: "env(safe-area-inset-right)",
+        paddingBottom: "env(safe-area-inset-bottom)",
+        paddingLeft: "env(safe-area-inset-left)",
+      };
+  const styleCadre: React.CSSProperties = w
+    ? {
+        position: "fixed",
+        top: 0,
+        left: paysage ? w : 0,
+        width: cadreW,
+        height: cadreH,
+        transformOrigin: "0 0",
+        transform: paysage ? "rotate(90deg)" : undefined,
+        ...pad,
+      }
+    : { position: "fixed", inset: 0, ...pad };
   return (
-    <div className="fixed inset-0 z-[120] flex flex-col bg-[#050507]">
-      <div className="flex items-center justify-between px-4 py-3">
-        <span className="truncate pr-2 text-[14px] font-semibold text-zinc-100">{titre}</span>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setPaysage((p) => !p)}
-            aria-label={paysage ? "Revenir en portrait" : "Passer en paysage"}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-[12px] text-zinc-200"
-          >
-            <RotateCw className={cn("size-3.5 transition-transform duration-300", paysage && "rotate-90")} />
-            {paysage ? "Portrait" : "Paysage"}
-          </button>
-          <button
-            onClick={onClose}
-            aria-label="Fermer"
-            className="inline-flex size-8 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-zinc-200"
-          >
-            <X className="size-4" />
-          </button>
-        </div>
-      </div>
-      <div className="flex flex-1 items-center justify-center overflow-hidden p-2">
-        {paysage ? (
-          <div
-            className="origin-center rotate-90"
-            style={{ width: "calc(100vh - 96px)", height: "calc(100vw - 16px)" }}
-          >
-            <div className="h-full w-full [&_svg]:h-full [&_svg]:w-full">{children}</div>
+    <div className="fixed inset-0 z-[120] overflow-hidden bg-[#050507]">
+      <div style={styleCadre} className="flex flex-col bg-[#050507]">
+        <div className="flex shrink-0 items-start justify-between gap-2 px-3 py-2">
+          <span className="line-clamp-2 min-w-0 flex-1 text-[14px] font-semibold leading-snug text-zinc-100">{titre}</span>
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              onClick={() => setPaysage((p) => !p)}
+              aria-label={paysage ? "Revenir en portrait" : "Passer en paysage"}
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-[12px] text-zinc-200"
+            >
+              <RotateCw className={cn("size-3.5 transition-transform duration-300", paysage && "rotate-90")} />
+              {paysage ? "Portrait" : "Paysage"}
+            </button>
+            <button
+              onClick={onClose}
+              aria-label="Fermer"
+              className="inline-flex size-8 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-zinc-200"
+            >
+              <X className="size-4" />
+            </button>
           </div>
-        ) : (
-          <div className="w-full [&_svg]:w-full">{children}</div>
-        )}
+        </div>
+        <div ref={zoneRef} className="flex min-h-0 flex-1 items-center justify-center overflow-hidden px-2 pb-2">
+          <div
+            ref={contenuRef}
+            className="w-full [&_svg]:w-full"
+            style={{ transform: echelle < 1 ? `scale(${echelle})` : undefined, transformOrigin: "center center" }}
+          >
+            {children}
+          </div>
+        </div>
       </div>
     </div>
   );

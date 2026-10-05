@@ -1,6 +1,5 @@
 "use client";
 
-import { SocialLinksRow } from "@/components/social-links-row";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
@@ -61,6 +60,7 @@ import { KpiRow } from "@/components/kpi-row";
 import { QualityBadge, QualityChipOnly, PercentileChipOnly } from "@/components/quality-badge";
 import { CompanyHeader } from "@/components/company-header";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { NavPlusMenu } from "@/components/nav-plus-menu";
 import { PeriodToggle } from "@/components/period-toggle";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { lienCourtKpi, textePartageX } from "@/lib/kpi-link";
@@ -1468,7 +1468,8 @@ export function CompanyView({
             </Link>
             <PageSearch variant="default" />
             <div className="ml-auto flex shrink-0 items-center gap-2">
-              <ThemeToggle paid={isPaidTier} />
+              <div className="hidden sm:block"><ThemeToggle paid={isPaidTier} /></div>
+              <NavPlusMenu paid={isPaidTier} />
               <div className="relative z-[70]">{authSlot}</div>
             </div>
           </nav>
@@ -1546,7 +1547,8 @@ export function CompanyView({
             />
             )}
             {freemiumTier !== "anon" && <MesListesMenu />}
-            <ThemeToggle paid={isPaidTier} />
+            <div className="hidden sm:block"><ThemeToggle paid={isPaidTier} /></div>
+              <NavPlusMenu paid={isPaidTier} />
             </div>
             <div className="relative z-[70]">{authSlot}</div>
           </div>
@@ -2614,12 +2616,6 @@ export function CompanyView({
           {t("company.provenance")}
         </p>
         </ZoneReservee>
-        {/* Yann 4 oct 2026 : le bouton X quitte le rail de gauche pour le pied de fiche,
-            hors de la zone reservee (jamais floute). */}
-        <div className="mt-10 flex items-center justify-between gap-4 border-t border-white/[0.06] pt-6">
-          <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Suivre Mettrik AI</span>
-          <SocialLinksRow align="left" size="compact" />
-        </div>
       </main>
 
       <CompanyNavChrome />

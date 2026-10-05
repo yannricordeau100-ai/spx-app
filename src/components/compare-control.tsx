@@ -91,7 +91,7 @@ export function CompareControl({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.96 }}
             transition={{ duration: 0.18 }}
-            className="absolute right-0 top-11 z-50 w-72 overflow-hidden rounded-xl border border-[#262626] bg-[#0a0a0a] shadow-2xl"
+            className="fixed left-4 right-4 top-16 z-50 overflow-hidden sm:absolute sm:left-auto sm:right-0 sm:top-11 sm:w-72 rounded-xl border border-[#262626] bg-[#0a0a0a] shadow-2xl"
           >
             <div className="border-b border-[#1a1a1a] px-3 py-2.5">
               <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
@@ -110,7 +110,7 @@ export function CompareControl({
                   onChange={(e) => setRequete(e.target.value)}
                   placeholder="Rechercher une société (nom ou ticker)"
                   aria-label="Rechercher une société à comparer"
-                  className="w-full rounded-lg border border-[#262626] bg-[#050505] px-2.5 py-1.5 text-[13px] text-zinc-100 placeholder:text-zinc-500 focus:border-violet-400/60 focus:outline-none"
+                  className="w-full rounded-lg border border-[#262626] bg-[#050505] px-2.5 py-1.5 text-[16px] sm:text-[13px] text-zinc-100 placeholder:text-zinc-500 focus:border-violet-400/60 focus:outline-none"
                 />
               </div>
             )}
@@ -138,7 +138,7 @@ export function CompareControl({
                       <div className="flex min-w-0 items-start gap-2.5">
                         <span className="mt-1 size-2 shrink-0 rounded-full" style={{ background: accent }} />
                         <div className="min-w-0">
-                          <div className="text-[13px] font-medium text-zinc-100">{name}</div>
+                          <div className="break-words text-[13px] font-medium text-zinc-100">{name}</div>
                           <div className="truncate text-[11px] text-zinc-400">{short}</div>
                           {verrou && verrouClique === tk && (
                             <div role="status" className="mt-1 text-[11px] font-semibold text-violet-200">{MESSAGE_OFFRE_PREMIUM}</div>

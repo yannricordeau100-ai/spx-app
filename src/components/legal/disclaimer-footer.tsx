@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LocaleFlagsRow } from "@/components/locale-flags-row";
+import { SocialLinksRow } from "@/components/social-links-row";
 
 /**
  * Footer global avec :
@@ -68,6 +69,11 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
               <li><Link href="/contact" className="text-zinc-300 hover:text-zinc-100">Contact</Link></li>
               <li><Link href="/pricing" className="text-zinc-300 hover:text-zinc-100">Tarifs</Link></li>
             </ul>
+            {/* Yann 5 oct 2026 : le bouton X vit dans le pied de page du site, plus dans le corps des fiches. */}
+            <div className="mt-4">
+              <div className="mb-2 font-mono text-[10.5px] uppercase tracking-[0.18em] text-zinc-500">Suivre Mettrik AI</div>
+              <SocialLinksRow align="left" size="compact" />
+            </div>
           </div>
         </div>
 

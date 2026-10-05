@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { cache } from "react";
 
 /**
  * Client Supabase pour les composants SERVER (Server Components, route
@@ -33,3 +34,19 @@ export async function createSupabaseServerClient() {
     }
   );
 }
+
+/**
+ * Utilisateur de la requete courante, memoise PAR REQUETE (React cache).
+ * Yann 5 oct 2026 (lenteur des fiches) : la page, AuthNav, le palier simule et
+ * le controle admin appelaient chacun auth.getUser(), soit jusqu a 4 allers-
+ * retours reseau vers Supabase par ouverture. Un seul desormais ; les appels
+ * simultanes partagent la meme promesse. Rien n est partage entre visiteurs :
+ * le cache React vit le temps d une requete.
+ */
+export const getUserCourant = cache(async () => {
+  const sb = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await sb.auth.getUser();
+  return user;
+});

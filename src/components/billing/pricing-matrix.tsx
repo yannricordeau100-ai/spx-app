@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Check, Lock, Info } from "lucide-react";
 import { FEATURES as FALLBACK_FEATURES, PLANS as FALLBACK_PLANS, type FeatureRow, type PlanDisplay, type PlanTier } from "@/lib/billing/plans";
 import type { LoadedPlan } from "@/lib/billing/load-pricing";
@@ -84,6 +85,13 @@ export function PricingMatrix({
   currency?: string;
 } = {}) {
   const { t } = useT();
+  // Yann 5 oct 2026 : suit le choix mensuel / annuel des cartes (annuel par defaut).
+  const [billing, setBilling] = useState<"monthly" | "annual">("annual");
+  useEffect(() => {
+    const ecoute = (e: Event) => setBilling((e as CustomEvent<"monthly" | "annual">).detail);
+    window.addEventListener("mettrik-billing", ecoute);
+    return () => window.removeEventListener("mettrik-billing", ecoute);
+  }, []);
   const PLANS: MatrixPlan[] = plansProp && plansProp.length > 0 ? plansProp : FALLBACK_PLANS;
   const FEATURES = featuresProp && featuresProp.length > 0 ? featuresProp : FALLBACK_FEATURES;
   const currencySymbol = CURRENCY_SYMBOLS[currency] ?? currency;
@@ -127,13 +135,13 @@ export function PricingMatrix({
             <div key={p.tier} className="text-center">
               <div className="font-display text-[14px] font-bold tracking-tight text-zinc-100">{p.name}</div>
               <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wider" style={{ color: p.accent }}>
-                {annual === 0
+                {annual === 0 || billing === "monthly"
                   ? monthly === 0
                     ? t("pricing.matrix.free")
                     : `${monthly.toFixed(2).replace(".", ",")} ${sym}${t("pricing.unit.per_month")}`
                   : `${(annual / 12).toFixed(2).replace(".", ",")} ${sym}${t("pricing.unit.per_month")}`}
               </div>
-              {annual > 0 && (
+              {annual > 0 && billing === "annual" && (
                 <div className="mt-0.5 text-[9.5px] text-zinc-500">
                   {t("pricing.matrix.billed_annually_short")}
                 </div>

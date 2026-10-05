@@ -60,8 +60,21 @@ export function PricingCards({
 }) {
   const PLANS = plansProp && plansProp.length > 0 ? plansProp : FALLBACK_PLANS;
   const FEATURES = featuresProp && featuresProp.length > 0 ? featuresProp : FALLBACK_FEATURES;
-  const [billing, setBilling] = useState<"monthly" | "annual">("annual");
+  const [billing, setBillingState] = useState<"monthly" | "annual">("annual");
+  // Yann 5 oct 2026 : le comparatif detaille suit le choix mensuel / annuel.
+  const setBilling = (b: "monthly" | "annual") => {
+    setBillingState(b);
+    if (typeof window !== "undefined") window.dispatchEvent(new CustomEvent("mettrik-billing", { detail: b }));
+  };
   const { t } = useT();
+  // Yann 5 oct 2026 : remise annuelle calculee sur les prix reels, plus de « -33 % » fige.
+  const remises = PLANS.map((p) => {
+    const px = (p as { prices?: Record<string, { monthly?: { amount?: number }; annual?: { amount?: number } }> }).prices;
+    const m = px?.EUR?.monthly?.amount ?? p.price_monthly_eur;
+    const a = px?.EUR?.annual?.amount ?? p.price_annual_eur;
+    return m && a && m > 0 && a > 0 ? Math.round((1 - a / (m * 12)) * 100) : 0;
+  }).filter((r) => r > 0);
+  const remiseMax = remises.length > 0 ? Math.max(...remises) : 0;
 
   // Yann (25 mai 2026 v2) : les MÊMES features apparaissent dans les 3 cards
   // pour montrer ✓ ou 🔒 selon le plan (mise en avant des limites). La
@@ -111,7 +124,7 @@ export function PricingCards({
           >
             Annuel
             <span className="rounded-full bg-emerald-500/20 px-1.5 py-0.5 font-mono text-[9.5px] font-bold uppercase tracking-wider text-emerald-300">
-              -33%
+              {remiseMax > 0 ? `jusqu'à -${remiseMax} %` : ""}
             </span>
           </button>
         </div>
@@ -130,7 +143,7 @@ export function PricingCards({
           <>
             <span className="inline-flex items-center gap-1.5">
               <span className="text-emerald-400">✓</span>
-              <span>4 mois offerts (-33 % vs mensuel)</span>
+              <span>{remiseMax > 0 ? `Jusqu'à ${remiseMax} % d'économie vs mensuel` : "Paiement annuel"}</span>
             </span>
             <span className="inline-flex items-center gap-1.5">
               <span className="text-emerald-400">✓</span>
@@ -357,7 +370,10 @@ function PricingCard({
   const displayAnnual = hasRequestedCurrency ? (currencyAnnual ?? 0) : eurAnnual;
   const displayCurrency = hasRequestedCurrency ? currency : "EUR";
   const currencySymbol = ({ EUR: "€", USD: "$", GBP: "£", CHF: "CHF", SEK: "kr", DKK: "kr", CAD: "$" } as Record<string, string>)[displayCurrency] ?? displayCurrency;
-  const weeklyPrice = displayAnnual > 0 ? displayAnnual / 52 : 0;
+  // Yann 5 oct 2026 : prix par semaine selon le mode choisi (annuel / 52 ou mensuel x 12 / 52).
+  const weeklyPrice = isAnnual
+    ? (displayAnnual > 0 ? displayAnnual / 52 : 0)
+    : (displayMonthly > 0 ? (displayMonthly * 12) / 52 : 0);
 
   // Yann P7 (31 mai 2026) : hiérarchie visuelle data-driven par plan.
   // Études Stripe/Linear/Notion 2024 : différencier visuellement les 3

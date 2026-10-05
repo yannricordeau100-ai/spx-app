@@ -22,7 +22,6 @@ import {
   caviardeCompanyPourGratuit,
   caviardeTranscriptDocPourGratuit,
   caviardeTranscriptsPourGratuit,
-  caviardeSuiviPourGratuit,
   caviardeRachatsPourGratuit,
 } from "@/lib/floutage-caviardage";
 import { chargeZonesFloutage } from "@/lib/desk/floutage-zones";
@@ -31,7 +30,7 @@ import { zonesPourPalier, type PalierFloutage } from "@/lib/floutage";
 import { gateAttForTier } from "@/lib/att";
 import { gateTheseForTier } from "@/lib/these";
 import { readSimulateTier } from "@/lib/desk/effective-tier";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getUserCourant } from "@/lib/supabase/server";
 import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
 import { estAdminOutilsFiche, chargeCoursFmp } from "@/lib/admin/outils-admin-fiche";
 import { CoursKpiBlock } from "@/components/admin/cours-kpi-block";
@@ -41,24 +40,30 @@ import INDICES_COMPOSITION from "@/data/indices-composition.json";
 
 /** Visibilité V1.9.5 : la liste clean-all fait foi (mêmes variantes de
  *  séparateur que le loader V1.9.5 : BRK.B / BRK-B). */
+let CLEAN_ALL_SET: Set<string> | null = null;
 async function estDansCleanAll(upper: string): Promise<boolean> {
-  try {
-    const raw = await fs.readFile(
-      path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json"),
-      "utf-8",
-    );
-    const tickers = (JSON.parse(raw) as { tickers: string[] }).tickers;
-    const set = new Set<string>();
-    for (const t of tickers) {
-      const u = t.toUpperCase();
-      set.add(u);
-      set.add(u.replace(/\./g, "-"));
-      set.add(u.replace(/-/g, "."));
+  // Yann 5 oct 2026 : la liste (JSON de ~650 tickers) etait relue et reparsee
+  // a chaque requete ; construite une fois par instance (change au deploiement).
+  if (!CLEAN_ALL_SET) {
+    try {
+      const raw = await fs.readFile(
+        path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json"),
+        "utf-8",
+      );
+      const tickers = (JSON.parse(raw) as { tickers: string[] }).tickers;
+      const set = new Set<string>();
+      for (const t of tickers) {
+        const u = t.toUpperCase();
+        set.add(u);
+        set.add(u.replace(/\./g, "-"));
+        set.add(u.replace(/-/g, "."));
+      }
+      CLEAN_ALL_SET = set;
+    } catch {
+      return false;
     }
-    return set.has(upper);
-  } catch {
-    return false;
   }
+  return CLEAN_ALL_SET.has(upper);
 }
 
 async function loadTranscriptBrut(ticker: string): Promise<TranscriptDoc | null> {
@@ -103,16 +108,6 @@ const loadTranscript = unstable_cache(
   { revalidate: 21600, tags: ["fiches"] },
 );
 
-async function loadTranscriptSuiviBrut(ticker: string) {
-  try {
-    const raw = await fs.readFile(path.join(process.cwd(), "src/data/transcripts-kpi", `${ticker.toLowerCase()}.suivi.json`), "utf-8");
-    return JSON.parse(raw) as import("@/components/transcript-navigation").SuiviKpi;
-  } catch {
-    return null;
-  }
-}
-const loadTranscriptSuivi = unstable_cache(loadTranscriptSuiviBrut, ["fiche-transcript-suivi", VERSION], { revalidate: 21600, tags: ["fiches"] });
-
 // Yann 25 sept 2026 : societes rachetees depuis 2016 (src/data/rachats) et
 // classement des plus gros acheteurs du site (versions A, B, C du bloc).
 async function loadRachats(ticker: string): Promise<import("@/components/rachats-block").RachatsFiche> {
@@ -152,6 +147,15 @@ const loadTranscriptSummary = unstable_cache(
  * dernière version uniquement), en gardant l'URL canonique /<ticker> pour
  * le SEO et le floutage freemium géré par FreemiumBlurProvider.
  */
+/** Yann 5 oct 2026 : devise du cours selon la place de cotation du symbole (plus de « $ » pour LVMH). */
+function deviseCotation(symbole: string): string {
+  const s = symbole.toUpperCase();
+  if (/\.(PA|DE|AS|MI|MC|BR|LS|HE|VI|IR|F)$/.test(s)) return "€";
+  if (s.endsWith(".SW")) return "CHF";
+  if (s.endsWith(".L")) return "£";
+  return "$";
+}
+
 async function resolveFreemiumTier(): Promise<UserTier> {
   const simulated = await readSimulateTier();
   if (simulated === "anonymous") return "anon";
@@ -159,10 +163,7 @@ async function resolveFreemiumTier(): Promise<UserTier> {
   if (simulated === "premium") return "premium";
   if (simulated === "max") return "max";
   try {
-    const sb = await createSupabaseServerClient();
-    const {
-      data: { user },
-    } = await sb.auth.getUser();
+    const user = await getUserCourant();
     return user ? await tierDepuisAbonnement(user) : "anon";
   } catch {
     return "anon";
@@ -171,6 +172,23 @@ async function resolveFreemiumTier(): Promise<UserTier> {
 
 // Force dynamic rendering pour que la session auth (cookies) soit lue
 // par AuthNav à chaque requête.
+/** Champs lus par aucun composant client (verifie par grep dans src/components
+ *  le 5 oct 2026) : retires du paquet serialise, affichage inchange. */
+function allegerPourClient<T extends { kpis?: unknown[] }>(c: T): T {
+  const o = { ...(c as Record<string, unknown>) };
+  delete o.hero_kpi_rationale;
+  delete o.hero_kpi_replaced_reason;
+  if (Array.isArray(o.kpis)) {
+    o.kpis = (o.kpis as Record<string, unknown>[]).map((k) => {
+      if (!k || typeof k !== "object" || !("description_en" in k || "description_fr" in k)) return k;
+      const { description_en: _e, description_fr: _f, ...reste } = k;
+      void _e; void _f;
+      return reste;
+    });
+  }
+  return o as T;
+}
+
 export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
@@ -282,14 +300,13 @@ export default async function TickerPage({
   // MEME TEMPS au lieu de s enchainer (fiche, transcript, resume, blocs
   // desactives, palier, zones de floutage). Mesure : 5 allers-retours
   // sequentiels vers Supabase et le disque devenaient 1 seul temps d attente.
-  const [r, transcript, transcriptSummary, disabledBlocks, tierResolu, zonesChargees, transcriptSuivi, rachats, visiblesGratuit] = await Promise.all([
+  const [r, transcript, transcriptSummary, disabledBlocks, tierResolu, zonesChargees, rachats, visiblesGratuit] = await Promise.all([
     loadV17Company(ticker, { mode: "v18", locale }),
     loadTranscript(ticker),
     loadTranscriptSummary(ticker),
     resolveDisabledForTicker(ticker),
     resolveFreemiumTier(),
     chargeZonesFloutage(ticker.toUpperCase()),
-    loadTranscriptSuivi(ticker),
     loadRachats(ticker),
     chargeVisiblesGratuitSet(),
   ]);
@@ -402,7 +419,7 @@ export default async function TickerPage({
         heroShort={servedCompany.hero_kpi}
         cours={cours ? { source: cours.source, symbole_fmp: cours.symbole_fmp, premiere_date: cours.premiere_date, derniere_date: cours.derniere_date, dernier_cours: cours.dernier_cours, plus_haut: cours.plus_haut, cloture_annee_precedente: cours.cloture_annee_precedente, points: cours.points } : null}
         motifNonCouvert={cours ? null : couverture.couvert === null ? "société pas encore testée, quota quotidien de l’API atteint" : couverture.motif ?? null}
-        devisePrix="$"
+        devisePrix={deviseCotation(cours?.symbole_fmp ?? servedCompany.ticker)}
       />
     );
     adminApresMoyenTerme = <KpiSurMesureBlock donnees={DIVIDENDES_TOP5 as unknown as DonneesDividendes} />;
@@ -435,13 +452,15 @@ export default async function TickerPage({
       />
       <FreemiumBlurProvider tier={freemiumTier}>
         <CompanyView
-          company={assainirPourClient(servedCompany)}
+          company={assainirPourClient(allegerPourClient(servedCompany))}
           authSlot={<AuthNav scope="company" />}
           captureInscription={vitrineAnon}
           transcript={assainirPourClient(estGratuit ? caviardeTranscriptDocPourGratuit(transcript, zonesEffectives) : transcript)}
           transcriptSummary={assainirPourClient(servedTranscriptSummary)}
           transcriptDates={transcriptDates}
-          transcriptSuivi={freemiumTier === "premium" || freemiumTier === "max" ? transcriptSuivi : caviardeSuiviPourGratuit(transcriptSuivi)}
+          // 5 oct 2026 : TranscriptNavigation ignore desormais le suivi des KPI
+          // (plus de navigation entre conferences) : 65 Ko de JSON n etaient
+          // serialises que pour rien, quel que soit le palier. Plus envoye.
           rachats={estGratuit ? caviardeRachatsPourGratuit(rachats, zonesEffectives) : rachats}
           // Yann 23 sept 2026 : v18Mode etait actif EN DUR ici, alors que le
           // composant qu il declenche annonce lui meme ne jamais devoir

@@ -11,7 +11,7 @@ import "server-only";
 import { promises as fs } from "fs";
 import path from "path";
 import { headers } from "next/headers";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getUserCourant } from "@/lib/supabase/server";
 import { DESK_ADMIN_EMAILS } from "@/lib/desk/auth";
 
 export type CoursFmp = {
@@ -45,11 +45,17 @@ export async function estAdminOutilsFiche(opts: { auditBypass: boolean; adminPar
     return false;
   }
   if (opts.auditBypass && opts.adminParam === "1") return true;
+  // Yann 5 oct 2026 : en simulation d un palier (gratuit, premium, max...), l admin
+  // voit la page comme ce palier, donc sans les blocs admin.
   try {
-    const sb = await createSupabaseServerClient();
-    const {
-      data: { user },
-    } = await sb.auth.getUser();
+    const { readSimulateTier } = await import("@/lib/desk/effective-tier");
+    const simule = await readSimulateTier();
+    if (simule) return false;
+  } catch {
+    /* pas de simulation lisible : on continue */
+  }
+  try {
+    const user = await getUserCourant();
     const email = (user?.email ?? "").trim().toLowerCase();
     return !!email && DESK_ADMIN_EMAILS.includes(email);
   } catch {

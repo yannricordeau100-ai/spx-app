@@ -10,6 +10,14 @@
  * dates, le cours est continu), legende sobre, curseur de survol unique.
  * Un second KPI de la meme societe se lit en ligne pointee : axe de gauche si
  * meme unite, sinon son propre axe a droite.
+ *
+ * CONVENTION DE POSITION (Yann, 5 oct 2026) : chaque barre (et chaque point du
+ * second KPI) est centree sur la DATE DE FIN de sa periode (fin de trimestre,
+ * de semestre ou d exercice), et non au milieu. La periode se lit donc a sa
+ * date comptable ; la publication des resultats, qui tombe quelques semaines
+ * apres, est marquee a part par un point sur la date reelle de publication
+ * (src/data/resultats-dates.json, collecte par scripts/resultats-dates-collecte.py :
+ * Yahoo Finance puis communiques 8-K de l EDGAR, jamais de date estimee).
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Download } from "lucide-react";
@@ -33,6 +41,10 @@ export type CoursPoints = {
 };
 
 type ModeCours = "cours" | "ath" | "ytd";
+
+/** Dates reelles de publication des resultats (5 dernieres annees), par societe. */
+type DatesResultats = Record<string, { source: string; dates: string[] }>;
+const COUL_RESULTATS = "#f472b6";
 
 const W = 920;
 const H = 430;
@@ -123,6 +135,7 @@ function intervallePeriode(label: string, fyEndMonth: number, convention: "start
   return null;
 }
 
+/** `milieu` = abscisse de la barre = DATE DE FIN de la periode (voir la convention en tete de fichier). */
 type PointKpi = { label: string; valeur: number; debut: number; fin: number; milieu: number };
 
 function seriesKpi(kpi: KPI, ticker: string, periode: GraphPeriod): { points: PointKpi[]; unite: string } {
@@ -136,7 +149,7 @@ function seriesKpi(kpi: KPI, ticker: string, periode: GraphPeriod): { points: Po
     if (!lab || lab === spec.ttmLabel || !Number.isFinite(v)) return;
     const iv = intervallePeriode(lab, fy, conv);
     if (!iv) return;
-    pts.push({ label: lab, valeur: v * (spec.scaleFactor || 1), debut: iv.debut, fin: iv.fin, milieu: (iv.debut + iv.fin) / 2 });
+    pts.push({ label: lab, valeur: v * (spec.scaleFactor || 1), debut: iv.debut, fin: iv.fin, milieu: iv.fin });
   });
   return { points: pts, unite: spec.unit || String(kpi.unit ?? "") };
 }
@@ -205,6 +218,18 @@ export function CoursKpiBlock({
   // (le rendu serveur et le premier rendu client restent identiques).
   const [mesurePrete, setMesurePrete] = useState(false);
   useEffect(() => setMesurePrete(true), []);
+  const [resultats, setResultats] = useState<{ source: string; dates: string[] } | null>(null);
+  useEffect(() => {
+    let vivant = true;
+    // Chargement a part (admin seulement) : le fichier n est pas dans le lot de la fiche publique.
+    import("@/data/resultats-dates.json")
+      .then((m) => {
+        const tous = ((m as { default?: DatesResultats }).default ?? (m as unknown as DatesResultats));
+        if (vivant) setResultats(tous[ticker.toUpperCase()] ?? null);
+      })
+      .catch(() => { if (vivant) setResultats(null); });
+    return () => { vivant = false; };
+  }, [ticker]);
   const svgRef = useRef<SVGSVGElement>(null);
   const boiteRef = useRef<HTMLDivElement>(null);
 
@@ -243,13 +268,15 @@ export function CoursKpiBlock({
 
   // Legende (dans le SVG pour figurer dans l export). Largeurs mesurees a la
   // police du document ; repli sur deux lignes si elle ne tient pas en largeur.
-  const legende: { coul: string; lib: string; forme: "barre" | "ligne" | "pointee" }[] = kpiA || cours
+  const afficherResultats = !!resultats && resultats.dates.length > 0;
+  const legende: { coul: string; lib: string; forme: "barre" | "ligne" | "pointee" | "point" }[] = kpiA || cours
     ? [
         ...(kpiA ? [{ coul: COUL_A, lib: nomKpi(kpiA), forme: "barre" as const }] : []),
         ...(kpiA && kpiB ? [{ coul: COUL_B, lib: nomKpi(kpiB), forme: "pointee" as const }] : []),
         ...((afficherCours || !kpiA) && cours
           ? [{ coul: COUL_COURS, lib: mode === "cours" ? "Cours de l’action" : mode === "ath" ? "Cours en % du plus haut" : "Cours en % depuis le 1er janvier", forme: "ligne" as const }]
           : []),
+        ...(afficherResultats ? [{ coul: COUL_RESULTATS, lib: "Publication des résultats", forme: "point" as const }] : []),
       ]
     : [];
   const TAILLE_LEG = 12.5;
@@ -284,8 +311,10 @@ export function CoursKpiBlock({
   const innerH = H - PAD_TOP - PAD_BOTTOM;
 
   const tousKpi = [...serieA.points, ...(serieB?.points ?? [])];
-  const t0Kpi = tousKpi.length ? Math.min(...tousKpi.map((p) => p.debut)) : Date.now() - 5 * 365 * JOUR;
-  const t1Kpi = tousKpi.length ? Math.max(...tousKpi.map((p) => p.fin)) : Date.now();
+  // Barres centrees sur la date de fin de periode : marge d une demi-periode de chaque cote.
+  const demiPeriode = tousKpi.length ? (tousKpi[0].fin - tousKpi[0].debut) / 2 : 0;
+  const t0Kpi = tousKpi.length ? Math.min(...tousKpi.map((p) => p.fin)) - demiPeriode : Date.now() - 5 * 365 * JOUR;
+  const t1Kpi = tousKpi.length ? Math.max(...tousKpi.map((p) => p.fin)) + demiPeriode : Date.now();
   const tFinCours = prix.length ? prix[prix.length - 1][0] : t1Kpi;
   const tMin = t0Kpi;
   const tMax = Math.max(t1Kpi, coursVisible ? tFinCours : t1Kpi) + 20 * JOUR;
@@ -371,12 +400,14 @@ export function CoursKpiBlock({
     const pc = coursVisible ? coursA(prix, t) : null;
     const pm = coursVisible ? coursA(prixMode, t) : null;
     const dansPeriode = (pts: PointKpi[]) =>
-      pts.find((p) => t >= p.debut && t <= p.fin) ??
-      (pts.length ? pts.reduce((a, b) => (Math.abs(b.milieu - t) < Math.abs(a.milieu - t) ? b : a)) : null);
+      pts.length ? pts.reduce((a, b) => (Math.abs(b.milieu - t) < Math.abs(a.milieu - t) ? b : a)) : null;
+    const dateRes = afficherResultats
+      ? resultats!.dates.map((d) => Date.parse(d + "T00:00:00Z")).find((td) => Math.abs(td - t) <= 6 * JOUR) ?? null
+      : null;
     const pa = dansPeriode(serieA.points);
     const pb = serieB ? dansPeriode(serieB.points) : null;
-    return { t, pc, pm, pa, pb };
-  }, [survol, coursVisible, prix, prixMode, serieA.points, serieB]);
+    return { t, pc, pm, pa, pb, dateRes };
+  }, [survol, coursVisible, prix, prixMode, serieA.points, serieB, afficherResultats, resultats]);
 
   const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
     const svg = svgRef.current;
@@ -393,6 +424,16 @@ export function CoursKpiBlock({
   const pathB = serieB
     ? serieB.points.map((p, i) => `${i ? "L" : "M"}${x(p.milieu).toFixed(1)},${(echB ?? echA).y(p.valeur).toFixed(1)}`).join(" ")
     : "";
+  // Points « publication des resultats » : sur la courbe du cours quand elle est affichee, sinon sur l axe du temps.
+  const pointsResultats = afficherResultats
+    ? resultats!.dates
+        .map((d) => Date.parse(d + "T00:00:00Z"))
+        .filter((td) => Number.isFinite(td) && td >= tMin && td <= tMax)
+        .map((td) => {
+          const pm = echC ? coursA(prixMode, td) : null;
+          return { t: td, y: echC && pm ? echC.y(pm[1]) : PAD_TOP + innerH };
+        })
+    : [];
   const dernierPrix = prixFenetre.length ? prixFenetre[prixFenetre.length - 1] : null;
 
   const exporter = async () => {
@@ -536,6 +577,8 @@ export function CoursKpiBlock({
                   <g key={`${li}-${i}`}>
                     {it.forme === "barre" ? (
                       <rect x={x0 + 1} y={yl - 6} width={12} height={12} rx={2} fill={it.coul} opacity={0.85} />
+                    ) : it.forme === "point" ? (
+                      <circle cx={x0 + MARQUE / 2} cy={yl} r={4.2} fill={it.coul} stroke="#0a0a0a" strokeWidth={1.2} />
                     ) : (
                       <line x1={x0} x2={x0 + MARQUE} y1={yl} y2={yl} stroke={it.coul} strokeWidth={2.2} strokeDasharray={it.forme === "pointee" ? "4 3" : undefined} />
                     )}
@@ -621,6 +664,11 @@ export function CoursKpiBlock({
               </g>
             )}
 
+            {/* Dates de publication des resultats */}
+            {pointsResultats.map((p) => (
+              <circle key={`res${p.t}`} cx={x(p.t)} cy={p.y} r={4} fill={COUL_RESULTATS} stroke="#0a0a0a" strokeWidth={1.3} data-chart-point="1" />
+            ))}
+
             {/* Curseur de survol (jamais exporte) */}
             {infoSurvol && (
               <g data-export-hide="true" pointerEvents="none">
@@ -662,6 +710,12 @@ export function CoursKpiBlock({
                   <span className="text-zinc-100">{fmtNombre(infoSurvol.pb.valeur)} {uniteB}</span>
                 </div>
               )}
+              {infoSurvol.dateRes != null && (
+                <div className="flex justify-between gap-4">
+                  <span style={{ color: COUL_RESULTATS }}>Résultats publiés</span>
+                  <span className="text-zinc-100">{fmtDate(new Date(infoSurvol.dateRes).toISOString().slice(0, 10))}</span>
+                </div>
+              )}
               {infoSurvol.pa && coursVisible && (() => {
                 const c = coursA(prix, infoSurvol.pa.fin);
                 return c ? (
@@ -676,8 +730,8 @@ export function CoursKpiBlock({
       </div>
       <p className="mt-2 text-[11px] text-zinc-500">
         {cours
-          ? `Cours : ${cours.source}, symbole ${cours.symbole_fmp}, ${fmtDate(cours.premiere_date)} au ${fmtDate(cours.derniere_date)}. Plus haut calculé sur cette période. Indicateurs : documents de la société.`
-          : "Indicateurs : documents de la société."}
+          ? `Cours : ${cours.source}, symbole ${cours.symbole_fmp}, ${fmtDate(cours.premiere_date)} au ${fmtDate(cours.derniere_date)}. Plus haut calculé sur cette période. Indicateurs : documents de la société, barres posées à la date de fin de chaque période.${afficherResultats ? ` Publications des résultats : ${resultats!.source}.` : ""}`
+          : "Indicateurs : documents de la société, barres posées à la date de fin de chaque période."}
       </p>
     </section>
   );

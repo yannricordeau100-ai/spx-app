@@ -1,120 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TranscriptBulletsBlock, type TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 
 /**
- * Navigation entre les quatre dernieres conferences de resultats (Yann,
- * 24 sept 2026). Les fleches changent la conference affichee ; le contenu
- * d une conference anterieure est charge a la demande par
- * /api/transcripts/<ticker>?date=..., reserve aux paliers Premium et Max.
- * Pour les autres paliers, les fleches restent visibles mais floutees et
- * inactives (partie de floutage « fleches »).
- *
- * En tete du bloc, deux sous blocs alimentes par les extractions Fable :
- *  - « Suivi des KPI » : indicateurs cites dans au moins deux conferences ;
- *  - « Cites une fois » : indicateurs importants mentionnes une seule fois.
+ * Bloc des conferences de resultats : seule la derniere conference est
+ * affichee, sans controle de navigation (Yann, 5 oct 2026).
  */
 
 export type PointSuivi = { date: string; valeur: string; unite?: string | null; periode?: string | null; citation?: string };
 export type GroupeSuivi = { cle: string; nom_fr: string; theme?: string | null; points: PointSuivi[]; rattache_fiche?: boolean };
 export type SuiviKpi = { conferences: string[]; suivi: GroupeSuivi[]; cites_une_fois: GroupeSuivi[] };
 
-type ConferenceChargee = { date: string; synthese: { quarter?: string | null; summary: TranscriptBulletsSummary["summary"] } | null; kpis: unknown[] };
-
-function dateFr(iso: string): string {
-  const [y, m, d] = iso.split("-");
-  const MOIS = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
-  return `${Number(d)} ${MOIS[Number(m) - 1]} ${y}`;
-}
-
 export function TranscriptNavigation({
   ticker,
   summary,
-  dates,
-  suivi,
-  accesArchives,
 }: {
   ticker: string;
   summary: TranscriptBulletsSummary | null;
-  /** Dates des conferences disponibles, la plus recente d abord. */
-  dates: string[];
-  suivi: SuiviKpi | null;
-  /** Vrai pour Premium, Max et comptes internes. */
-  accesArchives: boolean;
+  /** Props historiques passees par la fiche, ignorees : plus de navigation. */
+  dates?: string[];
+  suivi?: SuiviKpi | null;
+  accesArchives?: boolean;
 }) {
-  const [index, setIndex] = useState(0);
-  const [cache, setCache] = useState<Record<string, ConferenceChargee>>({});
-  const [chargement, setChargement] = useState(false);
-  const date = dates[index];
-  const derniere = index === 0;
-
-  useEffect(() => {
-    if (derniere || !date || cache[date] || !accesArchives) return;
-    let vivant = true;
-    setChargement(true);
-    fetch(`/api/transcripts/${encodeURIComponent(ticker.toLowerCase())}?date=${date}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((j: ConferenceChargee | null) => {
-        if (vivant && j) setCache((c) => ({ ...c, [date]: j }));
-      })
-      .finally(() => vivant && setChargement(false));
-    return () => {
-      vivant = false;
-    };
-  }, [date, derniere, cache, ticker, accesArchives]);
-
-  const conf = derniere ? null : cache[date];
-  const summaryAffiche: TranscriptBulletsSummary | null = derniere
-    ? summary
-    : conf?.synthese
-      ? { ticker, quarter: conf.synthese.quarter ?? undefined, summary: conf.synthese.summary }
-      : null;
-
-  const fleches = dates.length > 1 && (
-    <div
-      data-blur-part="fleches"
-      className={`flex items-center gap-1.5 text-[12px] text-zinc-400 ${accesArchives ? "" : "pointer-events-none select-none blur-[3px]"}`}
-      aria-hidden={!accesArchives}
-    >
-      <button
-        type="button"
-        disabled={!accesArchives || index >= dates.length - 1}
-        onClick={() => setIndex((i) => Math.min(i + 1, dates.length - 1))}
-        className="rounded-full border border-white/10 p-1 hover:border-violet-400/50 disabled:opacity-30"
-        aria-label="Conférence précédente"
-      >
-        <ChevronLeft className="size-4" />
-      </button>
-      <span className="font-mono tabular-nums">
-        Conférence du {date ? dateFr(date) : ""} ({dates.length - index} / {dates.length})
-      </span>
-      <button
-        type="button"
-        disabled={!accesArchives || index === 0}
-        onClick={() => setIndex((i) => Math.max(i - 1, 0))}
-        className="rounded-full border border-white/10 p-1 hover:border-violet-400/50 disabled:opacity-30"
-        aria-label="Conférence suivante"
-      >
-        <ChevronRight className="size-4" />
-      </button>
-      {chargement && <span className="text-zinc-500">chargement…</span>}
-    </div>
-  );
-
+  if (!summary) return null;
   return (
     <div id="sec-resultats-nav">
-      {/* 29 sept 2026 (Yann) : sous-blocs « Suivi des KPI sur N conferences »
-          et « Cites une fois » retires du bloc des conferences. */}
-      {summaryAffiche ? (
-        <TranscriptBulletsBlock ticker={ticker} summary={summaryAffiche} navigation={fleches || undefined} />
-      ) : derniere ? null : (
-        <div className="mt-9 flex flex-wrap items-center gap-3">
-          {fleches}
-          <p className="text-[13px] text-zinc-500">{chargement ? "Chargement de la conférence…" : "Synthèse de cette conférence en préparation."}</p>
-        </div>
-      )}
+      <TranscriptBulletsBlock ticker={ticker} summary={summary} />
     </div>
   );
 }

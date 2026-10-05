@@ -145,7 +145,7 @@ export function ImageFindingsBlock({
             {tt("image_findings.section_subtitle")}
           </p>
         </div>
-        <div data-blur="mt_fleches" className="flex items-center gap-1.5">
+        <div data-blur="mt_fleches" className="flex items-center gap-1.5 self-end sm:self-auto">
           <span className="mr-1 text-[12px] text-zinc-500">
             ({safe + 1}/{findings.length})
           </span>

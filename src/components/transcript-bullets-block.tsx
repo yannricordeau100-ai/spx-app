@@ -299,14 +299,10 @@ export function TranscriptBulletsBlock({
   ticker,
   summary,
   quarterLabel,
-  navigation,
 }: {
   ticker: string;
   summary: TranscriptBulletsSummary | null;
   quarterLabel?: string;
-  /** 26 sept 2026 : fleches de navigation entre conferences, DANS le bloc,
-   *  a gauche de l etat de confiance du management. */
-  navigation?: React.ReactNode;
 }) {
   const { t } = useT();
   if (!summary?.summary?.bullets || summary.summary.bullets.length === 0) return null;
@@ -336,7 +332,6 @@ export function TranscriptBulletsBlock({
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          {navigation}
           {/* Yann 3 oct 2026 : la tonalite (confiant, prudent...) est floutee avec le contenu ; trimestre et annee restent lisibles. */}
           <span data-blur-part="texte" className="inline-flex">{sentimentChip(sentiment, t)}</span>
           {(quarterLabel || summary.quarter) && (

@@ -193,6 +193,7 @@ export function CompanySearch({
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const declencheurRef = useRef<HTMLButtonElement>(null);
+  const leurreRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   /**
@@ -268,6 +269,7 @@ export function CompanySearch({
   // Focus input à l'ouverture + lock du scroll
   useEffect(() => {
     if (!open) return;
+    inputRef.current?.focus();
     const t = setTimeout(() => inputRef.current?.focus(), 60);
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -537,18 +539,33 @@ export function CompanySearch({
 
   return (
     <>
+      <input
+        ref={leurreRef}
+        type="text"
+        aria-hidden
+        tabIndex={-1}
+        inputMode="search"
+        className="pointer-events-none fixed left-0 top-0 h-px w-px opacity-0"
+        style={{ fontSize: 16 }}
+      />
       {/* PILL FERMÉ — bords ultra-arrondis, halo subtil violet/cyan au hover */}
       <button
         ref={declencheurRef}
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          // Yann 5 oct 2026 : iOS ne sort le clavier que si le focus est pris
+          // dans le geste du clic. On le donne a un champ leurre toujours monte,
+          // puis le vrai champ le reprend des son montage (sans delai).
+          leurreRef.current?.focus();
+          setOpen(true);
+        }}
         aria-label={t("search.placeholder_compact")}
         aria-haspopup="dialog"
         aria-expanded={open}
         className={
           variant === "hero"
             ? "group relative inline-flex w-full max-w-2xl items-center gap-3 overflow-hidden rounded-full border border-white/10 bg-[#0a0a0e]/80 px-5 py-3.5 text-left text-zinc-400 backdrop-blur-md transition-all hover:border-white/25 hover:text-zinc-200 hover:shadow-[0_0_40px_-10px_rgba(167,139,250,0.45)]"
-            : "group relative inline-flex w-full max-w-[17rem] items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-[#0a0a0e]/80 px-3.5 py-2 text-left text-zinc-400 backdrop-blur transition-all hover:border-white/25 hover:text-zinc-200"
+            : "group relative inline-flex w-auto shrink-0 items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-[#0a0a0e]/80 px-3 py-2 sm:w-full sm:max-w-[17rem] sm:px-3.5 text-left text-zinc-400 backdrop-blur transition-all hover:border-white/25 hover:text-zinc-200"
         }
       >
         <span
@@ -571,7 +588,7 @@ export function CompanySearch({
           className={
             variant === "hero"
               ? "relative flex-1 text-[15px]"
-              : "relative flex-1 truncate text-[12.5px]"
+              : "relative hidden flex-1 truncate text-[12.5px] sm:block"
           }
         >
           {ph}
@@ -628,6 +645,7 @@ export function CompanySearch({
                 <Search className="size-5 text-violet-300" />
                 <input
                   ref={inputRef}
+                  autoFocus
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
@@ -819,8 +837,8 @@ function ResultCard({
 
       {/* Identité */}
       <div className="min-w-0 flex-1">
-        <div className="flex items-baseline gap-2">
-          <span className="truncate text-[14.5px] font-semibold text-zinc-50">
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+          <span className="min-w-0 max-w-full truncate text-[14.5px] font-semibold text-zinc-50">
             {c.name}
           </span>
           <span
@@ -832,7 +850,7 @@ function ResultCard({
           {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
               plus se superposer au KPI affiche a droite. */}
           {estVitrine && (
-            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Complètement gratuit</span>
+            <span className="shrink-0 rounded-full border border-violet-300/70 bg-violet-600/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">Complètement gratuit</span>
           )}
         </div>
         <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
@@ -997,8 +1015,8 @@ function ResultCardV17({
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="flex items-baseline gap-2">
-          <span className="truncate text-[14.5px] font-semibold text-zinc-50">
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+          <span className="min-w-0 max-w-full truncate text-[14.5px] font-semibold text-zinc-50">
             {e.name}
           </span>
           <span
@@ -1010,7 +1028,7 @@ function ResultCardV17({
           {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
               plus se superposer au KPI affiche a droite. */}
           {visiblesGratuit.has(ticker.toUpperCase()) && (
-            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Complètement gratuit</span>
+            <span className="shrink-0 rounded-full border border-violet-300/70 bg-violet-600/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">Complètement gratuit</span>
           )}
         </div>
         <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
@@ -1080,8 +1098,8 @@ function ResultCardV19({
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="flex items-baseline gap-2">
-          <span className="truncate text-[14.5px] font-semibold text-zinc-50">
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+          <span className="min-w-0 max-w-full truncate text-[14.5px] font-semibold text-zinc-50">
             {e.name}
           </span>
           <span
@@ -1093,7 +1111,7 @@ function ResultCardV19({
           {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
               plus se superposer au KPI affiche a droite. */}
           {visiblesGratuit.has(ticker.toUpperCase()) && (
-            <span className="shrink-0 rounded-full border border-violet-400/50 bg-violet-500/25 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-100">Complètement gratuit</span>
+            <span className="shrink-0 rounded-full border border-violet-300/70 bg-violet-600/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">Complètement gratuit</span>
           )}
           <span className="rounded-md border border-zinc-500/40 bg-zinc-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-zinc-300">
             V1.9

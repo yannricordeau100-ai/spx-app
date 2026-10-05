@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getUserCourant } from "@/lib/supabase/server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { LanguageDropdown as LanguageSwitcher } from "@/components/language-dropdown";
@@ -38,10 +38,7 @@ function initials(email: string): string {
 }
 
 export async function AuthNav({ scope = "home" }: { scope?: "home" | "company" } = {}) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getUserCourant();
   const locale = await getServerLocale();
   const t = (k: string) => translate(k, locale);
 
