@@ -114,7 +114,7 @@ export function RepartitionHistory({
                 minimumFractionDigits: 1,
                 maximumFractionDigits: 1,
               })}
-              {" %"}
+              {"\u00a0%"}
             </span>
           </span>
         ) : (
@@ -133,7 +133,7 @@ export function RepartitionHistory({
               {c.parts.map((p, i) => (
                 <div
                   key={`${p.name}-${i}`}
-                  title={`${p.name} · ${p.share.toLocaleString(locale.startsWith("fr") ? "fr-FR" : "en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`}
+                  title={`${p.name} · ${p.share.toLocaleString(locale.startsWith("fr") ? "fr-FR" : "en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}\u00a0%`}
                   onMouseEnter={() => setHover({ year: String(c.year), name: p.name, share: p.share })}
                   onMouseLeave={() => setHover(null)}
                   onClick={() => setHover({ year: String(c.year), name: p.name, share: p.share })}

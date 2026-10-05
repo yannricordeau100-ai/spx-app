@@ -236,7 +236,7 @@ export function ChartCycleControls({
               onClick={() => onChange(m.id)}
               title={t(m.hintKey)}
               className={cn(
-                "relative inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11.5px] font-medium transition-colors",
+                "relative inline-flex items-center gap-1 rounded-full px-1.5 sm:px-2 py-1 text-[11.5px] font-medium transition-colors",
                 active ? "text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
               )}
             >
@@ -534,7 +534,7 @@ export function CagrChip({ data, unit, periodType = "year", locale = "fr" }: { d
   if ((data.length - 1) / parAn < 1) return null;
   const fr = locale === "fr";
   const numLoc = fr ? "fr-FR" : "en-US";
-  const txt = `CAGR ${c > 0 ? "+" : ""}${c.toLocaleString(numLoc, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %${fr ? "/an" : "/year"}`;
+  const txt = `CAGR ${c > 0 ? "+" : ""}${c.toLocaleString(numLoc, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}\u00a0%${fr ? "/an" : "/year"}`;
   const sur = fr ? `sur ${ans.toLocaleString(numLoc)} ans` : `over ${ans.toLocaleString(numLoc)} years`;
   const up = c >= 0;
   return (

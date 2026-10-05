@@ -217,7 +217,7 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
       // Yann 5 juin 2026 : bande couleur (vert/rouge) trop haute, dépassait
       // le texte du sous-secteur. Réduit py-5 → py-2.5 pour aligner la limite
       // basse au niveau du texte secteur/sous-secteur du CompanyHeader.
-      className="preserve-colors relative flex w-full items-stretch py-2.5 pl-3 pr-3 min-[400px]:pl-4 sm:pl-8 sm:pr-5 sm:w-auto sm:shrink-0"
+      className="preserve-colors bloc-capi relative flex w-full min-w-0 max-w-full items-stretch py-2.5 pl-3 pr-3 min-[400px]:pl-4 sm:pl-8 sm:pr-5 sm:w-auto sm:shrink-0"
       style={{
         // Yann (28 mai 2026) : fondu plus progressif ÉTALÉ sur le fond noir
         // de la page (extension overlay à gauche). La zone coloré pleine du
@@ -261,21 +261,21 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
           uniforme sur toute la zone sans halos. */}
 
       {/* Cadre flex auto-largeur, gap-x pour espacement régulier sans flex-1 */}
-      <div className="relative flex w-full min-w-0 items-stretch justify-between gap-x-2 min-[400px]:gap-x-2.5 sm:w-auto sm:justify-start sm:gap-x-4">
+      <div className="relative flex w-full min-w-0 max-w-full items-stretch justify-between gap-x-1.5 min-[400px]:gap-x-2.5 sm:w-auto sm:justify-start sm:gap-x-4">
         {/* COL 0 (Prochains résultats) archivée le 9 sept 2026 à la demande de Yann. */}
 
         {/* COL 1 — Capitalisation boursière (label 2 lignes + montant 3e ligne).
             Yann 3 juin 2026 22h55: alignement LEFT au lieu de RIGHT (texte aligne a gauche). */}
-        <div className="flex shrink-0 flex-col items-start justify-center border-r border-white/15 pr-2 min-[400px]:pr-2.5 sm:pr-4 text-left">
-          <span className="font-mono text-[10px] font-semibold uppercase leading-[1.15] tracking-[0.18em] text-zinc-100">
+        <div className="flex min-w-0 shrink flex-col items-start justify-center break-words border-r border-white/15 pr-2 min-[400px]:pr-2.5 sm:pr-4 text-left">
+          <span className="capi-txt font-mono text-[9px] font-semibold uppercase leading-[1.15] tracking-[0.08em] text-zinc-100 min-[400px]:text-[10px] sm:tracking-[0.18em]">
             {labelLine1}
           </span>
           {labelLine2 && (
-            <span className="font-mono text-[10px] font-semibold uppercase leading-[1.15] tracking-[0.18em] text-zinc-100">
+            <span className="capi-txt font-mono text-[9px] font-semibold uppercase leading-[1.15] tracking-[0.08em] text-zinc-100 min-[400px]:text-[10px] sm:tracking-[0.18em]">
               {labelLine2}
             </span>
           )}
-          <span className="mt-1 font-display text-[14px] font-bold leading-none tracking-tight text-zinc-50 tabular-nums min-[400px]:text-[15px] sm:text-[20px]">
+          <span className="capi-txt mt-1 font-display text-[13px] font-bold leading-none tracking-tight text-zinc-50 tabular-nums min-[400px]:text-[15px] sm:text-[20px]">
             {live.loading
               ? placeholder
               : freeBlocked
@@ -290,11 +290,11 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
             shrink-0 = pas de flex-1 donc pas d'espace vide à gauche. */}
         <div className="flex shrink-0 items-center self-stretch">
           <span
-            className="font-display font-bold leading-none tabular-nums tracking-tight whitespace-nowrap"
+            className="capi-txt font-display font-bold leading-none tabular-nums tracking-tight whitespace-nowrap"
             style={{
               color: toneLight,
               textShadow: "0 1px 6px rgba(0,0,0,0.35)",
-              fontSize: "clamp(15px, 2.2vw, 24px)",
+              fontSize: "clamp(13px, 2.2vw, 24px)",
             }}
           >
             {live.loading
@@ -309,7 +309,7 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
         <div className="flex shrink-0 items-center">
           <div className="relative">
             <span
-              className="block whitespace-nowrap text-right text-[21px] leading-none tracking-[-0.02em] text-white tabular-nums min-[400px]:text-[24px] sm:text-[42px]"
+              className="capi-txt block whitespace-nowrap text-right text-[19px] leading-none tracking-[-0.02em] text-white tabular-nums min-[400px]:text-[24px] sm:text-[42px]"
               style={{
                 fontFamily: "var(--font-sora), ui-sans-serif, sans-serif",
                 fontWeight: 200,
@@ -325,7 +325,7 @@ export function StockPriceBlock({ company, freeBlocked = false }: { company: Com
                       maximumFractionDigits: 2,
                     })}
               <span
-                className="ml-1 text-[14px] sm:ml-1.5 sm:text-[20px] text-white/85"
+                className="capi-txt ml-1 text-[13px] sm:ml-1.5 sm:text-[20px] text-white/85"
                 style={{
                   fontFamily: "var(--font-sora), ui-sans-serif, sans-serif",
                   fontWeight: 300,

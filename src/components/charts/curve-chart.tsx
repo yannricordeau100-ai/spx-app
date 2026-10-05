@@ -1,6 +1,6 @@
 "use client";
 
-import { AF_AXES, pasEtiquettes, pasTrimestres, garde } from "@/components/charts/axes-mobiles";
+import { AF_AXES, pasEtiquettes, pasTrimestres, garde, useEchelleSvg, policeValeur } from "@/components/charts/axes-mobiles";
 import { useRef, useState , useEffect} from "react";
 import { motion } from "motion/react";
 import { AnomalyInfo } from "@/components/anomaly-info";
@@ -237,8 +237,8 @@ export function CurveChart({
     setAxesMobiles(typeof window !== "undefined" && window.innerWidth < 640);
   }, []);
   const AF = axesMobiles ? AF_AXES : 1;
-  // Valeurs au-dessus des points : taille mobile historique conservee.
-  const AFV = axesMobiles ? 1.35 : 1;
+  // Valeurs au-dessus des points : ~10 px reels sur mobile (selon l echelle du SVG).
+  const echelleSvg = useEchelleSvg(svgRef, axesMobiles);
 
 
   // Garde-fou : si pas de data utilisable, ne rien afficher au lieu de crasher.
@@ -301,6 +301,9 @@ export function CurveChart({
   const nbGroupes = yearGroups.length;
   const pasAnnee = pasEtiquettes(axesMobiles, nbGroupes ? (innerW / nbGroupes) : innerW, 4, 13 * AF);
   const baselineY = PAD_TOP + innerH;
+  const fontValeur = policeValeur(axesMobiles, echelleSvg, isCrowded ? 11 : 14);
+  const nbCarValeur = Math.max(...allData.map((d) => String(formatDataPointLabel(Number(d), dataOnlyMax, unit, effectiveLocale, serieEntiere)).length), 1);
+  const pasV = pasEtiquettes(axesMobiles, slotAxe, nbCarValeur, fontValeur);
 
   const stepX = allData.length > 1 ? innerW / (allData.length - 1) : innerW;
   const points = allData.map((v, i) => [
@@ -717,16 +720,19 @@ export function CurveChart({
                 // serait masque. Le point survole affiche toujours sa valeur.
                 const nReelPts = hasTTM ? allData.length - 1 : allData.length;
                 if (labelStep === 2 && !isTTM && !isHover && (nReelPts - 1 - i) % 2 === 1) return null;
+                if (!isTTM && !isHover && !garde(i, nReelPts, pasV)) return null;
                 const isNegative = v < 0;
                 // Distance entre le dot et le bas de la zone chart (y=baselineY).
                 // Si dot dans les 20 % bas du chart, on évite de mettre le label
                 // au-dessus (souvent croisé par la courbe qui remonte).
-                const nearBottom = (baselineY - y) < (innerH * 0.2);
+                const nearBottom = !axesMobiles && (baselineY - y) < (innerH * 0.2);
                 const placeBelow = isNegative || nearBottom;
                 // y position : sous le dot mais au-dessus de l'axe X (y=baselineY+10
                 // donne ~10px sous le dot, encore 16px de marge avant les labels X
                 // à baselineY+26).
-                const yLabel = placeBelow
+                const yLabel = axesMobiles
+                  ? (placeBelow ? Math.min(y + fontValeur + 2, baselineY + fontValeur * 0.5) : y - 18)
+                  : placeBelow
                   ? Math.min(y + 18, baselineY + 12)
                   : (isCrowded ? (i % 2 === 0 ? y - 14 : y - 26) : y - 18);
                 return (
@@ -734,7 +740,7 @@ export function CurveChart({
                     x={x}
                     y={yLabel}
                     textAnchor="middle"
-                    fontSize={(isCrowded ? 11 : 14) * AFV}
+                    fontSize={fontValeur}
                     fontWeight={isTTM ? 500 : (isHover ? 800 : 600)}
                     fill={isTTM ? "#a1a1aa" : (isHover ? "#fafafa" : "#d4d4d8")}
                     fontStyle={isTTM ? "italic" : "normal"}

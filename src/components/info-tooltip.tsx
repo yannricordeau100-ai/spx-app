@@ -120,6 +120,29 @@ export function InfoTooltip({
     return () => document.removeEventListener("pointerdown", fermer);
   }, [open]);
 
+  // 5 oct 2026 : fermeture au changement de mode d affichage (theme) et apres
+  // un defilement de plus de 40 px (hors defilement interne de la popup).
+  useEffect(() => {
+    if (!open) return;
+    const y0 = window.scrollY;
+    const fermer = () => {
+      setOpen(false);
+      setEpingle(false);
+    };
+    const onScroll = (ev: Event) => {
+      const cible = ev.target as Node | null;
+      if (cible && popupRef.current?.contains(cible)) return;
+      if (Math.abs(window.scrollY - y0) > 40) fermer();
+    };
+    const mo = new MutationObserver(fermer);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    window.addEventListener("scroll", onScroll, true);
+    return () => {
+      mo.disconnect();
+      window.removeEventListener("scroll", onScroll, true);
+    };
+  }, [open]);
+
   // Pour SSR : ne rendre le portal qu'une fois monté côté client.
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);

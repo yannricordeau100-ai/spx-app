@@ -362,7 +362,7 @@ export function ShareDownloadMenu({
         aria-label={t("graph.download")}
         aria-expanded={open}
         title="Télécharger ou partager"
-        className="relative inline-flex size-8 items-center justify-center rounded-full border transition-colors before:absolute before:-inset-1.5 before:content-['']"
+        className="relative inline-flex size-11 sm:size-8 items-center justify-center rounded-full border transition-colors before:absolute before:-inset-1.5 before:content-['']"
         style={{ borderColor: `${accent}55`, background: open ? `${accent}26` : `${accent}14`, color: accent }}
       >
         <Download className="size-3.5" />
@@ -545,16 +545,18 @@ export function ChartFullscreen({
   if (!open || !monte) return null;
   const cadreW = paysageEffectif ? h : w;
   const cadreH = paysageEffectif ? w : h;
-  // Cadre tourné : son haut = côté droit de l écran, sa droite = bas, etc.
+  // Bandeau des boutons FIXES (hors cadre pivote) : 56 px reserves en haut de
+  // l ecran. En paysage force, le haut de l ecran est le COTE GAUCHE du cadre.
+  const bandeau = "calc(env(safe-area-inset-top) + 56px)";
   const pad = paysageEffectif
     ? {
         paddingTop: "env(safe-area-inset-right)",
         paddingRight: "env(safe-area-inset-bottom)",
         paddingBottom: "env(safe-area-inset-left)",
-        paddingLeft: "env(safe-area-inset-top)",
+        paddingLeft: bandeau,
       }
     : {
-        paddingTop: "env(safe-area-inset-top)",
+        paddingTop: bandeau,
         paddingRight: "env(safe-area-inset-right)",
         paddingBottom: "env(safe-area-inset-bottom)",
         paddingLeft: "env(safe-area-inset-left)",
@@ -571,9 +573,7 @@ export function ChartFullscreen({
         ...pad,
       }
     : { position: "fixed", inset: 0, ...pad };
-  // Place reservee a la croix fixe : a droite en portrait, a gauche du cadre
-  // pivote en paysage (le haut de l ecran y est le debut du cadre).
-  const reserveCroix = "calc(68px + env(safe-area-inset-right))";
+  const hautBouton = "max(12px, calc(env(safe-area-inset-top) + 6px))";
   return createPortal(
     <PleinEcranContext.Provider value={true}>
       <div
@@ -586,21 +586,8 @@ export function ChartFullscreen({
         onTouchEnd={surFinToucher}
       >
         <div style={styleCadre} className="flex flex-col bg-[#050507]">
-          <div
-            className="flex shrink-0 items-start gap-2 px-3 py-3"
-            style={paysageEffectif ? { paddingLeft: "calc(16px + env(safe-area-inset-top))", paddingRight: "calc(16px + env(safe-area-inset-bottom))" } : { paddingRight: reserveCroix }}
-          >
-            {!natifPaysage && (
-              <button
-                onClick={() => setPaysage((p) => !p)}
-                aria-label={paysageEffectif ? "Revenir en portrait" : "Passer en paysage"}
-                className={cn("inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-[12px] text-zinc-200", paysageEffectif && "order-last")}
-              >
-                <RotateCw className={cn("size-3.5 transition-transform duration-300", paysageEffectif && "rotate-90")} />
-                {paysageEffectif ? "Portrait" : "Paysage"}
-              </button>
-            )}
-            <span className="line-clamp-2 min-w-0 flex-1 self-center text-[14px] font-semibold leading-snug text-zinc-100">{titre}</span>
+          <div className="shrink-0 px-4 pb-2 pt-1">
+            <span className="line-clamp-2 block text-[14px] font-semibold leading-snug text-zinc-100">{titre}</span>
           </div>
           <div ref={zoneRef} className="flex min-h-0 flex-1 items-center justify-center overflow-hidden pb-2 pl-3 pr-6">
             <div
@@ -612,16 +599,32 @@ export function ChartFullscreen({
             </div>
           </div>
         </div>
-        {/* Croix FIXE, hors du cadre pivote : toujours visible et cliquable,
-            en haut a droite de l ecran physique, dans la zone sure. */}
+        {/* Boutons FIXES, hors du cadre pivote : toujours en coordonnees ecran,
+            Portrait/Paysage en haut a gauche, Fermer en haut a droite. */}
+        {!natifPaysage && (
+          <button
+            type="button"
+            onClick={() => setPaysage((p) => !p)}
+            aria-label={paysageEffectif ? "Revenir en portrait" : "Passer en paysage"}
+            className="fixed inline-flex h-11 items-center gap-1.5 rounded-full border border-white/25 bg-[#0b0b0e]/95 px-3.5 text-[12px] text-zinc-100 shadow-[0_6px_22px_rgba(0,0,0,0.7)]"
+            style={{
+              top: hautBouton,
+              left: "max(12px, calc(env(safe-area-inset-left) + 6px))",
+              zIndex: 2147483647,
+            }}
+          >
+            <RotateCw className={cn("size-3.5 transition-transform duration-300", paysageEffectif && "rotate-90")} />
+            {paysageEffectif ? "Portrait" : "Paysage"}
+          </button>
+        )}
         <button
           type="button"
           onClick={() => onCloseRef.current()}
           aria-label="Fermer"
           className="fixed inline-flex size-11 items-center justify-center rounded-full border border-white/25 bg-[#0b0b0e]/95 text-zinc-100 shadow-[0_6px_22px_rgba(0,0,0,0.7)]"
           style={{
-            top: "max(10px, calc(env(safe-area-inset-top) + 6px))",
-            right: "max(10px, calc(env(safe-area-inset-right) + 6px))",
+            top: hautBouton,
+            right: "max(12px, calc(env(safe-area-inset-right) + 6px))",
             zIndex: 2147483647,
           }}
         >

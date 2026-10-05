@@ -105,7 +105,7 @@ export function SupportBubble() {
         aria-controls={ouvert ? idPanneau : undefined}
         aria-label={ouvert ? T.bulle_fermer : T.bulle_ouvrir}
         title={ouvert ? T.bulle_fermer : T.bulle_ouvrir}
-        className="pointer-events-auto relative grid size-12 place-items-center rounded-full border border-white/12 bg-[#0b0b11]/90 text-zinc-200 shadow-[0_12px_32px_-8px_rgba(0,0,0,0.85)] ring-1 ring-violet-500/20 backdrop-blur-md transition-[transform,color,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-violet-400/45 hover:text-white hover:shadow-[0_16px_38px_-10px_rgba(139,92,246,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+        className="pointer-events-auto relative grid size-11 place-items-center rounded-full border border-white/12 bg-[#0b0b11]/90 text-zinc-200 shadow-[0_12px_32px_-8px_rgba(0,0,0,0.85)] ring-1 ring-violet-500/20 backdrop-blur-md transition-[transform,color,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-violet-400/45 hover:text-white hover:shadow-[0_16px_38px_-10px_rgba(139,92,246,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
       >
         {ouvert ? (
           <X aria-hidden className="size-5" />

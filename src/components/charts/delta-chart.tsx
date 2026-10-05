@@ -1,7 +1,7 @@
 "use client";
 
-import { useState , useEffect} from "react";
-import { AF_AXES } from "@/components/charts/axes-mobiles";
+import { useState , useEffect, useRef} from "react";
+import { AF_AXES, pasEtiquettes, garde, useEchelleSvg, policeValeur } from "@/components/charts/axes-mobiles";
 
 const POS = "#10b981";
 const NEG = "#f43f5e";
@@ -69,7 +69,9 @@ export function DeltaChart({
     setAxesMobiles(typeof window !== "undefined" && window.innerWidth < 640);
   }, []);
   const AF = axesMobiles ? AF_AXES : 1;
-  const AFV = axesMobiles ? 1.35 : 1;
+  const svgRef = useRef<SVGSVGElement>(null);
+  const echelleSvg = useEchelleSvg(svgRef, axesMobiles);
+  const fontPct = policeValeur(axesMobiles, echelleSvg, 17);
 
 
   const deltas = data.slice(1).map((v, i) => {
@@ -93,6 +95,7 @@ export function DeltaChart({
   const niceRange = niceMax - niceMin || 1;
   const slot = INNER_W / Math.max(deltas.length, 1);
   const barW = Math.min(slot * 0.4, 50);
+  const pasPct = pasEtiquettes(axesMobiles, slot, 7, fontPct);
 
   // suppress "unused" warning on unit (kept in API for future use)
   void unit;
@@ -133,7 +136,7 @@ export function DeltaChart({
         </div>
       </div>
 
-      <svg width="100%" height="420" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
+      <svg ref={svgRef} width="100%" height="420" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: "visible" }}>
         <defs>
           {[POS, NEG].map((c, k) => (
             <g key={k}>
@@ -183,7 +186,7 @@ export function DeltaChart({
             fontFamily="ui-monospace, monospace"
           >
             {v > 0 ? "+" : ""}
-            {(Math.round(v * 10) / 10).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} %
+            {(Math.round(v * 10) / 10).toLocaleString("fr-FR", { maximumFractionDigits: 1 })}{"\u00a0"}%
           </text>
         ))}
 
@@ -269,19 +272,21 @@ export function DeltaChart({
               />
 
               {/* Pct label — taille agrandie + plus d'espace */}
+              {(garde(i, deltas.length, pasPct) || i === hover) && (
               <text
                 x={x + barW / 2 + DX / 2}
                 y={isPos ? yTop + DY - 20 : yBot + DY + 28}
                 textAnchor="middle"
-                fontSize={17 * AFV}
+                fontSize={fontPct}
                 fontWeight={700}
                 fill={c}
                 fontFamily="ui-monospace, monospace"
                 style={{ textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}
               >
                 {isPos ? "+" : ""}
-                {pct.toFixed(1)} %
+                {pct.toFixed(1)}{"\u00a0"}%
               </text>
+              )}
 
               {/* Year label — taille agrandie */}
               <text

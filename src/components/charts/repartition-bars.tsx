@@ -41,7 +41,7 @@ function fmtPct(v: number, locale: string): string {
   return `${v.toLocaleString(locale.startsWith("fr") ? "fr-FR" : "en-US", {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
-  })} %`;
+  })}\u00a0%`;
 }
 
 function fmtValue(v: number, unit: string, locale: string): string {

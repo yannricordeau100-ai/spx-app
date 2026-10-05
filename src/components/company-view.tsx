@@ -1925,7 +1925,7 @@ export function CompanyView({
                   Séparateurs dots violet retirés (cosmétique, prenaient de
                   la place). Onglet "Tableau de bord" supprimé (cf liste
                   TABS dans chart-cycle.tsx). */}
-              <div data-zone-graphique className="max-lg:order-5 max-lg:mb-0 max-lg:mt-3 mb-3 flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div data-zone-graphique className="max-lg:order-5 max-lg:mb-0 max-lg:mt-3 mb-3 flex flex-nowrap items-center justify-between gap-1 sm:justify-center sm:gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {/* Yann 2 sept 2026 (ergonomie mobile) : en mobile, un menu
                     Reglages commun (fenetre + frequence + rendu 2D/3D) et un
                     menu deroulant pour l unite de temps remplacent les

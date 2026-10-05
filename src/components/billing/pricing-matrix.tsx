@@ -44,7 +44,7 @@ function renderCell(value: string | boolean, accent: string) {
     );
   }
   return (
-    <div className="text-center text-[12px] text-zinc-300">{value}</div>
+    <div className="min-w-0 whitespace-normal break-words text-center text-[11px] leading-snug text-zinc-300 sm:text-[12px]">{value}</div>
   );
 }
 
@@ -65,7 +65,7 @@ function FeatureCellGroup({ feature, plans }: { feature: FeatureRow; plans: Plan
       {(["free", "premium", "max"] as const).map((tier) => {
         const plan = plans.find((p) => p.tier === tier);
         return (
-          <div key={tier}>{renderCell(feature[tier], plan?.accent ?? "#a78bfa")}</div>
+          <div key={tier} className="min-w-0">{renderCell(feature[tier], plan?.accent ?? "#a78bfa")}</div>
         );
       })}
     </div>

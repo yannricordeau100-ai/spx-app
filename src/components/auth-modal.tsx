@@ -306,7 +306,7 @@ export function AuthModal() {
             type="button"
             aria-label={t("common.close")}
             onClick={close}
-            className="absolute inset-0 bg-black/90 backdrop-blur-md"
+            className="absolute inset-0 bg-[#050507]"
           />
 
           <motion.div

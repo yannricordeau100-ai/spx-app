@@ -145,7 +145,7 @@ export function LevelBadge() {
   const meta = LEVEL_META[level];
 
   return (
-    <div data-flottant className="fixed bottom-3 right-3 z-[9999] flex flex-col items-end gap-1">
+    <div data-flottant className="fixed left-1 top-1 z-[9999] flex flex-col items-start gap-1 opacity-70 sm:bottom-3 sm:left-auto sm:right-3 sm:top-auto sm:items-end sm:opacity-100">
       <button
         type="button"
         onClick={() => setCollapsed((c) => !c)}
@@ -199,7 +199,7 @@ export function LevelBadgeSSR() {
         title={meta.tooltip}
         aria-label={meta.label}
         role="status"
-        className={`fixed bottom-3 right-3 z-[9999] inline-flex items-center gap-1.5 rounded-full border ${meta.borderClass} ${meta.bgClass} ${meta.textClass} px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] backdrop-blur-md`}
+        className={`fixed left-1 top-1 z-[9999] inline-flex opacity-70 sm:bottom-3 sm:left-auto sm:right-3 sm:top-auto sm:opacity-100 items-center gap-1.5 rounded-full border ${meta.borderClass} ${meta.bgClass} ${meta.textClass} px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] backdrop-blur-md`}
         style={{ WebkitBackdropFilter: "blur(8px)" }}
       >
         <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${meta.dotClass}`} />

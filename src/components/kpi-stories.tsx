@@ -201,12 +201,12 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
 
       {/* Barre de rangement (pilote) : familles, fraicheur, vedettes. */}
       {pilot && (
-        <div className="mb-5 flex flex-wrap items-center gap-2">
-          <div className="flex flex-wrap items-center gap-1 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-1">
+        <div className="mb-5 flex flex-nowrap items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible sm:pb-0">
+          <div className="flex shrink-0 flex-nowrap items-center gap-1 sm:flex-wrap rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-1">
             <button
               type="button"
               onClick={() => { setFamily("toutes"); setActive(0); }}
-              className={`rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+              className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
                 family === "toutes" ? "bg-white/[0.08] text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
               }`}
             >
@@ -218,7 +218,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
                 key={f.key}
                 type="button"
                 onClick={() => { setFamily(f.key); setActive(0); }}
-                className={`rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+                className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
                   family === f.key ? "bg-white/[0.08] text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
                 }`}
               >
@@ -228,11 +228,11 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
             ))}
           </div>
 
-          <div className="flex items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
+          <div className="flex shrink-0 items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
             <button
               type="button"
               onClick={() => { setOrder("recent"); setActive(0); }}
-              className={`rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+              className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
                 order === "recent" ? "bg-white/[0.08] text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
               }`}
             >
@@ -241,7 +241,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
             <button
               type="button"
               onClick={() => { setOrder("ancien"); setActive(0); }}
-              className={`rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+              className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
                 order === "ancien" ? "bg-white/[0.08] text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
               }`}
             >
@@ -252,7 +252,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
           <button
             type="button"
             onClick={() => { setStarOnly((v) => !v); setActive(0); }}
-            className={`rounded-full border px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+            className={`shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
               starOnly
                 ? "border-violet-400/50 bg-violet-500/15 text-violet-100"
                 : "border-[#1f1f1f] bg-[#0a0a0a] text-zinc-400 hover:text-zinc-100"

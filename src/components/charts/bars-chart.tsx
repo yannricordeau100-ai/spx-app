@@ -1,7 +1,7 @@
 "use client";
 
-import { AF_AXES } from "@/components/charts/axes-mobiles";
-import { useState , useEffect} from "react";
+import { AF_AXES, pasEtiquettes, garde, useEchelleSvg, policeValeur } from "@/components/charts/axes-mobiles";
+import { useState , useEffect, useRef} from "react";
 import { motion } from "motion/react";
 import type { Anomaly } from "@/lib/brand";
 import { AnomalyInfo } from "@/components/anomaly-info";
@@ -92,6 +92,8 @@ export function BarsChart({
     setAxesMobiles(typeof window !== "undefined" && window.innerWidth < 640);
   }, []);
   const AF = axesMobiles ? AF_AXES : 1;
+  const svgRef = useRef<SVGSVGElement>(null);
+  const echelleSvg = useEchelleSvg(svgRef, axesMobiles);
 
 
   // Étend data + labels avec la barre TTM si fournie. La dernière barre
@@ -136,6 +138,9 @@ export function BarsChart({
 
   const slot = innerW / allData.length;
   const barW = Math.min(slot * 0.42, 56);
+  // Pourcentages au-dessus des barres : ~10 px reels sur mobile, une sur N si ca se touche.
+  const fontPct = policeValeur(axesMobiles, echelleSvg, 17);
+  const pasPct = pasEtiquettes(axesMobiles, slot, 7, fontPct);
 
   const u = formatUnit(unit);
   const header = axisHeader(unit, locale);
@@ -182,6 +187,7 @@ export function BarsChart({
       <svg
         width="100%"
         height="auto"
+        ref={svgRef}
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
         style={{ display: "block", overflow: "visible" }}
@@ -416,7 +422,7 @@ export function BarsChart({
               )}
 
               {/* YoY % above — espace augmenté pour ne pas coller à la barre */}
-              {yPct != null && (
+              {yPct != null && (garde(i, allData.length, pasPct) || i === hover) && (
                 <motion.text
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -424,14 +430,14 @@ export function BarsChart({
                   x={x + barW / 2 + (isClassic ? 0 : DX / 2)}
                   y={yTop + (isClassic ? -10 : DY - 24)}
                   textAnchor="middle"
-                  fontSize={17 * (axesMobiles ? 1.35 : 1)}
+                  fontSize={fontPct}
                   fontWeight={700}
                   fill={yoyColor}
                   fontFamily="ui-monospace, monospace"
                   style={isClassic ? undefined : { filter: `drop-shadow(0 0 4px ${yoyColor})` }}
                 >
                   {yPct >= 0 ? "+" : ""}
-                  {yPct.toFixed(1)} %
+                  {yPct.toFixed(1)}{"\u00a0"}%
                 </motion.text>
               )}
 
