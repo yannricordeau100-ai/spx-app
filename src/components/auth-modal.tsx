@@ -310,7 +310,7 @@ export function AuthModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
-          className="fixed inset-0 z-[1200] flex items-center justify-center px-3 sm:px-4"
+          className="auth-modal-racine fixed inset-0 z-[1200] flex items-center justify-center px-3 sm:px-4"
         >
           <button
             type="button"
