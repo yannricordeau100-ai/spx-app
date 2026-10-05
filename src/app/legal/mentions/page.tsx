@@ -108,7 +108,7 @@ export default async function MentionsPage() {
 
       <LegalSection title={t.s1_title}>
         <p>
-          {t.s1_p1_a} <strong>{t.s1_p1_b}</strong> {t.s1_p1_c} <strong>{t.s1_p1_addr}</strong>{t.s1_p1_d}
+          {t.s1_p1_a} <strong>{t.s1_p1_b}</strong>{t.s1_p1_c} <strong>{t.s1_p1_addr}</strong>{t.s1_p1_d}
         </p>
         <p>
           <strong>{t.s1_contact_label}</strong>{" "}

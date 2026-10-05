@@ -202,7 +202,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
       {/* Barre de rangement (pilote) : familles, fraicheur, vedettes. */}
       {pilot && (
         <div className="mb-5 flex flex-wrap items-center gap-2">
-          <div className="flex flex-wrap items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
+          <div className="flex flex-wrap items-center gap-1 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-1">
             <button
               type="button"
               onClick={() => { setFamily("toutes"); setActive(0); }}

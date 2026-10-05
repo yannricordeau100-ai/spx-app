@@ -670,6 +670,8 @@ export function CompanyView({
   // Reactivation : passer COMPARER_ACTIF a true, rien d autre a toucher.
   const COMPARER_ACTIF = true; // Yann 11 sept 2026 : Comparer remis, branche sur les 666 fiches
   const [compareOpen, setCompareOpen] = useState(false);
+  // Yann 5 oct 2026 : un seul panneau d en-tete ouvert a la fois (Comparer, Mes favoris, menu « ... »).
+  const [panneauNav, setPanneauNav] = useState<"favoris" | "plus" | null>(null);
   const [chartMode, setChartMode] = useChartMode("bars");
   // 10 sept 2026 (Yann) : plus de vue 3D, barres classiques uniquement (toggle 2D/3D retire).
   const [barsVariant] = useState<"iso3d" | "classic">("classic");
@@ -1457,19 +1459,19 @@ export function CompanyView({
         <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" />
 
         <main className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
-          <nav className="mb-9 flex flex-nowrap items-center gap-1.5 sm:gap-3 whitespace-nowrap">
+          <nav className="mb-9 flex flex-nowrap items-center gap-1 sm:gap-3 whitespace-nowrap">
             <Link
               href="/"
               className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
               aria-label={t("nav.home")}
             >
               <LogoMettrik emplacement="retour-societe" size="sm" animated={false} showRail={false} />
-              <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
+              <ArrowLeft className="hidden size-4 text-zinc-500 transition-transform sm:block group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
             </Link>
             <PageSearch variant="default" />
-            <div className="ml-auto flex shrink-0 items-center gap-2">
+            <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
               <div className="hidden sm:block"><ThemeToggle paid={isPaidTier} /></div>
-              <NavPlusMenu paid={isPaidTier} />
+              <NavPlusMenu paid={isPaidTier} anon={freemiumTier === "anon"} />
               <div className="relative z-[70]">{authSlot}</div>
             </div>
           </nav>
@@ -1495,7 +1497,7 @@ export function CompanyView({
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#050505]">
+    <div className="relative min-h-screen overflow-clip bg-[#050505]">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-[600px]"
         style={{
@@ -1506,7 +1508,7 @@ export function CompanyView({
       <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" />
       <CmdFSearch scopeSelector="main" />
 
-      <main className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
+      <main className="relative mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9 md:pl-16 xl:pl-6">
         {captureInscription && (
           <a
             href={`/?auth=signup&next=${encodeURIComponent("/" + company.ticker.toLowerCase())}`}
@@ -1516,39 +1518,49 @@ export function CompanyView({
         )}
         {/* Top nav — tout sur une ligne : back + recherche (collée à gauche)
             puis actions à droite (variant, comparer, enregistrer, compte). */}
-        <nav className="mb-9 flex flex-nowrap items-center gap-1.5 sm:gap-3 whitespace-nowrap">
+        <nav className="mb-9 flex flex-nowrap items-center gap-1 sm:gap-3 whitespace-nowrap">
           {/* Logo wordmark Mettrik AI (taille sm) — cliquable, retour home.
               Réutilise le composant MettrikWordmark identique au logo home
               et à la page maintenance. Cohérence brand sur toutes les
               pages. (8 mai 2026) */}
-          <div className={`flex min-w-0 flex-nowrap items-center gap-1.5 sm:gap-3 ${anonPage ? "pointer-events-none opacity-40" : ""}`} aria-disabled={anonPage || undefined}>
+          <div className={`flex min-w-0 flex-nowrap items-center gap-1 sm:gap-3 ${anonPage ? "pointer-events-none opacity-40" : ""}`} aria-disabled={anonPage || undefined}>
           <Link
             href="/"
             className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
             aria-label={t("nav.home")}
           >
             <LogoMettrik emplacement="retour-societe" size="sm" animated={false} showRail={false} />
-            <ArrowLeft className="size-4 text-zinc-500 transition-transform group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
+            <ArrowLeft className="hidden size-4 text-zinc-500 transition-transform sm:block group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
           </Link>
           <PageSearch variant="default" />
           </div>
-          <div className="ml-auto flex shrink-0 items-center gap-2">
-            <div className={`flex items-center gap-2 ${anonPage ? "pointer-events-none opacity-40" : ""}`} aria-disabled={anonPage || undefined}>
+          <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
+            <div className={`flex items-center gap-1 sm:gap-2 ${anonPage ? "pointer-events-none opacity-40" : ""}`} aria-disabled={anonPage || undefined}>
             {COMPARER_ACTIF && (
             <CompareControl
               ticker={company.ticker}
               activeKpi={active}
               open={compareOpen}
-              onToggle={() => setCompareOpen((o) => !o)}
+              onToggle={() => { setPanneauNav(null); setCompareOpen((o) => !o); }}
               onPick={(t) => {
                 setCompareTicker(t);
                 setCompareOpen(false);
               }}
             />
             )}
-            {freemiumTier !== "anon" && <MesListesMenu />}
+            {freemiumTier !== "anon" && (
+              <MesListesMenu
+                ouvert={panneauNav === "favoris"}
+                onOuvertChange={(o) => { if (o) setCompareOpen(false); setPanneauNav(o ? "favoris" : (p) => (p === "favoris" ? null : p)); }}
+              />
+            )}
             <div className="hidden sm:block"><ThemeToggle paid={isPaidTier} /></div>
-              <NavPlusMenu paid={isPaidTier} />
+              <NavPlusMenu
+                paid={isPaidTier}
+                anon={freemiumTier === "anon"}
+                ouvert={panneauNav === "plus"}
+                onOuvertChange={(o) => { if (o) setCompareOpen(false); setPanneauNav(o ? "plus" : (p) => (p === "plus" ? null : p)); }}
+              />
             </div>
             <div className="relative z-[70]">{authSlot}</div>
           </div>

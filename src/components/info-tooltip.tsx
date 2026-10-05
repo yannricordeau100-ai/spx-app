@@ -129,24 +129,30 @@ export function InfoTooltip({
     const borne = (x: number) => Math.max(MARGE, Math.min(x, vw - largeurPopup - MARGE));
     // Vertical : sous le bouton si la place suffit, sinon au-dessus, toujours
     // dans l ecran et jamais loin du « i ».
+    // 5 oct 2026 : on choisit le cote (dessous ou dessus) qui offre le plus de
+    // place et on plafonne la hauteur a cette place, avec defilement interne :
+    // le texte n est plus coupe en haut et la popup ne recouvre plus le « i ».
     const h = hauteurPopup || 160;
-    const dessous = coords.top;
-    const dessus = coords.haut - 6 - h;
-    const top = dessous + h + MARGE <= vh ? dessous : Math.max(MARGE, dessus >= MARGE ? dessus : vh - h - MARGE);
+    const placeDessous = vh - coords.top - MARGE;
+    const placeDessus = coords.haut - 6 - MARGE;
+    const versLeBas = h <= placeDessous || placeDessous >= placeDessus;
+    const place = Math.max(96, versLeBas ? placeDessous : placeDessus);
+    const hEff = Math.min(h, place);
+    const top = versLeBas ? coords.top : Math.max(MARGE, coords.haut - 6 - hEff);
     const gaucheBouton = coords.left;
     const droiteBouton = vw - coords.right;
     if (align === "center") {
-      return { top, left: borne((gaucheBouton + droiteBouton) / 2 - largeurPopup / 2) };
+      return { top, maxHeight: place, left: borne((gaucheBouton + droiteBouton) / 2 - largeurPopup / 2) };
     }
-    if (align === "right") return { top, left: borne(droiteBouton - largeurPopup) };
+    if (align === "right") return { top, maxHeight: place, left: borne(droiteBouton - largeurPopup) };
     // Yann 8 juin 2026 : auto-flip. La popup fait w-72 (288px). Si elle
     // depasserait le bord droit de l'ecran (cas du "i" en bout de titre KPI a
     // droite, ex "Revenus des frais de membership (i)"), on l'ouvre vers la
     // GAUCHE (right-align) pour ne plus tronquer le texte de definition.
     if (gaucheBouton + largeurPopup + MARGE > vw) {
-      return { top, left: borne(droiteBouton - largeurPopup) };
+      return { top, maxHeight: place, left: borne(droiteBouton - largeurPopup) };
     }
-    return { top, left: borne(gaucheBouton) };
+    return { top, maxHeight: place, left: borne(gaucheBouton) };
   })();
 
   return (
@@ -189,7 +195,7 @@ export function InfoTooltip({
                 onPointerLeave={(e) => { if (e.pointerType === "mouse") setOpen(false); }}
                 onClick={(e) => e.stopPropagation()}
                 ref={popupRef}
-                className="pointer-events-auto fixed z-[1000] w-72 rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-3.5 text-[12.5px] leading-relaxed text-zinc-200 shadow-2xl"
+                className="pointer-events-auto fixed z-[1000] w-72 max-w-[calc(100vw-24px)] overflow-y-auto overscroll-contain rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-3.5 text-[12.5px] leading-relaxed text-zinc-200 shadow-2xl"
                 style={popupStyle}
               >
                 {children}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState , useEffect} from "react";
+import { AF_AXES } from "@/components/charts/axes-mobiles";
 
 const POS = "#10b981";
 const NEG = "#f43f5e";
@@ -67,7 +68,8 @@ export function DeltaChart({
   useEffect(() => {
     setAxesMobiles(typeof window !== "undefined" && window.innerWidth < 640);
   }, []);
-  const AF = axesMobiles ? 1.35 : 1;
+  const AF = axesMobiles ? AF_AXES : 1;
+  const AFV = axesMobiles ? 1.35 : 1;
 
 
   const deltas = data.slice(1).map((v, i) => {
@@ -271,7 +273,7 @@ export function DeltaChart({
                 x={x + barW / 2 + DX / 2}
                 y={isPos ? yTop + DY - 20 : yBot + DY + 28}
                 textAnchor="middle"
-                fontSize={17 * AF}
+                fontSize={17 * AFV}
                 fontWeight={700}
                 fill={c}
                 fontFamily="ui-monospace, monospace"

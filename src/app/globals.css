@@ -321,3 +321,17 @@ html[data-chart-plein-ecran] [data-flottant] { display: none !important; }
 @media (max-height: 499px) {
   [data-rail-gauche] { display: none !important; }
 }
+
+/* 5 oct 2026 : sur ecran tactile, pas de raccourci clavier ni d indication
+   « Entree pour ouvrir » (inutiles au toucher). */
+@media (hover: none) and (pointer: coarse) {
+  button > kbd[class*="border-white/15"] {
+    display: none !important;
+  }
+  div[class*="tracking-[0.18em]"] > span.text-zinc-600 {
+    display: none;
+  }
+  .hidden-tactile {
+    display: none;
+  }
+}

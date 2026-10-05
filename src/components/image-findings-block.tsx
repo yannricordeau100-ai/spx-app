@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Download, ImageIcon } from "lucide-react";
+import { ChartFullscreen } from "@/components/charts/chart-mobile-controls";
 import { downloadSvgAsPng } from "@/lib/chart-export";
 import { pickI18n, type LocalizedString } from "@/lib/desk/image-findings";
 import { translate } from "@/lib/i18n/dictionary";
@@ -95,19 +96,37 @@ export function ImageFindingsBlock({
   const displayTitleRef = useRef<string | null>(null);
   const n = findings?.length ?? 0;
   const safeIdx = n > 0 ? idx % n : 0;
-  const local = n > 0 ? findings[safeIdx].image_local_path : null;
+  const [agrandi, setAgrandi] = useState(false);
+  // Tous les SVG locaux sont charges d avance : le bouton de telechargement
+  // est disponible sur CHAQUE carte, pas seulement la premiere.
+  const chemins = (findings ?? []).map((x) => x.image_local_path).filter((c): c is string => !!c && c.endsWith(".svg")).join("|");
   useEffect(() => {
-    if (!local || !local.endsWith(".svg") || svgText[local] !== undefined) return;
     let vivant = true;
-    fetch(local).then((r) => (r.ok ? r.text() : "")).then((t) => { if (vivant) setSvgText((m) => ({ ...m, [local]: t })); }).catch(() => { if (vivant) setSvgText((m) => ({ ...m, [local]: "" })); });
+    for (const c of chemins ? chemins.split("|") : []) {
+      fetch(c)
+        .then((r) => (r.ok ? r.text() : ""))
+        .then((t) => { if (vivant) setSvgText((m) => (m[c] !== undefined ? m : { ...m, [c]: t })); })
+        .catch(() => { if (vivant) setSvgText((m) => (m[c] !== undefined ? m : { ...m, [c]: "" })); });
+    }
     return () => { vivant = false; };
-  }, [local, svgText]);
+  }, [chemins]);
   if (!findings || findings.length === 0) return null;
   const safe = safeIdx;
   const f = findings[safe];
   const inlineSvg = f.image_local_path ? svgText[f.image_local_path] : undefined;
   const exporter = async () => {
-    const svg = boxRef.current?.querySelector("svg") as SVGSVGElement | null;
+    let svg = boxRef.current?.querySelector("svg") as SVGSVGElement | null;
+    if (!svg && f.image_local_path) {
+      // Carte pas encore rendue en SVG en ligne : chargement a la demande.
+      try {
+        const t = await fetch(f.image_local_path).then((r) => (r.ok ? r.text() : ""));
+        if (t) {
+          const tmp = document.createElement("div");
+          tmp.innerHTML = t;
+          svg = tmp.querySelector("svg");
+        }
+      } catch { /* hors ligne */ }
+    }
     if (!svg) return;
     const nom = `mettrik-${(ticker ?? "graphique").toLowerCase()}-moyen-terme-${safe + 1}.png`;
     const titreGraphique = sansDates(displayTitleRef.current ?? "");
@@ -152,16 +171,16 @@ export function ImageFindingsBlock({
           <button
             type="button"
             onClick={() => setIdx((i) => (i - 1 + findings.length) % findings.length)}
-            className="rounded-md border border-white/[0.08] p-1.5 text-zinc-300 hover:bg-white/5"
+            className="inline-flex size-11 items-center justify-center rounded-md border border-white/[0.08] text-zinc-300 hover:bg-white/5 sm:size-auto sm:p-1.5"
             aria-label={tt("image_findings.aria_prev")}
           >
             <ChevronLeft className="size-4" />
           </button>
-          {inlineSvg ? (
+          {f.image_local_path?.endsWith(".svg") ? (
             <button
               type="button"
               onClick={exporter}
-              className="rounded-md border border-white/[0.08] p-1.5 text-zinc-300 hover:bg-white/5"
+              className="inline-flex size-11 items-center justify-center rounded-md border border-white/[0.08] text-zinc-300 hover:bg-white/5 sm:size-auto sm:p-1.5"
               aria-label="Exporter le graphique"
               title="Exporter le graphique (PNG)"
             >
@@ -171,7 +190,7 @@ export function ImageFindingsBlock({
           <button
             type="button"
             onClick={() => setIdx((i) => (i + 1) % findings.length)}
-            className="rounded-md border border-white/[0.08] p-1.5 text-zinc-300 hover:bg-white/5"
+            className="inline-flex size-11 items-center justify-center rounded-md border border-white/[0.08] text-zinc-300 hover:bg-white/5 sm:size-auto sm:p-1.5"
             aria-label={tt("image_findings.aria_next")}
           >
             <ChevronRight className="size-4" />
@@ -189,11 +208,15 @@ export function ImageFindingsBlock({
             rendu ici, dans le meme style. */}
         {/* Yann 18 sept 2026 : titre en HTML pour TOUS les graphiques, centre, a la ligne si long. */}
         {displayTitle && (
-          <h3 data-blur="mt_titre" className="mx-auto mb-3 mt-0 max-w-[92%] text-center text-[16px] font-bold leading-snug text-zinc-50 sm:text-[17px]">
+          <h3 data-blur="mt_titre" className="mx-auto mb-3 mt-0 flex min-h-[2.7rem] max-w-[92%] items-center justify-center text-center text-[16px] font-bold leading-snug text-zinc-50 sm:min-h-0 sm:text-[17px]">
             {displayTitle}
           </h3>
         )}
-        <div data-blur-part="graphique" className="aspect-video w-full overflow-hidden rounded-xl bg-black/60">
+        <div
+          data-blur-part="graphique"
+          className="aspect-video w-full cursor-zoom-in overflow-hidden rounded-xl bg-black/60 sm:cursor-default"
+          onClick={() => { if (typeof window !== "undefined" && window.innerWidth < 640) setAgrandi(true); }}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {/* Yann 18 mai 2026 : priorité au SVG local recréé. f.image_url
               pointe vers la source externe (PDF / article) qui n'est pas
@@ -225,7 +248,7 @@ export function ImageFindingsBlock({
         </div>
         {/* Yann 18 sept 2026 : sous-titre (unite, source, precisions) sous le graphique, centre, a la ligne. */}
         {f.caption && f.caption.trim().length > 0 && (
-          <p data-blur="mt_sources" className="mx-auto mt-2 max-w-[92%] text-center text-[11.5px] leading-snug text-zinc-400">
+          <p data-blur="mt_sources" className="mx-auto mt-2 min-h-[3.1rem] max-w-[92%] text-center text-[11.5px] leading-snug text-zinc-400 sm:min-h-0">
             {sansSource(f.caption)}
           </p>
         )}
@@ -233,7 +256,7 @@ export function ImageFindingsBlock({
             Le toggle "masquer la lecture" est désormais dans la sandbox admin
             (per finding). Ici on respecte le flag f.show_summary !== false. */}
         {displaySummary && f.show_summary !== false && (
-          <p className="mt-2 text-[12.5px] leading-relaxed text-zinc-400">{displaySummary}</p>
+          <p className="mt-2 min-h-[8rem] text-[12.5px] leading-relaxed text-zinc-400 sm:min-h-0">{displaySummary}</p>
         )}
         {/* Yann 16 sept 2026 : date de la source, signalee au dela de deux ans. */}
         {(() => {
@@ -269,6 +292,19 @@ export function ImageFindingsBlock({
           ))}
         </div>
       )}
+      <ChartFullscreen open={agrandi} onClose={() => setAgrandi(false)} titre={displayTitle ?? ""}>
+        {inlineSvg ? (
+          <div className="w-full [&>svg]:h-auto [&>svg]:w-full" dangerouslySetInnerHTML={{ __html: inlineSvg }} />
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={f.image_local_path && f.image_local_path.endsWith(".svg") ? f.image_local_path.replace(/\.svg$/, ".png") : f.image_local_path || f.image_url}
+            alt={displayTitle ?? tt("image_findings.image_alt_fallback")}
+            className="h-auto w-full object-contain"
+            referrerPolicy="no-referrer"
+          />
+        )}
+      </ChartFullscreen>
     </section>
   );
 }

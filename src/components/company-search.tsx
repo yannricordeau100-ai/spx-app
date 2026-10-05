@@ -565,7 +565,7 @@ export function CompanySearch({
         className={
           variant === "hero"
             ? "group relative inline-flex w-full max-w-2xl items-center gap-3 overflow-hidden rounded-full border border-white/10 bg-[#0a0a0e]/80 px-5 py-3.5 text-left text-zinc-400 backdrop-blur-md transition-all hover:border-white/25 hover:text-zinc-200 hover:shadow-[0_0_40px_-10px_rgba(167,139,250,0.45)]"
-            : "group relative inline-flex w-auto shrink-0 items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-[#0a0a0e]/80 px-3 py-2 sm:w-full sm:max-w-[17rem] sm:px-3.5 text-left text-zinc-400 backdrop-blur transition-all hover:border-white/25 hover:text-zinc-200"
+            : "group relative inline-flex size-9 shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full border border-white/10 bg-[#0a0a0e]/80 p-0 sm:h-auto sm:w-full sm:justify-start sm:px-3.5 sm:py-2 sm:max-w-[17rem] sm:px-3.5 text-left text-zinc-400 backdrop-blur transition-all hover:border-white/25 hover:text-zinc-200"
         }
       >
         <span
@@ -680,7 +680,7 @@ export function CompanySearch({
                     type="button"
                     onClick={() => setQuery("")}
                     className="inline-flex size-7 items-center justify-center rounded-full text-zinc-500 transition-colors hover:bg-white/5 hover:text-zinc-200"
-                    aria-label={t("common.close")}
+                    aria-label="Effacer le texte"
                   >
                     <X className="size-3.5" />
                   </button>
@@ -688,10 +688,11 @@ export function CompanySearch({
                 <button
                   type="button"
                   onClick={close}
-                  className="hidden items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider text-zinc-400 transition-colors hover:bg-white/10 sm:inline-flex"
-                  aria-label={t("common.close")}
+                  className="inline-flex shrink-0 items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-zinc-200 transition-colors hover:bg-white/10 sm:px-2 sm:py-1 sm:text-[10.5px] sm:text-zinc-400"
+                  aria-label="Fermer la recherche"
                 >
-                  ESC
+                  <span className="sm:hidden">Fermer</span>
+                  <span className="hidden sm:inline">ESC</span>
                 </button>
               </div>
 
@@ -708,7 +709,7 @@ export function CompanySearch({
                     </>
                   ) : (
                     <>
-                      {locale === "fr" ? "Tape pour filtrer" : "Type to filter"}
+                      <span className="hidden-tactile">{locale === "fr" ? "Tapez pour filtrer" : "Type to filter"}</span>
                     </>
                   )}
                 </span>

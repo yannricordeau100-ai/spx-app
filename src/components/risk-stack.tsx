@@ -409,8 +409,8 @@ export function RiskStack({
 
   return (
     <section className="mt-9 animate-fade-up-d2">
-      <div className="mb-4 flex items-end justify-between">
-        <div>
+      <div className="mb-4 flex flex-col gap-2.5 sm:flex-row sm:items-end sm:justify-between">
+        <div className="min-w-0">
           <h2 className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
             <AlertTriangle className="size-5" style={{ color: accent }} />
             {t("risks.title")}
@@ -419,7 +419,7 @@ export function RiskStack({
             {t("risks.subtitle")}
           </p>
         </div>
-        <div className="flex flex-col items-end gap-1 font-mono text-[11px] uppercase tracking-wider text-zinc-400">
+        <div className="flex flex-row flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-zinc-400 sm:shrink-0 sm:flex-col sm:items-end sm:gap-1">
           <span>{totalCount} {t("risks.count")}</span>
           {upCount > 0 && (
             <span className="text-rose-300">{upCount} {upCount > 1 ? t("risks.aggravated_many") : t("risks.aggravated_one")}</span>

@@ -29,7 +29,7 @@ import {
   Compass,
   LineChart,
   Lightbulb,
-  FileText, ChevronDown } from "lucide-react";
+  FileText, ChevronDown, ChevronUp } from "lucide-react";
 import { InfoTooltip } from "@/components/info-tooltip";
 import type { CompanyThese, TheseArgument, TheseQuantitatif } from "@/lib/these";
 
@@ -103,7 +103,7 @@ function Partie({
           {titre}
         </h3>
       </div>
-      <div className="p-4">{children}</div>
+      <div className="p-3 sm:p-4">{children}</div>
     </div>
   );
 }
@@ -134,7 +134,7 @@ function SourceInfo({ label, contenu }: { label: string; contenu: string }) {
 
 function ArgumentCard({ arg }: { arg: TheseArgument }) {
   return (
-    <div data-blur-part="carte" className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
+    <div data-blur-part="carte" className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-3 transition-colors sm:p-4 hover:border-[#2a2a2a]">
       <div className="flex items-start justify-between gap-2">
         <div className="text-[13.5px] font-semibold text-zinc-100">{arg.titre}</div>
         {arg.preuve && <SourceInfo label="Preuve" contenu={arg.preuve} />}
@@ -151,7 +151,7 @@ function ArgumentCard({ arg }: { arg: TheseArgument }) {
 
 function QuantCard({ q }: { q: TheseQuantitatif }) {
   return (
-    <div data-blur-part="carte" className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-4 transition-colors hover:border-[#2a2a2a]">
+    <div data-blur-part="carte" className="rounded-xl border border-[#1a1a1a] bg-[#070707] p-3 transition-colors sm:p-4 hover:border-[#2a2a2a]">
       <div className="flex items-start justify-between gap-2">
         <div className="text-[13.5px] font-semibold text-zinc-100">{q.titre}</div>
       </div>
@@ -300,7 +300,7 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
       contenu: (
         <ul className="grid gap-2">
           {invaliderait.map((item, i) => (
-            <li key={`w-${i}`} className="flex items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3.5 text-[13px] leading-relaxed text-zinc-300">
+            <li key={`w-${i}`} className="flex items-start gap-2.5 rounded-xl border border-[#1a1a1a] bg-[#070707] p-3 text-[13px] sm:p-3.5 leading-relaxed text-zinc-300">
               <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-rose-400/80" />
               {item}
             </li>
@@ -346,14 +346,14 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
           aria-expanded={ouvert}
           onClick={(e) => { if ((e.target as HTMLElement).closest("button, [role=\"tooltip\"]")) return; setOuvert((o) => !o); }}
           onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOuvert((o) => !o); } }}
-          className="flex cursor-pointer select-none flex-wrap items-end justify-between gap-2 border-b px-5 py-4 sm:px-6"
+          className="flex cursor-pointer select-none flex-wrap items-end justify-between gap-2 border-b px-4 py-4 sm:px-6"
           style={{
             borderColor: `${CADRE}33`,
             background: `linear-gradient(90deg, ${CADRE}1a 0%, rgba(7, 7, 7, 0) 70%)`,
           }}
         >
-          <div>
-            <h2 data-blur-part="titre" className="flex items-center gap-2.5 text-[22px] font-semibold text-zinc-50">
+          <div className="min-w-0 max-w-full">
+            <h2 data-blur-part="titre" className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[22px] font-semibold text-zinc-50">
               <Sparkles className="size-5" style={{ color: accent }} />
               Thèse d&apos;investissement
               <InfoTooltip color={accent} size="md">
@@ -372,13 +372,14 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
               {these.donnees_arretees_au ? `, sur la base des documents publiés jusqu'en ${formatMoisAn(these.donnees_arretees_au)}` : ""}
             </span>
           </div>
-          <ChevronDown
-            aria-hidden
-            className={`size-5 shrink-0 self-center text-zinc-300 transition-transform duration-200 ${ouvert ? "rotate-180" : ""}`}
-          />
+          {ouvert ? (
+            <ChevronUp aria-hidden className="size-5 shrink-0 self-center text-zinc-300" />
+          ) : (
+            <ChevronDown aria-hidden className="size-5 shrink-0 self-center text-zinc-300" />
+          )}
         </div>
 
-        <div className="p-5 sm:p-6">
+        <div className="p-3 sm:p-6">
           {/* Style d'analyse : toujours visible. */}
           <div data-blur-part="texte" className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border border-[#1a1a1a] bg-[#070707] px-4 py-3">
             <Compass className="size-4 shrink-0" style={{ color: accent }} />
@@ -405,7 +406,7 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
 
           <div
             data-blur-part="texte"
-            className="relative overflow-hidden rounded-xl border p-5"
+            className="relative overflow-hidden rounded-xl border p-4 sm:p-5"
             style={{
               borderColor: "rgba(16, 185, 129, 0.35)",
               background: "linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(7, 7, 7, 0.9) 45%, rgba(34, 211, 238, 0.08) 100%)",

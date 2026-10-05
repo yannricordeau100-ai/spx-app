@@ -129,11 +129,23 @@ function scaleFor(i: number, hoverIdx: number | null, isActive: boolean): number
   return Math.min(1.7, 1 + hoverBoost + activeBoost);
 }
 
+/**
+ * Yann 5 oct 2026 : defilement par la FENETRE (jamais par un conteneur
+ * overflow-hidden), en tenant compte du scroll-margin-top de la section pour
+ * ne pas la laisser sous l en-tete.
+ */
+function allerA(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const marge = parseFloat(getComputedStyle(el).scrollMarginTop) || 96;
+  const haut = el.getBoundingClientRect().top + window.scrollY - marge;
+  window.scrollTo({ top: Math.max(0, haut), behavior: "smooth" });
+}
+
 function useDockNav(sections: DockSpySection[]) {
   const { active } = useActiveSection(sections);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
-  const go = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const go = allerA;
   return { active, hoverIdx, setHoverIdx, go };
 }
 
@@ -267,7 +279,7 @@ export function DockRailLeft({ sections, showSocial = false }: { sections: DockS
   const [actif, setActif] = useState<string | null>(null);
   const go = (id: string) => {
     setActif(id);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    allerA(id);
   };
   return (
     <nav data-rail-gauche className="group/rail hidden md:block fixed left-3 top-1/2 z-40 -translate-y-1/2" aria-label="Sections de la fiche">

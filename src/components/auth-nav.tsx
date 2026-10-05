@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogIn } from "lucide-react";
 import { getUserCourant } from "@/lib/supabase/server";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
@@ -65,6 +66,10 @@ export async function AuthNav({ scope = "home" }: { scope?: "home" | "company" }
     );
   }
 
+  // Yann 5 oct 2026 : sur les fiches (scope company), en mobile, la connexion
+  // devient une icone seule et « S'inscrire » passe dans le menu « ... » de la
+  // barre du haut, pour que tout tienne en 375 px.
+  const compact = scope === "company";
   return (
     <div className="flex items-center gap-1.5 sm:gap-3">
       <LanguageSwitcher />
@@ -73,16 +78,17 @@ export async function AuthNav({ scope = "home" }: { scope?: "home" | "company" }
           aria-hidden
           className="hidden sm:block absolute inset-0 translate-x-[3px] translate-y-[3px] rounded-md border border-violet-300/35 transition-transform duration-200 ease-out group-hover:translate-x-[5px] group-hover:translate-y-[5px]"
         />
-        <span className="relative z-10 inline-flex items-center gap-2 rounded-md border border-zinc-700 bg-[#0a0a0e] px-2.5 sm:px-3.5 py-2 text-[12.5px] font-medium tracking-[0.04em] text-zinc-100 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
+        <span className={`relative z-10 inline-flex items-center gap-2 rounded-md border border-zinc-700 bg-[#0a0a0e] px-2.5 sm:px-3.5 py-2 text-[12.5px] font-medium tracking-[0.04em] text-zinc-100 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px] ${compact ? "max-sm:size-9 max-sm:justify-center max-sm:p-0" : ""}`}>
+          {compact && <LogIn aria-hidden className="size-4 sm:hidden" />}
           <span
             aria-hidden
-            className="size-1.5 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(167,139,250,0.6)]"
+            className={`size-1.5 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(167,139,250,0.6)] ${compact ? "max-sm:hidden" : ""}`}
           />
-          {t("authnav.signin")}
+          <span className={compact ? "max-sm:hidden" : ""}>{t("authnav.signin")}</span>
         </span>
       </Link>
 
-      <Link href="/?auth=signup" className="group relative inline-block" aria-label={t("authnav.signup")}>
+      <Link href="/?auth=signup" className={`group relative inline-block ${compact ? "max-sm:hidden" : ""}`} aria-label={t("authnav.signup")}>
         <span
           aria-hidden
           className="hidden sm:block absolute inset-0 translate-x-[3px] translate-y-[3px] rounded-md border border-cyan-300/45 transition-transform duration-200 ease-out group-hover:translate-x-[5px] group-hover:translate-y-[5px]"

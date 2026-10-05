@@ -37,6 +37,8 @@ function usePanneauFixe(
   boutonRef: React.RefObject<HTMLDivElement | null>,
   onClose: () => void,
   align: "left" | "right" = "left",
+  largeur = 240,
+  hauteur = 220,
 ) {
   const [style, setStyle] = useState<React.CSSProperties | null>(null);
   useEffect(() => {
@@ -47,13 +49,21 @@ function usePanneauFixe(
     const place = () => {
       const r = boutonRef.current?.getBoundingClientRect();
       if (!r) return;
-      const suivant: React.CSSProperties =
-        align === "left"
-          ? { position: "fixed", top: r.bottom + 6, left: Math.max(8, r.left) }
-          : { position: "fixed", top: r.bottom + 6, right: Math.max(8, window.innerWidth - r.right) };
+      // Toujours dans l ecran : horizontal borne, bascule au-dessus du bouton
+      // si le panneau depasse en bas.
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const l = Math.min(
+        Math.max(8, align === "left" ? r.left : r.right - largeur),
+        Math.max(8, vw - largeur - 8),
+      );
+      const enHaut = r.bottom + 6 + hauteur > vh && r.top - 6 - hauteur >= 8;
+      const suivant: React.CSSProperties = enHaut
+        ? { position: "fixed", bottom: vh - r.top + 6, left: l, maxWidth: vw - 16 }
+        : { position: "fixed", top: r.bottom + 6, left: l, maxWidth: vw - 16 };
       // setState seulement si la position bouge : pas de re-render a 60 fps.
       setStyle((prev) =>
-        prev && prev.top === suivant.top && prev.left === suivant.left && prev.right === suivant.right
+        prev && prev.top === suivant.top && prev.left === suivant.left && prev.bottom === suivant.bottom
           ? prev
           : suivant,
       );
@@ -84,7 +94,7 @@ function usePanneauFixe(
       window.removeEventListener("scroll", surEvenement, { capture: true } as EventListenerOptions);
       window.removeEventListener("resize", surEvenement);
     };
-  }, [open, boutonRef, onClose, align]);
+  }, [open, boutonRef, onClose, align, largeur, hauteur]);
   return style;
 }
 
@@ -113,7 +123,7 @@ export function TimeUnitSelect({
         value={value}
         onChange={(e) => onChange(e.target.value as TimeFraction)}
         aria-label="Calcul par unité de temps"
-        className="appearance-none rounded-full border border-white/10 bg-[#0a0a0a] py-1.5 pl-3 pr-7 text-[12px] font-medium text-zinc-200"
+        className="appearance-none rounded-full border border-white/10 bg-[#0a0a0a] h-8 py-0 pl-3 pr-7 text-[12px] font-medium text-zinc-200"
         style={{ borderColor: value !== "year" ? `${accent}66` : undefined }}
       >
         {FRACTION_LABELS.map((f) => (
@@ -216,7 +226,7 @@ export function ChartSettingsMenu({
       <button
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-[#0a0a0a] px-3 py-1.5 text-[12px] font-medium text-zinc-200"
+        className="inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-white/10 bg-[#0a0a0a] px-3 text-[12px] font-medium text-zinc-200"
         style={open || nbActifs > 0 ? { borderColor: `${accent}66` } : undefined}
       >
         <Settings2 className="size-3.5" />
@@ -291,22 +301,41 @@ export function ShareDownloadMenu({
   // Yann 3 sept 2026 : le panneau etait pris dans la carte du graph (overflow)
   // et ne s affichait pas. Meme mecanique que le menu Reglages : position
   // fixe au 1er plan de l ecran, alignee a droite du bouton.
-  const styleFixe = usePanneauFixe(open, ref, () => setOpen(false), "right");
+  const styleFixe = usePanneauFixe(open, ref, () => setOpen(false), "right", 236, 190);
+  // Fermeture : clic/toucher exterieur (phase capture, meme si un parent
+  // arrete la propagation), Echap, autre menu ouvert, changement de KPI.
   useEffect(() => {
     if (!open) return;
-    const close = (e: MouseEvent | TouchEvent) => {
-      const cible = e.target as Node;
-      if (ref.current?.contains(cible)) return;
-      if ((cible as HTMLElement).closest?.("[data-panneau-partage]")) return;
+    const close = (e: Event) => {
+      const cible = e.target as HTMLElement | null;
+      if (cible && ref.current?.contains(cible)) return;
+      if (cible?.closest?.("[data-panneau-partage]")) return;
       setOpen(false);
     };
-    document.addEventListener("mousedown", close);
-    document.addEventListener("touchstart", close);
+    const echap = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    const autre = (e: Event) => {
+      if ((e as CustomEvent).detail !== ref.current) setOpen(false);
+    };
+    document.addEventListener("pointerdown", close, true);
+    document.addEventListener("mousedown", close, true);
+    document.addEventListener("touchstart", close, true);
+    document.addEventListener("click", close, true);
+    document.addEventListener("keydown", echap);
+    window.addEventListener("mettrik-menu-telechargement", autre);
     return () => {
-      document.removeEventListener("mousedown", close);
-      document.removeEventListener("touchstart", close);
+      document.removeEventListener("pointerdown", close, true);
+      document.removeEventListener("mousedown", close, true);
+      document.removeEventListener("touchstart", close, true);
+      document.removeEventListener("click", close, true);
+      document.removeEventListener("keydown", echap);
+      window.removeEventListener("mettrik-menu-telechargement", autre);
     };
   }, [open]);
+  useEffect(() => {
+    setOpen(false);
+  }, [shareUrl]);
   const publierSurX = () => {
     // x.com/intent/post est l adresse actuelle (twitter.com/intent/tweet ne
     // fait plus qu une redirection).
@@ -325,11 +354,14 @@ export function ShareDownloadMenu({
   return (
     <div ref={ref} className={cn("relative", className)}>
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => {
+          if (!open) window.dispatchEvent(new CustomEvent("mettrik-menu-telechargement", { detail: ref.current }));
+          setOpen((o) => !o);
+        }}
         aria-label={t("graph.download")}
         aria-expanded={open}
         title="Télécharger ou partager"
-        className="inline-flex size-8 items-center justify-center rounded-full border transition-colors"
+        className="relative inline-flex size-8 items-center justify-center rounded-full border transition-colors before:absolute before:-inset-1.5 before:content-['']"
         style={{ borderColor: `${accent}55`, background: open ? `${accent}26` : `${accent}14`, color: accent }}
       >
         <Download className="size-3.5" />
@@ -554,25 +586,25 @@ export function ChartFullscreen({
       >
         <div style={styleCadre} className="flex flex-col bg-[#050507]">
           <div
-            className="flex shrink-0 items-start justify-between gap-2 px-3 py-2"
-            style={paysageEffectif ? { paddingLeft: "calc(56px + env(safe-area-inset-top))" } : { paddingRight: reserveCroix }}
+            className="flex shrink-0 items-start gap-2 px-3 py-3"
+            style={paysageEffectif ? { paddingLeft: "calc(64px + env(safe-area-inset-top))", paddingRight: 16 } : { paddingRight: reserveCroix }}
           >
-            <span className="line-clamp-2 min-w-0 flex-1 text-[14px] font-semibold leading-snug text-zinc-100">{titre}</span>
             {!natifPaysage && (
               <button
                 onClick={() => setPaysage((p) => !p)}
                 aria-label={paysageEffectif ? "Revenir en portrait" : "Passer en paysage"}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-[12px] text-zinc-200"
+                className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-[12px] text-zinc-200"
               >
                 <RotateCw className={cn("size-3.5 transition-transform duration-300", paysageEffectif && "rotate-90")} />
                 {paysageEffectif ? "Portrait" : "Paysage"}
               </button>
             )}
+            <span className="line-clamp-2 min-w-0 flex-1 self-center text-[14px] font-semibold leading-snug text-zinc-100">{titre}</span>
           </div>
-          <div ref={zoneRef} className="flex min-h-0 flex-1 items-center justify-center overflow-hidden px-2 pb-2">
+          <div ref={zoneRef} className="flex min-h-0 flex-1 items-center justify-center overflow-hidden pb-2 pl-3 pr-6">
             <div
               ref={contenuRef}
-              className="w-full [&_svg]:w-full"
+              className="w-full [&_svg]:w-full [&_svg]:overflow-visible"
               style={{ transform: echelle < 1 ? `scale(${echelle})` : undefined, transformOrigin: "center center" }}
             >
               {children}

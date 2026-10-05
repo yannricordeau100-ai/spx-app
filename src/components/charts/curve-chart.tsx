@@ -1,5 +1,6 @@
 "use client";
 
+import { AF_AXES, pasEtiquettes, garde } from "@/components/charts/axes-mobiles";
 import { useRef, useState , useEffect} from "react";
 import { motion } from "motion/react";
 import { AnomalyInfo } from "@/components/anomaly-info";
@@ -235,7 +236,9 @@ export function CurveChart({
   useEffect(() => {
     setAxesMobiles(typeof window !== "undefined" && window.innerWidth < 640);
   }, []);
-  const AF = axesMobiles ? 1.35 : 1;
+  const AF = axesMobiles ? AF_AXES : 1;
+  // Valeurs au-dessus des points : taille mobile historique conservee.
+  const AFV = axesMobiles ? 1.35 : 1;
 
 
   // Garde-fou : si pas de data utilisable, ne rien afficher au lieu de crasher.
@@ -291,7 +294,12 @@ export function CurveChart({
   // Densité crowded : > 12 points -> labels sur 2 lignes horizontales
   // (T1/T2/T3/T4 ligne 1, année ligne 2). Rotation -45° rejetée par Yann.
   const isCrowded = allData.length > 12;
-  const xLabelFontSize = isCrowded ? 13 : 14;
+  const xLabelFontSize = (isCrowded ? 13 : 14) * AF;
+  const nReelAxe = hasTTM ? allData.length - 1 : allData.length;
+  const slotAxe = allData.length > 1 ? innerW / (allData.length - 1) : innerW;
+  const pasX = pasEtiquettes(axesMobiles, slotAxe, Math.max(...allLabels.map((l) => splitQuarterLabel(l ?? "").top.length), 1), xLabelFontSize);
+  const nbGroupes = yearGroups.length;
+  const pasAnnee = pasEtiquettes(axesMobiles, nbGroupes ? (innerW / nbGroupes) : innerW, 4, 13 * AF);
   const baselineY = PAD_TOP + innerH;
 
   const stepX = allData.length > 1 ? innerW / (allData.length - 1) : innerW;
@@ -666,6 +674,7 @@ export function CurveChart({
                 // Yann 11 sept 2026 : libelle X masque en meme temps que la valeur.
                 const nReelX = hasTTM ? allData.length - 1 : allData.length;
                 if (labelStep === 2 && !isTTM && (nReelX - 1 - i) % 2 === 1) return null;
+                if (!isTTM && !garde(i, nReelAxe, pasX)) return null;
                 const split = splitQuarterLabel(allLabels[i] ?? "");
                 const yQuarter = H - PAD_BOTTOM + 26;
                 const fz = xLabelFontSize;
@@ -725,7 +734,7 @@ export function CurveChart({
                     x={x}
                     y={yLabel}
                     textAnchor="middle"
-                    fontSize={(isCrowded ? 11 : 14) * AF}
+                    fontSize={(isCrowded ? 11 : 14) * AFV}
                     fontWeight={isTTM ? 500 : (isHover ? 800 : 600)}
                     fill={isTTM ? "#a1a1aa" : (isHover ? "#fafafa" : "#d4d4d8")}
                     fontStyle={isTTM ? "italic" : "normal"}
@@ -761,11 +770,12 @@ export function CurveChart({
 
         {/* Year band : 1 année = 1 bracket sous l'axe X. L'année apparaît
             UNE seule fois par groupe de quarters consécutifs. */}
-        {yearGroups.map((g) => {
+        {yearGroups.map((g, gi) => {
+          if (!garde(gi, nbGroupes, pasAnnee)) return null;
           const xStart = points[g.startIdx]?.[0] ?? 0;
           const xEnd = points[g.endIdx]?.[0] ?? 0;
           const yLine = H - PAD_BOTTOM + 46;
-          const yText = H - PAD_BOTTOM + 60;
+          const yText = H - PAD_BOTTOM + (axesMobiles ? 66 : 60);
           const tickH = 4;
           const single = g.startIdx === g.endIdx;
           const yearFull = g.year.length === 2 ? `20${g.year}` : g.year;
@@ -782,7 +792,7 @@ export function CurveChart({
                 x={(xStart + xEnd) / 2}
                 y={yText}
                 textAnchor="middle"
-                fontSize={13}
+                fontSize={13 * AF}
                 fill="#a1a1aa"
                 fontFamily="ui-monospace, monospace"
                 fontWeight={500}

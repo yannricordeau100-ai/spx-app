@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AF_AXES, pasEtiquettes, garde } from "@/components/charts/axes-mobiles";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { buildYearGroups } from "@/lib/chart-export";
@@ -80,6 +81,11 @@ const NEG = "#f43f5e";
 /* ============================================================ */
 export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, exportTicker, exportCagr, exportFrequency, exportInterpretation }: Props) {
   const [sel, setSel] = useState<number | null>(null);
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    setMobile(typeof window !== "undefined" && window.innerWidth < 640);
+  }, []);
+  const AFX = mobile ? AF_AXES : 1;
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 10 juin 2026 (Point 6) : locale courante pour l'export PNG.
   const { locale } = useT();
@@ -106,6 +112,14 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
   const yFor = (v: number) => PAD_TOP + ((max - v) / range) * INNER_H;
   const zeroY = yFor(0);
   const DX = 0;
+  const fmtTick = (v: number) =>
+    `${v > 0 ? "+" : ""}${(Math.round(v * 10) / 10).toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`;
+  // Mobile : cadre elargi a gauche pour la plus longue graduation.
+  const largeurTickMax = Math.max(...ticks.map((v) => fmtTick(v).length), 1) * 15 * AFX * 0.62 + 10 + 4;
+  const extraGauche = mobile ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
+  const tailleX = 15 * AFX;
+  const pasX = pasEtiquettes(mobile, slot, Math.max(...xLabels.map((l) => splitQuarterLabel(l).top.length), 1), tailleX);
+  const pasAnnee = pasEtiquettes(mobile, yearGroups.length ? INNER_W / yearGroups.length : INNER_W, 4, 13 * AFX);
 
   return (
     <div className="relative w-full">
@@ -113,10 +127,9 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
       ref={svgRef}
       onClick={() => setSel(null)}
       width="100%"
-      height="420"
-      viewBox={`0 0 ${W} ${H}`}
+      viewBox={`${-extraGauche} 0 ${W + extraGauche} ${H}`}
       preserveAspectRatio="xMidYMid meet"
-      style={{ overflow: "visible" }}
+      style={{ display: "block", overflow: "visible", height: "auto", aspectRatio: `${W + extraGauche} / ${H}` }}
       data-chart-export="true"
       data-export-prefix="variation"
       data-export-title={exportTitle || ""}
@@ -128,7 +141,7 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
     >
       {/* Header d'unité dans le SVG. Yann 2 juin 2026 : repositionné
           juste au-dessus du premier tick Y, aligné fin sur l'axe Y. */}
-      <text x={PAD_LEFT - 6} y={PAD_TOP - 24} fontSize={13} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace" textAnchor="end">
+      <text x={mobile ? -extraGauche + 2 : PAD_LEFT - 6} y={PAD_TOP - 24} fontSize={13 * (mobile ? 1.4 : 1)} fontWeight={600} fill="#e4e4e7" fontFamily="ui-monospace, monospace" textAnchor={mobile ? "start" : "end"}>
         {/* Les deltas sont calculés vs le point précédent de la série
             affichée : en trimestriel c'est vs le trimestre précédent,
             pas vs N-1. Le libellé doit suivre. */}
@@ -139,9 +152,9 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
           stroke="#1a1a1a" strokeDasharray="3 6" strokeWidth={1} />
       ))}
       {ticks.map((v, i) => (
-        <text key={i} x={PAD_LEFT - 10} y={yFor(v) + 5} textAnchor="end" fontSize={15}
+        <text key={i} x={PAD_LEFT - 10} y={yFor(v) + 5} textAnchor="end" fontSize={15 * AFX}
           fontWeight={500} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
-          {v > 0 ? "+" : ""}{(Math.round(v * 10) / 10).toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %
+          {fmtTick(v)}
         </text>
       ))}
       <line x1={PAD_LEFT} x2={PAD_LEFT + INNER_W} y1={zeroY} y2={zeroY} stroke="#3f3f46" strokeWidth={1.5} />
@@ -179,10 +192,12 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
               stroke={isSel ? "none" : "#000"} strokeWidth={3} paintOrder="stroke" strokeLinejoin="round">
               {numTxt}
             </text>
-            <text x={cx} y={H - PAD_BOTTOM + 26} textAnchor="middle"
-              fontSize={15} fill="#e4e4e7" fontFamily="ui-monospace, monospace" fontWeight={600}>
-              {splitQuarterLabel(labels[i + 1] ?? "").top}
-            </text>
+            {garde(i, deltas.length, pasX) && (
+              <text x={cx} y={H - PAD_BOTTOM + 26} textAnchor="middle"
+                fontSize={tailleX} fill="#e4e4e7" fontFamily="ui-monospace, monospace" fontWeight={600}>
+                {splitQuarterLabel(labels[i + 1] ?? "").top}
+              </text>
+            )}
           </g>
         );
       })}
@@ -200,11 +215,12 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
       />
 
       {/* Year band : 1 année = 1 bracket sous l'axe X. */}
-      {yearGroups.map((g) => {
+      {yearGroups.map((g, gi) => {
+        if (!garde(gi, yearGroups.length, pasAnnee)) return null;
         const cxStart = PAD_LEFT + slot * g.startIdx + (slot - barW) / 2 + barW / 2 + DX / 2;
         const cxEnd = PAD_LEFT + slot * g.endIdx + (slot - barW) / 2 + barW / 2 + DX / 2;
         const yLine = H - PAD_BOTTOM + 46;
-        const yText = H - PAD_BOTTOM + 60;
+        const yText = H - PAD_BOTTOM + (mobile ? 66 : 60);
         const tickH = 4;
         const single = g.startIdx === g.endIdx;
         const yearFull = g.year.length === 2 ? `20${g.year}` : g.year;
@@ -217,7 +233,7 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
                 <line x1={cxEnd} y1={yLine - tickH} x2={cxEnd} y2={yLine} stroke="#3f3f46" strokeWidth={1} />
               </>
             )}
-            <text x={(cxStart + cxEnd) / 2} y={yText} textAnchor="middle" fontSize={13} fill="#a1a1aa" fontFamily="ui-monospace, monospace" fontWeight={500}>
+            <text x={(cxStart + cxEnd) / 2} y={yText} textAnchor="middle" fontSize={13 * AFX} fill="#a1a1aa" fontFamily="ui-monospace, monospace" fontWeight={500}>
               {yearFull}
             </text>
           </g>

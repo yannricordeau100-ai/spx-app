@@ -70,8 +70,10 @@ export function PricingCards({
   // Yann 5 oct 2026 : remise annuelle calculee sur les prix reels, plus de « -33 % » fige.
   const remises = PLANS.map((p) => {
     const px = (p as { prices?: Record<string, { monthly?: { amount?: number }; annual?: { amount?: number } }> }).prices;
-    const m = px?.EUR?.monthly?.amount ?? p.price_monthly_eur;
-    const a = px?.EUR?.annual?.amount ?? p.price_annual_eur;
+    const cm = px?.[currency]?.monthly?.amount;
+    const ca = px?.[currency]?.annual?.amount;
+    const m = cm && cm > 0 ? cm : px?.EUR?.monthly?.amount ?? p.price_monthly_eur;
+    const a = cm && cm > 0 ? ca : px?.EUR?.annual?.amount ?? p.price_annual_eur;
     return m && a && m > 0 && a > 0 ? Math.round((1 - a / (m * 12)) * 100) : 0;
   }).filter((r) => r > 0);
   const remiseMax = remises.length > 0 ? Math.max(...remises) : 0;
@@ -258,7 +260,7 @@ function PromoCodeBox() {
       </div>
       {applied && (
         <p className="mt-1.5 text-center text-[11px] text-emerald-300">
-          Code « {code} » sera appliqué à ton checkout. Validité vérifiée à la sélection du plan.
+          Code « {code} » sera appliqué à votre paiement. Validité vérifiée au choix du forfait.
         </p>
       )}
     </details>
@@ -461,8 +463,10 @@ function PricingCard({
             <div className="mt-1 text-[11.5px] text-zinc-500">
               {isAnnual ? (
                 <>
-                  {t("pricing.card.billed_annually_prefix")} <strong className="text-zinc-300">{displayAnnual} {currencySymbol}</strong> {t("pricing.card.billed_annually_suffix")}
-                  <span className="ml-1 text-emerald-300">· {plan.annual_savings_label}</span>
+                  {t("pricing.card.billed_annually_prefix")} <strong className="whitespace-nowrap text-zinc-300">{displayAnnual.toFixed(2).replace(".", ",").replace(",00", "")}&nbsp;{currencySymbol}</strong> {t("pricing.card.billed_annually_suffix")}
+                  {displayMonthly > 0 && displayAnnual > 0 && displayAnnual < displayMonthly * 12 && (
+                    <span className="ml-1 whitespace-nowrap text-emerald-300">· Soit −{Math.round((1 - displayAnnual / (displayMonthly * 12)) * 100)}&nbsp;% vs mensuel</span>
+                  )}
                 </>
               ) : (
                 <>{t("pricing.card.no_engagement_short")}</>

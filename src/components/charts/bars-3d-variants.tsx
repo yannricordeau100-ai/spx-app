@@ -1,5 +1,6 @@
 "use client";
 
+import { AF_AXES, pasEtiquettes, garde } from "@/components/charts/axes-mobiles";
 import { useEffect, useRef, useState } from "react";
 import { usePleinEcran } from "@/components/charts/plein-ecran-context";
 import type { CompanyEvent } from "@/lib/events";
@@ -218,7 +219,11 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
   // "quarter only" (T1/T2/T3/T4) avec un year-band en-dessous (groupage
   // visuel 1 année = 4 quarters = 1 seul libellé d'année).
   const isCrowded = allData.length > 12;
-  const labelFontSize = isCrowded ? 13 : 17;
+  const AFX = mobile ? AF_AXES : 1;
+  const labelFontSize = (isCrowded ? 13 : 17) * AFX;
+  const nReelAxe = hasTTM ? allLabels.length - 1 : allLabels.length;
+  const pasX = pasEtiquettes(mobile, INNER_W / Math.max(allData.length, 1), Math.max(...allLabels.map((l) => splitQuarterLabel(l).top.length), 1), labelFontSize);
+  const pasAnnee = pasEtiquettes(mobile, yearGroups.length ? INNER_W / yearGroups.length : INNER_W, 4, 13 * AFX);
   // Valeurs TOUJOURS affichées au-dessus de chaque barre (demande Yann
   // 5 mai 2026), font-size adapté à la densité pour éviter les chevauchements.
   // Yann 28 juillet 2026 : labels horizontaux => la taille decroit avec le
@@ -283,7 +288,7 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
 
   // Yann 5 oct 2026 : sur mobile, on elargit le cadre a gauche juste de ce qu il
   // faut pour que la plus longue graduation (ex "-60 %") ne soit pas coupee.
-  const largeurTickMax = Math.max(...ticks.map((v) => formatTick(v).length), 1) * 16 * 0.62 + 12 + 4;
+  const largeurTickMax = Math.max(...ticks.map((v) => formatTick(v).length), 1) * 16 * (mobile ? AF_AXES : 1) * 0.62 + 12 + 4;
   const extraGauche = mobile && !yOnRight ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
 
   return (
@@ -392,7 +397,7 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
           x={yOnRight ? W - 6 : PAD_LEFT - 12}
           y={yFor(v) + 5}
           textAnchor="end"
-          fontSize={16}
+          fontSize={16 * AFX}
           fontWeight={500}
           fill="#e4e4e7"
           fontFamily="ui-monospace, monospace"
@@ -410,7 +415,7 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
         style={{ cursor: "pointer" }}
         onClick={(e) => { e.stopPropagation(); setYOnRight((v) => !v); }}
       >
-        <title>Cliquer pour basculer l&apos;axe Y à {yOnRight ? "gauche" : "droite"}</title>
+        <title>{`Cliquer pour basculer l'axe Y à ${yOnRight ? "gauche" : "droite"}`}</title>
       </rect>
       {allData.map((v, i) => {
         const x = PAD_LEFT + slot * i + (slot - barW) / 2;
@@ -508,6 +513,7 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
               // recopie ce SVG), synchronise avec les valeurs.
               const nReelX = hasTTM ? allLabels.length - 1 : allLabels.length;
               if (labelStep === 2 && !isTTM && (nReelX - 1 - i) % 2 === 1) return null;
+              if (!isTTM && !garde(i, nReelAxe, pasX)) return null;
               const split = splitQuarterLabel(allLabels[i]);
               const fz = labelFontSize;
               const fill = isTTM ? "#a1a1aa" : "#e4e4e7";
@@ -551,12 +557,13 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
           subtil reliant le centre de T1 au centre de T4 + l'année écrite UNE
           fois au milieu. Solution créative pour gagner de la lisibilité sur
           les graphes trimestriels longs. */}
-      {yearGroups.map((g) => {
+      {yearGroups.map((g, gi) => {
+        if (!garde(gi, yearGroups.length, pasAnnee)) return null;
         const slot2 = INNER_W / allData.length;
         const cxStart = PAD_LEFT + slot2 * g.startIdx + (slot2 - barW) / 2 + barW / 2 + (isClassic ? 0 : DX / 2);
         const cxEnd = PAD_LEFT + slot2 * g.endIdx + (slot2 - barW) / 2 + barW / 2 + (isClassic ? 0 : DX / 2);
         const yLine = H - PAD_BOTTOM + 46;
-        const yText = H - PAD_BOTTOM + 60;
+        const yText = H - PAD_BOTTOM + (mobile ? 66 : 60);
         const tickH = 4;
         const single = g.startIdx === g.endIdx;
         const yearFull = g.year.length === 2 ? `20${g.year}` : g.year;
@@ -573,7 +580,7 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
               x={(cxStart + cxEnd) / 2}
               y={yText}
               textAnchor="middle"
-              fontSize={13}
+              fontSize={13 * AFX}
               fill="#a1a1aa"
               fontFamily="ui-monospace, monospace"
               fontWeight={500}

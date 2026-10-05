@@ -299,7 +299,7 @@ export function SupportPanel({
       role="dialog"
       aria-modal="true"
       aria-labelledby={idTitre}
-      className="flex max-h-[min(38rem,calc(100dvh-7.5rem))] w-[min(23.5rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b11]/95 shadow-[0_28px_70px_-20px_rgba(0,0,0,0.9)] ring-1 ring-violet-500/10 backdrop-blur-xl"
+      className="flex max-h-[min(38rem,calc(100dvh-7.5rem))] w-full min-w-0 max-w-[23.5rem] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b11]/95 shadow-[0_28px_70px_-20px_rgba(0,0,0,0.9)] ring-1 ring-violet-500/10 backdrop-blur-xl"
     >
       {/* Liseré violet vers cyan : signature Mettrik, discrète. */}
       <div aria-hidden className="h-px w-full bg-gradient-to-r from-violet-500/70 via-cyan-400/50 to-transparent" />

@@ -1,5 +1,6 @@
 "use client";
 
+import { AF_AXES } from "@/components/charts/axes-mobiles";
 import { useState , useEffect} from "react";
 import { motion } from "motion/react";
 import type { Anomaly } from "@/lib/brand";
@@ -90,7 +91,7 @@ export function BarsChart({
   useEffect(() => {
     setAxesMobiles(typeof window !== "undefined" && window.innerWidth < 640);
   }, []);
-  const AF = axesMobiles ? 1.35 : 1;
+  const AF = axesMobiles ? AF_AXES : 1;
 
 
   // Étend data + labels avec la barre TTM si fournie. La dernière barre

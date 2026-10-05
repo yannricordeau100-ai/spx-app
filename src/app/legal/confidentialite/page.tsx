@@ -207,7 +207,7 @@ export default async function ConfidentialitePage() {
 
       <LegalSection title={t.s1_title}>
         <p>
-          {t.s1_p1_a} <strong>{t.s1_p1_b}</strong> {t.s1_p1_c} <strong>{t.s1_p1_d}</strong>
+          {t.s1_p1_a} <strong>{t.s1_p1_b}</strong>{t.s1_p1_c} <strong>{t.s1_p1_d}</strong>
           {t.s1_p1_e} <strong>{t.s1_p1_addr}</strong>{t.s1_p1_f}
         </p>
         <p>

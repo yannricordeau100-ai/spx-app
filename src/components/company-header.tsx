@@ -590,7 +590,8 @@ export function CompanyHeader({
         className="flex flex-wrap items-start gap-x-5 gap-y-4"
       >
         {!logoDisabled && <LogoTile ticker={company.ticker} />}
-        <div className="min-w-0 flex-1">
+        {/* Yann 5 oct 2026 : le nom garde au moins 13 rem ; le bloc capitalisation passe a la ligne au lieu de l ecraser (paysage 812 px). */}
+        <div className="min-w-[min(100%,13rem)] flex-1 basis-[13rem]">
           <CompanyName
             name={company.name}
             ticker={company.ticker}

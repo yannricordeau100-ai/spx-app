@@ -732,7 +732,7 @@ export function HomeView({
         {topNavLinks && topNavLinks.length > 0 && (
           /* Yann 4 sept 2026 : boutons Tarifs et Contact un peu plus grands,
              ils passaient inapercus sur l accueil. */
-          <nav className="mb-5 flex justify-center gap-3.5 text-[14px]">
+          <nav className="mb-3 flex justify-end gap-3 text-[13px] sm:mb-5 sm:justify-center sm:gap-3.5 sm:text-[14px]">
             {topNavLinks.map((l) => {
               // Yann (5 juin 2026 v2) : Tarif accessible 100% anonyme
               // (pas de gate signup). Contact + autres restent gated.
@@ -745,7 +745,7 @@ export function HomeView({
                     aria-hidden
                     className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md border border-white/25 transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-hover:translate-y-[3px]"
                   />
-                  <span className="relative z-10 inline-flex items-center gap-1.5 rounded-md border border-white/40 bg-[#0a0a0e]/85 px-5 py-2.5 font-semibold tracking-[0.02em] text-zinc-100 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
+                  <span className="relative z-10 inline-flex items-center gap-1.5 rounded-md border border-white/40 bg-[#0a0a0e]/85 px-4 py-2 font-semibold sm:px-5 sm:py-2.5 tracking-[0.02em] text-zinc-100 transition-transform duration-200 ease-out group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]">
                     {l.label}
                   </span>
                 </a>
@@ -845,7 +845,7 @@ export function HomeView({
           <SignupGateOverlay enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
           <AppelAbonnement
             forme="encart"
-            titre="Connaissez vous vraiment les sociétés de votre portefeuille ?"
+            titre="Connaissez-vous vraiment les sociétés de votre portefeuille ?"
             detail="Des milliers d’actions, jusqu’à 20 ans d’historique, les indicateurs qui comptent vraiment et l’anti-thèse de chaque dossier. Sans flou, sans limite."
             action="Découvrir les offres"
           />

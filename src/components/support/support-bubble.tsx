@@ -69,16 +69,17 @@ export function SupportBubble() {
   return (
     <div
       data-flottant
-      className="pointer-events-none fixed bottom-0 right-0 z-[1100] flex max-w-full flex-col items-end gap-2.5"
+      className="pointer-events-none fixed bottom-0 left-0 right-0 z-[1100] flex w-full max-w-full flex-col items-end gap-2.5"
       style={{
-        paddingRight: "max(1rem, env(safe-area-inset-right))",
+        paddingRight: "max(0.75rem, env(safe-area-inset-right))",
+        paddingLeft: "max(0.75rem, env(safe-area-inset-left))",
         paddingBottom: decale ? "max(3.75rem, calc(env(safe-area-inset-bottom) + 3.25rem))" : "max(1rem, env(safe-area-inset-bottom))",
       }}
     >
       {ouvert && (
         <div
           id={idPanneau}
-          className={`pointer-events-auto origin-bottom-right transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none ${
+          className={`pointer-events-auto w-full max-w-[23.5rem] origin-bottom-right transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none ${
             visible ? "translate-y-0 scale-100 opacity-100" : "translate-y-2 scale-[0.97] opacity-0"
           }`}
         >

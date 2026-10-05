@@ -268,10 +268,12 @@ export function KpiRow({
               restent visibles (seules les colonnes nom et Qualite-Signal
               sont floutees, par zones). L ancien BlurredFreeValue masquait
               toutes les lignes sauf la premiere. */}
-          {formattedValue}
-          {formattedUnit && (
-            <span className="ml-1 text-sm font-normal text-zinc-400">{formattedUnit}</span>
-          )}
+          <span className="whitespace-nowrap">
+            {formattedValue}
+            {formattedUnit && (
+              <span className="text-sm font-normal text-zinc-400">{"\u00a0"}{formattedUnit}</span>
+            )}
+          </span>
         </div>
         {/* Yann 13 mai 2026 : tolère yoy nombre brut (ex GWW yoy=4.5, DINO yoy=-6
            sortis du pipeline LLM sans formatting) en plus de la string standard
@@ -313,7 +315,7 @@ export function KpiRow({
             const prevV = kpi.history[li - 1];
             if (typeof lastV === "number" && typeof prevV === "number") {
               const diff = lastV - prevV;
-              yoyStr = `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")} %`;
+              yoyStr = `${diff > 0 ? "+" : ""}${diff.toFixed(1).replace(".", ",")}\u00a0%`;
             }
           }
           if (
@@ -340,14 +342,14 @@ export function KpiRow({
               const pub = yoyPublieSiArrondi(kpi, hh[hh.length - 1], hh[hh.length - 5]);
               if (pub !== null) pct = pub;
               const sign = pct > 0 ? "+" : "";
-              yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")} %`;
+              yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")}\u00a0%`;
             }
           }
           if (yoyStr) {
             // recalcul trimestriel prioritaire déjà posé
           } else if (typeof kpi.yoy === "number" && Number.isFinite(kpi.yoy)) {
             const sign = kpi.yoy > 0 ? "+" : "";
-            yoyStr = `${sign}${String(kpi.yoy).replace(".", ",")} %`;
+            yoyStr = `${sign}${String(kpi.yoy).replace(".", ",")}\u00a0%`;
           } else if (typeof kpi.yoy === "string" && kpi.yoy.trim()) {
             if (kpi.yoy.toLowerCase() === "n/a") return null;
             // Yann 16 mai 2026 : normalise format point décimal US (data brut
@@ -367,7 +369,7 @@ export function KpiRow({
             } else if (typeof last === "number" && typeof prev === "number" && prev !== 0) {
               const pct = ((last - prev) / Math.abs(prev)) * 100;
               const sign = pct > 0 ? "+" : "";
-              yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")} %`;
+              yoyStr = `${sign}${pct.toFixed(1).replace(".", ",")}\u00a0%`;
             }
           }
           if (!yoyStr) return null;
@@ -377,7 +379,7 @@ export function KpiRow({
           const couleurAffichee = toneAffiche === "pos" ? "#10b981" : toneAffiche === "neg" ? "#f43f5e" : "#a1a1aa";
           return (
             <div
-              className="inline-flex items-center font-mono text-[12.5px] tabular-nums"
+              className="inline-flex items-center whitespace-nowrap font-mono text-[12.5px] tabular-nums"
               style={{ color: couleurAffichee }}
             >
               <span>(</span>
