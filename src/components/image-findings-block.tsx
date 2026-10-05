@@ -97,6 +97,13 @@ export function ImageFindingsBlock({
   const n = findings?.length ?? 0;
   const safeIdx = n > 0 ? idx % n : 0;
   const [agrandi, setAgrandi] = useState(false);
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const maj = () => setMobile(window.innerWidth < 640);
+    maj();
+    window.addEventListener("resize", maj);
+    return () => window.removeEventListener("resize", maj);
+  }, []);
   // Tous les SVG locaux sont charges d avance : le bouton de telechargement
   // est disponible sur CHAQUE carte, pas seulement la premiere.
   const chemins = (findings ?? []).map((x) => x.image_local_path).filter((c): c is string => !!c && c.endsWith(".svg")).join("|");
@@ -113,21 +120,39 @@ export function ImageFindingsBlock({
   if (!findings || findings.length === 0) return null;
   const safe = safeIdx;
   const f = findings[safe];
-  const inlineSvg = f.image_local_path ? svgText[f.image_local_path] : undefined;
+  const svgBrut = f.image_local_path ? svgText[f.image_local_path] : undefined;
+  // Mobile : les etiquettes minuscules du SVG (viewBox 800 rendu a ~310 px)
+  // sont portees a ~10 px effectifs. L export PNG repart du SVG d origine.
+  const grossir = (t: string) =>
+    t.replace(/font-size="([0-9.]+)"/g, (m, v) => (Number(v) < 24 ? `font-size="${24}"` : m));
+  const inlineSvg = svgBrut && mobile ? grossir(svgBrut) : svgBrut;
   const exporter = async () => {
-    let svg = boxRef.current?.querySelector("svg") as SVGSVGElement | null;
-    if (!svg && f.image_local_path) {
+    let svg: SVGSVGElement | null = null;
+    let t = svgBrut ?? "";
+    if (!t && f.image_local_path && f.image_local_path.endsWith(".svg")) {
       // Carte pas encore rendue en SVG en ligne : chargement a la demande.
       try {
-        const t = await fetch(f.image_local_path).then((r) => (r.ok ? r.text() : ""));
-        if (t) {
-          const tmp = document.createElement("div");
-          tmp.innerHTML = t;
-          svg = tmp.querySelector("svg");
-        }
+        t = await fetch(f.image_local_path).then((r) => (r.ok ? r.text() : ""));
       } catch { /* hors ligne */ }
     }
-    if (!svg) return;
+    if (t) {
+      const tmp = document.createElement("div");
+      tmp.innerHTML = t;
+      svg = tmp.querySelector("svg");
+    }
+    if (!svg) {
+      // Image non vectorielle : telechargement direct du fichier.
+      const src = f.image_local_path || f.image_url;
+      if (src) {
+        const a = document.createElement("a");
+        a.href = src;
+        a.download = `mettrik-${(ticker ?? "graphique").toLowerCase()}-moyen-terme-${safe + 1}`;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.click();
+      }
+      return;
+    }
     const nom = `mettrik-${(ticker ?? "graphique").toLowerCase()}-moyen-terme-${safe + 1}.png`;
     const titreGraphique = sansDates(displayTitleRef.current ?? "");
     const titreExport = nomSociete ? `${titreGraphique} · ${nomSociete}` : titreGraphique || undefined;
@@ -176,7 +201,7 @@ export function ImageFindingsBlock({
           >
             <ChevronLeft className="size-4" />
           </button>
-          {f.image_local_path?.endsWith(".svg") ? (
+          {f.image_local_path || f.image_url ? (
             <button
               type="button"
               onClick={exporter}
@@ -208,7 +233,7 @@ export function ImageFindingsBlock({
             rendu ici, dans le meme style. */}
         {/* Yann 18 sept 2026 : titre en HTML pour TOUS les graphiques, centre, a la ligne si long. */}
         {displayTitle && (
-          <h3 data-blur="mt_titre" className="mx-auto mb-3 mt-0 flex min-h-[2.7rem] max-w-[92%] items-center justify-center text-center text-[16px] font-bold leading-snug text-zinc-50 sm:min-h-0 sm:text-[17px]">
+          <h3 data-blur="mt_titre" className="mx-auto mb-3 mt-0 flex h-[4.4rem] max-w-[92%] items-center justify-center overflow-hidden text-center text-[16px] font-bold leading-snug text-zinc-50 sm:h-auto sm:min-h-0 sm:text-[17px]">
             {displayTitle}
           </h3>
         )}
@@ -247,16 +272,20 @@ export function ImageFindingsBlock({
           )}
         </div>
         {/* Yann 18 sept 2026 : sous-titre (unite, source, precisions) sous le graphique, centre, a la ligne. */}
-        {f.caption && f.caption.trim().length > 0 && (
-          <p data-blur="mt_sources" className="mx-auto mt-2 min-h-[3.1rem] max-w-[92%] text-center text-[11.5px] leading-snug text-zinc-400 sm:min-h-0">
+        {f.caption && f.caption.trim().length > 0 ? (
+          <p data-blur="mt_sources" className="mx-auto mt-2 max-w-[92%] overflow-hidden text-center text-[11.5px] leading-snug text-zinc-400 max-sm:h-[4.4rem] sm:min-h-0">
             {sansSource(f.caption)}
           </p>
+        ) : (
+          <div className="mt-2 h-[4.4rem] sm:hidden" aria-hidden />
         )}
         {/* Lecture toujours visible (Yann 17 mai 2026 : remettre comme avant).
             Le toggle "masquer la lecture" est désormais dans la sandbox admin
             (per finding). Ici on respecte le flag f.show_summary !== false. */}
-        {displaySummary && f.show_summary !== false && (
-          <p className="mt-2 min-h-[8rem] text-[12.5px] leading-relaxed text-zinc-400 sm:min-h-0">{displaySummary}</p>
+        {displaySummary && f.show_summary !== false ? (
+          <p className="mt-2 text-[12.5px] leading-relaxed text-zinc-400 max-sm:h-[11rem] max-sm:overflow-y-auto sm:min-h-0">{displaySummary}</p>
+        ) : (
+          <div className="mt-2 h-[11rem] sm:hidden" aria-hidden />
         )}
         {/* Yann 16 sept 2026 : date de la source, signalee au dela de deux ans. */}
         {(() => {

@@ -1469,7 +1469,7 @@ export function CompanyView({
               <ArrowLeft className="hidden size-4 text-zinc-500 transition-transform sm:block group-hover:-translate-x-0.5 group-hover:text-zinc-300" />
             </Link>
             <PageSearch variant="default" />
-            <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
+            <div className="ml-auto flex shrink-0 items-center gap-1 pl-2 sm:gap-2 sm:pl-3">
               <div className="hidden sm:block"><ThemeToggle paid={isPaidTier} /></div>
               <NavPlusMenu paid={isPaidTier} anon={freemiumTier === "anon"} />
               <div className="relative z-[70]">{authSlot}</div>
@@ -1523,7 +1523,7 @@ export function CompanyView({
               Réutilise le composant MettrikWordmark identique au logo home
               et à la page maintenance. Cohérence brand sur toutes les
               pages. (8 mai 2026) */}
-          <div className={`flex min-w-0 flex-nowrap items-center gap-1 sm:gap-3 ${anonPage ? "pointer-events-none opacity-40" : ""}`} aria-disabled={anonPage || undefined}>
+          <div className={`flex min-w-0 flex-1 flex-nowrap items-center gap-1 sm:gap-3 ${anonPage ? "pointer-events-none opacity-40" : ""}`} aria-disabled={anonPage || undefined}>
           <Link
             href="/"
             className="group inline-flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"

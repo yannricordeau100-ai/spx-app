@@ -732,7 +732,10 @@ export function HomeView({
         {topNavLinks && topNavLinks.length > 0 && (
           /* Yann 4 sept 2026 : boutons Tarifs et Contact un peu plus grands,
              ils passaient inapercus sur l accueil. */
-          <nav className="mb-3 flex justify-end gap-3 text-[13px] sm:mb-5 sm:justify-center sm:gap-3.5 sm:text-[14px]">
+          <nav className={`mb-3 flex justify-end gap-3 text-[13px] sm:mb-5 sm:justify-center sm:gap-3.5 sm:text-[14px] ${
+            /* 5 oct 2026 : sur mobile, « Contact » seul flottait en haut a droite ; il reste dans le pied de page. */
+            topNavLinks.some((l) => l.href.includes("/pricing")) ? "" : "max-sm:hidden"
+          }`}>
             {topNavLinks.map((l) => {
               // Yann (5 juin 2026 v2) : Tarif accessible 100% anonyme
               // (pas de gate signup). Contact + autres restent gated.
@@ -751,7 +754,7 @@ export function HomeView({
                 </a>
               );
               if (isPricingLink) {
-                return <span key={l.href}>{linkNode}</span>;
+                return <span key={l.href} className={l.href.includes("/contact") ? "max-sm:hidden" : undefined}>{linkNode}</span>;
               }
               return (
                 <SignupGateOverlay

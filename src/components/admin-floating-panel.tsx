@@ -216,7 +216,8 @@ export function AdminFloatingPanel() {
           style={{ WebkitBackdropFilter: "blur(8px)" }}
         >
           <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${meta.dotClass}`} />
-          <span>{meta.label}</span>
+          <span className="max-sm:hidden">{meta.label}</span>
+          <span className="sm:hidden">{meta.shortLabel}</span>
           {expanded ? (
             <X className="size-3 ml-1 opacity-70" aria-hidden />
           ) : (
@@ -229,7 +230,7 @@ export function AdminFloatingPanel() {
       {versionLabel && (
         <span
           title={`Tu consultes l'univers ${versionLabel}. Indicateur visible en niveau 1/2/3, surtout utile en preview pour distinguer les versions en cours de test.`}
-          className="inline-flex items-center gap-1 rounded-full border border-sky-400/40 bg-sky-500/12 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-sky-100 backdrop-blur-md"
+          className={`${expanded ? "inline-flex" : "max-sm:hidden inline-flex"} items-center gap-1 rounded-full border border-sky-400/40 bg-sky-500/12 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-sky-100 backdrop-blur-md`}
         >
           <span aria-hidden className="h-1 w-1 rounded-full bg-sky-300 shadow-[0_0_4px_rgba(125,211,252,0.8)]" />
           Univers : {versionLabel}
@@ -238,7 +239,7 @@ export function AdminFloatingPanel() {
       {activeSimLabel && (
         <span
           title={`Simulation tier active : tu vois l'app comme un user ${activeSimLabel}.`}
-          className="inline-flex items-center gap-1 rounded-full border border-violet-400/50 bg-violet-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-violet-100 backdrop-blur-md"
+          className={`${expanded ? "inline-flex" : "max-sm:hidden inline-flex"} items-center gap-1 rounded-full border border-violet-400/50 bg-violet-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-violet-100 backdrop-blur-md`}
         >
           <span aria-hidden className="h-1 w-1 rounded-full bg-violet-300 shadow-[0_0_4px_rgba(167,139,250,0.8)]" />
           Sim : {activeSimLabel}

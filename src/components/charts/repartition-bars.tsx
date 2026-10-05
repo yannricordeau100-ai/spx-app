@@ -50,7 +50,7 @@ function fmtValue(v: number, unit: string, locale: string): string {
   return `${v.toLocaleString(loc, {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
-  })}${unit ? ` ${unit}` : ""}`;
+  })}${unit ? ` ${unit}` : ""}`;
 }
 
 export function RepartitionBars({

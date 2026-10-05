@@ -32,6 +32,7 @@ function formatDate(iso: string, locale: string = "fr"): string {
       day: "numeric",
       month: "long",
       year: "numeric",
+      timeZone: "UTC",
     });
   } catch {
     return iso;

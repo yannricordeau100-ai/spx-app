@@ -71,7 +71,7 @@ export default async function PricingPage() {
   const showCurrencyPicker = await isDeskOwner();
   const t = (k: string) => translate(k, locale);
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#050505]">
+    <div className="relative min-h-screen overflow-clip bg-[#050505]">
       <FloatingLogosBg tickers={(V18_TICKERS as string[]).slice(0, 50)} />
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-[700px]"

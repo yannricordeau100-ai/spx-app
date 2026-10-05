@@ -190,6 +190,7 @@ function formatDate(iso: string | null | undefined, locale: Locale = "fr"): stri
       day: "numeric",
       month: "long",
       year: "numeric",
+      timeZone: "UTC",
     });
   } catch {
     return "";

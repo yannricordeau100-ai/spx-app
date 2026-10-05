@@ -339,7 +339,7 @@ function fmtNewsDate(iso: string, locale: string = "fr"): string {
     const d = new Date(iso);
     if (Number.isNaN(d.getTime())) return iso;
     const tag = locale === "de" ? "de-DE" : locale === "en" || locale === "en-GB" ? (locale === "en-GB" ? "en-GB" : "en-US") : "fr-FR";
-    return d.toLocaleDateString(tag, { day: "2-digit", month: "short", year: "numeric" });
+    return d.toLocaleDateString(tag, { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
   } catch {
     return iso;
   }

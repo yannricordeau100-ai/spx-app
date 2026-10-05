@@ -50,8 +50,8 @@ function renderCell(value: string | boolean, accent: string) {
 
 function FeatureCellGroup({ feature, plans }: { feature: FeatureRow; plans: PlanDisplay[] }) {
   return (
-    <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr] items-center gap-3 border-b border-white/[0.04] py-2.5">
-      <div className="flex items-center gap-1.5">
+    <div className="grid grid-cols-3 items-center gap-x-1.5 gap-y-1.5 border-b border-white/[0.04] py-2.5 sm:grid-cols-[1.5fr_1fr_1fr_1fr] sm:gap-3">
+      <div className="col-span-3 flex items-center gap-1.5 sm:col-span-1">
         <span className="text-[13px] text-zinc-200">{feature.label}</span>
         {feature.help && (
           <span className="group/h relative">
@@ -112,10 +112,10 @@ export function PricingMatrix({
   });
 
   return (
-    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
+    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-6">
       {/* Header colonnes */}
-      <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr] gap-3 border-b border-white/[0.08] pb-3">
-        <div className="text-[11px] uppercase tracking-wider text-zinc-500">{t("pricing.matrix.feature_col")}</div>
+      <div className="sticky top-0 z-20 -mx-3 grid grid-cols-3 gap-1.5 border-b border-white/[0.08] bg-[#0b0b0e] px-3 pb-3 pt-3 sm:static sm:z-auto sm:mx-0 sm:grid-cols-[1.5fr_1fr_1fr_1fr] sm:gap-3 sm:bg-transparent sm:p-0 sm:pb-3">
+        <div className="hidden text-[11px] sm:block uppercase tracking-wider text-zinc-500">{t("pricing.matrix.feature_col")}</div>
         {PLANS.map((p) => {
           // Yann 26 mai 2026 : lit le prix dans la devise courante depuis
           // p.prices (BDD avec auto-conversion), fallback sur le legacy
@@ -132,9 +132,9 @@ export function PricingMatrix({
             ? currencySymbol
             : "€"; // pas de prix dans la devise → fallback EUR
           return (
-            <div key={p.tier} className="text-center">
-              <div className="font-display text-[14px] font-bold tracking-tight text-zinc-100">{p.name}</div>
-              <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wider" style={{ color: p.accent }}>
+            <div key={p.tier} className="min-w-0 text-center">
+              <div className="truncate font-display text-[13px] font-bold tracking-tight text-zinc-100 sm:text-[14px]">{p.name}</div>
+              <div className="mt-0.5 font-mono text-[9px] uppercase leading-tight tracking-normal sm:text-[10px] sm:tracking-wider" style={{ color: p.accent }}>
                 {annual === 0 || billing === "monthly"
                   ? monthly === 0
                     ? t("pricing.matrix.free")

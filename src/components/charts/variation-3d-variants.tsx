@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AF_AXES, pasEtiquettes, garde } from "@/components/charts/axes-mobiles";
+import { AF_AXES, pasEtiquettes, pasTrimestres, garde } from "@/components/charts/axes-mobiles";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { buildYearGroups } from "@/lib/chart-export";
@@ -118,7 +118,7 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
   const largeurTickMax = Math.max(...ticks.map((v) => fmtTick(v).length), 1) * 15 * AFX * 0.62 + 10 + 4;
   const extraGauche = mobile ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
   const tailleX = 15 * AFX;
-  const pasX = pasEtiquettes(mobile, slot, Math.max(...xLabels.map((l) => splitQuarterLabel(l).top.length), 1), tailleX);
+  const pasX = pasTrimestres(pasEtiquettes(mobile, slot, Math.max(...xLabels.map((l) => splitQuarterLabel(l).top.length), 1), tailleX), xLabels);
   const pasAnnee = pasEtiquettes(mobile, yearGroups.length ? INNER_W / yearGroups.length : INNER_W, 4, 13 * AFX);
 
   return (

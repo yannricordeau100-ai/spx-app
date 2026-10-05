@@ -43,6 +43,10 @@ export function InfoTooltip({
 }) {
   const { t } = useT();
   const [open, setOpen] = useState(false);
+  // 5 oct 2026 : vrai si la popup a ete ouverte par un clic/toucher (et non par
+  // le simple survol souris). Le survol ouvre/ferme ; le clic ouvre et garde
+  // ouvert ; un second clic seulement referme.
+  const [epingle, setEpingle] = useState(false);
   const [coords, setCoords] = useState<{
     top: number;
     haut: number;
@@ -110,6 +114,7 @@ export function InfoTooltip({
       const cible = ev.target as Node | null;
       if (cible && (triggerRef.current?.contains(cible) || popupRef.current?.contains(cible))) return;
       setOpen(false);
+      setEpingle(false);
     };
     document.addEventListener("pointerdown", fermer);
     return () => document.removeEventListener("pointerdown", fermer);
@@ -161,11 +166,17 @@ export function InfoTooltip({
         ref={triggerRef}
         type="button"
         onPointerEnter={(e) => { if (e.pointerType === "mouse") setOpen(true); }}
-        onPointerLeave={(e) => { if (e.pointerType === "mouse") setOpen(false); }}
+        onPointerLeave={(e) => { if (e.pointerType === "mouse" && !epingle) setOpen(false); }}
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
-          setOpen((o) => !o);
+          if (open && epingle) {
+            setOpen(false);
+            setEpingle(false);
+          } else {
+            setOpen(true);
+            setEpingle(true);
+          }
         }}
         className={`relative inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border bg-[#0a0a0a] transition-colors before:absolute before:-inset-[7px] before:content-[''] hover:bg-[#161616] [touch-action:manipulation] ${
           isSm ? "size-[18px]" : "size-[22px]"
@@ -192,7 +203,7 @@ export function InfoTooltip({
                 exit={{ opacity: 0, y: 4, scale: 0.96 }}
                 transition={{ duration: 0.16, ease: "easeOut" }}
                 onPointerEnter={(e) => { if (e.pointerType === "mouse") setOpen(true); }}
-                onPointerLeave={(e) => { if (e.pointerType === "mouse") setOpen(false); }}
+                onPointerLeave={(e) => { if (e.pointerType === "mouse" && !epingle) setOpen(false); }}
                 onClick={(e) => e.stopPropagation()}
                 ref={popupRef}
                 className="pointer-events-auto fixed z-[1000] w-72 max-w-[calc(100vw-24px)] overflow-y-auto overscroll-contain rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-3.5 text-[12.5px] leading-relaxed text-zinc-200 shadow-2xl"

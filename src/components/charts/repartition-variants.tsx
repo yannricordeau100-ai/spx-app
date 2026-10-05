@@ -133,7 +133,7 @@ export function RepartitionStackedBar({ data, unit = "", total, accent = "#a78bf
       <div className="mb-3 flex items-baseline justify-between">
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Total</span>
         <span className="font-mono text-[20px] font-bold tabular-nums text-zinc-50">
-          {fmt(sum)} <span className="text-[12px] font-medium text-zinc-400">{unit}</span>
+          {fmt(sum)} <span className="text-[12px] font-medium text-zinc-400">{unit}</span>
         </span>
       </div>
       <div className="relative flex h-14 w-full overflow-hidden rounded-lg shadow-inner">
@@ -214,7 +214,7 @@ export function RepartitionTreemap({ data, unit = "", total, accent = "#a78bfa",
       <div className="mb-3 flex items-baseline justify-between">
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Total</span>
         <span className="font-mono text-[20px] font-bold tabular-nums text-zinc-50">
-          {fmt(sum)} <span className="text-[12px] font-medium text-zinc-400">{unit}</span>
+          {fmt(sum)} <span className="text-[12px] font-medium text-zinc-400">{unit}</span>
         </span>
       </div>
       <svg width="100%" height="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" className="min-h-0 flex-1" style={{ display: "block" }}>
@@ -260,7 +260,7 @@ export function RepartitionTreemap({ data, unit = "", total, accent = "#a78bfa",
                     {/* Montant en clair : chaque tranche doit porter $ ET %
                         (règle bloc répartition, audit 14 juil 2026). */}
                     <span style={{ fontSize: Math.max(10, Math.min(13, b.w / 14)), fontWeight: 600, fontFamily: "ui-monospace, monospace", opacity: 0.85 }}>
-                      {fmt(item.value)} {unit}
+                      {fmt(item.value)}&nbsp;{unit}
                     </span>
                   </div>
                 </foreignObject>
@@ -289,7 +289,7 @@ export function RepartitionTreemap({ data, unit = "", total, accent = "#a78bfa",
                       {fmtPct(pct, decimals)} %
                     </span>
                     <span style={{ fontSize: Math.max(8, Math.min(10, b.w / 9)), fontWeight: 600, fontFamily: "ui-monospace, monospace", opacity: 0.85 }}>
-                      {fmt(item.value)} {unit}
+                      {fmt(item.value)}&nbsp;{unit}
                     </span>
                   </div>
                 </foreignObject>
@@ -430,7 +430,7 @@ export function RepartitionPillarPie3D({ data, unit = "", total, accent = "#a78b
       <div className="mb-2 flex items-baseline justify-between">
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Total</span>
         <span className="font-mono text-[18px] font-bold tabular-nums text-zinc-50">
-          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
+          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
         </span>
       </div>
       <svg width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ display: "block" }}>
@@ -554,7 +554,7 @@ export function RepartitionHoneycomb3D({ data, unit = "", total, accent = "#a78b
       <div className="mb-2 flex items-baseline justify-between">
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Total</span>
         <span className="font-mono text-[18px] font-bold tabular-nums text-zinc-50">
-          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
+          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
         </span>
       </div>
       <svg width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ display: "block" }}>
@@ -663,7 +663,7 @@ export function RepartitionBubble({ data, unit = "", total, accent = "#a78bfa" }
       <div className="mb-2 flex items-baseline justify-between">
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Total</span>
         <span className="font-mono text-[18px] font-bold tabular-nums text-zinc-50">
-          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
+          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
         </span>
       </div>
       <svg width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ display: "block" }}>
@@ -765,7 +765,7 @@ export function RepartitionBarsLadder({ data, unit = "", total, accent = "#a78bf
                 fill="#fafafa"
                 fontFamily="ui-monospace, monospace"
               >
-                {fmt(slice.value)}{unit && <tspan fontSize="9.5" fill="#a1a1aa"> {unit}</tspan>}
+                {fmt(slice.value)}{unit && <tspan fontSize="9.5" fill="#a1a1aa"> {unit}</tspan>}
               </text>
               <text
                 x={labelW + barAreaW + 8}

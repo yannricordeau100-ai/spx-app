@@ -8,6 +8,7 @@
  * mais il est illisible et inerte pour le visiteur.
  */
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { AppelAbonnement } from "@/components/appel-abonnement";
 
@@ -31,6 +32,7 @@ export function ZoneReservee({
   children: ReactNode;
   className?: string;
 }) {
+  const chemin = usePathname() || "/";
   if (!actif) return <>{children}</>;
   return (
     <div className={`relative ${className ?? ""}`} data-zone-reservee={palier}>
@@ -39,7 +41,7 @@ export function ZoneReservee({
       </div>
       {palier === "anon" ? (
         <Link
-          href={lienInscription()}
+          href={lienInscription(chemin)}
           className="absolute inset-0 z-40 flex items-start justify-center"
           aria-label="Inscris-toi gratuitement pour découvrir ces KPI"
         >

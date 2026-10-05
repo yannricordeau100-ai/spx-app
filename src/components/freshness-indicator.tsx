@@ -15,6 +15,7 @@ function formatFullDate(iso?: string | null, locale: string = "fr"): string | nu
       day: "numeric",
       month: "long",
       year: "numeric",
+      timeZone: "UTC",
     });
   } catch {
     return null;

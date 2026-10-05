@@ -17,6 +17,7 @@
  * Peu importe le type de clic."
  */
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 type AuthState = "checking" | "authed" | "anon";
@@ -43,6 +44,7 @@ export function SignupGateOverlay({
    */
   initialAuthed?: boolean;
 }) {
+  const chemin = usePathname() || gatePath;
   const [state, setState] = useState<AuthState>(() => {
     if (!enabled) return "authed";
     if (initialAuthed === false) return "anon";
@@ -83,7 +85,7 @@ export function SignupGateOverlay({
   }
 
   // Anonyme : overlay clickable qui capture tout
-  const target = `${gatePath}?auth=signup&gate=1&next=${encodeURIComponent(typeof window !== "undefined" ? window.location.pathname : gatePath)}`;
+  const target = `${gatePath}?auth=signup&gate=1&next=${encodeURIComponent(chemin)}`;
   return (
     <div className="relative">
       {children}

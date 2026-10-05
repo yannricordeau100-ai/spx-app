@@ -123,7 +123,7 @@ export function TimeUnitSelect({
         value={value}
         onChange={(e) => onChange(e.target.value as TimeFraction)}
         aria-label="Calcul par unité de temps"
-        className="appearance-none rounded-full border border-white/10 bg-[#0a0a0a] h-8 py-0 pl-3 pr-7 text-[12px] font-medium text-zinc-200"
+        className="appearance-none rounded-full border border-white/10 bg-[#0a0a0a] h-8 py-0 pl-2.5 pr-7 text-[12px] font-medium text-zinc-200"
         style={{ borderColor: value !== "year" ? `${accent}66` : undefined }}
       >
         {FRACTION_LABELS.map((f) => (
@@ -226,11 +226,12 @@ export function ChartSettingsMenu({
       <button
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-white/10 bg-[#0a0a0a] px-3 text-[12px] font-medium text-zinc-200"
+        aria-label="Réglages"
+        className="inline-flex h-8 shrink-0 items-center gap-1 whitespace-nowrap rounded-full border border-white/10 bg-[#0a0a0a] px-2.5 text-[12px] font-medium text-zinc-200"
         style={open || nbActifs > 0 ? { borderColor: `${accent}66` } : undefined}
       >
         <Settings2 className="size-3.5" />
-        Réglages
+        <span className="sr-only">Réglages</span>
         <ChevronDown className={cn("size-3.5 transition-transform", open && "rotate-180")} />
       </button>
       {open && styleFixe && createPortal(
@@ -572,7 +573,7 @@ export function ChartFullscreen({
     : { position: "fixed", inset: 0, ...pad };
   // Place reservee a la croix fixe : a droite en portrait, a gauche du cadre
   // pivote en paysage (le haut de l ecran y est le debut du cadre).
-  const reserveCroix = "calc(52px + env(safe-area-inset-right))";
+  const reserveCroix = "calc(68px + env(safe-area-inset-right))";
   return createPortal(
     <PleinEcranContext.Provider value={true}>
       <div
@@ -587,13 +588,13 @@ export function ChartFullscreen({
         <div style={styleCadre} className="flex flex-col bg-[#050507]">
           <div
             className="flex shrink-0 items-start gap-2 px-3 py-3"
-            style={paysageEffectif ? { paddingLeft: "calc(64px + env(safe-area-inset-top))", paddingRight: 16 } : { paddingRight: reserveCroix }}
+            style={paysageEffectif ? { paddingLeft: "calc(16px + env(safe-area-inset-top))", paddingRight: "calc(16px + env(safe-area-inset-bottom))" } : { paddingRight: reserveCroix }}
           >
             {!natifPaysage && (
               <button
                 onClick={() => setPaysage((p) => !p)}
                 aria-label={paysageEffectif ? "Revenir en portrait" : "Passer en paysage"}
-                className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-[12px] text-zinc-200"
+                className={cn("inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-[12px] text-zinc-200", paysageEffectif && "order-last")}
               >
                 <RotateCw className={cn("size-3.5 transition-transform duration-300", paysageEffectif && "rotate-90")} />
                 {paysageEffectif ? "Portrait" : "Paysage"}

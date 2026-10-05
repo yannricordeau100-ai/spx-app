@@ -1,6 +1,6 @@
 "use client";
 
-import { AF_AXES, pasEtiquettes, garde } from "@/components/charts/axes-mobiles";
+import { AF_AXES, pasEtiquettes, pasTrimestres, garde } from "@/components/charts/axes-mobiles";
 import { useRef, useState , useEffect} from "react";
 import { motion } from "motion/react";
 import { AnomalyInfo } from "@/components/anomaly-info";
@@ -297,7 +297,7 @@ export function CurveChart({
   const xLabelFontSize = (isCrowded ? 13 : 14) * AF;
   const nReelAxe = hasTTM ? allData.length - 1 : allData.length;
   const slotAxe = allData.length > 1 ? innerW / (allData.length - 1) : innerW;
-  const pasX = pasEtiquettes(axesMobiles, slotAxe, Math.max(...allLabels.map((l) => splitQuarterLabel(l ?? "").top.length), 1), xLabelFontSize);
+  const pasX = pasTrimestres(pasEtiquettes(axesMobiles, slotAxe, Math.max(...allLabels.map((l) => splitQuarterLabel(l ?? "").top.length), 1), xLabelFontSize), allLabels);
   const nbGroupes = yearGroups.length;
   const pasAnnee = pasEtiquettes(axesMobiles, nbGroupes ? (innerW / nbGroupes) : innerW, 4, 13 * AF);
   const baselineY = PAD_TOP + innerH;

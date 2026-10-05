@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Activity, BarChart3, Download, Grid2X2, TrendingUp } from "lucide-react";
 
@@ -210,12 +210,17 @@ export function ChartCycleControls({
   /** 28 sept 2026 (Yann) : pas de mode « Variation » pour un KPI dont l axe est en %. */
   sansVariation?: boolean;
 }) {
+  // Valeurs de partage lues apres l hydratation (evite un ecart serveur/client).
+  const [partageNav, setPartageNav] = useState({ texte: "Mettrik AI", lien: "https://mettrik.ai" });
+  useEffect(() => {
+    setPartageNav({ texte: document.title, lien: window.location.href });
+  }, []);
   const { t } = useT();
   return (
     // Pas de flex-wrap en desktop : tout sur une ligne (4 modes + Trimestriel/
     // Annuel + 2D/3D). Mobile (1er sept 2026) : les sous-groupes wrappent en
     // lignes centrees, sinon le groupe insecable debordait du 375px.
-    <div className="inline-flex flex-wrap justify-center sm:flex-nowrap items-center gap-1.5">
+    <div className="inline-flex flex-nowrap justify-center items-center gap-1.5">
       <div
         role="tablist"
         className="relative inline-flex items-center gap-0.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-0.5"
@@ -351,10 +356,10 @@ export function ChartCycleControls({
       {mode !== "panel" && (
         <ShareDownloadMenu
           onDownload={downloadVisibleChart}
-          shareText={shareText ?? (typeof document !== "undefined" ? document.title : "Mettrik AI")}
-          shareUrl={shareUrl ?? (typeof window !== "undefined" ? window.location.href : "https://mettrik.ai")}
+          shareText={shareText ?? partageNav.texte}
+          shareUrl={shareUrl ?? partageNav.lien}
           accent={color}
-          className="ml-1 shrink-0"
+          className="shrink-0 sm:ml-1"
         />
       )}
     </div>

@@ -424,7 +424,7 @@ export function BarsChart({
                   x={x + barW / 2 + (isClassic ? 0 : DX / 2)}
                   y={yTop + (isClassic ? -10 : DY - 24)}
                   textAnchor="middle"
-                  fontSize={17}
+                  fontSize={17 * (axesMobiles ? 1.35 : 1)}
                   fontWeight={700}
                   fill={yoyColor}
                   fontFamily="ui-monospace, monospace"
@@ -450,7 +450,7 @@ export function BarsChart({
                   {v}
                   {u && (
                     <tspan fill="#a1a1aa" fontSize="14">
-                      {" "}
+                      {"\u00a0"}
                       {u}
                     </tspan>
                   )}

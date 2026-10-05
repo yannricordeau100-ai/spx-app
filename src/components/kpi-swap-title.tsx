@@ -20,7 +20,7 @@
  *   locale globale de l'app. Modification purement visuelle locale.
  */
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import type { TimeFraction } from "@/components/charts/time-fraction-toggle";
 
 /** Suffixes temps FR ↔ EN, alignés avec dictionary.ts (timefrac.suffix.*). */
@@ -99,7 +99,12 @@ export function KpiSwapTitle({
   // Tooltip dans la langue courante (cohérent avec ce que l'utilisateur voit).
   // 26 sept 2026 : l infobulle suit la langue du SITE, pas celle du titre
   // affiche (un visiteur francais lisait « Click to switch FR/EN »).
-  const tooltip = typeof document !== "undefined" && (document.documentElement.lang || "fr").startsWith("fr") ? tooltipFr : titleLang === "fr" ? tooltipFr : tooltipEn;
+  // Langue du site lue apres l hydratation (evite un ecart serveur/client).
+  const [siteFr, setSiteFr] = useState(false);
+  useEffect(() => {
+    setSiteFr((document.documentElement.lang || "fr").startsWith("fr"));
+  }, []);
+  const tooltip = siteFr ? tooltipFr : titleLang === "fr" ? tooltipFr : tooltipEn;
 
   return (
     <>

@@ -60,7 +60,7 @@ export function RepartitionExplodedPie3D({ data, unit = "", total, accent = "#a7
       <div className="mb-2 flex items-baseline justify-between">
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Total</span>
         <span className="font-mono text-[18px] font-bold tabular-nums text-zinc-50">
-          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
+          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
         </span>
       </div>
       <svg width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ display: "block" }}>
@@ -173,7 +173,7 @@ export function RepartitionIsoDetachedWedges({ data, unit = "", total, accent = 
       <div className="mb-2 flex items-baseline justify-between">
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Total</span>
         <span className="font-mono text-[18px] font-bold tabular-nums text-zinc-50">
-          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
+          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
         </span>
       </div>
       <svg width="100%" height="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" className="min-h-0 flex-1" style={{ display: "block" }}>
@@ -270,7 +270,7 @@ export function RepartitionConcentricRings3D({ data, unit = "", total, accent = 
       <div className="mb-2 flex items-baseline justify-between">
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Total</span>
         <span className="font-mono text-[18px] font-bold tabular-nums text-zinc-50">
-          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
+          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
         </span>
       </div>
       <svg width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ display: "block" }}>
@@ -356,7 +356,7 @@ export function RepartitionWedgeCones({ data, unit = "", total, accent = "#a78bf
       <div className="mb-2 flex items-baseline justify-between">
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Total</span>
         <span className="font-mono text-[18px] font-bold tabular-nums text-zinc-50">
-          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
+          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
         </span>
       </div>
       <svg width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ display: "block" }}>
@@ -430,7 +430,7 @@ export function RepartitionLayerPyramid({ data, unit = "", total, accent = "#a78
       <div className="mb-2 flex items-baseline justify-between">
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Total</span>
         <span className="font-mono text-[18px] font-bold tabular-nums text-zinc-50">
-          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
+          {fmt(sum)} <span className="text-[11.5px] font-medium text-zinc-400">{unit}</span>
         </span>
       </div>
       <svg width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ display: "block" }}>
@@ -572,7 +572,7 @@ export function RepartitionIsoColumns3D({ data, unit = "", total, accent = "#a78
                 fontFamily="ui-monospace, monospace"
               >
                 {fmt(slice.value)}
-                {unit && <tspan fontSize="9" fill="#a1a1aa"> {unit}</tspan>}
+                {unit && <tspan fontSize="9" fill="#a1a1aa"> {unit}</tspan>}
               </text>
               <text
                 x={x + colW / 2 + DX / 2}

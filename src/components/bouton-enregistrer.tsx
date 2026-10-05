@@ -12,11 +12,13 @@
  */
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Bookmark, Lock } from "lucide-react";
 import { useT } from "@/lib/i18n/provider";
 
 export function BoutonEnregistrer({ ticker, paye, connecte = false }: { ticker: string; paye: boolean; connecte?: boolean }) {
   const { t } = useT();
+  const chemin = usePathname() || "/";
   const [enregistre, setEnregistre] = useState(false);
   const [enCours, setEnCours] = useState(false);
 
@@ -63,7 +65,7 @@ export function BoutonEnregistrer({ ticker, paye, connecte = false }: { ticker: 
   if (!connecte) {
     return (
       <a
-        href={`/?auth=signup&next=${encodeURIComponent(typeof window !== "undefined" ? window.location.pathname : "/")}`}
+        href={`/?auth=signup&next=${encodeURIComponent(chemin)}`}
         title="Créer un compte pour enregistrer cette société"
         className={`${base} border-[#262626] bg-[#0a0a0a] text-zinc-300 hover:border-violet-400/40 hover:text-zinc-100`}
       >

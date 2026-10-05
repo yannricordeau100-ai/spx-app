@@ -300,13 +300,13 @@ export function AuthModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center px-3 sm:px-4"
+          className="fixed inset-0 z-[1200] flex items-center justify-center px-3 sm:px-4"
         >
           <button
             type="button"
             aria-label={t("common.close")}
             onClick={close}
-            className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            className="absolute inset-0 bg-black/90 backdrop-blur-md"
           />
 
           <motion.div

@@ -1,6 +1,6 @@
 "use client";
 
-import { AF_AXES, pasEtiquettes, garde } from "@/components/charts/axes-mobiles";
+import { AF_AXES, pasEtiquettes, pasTrimestres, garde } from "@/components/charts/axes-mobiles";
 import { useEffect, useRef, useState } from "react";
 import { usePleinEcran } from "@/components/charts/plein-ecran-context";
 import type { CompanyEvent } from "@/lib/events";
@@ -222,7 +222,7 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
   const AFX = mobile ? AF_AXES : 1;
   const labelFontSize = (isCrowded ? 13 : 17) * AFX;
   const nReelAxe = hasTTM ? allLabels.length - 1 : allLabels.length;
-  const pasX = pasEtiquettes(mobile, INNER_W / Math.max(allData.length, 1), Math.max(...allLabels.map((l) => splitQuarterLabel(l).top.length), 1), labelFontSize);
+  const pasX = pasTrimestres(pasEtiquettes(mobile, INNER_W / Math.max(allData.length, 1), Math.max(...allLabels.map((l) => splitQuarterLabel(l).top.length), 1), labelFontSize), allLabels);
   const pasAnnee = pasEtiquettes(mobile, yearGroups.length ? INNER_W / yearGroups.length : INNER_W, 4, 13 * AFX);
   // Valeurs TOUJOURS affichées au-dessus de chaque barre (demande Yann
   // 5 mai 2026), font-size adapté à la densité pour éviter les chevauchements.
@@ -230,13 +230,13 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
   // nombre de barres pour garantir zero chevauchement sans rotation.
   // Yann 8 août 2026 : +1 à +1.5pt à chaque densité (plot élargi de ~57px),
   // les chiffres au-dessus des barres étaient trop petits en mode Max.
-  const valueFontSize =
+  const valueFontSize = (mobile ? 1.35 : 1) * (
     allData.length <= 8 ? 16
     : allData.length <= 12 ? 14
     : allData.length <= 16 ? 12.5
     : allData.length <= 22 ? 11
     : allData.length <= 30 ? 10
-    : 9;
+    : 9);
   // Yann 28 aout 2026 : sur une serie dense, les valeurs au dessus des barres
   // se chevauchaient et devenaient illisibles (cas VMRK, 20 trimestres :
   // "80 95881 96881 803"). On estime la largeur du libelle le plus long et,
