@@ -132,13 +132,6 @@ export default async function PricingPage() {
         {/* Yann (25 mai 2026) : ancre #compare = cible du bouton "Tout comparer
             en détail" placé sous les bullets des cards pricing. */}
         <section id="compare" className="mx-auto mt-24 max-w-5xl scroll-mt-20">
-          <div className="mb-2 flex justify-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.18em] text-zinc-400">
-              <span className="h-px w-6 bg-gradient-to-r from-transparent to-violet-400/60" />
-              02
-              <span className="h-px w-6 bg-gradient-to-l from-transparent to-violet-400/60" />
-            </span>
-          </div>
           <div className="mb-7 text-center">
             <h2 className="bg-gradient-to-br from-zinc-50 to-zinc-300 bg-clip-text font-display text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
               {t("pricing.compare_title")}

@@ -140,7 +140,7 @@ export function PricingCards({
           annuel pour rester pertinent. */}
       {/* Yann 4 sept 2026 : ces trois garanties etaient trop discretes pour
           rassurer avant un paiement. Taille et contraste releves. */}
-      <div className="mb-7 mt-2 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13.5px] text-zinc-400">
+      <div className="mb-12 mt-2 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13.5px] text-zinc-400">
         {billing === "annual" ? (
           <>
             <span className="inline-flex items-center gap-1.5">

@@ -422,7 +422,7 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
               <button
                 type="button"
                 onClick={() => setOuvert(true)}
-                className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-medium text-zinc-300 hover:text-zinc-100"
+                className="mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-400/60 bg-emerald-500/15 px-4 py-2 text-[14px] font-semibold text-emerald-200 shadow-sm shadow-emerald-500/20 transition-colors hover:bg-emerald-500/25 hover:text-white"
               >
                 Lire la suite
                 <ChevronDown className="size-4" />

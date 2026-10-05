@@ -1174,7 +1174,7 @@ export const DICTIONARY: Dict = {
     de: "Geprüfte Daten",
   },
   "pricing.trust1_body": {
-    fr: "Chaque chiffre vient des documents ou de communication officielles de la société, nous utilisons plus de 20 sources. Certains KPI majeurs n'étant plus communiqués publiquement par la société en 2026, utilisent des données externes sourcées permettant un calcul des données récentes du KPI. Les KPI non officiels calculés ayant un indice d'incertitude de plus de 5% ne sont pas visible sur mettrik.ai",
+    fr: "Chaque chiffre vient des documents ou des communications officielles de la société ; nous utilisons plus de 20 sources. Certains KPI utilisent des données externes sourcées ou un croisement de plusieurs données pour constituer ou reconstituer des indicateurs spécifiques propriétaires.",
     en: "Every figure comes from official company documents or communications, we use more than 20 sources. Some major KPIs are no longer publicly disclosed by the company in 2026, so we rely on sourced external data to compute the most recent KPI values. Non-official computed KPIs with an uncertainty index above 5% are not displayed on mettrik.ai.",
     de: "Jede Zahl stammt aus offiziellen Dokumenten oder Mitteilungen des Unternehmens. Wir verwenden über 20 Quellen. Einige wichtige KPIs werden 2026 vom Unternehmen nicht mehr öffentlich kommuniziert. Wir nutzen daher gut belegte externe Daten zur Berechnung der aktuellen Werte. Berechnete nicht-offizielle KPIs mit einem Unsicherheitsindex über 5 % werden auf mettrik.ai nicht angezeigt.",
   },
@@ -1189,7 +1189,7 @@ export const DICTIONARY: Dict = {
     de: "Wir verkaufen oder vermieten deine Daten nicht an Dritte. Keine Werbetracker, keine Datenhändler.",
   },
   "pricing.trust3_title": {
-    fr: "Mises à jour automatiques après chaque earning",
+    fr: "Mises à jour automatiques après chaque annonce de résultats",
     en: "Automatic updates after every earnings release",
     de: "Automatische Aktualisierungen nach jedem Earnings-Release",
   },

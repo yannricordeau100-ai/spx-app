@@ -42,13 +42,11 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
               KPI Intelligence pour investisseurs
             </div>
             <p className="mt-4 max-w-md text-[12.5px] leading-relaxed text-zinc-400">
-              <strong>Mettrik AI</strong> est une plateforme d&apos;intelligence KPI pour investisseurs : indicateurs clés
-              opérationnels et financiers, historiques jusqu&apos;à vingt ans, scores et facteurs de risque de plus de 650 grandes sociétés
-              cotées américaines et européennes, extraits et reconstitués à partir des documents officiels
-              (rapports annuels et trimestriels, communiqués). Ces contenus sont publiés à titre informatif et pédagogique,
-              peuvent contenir des erreurs ou des retards de mise à jour, et ne constituent ni un conseil en investissement,
-              ni une recommandation d&apos;achat ou de vente. Les performances passées ne préjugent pas des performances
-              futures ; tout investissement comporte un risque de perte en capital.
+              <strong>Mettrik AI</strong> est un site d&apos;analyse boursière pour investisseurs particuliers. Il présente,
+              pour plus de 650 grandes sociétés cotées aux États-Unis et en Europe, les indicateurs clés (KPI) qui
+              expliquent leurs résultats : chiffres trimestriels et historiques, scores, risques et synthèses des
+              conférences de résultats, tirés des documents officiels des sociétés. Informations fournies à titre
+              informatif, sans conseil en investissement ; tout investissement comporte un risque de perte en capital.
             </p>
           </div>
 
