@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { CONCEPTS } from "./shared";
+import { CONCEPTS } from "./liste";
 
 export const metadata = {
   title: "Concepts KPI court terme · Mettrik",
