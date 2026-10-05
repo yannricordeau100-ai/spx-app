@@ -447,6 +447,20 @@ export function ChartFullscreen({
   const contenuRef = useRef<HTMLDivElement>(null);
   const [echelle, setEchelle] = useState(1);
   const [monte, setMonte] = useState(false);
+  // 5 oct 2026 : le site applique body { zoom: 1.1 }. Le portail est dans body :
+  // sans compensation, le cadre (largeur/hauteur de l ecran en px) deborde de
+  // 10 % (graphique coupe en paysage force). On annule le zoom du corps.
+  const [zoomCorps, setZoomCorps] = useState(1);
+  useEffect(() => {
+    if (!open) return;
+    const lire = () => {
+      const z = parseFloat(getComputedStyle(document.body).zoom);
+      setZoomCorps(Number.isFinite(z) && z > 0 ? z : 1);
+    };
+    lire();
+    window.addEventListener("resize", lire);
+    return () => window.removeEventListener("resize", lire);
+  }, [open]);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
   // Telephone deja tenu en paysage : le cadre n a plus besoin d etre pivote.
@@ -578,7 +592,7 @@ export function ChartFullscreen({
     <PleinEcranContext.Provider value={true}>
       <div
         className="fixed inset-0 overflow-hidden bg-[#050507]"
-        style={{ zIndex: 2147483647, touchAction: "pan-x pinch-zoom" }}
+        style={{ zIndex: 2147483647, touchAction: "pan-x pinch-zoom", zoom: zoomCorps !== 1 ? 1 / zoomCorps : undefined }}
         role="dialog"
         aria-modal="true"
         aria-label={titre}

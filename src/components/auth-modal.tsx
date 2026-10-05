@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useFormStatus } from "react-dom";
+import { createPortal } from "react-dom";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Mail, Lock, X, ArrowLeft, Loader2 } from "lucide-react";
@@ -286,12 +287,21 @@ export function AuthModal() {
     if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.setAttribute("data-auth-ouvert", "1");
     return () => {
       document.body.style.overflow = prev;
+      document.documentElement.removeAttribute("data-auth-ouvert");
     };
   }, [open]);
 
-  return (
+  // 5 oct 2026 : la fenetre est rendue HORS du corps de page (portail sur
+  // <html>), sinon le zoom global du corps et les contextes d empilement de
+  // l accueil laissaient transparaitre le texte. La page est masquee en dessous.
+  const [monte, setMonte] = useState(false);
+  useEffect(() => setMonte(true), []);
+  if (!monte) return null;
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -592,7 +602,8 @@ export function AuthModal() {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.documentElement,
   );
 }
 

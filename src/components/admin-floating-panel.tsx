@@ -203,7 +203,7 @@ export function AdminFloatingPanel() {
   const currentVersionSlug = version ?? (typeof document !== "undefined" ? readCookie(VERSION_COOKIE) : null) ?? "";
 
   return (
-    <div data-flottant className="fixed bottom-3 right-3 z-[9999] flex flex-col items-end gap-1">
+    <div data-flottant className="fixed left-1 top-1 z-[9999] flex flex-col items-start gap-1 sm:bottom-3 sm:left-auto sm:right-3 sm:top-auto sm:items-end">
       {/* Badge niveau + bouton expand : toujours visible */}
       <div className="flex items-center gap-1">
         <button
@@ -212,16 +212,16 @@ export function AdminFloatingPanel() {
           title={meta.tooltip}
           aria-label={meta.label}
           aria-expanded={expanded}
-          className={`inline-flex items-center gap-1.5 rounded-full border ${meta.borderClass} ${meta.bgClass} ${meta.textClass} px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg`}
+          className={`inline-flex items-center gap-1.5 rounded-full border ${meta.borderClass} ${meta.bgClass} ${meta.textClass} px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg ${expanded ? "" : "max-sm:gap-0 max-sm:px-1 max-sm:py-1"}`}
           style={{ WebkitBackdropFilter: "blur(8px)" }}
         >
-          <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${meta.dotClass}`} />
+          <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${meta.dotClass} ${expanded ? "" : "max-sm:size-2.5"}`} />
           <span className="max-sm:hidden">{meta.label}</span>
-          <span className="sm:hidden">{meta.shortLabel}</span>
+          <span className={expanded ? "sm:hidden" : "hidden"}>{meta.shortLabel}</span>
           {expanded ? (
             <X className="size-3 ml-1 opacity-70" aria-hidden />
           ) : (
-            <Settings2 className="size-3 ml-1 opacity-70" aria-hidden />
+            <Settings2 className="size-3 ml-1 opacity-70 max-sm:hidden" aria-hidden />
           )}
         </button>
       </div>

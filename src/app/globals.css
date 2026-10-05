@@ -343,3 +343,14 @@ html[data-theme="light"] .bloc-capi .capi-txt {
   color: #0a0a0a !important;
   text-shadow: none !important;
 }
+
+/* 5 oct 2026 : fenetre d inscription ouverte, la page en dessous est masquee. */
+html[data-auth-ouvert] body { visibility: hidden; }
+
+/* 5 oct 2026 : flottants mobiles. Reserve en bas de page, flottants discrets
+   (opacite 0,6 pendant le defilement, 1 a l arret). */
+@media (max-width: 639px) {
+  body { padding-bottom: 88px; }
+  [data-flottant] { transition: opacity 0.2s ease; }
+  html[data-defile] [data-flottant] { opacity: 0.6 !important; }
+}

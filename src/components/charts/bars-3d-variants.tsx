@@ -1,6 +1,6 @@
 "use client";
 
-import { AF_AXES, pasEtiquettes, pasTrimestres, garde } from "@/components/charts/axes-mobiles";
+import { AF_AXES, pasEtiquettes, pasTrimestres, garde, useEchelleSvg, policeValeur } from "@/components/charts/axes-mobiles";
 import { useEffect, useRef, useState } from "react";
 import { usePleinEcran } from "@/components/charts/plein-ecran-context";
 import type { CompanyEvent } from "@/lib/events";
@@ -162,6 +162,8 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
     };
   }, []);
   const svgRef = useRef<SVGSVGElement>(null);
+  // 5 oct 2026 : pixels ecran reels par unite du viewBox (zoom, scale et rotation inclus).
+  const echelleSvg = useEchelleSvg(svgRef, mobile);
   // Yann 15 mai 2026 : axis header locale-aware.
   const { locale } = useT();
   // Yann 8 juin 2026 (Point 4) : si KpiSwapTitle a bascule le titre en EN,
@@ -219,7 +221,9 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
   // "quarter only" (T1/T2/T3/T4) avec un year-band en-dessous (groupage
   // visuel 1 année = 4 quarters = 1 seul libellé d'année).
   const isCrowded = allData.length > 12;
-  const AFX = mobile ? AF_AXES : 1;
+  // Facteur d axes : ~10 px reels, plafonne a AF_AXES, jamais sous 1 (en paysage
+  // le graphique est plus grand : pas besoin de grossir, les trimestres tiennent).
+  const AFX = mobile ? Math.min(AF_AXES, Math.max(1, 10 / (echelleSvg * 13))) : 1;
   const labelFontSize = (isCrowded ? 13 : 17) * AFX;
   const nReelAxe = hasTTM ? allLabels.length - 1 : allLabels.length;
   const pasX = pasTrimestres(pasEtiquettes(mobile, INNER_W / Math.max(allData.length, 1), Math.max(...allLabels.map((l) => splitQuarterLabel(l).top.length), 1), labelFontSize), allLabels);
@@ -230,13 +234,17 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
   // nombre de barres pour garantir zero chevauchement sans rotation.
   // Yann 8 août 2026 : +1 à +1.5pt à chaque densité (plot élargi de ~57px),
   // les chiffres au-dessus des barres étaient trop petits en mode Max.
-  const valueFontSize = (mobile ? 1.35 : 1) * (
+  const valueFontBase =
     allData.length <= 8 ? 16
     : allData.length <= 12 ? 14
     : allData.length <= 16 ? 12.5
     : allData.length <= 22 ? 11
     : allData.length <= 30 ? 10
-    : 9);
+    : 9;
+  // 5 oct 2026 : sur mobile la police est calculee pour faire ~10 px REELS
+  // (echelle mesuree), pas un facteur fixe ; la decimation ci-dessous evite
+  // tout chevauchement.
+  const valueFontSize = policeValeur(mobile, echelleSvg, valueFontBase);
   // Yann 28 aout 2026 : sur une serie dense, les valeurs au dessus des barres
   // se chevauchaient et devenaient illisibles (cas VMRK, 20 trimestres :
   // "80 95881 96881 803"). On estime la largeur du libelle le plus long et,
@@ -261,6 +269,14 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
     Math.ceil(largeurLibelleMax / Math.max(espaceParBarre - 4, 1)),
   );
   void pasLibelles;
+  // 5 oct 2026 : une valeur sur N quand l espacement entre barres est inferieur a
+  // la largeur du texte (mobile). La plus recente et le TTM gardent la leur.
+  const pasValeurs = pasEtiquettes(
+    mobile,
+    espaceParBarre,
+    Math.max(...allData.map((d) => String(formatBarLabel(Number(d), dataOnlyMax, unit, effectiveLocale, serieEntiere)).length), 1),
+    valueFontSize,
+  );
   const DX = isClassic ? 0 : 26;
   const DY = isClassic ? 0 : -16;
   // Yann 8 juin 2026 (Point 4) : si KpiSwapTitle force EN, l'axe Y traduit
@@ -288,7 +304,7 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
 
   // Yann 5 oct 2026 : sur mobile, on elargit le cadre a gauche juste de ce qu il
   // faut pour que la plus longue graduation (ex "-60 %") ne soit pas coupee.
-  const largeurTickMax = Math.max(...ticks.map((v) => formatTick(v).length), 1) * 16 * (mobile ? AF_AXES : 1) * 0.62 + 12 + 4;
+  const largeurTickMax = Math.max(...ticks.map((v) => formatTick(v).length), 1) * 16 * AFX * 0.62 + 12 + 4;
   const extraGauche = mobile && !yOnRight ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
 
   return (
@@ -481,7 +497,7 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
               // meme quand elle fait partie des masquees.
               const nReel = hasTTM ? allLabels.length - 1 : allLabels.length;
               if (labelStep === 2 && !isTTM && !isH && (nReel - 1 - i) % 2 === 1) return null;
-              if (etroit && !pleinEcran && !isH) return null;
+              if (!isTTM && !isH && !garde(i, nReel, Math.max(pasValeurs, 1))) return null;
               const cxLabel = x + barW / 2 + (isClassic ? 0 : DX / 2);
               const cyLabel = isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12);
               const labelOpacity = hover === null ? 1 : isH ? 1 : 0.3;

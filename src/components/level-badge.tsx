@@ -151,12 +151,11 @@ export function LevelBadge() {
         onClick={() => setCollapsed((c) => !c)}
         title={meta.tooltip}
         aria-label={meta.label}
-        className={`inline-flex items-center gap-1.5 rounded-full border ${meta.borderClass} ${meta.bgClass} ${meta.textClass} px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg`}
+        className={`inline-flex items-center gap-1.5 rounded-full border ${meta.borderClass} ${meta.bgClass} ${meta.textClass} px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg ${collapsed ? "" : "max-sm:size-2.5 max-sm:min-h-0 max-sm:gap-0 max-sm:p-0 max-sm:relative max-sm:after:absolute max-sm:after:-inset-3 max-sm:after:content-['']"}`}
         style={{ WebkitBackdropFilter: "blur(8px)" }}
       >
-        <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${meta.dotClass}`} />
+        <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${meta.dotClass} ${collapsed ? "" : "max-sm:size-2.5"}`} />
         <span className={collapsed ? "" : "max-sm:hidden"}>{collapsed ? meta.shortLabel : meta.label}</span>
-        {!collapsed && <span className="sm:hidden">{meta.shortLabel}</span>}
       </button>
       {version && (
         <span
@@ -199,12 +198,13 @@ export function LevelBadgeSSR() {
         title={meta.tooltip}
         aria-label={meta.label}
         role="status"
-        className={`fixed left-1 top-1 z-[9999] inline-flex opacity-70 sm:bottom-3 sm:left-auto sm:right-3 sm:top-auto sm:opacity-100 items-center gap-1.5 rounded-full border ${meta.borderClass} ${meta.bgClass} ${meta.textClass} px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] backdrop-blur-md`}
+        tabIndex={0}
+        className={`group fixed left-1 top-1 z-[9999] inline-flex opacity-70 sm:bottom-3 sm:left-auto sm:right-3 sm:top-auto sm:opacity-100 items-center gap-1.5 rounded-full border ${meta.borderClass} ${meta.bgClass} ${meta.textClass} px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] backdrop-blur-md max-sm:gap-0 max-sm:px-1 max-sm:py-1 max-sm:focus:gap-1.5 max-sm:focus:px-2 max-sm:outline-none`}
         style={{ WebkitBackdropFilter: "blur(8px)" }}
       >
-        <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${meta.dotClass}`} />
+        <span aria-hidden className={`h-1.5 w-1.5 max-sm:size-2.5 rounded-full ${meta.dotClass}`} />
         <span className="max-sm:hidden">{meta.label}</span>
-        <span className="sm:hidden">{meta.shortLabel}</span>
+        <span className="hidden max-sm:group-focus:inline">{meta.shortLabel}</span>
       </div>
     );
   }
