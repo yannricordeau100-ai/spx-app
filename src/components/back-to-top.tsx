@@ -19,6 +19,7 @@ export function BackToTop() {
 
   return (
     <button
+      data-flottant
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       className={`fixed bottom-6 right-6 z-50 inline-flex size-12 items-center justify-center rounded-full border border-[#2a2a2a] bg-[#0a0a0a]/90 text-zinc-200 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-violet-500/50 hover:text-violet-200 ${
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"

@@ -145,7 +145,7 @@ export function LevelBadge() {
   const meta = LEVEL_META[level];
 
   return (
-    <div className="fixed bottom-3 right-3 z-[9999] flex flex-col items-end gap-1">
+    <div data-flottant className="fixed bottom-3 right-3 z-[9999] flex flex-col items-end gap-1">
       <button
         type="button"
         onClick={() => setCollapsed((c) => !c)}
@@ -194,6 +194,7 @@ export function LevelBadgeSSR() {
     const meta = LEVEL_META[fromEnv];
     return (
       <div
+        data-flottant
         title={meta.tooltip}
         aria-label={meta.label}
         role="status"

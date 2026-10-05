@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePleinEcran } from "@/components/charts/plein-ecran-context";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { buildYearGroups } from "@/lib/chart-export";
@@ -138,13 +139,26 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
   // 27 sept 2026 (Yann, doute n°12) : sous 480 px de large, les valeurs au-dessus
   // des barres sont illisibles ; on ne garde que celle de la barre touchée.
   const [etroit, setEtroit] = useState(false);
+  // Yann 5 oct 2026 : dans la vue agrandie mobile, les valeurs restent affichees
+  // sur toutes les barres (comme dans le graphique normal).
+  const pleinEcran = usePleinEcran();
+  // Mobile (< 640 px) : les graduations negatives ("-60 %") debordaient a gauche.
+  const [mobile, setMobile] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
     const mq = window.matchMedia("(max-width: 479px)");
-    const maj = () => setEtroit(mq.matches);
+    const mq2 = window.matchMedia("(max-width: 639px)");
+    const maj = () => {
+      setEtroit(mq.matches);
+      setMobile(mq2.matches);
+    };
     maj();
     mq.addEventListener?.("change", maj);
-    return () => mq.removeEventListener?.("change", maj);
+    mq2.addEventListener?.("change", maj);
+    return () => {
+      mq.removeEventListener?.("change", maj);
+      mq2.removeEventListener?.("change", maj);
+    };
   }, []);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 15 mai 2026 : axis header locale-aware.
@@ -267,15 +281,20 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
         })
       : (Math.round(v * 10) / 10).toLocaleString(tickLoc);
 
+  // Yann 5 oct 2026 : sur mobile, on elargit le cadre a gauche juste de ce qu il
+  // faut pour que la plus longue graduation (ex "-60 %") ne soit pas coupee.
+  const largeurTickMax = Math.max(...ticks.map((v) => formatTick(v).length), 1) * 16 * 0.62 + 12 + 4;
+  const extraGauche = mobile && !yOnRight ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
+
   return (
     <div className="relative w-full">
     <svg
       onClick={onToggleLabels}
       ref={svgRef}
       width="100%"
-      viewBox={`0 0 ${W} ${H}`}
+      viewBox={`${-extraGauche} 0 ${W + extraGauche} ${H}`}
       preserveAspectRatio="xMidYMid meet"
-      style={{ overflow: "visible", cursor: onToggleLabels ? "pointer" : undefined }}
+      style={{ overflow: "visible", display: "block", height: "auto", aspectRatio: `${W + extraGauche} / ${H}`, cursor: onToggleLabels ? "pointer" : undefined }}
       data-chart-export="true"
       data-export-prefix="bars"
       data-export-title={exportTitle || ""}
@@ -457,7 +476,7 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
               // meme quand elle fait partie des masquees.
               const nReel = hasTTM ? allLabels.length - 1 : allLabels.length;
               if (labelStep === 2 && !isTTM && !isH && (nReel - 1 - i) % 2 === 1) return null;
-              if (etroit && !isH) return null;
+              if (etroit && !pleinEcran && !isH) return null;
               const cxLabel = x + barW / 2 + (isClassic ? 0 : DX / 2);
               const cyLabel = isNeg ? barBot + 18 : yT + (isClassic ? -10 : DY - 12);
               const labelOpacity = hover === null ? 1 : isH ? 1 : 0.3;

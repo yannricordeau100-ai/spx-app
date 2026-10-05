@@ -270,7 +270,7 @@ export function DockRailLeft({ sections, showSocial = false }: { sections: DockS
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   return (
-    <nav className="group/rail hidden md:block fixed left-3 top-1/2 z-40 -translate-y-1/2" aria-label="Sections de la fiche">
+    <nav data-rail-gauche className="group/rail hidden md:block fixed left-3 top-1/2 z-40 -translate-y-1/2" aria-label="Sections de la fiche">
       <div className="flex flex-col items-start">
         {/* Yann 24 sept 2026 : menu reduit au repos ; il reprend sa taille
             pleine au survol et la garde tant que la souris reste dans la zone. */}

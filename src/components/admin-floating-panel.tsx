@@ -203,7 +203,7 @@ export function AdminFloatingPanel() {
   const currentVersionSlug = version ?? (typeof document !== "undefined" ? readCookie(VERSION_COOKIE) : null) ?? "";
 
   return (
-    <div className="fixed bottom-3 right-3 z-[9999] flex flex-col items-end gap-1">
+    <div data-flottant className="fixed bottom-3 right-3 z-[9999] flex flex-col items-end gap-1">
       {/* Badge niveau + bouton expand : toujours visible */}
       <div className="flex items-center gap-1">
         <button

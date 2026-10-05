@@ -86,61 +86,16 @@ function TermSup({ term, explainer, accent }: { term: string; explainer: string;
 /** Tooltip "i" qui explique ce qu'est un earning call (pour non-bilingues). */
 function EarningCallInfoTooltip({ accent }: { accent: string }) {
   const { t } = useT();
-  const [open, setOpen] = useState(false);
-  const [coords, setCoords] = useState<{ top: number; left: number } | null>(null);
-  const triggerRef = useRef<HTMLSpanElement>(null);
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  useEffect(() => {
-    if (!open) return;
-    const compute = () => {
-      const el = triggerRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      setCoords({ top: r.bottom + 6, left: r.left });
-    };
-    compute();
-    window.addEventListener("scroll", compute, true);
-    window.addEventListener("resize", compute);
-    return () => {
-      window.removeEventListener("scroll", compute, true);
-      window.removeEventListener("resize", compute);
-    };
-  }, [open]);
+  // 5 oct 2026 : meme composant « i » que partout (toucher = ouvre/ferme, survol sur ordinateur).
   return (
-    <>
-      <span
-        ref={triggerRef}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        onClick={(e) => {
-          e.stopPropagation();
-          setOpen((o) => !o);
-        }}
-        className="ml-1 inline-flex size-5 cursor-help items-center justify-center rounded-full text-[12px] font-bold opacity-70 transition-opacity hover:opacity-100"
-        style={{ color: accent, border: `1px solid ${accent}66` }}
-        aria-label={t("transcript.bullets.earning_call_aria")}
-      >
-        i
-      </span>
-      {mounted && coords && open && createPortal(
-        <div
-          role="tooltip"
-          onMouseEnter={() => setOpen(true)}
-          onMouseLeave={() => setOpen(false)}
-          className="pointer-events-auto fixed z-[1000] w-[360px] rounded-lg border bg-[#0a0a0a] p-4 text-[14px] leading-relaxed text-zinc-200 shadow-2xl"
-          style={{ top: coords.top, left: coords.left, borderColor: `${accent}66` }}
-        >
-          <div className="mb-1.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider" style={{ color: accent }}>
-            {t("transcript.bullets.earning_call_label")}
-          </div>
-          <p className="text-[14px] text-zinc-200">
-            {t("transcript.bullets.earning_call_explainer")}
-          </p>
-        </div>,
-        document.body,
-      )}
-    </>
+    <span className="ml-1 inline-flex">
+      <InfoTooltip color={accent} size="md" align="center">
+        <div className="mb-1.5 font-mono text-[11.5px] font-semibold uppercase tracking-wider" style={{ color: accent }}>
+          {t("transcript.bullets.earning_call_label")}
+        </div>
+        <p className="text-[13px] text-zinc-200">{t("transcript.bullets.earning_call_explainer")}</p>
+      </InfoTooltip>
+    </span>
   );
 }
 

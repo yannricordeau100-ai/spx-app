@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ChevronDown, Download, Link2, RotateCw, Settings2, Share2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { PleinEcranContext } from "@/components/charts/plein-ecran-context";
 import { useT } from "@/lib/i18n/provider";
 import type { TimeFraction } from "@/components/charts/time-fraction-toggle";
 import type { BarsVariant, ChartMode, GraphPeriod } from "@/components/chart-cycle";
@@ -412,13 +413,60 @@ export function ChartFullscreen({
   const zoneRef = useRef<HTMLDivElement>(null);
   const contenuRef = useRef<HTMLDivElement>(null);
   const [echelle, setEchelle] = useState(1);
+  const [monte, setMonte] = useState(false);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+  // Telephone deja tenu en paysage : le cadre n a plus besoin d etre pivote.
+  const natifPaysage = w > h;
+  const paysageEffectif = paysage && !natifPaysage;
+
+  useEffect(() => setMonte(true), []);
+
   useEffect(() => {
     if (!open) return;
     setPaysage(false);
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    // Les flottants (aide, remonter, badge niveau) se masquent via ce marqueur.
+    document.documentElement.setAttribute("data-chart-plein-ecran", "1");
     return () => {
       document.body.style.overflow = prev;
+      document.documentElement.removeAttribute("data-chart-plein-ecran");
+    };
+  }, [open]);
+
+  // Touche retour du navigateur (Safari : geste de bord, bouton retour) : une
+  // entree d historique est posee a l ouverture ; la retirer ferme la vue.
+  useEffect(() => {
+    if (!open) return;
+    let ferme = false;
+    let pose = false;
+    const surRetour = () => {
+      ferme = true;
+      onCloseRef.current();
+    };
+    // Differe d un tick : le double montage du mode strict ne doit pas poser
+    // puis retirer l entree dans le desordre.
+    const minuteur = window.setTimeout(() => {
+      try {
+        window.history.pushState({ ...(window.history.state ?? {}), mettrikChartFs: true }, "");
+        pose = true;
+      } catch {
+        /* historique indisponible : la croix reste le moyen de sortie */
+      }
+      window.addEventListener("popstate", surRetour);
+    }, 0);
+    return () => {
+      window.clearTimeout(minuteur);
+      window.removeEventListener("popstate", surRetour);
+      // Fermeture par la croix ou le glissement : on retire notre entree.
+      if (pose && !ferme) {
+        try {
+          if (window.history.state?.mettrikChartFs) window.history.back();
+        } catch {
+          /* rien */
+        }
+      }
     };
   }, [open]);
 
@@ -441,13 +489,31 @@ export function ChartFullscreen({
     ro.observe(zone);
     ro.observe(contenu);
     return () => ro.disconnect();
-  }, [open, paysage, w, h]);
+  }, [open, paysageEffectif, w, h, monte]);
 
-  if (!open) return null;
-  const cadreW = paysage ? h : w;
-  const cadreH = paysage ? w : h;
+  // Glissement vers le bas (portrait) = fermeture.
+  const depart = useRef<{ x: number; y: number } | null>(null);
+  const surDebutToucher = (e: React.TouchEvent) => {
+    const t = e.touches[0];
+    depart.current = t ? { x: t.clientX, y: t.clientY } : null;
+  };
+  const surFinToucher = (e: React.TouchEvent) => {
+    const d = depart.current;
+    depart.current = null;
+    const t = e.changedTouches[0];
+    if (!d || !t || paysageEffectif) return;
+    const dy = t.clientY - d.y;
+    const dx = Math.abs(t.clientX - d.x);
+    if (dy > 110 && dx < 60 && dy > dx * 2) onCloseRef.current();
+  };
+
+  // Portal sur body : un ancetre transforme (motion) detournait position:fixed
+  // sur Safari et laissait la croix hors de l ecran.
+  if (!open || !monte) return null;
+  const cadreW = paysageEffectif ? h : w;
+  const cadreH = paysageEffectif ? w : h;
   // Cadre tourné : son haut = côté droit de l écran, sa droite = bas, etc.
-  const pad = paysage
+  const pad = paysageEffectif
     ? {
         paddingTop: "env(safe-area-inset-right)",
         paddingRight: "env(safe-area-inset-bottom)",
@@ -464,47 +530,72 @@ export function ChartFullscreen({
     ? {
         position: "fixed",
         top: 0,
-        left: paysage ? w : 0,
+        left: paysageEffectif ? w : 0,
         width: cadreW,
         height: cadreH,
         transformOrigin: "0 0",
-        transform: paysage ? "rotate(90deg)" : undefined,
+        transform: paysageEffectif ? "rotate(90deg)" : undefined,
         ...pad,
       }
     : { position: "fixed", inset: 0, ...pad };
-  return (
-    <div className="fixed inset-0 z-[120] overflow-hidden bg-[#050507]">
-      <div style={styleCadre} className="flex flex-col bg-[#050507]">
-        <div className="flex shrink-0 items-start justify-between gap-2 px-3 py-2">
-          <span className="line-clamp-2 min-w-0 flex-1 text-[14px] font-semibold leading-snug text-zinc-100">{titre}</span>
-          <div className="flex shrink-0 items-center gap-2">
-            <button
-              onClick={() => setPaysage((p) => !p)}
-              aria-label={paysage ? "Revenir en portrait" : "Passer en paysage"}
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-[12px] text-zinc-200"
-            >
-              <RotateCw className={cn("size-3.5 transition-transform duration-300", paysage && "rotate-90")} />
-              {paysage ? "Portrait" : "Paysage"}
-            </button>
-            <button
-              onClick={onClose}
-              aria-label="Fermer"
-              className="inline-flex size-8 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-zinc-200"
-            >
-              <X className="size-4" />
-            </button>
-          </div>
-        </div>
-        <div ref={zoneRef} className="flex min-h-0 flex-1 items-center justify-center overflow-hidden px-2 pb-2">
+  // Place reservee a la croix fixe : a droite en portrait, a gauche du cadre
+  // pivote en paysage (le haut de l ecran y est le debut du cadre).
+  const reserveCroix = "calc(52px + env(safe-area-inset-right))";
+  return createPortal(
+    <PleinEcranContext.Provider value={true}>
+      <div
+        className="fixed inset-0 overflow-hidden bg-[#050507]"
+        style={{ zIndex: 2147483647, touchAction: "pan-x pinch-zoom" }}
+        role="dialog"
+        aria-modal="true"
+        aria-label={titre}
+        onTouchStart={surDebutToucher}
+        onTouchEnd={surFinToucher}
+      >
+        <div style={styleCadre} className="flex flex-col bg-[#050507]">
           <div
-            ref={contenuRef}
-            className="w-full [&_svg]:w-full"
-            style={{ transform: echelle < 1 ? `scale(${echelle})` : undefined, transformOrigin: "center center" }}
+            className="flex shrink-0 items-start justify-between gap-2 px-3 py-2"
+            style={paysageEffectif ? { paddingLeft: "calc(56px + env(safe-area-inset-top))" } : { paddingRight: reserveCroix }}
           >
-            {children}
+            <span className="line-clamp-2 min-w-0 flex-1 text-[14px] font-semibold leading-snug text-zinc-100">{titre}</span>
+            {!natifPaysage && (
+              <button
+                onClick={() => setPaysage((p) => !p)}
+                aria-label={paysageEffectif ? "Revenir en portrait" : "Passer en paysage"}
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-[12px] text-zinc-200"
+              >
+                <RotateCw className={cn("size-3.5 transition-transform duration-300", paysageEffectif && "rotate-90")} />
+                {paysageEffectif ? "Portrait" : "Paysage"}
+              </button>
+            )}
+          </div>
+          <div ref={zoneRef} className="flex min-h-0 flex-1 items-center justify-center overflow-hidden px-2 pb-2">
+            <div
+              ref={contenuRef}
+              className="w-full [&_svg]:w-full"
+              style={{ transform: echelle < 1 ? `scale(${echelle})` : undefined, transformOrigin: "center center" }}
+            >
+              {children}
+            </div>
           </div>
         </div>
+        {/* Croix FIXE, hors du cadre pivote : toujours visible et cliquable,
+            en haut a droite de l ecran physique, dans la zone sure. */}
+        <button
+          type="button"
+          onClick={() => onCloseRef.current()}
+          aria-label="Fermer"
+          className="fixed inline-flex size-11 items-center justify-center rounded-full border border-white/25 bg-[#0b0b0e]/95 text-zinc-100 shadow-[0_6px_22px_rgba(0,0,0,0.7)]"
+          style={{
+            top: "max(10px, calc(env(safe-area-inset-top) + 6px))",
+            right: "max(10px, calc(env(safe-area-inset-right) + 6px))",
+            zIndex: 2147483647,
+          }}
+        >
+          <X className="size-5" />
+        </button>
       </div>
-    </div>
+    </PleinEcranContext.Provider>,
+    document.body,
   );
 }

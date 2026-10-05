@@ -319,6 +319,10 @@ export function CurveChart({
   }));
   // Yann 15 mai 2026 : précision adaptative pour éviter doublons type "29, 29".
   const tickDecimals = pickYTickDecimals(tickValues, unit);
+  // Yann 5 oct 2026 : cadre elargi a gauche (mobile) pour que la plus longue
+  // graduation ("-60 %") ne soit pas coupee par le bord de l ecran.
+  const largeurTickMax = Math.max(...ticks.map(({ v }) => String(formatYTick(v, unit, tickDecimals)).length), 1) * 16 * AF * 0.62 + 6 + 4;
+  const extraGauche = axesMobiles && !yOnRight ? Math.max(0, Math.ceil(largeurTickMax - PAD_LEFT)) : 0;
 
   // Smoothed paths : front curve and back-offset curve.
   function smoothFrom(pts: readonly (readonly [number, number])[]) {
@@ -347,10 +351,9 @@ export function CurveChart({
         onClick={onToggleLabels}
         ref={svgRef}
         width="100%"
-        height="auto"
-        viewBox={`0 0 ${W} ${H}`}
+        viewBox={`${-extraGauche} 0 ${W + extraGauche} ${H}`}
         preserveAspectRatio="xMidYMid meet"
-        style={{ display: "block", overflow: "visible", cursor: onToggleLabels ? "pointer" : undefined }}
+        style={{ display: "block", overflow: "visible", height: "auto", aspectRatio: `${W + extraGauche} / ${H}`, cursor: onToggleLabels ? "pointer" : undefined }}
         // Yann 8 juin 2026 : marqueurs lus par le bouton télécharger DÉPLACÉ
         // dans la barre d'onglets (ChartCycleControls). Le bouton récupère le
         // SVG visible via [data-chart-export] et les options d'export ici.

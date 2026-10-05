@@ -304,3 +304,20 @@ html[data-theme="light"] .masquer-en-jour { display: none !important; }
 .light-only { display: none; }
 html[data-theme="light"] .dark-only { display: none !important; }
 html[data-theme="light"] .light-only { display: block !important; }
+
+/* Yann 5 oct 2026 (iPhone Safari) : elements flottants (aide, remonter, badge
+   niveau, panneau admin) et rail gauche ne doivent jamais recouvrir un graphique.
+   - vue agrandie ouverte : tout est masque, sur toute taille d ecran ;
+   - mobile / paysage court : masque tant qu une zone de graphique est visible ;
+   - paysage court : le rail gauche est masque (il cachait les graduations Y). */
+html[data-chart-plein-ecran] [data-flottant] { display: none !important; }
+@media (max-width: 639px), (max-height: 499px) {
+  html[data-zone-graphique-visible] [data-flottant] {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 150ms;
+  }
+}
+@media (max-height: 499px) {
+  [data-rail-gauche] { display: none !important; }
+}

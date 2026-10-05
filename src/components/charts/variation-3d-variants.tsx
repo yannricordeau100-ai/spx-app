@@ -17,7 +17,7 @@ const W = 920, H = 420;
 // négatives qui s'affichent sous les bars rouges sans toucher le year-band.
 // PAD_RIGHT 95 (vs 50) = même règle que curve/bars : pas de clipping TTM.
 // Yann 8 août 2026 : plot élargi gauche+droite (96/95 -> 76/58), cf bars-3d.
-const PAD_LEFT = 54, PAD_RIGHT = 58, PAD_TOP = 56, PAD_BOTTOM = 100;
+const PAD_LEFT = 88, PAD_RIGHT = 40, PAD_TOP = 56, PAD_BOTTOM = 100;
 const INNER_W = W - PAD_LEFT - PAD_RIGHT;
 const INNER_H = H - PAD_TOP - PAD_BOTTOM;
 
@@ -79,7 +79,7 @@ const NEG = "#f43f5e";
 /* Bars de variation en iso, hauteur en plus / moins du zéro.     */
 /* ============================================================ */
 export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, exportTicker, exportCagr, exportFrequency, exportInterpretation }: Props) {
-  const [hover, setHover] = useState<number | null>(null);
+  const [sel, setSel] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   // Yann 10 juin 2026 (Point 6) : locale courante pour l'export PNG.
   const { locale } = useT();
@@ -102,15 +102,16 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
   const max = Math.max(...ticks, dataMax);
   const range = max - min || 1;
   const slot = INNER_W / Math.max(deltas.length, 1);
-  const barW = Math.min(slot * 0.42, 56);
+  const barW = Math.min(slot * 0.6, 56);
   const yFor = (v: number) => PAD_TOP + ((max - v) / range) * INNER_H;
   const zeroY = yFor(0);
-  const DX = 26, DY = -16;
+  const DX = 0;
 
   return (
     <div className="relative w-full">
     <svg
       ref={svgRef}
+      onClick={() => setSel(null)}
       width="100%"
       height="420"
       viewBox={`0 0 ${W} ${H}`}
@@ -133,94 +134,52 @@ export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, ex
             pas vs N-1. Le libellé doit suivre. */}
         {xLabels.some((l) => splitQuarterLabel(l).isQuarter) ? "% (vs trim. préc.)" : "% (vs N-1)"}
       </text>
-      <defs>
-        {[POS, NEG].map((c, k) => (
-          <g key={k}>
-            <linearGradient id={`v11-front-${k}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={c} stopOpacity={0.95} />
-              <stop offset="100%" stopColor={c} stopOpacity={0.6} />
-            </linearGradient>
-            <linearGradient id={`v11-side-${k}`} x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor={c} stopOpacity={0.65} />
-              <stop offset="100%" stopColor={c} stopOpacity={0.4} />
-            </linearGradient>
-            <linearGradient id={`v11-top-${k}`} x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#fff" stopOpacity={0.85} />
-              <stop offset="100%" stopColor={c} stopOpacity={0.85} />
-            </linearGradient>
-          </g>
-        ))}
-      </defs>
       {ticks.map((v, i) => (
         <line key={i} x1={PAD_LEFT} x2={PAD_LEFT + INNER_W} y1={yFor(v)} y2={yFor(v)}
           stroke="#1a1a1a" strokeDasharray="3 6" strokeWidth={1} />
       ))}
       {ticks.map((v, i) => (
-        <text key={i} x={PAD_LEFT - 9} y={yFor(v) + 5} textAnchor="end" fontSize={16}
+        <text key={i} x={PAD_LEFT - 10} y={yFor(v) + 5} textAnchor="end" fontSize={15}
           fontWeight={500} fill="#e4e4e7" fontFamily="ui-monospace, monospace">
-          {v > 0 ? "+" : ""}{(Math.round(v * 10) / 10).toLocaleString("fr-FR")} %
+          {v > 0 ? "+" : ""}{(Math.round(v * 10) / 10).toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %
         </text>
       ))}
       <line x1={PAD_LEFT} x2={PAD_LEFT + INNER_W} y1={zeroY} y2={zeroY} stroke="#3f3f46" strokeWidth={1.5} />
       {deltas.map((pct, i) => {
         const x = PAD_LEFT + slot * i + (slot - barW) / 2;
         const isPos = pct >= 0;
-        const k = isPos ? 0 : 1;
         const c = isPos ? POS : NEG;
-        const isH = hover === i;
+        const isSel = sel === i;
+        const dim = sel !== null && !isSel;
         const yTop = Math.min(yFor(pct), zeroY);
         const yBot = Math.max(yFor(pct), zeroY);
-        const front = `M ${x} ${yTop} L ${x + barW} ${yTop} L ${x + barW} ${yBot} L ${x} ${yBot} Z`;
-        const side = `M ${x + barW} ${yTop} L ${x + barW + DX} ${yTop + DY} L ${x + barW + DX} ${yBot + DY} L ${x + barW} ${yBot} Z`;
-        const top = `M ${x} ${yTop} L ${x + barW} ${yTop} L ${x + barW + DX} ${yTop + DY} L ${x + DX} ${yTop + DY} Z`;
+        const h = Math.max(2, yBot - yTop);
+        const cx = x + barW / 2;
+        const numTxt = Math.abs(pct).toFixed(1).replace(".", ",");
+        const fz = isSel ? 20 : Math.max(12, Math.min(17, slot * 0.4));
+        // Etiquette hors de la barre : au-dessus (hausse) ou en dessous
+        // (baisse), plafonnee pour ne pas toucher les libelles d'axe X.
+        const yPos = yTop - 8;
+        const yNeg = Math.min(yBot + fz + 4, H - PAD_BOTTOM - 8);
+        const ly = isPos ? yPos : yNeg;
+        const pillW = numTxt.length * fz * 0.62 + 14;
         return (
-          <g key={i} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}
-            style={{ opacity: hover === null || isH ? 1 : 0.5, cursor: "pointer", transition: "opacity 200ms" }}>
-            <ellipse cx={x + barW / 2 + DX / 2} cy={yBot + 4} rx={barW * 0.75} ry={6} fill="#000" fillOpacity={0.35} />
-            <path d={front} fill={`url(#v11-front-${k})`} stroke="#050505" strokeWidth={0.6} />
-            <path d={side} fill={`url(#v11-side-${k})`} stroke="#050505" strokeWidth={0.6} />
-            <path d={top} fill={`url(#v11-top-${k})`} stroke="#050505" strokeWidth={0.6} />
-            {/* Valeur : juste le chiffre, sans signe (+/-) ni % — la couleur
-                vert/rouge indique le signe, le KPI est par construction en %.
-                Taille agrandie (24 vs 14 avant) puisqu'on gagne la place du
-                signe + %. Décision Yann 5 mai 2026. */}
-            {(() => {
-              const cx = x + barW / 2 + DX / 2;
-              const numTxt = Math.abs(pct).toFixed(1).replace(".", ",");
-              const numFz = 14;
-              const yPos = (yTop + DY) - 10;       // au-dessus de la barre verte
-              // Yann 15 mai 2026 : cap yNeg pour ne JAMAIS empiéter sur les
-              // labels trimestre (T1/T2/T3/T4) placés à H-PAD_BOTTOM+26.
-              // Si la barre descend très bas (ex -19%), on placerait le
-              // label en dessous du quarter → chevauchement. Cap = baseline
-              // chart - 12 px de clearance.
-              const yNegRaw = yBot + 18;
-              const yNegMax = H - PAD_BOTTOM - 12;
-              const yNeg = Math.min(yNegRaw, yNegMax);
-              return (
-                <text
-                  x={cx}
-                  y={isPos ? yPos : yNeg}
-                  textAnchor="middle"
-                  fontFamily="ui-monospace, monospace"
-                  fill={c}
-                  fontWeight={700}
-                  fontSize={numFz}
-                  // Yann 1er sept 2026 : contour noir de la typo (paint-order)
-                  // pour que le chiffre reste lisible devant une barre verte
-                  // ou rouge, quel que soit son placement.
-                  stroke="#000"
-                  strokeWidth={3}
-                  paintOrder="stroke"
-                  strokeLinejoin="round"
-                >
-                  {numTxt}
-                </text>
-              );
-            })()}
-            {/* Quarter only (T1/T2/T3/T4) ; year rendu UNE fois via year-band
-                après la boucle, plus de "T2 T3 T4 T1 22 T2 T3 T4 T1 23". */}
-            <text x={x + barW / 2 + DX / 2} y={H - PAD_BOTTOM + 26} textAnchor="middle"
+          <g key={i} data-chart-line="true"
+            onClick={(e) => { e.stopPropagation(); setSel((v) => (v === i ? null : i)); }}
+            style={{ opacity: dim ? 0.25 : 1, cursor: "pointer", transition: "opacity 200ms" }}>
+            {/* Zone d'appui sur toute la colonne */}
+            <rect x={PAD_LEFT + slot * i} y={PAD_TOP - 24} width={slot} height={INNER_H + 24} fill="transparent" />
+            <rect x={x} y={yTop} width={barW} height={h} rx={2} fill={c} />
+            {isSel && (
+              <rect x={cx - pillW / 2} y={ly - fz - 2} width={pillW} height={fz + 8} rx={5}
+                fill="#0a0a0a" stroke={c} strokeWidth={1.5} />
+            )}
+            <text x={cx} y={ly} textAnchor="middle" fontFamily="ui-monospace, monospace"
+              fill={isSel ? "#fff" : c} fontWeight={700} fontSize={fz}
+              stroke={isSel ? "none" : "#000"} strokeWidth={3} paintOrder="stroke" strokeLinejoin="round">
+              {numTxt}
+            </text>
+            <text x={cx} y={H - PAD_BOTTOM + 26} textAnchor="middle"
               fontSize={15} fill="#e4e4e7" fontFamily="ui-monospace, monospace" fontWeight={600}>
               {splitQuarterLabel(labels[i + 1] ?? "").top}
             </text>

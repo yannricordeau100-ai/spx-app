@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import {
   TrendingUp,
   LayoutGrid,
@@ -18,7 +19,39 @@ import { DockRailLeft, type DockSpySection } from "@/components/dock-spy";
 import { BackToTop } from "@/components/back-to-top";
 import { useT } from "@/lib/i18n/provider";
 
+/**
+ * Yann 5 oct 2026 : marque <html data-zone-graphique-visible> tant qu une zone
+ * de graphique ([data-zone-graphique] : graph + barre Reglages) est a l ecran.
+ * Le CSS (globals.css) en deduit le masquage des flottants sur mobile et en
+ * paysage court : aucun bouton ne recouvre plus un graphique.
+ */
+function useZoneGraphiqueVisible() {
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const racine = document.documentElement;
+    const visibles = new Set<Element>();
+    const io = new IntersectionObserver((entrees) => {
+      for (const e of entrees) {
+        if (e.isIntersecting) visibles.add(e.target);
+        else visibles.delete(e.target);
+      }
+      if (visibles.size > 0) racine.setAttribute("data-zone-graphique-visible", "1");
+      else racine.removeAttribute("data-zone-graphique-visible");
+    });
+    const brancher = () => document.querySelectorAll("[data-zone-graphique]").forEach((el) => io.observe(el));
+    brancher();
+    // La fiche se monte par morceaux : on rebranche les zones apparues apres coup.
+    const t = window.setTimeout(brancher, 1500);
+    return () => {
+      window.clearTimeout(t);
+      io.disconnect();
+      racine.removeAttribute("data-zone-graphique-visible");
+    };
+  }, []);
+}
+
 export function CompanyNavChrome() {
+  useZoneGraphiqueVisible();
   const { t } = useT();
   const sections: DockSpySection[] = [
     // Yann 24 sept 2026 : toutes les parties de la fiche, dans l ordre de la page.

@@ -417,7 +417,7 @@ export function AntiTheseCard({
           </div>
 
           <div data-blur-part="texte">
-            {att.locked ? (
+            {att.locked && ouvert ? (
               <LockedPlaceholder />
             ) : !ouvert ? (
               <button

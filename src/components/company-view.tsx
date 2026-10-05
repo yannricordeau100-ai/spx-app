@@ -1913,7 +1913,7 @@ export function CompanyView({
                   Séparateurs dots violet retirés (cosmétique, prenaient de
                   la place). Onglet "Tableau de bord" supprimé (cf liste
                   TABS dans chart-cycle.tsx). */}
-              <div className="max-lg:order-5 max-lg:mb-0 max-lg:mt-3 mb-3 flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div data-zone-graphique className="max-lg:order-5 max-lg:mb-0 max-lg:mt-3 mb-3 flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {/* Yann 2 sept 2026 (ergonomie mobile) : en mobile, un menu
                     Reglages commun (fenetre + frequence + rendu 2D/3D) et un
                     menu deroulant pour l unite de temps remplacent les
@@ -2123,7 +2123,7 @@ export function CompanyView({
               {/* Yann 4 sept 2026 : conteneur positionne, pour poser
                   l invitation a s abonner PAR-DESSUS le graphique reserve
                   sans qu elle soit floutee avec lui. */}
-              <div className="relative max-lg:order-4 max-lg:-mx-5">
+              <div data-zone-graphique className="relative max-lg:order-4 max-lg:-mx-5">
               <div
                 data-blur-part="graphique"
                 data-export-extra="true"

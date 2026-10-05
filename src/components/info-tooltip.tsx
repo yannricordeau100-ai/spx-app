@@ -103,6 +103,18 @@ export function InfoTooltip({
     };
   }, [open]);
 
+  // Tactile : un toucher hors du « i » et hors de la popup referme la popup.
+  useEffect(() => {
+    if (!open) return;
+    const fermer = (ev: Event) => {
+      const cible = ev.target as Node | null;
+      if (cible && (triggerRef.current?.contains(cible) || popupRef.current?.contains(cible))) return;
+      setOpen(false);
+    };
+    document.addEventListener("pointerdown", fermer);
+    return () => document.removeEventListener("pointerdown", fermer);
+  }, [open]);
+
   // Pour SSR : ne rendre le portal qu'une fois monté côté client.
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -142,14 +154,14 @@ export function InfoTooltip({
       <button
         ref={triggerRef}
         type="button"
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
+        onPointerEnter={(e) => { if (e.pointerType === "mouse") setOpen(true); }}
+        onPointerLeave={(e) => { if (e.pointerType === "mouse") setOpen(false); }}
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
           setOpen((o) => !o);
         }}
-        className={`inline-flex shrink-0 items-center justify-center rounded-full border bg-[#0a0a0a] transition-colors hover:bg-[#161616] ${
+        className={`relative inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border bg-[#0a0a0a] transition-colors before:absolute before:-inset-[7px] before:content-[''] hover:bg-[#161616] [touch-action:manipulation] ${
           isSm ? "size-[18px]" : "size-[22px]"
         }`}
         style={{ borderColor: `${color}99`, color }}
@@ -173,8 +185,9 @@ export function InfoTooltip({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 4, scale: 0.96 }}
                 transition={{ duration: 0.16, ease: "easeOut" }}
-                onMouseEnter={() => setOpen(true)}
-                onMouseLeave={() => setOpen(false)}
+                onPointerEnter={(e) => { if (e.pointerType === "mouse") setOpen(true); }}
+                onPointerLeave={(e) => { if (e.pointerType === "mouse") setOpen(false); }}
+                onClick={(e) => e.stopPropagation()}
                 ref={popupRef}
                 className="pointer-events-auto fixed z-[1000] w-72 rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-3.5 text-[12.5px] leading-relaxed text-zinc-200 shadow-2xl"
                 style={popupStyle}

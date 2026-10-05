@@ -415,7 +415,7 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
           </div>
 
           <div data-blur-part="texte">
-            {these.locked ? (
+            {these.locked && ouvert ? (
               <LockedPlaceholder />
             ) : !ouvert ? (
               <button

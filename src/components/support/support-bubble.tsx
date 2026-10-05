@@ -68,6 +68,7 @@ export function SupportBubble() {
 
   return (
     <div
+      data-flottant
       className="pointer-events-none fixed bottom-0 right-0 z-[1100] flex max-w-full flex-col items-end gap-2.5"
       style={{
         paddingRight: "max(1rem, env(safe-area-inset-right))",
