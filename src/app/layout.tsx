@@ -5,6 +5,7 @@ import { I18nProvider } from "@/lib/i18n/provider";
 import { getServerLocale } from "@/lib/i18n/server";
 import { UserPrefsSync } from "@/components/user-prefs-sync";
 import { AdminFloatingPanel } from "@/components/admin-floating-panel";
+import { EvenementsRepere } from "@/components/evenements-repere";
 import { SupportLauncher } from "@/components/support/support-launcher";
 import "./globals.css";
 import { TelemetrieCollecteur } from "@/components/telemetrie-collecteur";
@@ -232,6 +233,7 @@ export default async function RootLayout({
             simulation tier, switch version (V1.7/V1.7.5/V1.8), switch
             niveau (1 ↔ 2). Masqué automatiquement en niveau 0 prod. */}
         <AdminFloatingPanel />
+        <EvenementsRepere />
         <SupportLauncher />
       </body>
     </html>

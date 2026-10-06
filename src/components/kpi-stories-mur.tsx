@@ -11,6 +11,7 @@ import { storyFamily, STORY_FAMILIES, orderedFamilies, type StoryFamilyKey } fro
 import { storyFmt } from "@/components/kpi-story-card";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { kpiPeriodLabel } from "@/lib/period-label";
+import { InfoTooltip } from "@/components/info-tooltip";
 
 const RechartLineChart = dynamic(() => import("./recharts-story-chart"), { ssr: false });
 
@@ -35,6 +36,9 @@ type Carte = {
   explication: string;
   date: number;
   serie: Array<{ q: string; v: number }>;
+  evenement: boolean;
+  etiquette: string;
+  anglais: string;
 };
 
 function enCarte(sl: StorySlide, i: number, ticker: string, locale: string): Carte {
@@ -43,11 +47,12 @@ function enCarte(sl: StorySlide, i: number, ticker: string, locale: string): Car
     return {
       id: `mp-${i}`, famille: "marche", titre: m.segment_name ?? "", periode: null,
       valeur: String(m.segment_revenue ?? "").replace(".", ","), unite: formatUnit(m.segment_unit ?? ""),
-      yoy: null, signal: "", description: "", explication: "", date: 0, serie: [],
+      yoy: null, signal: "", description: "", explication: "", date: 0, serie: [], evenement: false, etiquette: "", anglais: "",
     };
   }
   const k = sl.data as KPI;
-  const f = storyFmt(k.value, k.unit);
+  const ev = k._source === "evenement";
+  const f = ev ? { value: k.value_display ?? String(k.value ?? ""), unit: k.unit ?? "" } : storyFmt(k.value, k.unit);
   const a = (k as { approx?: string }).approx;
   const hist = Array.isArray(k.history) ? (k.history as unknown[]) : [];
   const serie: Carte["serie"] = [];
@@ -66,15 +71,18 @@ function enCarte(sl: StorySlide, i: number, ticker: string, locale: string): Car
     id: `kpi-${k.short ?? i}-${i}`,
     famille: storyFamily(k),
     titre: normalizeNarrative(k.name_fr ?? ""),
-    periode: kpiPeriodLabel(k as unknown as { last_data_date?: string | null; history_periods?: unknown; history?: unknown }, ticker, locale),
+    periode: ev ? (k.evenement_periode || null) : kpiPeriodLabel(k as unknown as { last_data_date?: string | null; history_periods?: unknown; history?: unknown }, ticker, locale),
     valeur: a === "min" ? `${f.value}+` : a === "env" ? `≈${f.value}` : f.value,
     unite: f.unit,
     yoy,
     signal: normalizeNarrative(k.signal ?? ""),
-    description: normalizeNarrative(k.description ?? ""),
+    description: ev ? "" : normalizeNarrative(k.description ?? ""),
     explication: k.explanation ?? "",
     date: Number.isFinite(d) ? d : 0,
     serie,
+    evenement: ev,
+    etiquette: ev ? (k.evenement_label ?? "") : "",
+    anglais: ev ? (k.description ?? "") : "",
   };
 }
 
@@ -160,6 +168,7 @@ export function KpiStoriesMur({
               key={c.id}
               type="button"
               onClick={() => setOuvert(i)}
+              {...(c.evenement ? { "data-evenement": "1" } : {})}
               className="flex min-h-[150px] flex-col rounded-2xl border border-white/[0.07] bg-gradient-to-br from-[#101015] to-[#07070a] p-3.5 text-left transition-all hover:-translate-y-0.5 hover:border-white/20"
               style={{ boxShadow: `inset 0 0 50px ${accent}12` }}
             >
@@ -167,6 +176,7 @@ export function KpiStoriesMur({
                 <div className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: accent }}>{label(c.famille)}</div>
                 <div className="mt-0.5 line-clamp-2 text-[13.5px] font-semibold leading-snug text-zinc-100">{c.titre}</div>
                 {c.periode && <div className="text-[11px] text-zinc-500">{c.periode}</div>}
+                {c.etiquette && <div className="text-[10.5px] italic text-zinc-500">{c.etiquette.charAt(0).toUpperCase() + c.etiquette.slice(1)}</div>}
               </div>
               <div className="mt-auto pt-2">
                 <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-1">
@@ -184,12 +194,13 @@ export function KpiStoriesMur({
       {monte && cur && createPortal(
         <div data-blur="stories">
           <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/75 p-8 backdrop-blur-sm" onClick={() => setOuvert(null)}>
-            <div className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-white/10 bg-[#0a0a0e] p-8" onClick={(e) => e.stopPropagation()}>
+            <div {...(cur.evenement ? { "data-evenement": "1" } : {})} className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-white/10 bg-[#0a0a0e] p-8" onClick={(e) => e.stopPropagation()}>
               <button type="button" onClick={() => setOuvert(null)} aria-label={fr ? "Fermer" : "Close"} className="absolute right-4 top-4 rounded-full border border-white/10 p-2 text-zinc-400 hover:text-white"><X className="size-4" /></button>
               <div data-blur-part="titre">
                 <div className="text-[11px] font-medium uppercase tracking-wider" style={{ color: accent }}>{label(cur.famille)}</div>
                 <h3 className="mt-1 font-display text-[26px] font-bold leading-tight text-zinc-50">{cur.titre}</h3>
                 {cur.periode && <div className="mt-1 text-[13px] text-zinc-400">{cur.periode}</div>}
+                {cur.etiquette && <div className="text-[12px] italic text-zinc-500">{cur.etiquette.charAt(0).toUpperCase() + cur.etiquette.slice(1)}</div>}
               </div>
               <div className="mt-4 flex flex-wrap items-baseline gap-3">
                 <span className="font-display text-[64px] font-bold leading-none tabular-nums text-zinc-50">{cur.valeur}</span>
@@ -202,7 +213,16 @@ export function KpiStoriesMur({
                 </div>
               )}
               <div data-blur-part="texte">
-                {cur.signal && <p className="mt-4 text-[16px] leading-relaxed text-zinc-200">{cur.signal}</p>}
+                {cur.signal && (
+                  <p className="mt-4 text-[16px] leading-relaxed text-zinc-200">
+                    {cur.signal}
+                    {cur.anglais && (
+                      <InfoTooltip color={accent} size="sm">
+                        <div className="text-[12.5px] leading-relaxed text-zinc-200">{cur.anglais}</div>
+                      </InfoTooltip>
+                    )}
+                  </p>
+                )}
                 {(cur.description || cur.explication) && (
                   <div className="mt-3 space-y-2 text-[13.5px] leading-relaxed text-zinc-400">
                     {cur.description && <p>{cur.description}</p>}

@@ -43,7 +43,19 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
   const accent = brand(company.ticker).primary;
 
   // Build stories : aplatir toutes les slides de toutes les categories
-  const categories = buildStories(company.kpis, []);
+  // 7 oct 2026 : regroupement des stories issues d un evenement (journee
+  // investisseurs, conference) par un filtre ; sans evenement, rien ne change.
+  const [evFiltre, setEvFiltre] = useState<"tous" | "journee" | "conference">("tous");
+  const categoriesTout = buildStories(company.kpis, []);
+  const estEv = (sl: StorySlide, g: "journee" | "conference") =>
+    sl.kind === "kpi" && sl.data._source === "evenement" && sl.data.evenement_groupe === g;
+  const nbJournee = categoriesTout.reduce((n, c) => n + c.slides.filter((sl) => estEv(sl, "journee")).length, 0);
+  const nbConference = categoriesTout.reduce((n, c) => n + c.slides.filter((sl) => estEv(sl, "conference")).length, 0);
+  const categories = evFiltre === "tous"
+    ? categoriesTout
+    : categoriesTout
+        .map((c) => ({ ...c, slides: c.slides.filter((sl) => estEv(sl, evFiltre)) }))
+        .filter((c) => c.slides.length > 0);
   const allSlides = categories.flatMap((c) => c.slides);
 
   /* ── Rangement des stories (pilote 10 sociétés, Yann 26 aout 2026) ──────────
@@ -193,7 +205,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
   const swipeRef = useRef<HTMLDivElement>(null);
   useSwipeStories(swipeRef, { onPrev: goPrev, onNext: goNext });
 
-  if (!hasStories(company.kpis, []) || total === 0) {
+  if (!hasStories(company.kpis, []) || (total === 0 && evFiltre === "tous")) {
     return null;
   }
 
@@ -276,6 +288,27 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
         )}
         </div>
       </div>
+
+      {(nbJournee > 0 || nbConference > 0) && (
+        <div className="mb-4 flex flex-wrap items-center gap-1 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-1 sm:w-fit">
+          {([
+            ["tous", locale.startsWith("fr") ? "Toutes" : "All", categoriesTout.reduce((n, c) => n + c.slides.length, 0)],
+            ...(nbJournee > 0 ? [["journee", locale.startsWith("fr") ? "Journée investisseurs" : "Investor day", nbJournee]] : []),
+            ...(nbConference > 0 ? [["conference", locale.startsWith("fr") ? "Conférence" : "Conference", nbConference]] : []),
+          ] as Array<["tous" | "journee" | "conference", string, number]>).map(([k, l, n]) => (
+            <button
+              key={k}
+              type="button"
+              onClick={() => { setEvFiltre(k); setActive(0); }}
+              className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
+                evFiltre === k ? "bg-white/[0.08] text-zinc-50" : "text-zinc-400 hover:text-zinc-100"
+              }`}
+            >
+              {l}<span className="ml-1.5 font-mono text-[10.5px] text-zinc-500">{n}</span>
+            </button>
+          ))}
+        </div>
+      )}
 
       {mur && (
         <KpiStoriesMur slides={allSlides} ticker={company.ticker} accent={accent} freeBlocked={freeBlocked} locale={locale} />

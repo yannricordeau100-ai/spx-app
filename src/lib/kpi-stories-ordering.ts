@@ -188,7 +188,8 @@ export function buildStories(
     if (!k.is_short_history && !storySansDrapeau) continue;
     if (!isStoryKpiUsable(k)) continue;
     // 9 sept 2026 : pas de doublon des indicateurs cles. 15 sept 2026 (Yann) : aucun KPI de style standard dans les stories.
-    if (estFamilleGenerique(k) || estKpiStandard(k) || estDoublonDuTableau(k, tableau) || estRepetitionDeFamille(k, famillesTab)) continue;
+    // 7 oct 2026 : les stories d evenement (journee investisseurs, conference) sont des annonces de la societe, jamais des doublons du tableau.
+    if (k._source !== "evenement" && (estFamilleGenerique(k) || estKpiStandard(k) || estDoublonDuTableau(k, tableau) || estRepetitionDeFamille(k, famillesTab))) continue;
     const cat = k.story_category || DEFAULT_CATEGORY;
     if (!buckets.has(cat)) buckets.set(cat, []);
     buckets.get(cat)!.push({ kind: "kpi", data: k });

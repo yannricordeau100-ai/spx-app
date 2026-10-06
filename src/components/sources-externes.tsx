@@ -11,11 +11,13 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronRight, Lock } from "lucide-react";
 import SOURCES from "@/data/sources-externes.json";
 
-export function SourcesExternes({ ticker, paid }: { ticker: string; paid: boolean }) {
+export function SourcesExternes({ ticker, paid, extra }: { ticker: string; paid: boolean; extra?: string[] }) {
   // Yann 16 sept 2026 : Motley Fool et Wikipédia ne sont pas comptés comme sources.
   // Yann 21 sept 2026 : MarketBeat puis StockAnalysis retirés de la liste affichée.
   const ECARTEES = /motley fool|wikip|marketbeat|stockanalysis/i;
   const liste = (((SOURCES as { par_ticker: Record<string, string[]> }).par_ticker ?? {})[ticker.toUpperCase()] ?? []).filter((x) => !ECARTEES.test(x));
+  // 7 oct 2026 : sources des journees investisseurs et conferences, ici seulement (jamais dans les stories).
+  for (const x of extra ?? []) if (!liste.includes(x)) liste.push(x);
   const [ouvert, setOuvert] = useState(false);
   const boite = useRef<HTMLDivElement | null>(null);
   useEffect(() => {

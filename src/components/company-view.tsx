@@ -2461,7 +2461,7 @@ export function CompanyView({
             Rendu seulement quand la fiche porte des market_positions, c est a
             dire apres arbitrage du proprietaire dans /sandbox/tam et pose
             (scripts/tam-pose.py). Deux segments au plus. */}
-        {isBlockEnabled("tam", company.ticker) && company.market_positions && company.market_positions.length > 0 && (
+        {isBlockEnabled("tam", company.ticker) && ((company.market_positions && company.market_positions.length > 0) || (company.evenement?.tam?.length ?? 0) > 0) && (
           <section data-blur="tam" className="mt-9 animate-fade-up-d2">
             <div className="mb-4 flex items-end justify-between">
               <div>
@@ -2469,14 +2469,39 @@ export function CompanyView({
                 <p className="mt-0.5 text-[13.5px] text-zinc-300">Part de marché de la société sur ses segments clés, comparée à la taille totale du marché visé.</p>
               </div>
               <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
-                {company.market_positions.length} segment{company.market_positions.length > 1 ? "s" : ""}
+                {(company.market_positions ?? []).length} segment{(company.market_positions ?? []).length > 1 ? "s" : ""}
               </span>
             </div>
-            <div className={`grid gap-4 ${company.market_positions.length === 1 ? "grid-cols-1" : "lg:grid-cols-2"}`}>
-              {company.market_positions.slice(0, 2).map((p) => (
+            {(company.market_positions ?? []).length > 0 && (
+            <div className={`grid gap-4 ${company.market_positions!.length === 1 ? "grid-cols-1" : "lg:grid-cols-2"}`}>
+              {company.market_positions!.slice(0, 2).map((p) => (
                 <MarketPositionCard key={p.segment_name} company={company} position={p} wide={company.market_positions!.length === 1} />
               ))}
             </div>
+            )}
+            {/* 7 oct 2026 : marches adressables revendiques par la societe lors
+                d une journee investisseurs ou d une conference. Ajout, sans
+                remplacer les TAM existants, toujours etiquete. */}
+            {company.evenement && company.evenement.tam.length > 0 && (
+              <div className={`${(company.market_positions ?? []).length > 0 ? "mt-4" : ""} grid gap-3 sm:grid-cols-2`}>
+                {company.evenement.tam.map((t) => (
+                  <div
+                    key={t.libelle}
+                    data-evenement="1"
+                    data-blur-part="carte"
+                    className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4"
+                  >
+                    <div className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
+                      Déclaré par la société · {company.evenement!.nom}
+                    </div>
+                    <div className="mt-1 text-[15px] font-semibold text-zinc-100">{t.libelle}</div>
+                    <div className="mt-1 text-[22px] font-bold tabular-nums text-zinc-50">{t.valeur}</div>
+                    {t.detail && <div className="mt-1 text-[13px] text-zinc-400">{t.detail}</div>}
+                    <div className="mt-2 text-[12px] italic text-zinc-500">{company.evenement!.etiquette.charAt(0).toUpperCase() + company.evenement!.etiquette.slice(1)}</div>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         )}
           </div>
@@ -2557,6 +2582,7 @@ export function CompanyView({
                   companyName={company.name}
                   ticker={company.ticker}
                   freeBlocked={freeBlocked}
+                  evenement={company.evenement}
                 />
               </div>
             );
@@ -2623,7 +2649,7 @@ export function CompanyView({
         )}
         {/* Yann 21 sept 2026 : le bloc des sources passe tout en bas de la fiche,
             apres la these et l anti-these. */}
-        <div id="sec-sources" className="scroll-mt-24"><SourcesExternes ticker={company.ticker} paid={isPaidTier} /></div>
+        <div id="sec-sources" className="scroll-mt-24"><SourcesExternes ticker={company.ticker} paid={isPaidTier} extra={company.evenement?.sources} /></div>
         <p className="mt-10 max-w-3xl text-[11.5px] italic leading-relaxed text-zinc-500">
           {t("company.provenance")}
         </p>

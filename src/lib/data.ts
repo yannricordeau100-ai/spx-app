@@ -91,6 +91,13 @@ export type KPI = {
    * mode année, ["T1 21", ..., "T4 25"] en mode trimestre.
    */
   period_type?: "year" | "quarter" | "semester";
+  /** 7 oct 2026 : story issue d une journee investisseurs ou conference (_source "evenement"). */
+  _source?: string;
+  value_display?: string;
+  evenement_label?: string;
+  evenement_periode?: string;
+  evenement_groupe?: "journee" | "conference";
+  evenement_nom?: string;
 };
 
 export type Ranks = {
@@ -404,6 +411,8 @@ export type Company = {
   risks?: CompanyRisk[];
   /** AI positioning statement. Mandatory for V1 — if no mention, stance = "absent". */
   ai_positioning?: AIPositioning;
+  /** 7 oct 2026 : journee investisseurs ou conference (TAM declares, elements IA, sources). */
+  evenement?: import("./evenements-investisseurs").EvenementFiche;
   /** Governance / executive compensation from DEF 14A. */
   governance?: Governance;
   /**

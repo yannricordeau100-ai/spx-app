@@ -50,12 +50,15 @@ export function AIPositioningCard({
   companyName,
   ticker,
   freeBlocked = false,
+  evenement,
 }: {
   positioning?: AIPositioning;
   companyName: string;
   ticker: string;
   /** Yann (25 mai 2026) : floute summary + evidence en mode free. */
   freeBlocked?: boolean;
+  /** 7 oct 2026 : elements IA annonces lors d une journee investisseurs ou conference. */
+  evenement?: { nom: string; etiquette: string; ia: Array<{ sujet: string; detail: string }> };
 }) {
   const { t } = useT();
   const accent = brand(ticker).primary;
@@ -202,6 +205,31 @@ export function AIPositioningCard({
           </div>
           );
         })()}
+
+        {evenement && evenement.ia.length > 0 && (
+          <div className="mt-5">
+            <div className="mb-2.5 font-mono text-[12px] uppercase tracking-wider text-zinc-300">
+              Annoncé lors de {evenement.nom}
+            </div>
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {evenement.ia.map((x) => (
+                <li
+                  key={x.sujet}
+                  data-evenement="1"
+                  data-blur-part="citation"
+                  className="flex items-start gap-2.5 rounded-lg border border-[#1a1a1a] bg-[#0a0a0a] p-3 text-[15px] leading-snug text-zinc-200"
+                >
+                  <Zap className="mt-0.5 size-4 shrink-0" style={{ color: meta.color }} />
+                  <BlurredFreeText blocked={freeBlocked} ticker={ticker} as="span">
+                    <span className="font-semibold text-zinc-100">{x.sujet}</span>
+                    {x.detail ? <>{" : "}{x.detail}</> : null}
+                    <span className="mt-1 block text-[12px] italic text-zinc-500">{evenement.etiquette.charAt(0).toUpperCase() + evenement.etiquette.slice(1)}</span>
+                  </BlurredFreeText>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* Yann 1er sept 2026 : ligne "Source : ir/URD/..." retiree de
             l affichage (chemin technique interne). La donnee reste stockee. */}

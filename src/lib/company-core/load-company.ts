@@ -3284,6 +3284,24 @@ async function loadV17CompanyBrut(
     }
   }
 
+  // 7 oct 2026 : journees investisseurs et conferences developpeurs
+  // (src/data/evenements/<ticker>.json, valide par Yann). Injecte APRES la
+  // couche kpis-haut et le dedoublonnage, sinon le remplacement l effacerait.
+  try {
+    const { chargerEvenement } = await import("@/lib/evenements-investisseurs");
+    const ev = await chargerEvenement(canonical);
+    if (ev) {
+      (company as Company & { evenement?: unknown }).evenement = ev.fiche;
+      if (ev.kpis.length > 0) {
+        const deja = new Set((company.kpis as AnyKPI[]).map((k) => String(k.short ?? "").toLowerCase()));
+        const neufs = ev.kpis.filter((k) => !deja.has(String(k.short ?? "").toLowerCase()));
+        company.kpis = [...(company.kpis as AnyKPI[]), ...(neufs as AnyKPI[])] as Company["kpis"];
+      }
+    }
+  } catch (err) {
+    console.warn("[load-company] evenements load failed", err);
+  }
+
   return { kind: "ready", company };
 }
 

@@ -245,10 +245,12 @@ export function KpiStoryCard({ slide, ticker, freeBlocked = false }: { slide: St
 /* -------- KPI card (short-history) — format portrait mobile 9:16 -------- */
 function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI; accent: string; glow: string; ticker: string; freeBlocked?: boolean }) {
   const { t, locale } = useT();
-  const periodLabel = formatStoryPeriod(kpi, ticker, locale);
+  const estEvenement = kpi._source === "evenement";
+  const periodLabel = estEvenement ? (kpi.evenement_periode || null) : formatStoryPeriod(kpi, ticker, locale);
   return (
     <div
       data-blur-part="carte"
+      {...(kpi._source === "evenement" ? { "data-evenement": "1" } : {})}
       className="relative flex h-full flex-col overflow-hidden rounded-[36px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-4 pt-11"
       style={{ boxShadow: `inset 0 0 120px ${glow}` }}
     >
@@ -295,6 +297,11 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                 {periodLabel}
               </div>
             )}
+            {estEvenement && kpi.evenement_label && (
+              <div className="mt-1 text-[12px] italic text-zinc-400">
+                {kpi.evenement_label.charAt(0).toUpperCase() + kpi.evenement_label.slice(1)}
+              </div>
+            )}
           </div>
           {/* Yann 17 juil 2026 : badge catégorie déplacé au-dessus de la
               barre de temps (rendu dans StoryFrame), retiré du header. */}
@@ -329,19 +336,19 @@ function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI;
                   gauche et la droite → auto-shrink + overflow-hidden +
                   wordBreak pour matcher la branche freeBlocked au-dessus. */}
               <div className="w-full max-w-full px-1">
-                <ValeurSvg texte={espacesLarges(storyFmt(kpi.value, kpi.unit).value)} />
+                <ValeurSvg texte={espacesLarges(estEvenement && kpi.value_display ? kpi.value_display : storyFmt(kpi.value, kpi.unit).value)} />
               </div>
-              {storyFmt(kpi.value, kpi.unit).unit && (
+              {(estEvenement ? kpi.unit : storyFmt(kpi.value, kpi.unit).unit) && (
                 /* Yann 30 aout 2026 : une unite longue ("bouteilles/canettes")
                    coupait un mot en deux. On reduit la police selon la
                    longueur et on ne casse plus qu aux espaces ou au slash. */
                 <div
                   className={`mt-2 max-w-full overflow-hidden font-bold text-zinc-100 ${
-                    storyFmt(kpi.value, kpi.unit).unit.length > 14 ? "text-[22px]" : "text-[32px]"
+                    (estEvenement ? kpi.unit : storyFmt(kpi.value, kpi.unit).unit).length > 14 ? "text-[22px]" : "text-[32px]"
                   }`}
                   style={{ wordBreak: "normal", overflowWrap: "normal" }}
                 >
-                  {storyFmt(kpi.value, kpi.unit).unit.replace(/\//g, " / ")}
+                  {(estEvenement ? kpi.unit : storyFmt(kpi.value, kpi.unit).unit).replace(/\//g, " / ")}
                 </div>
               )}
               {!freeBlocked && kpi.yoy && typeof kpi.yoy === "string" && kpi.yoy.toLowerCase() !== "n/a" && (
