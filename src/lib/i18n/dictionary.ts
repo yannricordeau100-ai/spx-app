@@ -100,7 +100,7 @@ export const DICTIONARY: Dict = {
     de: "Diagramme und Schemata - Mettrik AI Analytics / Marktdaten",
   },
   "image_findings.section_subtitle": {
-    fr: "Sources variées agrégées et synthétisées pour analyse rapide.",
+    fr: "Sources variées agrégées et synthétisées pour analyse rapide. Peut contenir des graphiques portant sur tout ou partie d'une société fortement dépendante (fournisseur ou client).",
     en: "Various sources aggregated and synthesized for quick analysis.",
     de: "Verschiedene Quellen aggregiert und für eine schnelle Analyse synthetisiert.",
   },

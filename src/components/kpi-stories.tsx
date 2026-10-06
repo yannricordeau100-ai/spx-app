@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Download, Pause, Play } from "lucide-react";
+import { Check, ChevronDown, ChevronLeft, ChevronRight, Download, Pause, Play } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Company } from "@/lib/data";
 import { brand } from "@/lib/brand";
@@ -13,6 +13,14 @@ import { useT } from "@/lib/i18n/provider";
 import { useSwipeStories } from "@/lib/hooks/use-swipe-stories";
 import { storyFamily, orderedFamilies, type StoryFamilyKey } from "@/lib/story-family";
 import { isStoriesPilot } from "@/lib/stories-pilot";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { KpiStoriesMur } from "@/components/kpi-stories-mur";
+
+/** Style d affichage choisi par l utilisateur (ordinateur uniquement).
+ *  Stockage : user_metadata.story_style (Supabase) si connecte, sinon
+ *  localStorage. Le mobile garde toujours le style story. */
+type StoryStyle = "story" | "mur";
+const STYLE_KEY = "mettrik:story-style";
 
 /**
  * Bloc Stories — KPIs short-history + MarketPositions présentés en
@@ -145,6 +153,42 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
     if (active >= total) setActive(0);
   }, [active, total]);
 
+  // Style d affichage : « story » par defaut (rendu serveur), prefere lu cote
+  // client apres hydratation (pas d erreur d hydratation).
+  const [style, setStyle] = useState<StoryStyle>("story");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [connecte, setConnecte] = useState(false);
+  useEffect(() => {
+    let annule = false;
+    try {
+      const v = window.localStorage.getItem(STYLE_KEY);
+      if (v === "story" || v === "mur") setStyle(v);
+    } catch { /* stockage indisponible */ }
+    void (async () => {
+      try {
+        const { data } = await createSupabaseBrowserClient().auth.getUser();
+        if (annule || !data.user) return;
+        setConnecte(true);
+        const r = data.user.user_metadata?.story_style;
+        if (r === "story" || r === "mur") {
+          setStyle(r);
+          try { window.localStorage.setItem(STYLE_KEY, r); } catch { /* ignore */ }
+        }
+      } catch { /* visiteur ou reseau : on garde le local */ }
+    })();
+    return () => { annule = true; };
+  }, []);
+  const choisirStyle = (v: StoryStyle) => {
+    setStyle(v);
+    setMenuOpen(false);
+    try { window.localStorage.setItem(STYLE_KEY, v); } catch { /* ignore */ }
+    if (connecte) {
+      void createSupabaseBrowserClient().auth.updateUser({ data: { story_style: v } }).catch(() => {});
+    }
+  };
+  const isDesktop = slots === 3;
+  const mur = isDesktop && style === "mur";
+
   // Swipe drag souris/doigt : prev/next sur le groupe entier.
   const swipeRef = useRef<HTMLDivElement>(null);
   useSwipeStories(swipeRef, { onPrev: goPrev, onNext: goNext });
@@ -188,6 +232,38 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
         <div>
           <h2 className="text-[22px] font-semibold text-zinc-50">{t("stories.title")}</h2>
         </div>
+        <div className="flex items-center gap-3">
+        {isDesktop && (
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-haspopup="listbox"
+              aria-expanded={menuOpen}
+              className="inline-flex items-center gap-1.5 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] px-3 py-1.5 text-[12px] font-medium text-zinc-300 transition-colors hover:text-white"
+            >
+              {style === "mur" ? "Mur de cartes" : "Story"}
+              <ChevronDown className={`size-3.5 transition-transform ${menuOpen ? "rotate-180" : ""}`} />
+            </button>
+            {menuOpen && (
+              <div role="listbox" className="absolute right-0 z-40 mt-1.5 w-44 rounded-xl border border-white/10 bg-[#0c0c10] p-1 shadow-xl">
+                {([["story", "Story"], ["mur", "Mur de cartes"]] as const).map(([k, l]) => (
+                  <button
+                    key={k}
+                    type="button"
+                    role="option"
+                    aria-selected={style === k}
+                    onClick={() => choisirStyle(k)}
+                    className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-[12.5px] text-zinc-200 hover:bg-white/[0.06]"
+                  >
+                    {l}{style === k && <Check className="size-3.5 text-violet-300" />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+        {!mur && (
         <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
           {Math.min(active + visible, total)} / {total}
           {/* Catégorie hors dictionnaire : t() renverrait la clé brute
@@ -197,10 +273,16 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
             return <> · {label.startsWith("stories.cat.") ? currentCategory : label}</>;
           })()}
         </span>
+        )}
+        </div>
       </div>
 
+      {mur && (
+        <KpiStoriesMur slides={allSlides} ticker={company.ticker} accent={accent} freeBlocked={freeBlocked} locale={locale} />
+      )}
+
       {/* Barre de rangement (pilote) : familles, fraicheur, vedettes. */}
-      {pilot && (
+      {pilot && !mur && (
         <div className="mb-5 flex flex-nowrap items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible sm:pb-0">
           <div className="flex shrink-0 flex-nowrap items-center gap-1 sm:flex-wrap rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-1">
             <button
@@ -270,7 +352,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
 
       {/* Rangée de frames + flèches latérales. La rangée est centrée pour
           gérer proprement le cas "moins de frames que de slots". */}
-      <div className="relative" ref={swipeRef}>
+      <div className="relative" ref={swipeRef} hidden={mur}>
         {/* Bouton précédent — extérieur gauche (visible dès qu'il y a plus
             de stories que de slots affichés). */}
         {total > visible && (
@@ -321,7 +403,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
 
       {/* Dots dock sous les frames : 1 dot par GROUPE (cliquable pour sauter
           au groupe). */}
-      {pageCount > 1 && (
+      {pageCount > 1 && !mur && (
         <div className="mt-5 flex justify-center gap-1.5">
           {Array.from({ length: pageCount }, (_, p) => (
             <button

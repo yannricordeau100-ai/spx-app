@@ -43,7 +43,7 @@ export function DisclaimerFooter({ variant = "full" }: { variant?: "full" | "com
             </div>
             <p className="mt-4 max-w-md text-[12.5px] leading-relaxed text-zinc-400">
               <strong>Mettrik AI</strong> est un site d&apos;analyse boursière pour investisseurs particuliers. Il présente,
-              pour plus de 650 grandes sociétés cotées aux États-Unis et en Europe, les indicateurs clés (KPI) qui
+              pour les grandes sociétés cotées aux États-Unis et en Europe, les indicateurs clés (KPI) qui
               expliquent leurs résultats : chiffres trimestriels et historiques, scores, risques et synthèses des
               conférences de résultats, tirés des documents officiels des sociétés. Informations fournies à titre
               informatif, sans conseil en investissement ; tout investissement comporte un risque de perte en capital.
