@@ -95,7 +95,16 @@ const RULES: Array<{ key: StoryFamilyKey; re: RegExp }> = [
  * Famille d'un KPI story. `jalons` est le repli : un chiffre marquant qui
  * n'entre dans aucune catégorie reste visible, il n'est jamais écarté.
  */
-export function storyFamily(kpi: Pick<KPI, "name_fr" | "name_en" | "short" | "unit">): StoryFamilyKey {
+export function storyFamily(kpi: Pick<KPI, "name_fr" | "name_en" | "short" | "unit"> & { evenement_groupe?: string; story_category?: string }): StoryFamilyKey {
+  // 7 oct 2026 : stories d evenement (journee investisseurs, conference) rangees
+  // d apres la categorie posee a l extraction, pas d apres un motif de libelle.
+  if (kpi.evenement_groupe) {
+    const parCat: Record<string, StoryFamilyKey> = {
+      Adoption: "usage", "Capacité": "capacite", Objectifs: "jalons", Capital: "bilan",
+      Clients: "clients", Innovation: "innovation", Perspectives: "jalons",
+    };
+    return parCat[kpi.story_category ?? ""] ?? "jalons";
+  }
   let label = `${kpi.name_fr ?? ""} ${kpi.name_en ?? ""} ${kpi.short ?? ""}`;
   // "Same Store" est un terme comptable (périmètre constant), pas un magasin :
   // sans cette neutralisation, les revenus à périmètre constant d AvalonBay

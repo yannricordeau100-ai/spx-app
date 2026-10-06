@@ -48,7 +48,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
   const [evFiltre, setEvFiltre] = useState<"tous" | "journee" | "conference">("tous");
   const categoriesTout = buildStories(company.kpis, []);
   const estEv = (sl: StorySlide, g: "journee" | "conference") =>
-    sl.kind === "kpi" && sl.data._source === "evenement" && sl.data.evenement_groupe === g;
+    sl.kind === "kpi" && sl.data.evenement_groupe === g;
   const nbJournee = categoriesTout.reduce((n, c) => n + c.slides.filter((sl) => estEv(sl, "journee")).length, 0);
   const nbConference = categoriesTout.reduce((n, c) => n + c.slides.filter((sl) => estEv(sl, "conference")).length, 0);
   const categories = evFiltre === "tous"
@@ -56,7 +56,10 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
     : categoriesTout
         .map((c) => ({ ...c, slides: c.slides.filter((sl) => estEv(sl, evFiltre)) }))
         .filter((c) => c.slides.length > 0);
-  const allSlides = categories.flatMap((c) => c.slides);
+  // Les stories d evenement passent en tete (annonces recentes de la societe).
+  const allSlides = categories.flatMap((c) => c.slides).sort(
+    (a, b) => Number(b.kind === "kpi" && !!b.data.evenement_groupe) - Number(a.kind === "kpi" && !!a.data.evenement_groupe),
+  );
 
   /* ── Rangement des stories (pilote 10 sociétés, Yann 26 aout 2026) ──────────
      Certaines fiches cumulent 40 a 70 stories : sans tri, la decomposition

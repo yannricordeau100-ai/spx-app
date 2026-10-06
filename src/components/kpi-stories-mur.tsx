@@ -51,7 +51,7 @@ function enCarte(sl: StorySlide, i: number, ticker: string, locale: string): Car
     };
   }
   const k = sl.data as KPI;
-  const ev = k._source === "evenement";
+  const ev = !!k.evenement_groupe;
   const f = ev ? { value: k.value_display ?? String(k.value ?? ""), unit: k.unit ?? "" } : storyFmt(k.value, k.unit);
   const a = (k as { approx?: string }).approx;
   const hist = Array.isArray(k.history) ? (k.history as unknown[]) : [];
@@ -121,7 +121,7 @@ export function KpiStoriesMur({
   const tabs = useMemo(() => orderedFamilies(new Set(cartes.map((c) => c.famille))), [cartes]);
   const liste = useMemo(() => {
     const l = famille === "toutes" ? [...cartes] : cartes.filter((c) => c.famille === famille);
-    return l.sort((a, b) => b.date - a.date);
+    return l.sort((a, b) => Number(b.evenement) - Number(a.evenement) || b.date - a.date);
   }, [cartes, famille]);
   const n = liste.length;
   const label = (k: StoryFamilyKey) => {

@@ -245,12 +245,12 @@ export function KpiStoryCard({ slide, ticker, freeBlocked = false }: { slide: St
 /* -------- KPI card (short-history) — format portrait mobile 9:16 -------- */
 function KpiCard({ kpi, accent, glow, ticker, freeBlocked = false }: { kpi: KPI; accent: string; glow: string; ticker: string; freeBlocked?: boolean }) {
   const { t, locale } = useT();
-  const estEvenement = kpi._source === "evenement";
+  const estEvenement = !!kpi.evenement_groupe;
   const periodLabel = estEvenement ? (kpi.evenement_periode || null) : formatStoryPeriod(kpi, ticker, locale);
   return (
     <div
       data-blur-part="carte"
-      {...(kpi._source === "evenement" ? { "data-evenement": "1" } : {})}
+      {...(!!kpi.evenement_groupe ? { "data-evenement": "1" } : {})}
       className="relative flex h-full flex-col overflow-hidden rounded-[36px] bg-gradient-to-br from-[#101015] via-[#0a0a0e] to-[#060608] px-5 pb-4 pt-11"
       style={{ boxShadow: `inset 0 0 120px ${glow}` }}
     >
