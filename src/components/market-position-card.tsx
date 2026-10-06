@@ -50,6 +50,63 @@ export function sansMentionSource(texte: string): string {
     .trim();
 }
 
+/**
+ * 7 oct 2026 (Yann) : plus aucune source dans le « i » de la position marché.
+ * Retire le fragment « Source : ... », puis les phrases de la note qui nomment
+ * un éditeur d'études ou un organisme (liste ci-dessous, plus l'éditeur de la
+ * source du segment quand elle n'est pas un document de la société). La
+ * source reste dans le mini bloc de sources du bas.
+ */
+const EDITEURS_TIERS = [
+  "IBISWorld", "Fortune Business Insights", "Mordor Intelligence", "MarketsandMarkets",
+  "Global Market Insights", "Precedence Research", "IMARC", "Statista", "Grand View Research",
+  "Gartner", "Boston Consulting Group", "BCG", "Federal Deposit Insurance", "FDIC",
+  "Coalition Greenwich", "Business Research Company", "Business Research Insights",
+  "Burton-Taylor", "Census Bureau", "Bureau du recensement", "IDC", "SEMI", "S&P Global Market Intelligence",
+  "Synergy Research", "Département de la Défense", "Atlas Magazine", "eMarketer", "TrendForce",
+  "Transport Intelligence", "Agence internationale de l", "World Semiconductor Trade Statistics",
+  "Market Research Future", "PwC", "Structure Research", "Future Market Insights", "Swiss Re",
+  "National Association of Insurance Commissioners", "Agence européenne de défense", "FIEC",
+  "IQVIA", "Bain", "Phocuswright", "Cruise Market Watch", "Yole", "Oliver Wyman", "IATA",
+  "Eurostat", "Omdia", "USGS", "Market Data Forecast", "Euromonitor", "GlobalData", "Newzoo",
+  "ResearchAndMarkets", "Research and Markets", "Expert Market Research", "LightCounting",
+  "Counterpoint", "Sensor Tower", "Dell'Oro", "Dell Oro", "Novaspace", "Evaluate", "Allianz",
+  "Armstrong et Associates", "Congressional Research Service", "Centers for Medicare",
+];
+const SOURCE_DE_LA_SOCIETE = /pr[ée]sentation|journ[ée]e investisseurs|communiqu[ée]|prospectus|rapport annuel|investor|formulaire|document d['’ ]enregistrement/i;
+
+function echapper(s: string) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+export function noteMethodologie(note: string, source?: string | null): string {
+  const base = sansMentionSource(note);
+  const noms = [...EDITEURS_TIERS];
+  if (source && !SOURCE_DE_LA_SOCIETE.test(source)) {
+    const editeur = source.split(/\s*[,:(]\s*/)[0].trim();
+    if (editeur.length > 3) noms.push(editeur);
+  }
+  const re = new RegExp(`(?<![\\p{L}\\p{N}])(?:${noms.map(echapper).join("|")})(?![\\p{L}\\p{N}])`, "u");
+  return base
+    .split(/(?<=[.!?])\s+/)
+    .filter((phrase) => !re.test(phrase))
+    .join(" ")
+    .trim();
+}
+
+/**
+ * 7 oct 2026 : « Estimation indicative » seulement pour une valeur dont la
+ * source n'est ni un document officiel de la societe ni un lien verifiable
+ * (lien dans la note ou dans source_url). Une valeur sourcee n'a plus de
+ * mention ; une valeur sans lien la garde en attendant la decision de Yann.
+ */
+export function estimationIndicative(position: MarketPosition): boolean {
+  if (!position.source || isOfficialSource(position.source)) return false;
+  const lien = /https?:\/\//i;
+  const p = position as MarketPosition & { source_url?: string };
+  return !(lien.test(p.source_note ?? "") || lien.test(position.source) || lien.test(p.source_url ?? ""));
+}
+
 export function MarketPositionCard({
   company,
   position,
@@ -82,8 +139,8 @@ export function MarketPositionCard({
               >
                 Méthodologie
               </div>
-              {position.source_note && (
-                <p className="text-[12px] leading-relaxed text-zinc-300">{sansMentionSource(normalizeNarrative(position.source_note))}</p>
+              {position.source_note && noteMethodologie(position.source_note, position.source) && (
+                <p className="text-[12px] leading-relaxed text-zinc-300">{noteMethodologie(normalizeNarrative(position.source_note), position.source)}</p>
               )}
               {position.tam_range && (
                 <p className="mt-2 text-[11.5px] italic text-zinc-400">
@@ -199,8 +256,8 @@ export function MarketPositionCard({
         </div>
       )}
 
-      {!(position.source && !isOfficialSource(position.source)) && !wide && <div aria-hidden />}
-      {position.source && !isOfficialSource(position.source) && (
+      {!estimationIndicative(position) && !wide && <div aria-hidden />}
+      {estimationIndicative(position) && (
         <div data-blur-part="source" className="mt-3 text-[11px] italic text-zinc-400">
           Estimation indicative.
         </div>

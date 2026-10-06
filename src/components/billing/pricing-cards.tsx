@@ -1,5 +1,6 @@
 "use client";
 
+import { PLAN_COLORS } from "@/lib/billing/plan-colors";
 import Link from "next/link";
 import { useState } from "react";
 import { Check, Sparkles, ArrowRight, Lock } from "lucide-react";
@@ -74,7 +75,10 @@ export function PricingCards({
     const ca = px?.[currency]?.annual?.amount;
     const m = cm && cm > 0 ? cm : px?.EUR?.monthly?.amount ?? p.price_monthly_eur;
     const a = cm && cm > 0 ? ca : px?.EUR?.annual?.amount ?? p.price_annual_eur;
-    return m && a && m > 0 && a > 0 ? Math.round((1 - a / (m * 12)) * 100) : 0;
+    if (!(m && a && m > 0 && a > 0)) return 0;
+    const r = Math.round((1 - a / (m * 12)) * 100);
+    // Yann 7 oct 2026 : -29 % affiche -30 %.
+    return r === 29 ? 30 : r;
   }).filter((r) => r > 0);
   const remiseMax = remises.length > 0 ? Math.max(...remises) : 0;
 
@@ -397,7 +401,7 @@ function PricingCard({
   const cardStyle: React.CSSProperties | undefined = isHighlight
     ? { borderColor: `${plan.accent}66` }
     : isMax
-      ? { borderColor: "rgba(251,191,36,0.35)" }
+      ? { borderColor: PLAN_COLORS.maxBorderRgba }
       : undefined;
 
   return (
@@ -421,7 +425,7 @@ function PricingCard({
       <h3
         className="font-display text-[22px] font-bold tracking-tight"
         style={{
-          color: isFreeTier ? "#a1a1aa" : isMax ? "#fbbf24" : plan.accent,
+          color: isFreeTier ? PLAN_COLORS.freeName : isMax ? PLAN_COLORS.maxGold : plan.accent,
         }}
       >
         {plan.name}
@@ -465,7 +469,7 @@ function PricingCard({
                 <>
                   {t("pricing.card.billed_annually_prefix")} <strong className="whitespace-nowrap text-zinc-300">{displayAnnual.toFixed(2).replace(".", ",").replace(",00", "")}&nbsp;{currencySymbol}</strong> {t("pricing.card.billed_annually_suffix")}
                   {displayMonthly > 0 && displayAnnual > 0 && displayAnnual < displayMonthly * 12 && (
-                    <span className="ml-1 whitespace-nowrap text-emerald-300">· Soit −{Math.round((1 - displayAnnual / (displayMonthly * 12)) * 100)}&nbsp;% vs mensuel</span>
+                    <span className="ml-1 whitespace-nowrap text-emerald-300">· Soit −{((r) => (r === 29 ? 30 : r))(Math.round((1 - displayAnnual / (displayMonthly * 12)) * 100))}&nbsp;% vs mensuel</span>
                   )}
                 </>
               ) : (
@@ -631,14 +635,19 @@ function CtaButton({
     disabled
       ? "border border-white/10 bg-white/[0.02] text-zinc-500 cursor-not-allowed"
       : isHighlight
-        ? "bg-[#7c3aed] text-white shadow-lg shadow-violet-500/20 hover:bg-[#6d28d9] hover:shadow-violet-500/30"
+        ? "bg-[var(--btn-bg)] text-[var(--btn-text)] shadow-lg shadow-violet-500/20 hover:bg-[var(--btn-hover)] hover:shadow-violet-500/30"
         : plan === "max"
-          ? "border border-[#fbbf24] bg-transparent text-[#fbbf24] hover:bg-[#fbbf24]/10"
+          ? "border border-[var(--btn-gold)] bg-transparent text-[var(--btn-gold)] hover:bg-[var(--btn-gold)]/10"
           : "border border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.07]"
   }`;
   // Yann 4 oct 2026 : un seul bouton plein, celui de Premium (violet fonce, contraste 5,7:1) ;
   // Max en contour or pour ne plus rivaliser avec le forfait recommande.
-  const style: React.CSSProperties | undefined = undefined;
+  const style = {
+    "--btn-bg": PLAN_COLORS.premiumButton,
+    "--btn-hover": PLAN_COLORS.premiumButtonHover,
+    "--btn-text": PLAN_COLORS.buttonText,
+    "--btn-gold": PLAN_COLORS.maxGold,
+  } as React.CSSProperties;
 
   if (disabled) {
     return (

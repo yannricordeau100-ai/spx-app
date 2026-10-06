@@ -87,6 +87,13 @@ print(','.join(reversed(ms)))")
   else
     echo "aucun transcript modifie en 24 h : pas de synthese a refaire"
   fi
+  echo "=== $(date '+%F %T') evenements investisseurs : extraction des evenements detectes (J+2), peremption 24 mois ==="
+  # 7 oct 2026 : la file .conv-state/evenements-a-traiter.json est alimentee le
+  # lundi 6h15 par scripts/evenements-veille.py. Extraction par moteurs GRATUITS
+  # seulement (jamais Claude, regle 0terdecies), depot dans
+  # data-lake/<T>/evenement/dernier.json ; rien dans src/data/evenements sans feu vert de Yann.
+  nice -n 10 python3 scripts/evenements-veille.py --extraire || true
+  nice -n 10 python3 scripts/evenements-veille.py --perimer || true
   echo "=== $(date '+%F %T') dates du data-lake (reference /sandbox/synchro) ==="
   # 13 sept 2026 (Yann) : doublons de KPI retires automatiquement (serie la
   # plus longue gardee), puis alerte rouge independante des mises a jour.

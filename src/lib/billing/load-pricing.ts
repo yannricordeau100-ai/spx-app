@@ -276,7 +276,25 @@ export async function loadPricingCatalog(targetCurrency?: string): Promise<Loade
     }
 
     // Construit FeatureRow[] depuis la BDD
-    const features: FeatureRow[] = featRes.data.map((f) => {
+    // Ordre des categories (BO : Gerer les categories) : rang = plus petit
+    // category_order de la categorie ; tri stable, feature_order conserve
+    // a l interieur d une categorie. Sans categorie = en premier.
+    const catRank = new Map<string, number>();
+    for (const f of featRes.data) {
+      const c = ((f.category as string) ?? "").trim();
+      const o = typeof f.category_order === "number" ? f.category_order : 99;
+      catRank.set(c, Math.min(catRank.get(c) ?? Infinity, o));
+    }
+    const rankOf = (f: { category?: unknown }) => {
+      const c = ((f.category as string) ?? "").trim();
+      return c === "" ? -1 : catRank.get(c) ?? 99;
+    };
+    const sortedRows = featRes.data
+      .map((f, i) => ({ f, i }))
+      .sort((a, b) => rankOf(a.f) - rankOf(b.f) || a.i - b.i)
+      .map((x) => x.f);
+
+    const features: FeatureRow[] = sortedRows.map((f) => {
       const vals = valuesByCode.get(f.code) ?? new Map<PlanTier, string>();
       const get = (tier: PlanTier): string | boolean => {
         const v = vals.get(tier);

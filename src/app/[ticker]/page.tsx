@@ -33,6 +33,7 @@ import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { getUserCourant } from "@/lib/supabase/server";
 import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
 import { estAdminOutilsFiche, chargeCoursFmp } from "@/lib/admin/outils-admin-fiche";
+import { EvenementsRepere } from "@/components/evenements-repere";
 import { CoursKpiBlock } from "@/components/admin/cours-kpi-block";
 import { KpiSurMesureBlock, type DonneesDividendes } from "@/components/admin/kpi-sur-mesure-block";
 import DIVIDENDES_TOP5 from "@/data/admin-dividendes-top5.json";
@@ -441,6 +442,8 @@ export default async function TickerPage({
 
   return (
     <>
+      {/* Yann 7 oct 2026 : repere rouge des ajouts d evenements, admin seulement (jamais sur mettrik.ai). */}
+      {adminOutils && <EvenementsRepere />}
       <FicheJsonLd
         ticker={servedCompany.ticker}
         nom={servedCompany.name}

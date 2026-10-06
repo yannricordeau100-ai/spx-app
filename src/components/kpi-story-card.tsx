@@ -20,7 +20,7 @@ export function storyFmt(value: string | number | null | undefined, unit?: strin
 import { InfoTooltip } from "@/components/info-tooltip";
 import { normalizeNarrative } from "@/lib/ui-fix-templates";
 import { useT } from "@/lib/i18n/provider";
-import { sansMentionSource } from "@/components/market-position-card";
+import { noteMethodologie } from "@/components/market-position-card";
 import { useId, useLayoutEffect, useRef, useState } from "react";
 import { kpiPeriodLabel } from "@/lib/period-label";
 import { isFiscalShifted } from "@/lib/fiscal-calendar";
@@ -416,7 +416,7 @@ function MarketPositionStoryCard({
   const sharePct = tamUsable ? (mp.segment_revenue / (mp.tam as number)) * 100 : null;
   // Yann 21 sept 2026 : plus aucune source dans la carte, seule la note de
   // methode reste, nettoyee de toute mention de source.
-  const methode = mp.source_note ? sansMentionSource(mp.source_note) : "";
+  const methode = mp.source_note ? noteMethodologie(mp.source_note, mp.source) : "";
   // Meme blindage que la carte KPI : le gros chiffre ne doit jamais sortir de
   // la carte, quelle que soit la police ou la largeur d ecran.
 

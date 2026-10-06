@@ -13,6 +13,7 @@ import {
   type Currency,
   type Frequency,
 } from "@/lib/billing/admin-types";
+import { planColorSpec, type PlanTierKey } from "@/lib/billing/plan-colors";
 
 type Tab = "plans" | "prices" | "features" | "promos" | "stripe" | "taglines";
 
@@ -252,7 +253,7 @@ function PlansSection({
               {/* Ligne haut : nom, badges, boutons */}
               <div className="mb-3 flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3">
-                  <span className="mt-1 inline-block size-3 shrink-0 rounded-full" style={{ background: d.accent_color || "#a78bfa" }} />
+                  <span className="mt-1 inline-block size-3 shrink-0 rounded-full" style={{ background: planColorSpec((d.code ?? "").toLowerCase() === "premium" ? "premium" : (d.code ?? "").toLowerCase() === "max" ? "max" : "free", d.accent_color || "#a78bfa").name.hex }} />
                   <div>
                     <div className="font-display text-[18px] font-bold">{d.name_fr}</div>
                     <div className="font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">{d.code}</div>
@@ -293,11 +294,13 @@ function PlansSection({
                 </div>
               </div>
 
+              <PlanColorPreview code={d.code ?? p.code} accent={d.accent_color ?? "#a78bfa"} />
+
               {/* Champs éditables */}
               {isEditing ? (
                 <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
                   <FieldRow label="Code" value={d.code ?? ""} onChange={(v) => setDraft({ ...draft, code: v })} mono />
-                  <FieldRow label="Couleur (hex)" value={d.accent_color ?? "#a78bfa"} onChange={(v) => setDraft({ ...draft, accent_color: v })} mono placeholder="#a78bfa" />
+                  <FieldRow label="Couleur d'accent Premium (hex)" value={d.accent_color ?? "#a78bfa"} onChange={(v) => setDraft({ ...draft, accent_color: v })} mono placeholder="#a78bfa" />
                   <FieldRow label="Ordre d'affichage" value={String(d.tier_order ?? 0)} onChange={(v) => setDraft({ ...draft, tier_order: parseInt(v) || 0 })} />
 
                   <FieldRow label="Nom (FR)" value={d.name_fr ?? ""} onChange={(v) => setDraft({ ...draft, name_fr: v })} />
@@ -342,6 +345,56 @@ function PlansSection({
       </div>
     </div>
   );
+}
+
+function PlanColorPreview({ code, accent }: { code: string; accent: string }) {
+  const c = (code ?? "").toLowerCase();
+  const tier: PlanTierKey = c === "premium" ? "premium" : c === "max" ? "max" : "free";
+  const spec = planColorSpec(tier, accent || "#a78bfa");
+  const sw = (hex: string) => <span className="inline-block size-3 rounded-sm border border-white/20" style={{ background: hex }} />;
+  return (
+    <div className="mt-3 rounded-lg border border-white/[0.06] bg-white/[0.02] p-3 text-[11.5px]">
+      <div className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+        Couleurs reelles sur la page publique (lues dans le code de la page)
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="font-display text-[18px] font-bold" style={{ color: spec.name.hex }}>{planLabelOf(code)}</span>
+        <span
+          className="rounded-lg px-4 py-1.5 text-[12px] font-bold"
+          style={{
+            background: spec.button.outline ? "transparent" : spec.button.hex,
+            color: spec.button.text,
+            border: spec.button.outline ? `1px solid ${spec.button.hex}` : "1px solid rgba(255,255,255,0.1)",
+          }}
+        >
+          Bouton
+        </span>
+        {spec.badge && (
+          <span
+            className="rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-900"
+            style={{ background: spec.badge.gradient ? "linear-gradient(90deg,#fbbf24,#fcd34d,#fbbf24)" : spec.badge.hex, color: spec.badge.gradient ? "#18181b" : "#fafafa" }}
+          >
+            {tier === "max" ? "Pro" : "Recommande"}
+          </span>
+        )}
+        <span className="inline-block h-8 w-16 rounded-lg border-2" style={{ borderColor: tier === "max" ? "rgba(251,191,36,0.35)" : tier === "premium" ? `${spec.border.hex}66` : "rgba(255,255,255,0.08)" }} />
+      </div>
+      <ul className="mt-2 space-y-0.5 font-mono text-[11px] text-zinc-400">
+        <li className="flex items-center gap-1.5">{sw(spec.name.hex)} {spec.name.label} : {spec.name.hex}</li>
+        <li className="flex items-center gap-1.5">{sw(spec.border.hex)} {spec.border.label} : {spec.border.hex}</li>
+        <li className="flex items-center gap-1.5">{sw(spec.button.hex)} {spec.button.label} : fond {spec.button.outline ? "transparent, contour " : ""}{spec.button.hex}{spec.button.hover ? `, survol ${spec.button.hover}` : ""}, texte {spec.button.text}</li>
+        {spec.badge && <li className="flex items-center gap-1.5">{sw(spec.badge.hex)} {spec.badge.label} : {spec.badge.hex}</li>}
+      </ul>
+      <p className="mt-1.5 text-[10px] text-zinc-500">
+        Seul le champ Couleur (hex) est reglable : il pilote nom, bordure et badge de Premium. Les autres teintes sont fixees dans src/lib/billing/plan-colors.ts.
+      </p>
+    </div>
+  );
+}
+
+function planLabelOf(code: string) {
+  const c = (code ?? "").toLowerCase();
+  return c === "premium" ? "Premium" : c === "max" ? "Max" : "Gratuit";
 }
 
 function IconBtn({ children, onClick, disabled, title }: { children: React.ReactNode; onClick: () => void; disabled?: boolean; title?: string }) {
@@ -612,10 +665,12 @@ function PriceInput({ defaultValue, onSave, disabled }: { defaultValue: number; 
 function CategoriesManagerPanel({
   features,
   onRename,
+  onMove,
   disabled,
 }: {
   features: PricingFeature[];
   onRename: (oldName: string, newName: string) => Promise<void>;
+  onMove: (orderedNames: string[], index: number, dir: -1 | 1) => Promise<void>;
   disabled: boolean;
 }) {
   // Compte les features par catégorie. Filtre "" (sans catégorie) :
@@ -626,7 +681,15 @@ function CategoriesManagerPanel({
     if (!c) continue;
     counts.set(c, (counts.get(c) ?? 0) + 1);
   }
-  const usedCategories = Array.from(counts.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+  const rank = new Map<string, number>();
+  for (const f of features) {
+    const c = (f.category ?? "").trim();
+    if (!c) continue;
+    rank.set(c, Math.min(rank.get(c) ?? Infinity, f.category_order ?? 99));
+  }
+  const usedCategories = Array.from(counts.entries()).sort(
+    (a, b) => (rank.get(a[0]) ?? 99) - (rank.get(b[0]) ?? 99) || a[0].localeCompare(b[0]),
+  );
   const [editing, setEditing] = useState<string | null>(null);
   const [editValue, setEditValue] = useState<string>("");
   const [savingFor, setSavingFor] = useState<string | null>(null);
@@ -650,7 +713,7 @@ function CategoriesManagerPanel({
         Gérer les catégories ({usedCategories.length})
       </div>
       <div className="flex flex-wrap gap-2">
-        {usedCategories.map(([name, count]) => {
+        {usedCategories.map(([name, count], idx) => {
           const isEditing = editing === name;
           const isSaving = savingFor === name;
           return (
@@ -691,8 +754,15 @@ function CategoriesManagerPanel({
                 </>
               ) : (
                 <>
+                  <span className="font-mono text-[10px] text-zinc-500">{idx + 1}</span>
                   <span className="font-medium text-zinc-200">{name}</span>
                   <span className="text-[10px] text-zinc-500">{count}</span>
+                  <button type="button" disabled={disabled || idx === 0} onClick={() => void onMove(usedCategories.map((u) => u[0]), idx, -1)} className="rounded p-0.5 text-zinc-400 hover:bg-white/5 hover:text-zinc-200 disabled:opacity-30" title="Monter (affichee plus haut sur la page publique)">
+                    <ArrowUp className="size-3" />
+                  </button>
+                  <button type="button" disabled={disabled || idx === usedCategories.length - 1} onClick={() => void onMove(usedCategories.map((u) => u[0]), idx, 1)} className="rounded p-0.5 text-zinc-400 hover:bg-white/5 hover:text-zinc-200 disabled:opacity-30" title="Descendre">
+                    <ArrowDown className="size-3" />
+                  </button>
                   <button
                     type="button"
                     onClick={() => { setEditing(name); setEditValue(name); }}
@@ -709,7 +779,7 @@ function CategoriesManagerPanel({
         })}
       </div>
       <p className="mt-2 text-[10px] text-zinc-500">
-        Renommer une catégorie ici met à jour toutes les features qui l&apos;utilisent en BDD. Vide = sans catégorie (affichée en haut de la matrice publique).
+        L'ordre des puces (fleches) est l'ordre d'affichage des categories sur la page /pricing publique. Renommer une catégorie ici met à jour toutes les features qui l&apos;utilisent en BDD. Vide = sans catégorie (affichée en haut de la matrice publique).
       </p>
     </div>
   );
@@ -904,6 +974,15 @@ function FeaturesSection({
     });
     await refresh();
   }
+  async function moveCategory(names: string[], index: number, dir: -1 | 1) {
+    const next = [...names];
+    const j = index + dir;
+    if (j < 0 || j >= next.length) return;
+    [next[index], next[j]] = [next[j], next[index]];
+    await api("/api/billing/admin/features/reorder-categories", "POST", { order: next });
+    await refresh();
+  }
+
   const categoriesSet = new Set<string>(["Général", ...extraCategories]);
   for (const f of features) if (f.category) categoriesSet.add(f.category);
   const categories = Array.from(categoriesSet).sort();
@@ -991,6 +1070,7 @@ function FeaturesSection({
       <CategoriesManagerPanel
         features={features}
         onRename={renameCategoryGlobal}
+        onMove={moveCategory}
         disabled={busy}
       />
 

@@ -87,6 +87,18 @@ def largeur_texte(t: str, taille: float, mono: bool = False) -> float:
     return total * taille
 
 
+# 7 oct 2026 : etiquettes de valeur obliques (40 degres) quand l horizontale ne tient pas.
+import math
+ANGLE_OBL = 40
+SIN_OBL = math.sin(math.radians(ANGLE_OBL))
+COS_OBL = math.cos(math.radians(ANGLE_OBL))
+
+
+def largeur_oblique(t: str, taille: float) -> float:
+    """Emprise horizontale d un texte mono penche de ANGLE_OBL degres."""
+    return largeur_texte(t, taille, mono=True) * COS_OBL + taille * 0.7 * SIN_OBL
+
+
 def unite_pourcent(suffixe: str) -> bool:
     """Le suffixe est-il un pourcentage ( %, %, ...) ?"""
     return suffixe.strip() == "%"
@@ -178,7 +190,10 @@ def construit(spec: dict, theme: str) -> str:
     # Yann 21 sept 2026 : un pourcentage ne se repete pas sur chaque barre,
     # il est porte une seule fois par l axe vertical.
     pourcent = unite_pourcent(suffixe)
-    suffixe_barres = "" if pourcent else suffixe
+    # 7 oct 2026 : meme regle pour toute unite deja portee par l axe vertical
+    # (Mds $, M$, milliers...) : elle ne se repete pas sur chaque barre.
+    marque_axe = "%" if pourcent else unite_axe_deduite(spec)
+    suffixe_barres = "" if (pourcent or marque_axe) else suffixe
     for i, s in enumerate(series):
         s.setdefault("couleur", ORDRE[i % len(ORDRE)])
 
@@ -227,7 +242,6 @@ def construit(spec: dict, theme: str) -> str:
     # ou le libelle d unite de la spec (champ « unite_axe », par exemple
     # « milliers » ou « M$ »), est ecrit une seule fois au milieu de l axe
     # vertical, a gauche des graduations, sans jamais les toucher.
-    marque_axe = "%" if pourcent else unite_axe_deduite(spec)
     if marque_axe:
         # Yann 25 sept 2026 : l unite se lit en haut de l axe vertical, juste
         # au dessus de la graduation la plus haute, sans la toucher, a
@@ -294,24 +308,30 @@ def construit(spec: dict, theme: str) -> str:
                         f'font-size="{taille_h:g}" font-family="ui-monospace">{echappe(etiquette)}</text>'
                     )
             else:
-                # Barres serrees : etiquette verticale, sinon les valeurs se chevauchent.
-                taille = max(8.5, min(10.5, barre_w - 1.5))
+                # Barres serrees : 7 oct 2026, etiquette oblique (environ 40 degres)
+                # au lieu de verticale, contenue dans la largeur de la barre.
+                taille = 8.5
+                for essai in (10.0, 9.5, 9.0, 8.5, 8.0):
+                    if largeur_oblique(etiquette, essai) <= barre_w - 2:
+                        taille = essai
+                        break
                 longueur = largeur_texte(etiquette, taille, mono=True)
-                x_lab = cx + taille * 0.34  # centre le texte tourne dans la barre
-                if sommet - 6 - longueur >= 4:
+                montee = longueur * SIN_OBL + taille * COS_OBL * 0.7  # hauteur occupee
+                x_lab = cx - largeur_oblique(etiquette, taille) / 2 + taille * 0.6
+                if sommet - 5 - montee >= 2:
                     out.append(
-                        f'<text x="{x_lab:.0f}" y="{sommet - 6:.0f}" text-anchor="start" fill="{c["titre"]}" '
+                        f'<text x="{x_lab:.0f}" y="{sommet - 5:.0f}" text-anchor="start" fill="{c["titre"]}" '
                         f'font-size="{taille:g}" font-family="ui-monospace" '
-                        f'transform="rotate(-90 {x_lab:.0f} {sommet - 6:.0f})">{echappe(etiquette)}</text>'
+                        f'transform="rotate(-{ANGLE_OBL} {x_lab:.0f} {sommet - 5:.0f})">{echappe(etiquette)}</text>'
                     )
                 else:
                     # Barre trop haute : l etiquette descend dans la barre plutot
                     # que de sortir du cadre (jamais tronquee).
-                    y_lab = max(sommet + 8, 8.0)
+                    y_lab = max(sommet, 0.0) + montee + 3
                     out.append(
-                        f'<text x="{x_lab:.0f}" y="{y_lab:.0f}" text-anchor="end" fill="{ENCRE_SUR_BARRE}" '
+                        f'<text x="{x_lab:.0f}" y="{y_lab:.0f}" text-anchor="start" fill="{ENCRE_SUR_BARRE}" '
                         f'font-size="{taille:g}" font-family="ui-monospace" '
-                        f'transform="rotate(-90 {x_lab:.0f} {y_lab:.0f})">{echappe(etiquette)}</text>'
+                        f'transform="rotate(-{ANGLE_OBL} {x_lab:.0f} {y_lab:.0f})">{echappe(etiquette)}</text>'
                     )
         # Beaucoup de periodes : une etiquette sur n, sinon elles se chevauchent.
         # 29 sept 2026 (NFLX « juin 2026juil. 2026 ») : le pas tient compte de

@@ -209,6 +209,25 @@ export async function renameCategory(oldName: string, newName: string): Promise<
   return { updated: (data ?? []).length };
 }
 
+/**
+ * Fixe l ordre d affichage des categories sur la page publique :
+ * category_order = (rang + 1) * 10 pour toutes les features de la categorie.
+ */
+export async function setCategoryOrder(order: string[]): Promise<{ updated: number }> {
+  const supa = adminClient();
+  let updated = 0;
+  for (let i = 0; i < order.length; i++) {
+    const { data, error } = await supa
+      .from("pricing_features")
+      .update({ category_order: (i + 1) * 10 })
+      .eq("category", order[i])
+      .select("id");
+    if (error) throw error;
+    updated += (data ?? []).length;
+  }
+  return { updated };
+}
+
 /** Swap feature_order entre 2 features (utilisé par les flèches up/down du back office). */
 export async function swapFeatureOrders(idA: string, idB: string): Promise<void> {
   const supa = adminClient();
