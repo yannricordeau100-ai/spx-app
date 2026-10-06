@@ -5,14 +5,14 @@
  "stats": {
   "societes_traitees": 671,
   "societes_couverture_complete": 3,
-  "societes_couverture_partielle": 625,
-  "societes_couverture_nulle": 43,
+  "societes_couverture_partielle": 627,
+  "societes_couverture_nulle": 41,
   "distribution_taux_couverture_pct": {
-   "0": 43,
-   "1-24": 121,
-   "25-49": 246,
-   "50-74": 220,
-   "75-99": 38,
+   "0": 41,
+   "1-24": 117,
+   "25-49": 250,
+   "50-74": 221,
+   "75-99": 39,
    "100": 3
   },
   "seuil_correspondance": 0.6
@@ -10270,37 +10270,43 @@
   "BE": {
    "code_gics": "20104010",
    "sous_industrie_fr": "Composants & équipements électriques",
-   "kpi_servis_sur_fiche": 12,
+   "kpi_servis_sur_fiche": 57,
    "total_attendus": 7,
-   "presents": 1,
+   "presents": 2,
    "absents_donnee_existe": 0,
-   "absents_donnee_inexistante": 0,
-   "absents_non_evalues": 6,
-   "non_applicables": 0,
-   "taux_couverture": 0.143,
+   "absents_donnee_inexistante": 4,
+   "absents_non_evalues": 0,
+   "non_applicables": 1,
+   "taux_couverture": 0.333,
    "indicateurs": [
     {
      "short": "ORDERS_ORGANIC",
      "nom_fr": "Croissance organique des commandes",
      "nom_en": "Organic orders growth",
      "distinctif": true,
-     "statut": "absent_non_evalue",
+     "statut": "absent_donnee_inexistante",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue"
+     "statut_cahier": "non_trouve",
+     "correspondance_rejetee": {
+      "code_sur_fiche": "revenue_growth_yoy_q",
+      "nom_sur_fiche_fr": "Croissance annuelle du chiffre d'affaires trimestriel",
+      "methode": "libelle_fr_en",
+      "score": 0.285
+     }
     },
     {
      "short": "BOOK_TO_BILL",
      "nom_fr": "Ratio commandes / facturations",
      "nom_en": "Book-to-bill ratio",
      "distinctif": true,
-     "statut": "absent_non_evalue",
+     "statut": "absent_donnee_inexistante",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "non_trouve",
      "correspondance_rejetee": {
-      "code_sur_fiche": "total_revenue_q",
-      "nom_sur_fiche_fr": "Chiffre d'affaires trimestriel",
-      "methode": "libelle_en_fr",
-      "score": 0.12
+      "code_sur_fiche": "rd_ratio_q",
+      "nom_sur_fiche_fr": "Recherche et développement rapportée aux ventes",
+      "methode": "type_comparable_en_fr",
+      "score": 0.143
      }
     },
     {
@@ -10324,14 +10330,15 @@
      "nom_fr": "Croissance organique du chiffre d'affaires",
      "nom_en": "Organic revenue growth",
      "distinctif": false,
-     "statut": "absent_non_evalue",
-     "sur_fiche": false,
-     "statut_cahier": "non_evalue",
-     "correspondance_rejetee": {
-      "code_sur_fiche": "total_revenue_q",
-      "nom_sur_fiche_fr": "Chiffre d'affaires trimestriel",
-      "methode": "libelle_en_en",
-      "score": 0.093
+     "statut": "present_sur_fiche",
+     "sur_fiche": true,
+     "statut_cahier": "trouve",
+     "nom_sur_fiche_fr": "Croissance annuelle du chiffre d'affaires trimestriel",
+     "nom_sur_fiche_en": "Quarterly revenue growth year over year",
+     "code_sur_fiche": "revenue_growth_yoy_q",
+     "correspondance": {
+      "methode": "libelle_fr_mixte",
+      "score": 0.735
      }
     },
     {
@@ -10339,14 +10346,14 @@
      "nom_fr": "Chiffre d'affaires efficacité énergétique et renouvelables",
      "nom_en": "Revenue from renewable and energy-efficiency products",
      "distinctif": true,
-     "statut": "absent_non_evalue",
+     "statut": "non_applicable",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "autre",
      "correspondance_rejetee": {
-      "code_sur_fiche": "electricity_revenue",
-      "nom_sur_fiche_fr": "Chiffre d'affaires électricité (contrats d'achat d'électricité)",
-      "methode": "type_comparable_fr_fr",
-      "score": 0.45
+      "code_sur_fiche": "electricity_revenue_q",
+      "nom_sur_fiche_fr": "Chiffre d'affaires électricité trimestriel",
+      "methode": "libelle_fr_fr",
+      "score": 0.467
      }
     },
     {
@@ -10354,14 +10361,14 @@
      "nom_fr": "Marge incrémentale",
      "nom_en": "Incremental margin",
      "distinctif": false,
-     "statut": "absent_non_evalue",
+     "statut": "absent_donnee_inexistante",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "non_trouve",
      "correspondance_rejetee": {
-      "code_sur_fiche": "gross_margin_total",
-      "nom_sur_fiche_fr": "Marge brute totale",
-      "methode": "libelle_en_fr",
-      "score": 0.165
+      "code_sur_fiche": "ng_gross_margin_q",
+      "nom_sur_fiche_fr": "Marge brute ajustée",
+      "methode": "libelle_fr_fr",
+      "score": 0.166
      }
     },
     {
@@ -10369,14 +10376,14 @@
      "nom_fr": "Rappels de produits",
      "nom_en": "Product recalls",
      "distinctif": false,
-     "statut": "absent_non_evalue",
+     "statut": "absent_donnee_inexistante",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "non_trouve",
      "correspondance_rejetee": {
-      "code_sur_fiche": "product_gross_margin",
-      "nom_sur_fiche_fr": "Marge brute produit",
+      "code_sur_fiche": "systems_accepted",
+      "nom_sur_fiche_fr": "Systèmes acceptés (équivalents 100 kW)",
       "methode": "libelle_en_en",
-      "score": 0.124
+      "score": 0.203
      }
     }
    ]
@@ -26291,14 +26298,14 @@
   "EDEN.PA": {
    "code_gics": "40201060",
    "sous_industrie_fr": "Traitement des transactions & paiements",
-   "kpi_servis_sur_fiche": 11,
+   "kpi_servis_sur_fiche": 43,
    "total_attendus": 8,
-   "presents": 0,
+   "presents": 1,
    "absents_donnee_existe": 1,
    "absents_donnee_inexistante": 3,
    "absents_non_evalues": 3,
    "non_applicables": 1,
-   "taux_couverture": 0.0,
+   "taux_couverture": 0.125,
    "indicateurs": [
     {
      "short": "PAYMENT_VOLUME",
@@ -26341,9 +26348,16 @@
      "nom_fr": "Part des services à valeur ajoutée",
      "nom_en": "Value-added services share",
      "distinctif": true,
-     "statut": "non_applicable",
-     "sur_fiche": false,
-     "statut_cahier": "autre"
+     "statut": "present_sur_fiche",
+     "sur_fiche": true,
+     "statut_cahier": "autre",
+     "nom_sur_fiche_fr": "Part des solutions au-delà du repas (Beyond Food) dans le chiffre d'affaires opérationnel Avantages aux salariés",
+     "nom_sur_fiche_en": "Beyond Food share of Benefits & Engagement revenue",
+     "code_sur_fiche": "WEB_BEYOND_FOOD",
+     "correspondance": {
+      "methode": "alias_societe",
+      "score": 1.0
+     }
     },
     {
      "short": "ACTIVE_ACCOUNTS",
@@ -27804,22 +27818,28 @@
    "sous_industrie_fr": "Bourses & données financières",
    "kpi_servis_sur_fiche": 28,
    "total_attendus": 8,
-   "presents": 3,
-   "absents_donnee_existe": 1,
+   "presents": 4,
+   "absents_donnee_existe": 0,
    "absents_donnee_inexistante": 2,
    "absents_non_evalues": 2,
    "non_applicables": 0,
-   "taux_couverture": 0.375,
+   "taux_couverture": 0.5,
    "indicateurs": [
     {
      "short": "ADV",
      "nom_fr": "Volume quotidien moyen négocié",
      "nom_en": "Average daily volume",
      "distinctif": true,
-     "statut": "absent_fiche_donnee_existe",
-     "sur_fiche": false,
-     "statut_cahier": "existe",
-     "nom_en_ligne_cahier": "ADV_CASH"
+     "statut": "present_sur_fiche",
+     "sur_fiche": true,
+     "statut_cahier": "trouve",
+     "nom_sur_fiche_fr": "Volume quotidien moyen actions au comptant",
+     "nom_sur_fiche_en": "ADV Cash Market",
+     "code_sur_fiche": "ADV_CASH",
+     "correspondance": {
+      "methode": "rattachement_manuel",
+      "score": 1.0
+     }
     },
     {
      "short": "RPC",
@@ -31007,17 +31027,49 @@
    ]
   },
   "FDXF": {
-   "code_gics": "20304010",
-   "sous_industrie_fr": "Transport ferroviaire",
-   "kpi_servis_sur_fiche": 13,
-   "total_attendus": 7,
-   "presents": 1,
-   "absents_donnee_existe": 0,
-   "absents_donnee_inexistante": 0,
-   "absents_non_evalues": 6,
-   "non_applicables": 0,
-   "taux_couverture": 0.143,
+   "code_gics": "20304030",
+   "sous_industrie_fr": "Transport routier de marchandises",
+   "kpi_servis_sur_fiche": 49,
+   "total_attendus": 8,
+   "presents": 3,
+   "absents_donnee_existe": 2,
+   "absents_donnee_inexistante": 2,
+   "absents_non_evalues": 0,
+   "non_applicables": 1,
+   "taux_couverture": 0.429,
    "indicateurs": [
+    {
+     "short": "LTL_YIELD",
+     "nom_fr": "Recette par unité de poids",
+     "nom_en": "Revenue per hundredweight",
+     "distinctif": true,
+     "statut": "present_sur_fiche",
+     "sur_fiche": true,
+     "statut_cahier": "trouve",
+     "nom_sur_fiche_fr": "Revenu au quintal (100 livres)",
+     "nom_sur_fiche_en": "Revenue per hundredweight",
+     "code_sur_fiche": "rev_per_hundredweight_q",
+     "correspondance": {
+      "methode": "libelle_en_en",
+      "score": 1.0
+     }
+    },
+    {
+     "short": "DAILY_TONNAGE_SHIPMENTS",
+     "nom_fr": "Tonnage et expéditions quotidiens",
+     "nom_en": "Daily tonnage and shipments",
+     "distinctif": true,
+     "statut": "present_sur_fiche",
+     "sur_fiche": true,
+     "statut_cahier": "trouve",
+     "nom_sur_fiche_fr": "Tonnage quotidien",
+     "nom_sur_fiche_en": "Tonnage per day",
+     "code_sur_fiche": "tonnage_j_q",
+     "correspondance": {
+      "methode": "libelle_fr_fr",
+      "score": 0.68
+     }
+    },
     {
      "short": "OPERATING_RATIO",
      "nom_fr": "Ratio d'exploitation",
@@ -31025,7 +31077,7 @@
      "distinctif": true,
      "statut": "present_sur_fiche",
      "sur_fiche": true,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "trouve",
      "nom_sur_fiche_fr": "Ratio d exploitation",
      "nom_sur_fiche_en": "Operating ratio",
      "code_sur_fiche": "OP_RATIO_FY",
@@ -31035,69 +31087,72 @@
      }
     },
     {
-     "short": "CARLOADS",
-     "nom_fr": "Wagons chargés",
-     "nom_en": "Carloads",
+     "short": "LOADS_AND_REVENUE_PER_LOAD",
+     "nom_fr": "Chargements et recette par chargement",
+     "nom_en": "Loads and revenue per load",
      "distinctif": true,
-     "statut": "absent_non_evalue",
+     "statut": "non_applicable",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue"
-    },
-    {
-     "short": "REVENUE_PER_CARLOAD",
-     "nom_fr": "Recette moyenne par wagon",
-     "nom_en": "Revenue per carload",
-     "distinctif": true,
-     "statut": "absent_non_evalue",
-     "sur_fiche": false,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "autre",
      "correspondance_rejetee": {
-      "code_sur_fiche": "rev_q",
-      "nom_sur_fiche_fr": "Chiffre d'affaires",
-      "methode": "libelle_en_en",
-      "score": 0.144
+      "code_sur_fiche": "ADV_FY",
+      "nom_sur_fiche_fr": "Envois moyens par jour, exercice",
+      "methode": "type_comparable_en_en",
+      "score": 0.599
      }
     },
     {
-     "short": "TRAIN_SPEED_DWELL",
-     "nom_fr": "Vitesse des trains et temps d'immobilisation",
-     "nom_en": "Train speed and terminal dwell",
+     "short": "DRIVER_TURNOVER",
+     "nom_fr": "Rotation des conducteurs",
+     "nom_en": "Driver turnover",
      "distinctif": true,
-     "statut": "absent_non_evalue",
+     "statut": "absent_fiche_donnee_existe",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue"
-    },
-    {
-     "short": "FUEL_EFFICIENCY",
-     "nom_fr": "Efficacité énergétique de la traction",
-     "nom_en": "Fuel efficiency",
-     "distinctif": false,
-     "statut": "absent_non_evalue",
-     "sur_fiche": false,
-     "statut_cahier": "non_evalue"
-    },
-    {
-     "short": "SAFETY_INCIDENT_RATE",
-     "nom_fr": "Taux d'accidents et de déraillements",
-     "nom_en": "Accident and derailment rate",
-     "distinctif": false,
-     "statut": "absent_non_evalue",
-     "sur_fiche": false,
-     "statut_cahier": "non_evalue"
-    },
-    {
-     "short": "CAPEX_TO_SALES",
-     "nom_fr": "Investissements rapportés au chiffre d'affaires",
-     "nom_en": "Capex to sales",
-     "distinctif": false,
-     "statut": "absent_non_evalue",
-     "sur_fiche": false,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "trouve_partiel",
      "correspondance_rejetee": {
-      "code_sur_fiche": "rev_q",
-      "nom_sur_fiche_fr": "Chiffre d'affaires",
+      "code_sur_fiche": "revenue_annuel",
+      "nom_sur_fiche_fr": "Chiffre d’affaires",
       "methode": "libelle_en_en",
-      "score": 0.24
+      "score": 0.107
+     }
+    },
+    {
+     "short": "TRACTOR_UTILIZATION",
+     "nom_fr": "Utilisation des tracteurs et remorques",
+     "nom_en": "Tractor and trailer utilization",
+     "distinctif": false,
+     "statut": "absent_fiche_donnee_existe",
+     "sur_fiche": false,
+     "statut_cahier": "trouve_partiel",
+     "correspondance_rejetee": {
+      "code_sur_fiche": "ADV_FY",
+      "nom_sur_fiche_fr": "Envois moyens par jour, exercice",
+      "methode": "type_comparable_en_fr_partie",
+      "score": 0.274
+     }
+    },
+    {
+     "short": "EMPTY_MILES",
+     "nom_fr": "Kilomètres à vide",
+     "nom_en": "Empty miles",
+     "distinctif": false,
+     "statut": "absent_donnee_inexistante",
+     "sur_fiche": false,
+     "statut_cahier": "non_trouve"
+    },
+    {
+     "short": "FLEET_FUEL_EFFICIENCY",
+     "nom_fr": "Consommation moyenne de la flotte",
+     "nom_en": "Fleet fuel efficiency",
+     "distinctif": false,
+     "statut": "absent_donnee_inexistante",
+     "sur_fiche": false,
+     "statut_cahier": "non_trouve",
+     "correspondance_rejetee": {
+      "code_sur_fiche": "fuel_surcharge_shipment_q",
+      "nom_sur_fiche_fr": "Surcharge carburant par envoi",
+      "methode": "libelle_en_en",
+      "score": 0.122
      }
     }
    ]
@@ -31332,28 +31387,28 @@
   "FERG": {
    "code_gics": "20107010",
    "sous_industrie_fr": "Sociétés de négoce & distributeurs",
-   "kpi_servis_sur_fiche": 16,
+   "kpi_servis_sur_fiche": 74,
    "total_attendus": 8,
-   "presents": 1,
+   "presents": 3,
    "absents_donnee_existe": 0,
-   "absents_donnee_inexistante": 0,
-   "absents_non_evalues": 7,
-   "non_applicables": 0,
-   "taux_couverture": 0.125,
+   "absents_donnee_inexistante": 1,
+   "absents_non_evalues": 0,
+   "non_applicables": 4,
+   "taux_couverture": 0.75,
    "indicateurs": [
     {
      "short": "DAILY_SALES_GROWTH",
      "nom_fr": "Croissance des ventes par jour ouvré",
      "nom_en": "Daily sales growth",
      "distinctif": true,
-     "statut": "absent_non_evalue",
+     "statut": "absent_donnee_inexistante",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "non_trouve",
      "correspondance_rejetee": {
       "code_sur_fiche": "ORGANIC_GROWTH_Q",
       "nom_sur_fiche_fr": "Croissance organique des ventes",
-      "methode": "libelle_fr_en",
-      "score": 0.366
+      "methode": "libelle_en_en",
+      "score": 0.373
      }
     },
     {
@@ -31363,10 +31418,10 @@
      "distinctif": false,
      "statut": "present_sur_fiche",
      "sur_fiche": true,
-     "statut_cahier": "non_evalue",
-     "nom_sur_fiche_fr": "Marge brute",
+     "statut_cahier": "trouve",
+     "nom_sur_fiche_fr": "Taux de marge brute",
      "nom_sur_fiche_en": "Gross margin",
-     "code_sur_fiche": "GROSS_MARGIN_FY",
+     "code_sur_fiche": "gross_margin_q",
      "correspondance": {
       "methode": "alias_corpus",
       "score": 0.96
@@ -31377,23 +31432,30 @@
      "nom_fr": "Rotation des stocks",
      "nom_en": "Inventory turns",
      "distinctif": false,
-     "statut": "absent_non_evalue",
-     "sur_fiche": false,
-     "statut_cahier": "non_evalue"
+     "statut": "present_sur_fiche",
+     "sur_fiche": true,
+     "statut_cahier": "trouve",
+     "nom_sur_fiche_fr": "Rotation des stocks",
+     "nom_sur_fiche_en": "Inventory turns",
+     "code_sur_fiche": "inventory_turns_q",
+     "correspondance": {
+      "methode": "libelle_en_en",
+      "score": 1.0
+     }
     },
     {
      "short": "FLEET_TIME_UTILIZATION",
      "nom_fr": "Taux d'utilisation de la flotte",
      "nom_en": "Fleet time utilization",
      "distinctif": true,
-     "statut": "absent_non_evalue",
+     "statut": "non_applicable",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "autre",
      "correspondance_rejetee": {
       "code_sur_fiche": "FLEET_FY",
-      "nom_sur_fiche_fr": "Vehicules de livraison",
+      "nom_sur_fiche_fr": "Véhicules de livraison",
       "methode": "code_fiche_fr",
-      "score": 0.404
+      "score": 0.402
      }
     },
     {
@@ -31401,14 +31463,14 @@
      "nom_fr": "Rendement de la flotte",
      "nom_en": "Dollar utilization",
      "distinctif": true,
-     "statut": "absent_non_evalue",
+     "statut": "non_applicable",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "autre",
      "correspondance_rejetee": {
       "code_sur_fiche": "FLEET_FY",
-      "nom_sur_fiche_fr": "Vehicules de livraison",
+      "nom_sur_fiche_fr": "Véhicules de livraison",
       "methode": "code_fiche_fr",
-      "score": 0.428
+      "score": 0.426
      }
     },
     {
@@ -31416,14 +31478,14 @@
      "nom_fr": "Évolution des tarifs de location",
      "nom_en": "Rental rate change",
      "distinctif": true,
-     "statut": "absent_non_evalue",
+     "statut": "non_applicable",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "autre",
      "correspondance_rejetee": {
-      "code_sur_fiche": "ORGANIC_GROWTH_Q",
-      "nom_sur_fiche_fr": "Croissance organique des ventes",
+      "code_sur_fiche": "US_ORGANIC_GROWTH_Q",
+      "nom_sur_fiche_fr": "Croissance organique États-Unis",
       "methode": "libelle_en_mixte",
-      "score": 0.413
+      "score": 0.414
      }
     },
     {
@@ -31431,23 +31493,30 @@
      "nom_fr": "Cycle de conversion du cash",
      "nom_en": "Cash conversion cycle",
      "distinctif": false,
-     "statut": "absent_non_evalue",
-     "sur_fiche": false,
-     "statut_cahier": "non_evalue"
+     "statut": "present_sur_fiche",
+     "sur_fiche": true,
+     "statut_cahier": "trouve",
+     "nom_sur_fiche_fr": "Cycle de conversion de trésorerie (jours)",
+     "nom_sur_fiche_en": "Cash conversion cycle",
+     "code_sur_fiche": "ccc_q",
+     "correspondance": {
+      "methode": "libelle_en_en",
+      "score": 1.0
+     }
     },
     {
      "short": "NET_FLEET_CAPEX",
      "nom_fr": "Investissements nets dans la flotte",
      "nom_en": "Net rental capex",
      "distinctif": false,
-     "statut": "absent_non_evalue",
+     "statut": "non_applicable",
      "sur_fiche": false,
-     "statut_cahier": "non_evalue",
+     "statut_cahier": "autre",
      "correspondance_rejetee": {
       "code_sur_fiche": "FLEET_FY",
-      "nom_sur_fiche_fr": "Vehicules de livraison",
+      "nom_sur_fiche_fr": "Véhicules de livraison",
       "methode": "code_fiche_fr",
-      "score": 0.515
+      "score": 0.518
      }
     }
    ]
@@ -31576,27 +31645,27 @@
    "sous_industrie_fr": "Construction & ingénierie",
    "kpi_servis_sur_fiche": 35,
    "total_attendus": 7,
-   "presents": 1,
-   "absents_donnee_existe": 1,
+   "presents": 2,
+   "absents_donnee_existe": 0,
    "absents_donnee_inexistante": 2,
    "absents_non_evalues": 3,
    "non_applicables": 0,
-   "taux_couverture": 0.143,
+   "taux_couverture": 0.286,
    "indicateurs": [
     {
      "short": "BACKLOG",
      "nom_fr": "Carnet de commandes",
      "nom_en": "Backlog",
      "distinctif": true,
-     "statut": "absent_fiche_donnee_existe",
-     "sur_fiche": false,
-     "statut_cahier": "existe",
-     "nom_en_ligne_cahier": "BACKLOG_FY",
-     "correspondance_rejetee": {
-      "code_sur_fiche": "BACKLOG_CONSTR",
-      "nom_sur_fiche_fr": "Carnet Construction",
-      "methode": "libelle_en_en",
-      "score": 0.56
+     "statut": "present_sur_fiche",
+     "sur_fiche": true,
+     "statut_cahier": "trouve",
+     "nom_sur_fiche_fr": "Carnet de commandes",
+     "nom_sur_fiche_en": "Backlog",
+     "code_sur_fiche": "BACKLOG_FY",
+     "correspondance": {
+      "methode": "rattachement_manuel",
+      "score": 1.0
      }
     },
     {
@@ -32281,14 +32350,14 @@
   "FLEX": {
    "code_gics": "45203020",
    "sous_industrie_fr": "Sous-traitance électronique",
-   "kpi_servis_sur_fiche": 12,
+   "kpi_servis_sur_fiche": 47,
    "total_attendus": 8,
-   "presents": 0,
+   "presents": 2,
    "absents_donnee_existe": 1,
-   "absents_donnee_inexistante": 7,
+   "absents_donnee_inexistante": 5,
    "absents_non_evalues": 0,
    "non_applicables": 0,
-   "taux_couverture": 0.0,
+   "taux_couverture": 0.25,
    "indicateurs": [
     {
      "short": "CAPACITY_UTILIZATION",
@@ -32297,31 +32366,39 @@
      "distinctif": true,
      "statut": "absent_donnee_inexistante",
      "sur_fiche": false,
-     "statut_cahier": "non_trouve",
-     "correspondance_rejetee": {
-      "code_sur_fiche": "facilities_count",
-      "nom_sur_fiche_fr": "Sites de production",
-      "methode": "libelle_fr_fr",
-      "score": 0.497
-     }
+     "statut_cahier": "non_trouve"
     },
     {
      "short": "CASH_CYCLE",
      "nom_fr": "Cycle de conversion de trésorerie",
      "nom_en": "Cash conversion cycle",
      "distinctif": true,
-     "statut": "absent_donnee_inexistante",
-     "sur_fiche": false,
-     "statut_cahier": "non_trouve"
+     "statut": "present_sur_fiche",
+     "sur_fiche": true,
+     "statut_cahier": "trouve",
+     "nom_sur_fiche_fr": "Cycle de conversion de trésorerie (jours)",
+     "nom_sur_fiche_en": "Cash conversion cycle",
+     "code_sur_fiche": "ccc_q",
+     "correspondance": {
+      "methode": "libelle_en_en",
+      "score": 1.0
+     }
     },
     {
      "short": "CUSTOMER_CONCENTRATION",
      "nom_fr": "Concentration de la clientèle",
      "nom_en": "Customer concentration",
      "distinctif": true,
-     "statut": "absent_fiche_donnee_existe",
-     "sur_fiche": false,
-     "statut_cahier": "trouve"
+     "statut": "present_sur_fiche",
+     "sur_fiche": true,
+     "statut_cahier": "trouve",
+     "nom_sur_fiche_fr": "Concentration des 10 plus gros clients",
+     "nom_sur_fiche_en": "Top 10 Customer Concentration",
+     "code_sur_fiche": "top10_customer_concentration",
+     "correspondance": {
+      "methode": "type_comparable_en_en",
+      "score": 0.97
+     }
     },
     {
      "short": "PROGRAM_WINS",
@@ -32341,10 +32418,10 @@
      "sur_fiche": false,
      "statut_cahier": "non_trouve",
      "correspondance_rejetee": {
-      "code_sur_fiche": "buybacks_a",
-      "nom_sur_fiche_fr": "Rachats d'actions",
+      "code_sur_fiche": "sga_ratio_q",
+      "nom_sur_fiche_fr": "Frais commerciaux et administratifs rapportés aux ventes",
       "methode": "libelle_en_fr",
-      "score": 0.087
+      "score": 0.127
      }
     },
     {
@@ -32352,14 +32429,14 @@
      "nom_fr": "Rendement du capital investi",
      "nom_en": "Return on invested capital",
      "distinctif": true,
-     "statut": "absent_donnee_inexistante",
+     "statut": "absent_fiche_donnee_existe",
      "sur_fiche": false,
-     "statut_cahier": "non_trouve",
+     "statut_cahier": "trouve_partiel",
      "correspondance_rejetee": {
       "code_sur_fiche": "capex_a",
       "nom_sur_fiche_fr": "Investissements (Capex)",
-      "methode": "libelle_en_en",
-      "score": 0.073
+      "methode": "libelle_fr_en",
+      "score": 0.072
      }
     },
     {
@@ -32369,13 +32446,7 @@
      "distinctif": false,
      "statut": "absent_donnee_inexistante",
      "sur_fiche": false,
-     "statut_cahier": "non_trouve",
-     "correspondance_rejetee": {
-      "code_sur_fiche": "facilities_count",
-      "nom_sur_fiche_fr": "Sites de production",
-      "methode": "libelle_fr_fr",
-      "score": 0.316
-     }
+     "statut_cahier": "non_trouve"
     },
     {
      "short": "TRIR",
@@ -57856,14 +57927,14 @@
   "P911.DE": {
    "code_gics": "25102010",
    "sous_industrie_fr": "Constructeurs automobiles",
-   "kpi_servis_sur_fiche": 7,
+   "kpi_servis_sur_fiche": 38,
    "total_attendus": 8,
-   "presents": 1,
+   "presents": 2,
    "absents_donnee_existe": 1,
    "absents_donnee_inexistante": 3,
    "absents_non_evalues": 3,
    "non_applicables": 0,
-   "taux_couverture": 0.125,
+   "taux_couverture": 0.25,
    "indicateurs": [
     {
      "short": "DELIVERIES",
@@ -57874,12 +57945,12 @@
      "sur_fiche": true,
      "statut_cahier": "existe",
      "nom_en_ligne_cahier": "Vehicle Deliveries",
-     "nom_sur_fiche_fr": "Livraisons mondiales de Porsche Cayenne",
-     "nom_sur_fiche_en": "Worldwide Porsche Cayenne deliveries",
-     "code_sur_fiche": "CAYENNE_DELIVERIES",
+     "nom_sur_fiche_fr": "Livraisons de véhicules",
+     "nom_sur_fiche_en": "Vehicle Deliveries",
+     "code_sur_fiche": "Vehicle Deliveries",
      "correspondance": {
-      "methode": "type_comparable_fr_fr_partie",
-      "score": 0.675
+      "methode": "alias_societe",
+      "score": 1.0
      }
     },
     {
@@ -57896,14 +57967,15 @@
      "nom_fr": "Part des véhicules électrifiés dans les ventes",
      "nom_en": "Electrified vehicle sales mix",
      "distinctif": true,
-     "statut": "absent_fiche_donnee_existe",
-     "sur_fiche": false,
+     "statut": "present_sur_fiche",
+     "sur_fiche": true,
      "statut_cahier": "trouve",
-     "correspondance_rejetee": {
-      "code_sur_fiche": "BEV Share",
-      "nom_sur_fiche_fr": "Part BEV",
-      "methode": "libelle_en_en",
-      "score": 0.437
+     "nom_sur_fiche_fr": "Part des véhicules tout électriques",
+     "nom_sur_fiche_en": "Battery Electric Vehicle Mix",
+     "code_sur_fiche": "BEV Share",
+     "correspondance": {
+      "methode": "alias_societe",
+      "score": 1.0
      }
     },
     {
@@ -62246,7 +62318,7 @@
   "PUM.DE": {
    "code_gics": "25203020",
    "sous_industrie_fr": "Chaussures",
-   "kpi_servis_sur_fiche": 8,
+   "kpi_servis_sur_fiche": 47,
    "total_attendus": 8,
    "presents": 2,
    "absents_donnee_existe": 0,
@@ -62272,12 +62344,12 @@
      "statut": "present_sur_fiche",
      "sur_fiche": true,
      "statut_cahier": "trouve",
-     "nom_sur_fiche_fr": "Ventes Direct-to-Consumer",
-     "nom_sur_fiche_en": "Direct-to-Consumer Sales",
-     "code_sur_fiche": "DTC Sales",
+     "nom_sur_fiche_fr": "Part des ventes directes au consommateur",
+     "nom_sur_fiche_en": "Direct-to-Consumer Penetration",
+     "code_sur_fiche": "DTC_SHARE",
      "correspondance": {
-      "methode": "alias_corpus",
-      "score": 0.96
+      "methode": "alias_societe",
+      "score": 1.0
      }
     },
     {
@@ -63285,7 +63357,7 @@
   "RDDT": {
    "code_gics": "50203010",
    "sous_industrie_fr": "Médias & services interactifs",
-   "kpi_servis_sur_fiche": 17,
+   "kpi_servis_sur_fiche": 50,
    "total_attendus": 7,
    "presents": 2,
    "absents_donnee_existe": 0,
@@ -63302,12 +63374,12 @@
      "statut": "present_sur_fiche",
      "sur_fiche": true,
      "statut_cahier": "trouve",
-     "nom_sur_fiche_fr": "Daily Active Uniques Q4",
-     "nom_sur_fiche_en": "Daily Active Uniques (Q4 avg)",
-     "code_sur_fiche": "DAUq Q4",
+     "nom_sur_fiche_fr": "Utilisateurs actifs quotidiens moyens (DAUq)",
+     "nom_sur_fiche_en": "Daily Active Uniques (DAUq)",
+     "code_sur_fiche": "DAUQ",
      "correspondance": {
-      "methode": "libelle_fr_en",
-      "score": 0.605
+      "methode": "type_comparable_fr_fr_partie",
+      "score": 0.774
      }
     },
     {
@@ -63318,12 +63390,12 @@
      "statut": "present_sur_fiche",
      "sur_fiche": true,
      "statut_cahier": "trouve",
-     "nom_sur_fiche_fr": "Revenu moyen par utilisateur Q4",
-     "nom_sur_fiche_en": "Average Revenue Per Unique (Q4)",
-     "code_sur_fiche": "ARPU Q4",
+     "nom_sur_fiche_fr": "Revenu moyen par utilisateur unique (ARPU)",
+     "nom_sur_fiche_en": "Average revenue per unique (ARPU)",
+     "code_sur_fiche": "ARPU",
      "correspondance": {
-      "methode": "libelle_fr_en",
-      "score": 1.0
+      "methode": "type_comparable_en_en",
+      "score": 0.97
      }
     },
     {
@@ -63363,9 +63435,9 @@
      "statut_cahier": "non_trouve",
      "correspondance_rejetee": {
       "code_sur_fiche": "CA_AUTRES",
-      "nom_sur_fiche_fr": "Chiffre d'affaires hors publicite (licences de donnees)",
+      "nom_sur_fiche_fr": "Chiffre d'affaires hors publicite (licences de données)",
       "methode": "type_comparable_fr_fr",
-      "score": 0.085
+      "score": 0.084
      }
     },
     {
@@ -63378,9 +63450,9 @@
      "statut_cahier": "non_trouve",
      "correspondance_rejetee": {
       "code_sur_fiche": "CA_AUTRES",
-      "nom_sur_fiche_fr": "Chiffre d'affaires hors publicite (licences de donnees)",
+      "nom_sur_fiche_fr": "Chiffre d'affaires hors publicite (licences de données)",
       "methode": "type_comparable_fr_fr",
-      "score": 0.166
+      "score": 0.165
      }
     }
    ]
@@ -83370,5 +83442,16 @@
     }
    ]
   }
+ },
+ "maj_partielle": {
+  "date": "2026-10-06",
+  "societes": [
+   "FERG",
+   "RDDT",
+   "FLEX",
+   "FDXF",
+   "BE"
+  ],
+  "note": "Entrees recalculees pour ces cinq societes apres la mise a niveau des fiches ; les autres entrees sont inchangees."
  }
 }

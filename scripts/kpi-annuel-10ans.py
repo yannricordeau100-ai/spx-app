@@ -248,8 +248,40 @@ def _extrait(cik: str) -> dict | None:
     return (d.get("facts") or {}).get("us-gaap") or None
 
 
+# Societes dont l historique est reparti sur plusieurs CIK (changement d entite
+# emettrice) : on complete avec les depots 10-K de l ancienne entite.
+# FERG : Ferguson plc (1832433) jusqu a l exercice clos le 31/07/2023, puis
+# Ferguson Enterprises Inc. (2011641).
+AUTRES_CIK = {"FERG": ["1832433"]}
+
+# Series volontairement tronquees : Flex (exercices 2017 a 2020) classe les encaissements
+# des creances cedees en flux d investissement, ce qui rend le flux d exploitation XBRL
+# fortement negatif et sans rapport avec la tresorerie reelle. La fiche exclut deja ces
+# exercices de son flux d exploitation (controle qualite de septembre 2026) : on aligne.
+FCF_DEPUIS = {"FLEX": 2021}
+
+
+def _fusion(us: dict | None, extra: dict | None) -> dict | None:
+    if not extra:
+        return us
+    if not us:
+        return extra
+    out = dict(us)
+    for concept, bloc in extra.items():
+        if concept not in out:
+            out[concept] = bloc
+            continue
+        units = {k: list(v) for k, v in (out[concept].get("units") or {}).items()}
+        for u, entrees in (bloc.get("units") or {}).items():
+            units.setdefault(u, []).extend(entrees)
+        out[concept] = {**out[concept], "units": units}
+    return out
+
+
 def traite(ticker: str, cik: str) -> dict | None:
     us = _extrait(cik)
+    for c2 in AUTRES_CIK.get(ticker, []):
+        us = _fusion(us, _extrait(c2))
     annees_vues = len(valeurs_annuelles(us, CONCEPTS["revenue"], instant=False)) if us else 0
     if annees_vues < 5:
         autre = cik_du_datalake(ticker)
@@ -302,6 +334,8 @@ def traite(ticker: str, cik: str) -> dict | None:
         fcf[fy] = {"valeur": montant, "fin": o["fin"], "depose": o["depose"],
                    "concept": "flux_exploitation - investissements" if c else "flux_exploitation (investissements absents)",
                    "accn": o["accn"]}
+    if ticker in FCF_DEPUIS:
+        fcf = {an: v for an, v in fcf.items() if an >= FCF_DEPUIS[ticker]}
     res = {
         "ticker": ticker,
         "cik": int(cik),
