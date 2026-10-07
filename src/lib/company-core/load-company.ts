@@ -471,13 +471,21 @@ const CACHE_TTL_MS = 10 * 60_000;
  *
  * Duree longue assumee : ces donnees ne changent qu au deploiement.
  */
+// 7 oct 2026 : REVISION DU CHARGEUR dans la cle du cache partage. VERSION ne
+// change qu au push ; un deploiement qui modifie la logique du chargeur sans
+// changer VERSION re-servait les fiches mises en cache par l ancien code
+// (constate sur RMS.PA : hero_kpi ROC_MARGIN, sans hero_kpi_resolved, alors que
+// le code deploye choisit LEATHER_REV). A INCREMENTER a chaque changement de
+// logique du chargeur.
+const REVISION_CHARGEUR = "hero-select-1";
+
 const chargeAvecCachePartage = unstable_cache(
   async (ticker: string, mode: "v17" | "v18", locale: string): Promise<LoadOutcome> =>
     loadV17CompanyBrut(ticker, { mode, locale }),
   // 7 sept 2026 : la cle porte le numero de version, sinon le cache de donnees
   // partage survivait au deploiement et servait les anciennes fiches (NEM :
   // serie allongee invisible pendant 6 h apres la mise en ligne).
-  ["fiche-societe", VERSION],
+  ["fiche-societe", VERSION, REVISION_CHARGEUR],
   { revalidate: 21600, tags: ["fiches"] },
 );
 
