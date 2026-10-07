@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { BookOpen, LayoutGrid, Layers, LineChart, Mic, Target, AlertTriangle, Building2, Brain, Scale, Link2, ChevronDown, type LucideIcon } from "lucide-react";
+import { BookOpen, LayoutGrid, Layers, LineChart, Mic, Target, AlertTriangle, Building2, Brain, Scale, Link2, ShieldCheck, ChevronDown, type LucideIcon } from "lucide-react";
 import { brand } from "@/lib/brand";
 import { getHero, formatHeroValue, type Company, type KPI } from "@/lib/data";
 import { hasStories, buildStories } from "@/lib/kpi-stories-ordering";
@@ -46,6 +46,7 @@ const DEFS: { id: string; label: string; Icon: LucideIcon; apercu: string }[] = 
   { id: "resultats", label: "Résultats et transcripts", Icon: Mic, apercu: "Synthèse du dernier appel" },
   { id: "these", label: "Thèse et anti-thèse", Icon: Scale, apercu: "Cas favorable et cas défavorable" },
   { id: "sources", label: "Sources", Icon: Link2, apercu: "Documents et liens externes" },
+  { id: "admin", label: "Admin", Icon: ShieldCheck, apercu: "Cours de bourse et KPI sur-mesure (admin)" },
 ];
 
 type CoX = Company & { image_findings?: unknown[] };
@@ -76,7 +77,7 @@ function aResultats(f: FicheDemo): boolean {
 }
 
 /** Onglets disponibles pour la societe : une partie sans donnee n'a pas d'onglet. */
-export function ongletsDe(f: FicheDemo): Onglet[] {
+export function ongletsDe(f: FicheDemo, avecAdmin = false): Onglet[] {
   const c = f.company as CoX;
   const dispo: Record<string, { ok: boolean; n: number | null; apercu?: string }> = {
     apercu: { ok: true, n: null },
@@ -90,6 +91,7 @@ export function ongletsDe(f: FicheDemo): Onglet[] {
     resultats: { ok: aResultats(f), n: nbBullets(f) || null, apercu: nbBullets(f) ? `${nbBullets(f)} points clés du dernier appel` : undefined },
     these: { ok: Boolean(c.these) || Boolean(c.att), n: null },
     sources: { ok: true, n: null },
+    admin: { ok: avecAdmin, n: null },
   };
   return DEFS.filter((d) => dispo[d.id].ok).map((d) => ({ id: d.id, label: d.label, Icon: d.Icon, compteur: dispo[d.id].n, apercu: dispo[d.id].apercu ?? d.apercu }));
 }
@@ -141,7 +143,7 @@ function TableauKpi({ c }: { c: Company }) {
   );
 }
 
-export function Contenu({ f, id }: { f: FicheDemo; id: string }) {
+export function Contenu({ f, id, admin = null }: { f: FicheDemo; id: string; admin?: React.ReactNode }) {
   const c = f.company as CoX;
   const accent = brand(c.ticker).primary;
   const pos = c.market_positions ?? [];
@@ -215,6 +217,8 @@ export function Contenu({ f, id }: { f: FicheDemo; id: string }) {
       );
     case "sources":
       return <SourcesExternes ticker={c.ticker} paid extra={c.evenement?.sources} />;
+    case "admin":
+      return admin ? <div className="grid gap-6">{admin}</div> : null;
     default:
       return null;
   }

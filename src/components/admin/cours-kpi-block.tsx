@@ -11,10 +11,13 @@
  * Un second KPI de la meme societe se lit en ligne pointee : axe de gauche si
  * meme unite, sinon son propre axe a droite.
  *
- * CONVENTION DE POSITION (Yann, 5 oct 2026) : chaque barre (et chaque point du
- * second KPI) est centree sur la DATE DE FIN de sa periode (fin de trimestre,
- * de semestre ou d exercice), et non au milieu. La periode se lit donc a sa
- * date comptable ; la publication des resultats, qui tombe quelques semaines
+ * CONVENTION DE POSITION (Yann, 7 oct 2026, remplace celle du 5 oct) : chaque
+ * barre occupe exactement l intervalle de sa periode sur l axe du temps : bord
+ * gauche = premier jour (lendemain de la fin de la periode precedente), bord
+ * droit = dernier jour inclus, moins 3 px d espacement retires a droite. Les
+ * exercices decales (AAPL, MSFT, NVDA) suivent leurs vraies dates (voir
+ * src/lib/cours-kpi-periodes.ts). Le second KPI se pose au centre de l intervalle.
+ * La publication des resultats, qui tombe quelques semaines
  * apres, est marquee a part par un point sur la date reelle de publication
  * (src/data/resultats-dates.json, collecte par scripts/resultats-dates-collecte.py :
  * Yahoo Finance puis communiques 8-K de l EDGAR, jamais de date estimee).
@@ -28,6 +31,7 @@ import { verifyAndFix } from "@/lib/chart-spec-verify";
 import { getFiscalAudit } from "@/lib/fiscal-calendar";
 import { chartAxisHeader } from "@/lib/chart-axis-header";
 import { downloadSvgAsPng } from "@/lib/chart-export";
+import { intervallePeriode } from "@/lib/cours-kpi-periodes";
 
 export type CoursPoints = {
   source: string;
@@ -106,36 +110,7 @@ function fmtDate(iso: string): string {
   return `${d}/${m}/${y}`;
 }
 
-function finDeMois(y: number, m: number): Date {
-  return new Date(Date.UTC(y, m, 0));
-}
-
-/** Etiquette d axe X (T1 25, S2 24, 2025) -> intervalle reel de la periode. */
-function intervallePeriode(label: string, fyEndMonth: number, convention: "start" | "end"): { debut: number; fin: number } | null {
-  let m = label.match(/^T([1-4])\s+(\d{2})$/);
-  if (m) {
-    const y = 2000 + Number(m[2]);
-    const q = Number(m[1]);
-    return { debut: Date.UTC(y, (q - 1) * 3, 1), fin: finDeMois(y, q * 3).getTime() };
-  }
-  m = label.match(/^S([12])\s+(\d{2})$/);
-  if (m) {
-    const y = 2000 + Number(m[2]);
-    const s = Number(m[1]);
-    return { debut: Date.UTC(y, s === 1 ? 0 : 6, 1), fin: finDeMois(y, s === 1 ? 6 : 12).getTime() };
-  }
-  m = label.match(/^(?:FY)?(\d{4})$/);
-  if (m) {
-    let y = Number(m[1]);
-    if (convention === "start" && fyEndMonth !== 12) y += 1;
-    const fin = finDeMois(y, fyEndMonth).getTime();
-    const debut = Date.UTC(fyEndMonth === 12 ? y : y - 1, fyEndMonth === 12 ? 0 : fyEndMonth, 1);
-    return { debut, fin };
-  }
-  return null;
-}
-
-/** `milieu` = abscisse de la barre = DATE DE FIN de la periode (voir la convention en tete de fichier). */
+/** `debut` = 1er jour, `fin` = dernier jour de la periode ; `milieu` = centre de l intervalle [debut, fin + 1 jour), pour les points de la ligne du second KPI. */
 type PointKpi = { label: string; valeur: number; debut: number; fin: number; milieu: number };
 
 function seriesKpi(kpi: KPI, ticker: string, periode: GraphPeriod): { points: PointKpi[]; unite: string } {
@@ -147,9 +122,9 @@ function seriesKpi(kpi: KPI, ticker: string, periode: GraphPeriod): { points: Po
   spec.values.forEach((v, i) => {
     const lab = spec.labels[i];
     if (!lab || lab === spec.ttmLabel || !Number.isFinite(v)) return;
-    const iv = intervallePeriode(lab, fy, conv);
+    const iv = intervallePeriode(lab, fy, conv, ticker);
     if (!iv) return;
-    pts.push({ label: lab, valeur: v * (spec.scaleFactor || 1), debut: iv.debut, fin: iv.fin, milieu: iv.fin });
+    pts.push({ label: lab, valeur: v * (spec.scaleFactor || 1), debut: iv.debut, fin: iv.fin, milieu: (iv.debut + iv.fin + JOUR) / 2 });
   });
   return { points: pts, unite: spec.unit || String(kpi.unit ?? "") };
 }
@@ -311,10 +286,9 @@ export function CoursKpiBlock({
   const innerH = H - PAD_TOP - PAD_BOTTOM;
 
   const tousKpi = [...serieA.points, ...(serieB?.points ?? [])];
-  // Barres centrees sur la date de fin de periode : marge d une demi-periode de chaque cote.
-  const demiPeriode = tousKpi.length ? (tousKpi[0].fin - tousKpi[0].debut) / 2 : 0;
-  const t0Kpi = tousKpi.length ? Math.min(...tousKpi.map((p) => p.fin)) - demiPeriode : Date.now() - 5 * 365 * JOUR;
-  const t1Kpi = tousKpi.length ? Math.max(...tousKpi.map((p) => p.fin)) + demiPeriode : Date.now();
+  // Chaque barre occupe exactement [premier jour, dernier jour + 1 jour) de sa periode.
+  const t0Kpi = tousKpi.length ? Math.min(...tousKpi.map((p) => p.debut)) : Date.now() - 5 * 365 * JOUR;
+  const t1Kpi = tousKpi.length ? Math.max(...tousKpi.map((p) => p.fin + JOUR)) : Date.now();
   const tFinCours = prix.length ? prix[prix.length - 1][0] : t1Kpi;
   const tMin = t0Kpi;
   const tMax = Math.max(t1Kpi, coursVisible ? tFinCours : t1Kpi) + 20 * JOUR;
@@ -382,8 +356,9 @@ export function CoursKpiBlock({
     return out;
   }, [tMin, tMax, innerW]);
 
-  const largeurPeriode = serieA.points.length ? (serieA.points[0].fin - serieA.points[0].debut) : 90 * JOUR;
-  const barW = Math.max(3, Math.min(46, (largeurPeriode / (tMax - tMin)) * innerW * 0.62));
+  // Largeur d une barre = largeur de sa periode ; l espacement visuel (3 px) est retire du bord DROIT seulement.
+  const ESPACE_BARRES = 3;
+  const largeurBarre = (p: PointKpi) => Math.max(2, ((p.fin + JOUR - p.debut) / (tMax - tMin)) * innerW - ESPACE_BARRES);
 
   const uniteA = formatUnit(serieA.unite);
   const uniteB = serieB ? formatUnit(serieB.unite) : "";
@@ -400,7 +375,8 @@ export function CoursKpiBlock({
     const pc = coursVisible ? coursA(prix, t) : null;
     const pm = coursVisible ? coursA(prixMode, t) : null;
     const dansPeriode = (pts: PointKpi[]) =>
-      pts.length ? pts.reduce((a, b) => (Math.abs(b.milieu - t) < Math.abs(a.milieu - t) ? b : a)) : null;
+      pts.find((p) => t >= p.debut && t < p.fin + JOUR) ??
+      (pts.length ? pts.reduce((a, b) => (Math.abs(b.milieu - t) < Math.abs(a.milieu - t) ? b : a)) : null);
     const dateRes = afficherResultats
       ? resultats!.dates.map((d) => Date.parse(d + "T00:00:00Z")).find((td) => Math.abs(td - t) <= 6 * JOUR) ?? null
       : null;
@@ -630,14 +606,15 @@ export function CoursKpiBlock({
               const base = echA.y(Math.max(echA.lo, Math.min(echA.hi, 0)));
               const yv = echA.y(p.valeur);
               const actif = infoSurvol?.pa === p;
+              const bw = largeurBarre(p);
               return (
                 <rect
                   key={`ba${p.label}`}
-                  x={x(p.milieu) - barW / 2}
+                  x={x(p.debut)}
                   y={Math.min(yv, base)}
-                  width={barW}
+                  width={bw}
                   height={Math.max(1.5, Math.abs(base - yv))}
-                  rx={Math.min(3, barW / 4)}
+                  rx={Math.min(3, bw / 4)}
                   fill={COUL_A}
                   opacity={actif ? 0.95 : 0.7}
                 />
@@ -730,8 +707,8 @@ export function CoursKpiBlock({
       </div>
       <p className="mt-2 text-[11px] text-zinc-500">
         {cours
-          ? `Cours : ${cours.source}, symbole ${cours.symbole_fmp}, ${fmtDate(cours.premiere_date)} au ${fmtDate(cours.derniere_date)}. Plus haut calculé sur cette période. Indicateurs : documents de la société, barres posées à la date de fin de chaque période.${afficherResultats ? ` Publications des résultats : ${resultats!.source}.` : ""}`
-          : "Indicateurs : documents de la société, barres posées à la date de fin de chaque période."}
+          ? `Cours : ${cours.source}, symbole ${cours.symbole_fmp}, ${fmtDate(cours.premiere_date)} au ${fmtDate(cours.derniere_date)}. Plus haut calculé sur cette période. Indicateurs : documents de la société, chaque barre couvre exactement sa période, du premier au dernier jour.${afficherResultats ? ` Publications des résultats : ${resultats!.source}.` : ""}`
+          : "Indicateurs : documents de la société, chaque barre couvre exactement sa période, du premier au dernier jour."}
       </p>
     </section>
   );

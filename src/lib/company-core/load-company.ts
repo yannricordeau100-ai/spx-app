@@ -31,6 +31,8 @@ import type { Company, CompanyRisk } from "@/lib/data";
 import { enhanceFreshness } from "@/lib/company-core/enhance-freshness";
 import { isStrictPass3, isV18Eligible } from "@/lib/company-core/strict-pass3";
 import { isGenericKpi } from "@/lib/kpi-generic";
+import { isGenericHeroKpi } from "@/lib/kpi-hero-generic";
+import { choisirHero, type HeroKpiLike } from "@/lib/hero-select";
 import { cleanSourceCitations } from "@/lib/ui-fix-templates";
 
 /**
@@ -3036,9 +3038,12 @@ async function loadV17CompanyBrut(
       );
       data.kpis = fusionneSeriesTrimestrielles(data.kpis as AnyKPI[], qExtApresHaut);
       convertisHaut = converted;
-      const bestHero = converted.reduce((best, k) =>
+      // 7 oct 2026 : le max pv_score ne retient plus un KPI generique ou
+      // comptable tant qu'un KPI specifique existe (definition partagee).
+      const pool = converted.filter((k) => !isGenericHeroKpi(k));
+      const bestHero = (pool.length > 0 ? pool : converted).reduce((best, k) =>
         ((k.pv_score as number) ?? 0) > ((best?.pv_score as number) ?? -1) ? k : best,
-      converted[0]);
+      (pool.length > 0 ? pool : converted)[0]);
       data.hero_kpi = bestHero.short as string;
     }
   }
@@ -3178,25 +3183,15 @@ async function loadV17CompanyBrut(
   // Vercel (filesystem read-only). Cache mémoire 60 s côté serveur.
   // Appliqué TOUT À LA FIN pour gagner sur tous les autres mécanismes (enrich
   // hero_kpi_override, special-kpi promotions, fuzzy match, etc.).
+  // 7 oct 2026 : l'override est seulement LU ici. Le choix du hero (override
+  // servi, sinon regle) est fait UNE fois, en fin de chargeur, sur la liste
+  // finale des KPI (voir choisirHero, src/lib/hero-select.ts).
+  let heroOverride: string | null = null;
   try {
     const { getHeroKpiOverride } = await import(
       "@/lib/company-core/hero-kpi-overrides"
     );
-    const override = await getHeroKpiOverride(canonical);
-    if (override && Array.isArray(company.kpis)) {
-      const shorts = new Set(
-        company.kpis
-          .map((k) => (k as { short?: unknown }).short)
-          .filter((s): s is string => typeof s === "string" && Boolean(s)),
-      );
-      if (shorts.has(override)) {
-        company.hero_kpi = override;
-        // Yann 18 sept 2026 : un hero pose a la main prime sur la regle du
-        // 9 juin 2026 qui interdit les heros en pourcentage (marge nette
-        // d'interet des banques).
-        (company as { hero_kpi_force?: boolean }).hero_kpi_force = true;
-      }
-    }
+    heroOverride = await getHeroKpiOverride(canonical);
   } catch (err) {
     // best effort : si Supabase down ou env vars absentes, on garde le hero
     // calculé par les mécanismes précédents (auto-promote heuristique).
@@ -3271,8 +3266,9 @@ async function loadV17CompanyBrut(
       }
     }
   }
+  const absorbesHero = new Map<string, string>();
   if (Array.isArray(company.kpis)) {
-    const absorbes = new Map<string, string>();
+    const absorbes = absorbesHero;
     company.kpis = dedupKpisSeriesRecouvrantes(company.kpis as AnyKPI[], ticker, absorbes) as Company["kpis"];
     // 1er oct 2026 : le dedoublonnage final pouvait retirer le KPI vedette
     // (COST, DIS, IVZ...) et laisser hero_kpi pointer vers un indicateur
@@ -3300,6 +3296,26 @@ async function loadV17CompanyBrut(
     }
   } catch (err) {
     console.warn("[load-company] evenements load failed", err);
+  }
+
+  // 7 oct 2026 : CHOIX UNIQUE du hero, sur la liste finale servie.
+  {
+    const kpisFinaux = (Array.isArray(company.kpis) ? company.kpis : []) as unknown as HeroKpiLike[];
+    const choix = choisirHero(
+      kpisFinaux,
+      (company as { hero_kpi?: string }).hero_kpi,
+      heroOverride,
+      absorbesHero,
+    );
+    if (choix.hero) (company as { hero_kpi?: string }).hero_kpi = choix.hero;
+    (company as { hero_kpi_force?: boolean }).hero_kpi_force = choix.force;
+    (company as { hero_kpi_resolved?: boolean }).hero_kpi_resolved = true;
+    (company as { hero_kpi_source?: string }).hero_kpi_source = choix.source;
+    (company as { hero_kpi_orphelin?: string | null }).hero_kpi_orphelin = choix.orphelin;
+    (company as { hero_kpi_raison_generique?: string | null }).hero_kpi_raison_generique = choix.raison_generique;
+    if (choix.orphelin) {
+      console.warn(`[load-company] override hero orphelin ${canonical}: "${choix.orphelin}" absent des KPI servis, regle appliquee (${choix.hero})`);
+    }
   }
 
   return { kind: "ready", company };

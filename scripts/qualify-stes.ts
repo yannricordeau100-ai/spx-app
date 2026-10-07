@@ -15,6 +15,7 @@ import { loadV17Company } from "../src/lib/company-core/load-company";
 import { isGenericKpi } from "../src/lib/kpi-generic";
 import { isTotalRevenueLabel, normalizeKpiShort } from "../src/lib/kpi-total-revenue";
 import { isAccountingKpi } from "../src/lib/kpi-accounting";
+import { isGenericHeroKpi } from "../src/lib/kpi-hero-generic";
 import fs from "fs";
 
 // 9 aout 2026 : GATE DE VISIBILITE. La page V1.9.5
@@ -180,7 +181,10 @@ const raw = process.argv.slice(2);
       const cfgK = co.kpis.find((k: any) => k.short === co.hero_kpi);
       const cfgQ = cfgK && cfgK.period_type === "quarter" && hist(cfgK).length >= 4;
       let hero: string;
-      if (usableK(cfgK) && cfgQ && !pctMarg(cfgK)) hero = co.hero_kpi;
+      // 7 oct 2026 : le chargeur fait desormais le choix du hero (hero-select.ts),
+      // company-view le respecte. On le lit tel quel.
+      if (co.hero_kpi_resolved === true && usableK(cfgK)) hero = co.hero_kpi;
+      else if (usableK(cfgK) && cfgQ && !pctMarg(cfgK)) hero = co.hero_kpi;
       // 15 aout 2026 : aligne sur company-view, qui ne laisse plus le fallback
       // quarterly ecraser un hero explicite VALIDE (non %, non generique, non
       // CA total, serie >=3 points). Copie locale interdite : le test vient de
@@ -199,6 +203,8 @@ const raw = process.argv.slice(2);
       // (24 regressions sur 639). On signale, Yann arbitre, le rendu ne change
       // pas. Le detail est dans src/data/_hero-suspect.json.
       if (hk && isAccountingKpi(hk.short)) warnings.push("hero = ligne comptable (a repointer)");
+      // 7 oct 2026 : hero generique au sens de la definition partagee, sauf override a la main.
+      if (hk && co.hero_kpi_source !== "override" && isGenericHeroKpi(hk)) reasons.push("hero generique ou comptable (definition partagee)");
       if (!hk) reasons.push(`hero introuvable (${hero})`);
       else {
         if (pctMarg(hk)) reasons.push("hero % / marge (interdit)");

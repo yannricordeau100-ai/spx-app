@@ -75,6 +75,7 @@ import { orderKpis, isPhysicalKpi } from "@/lib/kpi-ordering";
 import { estKpiStandard } from "@/lib/kpi-standard";
 import { isGenericKpi } from "@/lib/kpi-generic";
 import { isTotalRevenueLabel } from "@/lib/kpi-total-revenue";
+import { isGenericHeroKpi } from "@/lib/kpi-hero-generic";
 import { AppelAbonnement } from "@/components/appel-abonnement";
 import { PageSearch } from "@/components/page-search";
 // Yann 7 sept 2026 : FreshnessIndicator deplace dans stock-price-block (COL 0).
@@ -530,7 +531,7 @@ export function CompanyView({
       // Yann 9 juin 2026 : le hero auto ne doit JAMAIS être un % / une marge
       // ni un KPI générique (ex AAPL tombait sur Gross Margin). On les exclut.
       if (String(k.unit ?? "").trim() === "%" || /marg|ratio|taux/i.test(String(k.short ?? ""))) continue;
-      if (isGenericKpi(k.short)) continue;
+      if (isGenericKpi(k.short) || isGenericHeroKpi(k)) continue;
       // Yann 11 aout 2026 : un CA total ne peut jamais devenir hero par
       // fallback. isGenericKpi ne couvre pas "REV_Q" / "REV_FY" / "CA_T", si
       // bien qu'un CA total trimestriel hijackait le hero choisi des que
@@ -561,6 +562,16 @@ export function CompanyView({
   const effectiveDefaultHero = useMemo(() => {
     const heroShort = company.hero_kpi;
     const heroKpi = company.kpis?.find((k) => k.short === heroShort);
+    // 7 oct 2026 : le chargeur a deja choisi le hero (override servi, sinon
+    // regle specifique, sinon dernier recours generique). On le respecte tel
+    // quel des que sa valeur est utilisable, sans le recalculer.
+    if (
+      (company as { hero_kpi_resolved?: boolean }).hero_kpi_resolved === true &&
+      heroKpi &&
+      kpiHasUsableValue(heroKpi)
+    ) {
+      return heroShort;
+    }
     const heroIsQuarterly =
       heroKpi?.period_type === "quarter" &&
       Array.isArray(heroKpi.history) &&
@@ -601,6 +612,7 @@ export function CompanyView({
       !heroPct &&
       heroHistLen >= 3 &&
       !isGenericKpi(heroShort) &&
+      !isGenericHeroKpi(heroKpi) &&
       !isTotalRevenueLabel(heroShort)
     ) {
       return heroShort;
@@ -614,7 +626,8 @@ export function CompanyView({
         k.history.length >= 3 &&
         String(k.unit ?? "").trim() !== "%" &&
         !/marg|ratio|taux/i.test(String(k.short ?? "")) &&
-        !isGenericKpi(k.short),
+        !isGenericKpi(k.short) &&
+        !isGenericHeroKpi(k),
     );
     return fallback?.short ?? heroShort;
   }, [company, bestQuarterlyKpiShort]);
@@ -2225,9 +2238,7 @@ export function CompanyView({
 
         {/* 28 sept 2026 (Yann) : quand le KPI d industrie est un graphique
             moyen terme, le bloc moyen terme passe AVANT le tableau des KPI. */}
-        {adminApresHero}
         {mtEnPremier && blocMoyenTerme}
-        {mtEnPremier && adminApresMoyenTerme}
 
         {/* KPI table */}
         <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="Graphique et indicateurs réservés aux abonnés" detail="Tous les indicateurs de la société, dix ans d’historique, l’export en image et le comparateur : inclus dès le plan Premium.">
@@ -2413,7 +2424,6 @@ export function CompanyView({
             Yann 18 sept 2026 : place AU-DESSUS des Stories (moyen terme avant court terme) ; sans graphique approuve, rien ne change. Images approuvées dans
             /sandbox/image-findings mergées au SSR dans company.image_findings. */}
         {!mtEnPremier && blocMoyenTerme}
-        {!mtEnPremier && adminApresMoyenTerme}
 
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
         {isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories") ? (
@@ -2654,6 +2664,9 @@ export function CompanyView({
           {t("company.provenance")}
         </p>
         </ZoneReservee>
+        {/* Yann 7 oct 2026 : les 2 blocs admin entiers tout en bas, apres tous les autres blocs. */}
+        {adminApresHero}
+        {adminApresMoyenTerme}
       </main>
 
       <CompanyNavChrome />

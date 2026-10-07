@@ -1,4 +1,5 @@
 import { chargeFiches } from "../data";
+import { chargeAdminBlocs } from "../admin";
 import { FicheOngletsClient } from "../page-client";
 import { styleParSlug } from "../liste";
 
@@ -10,5 +11,6 @@ export const metadata = {
 
 export default async function Page() {
   const fiches = await chargeFiches();
-  return <FicheOngletsClient style="icones-compteurs" fiches={fiches} />;
+  const adminBlocs = await chargeAdminBlocs(fiches);
+  return <FicheOngletsClient style="icones-compteurs" fiches={fiches} adminBlocs={adminBlocs} />;
 }

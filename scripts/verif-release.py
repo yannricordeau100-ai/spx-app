@@ -175,6 +175,47 @@ feu("vert" if la.strip().isdigit() and int(la.strip()) >= 1 else "rouge", "Autom
 cr = sh("crontab -l 2>/dev/null | grep -c earnings-refresh.sh")
 feu("vert" if cr.strip() == "0" else "orange", "Automates", "Ancien cron 23h (sans acces au trousseau) retire", "")
 
+# 9) GRAPHIQUES MOYEN TERME : libelles de l axe X sans chevauchement (7 oct 2026)
+try:
+    import importlib.util
+    _sp = importlib.util.spec_from_file_location("verif_axes_mt", ROOT / "scripts" / "verif-axes-mt.py")
+    _va = importlib.util.module_from_spec(_sp); _sp.loader.exec_module(_va)
+    _defauts, _total = [], 0
+    for _f in sorted((ROOT / "public" / "findings").rglob("*.svg")):
+        _t = _f.read_text()
+        if not _va.est_graphique_mt(_t):
+            continue
+        _total += 1
+        if _va.verifie_svg(_t) or _va.verifie_svg(_t, rendu=True):
+            _defauts.append(str(_f.relative_to(ROOT)))
+    feu("orange" if _defauts else "vert", "Graphiques", "Libelles de l axe X des graphiques moyen terme sans chevauchement (scripts/verif-axes-mt.py)",
+        f"{len(_defauts)} en defaut sur {_total}" + (" : " + ", ".join(_defauts[:4]) if _defauts else ""))
+except Exception as e:
+    feu("orange", "Graphiques", "Controle des axes des graphiques moyen terme", str(e)[:80])
+
+# 9) HERO DES FICHES : aucun hero generique/comptable quand un KPI specifique existe, aucun override orphelin
+# (7 oct 2026). Charge le VRAI chargeur sur les societes de clean-all-tickers : scripts/verif-hero-generique.ts.
+try:
+    env_h = dict(os.environ)
+    for l in (ROOT / ".env.local").read_text().splitlines():
+        if "=" in l and not l.lstrip().startswith("#"):
+            k_, v_ = l.split("=", 1)
+            env_h[k_.strip()] = v_.strip().strip('"')
+    subprocess.run(["npx", "tsx", "scripts/verif-hero-generique.ts", "/tmp/verif-hero-generique.json"],
+                   capture_output=True, text=True, timeout=900, env=env_h)
+    rh = json.loads(Path("/tmp/verif-hero-generique.json").read_text())
+    orph = [f"{r['t']}:{r['orphelin']}" for r in rh["orphelins"]]
+    bloq = [f"{r['t']}:{r['hero']}" for r in rh["bloquants"]]
+    feu("orange" if orph else "vert", "Hero", "Aucun override de hero (desk_hero_kpi_overrides) orphelin",
+        f"{len(orph)} orphelin(s) : " + ", ".join(orph[:8]) if orph else f"{rh['charges']} fiches chargees")
+    feu("rouge" if bloq else "vert", "Hero", "Aucun hero generique ou comptable alors qu'un KPI specifique existe",
+        f"{len(bloq)} fiche(s) : " + ", ".join(bloq[:8]) if bloq else "0")
+    og = [r["t"] for r in rh["overrideGeneriques"]] + [r["t"] for r in rh["restants"]]
+    feu("orange" if og else "vert", "Hero", "Heros generiques poses a la main ou sans KPI specifique (a arbitrer)",
+        f"{len(og)} : " + ", ".join(og[:12]) if og else "0")
+except Exception as e:
+    feu("orange", "Hero", "Controle du hero des fiches (verif-hero-generique.ts)", str(e)[:80])
+
 # SORTIE
 ordre = {"rouge": 0, "orange": 1, "vert": 2}
 feux.sort(key=lambda f: (ordre[f["feu"]], f["domaine"]))

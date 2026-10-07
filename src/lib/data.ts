@@ -349,6 +349,17 @@ export type Company = {
    */
   hero_kpi_force?: boolean;
   /**
+   * 7 oct 2026 : le choix du hero a ete fait par le chargeur (hero-select.ts).
+   * company-view le respecte sans le recalculer. `hero_kpi_source` dit d'ou il
+   * vient ; `hero_kpi_orphelin` porte le short d'un override Supabase absent de
+   * la liste servie ; `hero_kpi_raison_generique` n'existe que si le hero est
+   * generique faute de KPI specifique (ou override generique pose a la main).
+   */
+  hero_kpi_resolved?: boolean;
+  hero_kpi_source?: "override" | "configure" | "regle" | "dernier_recours" | "aucun";
+  hero_kpi_orphelin?: string | null;
+  hero_kpi_raison_generique?: string | null;
+  /**
    * Rationale (1-2 phrases) expliquant POURQUOI ce KPI a été choisi comme
    * Hero pour cette société. Lu lors de l'audit éditorial. Pas affiché à
    * l'utilisateur final (sauf en mode debug). Voir CLAUDE.md § ORDRE.

@@ -35,7 +35,15 @@ Couleurs disponibles : violet, vert, cyan, ambre, rose, gris.
 """
 import json, re
 import sys
+import importlib.util
 from pathlib import Path
+
+# 7 oct 2026 : le detecteur scripts/verif-axes-mt.py fournit la MEME mesure de
+# texte que le generateur (largeur jamais sous-estimee) et le controle final :
+# un graphique dont deux libelles de l axe X se chevauchent n est pas ecrit.
+_sp = importlib.util.spec_from_file_location("verif_axes_mt", Path(__file__).with_name("verif-axes-mt.py"))
+VERIF = importlib.util.module_from_spec(_sp)
+_sp.loader.exec_module(VERIF)
 
 W, H = 800, 450
 MARGE_G, MARGE_D = 80, 30
@@ -182,6 +190,86 @@ def unite_axe_deduite(spec: dict) -> str:
         return m.group(1).lower()
     return ""
 
+
+# ---------------------------------------------------------------------------
+# Axe X (7 oct 2026) : jamais de chevauchement. Strategies, dans l ordre :
+#   1. toutes les etiquettes, une ligne, taille 11 puis 10 puis 9,5 ;
+#   2. toutes les etiquettes, retour a la ligne (3 lignes au plus), 11 a 9 ;
+#   3. mois ecrits en toutes lettres abreges (septembre -> sept.) ;
+#   4. une etiquette sur deux, trois... (la derniere reste toujours visible),
+#      avec les memes essais d ecriture.
+# La largeur vient du detecteur : elle n est jamais sous-estimee.
+# ---------------------------------------------------------------------------
+Y_AXE_DERNIERE = 402          # ligne de base de la derniere ligne d etiquettes (inchange)
+ECART_AXE = 8                 # espace libre exige entre deux etiquettes voisines
+LIGNES_MAX = 3
+MOIS_ABREGES = {
+    "janvier": "janv.", "fevrier": "fevr.", "f\u00e9vrier": "f\u00e9vr.", "mars": "mars", "avril": "avr.",
+    "juin": "juin", "juillet": "juil.", "aout": "ao\u00fbt", "ao\u00fbt": "ao\u00fbt", "septembre": "sept.",
+    "octobre": "oct.", "novembre": "nov.", "decembre": "d\u00e9c.", "d\u00e9cembre": "d\u00e9c.",
+}
+
+
+def abrege_mois(t: str) -> str:
+    return " ".join(MOIS_ABREGES.get(w.lower(), w) for w in str(t).split(" "))
+
+
+def coupe_lignes(t: str, taille: float, dispo: float):
+    """Retour a la ligne glouton sur les espaces. None si un mot depasse seul."""
+    mots = str(t).split(" ")
+    lignes, cour = [], ""
+    for mot in mots:
+        essai = (cour + " " + mot) if cour else mot
+        if VERIF.largeur(essai, taille, False) <= dispo:
+            cour = essai
+        else:
+            if not cour:
+                return None
+            lignes.append(cour)
+            cour = mot
+            if VERIF.largeur(cour, taille, False) > dispo:
+                return None
+    lignes.append(cour)
+    return lignes
+
+
+def plan_axe(cats: list) -> dict:
+    n = len(cats)
+    zone = (W - MARGE_G - MARGE_D) / max(1, n)
+    pas_min = max(1, -(-n // 12))
+    variantes = [[str(c) for c in cats]]
+    abr = [abrege_mois(c) for c in cats]
+    if abr != variantes[0]:
+        variantes.append(abr)
+    # (lignes_max, taille) : une ligne d abord, puis retour a la ligne
+    essais = [(1, t) for t in (11.0, 10.0, 9.5)] + [(LIGNES_MAX, t) for t in (11.0, 10.0, 9.5, 9.0)]
+    for pas in range(pas_min, n + 1):
+        visibles = [i for i in range(n) if (n - 1 - i) % pas == 0]
+        dispo = zone * pas - ECART_AXE
+        for textes in variantes:
+            for lmax, taille in essais:
+                lignes = {}
+                ok = True
+                for i in visibles:
+                    l = coupe_lignes(textes[i], taille, dispo)
+                    if l is None or len(l) > lmax:
+                        ok = False
+                        break
+                    cx = MARGE_G + zone * (i + 0.5)
+                    wmax = max(VERIF.largeur(x, taille, False) for x in l)
+                    if cx - wmax / 2 < 6 or cx + wmax / 2 > W - 6:
+                        ok = False
+                        break
+                    lignes[i] = l
+                if ok:
+                    nl = max(len(l) for l in lignes.values())
+                    inter = taille + 1.5
+                    return {"taille": taille, "lignes": lignes, "nb": nl, "inter": inter,
+                            "bas": Y_AXE_DERNIERE - 22 - inter * (nl - 1), "pas": pas}
+    # inatteignable en pratique (un seul libelle, tres court) : on garde l ancien comportement
+    return {"taille": 9.0, "lignes": {n - 1: [str(cats[-1])]}, "nb": 1, "inter": 10.5, "bas": BAS, "pas": n}
+
+
 def construit(spec: dict, theme: str) -> str:
     c = THEMES[theme]
     cats = spec["categories"]
@@ -213,8 +301,18 @@ def construit(spec: dict, theme: str) -> str:
         plafond = math.ceil(maxi / pas) * pas if maxi > 0 else 0
         plancher = math.floor(mini / pas) * pas
         grads = [plancher + pas * k for k in range(int(round((plafond - plancher) / pas)) + 1)]
-    ech = (BAS - HAUT) / (plafond - plancher) if plafond - plancher else 0
-    y0 = BAS - (0 - plancher) * ech  # ligne du zero
+    axe = plan_axe(cats)
+    bas = axe["bas"]  # ligne de base du graphique : remonte si l axe X prend plusieurs lignes
+    ech = (bas - HAUT) / (plafond - plancher) if plafond - plancher else 0
+    if mini < 0 and plafond - plancher:
+        # 7 oct 2026 : l etiquette d une barre negative se pose sous la barre ;
+        # on garde 18 px libres sous la barre la plus basse pour qu elle ne
+        # touche jamais les libelles de l axe X.
+        while (mini - plancher) * ech < 18:
+            plancher -= pas
+            grads = [plancher + pas * k for k in range(int(round((plafond - plancher) / pas)) + 1)]
+            ech = (bas - HAUT) / (plafond - plancher)
+    y0 = bas - (0 - plancher) * ech  # ligne du zero
 
     out = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" font-family="ui-sans-serif, system-ui">',
@@ -262,6 +360,21 @@ def construit(spec: dict, theme: str) -> str:
     largeur_zone = (W - MARGE_D - MARGE_G) / len(cats)
     n = len(series)
     barre_w = min(70, (largeur_zone * 0.72) / n)
+    # 7 oct 2026 : les PROJECTIONS se distinguent des donnees observees. Une
+    # categorie ou une serie dont le libelle contient « (proj.) », « (prevision) »
+    # ou « projection » (ou listee dans les champs « proj_categories » et
+    # « proj_series » de la spec, ou toute la spec si « projection » vaut true)
+    # est dessinee en pointilles, plus claire, avec une mention en haut a droite.
+    re_proj = re.compile(r"(?i)\((?:proj|pr[e\u00e9]v)[^)]*\)|projection|pr[e\u00e9]vision")
+    proj_cats = {i for i, c_ in enumerate(cats) if re_proj.search(str(c_))} | set(spec.get("proj_categories", []))
+    proj_series = {j for j, s_ in enumerate(series) if re_proj.search(str(s_["nom"]))} | set(spec.get("proj_series", []))
+    if spec.get("projection") is True:
+        proj_series = set(range(len(series)))
+    if proj_cats or proj_series:
+        out.append(
+            f'<text x="{W - MARGE_D}" y="{HAUT - 11}" text-anchor="end" fill="{c["gris"]}" '
+            f'font-size="10.5" font-style="italic">Pointill\u00e9s : projections</text>'
+        )
     for i, cat in enumerate(cats):
         centre = MARGE_G + largeur_zone * (i + 0.5)
         depart = centre - (barre_w * n) / 2
@@ -273,7 +386,14 @@ def construit(spec: dict, theme: str) -> str:
             x = depart + barre_w * j
             couleur = PALETTE.get(s["couleur"], s["couleur"])
             haut_barre = y0 - h if v > 0 else y0
-            out.append(f'<rect x="{x:.0f}" y="{haut_barre:.0f}" width="{barre_w - 4:.0f}" height="{h:.0f}" fill="{couleur}" rx="3"/>')
+            if i in proj_cats or j in proj_series:
+                out.append(
+                    f'<rect x="{x:.0f}" y="{haut_barre:.0f}" width="{barre_w - 4:.0f}" height="{h:.0f}" '
+                    f'fill="{couleur}" fill-opacity="0.35" stroke="{couleur}" stroke-width="1.5" '
+                    f'stroke-dasharray="4 3" rx="3"/>'
+                )
+            else:
+                out.append(f'<rect x="{x:.0f}" y="{haut_barre:.0f}" width="{barre_w - 4:.0f}" height="{h:.0f}" fill="{couleur}" rx="3"/>')
             cx = x + (barre_w - 4) / 2
             etiquette = format_valeur(v, suffixe_barres)
             if v < 0:
@@ -333,15 +453,12 @@ def construit(spec: dict, theme: str) -> str:
                         f'font-size="{taille:g}" font-family="ui-monospace" '
                         f'transform="rotate(-{ANGLE_OBL} {x_lab:.0f} {y_lab:.0f})">{echappe(etiquette)}</text>'
                     )
-        # Beaucoup de periodes : une etiquette sur n, sinon elles se chevauchent.
-        # 29 sept 2026 (NFLX « juin 2026juil. 2026 ») : le pas tient compte de
-        # la largeur reelle des libelles, et se cale sur le DERNIER libelle
-        # (toujours visible) au lieu de le forcer a cote de son voisin.
-        ecart_cat = (W - MARGE_G - MARGE_D) / max(1, len(cats))
-        plus_large = max(largeur_texte(str(x), 11) for x in cats)
-        pas = max(1, -(-len(cats) // 12), int(-(-(plus_large + 8) // ecart_cat)))
-        if (len(cats) - 1 - i) % pas == 0:
-            out.append(f'<text x="{centre:.0f}" y="{BAS + 22}" text-anchor="middle" fill="{c["axe"]}" font-size="11">{echappe(cat)}</text>')
+        if i in axe["lignes"]:
+            for k, ligne in enumerate(axe["lignes"][i]):
+                out.append(
+                    f'<text data-axe="x" x="{centre:.0f}" y="{bas + 22 + axe["inter"] * k:g}" text-anchor="middle" '
+                    f'fill="{c["axe"]}" font-size="{axe["taille"]:g}">{echappe(ligne)}</text>'
+                )
 
     if spec.get("legende", True) and n > 1:
         out.extend(legende(series, c))
@@ -389,14 +506,27 @@ def main() -> None:
     if len(sys.argv) < 2:
         print(__doc__)
         sys.exit(1)
+    refuses = []
     for chemin in sys.argv[1:]:
         spec = json.loads(Path(chemin).read_text())
         dossier = Path(spec.get("dossier", "public/findings/divers"))
         dossier.mkdir(parents=True, exist_ok=True)
-        for theme in ("dark", "light"):
+        rendus = {theme: construit(json.loads(json.dumps(spec)), theme) for theme in ("dark", "light")}
+        # Garde : refus d ecrire un graphique dont l axe X est en defaut.
+        defauts = {t: VERIF.verifie_svg(svg) for t, svg in rendus.items()}
+        if any(defauts.values()):
+            for t, d in defauts.items():
+                for x in d[:4]:
+                    print(f"REFUSE {spec['slug']} ({t}) : {x['type']} [{x['texte']}]", file=sys.stderr)
+            refuses.append(spec["slug"])
+            continue
+        for theme, svg in rendus.items():
             cible = dossier / f"{spec['slug']}-{theme}.svg"
-            cible.write_text(construit(json.loads(json.dumps(spec)), theme))
+            cible.write_text(svg)
             print(cible)
+    if refuses:
+        print(f"{len(refuses)} graphique(s) refuse(s) car libelles de l axe X en defaut : {', '.join(refuses)}", file=sys.stderr)
+        sys.exit(2)
 
 
 if __name__ == "__main__":

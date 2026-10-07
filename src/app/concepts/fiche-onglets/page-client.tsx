@@ -13,8 +13,8 @@ import { styleParSlug, type StyleId } from "./liste";
 import { Contenu, ongletsDe } from "./contenu";
 import { BarreSouligne, BarrePilules, ColonneVerticale, BarreIcones, BarreApplication, GrilleCartes } from "./barres";
 
-function Fiche({ f, style }: { f: FicheDemo; style: StyleId }) {
-  const onglets = useMemo(() => ongletsDe(f), [f]);
+function Fiche({ f, style, admin }: { f: FicheDemo; style: StyleId; admin: React.ReactNode }) {
+  const onglets = useMemo(() => ongletsDe(f, Boolean(admin)), [f, admin]);
   const [actif, setActif] = useState(onglets[0]?.id ?? "apercu");
   const accent = brand(f.company.ticker).primary;
   const haut = useRef<HTMLDivElement>(null);
@@ -41,7 +41,7 @@ function Fiche({ f, style }: { f: FicheDemo; style: StyleId }) {
   const barre = { onglets, actif, onChoisir: choisir, accent };
   const corps = (
     <motion.div key={actif} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }} className="min-w-0">
-      <Contenu f={f} id={actif} />
+      <Contenu f={f} id={actif} admin={admin} />
     </motion.div>
   );
   return (
@@ -69,7 +69,7 @@ function Fiche({ f, style }: { f: FicheDemo; style: StyleId }) {
   );
 }
 
-export function FicheOngletsClient({ style, fiches }: { style: StyleId; fiches: FicheDemo[] }) {
+export function FicheOngletsClient({ style, fiches, adminBlocs = null }: { style: StyleId; fiches: FicheDemo[]; adminBlocs?: Record<string, React.ReactNode> | null }) {
   const meta = styleParSlug(style);
   const [t, setT] = useState(fiches[0]?.ticker ?? "");
   const f = fiches.find((x) => x.ticker === t) ?? fiches[0];
@@ -121,7 +121,7 @@ export function FicheOngletsClient({ style, fiches }: { style: StyleId; fiches: 
           )}
         </div>
         <div className="mt-6">
-          <Fiche key={`${style}-${f.ticker}`} f={f} style={style} />
+          <Fiche key={`${style}-${f.ticker}`} f={f} style={style} admin={adminBlocs?.[f.ticker] ?? null} />
         </div>
       </main>
     </div>

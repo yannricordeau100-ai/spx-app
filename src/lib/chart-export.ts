@@ -238,6 +238,10 @@ export async function downloadSvgAsPng(
   } = {},
   scale = 2
 ): Promise<void> {
+  // 7 oct 2026 (Yann, export AMD) : aucun anglais visible dans l image
+  // (nom EN, unite EN, « Average »). L anglais n existe que derriere un « i »
+  // sur la fiche. Les options restent acceptees mais ne sont plus rendues.
+  options = { ...options, titleEn: undefined, unitEn: undefined };
   // Détection du thème depuis <html data-theme>. Default = dark.
   const themeAttr =
     typeof document !== "undefined"
@@ -1748,20 +1752,6 @@ export async function downloadSvgAsPng(
       avgEl.setAttribute("fill", isLight ? "#1d4ed8" : "#5b8cff");
       avgEl.textContent = `Moyenne : ${options.avgPct}`;
       clone.appendChild(avgEl);
-      // Yann 4 sept 2026 : rappel en anglais sous la moyenne, discret, au
-      // meme titre que la traduction du nom du KPI.
-      const avgEnEl = document.createElementNS(NS, "text");
-      avgEnEl.setAttribute("x", String(graphCx));
-      avgEnEl.setAttribute("y", String(origY - PAD_TOP + 230));
-      avgEnEl.setAttribute("text-anchor", "middle");
-      avgEnEl.setAttribute("font-family", PNG_FONT_FAMILY);
-      avgEnEl.setAttribute("font-size", "13");
-      avgEnEl.setAttribute("font-weight", "300");
-      avgEnEl.setAttribute("font-style", "italic");
-      avgEnEl.setAttribute("fill", subtitleColor);
-      avgEnEl.setAttribute("opacity", "0.85");
-      avgEnEl.textContent = `Average: ${options.avgPct}`;
-      clone.appendChild(avgEnEl);
     }
     if (!COMPACT && options.cagr) {
       const CAGR_FONT_SIZE = 22;
