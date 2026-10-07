@@ -1,6 +1,8 @@
 "use client";
 
 import { AF_AXES, pasEtiquettes, pasTrimestres, garde, useEchelleSvg, policeValeur } from "@/components/charts/axes-mobiles";
+import { useAntiChevauchement } from "@/components/charts/anti-chevauchement";
+import { useExportBureau } from "@/components/charts/export-bureau";
 import { useRef, useState , useEffect} from "react";
 import { motion } from "motion/react";
 import { AnomalyInfo } from "@/components/anomaly-info";
@@ -223,6 +225,7 @@ export function CurveChart({
 }) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  useAntiChevauchement(svgRef);
   // Yann 15 mai 2026 : axis header locale-aware (DE / NL / SV / DA / EN).
   const { locale } = useT();
   // Yann 8 juin 2026 (Point 4) : si KpiSwapTitle a bascule le titre en EN,
@@ -232,7 +235,9 @@ export function CurveChart({
   const [yOnRight, setYOnRight] = useState(false);
   // Yann 2 sept 2026 (mobile) : axes X/Y un peu plus gros sur petit ecran
   // (le viewBox ~920px est rendu a ~340px, les ticks devenaient illisibles).
-  const [axesMobiles, setAxesMobiles] = useState(false);
+  const exportBureau = useExportBureau();
+  const [axesMobilesEcran, setAxesMobiles] = useState(false);
+  const axesMobiles = axesMobilesEcran && !exportBureau;
   useEffect(() => {
     setAxesMobiles(typeof window !== "undefined" && window.innerWidth < 640);
   }, []);

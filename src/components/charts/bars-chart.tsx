@@ -1,6 +1,8 @@
 "use client";
 
 import { AF_AXES, pasEtiquettes, garde, useEchelleSvg, policeValeur } from "@/components/charts/axes-mobiles";
+import { useAntiChevauchement } from "@/components/charts/anti-chevauchement";
+import { useExportBureau } from "@/components/charts/export-bureau";
 import { useState , useEffect, useRef} from "react";
 import { motion } from "motion/react";
 import type { Anomaly } from "@/lib/brand";
@@ -87,12 +89,15 @@ export function BarsChart({
   const [yOnRight, setYOnRight] = useState(false);
   // Yann 2 sept 2026 (mobile) : axes X/Y un peu plus gros sur petit ecran
   // (le viewBox ~920px est rendu a ~340px, les ticks devenaient illisibles).
-  const [axesMobiles, setAxesMobiles] = useState(false);
+  const exportBureau = useExportBureau();
+  const [axesMobilesEcran, setAxesMobiles] = useState(false);
+  const axesMobiles = axesMobilesEcran && !exportBureau;
   useEffect(() => {
     setAxesMobiles(typeof window !== "undefined" && window.innerWidth < 640);
   }, []);
   const AF = axesMobiles ? AF_AXES : 1;
   const svgRef = useRef<SVGSVGElement>(null);
+  useAntiChevauchement(svgRef);
   const echelleSvg = useEchelleSvg(svgRef, axesMobiles);
 
 

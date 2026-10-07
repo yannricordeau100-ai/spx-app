@@ -58,6 +58,9 @@ function cleNom(s: unknown): string {
 const NOMS_GENERIQUES = new Set(
   [
     // chiffre d'affaires total
+    "cout du risque", "cost of risk",
+    "ca", "ca net", "chiffre d'affaires services", "service revenue",
+    "primes acquises", "primes acquises nettes", "primes acquises nettes totales", "net premiums earned",
     "chiffre d'affaires", "chiffre d'affaires net", "chiffre d'affaires total", "ventes",
     "ventes nettes", "revenu", "revenus", "revenue", "revenues", "net sales", "sales",
     "net revenue", "turnover", "produits d'exploitation", "revenus d'exploitation",

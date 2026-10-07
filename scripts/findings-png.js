@@ -15,6 +15,13 @@
 const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
+const { execFileSync } = require("child_process");
+
+// 7 oct 2026 : les graphiques portent leur police (Manrope, JetBrains Mono). resvg
+// ignore le @font-face integre : on lui donne les TTF complets et AUCUNE police
+// systeme, pour que le PNG soit identique sur n importe quelle machine.
+const POLICES = path.join(__dirname, "fonts");
+const RESVG = ["/opt/homebrew/bin/resvg", "/usr/local/bin/resvg"].find((p) => fs.existsSync(p));
 
 const RACINE = path.join(__dirname, "..", "public", "findings");
 const LARGEUR = 1200; // une fois et demie la largeur du gabarit, net sans peser
@@ -36,7 +43,20 @@ async function convertir(svg) {
   } catch {
     /* fichier disparu entre temps */
   }
-  await sharp(fs.readFileSync(svg), { density: 200 })
+  let entree = fs.readFileSync(svg);
+  let options = { density: 200 };
+  if (RESVG && entree.includes("@font-face")) {
+    entree = execFileSync(
+      RESVG,
+      ["--skip-system-fonts",
+       "--use-font-file", path.join(POLICES, "Manrope-Regular.ttf"),
+       "--use-font-file", path.join(POLICES, "JetBrainsMono-Regular.ttf"),
+       "-w", String(LARGEUR), svg, "-c"],
+      { maxBuffer: 64 * 1024 * 1024 }
+    );
+    options = {};
+  }
+  await sharp(entree, options)
     .resize({ width: LARGEUR })
     .png({ compressionLevel: 9, palette: true, quality: 90 })
     .toFile(png);

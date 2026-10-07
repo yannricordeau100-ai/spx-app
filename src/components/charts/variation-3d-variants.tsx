@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AF_AXES, pasEtiquettes, pasTrimestres, garde } from "@/components/charts/axes-mobiles";
+import { useAntiChevauchement } from "@/components/charts/anti-chevauchement";
+import { useExportBureau } from "@/components/charts/export-bureau";
 import type { CompanyEvent } from "@/lib/events";
 import { EventDotsSVG, EventDotsOverlay } from "@/components/charts/event-dots";
 import { buildYearGroups } from "@/lib/chart-export";
@@ -83,12 +85,15 @@ const NEG = "#f43f5e";
 /* ============================================================ */
 export function VariationIsoSteps3D({ data, labels, events = [], exportTitle, exportTicker, exportCagr, exportFrequency, exportInterpretation }: Props) {
   const [sel, setSel] = useState<number | null>(null);
-  const [mobile, setMobile] = useState(false);
+  const exportBureau = useExportBureau();
+  const [mobileEcran, setMobile] = useState(false);
+  const mobile = mobileEcran && !exportBureau;
   useEffect(() => {
     setMobile(typeof window !== "undefined" && window.innerWidth < 640);
   }, []);
   const AFX = mobile ? AF_AXES : 1;
   const svgRef = useRef<SVGSVGElement>(null);
+  useAntiChevauchement(svgRef);
   // Yann 10 juin 2026 (Point 6) : locale courante pour l'export PNG.
   const { locale } = useT();
 

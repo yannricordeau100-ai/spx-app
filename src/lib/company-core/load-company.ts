@@ -477,7 +477,7 @@ const CACHE_TTL_MS = 10 * 60_000;
 // (constate sur RMS.PA : hero_kpi ROC_MARGIN, sans hero_kpi_resolved, alors que
 // le code deploye choisit LEATHER_REV). A INCREMENTER a chaque changement de
 // logique du chargeur.
-const REVISION_CHARGEUR = "hero-select-1";
+const REVISION_CHARGEUR = "hero-select-2";
 
 const chargeAvecCachePartage = unstable_cache(
   async (ticker: string, mode: "v17" | "v18", locale: string): Promise<LoadOutcome> =>
@@ -3309,11 +3309,27 @@ async function loadV17CompanyBrut(
   // 7 oct 2026 : CHOIX UNIQUE du hero, sur la liste finale servie.
   {
     const kpisFinaux = (Array.isArray(company.kpis) ? company.kpis : []) as unknown as HeroKpiLike[];
+    // KPI d'industrie de la societe (distinctifs, presents sur la fiche) : prioritaires pour la regle.
+    let industrieHero: Set<string> | undefined;
+    try {
+      const ind = await readJsonOrNull<{ societes?: Record<string, { indicateurs?: { statut?: string; distinctif?: boolean; code_sur_fiche?: string | null }[] }> }>(
+        path.join(ROOT, "src/data/kpi-industrie-par-societe.json"),
+      );
+      const l = ind?.societes?.[canonical.toUpperCase()]?.indicateurs ?? [];
+      const set = new Set(
+        l.filter((i) => i.distinctif && i.statut === "present_sur_fiche" && typeof i.code_sur_fiche === "string" && i.code_sur_fiche)
+          .map((i) => i.code_sur_fiche as string),
+      );
+      if (set.size > 0) industrieHero = set;
+    } catch {
+      /* sans fichier industrie : regle inchangee */
+    }
     const choix = choisirHero(
       kpisFinaux,
       (company as { hero_kpi?: string }).hero_kpi,
       heroOverride,
       absorbesHero,
+      industrieHero,
     );
     if (choix.hero) (company as { hero_kpi?: string }).hero_kpi = choix.hero;
     (company as { hero_kpi_force?: boolean }).hero_kpi_force = choix.force;

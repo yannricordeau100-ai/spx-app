@@ -37,8 +37,18 @@ export type TitleLang = "fr" | "en";
 
 /** 28 sept 2026 (Yann, O « ffo_ps_annuel ») : jamais un code technique comme
  *  titre anglais. Le code court ne sert que s il ressemble a un vrai libelle. */
+/** 7 oct 2026 (Yann, « Rd Intensity ») : un name_en qui n est que l identifiant
+ *  technique remis en capitales initiales (CAHIER_RD_INTENSITY -> « Rd Intensity »)
+ *  n est pas un libelle anglais : il ne s affiche jamais. */
+export function nomEnTechnique(nameEn?: string | null, short?: string | null): boolean {
+  if (!nameEn || !short) return false;
+  const n = (x: string) => x.toLowerCase().replace(/[^a-z0-9]/g, "");
+  if (n(nameEn) !== n(short.replace(/^CAHIER_/, ""))) return false;
+  return /^CAHIER_/.test(short) || /^[A-Z][a-z0-9]*( [A-Z][a-z0-9]*)+$/.test(nameEn) && /[_-]/.test(short);
+}
+
 export function libelleAnglais(nameEn?: string | null, short?: string | null, nameFr?: string | null): string {
-  if (nameEn && nameEn.trim()) return nameEn;
+  if (nameEn && nameEn.trim() && !nomEnTechnique(nameEn, short)) return nameEn;
   const c = (short ?? "").trim();
   const estCode = !c || /_/.test(c) || /^[A-Z0-9]+$/.test(c) || !/[A-Z]/.test(c);
   return !estCode ? c : (nameFr ?? c);

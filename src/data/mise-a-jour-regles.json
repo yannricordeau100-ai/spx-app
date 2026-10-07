@@ -81,6 +81,14 @@
    "delai_jours": 730,
    "source": "table desk_image_findings (graphiques approuvés)",
    "champ_date": "source_date"
+  },
+  {
+   "id": "evenements",
+   "nom": "Journées investisseurs (veille des événements)",
+   "declencheur": "chaque nouvelle journée investisseurs détectée",
+   "delai_jours": 7,
+   "source": "scripts/evenements-veille.py (état : .conv-state/evenements-etat.json)",
+   "champ_date": "detecte_le / statut"
   }
  ],
  "alerte": "Indépendante des mises à jour : calculée uniquement à partir des dates présentes dans les données et du calendrier des résultats, par la route /api/cron/alertes-maj (cron Vercel quotidien, email Resend au propriétaire) et par la chaîne 23h du Mac. Lue en début de session par Claude (src/data/alertes-maj.json), correction avant que le propriétaire n'ouvre la notification.",

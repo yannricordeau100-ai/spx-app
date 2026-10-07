@@ -19,7 +19,7 @@ import { KpiStoriesMur } from "@/components/kpi-stories-mur";
 /** Style d affichage choisi par l utilisateur (ordinateur uniquement).
  *  Stockage : user_metadata.story_style (Supabase) si connecte, sinon
  *  localStorage. Le mobile garde toujours le style story. */
-type StoryStyle = "story" | "mur";
+export type StoryStyle = "story" | "mur";
 const STYLE_KEY = "mettrik:story-style";
 
 /**
@@ -38,7 +38,7 @@ const STYLE_KEY = "mettrik:story-style";
  * centré. Maintenant = jusqu'à 3 frames côte à côte, chacune une story
  * différente, le carrousel avance le groupe de N frames à la fois.
  */
-export function KpiStories({ company, freeBlocked = false }: { company: Company; freeBlocked?: boolean }) {
+export function KpiStories({ company, freeBlocked = false, styleServeur }: { company: Company; freeBlocked?: boolean; styleServeur?: StoryStyle | null }) {
   const { t, locale } = useT();
   const accent = brand(company.ticker).primary;
 
@@ -170,7 +170,10 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
 
   // Style d affichage : « story » par defaut (rendu serveur), prefere lu cote
   // client apres hydratation (pas d erreur d hydratation).
-  const [style, setStyle] = useState<StoryStyle>("story");
+  // Preference lue cote serveur (utilisateur connecte) : aucun flash. Sinon le
+  // bloc reste invisible (opacite 0) jusqu a la lecture du localStorage.
+  const [style, setStyle] = useState<StoryStyle>(styleServeur ?? "story");
+  const [styleLu, setStyleLu] = useState<boolean>(styleServeur === "story" || styleServeur === "mur");
   const [menuOpen, setMenuOpen] = useState(false);
   const [connecte, setConnecte] = useState(false);
   useEffect(() => {
@@ -179,6 +182,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
       const v = window.localStorage.getItem(STYLE_KEY);
       if (v === "story" || v === "mur") setStyle(v);
     } catch { /* stockage indisponible */ }
+    setStyleLu(true);
     void (async () => {
       try {
         const { data } = await createSupabaseBrowserClient().auth.getUser();
@@ -240,6 +244,7 @@ export function KpiStories({ company, freeBlocked = false }: { company: Company;
       id="sec-stories"
       data-blur="stories"
       className="mt-9 scroll-mt-24 animate-fade-up-d2"
+      style={{ visibility: styleLu ? "visible" : "hidden" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

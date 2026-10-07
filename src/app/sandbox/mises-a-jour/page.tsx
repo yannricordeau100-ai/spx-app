@@ -25,11 +25,11 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
       {etat.rougesTotal > 0 ? (
         <div className="rounded-xl border border-rose-500/50 bg-rose-500/10 p-4">
           <div className="font-mono text-[11px] uppercase tracking-wider text-rose-300">Alerte rouge</div>
-          <div className="mt-1 text-[15px] font-semibold text-rose-100">{etat.rougesTotal} bloc(s) en retard sur {etat.stesRouges.length} société(s) : délai J+3 dépassé.</div>
+          <div className="mt-1 text-[15px] font-semibold text-rose-100">{etat.rougesTotal} bloc(s) en retard sur {etat.stesRouges.length} société(s) : délai J+7 dépassé.</div>
           <div className="mt-1 text-[12.5px] text-rose-200/80">{etat.blocs.filter((b) => b.rouge > 0).map((b) => `${b.nom.split(" (")[0]} : ${b.rouge}`).join(" · ")}</div>
         </div>
       ) : (
-        <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-[14px] text-emerald-100">Aucun bloc en retard au-delà de J+3.</div>
+        <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-[14px] text-emerald-100">Aucun bloc en retard au-delà de J+7.</div>
       )}
       <h1 className="mt-6 font-display text-[26px] font-bold">Mises à jour des fiches</h1>
       <p className="mt-1 text-[13px] text-zinc-400">Calendrier des publications de résultats (passé et à venir, sources MarketBeat pour les sociétés américaines et stockanalysis.com pour les autres, mis à jour chaque jour), puis état de chaque bloc selon les règles. Calculé le {etat.calculeLe.slice(0, 16).replace("T", " ")} sur {etat.univers} sociétés. Calendrier du {cal.MAJ}.</p>

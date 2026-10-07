@@ -153,6 +153,24 @@ async function chargerLogoTicker(
 }
 
 /**
+ * 7 oct 2026 (export AMD : bandes blanches de 370 px de chaque cote) : les
+ * graphiques en direct portent sur leur <svg> racine un style d affichage
+ * (height:auto, aspect-ratio, width:100%) pose le 5 oct. Le clone exporte
+ * recevait un viewBox agrandi (marges, titre, signature) mais gardait ce
+ * style : une fois rendu en image, le SVG prenait le ratio de l ANCIEN
+ * graphique (920 / 420), le contenu etait reduit et centre dans un cadre plus
+ * etroit, puis le canvas etirait l ensemble en hauteur. Resultat : fond noir
+ * seulement au centre, bandes transparentes (blanches) de chaque cote.
+ * Le clone doit donc etre depouille de tout style de mise en page.
+ */
+export function neutraliserStyleRacineSvg(clone: SVGSVGElement): void {
+  clone.removeAttribute("style");
+  clone.removeAttribute("class");
+  clone.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  clone.setAttribute("style", "overflow:visible");
+}
+
+/**
  * Titre d export « KPI · Societe » coupe en deux parties.
  * 28 sept 2026 : le separateur exigeait des espaces insecables depuis le
  * 21 sept alors que les appelants envoient des espaces simples : le titre
@@ -238,10 +256,6 @@ export async function downloadSvgAsPng(
   } = {},
   scale = 2
 ): Promise<void> {
-  // 7 oct 2026 (Yann, export AMD) : aucun anglais visible dans l image
-  // (nom EN, unite EN, « Average »). L anglais n existe que derriere un « i »
-  // sur la fiche. Les options restent acceptees mais ne sont plus rendues.
-  options = { ...options, titleEn: undefined, unitEn: undefined };
   // Détection du thème depuis <html data-theme>. Default = dark.
   const themeAttr =
     typeof document !== "undefined"
@@ -269,6 +283,7 @@ export async function downloadSvgAsPng(
   // Clone pour pouvoir injecter / modifier sans toucher au DOM live.
   const clone = svg.cloneNode(true) as SVGSVGElement;
   clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  neutraliserStyleRacineSvg(clone);
 
   // Yann 3 sept 2026 : la courbe se dessine en 1,3 s (animation du trace).
   // Un telechargement lance pendant ce temps copiait l etat intermediaire et
@@ -1752,6 +1767,20 @@ export async function downloadSvgAsPng(
       avgEl.setAttribute("fill", isLight ? "#1d4ed8" : "#5b8cff");
       avgEl.textContent = `Moyenne : ${options.avgPct}`;
       clone.appendChild(avgEl);
+      // Yann 4 sept 2026 : rappel en anglais sous la moyenne, discret, au
+      // meme titre que la traduction du nom du KPI.
+      const avgEnEl = document.createElementNS(NS, "text");
+      avgEnEl.setAttribute("x", String(graphCx));
+      avgEnEl.setAttribute("y", String(origY - PAD_TOP + 230));
+      avgEnEl.setAttribute("text-anchor", "middle");
+      avgEnEl.setAttribute("font-family", PNG_FONT_FAMILY);
+      avgEnEl.setAttribute("font-size", "13");
+      avgEnEl.setAttribute("font-weight", "300");
+      avgEnEl.setAttribute("font-style", "italic");
+      avgEnEl.setAttribute("fill", subtitleColor);
+      avgEnEl.setAttribute("opacity", "0.85");
+      avgEnEl.textContent = `Average: ${options.avgPct}`;
+      clone.appendChild(avgEnEl);
     }
     if (!COMPACT && options.cagr) {
       const CAGR_FONT_SIZE = 22;

@@ -12,7 +12,8 @@ rotation, largeur de police) et on signale :
   - axe/legende : un libelle d axe X touche la legende ;
   - debordement : un libelle d axe X sort du cadre (viewBox) ;
   - option --rendu : refait le meme controle avec les largeurs REELLES mesurees
-                  par resvg (polices du systeme) au lieu de l estimation ; defauts
+                  par resvg avec les polices embarquees (--use-font-file, aucune
+                  police systeme) au lieu de la mesure par tables ; defauts
                   prefixes « rendu: ».
 
 Largeur des textes : jamais sous-estimee. Police a chasse fixe : 0,62 em
@@ -32,6 +33,8 @@ import html, json, math, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import mt_police as POLICE   # police embarquee (Manrope + JetBrains Mono), meme mesure que le rendu
 MARGE_MIN = 5.0      # ecart minimal exige entre deux libelles voisins (px, viewBox 800)
 MARGE_CADRE = 2.0    # un libelle doit rester a au moins 2 px du bord
 
@@ -80,9 +83,11 @@ def largeur_prudente(t: str, taille: float) -> float:
 
 
 def largeur(t: str, taille: float, mono: bool) -> float:
+    """Largeur lue dans la police EMBARQUEE (identique sur tous les systemes).
+    Chasse fixe : 0,62 em (la police fait 0,60, marge conservee)."""
     if mono:
         return len(t) * taille * 0.62
-    return largeur_prudente(t, taille)
+    return POLICE.largeur(t, taille, False)
 
 
 def _attr(bloc: str, nom: str, defaut=None):
@@ -189,6 +194,14 @@ def _resvg():
     return shutil.which("resvg") or "/opt/homebrew/bin/resvg"
 
 
+def cmd_resvg(opts) -> list:
+    """resvg avec les polices EMBARQUEES seules (aucune police systeme)."""
+    cmd = [_resvg(), "--skip-system-fonts"]
+    for f in POLICE.FICHIERS_POLICE.values():
+        cmd += ["--use-font-file", str(f)]
+    return cmd + list(opts)
+
+
 def precharge_rendu(items) -> None:
     """Mesure par lots, en un seul appel resvg par lot, la largeur d encre reelle
     de chaque (texte, taille, mono) pas encore connu."""
@@ -200,14 +213,14 @@ def precharge_rendu(items) -> None:
         ZOOM, LIGNE = 2, 40
         lignes = []
         for n, (t, taille, mono) in enumerate(lot):
-            fam = "ui-monospace" if mono else "ui-sans-serif, system-ui"
+            fam = POLICE.FAMILLE_MONO if mono else POLICE.FAMILLE_SANS
             lignes.append(f'<text x="20" y="{n * LIGNE + 28}" font-size="{taille:g}" font-family="{fam}">{escape(t)}</text>')
         svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 {len(lot) * LIGNE}" '
-               f'font-family="ui-sans-serif, system-ui"><rect width="1000" height="{len(lot) * LIGNE}" fill="white"/>'
+               f'font-family="{POLICE.FAMILLE_SANS}"><rect width="1000" height="{len(lot) * LIGNE}" fill="white"/>'
                + "".join(lignes) + "</svg>")
         with tempfile.TemporaryDirectory() as d:
             (Path(d) / "m.svg").write_text(svg)
-            subprocess.run([_resvg(), "-z", str(ZOOM), str(Path(d) / "m.svg"), str(Path(d) / "m.png")],
+            subprocess.run(cmd_resvg(["-z", str(ZOOM)]) + [str(Path(d) / "m.svg"), str(Path(d) / "m.png")],
                            check=True, capture_output=True)
             im = Image.open(Path(d) / "m.png").convert("L")
         W2 = im.width
@@ -257,7 +270,7 @@ def verifie_svg(svg: str, rendu: bool = False) -> list[dict]:
 
 
 def est_graphique_mt(svg: str) -> bool:
-    return 'viewBox="0 0 800 450"' in svg and 'font-family="ui-sans-serif, system-ui"' in svg
+    return 'viewBox="0 0 800 450"' in svg and ('font-family="MtSans, Manrope, sans-serif"' in svg or 'font-family="ui-sans-serif, system-ui"' in svg)
 
 
 def main() -> int:

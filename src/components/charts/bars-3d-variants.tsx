@@ -1,6 +1,8 @@
 "use client";
 
 import { AF_AXES, pasEtiquettes, pasTrimestres, garde, useEchelleSvg, policeValeur } from "@/components/charts/axes-mobiles";
+import { useAntiChevauchement } from "@/components/charts/anti-chevauchement";
+import { useExportBureau } from "@/components/charts/export-bureau";
 import { useEffect, useRef, useState } from "react";
 import { usePleinEcran } from "@/components/charts/plein-ecran-context";
 import type { CompanyEvent } from "@/lib/events";
@@ -139,12 +141,15 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
   const [hover, setHover] = useState<number | null>(null);
   // 27 sept 2026 (Yann, doute n°12) : sous 480 px de large, les valeurs au-dessus
   // des barres sont illisibles ; on ne garde que celle de la barre touchée.
-  const [etroit, setEtroit] = useState(false);
+  const exportBureau = useExportBureau();
+  const [etroitEcran, setEtroit] = useState(false);
+  const etroit = etroitEcran && !exportBureau;
   // Yann 5 oct 2026 : dans la vue agrandie mobile, les valeurs restent affichees
   // sur toutes les barres (comme dans le graphique normal).
   const pleinEcran = usePleinEcran();
   // Mobile (< 640 px) : les graduations negatives ("-60 %") debordaient a gauche.
-  const [mobile, setMobile] = useState(false);
+  const [mobileEcran, setMobile] = useState(false);
+  const mobile = mobileEcran && !exportBureau;
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
     const mq = window.matchMedia("(max-width: 479px)");
@@ -162,6 +167,7 @@ export function BarsIso3DStack({ data, labels, highlight = [], unit = "", color 
     };
   }, []);
   const svgRef = useRef<SVGSVGElement>(null);
+  useAntiChevauchement(svgRef);
   // 5 oct 2026 : pixels ecran reels par unite du viewBox (zoom, scale et rotation inclus).
   const echelleSvg = useEchelleSvg(svgRef, mobile);
   // Yann 15 mai 2026 : axis header locale-aware.

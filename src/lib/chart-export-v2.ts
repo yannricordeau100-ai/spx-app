@@ -1,3 +1,5 @@
+import { neutraliserStyleRacineSvg } from "@/lib/chart-export";
+
 /**
  * chart-export-v2.ts — Refonte modèle PDF Yann 3 juin 2026 v2.
  *
@@ -118,6 +120,7 @@ async function composeAndExport(
   // Clone SVG sans toucher au DOM live
   const clone = svg.cloneNode(true) as SVGSVGElement;
   clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  neutraliserStyleRacineSvg(clone);
 
   ["[data-chart-logo]", "[data-chart-watermark]", '[data-export-hide="true"]'].forEach(
     (sel) => {

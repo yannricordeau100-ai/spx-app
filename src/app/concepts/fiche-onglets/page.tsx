@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { STYLES } from "./liste";
+import { STYLES, NOUVEAUX } from "./liste";
 
 export const metadata = {
   title: "Fiche société en onglets · Mettrik",
@@ -23,7 +23,7 @@ export default function FicheOngletsIndex() {
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {STYLES.map((s, i) => (
             <Link key={s.slug} href={`/concepts/fiche-onglets/${s.slug}`} className="group rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 transition-colors hover:border-violet-400/40 hover:bg-violet-500/[0.05]">
-              <div className="font-mono text-[11px] text-violet-300/80">Style {i + 1}</div>
+              <div className="flex items-center gap-2 font-mono text-[11px] text-violet-300/80">Style {i + 1}{NOUVEAUX.includes(s.slug) && <span className="rounded-full bg-emerald-500/20 px-2 py-px text-[10px] font-semibold uppercase tracking-wider text-emerald-300">Nouveau</span>}</div>
               <div className="mt-1 font-display text-[19px] font-bold">{s.nom}</div>
               <p className="mt-2 text-[13px] leading-relaxed text-zinc-400">{s.phrase}</p>
             </Link>

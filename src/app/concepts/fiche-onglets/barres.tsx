@@ -8,7 +8,7 @@ import type { Onglet } from "./contenu";
 export type BarreProps = { onglets: Onglet[]; actif: string; onChoisir: (id: string) => void; accent: string };
 
 /** Recentre l'onglet actif DANS son conteneur (sans faire defiler la page). */
-function useCentrer(actif: string) {
+export function useCentrer(actif: string) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current;

@@ -193,6 +193,24 @@ try:
 except Exception as e:
     feu("orange", "Graphiques", "Controle des axes des graphiques moyen terme", str(e)[:80])
 
+# 8b) EXPORTS PNG DES GRAPHIQUES : aucune bande, fond du theme bord a bord (7 oct 2026, export AMD)
+# scripts/verif-export-png.mjs compile le code source d export, l injecte dans de vraies fiches (preversion),
+# controle 2 societes x sombre/clair x ordinateur/mobile x barres/courbe/variation (suite complete : 5 societes).
+try:
+    _env = dict(os.environ, TICKERS="AMD,KO")
+    _r = subprocess.run(["node", "scripts/verif-export-png.mjs", "--json"], capture_output=True, text=True, timeout=900, env=_env)
+    if _r.returncode == 2 or not _r.stdout.strip():
+        feu("orange", "Graphiques", "Exports PNG sans bande, fond plein (scripts/verif-export-png.mjs)", "controle non execute : " + (_r.stderr or "")[:80])
+    else:
+        _j = json.loads(_r.stdout)
+        _ko = [x["id"] for x in _j["resultats"] if x["defauts"]]
+        # bandes / bords / etirement = rouge ; simple chevauchement de libelles = orange (a corriger dans le graphique)
+        _dur = [x["id"] for x in _j["resultats"] if any("chevauchent" not in d for d in x["defauts"])]
+        feu("rouge" if _dur else ("orange" if _ko else "vert"), "Graphiques", "Exports PNG sans bande, fond plein du theme bord a bord (scripts/verif-export-png.mjs)",
+            f"{len(_ko)} en defaut sur {_j['total']}" + (" : " + ", ".join(_ko[:4]) if _ko else ""))
+except Exception as e:
+    feu("orange", "Graphiques", "Exports PNG sans bande", str(e)[:80])
+
 # 9) HERO DES FICHES : aucun hero generique/comptable quand un KPI specifique existe, aucun override orphelin
 # (7 oct 2026). Charge le VRAI chargeur sur les societes de clean-all-tickers : scripts/verif-hero-generique.ts.
 try:

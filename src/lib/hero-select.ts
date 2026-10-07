@@ -11,8 +11,9 @@
  *  2. hero configure (kpis-haut max pv_score, v2-pipeline...) s'il est
  *     specifique : non generique/comptable, non %, valeur utilisable,
  *     historique >= 3 points.
- *  3. meilleur KPI specifique (memes criteres), plus haut pv_score puis
- *     historique le plus long.
+ *  3. meilleur KPI specifique (memes criteres), d'abord ceux rattaches a
+ *     l'industrie de la societe (kpi-industrie-par-societe.json), puis plus
+ *     haut pv_score puis historique le plus long.
  *  4. dernier recours seulement : un KPI generique (raison tracee).
  */
 import { isGenericHeroKpi, isPercentHeroKpi, raisonGenerique } from "@/lib/kpi-hero-generic";
@@ -97,6 +98,7 @@ export function choisirHero(
   configure: string | null | undefined,
   override: string | null | undefined,
   absorbes?: ReadonlyMap<string, string>,
+  industrie?: ReadonlySet<string>,
 ): HeroChoix {
   const liste = kpis.filter((k) => typeof k?.short === "string" && k.short);
   const par = new Map<string, HeroKpiLike>();
@@ -127,6 +129,9 @@ export function choisirHero(
     const al = periodesAlignees(a) ? 1 : 0;
     const bl = periodesAlignees(b) ? 1 : 0;
     if (al !== bl) return bl - al;
+    const ai = industrie?.has(String(a.short)) ? 1 : 0;
+    const bi = industrie?.has(String(b.short)) ? 1 : 0;
+    if (ai !== bi) return bi - ai;
     if (pv(a) !== pv(b)) return pv(b) - pv(a);
     return longueurHistorique(b) - longueurHistorique(a);
   });

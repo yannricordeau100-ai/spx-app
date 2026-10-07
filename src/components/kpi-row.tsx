@@ -7,6 +7,7 @@ import { rate } from "@/lib/brand";
 import { Sparkline } from "@/components/effects/sparkline";
 import { QualityBadge } from "@/components/quality-badge";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { nomEnTechnique } from "@/components/kpi-swap-title";
 import { siglesDuNom } from "@/lib/sigles-kpi";
 import { expliqueUnite } from "@/lib/unites-explications";
 import { StarButton } from "@/components/star-button";
@@ -182,7 +183,7 @@ export function KpiRow({
                   Avant, il etait un frere flex et partait tout a droite. */}
               {(() => {
             const hasDef = typeof kpi.explanation === "string" && kpi.explanation.trim().length > 0;
-            const hasEn = Boolean(kpi.name_en && kpi.name_en !== kpi.name_fr);
+            const hasEn = Boolean(kpi.name_en && kpi.name_en !== kpi.name_fr && !nomEnTechnique(kpi.name_en, kpi.short));
             // Yann 2 sept 2026 : une unite pas simple (bps, GW, Bcf/j...)
             // justifie le "i" a elle seule, avec son explication.
             const uniteExpliquee = expliqueUnite(kpi.unit);

@@ -157,6 +157,24 @@ export async function calculerEtatMisesAJour(): Promise<EtatMisesAJour> {
       pose(b, { ticker: t, nom, bloc_date: d, reference: rapportAnnuel, ...f, motif: rapportAnnuel ? f.motif : "dernier rapport annuel non identifié (dernier dépôt = trimestriel)" });
     }
   }
+  // Veille des journees investisseurs (scripts/evenements-veille.py) : rouge a J+7
+  // quand un evenement detecte n a toujours pas ete extrait.
+  {
+    const b = parId.evenements;
+    const ev = await lire<{ stes?: Record<string, { evenement?: string | null; statut?: string; detecte_le?: string | null; alerte?: string | null }> }>(
+      path.join(ROOT, ".conv-state/evenements-etat.json"),
+    );
+    if (b && ev?.stes) {
+      for (const [t, e] of Object.entries(ev.stes)) {
+        const det = iso(e.detecte_le);
+        const age = det ? jours(today, det) : 0;
+        const nom = noms[t]?.name ?? t;
+        if ((e.statut ?? "a_extraire") !== "a_extraire") b.vert++;
+        else if (age >= b.delai_jours || (e.alerte ?? "").startsWith("rouge")) pose(b, { ticker: t, nom, feu: "rouge", bloc_date: det, reference: iso(e.evenement), jours: Math.max(0, age - b.delai_jours), motif: `journée investisseurs du ${iso(e.evenement) ?? "?"}, détectée le ${det ?? "?"}, aucune extraction` });
+        else pose(b, { ticker: t, nom, feu: "orange", bloc_date: det, reference: iso(e.evenement), jours: 0, motif: "extraction en attente" });
+      }
+    }
+  }
   for (const b of blocs) b.rouges.sort((a, c) => (c.jours ?? 0) - (a.jours ?? 0));
   return { calculeLe: new Date().toISOString(), univers: uni.length, blocs, rougesTotal: blocs.reduce((n, b) => n + b.rouge, 0), stesRouges: [...stesRouges].sort() };
 }

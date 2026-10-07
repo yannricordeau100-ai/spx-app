@@ -156,6 +156,17 @@ function deviseCotation(symbole: string): string {
   return "$";
 }
 
+/** Preference Story / Mur de l utilisateur connecte (user_metadata.story_style), lue cote serveur. */
+async function lireStyleStory(): Promise<"story" | "mur" | null> {
+  try {
+    const user = await getUserCourant();
+    const v = user?.user_metadata?.story_style;
+    return v === "story" || v === "mur" ? v : null;
+  } catch {
+    return null;
+  }
+}
+
 async function resolveFreemiumTier(): Promise<UserTier> {
   const simulated = await readSimulateTier();
   if (simulated === "anonymous") return "anon";
@@ -441,7 +452,7 @@ export default async function TickerPage({
   return (
     <>
       {/* Yann 7 oct 2026 : repere rouge des ajouts d evenements, admin seulement (jamais sur mettrik.ai). */}
-      {adminOutils && <EvenementsRepere />}
+      {adminOutils && ["GOOGL", "GOOG"].includes(servedCompany.ticker.toUpperCase()) && <EvenementsRepere />}
       <FicheJsonLd
         ticker={servedCompany.ticker}
         nom={servedCompany.name}
@@ -474,6 +485,7 @@ export default async function TickerPage({
           adminApresHero={adminApresHero}
           adminApresMoyenTerme={adminApresMoyenTerme}
           adminNomsExport={adminNomsExport}
+          styleStory={await lireStyleStory()}
         />
       </FreemiumBlurProvider>
     </>

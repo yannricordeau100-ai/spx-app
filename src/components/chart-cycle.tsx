@@ -9,6 +9,8 @@ import { BarsIso3DStack } from "@/components/charts/bars-3d-variants";
 import { VariationIsoSteps3D } from "@/components/charts/variation-3d-variants";
 import { MiniMultiplesChart } from "@/components/charts/mini-multiples-chart";
 import { downloadSvgAsPng } from "@/lib/chart-export";
+import { resoudreChevauchements } from "@/components/charts/anti-chevauchement";
+import { fixerExportBureau } from "@/components/charts/export-bureau";
 import { ShareDownloadMenu } from "@/components/charts/chart-mobile-controls";
 import { cn } from "@/lib/utils";
 import type { Anomaly } from "@/lib/brand";
@@ -137,11 +139,23 @@ const EXPORT_LOCALES = ["fr", "en", "en-GB", "de", "de-CH", "nl"] as const;
 type ExportLocale = (typeof EXPORT_LOCALES)[number];
 
 export function downloadVisibleChart() {
+  // 7 oct 2026 : mise en page ordinateur pour tout export (voir export-bureau.ts).
+  // On la force, on laisse React redessiner le graphique, on exporte, on relache.
+  if (typeof document === "undefined" || exportEnCours) return;
+  fixerExportBureau(true);
+  const fin = () => fixerExportBureau(false);
+  requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => {
+    try { exporterGraphiqueVisible(fin); } catch (e) { fin(); console.error("[export PNG]", e); }
+  }, 120)));
+}
+
+function exporterGraphiqueVisible(fin: () => void) {
   if (typeof document === "undefined") return;
   const svg = document.querySelector<SVGSVGElement>(
     'svg[data-chart-export="true"]'
   );
-  if (!svg) return;
+  if (!svg) { fin(); return; }
+  resoudreChevauchements(svg);
   const prefix = svg.getAttribute("data-export-prefix") || "chart";
   const rawLocale = svg.getAttribute("data-export-locale") || "";
   const locale = (EXPORT_LOCALES as readonly string[]).includes(rawLocale)
@@ -154,7 +168,6 @@ export function downloadVisibleChart() {
   // Yann 3 sept 2026 : l export echouait EN SILENCE (promesse rejetee jamais
   // rattrapee) : aucun fichier, aucun message. On rattrape, on previent, et
   // on empeche deux telechargements simultanes.
-  if (exportEnCours) return;
   exportEnCours = true;
   setTimeout(() => { exportEnCours = false; }, 2500);
   downloadSvgAsPng(svg, `mettrik-${prefix}-${Date.now()}.png`, {
@@ -174,7 +187,7 @@ export function downloadVisibleChart() {
     if (typeof window !== "undefined") {
       window.alert("Le téléchargement de l'image a échoué. Réessaie dans un instant.");
     }
-  });
+  }).finally(fin);
 }
 
 /** Verrou anti double-clic sur le telechargement (Yann 3 sept 2026). */

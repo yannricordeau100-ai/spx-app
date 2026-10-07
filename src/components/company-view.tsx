@@ -81,7 +81,7 @@ import { PageSearch } from "@/components/page-search";
 // Yann 7 sept 2026 : FreshnessIndicator deplace dans stock-price-block (COL 0).
 
 import { CompanyNavChrome } from "@/components/company-nav-chrome";
-import { KpiSwapTitle, libelleAnglais } from "@/components/kpi-swap-title";
+import { KpiSwapTitle, libelleAnglais, nomEnTechnique } from "@/components/kpi-swap-title";
 import { computeSuperKpis, computeSectorSuperKpis } from "@/lib/super-kpi";
 import { useT } from "@/lib/i18n/provider";
 import type { TranscriptDoc } from "@/components/transcript-stories";
@@ -373,6 +373,7 @@ export function CompanyView({
   adminApresHero = null,
   adminApresMoyenTerme = null,
   adminNomsExport = null,
+  styleStory,
 }: {
   company: Company;
   authSlot?: React.ReactNode;
@@ -395,6 +396,8 @@ export function CompanyView({
    *  chiffres importants + textes plus-value. Provider FreemiumBlurProvider
    *  doit être posé côté SSR (page.tsx V1.9 / V1.9.5). */
   freemiumTier?: UserTier;
+  /** Style Story / Mur lu cote serveur (utilisateur connecte), evite le flash. */
+  styleStory?: "story" | "mur" | null;
   /** Yann 16 sept 2026 : vitrine anonyme (Google) : tout clic hors connexion mene a l inscription. */
   captureInscription?: boolean;
   /** Yann 9 juin 2026 : liste des blocs désactivés (Supabase + fallback
@@ -2034,7 +2037,7 @@ export function CompanyView({
                   const hasContent =
                     (localExplanation && localExplanation.trim()) ||
                     uniteExpliquee ||
-                    (active.name_en && active.name_en !== active.name_fr);
+                    (active.name_en && active.name_en !== active.name_fr && !nomEnTechnique(active.name_en, (active as { short?: string }).short));
                   if (!hasContent) return null;
                   return (
                     <InfoTooltip color={accent}>
@@ -2056,7 +2059,7 @@ export function CompanyView({
                           <span className="text-[12px] text-zinc-300">{active.type_comparable ? active.type_comparable.fr : "KPI unique à cette société"}</span>
                         </div>
                       )}
-                      {active.name_en && active.name_en !== active.name_fr && (
+                      {active.name_en && active.name_en !== active.name_fr && !nomEnTechnique(active.name_en, (active as { short?: string }).short) && (
                         <div className="mt-2 border-t border-white/5 pt-2 font-mono text-[11px] italic text-zinc-400">
                           {active.name_en}
                         </div>
@@ -2428,7 +2431,7 @@ export function CompanyView({
         {/* Stories — KPIs short-history + MarketPositions intégrées */}
         {isBlockEnabled("stories", company.ticker) && !isDisabled("kpi_stories") ? (
           hasStories(company.kpis, []) && (
-            <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="KPI stories réservés aux abonnés"><KpiStories company={company} freeBlocked={freeBlocked} /></ZoneReservee>
+            <ZoneReservee actif={freeBlocked && !anonPage} palier="free" titre="KPI stories réservés aux abonnés"><KpiStories company={company} freeBlocked={freeBlocked} styleServeur={styleStory} /></ZoneReservee>
           )
         ) : (
           <BlockComingSoon blockId="stories" />

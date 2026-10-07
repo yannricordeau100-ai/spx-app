@@ -96,7 +96,7 @@ export async function chargerEvenement(
   const nom = str(ev.nom);
   const date = str(ev.date);
   const groupe = groupeDe(ev.type);
-  const etiquetteDefaut = date ? `annoncé par la société le ${date}` : "annoncé par la société";
+  const etiquetteDefaut = "annoncé par la société";
 
   const kpis: Array<Record<string, unknown>> = [];
   const sourcesUrl = new Set<string>();
@@ -134,7 +134,8 @@ export async function chargerEvenement(
       is_short_history: true,
       story_category: str(s.story_category) || "Story",
       _source: "evenement",
-      evenement_label: str(s.label_fr) || etiquetteDefaut,
+      // Yann 7 oct 2026 : pas de date exacte, comme les autres stories (la periode suffit).
+      evenement_label: "",
       evenement_periode: str(s.period),
       evenement_groupe: groupe,
       evenement_nom: nom,
@@ -170,7 +171,7 @@ export async function chargerEvenement(
     .map((u) => hote(u))
     .filter(Boolean)
     .filter((h, i, a) => a.indexOf(h) === i)
-    .map((h) => `${societe ? societe + ", " : ""}${nom}${date ? " (" + date + ")" : ""}, ${h}`);
+    .map((h) => `${societe ? societe + ", " : ""}${nom}, ${h}`);
 
   return {
     fiche: { nom, groupe, date, etiquette: etiquetteDefaut, tam, ia, sources },

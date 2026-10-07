@@ -35,6 +35,8 @@ Couleurs disponibles : violet, vert, cyan, ambre, rose, gris.
 """
 import json, re
 import sys
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
+import mt_police as POLICE
 import importlib.util
 from pathlib import Path
 
@@ -82,6 +84,7 @@ def largeur_texte(t: str, taille: float, mono: bool = False) -> float:
     """Largeur approchee d un texte, en pixels, pour eviter les chevauchements."""
     if mono:
         return len(t) * taille * 0.60
+    return POLICE.largeur(t, taille, False)
     total = 0.0
     for ch in t:
         if ch in " .,;:'!|()[]ijltfIr":
@@ -315,7 +318,7 @@ def construit(spec: dict, theme: str) -> str:
     y0 = bas - (0 - plancher) * ech  # ligne du zero
 
     out = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" font-family="ui-sans-serif, system-ui">',
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" font-family="{POLICE.FAMILLE_SANS}">',
         f'<rect width="{W}" height="{H}" fill="{c["fond"]}"/>',
     ]
     # Yann 18 sept 2026 : le titre et le sous-titre ne sont plus dessines dans le SVG ;
@@ -334,7 +337,7 @@ def construit(spec: dict, theme: str) -> str:
     for g in grads:
         y = y0 - g * ech
         out.append(f'<line x1="{MARGE_G}" y1="{y:.0f}" x2="{W - MARGE_D}" y2="{y:.0f}" stroke="{c["grille"]}" stroke-width="1"/>')
-        out.append(f'<text x="{MARGE_G - 8}" y="{y + 4:.0f}" text-anchor="end" fill="{c["gris"]}" font-size="11" font-family="ui-monospace">{format_valeur(g, "")}</text>')
+        out.append(f'<text x="{MARGE_G - 8}" y="{y + 4:.0f}" text-anchor="end" fill="{c["gris"]}" font-size="11" font-family="{POLICE.FAMILLE_MONO}">{format_valeur(g, "")}</text>')
 
     # Yann 21 sept 2026 : l unite doit se lire en une seconde. Le signe pourcent,
     # ou le libelle d unite de la spec (champ « unite_axe », par exemple
@@ -345,16 +348,16 @@ def construit(spec: dict, theme: str) -> str:
         # au dessus de la graduation la plus haute, sans la toucher, a
         # l horizontale, alignee a droite sur les graduations.
         taille_axe = 12 if marque_axe == "%" else 11
-        while taille_axe > 8.5 and largeur_texte(marque_axe, taille_axe) > 180:
+        while taille_axe > 8.5 and largeur_texte(marque_axe, taille_axe, mono=True) > 180:
             taille_axe -= 0.5
         y_unite = HAUT - 11  # la graduation haute s ecrit a HAUT + 4 (hauteur ~9 px)
-        if largeur_texte(marque_axe, taille_axe) <= MARGE_G - 10:
+        if largeur_texte(marque_axe, taille_axe, mono=True) <= MARGE_G - 10:
             x_unite, ancre = MARGE_G - 8, "end"
         else:
             x_unite, ancre = 6, "start"
         out.append(
             f'<text x="{x_unite:.0f}" y="{y_unite:.0f}" text-anchor="{ancre}" fill="{c["axe"]}" '
-            f'font-size="{taille_axe:g}" font-family="ui-monospace">{echappe(marque_axe)}</text>'
+            f'font-size="{taille_axe:g}" font-family="{POLICE.FAMILLE_MONO}">{echappe(marque_axe)}</text>'
         )
 
     largeur_zone = (W - MARGE_D - MARGE_G) / len(cats)
@@ -373,7 +376,7 @@ def construit(spec: dict, theme: str) -> str:
     if proj_cats or proj_series:
         out.append(
             f'<text x="{W - MARGE_D}" y="{HAUT - 11}" text-anchor="end" fill="{c["gris"]}" '
-            f'font-size="10.5" font-style="italic">Pointill\u00e9s : projections</text>'
+            f'font-size="10.5">Pointill\u00e9s : projections</text>'
         )
     for i, cat in enumerate(cats):
         centre = MARGE_G + largeur_zone * (i + 0.5)
@@ -401,7 +404,7 @@ def construit(spec: dict, theme: str) -> str:
                 taille_n = next((e for e in (11.0, 10.0, 9.0, 8.0) if largeur_texte(etiquette, e, mono=True) <= barre_w + 6), 8.0)
                 out.append(
                     f'<text x="{cx:.0f}" y="{y0 + h + 14:.0f}" text-anchor="middle" fill="{c["titre"]}" '
-                    f'font-size="{taille_n:g}" font-family="ui-monospace">{echappe(etiquette)}</text>'
+                    f'font-size="{taille_n:g}" font-family="{POLICE.FAMILLE_MONO}">{echappe(etiquette)}</text>'
                 )
                 continue
             sommet = y0 - h
@@ -417,7 +420,7 @@ def construit(spec: dict, theme: str) -> str:
                 if sommet - 6 >= 12:
                     out.append(
                         f'<text x="{cx:.0f}" y="{sommet - 6:.0f}" text-anchor="middle" fill="{c["titre"]}" '
-                        f'font-size="{taille_h:g}" font-family="ui-monospace">{echappe(etiquette)}</text>'
+                        f'font-size="{taille_h:g}" font-family="{POLICE.FAMILLE_MONO}">{echappe(etiquette)}</text>'
                     )
                 else:
                     # Barre qui touche le haut du cadre : l etiquette passe dedans,
@@ -425,7 +428,7 @@ def construit(spec: dict, theme: str) -> str:
                     y_lab = max(sommet + 15, 15)
                     out.append(
                         f'<text x="{cx:.0f}" y="{y_lab:.0f}" text-anchor="middle" fill="{ENCRE_SUR_BARRE}" '
-                        f'font-size="{taille_h:g}" font-family="ui-monospace">{echappe(etiquette)}</text>'
+                        f'font-size="{taille_h:g}" font-family="{POLICE.FAMILLE_MONO}">{echappe(etiquette)}</text>'
                     )
             else:
                 # Barres serrees : 7 oct 2026, etiquette oblique (environ 40 degres)
@@ -441,7 +444,7 @@ def construit(spec: dict, theme: str) -> str:
                 if sommet - 5 - montee >= 2:
                     out.append(
                         f'<text x="{x_lab:.0f}" y="{sommet - 5:.0f}" text-anchor="start" fill="{c["titre"]}" '
-                        f'font-size="{taille:g}" font-family="ui-monospace" '
+                        f'font-size="{taille:g}" font-family="{POLICE.FAMILLE_MONO}" '
                         f'transform="rotate(-{ANGLE_OBL} {x_lab:.0f} {sommet - 5:.0f})">{echappe(etiquette)}</text>'
                     )
                 else:
@@ -450,7 +453,7 @@ def construit(spec: dict, theme: str) -> str:
                     y_lab = max(sommet, 0.0) + montee + 3
                     out.append(
                         f'<text x="{x_lab:.0f}" y="{y_lab:.0f}" text-anchor="start" fill="{ENCRE_SUR_BARRE}" '
-                        f'font-size="{taille:g}" font-family="ui-monospace" '
+                        f'font-size="{taille:g}" font-family="{POLICE.FAMILLE_MONO}" '
                         f'transform="rotate(-{ANGLE_OBL} {x_lab:.0f} {y_lab:.0f})">{echappe(etiquette)}</text>'
                     )
         if i in axe["lignes"]:
@@ -464,7 +467,8 @@ def construit(spec: dict, theme: str) -> str:
         out.extend(legende(series, c))
 
     out.append("</svg>")
-    return "\n".join(out)
+    # 7 oct 2026 : la police voyage avec le fichier (sous-ensemble WOFF2 en base64).
+    return POLICE.integre("\n".join(out))
 
 
 def legende(series: list[dict], c: dict) -> list[str]:

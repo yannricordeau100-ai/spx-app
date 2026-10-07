@@ -9,8 +9,9 @@ import { FreemiumBlurProvider } from "@/lib/freemium/context";
 import { CompanyHeader } from "@/components/company-header";
 import { BandeauIpoRecente } from "@/components/young-ipo-warning";
 import type { FicheDemo } from "./data";
-import { styleParSlug, type StyleId } from "./liste";
+import { styleParSlug, RAIL_PX, type StyleId } from "./liste";
 import { Contenu, ongletsDe } from "./contenu";
+import { RailIcones, RailSurvol, RailLegende, RailGroupes, RailProgression, RailFlottant, CartesCompactes } from "./rails";
 import { BarreSouligne, BarrePilules, ColonneVerticale, BarreIcones, BarreApplication, GrilleCartes } from "./barres";
 
 function Fiche({ f, style, admin }: { f: FicheDemo; style: StyleId; admin: React.ReactNode }) {
@@ -53,6 +54,18 @@ function Fiche({ f, style, admin }: { f: FicheDemo; style: StyleId; admin: React
       {style === "pilules" && (<><BarrePilules {...barre} /><div className="mt-6">{corps}</div></>)}
       {style === "icones-compteurs" && (<><BarreIcones {...barre} /><div className="mt-6">{corps}</div></>)}
       {style === "cartes" && (<><GrilleCartes {...barre} /><div className="mt-6">{corps}</div></>)}
+      {style === "cartes-compactes" && (<><CartesCompactes {...barre} /><div className="mt-6">{corps}</div></>)}
+      {style in RAIL_PX && (
+        <>
+          {style === "rail-icones" && <RailIcones {...barre} />}
+          {style === "rail-survol" && <RailSurvol {...barre} />}
+          {style === "rail-legende" && <RailLegende {...barre} />}
+          {style === "rail-groupes" && <RailGroupes {...barre} />}
+          {style === "rail-progression" && <RailProgression {...barre} />}
+          {style === "rail-flottant" && <RailFlottant {...barre} />}
+          <div className="mt-6 pb-24 md:pb-0">{corps}</div>
+        </>
+      )}
       {style === "vertical" && (
         <div className="mt-6 grid gap-6 md:grid-cols-[220px_minmax(0,1fr)]">
           <ColonneVerticale {...barre} />
@@ -77,10 +90,11 @@ export function FicheOngletsClient({ style, fiches, adminBlocs = null }: { style
   useEffect(() => { setAide(window.innerWidth >= 768); }, []);
   if (!f) return <div className="p-10 text-zinc-400">Aucune société chargée.</div>;
   const glow = brand(f.company.ticker).glow;
+  const rail = RAIL_PX[style];
   return (
-    <div className="relative min-h-screen bg-[#050505] text-zinc-100">
+    <div className="relative min-h-screen bg-[#050505] text-zinc-100 md:pl-[var(--rail,0px)]" style={rail ? ({ "--rail": `${rail}px` } as React.CSSProperties) : undefined}>
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[600px]" style={{ background: `radial-gradient(ellipse 80% 50% at 50% -10%, ${glow}, transparent 60%)` }} />
-      <main className="relative mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+      <main className={`relative px-4 py-6 sm:px-6 sm:py-8 ${rail ? "w-full" : "mx-auto max-w-6xl"}`}>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Link href="/concepts/fiche-onglets" className="group inline-flex items-center gap-2 text-[12px] text-zinc-500 hover:text-zinc-200">
             <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-0.5" />
