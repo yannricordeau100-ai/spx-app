@@ -7,7 +7,6 @@ import { ArrowLeft, Check, Mail } from "lucide-react";
 import { PricingCards } from "@/components/billing/pricing-cards";
 import { PricingMatrix } from "@/components/billing/pricing-matrix";
 import { ScrollToTopOnMount } from "@/components/scroll-to-top-on-mount";
-import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { FloatingLogosBg } from "@/components/billing/floating-logos-bg";
 import { CurrencyPicker } from "@/components/billing/currency-picker";
 import { loadPricingCatalog } from "@/lib/billing/load-pricing";
@@ -198,7 +197,6 @@ export default async function PricingPage() {
           </a>
         </section>
 
-        <DisclaimerFooter />
       </main>
     </div>
   );

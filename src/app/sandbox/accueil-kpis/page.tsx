@@ -25,7 +25,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
   return (
     <main className="mx-auto max-w-5xl px-4 py-6 text-zinc-100">
       <h1 className="font-display text-[22px] font-bold">KPI affichés sur l’accueil</h1>
-      <p className="mt-1 text-[13px] text-zinc-400">Pour chacune des 10 premières sociétés de chaque zone, choisis 3 KPI parmi tous ses indicateurs clés et ses stories. Sans choix, les KPI calculés automatiquement restent affichés.</p>
+      <p className="mt-1 text-[13px] text-zinc-400">Pour chacune des 10 premières sociétés de chaque zone, choisis 3 KPIs parmi tous ses indicateurs clés et ses stories. Sans choix, les KPIs calculés automatiquement restent affichés.</p>
       <AccueilKpisClient zones={parZone} kpis={Object.fromEntries(listes)} choixInitial={await lireChoixAccueil()} jeton={parJeton ? sp.audit_token ?? null : null} />
     </main>
   );

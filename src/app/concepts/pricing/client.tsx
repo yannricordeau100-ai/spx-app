@@ -162,7 +162,7 @@ export function PricingClient({
               "Alertes email sur seuils KPI",
               "Digest hebdomadaire personnalisé",
               "Favoris illimités",
-              "Accès aux KPI composites Mettrik",
+              "Accès aux KPIs composites Mettrik",
               "Historique 10 ans (vs 5 en Free)",
               "Export PDF des analyses",
             ]}

@@ -150,7 +150,7 @@ export function SynchroView({ etat, interrupteurs: init }: { etat: EtatSynchro; 
         <div className="mt-8 rounded-xl border border-white/[0.06] bg-white/[0.015] p-4 text-[12px] text-zinc-400">
           <div className="mb-1 font-semibold text-zinc-200">Ce que font les interrupteurs</div>
           <ul className="list-disc space-y-1 pl-5">
-            <li>Ils sont lus chaque nuit par la passe de 23 h du Mac (scripts/earnings-refresh.sh) avant chaque étape : transcripts et synthèses, extraction des KPI, stories.</li>
+            <li>Ils sont lus chaque nuit par la passe de 23 h du Mac (scripts/earnings-refresh.sh) avant chaque étape : transcripts et synthèses, extraction des KPIs, stories.</li>
             <li>Un interrupteur arrêté ne touche pas aux données déjà en place : il empêche seulement les prochains ajouts.</li>
             <li>Les feux de cette page ne dépendent pas des interrupteurs : ils disent si la page est conforme à la réalité de la société, quoi qu’aient fait les robots.</li>
           </ul>

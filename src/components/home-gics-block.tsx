@@ -50,28 +50,28 @@ function Arbre({ s, lang, compact = false }: { s: GicsSector; lang: Lang; compac
     <div className={compact ? "space-y-3" : "space-y-5"}>
       {s.groups.map((g) => (
         <div key={g.code}>
-          <div className="flex items-baseline gap-2">
-            <span className="font-mono text-[10.5px] tracking-wider text-cyan-300/90">{g.code}</span>
-            <span className="text-[13.5px] font-semibold text-zinc-100">{g.name}</span>
-            <span className="font-mono text-[9.5px] uppercase tracking-wider text-zinc-600">{NIVEAUX[lang][1]}</span>
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+            <span className="w-11 shrink-0 font-mono text-[10.5px] tracking-wider text-cyan-300/90">{g.code}</span>
+            <span className="min-w-0 flex-1 text-[13.5px] font-semibold leading-snug text-zinc-100 sm:flex-none">{g.name}</span>
+            <span className="hidden font-mono text-[9.5px] uppercase tracking-wider text-zinc-600 sm:inline">{NIVEAUX[lang][1]}</span>
           </div>
           <div className={`mt-2 ${compact ? "space-y-2" : "grid gap-3 md:grid-cols-2"}`}>
             {g.industries.map((i) => (
               <div key={i.code} className="rounded-lg border border-white/[0.07] bg-white/[0.015] p-2.5">
-                <div className="flex items-baseline gap-2">
-                  <span className="font-mono text-[10.5px] tracking-wider text-emerald-300/90">{i.code}</span>
-                  <span className="text-[12.5px] font-medium text-zinc-200">{i.name}</span>
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-600">{NIVEAUX[lang][2]}</span>
+                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <span className="w-14 shrink-0 font-mono text-[10.5px] tracking-wider text-emerald-300/90">{i.code}</span>
+                  <span className="min-w-0 flex-1 text-[12.5px] font-medium leading-snug text-zinc-200 sm:flex-none">{i.name}</span>
+                  <span className="hidden font-mono text-[9px] uppercase tracking-wider text-zinc-600 sm:inline">{NIVEAUX[lang][2]}</span>
                   {KPI_PAR_INDUSTRIE[i.code] && (
-                    <span className="ml-auto whitespace-nowrap font-mono text-[10.5px] font-semibold text-orange-400" title={`${KPI_PAR_INDUSTRIE[i.code].stes} ${lang === "en" ? "companies" : lang === "de" ? "Unternehmen" : "sociétés"}`}>
-                      {KPI_PAR_INDUSTRIE[i.code].total.toLocaleString(lang === "en" ? "en-US" : lang === "de" ? "de-DE" : "fr-FR")} {lang === "en" ? "total KPIs" : lang === "de" ? "KPI gesamt" : "KPI totaux"}
+                    <span className="ml-[4.25rem] w-full whitespace-nowrap font-mono text-[10.5px] font-semibold text-orange-400 sm:ml-auto sm:w-auto" title={`${KPI_PAR_INDUSTRIE[i.code].stes} ${lang === "en" ? "companies" : lang === "de" ? "Unternehmen" : "sociétés"}`}>
+                      {KPI_PAR_INDUSTRIE[i.code].total.toLocaleString(lang === "en" ? "en-US" : lang === "de" ? "de-DE" : "fr-FR")} {lang === "en" ? "total KPIs" : lang === "de" ? "KPI gesamt" : "KPIs totaux"}
                     </span>
                   )}
                 </div>
-                <div className="mt-1.5 flex flex-wrap gap-1.5">
+                <div className="mt-2 flex flex-col gap-1 sm:mt-1.5 sm:flex-row sm:flex-wrap sm:gap-1.5">
                   {i.subs.map((u) => (
-                    <span key={u.code} className="inline-flex items-center gap-1.5 rounded-md border border-white/[0.08] bg-black/30 px-2 py-1 text-[11.5px] text-zinc-300">
-                      <span className="font-mono text-[10px] tracking-wider text-violet-300/90">{u.code}</span>
+                    <span key={u.code} className="flex items-baseline gap-2 rounded-md border border-white/[0.08] bg-black/30 px-2 py-1 text-[11.5px] leading-snug text-zinc-300 sm:inline-flex sm:items-center sm:gap-1.5">
+                      <span className="w-[4.5rem] shrink-0 font-mono sm:w-auto text-[10px] tracking-wider text-violet-300/90">{u.code}</span>
                       {nomSous(u.code, u.name, lang)}
                     </span>
                   ))}
@@ -89,7 +89,7 @@ function Legende({ lang }: { lang: Lang }) {
   const c = ["text-zinc-200", "text-cyan-300/90", "text-emerald-300/90", "text-violet-300/90"];
   const codes = ["10", "1010", "101010", "10101010"];
   return (
-    <div className="mb-4 flex flex-wrap justify-center gap-x-4 gap-y-1 font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+    <div className="mb-4 grid grid-cols-1 gap-y-1 pl-1 font-mono text-[9.5px] sm:flex sm:flex-wrap sm:justify-center sm:gap-x-4 sm:text-[10px] text-[10px] uppercase tracking-wider text-zinc-500">
       {NIVEAUX[lang].map((n, k) => (
         <span key={n}><span className={c[k]}>{codes[k]}</span> · {n}</span>
       ))}
@@ -103,7 +103,7 @@ function VarianteToggle({ lang }: { lang: Lang }) {
   const s = GICS.find((x) => x.code === sector) ?? GICS[0]!;
   return (
     <div>
-      <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
+      <div className="-mx-4 flex gap-1.5 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-auto sm:max-w-4xl sm:flex-wrap sm:justify-center sm:gap-1 sm:overflow-visible sm:rounded-full sm:border sm:border-[#1f1f1f] sm:bg-[#0a0a0a] sm:p-1">
         {GICS.map((x) => {
           const active = x.code === sector;
           return (
@@ -111,7 +111,7 @@ function VarianteToggle({ lang }: { lang: Lang }) {
               key={x.code}
               type="button"
               onClick={() => setSector(x.code)}
-              className={`rounded-full px-3 py-1 text-[12px] font-medium transition-colors ${active ? "bg-white/10 text-zinc-50 shadow-[0_0_12px_rgba(167,139,250,0.25)]" : "text-zinc-400 hover:text-zinc-200"}`}
+              className={`shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-[12px] font-medium transition-colors sm:border-transparent sm:py-1 ${active ? "border-white/20 bg-white/10 text-zinc-50 shadow-[0_0_12px_rgba(167,139,250,0.25)]" : "border-white/[0.08] text-zinc-400 hover:text-zinc-200"}`}
             >
               <span className="mr-1.5 font-mono text-[10px] text-zinc-500">{x.code}</span>
               {nomSecteur(x, lang)}
@@ -182,7 +182,7 @@ export function HomeGicsBlock({ variante = "toggle", sansTitre = false }: { vari
   const lang = (locale === "de" ? "de" : locale === "fr" ? "fr" : "en") as Lang;
   const t = TITRES[lang];
   return (
-    <section className="mx-auto mt-16 max-w-6xl px-4 sm:mt-20">
+    <section className="mx-auto mt-10 max-w-6xl px-4 sm:mt-14">
       {!sansTitre && (
         <div className="mb-6 text-center">
           <h2 className="font-display text-[24px] font-bold tracking-tight text-zinc-50 sm:text-[28px]">{t.titre}</h2>

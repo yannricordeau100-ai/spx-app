@@ -133,6 +133,8 @@ function isPublicPath(pathname: string): boolean {
   // un formulaire reserve aux inscrits n est pas conforme. Anti-spam par
   // captcha cote serveur quand la cle Turnstile est configuree.
   if (pathname === "/contact") return true;
+  // /partenaires : programme d affiliation et partenariats, public (5 oct 2026).
+  if (pathname === "/partenaires") return true;
   // Yann (12 mai 2026) : les HUBS V1.7/V1.8 restent publics, MAIS les
   // pages société individuelles sont gatées (signup requis). Avant, tout
   // /sandbox/v1-8/<ticker> était accessible sans compte → Yann a vu un

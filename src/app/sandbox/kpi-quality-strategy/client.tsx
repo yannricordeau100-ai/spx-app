@@ -344,7 +344,7 @@ function StesPanel({ rows, capsSource }: { rows: SteRow[]; capsSource: "att-stat
         {filtered.length} sociétés affichées sur {rows.length} (toutes les sociétés de
         l&apos;app : SP500, Nasdaq 100, CAC 40, DAX 40, AEX, SMI, SOXX, et
         Autres pour celles hors de ces univers).
-        Le menu Hero KPI charge les KPI réels de la société au clic ; choisir un KPI
+        Le menu Hero KPI charge les KPIs réels de la société au clic ; choisir un KPI
         change le hero en direct (override prioritaire au rendu).
       </div>
 
@@ -401,7 +401,7 @@ function StesPanel({ rows, capsSource }: { rows: SteRow[]; capsSource: "att-stat
                         ))
                       ) : (
                         <option value={s.hero} className="bg-zinc-950">
-                          {s.loading ? "Chargement des KPI…" : s.hero || "?"}
+                          {s.loading ? "Chargement des KPIs…" : s.hero || "?"}
                         </option>
                       )}
                     </select>
@@ -457,7 +457,7 @@ function GenericPanel({
       `[Stub] Activer ${activated.size} KPI(s) pour la catégorie "${activeCategory}".\n\n` +
       `KPIs : ${Array.from(activated).join(", ")}\n\n` +
       `À implémenter : flag \`generic_kpi_categories\` côté ` +
-      `\`v2-pipeline-enrich/<ticker>.json\` qui force l'affichage de ces KPI ` +
+      `\`v2-pipeline-enrich/<ticker>.json\` qui force l'affichage de ces KPIs ` +
       `dans le bloc Indicateurs clés.`,
     );
   };

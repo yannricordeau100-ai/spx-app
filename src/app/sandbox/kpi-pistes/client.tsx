@@ -788,7 +788,7 @@ export function KpiPistesClient({ univers, pistes, regulateurs, parSousIndustrie
   return (
     <div>
       <div className="flex flex-wrap items-center gap-2">
-        <h1 className="font-display text-[28px] font-bold tracking-tight">Trouver les bons KPI à ajouter</h1>
+        <h1 className="font-display text-[28px] font-bold tracking-tight">Trouver les bons KPIs à ajouter</h1>
         <InfobulleMethodes />
       </div>
       <p className="mt-1 max-w-3xl text-[14px] text-zinc-400">

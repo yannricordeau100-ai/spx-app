@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { verifyTurnstileToken } from "@/lib/turnstile";
+import { verifierCourriel, champsGrossiers } from "@/lib/anti-abus";
 
 /**
  * POST /api/contact-api
@@ -50,6 +51,13 @@ export async function POST(req: NextRequest) {
   }
   if (typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: "invalid_email" }, { status: 400 });
+  }
+  const verdict = await verifierCourriel(email);
+  if (!verdict.ok) {
+    return NextResponse.json({ error: "invalid_email", reason: verdict.raison }, { status: 400 });
+  }
+  if (champsGrossiers(name, company, role, use_case)) {
+    return NextResponse.json({ error: "inappropriate_content" }, { status: 400 });
   }
   if (
     String(use_case).length > 3000 ||

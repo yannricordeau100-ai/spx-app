@@ -11,7 +11,6 @@ import { ArrowLeft, Bookmark } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
 import { AuthNav } from "@/components/auth-nav";
-import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { COMPANIES } from "@/lib/data";
 import V17_PUBLIC from "@/data/v1-7-public.json";
 
@@ -107,7 +106,6 @@ export default async function MesSocietesPage() {
           </>
         )}
       </main>
-      <DisclaimerFooter />
     </div>
   );
 }

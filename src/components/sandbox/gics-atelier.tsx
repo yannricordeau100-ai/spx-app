@@ -408,7 +408,7 @@ export function Arbre({
           <Plus className="size-3.5" /> Déplier l’arbre
         </button>
         <button onClick={() => deplier(true)} className="inline-flex items-center gap-1 rounded-lg border border-white/10 px-3 py-2 text-[13px] text-zinc-300 hover:border-violet-400/40">
-          <Plus className="size-3.5" /> {mode === "kpi" ? "Déplier jusqu’aux KPI" : "Déplier jusqu’aux sociétés"}
+          <Plus className="size-3.5" /> {mode === "kpi" ? "Déplier jusqu’aux KPIs" : "Déplier jusqu’aux sociétés"}
         </button>
         <button onClick={() => setOuverts(new Set())} className="inline-flex items-center gap-1 rounded-lg border border-white/10 px-3 py-2 text-[13px] text-zinc-300 hover:border-violet-400/40">
           <Minus className="size-3.5" /> Tout replier
@@ -669,7 +669,7 @@ function OngletRelecture({ relecture }: { relecture: { intro: string; points: Po
   return (
     <div>
       <p className="text-[13.5px] text-zinc-400">
-        Points laissés à ton arbitrage par la relecture indépendante des KPI par sous-industrie (5 sept 2026). Réponds par message : « garder » ou « retirer », ou la correction à faire. {relecture.intro}
+        Points laissés à ton arbitrage par la relecture indépendante des KPIs par sous-industrie (5 sept 2026). Réponds par message : « garder » ou « retirer », ou la correction à faire. {relecture.intro}
       </p>
       <table className="mt-4 w-full text-[13px]">
         <thead className="text-[10.5px] uppercase tracking-wider text-zinc-500">

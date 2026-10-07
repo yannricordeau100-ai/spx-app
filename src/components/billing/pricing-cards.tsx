@@ -436,7 +436,7 @@ function PricingCard({
           3 cards horizontalement. Le free a juste '0 €' (court), les
           payants ont prix mensuel + ligne 'soit X €/an' + prix journalier.
           min-h ajusté après refonte compact prix/jour. */}
-      <div className="mt-5 min-h-[140px]">
+      <div className="mt-5 md:min-h-[122px]">
         {displayMonthly === 0 ? (
           <>
             <div className="flex items-baseline gap-1.5">
@@ -568,7 +568,7 @@ function PricingCard({
           détaillée (#compare). Wording optimisé conversion ("tout comparer"
           = action concrète vs "voir plus" vague). */}
       <a
-        href="#compare"
+        href="/pricing#compare"
         className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[11.5px] font-semibold text-zinc-300 transition-colors hover:border-violet-500/30 hover:bg-violet-500/[0.05] hover:text-violet-100"
       >
         Tout comparer en détail

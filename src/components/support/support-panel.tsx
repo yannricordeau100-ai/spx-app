@@ -27,6 +27,7 @@ import {
   TriangleAlert,
   X,
 } from "lucide-react";
+import { TurnstileWidget } from "@/components/turnstile-widget";
 import { ListeReponsesFaq, categoriesSupport, chercheFaq } from "./support-faq";
 import { ADRESSE_SUPPORT, TEXTES, type LangueSupport } from "./support-strings";
 
@@ -261,6 +262,8 @@ export function SupportPanel({
     }
     setErreur(null);
     setEnvoi(true);
+    const captchaToken =
+      (e.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? "";
     try {
       const reponse = await fetch("/api/support/tickets", {
         method: "POST",
@@ -274,6 +277,7 @@ export function SupportPanel({
           canal_reponse: canal,
           locale,
           page_origine: typeof window === "undefined" ? "" : window.location.pathname,
+          captchaToken,
         }),
       });
       const donnees = (await reponse.json().catch(() => null)) as
@@ -521,6 +525,7 @@ export function SupportPanel({
               </button>
             </div>
             <p className="text-[11px] text-zinc-600">{T.confidentialite}</p>
+            <TurnstileWidget theme="dark" />
           </form>
         )}
 

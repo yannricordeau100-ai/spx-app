@@ -38,7 +38,7 @@ function initials(email: string): string {
   return local.slice(0, 2).toUpperCase();
 }
 
-export async function AuthNav({ scope = "home" }: { scope?: "home" | "company" } = {}) {
+export async function AuthNav({ scope = "home", compactMobile = false }: { scope?: "home" | "company"; compactMobile?: boolean } = {}) {
   const user = await getUserCourant();
   const locale = await getServerLocale();
   const t = (k: string) => translate(k, locale);
@@ -69,7 +69,7 @@ export async function AuthNav({ scope = "home" }: { scope?: "home" | "company" }
   // Yann 5 oct 2026 : sur les fiches (scope company), en mobile, la connexion
   // devient une icone seule et « S'inscrire » passe dans le menu « ... » de la
   // barre du haut, pour que tout tienne en 375 px.
-  const compact = scope === "company";
+  const compact = scope === "company" || compactMobile;
   return (
     <div className="flex items-center gap-1.5 sm:gap-3">
       <LanguageSwitcher />

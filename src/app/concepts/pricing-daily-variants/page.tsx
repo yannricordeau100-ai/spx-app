@@ -135,7 +135,7 @@ function V3Ticket() {
       <div className="flex flex-1 items-center justify-between gap-2 px-4 py-3">
         <div>
           <div className="text-[13px] font-semibold text-emerald-100">Moins qu&apos;un café ☕</div>
-          <div className="mt-0.5 text-[10.5px] italic text-zinc-400">Bien mieux investi qu&apos;un café (et que ChatGPT pour des KPI sociétés)</div>
+          <div className="mt-0.5 text-[10.5px] italic text-zinc-400">Bien mieux investi qu&apos;un café (et que ChatGPT pour des KPIs sociétés)</div>
         </div>
       </div>
     </div>

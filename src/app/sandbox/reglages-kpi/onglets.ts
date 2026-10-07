@@ -9,9 +9,9 @@ export type ToggleKpi = "voir" | "creer";
 // indirectement) pour en faire un KPI. Les onglets vides (valeurs approximatives)
 // ont été retirés.
 export const ONGLETS: { id: string; toggle: ToggleKpi; groupe: string; label: string; url: string; mots: string }[] = [
-  { id: "heros", toggle: "voir", groupe: "Par société", label: "KPI héros par société", url: "/admin/kpis-toggle", mots: "tous les KPI d'une fiche, choisir le KPI principal, activer ou désactiver" },
+  { id: "heros", toggle: "voir", groupe: "Par société", label: "KPI héros par société", url: "/admin/kpis-toggle", mots: "tous les KPIs d'une fiche, choisir le KPI principal, activer ou désactiver" },
   { id: "phare", toggle: "voir", groupe: "Par société", label: "Produit phare", url: "/sandbox/produit-phare", mots: "exceptions produit phare à trancher, A / B / aucun" },
-  { id: "accueil", toggle: "voir", groupe: "Par société", label: "KPI de l’accueil", url: "/sandbox/accueil-kpis", mots: "les 3 KPI affichés sur la page d'accueil" },
+  { id: "accueil", toggle: "voir", groupe: "Par société", label: "KPI de l’accueil", url: "/sandbox/accueil-kpis", mots: "les 3 KPIs affichés sur la page d'accueil" },
   { id: "industries", toggle: "voir", groupe: "Par industrie", label: "KPI par industrie", url: "/sandbox/gics", mots: "classification GICS, KPI attendus par sous-industrie, qui a quoi" },
   { id: "secteurs", toggle: "voir", groupe: "Par secteur", label: "KPI star par secteur", url: "/sandbox/kpi-secteurs", mots: "métrique reine par secteur (NIM, ratio combiné, FFO, production…), sociétés avec ou sans" },
   { id: "definitions", toggle: "voir", groupe: "Référentiel", label: "Définitions et unités", url: "/sandbox/kpi-definitions", mots: "référentiel, unités métiers, infobulles" },
@@ -20,9 +20,9 @@ export const ONGLETS: { id: string; toggle: ToggleKpi; groupe: string; label: st
   { id: "moyen-terme", toggle: "creer", groupe: "Moyen terme", label: "Indicateurs variés - Moyen terme", url: "/sandbox/image-findings", mots: "graphiques reconstruits depuis une demande, approuver ou retirer" },
   { id: "court-terme", toggle: "creer", groupe: "Court terme", label: "Faits marquants - Court terme (Stories)", url: "/sandbox/story-builder", mots: "stories du dernier trimestre depuis un lien" },
   // Yann 21 sept 2026 : deux ateliers de recherche d indicateurs, en amont de la creation.
-  { id: "pistes", toggle: "creer", groupe: "Recherche", label: "Trouver les bons KPI", url: "/sandbox/kpi-pistes", mots: "questions des analystes, regulateurs, concurrents, referentiel, journees investisseurs" },
+  { id: "pistes", toggle: "creer", groupe: "Recherche", label: "Trouver les bons KPIs", url: "/sandbox/kpi-pistes", mots: "questions des analystes, regulateurs, concurrents, referentiel, journees investisseurs" },
   { id: "non-financiers", toggle: "creer", groupe: "Recherche", label: "Indicateurs non financiers", url: "/sandbox/kpi-non-financiers", mots: "par tickers, criteres cochables, propositions a valider" },
 ];
 
-export const TITRES: Record<ToggleKpi, string> = { voir: "Voir les KPI", creer: "Création KPI et données" };
+export const TITRES: Record<ToggleKpi, string> = { voir: "Voir les KPIs", creer: "Création KPI et données" };
 

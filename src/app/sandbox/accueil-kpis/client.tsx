@@ -17,7 +17,7 @@ export function AccueilKpisClient({ zones, kpis, choixInitial, jeton }: { zones:
     const j = (await r.json().catch(() => ({}))) as { shorts?: string[]; error?: string };
     if (r.ok) {
       setChoix((c) => ({ ...c, [ticker]: j.shorts ?? [] }));
-      setStatut(`${ticker} : ${j.shorts?.length ? "enregistré, visible sur l’accueil au prochain chargement" : "retour aux KPI automatiques"}`);
+      setStatut(`${ticker} : ${j.shorts?.length ? "enregistré, visible sur l’accueil au prochain chargement" : "retour aux KPIs automatiques"}`);
     } else setStatut(`${ticker} : échec (${j.error ?? r.status})`);
   }
 

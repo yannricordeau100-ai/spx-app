@@ -76,7 +76,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
       <main className="mx-auto max-w-7xl px-4 pb-20 sm:px-6">
         <h1 className="font-display text-[28px] font-bold tracking-tight">Classification GICS</h1>
         <p className="mt-1 text-[14px] text-zinc-400">
-          {GICS.length} secteurs, {nbGroupes} groupes d’industries, {nbIndustries} industries, {nbSous} sous-industries (structure GICS 2023). Puis, par sous-industrie, les KPI qu’un investisseur attend, et les prompts qui servent à les trouver.
+          {GICS.length} secteurs, {nbGroupes} groupes d’industries, {nbIndustries} industries, {nbSous} sous-industries (structure GICS 2023). Puis, par sous-industrie, les KPIs qu’un investisseur attend, et les prompts qui servent à les trouver.
         </p>
         <div className="mt-6">
           <GicsAtelier kpiParSousIndustrie={kpiParSousIndustrie} prompts={prompts} annuaire={annuaire} donnees={donnees} graphiquesMt={graphiquesMt} relecture={relecture} jeton={parJeton ? sp.audit_token ?? null : null} />

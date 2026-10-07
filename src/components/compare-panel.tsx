@@ -315,10 +315,6 @@ function ComparePanelContenu({ paire, sourceCompany, onClose }: { paire: Paire; 
         </div>
       )}
 
-      {/* Disclaimer */}
-      <p className="mt-5 rounded-lg border border-[#1f1f1f] bg-[#0c0c0c] p-3 text-[11.5px] italic leading-relaxed text-zinc-400">
-        {analysis.disclaimer}
-      </p>
     </div>
   );
 }

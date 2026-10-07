@@ -214,7 +214,7 @@ function Terminal({ variante }: { variante: keyof typeof THEMES }) {
         {/* KPI avancés */}
         <Panel t={t} code="KPI" titre="Indicateurs clés · KPI avancés" className="lg:col-span-7">
           <Tableau t={t} lignes={AVANCES} />
-          <div className="mt-2 text-[10.5px]" style={{ color: t.accent }}>▸ Voir 6 KPI standard</div>
+          <div className="mt-2 text-[10.5px]" style={{ color: t.accent }}>▸ Voir 6 KPIs standard</div>
           <div className="mt-1 opacity-70"><Tableau t={t} lignes={STANDARD.slice(0, 3)} zebra={false} /></div>
         </Panel>
 

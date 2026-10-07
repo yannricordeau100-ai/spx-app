@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getServerLocale } from "@/lib/i18n/server";
 import { chargeFaq, itemsVisibles, paragraphes, texteBrut } from "@/lib/faq";
 import { LogoMettrik } from "@/components/logo-mettrik";
-import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 
 /**
  * /faq : questions fréquentes publiques (Yann 2 sept 2026).
@@ -22,7 +21,7 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata(): Promise<Metadata> {
   const { contenu } = await chargeFaq();
   const n = itemsVisibles(contenu).length;
-  const title = "FAQ Mettrik AI : questions fréquentes sur les KPI, les données et les offres";
+  const title = "FAQ Mettrik AI : questions fréquentes sur les KPIs, les données et les offres";
   const description = `${n} réponses claires sur Mettrik AI : sociétés couvertes, origine des données, mises à jour, notes des indicateurs, offres Gratuit, Premium et Max, paiement, confidentialité.`;
   return {
     title,
@@ -181,7 +180,6 @@ export default async function FaqPage() {
           </section>
         </div>
       </main>
-      <DisclaimerFooter />
     </>
   );
 }

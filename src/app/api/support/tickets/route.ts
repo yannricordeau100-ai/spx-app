@@ -13,6 +13,8 @@
  */
 
 import { NextResponse, type NextRequest } from "next/server";
+import { verifyTurnstileToken } from "@/lib/turnstile";
+import { verifierCourriel, champsGrossiers, ipDe } from "@/lib/anti-abus";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import {
   SUPPORT_LIMITES,
@@ -58,6 +60,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, ignore: true });
   }
 
+  // 7 oct 2026 : verification Turnstile reelle, cote serveur, avant tout
+  // enregistrement ou envoi. Refus sinon.
+  const captcha = await verifyTurnstileToken(
+    typeof body.captchaToken === "string" ? body.captchaToken : null,
+    ipDe(req),
+  );
+  if (!captcha.ok) {
+    return NextResponse.json({ erreur: "captcha_failed", error: "captcha_failed", reason: captcha.reason }, { status: 400 });
+  }
+
   const utilisateur = await sessionCourante();
 
   const email = normaliserEmail(body.email ?? utilisateur?.email ?? "");
@@ -75,6 +87,14 @@ export async function POST(req: NextRequest) {
   }
   if (typeof body.nom === "string" && body.nom.length > SUPPORT_LIMITES.nom * 4) {
     return NextResponse.json({ erreur: "nom_trop_long" }, { status: 400 });
+  }
+
+  const verdict = await verifierCourriel(email);
+  if (!verdict.ok) {
+    return NextResponse.json({ erreur: "adresse_invalide", raison: verdict.raison }, { status: 400 });
+  }
+  if (champsGrossiers(sujet, corps, body.nom)) {
+    return NextResponse.json({ erreur: "contenu_inapproprie" }, { status: 400 });
   }
 
   const recents = await compterTicketsRecents(email);

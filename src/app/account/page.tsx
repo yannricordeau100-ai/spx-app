@@ -12,7 +12,6 @@ import {
 } from "@/app/auth/actions";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
-import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { SignOutButton } from "@/components/account/signout-button";
 import { PseudoGraphCookie } from "@/components/account/pseudo-graph-cookie";
 import { SupportShortcut } from "@/components/account/support-shortcut";
@@ -252,7 +251,7 @@ export default async function AccountPage({
               defaultValue={pseudoActuel}
               maxLength={20}
               pattern="[A-Za-z0-9]{3,20}"
-              placeholder="ex : W. Buffet"
+              placeholder="ex : Buffet"
             />
             <label className="flex items-start gap-2.5 text-[13px] text-zinc-300">
               <input
@@ -383,7 +382,6 @@ export default async function AccountPage({
         </form>
       </div>
     </div>
-    <DisclaimerFooter />
     </>
   );
 }

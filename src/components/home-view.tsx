@@ -78,7 +78,7 @@ function BrandWordmark({ kpiUnderText }: { kpiUnderText?: string }) {
   // commun à toute l'app (BrandWordmark, MettrikWordmark, maintenance,
   // pricing, company-view). Animation d'entrée fade+blur préservée.
   return (
-    <div className="mb-6 flex flex-col items-center sm:mb-8">
+    <div className="mb-6 flex flex-col items-center max-sm:hidden sm:mb-8">
       <motion.div
         initial={{ opacity: 0, y: "12%", filter: "blur(8px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -257,7 +257,7 @@ const CITATIONS_BY_LOCALE: Record<string, CitationEntry[]> = {
   fr: [
     {
       quote:
-        "Nous utilisons des KPI non conventionnels. […]\nLa comptabilité conventionnelle révèle peu de choses sur la véritable performance économique d'une entreprise.",
+        "Nous utilisons des KPIs non conventionnels. […]\nLa comptabilité conventionnelle révèle peu de choses sur la véritable performance économique d'une entreprise.",
       openQuote: "«",
       closeQuote: "»",
       author: "Warren Buffett",
@@ -724,7 +724,7 @@ export function HomeView({
       <div className="pointer-events-none absolute inset-0 bg-grid" />
       <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" />
 
-      <div className="relative mx-auto max-w-5xl px-4 pt-6 pb-16 sm:px-6 sm:pt-8">
+      <div className="relative mx-auto max-w-5xl px-4 pt-2 pb-8 sm:px-6 sm:pt-8 sm:pb-12">
         {/* Yann 10 mai 2026 : liens top-nav (Pricing / Contact) AU-DESSUS
             du logo. Style 3D léger inspiré des boutons Connexion/S'inscrire :
             ombre décalée 2px + bordure blanche subtile + translation -1px
@@ -732,10 +732,7 @@ export function HomeView({
         {topNavLinks && topNavLinks.length > 0 && (
           /* Yann 4 sept 2026 : boutons Tarifs et Contact un peu plus grands,
              ils passaient inapercus sur l accueil. */
-          <nav className={`mb-3 flex justify-end gap-3 text-[13px] sm:mb-5 sm:justify-center sm:gap-3.5 sm:text-[14px] ${
-            /* 5 oct 2026 : sur mobile, « Contact » seul flottait en haut a droite ; il reste dans le pied de page. */
-            topNavLinks.some((l) => l.href.includes("/pricing")) ? "" : "max-sm:hidden"
-          }`}>
+          <nav className="mb-3 flex justify-end gap-3 text-[13px] max-sm:hidden sm:mb-5 sm:justify-center sm:gap-3.5 sm:text-[14px]">
             {topNavLinks.map((l) => {
               // Yann (5 juin 2026 v2) : Tarif accessible 100% anonyme
               // (pas de gate signup). Contact + autres restent gated.
@@ -843,7 +840,7 @@ export function HomeView({
         {/* Yann 4 sept 2026 : la page d accueil ne disait nulle part ce que
             l abonnement apporte. Un encart unique, avant la FAQ, avec une
             promesse concrete et un bouton. */}
-        <div className="mx-auto mt-16 max-w-2xl px-4 sm:mt-20">
+        <div className="mx-auto mt-10 max-w-2xl px-4 sm:mt-14">
           {/* Yann 18 sept 2026 : aucun prix visible en anonyme, l encart passe par la porte d inscription. */}
           <SignupGateOverlay enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
           <AppelAbonnement
@@ -865,7 +862,7 @@ export function HomeView({
         {showFAQ && <HomeFAQ />}
 
         {/* Yann 12 sept 2026 : mention « Mettrik AI · KPI Intelligence » retiree. */}
-        <div className="mt-6 sm:mt-8" />{/* Yann 15 sept 2026 : espace reduit avant la section « Toutes les fiches sont ouvertes en gratuit ». */}
+        <div className="mt-2 sm:mt-4" />{/* Yann 15 sept 2026 : espace reduit avant la section « Toutes les fiches sont ouvertes en gratuit ». */}
       </div>
       <BackToTop />
     </div>

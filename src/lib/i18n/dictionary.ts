@@ -140,7 +140,7 @@ export const DICTIONARY: Dict = {
   "auth.signup.legal_suffix": { fr: ", qui décrivent notamment nos mesures d'usage et de qualité de service. Ton adresse e-mail peut servir à t'informer des nouvelles fonctionnalités de Mettrik ; elle n'est ni revendue ni partagée avec des sociétés tierces.", en: ", which describe among other things our usage and service-quality measurements. Your email address may be used to inform you about new Mettrik features; it is never sold or shared with third-party companies." },
   "auth.reset.title": { fr: "Mot de passe oublié", en: "Forgot password" },
   "auth.signin.subtitle": {
-    fr: "Accède aux KPI des plus grandes sociétés américaines et européennes.",
+    fr: "Accède aux KPIs des plus grandes sociétés américaines et européennes.",
     en: "Access the KPIs of the biggest US and European companies.",
   },
   "auth.signup.subtitle": {
@@ -433,7 +433,7 @@ export const DICTIONARY: Dict = {
   "company.kpi_table.standard_label": { fr: "KPI standard", en: "Standard KPIs", de: "Standard-KPIs" },
   "company.kpi_table.see_standard_one": { fr: "Voir 1 KPI standard", en: "See 1 standard KPI", de: "1 Standard-KPI anzeigen" },
   "company.kpi_table.see_standard_many": { fr: "Voir {n} KPI standard", en: "See {n} standard KPIs", de: "{n} Standard-KPIs anzeigen" },
-  "company.kpi_table.collapse_standard": { fr: "Réduire les KPI standard", en: "Collapse standard KPIs", de: "Standard-KPIs einklappen" },
+  "company.kpi_table.collapse_standard": { fr: "Réduire les KPIs standard", en: "Collapse standard KPIs", de: "Standard-KPIs einklappen" },
 
   /* Quality tier */
   "tier.excellent": { fr: "Excellent", en: "Excellent" },
@@ -921,14 +921,6 @@ export const DICTIONARY: Dict = {
     en: "Through the contact page form. Exchanges are handled in French, English or German. Average response time: 1 to 3 business days.",
     de: "Über das Formular der Kontaktseite. Anfragen werden auf Französisch, Englisch oder Deutsch bearbeitet. Durchschnittliche Antwortzeit: 1 bis 3 Werktage.",
   },
-  "faq.disclaimer.title": {
-    fr: "Rappel important :",
-    en: "Important reminder:",
-  },
-  "faq.disclaimer.body": {
-    fr: "Mettrik AI publie des analyses et des indicateurs à titre informatif uniquement. Aucun contenu du site (KPI, score, classement, signal, interprétation, accroche marketing, comparaison) ne constitue un conseil en investissement, une recommandation personnalisée ni une assertion de fait. Les données peuvent comporter des erreurs ou des décalages. Toute décision d'investissement engage uniquement son auteur.",
-    en: "Mettrik AI publishes analyses and indicators for informational purposes only. No content on the site (KPI, score, ranking, signal, interpretation, marketing copy, comparison) constitutes investment advice, a personalized recommendation, or a statement of fact. Data may contain errors or delays. Any investment decision is the sole responsibility of its author.",
-  },
 
   // Page de maintenance / pré-lancement (page fixe, no action).
   // Ton positif "on se fait beau" : donne envie sans donner d'info.
@@ -1112,9 +1104,9 @@ export const DICTIONARY: Dict = {
   "contact.sending": { fr: "Envoi…", en: "Sending…", de: "Senden…" },
   "contact.success_title": { fr: "Message reçu ✓", en: "Message received ✓", de: "Nachricht erhalten ✓" },
   "contact.success_body": {
-    fr: "On vous répond dans les 48h. Pour aller plus vite : précisez votre besoin dès le sujet.",
-    en: "We'll get back within 48h. Pro tip: a clear subject = faster reply.",
-    de: "Antwort innerhalb 48 Std. Tipp: klarer Betreff = schnellere Antwort.",
+    fr: "On traite votre message au plus vite.",
+    en: "We'll handle your message as quickly as possible.",
+    de: "Wir bearbeiten Ihre Nachricht so schnell wie möglich.",
   },
   "contact.error": { fr: "Une erreur est survenue. Réessayez ou écrivez à contact@mettrik.ai.", en: "Something went wrong. Try again or email contact@mettrik.ai.", de: "Ein Fehler ist aufgetreten. Versuche es erneut oder schreibe an contact@mettrik.ai." },
   "contact.privacy_note": {
@@ -1194,7 +1186,7 @@ export const DICTIONARY: Dict = {
     de: "Automatische Aktualisierungen nach jedem Earnings-Release",
   },
   "pricing.trust3_body": {
-    fr: "Dès qu'une société publie ses résultats trimestriels, ses KPI sont rafraîchis sur Mettrik. Tu vois directement la nouvelle valeur, la variation vs N-1 recalculée, et l'impact sur le score qualité. Aucune saisie manuelle de ta part.",
+    fr: "Dès qu'une société publie ses résultats trimestriels, ses KPIs sont rafraîchis sur Mettrik. Tu vois directement la nouvelle valeur, la variation vs N-1 recalculée, et l'impact sur le score qualité. Aucune saisie manuelle de ta part.",
     en: "As soon as a company publishes its quarterly results, its KPIs are refreshed on Mettrik. You see the new value, the recalculated YoY, and the impact on the quality score. No manual entry on your end.",
     de: "Sobald ein Unternehmen seine Quartalszahlen veröffentlicht, werden die KPIs auf Mettrik aktualisiert. Du siehst direkt den neuen Wert, das neu berechnete YoY und die Auswirkung auf den Qualitätsscore. Keine manuelle Eingabe deinerseits.",
   },
@@ -1263,7 +1255,7 @@ export const DICTIONARY: Dict = {
     de: "Was unterscheidet Mettrik AI von Seeking Alpha oder Simply Wall Street?",
   },
   "pricing.faq_a6": {
-    fr: "Mettrik AI ne fait pas de notes ni de pronostics : on extrait directement les KPI publiés par les sociétés dans leurs documents officiels (10-K, 10-Q, rapports annuels), on les rend lisibles, comparables et traduits en français. Pas d'opinion d'analyste, pas de marketing : juste les chiffres bruts et leur contexte. C'est conçu pour les investisseurs qui veulent voir les données telles que les dirigeants les communiquent.",
+    fr: "Mettrik AI ne fait pas de notes ni de pronostics : on extrait directement les KPIs publiés par les sociétés dans leurs documents officiels (10-K, 10-Q, rapports annuels), on les rend lisibles, comparables et traduits en français. Pas d'opinion d'analyste, pas de marketing : juste les chiffres bruts et leur contexte. C'est conçu pour les investisseurs qui veulent voir les données telles que les dirigeants les communiquent.",
     en: "Mettrik AI does not provide ratings or forecasts: we extract KPIs directly from companies' official filings (10-K, 10-Q, annual reports), make them readable, comparable and translated. No analyst opinion, no marketing: just the raw numbers and their context. Built for investors who want to see the data as management communicates it.",
     de: "Mettrik AI gibt keine Bewertungen oder Prognosen: wir extrahieren KPIs direkt aus den offiziellen Berichten (10-K, 10-Q, Geschäftsberichten), machen sie lesbar, vergleichbar und übersetzt. Keine Analystenmeinung, kein Marketing: nur die Rohdaten und ihr Kontext. Gemacht für Investoren, die die Zahlen so sehen wollen, wie das Management sie kommuniziert.",
   },
@@ -1273,7 +1265,7 @@ export const DICTIONARY: Dict = {
     de: "Wie schnell werden die Daten aktualisiert?",
   },
   "pricing.faq_a7": {
-    fr: "Dès qu'une société publie ses résultats trimestriels ou annuels, nos pipelines détectent le nouveau document, extraient les KPI et les publient sur Mettrik AI dans les 24 à 48 h. Tu peux consulter la date de dernière mise à jour de chaque KPI directement sur la fiche société (indicateur À jour ou Récent).",
+    fr: "Dès qu'une société publie ses résultats trimestriels ou annuels, nos pipelines détectent le nouveau document, extraient les KPIs et les publient sur Mettrik AI dans les 24 à 48 h. Tu peux consulter la date de dernière mise à jour de chaque KPI directement sur la fiche société (indicateur À jour ou Récent).",
     en: "As soon as a company publishes its quarterly or annual results, our pipelines detect the new filing, extract the KPIs and publish them on Mettrik AI within 24 to 48 hours. You can check the last-updated date of each KPI directly on the company page (Up-to-date or Recent indicator).",
     de: "Sobald ein Unternehmen seine Quartals- oder Jahresergebnisse veröffentlicht, erkennen unsere Pipelines das neue Dokument, extrahieren die KPIs und veröffentlichen sie innerhalb von 24 bis 48 Stunden auf Mettrik AI. Du kannst das letzte Aktualisierungsdatum jedes KPIs direkt auf der Unternehmensseite einsehen (Anzeige Aktuell oder Kürzlich).",
   },
@@ -1430,7 +1422,7 @@ export const DICTIONARY: Dict = {
 
   /* Section nav (dock spy) */
   "nav.kpi_principal": { fr: "KPI principal", en: "Lead KPI" },
-  "nav.kpi_table": { fr: "Tableau des KPI", en: "KPI table" },
+  "nav.kpi_table": { fr: "Tableau des KPIs", en: "KPI table" },
   "nav.market_position": { fr: "Chiffre d'affaires et marché", en: "Revenue and market" },
   "nav.comprendre": { fr: "Comprendre la société", en: "Understanding the company" },
   "nav.moyen_terme": { fr: "Indicateurs moyen terme", en: "Medium-term indicators" },

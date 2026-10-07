@@ -5,8 +5,8 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import { ArrowRight, Mail } from "lucide-react";
 import { HomeView } from "@/components/home-view";
-import { AuthNav } from "@/components/auth-nav";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { HomeTopBar } from "@/components/home-top-bar";
+import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { AuthModal } from "@/components/auth-modal";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 import { PricingCards } from "@/components/billing/pricing-cards";
@@ -153,12 +153,7 @@ export default async function SandboxV195HubPage() {
 
   return (
     <>
-      <div className="fixed left-0 right-0 top-0 z-50 flex w-full items-center justify-between gap-2 bg-[#050505]/70 px-4 py-3 backdrop-blur-sm sm:left-auto sm:right-6 sm:top-6 sm:w-auto sm:justify-end sm:gap-3 sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-0">
-        <ThemeToggle paid={themePaid} />
-        <AuthNav scope="home" />
-      </div>
-      {/* Yann 18 sept 2026 : l en-tete est fixe sur mobile, on reserve sa hauteur. */}
-      <div className="h-14 sm:hidden" />
+      <HomeTopBar themePaid={themePaid} showPricing={isAuthed} anon={!isAuthed} />
       <HomeView
         tickers={tickers}
         showFAQ
@@ -214,7 +209,7 @@ export default async function SandboxV195HubPage() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-[12.5px]">
           <SignupGateOverlay enabled={!isAuthed} gatePath="/" initialAuthed={isAuthed}>
             <Link
-              href="/pricing"
+              href="/pricing#compare"
               data-pricing-cta="v195_home_see_full"
               className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/[0.08] px-3.5 py-2 font-semibold text-violet-100 hover:bg-violet-500/15"
             >
@@ -235,6 +230,7 @@ export default async function SandboxV195HubPage() {
       </section>
       </>
       )}
+      <DisclaimerFooter />
     </>
   );
 }

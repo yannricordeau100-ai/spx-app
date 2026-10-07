@@ -116,7 +116,7 @@ export default async function FavoritesPage({
               title="Aucun KPI en favori"
               description="Clique l'étoile sur n'importe quelle ligne du tableau KPI ou sur une carte super-KPI pour l'ajouter ici."
               href="/"
-              cta="Explorer les KPI"
+              cta="Explorer les KPIs"
             />
           ) : (
             <ul className="grid grid-cols-1 gap-3">

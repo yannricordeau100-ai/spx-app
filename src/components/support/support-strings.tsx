@@ -65,7 +65,7 @@ export const TEXTES: Record<LangueSupport, TextesSupport> = {
     titre: "Aide Mettrik",
     sous_titre: "Posez votre question, la réponse est peut-être déjà écrite.",
     champ_question_label: "Votre question",
-    champ_question_placeholder: "Exemple : comment sont calculés les KPI ?",
+    champ_question_placeholder: "Exemple : comment sont calculés les KPIs ?",
     aide_saisie: "Recherche instantanée dans notre aide, rien n'est envoyé.",
     resultats_titre: "Réponses possibles",
     aucun_resultat: "Aucune réponse écrite ne correspond. Ouvrez un ticket, une personne vous répondra.",

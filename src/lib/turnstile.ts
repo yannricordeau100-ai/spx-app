@@ -47,8 +47,13 @@ export async function verifyTurnstileToken(
   // indisponible. Recharge la page" en cas de souci CF.
   // Audit 2 sept 2026 : sans cle Turnstile configuree en prod, le widget
   // n est pas monte et AUCUN envoi ne passait (400 no_token, formulaire mort).
-  // Sans cle : on laisse passer (anti-spam = validation serveur + rate Resend).
-  if (!process.env.TURNSTILE_SECRET_KEY) return { ok: true };
+  // 7 oct 2026 : FIN du contournement. Sans cle secrete, l ancien code laissait
+  // tout passer (un faux courriel grossier a ainsi ete accepte sans verification).
+  // Desormais : en production, pas de cle = refus. En developpement local, on
+  // utilise la cle de test Cloudflare, mais un jeton reste exige.
+  if (!process.env.TURNSTILE_SECRET_KEY && process.env.NODE_ENV === "production") {
+    return { ok: false, reason: "secret_missing" };
+  }
   if (!token || typeof token !== "string") {
     return { ok: false, reason: "no_token" };
   }

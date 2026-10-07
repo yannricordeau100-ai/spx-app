@@ -348,7 +348,7 @@ export default async function DataStatusPage() {
       <div className="mt-4">
         <Card title="Pass 3 validé : sociétés par catégorie + modèle utilisé">
           <p className="mb-3 text-[12px] text-zinc-400">
-            Liste nominative des sociétés dont tous les KPI ont été extraits ET validés
+            Liste nominative des sociétés dont tous les KPIs ont été extraits ET validés
             via Pass 3 (Sonnet pour les top 308 / Haiku pour les autres). Le nom canonique
             de chaque société est indiqué.
           </p>

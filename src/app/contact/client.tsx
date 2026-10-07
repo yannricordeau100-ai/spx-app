@@ -28,11 +28,11 @@ type Strings = {
   lang_notice: string;
 };
 
-export function ContactClient({ locale, strings, initialRecipient }: { locale: Locale; strings: Strings; initialRecipient?: "contact" | "support" | "api" }) {
+export function ContactClient({ locale, strings, initialRecipient, initialSubject }: { locale: Locale; strings: Strings; initialSubject?: string; initialRecipient?: "contact" | "support" | "api" }) {
   const [recipient, setRecipient] = useState<"contact" | "support" | "api">(initialRecipient ?? "contact");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
+  const [subject, setSubject] = useState(initialSubject ?? "");
   const [body, setBody] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);

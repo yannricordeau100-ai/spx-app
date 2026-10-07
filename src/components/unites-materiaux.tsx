@@ -164,7 +164,7 @@ function Convertisseur() {
     <div className="mb-4 overflow-hidden rounded-xl border border-emerald-400/20 bg-gradient-to-br from-emerald-500/[0.06] via-white/[0.02] to-cyan-500/[0.05]">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] px-3.5 py-2">
         <div className="font-mono text-[10.5px] uppercase tracking-[0.15em] text-emerald-200/90">Calculette : unités américaines vers unités européennes</div>
-        <div className="font-mono text-[10px] text-zinc-500">{CONVERSIONS.length} conversions · toutes les unités des KPI</div>
+        <div className="font-mono text-[10px] text-zinc-500">{CONVERSIONS.length} conversions · toutes les unités des KPIs</div>
       </div>
       <div className="grid gap-3 p-3.5 lg:grid-cols-[minmax(0,19rem)_1fr]">
         <div className="rounded-lg border border-white/[0.08] bg-black/30 p-3">

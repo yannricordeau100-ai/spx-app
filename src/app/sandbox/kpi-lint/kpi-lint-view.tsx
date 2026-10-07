@@ -52,7 +52,7 @@ export function KpiLintView({ report }: { report: Report }) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 text-zinc-100">
-      <h1 className="text-2xl font-bold">KPI Lint : conformité de tous les KPI</h1>
+      <h1 className="text-2xl font-bold">KPI Lint : conformité de tous les KPIs</h1>
       <p className="mt-1 text-sm text-zinc-400">
         Vérification programmatique de chaque KPI de chaque société ({report.universe} sociétés) via le loader et les
         fonctions de rendu réels. Généré le {new Date(report.generated_at).toLocaleString("fr-FR")}. Relance :

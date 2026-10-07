@@ -6,6 +6,8 @@ import { getServerLocale } from "@/lib/i18n/server";
 import { UserPrefsSync } from "@/components/user-prefs-sync";
 import { AdminFloatingPanel } from "@/components/admin-floating-panel";
 import { SupportLauncher } from "@/components/support/support-launcher";
+import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
+import { FooterGate } from "@/components/legal/footer-gate";
 import "./globals.css";
 import { TelemetrieCollecteur } from "@/components/telemetrie-collecteur";
 
@@ -86,7 +88,7 @@ export const metadata: Metadata = {
   description:
     "Mettrik AI : les indicateurs clés (KPI) qui expliquent la performance des grandes sociétés cotées américaines et européennes. Extraits des documents officiels, notés, comparés au secteur, mis à jour à chaque publication de résultats. Surperformer le marché avec les meilleurs KPIs de chaque action.",
   keywords: [
-    "KPI investisseur", "indicateurs clés société cotée", "analyse fondamentale", "KPI opérationnels",
+    "KPI investisseur", "indicateurs clés société cotée", "analyse fondamentale", "KPIs opérationnels",
     "grandes capitalisations américaines", "grandes capitalisations européennes", "résultats trimestriels", "facteurs de risque 10-K",
     "rémunération dirigeants", "earnings call synthèse", "Mettrik", "Mettrik AI", "KPI Intelligence",
   ],
@@ -100,7 +102,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Mettrik AI",
     title: "Mettrik AI · Les chiffres qui font bouger chaque action",
-    description: `iPhone vendus, abonnés Netflix, moteurs LEAP livrés : les KPI opérationnels des grandes sociétés cotées américaines et européennes, mis à jour à chaque publication de résultats.`,
+    description: `iPhone vendus, abonnés Netflix, moteurs LEAP livrés : les KPIs opérationnels des grandes sociétés cotées américaines et européennes, mis à jour à chaque publication de résultats.`,
     url: SITE_URL,
     locale: "fr_FR",
     // Yann 30 aout 2026 (audit de lancement) : aucun visuel de partage
@@ -110,7 +112,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mettrik AI · Les chiffres qui font bouger chaque action",
-    description: `iPhone vendus, abonnés Netflix, moteurs LEAP livrés : les KPI opérationnels des grandes sociétés cotées américaines et européennes, mis à jour à chaque publication de résultats.`,
+    description: `iPhone vendus, abonnés Netflix, moteurs LEAP livrés : les KPIs opérationnels des grandes sociétés cotées américaines et européennes, mis à jour à chaque publication de résultats.`,
     images: [`${SITE_URL}/og-cover.png`],
   },
   robots: {
@@ -221,6 +223,8 @@ export default async function RootLayout({
       <body className="min-h-full bg-[#050505] text-base text-zinc-100">
         <I18nProvider locale={locale}>
           {children}
+          {/* Pied de page unique (Rappel important) sur toutes les pages publiques. */}
+          <FooterGate><DisclaimerFooter /></FooterGate>
         </I18nProvider>
         <UserPrefsSync />
         {/* Telemetrie premiere partie (Yann 31 aout 2026) : pages vues, clics,

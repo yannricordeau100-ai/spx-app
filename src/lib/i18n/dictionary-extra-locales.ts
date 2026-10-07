@@ -617,8 +617,8 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "contact.sending": { de: "Wird gesendet…", nl: "Verzenden…" },
   "contact.success_title": { de: "Nachricht erhalten ✓", nl: "Bericht ontvangen ✓" },
   "contact.success_body": {
-    de: "Wir antworten innerhalb von 48 Stunden. Tipp: ein klarer Betreff = schnellere Antwort.",
-    nl: "We reageren binnen 48u. Pro tip: een duidelijk onderwerp = sneller antwoord." },
+    de: "Wir bearbeiten Ihre Nachricht so schnell wie möglich.",
+    nl: "We behandelen uw bericht zo snel mogelijk." },
   "contact.error": { de: "Etwas ist schiefgelaufen. Versuchen Sie es erneut oder schreiben Sie an contact@mettrik.ai.", nl: "Er is iets misgegaan. Probeer opnieuw of mail naar contact@mettrik.ai." },
   "contact.privacy_note": {
     de: "Wir behalten Ihre E-Mail nur, um zu antworten. Kein Marketing, kein Verkauf.",
@@ -768,12 +768,6 @@ export const EXTRA_LOCALES: Record<string, Partial<Record<LocaleKey, string>>> =
   "faq.a.what": {
     de: "Mettrik AI aggregiert, strukturiert und präsentiert die nützlichsten KPIs großer börsennotierter Unternehmen: branchenspezifische Geschäftskennzahlen, Risiken, Governance, Wettbewerbspositionierung und KI-Adoption.",
     nl: "Mettrik AI aggregeert, structureert en presenteert de nuttigste KPI's van grote beursgenoteerde bedrijven: sectorspecifieke operationele indicatoren, risico's, governance, concurrentiepositie en AI-adoptie." },
-  "faq.disclaimer.body": {
-    de: "Mettrik AI veröffentlicht Analysen und Indikatoren ausschließlich zu Informationszwecken. Kein Inhalt der Website (KPI, Score, Ranking) stellt eine Anlageberatung dar.",
-    nl: "Mettrik AI publiceert analyses en indicatoren uitsluitend ter informatie. Geen enkele inhoud op de site (KPI, score, ranking) vormt beleggingsadvies." },
-  "faq.disclaimer.title": {
-    de: "Wichtige Erinnerung:",
-    nl: "Belangrijke herinnering:" },
   "faq.q.advice": {
     de: "Sagt mir Mettrik AI, was ich kaufen oder verkaufen soll?",
     nl: "Vertelt Mettrik AI me wat ik moet kopen of verkopen?" },

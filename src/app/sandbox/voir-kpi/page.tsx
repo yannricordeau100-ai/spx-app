@@ -5,7 +5,7 @@ import { ReglagesKpiClient } from "../reglages-kpi/client";
 import { ONGLETS } from "../reglages-kpi/onglets";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Voir les KPI · Mettrik AI", robots: { index: false, follow: false } };
+export const metadata = { title: "Voir les KPIs · Mettrik AI", robots: { index: false, follow: false } };
 
 /** Yann 17 sept 2026 (soir) : toggle de consultation des KPI (par société, par industrie,
  *  par secteur, référentiel). La création est dans /sandbox/reglages-kpi. */

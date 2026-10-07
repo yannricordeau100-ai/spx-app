@@ -35,7 +35,7 @@ export const TRANSLATIONS: Record<Lang, EmailCopy> = {
     badge: "Accès anticipé",
     h1Line1: "Bienvenue.",
     h1Line2: "Active ton accès Mettrik.",
-    body: "Plus que 3 clics pour découvrir les KPI des plus grandes sociétés américaines et européennes : Apple, Tesla, LVMH, SAP, BMW.",
+    body: "Plus que 3 clics pour découvrir les KPIs des plus grandes sociétés américaines et européennes : Apple, Tesla, LVMH, SAP, BMW.",
     cta: "Confirmer mon adresse",
     expiry: "Le lien expire dans 24 h.",
     teaserTitle: "Ce qui t'attend",

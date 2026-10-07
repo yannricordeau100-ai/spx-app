@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { verifyTurnstileToken } from "@/lib/turnstile";
+import { verifierCourriel, champsGrossiers } from "@/lib/anti-abus";
 import { evenement } from "@/lib/journal-emails";
 
 /**
@@ -34,6 +35,13 @@ export async function POST(req: NextRequest) {
   }
   if (typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: "invalid_email" }, { status: 400 });
+  }
+  const verdict = await verifierCourriel(email);
+  if (!verdict.ok) {
+    return NextResponse.json({ error: "invalid_email", reason: verdict.raison }, { status: 400 });
+  }
+  if (champsGrossiers(name, subject, msgBody)) {
+    return NextResponse.json({ error: "inappropriate_content" }, { status: 400 });
   }
   // Anti-spam basique : limites de longueur
   if (msgBody.length > 5000 || subject.length > 200 || name.length > 100) {

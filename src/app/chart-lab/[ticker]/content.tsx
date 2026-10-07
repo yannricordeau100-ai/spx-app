@@ -337,7 +337,7 @@ export function ChartLabContent({ ticker, showHeader = true, showNavChrome = tru
             <span className="font-mono text-zinc-500">02.</span> Répartition (géo + segments) : {repStyles.length} styles
           </h2>
           <p className="mb-5 text-[13px] text-zinc-400">
-            Pour 2 KPI spéciaux : géographique + segments produits. Composants déjà placés dans <code className="font-mono text-zinc-300">src/components/charts/</code>.
+            Pour 2 KPIs spéciaux : géographique + segments produits. Composants déjà placés dans <code className="font-mono text-zinc-300">src/components/charts/</code>.
           </p>
           <div className="space-y-5">
             {repStyles.map((s) => (

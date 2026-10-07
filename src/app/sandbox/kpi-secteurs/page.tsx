@@ -34,8 +34,8 @@ const ETAT_COULEUR: Record<string, string> = {
 const ETAT_LIB: Record<string, string> = {
   heros: "KPI présent et posé en héros",
   moyen_terme: "Métrique couverte par au moins un graphique moyen terme approuvé",
-  present: "KPI présent dans les KPI IC, mais pas en héros",
-  absent: "KPI absent des KPI IC",
+  present: "KPI présent dans les KPIs IC, mais pas en héros",
+  absent: "KPI absent des KPIs IC",
 };
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ audit_token?: string }> }) {
@@ -52,7 +52,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
       <h1 className="font-display text-[26px] font-bold">KPI star par secteur</h1>
       <p className="mt-1 text-[12px] text-cyan-300">Cadre pointillé cyan et « 📊 MT » : société dont le KPI spécifique est rendu en KPI moyen terme (graphique reconstruit), faute de série longue.</p>
       <p className="mt-2 max-w-3xl text-[13.5px] text-zinc-400">
-        Pour chaque secteur à métrique propre, la métrique reine choisie et, société par société, le nom du KPI correspondant sur la fiche. En vert il est posé en héros, en orange il existe dans les KPI IC sans être le héros, en rouge il n&apos;existe pas. Relevé sur les fiches réellement servies le {(ETAT as { maj_le?: string; cree_le?: string }).maj_le ?? (ETAT as { cree_le?: string }).cree_le ?? ""}.
+        Pour chaque secteur à métrique propre, la métrique reine choisie et, société par société, le nom du KPI correspondant sur la fiche. En vert il est posé en héros, en orange il existe dans les KPIs IC sans être le héros, en rouge il n&apos;existe pas. Relevé sur les fiches réellement servies le {(ETAT as { maj_le?: string; cree_le?: string }).maj_le ?? (ETAT as { cree_le?: string }).cree_le ?? ""}.
       </p>
       <div className="mt-6 grid gap-4">
         {Object.entries(secteurs).map(([id, s]) => {

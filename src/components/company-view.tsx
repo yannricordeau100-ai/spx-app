@@ -2365,7 +2365,7 @@ export function CompanyView({
                 className="group flex w-full items-center justify-center gap-2 bg-[#0a0a0a] px-6 py-4 text-sm text-zinc-400 transition-colors hover:bg-[#0e0e0e] hover:text-zinc-100"
               >
                 <ChevronDown className={`size-4 transition-transform ${showArretes ? "rotate-180" : ""}`} />
-                {showArretes ? "Masquer les KPI arrêtés par la société" : `Voir ${kpisArretes.length} KPI arrêté${kpisArretes.length > 1 ? "s" : ""} par la société`}
+                {showArretes ? "Masquer les KPIs arrêtés par la société" : `Voir ${kpisArretes.length} KPI arrêté${kpisArretes.length > 1 ? "s" : ""} par la société`}
               </button>
               {showArretes && (
                 <div data-blur-part="tableau">

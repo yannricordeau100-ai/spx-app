@@ -36,7 +36,7 @@ export type Onglet = { id: string; label: string; Icon: LucideIcon; compteur: nu
 
 const DEFS: { id: string; label: string; Icon: LucideIcon; apercu: string }[] = [
   { id: "apercu", label: "Vue d'ensemble", Icon: BookOpen, apercu: "Description, KPI principal, snapshot" },
-  { id: "kpi", label: "Indicateurs clés", Icon: LayoutGrid, apercu: "Tableau des KPI avec tendance" },
+  { id: "kpi", label: "Indicateurs clés", Icon: LayoutGrid, apercu: "Tableau des KPIs avec tendance" },
   { id: "stories", label: "KPI court terme", Icon: Layers, apercu: "Les stories de la fiche" },
   { id: "moyen", label: "Moyen terme", Icon: LineChart, apercu: "Graphiques de sources externes" },
   { id: "marche", label: "Marché et TAM", Icon: Target, apercu: "Répartition du CA, clients, moat, TAM" },

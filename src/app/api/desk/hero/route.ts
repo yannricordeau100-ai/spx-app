@@ -161,7 +161,7 @@ export async function POST(req: NextRequest) {
   if (!eff.kpis.some((k) => k.short === heroKpi)) {
     return NextResponse.json(
       {
-        error: "hero_kpi absent des KPI de la société",
+        error: "hero_kpi absent des KPIs de la société",
         ticker,
         hero_kpi: heroKpi,
         available: eff.kpis.map((k) => k.short).slice(0, 60),

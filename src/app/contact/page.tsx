@@ -11,9 +11,10 @@ export const metadata = {
   description: "Une question ? On répond. Contact général ou support technique.",
 };
 
-export default async function ContactPage({ searchParams }: { searchParams?: Promise<{ type?: string }> }) {
+export default async function ContactPage({ searchParams }: { searchParams?: Promise<{ type?: string; sujet?: string }> }) {
   const sp = searchParams ? await searchParams : undefined;
   const initialRecipient = sp?.type === "api" ? "api" : sp?.type === "support" ? "support" : "contact";
+  const initialSubject = (sp?.sujet ?? "").toString().slice(0, 200);
   const locale = await getServerLocale();
   const t = (k: string) => translate(k, locale);
 
@@ -36,6 +37,7 @@ export default async function ContactPage({ searchParams }: { searchParams?: Pro
         </p>
 
         <ContactClient
+          initialSubject={initialSubject}
           initialRecipient={initialRecipient}
           locale={locale}
           strings={{

@@ -25,7 +25,7 @@ import { KpiPistesClient, type LigneNonCouverte } from "./client";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "Trouver les bons KPI à ajouter · Sandbox Mettrik",
+  title: "Trouver les bons KPIs à ajouter · Sandbox Mettrik",
   robots: { index: false, follow: false },
 };
 

@@ -2,11 +2,9 @@ import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { HomeView } from "@/components/home-view";
 import SandboxV195HubPage from "@/app/sandbox/v1-9-5/page";
-import { AuthNav } from "@/components/auth-nav";
+import { HomeTopBar } from "@/components/home-top-bar";
 import { AuthModal } from "@/components/auth-modal";
 import { AuthRequiredBanner } from "@/components/auth-required-banner";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { loadPageContent } from "@/lib/desk/page-content";
 import { getServerFreemiumTier } from "@/lib/freemium/server";
@@ -33,7 +31,7 @@ function safeNextParam(raw: string | string[] | undefined): string | null {
 
 export const metadata = {
   title: "Mettrik AI · Les chiffres qui font bouger chaque action",
-  description: `Les KPI opérationnels des grandes sociétés cotées américaines et européennes suivies par Mettrik : abonnés, volumes, marges par activité, risques, gouvernance et synthèses de résultats, extraits des rapports officiels.`,
+  description: `Les KPIs opérationnels des grandes sociétés cotées américaines et européennes suivies par Mettrik : abonnés, volumes, marges par activité, risques, gouvernance et synthèses de résultats, extraits des rapports officiels.`,
   alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai" },
   robots: { index: true, follow: true },
 };
@@ -100,12 +98,7 @@ export default async function HomePage({
 
   return (
     <>
-      <div className="fixed left-0 right-0 top-0 z-50 flex w-full items-center justify-between gap-2 bg-[#050505]/70 px-4 py-3 backdrop-blur-sm sm:left-auto sm:right-6 sm:top-6 sm:w-auto sm:justify-end sm:gap-3 sm:bg-transparent sm:py-0 sm:backdrop-blur-0 sm:px-0 sm:pt-0">
-        <ThemeToggle paid={themePaid} />
-        <AuthNav />
-      </div>
-      {/* Yann 18 sept 2026 : l en-tete est fixe sur mobile, on reserve sa hauteur. */}
-      <div className="h-14 sm:hidden" />
+      <HomeTopBar themePaid={themePaid} showPricing={!!user} anon={!user} />
       <HomeView contentOverrides={homeOverrides} />
       {!user && (
         <Suspense fallback={null}>
@@ -113,7 +106,6 @@ export default async function HomePage({
           <AuthModal />
         </Suspense>
       )}
-      <DisclaimerFooter />
     </>
   );
 }

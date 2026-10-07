@@ -9,8 +9,8 @@ export const dynamic = "force-static";
 type U = { categorie: string; unite: string; nom?: string; signification?: string };
 
 const DEFS = [
-  ["KPI total", "Somme de tous les KPI IC (standard et avancés) et des KPI stories."],
-  ["KPI IC total", "Somme de tous les KPI IC (standard et avancés)."],
+  ["KPI total", "Somme de tous les KPIs IC (standard et avancés) et des KPIs stories."],
+  ["KPI IC total", "Somme de tous les KPIs IC (standard et avancés)."],
   ["Types de KPI", "Nombre de types de KPI IC différents (standard et avancés), compté sur tout l univers ET par société. Un type est une mesure qu un concurrent peut publier, même en théorie : elle est comparable. Sinon c est un KPI unique."],
 ];
 const OUI = ["Nombre d employés", "BPA dilué", "Nombre de systèmes d exploitation mobile sur le marché", "Coût d acquisition de trafic", "Part de marché des navigateurs web"];
@@ -51,7 +51,7 @@ export default function Page() {
         {DEFS.map(([t, d]) => <tr key={t} className="border-t border-white/10 align-top"><td className="w-40 py-2 pr-4 font-semibold text-violet-200">{t}</td><td className="py-2 text-zinc-200">{d}</td></tr>)}
       </tbody></table>
       <h2 className="mt-7 text-[17px] font-semibold">La règle : peut-on l appliquer à un concurrent ?</h2>
-      <p className="mt-1 text-[13px] text-zinc-300">Oui : c est une métrique comparable, donc un type de KPI. Non : c est un KPI unique. Un KPI unique dont l actif sous-jacent est comparable devient un type en le généralisant : « part de marché de Chrome » devient « part de marché des navigateurs web ». Toute « part de marché de [quelque chose] » est éligible. Tous les KPI ne sont pas transformables.</p>
+      <p className="mt-1 text-[13px] text-zinc-300">Oui : c est une métrique comparable, donc un type de KPI. Non : c est un KPI unique. Un KPI unique dont l actif sous-jacent est comparable devient un type en le généralisant : « part de marché de Chrome » devient « part de marché des navigateurs web ». Toute « part de marché de [quelque chose] » est éligible. Tous les KPIs ne sont pas transformables.</p>
       <div className="mt-3 grid gap-3 md:grid-cols-2">
         <div className="rounded-lg border border-emerald-400/30 p-3"><div className="text-[12px] font-semibold text-emerald-300">Types de KPI (exemples Google)</div><ul className="mt-1 list-disc pl-5 text-[12.5px] text-zinc-200">{OUI.map((x) => <li key={x}>{x}</li>)}</ul></div>
         <div className="rounded-lg border border-rose-400/30 p-3"><div className="text-[12px] font-semibold text-rose-300">Pas des types de KPI</div><ul className="mt-1 list-disc pl-5 text-[12.5px] text-zinc-200">{NON.map((x) => <li key={x}>{x}</li>)}</ul></div>

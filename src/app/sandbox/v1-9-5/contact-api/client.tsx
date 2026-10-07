@@ -171,7 +171,7 @@ export function ContactApiClient({ locale }: { locale: Locale }) {
           rows={4}
           placeholder={
             isFr
-              ? "Ex : alimenter un dashboard interne avec les KPI Mettrik pour 30 sociétés suivies + alertes sur publication de résultats."
+              ? "Ex : alimenter un dashboard interne avec les KPIs Mettrik pour 30 sociétés suivies + alertes sur publication de résultats."
               : "Ex: feed an internal dashboard with Mettrik KPIs for 30 tracked companies + alerts on earnings releases."
           }
           className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2.5 text-[13.5px] text-zinc-100 placeholder:text-zinc-600 focus:border-amber-500/40 focus:outline-none"

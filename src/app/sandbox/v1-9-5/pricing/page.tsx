@@ -162,7 +162,7 @@ export default async function V195PricingPage() {
             Tu veux l'API Mettrik AI ?
           </h2>
           <p className="mt-3 text-[14.5px] leading-relaxed text-zinc-300">
-            Fonds, family offices, wealth managers, analystes pro : accède aux KPI Mettrik
+            Fonds, family offices, wealth managers, analystes pro : accède aux KPIs Mettrik
             AI directement via API REST. Tarifs sur mesure selon volume et nombre de sociétés
             suivies. Réponse sous 24 h ouvrées.
           </p>

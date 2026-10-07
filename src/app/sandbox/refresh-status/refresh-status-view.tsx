@@ -248,7 +248,7 @@ export function RefreshStatusView({
           <h2 className="text-[18px] font-semibold text-zinc-100">Historique des runs (verrous qualité)</h2>
           <p className="mt-1 text-[12.5px] text-zinc-400">
             Chaque run : verrou 1 = double extraction indépendante (API SEC vs document téléchargé),
-            verrou 2 = 100 % des KPI mis à jour + blocs texte traités, verrou 3 = audit du rendu.
+            verrou 2 = 100 % des KPIs mis à jour + blocs texte traités, verrou 3 = audit du rendu.
             Une société n&apos;est PUBLIABLE que si les 3 sont verts.
           </p>
           <div className="mt-3 space-y-2">

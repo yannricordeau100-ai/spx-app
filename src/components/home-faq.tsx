@@ -39,14 +39,14 @@ export function HomeFAQ() {
   const { t } = useT();
   const items = buildItems(t);
   return (
-    <section className="mx-auto mt-24 max-w-3xl px-2 sm:mt-32" aria-labelledby="faq-title">
+    <section className="mx-auto mt-14 max-w-3xl px-2 sm:mt-20" aria-labelledby="faq-title">
       <h2
         id="faq-title"
         className="mb-2 text-center font-display text-[26px] font-bold tracking-tight text-zinc-50 sm:text-[32px]"
       >
         {t("faq.title")}
       </h2>
-      <p className="mb-10 text-center text-[13.5px] text-zinc-400">
+      <p className="mb-6 text-center text-[13.5px] text-zinc-400">
         {t("faq.subtitle")}
       </p>
 
@@ -75,10 +75,6 @@ export function HomeFAQ() {
         ))}
       </div>
 
-      <div className="mt-10 rounded-xl border border-amber-500/25 bg-amber-500/[0.04] p-5 text-[12.5px] leading-relaxed text-amber-100/90">
-        <strong className="text-amber-200">{t("faq.disclaimer.title")}</strong>{" "}
-        {t("faq.disclaimer.body")}
-      </div>
     </section>
   );
 }

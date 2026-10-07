@@ -50,7 +50,7 @@ function renderCell(value: string | boolean, accent: string) {
 
 function FeatureCellGroup({ feature, plans }: { feature: FeatureRow; plans: PlanDisplay[] }) {
   return (
-    <div className="grid grid-cols-3 items-center gap-x-1.5 gap-y-1.5 border-b border-white/[0.04] py-2.5 sm:grid-cols-[1.5fr_1fr_1fr_1fr] sm:gap-3">
+    <div className="grid grid-cols-3 items-center gap-x-1.5 gap-y-2 border-b border-white/[0.04] py-3.5 sm:grid-cols-[1.5fr_1fr_1fr_1fr] sm:gap-3">
       <div className="col-span-3 flex items-center gap-1.5 sm:col-span-1">
         <span className="text-[13px] text-zinc-200">{feature.label}</span>
         {feature.help && (
@@ -154,9 +154,9 @@ export function PricingMatrix({
       {orderedCategoryKeys.map((category) => {
         const rows = byCategory[category];
         return (
-          <div key={category || "__no_category__"} className="mt-3">
+          <div key={category || "__no_category__"} className="mt-5 sm:mt-3">
             {category !== "" && (
-              <div className="mb-1.5 text-[10.5px] font-semibold uppercase tracking-wider text-zinc-500">{category}</div>
+              <div className="mb-2.5 text-[10.5px] font-semibold uppercase tracking-wider text-zinc-500">{category}</div>
             )}
             {rows.map((f) => (
               <FeatureCellGroup key={f.id} feature={f} plans={PLANS} />

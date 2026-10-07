@@ -245,7 +245,7 @@ export default async function KpiQualityStrategyPage() {
           </strong>{" "}
           (+ Autres pour les sociétés hors de ces univers).
           Tri par capi décroissante (toggle alphabétique), filtres par univers,
-          changement du hero KPI directement depuis la liste. Library des KPI
+          changement du hero KPI directement depuis la liste. Library des KPIs
           génériques conservée en second onglet.
         </p>
 

@@ -13,12 +13,15 @@ import { ThemeToggle } from "@/components/theme-toggle";
 export function NavPlusMenu({
   paid,
   anon = false,
+  liens = [],
   ouvert: ouvertProp,
   onOuvertChange,
 }: {
   paid: boolean;
   /** Visiteur non connecte : « S'inscrire » vit ici sur mobile. */
   anon?: boolean;
+  /** Liens supplementaires du menu (accueil : Contact, Rejoindre Mettrik). */
+  liens?: { label: string; href: string }[];
   /** Pilotage par le parent (un seul panneau ouvert a la fois). */
   ouvert?: boolean;
   onOuvertChange?: (o: boolean) => void;
@@ -64,6 +67,16 @@ export function NavPlusMenu({
             <span className="text-[12.5px] font-medium text-zinc-200">Affichage</span>
             <ThemeToggle paid={paid} />
           </div>
+          {liens.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setOuvert(false)}
+              className="rounded-lg px-1 py-1.5 text-[13px] font-medium text-zinc-200 hover:text-white"
+            >
+              {l.label}
+            </Link>
+          ))}
           {anon && (
             <Link
               href="/?auth=signup"

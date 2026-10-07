@@ -4,7 +4,6 @@ import path from "path";
 import { CompanyView } from "@/components/company-view";
 import { AuthNav } from "@/components/auth-nav";
 import { FicheJsonLd } from "@/components/seo/fiche-jsonld";
-import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { COMPANIES, TICKERS, TICKER_ALIASES, getCompany } from "@/lib/data";
 import type { TranscriptDoc } from "@/components/transcript-stories";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
@@ -346,7 +345,6 @@ export default async function TickerPage({
             freemiumTier={tierRepli}
           />
         </FreemiumBlurProvider>
-        <DisclaimerFooter />
       </>
     );
   }
@@ -478,7 +476,6 @@ export default async function TickerPage({
           adminNomsExport={adminNomsExport}
         />
       </FreemiumBlurProvider>
-      <DisclaimerFooter />
     </>
   );
 }

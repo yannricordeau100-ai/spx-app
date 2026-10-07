@@ -43,10 +43,10 @@ export function ZoneReservee({
         <Link
           href={lienInscription(chemin)}
           className="absolute inset-0 z-40 flex items-start justify-center"
-          aria-label="Inscris-toi gratuitement pour découvrir ces KPI"
+          aria-label="Inscris-toi gratuitement pour découvrir ces KPIs"
         >
           <span className="sticky top-[38vh] mt-16 inline-flex items-center gap-2 rounded-full border border-violet-400/50 bg-[#0a0a0e]/90 px-5 py-2.5 text-[14px] font-semibold text-violet-100 underline decoration-violet-400/60 underline-offset-4 shadow-lg shadow-violet-500/10 hover:bg-violet-500/20">
-            Inscris-toi gratuitement pour découvrir ces KPI
+            Inscris-toi gratuitement pour découvrir ces KPIs
           </span>
         </Link>
       ) : (
