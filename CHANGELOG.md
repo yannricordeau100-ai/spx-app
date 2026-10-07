@@ -940,3 +940,78 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.04.8 (04 Oct 2026 16:07, apres 0acc0b3071)
 - KPI des conférences de résultats extraits pour toutes les sociétés (2 dernières conférences, citations vérifiées mot pour mot)
+
+## v2026.10.05.1 (05 Oct 2026 01:25, apres 32c97209cb)
+- Positionnement IA de Sartorius Stedim Biotech (DIM.PA) mis en ligne, phrases verifiees
+
+## v2026.10.05.2 (05 Oct 2026 01:46, apres 4cc3fbe84d)
+- Positionnement IA DIM.PA : phrases non sourcees remplacees
+
+## v2026.10.05.3 (05 Oct 2026 03:05, apres 6b38730570)
+- Lot 5 oct : pricing, mobile, transcripts, theses, logos, CAC 40, PEA, cours KPI
+
+## v2026.10.05.4 (05 Oct 2026 03:28, apres 09b08a898c)
+- Lot 2 du 5 oct : graphs mobile, var. 2D, i transcripts, theses, concepts KPI
+
+## v2026.10.05.5 (05 Oct 2026 04:38, apres e41bdd12a7)
+- Lot 3 du 5 oct : corrections du test complet
+
+## v2026.10.05.6 (05 Oct 2026 05:17, apres b39c02d56c)
+- Lot 4 du 5 oct : corrections du second test
+
+## v2026.10.05.7 (05 Oct 2026 05:46, apres 170c12cef8)
+- Lot 5 du 5 oct : corrections du troisieme test
+
+## v2026.10.05.8 (05 Oct 2026 06:17, apres 35253f06bd)
+- Lot 6 du 5 oct
+
+## v2026.10.05.9 (05 Oct 2026 06:42, apres 2fd4c7b894)
+- Modale de connexion visible
+
+## v2026.10.05.10 (05 Oct 2026 07:36, apres 8a429049b5)
+- Dates de resultats des societes francaises
+
+## v2026.10.05.11 (05 Oct 2026 22:30, apres 308857717a)
+- Lire la suite, pricing, pied de page
+
+## v2026.10.05.12 (05 Oct 2026 23:44, apres f39fe2674e)
+- Concepts story ordinateur, var. sans virgule
+
+## v2026.10.06.1 (06 Oct 2026 16:25, apres 5b5428a5bd)
+- URD retire, Orange, story mur, textes
+
+## v2026.10.06.2 (06 Oct 2026 19:48, apres 48c61dfa6d)
+- Mise a niveau de 13 nouvelles societes
+
+## v2026.10.07.1 (07 Oct 2026 00:31, apres a0babcc655)
+- Evenements investisseurs : pilote
+
+## v2026.10.07.2 (07 Oct 2026 00:58, apres e485e829d3)
+- Evenements visibles
+
+## v2026.10.07.3 (07 Oct 2026 01:39, apres f77fd52994)
+- Lot 7 oct
+
+## v2026.10.07.4 (07 Oct 2026 02:04, apres cbc38d708f)
+- Lot 7 oct b
+
+## v2026.10.07.5 (07 Oct 2026 02:48, apres 19cb23deb2)
+- Lot 7 oct c
+
+## v2026.10.07.6 (07 Oct 2026 03:41, apres c72bcf8283)
+- Lot 7 oct d
+
+## v2026.10.07.7 (07 Oct 2026 04:21, apres bb43b3237f)
+- Cache fiche : revision du chargeur
+
+## v2026.10.07.8 (07 Oct 2026 10:35, apres 45d1005b94)
+- AMD Airbus evenements
+
+## v2026.10.07.9 (07 Oct 2026 11:11, apres 40f7ec02a0)
+- Evenements relance
+
+## v2026.10.07.10 (07 Oct 2026 17:51, apres 776ef2f411)
+- Lot 7 oct e
+
+## v2026.10.07.11 (07 Oct 2026 21:27, apres db23a62f15)
+- Stories de la base reaffichees (138 verifiees), libelles R&D harmonises, TAM Siemens interpole et Haleon, heros AIZ HPE SGS, 4 journees investisseurs

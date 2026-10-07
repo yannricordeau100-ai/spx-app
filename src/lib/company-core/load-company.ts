@@ -24,6 +24,7 @@ import { VERSION } from "@/lib/version";
 import { promises as fs } from "fs";
 import { definitionGeneriqueKpi } from "@/lib/kpi-definitions-generiques";
 import doublonsForcesJson from "@/data/kpi-doublons-forces.json";
+import storiesFusionValideesJson from "@/data/stories-fusion-validees.json";
 import derniersDepotsJson from "@/data/derniers-depots.json";
 import calendrierResultatsJson from "@/data/earnings-calendar.json";
 import path from "path";
@@ -177,6 +178,122 @@ function mapKpiCategoryToNature(
     return "Cyclique";
   }
   return "Cyclique";
+}
+
+/**
+ * 7 oct 2026 : periode d une story, lue sur la donnee brute (libelle du dernier
+ * point d historique, sinon history_periods, sinon last_data_date).
+ */
+function periodeStory(s: unknown): string | null {
+  const k = (s ?? {}) as { history?: unknown; history_periods?: unknown; last_data_date?: unknown };
+  if (Array.isArray(k.history) && k.history.length > 0) {
+    const last = k.history[k.history.length - 1] as { q?: unknown } | null;
+    if (last && typeof last === "object" && typeof last.q === "string" && last.q.trim()) return last.q.trim();
+  }
+  if (Array.isArray(k.history_periods) && k.history_periods.length > 0) {
+    const last = k.history_periods[k.history_periods.length - 1];
+    if (typeof last === "string" && last.trim()) return last.trim();
+  }
+  if (typeof k.last_data_date === "string" && k.last_data_date.trim()) return k.last_data_date.trim();
+  return null;
+}
+
+/**
+ * 7 oct 2026 : stories de la base (marquees _story_origin) a reinjecter apres
+ * le remplacement kpis-haut. Une story est ecartee si elle double un KPI deja
+ * servi (ou une story deja retenue) :
+ *  - meme identifiant normalise (casse et non-lettres ignorees) : la version
+ *    servie est la version corrigee ;
+ *  - meme titre normalise (francais ou anglais, croises), ou titre qui en
+ *    prolonge un autre d au plus deux mots (« ... reussis » / « ... reussis
+ *    cumules »), a unite compatible ;
+ *  - meme valeur et unite compatible, a la meme annee (ou quand l une des deux
+ *    periodes est inconnue), avec au moins un mot porteur commun aux titres.
+ */
+export function fusionStoriesBase(base: AnyKPI[], servis: AnyKPI[]): AnyKPI[] {
+  const sansAccent = (v: unknown) =>
+    String(v ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const normId = (v: unknown) => String(v ?? "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const normNom = (v: unknown) => sansAccent(v).replace(/[^a-z0-9]/g, "");
+  const mots = (v: unknown) => sansAccent(v).match(/[a-z0-9]+/g) ?? [];
+  const ALIAS_UNITE: Record<string, string> = { tonne: "t", tonnes: "t", tonnesmetriques: "t", "%": "pct", pourcent: "pct" };
+  // Premier element de l unite (« $ pour 50 kg » -> « $ », « tonnes » -> « t »).
+  const unite = (v: unknown): string => {
+    const m = sansAccent(v).match(/[a-z0-9]+|[$€£%]/);
+    const u = m ? m[0] : "";
+    return ALIAS_UNITE[u] ?? u;
+  };
+  const nombre = (v: unknown): number | null => {
+    if (typeof v === "number" && Number.isFinite(v)) return v;
+    if (typeof v === "string") {
+      const t = v.trim().replace(/\s/g, "").replace(",", ".");
+      if (/^-?\d+(\.\d+)?$/.test(t)) return Number(t);
+    }
+    return null;
+  };
+  const annee = (v: unknown): string | null => {
+    const m = String(v ?? "").match(/(?:19|20)\d{2}/);
+    if (m) return m[0];
+    const fy = String(v ?? "").match(/^FY(\d{2})$/i);
+    return fy ? `20${fy[1]}` : null;
+  };
+  const periode = (k: AnyKPI): string | null => {
+    if (typeof k._story_periode === "string") return annee(k._story_periode);
+    const hp = k.history_periods;
+    if (Array.isArray(hp) && hp.length > 0) return annee(hp[hp.length - 1]);
+    return annee(k.last_data_date);
+  };
+  type Empreinte = { id: string; noms: string[][]; valeur: number | null; unite: string; annee: string | null };
+  const empreinte = (k: AnyKPI): Empreinte => ({
+    id: normId(k.short),
+    noms: [mots(k.name_fr), mots(k.name_en)].filter((m) => m.length > 0),
+    valeur: nombre(k.value),
+    unite: unite(k.unit),
+    annee: periode(k),
+  });
+  const prolonge = (a: string[], b: string[]): boolean => {
+    const [court, long] = a.length <= b.length ? [a, b] : [b, a];
+    if (court.length < 4 || long.length - court.length > 2) return false;
+    return court.every((m, i) => long[i] === m);
+  };
+  // Une valeur identique ne suffit pas (beaucoup de « 40 % ») : il faut aussi
+  // un mot porteur de sens commun aux deux titres.
+  const MOTS_VIDES = new Set([
+    "les", "des", "par", "pour", "sur", "une", "dans", "aux", "the", "and", "for", "from", "with", "per",
+    "part", "share", "croissance", "growth", "revenu", "revenus", "revenue", "chiffre", "affaires",
+    "ventes", "sales", "total", "totale", "taux", "rate", "marge", "margin", "nombre", "number",
+    "annuel", "annuelle", "annual",
+  ]);
+  const porteurs = (e: Empreinte) =>
+    new Set(e.noms.flat().filter((m) => m.length >= 3 && !/^\d+$/.test(m) && !MOTS_VIDES.has(m)));
+  const motCommun = (a: Empreinte, b: Empreinte): boolean => {
+    const pb = porteurs(b);
+    for (const m of porteurs(a)) if (pb.has(m)) return true;
+    return false;
+  };
+  const doublon = (a: Empreinte, b: Empreinte): boolean => {
+    if (a.id && a.id === b.id) return true;
+    for (const na of a.noms) for (const nb of b.noms) {
+      if (na.join("") === nb.join("")) return true;
+      if (a.unite === b.unite && prolonge(na, nb)) return true;
+    }
+    if (a.valeur !== null && a.valeur === b.valeur && a.unite === b.unite) {
+      if ((a.annee === null || b.annee === null || a.annee === b.annee) && motCommun(a, b)) return true;
+    }
+    return false;
+  };
+  const retenues: Empreinte[] = servis.map(empreinte);
+  const ajouts: AnyKPI[] = [];
+  for (const k of base) {
+    if (!k || typeof k._story_origin !== "string" || k.is_short_history !== true) continue;
+    if (servis.includes(k)) continue;
+    const e = empreinte(k);
+    if (!e.id) continue;
+    if (retenues.some((r) => doublon(e, r))) continue;
+    ajouts.push(k);
+    retenues.push(e);
+  }
+  return ajouts;
 }
 
 function normalizeHistory(h: unknown): number[] {
@@ -477,7 +594,7 @@ const CACHE_TTL_MS = 10 * 60_000;
 // (constate sur RMS.PA : hero_kpi ROC_MARGIN, sans hero_kpi_resolved, alors que
 // le code deploye choisit LEATHER_REV). A INCREMENTER a chaque changement de
 // logique du chargeur.
-const REVISION_CHARGEUR = "hero-select-2";
+const REVISION_CHARGEUR = "hero-select-3";
 
 const chargeAvecCachePartage = unstable_cache(
   async (ticker: string, mode: "v17" | "v18", locale: string): Promise<LoadOutcome> =>
@@ -647,7 +764,15 @@ async function loadV17CompanyBrut(
   // Normalise stories_kpis → kpis avec is_short_history flag
   const data = { ...raw } as AnyCo & { stories_kpis?: AnyKPI[]; kpis?: AnyKPI[] };
   if (Array.isArray(data.stories_kpis)) {
-    const stories = data.stories_kpis.map((s) => ({ ...s, is_short_history: true }));
+    // 7 oct 2026 : marque d origine des stories (et leur periode lue AVANT
+    // normalizeHistory, qui perd les libelles). Sert a la couche kpis-haut
+    // pour ne plus effacer les stories de la base (cf. fusionStoriesBase).
+    const stories = data.stories_kpis.map((s) => ({
+      ...s,
+      is_short_history: true,
+      _story_origin: "v2-pipeline",
+      _story_periode: periodeStory(s),
+    }));
     data.kpis = [...(data.kpis || []), ...stories];
     delete data.stories_kpis;
   }
@@ -1317,6 +1442,8 @@ async function loadV17CompanyBrut(
       const extraStories = enrich.stories_kpis.map((s) => ({
         ...(s as AnyKPI),
         is_short_history: true,
+        _story_origin: "v2-pipeline-enrich",
+        _story_periode: periodeStory(s),
         history: normalizeHistory((s as AnyKPI).history),
       }));
       data.kpis = [...data.kpis, ...extraStories];
@@ -3034,7 +3161,23 @@ async function loadV17CompanyBrut(
         if ((nf && hautNames.has(nf)) || (ne && hautNames.has(ne))) return false;
         return true;
       });
-      data.kpis = [...converted, ...keptExtras];
+      // 7 oct 2026 : les stories de la base (stories_kpis de v2-pipeline et
+      // de l enrich) dont le _source est un texte libre (ex. SPCX : record de
+      // vols d un premier etage, pays couverts par Starlink) n entraient pas
+      // dans KEPT_SOURCES et etaient effacees. On les reinjecte sans doublon.
+      // Seules les stories sont concernees : un KPI chiffre de base absent de
+      // kpis-haut reste remplace volontairement.
+      const storiesBase = fusionStoriesBase(
+        (data.kpis as AnyKPI[]) ?? [],
+        [...converted, ...keptExtras],
+      );
+      // Garde-fou : seules les stories relues contre leur source
+      // (src/data/stories-fusion-validees.json, cle TICKER -> ids) sont servies.
+      const validees = new Set(
+        ((storiesFusionValideesJson as Record<string, string[]>)[ticker.toUpperCase()] ?? []).map((v) => v.toLowerCase()),
+      );
+      const storiesValidees = storiesBase.filter((k) => validees.has(String(k.short ?? "").toLowerCase()));
+      data.kpis = [...converted, ...keptExtras, ...storiesValidees];
       // Yann 3 sept 2026 : la couche kpis-haut vient de REMPLACER les KPI de
       // meme identifiant, y compris ceux que la fusion trimestrielle avait
       // enrichis plus haut. On rejoue donc la fusion sur le tableau final,
