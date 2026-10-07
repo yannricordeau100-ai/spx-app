@@ -1015,3 +1015,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.07.11 (07 Oct 2026 21:27, apres db23a62f15)
 - Stories de la base reaffichees (138 verifiees), libelles R&D harmonises, TAM Siemens interpole et Haleon, heros AIZ HPE SGS, 4 journees investisseurs
+
+## v2026.10.07.12 (07 Oct 2026 22:32, apres 2c64a3b9c9)
+- Heros AIZ HPE SGS : variation sur un an renseignee
