@@ -34,7 +34,6 @@ export function SupportBubble() {
   const [ouvert, setOuvert] = useState(false);
   const [visible, setVisible] = useState(false);
   const [locale, setLocale] = useState("fr");
-  const [decale, setDecale] = useState(false);
   const boutonRef = useRef<HTMLButtonElement | null>(null);
   const idPanneau = useId();
 
@@ -45,7 +44,7 @@ export function SupportBubble() {
     } catch {
       /* repli sur le français */
     }
-    setDecale(panneauAdminPresent());
+    if (panneauAdminPresent()) document.documentElement.setAttribute("data-preversion", "1");
   }, []);
 
   const langue: LangueSupport = langueDepuisLocale(locale);
@@ -69,12 +68,8 @@ export function SupportBubble() {
   return (
     <div
       data-flottant
-      className="pointer-events-none fixed bottom-0 left-0 right-0 z-[1100] flex w-full max-w-full flex-col items-end gap-2.5"
-      style={{
-        paddingRight: "max(0.75rem, env(safe-area-inset-right))",
-        paddingLeft: "max(0.75rem, env(safe-area-inset-left))",
-        paddingBottom: decale ? "max(3.75rem, calc(env(safe-area-inset-bottom) + 3.25rem))" : "max(1rem, env(safe-area-inset-bottom))",
-      }}
+      className="flot-bas pointer-events-none fixed z-[1100] flex max-w-[calc(100vw-2rem)] flex-col items-end gap-2.5"
+      style={{ width: "23.5rem" }}
     >
       {ouvert && (
         <div
@@ -95,6 +90,7 @@ export function SupportBubble() {
           intouchable tant que le panneau est ouvert. */}
       <button
         ref={boutonRef}
+        data-flot-colonne
         type="button"
         aria-hidden={ouvert}
         tabIndex={ouvert ? -1 : undefined}
@@ -105,7 +101,7 @@ export function SupportBubble() {
         aria-controls={ouvert ? idPanneau : undefined}
         aria-label={ouvert ? T.bulle_fermer : T.bulle_ouvrir}
         title={ouvert ? T.bulle_fermer : T.bulle_ouvrir}
-        className="pointer-events-auto relative grid size-11 max-sm:size-10 place-items-center rounded-full border border-white/12 bg-[#0b0b11]/90 text-zinc-200 shadow-[0_12px_32px_-8px_rgba(0,0,0,0.85)] ring-1 ring-violet-500/20 backdrop-blur-md transition-[transform,color,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-violet-400/45 hover:text-white hover:shadow-[0_16px_38px_-10px_rgba(139,92,246,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+        className="flot-rond flot-discret pointer-events-auto relative grid place-items-center rounded-full border border-white/12 bg-[#0b0b11]/90 text-zinc-200 shadow-[0_12px_32px_-8px_rgba(0,0,0,0.85)] ring-1 ring-violet-500/20 backdrop-blur-md transition-[transform,color,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-violet-400/45 hover:text-white hover:shadow-[0_16px_38px_-10px_rgba(139,92,246,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
       >
         {ouvert ? (
           <X aria-hidden className="size-5" />

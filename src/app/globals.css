@@ -364,3 +364,35 @@ html.ev-repere [data-evenement="1"] {
   outline: 2px solid #ef4444;
   outline-offset: -2px;
 }
+
+/* 7 oct 2026 : colonne des deux boutons ronds en bas a droite (remonter, aide).
+   Une seule source : meme colonne, meme taille (40 px), 8 px d ecart, marge 16 px
+   a droite et en bas (safe-area), au-dessus de la pastille de preversion
+   (visible des 640 px, 12 px du bas, ~26 px de haut, + 8 px ; 16 + 30 = 46). Discrets au repos
+   (0,75) pour ne pas masquer le contenu qu ils survolent, pleins au survol. */
+:root {
+  --flot-taille: 40px;
+  --flot-ecart: 8px;
+  --flot-marge: 16px;
+  --flot-pastille: 0px;
+}
+@media (min-width: 640px) {
+  html[data-preversion] { --flot-pastille: 30px; }
+}
+.flot-bas {
+  right: max(var(--flot-marge), env(safe-area-inset-right));
+  bottom: calc(max(var(--flot-marge), env(safe-area-inset-bottom)) + var(--flot-pastille));
+}
+.flot-haut {
+  right: max(var(--flot-marge), env(safe-area-inset-right));
+  bottom: calc(max(var(--flot-marge), env(safe-area-inset-bottom)) + var(--flot-pastille) + var(--flot-taille) + var(--flot-ecart));
+}
+.flot-rond {
+  width: var(--flot-taille);
+  height: var(--flot-taille);
+}
+.flot-discret { opacity: 0.75; }
+html[data-flot-sur-contenu] .flot-discret { opacity: 0.45; }
+.flot-discret:hover, .flot-discret:focus-visible,
+html[data-flot-sur-contenu] .flot-discret:hover,
+html[data-flot-sur-contenu] .flot-discret:focus-visible { opacity: 1; }
