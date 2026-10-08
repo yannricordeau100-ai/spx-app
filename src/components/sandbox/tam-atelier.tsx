@@ -28,7 +28,9 @@ function cheminDe(code: string): { secteur: string; sub: GicsSubIndustry } | nul
   return null;
 }
 
-function fmt(n: number): string {
+function fmt(n: number | null | undefined): string {
+  // 9 oct 2026 : un candidat sans valeur (TAM non trouve) faisait planter toute la page.
+  if (typeof n !== "number" || !Number.isFinite(n)) return "?";
   return n.toLocaleString("fr-FR", { maximumFractionDigits: n >= 100 ? 0 : 1 });
 }
 
