@@ -1,7 +1,7 @@
 /**
  * Arbitrage des TAM par le proprietaire (7 sept 2026).
  *   GET                              -> { choix: { TICKER: ["c1","c2"] } }
- *   POST { ticker, ids: string[] }   -> enregistre (2 candidats au plus ; [] = bloc masque)
+ *   POST { ticker, ids: string[] }   -> enregistre ([] = bloc masque)
  *   POST { ticker, ids: null }       -> efface le choix (retour a « non arbitre »)
  */
 import { NextResponse, type NextRequest } from "next/server";
@@ -9,6 +9,8 @@ import { createClient } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
 import { lireArbitragesTam } from "@/lib/desk/tam-arbitrage";
+import { lireTam } from "@/lib/cahier";
+import { tamValide } from "@/lib/desk/tam-apercu";
 
 export const dynamic = "force-dynamic";
 
@@ -45,9 +47,13 @@ export async function POST(req: NextRequest) {
   const choix = await lireArbitragesTam();
   if (corps.ids === null) delete choix[ticker];
   else {
-    if (!Array.isArray(corps.ids) || corps.ids.length > 2 || !corps.ids.every((x) => typeof x === "string" && /^[a-z0-9_-]{1,20}$/i.test(x))) {
-      return NextResponse.json({ error: "ids invalides (2 identifiants au plus)" }, { status: 400 });
+    if (!Array.isArray(corps.ids) || corps.ids.length > 30 || !corps.ids.every((x) => typeof x === "string" && /^[a-z0-9_-]{1,20}$/i.test(x))) {
+      return NextResponse.json({ error: "ids invalides" }, { status: 400 });
     }
+    // 9 oct 2026 : un candidat sans valeur de TAM (« TAM non trouvé ») ne peut pas être validé.
+    const cands = (await lireTam())[ticker]?.candidats ?? [];
+    const invalide = (corps.ids as string[]).find((id) => { const c = cands.find((x) => x.id === id); return !c || !tamValide(c); });
+    if (invalide) return NextResponse.json({ error: `candidat ${invalide} sans valeur de TAM : non validable` }, { status: 400 });
     choix[ticker] = corps.ids as string[];
   }
   const { error } = await admin()

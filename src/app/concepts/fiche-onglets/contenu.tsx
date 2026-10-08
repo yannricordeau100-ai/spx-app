@@ -14,6 +14,7 @@ import { ImageFindingsBlock, type ImageFindingPublic } from "@/components/image-
 import { RepartitionBlock } from "@/components/repartition-block";
 import { MoatClientsRow } from "@/components/moat-clients-row";
 import { MarketPositionCard } from "@/components/market-position-card";
+import { trierPositions, grilleTam, derniereLarge } from "@/lib/desk/tam-apercu";
 import { RiskStack } from "@/components/risk-stack";
 import { GovernanceCard } from "@/components/governance-card";
 import { RachatsBlock } from "@/components/rachats-block";
@@ -181,9 +182,9 @@ export function Contenu({ f, id, admin = null }: { f: FicheDemo; id: string; adm
               <section>
                 <h2 className="text-[22px] font-semibold text-zinc-50">Position marché · TAM</h2>
                 <p className="mb-4 mt-0.5 text-[13.5px] text-zinc-300">Part de marché de la société sur ses segments clés, comparée à la taille totale du marché visé.</p>
-                <div className={`grid gap-4 ${pos.length === 1 ? "grid-cols-1" : "lg:grid-cols-2"}`}>
-                  {pos.slice(0, 2).map((p) => (
-                    <MarketPositionCard key={p.segment_name} company={c} position={p} wide={pos.length === 1} />
+                <div className={`grid gap-4 ${grilleTam(pos.length)}`}>
+                  {trierPositions(pos).map((p, i, arr) => (
+                    <MarketPositionCard key={p.segment_name} company={c} position={p} wide={arr.length === 1 || derniereLarge(i, arr.length)} className={derniereLarge(i, arr.length) ? "lg:col-span-2" : ""} />
                   ))}
                 </div>
               </section>
@@ -195,7 +196,7 @@ export function Contenu({ f, id, admin = null }: { f: FicheDemo; id: string; adm
       return <RiskStack risks={c.risks ?? []} accent={accent} profitWarning={c.profit_warning} ticker={c.ticker} />;
     case "gouv":
       return (
-        <div className="grid gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {c.governance && <GovernanceCard governance={c.governance} ticker={c.ticker} company={c} />}
           {f.rachats && <RachatsBlock data={f.rachats} accent={accent} />}
         </div>
@@ -210,7 +211,7 @@ export function Contenu({ f, id, admin = null }: { f: FicheDemo; id: string; adm
       ) : null;
     case "these":
       return (
-        <div className="grid gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {c.these && <TheseCard these={c.these} accent={accent} />}
           {c.att && <AntiTheseCard att={c.att} accent={accent} />}
         </div>
@@ -218,7 +219,7 @@ export function Contenu({ f, id, admin = null }: { f: FicheDemo; id: string; adm
     case "sources":
       return <SourcesExternes ticker={c.ticker} paid extra={c.evenement?.sources} sources={(c as { sources_externes?: string[] }).sources_externes} />;
     case "admin":
-      return admin ? <div className="grid gap-6">{admin}</div> : null;
+      return admin ? <div className="grid grid-cols-1 gap-6">{admin}</div> : null;
     default:
       return null;
   }

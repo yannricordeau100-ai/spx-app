@@ -18,6 +18,11 @@ import { ChevronDown, ChevronRight, ExternalLink, Search } from "lucide-react";
 import { GICS, type GicsSubIndustry } from "@/lib/desk/gics";
 import { Arbre } from "@/components/sandbox/gics-atelier";
 import type { AnnuaireGics, TamCandidat, TamSociete } from "@/lib/cahier";
+import type { Company, MarketPosition } from "@/lib/data";
+import { MarketPositionCard } from "@/components/market-position-card";
+import { candidatVersPosition, tamValide, trierPositions } from "@/lib/desk/tam-apercu";
+
+type EnLigne = Record<string, { positions: MarketPosition[]; arbitre: boolean } | null>;
 
 type Onglet = "secteurs" | "hesitations" | "a_arbitrer" | "sans" | "arbitres";
 
@@ -45,12 +50,14 @@ export function TamAtelier({
   annuaire,
   noms,
   choixInitial,
+  enLigne,
   jeton,
 }: {
   tam: Record<string, TamSociete>;
   annuaire: AnnuaireGics;
   noms: Record<string, string>;
   choixInitial: Record<string, string[]>;
+  enLigne: EnLigne;
   jeton: string | null;
 }) {
   const [onglet, setOnglet] = useState<Onglet>("a_arbitrer");
@@ -74,13 +81,21 @@ export function TamAtelier({
     const hes = tickers.filter((t) => (tam[t].hesitation ?? "").trim().length > 0);
     const sans = tickers.filter((t) => tam[t].candidats.length === 0);
     const arb = tickers.filter((t) => choix[t] !== undefined);
-    const aArb = tickers.filter((t) => choix[t] === undefined && tam[t].candidats.length > 0);
+    // La liste « À arbitrer » reste figée sur l etat de chargement : la carte ne disparait pas au clic, l apercu reste sous les candidats.
+    const aArb = tickers.filter((t) => choixInitial[t] === undefined && tam[t].candidats.length > 0);
     return { hes, sans, arb, aArb };
-  }, [tickers, tam, choix]);
+  }, [tickers, tam, choix, choixInitial]);
 
   async function enregistre(ticker: string, ids: string[] | null) {
     setEnCours(ticker);
     setErreur("");
+    const avant = choix;
+    // Apercu immediat : le choix est applique tout de suite, annule si l enregistrement echoue.
+    setChoix((c) => {
+      const n = { ...c };
+      if (ids === null) delete n[ticker]; else n[ticker] = ids;
+      return n;
+    });
     try {
       const r = await fetch(`/api/sandbox/tam-arbitrage${jeton ? `?audit_token=${encodeURIComponent(jeton)}` : ""}`, {
         method: "POST",
@@ -91,6 +106,7 @@ export function TamAtelier({
       if (!r.ok || !j.ok) throw new Error(j.error ?? "échec");
       setChoix(j.choix ?? {});
     } catch (e) {
+      setChoix(avant);
       setErreur(e instanceof Error ? e.message : "échec");
     } finally {
       setEnCours(null);
@@ -98,8 +114,10 @@ export function TamAtelier({
   }
 
   function bascule(ticker: string, id: string) {
+    const cand = tam[ticker]?.candidats.find((c) => c.id === id);
+    if (!cand || !tamValide(cand)) return;
     const actuel = choix[ticker] ?? [];
-    const suivant = actuel.includes(id) ? actuel.filter((x) => x !== id) : [...actuel, id].slice(-2);
+    const suivant = actuel.includes(id) ? actuel.filter((x) => x !== id) : [...actuel, id];
     void enregistre(ticker, suivant);
   }
 
@@ -168,6 +186,7 @@ export function TamAtelier({
             <Candidat key={c.id} c={c} coche={(sel ?? []).includes(c.id)} desactive={enCours === ticker} onToggle={() => bascule(ticker, c.id)} />
           ))}
         </div>
+        <ApercuFiche ticker={ticker} nom={noms[ticker] ?? ticker} sel={sel} cands={d.candidats} enLigne={enLigne[ticker] ?? null} />
         <div className="mt-3 flex flex-wrap items-center gap-2 text-[12px]">
           <button disabled={enCours === ticker} onClick={() => void enregistre(ticker, [])} className="rounded-md border border-rose-400/40 px-2.5 py-1 text-rose-200 hover:bg-rose-500/10 disabled:opacity-50">Aucun : masquer le bloc</button>
           {sel !== undefined && (
@@ -223,7 +242,58 @@ export function TamAtelier({
   );
 }
 
+/* Apercu des TAM tels qu ils apparaitront sur la fiche (meme composant que le bloc public). */
+function ApercuFiche({ ticker, nom, sel, cands, enLigne }: { ticker: string; nom: string; sel: string[] | undefined; cands: TamCandidat[]; enLigne: { positions: MarketPosition[]; arbitre: boolean } | null }) {
+  const societe = { ticker, name: nom } as Company;
+  const retenus = (sel ?? []).map((id) => cands.find((c) => c.id === id)).filter((c): c is TamCandidat => !!c && tamValide(c));
+  const apres: MarketPosition[] | null = sel === undefined ? null : trierPositions(retenus.map(candidatVersPosition));
+  const actuel = enLigne?.positions ?? [];
+  const Colonne = ({ titre, couleur, pos, vide }: { titre: string; couleur: string; pos: MarketPosition[]; vide: string }) => (
+    <div className="min-w-0">
+      <div className={`mb-2 font-mono text-[10.5px] uppercase tracking-wider ${couleur}`}>{titre}</div>
+      {pos.length === 0 ? (
+        <div className="rounded-xl border border-dashed border-white/15 px-3 py-6 text-center text-[12.5px] text-zinc-500">{vide}</div>
+      ) : (
+        <div className="grid grid-cols-1 gap-3">
+          {pos.map((p) => <MarketPositionCard key={p.segment_name} company={societe} position={p} wide={pos.length === 1} />)}
+        </div>
+      )}
+    </div>
+  );
+  return (
+    <div className="mt-4 rounded-2xl border border-white/10 bg-black/30 p-3">
+      <div className="mb-3 text-[12.5px] font-semibold text-zinc-200">Aperçu sur la fiche · bloc « Position marché · TAM » <span className="font-normal text-zinc-500">(tous les TAM validés, du plus grand au plus petit revenu de segment)</span></div>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <Colonne titre="Actuellement en ligne" couleur="text-zinc-400" pos={actuel} vide={enLigne ? "Bloc masqué (aucun TAM en ligne)" : "Aucun fichier posé : la fiche garde son bloc d’origine (s’il existe)"} />
+        {apres === null ? (
+          <div className="min-w-0">
+            <div className="mb-2 font-mono text-[10.5px] uppercase tracking-wider text-zinc-500">Après validation</div>
+            <div className="rounded-xl border border-dashed border-white/15 px-3 py-6 text-center text-[12.5px] text-zinc-500">Non arbitré : rien ne change. Coche un candidat pour voir le rendu.</div>
+          </div>
+        ) : (
+          <Colonne titre="Après validation" couleur="text-emerald-300" pos={apres} vide="Bloc masqué sur la fiche" />
+        )}
+      </div>
+      {(sel ?? []).length > 0 && <div className="mt-2 text-[11.5px] text-zinc-500">Publication : choix enregistré en base ; la fiche change après scripts/tam-pose.py, commit et déploiement.</div>}
+    </div>
+  );
+}
+
 function Candidat({ c, coche, desactive, onToggle }: { c: TamCandidat; coche: boolean; desactive: boolean; onToggle: () => void }) {
+  if (!tamValide(c)) {
+    return (
+      <div className="block rounded-xl border border-white/10 bg-black/20 p-3 opacity-80">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-mono text-[10.5px] text-zinc-500">{c.id}</span>
+          <span className="rounded-full border border-rose-400/50 bg-rose-500/15 px-2 py-px font-mono text-[10px] uppercase tracking-wider text-rose-100">TAM non trouvé</span>
+          <span className="text-[11px] text-zinc-500">non validable</span>
+        </div>
+        <div className="mt-1 text-[13.5px] font-semibold text-zinc-100">{c.tam_intitule}</div>
+        <div className="text-[12px] text-zinc-400">Activité de la société : {c.segment}</div>
+        {c.commentaire && <div className="mt-1.5 text-[12px] text-zinc-400">{c.commentaire}</div>}
+      </div>
+    );
+  }
   const part = c.tam > 0 ? (c.segment_revenu / c.tam) * 100 : 0;
   return (
     <label className={`block cursor-pointer rounded-xl border p-3 transition-colors ${coche ? "border-emerald-400/60 bg-emerald-500/[0.08]" : "border-white/10 bg-black/20 hover:border-white/25"}`}>

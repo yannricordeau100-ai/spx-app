@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { signaleTokenInvalide } from "./lib/security/alerte";
 import CLEAN_ALL from "./data/v1-9-5-clean-all-tickers.json";
 import { TICKER_ALIASES } from "./lib/ticker-aliases";
+import { COOKIE_ADMIN_2FA, PAGE_VERIFICATION, cookieAdminValide, estRouteOutillage2FA } from "./lib/security/admin-2fa";
 
 // Yann 3 sept 2026 : seules les fiches de l univers en ligne (666) sont
 // publiques sans compte. Tout autre chemin d un segment (/account, /admin,
@@ -449,7 +450,7 @@ export async function proxy(request: NextRequest) {
   // Yann 24 sept 2026 : /concepts (maquettes), /chart-lab (galerie) et /whoami
   // (diagnostic) sont des pages de travail, jamais servies sur le domaine public.
   // Yann 24 sept 2026 : /faq et /populaire-investisseurs retires du site public.
-  const PREFIXES_INTERNES = ["/sandbox", "/admin", `/desk-${process.env.DESK_SLUG ?? "mtk9x4kp"}`, "/email-lab", "/concepts", "/chart-lab", "/whoami", "/faq", "/populaire-investisseurs"];
+  const PREFIXES_INTERNES = ["/sandbox", "/admin", `/desk-${process.env.DESK_SLUG ?? "mtk9x4kp"}`, "/email-lab", "/concepts", "/chart-lab", "/whoami", "/faq", "/populaire-investisseurs", PAGE_VERIFICATION];
   const estRouteInterne = PREFIXES_INTERNES.some((p) => routePathname === p || routePathname.startsWith(p + "/"));
   if (isProdDomain && estRouteInterne) {
     return new NextResponse(null, { status: 404 });
@@ -700,6 +701,15 @@ export async function proxy(request: NextRequest) {
     const comptesAdmin = [adminEmail, "yannricordeau100@gmail.com", "ricordeauyann@gmail.com", "mettrikai@gmail.com"];
     if (!courriel || !comptesAdmin.includes(courriel)) {
       return new NextResponse(null, { status: 404 });
+    }
+    // 9 oct 2026 : seconde verification. Compte admin connecte mais sans
+    // cookie de verification valide (signe, lie a son identifiant, 30 jours)
+    // -> page de saisie du code, avec retour. La session n est pas touchee.
+    if (user && estRouteOutillage2FA(routePathname) && !(await cookieAdminValide(request.cookies.get(COOKIE_ADMIN_2FA)?.value, user.id))) {
+      const url = request.nextUrl.clone();
+      url.pathname = PAGE_VERIFICATION;
+      url.search = `?retour=${encodeURIComponent(originalPathname + (request.nextUrl.search ?? ""))}`;
+      return NextResponse.redirect(url);
     }
   }
 

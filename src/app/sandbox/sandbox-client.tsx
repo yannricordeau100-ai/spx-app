@@ -426,6 +426,15 @@ const SECTIONS: SandboxSection[] = [
         desc: "Carte visuelle de toute l'application (visiteur, back-office, données, automates, services) avec un feu de santé par brique, testé en direct.",
       },
       {
+        // 9 oct 2026 : toutes les consignes d ajout de nouvelles societes (docs/CONSIGNES-NOUVELLES-SOCIETES.md).
+        href: "/sandbox/consignes-societes",
+        mots: ["ajout de société", "nouvelle société", "nouveau pays", "nouvel indice", "consignes", "checklist", "agents", "blocs", "toggles", "Supabase"],
+        icon: Library,
+        label: "Consignes d’ajout de nouvelles sociétés",
+        desc: "Checklist pas à pas, un onglet par bloc de fiche (source, format, process spéciaux, pièges), données hors bloc, nouveau pays, règles qualité, contrôles finaux. Même fichier lu par les agents.",
+        accent: "highlight" as const,
+      },
+      {
         href: "/sandbox/gics",
         mots: ["secteurs", "sous-industries", "codes GICS", "classification", "KPI attendus par sous-industrie", "Cahier"],
         icon: Library,

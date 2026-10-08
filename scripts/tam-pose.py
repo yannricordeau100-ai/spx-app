@@ -28,9 +28,11 @@ for t, ids in choix.items():
     d = json.load(open(p))
     cands = {c["id"]: c for c in d.get("candidats", [])}
     mp = []
-    for cid in ids[:2]:
+    # 9 oct 2026 : plus de limite de 2, tous les TAM valides sont poses (tries par revenu decroissant plus bas).
+    for cid in ids:
         c = cands.get(cid)
         if not c: print(t, ": candidat", cid, "introuvable"); continue
+        if not isinstance(c.get("tam"), (int, float)) or c["tam"] <= 0: print(t, ": candidat", cid, "sans valeur de TAM, ignore"); continue
         src = c.get("tam_source") or {}
         mp.append({
             "segment_name": c["segment"],
@@ -41,6 +43,10 @@ for t, ids in choix.items():
             "source_note": f"{c.get('tam_intitule','')}. {c.get('commentaire','')} Source : {src.get('url','')}".strip(),
             **({"market_cagr": c["croissance_marche_pct"]} if isinstance(c.get("croissance_marche_pct"), (int, float)) else {}),
         })
+    def mds(x):
+        u = (x.get("segment_unit") or "").replace("$", "").replace("€", "").strip()
+        return x["segment_revenue"] * (1e-3 if u in ("M", "m", "Mn") else 1)
+    mp.sort(key=mds, reverse=True)
     out = {"ticker": t, "researched_at": str(date.today()), "market_positions": mp, "_arbitrage_proprietaire": True, "_source": "docs/cahier/tam + /sandbox/tam"}
     json.dump(out, open(os.path.join(ROOT, "src/data/v2-pipeline-enrich", f"{t.lower()}.tam.json"), "w"), ensure_ascii=False, indent=2)
     n += 1

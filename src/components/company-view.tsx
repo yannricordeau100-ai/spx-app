@@ -138,6 +138,7 @@ const MoatClientsRow = dynamic(
   () => import("@/components/moat-clients-row").then((m) => m.MoatClientsRow),
   { loading: () => <AttenteBloc h={240} /> },
 );
+import { trierPositions, grilleTam, derniereLarge } from "@/lib/desk/tam-apercu";
 const MarketPositionCard = dynamic(
   () => import("@/components/market-position-card").then((m) => m.MarketPositionCard),
   { loading: () => <AttenteBloc h={240} /> },
@@ -2266,7 +2267,7 @@ export function CompanyView({
             place juste sous « Comprendre la societe » (demande du 08/09).
             Rendu seulement quand la fiche porte des market_positions, c est a
             dire apres arbitrage du proprietaire dans /sandbox/tam et pose
-            (scripts/tam-pose.py). Deux segments au plus. */}
+            (scripts/tam-pose.py). Tous les segments, tries par revenu decroissant. */}
         {isBlockEnabled("tam", company.ticker) && ((company.market_positions && company.market_positions.length > 0) || (company.evenement?.tam?.length ?? 0) > 0) && (
           <section data-blur="tam" className="mt-9 animate-fade-up-d2">
             <div className="mb-4 flex items-end justify-between">
@@ -2279,9 +2280,9 @@ export function CompanyView({
               </span>
             </div>
             {(company.market_positions ?? []).length > 0 && (
-            <div className={`grid gap-4 ${company.market_positions!.length === 1 ? "grid-cols-1" : "lg:grid-cols-2"}`}>
-              {company.market_positions!.slice(0, 2).map((p) => (
-                <MarketPositionCard key={p.segment_name} company={company} position={p} wide={company.market_positions!.length === 1} />
+            <div className={`grid gap-4 ${grilleTam(company.market_positions!.length)}`}>
+              {trierPositions(company.market_positions!).map((p, i, arr) => (
+                <MarketPositionCard key={p.segment_name} company={company} position={p} wide={arr.length === 1 || derniereLarge(i, arr.length)} className={derniereLarge(i, arr.length) ? "lg:col-span-2" : ""} />
               ))}
             </div>
             )}

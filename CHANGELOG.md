@@ -1024,3 +1024,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.08.2 (08 Oct 2026 15:25, apres 87035ce14a)
 - Max : 1000+ societes disponibles (valeur du back-office), EN/DE alignes
+
+## v2026.10.09.1 (09 Oct 2026 01:19, apres fdb7362bec)
+- Code e-mail pour l acces admin, atelier TAM (apercu, plus de limite a 2 TAM), page TAM reparee, rail v3

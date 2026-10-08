@@ -111,10 +111,12 @@ export function MarketPositionCard({
   company,
   position,
   wide = false,
+  className = "",
 }: {
   company: Company;
   position: MarketPosition;
   wide?: boolean;
+  className?: string;
 }) {
   const c = brand(company.ticker).primary;
   const share = (position.segment_revenue / position.tam) * 100;
@@ -123,7 +125,7 @@ export function MarketPositionCard({
     <div
       className={`overflow-hidden rounded-2xl border border-[#1a1a1a] bg-gradient-to-b from-[#0a0a0a] to-[#070707] ${
         wide ? "p-6 lg:p-7" : "p-5 grid grid-rows-subgrid row-span-6 gap-y-0"
-      }`}
+      } ${className}`}
     >
       <div className="flex items-start justify-between gap-3">
         <div data-blur-part="titre" className="min-w-0">

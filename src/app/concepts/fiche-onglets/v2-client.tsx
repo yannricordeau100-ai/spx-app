@@ -1,10 +1,10 @@
 "use client";
 
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  ArrowLeft, Compass, BarChart3, Layers, LineChart, Target, AlertTriangle, Building2, Brain, FileText, Scale, Rows3, ShieldCheck,
+  ArrowLeft, Compass, BarChart3, Layers, LineChart, Target, AlertTriangle, Building2, Brain, FileText, Scale, ShieldCheck,
   Star, GitCompare, UserRound, Sun, Moon, Search, Menu, X, Bookmark, type LucideIcon,
 } from "lucide-react";
 import { brand } from "@/lib/brand";
@@ -31,7 +31,7 @@ import { BlocIndicateurs } from "./v2-indicateurs";
 
 type Bloc = { id: string; titre: string; Icon: LucideIcon; phrase: string; anim: string };
 
-/** Ordre de la fiche. « Sources » retire, « Résultats et transcripts » renomme, « Intégral » sous la thèse. */
+/** Ordre de la fiche. Tous les blocs sont sur la meme page ; « Sources » est en pied de page, hors du rail. */
 const BLOCS: Bloc[] = [
   { id: "apercu", titre: "Aperçu", Icon: Compass, phrase: "Rangs, description et chiffres de marché", anim: "boussole" },
   { id: "kpi", titre: "Indicateurs clés", Icon: BarChart3, phrase: "Graphique du KPI principal et liste des indicateurs", anim: "barres" },
@@ -43,12 +43,11 @@ const BLOCS: Bloc[] = [
   { id: "ia", titre: "IA", Icon: Brain, phrase: "Positionnement en intelligence artificielle", anim: "pulse" },
   { id: "resultats", titre: "Publications officielles", Icon: FileText, phrase: "Résultats publiés et dernier appel", anim: "page" },
   { id: "these", titre: "Thèse et anti-thèse", Icon: Scale, phrase: "Cas favorable et cas défavorable", anim: "balance" },
-  { id: "integral", titre: "Intégral", Icon: Rows3, phrase: "Tous les blocs les uns sous les autres", anim: "deroule" },
   { id: "admin", titre: "Admin", Icon: ShieldCheck, phrase: "Cours de bourse et KPI sur-mesure", anim: "pop" },
 ];
 
-const RAIL = 92;
-const RAIL_OUVERT = 288;
+const RAIL = 104;
+const RAIL_OUVERT = 400;
 
 /* Effets de survol, un par icone. Pas d animation si l utilisateur la refuse. */
 const STYLE_ANIM = `
@@ -62,7 +61,6 @@ const STYLE_ANIM = `
 @keyframes v2-pulse{0%,100%{transform:scale(1);filter:none}50%{transform:scale(1.14);filter:drop-shadow(0 0 6px var(--v2-acc))}}
 @keyframes v2-page{0%,100%{transform:perspective(60px) rotateY(0)}50%{transform:perspective(60px) rotateY(-38deg)}}
 @keyframes v2-balance{0%,100%{transform:rotate(0)}25%{transform:rotate(-11deg)}60%{transform:rotate(9deg)}85%{transform:rotate(-3deg)}}
-@keyframes v2-deroule{0%,100%{transform:scaleY(1)}45%{transform:scaleY(1.28)}}
 @keyframes v2-pop{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
 @keyframes v2-etoile{0%{transform:rotate(0) scale(1)}55%{transform:rotate(86deg) scale(1.22)}100%{transform:rotate(72deg) scale(1)}}
 @keyframes v2-echange{0%,100%{transform:translateX(0)}30%{transform:translateX(-3px)}65%{transform:translateX(3px)}}
@@ -73,7 +71,7 @@ const STYLE_ANIM = `
 /* Mobile : les boutons ronds du site (aide, remonter) passent au-dessus de la barre basse. */
 @media (max-width:767px){html:root{--flot-pastille:78px}}
 .v2-ico{transform-origin:center;will-change:transform}
-.v2a-barres,.v2a-deroule{transform-origin:50% 90%}
+.v2a-barres{transform-origin:50% 90%}
 .v2a-salut{transform-origin:50% 100%}
 .v2a-balance{transform-origin:50% 20%}
 @media (prefers-reduced-motion:no-preference){
@@ -87,7 +85,6 @@ const STYLE_ANIM = `
 .v2-item:hover .v2a-pulse,.v2-item:focus-visible .v2a-pulse{animation:v2-pulse .9s ease-in-out}
 .v2-item:hover .v2a-page,.v2-item:focus-visible .v2a-page{animation:v2-page .6s ease-in-out}
 .v2-item:hover .v2a-balance,.v2-item:focus-visible .v2a-balance{animation:v2-balance .8s ease-in-out}
-.v2-item:hover .v2a-deroule,.v2-item:focus-visible .v2a-deroule{animation:v2-deroule .5s ease-out}
 .v2-item:hover .v2a-pop,.v2-item:focus-visible .v2a-pop{animation:v2-pop .4s ease-out}
 .v2-item:hover .v2a-etoile,.v2-item:focus-visible .v2a-etoile{animation:v2-etoile .6s ease-out forwards}
 .v2-item:hover .v2a-echange,.v2-item:focus-visible .v2a-echange{animation:v2-echange .5s ease-in-out}
@@ -220,17 +217,19 @@ type RailProps = {
 
 function LogoRail({ ouvert }: { ouvert: boolean }) {
   return (
-    <Link href="/" aria-label="Accueil Mettrik" className="relative flex h-[54px] shrink-0 items-center overflow-hidden border-b border-white/[0.06]">
-      <span className={`absolute left-0 flex w-[92px] justify-center transition-all duration-200 ${ouvert ? "scale-75 opacity-0" : "opacity-100"}`}>
+    <Link href="/" aria-label="Accueil Mettrik" className="relative flex h-[64px] shrink-0 items-center overflow-hidden border-b border-white/[0.06]">
+      <span className={`absolute left-0 flex justify-center transition-all duration-200 ${ouvert ? "scale-75 opacity-0" : "opacity-100"}`} style={{ width: RAIL }}>
         {/* Logo simple (marque seule), public/brand/mettrik-mark */}
         <picture className="block select-none">
           <source srcSet="/brand/mettrik-mark.webp" type="image/webp" />
           <img src="/brand/mettrik-mark.png" alt="Mettrik" className="h-8 w-auto select-none" draggable={false} />
         </picture>
       </span>
-      <span className={`absolute left-5 transition-all duration-200 ${ouvert ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0"}`}>
-        {/* Logo complet, pilote par la logotheque comme le retour de la fiche */}
-        <LogoMettrik emplacement="retour-societe" size="md" animated={false} showRail={false} hauteurPng="30px" />
+      {/* Logo complet, plus grand et centre dans le rail ouvert, pilote par la logotheque comme le retour de la fiche */}
+      <span className={`absolute left-0 flex justify-center transition-all duration-200 ${ouvert ? "scale-100 opacity-100" : "scale-90 opacity-0"}`} style={{ width: RAIL_OUVERT }}>
+        <span className="block origin-center scale-[1.75]">
+          <LogoMettrik emplacement="retour-societe" size="lg" animated={false} showRail={false} hauteurPng="30px" />
+        </span>
       </span>
     </Link>
   );
@@ -239,6 +238,32 @@ function LogoRail({ ouvert }: { ouvert: boolean }) {
 function RailOrdinateur({ blocs, actif, accent, mode, onBloc, onOutil }: RailProps) {
   const [ouvert, setOuvert] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const tous = outils(mode);
+  const rech = tous.find((o) => o.id === "recherche")!;
+  const autres = tous.filter((o) => o.id !== "recherche");
+  const outil = (o: Outil, pleine = false) => {
+    const corps = (
+      <>
+        <span className="flex shrink-0 justify-center" style={{ width: pleine ? RAIL : RAIL / 2 }}>
+          <span className="flex size-8 items-center justify-center rounded-xl text-zinc-400 transition-colors group-hover:bg-white/[0.06] group-hover:text-zinc-100">
+            <o.Icon className={`v2-ico v2a-${o.anim} size-[18px]`} style={o.couleur ? { color: o.couleur } : undefined} aria-hidden />
+          </span>
+        </span>
+        <span className={`min-w-0 whitespace-nowrap pr-2 text-[12.5px] text-zinc-300 transition-opacity duration-200 ${ouvert ? "opacity-100" : "opacity-0"}`}>{o.titre}</span>
+      </>
+    );
+    const cls = "v2-item group flex h-9 min-w-0 items-center text-left outline-none";
+    if (o.id === "compte") {
+      return <Link key={o.id} href="/account" aria-label={o.titre} title={ouvert ? undefined : o.titre} className={cls}>{corps}</Link>;
+    }
+    return (
+      <button key={o.id} type="button" aria-label={o.titre} title={ouvert ? undefined : o.titre} className={cls}
+        onPointerDown={(e) => e.stopPropagation()}
+        onClick={(e) => { const r = e.currentTarget.getBoundingClientRect(); onOutil(o.id, r.top + r.height / 2); setOuvert(false); }}>
+        {corps}
+      </button>
+    );
+  };
   return (
     <div className="fixed inset-y-0 left-0 z-40 hidden md:block" style={{ width: RAIL }}>
       <nav ref={navRef} aria-label="Blocs de la fiche"
@@ -247,54 +272,39 @@ function RailOrdinateur({ blocs, actif, accent, mode, onBloc, onOutil }: RailPro
         className={`absolute inset-y-0 left-0 flex flex-col overflow-hidden border-r border-white/10 bg-[#08080a] transition-[width,box-shadow] duration-200 ease-out ${ouvert ? "shadow-[14px_0_44px_rgba(0,0,0,0.6)]" : ""}`}
         style={{ width: ouvert ? RAIL_OUVERT : RAIL, ["--v2-acc" as string]: accent }}>
         <LogoRail ouvert={ouvert} />
-        <div role="tablist" aria-orientation="vertical" className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden py-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {blocs.map((b) => {
-            const on = b.id === actif;
-            return (
-              <button key={b.id} type="button" role="tab" aria-selected={on} aria-label={b.titre}
-                onClick={() => { onBloc(b.id); setOuvert(false); }}
-                className="v2-item group relative flex w-full shrink-0 items-center text-left outline-none">
-                {on && <motion.span layoutId="v2-trait" className="absolute left-0 inset-y-2 w-[3px] rounded-r-full" style={{ background: accent }} />}
-                <span className="flex w-[92px] shrink-0 flex-col items-center gap-[2px] px-1.5 py-[3px]">
-                  <span className={`flex size-7 items-center justify-center rounded-xl transition-colors duration-150 ${on ? "bg-white/[0.09]" : "group-hover:bg-white/[0.06] group-focus-visible:bg-white/[0.06]"}`}
-                    style={on ? { boxShadow: `inset 0 0 0 1px ${accent}40` } : undefined}>
-                    <b.Icon className={`v2-ico v2a-${b.anim} size-[19px] transition-colors`} style={{ color: on ? accent : undefined }} aria-hidden />
-                  </span>
-                  <span className={`w-full text-center text-[11px] leading-[1.15] transition-opacity duration-150 ${ouvert ? "opacity-0" : "opacity-100"} ${on ? "font-semibold text-zinc-50" : "text-zinc-400 group-hover:text-zinc-200"}`}>{b.titre}</span>
-                </span>
-                <span className={`min-w-0 flex-1 pr-4 transition-opacity duration-200 ${ouvert ? "opacity-100 delay-75" : "pointer-events-none opacity-0"}`}>
-                  <span className={`block truncate text-[13.5px] ${on ? "font-semibold text-zinc-50" : "text-zinc-200"}`}>{b.titre}</span>
-                  <span className="block truncate text-[11.5px] text-zinc-500">{b.phrase}</span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
-        <div className="mx-4 h-px shrink-0 bg-white/10" />
-        <div className="grid shrink-0 grid-cols-2 gap-y-0.5 px-0 py-1.5">
-          {outils(mode).map((o) => {
-            const corps = (
-              <>
-                <span className="flex w-[46px] shrink-0 justify-center">
-                  <span className="flex size-8 items-center justify-center rounded-xl text-zinc-400 transition-colors group-hover:bg-white/[0.06] group-hover:text-zinc-100">
-                    <o.Icon className={`v2-ico v2a-${o.anim} size-[18px]`} style={o.couleur ? { color: o.couleur } : undefined} aria-hidden />
-                  </span>
-                </span>
-                <span className={`min-w-0 truncate pr-2 text-[12.5px] text-zinc-300 transition-opacity duration-200 ${ouvert ? "opacity-100" : "opacity-0"}`}>{o.titre}</span>
-              </>
-            );
-            const cls = "v2-item group flex h-9 min-w-0 items-center text-left outline-none";
-            if (o.id === "compte") {
-              return <Link key={o.id} href="/account" aria-label={o.titre} title={ouvert ? undefined : o.titre} className={cls}>{corps}</Link>;
-            }
-            return (
-              <button key={o.id} type="button" aria-label={o.titre} title={ouvert ? undefined : o.titre} className={cls}
-                onPointerDown={(e) => e.stopPropagation()}
-                onClick={(e) => { const r = e.currentTarget.getBoundingClientRect(); onOutil(o.id, r.top + r.height / 2); setOuvert(false); }}>
-                {corps}
-              </button>
-            );
-          })}
+        {/* Rechercher : en haut, sous le logo */}
+        <div className="flex shrink-0 flex-col border-b border-white/[0.06] py-1.5">{outil(rech, true)}</div>
+        {/* Blocs et outils : groupe centre verticalement dans la hauteur restante (defile si l ecran est trop bas) */}
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="my-auto flex flex-col py-2">
+            <div role="tablist" aria-orientation="vertical" className="flex flex-col">
+              {blocs.map((b) => {
+                const on = b.id === actif;
+                return (
+                  <button key={b.id} type="button" role="tab" aria-selected={on} aria-label={b.titre}
+                    onClick={() => { onBloc(b.id); setOuvert(false); }}
+                    className="v2-item group relative flex w-full shrink-0 items-center text-left outline-none">
+                    {on && <motion.span layoutId="v2-trait" className="absolute left-0 inset-y-2 w-[3px] rounded-r-full" style={{ background: accent }} />}
+                    <span className="flex shrink-0 flex-col items-center gap-[2px] px-1.5 py-[3px]" style={{ width: RAIL }}>
+                      <span className={`flex size-7 items-center justify-center rounded-xl transition-colors duration-150 ${on ? "bg-white/[0.09]" : "group-hover:bg-white/[0.06] group-focus-visible:bg-white/[0.06]"}`}
+                        style={on ? { boxShadow: `inset 0 0 0 1px ${accent}40` } : undefined}>
+                        <b.Icon className={`v2-ico v2a-${b.anim} size-[19px] transition-colors`} style={{ color: on ? accent : undefined }} aria-hidden />
+                      </span>
+                      <span className={`w-full text-center text-[11px] leading-[1.15] transition-opacity duration-150 ${ouvert ? "opacity-0" : "opacity-100"} ${on ? "font-semibold text-zinc-50" : "text-zinc-400 group-hover:text-zinc-200"}`}>{b.titre}</span>
+                    </span>
+                    <span className={`min-w-0 flex-1 pr-4 transition-opacity duration-200 ${ouvert ? "opacity-100 delay-75" : "pointer-events-none opacity-0"}`}>
+                      <span className={`block whitespace-nowrap text-[13.5px] ${on ? "font-semibold text-zinc-50" : "text-zinc-200"}`}>{b.titre}</span>
+                      <span className="block whitespace-nowrap text-[11.5px] text-zinc-500">{b.phrase}</span>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            <div className="mx-4 my-2 h-px shrink-0 bg-white/10" />
+            <div className="grid shrink-0 grid-cols-2 gap-y-0.5">
+              {autres.map((o) => outil(o))}
+            </div>
+          </div>
         </div>
       </nav>
     </div>
@@ -437,8 +447,8 @@ function EnteteCompact({ c, accent }: { c: FicheDemo["company"]; accent: string 
   const fmt = (n: number, d = 2) => n.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d });
   return (
     <motion.div initial={{ y: -COMPACT_PX }} animate={{ y: 0 }} exit={{ y: -COMPACT_PX }} transition={{ duration: 0.18, ease: "easeOut" }}
-      className="fixed inset-x-0 top-0 z-30 flex items-center gap-3 border-b border-white/[0.08] bg-[#050505]/[0.97] px-4 md:left-[92px] md:px-6"
-      style={{ height: COMPACT_PX }}>
+      className="fixed inset-x-0 top-0 z-30 flex items-center gap-3 border-b border-white/[0.08] bg-[#050505]/[0.97] px-4 md:left-[var(--v2-rail)] md:px-6"
+      style={{ height: COMPACT_PX, ["--v2-rail" as string]: `${RAIL}px` }}>
       <div className={`flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg ring-1 ${logoNeedsLightBg(c.ticker) ? "preserve-colors bg-white ring-black/15" : "bg-[#0a0a0a] ring-white/10"}`}>
         <div className="size-full p-1"><CompanyLogo ticker={c.ticker} /></div>
       </div>
@@ -465,7 +475,7 @@ function Fiche({ f, admin }: { f: FicheDemo; admin: React.ReactNode }) {
   const accent = brand(c.ticker).primary;
   const blocs = useMemo(() => {
     const dispo = new Set(ongletsDe(f, Boolean(admin)).map((o) => o.id));
-    return BLOCS.filter((b) => b.id === "integral" || dispo.has(b.id));
+    return BLOCS.filter((b) => dispo.has(b.id));
   }, [f, admin]);
   const [actif, setActif] = useState(blocs[0]?.id ?? "apercu");
   const liste = useMemo(() => kpisAffiches(c), [c]);
@@ -506,12 +516,63 @@ function Fiche({ f, admin }: { f: FicheDemo; admin: React.ReactNode }) {
     };
   }, []);
 
-  // Premier affichage sans fondu : le contenu est la tout de suite (pas d ecran vide si l animation tarde).
-  const premier = useRef(true);
-  useEffect(() => { premier.current = false; }, []);
+  // Navigation : tous les blocs sont sur la meme page. Un clic dans le rail fait
+  // defiler jusqu au bloc (sous l en-tete collant) ; au defilement, le bloc
+  // dont le haut a passe la ligne de l en-tete devient le bloc actif.
+  const verrou = useRef(0);
+  const vise = useRef<string | null>(null);
+  const sections = useRef<Record<string, HTMLElement | null>>({});
+  // Le site applique un zoom sur <body> : les positions d ecran (getBoundingClientRect,
+  // scrollY) sont en px d ecran, la hauteur d en-tete (offsetHeight) en px CSS du body.
+  const zoom = () => parseFloat(getComputedStyle(document.body).zoom) || 1;
+  const hautEntete = () => (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--entete-v2")) || 0) * zoom();
+  useEffect(() => {
+    const maj = () => {
+      if (Date.now() < verrou.current) return;
+      const ligne = hautEntete() + 24 + window.innerHeight * 0.15;
+      let courant = blocs[0]?.id ?? "apercu";
+      for (const b of blocs) {
+        const el = sections.current[b.id];
+        if (el && el.getBoundingClientRect().top <= ligne) courant = b.id;
+      }
+      // Tout en bas de page : le dernier bloc visible devient actif.
+      const doc = document.documentElement;
+      if (window.innerHeight + window.scrollY >= doc.scrollHeight - 4) {
+        const visibles = blocs.filter((b) => { const el = sections.current[b.id]; return el && el.getBoundingClientRect().top < window.innerHeight; });
+        if (visibles.length) courant = visibles[visibles.length - 1].id;
+      }
+      setActif(courant);
+    };
+    maj();
+    window.addEventListener("scroll", maj, { passive: true });
+    window.addEventListener("resize", maj);
+    // Fin du defilement : si du contenu s est charge au-dessus pendant le trajet, on recale une fois.
+    const fin = () => {
+      const cible = vise.current;
+      vise.current = null;
+      if (cible) {
+        const el = sections.current[cible];
+        const ecart = el ? el.getBoundingClientRect().top - hautEntete() - 16 : 0;
+        if (el && cible !== blocs[0]?.id && Math.abs(ecart) > 8) {
+          verrou.current = Date.now() + 800;
+          window.scrollTo({ top: window.scrollY + ecart, behavior: "smooth" });
+          return;
+        }
+      }
+      verrou.current = 0;
+      maj();
+    };
+    window.addEventListener("scrollend", fin);
+    return () => { window.removeEventListener("scroll", maj); window.removeEventListener("resize", maj); window.removeEventListener("scrollend", fin); };
+  }, [blocs]);
   const choisirBloc = (id: string) => {
+    const el = sections.current[id];
+    if (!el) return;
     setActif(id);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    verrou.current = Date.now() + 1500;
+    vise.current = id;
+    const haut = id === blocs[0]?.id ? 0 : window.scrollY + el.getBoundingClientRect().top - hautEntete() - 16;
+    window.scrollTo({ top: Math.max(0, haut), behavior: "smooth" });
   };
   const fermerPanneau = useCallback(() => setPanneau(null), []);
   const onOutil = (id: OutilId, y: number) => {
@@ -540,20 +601,26 @@ function Fiche({ f, admin }: { f: FicheDemo; admin: React.ReactNode }) {
     return <Contenu f={f} id={id} admin={admin} />;
   };
 
-  const corps = actif === "integral" ? (
+  const corps = (
     <div>
-      {blocs.filter((b) => b.id !== "integral").map((b, i) => (
-        <Fragment key={b.id}>
-          <div className={`mb-4 flex items-center gap-2.5 ${i === 0 ? "" : "mt-14"}`}>
-            <span className="flex size-7 items-center justify-center rounded-lg bg-white/[0.06]"><b.Icon className="size-4" style={{ color: accent }} aria-hidden /></span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-zinc-400">{b.titre}</span>
-            <span className="h-px flex-1 bg-white/10" />
-          </div>
+      {blocs.map((b, i) => (
+        <section key={b.id} id={`v2-${b.id}`} ref={(el) => { sections.current[b.id] = el; }} aria-label={b.titre} className={i === 0 ? "" : "mt-14"}>
+          {i > 0 && (
+            <div className="mb-4 flex items-center gap-2.5">
+              <span className="flex size-7 items-center justify-center rounded-lg bg-white/[0.06]"><b.Icon className="size-4" style={{ color: accent }} aria-hidden /></span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-zinc-400">{b.titre}</span>
+              <span className="h-px flex-1 bg-white/10" />
+            </div>
+          )}
           {bloc(b.id)}
-        </Fragment>
+        </section>
       ))}
+      {/* Mini onglet « Sources » en bas de page, comme sur la fiche actuelle (hors du rail) */}
+      <div id="v2-sources" className="mt-10">
+        <Contenu f={f} id="sources" admin={admin} />
+      </div>
     </div>
-  ) : bloc(actif);
+  );
 
   return (
     <FreemiumBlurProvider tier="max">
@@ -582,9 +649,9 @@ function Fiche({ f, admin }: { f: FicheDemo; admin: React.ReactNode }) {
         )}
       </AnimatePresence>
 
-      <motion.div key={actif} initial={premier.current ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }} className="mt-6 min-w-0 pb-28 md:pb-10">
+      <div className="mt-6 min-w-0 pb-28 md:pb-10">
         {corps}
-      </motion.div>
+      </div>
 
       <AnimatePresence>
         {panneau?.id === "favoris" && (
@@ -617,7 +684,7 @@ export function FicheV2Client({ fiches, adminBlocs = null }: { fiches: FicheDemo
   if (!f) return <div className="p-10 text-zinc-400">Aucune société chargée.</div>;
   const glow = brand(f.company.ticker).glow;
   return (
-    <div className="relative min-h-screen bg-[#050505] text-zinc-100 md:pl-[92px]">
+    <div className="relative min-h-screen overflow-x-clip bg-[#050505] text-zinc-100 md:pl-[var(--v2-rail)]" style={{ ["--v2-rail" as string]: `${RAIL}px` }}>
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[600px]" style={{ background: `radial-gradient(ellipse 80% 50% at 50% -10%, ${glow}, transparent 60%)` }} />
       <main className="relative w-full px-4 sm:px-6">
         <Fiche key={f.ticker} f={f} admin={adminBlocs?.[f.ticker] ?? null} />
