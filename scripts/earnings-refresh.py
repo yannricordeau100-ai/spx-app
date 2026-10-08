@@ -86,6 +86,20 @@ SUFFIXES_HORS_US = (".PA", ".DE", ".AS", ".SW", ".MI", ".MC", ".BR", ".LS", ".VI
 DEPOSANTS_SEC_LEGITIMES = {"AMRZ.SW"}
 
 
+
+def fin_periode(periode):
+    """Date de fin d une periode « Q2-2026 », « T2 2026 », « H1-2026 », « S1 2026 », « FY2025 »."""
+    import re
+    p = str(periode or "").upper().replace(" ", "-")
+    m = re.match(r"^[QT]([1-4])-?(\d{4})$", p)
+    if m:
+        q, a = int(m.group(1)), m.group(2)
+        return f"{a}-{['03-31','06-30','09-30','12-31'][q-1]}"
+    m = re.match(r"^[HS]([12])-?(\d{4})$", p)
+    if m:
+        return f"{m.group(2)}-{'06-30' if m.group(1) == '1' else '12-31'}"
+    return None  # exercice annuel : date de cloture propre a chaque societe, non devinee
+
 def depose_a_la_sec(ticker: str) -> bool:
     """Vrai si les dossiers de type americain de ce ticker lui appartiennent."""
     t = ticker.upper()
@@ -735,7 +749,9 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
         else:
             hist.append(val)
         kpi["value"] = val
-        kpi["last_data_date"] = datetime.now(timezone.utc).date().isoformat()
+        # 8 oct 2026 : date de fin de la periode publiee (et non date du jour,
+        # qui faisait croire a une donnee du jour, ex. IRM Q2-2026 date du 8 oct).
+        kpi["last_data_date"] = fin_periode(periode_v) or kpi.get("last_data_date")
         retenus.append(short)
 
     if retenus and apply:
