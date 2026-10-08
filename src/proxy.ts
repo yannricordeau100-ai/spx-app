@@ -697,7 +697,7 @@ export async function proxy(request: NextRequest) {
   const estPosteLocal = host.startsWith("localhost") || host.startsWith("127.0.0.1") || host.endsWith(".local") || /^(192\.168|172\.20|192\.0\.0)\./.test(host);
   if (!isProdDomain && !estPosteLocal && estRouteInterne && !isAuditBypass) {
     const courriel = (user?.email ?? "").toLowerCase().trim();
-    const comptesAdmin = [adminEmail, "mettrikai@gmail.com"];
+    const comptesAdmin = [adminEmail, "yannricordeau100@gmail.com", "ricordeauyann@gmail.com", "mettrikai@gmail.com"];
     if (!courriel || !comptesAdmin.includes(courriel)) {
       return new NextResponse(null, { status: 404 });
     }
