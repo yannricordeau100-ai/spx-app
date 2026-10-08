@@ -5,7 +5,7 @@ Arret si l espace libre passe sous le seuil. Usage :
   python3 scripts/edgar-telecharge-tout.py [--tickers A,B] [--formes 10K,10Q] [--min-go 15] [--max-par-ste 0]"""
 import json,os,re,ssl,sys,time,gzip,shutil,urllib.request,urllib.error
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-UA={'User-Agent':'Mettrik research contact@mettrik.ai'}; CTX=ssl._create_unverified_context()
+UA={'User-Agent':'Mettrik research ricordeauyann@gmail.com'}; CTX=ssl._create_unverified_context()
 ARG=sys.argv
 def opt(n,d=None):
     return ARG[ARG.index(n)+1] if n in ARG else d
@@ -24,7 +24,13 @@ def get(u,tries=6):
         except Exception:
             if k<tries-1: time.sleep(2*(k+1)); continue
             raise
-inv=json.load(open('/tmp/edgar_inventaire.json'))
+# 8 oct 2026 : l inventaire ne vit plus dans /tmp (purge) mais dans .conv-state ;
+# il est regenere s il manque.
+INV=f"{ROOT}/.conv-state/edgar_inventaire.json"
+if not os.path.exists(INV):
+    import subprocess
+    subprocess.run([sys.executable,f"{ROOT}/scripts/edgar-inventaire.py"],cwd=ROOT,timeout=3600)
+inv=json.load(open(INV))
 tickers=(opt('--tickers') or '').split(',') if opt('--tickers') else list(inv['stes'])
 if opt('--tranche'):
     i,n=map(int,opt('--tranche').split('/')); tickers=[t for k,t in enumerate(tickers) if k%n==i]

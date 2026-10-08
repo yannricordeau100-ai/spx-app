@@ -2,7 +2,7 @@
 export type StyleId =
   | "souligne" | "pilules" | "vertical" | "icones-compteurs" | "app-mobile" | "cartes"
   | "cartes-compactes"
-  | "rail-icones" | "rail-survol" | "rail-legende" | "rail-groupes" | "rail-progression" | "rail-flottant";
+  | "rail-icones" | "rail-survol" | "rail-survol-v2" | "rail-legende" | "rail-groupes" | "rail-progression" | "rail-flottant";
 
 /** Largeur reservee au rail fixe (px, ecrans md et plus). Absent = pas de rail. */
 export const RAIL_PX: Partial<Record<StyleId, number>> = {
@@ -14,7 +14,7 @@ export const RAIL_PX: Partial<Record<StyleId, number>> = {
   "rail-flottant": 68,
 };
 
-export const NOUVEAUX: StyleId[] = ["cartes-compactes", "rail-icones", "rail-survol", "rail-legende", "rail-groupes", "rail-progression", "rail-flottant"];
+export const NOUVEAUX: StyleId[] = ["rail-survol-v2", "cartes-compactes", "rail-icones", "rail-survol", "rail-legende", "rail-groupes", "rail-progression", "rail-flottant"];
 
 export type StyleOnglets = {
   slug: StyleId;
@@ -116,6 +116,16 @@ export const STYLES: StyleOnglets[] = [
     forts: ["Le meilleur des deux mondes : étroit au repos, explicite à l'usage", "Le contenu ne bouge pas pendant l'élargissement", "Les noms et compteurs sont lisibles sans info-bulle"],
     limites: ["L'élargissement peut se déclencher par erreur en passant la souris", "Sur tactile, il n'y a pas de survol"],
     mobile: "Barre d'icônes fixée en bas ; un appui sur l'icône active affiche son nom à côté.",
+  },
+  {
+    slug: "rail-survol-v2",
+    nom: "Rail qui s'élargit au survol : version finale",
+    phrase: "Le rail retenu par Yann, avec les titres sous les icônes, un en-tête fixe, les outils du site et un mode Intégral.",
+    explication:
+      "Rail de 92 px : chaque icône porte le titre de son bloc en dessous. Au survol, il s'élargit par-dessus le contenu, affiche le logo Mettrik complet et une phrase sur chaque bloc. Sous les blocs, un trait puis Favoris, Comparer, Mon compte, Jour/Nuit et Rechercher. L'en-tête de la société reste fixe en haut, les rangs vivent dans le bloc Aperçu, le graphique du KPI principal et la liste des indicateurs ne forment qu'un bloc, et « Intégral » affiche toute la fiche d'un trait.",
+    forts: ["Titres lisibles en permanence, sans survol", "En-tête de la société toujours visible au défilement", "Outils du site au même endroit que la navigation", "Mode Intégral pour lire toute la fiche comme aujourd'hui"],
+    limites: ["36 px de plus que le rail d'icônes seules", "Le rail défile sur les écrans très bas"],
+    mobile: "Barre d'onglets en bas (icône et titre) qui défile au doigt, plus un bouton Menu qui ouvre un tiroir avec tous les blocs et les outils.",
   },
   {
     slug: "rail-legende",

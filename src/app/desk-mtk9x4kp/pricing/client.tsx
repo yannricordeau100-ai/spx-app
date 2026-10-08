@@ -14,6 +14,7 @@ import {
   type Frequency,
 } from "@/lib/billing/admin-types";
 import { planColorSpec, type PlanTierKey } from "@/lib/billing/plan-colors";
+import { valeurIncluse, lignesCartes, type CarteGratuit } from "@/lib/billing/carte-gratuit";
 
 type Tab = "plans" | "prices" | "features" | "promos" | "stripe" | "taglines";
 
@@ -471,7 +472,7 @@ function PricesSection({
     const monthly = priceFor(currency, "monthly")?.amount_decimal ?? 0;
     const annual = frequency === "annual" ? amount : priceFor(currency, "annual")?.amount_decimal ?? 0;
     const sav = annualSavings(monthly, annual);
-    await api("/api/billing/admin/prices", "POST", {
+    const r = await api<{ stripe?: { erreur?: string } | { action: string; detail?: string }[] | null }>("/api/billing/admin/prices", "POST", {
       id: existing?.id,
       plan_id: selectedPlanId,
       currency,
@@ -480,6 +481,10 @@ function PricesSection({
       annual_discount_pct: frequency === "annual" ? sav.pct : null,
       is_active: existing?.is_active ?? false, // par défaut inactif jusqu'au toggle explicite
     });
+    // 8 oct 2026 : l enregistrement aligne Stripe ; on signale tout echec.
+    const st = r?.stripe;
+    const echec = st && !Array.isArray(st) ? st.erreur : Array.isArray(st) ? st.find((l) => l.action === "erreur")?.detail : undefined;
+    if (echec) alert(`Prix enregistré, mais Stripe n'a pas été aligné : ${echec}\nRelance « Synchroniser Stripe ».`);
     await refresh();
   }
 
@@ -995,8 +1000,116 @@ function FeaturesSection({
   // Liste plate triée par feature_order (ordre choisi par Yann via flèches).
   const sortedFeatures = [...features].sort((a, b) => (a.feature_order ?? 0) - (b.feature_order ?? 0));
 
+  // Yann 8 oct 2026 : sélecteur de la carte Gratuit (lignes valides / barrées).
+  // Total de lignes = celui des cartes publiques (cases « Card »). Valide :
+  // fonctionnalité incluse au Gratuit. Barrée : absente du Gratuit mais
+  // incluse en Premium ou Max. Enregistré dans desk_page_content.
+  const planDuTier = (tier: string) => plans.find((p) => (p.code ?? "").toLowerCase() === tier || (tier === "free" && (p.code ?? "").toLowerCase() === "gratuit"));
+  const planGratuit = planDuTier("free");
+  const plansPayants = plans.filter((p) => p.id !== planGratuit?.id);
+  const actives = sortedFeatures.filter((f) => f.is_active);
+  const inclusGratuit = (f: PricingFeature) => !!planGratuit && valeurIncluse(valueFor(planGratuit.id, f.id));
+  const inclusAutrePlan = (f: PricingFeature) => plansPayants.some((p) => valeurIncluse(valueFor(p.id, f.id)));
+  const lignesActuelles = lignesCartes(actives);
+  const nbLignesCarte = lignesActuelles.length;
+  const carteParDefaut: CarteGratuit = {
+    inclus: lignesActuelles.filter((f) => inclusGratuit(f)).map((f) => f.code),
+    barres: lignesActuelles.filter((f) => !inclusGratuit(f)).map((f) => f.code),
+  };
+  const [carteEnregistree, setCarteEnregistree] = useState<CarteGratuit | null | undefined>(undefined);
+  const [carteBrouillon, setCarteBrouillon] = useState<CarteGratuit | null>(null);
+  const [carteMessage, setCarteMessage] = useState<string | null>(null);
+  useEffect(() => {
+    void (async () => {
+      const r = await api<{ reglage: CarteGratuit | null }>("/api/billing/admin/carte-gratuit", "GET", undefined, { silent: true });
+      setCarteEnregistree(r?.reglage ?? null);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const carteCourante: CarteGratuit = carteBrouillon ?? carteEnregistree ?? carteParDefaut;
+  const etatCarte = (f: PricingFeature): "" | "valide" | "barree" =>
+    carteCourante.inclus.includes(f.code) ? "valide" : carteCourante.barres.includes(f.code) ? "barree" : "";
+  const nbValides = actives.filter((f) => etatCarte(f) === "valide").length;
+  const nbBarrees = actives.filter((f) => etatCarte(f) === "barree").length;
+  const totalCarte = nbValides + nbBarrees;
+  function setEtatCarte(f: PricingFeature, etat: "" | "valide" | "barree") {
+    const base = carteCourante;
+    const inclus = base.inclus.filter((c) => c !== f.code);
+    const barres = base.barres.filter((c) => c !== f.code);
+    if (etat === "valide") inclus.push(f.code);
+    if (etat === "barree") barres.push(f.code);
+    setCarteBrouillon({ inclus, barres });
+    setCarteMessage(null);
+  }
+  async function enregistrerCarte() {
+    // On n enregistre que les lignes encore éligibles (fonctionnalités actives).
+    const codesActifs = new Set(actives.map((f) => f.code));
+    const payload = {
+      inclus: carteCourante.inclus.filter((c) => codesActifs.has(c)),
+      barres: carteCourante.barres.filter((c) => codesActifs.has(c)),
+    };
+    const r = await api<{ reglage: CarteGratuit | null }>("/api/billing/admin/carte-gratuit", "POST", payload);
+    if (r) {
+      setCarteEnregistree(r.reglage);
+      setCarteBrouillon(null);
+      setCarteMessage("Carte Gratuit enregistrée.");
+    }
+  }
+  async function reinitialiserCarte() {
+    if (!confirm("Revenir à l'affichage par défaut de la carte Gratuit (lignes cochées « Card ») ?")) return;
+    const r = await api<{ reglage: CarteGratuit | null }>("/api/billing/admin/carte-gratuit", "POST", { reinitialiser: true });
+    if (r) {
+      setCarteEnregistree(null);
+      setCarteBrouillon(null);
+      setCarteMessage("Affichage par défaut rétabli.");
+    }
+  }
+  const carteModifiee = carteBrouillon !== null;
+  const carteValide = totalCarte === nbLignesCarte && nbValides > 0;
+
   return (
     <div>
+      {planGratuit && (
+        <div className="mb-3 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.04] px-3 py-2.5 text-[11.5px] text-zinc-300">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span className="font-semibold uppercase tracking-wider text-[10px] text-emerald-300">Carte Gratuit</span>
+              <span className="ml-2">
+                {nbValides} valide{nbValides > 1 ? "s" : ""} + {nbBarrees} barrée{nbBarrees > 1 ? "s" : ""} ={" "}
+                <strong className={totalCarte === nbLignesCarte ? "text-emerald-300" : "text-amber-300"}>{totalCarte} / {nbLignesCarte} lignes</strong>
+              </span>
+              <span className="ml-2 text-zinc-500">
+                {carteEnregistree ? "réglage enregistré" : carteEnregistree === null ? "affichage par défaut" : "chargement…"}
+                {carteModifiee ? " · modifications non enregistrées" : ""}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              {carteMessage && <span className="text-emerald-300">{carteMessage}</span>}
+              <button
+                type="button"
+                onClick={reinitialiserCarte}
+                disabled={busy || (!carteEnregistree && !carteModifiee)}
+                className="rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[12px] font-semibold text-zinc-300 hover:bg-white/[0.05] disabled:opacity-40"
+              >
+                Par défaut
+              </button>
+              <button
+                type="button"
+                onClick={enregistrerCarte}
+                disabled={busy || !carteModifiee || !carteValide}
+                title={carteValide ? "Enregistrer la carte Gratuit" : `Il faut exactement ${nbLignesCarte} lignes, dont au moins une valide`}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/15 px-3 py-1.5 text-[12px] font-bold text-emerald-100 hover:bg-emerald-500/25 disabled:opacity-40"
+              >
+                <Save className="size-3.5" />
+                Enregistrer la carte Gratuit
+              </button>
+            </div>
+          </div>
+          <p className="mt-1 text-[10.5px] text-zinc-500">
+            Colonne « Carte Gratuit » : valide = incluse dans le Gratuit, barrée = absente du Gratuit mais incluse en Premium ou Max. Sur la page tarifs, les lignes valides passent en premier, les barrées ensuite.
+          </p>
+        </div>
+      )}
       <div className="mb-3 flex justify-between items-center">
         <div className="text-[11px] text-zinc-500">
           <p>Liste à plat (ordre choisi via flèches OU drag & drop).</p>
@@ -1104,6 +1217,7 @@ function FeaturesSection({
                 <th className="px-3 py-2 text-left w-40">Catégorie</th>
                 <th className="px-2 py-2 text-center w-12" title="Visible sur la page tarifs publique ? Si masqué, la feature reste en base mais disparaît de la matrice + des cards.">Affiché</th>
                 <th className="px-2 py-2 text-center w-16" title="Afficher cette feature dans la card publique 'forfait'">Card</th>
+                {planGratuit && <th className="px-2 py-2 text-center w-28" title="Ligne de la carte du plan Gratuit : valide, barrée ou absente">Carte Gratuit</th>}
                 {plans.map((p) => (
                   <th key={p.id} className="px-3 py-2 text-center" style={{ color: p.accent_color }}>{p.name_fr}</th>
                 ))}
@@ -1264,6 +1378,33 @@ function FeaturesSection({
                         : "Réactive la feature (œil ←) pour pouvoir cocher Card."}
                     />
                   </td>
+                  {planGratuit && (() => {
+                    const etat = etatCarte(f);
+                    const peutValide = f.is_active && inclusGratuit(f);
+                    const peutBarree = f.is_active && !inclusGratuit(f) && inclusAutrePlan(f);
+                    const plein = totalCarte >= nbLignesCarte && etat === "";
+                    return (
+                      <td className="px-2 py-2 text-center align-middle">
+                        <select
+                          value={etat}
+                          onChange={(e) => setEtatCarte(f, e.target.value as "" | "valide" | "barree")}
+                          disabled={busy || (!peutValide && !peutBarree && etat === "")}
+                          aria-label={`Carte Gratuit : ${f.label_fr}`}
+                          className={`w-full min-w-[108px] rounded border px-1.5 py-1 text-[11px] disabled:opacity-30 ${
+                            etat === "valide"
+                              ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
+                              : etat === "barree"
+                                ? "border-zinc-500/40 bg-zinc-500/10 text-zinc-300 line-through"
+                                : "border-white/[0.08] bg-white/[0.02] text-zinc-500"
+                          }`}
+                        >
+                          <option value="">Non affichée</option>
+                          <option value="valide" disabled={!peutValide || plein}>Valide</option>
+                          <option value="barree" disabled={!peutBarree || plein}>Barrée</option>
+                        </select>
+                      </td>
+                    );
+                  })()}
                   {plans.map((p) => (
                     <td key={p.id} className="px-2 py-1.5 text-center">
                       <ValueCell value={valueFor(p.id, f.id)} onSave={(v) => setValue(p.id, f.id, v)} disabled={busy} />
@@ -1865,17 +2006,23 @@ function StripeSection({
 }) {
   const synced = prices.filter((p) => p.stripe_price_id).length;
   const total = prices.length;
+  // 8 oct 2026 : le back-office fait foi. Chaque enregistrement d un prix
+  // aligne deja Stripe ; ce bouton sert de secours (rejoue tout l alignement).
   async function sync() {
-    if (!confirm(`Synchroniser ${total - synced} prix vers Stripe (test mode) ?`)) return;
-    const r = await api<{ created: number; updated: number }>("/api/billing/admin/stripe-sync", "POST");
-    if (r) alert(`✅ ${r.created} créés, ${r.updated} mis à jour`);
+    if (!confirm("Aligner Stripe sur les prix du back-office ? Un nouveau prix Stripe est créé pour chaque montant différent, l'ancien est désactivé. Les abonnés en cours gardent leur prix.")) return;
+    const r = await api<{ created: number; updated: number; erreurs: number; journal: { plan: string; devise: string; periode: string; base: number; stripe_avant: number | null; action: string; detail?: string }[] }>("/api/billing/admin/stripe-sync", "POST");
+    if (!r) return;
+    const lignes = r.journal
+      .filter((l) => l.action !== "conforme")
+      .map((l) => `${l.plan} ${l.devise} ${l.periode === "monthly" ? "mensuel" : "annuel"} : ${l.stripe_avant ?? "-"} -> ${l.base} (${l.action}${l.detail ? ", " + l.detail : ""})`);
+    alert(`${r.created} prix créés, ${r.updated} archivés, ${r.erreurs} erreur(s).${lignes.length ? "\n\n" + lignes.join("\n") : "\nTous les prix Stripe correspondent déjà au back-office."}`);
   }
 
   return (
     <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-6">
       <h2 className="mb-3 font-display text-[18px] font-bold tracking-tight">Sync Stripe</h2>
       <p className="mb-4 text-[13px] text-zinc-400">
-        Pousse les prix locaux vers Stripe. Les Price IDs créés sont stockés dans <code className="mx-1 text-zinc-300">pricing_prices.stripe_price_id</code>.
+        Le back-office fait foi : chaque enregistrement d&apos;un prix crée automatiquement le prix Stripe correspondant et désactive l&apos;ancien (les abonnés en cours gardent leur prix). Ce bouton rejoue l&apos;alignement complet en cas de doute.
       </p>
       <div className="mb-5 grid grid-cols-3 gap-3 text-center">
         <Stat label="Plans actifs" value={plans.filter((p) => p.is_active).length} />
@@ -1883,7 +2030,7 @@ function StripeSection({
         <Stat label="Prix synchronisés" value={synced} accent="#10b981" />
       </div>
       <button type="button" onClick={sync} disabled={busy} className="inline-flex items-center gap-2 rounded-xl bg-violet-500 px-5 py-2.5 text-[13.5px] font-bold text-zinc-50 transition-colors hover:bg-violet-400 disabled:opacity-50">
-        Sync Stripe (test mode)
+        Synchroniser Stripe
       </button>
     </div>
   );

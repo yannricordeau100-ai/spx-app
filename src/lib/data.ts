@@ -340,6 +340,14 @@ export type Company = {
   /** Thèse d'investissement (Yann 19 sept 2026), miroir favorable de l'anti-thèse,
    *  chargée depuis src/data/these/<t>.json, gating plan Max via gateTheseForTier(). */
   these?: import("@/lib/these").CompanyThese;
+  /** 8 oct 2026 : sources externes de la fiche, jointes cote serveur (avecDonneesFiche). */
+  sources_externes?: string[];
+  /** 8 oct 2026 : effet de change publie, joint cote serveur (avecDonneesFiche). */
+  fx_effet_change?: {
+    unite: string;
+    annees: { annee: number; valeur: number; montant?: string | null; origine?: string | null; source_url?: string | null }[];
+    note?: string;
+  } | null;
   hero_kpi: string; // matches KPI.short
   /**
    * Vrai quand `hero_kpi` vient de l'override humain Supabase

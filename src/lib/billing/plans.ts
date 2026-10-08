@@ -103,9 +103,12 @@ export const FEATURES: FeatureRow[] = [
     category: "Sociétés",
     label: "Sociétés accessibles",
     help: "Nombre de fiches société consultables en intégralité.",
-    free: "2 (Google + Meta)",
-    premium: "1 000+ américaines & européennes",
-    max: "1 000+ + ajouts mensuels",
+    // 8 oct 2026 (audit des fuites publiques, lignes 17 et 18) : la valeur
+    // gratuite reelle est calculee par loadPricingCatalog depuis la liste
+    // /api/visibles-gratuit ; pas de promesse « 1 000+ » (plus de 600 fiches).
+    free: "Sélection de sociétés",
+    premium: "Plus de 600",
+    max: "Plus de 600 + ajouts",
   },
   {
     id: "logo_pages",

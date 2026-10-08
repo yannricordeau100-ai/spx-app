@@ -42,7 +42,7 @@ const LEVEL_META: Record<Exclude<Level, 0>, {
     textClass: "text-orange-100",
     dotClass: "bg-orange-400 shadow-[0_0_8px_rgba(251,146,60,0.7)]",
     tooltip:
-      "Niveau 1 (shadow prod) : clone fidèle de la prod, sandbox de validation Yann. Stripe en test mode, Resend en dry-run, Supabase séparée. Aucune action ici ne pollue la vraie prod.",
+      "Niveau 1 : préversion de validation.",
   },
   2: {
     label: "NIVEAU 2 · PREVIEW",
@@ -52,7 +52,7 @@ const LEVEL_META: Record<Exclude<Level, 0>, {
     textClass: "text-violet-100",
     dotClass: "bg-violet-400 shadow-[0_0_8px_rgba(167,139,250,0.7)]",
     tooltip:
-      "Niveau 2 (preview) : features en cours sur branches, données de test, à ne pas considérer comme du fini.",
+      "Niveau 2 : préversion en cours de test.",
   },
   3: {
     label: "NIVEAU 3 · LOCAL",
@@ -71,7 +71,7 @@ function detectLevelFromHost(): Level {
   const host = window.location.hostname.toLowerCase();
   if (host === "localhost" || host === "127.0.0.1" || host.endsWith(".local")) return 3;
   if (host === "mettrik.ai" || host === "www.mettrik.ai") return 0;
-  if (host.startsWith("mettrik-niveau1") || host.startsWith("niveau1.")) return 1;
+  if (/niveau1[.-]/.test(host)) return 1;
   if (host.endsWith(".vercel.app")) return 2;
   return 0;
 }
@@ -109,12 +109,8 @@ const SIM_LABELS: Record<EffectiveTier, string> = {
  * en train de tester V17, V18, V175, etc.
  */
 function detectVersionFromPath(pathname: string): string | null {
-  if (pathname.startsWith("/sandbox/v1-8")) return "V1.8";
-  if (pathname.startsWith("/sandbox/v1-7-5")) return "V1.7.5";
-  if (pathname.startsWith("/sandbox/v1-7")) return "V1.7";
-  if (pathname.startsWith("/sandbox/v1-6")) return "V1.6";
-  if (pathname.startsWith("/sandbox/v2")) return "V2";
-  return null;
+  const m = pathname.match(/^\/[a-z]+\/(v1-8|v1-7-5|v1-7|v1-6|v2)(?:\/|$)/);
+  return m ? m[1].replace(/^v/, "V").replace(/-/g, ".") : null;
 }
 
 export function LevelBadge() {
@@ -168,7 +164,7 @@ export function LevelBadge() {
       )}
       {sim && (
         <span
-          title={`Simulation tier active : tu vois l'app comme un user ${SIM_LABELS[sim]}. Désactivable depuis /desk-mtk9x4kp.`}
+          title={`Simulation tier active : tu vois l'app comme un user ${SIM_LABELS[sim]}. Désactivable depuis le back-office.`}
           className="max-sm:hidden inline-flex items-center gap-1 rounded-full border border-violet-400/50 bg-violet-500/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-violet-100 backdrop-blur-md"
         >
           <span aria-hidden className="h-1 w-1 rounded-full bg-violet-300 shadow-[0_0_4px_rgba(167,139,250,0.8)]" />

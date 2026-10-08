@@ -1,6 +1,7 @@
 "use client";
 
 import LOGO_TICKERS_LIST from "@/data/logo-tickers.json";
+import { dansListe } from "@/lib/empreinte-ticker";
 
 // Yann 10 juin 2026 : set des tickers (normalises comme safeTicker, majuscules +
 // points convertis en tirets) ayant un PNG dans /public/logos. Permet d'afficher
@@ -182,7 +183,7 @@ export function CompanyLogo({ ticker }: { ticker: string }) {
   // Yann 10 juin 2026 : si aucun PNG n'existe pour cette ste, afficher le
   // monogramme (cercle gradient + initiales) au lieu d'un carre noir vide.
   // Corrige les logos "noirs" de la barre de recherche (ex ABI sans fichier).
-  if (!LOGO_TICKERS.has(safeTicker)) {
+  if (!dansListe(LOGO_TICKERS, safeTicker)) {
     return <LogoMonogram ticker={t} />;
   }
   // Yann 4 juin 2026 : APPROCHE CSS background-image au lieu de <img>. Plus
@@ -222,12 +223,13 @@ const LIGHT_BG_TICKERS = new Set<string>([
   "MSCI",
   "SPGI",
   "CAT",
-  ...(lightBgList as string[]).map((t) => t.toUpperCase()),
+  // 8 oct 2026 : en production la liste arrive en empreintes ("h..."), a ne pas passer en majuscules.
+  ...(lightBgList as string[]).map((t) => (/^h[0-9a-z]+$/.test(t) ? t : t.toUpperCase())),
 ]);
 
 export function logoNeedsLightBg(ticker: string): boolean {
   const t = ticker.toUpperCase();
   // La liste auditee est nommee comme les fichiers (points convertis en
   // tirets) : PAH3.DE doit matcher PAH3-DE (Yann 07 sept 2026).
-  return LIGHT_BG_TICKERS.has(t) || LIGHT_BG_TICKERS.has(t.replace(/\./g, "-"));
+  return dansListe(LIGHT_BG_TICKERS, t) || dansListe(LIGHT_BG_TICKERS, t.replace(/\./g, "-"));
 }

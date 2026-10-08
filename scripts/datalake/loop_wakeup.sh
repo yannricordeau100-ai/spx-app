@@ -11,7 +11,7 @@ LOG=/tmp/loop_wakeup.log
 echo "[$(date)] === LOOP WAKEUP DÉMARRÉ ===" >> "$LOG"
 
 # 1. Copier du datalake central
-cp -rn ~/data-lake/* data-lake/ 2>/dev/null || true
+# 8 oct 2026 : second lac ~/data-lake supprime (tout est dans data-lake/)
 
 # 2. Ingest
 python3 scripts/datalake/ingest_drafts.py >> "$LOG" 2>&1

@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  // 8 oct 2026 : dossier de sortie reglable pour le controle des fuites
+  // (build local d audit dans un dossier separe, sans toucher au serveur de
+  // dev). Vercel ne pose pas NEXT_DIST_DIR : .next par defaut.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   // Yann 4 sept 2026 : les adresses courtes des pages legales tombaient sur la
   // page de connexion (le proxy ne les reconnaissait ni comme fiche ni comme
   // page publique). Elles menent desormais au bon contenu, ce qui compte aussi
@@ -42,6 +46,18 @@ const nextConfig: NextConfig = {
     // Force workspace root to this app, otherwise Turbopack picks up
     // /Users/yann/package-lock.json and resolves modules at the wrong level.
     root: path.resolve("."),
+    // 8 oct 2026 (audit des fuites publiques) : tout JSON de src/data importe
+    // par du code NAVIGATEUR passe par src/build/assainir-json-client.cjs (hors /scripts, exclu du
+    // deploiement par .vercelignore),
+    // qui retire notes internes (_note, _doc...), prenom, chemins et noms de
+    // scripts. Le serveur lit les fichiers complets. Ne pas retirer.
+    rules: {
+      "*.json": {
+        condition: { all: ["browser", { not: "foreign" }, { path: /^src\/data\// }] },
+        loaders: [path.resolve("src/build/assainir-json-client.cjs")],
+        as: "*.js",
+      },
+    },
   },
   // iPhone Personal Hotspot subnets vary (192.0.0.x, 172.20.10.x, etc.).
   allowedDevOrigins: [
@@ -110,6 +126,19 @@ const nextConfig: NextConfig = {
       "./backups/**/*",
     ],
   },
+  // 8 oct 2026 (audit des fuites publiques, ligne 13) : avec le routage
+  // optimiste (actif par defaut en Next 16), chaque fiche /<ticker> envoyait
+  // au navigateur la liste de TOUS les dossiers freres de src/app (admin,
+  // sandbox, concepts, desk-..., email-lab...). Desactive : le flux RSC ne
+  // contient plus l arbre des routes. Ne pas reactiver.
+  experimental: {
+    optimisticRouting: false,
+    // Build local d audit (NEXT_DIST_DIR pose) : moins de parallelisme pour ne
+    // pas saturer la memoire du Mac. Sans effet sur Vercel.
+    ...(process.env.NEXT_DIST_DIR ? { cpus: 2, turbopackPluginRuntimeStrategy: "workerThreads" as const } : {}),
+  },
+  // Build local d audit : la verification de types est faite a part (npx tsc --noEmit).
+  ...(process.env.NEXT_DIST_DIR ? { typescript: { ignoreBuildErrors: true } } : {}),
 };
 
 export default nextConfig;

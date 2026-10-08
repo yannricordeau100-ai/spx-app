@@ -1221,9 +1221,9 @@ export const DICTIONARY: Dict = {
     de: "Welche Unternehmen sind in Premium und Max abgedeckt?",
   },
   "pricing.faq_a3": {
-    fr: "Les mêmes milliers de sociétés dans tous les plans : toutes les grandes sociétés cotées américaines et européennes couvertes par Mettrik. Premium et Max lèvent le floutage ; Max ajoute l'anti-thèse et le support prioritaire.",
-    en: "The same thousands of companies in every plan: all the large listed companies of the United States and Europe covered by Mettrik. Premium and Max remove the blurring; Max adds the counter-thesis and priority support.",
-    de: "Dieselben Tausende Unternehmen in jedem Plan: alle von Mettrik abgedeckten großen börsennotierten Gesellschaften aus den USA und Europa. Premium und Max heben die Unkenntlichmachung auf; Max ergänzt die Gegenthese und bevorzugten Support.",
+    fr: "Les mêmes sociétés (plus de 600) dans tous les plans : toutes les grandes sociétés cotées américaines et européennes couvertes par Mettrik. Premium et Max lèvent le floutage ; Max ajoute l'anti-thèse et le support prioritaire.",
+    en: "The same companies (more than 600) in every plan: all the large listed companies of the United States and Europe covered by Mettrik. Premium and Max remove the blurring; Max adds the counter-thesis and priority support.",
+    de: "Dieselben Unternehmen (über 600) in jedem Plan: alle von Mettrik abgedeckten großen börsennotierten Gesellschaften aus den USA und Europa. Premium und Max heben die Unkenntlichmachung auf; Max ergänzt die Gegenthese und bevorzugten Support.",
   },
   "pricing.faq_q4": {
     fr: "Puis-je changer de plan plus tard ?",

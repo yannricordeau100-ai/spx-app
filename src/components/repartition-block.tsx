@@ -12,7 +12,6 @@ import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 import { InfoTooltip } from "@/components/info-tooltip";
-import FX from "@/data/fx-effet-change.json";
 
 /**
  * RepartitionBlock — vue répartition CA par dimension (géographique
@@ -276,7 +275,8 @@ export function RepartitionBlock({
       {/* Yann 16 sept 2026 : effet de change publie par la societe, annee par annee.
           Un signe + veut dire que les devises ont aide, un signe - qu elles ont pese. */}
       {(() => {
-        const fx = ((FX as { par_ticker: Record<string, { unite: string; annees: { annee: number; valeur: number; montant?: string | null; origine?: string | null; source_url?: string | null }[]; note?: string }> }).par_ticker ?? {})[company.ticker.toUpperCase()];
+        // 8 oct 2026 : effet de change joint cote serveur a la seule societe affichee.
+        const fx = company.fx_effet_change;
         if (!fx || fx.annees.length === 0) return null;
         return (
           <div className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1.5 rounded-xl border border-white/[0.07] bg-white/[0.015] px-3 py-2">

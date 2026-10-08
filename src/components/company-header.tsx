@@ -91,12 +91,14 @@ function CompanyName({
   accent,
   allTickers,
   alsoKnownLabel,
+  outilsAdmin = true,
 }: {
   name: string;
   ticker: string;
   accent: string;
   allTickers?: Set<string> | ReadonlySet<string>;
   alsoKnownLabel: string;
+  outilsAdmin?: boolean;
 }) {
   // Yann 31 mai 2026 : liste les alias pointant vers ce ticker canonique
   // (ex : GOOG → GOOGL ; BRK.A/BRK-A/BRK.B → BRK-B ; FOX → FOXA ; NWSA → NWS ;
@@ -148,7 +150,7 @@ function CompanyName({
         {/* Yann 13 sept 2026 : mise en favori de la societe ici, a droite du ticker. */}
         <StarButton ticker={ticker} mode="company" size="sm" />
         {/* Yann 25 sept 2026 : KPI d industrie suivis par les institutionnels, vue admin seulement. */}
-        <KpiInstitutionnelsButton ticker={ticker} accent={accent} />
+        {outilsAdmin && <KpiInstitutionnelsButton ticker={ticker} accent={accent} />}
         {aliases.length > 0 && (
           <span className="self-baseline text-[11px] font-medium text-zinc-500 whitespace-nowrap">
             {alsoKnownLabel}{" "}
@@ -547,9 +549,20 @@ export function CompanyHeader({
   allTickers,
   freeBlocked = false,
   disabledBlocks,
+  rangs = "tous",
+  aideRangs = true,
+  outilsAdmin = true,
 }: {
   company: Company;
   hidePriceBar?: boolean;
+  /** Yann 8 oct 2026 (concept fiche a onglets) : "aucun" = en-tete sans la
+   *  rangee des rangs, "seuls" = uniquement la rangee des rangs. Defaut
+   *  "tous" : rendu inchange partout ailleurs. */
+  rangs?: "tous" | "aucun" | "seuls";
+  /** false = pastilles de rang sans texte ni curseur d aide au survol. */
+  aideRangs?: boolean;
+  /** false = sans le bouton admin « KPI des institutionnels » (pastille n/16). */
+  outilsAdmin?: boolean;
   /**
    * Set des tickers de l'univers courant (V1, V1.7, V1.8, etc.). Permet
    * à `displayTicker` de détecter les doublons short (ex ROG.SW vs ROG)
@@ -584,7 +597,8 @@ export function CompanyHeader({
     !isBlockEnabled("company_logo", company.ticker);
 
   return (
-    <div className="mb-1">
+    <div className={rangs === "seuls" ? "" : "mb-1"}>
+      {rangs !== "seuls" && (
       <div
         data-header-row="true"
         className="flex flex-wrap items-start gap-x-5 gap-y-4"
@@ -598,6 +612,7 @@ export function CompanyHeader({
             accent={accent}
             allTickers={allTickers}
             alsoKnownLabel={t("company.also_known_as")}
+            outilsAdmin={outilsAdmin}
           />
           {/* Yann 22 septembre 2026 : les QUATRE niveaux de la classification
               (secteur, groupe d industries, industrie, sous-industrie), toujours
@@ -639,19 +654,21 @@ export function CompanyHeader({
         </div>
         {!hidePriceBar && <StockPriceBlock company={company} freeBlocked={freeBlocked} />}
       </div>
+      )}
 
       {/* 27 sept 2026 : bandeau « KPI exclusifs à Mettrik AI » retiré des fiches (demande Yann). */}
 
       {/* Yann (12 mai 2026) : tous les rangs sur UNE ligne horizontale.
           flex-nowrap + overflow-x-auto = scroll discret si overflow petit
           écran. Rang USA masqué pour les sés non-US (cat 3 EU). */}
-      {(() => {
+      {rangs !== "aucun" && (() => {
+        const aide = (x: string) => (aideRangs ? x : undefined);
         const chips = (
           <>
         <StatChip
           label={motsRangs(locale).capi}
           value={company.ranks.global_world}
-          survol={motsRangs(locale).capiSurvol}
+          survol={aide(motsRangs(locale).capiSurvol)}
         />
         {(() => {
           const pays = paysDuRang(company.ranks.global_us);
@@ -661,7 +678,7 @@ export function CompanyHeader({
             <StatChip
               label={nom}
               value={stripRankSuffix(company.ranks.global_us)}
-              survol={motsRangs(locale).paysSurvol(paysDansPhrase(pays, locale))}
+              survol={aide(motsRangs(locale).paysSurvol(paysDansPhrase(pays, locale)))}
             />
           );
         })()}
@@ -672,10 +689,10 @@ export function CompanyHeader({
         {/* Yann 9 août 2026 : même garde que global_us sur "-" (sinon chip
             "Industrie -" quand le rang n'est pas sourcé, ex DG.PA/AC.PA). */}
         {company.ranks.sector && company.ranks.sector.trim() !== "" && company.ranks.sector.trim() !== "-" && (
-          <StatChip label={translateSubsectorLocale(company.sector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.sector, locale))} survol={motsRangs(locale).secteurSurvol} />
+          <StatChip label={translateSubsectorLocale(company.sector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.sector, locale))} survol={aide(motsRangs(locale).secteurSurvol)} />
         )}
         {company.ranks.subsector && company.ranks.subsector.trim() !== "" && company.ranks.subsector.trim() !== "-" && (
-          <StatChip label={translateSubsectorLocale(company.subsector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.subsector, locale))} survol={motsRangs(locale).sousSecteurSurvol} />
+          <StatChip label={translateSubsectorLocale(company.subsector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.subsector, locale))} survol={aide(motsRangs(locale).sousSecteurSurvol)} />
         )}
         <StatChip label={t("company.founded")} value={company.founded != null ? String(company.founded) : null} />
         <StatChip label={t("company.ipo")} value={company.ipo != null ? String(company.ipo) : null} />
@@ -688,7 +705,7 @@ export function CompanyHeader({
           </>
         );
         return (
-          <div ref={chipsRef} className="mt-2.5 flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div ref={chipsRef} className={`${rangs === "seuls" ? "" : "mt-2.5 "}flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}>
             <div className="flex shrink-0 items-center gap-1.5">{chips}</div>
             {/* Yann 2 sept 2026 : copie pour la boucle infinie du defilement
                 mobile (le bandeau avance de droite a gauche sans demi-tour).

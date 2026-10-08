@@ -110,7 +110,7 @@ export default async function V195PricingPage() {
         </div>
 
         <div className="mx-auto mt-6 max-w-5xl">
-          <PricingCards ctaTrackingPrefix="v195_top_" plans={catalog.plans} features={catalog.features} currency={currency} taglines={taglines} />
+          <PricingCards ctaTrackingPrefix="v195_top_" plans={catalog.plans} features={catalog.features} carteGratuit={catalog.carte_gratuit} currency={currency} taglines={taglines} />
         </div>
 
         <section id="compare" className="mx-auto mt-20 max-w-5xl scroll-mt-20">

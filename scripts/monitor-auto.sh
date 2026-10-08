@@ -5,7 +5,7 @@ set -e
 cd ~/spx-app
 
 # 1. Ingest data-lake
-cp -rn ~/data-lake/* data-lake/ 2>/dev/null || true
+# 8 oct 2026 : second lac ~/data-lake supprime (tout est dans data-lake/)
 python3 scripts/datalake/ingest_drafts.py >> .conv-state/monitor-auto.log 2>&1 || true
 python3 scripts/datalake/build_status.py > /tmp/_build_status_out.txt 2>&1 || true
 

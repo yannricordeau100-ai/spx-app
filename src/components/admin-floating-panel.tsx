@@ -49,7 +49,7 @@ const LEVEL_META: Record<Exclude<Level, 0>, {
     textClass: "text-orange-100",
     dotClass: "bg-orange-400 shadow-[0_0_8px_rgba(251,146,60,0.7)]",
     tooltip:
-      "Niveau 1 (shadow prod) : clone fidèle de la prod, sandbox de validation Yann. Stripe en test mode, Resend en dry-run, Supabase séparée. Aucune action ici ne pollue la vraie prod.",
+      "Niveau 1 : préversion de validation.",
   },
   2: {
     label: `NIVEAU 2 · PREVIEW · v${VERSION}`,
@@ -59,7 +59,7 @@ const LEVEL_META: Record<Exclude<Level, 0>, {
     textClass: "text-violet-100",
     dotClass: "bg-violet-400 shadow-[0_0_8px_rgba(167,139,250,0.7)]",
     tooltip:
-      "Niveau 2 (preview) : features en cours sur branches, données de test, à ne pas considérer comme du fini.",
+      "Niveau 2 : préversion en cours de test.",
   },
   3: {
     label: "NIVEAU 3 · LOCAL",
@@ -104,7 +104,7 @@ function detectLevelFromHost(): Level {
   const host = window.location.hostname.toLowerCase();
   if (host === "localhost" || host === "127.0.0.1" || host.endsWith(".local")) return 3;
   if (host === "mettrik.ai" || host === "www.mettrik.ai") return 0;
-  if (host.startsWith("mettrik-niveau1") || host.startsWith("niveau1.")) return 1;
+  if (/niveau1[.-]/.test(host) || host.startsWith("niveau1.")) return 1;
   if (host.endsWith(".vercel.app")) return 2;
   return 0;
 }
@@ -119,13 +119,8 @@ function readLevelEnv(): Level | null {
 
 function detectVersionFromPath(pathname: string): string | null {
   // CRITIQUE : préfixes longs AVANT courts (v1-9-5 avant v1-9, v1-7-5 avant v1-7)
-  if (pathname.startsWith("/sandbox/v1-9-5")) return "v1-9-5";
-  if (pathname.startsWith("/sandbox/v1-9")) return "v1-9";
-  if (pathname.startsWith("/sandbox/v1-8")) return "v1-8";
-  if (pathname.startsWith("/sandbox/v1-7-5")) return "v1-7-5";
-  if (pathname.startsWith("/sandbox/v1-7")) return "v1-7";
-  if (pathname.startsWith("/sandbox/v1-6")) return "v1-6";
-  return null;
+  const m = pathname.match(/^\/[a-z]+\/(v1-(?:9-5|9|8|7-5|7|6))(?:\/|$)/);
+  return m ? m[1] : null;
 }
 
 function readCookie(name: string): string | null {
@@ -165,7 +160,9 @@ function switchVersion(newSlug: string): void {
 
 function switchLevel(target: 1 | 2): void {
   if (typeof window === "undefined") return;
-  const host = `mettrik-niveau${target}.vercel.app`;
+  // 8 oct 2026 : aucun nom d hote en dur dans le code servi ; on remplace le
+  // numero de niveau dans l adresse courante.
+  const host = window.location.hostname.replace(/niveau[0-9]/, `niveau${target}`);
   const target_url = `https://${host}${window.location.pathname}${window.location.search}`;
   window.location.href = target_url;
 }

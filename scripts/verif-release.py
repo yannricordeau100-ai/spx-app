@@ -160,6 +160,34 @@ try:
     feu("rouge" if manq else "vert", "Stripe", "Tous les prix de la grille existent et sont actifs chez Stripe", f"{len(ids_db)} prix en base, manquants : {manq}" if manq else f"{len(ids_db)} prix verifies")
 except Exception as e:
     feu("orange", "Stripe", "Comparaison grille / Stripe", str(e)[:80])
+# 6bis) 8 oct 2026 : le back-office fait foi. Chaque prix actif de la grille doit
+#    avoir chez Stripe un prix ACTIF au meme montant, meme devise, meme periode,
+#    porteur de la cle stable mettrik_<plan>_<periode>_<devise> et relie en base.
+#    Rouge sinon (reparation : bouton « Synchroniser Stripe » du back-office).
+try:
+    sup_url = env_local("NEXT_PUBLIC_SUPABASE_URL"); srk = env_local("SUPABASE_SERVICE_ROLE_KEY")
+    hs = [f"apikey: {srk}", f"Authorization: Bearer {srk}"]
+    plans_db = {p["id"]: p["code"] for p in (curl_json(f"{sup_url}/rest/v1/pricing_plans?select=id,code,is_active,is_api_only&is_active=eq.true&is_api_only=eq.false", hs) or [])}
+    grille = [p for p in (curl_json(f"{sup_url}/rest/v1/pricing_prices?select=plan_id,currency,frequency,amount_decimal,stripe_price_id&is_active=eq.true", hs) or [])
+              if p["plan_id"] in plans_db and float(p.get("amount_decimal") or 0) > 0]
+    ecarts = []
+    for p in grille:
+        cle = f"mettrik_{plans_db[p['plan_id']].lower()}_{p['frequency']}_{p['currency'].lower()}"
+        lst = curl_json(f"https://api.stripe.com/v1/prices?active=true&limit=1&lookup_keys%5B%5D={cle}", [f"Authorization: Bearer {sk}"]) or {}
+        st = (lst.get("data") or [None])[0]
+        attendu = round(float(p["amount_decimal"]) * 100)
+        if not st:
+            ecarts.append(f"{cle} : aucun prix Stripe actif")
+        elif st.get("unit_amount") != attendu or st.get("currency") != p["currency"].lower() \
+                or (st.get("recurring") or {}).get("interval") != ("month" if p["frequency"] == "monthly" else "year"):
+            ecarts.append(f"{cle} : back-office {p['amount_decimal']} / Stripe {(st.get('unit_amount') or 0) / 100}")
+        elif st.get("id") != p.get("stripe_price_id"):
+            ecarts.append(f"{cle} : base relie {p.get('stripe_price_id')} au lieu de {st.get('id')}")
+    feu("rouge" if ecarts or not grille else "vert", "Stripe", "Prix du back-office = prix Stripe actifs (montant, devise, periode)",
+        (" | ".join(ecarts[:5]) + (f" (+{len(ecarts) - 5})" if len(ecarts) > 5 else "")) if ecarts
+        else (f"{len(grille)} prix identiques" if grille else "grille illisible"))
+except Exception as e:
+    feu("rouge", "Stripe", "Prix du back-office = prix Stripe actifs", str(e)[:80])
 
 # 7) DNS et sante
 dns = sh("dig +short mettrik.ai A | head -1"); cn = sh("dig +short www.mettrik.ai CNAME | head -1")
@@ -211,6 +239,48 @@ try:
 except Exception as e:
     feu("orange", "Graphiques", "Exports PNG sans bande", str(e)[:80])
 
+# 8b) ACCUEIL = FICHES : chaque KPI de la grille d accueil et de la carte des pays doit exister
+# sur la fiche servie (meme nom, meme valeur) avec un dernier point de moins de 18 mois (8 oct 2026).
+try:
+    import datetime as _dt
+    env_c = dict(os.environ)
+    for l in (ROOT / ".env.local").read_text().splitlines():
+        if "=" in l and not l.lstrip().startswith("#"):
+            k_, v_ = l.split("=", 1)
+            env_c[k_.strip()] = v_.strip().strip('"')
+    _tk = set()
+    _vitrines = []
+    for _f, _g in (("src/data/home-wow-kpis.json", lambda d: d["societes"]),
+                   ("src/data/carte-pays-kpis.json", lambda d: [s for l in d["zones"].values() for s in l])):
+        for s_ in _g(json.loads(Path(_f).read_text())):
+            _tk.add(s_["ticker"]); _vitrines.append((_f.split("/")[-1], s_))
+    subprocess.run(["npx", "tsx", "scripts/export-kpis-servis.ts", "/tmp/verif-kpis-servis.json", *sorted(_tk)],
+                   capture_output=True, text=True, timeout=900, env=env_c)
+    _sv = json.loads(Path("/tmp/verif-kpis-servis.json").read_text())
+    _num = lambda x: re.sub(r"[^0-9]", "", str(x))
+    _ecarts = set()
+    _auj = _dt.date.today()
+    for src_, s_ in _vitrines:
+        fiche = _sv.get(s_["ticker"])
+        if not fiche:
+            _ecarts.add(f"{s_['ticker']}:fiche absente"); continue
+        for k_ in s_["kpis"]:
+            m_ = [x for x in fiche["kpis"] if k_["nom"] in (x.get("name_fr"), x.get("name_en"))]
+            if not m_:
+                _ecarts.add(f"{s_['ticker']}:{k_['nom'][:30]} absent de la fiche"); continue
+            if not any(_num(x.get("value")) == _num(k_["valeur"]) for x in m_):
+                _ecarts.add(f"{s_['ticker']}:{k_['nom'][:30]} valeur differe")
+            mp = re.match(r"T([1-4]) (\d{4})", k_.get("periode") or "")
+            if not mp:
+                _ecarts.add(f"{s_['ticker']}:{k_['nom'][:30]} sans periode")
+            elif (_auj - _dt.date(int(mp.group(2)), int(mp.group(1)) * 3, 1)).days > 18 * 30 + 31:
+                _ecarts.add(f"{s_['ticker']}:{k_['nom'][:30]} periode ancienne")
+    _ecarts = sorted(_ecarts)
+    feu("rouge" if _ecarts else "vert", "Accueil", "KPI de l accueil et de la carte des pays = KPI servis par la fiche, periode recente",
+        f"{len(_ecarts)} ecart(s) : " + " | ".join(_ecarts[:6]) + " (relancer scripts/build-home-wow.py)" if _ecarts else f"{len(_tk)} societes verifiees")
+except Exception as e:
+    feu("rouge", "Accueil", "KPI de l accueil = KPI des fiches", str(e)[:80])
+
 # 9) HERO DES FICHES : aucun hero generique/comptable quand un KPI specifique existe, aucun override orphelin
 # (7 oct 2026). Charge le VRAI chargeur sur les societes de clean-all-tickers : scripts/verif-hero-generique.ts.
 try:
@@ -233,6 +303,69 @@ try:
         f"{len(og)} : " + ", ".join(og[:12]) if og else "0")
 except Exception as e:
     feu("orange", "Hero", "Controle du hero des fiches (verif-hero-generique.ts)", str(e)[:80])
+
+# 10) FUITES PUBLIQUES (8 oct 2026, audit visiteur anonyme, rapport audit-public/CORRECTIONS.md)
+# a) Preversion niveau2 = exactement ce qui sera promu sur mettrik.ai : pages publiques, TOUS les chunks
+#    atteignables, API sans connexion, robots, en-tetes, base Supabase lue avec la cle anonyme du JS,
+#    outillage des preversions (doit repondre 404 sans session admin). Un rouge bloque go-n0.sh.
+try:
+    _r = subprocess.run(["node", "scripts/verif-fuites-publiques.mjs", "https://mettrik-niveau2.vercel.app", "--json", "--previews"],
+                        capture_output=True, text=True, timeout=600)
+    if _r.returncode == 2 or not _r.stdout.strip():
+        feu("orange", "Fuites", "Aucune fuite publique sur niveau2 (scripts/verif-fuites-publiques.mjs)", "controle non execute : " + (_r.stderr or "")[:80])
+    else:
+        _j = json.loads(_r.stdout)
+        # niveau1 = ancien deploiement fige (jamais promu) : signale en orange, ne bloque pas go-n0.
+        _n1 = [c for c in _j["constats"] if c["gravite"] == "rouge" and "niveau1" in c["ou"]]
+        _rg = [c for c in _j["constats"] if c["gravite"] == "rouge" and c not in _n1]
+        _or = _n1 + [c for c in _j["constats"] if c["gravite"] == "orange" and c["id"] not in ("sitemap", "en-tete", "preversion-publique")]
+        feu("rouge" if _rg else ("orange" if _or else "vert"), "Fuites",
+            "Aucune fuite publique sur niveau2 : secrets, notes internes, prenom, noms d hote, comptes exacts, tables ouvertes (verif-fuites-publiques.mjs)",
+            (f"{len(_rg)} rouge(s) : " + " | ".join(f"{c['id']} {c['ou'][:30]}" for c in _rg[:5])) if _rg
+            else (f"{len(_or)} orange(s) : " + " | ".join(f"{c['id']} {c['ou'][:30]}" for c in _or[:5]) if _or else f"{_j['chunks']} chunks lus, 0 constat"))
+except Exception as e:
+    feu("orange", "Fuites", "Controle des fuites publiques sur niveau2", str(e)[:80])
+# b0) Code client public regroupe par esbuild avec le meme chargeur que le build (rapide, sans next build) :
+#     aucune liste de l univers, aucun compte, aucune note interne, aucun prenom/courriel/nom d hote.
+try:
+    _r = subprocess.run(["node", "scripts/verif-fuites-publiques.mjs", "--source", "--json"], capture_output=True, text=True, timeout=300)
+    _j = json.loads(_r.stdout)
+    _rg = [c for c in _j["constats"] if c["gravite"] == "rouge"]
+    feu("rouge" if _rg or _j.get("erreurs") else "vert", "Fuites", "Code client public (esbuild, chargeur d assainissement) sans fuite",
+        (f"{len(_rg)} rouge(s) : " + " | ".join(f"{c['id']} {c['ou'][:30]} {c['extrait'][:40]}" for c in _rg[:4])) if _rg
+        else (f"{_j.get('erreurs')} erreur(s) esbuild" if _j.get("erreurs") else f"{_j['entrees']} composants client, 0 rouge"))
+except Exception as e:
+    feu("orange", "Fuites", "Code client public (esbuild)", str(e)[:80])
+# b) Build local (statique) : tout le dossier static/ d un build local recent, s il existe
+#    (NEXT_DIST_DIR=.next-audit npx next build, ou .next). Les fichiers atteignables depuis les
+#    routes publiques sont en rouge, le reste (outillage admin) en orange.
+try:
+    _dirs = [d for d in (".next-audit", ".next") if (ROOT / d / "BUILD_ID").exists()]
+    if not _dirs:
+        feu("orange", "Fuites", "Analyse statique d un build local (.next-audit ou .next)", "aucun build local : lancer NEXT_DIST_DIR=.next-audit npx next build")
+    else:
+        _d = max(_dirs, key=lambda d: (ROOT / d / "BUILD_ID").stat().st_mtime)
+        _age_h = (__import__("time").time() - (ROOT / _d / "BUILD_ID").stat().st_mtime) / 3600
+        _r = subprocess.run(["node", "scripts/verif-fuites-publiques.mjs", "--static", _d, "--json"], capture_output=True, text=True, timeout=600)
+        _j = json.loads(_r.stdout)
+        _rg = [c for c in _j["constats"] if c["gravite"] == "rouge"]
+        feu("rouge" if _rg else ("orange" if _age_h > 48 else "vert"), "Fuites",
+            f"Analyse statique du build local {_d} (code public complet, pages prerendues)",
+            (f"{len(_rg)} rouge(s) : " + " | ".join(f"{c['id']} {c['ou'][:30]}" for c in _rg[:5])) if _rg
+            else f"{_j['fichiers']} fichiers, 0 rouge ; build vieux de {_age_h:.0f} h")
+except Exception as e:
+    feu("orange", "Fuites", "Analyse statique du build local", str(e)[:80])
+# c) Supabase : aucune table du schema public sans RLS (une table sans RLS est lisible ET modifiable
+#    avec la cle anonyme publiee dans le JS).
+try:
+    _q = "select c.relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relkind='r' and not c.relrowsecurity"
+    _o = subprocess.run(["curl", "-s", "-X", "POST", "https://api.supabase.com/v1/projects/idpsbtgvuyfwtvzelogw/database/query",
+                         "-H", f"Authorization: Bearer {env_local('SUPABASE_PAT')}", "-H", "Content-Type: application/json",
+                         "-d", json.dumps({"query": _q})], capture_output=True, text=True, timeout=60).stdout
+    _sans = [x["relname"] for x in json.loads(_o)]
+    feu("rouge" if _sans else "vert", "Fuites", "Toutes les tables Supabase ont la RLS activee", ", ".join(_sans) if _sans else "0 table sans RLS")
+except Exception as e:
+    feu("orange", "Fuites", "Tables Supabase sans RLS", str(e)[:80])
 
 # SORTIE
 ordre = {"rouge": 0, "orange": 1, "vert": 2}

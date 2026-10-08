@@ -1018,3 +1018,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.07.12 (07 Oct 2026 22:32, apres 2c64a3b9c9)
 - Heros AIZ HPE SGS : variation sur un an renseignee
+
+## v2026.10.08.1 (08 Oct 2026 13:14, apres 2bff57d6f9)
+- Fuites publiques fermees, Stripe suit le back-office, carte Gratuit reglable, compteur KPI automatique, accueil aligne sur les fiches, sitemap restreint, 23 societes a jour, 956 points de KPI ajoutes, PER Roche, TAM candidats, concept onglets v2

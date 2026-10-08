@@ -15,16 +15,13 @@ import { usePathname } from "next/navigation";
 
 const LANG_PICKER_ENABLED_PUBLIC = false;
 
-const ADMIN_PATH_PREFIXES = [
-  "/desk-mtk9x4kp",
-  "/sandbox/admin",
-  "/sandbox/languages-toggle",
-  "/sandbox/i18n-audit",
-];
-
+// 8 oct 2026 (audit des fuites publiques) : plus de liste de routes internes
+// dans ce module charge sur toutes les pages. Les selecteurs restent visibles
+// dans le back-office et l outillage (premier segment desk-... ou sandbox).
 export function usePickerVisible(): boolean {
   const pathname = usePathname();
   if (LANG_PICKER_ENABLED_PUBLIC) return true;
   if (!pathname) return false;
-  return ADMIN_PATH_PREFIXES.some((p) => pathname.startsWith(p));
+  const seg = pathname.split("/")[1] ?? "";
+  return seg.startsWith("desk-") || seg === "sandbox";
 }

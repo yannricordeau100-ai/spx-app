@@ -3,6 +3,8 @@
 src/data/kpi-comptes-industries.json : total par industrie GICS (6 chiffres) et global.
 Usage : python3 scripts/agrege-comptes-kpi.py sortie1.json [sortie2.json ...]"""
 import json,sys,collections,datetime
+# 8 oct 2026 : REMPLACE par scripts/genere-comptes-kpi.ts (totaux automatiques par bloc, lance a chaque mise en ligne).
+sys.exit("obsolete : utiliser npx tsx scripts/genere-comptes-kpi.ts")
 par=collections.defaultdict(lambda:{'avances':0,'standards':0,'stories':0,'total':0,'stes':0}); g={'avances':0,'standards':0,'stories':0,'ic':0,'total':0,'stes':0}
 for f in sys.argv[1:]:
     for t,v in json.load(open(f)).items():

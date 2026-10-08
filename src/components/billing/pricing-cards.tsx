@@ -8,6 +8,8 @@ import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, monthlyEquivale
 import type { LoadedPlan } from "@/lib/billing/load-pricing";
 import { useT } from "@/lib/i18n/provider";
 import { getPricingTagline, type PricingTaglineRow } from "@/lib/billing/pricing-taglines";
+import { remiseAnnuellePct } from "@/lib/billing/remise-annuelle";
+import { lignesCartes, lignesCarteGratuit, type CarteGratuit } from "@/lib/billing/carte-gratuit";
 
 /**
  * Plan accepté par PricingCards : soit le legacy `PlanDisplay` (hardcoded
@@ -23,7 +25,7 @@ type PricingCardPlan = PlanDisplay & Partial<Pick<LoadedPlan, "code" | "prices">
  *  - Carte centrale (Premium) mise en avant : highlight=true → bordure
  *    couleur, badge "Recommandé", scale légèrement + sombre.
  *  - Annuel par défaut (économies visibles immédiatement, ancrage prix bas).
- *  - Mention "4 mois offerts (-33 %)" en chip (ratio réel annuel/mensuel).
+ *  - Remise annuelle en chip, calculée sur les montants Stripe réels (remise-annuelle.ts).
  *  - CTA contrasté (violet sur Premium, cyan sur Max, neutre sur Free).
  *  - Yann P7+P8 (31 mai 2026) : "30 jours satisfait ou remboursé" retiré
  *    (fraud risk = trop d'abus de paiement 1 mois + remboursement abusif).
@@ -40,10 +42,13 @@ export function PricingCards({
   features: featuresProp,
   currency = "EUR",
   taglines,
+  carteGratuit,
 }: {
   ctaTrackingPrefix?: string;
   plans?: PricingCardPlan[];
   features?: FeatureRow[];
+  /** Yann 8 oct 2026 : lignes valides / barrées de la carte Gratuit (back-office). */
+  carteGratuit?: CarteGratuit | null;
   /**
    * Devise du visiteur (EUR/USD/GBP/CHF/SEK/DKK/CAD), détectée par le
    * proxy.ts via x-vercel-ip-country et passée depuis le Server Component
@@ -75,10 +80,8 @@ export function PricingCards({
     const ca = px?.[currency]?.annual?.amount;
     const m = cm && cm > 0 ? cm : px?.EUR?.monthly?.amount ?? p.price_monthly_eur;
     const a = cm && cm > 0 ? ca : px?.EUR?.annual?.amount ?? p.price_annual_eur;
-    if (!(m && a && m > 0 && a > 0)) return 0;
-    const r = Math.round((1 - a / (m * 12)) * 100);
-    // Yann 7 oct 2026 : -29 % affiche -30 %.
-    return r === 29 ? 30 : r;
+    // 8 oct 2026 : remise exacte (montants du paiement Stripe), plus d arrondi force.
+    return remiseAnnuellePct(m, a);
   }).filter((r) => r > 0);
   const remiseMax = remises.length > 0 ? Math.max(...remises) : 0;
 
@@ -87,10 +90,10 @@ export function PricingCards({
   // sélection est faite au niveau parent (pas par card) :
   //   1. Priorité : toutes les features cochées show_in_card en BO
   //   2. Fallback (aucune cochée) : 8 premières par feature_order
-  const cardFeaturesSelected = FEATURES.filter((f) => f.show_in_card);
-  const cardFeatures: FeatureRow[] = cardFeaturesSelected.length > 0
-    ? cardFeaturesSelected
-    : FEATURES.slice(0, 8);
+  const cardFeatures: FeatureRow[] = lignesCartes(FEATURES);
+  // Yann 8 oct 2026 : carte Gratuit = lignes valides d abord, barrées ensuite,
+  // selon le réglage du back-office (même nombre de lignes que les autres cartes).
+  const cardFeaturesGratuit: FeatureRow[] = lignesCarteGratuit(FEATURES, carteGratuit);
 
   return (
     <div>
@@ -187,7 +190,7 @@ export function PricingCards({
             billing={billing}
             onSwitch={setBilling}
             prefix={ctaTrackingPrefix}
-            cardFeatures={cardFeatures}
+            cardFeatures={plan.tier === "free" ? cardFeaturesGratuit : cardFeatures}
             currency={currency}
             taglines={taglines}
           />
@@ -469,7 +472,7 @@ function PricingCard({
                 <>
                   {t("pricing.card.billed_annually_prefix")} <strong className="whitespace-nowrap text-zinc-300">{displayAnnual.toFixed(2).replace(".", ",").replace(",00", "")}&nbsp;{currencySymbol}</strong> {t("pricing.card.billed_annually_suffix")}
                   {displayMonthly > 0 && displayAnnual > 0 && displayAnnual < displayMonthly * 12 && (
-                    <span className="ml-1 whitespace-nowrap text-emerald-300">· Soit −{((r) => (r === 29 ? 30 : r))(Math.round((1 - displayAnnual / (displayMonthly * 12)) * 100))}&nbsp;% vs mensuel</span>
+                    <span className="ml-1 whitespace-nowrap text-emerald-300">· Soit −{remiseAnnuellePct(displayMonthly, displayAnnual)}&nbsp;% vs mensuel</span>
                   )}
                 </>
               ) : (
@@ -731,8 +734,8 @@ function CheckoutButtonInline({
 function topFeatures(tier: PlanDisplay["tier"]): string[] {
   if (tier === "free") {
     return [
-      "Accès complet à Google + Meta",
-      "Comparaison Google ↔ Meta",
+      "Accès complet à une sélection de sociétés",
+      "Comparaison entre ces sociétés",
       "Tous les indicateurs et risques détaillés",
       "Sauvegarde de 2 favoris",
       "Sans carte bancaire requise",
@@ -740,7 +743,7 @@ function topFeatures(tier: PlanDisplay["tier"]): string[] {
   }
   if (tier === "premium") {
     return [
-      "1 000+ sociétés américaines & européennes",
+      "Plus de 600 sociétés américaines et européennes",
       "Citations dirigeants (transcripts)",
       "Risques scorés + gouvernance + IA",
       "Calendrier des résultats à venir",

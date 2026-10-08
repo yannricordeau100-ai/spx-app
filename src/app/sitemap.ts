@@ -1,6 +1,24 @@
 import type { MetadataRoute } from "next";
 import { promises as fs } from "fs";
 import path from "path";
+import { estAlias } from "@/lib/ticker-aliases";
+import RETIREES from "@/data/societes-retirees.json";
+
+/**
+ * 8 oct 2026 (Yann) : sitemap TRES RESTRICTIF. Liste blanche explicite :
+ * accueil, tarifs, pages legales, fiches societe publiques. Jamais de route
+ * interne (sandbox, desk, admin, concepts, api, labs, preversion, test) :
+ * le filtre PREFIXES_INTERDITS ci-dessous rejette toute URL qui y ressemble,
+ * meme si une entree est ajoutee par erreur plus tard.
+ */
+const PREFIXES_INTERDITS = [
+  "/sandbox", "/desk", "/admin", "/concepts", "/api", "/chart-lab", "/email-lab",
+  "/whoami", "/auth", "/account", "/login", "/signup", "/maintenance",
+  "/favorites", "/mes-societes", "/preversion", "/test", "/v1-9-5",
+];
+const estAutorisee = (p: string): boolean =>
+  p.startsWith("/") && !p.startsWith("/_") && !p.startsWith("/k/") &&
+  !PREFIXES_INTERDITS.some((x) => p === x || p.startsWith(x + "/") || p.startsWith(x + "-"));
 
 /**
  * Sitemap auto-généré pour le SEO.
@@ -38,15 +56,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     tickers = [];
   }
 
+  const retirees = new Set(Object.keys((RETIREES as { tickers: Record<string, string> }).tickers));
   const tickerRoutes = tickers
-    .filter((t) => typeof t === "string" && t.length > 0 && !t.startsWith("_"))
+    .filter((t) => typeof t === "string" && /^[A-Za-z0-9][A-Za-z0-9.\-]*$/.test(t))
+    .filter((t) => !estAlias(t.toUpperCase()) && !retirees.has(t.toUpperCase()))
     .map((t) => ({
       path: `/${t.toLowerCase()}`,
       priority: 0.9,
       changeFrequency: "daily" as const,
     }));
 
-  return [...staticRoutes, ...tickerRoutes].map((r) => ({
+  const vues = new Set<string>();
+  return [...staticRoutes, ...tickerRoutes].filter((r) => estAutorisee(r.path) && !vues.has(r.path) && !!vues.add(r.path)).map((r) => ({
     url: `${base}${r.path}`,
     lastModified: now,
     changeFrequency: r.changeFrequency,

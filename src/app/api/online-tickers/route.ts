@@ -13,13 +13,19 @@
  */
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { estAdminSandbox } from "@/lib/desk/auth";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+// 8 oct 2026 (audit des fuites publiques, ligne 6) : la liste complete donnait
+// le nombre exact de societes. Reservee aux comptes admin (page universe-toggle) ;
+// la recherche publique passe par /api/recherche-societes (10 resultats au plus).
+export async function GET(req: Request) {
+  if (!(await estAdminSandbox(req))) {
+    return new NextResponse(null, { status: 404 });
+  }
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return NextResponse.json({ tickers: [] });
   try {
     const supabase = createClient(url, key, {

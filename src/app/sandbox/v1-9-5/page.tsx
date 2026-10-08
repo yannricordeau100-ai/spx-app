@@ -1,8 +1,6 @@
 import { kpisAccueilPersonnalises } from "@/lib/accueil-kpis";
 import Link from "next/link";
 import { Suspense } from "react";
-import path from "node:path";
-import fs from "node:fs/promises";
 import { ArrowRight, Mail } from "lucide-react";
 import { HomeView } from "@/components/home-view";
 import { HomeTopBar } from "@/components/home-top-bar";
@@ -17,8 +15,7 @@ import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getServerFreemiumTier } from "@/lib/freemium/server";
-import type { Company } from "@/lib/data";
-import V17_PUBLIC from "@/data/v1-7-public.json";
+import { comptesGicsPublics } from "@/lib/comptes-gics-public";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
@@ -43,96 +40,10 @@ export const metadata = {
  * datasets V1.7 public (pour garantir hero KPI + meta complète).
  */
 
-type AuditEntry = {
-  ticker: string;
-  market_cap_usd: number | null;
-  is_clean_all: boolean;
-};
-
-type AuditFile = {
-  generated_at: string;
-  audits: AuditEntry[];
-};
-
-async function loadCleanAllTickers(): Promise<string[]> {
-  const auditPath = path.join(process.cwd(), "src/data/v1-9-pre-publication-audit.json");
-  // Yann 11 juil 2026 : scope public = SP500 STRICT. La liste 503 de
-  // v1-9-5-clean-all-tickers.json est la source unique de visibilité ;
-  // l'audit pre-publication (657 dont 179 EU/ADR) ne sert plus que pour
-  // l'ordre par capitalisation.
-  const sp500Path = path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json");
-  try {
-    const raw = await fs.readFile(auditPath, "utf8");
-    const audit = JSON.parse(raw) as AuditFile;
-    const spRaw = await fs.readFile(sp500Path, "utf8");
-    const spSet = new Set(
-      (JSON.parse(spRaw) as { tickers: string[] }).tickers.map((t) => t.toUpperCase()),
-    );
-    return audit.audits
-      .filter((a) => a.is_clean_all === true && spSet.has(a.ticker.toUpperCase()))
-      .sort((a, b) => (b.market_cap_usd ?? 0) - (a.market_cap_usd ?? 0))
-      .map((a) => a.ticker);
-  } catch {
-    return [];
-  }
-}
-
-function loadDatasets(): Record<string, Company> {
-  return V17_PUBLIC as unknown as Record<string, Company>;
-}
-
-// Yann 26 mai 2026 : dédup doublons multi-classes / ADR (ASML/ASMLF, BRK.A/B, etc.).
-// Canonical map identique à src/lib/company-core/load-company.ts ALIASES.
-const TICKER_DEDUP_ALIASES: Record<string, string> = {
-  GOOG: "GOOGL",
-  "BRK.A": "BRK-B",
-  "BRK-A": "BRK-B",
-  "BRK.B": "BRK-B",
-  FOX: "FOXA",
-  NWSA: "NWS",
-  UAA: "UA",
-  ASMLF: "ASML",
-  ABBNY: "ABBN.SW",
-  ABLZF: "ABBN.SW",
-  DTEGY: "DTEGF",
-  ADTTF: "ATEYY",
-  BPAQF: "BP",
-  "BP.L": "BP",
-  "NDA-DK.CO": "NDA-FI.HE",
-  EDPFY: "EDP.LS",
-  BCLYF: "BARC.L",
-  BBVXF: "BBVA",
-};
-
 export default async function SandboxV195HubPage() {
-  const datasets = loadDatasets();
-  const validKeys = new Set(Object.keys(datasets).map((k) => k.toUpperCase()));
-  const allCleanTickers = await loadCleanAllTickers();
-  // Garde uniquement les tickers présents aussi dans le dataset Pass 3 strict
-  // ET dédup les doublons multi-classes via TICKER_DEDUP_ALIASES.
-  // Audit 2 sept 2026 : la recherche couvre TOUT l univers en ligne (666),
-  // pas seulement les 459 fiches du dataset strict affichees en cartes.
-  const listeEnLigne = JSON.parse(
-    await fs.readFile(path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json"), "utf8"),
-  ) as { tickers: string[] };
-  const vus = new Set<string>();
-  const tickersRecherche = listeEnLigne.tickers.map((t) => t.toUpperCase()).filter((t) => {
-    const up = t.toUpperCase();
-    const canonical = TICKER_DEDUP_ALIASES[up] ?? up;
-    if (vus.has(canonical)) return false;
-    vus.add(canonical);
-    return true;
-  });
-  const seen = new Set<string>();
-  const tickers = allCleanTickers.filter((t) => {
-    const up = t.toUpperCase();
-    if (!validKeys.has(up)) return false;
-    const canonical = TICKER_DEDUP_ALIASES[up] ?? up;
-    if (seen.has(canonical)) return false;
-    seen.add(canonical);
-    return true;
-  });
-
+  // 8 oct 2026 (audit des fuites publiques, ligne 7) : plus aucune liste de
+  // tickers ni total transmis a HomeView (le flux RSC de l accueil contenait
+  // 662 + 461 tickers et "total":662). La recherche interroge le serveur.
   const catalog = await loadPricingCatalog();
   const taglines = await loadAllTaglines();
   const locale = await getServerLocale();
@@ -155,11 +66,7 @@ export default async function SandboxV195HubPage() {
     <>
       <HomeTopBar themePaid={themePaid} showPricing={isAuthed} anon={!isAuthed} />
       <HomeView
-        tickers={tickers}
         showFAQ
-        // Yann 4 sept 2026 : adresse publique courte (/aapl) dans tous les liens,
-        // plus de chemin interne /sandbox/v1-9-5/<ticker>.
-        searchScope={{ tickers: tickersRecherche, total: tickersRecherche.length }}
         topNavLinks={[
           // Yann 16 sept 2026 : le lien Tarifs n apparait qu aux inscrits.
           ...(isAuthed ? [{ label: pricingLabel, href: "/pricing" }] : []),
@@ -170,6 +77,7 @@ export default async function SandboxV195HubPage() {
         gatePath="/"
         contentOverrides={homeOverrides}
         accueilKpis={accueilKpis}
+        comptesGics={comptesGicsPublics()}
       />
       <Suspense fallback={null}>
         <AuthModal />
@@ -187,7 +95,7 @@ export default async function SandboxV195HubPage() {
         <div className="mx-auto max-w-3xl text-center">
           {/* Yann 07 sept 2026 : badge Premium 0,68 euro/jour retire de l accueil. */}
           <h2 className="mt-4 font-display text-[28px] font-bold tracking-tight text-zinc-50 sm:text-[34px]">
-            Toutes les fiches sont ouvertes en gratuit. Débloque les analyses détaillées de milliers de sociétés.
+            Toutes les fiches sont ouvertes en gratuit. Débloque les analyses détaillées de plus de 600 sociétés.
           </h2>
           <p className="mt-3 text-[14px] leading-relaxed text-zinc-400">
             Le tarif annuel revient à moins d'un café par jour. 30 secondes pour souscrire,
@@ -201,6 +109,7 @@ export default async function SandboxV195HubPage() {
               ctaTrackingPrefix="v195_home_inline_"
               plans={catalog.plans}
               features={catalog.features}
+              carteGratuit={catalog.carte_gratuit}
               taglines={taglines}
             />
           </SignupGateOverlay>

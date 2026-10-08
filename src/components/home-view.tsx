@@ -3,18 +3,15 @@
 import { useVisiblesGratuit } from "@/lib/freemium/use-visibles-gratuit";
 import Link from "next/link";
 import type React from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import UNIVERSE from "@/data/v1-9-5-clean-all-tickers.json";
-import KPI_COUNTS from "@/data/_kpi-counts.json";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-import { displayTicker, buildTickerSet } from "@/lib/ticker-display";
 import { Spotlight } from "@/components/effects/spotlight";
 import { BackToTop } from "@/components/back-to-top";
 import { CompanySearch } from "@/components/company-search";
 import { HomeFAQ } from "@/components/home-faq";
-import { HomeGicsBlock } from "@/components/home-gics-block";
+import { HomeGicsBlock, type ComptesGicsPublics } from "@/components/home-gics-block";
 // Yann 07 sept 2026 : bloc « Actions les plus populaires » archive (le fichier
 // home-popular-block.tsx reste dans le depot). Sa carte des pays vit desormais
 // dans HomeCartePays, sous le bloc « Pourquoi utiliser Mettrik AI ? ».
@@ -388,64 +385,9 @@ function useCitationIndex(ref: React.RefObject<HTMLDivElement | null>): number {
 }
 
 
-/**
- * Compteur des KPI publies (Yann 26 aout 2026).
- *
- * Trois familles, dans l ordre demande : indicateurs cles (le KPI principal
- * de chaque societe est compte dedans), blocs graphiques dedies, stories.
- * Les nombres viennent de src/data/_kpi-counts.json, regenere par
- * `node scripts/build-kpi-counts.mjs` a chaque mise a jour des donnees, et
- * le nombre de blocs graphiques est complete a l affichage si l app le
- * fournit. Le comptage applique le meme filtre que les fiches : les KPI
- * generiques masques ne sont pas comptes.
- */
-// Yann 30 aout 2026 : compteurs retires de l accueil (demande). Le composant
-// reste pour une reactivation eventuelle mais n est plus rendu.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function KpiCountersRow({ locale = "fr" }: { locale?: string }) {
-  const fr = locale.startsWith("fr");
-  const nf = (n: number) => n.toLocaleString(fr ? "fr-FR" : "en-US");
-  const items = [
-    {
-      value: KPI_COUNTS.key_indicators,
-      label: fr ? "indicateurs clés" : "key indicators",
-      hint: fr
-        ? `dont ${nf(KPI_COUNTS.heroes)} indicateurs principaux`
-        : `including ${nf(KPI_COUNTS.heroes)} headline metrics`,
-    },
-    {
-      value: KPI_COUNTS.special_blocks,
-      label: fr ? "blocs graphiques" : "dedicated charts",
-      hint: fr ? "graphiques sur mesure" : "custom-built charts",
-    },
-    {
-      value: KPI_COUNTS.stories,
-      label: fr ? "stories" : "stories",
-      hint: fr ? "cartes de contexte" : "context cards",
-    },
-  ].filter((i) => i.value > 0);
-
-  if (items.length === 0) return null;
-
-  return (
-    <div className="mx-auto mt-8 flex max-w-3xl flex-wrap items-stretch justify-center gap-3 sm:mt-10 sm:gap-4">
-      {items.map((i) => (
-        <div
-          key={i.label}
-          className="flex min-w-[150px] flex-1 flex-col items-center rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-sm sm:min-w-[180px]"
-        >
-          <span className="font-mono text-[22px] font-bold tabular-nums text-zinc-50 sm:text-[26px]">
-            {nf(i.value)}
-          </span>
-          <span className="mt-0.5 text-[12.5px] font-medium text-zinc-200 sm:text-[13.5px]">
-            {i.label}
-          </span>
-          <span className="mt-0.5 text-center text-[11px] text-zinc-500">{i.hint}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
+// 8 oct 2026 (audit des fuites publiques) : compteurs de KPI (KpiCountersRow,
+// retires de l accueil le 30 aout) supprimes du code client : ils embarquaient
+// _kpi-counts.json (nombre exact de societes et de KPI) dans le JS servi.
 
 function MettrikCitationCard({ locale = "fr" }: { locale?: string }) {
   const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -666,18 +608,17 @@ export function HomeView({
   tickers: tickersProp,
   routePrefix,
   showFAQ = true,
-  searchScope,
   topNavLinks,
   requireSignupGate = false,
   anonLinks = false,
   accueilKpis,
   gatePath = "/",
   contentOverrides,
+  comptesGics = null,
 }: {
   tickers?: string[];
   routePrefix?: string;
   showFAQ?: boolean;
-  searchScope?: { tickers: string[]; total: number };
   /** Yann 10 mai 2026 : liens au-dessus du logo (ex Pricing / Contact). */
   topNavLinks?: { label: string; href: string }[];
   /** Si true, tout clic sur la search bar ou une card société ouvre AuthModal (anonyme). */
@@ -694,12 +635,17 @@ export function HomeView({
    *  kpi_intelligence_under, punchline_1, punchline_2, punchline_3,
    *  punchline_4. Si absent : fallback dictionary.ts. */
   contentOverrides?: Record<string, string>;
+  /** 8 oct 2026 : nombres affiches du bloc GICS, calcules cote serveur. */
+  comptesGics?: ComptesGicsPublics | null;
 } = {}) {
   const { t, locale } = useT();
   const visiblesGratuit = useVisiblesGratuit();
   const tt = (key: string, overrideKey: string) =>
     (contentOverrides && contentOverrides[overrideKey]?.trim()) || t(key);
-  const results = tickersProp ?? (UNIVERSE as { tickers: string[] }).tickers;
+  // 8 oct 2026 (audit des fuites publiques, ligne 7) : plus aucune liste de
+  // l univers n est transmise au navigateur. Sans liste (accueil reel), la
+  // carte des pays est affichee ; une liste courte (sandbox V2) la masque.
+  const results = tickersProp ?? null;
   const buildHref = (tk: string): string => {
     const base = routePrefix ? `${routePrefix}/${tk.toLowerCase()}` : `/${tk.toLowerCase()}`;
     // Yann 30 sept 2026 : lien direct pour la liste « 100 % visibles en gratuit » (base).
@@ -708,7 +654,6 @@ export function HomeView({
   // Yann 4 juin 2026 : ticker affiché sur les cards = displayTicker (strip
   // suffixe place boursière .PA/.SW/.L/etc sauf si conflit avec un short
   // existant). URL conserve le ticker complet via `buildHref` ci-dessus.
-  const allTickersSet = useMemo(() => buildTickerSet(results), [results]);
 
   // Pagination par paquet de 30 (Yann 16 mai 2026) : top 30 affiché, puis
   // flèche "Déployer 30 de plus" pour en révéler 30 supplémentaires, etc.
@@ -798,11 +743,7 @@ export function HomeView({
             vers signup (intercepté par SignupGateOverlay). */}
         <div className="mx-auto mt-4 flex max-w-2xl justify-center sm:mt-5">
           <SignupGateOverlay enabled={requireSignupGate} gatePath={gatePath} initialAuthed={!requireSignupGate}>
-            <CompanySearch
-              variant="hero"
-              searchableTickers={searchScope?.tickers}
-              totalLabel={searchScope?.total}
-            />
+            <CompanySearch variant="hero" />
           </SignupGateOverlay>
         </div>
 
@@ -815,7 +756,7 @@ export function HomeView({
               mention « KPI = INDICATEUR », au-dessus des mini-blocs de
               societes. Clic sur une zone = les plus grandes capitalisations du
               pays avec les memes mini-blocs 3-KPI, 10 puis 10, 20 maximum. */}
-          {results.length > PAGE_SIZE && (
+          {(results === null || results.length > PAGE_SIZE) && (
             <HomeCartePays
               locale={locale}
               routePrefix={routePrefix}
@@ -846,7 +787,7 @@ export function HomeView({
           <AppelAbonnement
             forme="encart"
             titre="Connaissez-vous vraiment les sociétés de votre portefeuille ?"
-            detail="Des milliers d’actions, jusqu’à 20 ans d’historique, les indicateurs qui comptent vraiment et l’anti-thèse de chaque dossier. Sans flou, sans limite."
+            detail="Plus de 600 sociétés, jusqu’à 20 ans d’historique, les indicateurs qui comptent vraiment et l’anti-thèse de chaque dossier. Sans flou, sans limite."
             action="Découvrir les offres"
           />
           </SignupGateOverlay>
@@ -854,7 +795,7 @@ export function HomeView({
 
         {/* 9 sept 2026 : bas de page, les categories de societes (GICS) :
             noms des sous-industries et codes, rien d autre. */}
-        <HomeGicsBlock />
+        <HomeGicsBlock comptes={comptesGics} />
 
         {/* Yann 19 sept 2026 : les questions frequentes ferment la page, apres
             les categories. L accueil reel (hub V1.9.5) les affichait a false

@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { getServerLocale } from "@/lib/i18n/server";
 import { translate } from "@/lib/i18n/dictionary";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { ParrainageClient } from "./client";
 import { DEFAULT_REFERRAL_SETTINGS } from "@/lib/referrals";
 import { isPageDisabled } from "@/lib/disabled-pages";
@@ -29,8 +30,8 @@ export default async function ParrainagePage({
   const supabase = await createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  // Charge les settings (lecture publique)
-  const { data: settingsRow } = await supabase
+  // Charge les settings (cle service : la table n est plus lisible en anonyme, 8 oct 2026)
+  const { data: settingsRow } = await createSupabaseAdminClient()
     .from("desk_referral_settings")
     .select("*")
     .eq("id", 1)

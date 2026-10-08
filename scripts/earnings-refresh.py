@@ -363,6 +363,129 @@ def preuve_fiable(evidence: str, valeur: float, corpus_mots: list[list[str]]) ->
     return False
 
 
+REJETS = ROOT / ".conv-state" / "earnings-refresh-rejets.jsonl"
+_MOTS_VIDES = {"total", "segment", "segments", "group", "groupe", "the", "from", "with", "and", "des",
+               "par", "pour", "dans", "sur", "net", "nette", "nets", "the", "of", "per", "kpi"}
+_ORD = {1: ("first", "1st", "premier"), 2: ("second", "2nd", "deuxieme"), 3: ("third", "3rd", "troisieme"),
+        4: ("fourth", "4th", "quatrieme")}
+
+
+def _sans_accents(t: str) -> str:
+    import unicodedata
+    return "".join(c for c in unicodedata.normalize("NFKD", t or "") if not unicodedata.combining(c)).lower()
+
+
+def _nombres(texte: str) -> list[float]:
+    """Tous les nombres d une phrase, formats US (1,215.4) et europeens (1 215,4 / 1.215,4)."""
+    out = []
+    for m in re.finditer(r"\d[\d,.\u00a0\u202f ']*\d|\d", texte or ""):
+        brut = m.group(0).strip()
+        for cand in (brut,):
+            b = re.sub(r"[\u00a0\u202f ']", "", cand)
+            essais = set()
+            if "," in b and "." in b:
+                essais.add(b.replace(",", "") if b.rfind(".") > b.rfind(",") else b.replace(".", "").replace(",", "."))
+            elif "," in b:
+                parts = b.split(",")
+                essais.add(b.replace(",", ""))                       # separateur de milliers
+                if len(parts) == 2: essais.add(b.replace(",", "."))  # virgule decimale
+            elif b.count(".") > 1:
+                essais.add(b.replace(".", ""))
+            else:
+                essais.add(b)
+            for e in essais:
+                try: out.append(float(e))
+                except ValueError: pass
+    return out
+
+
+def _jetons_periode(periode: str) -> tuple[list[str], set[str]]:
+    p = (periode or "").upper().replace(" ", "-")
+    annees = set()
+    m = re.search(r"(\d{4})", p)
+    if m:
+        a = int(m.group(1)); annees = {str(a), str(a - 1), str(a)[2:], str(a - 1)[2:]}
+    m = re.match(r"^[QT]([1-4])", p)
+    if m:
+        n = int(m.group(1))
+        return ([f"q{n}", f"{n}q", f"t{n}", "three months", "trois mois", "13 weeks", "12 weeks", "16 weeks",
+                 *[f"{o} quarter" for o in _ORD[n]], *[f"{o} trimestre" for o in _ORD[n]]], annees)
+    m = re.match(r"^[HS]([12])", p)
+    if m:
+        n = int(m.group(1))
+        return ([f"h{n}", f"{n}h", f"s{n}", "six months", "six mois", "half-year", "half year", "semestre",
+                 "semester", "first half" if n == 1 else "second half", "1er semestre" if n == 1 else "2nd semestre",
+                 "30 june", "june 30", "30 juin"], annees)
+    if p.startswith("FY") or re.fullmatch(r"\d{4}", p):
+        return (["fiscal", "full year", "full-year", "year ended", "twelve months", "12 months", "annual",
+                 "fy", "exercice", "annee", "52 weeks", "53 weeks"], annees)
+    return ([], annees)
+
+
+def preuve_stricte(kpi: dict, valeur: float, periode: str, evidence: str, corpus: list[str]) -> str | None:
+    """Garde-fou du 8 oct 2026, apres l ecriture de MKC consumer_rev = 1 229,8 (le cout
+    des ventes 1 229,9) : quatre chiffres en commun suffisaient. Rend None si la preuve
+    tient, sinon le motif du rejet. Exige :
+      1. la valeur COMPLETE (a l arrondi publie pres, ou au facteur 1000 exact) dans la phrase ;
+      2. un mot distinctif du libelle du KPI dans la phrase ;
+      3. la periode : un marqueur de cadence et l annee dans la phrase ou juste avant elle
+         dans le document.
+    """
+    ev = evidence or ""
+    a = abs(float(valeur))
+    def egal(n, v):
+        if v == 0: return n == 0
+        dec = len(str(n).split(".")[1]) if "." in str(n) else 0
+        return abs(n - v) <= max(abs(v) * 1e-9, 0.5 * 10 ** (-dec) if dec else 1e-9)
+    nums = _nombres(ev)
+    if not any(egal(n, a) or egal(n * 1000, a) or egal(n / 1000, a) for n in nums):
+        return "valeur complete absente de la phrase de preuve"
+    libelle = " ".join(str(kpi.get(c) or "") for c in ("name_en", "name_fr", "short"))
+    mots = {w for w in re.split(r"[^a-z0-9]+", _sans_accents(libelle)) if len(w) >= 4 and w not in _MOTS_VIDES}
+    ev_n = _sans_accents(ev)
+    if mots and not any(re.search(rf"\b{re.escape(w)}", ev_n) for w in mots):
+        return "libelle du KPI absent de la phrase de preuve"
+    jetons, annees = _jetons_periode(periode)
+    if not jetons:
+        return f"periode {periode} illisible"
+    # un cumul (6, 9 ou 12 mois) dans la phrase meme contredit un point trimestriel
+    if re.match(r"^[QT][1-4]", (periode or "").upper()) and re.search(
+            r"\b(six|nine|twelve|6|9|12) months\b|\byear[- ]to[- ]date\b|\bytd\b|\bfull[- ]year\b|\bneuf mois\b|\bsix mois\b", ev_n):
+        return f"phrase de preuve sur un cumul, pas sur le trimestre {periode}"
+    # contexte : la phrase et les 2 000 caracteres qui la precedent dans le document
+    mots_ev = _mots_normalises(ev)
+    contexte = ev_n
+    for doc in corpus:
+        plat = " ".join(_mots_normalises(doc))
+        for i in range(max(1, len(mots_ev) - 5)):
+            f = " ".join(mots_ev[i:i + 6])
+            j = plat.find(f) if f else -1
+            if j >= 0:
+                contexte = plat[max(0, j - 2000): j + len(" ".join(mots_ev)) + 50] + " " + ev_n
+                break
+        else:
+            continue
+        break
+    contexte = re.sub(r"\s+", " ", contexte)
+    if not any(re.search(rf"(?<![a-z0-9]){re.escape(_sans_accents(j))}(?![a-z0-9])", contexte) for j in jetons):
+        return f"periode {periode} absente du contexte de la preuve"
+    if annees and not any(re.search(rf"(?<!\d){y}(?!\d)", contexte) for y in annees if len(y) == 4) \
+            and not any(re.search(rf"(?:fy|fiscal|')\s?{y}(?!\d)", contexte) for y in annees if len(y) == 2):
+        return f"annee de {periode} absente du contexte de la preuve"
+    return None
+
+
+def journalise_rejet(ticker: str, short: str, valeur, periode: str, motif: str, evidence: str) -> None:
+    try:
+        REJETS.parent.mkdir(parents=True, exist_ok=True)
+        with REJETS.open("a", encoding="utf8") as f:
+            f.write(json.dumps({"le": datetime.now(timezone.utc).isoformat(timespec="seconds"), "ticker": ticker,
+                                "short": short, "valeur": valeur, "periode": periode, "motif": motif,
+                                "preuve": (evidence or "")[:300]}, ensure_ascii=False) + "\n")
+    except OSError:
+        pass
+
+
 def source_compatible(kpi: dict) -> bool:
     """Vigilance sur les KPI dont l historique ne vient PAS des documents de
     resultats (recherche manuelle, presse, cabinets d etudes, posts X...).
@@ -561,6 +684,7 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
         vus.add(short)
         if not appears_in(float(val), corpus):
             rejeter("chiffre absent des documents")
+            journalise_rejet(ticker, short, val, str(v.get("periode") or periode), "chiffre absent des documents", v.get("evidence") or "")
             continue
         # 23 sept 2026 : la phrase de preuve doit venir d un document reel et
         # contenir le chiffre. Sans ce controle, une valeur inventee accompagnee
@@ -568,6 +692,7 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
         # retrouvaient quelque part dans le corpus.
         if not preuve_fiable(v.get("evidence"), float(val), corpus_mots):
             rejeter("phrase de preuve absente des documents ou sans le chiffre")
+            journalise_rejet(ticker, short, val, str(v.get("periode") or periode), "phrase de preuve absente des documents ou sans le chiffre", v.get("evidence") or "")
             continue
         kpi = index[short]
         if not source_compatible(kpi):
@@ -579,12 +704,18 @@ def process(ticker: str, apply: bool, moteur: str) -> dict:
         if not periode_v or not periode_compatible(kpi, periode_v):
             rejeter(f"periode {periode_v or '?'} incompatible avec {kpi.get('period_type') or '?'}")
             continue
+        motif_strict = preuve_stricte(kpi, float(val), periode_v, v.get("evidence") or "", corpus)
+        if motif_strict:
+            rejeter(motif_strict)
+            journalise_rejet(ticker, short, val, periode_v, motif_strict, v.get("evidence") or "")
+            continue
         if period_key(periode_v) and period_key(periode_v) <= period_key(last_period(kpi) or ""):
             continue  # déjà à jour : on n'écrase jamais un point existant
         if deja_present(kpi, float(val)):
             continue  # même chiffre que le dernier point : rien de nouveau
         if not echelle_compatible(kpi, float(val)):
             rejeter("ordre de grandeur etranger a la serie")
+            journalise_rejet(ticker, short, val, periode_v, "ordre de grandeur etranger a la serie", v.get("evidence") or "")
             continue
         hist = kpi["history"]
         # Yann 4 sept 2026 : ne JAMAIS ajouter un point qui laisserait un trou.

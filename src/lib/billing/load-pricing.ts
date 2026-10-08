@@ -15,10 +15,15 @@
  * Cache : la lecture côté Server Component est mise en cache via Next.js
  * `revalidate` au niveau de la page parente.
  */
+import { chargeVisiblesGratuit } from "@/lib/desk/visibles-gratuit";
+import { TICKER_DEDUP_ALIASES } from "@/lib/ticker-dedup-aliases";
 import { createClient } from "@supabase/supabase-js";
 import { PLANS as FALLBACK_PLANS, FEATURES as FALLBACK_FEATURES, type PlanDisplay, type PlanTier, type FeatureRow } from "./plans";
 import type { Currency, Frequency } from "./admin-types";
 import { getExchangeRate } from "@/lib/currency";
+import { remiseAnnuellePct } from "./remise-annuelle";
+import { chargeCarteGratuit } from "./carte-gratuit-serveur";
+import type { CarteGratuit } from "./carte-gratuit";
 
 /**
  * Normalise un code de plan BDD vers les tiers internes du code TS.
@@ -64,6 +69,8 @@ export type LoadedPlan = PlanDisplay & {
 export type LoadedCatalog = {
   plans: LoadedPlan[];
   features: FeatureRow[];
+  /** Yann 8 oct 2026 : lignes de la carte Gratuit choisies au back-office (null = défaut). */
+  carte_gratuit?: CarteGratuit | null;
 };
 
 /**
@@ -138,6 +145,9 @@ export async function loadPricingForPublic(targetCurrency?: string): Promise<Loa
     // de les masquer. Le filtre is_active est appliqué côté front en
     // lisant `prices[currency].monthly.active`.
     const { data: prices } = await supabase.from("pricing_prices").select("*");
+    // 8 oct 2026 (Yann) : le back-office fait foi. Le montant affiche est celui
+    // de la base ; chaque enregistrement cree le prix Stripe correspondant
+    // (src/lib/billing/stripe-prix-sync.ts), donc affiche = facture.
     const pricesByPlan = new Map<string, Record<string, { monthly?: PriceEntry; annual?: PriceEntry }>>();
     for (const pr of prices ?? []) {
       if (!pricesByPlan.has(pr.plan_id)) pricesByPlan.set(pr.plan_id, {});
@@ -162,8 +172,8 @@ export async function loadPricingForPublic(targetCurrency?: string): Promise<Loa
       const customCaption = (dbPlan as { price_caption_fr?: string | null }).price_caption_fr;
       const annualSavingsLabel = customCaption && customCaption.trim().length > 0
         ? customCaption
-        : eurAnnual > 0 && eurMonthly > 0
-          ? `Soit −${Math.round(((eurMonthly * 12 - eurAnnual) / (eurMonthly * 12)) * 100)} % vs mensuel`
+        : remiseAnnuellePct(eurMonthly, eurAnnual) > 0
+          ? `Soit −${remiseAnnuellePct(eurMonthly, eurAnnual)} % vs mensuel`
           : "À vie, sans carte bancaire";
       return {
         tier,
@@ -229,7 +239,35 @@ export function checkoutInfoFor(
  * Charge le catalogue complet (plans + features + valeurs) pour le front.
  * Idempotent : fallback sur plans.ts hardcoded si BDD vide / inaccessible.
  */
+/**
+ * 8 oct 2026 (audit des fuites publiques, lignes 17 et 18) : la ligne
+ * « Sociétés disponibles » de la grille suit la realite. Gratuit = nombre de
+ * societes de la liste reelle /api/visibles-gratuit (doublons de classes
+ * d actions fusionnes) ; Premium et Max = « Plus de 600 », jamais « 1 000+ ».
+ */
+async function aligneSocietesDisponibles(features: FeatureRow[]): Promise<FeatureRow[]> {
+  let nGratuit: number | null = null;
+  try {
+    const liste = await chargeVisiblesGratuit();
+    nGratuit = new Set(liste.map((t) => TICKER_DEDUP_ALIASES[t.toUpperCase()] ?? t.toUpperCase())).size;
+  } catch {
+    nGratuit = null;
+  }
+  const corrige = (v: string | boolean): string | boolean =>
+    typeof v === "string" && /1[\s\u202f]?000/.test(v) ? "Plus de 600" : v;
+  return features.map((f) =>
+    f.id === "stes_count"
+      ? { ...f, free: nGratuit !== null ? String(nGratuit) : f.free, premium: corrige(f.premium), max: corrige(f.max) }
+      : f,
+  );
+}
+
 export async function loadPricingCatalog(targetCurrency?: string): Promise<LoadedCatalog> {
+  const [catalogue, carteGratuit] = await Promise.all([loadPricingCatalogBrut(targetCurrency), chargeCarteGratuit()]);
+  return { ...catalogue, features: await aligneSocietesDisponibles(catalogue.features), carte_gratuit: carteGratuit };
+}
+
+async function loadPricingCatalogBrut(targetCurrency?: string): Promise<LoadedCatalog> {
   const plans = await loadPricingForPublic(targetCurrency);
 
   // Charge features + plan_features depuis la BDD

@@ -1,152 +1,34 @@
 "use client";
 
-import { useState, useMemo, useRef, useEffect, useCallback, useId } from "react";
+import { useState, useRef, useEffect, useCallback, useId } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-/** Audit 2 sept 2026 : "hermes", "loreal", "societe generale" doivent trouver
- *  Hermès, L'Oréal, Société Générale. Minuscules + accents retires. */
-function pliAccents(v: string): string {
-  return v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/['’`]/g, "").toLowerCase();
-}
+import { motion, AnimatePresence } from "motion/react";
+import { Search, X, ArrowRight, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { formatHeroValue } from "@/lib/data";
+import { brand } from "@/lib/brand";
+import { yoyTone } from "@/lib/utils";
+import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
+import { AcronymHover } from "@/components/acronym-hover";
+import { useT } from "@/lib/i18n/provider";
+import { useFreemiumTier } from "@/lib/freemium/context";
+import { useVisiblesGratuit } from "@/lib/freemium/use-visibles-gratuit";
+import type { ResultatRecherche } from "@/lib/recherche-societes";
 
 /**
- * Yann (26 mai 2026) : URL canonique de la DERNIÈRE version app pour
- * toute recherche. Centralisé ici → quand on passera à V2.0, V2.5, etc.
- * un seul endroit à modifier (cette ligne) et toutes les recherches
- * routent automatiquement vers la dernière version.
+ * 8 oct 2026 (audit des fuites publiques, lignes 6, 8, 9, 10) : la recherche
+ * se fait desormais COTE SERVEUR (/api/recherche-societes, 10 resultats au
+ * plus). Ce composant n importe plus aucune liste de societes, aucun
+ * classement, aucun index de heros : rien dans le JS servi ne permet de
+ * compter l univers. Ne JAMAIS reimporter ici un fichier de src/data.
  */
-const LATEST_VERSION_PATH = "/sandbox/v1-9-5";
 
-// Yann 30 sept 2026 : les societes entierement lisibles sans abonnement ne
-// sont plus en dur ; la liste vient de la base (useVisiblesGratuit).
-// Yann 4 sept 2026 : les liens pointent sur l adresse PUBLIQUE /<ticker>,
-// pas sur le chemin interne /sandbox/v1-9-5/<ticker> qui s affichait dans la
-// barre d adresse des visiteurs.
+// Yann 4 sept 2026 : les liens pointent sur l adresse PUBLIQUE /<ticker>.
 const buildLatestHref = (ticker: string) => `/${ticker.toLowerCase()}`;
 // Yann 15 sept 2026 : en anonyme, chaque lien vers une fiche mene a l inscription gratuite.
 // Yann 30 sept 2026 : les societes de la liste « 100 % visibles en gratuit » gardent un lien direct.
 const lienInscription = (ticker: string, visibles: ReadonlySet<string>) =>
   visibles.has(ticker.toUpperCase()) ? buildLatestHref(ticker) : `/?auth=signup&next=${encodeURIComponent(buildLatestHref(ticker))}`;
-import { motion, AnimatePresence } from "motion/react";
-import { Search, X, ArrowRight, ArrowUpRight, ArrowDownRight } from "lucide-react";
-import {
-  COMPANIES,
-  TICKERS,
-  TICKER_ALIASES,
-  getHero,
-  formatHeroValue,
-} from "@/lib/data";
-import { brand } from "@/lib/brand";
-import capiSortedJson from "@/data/v1-8-tickers-sorted.json";
-import marketCapOrderJson from "@/data/market-cap-order.json";
-/**
- * 7 sept 2026 (demande du proprietaire) : l ordre par defaut de la recherche =
- * capitalisation boursiere DECROISSANTE de tout l univers (market-cap-order.json,
- * recalcule chaque jour par scripts/ranks-univers.py dans le cron quotidien).
- * L ancienne liste capi de mai (v1-8-tickers-sorted.json) ne sert plus que de
- * repli pour une societe absente du fichier du jour.
- */
-const CAPI_RANK: Record<string, number> = Object.fromEntries(
-  (marketCapOrderJson as { tickers: string[] }).tickers.map((t, i) => [t.toUpperCase(), i]),
-);
-const CAPI_RANK_SIZE = Object.keys(CAPI_RANK).length;
-const CAPI_RANK_ANCIEN: Record<string, number> = Object.fromEntries(
-  (capiSortedJson as string[]).map((t, i) => [t.toUpperCase(), i]),
-);
-/** Rang d affichage par defaut : capitalisation du jour, puis ancienne liste capi, puis le reste. */
-const homeOrderRank = (ticker: string): number => {
-  const up = ticker.toUpperCase();
-  const c = CAPI_RANK[up];
-  if (c !== undefined) return c;
-  const a = CAPI_RANK_ANCIEN[up];
-  return a !== undefined ? CAPI_RANK_SIZE + a : 99999;
-};
-import { yoyTone } from "@/lib/utils";
-import { CompanyLogo, logoNeedsLightBg } from "@/components/logos";
-import { AcronymHover } from "@/components/acronym-hover";
-import { useT } from "@/lib/i18n/provider";
-import { displayTicker } from "@/lib/ticker-display";
-import { useFreemiumTier } from "@/lib/freemium/context";
-import { useVisiblesGratuit } from "@/lib/freemium/use-visibles-gratuit";
-import {
-  V17_SEARCH_INDEX,
-  V17_SEARCH_BY_TICKER,
-  V19_SEARCH_INDEX,
-  V19_SEARCH_BY_TICKER,
-  type V17SearchEntry,
-  type V19SearchEntry,
-} from "@/lib/company-core/tickers-search-index";
-import v19UniverseJson from "@/data/v1-9-universe.json";
-import v195CleanAllJson from "@/data/v1-9-5-clean-all-tickers.json";
-import heroKpiIndexJson from "@/data/v2-pipeline/_hero-kpi-index.json";
-
-/**
- * Yann (2 juin 2026) : index hero KPI compact (151 KB, 1992 sociétés) pour
- * afficher le hero KPI à droite de chaque résultat de recherche, pas
- * juste pour les 5 V1.0. Source `_merged.json` (44 MB, server-only).
- * Régénération : `python3 scripts/build-hero-kpi-index.py`.
- */
-type HeroKpiEntry = {
-  s: string; // short label (ex "DAP", "Cloud", "Backlog")
-  v: string | number | null;
-  u: string;
-  y: string | number;
-  t: string;
-};
-const HERO_KPI_INDEX: Record<string, HeroKpiEntry> = heroKpiIndexJson as unknown as Record<
-  string,
-  HeroKpiEntry
->;
-
-/**
- * Yann (30 mai 2026, révisé 8 juin 2026) : V1.9.5 strict = univers clean_all
- * uniquement. La recherche n'affiche QUE les sociétés de cette liste (source de
- * vérité = `v1-9-5-clean-all-tickers.json`). Les autres tickers du pipeline
- * `_merged.json` (Pass 3 validés mais pas clean_all) sont volontairement
- * masqués sinon `/sandbox/v1-9-5/<ticker>` redirige silencieusement vers
- * l'overview (cf. logique `loadCleanAllSet` côté page société). Set figé au build.
- *
- * IMPORTANT (fix 8 juin 2026) : la liste contient parfois la classe d'action
- * "alias" (ex `BRK.B`) alors que l'index de recherche et `_merged.json`
- * utilisent le canonical (`BRK-B`). On normalise donc chaque entrée via
- * TICKER_ALIASES et on AJOUTE le canonical au set. Sans ça, Berkshire
- * (`BRK-B` côté index) échouait le test d'appartenance et n'apparaissait
- * jamais dans la recherche.
- */
-const V195_CLEAN_ALL_SET: ReadonlySet<string> = (() => {
-  const set = new Set<string>();
-  for (const raw of (v195CleanAllJson as { tickers: string[] }).tickers) {
-    const upper = raw.toUpperCase();
-    set.add(upper);
-    const canonical = TICKER_ALIASES[raw] ?? TICKER_ALIASES[upper];
-    if (canonical) set.add(canonical.toUpperCase());
-  }
-  return set;
-})();
-
-/**
- * Yann 31 mai 2026 : déduplication des doublons class-shares (GOOG/GOOGL,
- * BRK.A/BRK.B, FOX/FOXA, NWS/NWSA, UA/UAA) dans la search.
- *
- * - ALIAS_KEYS_UPPER : tickers qui sont des ALIAS (= keys de TICKER_ALIASES).
- *   On les masque de la search pour ne montrer que le canonical.
- * - REVERSE_ALIASES : pour chaque canonical, la liste des alias qui pointent
- *   dessus. Utilisé pour étendre le matching (taper "GOOG" trouve GOOGL).
- */
-const ALIAS_KEYS_UPPER: ReadonlySet<string> = new Set(
-  Object.keys(TICKER_ALIASES).map((k) => k.toUpperCase()),
-);
-
-const REVERSE_ALIASES: Record<string, string[]> = (() => {
-  const map: Record<string, string[]> = {};
-  for (const [alias, target] of Object.entries(TICKER_ALIASES)) {
-    const u = target.toUpperCase();
-    if (!map[u]) map[u] = [];
-    map[u].push(alias);
-  }
-  return map;
-})();
 
 /**
  * CompanySearch — barre de recherche unifiée, utilisée :
@@ -166,20 +48,11 @@ type Variant = "hero" | "compact";
 export function CompanySearch({
   variant = "hero",
   placeholder,
-  searchableTickers,
-  totalLabel,
 }: {
   variant?: Variant;
   placeholder?: string;
-  /**
-   * Restreint le scope de recherche à un sous-ensemble de tickers V1.7
-   * (ex: 306 sur V1.8 = top 308 hors Chine). Si non fourni, recherche
-   * dans toute la base V1.7 Pass 3 strict. Yann 8 mai 2026 : "la barre
-   * de recherche doit être propre à chaque version".
-   */
-  searchableTickers?: string[];
-  /** Override du compteur affiché (sinon = TICKERS V1 + V1.7 valid). */
-  totalLabel?: number;
+  // 8 oct 2026 : searchableTickers et totalLabel retires (le perimetre est
+  // decide par le serveur, aucun compte ni liste n est transmis au navigateur).
 }) {
   const anonLiens = useFreemiumTier() === "anon";
   const visiblesGratuit = useVisiblesGratuit();
@@ -213,27 +86,26 @@ export function CompanySearch({
   const idOption = (i: number) => `${idListe}-option-${i}`;
 
   /**
-   * Yann 9 juin 2026 : la search ne montre QUE les sociétés "online" (publiées).
-   * Source de vérité runtime = /api/online-tickers (lit desk_curated_companies).
-   * Tant que la liste n'est pas chargée (null) on garde le comportement
-   * historique (tout clean_all) pour ne jamais casser la search ; une fois
-   * chargée, on filtre strictement aux online. Erreur API = fallback null.
+   * Resultats calcules par le serveur (8 oct 2026). Petite temporisation pour
+   * ne pas interroger a chaque frappe ; la derniere reponse gagne.
    */
-  const [onlineSet, setOnlineSet] = useState<Set<string> | null>(null);
+  const [results, setResults] = useState<ResultatRecherche[]>([]);
+  const demandeRef = useRef(0);
   useEffect(() => {
-    let alive = true;
-    fetch("/api/online-tickers")
-      .then((r) => r.json())
-      .then((d) => {
-        if (alive && Array.isArray(d?.tickers)) {
-          setOnlineSet(new Set(d.tickers.map((t: string) => String(t).toUpperCase())));
-        }
-      })
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
-  }, []);
+    if (!open) return;
+    const numero = ++demandeRef.current;
+    const minuteur = setTimeout(() => {
+      fetch(`/api/recherche-societes?q=${encodeURIComponent(query.trim())}`)
+        .then((r) => (r.ok ? r.json() : { resultats: [] }))
+        .then((d: { resultats?: ResultatRecherche[] }) => {
+          if (numero === demandeRef.current) setResults(Array.isArray(d?.resultats) ? d.resultats : []);
+        })
+        .catch(() => {
+          if (numero === demandeRef.current) setResults([]);
+        });
+    }, query ? 120 : 0);
+    return () => clearTimeout(minuteur);
+  }, [query, open]);
 
   /** Ferme la liste sans rien reprendre (cas d une navigation vers une fiche). */
   const fermer = useCallback(() => {
@@ -257,8 +129,6 @@ export function CompanySearch({
         e.preventDefault();
         setOpen(true);
       } else if (e.key === "Escape" && open) {
-        // Garde : sans le test `open`, une touche Echap ailleurs sur la page
-        // volerait le focus pour le poser sur la barre de recherche.
         fermerEtRendreLeChamp();
       }
     };
@@ -278,209 +148,6 @@ export function CompanySearch({
       document.body.style.overflow = prev;
     };
   }, [open]);
-
-  /**
-   * Résultats unifiés V1 + V1.7 + V1.9. On filtre les entrées de chaque
-   * source puis on priorise les 5 V1 en tête (plus riches : hero KPI,
-   * secteur, etc.). Chaque résultat porte son origine ("v1" | "v17" | "v19")
-   * pour que ResultCard route correctement :
-   *   - v1    → `/<ticker>` (5 sociétés démo V1)
-   *   - v17   → `/sandbox/v1-7-5/<ticker>` si Pass 3 validé, sinon
-   *             `/sandbox/v1-8/<ticker>` (V1.8 relâché)
-   *   - v19   → `/sandbox/v1-9/<ticker>` (fiche "en préparation" pour
-   *             les 78 tickers EU absents de `_merged.json`)
-   *
-   * Sans query : on affiche 5 V1 + premier slice V1.7 (top alphabétique).
-   *              Évite de charger 1607 cards à l'ouverture.
-   * Avec query : on filtre toutes les sources, cap visuel 60 résultats.
-   */
-  // Set des 924 tickers V1.9 (union pour permettre de cherche les non-Pass3
-  // qui sont dans V1.9 et router vers V1.8). Mémoïsé hors useMemo (constant).
-  const v19UniverseSet = useMemo(() => {
-    const u = v19UniverseJson as { ticker: string }[];
-    return new Set(u.map((x) => x.ticker.toUpperCase()));
-  }, []);
-
-  // Set complet de tous les tickers de l'univers Mettrik (V1 + V1.7 +
-  // V1.9). Utilisé par `displayTicker` pour détecter les doublons short
-  // et garder le suffixe (.SW/.PA/.L/etc) quand ambigu (Yann 21 mai 2026).
-  const allTickersSet = useMemo(() => {
-    const s = new Set<string>();
-    for (const t of TICKERS) s.add(t.toUpperCase());
-    for (const e of V17_SEARCH_INDEX) s.add(e.ticker.toUpperCase());
-    for (const e of V19_SEARCH_INDEX) s.add(e.ticker.toUpperCase());
-    return s;
-  }, []);
-
-  const results = useMemo<
-    { ticker: string; source: "v1" | "v17" | "v19"; score: number }[]
-  >(() => {
-    const q = pliAccents(query.trim());
-    // Yann (5 juin 2026) : règle anti-bruit (cf bug "Alibaba apparait partout").
-    // Si la query fait < 3 caractères, on NE matche PAS via name.includes()
-    // car "ali" matcherait Alibaba sur des recherches non pertinentes. Seul
-    // le ticker.startsWith() (et alias exact) est autorisé pour q court.
-    const strictMode = q.length > 0 && q.length < 3;
-    const v1Out: { ticker: string; source: "v1"; score: number }[] = [];
-    const v17Out: { ticker: string; source: "v17"; score: number }[] = [];
-    const v19Out: { ticker: string; source: "v19"; score: number }[] = [];
-
-    // Scoring : plus haut = plus pertinent. Tri décroissant.
-    // 1000 = ticker exact match
-    // 800  = ticker startsWith
-    // 600  = alias exact match
-    // 500  = alias startsWith
-    // 400  = name startsWith
-    // 300  = name word startsWith (ex "Mic" matche "Microsoft" mais aussi "Sigma Microsystems")
-    // 200  = sector/subsector startsWith
-    // 100  = name.includes() (seulement si q.length >= 3)
-    //  50  = sector/subsector.includes() (seulement si q.length >= 3)
-    const scoreEntry = (
-      ticker: string,
-      name: string,
-      sector: string,
-      subsector: string,
-      aliases: string[],
-    ): number => {
-      if (!q) return 1;
-      const tk = pliAccents(ticker);
-      const nm = pliAccents(name);
-      const sc = pliAccents(sector);
-      const ss = pliAccents(subsector);
-      if (tk === q) return 1000;
-      if (tk.startsWith(q)) return 800;
-      for (const a of aliases) {
-        const al = pliAccents(a);
-        if (al === q) return 600;
-        if (al.startsWith(q)) return 500;
-      }
-      if (nm.startsWith(q)) return 400;
-      // word startsWith (ex "rev" trouve "Revenue Group" mais pas "Forever")
-      if (nm.split(/\s+/).some((w) => w.startsWith(q))) return 300;
-      if (sc.startsWith(q) || ss.startsWith(q)) return 200;
-      // includes() seulement en mode non-strict (q.length >= 3)
-      if (!strictMode) {
-        if (nm.includes(q)) return 100;
-        if (sc.includes(q) || ss.includes(q)) return 50;
-      }
-      return 0;
-    };
-
-    // V1 (5 sociétés, riches)
-    for (const t of TICKERS) {
-      const aliases = Object.entries(TICKER_ALIASES)
-        .filter(([, target]) => target === t)
-        .map(([alias]) => alias);
-      const score = scoreEntry(
-        t,
-        COMPANIES[t].name,
-        COMPANIES[t].sector,
-        COMPANIES[t].subsector,
-        aliases,
-      );
-      if (score > 0) v1Out.push({ ticker: t, source: "v1", score });
-    }
-
-    // V1.7 : Pass 3 validées (route /sandbox/v1-7-5/<ticker>) + non-validées
-    // PRÉSENTES DANS V1.9 (route /sandbox/v1-8/<ticker>). Décision Yann
-    // 19 mai 2026 : la search V1.9 doit pouvoir trouver TOUS les tickers
-    // de l'univers V1.9, y compris ceux dont l'extraction n'a pas été
-    // validée Pass 3 (ils tomberont sur la fiche V1.8 relâchée).
-    // Skip ceux déjà présents en V1 (évite doublon).
-    // Si `searchableTickers` est fourni, on restreint le scope (ex V1.8
-    // = top 308 hors Chine = 306 sociétés).
-    const v1Set = new Set(TICKERS.map((t) => t.toUpperCase()));
-    const scopeSet = searchableTickers
-      ? new Set(searchableTickers.map((t) => t.toUpperCase()))
-      : null;
-    for (const e of V17_SEARCH_INDEX) {
-      const upper = e.ticker.toUpperCase();
-      if (v1Set.has(upper)) continue;
-      // Yann 31 mai 2026 : dédup class-shares. On masque les tickers qui
-      // sont des ALIAS (ex GOOG → GOOGL) pour ne montrer que le canonical
-      // dans la search. La recherche par alias reste fonctionnelle via
-      // REVERSE_ALIASES ci-dessous.
-      if (ALIAS_KEYS_UPPER.has(upper)) continue;
-      if (scopeSet && !scopeSet.has(upper)) continue;
-      // Yann 30 mai 2026 : V1.9.5 strict = clean_all uniquement. Tout ticker
-      // hors clean_all serait redirigé silencieusement vers l'overview au clic
-      // (= bug "la recherche ne marche pas"). On filtre en amont pour ne
-      // proposer que les fiches réellement accessibles.
-      if (!V195_CLEAN_ALL_SET.has(upper)) continue;
-      // Si pas Pass 3 validé : on l'inclut seulement s'il est dans l'univers
-      // V1.9 (extension recherche EU). Comportement historique préservé pour
-      // les non-V1.9 (non searchables).
-      if (!e.validated && !v19UniverseSet.has(upper)) continue;
-      const reverseAliases = REVERSE_ALIASES[upper] ?? [];
-      const score = scoreEntry(e.ticker, e.name, e.sector, "", reverseAliases);
-      if (score > 0) v17Out.push({ ticker: e.ticker, source: "v17", score });
-    }
-
-    // V1.9 missing : 78 tickers EU dans `v1-9-universe.json` MAIS absents
-    // de `_merged.json`. Route /sandbox/v1-9/<ticker> ("Fiche en préparation").
-    // Pas de filtrage scopeSet ici : V1.9 missing = scope dédié.
-    for (const e of V19_SEARCH_INDEX) {
-      const upper = e.ticker.toUpperCase();
-      if (v1Set.has(upper)) continue;
-      // Yann 31 mai 2026 : dédup class-shares (idem V17).
-      if (ALIAS_KEYS_UPPER.has(upper)) continue;
-      // Yann 30 mai 2026 : idem, V1.9.5 strict = clean_all uniquement.
-      if (!V195_CLEAN_ALL_SET.has(upper)) continue;
-      const reverseAliases = REVERSE_ALIASES[upper] ?? [];
-      const score = scoreEntry(e.ticker, e.name, e.country ?? "", "", reverseAliases);
-      if (score > 0) v19Out.push({ ticker: e.ticker, source: "v19", score });
-    }
-
-    // Tri global par score décroissant, puis ordre source (v1 > v17 > v19)
-    // pour les égalités (V1 reste prioritaire car richement curatée).
-    const sourceOrder: Record<string, number> = { v1: 0, v17: 1, v19: 2 };
-    const merged = [...v1Out, ...v17Out, ...v19Out];
-    merged.sort((a, b) => {
-      if (b.score !== a.score) return b.score - a.score;
-      // À score égal (notamment query vide = liste par défaut) : ordre de la
-      // HOME (home-wow-kpis.json), puis capi, puis source.
-      const ra = homeOrderRank(a.ticker);
-      const rb = homeOrderRank(b.ticker);
-      if (ra !== rb) return ra - rb;
-      return sourceOrder[a.source] - sourceOrder[b.source];
-    });
-    // ┌────────────────────────────────────────────────────────────────┐
-    // │ ⚠️  RÈGLE FIGÉE — NE PAS MODIFIER (Yann 5 juin 2026)            │
-    // │                                                                │
-    // │ DEDUP final par ticker upper-case. Même si _tickers-index.json │
-    // │ ou v1-9-missing.json se polluent avec des doublons (BABA × 2,  │
-    // │ class-shares oubliés, alias mal mappés), la search NE DOIT     │
-    // │ JAMAIS afficher la même société deux fois.                         │
-    // │                                                                │
-    // │ Historique : 5 juin 2026 — Yann a vu BABA apparaître 2× sur    │
-    // │ "AVGO" et 4× sur "app". Cause : duplicate dans index +         │
-    // │ placeholder sector "Not Applicable" qui matchait "app". Fix    │
-    // │ côté data + cette dedup côté code = double sécurité.           │
-    // │                                                                │
-    // │ Tout refactor qui retire cette dedup doit être reverté.        │
-    // └────────────────────────────────────────────────────────────────┘
-    const seen = new Set<string>();
-    const deduped: typeof merged = [];
-    for (const r of merged) {
-      const key = r.ticker.toUpperCase();
-      if (seen.has(key)) continue;
-      seen.add(key);
-      deduped.push(r);
-    }
-    // Filtre online (Yann 9 juin 2026) : ne montrer que les sociétés publiées.
-    // onlineSet === null = pas encore chargé → comportement historique (tout
-    // clean_all). Une fois chargé, filtre strict aux online.
-    const onlineFiltered = onlineSet
-      ? deduped.filter((r) => onlineSet.has(r.ticker.toUpperCase()))
-      : deduped;
-    return onlineFiltered;
-  }, [query, searchableTickers, v19UniverseSet, onlineSet]);
-
-  // Compteur "X sociétés au total" : override fourni en prop, sinon V1 (5) +
-  // V1.7 Pass 3 validées (le défaut historique).
-  const totalCatalog =
-    totalLabel ??
-    (TICKERS.length + V17_SEARCH_INDEX.filter((e) => e.validated).length);
 
   const close = fermer;
 
@@ -753,13 +420,7 @@ export function CompanySearch({
                         data-selectionne={i === indexActif ? "oui" : undefined}
                         className={`rounded-2xl ${i === indexActif ? "ring-2 ring-violet-400/70" : ""}`}
                       >
-                        {r.source === "v1" ? (
-                          <ResultCard ticker={r.ticker} onSelect={close} allTickers={allTickersSet} />
-                        ) : r.source === "v19" ? (
-                          <ResultCardV19 ticker={r.ticker} onSelect={close} allTickers={allTickersSet} />
-                        ) : (
-                          <ResultCardV17 ticker={r.ticker} onSelect={close} allTickers={allTickersSet} />
-                        )}
+                        <CarteResultat r={r} onSelect={close} />
                       </li>
                     ))}
                   </ul>
@@ -773,36 +434,16 @@ export function CompanySearch({
   );
 }
 
-/* ─── Carte résultat ───────────────────────────────────────────────── */
-function ResultCard({
-  ticker,
-  onSelect,
-  allTickers,
-}: {
-  ticker: string;
-  onSelect: () => void;
-  allTickers: Set<string> | ReadonlySet<string>;
-}) {
+/* ─── Carte résultat (une seule forme, donnees preparees par le serveur) ─── */
+function CarteResultat({ r, onSelect }: { r: ResultatRecherche; onSelect: () => void }) {
   const anonLiens = useFreemiumTier() === "anon";
   const visiblesGratuit = useVisiblesGratuit();
-  const c = COMPANIES[ticker];
-  const hero = getHero(c);
-  const tone = yoyTone(hero.yoy, hero.type);
-  const yoyColor =
-    tone === "pos" ? "#22c55e" : tone === "neg" ? "#ef4444" : "#a1a1aa";
-  const accent = brand(ticker).primary;
-  // Yann 11 juil 2026 : meme rescale valeur+unite que le hero (formatHeroValue),
-  // jamais de "1 036 M $" dans les resultats de recherche (regle 1-999).
-  const heroFmt = formatHeroValue(hero.value, hero.unit ?? "");
-  const tickerShown = displayTicker(ticker, allTickers);
-  // Yann 4 sept 2026 (2e passe) : la mise en avant vaut pour TOUT le monde,
-  // abonne compris : un visiteur doit voir d un coup d oeil que ces trois
-  // fiches sont differentes des autres (entierement lisibles sans abonnement).
-  const estVitrine = visiblesGratuit.has(ticker.toUpperCase());
-
+  const accent = brand(r.ticker).primary;
+  // Yann 4 sept 2026 : mise en avant des fiches entierement lisibles sans abonnement.
+  const estVitrine = visiblesGratuit.has(r.ticker.toUpperCase());
   return (
     <Link
-      href={anonLiens ? lienInscription(ticker, visiblesGratuit) : buildLatestHref(ticker)}
+      href={anonLiens ? lienInscription(r.ticker, visiblesGratuit) : buildLatestHref(r.ticker)}
       prefetch
       onClick={onSelect}
       // Motif liste de suggestions : la navigation se fait aux fleches, les
@@ -814,71 +455,84 @@ function ResultCard({
           : "border-white/8 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.05]"
       }`}
     >
-      {/* Yann 4 sept 2026 : les trois societes entierement lisibles sans
-          abonnement sont mises en avant, mais uniquement pour un visiteur
-          anonyme ou gratuit : au-dela, toutes les fiches sont ouvertes et la
-          distinction n aurait plus de sens. */}
-      {/* Accent bar à gauche, pulsée au hover */}
       <span
         aria-hidden
         className="absolute left-0 top-0 h-full w-[3px] origin-bottom scale-y-0 transition-transform duration-300 group-hover:scale-y-100"
         style={{ background: accent }}
       />
-
-      {/* Logo */}
       <div
         className={`size-12 shrink-0 overflow-hidden rounded-xl border transition-transform duration-300 group-hover:scale-105 ${
-          logoNeedsLightBg(ticker)
+          logoNeedsLightBg(r.ticker)
             ? "preserve-colors border-[#e5e5e5] bg-[#fafafa]"
             : "border-[#1f1f1f] bg-[#0a0a0a]"
         }`}
       >
-        <CompanyLogo ticker={ticker} />
+        <CompanyLogo ticker={r.ticker} />
       </div>
-
-      {/* Identité */}
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-          <span className="min-w-0 max-w-full truncate text-[14.5px] font-semibold text-zinc-50">
-            {c.name}
+          <span className="min-w-0 max-w-full truncate text-[14.5px] font-semibold text-zinc-50">{r.nom}</span>
+          <span className="font-mono text-[11px] font-bold tracking-wider" style={{ color: accent }}>
+            {r.affiche}
           </span>
-          <span
-            className="font-mono text-[11px] font-bold tracking-wider"
-            style={{ color: accent }}
-          >
-            {tickerShown}
-          </span>
-          {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
-              plus se superposer au KPI affiche a droite. */}
           {estVitrine && (
             <span className="shrink-0 rounded-full border border-violet-300/70 bg-violet-600/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">Complètement gratuit</span>
           )}
-        </div>
-        <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
-          {c.sector} <span className="text-zinc-600">·</span> {c.subsector}
-        </div>
-      </div>
-
-      {/* Hero KPI + delta */}
-      <div className="hidden text-right sm:block">
-        <AcronymHover
-          align="right"
-          label={`${hero.name_fr}${
-            hero.name_en && hero.name_en !== hero.name_fr ? ` (${hero.name_en})` : ""
-          }`}
-        >
-          <div className="cursor-help font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-            {hero.short}
-          </div>
-        </AcronymHover>
-        <div className="mt-0.5 font-mono text-[15px] font-semibold tabular-nums text-zinc-50">
-          {heroFmt.value}
-          {heroFmt.unit && (
-            <span className="ml-1 text-[10.5px] font-normal text-zinc-400">
-              {heroFmt.unit}
+          {r.source === "v19" && (
+            <span className="rounded-md border border-zinc-500/40 bg-zinc-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-zinc-300">
+              V1.9
             </span>
           )}
         </div>
+        {r.source === "v19" ? (
+          <div className="mt-0.5 truncate text-[11.5px] text-zinc-500">
+            Fiche en préparation
+            {r.pays ? <span className="ml-1 text-zinc-600">· {r.pays}</span> : null}
+          </div>
+        ) : (
+          <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
+            {r.secteur}
+            {r.sousSecteur ? (
+              <>
+                {" "}<span className="text-zinc-600">·</span> {r.sousSecteur}
+              </>
+            ) : null}
+          </div>
+        )}
+      </div>
+      <HeroResultat hero={r.hero} />
+      <ArrowRight className="size-4 shrink-0 -translate-x-1 text-zinc-600 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
+    </Link>
+  );
+}
+
+/* ─── Hero KPI à droite des résultats ─── */
+function HeroResultat({ hero }: { hero: ResultatRecherche["hero"] }) {
+  if (!hero) return null;
+  const tone = yoyTone(hero.yoy, (hero.type ?? undefined) as Parameters<typeof yoyTone>[1]);
+  const yoyColor = tone === "pos" ? "#22c55e" : tone === "neg" ? "#ef4444" : "#a1a1aa";
+  // Yann 11 juil 2026 : rescale valeur+unite ensemble (formatHeroValue), regle 1-999.
+  const heroFmt = formatHeroValue(hero.valeur, hero.unite ?? "");
+  if (heroFmt.value === "—") return null;
+  const court = (
+    <div className={`${hero.libelle ? "cursor-help " : ""}font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500`}>
+      {hero.court}
+    </div>
+  );
+  return (
+    <div className="hidden text-right sm:block">
+      {hero.libelle ? (
+        <AcronymHover align="right" label={hero.libelle}>
+          {court}
+        </AcronymHover>
+      ) : (
+        court
+      )}
+      <div className="mt-0.5 font-mono text-[15px] font-semibold tabular-nums text-zinc-50">
+        {heroFmt.value}
+        {heroFmt.unit && <span className="ml-1 text-[10.5px] font-normal text-zinc-400">{heroFmt.unit}</span>}
+      </div>
+      {hero.yoy && (
         <div
           className="mt-0.5 inline-flex items-center justify-end gap-0.5 font-mono text-[11px] tabular-nums"
           style={{ color: yoyColor }}
@@ -887,246 +541,7 @@ function ResultCard({
           {tone === "neg" && <ArrowDownRight className="size-3" />}
           {hero.yoy}
         </div>
-      </div>
-
-      {/* Chevron */}
-      <ArrowRight className="size-4 shrink-0 -translate-x-1 text-zinc-600 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
-    </Link>
-  );
-}
-
-/* ─── Hero KPI à droite des résultats V17/V19 ──────────────────────── */
-/**
- * Rend le hero KPI dans la colonne droite des cartes V17/V19, façon
- * carte ResultCard V1 (label uppercase tracking-wider + valeur mono +
- * variation YoY colorée). Renvoie null si la société n'est pas dans l'index
- * hero (cas rare) ou si la valeur n'est pas formattable.
- *
- * Yann 2 juin 2026 : couvre les 673 sociétés V1.9.5 (clean_all ∪ top 307 ∪
- * SP500), pas juste les 5 V1.0. Cohérent avec le screenshot DAP/Cloud/
- * Backlog côté V1.
- */
-function ResultHeroKpi({ ticker }: { ticker: string }) {
-  const entry = HERO_KPI_INDEX[ticker.toUpperCase()];
-  if (!entry) return null;
-  if (entry.v == null || entry.v === "") return null;
-  if (!entry.s) return null;
-
-  // yoy peut être un nombre brut (ex +12.3) ou une string déjà formatée
-  // ("+12,3 %"). Normalise en string pour l'affichage et le calcul du tone.
-  let yoyStr = "";
-  if (typeof entry.y === "number" && Number.isFinite(entry.y)) {
-    const sign = entry.y > 0 ? "+" : "";
-    yoyStr = `${sign}${entry.y}%`;
-  } else if (typeof entry.y === "string") {
-    yoyStr = entry.y.trim();
-  }
-  const tone = yoyTone(yoyStr, entry.t);
-  const yoyColor =
-    tone === "pos" ? "#22c55e" : tone === "neg" ? "#ef4444" : "#a1a1aa";
-  // Yann 11 juil 2026 : rescale valeur+unite ensemble (formatHeroValue),
-  // regle 1-999, coherent avec kpi-row et le hero de la page ste.
-  const heroFmt = formatHeroValue(entry.v, entry.u ?? "");
-  const heroUnit = heroFmt.unit;
-  const formattedValue = heroFmt.value;
-  if (formattedValue === "—") return null;
-
-  return (
-    <div className="hidden text-right sm:block">
-      <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-        {entry.s}
-      </div>
-      <div className="mt-0.5 font-mono text-[15px] font-semibold tabular-nums text-zinc-50">
-        {formattedValue}
-        {heroUnit && (
-          <span className="ml-1 text-[10.5px] font-normal text-zinc-400">
-            {heroUnit}
-          </span>
-        )}
-      </div>
-      {yoyStr && (
-        <div
-          className="mt-0.5 inline-flex items-center justify-end gap-0.5 font-mono text-[11px] tabular-nums"
-          style={{ color: yoyColor }}
-        >
-          {tone === "pos" && <ArrowUpRight className="size-3" />}
-          {tone === "neg" && <ArrowDownRight className="size-3" />}
-          {yoyStr}
-        </div>
       )}
     </div>
-  );
-}
-
-/* ─── Carte résultat V1.7 (société pipeline, format léger) ──────────────── */
-/**
- * Variante de ResultCard pour les 1602 sociétés V1.7 (pipeline LLM).
- * On a moins d'info qu'en V1 : pas de hero KPI calculé, pas de yoy.
- * On affiche logo (placeholder ticker), nom, ticker, secteur, et un
- * petit chip "V1.7" pour signaler que c'est une fiche pipeline.
- * Route vers `/sandbox/v1-7/<ticker>` (la fiche V1.7).
- */
-function ResultCardV17({
-  ticker,
-  onSelect,
-  allTickers,
-}: {
-  ticker: string;
-  onSelect: () => void;
-  allTickers: Set<string> | ReadonlySet<string>;
-}) {
-  const anonLiens = useFreemiumTier() === "anon";
-  const visiblesGratuit = useVisiblesGratuit();
-  const e = V17_SEARCH_BY_TICKER[ticker.toUpperCase()];
-  const accent = brand(ticker).primary;
-  if (!e) return null;
-  const tickerShown = displayTicker(ticker, allTickers);
-  // Yann 26 mai 2026 : toutes les recherches routent vers la dernière version.
-  const href = anonLiens ? lienInscription(ticker, visiblesGratuit) : buildLatestHref(ticker);
-  return (
-    <Link
-      href={href}
-      prefetch
-      onClick={onSelect}
-      tabIndex={-1}
-      className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
-        visiblesGratuit.has(ticker.toUpperCase())
-          ? "border-violet-400/60 bg-violet-500/[0.08] ring-1 ring-violet-400/30 hover:border-violet-300/80 hover:bg-violet-500/[0.14]"
-          : "border-white/8 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.05]"
-      }`}
-    >
-      <span
-        aria-hidden
-        className="absolute left-0 top-0 h-full w-[3px] origin-bottom scale-y-0 transition-transform duration-300 group-hover:scale-y-100"
-        style={{ background: accent }}
-      />
-      {/* Yann 4 sept 2026 : Google, Meta et Booking sont entierement
-          lisibles sans abonnement ; tout visiteur doit le voir dans les
-          resultats, abonne compris. */}
-
-      {/* Logo : tente CompanyLogo (Clearbit / SVG si dispo), sinon placeholder lettre */}
-      <div
-        className={`size-12 shrink-0 overflow-hidden rounded-xl border transition-transform duration-300 group-hover:scale-105 ${
-          logoNeedsLightBg(ticker)
-            ? "preserve-colors border-[#e5e5e5] bg-[#fafafa]"
-            : "border-[#1f1f1f] bg-[#0a0a0a]"
-        }`}
-      >
-        <CompanyLogo ticker={ticker} />
-      </div>
-
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-          <span className="min-w-0 max-w-full truncate text-[14.5px] font-semibold text-zinc-50">
-            {e.name}
-          </span>
-          <span
-            className="font-mono text-[11px] font-bold tracking-wider"
-            style={{ color: accent }}
-          >
-            {tickerShown}
-          </span>
-          {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
-              plus se superposer au KPI affiche a droite. */}
-          {visiblesGratuit.has(ticker.toUpperCase()) && (
-            <span className="shrink-0 rounded-full border border-violet-300/70 bg-violet-600/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">Complètement gratuit</span>
-          )}
-        </div>
-        <div className="mt-0.5 truncate text-[11.5px] text-zinc-400">
-          {e.sector || "-"}
-        </div>
-      </div>
-
-      <ResultHeroKpi ticker={ticker} />
-
-      <ArrowRight className="size-4 shrink-0 -translate-x-1 text-zinc-600 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
-    </Link>
-  );
-}
-
-/* ─── Carte résultat V1.9 (société EU non encore extraite) ──────────────── */
-/**
- * Variante de ResultCard pour les 78 sociétés V1.9 absentes de `_merged.json`.
- * On n'a aucune donnée pipeline encore (pas de sector, pas de hero), juste
- * un nom (Wikipedia) + un pays. Route vers `/sandbox/v1-9/<ticker>` (page
- * "Fiche en préparation" gérée par Agent B).
- */
-function ResultCardV19({
-  ticker,
-  onSelect,
-  allTickers,
-}: {
-  ticker: string;
-  onSelect: () => void;
-  allTickers: Set<string> | ReadonlySet<string>;
-}) {
-  const anonLiens = useFreemiumTier() === "anon";
-  const visiblesGratuit = useVisiblesGratuit();
-  const e = V19_SEARCH_BY_TICKER[ticker.toUpperCase()];
-  const accent = brand(ticker).primary;
-  if (!e) return null;
-  const href = anonLiens ? lienInscription(ticker, visiblesGratuit) : buildLatestHref(ticker);
-  const tickerShown = displayTicker(ticker, allTickers);
-  return (
-    <Link
-      href={href}
-      prefetch
-      onClick={onSelect}
-      tabIndex={-1}
-      className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border p-3 transition-all ${
-        visiblesGratuit.has(ticker.toUpperCase())
-          ? "border-violet-400/60 bg-violet-500/[0.08] ring-1 ring-violet-400/30 hover:border-violet-300/80 hover:bg-violet-500/[0.14]"
-          : "border-white/8 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.05]"
-      }`}
-    >
-      <span
-        aria-hidden
-        className="absolute left-0 top-0 h-full w-[3px] origin-bottom scale-y-0 transition-transform duration-300 group-hover:scale-y-100"
-        style={{ background: accent }}
-      />
-      {/* Yann 4 sept 2026 : Google, Meta et Booking sont entierement
-          lisibles sans abonnement ; tout visiteur doit le voir dans les
-          resultats, abonne compris. */}
-
-      <div
-        className={`size-12 shrink-0 overflow-hidden rounded-xl border transition-transform duration-300 group-hover:scale-105 ${
-          logoNeedsLightBg(ticker)
-            ? "preserve-colors border-[#e5e5e5] bg-[#fafafa]"
-            : "border-[#1f1f1f] bg-[#0a0a0a]"
-        }`}
-      >
-        <CompanyLogo ticker={ticker} />
-      </div>
-
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-          <span className="min-w-0 max-w-full truncate text-[14.5px] font-semibold text-zinc-50">
-            {e.name}
-          </span>
-          <span
-            className="font-mono text-[11px] font-bold tracking-wider"
-            style={{ color: accent }}
-          >
-            {tickerShown}
-          </span>
-          {/* 9 sept 2026 : badge place dans la colonne identite, a gauche, pour ne
-              plus se superposer au KPI affiche a droite. */}
-          {visiblesGratuit.has(ticker.toUpperCase()) && (
-            <span className="shrink-0 rounded-full border border-violet-300/70 bg-violet-600/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">Complètement gratuit</span>
-          )}
-          <span className="rounded-md border border-zinc-500/40 bg-zinc-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-zinc-300">
-            V1.9
-          </span>
-        </div>
-        <div className="mt-0.5 truncate text-[11.5px] text-zinc-500">
-          Fiche en préparation
-          {e.country ? <span className="ml-1 text-zinc-600">· {e.country}</span> : null}
-        </div>
-      </div>
-
-      <ResultHeroKpi ticker={ticker} />
-
-      <ArrowRight className="size-4 shrink-0 -translate-x-1 text-zinc-600 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-zinc-300 group-hover:opacity-100" />
-    </Link>
   );
 }

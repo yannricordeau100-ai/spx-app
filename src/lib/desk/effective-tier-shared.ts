@@ -38,7 +38,7 @@ export function detectLevelFromHost(host: string | null | undefined): 0 | 1 | 2 
   if (!h) return 0;
   if (h.startsWith("localhost") || h.startsWith("127.0.0.1") || h.endsWith(".local")) return 3;
   if (h === "mettrik.ai" || h === "www.mettrik.ai") return 0;
-  if (h.startsWith("mettrik-niveau1") || h.startsWith("niveau1.")) return 1;
+  if (/niveau1[.-]/.test(h)) return 1; // 8 oct 2026 : pas de nom d hote en dur
   if (h.endsWith(".vercel.app")) return 2;
   return 0;
 }

@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { generateReferralCode, DEFAULT_REFERRAL_SETTINGS } from "@/lib/referrals";
 
 /**
@@ -14,8 +15,8 @@ import { generateReferralCode, DEFAULT_REFERRAL_SETTINGS } from "@/lib/referrals
  */
 
 async function getSettings() {
-  const supabase = await createSupabaseServerClient();
-  const { data } = await supabase
+  // 8 oct 2026 : desk_referral_settings n est plus lisible avec la cle anonyme.
+  const { data } = await createSupabaseAdminClient()
     .from("desk_referral_settings")
     .select("*")
     .eq("id", 1)
@@ -53,7 +54,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "auth_required" }, { status: 401 });
   }
 
-  const { data: settings } = await supabase
+  const { data: settings } = await createSupabaseAdminClient()
     .from("desk_referral_settings")
     .select("*")
     .eq("id", 1)

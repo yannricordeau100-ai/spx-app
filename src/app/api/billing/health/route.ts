@@ -6,6 +6,7 @@
  */
 import { NextResponse } from "next/server";
 import productsConfig from "@/lib/billing/stripe-products.json";
+import { estAdminSandbox } from "@/lib/desk/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,14 @@ function mode(v: string | undefined): string {
   return "inconnue";
 }
 
-export async function GET() {
+export async function GET(req: Request) {
+  // 8 oct 2026 (audit des fuites publiques, ligne 16) : un visiteur ne recoit
+  // que { ok: true }, ce qui suffit aux controles de disponibilite (code 200).
+  // Le detail de la configuration Stripe est reserve aux comptes admin ou au
+  // jeton d audit.
+  if (!(await estAdminSandbox(req))) {
+    return NextResponse.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });
+  }
   return NextResponse.json({
     cle_secrete: mode(process.env.STRIPE_SECRET_KEY),
     cle_publique: mode(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY),

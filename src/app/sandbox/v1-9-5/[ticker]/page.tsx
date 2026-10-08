@@ -1,3 +1,4 @@
+import { avecDonneesFiche } from "@/lib/donnees-fiche-client";
 import { notFound, redirect } from "next/navigation";
 import { promises as fs } from "fs";
 import path from "path";
@@ -396,7 +397,7 @@ export default async function SandboxV195TickerPage({
   return (
     <FreemiumBlurProvider tier={freemiumTier}>
       <CompanyView
-        company={stripMeta(servedCompany)}
+        company={stripMeta(avecDonneesFiche(servedCompany, freemiumTier === "premium" || freemiumTier === "max"))}
         authSlot={<AuthNav scope="company" />}
         captureInscription={vitrineAnon}
         transcript={estGratuit ? caviardeTranscriptDocPourGratuit(transcript, zonesEffectives) : transcript}

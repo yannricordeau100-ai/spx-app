@@ -216,7 +216,7 @@ export function Contenu({ f, id, admin = null }: { f: FicheDemo; id: string; adm
         </div>
       );
     case "sources":
-      return <SourcesExternes ticker={c.ticker} paid extra={c.evenement?.sources} />;
+      return <SourcesExternes ticker={c.ticker} paid extra={c.evenement?.sources} sources={(c as { sources_externes?: string[] }).sources_externes} />;
     case "admin":
       return admin ? <div className="grid gap-6">{admin}</div> : null;
     default:

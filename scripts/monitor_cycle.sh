@@ -4,7 +4,7 @@ set -e
 cd ~/spx-app
 
 # 1. Sync data-lake
-cp -rn ~/data-lake/* data-lake/ 2>/dev/null || true
+# 8 oct 2026 : second lac ~/data-lake supprime (tout est dans data-lake/)
 
 # 2. Ingest + build
 python3 scripts/datalake/ingest_drafts.py 2>&1 | tail -3

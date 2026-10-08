@@ -27,12 +27,12 @@ export default function robots(): MetadataRoute.Robots {
     "/api/",
     "/auth/",
     "/account/",
+    // 8 oct 2026 (audit des fuites publiques, ligne 22) : /desk-, /whoami et
+    // /_not-found-desk retires. Les citer signalait des routes cachees ; elles
+    // repondent 404 sur mettrik.ai (proxy), ce qui suffit. Ne pas les remettre.
     "/admin/",
-    "/desk-", // toute URL secrète /desk-<slug>
     "/sandbox/",
     "/concepts/",
-    "/whoami",
-    "/_not-found-desk",
   ];
 
   return {

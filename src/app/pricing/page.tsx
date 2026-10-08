@@ -125,7 +125,7 @@ export default async function PricingPage() {
             réduire l'espace entre la phrase d'intro et les onglets
             Mensuel/Annuel. */}
         <div className="mx-auto mt-6 max-w-5xl">
-          <PricingCards ctaTrackingPrefix="pricing_top_" plans={catalog.plans} features={catalog.features} currency={currency} taglines={taglines} />
+          <PricingCards ctaTrackingPrefix="pricing_top_" plans={catalog.plans} features={catalog.features} carteGratuit={catalog.carte_gratuit} currency={currency} taglines={taglines} />
         </div>
 
         {/* Yann (25 mai 2026) : ancre #compare = cible du bouton "Tout comparer

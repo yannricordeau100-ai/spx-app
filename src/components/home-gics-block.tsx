@@ -10,17 +10,19 @@
  * deux autres sont visibles sur la page concept pour choix.
  */
 
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { GICS, type GicsSector } from "@/lib/desk/gics";
 import { GICS_SUB_EN } from "@/lib/desk/gics-en";
 import { useT } from "@/lib/i18n/provider";
-import COMPTES from "@/data/kpi-comptes-industries.json";
 
-// Yann 12 sept 2026 : KPI totaux par industrie (IC standard + avances + stories),
-// en orange. Genere par scripts/compte-kpi-industries.ts (+ agregation).
-const KPI_PAR_INDUSTRIE = (COMPTES as { par_industrie: Record<string, { total: number; stes: number }> }).par_industrie;
-// Yann 17 sept 2026 : total de tous les KPI (« KPI Mettrik AI ») en bas du bloc, mis a jour chaque jour par le cron kpi-comptes.
-const KPI_GLOBAL = (COMPTES as { global: { total: number; stes: number }; maj: string }).global;
+// Yann 12 sept 2026 : KPI totaux par industrie, en orange ; Yann 17 sept 2026 :
+// total de tous les KPI en bas du bloc.
+// 8 oct 2026 (audit des fuites publiques, ligne 11) : ce composant client
+// n importe plus kpi-comptes-industries.json (qui exposait KPI avances,
+// stories, IC et le nombre de societes). Le serveur ne transmet que les
+// nombres affiches (src/lib/comptes-gics-public.ts).
+export type ComptesGicsPublics = { parIndustrie: Record<string, number>; total: number };
+const ComptesCtx = createContext<ComptesGicsPublics | null>(null);
 
 export type GicsVariante = "toggle" | "colonnes" | "tuiles";
 type Lang = "fr" | "en" | "de";
@@ -46,6 +48,7 @@ function nomSous(code: string, nomFr: string, lang: Lang): string {
 
 /** Arbre complet d un secteur : groupes, industries, sous-industries, avec codes. */
 function Arbre({ s, lang, compact = false }: { s: GicsSector; lang: Lang; compact?: boolean }) {
+  const comptes = useContext(ComptesCtx);
   return (
     <div className={compact ? "space-y-3" : "space-y-5"}>
       {s.groups.map((g) => (
@@ -62,9 +65,9 @@ function Arbre({ s, lang, compact = false }: { s: GicsSector; lang: Lang; compac
                   <span className="w-14 shrink-0 font-mono text-[10.5px] tracking-wider text-emerald-300/90">{i.code}</span>
                   <span className="min-w-0 flex-1 text-[12.5px] font-medium leading-snug text-zinc-200 sm:flex-none">{i.name}</span>
                   <span className="hidden font-mono text-[9px] uppercase tracking-wider text-zinc-600 sm:inline">{NIVEAUX[lang][2]}</span>
-                  {KPI_PAR_INDUSTRIE[i.code] && (
-                    <span className="ml-[4.25rem] w-full whitespace-nowrap font-mono text-[10.5px] font-semibold text-orange-400 sm:ml-auto sm:w-auto" title={`${KPI_PAR_INDUSTRIE[i.code].stes} ${lang === "en" ? "companies" : lang === "de" ? "Unternehmen" : "sociétés"}`}>
-                      {KPI_PAR_INDUSTRIE[i.code].total.toLocaleString(lang === "en" ? "en-US" : lang === "de" ? "de-DE" : "fr-FR")} {lang === "en" ? "total KPIs" : lang === "de" ? "KPI gesamt" : "KPIs totaux"}
+                  {comptes?.parIndustrie[i.code] !== undefined && (
+                    <span className="ml-[4.25rem] w-full whitespace-nowrap font-mono text-[10.5px] font-semibold text-orange-400 sm:ml-auto sm:w-auto">
+                      {comptes.parIndustrie[i.code].toLocaleString(lang === "en" ? "en-US" : lang === "de" ? "de-DE" : "fr-FR")} {lang === "en" ? "total KPIs" : lang === "de" ? "KPI gesamt" : "KPIs totaux"}
                     </span>
                   )}
                 </div>
@@ -177,11 +180,12 @@ function VarianteTuiles({ lang }: { lang: Lang }) {
   );
 }
 
-export function HomeGicsBlock({ variante = "toggle", sansTitre = false }: { variante?: GicsVariante; sansTitre?: boolean }) {
+export function HomeGicsBlock({ variante = "toggle", sansTitre = false, comptes = null }: { variante?: GicsVariante; sansTitre?: boolean; comptes?: ComptesGicsPublics | null }) {
   const { locale } = useT();
   const lang = (locale === "de" ? "de" : locale === "fr" ? "fr" : "en") as Lang;
   const t = TITRES[lang];
   return (
+    <ComptesCtx.Provider value={comptes}>
     <section className="mx-auto mt-10 max-w-6xl px-4 sm:mt-14">
       {!sansTitre && (
         <div className="mb-6 text-center">
@@ -192,11 +196,12 @@ export function HomeGicsBlock({ variante = "toggle", sansTitre = false }: { vari
       {variante === "toggle" && <VarianteToggle lang={lang} />}
       {variante === "colonnes" && <VarianteColonnes lang={lang} />}
       {variante === "tuiles" && <VarianteTuiles lang={lang} />}
-      {!sansTitre && (
+      {!sansTitre && comptes && (
         <p className="mt-6 text-center font-mono text-[13px] text-orange-400">
-          {KPI_GLOBAL.total.toLocaleString(lang === "en" ? "en-US" : lang === "de" ? "de-DE" : "fr-FR")} KPI Mettrik AI
+          {comptes.total.toLocaleString(lang === "en" ? "en-US" : lang === "de" ? "de-DE" : "fr-FR")} KPI Mettrik AI
         </p>
       )}
     </section>
+    </ComptesCtx.Provider>
   );
 }

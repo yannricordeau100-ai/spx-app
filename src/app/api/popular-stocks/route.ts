@@ -86,9 +86,16 @@ export async function GET() {
     const dataPath = path.join(process.cwd(), "src/data/popular-stocks-by-language.json");
     const raw = JSON.parse(fs.readFileSync(dataPath, "utf-8")) as Record<string, unknown>;
     const enrich = loadEnrichments();
+    // 8 oct 2026 : filtrage sur l univers en ligne cote serveur (avant : liste
+    // complete importee dans le composant client home-popular-block).
+    const enLigne = new Set(
+      (JSON.parse(fs.readFileSync(path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json"), "utf-8")) as { tickers: string[] }).tickers.map((x) => x.toUpperCase()),
+    );
 
     for (const region of Object.keys(raw)) {
       if (region.startsWith("_")) continue;
+      if (!Array.isArray(raw[region])) continue;
+      raw[region] = (raw[region] as Record<string, unknown>[]).filter((row) => enLigne.has(String(row.ticker || "").toUpperCase()));
       const rows = raw[region];
       if (!Array.isArray(rows)) continue;
       for (const row of rows as Record<string, unknown>[]) {
@@ -109,6 +116,9 @@ export async function GET() {
         }
       }
     }
+    // 8 oct 2026 (audit des fuites publiques, ligne 21) : aucune cle interne
+    // (_meta : methode, perimetre de l univers) dans la reponse publique.
+    for (const k of Object.keys(raw)) if (k.startsWith("_")) delete (raw as Record<string, unknown>)[k];
     return NextResponse.json(raw);
   } catch (e) {
     return NextResponse.json({ error: String(e) }, { status: 500 });

@@ -4,7 +4,7 @@ import { PlausibleScript } from "@/components/analytics/plausible";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getServerLocale } from "@/lib/i18n/server";
 import { UserPrefsSync } from "@/components/user-prefs-sync";
-import { AdminFloatingPanel } from "@/components/admin-floating-panel";
+import { AdminFloatingPanelLoader } from "@/components/admin-floating-panel-loader";
 import { SupportLauncher } from "@/components/support/support-launcher";
 import { DisclaimerFooter } from "@/components/legal/disclaimer-footer";
 import { FooterGate } from "@/components/legal/footer-gate";
@@ -235,7 +235,7 @@ export default async function RootLayout({
             l'indicateur de niveau (orange/violet/gris) + 3 dropdowns :
             simulation tier, switch version (V1.7/V1.7.5/V1.8), switch
             niveau (1 ↔ 2). Masqué automatiquement en niveau 0 prod. */}
-        <AdminFloatingPanel />
+        <AdminFloatingPanelLoader />
         <SupportLauncher />
       </body>
     </html>

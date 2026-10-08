@@ -96,6 +96,10 @@ const PRICING_MAX: PricingTable = {
   cad: { month: 9490, year: 80900 },     // CA$94.90 / CA$809 (rapport Premium)
 };
 
+// 8 oct 2026 : descriptions affichees sous le nom du produit sur la page de
+// paiement Stripe. Appliquees en live le 8 oct (POST /v1/products/{id}). Une
+// ligne, fonctions reelles du plan, aucun pourcentage (la remise varie selon
+// la devise). ensureProduct ne les pose qu a la creation d un produit.
 const PRODUCT_DEFS = [
   {
     metaId: "mettrik_free",
@@ -106,21 +110,21 @@ const PRODUCT_DEFS = [
   {
     metaId: "mettrik_premium_monthly",
     name: "Mettrik AI Premium (mensuel)",
-    description: "Accès complet à toutes les sociétés couvertes, comparaison N-vs-N, watchlists illimitées, alertes par KPI, digest hebdo.",
+    description: "Plus de 600 sociétés cotées : KPI court, moyen et long terme, risques, thèses et comparaisons. Sans engagement.",
     type: "subscription" as const,
     interval: "month" as const,
   },
   {
     metaId: "mettrik_premium_annual",
     name: "Mettrik AI Premium (annuel)",
-    description: "Mêmes fonctionnalités que Premium mensuel, payé en une fois. ~37% d'économie vs mensuel.",
+    description: "Tout Premium sur 12 mois, réglé en une fois : plus de 600 sociétés, KPI, risques, thèses et comparaisons.",
     type: "subscription" as const,
     interval: "year" as const,
   },
   {
     metaId: "mettrik_max_monthly",
     name: "Mettrik AI Max (mensuel)",
-    description: "Tout Premium, plus les outils avances destines aux family offices, conseillers et fonds.",
+    description: "Tout Premium, plus un historique plus long, le chat IA, les alertes KPI par e-mail et le support prioritaire.",
     type: "subscription" as const,
     interval: "month" as const,
     grille: "max" as const,
@@ -128,7 +132,7 @@ const PRODUCT_DEFS = [
   {
     metaId: "mettrik_max_annual",
     name: "Mettrik AI Max (annuel)",
-    description: "Memes fonctionnalites que Max mensuel, paye en une fois.",
+    description: "Tout Max sur 12 mois, réglé en une fois : historique plus long, chat IA, alertes KPI par e-mail, support prioritaire.",
     type: "subscription" as const,
     interval: "year" as const,
     grille: "max" as const,

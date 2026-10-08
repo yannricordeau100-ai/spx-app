@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { DESK_OWNER_EMAIL } from "@/lib/desk/auth";
 
 async function requireOwner() {
@@ -8,7 +9,9 @@ async function requireOwner() {
   if (!user || user.email !== DESK_OWNER_EMAIL) {
     return { ok: false as const, response: NextResponse.json({ error: "forbidden" }, { status: 403 }) };
   }
-  return { ok: true as const, supabase, email: user.email! };
+  // 8 oct 2026 : table fermee a la lecture anonyme (RLS), acces par la cle service
+  // une fois le proprietaire verifie.
+  return { ok: true as const, supabase: createSupabaseAdminClient(), email: user.email! };
 }
 
 export async function GET() {

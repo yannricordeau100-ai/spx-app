@@ -62,8 +62,20 @@ def agregat_financier(nom):
     n=re.sub(r"\(.*?\)"," ",n);n=re.sub(r"[^a-z0-9 ]+"," ",n);n=re.sub(r"\s+"," ",n).strip()
     return bool(_AGR.match(n))
 
+try:
+    _IND=json.load(open('src/data/kpi-industrie-par-societe.json',encoding='utf-8'))['societes']
+except Exception:
+    _IND={}
+def _noms_ind(T):
+    r=set()
+    for i in (_IND.get(T) or {}).get('indicateurs',[]):
+        if i.get('sur_fiche'):
+            for c in (i.get('nom_sur_fiche_fr'),i.get('nom_sur_fiche_en'),i.get('code_sur_fiche')):
+                if c: r.add(c)
+    return r
 def note(k):
     n=0
+    if k.get('_ind'): n+=6
     if not financier(k.get('unit')): n+=5
     if k.get('is_wow'): n+=4
     a=ampl(k.get('yoy'))
@@ -87,21 +99,45 @@ def periode_de(k):
     if isinstance(sm,str) and sm.strip(): return sm.strip()
     return None
 
+
+import subprocess,sys,datetime
+# Export des KPI servis par la fiche (regenere a chaque execution).
+os.makedirs('.cache',exist_ok=True)
+_EXP='.cache/kpis-servis.json'
+if '--no-export' not in sys.argv:
+    subprocess.run(['npx','tsx','--env-file=.env.local','scripts/export-kpis-servis.ts',_EXP],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+SERVIS=json.load(open(_EXP,encoding='utf-8'))
+AUJ=datetime.date.today()
+def dernier_point(k):
+    """Date du dernier point du KPI : last_data_date, sinon dernier libelle de periode."""
+    d=k.get('last_data_date')
+    if isinstance(d,str) and re.match(r'\d{4}-\d{2}',d):
+        try: return datetime.date(int(d[:4]),int(d[5:7]),1)
+        except Exception: pass
+    hp=k.get('history_periods')
+    if isinstance(hp,list) and hp:
+        l=str(hp[-1])
+        m=re.search(r'Q([1-4])\D*(\d{4})',l) or None
+        if m: return datetime.date(int(m.group(2)),int(m.group(1))*3,1)
+        m=re.search(r'(?:H|S)([12])\D*(\d{4})',l)
+        if m: return datetime.date(int(m.group(2)),int(m.group(1))*6,1)
+        m=re.search(r'(\d{4})',l)
+        if m: return datetime.date(int(m.group(1)),12,1)
+    return None
+def recent(k):
+    d=dernier_point(k)
+    if not d: return False
+    return (AUJ-d).days<=18*30+31
+
 def fiche_wow(T):
     """Selection des 3 KPI wow d une societe, regles communes a la grille
     d accueil et a la carte des pays (Yann 07 sept 2026 : memes filtres)."""
-    kpis=[];nom=None
-    p1=f'.batches-drafts-safe/kpis-haut/{T}.json'
-    if os.path.exists(p1):
-        try: kpis=json.load(open(p1,encoding='utf-8')).get('kpis') or []
-        except Exception: pass
-    p2=f'src/data/v2-pipeline/{T.lower()}.json'
-    if os.path.exists(p2):
-        try:
-            f2=json.load(open(p2,encoding='utf-8')); nom=f2.get('name')
-            vus={k.get('short') for k in kpis}
-            kpis+=[k for k in (f2.get('kpis') or []) if k.get('short') not in vus]
-        except Exception: pass
+    # 8 oct 2026 : SEULS les KPI reellement servis sur la fiche (meme chargeur
+    # que la page, scripts/export-kpis-servis.ts) sont eligibles, avec le meme
+    # nom, la meme valeur et la meme periode. Plus de lecture des brouillons.
+    f=SERVIS.get(T)
+    if not f: return None
+    nom=f.get('name'); kpis=f.get('kpis') or []
     kpis=[k for k in kpis if isinstance(k,dict) and k.get('value') is not None and (k.get('name_fr') or k.get('name_en'))]
     # Yann 29 aout 2026 (cas AMZN capacite electrique, 1 point) : la home ne met
     # en avant que des KPI reellement AFFICHES sur la page ste. Memes seuils que
@@ -117,10 +153,14 @@ def fiche_wow(T):
         seuil=4 if pt=='quarter' else 2 if pt=='semester' else 3
         return isinstance(h,list) and len(h)>=seuil
     kpis=[k for k in kpis if affichable(k)]
+    # Periode recente : dernier point dans les 18 derniers mois.
+    kpis=[k for k in kpis if recent(k)]
+    ind=_noms_ind(T)
+    for k in kpis: k['_ind']=bool({k.get('name_fr'),k.get('name_en'),k.get('short')}&ind)
     # Yann 25 sept 2026 (cas Broadcom, flux de tresorerie disponible) : la home
     # ne montre JAMAIS un agregat financier de la societe (CA, resultat, BPA,
     # marges, flux de tresorerie, EBITDA, dette nette), marque generique ou non.
-    kpis=[k for k in kpis if not k.get('is_generic') and not agregat_financier(k.get('name_fr') or k.get('name_en'))]
+    kpis=[k for k in kpis if not k.get('is_generic') and not k.get('generique') and not agregat_financier(k.get('name_fr') or k.get('name_en'))]
     # Yann 29 aout 2026 : deux KPI dont le libelle en recouvre un autre
     # (« Cout du risque » / « Cout du risque trimestriel ») faisaient doublon
     # sur la carte. On garde le mieux note des deux.

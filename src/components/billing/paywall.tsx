@@ -41,7 +41,7 @@ export function Paywall({
   mode = "blur",
   children,
   label = "Passer en Premium pour débloquer",
-  pricingHref = "/sandbox/billing",
+  pricingHref = "/pricing",
 }: PaywallProps) {
   if (!locked) return <>{children}</>;
 

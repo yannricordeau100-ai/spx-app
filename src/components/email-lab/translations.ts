@@ -41,7 +41,7 @@ export const TRANSLATIONS: Record<Lang, EmailCopy> = {
     teaserTitle: "Ce qui t'attend",
     teasers: [
       "KPI indispensables et Super KPI privées",
-      "Plusieurs milliers de sociétés US et Europe",
+      "Plus de 600 sociétés US et Europe",
       "Risques, gouvernance et IA",
     ],
     manualLinkLabel: "Le bouton ne marche pas ? Copie ce lien :",
@@ -62,7 +62,7 @@ export const TRANSLATIONS: Record<Lang, EmailCopy> = {
     teaserTitle: "What's inside",
     teasers: [
       "Essential KPIs and private Super KPIs",
-      "Thousands of US and European companies",
+      "More than 600 US and European companies",
       "Risk factors, governance and AI",
     ],
     manualLinkLabel: "Button not working? Copy this link:",
@@ -83,7 +83,7 @@ export const TRANSLATIONS: Record<Lang, EmailCopy> = {
     teaserTitle: "Was dich erwartet",
     teasers: [
       "Unverzichtbare KPIs und private Super-KPIs",
-      "Tausende US- und europäische Unternehmen",
+      "Über 600 US- und europäische Unternehmen",
       "Risiken, Governance und KI",
     ],
     manualLinkLabel: "Button funktioniert nicht? Kopiere diesen Link:",

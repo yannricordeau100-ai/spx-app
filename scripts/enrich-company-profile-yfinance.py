@@ -39,7 +39,7 @@ UNIVERS = PROJECT_ROOT / "src/data/v1-9-5-clean-all-tickers.json"
 ENR = PROJECT_ROOT / "src/data/v2-pipeline-enrich"
 
 # Symboles Yahoo differents du ticker Mettrik (meme table que ranks-univers.py).
-ALIAS = {"BF.B": "BF-B", "DPW.DE": "DHL.DE"}
+ALIAS = {"BF.B": "BF-B", "DPW.DE": "DHL.DE", "ROG.SW": "ROP.SW"}  # 8 oct 2026 : bons de jouissance ROG echanges en ROP le 17 mars 2026
 
 
 def univers_tickers():

@@ -17,7 +17,6 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, Crown } from "lucide-react";
 import { SignupGateOverlay } from "@/components/signup-gate-overlay";
 
-import v195CleanAll from "@/data/v1-9-5-clean-all-tickers.json";
 
 export type PopularRow = {
   ticker: string;
@@ -494,15 +493,12 @@ export function HomePopularBlock({
         const j = (await r.json()) as PopularData;
         // Yann 11 juil 2026 : scope public = SP500 strict. On filtre chaque
         // marché aux 503 sociétés visibles ; les onglets vidés sont masqués.
-        const spSet = new Set(
-          (v195CleanAll as { tickers: string[] }).tickers.map((x) => x.toUpperCase()),
-        );
-        const filtered: PopularData = { _meta: j._meta } as PopularData;
+        // 8 oct 2026 (audit des fuites publiques) : le filtrage sur l univers en
+        // ligne est fait par /api/popular-stocks ; plus de liste importee ici.
+        const filtered: PopularData = {} as PopularData;
         for (const [k, rows] of Object.entries(j)) {
-          if (k === "_meta" || !Array.isArray(rows)) continue;
-          filtered[k] = (rows as PopularRow[]).filter((row) =>
-            spSet.has(String(row.ticker).toUpperCase()),
-          );
+          if (k.startsWith("_") || !Array.isArray(rows)) continue;
+          filtered[k] = rows as PopularRow[];
         }
         if (!cancel) setData(filtered);
       } catch {

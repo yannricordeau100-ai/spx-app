@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
+import { comptesGicsPublics } from "@/lib/comptes-gics-public";
 import { HomeView } from "@/components/home-view";
 import SandboxV195HubPage from "@/app/sandbox/v1-9-5/page";
 import { HomeTopBar } from "@/components/home-top-bar";
@@ -99,7 +100,7 @@ export default async function HomePage({
   return (
     <>
       <HomeTopBar themePaid={themePaid} showPricing={!!user} anon={!user} />
-      <HomeView contentOverrides={homeOverrides} />
+      <HomeView contentOverrides={homeOverrides} comptesGics={comptesGicsPublics()} />
       {!user && (
         <Suspense fallback={null}>
           <AuthRequiredBanner />

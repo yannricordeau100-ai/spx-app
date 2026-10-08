@@ -1,3 +1,4 @@
+import { avecDonneesFiche } from "@/lib/donnees-fiche-client";
 import { notFound, redirect } from "next/navigation";
 import { promises as fs } from "fs";
 import path from "path";
@@ -349,7 +350,7 @@ export default async function TickerPage({
       <>
         <FreemiumBlurProvider tier={tierRepli}>
           <CompanyView
-            company={assainirPourClient(legacyCompany)}
+            company={assainirPourClient(avecDonneesFiche(legacyCompany, tierRepli === "premium" || tierRepli === "max"))}
             authSlot={<AuthNav scope="company" />}
           captureInscription={vitrineAnon}
             transcript={assainirPourClient(tierRepli === "free" || tierRepli === "anon" ? null : transcript)}
@@ -464,7 +465,7 @@ export default async function TickerPage({
       />
       <FreemiumBlurProvider tier={freemiumTier}>
         <CompanyView
-          company={assainirPourClient(allegerPourClient(servedCompany))}
+          company={assainirPourClient(allegerPourClient(avecDonneesFiche(servedCompany, freemiumTier === "premium" || freemiumTier === "max")))}
           authSlot={<AuthNav scope="company" />}
           captureInscription={vitrineAnon}
           transcript={assainirPourClient(estGratuit ? caviardeTranscriptDocPourGratuit(transcript, zonesEffectives) : transcript)}

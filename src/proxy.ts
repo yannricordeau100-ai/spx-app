@@ -449,8 +449,9 @@ export async function proxy(request: NextRequest) {
   // Yann 24 sept 2026 : /concepts (maquettes), /chart-lab (galerie) et /whoami
   // (diagnostic) sont des pages de travail, jamais servies sur le domaine public.
   // Yann 24 sept 2026 : /faq et /populaire-investisseurs retires du site public.
-  const PREFIXES_INTERNES = ["/sandbox", "/admin", "/desk-mtk9x4kp", "/email-lab", "/concepts", "/chart-lab", "/whoami", "/faq", "/populaire-investisseurs"];
-  if (isProdDomain && PREFIXES_INTERNES.some((p) => routePathname === p || routePathname.startsWith(p + "/"))) {
+  const PREFIXES_INTERNES = ["/sandbox", "/admin", `/desk-${process.env.DESK_SLUG ?? "mtk9x4kp"}`, "/email-lab", "/concepts", "/chart-lab", "/whoami", "/faq", "/populaire-investisseurs"];
+  const estRouteInterne = PREFIXES_INTERNES.some((p) => routePathname === p || routePathname.startsWith(p + "/"));
+  if (isProdDomain && estRouteInterne) {
     return new NextResponse(null, { status: 404 });
   }
   if (isMaintenanceOn) {
@@ -688,6 +689,20 @@ export async function proxy(request: NextRequest) {
   if (auditToken && !isAuditBypass) {
     signaleTokenInvalide(pathname, (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim());
   }
+  // 8 oct 2026 (audit des fuites publiques, ligne 15, option B) : sur les
+  // preversions (mettrik-niveau1/2 et toute adresse *.vercel.app), l outillage
+  // interne repond 404 a toute session qui n est pas admin (compte proprietaire
+  // ou compte de marque) et sans jeton d audit. Avant, /sandbox/v1-9-5 et
+  // /concepts repondaient 200 sans connexion. Le poste local (localhost) reste libre.
+  const estPosteLocal = host.startsWith("localhost") || host.startsWith("127.0.0.1") || host.endsWith(".local") || /^(192\.168|172\.20|192\.0\.0)\./.test(host);
+  if (!isProdDomain && !estPosteLocal && estRouteInterne && !isAuditBypass) {
+    const courriel = (user?.email ?? "").toLowerCase().trim();
+    const comptesAdmin = [adminEmail, "mettrikai@gmail.com"];
+    if (!courriel || !comptesAdmin.includes(courriel)) {
+      return new NextResponse(null, { status: 404 });
+    }
+  }
+
   if (!user && !isPublicPath(pathname) && !isAuditBypass) {
     const url = request.nextUrl.clone();
     url.pathname = isFrLocale ? "/fr" : "/";
@@ -728,8 +743,13 @@ export async function proxy(request: NextRequest) {
   // La vraie source de vérité reste desk_releases en BDD.
   const buildVersion = process.env.NEXT_PUBLIC_BUILD_VERSION ?? "dev";
   const headerValue = `${currentLevel}/${buildVersion}`;
-  response.headers.set("x-mettrik-version", headerValue);
-  response.headers.set("x-mettrik-level", currentLevel);
+  // 8 oct 2026 (audit des fuites publiques, ligne 23) : en-tetes internes
+  // poses seulement hors production. La version servie reste lisible par
+  // /api/version.
+  if (!isLiveHost) {
+    response.headers.set("x-mettrik-version", headerValue);
+    response.headers.set("x-mettrik-level", currentLevel);
+  }
 
   // i18n : si on est sur /fr/*, on REWRITE vers /<route> pour que Next
   // résolve le bon segment d'app. URL visible côté browser reste /fr/<route>.
@@ -742,8 +762,10 @@ export async function proxy(request: NextRequest) {
     response.cookies.getAll().forEach((c) => {
       rewriteResponse.cookies.set(c.name, c.value, c);
     });
-    rewriteResponse.headers.set("x-mettrik-version", headerValue);
-    rewriteResponse.headers.set("x-mettrik-level", currentLevel);
+    if (!isLiveHost) {
+      rewriteResponse.headers.set("x-mettrik-version", headerValue);
+      rewriteResponse.headers.set("x-mettrik-level", currentLevel);
+    }
     return rewriteResponse;
   }
 

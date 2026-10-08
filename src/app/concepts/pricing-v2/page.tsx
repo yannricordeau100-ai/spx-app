@@ -301,8 +301,8 @@ function TrustBadge({ icon, label }: { icon: React.ReactNode; label: string }) {
 }
 
 function topFeatures(tier: "free" | "premium" | "max"): string[] {
-  if (tier === "free") return ["Google + Meta accès complet", "Comparaison Google ↔ Meta", "Tous les indicateurs", "2 favoris", "Sans CB"];
-  if (tier === "premium") return ["1 000+ sociétés", "Citations dirigeants", "Risques + gouvernance + IA", "Calendrier résultats", "5 alertes email"];
+  if (tier === "free") return ["Sélection de sociétés en accès complet", "Comparaison entre ces sociétés", "Tous les indicateurs", "2 favoris", "Sans CB"];
+  if (tier === "premium") return ["Plus de 600 sociétés", "Citations dirigeants", "Risques + gouvernance + IA", "Calendrier résultats", "5 alertes email"];
   return ["Tout Premium, et :", "Favoris illimités", "Alertes illimitées", "Historique 10 + 20 ans", "Export PDF + CSV", "Accès API"];
 }
 

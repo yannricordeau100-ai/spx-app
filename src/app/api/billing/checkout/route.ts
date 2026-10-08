@@ -1,7 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/billing/stripe";
-import { resolvePriceId, type CurrencyCode } from "@/lib/billing/products";
+import type { CurrencyCode } from "@/lib/billing/products";
+import { cleStripe, prixParCle } from "@/lib/billing/stripe-prix-sync";
 import { validatePromoCode, upsertPromoCode } from "@/lib/billing/admin-queries";
 
 /**
@@ -73,12 +74,19 @@ export async function POST(req: NextRequest) {
           { status: 400 }
         );
       }
-      priceId = resolvePriceId(plan, currency) ?? undefined;
+      // 8 oct 2026 : resolution par la grille du back-office (et non plus par
+      // le fichier statique stripe-products.json, fige au 31 aout).
+      const [codePlan, periode] = String(plan).split("_");
+      const { data: planDb } = await supabase.from("pricing_plans").select("id").ilike("code", codePlan).maybeSingle();
+      const { data: ligne } = planDb
+        ? await supabase.from("pricing_prices").select("stripe_price_id")
+            .eq("plan_id", planDb.id).eq("currency", currency.toUpperCase())
+            .eq("frequency", periode === "annual" || periode === "yearly" ? "annual" : "monthly")
+            .eq("is_active", true).maybeSingle()
+        : { data: null };
+      priceId = ligne?.stripe_price_id ?? undefined;
       if (!priceId) {
-        return NextResponse.json(
-          { error: `Pas de price configuré pour ${plan}/${currency}. Run scripts/setup-stripe-products.ts.` },
-          { status: 500 }
-        );
+        return NextResponse.json({ error: `Tarif non proposé pour ${plan}/${currency}` }, { status: 400 });
       }
     }
 
@@ -131,12 +139,24 @@ export async function POST(req: NextRequest) {
     // publique est acceptable (20 anciens prix restent actifs chez Stripe).
     const { data: prixOk } = await supabase
       .from("pricing_prices")
-      .select("stripe_price_id")
+      .select("stripe_price_id,currency,frequency,plan_id")
       .eq("stripe_price_id", priceId)
       .eq("is_active", true)
       .maybeSingle();
     if (!prixOk) {
-      return NextResponse.json({ error: "Tarif inconnu ou plus proposé" }, { status: 400 });
+      return NextResponse.json({ error: "Ce tarif vient de changer : recharge la page des tarifs." }, { status: 400 });
+    }
+    // 8 oct 2026 : le prix facture est le prix Stripe ACTIF porteur de la cle
+    // stable du plan (mettrik_<plan>_<periode>_<devise>), aligne sur le
+    // back-office a chaque enregistrement. Repli : l id stocke en base.
+    try {
+      const { data: planCle } = await supabase.from("pricing_plans").select("code").eq("id", prixOk.plan_id).maybeSingle();
+      if (planCle?.code) {
+        const actif = await prixParCle(stripe, cleStripe(planCle.code, prixOk.frequency, prixOk.currency));
+        if (actif) priceId = actif.id;
+      }
+    } catch {
+      // Stripe ou base injoignable : l id stocke en base fait foi.
     }
 
     // Cherche un customer existant pour ne pas en créer 2, et refuse un
