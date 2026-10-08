@@ -243,7 +243,8 @@ export function checkoutInfoFor(
  * 8 oct 2026 (audit des fuites publiques, lignes 17 et 18) : la ligne
  * « Sociétés disponibles » de la grille suit la realite. Gratuit = nombre de
  * societes de la liste reelle /api/visibles-gratuit (doublons de classes
- * d actions fusionnes) ; Premium et Max = « Plus de 600 », jamais « 1 000+ ».
+ * d actions fusionnes) ; Premium = « Plus de 600 » si une valeur 1 000 y est saisie ; Max = valeur du
+ * back-office (« 1000+ », choix de Yann du 8 oct 2026).
  */
 async function aligneSocietesDisponibles(features: FeatureRow[]): Promise<FeatureRow[]> {
   let nGratuit: number | null = null;
@@ -257,7 +258,7 @@ async function aligneSocietesDisponibles(features: FeatureRow[]): Promise<Featur
     typeof v === "string" && /1[\s\u202f]?000/.test(v) ? "Plus de 600" : v;
   return features.map((f) =>
     f.id === "stes_count"
-      ? { ...f, free: nGratuit !== null ? String(nGratuit) : f.free, premium: corrige(f.premium), max: corrige(f.max) }
+      ? { ...f, free: nGratuit !== null ? String(nGratuit) : f.free, premium: corrige(f.premium), max: f.max }
       : f,
   );
 }

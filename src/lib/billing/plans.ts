@@ -108,7 +108,7 @@ export const FEATURES: FeatureRow[] = [
     // /api/visibles-gratuit ; pas de promesse « 1 000+ » (plus de 600 fiches).
     free: "Sélection de sociétés",
     premium: "Plus de 600",
-    max: "Plus de 600 + ajouts",
+    max: "1000+",
   },
   {
     id: "logo_pages",
