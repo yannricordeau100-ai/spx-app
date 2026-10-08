@@ -86,6 +86,8 @@ const nextConfig: NextConfig = {
     // 1er oct 2026 (mission admin cours x KPI) : un fichier de cours par societe, lu a l execution.
     "/[ticker]": ["./src/data/these/**/*", "./src/data/att/**/*", "./src/data/cours-fmp/**/*"],
     "/sandbox/**": ["./src/data/these/**/*", "./src/data/att/**/*"],
+    // 9 oct 2026 : consignes d ajout de societes, lues a l execution par /sandbox/consignes-societes.
+    "/sandbox/consignes-societes": ["./docs/CONSIGNES-NOUVELLES-SOCIETES.md"],
   },
   outputFileTracingExcludes: {
     "*": [
