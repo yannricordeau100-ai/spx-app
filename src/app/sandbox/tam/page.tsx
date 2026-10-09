@@ -46,6 +46,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
       enLigne[t] = null;
     }
   }));
+  let vus: Record<string, string[]> = {};
+  try { vus = JSON.parse(await fs.readFile(path.join(process.cwd(), "docs/cahier/tam/_vus.json"), "utf8")); } catch { /* sans instantané : aucun candidat signalé nouveau */ }
   const nb = Object.keys(tam).length;
   const nbArb = Object.keys(choix).filter((t) => tam[t]).length;
 
@@ -64,7 +66,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ a
           {nb} société{nb > 1 ? "s" : ""} avec candidats, {nbArb} arbitrée{nbArb > 1 ? "s" : ""}. Coche autant de candidats que voulu par société : le bloc « Position marché » de la fiche affichera ces choix (tous les TAM validés, triés du plus grand au plus petit revenu de segment). Aucune case cochée après arbitrage = bloc masqué. Chaîne : la case enregistre le choix en base tout de suite, puis scripts/tam-pose.py écrit le fichier .tam.json, et la fiche ne change qu’après commit et déploiement (pas immédiatement).
         </p>
         <div className="mt-6">
-          <TamAtelier tam={tam} annuaire={annuaire} noms={noms} choixInitial={choix} enLigne={enLigne} jeton={parJeton ? sp.audit_token ?? null : null} />
+          <TamAtelier tam={tam} annuaire={annuaire} noms={noms} choixInitial={choix} vus={vus} enLigne={enLigne} jeton={parJeton ? sp.audit_token ?? null : null} />
         </div>
       </main>
     </div>

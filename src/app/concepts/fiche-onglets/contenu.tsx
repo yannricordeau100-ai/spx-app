@@ -13,8 +13,7 @@ import { KpiStories } from "@/components/kpi-stories";
 import { ImageFindingsBlock, type ImageFindingPublic } from "@/components/image-findings-block";
 import { RepartitionBlock } from "@/components/repartition-block";
 import { MoatClientsRow } from "@/components/moat-clients-row";
-import { MarketPositionCard } from "@/components/market-position-card";
-import { trierPositions, grilleTam, derniereLarge } from "@/lib/desk/tam-apercu";
+import { MarketPositionList } from "@/components/market-position-card";
 import { RiskStack } from "@/components/risk-stack";
 import { GovernanceCard } from "@/components/governance-card";
 import { RachatsBlock } from "@/components/rachats-block";
@@ -182,11 +181,7 @@ export function Contenu({ f, id, admin = null }: { f: FicheDemo; id: string; adm
               <section>
                 <h2 className="text-[22px] font-semibold text-zinc-50">Position marché · TAM</h2>
                 <p className="mb-4 mt-0.5 text-[13.5px] text-zinc-300">Part de marché de la société sur ses segments clés, comparée à la taille totale du marché visé.</p>
-                <div className={`grid gap-4 ${grilleTam(pos.length)}`}>
-                  {trierPositions(pos).map((p, i, arr) => (
-                    <MarketPositionCard key={p.segment_name} company={c} position={p} wide={arr.length === 1 || derniereLarge(i, arr.length)} className={derniereLarge(i, arr.length) ? "lg:col-span-2" : ""} />
-                  ))}
-                </div>
+                <MarketPositionList company={c} positions={pos} />
               </section>
             )}
           </div>

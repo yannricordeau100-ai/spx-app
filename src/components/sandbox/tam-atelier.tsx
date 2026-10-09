@@ -19,7 +19,7 @@ import { GICS, type GicsSubIndustry } from "@/lib/desk/gics";
 import { Arbre } from "@/components/sandbox/gics-atelier";
 import type { AnnuaireGics, TamCandidat, TamSociete } from "@/lib/cahier";
 import type { Company, MarketPosition } from "@/lib/data";
-import { MarketPositionCard } from "@/components/market-position-card";
+import { MarketPositionList } from "@/components/market-position-card";
 import { candidatVersPosition, tamValide, trierPositions } from "@/lib/desk/tam-apercu";
 
 type EnLigne = Record<string, { positions: MarketPosition[]; arbitre: boolean } | null>;
@@ -31,6 +31,11 @@ function cheminDe(code: string): { secteur: string; sub: GicsSubIndustry } | nul
     if (sub.code === code) return { secteur: s.name, sub };
   }
   return null;
+}
+
+/* Candidat « nouveau » : validable, absent de l instantané des candidats déjà présentés (docs/cahier/tam/_vus.json, état avant le lot du 8 oct) et jamais coché. */
+function estNouveau(c: TamCandidat, vusT: string[] | undefined, choixT: string[] | undefined): boolean {
+  return !!vusT && !vusT.includes(c.id) && tamValide(c) && !(choixT ?? []).includes(c.id);
 }
 
 function fmt(n: number | null | undefined): string {
@@ -50,6 +55,7 @@ export function TamAtelier({
   annuaire,
   noms,
   choixInitial,
+  vus,
   enLigne,
   jeton,
 }: {
@@ -57,6 +63,7 @@ export function TamAtelier({
   annuaire: AnnuaireGics;
   noms: Record<string, string>;
   choixInitial: Record<string, string[]>;
+  vus: Record<string, string[]>;
   enLigne: EnLigne;
   jeton: string | null;
 }) {
@@ -82,9 +89,17 @@ export function TamAtelier({
     const sans = tickers.filter((t) => tam[t].candidats.length === 0);
     const arb = tickers.filter((t) => choix[t] !== undefined);
     // La liste « À arbitrer » reste figée sur l etat de chargement : la carte ne disparait pas au clic, l apercu reste sous les candidats.
-    const aArb = tickers.filter((t) => choixInitial[t] === undefined && tam[t].candidats.length > 0);
-    return { hes, sans, arb, aArb };
-  }, [tickers, tam, choix, choixInitial]);
+    // 9 oct 2026 : une société déjà arbitrée revient dans « À arbitrer » si elle a un candidat nouveau (id c3 et plus, valide, absent du choix enregistré au chargement).
+    const aArb = tickers.filter((t) => tam[t].candidats.length > 0 && (choixInitial[t] === undefined || tam[t].candidats.some((c) => estNouveau(c, vus[t], choixInitial[t]))));
+    let nbNouvStes = 0;
+    let nbNouvCands = 0;
+    for (const t of tickers) {
+      if (choixInitial[t] === undefined) continue;
+      const n = tam[t].candidats.filter((c) => estNouveau(c, vus[t], choixInitial[t])).length;
+      if (n > 0) { nbNouvStes++; nbNouvCands += n; }
+    }
+    return { hes, sans, arb, aArb, nbNouvStes, nbNouvCands };
+  }, [tickers, tam, choixInitial, vus]);
 
   async function enregistre(ticker: string, ids: string[] | null) {
     setEnCours(ticker);
@@ -183,7 +198,7 @@ export function TamAtelier({
         {d.candidats.length === 0 && <div className="mt-2 text-[12.5px] text-zinc-500">Aucun candidat fiable. {d.commentaire}</div>}
         <div className="mt-3 grid gap-3 lg:grid-cols-2">
           {d.candidats.map((c) => (
-            <Candidat key={c.id} c={c} coche={(sel ?? []).includes(c.id)} desactive={enCours === ticker} onToggle={() => bascule(ticker, c.id)} />
+            <Candidat key={c.id} c={c} nouveau={choixInitial[ticker] !== undefined && estNouveau(c, vus[ticker], choixInitial[ticker])} coche={(sel ?? []).includes(c.id)} desactive={enCours === ticker} onToggle={() => bascule(ticker, c.id)} />
           ))}
         </div>
         <ApercuFiche ticker={ticker} nom={noms[ticker] ?? ticker} sel={sel} cands={d.candidats} enLigne={enLigne[ticker] ?? null} />
@@ -215,6 +230,7 @@ export function TamAtelier({
         <Search className="size-4 text-zinc-500" />
         <input value={filtre} onChange={(e) => setFiltre(e.target.value)} placeholder="Filtrer par ticker ou nom…" className="w-full bg-transparent text-[13.5px] text-zinc-100 outline-none placeholder:text-zinc-600" />
       </div>
+      <div className="mt-3 text-[13px] text-sky-200">Nouveaux à arbitrer : {listes.nbNouvStes} société{listes.nbNouvStes > 1 ? "s" : ""} déjà arbitrée{listes.nbNouvStes > 1 ? "s" : ""}, {listes.nbNouvCands} candidat{listes.nbNouvCands > 1 ? "s" : ""} nouveau{listes.nbNouvCands > 1 ? "x" : ""}.</div>
       {erreur && <div className="mt-3 rounded-lg border border-rose-400/40 bg-rose-500/10 px-3 py-2 text-[12.5px] text-rose-100">{erreur}</div>}
 
       {onglet !== "secteurs" ? (
@@ -254,9 +270,7 @@ function ApercuFiche({ ticker, nom, sel, cands, enLigne }: { ticker: string; nom
       {pos.length === 0 ? (
         <div className="rounded-xl border border-dashed border-white/15 px-3 py-6 text-center text-[12.5px] text-zinc-500">{vide}</div>
       ) : (
-        <div className="grid grid-cols-1 gap-3">
-          {pos.map((p) => <MarketPositionCard key={p.segment_name} company={societe} position={p} wide={pos.length === 1} />)}
-        </div>
+        <MarketPositionList company={societe} positions={pos} />
       )}
     </div>
   );
@@ -279,7 +293,7 @@ function ApercuFiche({ ticker, nom, sel, cands, enLigne }: { ticker: string; nom
   );
 }
 
-function Candidat({ c, coche, desactive, onToggle }: { c: TamCandidat; coche: boolean; desactive: boolean; onToggle: () => void }) {
+function Candidat({ c, nouveau, coche, desactive, onToggle }: { c: TamCandidat; nouveau: boolean; coche: boolean; desactive: boolean; onToggle: () => void }) {
   if (!tamValide(c)) {
     return (
       <div className="block rounded-xl border border-white/10 bg-black/20 p-3 opacity-80">
@@ -302,6 +316,7 @@ function Candidat({ c, coche, desactive, onToggle }: { c: TamCandidat; coche: bo
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <span className="font-mono text-[10.5px] text-zinc-500">{c.id}</span>
+            {nouveau && <span className="rounded-full border border-sky-400/60 bg-sky-500/20 px-2 py-px font-mono text-[10px] uppercase tracking-wider text-sky-100">nouveau</span>}
             <span className={`rounded-full border px-2 py-px font-mono text-[10px] uppercase tracking-wider ${FIAB[c.fiabilite ?? ""] ?? "border-zinc-500/40 text-zinc-400"}`}>fiabilité {c.fiabilite ?? "?"}</span>
           </div>
           <div className="mt-1 text-[13.5px] font-semibold text-zinc-100">{c.tam_intitule}</div>

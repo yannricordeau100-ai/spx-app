@@ -138,9 +138,8 @@ const MoatClientsRow = dynamic(
   () => import("@/components/moat-clients-row").then((m) => m.MoatClientsRow),
   { loading: () => <AttenteBloc h={240} /> },
 );
-import { trierPositions, grilleTam, derniereLarge } from "@/lib/desk/tam-apercu";
-const MarketPositionCard = dynamic(
-  () => import("@/components/market-position-card").then((m) => m.MarketPositionCard),
+const MarketPositionList = dynamic(
+  () => import("@/components/market-position-card").then((m) => m.MarketPositionList),
   { loading: () => <AttenteBloc h={240} /> },
 );
 const RiskStack = dynamic(
@@ -2280,11 +2279,7 @@ export function CompanyView({
               </span>
             </div>
             {(company.market_positions ?? []).length > 0 && (
-            <div className={`grid gap-4 ${grilleTam(company.market_positions!.length)}`}>
-              {trierPositions(company.market_positions!).map((p, i, arr) => (
-                <MarketPositionCard key={p.segment_name} company={company} position={p} wide={arr.length === 1 || derniereLarge(i, arr.length)} className={derniereLarge(i, arr.length) ? "lg:col-span-2" : ""} />
-              ))}
-            </div>
+            <MarketPositionList company={company} positions={company.market_positions!} />
             )}
             {/* 7 oct 2026 : marches adressables revendiques par la societe lors
                 d une journee investisseurs ou d une conference. Ajout, sans
