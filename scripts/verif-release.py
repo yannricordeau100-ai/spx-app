@@ -102,7 +102,10 @@ OPTIONNELLES = {"NEXT_PUBLIC_NIVEAU", "NEXT_PUBLIC_DEPLOY_TARGET", "VERCEL_GIT_C
                 "METTRIK_SEC_DIR", "PDFTOTEXT_BIN",
                 # 6 sept 2026 : VERCEL_ENV est une variable systeme fournie par Vercel (jamais listee dans le projet) ;
                 # IPS_PROPRIETAIRE est facultative (liste vide = aucune exemption d alerte).
-                "VERCEL_ENV", "IPS_PROPRIETAIRE"}
+                "VERCEL_ENV", "IPS_PROPRIETAIRE",
+                # 9 oct 2026 : UNIVERS et UNIVERS_N1_CANDIDATS ne sont posees que sur le niveau 1 (vague sp5001000) ;
+                # absentes = univers principal, comportement voulu en production et sur niveau2.
+                "UNIVERS", "UNIVERS_N1_CANDIDATS"}
 requises = sorted(utilisees - OPTIONNELLES)
 tok = env_local("VERCEL_TOKEN")
 envs = curl_json("https://api.vercel.com/v9/projects/prj_2fwjkuSPPesO8Xj8gsVfw6KSHiPA/env?teamId=team_3A8Ft1Kze0wYzGbuyHmsaEwC",
