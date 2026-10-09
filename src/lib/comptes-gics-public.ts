@@ -11,8 +11,12 @@
  */
 import COMPTES from "@/data/kpi-comptes-industries.json";
 import type { ComptesGicsPublics } from "@/components/home-gics-block";
+import { estUniversN1 } from "@/lib/univers-actif";
 
-export function comptesGicsPublics(): ComptesGicsPublics {
+export function comptesGicsPublics(): ComptesGicsPublics | null {
+  // 9 oct 2026 : les totaux portent sur l univers principal ; le niveau 1
+  // (UNIVERS=sp5001000) n en affiche aucun (comptes du niveau 1 a construire).
+  if (estUniversN1()) return null;
   const c = COMPTES as { par_industrie: Record<string, { total: number }>; global: { total: number } };
   const parIndustrie: Record<string, number> = {};
   for (const [code, v] of Object.entries(c.par_industrie)) parIndustrie[code] = v.total;

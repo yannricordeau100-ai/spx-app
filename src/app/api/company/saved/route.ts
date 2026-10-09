@@ -15,6 +15,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
+import { estUniversN1, ficheServie } from "@/lib/univers-actif";
 
 export const dynamic = "force-dynamic";
 
@@ -32,7 +33,8 @@ export async function GET() {
   const { sb, user } = await contexte();
   if (!user) return NextResponse.json({ tickers: [] });
   const { data } = await sb.from(TABLE).select("ticker").order("created_at", { ascending: false });
-  return NextResponse.json({ tickers: (data ?? []).map((r) => String(r.ticker)) });
+  // 9 oct 2026 : niveau 1 (UNIVERS=sp5001000) : seulement les societes qu il sert.
+  return NextResponse.json({ tickers: (data ?? []).map((r) => String(r.ticker)).filter((t) => !estUniversN1() || ficheServie(t)) });
 }
 
 export async function POST(req: NextRequest) {

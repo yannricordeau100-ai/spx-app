@@ -11,6 +11,7 @@ import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { ficheServie } from "@/lib/univers-actif";
 
 export const dynamic = "force-dynamic";
 
@@ -39,6 +40,9 @@ export async function GET(
   const { ticker } = await params;
   const t = String(ticker || "").toUpperCase().replace(/[^A-Z0-9.\-]/g, "");
   if (!t) return NextResponse.json({ error: "ticker requis" }, { status: 400 });
+  // 9 oct 2026 : hors de l univers du deploiement (vague sp5001000 avant le go,
+  // ou univers principal sur le niveau 1) = societe inconnue.
+  if (!ficheServie(t)) return NextResponse.json({ error: "societe inconnue" }, { status: 404 });
 
   const haut = await lit(
     path.join(ROOT, ".batches-drafts-safe/kpis-haut", `${t}.json`),

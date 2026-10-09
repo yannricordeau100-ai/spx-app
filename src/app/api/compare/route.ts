@@ -7,6 +7,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
 import { chargeVisiblesGratuitSet } from "@/lib/desk/visibles-gratuit";
 import { MESSAGE_OFFRE_PREMIUM } from "@/lib/freemium/visibles-gratuit-defaut";
+import { dansUniversActif, estUniversN1 } from "@/lib/univers-actif";
 
 export const dynamic = "force-dynamic";
 
@@ -88,8 +89,10 @@ export async function GET(req: Request) {
   if (t) {
     if (!abonne && !tousVisibles(visibles, t)) return NextResponse.json({ error: "abonnes" }, { status: 403 });
     const cle = IDX.byT[t]?.[sp.get("k") ?? ""];
+    // 9 oct 2026 : niveau 1 (UNIVERS=sp5001000) : seules les societes de la vague
+    // (index de comparaison du niveau 1 a construire ; vide d ici la).
     const items = cle
-      ? (IDX.keys[cle] ?? []).filter(([x]) => x !== t).map(([x, s]) => ({
+      ? (IDX.keys[cle] ?? []).filter(([x]) => x !== t && (!estUniversN1() || dansUniversActif(x))).map(([x, s]) => ({
           ticker: x,
           name: IDX.names[x] ?? x,
           short: s,

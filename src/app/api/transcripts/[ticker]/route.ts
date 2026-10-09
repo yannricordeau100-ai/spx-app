@@ -5,6 +5,7 @@ import { readSimulateTier } from "@/lib/desk/effective-tier";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
 import { estAlias, ticker_canonique } from "@/lib/ticker-aliases";
+import { ficheServie } from "@/lib/univers-actif";
 
 /**
  * Yann 24 sept 2026, mission des quatre conferences : une conference
@@ -37,6 +38,8 @@ export async function GET(req: Request, ctx: { params: Promise<{ ticker: string 
   const { ticker } = await ctx.params;
   const t = (estAlias(ticker) ? ticker_canonique(ticker) : ticker).toLowerCase();
   if (!/^[a-z0-9.\-]{1,12}$/.test(t)) return NextResponse.json({ error: "code" }, { status: 400 });
+  // 9 oct 2026 : rien hors de l univers du deploiement (vague sp5001000 / niveau 1).
+  if (!ficheServie(t)) return NextResponse.json({ error: "conference inconnue" }, { status: 404 });
   const root = process.cwd();
   const doc = (await lit(path.join(root, "src/data/transcripts", `${t}.json`))) as { calls?: { date: string; quarter?: unknown; year?: unknown }[]; latest?: { date?: string } } | null;
   const dates = (doc?.calls ?? []).map((c) => c.date).filter(Boolean);

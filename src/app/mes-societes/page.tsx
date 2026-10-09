@@ -13,6 +13,7 @@ import { tierDepuisAbonnement } from "@/lib/freemium/tier-serveur";
 import { AuthNav } from "@/components/auth-nav";
 import { COMPANIES } from "@/lib/data";
 import V17_PUBLIC from "@/data/v1-7-public.json";
+import { estUniversN1, ficheServie, societeN1 } from "@/lib/univers-actif";
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +34,9 @@ export default async function MesSocietesPage() {
     .from("user_saved_companies")
     .select("ticker,created_at")
     .order("created_at", { ascending: false });
-  const lignes = (data ?? []) as Array<{ ticker: string; created_at: string }>;
+  // 9 oct 2026 : seules les societes servies par ce deploiement (niveau 1 :
+  // vague sp5001000 ; base partagee avec mettrik.ai).
+  const lignes = ((data ?? []) as Array<{ ticker: string; created_at: string }>).filter((l) => ficheServie(l.ticker));
 
   return (
     <div className="min-h-screen bg-[#050505]">
@@ -82,7 +85,9 @@ export default async function MesSocietesPage() {
                 // Le nom vient de la table publique V1.9.5 (666 stes), la
                 // table statique ne connait que les 5 de la V1.
                 const upper = l.ticker.toUpperCase();
-                const c = COMPANIES[upper] ?? (V17_PUBLIC as Record<string, { name?: string }>)[upper];
+                const c = estUniversN1()
+                  ? { name: societeN1(upper)?.nom }
+                  : COMPANIES[upper] ?? (V17_PUBLIC as Record<string, { name?: string }>)[upper];
                 return (
                   <li key={l.ticker}>
                     <Link

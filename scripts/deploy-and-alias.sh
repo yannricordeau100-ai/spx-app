@@ -33,6 +33,15 @@ if [ -z "$DEPLOY_URL" ]; then
   exit 1
 fi
 
+# 9 oct 2026 : jamais un deploiement du niveau 1 (envoye par scripts/deploy-niveau1.sh,
+# sans commit git, UNIVERS=sp5001000) sur niveau 2 : seul un deploiement issu de git est accepte.
+SHA_DEP=$(curl -s "https://api.vercel.com/v13/deployments/$DEPLOY_URL?teamId=team_3A8Ft1Kze0wYzGbuyHmsaEwC" -H "Authorization: Bearer $VERCEL_TOKEN" \
+  | python3 -c "import json,sys; print(json.loads(sys.stdin.read(),strict=False).get('meta',{}).get('githubCommitSha',''))" 2>/dev/null || true)
+if [ -z "$SHA_DEP" ]; then
+  echo "❌ $DEPLOY_URL n est pas un deploiement git (niveau 1 ?) : alias niveau 2 refuse"
+  exit 1
+fi
+
 echo "→ Waiting for $DEPLOY_URL to be Ready..."
 until npx vercel inspect "$DEPLOY_URL" --token="$VERCEL_TOKEN" 2>&1 | grep -q "● Ready"; do
   echo "  ...still building"

@@ -1030,3 +1030,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.09.2 (09 Oct 2026 02:34, apres 1e981b174b)
 - Bloc Position marche en liste homogene (1 a 5 TAM), atelier TAM : 214 societes a arbitrer, alertes e-mail justifiees, 6 KPI tires des presentations (Safran, Bouygues, Schneider)
+
+## v2026.10.09.3 (09 Oct 2026 16:59, apres 11f08ff0d6)
+- Blocage des fiches sp5001000 hors N1 (fuite /snow /twlo), univers actif, N1 isole, consignes Russell 1000, sauvegarde relais

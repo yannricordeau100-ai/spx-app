@@ -367,6 +367,67 @@ try:
 except Exception as e:
     feu("orange", "Fuites", "Tables Supabase sans RLS", str(e)[:80])
 
+# 11) VAGUE sp5001000 (Russell 1000, decision de Yann du 9 oct 2026) : les nouvelles societes ne
+#     sont servies QUE par le niveau 1 (deploiement avec UNIVERS=sp5001000, scripts/deploy-niveau1.sh)
+#     tant que Yann n a pas dit « go ». Rouge si l une d elles apparait dans l univers du niveau 2 /
+#     de la production. Liste d autorisation explicite, a tenir A LA MAIN apres le go :
+#     `autorisees_univers_principal` de src/data/univers-sp5001000.json.
+try:
+    _n1 = json.loads((ROOT / "src/data/univers-sp5001000.json").read_text())
+    _nz = lambda t: str(t).upper().replace("-", ".")
+    _ok = {_nz(t) for t in _n1.get("autorisees_univers_principal") or []}
+    _res = {_nz(t) for t in _n1.get("vague_complete") or []} - _ok
+    # a) listes servies par le niveau 2 / la production (fichiers du depot)
+    _fuites = []
+    _listes = {
+        "v1-9-5-clean-all-tickers.json": json.loads(Path("src/data/v1-9-5-clean-all-tickers.json").read_text())["tickers"],
+        "market-cap-order.json": json.loads(Path("src/data/market-cap-order.json").read_text())["tickers"],
+        "compare-index.json": list(json.loads(Path("src/data/compare-index.json").read_text()).get("names", {}).keys()),
+        "home-wow-kpis.json": [s["ticker"] for s in json.loads(Path("src/data/home-wow-kpis.json").read_text())["societes"]],
+        "carte-pays-kpis.json": [s["ticker"] for l in json.loads(Path("src/data/carte-pays-kpis.json").read_text())["zones"].values() for s in l],
+        "kpi-comptes-industries.json (par_societe)": list((json.loads(Path("src/data/kpi-comptes-industries.json").read_text()).get("par_societe") or {}).keys()),
+    }
+    for _nom, _l in _listes.items():
+        _x = sorted({_nz(t) for t in _l} & _res)
+        if _x:
+            _fuites.append(f"{_nom} : {', '.join(_x[:6])}" + (f" (+{len(_x) - 6})" if len(_x) > 6 else ""))
+    feu("rouge" if _fuites else "vert", "Univers",
+        "Aucune societe de la vague sp5001000 (Russell 1000) dans les listes du niveau 2 / production avant le go de Yann",
+        " | ".join(_fuites) if _fuites else f"{len(_res)} societes reservees au niveau 1, {len(_ok)} autorisee(s)")
+    # b) le code qui refuse ces societes est bien en place (chargeur + page de fiche + proxy)
+    _code = {
+        "src/lib/company-core/load-company.ts": "ficheServie(ticker)",
+        "src/app/[ticker]/page.tsx": "ficheServie(upper)",
+        "src/proxy.ts": "tickersUniversActif()",
+    }
+    _manq = [f for f, m in _code.items() if m not in (ROOT / f).read_text()]
+    feu("rouge" if _manq else "vert", "Univers", "Garde-fou de l univers en place (src/lib/univers-actif.ts lu par le chargeur, la fiche et le proxy)",
+        "absent de : " + ", ".join(_manq) if _manq else "")
+    # c) la variable UNIVERS ne doit JAMAIS etre posee dans les variables du projet Vercel
+    #    (sinon niveau 2 et production basculeraient sur le niveau 1) : seulement par deploiement.
+    _univ = [",".join(e.get("target", [])) for e in envs.get("envs", []) if e.get("key") == "UNIVERS"]
+    feu("rouge" if _univ else "vert", "Univers", "Variable UNIVERS absente des variables du projet Vercel (posee seulement sur le deploiement du niveau 1)",
+        "presente en : " + " / ".join(_univ) if _univ else "")
+    # d) controle reel : niveau 2 (ce que go-n0.sh promeut) ne sert aucune fiche de la vague.
+    #    mettrik.ai : signale en orange (corrige par la promotion du niveau 2).
+    _jeton = env_local("VISUAL_AUDIT_TOKEN") or ""
+    _pretes = [t for t in (_n1.get("tickers") or []) if _nz(t) in _res][:3]
+    _echantillon = list(dict.fromkeys(["SNOW", "TWLO"] + _pretes))
+    def _servie(hote, t):
+        _o = sh(f"curl -s -m 40 'https://{hote}/{t.lower()}?audit_token={_jeton}&cb=verif' | grep -o '<title>[^<]*</title>' | head -1", 60)
+        return f"({t.upper()})" in _o or f"({t.upper().replace('-', '.')})" in _o
+    # niveau 2 doit servir l univers principal : s il pointait par erreur sur un deploiement du
+    # niveau 1 (UNIVERS=sp5001000), go-n0.sh mettrait la vague seule en production.
+    feu("vert" if _servie("mettrik-niveau2.vercel.app", "NVDA") else "rouge", "Univers",
+        "mettrik-niveau2.vercel.app sert l univers principal (fiche NVDA), pas un deploiement du niveau 1",
+        "" if _servie("mettrik-niveau2.vercel.app", "NVDA") else "NVDA non servie : verifier vers quel deploiement pointe l alias niveau 2")
+    for _hote, _grav in (("mettrik-niveau2.vercel.app", "rouge"), ("mettrik.ai", "orange")):
+        _vus = [t for t in _echantillon if _servie(_hote, t)]
+        feu(_grav if _vus else "vert", "Univers", f"{_hote} ne sert aucune fiche de la vague sp5001000 (echantillon {', '.join(_echantillon)})",
+            ("servies : " + ", ".join(_vus) + (" (anciennes fiches V1.7 visibles des inscrits : deployer le garde-fou src/lib/univers-actif.ts)" if _hote == "mettrik-niveau2.vercel.app" else " (corrige a la prochaine promotion du niveau 2)")) if _vus else "")
+except Exception as e:
+    feu("rouge", "Univers", "Controle de la vague sp5001000 (src/data/univers-sp5001000.json)", str(e)[:100])
+
 # SORTIE
 ordre = {"rouge": 0, "orange": 1, "vert": 2}
 feux.sort(key=lambda f: (ordre[f["feu"]], f["domaine"]))

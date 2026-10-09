@@ -35,6 +35,7 @@ import { isGenericKpi } from "@/lib/kpi-generic";
 import { isGenericHeroKpi } from "@/lib/kpi-hero-generic";
 import { choisirHero, type HeroKpiLike } from "@/lib/hero-select";
 import { cleanSourceCitations } from "@/lib/ui-fix-templates";
+import { cleCacheUnivers, ficheServie } from "@/lib/univers-actif";
 
 /**
  * Yann 21 août 2026 — nettoyage des citations de source pour TOUTES les sociétés.
@@ -602,7 +603,9 @@ const chargeAvecCachePartage = unstable_cache(
   // 7 sept 2026 : la cle porte le numero de version, sinon le cache de donnees
   // partage survivait au deploiement et servait les anciennes fiches (NEM :
   // serie allongee invisible pendant 6 h apres la mise en ligne).
-  ["fiche-societe", VERSION, REVISION_CHARGEUR],
+  // 9 oct 2026 : suffixe vide pour l univers principal (cles inchangees) ; le
+  // niveau 1 (UNIVERS=sp5001000) a ses propres cles (src/lib/univers-actif.ts).
+  ["fiche-societe", VERSION, REVISION_CHARGEUR, ...cleCacheUnivers()],
   { revalidate: 21600, tags: ["fiches"] },
 );
 
@@ -610,6 +613,12 @@ export async function loadV17Company(
   ticker: string,
   opts: { mode?: "v17" | "v18"; locale?: string } = {}
 ): Promise<LoadOutcome> {
+  // Yann 9 oct 2026 (vague sp5001000, Russell 1000) : univers du deploiement.
+  // Niveau 1 (UNIVERS=sp5001000) : seules les fiches pretes de la vague ;
+  // univers principal (mettrik.ai, niveau 2) : jamais une societe de la vague
+  // avant le go. Controle AVANT tout cache, pour qu aucun deploiement ne relise
+  // une fiche mise en cache par un autre.
+  if (!ficheServie(ticker)) return { kind: "missing" };
   const cle = `${ticker.toUpperCase()}|${opts.mode ?? "v17"}|${opts.locale ?? "fr"}`;
   const hit = CACHE_FICHES.get(cle);
   if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.valeur;

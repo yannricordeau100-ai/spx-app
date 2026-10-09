@@ -19,6 +19,7 @@
  * Format : RFC 4180, BOM UTF-8 pour Excel, quoted strings.
  */
 import { NextResponse } from "next/server";
+import { estUniversN1 } from "@/lib/univers-actif";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import V19_UNIVERSE from "@/data/v1-9-universe.json";
 
@@ -41,6 +42,8 @@ function csvEscape(v: unknown): string {
 }
 
 export async function GET() {
+  // 9 oct 2026 : le niveau 1 (UNIVERS=sp5001000) n exporte pas l univers principal.
+  if (estUniversN1()) return NextResponse.json({ error: "introuvable" }, { status: 404 });
   // Audit 2 sept 2026 : export de l univers reserve aux comptes connectes.
   try {
     const sb = await createSupabaseServerClient();

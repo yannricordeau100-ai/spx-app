@@ -16,6 +16,7 @@ import { translate } from "@/lib/i18n/dictionary";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getServerFreemiumTier } from "@/lib/freemium/server";
 import { comptesGicsPublics } from "@/lib/comptes-gics-public";
+import { estUniversN1 } from "@/lib/univers-actif";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
@@ -59,7 +60,10 @@ export default async function SandboxV195HubPage() {
   // Yann (8 juin 2026) : thème clair réservé aux offres payantes (premium + max).
   const freemiumTier = await getServerFreemiumTier();
   // Yann 16 sept 2026 : KPI de l accueil choisis depuis /sandbox/accueil-kpis.
-  const accueilKpis = await kpisAccueilPersonnalises().catch(() => ({}));
+  // 9 oct 2026 : niveau 1 (UNIVERS=sp5001000) : ni KPI de vitrine ni carte des
+  // pays (elles ne citent que des societes de l univers principal).
+  const n1 = estUniversN1();
+  const accueilKpis = n1 ? {} : await kpisAccueilPersonnalises().catch(() => ({}));
   const themePaid = freemiumTier === "premium" || freemiumTier === "max";
 
   return (
@@ -78,6 +82,7 @@ export default async function SandboxV195HubPage() {
         contentOverrides={homeOverrides}
         accueilKpis={accueilKpis}
         comptesGics={comptesGicsPublics()}
+        masquerCartePays={n1}
       />
       <Suspense fallback={null}>
         <AuthModal />

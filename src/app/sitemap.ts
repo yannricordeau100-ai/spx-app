@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { estAlias } from "@/lib/ticker-aliases";
 import RETIREES from "@/data/societes-retirees.json";
+import { estUniversN1, tickersUniversActif } from "@/lib/univers-actif";
 
 /**
  * 8 oct 2026 (Yann) : sitemap TRES RESTRICTIF. Liste blanche explicite :
@@ -48,7 +49,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   let tickers: string[] = [];
-  try {
+  // 9 oct 2026 : le niveau 1 (UNIVERS=sp5001000) ne declare que ses propres fiches.
+  if (estUniversN1()) tickers = tickersUniversActif();
+  else try {
     const raw = await fs.readFile(path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json"), "utf-8");
     const parsed = JSON.parse(raw) as { tickers?: string[] } | string[];
     tickers = Array.isArray(parsed) ? parsed : parsed.tickers ?? [];

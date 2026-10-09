@@ -10,6 +10,7 @@ import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { estUniversN1, tickersUniversActif } from "@/lib/univers-actif";
 
 export const dynamic = "force-dynamic";
 
@@ -32,7 +33,8 @@ export async function GET() {
   } catch {
     return NextResponse.json({ error: "Connexion requise" }, { status: 401 });
   }
-  const uni = await lit(
+  // 9 oct 2026 : niveau 1 (UNIVERS=sp5001000) = les seules fiches de la vague.
+  const uni = estUniversN1() ? { tickers: tickersUniversActif() } : await lit(
     path.join(ROOT, "src/data/v1-9-5-clean-all-tickers.json"),
   );
   const tickers = Array.isArray(uni?.tickers) ? (uni!.tickers as string[]) : [];

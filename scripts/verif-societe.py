@@ -1,8 +1,21 @@
 #!/usr/bin/env python3
 """Verification du raccordement d une societe (13 sept 2026) : artefacts et listes.
   python3 scripts/verif-societe.py RDDT [--json]
-Sort en code 1 si un element obligatoire manque."""
-import json,os,sys
+Sort en code 1 si un element obligatoire manque.
+
+9 oct 2026 (defauts de l onglet 8 des consignes, docs/CONSIGNES-NOUVELLES-SOCIETES.md) :
+ - les traductions v2-pipeline-i18n/<t>.en.json et .de.json ne sont PLUS exigees
+   (traductions interdites depuis le 13 sept 2026, CLAUDE.md §9) : toute nouvelle
+   societe echouait a tort ;
+ - le logo est cherche sous les deux formes (public/logos/<T>.png et <T a tirets>.png,
+   celle que sert src/components/logos.tsx) ;
+ - rappel desk_curated_companies (non bloquant) : sans ligne en base (min_plan
+   different de hidden), la societe est introuvable dans la recherche ;
+ - vague sp5001000 (Russell 1000, decision de Yann du 9 oct 2026) : avant le go, la
+   societe doit etre dans src/data/univers-sp5001000.json (niveau 1) et ABSENTE des
+   listes de production (clean-all, v1-7-public...) ; leur absence n est donc pas un manque.
+Le reste des controles est inchange."""
+import json,os,subprocess,sys
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 T=sys.argv[1].upper(); t=T.lower()
 def ex(p): return os.path.exists(os.path.join(ROOT,p))
@@ -13,16 +26,36 @@ obl={
  "v2-pipeline":f"src/data/v2-pipeline/{t}.json","v2-pipeline-enrich":f"src/data/v2-pipeline-enrich/{t}.json","kpis-haut":f".batches-drafts-safe/kpis-haut/{T}.json",
  "transcript":f"src/data/transcripts/{t}.json","synthese":f"src/data/transcript-summaries/{t}.json","anti-these":f"src/data/att/{t}.json","logo":f"public/logos/{T}.png",
  "ranks":f"src/data/v2-pipeline-enrich/{t}.ranks.json","tam":f"src/data/v2-pipeline-enrich/{t}.tam.json","cahier-donnees":f"docs/cahier/donnees/{T}.json","cahier-tam":f"docs/cahier/tam/{T}.json","cahier-clients":f"docs/cahier/clients/{T}.json",
- "i18n-en":f"src/data/v2-pipeline-i18n/{t}.en.json","i18n-de":f"src/data/v2-pipeline-i18n/{t}.de.json","data-lake":f"data-lake/{T}",
+ "data-lake":f"data-lake/{T}",
 }
 res={"artefacts":{k:ex(p) for k,p in obl.items()},"listes":{}}
+# Logo : forme a point ou forme a tirets (MC-PA.png), celle que sert logos.tsx.
+res["artefacts"]["logo"]=ex(obl["logo"]) or ex(f"public/logos/{T.replace('.','-')}.png")
 def dans(p,cle=None):
     j=js(p)
     if j is None: return None
     s=json.dumps(j)
     return f'"{T}"' in s or f'"{t}"' in s
+# Vague sp5001000 (niveau 1 seul tant que Yann n a pas dit « go »).
+n1=js("src/data/univers-sp5001000.json") or {}
+nz=lambda x:str(x).upper().replace("-",".")
+vague={nz(x) for x in n1.get("vague_complete") or []}-{nz(x) for x in n1.get("autorisees_univers_principal") or []}
+en_vague=nz(T) in vague
+# v1-7-public.json garde d anciennes entrees V1.7 de 257 societes de la vague, neutralisees par
+# src/lib/univers-actif.ts : ni exigee ni interdite pour la vague.
+LISTES_PROD=["src/data/v1-9-5-clean-all-tickers.json","src/data/market-cap-order.json","src/data/compare-index.json"]
+interdites=[]
 for p in ["src/data/v1-9-5-clean-all-tickers.json","src/data/v1-7-public.json","src/data/societes-gics.json","src/data/market-cap-order.json","src/data/earnings-calendar.json","src/data/compare-index.json","src/data/kpi-industries-etat.json","src/data/indices-composition.json","src/data/ir-directory.json","src/data/kpi-classification.json","docs/cahier/societes-gics.json"]:
-    res["listes"][p.split("/")[-1]]=dans(p)
+    v=dans(p)
+    if en_vague and p.endswith("v1-7-public.json"):
+        continue
+    if en_vague and p in LISTES_PROD:
+        # Avant le go : presence interdite (fuite vers le niveau 2 / la production), absence normale.
+        if v: interdites.append(p.split("/")[-1])
+        continue
+    res["listes"][p.split("/")[-1]]=v
+if en_vague:
+    res["listes"]["univers-sp5001000.json (niveau 1)"]=T in (n1.get("tickers") or [])
 fiche=js(obl["v2-pipeline"]) or {}
 kp=[k for k in fiche.get("kpis",[]) if len(k.get("history") or [])>=5]
 haut=js(obl["kpis-haut"]) or {}
@@ -34,11 +67,36 @@ try:
 except Exception:
     res["listes"]["logo-tickers.json"]=False
 manque=[k for k,v in res["artefacts"].items() if not v]+[k for k,v in res["listes"].items() if v is False]
+manque+=[f"{p} (interdit avant le go de Yann : vague sp5001000)" for p in interdites]
 # carte-pays-kpis et home-wow-kpis sont des selections curatees : informatif seulement
 res["listes"]["carte-pays-kpis.json (curatee)"]=dans("src/data/carte-pays-kpis.json"); res["listes"]["home-wow-kpis.json (curatee)"]=dans("src/data/home-wow-kpis.json")
 manque=[m for m in manque if "curatee" not in m]
 res["manque"]=manque
+# Rappel (non bloquant) : ligne desk_curated_companies, sans laquelle la societe est
+# introuvable dans la recherche (src/lib/recherche-societes.ts). Vague sp5001000 : a
+# poser seulement apres le go (la base est partagee avec mettrik.ai).
+rappels=[]
+try:
+    env={}
+    for l in open(os.path.join(ROOT,".env.local")).read().splitlines():
+        if "=" in l and not l.lstrip().startswith("#"):
+            k,v=l.split("=",1); env[k.strip()]=v.strip().strip('"')
+    url=env["NEXT_PUBLIC_SUPABASE_URL"]; cle=env["SUPABASE_SERVICE_ROLE_KEY"]
+    lignes=json.loads(subprocess.run(["curl","-s","-m","20",f"{url}/rest/v1/desk_curated_companies?select=ticker,min_plan&ticker=eq.{T}",
+                                      "-H",f"apikey: {cle}","-H",f"Authorization: Bearer {cle}"],capture_output=True,text=True).stdout)
+    en_ligne=any(r.get("min_plan") and r.get("min_plan")!="hidden" for r in lignes)
+    res["desk_curated_companies"]=lignes
+    if en_vague and en_ligne:
+        rappels.append("ligne desk_curated_companies presente alors que la societe attend le go (base partagee avec mettrik.ai)")
+    elif not en_vague and not en_ligne:
+        rappels.append(f"aucune ligne desk_curated_companies en ligne : introuvable dans la recherche (source .env.local && npx tsx scripts/publish-online.ts {T})")
+except Exception as e:
+    rappels.append(f"desk_curated_companies non lue ({str(e)[:60]})")
+res["rappels"]=rappels
 if "--json" in sys.argv: print(json.dumps(res,ensure_ascii=False,indent=1))
 else:
-    print(T,"| artefacts manquants :",[k for k,v in res["artefacts"].items() if not v]); print("   listes sans la societe :",[k for k,v in res["listes"].items() if v is False]); print("   contenu :",res["contenu"])
+    print(T,"| artefacts manquants :",[k for k,v in res["artefacts"].items() if not v]); print("   listes sans la societe :",[k for k,v in res["listes"].items() if v is False])
+    if interdites: print("   listes de production contenant la societe (INTERDIT avant le go, vague sp5001000) :",interdites)
+    print("   contenu :",res["contenu"])
+    for r in rappels: print("   rappel :",r)
 sys.exit(1 if manque else 0)

@@ -32,6 +32,7 @@ import {
 import { displayTicker } from "@/lib/ticker-display";
 import { TICKER_DEDUP_ALIASES } from "@/lib/ticker-dedup-aliases";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { estUniversN1, societesN1 } from "@/lib/univers-actif";
 
 export const RESULTATS_MAX = 10;
 
@@ -147,7 +148,10 @@ async function societesEnLigne(): Promise<Set<string> | null> {
 }
 
 function heroIndex(ticker: string): HeroRecherche | null {
-  const e = HERO_KPI_INDEX[ticker.toUpperCase()];
+  return heroDepuisEntree(HERO_KPI_INDEX[ticker.toUpperCase()]);
+}
+
+function heroDepuisEntree(e: HeroKpiEntry | null | undefined): HeroRecherche | null {
   if (!e || e.v == null || e.v === "" || !e.s) return null;
   let yoy = "";
   if (typeof e.y === "number" && Number.isFinite(e.y)) yoy = `${e.y > 0 ? "+" : ""}${e.y}%`;
@@ -181,6 +185,24 @@ export async function rechercheSocietes(saisie: string, max = RESULTATS_MAX): Pr
     }
     return 0;
   };
+
+  // 9 oct 2026 (Russell 1000, vague sp5001000) : sur le niveau 1
+  // (UNIVERS=sp5001000), la recherche ne connait QUE les fiches pretes de la
+  // vague (src/data/univers-sp5001000.json), sans aucune societe de l univers
+  // principal ni ligne desk_curated_companies (base partagee avec mettrik.ai).
+  if (estUniversN1()) {
+    const n1 = societesN1();
+    const tousN1 = new Set(n1.map((x) => x.ticker.toUpperCase()));
+    return n1
+      .map((x) => ({ x, sc: score(x.ticker, x.nom, x.secteur, x.sous_secteur ?? "", []) }))
+      .filter((r) => r.sc > 0)
+      .sort((a, b) => b.sc - a.sc || (b.x.capi_usd ?? 0) - (a.x.capi_usd ?? 0) || a.x.ticker.localeCompare(b.x.ticker))
+      .slice(0, limite)
+      .map(({ x }) => ({
+        ticker: x.ticker, affiche: displayTicker(x.ticker, tousN1), nom: x.nom, secteur: x.secteur || "-",
+        sousSecteur: x.sous_secteur ?? "", pays: "", source: "v17" as const, hero: heroDepuisEntree(x.hero ?? null),
+      }));
+  }
 
   const sortie: { ticker: string; source: "v1" | "v17" | "v19"; score: number }[] = [];
   const v1Set = new Set(TICKERS.map((t) => t.toUpperCase()));

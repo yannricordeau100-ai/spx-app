@@ -36,7 +36,15 @@ Fichiers **jamais lus par le site** (ne pas les corriger en croyant corriger la 
 Durées observées sur les vagues CAC 40, SMI, SOX, AEX et DAX (août 2026) : 400 à 600 k jetons par société toutes phases ; 1 à 2 jours pour une vague de 10 à 15 sociétés ; 2 à 4 h de plus par société pour les process spéciaux (KPI d’industrie, moyen terme, TAM, ATT, thèse).
 
 ### Étape 0 : décider (15 min, orchestrateur)
-- [ ] La société appartient à l’un des indices couverts (S&P 500, Nasdaq 100, SOX, CAC 40, DAX 40, AEX 25, SMI 20). **Aucun ajout par capitalisation** (règle du 28 août, mémoire `project_mettrik_univers_indices_only`). Composition vérifiée à la source officielle (Euronext, SIX, STOXX, nasdaqomx), jamais sur une liste locale : résultat écrit dans `.conv-state/<vague>-state.json` clé `univers`.
+- [ ] La société appartient à l’un des indices couverts (S&P 500, Nasdaq 100, SOX, CAC 40, DAX 40, AEX 25, SMI 20, **Russell 1000**). **Aucun ajout par capitalisation** (règle du 28 août, mémoire `project_mettrik_univers_indices_only`). Composition vérifiée à la source officielle (Euronext, SIX, STOXX, nasdaqomx, FTSE Russell ou le portefeuille de l’ETF iShares IWB déposé à la SEC), jamais sur une liste locale : résultat écrit dans `.conv-state/<vague>-state.json` clé `univers`.
+- [ ] **Russell 1000 ajouté aux indices couverts le 9 octobre 2026, sur décision de Yann.** Ses sociétés absentes de Mettrik forment la vague « sp5001000 » (liste `data-lake/_sp5001000/liste.json` : 499 lignes, BF-B exclue car déjà couverte sous BF.B, 8 radiées, 490 à traiter). Elles suivent la procédure « nouvel indice / vague » ci-dessous : niveau 1 isolé d’abord, univers principal seulement après le « go » de Yann.
+- [ ] **Procédure « nouvel indice / vague » (9 oct 2026)** : toute nouvelle vague de sociétés est d’abord publiée sur la préversion **niveau 1 isolée** (`mettrik-niveau1.vercel.app`), jamais directement dans l’univers principal.
+  1. Les fiches prêtes sont listées dans `src/data/<univers>.json` (aujourd’hui `src/data/univers-sp5001000.json`), écrit par le script d’onboarding de la vague (`scripts/sp5001000-onboard.py`) et jamais à la main. Une société n’y entre que si sa fiche est prête : extraction finie et sondée, KH avec hero, PL valide, fiche « ready » dans le vrai chargeur. Le script n’ajoute **rien** à `v1-9-5-clean-all-tickers.json`, `v1-7-public.json`, `disabled-blocks-per-ste.json`, aux listes dérivées ni à Supabase.
+  2. Le niveau 1 est un déploiement preview qui porte la variable `UNIVERS=sp5001000` (posée par `bash scripts/deploy-niveau1.sh` sur ce seul déploiement, jamais dans les variables du projet Vercel). `src/lib/univers-actif.ts` la lit partout où l’univers se décide (proxy, fiche, chargeur, recherche, accueil, plan du site, robots, comptes, comparaison, listes, exports) : le niveau 1 ne sert **que** la vague, l’outillage y répond 404.
+  3. Sans la variable (mettrik.ai, niveau 2, poste local, scripts), comportement inchangé pour l’univers principal ; la vague entière (`vague_complete`) y est refusée (404, chargeur « missing ») tant qu’elle n’est pas dans `autorisees_univers_principal`.
+  4. Les fichiers globaux dérivés de l’univers principal (`market-cap-order.json`, rangs des sociétés existantes, `indices-composition.json`, `compare-index.json`, accueil, comptes) ne sont **pas** modifiés pour une vague : versions séparées pour le niveau 1 si besoin.
+  5. Garde-fou permanent : `scripts/verif-release.py` (domaine « Univers ») passe au **rouge** si une société de la vague apparaît dans les listes ou les fiches du niveau 2 / de la production, si le garde-fou de code manque, si `UNIVERS` est posée dans le projet Vercel, ou si le niveau 2 ne sert plus l’univers principal.
+  6. Après le « go » de Yann : ajouter les sociétés à `autorisees_univers_principal` **et** à `v1-9-5-clean-all-tickers.json` (avec `count` et `_ajout_<date>`), puis dérouler les étapes 4 à 9 ci-dessous pour l’univers principal (listes, `desk_curated_companies`, veilles), `deploy-niveau2.sh`, contrôle réel, puis `go-n0.sh`.
 - [ ] Le ticker n’est pas dans `src/data/quarantaine-pollution.json` ni dans `src/data/societes-retirees.json` (société rachetée ou radiée = 404).
 - [ ] Le ticker n’est pas une double cotation déjà présente (`ASML.AS` = `ASML`, `MT.AS` = `MT.PA`, `AIR.DE` = `AIR.PA`, `DPW.DE` = `DHL.DE`, `HEN3.DE` = `HEN.DE`) : chercher dans les 3 tables d’alias (onglet 3, « Alias et doubles cotations »).
 - [ ] Ticker au **format Yahoo avec suffixe de place** pour toute société non américaine (`MC.PA`, jamais `MC` qui est Moelis aux États-Unis). Vérifier qu’aucun `src/data/v2-pipeline/<code nu>.json` ni `data-lake/<code nu>` d’un homonyme n’existe.
@@ -56,6 +64,7 @@ Durées observées sur les vagues CAC 40, SMI, SOX, AEX et DAX (août 2026) : 40
 - [ ] Gabarit `.conv-state/sox30-template-p3.txt` ou `.conv-state/cac40-phase3-template.txt` : écrit `data-lake/<T>/risks/extracted.json`, `gouvernance_fr.json`, `segments_fr.json`, `geo_fr.json`, `ia_positionnement_fr.json`. Bloc insuffisant = fichier non écrit et raison notée dans l’état.
 
 ### Étape 4 : création de la fiche (30 min, script)
+- [ ] Vague d’un nouvel indice (Russell 1000 depuis le 9 oct 2026) : `python3 scripts/sp5001000-onboard.py` (idempotent) écrit PL et EN minimaux et la liste du niveau 1, **sans** toucher aux listes de production ; les étapes ci-dessous ne s’appliquent qu’après le « go » de Yann (étape 0).
 - [ ] Adapter puis lancer `scripts/aexdax-onboard.py` (idempotent) : écrit PL avec `hero_kpi`, `kpis:[hero]`, les blocs de l’étape 3, `_validation`, ajoute la société à `src/data/v1-7-public.json`, `src/data/v1-9-5-clean-all-tickers.json` (mettre aussi `count` à jour et une clé `_ajout_<date>`), et pose les blocs masqués dans `src/data/disabled-blocks-per-ste.json`.
 - [ ] Recopier ces blocs masqués dans **Supabase `desk_disabled_blocks`** (scope = T) par `/admin/blocks` : le JSON n’est lu que si la table est vide, ce qui n’est plus le cas.
 - [ ] Mettre `unit` **au niveau du bloc** dans `revenue_by_segment` et `revenue_by_geography` (sinon le composant affiche « Mds $ » quelle que soit la devise ; 551 fiches corrigées le 8 août).
@@ -85,7 +94,7 @@ Durées observées sur les vagues CAC 40, SMI, SOX, AEX et DAX (août 2026) : 40
 
 ### Étape 8 : listes, index et base (45 min)
 - [ ] Toutes les listes de l’onglet 3 « Listes à mettre à jour », dont `src/data/ir-directory.json`, `src/data/earnings-calendar.json`, `src/data/indices-composition.json` (`scripts/indices-wikipedia.py`), `src/data/compare-index.json` (`npx tsx scripts/build-compare-index.ts`), `src/data/kpi-classification.json` (`node scripts/classify-kpis.js`), `src/data/v2-pipeline/_tickers-index.json` et `_hero-kpi-index.json` (recherche).
-- [ ] `source .env.local && npx tsx scripts/publish-online.ts <T>` : ligne `desk_curated_companies` en `free` (sans elle, la société est **introuvable dans la recherche**).
+- [ ] `source .env.local && npx tsx scripts/publish-online.ts <T>` : ligne `desk_curated_companies` en `free` (sans elle, la société est **introuvable dans la recherche**). Rappel automatique : `python3 scripts/verif-societe.py <T>` affiche « rappel : aucune ligne desk_curated_companies » (non bloquant). Vague en attente du « go » : ne pas poser la ligne (base partagée avec mettrik.ai).
 - [ ] Veilles : vérifier que chaque script planifié de l’onglet 3 « Crons et veilles » prend bien la société (plusieurs lisent encore des listes figées).
 
 ### Étape 9 : contrôles et mise en ligne (1 h + 30 min d’attente)
@@ -368,6 +377,8 @@ Ordre d’affichage dans CV : en-tête, Comprendre la société, hero, moyen ter
 
 **Sortie d’indice** : la société **reste** dans l’univers et en ligne (CLAUDE.md §9) ; la veille des indices signale par email, ne retire personne.
 
+**Univers du déploiement (9 oct 2026)** : `src/lib/univers-actif.ts` décide de l’univers servi. Sans variable `UNIVERS` : univers principal (clean-all), comportement inchangé, et refus de toute société de la vague sp5001000 non autorisée (`ficheServie()` dans le chargeur, la fiche et ses métadonnées : `/snow` et `/twlo`, anciennes fiches V1.7 servies aux inscrits jusque-là, répondent 404 dès ce code déployé). Avec `UNIVERS=sp5001000` (niveau 1 seulement, `scripts/deploy-niveau1.sh`) : uniquement les fiches prêtes de `src/data/univers-sp5001000.json`. Ne jamais importer ce module dans un composant client.
+
 ## Listes à mettre à jour
 
 | Fichier | Rôle | Comment |
@@ -416,7 +427,7 @@ PL est lu sous le ticker **canonique** (après `ALIASES`), EN sous le ticker bru
 
 ## Recherche
 
-`src/lib/recherche-societes.ts` (`/api/recherche-societes`) ne montre une société que si : elle est dans clean-all et n’est pas un alias ; elle figure dans `src/data/v2-pipeline/_tickers-index.json` (`validated:true`) ou `v1-9-missing-from-merged.json` ; **et** elle a une ligne `desk_curated_companies` avec `min_plan` différent de `hidden`. Commandes : `npx tsx scripts/build-public-files.ts`, `python3 scripts/build-hero-kpi-index.py`, `source .env.local && npx tsx scripts/publish-online.ts <T>`. Nom affiché sans suffixe : `src/lib/ticker-display.ts` (`EXCHANGE_SUFFIXES`).
+Niveau 1 (`UNIVERS=sp5001000`) : la recherche ne lit que `src/data/univers-sp5001000.json` (nom, secteur, hero), sans `desk_curated_companies` (base partagée avec mettrik.ai : n’y poser aucune ligne avant le « go »). Univers principal : `src/lib/recherche-societes.ts` (`/api/recherche-societes`) ne montre une société que si : elle est dans clean-all et n’est pas un alias ; elle figure dans `src/data/v2-pipeline/_tickers-index.json` (`validated:true`) ou `v1-9-missing-from-merged.json` ; **et** elle a une ligne `desk_curated_companies` avec `min_plan` différent de `hidden`. Commandes : `npx tsx scripts/build-public-files.ts`, `python3 scripts/build-hero-kpi-index.py`, `source .env.local && npx tsx scripts/publish-online.ts <T>`. Nom affiché sans suffixe : `src/lib/ticker-display.ts` (`EXCHANGE_SUFFIXES`).
 
 ## Accueil et carte des pays
 
@@ -468,7 +479,7 @@ Les scripts Python lisent `.env.local` (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SE
 
 | Où | Quand | Script | La société y entre si… |
 |---|---|---|---|
-| crontab | 12h05 | `scripts/daily-doc-watcher.sh` | **elle est dans `src/data/v1-9-pre-publication-audit.json` (25 mai)**, pas dans clean-all : 139 sociétés jamais veillées (onglet 8) |
+| crontab | 12h05 | `scripts/daily-doc-watcher.sh` | elle est dans `src/data/v1-9-pre-publication-audit.json` (25 mai) **ou**, depuis le 9 oct 2026, dans clean-all (les 138 ajouts absents de l’audit sont veillés à la suite, hors plafond) |
 | crontab | 12h35 | `scripts/fr-doc-watcher.sh` | suffixe européen + `ir_url` dans `ir-directory.json` (ou état CAC/SMI) ; `IR_PAGES` en dur ; ne détecte pas les rapports annuels |
 | crontab | chaque heure à :15 | `scripts/post-earnings-pipeline.py` | clean-all + calendrier |
 | crontab | 13h00 | `scripts/derniers-depots.py` | clean-all |
@@ -688,13 +699,13 @@ Ouvrir côte à côte la nouvelle fiche et NVDA (US) ou MC.PA (Europe) et cocher
 
 # 8. Incohérences et trous
 
-Relevés le 9 octobre 2026 en rédigeant ces consignes. À trancher par Yann ou à corriger dans une tâche dédiée ; aucun n’a été corrigé ici.
+Relevés le 9 octobre 2026 en rédigeant ces consignes. À trancher par Yann ou à corriger dans une tâche dédiée. **Corrigés le 9 octobre 2026 (sans changement pour les sociétés existantes)** : les 3 défauts bloquants signalés (traductions exigées par `verif-societe.py`, liste figée de `daily-doc-watcher.py`, rappel `desk_curated_companies`), marqués « CORRIGÉ » ci-dessous.
 
 ## Outils de contrôle
 
-> TROU : `scripts/verif-societe.py` exige `v2-pipeline-i18n/<t>.en.json` et `.de.json` alors que les traductions sont interdites depuis le 13 sept : toute nouvelle société échoue à tort.
+> CORRIGÉ (9 oct 2026) : `scripts/verif-societe.py` exigeait `v2-pipeline-i18n/<t>.en.json` et `.de.json` alors que les traductions sont interdites depuis le 13 sept : toute nouvelle société échouait à tort. Ces deux fichiers ne sont plus exigés ; le logo est cherché sous les deux formes (`<T>.png` et forme à tirets) ; un rappel non bloquant signale l’absence de ligne `desk_curated_companies` ; une société de la vague sp5001000 doit être dans `univers-sp5001000.json` et absente des listes de production avant le « go ».
 
-> TROU : `scripts/verif-societe.py` teste `public/logos/<T>.png` (forme à point) alors que `src/components/logos.tsx` sert la forme à tirets ; il cherche `src/data/societes-gics.json`, qui n’existe pas (compté « non manquant ») ; il ignore `desk_curated_companies`, `desk_disabled_blocks`, `_tickers-index.json`, `_hero-kpi-index.json`, `employees.json`, `cours-fmp/`, `kpi-annuel-fiche/`, `foreign-earnings-sources.json`.
+> TROU (logo CORRIGÉ le 9 oct 2026) : `scripts/verif-societe.py` testait seulement `public/logos/<T>.png` (forme à point) alors que `src/components/logos.tsx` sert la forme à tirets ; il cherche `src/data/societes-gics.json`, qui n’existe pas (compté « non manquant ») ; il ignore `desk_curated_companies`, `desk_disabled_blocks`, `_tickers-index.json`, `_hero-kpi-index.json`, `employees.json`, `cours-fmp/`, `kpi-annuel-fiche/`, `foreign-earnings-sources.json`.
 
 > TROU : `.conv-state/ajout-societe-CHECKLIST.md` cite `scripts/verif-societe.ts` (inexistant), `.conv-state/ATT-PROCEDURE.md` (le fichier est `docs/ATT-PROCEDURE.md`) et `src/data/companies/` « si le chargeur le lit » (il ne le lit pas).
 
@@ -704,13 +715,15 @@ Relevés le 9 octobre 2026 en rédigeant ces consignes. À trancher par Yann ou 
 
 ## Veilles et listes figées
 
-> TROU : `scripts/daily-doc-watcher.py` lit `src/data/v1-9-pre-publication-audit.json` (25 mai) et non clean-all : 139 sociétés de l’univers ne sont jamais veillées (AC.PA, ALV.DE, BE, BRK-B…). Même défaut pour `/admin/blocks` (sociétés récentes « inconnues »), `scripts/fetch-filing-dates.py` et `scripts/build-ir-coverage.py` (`v1-8-tickers-sorted.json`, 344 sociétés).
+> CORRIGÉ (9 oct 2026) pour `scripts/daily-doc-watcher.py` : il lisait seulement `src/data/v1-9-pre-publication-audit.json` (25 mai) et non clean-all, et 139 sociétés de l’univers n’étaient jamais veillées (AC.PA, ALV.DE, BE, BRK-B…). Les sociétés de l’audit sont traitées comme avant (même ordre, même plafond), les 138 de clean-all absentes de l’audit sont ajoutées à la suite. TROU restant : Même défaut pour `/admin/blocks` (sociétés récentes « inconnues »), `scripts/fetch-filing-dates.py` et `scripts/build-ir-coverage.py` (`v1-8-tickers-sorted.json`, 344 sociétés).
 
 > TROU : `scripts/cours-yfinance-collecte.py --rafraichir` ne prend que les fichiers existants : aucune nouvelle société n’entre seule dans `cours-fmp/` (393 absentes), donc ni dans `resultats-dates.json`.
 
 > TROU : couverture partielle des fichiers globaux : `employees.json` (212 absentes, aucun générateur), `evenements/` (402), `kpi-annuel-fiche/` (145, quasi toutes hors US, aucun script européen), `ir-directory.json` (13), `market-cap-order.json` (ML.PA, NWS).
 
-> TROU : la recherche ne trouve pas BE, FDXF et FERG (absentes de `_tickers-index.json`) ; la présence dans la recherche exige une ligne `desk_curated_companies` qu’aucune étape documentée ne créait avant ces consignes.
+> TROU : la recherche ne trouve pas BE, FDXF et FERG (absentes de `_tickers-index.json`) ; la présence dans la recherche exige une ligne `desk_curated_companies` qu’aucune étape documentée ne créait avant ces consignes. Rappel AJOUTÉ le 9 oct 2026 : étape 8 et `scripts/verif-societe.py` (FERG : « aucune ligne desk_curated_companies en ligne » au 9 oct).
+
+> TROU (9 oct 2026, vague sp5001000) : 257 sociétés de la vague ont encore une entrée V1.7 dans `src/data/v1-7-public.json` et 362 une ancienne fiche `src/data/v2-pipeline/<t>.json` ; la gate de la fiche publique les servait aux inscrits (`/snow`, `/twlo` sur mettrik.ai et niveau 2). Neutralisé par `src/lib/univers-actif.ts` une fois déployé ; contrôle rouge dans `verif-release.py` jusque-là. Les 777 autres entrées de `v1-7-public.json` hors clean-all et hors vague restent servies aux inscrits : à trancher.
 
 ## Alias, routes, devises
 

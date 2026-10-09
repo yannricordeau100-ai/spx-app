@@ -3,6 +3,7 @@ import path from "node:path";
 import { NextResponse } from "next/server";
 import { rate } from "@/lib/brand";
 import type { KPI } from "@/lib/data";
+import { estUniversN1, tickersUniversActif } from "@/lib/univers-actif";
 
 /**
  * GET /api/popular-stocks
@@ -88,8 +89,9 @@ export async function GET() {
     const enrich = loadEnrichments();
     // 8 oct 2026 : filtrage sur l univers en ligne cote serveur (avant : liste
     // complete importee dans le composant client home-popular-block).
+    // 9 oct 2026 : niveau 1 (UNIVERS=sp5001000) = les seules fiches de la vague.
     const enLigne = new Set(
-      (JSON.parse(fs.readFileSync(path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json"), "utf-8")) as { tickers: string[] }).tickers.map((x) => x.toUpperCase()),
+      (estUniversN1() ? tickersUniversActif() : (JSON.parse(fs.readFileSync(path.join(process.cwd(), "src/data/v1-9-5-clean-all-tickers.json"), "utf-8")) as { tickers: string[] }).tickers).map((x) => x.toUpperCase()),
     );
 
     for (const region of Object.keys(raw)) {

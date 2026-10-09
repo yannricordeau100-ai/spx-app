@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import { dansUniversActif, estUniversN1 } from "@/lib/univers-actif";
 
 /**
  * Carte des pays de l accueil (Yann 07 sept 2026, point 9).
@@ -57,6 +58,8 @@ export async function GET() {
     for (const key of Object.keys(ZONE_SUFFIX)) zones[key] = [];
     for (const t of order.tickers) {
       const up = t.toUpperCase();
+      // 9 oct 2026 : niveau 1 (UNIVERS=sp5001000) : aucune societe de l univers principal.
+      if (estUniversN1() && !dansUniversActif(up)) continue;
       const zone = zoneOf(up);
       const name = names[up]?.name || names[t.toLowerCase()]?.name || up;
       const pushTo = (key: string) => {

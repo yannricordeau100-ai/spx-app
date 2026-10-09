@@ -615,6 +615,7 @@ export function HomeView({
   gatePath = "/",
   contentOverrides,
   comptesGics = null,
+  masquerCartePays = false,
 }: {
   tickers?: string[];
   routePrefix?: string;
@@ -637,6 +638,8 @@ export function HomeView({
   contentOverrides?: Record<string, string>;
   /** 8 oct 2026 : nombres affiches du bloc GICS, calcules cote serveur. */
   comptesGics?: ComptesGicsPublics | null;
+  /** 9 oct 2026 : niveau 1 (UNIVERS=sp5001000), la carte des pays ne cite que l univers principal. */
+  masquerCartePays?: boolean;
 } = {}) {
   const { t, locale } = useT();
   const visiblesGratuit = useVisiblesGratuit();
@@ -756,7 +759,7 @@ export function HomeView({
               mention « KPI = INDICATEUR », au-dessus des mini-blocs de
               societes. Clic sur une zone = les plus grandes capitalisations du
               pays avec les memes mini-blocs 3-KPI, 10 puis 10, 20 maximum. */}
-          {(results === null || results.length > PAGE_SIZE) && (
+          {!masquerCartePays && (results === null || results.length > PAGE_SIZE) && (
             <HomeCartePays
               locale={locale}
               routePrefix={routePrefix}

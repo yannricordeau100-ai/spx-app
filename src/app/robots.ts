@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { estUniversN1 } from "@/lib/univers-actif";
 
 /**
  * robots.txt auto-généré.
@@ -19,6 +20,9 @@ import type { MetadataRoute } from "next";
  */
 export default function robots(): MetadataRoute.Robots {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mettrik.ai";
+  // 9 oct 2026 : le niveau 1 (UNIVERS=sp5001000) est une preversion de
+  // validation : aucun robot, aucune indexation des fiches avant le go.
+  if (estUniversN1()) return { rules: [{ userAgent: "*", disallow: ["/"] }] };
 
   const internes = [
     // Yann 29 aout 2026 : /api/kpis-existants reste ouvert aux outils de

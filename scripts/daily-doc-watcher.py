@@ -40,6 +40,11 @@ from urllib.parse import urljoin, urlparse
 
 PROJECT_ROOT = Path("/Users/yann/spx-app")
 AUDIT_PATH = PROJECT_ROOT / "src/data/v1-9-pre-publication-audit.json"
+# 9 oct 2026 (consignes, onglet 8) : l audit du 25 mai est une liste FIGEE ; les
+# societes ajoutees depuis (139 au 9 oct : AC.PA, ALV.DE, BE, BRK-B...) n etaient
+# jamais veillees. La liste de visibilite en fait foi pour ces ajouts.
+CLEAN_ALL_PATH = PROJECT_ROOT / "src/data/v1-9-5-clean-all-tickers.json"
+MARKET_CAP_ORDER_PATH = PROJECT_ROOT / "src/data/market-cap-order.json"
 STATUS_PATH = PROJECT_ROOT / "src/data/_daily-doc-watcher-status.json"
 SEC_DATA_DIR = PROJECT_ROOT / "sec-data"
 INBOX_DIR = PROJECT_ROOT / ".conv-state/inbox/CONV-CONCEPTS"
@@ -57,20 +62,42 @@ def log(msg: str) -> None:
 
 
 def load_clean_all_tickers() -> list[dict]:
-    """Lit l'audit V1.9 et retourne la liste des stés is_clean_all=True."""
+    """Lit l'audit V1.9 et retourne la liste des stés is_clean_all=True.
+
+    9 oct 2026 : puis ajoute, A LA SUITE et sans rien changer pour les societes
+    de l audit, celles de v1-9-5-clean-all-tickers.json absentes de l audit du
+    25 mai (ordre : capitalisation de market-cap-order.json)."""
+    clean: list[dict] = []
     if not AUDIT_PATH.exists():
-        log(f"FATAL: audit file not found at {AUDIT_PATH}")
-        return []
-    with open(AUDIT_PATH, "r", encoding="utf8") as f:
-        data = json.load(f)
-    audits = data.get("audits") or []
-    clean = [
-        {"ticker": a["ticker"], "market_cap_usd": a.get("market_cap_usd")}
-        for a in audits
-        if a.get("is_clean_all") is True
-    ]
-    clean.sort(key=lambda x: (x.get("market_cap_usd") or 0), reverse=True)
+        log(f"WARNING: audit file not found at {AUDIT_PATH}")
+    else:
+        with open(AUDIT_PATH, "r", encoding="utf8") as f:
+            data = json.load(f)
+        audits = data.get("audits") or []
+        clean = [
+            {"ticker": a["ticker"], "market_cap_usd": a.get("market_cap_usd")}
+            for a in audits
+            if a.get("is_clean_all") is True
+        ]
+        clean.sort(key=lambda x: (x.get("market_cap_usd") or 0), reverse=True)
     return clean
+
+
+def load_univers_ajouts(deja: list[dict]) -> list[dict]:
+    """Societes de la liste de visibilite absentes de l audit du 25 mai (9 oct 2026)."""
+    try:
+        tickers = json.load(open(CLEAN_ALL_PATH, encoding="utf8"))["tickers"]
+    except Exception as e:
+        log(f"WARNING: clean-all illisible ({e})")
+        return []
+    try:
+        capi = json.load(open(MARKET_CAP_ORDER_PATH, encoding="utf8")).get("market_cap_usd") or {}
+    except Exception:
+        capi = {}
+    vus = {d["ticker"].upper().replace("-", ".") for d in deja}
+    ajouts = [{"ticker": t, "market_cap_usd": capi.get(t)} for t in tickers if t.upper().replace("-", ".") not in vus]
+    ajouts.sort(key=lambda x: (x.get("market_cap_usd") or 0), reverse=True)
+    return ajouts
 
 
 def is_us_ticker(t: str) -> bool:
@@ -456,13 +483,17 @@ def main() -> int:
     log("Loading clean_all tickers...")
     universe = load_clean_all_tickers()
     log(f"Found {len(universe)} clean_all tickers")
-    if not universe:
+    # 9 oct 2026 : le plafond s applique comme avant a la liste de l audit ; les
+    # societes de clean-all absentes de cet audit (ajouts depuis le 25 mai) sont
+    # veillees A LA SUITE, hors plafond.
+    ajouts = load_univers_ajouts(universe)
+    if not universe and not ajouts:
         write_status([], [], 0, 0, "error_no_universe")
         return 1
 
     # cap for safety
-    universe = universe[:MAX_TICKERS_PER_RUN]
-    log(f"Processing first {len(universe)} tickers (cap={MAX_TICKERS_PER_RUN})")
+    universe = universe[:MAX_TICKERS_PER_RUN] + ajouts
+    log(f"Processing {len(universe)} tickers (audit cap={MAX_TICKERS_PER_RUN}, +{len(ajouts)} ajouts clean-all)")
 
     today = datetime.now(timezone.utc).date()
     flagged_earning: list[str] = []

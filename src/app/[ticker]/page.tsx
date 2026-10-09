@@ -38,6 +38,7 @@ import { CoursKpiBlock } from "@/components/admin/cours-kpi-block";
 import { KpiSurMesureBlock, type DonneesDividendes } from "@/components/admin/kpi-sur-mesure-block";
 import DIVIDENDES_TOP5 from "@/data/admin-dividendes-top5.json";
 import INDICES_COMPOSITION from "@/data/indices-composition.json";
+import { cleCacheUnivers, dansUniversActif, estUniversN1, ficheServie } from "@/lib/univers-actif";
 
 /** Visibilité V1.9.5 : la liste clean-all fait foi (mêmes variantes de
  *  séparateur que le loader V1.9.5 : BRK.B / BRK-B). */
@@ -105,7 +106,7 @@ async function loadTranscriptSummaryBrut(
  */
 const loadTranscript = unstable_cache(
   loadTranscriptBrut,
-  ["fiche-transcript", VERSION],
+  ["fiche-transcript", VERSION, ...cleCacheUnivers()],
   { revalidate: 21600, tags: ["fiches"] },
 );
 
@@ -128,12 +129,17 @@ async function loadRachats(ticker: string): Promise<import("@/components/rachats
   } catch {
     societe = null;
   }
+  // 9 oct 2026 : le classement ne cite que des societes de l univers du deploiement
+  // (sur le niveau 1, aucune societe de l univers principal n apparait).
+  if (estUniversN1()) {
+    return { depuis: classement.depuis, societe, classement: { us: classement.us.filter((x) => dansUniversActif(x.ticker)), eu: classement.eu.filter((x) => dansUniversActif(x.ticker)) } };
+  }
   return { depuis: classement.depuis, societe, classement: { us: classement.us, eu: classement.eu } };
 }
 
 const loadTranscriptSummary = unstable_cache(
   loadTranscriptSummaryBrut,
-  ["fiche-transcript-synthese", VERSION],
+  ["fiche-transcript-synthese", VERSION, ...cleCacheUnivers()],
   { revalidate: 21600, tags: ["fiches"] },
 );
 
@@ -235,6 +241,9 @@ export async function generateMetadata({
   const { ticker } = await params;
   // 24 sept 2026 : societe retiree = vraie 404 (statut HTTP et titre).
   if (ticker.toUpperCase() in (RETIREES.tickers as Record<string, string>)) notFound();
+  // 9 oct 2026 (vague sp5001000) : une fiche hors de l univers du deploiement
+  // n a ni titre ni apercu (sinon la page 404 porterait le nom de la societe).
+  if (!ficheServie(ticker)) notFound();
   // Yann 4 sept 2026 : depuis que la fiche est servie sur /<ticker>, le titre
   // de l onglet et l apercu de partage disaient "Page introuvable" pour les
   // 660 societes hors des 5 de la V1 : le nom etait cherche dans la vieille
@@ -286,6 +295,11 @@ export default async function TickerPage({
   // (rachat finalise, faillite) est retiree du site, meme si un ancien jeu de
   // donnees la contient encore.
   if (upper in (RETIREES.tickers as Record<string, string>)) notFound();
+  // Yann 9 oct 2026 (Russell 1000, vague sp5001000) : univers du deploiement.
+  // Niveau 1 (UNIVERS=sp5001000) : seules les fiches pretes de la vague, aucune
+  // autre (pas meme les 5 fiches du jeu V1). Univers principal : aucune societe
+  // de la vague avant le go de Yann (src/lib/univers-actif.ts).
+  if (!ficheServie(upper)) notFound();
   // Redirect alias tickers (e.g. GOOG → GOOGL) toward canonical URL.
   if (TICKER_ALIASES[upper]) {
     redirect(`/${TICKER_ALIASES[upper].toLowerCase()}`);
@@ -299,7 +313,8 @@ export default async function TickerPage({
     // ici, sur /aapl, sans redirection. La route sandbox reste valide pour les
     // liens deja partages.
     const v17 = V17_PUBLIC as unknown as Record<string, unknown>;
-    if (!(v17[upper] || (await estDansCleanAll(upper)))) {
+    // Niveau 1 : la liste du niveau 1 fait foi (deja controlee ci-dessus).
+    if (!(estUniversN1() ? dansUniversActif(upper) : v17[upper] || (await estDansCleanAll(upper)))) {
       notFound();
     }
   }

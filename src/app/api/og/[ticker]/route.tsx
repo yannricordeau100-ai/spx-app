@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { COMPANIES } from "@/lib/data";
+import { dansUniversActif, estUniversN1 } from "@/lib/univers-actif";
 import { brand } from "@/lib/brand";
 
 export const runtime = "edge";
@@ -18,7 +19,8 @@ export const runtime = "edge";
 export async function GET(req: Request, ctx: { params: Promise<{ ticker: string }> }) {
   const { ticker } = await ctx.params;
   const upper = ticker.toUpperCase();
-  const company = COMPANIES[upper];
+  // 9 oct 2026 : niveau 1 (UNIVERS=sp5001000) : aucune image pour l univers principal.
+  const company = estUniversN1() && !dansUniversActif(upper) ? undefined : COMPANIES[upper];
 
   if (!company) {
     return new ImageResponse(

@@ -1,15 +1,18 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { signaleTokenInvalide } from "./lib/security/alerte";
-import CLEAN_ALL from "./data/v1-9-5-clean-all-tickers.json";
+import { estUniversN1, tickersUniversActif } from "./lib/univers-actif";
 import { TICKER_ALIASES } from "./lib/ticker-aliases";
 import { COOKIE_ADMIN_2FA, PAGE_VERIFICATION, cookieAdminValide, estRouteOutillage2FA } from "./lib/security/admin-2fa";
 
 // Yann 3 sept 2026 : seules les fiches de l univers en ligne (666) sont
 // publiques sans compte. Tout autre chemin d un segment (/account, /admin,
 // /desk-..., /whoami...) reste soumis a l authentification.
+// 9 oct 2026 : univers du deploiement (src/lib/univers-actif.ts). Sans la
+// variable UNIVERS : v1-9-5-clean-all-tickers.json, comme avant. Niveau 1
+// (UNIVERS=sp5001000) : les seules fiches pretes de la vague Russell 1000.
 const TICKERS_PUBLICS = new Set<string>();
-for (const t of (CLEAN_ALL as { tickers: string[] }).tickers) {
+for (const t of tickersUniversActif()) {
   const u = t.toUpperCase();
   TICKERS_PUBLICS.add(u);
   TICKERS_PUBLICS.add(u.replace(/\./g, "-"));
@@ -452,7 +455,10 @@ export async function proxy(request: NextRequest) {
   // Yann 24 sept 2026 : /faq et /populaire-investisseurs retires du site public.
   const PREFIXES_INTERNES = ["/sandbox", "/admin", `/desk-${process.env.DESK_SLUG ?? "mtk9x4kp"}`, "/email-lab", "/concepts", "/chart-lab", "/whoami", "/faq", "/populaire-investisseurs", PAGE_VERIFICATION];
   const estRouteInterne = PREFIXES_INTERNES.some((p) => routePathname === p || routePathname.startsWith(p + "/"));
-  if (isProdDomain && estRouteInterne) {
+  // 9 oct 2026 : le niveau 1 (UNIVERS=sp5001000) ne montre QUE les fiches de la
+  // vague Russell 1000 ; l outillage (qui liste l univers principal) y repond 404
+  // pour tout le monde, comme sur mettrik.ai. Il reste sur le niveau 2.
+  if ((isProdDomain || estUniversN1()) && estRouteInterne) {
     return new NextResponse(null, { status: 404 });
   }
   if (isMaintenanceOn) {

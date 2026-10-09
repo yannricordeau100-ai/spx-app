@@ -5,6 +5,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { listCompanyFavorites, listKpiFavorites } from "@/app/favorites/actions";
 import { COMPANIES } from "@/lib/data";
 import { brand } from "@/lib/brand";
+import { estUniversN1, ficheServie } from "@/lib/univers-actif";
 
 export default async function FavoritesPage({
   searchParams,
@@ -20,10 +21,14 @@ export default async function FavoritesPage({
   const sp = await searchParams;
   const tab = sp.tab === "kpis" ? "kpis" : "companies";
 
-  const [companies, kpis] = await Promise.all([
+  const [companiesTous, kpisTous] = await Promise.all([
     listCompanyFavorites(),
     listKpiFavorites(),
   ]);
+  // 9 oct 2026 : base partagee avec mettrik.ai ; le niveau 1 (UNIVERS=sp5001000)
+  // ne cite que les societes qu il sert. Univers principal : liste inchangee.
+  const companies = estUniversN1() ? companiesTous.filter((f) => ficheServie(f.ticker)) : companiesTous;
+  const kpis = estUniversN1() ? kpisTous.filter((f) => ficheServie(f.ticker)) : kpisTous;
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505]">
