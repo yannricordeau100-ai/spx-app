@@ -46,6 +46,20 @@ def feu(couleur, domaine, controle, detail=""):
 # 1) GIT : tout ce qui n est pas commite et pousse n existe pas pour Vercel
 statut = sh("git status --short -- src scripts supabase next.config.ts package.json public email-templates .batches-drafts-safe/kpis-haut")
 modifs = [l for l in statut.splitlines() if l.strip()]
+# 9 oct 2026 : les fichiers de la vague sp5001000 (Russell 1000) en cours d extraction ne sont pas servis
+# hors N1 (gate src/lib/univers-actif.ts) : ils ne bloquent pas la mise en ligne de la production.
+try:
+    _vague = {x["ticker"].upper() for x in json.load(open("data-lake/_sp5001000/liste.json"))["societes"]}
+    _univ = json.load(open("src/data/v1-9-5-clean-all-tickers.json")); _univ = {t.upper() for t in (_univ.get("tickers", _univ) if isinstance(_univ, dict) else _univ)}
+    _vague -= _univ
+    import re as _re
+    def _hors_vague(l):
+        m = _re.search(r"(?:kpis-haut/([^/]+)\.json|v2-pipeline(?:-enrich)?/([^/]+?)\.(?:ranks\.|tam\.|mettrik-description\.)?json)$", l.strip())
+        t = (m.group(1) or m.group(2)).upper() if m else None
+        return not (t and t in _vague)
+    modifs = [l for l in modifs if _hors_vague(l)]
+except Exception:
+    pass
 feu("rouge" if modifs else "vert", "Code", "Aucune modification non commitee dans le code et les donnees servies",
     f"{len(modifs)} fichier(s) non commite(s)" + (" : " + ", ".join(m[3:] for m in modifs[:6]) if modifs else ""))
 head = sh("git rev-parse HEAD"); remote = sh("git rev-parse origin/staging 2>/dev/null || git ls-remote origin staging | cut -f1")
