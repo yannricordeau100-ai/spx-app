@@ -1033,3 +1033,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.09.3 (09 Oct 2026 16:59, apres 11f08ff0d6)
 - Blocage des fiches sp5001000 hors N1 (fuite /snow /twlo), univers actif, N1 isole, consignes Russell 1000, sauvegarde relais
+
+## v2026.10.10.1 (10 Oct 2026 01:21, apres 253a85f20e)
+- TAM : 493 nouveaux TAM de fiabilite moyenne publies apres examen (CA annuel, pertinence, doublons), 14 CA partiels ramenes a l annee, plus aucune adresse dans le « i »

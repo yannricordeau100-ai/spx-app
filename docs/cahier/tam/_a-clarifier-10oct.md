@@ -1,0 +1,51 @@
+# TAM a clarifier (examen du 10 oct 2026)
+
+TAM deja acceptes par Yann que l examen juge douteux : ils restent en ligne tant que Yann n a pas tranche.
+
+- AAPL c2 : Le TAM mesure les depenses brutes des consommateurs en applications alors que le segment Services est une commission plus publicite, iCloud, AppleCare et paiements moteurs de recherche : flux de nature differente, part captee surestimee (regle 2).
+- ACLS c2 : Le TAM de 5 Mds $ est celui de l'ensemble Axcelis plus Veeco apres rapprochement (recuit laser, MOCVD, packaging), sans rapport avec l'implantation ionique seule de 839 M $ (regle 3).
+- ADM c1 : CA annuel et TAM annuel ok, mais le segment est surtout de l'origination et du negoce de grains (40,4 Mds $ sur 61,6) hors de l'etude sur la transformation des oleagineux : la part de 18 % n'est pas representative, a vous de dire si on garde ou on ecarte.
+- AGN.AS c1 : Le CA (produit IFRS 17 de tout le segment Americas, 8,477 Mds euros) couvre aussi rentes, retraite entreprise et prevoyance collective, alors que le TAM ne porte que sur les primes vie individuelle 2024 : perimetre et nature differents, part de 5,8 % incoherente avec les 3,02 % du rapport NAIC.
+- BA c1 : Le TAM de 245 Mds $ est une moyenne simple d un cumul sur 20 ans, pas un marche annuel mesure, et il exclut la defense que le segment inclut.
+- BEN c1 : Les actifs sous gestion (1 661 Mds $) et le TAM (147 000 Mds $) sont des encours a des dates differentes, pas des flux annuels de revenus comparables.
+- BX c1 : Le TAM PwC est une projection 2030 (commissions de gestion et de performance) comparee aux honoraires 2025 hors performance : annees et natures differentes, part sous-estimee ; Yann doit decider de garder ou remplacer.
+- COR c1 : Meme TAM HDA 862 Mds $ que c2 : le revenu U.S. Healthcare Solutions inclut 5,7 Mds $ de sante animale hors perimetre HDA, c2 (Human Health) colle mieux ; je recommande de ne garder que c2.
+- ELV c1 : Meme tableau CMS que c2 mais assurance privee seule (1 644,6 Mds $) face a un segment Health Benefits incluant Medicare Advantage et Medicaid : perimetre trop etroit, je propose de le remplacer par c2, avis de Yann requis.
+- FITB c1 : Encours de depots (stock au 31/12/2025) compare a un encours FDIC national : ce n est pas un revenu annuel (regle 2), la part de 0,93 % serait une part en volume et non en chiffre d affaires.
+- GPN c2 : Meme segment que c1 avec un TAM contradictoire, et TAM americain 2027 face a un CA mondial 2025 : retire c2 au profit de c1 ?
+- HBAN c1 : Encours de depots (stock au 31/12) compares a des depots du secteur, pas un revenu annuel : un TAM de revenus bancaires serait necessaire.
+- HOOD c1 : Le numérateur (212 Mds $) est un encours client au 31/12/2025 et le TAM un stock d'actions des ménages : aucun revenu annuel comparé à un marché annuel, à retirer ou à rebâtir avec le revenu annuel des actions.
+- IBKR c1 : Segment (90,5 Mds $) et TAM (1 225,6 Mds $) sont des encours de prets sur marge au 31/12/2025, pas des flux annuels de revenu : une part d'encours n'est pas une part de chiffre d'affaires, avis de Yann requis (requalifier avec l'interet sur marge annuel ou retirer).
+- IDXX c1 : Le TAM de 45 Mds $ est un potentiel de long terme incluant des tests non prescrits, pas un marche annuel facture, et il contredit c2 (6,42 Mds $) pour le meme marche : c2 est mieux apparie au segment, Yann doit arbitrer le remplacement.
+- INGA.AS c2 : Segment (721,4 Mds euros) et marche (12 314 Mds euros) sont des encours de depots au 31/12/2025, pas des flux annuels de revenu : avis de Yann requis (retirer ou requalifier en marge d'interet annuelle).
+- IVZ c1 : Segment (2 169,9 Mds $ d'actifs sous gestion) et TAM (147 000 Mds $) sont des encours, pas un revenu annuel : la part de 1,5 % n'est pas une part de chiffre d'affaires, avis de Yann requis (requalifier avec les commissions annuelles ou retirer).
+- KEY c2 : Regle 2 : le segment est un encours moyen de prets et le marche un encours de fin d annee, pas des revenus annuels comparables ; a retirer ou a conserver selon l avis de Yann.
+- KKR c1 : Regle 2 : 525 Mds $ d actifs sous gestion compares a un encours mondial (16 780 Mds $ fin 2023), des encours et non des revenus annuels, avec deux dates differentes.
+- MELI c3 : Regle 2 : volume de paiements par cartes au Bresil (821,5 Mds $) compare a un revenu Fintech (6,0 Mds $), hors Pix ; a garder ou retirer selon ton avis.
+- MRVL c1 : Le TAM de 94 Mds$ est une cible 2028 (pas une taille de marche actuelle) face a un CA de l'exercice 2026, et Marvell l'a depuis releve a environ 385 Mds$ pour 2030 : faut-il le conserver ou le remplacer ?
+- MTB c2 : Le segment est un encours de depots au 31 decembre 2025 (stock) et le TAM un encours sectoriel : ce n'est pas un revenu annuel, donc part de marche en volume et non en revenus.
+- MUV2.DE c1 : Le segment Reassurance (38,731 Mds EUR) inclut les 8,625 Mds EUR de Global Specialty Insurance (assurance directe, hors TAM de reassurance) deja compte par c4 : faut-il ramener le numerateur a 30,106 Mds EUR ?
+- NEM c1 : Le TAM de 555 Mds$ mesure la demande d'or cote acheteurs, alors que Newmont est producteur ; il contredit le TAM d'extraction de c2 (295 Mds$) pour le meme segment : avis de Yann pour retirer c1 au profit de c2.
+- NOW c1 : TAM de 600 Mds$ est une projection 2028 au perimetre elargi, compare a un CA 2025, et contredit le palier de 275 Mds$ de la meme diapositive retenu en c2 : avis de Yann pour le remplacer.
+- NTRS c1 : Le chiffre de la banque (17 418 Mds$) est un encours de titres au 31/12/2025 et le TAM un stock mondial de titres : aucun flux annuel de revenu compare a un marche annuel, la part de 5,5 % n'est pas comparable.
+- NWS c1 : Le TAM Burton-Taylor ne couvre que les donnees financieres professionnelles, alors que WSJ et Barron s grand public pesent plus de la moitie du segment : la part de 5 % est surevaluee, avis de Yann necessaire.
+- NWSA c1 : Le TAM Burton-Taylor ne couvre que les donnees financieres professionnelles, alors que WSJ et Barron s grand public pesent plus de la moitie du segment : la part de 5 % est surevaluee, avis de Yann necessaire.
+- PLTR c1 : Le TAM de 63 Md est une estimation de la societe datant de 2020, sans mise a jour, donc pas un marche annuel comparable au CA 2025 : garder comme ordre de grandeur ou retirer ?
+- PNC c3 : Depots de fin d'annee (stock) contre depots du secteur : part de bilan et non part d'un marche annuel de revenus (regle 2), a garder comme part de depots ou retirer ?
+- PRU c1 : Encours gérés (stock au 31 décembre) comparés à des encours mondiaux, ce n'est pas un revenu annuel face à un marché annuel ; alternative : revenus PGIM face aux revenus mondiaux de la gestion d'actifs.
+- RF c1 : Dépôts (stock au 31/12) face à un TAM de dépôts FDIC (stock au 30/06) : aucun des deux n'est un revenu annuel, donc non comparable ; avis de Yann requis.
+- RJF c2 : Actifs en comptes à honoraires (stock au 30/09) face à des actifs sous mandat (stock au 31/03/2026) : pas un marché annuel de revenus et relevés décalés de six mois ; avis de Yann requis.
+- SAF.PA c1 : Etude Mordor limitee aux moteurs commerciaux alors que Propulsion inclut militaire et helicopteres : c2 colle mieux au perimetre, avis de Yann requis pour remplacer c1 par c2.
+- SCHW c1 : Le segment est un encours d'actifs de clients (stock) et non un revenu annuel, compare a un stock de patrimoine des menages ; il faudrait un revenu net annuel du segment Investor Services.
+- SHOP c3 : Reprend c1 et c2 face au TAM total 849 = 768 + 81 : meme CA compte deux fois ; garder c1 + c2 (plus precis) ou c3 seul, avis de Yann requis.
+- STT c1 : Regles 1 et 2 : segment et TAM sont des encours (stock au 31/12/2025), pas des revenus annuels ; les commissions de gestion annuelles (~2,4 Mds $) ne sont pas comparees a un marche de revenus.
+- SU.PA c3 : Regles 2 et 4 : TAM 2030 compare a un CA 2025 (annees differentes) et marche groupe qui recompte les segments deja couverts par c1 et c2.
+- SYF c1 : Regle 2 : segment_revenu (103,8 Mds $) est un encours de credits et le TAM un encours de credit renouvelable, stock contre stock et non revenu annuel contre marche annuel.
+- TROW c2 : Regle 2 : comparaison encours contre encours (561,4 contre 4 800 Mds $), coherente entre elle mais ce sont des stocks et non des revenus annuels; garder comme part de marche en encours ou retirer ?
+- TSLA c3 : Regle 2 : 10 400 Mds $ est un investissement cumule sur plusieurs decennies (Master Plan 3), pas un marche annuel comparable au revenu Energy 2025; retirer ?
+- UBER c2 : Revenu Delivery net (commissions) comparé à la dépense brute des consommateurs, et étude limitée aux repas alors que le segment inclut courses et biens : part captée non comparable, avis de Yann requis.
+- UNH c1 : Primes et services d'assurance (CA UnitedHealthcare) comparés aux dépenses de soins totales CMS 2024, qui incluent la part gérée en direct par l'État sans assureur : flux de nature différente et année 2024 contre 2025.
+- VLTO c2 : Part de 55 % non credible (marche de surveillance seul, plus petit que la moitie du segment UV et chimie inclus) et contradictoire avec c1 pour le meme segment ; je propose de le remplacer par c1, avis de Yann requis.
+- VRSN c1 : Regle 2 violee : le segment est un stock de noms de domaine (173,5 M) et le TAM un parc mondial de noms, pas un flux annuel de revenus ; a remplacer par un marche en revenus annuels (CA annuel 2025 de 1,66 Md $), avis de Yann requis.
+- WFC c1 : Le segment retenu est un encours de depots de fin d annee (stock) et non un revenu annuel : comparaison stock contre stock sans lien avec le chiffre d affaires, a valider par Yann.
+- WKL.AS c1 : TAM estime pour 2021 (4 ans d ecart avec le CA 2025) et avec des exclusions explicites qui font partie du CA de la division : part de 33 % surestimee, a valider par Yann.
