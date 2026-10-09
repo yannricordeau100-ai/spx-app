@@ -7,7 +7,7 @@ import type { TamCandidat } from "@/lib/cahier";
 import type { MarketPosition } from "@/lib/data";
 
 /** 9 oct 2026 : plus de limite, tous les TAM valides sont affiches, tries par revenu de segment decroissant. */
-function enMilliards(p: { segment_revenue: number; segment_unit: string }): number {
+export function enMilliards(p: { segment_revenue: number; segment_unit: string }): number {
   const u = (p.segment_unit ?? "").replace(/[\s$€£]/g, "");
   const f = /^(M|m|Mn|Mio)$/.test(u) ? 1e-3 : /^(K|k)$/.test(u) ? 1e-6 : 1;
   return p.segment_revenue * f;
@@ -15,9 +15,6 @@ function enMilliards(p: { segment_revenue: number; segment_unit: string }): numb
 export function trierPositions<T extends { segment_revenue: number; segment_unit: string }>(pos: T[]): T[] {
   return [...pos].sort((a, b) => enMilliards(b) - enMilliards(a));
 }
-/** Grille du bloc : 1 colonne mobile, 2 colonnes des 1024 px ; carte large si seule ou derniere d une serie impaire. */
-export const grilleTam = (n: number) => (n === 1 ? "grid-cols-1" : "lg:grid-cols-2");
-export const derniereLarge = (i: number, n: number) => n > 1 && n % 2 === 1 && i === n - 1;
 
 export function tamValide(c: TamCandidat): boolean {
   return typeof c.tam === "number" && Number.isFinite(c.tam) && c.tam > 0 && typeof c.segment_revenu === "number" && Number.isFinite(c.segment_revenu);
