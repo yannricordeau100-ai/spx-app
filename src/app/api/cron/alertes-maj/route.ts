@@ -35,7 +35,17 @@ export async function GET(req: NextRequest) {
   const contenu = { calculeLe: etat.calculeLe, rougesTotal: etat.rougesTotal, stesRouges: etat.stesRouges, resume, blocs: etat.blocs.map((b) => ({ id: b.id, nom: b.nom, vert: b.vert, orange: b.orange, rouge: b.rouge, rouges: b.rouges.slice(0, 40) })) };
   await sb.from("desk_page_content").upsert({ page_key: "alertes_maj", section_key: "etat", content_fr: JSON.stringify(contenu) }, { onConflict: "page_key,section_key" });
   let email: string = "non envoyé";
-  const doitEnvoyer = etat.rougesTotal > 0 && empreinte !== precedente && req.nextUrl.searchParams.get("email") !== "0";
+  // 9 oct 2026 (Yann : alertes trop répétitives) : un email seulement si un bloc
+  // NOUVEAU passe au rouge (absent de la dernière alerte envoyée), jamais quand
+  // la liste ne fait que diminuer ou bouger à la marge, et au plus une fois par 24 h.
+  const anciens = new Set(precedente.split(";").flatMap((x) => { const [id, t] = x.split(":"); return (t ?? "").split("|").filter(Boolean).map((tk) => `${id}:${tk}`); }));
+  const nouveaux = etat.blocs.flatMap((b) => b.rouges.map((r) => `${b.id}:${r.ticker}`)).filter((k) => !anciens.has(k));
+  let dernierEnvoi = 0;
+  try {
+    const { data } = await sb.from("desk_page_content").select("updated_at").eq("page_key", "alertes_maj").eq("section_key", "empreinte").maybeSingle();
+    dernierEnvoi = data?.updated_at ? Date.parse(data.updated_at as string) : 0;
+  } catch { /* sans date : on considere qu aucun envoi recent */ }
+  const doitEnvoyer = etat.rougesTotal > 0 && nouveaux.length > 0 && Date.now() - dernierEnvoi > 24 * 3600 * 1000 && req.nextUrl.searchParams.get("email") !== "0";
   if (doitEnvoyer && process.env.RESEND_API_KEY && process.env.DESK_OWNER_EMAIL) {
     const corps = `<p><strong>${etat.rougesTotal} bloc(s) de fiche en retard (J+3 dépassé)</strong>, ${etat.stesRouges.length} société(s).</p><ul>${resume.map((l) => `<li>${l}</li>`).join("")}</ul><p>Détail : https://mettrik-niveau2.vercel.app/sandbox/mises-a-jour</p><p>Claude corrige les blocs rouges en début de session.</p>`;
     const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" }, body: JSON.stringify({ from: "Mettrik alertes <noreply@mettrik.ai>", to: [process.env.DESK_OWNER_EMAIL], subject: `ALERTE ROUGE : ${etat.rougesTotal} bloc(s) de fiche en retard`, html: renderEmailLayout({ locale: "fr", preheader: `${etat.rougesTotal} bloc(s) de fiche en retard`, title: "Mises à jour des fiches : blocs en retard", bodyHtml: corps }) }) });

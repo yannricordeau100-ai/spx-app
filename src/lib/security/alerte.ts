@@ -64,10 +64,22 @@ export function signaleTricheSimulation(email: string, valeur: string, ip = ""):
 }
 
 /** Un token d'audit INVALIDE a été présenté (tentative de forçage). */
+// 9 oct 2026 (Yann : « arrête les emails d alerte, reprends-les quand ce sera
+// justifié ») : un jeton invalide isolé vient presque toujours de nos propres
+// tests. On n alerte plus qu en cas de tentatives répétées (10 en 1 h depuis la
+// même adresse, une forme de forçage), jamais depuis le poste local.
+const tentativesJeton = new Map<string, number[]>();
 export function signaleTokenInvalide(chemin: string, ip: string): void {
+  if (!ip || ip === "127.0.0.1" || ip === "::1") return;
+  const now = Date.now();
+  const liste = (tentativesJeton.get(ip) ?? []).filter((t) => now - t < FENETRE_MS);
+  liste.push(now);
+  tentativesJeton.set(ip, liste);
+  if (tentativesJeton.size > 500) tentativesJeton.clear();
+  if (liste.length < 10) return;
   envoieAlerte(
     "ALERTE Mettrik : token d'audit invalide présenté",
     `Un paramètre audit_token INVALIDE a été présenté sur "${chemin}" (ip ${ip || "inconnue"}). L'accès est resté celui d'un visiteur normal. Tentative possible de forçage de la porte créateur.`,
-    `token:${ip}`,
+    `token:${ip}:${new Date().toISOString().slice(0, 10)}`,
   );
 }
