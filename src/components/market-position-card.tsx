@@ -44,10 +44,18 @@ function unitLabel(unit: string) {
  * on retire ce fragment a l affichage, la donnee reste intacte dans le fichier.
  */
 export function sansMentionSource(texte: string): string {
-  return texte
-    .replace(/\s*Sources?\s*:\s*\S*.*$/i, "")
-    .replace(/\s{2,}/g, " ")
+  // 10 oct 2026 (Yann) : jamais de lien ni d adresse dans le « i ». On retire le fragment
+  // « Source : ... », puis toute phrase qui contient encore une adresse web, et la note se
+  // termine toujours par une ponctuation finale.
+  const sansFragment = texte.replace(/\s*Sources?\s*:\s*\S*.*$/i, "").replace(/\s{2,}/g, " ").trim();
+  const lien = /(https?:\/\/|www\.|\b[\w-]+\.(?:com|org|net|fr|de|gov|eu|io|ch|uk)\/\S*)/i;
+  const propre = sansFragment
+    .split(/(?<=[.!?])\s+/)
+    .filter((phrase) => !lien.test(phrase))
+    .join(" ")
+    .replace(/[\s,;:(–-]+$/u, "")
     .trim();
+  return propre && !/[.!?»)]$/.test(propre) ? `${propre}.` : propre;
 }
 
 /**

@@ -35,7 +35,9 @@ export function candidatVersPosition(c: TamCandidat): MarketPosition {
     tam_unit: unite(c.tam_unite),
     ...(c.tam_fourchette ? { tam_range: c.tam_fourchette } : {}),
     source: src.titre || src.url || "source",
-    source_note: `${c.tam_intitule ?? ""}. ${c.commentaire ?? ""} Source : ${src.url ?? ""}`.trim(),
+    // 10 oct 2026 : plus d adresse dans la note du « i » ; le lien passe dans source_url (comme tam-pose.py).
+    source_note: `${c.tam_intitule ?? ""}. ${c.commentaire ?? ""}`.trim(),
+    ...(src.url ? { source_url: src.url } : {}),
     ...(typeof c.croissance_marche_pct === "number" ? { market_cagr: c.croissance_marche_pct } : {}),
   } as MarketPosition;
 }

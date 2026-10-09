@@ -19,6 +19,13 @@ choix = json.loads(rows[0]["content_fr"]) if rows and rows[0].get("content_fr") 
 def unite(u):
     u = (u or "").strip()
     return {"Mds $": "$B", "M $": "$M", "Mds €": "€B", "M €": "€M"}.get(u, u)
+import re
+def note_propre(t):
+    t = re.sub(r"\s*Sources?\s*:\s*\S*.*$", "", t or "", flags=re.I).lstrip(". ")
+    lien = re.compile(r"(https?://|www\.|\b[\w-]+\.(?:com|org|net|fr|de|gov|eu|io|ch|uk)/\S*)", re.I)
+    phrases = [p for p in re.split(r"(?<=[.!?])\s+", re.sub(r"\s{2,}", " ", t).strip()) if p and not lien.search(p)]
+    t = re.sub(r"[\s,;:(-]+$", "", " ".join(phrases)).replace("..", ".").strip()
+    return t + "." if t and t[-1] not in ".!?)»" else t
 seuls = set(a.upper() for a in sys.argv[1:])
 n = 0
 for t, ids in choix.items():
@@ -40,7 +47,9 @@ for t, ids in choix.items():
             "tam": c["tam"], "tam_unit": unite(c["tam_unite"]),
             **({"tam_range": c["tam_fourchette"]} if c.get("tam_fourchette") else {}),
             "source": f"{src.get('titre') or src.get('url') or 'source'}",
-            "source_note": f"{c.get('tam_intitule','')}. {c.get('commentaire','')} Source : {src.get('url','')}".strip(),
+            **({"source_url": src["url"]} if src.get("url") else {}),
+            # 10 oct 2026 (Yann) : aucune adresse web dans la note du « i » ; la source reste dans le champ source.
+            "source_note": note_propre(f"{c.get('tam_intitule','')}. {c.get('commentaire','')}"),
             **({"market_cagr": c["croissance_marche_pct"]} if isinstance(c.get("croissance_marche_pct"), (int, float)) else {}),
         })
     def mds(x):
