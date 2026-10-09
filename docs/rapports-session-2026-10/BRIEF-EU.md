@@ -1,0 +1,46 @@
+# Brief commun : mise au niveau des fiches europeennes (6 oct 2026)
+
+Depot : /Users/yann/spx-app (app Mettrik). Lac : /Users/yann/spx-app/data-lake (= celui du depot). Scratchpad : /private/tmp/claude-501/-Users-yann/f6e0203b-2aed-4432-a0b3-a87ba8db1323/scratchpad
+Cible : porter ta societe au niveau des comparables ADS.DE (adidas), ADYEN.AS, BMW.DE, ADP : series KPI completes (historique propre), dividende, gouvernance complete, stories, KPI d industrie.
+
+## INTERDITS ABSOLUS
+- Aucune commande git. Aucun build (pas de next build, pas de tsc complet, pas de deploy). Pas de `git add`.
+- Jamais de valeur inventee. Toute valeur ecrite doit etre lue litteralement dans un document du lac (PDF/texte). Si une valeur n est pas trouvee : ne pas l ecrire, le consigner dans le fichier resultat.
+- Aucun tiret long ni demi-cadratin (les caracteres em-dash et en-dash) dans AUCUN texte ecrit. Utiliser virgule, deux-points ou parentheses.
+- N ecris JAMAIS le mot « URD » dans une chaine de donnees (un autre agent le supprime des textes visibles). Ecris « rapport annuel », « rapport financier annuel », « rapport semestriel », « communique de resultats ». Dans les champs de source, ne mets pas de chemin contenant `ir/URD` : cite le document par son titre et sa date (ex : « Rapport annuel 2025 de Porsche AG, publie le 9 mars 2026 »). Les chemins de fichier ne vont que dans ton fichier resultat.
+- Textes visibles en francais (signal, description_fr, notes, voting_structure...). Anglais uniquement dans name_en.
+- Ne pas reconstruire _merged.json. Ne pas toucher aux fichiers d une autre societe. Ne pas toucher src/data/kpi-industrie-par-societe.json (je m en charge) ni src/lib/** (aucun code).
+- Pas d AskUserQuestion. Decide seul. Reponse finale tres courte : {ticker, ok, nb_lignes, chemin du fichier resultat}.
+- Sur macOS, `zcat` ne marche pas sur .gz : utilise `gzip -dc`. zsh : pas de `declare -A` avec `${!x[@]}`, ecris plutot un script python.
+- Mac fragile : un seul pdftotext/telechargement a la fois, pas de boucle parallele lourde.
+
+## Point d entree
+`cd /Users/yann/spx-app && python3 scripts/fiche-sources.py <TICKER> [--bloc gouvernance|risques|tam|repartition|historique|kpi|ia|textes]` montre la valeur reellement servie et LE fichier a corriger (registre docs/SOURCES-FICHES.md : lis-le).
+Copie JSON de la fiche telle que servie (vrai chargeur) : `npx tsx scripts/verif-fiches/dump-fiches-servies.ts <dossier_vide> <TICKER>` puis lire `<dossier>/<TICKER>.json` (cle `kpis`, `governance`, `kpi_industrie_shorts`...). Etat AVANT deja copie dans scratchpad/b/<TICKER>.json (ne pas l ecraser, c est le « avant » du rapport).
+
+## Documents a telecharger (autorisation donnee par Yann)
+Telecharger depuis le SITE INVESTISSEURS OFFICIEL de la societe uniquement (curl avec User-Agent navigateur) : rapports annuels 2021 a 2025 (au moins 2023-2025), communiques de resultats / rapports trimestriels / semestriels 2022 a 2026 (T1, S1/H1, 9M/T3, annuel), presentations seulement si utile. Rangement, comme les autres societes europeennes :
+`data-lake/<TICKER>/ir/<TYPE>/<TICKER>_<TYPE>_<PERIODE>_<AAAA-MM-JJ>.pdf` + `.txt.gz` (texte `pdftotext -layout`, compresse gzip) ; TYPE : `URD` (rapport annuel complet, nom de dossier historique), `CP` (communiques de resultats, periode `Q1-2026`, `H1-2026`, `FY2025`), `TRIM` (rapports trimestriels), `SEMESTRIEL`, `PRESENTATION`. La date du nom = date de publication (ligne « <ville>, <date> » du communique ; a defaut date de creation PDF + 1 jour). Regarde les fichiers deja presents pour imiter les noms. Verifie que le document est bien celui de TA societe (compter le nom de la societe dans le texte) avant de l utiliser.
+
+## Ou ecrire (couches de la fiche)
+Voir docs/SOURCES-FICHES.md. En bref :
+- KPI IC et stories : `.batches-drafts-safe/kpis-haut/<TICKER>.json` (cle `kpis`). Cette couche REMPLACE les KPI du fichier de base `src/data/v2-pipeline/<t>.json` (sauf `_source` dans KEPT_SOURCES). Donc tout KPI ajoute/corrige se met dans cette couche. Dedoublonnage au chargement par `short` ET par nom normalise : ne cree pas deux KPI de meme nom.
+- Format d un KPI dans kpis-haut : modele ADS.DE (`.batches-drafts-safe/kpis-haut/ADS.DE.json`, lis 5 entrees : CN_GROWTH, REVENUE_Q, DPS, EMPLOYEES, REV_FOOTWEAR et une story WEB_*). Champs : short, name_fr, name_en, value (nombre), unit, yoy (texte « +4,6% » ou « +6,0 pts », virgule decimale), history = liste d OBJETS `{"q":"Q2-2026","v":12.3}` triee par date (FY2025 pour annuel, Q1-2026 trimestre, H1-2026 semestre), frequency (quarterly|semiannual|annual), period_type (quarter|semester|year), type (Revenue|Margin|Financial|Operational...), pv_score (1-10), signal (1 a 2 phrases FR qui expliquent la lecture, pas une paraphrase du chiffre), description_fr (definition + perimetre + ruptures), last_data_date (AAAA-MM-JJ de fin de periode), type_comparable {"fr","en","origine":"nouveau"} (type de KPI comparable aux concurrents : ex « Dividende par action », « Effectifs »).
+- JAMAIS de nombre nu dans une serie au format objet (piege confirme : point sans periode). Pas de melange de types dans history. Pas de point a plus de x5 de la mediane. Conversion d unite seulement au facteur 1000 exact. Un KPI existant dont la serie est une liste de nombres sans periodes (« sans historique ») doit etre REMPLACE par la serie complete au format objet (garde short/name si corrects, mets value = dernier point).
+- Un KPI comptable majeur (chiffre d affaires, resultat, marge, flux) ne porte PAS story_category.
+- STORIES : KPI avec `story_category` (une de : Capacite, Adoption, Marche, Innovation, Produit, Distribution, avec accents comme ADS : « Capacité », « Marché »), `is_short_history: true`, history de 1 a 3 points objets, last_data_date dans les 12 derniers mois (>= 2025-10), valeur EXACTE publiee, nom FR explicite, signal FR. Refuser : seuils « plus de / pres de », valeurs arrondies repetees, definition voisine. Pas de doublon avec un KPI existant. Reprise dans communiques de resultats / rapport annuel / site investisseurs officiel du lac.
+- Gouvernance : `governance` du fichier GAGNANT indique par fiche-sources.py (PL = src/data/v2-pipeline/<t>.json si gouvernance presente ; sinon src/data/v2-pipeline-enrich/<t>.json cle governance ; `overrides_governance` ne remplit que les champs vides). Champs : agm_date, fiscal_year, ceo_name (CEO ACTUEL), ceo_total_comp_m (M EUR, remuneration totale attribuee/versee du CEO en poste, avec une phrase dans `notes` : annee, composantes, source), ceo_pay_ratio, exec_comp_approval_pct, board_independence_pct, board_size, board_women_pct, voting_structure (phrase FR claire, JAMAIS une cle technique du type `preferred_shares_class` ni de l anglais), voting_structure_note (texte FR detaille : categories d actions, controle, cogestion), top_capital et top_voting = liste `[{"name":..., "pct":...}]` des principaux actionnaires (declarations de seuils, registre du rapport annuel, % reels du document). Modele : ADS.DE et BMW.DE dans src/data/v2-pipeline/. Si une valeur n est pas publiee, laisse null, ne devine pas.
+- Dividende : KPI annuel « Dividende par action » (DPS) en kpis-haut, history FY, avec precision ordinaire/preferentielle si applicable. Rachats d actions : KPI annuel (M EUR) si publie.
+- KPI d industrie : verifie docs/cahier/donnees/<TICKER>.json (statut `trouve`/`existe`). `python3 scripts/cahier-pose.py <TICKER>` pose les KPI « trouve » (CAHIER_<SHORT>) dans kpis-haut ; ajoute `--autres` seulement si la definition est vraiment celle du KPI attendu. Verifie 3 valeurs de la serie du Cahier contre les rapports annuels du lac AVANT de poser. Note dans ton fichier resultat le `short` pose (je rattache ensuite au fichier kpi-industrie-par-societe.json).
+- Hero (Supabase desk_hero_kpi_overrides) : ne pas toucher.
+- Cle `employees_count` (key_facts) : le chargeur remplace le dernier point d un KPI dont le nom contient « effectif/employe » si la serie n a pas de history_periods ; verifie sur la copie servie que la serie des effectifs finit sur la bonne valeur.
+
+## Protocole de preuve (obligatoire)
+1. Pour chaque serie ecrite, sonde au moins 3 valeurs (premiere, milieu, derniere) par grep litteral dans le texte source (essaie : brut, separateur de milliers virgule/espace/point, virgule decimale, Mds converti en M). Consigne chaque sonde (valeur, fichier, ligne) dans le fichier resultat. Une valeur non retrouvee = la retirer.
+2. Controle de la serie : types homogenes, periodes strictement croissantes, aucune periode en double, pas de saut x5.
+3. Apres ecriture : relancer le dump servi et fiche-sources.py ; verifier que les KPI apparaissent (nombre, historique, doublons, dernier point = valeur).
+4. Cohérence inter-documents : une valeur retraitee (restatement) : prendre la valeur publiee la plus recente, le signaler dans description_fr.
+
+## Fichier resultat (obligatoire)
+Ecris `scratchpad/res-<TICKER>.json` : {"ticker","rows":[{"bloc","avant","apres","source"}] (une ligne par bloc modifie, avant/apres chiffres a l appui, source = document + date), "files_modified":[chemins absolus], "downloaded":[chemins absolus des documents ajoutes au lac], "probes":[...], "industrie":[{"short_pose","nom_fr","attendu_short_cahier"}], "non_trouve":[...], "decisions":[...]}.
+Reponse finale a l orchestrateur : 3 lignes max.

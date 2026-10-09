@@ -1,0 +1,240 @@
+# Carte d'accueil : KPI alignes sur les fiches (8 oct 2026)
+
+Changements: scripts/export-kpis-servis.ts (nouveau, charge les fiches par loadV17Company), scripts/build-home-wow.py (ne lit plus que les KPI servis, dernier point <= 18 mois), scripts/deploy-niveau2.sh (regeneration + commit des 2 JSON avant le build), scripts/verif-release.py (feu rouge Accueil).
+Regeneration: 100 societes, 78 changees, memes tickers. tsc OK.
+
+## Societes changees (avant / apres)
+- AAPL
+  - avant: 3 milliardième iPhone expédié depuis 2007 (T1 2026) ; Base installée d'appareils actifs (T1 2026) ; Abonnements payants (T2 2026)
+  - apres: Stocks en jours (T3 2025) ; 3 milliardième iPhone expédié depuis 2007 (T1 2026) ; Dépenses de R&D (T2 2026)
+- ABBN.SW
+  - avant: Ratio commandes / facturations (T4 2025) ; Robots industriels installés dans le monde (T3 2026) ; Bornes de recharge haute puissance vendues (ABB E-mobility) (T3 2026)
+  - apres: Effectifs (T4 2025) ; Ratio commandes / facturations (T4 2025) ; Partenaires canal (distribution) (T3 2026)
+- ABN.AS
+  - avant: Nombre de clients du groupe (T3 2026) ; Accompagnements réalisés par les conseillers du programme Help with Banking (T3 2026) ; Utilisateurs de l'application de paiement Tikkie (T3 2026)
+  - apres: Effectifs internes (T2 2026) ; Nombre de clients du groupe (T3 2026) ; Accompagnements réalisés par les conseillers du programme Help with Banking (T3 2026)
+- AD.AS
+  - avant: Nombre de magasins (T4 2025) ; Clients servis chaque semaine dans le monde (T3 2026) ; Partenaires vendeurs sur la marketplace bol (T3 2026)
+  - apres: Nombre de magasins (T4 2025) ; Clients servis chaque semaine dans le monde (T3 2026) ; Nombre d'enseignes locales du groupe (T3 2026)
+- ADYEN.AS
+  - avant: Entreprises actives sur le pilier Platforms (T4 2025) ; Terminaux Unified Commerce actifs (T4 2025) ; Volume traité (T2 2026)
+  - apres: Entreprises actives sur le pilier Platforms (T4 2025) ; Effectifs (T3 2026) ; Terminaux Unified Commerce actifs (T4 2025)
+- AGN.AS
+  - avant: Génération de capital opérationnel avant coûts de holding (OCG) (T4 2025)
+  - apres: Agents Licenciés WFG (T4 2025) ; Génération de capital opérationnel avant coûts de holding (OCG) (T4 2025) ; Génération de capital opérationnel après coûts de holding (OCG) (T2 2026)
+- AI.PA
+  - avant: Patients pris en charge à domicile (T3 2026) ; Ventes d'hydrogène (T3 2026) ; Carnet de projets engagés (T4 2025)
+  - apres: Effectifs (T4 2025) ; Employés dédiés à l'innovation (T3 2026) ; Patients pris en charge à domicile (T3 2026)
+- AIR.PA
+  - avant: Livraisons d'avions de la famille A320 (T4 2025) ; Livraisons d'avions commerciaux (T2 2026) ; Commandes brutes d'avions (T4 2025)
+  - apres: Livraisons d'avions commerciaux (T2 2026) ; Commandes nettes A350 (T4 2025) ; Livraisons A220 (T4 2025)
+- ALC.SW
+  - avant: Chiffre d'affaires segment Chirurgie (T2 2026) ; Effectifs (T4 2025) ; Lentilles intraoculaires (IOL) implantées dans le monde, cumul (T3 2026)
+  - apres: Effectifs (T4 2025) ; Lentilles intraoculaires (IOL) implantées dans le monde, cumul (T3 2026) ; Associés dédiés à la R&D dans le monde (T3 2026)
+- ALV.DE
+  - avant: Nombre de clients (T4 2024) ; Ratio de Solvabilité II (T2 2026) ; Actifs sous gestion pour compte de tiers (T2 2026)
+  - apres: Nombre de clients particuliers et entreprises (T3 2026) ; Entreprises surveillées par le réseau de veille financière Allianz Trade (T3 2026) ; Ancienneté au rang de marque assurance numéro un mondiale (classement Interbrand) (T3 2026)
+- AMD
+  - avant: Instances cloud publiques propulsées par EPYC (T3 2026) ; Partenariat Meta: jusqu'à 6 gigawatts de GPU Instinct (T2 2026) ; Cluster IA Oracle en MI355X (T2 2026)
+  - apres: Instances cloud publiques propulsées par EPYC (T3 2026) ; Capacité de déploiement Instinct MI450 engagée par Anthropic (T3 2026) ; Gain d'efficacité énergétique cumulé des accélérateurs IA/HPC AMD (objectif 30x25) (T3 2026)
+- AMZN
+  - avant: Clients Bedrock (T2 2026) ; Capacité électrique AWS ajoutée (T2 2026) ; Carnet de commandes AWS (T2 2026)
+  - apres: Effectifs (T2 2026) ; Clients Bedrock (T2 2026) ; Capacité électrique AWS ajoutée (T2 2026)
+- ASM.AS
+  - avant: Ratio commandes / facturations (T4 2025) ; Carnet de commandes (T4 2025) ; Commandes reçues (T4 2025)
+  - apres: Brevets en vigueur (T4 2025) ; Ratio commandes / facturations (T4 2025) ; Effectif salarié (T4 2025)
+- ASML
+  - avant: Nouveaux systèmes de lithographie vendus (unités) (T2 2026) ; Systèmes EUV vendus (T4 2025) ; Capacité annuelle de production de systèmes DUV immersion (T3 2026)
+  - apres: Systèmes de lithographie vendus (T4 2025) ; Systèmes EUV vendus (T4 2025) ; Capacité annuelle de production de systèmes DUV immersion (T3 2026)
+- ASRNL.AS
+  - avant: Satisfaction client (score de recommandation) (T4 2025) ; Effectifs internes (T4 2025) ; Ratio de Solvabilité II (T2 2026)
+  - apres: Effectifs internes (T4 2025) ; Satisfaction client (score de recommandation) (T4 2025) ; Statut de doyen des assureurs néerlandais (T3 2026)
+- AVGO
+  - avant: Plateforme AI XPU 20 gigawatts (T2 2026) ; Carnet de commandes IA total (T4 2025) ; Capacité de commutation du switch Tomahawk 6 (T3 2026)
+  - apres: Portefeuille de brevets détenus (US et internationaux) (T4 2025) ; Capacité de commutation du switch Tomahawk 6 (T3 2026) ; Nombre de clients confirmés pour les accélérateurs IA sur mesure (XPU) (T3 2026)
+- BAS.DE
+  - avant: Effectifs de fin de trimestre (T2 2026) ; Effectifs de fin d'année (T4 2025) ; Chiffre d'affaires segment Materials (T4 2025)
+  - apres: Effectifs de fin de trimestre (T2 2026) ; Effectifs de fin d'année (T4 2025) ; Sites Verbund intégrés dans le monde (T3 2026)
+- BAYN.DE
+  - avant: Émissions de gaz à effet de serre scopes 1 et 2 (T4 2025) ; Effectifs (T2 2026) ; Nombre de projets en développement clinique (Pharmaceuticals) (T3 2026)
+  - apres: Effectifs (T2 2026) ; Émissions de gaz à effet de serre scopes 1 et 2 (T4 2025) ; Nombre de projets en développement clinique (Pharmaceuticals) (T3 2026)
+- BRK-B
+  - avant: Effectifs (T1 2026) ; Valeur comptable (None) ; Accord de réassurance Tokio Marine (quote-part) (T1 2026)
+  - apres: Bénéfice souscription GEICO (avant impôts) (T2 2026) ; Bénéfice opérationnel (T2 2026) ; Résultat opérationnel Fabrication, services et distribution (T2 2026)
+- CFR.SW
+  - avant: Boutiques en propre (exploitation directe) (T1 2026) ; Part des ventes en direct au client final (T1 2026) ; Nombre de boutiques monomarques (T3 2026)
+  - apres: Boutiques en propre (exploitation directe) (T1 2026) ; Effectifs moyens (T1 2026) ; Nombre de Maisons du groupe (T3 2026)
+- CS.PA
+  - avant: Nombre de clients dans le monde (T4 2025) ; Boni ou mali de liquidation (T4 2025) ; Ratio combiné (T4 2025)
+  - apres: Effectifs (T4 2025) ; Clients dans le monde (T3 2026) ; Salariés formés par AXA Climate au changement climatique et à l'empreinte carbone (T3 2026)
+- DBK.DE
+  - avant: Agences (T2 2026) ; Coût du risque en points de base (T2 2026) ; Encours sous gestion (DWS) (T2 2026)
+  - apres: Agences (T2 2026) ; Coût du risque en points de base (T2 2026) ; Effectifs (T2 2026)
+- DG.PA
+  - avant: Trafic VINCI Autoroutes (T4 2025) ; Ratio commandes sur facturations (T4 2025) ; Effectifs (T4 2025)
+  - apres: Ratio commandes sur facturations (T4 2025) ; Effectifs (T4 2025) ; Couverture du carnet en mois (T4 2025)
+- DHL.DE
+  - avant: Volume TDI Express (milliers d'envois par jour) (T4 2025) ; Colis traités en Allemagne (T4 2025) ; Volumes maritimes en TEU (T4 2025)
+  - apres: Volume TDI Express (milliers d'envois par jour) (T4 2025) ; Colis traités en Allemagne (T4 2025) ; Effectifs en fin de trimestre (T2 2026)
+- ENGI.PA
+  - avant: Production nucléaire (Belgique + France) (T4 2025) ; Effectifs moyens totaux (T4 2025) ; Capacité renouvelable installée (T4 2025)
+  - apres: Capacités renouvelables ajoutées dans l'année (T4 2025) ; Production nucléaire (Belgique + France) (T4 2025) ; Effectifs moyens totaux (T4 2025)
+- ENR.DE
+  - avant: Couverture du carnet en années (T4 2025) ; Parc de turbines installées (T3 2026) ; Carnet de commandes (T2 2026)
+  - apres: Effectifs (T2 2026) ; Couverture du carnet en années (T4 2025) ; Parc de turbines installées (T3 2026)
+- EOAN.DE
+  - avant: Électricité distribuée sur les réseaux E.ON (T1 2026) ; Clients desservis et fiabilité du service (T4 2024) ; Effectifs (T4 2025)
+  - apres: Électricité distribuée sur les réseaux E.ON (T1 2026) ; Effectifs (T4 2025) ; Longueur totale des réseaux électricité et gaz combinés, 9 pays européens (T3 2026)
+- EXO.AS
+  - avant: Écart de performance avec le MSCI World (T4 2025) ; Coûts de gestion rapportés aux actifs (T4 2025) ; Dividendes ordinaires reçus des participations (T4 2025)
+  - apres: Écart de performance avec le MSCI World (T4 2025) ; Coûts de gestion rapportés aux actifs (T4 2025) ; Participations présentées individuellement sur le site avec fiche Key Figures dédiée (T3 2026)
+- GIVN.SW
+  - avant: Sites de production (T1 2026) ; Effectifs (T1 2026) ; Localisations dans le monde (T3 2026)
+  - apres: Effectifs (T1 2026) ; Sites de production (T1 2026) ; Localisations dans le monde (T3 2026)
+- GOOGL
+  - avant: Lancements de modèles Gemini (7 mois) (T2 2026) ; Villes desservies par Waymo (T1 2026) ; Trajets autonomes Waymo par semaine (T1 2026)
+  - apres: Effectifs (T2 2026) ; Produits à plus de 2 milliards d'utilisateurs (T4 2025) ; Lancements de modèles Gemini (7 mois) (T2 2026)
+- HEIA.AS
+  - avant: Volume de la marque Heineken® (T4 2025) ; Volume consolidé total (T4 2025) ; Marchés où Heineken 0.0 est disponible (T3 2026)
+  - apres: Volume de la marque Heineken® (T4 2025) ; Effectif moyen (T4 2025) ; Volume consolidé total (T4 2025)
+- HO.PA
+  - avant: Rafale livrés dans l’année (T4 2025) ; Ratio commandes / facturations (T4 2025) ; Effectifs consolidés (T4 2025)
+  - apres: Rafale livrés par Dassault Aviation (équipés par Thales) (T4 2025) ; Effectifs consolidés (T4 2025) ; Armées clientes des solutions Thales (T3 2026)
+- HOLN.SW
+  - avant: Ciment produit (T4 2025) ; Part d'ECOPlanet dans le CA ciment (T4 2025) ; Béton prêt à l'emploi produit (T4 2025)
+  - apres: Ciment produit (T4 2025) ; Granulats produits (T4 2025) ; Béton prêt à l'emploi produit (T4 2025)
+- IFX.DE
+  - avant: Ingénieurs inscrits sur la communauté de développeurs Infineon (T3 2026) ; Solutions publiées sur la communauté de développeurs Infineon (T3 2026) ; Dépôts de code sur la communauté de développeurs Infineon (T3 2026)
+  - apres: Portefeuille mondial de brevets et demandes de brevets (T3 2025) ; Effectif (T3 2025) ; Stocks en jours (T3 2025)
+- INGA.AS
+  - avant: Clients primaires mobiles (T4 2025) ; Coût du risque (T2 2026) ; Nombre de clients retail dans les 9 marchés de banque de détail (T3 2026)
+  - apres: Clients primaires mobiles (T4 2025) ; Nombre de clients retail dans les 9 marchés de banque de détail (T3 2026) ; Clients migrés sur les nouveaux forfaits d'abonnement bancaire (ING Go/More/Extra/Max) (T3 2026)
+- JNJ
+  - avant: Sites de production (T4 2025) ; Patients traités par Carvykti (cumul clinique + commercial) (T1 2022) ; Plateformes générant plus d'un milliard de revenus annuels (T1 2022)
+  - apres: Sites de production (T4 2025) ; CA Stelara (ustekinumab) (T4 2025) ; CA Tremfya (guselkumab) (T2 2026)
+- JPM
+  - avant: Provisions pour pertes de credit (T2 2026) ; Actifs sous gestion (AWM) (T2 2026) ; Effectifs (T2 2026)
+  - apres: Effectifs (T2 2026) ; Agences bancaires (CCB) (T2 2026) ; Revenus Markets (Fixed Income + Equity) (T2 2026)
+- KNIN.SW
+  - avant: Effectifs (ETP) (T4 2025) ; Conteneurs maritimes transportes (T4 2025) ; Fret aérien traité (T4 2025)
+  - apres: Fret aérien traité (T4 2025) ; Effectifs (ETP) (T4 2025) ; Conteneurs maritimes transportes (T4 2025)
+- LLY
+  - avant: Patients traités par Foundayo (orforglipron oral) depuis le lancement (T1 2026) ; Patients US engagés sur la plateforme de vente directe (LillyDirect) (T1 2026) ; Chiffre d'affaires Zepbound (tirzepatide obésité) (T2 2026)
+  - apres: Effectifs (fin d'année) (T4 2025) ; Patients traités par Foundayo (orforglipron oral) depuis le lancement (T1 2026) ; Patients US engagés sur la plateforme de vente directe (LillyDirect) (T1 2026)
+- LONN.SW
+  - avant: Grandes molécules précliniques et cliniques en développement (T4 2025) ; Inspections de pré-homologation (PLI) réussies (T3 2026) ; Molécules précliniques et cliniques accompagnées (grandes molécules) (T3 2026)
+  - apres: Effectifs (T4 2025) ; Grandes molécules précliniques et cliniques en développement (T4 2025) ; Inspections de pré-homologation (PLI) réussies (T3 2026)
+- MC.PA
+  - avant: Nombre de magasins (T4 2025) ; Nombre de Maisons du groupe (T3 2026) ; Volumes vendus : Champagne (T4 2025)
+  - apres: Nombre de magasins (T4 2025) ; Nombre de Maisons du groupe (T3 2026) ; Nombre de métiers représentés dans le groupe (T3 2026)
+- META
+  - avant: Conversations hebdomadaires avec les IA d'entreprise (T1 2026) ; Meta AI : 1 milliard d'utilisateurs mensuels (T2 2025) ; Utilisateurs mensuels de WhatsApp (T2 2025)
+  - apres: Effectifs (T2 2026) ; Conversations hebdomadaires avec les IA d'entreprise (T1 2026) ; Dépenses de R&D (T2 2026)
+- MRK.DE
+  - avant: Essais de phase III en cours pour Erbitux (T4 2025) ; Programmes en phase avancée et approbations (T4 2025) ; Naissances dans le monde avec l'aide de Gonal-f depuis son lancement (T3 2026)
+  - apres: Essais de phase III en cours pour Erbitux (T4 2025) ; Programmes en phase avancée et approbations (T4 2025) ; Chercheurs R&D du secteur Life Science, répartis sur 12 sites dans le monde (T3 2026)
+- MSFT
+  - avant: Contrat Copilot Accenture (T1 2026) ; Nombre de membres LinkedIn (T2 2026) ; Développeurs sur GitHub (T1 2026)
+  - apres: Contrat Copilot Accenture (T1 2026) ; Croissance Azure (Cloud et IA) (T1 2026) ; Revenu Intelligent Cloud (T2 2026)
+- MT.PA
+  - avant: Expéditions d'acier (millions de tonnes) (T2 2026) ; Expéditions de minerai de fer (AMMC et Liberia) (T4 2025) ; Production de minerai de fer (AMMC et Liberia) (T4 2025)
+  - apres: Expéditions de minerai de fer (AMMC et Liberia) (T4 2025) ; Production de minerai de fer (AMMC et Liberia) (T4 2025) ; Production totale de minerai de fer du groupe (T4 2025)
+- MU
+  - avant: Stocks en jours de coût des ventes (fin d'exercice) (T3 2025) ; Effectifs (T4 2025) ; Jours d'inventaire (T2 2026)
+  - apres: Stocks en jours de coût des ventes (fin d'exercice) (T3 2025) ; Jours d'inventaire (T2 2026) ; Contrats clients stratégiques (SCA) signés (T2 2026)
+- MUV2.DE
+  - avant: Ratio combiné réassurance dommages (T4 2025) ; Ratio de solvabilité Solvabilité II (T4 2025) ; Charge des catastrophes naturelles en réassurance (T4 2024)
+  - apres: Effectifs (T4 2025) ; Boni ou mali de liquidation (T4 2025) ; Rang mondial des réassureurs (classement A.M. Best) (T3 2026)
+- NESN.SW
+  - avant: Croissance interne réelle (RIG) (T4 2025) ; Marques milliardaires (CA supérieur à 1 Md CHF) (T3 2026) ; Portefeuille total de marques du groupe (T3 2026)
+  - apres: Effectifs (T4 2025) ; Sites de R&D (T3 2026) ; Employés en R&D (T3 2026)
+- NOVN.SW
+  - avant: Patients atteints par les médicaments Novartis (M) (T4 2025) ; Ventes de Kisqali (cancer du sein, M $) (T2 2026) ; Volume de traitements manufacturés dans l'année (T3 2026)
+  - apres: Patients atteints par les médicaments Novartis (M) (T4 2025) ; Nombre de patients atteints par les médicaments Novartis dans le monde (T3 2026) ; Volume de traitements manufacturés dans l'année (T3 2026)
+- NVDA
+  - avant: Sites data centers partenaires >10MW (T2 2026) ; Capacité d'IA cumulée déployée par les NVIDIA Cloud Partners (AI factories) (T3 2026) ; Nombre d'applications optimisées CUDA (T3 2026)
+  - apres: Stocks internes en jours (T1 2026) ; Délai moyen d'encaissement des clients (DSO) (T3 2026) ; Capacité d'IA cumulée déployée par les NVIDIA Cloud Partners (AI factories) (T3 2026)
+- OR.PA
+  - avant: Usages des services Beauty Tech (T3 2026) ; Professionnels de santé touchés (Dermatological Beauty) (T3 2026) ; Consommateurs touchés (Consumer Products Division) (T3 2026)
+  - apres: Effectifs (T4 2025) ; Brevets déposés (T3 2026) ; Centres de recherche (T3 2026)
+- P911.DE
+  - avant: Livraisons mondiales de Porsche Macan (T4 2025) ; Livraisons de véhicules (T4 2025) ; Livraisons mondiales de Porsche Cayenne (T4 2025)
+  - apres: Livraisons mondiales de Porsche Cayenne (T4 2025) ; Livraisons mondiales de Porsche 718 Boxster et Cayman (T4 2025) ; Livraisons Taycan (T4 2025)
+- PHIA.AS
+  - avant: Vies améliorées par les technologies Philips (T4 2025) ; Nombre de vies améliorées par les innovations Philips (T3 2026) ; Portefeuille de droits de brevets (T3 2026)
+  - apres: Nombre de vies améliorées par les innovations Philips (T3 2026) ; Portefeuille de droits de brevets (T3 2026) ; Portefeuille de dessins et modèles déposés (T3 2026)
+- REN.AS
+  - avant: Articles publiés en accès ouvert (T4 2025) ; Attaques de fraude détectées par les solutions LexisNexis Risk (T3 2026) ; Agences gouvernementales et forces de l'ordre clientes (T3 2026)
+  - apres: Bénéfice par action publié (T4 2025) ; Articles publiés en accès ouvert (T4 2025) ; Bénéfice par action ajusté (T4 2025)
+- RMS.PA
+  - avant: Magasins exclusifs (T4 2025) ; Artisans selliers-maroquiniers (T4 2025) ; Maroquineries en activité (T4 2025)
+  - apres: Effectifs (T4 2025) ; Magasins exclusifs (T4 2025) ; Artisans selliers-maroquiniers (T4 2025)
+- ROG.SW
+  - avant: Tests diagnostics réalisés avec les instruments Roche (T4 2025) ; Patients traités avec des médicaments Roche (T3 2026) ; Ventes Ocrevus (T4 2025)
+  - apres: Patients traités avec des médicaments Roche (T3 2026) ; Tests diagnostics Roche délivrés aux clients dans le monde (T3 2026) ; Centres d'innovation Roche implantés dans le monde (T3 2026)
+- RWE.DE
+  - avant: Capacité renouvelable installée (T4 2025) ; Production d'électricité renouvelable (T2 2026) ; EBITDA ajusté Négoce et fourniture (T4 2025)
+  - apres: Capacité renouvelable installée (T4 2025) ; Projets en construction et pipeline signé (T4 2025) ; Production d'électricité renouvelable (T2 2026)
+- SAF.PA
+  - avant: Livraisons de moteurs LEAP (T4 2025) ; Livraisons de moteurs CFM56 (T4 2025) ; Carnet de commandes LEAP (moteurs) (T4 2025)
+  - apres: Livraisons de moteurs LEAP (T4 2025) ; Livraisons de moteurs CFM56 (T4 2025) ; Effectifs (T3 2026)
+- SAP.DE
+  - avant: Entreprises clientes de SAP dans le monde (T3 2026) ; Carnet de commandes cloud à 12 mois (CCB) (T2 2026) ; Abonnés de la base d'utilisateurs cloud SAP (T3 2026)
+  - apres: Brevets validés dans le monde (T4 2025) ; Effectifs en fin de trimestre (T2 2026) ; Entreprises clientes de SAP dans le monde (T3 2026)
+- SCMN.SW
+  - avant: Ajouts nets d'abonnés haut débit fixe (T4 2025) ; Effectifs (ETP) (T2 2026) ; Abonnés mobiles Suisse (T2 2026)
+  - apres: Effectifs (ETP) (T2 2026) ; Abonnés mobiles Suisse (T2 2026) ; Lignes haut débit Suisse (T2 2026)
+- SGSN.SW
+  - avant: Effectif total (T4 2025) ; Ventes de la division Industries et Environnement (T4 2025) ; Chiffre d'affaires consolidé SGS (T4 2025)
+  - apres: Effectif total (T4 2025) ; Chiffre d'affaires consolidé SGS (T4 2025) ; Attrition des employés (T4 2025)
+- SHELL.AS
+  - avant: Production de pétrole et de gaz disponible à la vente (groupe) (T2 2026) ; Volumes de liquéfaction de GNL (T2 2026) ; Réserves prouvées développées (T4 2025)
+  - apres: Volumes de liquéfaction de GNL (T2 2026) ; Capacité de raffinage (T4 2025) ; Production de pétrole et de gaz (T2 2026)
+- SHL.DE
+  - avant: Volume de procédures (T4 2025) ; Patients touchés dans le monde (patient touchpoints) (T3 2026) ; Brevets accordés (portefeuille de propriété intellectuelle technique) (T3 2026)
+  - apres: Contacts patients dans le monde (T3 2025) ; Patients touchés dans le monde (patient touchpoints) (T3 2026) ; Brevets accordés (portefeuille de propriété intellectuelle technique) (T3 2026)
+- SIE.DE
+  - avant: Nombre d'usines Siemens dans le monde (T3 2026) ; Carnet de commandes (T2 2026) ; Partenaires dans l'écosystème logiciel Siemens Xcelerator (T3 2026)
+  - apres: Effectifs (T3 2025) ; Nombre d'usines Siemens dans le monde (T3 2026) ; Brevets déposés sur l'exercice (T3 2026)
+- SIKA.SW
+  - avant: Familles de brevets (T4 2024) ; Effectifs (T1 2026) ; CA région EMEA (T4 2025)
+  - apres: Effectifs (T1 2026) ; Usines de production dans le monde (T3 2026) ; Nouveaux brevets déposés (T3 2026)
+- SPCX
+  - avant: Lancements Falcon (T4 2025) ; Abonnés Starlink (T2 2026) ; Puissance de calcul installée (T2 2026)
+  - apres: Lancements Falcon (T4 2025) ; Masse mise en orbite (annuelle) (T4 2025) ; Lancements orbitaux totaux (T4 2025)
+- SREN.SW
+  - avant: Combined ratio P&C Re (T4 2025) ; Perte probable ouragan atlantique, 1 fois en 200 ans (T4 2025) ; Transactions réalisées par Public Sector Solutions (T3 2026)
+  - apres: Effectifs (T4 2025) ; Bureaux dans le monde (T3 2026) ; Transactions réalisées par Public Sector Solutions (T3 2026)
+- SU.PA
+  - avant: Score Sustainability Impact 2030 (T2 2026) ; Carnet de commandes (T4 2025) ; Part des commandes issue des centres de données et réseaux (T4 2025)
+  - apres: Score Sustainability Impact 2030 (T2 2026) ; Émissions CO₂ évitées et économisées pour les clients depuis 2018 (T4 2025) ; Personnes ayant accès à l'électricité durable depuis 2009 (T4 2025)
+- TSLA
+  - avant: Abonnements FSD actifs (T2 2026) ; Livraisons cumulées historiques (T2 2026) ; Stations Supercharger (T2 2026)
+  - apres: Stockage d'énergie déployé (T2 2026) ; Livraisons totales de véhicules (T2 2026) ; Stock mondial de véhicules en jours (T2 2026)
+- TSM
+  - avant: Capacité de fabrication (T4 2025) ; Livraisons de plaquettes (équivalent 12 pouces) (T4 2025) ; Part du 3nm dans le CA wafers (T4 2025)
+  - apres: Effectifs totaux (fin d'exercice) (T4 2025) ; Stocks internes en jours et stocks du canal de distribution (T4 2025) ; Capacité de fabrication (T4 2025)
+- TTE.PA
+  - avant: Production d'hydrocarbures (T4 2025) ; Production nette d'électricité (T4 2025) ; Ventes totales de GNL (T4 2025)
+  - apres: Production nette d'électricité (T4 2025) ; Capacité renouvelable brute installée (T2 2026) ; Ventes totales de GNL (T4 2025)
+- UBSG.SW
+  - avant: Marge nette d'intérêt (banque suisse) (T2 2026) ; Succursales en Suisse (T3 2026) ; Gestion de fortune : nouveaux actifs nets (T2 2026)
+  - apres: Effectifs (T2 2026) ; Succursales en Suisse (T3 2026) ; Conseillers clientèle en Suisse (T3 2026)
+- UMG.AS
+  - avant: Artistes UMG classés dans le Top 10 mondial (IFPI) (T4 2025) ; Effectifs (T4 2025) ; Nombre de labels et marques musicales du groupe (T3 2026)
+  - apres: Effectifs (T4 2025) ; Artistes UMG classés dans le Top 10 mondial (IFPI) (T4 2025) ; Nombre de labels et marques musicales du groupe (T3 2026)
+- UNA.AS
+  - avant: Personnes utilisant les produits Unilever chaque jour (T3 2026) ; Nombre de Power Brands dans le portefeuille (T3 2026) ; PME du réseau de distribution accompagnées pour développer leur activité (T3 2026)
+  - apres: Effectifs (T4 2025) ; Personnes utilisant les produits Unilever chaque jour (T3 2026) ; Portefeuille de brevets actifs (plus de) (T3 2026)
+- V
+  - avant: Transactions traitées (T2 2026) ; Tokens Visa émis (cumul) (T2 2026) ; Transactions Visa Direct (T4 2025)
+  - apres: Nombre de transactions traitées (T4 2025) ; Transactions Visa Direct (T4 2025) ; Nombre de credentials de paiement (T4 2025)
+- WKL.AS
+  - avant: Hôpitaux et systèmes de santé américains utilisant UpToDate Expert AI (T4 2025) ; Établissements et pratiques de santé clients de la division Health (T4 2025) ; Effectifs en équivalent temps plein (T4 2025)
+  - apres: Effectifs en équivalent temps plein (T4 2025) ; Sites pilotes internationaux d'UpToDate Expert AI (T3 2026) ; Professionnels de santé utilisateurs d'UpToDate dans le monde (T3 2026)
+- WMT
+  - avant: Ouvertures nettes de magasins et surface de vente (T1 2026) ; Croissance eCommerce mondiale (T2 2026) ; Croissance publicité mondiale (T2 2026)
+  - apres: Ouvertures nettes de magasins et surface de vente (T1 2026) ; Rachats d'actions (T1 2026) ; Sam's Club US - Résultat opérationnel (segment) (T3 2026)
+- XOM
+  - avant: Production nette totale (T2 2026) ; Production Permian Basin (T4 2025) ; Production brute Guyana (T2 2026)
+  - apres: Production Permian Basin (T4 2025) ; Ventes Chemical Products (T2 2026) ; Nombre de puits producteurs (T4 2025)

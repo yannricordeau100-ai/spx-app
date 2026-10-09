@@ -93,3 +93,9 @@ pièges. Outils de vérification dans `scripts/verif-fiches/`.
 ## 11. REPRISE AU 30 SEPTEMBRE 2026 (LIRE EN PREMIER)
 
 `docs/REPRISE-2026-09-30.md` : corrections des fiches (427/662 faites, 235 restantes), controles a faire, go n0 a la fin, nouvelle demande gratuit/comparateur.
+
+## 12. REPRISE AU 9 OCTOBRE 2026 (LIRE EN PREMIER)
+
+`docs/REPRISE-2026-10-09.md` : règles permanentes, état en ligne, tout ce qui a été fait du 30/09 au 09/10, chantiers en cours
+(sp5001000, KPI moyen terme, présentations, Chrome, design TAM) avec fichiers de reprise et façon de les relancer,
+questions en attente. Rapports de la session : `docs/rapports-session-2026-10/`. Sauvegarde : `~/Mettrik-sauvegardes/2026-10-09-depuis-14-sept/`.

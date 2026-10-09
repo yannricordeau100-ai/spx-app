@@ -1,0 +1,391 @@
+# Documents IR du 8 oct 2026 : utilite (lecture seule, rien extrait)
+
+Methode : texte extrait (pdftotext), comparaison aux 8-K/ER/10-Q/10-K et IR deja au lac, puis aux KPI servis (kpis-haut). Jugement par recoupement de mots-cles et lecture ciblee, non exhaustif; les PDF images (RJF, DGX, SPGI Mobility, RDDT T2, HAS par OCR) sont a verifier.
+
+## 1. Decompte
+- UTILE : 140
+- INUTILE : 222
+
+## 2. Documents UTILES (ticker | date | document | apport)
+- ADBE | 2025-12-10 | Remarques préparées et slides T4 FY25 | Historique allonge: MAU Acrobat+Express 750M a Q4-FY2025 (comble le trou entre Q2-FY2025 et Q2-FY2026); MAU Acrobat Web +30%
+- ADBE | 2026-09-10 | Remarques préparées et slides T3 FY26 | KPI ajoutable: MAU total Adobe >1 milliard (+20%), MAU Business Professionals & Consumers >900M, Q3-FY2026
+- BF.B | 2025-12-04 | Résultats S1 FY2026 (communiqué) | KPI ajoutable (12 mois a avril 2026 / 6 mois a oct 2025): depletions et expeditions en millions de caisses 9L et variation par marque (JDTH, Gentleman Jack, JDTA, JDTF, Old Forester, New Mix, JD RTD, el Jimador, Herradura, Diplomatico, Gin Mare) ; croissance organique par pays (Allemagne, UK, France, Mexique, Pologne, Bresil, Turquie) ; absents des KPI servis, 8K = page de garde
+- BF.B | 2026-06-04 | Résultats FY2026 (communiqué) | KPI ajoutable (12 mois a avril 2026 / 6 mois a oct 2025): depletions et expeditions en millions de caisses 9L et variation par marque (JDTH, Gentleman Jack, JDTA, JDTF, Old Forester, New Mix, JD RTD, el Jimador, Herradura, Diplomatico, Gin Mare) ; croissance organique par pays (Allemagne, UK, France, Mexique, Pologne, Bresil, Turquie) ; absents des KPI servis, 8K = page de garde
+- BLDR | 2026-04-30 | Presentation T1 2026 | KPI ajoutable: Mix des ventes par marche final (SF 69 %, MF 11 %, R&R), croissance organique par marche final; Q1-2026
+- BLDR | 2026-07-30 | Presentation T2 2026 | KPI ajoutable: Mix des ventes par marche final (maison individuelle 68 %, collectif 10 %, renovation 22 %), croissance organique noyau par marche final (SF -8 %, MF -10 %, R&R -2 %); Q2-2026 (et Q2-2025 en comparatif)
+- BLDR | 2026-09-18 | Presentation corporate sept 2026 | KPI ajoutable: Mix par marche final FY2025 (68/10/22 %), ventes d installation (~2,5 Md$, ~17 % du CA FY2025), CBSA couvertes, nombre d implantations ~565 (T2-2026)
+- BXP | 2025-10-28 | Supplemental T3 2025 | KPI ajoutable trimestriels: NOI same-property, occupation par marche (NY, Boston, SF, DC), activite de location (baux signes, loyers 2e generation) servis en annuel seulement ; absent des 8-K du lac
+- BXP | 2026-01-28 | Supplemental T4 2025 | KPI ajoutable trimestriels: NOI same-property, occupation par marche (NY, Boston, SF, DC), activite de location (baux signes, loyers 2e generation) servis en annuel seulement ; absent des 8-K du lac
+- BXP | 2026-04-28 | Supplemental T1 2026 | KPI ajoutable trimestriels: NOI same-property, occupation par marche (NY, Boston, SF, DC), activite de location (baux signes, loyers 2e generation) servis en annuel seulement ; absent des 8-K du lac
+- CI | 2026-07-30 | Supplément financier T2 2026 | KPI ajoutable (Q2-2026, Q2-2025, Q4-2025): clients medicaux par type de financement (assures/ASO US et International) et par segment (National Accounts, Middle Market, Select, Small, IFP, International), primes stop loss, volume de reclamations pharmacie ; absents des ER du lac (communique sans ce tableau)
+- CIEN | 2025-12-11 | Présentation T4 FY25 | KPI ajoutable: revenus par type de client (Cloud Providers) trimestriels Q4-FY24 a Q4-FY25, marge brute ajustee; historique allonge
+- CIEN | 2026-09-03 | Présentation T3 FY26 | KPI ajoutable: revenus par type de client (Cloud Providers vs operateurs) trimestriels Q3-FY25 a Q3-FY26, marge brute ajustee non-GAAP (serie servie: part cloud annuelle seulement)
+- CMS | 2025-10-30 | Presentation T3 2025 | KPI ajoutable: Pipeline de developpement economique ~9 GW par stade (centres de donnees); point Q3-2025
+- CMS | 2026-04-28 | Presentation T1 2026 | KPI ajoutable: Pipeline de developpement economique ~9 GW par stade, croissance base tarifaire; point Q1-2026
+- CMS | 2026-07-28 | Presentation T2 2026 | KPI ajoutable: Pipeline de developpement economique (~9 GW, par stade: qualifie / avance / final), base tarifaire (28,4 Md$ 2025 vers 46,8 Md$ 2030) et croissance de base tarifaire 10,5 %/an; points Q2-2026
+- COIN | 2026-07-30 | Deck T2 2026 | KPI ajoutable: part de marche volume crypto, volume derives (notionnel, Q2-2024 a Q2-2026), revenus marches de prediction (Q1-26, Q2-26), solde moyen USDC detenu, encours emprunts/prets (Q2-2025 a Q2-2026), actifs sur plateforme en % de la capitalisation crypto
+- CRWD | 2026-06-03 | Présentation T1 FY27 | KPI ajoutable: ARR par ligne de produit (Cloud Security, Next-Gen SIEM, Identity), Q1-FY2027
+- CRWD | 2026-08-26 | Présentation T2 FY27 | KPI ajoutable: ARR par ligne de produit Cloud Security (>905M), Next-Gen SIEM (>695M), Next-Gen Identity (>585M) + croissance, Q2-FY2027
+- CSCO | 2026-02-11 | Présentation T2 FY26 | KPI ajoutable / commandes IA hyperscale 2,1 G$ Q2 FY26, croissance commandes produits
+- CSCO | 2026-05-13 | Présentation T3 FY26 | KPI ajoutable / commandes IA hyperscale et croissance commandes produits Q3 FY26
+- CSCO | 2026-08-12 | Présentation T4 FY26 | KPI ajoutable / commandes IA hyperscalers (Q2 FY26 2,1 G$, Q3 0,9 G$..., FY26 9,3 G$), croissance commandes produits, revenus IA hyperscale: FY25 a Q4-FY26
+- CSGP | 2025-10-28 | Présentation T3 2025 | KPI ajoutable / visiteurs uniques mensuels moyens CoStar (143 M) et Homes.com Network (115 M), allonge Q4-2024 a Q3-2025
+- CTSH | 2026-02-04 | Supplement T4 2025 | KPI ajoutable: bookings TTM, book-to-bill, utilisation mixte (absents du lac 8-K); Q1-2024 a Q4-2025
+- CTSH | 2026-07-29 | Supplement T2 2026 | KPI ajoutable: bookings TTM + book-to-bill, utilisation mixte hors stagiaires; Q1-2025 a Q2-2026 (bookings Q2-2025 a Q2-2026)
+- DOC | 2025-10-23 | Présentation T3 2025 | KPI ajoutable (5 trimestres Q3-2024 a Q3-2025 / Q2-2025 a Q2-2026): cash releasing spreads Outpatient Medical et Lab, taux de retention TTM, WALT, couts de leasing (TI/commissions par sq ft), RevPOR Senior Housing; absents des KPI servis (spreads Lab = 2 points seulement)
+- DOC | 2026-08-04 | Présentation T2 2026 | KPI ajoutable (5 trimestres Q3-2024 a Q3-2025 / Q2-2025 a Q2-2026): cash releasing spreads Outpatient Medical et Lab, taux de retention TTM, WALT, couts de leasing (TI/commissions par sq ft), RevPOR Senior Housing; absents des KPI servis (spreads Lab = 2 points seulement)
+- DRI | 2026-06-25 | Présentation T4-FY2026 | KPI ajoutable: EBITDA ajuste annuel FY2019 a FY2026, ratio EBITDA ajuste/capex, dette/EBITDAR FY2019-FY2026
+- DXCM | 2025-10-30 | Présentation T3-2025 | KPI ajoutable / croissance organique trimestrielle, marge brute/operationnelle non-GAAP, marge EBITDA ajuste : Q3-2024 a Q3-2025 (serie servie organique annuelle seulement)
+- DXCM | 2026-07-30 | Présentation T2-2026 | KPI ajoutable / croissance organique trimestrielle et marge EBITDA ajuste trimestrielle : Q2-2025 a Q2-2026
+- EBAY | 2026-02-18 | Présentation T4 2025 | KPI ajoutable: GMV International (et GMV hors International), Revenus publicitaires 1P et 3P separes, trimestriels Q3-2024 a Q4-2025; absents du 10-Q et des KPI servis
+- EBAY | 2026-08-05 | Présentation T2 2026 | KPI ajoutable: GMV International, Revenus pub 1P et 3P, Acheteurs Enthusiast (16M), croissance GMV categories prioritaires, trimestriels Q1-2025 a Q2-2026
+- ECL | 2026-07-28 | Presentation T2 2026 | KPI ajoutable: Croissance par sous-segment Water (Food & Beverage +7 %, Heavy Water -1 %, High-Tech +29 % organique, Light Water, Paper), Institutional vs Specialty, decomposition volume +1 % / prix +4 % / acquisitions +3 % / devises (serie annuelle seulement servie); Q2-2026 vs Q2-2025
+- EOAN.DE | 2026-08-12 | Rapport semestriel S1 2026 | Historique allonge: seules donnees S1/T2-2026 disponibles (series servies arretees Q1-2026): EBITDA ajuste, EBIT ajuste, CA, resultat net ajuste, investissements, dette nette economique, segments Networks/Retail/EIS, electricite distribuee
+- EPAM | 2026-02-19 | Fact sheet T4 2025 | Historique allonge: professionnels de delivery, utilisation trimestriels Q1-2024 a Q4-2025; comptes par taille de client (Q1-2024 a Q2-2026 avec T2)
+- EPAM | 2026-08-06 | Fact sheet T2 2026 | Historique allonge: professionnels de delivery fin de periode, taux d'utilisation (servis annuel FY seulement) trimestriels Q1-2025 a Q2-2026; comptes par taille de client; Top 20 clients
+- EQR | 2026-02-27 | Investor Update mars 2026 | KPI ajoutable (ponctuel au 31/12/2025): NOI urbain/suburbain (59/41 %), revenu moyen des menages residents (177 000 $), loyer en % du revenu (19,6 %), baisse de 35 % de l offre concurrente 2026, croissance revenus 2022-2026E
+- EQT | 2025-10-21 | Présentation T3 2025 | KPI ajoutable (trimestre reel + guidance): puits fores/frac/mis en production (TIL) en nombre net, longueur moyenne des lateraux (1k ft) par zone SWPA/NEPA/WV/OH, volumes couverts (MMDth) et differentiel moyen ; absents des KPI servis, 8K = page de garde
+- EQT | 2026-02-17 | Présentation T4 2025 | KPI ajoutable (trimestre reel + guidance): puits fores/frac/mis en production (TIL) en nombre net, longueur moyenne des lateraux (1k ft) par zone SWPA/NEPA/WV/OH, volumes couverts (MMDth) et differentiel moyen ; absents des KPI servis, 8K = page de garde
+- EQT | 2026-04-21 | Présentation T1 2026 | KPI ajoutable (trimestre reel + guidance): puits fores/frac/mis en production (TIL) en nombre net, longueur moyenne des lateraux (1k ft) par zone SWPA/NEPA/WV/OH, volumes couverts (MMDth) et differentiel moyen ; absents des KPI servis, 8K = page de garde
+- EQT | 2026-07-21 | Présentation T2 2026 | KPI ajoutable (trimestre reel + guidance): puits fores/frac/mis en production (TIL) en nombre net, longueur moyenne des lateraux (1k ft) par zone SWPA/NEPA/WV/OH, volumes couverts (MMDth) et differentiel moyen ; absents des KPI servis, 8K = page de garde
+- ETR | 2025-11-09 | Présentation EEI 2025 | KPI ajoutable / carnet d ESA en MW (data centers) et pipeline industriel GW, point nov 2025
+- ETR | 2026-06-09 | Journée investisseurs 2026 | KPI ajoutable / carnet d ESA (contrats d electricite data centers, GW), prevision ventes TWh, pipeline industriel; absents des KPI servis
+- EXC | 2025-11-04 | Pièce 8-K EDGAR presentation-ex99-2 | KPI ajoutable: pipeline de charge grands consommateurs / data centers en GW (ComEd, Mid-Atlantic; probabilite haute vs pipeline futur), point T3-2025 (19+ GW); exhibit absent du lac
+- EXC | 2026-02-12 | Pièce 8-K EDGAR presentation-ex99-2 | KPI ajoutable: pipeline de charge grands consommateurs / data centers en GW (ComEd, Mid-Atlantic; probabilite haute vs pipeline futur), serie Q4-2022 a Q4-2025 (graphique) et ~43 GW potentiel
+- EXC | 2026-05-06 | Pièce 8-K EDGAR presentation-ex99-2 | KPI ajoutable: pipeline de charge grands consommateurs / data centers en GW (ComEd, Mid-Atlantic; probabilite haute vs pipeline futur), Q1-2026 + croissance base tarifaire projetee
+- EXC | 2026-07-30 | Pièce 8-K EDGAR presentation-ex99-2 | KPI ajoutable: pipeline de charge grands consommateurs / data centers en GW (ComEd, Mid-Atlantic; probabilite haute vs pipeline futur), Q2-2026: ComEd ~9+17 GW, Mid-Atlantic ~2+8 GW, pipeline futur ~25 GW; capex et base tarifaire transmission 2023-2029
+- EXPE | 2026-08-05 | Pièce 8-K EDGAR presentation | KPI ajoutable / nuitees reservees Q2-2025 a Q2-2026 (allonge Q1-2026 vers Q2-2026), ADR
+- GFS | 2025-11-12 | Presentation T3 2025 | KPI ajoutable: CA trimestriel par marche final (mobile, infra comms, IoT, auto, services techno) Q3-2024/Q2-2025/Q3-2025 (servi FY2024-2025 seulement); livraisons de plaquettes trim.
+- GFS | 2026-05-07 | Journee investisseurs 2026 | KPI ajoutable: design wins 2024 (~325) et 2025 (>500), design wins automobile, objectifs de mix par marche
+- GFS | 2026-08-05 | Presentation T2 2026 | Historique allonge: CA par marche final trimestriel Q2-2025, Q1-2026, Q2-2026; livraisons plaquettes 300mm trim. (625k Q2-2026)
+- GILD | 2025-10-30 | Presentation T3 2025 | KPI ajoutable (trimestre courant + variations): ventes HIV Treatment, ventes HIV Prevention (Descovy for PrEP + Yeztugo), Descovy for PrEP (estimation interne), ventes Liver Disease, part de marche traitement US HIV; absents des KPI servis et des depots SEC (8K = page de garde)
+- GILD | 2026-02-10 | Presentation T4 2025 | KPI ajoutable (trimestre courant + variations): ventes HIV Treatment, ventes HIV Prevention (Descovy for PrEP + Yeztugo), Descovy for PrEP (estimation interne), ventes Liver Disease, part de marche traitement US HIV; absents des KPI servis et des depots SEC (8K = page de garde)
+- GILD | 2026-05-07 | Presentation T1 2026 | KPI ajoutable (trimestre courant + variations): ventes HIV Treatment, ventes HIV Prevention (Descovy for PrEP + Yeztugo), Descovy for PrEP (estimation interne), ventes Liver Disease, part de marche traitement US HIV; absents des KPI servis et des depots SEC (8K = page de garde)
+- GILD | 2026-08-04 | Presentation T2 2026 | KPI ajoutable (trimestre courant + variations): ventes HIV Treatment, ventes HIV Prevention (Descovy for PrEP + Yeztugo), Descovy for PrEP (estimation interne), ventes Liver Disease, part de marche traitement US HIV; absents des KPI servis et des depots SEC (8K = page de garde)
+- GLW | 2025-10-28 | Présentation T3 2025 | KPI ajoutable trimestriels: CA Enterprise Network et Carrier Network (servis en annuel FY2023-FY2025 seulement); couverture combinee Q3-2024 a Q2-2026
+- GLW | 2026-04-28 | Présentation T1 2026 | KPI ajoutable trimestriels: CA Enterprise Network et Carrier Network (servis en annuel FY2023-FY2025 seulement); couverture combinee Q3-2024 a Q2-2026
+- GLW | 2026-07-28 | Présentation T2 2026 | KPI ajoutable trimestriels: CA Enterprise Network et Carrier Network (servis en annuel FY2023-FY2025 seulement); couverture combinee Q3-2024 a Q2-2026
+- GWW | 2025-10-31 | Présentation T3 2025 | KPI ajoutable: utilisateurs enregistres MonotaRO et Zoro (milliers), SKU actifs Zoro (M), croissance ventes quotidiennes grands clients et clients moyens, Q3-2024 a Q3-2025 (allonge avec deck T2-2026 jusqu a Q2-2026)
+- GWW | 2026-08-04 | Présentation T2 2026 | KPI ajoutable: utilisateurs enregistres MonotaRO/Zoro, SKU actifs Zoro, croissance ventes quotidiennes grands/moyens clients, croissance par marche final HTS-US, Q2-2025 a Q2-2026
+- HAS | 2025-10-23 | Presentation T3 2025 | KPI ajoutable: Part de marche Hasbro par categorie cle (figurines 26,7 %, jeux 15,4 %, blasters 40,3 %...) et variation; Q3-2025 et YTD 2025 (texte image, lu par OCR)
+- HAS | 2026-02-10 | Presentation T4 2025 | KPI ajoutable: Part de marche Hasbro par categorie cle (figurines 23,2 %, jeux hors STCG 17,9 %, pre-scolaire, blasters, arts et loisirs) et variation en points; Q4-2025 et FY2025 (texte image, lu par OCR)
+- HAS | 2026-04-23 | Presentation T1 2026 | KPI ajoutable: Croissance des ventes en caisse (POS Circana) par categorie GEM2 (figurines +12,8 %, jeux, cartes a collectionner strategiques +110,1 %) et variation de part de marche; Q1-2026 et FY2025
+- HIG | 2025-10-27 | Supplement financier T3 2025 | KPI ajoutable / historique allonge: primes nouvelles nettes, hausses de prix au renouvellement, retention (nombre de polices) et polices en vigueur Small Business, retention Middle Market, Global Specialty trimestriels (servis en annuel FY2021-FY2025) de Q2-2024 a Q3-2025
+- IFF | 2025-11-05 | Présentation T3 2025 | KPI ajoutable: levier dette nette / EBITDA ajuste credit Q3-2025 (~2.5x)
+- IFF | 2026-02-12 | Présentation T4 2025 | KPI ajoutable: levier dette nette / EBITDA ajuste credit Q4-2025
+- IFF | 2026-05-06 | Présentation T1 2026 | KPI ajoutable: levier dette nette / EBITDA ajuste credit Q1-2026 (serie avec les 3 autres decks Q3-2025 a Q2-2026)
+- IFF | 2026-08-05 | Présentation T2 2026 | KPI ajoutable: dette nette / EBITDA ajuste credit (2.5x) et EBITDA credit TTM 2056M, Q2-2026 (1 point par deck, Q3-2025 a Q2-2026 sur 4 decks)
+- LHX | 2025-10-30 | Presentation T3 2025 | KPI ajoutable: Commandes (orders) et Book-to-bill trimestriels (Q3-2025 ~7 Md$, 1,2x), absents des KPI servis et du lac hors 8-K T2-2026
+- LHX | 2026-01-29 | Presentation T4 2025 | KPI ajoutable: Commandes et Book-to-bill Q4-2025 (serie avec T3-2025, T1/T2-2026)
+- LHX | 2026-04-30 | Presentation T1 2026 | KPI ajoutable: Commandes 7,8 Md$ et Book-to-bill 1,4x Q1-2026
+- LHX | 2026-07-29 | Presentation T2 2026 | KPI ajoutable: Commandes 7,3 Md$ et Book-to-bill 1,2x Q2-2026 (serie Q3-2025 a Q2-2026 avec les autres decks)
+- LONN.SW | 2026-07-22 | Présentation résultats S1 2026 | KPI ajoutable / historique allonge: CA, marge CORE EBITDA et croissance CER par plateforme (Integrated Biologics, Advanced Synthesis, Specialized Modalities, Capsules) en H1-2026 vs H1-2025 retraite (servi seulement FY2024-FY2025) ; capacite mammifere 332 000 litres
+- MT.AS | 2026-02-05 | Présentation T4/FY 2025 | KPI ajoutable (aucun KPI operationnel servi, pas de depot SEC): production acier brut, expeditions acier, EBITDA/tonne, production minerai de fer, par segment, T4 et exercice 2025 (communique T4 absent)
+- MT.AS | 2026-03-20 | Rapport annuel 2025 | KPI ajoutable (aucun KPI operationnel servi, pas de depot SEC): serie annuelle multi-annees production, expeditions, EBITDA/t, minerai, effectifs, securite (LTIFR) 2021 a 2025
+- MT.AS | 2026-04-30 | Communiqué T1 2026 | KPI ajoutable (aucun KPI operationnel servi, pas de depot SEC): expeditions acier, production acier brut, EBITDA/tonne, production minerai de fer, T1-2025 a T1-2026 (colonnes T1-26, T4-25, T1-25)
+- MT.AS | 2026-07-30 | Communiqué T2 2026 | KPI ajoutable (aucun KPI operationnel servi, pas de depot SEC): expeditions acier, production acier brut, EBITDA/tonne, production minerai de fer, T2-2025 a T2-2026 (colonnes T2-26, T1-26, T2-25, S1)
+- MT.PA | 2026-04-30 | Presentation T1 2026 | KPI ajoutable: Taux de frequence des accidents avec arret (LTIFR) 1T26 0,45x vs 1T25 0,63x (absent des KPI servis)
+- MT.PA | 2026-07-30 | Presentation T2 2026 | KPI ajoutable: Taux de frequence des accidents avec arret (LTIFR) 1H26 0,53x vs 1H25 0,66x, absent des KPI servis et du communique T2
+- ON | 2026-02-09 | Présentation T4 2025 | KPI ajoutable / revenus AI data center (>250 M$ en 2025), absent des KPI servis
+- ON | 2026-08-03 | Présentation T2 2026 | KPI ajoutable / revenus AI data center, perspective relevee et TAM, absent des KPI servis
+- ON | 2026-09-16 | Investor Day 2026 | KPI ajoutable / revenus AI data center (>500 M$ 2026 vers >2,5 G$ 2030), TAM par marche (AI DC 47,5 G$, auto 63,5 G$)
+- PANW | 2025-11-19 | Présentation T1 FY26 | KPI ajoutable: ARR SASE (>1,3 Md$), clients SASE (~6 800), sieges Secure Browser (>7 M), plateformisations Q1 FY26 (non servis)
+- PANW | 2026-02-17 | Présentation T2 FY26 | KPI ajoutable: total platformisations (~1 150), clients >5 M$ et >10 M$ NGS, taux de retention net, ARR SASE (non servis, serie Platformization vide)
+- PEG | 2025-11-03 | Présentation T3 2025 | KPI ajoutable (trimestre + N-1): resultat operationnel non-GAAP (Operating Earnings) total et par segment PSE&G / PSEG Power & Other, BPA operationnel, FFO/dette non-GAAP, pic de charge ; absents des KPI servis, 0 occurrence dans les 10-Q du lac
+- PEG | 2026-02-26 | Présentation T4 2025 | KPI ajoutable (trimestre + N-1): resultat operationnel non-GAAP (Operating Earnings) total et par segment PSE&G / PSEG Power & Other, BPA operationnel, FFO/dette non-GAAP, pic de charge ; absents des KPI servis, 0 occurrence dans les 10-Q du lac
+- PEG | 2026-05-05 | Présentation T1 2026 | KPI ajoutable (trimestre + N-1): resultat operationnel non-GAAP (Operating Earnings) total et par segment PSE&G / PSEG Power & Other, BPA operationnel, FFO/dette non-GAAP, pic de charge ; absents des KPI servis, 0 occurrence dans les 10-Q du lac
+- PEG | 2026-08-04 | Présentation T2 2026 | KPI ajoutable (trimestre + N-1): resultat operationnel non-GAAP (Operating Earnings) total et par segment PSE&G / PSEG Power & Other, BPA operationnel, FFO/dette non-GAAP, pic de charge ; absents des KPI servis, 0 occurrence dans les 10-Q du lac
+- PHM | 2025-10-21 | Présentation T3 2025 | KPI ajoutable: incentives en % du prix de vente (non servi, absent ER/10-Q), T3-2024/T3-2025 (8,9 %), graphique T3-2022 a T3-2025
+- PHM | 2026-01-29 | Présentation T4 2025 | KPI ajoutable: incentives en % du prix de vente (non servi, absent ER/10-Q), Q4-2025 (9,9 %) et Q4-2024 (7,2 %)
+- PHM | 2026-04-23 | Présentation T1 2026 | KPI ajoutable: incentives en % du prix de vente (non servi, absent ER/10-Q), Q1-2026 (10,9 %) et Q1-2025 (8,0 %)
+- PHM | 2026-07-22 | Présentation T2 2026 | KPI ajoutable: incentives en % du prix de vente (non servi, absent ER/10-Q), Q2-2026 (10,4 %) et Q2-2025 (8,7 %), ROE annuel
+- PKG | 2025-12-10 | Presentation investisseurs decembre 2025 | KPI ajoutable: EBITDA et marge EBITDA segment Packaging/Papier (annuel 2017 a 2024, Q3-2024 et Q3-2025), taux d integration 90,7 %, expeditions par jour PCA historique vs Greif T4-2025
+- PKG | 2026-02-25 | Conference BofA Agriculture et Materiaux | KPI ajoutable: EBITDA et marge EBITDA segment Packaging (annuel 2017 a 2025, hors elements speciaux), EBITDA segment Papier 2024-2025, taux d integration containerboard (~91 %); absents des KPI servis et des 8-K du lac
+- PSA | 2026-07-29 | Supplément financier T2 2026 | KPI ajoutable: Core FFO par action (Q2-2026, ER Q2 absent du lac), pipeline developpement/extension (47 installations, 4.0M pi2, 692M$), occupation/loyer des installations non-same-store par portefeuille; Q2-2026
+- RDDT | 2026-07-30 | presentation-T2-2026 | KPI ajoutable: chiffre d affaires par employe (revenue per headcount) trimestriel Q2-2025 a Q2-2026, opex par employe; absent de l ER et des KPI servis. Document image (pas de texte extrait)
+- REG | 2025-10-28 | supplement-T3-2025 | KPI ajoutable: ABR par categorie de locataire (epicerie 20 %, restauration rapide 14 %, services, medical...), part ancres/boutiques dans l ABR (42/58), ABR par etat et par MSA, rendement stabilise du pipeline en cours (~9 %) et des projets acheves (~7 %); point T3-2025
+- REG | 2026-02-05 | supplement-T4-2025 | KPI ajoutable: ABR par categorie de locataire (epicerie 20 %, restauration rapide 14 %, services, medical...), part ancres/boutiques dans l ABR (42/58), ABR par etat et par MSA, rendement stabilise du pipeline en cours (~9 %) et des projets acheves (~7 %); point T4-2025
+- REG | 2026-04-29 | supplement-T1-2026 | KPI ajoutable: ABR par categorie de locataire (epicerie 20 %, restauration rapide 14 %, services, medical...), part ancres/boutiques dans l ABR (42/58), ABR par etat et par MSA, rendement stabilise du pipeline en cours (~9 %) et des projets acheves (~7 %); point T1-2026
+- REG | 2026-07-29 | supplement-T2-2026 | KPI ajoutable: ABR par categorie de locataire (epicerie 20 %, restauration rapide 14 %, services, medical...), part ancres/boutiques dans l ABR (42/58), ABR par etat et par MSA, rendement stabilise du pipeline en cours (~9 %) et des projets acheves (~7 %); point T2-2026
+- SBAC | 2026-08-03 | Supplemental T2 2026 | KPI ajoutable (trimestriel, domestique/international): nouveaux baux et amendements, escalateurs, churn regulier / Sprint / EchoStar, croissance organique brute et nette, concentration par operateur (T-Mobile, AT&T, Verizon) sur 6 trimestres, exposition devises (BRL...) ; servi seulement en annuel ou 1 point
+- SBUX | 2025-10-29 | Digital IR Dashboard 4-FY25 | KPI ajoutable / Carte Starbucks en % des transactions US, dollars charges US, membres actifs 90 jours (trimestriel) : Q4-FY23 a Q4-FY25
+- SBUX | 2026-07-29 | Digital IR Dashboard 3-FY26 | KPI ajoutable / memes KPI digitaux (membres actifs 90 jours trimestriels, carte % transactions, dollars charges) : Q3-FY24 a Q3-FY26; serie combinee Q4-FY23 a Q3-FY26
+- SNPS | 2025-12-10 | Supplement financier T4 FY2025 | KPI ajoutable: Revenus time-based / upfront / maintenance et services, Part du revenu recurrent, DSO, effectifs trimestriels Q1-2024 a Q4-2025 (absents des KPI servis)
+- SNPS | 2026-08-26 | Supplement financier T3 FY2026 | KPI ajoutable / historique allonge: Revenus produits time-based, Revenus produits upfront, Revenus maintenance et services, Part du revenu recurrent (Q1-2025 a Q3-2026 + FY24), DSO, effectifs trimestriels (Q1-2024 a Q3-2026); 'Part revenus time-based' servi vide
+- SPG | 2025-11-03 | Supplemental T3 2025 | KPI ajoutable / ventes des commercants par pied carre (TTM, 742 $ T3-2025), NOI domestique vs international
+- SPG | 2026-02-02 | Supplemental T4 2025 | KPI ajoutable / ventes des commercants par pied carre (TTM) T4-2025
+- SPG | 2026-05-11 | Supplemental T1 2026 | KPI ajoutable / ventes des commercants par pied carre (819 $ vs 733 $ T1), NOI domestique/international
+- SPGI | 2026-05-12 | Investor Day Mobility Global (116 pages, images EDGAR 8-K converties en PDF) | Probable KPI Mobility (investor day 116 pages, images sans texte): non verifiable, a OCRiser avant decision
+- SREN.SW | 2026-08-06 | Rapport semestriel S1 2026 | KPI ajoutable / resultats semestriels H1-2025 et H1-2026 : resultat net groupe, P&C Re (combined ratio 76,7 % vs 81,1 %), Corporate Solutions, L&H Re, ROE, ROI, SST 264 % (serie servie annuelle FY)
+- SW | 2025-10-29 | Presentation resultats T3 2025 | KPI ajoutable: variation volume caisses ondulees par segment (NA, EMEA-APAC, LATAM) Q3-2025 (servi FY seulement)
+- SW | 2026-02-11 | Presentation resultats T4 et annee 2025 (ex99.3 8-K) | KPI ajoutable: variation volume caisses ondulees par segment Q4-2025 et FY2025; expeditions unitaires FY25 par region
+- SW | 2026-07-29 | Presentation resultats T2 2026 (ex99.2 8-K) | KPI ajoutable: variation volume caisses ondulees par segment Q2-2026 (NA -4.8%, EMEA 1.5%, LATAM 1.0%)
+- TMUS | 2025-10-23 | Investor Factbook T3 2025 | KPI ajoutable: ajouts nets et clients fibre, large bande total, clients postpaye totaux trimestriels, historique allonge Q3-2024 a Q3-2025
+- TMUS | 2026-07-23 | Investor Factbook T2 2026 | KPI ajoutable: ajouts nets et clients fibre, total clients large bande, clients postpaye totaux trimestriels (fibre servi 1 point Q4-2025), Q2-2025 a Q2-2026 ; absents des 8-K
+- TPR | 2026-08-13 | Presentation investisseurs T4 FY2026 | KPI ajoutable: nouveaux clients acquis (>2 M au T4, ~9 M annuel, 11,0 M FY26), croissance Gen Z, CA par canal/digital; absents des 8-K et KPI servis
+- TROW | 2025-10-31 | Supplement resultats T3 2025 | KPI ajoutable (Q3-2024 a Q3-2025 / Q2-2025 a Q2-2026): AUM et flux nets par type de client (Institutionnel/Retail) et par geographie (US/APAC-EMEA-Canada), actifs retraite US (DC investment-only, recordkeeping, autres comptes), % fonds > mediane Morningstar 1/5/10 ans ; absents des KPI servis et des ER du lac
+- TROW | 2026-07-31 | Supplement resultats T2 2026 | KPI ajoutable (Q3-2024 a Q3-2025 / Q2-2025 a Q2-2026): AUM et flux nets par type de client (Institutionnel/Retail) et par geographie (US/APAC-EMEA-Canada), actifs retraite US (DC investment-only, recordkeeping, autres comptes), % fonds > mediane Morningstar 1/5/10 ans ; absents des KPI servis et des ER du lac
+- TSM | 2025-10-16 | Management report 3T25 | KPI ajoutable trimestriels: CA par plateforme (HPC, Smartphone, IoT, Automobile, DCE), CA par zone (Amerique du Nord, Chine, etc.), part par noeud (3nm/5nm/7nm), livraisons de plaquettes 12 pouces trimestrielles; servis seulement en annuel; couverture combinee 3T24 a 2T26
+- TSM | 2026-01-15 | Management report 4T25 | KPI ajoutable trimestriels: CA par plateforme (HPC, Smartphone, IoT, Automobile, DCE), CA par zone (Amerique du Nord, Chine, etc.), part par noeud (3nm/5nm/7nm), livraisons de plaquettes 12 pouces trimestrielles; servis seulement en annuel; couverture combinee 3T24 a 2T26
+- TSM | 2026-04-16 | Management report 1T26 | KPI ajoutable trimestriels: CA par plateforme (HPC, Smartphone, IoT, Automobile, DCE), CA par zone (Amerique du Nord, Chine, etc.), part par noeud (3nm/5nm/7nm), livraisons de plaquettes 12 pouces trimestrielles; servis seulement en annuel; couverture combinee 3T24 a 2T26
+- TSM | 2026-07-16 | Management report 2T26 | KPI ajoutable trimestriels: CA par plateforme (HPC, Smartphone, IoT, Automobile, DCE), CA par zone (Amerique du Nord, Chine, etc.), part par noeud (3nm/5nm/7nm), livraisons de plaquettes 12 pouces trimestrielles; servis seulement en annuel; couverture combinee 3T24 a 2T26
+- UBER | 2025-11-04 | Supplemental T3 2025 | KPI ajoutable: Frequence mensuelle (trajets par MAPC) Q3-2024 a Q3-2025
+- UBER | 2026-02-04 | Prepared remarks T4 2025 | KPI ajoutable: Revenu publicitaire annualise (>2 Md$ Q4-2025), avec T2-2026 forme une serie courte
+- UBER | 2026-08-05 | Prepared remarks T2 2026 | KPI ajoutable: Revenu publicitaire annualise (run-rate ~2,5 Md$ Q2-2026; >2 Md$ Q4-2025), points epars
+- UBER | 2026-08-05 | Supplemental T2 2026 | KPI ajoutable: Frequence mensuelle (trajets par MAPC) Q2-2025 a Q2-2026 (absent des KPI servis et du lac SEC)
+- V | 2026-07-28 | Présentation T3 FY2026 | KPI ajoutable (Q2 a Q3 FY2026 et historique cartes): nombre de cartes Visa en circulation credit/debit/total (Md) en trimestriel (servi seulement annuel FY2018-FY2025), transactions credit vs debit, croissance volume US credit/debit ; absents des ER du lac
+- WDAY | 2026-08-27 | Presentation investisseurs T2 FY27 | KPI ajoutable (Q2-FY2027): ARR IA agentique (~600 M$, >200 % YoY), nouvel ACV IA agentique (>100 M$, >25 % du nouvel ACV) ; absents des KPI servis (seuls clients agents IA servis)
+- XEL | 2026-02-05 | Présentation T4 2025 | KPI ajoutable (hors lac, exhibit absent): croissance ventes electriques/gaz ponderees meteo et croissance clients electriques/gaz par filiale (NSPM, NSPW, PSCo, SPS), point Q4-2025 et exercice 2025
+- XEL | 2026-04-30 | Présentation T1 2026 | KPI ajoutable (hors lac, exhibit absent): croissance ventes electriques/gaz ponderees meteo et croissance clients electriques/gaz par filiale (NSPM, NSPW, PSCo, SPS), point Q1-2026
+- XEL | 2026-07-01 | Investor Fact Book (juillet 2026) | KPI ajoutable: emissions de CO2 de l electricite fournie (Mt) 2006 a 2025, mix de production par combustible, capacite renouvelable par filiale (MW), plan de capex par categorie 2026-2030; absents des KPI servis
+- XEL | 2026-07-30 | Présentation T2 2026 | KPI ajoutable (hors lac, exhibit absent): croissance ventes electriques/gaz ponderees meteo et croissance clients electriques/gaz par filiale (NSPM, NSPW, PSCo, SPS), point Q2-2026 (+ cumul 2026), MW de capacites en appels d offres, demande data centers GW
+- YUM | 2025-11-04 | Résumé financier et opérationnel T3 2025 | KPI ajoutable: Financing EBITDA du Restricted Group (trimestriel, comparatif N-1 inclus), serie Q3-2024 a Q2-2026 avec les 4 resumes; absent du SEC
+- YUM | 2026-02-04 | Résumé financier et opérationnel T4 2025 | KPI ajoutable: Financing EBITDA du Restricted Group (trimestriel, comparatif N-1 inclus), serie Q3-2024 a Q2-2026 avec les 4 resumes; absent du SEC
+- YUM | 2026-04-29 | Résumé financier et opérationnel T1 2026 | KPI ajoutable: Financing EBITDA du Restricted Group (trimestriel, comparatif N-1 inclus), serie Q3-2024 a Q2-2026 avec les 4 resumes; absent du SEC
+- YUM | 2026-07-30 | Résumé financier et opérationnel T2 2026 | KPI ajoutable: Financing EBITDA du Restricted Group (trimestriel, comparatif N-1 inclus), serie Q3-2024 a Q2-2026 avec les 4 resumes; absent du SEC
+- ZTS | 2025-11-04 | Presentation T3 2025 | KPI ajoutable: Simparica Trio, Librela, Solensia intl, Key Dermatology intl; Q3-2024 et Q3-2025
+- ZTS | 2026-02-12 | Presentation T4 2025 | KPI ajoutable: Simparica Trio, Librela, Solensia international, Key Dermatology international, Simparica international; Q4-2024/Q4-2025 et FY2024/FY2025
+- ZTS | 2026-05-07 | Presentation T1 2026 | KPI ajoutable: Librela, Solensia, Simparica Trio, Key Dermatology international, vaccins petits animaux international; Q1-2025 et Q1-2026
+- ZTS | 2026-08-06 | Presentation T2 2026 | KPI ajoutable: Librela / Solensia separes (servi = mAb combine), Simparica Trio (hors Simparica), versions internationales (Librela, Simparica Trio, Key Dermatology), mAb douleur OA canin/felin, vaccins petits animaux international; Q2-2025 et Q2-2026
+
+## 3. Documents INUTILES (ticker | date | raison)
+- ABBV | 2026-02-04 | Pipeline Update T4 2025 | Pipeline update : donnees R&D qualitatives, ventes par produit deja servies
+- ABBV | 2026-04-29 | Pipeline Update T1 2026 | Pipeline update : donnees R&D qualitatives, ventes par produit deja servies
+- ABBV | 2026-07-31 | Pipeline Update T2 2026 | Pipeline update : donnees R&D qualitatives, ventes par produit deja servies
+- ADBE | 2026-03-12 | Remarques préparées et slides T1 FY26 | Remarques preparees : MAU Acrobat+Express non chiffre en valeur, reste servi / dans 8-K
+- AFL | 2026-02-04 | Supplément financier Q4-2025 | supplement financier deja en lac (ES) ou KPI servis quasi exhaustifs (primes, ventes, persistance, agences, ratios, rendements)
+- AFL | 2026-04-29 | Supplément financier Q1-2026 | supplement financier deja en lac (ES) ou KPI servis quasi exhaustifs (primes, ventes, persistance, agences, ratios, rendements)
+- AFL | 2026-08-06 | Supplément financier Q2-2026 | supplement financier deja en lac (ES) ou KPI servis quasi exhaustifs (primes, ventes, persistance, agences, ratios, rendements)
+- AMAT | 2026-05-14 | Presentation T2 FY2026 | deck T% FY26: synthese financiere et perspectives, KPI servis Q1-2017 a Q3-2026 (nnov 0)
+- AMAT | 2026-08-13 | Presentation T3 FY2026 | deck T% FY26: synthese financiere et perspectives, KPI servis Q1-2017 a Q3-2026 (nnov 0)
+- AMZN | 2026-07-30 | Communique T2 2026 | communique = ER deja dans le lac
+- ARE | 2025-10-27 | Supplément résultats Q3-2025 | Supplement : KPI deja servis avec historique plus long (NOI, occupation, FFO, pipeline)
+- ARE | 2025-12-03 | Guidance 2026 (journée investisseurs) | Supplement : KPI deja servis avec historique plus long (NOI, occupation, FFO, pipeline)
+- ARE | 2026-01-26 | Supplément résultats Q4-2025 | Supplement : KPI deja servis avec historique plus long (NOI, occupation, FFO, pipeline)
+- ARE | 2026-04-27 | Supplément résultats Q1-2026 | Supplement : KPI deja servis avec historique plus long (NOI, occupation, FFO, pipeline)
+- ARE | 2026-08-03 | Supplément résultats Q2-2026 | Supplement : KPI deja servis avec historique plus long (NOI, occupation, FFO, pipeline)
+- AWK | 2025-10-27 | Fusion avec Essential Utilities | Deck fusion Essential Utilities, pas de serie KPI
+- BE | 2026-02-05 | communique T4 2025 | communique = 8-K ER deja dans le lac
+- BE | 2026-04-28 | communique T1 2026 | communique = 8-K ER deja dans le lac
+- BLK | 2026-07-15 | communique T2 2026 | communique de resultats = 8-K/ER deja en lac
+- BXP | 2026-07-28 | Supplemental T2 2026 | supplemental deja dans 8-K complet du lac (BXP_2026-07-28_complet)
+- CCEP | 2026-02-17 | Resultats FY 2025 | KPI servis (volume, revenu par caisse, regions, pays) avec historique plus long
+- CCEP | 2026-04-28 | Trading update T1 2026 | KPI servis (volume, revenu par caisse, regions, pays) avec historique plus long
+- CCEP | 2026-08-04 | Resultats S1 2026 | KPI servis (volume, revenu par caisse, regions, pays) avec historique plus long
+- CCI | 2025-10-22 | Supplement q3 2025 | Exhibit 99.2 deja depose au lac 8K (meme date), nnov=0
+- CCI | 2026-02-04 | Supplement q4 2025 | Exhibit 99.2 deja depose au lac 8K (meme date), nnov=0
+- CCI | 2026-04-22 | Supplement q1 2026 | Exhibit 99.2 deja depose au lac 8K (meme date), nnov=0
+- CCI | 2026-07-22 | Supplement q2 2026 | Exhibit 99.2 deja depose au lac 8K (meme date), nnov=0
+- CDNS | 2026-07-27 | Prepared remarks T2 2026 | nnov=0; croissances par groupe de produits deja derivables des series servies (Core EDA, IP, SDA, RPO), renvoie au 8-K
+- CI | 2026-03-01 | Journée investisseurs 2026 | journee investisseurs: objectifs 2026+, graphiques sans serie trimestrielle nouvelle
+- CI | 2026-07-30 | Communiqué T2 2026 | communique T2 = ER, memes KPI que Q1 deja servis jusqu a Q2-2026
+- CIEN | 2026-03-05 | Présentation T1 FY26 | 5 trimestres couverts par decks T3-FY26 et T4-FY25
+- CIEN | 2026-06-04 | Présentation T2 FY26 | 5 trimestres couverts par decks T3-FY26 et T4-FY25
+- CMS | 2026-03-01 | Rapport annuel 2025 | Contient le 10-K 2025 deja dans le lac (10K 2026-02-10); nnov gonfle par la mise en page
+- COIN | 2025-10-30 | Lettre actionnaires T3 2025 | serie couverte par deck T2-2026 (derives, USDC); reste = ER deja dans le lac
+- CRWV | 2026-08-11 | Présentation T2 2026 | deck/outlook reprenant ER du lac (puissance active 1,5 GW et contractee 3,7 GW dans l ER); guidance seulement
+- CRWV | 2026-08-11 | Présentation perspectives T2 2026 | deck/outlook reprenant ER du lac (puissance active 1,5 GW et contractee 3,7 GW dans l ER); guidance seulement
+- CSCO | 2026-02-19 | Investor deck fév 2026 | Investor deck : memes donnees que decks trimestriels
+- CSX | 2025-10-16 | Rapport financier trimestriel T3-2025 | exhibit 99.2 de l 8-K deja dans data-lake/CSX/8K ; KPI servis jusqu a Q2-2026
+- CSX | 2026-01-22 | Rapport financier trimestriel T4-2025 | exhibit 99.2 de l 8-K deja dans data-lake/CSX/8K ; KPI servis jusqu a Q2-2026
+- CSX | 2026-04-22 | Rapport financier trimestriel T1-2026 | exhibit 99.2 de l 8-K deja dans data-lake/CSX/8K ; KPI servis jusqu a Q2-2026
+- CSX | 2026-07-22 | Rapport financier trimestriel T2-2026 | exhibit 99.2 de l 8-K deja dans data-lake/CSX/8K ; KPI servis jusqu a Q2-2026
+- CTSH | 2025-10-29 | Communique T3 2025 | Doublon du 8-K/ER ; bookings, effectif et attrition repris ou servis par le supplement
+- CTSH | 2025-10-29 | Supplement T3 2025 | Trimestre inclus dans les series du supplement T4 2025
+- CTSH | 2026-02-04 | Communique T4 2025 | Doublon du 8-K/ER ; bookings, effectif et attrition repris ou servis par le supplement
+- CTSH | 2026-04-29 | Communique T1 2026 | Doublon du 8-K/ER ; bookings, effectif et attrition repris ou servis par le supplement
+- CTSH | 2026-04-29 | Supplement T1 2026 | Trimestre inclus dans les series des supplements T2 2026 / T4 2025
+- CTSH | 2026-07-29 | Communique T2 2026 | Doublon du 8-K/ER ; bookings, effectif et attrition repris ou servis par le supplement
+- DGX | 2026-01-12 | presentation-investisseurs-JPM | deck JPM sans texte extractible, KPI DGX deja servis tres completement
+- DIS | 2025-11-13 | Résultats T4 FY25 (shareholder letter) | lettre/10-K, abonnes et revenus par segment deja servis
+- DIS | 2026-02-02 | T1 FY26 | document type 10-Q, KPI deja servis
+- DIS | 2026-05-06 | T2 FY26 | document type 10-Q, KPI deja servis
+- DIS | 2026-08-05 | T3 FY26 | KPI deja servis, aucun indicateur nouveau
+- DOC | 2025-10-23 | Supplemental T3 2025 | reconciliations non-GAAP (FFO, NOI, same-store), KPI deja servis avec historique plus long
+- DOC | 2026-02-02 | Présentation T4 2025 | doublon: memes tableaux de leasing/retention deja couverts par les decks T3-2025 et T2-2026 (fenetres glissantes de 5 trimestres)
+- DOC | 2026-02-02 | Supplemental T4 2025 | reconciliations non-GAAP (FFO, NOI, same-store), KPI deja servis avec historique plus long
+- DOC | 2026-05-05 | Présentation T1 2026 | doublon: memes tableaux de leasing/retention deja couverts par les decks T3-2025 et T2-2026 (fenetres glissantes de 5 trimestres)
+- DOC | 2026-05-05 | Supplemental T1 2026 | reconciliations non-GAAP (FFO, NOI, same-store), KPI deja servis avec historique plus long
+- DOC | 2026-08-04 | Présentation complément T2 2026 | EX-99.3 8-K: definitions et reconciliations non-GAAP, KPI deja servis
+- DOC | 2026-08-04 | Supplemental T2 2026 | reconciliations non-GAAP (FFO, NOI, same-store), KPI deja servis avec historique plus long
+- DRI | 2025-12-18 | Présentation T2-FY2026 | Deck reprenant l'ER ; segments, SRS, trafic deja servis
+- DRI | 2026-03-19 | Présentation T3-FY2026 | Deck reprenant l'ER ; segments, SRS, trafic deja servis
+- DRI | 2026-09-24 | Présentation T1-FY2027 | Deck reprenant l'ER ; segments, SRS, trafic deja servis
+- DTE | 2025-10-30 | Présentation T3 2025 | 8-K ex99.2 deja en lac: resultats, guidance, plan de capex; KPI servis
+- DTE | 2026-02-17 | Présentation T4 2025 | 8-K ex99.2 deja en lac: resultats, guidance, plan de capex; KPI servis
+- DTE | 2026-04-30 | Présentation T1 2026 | 8-K ex99.2 deja en lac: resultats, guidance, plan de capex; KPI servis
+- DTE | 2026-07-28 | Présentation T2 2026 | 8-K ex99.2 deja en lac: resultats, guidance, plan de capex; KPI servis
+- DVN | 2025-11-05 | Presentation T3-2025 | Reprend ER T3, production/prix deja servis depuis Q2-2019
+- DVN | 2026-02-17 | Presentation T4-2025 | Annonce fusion + resultats T4 deja dans ER/8-K; series servies plus longues
+- DVN | 2026-05-05 | Presentation T1-2026 | Reprend ER T1 (production, FCF, guidance), series deja servies depuis Q2-2019
+- DVN | 2026-08-04 | Presentation T2-2026 | Deck post-fusion Coterra: guidance et synergies, tableaux deja dans ER/8-K, series de production deja servies
+- DXCM | 2026-02-12 | Présentation T4-2025 | Deck recouvert par les decks T3-2025 et T2-2026 retenus
+- DXCM | 2026-04-30 | Présentation T1-2026 | Deck recouvert par les decks T3-2025 et T2-2026 retenus
+- EBAY | 2025-10-29 | Présentation T3 2025 | deck sans texte extractible, trimestre couvert par decks T4-2025 et T2-2026
+- EBAY | 2026-03-01 | Lettre aux actionnaires 2025 | lettre actionnaires sans KPI nouveau
+- EBAY | 2026-03-01 | Rapport annuel 2025 | rapport annuel = 10-K, KPI annuels deja servis
+- EBAY | 2026-04-29 | Présentation T1 2026 | serie Q4-2024 a Q1-2026 couverte par decks T4-2025 + T2-2026
+- ECL | 2026-03-01 | Rapport annuel 2025 | Reprend le 10-K 2025 deja au lac, nnov faible (44)
+- ELV | 2026-01-28 | Présentation T4 2025 | Deck : membres, ratio sinistres, segments deja servis (nnov faible)
+- ELV | 2026-07-15 | Présentation complémentaire T2 2026 | Deck : membres, ratio sinistres, segments deja servis (nnov faible)
+- EN.PA | 2026-02-26 | Communique resultats annuels 2025 | Communique annuel 2025 deja servi (FY2021-2025)
+- EPAM | 2025-11-06 | Fact sheet T3 2025 | Colonnes Q2-2024 a Q3-2025 couvertes par les fact sheets T4 2025 et T2 2026
+- EPAM | 2026-03-12 | Journée investisseurs 2026 | Transcript journee investisseurs, objectifs qualitatifs, pas de serie historique
+- EPAM | 2026-05-07 | Fact sheet T1 2026 | Colonnes Q1-2025 a Q1-2026 couvertes par la fact sheet T2 2026
+- EPAM | 2026-05-07 | Présentation T1 2026 | Deck investisseur reprenant l'ER ; pas de KPI nouveau (AI-native qualitatif)
+- EPAM | 2026-08-06 | Présentation T2 2026 | Deck investisseur reprenant l'ER ; pas de KPI nouveau (AI-native qualitatif)
+- EQR | 2025-12-01 | Investor Update décembre 2025 | investor update, KPI deja servis (nnov 2)
+- EQR | 2026-02-05 | Présentation de gestion T4 2025 | supplement T4-2025, KPI same-store deja servis
+- ES | 2025-11-04 | Pièce 8-K EDGAR earnings-report-ex99-3 | deck/pieces 8-K reprenant l ER (BPA recurrent, rate base previsionnel, capex) ; historiques deja servis, rien d historique nouveau
+- ES | 2026-02-12 | Pièce 8-K EDGAR earnings-report-ex99-3 | deck/pieces 8-K reprenant l ER (BPA recurrent, rate base previsionnel, capex) ; historiques deja servis, rien d historique nouveau
+- ES | 2026-05-06 | Pièce 8-K EDGAR earnings-report-ex99-3 | deck/pieces 8-K reprenant l ER (BPA recurrent, rate base previsionnel, capex) ; historiques deja servis, rien d historique nouveau
+- ES | 2026-07-30 | Pièce 8-K EDGAR earnings-report-ex99-3 | deck/pieces 8-K reprenant l ER (BPA recurrent, rate base previsionnel, capex) ; historiques deja servis, rien d historique nouveau
+- ES | 2026-07-30 | Pièce 8-K EDGAR etats-financiers-ex99-2 | deck/pieces 8-K reprenant l ER (BPA recurrent, rate base previsionnel, capex) ; historiques deja servis, rien d historique nouveau
+- ETR | 2025-10-29 | Présentation T3 2025 | Deck trimestriel : ventes GWh, BPA, capex deja servis
+- ETR | 2026-02-12 | Présentation T4 2025 | Deck trimestriel : ventes GWh, BPA, capex deja servis
+- ETR | 2026-04-29 | Présentation T1 2026 | Deck trimestriel : ventes GWh, BPA, capex deja servis
+- ETR | 2026-07-29 | Présentation T2 2026 | Deck trimestriel : ventes GWh, BPA, capex deja servis
+- EW | 2025-12-01 | Fiche investisseurs decembre 2025 | Fiche generique (effectif ~16 000 deja servi), aucun KPI nouveau
+- FITB | 2025-10-17 | Présentation T3 2025 | Deck de resultats ou conference : KPI bancaires deja servis (NIM, prets, depots, CET1)
+- FITB | 2026-01-20 | Présentation T4 2025 | Deck de resultats ou conference : KPI bancaires deja servis (NIM, prets, depots, CET1)
+- FITB | 2026-04-17 | Présentation T1 2026 | Deck de resultats ou conference : KPI bancaires deja servis (NIM, prets, depots, CET1)
+- FITB | 2026-07-17 | Présentation T2 2026 | Deck de resultats ou conference : KPI bancaires deja servis (NIM, prets, depots, CET1)
+- FITB | 2026-09-14 | Conférence Barclays | Deck de resultats ou conference : KPI bancaires deja servis (NIM, prets, depots, CET1)
+- GILD | 2026-01-12 | Presentation JPMorgan | presentation corporate JPM, objectifs/pipeline, pas de serie trimestrielle nouvelle
+- GWW | 2026-02-03 | Présentation T4 2025 | serie Q4-2024 a Q4-2025 couverte par decks T3-2025 + T2-2026
+- GWW | 2026-02-20 | Rapport annuel 2025 | rapport annuel = 10-K, KPI annuels deja servis
+- GWW | 2026-05-08 | Présentation T1 2026 | serie Q1-2025 a Q1-2026 couverte par decks T3-2025 + T2-2026
+- HAL | 2026-01-21 | Presentation T4 2025 | deck corporate T4-2025: repartition CA par region deja servie depuis Q1-2016
+- HIG | 2026-01-29 | Communique T4 2025 | communique reprenant l 8-K/ER deja en lac
+- HIG | 2026-01-29 | Supplement financier T4 2025 | 6 trimestres recouverts par supplements T3-2025 (Q2-24 a Q3-25) et T1/T2-2026
+- HIG | 2026-04-23 | Communique T1 2026 | communique reprenant l 8-K/ER deja en lac
+- HIG | 2026-04-23 | Supplement financier T1 2026 | colonnes Q4-2024 a Q1-2026 deja couvertes par supplements T3-2025 et T2-2026 (6 trimestres chacun)
+- HIG | 2026-07-23 | Communique T2 2026 | communique reprenant l 8-K/ER deja en lac
+- HIG | 2026-07-23 | Supplement financier T2 2026 | deja dans 8-K complet du lac (HIG_2026-07-23_complet), 6 trimestres
+- INCY | 2026-01-13 | Presentation JP Morgan Healthcare 2026 | deck JPM: ventes produits deja servies avec historique plus long, reste = objectifs/pipeline non KPI
+- INTC | 2026-07-23 | Presentation T2 2026 | Deck reprenant l'ER/8-K ; segments deja servis
+- JNJ | 2026-07-15 | Presentation T2 2026 (8-K ex99.2, htm) | 8-K ex99.2 deja en lac (ventes par segment, pipeline)
+- KEY | 2025-10-16 | Presentation T3 2025 | 8-K ex99.2 deja en lac (ER/8K), KPI bancaires servis avec historique long
+- KEY | 2026-01-20 | Presentation T4 2025 | 8-K ex99.2 deja en lac (ER/8K), KPI bancaires servis avec historique long
+- KEY | 2026-04-16 | Presentation T1 2026 | 8-K ex99.2 deja en lac (ER/8K), KPI bancaires servis avec historique long
+- KEY | 2026-07-21 | Presentation T2 2026 | 8-K ex99.2 deja en lac (ER/8K), KPI bancaires servis avec historique long
+- KEYS | 2025-11-24 | Présentation T4 FY2025 | Deck reprenant l'ER/8-K ; commandes, segments, regions deja servis (carnet record non chiffre)
+- KEYS | 2025-12-31 | Rapport annuel 2025 | Rapport annuel sans KPI nouveau, series deja servies depuis 10-K
+- KEYS | 2026-02-23 | Présentation T1 FY2026 | Deck reprenant l'ER/8-K ; commandes, segments, regions deja servis (carnet record non chiffre)
+- KEYS | 2026-05-19 | Présentation T2 FY2026 | Deck reprenant l'ER/8-K ; commandes, segments, regions deja servis (carnet record non chiffre)
+- KEYS | 2026-08-18 | Présentation T3 FY2026 | Deck reprenant l'ER/8-K ; commandes, segments, regions deja servis (carnet record non chiffre)
+- KR | 2025-12-04 | Présentation T3 2025 | deck de resultats reprenant le 8-K/ER (ID sales, eCommerce, EPS servis); points operationnels qualitatifs (Our Brands, gallons, KPM) sans serie chiffree
+- KR | 2025-12-31 | Rapport annuel + proxy 2025 | rapport annuel + proxy = 10-K/DEF14A deja en lac
+- KR | 2026-03-05 | Présentation T4 2025 | deck de resultats reprenant le 8-K/ER (ID sales, eCommerce, EPS servis); points operationnels qualitatifs (Our Brands, gallons, KPM) sans serie chiffree
+- KR | 2026-06-18 | Présentation T1 2026 | deck de resultats reprenant le 8-K/ER (ID sales, eCommerce, EPS servis); points operationnels qualitatifs (Our Brands, gallons, KPM) sans serie chiffree
+- KR | 2026-09-11 | Présentation T2 2026 | deck de resultats reprenant le 8-K/ER (ID sales, eCommerce, EPS servis); points operationnels qualitatifs (Our Brands, gallons, KPM) sans serie chiffree
+- LHX | 2026-02-25 | Journee investisseurs 2026 | Cibles et guidance 2026-2028, pas de serie operationnelle
+- LONN.SW | 2026-07-22 | Communiqué résultats S1 2026 | communique H1 reprenant la presentation, KPI groupe deja servis jusqu a H1-2026
+- MCD | 2026-05-07 | Resultats T1 2026 (8-K avec pieces 99.1/99.2) | 8-K resultats deja dans le lac 8K, texte encode illisible (nnov artefact)
+- MCD | 2026-08-04 | Resultats T2 2026 (8-K avec pieces 99.1/99.2) | 8-K resultats deja dans le lac 8K, texte encode illisible (nnov artefact)
+- MO | 2026-07-30 | Communique T2 2026 | Communique resultats: parts de marche, volumes, revenus segments deja servis depuis Q2-2016; seul point isole (on! PLUS 120 000 magasins) sans serie
+- MT.AS | 2026-04-30 | Présentation T1 2026 | deck reprend communique T1 2026
+- MT.AS | 2026-07-30 | Présentation T2/S1 2026 | deck reprend communique T2 2026 (memes tableaux)
+- MT.PA | 2025-11-06 | Communique T3 2025 (EX-99.1 EDGAR) | Communique deja au lac; serie servie semestrielle/annuelle, points T3 non rattachables, EBITDA/t etc. deja couverts
+- MT.PA | 2026-07-30 | Rapport semestriel S1 2026 | Doublon du communique T2-2026 deja au lac (segments, minerai, expeditions H1-2026 vs H1-2025)
+- NVDA | 2026-05-20 | Commentaire du directeur financier T1 FY27 | Commentaire CFO repris du 8-K/ER (nnov=0), segments deja servis
+- NVDA | 2026-08-26 | Commentaire du directeur financier T2 FY27 | Commentaire CFO repris du 8-K/ER (nnov=0), segments deja servis
+- ON | 2025-11-03 | Présentation T3 2025 | Deck sans chiffre nouveau
+- PSA | 2026-01-15 | Company Update janvier 2026 | Company update : instantane, deja servi
+- PSA | 2026-06-15 | Company Update juin 2026 | Company update : instantane, deja servi
+- PSA | 2026-09-15 | Company Update septembre 2026 | Company update : instantane, deja servi
+- QCOM | 2026-07-29 | Présentation T3 FY2026 | Deck : QCT/QTL, marges deja servis
+- RDDT | 2025-10-30 | presentation-T3-2025 | lettre aux actionnaires, DAUq/WAUq/ARPU deja servis; revenu/employe couvert par deck T4-2025/T2-2026
+- RDDT | 2026-02-05 | presentation-T4-2025 | lettre aux actionnaires; DAUq/WAUq servis; revenu par employe couvert par T2-2026
+- RDDT | 2026-04-30 | presentation-T1-2026 | lettre aux actionnaires; KPI servis; revenu par employe couvert par T2-2026
+- RJF | 2025-10-22 | presentation-T4-FY25 | PDF image sans texte ; KPI RJF deja tres couverts (AUA, revenus segments)
+- RJF | 2026-01-28 | presentation-T1-FY26 | PDF image sans texte ; KPI RJF deja tres couverts (AUA, revenus segments)
+- RJF | 2026-04-22 | presentation-T2-FY26 | PDF image sans texte ; KPI RJF deja tres couverts (AUA, revenus segments)
+- RJF | 2026-07-22 | presentation-T3-FY26 | PDF image sans texte ; KPI RJF deja tres couverts (AUA, revenus segments)
+- RJF | 2026-07-22 | supplement-T3-FY26 | PDF image sans texte ; KPI RJF deja tres couverts (AUA, revenus segments)
+- SAF.PA | 2026-02-13 | Communique resultats annuels 2025 | Communique : KPI deja servis (CA, ROC, segments, LEAP)
+- SAF.PA | 2026-04-23 | Communique CA T1 2026 | Communique : KPI deja servis (CA, ROC, segments, LEAP)
+- SAF.PA | 2026-07-28 | Communique resultats S1 2026 (EN) | Communique : KPI deja servis (CA, ROC, segments, LEAP)
+- SBUX | 2025-10-29 | Earnings at a Glance 4-FY25 | Equivalent deja servi (comps, marges) ou inclus dans le dashboard le plus recent
+- SBUX | 2025-10-29 | Reconciliation non-GAAP 4-FY25 | Equivalent deja servi (comps, marges) ou inclus dans le dashboard le plus recent
+- SBUX | 2026-01-28 | Digital IR Dashboard 1-FY26 | Equivalent deja servi (comps, marges) ou inclus dans le dashboard le plus recent
+- SBUX | 2026-01-28 | Earnings at a Glance 1-FY26 | Equivalent deja servi (comps, marges) ou inclus dans le dashboard le plus recent
+- SBUX | 2026-04-02 | Info JV Chine | Equivalent deja servi (comps, marges) ou inclus dans le dashboard le plus recent
+- SBUX | 2026-04-28 | Digital IR Dashboard 2-FY26 | Equivalent deja servi (comps, marges) ou inclus dans le dashboard le plus recent
+- SBUX | 2026-04-28 | Earnings at a Glance 2-FY26 | Equivalent deja servi (comps, marges) ou inclus dans le dashboard le plus recent
+- SBUX | 2026-07-29 | Earnings at a Glance 3-FY26 | Equivalent deja servi (comps, marges) ou inclus dans le dashboard le plus recent
+- SHW | 2026-02-20 | Rapport annuel 2025 | rapport annuel = 10-K, KPI servis
+- SNPS | 2025-12-10 | Presentation investisseurs T4 FY2025 | Deck reprenant 8-K/supplement, pas de KPI nouveau
+- SNPS | 2026-02-25 | Supplement financier T1 FY2026 | Meme tableau que T3-2026 (inclut Q1-2026), deja couvert par T4-2025 + T3-2026
+- SNPS | 2026-05-27 | Supplement financier T2 FY2026 | Series licence time-based/upfront/recurrent couvertes par supplements T4-2025 et T3-2026 (union complete)
+- SNPS | 2026-08-26 | Presentation investisseurs T3 FY2026 | Deck strategique/cibles, reprend 8-K et supplement; aucun KPI operationnel nouveau
+- SNPS | 2026-09-30 | Journee investisseurs 2026 | Cibles long terme et marche (TAM), pas de serie operationnelle nouvelle
+- SPG | 2026-03-01 | Rapport annuel 2025 | Rapport annuel : 10-K deja au lac, KPI servis
+- SREN.SW | 2026-08-06 | Communiqué résultats S1 2026 | Communique : repris dans le rapport semestriel
+- STT | 2025-10-17 | Présentation T3 2025 (EX-99.3 du 8-K, format htm) | EX-99.3 deja dans data-lake/STT/ER (AUC/A a installer, flux AUM par strategie, wins presents) ; KPI servis Q1-2016 a Q2-2026
+- STT | 2026-01-16 | Présentation T4 2025 (EX-99.3 du 8-K, format htm) | EX-99.3 deja dans data-lake/STT/ER (AUC/A a installer, flux AUM par strategie, wins presents) ; KPI servis Q1-2016 a Q2-2026
+- STT | 2026-04-17 | Présentation T1 2026 (EX-99.3 du 8-K, format htm) | EX-99.3 deja dans data-lake/STT/ER (AUC/A a installer, flux AUM par strategie, wins presents) ; KPI servis Q1-2016 a Q2-2026
+- STT | 2026-07-16 | Présentation T2 2026 (EX-99.3 du 8-K, format htm) | EX-99.3 deja dans data-lake/STT/ER (AUC/A a installer, flux AUM par strategie, wins presents) ; KPI servis Q1-2016 a Q2-2026
+- SW | 2026-02-11 | Mise a jour investisseurs moyen terme (ex99.2 8-K) | Cibles 2030, pas de KPI historique
+- SW | 2026-03-01 | Rapport annuel 2025 | Rapport annuel sans KPI nouveau, series deja servies depuis 10-K
+- SW | 2026-04-30 | Resultats T1 2026 (ex99.2 8-K) | Document quasi vide (688 caracteres)
+- TMUS | 2026-02-11 | Investor Factbook T4 2025 | Q4-2024 a Q4-2025 couvert par factbooks T3-2025 (Q3-24 a Q3-25) et T2-2026
+- TMUS | 2026-02-11 | Mise a jour Capital Markets Day T4 2025 | objectifs/cibles CMD, pas de serie historique nouvelle
+- TMUS | 2026-02-11 | Rapport annuel 2025 | rapport annuel = 10-K deja en lac
+- TMUS | 2026-04-28 | Investor Factbook T1 2026 | Q1-2025 a Q1-2026 entierement couvert par factbooks T4-2025 et T2-2026
+- TROW | 2026-02-04 | Supplement resultats T4 2025 | doublon: memes tableaux client/geographie/retraite couverts par les supplements T3-2025 et T2-2026
+- TROW | 2026-02-20 | Rapport annuel 2025 | rapport annuel = 10-K deja dans le lac, pas de KPI nouveau
+- TROW | 2026-04-30 | Supplement resultats T1 2026 | doublon: memes tableaux client/geographie/retraite couverts par les supplements T3-2025 et T2-2026
+- TSM | 2025-10-16 | Presentation 3T25 | doublon: deck reprenant le management report (plateformes/noeuds deja couverts par UTILE du management report)
+- TSM | 2026-01-15 | Presentation 4T25 | doublon: deck reprenant le management report (plateformes/noeuds deja couverts par UTILE du management report)
+- TSM | 2026-04-16 | Presentation 1T26 | doublon: deck reprenant le management report (plateformes/noeuds deja couverts par UTILE du management report)
+- TSM | 2026-07-16 | Presentation 2T26 | doublon: deck reprenant le management report (plateformes/noeuds deja couverts par UTILE du management report)
+- UBER | 2025-11-04 | Prepared remarks T3 2025 | Narratif, run-rate livraison/Mobilite deja derivable des volumes servis
+- UBER | 2026-02-04 | Supplemental T4 2025 | Frequence Q4-2024 a Q4-2025 couverte par T3-2025 + T2-2026; reste deja servi
+- UBER | 2026-05-06 | Prepared remarks T1 2026 | Narratif, chiffres epars deja servis ou sans serie
+- UBER | 2026-05-06 | Supplemental T1 2026 | Frequence Q1-2025 a Q1-2026 deja couverte par T3-2025 + T2-2026; reste = financier deja servi
+- UDR | 2026-07-27 | Supplement T2 2026 | nnov=0; supplement deja reflete dans le 8-K complet du 2026-07-27 (UDR_2026-07-27_complet), KPI same-store/NOI deja servis
+- UNP | 2026-09-21 | Investor pitchbook | Pitchbook fusion : donnees FY2025 deja servies
+- WAB | 2025-10-22 | Présentation T3 2025 | deck 8-K ex99.2, resultats et backlog deja servis (nnov 2-7), seules donnees sectorielles externes en graphiques
+- WAB | 2026-02-11 | Présentation T4 2025 | deck 8-K ex99.2, resultats et backlog deja servis (nnov 2-7), seules donnees sectorielles externes en graphiques
+- WAB | 2026-04-22 | Présentation T1 2026 | deck 8-K ex99.2, resultats et backlog deja servis (nnov 2-7), seules donnees sectorielles externes en graphiques
+- WAB | 2026-07-22 | Présentation T2 2026 | deck 8-K ex99.2, resultats et backlog deja servis (nnov 2-7), seules donnees sectorielles externes en graphiques
+- WDAY | 2026-08-27 | Prepared remarks T2 FY27 | prepared remarks qualitatifs (PDF image), chiffres repris dans la presentation
+- WRB | 2025-10-20 | Transcript T3 2025 | transcript qualitatif, chiffres deja servis ou dans ER
+- WRB | 2026-01-26 | Communiqué T4 2025 | communique = ER deja dans data-lake/WRB/ER, KPI servis jusqu a Q2-2026
+- WRB | 2026-01-26 | Transcript T4 2025 | transcript qualitatif, chiffres deja servis ou dans ER
+- WRB | 2026-04-21 | Communiqué T1 2026 | communique = ER deja dans data-lake/WRB/ER, KPI servis jusqu a Q2-2026
+- WRB | 2026-04-21 | Transcript T1 2026 | transcript qualitatif, chiffres deja servis ou dans ER
+- WRB | 2026-07-20 | Communiqué T2 2026 | communique = ER deja dans data-lake/WRB/ER, KPI servis jusqu a Q2-2026
+- WRB | 2026-07-20 | Transcript T2 2026 | transcript qualitatif, chiffres deja servis ou dans ER
+- XEL | 2026-02-27 | Rapport annuel 2025 | rapport annuel = 10-K deja dans le lac, KPI annuels servis
+- YUM | 2025-11-04 | Informations financières (MD&A) T3 2025 | MD&A Restricted Group pro forma, memes indicateurs que le resume financier
+- YUM | 2026-02-04 | Informations financières (MD&A) T4 2025 | MD&A Restricted Group pro forma, memes indicateurs que le resume financier
+- YUM | 2026-03-01 | Rapport annuel 2025 | rapport annuel = 10-K deja dans le lac, KPI deja servis
+- YUM | 2026-04-29 | Informations financières (MD&A) T1 2026 | MD&A vide (texte non extractible)
+- YUM | 2026-07-30 | Informations financières (MD&A) T2 2026 | MD&A Restricted Group pro forma, memes indicateurs que le resume financier
+- ZBRA | 2025-10-28 | Présentation T3 2025 | Deck reprenant l'ER ; croissances regionales/segments deja derivables du 8-K/ER
+- ZBRA | 2026-02-12 | Présentation T4 2025 | Deck reprenant l'ER ; croissances regionales/segments deja derivables du 8-K/ER
+- ZBRA | 2026-03-27 | Rapport annuel 2025 | Rapport annuel sans KPI nouveau, series deja servies depuis 10-K
+- ZBRA | 2026-05-12 | Présentation T1 2026 | Deck reprenant l'ER ; croissances regionales/segments deja derivables du 8-K/ER
+- ZBRA | 2026-08-04 | Présentation T2 2026 | Deck reprenant l'ER ; croissances regionales/segments deja derivables du 8-K/ER
+- ZTS | 2026-02-12 | Informations financieres supplementaires 2025 | Retraitement comptable (decalage d un mois) de CA/RN/BPA, aucun KPI operationnel
+- ZTS | 2026-02-19 | Rapport annuel 2025 | Reprend le 10-K deja au lac; peu de nombres nouveaux
+
+## 4. Societes bloquees avec KPI ajoutables, preuves a l appui
+Preuve = KPI servi dont la serie s arrete avant le dernier trimestre, dont les mots-cles figurent dans les anciennes presentations/supplements du lac mais PAS dans les 8-K/ER recents, et dont le document du trimestre manque (statut echec ou liste.json).
+- PYPL : Comptes actifs mensuels et croissance branded checkout s arretent a Q1-2026; presentation T2 2026 manquante; l EP du 2026-04-28 porte Venmo TPV, take rate, transaction loss absents des ER.
+- ADSK : Taux de retention nette (Q1-FY2027), CA canal direct/indirect (Q4-FY2026); presentation T2 FY27 manquante.
+- CRM : ARR Cloud secteur public (Q1-FY2027), revenus Agentforce par cloud (Q4-FY2026); communique/Investor Day T2 FY27 manquants.
+- NEM : prix realises cuivre/argent/plomb/zinc (Q4-2025) et or; presentation T4 2025 manquante.
+- SCHW : comptes bancaires clients, participants plans d entreprise (Q1-2026); presentation T2 manquante.
+- USB : nombre d agences, volume paiements commercants (Q1-2026); presentation 2T26 seulement en exhibit image.
+- DUK : data centers en construction (Q1-2026), clients electricite/gaz, capacite; presentation T2 2026 manquante. D : capacite data centers en accord de service (Q1-2026), presentation T2 manquante.
+- LLY : ventes Kisunla (Q1-2026) et marques; presentation T2 2026 manquante.
+- REGN : ventes Dupixent/Libtayo et positionnement (Q1-2026); presentation T2 2026 manquante.
+- CPB : contributions Sovos, poids top 5 clients, ventes Rao's; presentations T3 et T4 FY26 manquantes.
+- MET : VNB, taux de distribution, MetLife Holdings (Q3-2025); presentation et supplement T2 2026 manquants.
+- ATO : base tarifaire, ROE autorises, stockage gaz (FY2025); presentation T3 FY26 manquante.
+- IQV : revenus/profit TAS et CSMS (Q4-2025); presentations T4 2025 a T2 2026 manquantes.
+- CEG, CME (% volume electronique international), HO.PA (commandes H1-2026), SU.PA (croissance organique trimestrielle Q4-2025), NKE (magasins detenus), MSCI, CTVA, PFE : meme schema, series FY2025 ou trimestre ancien et presentations du trimestre manquantes.
+Limite : le test de mots-cles est indicatif (88 KPI sur 1185 passent le filtre); la verification definitive demande d ouvrir une ancienne presentation par societe.
