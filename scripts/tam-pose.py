@@ -22,7 +22,7 @@ def unite(u):
 import re
 def note_propre(t):
     t = re.sub(r"\s*Sources?\s*:\s*\S*.*$", "", t or "", flags=re.I).lstrip(". ")
-    lien = re.compile(r"(https?://|www\.|\b[\w-]+\.(?:com|org|net|fr|de|gov|eu|io|ch|uk)/\S*)", re.I)
+    lien = re.compile(r"(https?://|www\.|[\w-]+\.(?:com|org|net|fr|de|gov|eu|io|ch|uk|co|info)(?:/\S*|\b))", re.I)
     phrases = [p for p in re.split(r"(?<=[.!?])\s+", re.sub(r"\s{2,}", " ", t).strip()) if p and not lien.search(p)]
     t = re.sub(r"[\s,;:(-]+$", "", " ".join(phrases)).replace("..", ".").strip()
     return t + "." if t and t[-1] not in ".!?)»" else t
@@ -52,6 +52,12 @@ for t, ids in choix.items():
             "source_note": note_propre(f"{c.get('tam_intitule','')}. {c.get('commentaire','')}"),
             **({"market_cagr": c["croissance_marche_pct"]} if isinstance(c.get("croissance_marche_pct"), (int, float)) else {}),
         })
+    # 10 oct 2026 : les TAM deja en ligne hors arbitrage (_hors_arbitrage) sont conserves tels quels.
+    ancien = os.path.join(ROOT, "src/data/v2-pipeline-enrich", f"{t.lower()}.tam.json")
+    if os.path.exists(ancien):
+        noms = {m["segment_name"] for m in mp}
+        for m in json.load(open(ancien)).get("market_positions") or []:
+            if m.get("_hors_arbitrage") and m.get("segment_name") not in noms: mp.append(m)
     def mds(x):
         u = (x.get("segment_unit") or "").replace("$", "").replace("€", "").strip()
         return x["segment_revenue"] * (1e-3 if u in ("M", "m", "Mn") else 1)

@@ -1036,3 +1036,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.10.1 (10 Oct 2026 01:21, apres 253a85f20e)
 - TAM : 493 nouveaux TAM de fiabilite moyenne publies apres examen (CA annuel, pertinence, doublons), 14 CA partiels ramenes a l annee, plus aucune adresse dans le « i »
+
+## v2026.10.10.2 (10 Oct 2026 10:46, apres e3addaff33)
+- TAM : 47 TAM douteux retires (encours, projections, etudes contradictoires), filtre des adresses dans le « i » renforce

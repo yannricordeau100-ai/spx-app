@@ -48,7 +48,7 @@ export function sansMentionSource(texte: string): string {
   // « Source : ... », puis toute phrase qui contient encore une adresse web, et la note se
   // termine toujours par une ponctuation finale.
   const sansFragment = texte.replace(/\s*Sources?\s*:\s*\S*.*$/i, "").replace(/\s{2,}/g, " ").trim();
-  const lien = /(https?:\/\/|www\.|\b[\w-]+\.(?:com|org|net|fr|de|gov|eu|io|ch|uk)\/\S*)/i;
+  const lien = /(https?:\/\/|www\.|[\p{L}\p{N}_-]+\.(?:com|org|net|fr|de|gov|eu|io|ch|uk|co|info)(?:\/\S*|\b))/iu;
   const propre = sansFragment
     .split(/(?<=[.!?])\s+/)
     .filter((phrase) => !lien.test(phrase))
