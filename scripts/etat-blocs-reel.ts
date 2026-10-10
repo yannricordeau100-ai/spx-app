@@ -44,7 +44,8 @@ const BLOCS: Bloc[] = [
 ];
 
 (async () => {
-  const univers: string[] = JSON.parse(fs.readFileSync("src/data/v1-9-5-clean-all-tickers.json", "utf8")).tickers;
+  // 10 oct 2026 : ETAT_TICKERS=<fichier json {tickers:[]}> pour mesurer une autre liste (vague sp5001000 avec UNIVERS=sp5001000).
+  const univers: string[] = JSON.parse(fs.readFileSync(process.env.ETAT_TICKERS || "src/data/v1-9-5-clean-all-tickers.json", "utf8")).tickers;
   const manquants: Record<string, string[]> = {};
   for (const b of BLOCS) manquants[b.cle] = [];
   const illisibles: string[] = [];
@@ -66,7 +67,7 @@ const BLOCS: Bloc[] = [
     manquants: manquants[b.cle].length,
     couverture: +(100 * (total - manquants[b.cle].length) / total).toFixed(1),
   })).sort((a, b) => b.manquants - a.manquants);
-  fs.writeFileSync("/tmp/etat-blocs.json", JSON.stringify({ total, illisibles, lignes, manquants }, null, 1));
+  fs.writeFileSync(process.env.ETAT_SORTIE || "/tmp/etat-blocs.json", JSON.stringify({ total, illisibles, lignes, manquants }, null, 1));
   console.log(`univers ${total}, illisibles ${illisibles.length}`);
   console.log("BLOC".padEnd(34) + "MANQUE".padStart(8) + "COUVERTURE".padStart(12));
   for (const l of lignes) console.log(l.bloc.padEnd(34) + String(l.manquants).padStart(8) + `${l.couverture} %`.padStart(12));

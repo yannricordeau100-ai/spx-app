@@ -48,11 +48,12 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--limit", type=int, default=0)
     p.add_argument("--workers", type=int, default=20)
+    p.add_argument("--tickers-file", default=None, help="json {tickers:[]} (ex. src/data/univers-sp5001000.json pour le niveau 1)")
     args = p.parse_args()
 
     # Univers 666 d abord (l ancien glob v2-pipeline listait 2400+ fiches et le
     # --limit 640 du cron laissait la majorite de l univers sans mise a jour).
-    uni_path = ROOT / "src/data/v1-9-5-clean-all-tickers.json"
+    uni_path = Path(args.tickers_file) if args.tickers_file else ROOT / "src/data/v1-9-5-clean-all-tickers.json"
     tickers = [t.upper() for t in json.loads(uni_path.read_text())["tickers"]]
     if args.limit: tickers = tickers[:args.limit]
 
