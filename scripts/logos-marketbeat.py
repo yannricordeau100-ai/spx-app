@@ -504,7 +504,13 @@ def nom_societe(ticker):
 
 def univers():
     with open(UNIVERS, encoding="utf-8") as f:
-        return list(json.load(f)["tickers"])
+        base = list(json.load(f)["tickers"])
+    # 10 oct 2026 : la vague sp5001000 (Russell 1000, niveau 1) recoit ses logos par la meme methode.
+    try:
+        vague = [x["ticker"] for x in json.load(open(os.path.join(ROOT, "data-lake", "_sp5001000", "liste.json")))["societes"] if not x.get("radiee")]
+    except Exception:
+        vague = []
+    return base + [t for t in vague if t.upper() not in {b.upper() for b in base}]
 
 
 def est_non_us(t):
