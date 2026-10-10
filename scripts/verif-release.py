@@ -54,9 +54,14 @@ try:
     _vague -= _univ
     import re as _re
     def _hors_vague(l):
-        m = _re.search(r"(?:kpis-haut/([^/]+)\.json|v2-pipeline(?:-enrich)?/([^/]+?)\.(?:ranks\.|tam\.|mettrik-description\.)?json)$", l.strip())
-        t = (m.group(1) or m.group(2)).upper() if m else None
-        return not (t and t in _vague)
+        # 10 oct 2026 : etendu a tout fichier PAR SOCIETE (src/data/<dossier>/<t>.*, public/logos/<T>.*, kpis-haut) :
+        # transcripts, syntheses, kpi-annuel-fiche, logos de la vague ne sont servis que par le niveau 1.
+        f = l.strip().split()[-1]
+        m = _re.search(r"(?:\.batches-drafts-safe/kpis-haut|src/data/[^/]+|public/logos)/([^/]+)$", f)
+        if not m: return True
+        b = _re.sub(r"\.(json|png|svg|webp|jpg)$", "", m.group(1), flags=_re.I)
+        b = _re.sub(r"\.(ranks|tam|mettrik-description|description|ai-pos|calls|suivi|quarterly-history)$", "", b)
+        return not ({b.upper(), b.upper().replace("-", ".")} & _vague)
     modifs = [l for l in modifs if _hors_vague(l)]
 except Exception:
     pass
