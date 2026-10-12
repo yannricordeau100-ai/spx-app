@@ -296,6 +296,9 @@ def construit_pl(T: str, soc: dict, kh: dict, hero: dict, ancien_pl: dict | None
     }
     if ident["gics_code"]:
         pl["gics_code"] = ident["gics_code"]
+    # 12 oct 2026 : garder la prochaine publication posee par scripts/earnings-dates-yfinance.py.
+    if isinstance(ancien_pl, dict) and ancien_pl.get("next_earnings_date"):
+        pl["next_earnings_date"] = ancien_pl["next_earnings_date"]
     presents = {
         "risques": bool(risks), "gouvernance": bool(gov), "repartition": bool(seg or geo),
         "positionnement_ia": bool(ia),
@@ -341,6 +344,10 @@ def deplace_anciens(T: str, simulation: bool) -> list[str]:
             r = rj_ou_none(p) or {}
             if "sp5001000" in str(r.get("source", "")):
                 continue
+        # 12 oct 2026 : les blocs poses par data-lake/_sp5001000/scripts/merge-blocs.py (description, TAM...) non plus.
+        r = rj_ou_none(p) or {}
+        if "sp5001000-blocs" in str(r.get("_source_kind", "")) + str(r.get("_source", "")):
+            continue
         rel = os.path.relpath(p, ROOT)
         deplaces.append(rel)
         if not simulation:
