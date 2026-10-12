@@ -88,6 +88,7 @@ import type { ImageFindingPublic } from "@/components/image-findings-block";
 import type { TranscriptBulletsSummary } from "@/components/transcript-bullets-block";
 import { TranscriptNavigation, type SuiviKpi } from "@/components/transcript-navigation";
 import { BlockComingSoon } from "@/components/block-coming-soon";
+import { DonneeAbsente } from "@/components/donnee-absente";
 import { isBlockEnabled } from "@/lib/v1-9-blocks-control";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 import { BandeauIpoRecente, YoungIpoWarning } from "@/components/young-ipo-warning";
@@ -634,6 +635,8 @@ export function CompanyView({
   const heroRef = useRef<HTMLDivElement>(null);
   const handleKpiClick = (short: string) => {
     setActiveKpiShort(short);
+    // Yann 13 oct 2026 : « KPI ouvert », restitue dans Mon compte et analytics.
+    window.dispatchEvent(new CustomEvent("mtk:track", { detail: { type: "clic", nom: "kpi_ouvert", props: { ticker: company.ticker, kpi: short } } }));
     // Yann 30 aout 2026 (KO "Effet prix/mix" : 2 % avant clic, 6 % apres) :
     // la vue du chart se recale sur la frequence du KPI clique, meme regle
     // qu'au chargement. Sans resync, un KPI trimestriel promu en vue annuelle
@@ -1323,7 +1326,9 @@ export function CompanyView({
         (transcript.extracts?.quotes && transcript.extracts.quotes.length > 0) ||
         (transcript.extracts?.figures && transcript.extracts.figures.length > 0) ||
         (transcript.latest?.content && transcript.latest.content.length > 200)
-      ))
+      )) ||
+      // Yann 13 oct 2026 : societe sans conference de resultats (registre verifie) : le bloc le dit.
+      Boolean(company.absences?.conference)
     : true;
   const aThese = (Boolean(company.these) && !isDisabled("these")) || (Boolean(company.att) && !isDisabled("anti_these"));
   const aAdmin = Boolean(adminApresHero) || Boolean(adminApresMoyenTerme);
@@ -2327,6 +2332,15 @@ export function CompanyView({
             )}
           </section>
         )}
+        {/* Yann 13 oct 2026 : aucun TAM fiable et comparable (arbitrage du
+            proprietaire) : le bloc le dit au lieu de disparaitre. Visible au
+            palier gratuit : l absence ne revele aucune donnee payante. */}
+        {isBlockEnabled("tam", company.ticker) && company.absences?.tam && !((company.market_positions?.length ?? 0) > 0) && !((company.evenement?.tam?.length ?? 0) > 0) && (
+          <section data-blur="tam" className="mt-9">
+            <h2 className="mb-3 text-[22px] font-semibold text-zinc-50">Position marché · TAM</h2>
+            <DonneeAbsente id={company.absences.tam} accent={accent} />
+          </section>
+        )}
           </div>
         </section>
         </SectionBloc>
@@ -2451,6 +2465,14 @@ export function CompanyView({
         <div id="sec-resultats" className="scroll-mt-24">
         {isBlockEnabled("transcripts", company.ticker) && !isDisabled("transcript_bullets") ? (
           transcriptSummary && transcriptSummary.summary?.bullets?.length ? (
+            <>
+            {/* Yann 13 oct 2026 : conferences suspendues (rachat ou fusion en cours, registre verifie) :
+                la synthese affichee est la derniere disponible. Hors des parties floutees. */}
+            {company.absences?.conference === "conference_suspendue" && (
+              <div data-blur="transcripts" className="mb-3">
+                <DonneeAbsente id="conference_suspendue" variante="ligne" accent={accent} texte="La synthèse ci-dessous est la dernière disponible (opération de rachat ou de fusion en cours)." />
+              </div>
+            )}
             <TranscriptNavigation
               ticker={company.ticker}
               summary={transcriptSummary}
@@ -2458,12 +2480,19 @@ export function CompanyView({
               suivi={transcriptSuivi}
               accesArchives={freemiumTier === "premium" || freemiumTier === "max"}
             />
+            </>
           ) : transcript && (
               (transcript.extracts?.quotes && transcript.extracts.quotes.length > 0) ||
               (transcript.extracts?.figures && transcript.extracts.figures.length > 0) ||
               (transcript.latest?.content && transcript.latest.content.length > 200)
             ) ? (
             <TranscriptStories ticker={company.ticker} doc={transcript} />
+          ) : company.absences?.conference ? (
+            // Yann 13 oct 2026 : pas de conference tenue (registre verifie) :
+            // carte visible a tous les paliers connectes, elle ne revele aucune donnee payante.
+            <section data-blur="transcripts" className="mt-9">
+              <DonneeAbsente id={company.absences.conference} accent={accent} />
+            </section>
           ) : null
         ) : (
           <BlockComingSoon blockId="transcripts" />

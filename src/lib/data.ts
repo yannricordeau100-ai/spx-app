@@ -340,6 +340,10 @@ export type Company = {
   /** Thèse d'investissement (Yann 19 sept 2026), miroir favorable de l'anti-thèse,
    *  chargée depuis src/data/these/<t>.json, gating plan Max via gateTheseForTier(). */
   these?: import("@/lib/these").CompanyThese;
+  /** 13 oct 2026 : donnees absentes parce que non publiees, etablies cote serveur (avecDonneesFiche). */
+  absences?: import("@/lib/donnees-absentes").AbsencesFiche;
+  /** 13 oct 2026 : arbitrage du proprietaire « aucun TAM pertinent » (pose par le chargeur). */
+  tam_absence_arbitree?: boolean;
   /** 8 oct 2026 : sources externes de la fiche, jointes cote serveur (avecDonneesFiche). */
   sources_externes?: string[];
   /** 8 oct 2026 : effet de change publie, joint cote serveur (avecDonneesFiche). */

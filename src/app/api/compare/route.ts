@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { enregistreEvenementServeur } from "@/lib/telemetrie/serveur";
 import INDEX from "@/data/compare-index.json";
 import { loadV17Company } from "@/lib/company-core/load-company";
 import { parseUnite, periodeCle } from "@/lib/compare-keys";
@@ -157,6 +158,19 @@ export async function GET(req: Request) {
       notes.push("Écart d échelle anormal entre les deux séries (unité probablement mal annotée à la source) : seules les dynamiques sont comparées.");
     }
   }
+
+  // Yann 13 oct 2026 : comparaison realisee, restituee dans « Mon compte et
+  // analytics ». Memes regles d exclusion que /api/telemetrie ; rien pour un
+  // visiteur anonyme.
+  after(async () => {
+    try {
+      const sbu = await createSupabaseServerClient();
+      const { data: { user } } = await sbu.auth.getUser();
+      if (!user) return;
+      const ip = (req.headers.get("x-forwarded-for") ?? "").split(",")[0].trim() || null;
+      await enregistreEvenementServeur("comparaison", { a: ra.company.ticker, ka, b: rb.company.ticker }, user.id, { email: user.email, user_metadata: user.user_metadata, ip });
+    } catch { /* la mesure ne casse jamais la comparaison */ }
+  });
 
   return NextResponse.json({
     cle,

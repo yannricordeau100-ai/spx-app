@@ -46,12 +46,16 @@ export async function POST(req: NextRequest) {
   const pays = req.headers.get("x-vercel-ip-country");
   let userId: string | null = null;
   let userEmail: string | null = null;
+  let opposition = false;
   try {
     const supabase = await createSupabaseServerClient();
     const { data } = await supabase.auth.getUser();
     userId = data.user?.id ?? null;
     userEmail = data.user?.email ?? null;
+    // Yann 13 oct 2026 : « Ne plus mesurer mon activité » (page compte).
+    opposition = data.user?.user_metadata?.mesure_activite === "refusee";
   } catch { /* visiteur anonyme */ }
+  if (opposition) return NextResponse.json({ ok: true, ignore: true, opposition: true });
 
   // Exclusions (Yann 2 sept 2026) : les visites de Yann et du compte de test
   // audit.claude ne sont pas des visites normales, on ne les enregistre pas.

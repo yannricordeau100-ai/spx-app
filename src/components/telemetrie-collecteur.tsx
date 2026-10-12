@@ -157,14 +157,34 @@ export function TelemetrieCollecteur() {
       obs.observe({ entryTypes: ["resource", "navigation"] });
     } catch { /* navigateur sans PerformanceObserver */ }
 
+    // ---- evenements nommes (Yann 13 oct 2026) ----
+    // Un composant emet `window.dispatchEvent(new CustomEvent("mtk:track",
+    // { detail: { type, nom, props } }))` (ex. « KPI ouvert » sur une fiche).
+    // Memes regles que le reste : meme lot, meme table, memes exclusions a
+    // l ingestion ; types limites a ceux que le serveur accepte.
+    const surTrack = (ev: Event) => {
+      const d = (ev as CustomEvent).detail as { type?: unknown; nom?: unknown; props?: unknown } | null;
+      if (!d || d.type !== "clic" || typeof d.nom !== "string") return;
+      const props = d.props && typeof d.props === "object" && !Array.isArray(d.props) ? (d.props as Evt) : {};
+      pousse({ type: "clic", nom: d.nom.slice(0, 80), props });
+    };
+
     const minuterie = window.setInterval(expedie, 12_000);
-    const surCache = () => { if (document.visibilityState === "hidden") { finDePage(); expedie(); } };
+    // Yann 13 oct 2026 (duree faussee) : a l arriere-plan, la vue en cours est
+    // close et expediee ; au retour, le chrono et le scroll repartent de zero.
+    // Avant, `debut` n etait pas remis a zero : la vue suivante comptait aussi
+    // tout le temps passe onglet cache, et la meme duree une seconde fois.
+    const surCache = () => {
+      if (document.visibilityState === "hidden") { finDePage(); expedie(); }
+      else { debut = performance.now(); scrollMax = 0; }
+    };
 
     window.addEventListener("scroll", surScroll, { passive: true });
     document.addEventListener("click", surClic, { capture: true, passive: true });
     window.addEventListener("error", surErreur);
     window.addEventListener("unhandledrejection", surRejet);
     document.addEventListener("visibilitychange", surCache);
+    window.addEventListener("mtk:track", surTrack);
 
     return () => {
       vivant = false;
@@ -176,6 +196,7 @@ export function TelemetrieCollecteur() {
       window.removeEventListener("error", surErreur);
       window.removeEventListener("unhandledrejection", surRejet);
       document.removeEventListener("visibilitychange", surCache);
+      window.removeEventListener("mtk:track", surTrack);
     };
   }, []);
 

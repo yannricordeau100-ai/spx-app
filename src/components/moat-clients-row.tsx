@@ -22,6 +22,8 @@
 import { Shield, Users, TrendingUp, TrendingDown, Equal, Layers } from "lucide-react";
 import { InfoTooltip } from "@/components/info-tooltip";
 import type { Company, ClientsConcentration, MoatEntree } from "@/lib/data";
+import { DonneeAbsente } from "@/components/donnee-absente";
+import type { AbsencesFiche } from "@/lib/donnees-absentes";
 
 const NIVEAU: Record<string, { cls: string; dot: string }> = {
   Important: { cls: "border-emerald-400/40 bg-emerald-500/10 text-emerald-100", dot: "#34d399" },
@@ -61,6 +63,9 @@ function BlocClients({ c, accent }: { c: ClientsConcentration; accent: string })
   const r = 34;
   const circ = 2 * Math.PI * r;
   const exercice = c.top.exercice ?? c.top10?.exercice;
+  // Yann 13 oct 2026 : aucune part publiee (ni premier client, ni dix premiers,
+  // ni clientele diffuse) : on le dit au lieu d un anneau « n. c. ».
+  const nonPubliee = (c.top.pct === null || c.top.pct === undefined) && !(c.top10 && c.top10.pct !== null && c.top10.pct !== undefined) && !c.diffus;
   return (
     <div data-blur="clients" className="rounded-xl border border-white/[0.08] bg-gradient-to-r from-white/[0.04] via-transparent to-transparent p-3.5">
       <Entete
@@ -70,8 +75,9 @@ function BlocClients({ c, accent }: { c: ClientsConcentration; accent: string })
         accent={accent}
         droite={exercice ? <span className="ml-auto font-mono text-[10px] uppercase tracking-wider text-zinc-500">exercice {exercice}</span> : undefined}
       />
-      <div className="mt-3 flex items-start gap-4">
-        <svg data-blur-part="graphique" width="92" height="92" viewBox="0 0 92 92" className="shrink-0" aria-hidden>
+      {nonPubliee && <DonneeAbsente id="clients_non_publies" variante="ligne" accent={accent} sansTexte={Boolean(c.top.commentaire)} className="mt-3" />}
+      <div className={nonPubliee ? "" : "mt-3 flex items-start gap-4"}>
+        {!nonPubliee && <svg data-blur-part="graphique" width="92" height="92" viewBox="0 0 92 92" className="shrink-0" aria-hidden>
           <circle cx="46" cy="46" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="9" />
           {p10 !== null && (
             <circle cx="46" cy="46" r={r} fill="none" stroke="#22d3ee" strokeOpacity="0.45" strokeWidth="9" strokeDasharray={`${(Math.min(100, p10) / 100) * circ} ${circ}`} transform="rotate(-90 46 46)" strokeLinecap="round" />
@@ -80,7 +86,7 @@ function BlocClients({ c, accent }: { c: ClientsConcentration; accent: string })
           <text x="46" y="50" textAnchor="middle" fontSize="14" fontWeight="700" fill="#fafafa" fontFamily="JetBrains Mono, monospace">
             {pctLabel(c.top.pct, c.top.plafond)}
           </text>
-        </svg>
+        </svg>}
         <div className="min-w-0 flex-1">
           <div data-blur-part="valeur">
             {c.top.pct !== null && c.top.pct !== undefined && (
@@ -107,14 +113,14 @@ function BlocClients({ c, accent }: { c: ClientsConcentration; accent: string })
               ))}
             </div>
           )}
-          {c.top.commentaire && <p data-blur-part="texte" className="mt-2 text-[11.5px] leading-snug text-zinc-500">{c.top.commentaire}</p>}
+          {c.top.commentaire && <p data-blur-part="texte" className={`${nonPubliee ? "mt-1.5 pl-[42px]" : "mt-2"} text-[11.5px] leading-snug text-zinc-500`}>{c.top.commentaire}</p>}
         </div>
       </div>
     </div>
   );
 }
 
-function BlocMoat({ m, accent }: { m: MoatEntree; accent: string }) {
+function BlocMoat({ m, accent, absence }: { m: MoatEntree; accent: string; absence?: AbsencesFiche["moat"] }) {
   const st = NIVEAU[m.niveau] ?? NIVEAU.Aucun!;
   const tendKey = (m.tendance_mettrik ?? m.tendance ?? "stable") as keyof typeof TEND;
   const t = TEND[tendKey] ?? TEND.stable;
@@ -141,6 +147,9 @@ function BlocMoat({ m, accent }: { m: MoatEntree; accent: string }) {
           </span>
         }
       />
+      {/* Yann 13 oct 2026 : premiere note, sans historique. Hors des parties
+          floutees (niveau, tendance) : elle ne revele pas la note. */}
+      {absence && <DonneeAbsente id={absence} variante="ligne" accent={accent} className="mt-2.5" />}
       {m.niveau !== "Aucun" && m.texte && (
         <p data-blur-part="texte" className="mt-2 text-[12.5px] leading-relaxed text-zinc-300">{m.texte}</p>
       )}
@@ -178,7 +187,7 @@ export function MoatClientsRow({
   return (
     <div className="mt-4 grid gap-4 lg:grid-cols-2">
       {clients && <BlocClients c={clients} accent={accent} />}
-      {moat && <BlocMoat m={moat} accent={accent} />}
+      {moat && <BlocMoat m={moat} accent={accent} absence={company.absences?.moat} />}
     </div>
   );
 }

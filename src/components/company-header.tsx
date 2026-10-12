@@ -1,4 +1,6 @@
 "use client";
+import { ValeurAbsente } from "@/components/donnee-absente";
+import type { AbsenceId } from "@/lib/donnees-absentes";
 import { useState } from "react";
 import { ChevronDown, Info } from "lucide-react";
 
@@ -162,6 +164,16 @@ function CompanyName({
   );
 }
 
+
+/** Pastille d une annee que la societe ne documente pas (meme gabarit que StatChip). */
+function ChipAbsente({ label, id }: { label: string; id: AbsenceId }) {
+  return (
+    <span className="inline-flex shrink-0 items-baseline gap-1.5 rounded-lg border border-dashed border-[#333] bg-[#0c0c0c] px-2 py-1.5">
+      <span className="text-[10.5px] font-medium uppercase tracking-wide text-zinc-400">{label}</span>
+      <span className="text-[12px]"><ValeurAbsente id={id} /></span>
+    </span>
+  );
+}
 
 function StatChip({ label, value, survol }: { label: string; value: string | null | undefined; survol?: string }) {
   // Yann (12 mai 2026) : chips compactes pour tenir tous les rangs sur
@@ -694,8 +706,13 @@ export function CompanyHeader({
         {company.ranks.subsector && company.ranks.subsector.trim() !== "" && company.ranks.subsector.trim() !== "-" && (
           <StatChip label={translateSubsectorLocale(company.subsector, locale)} value={stripRankSuffix(translateRankPreposition(company.ranks.subsector, locale))} survol={aide(motsRangs(locale).sousSecteurSurvol)} />
         )}
-        <StatChip label={t("company.founded")} value={company.founded != null ? String(company.founded) : null} />
-        <StatChip label={t("company.ipo")} value={company.ipo != null ? String(company.ipo) : null} />
+        {/* Yann 13 oct 2026 : annee non documentee (marque explicite seulement) : la pastille le dit. */}
+        {!company.founded && company.absences?.fondation
+          ? <ChipAbsente label={t("company.founded")} id={company.absences.fondation} />
+          : <StatChip label={t("company.founded")} value={company.founded != null ? String(company.founded) : null} />}
+        {!company.ipo && company.absences?.ipo
+          ? <ChipAbsente label={t("company.ipo")} id={company.absences.ipo} />
+          : <StatChip label={t("company.ipo")} value={company.ipo != null ? String(company.ipo) : null} />}
         {/* Yann 25 aout 2026 : effectif extrait de la section Human Capital du
             dernier 10-K (Item 1). Uniquement les valeurs qui ont passe le
             controle de coherence (voir scripts d extraction) : les sociétés

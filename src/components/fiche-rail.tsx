@@ -21,7 +21,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import {
   Compass, BarChart3, Layers, LineChart, Target, AlertTriangle, Building2, Brain, FileText, Scale, ShieldCheck,
-  Star, GitCompare, UserRound, Sun, Moon, Search, Menu, X, Bookmark, Lock, type LucideIcon,
+  Star, GitCompare, UserRound, Search, Menu, X, Bookmark, type LucideIcon,
 } from "lucide-react";
 import type { Company, KPI } from "@/lib/data";
 import { PageSearch } from "@/components/page-search";
@@ -38,21 +38,23 @@ import { lienInscription } from "@/components/freemium/zone-reservee";
 /* ------------------------------------------------------------------ */
 
 export type BlocFicheId = "apercu" | "kpi" | "stories" | "moyen" | "marche" | "risques" | "gouv" | "ia" | "resultats" | "these" | "admin";
-type Bloc = { id: BlocFicheId; titre: string; Icon: LucideIcon; phrase: string; anim: string };
+type Bloc = { id: BlocFicheId; titre: string; court: string; Icon: LucideIcon; phrase: string; anim: string };
 
-/** Ordre de la fiche. « Sources » est en pied de page, hors du rail. */
+/** Ordre de la fiche : long terme (Indicateurs clés), moyen terme, puis court terme.
+ * « Sources » est en pied de page, hors du rail. `court` : le mot unique affiché
+ * sous l icone du rail ferme et dans la barre mobile (Yann 13 oct 2026). */
 export const BLOCS_FICHE: Bloc[] = [
-  { id: "apercu", titre: "Aperçu", Icon: Compass, phrase: "Rangs, description et chiffres de marché", anim: "boussole" },
-  { id: "kpi", titre: "Indicateurs clés", Icon: BarChart3, phrase: "Graphique du KPI principal et liste des indicateurs", anim: "barres" },
-  { id: "moyen", titre: "Moyen terme", Icon: LineChart, phrase: "Graphiques de sources externes", anim: "trace" },
-  { id: "stories", titre: "KPI court terme", Icon: Layers, phrase: "Les indicateurs récents en cartes", anim: "pile" },
-  { id: "marche", titre: "Marché et TAM", Icon: Target, phrase: "Chiffre d’affaires, clients, avantage, marché", anim: "cible" },
-  { id: "risques", titre: "Risques", Icon: AlertTriangle, phrase: "Facteurs de risque suivis", anim: "secoue" },
-  { id: "gouv", titre: "Gouvernance et rachats", Icon: Building2, phrase: "Dirigeants, votes, sociétés rachetées", anim: "monte" },
-  { id: "ia", titre: "IA", Icon: Brain, phrase: "Positionnement en intelligence artificielle", anim: "pulse" },
-  { id: "resultats", titre: "Publications officielles", Icon: FileText, phrase: "Résultats publiés et dernier appel", anim: "page" },
-  { id: "these", titre: "Thèse et anti-thèse", Icon: Scale, phrase: "Cas favorable et cas défavorable", anim: "balance" },
-  { id: "admin", titre: "Admin", Icon: ShieldCheck, phrase: "Cours de bourse et KPI sur-mesure", anim: "pop" },
+  { id: "apercu", titre: "Aperçu", court: "Aperçu", Icon: Compass, phrase: "Rangs, description et chiffres de marché", anim: "boussole" },
+  { id: "kpi", titre: "Indicateurs clés", court: "Indicateurs", Icon: BarChart3, phrase: "Graphique du KPI principal et liste des indicateurs", anim: "barres" },
+  { id: "moyen", titre: "Moyen terme", court: "Moyen", Icon: LineChart, phrase: "Graphiques de sources externes", anim: "trace" },
+  { id: "stories", titre: "KPI court terme", court: "Court", Icon: Layers, phrase: "Les indicateurs récents en cartes", anim: "pile" },
+  { id: "marche", titre: "Marché et TAM", court: "Marché", Icon: Target, phrase: "Chiffre d’affaires, clients, avantage, marché", anim: "cible" },
+  { id: "risques", titre: "Risques", court: "Risques", Icon: AlertTriangle, phrase: "Facteurs de risque suivis", anim: "secoue" },
+  { id: "gouv", titre: "Gouvernance et rachats", court: "Gouvernance", Icon: Building2, phrase: "Dirigeants, votes, sociétés rachetées", anim: "monte" },
+  { id: "ia", titre: "IA", court: "IA", Icon: Brain, phrase: "Positionnement en intelligence artificielle", anim: "pulse" },
+  { id: "resultats", titre: "Publications officielles", court: "Publications", Icon: FileText, phrase: "Résultats publiés et dernier appel", anim: "page" },
+  { id: "these", titre: "Thèse et anti-thèse", court: "Thèse", Icon: Scale, phrase: "Cas favorable et cas défavorable", anim: "balance" },
+  { id: "admin", titre: "Admin", court: "Admin", Icon: ShieldCheck, phrase: "Cours de bourse et KPI sur-mesure", anim: "pop" },
 ];
 
 const RAIL = 104;
@@ -110,8 +112,6 @@ const STYLE_ANIM = `
 @keyframes v2-etoile{0%{transform:rotate(0) scale(1)}55%{transform:rotate(86deg) scale(1.22)}100%{transform:rotate(72deg) scale(1)}}
 @keyframes v2-echange{0%,100%{transform:translateX(0)}30%{transform:translateX(-3px)}65%{transform:translateX(3px)}}
 @keyframes v2-salut{0%,100%{transform:translateY(0) rotate(0)}35%{transform:translateY(-3px) rotate(-6deg)}70%{transform:translateY(0) rotate(5deg)}}
-@keyframes v2-astre{0%{transform:rotate(0) scale(1)}60%{transform:rotate(100deg) scale(1.15)}100%{transform:rotate(90deg) scale(1)}}
-@keyframes v2-lune{0%,100%{transform:rotate(0)}40%{transform:rotate(-24deg)}75%{transform:rotate(8deg)}}
 @keyframes v2-loupe{0%,100%{transform:rotate(0) scale(1)}50%{transform:rotate(-16deg) scale(1.16) translate(-1px,-1px)}}
 @media (max-width:767px){html:root{--flot-pastille:78px}}
 /* Pied de page du site : decale a droite du rail fixe (ordinateur). */
@@ -135,8 +135,6 @@ const STYLE_ANIM = `
 .v2-item:hover .v2a-etoile,.v2-item:focus-visible .v2a-etoile{animation:v2-etoile .6s ease-out forwards}
 .v2-item:hover .v2a-echange,.v2-item:focus-visible .v2a-echange{animation:v2-echange .5s ease-in-out}
 .v2-item:hover .v2a-salut,.v2-item:focus-visible .v2a-salut{animation:v2-salut .55s ease-in-out}
-.v2-item:hover .v2a-astre,.v2-item:focus-visible .v2a-astre{animation:v2-astre .7s ease-out forwards}
-.v2-item:hover .v2a-lune,.v2-item:focus-visible .v2a-lune{animation:v2-lune .7s ease-in-out}
 .v2-item:hover .v2a-loupe,.v2-item:focus-visible .v2a-loupe{animation:v2-loupe .5s ease-in-out}
 }
 `;
@@ -145,38 +143,26 @@ const STYLE_ANIM = `
 /* Outils                                                              */
 /* ------------------------------------------------------------------ */
 
-type Mode = "light" | "dark";
-type OutilId = "favoris" | "comparer" | "compte" | "theme" | "recherche";
+type OutilId = "favoris" | "comparer" | "compte" | "recherche";
 type Outil = { id: OutilId; titre: string; Icon: LucideIcon; anim: string; couleur?: string; inerte?: boolean };
 
-/** Mode affiche, lu sur <html data-theme> (pose par ThemeToggle). */
-function useModeAffiche(): Mode {
-  const [mode, setMode] = useState<Mode>("dark");
-  useEffect(() => {
-    const html = document.documentElement;
-    const lire = () => setMode(html.getAttribute("data-theme") === "light" ? "light" : "dark");
-    lire();
-    const mo = new MutationObserver(lire);
-    mo.observe(html, { attributes: true, attributeFilter: ["data-theme"] });
-    return () => mo.disconnect();
-  }, []);
-  return mode;
-}
+/** Libelle de l outil compte (rail ouvert, tiroir mobile, panneau). */
+export const TITRE_COMPTE = "Mon compte et analytics";
 
-function listeOutils(mode: Mode, anon: boolean): Outil[] {
+/* Yann 13 oct 2026 : le reglage Jour/Nuit quitte le rail pour la page compte
+   (/account). Le ThemeToggle reste monte hors ecran sur la fiche : c est lui
+   qui applique le mode choisi (stockage local, compte, gating abonnes). */
+function listeOutils(anon: boolean): Outil[] {
   const l: Outil[] = [];
   // Favoris : reserve aux visiteurs connectes (comme le menu « Mes favoris »).
   if (!anon) l.push({ id: "favoris", titre: "Favoris", Icon: Star, anim: "etoile", couleur: "#fcd34d" });
   l.push({ id: "comparer", titre: "Comparer", Icon: GitCompare, anim: "echange", inerte: anon });
-  l.push({ id: "compte", titre: "Mon compte", Icon: UserRound, anim: "salut" });
-  l.push(mode === "light"
-    ? { id: "theme", titre: "Passer en nuit", Icon: Moon, anim: "lune" }
-    : { id: "theme", titre: "Passer en jour", Icon: Sun, anim: "astre" });
+  l.push({ id: "compte", titre: TITRE_COMPTE, Icon: UserRound, anim: "salut" });
   l.push({ id: "recherche", titre: "Rechercher", Icon: Search, anim: "loupe", inerte: anon });
   return l;
 }
 
-type Panneau = { id: "favoris" | "comparer" | "compte" | "theme"; y: number } | null;
+type Panneau = { id: "favoris" | "comparer" | "compte"; y: number } | null;
 
 function PanneauOutil({ p, titre, onFermer, children, fermetureExterne = true, debordement = false }: { p: NonNullable<Panneau>; titre: string; onFermer: () => void; children: React.ReactNode; fermetureExterne?: boolean; debordement?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -234,12 +220,12 @@ type RailProps = {
 
 function LogoRail({ ouvert }: { ouvert: boolean }) {
   return (
-    <Link href="/" aria-label="Accueil Mettrik" className="relative flex h-[64px] shrink-0 items-center overflow-hidden border-b border-white/[0.06]">
+    <Link href="/" aria-label="Accueil Mettrik" className="relative flex h-[52px] shrink-0 items-center overflow-hidden border-b border-white/[0.06]">
       <span className={`absolute left-0 flex justify-center transition-all duration-200 ${ouvert ? "scale-75 opacity-0" : "opacity-100"}`} style={{ width: RAIL }}>
         <picture className="block select-none">
           <source srcSet="/brand/mettrik-mark.webp" type="image/webp" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/mettrik-mark.png" alt="Mettrik" className="h-8 w-auto select-none" draggable={false} />
+          <img src="/brand/mettrik-mark.png" alt="Mettrik" className="h-7 w-auto select-none" draggable={false} />
         </picture>
       </span>
       <span className={`absolute left-0 flex justify-center transition-all duration-200 ${ouvert ? "scale-100 opacity-100" : "scale-90 opacity-0"}`} style={{ width: RAIL_OUVERT }}>
@@ -256,13 +242,13 @@ function RailOrdinateur({ blocs, actif, accent, outils, capture, onBloc, onOutil
   const navRef = useRef<HTMLElement>(null);
   const rech = outils.find((o) => o.id === "recherche");
   const autres = outils.filter((o) => o.id !== "recherche");
-  const outil = (o: Outil, pleine = false) => (
+  const outil = (o: Outil) => (
     <button key={o.id} type="button" aria-label={o.titre} title={ouvert ? undefined : o.titre}
       aria-disabled={o.inerte || undefined}
       className={`v2-item group flex h-9 min-w-0 items-center text-left outline-none ${o.inerte ? "pointer-events-none opacity-40" : ""}`}
       onPointerDown={(e) => e.stopPropagation()}
       onClick={(e) => { if (o.inerte) return; const r = e.currentTarget.getBoundingClientRect(); onOutil(o.id, r.top + r.height / 2); setOuvert(false); }}>
-      <span className="flex shrink-0 justify-center" style={{ width: pleine ? RAIL : RAIL / 2 }}>
+      <span className="flex shrink-0 justify-center" style={{ width: RAIL }}>
         <span className="flex size-8 items-center justify-center rounded-xl text-zinc-400 transition-colors group-hover:bg-white/[0.06] group-hover:text-zinc-100">
           <o.Icon className={`v2-ico v2a-${o.anim} size-[18px]`} style={o.couleur ? { color: o.couleur } : undefined} aria-hidden />
         </span>
@@ -271,7 +257,7 @@ function RailOrdinateur({ blocs, actif, accent, outils, capture, onBloc, onOutil
     </button>
   );
   return (
-    // Vitrine anonyme : le rail passe au-dessus du voile d inscription (z 60) pour garder « Mon compte ».
+    // Vitrine anonyme : le rail passe au-dessus du voile d inscription (z 60) pour garder l acces au compte.
     <div data-rail-gauche data-fiche-rail className={`fixed inset-y-0 left-0 hidden md:block ${capture ? "z-[61]" : "z-50"}`} style={{ width: RAIL }}>
       <nav ref={navRef} aria-label="Blocs de la fiche"
         onMouseEnter={() => setOuvert(true)} onMouseLeave={() => setOuvert(false)}
@@ -279,9 +265,10 @@ function RailOrdinateur({ blocs, actif, accent, outils, capture, onBloc, onOutil
         className={`absolute inset-y-0 left-0 flex flex-col overflow-hidden border-r border-white/10 bg-[#08080a] transition-[width,box-shadow] duration-200 ease-out ${ouvert ? "shadow-[14px_0_44px_rgba(0,0,0,0.6)]" : ""}`}
         style={{ width: ouvert ? RAIL_OUVERT : RAIL, ["--v2-acc" as string]: accent }}>
         <LogoRail ouvert={ouvert} />
-        {rech && <div className="flex shrink-0 flex-col border-b border-white/[0.06] py-1.5">{outil(rech, true)}</div>}
+        {rech && <div className="flex shrink-0 flex-col border-b border-white/[0.06] py-0.5">{outil(rech)}</div>}
+        {/* Yann 13 oct 2026 : blocs serres sous Rechercher, outils en une colonne en bas du rail. */}
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <div className="my-auto flex flex-col py-2">
+          <div className="flex min-h-full flex-col pb-2 pt-1">
             <div role="tablist" aria-orientation="vertical" className="flex flex-col">
               {blocs.map((b) => {
                 const on = b.id === actif;
@@ -290,12 +277,12 @@ function RailOrdinateur({ blocs, actif, accent, outils, capture, onBloc, onOutil
                     onClick={() => { onBloc(b.id); setOuvert(false); }}
                     className="v2-item group relative flex w-full shrink-0 items-center text-left outline-none">
                     {on && <motion.span layoutId="fiche-rail-trait" className="absolute inset-y-2 left-0 w-[3px] rounded-r-full" style={{ background: accent }} />}
-                    <span className="flex shrink-0 flex-col items-center gap-[2px] px-1.5 py-[3px]" style={{ width: RAIL }}>
+                    <span className="flex shrink-0 flex-col items-center gap-px px-1.5 py-[2px]" style={{ width: RAIL }}>
                       <span className={`flex size-7 items-center justify-center rounded-xl transition-colors duration-150 ${on ? "bg-white/[0.09]" : "group-hover:bg-white/[0.06] group-focus-visible:bg-white/[0.06]"}`}
                         style={on ? { boxShadow: `inset 0 0 0 1px ${accent}40` } : undefined}>
                         <b.Icon className={`v2-ico v2a-${b.anim} size-[19px] transition-colors`} style={{ color: on ? accent : undefined }} aria-hidden />
                       </span>
-                      <span className={`w-full text-center text-[11px] leading-[1.15] transition-opacity duration-150 ${ouvert ? "opacity-0" : "opacity-100"} ${on ? "font-semibold text-zinc-50" : "text-zinc-400 group-hover:text-zinc-200"}`}>{b.titre}</span>
+                      <span className={`w-full truncate whitespace-nowrap text-center text-[11px] leading-[1.15] transition-opacity duration-150 ${ouvert ? "opacity-0" : "opacity-100"} ${on ? "font-semibold text-zinc-50" : "text-zinc-400 group-hover:text-zinc-200"}`}>{b.court}</span>
                     </span>
                     <span className={`min-w-0 flex-1 pr-4 transition-opacity duration-200 ${ouvert ? "opacity-100 delay-75" : "pointer-events-none opacity-0"}`}>
                       <span className={`block whitespace-nowrap text-[13.5px] ${on ? "font-semibold text-zinc-50" : "text-zinc-200"}`}>{b.titre}</span>
@@ -305,8 +292,8 @@ function RailOrdinateur({ blocs, actif, accent, outils, capture, onBloc, onOutil
                 );
               })}
             </div>
-            <div className="mx-4 my-2 h-px shrink-0 bg-white/10" />
-            <div className="grid shrink-0 grid-cols-2 gap-y-0.5">
+            <div className="mt-auto flex shrink-0 flex-col pt-2">
+              <div className="mx-4 mb-1.5 h-px bg-white/10" />
               {autres.map((o) => outil(o))}
             </div>
           </div>
@@ -348,7 +335,7 @@ function BarreMobile({ blocs, actif, accent, outils, capture, onBloc, onOutil }:
                   className="v2-item relative flex w-[74px] shrink-0 flex-col items-center gap-1 px-1 pb-2 pt-2.5">
                   {on && <motion.span layoutId="fiche-rail-trait-m" className="absolute inset-x-3 top-0 h-[3px] rounded-b-full" style={{ background: accent }} />}
                   <b.Icon className={`v2-ico v2a-${b.anim} size-[20px]`} style={{ color: on ? accent : "#8b8b94" }} aria-hidden />
-                  <span className={`line-clamp-2 text-center text-[10.5px] leading-[1.15] ${on ? "font-semibold text-zinc-50" : "text-zinc-400"}`}>{b.titre}</span>
+                  <span className={`w-full truncate whitespace-nowrap text-center text-[10.5px] leading-[1.15] ${on ? "font-semibold text-zinc-50" : "text-zinc-400"}`}>{b.court}</span>
                 </button>
               );
             })}
@@ -390,7 +377,7 @@ function BarreMobile({ blocs, actif, accent, outils, capture, onBloc, onOutil }:
                 })}
               </div>
               <div className="my-4 h-px bg-white/10" />
-              <div className="grid grid-cols-5 gap-1">
+              <div className="grid grid-cols-4 gap-1">
                 {outils.map((o) => (
                   <button key={o.id} type="button" aria-disabled={o.inerte || undefined}
                     className={`v2-item flex flex-col items-center gap-1.5 py-1 ${o.inerte ? "pointer-events-none opacity-40" : ""}`}
@@ -504,11 +491,9 @@ export function FicheRail({
   const cleBlocs = blocs.map((b) => b.id).join(",");
   const [actif, setActif] = useState<string>(blocs[0]?.id ?? "apercu");
   const [panneau, setPanneau] = useState<Panneau>(null);
-  const mode = useModeAffiche();
-  const outils = listeOutils(mode, anon).filter((o) => o.id !== "comparer" || comparerActif);
+  const outils = listeOutils(anon).filter((o) => o.id !== "comparer" || comparerActif);
   const refEntete = useRef<HTMLDivElement>(null);
   const refRecherche = useRef<HTMLDivElement>(null);
-  const refTheme = useRef<HTMLDivElement>(null);
 
   // En-tete : colle en entier s il est bas (ordinateur) ; sinon il defile et
   // une ligne compacte fixe de 60 px prend le relais des qu il sort de l ecran.
@@ -598,13 +583,6 @@ export function FicheRail({
       refRecherche.current?.querySelector<HTMLButtonElement>('button[aria-haspopup="dialog"]')?.click();
       return;
     }
-    if (id === "theme") {
-      if (!paid) { setPanneau((p) => (p?.id === "theme" ? null : { id: "theme", y })); return; }
-      // Le vrai ThemeToggle (monte hors ecran) garde sa logique : stockage, compte, gating.
-      const cible = mode === "light" ? "Mode sombre" : "Mode clair";
-      refTheme.current?.querySelector<HTMLButtonElement>(`button[aria-label="${cible}"]`)?.click();
-      return;
-    }
     setPanneau((p) => (p?.id === id ? null : { id, y }));
   };
 
@@ -615,11 +593,12 @@ export function FicheRail({
       <style>{STYLE_ANIM}</style>
       <RailOrdinateur {...rail} />
       <BarreMobile {...rail} />
-      {/* Declencheurs reels du site, hors ecran : recherche (panneau plein ecran) et bascule jour/nuit. */}
+      {/* Declencheurs reels du site, hors ecran : recherche (panneau plein ecran) ; le ThemeToggle
+          n a plus de bouton dans le rail (reglage dans /account) mais applique le mode enregistre. */}
       <div ref={refRecherche} className="fixed -left-[400vw] top-0 z-[150]">
         <PageSearch variant="default" />
       </div>
-      <div ref={refTheme} aria-hidden className="fixed -left-[400vw] top-0">
+      <div aria-hidden className="fixed -left-[400vw] top-0">
         <ThemeToggle paid={paid} />
       </div>
 
@@ -652,7 +631,7 @@ export function FicheRail({
           </PanneauOutil>
         )}
         {panneau?.id === "compte" && (
-          <PanneauOutil key="compte" p={panneau} titre="Mon compte" onFermer={fermerPanneau} debordement>
+          <PanneauOutil key="compte" p={panneau} titre={TITRE_COMPTE} onFermer={fermerPanneau} debordement>
             {/* Bloc compte du serveur (langue, connexion ou acces au compte), inchange. */}
             <div className="relative z-[70] flex flex-wrap items-center gap-2 px-3.5 py-3">{authSlot}</div>
             {anon && (
@@ -660,18 +639,6 @@ export function FicheRail({
                 S&apos;inscrire
               </Link>
             )}
-          </PanneauOutil>
-        )}
-        {panneau?.id === "theme" && (
-          <PanneauOutil key="theme" p={panneau} titre="Mode jour" onFermer={fermerPanneau}>
-            <div className="flex items-start gap-2.5 px-3.5 py-3">
-              <Lock className="mt-0.5 size-4 shrink-0 text-zinc-500" aria-hidden />
-              <div>
-                <div className="text-[13px] font-semibold text-zinc-100">Le mode clair est réservé aux abonnés</div>
-                <div className="mt-1 text-[12px] leading-snug text-zinc-400">Débloquez aussi toutes les fiches, sans floutage.</div>
-                <Link href="/pricing" className="mt-2 inline-flex rounded-md bg-violet-500 px-2.5 py-1 text-[12px] font-semibold text-white">Voir les offres</Link>
-              </div>
-            </div>
           </PanneauOutil>
         )}
       </AnimatePresence>

@@ -595,7 +595,7 @@ const CACHE_TTL_MS = 10 * 60_000;
 // (constate sur RMS.PA : hero_kpi ROC_MARGIN, sans hero_kpi_resolved, alors que
 // le code deploye choisit LEATHER_REV). A INCREMENTER a chaque changement de
 // logique du chargeur.
-const REVISION_CHARGEUR = "hero-select-3";
+const REVISION_CHARGEUR = "hero-select-3-absences-1"; // 13 oct 2026 : marque tam_absence_arbitree
 
 const chargeAvecCachePartage = unstable_cache(
   async (ticker: string, mode: "v17" | "v18", locale: string): Promise<LoadOutcome> =>
@@ -919,6 +919,8 @@ async function loadV17CompanyBrut(
     // comportement historique : merge seulement si la fiche n en a pas.
     if (tam && tam._arbitrage_proprietaire === true && Array.isArray(tam.market_positions)) {
       (data as Record<string, unknown>).market_positions = tam.market_positions;
+      // 13 oct 2026 : liste vide arbitree = aucun TAM fiable et comparable (absence publiee sur la fiche).
+      if (tam.market_positions.length === 0) (data as Record<string, unknown>).tam_absence_arbitree = true;
     } else if (!Array.isArray((data as Record<string, unknown>).market_positions)) {
       if (tam && Array.isArray(tam.market_positions) && tam.market_positions.length > 0) {
         (data as Record<string, unknown>).market_positions = tam.market_positions;

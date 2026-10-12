@@ -101,20 +101,33 @@ export async function insereEvenements(evts: EvenementTelemetrie[]): Promise<boo
   }
 }
 
-/** Evenement cote serveur (connexion, checkout, export...). Fire-and-forget. */
+/** Evenement cote serveur (connexion, checkout, export...). Ne jette jamais. */
 export function enregistreEvenementServeur(
   nom: string,
   props?: Record<string, unknown>,
   user_id?: string | null,
-): void {
-  void (async () => {
+  // 13 oct 2026 : memes exclusions que /api/telemetrie quand l appelant connait
+  // l utilisateur (proprietaire, comptes internes, opposition du compte).
+  user?: { email?: string | null; user_metadata?: Record<string, unknown> | null; ip?: string | null } | null,
+): Promise<void> {
+  // Promesse renvoyee (13 oct 2026) : une route peut la confier a after() pour
+  // que l envoi survive a la fin de la reponse ; elle ne rejette jamais.
+  return (async () => {
+    const hash = user?.ip ? hacheIp(user.ip) : null;
+    const mail = (user?.email ?? "").toLowerCase();
+    const owner = process.env.DESK_OWNER_EMAIL?.toLowerCase();
+    if (mail && (mail === owner || mail.endsWith("@mettrik-internal.test"))) return;
+    if (user?.user_metadata?.mesure_activite === "refusee") return;
     // Exclusions (Yann 2 sept 2026) : ses comptes ne comptent pas non plus
-    // pour les evenements serveur (connexion, export...).
-    if (user_id) {
+    // pour les evenements serveur (connexion, export...). Interrupteur global
+    // respecte aussi (13 oct 2026).
+    {
       const { chargeConfigTelemetrie } = await import("@/lib/desk/telemetrie-store");
       const config = await chargeConfigTelemetrie();
-      if (config.usersExclus.includes(user_id)) return;
+      if (!config.actif) return;
+      if (user_id && config.usersExclus.includes(user_id)) return;
+      if (hash && config.hashesExclus.includes(hash)) return;
     }
-    await insereEvenements([{ type: "serveur", nom: nom.slice(0, 160), props, user_id: user_id ?? null }]);
+    await insereEvenements([{ type: "serveur", nom: nom.slice(0, 160), props, user_id: user_id ?? null, ip_hash: hash }]);
   })().catch(() => {});
 }

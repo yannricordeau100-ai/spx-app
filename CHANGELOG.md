@@ -1042,3 +1042,6 @@ Une entree par push sur staging. Le numero apparait dans le badge de niveau (en 
 
 ## v2026.10.13.1 (13 Oct 2026 00:28, apres e7ecc6068d)
 - Fiche : rail valide (concept rail-survol-v2 version 3) porte sur les vraies fiches
+
+## v2026.10.13.2 (13 Oct 2026 01:29, apres ce8d368a04)
+- Rail retouche, page Mon compte et analytics, donnees absentes expliquees, CRWV Q SNDK completes

@@ -12,6 +12,7 @@ import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
 import { isBlockDisabledForTicker } from "@/lib/disabled-blocks";
 import { InfoTooltip } from "@/components/info-tooltip";
+import { DonneeAbsente } from "@/components/donnee-absente";
 
 /**
  * RepartitionBlock — vue répartition CA par dimension (géographique
@@ -115,9 +116,19 @@ export function RepartitionBlock({
   // On garde le composant et la data, on ne rend juste plus l'onglet.
   const hasAiCustomer: boolean = false;
   void aiCustomer;
-  if (!hasGeo && !hasSegment && !hasAiCustomer) return null;
+  // Yann 13 oct 2026 : une dimension que la societe ne publie pas (une seule
+  // activite, un seul pays, holding) garde son onglet et le dit ; une dimension
+  // simplement non relevee reste masquee comme avant.
+  const absGeo = !hasGeo && geoStyles.length > 0 ? company.absences?.geo : undefined;
+  const absSeg = !hasSegment && segmentStyles.length > 0 ? company.absences?.segment : undefined;
+  const montreGeo = hasGeo || Boolean(absGeo);
+  const montreSeg = hasSegment || Boolean(absSeg);
+  if (!montreGeo && !montreSeg && !hasAiCustomer) return null;
 
-  const [tab, setTab] = useState<Tab>(hasGeo ? "geo" : hasSegment ? "segment" : "ai_customer");
+  const [tab, setTab] = useState<Tab>(hasGeo ? "geo" : hasSegment ? "segment" : montreGeo ? "geo" : montreSeg ? "segment" : "ai_customer");
+  const absenceOnglet = tab === "geo" ? absGeo : tab === "segment" ? absSeg : undefined;
+  // Holding sans chiffre d affaires : une seule carte, sans onglets.
+  const holdingSeule = absGeo === "holding_sans_ca" && (absSeg === "holding_sans_ca" || !montreSeg) || (absSeg === "holding_sans_ca" && !montreGeo);
   // Yann 25 aout 2026 : bascule "Dernier exercice" / "Historique". L historique
   // vient de revenue_history (source FMP, depots SEC), sociétés US uniquement.
   const [showHistory, setShowHistory] = useState(false);
@@ -133,7 +144,7 @@ export function RepartitionBlock({
       : tab === "segment"
         ? company.revenue_history?.segment
         : undefined;
-  const hasHistory = Array.isArray(historyEntries) && historyEntries.length >= 2;
+  const hasHistory = !absenceOnglet && Array.isArray(historyEntries) && historyEntries.length >= 2;
   // Cohérence des décimales : si toutes les valeurs sont entières, 0 décimale ;
   // sinon 1 décimale partout dans le bloc.
   const decimals = active && active.slices.every((s) => Number.isInteger(s.value)) ? 0 : 1;
@@ -165,9 +176,11 @@ export function RepartitionBlock({
             <LayoutGrid className="size-5" style={{ color: accent }} />
             {t("repartition.title")}
           </h2>
-          <p className="mt-0.5 max-w-2xl text-[13.5px] text-zinc-300">
-            {t("repartition.subtitle")}
-          </p>
+          {!holdingSeule && (
+            <p className="mt-0.5 max-w-2xl text-[13.5px] text-zinc-300">
+              {t("repartition.subtitle")}
+            </p>
+          )}
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -194,8 +207,8 @@ export function RepartitionBlock({
           </div>
         )}
         {/* Tabs Géo / Segment */}
-        <div role="tablist" data-blur-part="onglets" className="inline-flex items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
-          {hasGeo && (
+        {!holdingSeule && <div role="tablist" data-blur-part="onglets" className="inline-flex items-center gap-1 rounded-full border border-[#1f1f1f] bg-[#0a0a0a] p-1">
+          {montreGeo && (
             <button
               role="tab"
               aria-selected={tab === "geo"}
@@ -219,7 +232,7 @@ export function RepartitionBlock({
               <span className="relative">{t("repartition.tab.geo")}</span>
             </button>
           )}
-          {hasSegment && (
+          {montreSeg && (
             <button
               role="tab"
               aria-selected={tab === "segment"}
@@ -268,7 +281,7 @@ export function RepartitionBlock({
               <span className="relative">IA Pro / Particulier</span>
             </button>
           )}
-        </div>
+        </div>}
         </div>
       </div>
 
@@ -354,6 +367,9 @@ export function RepartitionBlock({
             (l'exit ne se terminait jamais → le nouvel onglet ne montait pas,
             la vue restait sur Géographique avec Segment sélectionné).
             Animation d'entrée seule, remount par key. */}
+        {absenceOnglet || holdingSeule ? (
+          <DonneeAbsente key={`absence-${tab}`} id={(holdingSeule ? "holding_sans_ca" : absenceOnglet)!} accent={accent} />
+        ) : (
         <motion.div
             key={tab}
             initial={{ opacity: 0, x: 12 }}
@@ -382,6 +398,7 @@ export function RepartitionBlock({
               )
             )}
           </motion.div>
+        )}
 
         {activeStyles.length > 1 && (
           <button

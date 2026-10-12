@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { TurnstileWidget } from "@/components/turnstile-widget";
 import { redirect } from "next/navigation";
-import { Star, User, KeyRound, AtSign, CreditCard, ArrowLeft } from "lucide-react";
+import { Star, User, KeyRound, AtSign, CreditCard, ArrowLeft, SunMoon, ExternalLink } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import {
   signOut,
@@ -18,9 +18,15 @@ import { SupportShortcut } from "@/components/account/support-shortcut";
 import { estCompteInterne } from "@/lib/freemium/tier-serveur";
 import { getStripe } from "@/lib/billing/stripe";
 import { FacturesTable, type Facture } from "@/components/factures-table";
-import { FileText } from "lucide-react";
+import { ReglageTheme } from "@/components/account/reglage-theme";
+import { getServerFreemiumTier } from "@/lib/freemium/server";
+import { chargeAnalyticsCompte, type AnalyticsCompte } from "@/lib/analytics-compte";
+import { MonActivite } from "@/components/account/mon-activite";
 
 export const dynamic = "force-dynamic";
+
+// Yann 13 oct 2026 : « Mon compte » devient « Mon compte et analytics ».
+export const metadata = { title: "Mon compte et analytics · Mettrik AI" };
 
 export default async function AccountPage({
   searchParams,
@@ -95,6 +101,32 @@ export default async function AccountPage({
         });
     }
   } catch { /* Stripe injoignable : la section reste vide */ }
+  // Mode jour reserve aux abonnes, meme regle que sur les fiches (Premium ou Max).
+  const palier = await getServerFreemiumTier();
+  const themePaid = palier === "premium" || palier === "max";
+  // Analytics personnels (Yann 13 oct 2026) : uniquement le compte connecte.
+  // Favoris lus avec la session (RLS), evenements par le service role filtre
+  // sur user.id dans chargeAnalyticsCompte.
+  let analytics: AnalyticsCompte | null = null;
+  try {
+    // Societes suivies = « Enregistrer » de la fiche (user_saved_companies) +
+    // favoris societe (favorite_companies). Au 13 oct 2026, favorite_companies
+    // et favorite_kpis n existent pas en base : leurs erreurs sont ignorees et
+    // la partie « KPI favoris » est masquee tant que la table manque.
+    const [favS, savS, favK] = await Promise.all([
+      supabase.from("favorite_companies").select("ticker").eq("user_id", user.id),
+      supabase.from("user_saved_companies").select("ticker").eq("user_id", user.id),
+      supabase.from("favorite_kpis").select("ticker, kpi_short, is_super").eq("user_id", user.id).order("created_at", { ascending: false }),
+    ]);
+    analytics = await chargeAnalyticsCompte({
+      userId: user.id,
+      email: user.email,
+      compteCree: user.created_at ?? null,
+      optOut: user.user_metadata?.mesure_activite === "refusee",
+      favorisSocietes: [...((favS.data ?? []) as { ticker: string }[]), ...((savS.data ?? []) as { ticker: string }[])].map((f) => f.ticker),
+      favorisKpi: favK.error ? null : ((favK.data ?? []) as { ticker: string; kpi_short: string; is_super: boolean }[]),
+    });
+  } catch { /* base injoignable : le bloc n est pas affiche */ }
   const provider = (user.app_metadata?.provider as string | undefined) ?? "email";
   const isOAuth = provider !== "email";
   const created = user.created_at
@@ -188,44 +220,72 @@ export default async function AccountPage({
           {/* Yann 21 sept 2026 : acces a l espace support depuis le compte. */}
           <SupportShortcut />
 
-          {/* Lien Stripe Customer Portal — gérer abonnement, factures,
-              moyen de paiement. Si jamais abonné → redirige sur /pricing. */}
-          <a
-            href="/api/billing/portal"
-            className="group flex items-center gap-3 rounded-xl border border-[#1f1f1f] bg-[#0a0a0a] p-4 transition-colors hover:border-violet-400/40"
-          >
-            <span className="inline-flex size-10 items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/10 text-violet-200">
-              <CreditCard className="size-4" />
-            </span>
-            <div>
-              <div className="flex flex-wrap items-center gap-2 text-[14px] font-semibold text-zinc-50">
-                Facturation et abonnement
-                <span className="rounded-full border border-violet-400/40 bg-violet-500/10 px-2 py-0.5 font-mono text-[10.5px] uppercase tracking-wider text-violet-200">
-                  Plan {planLabel}
-                </span>
-              </div>
-              <div className="text-[11.5px] text-zinc-400">
-                {planDetail}. Changer de plan, télécharger les factures, mettre à jour la carte.
-              </div>
-            </div>
-          </a>
         </div>
 
-        {/* FACTURES (Yann 13 sept 2026) : section dediee, tableau complet. */}
-        <section className="mt-8 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-6">
-          <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex size-9 items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/10 text-violet-200">
-                <FileText className="size-4" />
+        {/* ANALYTICS PERSONNELS (Yann 13 oct 2026) : docs/rapports-session-2026-10/analytics-compte.md. */}
+        {analytics && <MonActivite a={analytics} abonne={themePaid} />}
+
+        {/* FACTURATION ET ABONNEMENT (Yann 13 oct 2026) : un seul bloc, qui reunit
+            l ancienne carte du portail Stripe et la section des factures. Le
+            portail permet de changer de plan, de mettre a jour la carte, de
+            telecharger les factures et de resilier ; sans abonnement il renvoie
+            vers /pricing. */}
+        <section className="mt-8 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-5 sm:p-6">
+          <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex min-w-0 items-start gap-3">
+              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/10 text-violet-200">
+                <CreditCard className="size-4" />
               </span>
-              <div>
-                <h2 className="text-[15.5px] font-semibold text-zinc-50">Factures</h2>
-                <p className="mt-0.5 text-[12.5px] text-zinc-400">Chaque paiement génère une facture au format PDF, conservée ici et dans l espace de facturation.</p>
+              <div className="min-w-0">
+                <h2 className="flex flex-wrap items-center gap-2 text-[15.5px] font-semibold text-zinc-50">
+                  Facturation et abonnement
+                  <span className="rounded-full border border-violet-400/40 bg-violet-500/10 px-2 py-0.5 font-mono text-[10.5px] uppercase tracking-wider text-violet-200">
+                    Plan {planLabel}
+                  </span>
+                </h2>
+                <p className="mt-1 text-[12.5px] text-zinc-400">{planDetail}.</p>
+                <p className="mt-1 text-[12.5px] text-zinc-500">
+                  Changer de plan, mettre à jour la carte, télécharger les factures ou résilier : tout se fait dans l’espace de facturation.
+                </p>
               </div>
             </div>
-            <a href="/api/billing/portal" className="rounded-lg border border-[#2a2a2a] px-3 py-1.5 text-[12.5px] text-zinc-200 transition-colors hover:border-violet-400/50 hover:text-violet-200">Espace de facturation</a>
+            <div className="flex shrink-0 flex-wrap gap-2">
+              <a
+                href="/api/billing/portal"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-violet-500 px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-violet-400"
+              >
+                Espace de facturation
+                <ExternalLink className="size-3.5" aria-hidden />
+              </a>
+              {planLabel === "Gratuit" && (
+                <Link
+                  href="/pricing"
+                  className="inline-flex items-center rounded-lg border border-[#2a2a2a] px-3.5 py-2 text-[13px] text-zinc-200 transition-colors hover:border-violet-400/50 hover:text-violet-200"
+                >
+                  Voir les offres
+                </Link>
+              )}
+            </div>
           </header>
-          <FacturesTable factures={factures} />
+          <div className="mt-5 border-t border-white/[0.06] pt-4">
+            <h3 className="mb-1 text-[13.5px] font-semibold text-zinc-100">Factures</h3>
+            <p className="mb-3 text-[12px] text-zinc-500">Chaque paiement génère une facture au format PDF, conservée ici et dans l’espace de facturation.</p>
+            <FacturesTable factures={factures} />
+          </div>
+        </section>
+
+        {/* AFFICHAGE (Yann 13 oct 2026) : reglage Jour/Nuit, deplace depuis le rail des fiches. */}
+        <section className="mt-4 rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-5 sm:p-6">
+          <header className="mb-4 flex items-center gap-3">
+            <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/10 text-violet-200">
+              <SunMoon className="size-4" />
+            </span>
+            <div>
+              <h2 className="text-[15.5px] font-semibold text-zinc-50">Affichage</h2>
+              <p className="mt-0.5 text-[12.5px] text-zinc-400">Mode jour ou mode nuit, appliqué à tout le site.</p>
+            </div>
+          </header>
+          <ReglageTheme paid={themePaid} />
         </section>
 
         {/* PSEUDO (Yann 16 sept 2026) : affichage optionnel sur les graphiques exportes. */}

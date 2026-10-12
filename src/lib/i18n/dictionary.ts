@@ -182,7 +182,7 @@ export const DICTIONARY: Dict = {
   /* Auth nav (header) */
   "authnav.signin": { fr: "Connexion", en: "Sign in" },
   "authnav.signup": { fr: "S'inscrire", en: "Sign up" },
-  "authnav.account": { fr: "Mon Compte", en: "My Account" },
+  "authnav.account": { fr: "Mon compte et analytics", en: "My account and analytics" },
 
   /* ──────────────────────── SEARCH ──────────────────────── */
   "search.placeholder_hero": {
@@ -968,8 +968,8 @@ export const DICTIONARY: Dict = {
   "transcript.no_data": { fr: "Aucune citation extraite pour le moment.", en: "No quotes extracted yet." },
   "transcript.no_figures": { fr: "Aucun chiffre extrait pour le moment.", en: "No figures extracted yet." },
   "transcript.extraction_pending": {
-    fr: "Extraction LLM en cours par le pipeline data.",
-    en: "LLM extraction in progress via the data pipeline.",
+    fr: "Synthèse de la dernière conférence en préparation.",
+    en: "Summary of the latest earnings call in preparation.",
   },
   "transcript.sentiment.bullish": { fr: "Confiant", en: "Bullish" },
   "transcript.sentiment.neutral": { fr: "Neutre", en: "Neutral" },
@@ -1382,7 +1382,7 @@ export const DICTIONARY: Dict = {
   },
 
   /* ──────────────────────── ACCOUNT ──────────────────────── */
-  "account.title": { fr: "Mon compte", en: "My account" },
+  "account.title": { fr: "Mon compte et analytics", en: "My account and analytics" },
   "account.subtitle": {
     fr: "Gère ton profil, ta sécurité et tes favoris.",
     en: "Manage your profile, security and favorites.",

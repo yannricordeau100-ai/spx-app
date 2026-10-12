@@ -11,6 +11,7 @@
  * crypté côté serveur (caviardeRachatsPourGratuit).
  */
 
+import { DonneeAbsente } from "@/components/donnee-absente";
 import { useMemo, useState } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, GitMerge } from "lucide-react";
 
@@ -40,9 +41,12 @@ function total(r: RachatFiche[]): string | null {
 }
 
 function Vide({ couverte }: { couverte: boolean }) {
+  // Yann 13 oct 2026 : zero confirme par une recherche complete = absence publiee,
+  // dite avec le meme vocabulaire que les autres blocs.
+  if (couverte) return <DonneeAbsente id="rachats_aucun" />;
   return (
     <p className="py-6 text-center text-[13px] text-zinc-400">
-      {couverte ? "Aucun rachat significatif publié depuis 2016." : "Disponible bientôt."}
+      Disponible bientôt.
     </p>
   );
 }

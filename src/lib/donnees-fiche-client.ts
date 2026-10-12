@@ -10,6 +10,7 @@
 import SOURCES from "@/data/sources-externes.json";
 import FX from "@/data/fx-effet-change.json";
 import type { Company } from "@/lib/data";
+import { absencesFiche } from "@/lib/donnees-absentes-serveur";
 
 // Yann 16 sept 2026 : Motley Fool et Wikipédia ne sont pas comptés comme sources.
 // Yann 21 sept 2026 : MarketBeat puis StockAnalysis retirés de la liste affichée.
@@ -24,5 +25,7 @@ export function avecDonneesFiche<T extends Company>(company: T, payant: boolean)
     ...company,
     sources_externes: payant ? sources : sources.map((_, i) => `Source réservée aux abonnés ${i + 1}`),
     fx_effet_change: fx,
+    // 13 oct 2026 : donnees absentes parce que non publiees (identifiants seuls).
+    absences: absencesFiche(company),
   };
 }

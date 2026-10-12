@@ -1,5 +1,6 @@
 "use client";
 
+import { ValeurAbsente } from "@/components/donnee-absente";
 import { useState } from "react";
 import {
   Newspaper,
@@ -276,7 +277,8 @@ export function SnapshotCard({
         <SnapRow label={t("company.snapshot.beta")} value={fmtNum(snap.beta, 2)} accent={accent} />
         <SnapRow
           label={t("company.snapshot.dividend")}
-          value={snap.dividend_yield_pct != null ? `${snap.dividend_yield_pct.toFixed(2).replace(".", ",")} %` : "—"}
+          // Yann 13 oct 2026 : rendement publie a zero = la societe ne verse pas de dividende.
+          value={snap.dividend_yield_pct === 0 ? <ValeurAbsente id="sans_dividende" accent={accent} /> : snap.dividend_yield_pct != null ? `${snap.dividend_yield_pct.toFixed(2).replace(".", ",")} %` : "—"}
           accent={accent}
         />
         <SnapRow
@@ -298,7 +300,7 @@ export function SnapshotCard({
   );
 }
 
-function SnapRow({ label, value, accent, colorize }: { label: string; value: string; accent: string; colorize?: number | null | undefined }) {
+function SnapRow({ label, value, accent, colorize }: { label: string; value: React.ReactNode; accent: string; colorize?: number | null | undefined }) {
   let color = "#fafafa";
   if (typeof colorize === "number") {
     if (colorize > 0) color = "#10b981";

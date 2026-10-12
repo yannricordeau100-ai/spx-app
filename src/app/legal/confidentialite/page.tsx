@@ -94,6 +94,7 @@ const STR = {
     s8_p2_b: "une mesure interne première partie",
     s8_p2_c: ": les événements (pages vues, clics, erreurs techniques, temps de réponse) sont envoyés uniquement à nos propres serveurs, sur la base de notre intérêt légitime à exploiter et améliorer le service.",
     s8_p2_d: "Aucune donnée n'est transmise à un réseau publicitaire ou à un tiers à des fins de suivi.",
+    s8_p3: "Votre activité (pages vues, indicateurs ouverts, comparaisons lancées, favoris) vous est restituée dans « Mon compte et analytics », visible de vous seul. Elle reste rattachée à votre compte 1 an au maximum, puis elle est anonymisée. Depuis cette page, vous pouvez à tout moment effacer cet historique ou cesser la mesure de votre activité.",
     s9_title: "9. Sécurité",
     s9_p1: "Mettrik AI met en œuvre les mesures techniques et organisationnelles appropriées pour protéger vos données contre l'accès, la modification, la divulgation ou la destruction non autorisés : chiffrement HTTPS, authentification sécurisée, accès restreint aux bases de données.",
     s10_title: "10. Modifications",
@@ -186,6 +187,7 @@ const STR = {
     s8_p2_b: "an internal first-party measurement",
     s8_p2_c: ": events (page views, clicks, technical errors, response times) are sent only to our own servers, based on our legitimate interest in operating and improving the service.",
     s8_p2_d: "No data is transmitted to any advertising network or third party for tracking purposes.",
+    s8_p3: "Your activity (pages viewed, indicators opened, comparisons run, favorites) is shown back to you in “My account and analytics”, visible to you alone. It stays linked to your account for 1 year at most, then it is anonymized. From that page you can erase this history or stop the measurement of your activity at any time.",
     s9_title: "9. Security",
     s9_p1: "Mettrik AI implements appropriate technical and organizational measures to protect your data against unauthorized access, modification, disclosure or destruction: HTTPS encryption, secure authentication, restricted access to databases.",
     s10_title: "10. Changes",
@@ -292,6 +294,7 @@ export default async function ConfidentialitePage() {
         <p>
           {t.s8_p2_a} <strong>{t.s8_p2_b}</strong> {t.s8_p2_c} <strong>{t.s8_p2_d}</strong>
         </p>
+        <p>{t.s8_p3}</p>
       </LegalSection>
 
       <LegalSection title={t.s9_title}>

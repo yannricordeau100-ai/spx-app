@@ -1,5 +1,6 @@
 "use client";
 
+import { DonneeAbsente } from "@/components/donnee-absente";
 import { useState } from "react";
 
 /**
@@ -271,6 +272,18 @@ export function TheseCard({ these, accent = "#10b981" }: { these: CompanyThese; 
           )}
         </div>
       ),
+    });
+  }
+
+  // Yann 13 oct 2026 : aucun graphique exterieur fiable : la partie le dit
+  // (plan Max seulement, le contenu verrouille ne porte aucune partie).
+  if (!graphique && !these.locked) {
+    parties.push({
+      key: "graphique",
+      color: "#a78bfa",
+      icon: <LineChart className="size-3.5" />,
+      titre: "Le regard extérieur",
+      contenu: <DonneeAbsente id="these_sans_graphique" accent="#a78bfa" />,
     });
   }
 

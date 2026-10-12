@@ -18,6 +18,8 @@ import type { Company, Governance, PeerRank, Shareholder } from "@/lib/data";
 import { brand } from "@/lib/brand";
 import { InfoTooltip } from "@/components/info-tooltip";
 import { HolographicPie } from "@/components/holographic-pie";
+import { DonneeAbsente } from "@/components/donnee-absente";
+import { LIBELLES_MANQUE_GOUVERNANCE } from "@/lib/donnees-absentes";
 import { useT } from "@/lib/i18n/provider";
 import type { Locale } from "@/lib/i18n/types";
 import { BlurredFreeValue } from "@/components/freemium/blurred-free-value";
@@ -644,6 +646,22 @@ export function GovernanceCard({
       )}
       {/* unused but silence lint */}
       {false && <span>{lastRowOffset}</span>}
+
+      {/* Yann 13 oct 2026 : elements de remuneration que la societe ne publie
+          pas (emetteur etranger, montant global seulement). Reste dans la zone
+          floutable du bloc : le palier gratuit garde le flou habituel. */}
+      {(() => {
+        const abs = company?.absences?.gouvernance;
+        if (!abs) return null;
+        return (
+          <DonneeAbsente
+            id={abs.id}
+            accent={accent}
+            className="mt-3"
+            liste={abs.id === "etranger_gouvernance" ? abs.manque.map((m) => LIBELLES_MANQUE_GOUVERNANCE[m]) : undefined}
+          />
+        );
+      })()}
 
       {/* Voting structure note */}
       {g.voting_structure && !isDisabled("gouvernance_voting_structure") && (
