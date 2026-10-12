@@ -213,14 +213,12 @@ export function AuthModal() {
       // Yann 19 mai 2026 : ajout /sandbox/v1-9 dans l'allowlist sinon le
       // user qui se connecte depuis une page V1.9 atterrit sur V1.8 (faute
       // d'allowlist) et perd son contexte.
-      const isStaging = typeof window !== "undefined" && window.location.host.includes("staging");
       // Yann 21 mai 2026 : V1.9.5 = défaut staging (au lieu de V1.8).
       // Audit 2 sept 2026 : la home est servie sur "/" (plus de redirection
       // vers le hub sandbox) et le retour apres connexion respecte TOUTE
       // cible interne sure (fiche /aapl, /pricing, /contact, /parrainage...).
       // Avant, seules /sandbox, /account et le desk etaient acceptees : un
       // visiteur connecte depuis /aapl retombait sur la home.
-      void isStaging;
       let target = "/";
       const nextNorm = (nextParam ?? "").replace(/\\/g, "/"); // antislash normalise (open redirect)
       if (

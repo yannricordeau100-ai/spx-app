@@ -34,9 +34,8 @@ export default function robots(): MetadataRoute.Robots {
     // 8 oct 2026 (audit des fuites publiques, ligne 22) : /desk-, /whoami et
     // /_not-found-desk retires. Les citer signalait des routes cachees ; elles
     // repondent 404 sur mettrik.ai (proxy), ce qui suffit. Ne pas les remettre.
-    "/admin/",
-    "/sandbox/",
-    "/concepts/",
+    // 13 oct 2026 (Yann : aucune trace des outils internes sur mettrik.ai) : /admin/, /sandbox/ et /concepts/
+    // retires pour la meme raison ; ils repondent 404 sur mettrik.ai.
   ];
 
   return {

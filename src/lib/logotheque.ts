@@ -53,7 +53,7 @@ export const EMPLACEMENTS: EmplacementLogo[] = [
   {
     id: "tarifs",
     label: "Page des tarifs",
-    ou: "En-tête de /pricing et de son jumeau sandbox",
+    ou: "En-tête de /pricing et de sa version de travail",
   },
 ];
 

@@ -478,11 +478,6 @@ function CarteResultat({ r, onSelect }: { r: ResultatRecherche; onSelect: () => 
           {estVitrine && (
             <span className="shrink-0 rounded-full border border-violet-300/70 bg-violet-600/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">Complètement gratuit</span>
           )}
-          {r.source === "v19" && (
-            <span className="rounded-md border border-zinc-500/40 bg-zinc-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-zinc-300">
-              V1.9
-            </span>
-          )}
         </div>
         {r.source === "v19" ? (
           <div className="mt-0.5 truncate text-[11.5px] text-zinc-500">

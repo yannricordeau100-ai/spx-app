@@ -1,0 +1,32 @@
+# Audit des références à la préversion et aux versions internes (13 oct 2026)
+
+Périmètre : code source (src/, email-templates/, supabase-email-templates/, public/, config) et production réelle https://mettrik.ai.
+Production testée par curl : accueil, /pricing, /contact, /legal, /legal/mentions, /legal/conditions, /legal/confidentialite, /maintenance, 13 fiches société servies (AAPL, MSFT, NVDA, JPM, TSLA, KO, MC.PA, OR.PA, SAP.DE, SIE.DE, NESN.SW, NOVN.SW, UBSG.SW ; ASML.AS et HSBA.L non en ligne, redirigées vers la connexion), sitemap.xml (667 URL), robots.txt, llms.txt, llms-full.txt, /api/version, /api/recherche-societes (12 requêtes, 103 résultats, aucune source v19), pages 404 (redirigées), 52 fichiers JS/CSS du bundle client.
+Motifs cherchés (insensible à la casse) : niveau 1/2, mettrik-niveau, n2, vercel.app, v195, v1-9, v1.9, sandbox, staging, preview/préversion, localhost, audit_token, desk-mtk.
+Résultat HTML des pages, JSON embarqué, métadonnées, canoniques, hreflang, Open Graph, JSON-LD : AUCUNE occurrence (toutes les URL sont https://www.mettrik.ai).
+
+| # | Occurrence | Où (fichier:ligne) | Visible par qui | Gravité | Action faite |
+|---|---|---|---|---|---|
+| 1 | `https://mettrik-niveau2.vercel.app/brand/mettrik-ai-white-purple.png` (logo des e-mails) | email-templates/{confirm-signup:38, password-reset:37, change-email:37, invite:37, magic-link:37}.html ; src/data/email-auth-templates.json (5 occurrences, lu par /sandbox/emails) | Tout inscrit : l'URL de l'image est dans le HTML de l'e-mail de confirmation, de réinitialisation, de lien magique. Logo cassé si la préversion est protégée ou supprimée | Haute | CORRIGE : remplacé par https://mettrik.ai/brand/mettrik-ai-white-purple.png (le fichier répond 200 en production). A REPOUSSER dans Supabase (Auth, modèles d'e-mail) via email-templates/PUSH-VIA-API.sh : le changement du dépôt ne modifie pas les modèles déjà en base |
+| 2 | Pastille « V1.9 » + « Fiche en préparation » dans les résultats de recherche (source "v19") | src/components/company-search.tsx:481-484 (texte aussi présent dans le bundle client, chunk 2xf8lgpgx20l1) ; producteur src/lib/recherche-societes.ts:226,259 | Visiteur de mettrik.ai si une société « v19 » en ligne remonte (non observé : 0 résultat v19 sur 12 requêtes, 103 résultats) | Moyenne (latent) | CORRIGE : pastille « V1.9 » supprimée. « Fiche en préparation » conservé (texte neutre) |
+| 3 | « En-tête de /pricing et de son jumeau sandbox » | src/lib/logotheque.ts:56 (chunk 0hm5b57d lisible dans le bundle public) | Quiconque lit le JS de mettrik.ai (pas affiché à l'écran) | Basse | CORRIGE : « sa version de travail » |
+| 4 | `window.location.host.includes("staging")` (variable inutilisée) | src/components/auth-modal.tsx:216 et 223 (chunk 3r94eutso1vbn) | Lecteur du JS uniquement | Basse | CORRIGE : code mort supprimé |
+| 5 | Détection de niveau `.vercel.app` / `niveau1[.-]` / `localhost` / `127.0.0.1` | src/components/level-badge.tsx:75, admin-floating-panel.tsx:108, desk/simulate-tier-bar.tsx:39-40, lib/desk/effective-tier-shared.ts:42, use-effective-tier.ts:23 (chunk 44p2foubdtacn) | Lecteur du JS uniquement ; rien d'affiché sur mettrik.ai (badge masqué, panneau admin non monté sur mettrik.ai/www) | Basse | AUCUNE (logique des niveaux, à ne pas toucher) |
+| 6 | `data-preversion` (attribut html et CSS `--flot-pastille`) | components/back-to-top.tsx:18, support/support-bubble.tsx:47, evenements-repere.tsx, globals.css | Lecteur du JS/CSS uniquement ; posé seulement si le panneau admin est présent (jamais sur mettrik.ai) | Basse | AUCUNE |
+| 7 | `Disallow: /sandbox/` et `/concepts/` | src/app/robots.ts:38 ; robots.txt public | Tout le monde (robots.txt public). Révèle l'existence de ces chemins, qui répondent 404 en production | Basse | AUCUNE (défense en profondeur ; retirable si Yann veut effacer toute trace) |
+| 8 | Liste d'exclusion « /sandbox », « /concepts », « /desk- », « /admin »... | src/components/legal/footer-gate.tsx:6 (chunk 189ziu3l0ip4q), src/app/sitemap.ts:16-18 | Lecteur du JS uniquement ; sitemap généré ne contient aucune de ces URL | Basse | AUCUNE |
+| 9 | Paramètre `audit_token` relayé dans les liens internes | chunk 3vpzzafbewjw9 | Lecteur du JS uniquement ; inactif sans jeton | Basse | AUCUNE |
+| 10 | Pages d'outils internes avec liens vers la préversion (`mettrik-niveau1/2.vercel.app`, `mettrik-staging.vercel.app`, `mettrik.vercel.app`) | src/app/sandbox/** (aide/help-data.ts, lancement/client.tsx, universe-toggle/client.tsx), src/app/api/sandbox/lancement/route.ts:99-100 (403 en production), desk-mtk9x4kp/client.tsx, chart-lab, src/proxy.ts (commentaires), src/data/visual-audit.json, v1-9-13-ok-visual-check.json, visual-playwright-check.json, univers-sp5001000.json | Personne sur mettrik.ai : /sandbox, /admin, /desk-mtk9x4kp, /concepts = 404, /api/sandbox/* = 403, /api/online-tickers = 404 (vérifié par curl). Ces fichiers JSON de données ne sont pas servis | Aucune | AUCUNE (outils internes, ils gardent leurs liens vers la préversion) |
+| 11 | `SandboxV195HubPage`, `v1-9-5-clean-all-tickers.json`, `VERCEL_GIT_COMMIT_REF === "staging"` | src/app/page.tsx:6,23 ; auth/actions.ts:269 ; sitemap.ts:55 ; [ticker]/page.tsx:52 ; api/popular-stocks/route.ts:94 | Côté serveur uniquement, jamais envoyé au navigateur | Aucune | AUCUNE |
+| 12 | Commentaires de code « V1.9.5 », « sandbox », « niveau 1/2 » | company-view.tsx, home-view.tsx, company-header.tsx, global-social-bar.tsx, etc. | Aucun (supprimés à la compilation, absents des bundles) | Aucune | AUCUNE |
+| 13 | Faux positifs vérifiés | « niveau 2024 » (texte de la fiche MC.PA), `n0`/`n1`/`n2` (variables minifiées de React), `max-image-preview` (balise robots) | n/a | n/a | n/a |
+
+## Vérifications en production réelle
+- /api/version : `{"level":"live","version":"unknown"}` (aucune URL de déploiement exposée).
+- llms.txt, llms-full.txt, sitemap.xml, manifest : aucune occurrence.
+- Pages /sandbox, /admin, /concepts, /desk-mtk9x4kp, /whoami : 404. /preversion, /v1-9-5, /test : 307 (redirection).
+- Canonical/og:url/hreflang/JSON-LD : tous https://www.mettrik.ai.
+
+## Reste à faire côté Yann
+- Repousser les 5 modèles d'e-mail corrigés dans Supabase (email-templates/PUSH-VIA-API.sh) puis envoyer un e-mail de test : le dépôt est corrigé, pas la base.
+- Les changements ne sont pas commités ni déployés (consigne). Ils ne seront visibles en production qu'après la chaîne de déploiement.
