@@ -98,13 +98,12 @@ export function RecentIpoPlaceholder({
  * désormais calculé à la date du jour : au-delà de 24 mois, la fiche
  * complète s'affiche d'elle-même.
  */
+// Yann 13 oct 2026 : CRWV, Q et SNDK ont ete completees (prospectus, 10-K, DEF 14A, 8-K) : fiche complete,
+// le bandeau BandeauIpoRecente avertit toujours d un historique court.
 const RECENT_IPO_TABLE: Record<string, { ipo: string }> = {
-  CRWV: { ipo: "2025-03" },
   "FLTR.L": { ipo: "2024-01" },
   GEHC: { ipo: "2023-01" },
   GEV: { ipo: "2024-04" },
-  Q: { ipo: "2025-06" },
-  SNDK: { ipo: "2025-02" },
   SOLV: { ipo: "2024-04" },
 };
 
